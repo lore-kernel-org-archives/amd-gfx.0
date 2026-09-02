@@ -4,60 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AEF5C61DFD
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4E7BC61DFD
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:05:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 782BD10E478;
-	Wed,  2 Sep 2026 05:05:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C89C10E58B;
+	Wed,  2 Sep 2026 05:05:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3BOXyhp1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QMBmcafY";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011060.outbound.protection.outlook.com [52.101.52.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0463210E478
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:05:19 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010071.outbound.protection.outlook.com [52.101.201.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A74F410E58B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:05:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NJwkqZ1drI6CIoDu9Md3WQZuoruaDzHCpAyoHjzpLklpBc7DctShOzBeEHAbyaUxeisJDnO8j10ct3XYtIELOwXtV9kMAsrNsI45xbOXa2fIZCZy0ueKI30kGLNuLWDn63S9CXQ3v2T7pA37eTgWrPmIfvum44FD6mqbeLN+jiWz/djFHoZPDSdh/vKmIdLsIHi/KLgWwdXtgqXFmboq2IxTQhMO+SfqI7pyo4CymMvmKnJUVOwaroVHxW25NIYRpNqrdnJoBpD38nDTBOxitZlBFLt7h3RCPbGHZ7cQmfpGLnf0XCL+pEJ2hH0azpuZTQaSMFR9WLc9mR9Q00oyKA==
+ b=ahfLf2lSJz6zDVUBiWe3MYM91eIkUENSHOftnOeds2PC9W7KCo+1PQ17uSF9BAonwiNrGtGHaYAiQxdj5cdCTF8lBMLr1gpCTqSJ3rSCCVeQp24Op75msoY0FrQz/1b/dJn01tiAXWG+HWlNelHjL8LeYptLdCkKgWNGGqpQ29gcPYWXfA4+PdWmvbmhe45hLwmikGscRdljISvlDHNC1r3cEcj9diYJG0dfDxRFERCeZ127G+84Eei2bA9zGqX2/EeEIplTY5QbOeQ+UN2HrKZq1xZPgLbE6zN/m8CxSYYNoURkrXoDh4+uRY/PLZU4+yMMwgqUmJr8luOEp1D6kw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wrKFgwgVpb9gaVsGiMqfbdIrLCiQOd/udNuFy2bHYOU=;
- b=AbrjN3fZGFq+yXMN6tWbvS+k1TE91T/2u7BW9TT3oNVuXohAw82ZWNgP4zy1mlusZuk4dqR5/XL5lzUXCqPSWSNnQmHmmw+ab1ndt0cDoAgUa0xGcWpWP74aq51lq8CWtU7KfWyydXygSOFWBkLNBTHaB4plkP4TpyUn2XlXjfzTAbetUB79zq2l9cTavV2H7KP50K1k+0ujfoYkxTAyoE/2VGzcXmqLp085fpWV0Qgb8T2cGdh01FDcicSZPanE0ADaoBJ1SzQwGFKO++ISnqKSlgIUVi7bqVGk466KX6gjlv2qLIZ/r/9zdxKWqcqjFHYZNyxE6UwX3H42t/6iiQ==
+ bh=5ra1Vze/W7gDpIG6A4d8wrVIq0uF1RynS3UVrwN9mOs=;
+ b=GzdMdgKhdJaUhhum+M6okmRkpRHT8/lYczLykE1E4f05xoRxij57znrFuV3qbNIrrtyojjKWSFzMPCU0D39MjdWBMJHBVDMdJFoSVvPGIJ7R5glyi2l+FK5cb1QoSioGtccxfOs0gtUza2g+sCi6RQFn5kCwjsyTpoYA4bKO8foFVksptwr3DMgmHBtHVWRhk21P8y2sCzfW/OiPuXisUxlIAGG3lh4PToxuIWWShlMfJSC149xO9LzOxBiXKj7eFJDwZbP0uyUHS/QxIiEYg4FeWH8Lm8DpUT+yPS5XYu8HgtZenoCCOz6jIP2se2f2eO/lzd7tIp++1MaxeNQONw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wrKFgwgVpb9gaVsGiMqfbdIrLCiQOd/udNuFy2bHYOU=;
- b=3BOXyhp1eINO9UIAp0J/SR493zEYFkG3RZbMuXNWznWTpGhkQ0jrjyVBIXUUZXtNIW8K41/RaHlIQf/F/4QjIUeJ+Fo/VGkTn7IizZ2quaKNUWuC8hBYBNrMyAxj76boAS48IqNSv3BGB9gmAouWo9Fhjp3rhgfZa+dohORsXxE=
-Received: from CH5PR04CA0005.namprd04.prod.outlook.com (2603:10b6:610:1f4::22)
- by LVUPR12MB999137.namprd12.prod.outlook.com (2603:10b6:408:39e::22)
+ bh=5ra1Vze/W7gDpIG6A4d8wrVIq0uF1RynS3UVrwN9mOs=;
+ b=QMBmcafYIcs04vq5gTNKZh1Acdzpv1LI+jz4I51lfD7WsA7JGbeerkvabl02LeEkoWe3LWpyylfrPqqMx/TSzOHETAEtYUHlyOdAmKaT7+3l5q7h9nk6FqaGYXX2lFBLzRO5WuEFZFQCyNVzltwxY9pXU3uoB5cwEp1Obil6vgc=
+Received: from MN0P222CA0023.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::27)
+ by MW5PR12MB5597.namprd12.prod.outlook.com (2603:10b6:303:192::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 05:05:14 +0000
-Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
- (2603:10b6:610:1f4:cafe::15) by CH5PR04CA0005.outlook.office365.com
- (2603:10b6:610:1f4::22) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 05:05:19 +0000
+Received: from BN1PEPF00018548.namprd05.prod.outlook.com
+ (2603:10b6:208:531:cafe::32) by MN0P222CA0023.outlook.office365.com
+ (2603:10b6:208:531::27) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 05:05:14 +0000
+ Sep 2026 05:05:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF00018548.mail.protection.outlook.com (10.167.248.7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:05:13 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:05:18 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 00:05:08 -0500
+ 2026 00:05:17 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 00:05:17 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 00:04:59 -0500
+ Transport; Wed, 2 Sep 2026 00:05:08 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,11 +70,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, Ray Wu
- <ray.wu@amd.com>
-Subject: [PATCH 05/40] drm/amd/display: Test GPU reset helpers
-Date: Wed, 2 Sep 2026 12:58:27 +0800
-Message-ID: <20260902050411.3473916-6-ray.wu@amd.com>
+ <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Wenjing Liu
+ <wenjing.liu@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 06/40] drm/amd/display: Add override for LSDMA BW in QoS table
+Date: Wed, 2 Sep 2026 12:58:28 +0800
+Message-ID: <20260902050411.3473916-7-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260902050411.3473916-1-ray.wu@amd.com>
 References: <20260902050411.3473916-1-ray.wu@amd.com>
@@ -79,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|LVUPR12MB999137:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a45c2d2-c4bb-4182-0a18-08df08afc5a6
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018548:EE_|MW5PR12MB5597:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98b35f54-874d-4bff-dcda-08df08afc8a1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ItTBpxnZHoYPsNGcJJMtcSa9M3jpk6QBMudzvAUyGfCPBWl6NCa+Qirv9yliu/9s7oyPAyzr1CWniej7TDo1GmJATBFWbXJSOrxpdSUkkINKzjemzoV4W4xW+zA1OL0XhYjDimtu1E8BmT0mIDfk8TH3dF9R/LjDwT4E+wtacLPbwhlvEJ+JtExxAKE/5PVl8TdISgPaJNHCkQpvUC7Y1QmJjuxwQRW91l/gRqfJDh5BTri676NrZsW3LxNDEfsj4ShT8B46m32k+u+6rWHuL3cZ+xCp5pvIr8vJ05j39zCMBo8mEejRu0oQWLnqyOQTdGaUmNvpUhzG/mrIyT3XvD8+Is1aiqFJiWKILMsS0C3gRrvGNR8H6/PzeoFMlwh5aBQQpPqtnwu8Lrkoz9kj3OEAIvndZjhTdjRi+Est7WoFzg+Y7pzjQLmAcAKoIpPwH5M7Z2CBtZmkNWZjahwhsP5eMzpkfSYg/qWDx1/v8qzkWc25CzIUJDU4vybemgP5RmQ0mm9Mx3mjY9LFr1XB6zB/DOrmobMuZHVRkvydwk4J0qoYLa1BLAfR7h2HgYw6vfIvkabznXmUqB8x/3zPsMqI9Nowov0uLk3/j7q977Ef5gKnVzXdhE+u//Z+xLRlY71oaOUHmXDhvzJVfOhndeF3vyAQWgLaRxjeXd9cT7S8832cF1J5KianCKqLKBvElCXssjtmHCGr3FIP5Te37A==
+ ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|10067099003|11063799006|18002099003|22082099003|56012099006|3023799007;
+X-Microsoft-Antispam-Message-Info: Dc+d3bZ7znbL4hgEW4dwfGK+OydIyy9riSokNuFVVLZxoGCxnXzE6CRdo91zWQAPIkCkOtHDuYiikP4k4itpDzoUhSp3/aTkD2Ec66o9lsKjJsVDadoexsTLCJ8/Yh4jC5JnCyOH47XIf14031ic7++/rLJallhpO6hAE7Pbgbl9jVS8LQ9ql6yUtLa5FeC/c0NoQPZEzLjpLbH3sonfCKnz6Mt4rGcWqlUR3e6sYQ0m4t/wQP727XZHqgeTmYQ8pTJjo9aADDPvFy+YROTjnrCmR2MxBd5hX8ssjp77N5gMo26Pgu0wkRxui3hPCone25zNIRFbFw9bMc+OUYmTuRwsXadEwhM1CnF/xKvj1dHHGp2Rc99wuzQ0Ez2EnQKL/SE/jVXuCdyNTApWVAYtqMjdNRj5sXj44xJPA0pJIlfRT+FkbY4yfZvxxmqK40ELOZQlJF8Ds/CC8g+WozmACQMiKVXH2UbPYETkj7Uy9hFiIJn6ufllgjio0rFclFo58j8JBcTr2GJlQGlNir6mbG1DP+B82fXCCIOyAiUWh9PZelfGgtnWbF4UF5tqLDOu3FEuvtbYMNLhDCi/mJSh1L71aTk1oUg09YM/cNavvEJpIvtn9G8h0BIRQsF081T0YHM3v/oQK2xP70UoYfUAgG0zbqwJYTJWWJjog5mtL2WVR1mSSQzbp9wo2oPnN/swmUzbbTsvCH/But+UV49JOg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: VJOWqgCPYWNKrsU8mURHJB52TVoVqkrrIPu2SXDzfWcDt3hVeKZbT0NeP/wrcRt3wjb01PXX2LGw/sT9NIlrjwQ2pKlms3Y965CWxRMZOm+aNvBPjB5bsAmUpmBPqbWE3c8JlgxpZlAafX7CCGPaVph5bay+6NDEAph1tQpqo+PvqjuSrFY4Gxa3Tswg3I7wHLqF1xxCyF3LUcElVO0QIGyG4HjBEuVPY5rAsPQ1LZ1xGswL/yn69C7CAqd6g+sY8WEOgIZHHGaRu9ATjxl5PHfwe7mEm5NUp9DhNoGgeNLbKcUZsIzJk9FyoBxEsm+ta3i9+llpOXXn2hSqAnJGSupGvoMstLVfED4WVYFcW9jzOatRPJqOEWD30NVLDQAYNjZcm/FSQXrWLO52vFdQOVyANk2lRmLH9Rlxhx76B6qMoQSy8B9kkh4rwYo4rqto
+X-MS-Exchange-AntiSpam-MessageData-0: dtj9pMpKvn5PfSoWk64cNAtzmRcocDtWlsOPOV+RAdT49GZBbImmhLoi6lT26qNKqvOhovjn6jKlbdSdMPHty1aBXSxTUMgMOZc6esRe5f242EzYSEVHOzVsQojeELzeaLxz3EZCuajCFw+GCRe4JeQQ8697MrPXxw0UzyKkrn8sDXJ5tzcRS/4V6GquSvuSw8IYmfrWfzW+PfwlqztQwWmUEoPK/Clob/6EhTEUHiccamfjklsaZM7LglqlNe6VyZRjMi2lbXOKNJvCDoJ+ZTC95LbUysjHTZco57d08w1BRpFgJ+6s6hGhG9QhHM6KiH5Ysvb5NpLrMEaW7bKZAFy+FESwiP36QMa8nQYRfEYlyCBcbgUUQyL0t/YpL7AVqAYR8sugAjXzjQSAC9umPpBIAJx8QD8evrvMYhCtrHrEFBP8pIIjlfX2RtbGCfYb
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:05:13.7777 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a45c2d2-c4bb-4182-0a18-08df08afc5a6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:05:18.7832 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98b35f54-874d-4bff-dcda-08df08afc8a1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000C.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018548.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR12MB999137
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5597
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,191 +120,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[Why]
-Add KUnit tests for dm_gpureset_toggle_interrupts() on DCN,
-amdgpu_dm_commit_zero_streams() on an already empty DC state, and
-dm_destroy_cached_state() without a cached state.
+[Why & How]
+Since PMFW does not yet populate LSDMA BW with correct values,
+add an override interface for debug purposes until values are
+populated correctly by PMFW.
 
-[How]
-GRPH_PFLIP is unused on DCN, so only the vupdate interrupt is toggled
-and no interrupt service is needed. An unchanged empty stream list makes
-dc_commit_streams() return early.
-
-Assisted-by: Copilot:Claude-Opus-5 GPT-5.6 Sol
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 ++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 63 +++++++++++++++++++
- 3 files changed, 74 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c  | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 7a06486cec9e..bd087155aac2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1425,8 +1425,8 @@ static int dm_hw_fini(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
+index c6f90b90c10b..83989b4b1fdd 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
+@@ -13,6 +13,7 @@
+ #include "soc_and_ip_translator.h"
+ #include "bounding_boxes/utm_qos_model_types.h"
+ #include "bounding_boxes/utm_qos_model_dchub_v3.h"
++#include "bounding_boxes/dcn6_soc_bb.h"
+ #include "reg_helper.h"
+ #include "core_types.h"
+ #include "dm_helpers.h"
+@@ -603,6 +604,13 @@ static void dcn60_override_bw_params(struct clk_mgr_internal *clk_mgr,
+ 		bw_params->dc_mode_limit.dtbclk_mhz = 0;
+ 
+ 	bw_params->dc_mode_softmax_memclk = bw_params->dc_mode_limit.memclk_mhz;
++
++	/* The qos model stores dchub_v3 as a const view of a mutable table, so
++	 * cast away const to apply the override.
++	 */
++	if (bw_params->utm_qos_model && bw_params->utm_qos_model->dchub_v3)
++		dcn6_test_override_lsdma_bandwidth_v3(
++				(struct utm_qos_model_dchub_v3 *)bw_params->utm_qos_model->dchub_v3);
  }
- 
- 
--static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
--				 struct dc_state *state, bool enable)
-+STATIC_IFN_KUNIT void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
-+						    struct dc_state *state, bool enable)
- {
- 	enum dc_irq_source irq_source;
- 	struct amdgpu_crtc *acrtc;
-@@ -1477,10 +1477,11 @@ static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
- 	}
- 
- }
-+EXPORT_IF_KUNIT(dm_gpureset_toggle_interrupts);
- 
--DEFINE_FREE(state_release, struct dc_state *, if (_T) dc_state_release(_T))
-+DEFINE_FREE(state_release, struct dc_state *, dc_state_release(_T))
- 
--static enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
-+STATIC_IFN_KUNIT enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
- {
- 	struct dc_state *context __free(state_release) = NULL;
- 	int i;
-@@ -1518,6 +1519,7 @@ static enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
- 
- 	return dc_commit_streams(dc, &params);
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_commit_zero_streams);
- 
- static int dm_cache_state(struct amdgpu_device *adev)
- {
-@@ -1532,7 +1534,7 @@ static int dm_cache_state(struct amdgpu_device *adev)
- 	return adev->dm.cached_state ? 0 : r;
- }
- 
--static void dm_destroy_cached_state(struct amdgpu_device *adev)
-+STATIC_IFN_KUNIT void dm_destroy_cached_state(struct amdgpu_device *adev)
- {
- 	struct amdgpu_display_manager *dm = &adev->dm;
- 	struct drm_device *ddev = adev_to_drm(adev);
-@@ -1582,6 +1584,7 @@ static void dm_destroy_cached_state(struct amdgpu_device *adev)
- 
- 	dm->cached_state = NULL;
- }
-+EXPORT_IF_KUNIT(dm_destroy_cached_state);
- 
- static int dm_suspend(struct amdgpu_ip_block *ip_block)
- {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 9399f71c528e..645b39e4223b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1257,6 +1257,9 @@ struct dsc_mst_fairness_vars;
- void mmhub_read_system_context(struct amdgpu_device *adev,
- 			       struct dc_phy_addr_space_config *pa_config);
- int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm);
-+void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev, struct dc_state *state, bool enable);
-+enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc);
-+void dm_destroy_cached_state(struct amdgpu_device *adev);
- int dm_early_init(struct amdgpu_ip_block *ip_block);
- int fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
- 				const struct drm_plane_state *plane_state,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index 3c975ca2710d..7a79aee057f8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -4217,6 +4217,35 @@ static void dm_test_early_init_unsupported_version(struct kunit *test)
- 	KUNIT_EXPECT_FALSE(test, adev->dc_enabled);
- }
- 
-+/* Tests for the remaining suspend and resume helpers */
-+
-+/**
-+ * dm_test_commit_zero_streams_empty - Test committing an already empty DC state
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_commit_zero_streams_empty(struct kunit *test)
-+{
-+	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
-+
-+	dc->current_state = dm_kunit_alloc_dc_state(test);
-+	KUNIT_ASSERT_NOT_NULL(test, dc->current_state);
-+
-+	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_commit_zero_streams(dc), (int)DC_OK);
-+}
-+
-+/**
-+ * dm_test_destroy_cached_state_none - Test no cached state is a no-op
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_destroy_cached_state_none(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+
-+	dm_destroy_cached_state(adev);
-+
-+	KUNIT_EXPECT_NULL(test, adev->dm.cached_state);
-+}
-+
- /* Tests for dm_update_mst_vcpi_slots_for_dsc() */
  
  /**
-@@ -4790,6 +4819,35 @@ static void dm_test_initialize_plane_overlay(struct kunit *test)
- 					       DRM_PLANE_TYPE_OVERLAY, plane_cap), 0);
- }
- 
-+/* Tests for dm_gpureset_toggle_interrupts() */
-+
-+/**
-+ * dm_test_gpureset_toggle_interrupts_dcn - Test DCN only toggles the vupdate IRQ
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_gpureset_toggle_interrupts_dcn(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_state *state = dm_kunit_alloc_dc_state(test);
-+	struct amdgpu_crtc *acrtc;
-+
-+	KUNIT_ASSERT_NOT_NULL(test, state);
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-+
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 2, 0);
-+	adev->mode_info.num_crtc = 1;
-+	adev->mode_info.crtcs[0] = acrtc;
-+	acrtc->base.dev = &adev->ddev;
-+	acrtc->otg_inst = 0;
-+	state->stream_count = 1;
-+	state->stream_status[0].primary_otg_inst = 0;
-+	state->stream_status[0].plane_count = 1;
-+
-+	/* GRPH_PFLIP is unused on DCN, so only the vupdate IRQ is touched. */
-+	dm_gpureset_toggle_interrupts(adev, state, true);
-+}
-+
- static struct kunit_case amdgpu_dm_tests[] = {
- 	/* Simple DM callbacks */
- 	KUNIT_CASE(dm_test_wait_for_idle),
-@@ -4994,6 +5052,9 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_early_init_legacy_asics),
- 	KUNIT_CASE(dm_test_early_init_dcn_versions),
- 	KUNIT_CASE(dm_test_early_init_unsupported_version),
-+	/* suspend and resume helpers */
-+	KUNIT_CASE(dm_test_commit_zero_streams_empty),
-+	KUNIT_CASE(dm_test_destroy_cached_state_none),
- 	/* dm_update_mst_vcpi_slots_for_dsc */
- 	KUNIT_CASE(dm_test_mst_vcpi_slots_no_connector),
- 	KUNIT_CASE(dm_test_mst_vcpi_slots_skips_writeback),
-@@ -5023,6 +5084,8 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	/* initialize_plane */
- 	KUNIT_CASE(dm_test_initialize_plane_primary),
- 	KUNIT_CASE(dm_test_initialize_plane_overlay),
-+	/* dm_gpureset_toggle_interrupts */
-+	KUNIT_CASE(dm_test_gpureset_toggle_interrupts_dcn),
- 	{}
- };
- 
 -- 
 2.43.0
 
