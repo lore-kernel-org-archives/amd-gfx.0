@@ -4,61 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C083DC61DFD
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:05:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AEF5C61DFD
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:05:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D73410E455;
-	Wed,  2 Sep 2026 05:05:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 782BD10E478;
+	Wed,  2 Sep 2026 05:05:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E4fo0vEb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3BOXyhp1";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010044.outbound.protection.outlook.com
- [40.93.198.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8911F10E455
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:05:06 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011060.outbound.protection.outlook.com [52.101.52.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0463210E478
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:05:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LZX1kIQk7xNiQg33/KCdwzBJ3pgVa93gJ8+4ArUFcMn6I0yDy0xKERqYpoaGHGDTUmyo2AA0CPFbUrjfJkKQJl7tYXzOI4jsyeKMTiTqQG2HprXf57BDo7WnUVWHSoCsnYfx6elLsUlmiC6hXwsw9zk0pjv7w19T2RSOnAAjgtSgk7X0pHYP175k66htb0yRxbS8HrvWStLJvaa3atWN+Qc+n6UleQ7cI1F7a3w66lMuWsTCUAMLDVzNJgn0sg5svmZz7WLNXZz5+R3/u6iESsz9T17MI1ynPcKEdYa6p3cEebL/SXI79Rds6ZNkGldHZNVXtrlnnMRXbiunQD65/Q==
+ b=NJwkqZ1drI6CIoDu9Md3WQZuoruaDzHCpAyoHjzpLklpBc7DctShOzBeEHAbyaUxeisJDnO8j10ct3XYtIELOwXtV9kMAsrNsI45xbOXa2fIZCZy0ueKI30kGLNuLWDn63S9CXQ3v2T7pA37eTgWrPmIfvum44FD6mqbeLN+jiWz/djFHoZPDSdh/vKmIdLsIHi/KLgWwdXtgqXFmboq2IxTQhMO+SfqI7pyo4CymMvmKnJUVOwaroVHxW25NIYRpNqrdnJoBpD38nDTBOxitZlBFLt7h3RCPbGHZ7cQmfpGLnf0XCL+pEJ2hH0azpuZTQaSMFR9WLc9mR9Q00oyKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yStCR/F/vm8RLKcbTLXyw/eZOtHFfuQYJ91qq5lNTPs=;
- b=i7OP5MK3uQ+U690ku9OhbYolZOj+/5QQxMqA1qMSXmQAz/J6h31drrBOOBjqtWIgvInVBda/hsOlKgA6EuFufHioDEsmOlw3eq6gfzDzpupV3k8Ew4OGHWCjjL7ZorhpoiNwS9RLyKUlvlxBiCnGaLRLWTmZ0AKDoB57siIWM0Hl8CVsVyDeTgy8mXFO26jkvWrpniNUuJP6/b77Bya/3NYwvJy1jP92x7G4Ndixbfj3h91ArTkHTiL902e29fZMMZ8uDBS2PeWHe17FjNRbAMbQEGg43RT1xCGji80MitL8zY4yUhicBPqF4XIT/rlbagwJ3kTOqgKLzsAonHMuhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17)
- smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=wrKFgwgVpb9gaVsGiMqfbdIrLCiQOd/udNuFy2bHYOU=;
+ b=AbrjN3fZGFq+yXMN6tWbvS+k1TE91T/2u7BW9TT3oNVuXohAw82ZWNgP4zy1mlusZuk4dqR5/XL5lzUXCqPSWSNnQmHmmw+ab1ndt0cDoAgUa0xGcWpWP74aq51lq8CWtU7KfWyydXygSOFWBkLNBTHaB4plkP4TpyUn2XlXjfzTAbetUB79zq2l9cTavV2H7KP50K1k+0ujfoYkxTAyoE/2VGzcXmqLp085fpWV0Qgb8T2cGdh01FDcicSZPanE0ADaoBJ1SzQwGFKO++ISnqKSlgIUVi7bqVGk466KX6gjlv2qLIZ/r/9zdxKWqcqjFHYZNyxE6UwX3H42t/6iiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yStCR/F/vm8RLKcbTLXyw/eZOtHFfuQYJ91qq5lNTPs=;
- b=E4fo0vEbDDFsk1nI4S/1caWz80uGE/1OOqXjVF5WFAoU1Y2zUYtg3gmIGTRA3lZTC5tpdpcNGnII4CAgoUPV4xCMIQ1JpXS+wH5+kEf6P2boCgqh0QB2JrnxaOgJZiXnks0pvSIjafvcS8QUV7/avvpzZf24v3i/KS7Ui4MqLNQ=
-Received: from BL1PR13CA0307.namprd13.prod.outlook.com (2603:10b6:208:2c1::12)
- by IA1PR12MB6386.namprd12.prod.outlook.com (2603:10b6:208:38a::14)
+ bh=wrKFgwgVpb9gaVsGiMqfbdIrLCiQOd/udNuFy2bHYOU=;
+ b=3BOXyhp1eINO9UIAp0J/SR493zEYFkG3RZbMuXNWznWTpGhkQ0jrjyVBIXUUZXtNIW8K41/RaHlIQf/F/4QjIUeJ+Fo/VGkTn7IizZ2quaKNUWuC8hBYBNrMyAxj76boAS48IqNSv3BGB9gmAouWo9Fhjp3rhgfZa+dohORsXxE=
+Received: from CH5PR04CA0005.namprd04.prod.outlook.com (2603:10b6:610:1f4::22)
+ by LVUPR12MB999137.namprd12.prod.outlook.com (2603:10b6:408:39e::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 05:05:01 +0000
-Received: from BN1PEPF0001854B.namprd05.prod.outlook.com
- (2603:10b6:208:2c1:cafe::79) by BL1PR13CA0307.outlook.office365.com
- (2603:10b6:208:2c1::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.9 via Frontend Transport; Wed, 2
- Sep 2026 05:05:00 +0000
-X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=temperror action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF0001854B.mail.protection.outlook.com (10.167.248.10) with Microsoft
+ 2026 05:05:14 +0000
+Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
+ (2603:10b6:610:1f4:cafe::15) by CH5PR04CA0005.outlook.office365.com
+ (2603:10b6:610:1f4::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 05:05:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:04:59 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:05:13 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 00:04:59 -0500
+ 2026 00:05:08 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 00:04:50 -0500
+ Transport; Wed, 2 Sep 2026 00:04:59 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,9 +68,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, Ray Wu
  <ray.wu@amd.com>
-Subject: [PATCH 04/40] drm/amd/display: Test self refresh entry
-Date: Wed, 2 Sep 2026 12:58:26 +0800
-Message-ID: <20260902050411.3473916-5-ray.wu@amd.com>
+Subject: [PATCH 05/40] drm/amd/display: Test GPU reset helpers
+Date: Wed, 2 Sep 2026 12:58:27 +0800
+Message-ID: <20260902050411.3473916-6-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260902050411.3473916-1-ray.wu@amd.com>
 References: <20260902050411.3473916-1-ray.wu@amd.com>
@@ -80,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0001854B:EE_|IA1PR12MB6386:EE_
-X-MS-Office365-Filtering-Correlation-Id: ebf86711-0eee-481d-5927-08df08afbd32
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|LVUPR12MB999137:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a45c2d2-c4bb-4182-0a18-08df08afc5a6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|56012099006|10067099003|11063799006|5023799004|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: enhD2v1Y3r25OoV5qghUl8wACNML2OfSsmLa8lSpHaeozTubtlIipX6MXfTqu9HUD1DYlBqeosXrtpSyu44Kaw/lh6Ese3Vwpo4TY9ky2g6ZnEY0QwcAhGrMqbDlUGnWINNym/9GPz+J6UvMx5TafekyHVzMHtCMOqrjlQiNKzxBwzajH1zhBkUjYNVJ3efA6Mto5byFx/aSLPkBBiAYo7e2IRmgbHUMpkl1tIgr/XBGFka6satB1vHS1oq9xCGsSg3CtfoT2b/wVEHCjPoHHZKK2Brff03O3LYxkXke2XBeIW+34dZIoQUjbxuVApNIodfjtVSUPU23W17FnQfrAyQ5rHDVFeq7zTl7jtyxR7N3yCRjUL8GxbKAfv/MGEZqTozOMFB7qcKtCuOW/zzKAX+XZbjaCsZzFj0cQjCsBgdnhTVE/IBvXa3SWIDAFVYgkn+utEzDc566Tl3ro7XzG0MJsXEWuPnYJqZq99rfuP4JUYEPN6u8eOpsUhY2+rwiiYe1nuWn2Y37zXzSrUXs7JhxZ9w1Oil04HQlO1QQG5vfec7ArkjxIgUzQ521AUzQWDnVqF+/dxS3kDVtTSpTCfWH8KowkYaD4cVQ40LJ6laUsxR17XHhe0AHfCmdrL1NUG5MfYA3ju0JHLQTSlmbIVEDf9v0gQzgHnP3vRuzuSqGrKnd6otZZz/AzWFdGpPQ
+ ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|11063799006|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ItTBpxnZHoYPsNGcJJMtcSa9M3jpk6QBMudzvAUyGfCPBWl6NCa+Qirv9yliu/9s7oyPAyzr1CWniej7TDo1GmJATBFWbXJSOrxpdSUkkINKzjemzoV4W4xW+zA1OL0XhYjDimtu1E8BmT0mIDfk8TH3dF9R/LjDwT4E+wtacLPbwhlvEJ+JtExxAKE/5PVl8TdISgPaJNHCkQpvUC7Y1QmJjuxwQRW91l/gRqfJDh5BTri676NrZsW3LxNDEfsj4ShT8B46m32k+u+6rWHuL3cZ+xCp5pvIr8vJ05j39zCMBo8mEejRu0oQWLnqyOQTdGaUmNvpUhzG/mrIyT3XvD8+Is1aiqFJiWKILMsS0C3gRrvGNR8H6/PzeoFMlwh5aBQQpPqtnwu8Lrkoz9kj3OEAIvndZjhTdjRi+Est7WoFzg+Y7pzjQLmAcAKoIpPwH5M7Z2CBtZmkNWZjahwhsP5eMzpkfSYg/qWDx1/v8qzkWc25CzIUJDU4vybemgP5RmQ0mm9Mx3mjY9LFr1XB6zB/DOrmobMuZHVRkvydwk4J0qoYLa1BLAfR7h2HgYw6vfIvkabznXmUqB8x/3zPsMqI9Nowov0uLk3/j7q977Ef5gKnVzXdhE+u//Z+xLRlY71oaOUHmXDhvzJVfOhndeF3vyAQWgLaRxjeXd9cT7S8832cF1J5KianCKqLKBvElCXssjtmHCGr3FIP5Te37A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(56012099006)(10067099003)(11063799006)(5023799004)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: cCY1sTsbHnNrwUxNRRvh+4C/dbsvA0MF0pqrcCN32WgL7cqsSKrHYKUQCQZbZnb3j3OtZ/RB/4YOuxW2jaKNKEFkwitNlHcaQv9c/GJQPDtiX9V4byEqpka0hUFVum4qIgWI3jlPHHCg54siadNv51JgrT/c53Ogi30Yu6EmkRVbcdlaLlCCiECScPRTxgiD1c+6CPoeMjXYOCc80pnZ8xV2Bd2vjOv2e93kKn3xUHZZoY2MYaiKwZJupqJL5cF3rGT7LlmmZxdR0OxVXB4l9Gyu6iKC7r2j1/998Ht+l8sTvVofosp9WGRAxN8ds/FHpHBo7yumpWqkWlIMLzk9Z0FWrR0SCKwfEMk70j3LqL7IAXyZMtgwdOuMwhji02xd5JXpheY1EQXsSArD1YfJVDRhvliITpQvQiktCZNI5usxlt+tI1sAxq4wKxmlNBiS
+X-MS-Exchange-AntiSpam-MessageData-0: VJOWqgCPYWNKrsU8mURHJB52TVoVqkrrIPu2SXDzfWcDt3hVeKZbT0NeP/wrcRt3wjb01PXX2LGw/sT9NIlrjwQ2pKlms3Y965CWxRMZOm+aNvBPjB5bsAmUpmBPqbWE3c8JlgxpZlAafX7CCGPaVph5bay+6NDEAph1tQpqo+PvqjuSrFY4Gxa3Tswg3I7wHLqF1xxCyF3LUcElVO0QIGyG4HjBEuVPY5rAsPQ1LZ1xGswL/yn69C7CAqd6g+sY8WEOgIZHHGaRu9ATjxl5PHfwe7mEm5NUp9DhNoGgeNLbKcUZsIzJk9FyoBxEsm+ta3i9+llpOXXn2hSqAnJGSupGvoMstLVfED4WVYFcW9jzOatRPJqOEWD30NVLDQAYNjZcm/FSQXrWLO52vFdQOVyANk2lRmLH9Rlxhx76B6qMoQSy8B9kkh4rwYo4rqto
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:04:59.6009 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebf86711-0eee-481d-5927-08df08afbd32
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:05:13.7777 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a45c2d2-c4bb-4182-0a18-08df08afc5a6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0001854B.namprd05.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000C.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6386
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR12MB999137
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,232 +119,188 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [Why]
-Add KUnit tests for amdgpu_dm_enable_self_refresh(), covering the full
-update and unsupported link blocks, the skip count gating, the damage
-settle window, and a Replay capable link.
+Add KUnit tests for dm_gpureset_toggle_interrupts() on DCN,
+amdgpu_dm_commit_zero_streams() on an already empty DC state, and
+dm_destroy_cached_state() without a cached state.
 
 [How]
-The power module stays NULL, which every mod_power entry point treats as
-a no-op, so the event updates can be reached without a live power
-module.
+GRPH_PFLIP is unused on DCN, so only the vupdate interrupt is toggled
+and no interrupt service is needed. An unchanged empty stream list makes
+dc_commit_streams() return early.
 
 Assisted-by: Copilot:Claude-Opus-5 GPT-5.6 Sol
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   9 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 148 ++++++++++++++++++
- 3 files changed, 156 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 ++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 63 +++++++++++++++++++
+ 3 files changed, 74 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e793dd0426b1..7a06486cec9e 100644
+index 7a06486cec9e..bd087155aac2 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3722,10 +3722,10 @@ STATIC_IFN_KUNIT void amdgpu_dm_update_cursor(struct drm_plane *plane,
+@@ -1425,8 +1425,8 @@ static int dm_hw_fini(struct amdgpu_ip_block *ip_block)
  }
- EXPORT_IF_KUNIT(amdgpu_dm_update_cursor);
  
--static void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
--					  struct amdgpu_crtc *acrtc_attach,
--					  const struct dm_crtc_state *acrtc_state,
--					  const u64 current_ts)
-+STATIC_IFN_KUNIT void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
-+						    struct amdgpu_crtc *acrtc_attach,
-+						    const struct dm_crtc_state *acrtc_state,
-+						    const u64 current_ts)
+ 
+-static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
+-				 struct dc_state *state, bool enable)
++STATIC_IFN_KUNIT void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
++						    struct dc_state *state, bool enable)
  {
- 	struct psr_settings *psr = &acrtc_state->stream->link->psr_settings;
- 	struct replay_settings *pr = &acrtc_state->stream->link->replay_settings;
-@@ -3761,6 +3761,7 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
- 		acrtc_attach->dm_irq_params.allow_sr_entry = false;
+ 	enum dc_irq_source irq_source;
+ 	struct amdgpu_crtc *acrtc;
+@@ -1477,10 +1477,11 @@ static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
  	}
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_enable_self_refresh);
  
- STATIC_IFN_KUNIT void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
- 					  struct dm_crtc_state *acrtc_state,
+ }
++EXPORT_IF_KUNIT(dm_gpureset_toggle_interrupts);
+ 
+-DEFINE_FREE(state_release, struct dc_state *, if (_T) dc_state_release(_T))
++DEFINE_FREE(state_release, struct dc_state *, dc_state_release(_T))
+ 
+-static enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
++STATIC_IFN_KUNIT enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
+ {
+ 	struct dc_state *context __free(state_release) = NULL;
+ 	int i;
+@@ -1518,6 +1519,7 @@ static enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
+ 
+ 	return dc_commit_streams(dc, &params);
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_commit_zero_streams);
+ 
+ static int dm_cache_state(struct amdgpu_device *adev)
+ {
+@@ -1532,7 +1534,7 @@ static int dm_cache_state(struct amdgpu_device *adev)
+ 	return adev->dm.cached_state ? 0 : r;
+ }
+ 
+-static void dm_destroy_cached_state(struct amdgpu_device *adev)
++STATIC_IFN_KUNIT void dm_destroy_cached_state(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_display_manager *dm = &adev->dm;
+ 	struct drm_device *ddev = adev_to_drm(adev);
+@@ -1582,6 +1584,7 @@ static void dm_destroy_cached_state(struct amdgpu_device *adev)
+ 
+ 	dm->cached_state = NULL;
+ }
++EXPORT_IF_KUNIT(dm_destroy_cached_state);
+ 
+ static int dm_suspend(struct amdgpu_ip_block *ip_block)
+ {
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index ad72dc182e93..9399f71c528e 100644
+index 9399f71c528e..645b39e4223b 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1266,6 +1266,9 @@ int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_commit *state, struct dc_
- 				     struct dsc_mst_fairness_vars *vars);
- void manage_dm_interrupts(struct amdgpu_device *adev, struct amdgpu_crtc *acrtc,
- 			  struct dm_crtc_state *acrtc_state);
-+void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
-+				   struct amdgpu_crtc *acrtc_attach,
-+				   const struct dm_crtc_state *acrtc_state, const u64 current_ts);
- int load_dmcu_fw(struct amdgpu_device *adev);
- int dm_sw_init(struct amdgpu_ip_block *ip_block);
- int dm_late_init(struct amdgpu_ip_block *ip_block);
+@@ -1257,6 +1257,9 @@ struct dsc_mst_fairness_vars;
+ void mmhub_read_system_context(struct amdgpu_device *adev,
+ 			       struct dc_phy_addr_space_config *pa_config);
+ int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm);
++void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev, struct dc_state *state, bool enable);
++enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc);
++void dm_destroy_cached_state(struct amdgpu_device *adev);
+ int dm_early_init(struct amdgpu_ip_block *ip_block);
+ int fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+ 				const struct drm_plane_state *plane_state,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index 4daa187fbd0a..3c975ca2710d 100644
+index 3c975ca2710d..7a79aee057f8 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -3803,6 +3803,147 @@ static void dm_test_plane_info_layer_and_blending(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, ctx->plane_info.global_alpha_value, 0x7f);
+@@ -4217,6 +4217,35 @@ static void dm_test_early_init_unsupported_version(struct kunit *test)
+ 	KUNIT_EXPECT_FALSE(test, adev->dc_enabled);
  }
  
-+/* Tests for amdgpu_dm_enable_self_refresh() */
++/* Tests for the remaining suspend and resume helpers */
 +
-+struct dm_test_sr_ctx {
-+	struct amdgpu_display_manager *dm;
-+	struct amdgpu_crtc *acrtc;
-+	struct dm_crtc_state *acrtc_state;
-+	struct amdgpu_dm_connector *aconn;
-+	struct dc_link *link;
-+};
-+
-+/*
-+ * A fast-update CRTC whose stream has a self-refresh capable link. The power
-+ * module stays NULL, which every mod_power entry point treats as a no-op.
++/**
++ * dm_test_commit_zero_streams_empty - Test committing an already empty DC state
++ * @test: The KUnit test context
 + */
-+static struct dm_test_sr_ctx *dm_test_sr_ctx_alloc(struct kunit *test)
++static void dm_test_commit_zero_streams_empty(struct kunit *test)
 +{
-+	struct dm_test_sr_ctx *ctx;
++	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
 +
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	dc->current_state = dm_kunit_alloc_dc_state(test);
++	KUNIT_ASSERT_NOT_NULL(test, dc->current_state);
 +
-+	ctx->dm = dm_kunit_alloc_dm(test);
-+	ctx->acrtc = kunit_kzalloc(test, sizeof(*ctx->acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->acrtc);
-+	ctx->acrtc_state = kunit_kzalloc(test, sizeof(*ctx->acrtc_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->acrtc_state);
-+	ctx->aconn = kunit_kzalloc(test, sizeof(*ctx->aconn), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->aconn);
-+
-+	ctx->link = dm_kunit_alloc_link(test);
-+	ctx->acrtc_state->stream = dm_kunit_alloc_stream(test, ctx->link);
-+	ctx->acrtc_state->stream->dm_stream_context = ctx->aconn;
-+	ctx->acrtc_state->update_type = UPDATE_TYPE_FAST;
-+
-+	return ctx;
-+}
-+
-+static void dm_test_enable_sr(struct dm_test_sr_ctx *ctx, u64 current_ts)
-+{
-+	amdgpu_dm_enable_self_refresh(ctx->dm, ctx->acrtc, ctx->acrtc_state,
-+				      current_ts);
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_commit_zero_streams(dc), (int)DC_OK);
 +}
 +
 +/**
-+ * dm_test_self_refresh_full_update - Test a full update blocks self refresh
++ * dm_test_destroy_cached_state_none - Test no cached state is a no-op
 + * @test: The KUnit test context
 + */
-+static void dm_test_self_refresh_full_update(struct kunit *test)
++static void dm_test_destroy_cached_state_none(struct kunit *test)
 +{
-+	struct dm_test_sr_ctx *ctx = dm_test_sr_ctx_alloc(test);
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
 +
-+	ctx->acrtc_state->update_type = UPDATE_TYPE_FULL;
-+	ctx->link->psr_settings.psr_feature_enabled = true;
-+	ctx->acrtc->dm_irq_params.allow_sr_entry = true;
++	dm_destroy_cached_state(adev);
 +
-+	dm_test_enable_sr(ctx, 0);
-+
-+	KUNIT_EXPECT_FALSE(test, ctx->acrtc->dm_irq_params.allow_sr_entry);
++	KUNIT_EXPECT_NULL(test, adev->dm.cached_state);
 +}
 +
-+/**
-+ * dm_test_self_refresh_unsupported_link - Test a link without PSR or Replay
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_self_refresh_unsupported_link(struct kunit *test)
-+{
-+	struct dm_test_sr_ctx *ctx = dm_test_sr_ctx_alloc(test);
-+
-+	ctx->acrtc->dm_irq_params.allow_sr_entry = true;
-+
-+	dm_test_enable_sr(ctx, 0);
-+
-+	KUNIT_EXPECT_FALSE(test, ctx->acrtc->dm_irq_params.allow_sr_entry);
-+}
-+
-+/**
-+ * dm_test_self_refresh_decrements_skip_count - Test the skip count gates entry
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_self_refresh_decrements_skip_count(struct kunit *test)
-+{
-+	struct dm_test_sr_ctx *ctx = dm_test_sr_ctx_alloc(test);
-+
-+	ctx->link->psr_settings.psr_feature_enabled = true;
-+	ctx->aconn->sr_skip_count = 2;
-+
-+	dm_test_enable_sr(ctx, 0);
-+
-+	KUNIT_EXPECT_EQ(test, ctx->aconn->sr_skip_count, 1);
-+	KUNIT_EXPECT_FALSE(test, ctx->acrtc->dm_irq_params.allow_sr_entry);
-+}
-+
-+/**
-+ * dm_test_self_refresh_allows_entry - Test a drained skip count allows entry
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_self_refresh_allows_entry(struct kunit *test)
-+{
-+	struct dm_test_sr_ctx *ctx = dm_test_sr_ctx_alloc(test);
-+
-+	ctx->link->psr_settings.psr_feature_enabled = true;
-+	ctx->aconn->sr_skip_count = 1;
-+
-+	/* Well past the 500ms settle window, so the events are cleared. */
-+	dm_test_enable_sr(ctx, 2ULL * NSEC_PER_SEC);
-+
-+	KUNIT_EXPECT_EQ(test, ctx->aconn->sr_skip_count, 0);
-+	KUNIT_EXPECT_TRUE(test, ctx->acrtc->dm_irq_params.allow_sr_entry);
-+}
-+
-+/**
-+ * dm_test_self_refresh_within_settle_window - Test a recent damage change holds off
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_self_refresh_within_settle_window(struct kunit *test)
-+{
-+	struct dm_test_sr_ctx *ctx = dm_test_sr_ctx_alloc(test);
-+
-+	ctx->link->psr_settings.psr_feature_enabled = true;
-+	ctx->link->psr_settings.psr_dirty_rects_change_timestamp_ns = 1;
-+
-+	dm_test_enable_sr(ctx, 2);
-+
-+	KUNIT_EXPECT_TRUE(test, ctx->acrtc->dm_irq_params.allow_sr_entry);
-+}
-+
-+/**
-+ * dm_test_self_refresh_replay_link - Test a Replay capable link takes the same path
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_self_refresh_replay_link(struct kunit *test)
-+{
-+	struct dm_test_sr_ctx *ctx = dm_test_sr_ctx_alloc(test);
-+
-+	ctx->link->replay_settings.replay_feature_enabled = true;
-+
-+	dm_test_enable_sr(ctx, 2ULL * NSEC_PER_SEC);
-+
-+	KUNIT_EXPECT_TRUE(test, ctx->acrtc->dm_irq_params.allow_sr_entry);
-+}
-+
- /* Tests for manage_dm_interrupts() */
+ /* Tests for dm_update_mst_vcpi_slots_for_dsc() */
  
- struct dm_test_irq_mgmt_ctx {
-@@ -4836,6 +4977,13 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_plane_info_bad_color_encoding),
- 	KUNIT_CASE(dm_test_plane_info_rotations),
- 	KUNIT_CASE(dm_test_plane_info_layer_and_blending),
-+	/* amdgpu_dm_enable_self_refresh */
-+	KUNIT_CASE(dm_test_self_refresh_full_update),
-+	KUNIT_CASE(dm_test_self_refresh_unsupported_link),
-+	KUNIT_CASE(dm_test_self_refresh_decrements_skip_count),
-+	KUNIT_CASE(dm_test_self_refresh_allows_entry),
-+	KUNIT_CASE(dm_test_self_refresh_within_settle_window),
-+	KUNIT_CASE(dm_test_self_refresh_replay_link),
- 	/* manage_dm_interrupts */
- 	KUNIT_CASE(dm_test_manage_interrupts_offdelay),
- 	KUNIT_CASE(dm_test_manage_interrupts_offdelay_fallback),
+ /**
+@@ -4790,6 +4819,35 @@ static void dm_test_initialize_plane_overlay(struct kunit *test)
+ 					       DRM_PLANE_TYPE_OVERLAY, plane_cap), 0);
+ }
+ 
++/* Tests for dm_gpureset_toggle_interrupts() */
++
++/**
++ * dm_test_gpureset_toggle_interrupts_dcn - Test DCN only toggles the vupdate IRQ
++ * @test: The KUnit test context
++ */
++static void dm_test_gpureset_toggle_interrupts_dcn(struct kunit *test)
++{
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct dc_state *state = dm_kunit_alloc_dc_state(test);
++	struct amdgpu_crtc *acrtc;
++
++	KUNIT_ASSERT_NOT_NULL(test, state);
++	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, acrtc);
++
++	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 2, 0);
++	adev->mode_info.num_crtc = 1;
++	adev->mode_info.crtcs[0] = acrtc;
++	acrtc->base.dev = &adev->ddev;
++	acrtc->otg_inst = 0;
++	state->stream_count = 1;
++	state->stream_status[0].primary_otg_inst = 0;
++	state->stream_status[0].plane_count = 1;
++
++	/* GRPH_PFLIP is unused on DCN, so only the vupdate IRQ is touched. */
++	dm_gpureset_toggle_interrupts(adev, state, true);
++}
++
+ static struct kunit_case amdgpu_dm_tests[] = {
+ 	/* Simple DM callbacks */
+ 	KUNIT_CASE(dm_test_wait_for_idle),
+@@ -4994,6 +5052,9 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	KUNIT_CASE(dm_test_early_init_legacy_asics),
+ 	KUNIT_CASE(dm_test_early_init_dcn_versions),
+ 	KUNIT_CASE(dm_test_early_init_unsupported_version),
++	/* suspend and resume helpers */
++	KUNIT_CASE(dm_test_commit_zero_streams_empty),
++	KUNIT_CASE(dm_test_destroy_cached_state_none),
+ 	/* dm_update_mst_vcpi_slots_for_dsc */
+ 	KUNIT_CASE(dm_test_mst_vcpi_slots_no_connector),
+ 	KUNIT_CASE(dm_test_mst_vcpi_slots_skips_writeback),
+@@ -5023,6 +5084,8 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	/* initialize_plane */
+ 	KUNIT_CASE(dm_test_initialize_plane_primary),
+ 	KUNIT_CASE(dm_test_initialize_plane_overlay),
++	/* dm_gpureset_toggle_interrupts */
++	KUNIT_CASE(dm_test_gpureset_toggle_interrupts_dcn),
+ 	{}
+ };
+ 
 -- 
 2.43.0
 
