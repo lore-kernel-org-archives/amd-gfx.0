@@ -4,92 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 395AFC79F83
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE705C79F86
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F0AC10F43D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 302B210F43C;
 	Thu,  3 Sep 2026 07:34:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NPLNc+rj";
+	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="NLcjPR/e";
 	dkim-atps=neutral
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D010A10EC92
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 11:26:38 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id
- 6a1803df08f44-90e828b309eso32339416d6.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 04:26:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788261998; cv=none;
- d=google.com; s=arc-20260327;
- b=squGxKWDICWxlDFiJDYoX2K3G8LWpb1Yt6HPQ9k9N4GZcbnVUOsy156+9mLZLA31nF
- 3kpbbwpjSvub9jltccHz5a7vZ5mMTK/XtqXSvd3m0YeBjd2LoyDw0K3XjNjv+q9qncuw
- 52WYlmUSNzTShvWuPXu3bUibSPKOfs/yT9CDtePphm6E3bzzkGafyU8OJCF8vMO7NQ8L
- YZz4PdUrlRqrearpyn429I1OuD0rpZ+Ghy0p/7Duf8RFegvp5jNqstyX6sdg6Fnd/vQs
- Bwlz/SwDwUZ1L6LEbs0hAprlvFzV31Al7c7dCeUeCoyoDYw7Q9l+KQfc5MDfBcwoph1x
- HlEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=giTslEtXGSQwPV9RRaIioNPE/e48tpcU8ObIsZM9aC8=;
- fh=Y+HHpbqm04TUfQSQw44e2FGRktaZ18HQAC88jumeIFs=;
- b=by6cFOkxTUGEzKMddwqFraLuyikRKwPT3RzqiDCGPD/WILrFAuOafdTrXmDt0I16tV
- JAF9hIIRnbvXGnBt5EttYb5/5pJh3+eiT/koyyd3rtMNE6MLZUaCIWvv8UKMl6C72zyA
- LEOWdZeBMDVvwv/NDhdeV8XVlbs/8snYTYvyHxWc+WhYJtF4IKqb5bF0ql0Z/QcUShcw
- /dd6IRIBBD8GtcvBFJOiihwYTazpClJuF8utvgTMe35l07bRXYAkm4HqaFYras4+abX3
- NQkMg1aNOQgQYx9XY1aFlspe7zldnpz7/wUd4yfVeV6Ggx149RVlU32Fsc/k8+E0Y6bv
- SimQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788261998; x=1788866798; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=giTslEtXGSQwPV9RRaIioNPE/e48tpcU8ObIsZM9aC8=;
- b=NPLNc+rjJRiIlPs46Ctijb84vLQzItKM39ZWNSwue+A03FLY+WwrwEN2qeQlZ5iJFJ
- W86FRk6vOKs27hPL5ZisEdFL47UHd7DtGT7G+qo4XFYrZO7bbVZ+hT0VD3JM/WdidxsU
- 3e0m7CEU68E2wE4oqSxUsmQ97yarMJUkO/iXFs+/TVBo4VbnP/P4VjIQMTJ6qigE7VI0
- JXmi3/08LBynJtiqoYwd1/ko5Nm5Ak6ltj1d/B25YhIsgG1JAcE1IW8a4W7I/FrUANVj
- JVsUYEeYYZrsxKoL7mFP5ADPnpmq1JN/A+ZgS+F69u6fsbL2mgrCfBk5wnGfHeApCONw
- ZRug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788261998; x=1788866798;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=giTslEtXGSQwPV9RRaIioNPE/e48tpcU8ObIsZM9aC8=;
- b=eMmaJC2WH8n0UN6ASh6PvFfIN+8npE3ZGckFiV7ZbusMwpBvMRe1OsnW8wNUD80q0i
- SOj/HdoM1BrwyFzvQr0PEtoMZDE+OMU2++0ZMbqfJkz9rai6ox3DN7NLEoFDop7ZIXz6
- gksensiwPDoGRDYauREZtF7bflvQJiJt19/UJhEWIC9dDeD9/Fkybg2D7eFoK2kH+uAe
- PJuCljb5NNK8m+dauY62cG8BFuWuBZ9p4XaPo/Y7fvkVzGPl/Ozj5n6mXhjsFpORPx+G
- 4GY9pmljfRFxpNoXwWm4VAvxjl90zA9XReBxszSfnNMd88zgxNJIoeZt8PcFi3QguhdU
- PRMA==
-X-Gm-Message-State: AFuF++lcMJ/orXhSXRhkefjZ7439l1P2XLSrZd3Fm315U9GDzPZ3/B+O
- r42o8NSa7U/hXkEPJB7exkAU14M9LVNg46mHGYrqrEM1qXi/X4bXXZbK5MyXDb8bGxmfyqJzIUl
- WPws7YRFRy7jALBR+m9PRanllpvp4Ng==
-X-Gm-Gg: AR+sD10MlWgVDIM9Gk0OcBasKPNZuaY+a1bbpek6k7iN0S1zxAlHHaVaT47tQlQVb2Q
- ctg0e9xO9UBRrkjgEw4Vicq1lYBl7Qiy+bnmHWhytzKFi9DnwwFjJ2yWF/7YLgpMy2iRqUCSBaT
- d8rsV0YHYwFhEe+BvYrRiaOLO2p7G/0E5JcO/fU83NEeoSzyv0tDzOYWuAm9OLdIl5bdjNCFgpu
- iEPk9trL6WPwsMySW7njLKIs89LU6+e+sxeuEYBacP+NB2aF3HpfxWduOdW3j209a8oC5MASYtH
- r4kV4S97lOhIq9OUuVbkSLFAAie6yabZg3lOYs51X2sK
-X-Received: by 2002:a05:620a:440b:b0:939:5551:1e09 with SMTP id
- af79cd13be357-9395551236emr206040185a.29.1788261997538; Tue, 01 Sep 2026
- 04:26:37 -0700 (PDT)
+Received: from mail-4399.protonmail.ch (mail-4399.protonmail.ch [185.70.43.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 039EC10F1B3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 12:31:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
+ s=protonmail2; t=1788352283; x=1788611483;
+ bh=CIXG5k8Z42Dvwo3n4OTF/HGNzdZ5644vv8fHSBN0grA=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=NLcjPR/eJiF/NWaCblNVUCHSx42EIQ+gVQE5iBYmjcMD8iqT1gXzRvZgMTC8I8t/p
+ OSwwhIQtizzDJ/7oIoC9dEj2cbu3uJ8rZ8uBrJ6hMtHVVMg45o/g5+33tLcKyCuooq
+ 4/MyeS6+RPvBFmpWHDc99YqYCS1KP3tuLvD8H8fMuASOeTwDwtw+sQDiT3A/hAU5T+
+ /tEgGi8civO5EUoTipF4ZLnpTBP7YXyNiCksIcLAb7nzJBabTBQfXy4uFZyY3nFj1Q
+ m1z33G9gx/FOqlgFKcG8surWSxMAsfCyBcDz9RMFQ0aUa/y9qT1ytJrOrmH/Tkucri
+ 8jPzRJVKA30Iw==
+Date: Wed, 02 Sep 2026 12:31:17 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
+ mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com,
+ stable@vger.kernel.org
+Subject: [PATCH 1/4] drm/amd/display: keep custom brightness curve in
+ userspace domain
+Message-ID: <20260902-brightness-1-fd468d7a@empyreal.works>
+In-Reply-To: <20260902-brightness-cover-abf809f2@empyreal.works>
+References: <20260902-brightness-cover-abf809f2@empyreal.works>
+Feedback-ID: 182420409:user:proton
+X-Pm-Message-ID: d3c1787a7ff7f8453ae90f24a3b3e0855c107f25
 MIME-Version: 1.0
-References: <CANkdJ2VvJQSBzyOq=LgSW1=Z8-YiN_r9Py2iJ0UJDo55+dbfuA@mail.gmail.com>
- <83f89e11-b265-4d12-97c0-f158e0b5b82d@leemhuis.info>
-In-Reply-To: <83f89e11-b265-4d12-97c0-f158e0b5b82d@leemhuis.info>
-From: Robson Candido dos Santos Alves <robsonalves.us@gmail.com>
-Date: Tue, 1 Sep 2026 08:26:00 -0300
-X-Gm-Features: AcwNN1UAl4fHdpkC9IMZ4Sd1yE0VyhaIPoDKzGW1bUu8pkc_c8sFdn5XOcj-MY8
-Message-ID: <CANkdJ2Xv-RrTGYt-YyBH4ShE+h05tj_J4ipw5s9X8UdLd1HnWA@mail.gmail.com>
-Subject: Re: [REGRESSION] amdgpu: "pixel format with alpha exposed but blend
- mode not setup" warnings introduced in v7.3-rc1
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- regressions@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:34:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -106,47 +61,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thorsten,
+convert_brightness_from_user() expects convert_custom_brightness() to
+reshape a value in the userspace [0..max] domain before the caller maps
+it once into the firmware [min..max] domain.
 
-Thank you for the quick check and for linking the fixing patch set!
+Commit 8dbd72cb7900 ("drm/amd/display: Export full brightness range to
+userspace") instead made convert_custom_brightness() call
+scale_fw_to_input(min, max, ...). That helper adds min and scales by the
+firmware span, entering the firmware domain before the caller applies
+the same span and minimum again.
 
-Good to know the warning is safe to ignore. I will keep an eye on the
-series and test it once it lands.
+With the default PWM range, min is 3084 and max is 65535. A zero request
+through any custom curve consequently returns 6023 instead of 3084, so
+the darkest 2939 firmware levels are unreachable.
 
-Best regards,
-Robson
+Keep the curve result in [0..max]. scale_fw_to_input() then becomes the
+inverse of scale_input_to_fw(), and the caller remains the sole owner of
+the userspace-to-firmware conversion. The linear path is unchanged.
 
-Em ter., 1 de set. de 2026 =C3=A0s 04:16, Thorsten Leemhuis
-<regressions@leemhuis.info> escreveu:
->
-> On 8/31/26 15:46, Robson Candido dos Santos Alves wrote:
-> >
-> > After updating from kernel v7.2.2 to v7.3-rc1, several DRM plane
-> > warnings regarding unset blend modes for pixel formats with alpha
-> > channels started appearing in dmesg during initialization.
-> >
-> > Good Version:
-> > - Kernel: 7.2.2-070202-generic
-> > - Display Core: v3.2.384
-> > - Result: Driver initializes cleanly without plane/blend mode warnings.
-> >
-> > Bad Version:
-> > - Kernel: 7.3.0-070300rc1-generic
-> > - Display Core: v3.2.392
-> > - Result: Driver emits the following warnings in dmesg:
-> >
-> > [drm] [PLANE:44:plane-0] pixel format with alpha exposed but blend
-> > mode not setup. Please fix.
-> Thx for the report. Not my area of expertise, but I guess that is caused
-> by 9813e158d13d ("drm/drm_blend: allow blend mode property without
-> PREMULTI") and will be fixed by the patch set "drm/atomic-state-helper:
-> fixes for blend-mode-prop warning":
-> https://lore.kernel.org/all/20260826104143.39077-1-mwen@igalia.com/
->
-> That patches are afaics scheduled for inclusion in 7.4 -- but afaik the
-> the warning is safe to ignore.
->
-> Ciao, Thorsten
->
-> #regzbot introduced: 9813e158d13d
->
+A later patch removes this helper from the PWM power-module path because
+the power module owns that curve. AUX panels continue to use it, and
+stable kernels predating the power-module refactor still require this
+correction on PWM panels.
+
+Commit 6fd83a1c2cde ("drm/amd/display: Scale custom brightness curve from
+full range") fixed the corresponding input-side domain error. This
+completes the output side of the same conversion.
+
+Source and arithmetic analysis identified the duplicate
+domain conversion. KUnit coverage for a non-zero firmware minimum is
+added separately.
+
+Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to user=
+space")
+Cc: stable@vger.kernel.org # 6.17.x: 6fd83a1c2cde: drm/amd/display: Scale c=
+ustom brightness curve from full range
+Cc: stable@vger.kernel.org # 6.17.x
+Cc: stable@vger.kernel.org # before 7.3 this code is in amdgpu_dm.c; drop t=
+he header and test hunks
+
+Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
+---
+ .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 13 ++++----
+ .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  3 +-
+ .../tests/amdgpu_dm_backlight_test.c          | 30 +++++++++----------
+ 3 files changed, 22 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index e61bbc310f33..424b33573a73 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -112,16 +112,15 @@ static inline u32 scale_input_to_fw(int max, u64 inpu=
+t)
+ =09return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
+ }
+=20
+-/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
+-static inline u32 scale_fw_to_input(int min, int max, u64 input)
++/* Rescale the firmware curve's [0..AMDGPU_MAX_BL_LEVEL] back to userspace=
+ [0..max]. */
++static inline u32 scale_fw_to_input(int max, u64 input)
+ {
+-=09return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_L=
+EVEL);
++=09return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
+ }
+=20
+ STATIC_IFN_KUNIT
+ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
+,
+-=09=09=09       unsigned int min, unsigned int max,
+-=09=09=09       uint32_t *user_brightness)
++=09=09=09       unsigned int max, uint32_t *user_brightness)
+ {
+ =09u32 brightness =3D scale_input_to_fw(max, *user_brightness);
+ =09u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
+@@ -179,7 +178,7 @@ void convert_custom_brightness(const struct amdgpu_dm_b=
+acklight_caps *caps,
+ =09=09=09=09=09=09    (brightness - lower_signal),
+ =09=09=09=09=09=09    upper_signal - lower_signal);
+ scale:
+-=09*user_brightness =3D scale_fw_to_input(min, max,
++=09*user_brightness =3D scale_fw_to_input(max,
+ =09=09=09=09=09     DIV_ROUND_CLOSEST(lum * brightness, 101));
+ }
+=20
+@@ -194,7 +193,7 @@ u32 convert_brightness_from_user(const struct amdgpu_dm=
+_backlight_caps *caps,
+ =09if (!get_brightness_range(caps, &min, &max))
+ =09=09return brightness;
+=20
+-=09convert_custom_brightness(caps, min, max, &brightness);
++=09convert_custom_brightness(caps, max, &brightness);
+=20
+ =09/* Rescale 0..max to min..max */
+ =09return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+index 07b75064847c..90bed0ea5d00 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+@@ -67,8 +67,7 @@ ssize_t panel_power_savings_store(struct device *device,
+ int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+ =09=09=09 unsigned int *min, unsigned int *max);
+ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
+,
+-=09=09=09       unsigned int min, unsigned int max,
+-=09=09=09       uint32_t *user_brightness);
++=09=09=09       unsigned int max, uint32_t *user_brightness);
+ u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *ca=
+ps,
+ =09=09=09=09 uint32_t brightness);
+ u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps=
+,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
+t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
+test.c
+index 7ca17f803f9d..1fb171fdbc3c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
+@@ -1033,7 +1033,7 @@ static void dm_test_custom_brightness_no_data_points(=
+struct kunit *test)
+=20
+ =09caps.data_points =3D 0;
+=20
+-=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
++=09convert_custom_brightness(&caps, 65535, &brightness);
+=20
+ =09/* No data points =E2=86=92 no-op */
+ =09KUNIT_EXPECT_EQ(test, brightness, saved);
+@@ -1057,7 +1057,7 @@ static void dm_test_custom_brightness_debug_mask_disa=
+bles(struct kunit *test)
+ =09/* Set the disable flag */
+ =09amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_=
+CUSTOM_BRIGHTNESS_CURVE);
+=20
+-=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
++=09convert_custom_brightness(&caps, 65535, &brightness);
+=20
+ =09/* Should be no-op due to debug mask */
+ =09KUNIT_EXPECT_EQ(test, brightness, saved);
+@@ -1100,14 +1100,14 @@ static void dm_test_custom_brightness_exact_match(s=
+truct kunit *test)
+ =09 */
+ =09brightness =3D 32896;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/*
+ =09 * Exact match: lum=3D50, brightness_scaled=3D128
+-=09 * result =3D scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101=
+))
+-=09 *        =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
+-=09 *        =3D scale_fw_to_input(0, 65535, 63)
+-=09 *        =3D 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
++=09 * result =3D scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
++=09 *        =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
++=09 *        =3D scale_fw_to_input(65535, 63)
++=09 *        =3D DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
+ =09 */
+ =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32896);
+ =09KUNIT_EXPECT_TRUE(test, brightness < 32896);
+@@ -1146,13 +1146,13 @@ static void dm_test_custom_brightness_below_first(s=
+truct kunit *test)
+ =09 */
+ =09brightness =3D 12850;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/*
+ =09 * Below first data point: lum =3D DIV_ROUND_CLOSEST(40 * 50, 100) =3D =
+20
+-=09 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
+-=09 *      =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
+-=09 *      =3D scale_fw_to_input(0, 65535, 10)
++=09 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
++=09 *      =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
++=09 *      =3D scale_fw_to_input(65535, 10)
+ =09 * The output should be significantly less than input.
+ =09 */
+ =09KUNIT_EXPECT_TRUE(test, brightness < 12850);
+@@ -1190,7 +1190,7 @@ static void dm_test_custom_brightness_interpolation(s=
+truct kunit *test)
+ =09 */
+ =09brightness =3D 32125;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/*
+ =09 * The function should interpolate between data points and produce
+@@ -1233,7 +1233,7 @@ static void dm_test_custom_brightness_above_last(stru=
+ct kunit *test)
+ =09 */
+ =09brightness =3D 56533;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/* Output should differ from input (remapped via curve) */
+ =09KUNIT_EXPECT_TRUE(test, brightness !=3D 56533);
+@@ -1271,7 +1271,7 @@ static void dm_test_custom_brightness_single_data_poi=
+nt(struct kunit *test)
+ =09 */
+ =09brightness =3D 16448;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09KUNIT_EXPECT_TRUE(test, brightness < 16448);
+=20
+@@ -1309,7 +1309,7 @@ static void dm_test_custom_brightness_lower_lum_zero(=
+struct kunit *test)
+ =09 */
+ =09brightness =3D 32125;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/* Should remap; result should differ from input */
+ =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32125);
+
