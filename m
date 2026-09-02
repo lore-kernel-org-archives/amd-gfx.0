@@ -4,125 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A9C2C624D3
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 13:57:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B935C624D3
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 15:07:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85BF210E4A5;
-	Wed,  2 Sep 2026 13:57:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 882F910F260;
+	Wed,  2 Sep 2026 15:07:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vFyTM1fZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YTq2Zy6b";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011031.outbound.protection.outlook.com [52.101.57.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61EAC10E4A5
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 13:57:19 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010044.outbound.protection.outlook.com [52.101.201.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B09110F260
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 15:07:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p2REwON2ndM2n7rMWRR3O1KextEOm+mh2MVSAVVZcpubvmz6Ae71ePXJCFDhqiM/0Y2xH5XgYRtB6OHGU3N23fuYFiM/UJpTvAj61Dc+E97Zj0lrUEfoxFPW3vtZqwj9Ove0C1DHd83msgzRE7x8VL6hsrf8eDkVbkMPuL0QkAbzytqBTzvnzj7IoOxFe9tfUbFlb/FJ5Sxg/xGSh86tgCRBkbW4W+pUo7I4DrDzeMUbJ3Eb0etpeBKBlx7R+TEfXonZteKdXlAkwi/7xiuy3NDuPaEd69DRS/12Wc/z0ImG/YtRJh6d5NGmzJ+1sGRedoTJrx6RO7up3wPrnkvEcw==
+ b=KaXb7m07u38yM+UQrr7Fb2digZc7YvSVZsCW3JpitdgBOx21ENnMgMpNTHSYUZg9N70Ue5+QAmsRdYOUnOe8O8bPW5YV6zVVY/7WSQWEFSt1jlN2Ydet6mcD7+ygvfHln373S8fyTxjJSFFsZ5th7DRMIpvWyZZXJ6k/+jVkjZIrSa+II+u+T/b6pat0Qhe2AqpilN+hQnpjyLrfFTdl77Oqw2u8EjuhUygvI5ZL8eQRvlvXNQ9MmdBikxZm0ag3zyccRZe+GVewIhqqvXgcpVN0Y1QB0pgIfSeO1hJihPwEHl6la2Vo36/sF1Ktl2v17POXhEhFYqyY7Hf16xxAiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q0IvGs3tuCGj9hYXrX6rKzj1vnqu/1d/6kyf3/R91xo=;
- b=BoddUQ7OZJ+oLk2URWcM2sFsKruk50gFGG4LQvv4rQi10o9suPV39WacOsAk+go1QkkdvGXV7B/+qNZNiSpCw2PqmzZ5onGzDE7nROIjJawX4tEyZvsR8M9TgxUJ+3HKztGWUiiag90Kv/vzvrJA9vauQkRpzMCnYX2XEpN0PllhDm33SWoUdcKqVpaVOCy3SUeMcVLx2lUKQ303fyphFRq7xptse8N6ft/P5p4cUjnTl/9NhpC4v0WVqjG/kmYc1/Q8fvqTWIBhsXkMluNXRhic/7bKwusf2IjVUhAxXoC8EPvWzvIyFjf/GNDLORr3KuOimNGI6M1Li0WQci2UyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=TSJ6TVv9pOSBpAbratbs4qvQl1IoW//jhPFcgt1ewIQ=;
+ b=bDdg3Nk9MfK8n2HzSh/x3k2WLKDctBmc5xym+PLzatydB176UkiQxO6yESHrAB1Zb51oo3F84t7zeEJZkgjyphsroS8/43gYh3ar9DENpfW3B7YGTW+bufOFof7Ae43Ok+/Zk8qJQevJ4zexr965/aRPIn33uXceGDj8ehVQhcZ1Ymy3nbUn9PmR6L2LSTNdgS0OQ5GdyzSfsBq2ke2wViI5hvg/q2ZXb9Jtrj59nZM+/1Y+OdIW3SCflT8y1V5veNXuB2QV4VNGwuSP6aTMNLFKj5sxkiCqUiPgYJjDvtW2u6y+bYbExBLlyDwbtHlivy/D+m8Ugu2rjkh3N/VFPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q0IvGs3tuCGj9hYXrX6rKzj1vnqu/1d/6kyf3/R91xo=;
- b=vFyTM1fZfljbNPZjAtwYPT+5tesuq7Kq275m25B9vh/TosaDnWv004U2y7fNZaWIAn33UorhOdWcGFvi1RAVgweHMvBWItWG3FNpzxIk3tg6KTJn4mFyM9Vm4J4r/bE/B7HJ/b40SV9y6B5pTPlZhi/7/sQsS0/AtaCcFQijPKM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB347562.namprd12.prod.outlook.com (2603:10b6:610:367::9)
+ bh=TSJ6TVv9pOSBpAbratbs4qvQl1IoW//jhPFcgt1ewIQ=;
+ b=YTq2Zy6b7CELRzEcbz8SOp840dFt2ASGm3XJJL8pkkgSyfNMqzitYe7yNjtQVX7YiCWNig99hlRjf0fRC4kwSJqktKHmMF6a5jO/tDatK3TTgiDPB7fYtJCJpAJyskY/gdAWrBvNAGqJJxsagkv07LpHhU9oMehLiwzDEvb+fIU=
+Received: from SJ0P220CA0016.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::23)
+ by SN7PR12MB6960.namprd12.prod.outlook.com (2603:10b6:806:260::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 13:57:16 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
- 13:57:16 +0000
-Message-ID: <937d47e3-596b-4ab4-bb1f-4f85e5ad9cb8@amd.com>
-Date: Wed, 2 Sep 2026 15:57:12 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 00/31] Rework GPU TLB invalidation
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20260901201034.2960437-1-alexander.deucher@amd.com>
- <05e8a019-903c-4249-9c82-11dce0403aea@amd.com>
- <CADnq5_PELtGDm5MkC+hiGLviAEtUufjYVzCTaA2Es-NPJsmAxA@mail.gmail.com>
- <db022549-86b8-43a3-9b8e-b46bcdee2033@amd.com>
- <CADnq5_Na=0pvEjoCC=ONR2iOFc745inQBrFgxMuZ5prwXpV5KA@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CADnq5_Na=0pvEjoCC=ONR2iOFc745inQBrFgxMuZ5prwXpV5KA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0119.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ 2026 15:07:08 +0000
+Received: from SJ1PEPF000037BB.namprd05.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::1c) by SJ0P220CA0016.outlook.office365.com
+ (2603:10b6:a03:41b::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 15:07:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000037BB.mail.protection.outlook.com (10.167.244.202) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 15:07:08 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 10:07:07 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [RFC PATCH 1/2] drm/amdgpu: Add kernel VMID trap handler
+ infrastructure
+Date: Wed, 2 Sep 2026 20:36:55 +0530
+Message-ID: <20260902150656.183333-2-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260902150656.183333-1-srinivasan.shanmugam@amd.com>
+References: <20260902150656.183333-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB347562:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99fb1360-3f8e-43db-c750-08df08fa189f
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037BB:EE_|SN7PR12MB6960:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ef127a5-24c8-4ae6-2c85-08df0903dbdf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|6133799003|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: nIijZM/Gq2WHUfUqFeLMr+YgBS/941jEQ4WhB7ux8J7vjC/p0foixFYSX6dAxYebVpTMOP+IjRWeXSuntZSoUtlzwXbkuuGkiL0yCk0voX4DaqUtn1nkwDHniHAS9k72ebYuY4p/0hwgWcVImDEZOpzV4F4Pi2s/2OndDjH6d42Md5j7NRY8p8eYgwOLV+T3/f3iOlGrhJDb3U5qck6ayfKQdew0HPsfz+1WPkNaJUp5De8b8/EJ7rZgA2mGmJmebE9f14GhHBbhQo7Pa5vio9tjhwCFKnC4X7Nehc9DlIzL0Bkibob8uw2FR61x6Dj1Iy+b00ltkpy1IHuqFrPJbQBKDpbvAUIMCXArt1hGEqvfQNL6NLOsu9EE+rfnc8UlisdMryi57KHszmhnNfJ0sAqR4zFbJdVe1f4FPEIflsGsPH2TUX0WcS/NUszG2Oz2Azhva4uN49QJ2axV9Hpnmd1gh81DdxYg+zxGBsZ8b/vTHhIJnKLYEBMpRb20nKAAsDKlPcYZOg9UqesAgv1bcn6CqTRleoJIVtEt1TF1onYw8z7jn4+mWKCARjp1xR20VtkW4sjQmuLSHhozM0uiMkXIWz7zWPYzDoFBY5xhXOLqzbDyoz2c+8JEgJK9p2j3
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(6133799003)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);
+ ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: u8lGVfEGaqoGpVmuVaVyWZzwMCqvaSsltNsnB/5MJ5XmI77Df7M/tiuGZgf4gV9TBTW55yUYqmJ70Fq/hx2bddIbmBFyMSLzZ+lX6XIkp91EUywSndgQWJOvkps10vgGiAPhHCzqiaF2F26HVV+OKhYqirBSSdM4CT1BZk3/oGYbXjZd5LMqI/NnbmPeuC9t+sV0C8nJSXd6TL4fXm6SsuodMGnweIZSp7FxlK0LdZUTnUfmuEtqzf28aPeP/8/seh2UCdNnJYZmRI5BeIEBXfPgqHij0aFSMG8hYXwDXssl7gO9Jk8xkvy+pHxTN7kEtEKKx6H9RsfhH2kgzaz/wegOJcXnUy7ezKH+LwwyDVSFgTZkBigMm9qHCeq+9PxPE9HThixgJZwHrF/DfhNHcf6024b3eS5otub5QZ0CnxPr4X7+7Eqt6oJCEPpsCxMe+S/sn4dC5RYl414F3Z+RDbW5RfHkMMkd/XNX3RC3RZf6aZL+PESBOrZjDThRXzIzWMCL+TyUsvIDgnwRvjljMKkhAPZwBUshCSQXDfxv6XlnU4zuvQU0kYYkOKrFVdUwZVxZUX+1KmO8aRHm9L0CrU5uMsBNMG9mTkw/SmAwmx4gtmYE3DcNvW8hz8ccaoapQrlb30wl7PTH0HOeWO4HI43MBiwqVvkzIeKNd9hQTjhsFI4BCdYTsM59uKNZuHv29tig2jFyIlkBhE/51BUD7g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TE80a3pHaDQ2bjZEMnN4NTVIMWZOaitiOGlzNHNUb1VCVU1iTnZQc2RjNFRq?=
- =?utf-8?B?Yjc0NG9uc09tWFBmQU0vOXd0bDBWbVdML2k4dHNRRmtGdnZ4aEdUOWxNcmtM?=
- =?utf-8?B?QjFtYm01anZpcjA5aXIyWEM2djZVOUlqVHdIU1BZM1d3Q0hrTEdSUWxja1Vr?=
- =?utf-8?B?bGpXOS9VQS9DM3RNSXYzZnhReHpoR0FjS1lUeEgyUGdaaVlMRFNQVFhxeVpO?=
- =?utf-8?B?enpWcVd6TXpyUVVoOUk5dVUvNkZMMTg4NVl1bDNSQndleDdQSnhZQVNOdXJx?=
- =?utf-8?B?Z21Jb1VrYlJtWFJQMDZDSm5BSlpML0hxMlUva3RaN2pYbnlJRmNibDRpMTdU?=
- =?utf-8?B?YlBoNnlKYU9yTmRCNkZxd0d0QWhtRGtHM1pYcnpFa0hGeVNQS0hKQ0o4ZGVh?=
- =?utf-8?B?U0MyQ1FFTFFvNEhLNzVFcWxqMndtWHVSMndYN2QxUW9vS3p6TXhaUjZjb0E1?=
- =?utf-8?B?ZEdKTy9JcmdaVEZKUXJqbjliTGhiUk5vREpBWWo1cTNEcjZuSEtLeXlQdTBz?=
- =?utf-8?B?RzVjMjJXOEJwK21ZVS83VnFiN29PTVE4b3dBbnk3TmFHZ3Zyd0Nxd05HeWdj?=
- =?utf-8?B?NFJtUVluOVRLRXJuRk9La0pDT2c4ZkxEL2c1UDhUbUI3QTVpeGxDYmZXWXJY?=
- =?utf-8?B?RXlsaVZzODU2NWpBWU54WG8zb0N5N1RaTjBocUpOT3JDby9SMSt0dnBRZkNW?=
- =?utf-8?B?T0Vad252V0h0WlduRVNYSnpGVkM2OXorRUxValJWeDRTUXF5YTZQS3lMV2lI?=
- =?utf-8?B?ZXlxeTEwK0JwUVBHeVNjQ3NNVk5oL2xNMzJ4eG8rTVJUWElkejV0bUlBTUFE?=
- =?utf-8?B?cEJXdy9YcjZ2OHBlaks5M3ZTcVpIRWN2ZTVwS2FocWZ0c1RYLzdZVERsUWpK?=
- =?utf-8?B?cDc2RktxR1RHMzBKaTZSdEdlQmQ4dmZIYmJaSmcxRkRFYkhuZUdDbVRvT05E?=
- =?utf-8?B?N3BiaHpBSjNsR0R5UHpXVWdFYW5qWGY5YTYwSTMzT3Ewak5oOEFkMFZIUkdJ?=
- =?utf-8?B?ZmJ6MzV4QjUxRG1FZmpjSjVHYTVjNHV4c0pWanZUNzlxZGFvMEx6R04rYVZx?=
- =?utf-8?B?aHh1dFg4MzJMaXB6M3F4M0dUd1VrQmY1L3JPRnlyVVh5c2ZtTWg3anpLM2lD?=
- =?utf-8?B?S045RHFRNUdHOWxTZkFtQWZrdkVmbElTR0FEcnpLOHQ1WnVvOFl3WWtyYXF2?=
- =?utf-8?B?ZmhhcDhTaENhL2YwUkUrSGVqbmhlMFBYQVc5dXU3NjNHbGRIV1M1M1RwaGNB?=
- =?utf-8?B?bEVhM3dRWmNaYXV0dVNoeDB2eG9jdFRmR3FpV2RKdnhQaEJRS0U4WG1IVS91?=
- =?utf-8?B?cnZOWnRKVHM1YkxiU1lMK2hIVnRSRjVnS0FDTnBuM09IdTJ4S250STk0b2hS?=
- =?utf-8?B?bVc3V080eURIOU9sRytKNWxReDRhdnU3NWJ1L2xWcC92SFNncmJpK1JQSk52?=
- =?utf-8?B?QjJkU1JCU3pwcW4va3prSzFwUjhKM1JvbTA1UkRONkVVZXNVcDM3L2JoSVNH?=
- =?utf-8?B?YktMQmRmTXdOYXNEQ2FSOFhhMkUzaUJhZnp3NytOc21UV2lqWFl4dWlmT2ZP?=
- =?utf-8?B?aE1QamNTemd2WktLdWhoeUcvWjEvQ1lPZFdFV0tIR1FZV2N6dFBOdHFoWG10?=
- =?utf-8?B?SS9idEszK3EzZ2p4UzhSenlncjI1dmNFcytqT3hGRFV5a3ZIdkI2RGt1NVNG?=
- =?utf-8?B?NDZZaGUrMC9DY1ZrdnhMSmpNRmNHTU1rU0lWMCsxTy91MHZ6TEpMN3pscTcr?=
- =?utf-8?B?ejhOZHJDT1BRMzFDUCtud25tZ2N0bGhjcHkwYnRtMXFaaS9UclQ1N0J1QTFI?=
- =?utf-8?B?eHo5enFYZEpNU3F4cjFzdFpYZFNyeGpET0d5QkZ5TElKMmxvN3dLZndNR1lN?=
- =?utf-8?B?Z2VLSFU0eVZkQnBYY1Q0dXZiVXV4RElPV1NveXJXMzAxT3dkTnZnRUJ3aU5P?=
- =?utf-8?B?Vmp2bytEbEJ1dDhnSS9VRERxYTRuREtkVnBxbjBCcXhjdnkyU0NaMDR3QjdD?=
- =?utf-8?B?M3FpV2J0c1ZrQVhQL2tQdCs0dlZpWFVuQlFYZzJLeTh2cWJkSmlOR21NcVY3?=
- =?utf-8?B?blBaUjU3VHNnLzdXRFJuUWlrNHBoQkx5QTJ1OFZOcU4yTmlnY2ZubEd1cW02?=
- =?utf-8?B?UkpsVU9wdUhHdmxhbHV6QlAvOW9XUS9aNlNvU1NuMFJwV085OW5mKzlWYjJO?=
- =?utf-8?B?T29TbGpheHpGMXlwODBBMFlGWEt1c1MvVHNLYjA2WEhNRUg4Nm1JTGdSVGFs?=
- =?utf-8?B?dS9WUG9sTjVZSGtCUlBFZm1uY3Q0RkdzS0NMMzVaNHo2TTVKNHA0TDN6Z3JI?=
- =?utf-8?Q?d6F/wFwXSpRcmKPCh0?=
+X-MS-Exchange-AntiSpam-MessageData-0: IVG28G9TKTGKi+vD7kn+UhZaruhchhDGnNg9AmajLoofBeaWVhdCbJ5ytbIIvJnX4IacLOppHvxPdtyDW0PyCczNuq2ZaL6tvOKh81oIUZACoHNdGo+woNfWD/9b8+XnsOVrnk/Ny1PAP/ZfEDmkF2Pz0+TUtbhkwHCTn71Y/G0G1qU8Oa6tRJhNhN0X5OK0Yq/ehytG7lycnf8jCNb0ugzuKgQzxl2Pl6K8vXdinY97UAbMh/03cYFnv7Z4OnCAMpIERKSyXXuYEtJLsoAP6v6DTctsMFoI1DzJ7Ygf2qiuQmoXUjPXjPMCpertoaV/9Wfnj9PwY6tbtA4nqARJdEUTBKVnXB89LKy5LXkIg2woWyAQhT0D6Fl/fGtdqz1sR1w/bby95x03Wezg9wBakGGETuWyb54MqesaJoOYY4NHvoVN7gyYXsaU2So/PJIC
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99fb1360-3f8e-43db-c750-08df08fa189f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:57:16.0354 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:07:08.7286 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ef127a5-24c8-4ae6-2c85-08df0903dbdf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NOzagI6xcTx+OFP56mmQVhynKG1uRtyPYNmXTj+YdypMAlIFGX3O06s3AlAoaB3+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB347562
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037BB.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6960
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,157 +112,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/2/26 15:25, Alex Deucher wrote:
-> On Wed, Sep 2, 2026 at 9:20 AM Christian König <christian.koenig@amd.com> wrote:
->>
->> On 9/2/26 15:06, Alex Deucher wrote:
->>> On Wed, Sep 2, 2026 at 3:25 AM Christian König <christian.koenig@amd.com> wrote:
->>>>
->>>> On 9/1/26 22:10, Alex Deucher wrote:
->>>>> GMC 9-12 use KIQ or MES for TLB invalidations to avoid using MMIO which would
->>>>> require disallowing GFXOFF.  KIQ and MES are management queues however and if
->>>>> they hang, they cannot be recovered by a queue reset since they are the
->>>>> mechanisms which handle queue resets.  Since using KIQ or MES will exit GFXOFF
->>>>> anyway, explicitly disallow it on the MMIO path and use that. Next, switch to
->>>>> using SDMA for TLB invalidations.  SDMA 4.4.x and newer have special packets
->>>>> specifically for this purpose.
->>>>
->>>> That packet was just introduced to work around SRIOV issues and proved to cause stability issues as well.
->>>>
->>>
->>> It was introduced because of gfxoff and having to toggle it to use
->>> MMIO.
->>
->> No, that was completely unrelated to GFXOFF. This also applies to HW where the SDMA is not even in the GFX domain.
->>
->> The problem was the SRIOV could interrupt the SDMA while it waited for the ACK and when the VF was scheduled in again the ACK bit was resetted.
->>
->> So a single packet was introduced which couldn't be interrupted by the hypervisor.
->>
->>> WIndows uses SDMA pretty much exclusively for TLB
->>> invalidations.  It's also what the memory hubs team recommends.
->>
->> That is rather interesting.
->>>> Since Arun now found that on basically all Navi generations the SDMA can hang while doing a TLB invalidation I have to clearly NAK this approach.
->>>>
->>>> In the long run we should do the TLB invalidations on newer HW completely with the MES, the SDMA was always just a workaround we should not push forward.
->>>>
->>>
->>> Well KIQ and MES also seem to be problematic as well.  See the thread
->>> from Denis about KIQ and his renoir system. There are also various
->>> reports of MES timeouts doing TLB invalidations.
->>
->> The MES is the only instance which knows the process to VMID mapping for user queues.
->>
->> The hack to read out the PASID->VMID mapping register directly from the IH is not really something we can use in the future.
->>
->> So the plan was to move all of that into MES in the near term. IIRC the MES even added a new packet for that.
-> 
-> Sure, this patch set retains the use of MES for pasid invalidation
-> where it's supported (navi4x and newer with new enough firmware). We
-> could try and get the new packet added to gfx11 MES as well, but then
-> there is still gfx9 and 10 which still use KIQ.
+MES owns kernel queue VMIDs (1..first_kfd_vmid-1) but does not program
+SQ_SHADER_TBA/TMA registers for them. Add infrastructure to let the
+driver program the first-level CWSR trap handler for these VMIDs directly
+via SRBM select.
 
-Navi 1x already uses the SDMA for TLB invalidations to work around a HW bug. We could trivially enable that for Navi 2x as well.
+Add kq_tma_bo — a pinned GTT BO used as device-level TMA scratch for
+kernel queue VMIDs. Unlike per-process TMA (created in amdgpu_trap_alloc),
+this is device-level and lives for the lifetime of the device. It is
+zero-initialized by the OS: the second-level handler address is 0 until
+userspace calls SET_L2_TRAP.
 
-My take is that when the MES doesn't work reliable for VMID specific invalidation (or rather VMID 0 TLB invalidations since we don't use that for anything else on Navi with kernel queues) then it won't work reliable for PASID based invalidations either.
+Add amdgpu_trap_program_kernel_vmids() which dispatches to a per-HW
+vmhub callback, and a new program_kernel_trap_vmids hook in
+amdgpu_vmhub_funcs for per-GFX-generation register writes.
 
-For GFX9 or rather Vega and MI* products I never heard that they had a problem with KIQ based invalidation and we have a *lot* of those systems in production.
+Required for:
+  - RADV graphics debugging on Vega/Navi/Steam Deck (Valve request)
+  - Consistent trap handler behavior when switching between kernel
+    queues and user queues
 
-For MI* products switching to the SDMA pretty much sounds like a no-go to me without very extensive testing, especially the KFD/SVM implementation will most likely go boom with that because some HW generations still use the VMID->PASID mapping read out hack.
+Suggested-by: Christian König <christian.koenig@amd.com>
+Cc: Alexander Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Change-Id: I0709e788835b69d3d492864de8d5c2d36d0f08c8
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c | 37 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h |  2 ++
+ 3 files changed, 40 insertions(+)
 
-Switching to the SDMA sounds to my like hiding problems without actually fixing them.
-
-BTW Denis Pisarev reported this morning that his symptoms are gone after updating FW versions.
-
-Regards,
-Christian.
-
-> 
-> Alex
-> 
->>
->> Regards,
->> Christian.
->>
->>>
->>> Alex
->>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>> If SDMA hangs while doing the invalidation for
->>>>> some reason, it's easier to reset the SDMA queue than KIQ or MES.  Finally,
->>>>> most of the TLB invalidation code between GMC 9 through 12 was identical, so
->>>>> move it to common GMC helpers and remove the IP specific code.  If the SMDA
->>>>> and MMIO pathes prove to be stable, the KIQ pathes can be removed in the future
->>>>> to further simplify things. SDMA 4.x could also be updated to support PASID
->>>>> invalidation via SDMA using either the new packet (SDMA 4.4.x) or via
->>>>> REG_WRITE/REG_WAIT packets (SDMA 4.0.x).
->>>>>
->>>>> Code is available on this branch as well:
->>>>> https://gitlab.freedesktop.org/agd5f/linux/-/commits/tlb_inv_rework?ref_type=heads
->>>>>
->>>>> V2:
->>>>> - Add missing hub callbacks in gmc9 hubs
->>>>>
->>>>> Alex Deucher (31):
->>>>>   drm/amdgpu/gmc9: disallow gfxoff around TLB flushes
->>>>>   drm/amdgpu/gmc10: disallow gfxoff around TLB flushes
->>>>>   drm/amdgpu/gmc11: disallow gfxoff around TLB flushes
->>>>>   drm/amdgpu/gmc12: disallow gfxoff around TLB flushes
->>>>>   drm/amdgpu/gmc9: set vmhub funcs for gfxhub and mmhub
->>>>>   drm/amdgpu: add a gmc flag for using MMIO for TLB flush
->>>>>   drm/amdgpu/gmc9: use MMIO for TLB flushes
->>>>>   drm/amdgpu/gmc10: use MMIO for TLB flushes
->>>>>   drm/amdgpu/gmc11: use MMIO for TLB flushes
->>>>>   drm/amdgpu/gmc12: use MMIO for TLB flushes
->>>>>   drm/amdgpu: add a buffer funcs callback for TLB invalidation
->>>>>   drm/amdgpu/sdma5.0: add tlb invalidation buffer func callback
->>>>>   drm/amdgpu/sdma5.2: add tlb invalidation buffer func callback
->>>>>   drm/amdgpu/sdma6: add tlb invalidation buffer func callback
->>>>>   drm/amdgpu/sdma7: add tlb invalidation buffer func callback
->>>>>   drm/amdgpu: simplify amdgpu_gmc_flush_gpu_tlb()
->>>>>   drm/amdgpu: add tlb invalidation method enum
->>>>>   drm/amdgpu: plumb tlb inv method in amdgpu_gmc_flush_gpu_tlb_gart()
->>>>>   drm/amdgpu: uplevel reset check in amdgpu_gmc_flush_gpu_tlb_gart()
->>>>>   drm/amdgpu/gmc: add new callback to lookup vmid to pasid mapping
->>>>>   drm/amdgpu: add a gmc callback for the inv semaphore
->>>>>   drm/amdgpu/gmc: rework pasid flushing
->>>>>   drm/amdgpu/gmc9: use SDMA for gart TLB invalidation
->>>>>   drm/amdgpu/gmc10: use SDMA for gart TLB invalidation
->>>>>   drm/amdgpu/gmc11: use SDMA for gart TLB invalidation
->>>>>   drm/amdgpu/gmc12: use SDMA for gart TLB invalidation
->>>>>   drm/amdgpu/gmc10: use SDMA for pasid TLB invalidation
->>>>>   drm/amdgpu/gmc11: use SDMA for pasid TLB invalidation
->>>>>   drm/amdgpu/gmc12: use MES or SDMA for pasid TLB invalidation
->>>>>   drm/amdgpu/gmc12: drop MES tlb inv in gmc callbacks
->>>>>   drm/amdgpu/gmc: add helpers for various tlb inv functions
->>>>>
->>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c |   2 +-
->>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 486 +++++++++++++++++++----
->>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  33 +-
->>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  18 +
->>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |   2 +
->>>>>  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c |  33 ++
->>>>>  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c |  33 ++
->>>>>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 202 +---------
->>>>>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c   | 207 +---------
->>>>>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c   | 250 ++----------
->>>>>  drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c   | 225 +----------
->>>>>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 135 ++-----
->>>>>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   |   4 +
->>>>>  drivers/gpu/drm/amd/amdgpu/mes_v12_1.c   |   4 +
->>>>>  drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  |  33 ++
->>>>>  drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c  |  32 ++
->>>>>  drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c  |  32 ++
->>>>>  drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c  |  32 ++
->>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  49 +++
->>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  49 +++
->>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  49 +++
->>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |  48 +++
->>>>>  22 files changed, 943 insertions(+), 1015 deletions(-)
->>>>>
->>>>
->>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 3ca187f5ade8..5624a5ab5c62 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -115,6 +115,7 @@ struct amdgpu_vmhub_funcs {
+ 	void (*print_l2_protection_fault_status)(struct amdgpu_device *adev,
+ 						 uint32_t status);
+ 	uint32_t (*get_invalidate_req)(unsigned int vmid, uint32_t flush_type);
++	void (*program_kernel_trap_vmids)(struct amdgpu_device *adev);
+ };
+ 
+ struct amdgpu_vmhub {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+index 31f653ec3fb1..0e0aeea0aa2d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+@@ -256,8 +256,23 @@ int amdgpu_trap_init(struct amdgpu_device *adev)
+ 
+ 	memcpy(ptr, trap_info->isa_buf, trap_info->isa_sz);
+ 
++	/*
++	 * Device-level TMA for kernel queue VMIDs. Pinned GTT — not subject
++	 * to eviction. Zero-initialized by OS: second-level handler address
++	 * is 0 until userspace calls SET_L2_TRAP.
++	 */
++	r = amdgpu_bo_create_kernel(adev, AMDGPU_TRAP_TMA_MAX_SIZE, PAGE_SIZE,
++				    AMDGPU_GEM_DOMAIN_GTT,
++				    &trap_info->kq_tma_bo, NULL, NULL);
++	if (r) {
++		/* isa_bo freed explicitly; trap_info struct freed by __free */
++		amdgpu_bo_free_kernel(&trap_info->isa_bo, NULL, NULL);
++		return r;
++	}
++
+ 	amdgpu_trap_cwsr_init_save_area_info(adev, trap_info);
+ 	adev->trap_info = no_free_ptr(trap_info);
++	amdgpu_trap_program_kernel_vmids(adev);
+ 
+ 	return 0;
+ }
+@@ -267,11 +282,33 @@ void amdgpu_trap_fini(struct amdgpu_device *adev)
+ 	if (!amdgpu_trap_is_enabled(adev))
+ 		return;
+ 
++	amdgpu_bo_free_kernel(&adev->trap_info->kq_tma_bo, NULL, NULL);
+ 	amdgpu_bo_free_kernel(&adev->trap_info->isa_bo, NULL, NULL);
+ 	kfree(adev->trap_info);
+ 	adev->trap_info = NULL;
+ }
+ 
++/**
++ * amdgpu_trap_program_kernel_vmids - program first-level trap handler for
++ *                                    kernel queue VMIDs
++ * @adev: amdgpu device pointer
++ *
++ * Programs SQ_SHADER_TBA/TMA for kernel queue VMIDs (1..first_kfd_vmid-1)
++ * via SRBM select. MES owns these VMIDs but does not program trap handler
++ * state. Called after trap init and on GPU resume via setup_vmid_config.
++ */
++void amdgpu_trap_program_kernel_vmids(struct amdgpu_device *adev)
++{
++	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
++
++	if (!amdgpu_trap_is_enabled(adev))
++		return;
++	if (!hub->vmhub_funcs || !hub->vmhub_funcs->program_kernel_trap_vmids)
++		return;
++
++	hub->vmhub_funcs->program_kernel_trap_vmids(adev);
++}
++
+ /*
+  * amdgpu_map_cwsr_trap_handler should be called during amdgpu_vm_init
+  * it maps virtual address amdgpu_trap_tba_vaddr() to this VM, and each
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
+index 6d4664469bad..326910f1d94d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
+@@ -48,6 +48,7 @@ struct amdgpu_trap_obj {
+ struct amdgpu_trap_info {
+ 	/* cwsr isa */
+ 	struct amdgpu_bo *isa_bo;
++	struct amdgpu_bo *kq_tma_bo;	/* pinned GTT, device-level TMA for kernel queue VMIDs */
+ 	const void *isa_buf;
+ 	uint32_t isa_sz;
+ 	/* cwsr size info per XCC*/
+@@ -70,6 +71,7 @@ struct amdgpu_trap_usr_addr {
+ };
+ 
+ int amdgpu_trap_init(struct amdgpu_device *adev);
++void amdgpu_trap_program_kernel_vmids(struct amdgpu_device *adev);
+ void amdgpu_trap_fini(struct amdgpu_device *adev);
+ 
+ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+-- 
+2.34.1
 
