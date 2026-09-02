@@ -4,150 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B5B6C624D4
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 07:12:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B19FC61DFD
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 07:32:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8B4110E463;
-	Wed,  2 Sep 2026 07:12:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6696510E496;
+	Wed,  2 Sep 2026 07:32:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sxEbE6aL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2FJqRFOM";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HafhIEjf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="La9YgtCa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pjuT5mRy";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C944810E463;
- Wed,  2 Sep 2026 07:12:00 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 02CFB21E41;
- Wed,  2 Sep 2026 07:11:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788333115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=59OLglZdllYKmlv7gAPKZYW3ffj6PV5vGZK7KTBTC/w=;
- b=sxEbE6aLw1h1F+0zA7kdoK2d+tQejyfkOsM3xVbvRRabG+UJPSq9q+rB1OGI3MWizG00/Z
- AJG1jlvCzxhN+zmk0jWmAiyA4O7T1DEvDun3XJyGYoy2vEnx1eywInKoNkUw0ZiaoWxl77
- /twJd989yyvtJq8YihnIOqDxGWHUiXY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788333115;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=59OLglZdllYKmlv7gAPKZYW3ffj6PV5vGZK7KTBTC/w=;
- b=2FJqRFOMUlXUGzExmDjZKFF6m2KLzUsG08bsDot32jSHHq0KRpXKG6hlOSD2hIiNuPeCTp
- ibeHp3QruXMBC2AA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HafhIEjf;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=La9YgtCa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788333111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=59OLglZdllYKmlv7gAPKZYW3ffj6PV5vGZK7KTBTC/w=;
- b=HafhIEjfR/0/2xNEvZ0T9NfR6k8/h1Gk4eCxGSasEPHVOoX3jg9Kg4D94qHZm2QB1WseLQ
- wg4uy/sHSgVDJGFQOvuwTBty5RX5Z+/s5KpO+XtqQAiEOKwWWb6/Qj/xrK5qCnBgGT4yac
- OhfqRtfFFVCLJByLgpHLPgjPFeJG+ro=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788333111;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=59OLglZdllYKmlv7gAPKZYW3ffj6PV5vGZK7KTBTC/w=;
- b=La9YgtCas/0V6IMSVPLa23/xT+vXryZg5+kh1pkhZz5WIqEVeSW48MfJh411T5WgfteI6b
- Q80x2PoOMPLBhlCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4063B13736;
- Wed,  2 Sep 2026 07:11:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id e4BcDjbMl2o9WAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 07:11:50 +0000
-Message-ID: <effc093c-646d-451a-aa9a-4ee0334d75ae@suse.de>
-Date: Wed, 2 Sep 2026 09:11:49 +0200
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 628E610E496
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 07:32:27 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-c2530cabcf4so103254266b.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Sep 2026 00:32:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788334346; x=1788939146; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ntYqCiUGvFKb34I7pd2sH6Ev2OxM+HRkEJ74Nxn2uc0=;
+ b=pjuT5mRyVblcfyDCGoefaQ6sAS33OQl8wyElTftywWSVwjAyBVIOijRug+mcFp0TvB
+ sfRCIvRXxIt5GRekD1ZWtWnoY9kab/8z+e5cYWHIMVA55/aPiqX5XtUT4nq51sqBqwKl
+ /aJKe3yHqphq4bWNh/zDLueoCD4ANTQoYJbJb2a0fvxwhIPEO/4/auoqbNFTtWFf6A46
+ VGTxW13iEi8HjgwEFe7v+R0MktK+s6VDkfYwB5Iwghu+JoCi1M0QtryGGk3q0A8hlZLx
+ dxk4cRibn7qgmdJaN688/EID9DuaeCgSnGsvDAMPWx+ADcvBlFZBjmniwYNv4JZcWuTQ
+ vfsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788334346; x=1788939146;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ntYqCiUGvFKb34I7pd2sH6Ev2OxM+HRkEJ74Nxn2uc0=;
+ b=YBb4Yy2/hyKU3B9IV2uhWZp7PnWFQ60wnlrLuX/kyxLkQaA6QCtV46N6nQHGO+3ZE1
+ lFp30ommyY6J2VpC9K3D3OFSyETf6fEbUZhXNSI0E8y+3k0fyIFB5tkxl7ZxONJ8z7pR
+ uPpScpyZOq+lLtRaj43xsPIZVAGCQy7pXpEeXUEA407pDvb5lh5WOh6mwJIYyp/Tly++
+ viqhAo0z2TESe3r+X27R7ODHNdlrm593nWkDGALf27iXcMNggmlqkS9+SL0no8uh/HdK
+ qpCatlebZrlQOZBkfp7tbz9Ryvns/zIbBirtw6GP7mIfKSKdbQxWIzGFz4XrE/0ZFDky
+ 9OAw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy6o2EsGwuYdmEZrqP7npMf+eT14tKbA1XjwFO8fqTqpKeFVyfbl5iDKxd7dwcLqT6UJ/rkEhpP@lists.freedesktop.org
+X-Gm-Message-State: AFuF++khr2oNXMifs6xX31qBxtxTsLfzUSkQZSvzO6gZYsEPsWPMhzrh
+ k4362N+uff9YaBfQ1BTXRIfjyYTr/V6QfEotm18Yjl4YSNGWkni8TtBu
+X-Gm-Gg: AYBFou1eQdJ3wTUrBd2f8kLt56qPRu4qOv+IV21Q58nYd6RXTX1OTvsWlQkpjOB5Ubp
+ HG1nJ6whhTwsXKGNe08ptT7vySJNNS2uXm8D6F5n7v3c/oeagQbItNewYB3vb2UjgMB9DrP8u2l
+ QnQPos9yYMJcmvByEyTAKq73nMhfrleMN7/4OkLHf7xmp3fEGxUj4uqeF/UzayMP+KMpO2eB60A
+ BClPRvEUZofaC63mANhGMCodWbu5IpzO7seEsmn+9Ze77CMMAmH8G43etA9qT+cwVcI665KwU+j
+ mPpcS55JKtTsauElS7chRwv0p5AGyKnWpbv9wBZJ7a/3ikWxu3Fnhz7X+Gmgx/UO0rSVw6TFQne
+ emDHGFp1VthqRD8AXXpe0OjWa6BKv4ydcyPwACLAaGYWh3tChhZECH0CHdttYEGRThOwGYU4CTd
+ X8s7O1XTpjBtWBQE++JPW62DuDd2T9HJJCdkOUQRwcq8rwbNHGj2kRwRn3oZO58PqIfJWvzP0Eo
+ GwbaYZEIku9gMqkJeCa243JQkR/OmHihxFAkIwODXlXWmGM8LfF6AXse9Cr
+X-Received: by 2002:a17:906:6a03:b0:c24:d6f0:1223 with SMTP id
+ a640c23a62f3a-c25d5474dfdmr140879566b.12.1788334345387; 
+ Wed, 02 Sep 2026 00:32:25 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c25d041d286sm78078466b.55.2026.09.02.00.32.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Sep 2026 00:32:24 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ George Zhang <george.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+Subject: Re: [REGRESSION 7.3] drm/amd/display: single-frame scanout corruption
+ on DCN32 at 120 Hz since a637a140ab86
+Date: Wed,  2 Sep 2026 12:32:22 +0500
+Message-ID: <20260902073222.206801-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260829010525.29935-1-mikhail.v.gavrilov@gmail.com>
+References: <20260829010525.29935-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/13] drm/crtc: Convert all drivers to
- atomic_create_state and remove reset
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Paul Kocialkowski <paulk@sys-base.io>, Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>,
- Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>,
- Xi Ruoyao <xry111@xry111.site>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Iker Pedrosa
- <ikerpedrosam@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 02CFB21E41
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TAGGED_RCPT(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[26]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,amd.com,sys-base.io,iki.fi,ideasonboard.com,igalia.com,kernel.org,iscas.ac.cn,loongson.cn,aosc.io,xry111.site,collabora.com,gmail.com,pengutronix.de,oss.qualcomm.com];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url];
- RCVD_COUNT_TWO(0.00)[2]; DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,93 +94,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+I have to correct my own report.
 
-I've gone over the remaining patches again and it all looks good now.
+The 90x figure I gave for a637a140ab86 does not hold up.  Since sending it
+I have measured five more sessions, and the rate turns out to be controlled
+by something other than the kernel.  Please do not spend time on the commit
+on the strength of that number.
 
-Best regards
-Thomas
+What the artefact actually does is sit in one of two states, and the state
+changes during a session.  All figures are events per 1000 eligible frames,
+where an eligible frame is one the detector could have judged - the method
+is unchanged from my first mail.
 
-Am 31.08.26 um 17:34 schrieb Maxime Ripard:
-> This is a follow-up to the plane reset removal series, and part of a
-> larger effort to remove the reset hook from all KMS objects.
->
-> The CRTC reset hook is overloaded: it is called both at probe time to
-> create the initial software state and during suspend/resume to reset
-> hardware and software state. These two roles have different
-> requirements, and the reset hook is not fallible, making error
-> handling difficult for the initial state allocation path.
->
-> While reset has the semantics to reset both the software and hardware
-> state, the vast majority of implementations and all the helpers only
-> reset the software state, making them equivalent to
-> atomic_create_state in practice. The atomic_create_state hook makes
-> this explicit: it only allocates and initializes a pristine state
-> without any side effect, and returns the state pointer or an ERR_PTR
-> on failure.
->
-> This series converts all CRTC drivers tree-wide from the reset hook to
-> atomic_create_state, then removes the reset hook from struct
-> drm_crtc_funcs entirely. Two drivers (tilcdc and loongson) had actual
-> hardware reset logic mixed into their reset hook; those are moved to
-> CRTC creation instead. The conversions were done using a combination of
-> Coccinelle semantic patches and manual adjustments.
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
-> Changes in v2:
-> - Fix indentation in logicvc
-> - Fix hardware reset at probe and suspend for loonsoon and tilcldc
-> - Fix state creation for amdgpu
-> - Rebase on current drm-misc-next
-> - Fix commit message for st7920
-> - Fix merge conflict for mediatek
-> - Link to v1: https://lore.kernel.org/r/20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org
->
-> ---
-> Maxime Ripard (13):
->        drm/crtc: Introduce hw_reset helper hook
->        drm/amdgpu: vkms: Switch to drm_atomic_helper_crtc_create_state
->        drm/logicvc: Switch to drm_atomic_helper_crtc_create_state
->        drm/tilcdc: Move hardware reset to CRTC creation
->        drm/tilcdc: Switch to drm_atomic_helper_crtc_create_state
->        drm/atomic-helper: Remove drm_atomic_helper_crtc_reset
->        drm/amdgpu: dm: Convert to atomic_create_state
->        drm/loongson: Move hardware reset to CRTC creation
->        drm/loongson: Convert to atomic_create_state
->        drm/mediatek: Convert to atomic_create_state
->        drm/sitronix: st7920: Convert to atomic_create_state
->        drm/atomic-helper: Remove __drm_atomic_helper_crtc_reset
->        drm/crtc: Remove reset
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |  2 +-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 28 +++++++++-----
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h |  2 +-
->   .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  | 20 +++++-----
->   drivers/gpu/drm/drm_atomic_state_helper.c          | 45 ----------------------
->   drivers/gpu/drm/drm_mode_config.c                  | 17 ++++++--
->   drivers/gpu/drm/logicvc/logicvc_crtc.c             |  2 +-
->   drivers/gpu/drm/loongson/lsdc_crtc.c               | 30 ++++++++-------
->   drivers/gpu/drm/mediatek/mtk_crtc.c                | 18 ++++-----
->   drivers/gpu/drm/sitronix/st7920.c                  | 12 +++---
->   drivers/gpu/drm/tilcdc/tilcdc_crtc.c               |  7 ++--
->   drivers/gpu/drm/tilcdc/tilcdc_drv.c                |  2 +
->   include/drm/drm_atomic_state_helper.h              |  3 --
->   include/drm/drm_crtc.h                             | 12 ------
->   include/drm/drm_modeset_helper_vtables.h           | 14 +++++++
->   15 files changed, 94 insertions(+), 120 deletions(-)
-> ---
-> base-commit: 07c66ce1e6446f5cc6a4ace99a8d46880f45c527
-> change-id: 20260709-drm-no-more-crtc-reset-14a4d5bc8d41
->
-> Best regards,
+  60 Hz                       0.0000   0.0045   0.0252
+  120 Hz, quiet state         0.0308   0.0372   0.0400
+  120 Hz, excited state       0.5208   0.5739   0.7115   1.3027   1.9153
+
+The three groups are about a decade apart from each other, and the kernel
+does not sort them.  0.0308 is the run on the kernel with a637a140ab86
+reverted; 0.0372 and 0.0400 are runs on unreverted kernels in the quiet
+state.  Those three are the same measurement.  My original pair simply
+caught one kernel quiet and the other excited.
+
+Worse, every kernel comparison I made began with a reboot, and a reboot
+resets the state.  So the bisect was measuring how soon after boot I
+happened to load the machine.  I no longer consider the attribution to
+a637a140ab86 supported, and I cannot say from my data whether this is a
+7.3 regression at all.
+
+
+The two transitions
+-------------------
+
+I can now move the artefact in both directions, but only as bundles of
+variables - I have not separated what inside each bundle does the work.
+
+Excited by: a long session of a heavy 3D game (Dying Light: The Beast).
+Measured twice on the same kernel and refresh rate: 0.0372 -> 1.3027 (35x)
+and 0.0400 -> 0.5208 (13x).  The effect outlasts the game by hours and
+decays gradually.  That bundle contains sustained shader load, large VRAM
+allocation and eviction, GTT traffic, clock and power-state churn, heating,
+and fullscreen presentation.
+
+Calmed by: about three hours spent at 60 Hz, after which returning to
+120 Hz gave 1.9153 -> 0.0400 (48x), on an unreverted kernel.  That bundle
+contains two modesets, three hours of elapsed time, half the pixel clock,
+a different pixel encoding (this display uses YCbCr 4:2:0 at 120 Hz and
+4:4:4 at 60 Hz), different watermarks, and an idle GPU.
+
+Also calmed by: a reboot.
+
+Which single variable in each bundle matters, I do not know.  A short
+120 -> 60 -> 120 toggle would separate "a modeset" from "time at 60 Hz",
+and a compute-only load would separate "GPU busy" from "memory pressure".
+I am happy to run whichever of those would be most useful.
+
+
+What did survive
+----------------
+
+The dependency on frame rate is unchanged and now rests on four
+independent sessions: 120 Hz and 100 Hz show the artefact, 60 Hz is at
+least an order of magnitude below the quiet 120 Hz state.  Forcing YCbCr
+4:2:0 at 60 Hz, so that the encoding matches 120 Hz, gave 0 events in
+1,290,588 eligible frames, so this is frame rate and not chroma
+subsampling or link bandwidth.
+
+Swapping the HDMI cable made no difference.
+
+And one negative result that may be the most useful thing in this mail:
+DTN snapshots taken seconds after real events in the excited state are
+byte-identical to snapshots taken in the quiet state - 195 lines against
+195, differing only in the scanout buffer address.  Watermarks, dcfclk,
+dispclk, dppclk, fclk, HUBP and OTG underflow, vtotal and the DRR select
+bits, DSC, RQ, DLG and TTU are all the same in both states, at a fifty-fold
+difference in artefact rate.
+
+So whatever holds this state is not in anything DTN exposes.  Is there
+something in DMCUB, in the memory path, or in link state that could persist
+across a game, decay over hours, be cleared by a reboot, and leave every
+register in the DTN dump identical?  That is the question I am stuck on.
+
+Thorsten: the regzbot entry points at a637a140ab86 on the strength of the
+bisect above, which I no longer trust.  I do not know yet whether there is
+a regression here at all, so I would rather not close it as invalid; please
+handle it however is appropriate for an entry whose attribution has fallen
+apart.
+
+The GitLab issue has been updated with the same correction:
+
+  https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
+
+Sorry for the noise on the first pass.
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+Thanks,
+Mikhail Gavrilov
