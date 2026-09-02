@@ -4,103 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C5F9C624D4
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 15:21:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86241C624D4
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 15:29:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C15A910F286;
-	Wed,  2 Sep 2026 15:21:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECF3510F276;
+	Wed,  2 Sep 2026 15:29:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kCjSaN4N";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yeXiwRmP";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011031.outbound.protection.outlook.com [40.107.208.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1D6A10E4F6;
- Wed,  2 Sep 2026 15:21:33 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010017.outbound.protection.outlook.com
+ [52.101.193.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EBEF10F276
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 15:29:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q+CgZElLkXqo1UIOck8APBybeScIpYVXdDQj3EF2HHmY/XKMGRxi5vKjZ1yhf+JeSChfUA3b71hff5/l00bymrJ/3vMqT7hMZ3RHfReKl2SXFE9U9OWejW5vcBicHWqqfm3/Loa43QPUFganxFePo5bL/+lTPdHO6BMzWZpiioadYuXTFZ8QTWEvVhSzvriA32SHWrnf7fYqFvRRqd/W/N86qx6v/3/0AXkAnrbJE8F1oRUYOn0NSX2GMyog7VdstzHdczpK/NPrWIFPWXkdp73FWvbm1CY0X2DkcLeDr3kcuNcdR1Y/oZ/jpusPSwNYqCv8wfu5LyHyjS9bYOT2yA==
+ b=W3jgyhYXMdHeLG8eCs8XVQ6ObdenO0OHiQe510eVzzaaMgc5KjUkjgSeiMTCMjIu5r94il+UcdBNVhNpKoE02+gwVV1dVadixrz7G3ZTN9SCQqsaqd/ZpguUBEFePiycfjU75pM85sYtVoVGxlyULsUAaOH7yFpwJGu5V61Eg9+FpPwyBcsIMr4FaiYM50YLrqLu7EkxmU9hZQGOZDPL7nIi7U1HeGy7gTJNIEWjghZ9utXlcy67aNS/uK1OkWAJN0YPllPBcqBnCIaR/anUT3zO8DWJ5xRsE6TdExWJCTbnBHFW+81UgeTMOjUmxhKqRi3IEYooSL0HMYERDJHWhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m7J9RbAyb9b+wmqDNTAs9iimsrindBQV8/v3l6KbZlk=;
- b=df6QSbr3lAb33XBrR3ZnFPWvUrsTcRWSe/S94FnDLYwzgEzVN1svlJpPsvxSwo4VhV6bOtuJxikhabpSg6FITR7/7nVEBM4NAXzftCIzFbdw5Haq7UVzN5sNB7mW5m6y3g5i366uZ/r3T/ZiHPdxokaTccNSuIHjsRuuMw0Mz1JoZ9oFzIfkDN+rI1QRCcZsLp+7M2pfeBCgKzZg/VuMf0a07Jt1ff/lYYb+LOqqibFUBvCp3/0K5sAH7Cs1e9t1tzPaiPi4At+wIg5fOlkgmtvAs+BCS+uMU8q6NzcTH+TWqxENUGmHbekN5myVAmTbGxGVaEOFyc1sScuEEZAKLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=V/9/gnQ7MuFqCcJf9b3XCLH2Pd5jn0UOf0xHQIWTV5g=;
+ b=CQ3rh6UvIUAAnIEf+SlBXHPpW0vjvyPIl7zp+6V+QaU2b3a1Hu16JAW1yX+NPnjBVUSYSY3dKBoSG8GEFxQxNxCpUqlu6LiuD2IbxNY+A+ER678NsZnCSMK4UeZ6CPueFV0pXiJZd8GoYt3ReQ3vhj4HOLvP32Wr7ywO6pz0YJNKW/YwXfYmHY0DqTVUlL4P2WbFoHNcUs+l+DNTaTJV3Nz/dge4ZR+ard6wpqi7GEKrhuHz5gpURxAhfOl0jFq8ElY1KKyGZu41f0apdWDOhqFlh3IARa8CR+HPQVQYCuGz7C0Q3xI+9I3ssLC/r2DlRuDZlLM8HSa/96mmJ1Laxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m7J9RbAyb9b+wmqDNTAs9iimsrindBQV8/v3l6KbZlk=;
- b=kCjSaN4NSKiPBsAUkcqQYcJjdEFvEf/EZ3K1qKUuZI8d/VMq9/9hZrbAWUrMrJigh/qTU2WVSSE+72Bj/uTNFhvkCMhDhQ7hnUi9lkElmOCsNNQMEl8MGQVe+K3cKbcEcu13UDy+IaBwfiFqBgBx5D7zgUrZ8kK/Yg/22NFTZXg=
-Received: from SJ0PR03CA0249.namprd03.prod.outlook.com (2603:10b6:a03:3a0::14)
- by MN2PR12MB4046.namprd12.prod.outlook.com (2603:10b6:208:1da::23)
+ bh=V/9/gnQ7MuFqCcJf9b3XCLH2Pd5jn0UOf0xHQIWTV5g=;
+ b=yeXiwRmPaXs223Hq3YRjuU2D+jdAMOYedutho+bCxfTtRuzykqDpIqSfTgYCTF7WzMiNjzh/cQwdo7OXdWQMdnCVIgk2OzpfigZAdk3Effdb7mz2jSbUsjBsoT4Z1NtvM6RCur689VI/LACfMcfNGVSSCcRvUaiahDWd2EUyaRA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by IA1PR12MB6410.namprd12.prod.outlook.com (2603:10b6:208:38a::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 15:21:22 +0000
-Received: from BY1PEPF0001AE1D.namprd04.prod.outlook.com
- (2603:10b6:a03:3a0:cafe::88) by SJ0PR03CA0249.outlook.office365.com
- (2603:10b6:a03:3a0::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 15:21:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE1D.mail.protection.outlook.com (10.167.242.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 15:21:22 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 2 Sep 2026 10:21:17 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: <matthew.brost@intel.com>
-CC: <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v7 4/4] drm: Add per-signal compare functionality to
- drm_user_fence
-Date: Wed, 2 Sep 2026 20:50:49 +0530
-Message-ID: <20260902152049.183685-4-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260902152049.183685-1-srinivasan.shanmugam@amd.com>
-References: <20260831134539.112690-2-srinivasan.shanmugam@amd.com>
- <20260902152049.183685-1-srinivasan.shanmugam@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ 2026 15:29:04 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 15:29:04 +0000
+Message-ID: <ae477cda-c0be-4a26-8aa4-95a836500e7c@amd.com>
+Date: Wed, 2 Sep 2026 20:58:59 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/2] drm/amdgpu: Add kernel VMID trap handler
+ infrastructure
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20260902150656.183333-1-srinivasan.shanmugam@amd.com>
+ <20260902150656.183333-2-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260902150656.183333-2-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: MA5P287CA0191.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b6::7) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1D:EE_|MN2PR12MB4046:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c0e5264-a0fc-4bd1-37ba-08df0905d88a
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|IA1PR12MB6410:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0db18850-96db-49e4-9830-08df0906ec15
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|6133799003|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003|5023799004;
-X-Microsoft-Antispam-Message-Info: bjsBSufGa8pV9UbOis8xO3n5j3UKdnoClqez2OwsDnzIWSYxtTGReSr/oQej5TkjCpfXIB5LkXipFilYNRwelPLQ5A0xXu2+8pumEOM1ou2YgxenR7SGPpW36e+NynRhXYdQBPxW1ODF0n9S7520IASw890PUBL0oi0TGPcA6P4KyBt8O5v5Ud5vBb7vS5vdoTYq5TTCo35WcbwziAmA9muKl7ZTEH0Mj165gek19AbDCKKXCPfH/XxLswNCrdGWmP4FGAfD+SA/6AUDSrWwp9QtW8S+/eZOgm3h3Z9qjJR1IPHtaCB9NWnOzpZFTmCyTgZSFqrd96q3+FwQ0BCCLnQ+zvMMAccanQ1J/A9DhwVSjlwmj4meONc2HJ03lRd4YThd9Yo5FBhWD7gebyMbx4CQ3hEqsgrk3Vn0yjVUgVMIjJoyiuGB64qNT1QkRNe0fHJJRY8OBhOtn/Ez5sU+NTSno11/gpexh2l0CjnTf+1gfMb31+ujVOd8WLnwNw0BFxjQ+mThQ3Ae5EcdQ4zj83Y/72rp7N576XdgHOadJHbQZAbJrrS8iGqk1VdAg77UmxXWZ/gaZxW0kAfVNNXfL7qU26rdQCJgp2ZlDbfQAORq5QyLht0HHEX6TSj3SfV443nFw1DUSJ17X+anjPIk5iqo2WfbxY6cuVC9nJ9rFNTZWD3bKHb4oGOacJJDVRiYn94Vs8VnS3I9FTlfb47Dug==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(6133799003)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(5023799004);
+ ARA:13230040|23010399003|376014|1800799024|366016|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 9ecpjcwvGlTx3xBbw8iWa/IuFZ9bPLnMVVOeLz82622BJvQLIbr0oaw1nrxMiHUgpfGaAcHUplKTtiRL5mro02SntouLNbTUogJJ5s1UzP4lFd4a/AqTJwh2xlYuw7Lzrv6IXoDWj815CZ2HdAKTUaADPVbodYiCYwN+CBvQR9Yygvb74la1nzdluzkq8zmuAlnNjWAgYMOqc+w4BTEhS1iiRmcKg0/xBzklhzqH5x0rz6OXbxy5mfGuzjqtTYu8tRyb35Q6eOUcThde477Pl9TBUhV27oKWo/wBlnIszOIIdi8K/F3dOAwhc6awd/N7DxXQAGDAUFI8fHLXunZDCv/6Y3mxBtTBHEyI3ZqJhWE0gdZ7VyYzJyx7jl8zfcctXa0kp3OCUW+G7967BsroqTwBAWb98sYNHOZCoErtAE63BAXKBIrF16E8gTbg0kNdv8RVbL/5ps5eufj4JHMD7Uf/TPbBR7c/pBbPrit6RtfZATrtt2b+s+OkbXpuUQeuaBz+fFixqSQwTJGR35SqSott55Owe7clmYiVQFDSkqKwaz6O5K0+9p5dugB39dZKJYCkPgug4HmzVxHXL0gyzIF9/XvCtlDs24m+LI2pea2djK71LeBXVDM+VLBABl0m+Djs/89pJm6pSACZ7xqUEyoaBDqkES404ShDmfRlQtM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 9S7aZa6rJsUKdnvhTAY2+eImcYgX0MLLhjhMAmi9L+RdKWVl/U7ynpV1T+nFtSFHEnOsvzTP/ZtovVApOns+WXd/jlVoaYm87rZd6g1heS7mZX97d/c0U5hBX7F+c3ONx2lhA+obKp8qmbtLRNpkStra4fZJaGlfhPCbKewbbupT4gRYraTHeDJ3pi4/9nienzaLz0P3NO5cHlwJ+gT7+F/FQJCjwwJAN2jOrgHkGSCl/zO4kM+T5FD0Sk+9pFj2Muec3+nsG6XrSPpVByIqt5rRQFMRXiQrA3a00F0oUqbljuKOKmMe3nwiXjLUdFeY4lWU9sJQDQF+5VLDaAn4jdQv1wUhUOwwW90qFdChlxtSuq9TbxeB4lbFocQXXqtInK6BfOvhCycf8W9AalVZEw6hJTvOrhtc8ds9AaBmSG270Q3UBMI/V/4Cj1FjzlfR
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dVIyQlYwSFdXS05wWVdxdHcwVGlMSjRhMzVBN21uRlNHekxqUERTRnVBQUV4?=
+ =?utf-8?B?SEVsaDhxZVdJT1M0cExUWitVL3Nvb3hnMjZuSmhGMkR0aGdNM1BBdFZjNkZK?=
+ =?utf-8?B?RSsxVGxlYmdRRTI5SzIwekJsMjJXa2xzdkFVRitrSGprcTh2U2E5RTBiRDFi?=
+ =?utf-8?B?cDRtUUQvWmgyQ0dvYTJEVm9GbDJIejNIVmRKV29JWWxkaEk3dWxrQnRwU2R3?=
+ =?utf-8?B?VVJyVjAzZzRYZ0kwWGN3K1pYekl1MEhxaElYWXdEUjQ1dlJWSEdKRS8wOW5o?=
+ =?utf-8?B?ZDZqVHQ5V0NxcEpLeUVIT3hhME5vM28xVGtQZHZ0UGNUb296SXpBQTlHQ0Yy?=
+ =?utf-8?B?RFM2dHZBb1ZTV0FyTjcrdnVqUS9ZZldYS2VjaFR1RHRiclFlSkpOb042bWJF?=
+ =?utf-8?B?eWUwTU1TN3pRdU0vYXk5RUg0R0dPa2N3cm1GWEJJUjJnYW5vR1BSbVhXVGNu?=
+ =?utf-8?B?dmJkZi9pNWtiRFZHbFZQZ2Eyci9nT213YjY3bW12QmE5MWJKS2gyejFHT01n?=
+ =?utf-8?B?aVloZVo2ZDQraHI2amhMeEF0OXBEc0tNcFVSVDRSajZVUGdhR3RSTUlRbXZL?=
+ =?utf-8?B?Rkh0NDVNWFR4eXg3MXFlcHpYMGZNTXRTdUxCQmhvaklJWEdpRmJKcjg4b0Ri?=
+ =?utf-8?B?c3J1Qm1QbHBiZnFJMTh5TUJ4NisyUTk3WXVIYXFjRVM2Ung2UFQ4V0UzOEdo?=
+ =?utf-8?B?ZTBHeURzTVpjUEFwQVdFaWl2VWhoajcyQVM1K2pjdFBZUDhiMEhybVRFcHNn?=
+ =?utf-8?B?TXVpdDFJbStmaUNTVTI4d0NIWVlCQnlTcFhVVGgxS3luVjB6TXJmSlJHMnRI?=
+ =?utf-8?B?VkZvMGtXNjQxR2oxamxrME0vRk92Vit6NXdFNTB4UWdlZE9qQ2l6bExoOERp?=
+ =?utf-8?B?Z29zZ1JMT3BXNkdNM3BtUFU2SnVmcVBlWTJRYnJRWmtwSnF2SkhVeUwxR3c4?=
+ =?utf-8?B?cm5VWUdLSThVNnBkWE1LT2ptLzgwSmV2SkZYZGt0WnY2ckNFR1NOUnpCSVp2?=
+ =?utf-8?B?M1RmSzR0NFE2VmJkTWo5V2xrUWw0dFdUSmtiNVpOSTE4ZW9kRUZXMzhkTWhp?=
+ =?utf-8?B?OGJVSXBtU3A5SmR2amhQMHh6d1Y4MUF2Yit5SUJFazlObExlMUwrWllIZzBq?=
+ =?utf-8?B?WnkvdEVBOGhUMHNuWHhZSkRaa1hsY2FSdVphVmVtSmNDN05Na29oN1BSMGFj?=
+ =?utf-8?B?Qk1lRkhnOTBoaEN3QnNGQU5uTC8ybnJLZWdkUE1RVXVSZEFUdTRRU3Q1K1pv?=
+ =?utf-8?B?UXl4L3RvcDZTaU01ZGdFZ2FyY3Z0b3A3ZWZLZmJKVFBDREFBdWkxNXpsTHZw?=
+ =?utf-8?B?bkRZazFHOStaYVlPeGlaY1ZISS9xYUxHcSsyeVZRV3g2ZW1lYmxUQjVlUmtt?=
+ =?utf-8?B?NEhGVkdTekJWRXVVVUZWanhDWXJtem16OS9qZW45bHVIVGV3Vy8rRkVNVUYx?=
+ =?utf-8?B?VDg4aXJBZlpyZ1JCSGtPdVN1ekRHSy9zeUtwMENQRGR3K1VBczQ3aE0xaVFu?=
+ =?utf-8?B?ajliVnlOeHNhTlUwMjBIN1ZvdHBlVitlUlAvaTV6a3hCQkhaOG1jTVFUMFNj?=
+ =?utf-8?B?SXh0U0RxK0drajZSVWZUN1lVS0dyUm1JV01kTTdBRU5Sa2FNc1lKcGVEUUNr?=
+ =?utf-8?B?RG5ObGVxUDdLWXF1VU5pYkhSdXozVTNaQVFyNExxajR6NkZJQWU2a3Y5VHBK?=
+ =?utf-8?B?aEtFTTdIa21uUEZUalZmNFJUeE9ESEFoajdqdE1yak5XblpwQWMydTBXcnVK?=
+ =?utf-8?B?clVUNEtLM25uUjZCa2NuTDJvLzZBS0lWeUtCSlNDTEMxU1RYOW9IaDRyM0x0?=
+ =?utf-8?B?TFcxWjlmYUlGM3lmSTFPYmRHYjVUMDVhRS80cGRkcWVDOEZwMkRwa3NaWGpJ?=
+ =?utf-8?B?cGU1K1dWZnR2Sm9vSjFkQ0gzL0lGemR6SlpmMG9ERm1Rb1JualdKaWIrNnZT?=
+ =?utf-8?B?cG1PTm9oa09oaUNjZGRXMWZqRThjVWdTTXZCK0MxS2ZiY0xHQTV0dnQ2Q1Fl?=
+ =?utf-8?B?d1RKNWJwWFVBNmhTSnkvRG9rQmdlRThybUorNFY5c1ZJWkpvSFlFdGNCbld4?=
+ =?utf-8?B?NUtjYTdkVTh4aWMrUjJxYWIvTXIzUUkyRVNTSEt1SFNVSnhnRVZTejFRZHpQ?=
+ =?utf-8?B?RUVhT2h5dGl2a2wwc1JMSmRVQkJJWkJwREFlakRwbWx3WlRNTEd4WUd5bnRT?=
+ =?utf-8?B?Z0I3ZzVYKzJIOEZLaUdVb2VucyszeTc0NzJGdWo3MUZuK0pwbXRLaWNKSkFY?=
+ =?utf-8?B?MFBtOTFSNjFOVXZ1TmQxSHNHbEZTdEVZb3plcmhPd2dhVGpGV3ArQjhubUJr?=
+ =?utf-8?B?bk9qYlFpdFRNeXUyZEZRdG1IbDRVNDFtRTRXZ2FJTDRidzR1cGN6QT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:21:22.1062 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c0e5264-a0fc-4bd1-37ba-08df0905d88a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0db18850-96db-49e4-9830-08df0906ec15
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:29:04.6430 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE1D.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4046
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9lOAfvotybPv5araeHrJpIpRfF/MDjD/GVsch6nilzl5tijeZBeaAWFF+df/95PU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6410
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,256 +138,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GPU drivers sometimes need to read a value from a userspace VA when a
-dma-fence signals, compare it with an expected value, and only perform
-the deferred work (e.g. eventfd_signal) if the comparison passes. This
-is the per-signal filtering pattern used in AMDGPU's EOP eventfd path.
 
-Add optional compare fields to drm_user_fence and a new helper
-drm_user_fence_set_compare() to configure them. Supported operators are
-==, !=, >=.
 
-When cmp_op is set, drm_user_fence reads the value from userspace via
-copy_from_user_nofault() and calls ops->worker() with mm_ok=true only if
-the comparison passes. If the process MM is gone or the read fails, the
-worker is called with mm_ok=false to allow mandatory housekeeping (e.g.
-wake_up()).
+On 02-Sep-26 8:36 PM, Srinivasan Shanmugam wrote:
+> MES owns kernel queue VMIDs (1..first_kfd_vmid-1) but does not program
+> SQ_SHADER_TBA/TMA registers for them. Add infrastructure to let the
+> driver program the first-level CWSR trap handler for these VMIDs directly
+> via SRBM select.
+> 
+> Add kq_tma_bo — a pinned GTT BO used as device-level TMA scratch for
+> kernel queue VMIDs. Unlike per-process TMA (created in amdgpu_trap_alloc),
+> this is device-level and lives for the lifetime of the device. It is
+> zero-initialized by the OS: the second-level handler address is 0 until
+> userspace calls SET_L2_TRAP.
+> 
+> Add amdgpu_trap_program_kernel_vmids() which dispatches to a per-HW
+> vmhub callback, and a new program_kernel_trap_vmids hook in
+> amdgpu_vmhub_funcs for per-GFX-generation register writes.
+> 
+> Required for:
+>    - RADV graphics debugging on Vega/Navi/Steam Deck (Valve request)
+>    - Consistent trap handler behavior when switching between kernel
+>      queues and user queues
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Cc: Alexander Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> Change-Id: I0709e788835b69d3d492864de8d5c2d36d0f08c8
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c | 37 ++++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h |  2 ++
+>   3 files changed, 40 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index 3ca187f5ade8..5624a5ab5c62 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -115,6 +115,7 @@ struct amdgpu_vmhub_funcs {
+>   	void (*print_l2_protection_fault_status)(struct amdgpu_device *adev,
+>   						 uint32_t status);
+>   	uint32_t (*get_invalidate_req)(unsigned int vmid, uint32_t flush_type);
+> +	void (*program_kernel_trap_vmids)(struct amdgpu_device *adev);
+>   };
+>   
+>   struct amdgpu_vmhub {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+> index 31f653ec3fb1..0e0aeea0aa2d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+> @@ -256,8 +256,23 @@ int amdgpu_trap_init(struct amdgpu_device *adev)
+>   
+>   	memcpy(ptr, trap_info->isa_buf, trap_info->isa_sz);
+>   
+> +	/*
+> +	 * Device-level TMA for kernel queue VMIDs. Pinned GTT — not subject
+> +	 * to eviction. Zero-initialized by OS: second-level handler address
+> +	 * is 0 until userspace calls SET_L2_TRAP.
 
-Drivers that do not need filtering (e.g. XE) leave cmp_op unset and the
-worker is called unconditionally — no behavioral change.
+How is the exclusivity maintained as a user app doesn't 'own' kernel 
+queue? How is the conflict of different user apps trying to install 
+their own second level handler on a kernel queue handled?
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Change-Id: I200dd4bf32286ba9bdd2ecb68fffb3c205f9fd52
----
- drivers/gpu/drm/drm_user_fence.c | 97 +++++++++++++++++++++++++++++---
- include/drm/drm_user_fence.h     | 47 +++++++++++++++-
- 2 files changed, 135 insertions(+), 9 deletions(-)
+Thanks,
+Lijo
 
-diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_fence.c
-index 0f229b7210a9..06a5683db10d 100644
---- a/drivers/gpu/drm/drm_user_fence.c
-+++ b/drivers/gpu/drm/drm_user_fence.c
-@@ -2,16 +2,25 @@
- /*
-  * Copyright © 2024 The Linux Foundation
-  *
-- * DRM user fence — extends drm_work_fence with kthread_use_mm() support.
-+ * DRM user fence helper.
-  *
-- * Use this when a GPU fence signals and work needs to access userspace
-- * memory (copy_to_user, fault-able operations) from a kthread context.
-- * For work that does not require userspace memory access, use
-- * drm_work_fence directly.
-+ * Extends drm_work_fence with the ability to access userspace memory
-+ * from workqueue context by borrowing the process MM via kthread_use_mm().
-+ *
-+ * Drivers that need to write completion status to userspace (e.g., user
-+ * fences, signaling eventfds) embed drm_user_fence and implement
-+ * ops->worker() to do the actual write.
-+ *
-+ * Optionally, drivers may configure a per-signal compare via
-+ * drm_user_fence_set_compare(): work is skipped unless the value at a
-+ * userspace address matches the expected value at signal time.
-  */
- 
- #include <linux/kthread.h>
-+#include <linux/mm.h>
- #include <linux/sched/mm.h>
-+#include <linux/uaccess.h>
-+#include <linux/workqueue.h>
- 
- #include <drm/drm_user_fence.h>
- 
-@@ -30,13 +39,46 @@ static void drm_user_fence_do_work(struct drm_work_fence *wfence)
- 	struct drm_user_fence *ufence =
- 		container_of(wfence, struct drm_user_fence, base);
- 	struct mm_struct *mm = NULL;
-+	bool call_worker = true;
- 
- 	if (mmget_not_zero(ufence->mm)) {
- 		mm = ufence->mm;
- 		kthread_use_mm(mm);
- 	}
- 
--	ufence->ops->worker(ufence, !!mm);
-+	if (ufence->cmp_op != DRM_USER_FENCE_CMP_NONE &&
-+	    !(wfence->fence && wfence->fence->error)) {
-+		if (!mm) {
-+			call_worker = false;
-+		} else {
-+			__le64 raw;
-+
-+			/*
-+			 * Use copy_from_user_nofault() to prevent a
-+			 * userfaultfd-registered page from blocking this
-+			 * workqueue thread indefinitely (DoS).
-+			 */
-+			if (copy_from_user_nofault(&raw, ufence->cmp_addr,
-+						   sizeof(raw))) {
-+				call_worker = false;
-+			} else {
-+				/* GPU writes LE; convert before comparing. */
-+				u64 cur_val = le64_to_cpu(raw);
-+
-+				if (!drm_user_fence_cmp_match(cur_val,
-+							      ufence->cmp_value,
-+							      ufence->cmp_op))
-+					call_worker = false;
-+			}
-+		}
-+	}
-+
-+	/*
-+	 * Always invoke the worker so drivers can perform mandatory
-+	 * housekeeping (e.g. wake_up()). Pass false if the compare
-+	 * filter suppressed the write.
-+	 */
-+	ufence->ops->worker(ufence, call_worker ? !!mm : false);
- 
- 	if (mm) {
- 		kthread_unuse_mm(mm);
-@@ -63,8 +105,47 @@ void drm_user_fence_init(struct drm_user_fence *ufence,
- 			 const struct drm_user_fence_ops *ops)
- {
- 	drm_work_fence_init(&ufence->base, wq, &drm_user_fence_wfence_ops);
--	ufence->mm = current->mm;
-+	ufence->mm        = current->mm;
- 	mmgrab(ufence->mm);
--	ufence->ops = ops;
-+	ufence->ops       = ops;
-+	ufence->cmp_op    = DRM_USER_FENCE_CMP_NONE;
-+	ufence->cmp_addr  = NULL;
-+	ufence->cmp_value = 0;
- }
- EXPORT_SYMBOL_GPL(drm_user_fence_init);
-+
-+/**
-+ * drm_user_fence_set_compare - Set per-signal compare filter
-+ * @ufence: user fence
-+ * @addr: 8-byte-aligned userspace address to read from at signal time
-+ * @value: expected value to compare against
-+ * @op: comparison operator; pass %DRM_USER_FENCE_CMP_NONE to disable
-+ *
-+ * When @op is not %DRM_USER_FENCE_CMP_NONE, the worker is only called
-+ * with mm_ok=true if the value at @addr matches @value according to @op.
-+ * The worker is always called for mandatory housekeeping.
-+ * If the MM is gone or the read fails, mm_ok is passed as false.
-+ *
-+ * Must only be called before drm_work_fence_add_callback().
-+ */
-+void drm_user_fence_set_compare(struct drm_user_fence *ufence,
-+				u64 __user *addr, u64 value,
-+				enum drm_user_fence_cmp op)
-+{
-+	/*
-+	 * get_user() of u64 is not atomic on 32-bit — caller should not
-+	 * reach here on non-64-bit kernels.
-+	 */
-+	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_64BIT)))
-+		return;
-+
-+	if (op != DRM_USER_FENCE_CMP_NONE) {
-+		if (!addr || !IS_ALIGNED((unsigned long)addr, sizeof(u64)))
-+			return;
-+	}
-+
-+	ufence->cmp_addr  = addr;
-+	ufence->cmp_value = value;
-+	ufence->cmp_op    = op;
-+}
-+EXPORT_SYMBOL_GPL(drm_user_fence_set_compare);
-diff --git a/include/drm/drm_user_fence.h b/include/drm/drm_user_fence.h
-index d35438eaa9e2..65287052370f 100644
---- a/include/drm/drm_user_fence.h
-+++ b/include/drm/drm_user_fence.h
-@@ -40,11 +40,23 @@ struct drm_user_fence_ops {
- 	void (*destroy)(struct drm_user_fence *ufence);
- };
- 
-+/**
-+ * enum drm_user_fence_cmp - compare operator for per-signal filtering
-+ */
-+enum drm_user_fence_cmp {
-+	DRM_USER_FENCE_CMP_NONE = 0,
-+	DRM_USER_FENCE_CMP_EQ,
-+	DRM_USER_FENCE_CMP_NEQ,
-+	DRM_USER_FENCE_CMP_GTE,
-+};
-+
- /**
-  * struct drm_user_fence - DRM user fence with MM borrowing
-  *
-  * Extends drm_work_fence with kthread_use_mm() support for drivers
-  * that need to access userspace memory when a GPU fence signals.
-+ * For work that does not need userspace memory access, use
-+ * drm_work_fence directly.
-  *
-  * Call drm_user_fence_init() at creation and drm_user_fence_add_callback()
-  * to arm on a dma-fence. Call drm_user_fence_cancel_sync() before teardown.
-@@ -56,11 +68,20 @@ struct drm_user_fence {
- 	struct mm_struct *mm;
- 	/** @ops: Driver operations. */
- 	const struct drm_user_fence_ops *ops;
-+	/** @cmp_addr: Userspace address to read for per-signal compare. */
-+	u64 __user *cmp_addr;
-+	/** @cmp_value: Expected value for per-signal compare. */
-+	u64 cmp_value;
-+	/** @cmp_op: Compare operator; DRM_USER_FENCE_CMP_NONE disables. */
-+	enum drm_user_fence_cmp cmp_op;
- };
- 
- void drm_user_fence_init(struct drm_user_fence *ufence,
- 			 struct workqueue_struct *wq,
- 			 const struct drm_user_fence_ops *ops);
-+void drm_user_fence_set_compare(struct drm_user_fence *ufence,
-+				u64 __user *addr, u64 value,
-+				enum drm_user_fence_cmp op);
- 
- /**
-  * drm_user_fence_get - Acquire a reference to a user fence
-@@ -112,11 +133,35 @@ static inline bool drm_user_fence_cancel(struct drm_user_fence *ufence)
-  * drm_user_fence_cancel_sync - Cancel callback and wait for worker to finish
-  * @ufence: user fence
-  *
-- * Must be called during teardown before freeing resources. May sleep.
-+ * Must be called during teardown before freeing any resources accessed
-+ * by ops->worker(). May sleep.
-  */
- static inline void drm_user_fence_cancel_sync(struct drm_user_fence *ufence)
- {
- 	drm_work_fence_cancel_sync(&ufence->base);
- }
- 
-+/**
-+ * drm_user_fence_cmp_match - Test a value against the compare filter
-+ * @cur_val: value read from userspace (already converted from LE)
-+ * @cmp_value: expected value
-+ * @op: comparison operator
-+ *
-+ * Return: true if the comparison passes, false otherwise.
-+ */
-+static inline bool drm_user_fence_cmp_match(u64 cur_val, u64 cmp_value,
-+					    enum drm_user_fence_cmp op)
-+{
-+	switch (op) {
-+	case DRM_USER_FENCE_CMP_EQ:
-+		return cur_val == cmp_value;
-+	case DRM_USER_FENCE_CMP_NEQ:
-+		return cur_val != cmp_value;
-+	case DRM_USER_FENCE_CMP_GTE:
-+		return cur_val >= cmp_value;
-+	default:
-+		return false;
-+	}
-+}
-+
- #endif /* __DRM_USER_FENCE_H__ */
--- 
-2.34.1
+> +	 */
+> +	r = amdgpu_bo_create_kernel(adev, AMDGPU_TRAP_TMA_MAX_SIZE, PAGE_SIZE,
+> +				    AMDGPU_GEM_DOMAIN_GTT,
+> +				    &trap_info->kq_tma_bo, NULL, NULL);
+> +	if (r) {
+> +		/* isa_bo freed explicitly; trap_info struct freed by __free */
+> +		amdgpu_bo_free_kernel(&trap_info->isa_bo, NULL, NULL);
+> +		return r;
+> +	}
+> +
+>   	amdgpu_trap_cwsr_init_save_area_info(adev, trap_info);
+>   	adev->trap_info = no_free_ptr(trap_info);
+> +	amdgpu_trap_program_kernel_vmids(adev);
+>   
+>   	return 0;
+>   }
+> @@ -267,11 +282,33 @@ void amdgpu_trap_fini(struct amdgpu_device *adev)
+>   	if (!amdgpu_trap_is_enabled(adev))
+>   		return;
+>   
+> +	amdgpu_bo_free_kernel(&adev->trap_info->kq_tma_bo, NULL, NULL);
+>   	amdgpu_bo_free_kernel(&adev->trap_info->isa_bo, NULL, NULL);
+>   	kfree(adev->trap_info);
+>   	adev->trap_info = NULL;
+>   }
+>   
+> +/**
+> + * amdgpu_trap_program_kernel_vmids - program first-level trap handler for
+> + *                                    kernel queue VMIDs
+> + * @adev: amdgpu device pointer
+> + *
+> + * Programs SQ_SHADER_TBA/TMA for kernel queue VMIDs (1..first_kfd_vmid-1)
+> + * via SRBM select. MES owns these VMIDs but does not program trap handler
+> + * state. Called after trap init and on GPU resume via setup_vmid_config.
+> + */
+> +void amdgpu_trap_program_kernel_vmids(struct amdgpu_device *adev)
+> +{
+> +	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
+> +
+> +	if (!amdgpu_trap_is_enabled(adev))
+> +		return;
+> +	if (!hub->vmhub_funcs || !hub->vmhub_funcs->program_kernel_trap_vmids)
+> +		return;
+> +
+> +	hub->vmhub_funcs->program_kernel_trap_vmids(adev);
+> +}
+> +
+>   /*
+>    * amdgpu_map_cwsr_trap_handler should be called during amdgpu_vm_init
+>    * it maps virtual address amdgpu_trap_tba_vaddr() to this VM, and each
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
+> index 6d4664469bad..326910f1d94d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
+> @@ -48,6 +48,7 @@ struct amdgpu_trap_obj {
+>   struct amdgpu_trap_info {
+>   	/* cwsr isa */
+>   	struct amdgpu_bo *isa_bo;
+> +	struct amdgpu_bo *kq_tma_bo;	/* pinned GTT, device-level TMA for kernel queue VMIDs */
+>   	const void *isa_buf;
+>   	uint32_t isa_sz;
+>   	/* cwsr size info per XCC*/
+> @@ -70,6 +71,7 @@ struct amdgpu_trap_usr_addr {
+>   };
+>   
+>   int amdgpu_trap_init(struct amdgpu_device *adev);
+> +void amdgpu_trap_program_kernel_vmids(struct amdgpu_device *adev);
+>   void amdgpu_trap_fini(struct amdgpu_device *adev);
+>   
+>   int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
 
