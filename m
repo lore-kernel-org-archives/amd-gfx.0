@@ -4,82 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B19FC61DFD
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 07:32:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 894B4C61DFD
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 09:06:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6696510E496;
-	Wed,  2 Sep 2026 07:32:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC34510F085;
+	Wed,  2 Sep 2026 09:06:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pjuT5mRy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eZce0S3R";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 628E610E496
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 07:32:27 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-c2530cabcf4so103254266b.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Sep 2026 00:32:27 -0700 (PDT)
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com
+ [209.85.161.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A409D10F085
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 09:06:56 +0000 (UTC)
+Received: by mail-oo1-f48.google.com with SMTP id
+ 006d021491bc7-6b19e291cc6so633875eaf.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Sep 2026 02:06:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788340015; cv=none;
+ d=google.com; s=arc-20260327;
+ b=RaCh07bZ/EEIgs3baz5xsvwlfqFN7JPx35GwmyZPb/WRWlDBRru0d3EEDuTXmExvUv
+ ifGuiKkFYAlR0y3es1t1gtop/0UkoVx+Un8wKqPVIOr4owbbqKyqvefSeW5s529ZucIF
+ UHALrTXYAvEyW9oB6CFyFIhAhs5RKpZcgQBxtONzRUSymnZhB0BYhHhk40vIvmaMMaDU
+ /EKcdjekdc2Rs4AhdpMiFY6suVsNeyxbWeKdmF0G/uBELfaqV3VbsQzy2ydLB4NU1KZD
+ BXj0piZpOIyGyVA+9ATKz0v180a+0sdLAIl4D8OCKkt+uoHlMa/tdvlt7Lw2xaLMqf0L
+ d6fQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=RvG7k49zHG3a3L7t1TLI0SMoKt3IOzcysRODmcBXppE=;
+ fh=KhfpioGojBUCBm+MCFH3unGApxl6/5cSB6QWi0kRpP8=;
+ b=fqcHgCfXi9yIxdeW2Ad0jnAfZ0ANXxL4Apo7mFtGdrQqq0yIFfIzCGwFgtF0P0xkig
+ HlEgZyIwQ/qEi2lodPbqTCGJm+O2zF/VpRbQ4yfLru5T7B9RF6Ik36e/gLsFopUnJZ2N
+ elT0sC2MgQXpp7vt+7lVwAdyzXHmO2cOJ4jntPWGgOo+i3txAJu3ZQRF35trfQg9cGTn
+ cIOUQtNNTtEyT8FVPQOnXmm4pjX4hfgMdTEJy9BYzHkezMzZhf3WjIwzMW5IBrYw+CQ/
+ pcEteMeVwA95VhbJ0a7/sgoscloLcDYJX5D2fnQp0nxO4tO4p/E8DK3fHtnmxlOVApmg
+ RffQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788334346; x=1788939146; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ntYqCiUGvFKb34I7pd2sH6Ev2OxM+HRkEJ74Nxn2uc0=;
- b=pjuT5mRyVblcfyDCGoefaQ6sAS33OQl8wyElTftywWSVwjAyBVIOijRug+mcFp0TvB
- sfRCIvRXxIt5GRekD1ZWtWnoY9kab/8z+e5cYWHIMVA55/aPiqX5XtUT4nq51sqBqwKl
- /aJKe3yHqphq4bWNh/zDLueoCD4ANTQoYJbJb2a0fvxwhIPEO/4/auoqbNFTtWFf6A46
- VGTxW13iEi8HjgwEFe7v+R0MktK+s6VDkfYwB5Iwghu+JoCi1M0QtryGGk3q0A8hlZLx
- dxk4cRibn7qgmdJaN688/EID9DuaeCgSnGsvDAMPWx+ADcvBlFZBjmniwYNv4JZcWuTQ
- vfsg==
+ d=gmail.com; s=20251104; t=1788340015; x=1788944815; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=RvG7k49zHG3a3L7t1TLI0SMoKt3IOzcysRODmcBXppE=;
+ b=eZce0S3R0FjK9Mpcza6ZXsK77yi3gc4lVE3ouFz3JiPHHruWN/qU8r5pWgLaZFswXi
+ lhAMU8tiaS3kNXFy223zlQb2slOcvEktOBeOmJohytqeV+LpIYmAPM2isebFLLG8pvnc
+ HPd1GGzlTnhvbxR+VEf5sGmOUsuCOZZrv7mxFOV6/VCQwHJGrloWdc1EFWoc4VGbocG4
+ 9Uzvs6i24sf16IyIcotKkdeAIrw33XbyNg9votD2nH9BM8sq6Z9LoqFsb9laZN4Wl9kg
+ v+EjnlaZosC++BKYlXmml2vzUsdbyhpx44riz1/J8Vh8AeQE+vQNLsJIRZt+pFbHnhFA
+ SToQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788334346; x=1788939146;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ntYqCiUGvFKb34I7pd2sH6Ev2OxM+HRkEJ74Nxn2uc0=;
- b=YBb4Yy2/hyKU3B9IV2uhWZp7PnWFQ60wnlrLuX/kyxLkQaA6QCtV46N6nQHGO+3ZE1
- lFp30ommyY6J2VpC9K3D3OFSyETf6fEbUZhXNSI0E8y+3k0fyIFB5tkxl7ZxONJ8z7pR
- uPpScpyZOq+lLtRaj43xsPIZVAGCQy7pXpEeXUEA407pDvb5lh5WOh6mwJIYyp/Tly++
- viqhAo0z2TESe3r+X27R7ODHNdlrm593nWkDGALf27iXcMNggmlqkS9+SL0no8uh/HdK
- qpCatlebZrlQOZBkfp7tbz9Ryvns/zIbBirtw6GP7mIfKSKdbQxWIzGFz4XrE/0ZFDky
- 9OAw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy6o2EsGwuYdmEZrqP7npMf+eT14tKbA1XjwFO8fqTqpKeFVyfbl5iDKxd7dwcLqT6UJ/rkEhpP@lists.freedesktop.org
-X-Gm-Message-State: AFuF++khr2oNXMifs6xX31qBxtxTsLfzUSkQZSvzO6gZYsEPsWPMhzrh
- k4362N+uff9YaBfQ1BTXRIfjyYTr/V6QfEotm18Yjl4YSNGWkni8TtBu
-X-Gm-Gg: AYBFou1eQdJ3wTUrBd2f8kLt56qPRu4qOv+IV21Q58nYd6RXTX1OTvsWlQkpjOB5Ubp
- HG1nJ6whhTwsXKGNe08ptT7vySJNNS2uXm8D6F5n7v3c/oeagQbItNewYB3vb2UjgMB9DrP8u2l
- QnQPos9yYMJcmvByEyTAKq73nMhfrleMN7/4OkLHf7xmp3fEGxUj4uqeF/UzayMP+KMpO2eB60A
- BClPRvEUZofaC63mANhGMCodWbu5IpzO7seEsmn+9Ze77CMMAmH8G43etA9qT+cwVcI665KwU+j
- mPpcS55JKtTsauElS7chRwv0p5AGyKnWpbv9wBZJ7a/3ikWxu3Fnhz7X+Gmgx/UO0rSVw6TFQne
- emDHGFp1VthqRD8AXXpe0OjWa6BKv4ydcyPwACLAaGYWh3tChhZECH0CHdttYEGRThOwGYU4CTd
- X8s7O1XTpjBtWBQE++JPW62DuDd2T9HJJCdkOUQRwcq8rwbNHGj2kRwRn3oZO58PqIfJWvzP0Eo
- GwbaYZEIku9gMqkJeCa243JQkR/OmHihxFAkIwODXlXWmGM8LfF6AXse9Cr
-X-Received: by 2002:a17:906:6a03:b0:c24:d6f0:1223 with SMTP id
- a640c23a62f3a-c25d5474dfdmr140879566b.12.1788334345387; 
- Wed, 02 Sep 2026 00:32:25 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c25d041d286sm78078466b.55.2026.09.02.00.32.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 00:32:24 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- George Zhang <george.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-Subject: Re: [REGRESSION 7.3] drm/amd/display: single-frame scanout corruption
- on DCN32 at 120 Hz since a637a140ab86
-Date: Wed,  2 Sep 2026 12:32:22 +0500
-Message-ID: <20260902073222.206801-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829010525.29935-1-mikhail.v.gavrilov@gmail.com>
-References: <20260829010525.29935-1-mikhail.v.gavrilov@gmail.com>
+ d=1e100.net; s=20251104; t=1788340015; x=1788944815;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=RvG7k49zHG3a3L7t1TLI0SMoKt3IOzcysRODmcBXppE=;
+ b=oA/7nmIf58xLJ2Qj6KD+WzpXCn8V8ddvP0NdIZBM57m78JOor8aFIlCenRQ3Y41ko7
+ 9RjphQoCFScHyEJv7e/N6DQcBBeNyPo7vSdjNPSq6CZuEB57m+n/sqr8gNJJX8eh21il
+ XnLbOKW7l8xhFz5xIfGn06uiYFC2KoiL7BFNaBO9IZIrUcJNGFTpqJs82eFC5cM1uKpJ
+ tpNfyhLD4Gog20K410ZF6RGJxB5Uvrnts0+873Z3UKZPgJK0CC00ujcDAutl0sMZH37R
+ Mrkl0Nt0h4x+Kg/G2ueChNQy3kYcG28Bdq5PHADAjVzHkGXUAeJVOrVoj+DHklNwWfqM
+ UC4g==
+X-Gm-Message-State: AFuF++lPkvAQWhtAwqO158pPnPwlOtcJJLWe3HsbhH2JKsU+mQAbHzPJ
+ oU6s764pSCS6JM9v+4eXMB7v0h6taR9AnKgYb/Oxol/YuRHFybU/a+U56iGX/3UO6xfUd0QEIMW
+ cxZLl+WIdoOU9SEuOS8nATVbvBxIQXSDVQaHU3MrSp0f5
+X-Gm-Gg: AR+sD10iS3yeLY5Ymbnjt1SRGAZlB++nPwVSwtUjng1RiLORWMl5kb1xtiAX73wqbb/
+ 85pF2kRGXl1584yY5dBmAT3HogR8Bxlnxk3efzO9/YSJf7/niUs7SxieuIfE4LsYi0BmSVryWe/
+ Rmk3UK5P+nly6Moi+mnoWMYeCJDepNHousQ0RHFdvAFYC+a/Lysy3mSbRv6AcTXGGtcaWlLwQJj
+ D+E+v20PwTxGM4SFSO9lBcENwKfJFI3vIqsriNdzOIFNYkUYzPFm6GIOSmG0Jot3RWFAhEPCIjL
+ 9oOUMnOQX4LjsbbBeHFnSTQVcEhUjriVjLbBuOxD/BDN+UBXDITFyjCIIMDvoz43mcPuws2Gucv
+ 1VN7XFD9KMg1VTVLBrLqc6mlU/n1jrA==
+X-Received: by 2002:a05:6820:609:b0:6b1:ab9c:3ef4 with SMTP id
+ 006d021491bc7-6b481436a76mr2278065eaf.27.1788340014534; Wed, 02 Sep 2026
+ 02:06:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260819185349.29407-1-pisarevden@gmail.com>
+ <20260824153542.491012-1-pisarevden@gmail.com>
+ <CADnq5_MEb72btY3NtbEVgZm=H_7OV6k1xC_t5YXVM_ONrZ2b3A@mail.gmail.com>
+ <CAMpx=TVt=iHo-Tj=3yFv+E0PKxMf+e-GO7oeMZMhLJCm4kKD_w@mail.gmail.com>
+ <CADnq5_PvB8BeQTGRowzF2jkdUOpEdXb7C7S-Y0tFiqJqCEHP4g@mail.gmail.com>
+ <CAMpx=TVjGYemrPJ7d+VBvLx9TELMd68QF2ML4PAsy++e62cjiA@mail.gmail.com>
+In-Reply-To: <CAMpx=TVjGYemrPJ7d+VBvLx9TELMd68QF2ML4PAsy++e62cjiA@mail.gmail.com>
+From: Denis Pisarev <pisarevden@gmail.com>
+Date: Wed, 2 Sep 2026 11:06:18 +0200
+X-Gm-Features: AcwNN1Vk1uWPPZDkyYCHBKq0rnk7KZXDH15oIM8nEmhE7Nf2ZLkzjc9_51g_SfM
+Message-ID: <CAMpx=TUwhvDF_eBrSW04qyia7c-tuF3LmOb6kE95gC12GbM1Bg@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 0/1] drm/amdgpu: MMIO TLB invalidation fallback
+ when KIQ is wedged after S4 resume
+To: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, mario.limonciello@amd.com, ionut_n2001@yahoo.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Denis Pisarev <pisarevden@gmail.com>, alexander.deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,99 +111,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I have to correct my own report.
+Correction to my earlier test report: it turns out my system
+updated linux-firmware-amdgpu (20260622 -> 20260810), amd-ucode,
+and the kernel (7.1.8 -> 7.1.9) between the failing reproductions
+and the tlb_inv_rework test, so the clean result on your branch is
+confounded.
 
-The 90x figure I gave for a637a140ab86 does not hold up.  Since sending it
-I have measured five more sessions, and the rate turns out to be controlled
-by something other than the kernel.  Please do not spend time on the commit
-on the strength of that number.
+Stock 7.1.9 + firmware 20260810 is now also clean: two hibernate
+cycles today, zero "failed to write reg" errors (previously 4/4
+cycles failed on firmware 20260622). Upstream 7.1.9 only has two
+trivial amdgpu display fixes, so my theory is that the amdgpu
+firmware refresh fixed the S4 KIQ wedge.
 
-What the artefact actually does is sit in one of two states, and the state
-changes during a session.  All figures are events per 1000 eligible frames,
-where an eligible frame is one the detector could have judged - the method
-is unchanged from my first mail.
+If it's useful I can downgrade linux-firmware-amdgpu to 20260622
+from the pacman cache and try to reproduce again on stock to
+confirm the firmware attribution.
 
-  60 Hz                       0.0000   0.0045   0.0252
-  120 Hz, quiet state         0.0308   0.0372   0.0400
-  120 Hz, excited state       0.5208   0.5739   0.7115   1.3027   1.9153
+On Tue, 1 Sept 2026 at 16:45, Denis Pisarev <pisarevden@gmail.com> wrote:
+>
+> Hi Alex,
+>
+> Tested tlb_inv_rework (tip: cd3e1ff4f (HEAD ->
+> amdgpu-kiq-mmio-fallback-v3) drm/amdgpu: fall back to MMIO
+> TLB invalidation when KIQ is unresponsive, kernelrelease
+> 7.1.0-MANJARO+) on the affected machine (Cezanne / Ryzen
+> 7 PRO 5850U, previously reproducing 100% across hibernate
+> cycles).
+>
+> Result: hibernate resume is clean.
+>
+> - stock conditions (no GFXOFF workaround, hook removed)
+> - fresh boot: 0 "failed to write reg" errors
+> - after S4 resume + 30 min of normal desktop use: 0 errors
+>   (control on 7.1.8 stock)
+> - the amdgpu MODE2 reset at resume still occurs as on stock, but no
+>   invalidation failures follow
+> - one caveat from my testing: kernel was built with a trimmed
+>   localmodconfig from the running distro config, not the full distro
+>   config
+>
+> The GFXOFF correlation stands from the earlier single-variable test
+> (GFXOFF held off across S4 -> zero errors), but with your rework the
+> KIQ dependency for invalidation is gone, so the wedge no longer
+> matters for this workload.
+>
+> Anything else you'd like tested on this machine (multiple hibernate
+> cycles, sleep, specific tracing)?
+>
+>
+> On Tue, 25 Aug 2026 at 19:20, Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > On Tue, Aug 25, 2026 at 9:19=E2=80=AFAM Denis Pisarev <pisarevden@gmail=
+.com> wrote:
+> > >
+> > > Hi Christian, Alex,
+> > >
+> > > Understood regarding the fallback - dropping that approach. A working
+> > > KIQ after S4 resume is the real fix.
+> > >
+> > > Regarding GFXOFF, I agree that a gated-off CP/ME/KIQ would also fail
+> > > the ring test, which aligns with the data. The ring test passes upon
+> > > resuming and sched.ready is set; however, the write-reg/wait-ack
+> > > handshake begins to fail during runtime, starting in the same second
+> > > as the thaw and persisting for hours (80-140 errors per hour, measure=
+d
+> > > over 9+ hours). So the KIQ initialises fine, but then stops completin=
+g
+> > > those packets.
+> > >
+> > > The GFXOFF attribution comes from a single-variable experiment only:
+> > > same workload, one hibernation cycle each. GFXOFF held off across the
+> > > whole S4 cycle (disabled before hibernating and verified to be still
+> > > off after resuming): zero errors. Also zero errors over 15 minutes
+> > > after re-enabling it post-resuming. Plain S3 suspend never triggers
+> > > it. This is merely a correlation; I cannot prove that it is a
+> > > mechanism. The existing semaphore workaround comment in gmc_v9_0.c
+> > > about losing invalidate acknowledge state across power-gating cycles
+> > > appears to be relevant, but I cannot prove that. I am happy to run
+> > > whatever tracing is required to identify the mechanism from the
+> > > affected machine (RLC/ME state, gfx_off_state sampled at the time of
+> > > failure, KIQ fence timestamps and register dumps).
+> >
+> > Can you try this branch?
+> > https://gitlab.freedesktop.org/agd5f/linux/-/commits/tlb_inv_rework?ref=
+_type=3Dheads
+> >
+> > Alex
+> >
+> > >
+> > > Thanks,
+> > > Denis
+> > >
+> > > On Mon, 24 Aug 2026 at 20:31, Alex Deucher <alexdeucher@gmail.com> wr=
+ote:
+> > > >
+> > > > On Mon, Aug 24, 2026 at 12:30=E2=80=AFPM Denis Pisarev <pisarevden@=
+gmail.com> wrote:
+> > > > >
+> > > > > Hi,
+> > > > >
+> > > > > v3 addresses the two findings from the sashiko-bot review of v2.
+> > > > > Failure data and trigger isolation are unchanged (bugzilla 219492=
+):
+> > > > > S4 resume on Cezanne (gmc_v9, GFXOFF) wedges KIQ TLB flushes at
+> > > > > 80-140/hour for 9+ hours with sched.ready true throughout; holdin=
+g
+> > > > > GFXOFF off across the S4 cycle produces zero errors.
+> > > > >
+> > > > > 1. [High] "VFs and interrupt contexts silently drop TLB flushes o=
+nce
+> > > > >    the threshold is reached" - correct, and fixed. In v3 the latc=
+h
+> > > > >    only reroutes bare metal process context to MMIO. VFs and IRQ
+> > > > >    contexts keep submitting to KIQ exactly as before this patch, =
+with
+> > > > >    per-failure logging, because they have no MMIO alternative; th=
+ere
+> > > > >    is no longer any code path that drops a flush without attempti=
+ng
+> > > > >    and logging.
+> > > > >
+> > > > > 2. [High] "KIQ and MMIO race on the same invalidation engine if K=
+IQ
+> > > > >    recovers" - this remains the documented open question; no code
+> > > > >    change in v3. Our analysis: once latched, this path submits no=
+ new
+> > > > >    KIQ commands, so the exposure is limited to already-queued sta=
+le
+> > > > >    commands and the recovery transition window. The engine serial=
+izes
+> > > > >    requests internally, so the realistic worst case is a lost flu=
+sh
+> > > > >    request caught by the existing ACK timeout ("Timeout waiting f=
+or VM
+> > > > >    flush ACK!"), not silent state corruption. If maintainers cons=
+ider
+> > > > >    a fence necessary (or a dedicated invalidate engine for the MM=
+IO
+> > > > >    path), guidance on the preferred mechanism would be welcome.
+> > > > >
+> > > > > Full patch history: v1 (initial fallback+counter), v2 (GFXOFF hol=
+d,
+> > > > > per-instance counter, irqsave, VF/IRQ restrictions, MES error
+> > > > > propagation) - all from bot review; v3 (this one) fixes the VF/IR=
+Q
+> > > > > drop regression the bot found in v2.
+> > > > >
+> > > > > Also still open from the cover letters: the alternative direction=
+ of
+> > > > > fixing the S4 resume ordering itself (RLC/ME vs GFXOFF) instead o=
+f a
+> > > > > runtime fallback. Happy to run tracing on the affected hardware.
+> > > > >
+> > > >
+> > > > If that's a problem, that should be fixed.  That said, did you have
+> > > > any success with the branch I proposed?
+> > > >
+> > > > Alex
+> > > >
+> > > > > Patch 1/1 follows.
+> > > > >
+> > > > > Denis Pisarev
+> > > > >
+> > > > > Denis Pisarev (1):
+> > > > >   drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is
+> > > > >     unresponsive
+> > > > >
+> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |   2 +
+> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |   2 +
+> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c |  18 ++--
+> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |   2 +-
+> > > > >  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 123 ++++++++++++++++++=
++-----
+> > > > >  5 files changed, 114 insertions(+), 33 deletions(-)
+> > > > >
+> > > > > --
+> > > > > 2.55.0
+> > > > >
+>
+>
+>
+> --
+> Best regards,
+> Denis Pisarev.
+> pisarevden@gmail.com
 
-The three groups are about a decade apart from each other, and the kernel
-does not sort them.  0.0308 is the run on the kernel with a637a140ab86
-reverted; 0.0372 and 0.0400 are runs on unreverted kernels in the quiet
-state.  Those three are the same measurement.  My original pair simply
-caught one kernel quiet and the other excited.
-
-Worse, every kernel comparison I made began with a reboot, and a reboot
-resets the state.  So the bisect was measuring how soon after boot I
-happened to load the machine.  I no longer consider the attribution to
-a637a140ab86 supported, and I cannot say from my data whether this is a
-7.3 regression at all.
 
 
-The two transitions
--------------------
-
-I can now move the artefact in both directions, but only as bundles of
-variables - I have not separated what inside each bundle does the work.
-
-Excited by: a long session of a heavy 3D game (Dying Light: The Beast).
-Measured twice on the same kernel and refresh rate: 0.0372 -> 1.3027 (35x)
-and 0.0400 -> 0.5208 (13x).  The effect outlasts the game by hours and
-decays gradually.  That bundle contains sustained shader load, large VRAM
-allocation and eviction, GTT traffic, clock and power-state churn, heating,
-and fullscreen presentation.
-
-Calmed by: about three hours spent at 60 Hz, after which returning to
-120 Hz gave 1.9153 -> 0.0400 (48x), on an unreverted kernel.  That bundle
-contains two modesets, three hours of elapsed time, half the pixel clock,
-a different pixel encoding (this display uses YCbCr 4:2:0 at 120 Hz and
-4:4:4 at 60 Hz), different watermarks, and an idle GPU.
-
-Also calmed by: a reboot.
-
-Which single variable in each bundle matters, I do not know.  A short
-120 -> 60 -> 120 toggle would separate "a modeset" from "time at 60 Hz",
-and a compute-only load would separate "GPU busy" from "memory pressure".
-I am happy to run whichever of those would be most useful.
-
-
-What did survive
-----------------
-
-The dependency on frame rate is unchanged and now rests on four
-independent sessions: 120 Hz and 100 Hz show the artefact, 60 Hz is at
-least an order of magnitude below the quiet 120 Hz state.  Forcing YCbCr
-4:2:0 at 60 Hz, so that the encoding matches 120 Hz, gave 0 events in
-1,290,588 eligible frames, so this is frame rate and not chroma
-subsampling or link bandwidth.
-
-Swapping the HDMI cable made no difference.
-
-And one negative result that may be the most useful thing in this mail:
-DTN snapshots taken seconds after real events in the excited state are
-byte-identical to snapshots taken in the quiet state - 195 lines against
-195, differing only in the scanout buffer address.  Watermarks, dcfclk,
-dispclk, dppclk, fclk, HUBP and OTG underflow, vtotal and the DRR select
-bits, DSC, RQ, DLG and TTU are all the same in both states, at a fifty-fold
-difference in artefact rate.
-
-So whatever holds this state is not in anything DTN exposes.  Is there
-something in DMCUB, in the memory path, or in link state that could persist
-across a game, decay over hours, be cleared by a reboot, and leave every
-register in the DTN dump identical?  That is the question I am stuck on.
-
-Thorsten: the regzbot entry points at a637a140ab86 on the strength of the
-bisect above, which I no longer trust.  I do not know yet whether there is
-a regression here at all, so I would rather not close it as invalid; please
-handle it however is appropriate for an entry whose attribution has fallen
-apart.
-
-The GitLab issue has been updated with the same correction:
-
-  https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
-
-Sorry for the noise on the first pass.
-
--- 
-Thanks,
-Mikhail Gavrilov
+--=20
+Best regards,
+Denis Pisarev.
+pisarevden@gmail.com
