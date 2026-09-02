@@ -4,75 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 394E0C79F84
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55E00C79F81
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52EA510F448;
-	Thu,  3 Sep 2026 07:34:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C11A410F442;
+	Thu,  3 Sep 2026 07:34:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qmsXz3rP";
+	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="hcq4Vk/r";
 	dkim-atps=neutral
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2698B10E063
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 06:00:15 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-38ec1402b05so1831177a91.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Sep 2026 23:00:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788415214; x=1789020014; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=HzzL67kEz0bnJKJn5x2elMmqvdhT7A2m7DuMV5KAKeU=;
- b=qmsXz3rPPddAG74tiDAeYk2da7YElsXozcmgvS97c+Qyi39eSksVwJZhGJnjBgpLUk
- 3mb1iZ3ynOB6p/Rw40GC8lTYocx10HQCAwcMWmyMbob2HYpMdrz7GBCbywvUUxuSx/wU
- oyLLSQhm3lZRnoecgpTvcEttIvbF4uQ2qQDrnLJBKvJgtzUkSwL8CnhcJmj04GXzQ4kJ
- GXs014gg4NZppd/FfuwZgvzO6V7EJyRSljVwZ2a2NPtyqQ703CHGEQblA8I45JLbXBVS
- MT3IP/pQXa02nHOZm2o/xsEontY7b6v7nRB2ESjJW4uudXyiIQEpzamsNlaJMmsDjFXN
- b2UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788415214; x=1789020014;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=HzzL67kEz0bnJKJn5x2elMmqvdhT7A2m7DuMV5KAKeU=;
- b=Qd3j/iB89B7hVcNsLIwUoIw1OxOdk3HIlMdBbZGyBhLy+50Zwrei0otRszBJ+B4RZE
- sYcvlkdwYvfGNbDulsHwKNcu2f42KThan0fuJ9A35JBAWE/SZ/+T65CYcM0krDvDTFus
- CuPS+J/8n0FrzC9dTBcFqhthR/E97HgqI0Htry3A1t2i5s5cVYtJ+1ZeVIVARYRUDfqV
- ARNT/TeMPJFd4IJAuluHvqiVlAEIHTzbwhItGfmO63wogtUXvjHByv5s/Nrf0f7qSfNi
- cJyynuaX+m3hu/3Ly1w3zrzuKvneVR2jqo8QqO2wvzpZW5mOSxwJ2JijFOznC+3e2xeB
- uSaQ==
-X-Gm-Message-State: AFuF++nKUD0KFJ/wSPSwhVXt3QiCooHo6N0kF/HA56O/6Q4/hd0m7/l5
- F445QZD+1ocyQDMR7VagobZyZ3wxheFLknR/X0cPmW1kSXmSJkheRoNeShdHB5Fxa50=
-X-Gm-Gg: AYBFou3pT3U/ILmDj6kcUvsVA7YXLw77wnD/uO0FMSAPjq7mU5IWbzyGMBqwlXigUf0
- lSW5dopEaXmXhji9qlAYeuWsnz1XFsNIEuw1ig7dPPFEbZurL7GD/NN8uCIr+wypWXryZ/HwoBH
- lQAF0zESYhKlpFRk7aHRgTh5qpM1Ir+OxyUeV26ZgMDDWOcFhXRv6ZykPoM6pOa7S8U2dVy10uo
- eSyPnDE4X3HMrOH04ufHkyniGTGvTyYdln8zBy3cevP1g0d7mSxnc9kcPnalcLxf7RKNu4Iz+7h
- DPqn4LUkf1WDJs4UArtgIXa6S8Eqpar3T/LQ8nVKWSBGqDUsVyOKUdn7g5B5chBCWCqSPFIazWc
- vqd+WF1/rpqVaOtH1klX/rhrxQIQxJdA9sxmXThE2nrz3vviIDuijfhAwoCZ36dJBXkwUs2k0VF
- Y5gaxKwHWGcjSylDSD5gzBplJXrRBT+CzN9fdp3qA62+2rkNtk56NWv9mh7lhJ62rr1/+27S5kv
- hXufni6t9pK9sxcefjQ52g7iJi1/4NTvXlfly/qdik9BGUnU9d/h7Y/OnsOWuUHgqaosQ==
-X-Received: by 2002:a17:90b:4b89:b0:398:c3ca:1ebc with SMTP id
- 98e67ed59e1d1-39aee105a46mr13805147a91.18.1788415214370; 
- Wed, 02 Sep 2026 23:00:14 -0700 (PDT)
-Received: from francomeister ([138.84.137.76])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39b07ac1174sm3242616a91.0.2026.09.02.23.00.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Sep 2026 23:00:13 -0700 (PDT)
-From: Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
+Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch
+ [109.224.244.118])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE16C10E083
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 22:31:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
+ s=protonmail2; t=1788388305; x=1788647505;
+ bh=dRtdEAVL2Ew7vpUjfnO+W+NQQEDviU+G2yXawYufdXY=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=hcq4Vk/rRU9nsFX9SxgJYVEpXJOVjDFCST+fjDF6HaEnpmO7jVy9tWOEq72WZa7J2
+ de4inH4WvKpKLLSYAQ+0bu4l7CiRycMpbTNphkqepeNniSYEyVtQlAeIR7QNRu7eFo
+ eSfw67ZKOZy9N+YKbhwWQ1j1Kz0W8MBVKSq8ZifidgYym9833wOOdgSyOldRVR7ihr
+ NnTPXwU9+XB9IiX2eVcEUNP5fBk2JxLsxxM/lfkmw++I2sAPTJjWNvKIQDigmAAxkP
+ 4X6p0r7dm8Sax+h6nDtJJKTSq/dGRhW9PPyhmfoVHNnA42dpfev4Ioh88x30wckupv
+ R7ZJn3RdcbNNQ==
+Date: Wed, 02 Sep 2026 22:31:39 +0000
 To: amd-gfx@lists.freedesktop.org
+From: Andrei Rusu de Castro <arc@empyreal.works>
 Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org,
- Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
-Subject: [PATCH] drm/amd/display: fix MALL hysteresis timer underflow at high
- refresh rates
-Date: Thu,  3 Sep 2026 13:59:52 +0800
-Message-ID: <20260903055952.62906-1-pacaro.francis.marlou.n@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
+ mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
+Subject: [PATCH v2 2/4] drm/amd/display: test custom brightness with non-zero
+ minimum
+Message-ID: <c1cc1cf115297688aa0919e04748c1d66ecc4907.1788388049.git.arc@empyreal.works>
+In-Reply-To: <cover.1788388049.git.arc@empyreal.works>
+References: <20260902-brightness-cover-abf809f2@empyreal.works>
+ <cover.1788388049.git.arc@empyreal.works>
+Feedback-ID: 182420409:user:proton
+X-Pm-Message-ID: 6fc27ab12e38c899fb5068e3afb2f90262e9bfa2
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:34:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,92 +62,358 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dcn30_apply_idle_power_optimizations() derives the MALL frame cache
-hysteresis timer with
+The existing custom-curve tests use min_input_signal =3D=3D 0. In that
+configuration the firmware minimum is zero and an extra [0..max] to
+[min..max] conversion is an identity, so the output-side double scaling
+cannot be observed.
 
-	tmr_delay = (uint32_t)(div_u64(..., denom) - 64LL);
+Add a curve using the default non-zero PWM minimum. Cover the helper's
+userspace-domain result, zero and maximum endpoints, interpolation,
+monotonicity, range bounds, zero round-trip, agreement with the linear
+path at zero, and the unchanged no-curve path.
 
-div_u64() returns a u64, so when the quotient is smaller than 64 the
-subtraction wraps instead of going negative and tmr_delay ends up huge.
-The loop that follows tries to squeeze it into the 6 bit register field
-by doubling denom, but that only makes the quotient smaller, so tmr_delay
-can never converge.  tmr_scale is bumped past 3 and the function gives up
-with
+Six of the nine new cases fail against the pre-fix arithmetic. The other
+three retain endpoint and linear-path invariants around the repair.
 
-	/* Delay exceeds range of hysteresis timer */
-	ASSERT(false);
+The cases were verified under UML KUnit.
 
-even though the requested delay is too *short* to encode, not too long.
-
-With mall_additional_timer_percent left at its default of 0, the quotient
-drops below 64 once the refresh rate used for the calculation goes above
-~243 Hz.  Every DCN 3.0 display above that loses MALL static screen
-entirely and splats a WARN once per boot.  Reproduced on Navi 23
-(RX 6600) driving 1920x1080, resetting /sys/kernel/debug/clear_warn_once
-between modes:
-
-	refresh   MALL       ASSERT
-	144 Hz    enabled    no
-	240 Hz    enabled    no
-	280 Hz    skipped    yes
-	360 Hz    skipped    yes
-
-Commit 3bb68cec4db8 ("drm/amd/display: Add Overflow check to skip MALL")
-already covered the other end of the range, where a large stutter period
-makes the delay too long to encode.  Cover the short end by clamping to
-0, which selects the shortest hysteresis the register can express,
-65.28us * 64 = ~4.18ms.  That is marginally longer than what the formula
-asks for at these refresh rates, and erring long is the safe direction:
-it only delays MALL entry, it can never enter early.
-
-The numerator does not change between iterations, only denom does, so
-compute it once and keep both call sites inside 100 columns.
-
-The genuinely out of range case at very low refresh rates still reaches
-the ASSERT, which is where it belongs.
-
-Fixes: 52f2e83e2fe5 ("drm/amdgpu/display: add MALL support (v2)")
-Signed-off-by: Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
 ---
-Compile tested only: vanilla v7.2.2 built with clang 22.1.8 on x86_64
-using a CachyOS .config, full amdgpu module, no new warnings.  The WARN
-reproduction described above was observed on unpatched 6.18.48 and
-7.2.2; I have not yet booted a kernel with this patch applied.
+ .../tests/amdgpu_dm_backlight_test.c          | 264 ++++++++++++++++++
+ 1 file changed, 264 insertions(+)
 
- .../gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
+t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
+test.c
+index 1fb171fdbc3c..a6fa052a8272 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
+@@ -1398,6 +1398,261 @@ static void dm_test_brightness_from_user_with_curve=
+(struct kunit *test)
+ =09amdgpu_dm_set_dc_debug_mask(saved_mask);
+ }
+=20
++/*
++ * The custom curve cases above all use min_input_signal =3D=3D 0.  There =
+the
++ * firmware minimum is zero and the [0..max] to [min..max] span is the ide=
+ntity,
++ * so an extra application of that mapping cannot be observed.  The cases =
+below
++ * use the default firmware range instead, where min is 0x101 * 12 =3D=3D =
+3084 and
++ * max is 0x101 * 255 =3D=3D 65535.
++ */
++static void dm_test_curve_caps_init(struct amdgpu_dm_backlight_caps *caps)
++{
++=09caps->aux_support =3D false;
++=09caps->min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
++=09caps->max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++=09caps->data_points =3D 3;
++=09caps->luminance_data[0].input_signal =3D 50;
++=09caps->luminance_data[0].luminance =3D 20;
++=09caps->luminance_data[1].input_signal =3D 128;
++=09caps->luminance_data[1].luminance =3D 50;
++=09caps->luminance_data[2].input_signal =3D 255;
++=09caps->luminance_data[2].luminance =3D 100;
++}
++
++/**
++ * dm_test_custom_brightness_user_domain - Curve output is a userspace val=
+ue
++ * @test: The KUnit test context
++ *
++ * convert_custom_brightness() reshapes a value inside the userspace [0..m=
+ax]
++ * domain.  Its caller owns the single conversion to the firmware [min..ma=
+x]
++ * domain, so the firmware minimum must not appear in this result.
++ */
++static void dm_test_custom_brightness_user_domain(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09unsigned int min, max;
++=09u32 brightness;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++=09get_brightness_range(&caps, &min, &max);
++
++=09/* Zero stays zero; it is not lifted to the firmware minimum here. */
++=09brightness =3D 0;
++=09convert_custom_brightness(&caps, max, &brightness);
++=09KUNIT_EXPECT_EQ(test, brightness, (u32)0);
++
++=09/* The top of the curve stays inside the userspace range. */
++=09brightness =3D max;
++=09convert_custom_brightness(&caps, max, &brightness);
++=09KUNIT_EXPECT_LE(test, brightness, (u32)max);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_zero_is_min - Zero maps to the firmware minimum
++ * @test: The KUnit test context
++ *
++ * Zero is the darkest level userspace can ask for and must reach the dark=
+est
++ * level the firmware accepts.
++ */
++static void dm_test_curve_from_user_zero_is_min(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09unsigned int min, max;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++=09get_brightness_range(&caps, &min, &max);
++
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), (u32)min)=
+;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_matches_linear_at_zero - Curve keeps the lower =
+endpoint
++ * @test: The KUnit test context
++ *
++ * The curve reshapes the interior of the range.  It does not move either
++ * endpoint, so the curved and linear paths must agree at zero.
++ */
++static void dm_test_curve_from_user_matches_linear_at_zero(struct kunit *t=
+est)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09u32 with_curve, without_curve;
++
++=09dm_test_curve_caps_init(&caps);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09with_curve =3D convert_brightness_from_user(&caps, 0);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask | DC_DISABLE_CUSTOM_BRIGHTNESS_C=
+URVE);
++=09without_curve =3D convert_brightness_from_user(&caps, 0);
++
++=09KUNIT_EXPECT_EQ(test, with_curve, without_curve);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_round_trip_zero - Zero survives a conversion ro=
+und trip
++ * @test: The KUnit test context
++ */
++static void dm_test_curve_from_user_round_trip_zero(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09u32 level;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++
++=09level =3D convert_brightness_from_user(&caps, 0);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_to_user(&caps, level), (u32)0)=
+;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_interpolation - Interpolated point with a non-z=
+ero min
++ * @test: The KUnit test context
++ */
++static void dm_test_curve_from_user_interpolation(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++
++=09/*
++=09 * scale_input_to_fw(65535, 25700) =3D DIV_ROUND_CLOSEST(25700 * 255, 6=
+5535)
++=09 * =3D 100, which falls between the (50, 20) and (128, 50) points:
++=09 *   lum =3D 20 + DIV_ROUND_CLOSEST((50 - 20) * (100 - 50), 128 - 50) =
+=3D 39
++=09 * The curved firmware level is DIV_ROUND_CLOSEST(39 * 100, 101) =3D 39=
+,
++=09 * which is DIV_ROUND_CLOSEST(39 * 65535, 255) =3D 10023 in the userspa=
+ce
++=09 * domain and 3084 + DIV_ROUND_CLOSEST(62451 * 10023, 65535) =3D 12635
++=09 * once converted to the firmware domain.
++=09 */
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 25700), (u32)=
+12635);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_max - The top of the range stays inside the ran=
+ge
++ * @test: The KUnit test context
++ */
++static void dm_test_curve_from_user_max(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09unsigned int min, max;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++=09get_brightness_range(&caps, &min, &max);
++
++=09/*
++=09 * scale_input_to_fw(65535, 65535) =3D 255 matches the last point exact=
+ly,
++=09 * so lum =3D 100 and the curved firmware level is
++=09 * DIV_ROUND_CLOSEST(100 * 255, 101) =3D 252.  That is
++=09 * DIV_ROUND_CLOSEST(252 * 65535, 255) =3D 64764 in the userspace domai=
+n
++=09 * and 3084 + DIV_ROUND_CLOSEST(62451 * 64764, 65535) =3D 64800 in the
++=09 * firmware domain.
++=09 */
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)64=
+800);
++=09KUNIT_EXPECT_LE(test, convert_brightness_from_user(&caps, max), (u32)ma=
+x);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_monotonic - A rising curve gives a rising level
++ * @test: The KUnit test context
++ */
++static void dm_test_curve_from_user_monotonic(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09unsigned int min, max, i;
++=09u32 previous =3D 0;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++=09get_brightness_range(&caps, &min, &max);
++
++=09for (i =3D 0; i <=3D max; i +=3D 1023) {
++=09=09u32 level =3D convert_brightness_from_user(&caps, i);
++
++=09=09KUNIT_ASSERT_GE(test, level, previous);
++=09=09previous =3D level;
++=09}
++
++=09KUNIT_EXPECT_GE(test, convert_brightness_from_user(&caps, max), previou=
+s);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_within_range - Curved levels never leave [min..=
+max]
++ * @test: The KUnit test context
++ *
++ * The firmware level is programmed through a 16-bit path, so a converted =
+value
++ * above max would wrap and darken the panel.
++ */
++static void dm_test_curve_from_user_within_range(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09unsigned int min, max, i;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++=09get_brightness_range(&caps, &min, &max);
++
++=09for (i =3D 0; i <=3D max; i +=3D 1023) {
++=09=09u32 level =3D convert_brightness_from_user(&caps, i);
++
++=09=09KUNIT_ASSERT_GE(test, level, (u32)min);
++=09=09KUNIT_ASSERT_LE(test, level, (u32)max);
++=09}
++
++=09KUNIT_EXPECT_LE(test, convert_brightness_from_user(&caps, max), (u32)ma=
+x);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_from_user_no_curve_unchanged - The linear path is untouched
++ * @test: The KUnit test context
++ *
++ * Without luminance data the conversion is the plain
++ * min + DIV_ROUND_CLOSEST((max - min) * brightness, max) mapping.
++ */
++static void dm_test_from_user_no_curve_unchanged(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09unsigned int min, max;
++
++=09caps.aux_support =3D false;
++=09caps.min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
++=09caps.max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++=09caps.data_points =3D 0;
++
++=09get_brightness_range(&caps, &min, &max);
++
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), (u32)3084=
+);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 16383), (u32)=
+18696);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 32767), (u32)=
+34309);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)65=
+535);
++}
++
+ /**
+  * dm_test_brightness_range_zero_signals - Test Brightness range with zero=
+ min and max signals
+  * @test: The KUnit test context
+@@ -1955,6 +2210,15 @@ static struct kunit_case dm_backlight_test_cases[] =
+=3D {
+ =09KUNIT_CASE(dm_test_brightness_to_user_above_max),
+ =09KUNIT_CASE(dm_test_brightness_from_user_midrange),
+ =09KUNIT_CASE(dm_test_brightness_from_user_with_curve),
++=09KUNIT_CASE(dm_test_custom_brightness_user_domain),
++=09KUNIT_CASE(dm_test_curve_from_user_zero_is_min),
++=09KUNIT_CASE(dm_test_curve_from_user_matches_linear_at_zero),
++=09KUNIT_CASE(dm_test_curve_from_user_round_trip_zero),
++=09KUNIT_CASE(dm_test_curve_from_user_interpolation),
++=09KUNIT_CASE(dm_test_curve_from_user_max),
++=09KUNIT_CASE(dm_test_curve_from_user_monotonic),
++=09KUNIT_CASE(dm_test_curve_from_user_within_range),
++=09KUNIT_CASE(dm_test_from_user_no_curve_unchanged),
+ =09KUNIT_CASE(dm_test_brightness_range_zero_signals),
+ =09/* amdgpu_dm_backlight_fill_props */
+ =09KUNIT_CASE(dm_test_backlight_fill_props_ac_linear),
+--=20
+2.54.0
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-@@ -1064,10 +1064,12 @@
- 				 */
- 				unsigned int denom = refresh_hz * 6528;
- 				unsigned int stutter_period = dc->current_state->perf_params.stutter_period_us;
-+				u64 num = (1000000LL + 2 * stutter_period * refresh_hz) *
-+					(100LL + dc->debug.mall_additional_timer_percent);
-+				u64 tmr_ticks;
- 
--				tmr_delay = (uint32_t)(div_u64(((1000000LL + 2 * stutter_period * refresh_hz) *
--						(100LL + dc->debug.mall_additional_timer_percent) + denom - 1),
--						denom) - 64LL);
-+				tmr_ticks = div_u64(num + denom - 1, denom);
-+				tmr_delay = tmr_ticks > 64 ? (u32)(tmr_ticks - 64) : 0;
- 
- 				/* In some cases the stutter period is really big (tiny modes) in these
- 				 * cases MALL cant be enabled, So skip these cases to avoid a ASSERT()
-@@ -1089,9 +1091,8 @@
- 					}
- 
- 					denom *= 2;
--					tmr_delay = (uint32_t)(div_u64(((1000000LL + 2 * stutter_period * refresh_hz) *
--							(100LL + dc->debug.mall_additional_timer_percent) + denom - 1),
--							denom) - 64LL);
-+					tmr_ticks = div_u64(num + denom - 1, denom);
-+					tmr_delay = tmr_ticks > 64 ? (u32)(tmr_ticks - 64) : 0;
- 				}
- 
- 				/* Copy HW cursor */
--- 
-2.51.0
 
