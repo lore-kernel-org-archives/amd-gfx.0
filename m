@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B89FC61DD6
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 15:07:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08E50C624D4
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 15:21:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA7E010F265;
-	Wed,  2 Sep 2026 15:07:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA2110E1C4;
+	Wed,  2 Sep 2026 15:21:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UnzhoRyW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3p+3QKxJ";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012042.outbound.protection.outlook.com [52.101.43.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E438210F265
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 15:07:41 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012002.outbound.protection.outlook.com [52.101.48.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3137F10E4F6;
+ Wed,  2 Sep 2026 15:21:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vVvnoOI8RungOkebygTx/giskxnXj024MrnyZSXphOzCXr9UMDP3w6NId8YzutUisYL3YM19zAIfST60jS86r5ly5PzW32R5whOYmP4JFrEV5nmqD82Vt7RsRapBpn8NWxUkimA+bNHfHtTzW84ZdXAy0tKMQQd2bMkx10yMkf5zb6osohzt3UeuVjrTaOVv7ng2V/QJtQeUvjlQYRve52Zihh6uGP/APa4U+ZLuJ/sOOdY5TV2n3umPl+huRfqWnyKXBWDPmuGl/hPwSfrn23EXWOltzUt46clAUSSQsyHFX5ymJCnsaF2R3Z9OPDtoI0ftTZ0Hv9Qbp7skgLKYjA==
+ b=nkBPI8GLWDx/IKy9K00pqqnLLYGOuriNMv+lk7h9Vum33UuXBGKqjJVbeNxKfc0vTLm3EronmLxb+YYTmbm8PK0xfon4k0h/OtVnU/iqu7l5O93jHaVjUs3nHTbmM8F8sbf9bUSBova/oKVHa4Biy/Puefwu+yfJxyDlDP7x4MGzVS4dgbFH7EZ8zTDkp2vFVecuoxfxxhdY+Tz7dUCH/TYaTwGoUZPJNgRRebXBqAtjB8HZHiEJxpyArmmqsDKahE+N1OD168d91XD8Skp8ko0mwBL7PoaAydcJTg6xJ9cMWSKTEbk/PgK7vidoO5ndv+hEp8Ji9uZSliXncpu/mA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qNmnEdc8aSjttCxldRgFCFvIxmtWMiF3sqxcaGRCbhM=;
- b=E/imVjBWPn3D7TIcwFx6b3mYA+FU/t38Tqkvrkp7hhQknpUqduyV/TRS6zHZYtRYNNmKxnYP1ZtDaBsv357qlbdMNSckAl5e2MCbIz21sfsE47JOMRroI7sYJ0qcI9PaZfkwPsN0QeUdRQNFLnwUNhER1Ho1vPps9b2uoRzOBVkFTAJsc/qdwy8SfXugexX9/1q+mrOmXL9NcwIXPIPTpUp7Dd4JsZCxtkjMAnwYE8cIlzBSJDyaPwnqAeP1F5FzXG54/fvnYsQ8tbfQXcjZVYBSUfgc1/O3oHOQyIyMGmxUYN7N9jce1UMYRHQPu+zY2pLbGH+LfP9eZozUY0pMnw==
+ bh=TQ8xdHqLAmHz0xeMMBVvJRLwrpBXTcQCfgKdJYi/7pc=;
+ b=GRcdpw16jf2ZjnX5K00ctH5RADk5fl7dH37PC/OahIoYfuHiolt9B17dzz9DOLPrZ4R9HR8FZmvbWZRTIOjl5fn414ZkNxz9+HEaUUgZpLOhDGvSPotKoeuK7GoT3iVd/OwUYzN2iL5XQjb2d/Y5IHsRyZOJSOQF7vLKGO7Zq9Oeit57eR7CrSEtPOpEFpWy0iP/IBu4jU2fctBoQ4HyoZpiNtoixfXdpR7+0wslVqk0KpAA4YAFn3uRcOEKfkymI/tgkFlVpbQIWFi2uxYKH2slI956UQbbd+GrPJTJFNg4VvOkh8gvzqxRGyskAybnr4GDQ+zJ/1bE3B13NypygQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qNmnEdc8aSjttCxldRgFCFvIxmtWMiF3sqxcaGRCbhM=;
- b=UnzhoRyWkukqmv9t6RIrNKnbmqkT1kvk63rC47bFOV3PqvGvq8XT3b7y1NN6FOZ+2wdGcl2iZ2UdxBBHxj/FZmDY2L1SijT7zLSMkNSQzXqKu1fAgvhj2Ar15snilyMTwd8BeYkUQ74DKWr0G90I/lbRrfe47tybuXYeKhxuoiY=
-Received: from SJ0P220CA0029.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::13)
- by DS5PPFEC0C6BDA1.namprd12.prod.outlook.com (2603:10b6:f:fc00::668)
+ bh=TQ8xdHqLAmHz0xeMMBVvJRLwrpBXTcQCfgKdJYi/7pc=;
+ b=3p+3QKxJDqh+SsPgS89oYV1n2R1JdmlGWg/t8ObQ7ws49wSYhGZPn/M91QyrILlFudt5tx3ODLyzUmAH2P8bhElAo6xACjoyd1nb9aFYYjgvP2KjA7CzsKD3bAXT+xhppIBWY6nOb/i6Gaqw6SRT6X8unOzNHrlBDDJ1BWNKnPk=
+Received: from SJ0PR03CA0257.namprd03.prod.outlook.com (2603:10b6:a03:3a0::22)
+ by PH8PR12MB7304.namprd12.prod.outlook.com (2603:10b6:510:217::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 15:07:13 +0000
-Received: from SJ1PEPF000037BB.namprd05.prod.outlook.com
- (2603:10b6:a03:41b:cafe::1d) by SJ0P220CA0029.outlook.office365.com
- (2603:10b6:a03:41b::13) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 15:21:15 +0000
+Received: from BY1PEPF0001AE1D.namprd04.prod.outlook.com
+ (2603:10b6:a03:3a0:cafe::96) by SJ0PR03CA0257.outlook.office365.com
+ (2603:10b6:a03:3a0::22) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 15:07:07 +0000
+ Sep 2026 15:21:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,23 +48,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037BB.mail.protection.outlook.com (10.167.244.202) with Microsoft
+ BY1PEPF0001AE1D.mail.protection.outlook.com (10.167.242.106) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 15:07:07 +0000
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 15:21:15 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 2 Sep 2026 10:07:05 -0500
+ 15.2.2562.46; Wed, 2 Sep 2026 10:21:09 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [RFC PATCH 0/2] drm/amdgpu: First-level trap handler for kernel queue
- VMIDs
-Date: Wed, 2 Sep 2026 20:36:54 +0530
-Message-ID: <20260902150656.183333-1-srinivasan.shanmugam@amd.com>
+To: <matthew.brost@intel.com>
+CC: <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+Subject: [PATCH v7 1/4] drm: Add drm_work_fence helper
+Date: Wed, 2 Sep 2026 20:50:46 +0530
+Message-ID: <20260902152049.183685-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260831134539.112690-2-srinivasan.shanmugam@amd.com>
+References: <20260831134539.112690-2-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -73,29 +76,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037BB:EE_|DS5PPFEC0C6BDA1:EE_
-X-MS-Office365-Filtering-Correlation-Id: 627693b2-077e-47fc-191e-08df0903db02
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1D:EE_|PH8PR12MB7304:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2129713e-adff-4e86-6edc-08df0905d47e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|6133799003|18002099003|13003099007|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: Yan6tWX2o0wSQPBgi2Vvc5qSFWp+iCoFPt7+/sBVDW6pCkk01fRrSbZGVDRAzguLk/j7sndEkgEDPNxvFxqkm2+9K43k65/2sbxt1fXdVfHmzQRNXugmrFPpgoAQFGpsi+L++myr1hKmtg6mTW40BnlcUKtarA1aWqs+OXvN+gmvkYrxJeU9Bj77ZFigXG9PJ8RkC85qQzPdhAY57uMQlN9H4Il9EjVHdLdacLMfa62iu+S4fFxkOUHZf5tkhsbEUM0yE7ZiH5Q1Y7QjkLi7AafTYlPscXIcf8RbE2BUsp1lrr3fxoZeTphwMetUSR07Z8u/w2+2brMOSGPjHCetTIQ0w0mN271J8Yc0ZEbGHVAK3T4UcM0LqPV9pTvMtXmJHcflAuKG7zWGYmEu+FtVD2fqWi3tCiGrQfqIymAPqRFvp+huInBYavFf1cfEkckCZ0SutI+CaTbcAPdu3xdWKsku9QjnKTBeFwzTHYur1wC5Tpe+yw4IHT6QVJ+IR6qywdLQ4yVtpIthqTI5t01jNnkWs31ey3/dkBcixfD1XFXCQPxgMaL6FjmLYULzVq4s2xu67+cdZdkFld/lzbxVniXSNJBMPb7cSwxlKp1cc85qr7FkMTxCFnUCZDNX68xaQoIEWqJSPYeo/k6pq9eDzQ==
+ ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|11063799006|10067099003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 1owMVDDJOEoszzO1oen9ocmOzlFMLu2qu9FX66bOt4pqEK7e5g/UWEqXs7Q2OXPdwJoyhHSfJaPb1RAhGqKVHsr337VHlPosEyf0VmwerpWeidvlbTRIOdqeEd0RHzXKdTy54eUxPqu1J1tFO+lDnPdGyI/5a3dB3Exhm4kN/phIY7ibCOK0mcm31b9fFQdmeG0/90n3geQ7EQMRamL9nV1J+p9uyCFKtCPiLJ9jwdSY3gGJ5wS40M31G4H+/E2OgEYB5EFTtSN17sm3CtnQbSyVBMjxn3EWPJCWwmuw0w/SSaF4QV/tyIF65PY4w75FxhwJbLhCah6OvUtt6Z1M4FOKUqBap/70tb00efFXNvXTM+xSgyEAE35MMEhzgGp4KSOxsGcXk8kU2sJ9S4XdRAZdPrWzGnkiyMqij0H7bQLbLJuDoiV9VIfyk1Us51QMF+axODMqClGZj0R5HWGNyvMHhCpne1wNA+HUddSt62SXWPBS/Y9IwykNeGp3bBR0Z8RN/QptQhH8gjkyUow9t/OLWRHbprSEXLFsBnZ9QLyVIt6yzwIZG40QldCLmooTcXs4FoMTNCYRhB3wrPkOmHaHxQutVuQwKX6zO4K2lhTo8osmvd2dDxeYi3fjDatv79rcYecGEhz5urzRpp4zt883AF9g8DKK3UDL0ACpsoHXvIJSRHQIwyqxXvod1tmpXmtJXSGb68kJA+HQS5cMtA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(6133799003)(18002099003)(13003099007)(56012099006)(10067099003)(11063799006);
+ SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(11063799006)(10067099003)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: WRPckML5tH6VkBYU8WUWyCFSSBkpGEeCtBNSapXnx5USFZy0tUUpV3MWYKyWyjAPROibn3ht7Xrd8OBIy5c2wxBI5kOesLZlQJAAcQJXFC/wnv7FKFTyFQT54toDhApJj8hN6wexslmZTNEg+CrKfVfkffNIvoVfke6UeXSirD/hL7CMWdNiY5ZZRM+i9/oP0HjLaNH296mahQmeBPDSwywDuFDiZ3ztfNxEujbgfU9TzBSsai4UCs2/qjufkmaTWR+ANkeK3qLWROcVaFjjWJHHQLAYZ/avAGZ12K75aCGwEyIr3omoZh+8BdBkh2lXaO4GT7ubQTIRhrKvq1AqKgLY5rJ8vofz8N4xOM26h/nJd26wpLX/N4ZefmpcTOxXNBakd1VoK85kEpp7M3GXe+wnlVfnIDGfyWxy+vyvQtprkCsnvwDzTAlbfI4pqoPU
+X-MS-Exchange-AntiSpam-MessageData-0: PrYsFb5vTlb8B0eDnyzF8oMONPU3SvWTMlo5iMqPxodbt8O6CaujagthKujbhMLPhcoG339y4/M3jaSlgO7dYeJJ51PQUGcfqOxzhHmZsaS9yt4HB1yBAkHlahcmje9eiN+5+TRYgwPAbf2ZqqCcPJUodh0YwT0qChtsml2MZBU3VZhd6B7ryXFAaAPfo7blvCBMMG+X9nf5zlGuBT3JrscD2sJekpWexCKFc8K9EVOYReWnRFOHUSDtS1KCLgQmNLu/5O71cKNna9/8+SEJizGfeMxQgTXIMEqQP0JxBGn4XLQKCSySwYrC9oK4AF/y+esyljZibP4zYD4nWb8FNn/PTWu9vuUyrpwReva/Iu8WRodOMBJeym2x9/pdTzXoRBCbZqh/hED3ZySp0RHmbO5Xcmnw8PQWKeeW21mJNdDh+Mc8dkT+/qP//M77QPk6
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:07:07.2543 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 627693b2-077e-47fc-191e-08df0903db02
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:21:15.3171 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2129713e-adff-4e86-6edc-08df0905d47e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037BB.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE1D.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFEC0C6BDA1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7304
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,90 +113,317 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Background
-----------
-An earlier RFC [1] introduced a new ioctl (AMDGPU_VM_OP_SET_L2_TRAP)
-to allow userspace to register a second-level trap handler for user
-queues. During review, it was noted that RADV on Vega/Navi hardware
-uses kernel queues (context-based submission), not user queues, and
-therefore cannot benefit from the second-level trap handler without
-first-level trap handler support for kernel queue VMIDs.
+GPU drivers often need to queue work when a dma-fence signals
+because certain operations (copy_to_user, eventfd_signal, memory
+allocation) cannot run in IRQ context. This pattern is currently
+open-coded in multiple drivers.
 
-Problem
--------
-On GFX11+ (MES-based hardware), MES programs SQ_SHADER_TBA/TMA for
-user queue VMIDs via the ADD_QUEUE packet's trap_handler_addr field.
-However, MES maps kernel queues via ADD_QUEUE with map_legacy_kq=1 but
-does NOT program the trap handler for those VMIDs.
+Introduce drm_work_fence — an embeddable base structure that handles the
+dma-fence-callback-to-workqueue pattern in one place. Drivers embed this
+in their own structure and implement ops->writeback() for the deferred
+work and ops->destroy() for cleanup.
 
-On GFX10 and earlier (HWS-based), the driver programs trap handler
-registers via SRBM select when KFD queues are set up, but no equivalent
-programming exists for the driver-managed kernel queue VMIDs.
+The helper manages:
+ - kref lifetime
+ - dma-fence callback registration
+ - workqueue dispatch on fence signal
+ - safe cancellation before driver teardown
 
-Key design decisions:
-  - MES owns kernel VMIDs but does not program trap handler state
-  - The driver must program SQ_SHADER_TBA/TMA directly via SRBM select
-    for kernel queue VMIDs
-  - Trap handler is a VMID property, not a queue property
-  - Only kernel queue VMIDs (1..first_kfd_vmid-1) should be programmed
-    here; user queue VMIDs are handled by MES
+For work that additionally requires borrowing the process MM via
+kthread_use_mm(), see drm_user_fence which builds on top of this.
 
-Use Cases
----------
-  - RADV graphics debugging on Vega/Navi/Steam Deck (Valve)
-  - Future Navi ray tracing features requiring trap handlers on kernel
-    queues
-  - Consistent first-level trap handler behavior when userspace switches
-    between kernel queues and user queues
+Suggested-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/Makefile         |   1 +
+ drivers/gpu/drm/drm_work_fence.c | 184 +++++++++++++++++++++++++++++++
+ include/drm/drm_work_fence.h     |  69 ++++++++++++
+ 3 files changed, 254 insertions(+)
+ create mode 100644 drivers/gpu/drm/drm_work_fence.c
+ create mode 100644 include/drm/drm_work_fence.h
 
-Design
-------
-A new vmhub callback (program_kernel_trap_vmids) is added to
-amdgpu_vmhub_funcs. Each gfxhub version implements this callback to
-write SQ_SHADER_TBA/TMA registers for kernel queue VMIDs. A device-level
-TMA BO (kq_tma_bo) is created at trap_init time as the scratch buffer
-for kernel queue trap context.
-
-The registers are programmed at two points:
-  1. amdgpu_trap_init() — on first boot, after ISA and TMA BOs are ready
-  2. setup_vmid_config() — on GPU resume, after GART registers are restored
-
-GFX versions covered:
-  - GFX10   (gfxhub_v2_0):    mm-prefixed registers, single XCC
-  - GFX11   (gfxhub_v3_0):    reg-prefixed registers, single XCC
-  - GFX11.5 (gfxhub_v11_5_0): reg-prefixed registers, single XCC
-  - GFX12   (gfxhub_v12_0):   reg-prefixed registers, single XCC
-  - GFX12.1 (gfxhub_v12_1):   reg-prefixed registers, multi-XCC
-
-Open Questions
---------------
-  1. XCP partitioning: gfxhub_v12_1 programs all XCC instances on each
-     call. For XCP partition suspend/resume, only a subset of XCCs may
-     need reprogramming. This will be addressed in a follow-up.
-
-  2. MES firmware: ideally MES should honor trap_en regardless of queue
-     type, but MES APIs are frozen. The driver-side SRBM approach in
-     this series is the agreed workaround.
-
-This series depends on [1] (second-level trap handler RFC) for the
-amdgpu_trap infrastructure (isa_bo, amdgpu_trap_init, amdgpu_trap_alloc).
-
-[1] https://patchwork.freedesktop.org/series/172489/
-
-Srinivasan Shanmugam (2):
-  drm/amdgpu: Add kernel VMID trap handler infrastructure
-  drm/amdgpu: Implement kernel VMID trap handler for GFX10/11/12
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h     |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c    | 37 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h    |  2 +
- drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c | 43 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c   | 34 ++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c   | 37 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c    | 34 ++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c    | 34 ++++++++++++++++
- 8 files changed, 222 insertions(+)
-
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e97faabcd783..c5be8e80d0c8 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -72,6 +72,7 @@ drm-y := \
+ 	drm_vblank.o \
+ 	drm_vblank_work.o \
+ 	drm_vma_manager.o \
++	drm_work_fence.o \
+ 	drm_writeback.o
+ drm-$(CONFIG_DRM_CLIENT) += \
+ 	drm_client.o \
+diff --git a/drivers/gpu/drm/drm_work_fence.c b/drivers/gpu/drm/drm_work_fence.c
+new file mode 100644
+index 000000000000..482eb3d4475f
+--- /dev/null
++++ b/drivers/gpu/drm/drm_work_fence.c
+@@ -0,0 +1,184 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2024 The Linux Foundation
++ *
++ * Common DRM work fence helper.
++ *
++ * When a GPU dma-fence signals, drivers often need to perform work that
++ * cannot run in IRQ context (e.g., memory allocation, copy_to_user,
++ * eventfd_signal). This helper queues a work item when a dma-fence
++ * signals, allowing that work to run safely in a workqueue context.
++ *
++ * NOTE: This helper consumes dma_fences but CANNOT implement
++ * dma_fence_ops. Work items queued here may sleep; dma_fence_ops
++ * callbacks are called under the fence spinlock and must not sleep.
++ *
++ * For work that additionally requires accessing userspace memory via
++ * kthread_use_mm(), see drm_user_fence which builds on top of this.
++ */
++
++#include <linux/workqueue.h>
++
++#include <drm/drm_work_fence.h>
++
++static void drm_work_fence_destroy(struct kref *kref)
++{
++	struct drm_work_fence *wfence =
++		container_of(kref, struct drm_work_fence, refcount);
++	struct dma_fence *fence = wfence->fence;
++
++	wfence->ops->destroy(wfence);
++	dma_fence_put(fence);	/* NULL-safe */
++}
++
++/**
++ * drm_work_fence_get - Acquire a reference to a work fence
++ * @wfence: work fence
++ */
++void drm_work_fence_get(struct drm_work_fence *wfence)
++{
++	kref_get(&wfence->refcount);
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_get);
++
++/**
++ * drm_work_fence_put - Release a reference to a work fence
++ * @wfence: work fence
++ */
++void drm_work_fence_put(struct drm_work_fence *wfence)
++{
++	kref_put(&wfence->refcount, drm_work_fence_destroy);
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_put);
++
++static void drm_work_fence_work(struct work_struct *w)
++{
++	struct drm_work_fence *wfence =
++		container_of(w, struct drm_work_fence, work);
++
++	wfence->ops->writeback(wfence);
++	drm_work_fence_put(wfence);
++}
++
++static void drm_work_fence_queue(struct drm_work_fence *wfence)
++{
++	queue_work(wfence->wq, &wfence->work);
++}
++
++static void drm_work_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
++{
++	struct drm_work_fence *wfence =
++		container_of(cb, struct drm_work_fence, cb);
++
++	drm_work_fence_queue(wfence);
++	/* Single ref: wfence->fence released in drm_work_fence_destroy(). */
++}
++
++/**
++ * drm_work_fence_init - Initialize a work fence
++ * @wfence: work fence to initialize
++ * @wq: workqueue to run the worker on (must be ordered if sequencing matters)
++ * @ops: driver operations
++ */
++void drm_work_fence_init(struct drm_work_fence *wfence,
++			 struct workqueue_struct *wq,
++			 const struct drm_work_fence_ops *ops)
++{
++	kref_init(&wfence->refcount);
++	wfence->wq = wq;
++	wfence->ops = ops;
++	wfence->fence = NULL;
++	INIT_WORK(&wfence->work, drm_work_fence_work);
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_init);
++
++/**
++ * drm_work_fence_add_callback - Attach a work fence to a dma-fence
++ * @wfence: work fence; caller retains their reference and must release
++ *          it via drm_work_fence_put() when no longer needed
++ * @fence: dma-fence to watch; one reference is consumed on any return value
++ *
++ * When @fence signals, a work item is queued that calls ops->writeback().
++ * If @fence has already signaled, the work item is queued immediately.
++ *
++ * Return: 0 on success, negative errno on error.
++ */
++int drm_work_fence_add_callback(struct drm_work_fence *wfence,
++				struct dma_fence *fence)
++{
++	int err;
++
++	drm_work_fence_get(wfence);
++	wfence->fence = fence;	/* transfer caller's ref — single ref, no get */
++
++	err = dma_fence_add_callback(fence, &wfence->cb, drm_work_fence_cb);
++	if (err == -ENOENT) {
++		drm_work_fence_queue(wfence);
++		err = 0;
++	} else if (err) {
++		wfence->fence = NULL;
++		dma_fence_put(fence);
++		drm_work_fence_put(wfence);
++	}
++
++	return err;
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_add_callback);
++
++/**
++ * drm_work_fence_cancel - Cancel a pending work fence callback
++ * @wfence: work fence
++ *
++ * Attempts to remove the pending callback before driver context teardown.
++ * The caller must hold a reference to @wfence across this call.
++ *
++ * If the callback has already fired this returns false and all cleanup
++ * has been handled internally.
++ *
++ * If removal succeeds the callback reference is released internally.
++ * The caller must still release its own reference via drm_work_fence_put().
++ *
++ * This function is safe to call from atomic context as it only acquires
++ * the dma-fence spinlock internally. If the caller also needs to wait
++ * for the worker to finish, use drm_work_fence_cancel_sync() instead,
++ * which may sleep.
++ *
++ * Return: true if callback was removed, false if it had already fired.
++ */
++bool drm_work_fence_cancel(struct drm_work_fence *wfence)
++{
++	struct dma_fence *fence = wfence->fence;
++
++	if (!fence)
++		return false;
++
++	if (dma_fence_remove_callback(fence, &wfence->cb)) {
++		drm_work_fence_put(wfence);	/* drop ref from add_callback */
++		return true;
++	}
++
++	return false;
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_cancel);
++
++/**
++ * drm_work_fence_cancel_sync - Cancel callback and wait for worker to finish
++ * @wfence: work fence
++ *
++ * Calls drm_work_fence_cancel() then cancel_work_sync() to guarantee
++ * the worker has fully completed before returning.
++ *
++ * This function may sleep. Must not be called from atomic or interrupt
++ * context. Use drm_work_fence_cancel() instead when sleeping is not allowed.
++ *
++ * Drivers must call this during teardown before freeing any resources
++ * accessed by ops->writeback().
++ */
++void drm_work_fence_cancel_sync(struct drm_work_fence *wfence)
++{
++	if (drm_work_fence_cancel(wfence))
++		return;
++	if (cancel_work_sync(&wfence->work))
++		drm_work_fence_put(wfence);
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_cancel_sync);
+diff --git a/include/drm/drm_work_fence.h b/include/drm/drm_work_fence.h
+new file mode 100644
+index 000000000000..c8e3c5b9f0c4
+--- /dev/null
++++ b/include/drm/drm_work_fence.h
+@@ -0,0 +1,69 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2024 The Linux Foundation
++ */
++
++#ifndef __DRM_WORK_FENCE_H__
++#define __DRM_WORK_FENCE_H__
++
++#include <linux/dma-fence.h>
++#include <linux/kref.h>
++#include <linux/workqueue.h>
++
++struct drm_work_fence;
++
++/**
++ * struct drm_work_fence_ops - driver callbacks for a DRM work fence
++ */
++struct drm_work_fence_ops {
++	/**
++	 * @writeback: Called from workqueue context when the dma-fence signals.
++	 *
++	 * Perform the deferred work here (copy_to_user, eventfd_signal, etc.).
++	 * May sleep. Must not requeue the fence.
++	 */
++	void (*writeback)(struct drm_work_fence *wfence);
++
++	/**
++	 * @destroy: Called when the last reference is dropped.
++	 * Free the containing structure here.
++	 */
++	void (*destroy)(struct drm_work_fence *wfence);
++};
++
++/**
++ * struct drm_work_fence - DRM dma-fence-to-workqueue helper
++ *
++ * Embeddable base structure that queues a work item when a dma-fence signals.
++ * Drivers embed this in their own structure and implement ops->writeback()
++ * for the deferred work and ops->destroy() for cleanup.
++ *
++ * Call drm_work_fence_init() at creation and drm_work_fence_add_callback()
++ * to arm on a dma-fence. Call drm_work_fence_cancel_sync() before teardown.
++ */
++struct drm_work_fence {
++	/** @refcount: Reference count. */
++	struct kref refcount;
++	/** @wq: Workqueue on which to run the worker. */
++	struct workqueue_struct *wq;
++	/** @ops: Driver operations. */
++	const struct drm_work_fence_ops *ops;
++	/** @fence: The watched dma-fence; holds a single reference. */
++	struct dma_fence *fence;
++	/** @work: Work item queued when the fence signals. */
++	struct work_struct work;
++	/** @cb: Callback registered on the dma-fence. */
++	struct dma_fence_cb cb;
++};
++
++void drm_work_fence_init(struct drm_work_fence *wfence,
++			 struct workqueue_struct *wq,
++			 const struct drm_work_fence_ops *ops);
++void drm_work_fence_get(struct drm_work_fence *wfence);
++void drm_work_fence_put(struct drm_work_fence *wfence);
++int  drm_work_fence_add_callback(struct drm_work_fence *wfence,
++				 struct dma_fence *fence);
++bool drm_work_fence_cancel(struct drm_work_fence *wfence);
++void drm_work_fence_cancel_sync(struct drm_work_fence *wfence);
++
++#endif /* __DRM_WORK_FENCE_H__ */
 -- 
 2.34.1
 
