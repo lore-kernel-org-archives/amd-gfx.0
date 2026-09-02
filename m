@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06B6EC61DFD
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:05:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D133C61DFD
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:05:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8273510E6F1;
-	Wed,  2 Sep 2026 05:05:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B66C610E6F5;
+	Wed,  2 Sep 2026 05:05:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tdFm7yiI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="weQ1yEXz";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012035.outbound.protection.outlook.com [52.101.48.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDD9610E6F1
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:05:35 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013056.outbound.protection.outlook.com
+ [40.93.201.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CD3410ED42
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:05:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nfEdCRfSMtUiZCCXKv7NLPDGm/KqoYTkSj8YRZiKmOLUKNiVstoA8y11zDiGSmNZBXji4oHbqJtQbNGa3fjDuxCE9lSIAPdyv9v4B8hJ7TOU63iCKAHhzTwI7RK4fggMQQuK1IvWGylgAlkwfRiJd7yBVQ4YBxYwOGl1Hq5663TXdg/IeGRlKiJhRZKCQyKlKv3psc5Bz+MEAHSyH3X5WhrxatkknszvnC2CmDD39hjvvL6Q/LCLNN78uuHqt6J1ev7MyUtiKSwrdvOLQ+BjLoJ6fLmml2UlaB9PlqNvWVb0vrmASBgdxYac39TzqeNpW0ZrJt/gSmHAFZZl3jAOgw==
+ b=vjae+QV9kJvneKjKo4E8t84KvrJQijvBIDvPRm7Wri5O6ShRHLhkm00k0DnAsPh0rUGZb3qg+7sOBFYkFFa4/c90NPKs0c32x3gsCb2R1FEjtByMsF6ukYJmWhGw/Z/ZnljGm8zj8egOMhO/5noW9SoI5aRsZvzrFeuXZNGiuYBT7PLU2j5WK/GjeilJZuz7kac8SFXcuffYV/uAE7MQDzdILU6CEj3SCj7APPpwQqPk5IawJIhmOONIrag80Yl7DTGez56Icd1t81J6ZtdftuOgBCMbbhRzsOvhwmEA4vyCdk6ecIpnlFFZGtqezC8YCCAp8pXgkc0xKN0Nxj3/wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CRPCWEjGBc6Pm6kbdkbNnH53uIcQ+7a8Z/nHwJHcx3I=;
- b=rdSw5kNxs6F0H0xzk1c/Otmj1cJbf9svdKQPFBKbYbmLhbrEFO/hDyZK2EyfYn9cqjCxFnRPsR1twmmJczNSTyJCzSFjAU6lT66mxv+iQn9KvJ8LargieZi55YmzDr6EBC3IGr9sXelDpj4Wsw8uhjqn5d4ly0v/TUV+jBK7rzvl8cVBZxm+4AkVKyEtx8DHnzwKE+YbPnCjknCu8rpkJPZxJVrWLBHjAj2EIlD+jBYrPinlhoowteKkY6IBJC4uEfWd85rZv/G0KVXQiYFAfvL6Hl0SPqje2Vq5MC7UZE+ZrDv5wDTxCyQxzeO1oyukbv8CJySpu9dU+57xX+Kh9g==
+ bh=Xt4B64ebWky/6Zx952GQa+dvCPcIVkX8C5mX/kb9pKM=;
+ b=PF8815dWyUylLUc19rADzrodK65QkCwIwaO/U3v2ulmX+YO6PVQg7cHzQOCEf1xZcRiblpy2qPUkCtX8w8ykO7q/2vBkSz/E8q51TXHBhf5LEs4Ql66jdAmu0kTEGcll9Rr6m3eyxBsijHzC5uLCz4VMu+IuzXEFJbgIg7jyMEA/hSi2NyN7VrS0C9FtjEaOkaTNs4o9rMvmS+WXZvFeAMFJfesbEhrlyg4We2mUP5y6mgZxjunsJPDEssAU1r9zE16z5zy8QGZQRM4PGK5XcokZnC+ydEsJIocQkYGxSjQwGoMb1qfoA7aJvZzkm4HRhDqf6qyVA3wLuM0XYyFNxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CRPCWEjGBc6Pm6kbdkbNnH53uIcQ+7a8Z/nHwJHcx3I=;
- b=tdFm7yiIJ9Qbc5DFdpScEYnwj37zane+tpEQXx7uu4DBqrI2JFhUUKoET97dKUSCwEHievrPbae8JQqlnLKkf68mhR24oGBYK+DmWdcYwy7SQW7PWu7EW7mth4Wz1+YQ7QoaP93IvgOWaeHIAh1MktYd0vyUxqoJNj5lhDRApNA=
-Received: from BL1PR13CA0195.namprd13.prod.outlook.com (2603:10b6:208:2be::20)
- by DM6PR12MB4188.namprd12.prod.outlook.com (2603:10b6:5:215::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=Xt4B64ebWky/6Zx952GQa+dvCPcIVkX8C5mX/kb9pKM=;
+ b=weQ1yEXzHK7p6lt4dC+NLzPNBIg5ja2d3ST3YAlAcolnzECiG05c4Ny4V7doRg8YQBe6+u+sj9QrJ6Rg6EVQsnIFcumVnT7KMdhhR2zVCv71BO89KcqL90U0FznVZxPX1KW9VgbQew3QtzY7rSFORyV6EFkNYLInch1/S4UGqLE=
+Received: from BN9PR03CA0724.namprd03.prod.outlook.com (2603:10b6:408:110::9)
+ by CY5PR12MB6250.namprd12.prod.outlook.com (2603:10b6:930:22::10)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 05:05:28 +0000
-Received: from BN1PEPF0001854B.namprd05.prod.outlook.com
- (2603:10b6:208:2be:cafe::1) by BL1PR13CA0195.outlook.office365.com
- (2603:10b6:208:2be::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.6 via Frontend Transport; Wed, 2
- Sep 2026 05:05:27 +0000
+ 2026 05:05:37 +0000
+Received: from BN1PEPF0001854A.namprd05.prod.outlook.com
+ (2603:10b6:408:110:cafe::65) by BN9PR03CA0724.outlook.office365.com
+ (2603:10b6:408:110::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Wed, 2
+ Sep 2026 05:05:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF0001854B.mail.protection.outlook.com (10.167.248.10) with Microsoft
+ BN1PEPF0001854A.mail.protection.outlook.com (10.167.248.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:05:27 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:05:37 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 00:05:26 -0500
+ 2026 00:05:35 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 00:05:35 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 00:05:17 -0500
+ Transport; Wed, 2 Sep 2026 00:05:26 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -68,9 +73,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, Ray Wu
  <ray.wu@amd.com>
-Subject: [PATCH 07/40] drm/amd/display: Test plane update adapter
-Date: Wed, 2 Sep 2026 12:58:29 +0800
-Message-ID: <20260902050411.3473916-8-ray.wu@amd.com>
+Subject: [PATCH 08/40] drm/amd/display: Test MST resume guards
+Date: Wed, 2 Sep 2026 12:58:30 +0800
+Message-ID: <20260902050411.3473916-9-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260902050411.3473916-1-ray.wu@amd.com>
 References: <20260902050411.3473916-1-ray.wu@amd.com>
@@ -79,29 +84,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0001854B:EE_|DM6PR12MB4188:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87356059-f79d-437e-8998-08df08afcde1
+X-MS-TrafficTypeDiagnostic: BN1PEPF0001854A:EE_|CY5PR12MB6250:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e5bfda9-4b9c-4d41-e184-08df08afd380
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: l9+ac500v+x5Z5Ps2jlMCPlQC4Ug62Rfnhw/HGXyBC85HwjzK4djQStyE9h7ugXf6bVe9A4VyHzh2IW+1KorLvzGKJNPHTlCDUI97OGuehEEaD94zwri9JzIUfqbJEYthia8yhu+DFQ9ilaa6S8pTqhPnNoMcHOAl8FZ732e/3gVFkEcmKL5ZwMp1g+7el0Iitrx9PCR9OIgMqiFOdTytZge++TSwZBx6WyympKFLceyXpx3/TirfOTkXJ2YtOvdaLSLZaIEXQRphsrGxu9ruDyijPtELpKIBi51dcOfHDCUQJ1QpfbvUychgSso11iZTB14AE/DvbTBdm7S/yRqOAPhA026uQeBtk5xxYsZGO7MsaDeSJUqw4yOsiCcPd/EzKpisqf7s3vIMYBWQe/dvuAvkaWHB/rOc7+olhKmZZeUiddJavwFLAJXRR3144so8p7s44LVf4o6r0I04sgO56vIwAEjQaLGlG9xnPoa8lXLO59FUHM6Fev3evsgLwMBg9xXGaLAJWvVwSWss297/ju+6u90vniash0OQ1T04n4rPDOO705Oa0GZGT4zgxBZ/MvXAotxduXeRl1/jS1s0NqgxY39azUqNiiphH/5saYAi3HZAEG9cMKeTyM6WDdBKgFeX/S9X7wX5po2hvvGzyLe6DpvETDD4XNkMfmnhwCYXu6+E4QuHpV99ZCVjoA7eNvqYwHRtcDS5/EklwE25g==
+ ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|10067099003|5023799004|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: znsolStNx8fT1iNVjICQcMmgIZ+50uor+C1MIFJOlnppjE1nd/bRULF34eEDxoUCUz32ONwnvzhvRD6VRMQ/SmrqW4Q63AKeuKMKhkRrdc/ulB547UczoViQpZaoDoCAgPAgiLOLgQFHGBi4DI1y68F9Lucbix/cmVddygWcP3bigWAiwZdckmVzFmXhPD8FLDKTbZbNoOEB9OB3Ikaxfuupg+GuaoI/RAQglJs2NM/ohQoqs2EhRZ//skt0elv9iXpUGS14ew3HKh68xXD8bRqEWad+T9gMIcQT5l+5oLtCD905KEP/JAyhucNPJE1vM0pTstinznTS1av45hR1XwaSkr3rtO99mdX08rgRmdF9AuwfYHcMqwYrLDEjtIxZMCjtTzT5tHeaYed2yE8im3Bv5hzCpZQN5/1OmMsyPAAtzr3W0wzZSi8sx0PSFATJMmrdUDlPeJbKYFMzxlthExePtYW9FWDozguw5iQQ2RDIV/0g4JzzDV659jIe8rNY5O5rbSMQPl+YtDkjL4LXZD/1PUo7EuWnsUKvH+t/TuSrEM+8Ga73IVvDOdpCmM6FdSeBv9yT3nFBacy7+H2p8S5Kf8Rv23J/Lk/phx+kCqow1QAIPtAtJTGe/nh61ioG/exB/iHUsHIJt88c/55+u9KjL1o3mPfqRmSBy73Cqd3jVuLCI5VYHvTSDPV1sQEEMDsRX1Oo0f1yfLx9wlIb+g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(10067099003)(5023799004)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bIizlBgYElBijvBh1dyKgEB97R0dLkTSNSAKmVj+n5oVQVto0jHPMLKcYHkVJIhUrDZ2GYZbTQjVX/1YrOSn3QUBXxShQ7rFeNa4xZL/WyfUa2YRg5MpA8PtpVCSX4BaCIfd1Hhy4Q7o64Kp54ELhcCHUEJKF3M+0GAtEwANvGsfpV0EOxWm0xcG7jg7RU1jQ/LRdgO8ZOwP4fgFDYIylreC7qX02RReT0V65rdXKt8UHTqR60PLyKtKQpkOakwVkuJfDuc1ocXsIZvVUV9APZLzJBGgKyQEuiDdsAvZnF/3jGMahjKYpKay9fU9pGv9rCFPLlvyW2Zj231LUMDo1UaUQC5TMHAyjRQuZDcJ1Zx4fAMmyTpyZRVb4IK9zrsm7Xu7XvAtJtemfhD0FydT64kjkcWZFyZI9cj5PfFKKGvleGaAwKi2zR0oU1P4MQn1
+X-MS-Exchange-AntiSpam-MessageData-0: 8+ivhArgBcyKnKPqTB6K0AstKpm6ynEegKEnvl35fq2dAL6bHDQX0+OwEiNchLufbPSA10Yz+zq9FWcPXRAmpGnfNyKTDSB/fnFjQ1wRh89SaWwngtahOz1LgupjHHqi99S1RQFtCVTFO7u3l/UO/XRekbD5JB7IYi1uHTYexEXoJKFNBJmztqnn37IjXhlt1Mrdm5VAv7vK2HSFhM/xBVwhhVdG5o8DHksJFygt3yIBdb4mIpu7ZxKlbHQhvsJHiPFEsb65ValGGMIoRqTySMh0yDJ2JXdE+DWacE9aOpOmjiWUMka1oYsazlAI3lkS0A5FSFBKisdSDR+aUF1QO6J/7IqpYDv3EOnw7+EQeiHAVyhilXGM/ErnQGnThHP98kim13aCp+7OPG1nB0+r0+PmmEJx2hAPk6mOosQYyVPJZShUgZcP4UBSSyqQmsnr
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:05:27.5929 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87356059-f79d-437e-8998-08df08afcde1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:05:37.0242 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e5bfda9-4b9c-4d41-e184-08df08afd380
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0001854B.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0001854A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4188
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6250
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,304 +124,119 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [Why]
-Add KUnit tests for update_planes_and_stream_adapter() covering
-descending plane sorting, argument forwarding, call ordering, and
-DC failure propagation.
+Add KUnit tests for resume_mst_branch_status() without a primary
+branch and s3_handle_mst() with an empty connector list.
 
 [How]
-Extend the existing DM KUnit ops table with the two DC calls and use
-spies to observe inputs and ordering. Reuse one ops installer for the
-adapter and MMHUB tests.
+Use the real topology mutex and DRM connector iterator. The tests
+stop before AUX or topology-manager hardware operations are required.
 
 Assisted-by: Copilot:Claude-Opus-5 GPT-5.6 Sol
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  37 ++++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  15 +++
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 123 +++++++++++++++++-
- 3 files changed, 158 insertions(+), 17 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 ++
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 33 +++++++++++++++++++
+ 3 files changed, 39 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bd087155aac2..0eb813206837 100644
+index 0eb813206837..9b1ffc04c761 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -253,6 +253,16 @@ STATIC_IFN_KUNIT int dm_plane_layer_index_cmp(const void *a, const void *b)
+@@ -1252,7 +1252,7 @@ STATIC_IFN_KUNIT int dm_late_init(struct amdgpu_ip_block *ip_block)
  }
- EXPORT_IF_KUNIT(dm_plane_layer_index_cmp);
+ EXPORT_IF_KUNIT(dm_late_init);
  
-+#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
-+static const struct amdgpu_dm_kunit_ops *amdgpu_dm_ops;
-+
-+#define dm_post_update_surfaces_to_stream	amdgpu_dm_ops->post_update_surfaces_to_stream
-+#define dm_update_planes_and_stream		amdgpu_dm_ops->update_planes_and_stream
-+#else
-+#define dm_post_update_surfaces_to_stream	dc_post_update_surfaces_to_stream
-+#define dm_update_planes_and_stream		dc_update_planes_and_stream
-+#endif
-+
- /**
-  * update_planes_and_stream_adapter() - Send planes to be updated in DC
-  *
-@@ -270,12 +280,13 @@ EXPORT_IF_KUNIT(dm_plane_layer_index_cmp);
-  * @array_of_surface_update: dc surface update pointer
-  *
-  */
--static inline bool update_planes_and_stream_adapter(struct dc *dc,
--						    int update_type,
--						    int planes_count,
--						    struct dc_stream_state *stream,
--						    struct dc_stream_update *stream_update,
--						    struct dc_surface_update *array_of_surface_update)
-+STATIC_IFN_KUNIT INLINE_IFN_KUNIT
-+bool update_planes_and_stream_adapter(struct dc *dc,
-+				      int update_type,
-+				      int planes_count,
-+				      struct dc_stream_state *stream,
-+				      struct dc_stream_update *stream_update,
-+				      struct dc_surface_update *array_of_surface_update)
+-static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
++STATIC_IFN_KUNIT void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
  {
- 	sort(array_of_surface_update, planes_count,
- 	     sizeof(*array_of_surface_update), dm_plane_layer_index_cmp, NULL);
-@@ -283,14 +294,15 @@ static inline bool update_planes_and_stream_adapter(struct dc *dc,
- 	/*
- 	 * Previous frame finished and HW is ready for optimization.
- 	 */
--	dc_post_update_surfaces_to_stream(dc);
-+	dm_post_update_surfaces_to_stream(dc);
- 
--	return dc_update_planes_and_stream(dc,
-+	return dm_update_planes_and_stream(dc,
- 					   array_of_surface_update,
- 					   planes_count,
- 					   stream,
- 					   stream_update);
+ 	u8 buf[UUID_SIZE];
+ 	guid_t guid;
+@@ -1302,8 +1302,9 @@ static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
+ out_fail:
+ 	mutex_unlock(&mgr->lock);
  }
-+EXPORT_IF_KUNIT(update_planes_and_stream_adapter);
++EXPORT_IF_KUNIT(resume_mst_branch_status);
  
- STATIC_IFN_KUNIT int dm_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- 					      enum amd_clockgating_state state)
-@@ -312,6 +324,9 @@ STATIC_IFN_KUNIT int dm_early_init(struct amdgpu_ip_block *ip_block);
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- static const struct amdgpu_dm_kunit_ops amdgpu_dm_default_ops = {
- 	.gmc_pd_addr = amdgpu_gmc_pd_addr,
-+	.post_update_surfaces_to_stream = dc_post_update_surfaces_to_stream,
-+	.update_planes_and_stream = dc_update_planes_and_stream,
-+	.atomic_helper_suspend = drm_atomic_helper_suspend,
- };
- 
- static const struct amdgpu_dm_kunit_ops *amdgpu_dm_ops = &amdgpu_dm_default_ops;
-@@ -322,9 +337,11 @@ void amdgpu_dm_kunit_set_ops(const struct amdgpu_dm_kunit_ops *ops)
+-static void s3_handle_mst(struct drm_device *dev, bool suspend)
++STATIC_IFN_KUNIT void s3_handle_mst(struct drm_device *dev, bool suspend)
+ {
+ 	struct amdgpu_dm_connector *aconnector;
+ 	struct drm_connector *connector;
+@@ -1344,6 +1345,7 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
+ 	}
+ 	drm_connector_list_iter_end(&iter);
  }
- EXPORT_IF_KUNIT(amdgpu_dm_kunit_set_ops);
++EXPORT_IF_KUNIT(s3_handle_mst);
  
--#define dm_gmc_pd_addr		amdgpu_dm_ops->gmc_pd_addr
-+#define dm_gmc_pd_addr			amdgpu_dm_ops->gmc_pd_addr
-+#define dm_atomic_helper_suspend	amdgpu_dm_ops->atomic_helper_suspend
- #else
--#define dm_gmc_pd_addr		amdgpu_gmc_pd_addr
-+#define dm_gmc_pd_addr			amdgpu_gmc_pd_addr
-+#define dm_atomic_helper_suspend	drm_atomic_helper_suspend
- #endif
- 
- /* Allocate memory for FBC compressed data  */
+ STATIC_IFN_KUNIT int dm_oem_i2c_hw_init(struct amdgpu_device *adev)
+ {
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 645b39e4223b..df2e4d60e85a 100644
+index df2e4d60e85a..739171d5365c 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -86,7 +86,9 @@ struct dc;
- struct amdgpu_bo;
- struct dmub_srv;
- struct dc_plane_state;
-+struct dc_stream_state;
- struct dc_stream_update;
-+struct dc_surface_update;
- struct dmub_notification;
- struct dmub_cmd_fused_request;
- 
-@@ -1215,6 +1217,12 @@ int dm_sw_fini(struct amdgpu_ip_block *ip_block);
+@@ -1215,6 +1215,8 @@ void amdgpu_dm_mod_power_setup_streams(struct drm_atomic_commit *state,
+ int amdgpu_dm_early_fini(struct amdgpu_ip_block *ip_block);
+ int dm_sw_fini(struct amdgpu_ip_block *ip_block);
  int dm_oem_i2c_hw_init(struct amdgpu_device *adev);
++void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr);
++void s3_handle_mst(struct drm_device *dev, bool suspend);
  void dm_gpureset_commit_state(struct dc_state *dc_state, struct amdgpu_display_manager *dm);
  int dm_plane_layer_index_cmp(const void *a, const void *b);
-+bool update_planes_and_stream_adapter(struct dc *dc,
-+				      int update_type,
-+				      int planes_count,
-+				      struct dc_stream_state *stream,
-+				      struct dc_stream_update *stream_update,
-+				      struct dc_surface_update *array_of_surface_update);
- int fill_plane_color_attributes(const struct drm_plane_state *plane_state,
- 				const enum surface_pixel_format format,
- 				enum dc_color_space *color_space);
-@@ -1244,6 +1252,13 @@ void amdgpu_dm_services_kunit_set_ops(const struct amdgpu_dm_services_kunit_ops
- 
- struct amdgpu_dm_kunit_ops {
- 	uint64_t (*gmc_pd_addr)(struct amdgpu_bo *bo);
-+	void (*post_update_surfaces_to_stream)(struct dc *dc);
-+	bool (*update_planes_and_stream)(struct dc *dc,
-+					 struct dc_surface_update *surface_updates,
-+					 int surface_count,
-+					 struct dc_stream_state *dc_stream,
-+					 struct dc_stream_update *stream_update);
-+	struct drm_atomic_commit *(*atomic_helper_suspend)(struct drm_device *dev);
- };
- 
- void amdgpu_dm_kunit_set_ops(const struct amdgpu_dm_kunit_ops *ops);
+ bool update_planes_and_stream_adapter(struct dc *dc,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index 7a79aee057f8..ed53bfa5a8c3 100644
+index ed53bfa5a8c3..833f73972ab2 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -327,6 +327,119 @@ static void dm_test_plane_layer_index_cmp_ascending(struct kunit *test)
- 	KUNIT_EXPECT_LT(test, dm_plane_layer_index_cmp(&sa, &sb), 0);
+@@ -3296,6 +3296,37 @@ static void dm_test_oem_i2c_hw_init_no_device(struct kunit *test)
+ 	KUNIT_EXPECT_NULL(test, adev->dm.oem_i2c);
  }
  
-+struct dm_test_plane_update_ops_ctx {
-+	struct dc *dc;
-+	struct dc_surface_update *surface_updates;
-+	struct dc_stream_state *stream;
-+	struct dc_stream_update *stream_update;
-+	int surface_count;
-+	unsigned int call_seq;
-+	unsigned int post_update_seq;
-+	unsigned int update_seq;
-+	bool update_ret;
-+};
-+
-+static struct dm_test_plane_update_ops_ctx dm_test_plane_update_ctx;
-+
-+static void dm_test_post_update_surfaces_to_stream(struct dc *dc)
++/**
++ * dm_test_resume_mst_no_primary - Test a missing primary branch releases the topology lock
++ * @test: The KUnit test context
++ */
++static void dm_test_resume_mst_no_primary(struct kunit *test)
 +{
-+	dm_test_plane_update_ctx.dc = dc;
-+	dm_test_plane_update_ctx.post_update_seq = ++dm_test_plane_update_ctx.call_seq;
-+}
++	struct drm_dp_mst_topology_mgr *mgr;
 +
-+static bool dm_test_update_planes_and_stream(struct dc *dc,
-+					     struct dc_surface_update *surface_updates,
-+					     int surface_count,
-+					     struct dc_stream_state *dc_stream,
-+					     struct dc_stream_update *stream_update)
-+{
-+	dm_test_plane_update_ctx.dc = dc;
-+	dm_test_plane_update_ctx.surface_updates = surface_updates;
-+	dm_test_plane_update_ctx.surface_count = surface_count;
-+	dm_test_plane_update_ctx.stream = dc_stream;
-+	dm_test_plane_update_ctx.stream_update = stream_update;
-+	dm_test_plane_update_ctx.update_seq = ++dm_test_plane_update_ctx.call_seq;
++	mgr = kunit_kzalloc(test, sizeof(*mgr), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, mgr);
++	mutex_init(&mgr->lock);
 +
-+	return dm_test_plane_update_ctx.update_ret;
-+}
++	resume_mst_branch_status(mgr);
 +
-+static const struct amdgpu_dm_kunit_ops dm_test_plane_update_ops = {
-+	.post_update_surfaces_to_stream = dm_test_post_update_surfaces_to_stream,
-+	.update_planes_and_stream = dm_test_update_planes_and_stream,
-+};
-+
-+static void dm_test_restore_dm_ops(void *ctx)
-+{
-+	amdgpu_dm_kunit_set_ops(NULL);
-+}
-+
-+static void dm_test_install_dm_ops(struct kunit *test,
-+				   const struct amdgpu_dm_kunit_ops *ops)
-+{
-+	amdgpu_dm_kunit_set_ops(ops);
-+	KUNIT_ASSERT_EQ(test,
-+			kunit_add_action_or_reset(test, dm_test_restore_dm_ops, NULL), 0);
++	KUNIT_ASSERT_TRUE(test, mutex_trylock(&mgr->lock));
++	mutex_unlock(&mgr->lock);
 +}
 +
 +/**
-+ * dm_test_update_planes_adapter_sorts_and_forwards - Test sorting and call order
++ * dm_test_s3_handle_mst_empty - Test empty connector lists need no MST action
 + * @test: The KUnit test context
 + */
-+static void dm_test_update_planes_adapter_sorts_and_forwards(struct kunit *test)
++static void dm_test_s3_handle_mst_empty(struct kunit *test)
 +{
-+	struct dc_surface_update *updates;
-+	struct dc_plane_state *planes;
-+	struct dc_stream_update *stream_update;
-+	struct dc_stream_state *stream;
-+	struct dc *dc;
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
 +
-+	updates = kunit_kcalloc(test, 3, sizeof(*updates), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, updates);
-+	planes = kunit_kcalloc(test, 3, sizeof(*planes), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, planes);
-+	stream_update = kunit_kzalloc(test, sizeof(*stream_update), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, stream_update);
-+	stream = dm_kunit_alloc_stream(test, NULL);
-+	dc = dm_kunit_alloc_dc_with_ctx(test);
++	s3_handle_mst(&adev->ddev, true);
 +
-+	planes[0].layer_index = 1;
-+	planes[1].layer_index = 5;
-+	planes[2].layer_index = 3;
-+	updates[0].surface = &planes[0];
-+	updates[1].surface = &planes[1];
-+	updates[2].surface = &planes[2];
-+	dm_test_plane_update_ctx = (struct dm_test_plane_update_ops_ctx) {
-+		.update_ret = true,
-+	};
-+	dm_test_install_dm_ops(test, &dm_test_plane_update_ops);
-+
-+	KUNIT_EXPECT_TRUE(test, update_planes_and_stream_adapter(dc, UPDATE_TYPE_FAST, 3,
-+								 stream, stream_update, updates));
-+	KUNIT_EXPECT_EQ(test, updates[0].surface->layer_index, 5);
-+	KUNIT_EXPECT_EQ(test, updates[1].surface->layer_index, 3);
-+	KUNIT_EXPECT_EQ(test, updates[2].surface->layer_index, 1);
-+	KUNIT_EXPECT_PTR_EQ(test, dm_test_plane_update_ctx.dc, dc);
-+	KUNIT_EXPECT_PTR_EQ(test, dm_test_plane_update_ctx.surface_updates, &updates[0]);
-+	KUNIT_EXPECT_EQ(test, dm_test_plane_update_ctx.surface_count, 3);
-+	KUNIT_EXPECT_PTR_EQ(test, dm_test_plane_update_ctx.stream, stream);
-+	KUNIT_EXPECT_PTR_EQ(test, dm_test_plane_update_ctx.stream_update, stream_update);
-+	KUNIT_EXPECT_LT(test, dm_test_plane_update_ctx.post_update_seq,
-+			dm_test_plane_update_ctx.update_seq);
++	KUNIT_EXPECT_TRUE(test, list_empty(&adev->ddev.mode_config.connector_list));
 +}
 +
-+/**
-+ * dm_test_update_planes_adapter_propagates_failure - Test DC failure is returned
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_planes_adapter_propagates_failure(struct kunit *test)
-+{
-+	dm_test_plane_update_ctx = (struct dm_test_plane_update_ops_ctx) { 0 };
-+	dm_test_install_dm_ops(test, &dm_test_plane_update_ops);
-+
-+	KUNIT_EXPECT_FALSE(test, update_planes_and_stream_adapter(NULL, UPDATE_TYPE_FAST, 0,
-+								  NULL, NULL, NULL));
-+}
-+
- /* Tests for fill_plane_color_attributes() */
- 
  /**
-@@ -3422,11 +3535,6 @@ static const struct amdgpu_dm_kunit_ops dm_test_dm_ops = {
- 	.gmc_pd_addr = dm_test_gmc_pd_addr,
- };
- 
--static void dm_test_restore_dm_ops(void *ctx)
--{
--	amdgpu_dm_kunit_set_ops(NULL);
--}
--
- /*
-  * A device whose AGP aperture is disabled (bot above top), so the frame buffer
-  * alone decides the logical address range.
-@@ -3435,8 +3543,7 @@ static struct amdgpu_device *dm_test_mmhub_adev(struct kunit *test)
- {
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
- 
--	amdgpu_dm_kunit_set_ops(&dm_test_dm_ops);
--	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, dm_test_restore_dm_ops, NULL), 0);
-+	dm_test_install_dm_ops(test, &dm_test_dm_ops);
- 
- 	adev->gmc.agp_start = 0x2000000;
- 	adev->gmc.agp_end = 0x1000000;
-@@ -4868,6 +4975,8 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_plane_layer_index_cmp_equal),
- 	KUNIT_CASE(dm_test_plane_layer_index_cmp_descending),
- 	KUNIT_CASE(dm_test_plane_layer_index_cmp_ascending),
-+	KUNIT_CASE(dm_test_update_planes_adapter_sorts_and_forwards),
-+	KUNIT_CASE(dm_test_update_planes_adapter_propagates_failure),
- 	/* fill_plane_color_attributes */
- 	KUNIT_CASE(dm_test_fill_color_attr_rgb_format),
- 	KUNIT_CASE(dm_test_fill_color_attr_bt601_full),
+  * dm_test_gpureset_commit_state_no_streams - Test an empty DC state programs nothing
+  * @test: The KUnit test context
+@@ -5127,6 +5158,8 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	KUNIT_CASE(dm_test_early_fini_audio_disabled),
+ 	KUNIT_CASE(dm_test_sw_fini_releases_state),
+ 	KUNIT_CASE(dm_test_oem_i2c_hw_init_no_device),
++	KUNIT_CASE(dm_test_resume_mst_no_primary),
++	KUNIT_CASE(dm_test_s3_handle_mst_empty),
+ 	KUNIT_CASE(dm_test_gpureset_commit_state_no_streams),
+ 	KUNIT_CASE(dm_test_emulated_link_detect_bad_signal),
+ 	/* mmhub_read_system_context */
 -- 
 2.43.0
 
