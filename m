@@ -4,30 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59FCDC79F82
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CABEC79F80
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC46B10F42A;
-	Thu,  3 Sep 2026 07:34:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61C3410F433;
+	Thu,  3 Sep 2026 07:34:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="m1ypZuxM";
+	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="J0KMevOO";
 	dkim-atps=neutral
-Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24A1510E8FE
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 22:32:07 +0000 (UTC)
+X-Greylist: delayed 401 seconds by postgrey-1.36 at gabe;
+ Wed, 02 Sep 2026 12:32:43 UTC
+Received: from mail-08.mail-europe.com (mail-08.mail-europe.com
+ [57.129.93.249])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36AB510F1A1
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 12:32:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
- s=protonmail2; t=1788388324; x=1788647524;
- bh=cU+mHpCE5AklMKmea6B0FHA+o+J9NLEbp5sKadjcQxg=;
+ s=protonmail2; t=1788352359; x=1788611559;
+ bh=TtQB3bvuIw6qqZqo5OFatGDqsqwyLHaGUzXVPABnou4=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=m1ypZuxMtNFDGjfJ7nyJDlywLsr6nehTGuOal72f9FwkKqnRIY7BbiDFgA4NqdnY3
- kBeAZWM1MSzjKk3uWioNKV/xeJaoWX5Cg0kxeft9RVtXCBAVyycZtza6zQdd8Kl6wG
- wn5bsJg1oDO9mKAFc4Te8wGn68QtGLx8UOWf464V1OASCCC4HQ2+RsM9r7jsO3uj1A
- NkXdIynFS5JXBZZu1HrsYF9/qR1VX/QdfIA9ZvT1P1UygpqNuVoQIq8yf8XNTJ0kq+
- fuhwIdgu/j3mebWNTHm2/23nkxYP2VPflyoMQ78XzXzrxEVMdCP71Af58l71ii+LsR
- u9YiZe59nKnLg==
-Date: Wed, 02 Sep 2026 22:31:59 +0000
+ b=J0KMevOOnZ+DJQcSD90B5AQQB6BV1Rn/51KRY334BRUuz4qqczIlmp/6iavNjWnKZ
+ 7X4sb/1UpLv2hXH/L334P+lDaEUQkouzIsQU/nhewsJM4gNIr1hkfRGpVoMvr24RQw
+ RaMbNL6MFBqObrR7gq4IrBQ8uUHXUb2ANmBjMV2WOg9WgjnGQE0dne3lfSH8CVWb2W
+ rEFw32yFpQRxTPzu/cyszdL96cwbPN3Gc+XKP8GO3tUhPIlg/pUrjFqi3gRPHI5R7Y
+ dmZ7ia00EHMFAKUL1AlEPPtGM5BzoXIEZTIM7LRK6mAwwSVlexAEh52JhE3fMNTxiq
+ b1IS3RTvKMcPA==
+Date: Wed, 02 Sep 2026 12:32:29 +0000
 To: amd-gfx@lists.freedesktop.org
 From: Andrei Rusu de Castro <arc@empyreal.works>
 Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
@@ -36,14 +39,12 @@ Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
  mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com,
  stable@vger.kernel.org
-Subject: [PATCH v2 3/4] drm/amd/display: pass userspace brightness to power
- module
-Message-ID: <065649410e7f8682d15048a7a49cff5d89e54fb3.1788388049.git.arc@empyreal.works>
-In-Reply-To: <cover.1788388049.git.arc@empyreal.works>
+Subject: [PATCH 3/4] drm/amd/display: pass userspace brightness to power module
+Message-ID: <20260902-brightness-3-50f94618@empyreal.works>
+In-Reply-To: <20260902-brightness-cover-abf809f2@empyreal.works>
 References: <20260902-brightness-cover-abf809f2@empyreal.works>
- <cover.1788388049.git.arc@empyreal.works>
 Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 132667f34c4ebdf17ba9adbaa530adf9debfeab3
+X-Pm-Message-ID: 5d77d30cad3537273c8d09ea7186f4c942ade71b
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -72,15 +73,13 @@ the maximum above 100 percent. It also applies the ATIF curve once in
 the display manager and again in the power module.
 
 Pass the original userspace percentage to the power module on PWM
-panels. Keep the existing nits conversion for AUX panels, but keep the
-resulting millinit value unmasked while the power module derives cached
-percentages and PWM levels.
+panels. Keep the existing nits conversion and source-unit brightness
+mask for AUX panels.
 
 The brightness mask is a final DP source-level quirk. Carry it into the
-power module and apply it immediately before an AMD AUX write or after
-PWM derivation when the effective hardware handoff is PWM. This
-preserves ordinary PWM, forced-PWM OLED, AUX fallback-to-PWM, live AMD
-AUX, and mode-change replay without perturbing an intermediate unit.
+power module and apply it when the effective hardware handoff is PWM,
+preserving ordinary PWM, forced-PWM OLED, fallback PWM, and mode-change
+replay without altering a true AUX handoff.
 
 DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE previously bypassed only the display
 manager's copy of the curve. Wire it to the power module's existing
@@ -91,24 +90,20 @@ the corrected input domain is explicit.
 A live DCN 3.5.1 trace exposed the domain mismatch. KUnit coverage is
 added separately.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260902-brightness-cover-abf809f2@e=
-mpyreal.works?part=3D3
 Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
 Cc: stable@vger.kernel.org # 7.2.x
-Assisted-by: LLM
+
 Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 44 ++++++++++++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++-
+ .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 46 +++++++++++++++----
  .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  2 +
  .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |  3 +-
  .../drm/amd/display/modules/inc/mod_power.h   |  1 +
  .../gpu/drm/amd/display/modules/power/power.c |  2 +
- .../drm/amd/display/modules/power/power_abm.c | 55 +++++++++++++++----
- .../amd/display/modules/power/power_helpers.h | 14 +++++
- 9 files changed, 107 insertions(+), 22 deletions(-)
+ .../drm/amd/display/modules/power/power_abm.c |  6 ++-
+ .../amd/display/modules/power/power_helpers.h |  1 +
+ 8 files changed, 55 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
 u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
@@ -137,26 +132,12 @@ splay_manager *dm)
  =09=09init_data[i].min_abm_backlight =3D
  =09=09=09dm->backlight_caps[i].min_input_signal * 0x101;
 =20
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 3524931451c8..5969c5fbe480 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -229,7 +229,7 @@ struct amdgpu_dm_backlight_caps {
- =09 */
- =09bool aux_support;
- =09/**
--=09 * @brightness_mask: After deriving brightness, OR it with this mask.
-+=09 * @brightness_mask: OR this with the final source backlight value.
- =09 * Workaround for panels with issues with certain brightness values.
- =09 */
- =09u32 brightness_mask;
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/=
 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 424b33573a73..adeb4a7ab7c9 100644
+index 424b33573a73..04e810af4623 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -218,6 +218,39 @@ u32 convert_brightness_to_user(const struct amdgpu_dm_=
+@@ -218,6 +218,41 @@ u32 convert_brightness_to_user(const struct amdgpu_dm_=
 backlight_caps *caps,
  }
  EXPORT_IF_KUNIT(convert_brightness_to_user);
@@ -190,6 +171,8 @@ aps *caps,
 +=09=09return convert_brightness_to_millipercent(caps, user_brightness);
 +
 +=09brightness =3D convert_brightness_from_user(caps, user_brightness);
++=09if (caps->brightness_mask)
++=09=09brightness |=3D caps->brightness_mask;
 +
 +=09return brightness;
 +}
@@ -199,7 +182,7 @@ aps *caps,
  STATIC_IFN_KUNIT
  struct dc_stream_state *dm_find_stream_with_link(
  =09struct amdgpu_display_manager *dm,
-@@ -262,7 +295,6 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displa=
+@@ -262,7 +297,6 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displa=
 y_manager *dm,
  =09bool rc =3D false, reallow_idle =3D false;
  =09struct drm_connector *connector;
@@ -210,7 +193,7 @@ y_manager *dm,
 ead) {
  =09=09struct amdgpu_dm_connector *aconnector =3D to_amdgpu_dm_connector(co=
 nnector);
-@@ -285,12 +317,9 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displ=
+@@ -285,12 +319,9 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displ=
 ay_manager *dm,
  =09/* update scratch register */
  =09if (bl_idx =3D=3D 0)
@@ -228,7 +211,7 @@ tness[bl_idx]);
 =20
  =09if (trace_amdgpu_dm_brightness_enabled()) {
  =09=09trace_amdgpu_dm_brightness(__builtin_return_address(0),
-@@ -314,9 +343,6 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displa=
+@@ -314,9 +345,6 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displa=
 y_manager *dm,
  =09=09rc =3D mod_power_set_backlight_nits(dm->power_module, stream, bright=
 ness,
@@ -309,38 +292,10 @@ index ee15c14a899e..1d5e94893e36 100644
  =09=09if (init_params[inst].num_backlight_levels < 101)
 diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/driver=
 s/gpu/drm/amd/display/modules/power/power_abm.c
-index 5e86889eaa84..0e00042bced4 100644
+index 5e86889eaa84..4d7d80ac60c9 100644
 --- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
 +++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-@@ -3,6 +3,7 @@
- // Copyright 2026 Advanced Micro Devices, Inc.
-=20
- #include "dm_services.h"
-+#include "dm_helpers.h"
- #include "dc.h"
- #include "mod_power.h"
- #include "core_types.h"
-@@ -266,6 +267,16 @@ void mod_power_set_backlight_control_type(struct core_=
-power *core_power,
- =09core_power->bl_prop[inst].backlight_control_type =3D backlight_control_=
-type;
- }
-=20
-+STATIC_IFN_KUNIT
-+unsigned int backlight_apply_source_mask(struct core_power *core_power,
-+=09=09=09=09=09 unsigned int backlight,
-+=09=09=09=09=09 unsigned int inst)
-+{
-+=09return backlight | core_power->bl_prop[inst].brightness_mask;
-+}
-+
-+EXPORT_IF_KUNIT(backlight_apply_source_mask);
-+
- /* Returns true when the panel uses the VESA AUX backlight control path, w=
-hich
-  * requires zero-anchored linear brightness interpolation.
-  */
-@@ -529,7 +540,7 @@ static unsigned int backlight_millipercent_to_pwm_legac=
+@@ -529,7 +529,7 @@ static unsigned int backlight_millipercent_to_pwm_legac=
 y(
  =09=09return 0;
 =20
@@ -350,112 +305,21 @@ y(
  =09=09pwm =3D core_power->bl_prop[inst].min_backlight_pwm +
  =09=09=09(unsigned int) div_u64((unsigned long long) millipercent *
  =09=09=09core_power->bl_prop[inst].backlight_range,
-@@ -615,8 +626,10 @@ static unsigned int backlight_millinit_to_pwm_legacy(
-  * 0 nits =3D 0 PWM and max_brightness_millinits =3D max_backlight_pwm.
-  * Otherwise, falls back to the legacy min=E2=86=92max nits range mapping.
-  */
--static unsigned int backlight_millinit_to_pwm(
--=09=09struct core_power *core_power, unsigned int millinit, unsigned int i=
-nst)
-+STATIC_IFN_KUNIT
-+unsigned int backlight_millinit_to_pwm(struct core_power *core_power,
-+=09=09=09=09       unsigned int millinit,
-+=09=09=09=09       unsigned int inst)
- {
- =09if (!is_vesa_abc(core_power, inst))
- =09=09return backlight_millinit_to_pwm_legacy(core_power, millinit, inst);
-@@ -639,6 +652,8 @@ static unsigned int backlight_millinit_to_pwm(
- =09=09=09core_power->bl_prop[inst].max_brightness_millinits);
- }
-=20
-+EXPORT_IF_KUNIT(backlight_millinit_to_pwm);
-+
- static bool validate_ext_backlight_caps(
- =09=09struct dm_acpi_atif_backlight_caps *ext_backlight_caps)
- {
-@@ -894,6 +909,7 @@ void mod_power_update_backlight_on_mode_change(
-     bool is_hdr)
- {
-     struct set_backlight_level_params backlight_level_params =3D { 0 };
-+=09unsigned int backlight_millinit;
-=20
- =09=09/* Cache the panel's backlight control type once at mode-change/init
- =09=09 * time. It is a stable per-panel property (decided in the OS shim
-@@ -905,9 +921,15 @@ void mod_power_update_backlight_on_mode_change(
-=20
- =09=09if ((link->dpcd_sink_ext_caps.bits.hdr_aux_backlight_control =3D=3D =
-1 ||
- =09=09=09link->dpcd_sink_ext_caps.bits.sdr_aux_backlight_control =3D=3D 1)=
- &&
--=09=09=09link->backlight_control_type =3D=3D BACKLIGHT_CONTROL_AMD_AUX)
-+=09=09=09link->backlight_control_type =3D=3D BACKLIGHT_CONTROL_AMD_AUX) {
-+=09=09=09backlight_millinit =3D
-+=09=09=09=09core_power->bl_state[panel_inst].backlight_millinit;
-+=09=09=09backlight_millinit =3D
-+=09=09=09=09backlight_apply_source_mask(core_power, backlight_millinit,
-+=09=09=09=09=09=09=09    panel_inst);
- =09=09=09dc_link_set_backlight_level_nits(link, core_power->bl_state[panel=
-_inst].isHDR,
--=09=09=09=09core_power->bl_state[panel_inst].backlight_millinit, 0);
-+=09=09=09=09backlight_millinit, 0);
-+=09=09}
-=20
- =09=09backlight_level_params.frame_ramp =3D 0;
-=20
-@@ -918,11 +940,12 @@ void mod_power_update_backlight_on_mode_change(
- =09=09dc_link_set_backlight_level(link, &backlight_level_params);
- }
-=20
--static bool set_backlight_millinits_aux(struct core_power *core_power,
--=09=09struct dc_stream_state *stream,
--=09=09unsigned int backlight_millinits,
--=09=09unsigned int transition_time_millisec,
--=09=09unsigned int inst)
-+STATIC_IFN_KUNIT
-+bool set_backlight_millinits_aux(struct core_power *core_power,
-+=09=09=09=09 struct dc_stream_state *stream,
-+=09=09=09=09 unsigned int backlight_millinits,
-+=09=09=09=09 unsigned int transition_time_millisec,
-+=09=09=09=09 unsigned int inst)
- {
- =09struct dc_link *link =3D NULL;
-=20
-@@ -939,10 +962,17 @@ static bool set_backlight_millinits_aux(struct core_p=
-ower *core_power,
- =09=09link->dc->caps.dmub_caps.aux_backlight_support)
- =09=09return true;
-=20
-+=09if (link->backlight_control_type =3D=3D BACKLIGHT_CONTROL_AMD_AUX)
-+=09=09backlight_millinits =3D
-+=09=09=09backlight_apply_source_mask(core_power, backlight_millinits,
-+=09=09=09=09=09=09    inst);
-+
- =09return dc_link_set_backlight_level_nits(link, core_power->bl_state[inst=
-].isHDR,
- =09=09=09backlight_millinits, transition_time_millisec);
- }
-=20
-+EXPORT_IF_KUNIT(set_backlight_millinits_aux);
-+
- static bool set_backlight(struct core_power *core_power,
- =09=09struct dc_stream_state *stream,
- =09=09struct set_backlight_level_params *backlight_level_params,
-@@ -1020,6 +1050,11 @@ void fill_backlight_level_params(struct core_power *=
+@@ -1020,6 +1020,10 @@ void fill_backlight_level_params(struct core_power *=
 core_power,
 =20
  =09if (backlight_control_type =3D=3D BACKLIGHT_CONTROL_AMD_AUX && !is_hdr)
  =09=09backlight_level_params->control_type =3D BACKLIGHT_CONTROL_PWM;
 +
 +=09if (backlight_level_params->control_type =3D=3D BACKLIGHT_CONTROL_PWM)
-+=09=09backlight_level_params->backlight_pwm_u16_16 =3D
-+=09=09=09backlight_apply_source_mask(core_power, backlight_pwm,
-+=09=09=09=09=09=09    panel_inst);
++=09=09backlight_level_params->backlight_pwm_u16_16 |=3D
++=09=09=09bl_prop->brightness_mask;
  }
 =20
  bool mod_power_set_backlight_nits(struct mod_power *mod_power,
 diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h b/dr=
 ivers/gpu/drm/amd/display/modules/power/power_helpers.h
-index 68679fa10946..d4d8ebee1cde 100644
+index 68679fa10946..1eeacbfb8d91 100644
 --- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
 +++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
 @@ -94,6 +94,7 @@ struct pwr_backlight_properties {
@@ -466,29 +330,4 @@ index 68679fa10946..d4d8ebee1cde 100644
 =20
  =09/* Describes the panel's min and max luminance in millinits measured
  =09 * on full white screen, in min and max backlight settings.
-@@ -203,6 +204,19 @@ unsigned int backlight_millipercent_to_pwm(
- =09=09struct core_power *core_power, unsigned int millipercent, unsigned i=
-nt inst);
- unsigned int backlight_millipercent_to_millinit(
- =09=09struct core_power *core_power, unsigned int millipercent, unsigned i=
-nt inst);
-+#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
-+unsigned int backlight_millinit_to_pwm(struct core_power *core_power,
-+=09=09=09=09       unsigned int millinit,
-+=09=09=09=09       unsigned int inst);
-+unsigned int backlight_apply_source_mask(struct core_power *core_power,
-+=09=09=09=09=09 unsigned int backlight,
-+=09=09=09=09=09 unsigned int inst);
-+bool set_backlight_millinits_aux(struct core_power *core_power,
-+=09=09=09=09 struct dc_stream_state *stream,
-+=09=09=09=09 unsigned int backlight_millinits,
-+=09=09=09=09 unsigned int transition_time_millisec,
-+=09=09=09=09 unsigned int inst);
-+#endif
- void fill_backlight_level_params(struct core_power *core_power,
- =09struct set_backlight_level_params *backlight_level_params,
- =09int panel_inst, uint8_t aux_inst, unsigned int backlight_pwm,
---=20
-2.54.0
-
 
