@@ -4,122 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF180C624D0
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 03:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 502D2C61DD6
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:04:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8917710EFB6;
-	Wed,  2 Sep 2026 03:04:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CED7910E2D9;
+	Wed,  2 Sep 2026 05:04:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wsMfD47E";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NCjXt7ye";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013051.outbound.protection.outlook.com
- [40.93.196.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78D7510EFB3
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 03:04:35 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010057.outbound.protection.outlook.com
+ [52.101.193.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B6DE10E2D9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:04:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hjyXlYhCIIUfZqEN9tw1537vs8dRBhSyWKmluEzBmc19eTXNrEnnE/q8kvFaftui4K5tj63nDHm1lxqWtlC1HRzfaq+GKZEf9DT04JgTPE04SYObijGaC0lVBGrjfDxkSMADQMBEbzbr7+vcZUNWM0fpF2L5BieLuc9rJUmEcgUMZjZWzb64Et77TF4jlWYd5gG5U07qWuJ8gQOo8yepQdLnq5toXAxOjACK7MTmULIudG2n6wnx322K1g1QlSzOF4gN7M9s70HbJjbkYqjkpzHX5pkk33eDOuyA33vj1E71htAzbCryvphNDUesWxozKvLwGs9DJNvU5ec6DG0DBg==
+ b=WLMMZ4dmiVAOl/quckzJ7v7IKGCW5w14XYC9xG51XU3pyponjxV5zjpFS6b/yT0G2Vges946j04KuPf2WopfhqqXm9nz+liqrOJga40tIf7zCqAWfDeOCfaOzh/krpcIBrOp8iOhUjdQS8F8Daw5M7ouW5Oket2OgUQSUxWs04ZsagFIosA1kx1HZCY2COeQkx3nwg3pBMqi902tqGwCEOuPzvqn5Z/OJziqQEHsoP9fN8vY1b0DtB9/vZ3MVXwxDmaEBHcOumCrY5zI/YMvJQL8tvS73QQQNeiTBv9tbWacJAqWrZCBr9D2jx+KEIG2yaqRy55hhBavu7LDSnEmOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=INnk1Q0C+8MlwYGT0ek/SiHAhxch2/1AOdEbNJpPxPs=;
- b=MXh3ZF/5sw3KBea/W9AJZx1SL0Gllyy3n8vHhswmuWv7vM95jX75mZM4vJWxrb86DfHRlLCVwoc5BXWwhNirOopk6Ojwa12fhFJBsrvkOhg3AKD3HETpXWYAZ28iaN5dw235hfiXFAqu58JPDX/rguihYTtUiYT+F9gJfhaQFTJr6hWwAkw15HX/RMd0mCKOkAbp7rHrT7XPcLrdup7iNZxcyFfftgCFg7blvPay4KdDs7vZrKPkReWFfRuKKM+5zcCGhLue0Uq6jEuKbKBvBXFFIZNQepyK+9bDzllVBeIrGBWZRYpmhSMBtgHeu2TCfxmSXd7C/lIdmyEizCpr9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=IXOOkk+IGgVK08SYkEiNwFkQfz+GiqG+/wqJpxpD8gg=;
+ b=kcoE7v1mAwN/UauS/7NiZBZjwfziKfPxo1Dw312DcXBoZNNi8LoE4DFft09P2CvGOIWfE/KDSGJZTzs4QVabXOUg8yydCaDNXxu+Eo3T18FXzslUdO4YEUNuiLBSSO8NY/j5uGq5Q4AXIgJ/IVQn6ou+98qmUmwlBXA+OhlhgRbNSNs/XItHgezLS3j+sJHOYYJYM2oBDHdSW+MgOYWLJ7KlQ5oUMSHc8DlkSo1tA+RPhYMCJknAyIVmCDmb3SwJjjJ1J32y/XA+QsC0jrTJP1EJUVBCyTE0EJwXgc75psgJvSsLjFd3F32At06t1edRtWQWWwhRCUWuetWo4uVwMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=INnk1Q0C+8MlwYGT0ek/SiHAhxch2/1AOdEbNJpPxPs=;
- b=wsMfD47EGEnEkJYMlRP7Wd/SoSSFKYYiowQILGvelonpxktZBaH0fczwVMTJBm57F63nDzZAxOR2Y87A4mlQc6T3N2kFET9KD6YSxr1jZ8hOfcGVOIOr8veNzRj+8uzonD5px3vUpjp6vZs3Z71MRQFqGeyOnIX6j9DIq3DDw5M=
-Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
- by CY8PR12MB8244.namprd12.prod.outlook.com (2603:10b6:930:72::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Wed, 2 Sep
- 2026 03:04:31 +0000
-Received: from DM4PR12MB5152.namprd12.prod.outlook.com
- ([fe80::8874:ea43:ba4a:e73d]) by DM4PR12MB5152.namprd12.prod.outlook.com
- ([fe80::8874:ea43:ba4a:e73d%5]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 03:04:31 +0000
-From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH 22/31] drm/amdgpu/gmc: rework pasid flushing
-Thread-Topic: [PATCH 22/31] drm/amdgpu/gmc: rework pasid flushing
-Thread-Index: AQHdOk4QOXxN+tKVFUa0z2UHlV4Pbba6ln6w
-Date: Wed, 2 Sep 2026 03:04:30 +0000
-Message-ID: <DM4PR12MB5152EF84783AD6122FB926E8E3B72@DM4PR12MB5152.namprd12.prod.outlook.com>
-References: <20260901201034.2960437-1-alexander.deucher@amd.com>
- <20260901201034.2960437-23-alexander.deucher@amd.com>
-In-Reply-To: <20260901201034.2960437-23-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-02T02:48:36.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|CY8PR12MB8244:EE_
-x-ms-office365-filtering-correlation-id: cc3bba97-518b-4cba-1146-08df089ee8a4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|11063799006|38070700021|6133799003|10067099003|56012099006|4143699003;
-x-microsoft-antispam-message-info: 8gKMhFPV5zyBjx+DXdMXFkd+NSL2p6//5Ke3t494sq3z7UZIOgJ4wpbo+vVcXdNMN78Sou1YLMrTWEeADjIFrr8/q5BrRhNyp8eIFi/rmCF5IGcBbyMC3Gy/1/oAvMevHozSJA62W7qRL4d0H52Amnx5gxMJKP2bxvDn7PyWwn3Ygtr4FMjBmgEeUop4SL0id0yi3e33ureJxD9qgBU15Vyy/iE6b2xSnJVgQ8vir8IhzA6t5UPaGDKSCEEHEo0TYyCGmFelMbpSD7z8zjEIMJfZ1ErKeoULvXRXMWOHDVTXJORBh0z4Su6bj3CFL/Fz/J0OhG39OaSRcz4W2x5CukxZTTN4d/JJ3sYWWWEASpspsYADsfUZZLAAtdgSYDNYcAhXZqrdNiDteFE0k0iBnKQZrmUsc1PSErmUv1D/orVFJQFZHj2879Loy8gu2NwFGKOOw5Ezo7EmQZbv8JKK2pIZhSn9kvbKlPvtG4i/tuJQ9/NcvlISiZnjFJ1z4lcmYPWhq3wur2Q2zFlVlWWtCLJcna9lZzhr8yioYP1w8O/1l1h1IXd7VdzMJAsuJnspsI02Q6xAGxkVF9DESEWrVYUpl9IKQn6bxUpUsOgzAqypLxknv0QS7tKBGygoMNOhiP3LAhUB73Fh4BpyV+9mcRclQvR3zmo97iFkXKOng38u6bJzg6aKdmNdNpgky0i/BboKeJtoPFhCRfyLpACINp9wulssvlJSfjw0IwQx3Ao=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(38070700021)(6133799003)(10067099003)(56012099006)(4143699003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?5Xd0f8Z+hHpaMrGZDbCT8vCW1bbjyvXwZ5vrsnm9TLT7BaaJBrh0as7UnNBN?=
- =?us-ascii?Q?lu4NuUqjPO1py6xrYkH611xFUCa3kiVyVtnK/GMIeNJlq2DlwJKeDcD8PalC?=
- =?us-ascii?Q?vTcQszvDcAtUWlMFA1ynLSWQ8L2cHMcTxIuxm/NVU1D5YZRj8kMzbjg+ZbKY?=
- =?us-ascii?Q?Eqp7Wxm82gTFTg4x0H0pEMkL2z7tfjEcAOOJWgW5iC5fek1bA4DmmDDJBmvQ?=
- =?us-ascii?Q?tKb+BqMvRysqJz8H5qlM/B5MZBxYusrb6yr3rUFeYlI5mhkkEDWdNgNN2DSP?=
- =?us-ascii?Q?qcSl2ue+wYDkzRmS+IUkbl6wULOZivtMEKCuR/02KDOJUH5V/dLy9NbkD3zK?=
- =?us-ascii?Q?vTon41f4k9csb4XMIYUIvxLj0QoWc2kWesq+FU6EwCZxa2ja6Z4cZmU9xMDT?=
- =?us-ascii?Q?r69qqf1OuLm9AIEEnHZ5av4DPfi8lBC8BYcHg3cWdKdTTPsTvTqUo9PBbZ5l?=
- =?us-ascii?Q?HJmQD//fhewt3lrhPcLMe67FTO33BkwDDHB8YXkn9DrgpY6j+nmM2cQvx0wp?=
- =?us-ascii?Q?OQx0TA2LFTQboXaCEhS9sMX9NEZLpWDaNIP4NN+A45q94KiIH3iglwykInHO?=
- =?us-ascii?Q?j0KChmumjwnmdLrLi+BJacs/ql+XLAyra6nfldD1Fzj/5FisP0lLc4Y70VEn?=
- =?us-ascii?Q?3rX7NnAvmUkqS3FUrh7kbn5Mf8qu5RXMm3bJ4sxMolFZxGxLXhb7WPkpIXSx?=
- =?us-ascii?Q?RAcNtr0lZ8PXfcyp5E4ltKzFOxb5qAMx/QpD0DSXnVdbF/K+jO1HjDWMcHqL?=
- =?us-ascii?Q?gnOHYX1ODLGer7VUWh471zAlo3UT7cotLQVA6DNJyIK9PuzNDuh2Ovj1RTUL?=
- =?us-ascii?Q?yLftJMsxnkhToo2O+tNSkeF66BeibgZCiA/xDrF4qNlRcJSa6wGb6IqJw5qw?=
- =?us-ascii?Q?auW/46ZBOx+oasN8kRZ5VD1mA+ek+nJBvsY3+QfwkXzGdmkr3T+1AvhAl7xi?=
- =?us-ascii?Q?2Vtgmaw0MZattVQYFU3QOLmqRUTYBN6ov7SdXBxrXAaiuAKJijJ2BC7NiZOK?=
- =?us-ascii?Q?HDufcTCmwKZ+Ckrpf0CJnspkJ/6Bt7GoOhJkqA0WPl7ZHALLlIxQnfOhHOzk?=
- =?us-ascii?Q?NtMcLi8a1KZyUV778ENgLrAMi5l38cx9e0dmsd0Jguw9/xgQ/mqQOEt/pP4a?=
- =?us-ascii?Q?+QxwLHhd8VWEJccy/FxOrwEluIkVN9oyd3Uhvw5kOn4jXpz2S36lSNiimuCb?=
- =?us-ascii?Q?AsPfJYScJ/gd1py/JTQb3gBpPaK3YMfZVXJEHxVNKdYyEgQupzHVnNK626C1?=
- =?us-ascii?Q?ithYQe5MNpbrOpa7EaWXk0j4xRX49aXRdNLh5NCxoGFEj3z3HP/Oo6fJAMKf?=
- =?us-ascii?Q?yy2BGbvCMfmR/NtlQiR7mxsm3cZjQ2QigfR61qTfIinTPhpkrVDkM6HjRUC+?=
- =?us-ascii?Q?DJxXIz4ccOxo4qYPmjAzMCxI4sd3gzj6E/IelrQB2GcXE1u4T3La25DdAaT8?=
- =?us-ascii?Q?rolQeCtAXvF0956JAuf6Wg/JQC+d918zvyFFdtkSG1cXGzYVcf0WRr8A8ee/?=
- =?us-ascii?Q?x4+anvKyHwXTkdj5SM9SaNcZ47icV+fKsO6sxsq0yfNsazzb+GtIfLa6cVQ8?=
- =?us-ascii?Q?o+8Rs0VmE5GNqTjpEIr/bBq2O6dw3OxFb+a1zO1/2YZZRyCSx8ijDnsWDbY2?=
- =?us-ascii?Q?WvEC3RAMOZ17WYlIsWVyeW9b+w18iExkgMdOyF0O5rKBCJW/++7Qi6Grv1R5?=
- =?us-ascii?Q?OWpqYq1d2Ikic/pFjwnADKBWtjT0VV1EwYfequM4kIOvcNHc?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=IXOOkk+IGgVK08SYkEiNwFkQfz+GiqG+/wqJpxpD8gg=;
+ b=NCjXt7yevpf0DUkth4H/WSWqwU5Fh5wSPAqdCJUDISR6eWWvPO1DdQ8k0U5pHsF5z64HLqo7uucOaB5dqFHfwrart9CW4vPo+ZKjed/sZkaOQl6iH663DqMk+gGtGoHAm9ywURSwdlTv6frS9v1556W4nJLf8ndk9et7kKQdACg=
+Received: from CH2PR19CA0028.namprd19.prod.outlook.com (2603:10b6:610:4d::38)
+ by PH7PR12MB5709.namprd12.prod.outlook.com (2603:10b6:510:1e0::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 05:04:20 +0000
+Received: from CH3PEPF0000000B.namprd04.prod.outlook.com
+ (2603:10b6:610:4d:cafe::22) by CH2PR19CA0028.outlook.office365.com
+ (2603:10b6:610:4d::38) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Wed, 2
+ Sep 2026 05:04:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF0000000B.mail.protection.outlook.com (10.167.244.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:04:20 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 00:04:19 -0500
+Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 2 Sep 2026 00:04:11 -0500
+From: Ray Wu <ray.wu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
+ <Chen-Yu.Chen@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 00/40] DC Patches September 7, 2026
+Date: Wed, 2 Sep 2026 12:58:22 +0800
+Message-ID: <20260902050411.3473916-1-ray.wu@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000B:EE_|PH7PR12MB5709:EE_
+X-MS-Office365-Filtering-Correlation-Id: d50dccfe-740d-4b7c-0f21-08df08afa5cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|1800799024|30052699003|23010399003|376014|18002099003|56012099006|3023799007|6133799003|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info: 41rVHh57sw+ay/KzRLTpL6gHnmqDp2osQ9jqDwsPmpjXGLFwvaocA6p2MW1icB2xzxFOxlIcr5eUiAbhU4w41wA9fRDaVuUKHwuBGBr6prfEHNSilw8hIxUBKglSL3BU66acGtf1xoY0CnmSR4/twPbmihgGWIeXCZty4ErvtKex+GCr1PPDYiSjQ+nd5ay1mzfmeaG/xdB5v5K7p9wBss6/1Xa6S5JBB/8SOhHFxVUdB6jn/qV9T04Qtu6MhBepT5I3d1cgabYqrJr+myQHQUKXQBa1tdm1mCRaCM2vM3rhfavOUfUGv06K5Uhx3qTU+yCNB+h7hZ8FG072jmcvP60f0DIaXXM6YpowsImFbtCJPaRrOWF1S1SQZir/WY+zi3CY0JL7YxNYmOq167AhxlcnUEoqqXwiV4tjsSCEDn75wXjeke7gDVNDROC7wsbtXVzr7OcG2aLSZlC7qnE+VXGnlHdfRd1cWI6/hI5zz4TOE4QN+A6wnSpFUZsDjPqhM4Pw4rNlJD1PhmQh2mcL7BeSwhBg7l6OMorJv6wsFw9Kh1X58duOuhbVY6mwH5/wuabJ1Zey9LZYtVMV2P2/o8t+CaTN6hsv/w4YQZpbfGH7jtyYs8Ps4rn5erhEdM+399xbY3tYN5wNq30IlX2MAnGx9Vd0KH/4emsvoCteLSuvznWkxLLJFXLftEVGLrR86KQyHX4zeh2AqQKKhy4CYg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(30052699003)(23010399003)(376014)(18002099003)(56012099006)(3023799007)(6133799003)(10067099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: wwg+BXz8/84PSSTrfCn0DqtKpWKfaB/7MHY3jqBvgub45cJozmy4fi5LtVRq0i/IS1KmEXF+dCQGXo8qlS8dVzBaJ+SFmbXfA8jn9ZnzOxOCtX5lsXID6r59oYdHeydUmzdFRcDZ+pN+Q6aOjlqZkrplooi83Oca+qM7EnWPC8v1BY+enTnB6bjsHnR5//2XnbP4HdXAPf4vNa9DAAPY46kPkdtMvMuGKfG0pS+tlGo98pPYB3F8sNI2gZQ8gPRGVG1zxCVHeexQfw3jq8RJGon7gE6AYo15YHn4EHETaMAmxc+5BCUtXnzIEqULaj8sQk2qx6tSfmZYfwhRvr67XekJG7lDO6tS3nCJy3MW688GLS44d2brWbPEs/qYB/uKZOET56yGdXhpCpDwr4tTTa9Tw+xCh2R+P388rRUQuxOF3YwRRaNswf7BfN2kodg0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc3bba97-518b-4cba-1146-08df089ee8a4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2026 03:04:31.0236 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Kx/vuZHzU+w3u+VRyV8QZAm7n9c6VLRbzJEqdnUROM6GBPmDO6RHw7NMBv8BJOVoDSHFTiE9c0Q5wshyqOcJeQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8244
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:04:20.3394 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d50dccfe-740d-4b7c-0f21-08df08afa5cc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5709
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,409 +114,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> Deucher
-> Sent: Wednesday, September 2, 2026 4:10 AM
-> To: amd-gfx@lists.freedesktop.org; Koenig, Christian
-> <Christian.Koenig@amd.com>
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH 22/31] drm/amdgpu/gmc: rework pasid flushing
->
-> Split out all of the various flush methods and use the new pasid flush me=
-thod enum
-> to determine which one to use.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 247 +++++++++++++++++++-----
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |   2 +
->  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  |   2 +
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |   2 +
->  4 files changed, 201 insertions(+), 52 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 8a975eddd75c7..2800eebe50649 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -788,9 +788,66 @@ void amdgpu_gmc_flush_gpu_tlb_gart(struct
-> amdgpu_device *adev,
->       dev_err(adev->dev, "Error flushing GPU TLB using the SDMA (%d)!\n",=
- r);  }
->
-> -int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t =
-pasid,
-> -                                uint32_t flush_type, bool all_hub,
-> -                                uint32_t inst)
-> +static int amdgpu_gmc_flush_gpu_tlb_sdma_helper(struct amdgpu_device *ad=
-ev,
-> +                                             uint16_t pasid, uint32_t fl=
-ush_type,
-> +                                             bool all_hub, uint32_t inst=
-)
-> +{
-> +     struct amdgpu_ring *ring;
-> +     struct dma_fence *fence;
-> +     struct amdgpu_job *job;
-> +     uint16_t queried;
-> +     /* Use register 17 for GART */
-> +     u32 eng =3D 17;
-> +     int vmid, r, i, ndw;
-> +
-> +     /* flush hdp cache */
-> +     amdgpu_device_flush_hdp(adev, NULL);
-> +
-> +     ndw =3D ALIGN(adev->mman.buffer_funcs->tlb_inv_num_dw * 16 *
-> AMDGPU_MAX_VMHUBS, 8);
-> +     ring =3D to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
-> +
-> +     mutex_lock(&adev->mman.default_entity.lock);
-> +     r =3D amdgpu_job_alloc_with_ib(ring->adev, &adev-
-> >mman.default_entity.base,
-> +                                  AMDGPU_FENCE_OWNER_UNDEFINED,
-> +                                  ndw * 4, AMDGPU_IB_POOL_IMMEDIATE,
-> +                                  AMDGPU_KERNEL_JOB_ID_VM_UPDATE,
-> +                                  &job);
-> +     if (r)
-> +             goto exit;
-> +
-> +     for (vmid =3D 1; vmid < 16; vmid++) {
-> +             bool valid;
-> +
-> +             valid =3D adev->gmc.gmc_funcs->get_vmid_pasid_mapping_info(=
-adev,
-> vmid, inst,
-> +                                                                      &q=
-ueried);
-> +             if (!valid || queried !=3D pasid)
-> +                     continue;
-> +
-> +             if (all_hub) {
-> +                     for_each_set_bit(i, adev->vmhubs_mask,
-> AMDGPU_MAX_VMHUBS)
-> +                             amdgpu_emit_tlb_inv(adev, &job->ibs[0], vmi=
-d, i, eng,
-> +                                                 flush_type, inst);
-> +             } else {
-> +                     amdgpu_emit_tlb_inv(adev, &job->ibs[0], vmid,
-> AMDGPU_GFXHUB(inst), eng,
-> +                                         flush_type, inst);
-> +             }
-> +     }
-> +     amdgpu_ring_pad_ib(ring, &job->ibs[0]);
-> +     fence =3D amdgpu_job_submit(job);
-> +     mutex_unlock(&adev->mman.default_entity.lock);
-           It should be double unlock, and  it unlocks again at exit.  we c=
-an remove it .
-                Regards
-            Jesse
+- Ensure requested LSDMA bandwidth stays within the SOP bound.
+- Refactor DC_SEND_CURSOR_INFO_TO_DMU to drop the pipe_ctx param.
+- Add an override for LSDMA bandwidth in the QoS table.
+- Expand amdgpu_dm KUnit coverage across vblank IRQ, self-refresh, GPU
+  reset, plane update, MST resume, cached suspend state, writeback
+  transitions, atomic validation, connector-state restore, EDID CEA
+  parsing and DM IRQ source handling.
+- Keep streamclk gating off when enabling streamclk.
+- Set mpc_tree_params->opp_id during OPP resource construct.
+- Add override capability for UTM table params.
+- Add immediate restore to FAMS2 for DRR.
+- Fix missing APG registers for DCN60 HDMI.
+- Exit IPS before connector detection on resume.
+- Fix HF-VSDB DSC bpc detection to be cumulative.
+- Fix unused params in flip schedule.
+- Enable the FW locality check in DCN6.
+- Fix DC Hub reference frequency assert range.
+- Dump clock registers in HW init instead of SW init.
+- Validate the IRQ source in the DM IRQ handler.
+- Revert "Fix CalculateFlipSchedule Calculation".
+- Assorted DML updates.
+- Update urgent burst calculation to account for unbounded requests.
+- Add a stressed peak-bandwidth probe with DMA contention.
+- Revert "Unify CalculateFlipSchedule Logic".
 
-> +
-> +     dma_fence_wait(fence, false);
-> +     dma_fence_put(fence);
-> +
-> +exit:
-> +     mutex_unlock(&adev->mman.default_entity.lock);
-> +
-> +     return r;
-> +}
-> +
-> +static int amdgpu_gmc_flush_gpu_tlb_kiq_helper(struct amdgpu_device *ade=
-v,
-> +                                            uint16_t pasid, uint32_t flu=
-sh_type,
-> +                                            bool all_hub, uint32_t inst)
->  {
->       struct amdgpu_ring *ring =3D &adev->gfx.kiq[inst].ring;
->       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[inst]; @@ -798,6 +855,110=
- @@
-> int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t p=
-asid,
->       int r, cnt =3D 0;
->       uint32_t seq;
->
-> +     /* 2 dwords flush + 8 dwords fence */
-> +     ndw =3D kiq->pmf->invalidate_tlbs_size + 8;
-> +
-> +     if (adev->gmc.flush_tlb_needs_extra_type_2)
-> +             ndw +=3D kiq->pmf->invalidate_tlbs_size;
-> +
-> +     if (adev->gmc.flush_tlb_needs_extra_type_0)
-> +             ndw +=3D kiq->pmf->invalidate_tlbs_size;
-> +
-> +     spin_lock(&adev->gfx.kiq[inst].ring_lock);
-> +     r =3D amdgpu_ring_alloc(ring, ndw);
-> +     if (r) {
-> +             spin_unlock(&adev->gfx.kiq[inst].ring_lock);
-> +             return r;
-> +     }
-> +     if (adev->gmc.flush_tlb_needs_extra_type_2)
-> +             kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 2, all_hub);
-> +
-> +     if (flush_type =3D=3D 2 && adev->gmc.flush_tlb_needs_extra_type_0)
-> +             kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 0, all_hub);
-> +
-> +     kiq->pmf->kiq_invalidate_tlbs(ring, pasid, flush_type, all_hub);
-> +     r =3D amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
-> +     if (r) {
-> +             amdgpu_ring_undo(ring);
-> +             spin_unlock(&adev->gfx.kiq[inst].ring_lock);
-> +             return r;
-> +     }
-> +
-> +     amdgpu_ring_commit(ring);
-> +     spin_unlock(&adev->gfx.kiq[inst].ring_lock);
-> +
-> +     r =3D amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
-> +
-> +     might_sleep();
-> +     while (r < 1 && cnt++ < MAX_KIQ_REG_TRY &&
-> +            !amdgpu_reset_pending(adev->reset_domain)) {
-> +             msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
-> +             r =3D amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT=
-);
-> +     }
-> +
-> +     if (cnt > MAX_KIQ_REG_TRY) {
-> +             dev_err(adev->dev, "timeout waiting for kiq fence\n");
-> +             r =3D -ETIME;
-> +     } else
-> +             r =3D 0;
-> +
-> +     return r;
-> +}
-> +
-> +static int amdgpu_gmc_flush_gpu_tlb_mes_helper(struct amdgpu_device *ade=
-v,
-> +                                            uint16_t pasid, uint32_t flu=
-sh_type,
-> +                                            bool all_hub, uint32_t inst)=
- {
-> +     struct mes_inv_tlbs_pasid_input input =3D {0};
-> +     int r;
-> +
-> +     input.xcc_id =3D inst;
-> +     input.pasid =3D pasid;
-> +     input.flush_type =3D flush_type;
-> +
-> +     /* MES will invalidate hubs for the device(including slave xcc)
-> +      * from master, ignore request from slave
-> +      */
-> +     if (!amdgpu_gfx_is_master_xcc(adev, inst))
-> +             return -EINVAL;
-> +
-> +     input.hub_id =3D AMDGPU_GFXHUB(0);
-> +     amdgpu_mes_lock(&adev->mes);
-> +     r =3D adev->mes.funcs->invalidate_tlbs_pasid(&adev->mes, &input);
-> +     amdgpu_mes_unlock(&adev->mes);
-> +     if (r)
-> +             return r;
-> +
-> +     if (all_hub) {
-> +             /* invalidate mm_hub */
-> +             if (test_bit(AMDGPU_MMHUB0(0), adev->vmhubs_mask)) {
-> +                     input.hub_id =3D AMDGPU_MMHUB0(0);
-> +                     amdgpu_mes_lock(&adev->mes);
-> +                     r =3D adev->mes.funcs->invalidate_tlbs_pasid(&adev-=
->mes,
-> &input);
-> +                     amdgpu_mes_unlock(&adev->mes);
-> +                     if (r)
-> +                             return r;
-> +             }
-> +             if (test_bit(AMDGPU_MMHUB1(0), adev->vmhubs_mask)) {
-> +                     input.hub_id =3D AMDGPU_MMHUB1(0);
-> +                     amdgpu_mes_lock(&adev->mes);
-> +                     r =3D adev->mes.funcs->invalidate_tlbs_pasid(&adev-=
->mes,
-> &input);
-> +                     amdgpu_mes_unlock(&adev->mes);
-> +                     if (r)
-> +                             return r;
-> +             }
-> +     }
-> +     return 0;
-> +}
-> +
-> +int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t
-> pasid,
-> +                                uint32_t flush_type, bool all_hub,
-> +                                uint32_t inst)
-> +{
-> +     struct amdgpu_ring *ring;
-> +     bool use_mmio =3D false;
-> +     int r;
-> +
->       /*
->        * A GPU reset should flush all TLBs anyway, so no need to do
->        * this while one is ongoing.
-> @@ -805,8 +966,38 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct
-> amdgpu_device *adev, uint16_t pasid,
->       if (!down_read_trylock(&adev->reset_domain->sem))
->               return 0;
->
-> -     if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready) {
-> +     switch (adev->gmc.pasid_inv_method) {
-> +     case AMDGPU_TLB_INV_METHOD_MMIO:
-> +     default:
-> +             use_mmio =3D true;
-> +             break;
-> +     case AMDGPU_TLB_INV_METHOD_SDMA:
-> +             ring =3D to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
-> +             if (!ring->sched.ready)
-> +                     use_mmio =3D true;
-> +             else
-> +                     r =3D amdgpu_gmc_flush_gpu_tlb_sdma_helper(adev, pa=
-sid,
-> flush_type,
-> +                                                              all_hub, i=
-nst);
-> +             break;
-> +     case AMDGPU_TLB_INV_METHOD_KIQ:
-> +             ring =3D &adev->gfx.kiq[inst].ring;
-> +             if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready)
-> +                     use_mmio =3D true;
-> +             else
-> +                     r =3D amdgpu_gmc_flush_gpu_tlb_kiq_helper(adev, pas=
-id,
-> flush_type,
-> +                                                             all_hub, in=
-st);
-> +             break;
-> +     case AMDGPU_TLB_INV_METHOD_MES:
-> +             ring =3D &adev->mes.ring[MES_PIPE_INST(inst, 0)];
-> +             if (!ring->sched.ready)
-> +                     use_mmio =3D true;
-> +             else
-> +                     r =3D amdgpu_gmc_flush_gpu_tlb_mes_helper(adev, pas=
-id,
-> flush_type,
-> +                                                             all_hub, in=
-st);
-> +             break;
-> +     }
->
-> +     if (use_mmio) {
->               if (!adev->gmc.gmc_funcs->flush_gpu_tlb_pasid) {
->                       r =3D 0;
->                       goto error_unlock_reset;
-> @@ -825,54 +1016,6 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct
-> amdgpu_device *adev, uint16_t pasid,
->               adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
->                                                        flush_type, all_hu=
-b,
->                                                        inst);
-> -             r =3D 0;
-> -     } else {
-> -             /* 2 dwords flush + 8 dwords fence */
-> -             ndw =3D kiq->pmf->invalidate_tlbs_size + 8;
-> -
-> -             if (adev->gmc.flush_tlb_needs_extra_type_2)
-> -                     ndw +=3D kiq->pmf->invalidate_tlbs_size;
-> -
-> -             if (adev->gmc.flush_tlb_needs_extra_type_0)
-> -                     ndw +=3D kiq->pmf->invalidate_tlbs_size;
-> -
-> -             spin_lock(&adev->gfx.kiq[inst].ring_lock);
-> -             r =3D amdgpu_ring_alloc(ring, ndw);
-> -             if (r) {
-> -                     spin_unlock(&adev->gfx.kiq[inst].ring_lock);
-> -                     goto error_unlock_reset;
-> -             }
-> -             if (adev->gmc.flush_tlb_needs_extra_type_2)
-> -                     kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 2, all_h=
-ub);
-> -
-> -             if (flush_type =3D=3D 2 && adev->gmc.flush_tlb_needs_extra_=
-type_0)
-> -                     kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 0, all_h=
-ub);
-> -
-> -             kiq->pmf->kiq_invalidate_tlbs(ring, pasid, flush_type, all_=
-hub);
-> -             r =3D amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAI=
-T);
-> -             if (r) {
-> -                     amdgpu_ring_undo(ring);
-> -                     spin_unlock(&adev->gfx.kiq[inst].ring_lock);
-> -                     goto error_unlock_reset;
-> -             }
-> -
-> -             amdgpu_ring_commit(ring);
-> -             spin_unlock(&adev->gfx.kiq[inst].ring_lock);
-> -
-> -             r =3D amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT=
-);
-> -
-> -             might_sleep();
-> -             while (r < 1 && cnt++ < MAX_KIQ_REG_TRY &&
-> -                    !amdgpu_reset_pending(adev->reset_domain)) {
-> -                     msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
-> -                     r =3D amdgpu_fence_wait_polling(ring, seq,
-> MAX_KIQ_REG_WAIT);
-> -             }
-> -
-> -             if (cnt > MAX_KIQ_REG_TRY) {
-> -                     dev_err(adev->dev, "timeout waiting for kiq fence\n=
-");
-> -                     r =3D -ETIME;
-> -             } else
-> -                     r =3D 0;
->       }
->
->  error_unlock_reset:
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 4bb10a89ce582..e7c529620199b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -974,6 +974,8 @@ static int gmc_v10_0_hw_init(struct amdgpu_ip_block
-> *ip_block)
->       int r;
->
->       adev->gmc.flush_pasid_uses_kiq =3D !amdgpu_emu_mode;
-> +     if (adev->gmc.flush_pasid_uses_kiq)
-> +             adev->gmc.pasid_inv_method =3D
-> AMDGPU_TLB_INV_METHOD_KIQ;
->
->       /* The sequence of these two function calls matters.*/
->       gmc_v10_0_init_golden_registers(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> index acab9f4180da6..a35c84cc7385f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -950,6 +950,8 @@ static int gmc_v11_0_hw_init(struct amdgpu_ip_block
-> *ip_block)
->       int r;
->
->       adev->gmc.flush_pasid_uses_kiq =3D !amdgpu_emu_mode;
-> +     if (adev->gmc.flush_pasid_uses_kiq)
-> +             adev->gmc.pasid_inv_method =3D
-> AMDGPU_TLB_INV_METHOD_KIQ;
->
->       /* The sequence of these two function calls matters.*/
->       gmc_v11_0_init_golden_registers(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 3c13a6920171a..317b44412b5a6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -2162,6 +2162,8 @@ static int gmc_v9_0_hw_init(struct amdgpu_ip_block
-> *ip_block)
->       int i, r;
->
->       adev->gmc.flush_pasid_uses_kiq =3D true;
-> +     if (adev->gmc.flush_pasid_uses_kiq)
-> +             adev->gmc.pasid_inv_method =3D
-> AMDGPU_TLB_INV_METHOD_KIQ;
->
->       /* Vega20+XGMI caches PTEs in TC and TLB. Add a heavy-weight TLB
-> flush
->        * (type 2), which flushes both. Due to a race condition with
-> --
-> 2.55.0
+Cc: Dan Wheeler <daniel.wheeler@amd.com> 
+
+Alex Hung (12):
+  drm/amd/display: Test vblank IRQ handling
+  drm/amd/display: Test self refresh entry
+  drm/amd/display: Test GPU reset helpers
+  drm/amd/display: Test plane update adapter
+  drm/amd/display: Test MST resume guards
+  drm/amd/display: Test cached suspend state
+  drm/amd/display: Test writeback state transitions
+  drm/amd/display: Test atomic validation guards
+  drm/amd/display: Fix unused params in flip sched
+  drm/amd/display: Validate irq source in DM IRQ handler
+  drm/amd/display: Test DM IRQ handler source guard
+  drm/amd/display: Fix signedness mismatches in cm3
+
+Alvin Lee (5):
+  drm/amd/display: Ensure requested LSDMA BW is within the SOP bound
+  drm/amd/display: Add override for LSDMA BW in QoS table
+  drm/amd/display: Add override capability for UTM table params
+  drm/amd/display: Enable FW locality check in DCN6
+  drm/amd/display: Dump clock registers in HW init instead of SW init
+
+Austin Zheng (4):
+  drm/amd/display: Set DISPCLK per surface in DML
+  drm/amd/display: Update Urgent Burst Calculation To Account For
+    Unbounded Requests
+  Revert "drm/amd/display: Unify CalculateFlipSchedule Logic"
+  drm/amd/display: Update DML fields used for mode support
+
+Bhawanpreet Lakha (2):
+  drm/amd/display: Cover dm_restore_drm_connector_state
+  drm/amd/display: Cover EDID CEA parsing helpers
+
+Charlene Liu (1):
+  drm/amd/display: Make sure streamclk gating is off when enabling
+    streamclk
+
+Dillon Varone (1):
+  drm/amd/display: Add immediate restore to FAMS2 for DRR
+
+Fangzhi Zuo (3):
+  drm/amd/display: Exit IPS before connector detection on resume
+  drm/amd/display: Fix HF-VSDB DSC bpc detection to be cumulative
+  drm/amd/display: Fix NULL deref of new_stream->sink in VTEM guard
+
+Ilya Bakoulin (1):
+  drm/amd/display: Fix missing APG regs for DCN60 HDMI
+
+Joshua Aberback (1):
+  drm/amd/display: Remove unnecessary includes
+
+Nevenko Stupar (1):
+  drm/amd/display: Fix DC Hub reference frequency assert range
+
+Ovidiu Bunea (1):
+  drm/amd/display: Set mpc_tree_params->opp_id during OPP resource
+    construct
+
+Samson Tam (1):
+  Revert "drm/amd/display: Fix CalculateFlipSchedule Calculation"
+
+Taimur Hassan (2):
+  drm/amd/display: [FW Promotion] Release 0.1.74.0
+  drm/amd/display: Promote DC to 3.2.397
+
+Tomasz Siemek (1):
+  drm/amd/display: Refactor DC_SEND_CURSOR_INFO_TO_DMU to drop pipe_ctx
+
+Wenjing Liu (4):
+  drm/amd/display: Add stressed peak bandwidth probe with DMA contention
+  drm/amd/display: Add dml2_core_dcn6_calcs function pointer table
+  drm/amd/display: Route DCN6 mode support calcs through function
+    pointer table
+  drm/amd/display: Route DCN6 mode programming calcs through function
+    pointer table
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 141 ++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  50 ++
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  13 +-
+ .../display/amdgpu_dm/amdgpu_dm_connector.h   |  10 +
+ .../display/amdgpu_dm/amdgpu_dm_freesync.c    |   4 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |   5 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |   5 +
+ .../tests/amdgpu_dm_connector_test.c          | 514 +++++++++++++
+ .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c  |   2 +-
+ .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      |  45 ++
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 676 +++++++++++++++++-
+ .../drm/amd/display/dc/clk_mgr/dcn60/dalsmc.h |   2 +-
+ .../display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c  | 210 ++++--
+ .../dc/clk_mgr/dcn60/dcn60_smu_driver_if.h    |  44 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |   4 +-
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |   2 +
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c |  86 ++-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |   4 +
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |  21 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   4 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  45 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   7 +-
+ drivers/gpu/drm/amd/display/dc/dc_probe.h     |   1 +
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    |   1 +
+ .../amd/display/dc/dccg/dcn42/dcn42_dccg.c    |  14 +-
+ .../amd/display/dc/dccg/dcn42/dcn42_dccg.h    |   2 +-
+ .../amd/display/dc/dcn30/dcn30_cm_common.c    |   8 +-
+ .../drm/amd/display/dc/dml/dcn10/dcn10_fpu.c  |   1 -
+ .../drm/amd/display/dc/dml/dsc/rc_calc_fpu.c  |   1 -
+ .../gpu/drm/amd/display/dc/dml2_0/Makefile    |   1 +
+ .../dml21/inc/bounding_boxes/dcn4_soc_bb.h    |   2 +-
+ .../dml21/inc/bounding_boxes/dcn6_soc_bb.h    |  12 +
+ .../dml21/inc/dml_top_dchub_registers.h       |   1 +
+ .../dml21/inc/dml_top_soc_parameter_types.h   |   2 +
+ .../dc/dml2_0/dml21/inc/dml_top_types.h       |  13 +
+ .../dml2_0/dml21/src/dml2_cga/dml2_cga_dcn6.c |   4 +-
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      | 172 +++--
+ .../dml2_core/dml2_core_dcn5_calcs_dchub.c    |   8 +-
+ .../dml2_core/dml2_core_dcn5_calcs_dchub.h    |  23 +
+ .../dml2_core_dcn5_calcs_display_pipe.c       |   2 +-
+ .../dml2_core_dcn5_funcs_mode_programming.c   |   4 +
+ .../dml2_core_dcn5_funcs_mode_support.c       |   4 +
+ .../src/dml2_core/dml2_core_dcn6_calcs.c      |  63 +-
+ .../src/dml2_core/dml2_core_dcn6_calcs.h      | 468 ++++++++++++
+ .../dml2_core/dml2_core_dcn6_calcs_dchub.c    |  35 +-
+ .../dml2_core_dcn6_funcs_initialize.c         |   2 +
+ .../dml2_core_dcn6_funcs_mode_programming.c   |  52 +-
+ .../dml2_core_dcn6_funcs_mode_programming.h   |  31 +
+ .../dml2_core_dcn6_funcs_mode_support.c       | 312 ++++----
+ .../dml2_core_dcn6_funcs_mode_support.h       | 324 +++++++++
+ .../src/dml2_core/dml2_core_shared_types.h    |   7 +-
+ .../dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c    |  13 +
+ .../src/inc/dml2_internal_shared_types.h      |  18 +
+ .../display/dc/hubbub/dcn20/dcn20_hubbub.c    |   5 +-
+ .../display/dc/hubbub/dcn60/dcn60_hubbub.c    |   3 +-
+ .../amd/display/dc/hwss/dcn60/dcn60_hwseq.c   |  26 +-
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  25 +-
+ .../gpu/drm/amd/display/dc/inc/core_status.h  |   2 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   9 +
+ .../drm/amd/display/dc/opp/dcn20/dcn20_opp.c  |   2 +
+ .../dc/resource/dcn60/dcn60_resource.c        |  25 +-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  26 +
+ 62 files changed, 3148 insertions(+), 470 deletions(-)
+
+-- 
+2.43.0
 
