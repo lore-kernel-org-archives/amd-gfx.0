@@ -4,87 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29EB2C624A4
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED0D5C624D4
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF7810F424;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9579E10F427;
 	Thu,  3 Sep 2026 07:34:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kp72dgcl";
+	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="OEldap3x";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 681E610EF3F
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 22:12:08 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-49a97714f5dso2426255e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 15:12:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788300727; x=1788905527; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=920ie7mR2uGNd0kS6o28FsYSJY1xch5R6Nydolas+Zw=;
- b=kp72dgcl4+TfB2hGSD/8paMkpYOw/XGmAsMGsGZdNrBXX8BdzUgT1TW+WfH9PZddBm
- oAmEgkWFzUcu/JHzrcP06xmKOvTTXOtq7+o92Lq+FhEsUxXwFSPUs1Dawg10zd3D/kpp
- miZebMWJ+M9lkfxx0tEbF1KIETDof4y6gYBVFwZUBCChNdmw7JBnSqSYeqUGAJLT41mv
- 8QjDuMjIO4TPM2no7Uys4ZHk8mpUI3xN6GBqAlIfpCYmbqJcNQkGS+6A8xpIwHelWmWS
- 4VUMoqkbAHnaRskOvyhfopLhuihA1wHZ0rYMGjuoIshSoelR9OY9bqiY5mUT1A8P3osi
- 3rVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788300727; x=1788905527;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=920ie7mR2uGNd0kS6o28FsYSJY1xch5R6Nydolas+Zw=;
- b=n57culySDAj70BGvJ1MgNd2QukHy43/nLoCaD4vag2KwtkaTlDrMXuOqH/cWQTEf7Y
- VqyF1u5jQhJHUcZHIEHYjTiHt+IId5rOlTE3Y4JVawiUf5tENfbnssPT99VLpxIxaGI8
- MVzxTNFSD/S7qHQJF2Y7hLW7659tL3dv+l7ogc5ivl96T5cvAzNuAL8lIU3lanMpcL+0
- CNe+e1/PPgIUOTNsy4BFYNNq007n6nbdIkQSUcQ4aUhvfIqkTBXf88up+tc3WqaoNifT
- ZgXBQ/IZUDejFiquTcqRMmRUZSQqb2EhQV8V5g5E9y6W83mzo0fPOL8mmdolIAYlEDKs
- iP+w==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rogy8d58KWVtiQxeaRul33yka2TKpjFQum8msXpxzui07NBujs3BUoy+tqq4uFEGajfnfEonBTc@lists.freedesktop.org
-X-Gm-Message-State: AFuF++meO8rCNW3BrfiBshGzrGvNVUSuP8f/teRKNTnu+dkYn4fBXBaE
- dz4eIeEgUSI3UT9r8qeHA6fZKcYS3BByYTovND1pwR1/0rL9IIHDdZiy
-X-Gm-Gg: AR+sD13gUc+dNTzVREkbIEepOsdXh2AkPQqVuKt8HcsTr6iYtLW3VH2cJJ0GLUVXCmF
- ySkaczgzV9sOA3wRXiQCK5m9POTC6jV3oUgRw2ppHWhzBQ9eSSVUJy4v34cwC8G8OayC8S1RkdC
- MoW8oqUByFzgRwG1BUZmwNSqejLMVcljZfhKEpNQzwxchyQgnuG/U0y61DI+6kRRab7FXTmMPaY
- VJzTbFhrlgQ57mR59hTu2bH7cXBSLrvH+c12m8tKnP0NpPdwCgsrV7frP4Y7fP7aeGoLiFF8enM
- hC43x87fwdNdf4oaFyby+SbvRcvp0T/fa+u08II6+2qtUaKxg8+XrdboM/+LYEu+PL/PCBCfWqW
- m6TdXWAdgGaDsxj3gn5C1iHRgpGv8OCp/yalatqusboQUejVexORCFI5fWlRrDysqIE/ndBrlbo
- I/kg1HUY/PMN5kovwPKswHTaXsZUXlJhvCKhZB9jryULKnQZkNiDe/Ji8ItwHwu6c3EPxcae4yj
- UMxjre3fgDJiSzEEKlIAn65QlkB670zMtvu1uPl6MfeXr8AYbe7ouwWNXEXbpFDcGFV3CjQlG7D
- +yhe2GREPeIZQIao1/Qll6pHny7FTvQ7KGG32e0b2VEx0g==
-X-Received: by 2002:a05:600c:4fcd:b0:49b:90cc:3c87 with SMTP id
- 5b1f17b1804b1-49ce582267bmr8034685e9.13.1788300726530; 
- Tue, 01 Sep 2026 15:12:06 -0700 (PDT)
-Received: from [192.168.168.11] (a109-50-200-65.cpe.netcabo.pt.
- [109.50.200.65]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ce592b017sm2314355e9.2.2026.09.01.15.12.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Sep 2026 15:12:06 -0700 (PDT)
-Message-ID: <7ed80c0e-de24-4506-9db3-bc25c17d260e@gmail.com>
-Date: Tue, 1 Sep 2026 23:12:05 +0100
+Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch
+ [109.224.244.119])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC65810E083
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 22:32:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
+ s=protonmail2; t=1788388351; x=1788647551;
+ bh=aoMYyzPh1OMrjaFY85SJglQKmUz4G4YGKmqO7ZFqF00=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=OEldap3xzGWrAZdkHfXeaw7qNi/Rf6rv+5qaGSfOKbHXYMlIxPPj1IBJVHPnqzQy8
+ r9eirWuH0Z1qjYhzsyf5MBFg7OeV271AZTbITLNNAqTtggUwmkXrxXQFysgSc20El3
+ eS8rqZd0DbC/HmaNYBh+TR+EhcLEp4xmbI875oqOvXBsKjXdtSfaKYlSMsqOXIWuWA
+ xyzr5DNc9VMqP0jYvkZW/CAVQHmhxpXgAsAh8Ts3PProO9IpipGyLp7MzWvW1dYcZk
+ f10fKv71GPwl/J9in8mGtCHl62Rm5nAj1Fb0npDRgMLRgHU9Ms8HBmeMolumbGz+O/
+ M0YYomKmvWtTQ==
+Date: Wed, 02 Sep 2026 22:32:25 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
+ mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
+Subject: [PATCH v2 4/4] drm/amd/display: test power module brightness input
+ domain
+Message-ID: <796855d751af2cfd5d1fcc376f6519c870cafe02.1788388049.git.arc@empyreal.works>
+In-Reply-To: <cover.1788388049.git.arc@empyreal.works>
+References: <20260902-brightness-cover-abf809f2@empyreal.works>
+ <cover.1788388049.git.arc@empyreal.works>
+Feedback-ID: 182420409:user:proton
+X-Pm-Message-ID: dd2b5eea7d2c5800af0aa61eb7209ea31bf048b4
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] HDMI 2.1 VRR and ALLM support
-To: "Zuo, Jerry" <Jerry.Zuo@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
- "daniel@fooishbar.org" <daniel@fooishbar.org>
-References: <20260811003921.1398292-1-jerry.zuo@amd.com>
- <20260814164344.3098143-1-jerry.zuo@amd.com>
- <c42ced8f-5e3a-42c9-ade4-d357575114ca@gmail.com>
- <CHXPR12MB999220744D9CB11795CEF3DD69E5A82@CHXPR12MB999220.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Adolfo <adolfotregosa@gmail.com>
-In-Reply-To: <CHXPR12MB999220744D9CB11795CEF3DD69E5A82@CHXPR12MB999220.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:34:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,103 +62,457 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I patched kernel 7.3-rc1 with the passive-VRR patches, but VRR is not 
-engaging while on the desktop, only in game.
+Exercise the exact values selected for the power module and the final
+PWM and AMD AUX handoffs. Cover non-zero and zero PWM minimums, both
+endpoints, an interior value, clamping, invalid caps, custom-curve
+retention, multiple panels, and the source-level brightness mask.
 
-On 01/09/2026 20:15, Zuo, Jerry wrote:
-> AMD General
->
->> -----Original Message-----
->> From: Adolfo <adolfotregosa@gmail.com>
->> Sent: Monday, August 31, 2026 14:49
->> To: Zuo, Jerry <Jerry.Zuo@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: dri-devel@lists.freedesktop.org; Wentland, Harry
->> <Harry.Wentland@amd.com>; Tomasz Pakuła
->> <tomasz.pakula.oficjalny@gmail.com>; daniel@fooishbar.org
->> Subject: Re: [PATCH v4 0/4] HDMI 2.1 VRR and ALLM support
->>
->> [You don't often get email from adolfotregosa@gmail.com. Learn why this is
->> important at https://aka.ms/LearnAboutSenderIdentification ]
->>
->> I patched kernel 7.3-rc1, and I have KDE's Adaptive Sync property set to
->> Automatic (Always makes the display gamma flicker). VRR itself is only
->> engaged when entering a game.
->>
->> My display (an LG C1 connected through an Onkyo RZ70 AVR) shows "fixed"
->> when VRR is not active. While this seems logical, it causes the display to go
->> blank every time I enter or exit a game, or, even worse, when I alt-tab while in
->> a game.
->>
->> In my case, I can have periods of up to 10 seconds with no image while the
->> devices in the HDMI chain disagree with each other, and sometimes I lose the
->> image completely.
->>
->> A kernel parameter to force VRR to always be enabled should be available.
->> This would prevent these signal-switching problems, and it is how "FreeSync"
->> actually works and also with the unofficial kernel patches for AMD HDMI 2.1
->> + VRR on kernel 7.2.
->>
->> There is also some evidence that keeping VRR active can avoid the mode-
->> switch behavior seen on some TVs when VRR is enabled or disabled.
-> Thanks for your feedback. Regarding to your concern, I've uploaded another
-> series of patches for "passive VRR". Please check and see if that works for you.
->
-> Regards,
-> Jerry
->
->> On 14/08/2026 17:43, Fangzhi Zuo wrote:
->>> This series adds HDMI 2.1 gaming support to amdgpu: Variable Refresh
->>> Rate
->>> (VRR) derived from the HDMI Forum VSDB (HF-VSDB), and Auto Low-
->> Latency
->>> Mode (ALLM). It builds on a drm/edid patch that parses the HF-VSDB
->>> gaming capabilities into struct drm_hdmi_info.
->>>
->>>     - Patch 1 reports FreeSync from the AMD VSDB (existing mechanism).
->>>     - Patch 2 (drm/edid) parses the HF-VSDB VRR range and ALLM bit.
->>>     - Patch 3 enables VRR from the HF-VSDB when the AMD VSDB has no
->> range.
->>>     - Patch 4 signals ALLM_Mode in the HF-VSIF when Gaming-VRR is active.
->>>
->>> v1:
->>> https://lore.kernel.org/amd-gfx/20260730171754.704049-1-jerry.zuo@amd.
->>> com/
->>> v2:
->>> https://lore.kernel.org/amd-gfx/20260806205449.16806-1-jerry.zuo@amd.c
->>> om/
->>> v3:
->>> https://lore.kernel.org/amd-gfx/20260811003921.1398292-1-
->> jerry.zuo@amd
->>> .com/
->>>
->>> Changes since v3:
->>>     - Drop the content-type based ALLM heuristic. ALLM_Mode is now set
->> only
->>>       for the mandatory Gaming-VRR case (VRR_EN=1 with a sink that
->> advertises
->>>       ALLM), per HDMI 2.1 Section 7.6.6; it is no longer derived from the
->>>       content type.
->>>
->>> Changes since v2:
->>>     - Fix coding-style issues in the VTEM info-packet code.
->>>
->>> Fangzhi Zuo (3):
->>>     drm/amd/display: Add 2.1 FreeSync support for AMD VSDB EDID Block
->>>     drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
->>>     drm/amd/display: Enable HDMI ALLM for Gaming-VRR
->>>
->>> Tomasz Pakuła (1):
->>>     drm/edid: parse HDMI 2.1 gaming (ALLM/VRR) capabilities from
->>> HF-VSDB
->>>
->>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +-
->>>    .../display/amdgpu_dm/amdgpu_dm_connector.c   |  71 +++++++++++-
->>>    .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  41 +++++++
->>>    .../amd/display/modules/inc/mod_info_packet.h |   4 +
->>>    .../display/modules/info_packet/info_packet.c | 109 ++++++++++++++++++
->>>    drivers/gpu/drm/drm_edid.c                    |  42 +++++++
->>>    include/drm/drm_connector.h                   |  47 ++++++++
->>>    7 files changed, 317 insertions(+), 2 deletions(-)
->>>
->>>
->>> base-commit: de2622bbc20276eaaaafa8fdbd374ace1ced28dc
+The PWM case carries valid ATIF points to prove that the display manager
+passes the userspace percentage without applying that curve before the
+power module applies its own lookup table. Additional cases prove that
+the brightness mask follows the final hardware domain: the mathematical
+AUX millinit remains unmasked, direct AMD AUX receives the mask, and an
+AUX fallback derives PWM from the clean millinit before applying the
+final PWM mask.
+
+The composition case uses an input for which masking the intermediate
+millinit changes the derived PWM value. It fails against the v1
+implementation and passes when the mask is applied only at the final
+hardware handoffs. Callback captures independently verify the live AMD
+AUX value, the unchanged VESA AUX value, and the mode-change replay
+value. The selected panel's linear-curve bypass is covered independently.
+
+The cases were verified under UML KUnit.
+
+Assisted-by: LLM
+Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
+---
+ .../tests/amdgpu_dm_backlight_test.c          | 334 +++++++++++++++++-
+ 1 file changed, 331 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
+t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
+test.c
+index a6fa052a8272..7ab47a66c915 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
+@@ -23,6 +23,7 @@
+ #include "amdgpu_dm_kunit_test_helpers.h"
+ #include "amd_shared.h"
+ #include "link_service.h"
++#include "modules/power/power_helpers.h"
+ #include "dc/inc/hw/panel_cntl.h"
+=20
+ struct dm_backlight_connector_fixture {
+@@ -31,6 +32,33 @@ struct dm_backlight_connector_fixture {
+ =09struct dc_link *link;
+ };
+=20
++struct dm_backlight_aux_capture {
++=09unsigned int calls;
++=09unsigned int backlight_millinits;
++=09unsigned int transition_time_millisec;
++=09bool is_hdr;
++};
++
++static struct dm_backlight_aux_capture *dm_backlight_aux_capture;
++
++static bool dm_test_capture_backlight_nits(struct dc_link *link, bool is_h=
+dr,
++=09=09=09=09=09   u32 backlight_millinits,
++=09=09=09=09=09   u32 transition_time_in_ms)
++{
++=09dm_backlight_aux_capture->calls++;
++=09dm_backlight_aux_capture->backlight_millinits =3D backlight_millinits;
++=09dm_backlight_aux_capture->transition_time_millisec =3D transition_time_=
+in_ms;
++=09dm_backlight_aux_capture->is_hdr =3D is_hdr;
++
++=09return true;
++}
++
++static bool dm_test_capture_backlight_level(const struct dc_link *link,
++=09=09=09=09=09    struct set_backlight_level_params *params)
++{
++=09return true;
++}
++
+ static const struct drm_connector_funcs dm_backlight_test_connector_funcs =
+=3D {
+ =09.reset =3D drm_atomic_helper_connector_reset,
+ =09.atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate_state=
+,
+@@ -1019,6 +1047,296 @@ static void dm_test_brightness_from_user_aux(struct=
+ kunit *test)
+ =09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)ma=
+x);
+ }
+=20
++/* Tests for convert_brightness_for_power_module() */
++
++/**
++ * dm_test_power_module_brightness_invalid_caps - Test invalid PWM range
++ * @test: The KUnit test context
++ */
++static void dm_test_power_module_brightness_invalid_caps(struct kunit *tes=
+t)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++
++=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(NULL, 100), 1=
+00U);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 100), =
+0U);
++}
++
++/**
++ * dm_test_power_module_pwm_uses_user_domain - Test PWM input domain
++ * @test: The KUnit test context
++ *
++ * The power module owns the ATIF luminance-to-PWM curve. The display mana=
+ger
++ * must therefore pass the original userspace percentage rather than first
++ * converting it to a firmware PWM level.
++ */
++static void dm_test_power_module_pwm_uses_user_domain(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09unsigned int min, max;
++
++=09caps.min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
++=09caps.max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++=09caps.data_points =3D 3;
++=09caps.luminance_data[0].input_signal =3D 50;
++=09caps.luminance_data[0].luminance =3D 20;
++=09caps.luminance_data[1].input_signal =3D 128;
++=09caps.luminance_data[1].luminance =3D 50;
++=09caps.luminance_data[2].input_signal =3D 230;
++=09caps.luminance_data[2].luminance =3D 90;
++=09get_brightness_range(&caps, &min, &max);
++
++=09KUNIT_EXPECT_EQ(test, min, 3084U);
++=09KUNIT_EXPECT_EQ(test, max, 65535U);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 0), 0U=
+);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 25700)=
+, 39216U);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 32768)=
+, 50001U);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, max), =
+100000U);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, max + =
+1), 100000U);
++}
++
++/**
++ * dm_test_power_module_pwm_zero_min - Test zero-minimum range
++ * @test: The KUnit test context
++ */
++static void dm_test_power_module_pwm_zero_min(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09unsigned int min, max;
++
++=09caps.min_input_signal =3D 0;
++=09caps.max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++=09get_brightness_range(&caps, &min, &max);
++
++=09KUNIT_EXPECT_EQ(test, min, 0U);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 0), 0U=
+);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, max), =
+100000U);
++}
++
++/**
++ * dm_test_power_module_mask_follows_effective_control - Test mask handoff
++ * @test: The KUnit test context
++ */
++static void dm_test_power_module_mask_follows_effective_control(struct kun=
+it *test)
++{
++=09struct set_backlight_level_params params =3D {};
++=09struct core_power core_power =3D {};
++
++=09core_power.bl_prop[0].brightness_mask =3D 3;
++=09fill_backlight_level_params(&core_power, &params, 0, 0, 3084,
++=09=09=09=09    BACKLIGHT_CONTROL_PWM, 0, 0, false);
++=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 3087U);
++
++=09fill_backlight_level_params(&core_power, &params, 0, 0, 32896,
++=09=09=09=09    BACKLIGHT_CONTROL_PWM, 0, 0, false);
++=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 32899U);
++
++=09fill_backlight_level_params(&core_power, &params, 0, 0, 65535,
++=09=09=09=09    BACKLIGHT_CONTROL_PWM, 0, 0, false);
++=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 65535U);
++
++=09fill_backlight_level_params(&core_power, &params, 0, 0, 3084,
++=09=09=09=09    BACKLIGHT_CONTROL_AMD_AUX, 0, 0, true);
++=09KUNIT_EXPECT_EQ(test, params.control_type, BACKLIGHT_CONTROL_AMD_AUX);
++=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 3084U);
++
++=09fill_backlight_level_params(&core_power, &params, 0, 0, 3084,
++=09=09=09=09    BACKLIGHT_CONTROL_AMD_AUX, 0, 0, false);
++=09KUNIT_EXPECT_EQ(test, params.control_type, BACKLIGHT_CONTROL_PWM);
++=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 3087U);
++}
++
++/**
++ * dm_test_power_module_linear_curve_uses_panel_instance - Test linear byp=
+ass
++ * @test: The KUnit test context
++ */
++static void dm_test_power_module_linear_curve_uses_panel_instance(struct k=
+unit *test)
++{
++=09struct core_power core_power =3D {};
++=09unsigned int backlight_lut[101] =3D {};
++
++=09core_power.bl_prop[0].backlight_lut =3D backlight_lut;
++=09core_power.bl_prop[0].num_backlight_levels =3D ARRAY_SIZE(backlight_lut=
+);
++=09core_power.bl_prop[1].min_backlight_pwm =3D 3084;
++=09core_power.bl_prop[1].max_backlight_pwm =3D 65535;
++=09core_power.bl_prop[1].backlight_range =3D 62451;
++=09core_power.bl_prop[1].use_linear_backlight_curve =3D true;
++=09backlight_lut[50] =3D 12345;
++
++=09KUNIT_EXPECT_EQ(test, backlight_millipercent_to_pwm(&core_power, 50000,=
+ 1),
++=09=09=0934309U);
++}
++
++/**
++ * dm_test_power_module_aux_keeps_curve_unmasked - Test AUX conversion pat=
+h
++ * @test: The KUnit test context
++ */
++static void dm_test_power_module_aux_keeps_curve_unmasked(struct kunit *te=
+st)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09caps.aux_support =3D true;
++=09caps.aux_min_input_signal =3D 1;
++=09caps.aux_max_input_signal =3D 512;
++=09caps.brightness_mask =3D 3;
++=09caps.data_points =3D 2;
++=09caps.luminance_data[0].input_signal =3D 50;
++=09caps.luminance_data[0].luminance =3D 20;
++=09caps.luminance_data[1].input_signal =3D 200;
++=09caps.luminance_data[1].luminance =3D 80;
++
++=09KUNIT_EXPECT_EQ(test, convert_brightness_for_power_module(&caps, 200000=
+),
++=09=09=0981157U);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_power_module_aux_mask_composition - Compare both final handoffs
++ * @test: The KUnit test context
++ *
++ * AMD AUX writes millinits directly to DP_SOURCE_BACKLIGHT_LEVEL, while i=
+ts
++ * non-HDR fallback derives a PWM value from the cached millinits. Applyin=
+g
++ * the source-level mask before that conversion can therefore change the P=
+WM
++ * before the PWM-domain mask is applied.
++ */
++static void dm_test_power_module_aux_mask_composition(struct kunit *test)
++{
++=09struct set_backlight_level_params params =3D {};
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09struct core_power core_power =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09u32 aux_level, millinit, pwm;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09caps.aux_support =3D true;
++=09caps.aux_min_input_signal =3D 1;
++=09caps.aux_max_input_signal =3D 512;
++=09caps.brightness_mask =3D 3;
++=09caps.data_points =3D 2;
++=09caps.luminance_data[0].input_signal =3D 50;
++=09caps.luminance_data[0].luminance =3D 20;
++=09caps.luminance_data[1].input_signal =3D 200;
++=09caps.luminance_data[1].luminance =3D 80;
++
++=09core_power.bl_prop[0].min_backlight_pwm =3D 3084;
++=09core_power.bl_prop[0].max_backlight_pwm =3D 65535;
++=09core_power.bl_prop[0].backlight_range =3D 62451;
++=09core_power.bl_prop[0].min_brightness_millinits =3D 1000;
++=09core_power.bl_prop[0].max_brightness_millinits =3D 270000;
++=09core_power.bl_prop[0].nits_range =3D 269000;
++=09core_power.bl_prop[0].brightness_mask =3D 3;
++=09core_power.bl_prop[0].backlight_control_type =3D BACKLIGHT_CONTROL_AMD_=
+AUX;
++
++=09millinit =3D convert_brightness_for_power_module(&caps, 51200);
++=09aux_level =3D backlight_apply_source_mask(&core_power, millinit, 0);
++=09pwm =3D backlight_millinit_to_pwm(&core_power, millinit, 0);
++=09fill_backlight_level_params(&core_power, &params, 0, 0, pwm,
++=09=09=09=09    BACKLIGHT_CONTROL_AMD_AUX, millinit, 0,
++=09=09=09=09    false);
++
++=09KUNIT_EXPECT_EQ(test, millinit, 7012U);
++=09KUNIT_EXPECT_EQ(test, aux_level, 7015U);
++=09KUNIT_EXPECT_EQ(test, pwm, 4479U);
++=09KUNIT_EXPECT_EQ(test, params.control_type, BACKLIGHT_CONTROL_PWM);
++=09KUNIT_EXPECT_EQ(test, params.backlight_pwm_u16_16, 4479U);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_power_module_live_aux_handoff_mask - Test the live AUX callback
++ * @test: The KUnit test context
++ */
++static void dm_test_power_module_live_aux_handoff_mask(struct kunit *test)
++{
++=09struct dm_backlight_aux_capture *capture;
++=09struct link_service *link_srv;
++=09struct core_power *core_power;
++=09struct dc_stream_state *stream;
++=09struct dc_link *link;
++=09struct dc *dc;
++
++=09capture =3D kunit_kzalloc(test, sizeof(*capture), GFP_KERNEL);
++=09link_srv =3D kunit_kzalloc(test, sizeof(*link_srv), GFP_KERNEL);
++=09core_power =3D kunit_kzalloc(test, sizeof(*core_power), GFP_KERNEL);
++=09stream =3D kunit_kzalloc(test, sizeof(*stream), GFP_KERNEL);
++=09link =3D kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
++=09dc =3D kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, capture);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link_srv);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, core_power);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, stream);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
++
++=09dm_backlight_aux_capture =3D capture;
++=09link_srv->edp_set_backlight_level_nits =3D dm_test_capture_backlight_ni=
+ts;
++=09dc->link_srv =3D link_srv;
++=09link->dc =3D dc;
++=09link->backlight_control_type =3D BACKLIGHT_CONTROL_AMD_AUX;
++=09stream->link =3D link;
++=09core_power->bl_prop[0].brightness_mask =3D 3;
++
++=09KUNIT_ASSERT_TRUE(test, set_backlight_millinits_aux(core_power, stream,
++=09=09=09=09=09=09=09    7012, 50, 0));
++=09KUNIT_EXPECT_EQ(test, capture->calls, 1U);
++=09KUNIT_EXPECT_EQ(test, capture->backlight_millinits, 7015U);
++=09KUNIT_EXPECT_EQ(test, capture->transition_time_millisec, 50U);
++=09KUNIT_EXPECT_FALSE(test, capture->is_hdr);
++
++=09memset(capture, 0, sizeof(*capture));
++=09link->backlight_control_type =3D BACKLIGHT_CONTROL_VESA_AUX;
++=09KUNIT_ASSERT_TRUE(test, set_backlight_millinits_aux(core_power, stream,
++=09=09=09=09=09=09=09    7012, 50, 0));
++=09KUNIT_EXPECT_EQ(test, capture->calls, 1U);
++=09KUNIT_EXPECT_EQ(test, capture->backlight_millinits, 7012U);
++
++=09dm_backlight_aux_capture =3D NULL;
++}
++
++/**
++ * dm_test_power_module_mode_change_aux_mask - Test replay AUX callback
++ * @test: The KUnit test context
++ */
++static void dm_test_power_module_mode_change_aux_mask(struct kunit *test)
++{
++=09struct dm_backlight_aux_capture *capture;
++=09struct link_service *link_srv;
++=09struct core_power *core_power;
++=09struct dc_link *link;
++=09struct dc *dc;
++
++=09capture =3D kunit_kzalloc(test, sizeof(*capture), GFP_KERNEL);
++=09link_srv =3D kunit_kzalloc(test, sizeof(*link_srv), GFP_KERNEL);
++=09core_power =3D kunit_kzalloc(test, sizeof(*core_power), GFP_KERNEL);
++=09link =3D kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
++=09dc =3D kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, capture);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link_srv);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, core_power);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link);
++=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
++
++=09dm_backlight_aux_capture =3D capture;
++=09link_srv->edp_set_backlight_level_nits =3D dm_test_capture_backlight_ni=
+ts;
++=09link_srv->edp_set_backlight_level =3D dm_test_capture_backlight_level;
++=09dc->link_srv =3D link_srv;
++=09link->dc =3D dc;
++=09link->backlight_control_type =3D BACKLIGHT_CONTROL_AMD_AUX;
++=09link->dpcd_sink_ext_caps.bits.sdr_aux_backlight_control =3D 1;
++=09core_power->bl_state[0].backlight_millinit =3D 7012;
++=09core_power->bl_prop[0].brightness_mask =3D 3;
++
++=09mod_power_update_backlight_on_mode_change(core_power, link, 0, 0, false=
+);
++=09KUNIT_EXPECT_EQ(test, capture->calls, 1U);
++=09KUNIT_EXPECT_EQ(test, capture->backlight_millinits, 7015U);
++=09KUNIT_EXPECT_EQ(test, capture->transition_time_millisec, 0U);
++
++=09dm_backlight_aux_capture =3D NULL;
++}
++
+ /* Tests for convert_custom_brightness() */
+=20
+ /**
+@@ -1590,7 +1908,7 @@ static void dm_test_curve_from_user_monotonic(struct =
+kunit *test)
+ =09for (i =3D 0; i <=3D max; i +=3D 1023) {
+ =09=09u32 level =3D convert_brightness_from_user(&caps, i);
+=20
+-=09=09KUNIT_ASSERT_GE(test, level, previous);
++=09=09KUNIT_EXPECT_GE(test, level, previous);
+ =09=09previous =3D level;
+ =09}
+=20
+@@ -1619,8 +1937,8 @@ static void dm_test_curve_from_user_within_range(stru=
+ct kunit *test)
+ =09for (i =3D 0; i <=3D max; i +=3D 1023) {
+ =09=09u32 level =3D convert_brightness_from_user(&caps, i);
+=20
+-=09=09KUNIT_ASSERT_GE(test, level, (u32)min);
+-=09=09KUNIT_ASSERT_LE(test, level, (u32)max);
++=09=09KUNIT_EXPECT_GE(test, level, (u32)min);
++=09=09KUNIT_EXPECT_LE(test, level, (u32)max);
+ =09}
+=20
+ =09KUNIT_EXPECT_LE(test, convert_brightness_from_user(&caps, max), (u32)ma=
+x);
+@@ -2198,6 +2516,16 @@ static struct kunit_case dm_backlight_test_cases[] =
+=3D {
+ =09KUNIT_CASE(dm_test_brightness_from_user_zero),
+ =09KUNIT_CASE(dm_test_brightness_from_user_max),
+ =09KUNIT_CASE(dm_test_brightness_from_user_aux),
++=09/* convert_brightness_for_power_module */
++=09KUNIT_CASE(dm_test_power_module_brightness_invalid_caps),
++=09KUNIT_CASE(dm_test_power_module_pwm_uses_user_domain),
++=09KUNIT_CASE(dm_test_power_module_pwm_zero_min),
++=09KUNIT_CASE(dm_test_power_module_mask_follows_effective_control),
++=09KUNIT_CASE(dm_test_power_module_linear_curve_uses_panel_instance),
++=09KUNIT_CASE(dm_test_power_module_aux_keeps_curve_unmasked),
++=09KUNIT_CASE(dm_test_power_module_aux_mask_composition),
++=09KUNIT_CASE(dm_test_power_module_live_aux_handoff_mask),
++=09KUNIT_CASE(dm_test_power_module_mode_change_aux_mask),
+ =09/* convert_custom_brightness */
+ =09KUNIT_CASE(dm_test_custom_brightness_no_data_points),
+ =09KUNIT_CASE(dm_test_custom_brightness_debug_mask_disables),
+--=20
+2.54.0
+
+
