@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DA49C61DFD
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BCE9C61DFD
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:08:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B268910EFD4;
-	Wed,  2 Sep 2026 05:08:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A95110ED0D;
+	Wed,  2 Sep 2026 05:08:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KtiNsR/6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rf75r62U";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012026.outbound.protection.outlook.com [40.107.209.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CF2F10EFD4
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:08:12 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010050.outbound.protection.outlook.com [52.101.85.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7BF10ED0D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:08:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o/CMOWojZrKZpwq9vudtKHr/xkrLfexKxEE+ZhNtdl7WLOWxEW9GIS9ugqTinNCJH00hpyZhDvG0LEdhj/glXveq4YlPMhlH1QntJa70VRxcj1/HSAr47TjqOSoObRcMNhXViuosSj7qq/lXLjYk6TQqlhjDCl69cFlfUbqTxdO4YzRtVbwYvkmwY5zuHYdem1Oe/pJBPCEsdpw3qx8pa2NxbTZwAEpP6SKkJLcVEtx7p4/K5hqxuTEqDp/bS3h2LEbphKZbbWFRKquf2mTSEt23IYJ58uuKdzRNTzi5+QgH8/iKOIxHQaf4MYNwZU1CJgmS/VshDU/5NO5GP6VqBQ==
+ b=HzG1hGnISqSx+MgCn1lZp75U6HxGSMWUL+Yl6CrqxXnjbm9xCsqLFlCZdFDNEw4cwFVm+NDswgkx7t708LlbtOVyGCcvtJf8+HXDeevSIOVt8qhOlLnY1f1jteyYbddbN8OTN4wVuV+sVVCSRQ+pVAB6f2MVEJIcOjzTr2WM7wrxh5g5XZfeqdRTzjyiZwlXVsK6HKwl/o/YJvvmXGPP1dZJFLDKw1TIxmt7hZFgxDZGa6EjAsr4lAI+6vSROFB0tKma0XbNTab6F6icdDwZK0lwugVbkEvgZSk7plGErPEM7o56zD6E4fbN5igy+9fWgr7orbXWNZYYcufdSOEXiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yal9BP3yPUMG04IlCMFCOOVxdg5fajAqIYtf3+v2JXw=;
- b=ga1r0uZ1TFGTuQKfEfTq8ceayz+WQZVCOT30WSmdccwQf1+bAsxb5Y/r6jy8T4PXXqoB+TjNV7vvuDtTN6jEJoq/J5Z25yqlBi9lBUHe9XM4xfvvwmSS5TASLMh+WEg40J5ZqNuRgteBJckDXP5eFT8bY/W59eMvfPLnBFNdHjpAw+Mu1e72oYQz5k3nYhHwiloShDHskM/icrPVIU5xh9jFfmcNuY8prgWCEDJGBTswqHYuqXAosTMvMJD9e41XLF8WQZCjz07E2TJ5QzKBEhqIAC6nHcA1Le0DuOI2tuVPxHvmwOjIzUyIR460r7zYQJpO6WwqmOGjjOoM9D2cSQ==
+ bh=Sn7Pb2eRLukKnx8fgApXf7VwYNWkBZTMxFA86rjoJ8g=;
+ b=yz+lF0RI1MmYN28ws8fkIINbmIoAk4c+y/YpMMF5n0ApO99Bhwf6SFCKiL/waIanxEaTpHG5gK1itLc9tDSz2o4CeXVNAVcCLotV2+WDeAnA77/hOuYNhKeUMH0JEflSRoL5wA5Xy5lJ6qZiRRneLJfiegVwXs7I3RP/A9orLQml372wwyA0craBAHH1x88vXxVIMu6qnBoffWx/fwo90RJ84IhvojQXVu+VXiVChfbISrzm3SUXP6uua40ko47Ne23K8lwrl++tdfPhwoUuOMtfRg6RFtRv7sHq9zKXsCgReJ4OyxlzArDouyaoyfyGMOtatQTboRVycBl6+Rqtlg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yal9BP3yPUMG04IlCMFCOOVxdg5fajAqIYtf3+v2JXw=;
- b=KtiNsR/6NawHz8fh0QfknX9EeRF2SPzpqyaWY5nIG06vdo2Ft89Gr/gRJ7weqpvlE0rS5wtlqVPrPxI+IYxpepXggJOrytat8Mpq0TcchtTHgY747m7klEYFGbNfCRWBoEzh3uiP8OmaZZthXfVvyGXPYZ8RocrnQz3M+gzXaUU=
-Received: from BN9PR03CA0348.namprd03.prod.outlook.com (2603:10b6:408:f6::23)
- by CH2PR12MB4229.namprd12.prod.outlook.com (2603:10b6:610:a5::15)
+ bh=Sn7Pb2eRLukKnx8fgApXf7VwYNWkBZTMxFA86rjoJ8g=;
+ b=rf75r62U+UBypMpZ41sUJe/xLAIVpLcL9aZvpMlX4kYXAU+OyPQf8ZM1qjVfenHjW2Mnt/lYabEjaKWCVL08k4byuzZKmbALMXXGQRn3JFnXch09/7YYnipF7XBhj6KUwdGNWWecoeVppMOno6I8UtzDgwYc/CJIKdUS4lkVh3U=
+Received: from SJ0PR03CA0238.namprd03.prod.outlook.com (2603:10b6:a03:39f::33)
+ by CH3PR12MB7642.namprd12.prod.outlook.com (2603:10b6:610:14a::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 2 Sep 2026
- 05:08:08 +0000
-Received: from LV8PEPF00000067.namprd03.prod.outlook.com
- (2603:10b6:408:f6:cafe::aa) by BN9PR03CA0348.outlook.office365.com
- (2603:10b6:408:f6::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.12 via Frontend Transport; Wed, 2
- Sep 2026 05:08:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 05:08:17 +0000
+Received: from SJ1PEPF00002317.namprd03.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::6) by SJ0PR03CA0238.outlook.office365.com
+ (2603:10b6:a03:39f::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 05:08:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- LV8PEPF00000067.mail.protection.outlook.com (10.167.248.39) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002317.mail.protection.outlook.com (10.167.242.171) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:08:08 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:08:17 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 00:08:07 -0500
+ 2026 00:08:16 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 00:07:58 -0500
+ Transport; Wed, 2 Sep 2026 00:08:07 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,12 +66,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>, Ray Wu <ray.wu@amd.com>
-Subject: [PATCH 25/40] drm/amd/display: Dump clock registers in HW init
- instead of SW init
-Date: Wed, 2 Sep 2026 12:58:47 +0800
-Message-ID: <20260902050411.3473916-26-ray.wu@amd.com>
+ <Chen-Yu.Chen@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 26/40] drm/amd/display: Validate irq source in DM IRQ handler
+Date: Wed, 2 Sep 2026 12:58:48 +0800
+Message-ID: <20260902050411.3473916-27-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260902050411.3473916-1-ray.wu@amd.com>
 References: <20260902050411.3473916-1-ray.wu@amd.com>
@@ -80,29 +78,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF00000067:EE_|CH2PR12MB4229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16c19d11-d90e-4bca-f395-08df08b02db8
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002317:EE_|CH3PR12MB7642:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b65f0da-c0d1-46a5-01e5-08df08b032f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: iziWLBmMjqhKjW6SeLiMH64DNT7cFbc31jQpu5QeTDv5spjpYRLTMcaySm6W0XUFxnXhsCEt+HSS0FfYlb+UT6G23SyxI05uAKnv5x9KTs8p9sQsRZi/OkCYHe/t4L/EdE7Do/mkvxo5apvZkRMXJYjzkcjDpK7K0s2FxS+XayDGTrvme3kLEJd+iyFnMEbY69e2pelggty5OI/Rz6Cc6fKJWsXovC9zI4V3sXEPCME4bKyjdpUb6YNaQBTaaTb64woBPdfqCk31Aw0gDxQemD99bMelmHPCtSXEc9822sP75FGwUx1HtfsrRiqUSCDlz6OPUChxi3XHZLMzp4qOtw0xXjKF8h13RIpr6MwPzOijmsMUwfh2OE9hDk5jGylNZ4gF2dz8Js4cVy0p1qDaDzs1LYyh2aiO/9+2dTTxrpSoDsKcz8VTBr3KEvBECrrSqbCJgbcR0E69Ek53m8cm3brz4t0Fhwpulj4Dw6CkFT1/7ylxwA2q2iDZQGXppZXnYZIpNKqmeJ0mjD9H1IfxZXtjJaiGuo2CPNQDFOgwlwNsTxJx8HQIWWQcFzBodAM6PshkIApwWS3yTfRqhWF4aRiiIybT4jbbZY88Bx4pQ27uXX+GqzeyKra4J590ja9cv9p49crF0/BdsgZxY+UB/ooUurFAZi6xQo7e0zjZ1CZ7tUPoscEY6hTlPMm2jEEWgTPleqRYAVdpd77r2EiDww==
+ ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|10067099003|56012099006|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: fhqpJ5zwLUEgjNEJOWWS3iW8uE+gRFv8wrFf4sSgBLbv4ZN/y8r9mKvU8FEou84kGOQRegITQNc7VF8MHLs4eg+FyBAdE+JXg3Zb9qtS1y08zoP9hzx1dun3pMu+jng27rSkBBoBvbnceRZvgn2YkFkIssBqWUZ2QWLnJ4PxGh1lZy0Z4KnBpljFu2wMjZ4ag+KHIA3YseLMEAQy4Oz6mOmeDhVECRhs1CS64VFGzqJSCJQzPkkD7uAC2bz6K8vy6E7bCRui6bEsg4evKg6VGu7GWZSKKu0xT0JZY6XyF6O+bR2T8snvm1kTdqB1YktGruJsWSEcd+e3xA5Z+ixB+U+k7fa7BFUlzbFEMqHPV3BYZL35nlBxHsMiaClo7ip2pmuXjACnfvoaouDK66WiWQNilbzI/cg9vt8FKRA8I/k+ie/8j1zkCKuJvC6SID2noLpj2nbru87rYf1USFubcQXBEIkaNHrp0Ql7xzsWaFIyIL3kMLkNv6cYItiT9mrCA322rCDTUO4fn1Wqv6DcMj7+/Mjjshx3QPZh1rbdDQXSixwsBOQi1K1OMsvAOP+2AAjshbhX/JzVMx4mAbLP1Pe0vr27uTzO2KfXCB5DIveUW8+U4DmymJ1le+jTpvonh4lZ8ceycUxwiOC6BvVNZ+Iqo3O8H6cvTbqN+dVl7MZuoyHpQZuWO9Zc0bJyk7XiAkeTZ01PyZDqz8hmUx3fEQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: hg/3Ys7ViQQHGK9CohjyBFm+aXODKlFr9rxIXTexXu5hHmqFx/MDXMovL73EIezgWIl43X2rvkHeLttxltR2nYBrOtGrjwm201PL0ibn23JlxDsBTIztOjMB19WRR/IwascIfs3lHLz5itpOyCHbDxNOFUioc53mAdA9M8eMg7MfND+8fhiws5U3Cxdhd4CkeCteiwhJCy5mnsURYgEYnUTz9PTmGlGdZ8FAB/CBjVI89YU/yN380adYxmrxc5aBJ5vzLY8YsJO0d9hAqWpb7ffD8aCsYWVV4jHeHoXq2o7rfn0lRpAQgM7FVHNtonEvPLMe6KcER6DQuLoMXsSxUPjQwaUcKfeYxqbo8nZqS8CkVVJ/VX2wqcmwQzFYdTtrCIXj2hSFkSSIVfuFi9Hkc6O7SbpVFgEx5f9LbXvu3zKySaPDJ0iqQDK6MXiougiK
+X-MS-Exchange-AntiSpam-MessageData-0: dcOPtkc83lOENq6pnr9Rst+9GBLx7G1i6Nz8NuLArhWxM6xpen3U/RrUW8fFOKxCUmuKnuvdARTASu4c7oVfTMhv4G1Mg3V11CcAWOoDY6bVimLTxxENYPJOF9k5Qz2xImLx4KeJ5W7Ozy2Zl4zP5JrGTHHFUzQlvhPGVpj09B21gd8z32D88XHlxvUweXFpE7vBTjpD5lhIf3qla+In6e3XPVg0+rAH7b5juSmMOIrdCVvPIOQnYkBsPgo9QLxWuJ3vkAEwNoFSwt3Ysde1oI9MZFGMFrNZk/VgU0nzRBsUZ+/my0HuaH7TLy2CMDwgYeOSzg7JXhgLbGaEXflAYxuWIXK+4ZQnjjhNqvGIeu4FkMSI1SkX5SWMdQAReA/qRP9PE45XkZBJ5MfjkzGBKz9OZB4cLphTLp6EDY1Q9Dhi3HbQ6OA4q00xe6zKFDq7
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:08:08.3840 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16c19d11-d90e-4bca-f395-08df08b02db8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:08:17.0545 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b65f0da-c0d1-46a5-01e5-08df08b032f1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF00000067.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002317.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4229
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7642
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,200 +115,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-[Why & How]
-- Dumping clock registers in SW init can get incorrect clock readback due
-  to other init code (e.g., in DMU) potentially not executed yet
-- Move clk_ip register access into HW init to ensure the clock read back
-  gets the correct values
+[Why]
+dc_interrupt_to_irq_source() can return DC_IRQ_SOURCE_INVALID for an
+unmapped src_id/src_data pair. The value was passed straight to
+dc_interrupt_ack() and used to index the DM high/low handler tables.
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+[How]
+Reject sources outside the valid range before using them.
+
+Reviewed-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- .../display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c  | 140 +++++++++---------
- 1 file changed, 74 insertions(+), 66 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
-index 2b7740b82161..138afa7afc86 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
-@@ -756,29 +756,6 @@ static bool dcn60_fetch_dal_init_table(struct clk_mgr_internal *clk_mgr)
- 	return true;
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+index 546911b152e4..f997a50c1293 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+@@ -713,6 +713,11 @@ STATIC_IFN_KUNIT int amdgpu_dm_irq_handler(struct amdgpu_device *adev,
+ 			entry->src_id,
+ 			entry->src_data[0]);
  
--void dcn60_init_clocks(struct clk_mgr *clk_mgr_base)
--{
--	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
--	uint32_t smu_header_ver = 0;
--
--	memset(&(clk_mgr_base->clks), 0, sizeof(struct dc_clocks));
--	clk_mgr_base->clks.p_state_change_support = true;
--	clk_mgr_base->clks.fclk_p_state_change_support = false;
--	clk_mgr->smu_present = !clk_mgr_base->force_smu_not_present /* not force-disabled */
--			&& dcn60_smu_get_msg_header_version(clk_mgr, &smu_header_ver)
--			&& smu_header_ver != 0;
--
--	clk_mgr->dpm_present = clk_mgr->smu_present
--			&& dcn60_fetch_dal_init_table(clk_mgr)
--			&& clk_mgr_base->bw_params->clk_table.num_entries_per_clk.num_dcfclk_levels
--			&& clk_mgr_base->bw_params->clk_table.num_entries_per_clk.num_dtbclk_levels
--			&& clk_mgr_base->bw_params->clk_table.num_entries_per_clk.num_dispclk_levels;
--
--	if (clk_mgr->dpm_present)
--		clk_mgr_base->ctx->dc->res_pool->funcs->update_bw_bounding_box(
--				clk_mgr_base->ctx->dc, clk_mgr_base->bw_params);
--}
--
- static inline uint32_t count_to_khz(uint32_t count, uint32_t timer_ths, uint32_t refclk_khz)
- {
- 	if (timer_ths == 0)
-@@ -899,6 +876,80 @@ static void dcn60_dump_clk_registers(struct clk_state_registers_and_bypass *regs
- 	}
- }
- 
-+static void dcn60_dump_and_assign_boot_clocks(struct clk_mgr *clk_mgr_base)
-+{
-+	struct clk_log_info log_info = {0};
-+
-+	dcn60_dump_clk_registers(&clk_mgr_base->boot_snapshot, clk_mgr_base, &log_info);
-+
-+	if (clk_mgr_base->ctx->dc->debug.disable_dtb_ref_clk_switch &&
-+			clk_mgr_base->clks.ref_dtbclk_khz != clk_mgr_base->boot_snapshot.dtbclk) {
-+		clk_mgr_base->clks.ref_dtbclk_khz = clk_mgr_base->boot_snapshot.dtbclk;
++	if (!DAL_VALID_IRQ_SRC_NUM(src)) {
++		DRM_ERROR("DM_IRQ: invalid irq_source:%d!\n", src);
++		return 0;
 +	}
 +
-+	if (clk_mgr_base->boot_snapshot.dprefclk != 0)
-+		clk_mgr_base->dprefclk_khz = clk_mgr_base->boot_snapshot.dprefclk;
-+}
-+
-+static void dcn60_clock_read_ss_info(struct clk_mgr_internal *clk_mgr)
-+{
-+	struct dc_bios *bp = clk_mgr->base.ctx->dc_bios;
-+	int ss_info_num = bp->funcs->get_ss_entry_number(
-+			bp, AS_SIGNAL_TYPE_GPU_PLL);
-+
-+	if (ss_info_num) {
-+		struct spread_spectrum_info info = { { 0 } };
-+		enum bp_result result = bp->funcs->get_spread_spectrum_info(
-+				bp, AS_SIGNAL_TYPE_GPU_PLL, 0, &info);
-+
-+		/* SSInfo.spreadSpectrumPercentage !=0 would be sign
-+		 * that SS is enabled
-+		 */
-+		if (result == BP_RESULT_OK &&
-+				info.spread_spectrum_percentage != 0) {
-+			clk_mgr->ss_on_dprefclk = true;
-+			clk_mgr->dprefclk_ss_divider = info.spread_percentage_divider;
-+
-+			if (info.type.CENTER_MODE == 0) {
-+				/* Currently for DP Reference clock we
-+				 * need only SS percentage for
-+				 * downspread
-+				 */
-+				clk_mgr->dprefclk_ss_percentage =
-+						info.spread_spectrum_percentage;
-+			}
-+		}
-+	}
-+}
-+
-+void dcn60_init_clocks(struct clk_mgr *clk_mgr_base)
-+{
-+	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-+	uint32_t smu_header_ver = 0;
-+
-+	memset(&(clk_mgr_base->clks), 0, sizeof(struct dc_clocks));
-+	clk_mgr_base->clks.p_state_change_support = true;
-+	clk_mgr_base->clks.fclk_p_state_change_support = false;
-+
-+	dcn60_dump_and_assign_boot_clocks(clk_mgr_base);
-+	dcn60_clock_read_ss_info(clk_mgr);
-+
-+	clk_mgr->smu_present = !clk_mgr_base->force_smu_not_present /* not force-disabled */
-+			&& dcn60_smu_get_msg_header_version(clk_mgr, &smu_header_ver)
-+			&& smu_header_ver != 0;
-+
-+	clk_mgr->dpm_present = clk_mgr->smu_present
-+			&& dcn60_fetch_dal_init_table(clk_mgr)
-+			&& clk_mgr_base->bw_params->clk_table.num_entries_per_clk.num_dcfclk_levels
-+			&& clk_mgr_base->bw_params->clk_table.num_entries_per_clk.num_dtbclk_levels
-+			&& clk_mgr_base->bw_params->clk_table.num_entries_per_clk.num_dispclk_levels;
-+
-+	if (clk_mgr->dpm_present)
-+		clk_mgr_base->ctx->dc->res_pool->funcs->update_bw_bounding_box(
-+				clk_mgr_base->ctx->dc, clk_mgr_base->bw_params);
-+}
-+
-+
- static void dcn60_auto_dpm_test_log(
- 		struct dc_clocks *new_clocks,
- 		struct clk_mgr_internal *clk_mgr,
-@@ -1445,37 +1496,6 @@ static void dcn60_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	dc_interrupt_ack(adev->dm.dc, src);
  
- }
- 
--static void dcn60_clock_read_ss_info(struct clk_mgr_internal *clk_mgr)
--{
--	struct dc_bios *bp = clk_mgr->base.ctx->dc_bios;
--	int ss_info_num = bp->funcs->get_ss_entry_number(
--			bp, AS_SIGNAL_TYPE_GPU_PLL);
--
--	if (ss_info_num) {
--		struct spread_spectrum_info info = { { 0 } };
--		enum bp_result result = bp->funcs->get_spread_spectrum_info(
--				bp, AS_SIGNAL_TYPE_GPU_PLL, 0, &info);
--
--		/* SSInfo.spreadSpectrumPercentage !=0 would be sign
--		 * that SS is enabled
--		 */
--		if (result == BP_RESULT_OK &&
--				info.spread_spectrum_percentage != 0) {
--			clk_mgr->ss_on_dprefclk = true;
--			clk_mgr->dprefclk_ss_divider = info.spread_percentage_divider;
--
--			if (info.type.CENTER_MODE == 0) {
--				/* Currently for DP Reference clock we
--				 * need only SS percentage for
--				 * downspread
--				 */
--				clk_mgr->dprefclk_ss_percentage =
--						info.spread_spectrum_percentage;
--			}
--		}
--	}
--}
--
- /* Set min memclk to minimum, either constrained by the current mode or DPM0 */
- static void dcn60_set_hard_min_memclk(struct clk_mgr *clk_mgr_base, bool current_mode)
- {
-@@ -1681,7 +1701,6 @@ struct clk_mgr_internal *dcn60_clk_mgr_construct(
- 		struct dc_context *ctx,
- 		struct dccg *dccg)
- {
--	struct clk_log_info log_info = {0};
- 	struct dcn60_clk_mgr *clk_mgr60 = kzalloc(sizeof(struct dcn60_clk_mgr), GFP_KERNEL);
- 	struct clk_mgr_internal *clk_mgr;
- 
-@@ -1716,17 +1735,6 @@ struct clk_mgr_internal *dcn60_clk_mgr_construct(
- 		if (clk_mgr->base.dentist_vco_freq_khz == 0)
- 			clk_mgr->base.dentist_vco_freq_khz = 4500000;
- 
--		dcn60_dump_clk_registers(&clk_mgr->base.boot_snapshot, &clk_mgr->base, &log_info);
--
--		if (ctx->dc->debug.disable_dtb_ref_clk_switch &&
--				clk_mgr->base.clks.ref_dtbclk_khz != clk_mgr->base.boot_snapshot.dtbclk) {
--			clk_mgr->base.clks.ref_dtbclk_khz = clk_mgr->base.boot_snapshot.dtbclk;
--		}
--
--		if (clk_mgr->base.boot_snapshot.dprefclk != 0)
--			clk_mgr->base.dprefclk_khz = clk_mgr->base.boot_snapshot.dprefclk;
--		dcn60_clock_read_ss_info(clk_mgr);
--
- 	clk_mgr->dfs_bypass_enabled = false;
- 
- 	clk_mgr->smu_present = false;
+ 	/* Call high irq work immediately */
 -- 
 2.43.0
 
