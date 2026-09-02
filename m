@@ -4,60 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2EE8C61DD6
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:08:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BA0DC61DFD
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:08:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5426B10EEDF;
-	Wed,  2 Sep 2026 05:08:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAC2E10EFD8;
+	Wed,  2 Sep 2026 05:08:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4ZwrQBQT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RMCrkx46";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010020.outbound.protection.outlook.com [52.101.61.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 367DE10EEDF
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:08:30 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013049.outbound.protection.outlook.com
+ [40.107.201.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A76CA10EFD8
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:08:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DXegIQJyGE8u46ZJCel/wXdW9BZo3ONt1VE7yLOdGfsXCLlHE/lvdqihsusiT4A3obH2MckuZf9WsfMilmAIsM3QptZ6Z5CI12cBT/bZlug4zmVodhbO+VEvqAkEJLnQ+Z2CTN5xhxibja4gbLVERG4owfq4TkYRSV/XDgjGj+tqWqrMPtIKDS2lZjGeviV/CWdQev8hAvYH5X57abulwGkqweg8LGWrosI9wgTLUm6BJ1MazhxhzKtdcyzBT4J8VKdTmpq7a/Kd3ErwMEKy5JdCI5V/jJgX3zEa/KMI+Bjqz0ZR4AE6U5dTRx8DNKMX2w7SvgOQkJrC05zcEu7qYw==
+ b=fO5M5siYdetNCa9fjc/YfNOh+wmUEr5aSCk2iPnguWl7worOiK9Cp3u454iKICbSb3U7Qq3INHD4WLUnyuUFehRj4JrQzkvmT0aVuyytPYhn/9wspkVzBS/wcWvLonrMAdT3JOCfScEZm8nOyPjekKiz8RLbui3lNnluhj9SZ/7IKePqyyG/CPLf05DrGRQ/4LMUdinVd5kABEczgEvRv1fVfPmHzFx/cCiuxYKrVs9BxcQCdE2FOpCkOld7lPx1gb2t1R86jiNs87MtLrxTHgIrEKYB6RhaVaxMAx8d31NUKPouOoHlu9HApcLqHrEFWyGAkwMF/BjdIs4TWHgpCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IoB0y7XjONrI/Y0zgI/Nhyta6Ls2tEfitXZDAte79s0=;
- b=pY3gYDNyecuN+VwnVFzeoNKTvMw6+wSN+XZMeZyByOAoMefkQqwSVPlTL+riTAovKUhAb9z79RMOcOPe6mb1Cu2CFJSsvz8xnRvqzjG1Ca7PMfc7fZTPuJdLhJpx5KeviA1tupm82CC/sxcd8pwMNvgyyhnkSqIGIhWZrZ7YK50Xpyto4k/5RtB5T7yztmAHsXO5nMCVUmo6o4kSiL578f9LUbD07pxwOQjqpD0SaFG6OwIc1J6X4TPEUzELGOi+Bx9m6ysq8nnmvSg+W/4nF0mxVqUDYGlabffhL4YNew5Bq5hYtm9vAWCfLw50fyDcwitdQT+QskP+61T+jRy0gQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=0BUSynYUkzhNELyL8WY2MalAbBJptUFK1YnH0Qxh7eI=;
+ b=ZsiLlUQttk2VS94TM1HGAcXCW+CTPFSKL4HOiqEml4Uqn4tKZXt/ApCXBO79nWfnAtKw50YHcshzLTzAAzQRskzXnkzgMEIB7OJaYSXPd6pAwAoqwllpF8R7XR2IIzttrWPpH7UJIdeo2hlq1bqK0EoHaFrKGr9fgmFjkDjb0a0WFCElozPzqlJeLFAalsLVXHXUkf6zsk6nryYfzkcFFtNXoNzspVjBZ0720zFqgRAhDgEkevbCGCaOmYG7Gep3CAyaYvjN810LnUjzekRRZ9GSsGFfrzsQdYXQTrLemnanpcTYz8NmiVm0ZVTAchF5c1K66FNpgyNDVwq6TiAS7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17)
+ smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IoB0y7XjONrI/Y0zgI/Nhyta6Ls2tEfitXZDAte79s0=;
- b=4ZwrQBQTHRaFJpPh/vBjzKWjC2SjgDhjEn2kZU4VA6+n1CXdDtmkYhi4mNNc0vW2LwbvyWWpO8Xo5AdZ80L6pkYSPhh302wNVP5I3OpltXALAbdY5Mjn4uFu4e381kCPX11l4LyULXIKrL7EqAuTyXV0Hl2FZ5dlYIOV5TmrwjA=
-Received: from BN0PR04CA0013.namprd04.prod.outlook.com (2603:10b6:408:ee::18)
- by SA3PR12MB7782.namprd12.prod.outlook.com (2603:10b6:806:31c::18)
+ bh=0BUSynYUkzhNELyL8WY2MalAbBJptUFK1YnH0Qxh7eI=;
+ b=RMCrkx46QsMt7rz75loOAYR+bQebRxbri99YmlQHSUdYURJm7gF3wqljSS65AcniNSK8n4/EtwU08LGYb7lYOGyYNjMpGfcv1gs19t/AzlcV6Uw5xiSYYUUyFgdVsvC2nJ65BTteS5+z2pb37zAli3HwvUWMwXQXJr1I8V2OSfg=
+Received: from BN9PR03CA0844.namprd03.prod.outlook.com (2603:10b6:408:13d::9)
+ by SA3PR12MB8802.namprd12.prod.outlook.com (2603:10b6:806:314::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 05:08:26 +0000
-Received: from LV8PEPF00000068.namprd03.prod.outlook.com
- (2603:10b6:408:ee:cafe::98) by BN0PR04CA0013.outlook.office365.com
- (2603:10b6:408:ee::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Wed, 2
- Sep 2026 05:08:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
+ 2026 05:08:37 +0000
+Received: from LV8PEPF0000006A.namprd03.prod.outlook.com
+ (2603:10b6:408:13d:cafe::83) by BN9PR03CA0844.outlook.office365.com
+ (2603:10b6:408:13d::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 05:08:37 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
 Received: from satlexmb08.amd.com (165.204.84.17) by
- LV8PEPF00000068.mail.protection.outlook.com (10.167.248.41) with Microsoft
+ LV8PEPF0000006A.mail.protection.outlook.com (10.167.248.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:08:25 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:08:35 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 00:08:24 -0500
+ 2026 00:08:35 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 00:08:33 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 00:08:16 -0500
+ Transport; Wed, 2 Sep 2026 00:08:25 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,10 +71,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Ray Wu <ray.wu@amd.com>
-Subject: [PATCH 27/40] drm/amd/display: Test DM IRQ handler source guard
-Date: Wed, 2 Sep 2026 12:58:49 +0800
-Message-ID: <20260902050411.3473916-28-ray.wu@amd.com>
+ <Chen-Yu.Chen@amd.com>, Samson Tam <samson.tam@amd.com>, Austin Zheng
+ <austin.zheng@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 28/40] Revert "drm/amd/display: Fix CalculateFlipSchedule
+ Calculation"
+Date: Wed, 2 Sep 2026 12:58:50 +0800
+Message-ID: <20260902050411.3473916-29-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260902050411.3473916-1-ray.wu@amd.com>
 References: <20260902050411.3473916-1-ray.wu@amd.com>
@@ -78,29 +85,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF00000068:EE_|SA3PR12MB7782:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f6c0a1d-2d1c-4aa3-512c-08df08b0380b
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000006A:EE_|SA3PR12MB8802:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39c68d58-803e-4ad4-2d48-08df08b03def
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: P0SST5SLyIVQtppqh7tnSQJcoAS7shKAUlvCsD0CuBFkeuREsa8ugyqoZ0Hm2QYJU6ZEuWeM5qztz8uG9wRIxXcMmnmGS4l321OYSrCYVhCXYheKVcpuF73bO++Crqu5Vzi35KFcFD5KwRKXlk9De3d+Ox0aO2eaWlQ8OGFA+Zme3I3g0xu892D5MpNhNTdNtZjQh8DjHkCf8HMELI0q34pU1VugKNgDNbf4U9AOGVycspyvav6nKmmFK2AOxq2pvhv9OQOXV/zdLmLLN5gndpYp6CY/qfXV3PVi6dxMute20KgOJLFCN2csS5TgJDUWDWI/Ug3rBrfJ0Q5GoJ8dlUwZhaj6nBJ7UUQ16MSADu4zoZegze1YQSytx/M5qKY7Hr1IrCzldI4sVd83jaHNf4vYJgZWtnnR8BgtZj4I/ifRyuoGnd0ab25xwVM0S2WBzfEfR/UP5wQwVIEInRuEQroRqlQS20DhSqweYNDZznZXK6Jjp1w/IkFPbI9lQwfLK+FeIykzV1FzIPNpaiWNaBxFD4+3Hie0Bs0eBhtM5SUM2RU1+jquaLr/DRi8VtMUmEu9Z/0ZP72fcUv73ULc6MGFbkO9fhihdooaNLeHMTOyngJtQ9qfadK5uk8GyzuT4MbpelMSjypjVcs7fw9iETtOBZOaQz0g4vNRz+F/6+WJlHPxHXNNh+8TODq0KGobKRpSdi3Q4aV/LvijSXMLAw==
+ ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|22082099003|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: Ke9t/eM95Yj1vKLXX9AGYIred8rYLOAMwl+G6UMr1QCkdk5+09r5QkHblZu3UtANMUxgA5lA0B4ucQiHqM5fcht4LYrnsISH1jPwH8yvaqGPaNFCn+lSDrNEIy0+6J5tkNmSD6znv8TimVb3ErQdxs8AW56mbKiPV2Ny3b89VTy7Fju/0xAOYs1v2a2hUyIaKT9/XDTyneqid72ekx+uuysulWu//m4zPZrEslpGcmBujaweK66+6hMLZr0PhWV4s5ro6EZFMqNGjpSKPde2tcoCWUZJ95/IvVrS72c0J5yzFQfjLxoPBRM26B9xUDchYbQtZy8AAU8unrRa44BeVlxsNnskWrsaP22ccBCiZeEFFwc0fy3gnBuPKZFx9qxtOieDSMHVOVb/njuqVjJo6oY9ta+u9eg8QxjRs8RWrumlcFUJ2J11dfYojsEgQAiAMqDlJXzD920AUEuyL/nlyYu2A8nOyZjw/Z4dRbyBxSvLM9wQtL0APB34MnBCqsyW9tZvYN5GfKG8Wg3dzYwKbOD2BgQxVIumgWUJGpwSmr2aHXsPOmHstMyHWTHADDqlIy4Q5X7TR5Xl+pRjky17mSubJLB1+7ryP4Nkr+kdZu8BsxevewFMzavgAI2KNvK2690/tgilRRhPJ8t4RrXHK0HzPspFIivOv1Mm8gdiE0lqno5vFD1mQbb6ripA6actiZK97cG7oBDsRU3rcm1FyQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);
+ SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 9fHKovFlZmCLF9XUf5qPYsnaGmFuTK2BIwSio3Sq2wLjLXVFlnRCcCXYymERcHprhE11jyiRsdhhZb2Obtxd4eTyTOLvWbYYrc6t23J5t6TbGyVCsHkoyevk/bMCsZnAile0FK0pTah2h+ywqdKkJzCKH19YYV/qYtArzoaks2j67aTi/hwm8cesufVaFjrFkM5lNVw/xuxgfkbOSfCGmUa5zsrBChPZKTV5/MkDsbq5KLb9jF2yMN6wR6LZepg7WfjFiBaCkzKv91eZk/L9//eK2Yr3Z1bDA6jFFDuJ0en1Dr2gyhKRVXInbStbvF3UPgE6XGmNU8hEf7NsFO/jkQiv0FgUwuikHMQU77+ce0V5gGDmzji1cqLr2+0BQ4BTHEYir5uqUI3HUYsBbCMW8qAAA6ouQbNcoZ1FK+yTzYH5geVvaED76InhR1ea0BM/
+X-MS-Exchange-AntiSpam-MessageData-0: w08GFpnX/36yn27/1t8Fzaiv6pI14+E1cFR33y9dkel3gXId/eeHkww3m2t2RmuVSWXz6/z+DcFXjXDJra20WLvPILL4LTA/No9ckAjPD3ir8KCzH4oys2HA6barC7K33RjlNRvqc0gRAwYAhSxGpjkKcEg3NgkZCWhPFQ750hVkI4RNPCgHGNNqKIATBvl0XJK3O8EuyIOkIftYsEmy8dkU2nCkgZtJ0OS8sTkCNSjRn5slA43OVkNh1/ehEyPSRCi0ksO8AEHiP3hL9XwYxrihJswRHtoPcNoWJsziRrgMSzzRyieAAw+F0Kn0B3zi31pFzCVzykNvEbFFCiEc3f8xVgHvbGWFqJEGHoDRN8doObkQnJg7M8v9lDhoxrX8DIXqh7DRo2IZWb5sPqzUQXg70M/PQ3glzdQMzaFGQQb4zqFnztrcH70JDkjJ1N8z
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:08:25.7000 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f6c0a1d-2d1c-4aa3-512c-08df08b0380b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:08:35.5874 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39c68d58-803e-4ad4-2d48-08df08b03def
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF00000068.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF0000006A.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7782
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8802
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,86 +122,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Samson Tam <samson.tam@amd.com>
 
-[Why & How]
-Add dm_test_irq_handler_invalid_source to cover the early return in
-amdgpu_dm_irq_handler() when dc_interrupt_to_irq_source() cannot map the
-hardware entry.
+Revert commit 067059c28ffb ("drm/amd/display: Fix CalculateFlipSchedule Calculation")
 
-Reuse the existing unmapped irq_service stub and assert that neither the
-high- nor the low-context handler is dispatched.
+Because it causes some regression
 
-Reviewed-by: Roman Li <roman.li@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Austin Zheng <austin.zheng@amd.com>
+Signed-off-by: Samson Tam <samson.tam@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 45 +++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ .../dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c      | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index 37851af59ffe..d7d2dd49b1f0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -4710,6 +4710,50 @@ static void dm_test_irq_handler_dispatches_work(struct kunit *test)
- 	amdgpu_dm_irq_fini(adev);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index 608bbb7287cb..64417736a4d9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -6648,7 +6648,7 @@ static void CalculateFlipSchedule(
+ 			l->lb_flip_bw = math_max3(
+ 				l->hvm_scaled_vm_row_bytes / l->vm_and_row_time_budget,
+ 				l->hvm_scaled_vm_bytes / math_min2(l->vm_time_budget, 31.75 * LineTime - Tno_bw_flip),
+-				(l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes) / math_min2(l->row_time_budget / 2, 15.75 * LineTime)); //use bandwidth for a single row
++				l->dpte_row_bytes * HostVMInefficiencyFactor / math_min2(l->row_time_budget, 15.75 * LineTime));
+ #ifdef __DML_VBA_DEBUG__
+ 			DML_LOG_VERBOSE("DML::%s: max_flip_time = %f\n", __func__, l->max_flip_time);
+ 			DML_LOG_VERBOSE("DML::%s: total vm bytes (hvm ineff scaled) = %f\n", __func__, l->hvm_scaled_vm_bytes);
+@@ -6675,7 +6675,7 @@ static void CalculateFlipSchedule(
+ 					Tno_bw_flip + vm_bytes * HostVMInefficiencyFactor / l->lb_flip_bw,
+ 					LineTime / 4.0);
+ 			l->Tr0_flip = math_max3(Tr0_trips_flip,
+-					(l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes) / l->lb_flip_bw,
++					l->dpte_row_bytes * HostVMInefficiencyFactor / l->lb_flip_bw,
+ 					LineTime / 4.0);
  
-+/**
-+ * dm_test_irq_handler_invalid_source - Test the IRQ handler source guard
-+ * @test: The KUnit test context
-+ *
-+ * When dc_interrupt_to_irq_source() cannot map the hardware entry it returns
-+ * DC_IRQ_SOURCE_INVALID, which must not be used to index the DM handler
-+ * tables. amdgpu_dm_irq_handler() should bail out early without dispatching
-+ * to either the high- or low-context handlers.
-+ */
-+static void dm_test_irq_handler_invalid_source(struct kunit *test)
-+{
-+	struct dc_interrupt_params int_params = { 0 };
-+	struct amdgpu_iv_entry entry = { 0 };
-+	struct amdgpu_device *adev;
-+	int high_count = 0;
-+	int low_count = 0;
-+
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
-+
-+	/* This stub maps every src_id to DC_IRQ_SOURCE_INVALID. */
-+	adev->dm.dc = dm_test_alloc_dc_with_irq_service(test, &dm_test_irq_service_funcs_unmapped);
-+
-+	int_params.int_context = INTERRUPT_HIGH_IRQ_CONTEXT;
-+	int_params.irq_source = DC_IRQ_SOURCE_VBLANK1;
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test,
-+		amdgpu_dm_irq_register_interrupt(adev, &int_params, dm_test_irq_handler_count,
-+						 &high_count));
-+
-+	int_params.int_context = INTERRUPT_LOW_IRQ_CONTEXT;
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test,
-+		amdgpu_dm_irq_register_interrupt(adev, &int_params, dm_test_irq_handler_count,
-+						 &low_count));
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_irq_handler(adev, NULL, &entry), 0);
-+
-+	flush_workqueue(adev->dm.irq_wq);
-+	KUNIT_EXPECT_EQ(test, high_count, 0);
-+	KUNIT_EXPECT_EQ(test, low_count, 0);
-+
-+	amdgpu_dm_irq_fini(adev);
-+}
-+
- /* Tests for dm_handle_vmin_vmax_update() */
- 
- /**
-@@ -4953,6 +4997,7 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
- 	KUNIT_CASE(dm_test_register_outbox_irq_handlers_with_dmub),
- 	/* amdgpu_dm_irq_handler */
- 	KUNIT_CASE(dm_test_irq_handler_dispatches_work),
-+	KUNIT_CASE(dm_test_irq_handler_invalid_source),
- 	/* dm_handle_vmin_vmax_update */
- 	KUNIT_CASE(dm_test_handle_vmin_vmax_update),
- 	{}
+ 			*dst_y_per_vm_flip = math_ceil2(4.0 * l->Tvm_flip / LineTime, 1.0) / 4.0;
 -- 
 2.43.0
 
