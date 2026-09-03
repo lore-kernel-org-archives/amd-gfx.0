@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C23A9C79F88
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:30:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BCFDC79F80
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:30:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C887C10F8DE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C28E710F8DD;
 	Fri,  4 Sep 2026 07:30:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AsqNTuzN";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mWxFd83/";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9FE10F7CA;
- Thu,  3 Sep 2026 22:01:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2F9E10F7BD;
+ Thu,  3 Sep 2026 22:01:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=XFjpr/028iCComgfestI43c11Qk9ooWihFeg47m+Cqc=; b=AsqNTuzNbdrZ1nUSssEQ1c9Jmd
- 9lTqaZT6sl9AtafK9FQy+SpRsw4qOdz+PIByfpfCab0XD3uIl05XemxtYXs5PHRAx3xVB+ZZK7Z68
- 54r+Gp5IJ7u+Bk7H4/THXt+xdVeMdAHqyc9sS7Ir9XnDSU1L049/v+NFyxVfYkayjnnGjfvNCn6FT
- 5dVgb6IP4xvkBYc3c5V50TXAUFE477p7tJweq66nQN+cW2hEC5rEE8fLdAlA0PZJIkDznRGHvH7Hl
- fBmH6kZJ6nBVy6odrnH2tyRQJRzY69obT+cmtEWIAprpjwZ3G0mPo6DBB425PyxBOXEA3op++MWF8
- KYsV/0mQ==;
+ bh=FkmyOOSfgUdEr7sP8I2zpSYHh7cll3fuy6nX0RpNhlY=; b=mWxFd83/kUVEWo0xieEg3Dn0Km
+ pD5UKhw2zqkRqpwYSalzdtVwdxBHAKrNfN7zUjMazgPawvyrlHnI8KSBGo0EmYXL2OERmUOoVXvGQ
+ /7ae9EkHK0omh4xL8EBLa0usL7z/N/je4igftVdO8jsut42T0IATknpYacCK/F9D5KIsMNU271Vlh
+ dQ+OjRMmbthtJuLheGFUAGNaWCoLcFPFOcf5zVFr2iKg/0ubWoDtSPUtN3iN9Dv5oslPST3ZZNy72
+ GLukUQ1Xe7GD8Hx4KzEZMwust56vTSq0bLYKK9zUomjO5eaDWqRoo0XvmFR94XCqONpPQoPoEMtiT
+ +sBUplhg==;
 Received: from [187.43.152.48] (helo=[127.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x2FV3-00EbUz-EO; Fri, 04 Sep 2026 00:01:37 +0200
+ id 1x2FUe-00EbUz-A9; Fri, 04 Sep 2026 00:01:12 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Thu, 03 Sep 2026 19:00:31 -0300
-Subject: [PATCH i-g-t v6 9/9] tests/cgroup_dmem: add
- write_eviction_nonblock subtest
+Date: Thu, 03 Sep 2026 19:00:27 -0300
+Subject: [PATCH i-g-t v6 5/9] lib/amdgpu: add amdgpu_cgroup_region_name
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-dmem_max-v6-9-61dc62970fae@igalia.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-dmem_max-v6-5-61dc62970fae@igalia.com>
 References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
 In-Reply-To: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
 To: igt-dev@lists.freedesktop.org
@@ -65,104 +64,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+The amdgpu dmem region name uses its PCI address, just like the one from
+Xe, but there is only a single VRAM region.
 
-Add write_eviction_nonblock to exercise the O_NONBLOCK path of the dmem
-cgroup max interface.  After filling VRAM to the cgroup limit, each
-limit-lowering step writes dmem.max with O_NONBLOCK so that synchronous
-eviction is skipped.  The test then verifies that usage has not yet
-dropped below the new limit, allocates a small BO to trigger eviction
-explicitly, and finally confirms that usage falls within bounds.
-
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- tests/cgroup_dmem.c | 37 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 34 insertions(+), 3 deletions(-)
+ lib/amdgpu/amd_memory.c | 25 +++++++++++++++++++++++++
+ lib/amdgpu/amd_memory.h |  2 ++
+ 2 files changed, 27 insertions(+)
 
-diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-index 0d3b415acd54..ee6345c17878 100644
---- a/tests/cgroup_dmem.c
-+++ b/tests/cgroup_dmem.c
-@@ -41,6 +41,7 @@
- #define USAGE_DROP_TIMEOUT_MS	1000
- 
- #define TEST_INTERRUPTIBLE	(1 << 0)
-+#define TEST_NONBLOCK		(1 << 1)
+diff --git a/lib/amdgpu/amd_memory.c b/lib/amdgpu/amd_memory.c
+index 12fe23c65ab2..2da4a8a4baee 100644
+--- a/lib/amdgpu/amd_memory.c
++++ b/lib/amdgpu/amd_memory.c
+@@ -30,9 +30,11 @@
+ #include <amdgpu_drm.h>
+ #include <stdio.h>
+ #include <string.h>
++#include <limits.h>
+ #include <unistd.h>
+ #include <sys/mman.h>
+ #include <inttypes.h>
++#include "igt_device.h"
  
  /**
-  * SUBTEST: simple
-@@ -90,6 +91,18 @@
-  * REQUIREMENTS: must run as root; xe device with at least one VRAM region
-  */
+  *
+@@ -679,6 +681,29 @@ bool virtual_free_memory(void *address, unsigned int size)
+ 	}
+ }
  
 +/**
-+ * SUBTEST: write_eviction_nonblock
-+ * DESCRIPTION:
-+ *   Same fill phase as write_eviction.  In the limit-lowering phase dmem.max
-+ *   is written with O_NONBLOCK, which causes the kernel to skip synchronous
-+ *   eviction.  After each nonblock write the test verifies that usage has not
-+ *   yet dropped below the new limit, then triggers eviction explicitly by
-+ *   allocating a small BO.  Finally verifies that usage falls within bounds
-+ *   after the forced eviction.
-+ * REQUIREMENTS: must run as root; xe device with at least one VRAM region
++ * amdgpu_cgroup_region_name() - Build the dmem cgroup region name for an amdgpu.
++ * @fd: amdgpu device fd.
++ *
++ * Constructs the full dmem cgroup region path for VRAM on the device
++ * identified by @fd.  The returned string has the form
++ * ``drm/<pci-slot>/vram`` (e.g. ``drm/0000:03:00.0/vram``), matching
++ * the name registered by the kernel driver via drmm_cgroup_register_region().
++ *
++ * Return: A newly allocated string that the caller must free(), or %NULL if
++ * @region is not tracked by the dmem cgroup controller.
 + */
++char *amdgpu_cgroup_region_name(int fd)
++{
++	char pci_slot[NAME_MAX];
++	char *name;
 +
- static atomic_int signal_count;
- static struct sigaction sigcont_oldact;
- 
-@@ -277,7 +290,7 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
- 	struct igt_cgroup *cg;
- 	void **handles;
- 	int max_bo;
--	uint64_t current, capacity, cg_max, limit, after;
-+	uint64_t current, capacity, cg_max, limit, after, before;
- 	int err;
- 
- 	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-@@ -322,14 +335,31 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
- 	while (limit >= EVICT_STEP) {
- 
- 		limit -= EVICT_STEP;
--		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
++	igt_device_get_pci_slot_name(fd, pci_slot);
 +
-+		if (flags & TEST_NONBLOCK)
-+			igt_cgroup_dmem_get_current(cg, cg_region, &before);
++	igt_assert(asprintf(&name, "drm/%s/vram", pci_slot) > 0);
++	return name;
++}
 +
-+		igt_cgroup_dmem_set_max(cg, cg_region, limit,
-+					!!(flags & TEST_NONBLOCK));
+ /**
+  * Wait for specific value in memory with timeout
+  */
+diff --git a/lib/amdgpu/amd_memory.h b/lib/amdgpu/amd_memory.h
+index e26c85bc4b0a..de169e580c1b 100644
+--- a/lib/amdgpu/amd_memory.h
++++ b/lib/amdgpu/amd_memory.h
+@@ -105,6 +105,8 @@ void
+ bool
+ virtual_free_memory(void *address, unsigned int size);
  
- 		igt_cgroup_dmem_get_current(cg, cg_region, &after);
- 		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
- 			  limit / SZ_1M, after / SZ_1M);
- 
-+		if (flags & TEST_NONBLOCK) {
-+			/*
-+			 * O_NONBLOCK skips eviction: verify usage has not
-+			 * dropped below the new limit yet.
-+			 */
-+			igt_assert_f(after == before,
-+				     "Expected no eviction with O_NONBLOCK, but "
-+				     "usage dropped from %"PRIu64" MiB to %"PRIu64" MiB "
-+				     "(limit %"PRIu64" MiB)\n",
-+				     before / SZ_1M, after / SZ_1M, limit / SZ_1M);
-+		}
++char *amdgpu_cgroup_region_name(int fd);
 +
- 		if (limit > EVICT_STEP) {
--			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
-+			if ((flags & (TEST_INTERRUPTIBLE | TEST_NONBLOCK)) && after > limit) {
- 				/* Let a new bo creation trigger eviction. */
- 				void *handle;
- 				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
-@@ -368,6 +398,7 @@ static const struct {
- 	{ "current", test_current, 0 },
- 	{ "write_eviction", test_write_eviction, 0 },
- 	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
-+	{ "write_eviction_nonblock", test_write_eviction, TEST_NONBLOCK },
- 	{ }
- };
- 
+ bool
+ wait_on_value(unsigned int *ptr, unsigned int expected);
+ #endif
 
 -- 
 2.47.3
