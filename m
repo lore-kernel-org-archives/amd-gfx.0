@@ -4,77 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC69C61DD3
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:03:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6AE8C624D6
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:03:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5572510F5A0;
-	Thu,  3 Sep 2026 13:03:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E6D510F5A1;
+	Thu,  3 Sep 2026 13:03:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e42yl5o2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mV1kV7Um";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70CBF10E4D6
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 07:56:15 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-398c1101c1bso2385000a91.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 00:56:15 -0700 (PDT)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFDC10E0D7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 08:02:49 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-39647184c73so695546a91.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 01:02:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788422175; x=1789026975; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788422568; x=1789027368; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=sRqkFHuZea5AlRR5uQ7C1BJC5FSBvAR65ffCkEIt+cQ=;
- b=e42yl5o2aKKOa7TvT9NccvaFIWuFr55GmuRNf1WjMCXrj6YEnLJeeYTQSdCAv7HOvd
- a3kr9ygXkEQNIcvxY9rCRILpwQhCX1MA75AoNxfgdAcTdDL3YaZL7fTyL1XdhaIwJbg/
- 8Js6w8284bNxvKVFtZYK3RhPtivd3v7TjCk2McMh4y5MOPRjTA5yyIMhLKIiSXWr3Oj0
- ZwWU3cd4Js0Uu3YZ6KVeYeXmTTc8nCR/L5/+YancBs+a3l1ae0s9AHtYAzt7u6hJ3tPX
- n0QJuUqYfhGZuusdQ5/Aoyh0aC2GZvFWYvX3hrJfYAzEKTlS7ai0FSvNPZr57feTHdJk
- Mpzg==
+ bh=3NJLiu+EaUZYTx9JK9o8V3S8dlOMXCZdqBmUNi5lURg=;
+ b=mV1kV7UmYZtjAm0wVIedmwu2sc3o+26keT2kOjb5XMPbgFII/yWduGnE+qspkJ9SOB
+ QI5rQjt4U0gHQS6IQyZqtFEmUBn3nXUWNoCVT3uM92d5oAXxdSnsb1wX96W05wl6MSfy
+ 12Sxvpfka4d8siL3zfWPpP/eeEOycaya4paIbTcwBkFM/cTUepS2dCdiBv90vQ+HBinT
+ pvErjEH+WWpfs4R+V/MfdM04Yc7tiB3L3ft3qy44wGn8UD/7WKIzH1X4YjndOrY7QLZm
+ Ay6fGV/eT+B7jR/foI/58i0LHPsezH/gQwVh/pB0Y3D3/ec8m0JVNMXs6Xecg1QTJfGo
+ SDxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788422175; x=1789026975;
+ d=1e100.net; s=20251104; t=1788422568; x=1789027368;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=sRqkFHuZea5AlRR5uQ7C1BJC5FSBvAR65ffCkEIt+cQ=;
- b=QNIMm3w7s4QAnaI8KfX6ubQc6XufjG4EeIfBEYuPtk47dhsmNOb/91if0om57CWXk2
- syBh6K506Rg8DW7O/qXBDy62AT7S37d3TGmPnN53gTGnzsYTl1u0GITVrIRS14CgqjmG
- GhccnF0QPDD4EPF1Zu2Ic0R+j/idxVeki4ov596ZcIqOpQu2BtCGpVcnqbgy+3KS8Oqy
- h3k1qlre51ntQ6IIoG3o2jkC73dSL+ZsCh+njPUwPauNOZYoJkCSsc4ODu5tEOerNKSP
- Vq5eRFH0GLb1DU9mqPU8Js6UORo7uEJvCvwd8oKSdXrIFiwLyQPwEHMaATnacrhHwPJm
- ypOA==
-X-Gm-Message-State: AFuF++mopQr+ZX/jZyxqioxBKTPP/zIW+2T4rwkEqBSteeq91dUurSSc
- GfTf+sEBQ+kx0LYC2HaBdDLdCHa9rW5yzPl8nschv/pYnEQiQTWbS+6HZpQGvCCK2T4=
-X-Gm-Gg: AYBFou1wr+SanE3eEYAl3OVu7o1VzYPQI2OFmzntG4C8bFv3r7on/P3XSJUoGUaJSWX
- IFhg1XMViS4Url3lW+MqCsDGjKjdQswUKXk7e6yWtAPJatvJ71/j/Qt2O00Tr1KYcQCvWFW5865
- A4zNYiH0xEVInETfCFeFRwEAMtzdcfuKft76M37NrEP7Cza2C4RrZ56QvvhPwr0vpqTccwHwe4K
- TsRGa64d4PJAQxuRYOIkH6MSvuIT5aODj86bJO6Mw+NEvj8fGZCNfA43dN/84laMjL39PweR6w2
- KuSzi+7GStrmpLFV9XGn6YtrMCfyQ0wqY96BycwN5B7zc1jR9iZO0lhW8RD43rlJNg1H2Ffett/
- GWpxQ+XjHOAcYkgnglr2D71d3CCzNtcXqKTVo+vma8a7oVlgTWrslw5Z1apcoNlY2NZgEN458nM
- Bkf5/sWdrQ7n17Ay7jngoty9tJBdrfIVwSxg/zqqMET1kMPVokY+rqUEo6zvm1ijaweNa7EJ0dE
- /AZ6FRmxiLnjpZmwvPDC2Y7wqm4zpb6hTY+SNAGtV5XWhIxm3jc7rj3Kglz07KywQD53g==
-X-Received: by 2002:a17:90b:17cd:b0:398:9beb:5c19 with SMTP id
- 98e67ed59e1d1-39aee178f15mr12943740a91.20.1788422174836; 
- Thu, 03 Sep 2026 00:56:14 -0700 (PDT)
+ bh=3NJLiu+EaUZYTx9JK9o8V3S8dlOMXCZdqBmUNi5lURg=;
+ b=H1hEkEH3EanR5EgNtod0BHv4UjO3jYsD6kyhtkqAKQh1BpmuRmTo7YNK0iPhwDNjha
+ 5tw26BFolIv4wAHKRp4xaPnce9AkLjv6z1n7DZ/pwHyY/lyQzr9RTPoNDJ6FhEwO4Mkf
+ EZZuSiqlp7lL+EVW2SeA8sRm/vb3ndbEIhDr0/344C3AJT2l0CoWDO1e57YczuLgAusJ
+ O8RS1PhRA+V6586X4c2BvZleFC2wdiXwoO8QjPc7qkCg4PI4vCoOaKiQGh17BgpbuJ7z
+ eeBuPIAgMto/HnIkzI01qJAnA2hbfUS8R7qmgM3kuh0WVxqObsbLdJDqc9u8xtMhFTeQ
+ 6sgw==
+X-Gm-Message-State: AFuF++lC9IqdGMxtvd5d4FWdiPrhCxFZQWsMmanm8FWOBcWjsgZyp92E
+ 9I2WSRu8WQhr6gkhN77cbplr4s9TAhPJh+lWcjpZIvXHicG4lBEMPy3TjIuAQxLYKyU=
+X-Gm-Gg: AYBFou32CqSz1huSVA0WXs9g4vo+P+7qkBGeYLUTqU07VN8o5XdYBxYcAm/4h3G1FG6
+ Cj8jdF/D6mfL447cboLovDR99wFUZpSxXpEaz8jFCV2PvEmESmNgEYuGu+WIN4LSD5JBBadiNHz
+ FbfZY1oalj0esRkEcezGP1urhgaBuPJWC8OiSWyKsqs7dYkdU0hR59PBQHKZtTlD5sT8X9S/VXw
+ g7BlT+9y7tipuaojGJwjbEblUVkp92M9T2fJujSNW/0QCDMh99IdQyhX7OUEYv4ejZVkh8168IC
+ JADYv+/Tbaq9C3/7IvteLXHCP9ekcbxhyw9ovTGtZmU4gQLoWbPuoXzfX2n6CWdV4S1RwtZbacB
+ NB4MX8hndTpFtLsggeacitbZVE6rx7xWZDY8hSRrmEBaYeUGbk46XF6k2s8vTl+WeKxJeOgv5Qu
+ sOfQomaqWfbhr8EPQrzXO5d7Gy6JasvOdEgiNOt8LWf0RywhIW7Vfls/FTljTvDsKQjbmKnt7hQ
+ uh9bE/U9AZguK73S3bB1vLg5x0oGyWve8IBYBm1ZvpCBBvWsL77TxfE8TDsrH6pPRlhjQ==
+X-Received: by 2002:a17:90b:4c0f:b0:38e:7297:a92e with SMTP id
+ 98e67ed59e1d1-39b1325b61fmr1613732a91.9.1788422568460; 
+ Thu, 03 Sep 2026 01:02:48 -0700 (PDT)
 Received: from francomeister ([138.84.137.76])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39b083e4fafsm3771943a91.1.2026.09.03.00.56.12
+ 98e67ed59e1d1-39b08c39227sm3742832a91.9.2026.09.03.01.02.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2026 00:56:14 -0700 (PDT)
+ Thu, 03 Sep 2026 01:02:47 -0700 (PDT)
 From: Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
  alexander.deucher@amd.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, sashiko-bot@kernel.org,
+ dri-devel@lists.freedesktop.org,
  Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
 Subject: Re: [PATCH] drm/amd/display: fix MALL hysteresis timer underflow at
  high refresh rates
-Date: Thu,  3 Sep 2026 15:55:23 +0800
-Message-ID: <20260903075523.5182-1-pacaro.francis.marlou.n@gmail.com>
+Date: Thu,  3 Sep 2026 16:02:37 +0800
+Message-ID: <20260903080237.5724-1-pacaro.francis.marlou.n@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260903074152.456231F00A3D@smtp.kernel.org>
+In-Reply-To: <20260903055952.62906-1-pacaro.francis.marlou.n@gmail.com>
 References: <20260903055952.62906-1-pacaro.francis.marlou.n@gmail.com>
- <20260903074152.456231F00A3D@smtp.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 03 Sep 2026 13:03:07 +0000
@@ -92,37 +91,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 03 Sep 2026 15:41:51 +0800, sashiko-bot@kernel.org wrote:
-> [Severity: High]
-> This is a pre-existing issue, but could this calculation trigger a division
-> by zero kernel panic if denom is 0?
-[...]
-> Would it make sense to add an early return to check if refresh_hz evaluates
-> to 0 before proceeding with these calculations?
+This is now runtime tested, so the "compile tested only" note under the
+--- in the original posting is out of date.
 
-The arithmetic is right: refresh_hz == 0 gives denom == 0, which divides
-by zero both in the div_u64() and in the 100000/refresh_hz check a few
-lines below.
+I rebuilt my distro kernel (CachyOS 7.2.2, same source and config, clang
+ThinLTO, generic x86_64) with this patch applied.  Hardware is Navi 23
+(RX 6600, DCN 3.0.2) driving an ASUS XG279CNS over DisplayPort at
+1920x1080, VRR range 48-360.
 
-As noted, it is pre-existing.  The original code divided by the same
-denom, so this patch does not change that exposure in either direction.
+Unpatched:
 
-For it to trigger, refresh_hz = pix_clk_100hz * 100 / (v_total * h_total)
-would have to truncate to zero, i.e. a mode below 1 Hz.  This block only
-runs for a single active stream that has already passed the MALL
-eligibility checks above it, and with VRR the v_total used here is
-adjust.v_total_max, which corresponds to the panel's minimum refresh
-(48 Hz on the display I tested).  I could not construct a case where a
-live stream reaches this point with refresh_hz == 0.
+  - the WARN fired once per boot, at the compositor's first modeset
+  - after resetting /sys/kernel/debug/clear_warn_once it reproduced on
+    demand at 280 Hz and 360 Hz, and never at or below 240 Hz, which
+    matches the ~243 Hz threshold in the commit message
 
-I would rather not fold a guard into this patch: it carries a Fixes: tag
-for the underflow, and the two problems are independent.  If the
-hardening is wanted I am happy to send it separately, something like
+Patched:
 
-	if (!refresh_hz)
-		return false;
+  - no WARN at boot
+  - no WARN at 280 Hz or 360 Hz, with clear_warn_once reset before each
+    mode, so those are independent negatives rather than one suppressed
+    warning
+  - the function no longer bails out of the hysteresis calculation at
+    those refresh rates
 
-before denom is computed.
+No display problems observed on the patched kernel.
 
 Thanks,
 Francis
