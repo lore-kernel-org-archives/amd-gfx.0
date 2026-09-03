@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28348C624DB
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EEBEC624A4
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EAF510F5D1;
-	Thu,  3 Sep 2026 13:44:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EFCC10F61D;
+	Thu,  3 Sep 2026 13:44:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CyhYZt75";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BKB1rV0a";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4E5810F619
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:23 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-49a97714f5dso17885145e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 06:44:23 -0700 (PDT)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3D7A10F61D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:25 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-484374f54d0so1485799f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 06:44:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788443062; x=1789047862; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788443064; x=1789047864; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=+D94IVhV0jPQG1E/Q7YgWF8UlhHboHO5XUp1Tpas8v4=;
- b=CyhYZt75KMQ8l0w75wDdgotZyEmqP5hG1LOPxxVM0PrPzFMe8XHxsMFVuwJ+or/EcR
- oFrXHWGb8ctZq5YUK/QQlN9fasqa/ROYVEGKVhXXmJqI/GMJ8XlEcLOk9e88FJfthyET
- gohP9v8TX3u7y1+qNh/bQkf8xm0DA3SGqg8FtxxaXyMWP9D/0lVABkMcIpa6eYn7apun
- yh0uQxOig41aWRxRVcggu5Hr3Iz9xeg2JnBt3Jwjvrey93wAPFXdPXZb2GTpFJEev5BH
- YSZ05nLdpmGd3Di9fNfza+h5T+JaOIDiKeZYGy90DzAvMrxfHOiywVL4OVNJzFJnqOm0
- ulTA==
+ bh=ZDZwxrcvycJHj1eGUeoFp0vnof78SH0cq5rrlezlWVM=;
+ b=BKB1rV0a7yl55cpVCgViSJEsZkUw65ckvP2BOcULB5Rxx82jNR7sxXMnmunyMeM66w
+ wXX8ErM+6EVJFAaJ+wC1Iohv6aJX10u2quQdupMyuaWM4X4hlxeeSize3r4tqAaDG73e
+ 6vOmXyH/mXCT9oALgNXFDwAgyt+qzsgq4Ilz5AsJJUhJ7dki8VqO0SnK6xNr1m9VAyih
+ 9sswggTqe6lGZ7jOtWwQEovoDXLTBTJJiJc4OACLqcsHMCplZw2WRPJaToBgYZlYz4Ya
+ QvRw2On1q2DYl1quqMjg5+tNkLSnR+E/ZvK9Atf64EkonU13MgZQkCPX0dX2cLiMY1OI
+ iSQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788443062; x=1789047862;
+ d=1e100.net; s=20251104; t=1788443064; x=1789047864;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+D94IVhV0jPQG1E/Q7YgWF8UlhHboHO5XUp1Tpas8v4=;
- b=hmMM8eHvi+WAkpgTyrMbwLCTA8sXrY5zD1KDAXGwg7JEpEyQcU5TbuO2OBWg0y/9rW
- B9XIGaF4cYGm06pdrOpXevXK6SZbbQCueosPSlUAW9uzrWk8d3Qe66McOwq0Foiw3UdN
- xi77oChKF/6TtQqR25fMie74nStVhdavQpzCY/NdbFrymum1dB18QLDMn4414JMgNSyz
- c/Mgsj1KCOnTluRHBizLPEXRn+MvZ7Z3SyOKwfKinG5rV9ZJGW3m2Cv6sens8UIjcU1z
- /fltMe939nYRkq8luTqqvFqEaNR0nrOLXZZKV896gbx5NIZblwxkUogV71y1icnPSyOY
- Fq1w==
+ bh=ZDZwxrcvycJHj1eGUeoFp0vnof78SH0cq5rrlezlWVM=;
+ b=cBeiO91MBkN6u9ed44/wAN6cXoY/DoiL/vdZSoPqGw5BiIAzoosOmAnWIpkVGOlzea
+ D+wX+4ukagQ2BcxmBcGDDhTs8Q2HAKAeb2bJ6grXxNo1wQFL0o7Z/ef+b/kNbcpJ9C8r
+ fxoS5FClYo+/Vcz56aHmMf5OxNfnlD2RQZfIJpQBOxyPWwUZAIRaGs5OX0HECdz3hjjg
+ vyCaOTtfuB5ohepc6OY00lQwS1VFJmy467t6YMuwpbtoCWdoH6/k/youQ27SJhUJp+wl
+ GUxW9gbna37CJLecuAzA/QezZh4YUkQ4H4GKLhQROMLBdzouftvSv8P6X7cM/ixRmU6/
+ Ndbw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxXLy+lRB6pVjkmnarwZbKpx3OGhqfQ+CcaaQ4xEnwHv97OtZ+0ptcCReHPqGjWjgFy46ttIknu@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kMekrJ4VPPQOfO44rypGEsYR+I5YkPsE04TBPPPgH2VdX/cDW1
- qgioXTzTWEwZsvaMbmNyZvsmqDQ+3eTdOFRXad2MojpWxc0dZhPtYrUi
-X-Gm-Gg: AYBFou355JjWD4/IdYYmvQEjbbb8HyXExLIKnVHOVCm7Y4ejy/C7gVQDazyh0ZmP/hN
- ZRFGB+S/uIU6QxepXOuW8XoeH6QvzC6P5NPKOxDOmSHFlRMGvWDWGtoTx6UoNKgObP+egc+Jqu8
- LsinQdevBx5BeV6xQCDmg+isiOfaQteh7KOx/adWAV5pAB2Dxw+GcHIwSXeTJJvspMwM7dl2TNy
- W2K0tYIKECpNIRwwBWH3qKJndZQ4GqX4o5PIxY8lgXZdpKmSHMcNT6ZdM/NaHnJi9xy2t2lsWNi
- BezPArmm84A24efb436htfChTOP49niWm3Ukh4zZA2YuXNk/uv6SGFi45uRTFlUAlrFf/qleHgI
- bEMmIYHGge4W5th7QUfYeeOULXiNfevXuwGm+gZMbF5u2eSOcsFPMoqbCFaL2fnj3+aU9HJ6mR/
- xHT+5fNYyLbMJhxPvoiH1kUGUR36a0UilETGrO5H1V2d9vT11tGy7drrkQeWZ/58fZS0oHohWG3
- v48dCjwdLvy
-X-Received: by 2002:a05:600c:4693:b0:499:484a:81d0 with SMTP id
- 5b1f17b1804b1-49ce5817d63mr188523005e9.9.1788443061988; 
- Thu, 03 Sep 2026 06:44:21 -0700 (PDT)
+ AKwUvBx2RlllELpje2a893AZkqgHomBVo+tVSIOTE5VnrCfQKGiFPgFQ9wKBt9xdUWgRYbYM5aEHqYlV@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lAgzRRp2y/AVxJVsTcInzNbe0VuXhmdX+KQ+kfqO4G9sgXDxmA
+ S0ZVWecmp50jjvsH2v4JNalSg3BM4xOAEIvg4QTV5l3w3rH8LcmDYILE
+X-Gm-Gg: AYBFou0d3dIUJbuJnmUrj2lWbwLi0F8+pTF2GlRjZ0cfaIieJOGTr7oCXLjAjG1+JFm
+ zmuwFz8R9KP5ZEri779HO5Pps4nSsAlilaIowT2pHHJIznerWdnCwRO2Fi2bYsMTQ9LmHkiaJ1Y
+ Z6n2GKlDZAdys0Jw2BqnEz6eszWjN95JPG0nvDw8BgicpdEK5A7aSmtac+BDl7xS1v0Ljdx6BEq
+ LSXPVuwqUeiVyyCtiaqj68PJOtsR+PoMvtzbHUoKC6S82K8gjAqEviJS6TUbhRJh/JhlIAcsUoI
+ FSULXR3v82+3mpkH989UyQABV0DBzsavP+PvjugXlKRoyqsp2mA+opTIK5qxrqmugZc2RO9rPy8
+ f9W9fYl7ZMh+0wNwjrTcM8fRGQHpJkEJGqpTHbGiD7sQ6qZyI0gLAYq0QZg90QbEdnYhIOLL9pD
+ n9MRuVwe7fpAOmw0xm+MzE/tDyS5019G6Jk0Wc9yKT2bijCQz/E+XRCpuSo6r93vtWJp5CD3X4D
+ A==
+X-Received: by 2002:a05:6000:4548:b0:485:8542:fee3 with SMTP id
+ ffacd0b85a97d-4858542fffdmr2777779f8f.16.1788443064234; 
+ Thu, 03 Sep 2026 06:44:24 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15d9:4700:e712:9f38:603a:54e4])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48448e736a6sm13597080f8f.5.2026.09.03.06.44.20
+ ffacd0b85a97d-48448e736a6sm13597080f8f.5.2026.09.03.06.44.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2026 06:44:21 -0700 (PDT)
+ Thu, 03 Sep 2026 06:44:22 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -71,9 +71,9 @@ To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
  matthew.brost@intel.com, nat@pixelcluster.dev,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 10/11] drm/gem: Use dynamic allocation for GEM object dma_resv
-Date: Thu,  3 Sep 2026 15:28:05 +0200
-Message-ID: <20260903134408.105317-11-christian.koenig@amd.com>
+Subject: [PATCH 11/11] dma-buf: Inline dma_resv_init and remove allocated flag
+Date: Thu,  3 Sep 2026 15:28:06 +0200
+Message-ID: <20260903134408.105317-12-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260903134408.105317-1-christian.koenig@amd.com>
 References: <20260903134408.105317-1-christian.koenig@amd.com>
@@ -95,445 +95,156 @@ Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the embedded dma_resv (_resv) from struct drm_gem_object and use
-dynamically allocated reservations instead. This change aligns with the
-new reference counted dma_resv infrastructure and reduces the size of
-drm_gem_object.
+Now that all users have migrated to dma_resv_alloc(), inline the
+initialization code directly into dma_resv_alloc() and remove the
+dma_resv_init() function entirely.
 
-In drm_gem_private_object_init(), when no external resv is provided,
-allocate a new dma_resv using dma_resv_alloc() instead of initializing
-the embedded _resv field. This allows proper error handling if the
-allocation fails, returning -ENOMEM to the caller.
+Additionally, remove the 'allocated' flag from struct dma_resv since
+all dma_resv objects are now dynamically allocated. This simplifies
+the reference counting logic - dma_resv_release() now always frees
+the object unconditionally.
 
-The corresponding cleanup in drm_gem_private_object_fini() is simplified
-to only put the resv pointer, removing the redundant put on _resv.
-
-For TTM buffer objects, add an individual_resv field to track the
-dynamically allocated reservation object for proper cleanup during
-destruction. This ensures we can distinguish between shared and
-individual reservations when freeing resources.
-
-This change builds on the previous work to make drm_gem_private_object_init()
-return an error code, now utilizing that capability to handle allocation
-failures properly.
+The last remaining use of dma_resv_init() in dma_resv_lockdep() has
+been converted to use dma_resv_alloc() instead.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 Assisted-by: Claude:Sonnet 4
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 12 ++---
- drivers/gpu/drm/drm_gem.c                     |  9 ++--
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |  1 -
- drivers/gpu/drm/nouveau/nouveau_bo.c          |  3 --
- .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
- drivers/gpu/drm/ttm/ttm_bo.c                  | 26 ++++++-----
- drivers/gpu/drm/ttm/ttm_bo_util.c             | 44 +++++++++++++------
- drivers/gpu/drm/xe/xe_bo.c                    |  8 ++--
- include/drm/drm_gem.h                         |  9 ----
- include/drm/ttm/ttm_bo.h                      |  2 +
- 11 files changed, 65 insertions(+), 53 deletions(-)
+ drivers/dma-buf/dma-resv.c | 43 +++++++++++++++-----------------------
+ include/linux/dma-resv.h   | 10 ---------
+ 2 files changed, 17 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 20831dbebc31..a168083edab2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -397,7 +397,7 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index 5ae5a4b40ae6..4a421b08cd98 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -132,26 +132,13 @@ static void dma_resv_list_free(struct dma_resv_list *list)
+ 	kfree_rcu(list, rcu);
+ }
+ 
+-/**
+- * dma_resv_init - initialize a reservation object
+- * @obj: the reservation object
+- */
+-void dma_resv_init(struct dma_resv *obj)
+-{
+-	kref_init(&obj->refcount);
+-	obj->allocated = false;
+-	ww_mutex_init(&obj->lock, &reservation_ww_class);
+-
+-	RCU_INIT_POINTER(obj->fences, NULL);
+-}
+-EXPORT_SYMBOL(dma_resv_init);
+-
+ /*
+  * dma_resv_release - release function for kref
+  * @kref: the kref inside the dma_resv object
+  *
+  * This is called when the last reference to a dma_resv object is released.
+- * Cleans up the object and frees it if it was allocated by dma_resv_alloc().
++ * All dma_resv objects are now dynamically allocated, so this always frees
++ * the object after cleanup.
   */
- void amdgpu_amdkfd_remove_all_eviction_fences(struct amdgpu_bo *bo)
+ static void dma_resv_release(struct kref *kref)
  {
--	struct dma_resv *resv = &bo->tbo.base._resv;
-+	struct dma_resv *resv = bo->tbo.individual_resv;
- 	struct dma_fence *fence, *stub;
- 	struct dma_resv_iter cursor;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 6c5182d54f7d..026821f6da7c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1319,7 +1319,7 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
- 	 * So when this locking here fails something is wrong with the reference
- 	 * counting.
+@@ -163,10 +150,7 @@ static void dma_resv_release(struct kref *kref)
  	 */
--	if (WARN_ON_ONCE(!dma_resv_trylock(&bo->base._resv)))
-+	if (WARN_ON_ONCE(!dma_resv_trylock(bo->individual_resv)))
- 		return;
- 
- 	amdgpu_amdkfd_remove_all_eviction_fences(abo);
-@@ -1329,22 +1329,22 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
- 	    adev->in_suspend || drm_dev_is_unplugged(adev_to_drm(adev)))
- 		goto out;
- 
--	r = dma_resv_reserve_fences(&bo->base._resv, 1);
-+	r = dma_resv_reserve_fences(bo->individual_resv, 1);
- 	if (r)
- 		goto out;
- 
- 	r = amdgpu_ttm_clear_buffer(amdgpu_ttm_next_clear_entity(adev),
--				    abo, &bo->base._resv, &fence,
--				    false, AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
-+				    abo, bo->individual_resv, &fence, false,
-+				    AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
- 	if (WARN_ON(r))
- 		goto out;
- 
- 	amdgpu_vram_mgr_set_cleared(bo->resource);
--	dma_resv_add_fence(&bo->base._resv, fence, DMA_RESV_USAGE_KERNEL);
-+	dma_resv_add_fence(bo->individual_resv, fence, DMA_RESV_USAGE_KERNEL);
- 	dma_fence_put(fence);
- 
- out:
--	dma_resv_unlock(&bo->base._resv);
-+	dma_resv_unlock(bo->individual_resv);
+ 	dma_resv_list_free(rcu_dereference_protected(obj->fences, true));
+ 	ww_mutex_destroy(&obj->lock);
+-
+-	/* TODO: Only as temporary workaround till dma_fence_init() is removed */
+-	if (obj->allocated)
+-		kfree(obj);
++	kfree(obj);
  }
  
  /**
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index d2ce18bbddea..480391df556d 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -235,9 +235,11 @@ int drm_gem_private_object_init(struct drm_device *dev,
- 	obj->handle_count = 0;
- 	obj->size = size;
- 	mutex_init(&obj->gpuva.lock);
--	dma_resv_init(&obj->_resv);
--	if (!obj->resv)
--		obj->resv = dma_resv_get(&obj->_resv);
-+	if (!obj->resv) {
-+		obj->resv = dma_resv_alloc();
-+		if (!obj->resv)
-+			return -ENOMEM;
-+	}
+@@ -187,8 +171,9 @@ struct dma_resv *dma_resv_alloc(void)
+ 	if (!obj)
+ 		return NULL;
  
- 	drm_gem_gpuva_init(obj);
+-	dma_resv_init(obj);
+-	obj->allocated = true;
++	kref_init(&obj->refcount);
++	ww_mutex_init(&obj->lock, &reservation_ww_class);
++	RCU_INIT_POINTER(obj->fences, NULL);
  
-@@ -259,7 +261,6 @@ void drm_gem_private_object_fini(struct drm_gem_object *obj)
- 	WARN_ON(obj->dma_buf);
- 
- 	dma_resv_put(obj->resv);
--	dma_resv_put(&obj->_resv);
- 	mutex_destroy(&obj->gpuva.lock);
+ 	return obj;
  }
- EXPORT_SYMBOL(drm_gem_private_object_fini);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 3f37b0cbb70f..1c73f15d0315 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -90,7 +90,6 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
- void i915_gem_object_free(struct drm_i915_gem_object *obj)
+@@ -844,23 +829,28 @@ static int __init dma_resv_lockdep(void)
  {
- 	dma_resv_put(obj->base.resv);
--	dma_resv_put(&obj->base._resv);
- 	return kmem_cache_free(slab_objects, obj);
- }
+ 	struct mm_struct *mm = mm_alloc();
+ 	struct ww_acquire_ctx ctx;
+-	struct dma_resv obj;
++	struct dma_resv *obj;
+ 	struct address_space mapping;
+ 	int ret;
  
-diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
-index 67c9d32f4f27..65e1f0c2f984 100644
---- a/drivers/gpu/drm/nouveau/nouveau_bo.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
-@@ -159,8 +159,6 @@ nouveau_bo_del_ttm(struct ttm_buffer_object *bo)
- 			drm_gem_object_put(nvbo->r_obj);
- 
- 		drm_gem_object_release(&bo->base);
--	} else {
--		dma_resv_put(&bo->base._resv);
- 	}
- 
- 	kfree(nvbo);
-@@ -385,7 +383,6 @@ nouveau_bo_new(struct nouveau_cli *cli, u64 size, int align,
- 		return PTR_ERR(nvbo);
- 
- 	nvbo->bo.base.size = size;
--	dma_resv_init(&nvbo->bo.base._resv);
- 	drm_vma_node_reset(&nvbo->bo.base.vma_node);
- 
- 	/* This must be called before ttm_bo_init_reserved(). Subsequent
-diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-index e0ecadccccf8..4559352e7115 100644
---- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-+++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-@@ -640,7 +640,7 @@ static void ttm_bo_validate_no_placement_not_signaled(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, ctx.bytes_moved, 0);
- 
- 	if (bo->type != ttm_bo_type_sg)
--		KUNIT_ASSERT_PTR_EQ(test, bo->base.resv, &bo->base._resv);
-+		KUNIT_ASSERT_PTR_EQ(test, bo->base.resv, &bo->individual_resv);
- 
- 	/* Make sure we have an idle object at this point */
- 	dma_resv_wait_timeout(bo->base.resv, usage, false, MAX_SCHEDULE_TIMEOUT);
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 999c24251fb7..ecb5f55a0dd1 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -193,13 +193,13 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
- {
- 	int r;
- 
--	if (bo->base.resv == &bo->base._resv)
-+	if (bo->base.resv == bo->individual_resv)
- 		return 0;
- 
--	BUG_ON(!dma_resv_trylock(&bo->base._resv));
-+	BUG_ON(!dma_resv_trylock(bo->individual_resv));
- 
--	r = dma_resv_copy_fences(&bo->base._resv, bo->base.resv);
--	dma_resv_unlock(&bo->base._resv);
-+	r = dma_resv_copy_fences(bo->individual_resv, bo->base.resv);
-+	dma_resv_unlock(bo->individual_resv);
- 	if (r)
- 		return r;
- 
-@@ -209,7 +209,7 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
- 		 * the resv object while holding the lru_lock.
- 		 */
- 		spin_lock(&bo->bdev->lru_lock);
--		drm_gem_object_set_resv(&bo->base, &bo->base._resv);
-+		drm_gem_object_set_resv(&bo->base, bo->individual_resv);
- 		spin_unlock(&bo->bdev->lru_lock);
- 	}
- 
-@@ -218,7 +218,7 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
- 
- static void ttm_bo_flush_all_fences(struct ttm_buffer_object *bo)
- {
--	struct dma_resv *resv = &bo->base._resv;
-+	struct dma_resv *resv = bo->individual_resv;
- 	struct dma_resv_iter cursor;
- 	struct dma_fence *fence;
- 
-@@ -238,8 +238,8 @@ static void ttm_bo_delayed_delete(struct work_struct *work)
- 
- 	bo = container_of(work, typeof(*bo), delayed_delete);
- 
--	dma_resv_wait_timeout(&bo->base._resv, DMA_RESV_USAGE_BOOKKEEP, false,
--			      MAX_SCHEDULE_TIMEOUT);
-+	dma_resv_wait_timeout(bo->individual_resv, DMA_RESV_USAGE_BOOKKEEP,
-+			      false, MAX_SCHEDULE_TIMEOUT);
- 	dma_resv_lock(bo->base.resv, NULL);
- 	ttm_bo_cleanup_memtype_use(bo);
- 	dma_resv_unlock(bo->base.resv);
-@@ -273,7 +273,7 @@ static void ttm_bo_release(struct kref *kref)
- 		drm_vma_offset_remove(bdev->vma_manager, &bo->base.vma_node);
- 		ttm_mem_io_free(bdev, bo->resource);
- 
--		if (!dma_resv_test_signaled(&bo->base._resv,
-+		if (!dma_resv_test_signaled(bo->individual_resv,
- 					    DMA_RESV_USAGE_BOOKKEEP) ||
- 		    (want_init_on_free() && (bo->ttm != NULL)) ||
- 		    bo->type == ttm_bo_type_sg ||
-@@ -316,6 +316,8 @@ static void ttm_bo_release(struct kref *kref)
- 	}
- 
- 	atomic_dec(&ttm_glob.bo_count);
-+	dma_resv_put(bo->individual_resv);
-+	bo->individual_resv = NULL;
- 	bo->destroy(bo);
- }
- 
-@@ -1197,7 +1199,11 @@ int ttm_bo_init_reserved(struct ttm_device *bdev, struct ttm_buffer_object *bo,
- 	bo->pin_count = 0;
- 	bo->sg = sg;
- 	bo->bulk_move = NULL;
--	drm_gem_object_set_resv(&bo->base, resv ?: &bo->base._resv);
-+
-+	/* Save the original resv object before overwriting it */
-+	bo->individual_resv = dma_resv_get(bo->base.resv);
-+	if (resv)
-+		drm_gem_object_set_resv(&bo->base, resv);
- 	atomic_inc(&ttm_glob.bo_count);
- 
- 	/*
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index e080ce60933e..e39448a5015e 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -208,7 +208,7 @@ static void ttm_transfered_destroy(struct ttm_buffer_object *bo)
- 
- 	fbo = container_of(bo, struct ttm_transfer_obj, base);
- 	dma_resv_put(fbo->base.base.resv);
--	dma_resv_put(&fbo->base.base._resv);
-+	dma_resv_put(fbo->base.individual_resv);
- 	ttm_bo_put(fbo->bo);
- 	kfree(fbo);
- }
-@@ -238,12 +238,23 @@ static int ttm_buffer_object_transfer(struct ttm_buffer_object *bo,
- 	if (!fbo)
+ 	if (!mm)
  		return -ENOMEM;
  
--	fbo->base = *bo;
- 
- 	/**
- 	 * Fix up members that we shouldn't copy directly:
- 	 * TODO: Explicit member copy would probably be better here.
- 	 */
-+	fbo->base = *bo;
-+
-+	fbo->base.individual_resv = dma_resv_alloc();
-+	if (!fbo->base.individual_resv) {
-+		ret = -ENOMEM;
-+		goto error_free;
+-	dma_resv_init(&obj);
++	obj = dma_resv_alloc();
++	if (!obj) {
++		mmput(mm);
++		return -ENOMEM;
 +	}
 +
-+	if (bo->type != ttm_bo_type_sg)
-+		fbo->base.base.resv = dma_resv_get(fbo->base.individual_resv);
-+	else
-+		dma_resv_get(fbo->base.base.resv);
+ 	address_space_init_once(&mapping);
  
- 	atomic_inc(&ttm_glob.bo_count);
- 	drm_vma_node_reset(&fbo->base.base.vma_node);
-@@ -251,19 +262,16 @@ static int ttm_buffer_object_transfer(struct ttm_buffer_object *bo,
- 	kref_init(&fbo->base.kref);
- 	fbo->base.destroy = &ttm_transfered_destroy;
- 	fbo->base.pin_count = 0;
--	if (bo->type != ttm_bo_type_sg)
--		fbo->base.base.resv = &fbo->base.base._resv;
- 
--	dma_resv_init(&fbo->base.base._resv);
- 	fbo->base.base.dev = NULL;
--	ret = dma_resv_trylock(&fbo->base.base._resv);
-+	ret = dma_resv_trylock(fbo->base.individual_resv);
- 	WARN_ON(!ret);
- 
--	ret = dma_resv_reserve_fences(&fbo->base.base._resv, TTM_NUM_MOVE_FENCES);
-+	ret = dma_resv_reserve_fences(fbo->base.individual_resv,
-+				      TTM_NUM_MOVE_FENCES);
+ 	mmap_read_lock(mm);
+ 	ww_acquire_init(&ctx, &reservation_ww_class);
+-	ret = dma_resv_lock(&obj, &ctx);
++	ret = dma_resv_lock(obj, &ctx);
  	if (ret) {
--		dma_resv_unlock(&fbo->base.base._resv);
--		kfree(fbo);
--		return ret;
-+		dma_resv_unlock(fbo->base.individual_resv);
-+		goto error_unref;
+ 		/* Only EDEADLK from the error injection is possible here */
+ 		WARN_ON(ret != -EDEADLK);
+-		dma_resv_lock_slow(&obj, &ctx);
++		dma_resv_lock_slow(obj, &ctx);
  	}
+ 	fs_reclaim_acquire(GFP_KERNEL);
+ 	/* for unmap_mapping_range on trylocked buffer objects in shrinkers */
+@@ -874,10 +864,11 @@ static int __init dma_resv_lockdep(void)
+ 	__dma_fence_might_wait();
+ #endif
+ 	fs_reclaim_release(GFP_KERNEL);
+-	ww_mutex_unlock(&obj.lock);
++	ww_mutex_unlock(&obj->lock);
+ 	ww_acquire_fini(&ctx);
+ 	mmap_read_unlock(mm);
  
- 	if (fbo->base.resource) {
-@@ -281,6 +289,14 @@ static int ttm_buffer_object_transfer(struct ttm_buffer_object *bo,
++	dma_resv_put(obj);
+ 	mmput(mm);
  
- 	*new_obj = &fbo->base;
  	return 0;
-+
-+error_unref:
-+	dma_resv_put(fbo->base.individual_resv);
-+	dma_resv_put(fbo->base.base.resv);
-+
-+error_free:
-+	kfree(fbo);
-+	return ret;
- }
- 
- /**
-@@ -618,7 +634,7 @@ static int ttm_bo_move_to_ghost(struct ttm_buffer_object *bo,
- 	if (ret)
- 		return ret;
- 
--	dma_resv_add_fence(&ghost_obj->base._resv, fence,
-+	dma_resv_add_fence(ghost_obj->individual_resv, fence,
- 			   DMA_RESV_USAGE_KERNEL);
- 
- 	/**
-@@ -632,7 +648,7 @@ static int ttm_bo_move_to_ghost(struct ttm_buffer_object *bo,
- 	else
- 		bo->ttm = NULL;
- 
--	dma_resv_unlock(&ghost_obj->base._resv);
-+	dma_resv_unlock(ghost_obj->individual_resv);
- 	ttm_bo_put(ghost_obj);
- 	return 0;
- }
-@@ -802,14 +818,14 @@ int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
- 	if (ret)
- 		goto error_destroy_tt;
- 
--	ret = dma_resv_copy_fences(&ghost->base._resv, bo->base.resv);
-+	ret = dma_resv_copy_fences(ghost->individual_resv, bo->base.resv);
- 	/* Last resort, wait for the BO to be idle when we are OOM */
- 	if (ret) {
- 		dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP,
- 				      false, MAX_SCHEDULE_TIMEOUT);
- 	}
- 
--	dma_resv_unlock(&ghost->base._resv);
-+	dma_resv_unlock(ghost->individual_resv);
- 	ttm_bo_put(ghost);
- 	bo->ttm = ttm;
- 	return 0;
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 6df7ef07ec0b..422fe4bddf00 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -1660,7 +1660,7 @@ static bool xe_ttm_bo_lock_in_destructor(struct ttm_buffer_object *ttm_bo)
- 	 * always succeed here, as long as we hold the lru lock.
+diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+index 4d12519df34e..cf689d3d4ba6 100644
+--- a/include/linux/dma-resv.h
++++ b/include/linux/dma-resv.h
+@@ -162,15 +162,6 @@ struct dma_resv {
  	 */
- 	spin_lock(&ttm_bo->bdev->lru_lock);
--	locked = dma_resv_trylock(&ttm_bo->base._resv);
-+	locked = dma_resv_trylock(ttm_bo->individual_resv);
- 	spin_unlock(&ttm_bo->bdev->lru_lock);
- 	xe_assert(xe, locked);
- 
-@@ -1689,14 +1689,14 @@ static void xe_ttm_bo_release_notify(struct ttm_buffer_object *ttm_bo)
- 	 * TODO: Don't do this for external bos once we scrub them after
- 	 * unbind.
- 	 */
--	dma_resv_for_each_fence(&cursor, &ttm_bo->base._resv,
-+	dma_resv_for_each_fence(&cursor, ttm_bo->individual_resv,
- 				DMA_RESV_USAGE_BOOKKEEP, fence) {
- 		if (xe_fence_is_xe_preempt(fence) &&
- 		    !dma_fence_is_signaled(fence)) {
- 			if (!replacement)
- 				replacement = dma_fence_get_stub();
- 
--			dma_resv_replace_fences(&ttm_bo->base._resv,
-+			dma_resv_replace_fences(ttm_bo->individual_resv,
- 						fence->context,
- 						replacement,
- 						DMA_RESV_USAGE_BOOKKEEP);
-@@ -1704,7 +1704,7 @@ static void xe_ttm_bo_release_notify(struct ttm_buffer_object *ttm_bo)
- 	}
- 	dma_fence_put(replacement);
- 
--	dma_resv_unlock(&ttm_bo->base._resv);
-+	dma_resv_unlock(ttm_bo->individual_resv);
- }
- 
- static void xe_ttm_bo_delete_mem_notify(struct ttm_buffer_object *ttm_bo)
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index f889232e8525..8aed680bfca2 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -385,15 +385,6 @@ struct drm_gem_object {
- 	 */
- 	struct dma_resv *resv;
+ 	struct kref refcount;
  
 -	/**
--	 * @_resv:
+-	 * @allocated:
 -	 *
--	 * A reservation object for this GEM object.
--	 *
--	 * This is unused for imported GEM objects.
+-	 * True if this object was allocated by dma_resv_alloc(), false if
+-	 * embedded in another structure. Used to determine whether to free
+-	 * the object memory in the release function.
 -	 */
--	struct dma_resv _resv;
+-	bool allocated;
 -
  	/**
- 	 * @gpuva: Fields used by GPUVM to manage mappings pointing to this GEM object.
+ 	 * @lock:
  	 *
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 32791c4db2a9..f132caa9647f 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -77,6 +77,7 @@ enum ttm_bo_type {
-  * @bdev: Pointer to the buffer object device structure.
-  * @type: The bo type.
-  * @page_alignment: Page alignment.
-+ * @individual_resv: Individual resv for destruction
-  * @destroy: Destruction function. If NULL, kfree is used.
-  * @kref: Reference count of this buffer object. When this refcount reaches
-  * zero, the object is destroyed or put on the delayed delete list.
-@@ -107,6 +108,7 @@ struct ttm_buffer_object {
- 	struct ttm_device *bdev;
- 	enum ttm_bo_type type;
- 	uint32_t page_alignment;
-+	struct dma_resv *individual_resv;
- 	void (*destroy) (struct ttm_buffer_object *);
+@@ -482,7 +473,6 @@ static inline void dma_resv_unlock(struct dma_resv *obj)
+ 	ww_mutex_unlock(&obj->lock);
+ }
  
- 	/*
+-void dma_resv_init(struct dma_resv *obj);
+ struct dma_resv *dma_resv_alloc(void);
+ struct dma_resv *dma_resv_get(struct dma_resv *obj);
+ void dma_resv_put(struct dma_resv *obj);
 -- 
 2.43.0
 
