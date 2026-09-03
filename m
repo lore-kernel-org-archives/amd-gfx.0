@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A01EC79F86
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7276C624D6
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 13:44:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9354710F5F9;
-	Thu,  3 Sep 2026 13:44:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 055C610F616;
+	Thu,  3 Sep 2026 13:44:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L7Jnd9ge";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ctuN9rlY";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FB3E10F607
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:18 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-49a97714f5dso17883955e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 06:44:18 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 170D910F612
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 13:44:21 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-48442ea8f59so766379f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 06:44:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788443056; x=1789047856; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788443059; x=1789047859; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=OnearVIWZrqdmWG5Y2P2SCFp1YiLCbNAHDnxED0RDsY=;
- b=L7Jnd9geTM5ct+CHR8YeiH/FvFCjhgsVBQOjbYDcwuNPeC+KB1JnRLhWiagSaL8CSf
- 41S3MEGFt0qJonCZ5w05E2n2SNjc9pUR12v1leuugbW776KMsLNiQete99DEw/WfmelS
- XFFaLf0jgud9Bw/vHPNt0HBmbkwWFTTd93zuixKP1fa72dWoXG8tVEAwWMKgCIgh487z
- eHDhnipKnSwKQLykKhgBUredDZ71UATa0J1qMy7/WHjgP9x2yJe0/PrT3PkBA3arNsk0
- 69boNF+C5lw47omd82hAixzDd6+F5hDuqe05vrLiLTA6pk4pYGL5Dlwt/+EoHkdcXzlL
- ZtzQ==
+ bh=6klaXJvfXq947sYWFvExSHm1VkoJDuNrl0THSIIZjfw=;
+ b=ctuN9rlYD2MKZz9+0KDh1QRo/Cu6+mYWxiR7omi9LNdi3g8/oLFd06o7lqxBoV37YY
+ 3HUxzXBQDbibipvgDrpP8z6OrhFcdxsPqLD8gkYklxlVjZ2v4v/EXUYeESK7NKAkcymD
+ dC9x0PNffCAJfvAHI4baz0v6Au5d0hJMijCKombpLaKqhvYOO12DR0tiM47Y0BOuhahJ
+ 2I1Gszuf8rl2eo8EkX7fytLzG6GZJmtTEabkfp2KSE0dgYt2LGNa/dvINOO2wVGOKSkm
+ RuJZayRHWMvdRaNED5jrh3/y/HQrhxWg2n6hBqQOm/8A9rz/oDntd0Uq78jMsrsUMYrf
+ lDmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788443056; x=1789047856;
+ d=1e100.net; s=20251104; t=1788443059; x=1789047859;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=OnearVIWZrqdmWG5Y2P2SCFp1YiLCbNAHDnxED0RDsY=;
- b=mqAYHG2FCcDNsTlU++EJa/KBrt0jFOtdReY3I1aDKceNJ6rstAzYR7o8gA9Hd6wsle
- aOpdN5w4B1/5+vxwvWduYvfH4XgeK06JZF+IKF2K8qx7T5Eq9Qq4wFv+VEgM0PJ1C6Fw
- PnhnXAqP3LikuW81cwDBNIgSqtBdLeAgQ8rl37Hq/R0ziN2Vcn/iKsCN9XMCmBpXwrmP
- PyOOKRv/rj+lShfQJ0ilGp0qVPi+E1wZ/WUpwy+zpWaL+VfUrPSJGHbll+PKsrsm9FUv
- mpOgPpSLZC85L16wM/mEWk5EllNOJAR6ATnlJmU29qP83qquGMiIvHJZS/MklzbNYA4u
- bJ+Q==
+ bh=6klaXJvfXq947sYWFvExSHm1VkoJDuNrl0THSIIZjfw=;
+ b=huWeQQc67XGR79wBUZCQLJf31X8Nxa7/m3I7bXeO+c/te2srsZfqwOtFDlF2MaeWg/
+ 9Alp1VM2DeduPmA96jBaXJpEfCCiQwcrabX9MpmhvZ4DpYoGDUg6BVE1Y1cUH82zNDS0
+ GIe/8iuJ0DBJewjE2S2EgUDz2M/WsWZDW+Ulr5/SrfxndUsL9fTJmKAr8aT0pt9ez499
+ gs5CNmVeuonKoylRWf6K0Qukvb/RfkvPB+R79IX0Bi/Ri6R4p0YyG9cxZJwWT0puV3Qp
+ tVRDIrOwNK1/rgMK8zSdOqr/yyD0YE5tK9SIMO9HIeC4zdvZd+JYCZqExw6ydPLtKzZ/
+ hRtg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwxiDWDzbDAkUYWD2Hx1+mw45QzpYxh4JO38RLrgFxwHdVdWOFhX1nSWLEuC9mj6FYppGY40lZx@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mgLufPeucArBx5BEQMVKyf8COmwgEY3CtQZbcGsMCcWZvK2zYW
- 9yZA7sONA5rgNKMhJn8ylkccRfwyGiYhSMU7Wai/JExWoNvxzPP52s8Q
-X-Gm-Gg: AYBFou1AxccwR8IAQPUkdZGGuFqiOZkRWNHhGR05UQHSGri0Rr7vTuChZgkuY9FNlB0
- GUu6GAPMGyxln73zr3PXCzMT2Uh5kOn6+ifexh09uq5dhY3FdfSHx2gTVX/2w0BnVdNREkX1bgy
- mmJ1mHZK+JXYMUdot3u3raYgP6F7hnieEqTJGDBH0Vdk781f47v9nEHmBtY8s/V4CciCBbh4TQs
- sb2Qw+g1XuX4Ae1XtkVFjcMgq7cCWlISY823yntClxBEcuBPqeJpYm1YdkMskR2Pacy7xQ+AXzo
- xbjajjxykzVRyV2sp6ETECnSm1YLkjEoQfFpohpciFRV1DG1CcqRVK1dC/gW7eI/3A2amxM9SKZ
- Imh6XVg4YsDY/hqc5bPOC6wiTqnMXYrnQu56bUU6sqewd4n7cKyjuv+gUOXnWqHIYgGcaD0T9O4
- ZZkPRsR9Cb859lJ15oNxD42zyN53YvCrpJDRRQWt776wKIsRNarbYLiuZ/Xl9/tLruV6PBL8qrz
- bZ1C3BPzBfz
-X-Received: by 2002:a05:600c:8b6d:b0:49c:f467:7ce0 with SMTP id
- 5b1f17b1804b1-49cf4677d49mr50916515e9.3.1788443055988; 
- Thu, 03 Sep 2026 06:44:15 -0700 (PDT)
+ AKwUvByizj4ZkH8ZVcMeFdt4Q5Z+gmO4KV01g2k/6C6awNi1H7zmzc/7dKH7km68yJIvhGjdja9Gvjtb@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m0CBdl5G5kGsdVhPMcdbmojzbYxcc03WY7sGl8WslIo3UE2lf8
+ VBnirJpcsOs/8rDm3SfJ3n2q9qnhuQouzYNKA1o8hBunQCdrP+asIUeF
+X-Gm-Gg: AYBFou2Vnffb01BDNa96dGV7sI1EDsyzjKqEtBMbTpXhmiHtaIQ4G7Q+nvYd5OaKko8
+ X1UCns0dNVqmx5vjTCMQMZoJeYdm5+PWMs5j1lCruF31F1Ab0T7v8nNoO1piOqy6DWrnpJ6ITwE
+ 0aVDd0yJtp+olgU2TWbYvu+Ya3cL0gYqkWoJYw6NnyGQpYivqy9n8aC7vq/G4E0MOgjTDYlUWfd
+ Oyum9JU2H7U/WRB56cFnRLhp5EPOusHcdOJ6F9EiWpC0r8CMknL83ZPLnbmW6B+/VAVeOSSBIc4
+ EIyNHYGc64ImCraUseIO+LWLwmu4nqKwfLuSFoyXW9xCi5SBI/8qhDs4/iGhXUaLWJaipaWdNpY
+ EqLrnhqlD7nsKLIf/8/gt5sDYF7uUf7vXzrfWf/A2N+r36Pn49PmQxPa9P+RhO4g3t0o0EOHRzc
+ D2C/+uHMaUy0lUWE1hyKqr1T4HIX5q8JVapalpGy2u1/2q9Z0g2nu5OhrXEwb7sYkW4OAEmvaO8
+ w==
+X-Received: by 2002:a7b:c044:0:b0:49c:f501:e428 with SMTP id
+ 5b1f17b1804b1-49cf501e471mr14994485e9.8.1788443059191; 
+ Thu, 03 Sep 2026 06:44:19 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15d9:4700:e712:9f38:603a:54e4])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48448e736a6sm13597080f8f.5.2026.09.03.06.44.14
+ ffacd0b85a97d-48448e736a6sm13597080f8f.5.2026.09.03.06.44.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2026 06:44:15 -0700 (PDT)
+ Thu, 03 Sep 2026 06:44:18 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -71,10 +71,10 @@ To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
  matthew.brost@intel.com, nat@pixelcluster.dev,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 05/11] drm/gem: Convert drm_gem_private_object_init to return
- error code v2
-Date: Thu,  3 Sep 2026 15:28:00 +0200
-Message-ID: <20260903134408.105317-6-christian.koenig@amd.com>
+Subject: [PATCH 08/11] drm/i915/gt: Use dma_resv_alloc for VM reservation
+ objects v2
+Date: Thu,  3 Sep 2026 15:28:03 +0200
+Message-ID: <20260903134408.105317-9-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260903134408.105317-1-christian.koenig@amd.com>
 References: <20260903134408.105317-1-christian.koenig@amd.com>
@@ -96,1017 +96,371 @@ Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change drm_gem_private_object_init() to return an int instead of void,
-allowing it to report errors instead of crashing the kernel with BUG_ON.
-The function now returns -EINVAL if the size parameter is not page-aligned,
-rather than using BUG_ON to crash the system.
+Replace the embedded dma_resv (_resv) in struct i915_address_space
+with a dynamically allocated one using dma_resv_alloc(). This aligns
+with the move away from embedded dma_resv structures and towards
+reference-counted dynamic allocation throughout the DRM subsystem.
 
-This change improves error handling throughout the DRM subsystem by
-replacing a kernel panic with graceful error propagation. All 60+ call
-sites across the DRM and accelerator drivers have been updated to check
-the return value and handle errors appropriately.
+The i915 address space structures (GGTT, PPGTT) maintain their own
+reservation locks for page directory objects and buffer pools. By
+switching to dynamic allocation, we reduce the size of the VM structures
+and gain proper error handling if allocation fails.
 
-Updated components:
-- Core: drm_gem.c, drm_gem_shmem_helper.c, drm_gem_dma_helper.c, drm_gpuvm.c
-- AMD: amdgpu, radeon
-- Intel: i915 (multiple modules), xe, gvt
-- ARM/Mobile: armada, etnaviv, gma500, msm, omapdrm, panthor, imagination
-- Virtual: virtio, vmwgfx
-- Other: renesas/rcar-du
-- Accelerators: qaic, amdxdna
-- Tests: drm_exec_test, ttm_bo_validate_test, i915 selftests
+Changes include:
+- Convert i915_address_space._resv from embedded struct to pointer
+- Update i915_address_space_init() to return int for error handling
+- Update ppgtt_init() to return int and handle allocation failures
+- Update all callers in GGTT, PPGTT, gen6_ppgtt, and gen8_ppgtt code
+- Update helper functions like i915_vm_resv_get() to use pointer
+- i915_dpt_create(): now returns ERR_PTR on failure
+- mock_ppgtt(): now returns NULL on failure
+- mock_init_ggtt(): changed to return int and propagate errors
+- Add proper cleanup on allocation failures
 
-Each caller now properly checks the return value and either propagates
-the error up the call stack or handles it with appropriate cleanup.
+All initialization functions now check the allocation and return
+-ENOMEM if it fails, with appropriate cleanup of already-allocated
+resources.
 
-v2: add missing i915_gem_object_free export for GVT,
-    add missing kfree() in vmw_bo_init,
-    add missing xe_bo_free() in xe_bo_init_locked(),
-    fix order in amdxdna_drm_create_dev_bo()
+v2: Remove unnecessary dma_resv allocations from ggtt_probe_hw() and
+    ppgtt_init(). i915_address_space_init() already handles _resv
+    allocation at the correct point in the initialization sequence.
+    Add some missing error handling.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 Assisted-by: Claude:Sonnet 4
 ---
- drivers/accel/amdxdna/amdxdna_gem.c           | 16 +++---
- drivers/accel/qaic/qaic_data.c                | 10 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  6 ++-
- drivers/gpu/drm/armada/armada_gem.c           |  7 ++-
- drivers/gpu/drm/drm_gem.c                     | 17 ++++--
- drivers/gpu/drm/drm_gem_dma_helper.c          |  2 +-
- drivers/gpu/drm/drm_gem_shmem_helper.c        |  2 +-
- drivers/gpu/drm/drm_gpuvm.c                   |  7 ++-
- drivers/gpu/drm/etnaviv/etnaviv_gem.c         |  6 ++-
- drivers/gpu/drm/gma500/gem.c                  |  4 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |  7 ++-
- drivers/gpu/drm/i915/gem/i915_gem_internal.c  |  8 ++-
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  5 +-
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c    |  5 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  5 +-
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c   |  7 ++-
- .../drm/i915/gem/selftests/huge_gem_object.c  |  8 ++-
- .../gpu/drm/i915/gem/selftests/huge_pages.c   | 15 +++++-
- drivers/gpu/drm/i915/gvt/dmabuf.c             |  8 ++-
- drivers/gpu/drm/i915/intel_gvt.c              |  1 +
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  6 ++-
- drivers/gpu/drm/i915/selftests/mock_region.c  |  6 ++-
- drivers/gpu/drm/imagination/pvr_vm.c          |  8 ++-
- drivers/gpu/drm/msm/msm_gem.c                 |  6 ++-
- drivers/gpu/drm/omapdrm/omap_gem.c            |  4 +-
- drivers/gpu/drm/panthor/panthor_gem.c         |  6 ++-
- drivers/gpu/drm/radeon/radeon_object.c        |  6 ++-
- drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c |  6 ++-
- drivers/gpu/drm/tests/drm_exec_test.c         | 18 ++++---
- .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  | 54 ++++++++++++-------
- drivers/gpu/drm/virtio/virtgpu_prime.c        |  6 ++-
- drivers/gpu/drm/virtio/virtgpu_vram.c         |  6 ++-
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c            |  6 ++-
- drivers/gpu/drm/xe/xe_bo.c                    |  6 ++-
- drivers/gpu/drm/xe/xe_mmio_gem.c              |  6 ++-
- include/drm/drm_gem.h                         |  4 +-
- 36 files changed, 232 insertions(+), 68 deletions(-)
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c             |  7 ++++++-
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c             |  7 ++++++-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c             | 12 ++++++------
+ drivers/gpu/drm/i915/gt/intel_gtt.c              | 13 +++++++++----
+ drivers/gpu/drm/i915/gt/intel_gtt.h              |  8 ++++----
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c            | 12 ++++++++----
+ drivers/gpu/drm/i915/i915_dpt.c                  |  7 ++++++-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c    |  4 +++-
+ drivers/gpu/drm/i915/selftests/i915_vma.c        |  4 +++-
+ drivers/gpu/drm/i915/selftests/mock_gem_device.c |  5 ++++-
+ drivers/gpu/drm/i915/selftests/mock_gtt.c        |  9 ++++++---
+ drivers/gpu/drm/i915/selftests/mock_gtt.h        |  2 +-
+ 12 files changed, 62 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index a3e8da88683f..56e1d8bb77ce 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -1017,15 +1017,19 @@ amdxdna_drm_create_dev_bo(struct drm_device *dev,
- 	 */
- 	abo->client = client;
+diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+index 438cd4724ac4..f8586467aef6 100644
+--- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+@@ -437,7 +437,12 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
  
--	ret = amdxdna_gem_heap_alloc(abo);
--	if (ret) {
--		amdxdna_gem_destroy_obj(abo);
--		return ERR_PTR(ret);
--	}
-+	ret = drm_gem_private_object_init(dev, gobj, aligned_sz);
-+	if (ret)
-+		goto err;
+ 	mutex_init(&ppgtt->flush);
  
--	drm_gem_private_object_init(dev, gobj, aligned_sz);
-+	ret = amdxdna_gem_heap_alloc(abo);
-+	if (ret)
-+		goto err;
- 
- 	return abo;
+-	ppgtt_init(&ppgtt->base, gt, 0);
++	err = ppgtt_init(&ppgtt->base, gt, 0);
++	if (err) {
++		kfree(ppgtt);
++		return ERR_PTR(err);
++	}
 +
-+err:
-+	amdxdna_gem_destroy_obj(abo);
-+	return ERR_PTR(ret);
- }
+ 	ppgtt->base.vm.pd_shift = ilog2(SZ_4K * SZ_4K / sizeof(gen6_pte_t));
+ 	ppgtt->base.vm.top = 1;
  
- int amdxdna_drm_create_bo_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
-diff --git a/drivers/accel/qaic/qaic_data.c b/drivers/accel/qaic/qaic_data.c
-index 26c23b70c13a..580460cea859 100644
---- a/drivers/accel/qaic/qaic_data.c
-+++ b/drivers/accel/qaic/qaic_data.c
-@@ -770,7 +770,11 @@ int qaic_create_bo_ioctl(struct drm_device *dev, void *data, struct drm_file *fi
- 	}
- 	obj = &bo->base;
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index cfa09b250a1b..21cb9db10688 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -1010,7 +1010,12 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
+ 	if (!ppgtt)
+ 		return ERR_PTR(-ENOMEM);
  
--	drm_gem_private_object_init(dev, obj, size);
-+	ret = drm_gem_private_object_init(dev, obj, size);
-+	if (ret) {
-+		kfree(bo);
-+		goto unlock_dev_srcu;
+-	ppgtt_init(ppgtt, gt, lmem_pt_obj_flags);
++	err = ppgtt_init(ppgtt, gt, lmem_pt_obj_flags);
++	if (err) {
++		kfree(ppgtt);
++		return ERR_PTR(err);
 +	}
++
+ 	ppgtt->vm.top = i915_vm_is_4lvl(&ppgtt->vm) ? 3 : 2;
+ 	ppgtt->vm.pd_shift = ilog2(SZ_4K * SZ_4K / sizeof(gen8_pte_t));
  
- 	obj->funcs = &qaic_gem_funcs;
- 	ret = create_sgt(qdev, &bo->sgt, size);
-@@ -867,7 +871,9 @@ struct drm_gem_object *qaic_gem_prime_import(struct drm_device *dev, struct dma_
- 		goto size_align_fail;
- 	}
- 
--	drm_gem_private_object_init(dev, obj, attach->dmabuf->size);
-+	ret = drm_gem_private_object_init(dev, obj, attach->dmabuf->size);
-+	if (ret)
-+		goto size_align_fail;
- 	/*
- 	 * skipping dma_buf_map_attachment() as we do not know the direction
- 	 * just yet. Once the direction is known in the subsequent IOCTL to
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index f98bfba59a2c..6c5182d54f7d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -663,7 +663,11 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- 	bo = kvzalloc(bp->bo_ptr_size, GFP_KERNEL);
- 	if (bo == NULL)
- 		return -ENOMEM;
--	drm_gem_private_object_init(adev_to_drm(adev), &bo->tbo.base, size);
-+	r = drm_gem_private_object_init(adev_to_drm(adev), &bo->tbo.base, size);
-+	if (r) {
-+		kvfree(bo);
-+		return r;
-+	}
- 	bo->tbo.base.funcs = &amdgpu_gem_object_funcs;
- 	bo->vm_bo = NULL;
- 	bo->preferred_domains = bp->preferred_domain ? bp->preferred_domain :
-diff --git a/drivers/gpu/drm/armada/armada_gem.c b/drivers/gpu/drm/armada/armada_gem.c
-index da7335cbe82d..da6f5506743e 100644
---- a/drivers/gpu/drm/armada/armada_gem.c
-+++ b/drivers/gpu/drm/armada/armada_gem.c
-@@ -197,6 +197,7 @@ struct armada_gem_object *
- armada_gem_alloc_private_object(struct drm_device *dev, size_t size)
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index 3cc8df7b8fad..b7f64aaeb768 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -56,8 +56,11 @@ static void i915_ggtt_color_adjust(const struct drm_mm_node *node,
+ static int ggtt_init_hw(struct i915_ggtt *ggtt)
  {
- 	struct armada_gem_object *obj;
+ 	struct drm_i915_private *i915 = ggtt->vm.i915;
 +	int ret;
  
- 	size = roundup_gem_size(size);
- 
-@@ -206,7 +207,11 @@ armada_gem_alloc_private_object(struct drm_device *dev, size_t size)
- 
- 	obj->obj.funcs = &armada_gem_object_funcs;
- 
--	drm_gem_private_object_init(dev, &obj->obj, size);
-+	ret = drm_gem_private_object_init(dev, &obj->obj, size);
-+	if (ret) {
-+		kfree(obj);
-+		return NULL;
-+	}
- 
- 	DRM_DEBUG_DRIVER("alloc private obj %p size %zu\n", obj, size);
- 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index bbcbd25f014f..d2ce18bbddea 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -187,8 +187,11 @@ int drm_gem_object_init(struct drm_device *dev, struct drm_gem_object *obj,
- 	struct vfsmount *huge_mnt;
- 	struct file *filp;
- 	const vma_flags_t flags = mk_vma_flags(VMA_NORESERVE_BIT);
-+	int ret;
- 
--	drm_gem_private_object_init(dev, obj, size);
-+	ret = drm_gem_private_object_init(dev, obj, size);
+-	i915_address_space_init(&ggtt->vm, VM_CLASS_GGTT);
++	ret = i915_address_space_init(&ggtt->vm, VM_CLASS_GGTT);
 +	if (ret)
 +		return ret;
  
- 	huge_mnt = drm_gem_get_huge_mnt(dev);
- 	if (huge_mnt)
-@@ -215,11 +218,15 @@ EXPORT_SYMBOL(drm_gem_object_init);
-  * Initialize an already allocated GEM object of the specified size with
-  * no GEM provided backing store. Instead the caller is responsible for
-  * backing the object and handling it.
-+ *
-+ * Returns:
-+ * 0 on success, or a negative error code on failure.
-  */
--void drm_gem_private_object_init(struct drm_device *dev,
--				 struct drm_gem_object *obj, size_t size)
-+int drm_gem_private_object_init(struct drm_device *dev,
-+				struct drm_gem_object *obj, size_t size)
+ 	ggtt->vm.is_ggtt = true;
+ 
+@@ -1140,7 +1143,7 @@ void i915_ggtt_driver_late_release(struct drm_i915_private *i915)
+ 	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
+ 
+ 	GEM_WARN_ON(kref_read(&ggtt->vm.resv_ref) != 1);
+-	dma_resv_put(&ggtt->vm._resv);
++	dma_resv_put(ggtt->vm._resv);
+ }
+ 
+ static unsigned int gen6_get_total_gtt_size(u16 snb_gmch_ctl)
+@@ -1514,7 +1517,6 @@ static int ggtt_probe_hw(struct i915_ggtt *ggtt, struct intel_gt *gt)
+ 	ggtt->vm.gt = gt;
+ 	ggtt->vm.i915 = i915;
+ 	ggtt->vm.dma = i915->drm.dev;
+-	dma_resv_init(&ggtt->vm._resv);
+ 
+ 	if (GRAPHICS_VER(i915) >= 8)
+ 		ret = gen8_gmch_probe(ggtt);
+@@ -1523,10 +1525,8 @@ static int ggtt_probe_hw(struct i915_ggtt *ggtt, struct intel_gt *gt)
+ 	else
+ 		ret = intel_ggtt_gmch_probe(ggtt);
+ 
+-	if (ret) {
+-		dma_resv_put(&ggtt->vm._resv);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	if ((ggtt->vm.total - 1) >> 32) {
+ 		drm_err(&i915->drm,
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
+index 161e4b73b3df..7db6b6929677 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
+@@ -197,7 +197,7 @@ static void __i915_vm_close(struct i915_address_space *vm)
+ int i915_vm_lock_objects(struct i915_address_space *vm,
+ 			 struct i915_gem_ww_ctx *ww)
  {
--	BUG_ON((size & (PAGE_SIZE - 1)) != 0);
-+	if ((size & (PAGE_SIZE - 1)) != 0)
-+		return -EINVAL;
+-	if (vm->scratch[0]->base.resv == &vm->_resv) {
++	if (vm->scratch[0]->base.resv == vm->_resv) {
+ 		return i915_gem_object_lock(vm->scratch[0], ww);
+ 	} else {
+ 		struct i915_ppgtt *ppgtt = i915_vm_to_ppgtt(vm);
+@@ -225,7 +225,7 @@ void i915_vm_resv_release(struct kref *kref)
+ 	struct i915_address_space *vm =
+ 		container_of(kref, typeof(*vm), resv_ref);
  
- 	obj->dev = dev;
- 	obj->filp = NULL;
-@@ -236,6 +243,8 @@ void drm_gem_private_object_init(struct drm_device *dev,
+-	dma_resv_put(&vm->_resv);
++	dma_resv_put(vm->_resv);
+ 	mutex_destroy(&vm->mutex);
  
- 	drm_vma_node_reset(&obj->vma_node);
- 	INIT_LIST_HEAD(&obj->lru_node);
+ 	kfree(vm);
+@@ -258,7 +258,7 @@ void i915_vm_release(struct kref *kref)
+ 	queue_work(vm->i915->wq, &vm->release_work);
+ }
+ 
+-void i915_address_space_init(struct i915_address_space *vm, int subclass)
++int i915_address_space_init(struct i915_address_space *vm, int subclass)
+ {
+ 	kref_init(&vm->ref);
+ 
+@@ -295,7 +295,10 @@ void i915_address_space_init(struct i915_address_space *vm, int subclass)
+ 		might_alloc(GFP_KERNEL);
+ 		mutex_release(&vm->mutex.dep_map, _THIS_IP_);
+ 	}
+-	dma_resv_init(&vm->_resv);
++
++	vm->_resv = dma_resv_alloc();
++	if (!vm->_resv)
++		return -ENOMEM;
+ 
+ 	GEM_BUG_ON(!vm->total);
+ 	drm_mm_init(&vm->mm, 0, vm->total);
+@@ -312,6 +315,8 @@ void i915_address_space_init(struct i915_address_space *vm, int subclass)
+ 
+ 	INIT_LIST_HEAD(&vm->bound_list);
+ 	INIT_LIST_HEAD(&vm->unbound_list);
 +
 +	return 0;
  }
- EXPORT_SYMBOL(drm_gem_private_object_init);
  
-diff --git a/drivers/gpu/drm/drm_gem_dma_helper.c b/drivers/gpu/drm/drm_gem_dma_helper.c
-index 1c00a71ab3c9..fa354a36640b 100644
---- a/drivers/gpu/drm/drm_gem_dma_helper.c
-+++ b/drivers/gpu/drm/drm_gem_dma_helper.c
-@@ -92,7 +92,7 @@ __drm_gem_dma_create(struct drm_device *drm, size_t size, bool private)
- 		gem_obj->funcs = &drm_gem_dma_default_funcs;
+ void *__px_vaddr(struct drm_i915_gem_object *p)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index b54ee4f25af1..3976c176110f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -266,7 +266,7 @@ struct i915_address_space {
+ 	struct mutex mutex; /* protects vma and our lists */
  
- 	if (private) {
--		drm_gem_private_object_init(drm, gem_obj, size);
-+		ret = drm_gem_private_object_init(drm, gem_obj, size);
- 
- 		/* Always use writecombine for dma-buf mappings */
- 		dma_obj->map_noncoherent = false;
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 76a8d7f252e0..9f910b0ed0b0 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -61,7 +61,7 @@ static int __drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_obj
- 		obj->funcs = &drm_gem_shmem_funcs;
- 
- 	if (private) {
--		drm_gem_private_object_init(dev, obj, size);
-+		ret = drm_gem_private_object_init(dev, obj, size);
- 		shmem->map_wc = false; /* dma-buf mappings use always writecombine */
- 	} else {
- 		ret = drm_gem_object_init(dev, obj, size);
-diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-index d1c80ad3dead..ac1be020c6df 100644
---- a/drivers/gpu/drm/drm_gpuvm.c
-+++ b/drivers/gpu/drm/drm_gpuvm.c
-@@ -1060,13 +1060,18 @@ struct drm_gem_object *
- drm_gpuvm_resv_object_alloc(struct drm_device *drm)
+ 	struct kref resv_ref; /* kref to keep the reservation lock alive. */
+-	struct dma_resv _resv; /* reservation lock for all pd objects, and buffer pool */
++	struct dma_resv *_resv; /* reservation lock for all pd objects, and buffer pool */
+ #define VM_CLASS_GGTT 0
+ #define VM_CLASS_PPGTT 1
+ #define VM_CLASS_DPT 2
+@@ -504,7 +504,7 @@ static inline void assert_vm_alive(struct i915_address_space *vm)
+ static inline struct dma_resv *i915_vm_resv_get(struct i915_address_space *vm)
  {
- 	struct drm_gem_object *obj;
-+	int ret;
- 
- 	obj = kzalloc_obj(*obj);
- 	if (!obj)
- 		return NULL;
- 
- 	obj->funcs = &drm_gpuvm_object_funcs;
--	drm_gem_private_object_init(drm, obj, 0);
-+	ret = drm_gem_private_object_init(drm, obj, 0);
-+	if (ret) {
-+		kfree(obj);
-+		return NULL;
-+	}
- 
- 	return obj;
+ 	kref_get(&vm->resv_ref);
+-	return &vm->_resv;
++	return vm->_resv;
  }
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-index b0436a1e103f..94fa4d49f3fc 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-@@ -656,7 +656,11 @@ int etnaviv_gem_new_private(struct drm_device *dev, size_t size, u32 flags,
- 	if (ret)
- 		return ret;
  
--	drm_gem_private_object_init(dev, obj, size);
-+	ret = drm_gem_private_object_init(dev, obj, size);
-+	if (ret) {
-+		kfree(to_etnaviv_bo(obj));
-+		return ret;
-+	}
+ void i915_vm_release(struct kref *kref);
+@@ -525,7 +525,7 @@ static inline void i915_vm_resv_put(struct i915_address_space *vm)
+ 	kref_put(&vm->resv_ref, i915_vm_resv_release);
+ }
  
- 	*res = to_etnaviv_bo(obj);
+-void i915_address_space_init(struct i915_address_space *vm, int subclass);
++int i915_address_space_init(struct i915_address_space *vm, int subclass);
+ void i915_address_space_fini(struct i915_address_space *vm);
  
-diff --git a/drivers/gpu/drm/gma500/gem.c b/drivers/gpu/drm/gma500/gem.c
-index 88f1e86c8903..11d0bb01f005 100644
---- a/drivers/gpu/drm/gma500/gem.c
-+++ b/drivers/gpu/drm/gma500/gem.c
-@@ -168,7 +168,9 @@ psb_gem_create(struct drm_device *dev, u64 size, const char *name, bool stolen,
- 	obj->funcs = &psb_gem_object_funcs;
+ static inline u32 i915_pte_index(u64 address, unsigned int pde_shift)
+@@ -583,7 +583,7 @@ i915_page_dir_dma_addr(const struct i915_ppgtt *ppgtt, const unsigned int n)
+ 	return __px_dma(pt ? px_base(pt) : ppgtt->vm.scratch[ppgtt->vm.top]);
+ }
  
- 	if (stolen) {
--		drm_gem_private_object_init(dev, obj, size);
-+		ret = drm_gem_private_object_init(dev, obj, size);
-+		if (ret)
-+			goto err_release_resource;
- 	} else {
- 		ret = drm_gem_object_init(dev, obj, size);
- 		if (ret)
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index c824606497d2..65ce865a80e2 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -316,7 +316,10 @@ struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
- 		goto fail_detach;
+-void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
++int ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
+ 		unsigned long lmem_pt_obj_flags);
+ void intel_ggtt_bind_vma(struct i915_address_space *vm,
+ 			 struct i915_vm_pt_stash *stash,
+diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+index 72d8473a448b..b944f4f10749 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+@@ -304,10 +304,11 @@ void i915_vm_free_pt_stash(struct i915_address_space *vm,
  	}
+ }
  
--	drm_gem_private_object_init(dev, &obj->base, dma_buf->size);
-+	ret = drm_gem_private_object_init(dev, &obj->base, dma_buf->size);
-+	if (ret)
-+		goto fail_free_obj;
-+
- 	i915_gem_object_init(obj, &i915_gem_object_dmabuf_ops, &lock_class,
- 			     I915_BO_ALLOC_USER);
- 	obj->base.import_attach = attach;
-@@ -334,6 +337,8 @@ struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
+-void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
+-		unsigned long lmem_pt_obj_flags)
++int ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
++	       unsigned long lmem_pt_obj_flags)
+ {
+ 	struct drm_i915_private *i915 = gt->i915;
++	int err;
  
- 	return &obj->base;
+ 	ppgtt->vm.gt = gt;
+ 	ppgtt->vm.i915 = i915;
+@@ -315,9 +316,12 @@ void ppgtt_init(struct i915_ppgtt *ppgtt, struct intel_gt *gt,
+ 	ppgtt->vm.total = BIT_ULL(RUNTIME_INFO(i915)->ppgtt_size);
+ 	ppgtt->vm.lmem_pt_obj_flags = lmem_pt_obj_flags;
  
-+fail_free_obj:
-+	i915_gem_object_free(obj);
- fail_detach:
- 	dma_buf_detach(dma_buf, attach);
- 	dma_buf_put(dma_buf);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_internal.c b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-index 37d286ecb99b..191d63aaf0a9 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-@@ -142,6 +142,7 @@ __i915_gem_object_create_internal(struct drm_i915_private *i915,
- 	static struct lock_class_key lock_class;
- 	struct drm_i915_gem_object *obj;
- 	unsigned int cache_level;
-+	int ret;
- 
- 	GEM_BUG_ON(!size);
- 	GEM_BUG_ON(!IS_ALIGNED(size, PAGE_SIZE));
-@@ -153,7 +154,12 @@ __i915_gem_object_create_internal(struct drm_i915_private *i915,
- 	if (!obj)
- 		return ERR_PTR(-ENOMEM);
- 
--	drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	ret = drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	if (ret) {
-+		i915_gem_object_free(obj);
-+		return ERR_PTR(ret);
-+	}
-+
- 	i915_gem_object_init(obj, ops, &lock_class, 0);
- 	obj->mem_flags |= I915_BO_FLAG_STRUCT_PAGE;
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index 06543ae60706..d1a6d72c57ec 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -508,8 +508,11 @@ static int __create_shmem(struct drm_i915_private *i915,
- 	const vma_flags_t shmem_flags = mk_vma_flags(VMA_NORESERVE_BIT);
- 	struct vfsmount *huge_mnt;
- 	struct file *filp;
-+	int ret;
- 
--	drm_gem_private_object_init(&i915->drm, obj, size);
-+	ret = drm_gem_private_object_init(&i915->drm, obj, size);
-+	if (ret)
-+		return ret;
- 
- 	/* XXX: The __shmem_file_setup() function returns -EINVAL if size is
- 	 * greater than MAX_LFS_FILESIZE.
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-index 1cfdcf5c1118..e39e82ec9237 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-@@ -737,7 +737,10 @@ static int __i915_gem_object_create_stolen(struct intel_memory_region *mem,
- 	 */
- 	flags = I915_BO_ALLOC_CONTIGUOUS;
- 
--	drm_gem_private_object_init(&mem->i915->drm, &obj->base, stolen->size);
-+	err = drm_gem_private_object_init(&mem->i915->drm, &obj->base, stolen->size);
+-	dma_resv_init(&ppgtt->vm._resv);
+-	i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
++	err = i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
 +	if (err)
 +		return err;
+ 
+ 	ppgtt->vm.vma_ops.bind_vma    = ppgtt_bind_vma;
+ 	ppgtt->vm.vma_ops.unbind_vma  = ppgtt_unbind_vma;
 +
- 	i915_gem_object_init(obj, &i915_gem_object_stolen_ops, &lock_class, flags);
++	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_dpt.c b/drivers/gpu/drm/i915/i915_dpt.c
+index fcd7cced771d..0c6e5ef72749 100644
+--- a/drivers/gpu/drm/i915/i915_dpt.c
++++ b/drivers/gpu/drm/i915/i915_dpt.c
+@@ -229,7 +229,12 @@ static struct intel_dpt *i915_dpt_create(struct drm_gem_object *obj, size_t size
+ 	vm->total = (size / sizeof(gen8_pte_t)) * I915_GTT_PAGE_SIZE;
+ 	vm->is_dpt = true;
  
- 	obj->stolen = stolen;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index df3fcc2b1248..ae7394be54a0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -1301,7 +1301,10 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
- 	enum ttm_bo_type bo_type;
- 	int ret;
- 
--	drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	ret = drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	if (ret)
-+		return ret;
-+
- 	i915_gem_object_init(obj, &i915_gem_ttm_obj_ops, &lock_class, flags);
- 
- 	obj->bo_offset = offset;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index 043095f93ac6..1a2f9a058d55 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -521,7 +521,12 @@ i915_gem_userptr_ioctl(struct drm_device *dev,
- 	if (obj == NULL)
- 		return -ENOMEM;
- 
--	drm_gem_private_object_init(dev, &obj->base, args->user_size);
-+	ret = drm_gem_private_object_init(dev, &obj->base, args->user_size);
+-	i915_address_space_init(vm, VM_CLASS_DPT);
++	ret = i915_address_space_init(vm, VM_CLASS_DPT);
 +	if (ret) {
-+		i915_gem_object_free(obj);
-+		return ret;
-+	}
-+
- 	i915_gem_object_init(obj, &i915_gem_userptr_ops, &lock_class,
- 			     I915_BO_ALLOC_USER);
- 	obj->mem_flags = I915_BO_FLAG_STRUCT_PAGE;
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c b/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c
-index 8caaf325e56a..fdc0186e8045 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c
-@@ -105,6 +105,7 @@ huge_gem_object(struct drm_i915_private *i915,
- 	static struct lock_class_key lock_class;
- 	struct drm_i915_gem_object *obj;
- 	unsigned int cache_level;
-+	int ret;
- 
- 	GEM_BUG_ON(!phys_size || phys_size > dma_size);
- 	GEM_BUG_ON(!IS_ALIGNED(phys_size, PAGE_SIZE));
-@@ -117,7 +118,12 @@ huge_gem_object(struct drm_i915_private *i915,
- 	if (!obj)
- 		return ERR_PTR(-ENOMEM);
- 
--	drm_gem_private_object_init(&i915->drm, &obj->base, dma_size);
-+	ret = drm_gem_private_object_init(&i915->drm, &obj->base, dma_size);
-+	if (ret) {
-+		i915_gem_object_free(obj);
-+		return ERR_PTR(ret);
-+	}
-+
- 	i915_gem_object_init(obj, &huge_ops, &lock_class, 0);
- 	obj->mem_flags |= I915_BO_FLAG_STRUCT_PAGE;
- 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index 44718e728291..a76f38ae9335 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -178,6 +178,7 @@ huge_pages_object(struct drm_i915_private *i915,
- 	static struct lock_class_key lock_class;
- 	struct drm_i915_gem_object *obj;
- 	unsigned int cache_level;
-+	int ret;
- 
- 	GEM_BUG_ON(!size);
- 	GEM_BUG_ON(!IS_ALIGNED(size, BIT(__ffs(page_mask))));
-@@ -192,7 +193,12 @@ huge_pages_object(struct drm_i915_private *i915,
- 	if (!obj)
- 		return ERR_PTR(-ENOMEM);
- 
--	drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	ret = drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	if (ret) {
-+		i915_gem_object_free(obj);
-+		return ERR_PTR(ret);
-+	}
-+
- 	i915_gem_object_init(obj, &huge_page_ops, &lock_class, 0);
- 	obj->mem_flags |= I915_BO_FLAG_STRUCT_PAGE;
- 	i915_gem_object_set_volatile(obj);
-@@ -329,6 +335,7 @@ fake_huge_pages_object(struct drm_i915_private *i915, u64 size, bool single)
- {
- 	static struct lock_class_key lock_class;
- 	struct drm_i915_gem_object *obj;
-+	int ret;
- 
- 	GEM_BUG_ON(!size);
- 	GEM_BUG_ON(!IS_ALIGNED(size, I915_GTT_PAGE_SIZE));
-@@ -343,7 +350,11 @@ fake_huge_pages_object(struct drm_i915_private *i915, u64 size, bool single)
- 	if (!obj)
- 		return ERR_PTR(-ENOMEM);
- 
--	drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	ret = drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	if (ret) {
-+		i915_gem_object_free(obj);
++		kfree(dpt);
++		i915_gem_object_put(dpt_obj);
 +		return ERR_PTR(ret);
 +	}
  
- 	if (single)
- 		i915_gem_object_init(obj, &fake_ops_single, &lock_class, 0);
-diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
-index 8a1d6c5636c2..5b198162c588 100644
---- a/drivers/gpu/drm/i915/gvt/dmabuf.c
-+++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
-@@ -202,13 +202,19 @@ static struct drm_i915_gem_object *vgpu_create_gem(struct drm_device *dev,
- 	static struct lock_class_key lock_class;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_i915_gem_object *obj;
-+	int ret;
- 
- 	obj = i915_gem_object_alloc();
- 	if (obj == NULL)
- 		return NULL;
- 
--	drm_gem_private_object_init(dev, &obj->base,
-+	ret = drm_gem_private_object_init(dev, &obj->base,
- 		roundup(info->size, PAGE_SIZE));
-+	if (ret) {
-+		i915_gem_object_free(obj);
-+		return NULL;
-+	}
-+
- 	i915_gem_object_init(obj, &intel_vgpu_gem_ops, &lock_class, 0);
- 	i915_gem_object_set_readonly(obj);
- 
-diff --git a/drivers/gpu/drm/i915/intel_gvt.c b/drivers/gpu/drm/i915/intel_gvt.c
-index 6b43713899b8..21d3d133b147 100644
---- a/drivers/gpu/drm/i915/intel_gvt.c
-+++ b/drivers/gpu/drm/i915/intel_gvt.c
-@@ -287,6 +287,7 @@ void intel_gvt_resume(struct drm_i915_private *dev_priv)
-  * actually enabled.
-  */
- EXPORT_SYMBOL_NS_GPL(i915_gem_object_alloc, "I915_GVT");
-+EXPORT_SYMBOL_NS_GPL(i915_gem_object_free, "I915_GVT");
- EXPORT_SYMBOL_NS_GPL(i915_gem_object_create_shmem, "I915_GVT");
- EXPORT_SYMBOL_NS_GPL(i915_gem_object_init, "I915_GVT");
- EXPORT_SYMBOL_NS_GPL(i915_gem_object_ggtt_pin_ww, "I915_GVT");
+ 	vm->insert_page = dpt_insert_page;
+ 	vm->clear_range = dpt_clear_range;
 diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index e6bd06774816..7eb254a0be57 100644
+index 7eb254a0be57..1d1c41ca6fbb 100644
 --- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
 +++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -128,7 +128,11 @@ fake_dma_object(struct drm_i915_private *i915, u64 size)
- 	if (!obj)
- 		goto err;
+@@ -1947,7 +1947,9 @@ int i915_gem_gtt_mock_selftests(void)
  
--	drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	if (drm_gem_private_object_init(&i915->drm, &obj->base, size)) {
-+		i915_gem_object_free(obj);
-+		goto err;
-+	}
-+
- 	i915_gem_object_init(obj, &fake_ops, &lock_class, 0);
+ 	gt = to_gt(i915);
  
- 	i915_gem_object_set_volatile(obj);
-diff --git a/drivers/gpu/drm/i915/selftests/mock_region.c b/drivers/gpu/drm/i915/selftests/mock_region.c
-index 6324eb32d4dd..8bee0df1def9 100644
---- a/drivers/gpu/drm/i915/selftests/mock_region.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_region.c
-@@ -66,11 +66,15 @@ static int mock_object_init(struct intel_memory_region *mem,
- {
- 	static struct lock_class_key lock_class;
- 	struct drm_i915_private *i915 = mem->i915;
-+	int ret;
- 
- 	if (size > resource_size(&mem->region))
- 		return -E2BIG;
- 
--	drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	ret = drm_gem_private_object_init(&i915->drm, &obj->base, size);
-+	if (ret)
-+		return ret;
-+
- 	i915_gem_object_init(obj, &mock_region_obj_ops, &lock_class, flags);
- 
- 	obj->bo_offset = offset;
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index 396d349fb6ce..a3bc64e56728 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -585,7 +585,10 @@ pvr_vm_create_context(struct pvr_device *pvr_dev, bool is_userspace_context)
- 			goto err_page_table_destroy;
- 	}
- 
--	drm_gem_private_object_init(&pvr_dev->base, &vm_ctx->dummy_gem, 0);
-+	err = drm_gem_private_object_init(&pvr_dev->base, &vm_ctx->dummy_gem, 0);
+-	mock_init_ggtt(gt);
++	err = mock_init_ggtt(gt);
 +	if (err)
-+		goto err_fw_object_destroy;
++		goto out_put;
+ 
+ 	err = i915_subtests(tests, gt->ggtt);
+ 
+diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
+index 7c4111e60f2e..bf9c5e7df281 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_vma.c
++++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
+@@ -942,7 +942,9 @@ int i915_vma_mock_selftests(void)
+ 
+ 	gt = to_gt(i915);
+ 
+-	mock_init_ggtt(gt);
++	err = mock_init_ggtt(gt);
++	if (err)
++		goto out_put;
+ 
+ 	err = i915_subtests(tests, gt->ggtt);
+ 
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+index 796c9b070e41..7c409514653b 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
++++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+@@ -234,7 +234,10 @@ struct drm_i915_private *mock_gem_device(void)
+ 	if (ret)
+ 		goto err_unlock;
+ 
+-	mock_init_ggtt(to_gt(i915));
++	ret = mock_init_ggtt(to_gt(i915));
++	if (ret)
++		goto err_unlock;
 +
- 	drm_gpuvm_init(&vm_ctx->gpuvm_mgr,
- 		       is_userspace_context ? "PowerVR-user-VM" : "PowerVR-FW-VM",
- 		       0, &pvr_dev->base, &vm_ctx->dummy_gem,
-@@ -596,6 +599,9 @@ pvr_vm_create_context(struct pvr_device *pvr_dev, bool is_userspace_context)
+ 	to_gt(i915)->vm = i915_vm_get(&to_gt(i915)->ggtt->vm);
  
- 	return vm_ctx;
+ 	to_gt(i915)->info.engine_mask = BIT(0);
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gtt.c b/drivers/gpu/drm/i915/selftests/mock_gtt.c
+index 933990a8dc52..990c827137b2 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/mock_gtt.c
+@@ -75,7 +75,10 @@ struct i915_ppgtt *mock_ppgtt(struct drm_i915_private *i915, const char *name)
+ 	ppgtt->vm.total = round_down(U64_MAX, PAGE_SIZE);
+ 	ppgtt->vm.dma = i915->drm.dev;
  
-+err_fw_object_destroy:
-+	if (is_userspace_context)
-+		pvr_fw_object_destroy(vm_ctx->fw_mem_ctx_obj);
- err_page_table_destroy:
- 	pvr_mmu_context_destroy(vm_ctx->mmu_ctx);
- 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 81ebb1e1094c..c3e95194b24f 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -1296,7 +1296,11 @@ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	drm_gem_private_object_init(dev, obj, size);
-+	ret = drm_gem_private_object_init(dev, obj, size);
-+	if (ret) {
-+		kfree(to_msm_bo(obj));
-+		return ERR_PTR(ret);
+-	i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT);
++	if (i915_address_space_init(&ppgtt->vm, VM_CLASS_PPGTT)) {
++		kfree(ppgtt);
++		return NULL;
 +	}
  
- 	npages = size / PAGE_SIZE;
+ 	ppgtt->vm.alloc_pt_dma = alloc_pt_dma;
+ 	ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
+@@ -104,7 +107,7 @@ static void mock_unbind_ggtt(struct i915_address_space *vm,
+ {
+ }
  
-diff --git a/drivers/gpu/drm/omapdrm/omap_gem.c b/drivers/gpu/drm/omapdrm/omap_gem.c
-index 8e013e4f2c6b..364d29686c46 100644
---- a/drivers/gpu/drm/omapdrm/omap_gem.c
-+++ b/drivers/gpu/drm/omapdrm/omap_gem.c
-@@ -1348,7 +1348,9 @@ struct drm_gem_object *omap_gem_new(struct drm_device *dev,
+-void mock_init_ggtt(struct intel_gt *gt)
++int mock_init_ggtt(struct intel_gt *gt)
+ {
+ 	struct i915_ggtt *ggtt = gt->ggtt;
  
- 	/* Initialize the GEM object. */
- 	if (!(flags & OMAP_BO_MEM_SHMEM)) {
--		drm_gem_private_object_init(dev, obj, size);
-+		ret = drm_gem_private_object_init(dev, obj, size);
-+		if (ret)
-+			goto err_free;
- 	} else {
- 		ret = drm_gem_object_init(dev, obj, size);
- 		if (ret)
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 2de24f1b6018..cb3935ace1e6 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -1047,7 +1047,11 @@ panthor_gem_prime_import_sg_table(struct drm_device *dev,
- 	if (IS_ERR(bo))
- 		return ERR_CAST(bo);
+@@ -127,7 +130,7 @@ void mock_init_ggtt(struct intel_gt *gt)
+ 	ggtt->vm.vma_ops.bind_vma    = mock_bind_ggtt;
+ 	ggtt->vm.vma_ops.unbind_vma  = mock_unbind_ggtt;
  
--	drm_gem_private_object_init(dev, &bo->base, attach->dmabuf->size);
-+	ret = drm_gem_private_object_init(dev, &bo->base, attach->dmabuf->size);
-+	if (ret) {
-+		kfree(bo);
-+		return ERR_PTR(ret);
-+	}
+-	i915_address_space_init(&ggtt->vm, VM_CLASS_GGTT);
++	return i915_address_space_init(&ggtt->vm, VM_CLASS_GGTT);
+ }
  
- 	ret = drm_gem_create_mmap_offset(&bo->base);
- 	if (ret)
-diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
-index a0fc0801abb0..c7557c39ead0 100644
---- a/drivers/gpu/drm/radeon/radeon_object.c
-+++ b/drivers/gpu/drm/radeon/radeon_object.c
-@@ -150,7 +150,11 @@ int radeon_bo_create(struct radeon_device *rdev,
- 	bo = kzalloc(sizeof(struct radeon_bo), GFP_KERNEL);
- 	if (bo == NULL)
- 		return -ENOMEM;
--	drm_gem_private_object_init(rdev_to_drm(rdev), &bo->tbo.base, size);
-+	r = drm_gem_private_object_init(rdev_to_drm(rdev), &bo->tbo.base, size);
-+	if (r) {
-+		kfree(bo);
-+		return r;
-+	}
- 	bo->tbo.base.funcs = &radeon_gem_object_funcs;
- 	bo->rdev = rdev;
- 	bo->surface_reg = -1;
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-index 9228a7ad0dfa..977ceb4462bd 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-@@ -389,7 +389,11 @@ struct drm_gem_object *rcar_du_gem_prime_import_sg_table(struct drm_device *dev,
- 	gem_obj = &dma_obj->base;
- 	gem_obj->funcs = &rcar_du_gem_funcs;
+ void mock_fini_ggtt(struct i915_ggtt *ggtt)
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gtt.h b/drivers/gpu/drm/i915/selftests/mock_gtt.h
+index d6eb90bd7f3f..904b86253c99 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gtt.h
++++ b/drivers/gpu/drm/i915/selftests/mock_gtt.h
+@@ -29,7 +29,7 @@ struct drm_i915_private;
+ struct i915_ggtt;
+ struct intel_gt;
  
--	drm_gem_private_object_init(dev, gem_obj, attach->dmabuf->size);
-+	ret = drm_gem_private_object_init(dev, gem_obj, attach->dmabuf->size);
-+	if (ret) {
-+		kfree(dma_obj);
-+		return ERR_PTR(ret);
-+	}
- 	dma_obj->map_noncoherent = false;
+-void mock_init_ggtt(struct intel_gt *gt);
++int mock_init_ggtt(struct intel_gt *gt);
+ void mock_fini_ggtt(struct i915_ggtt *ggtt);
  
- 	ret = drm_gem_create_mmap_offset(gem_obj);
-diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/tests/drm_exec_test.c
-index 2fc47f3b463b..b4427484da26 100644
---- a/drivers/gpu/drm/tests/drm_exec_test.c
-+++ b/drivers/gpu/drm/tests/drm_exec_test.c
-@@ -56,7 +56,8 @@ static void test_lock(struct kunit *test)
- 	struct drm_exec exec;
- 	int ret;
- 
--	drm_gem_private_object_init(priv->drm, &gobj, PAGE_SIZE);
-+	ret = drm_gem_private_object_init(priv->drm, &gobj, PAGE_SIZE);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
- 
- 	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
- 	drm_exec_until_all_locked(&exec) {
-@@ -76,7 +77,8 @@ static void test_lock_unlock(struct kunit *test)
- 	struct drm_exec exec;
- 	int ret;
- 
--	drm_gem_private_object_init(priv->drm, &gobj, PAGE_SIZE);
-+	ret = drm_gem_private_object_init(priv->drm, &gobj, PAGE_SIZE);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
- 
- 	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
- 	drm_exec_until_all_locked(&exec) {
-@@ -103,7 +105,8 @@ static void test_duplicates(struct kunit *test)
- 	struct drm_exec exec;
- 	int ret;
- 
--	drm_gem_private_object_init(priv->drm, &gobj, PAGE_SIZE);
-+	ret = drm_gem_private_object_init(priv->drm, &gobj, PAGE_SIZE);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
- 
- 	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
- 	drm_exec_until_all_locked(&exec) {
-@@ -130,7 +133,8 @@ static void test_prepare(struct kunit *test)
- 	struct drm_exec exec;
- 	int ret;
- 
--	drm_gem_private_object_init(priv->drm, &gobj, PAGE_SIZE);
-+	ret = drm_gem_private_object_init(priv->drm, &gobj, PAGE_SIZE);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
- 
- 	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
- 	drm_exec_until_all_locked(&exec) {
-@@ -162,8 +166,10 @@ static void test_prepare_array(struct kunit *test)
- 		return;
- 	}
- 
--	drm_gem_private_object_init(priv->drm, gobj1, PAGE_SIZE);
--	drm_gem_private_object_init(priv->drm, gobj2, PAGE_SIZE);
-+	ret = drm_gem_private_object_init(priv->drm, gobj1, PAGE_SIZE);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	ret = drm_gem_private_object_init(priv->drm, gobj2, PAGE_SIZE);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
- 
- 	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
- 	drm_exec_until_all_locked(&exec)
-diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-index 56ad8ef32584..bb430763e7a5 100644
---- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-+++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-@@ -119,7 +119,8 @@ static void ttm_bo_init_reserved_sys_man(struct kunit *test)
- 	place = ttm_place_kunit_init(test, TTM_PL_SYSTEM, 0);
- 	placement = ttm_placement_kunit_init(test, place, 1);
- 
--	drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	err = drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, bo_type, placement,
- 				   PAGE_SIZE, &ctx, NULL, NULL,
-@@ -168,7 +169,8 @@ static void ttm_bo_init_reserved_mock_man(struct kunit *test)
- 	place = ttm_place_kunit_init(test, mem_type, 0);
- 	placement = ttm_placement_kunit_init(test, place, 1);
- 
--	drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	err = drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, bo_type, placement,
- 				   PAGE_SIZE, &ctx, NULL, NULL,
-@@ -208,7 +210,8 @@ static void ttm_bo_init_reserved_resv(struct kunit *test)
- 	place = ttm_place_kunit_init(test, TTM_PL_SYSTEM, 0);
- 	placement = ttm_placement_kunit_init(test, place, 1);
- 
--	drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	err = drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 	dma_resv_init(&resv);
- 	dma_resv_lock(&resv, NULL);
- 
-@@ -244,7 +247,8 @@ static void ttm_bo_validate_basic(struct kunit *test)
- 	bo = kunit_kzalloc(test, sizeof(*bo), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo);
- 
--	drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	err = drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, params->bo_type,
- 				   fst_placement, PAGE_SIZE, &ctx_init, NULL,
-@@ -390,7 +394,8 @@ static void ttm_bo_validate_same_placement(struct kunit *test)
- 	bo = kunit_kzalloc(test, sizeof(*bo), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo);
- 
--	drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	err = drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, params->bo_type,
- 				   placement, PAGE_SIZE, &ctx_init, NULL,
-@@ -431,7 +436,8 @@ static void ttm_bo_validate_busy_placement(struct kunit *test)
- 	bo = kunit_kzalloc(test, sizeof(*bo), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo);
- 
--	drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	err = drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, bo_type, placement_init,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
-@@ -478,7 +484,8 @@ static void ttm_bo_validate_multihop(struct kunit *test)
- 	bo = kunit_kzalloc(test, sizeof(*bo), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo);
- 
--	drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	err = drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, params->bo_type,
- 				   placement_init, PAGE_SIZE, &ctx_init, NULL,
-@@ -717,7 +724,8 @@ static void ttm_bo_validate_move_fence_not_signaled(struct kunit *test)
- 	bo = kunit_kzalloc(test, sizeof(*bo), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo);
- 
--	drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	err = drm_gem_private_object_init(priv->drm, &bo->base, size);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, bo_type, placement_init,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
-@@ -782,7 +790,8 @@ static void ttm_bo_validate_swapout(struct kunit *test)
- 	bo = kunit_kzalloc(test, sizeof(*bo), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo);
- 
--	drm_gem_private_object_init(priv->drm, &bo->base, MANAGER_SIZE);
-+	err = drm_gem_private_object_init(priv->drm, &bo->base, MANAGER_SIZE);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, bo_type, placement,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
- 				   &dummy_ttm_bo_destroy);
-@@ -826,7 +835,8 @@ static void ttm_bo_validate_happy_evict(struct kunit *test)
- 
- 	memset(bos, 0, sizeof(*bos) * bo_no);
- 	for (i = 0; i < bo_no; i++) {
--		drm_gem_private_object_init(priv->drm, &bos[i].base, bo_sizes[i]);
-+		err = drm_gem_private_object_init(priv->drm, &bos[i].base, bo_sizes[i]);
-+		KUNIT_ASSERT_EQ(test, err, 0);
- 		err = ttm_bo_init_reserved(priv->ttm_dev, &bos[i], bo_type, placement,
- 					   PAGE_SIZE, &ctx_init, NULL, NULL,
- 					   &dummy_ttm_bo_destroy);
-@@ -875,7 +885,8 @@ static void ttm_bo_validate_all_pinned_evict(struct kunit *test)
- 	bo_big = kunit_kzalloc(test, sizeof(*bo_big), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo_big);
- 
--	drm_gem_private_object_init(priv->drm, &bo_big->base, MANAGER_SIZE);
-+	err = drm_gem_private_object_init(priv->drm, &bo_big->base, MANAGER_SIZE);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_big, bo_type, placement,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
- 				   &dummy_ttm_bo_destroy);
-@@ -926,7 +937,8 @@ static void ttm_bo_validate_allowed_only_evict(struct kunit *test)
- 	bo_pinned = kunit_kzalloc(test, sizeof(*bo_pinned), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo_pinned);
- 
--	drm_gem_private_object_init(priv->drm, &bo_pinned->base, size);
-+	err = drm_gem_private_object_init(priv->drm, &bo_pinned->base, size);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_pinned, bo_type, placement,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
- 				   &dummy_ttm_bo_destroy);
-@@ -937,7 +949,8 @@ static void ttm_bo_validate_allowed_only_evict(struct kunit *test)
- 	bo_evictable = kunit_kzalloc(test, sizeof(*bo_evictable), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo_evictable);
- 
--	drm_gem_private_object_init(priv->drm, &bo_evictable->base, size);
-+	err = drm_gem_private_object_init(priv->drm, &bo_evictable->base, size);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_evictable, bo_type, placement,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
- 				   &dummy_ttm_bo_destroy);
-@@ -991,7 +1004,8 @@ static void ttm_bo_validate_deleted_evict(struct kunit *test)
- 	bo_big = kunit_kzalloc(test, sizeof(*bo_big), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo_big);
- 
--	drm_gem_private_object_init(priv->drm, &bo_big->base, big);
-+	err = drm_gem_private_object_init(priv->drm, &bo_big->base, big);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_big, bo_type, placement,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
- 				   &dummy_ttm_bo_destroy);
-@@ -1048,7 +1062,8 @@ static void ttm_bo_validate_busy_domain_evict(struct kunit *test)
- 	bo_init = kunit_kzalloc(test, sizeof(*bo_init), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo_init);
- 
--	drm_gem_private_object_init(priv->drm, &bo_init->base, MANAGER_SIZE);
-+	err = drm_gem_private_object_init(priv->drm, &bo_init->base, MANAGER_SIZE);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_init, bo_type, placement,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
- 				   &dummy_ttm_bo_destroy);
-@@ -1092,7 +1107,8 @@ static void ttm_bo_validate_evict_gutting(struct kunit *test)
- 	bo_evict = kunit_kzalloc(test, sizeof(*bo_evict), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo_evict);
- 
--	drm_gem_private_object_init(priv->drm, &bo_evict->base, MANAGER_SIZE);
-+	err = drm_gem_private_object_init(priv->drm, &bo_evict->base, MANAGER_SIZE);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_evict, bo_type, placement,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
- 				   &dummy_ttm_bo_destroy);
-@@ -1143,14 +1159,16 @@ static void ttm_bo_validate_recrusive_evict(struct kunit *test)
- 	bo_mock = kunit_kzalloc(test, sizeof(*bo_mock), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, bo_mock);
- 
--	drm_gem_private_object_init(priv->drm, &bo_tt->base, MANAGER_SIZE);
-+	err = drm_gem_private_object_init(priv->drm, &bo_tt->base, MANAGER_SIZE);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_tt, bo_type, placement_tt,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
- 				   &dummy_ttm_bo_destroy);
- 	KUNIT_EXPECT_EQ(test, err, 0);
- 	dma_resv_unlock(bo_tt->base.resv);
- 
--	drm_gem_private_object_init(priv->drm, &bo_mock->base, MANAGER_SIZE);
-+	err = drm_gem_private_object_init(priv->drm, &bo_mock->base, MANAGER_SIZE);
-+	KUNIT_ASSERT_EQ(test, err, 0);
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_mock, bo_type, placement_mock,
- 				   PAGE_SIZE, &ctx_init, NULL, NULL,
- 				   &dummy_ttm_bo_destroy);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
-index 79964b436243..752f2369d73b 100644
---- a/drivers/gpu/drm/virtio/virtgpu_prime.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
-@@ -363,7 +363,11 @@ struct drm_gem_object *virtgpu_gem_prime_import(struct drm_device *dev,
- 	obj = &bo->base.base;
- 	drm_gem_object_set_resv(obj, buf->resv);
- 	obj->funcs = &virtgpu_gem_dma_buf_funcs;
--	drm_gem_private_object_init(dev, obj, buf->size);
-+	ret = drm_gem_private_object_init(dev, obj, buf->size);
-+	if (ret) {
-+		kfree(bo);
-+		return ERR_PTR(ret);
-+	}
- 
- 	attach = dma_buf_dynamic_attach(buf, dev->dev,
- 					&virtgpu_dma_buf_attach_ops, obj);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vram.c b/drivers/gpu/drm/virtio/virtgpu_vram.c
-index e2e799b42c61..eec843f6701f 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vram.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vram.c
-@@ -211,7 +211,11 @@ int virtio_gpu_vram_create(struct virtio_gpu_device *vgdev,
- 	INIT_LIST_HEAD(&vram->base.restore_node);
- 
- 	params->size = PAGE_ALIGN(params->size);
--	drm_gem_private_object_init(vgdev->ddev, obj, params->size);
-+	ret = drm_gem_private_object_init(vgdev->ddev, obj, params->size);
-+	if (ret) {
-+		kfree(vram);
-+		return ret;
-+	}
- 
- 	/* Create fake offset */
- 	ret = drm_gem_create_mmap_offset(obj);
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index 9c7a73c0b0dc..43cc91284ec2 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -426,7 +426,11 @@ static int vmw_bo_init(struct vmw_private *dev_priv,
- 	atomic_set(&vmw_bo->map_count, 0);
- 
- 	params->size = ALIGN(params->size, PAGE_SIZE);
--	drm_gem_private_object_init(vdev, &vmw_bo->tbo.base, params->size);
-+	ret = drm_gem_private_object_init(vdev, &vmw_bo->tbo.base, params->size);
-+	if (ret) {
-+		kfree(vmw_bo);
-+		return ret;
-+	}
- 
- 	vmw_bo_placement_set(vmw_bo, params->domain, params->busy_domain);
- 	ret = ttm_bo_init_reserved(bdev, &vmw_bo->tbo, params->bo_type,
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 85e6d9a0f575..6df7ef07ec0b 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -2363,7 +2363,11 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 	/* Initialize purge advisory state */
- 	bo->purgeable.state = XE_MADV_PURGEABLE_WILLNEED;
- 
--	drm_gem_private_object_init(&xe->drm, &bo->ttm.base, size);
-+	err = drm_gem_private_object_init(&xe->drm, &bo->ttm.base, size);
-+	if (err) {
-+		xe_bo_free(bo);
-+		return ERR_PTR(err);
-+	}
- 
- 	if (resv) {
- 		ctx.allow_res_evict = !(flags & XE_BO_FLAG_NO_RESV_EVICT);
-diff --git a/drivers/gpu/drm/xe/xe_mmio_gem.c b/drivers/gpu/drm/xe/xe_mmio_gem.c
-index 8c803ef233cc..c1fb4da22f03 100644
---- a/drivers/gpu/drm/xe/xe_mmio_gem.c
-+++ b/drivers/gpu/drm/xe/xe_mmio_gem.c
-@@ -86,7 +86,11 @@ struct xe_mmio_gem *xe_mmio_gem_create(struct xe_device *xe, struct drm_file *fi
- 	base->funcs = &xe_mmio_gem_funcs;
- 	obj->phys_addr = phys_addr;
- 
--	drm_gem_private_object_init(&xe->drm, base, size);
-+	err = drm_gem_private_object_init(&xe->drm, base, size);
-+	if (err) {
-+		kfree(obj);
-+		return ERR_PTR(err);
-+	}
- 
- 	err = drm_gem_create_mmap_offset(base);
- 	if (err)
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 09f5ec28218a..f889232e8525 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -526,8 +526,8 @@ void drm_gem_object_release(struct drm_gem_object *obj);
- void drm_gem_object_free(struct kref *kref);
- int drm_gem_object_init(struct drm_device *dev,
- 			struct drm_gem_object *obj, size_t size);
--void drm_gem_private_object_init(struct drm_device *dev,
--				 struct drm_gem_object *obj, size_t size);
-+int drm_gem_private_object_init(struct drm_device *dev,
-+				struct drm_gem_object *obj, size_t size);
- void drm_gem_private_object_fini(struct drm_gem_object *obj);
- struct dma_resv *drm_gem_object_set_resv(struct drm_gem_object *obj,
- 					  struct dma_resv *resv);
+ struct i915_ppgtt *mock_ppgtt(struct drm_i915_private *i915, const char *name);
 -- 
 2.43.0
 
