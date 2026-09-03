@@ -4,89 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC051C624A4
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 18:01:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC984C61DD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 18:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68DCE10E142;
-	Thu,  3 Sep 2026 18:01:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B8D610F733;
+	Thu,  3 Sep 2026 18:26:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="en1uHrnd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ePvsf2kT";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7B210E142
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 18:01:35 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-396afefb35bso9333a91.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 11:01:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788458495; cv=none;
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF69410E173
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 18:26:00 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2d8f2ed7bdcso135075ad.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 11:26:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788459960; cv=none;
  d=google.com; s=arc-20260327;
- b=YYLLXtwKSFURFQhlDeGnhPb8de144dlOF/s4J3scgswUWAp1DI1+JQ6D10wfjOmCmN
- pI3OcfbuCeyAqmyGPGzbCVstVWL9YppsgT/dVXIWwN/ke/YfFCK0LM6moeXA5lp5GcdA
- VyvBDyBj6uM9c4DCQVAulMa96uAietpiucjaNGjV1rk2nL9OtRl12PWmb21tI6Rgqjk2
- 86qr/+6uHXUKKXWDTnEgsCZvMNAMCO7s56dIVAmAe65m7k7i+mhfrF+ACiysiLa0FNf4
- hEI9P8BhVuHCO+pDQ0a4u1/14eFkR0NG/1dhP5mJvOfqIqu8f1+i8G49FY1rYhOX9XMi
- Ak2w==
+ b=iqo5Tsgd9yHJC+V3CwxsMxUfSzK74tQzw76v3LYLSRLRJwM8mY75DzAKmH0AkS6nAK
+ 1PPxYqfC4F72FEWGhUBM4gQncKP+1/1xFeqO94UMzpPQhoBJZsrVK/aAMHRiClHZWEZ0
+ uFuAwQx65+L5wbPmRVSme8vQV27m5txSQsZCUtjrb/QCvG1Xl0ConwloXP60vpvsobXu
+ e7uBNV8rTIq0vN9ZU1cXpeKkbFgkRYkPnXGb8xGxe6qtbBLhaIfK6QjqWHQzNeZouopv
+ fvqehXZ2jJPrKbbNnGZIpPV98eP7dZ4k6RgJKCct2aakpyfP4wzazBdYyMZbCB0W8kEK
+ 6REg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=W6w5eXNC27nWfunPjU0K9NDObVYF9+B6SzJa0R881/E=;
+ bh=Hmlf8I8YEN0AlNaiaVx5sCTZRzyPtBS7pbXhSt7OH9w=;
  fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
- b=bfDMBqjl5Uu+HjNyXyU+Slw3brQxp4r3ehoXvnp3WDBfYlqN01qQf+fTy4bGqg/uhg
- i6DrQrB3rWzCRHebnDiAxV2fMFFpMOny9MFmlDoQPywsi1Wzcr7P7cMyMETnOFy8o5jn
- STUpsw30oCyiH3Of7hmhK30Lyu+c9+eNh2fXEkJS6YO5AkasXDjmJEw+dXcK+9w0s0oy
- 5Jl5ksAIf2SlXYzDFxCsS2xbpRmXpvV9ln6XJ9NVDUB+vFQlKVJEOyOiKDjgyZ0Q2i5r
- LGjy+/Rjj2W/atUHcuiOvNnpreTBew7wQDvNGPpREnYgBR1JxdXVtXsADoCDeKjFDfgY
- ER/Q==; darn=lists.freedesktop.org
+ b=MuUQt7ZddnykDulb3PGvkbBdPX8G3ZO1tNueEC/FOUnBzvTlCJZNgYfhv+i9c0hMgj
+ J1IgMl5/2kf3lec9HcbplZ8cq8d5XC0oJ5eZsldXK4P0S3wVDSeesmxETj1+el27g8nE
+ /45NfzpzQKP4DntHsd6PuJricKuG30Fbi1nIbIB3wJhygBUvneMvNFf8eQERFAhiZ17U
+ d0KtJFy83C6RMJSRxMn33TA2oqrbGpdW7muNaG+3zDluhZdWAFIQAswXjUI5NTsrgv7+
+ rGH3NG4wu0mmNg0S1193ySbV99NAE0xp0FseqRiZwMM9V8JpIR7F6V2XmN7QDyqZ8iAP
+ GEgg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788458495; x=1789063295; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788459960; x=1789064760; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=W6w5eXNC27nWfunPjU0K9NDObVYF9+B6SzJa0R881/E=;
- b=en1uHrndDpylW4nB4IRF/u4D0sLf7FM0feGLw837L9dBHIS1lHXoudKhR5wwxMiIz2
- vHhn61oc7jgsco1w4B5XIGIEa/AHAbGHTT1lYnvZpN8fSDCf63GkPv4dsA+/E9fvpxcc
- MmDkGYRdrIuKRe1wPYOoCrMTyigtwx1KjuasbUGOU3mooNlmNX5VEQqy/FCKoczMB/lK
- aPUgDXTC1U2IZev30bJ8nVTR+F71NdFJzYCbJZkEMi3s/Fa5eCI5v+N5ak5Hr1u8uaMC
- fd1O6cW6b0PgbrdNlRQXj/BCM+bPvdQyDyjPnuSNOnlMdNTvS7ZkH/Ex0GY6QxXN/neX
- kcTg==
+ bh=Hmlf8I8YEN0AlNaiaVx5sCTZRzyPtBS7pbXhSt7OH9w=;
+ b=ePvsf2kT4Z16zi12GSXtVie4rFrzL7llGsW6pRsrp3tCKmxj/s/xOokQFYHccMgf1g
+ 1JPE8DNXAGgvAfq4rgW4LSFadhm8hL2582ZlkE/BKfPMDEJt6zfM9W0KqRtWtF5U0AKh
+ QWiBcuOwQCkbfuVuD4Le/A+kWbCDHtyqbLd+2IW4C9spCeV3hZO4QlW0Em5rQ1ZO6Jz1
+ e/hyHZvluXjCXETe25mAc/iCXER47m4CiCoM8wXhmyXhfadRpSrrWeUna2keenxW1G/l
+ qZfcWoCfMxUBu9lbHKpFHCOw1R9NYnjqJDZZidkcqoJhlGO6Vyd4zcXlpdGNdd+q+sFy
+ f12A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788458495; x=1789063295;
+ d=1e100.net; s=20251104; t=1788459960; x=1789064760;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=W6w5eXNC27nWfunPjU0K9NDObVYF9+B6SzJa0R881/E=;
- b=sX3uh9DociK4c/3WPzdn1pO4SaaUxapkLrs2YJ3iJOVYlGAdUNvuRTZ9TtbHrtE0vJ
- wAunFlZmadUk5CbUbWOQpFau4Nsd5q2GThvKxD8tNRXG8B+1HEJiAbMTBgiD/f8zs2TX
- EWgolQri3/C+MvQW/ZmGcnIGA1l4LWdw/RWbUbbN+eHBAGwy3oMbKygY7ktNFbBuOh2j
- QgARvGTJQci907kYLvNtfOWq3TnoZuxEzaoHDfny3tOU/AzWVNHvbQDIPyvlVFpZI8rT
- 6TMcyctWF/VIOx9KwcFaNRUhvmJvZhwLgM7KbkWkwp4uEOrZ4wwT7RUjP3F9iYqtQtem
- JCyA==
-X-Gm-Message-State: AFuF++k8FfcewHJTyW9xuOzQrfFKBnkFby5vhtnf8PVlGAxezOMQ0V7x
- 5kkp20IXi/MLl/gMRFR6QVouFhMMJopXh/ilLL6VUPwbMrwjlT4az7GDKfcVAI1byPXu6KuQzQX
- VhviSB+g6Cec8025P7Cbl2nzp8sr/Y70=
-X-Gm-Gg: AYBFou0VZmwrq/FW55L2AW4b5JKcxUBT+9PUYt3DVdySu24r3YAGEZ/EsMv1jhJRpvD
- YWKBlcd2ODrQJ2M60eEnOz2HHI826BsUxg7Imb0w5BpDpLQ1zugTyLXFMpqELgkGZDbBY/BpLaN
- NnnCKIhwAXKhMhgDt/uwz9jc66ghVsxDqoI0ArLBbAdShoiey90Jgpxe6PDN5PTTHWw8d3MtjN3
- qG51oWjkblNtzv9l/lqEitAH02snaKXHQkuBMvCyxeQqvQLg3yaIrQSoSQLYTFoy0KqgrMIka8L
- tw+KAXgKPwrqfWF8QRr8nFs4Q76kQ+nNtLXofptnvO9r9YAl84p2qtfKJkeu38jkfhSUIa0Gh7Z
- 5hxc9+Xzh3v1bAytDEfp/ZxcXiRWxR2M=
-X-Received: by 2002:a17:90b:5404:b0:396:d28e:b52 with SMTP id
- 98e67ed59e1d1-39b26229b5dmr176402a91.3.1788458495148; Thu, 03 Sep 2026
- 11:01:35 -0700 (PDT)
+ bh=Hmlf8I8YEN0AlNaiaVx5sCTZRzyPtBS7pbXhSt7OH9w=;
+ b=FYaVod2mAkn2BeHhiKwfpZehyOn+w0z+EFYfgjqcxuRlZ+UY1p0wnlP14LCf2m14mC
+ evpJkRHe42JXmi9Ub/zbpODSPlkqai7CUHHjNGY+NgDGXR15ZK4SwYtQBLs8EFu+fiyw
+ Zx6z2d2KJAebx0B+PCCdn37CPThuGUnoTeXB7bychti8bw3hzSyHEZBK8MMq2CrQEE5h
+ XquhlGHd4W8BPN3OMcuB7UkurUKdrTY3OjMHIJ+62nUYeAuKb/y8XW8NpvPv5gW6sieJ
+ uQqgOMCLC445e8Sm/b8PwvO1a/vH/UuwVpF5KEdcAUujKJDZA5SmwieXNG+lXesZgOmT
+ PqfA==
+X-Gm-Message-State: AFuF++m7nQjUo8Ojdzp0RPcbF/12fNnHU4qtA2/S1fFngDidWD1qWfwd
+ /QfaRmX7En1dFb9jPi7Fg+1YKEmYEEAyIn3noRxdc2bDCzIkvgG7KN2Vznc8NOnT5OmNqg7zNR9
+ cpY1vG7KaVlbB+sj9ltvcPl6eftzLlUg=
+X-Gm-Gg: AYBFou2e+EZbFsWkmJbJJdaO2VQrh83MKDcLmP7OWgCoEiq4gryNSWB6Ac+d3/te/if
+ kpbcCTbg7fOm812ZF8W+mcwEGYX3OOuNod4ezfl+9f/imyjwZwSxiktS1+qz1f28aevUo+FFcSP
+ craUo8BK4bRGB3T8qXmo4fIVGJjnEAf/y3SXQaCHelvwtUBXZwLJjhVyKsXMes3S+I7NWmPq4EI
+ X4O2BG06cc/TalIpROW3cknqv+XZldIUrWA6I75P5r/8m3lVuSZmy8v+gXNs4llBbW0UNeg59xh
+ MLpnWu8ZUm3EDx+X3rh53a6Llj3/6O6NlzSALENn/YAOUTO1D59pFjfKphlf7gsDWhhscBX7AL+
+ 9oVXopA0EcvIFdXH9iD4/VWmZxxvALWs=
+X-Received: by 2002:a17:90b:3b8c:b0:398:bad2:c0f with SMTP id
+ 98e67ed59e1d1-39b262ce785mr263165a91.5.1788459960151; Thu, 03 Sep 2026
+ 11:26:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260831052513.1518180-1-Jesse.Zhang@amd.com>
- <20260831052513.1518180-8-Jesse.Zhang@amd.com>
-In-Reply-To: <20260831052513.1518180-8-Jesse.Zhang@amd.com>
+References: <20260903094438.3880682-1-Jesse.Zhang@amd.com>
+ <20260903094438.3880682-4-Jesse.Zhang@amd.com>
+In-Reply-To: <20260903094438.3880682-4-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 3 Sep 2026 14:01:23 -0400
-X-Gm-Features: AcwNN1WHjzqWHD16Ndo-MW_Y-Yt31XUSbCsHDDXH10iTudb6oUe-VYjHUGvUf3o
-Message-ID: <CADnq5_PC9fRaLvF8ydvM-2HsHo1ue3LimCXK7bQBynLvDZk5TA@mail.gmail.com>
-Subject: Re: [PATCH V3 08/10] drm/amdgpu/mes_userqueue: route compute MODIFY
- through init_mqd
+Date: Thu, 3 Sep 2026 14:25:47 -0400
+X-Gm-Features: AcwNN1VJ6F2HAYQDOJoeVwf4GeslU3Zg2Z8n3jRBCOCCu5LRrLDOwgfV5YC4V0I
+Message-ID: <CADnq5_O9TP0H0hM83oDC9j+yfmHVyvUPv2_74WTx7iGNKPVwEQ@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drm/amdgpu/userq: reset a hung SDMA user queue over
+ MMIO
 To: Jesse Zhang <Jesse.Zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian Koenig <christian.koenig@amd.com>
@@ -106,106 +106,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 31, 2026 at 1:50=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> w=
-rote:
+On Thu, Sep 3, 2026 at 6:20=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> wr=
+ote:
 >
-> Set prop->modify and prop->user_wptr (read from the wptr poll BO) and
-> call init_mqd, so a re-enabled compute queue keeps its context-saved
-> rptr and resumes at the first un-consumed packet.
+> A hung SDMA user queue wedges MES, so the MES packet reset times out and
+> falls back to a full MODE1 reset - once per in-flight job, a reset storm.
 >
-> Also set modify=3Dfalse on the create and kernel-ring
-> (amdgpu_ring_to_mqd_prop) paths, so every init_mqd caller states its own
-> value rather than relying on the zeroed prop.
->
-> v3: set the mqd_prop modify flag and call init_mqd instead of a separate
->     update_mqd callback, per review.
+> The queue is still on its HW slot at the first hang-detect, so use
+> detect_hung_queue to recover its slot from the doorbell and reset it over
+> MMIO, which does not need MES. Mark it HUNG (not UNMAPPED) so the restore
+> worker does not re-map and re-run the guilty job, and short-circuit the
+> per-fence hang-detect re-entry once the queue is already reset.
+
+I thought newer versions of MES firmware handled this.  Maybe we need
+a firmware version check?  For now, the series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 >
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> Suggested-by: Alexander Deucher <Alexander.Deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   |  2 ++
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 20 +++++++++++++++++++-
->  2 files changed, 21 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 48 ++++++++++++++++++----
+>  1 file changed, 39 insertions(+), 9 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ring.c
-> index 686c92e96025..9fd0ab0be40e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -840,6 +840,8 @@ static void amdgpu_ring_to_mqd_prop(struct amdgpu_rin=
-g *ring,
->         prop->use_doorbell =3D ring->use_doorbell;
->         prop->doorbell_index =3D ring->doorbell_index;
->         prop->kernel_queue =3D true;
-> +       /* kernel rings always build the MQD from scratch, never a MODIFY=
- */
-> +       prop->modify =3D false;
->
->         /* map_queues packet doesn't need activate the queue,
->          * so only kiq need set this field.
 > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
 /amd/amdgpu/mes_userqueue.c
-> index 82bb4369451e..c6ac3194e4da 100644
+> index 46ebc002548d..2ce94cd04fd5 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -479,6 +479,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermod=
-e_queue *queue,
->         userq_props->use_doorbell =3D true;
->         userq_props->doorbell_index =3D queue->doorbell_index;
->         userq_props->fence_address =3D queue->fence_drv->gpu_addr;
-> +       userq_props->modify =3D false;
+> @@ -213,26 +213,56 @@ int mes_userq_reset(struct amdgpu_usermode_queue *q=
+ueue)
+>         struct mes_reset_queue_input queue_input;
+>         int r;
 >
->         if (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPUTE) {
->                 struct drm_amdgpu_userq_mqd_compute_gfx11 *compute_mqd;
-> @@ -681,6 +682,20 @@ static int mes_userq_mqd_create(struct amdgpu_usermo=
-de_queue *queue,
->         return r;
+> -       /* XXX: add a FW version check for SDMA per queue reset */
+> +       /* already reset by an earlier job's hang-detect; just signal and=
+ bail */
+> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_HUNG) {
+> +               amdgpu_userq_fence_driver_force_completion(queue);
+> +               return 0;
+> +       }
+> +
+>         memset(&queue_input, 0x0, sizeof(struct mes_reset_queue_input));
+>         queue_input.doorbell_offset =3D queue->doorbell_index;
+>         queue_input.queue_type =3D queue->queue_type;
+>
+> +       /*
+> +        * The MES packet reset fails once the hung queue wedges MES. For=
+ SDMA the
+> +        * queue is still on its HW slot, so reset it over MMIO instead: =
+recover
+> +        * the (instance, queue_id) slot from the doorbell.
+> +        */
+> +       if (queue->queue_type =3D=3D AMDGPU_HW_IP_DMA &&
+> +           adev->sdma.instance[0].funcs &&
+> +           adev->sdma.instance[0].funcs->detect_hung_queue) {
+> +               u32 instance, hw_queue_id;
+> +
+> +               if (adev->sdma.instance[0].funcs->detect_hung_queue(adev,
+> +                               queue->doorbell_index, &instance, &hw_que=
+ue_id)) {
+> +                       queue_input.use_mmio =3D true;
+> +                       queue_input.me_id =3D instance;
+> +                       queue_input.queue_id =3D hw_queue_id;
+> +               } else {
+> +                       dev_warn(adev->dev,
+> +                                "SDMA userq (doorbell %llu) not on any H=
+W slot; falling back to MES reset\n",
+> +                                queue->doorbell_index);
+> +               }
+> +       }
+> +
+> +       /* HUNG, not UNMAPPED: the guilty job is still in the ring, so th=
+e
+> +        * restore worker must not re-map and re-run it.
+> +        */
+> +       queue->state =3D AMDGPU_USERQ_STATE_HUNG;
+> +
+>         amdgpu_mes_lock(&adev->mes);
+>         r =3D adev->mes.funcs->reset_hw_queue(&adev->mes, &queue_input);
+>         amdgpu_mes_unlock(&adev->mes);
+>         if (r)
+>                 return r;
+>
+> -       /* mes_userq_unmap() does not update queue->state; mark it UNMAPP=
+ED so the
+> -        * destroy path does not issue a second REMOVE_QUEUE for the remo=
+ved queue.
+> -        */
+> +       /* drop the queue from MES and force-complete its fences */
+>         r =3D mes_userq_unmap(queue);
+> -       if (!r) {
+> -               trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STAT=
+E_UNMAPPED);
+> -               queue->state =3D AMDGPU_USERQ_STATE_UNMAPPED;
+> -       }
+> -       return r;
+> +       if (r)
+> +               return r;
+> +
+> +       amdgpu_userq_fence_driver_force_completion(queue);
+> +       return 0;
 >  }
 >
-> +/* Read the queue's live user wptr from its poll BO; 0 if not mapped. */
-> +static u64 mes_userq_read_user_wptr(struct amdgpu_usermode_queue *queue)
-> +{
-> +       u64 user_wptr =3D 0;
-> +       void *wc =3D NULL;
-> +
-> +       if (queue->wptr_obj.obj &&
-> +           !amdgpu_bo_kmap(queue->wptr_obj.obj, &wc) && wc) {
-> +               user_wptr =3D *(volatile u64 *)wc;
-> +               amdgpu_bo_kunmap(queue->wptr_obj.obj);
-> +       }
-> +       return user_wptr;
-> +}
-
-Can't we just skip this?  The firmware should update the MQD and store
-the current rptr/wptr when we unmap it.  So when we modify the queue,
-all we need to do is skip any changes to the rptr/wrptr when we modify
-the MQD.  No need to save the wptr.  Other than that, the patches look
-good to me.
-
-Alex
-
-> +
->  static int mes_userq_compute_mqd_update(struct amdgpu_usermode_queue *qu=
-eue,
->                                         struct drm_amdgpu_userq_in *args_=
-in)
->  {
-> @@ -707,8 +722,11 @@ static int mes_userq_compute_mqd_update(struct amdgp=
-u_usermode_queue *queue,
->
->         userq_props->queue_size =3D args_in->queue_size;
->         userq_props->hqd_base_gpu_addr =3D args_in->queue_va;
-> +       userq_props->modify =3D true;
-> +       userq_props->user_wptr =3D mes_userq_read_user_wptr(queue);
->
-> -       retval =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_=
-ptr, userq_props);
-> +       retval =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_=
-ptr,
-> +                                        userq_props);
->
->  free:
->         kfree(compute_mqd_v11);
+>  int mes_userq_reset_queue(struct amdgpu_device *adev,
 > --
 > 2.49.0
 >
