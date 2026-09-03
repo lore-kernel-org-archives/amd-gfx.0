@@ -4,47 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2407C624DB
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 471D7C61DD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:40:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C2EE10F44A;
-	Thu,  3 Sep 2026 07:35:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF5A110E51D;
+	Thu,  3 Sep 2026 07:40:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="BGEGXopu";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AsbYy7U+";
 	dkim-atps=neutral
-X-Greylist: delayed 315 seconds by postgrey-1.36 at gabe;
- Wed, 02 Sep 2026 12:31:15 UTC
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3FC610F1A1;
- Wed,  2 Sep 2026 12:31:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
- s=protonmail2; t=1788352272; x=1788611472;
- bh=OKxNGCoL9yieoK3Ws2lDA86IF7zj6L6ly9tSa8jimQE=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=BGEGXopu67VBpaYnmqAVSucBFOZgRwPKzh1KMjIQqQUd9/0XoKfiWJof1ngxOhZMJ
- J1VIwNjg9z+nsUM5jmjKSefRnn/yVzYjQHcyyhISrgoJBPOcNrqk2nltUk4UuJDfj+
- KoN3u1BIowUCfyTHAJZJxCRAjS0R1rjHlbyubq7Sb5rhy+HtSSGk1zjZNMcgVvKz/7
- CswyitX/tXuW9alxZKCyGUXWQOXoPi49DK0alBqBfmZJBFpxgETJPlvIm7Uxszh1nO
- 3g7dU35oS1I5z79bDg4ET9WGP80K5LhsVI6afIROzzusO1s8w+Gy0Ms2MOk1hDHVUD
- iEzq3xSqtpx2g==
-Date: Wed, 02 Sep 2026 12:31:05 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
- mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
-Subject: [PATCH 0/4] drm/amd/display: fix brightness ownership through power
- module
-Message-ID: <20260902-brightness-cover-abf809f2@empyreal.works>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: e25d1b5c28e864151b6e2d411f4edd74bae9fadd
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9078810F438;
+ Thu,  3 Sep 2026 07:37:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=WEQIDYGlBUXhn3lmR9XsLq39KcvZDQUH9U5OcoHbWm4=; b=AsbYy7U+gP1W/xxoc271+oO9r+
+ aUSK9N25hQPV1YDsOsU46chXiEvhgEnIQsDi5xKj/cgoKFB1KefettZcUtPHnq3W/WVW/Ze6sG/6H
+ XIzIvLVvXCZmWs+6vKKsHWpUUzCb6hJN2cTpYfxq2bsP03My2GkbEAxv+yW6GTjPmRj5w16uqFl0F
+ bxYEGhQHg9zyMVnRTt27lx42tpJIydEatPt1L7zkof2nIgChQF2H8cpSChU9dqEIYiCsjKb6SvLdF
+ T5zqlbkFoQfn5GFVmalLcNuh3p0lcaggbvuyipfhUi/qzzcaNGVUqvfN3CbVcDP7OGg3OhOyXBGjB
+ o3wh+1sg==;
+Received: from [31.4.135.164] (helo=[192.168.1.126])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x220G-00EEP3-Ki; Thu, 03 Sep 2026 09:36:56 +0200
+Message-ID: <141dded4-e312-4207-ad9c-572e9d1d7316@igalia.com>
+Date: Thu, 3 Sep 2026 09:36:54 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 03 Sep 2026 07:34:48 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: use plane color_mgmt_changed to track
+ colorop changes
+From: Melissa Wen <mwen@igalia.com>
+To: Dave Airlie <airlied@redhat.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, sunpeng.li@amd.com,
+ siqueira@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20260807115712.22423-1-mwen@igalia.com>
+ <CADnq5_OxnaEdNUpC1VQsCgensRYAgFCMeGy3uL5n6mYXqOHV-g@mail.gmail.com>
+ <22a3be63-ebe9-4334-9f42-73e62f123277@igalia.com>
+Content-Language: en-US
+In-Reply-To: <22a3be63-ebe9-4334-9f42-73e62f123277@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,50 +65,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Linux passes PWM eDP brightness through two owners. The display manager
-maps the request into the firmware range and applies the ATIF custom
-curve. The power module then derives a percentage from that hardware
-value and applies the same curve and range again. A non-zero firmware
-minimum consequently prevents zero from reaching the panel minimum.
-The split also leaves the custom-curve disable policy and final PWM mask
-attached to the wrong owner.
 
-Patch 1 keeps pre-power-module custom-curve output in the userspace
-domain, which also fixes affected stable kernels. Patch 2 covers that
-conversion with a non-zero firmware minimum. Patch 3 passes zero-anchored
-millipercent into the power module and moves the panel policy, curve,
-range, trace units, and final effective-PWM mask to that owner. Patch 4
-covers ordinary PWM, forced PWM, AMD-AUX fallback, true AUX, multiple
-panels, endpoints, interior values, clamping, and invalid ranges.
 
-The complete series passed all 85 AMD backlight UML KUnit cases on the
-current base and after clean application to Linux 7.3-rc1. It was built
-into one kernel, booted on two Strix Halo systems, and produced the same
-AMDGPU module on both. An instrumented physical panel test observed:
+On 27/08/2026 12:24, Melissa Wen wrote:
+>
+>
+> On 10/08/2026 20:40, Alex Deucher wrote:
+>> On Fri, Aug 7, 2026 at 8:08 AM Melissa Wen <mwen@igalia.com> wrote:
+>>> This is a resubmission of d79716401a95 ("drm/amd/display: use plane
+>>> color_mgmt_changed to track colorop changes") whose change was reverted
+>>> by 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of
+>>> https://gitlab.freedesktop.org/agd5f/linux into drm-next") during a
+>>> merge conflict resolution.
+>>>
+>>> Original commit message:
+>>>
+>>> ```
+>>> Ensure the driver tracks changes in any colorop property of a plane
+>>> color pipeline by using the same mechanism of CRTC color management and
+>>> update plane color blocks when any colorop property changes. It 
+>>> fixes an
+>>> issue observed on gamescope settings for night mode which is done via
+>>> shaper/3D-LUT updates.
+>>> ```
 
-  request 0     -> 0 millipercent      -> PWM 3084  -> success
-  request 65535 -> 100000 millipercent -> PWM 65535 -> success
+After talking to Dave, I applied to drm-misc-fixes:
+- 88f8113ab118 ("drm/amd/display: use plane color_mgmt_changed to track 
+colorop changes")
 
-The panel visibly reached minimum and maximum brightness, then returned
-to its starting level. No fatal kernel event followed. The true AUX path
-was covered by KUnit but was not available for a physical test. The
-existing LUT-unaware hardware readback inverse is unchanged.
+Melissa
 
-Andrei Rusu de Castro (4):
-  drm/amd/display: keep custom brightness curve in userspace domain
-  drm/amd/display: test custom brightness with non-zero minimum
-  drm/amd/display: pass userspace brightness to power module
-  drm/amd/display: test power module brightness input domain
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +-
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   |  59 ++-
- .../display/amdgpu_dm/amdgpu_dm_backlight.h   |   5 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |   3 +-
- .../tests/amdgpu_dm_backlight_test.c          | 447 +++++++++++++++++-
- .../drm/amd/display/modules/inc/mod_power.h   |   1 +
- .../gpu/drm/amd/display/modules/power/power.c |   2 +
- .../drm/amd/display/modules/power/power_abm.c |   6 +-
- .../amd/display/modules/power/power_helpers.h |   1 +
- 9 files changed, 494 insertions(+), 36 deletions(-)
-
+>>>
+>>> Fixes: 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of 
+>>> https://gitlab.freedesktop.org/agd5f/linux into drm-next")
+>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>>
+>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> Hey Dave,
+>
+> Can you apply it to drm-next?
+>
+> This a regression from 
+> https://lists.freedesktop.org/archives/amd-gfx/2026-July/148126.html
+> And AFAIU drm-misc's branches are not the right place.
+>
+> Best Regards,
+>
+> Melissa
+>
+>>
+>>
+>>> ---
+>>>
+>>> Hey,
+>>>
+>>> I noticed this problem in the resolution of a merge conflict after
+>>> testing drm-misc-next on SteamDeck with KMS colorop API support and
+>>> verifying the issue of missing updates in nightlight-mode was back.
+>>>
+>>> Let me know what are the right steps to address it.
+>>>
+>>> Thanks,
+>>>
+>>> Melissa
+>>>
+>>> ---
+>>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
+>>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
+>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 67b825cbb88f..d0e612371c8f 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -4202,7 +4202,7 @@ static void amdgpu_dm_commit_planes(struct 
+>>> drm_atomic_commit *state,
+>>>                          continue;
+>>>
+>>> bundle->surface_updates[planes_count].surface = dc_plane;
+>>> -               if (new_pcrtc_state->color_mgmt_changed) {
+>>> +               if (new_pcrtc_state->color_mgmt_changed || 
+>>> new_plane_state->color_mgmt_changed) {
+>>> bundle->surface_updates[planes_count].gamma = 
+>>> &dc_plane->gamma_correction;
+>>> bundle->surface_updates[planes_count].in_transfer_func = 
+>>> &dc_plane->in_transfer_func;
+>>> bundle->surface_updates[planes_count].gamut_remap_matrix = 
+>>> &dc_plane->gamut_remap_matrix;
+>>> @@ -6012,6 +6012,10 @@ static bool should_reset_plane(struct 
+>>> drm_atomic_commit *state,
+>>>          if (new_crtc_state->color_mgmt_changed)
+>>>                  return true;
+>>>
+>>> +       /* Plane color pipeline or its colorop changes. */
+>>> +       if (new_plane_state->color_mgmt_changed)
+>>> +               return true;
+>>> +
+>>>          /*
+>>>           * On zpos change, planes need to be reordered by removing 
+>>> and re-adding
+>>>           * them one by one to the dc state, in order of descending 
+>>> zpos.
+>>> -- 
+>>> 2.53.0
+>>>
+>
 
