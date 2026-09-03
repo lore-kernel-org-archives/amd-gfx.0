@@ -4,71 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 459BDC79F88
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:30:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7269CC79F87
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:30:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61EB910F8E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D28410F8E3;
 	Fri,  4 Sep 2026 07:30:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="l4hUIQxx";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YRVlLmxv";
 	dkim-atps=neutral
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1117110E123
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 14:24:35 +0000 (UTC)
-Received: from mors-relay8203.netcup.net (localhost [127.0.0.1])
- by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hbML94YWZz8q8X;
- Thu,  3 Sep 2026 14:24:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1788445473;
- bh=yFr4Dj2zK039tLCHyEAnaXuFZ0aOOs6XSDfsrCAx5fI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=l4hUIQxxEC5UNYEvqTl4D2HiM0GE16SzQpJ5eIWx9PfDEjLoyJihbcnCta/gn+sI4
- Rvi8DfWkjpHVvVHlp2CvbYOtXZVltUwG+KjrgEavEFtuzUj3/6h/nnKdcHIWg91elA
- IQC9uxiGqSBpAYlvN+hea9N+yFfD9mAUg4mBb+NDFKHa5fugfYysrNTglyPnZN32ci
- pI7aFajm8jkcaVvKDFvkAXStzVdJi3b6y2fxmvZTgiyV5DejCzNhVH3lD6K9SSdKEX
- kieehG+hLi1mMEHzr9ros1mvhJNsjMX2Yz/ya0Qu79Ws86G6Al5QqLMwE6cFxQFO22
- 51+95eqybREDA==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hbML93sWBz8q8Q;
- Thu,  3 Sep 2026 14:24:33 +0000 (UTC)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hbML70zjgz8tH0;
- Thu,  3 Sep 2026 16:24:31 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id CEDCB5FA2D;
- Thu,  3 Sep 2026 16:24:25 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <4db878f3-1c55-4ecb-93d8-a97a5e0c7a29@leemhuis.info>
-Date: Thu, 3 Sep 2026 16:24:25 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D18E610F7C1;
+ Thu,  3 Sep 2026 22:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=6aapiCutfAySGkiBJU8QXnrefOR2z/k8QtWrp2iu6pw=; b=YRVlLmxvANgJDPIWvmM5i3ofXH
+ yH4ZALv+ilKL5C9yGDyLIvPiKJ4fj8RrUXJDNJUP8kQOBlnoAM53qEUXgG04y+HQgGMHbzedSE813
+ B385nabePOgPx9sYCJG2VJok6VPgHIw/ymlDncaNhGIo5ulaTjs4Hl4s6loNsZ0Q8WxCbvXE4vVwt
+ stTsxXP4TwRQc9lSFLZNUPoa5UgpjhXjNj2JIVd6B/SK9f7qcFo/bVCqCI7jezYNImBQt9PGSW06h
+ 7ACdfqN9edX6yyjbwyPyvgqdNslLeESYg5/UiRQL23jxe0Lw8v8XB7ytny6jsXtLYahGGMD8qTv1W
+ ppe8zShw==;
+Received: from [187.43.152.48] (helo=[127.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x2FUk-00EbUz-KT; Fri, 04 Sep 2026 00:01:18 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Thu, 03 Sep 2026 19:00:28 -0300
+Subject: [PATCH i-g-t v6 6/9] lib/amdgpu: add amdgpu support to igt_dmem_driver
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] PCI: Fix BAR resize for devices on a root bus
-To: lizf@honeycomb.io, Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- Jon Nettleton <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>,
- Jacob Martin <jacob.martin@canonical.com>, stable@vger.kernel.org,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
-References: <20260731-pci-rebar-root-bus-v3-1-6732e233fc99@honeycomb.io>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260731-pci-rebar-root-bus-v3-1-6732e233fc99@honeycomb.io>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178844546639.4187522.4861224414337041204@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: CEDCB5FA2D
-X-NC-CID: zORuCAgHZHstxjntIQgw+JFi+TKMTqleiG9N7o8t+oVYOsd+QW4=
+Message-Id: <20260903-dmem_max-v6-6-61dc62970fae@igalia.com>
+References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
+In-Reply-To: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, 
+ maarten.lankhorst@linux.intel.com, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+X-Mailer: b4 0.16-dev-62088
 X-Mailman-Approved-At: Fri, 04 Sep 2026 07:30:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,21 +64,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/31/26 19:34, Liz Fong-Jones via B4 Relay wrote:
-> From: Liz Fong-Jones <lizf@honeycomb.io>
-> 
-> pci_do_resource_release_and_resize() releases the device BARs that
-> share a bridge window with the BAR being resized, but when the device
-> sits directly on a root bus (pdev->bus->self == NULL) it then skips
-> resource assignment entirely and returns success, leaving the BARs it
-> just released unassigned (IORESOURCE_UNSET).
->  [...]
-> Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
-> Cc: stable@vger.kernel.org
-> Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
-Liz Fong-Jones: is this regression fix still needed with 7.3-rc1? I
-assume so. But if it is, I guess it would be good to state that; maybe
-reposting this might be even better, as I fear it might have fallen
-through the cracks.
+This allows dmem cgroups tests to run on top of amdgpu driver, adding
+support to allocate and release VRAM memory.
 
-Ciao, Thorsten
+This does this by allocating a BO from VRAM domain, which will try to
+place BOs on VRAM, but may fallback to GTT.
+
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+---
+ lib/amdgpu/amd_dmem.c | 90 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ lib/igt_dmem_driver.h |  1 +
+ lib/meson.build       |  1 +
+ 3 files changed, 92 insertions(+)
+
+diff --git a/lib/amdgpu/amd_dmem.c b/lib/amdgpu/amd_dmem.c
+new file mode 100644
+index 000000000000..cb0fed4b870a
+--- /dev/null
++++ b/lib/amdgpu/amd_dmem.c
+@@ -0,0 +1,90 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ */
++
++#include <errno.h>
++
++#include "igt.h"
++#include "igt_cgroup.h"
++#include "igt_dmem_driver.h"
++#include "lib/amdgpu/amd_memory.h"
++
++struct amdgpu_dmem_ctx {
++	int fd;
++	amdgpu_device_handle device;
++};
++
++static int amdgpu_dmem_init(void **ctx, int fd)
++{
++	struct amdgpu_dmem_ctx *actx;
++	uint32_t major, minor;
++	int err;
++
++	actx = malloc(sizeof(*actx));
++	if (!actx)
++		return -ENOMEM;
++
++	err = amdgpu_device_initialize(fd, &major, &minor, &actx->device);
++	if (err)
++		goto out;
++
++	actx->fd = fd;
++
++	*ctx = actx;
++
++	return 0;
++
++out:
++	free(actx);
++
++	return err;
++}
++
++static void amdgpu_dmem_deinit(void *ctx)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++
++	amdgpu_device_deinitialize(actx->device);
++	free(actx);
++}
++
++static char * amdgpu_dmem_get_region_name(void *ctx)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++
++	return amdgpu_cgroup_region_name(actx->fd);
++}
++
++static int amdgpu_dmem_allocate_vram(void *ctx, size_t len, void **ret_handle)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++	amdgpu_bo_handle handle;
++	int err;
++
++	err = amdgpu_bo_alloc_wrap(actx->device, len, 4096,
++				   AMDGPU_GEM_DOMAIN_VRAM, 0, &handle);
++	if (err)
++		return err;
++
++	if (ret_handle)
++		*ret_handle = (void *) handle;
++
++	return 0;
++}
++
++static void amdgpu_dmem_free_vram(void *ctx, void *handle)
++{
++	amdgpu_bo_free(handle);
++}
++
++const struct igt_dmem_driver amdgpu_dmem_driver = {
++	.name = "amdgpu",
++	.get_region_name = amdgpu_dmem_get_region_name,
++	.init = amdgpu_dmem_init,
++	.deinit = amdgpu_dmem_deinit,
++	.allocate_vram = amdgpu_dmem_allocate_vram,
++	.free_vram = amdgpu_dmem_free_vram,
++};
+diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+index e6998387eff9..f2d9d74196db 100644
+--- a/lib/igt_dmem_driver.h
++++ b/lib/igt_dmem_driver.h
+@@ -30,5 +30,6 @@ struct igt_dmem_driver {
+ };
+ 
+ extern const struct igt_dmem_driver xe_dmem_driver;
++extern const struct igt_dmem_driver amdgpu_dmem_driver;
+ 
+ #endif
+diff --git a/lib/meson.build b/lib/meson.build
+index 022408ce6864..e191793f0097 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -205,6 +205,7 @@ if libdrm_amdgpu.found()
+ 		'amdgpu/amd_mmd_shared.c',
+ 		'amdgpu/amd_jpeg_shared.c',
+ 		'amdgpu/amd_utils.c',
++		'amdgpu/amd_dmem.c',
+ 		'amdgpu/amd_vcn_shared.c'
+ 	]
+ 	if libdrm_amdgpu.version().version_compare('> 2.4.99')
+
+-- 
+2.47.3
+
