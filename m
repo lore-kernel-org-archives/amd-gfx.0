@@ -4,120 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BFA6C624D6
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 02:33:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F687C61DD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 04:02:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7508B10E065;
-	Thu,  3 Sep 2026 02:33:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC7DD10E013;
+	Thu,  3 Sep 2026 04:02:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4DccO1Xf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GIsKuHAt";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012015.outbound.protection.outlook.com
- [40.93.195.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BDAE10E065
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 02:33:38 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013040.outbound.protection.outlook.com
+ [40.107.201.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 252FF10E037
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 04:02:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tcqq2E1LAGWdpfCqQZAOHB8berQiIMeE9g5tx32rsFEj1f+SS6iO4AYvasR8sz1t/MXwyE5az7xyFCS1tVY+aVFhHI2rKITjrOk8rOIlAMmoFZgrLlXim/ylwgxVRu8shqOWPutRfjTTbcr4CHdf70eDxu/8u9+q+MaEYxc183akHqLs0C+lFOGzXWbtlEbE13LnAMfjh/pZt4qsr8eNI+sWNEUC+gyEjErPO6YbkyUV5nWxicpJyrGA5mPNf0T4s9Dbhgw0lTaGKH3cRRlpN4dDmkTV9C9D107bFCra+vwAEIfy0ItXBpOOgkM8Kl4di2q1BUm22141nWSoiHVu+Q==
+ b=cBr9uaN8JvlzyQunwZ1JfPJyjPSke378t0pHY4Gfb+Uz5Z2bEQiDSOzjObq+TJ75a4U0DL/nDaQ+8FSVNLAIAq4xwEIiWfXcyauhHLgpRuc6Wk46NwbxTNvDhWgTgCiducF9+qcf282DuCxznVMVec4JGSJRCtskXcz0miJxvkQbaDw+ze3oEpL9bftbHn8JaeK1egz2uUSMMo1qDS2j1TOOpC+Ar9N2SzfusNAieBHFLGgPS5dU5j4FgBtZ2z48SRsmaeZ0UU8nFn+7+Arpv5mTAc6abTynYXyJV3Itu9kjvptuz2BCLv2qexdlwDMj2LjAAaKbYSxuHGq9SeEqGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jk7QlNatlSsgZ0LJvpXBHxkn4EARz+FdlJVJeVvw0GQ=;
- b=QJN3m1eRWCDWGvgO5SLB2KWpgA5dO2L3ToJc6+tLVGOuXUYdrrNctkcvHtVcCKw0C6laN14R1tdleVzx7U1WaFxpplq13Qct3FrHzslAxoBAJV29btsw9Bw9YvT4WO+Y7iXzKs5O944cCdJN9QesSDhz9bOSguU7AunQjWuPtDq8mWGnCzetf3SVBzhUu+4Z1li3ruvl39UOrV5qP8kcHwYU/q+EU7pE7ZskTzSNI52plN8kQNFCkq/XyHM4O7IN7w6TkpBBl1yMAfUMGMwCi1wp/785aGJUTaBKgF/E4FLDzQ7E59GF7e8ucW2s7qxPgh0/muErK+9K0K8QjhpZYQ==
+ bh=NK/A+zQEAAhb0lFJTQIWlYz4KnMPcXYZRW2apaPcr0g=;
+ b=vEQpPtgIznj98oAGCYiTX2U0/SsLyl/pFZ/0B2g5bcpAkMRi2SHuI7RAdtzhLLxzR1Suj3elIwKp23gMwPSOLL02sGJttanxqwYqDSYF82iVyPuULDZCJ/nsLZhkMKIJziJcQGEZv9uTp5Xvdj64e9wenB1LgUeH1ZqnWEK40ageTlCmFFEbhnajLYJc1tDpEjstmNKlQ144NR6Tk3Qbt3XuQaWtVIU/Skdj1cC5dFNS2UXvq44AAeP0S2JrlyVgegGiUFzW0/nOkj3BdLBd5M1yo+wTwpoAlG6Zq9u89UmRP31ZXYjCraUswM2F9pFuO3GYeFkUrEKC976rscu4Lg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jk7QlNatlSsgZ0LJvpXBHxkn4EARz+FdlJVJeVvw0GQ=;
- b=4DccO1Xf58R/JdMJwDRfW1eeetc2L8ShU4rIrgm3GBAUOUIrhMqhsyKOi+K8kR5yqiwTU8QsH3Jsdnx5O8epHXw8SShOWoGNL5f3Ac78iP4MYfjHIZBuW1AFFV9hQlzfV8NxWm7f1DzPsQO3r30Fhcd+8u8OM8R4Mk5sw4xudYc=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- IA1PR12MB8494.namprd12.prod.outlook.com (2603:10b6:208:44c::11) with
+ bh=NK/A+zQEAAhb0lFJTQIWlYz4KnMPcXYZRW2apaPcr0g=;
+ b=GIsKuHAtGPEOD+5Lwln7+EiwpPHJvHGqDRpMpmSy4JsfUwbT+Gr6XjLJeCNQvIvTiTYOKerPbw3V6QzvIdSK6W8EUEm2a9M/vs48ItgKxQjjQi4jiENo60QZ9GmoeiSXYLt0s/es5/qHEG09UQ2suKlRRX6hHWGNRILBnnNsWy4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by DS7PR12MB9475.namprd12.prod.outlook.com (2603:10b6:8:251::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 02:33:32 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::ab84:617d:61a9:3727]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::ab84:617d:61a9:3727%6]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 02:33:32 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
+ 2026 04:02:25 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 04:02:25 +0000
+Message-ID: <f2755b35-ef95-4067-b5bd-0a37ee1df457@amd.com>
+Date: Thu, 3 Sep 2026 09:32:19 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/2] drm/amdgpu: Add kernel VMID trap handler
+ infrastructure
 To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu/gmc12: drop duplicate gmc.init_pte_flags
-Thread-Topic: [PATCH] drm/amdgpu/gmc12: drop duplicate gmc.init_pte_flags
-Thread-Index: AQHdOyQNCQBjtg3BgEmRw/N6annDBra8It0Q
-Date: Thu, 3 Sep 2026 02:33:32 +0000
-Message-ID: <DS7PR12MB6005295E8C718195187C5827FBB62@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20260902214241.2903550-1-alexander.deucher@amd.com>
-In-Reply-To: <20260902214241.2903550-1-alexander.deucher@amd.com>
-Accept-Language: en-US
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20260902150656.183333-1-srinivasan.shanmugam@amd.com>
+ <20260902150656.183333-2-srinivasan.shanmugam@amd.com>
+ <ae477cda-c0be-4a26-8aa4-95a836500e7c@amd.com>
+ <IA0PR12MB8208E904460F474C4975950690B72@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <SA0PR12MB70916914036CA157754EAAC497B72@SA0PR12MB7091.namprd12.prod.outlook.com>
+ <BN9PR12MB514657D40AC8B41594720A93F7B72@BN9PR12MB5146.namprd12.prod.outlook.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-03T02:33:16.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|IA1PR12MB8494:EE_
-x-ms-office365-filtering-correlation-id: c64be6a8-998c-4de1-dd30-08df0963bf19
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|10067099003|18002099003|56012099006|11063799006|22082099003|38070700021;
-x-microsoft-antispam-message-info: Iw1Ph1QZfd0M5KCYQCE3PLl5URa5RHmiCv3VWDvXejEUaVKH/ArG4lE9CqRtsxyM5UZBmIjo06z/Nq51wlQpVGXSz3KlGiQ/F5RaickseG2zPgaO5wj5iOJNeXUh8IImBXbGTlg1NfvV2g7T2s5s39T1p0EpShIE2LMrniEOxvrHGQsg7NDFFOYdu2GnVr+DJvSC+/NhmffaLN4lil8v9I6z0MwaBVpmn3eK0ILXBtoZeOjUzPI5HcWCMYZ8V35Ci2hwiEbhsXIWbR834/ZNAxG6dDPQusM1Yes2a+d1hW39t65rON/irZnsJJS3sy9N5kMc7ZNdQwt3x0dItYtg2xE2Ml0T/kyWcw5xu+xGJ0qwHJVML7xH8GN9609oCqYa8KaNW7h38LJV9PswT9rpehJxKhk4QOZPak7H9drdEori1lYSNrnLs2JiVl8OgQolaVMYoZ1oFKhS0CPMO+6nedHsYsHXyUruNloBaXy4qAqTY1d8uNdGP6bMCbEt0v1YHtpWZSleMUvn2i3rhia2iGmmFebaguaxaXo7Bb8G+jMS78Rp1n7RSl3vcX4Q+AOlPIgHcNFsAJrJjTXMOAwglon1HiPSCMSMTkemkvuywIJs5xU+rVFBSCF3rOwm422krG5IYMKdaYeTNYw0G3vCxyZGyVls7Uw4iq9t5kSU95SoBoBYQXz5I+hunKlKuTxPwTHh+qrX9Yw7UVvy2iv3dHIyyxODf0MAI4ZkVdnBtIw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(18002099003)(56012099006)(11063799006)(22082099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?9RK67D2EHDUPBg4g9l86LEC2Jl9nS89zmXu7VRztkg/j3sTg2yO+EtTuFrWO?=
- =?us-ascii?Q?Ty2H/bGc27g/ReToYcrpB/LaGG7TsQKesRakbBi/usNg664sJgqPh07nIzia?=
- =?us-ascii?Q?WL5vVKxTVlD8fbFMiGDUD7LUrDTYmmznW6YgcvrzlvlNLan9dPTHJdCX+4+3?=
- =?us-ascii?Q?WTGcmYHHh6qh6kXx5kaYxRCslPXWdN+BVBpRbNlcmSTT+DpZI9tUZUNqGiOt?=
- =?us-ascii?Q?ksu3ivIl1EiarcKyoeMTQPkHmcqj0WoRFB194ASdjdhro/bg+gWiDMLkHoC+?=
- =?us-ascii?Q?HHIvLs2mvwPqJWxrjZHuG3jmHbqeDGQAHxa1x3x8vMec5L/ChCb9nm4Vst2U?=
- =?us-ascii?Q?QYTL4pohhsUx0EEAauLmY0itjLht6rT+YWgG9hj2ZFdMcY/j3xPxSiyphwOD?=
- =?us-ascii?Q?T88xHF/s+hPeI3osR0isf7+f1n/bFeDEHI4l0dUJ3N/P5pTIIlexiZPZkAEm?=
- =?us-ascii?Q?GA4HzNGvPA+Oja4z/syoem/OE4DaEWPwUd9ADz3qe0v8L+ue/1NZVw+4RInF?=
- =?us-ascii?Q?NzvZEwFeiVSn9wyazOuFXkQdRZrMvxU+iG3ggcYdyfxm1t/rdKrYyZTgR1OC?=
- =?us-ascii?Q?XJC+uFjXIgiL1q/7wf/46BVmEnDCjMPlIdny6uGkLpvw4yXpDY9VmF/tYsnH?=
- =?us-ascii?Q?EqrcF7x0Y5bEaj4ncAD2rJf8iMoJx3auF6+A14aYkn7XBDclYPFBkmYUbJv8?=
- =?us-ascii?Q?gGUJxEvtqARCeys1X3P88rM6UNA4iwcuy/kB4Nrboh5+LDgCdVd5wXbUNHhG?=
- =?us-ascii?Q?eA/aPU9sZiiPmphUJ7l8BQZmPmY5MUmLtYG3NxOPLoxt1mUQ6yIXUC74Dmf9?=
- =?us-ascii?Q?FxtXT0bllqFF6gUmLJ6jLdfBtEwGcrJ13E94mWV51cmVJL37xlJgkU0VCeVi?=
- =?us-ascii?Q?YlYocc4dUv6NSVEGe/W/llI8MRqEwTqSvOMDjyg8kHq9EERKS+w/VRN+n1hR?=
- =?us-ascii?Q?GVVry+05xrICoAmho+loXPH+JaRLogVKItMAnaREGBHTOx25YgTSCv787GAI?=
- =?us-ascii?Q?Eyd0bdmwv/453Vapg003KqYQFR2JyC3V+3qWfhZA5aL6IFD8xRvF5xqlnb0b?=
- =?us-ascii?Q?MHmC+0391XOutZRnZFkkVy0Zb04WTZYv7N9ljUCUR9TeEBT5AHpp4QtfusN/?=
- =?us-ascii?Q?tX7YUms1o/zJMWvQqS+WB+0RkPp8kxXFdGVMOebLVNf0ML06Ynm3bvWYgS7q?=
- =?us-ascii?Q?FTmWgcoK6o3VZaPHcyUKXDm0Ny0jGRoelFR2Ud4AB3oVYjdOvpjajQng1ZOv?=
- =?us-ascii?Q?UHykLLzTOIenToTYdOROvOv0mUhdcGudQcL6NKHTypjZZZ1UqTWMyTMiCx/F?=
- =?us-ascii?Q?DvwOCdhWCdY7UZNO70NFK8HMwMAe4FvcRl2FPwPvvI5EA6X3f7b+m6qyvWOF?=
- =?us-ascii?Q?kCEQGlrjsKT2NM55Z8l/76KnqvXXHuiSjzCzSpF5I49EqEW7/nk+Dakj+OKR?=
- =?us-ascii?Q?bOIbylGC2g9AFpnIaSRUwzFFma0vzk/kLfdORN8z14Ny4jTizsSOsq7nUqFa?=
- =?us-ascii?Q?jLERftQgSF94tgJfyrn+f6Ty6hafr+I4AxWn6Kc8jMmZQJNc2clVmFWJYkMJ?=
- =?us-ascii?Q?Dyq6jM2can5I0yqVmArxOsg4erZ+MrQL8YYQunmqdNF+wiGHOLOZy/T0nAZN?=
- =?us-ascii?Q?XdISdhRnm3swOrfTwN1nWSZC1SKIlqagV3lNrqHFCUE3xG0JJdMZhHFMVOkC?=
- =?us-ascii?Q?piD012Zxpeoq88f/Ts635ArRsQZqgrIAkCsEJMaMOb5D8xiN?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <BN9PR12MB514657D40AC8B41594720A93F7B72@BN9PR12MB5146.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA0PR01CA0104.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:af::10) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS7PR12MB9475:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5ef6d22-aad3-4dfb-9760-08df09702994
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|6133799003|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: SfMoq7W7x3GFS25TbvpCs50l2M3GIRMHey3qNBB0Fx0jeZGgvUVTTbbBYviTPejc4ZbDnwPjOfBoHwIHpq6i5vrCA9a76qbvWdp++ZTdX/VXht2SIIU11LHiErfzoLvbQRkBMzK6XarvbOcUH8ZhkXERaxIcZhTeu1xWGNEdL8MO5Djcbc3s1n7ID2gWtAV6vtKGsdDS23i87RPqOJ988sGVfWXTJmcWS/TqLAPROPeW5HlXkMp7lSxfsFgwUPIxtYU8nBfVemuS8IVIcGStitbN29+vD4M+vOzWdAsPvBnTPe4YbN+RaqYlNtGWGmxGRR4z9YOWAmVG7/NCSkgN8bgJpwK/oCT49PYWUBLKSli4JbyQaF5uYOBgwsReisFrxhDXYJ0ygobCEFBZk/NQ8pRXAhlkL/HCyZaJMnohuJzRDe47JUONBKqCJKKKcTq0ZVYj1SG3eOwWVMwpU2aS2fxMbDU3UM4sNLogEoXmgSYe2oo2iGOKinYDLARftC1m0ZhatomuVUqrXp/SoHaTPlIjm2ajBzIWuUlcwPXyFwlGZMzohgNksdWNMUwJ5mxeuZbKq6neKuOo9VjOazi/0Tb1Qj/ph+gMbZblKmHWgOMWszdUyVez9+ijzER1IpE/53ErU/axHlfh7XA09v798WnJ4vtQKdE8I10Li3M9Q9M=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXFxNnNuNEhyaEMwb0lmZWtlRkFOQ08xVmlDTzJDM0hGYWlGU2FoZTVGaGxX?=
+ =?utf-8?B?MmF2UXp2VHBCWW5FQTJaMFpYZjVPc3NtUCt4NGdlcjlETSt4Q21zLzdZdE1C?=
+ =?utf-8?B?cjhXbXJsYkRHdlRvcEdmZEpmQ2dqVko0MGUxbDFSbTF5ZUpHOGsxWVViTW42?=
+ =?utf-8?B?STBseXdXbm5EbDFlNE9zb0xKMVpRcEYvd1M3WHlPc2dIbDExL3g2S2Zlcisw?=
+ =?utf-8?B?TmwxcDBENUR0V3BveTAxa0dUWlIzeXYyS1Z3UU1aaHdKVTJGU3J4NlcybHcv?=
+ =?utf-8?B?WVo1SWJwSXl3dWttZGgwd05jUjgySmtXcjFzT0d0QjZOU2hXN2pXdVRyeTg0?=
+ =?utf-8?B?dm9nU0hYTFl3ajJlUUFIS3Y3YUNFQkJtcTMvMXgvaUh0M2h6amZqZWtOWDNQ?=
+ =?utf-8?B?WVNMb2YvNUx0SktENml6MytBY0x3cjJTUVlrNVp4QzJDbituREowaHB5MW00?=
+ =?utf-8?B?NjV3UEJNSlczemJpdXRMQjFGNE9lYTZNVEh6cmEwQWwyV1V2TXBQNHVOTEZj?=
+ =?utf-8?B?MEY4UFZ4NzE4M1Vsa3FkQjV6QnNaOURieHRlNWVtY3dvb0tWWGYvUzZDckZz?=
+ =?utf-8?B?MmdBQVdZOGx3VGcwek9veHRBVFN0RlRyYWN0R0RiczVUSzF4ZFdkbWNNc0Np?=
+ =?utf-8?B?Z2tIdWpZdjdBK0h6OEJJWncxbXdYZm1SZGdibTUxbnJoZDFNb3FtS1QxRFRt?=
+ =?utf-8?B?N3F2SFZrbmlrOFVNQ0NyWEdlamhZZkliYXRjWjA3YVpzUitFM0x4a1ZCVlBo?=
+ =?utf-8?B?anJXNm9kM2w4QjRNWWYwbHU0UHhJU21LMEg0aXRLa1pIb0ZKeTIyWG00MXZx?=
+ =?utf-8?B?aUNpK3VGZ1VMUzRlV1FVS3E1QUx6WDF1S1JJTmN3WEZmZ25JaWhuRFI2NzY5?=
+ =?utf-8?B?ODlCaDgyb3VoVUNCb1JObjBRSnRyU0dCcFJ0b3ZEbkVreTVpL1dGcDcydnU1?=
+ =?utf-8?B?MmVFWUF0WFRScEJ0Nk0xUzlOYWtqYTUwRG1DSm9hZW1kSkk0WGxLZTRjUFFO?=
+ =?utf-8?B?Mld6OGM2UURhQXY3V2wxR1J5eVR2VFVabnRFRm9oKzlDSWdkZ1F4THc5UlM0?=
+ =?utf-8?B?TDBhM0JKdEIybXM2djNwb2VSKy9Bd3R5bkZVVFdFSXlVZEhRVUZKUmZQYnFq?=
+ =?utf-8?B?YXFkWEhLS2VtZmdieXo4dEQzY0c1WS8vR21pemRnRXRBd2ZxbHRPMUw2Vnpn?=
+ =?utf-8?B?YUplUFVMTFlZaVpqV3A5VmZrN2FKREZ4U1lNb0pnS2NyOXczandXbjFSVVJL?=
+ =?utf-8?B?Wlp1aXNoWUFlM3FZVmwydVdOcUQyNGNEL1kzR21ub3JmS3k1TjQvMFpLTWRr?=
+ =?utf-8?B?RVhQLzBGbTRlaXRySm9LYzA5VVlkc2tRcWdVQkpnTVNDeHJkM0s0SFN4YWRV?=
+ =?utf-8?B?eEdqclloY3FEZHord1RBWDR0TnFSeWZNK1Y5UVlaOUxWUHZrZXFUbWhCTERE?=
+ =?utf-8?B?Rzk0cWhjYis1K3kyZlVxK0tNa3Z1Uy93TDJjOEZmaVdYOVJKOXoycldiMUc4?=
+ =?utf-8?B?Ny9pZmNxLzliK3Zhc2UrNGZCRzNvc25HL0Jjc2p5Qm5qRnhVQ29xYnV4cnh3?=
+ =?utf-8?B?cjRWamVZbS9hRkF2QzhkSjFleEdJYXB2MkhxYnpWVUtZNkNXYW1zemhRWExI?=
+ =?utf-8?B?WGFSeDlkcXUxVGVkbWEzM1A4UmVNSVNYSXV6elNRZGJ1ZFlHQkNlTlpGY2Nt?=
+ =?utf-8?B?WWpBbXhxQkhYZGxta2I5eWhnNUJXSi9DZGhLMCt4MG91R21jRzlXNkV5TitO?=
+ =?utf-8?B?R28wc1oreEJzekFCd0FVQXMxc0lTVlVjZVorTlJWN0tKNUhBOU4ySkFRSU4z?=
+ =?utf-8?B?Vm16a1hxOXNwWnhCSGZSMHRVTmNyWDdISUQyVnM3dkJxK3laeVVKdVBzdVh3?=
+ =?utf-8?B?cGZlL1F5OWkzY3FUbThXQjNkN3R2R2xiNkdnRExoYkE5VXVYd2V4bUYzaFFz?=
+ =?utf-8?B?OHdXd1VBS1Y5K3RuRDN5T1RyZldVcWpyUnBydVVWT2lyYmEvN1VGb2FtelNJ?=
+ =?utf-8?B?Z1YybU0vZUM2V2JCTE9UakRpR3J0VE04a3VYV3VaTEl4eUFVbVQ4dmtCMnNp?=
+ =?utf-8?B?eGdhWUF3bmFLZ1BrbkJTSm9hMmVPWDlaam80N05tLzc0MjhJMXR6OUNMY1h5?=
+ =?utf-8?B?SUdHYzdQb1dkcTZtcDVqYngyN0oxTXdxUjdwamhqUmQ1cGdCSjFqbWlRTGZX?=
+ =?utf-8?B?dnNRcG9xNDRVaHhHTTFkU0lrd1Npb3RYSW54NlFEYWFSWWRHTTFRenJRc3Mr?=
+ =?utf-8?B?YmJqRkpWaExQMnVDa3FpanNDRHErT2dpMHVwbnpOTDdDVEhFeVlhWmRlK2Q5?=
+ =?utf-8?Q?Qs4sknWYzSZi10k0LE?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5ef6d22-aad3-4dfb-9760-08df09702994
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c64be6a8-998c-4de1-dd30-08df0963bf19
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 02:33:32.2415 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1adMx161/x7lkUrm/spdtJ6rs2rO6nkop8Eodv4MmOXah9TWju3y+twMP/TRUoaj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8494
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 04:02:24.9874 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e/swcXV+zSiV9bJRjKw7E/bifP4OoAUEp4clDq659gtzTOtOwiB13u1yUujE/PqA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9475
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,44 +142,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
 
-Reviewed-by: Prike Liang <Prike.Liang@amd.com>
 
-Regards,
-      Prike
+On 02-Sep-26 10:25 PM, Deucher, Alexander wrote:
+> Public
+> 
+> 
+> For kernel queues each IB executes with a kernel provided vmid assigned 
+> dynamically by the kernel driver.
+> 
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> Deucher
-> Sent: Thursday, September 3, 2026 5:43 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH] drm/amdgpu/gmc12: drop duplicate gmc.init_pte_flags
->
-> This is now set for all GMC 12.x variants in
-> early_init() so drop the duplicate setting.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> index 0cc73982ed6f9..b6cd6babb035a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> @@ -861,7 +861,6 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block
-> *ip_block)
->               pte_addr_mask =3D 0x000FFFFFFFFFF000ULL; /* 52 bit PA */
->               dma_addr_bits =3D 52;
->               adev->gmc.translate_further =3D adev->vm_manager.num_level =
-> 1;
-> -             adev->gmc.init_pte_flags =3D AMDGPU_PTE_IS_PTE;
->               break;
->       default:
->               dev_warn(adev->dev, "Unrecognized GC IP version: 0x%08x\n",
-> --
-> 2.55.0
+In this case, it's a device level TMA 'kq_tma_bo' for first level. That 
+address is programmed in SQ registers. When a job is submitted, the 
+second level handler is picked from what is programmed in kq_tma_bo. Do 
+you mean to say that driver will change that value dynamically based on 
+what is provided by user?
+
+Thanks,
+Lijo
+
+  > Alex
+> 
+> *From:*Lazar, Lijo <Lijo.Lazar@amd.com>
+> *Sent:* Wednesday, September 2, 2026 12:12 PM
+> *To:* SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Koenig, 
+> Christian <Christian.Koenig@amd.com>; Deucher, Alexander 
+> <Alexander.Deucher@amd.com>
+> *Cc:* amd-gfx@lists.freedesktop.org
+> *Subject:* Re: [RFC PATCH 1/2] drm/amdgpu: Add kernel VMID trap handler 
+> infrastructure
+> 
+> Public
+> 
+> I'm not sure how this works, I thought the TMA mapping is per VMID and 
+> kernel queues have static VMIDs.
+> 
+> Thanks,
+> 
+> Lijo
+> 
+> ------------------------------------------------------------------------
+> 
+> *From:*SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com 
+> <mailto:SRINIVASAN.SHANMUGAM@amd.com>>
+> *Sent:* Wednesday, 02 September 2026 21:29:38
+> *To:* Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>; 
+> Koenig, Christian <Christian.Koenig@amd.com 
+> <mailto:Christian.Koenig@amd.com>>; Deucher, Alexander 
+> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>
+> *Cc:* amd-gfx@lists.freedesktop.org <mailto:amd- 
+> gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.org <mailto:amd- 
+> gfx@lists.freedesktop.org>>
+> *Subject:* RE: [RFC PATCH 1/2] drm/amdgpu: Add kernel VMID trap handler 
+> infrastructure
+> 
+> Public
+> 
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
+>> Sent: Wednesday, September 2, 2026 8:59 PM
+>> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com <mailto:SRINIVASAN.SHANMUGAM@amd.com>>;
+>> Koenig, Christian <Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>; Deucher, 
+> Alexander
+>> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>
+>> Cc: amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>> Subject: Re: [RFC PATCH 1/2] drm/amdgpu: Add kernel VMID trap handler
+>> infrastructure
+>>
+>>
+>>
+>> On 02-Sep-26 8:36 PM, Srinivasan Shanmugam wrote:
+>> > MES owns kernel queue VMIDs (1..first_kfd_vmid-1) but does not program
+>> > SQ_SHADER_TBA/TMA registers for them. Add infrastructure to let the
+>> > driver program the first-level CWSR trap handler for these VMIDs
+>> > directly via SRBM select.
+>> >
+>> > Add kq_tma_bo — a pinned GTT BO used as device-level TMA scratch for
+>> > kernel queue VMIDs. Unlike per-process TMA (created in
+>> > amdgpu_trap_alloc), this is device-level and lives for the lifetime of
+>> > the device. It is zero-initialized by the OS: the second-level handler
+>> > address is 0 until userspace calls SET_L2_TRAP.
+>> >
+>> > Add amdgpu_trap_program_kernel_vmids() which dispatches to a per-HW
+>> > vmhub callback, and a new program_kernel_trap_vmids hook in
+>> > amdgpu_vmhub_funcs for per-GFX-generation register writes.
+>> >
+>> > Required for:
+>> >    - RADV graphics debugging on Vega/Navi/Steam Deck (Valve request)
+>> >    - Consistent trap handler behavior when switching between kernel
+>> >      queues and user queues
+>> >
+>> > Suggested-by: Christian König <christian.koenig@amd.com <mailto:christian.koenig@amd.com>>
+>> > Cc: Alexander Deucher <alexander.deucher@amd.com <mailto:alexander.deucher@amd.com>>
+>> > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com <mailto:srinivasan.shanmugam@amd.com>>
+>> > Change-Id: I0709e788835b69d3d492864de8d5c2d36d0f08c8
+>> > ---
+>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  1 +
+>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c | 37
+>> ++++++++++++++++++++++++
+>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h |  2 ++
+>> >   3 files changed, 40 insertions(+)
+>> >
+>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>> > index 3ca187f5ade8..5624a5ab5c62 100644
+>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>> > @@ -115,6 +115,7 @@ struct amdgpu_vmhub_funcs {
+>> >     void (*print_l2_protection_fault_status)(struct amdgpu_device *adev,
+>> >                                              uint32_t status);
+>> >     uint32_t (*get_invalidate_req)(unsigned int vmid, uint32_t
+>> > flush_type);
+>> > +   void (*program_kernel_trap_vmids)(struct amdgpu_device *adev);
+>> >   };
+>> >
+>> >   struct amdgpu_vmhub {
+>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+>> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+>> > index 31f653ec3fb1..0e0aeea0aa2d 100644
+>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+>> > @@ -256,8 +256,23 @@ int amdgpu_trap_init(struct amdgpu_device *adev)
+>> >
+>> >     memcpy(ptr, trap_info->isa_buf, trap_info->isa_sz);
+>> >
+>> > +   /*
+>> > +    * Device-level TMA for kernel queue VMIDs. Pinned GTT — not subject
+>> > +    * to eviction. Zero-initialized by OS: second-level handler address
+>> > +    * is 0 until userspace calls SET_L2_TRAP.
+>>
+>> How is the exclusivity maintained as a user app doesn't 'own' kernel queue? How is
+>> the conflict of different user apps trying to install their own second level handler on a
+>> kernel queue handled?
+> 
+> As pointed out by Alex:
+> 
+>    - Each process gets its own per-VM TMA buffer for kernel queues
+>    - It is allocated and mapped at a fixed VA in the process's GPUVM
+>      when the device is opened, similar to amdgpu_map_static_csa()
+>    - Before each job is dispatched to a kernel queue VMID, the driver
+>      programs SQ_SHADER_TMA to that process's own TMA VA
+> 
+> This way:
+>    - App A submits job → TMA = App A's TMA → job runs
+>    - App B submits job → TMA = App B's TMA → job runs
+>    - No conflict — each process has its own TMA buffer
+> 
+> Note: SET_L2_TRAP for kernel queue VMIDs is not part of this series.
+> This series only installs the first-level trap handler.
+> 
+> For second-level handler support on kernel queues, I think since:
+> 
+>    - Each process has its own per-VM TMA buffer (allocated at device
+>      open, mapped at a fixed VA in the process's GPUVM)
+>    - User calls SET_L2_TRAP → writes second-level handler address
+>      into that process's own TMA buffer
+>    - When shader crashes → first-level handler reads from that
+>      process's TMA → jumps to that process's second-level handler
+>    - No conflict — each process has its own TMA with its own
+>      second-level handler address
+> 
+> The per-VM TMA design is the foundation for this future series.
+> The device-level kq_tma_bo will be removed in v2.
+> 
+> For long term — kernel queues are replaced by user queues entirely
+> , where MES already handles this correctly via ADD_QUEUE.
+> 
+> Thanks,
+> Srini
+> 
 
