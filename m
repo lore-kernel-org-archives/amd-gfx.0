@@ -4,67 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D17BC624DD
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E4E0C624A4
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4925D10F444;
-	Thu,  3 Sep 2026 07:35:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E3A710F445;
+	Thu,  3 Sep 2026 07:35:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="N0VNPKTJ";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nIFgOICk";
 	dkim-atps=neutral
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [185.244.194.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15A5310F27D
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 15:00:00 +0000 (UTC)
-Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
- by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hZm9K5Jz3z92ZW;
- Wed,  2 Sep 2026 16:59:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1788361189;
- bh=5FH9gwbLH/+HekiYc9O2WRdCLDx2Be6JSTftBW/ulR8=;
- h=Date:Subject:To:References:From:Cc:In-Reply-To:From;
- b=N0VNPKTJah5wd2zNIeGlFexjZQUcWDML3m1niSebZvvakwFfXrqgHCh2/wouWXv7A
- km1pPBrCuhnwmuCFqGeyw9bpvJ8B8dUZhBxL4IPMOgF6+b5U5PVzGBygOW1nSX0BH+
- mMVKulggrnjYrtXTJcukHE2UtMgiIHHy5K93/+3us555XULskAtYa288BhNvEJBlva
- bDvJRkqVSqjN9fWlN6Vvr/iYTF2D7/sdBE6Ogf2Q6UH+pK7O20N6qVjRq2vS4GpCdO
- Aesjev6+y8dn9LWi7rbqJGMJVZoHy5Wvr3IC37MlmKscZCdTVJDKWRBg6OHShvgTYr
- yyyiRdqk01bcA==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hZm9K4cWyz7xCl;
- Wed,  2 Sep 2026 16:59:49 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hZm9H49jzz8tYC;
- Wed,  2 Sep 2026 16:59:47 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id D508F5F98A;
- Wed,  2 Sep 2026 16:59:46 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <ae44a77f-0272-4d87-ae62-efa612939735@leemhuis.info>
-Date: Wed, 2 Sep 2026 16:59:45 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23BE810E03C;
+ Thu,  3 Sep 2026 05:01:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B95F2600C8;
+ Thu,  3 Sep 2026 05:01:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A52311F000E9;
+ Thu,  3 Sep 2026 05:01:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1788411691;
+ bh=2kGQPFq9LXppYE1eo2N37hwm9OvhxUE69m+em0Ygt+4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=nIFgOICkcv+tJGMP0mvH9BvXBqaQka3h8ePajRHBdWSviBb+3DthRkbpElleLhRWq
+ 0cUYGJw+WBorogxc7/ydKxbPHB1dqVCeyeOCPnoBdmPttGu9J7iVbjg7C/5Yj6rFCi
+ r4SUebaf15uGkL95CnrG525RIrBjPq+Ya5bJF6JE=
+Date: Thu, 3 Sep 2026 06:59:46 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Melissa Wen <mwen@igalia.com>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
+ Viktor =?iso-8859-1?Q?J=E4gersk=FCpper?= <viktor_jaegerskuepper@freenet.de>,
+ Alex Deucher <alexdeucher@gmail.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ daniels@collabora.com, harry.wentland@amd.com,
+ leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de,
+ Alex Hung <alex.hung@amd.com>,
+ Daniel Wheeler <Daniel.Wheeler@amd.com>, kernel-dev@igalia.com,
+ Lyude Paul <lyude@redhat.com>,
+ Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+Subject: Re: [PATCH v4 0/3] drm/atomic-state-helper: fixes for
+ blend-mode-prop warning
+Message-ID: <2026090341-appraisal-jot-6aec@gregkh>
+References: <20260826104143.39077-1-mwen@igalia.com>
+ <CADnq5_MEBLriK_M_atX6FKR5618fiB5DmAWOvxE_e+6nd5FdDg@mail.gmail.com>
+ <83bef197-dfbc-44a5-b9d8-6e0c44488793@igalia.com>
+ <6dda204d-2c12-4442-9893-6449b5ce51c9@igalia.com>
+ <9d5fa2bf-d9e4-4c6a-a9ca-8abf14ad894e@leemhuis.info>
+ <572f78a8-1b09-4275-bca7-0ae8703776d0@freenet.de>
+ <722d96c4-8938-4da4-9eb4-2af50b9d8b26@leemhuis.info>
+ <cba8b58c-4869-494e-9b1c-84483ff8e701@igalia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RX470 - polaris10] Wrong window titlebar gradient after kernel
- update 7.1 to 7.2
-To: =?UTF-8?Q?Stefan_K=C3=BChn?= <familiekuehn@posteo.de>,
- amd-gfx@lists.freedesktop.org
-References: <4c48b807-cd79-433d-b5ee-76bfe72a993e@posteo.de>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-Cc: Linux kernel regressions list <regressions@lists.linux.dev>
-In-Reply-To: <4c48b807-cd79-433d-b5ee-76bfe72a993e@posteo.de>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <178836118711.256994.5369702100575139966@mxe9fb.netcup.net>
-X-NC-CID: jjT6IjHoeQo3xeXL+hbtZ3ZavFJWmHxS9krrB19ZoMjDp3W2WnE=
+In-Reply-To: <cba8b58c-4869-494e-9b1c-84483ff8e701@igalia.com>
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:34:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,83 +77,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/31/26 22:12, Stefan Kühn wrote:
-> recently I updated from a self compiled Linux 7.1(.8) to 7.2(.0) and
-> spotted a possible regression in the amdgpu driver.
+On Wed, Sep 02, 2026 at 08:58:37PM +0200, Melissa Wen wrote:
+> 
+> 
+> On 01/09/2026 09:12, Thorsten Leemhuis wrote:
+> > On 8/28/26 14:19, Viktor Jägersküpper wrote:
+> > > On 8/28/26 09:22, Thorsten Leemhuis wrote:
+> > > > On 8/27/26 19:14, Melissa Wen wrote:
+> > > > > On 27/08/2026 18:37, Melissa Wen wrote:
+> > > > > > On 27/08/2026 15:34, Alex Deucher wrote:
+> > > > > > > On Wed, Aug 26, 2026 at 7:20 AM Melissa Wen <mwen@igalia.com> wrote:
+> > > > > > > > PREMULTI was the default DRM blend mode until 9813e158d13d
+> > > > > > > > ("drm/drm_blend: allow blend mode property without PREMULTI")
+> > > > > > > > introduced
+> > > > > > > > the possibility of exposing the blend mode property without PREMULTI
+> > > > > > > > being supported. However, __drm_atomic_helper_plane_state_init() still
+> > > > > > > > resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported
+> > > > > > > > mode in this property. In the same series, 860e748bddcc ("drm: ensure
+> > > > > > > > blend mode supported if pixel format with alpha exposed") starts
+> > > > > > > > warning
+> > > > > > > > drivers that supports alpha formats in a given planes but doesn't
+> > > > > > > > support blend mode property, which includes AMD primary and cursor
+> > > > > > > > planes.
+> > > > > [...]
+> > > > > > > I presume you are planning to apply this directly to drm-misc for 7.3?
+> > > > > > Right, I'll apply to drm-misc-fixes, just doing it now.
+> > > > > Or not now. I have to wait for -rc1.
+> > > > > I'll keep it on my radar.
+> > > > Hmmm, that sounds like these fixes will miss -rc1. But wouldn't it be
+> > > > good to get them included there, as they afaik (please correct me if I'm
+> > > > wrong, is easy to mix something up from the outside!) the warnings that
+> > > > Greg described as ""It's not good to boot and have a bunch of warnings
+> > > > already happening, resulting in a "tainted" kernel before I have the
+> > > > chance to break anything manually myself...""[1], as more people then
+> > > > will likely encounter this (and then waste time on bisecting an issue
+> > > > known for weeks for which a fix exists).
+> > > > 
+> > > > [1]
+> > > > https://lore.kernel.org/all/2026082651-spinning-cornbread-33ba@gregkh/
+> > > If I understand correctly, the *actual* fix (for all affected drivers)
+> > > will make it into 7.3-rc1, see this answer to my question:
+> > > https://lore.kernel.org/dri-devel/20260826-brave-nyala-of-elevation-d23aea@houat/
+> > > 
+> > > This fix is queued in drm-next:
+> > > https://gitlab.freedesktop.org/drm/kernel/-/commit/271e90eb5f9ff34951647e5ed33c1775eebcca50
+> > Ahh, yeah, many thx, I had see this downgrade to drm_warn() (which made
+> > it to -rc1, yeah \o/), but had not made the right connections. :-/
+> > 
+> > FWIW, even with that done there is now one amdgpu regression report
+> > about this already post-rc1:
+> > https://lore.kernel.org/all/CANkdJ2VvJQSBzyOq=LgSW1=Z8-YiN_r9Py2iJ0UJDo55+dbfuA@mail.gmail.com/
+> > 
+> > """
+> > [...] After updating from kernel v7.2.2 to v7.3-rc1, several DRM plane
+> > warnings regarding unset blend modes for pixel formats with alpha
+> > channels started appearing in dmesg during initialization.
+> > 
+> > [drm] [PLANE:44:plane-0] pixel format with alpha exposed but blend
+> > mode not setup. Please fix. [...]
+> > """
+> > 
+> > Will reply there now. Wondering if we need to do something about that if
+> > more reports like that show up, but let's wait if that's the case.
+> 
+> I just applied this series to drm-misc-fixes:
+> - c3080b58d81d ("drm/atomic-state-helper: set pixel_blend_mode to prop
+> default on reset")
+> - f0c75da0a6b4 ("drm/amd/display: fix missing blend-mode-prop warning for
+> DCN")
+> - 332ad707e38f ("drm/amd/display: advertise PIXEL_NONE and PREMULTI blend
+> mode for DCE")
+> 
+> With this, the dmesg message will no longer appear on the AMD driver.
 
-Thx for the report. There is still a chance that someone might help your
-here, but unless that happens soon I suggest you submit this to the
-central place for amdgpu bug report, which is
-https://gitlab.freedesktop.org/drm/amd/-/work_items/ -- ideally after
-checking for existing reports there. Afterwards please drop a link to
-the report here in a reply.
-
-Ciao, Thorsten
-
-> [HARDWARE/SOFTWARE INFO]
-> 
-> Operating System: KDE neon
-> KDE Plasma Version: 6.7.4
-> KDE Frameworks Version: 6.29.0
-> Qt Version: 6.11.1
-> Kernel Version: 7.2.0-va2635 (64-bit)
-> Graphics Platform: Wayland
-> OpenGL version: 4.6
-> GLSL version: 4.60
-> Mesa version: 25.2.8
-> X server version: 1.24.1
-> 
-> Processors: 4 × Intel® Core™ i5-4590 CPU @ 3.30GHz
-> Memory: 15.6 GiB of usable RAM
-> Graphics Processor: AMD Radeon RX 470 Graphics
-> Manufacturer: ASUS
-> Product Name: All Series
-> 
-> 01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc.
-> [AMD/ATI] Ellesmere [Radeon RX 470/480/570/570X/580/580X/590]
-> [1002:67df] (rev cf)
-> 
-> 
-> [WHAT HAS HAPPENED]
-> 
-> On my KDE desktop I can see the window titlebar gradient is now wrong.
-> The theme is "breeze bright" and instead of a smooth white to light gray
-> transition there is a hard cut. It looks like bright tones are clipped
-> too early to white. And in the opposite (when I check with a gradient
-> graphix in GIMP) dark tones are too early cut to black. It reminds me of
-> limited color space where you do not have the full 0-255 range for
-> brightness.
-> 
-> A screenshot from the titlebar viewed on another machine looks fine.
-> 
-> 
-> [WHAT I HAVE DONE]
-> 
-> I collected some files with debug output from the kernel's debugfs, its
-> dmesg and from modetest. For version 7.1 and 7.2, the latter was
-> compiled with "make oldconfig".
-> 
-> The display is connected with HDMI (HDMI-A-2). DVI is unaffected.
-> 
-> 
-> [FOUND WORKAROUND]
-> 
-> Using DVI cable OR changing "kwinoutputconfig.json". The property
-> "rgbRange" from "Automatic" to "Limited". On Linux 7.2 the gradient is
-> fine again. On Linux 7.1 both options are okay. Which I find strange?
-> Should "Limited" on 7.1 not be "broken on purpose"?
-> 
-> 
-> [AI OPINION]
-> 
-> For completeness: I can made the OpenAI chat available. It points to the
-> "HDMI state" and wants me to check "broadcast_rgb -> output_color_space
-> -> qs_bit -> Q0_Q1".
-> 
-> 
-> Please let me know if I can be of any further help.
-> 
-> 
-> Regards
-> Stefan Kühn
-
+Great, thanks!
