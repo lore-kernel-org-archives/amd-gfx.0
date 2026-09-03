@@ -4,80 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19534C79F85
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDE26C79F80
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:30:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9387310F8D4;
-	Fri,  4 Sep 2026 07:29:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9402110F8DB;
+	Fri,  4 Sep 2026 07:30:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lyKFdWdx";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rieigs4z";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0102610F8D5
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 07:29:13 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-49b8be0409fso4596905e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Sep 2026 00:29:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788506952; x=1789111752; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=VH693aZWqTFohLEaFlmz+59mfLrTNfzbiznohx60gs0=;
- b=lyKFdWdxCjgBV0jUwCk6SKftrycUBfYO2sLTVcx5qtm3YfZelG1omXmJYtJxvXeBVI
- oebFuYhp3Iqeu7efTLHUHgTjVhNHjsL0Vraw1fm2LWaI6R2kEDiK0I45C+dq9I62WxhR
- JoiSEOlM5fM5VdbSW/3fj1o6om4631wnT1E9vUwVL5v1HWIunzSJIJXzPHJdAAymr8A6
- L3WXrBm12t7h9Fxjsm26vOZOeMVyI3PWgSBIKccAQf48tAp3F/hm5LC4AKF7UVhrTOMB
- aPQga8EtMlNxG0U2KSCnZB5YTgLPpXwpmWOqDfGJwXBmfdSXCDTwnUugPvejc8hcMZzw
- caDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788506952; x=1789111752;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=VH693aZWqTFohLEaFlmz+59mfLrTNfzbiznohx60gs0=;
- b=ZjKArWyb0stTpq3qxgN5hY3KVBHRrg9CQaIUvUtCrBp8Als8++VdJxStn/cgjRgMIC
- TXebJ/Qj+4VCMUedRaL77/KFBfEYnum3LsenfBIIOCZZBWOW5MjGRzXwfyuApbk/Z9s6
- dFFo3fgVsncpHzLxXF4YKoKlE3/p9d4MdmgdgslQ5DCkRXhDyQ+jVdhZOJNBa8V5bFJ2
- cse70X/T4wNXxt0fuhjzGJfftmpaL5SZTGyioH89OlNijBW/kZrrPBCIKY7TyY6l3Xud
- ml1dAH/9WCUYoCuABg2cQpS3CR/9ezgX1bn4OFOT9rs9AMcpX1Jw0SukzqN1JlWN/0R+
- tzhQ==
-X-Gm-Message-State: AFuF++niXd0MQmspyMA5x8LURKbXj9OtVza6xoSRB82GYE+pToYfYqiM
- 7mDsZ7Sf9/uk/R8AEIHZCdFxAcbiG2PBkKd0ZEwFWs7+X6ViJeB6+s3pcQwilImwuzE=
-X-Gm-Gg: AYBFou0ck0n9N8YN9rE6/Vwc3QiFbOjGHW5idBBVrJv2rcRnO5BB/ia2FizpuXMcaG+
- tWoootdqaYY9G045QC2MBNxo/UYHGBlcRdTyEd7iMxc2OCqgoYqgJUL4nm2+hTayNfDQW0p0inN
- LcFEbHF2Xd6jXdvvAZN1mp0AcGaMgKtidMdrips3X77RHaGYFtPuQRbX5dOVYp66LWI3zuhiJ3e
- WBtRy2LmvQdMmxxaCm2RmgPn9ApYwFbbup3ze011JnJca1JJTvR9FdVTyjU9oYQFf5y4FlqJUQS
- 25Z/KmES8EYUL5foZvR3DssE/vt1bkQBvZoE9vEOeRw8qg+6bD2eYz47WCaQkLfJrwTYBCUiY7L
- rurxP9bB7f9qcuieoNxz0x4yBmmaiFgQKK4okspGqGWjYAUbjSkcGYZeqXKTyL0JtcFs8UPJVgN
- BK3SCDJCWZ2U0bMlcAxWNJ/HU1C0bTnueY5jq2d9zFFGJBC1L5CaTy+ly4hjMW0Gh0HUnp6+lA6
- xjtBJrbUWSzW/u4QKo5
-X-Received: by 2002:a05:600c:4744:b0:49c:fc6e:a3e0 with SMTP id
- 5b1f17b1804b1-49cfc6ea75amr13481315e9.31.1788506952248; 
- Fri, 04 Sep 2026 00:29:12 -0700 (PDT)
-Received: from Timur-Max (athedsl-4460056.home.otenet.gr. [79.129.254.8])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cf75ce49esm86698155e9.1.2026.09.04.00.29.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 00:29:11 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 8/8] drm/amdgpu/sdma: Use common SDMA legacy queue reset on
- SDMA v4.4.2
-Date: Fri,  4 Sep 2026 09:28:50 +0200
-Message-ID: <20260904072850.321759-9-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904072850.321759-1-timur.kristof@gmail.com>
-References: <20260904072850.321759-1-timur.kristof@gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0459510F7BA;
+ Thu,  3 Sep 2026 22:01:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=i/SdVNg7ipVV5jroVPNhLLd7M3qhPNDI3LUxQhK2Ug4=; b=rieigs4zgja7C+wz6h+cKexhG3
+ B0qv5qWYhbPk5STW+wWbyPlm/V3+4qH9H4DkVXOTLcEuKknwt+jR+3k8u9+kY2LC1dyno1uKnK520
+ tDx4/L8r6UWDRBxwkx65O43ahHV+W2Xr1Z2T1QHwfR0gfHrQ0pSEIIYNW2/wWxxfz2ULlLAF5e4C7
+ LeOo+iPKegfFtAnQXPUoy8RWfF1DbJVdAKNoEmLvwB2Iq6gw9fo+wgMrIsiCE+Lr/Ef0pO5cJSwfd
+ tZdVDQVS1WJyxNagdoNiayONz+GmV3E11iv0Ppi58UDJtvMRDQJjFyhZt4byhd47idTIFmttIDj+D
+ VA9OLVvQ==;
+Received: from [187.43.152.48] (helo=[127.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x2FUX-00EbUz-RG; Fri, 04 Sep 2026 00:01:06 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Thu, 03 Sep 2026 19:00:26 -0300
+Subject: [PATCH i-g-t v6 4/9] lib/xe: Introduce dmem driver and implement
+ Xe support
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260903-dmem_max-v6-4-61dc62970fae@igalia.com>
+References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
+In-Reply-To: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, 
+ maarten.lankhorst@linux.intel.com, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+X-Mailer: b4 0.16-dev-62088
+X-Mailman-Approved-At: Fri, 04 Sep 2026 07:30:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,57 +65,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now, sdma_v4_4_2_reset_queue() does basically the same
-as amdgpu_sdma_reset_queue_legacy() so let's use that.
+In order to be reuse the same dmem tests with multiple drivers, we need to
+abstract a few operations. That includes getting the region name, and
+allocating and releasing VRAM. As there is some initialization also when
+multiple allocations are done, also provide init and deinit functions.
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+The Xe implementation was based on the original operations from
+xe_cgroups.c written by Thomas Hellström. However, instead of doing a
+deferred backing, followed by a bind, it does a simple non-deferred GEM
+object creation on the VRAM region.
+
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 18 ++----------------
- 1 file changed, 2 insertions(+), 16 deletions(-)
+ lib/igt_dmem_driver.h | 34 ++++++++++++++++++
+ lib/meson.build       |  1 +
+ lib/xe/xe_dmem.c      | 97 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 132 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 796ea9f74763..60bb22d0a43b 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -1574,20 +1574,6 @@ static int sdma_v4_4_2_wait_for_idle(struct amdgpu_ip_block *ip_block)
- 	return -ETIMEDOUT;
- }
- 
--static int sdma_v4_4_2_reset_queue(struct amdgpu_ring *ring,
--				   unsigned int vmid,
--				   struct amdgpu_fence *timedout_fence)
--{
--	struct amdgpu_device *adev = ring->adev;
--	u32 id = ring->me;
--	int r;
--
--	amdgpu_amdkfd_suspend(adev, true);
--	r = amdgpu_sdma_reset_engine(adev, id);
--	amdgpu_amdkfd_resume(adev, true);
--	return r;
--}
--
- static int sdma_v4_4_2_stop_queue(struct amdgpu_ring *ring)
- {
- 	struct amdgpu_device *adev = ring->adev;
-@@ -2031,7 +2017,7 @@ static const struct amdgpu_ring_funcs sdma_v4_4_2_ring_funcs = {
- 	.emit_wreg = sdma_v4_4_2_ring_emit_wreg,
- 	.emit_reg_wait = sdma_v4_4_2_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
--	.reset = sdma_v4_4_2_reset_queue,
-+	.reset = amdgpu_sdma_reset_queue_legacy,
- };
- 
- static const struct amdgpu_ring_funcs sdma_v4_4_2_page_ring_funcs = {
-@@ -2063,7 +2049,7 @@ static const struct amdgpu_ring_funcs sdma_v4_4_2_page_ring_funcs = {
- 	.emit_wreg = sdma_v4_4_2_ring_emit_wreg,
- 	.emit_reg_wait = sdma_v4_4_2_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
--	.reset = sdma_v4_4_2_reset_queue,
-+	.reset = amdgpu_sdma_reset_queue_legacy,
- };
- 
- static void sdma_v4_4_2_set_ring_funcs(struct amdgpu_device *adev)
+diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+new file mode 100644
+index 000000000000..e6998387eff9
+--- /dev/null
++++ b/lib/igt_dmem_driver.h
+@@ -0,0 +1,34 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ */
++
++#ifndef __IGT_DMEM_DRIVER_H__
++#define __IGT_DMEM_DRIVER_H__
++
++#include <stdlib.h>
++
++/**
++ * struct igt_dmem_driver - vendor driver to allocate and free device memory
++ *
++ */
++struct igt_dmem_driver {
++	/** @name: Driver name */
++	const char *name;
++	/** @init: Initialize an opaque context given a DRM device fd */
++	int (*init)(void **ctx, int fd);
++	/** @deinit: Release resources associated with context */
++	void (*deinit)(void *ctx);
++	/** @get_region_name: Return expected region name at dmem cgroup files */
++	char * (*get_region_name)(void *ctx);
++	/** @allocate_vram: Allocate @len sized vram and return an opaque @handle */
++	int (*allocate_vram)(void *ctx, size_t len, void **handle);
++	/** @free_vram: Free vram associated with @handle */
++	void (*free_vram)(void *ctx, void *handle);
++};
++
++extern const struct igt_dmem_driver xe_dmem_driver;
++
++#endif
+diff --git a/lib/meson.build b/lib/meson.build
+index b7e1be61d844..022408ce6864 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -130,6 +130,7 @@ lib_sources = [
+ 	'igt_dsc.c',
+ 	'igt_hook.c',
+ 	'xe/xe_device.c',
++	'xe/xe_dmem.c',
+ 	'xe/xe_ggtt.c',
+ 	'xe/xe_gt.c',
+ 	'xe/xe_ioctl.c',
+diff --git a/lib/xe/xe_dmem.c b/lib/xe/xe_dmem.c
+new file mode 100644
+index 000000000000..628c905997d4
+--- /dev/null
++++ b/lib/xe/xe_dmem.c
+@@ -0,0 +1,97 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ */
++
++#include <errno.h>
++
++#include "igt.h"
++#include "igt_cgroup.h"
++#include "igt_dmem_driver.h"
++#include "xe_drm.h"
++#include "xe/xe_ioctl.h"
++#include "xe/xe_query.h"
++
++struct xe_dmem_ctx {
++	int fd;
++	uint64_t vram_region;
++};
++
++static int xe_dmem_init(void **ctx, int fd)
++{
++	struct xe_dmem_ctx *xe_ctx;
++	uint64_t region;
++
++	xe_ctx = malloc(sizeof(*xe_ctx));
++	if (!xe_ctx)
++		return -ENOMEM;
++
++	xe_ctx->vram_region = 0;
++	/* Find first VRAM region */
++	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
++		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
++			xe_ctx->vram_region = region;
++			break;
++		}
++	}
++	if (!xe_ctx->vram_region)
++		goto out;
++
++	xe_ctx->fd = fd;
++
++	*ctx = xe_ctx;
++
++	return 0;
++
++out:
++	free(xe_ctx);
++
++	return -ENOMEM;
++}
++
++static void xe_dmem_deinit(void *ctx)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++
++	free(xe_ctx);
++}
++
++static char * xe_dmem_get_region_name(void *ctx)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++
++	return xe_cgroup_region_name(xe_ctx->fd, xe_ctx->vram_region);
++}
++
++static int xe_dmem_allocate_vram(void *ctx, size_t len, void **ret_handle)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++	uint32_t handle;
++	int err;
++
++	err = __xe_bo_create(xe_ctx->fd, 0, len, xe_ctx->vram_region, 0,
++			     NULL, &handle);
++	if (err)
++		return err;
++
++	*ret_handle = (void *)(uintptr_t) handle;
++	return 0;
++}
++
++static void xe_dmem_free_vram(void *ctx, void *handle)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++
++	gem_close(xe_ctx->fd, (uint32_t)(uintptr_t) handle);
++}
++
++const struct igt_dmem_driver xe_dmem_driver = {
++	.name = "xe",
++	.get_region_name = xe_dmem_get_region_name,
++	.init = xe_dmem_init,
++	.deinit = xe_dmem_deinit,
++	.allocate_vram = xe_dmem_allocate_vram,
++	.free_vram = xe_dmem_free_vram,
++};
+
 -- 
-2.55.0
+2.47.3
 
