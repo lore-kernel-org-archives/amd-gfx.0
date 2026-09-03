@@ -4,94 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC984C61DD3
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 18:26:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BF65C61DD3
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 18:32:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B8D610F733;
-	Thu,  3 Sep 2026 18:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A42A110E173;
+	Thu,  3 Sep 2026 18:32:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ePvsf2kT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3LfOdUwZ";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF69410E173
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 18:26:00 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2d8f2ed7bdcso135075ad.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 11:26:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788459960; cv=none;
- d=google.com; s=arc-20260327;
- b=iqo5Tsgd9yHJC+V3CwxsMxUfSzK74tQzw76v3LYLSRLRJwM8mY75DzAKmH0AkS6nAK
- 1PPxYqfC4F72FEWGhUBM4gQncKP+1/1xFeqO94UMzpPQhoBJZsrVK/aAMHRiClHZWEZ0
- uFuAwQx65+L5wbPmRVSme8vQV27m5txSQsZCUtjrb/QCvG1Xl0ConwloXP60vpvsobXu
- e7uBNV8rTIq0vN9ZU1cXpeKkbFgkRYkPnXGb8xGxe6qtbBLhaIfK6QjqWHQzNeZouopv
- fvqehXZ2jJPrKbbNnGZIpPV98eP7dZ4k6RgJKCct2aakpyfP4wzazBdYyMZbCB0W8kEK
- 6REg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Hmlf8I8YEN0AlNaiaVx5sCTZRzyPtBS7pbXhSt7OH9w=;
- fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
- b=MuUQt7ZddnykDulb3PGvkbBdPX8G3ZO1tNueEC/FOUnBzvTlCJZNgYfhv+i9c0hMgj
- J1IgMl5/2kf3lec9HcbplZ8cq8d5XC0oJ5eZsldXK4P0S3wVDSeesmxETj1+el27g8nE
- /45NfzpzQKP4DntHsd6PuJricKuG30Fbi1nIbIB3wJhygBUvneMvNFf8eQERFAhiZ17U
- d0KtJFy83C6RMJSRxMn33TA2oqrbGpdW7muNaG+3zDluhZdWAFIQAswXjUI5NTsrgv7+
- rGH3NG4wu0mmNg0S1193ySbV99NAE0xp0FseqRiZwMM9V8JpIR7F6V2XmN7QDyqZ8iAP
- GEgg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788459960; x=1789064760; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Hmlf8I8YEN0AlNaiaVx5sCTZRzyPtBS7pbXhSt7OH9w=;
- b=ePvsf2kT4Z16zi12GSXtVie4rFrzL7llGsW6pRsrp3tCKmxj/s/xOokQFYHccMgf1g
- 1JPE8DNXAGgvAfq4rgW4LSFadhm8hL2582ZlkE/BKfPMDEJt6zfM9W0KqRtWtF5U0AKh
- QWiBcuOwQCkbfuVuD4Le/A+kWbCDHtyqbLd+2IW4C9spCeV3hZO4QlW0Em5rQ1ZO6Jz1
- e/hyHZvluXjCXETe25mAc/iCXER47m4CiCoM8wXhmyXhfadRpSrrWeUna2keenxW1G/l
- qZfcWoCfMxUBu9lbHKpFHCOw1R9NYnjqJDZZidkcqoJhlGO6Vyd4zcXlpdGNdd+q+sFy
- f12A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788459960; x=1789064760;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Hmlf8I8YEN0AlNaiaVx5sCTZRzyPtBS7pbXhSt7OH9w=;
- b=FYaVod2mAkn2BeHhiKwfpZehyOn+w0z+EFYfgjqcxuRlZ+UY1p0wnlP14LCf2m14mC
- evpJkRHe42JXmi9Ub/zbpODSPlkqai7CUHHjNGY+NgDGXR15ZK4SwYtQBLs8EFu+fiyw
- Zx6z2d2KJAebx0B+PCCdn37CPThuGUnoTeXB7bychti8bw3hzSyHEZBK8MMq2CrQEE5h
- XquhlGHd4W8BPN3OMcuB7UkurUKdrTY3OjMHIJ+62nUYeAuKb/y8XW8NpvPv5gW6sieJ
- uQqgOMCLC445e8Sm/b8PwvO1a/vH/UuwVpF5KEdcAUujKJDZA5SmwieXNG+lXesZgOmT
- PqfA==
-X-Gm-Message-State: AFuF++m7nQjUo8Ojdzp0RPcbF/12fNnHU4qtA2/S1fFngDidWD1qWfwd
- /QfaRmX7En1dFb9jPi7Fg+1YKEmYEEAyIn3noRxdc2bDCzIkvgG7KN2Vznc8NOnT5OmNqg7zNR9
- cpY1vG7KaVlbB+sj9ltvcPl6eftzLlUg=
-X-Gm-Gg: AYBFou2e+EZbFsWkmJbJJdaO2VQrh83MKDcLmP7OWgCoEiq4gryNSWB6Ac+d3/te/if
- kpbcCTbg7fOm812ZF8W+mcwEGYX3OOuNod4ezfl+9f/imyjwZwSxiktS1+qz1f28aevUo+FFcSP
- craUo8BK4bRGB3T8qXmo4fIVGJjnEAf/y3SXQaCHelvwtUBXZwLJjhVyKsXMes3S+I7NWmPq4EI
- X4O2BG06cc/TalIpROW3cknqv+XZldIUrWA6I75P5r/8m3lVuSZmy8v+gXNs4llBbW0UNeg59xh
- MLpnWu8ZUm3EDx+X3rh53a6Llj3/6O6NlzSALENn/YAOUTO1D59pFjfKphlf7gsDWhhscBX7AL+
- 9oVXopA0EcvIFdXH9iD4/VWmZxxvALWs=
-X-Received: by 2002:a17:90b:3b8c:b0:398:bad2:c0f with SMTP id
- 98e67ed59e1d1-39b262ce785mr263165a91.5.1788459960151; Thu, 03 Sep 2026
- 11:26:00 -0700 (PDT)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012017.outbound.protection.outlook.com
+ [40.93.195.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A942D10E173
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 18:32:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q6kQTIzjzqzLbgAiCQujOoMThj7nHf6NUBjk8kmN14QeHW71lXOGza4V9T9F5Hvv4GUugFXTR3vIV0cqB2oNknXnoT4jcqCO6Wa+peTdc/vBJxgi3glLBMpuyA01a8GRqJTbbPBpJzFdDN42W+f9mE/o+qwprx6h9TrFHIxpKexh5HZrq7tlfXdOYxfLas35vkC+gYnfRIBSvaAuR+TUfv2BHJ62zt9gzCl5WkVHUISGPNFDe6UiJAf19OB5ozFLQgG3a3KASFo06kotnuJpWwqmtSpCCqtV91gespI0exHtDbZruum5pX5BwWaTe1LTnIehsJyN6TATM6eX7xX/Pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kzuCLwqBgMs54r+QCo3YDM3e+7KGTwttc5UKLAccN9g=;
+ b=iDRAY7etvdQ3DE9j2ZTcTepntG++QEmWm+KEfhN/1M69dQw6swFIjcDZMs8p+9jJb8q5r/q1z8IvMdXlhPB8AMtQhj/IhO5cdSg2zYjrt7zY9f/Rz5t+OhKNC+f11mhyF6hWKaWdp5zPvmwu9A2i55ZzIwBiyZr/t+Cc07CpXkSRbALfkQinh6C4qJNbHUwWKBfjURgsDw77VwAZHek87JWvDbmIhB1qTO5hZzFYobnvmejjYVkZdc9rYKxyYFJFmrGosN7HcehrK10yrWgF6AKHqzlLiebsSOhPqDdEfogRqw7+RE4S7nTRXZBD8FNPUhy+S9sGyXs95T/1cBTLVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kzuCLwqBgMs54r+QCo3YDM3e+7KGTwttc5UKLAccN9g=;
+ b=3LfOdUwZWhWM5R5qH/H7QwIivTshtC+TUuEvHPcHw/71iE9Xq3AOVcSFsR0nYnovAfdpwrG2qnb7mp+q1FRRaLVc7zJG01yB7m54OXegiUNV3yEO1C9M/gn+kV6aqUoHNKTdj+Q3Xi4RQO71MdHOAmkR5DZAEC/JSwIf9qNzlVQ=
+Received: from BY3PR05CA0041.namprd05.prod.outlook.com (2603:10b6:a03:39b::16)
+ by SA5PPF916D632A9.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8d6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 18:32:47 +0000
+Received: from SJ5PEPF000001E8.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::50) by BY3PR05CA0041.outlook.office365.com
+ (2603:10b6:a03:39b::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.4 via Frontend Transport; Thu, 3
+ Sep 2026 18:32:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001E8.mail.protection.outlook.com (10.167.242.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 18:32:46 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
+ 2026 13:32:44 -0500
+Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Thu, 3 Sep 2026 13:32:44 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH] dm/amdgpu: fix malformed link_settings debugfs output
+Date: Thu, 3 Sep 2026 14:32:34 -0400
+Message-ID: <20260903183234.426984-1-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-References: <20260903094438.3880682-1-Jesse.Zhang@amd.com>
- <20260903094438.3880682-4-Jesse.Zhang@amd.com>
-In-Reply-To: <20260903094438.3880682-4-Jesse.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 3 Sep 2026 14:25:47 -0400
-X-Gm-Features: AcwNN1VJ6F2HAYQDOJoeVwf4GeslU3Zg2Z8n3jRBCOCCu5LRrLDOwgfV5YC4V0I
-Message-ID: <CADnq5_O9TP0H0hM83oDC9j+yfmHVyvUPv2_74WTx7iGNKPVwEQ@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu/userq: reset a hung SDMA user queue over
- MMIO
-To: Jesse Zhang <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E8:EE_|SA5PPF916D632A9:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa312611-cbf4-4753-caea-08df09e9c040
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|10067099003|6133799003|3023799007|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: q/+3tLt5J8hc1Ecy7U9fUuDldMQZjaIxrzp7aLkccVu76OhDgnWcS8lRXLu0eD5q77Wjx4X7a33WugqyYAsv/cc9SemDjovBzA53QJhqJjcep29OJcAtM9+1sqecd21oVctahVM2MugwPBZpz+cwy8g5KXIsb77EScvxGcuyPIth2rrPVSl10zTGO0T1W/efTNKW8REAnqyiosz4zMM1zMescFT1NtXoClBFQJ6N1tl2YKtYT+sBhWbe7MlhAfJoZUFt/gasuULipqrvGwjUowNTkt20LL9Pnzxtt9LKU5VUCyJpdqCT+SP1nsDsJOuWoSDSmkAQ5wTmEcotdZ6IfRgG2ROBeptAQGlv/DtxZG5oeyxcY27xQEIRXAgaKtTuY33HvGYSTUuEAenly0bI9lPTHzheSj3OdNz+flcOBs+1MnMrSRqggMo5sxrkBSJljyKT5LIAcin1mI+ml58Qy73FJgvwvrw1E2wgNaPS196e1OsTNK04nfPE2QuIt5ZpOfhVsJ0+Mw0G2jHfeooeaHT6UbQXLlx+XRvz3f9vfHD/xCr7Ty2CoNHo7hVVAHGzT1JoYycyH6dwqG0BgZsXElhxEfz4fIvBTarHCnu6mtOFVuMY163W2Tbml8qbFpzc9Fe9+SW89+5pu1/idygw0EPWOyxItinpkf0R4Uw2DAbJsr/56GSelzH/qQOmjuz6945YIOzBzoddQzJhem/+2Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(10067099003)(6133799003)(3023799007)(18002099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: e4caGeOmYaiElJYwxi46okv05kMKbSDTYbOOncZmg87ojl33Mv2vgvADWXufUQ9biZI/WW+sojwxh4xKcN/lxXD41hHtEK0MXl+SHN4Z9MTv8xEtN957s7rAjwSiGep6+7GSJL304WP819TDhcvq4c1uX96hLQdQW1XXy+zO5bGIaPJ+C93LTsgmMZEJWf76nmI4narBzSoMkhe3dL2xVNLXjJI+v8On02C3ocA/YzLytGo+L9qMTTeyLVj9sjB41jy04dVs9WvfK07+1+4e1yT/e7aT3lFYl06gwqIM8U7VJsu+ffmr9q9vDX2R02rEce+Eped2ponxnnTGAA9/he58RZ9Y1rjBJRyU1VVXTNSIgJ4h5mLxvgsDRTxGjFlZyaalg0bDyI+b8jHL0Xaptdj8C8mTlz0i+elUvr5JqMpAR1oRQAAw3+2Ms0hzG5M0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 18:32:46.6116 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa312611-cbf4-4753-caea-08df09e9c040
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001E8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF916D632A9
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,109 +108,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 3, 2026 at 6:20=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> wr=
-ote:
->
-> A hung SDMA user queue wedges MES, so the MES packet reset times out and
-> falls back to a full MODE1 reset - once per in-flight job, a reset storm.
->
-> The queue is still on its HW slot at the first hang-detect, so use
-> detect_hung_queue to recover its slot from the doorbell and reset it over
-> MMIO, which does not need MES. Mark it HUNG (not UNMAPPED) so the restore
-> worker does not re-map and re-run the guilty job, and short-circuit the
-> per-fence hang-detect re-entry once the queue is already reset.
+[Why]
+dp_link_settings_read() passed strlen() of each format string as the size
+argument to snprintf() and then advanced rd_buf_ptr by that same fixed amount.
+The format-string length has no relation to the formatted output length, so
+snprintf() truncated each field at a NUL it wrote inside the buffer while the
+pointer was advanced past it. The result is a buffer peppered with embedded NUL
+bytes and fields that are silently cut short, so the data read back from the
+debugfs node does not reflect the actual link settings.
 
-I thought newer versions of MES firmware handled this.  Maybe we need
-a firmware version check?  For now, the series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+[How]
+Use scnprintf() with the real remaining buffer size
+(rd_buf_size - (rd_buf_ptr - rd_buf)) and advance rd_buf_ptr by its return
+value, which is the number of characters actually written. This both bounds
+each write to the space left in rd_buf and keeps the output a single,
+properly terminated string. The now-unused str_len local is removed.
 
->
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 48 ++++++++++++++++++----
->  1 file changed, 39 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
-/amd/amdgpu/mes_userqueue.c
-> index 46ebc002548d..2ce94cd04fd5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -213,26 +213,56 @@ int mes_userq_reset(struct amdgpu_usermode_queue *q=
-ueue)
->         struct mes_reset_queue_input queue_input;
->         int r;
->
-> -       /* XXX: add a FW version check for SDMA per queue reset */
-> +       /* already reset by an earlier job's hang-detect; just signal and=
- bail */
-> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_HUNG) {
-> +               amdgpu_userq_fence_driver_force_completion(queue);
-> +               return 0;
-> +       }
-> +
->         memset(&queue_input, 0x0, sizeof(struct mes_reset_queue_input));
->         queue_input.doorbell_offset =3D queue->doorbell_index;
->         queue_input.queue_type =3D queue->queue_type;
->
-> +       /*
-> +        * The MES packet reset fails once the hung queue wedges MES. For=
- SDMA the
-> +        * queue is still on its HW slot, so reset it over MMIO instead: =
-recover
-> +        * the (instance, queue_id) slot from the doorbell.
-> +        */
-> +       if (queue->queue_type =3D=3D AMDGPU_HW_IP_DMA &&
-> +           adev->sdma.instance[0].funcs &&
-> +           adev->sdma.instance[0].funcs->detect_hung_queue) {
-> +               u32 instance, hw_queue_id;
-> +
-> +               if (adev->sdma.instance[0].funcs->detect_hung_queue(adev,
-> +                               queue->doorbell_index, &instance, &hw_que=
-ue_id)) {
-> +                       queue_input.use_mmio =3D true;
-> +                       queue_input.me_id =3D instance;
-> +                       queue_input.queue_id =3D hw_queue_id;
-> +               } else {
-> +                       dev_warn(adev->dev,
-> +                                "SDMA userq (doorbell %llu) not on any H=
-W slot; falling back to MES reset\n",
-> +                                queue->doorbell_index);
-> +               }
-> +       }
-> +
-> +       /* HUNG, not UNMAPPED: the guilty job is still in the ring, so th=
-e
-> +        * restore worker must not re-map and re-run it.
-> +        */
-> +       queue->state =3D AMDGPU_USERQ_STATE_HUNG;
-> +
->         amdgpu_mes_lock(&adev->mes);
->         r =3D adev->mes.funcs->reset_hw_queue(&adev->mes, &queue_input);
->         amdgpu_mes_unlock(&adev->mes);
->         if (r)
->                 return r;
->
-> -       /* mes_userq_unmap() does not update queue->state; mark it UNMAPP=
-ED so the
-> -        * destroy path does not issue a second REMOVE_QUEUE for the remo=
-ved queue.
-> -        */
-> +       /* drop the queue from MES and force-complete its fences */
->         r =3D mes_userq_unmap(queue);
-> -       if (!r) {
-> -               trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STAT=
-E_UNMAPPED);
-> -               queue->state =3D AMDGPU_USERQ_STATE_UNMAPPED;
-> -       }
-> -       return r;
-> +       if (r)
-> +               return r;
-> +
-> +       amdgpu_userq_fence_driver_force_completion(queue);
-> +       return 0;
->  }
->
->  int mes_userq_reset_queue(struct amdgpu_device *adev,
-> --
-> 2.49.0
->
+Fixes: 41db5f1931ec ("drm/amd/display: set-read link rate and lane count through debugfs")
+Cc: stable@vger.kernel.org
+Assisted-by: Copilot:claude-opus-4.8
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 20 ++++++++-----------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index e4c92b1fa22e..36f32ed4b87c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -196,7 +196,6 @@ static ssize_t dp_link_settings_read(struct file *f, char __user *buf,
+ 	char *rd_buf_ptr = NULL;
+ 	const uint32_t rd_buf_size = 100;
+ 	uint32_t result = 0;
+-	uint8_t str_len = 0;
+ 	int r;
+ 
+ 	if (*pos & 3 || size & 3)
+@@ -208,29 +207,26 @@ static ssize_t dp_link_settings_read(struct file *f, char __user *buf,
+ 
+ 	rd_buf_ptr = rd_buf;
+ 
+-	str_len = strlen("Current:  %d  0x%x  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Current:  %d  0x%x  %d  ",
++	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
++			"Current:  %d  0x%x  %d  ",
+ 			link->cur_link_settings.lane_count,
+ 			link->cur_link_settings.link_rate,
+ 			link->cur_link_settings.link_spread);
+-	rd_buf_ptr += str_len;
+ 
+-	str_len = strlen("Verified:  %d  0x%x  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Verified:  %d  0x%x  %d  ",
++	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
++			"Verified:  %d  0x%x  %d  ",
+ 			link->verified_link_cap.lane_count,
+ 			link->verified_link_cap.link_rate,
+ 			link->verified_link_cap.link_spread);
+-	rd_buf_ptr += str_len;
+ 
+-	str_len = strlen("Reported:  %d  0x%x  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Reported:  %d  0x%x  %d  ",
++	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
++			"Reported:  %d  0x%x  %d  ",
+ 			link->reported_link_cap.lane_count,
+ 			link->reported_link_cap.link_rate,
+ 			link->reported_link_cap.link_spread);
+-	rd_buf_ptr += str_len;
+ 
+-	str_len = strlen("Preferred:  %d  0x%x  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Preferred:  %d  0x%x  %d\n",
++	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
++			"Preferred:  %d  0x%x  %d\n",
+ 			link->preferred_link_setting.lane_count,
+ 			link->preferred_link_setting.link_rate,
+ 			link->preferred_link_setting.link_spread);
+-- 
+2.55.0
+
