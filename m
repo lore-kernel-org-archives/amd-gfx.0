@@ -4,100 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3279C61DD3
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 17:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC051C624A4
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 18:01:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DB8110F643;
-	Thu,  3 Sep 2026 17:47:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68DCE10E142;
+	Thu,  3 Sep 2026 18:01:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fuMeQhKd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="en1uHrnd";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011057.outbound.protection.outlook.com [52.101.62.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A9D110E150;
- Thu,  3 Sep 2026 17:47:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bhtv93BfD1XHST3uLOQVD0dsKbsisCIz+Phn72YpBbVD/XmZLIy5vsTdQpNyZG+c/66L7ifqLgmCjYBIuiisjX5FxZaUn+SYJquCrBHdF0HL0vUbmSAj5pWsSYNRQTJtoMV5TnvzWhnqOK1D/F0FNmtcCWAB6IwTXJ5bc2RWOhE0m4KZJPnZvTHQzgcIIg3e0XzkODeSS1CVy4SRAVcO8IqC9/7JLIhE6zPRdHGafwGx1VOX4gK6bSm/dKCqFAH5eX7gu+opq/fhajXYQtuiP3P4/oTQ2jot9woUl8QcRRds2Q2WGgM0vRBdyHXYJ4dmhtvOIXp4K54xl2zHJ8DodA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I4aKMGf00JO7s2htTSbIzDUsqw1cxGjeXy2zNFoR8M8=;
- b=DijkVGMvAPABNrmNR45kPzo058QOctge3XrVEZrnbJXdED8RAxHKp+JeiwQ4ITI1uoDhLT/dkAANXPqfuTBefICn/ZXbtY6btGdW1ef3zqATnbgC/wy51a/TlM+V0jY60OhYXb+5GWPyY1SyzgXqKrd1touN6YonqeowCNr4IBSlWzE4s90zqHTUDPsPvRwH5zW55vsk6qNfDQwVZvfPmPB52EiVjLtKrlYLXYiFCg2xriF4fSo46MyBe1BFwqydGB6IBccij4Tu3b6mOzVLLt5yw/0N/EuIF3Mts5uxAQnLdyfc1K4TU5Os/6VOmhoGlnSp/77f0hyjY4KIye3pgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I4aKMGf00JO7s2htTSbIzDUsqw1cxGjeXy2zNFoR8M8=;
- b=fuMeQhKdO85yKIX78T8TzjoBLrv4hHwFi1/KO4/sBTc1XssgX5VxObuPPvuyjckv3++lhBhtGLh4nofHiFhcrtTp2CSQL4OKReJjDtwWXzWkhoqTRKt5dg45jzaIBu8/FF4F6DaJ8GdQDphfrcZ2A3WrYUV8zF39yjEgoA8/ntU=
-Received: from CYXPR03CA0091.namprd03.prod.outlook.com (2603:10b6:930:d3::14)
- by MW3PR12MB4378.namprd12.prod.outlook.com (2603:10b6:303:52::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 17:47:36 +0000
-Received: from CY4PEPF0000EE36.namprd05.prod.outlook.com
- (2603:10b6:930:d3:cafe::2c) by CYXPR03CA0091.outlook.office365.com
- (2603:10b6:930:d3::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Thu, 3
- Sep 2026 17:47:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EE36.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 17:47:35 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 12:47:35 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 12:47:35 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Thu, 3 Sep 2026 12:47:34 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-fixes-7.3
-Date: Thu, 3 Sep 2026 13:47:12 -0400
-Message-ID: <20260903174712.584320-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7B210E142
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Sep 2026 18:01:35 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-396afefb35bso9333a91.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 11:01:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788458495; cv=none;
+ d=google.com; s=arc-20260327;
+ b=YYLLXtwKSFURFQhlDeGnhPb8de144dlOF/s4J3scgswUWAp1DI1+JQ6D10wfjOmCmN
+ pI3OcfbuCeyAqmyGPGzbCVstVWL9YppsgT/dVXIWwN/ke/YfFCK0LM6moeXA5lp5GcdA
+ VyvBDyBj6uM9c4DCQVAulMa96uAietpiucjaNGjV1rk2nL9OtRl12PWmb21tI6Rgqjk2
+ 86qr/+6uHXUKKXWDTnEgsCZvMNAMCO7s56dIVAmAe65m7k7i+mhfrF+ACiysiLa0FNf4
+ hEI9P8BhVuHCO+pDQ0a4u1/14eFkR0NG/1dhP5mJvOfqIqu8f1+i8G49FY1rYhOX9XMi
+ Ak2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=W6w5eXNC27nWfunPjU0K9NDObVYF9+B6SzJa0R881/E=;
+ fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
+ b=bfDMBqjl5Uu+HjNyXyU+Slw3brQxp4r3ehoXvnp3WDBfYlqN01qQf+fTy4bGqg/uhg
+ i6DrQrB3rWzCRHebnDiAxV2fMFFpMOny9MFmlDoQPywsi1Wzcr7P7cMyMETnOFy8o5jn
+ STUpsw30oCyiH3Of7hmhK30Lyu+c9+eNh2fXEkJS6YO5AkasXDjmJEw+dXcK+9w0s0oy
+ 5Jl5ksAIf2SlXYzDFxCsS2xbpRmXpvV9ln6XJ9NVDUB+vFQlKVJEOyOiKDjgyZ0Q2i5r
+ LGjy+/Rjj2W/atUHcuiOvNnpreTBew7wQDvNGPpREnYgBR1JxdXVtXsADoCDeKjFDfgY
+ ER/Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788458495; x=1789063295; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=W6w5eXNC27nWfunPjU0K9NDObVYF9+B6SzJa0R881/E=;
+ b=en1uHrndDpylW4nB4IRF/u4D0sLf7FM0feGLw837L9dBHIS1lHXoudKhR5wwxMiIz2
+ vHhn61oc7jgsco1w4B5XIGIEa/AHAbGHTT1lYnvZpN8fSDCf63GkPv4dsA+/E9fvpxcc
+ MmDkGYRdrIuKRe1wPYOoCrMTyigtwx1KjuasbUGOU3mooNlmNX5VEQqy/FCKoczMB/lK
+ aPUgDXTC1U2IZev30bJ8nVTR+F71NdFJzYCbJZkEMi3s/Fa5eCI5v+N5ak5Hr1u8uaMC
+ fd1O6cW6b0PgbrdNlRQXj/BCM+bPvdQyDyjPnuSNOnlMdNTvS7ZkH/Ex0GY6QxXN/neX
+ kcTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788458495; x=1789063295;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=W6w5eXNC27nWfunPjU0K9NDObVYF9+B6SzJa0R881/E=;
+ b=sX3uh9DociK4c/3WPzdn1pO4SaaUxapkLrs2YJ3iJOVYlGAdUNvuRTZ9TtbHrtE0vJ
+ wAunFlZmadUk5CbUbWOQpFau4Nsd5q2GThvKxD8tNRXG8B+1HEJiAbMTBgiD/f8zs2TX
+ EWgolQri3/C+MvQW/ZmGcnIGA1l4LWdw/RWbUbbN+eHBAGwy3oMbKygY7ktNFbBuOh2j
+ QgARvGTJQci907kYLvNtfOWq3TnoZuxEzaoHDfny3tOU/AzWVNHvbQDIPyvlVFpZI8rT
+ 6TMcyctWF/VIOx9KwcFaNRUhvmJvZhwLgM7KbkWkwp4uEOrZ4wwT7RUjP3F9iYqtQtem
+ JCyA==
+X-Gm-Message-State: AFuF++k8FfcewHJTyW9xuOzQrfFKBnkFby5vhtnf8PVlGAxezOMQ0V7x
+ 5kkp20IXi/MLl/gMRFR6QVouFhMMJopXh/ilLL6VUPwbMrwjlT4az7GDKfcVAI1byPXu6KuQzQX
+ VhviSB+g6Cec8025P7Cbl2nzp8sr/Y70=
+X-Gm-Gg: AYBFou0VZmwrq/FW55L2AW4b5JKcxUBT+9PUYt3DVdySu24r3YAGEZ/EsMv1jhJRpvD
+ YWKBlcd2ODrQJ2M60eEnOz2HHI826BsUxg7Imb0w5BpDpLQ1zugTyLXFMpqELgkGZDbBY/BpLaN
+ NnnCKIhwAXKhMhgDt/uwz9jc66ghVsxDqoI0ArLBbAdShoiey90Jgpxe6PDN5PTTHWw8d3MtjN3
+ qG51oWjkblNtzv9l/lqEitAH02snaKXHQkuBMvCyxeQqvQLg3yaIrQSoSQLYTFoy0KqgrMIka8L
+ tw+KAXgKPwrqfWF8QRr8nFs4Q76kQ+nNtLXofptnvO9r9YAl84p2qtfKJkeu38jkfhSUIa0Gh7Z
+ 5hxc9+Xzh3v1bAytDEfp/ZxcXiRWxR2M=
+X-Received: by 2002:a17:90b:5404:b0:396:d28e:b52 with SMTP id
+ 98e67ed59e1d1-39b26229b5dmr176402a91.3.1788458495148; Thu, 03 Sep 2026
+ 11:01:35 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260831052513.1518180-1-Jesse.Zhang@amd.com>
+ <20260831052513.1518180-8-Jesse.Zhang@amd.com>
+In-Reply-To: <20260831052513.1518180-8-Jesse.Zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 3 Sep 2026 14:01:23 -0400
+X-Gm-Features: AcwNN1WHjzqWHD16Ndo-MW_Y-Yt31XUSbCsHDDXH10iTudb6oUe-VYjHUGvUf3o
+Message-ID: <CADnq5_PC9fRaLvF8ydvM-2HsHo1ue3LimCXK7bQBynLvDZk5TA@mail.gmail.com>
+Subject: Re: [PATCH V3 08/10] drm/amdgpu/mes_userqueue: route compute MODIFY
+ through init_mqd
+To: Jesse Zhang <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE36:EE_|MW3PR12MB4378:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1cb5320-0dc9-439f-e5c3-08df09e3705f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|6133799003|3023799007|10067099003|56012099006|11063799006|5023799004|18002099003;
-X-Microsoft-Antispam-Message-Info: ceEUy6NSXG8b7lvoOXaoGEBwnfVMVvDDq0NMar5TEPcYEf6qPmlZeUhROw6Hp+1CwjZR7MOLZDEaF7SfDxsv7s47XJBBBhed5ab+GG8ePfS26rYliGWHwZDlqTzNc+d3DKTVYAb10YIReXQYMDX7LyBijRLAFG5T98MhdZ5LNceZw0cfnHIlhOUrxd4a6iubwHW7f3nx2Dt3Js5BsfO2V8CkLvaqcsQxdzUEZ8wz4hGdxAirl/pxyAFiHSv3cemL2iTD1zzAPqRmMcFHii3jIonXR0VCDF4EBJvBckqH5pVohWbRoolKcBqXcRm1sohg+sJwAM2WIDZj1YNO5W2Bh9r6fCbb6Q/JPwmj3HTkVeVSZwklj0OollhHstr7Ah0XW7pV/HgHbW00qDgOy2ABAcWU+JqixnOehumHptbURFsl9TUQ1XVaapv6Fx7YzM6lA6ma/7Ev4MxIv6VSa63taWaciWbrSH0pK3yFLuchCCUlbSCyqHW4YbcLcHa/yF30rklGnmpSA+Wqzi73Chm9pYlU2KjdbCGg93mpzqajTCa+hy5HciyCH4xB8drNYyvUYdJq6rsSOsUsVWPzo/Re3IewBQAoQ3jbUhTN2o8CGKJIorwXI8EOzc0/sP8xTP4UQoIcU3Gz9Sup7anpz4gg3A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(5023799004)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: T9OLgUVR2M1kmfQfQKyPsfdewrl/6wTBafKCyZQ5Ld2SfCgX9loOCZ6ct/zgZ6lBXyZasVIBsl5TFcg3X1txmuHnAmGeOVgUvD23EaAvAT4SjI1s4pm/Lih3jizv7lK7f9qzmWCdEcMH42gg9rv7H7f7ySn1pdseppw+Il6UNZOIO0Jnjk8rnd262PAD1vJuS0m9AAw+bks27Udl7rUO+Za236la1zpqzqNP5E0Zdp21uPi2aRwx7IFsLuiZucFTZ8BLBH8DxFOh5zOhKtdJkGt5d+dMzopJ13h5hOOmD4G341NIvpXehWgSvNDnLFLNZr0bwIJVrCl4nCCgmTiWgW1WCyhLgECHFaEx4Y9qgzche0Ha2mUepEGS70ERQ1QPskm4/lqP6UoSxKdwCPPKrgkFs7Qu70NlaS83paAf9KekrjapMVsPeyIYMUBNja7Z
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 17:47:35.6592 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1cb5320-0dc9-439f-e5c3-08df09e3705f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE36.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4378
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,113 +106,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+On Mon, Aug 31, 2026 at 1:50=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> w=
+rote:
+>
+> Set prop->modify and prop->user_wptr (read from the wptr poll BO) and
+> call init_mqd, so a re-enabled compute queue keeps its context-saved
+> rptr and resumes at the first un-consumed packet.
+>
+> Also set modify=3Dfalse on the create and kernel-ring
+> (amdgpu_ring_to_mqd_prop) paths, so every init_mqd caller states its own
+> value rather than relying on the zeroed prop.
+>
+> v3: set the mqd_prop modify flag and call init_mqd instead of a separate
+>     update_mqd callback, per review.
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> Suggested-by: Alexander Deucher <Alexander.Deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 20 +++++++++++++++++++-
+>  2 files changed, 21 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ring.c
+> index 686c92e96025..9fd0ab0be40e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -840,6 +840,8 @@ static void amdgpu_ring_to_mqd_prop(struct amdgpu_rin=
+g *ring,
+>         prop->use_doorbell =3D ring->use_doorbell;
+>         prop->doorbell_index =3D ring->doorbell_index;
+>         prop->kernel_queue =3D true;
+> +       /* kernel rings always build the MQD from scratch, never a MODIFY=
+ */
+> +       prop->modify =3D false;
+>
+>         /* map_queues packet doesn't need activate the queue,
+>          * so only kiq need set this field.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
+/amd/amdgpu/mes_userqueue.c
+> index 82bb4369451e..c6ac3194e4da 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -479,6 +479,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermod=
+e_queue *queue,
+>         userq_props->use_doorbell =3D true;
+>         userq_props->doorbell_index =3D queue->doorbell_index;
+>         userq_props->fence_address =3D queue->fence_drv->gpu_addr;
+> +       userq_props->modify =3D false;
+>
+>         if (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPUTE) {
+>                 struct drm_amdgpu_userq_mqd_compute_gfx11 *compute_mqd;
+> @@ -681,6 +682,20 @@ static int mes_userq_mqd_create(struct amdgpu_usermo=
+de_queue *queue,
+>         return r;
+>  }
+>
+> +/* Read the queue's live user wptr from its poll BO; 0 if not mapped. */
+> +static u64 mes_userq_read_user_wptr(struct amdgpu_usermode_queue *queue)
+> +{
+> +       u64 user_wptr =3D 0;
+> +       void *wc =3D NULL;
+> +
+> +       if (queue->wptr_obj.obj &&
+> +           !amdgpu_bo_kmap(queue->wptr_obj.obj, &wc) && wc) {
+> +               user_wptr =3D *(volatile u64 *)wc;
+> +               amdgpu_bo_kunmap(queue->wptr_obj.obj);
+> +       }
+> +       return user_wptr;
+> +}
 
-Fixes for 7.3.
+Can't we just skip this?  The firmware should update the MQD and store
+the current rptr/wptr when we unmap it.  So when we modify the queue,
+all we need to do is skip any changes to the rptr/wrptr when we modify
+the MQD.  No need to save the wptr.  Other than that, the patches look
+good to me.
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+Alex
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/amdgpu/kernel.git tags/amd-drm-fixes-7.3-2026-09-03
-
-for you to fetch changes up to 13af55f71399f5e562f6cb59ad413476e513c4d4:
-
-  drm/amdgpu/userq: fix struct drm_amdgpu_info_device padding for 32bit compile (2026-09-02 17:02:23 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-7.3-2026-09-03:
-
-amdgpu:
-- SR-IOV fix
-- GFX8 fix
-- MES queue reset fix
-- GPUVM fixes
-- DCN 6 warning fix
-- DCN 3.5/3.6 fix
-- DML fix
-- Backlight fix
-- Colorop fix
-- DC get_estimated_bw() fix
-- devcoredump fix
-- Userq fixes
-- APU PSP fix
-- Cursor fix
-
-amdkfd:
-- MES queue eviction fix
-- MQD debugfs fix
-
-UAPI:
-- Fix for drm_amdgpu_info_device with mixed 64 bit kernel and 32 bit userspace
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu/gfx8: only apply compute quantums to KCQs
-
-Amber Lin (1):
-      drm/amdgpu: Update queue reset support version
-
-Austin Zheng (1):
-      drm/amd/display: Remove const Qualifier From Non-Pointer Fields
-
-Hari Mishal (1):
-      drm/amd/display: fix division by zero in get_estimated_bw()
-
-Ivan Lipski (1):
-      drm/amd/display: Fix DCN5/6 DML2 compilation warnings
-
-Kanala Ramalingeswara Reddy (1):
-      drm/amdgpu: Skip accessing psp rum time db for APUs
-
-Mario Limonciello (2):
-      drm/amdgpu: restrict BAR0 fallback read to SR-IOV VFs only
-      drm/amdkfd: fix scope of mqd_mgr dereference in pqm_debugfs_mqds
-
-Melissa Wen (1):
-      drm/amd/display: use halving distribution for all encode-to-linear curves
-
-Priya Hosur (1):
-      drm/amdkfd: Add TLB flush after MES queue eviction/suspension
-
-Roman Li (2):
-      drm/amd/display: Set gpuvm min page size to 4K on dcn35/36
-      drm/amd/display: Fix backlight control for luminance-capable OLED
-
-Sunil Khatri (6):
-      drm/amdgpu: use AMDGPU_GPU_PAGE_SHIFT instead of PAGE_SHIFT
-      drm/amdgpu: fix Idle BOs list in VM debugfs status info
-      drm/amdgpu: fix byte/dword unit mismatch in coredump IB dump
-      drm/amdgpu: update the fw version for gfx11 userqueues
-      drm/amdgpu: update the fw version for gfx12 userqueues
-      drm/amdgpu/userq: dont overwrite the error of subsequent map call
-
-Yogesh Mohan Marimuthu (1):
-      drm/amdgpu/userq: fix struct drm_amdgpu_info_device padding for 32bit compile
-
-Yuling Li (1):
-      drm/amd/display: Fix cursor disable with horizontally split planes
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   |  6 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  3 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c            |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  6 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  5 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  4 +--
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  8 ++---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |  8 ++---
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c              |  8 +++--
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  | 13 ++++++++-
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 12 ++++----
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  8 +++--
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  7 ++++-
- .../gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c | 34 +++++++---------------
- .../dml2_core_dcn5_funcs_mode_programming.c        |  4 +--
- .../dml21/src/dml2_core/dml2_core_shared_types.h   |  4 +--
- .../src/dml2_pmo/dml2_pmo_dcn6_stage_optimizers.c  |  2 +-
- .../display/dc/dml2_0/dml2_translation_helper.c    |  1 +
- .../display/dc/link/protocols/link_dp_dpia_bw.c    |  5 ++++
- include/uapi/drm/amdgpu_drm.h                      |  2 +-
- 20 files changed, 83 insertions(+), 59 deletions(-)
+> +
+>  static int mes_userq_compute_mqd_update(struct amdgpu_usermode_queue *qu=
+eue,
+>                                         struct drm_amdgpu_userq_in *args_=
+in)
+>  {
+> @@ -707,8 +722,11 @@ static int mes_userq_compute_mqd_update(struct amdgp=
+u_usermode_queue *queue,
+>
+>         userq_props->queue_size =3D args_in->queue_size;
+>         userq_props->hqd_base_gpu_addr =3D args_in->queue_va;
+> +       userq_props->modify =3D true;
+> +       userq_props->user_wptr =3D mes_userq_read_user_wptr(queue);
+>
+> -       retval =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_=
+ptr, userq_props);
+> +       retval =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_=
+ptr,
+> +                                        userq_props);
+>
+>  free:
+>         kfree(compute_mqd_v11);
+> --
+> 2.49.0
+>
