@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1E52C79F87
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:30:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C23A9C79F88
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:30:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7500410F8D5;
-	Fri,  4 Sep 2026 07:30:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C887C10F8DE;
+	Fri,  4 Sep 2026 07:30:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="M9YGkQPi";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AsqNTuzN";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 220BF10F7C9;
- Thu,  3 Sep 2026 22:01:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9FE10F7CA;
+ Thu,  3 Sep 2026 22:01:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=Ni/MS9fI5dteZvfn+5Z+UhYEaWOa90FUKn91mVagarU=; b=M9YGkQPimNuQxxMKBRRTcmXTxc
- TVtpNYLkj9gO4MBxyb+DypUUfzPoDe11OYDYQvIGIPGezk6BlE09rfDsVeqDJd/R7+MN4A40c2qoa
- dlIALsFoAI/z2J2EOQJ7Tq3n19Lwei5R4GzNPx5o6abU5pIITklDeI7lvGvnpwsDyYgJeuoqRmIEf
- AI0MrvPhz2tIT/HgeRWMGnn8jORvKPbzoSJ48DkwM0dsR5NIEN+esuWXKptAoDLTWXlwpgyIQUP5+
- UGO0ZAHhGq09+qbC9N03I6RoTVFyTbIApC8psAZA0mjM98KjH4MfP651UCbCPN4/z2yplSB5MtRiG
- H8Sg5/zQ==;
+ bh=XFjpr/028iCComgfestI43c11Qk9ooWihFeg47m+Cqc=; b=AsqNTuzNbdrZ1nUSssEQ1c9Jmd
+ 9lTqaZT6sl9AtafK9FQy+SpRsw4qOdz+PIByfpfCab0XD3uIl05XemxtYXs5PHRAx3xVB+ZZK7Z68
+ 54r+Gp5IJ7u+Bk7H4/THXt+xdVeMdAHqyc9sS7Ir9XnDSU1L049/v+NFyxVfYkayjnnGjfvNCn6FT
+ 5dVgb6IP4xvkBYc3c5V50TXAUFE477p7tJweq66nQN+cW2hEC5rEE8fLdAlA0PZJIkDznRGHvH7Hl
+ fBmH6kZJ6nBVy6odrnH2tyRQJRzY69obT+cmtEWIAprpjwZ3G0mPo6DBB425PyxBOXEA3op++MWF8
+ KYsV/0mQ==;
 Received: from [187.43.152.48] (helo=[127.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x2FUq-00EbUz-Sa; Fri, 04 Sep 2026 00:01:25 +0200
+ id 1x2FV3-00EbUz-EO; Fri, 04 Sep 2026 00:01:37 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Thu, 03 Sep 2026 19:00:29 -0300
-Subject: [PATCH i-g-t v6 7/9] tests/cgroup_dmem: add test for dmem.current
+Date: Thu, 03 Sep 2026 19:00:31 -0300
+Subject: [PATCH i-g-t v6 9/9] tests/cgroup_dmem: add
+ write_eviction_nonblock subtest
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-dmem_max-v6-7-61dc62970fae@igalia.com>
+Message-Id: <20260903-dmem_max-v6-9-61dc62970fae@igalia.com>
 References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
 In-Reply-To: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
 To: igt-dev@lists.freedesktop.org
@@ -64,324 +65,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Based on the work of Thomas Hellström to test dmem.max eviction, add a
-test for dmem.current usage after allocations and setting dmem.max.
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-check current usage is within a small slack of the expected allocation.
-Then, set max to a small value and check allocations and current usage
-are limited to the max set.  Set max to less than a single BO size, then
-check no allocations are allowed and current usage is also within the
-slack. After each allocation, release memory and check current usage
-has gone down.
+Add write_eviction_nonblock to exercise the O_NONBLOCK path of the dmem
+cgroup max interface.  After filling VRAM to the cgroup limit, each
+limit-lowering step writes dmem.max with O_NONBLOCK so that synchronous
+eviction is skipped.  The test then verifies that usage has not yet
+dropped below the new limit, allocates a small BO to trigger eviction
+explicitly, and finally confirms that usage falls within bounds.
 
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- tests/cgroup_dmem.c | 262 +++++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 257 insertions(+), 5 deletions(-)
+ tests/cgroup_dmem.c | 37 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 34 insertions(+), 3 deletions(-)
 
 diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-index 442c965f9bbf..ba5e6a2e3deb 100644
+index 0d3b415acd54..ee6345c17878 100644
 --- a/tests/cgroup_dmem.c
 +++ b/tests/cgroup_dmem.c
-@@ -1,6 +1,8 @@
- // SPDX-License-Identifier: MIT
- /*
-  * Copyright © 2025 Intel Corporation
-+ * Copyright © 2026 Intel Corporation
-+ * Copyright 2026 Valve Corporation
-  */
+@@ -41,6 +41,7 @@
+ #define USAGE_DROP_TIMEOUT_MS	1000
+ 
+ #define TEST_INTERRUPTIBLE	(1 << 0)
++#define TEST_NONBLOCK		(1 << 1)
  
  /**
-@@ -17,10 +19,217 @@
-  * Test category: uapi
+  * SUBTEST: simple
+@@ -90,6 +91,18 @@
+  * REQUIREMENTS: must run as root; xe device with at least one VRAM region
   */
  
-+#include <errno.h>
- #include <inttypes.h>
-+#include <signal.h>
-+#include <stdatomic.h>
-+#include <stdint.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
- 
-+#include "drmtest.h"
- #include "igt.h"
-+#include "igt_aux.h"
- #include "igt_cgroup.h"
-+#include "igt_dmem_driver.h"
-+
-+#define BO_SIZE			SZ_64M
-+#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
-+#define USAGE_POLL_MS		10
-+#define USAGE_DROP_TIMEOUT_MS	1000
-+
 +/**
-+ * SUBTEST: simple
++ * SUBTEST: write_eviction_nonblock
 + * DESCRIPTION:
-+ *  Creates a cgroup, moves the process into it, enumerates all dmem regions,
-+ *  prints their capacity, system-wide current usage, per-cgroup current usage
-+ *  and configured limits, then destroys the cgroup.
++ *   Same fill phase as write_eviction.  In the limit-lowering phase dmem.max
++ *   is written with O_NONBLOCK, which causes the kernel to skip synchronous
++ *   eviction.  After each nonblock write the test verifies that usage has not
++ *   yet dropped below the new limit, then triggers eviction explicitly by
++ *   allocating a small BO.  Finally verifies that usage falls within bounds
++ *   after the forced eviction.
++ * REQUIREMENTS: must run as root; xe device with at least one VRAM region
 + */
 +
-+/**
-+ * SUBTEST: current
-+ * DESCRIPTION:
-+ *  Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-+ *  check current usage is within a small slack of the expected allocation.
-+ *  Then, set max to a small value and check allocations and current usage
-+ *  are limited to the max set.
-+ *  Set max to less than a single BO size, then check no allocations are allowed
-+ *  and current usage is also within the slack.
-+ *  After each allocation, release memory and check current usage has gone
-+ *  down.
-+ * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
-+ */
-+
-+static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
-+				    uint64_t limit)
-+{
-+	uint64_t current;
-+	unsigned int elapsed = 0;
-+
-+	do {
-+		igt_cgroup_dmem_get_current(cg, region, &current);
-+		if (current <= limit)
-+			return current;
-+		usleep(USAGE_POLL_MS * 1000);
-+		elapsed += USAGE_POLL_MS;
-+	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
-+
-+	return current;
-+}
-+
-+static int allocate_vram(void **handles, const struct igt_dmem_driver *drv,
-+			 void *ctx, int max_bo, size_t len)
-+{
-+	int i, err = 0;
-+	for (i = 0; i < max_bo; i++) {
-+		err = drv->allocate_vram(ctx, len, &handles[i]);
-+		if (err)
-+			break;
-+	}
-+	/* These are expected failures we can ignore. */
-+	if (err == -ENOMEM || err == -ENOSPC)
-+		err = 0;
-+	if (!err)
-+		return i;
-+	for (i--; i >= 0; i--)
-+		drv->free_vram(ctx, handles[i]);
-+	return err;
-+}
-+
-+static void free_vram(void **handles, const struct igt_dmem_driver *drv,
-+		      void *ctx, int max_bo)
-+{
-+	int i;
-+	for (i = 0; i < max_bo; i++)
-+		drv->free_vram(ctx, handles[i]);
-+}
-+
-+static void test_current(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
-+{
-+	struct igt_cgroup *cg;
-+	void **handles;
-+	uint64_t current, capacity, cg_max;
-+	int n_bo = 0, max_bo;
-+
-+	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-+	igt_require_f(capacity >= 4 * BO_SIZE,
-+		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
-+		      capacity / SZ_1M);
-+
-+	/*
-+	 * Use up to 4 GiB, or the full capacity if the device has less.
-+	 * Leave one BO_SIZE worth of headroom so the device isn't completely
-+	 * exhausted before the cgroup limit is hit.
-+	 */
-+	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
-+	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
-+
-+	/* Create cgroup and move into it */
-+	cg = igt_cgroup_new("igt_cgroups_test");
-+	igt_cgroup_move_current(cg);
-+
-+	max_bo = cg_max / BO_SIZE;
-+
-+	handles = calloc(max_bo, sizeof(handles[0]));
-+	igt_assert_f(handles, "failed to allocate handles array");
-+
-+	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == cg_max,
-+		     "current usage (%"PRIu64" MiB) is not requested allocation (%"PRIu64" MiB)\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	free_vram(handles, drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	/* Allow for a slack as there might be some extra pages allocated. */
-+	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE, false);
-+
-+	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 2 * BO_SIZE,
-+		     "current usage (%"PRIu64" MiB) is not requested max allocation (%"PRIu64" MiB)\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	free_vram(handles, drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	igt_cgroup_dmem_set_max(cg, cg_region, 0, false);
-+
-+	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-+
-+	/*
-+	 * amdgpu may succeed the allocation, by falling back to GTT, so no assertion here.
-+	 * Verify by reading current usage.
-+	 */
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	if (n_bo > 0)
-+		free_vram(handles, drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	igt_cgroup_free(cg);
-+}
-+
-+static const struct {
-+	const char *name;
-+	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx);
-+	unsigned int flags;
-+} subtests[] = {
-+	{ "current", test_current, 0 },
-+	{ }
-+};
-+
-+static const struct {
-+	int driver_flag;
-+	const struct igt_dmem_driver *driver;
-+} drivers[] = {
-+	{ DRIVER_XE, &xe_dmem_driver },
-+	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
-+	{ },
-+};
+ static atomic_int signal_count;
+ static struct sigaction sigcont_oldact;
  
- IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
- 
-@@ -32,7 +241,7 @@ static void fmt_bytes(uint64_t v, char *buf, size_t len)
- 		snprintf(buf, len, "%" PRIu64, v);
- }
- 
--int igt_simple_main()
-+static void simple_cgroup(void)
- {
+@@ -277,7 +290,7 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
  	struct igt_cgroup *cg;
- 	const char *region;
-@@ -42,10 +251,6 @@ int igt_simple_main()
- 	char min_s[32], low_s[32], max_s[32];
- 	int i;
+ 	void **handles;
+ 	int max_bo;
+-	uint64_t current, capacity, cg_max, limit, after;
++	uint64_t current, capacity, cg_max, limit, after, before;
+ 	int err;
  
--	igt_require_f(igt_cgroup_dmem_available(),
--		      "No dmem regions found; is cgroup v2 with the "
--		      "dmem controller available?\n");
--
- 	cg = igt_cgroup_new("igt-cgroup-dmem-test");
- 	igt_assert_f(cg, "Failed to create cgroup\n");
+ 	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+@@ -322,14 +335,31 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
+ 	while (limit >= EVICT_STEP) {
  
-@@ -90,3 +295,50 @@ int igt_simple_main()
- 	igt_cgroup_dmem_regions_free(regions);
- 	igt_cgroup_free(cg);
- }
+ 		limit -= EVICT_STEP;
+-		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
 +
-+int igt_main()
-+{
-+	igt_fixture() {
-+		igt_require_f(getuid() == 0, "Test requires root\n");
-+		/* Check dmem cgroup controller is available before doing anything else */
-+		igt_require_f(igt_cgroup_dmem_available(),
-+			      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
++		if (flags & TEST_NONBLOCK)
++			igt_cgroup_dmem_get_current(cg, cg_region, &before);
 +
-+	}
-+
-+	igt_subtest("simple")
-+		simple_cgroup();
-+
-+	for (int d = 0; drivers[d].driver; d++) {
-+		igt_subtest_group() {
-+			int fd = -1;
-+			int ret = -1;
-+			char *cg_region = NULL;
-+			void *ctx = NULL;
-+			igt_fixture() {
-+				fd = drm_open_driver(drivers[d].driver_flag);
-+				igt_require_f(fd >= 0,
-+					"No %s device found, skipping\n",
-+					drivers[d].driver->name);
-+				ret = drivers[d].driver->init(&ctx, fd);
-+				igt_require_f(ret == 0,
-+					"Failed to initialize %s device, skipping\n",
-+					drivers[d].driver->name);
-+				cg_region = drivers[d].driver->get_region_name(ctx);
-+				igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
-+			}
-+
-+			for (int i = 0; subtests[i].name; i++)
-+				igt_subtest_f("%s-%s", drivers[d].driver->name, subtests[i].name)
-+					subtests[i].test_fn(fd, cg_region, subtests[i].flags, drivers[d].driver, ctx);
-+
-+			igt_fixture() {
-+				if (!ret)
-+					drivers[d].driver->deinit(ctx);
-+				if (fd >= 0)
-+					drm_close_driver(fd);
-+				free(cg_region);
-+			}
++		igt_cgroup_dmem_set_max(cg, cg_region, limit,
++					!!(flags & TEST_NONBLOCK));
+ 
+ 		igt_cgroup_dmem_get_current(cg, cg_region, &after);
+ 		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
+ 			  limit / SZ_1M, after / SZ_1M);
+ 
++		if (flags & TEST_NONBLOCK) {
++			/*
++			 * O_NONBLOCK skips eviction: verify usage has not
++			 * dropped below the new limit yet.
++			 */
++			igt_assert_f(after == before,
++				     "Expected no eviction with O_NONBLOCK, but "
++				     "usage dropped from %"PRIu64" MiB to %"PRIu64" MiB "
++				     "(limit %"PRIu64" MiB)\n",
++				     before / SZ_1M, after / SZ_1M, limit / SZ_1M);
 +		}
-+	}
-+}
++
+ 		if (limit > EVICT_STEP) {
+-			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
++			if ((flags & (TEST_INTERRUPTIBLE | TEST_NONBLOCK)) && after > limit) {
+ 				/* Let a new bo creation trigger eviction. */
+ 				void *handle;
+ 				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
+@@ -368,6 +398,7 @@ static const struct {
+ 	{ "current", test_current, 0 },
+ 	{ "write_eviction", test_write_eviction, 0 },
+ 	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
++	{ "write_eviction_nonblock", test_write_eviction, TEST_NONBLOCK },
+ 	{ }
+ };
+ 
 
 -- 
 2.47.3
