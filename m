@@ -4,57 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45284C79F85
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 08:53:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 343A8C624DE
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 09:07:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D90E10F984;
-	Fri,  4 Sep 2026 08:53:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BED3510F991;
+	Fri,  4 Sep 2026 09:07:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EgvN5fkx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NFHQ+vIc";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2264E10F97D;
- Fri,  4 Sep 2026 08:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=YVx+3cVipBQauIvVHlgu4O3ViAk5ZOwiW6S0ILjIWNM=; b=EgvN5fkxr3/m+7WwNNmTTLuKyt
- 0Yu/2dr4g660Q4KLMyhabVCYD9TgFDpMwubXBULQtuYkNyURBRUIFX1vQWpNUIbtkoY5GCK6WDYU+
- 6tfvxYxeqNhLWV8ftl/Dz6PcCPRWaXgu8ODsAOfIe1YMAFC0/ofDRNakS1BCvzmTwe1vU8USIfaB/
- w15M9WiYOEdoUz/WXsr4aw+tBtzYiIJiKtj/NEBn12h0kGEqLrSyn31aDFb3Ua8/DwTxUZXh0GzPZ
- uTOQ70f3+/HtpW+HmHlqLCSavEB97v7LonwRZiv0IdIfSqgaIkQDfujc6iM3H9y16VGUo3SmbKEFp
- l0EFOjRw==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x2Pfd-00EnQv-2R; Fri, 04 Sep 2026 10:53:13 +0200
-Message-ID: <ccb3d38d-d736-441a-94fa-7f5e0219753d@igalia.com>
-Date: Fri, 4 Sep 2026 09:53:11 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB4AC10F991;
+ Fri,  4 Sep 2026 09:07:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 931F7438B9;
+ Fri,  4 Sep 2026 09:07:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB861F00A3D;
+ Fri,  4 Sep 2026 09:07:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788512852;
+ bh=Ak5pg2JYPWzF7EP+btUCOYF7Pqr/oHizTCmEZa5J6Lc=;
+ h=From:Subject:Date:To:Cc;
+ b=NFHQ+vIcDkIBavKoh+3qqxNnD40Q8v/gd7zlAc4v+vZs/07bJ56voIymsAWRViEYo
+ uodn262iAfL45GFSHVWh9hfkKXySqa+FlWc5dmFOZf2iFCI49JeypJIxRWks1VpY5r
+ H4sVAaDEZJ4dut+98ZPV0SDn0VfHTctGQX44biJ5+1Lt4YWjHT5abm/lW8M8MnCsyg
+ lvA/NwUuFZ0IXT8tHlrl6+gYuGY35DEkuxEw8ojIr9wzZxRS9+0RXviuWoYNfwokeD
+ Vmxu/0O2vx1TmeTYXq0KQn0RnvQWgj19ROmQ+VxzSmj8zwPpWuALf0+7IpNvAI7ISj
+ 0/uG3dNzAEysg==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v3 00/13] drm/crtc: Convert all drivers to
+ atomic_create_state and remove reset
+Date: Fri, 04 Sep 2026 11:07:18 +0200
+Message-Id: <20260904-drm-no-more-crtc-reset-v3-0-27d9891512ce@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
- <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOTW7DIBAF4KtYrDMVf67jrHKPqgsM4wQ1QDJQK
+ 1XkuxeTTbvI8o30vnkPlpE8ZnboHoxw8dmnWIPadcyeTTwheFczk1y+84GP4ChATBASIVgqFgg
+ zFhDaaNdPdu+0YLV8JZz9vcEfn89MePuufnke2WRyFVIIvhy6TQ0+W4h4L7A9g/qLK7Z1zz6XR
+ D9t4yJauc3ZS/FqziKAwzwNo9JDb3lvjl9IES9viU7NXOQfR712ZHV0z7nTo1FqmP8567r+Akv
+ 7q+xBAQAA
+X-Change-ID: 20260709-drm-no-more-crtc-reset-14a4d5bc8d41
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Paul Kocialkowski <paulk@sys-base.io>, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>, 
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Xi Ruoyao <xry111@xry111.site>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Iker Pedrosa <ikerpedrosam@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3997; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=1jAbLuNR6wqV2cwaiRKM0UVnvVD74u+3QS3oAylAxXU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmzurwTLWUd5bVss7ec92DeKXxh9Rp9PTkBy3ZDCwM9F
+ 7WLB5d2TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIlcVmOsz7njLHBnhVP546y3
+ RoUiCzX0S6w1c8qdzrZ2pAu6VXhOrqrkKgz6wXxBjdfK2WPb52mMtcI/djJ6l7i2qKz1yPbeXjf
+ n6mKd90fndp9IypsmasY7u/HQhVkFiwq83isee1mgYKh+DwA=
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,98 +86,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This is a follow-up to the plane reset removal series, and part of a
+larger effort to remove the reset hook from all KMS objects.
 
-On 17/08/2026 22:05, Maíra Canal wrote:
-> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
-> absolute deadline, but there is no equivalent for the drivers that
-> express a wait as a duration. Drivers such as i915 and v3d convert the
-> value themselves.
-> 
-> Converting a nanosecond duration to jiffies needs some care.
-> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
-> userspace-supplied timeout overflows its range and is silently truncated.
-> 
-> i915 already handles both cases in a local helper, which v3d has a copy
-> of. Add the same conversion to the core, so that it is available to any
-> driver and both copies can be dropped.
-> 
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/drm_timeout.c | 34 ++++++++++++++++++++++++++++++++++
->   include/drm/drm_utils.h       |  1 +
->   2 files changed, 35 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
-> index 78e9f65e5477..18c2719d1fe9 100644
-> --- a/drivers/gpu/drm/drm_timeout.c
-> +++ b/drivers/gpu/drm/drm_timeout.c
-> @@ -9,6 +9,7 @@
->   #include <linux/export.h>
->   #include <linux/jiffies.h>
->   #include <linux/ktime.h>
-> +#include <linux/math64.h>
->   #include <linux/sched.h>
->   
->   #include <drm/drm_utils.h>
-> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
->   	return timeout_jiffies64 + 1;
->   }
->   EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
-> +
-> +/**
-> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative value
-> + *
-> + * @timeout_nsec: relative timeout in ns, 0 for poll
-> + *
-> + * Calculate the timeout in jiffies from a relative timeout in ns, for drivers
-> + * whose UAPI expresses a wait as a duration rather than as a deadline.
-> + *
-> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive once it is
-> + * converted to the signed long taken by dma_fence_wait_timeout() and friends,
-> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIMEOUT so
-> + * that a finite wait is never understood as an infinite one.
-> + *
-> + * It's strongly discouraged to use relative timeouts in uAPIs, as they do not
-> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered with the
-> + * same arguments, so the duration starts counting from zero again. New uAPIs
-> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
-> + */
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
-> +{
-> +	/* make 0 timeout means poll, as for the absolute variant */
-> +	if (timeout_nsec == 0)
-> +		return 0;
-> +
-> +	/* nsecs_to_jiffies64() does not guard against overflow */
-> +	if ((NSEC_PER_SEC % HZ) != 0 &&
-> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
-> +		return MAX_JIFFY_OFFSET;
-> +
-> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + 1);
+The CRTC reset hook is overloaded: it is called both at probe time to
+create the initial software state and during suspend/resume to reset
+hardware and software state. These two roles have different
+requirements, and the reset hook is not fallible, making error
+handling difficult for the initial state allocation path.
 
-Sashiko was not happy with this so I guess the guard needs to be 
-improved somehow.
+While reset has the semantics to reset both the software and hardware
+state, the vast majority of implementations and all the helpers only
+reset the software state, making them equivalent to
+atomic_create_state in practice. The atomic_create_state hook makes
+this explicit: it only allocates and initializes a pristine state
+without any side effect, and returns the state pointer or an ERR_PTR
+on failure.
 
-I wonder if we would detect overflow by converting back from jiffies to 
-ns and if that is smaller than the original ns we conclude it was an 
-overflow and then cap to MAX_JIFFY_OFFSET?
+This series converts all CRTC drivers tree-wide from the reset hook to
+atomic_create_state, then removes the reset hook from struct
+drm_crtc_funcs entirely. Two drivers (tilcdc and loongson) had actual
+hardware reset logic mixed into their reset hook; those are moved to
+CRTC creation instead. The conversions were done using a combination of
+Coccinelle semantic patches and manual adjustments.
 
-Regards,
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v3:
+- Test if crtc->helper_private is set before accessing it, and call the
+  temp variable to store it helper_funcs
+- Rework outdated commit logs
+- Fix error path for amdgpu_dm_crtc_init
+- Fix new amdgpu tests doc
+- Rebased on drm-misc-next-2026-09-03
+- Link to v2: https://lore.kernel.org/r/20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org
 
-Tvrtko
+Changes in v2:
+- Fix indentation in logicvc
+- Fix hardware reset at probe and suspend for loonsoon and tilcldc
+- Fix state creation for amdgpu
+- Rebase on current drm-misc-next
+- Fix commit message for st7920
+- Fix merge conflict for mediatek
+- Link to v1: https://lore.kernel.org/r/20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org
 
-> +}
-> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
-> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
-> index 6a46f755daba..8c0cc9835413 100644
-> --- a/include/drm/drm_utils.h
-> +++ b/include/drm/drm_utils.h
-> @@ -25,5 +25,6 @@ const struct drm_panel_backlight_quirk *
->   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
->   
->   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
->   
->   #endif
-> 
+---
+Maxime Ripard (13):
+      drm/crtc: Introduce hw_reset helper hook
+      drm/amdgpu: vkms: Switch to drm_atomic_helper_crtc_create_state
+      drm/logicvc: Switch to drm_atomic_helper_crtc_create_state
+      drm/tilcdc: Move hardware reset to hw_reset hook
+      drm/tilcdc: Switch to drm_atomic_helper_crtc_create_state
+      drm/atomic-helper: Remove drm_atomic_helper_crtc_reset
+      drm/amdgpu: dm: Convert to atomic_create_state
+      drm/loongson: Move hardware reset to hw_reset hook
+      drm/loongson: Convert to atomic_create_state
+      drm/mediatek: Convert to atomic_create_state
+      drm/sitronix: st7920: Convert to atomic_create_state
+      drm/atomic-helper: Remove __drm_atomic_helper_crtc_reset
+      drm/crtc: Remove reset
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 31 ++++++++++-----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h |  2 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  | 23 ++++++-----
+ drivers/gpu/drm/drm_atomic_state_helper.c          | 45 ----------------------
+ drivers/gpu/drm/drm_mode_config.c                  | 17 ++++++--
+ drivers/gpu/drm/logicvc/logicvc_crtc.c             |  2 +-
+ drivers/gpu/drm/loongson/lsdc_crtc.c               | 30 ++++++++-------
+ drivers/gpu/drm/mediatek/mtk_crtc.c                | 18 ++++-----
+ drivers/gpu/drm/sitronix/st7920.c                  | 12 +++---
+ drivers/gpu/drm/tilcdc/tilcdc_crtc.c               |  7 ++--
+ include/drm/drm_atomic_state_helper.h              |  3 --
+ include/drm/drm_crtc.h                             | 12 ------
+ include/drm/drm_modeset_helper_vtables.h           | 14 +++++++
+ 14 files changed, 96 insertions(+), 122 deletions(-)
+---
+base-commit: 17c6b88e85ffe5de5720004ae8c2176d52944aca
+change-id: 20260709-drm-no-more-crtc-reset-14a4d5bc8d41
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
