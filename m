@@ -4,52 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4DBDC624DE
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:30:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9575CC79F80
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 08:14:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9975A10F8EB;
-	Fri,  4 Sep 2026 07:30:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E08F310F939;
+	Fri,  4 Sep 2026 08:14:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PJ1oEPT5";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="f1jPqwNb";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E0410F7D0;
- Thu,  3 Sep 2026 22:01:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12E9510F935;
+ Fri,  4 Sep 2026 08:14:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=wWeFjj3JoxCAhJsiPffuVqIY/F8nNskCIZYgiedTgyk=; b=PJ1oEPT5uJpGitPKU9xINtIOt1
- W4ObxaaHTc+NuO2VP/fjPJW8pi2mv1bbJb+OVHxIM2/RFNaVNr1z9ycr8+wLOFVK1igA9DiS2gfCW
- VbvVaZAylsjWQ9RZ7FJfP1iKBjXvIDwTxc4RgpdWrqV3WmdEWvbfhUBkfrmId3uak1tJZ9bDQbkuw
- 2DCH4qDShC3s6E1kvOs1pNSu/V695NAEBBwG3MU6jhLpWx3HSVgQ9gIZ0wLCD5zwitzO9eJasGB9D
- g7sAB8ftVKTfnwTtxTRh7CGcQPpCLN3gGSD25odeeLYfgbo2e4tzAc/Wb+DNv4lA/givWNi9lmzUs
- lZv3ScMw==;
-Received: from [187.43.152.48] (helo=[127.0.0.1])
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=xd+J4ow0HjjbnZnbZaMuQt++InUk3PM21K11/2H6ew8=; b=f1jPqwNbEeBrcZ9UDVYrGdhWMp
+ FGmxdOqL/nTpnyAM2xDW67F7ZfwQx9HxKGvls69xZbDiK5Yws/FDOQGuA5PvVaD4knhIIwJtNXYy4
+ SM8MEXE7QAIgplp2vJnZ7sXWxPfzO1fW01auiFxXwBD4xO+7/RW0ee7QeCQ9JhxZm6+tRWLT1PKql
+ WEiF4t9n2Mw51DM2tPkkQTMCWhmycfykT3IlAmfHrxIQkhdcvnaDAAwo97plFelNzGKEzoVyz9eGj
+ B0AEObpkRhjiMIlkPRW0s/FjAoIEgJpeSGej08Rrs8VA9FJ7whcLG9rPB6usWHCPpzeSrms1qCMTc
+ cIbwEeBQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x2FUx-00EbUz-1U; Fri, 04 Sep 2026 00:01:31 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Thu, 03 Sep 2026 19:00:30 -0300
-Subject: [PATCH i-g-t v6 8/9] tests/cgroup_dmem: add dmem cgroup eviction test
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x2P3x-00EmaK-Ln; Fri, 04 Sep 2026 10:14:17 +0200
+Message-ID: <496b7662-fbae-40f1-b4e5-cd66493ef887@igalia.com>
+Date: Fri, 4 Sep 2026 09:14:16 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] drm: Move drm_timeout_abs_to_jiffies() to
+ drm_timeout.c
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
+ <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-dmem_max-v6-8-61dc62970fae@igalia.com>
-References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
-In-Reply-To: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, 
- maarten.lankhorst@linux.intel.com, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-X-Mailer: b4 0.16-dev-62088
-X-Mailman-Approved-At: Fri, 04 Sep 2026 07:30:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,215 +70,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-The write_eviction subtest:
- - Creates a sub-cgroup and moves the test process into it.
- - Sets a dmem.max limit on the first VRAM region (up to 4 GiB, or
-   the full capacity if smaller).
-- Fills VRAM by repeatedly creating BOs placed in VRAM, depending on card
-  support.
- - Verifies that cgroup current usage is within the expected range when
-   the limit is hit.
- - Lowers dmem.max in 128 MiB steps, waiting for usage to follow each
-   reduction.
+On 17/08/2026 22:05, Maíra Canal wrote:
+> drm_timeout_abs_to_jiffies() began as a static helper inside the syncobj
+> wait implementation and was later exported in place, so that it could be
+> called by multiple drivers (e.g. panfrost, lima, tegra and accel
+> drivers). All of them reach it through drm_utils.h.
+> 
+> Give it a file of its own, so that timeout conversion helpers have a
+> home, which will be useful when we add new timeout handlers. The
+> declaration stays in drm_utils.h, so no caller changes.
+> 
+> No functional change.
 
-The write_eviction_interruptible subtest runs the same test with
-SIGCONT signals injected via igt_fork_signal_helper() and reports the
-number of signals received.  When a signal interrupts kernel-side
-eviction, a small BO allocation is used to re-trigger it.
+I see Thomas suggested some tweaks which look fine to me. Or this patch 
+can stay as pure code movement, that is also fine by me, and tweaks to 
+kerneldoc or headers can be a follow up. So either way:
 
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- tests/cgroup_dmem.c | 149 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 149 insertions(+)
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-index ba5e6a2e3deb..0d3b415acd54 100644
---- a/tests/cgroup_dmem.c
-+++ b/tests/cgroup_dmem.c
-@@ -36,9 +36,12 @@
- 
- #define BO_SIZE			SZ_64M
- #define MAX_LIMIT		((uint64_t)4 * SZ_1G)
-+#define EVICT_STEP		SZ_128M
- #define USAGE_POLL_MS		10
- #define USAGE_DROP_TIMEOUT_MS	1000
- 
-+#define TEST_INTERRUPTIBLE	(1 << 0)
-+
- /**
-  * SUBTEST: simple
-  * DESCRIPTION:
-@@ -61,6 +64,62 @@
-  * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
-  */
- 
-+/**
-+ * SUBTEST: write_eviction
-+ * DESCRIPTION:
-+ *   Create a dmem cgroup, move the current process into it and set the max
-+ *   device memory limit for the first VRAM region to 4 GiB.  Then fill VRAM
-+ *   by creating BOs with %DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING (so that the
-+ *   physical allocation is deferred until VM_BIND) and binding them into an
-+ *   LR VM until the cgroup limit is hit.  Verify that the reported cgroup
-+ *   current usage is within the expected range when the error occurs.
-+ *   Finally lower the max limit in 256 MiB steps and verify that the cgroup
-+ *   usage follows.
-+ * REQUIREMENTS: must run as root; xe device with at least one VRAM region
-+ */
-+
-+/**
-+ * SUBTEST: write_eviction_interruptible
-+ * DESCRIPTION:
-+ *   Same as write_eviction but with SIGCONT signals injected throughout via
-+ *   igt_fork_signal_helper() to verify that the dmem.max write path handles
-+ *   signal interruption correctly.  A signal handler counts received signals
-+ *   and the count is reported as debug output at the end of the test.
-+ *   A signal interrupts the set-time eviction, and further eviction can be
-+ *   triggered by an explicit allocation.
-+ * REQUIREMENTS: must run as root; xe device with at least one VRAM region
-+ */
-+
-+static atomic_int signal_count;
-+static struct sigaction sigcont_oldact;
-+
-+static void sigcont_handler(int sig)
-+{
-+	atomic_fetch_add(&signal_count, 1);
-+
-+	/* Chain to the previous handler (IGT's dummy sig_handler) */
-+	if (sigcont_oldact.sa_handler &&
-+	    sigcont_oldact.sa_handler != SIG_IGN &&
-+	    sigcont_oldact.sa_handler != SIG_DFL)
-+		sigcont_oldact.sa_handler(sig);
-+}
-+
-+static void install_sigcont_counter(void)
-+{
-+	struct sigaction sa;
-+
-+	atomic_store(&signal_count, 0);
-+	igt_fork_signal_helper();
-+	/*
-+	 * Install the counter after igt_fork_signal_helper() so our handler
-+	 * is not overwritten.  Save the old handler so we can chain to it.
-+	 */
-+	memset(&sa, 0, sizeof(sa));
-+	sa.sa_handler = sigcont_handler;
-+	sigemptyset(&sa.sa_mask);
-+	sigaction(SIGCONT, &sa, &sigcont_oldact);
-+}
-+
- static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
- 				    uint64_t limit)
- {
-@@ -213,12 +272,102 @@ static void test_current(int fd, char *cg_region, unsigned int flags, const stru
- 	igt_cgroup_free(cg);
- }
- 
-+static void test_write_eviction(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
-+{
-+	struct igt_cgroup *cg;
-+	void **handles;
-+	int max_bo;
-+	uint64_t current, capacity, cg_max, limit, after;
-+	int err;
-+
-+	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-+	igt_require_f(capacity >= 4 * BO_SIZE,
-+		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
-+		      capacity / SZ_1M);
-+
-+	/*
-+	 * Use up to 4 GiB, or the full capacity if the device has less.
-+	 * Leave one BO_SIZE worth of headroom so the device isn't completely
-+	 * exhausted before the cgroup limit is hit.
-+	 */
-+	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
-+	cg_max = ALIGN_DOWN(cg_max, EVICT_STEP);
-+
-+	if (flags & TEST_INTERRUPTIBLE)
-+		install_sigcont_counter();
-+
-+	/* Create cgroup and move into it */
-+	cg = igt_cgroup_new("igt_cgroups_test");
-+	igt_cgroup_move_current(cg);
-+	igt_cgroup_dmem_set_max(cg, cg_region, cg_max, false);
-+
-+	max_bo = (cg_max / BO_SIZE) + 8; /* headroom for overcommit */
-+
-+	handles = calloc(max_bo, sizeof(handles[0]));
-+	igt_assert_f(handles, "failed to allocate handles array");
-+
-+	allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+
-+	igt_assert_f(current <= cg_max,
-+		     "Usage %"PRIu64" MiB exceeds max %"PRIu64" MiB + slack\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	/* Phase 2: lower max in 256 MiB steps, verify usage follows */
-+	limit = cg_max;
-+	while (limit >= EVICT_STEP) {
-+
-+		limit -= EVICT_STEP;
-+		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
-+
-+		igt_cgroup_dmem_get_current(cg, cg_region, &after);
-+		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
-+			  limit / SZ_1M, after / SZ_1M);
-+
-+		if (limit > EVICT_STEP) {
-+			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
-+				/* Let a new bo creation trigger eviction. */
-+				void *handle;
-+				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
-+				igt_assert_f(err == 0,
-+					"Error trying to allocate more VRAM to trigger eviction.");
-+				drv->free_vram(ctx, handle);
-+
-+				igt_cgroup_dmem_get_current(cg, cg_region, &after);
-+				igt_debug("Forced eviction max is %"PRIu64
-+					  " MiB: usage = %"PRIu64" MiB\n",
-+					  limit / SZ_1M, after / SZ_1M);
-+			}
-+
-+			igt_assert_f(after <= limit,
-+				     "Usage %"PRIu64" MiB did not follow max %"PRIu64" MiB\n",
-+				     after / SZ_1M, limit / SZ_1M);
-+		}
-+	}
-+
-+	if (flags & TEST_INTERRUPTIBLE) {
-+		igt_stop_signal_helper();
-+		igt_info("Signals received during test: %d\n",
-+			 atomic_load(&signal_count));
-+	}
-+
-+	/* Cleanup */
-+	igt_cgroup_dmem_set_max(cg, cg_region, IGT_CGROUP_DMEM_MAX, false);
-+	igt_cgroup_free(cg);
-+}
-+
- static const struct {
- 	const char *name;
- 	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx);
- 	unsigned int flags;
- } subtests[] = {
- 	{ "current", test_current, 0 },
-+	{ "write_eviction", test_write_eviction, 0 },
-+	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
- 	{ }
- };
- 
+> 
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+>   drivers/gpu/drm/Makefile      |  1 +
+>   drivers/gpu/drm/drm_syncobj.c | 33 ------------------------------
+>   drivers/gpu/drm/drm_timeout.c | 47 +++++++++++++++++++++++++++++++++++++++++++
+>   3 files changed, 48 insertions(+), 33 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index e97faabcd783..0a0d7ea08347 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -68,6 +68,7 @@ drm-y := \
+>   	drm_rect.o \
+>   	drm_syncobj.o \
+>   	drm_sysfs.o \
+> +	drm_timeout.o \
+>   	drm_trace_points.o \
+>   	drm_vblank.o \
+>   	drm_vblank_work.o \
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index 2fa170a29a62..cf03681de6f7 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -1193,39 +1193,6 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>   	return timeout;
+>   }
+>   
+> -/**
+> - * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> - *
+> - * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> - *
+> - * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+> - */
+> -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+> -{
+> -	ktime_t abs_timeout, now;
+> -	u64 timeout_ns, timeout_jiffies64;
+> -
+> -	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> -	if (timeout_nsec == 0)
+> -		return 0;
 
--- 
-2.47.3
+As a side comment to this specific check - it looks not that great the 
+core helper ended having this special case which conflates uapi and 
+dma-resv semantics with the helper, but it may be laborious to untangle.
+
+Hm, or actually.. the !ktime_after check below could be even making it 
+redundant.
+
+Regards,
+
+Tvrtko
+
+> -
+> -	abs_timeout = ns_to_ktime(timeout_nsec);
+> -	now = ktime_get();
+> -
+> -	if (!ktime_after(abs_timeout, now))
+> -		return 0;
+> -
+> -	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+> -
+> -	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+> -	/*  clamp timeout to avoid infinite timeout */
+> -	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+> -		return MAX_SCHEDULE_TIMEOUT - 1;
+> -
+> -	return timeout_jiffies64 + 1;
+> -}
+> -EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> -
+>   static int drm_syncobj_array_wait(struct drm_device *dev,
+>   				  struct drm_file *file_private,
+>   				  struct drm_syncobj_wait *wait,
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> new file mode 100644
+> index 000000000000..78e9f65e5477
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_timeout.c
+> @@ -0,0 +1,47 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Timeout conversion helpers for wait ioctls.
+> + *
+> + * Copyright 2017 Red Hat
+> + * Copyright 2016 Advanced Micro Devices, Inc.
+> + */
+> +
+> +#include <linux/export.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/ktime.h>
+> +#include <linux/sched.h>
+> +
+> +#include <drm/drm_utils.h>
+> +
+> +/**
+> + * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> + *
+> + * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> + *
+> + * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+> + */
+> +signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+> +{
+> +	ktime_t abs_timeout, now;
+> +	u64 timeout_ns, timeout_jiffies64;
+> +
+> +	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> +	if (timeout_nsec == 0)
+> +		return 0;
+> +
+> +	abs_timeout = ns_to_ktime(timeout_nsec);
+> +	now = ktime_get();
+> +
+> +	if (!ktime_after(abs_timeout, now))
+> +		return 0;
+> +
+> +	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+> +
+> +	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+> +	/*  clamp timeout to avoid infinite timeout */
+> +	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+> +		return MAX_SCHEDULE_TIMEOUT - 1;
+> +
+> +	return timeout_jiffies64 + 1;
+> +}
+> +EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> 
 
