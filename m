@@ -4,104 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C00CCC624D3
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 13:01:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8EC6C79F87
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 14:48:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35CDD10E423;
-	Fri,  4 Sep 2026 13:01:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 394B210FA26;
+	Fri,  4 Sep 2026 14:48:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IQl0WfMl";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qBtf9nHS";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011039.outbound.protection.outlook.com [40.107.208.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E281910E423
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 13:01:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GiwaOBnZ8pv3tVnk0XI1R68PLedBtYvH5ORnBCVUgtrCKm/7kTxmNytQ4O818XBHDS9cdHwtkxCjh3F7vDlJIqm/MAIwtJjy6tOG49vEji3KVIEPGBRevCnZTdFoIFhbZiL60atj0L50JTba4zm8mmy94GmQlDDASn7THRpQjE7Xzascgvd4lHALQrSUCngo+poSmrhR0BDrp5la2zSDZy+L5zVscGYZSMByDmnbipacRLVON0PFyVd2A9z4MaGnnQ3gIj7OC3A572qPO2wwAdQQu7yBLWlIsBGtRdHM7KX5c6AWlYtzjM52/EoQXLQt+IZhYb2PkznDHxSQj6VHyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1E/Y5EZMVZZeDtnXwSCC7VnEvLjHEmIVbDx65Xv5Nd8=;
- b=nLmUn7d8uY3lRuTpT1Bnah7mYnAlPaoQPsifzcy5BoqMB67w6GJ8mzbXg2DRbSO+b5SjhMQOUefZgpKST8YC4k5l+LVyJeN6zivwVvEGZpi9wCeb9k+anAvIxVvbzQhSWzMruAHG8RGb8vEKqP/DzeTrpPGI1CekIv1UnDM8ajjmGxpysCLI+5a65A6kw8bIfRGgZT90lZtEDAEwv2zmOJ7SAKnb5O+S8q6L7lF0WvYp91NKMnuyysS7Z8k48DeKa8pbd4GGOxpj3QCXQxvavCY6nbcovbRhkp3la6Srq3mkdVa+bkFzbIIytDqRP3yqgdNjM7O/s5rN7gI3Uu1evw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1E/Y5EZMVZZeDtnXwSCC7VnEvLjHEmIVbDx65Xv5Nd8=;
- b=IQl0WfMlous9ERLLEqHadEs84Wme4QdF6ZnTfUj0qc2zq/h/3a6WRmUCeunQcpkMofjUgIBSMA5Ph4NVIiUacMMSPwXUBMaU5G4RacbG5Pp1OTi4ISN++P4YRHWdEYT4sOkRYYz1SzC35HQOyHpdv37V9wy5i09MLzJ7I82uXHI=
-Received: from PH5P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::14)
- by CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 12:59:48 +0000
-Received: from SJ1PEPF000023D8.namprd21.prod.outlook.com
- (2603:10b6:510:34a:cafe::2a) by PH5P220CA0009.outlook.office365.com
- (2603:10b6:510:34a::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Fri, 4
- Sep 2026 12:59:48 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023D8.mail.protection.outlook.com (10.167.244.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.0 via Frontend Transport; Fri, 4 Sep 2026 12:59:48 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 4 Sep 2026 07:59:44 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- James Zhu <james.zhu@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, Lancelot Six
- <lancelot.six@amd.com>, Natalie Vock <natalie.vock@gmx.de>, "Pierre-Eric
- Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: Disable L2 trap handler when its VA range is
- unmapped
-Date: Fri, 4 Sep 2026 18:29:23 +0530
-Message-ID: <20260904125923.321117-4-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260904125923.321117-1-srinivasan.shanmugam@amd.com>
-References: <20260904125923.321117-1-srinivasan.shanmugam@amd.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C30E10F9EC;
+ Fri,  4 Sep 2026 14:48:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=Z0AFrPAkSLIJZgW4DHiySn0QKCNtvNdYMlzN42SGbHw=; b=qBtf9nHS6rRERVccf+4THQ4eVJ
+ P+QZqsfjvCe/H2IEunO4jmU86L7wonZ9hw1rxrGv9jz2SSqTIw28AB8vGll6zhJaUR4kRLiuldlyD
+ LhzspsUrUL0YDsTRyuNvhTcZwVZwWzZ2dG5cT6mdLGOc9kVjFmsS68XmO0GuHnyzMfXTgr3OXrJfh
+ 5affD5CpTzDfEW5PvKx8l1MpfXOAiSH/v9BarJVZN23DBWFycgY3fj5SIjoLk3wb3TEQzLx4DGKk2
+ /u7q4jSh/Z4bc5vRHhvLpcmkbzU9f+XiIHpAXqzvCgpHK0AskcKSXAK+pzSj+6YADRNvn1I/MQpvE
+ MP/6KHJA==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x2VDj-00EvoO-JA; Fri, 04 Sep 2026 16:48:47 +0200
+Message-ID: <715172ab-e2c1-495b-a1a1-d95ef2563ee6@igalia.com>
+Date: Fri, 4 Sep 2026 15:48:46 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH i-g-t v6 8/9] tests/cgroup_dmem: add dmem cgroup eviction
+ test
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>,
+ kernel-dev@igalia.com
+References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
+ <20260903-dmem_max-v6-8-61dc62970fae@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260903-dmem_max-v6-8-61dc62970fae@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D8:EE_|CY8PR12MB7170:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7cb2ccf1-688e-4156-1364-08df0a8466af
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|10067099003|6133799003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: U8qe2I/q8wxFA3w4zpkafMYDNGp4jnMEI77YhAlJ/ed7MV2/sPEYzU8WTYya7MrdufeEsbtCdUGqiJXaGH8DCb+J5fg8/HNlVkLrJLMWG/PCIfWAm0mFCKEAeWfK3UgvwX9nnWi1cXfXrZeGxoeEGqhoyxZiOs3XehFpxDX+rfjxNPgIX2129R/4uuFMFUpPp4AdcMHAGSJ2hZDudzopJK9ho7pG+11qQdqo1A7L8fiOrGCrueQCYt+EzO5l/Ovi4u1afJe/1rhk0+4yq2+Mg2uw1SnSpSxHD5keUw/GZQQSqR4hEqS77ufTu58/kspp/RerFt3DP8SoTkxoDIePCiobueRt5gMpSu8qJHhY9La7tDLvtX2rWx0EGnlO5YYTX7egl88UWVl7kloHXCnvFghrTFZPXxJARe+5TDsGlR9E+ekvJDFMNKn6pEszfDclb2w0M3ir2cXgA61KtxoxJbu3eIXv5aPOMRXy7L1jFp61E/uNBMpxgXBfiFisddkQozos6bUgblCwizR3J9o/rzWh16Ii+iNX/HMm6dqpAp49wmFx+TkdNiGH+N/13uKPDjkuH5UpwcyyVw/7pjHbUHNKagn6bn0ynpF8cMWLx/mm6qIwYn6KqLaboffjLT1/+PJntOa4hfVidP4d0sbR22bCMGyRy/W/NpC3mt0293B8IOuUOj44doXd1xPyANCGtC9muBgsDAHe57mgwMdy1A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: QIh/coX437ufQA8UuJzXcwm1uC5irJT4+Xftos7TeyEvBJ1qB3O2G7hh9orONz69rLFSAFJYQlpzST1SnUP6FMxYjrCAF48eZB6jl8QtVWPaP0A29dY9uZNYvMVejcyzZW6tj55EeHlsldtYvFYyXkFOty4mbOix7f5cGOTtrlRyiVyFA6ftmefnY9ea1djIUS4WYSmCNlSbdRw+Qpw1pmC/3S6vW766VucPXRbHlbiNXCCNSEnHb2PLUeECQDvMghdo4f8duWRfMj5wK2tPmioo2y4gbL7vo2l4otALKLtIAu2+Q5Ts4A9+Ifs3Bulq4cwr153GR5GvbPG+Q2x0V75xFHcRprOWnToUO54JklDsXS6Cr3GeuwB/rdYiWNGeNPGKc6eeVhDjpQz6a4N9OsSxQ53fyBKzZz4LnQ2XJD0WKmYCmN/pg4eF1t/Eqrvr
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 12:59:48.3313 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cb2ccf1-688e-4156-1364-08df0a8466af
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D8.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7170
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,80 +67,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If userspace removes the TBA or TMA mapping via GEM_VA UNMAP without
-calling CLEAR_L2_TRAP first, the GPU still holds a reference to the old
-VA. The next shader exception would cause the GPU to jump to an unmapped
-address, triggering a page fault or memory corruption.
 
-Intercept UNMAP and CLEAR in amdgpu_gem_va_ioctl(). If the VA range
-overlaps the active TBA or TMA, drain the VM scheduler, evict all user
-queues, flush the GPU TLB, and zero the TBA/TMA slots before allowing
-the unmap to proceed.
+On 03/09/2026 23:00, Thadeu Lima de Souza Cascardo wrote:
+> From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> 
+> The write_eviction subtest:
+>   - Creates a sub-cgroup and moves the test process into it.
+>   - Sets a dmem.max limit on the first VRAM region (up to 4 GiB, or
+>     the full capacity if smaller).
+> - Fills VRAM by repeatedly creating BOs placed in VRAM, depending on card
+>    support.
+>   - Verifies that cgroup current usage is within the expected range when
+>     the limit is hit.
+>   - Lowers dmem.max in 128 MiB steps, waiting for usage to follow each
+>     reduction.
+> 
+> The write_eviction_interruptible subtest runs the same test with
+> SIGCONT signals injected via igt_fork_signal_helper() and reports the
+> number of signals received.  When a signal interrupts kernel-side
+> eviction, a small BO allocation is used to re-trigger it.
+> 
+> Assisted-by: GitHub Copilot:claude-sonnet-4.6
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> ---
+>   tests/cgroup_dmem.c | 149 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 149 insertions(+)
+> 
+> diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+> index ba5e6a2e3deb..0d3b415acd54 100644
+> --- a/tests/cgroup_dmem.c
+> +++ b/tests/cgroup_dmem.c
+> @@ -36,9 +36,12 @@
+>   
+>   #define BO_SIZE			SZ_64M
+>   #define MAX_LIMIT		((uint64_t)4 * SZ_1G)
+> +#define EVICT_STEP		SZ_128M
+>   #define USAGE_POLL_MS		10
+>   #define USAGE_DROP_TIMEOUT_MS	1000
+>   
+> +#define TEST_INTERRUPTIBLE	(1 << 0)
+> +
+>   /**
+>    * SUBTEST: simple
+>    * DESCRIPTION:
+> @@ -61,6 +64,62 @@
+>    * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
+>    */
+>   
+> +/**
+> + * SUBTEST: write_eviction
+> + * DESCRIPTION:
+> + *   Create a dmem cgroup, move the current process into it and set the max
+> + *   device memory limit for the first VRAM region to 4 GiB.  Then fill VRAM
+> + *   by creating BOs with %DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING (so that the
+> + *   physical allocation is deferred until VM_BIND) and binding them into an
+> + *   LR VM until the cgroup limit is hit.  Verify that the reported cgroup
+> + *   current usage is within the expected range when the error occurs.
+> + *   Finally lower the max limit in 256 MiB steps and verify that the cgroup
+> + *   usage follows.
+> + * REQUIREMENTS: must run as root; xe device with at least one VRAM region
 
-GEM_VA UNMAP and CLEAR must never return an error — this path cleans up
-silently and lets the unmap succeed. Queues are marked INVALID_VA and
-will not restart until userspace installs a new handler via SET_L2_TRAP.
+It feels that adding an explicit igt_require(DRIVER_XE) to the test 
+would be a good move.
 
-No functional change from v1. Rebased on amdgpu_cwsr → amdgpu_trap
-rename commit.
+> + */
+> +
+> +/**
+> + * SUBTEST: write_eviction_interruptible
+> + * DESCRIPTION:
+> + *   Same as write_eviction but with SIGCONT signals injected throughout via
+> + *   igt_fork_signal_helper() to verify that the dmem.max write path handles
+> + *   signal interruption correctly.  A signal handler counts received signals
+> + *   and the count is reported as debug output at the end of the test.
+> + *   A signal interrupts the set-time eviction, and further eviction can be
+> + *   triggered by an explicit allocation.
+> + * REQUIREMENTS: must run as root; xe device with at least one VRAM region
+> + */
+> +
+> +static atomic_int signal_count;
+> +static struct sigaction sigcont_oldact;
+> +
+> +static void sigcont_handler(int sig)
+> +{
+> +	atomic_fetch_add(&signal_count, 1);
+> +
+> +	/* Chain to the previous handler (IGT's dummy sig_handler) */
+> +	if (sigcont_oldact.sa_handler &&
+> +	    sigcont_oldact.sa_handler != SIG_IGN &&
+> +	    sigcont_oldact.sa_handler != SIG_DFL)
+> +		sigcont_oldact.sa_handler(sig);
+> +}
+> +
+> +static void install_sigcont_counter(void)
+> +{
+> +	struct sigaction sa;
+> +
+> +	atomic_store(&signal_count, 0);
+> +	igt_fork_signal_helper();
+> +	/*
+> +	 * Install the counter after igt_fork_signal_helper() so our handler
+> +	 * is not overwritten.  Save the old handler so we can chain to it.
+> +	 */
+> +	memset(&sa, 0, sizeof(sa));
+> +	sa.sa_handler = sigcont_handler;
+> +	sigemptyset(&sa.sa_mask);
+> +	sigaction(SIGCONT, &sa, &sigcont_oldact);
+> +}
+> +
+>   static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
+>   				    uint64_t limit)
+>   {
+> @@ -213,12 +272,102 @@ static void test_current(int fd, char *cg_region, unsigned int flags, const stru
+>   	igt_cgroup_free(cg);
+>   }
+>   
+> +static void test_write_eviction(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
+> +{
+> +	struct igt_cgroup *cg;
+> +	void **handles;
+> +	int max_bo;
+> +	uint64_t current, capacity, cg_max, limit, after;
+> +	int err;
+> +
+> +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+> +	igt_require_f(capacity >= 4 * BO_SIZE,
+> +		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
+> +		      capacity / SZ_1M);
+> +
+> +	/*
+> +	 * Use up to 4 GiB, or the full capacity if the device has less.
+> +	 * Leave one BO_SIZE worth of headroom so the device isn't completely
+> +	 * exhausted before the cgroup limit is hit.
+> +	 */
+> +	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
+> +	cg_max = ALIGN_DOWN(cg_max, EVICT_STEP);
+> +
+> +	if (flags & TEST_INTERRUPTIBLE)
+> +		install_sigcont_counter();
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Felix Kuehling <felix.kuehling@amd.com>
-Cc: James Zhu <james.zhu@amd.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: Lancelot Six <lancelot.six@amd.com>
-Cc: Natalie Vock <natalie.vock@gmx.de>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+I stumbled upon IGT docs recommending igt_while_interruptible as a 
+gentler alternative. Would that still work here and be simpler?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index efc270e99b4e..82c5d3bd8aff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -47,6 +47,8 @@
- #include "amdgpu_hmm.h"
- #include "amdgpu_xgmi.h"
- #include "amdgpu_vm.h"
-+#include "amdgpu_trap.h"
-+#include "amdgpu_userq.h"
- 
- static int
- amdgpu_gem_add_input_fence(struct drm_file *filp,
-@@ -948,10 +950,30 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 				     args->flags);
- 		break;
- 	case AMDGPU_VA_OP_UNMAP:
-+		/*
-+		 * If the range overlaps an active second-level trap TBA or TMA,
-+		 * wait for VM idle, evict queues, flush TLB, and disable the
-+		 * handler before the unmap proceeds. UNMAP must not return
-+		 * an error for this condition.
-+		 */
-+		amdgpu_trap_handle_l2_unmap(adev, &fpriv->vm,
-+					    &fpriv->userq_mgr,
-+					    fpriv->trap_obj,
-+					    args->va_address,
-+					    args->map_size);
- 		r = amdgpu_vm_bo_unmap(adev, bo_va, args->va_address);
- 		break;
- 
- 	case AMDGPU_VA_OP_CLEAR:
-+		/*
-+		 * Same as VA_OP_UNMAP — disable the handler if needed,
-+		 * then clear all mappings in the range.
-+		 */
-+		amdgpu_trap_handle_l2_unmap(adev, &fpriv->vm,
-+					    &fpriv->userq_mgr,
-+					    fpriv->trap_obj,
-+					    args->va_address,
-+					    args->map_size);
- 		r = amdgpu_vm_bo_clear_mappings(adev, &fpriv->vm,
- 						args->va_address,
- 						args->map_size);
--- 
-2.34.1
+> +
+> +	/* Create cgroup and move into it */
+> +	cg = igt_cgroup_new("igt_cgroups_test");
+> +	igt_cgroup_move_current(cg);
+> +	igt_cgroup_dmem_set_max(cg, cg_region, cg_max, false);
+> +
+> +	max_bo = (cg_max / BO_SIZE) + 8; /* headroom for overcommit */
+> +
+> +	handles = calloc(max_bo, sizeof(handles[0]));
+> +	igt_assert_f(handles, "failed to allocate handles array");
+> +
+> +	allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +
+> +	igt_assert_f(current <= cg_max,
+> +		     "Usage %"PRIu64" MiB exceeds max %"PRIu64" MiB + slack\n",
+> +		     current / SZ_1M, cg_max / SZ_1M);
+> +
+> +	/* Phase 2: lower max in 256 MiB steps, verify usage follows */
+> +	limit = cg_max;
+> +	while (limit >= EVICT_STEP) {
+> +
+> +		limit -= EVICT_STEP;
+> +		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
+> +
+> +		igt_cgroup_dmem_get_current(cg, cg_region, &after);
+> +		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
+> +			  limit / SZ_1M, after / SZ_1M);
+> +
+> +		if (limit > EVICT_STEP) {
+> +			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
+> +				/* Let a new bo creation trigger eviction. */
+> +				void *handle;
+> +				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
+> +				igt_assert_f(err == 0,
+> +					"Error trying to allocate more VRAM to trigger eviction.");
+> +				drv->free_vram(ctx, handle);
+> +
+> +				igt_cgroup_dmem_get_current(cg, cg_region, &after);
+> +				igt_debug("Forced eviction max is %"PRIu64
+> +					  " MiB: usage = %"PRIu64" MiB\n",
+> +					  limit / SZ_1M, after / SZ_1M);
+> +			}
+> +
+> +			igt_assert_f(after <= limit,
+> +				     "Usage %"PRIu64" MiB did not follow max %"PRIu64" MiB\n",
+> +				     after / SZ_1M, limit / SZ_1M);
+
+I was quite confused by what is the interrupt by signal business about. 
+My best guess is the point is not to interrupt the write to the sysfs on 
+the superficial level, but to interrupt the actual eviction process 
+which happens during the write? Is that a cgroup requirement that the 
+new limit has to become effective (or attempted at least) during the 
+write itself? And once interrupted it will not re-try it until new 
+"activity" in the dmem cgroup happens (the dummy allocation above)?
+
+Regards,
+
+Tvrtko
+
+> +		}
+> +	}
+> +
+> +	if (flags & TEST_INTERRUPTIBLE) {
+> +		igt_stop_signal_helper();
+> +		igt_info("Signals received during test: %d\n",
+> +			 atomic_load(&signal_count));
+> +	}
+> +
+> +	/* Cleanup */
+> +	igt_cgroup_dmem_set_max(cg, cg_region, IGT_CGROUP_DMEM_MAX, false);
+> +	igt_cgroup_free(cg);
+> +}
+> +
+>   static const struct {
+>   	const char *name;
+>   	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx);
+>   	unsigned int flags;
+>   } subtests[] = {
+>   	{ "current", test_current, 0 },
+> +	{ "write_eviction", test_write_eviction, 0 },
+> +	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
+>   	{ }
+>   };
+>   
+> 
 
