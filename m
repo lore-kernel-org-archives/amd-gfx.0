@@ -4,72 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3A4CC79F82
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 18:34:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB568C624D3
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 18:34:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16BCB10E203;
-	Fri,  4 Sep 2026 18:34:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA4A10E589;
+	Fri,  4 Sep 2026 18:34:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CAcp8E6G";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kTzWSAbA";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E442610E203
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 18:34:20 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-49cd77e0f95so12208995e9.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Sep 2026 11:34:20 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA7A010E589
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 18:34:29 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-499ae1c6471so11874515e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 04 Sep 2026 11:34:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788546859; x=1789151659; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=EaBeN77O1/tyfJFrWpLwox160xlc2z0iwYR1UhhHFGA=;
- b=CAcp8E6GIdYIQe/RJk+7ijaNksIxo3x2we/dxahKMVu9Jj4OxmGamZY9YjDhyA68+u
- 5TMV1Hj6hD5AW92YpVbabF9peysG9gkYelLf4O6wss/eCnrFeaZcvxxm+OkOnJ40fu1G
- v5DyLq5vZqeo+MZ29A8ytfbPNGc4LXkAkCTYGJShTOKmZBZRFvXeEUQLssf4x6jbcbak
- UBFuKWOP4C3E+fYPaiwclV3oGeVva7F5VRtg6cHH5y148RXnGcR58yFlAcncdf9JNSsf
- AtERrAG2hoPMdjdc5dcLqtlejRojA7kFym8At8WmG2dU1SRTzpJ1QbN63k6pF5yRY3C2
- Th5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788546859; x=1789151659;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1788546868; x=1789151668; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=EaBeN77O1/tyfJFrWpLwox160xlc2z0iwYR1UhhHFGA=;
- b=SeCurwxKx5M2g/zSsJUwndHB9lD9VscCmVRxvlzgMHs0KHritRDXFR/sBpcXyQvr05
- DUXs/aqkOLFaKBwW21uGYYP3e5jCGb8tkZeMsIOqzw0VHTagi2LvPAET42QkR/sfZXv7
- zdn5WpENehwsIss+JZ+6zzWbDPYuHakND4Uifvofdgyzqn1RFiyIybohSFzJPhH5/BYs
- T1rrkme0gv/5p3f389Rq//+VoHS2KWhyYyIK3gP7UfftN+56dCuoJCJHTwQj4qdu3eVU
- N2aVUsIloSVEB1YVxMyXWAUzjl7wNuQ8c1IBhtb74KH9yx51ktql7hyywGB89yZlqLMj
- +pbA==
-X-Gm-Message-State: AFuF++nMT8OB/J4SbhPfNBdpfFKS58BuR+4SIrY6hh3rSV6+/PJmN54D
- P+UPrgzg+s0ZDzsd3Dnvmf8Z4Qk6poeuAspIPVaQvHlvXE5t2A/V8l0W5uzfQLcP
-X-Gm-Gg: AYBFou294pJwIx+KXDTb9YZtE4ivN2QoB1tTsT/4u//bL4BM8wUWMLlm8WeD/KKWF45
- CCXKZctstx2a5I1h3r8eeXAQQJxtQJ7eSFDZVnepub6MkQPiYCTOIp6NbmD3Dp3FKSRR5/xsala
- IiKkhk0AjBh7KDTSyl5P7XNBbhq6sQxhgDifvJt3epiJ3o5mZqwdjjordzGpDIMeYgPIIHS/RNC
- zukXAQYcjjDHWOmeqbIQzNq8gO84b+KQn/MkrMk0mh+1gchvab/My0vkI1LGclSePL1vuxAiKSY
- IH5Xtl30IGHi2EAlNGDNttaEXjP31t1IWRJggTR+1ekIYXs7iciHAIPctXgYtUqHiQg7v2chCm5
- QGF+VhQKtujlbvRmI1kfbX8gCKRJ8ZUOMRI8DaOSU/hxUUfTDguclPtZ1ClHGagpfa03wQS0rN0
- PaiCIx9qr+JmgfBpumDL1SE5S+JXFmWklXXMuI3gUe0XIYYd26jzeDeqPTwXUUkBqtkH7P8Hd2d
- u7C98EzeJ8VnDeJaZ1xqlKy9/rnaAk=
-X-Received: by 2002:a05:600c:83c4:b0:499:db6d:bc97 with SMTP id
- 5b1f17b1804b1-49cf7f5058emr91956235e9.0.1788546858896; 
- Fri, 04 Sep 2026 11:34:18 -0700 (PDT)
+ bh=QFHNI/tUL4oE4+YziowGcBQkeuk3ySb7gOl7n0UtgYs=;
+ b=kTzWSAbA19HzVfeOJzD3A+7+RXghX99ov4rp/Tzh9CtcE0A2BlPphu+WGw3iKIlo53
+ WJOIO5CFaswts++Fgb5TxmyMml0bHYu8PjjZH2F0/5SR7CIMt4AUlkPLN/eCGFrx0wiI
+ 15f8QIywrYlxmSKauD9rfkLWUaE3XC2RscQjft3GxfrR1qT++97eNDkqAoJEKm2NEw2t
+ 3ZWo/r320q6zxDqOnklYBv7NJq8SfDUIMtEQ0iETObRapY217czFtafUR9SYs8P5Psm2
+ cx60Nt3FW/FMNSHTQ0wW7O/qQtxHboHOJyXgKKk76iDkmCQC2k/U4bi4OrwNV7cS9rxn
+ VBCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788546868; x=1789151668;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=QFHNI/tUL4oE4+YziowGcBQkeuk3ySb7gOl7n0UtgYs=;
+ b=rWQoBvWp8Sz83oQnFh7uCgtoCNh2Y9/bn3zVkoZlwojsWDlBklc1antaJdEgnhYt0x
+ +i6/jgPn7ERq7IFQSw7/DR50xy/mrE+pVxT5Fc/ion/0PNTEAM9h3gJhjl4HAxBoh9/D
+ CkUI9GeYgHPXqlacDNolyxN6pnaZKdDE2cMtNm+6KW1IUFo2SXZMqLGRxmRHmbXPM3lW
+ 8qBhAZFvp4vVNuNFM7ul96h+6yL2qIQzvgZ0JSVDSVzMu/s4PC2+SCFyO7dLEnamHpr6
+ oUrrpLSg1pjYFh8adoTAXS0XXtAYfH6GhAglUU9nP9ki5Uu+wBqJmBIOTfOqCdf97EKQ
+ jU5w==
+X-Gm-Message-State: AFuF++kfNvWBthI3rE41ByF9fORQ3JibR0P9ydNQ0sQBOsALs25rvF8C
+ DuoRVUf9oPL0Ie4msPtSMNU08nDpLGKetPCSKUnmAyHaaGFCr0WhT5yc0E5Xc2HO
+X-Gm-Gg: AYBFou1fOb2L5OWOKUiA4u/92CASnlo2sMbe1iW4qjAruFWHSwnr9vK2oRzj4V9dQz6
+ i43DYCJqGEMtfn30HbVcb1Qz22ZgvaZXfOGIFciZy+kZtKSUeqHO9c7X70OZ4/Soex2MscggRNl
+ fNTiLmVS8RSRqOEEBKy21CIfKRjS1WEo94hbd2pBp/iko4sUfGGmJ2WbHJE/JROdvhX3y8ePOrX
+ ao9KiOL5sK+eP7cZs3syTHYI/Lj4XOFG/add6so6dZ/uRkbBw7UZCKELm5WIbxRJTqRlUAhxaaF
+ 0PvgAiMflzxDty29JiF0+jMwSAlC57UYPRrKbCfVuYJEBmOVMEmLbKOV0a+jqDow78E2qoaeoEQ
+ 3wpTBu+zwxwVHVvZAhGE61sn+eveKPO64Q+PR4ZdqN5Y7Ng7YD2JPt2bUtTidXjMvFvQmeki2Wy
+ JJTQ5I6N6YGhk0M6Qq1J1k6zw+qZIQiVV5BOGJhbnlCqPMMnWKiX8yH1pmvKC7rwQns7WhPjMNk
+ WpzMWmY0nEfk4wUxuY2REuxge9ddvE=
+X-Received: by 2002:a05:600c:a00a:b0:49c:ed94:cdd8 with SMTP id
+ 5b1f17b1804b1-49cf81f6736mr141207875e9.6.1788546868130; 
+ Fri, 04 Sep 2026 11:34:28 -0700 (PDT)
 Received: from Timur-Max (athedsl-4460056.home.otenet.gr. [79.129.254.8])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cf7703cefsm118373095e9.5.2026.09.04.11.34.16
+ 5b1f17b1804b1-49cf7703cefsm118373095e9.5.2026.09.04.11.34.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 11:34:18 -0700 (PDT)
+ Fri, 04 Sep 2026 11:34:27 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Natalie Vock <natalie.vock@gmx.de>, Tvrtko Ursulin <tursulin@ursulin.net>,
  Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 1/5] drm/amdgpu: Delete SI/CIK/VI IH soft_reset() code
-Date: Fri,  4 Sep 2026 20:34:05 +0200
-Message-ID: <20260904183409.571117-1-timur.kristof@gmail.com>
+Subject: [PATCH 2/5] drm/amdgpu: Delete unimplemented IH soft_reset() code
+Date: Fri,  4 Sep 2026 20:34:06 +0200
+Message-ID: <20260904183409.571117-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904183409.571117-1-timur.kristof@gmail.com>
+References: <20260904183409.571117-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -87,269 +91,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The code for SI/CIK/VI IH (interrupt handler) IP blocks
-has a soft_reset() function for each block.
-These functions are not called from anywhere and are
-dead code. It's unclear what the original intention
-was or why the IH block would ever need to be reset.
+The soft_reset() function for IH (interrupt handler) blocks
+of Vega and newer have never been implemented, and there are
+no plans to implement them.
 
-All SI/CIK/VI GPUs have been working well for
-10+ years without ever resetting the IH block
-so it's time to just delete the dead code.
+Let's delete these functions, they don't do anything and
+also aren't called from anywhere.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/cik_ih.c     | 31 ------------------------
- drivers/gpu/drm/amd/amdgpu/cz_ih.c      | 31 ------------------------
- drivers/gpu/drm/amd/amdgpu/iceland_ih.c | 31 ------------------------
- drivers/gpu/drm/amd/amdgpu/si_ih.c      | 30 -----------------------
- drivers/gpu/drm/amd/amdgpu/tonga_ih.c   | 32 -------------------------
- 5 files changed, 155 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/ih_v6_0.c   | 7 -------
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c   | 7 -------
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c   | 7 -------
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 7 -------
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 8 --------
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 8 --------
+ 6 files changed, 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-index 314d8f1d64cc..73ec61bc69de 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-@@ -373,36 +373,6 @@ static int cik_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+index d6554add485c..8dee48649650 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+@@ -693,12 +693,6 @@ static int ih_v6_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
  	return -ETIMEDOUT;
  }
  
--static int cik_ih_soft_reset(struct amdgpu_ip_block *ip_block)
+-static int ih_v6_0_soft_reset(struct amdgpu_ip_block *ip_block)
 -{
--	struct amdgpu_device *adev = ip_block->adev;
+-	/* todo */
+-	return 0;
+-}
 -
--	u32 srbm_soft_reset = 0;
--	u32 tmp = RREG32(mmSRBM_STATUS);
+ static void ih_v6_0_update_clockgating_state(struct amdgpu_device *adev,
+ 					       bool enable)
+ {
+@@ -815,7 +809,6 @@ static const struct amd_ip_funcs ih_v6_0_ip_funcs = {
+ 	.suspend = ih_v6_0_suspend,
+ 	.resume = ih_v6_0_resume,
+ 	.wait_for_idle = ih_v6_0_wait_for_idle,
+-	.soft_reset = ih_v6_0_soft_reset,
+ 	.set_clockgating_state = ih_v6_0_set_clockgating_state,
+ 	.set_powergating_state = ih_v6_0_set_powergating_state,
+ 	.get_clockgating_state = ih_v6_0_get_clockgating_state,
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+index 0fc348010ac7..ad370b326e88 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+@@ -643,12 +643,6 @@ static int ih_v6_1_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ 	return -ETIMEDOUT;
+ }
+ 
+-static int ih_v6_1_soft_reset(struct amdgpu_ip_block *ip_block)
+-{
+-	/* todo */
+-	return 0;
+-}
 -
--	if (tmp & SRBM_STATUS__IH_BUSY_MASK)
--		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_IH_MASK;
+ static void ih_v6_1_update_clockgating_state(struct amdgpu_device *adev,
+ 					       bool enable)
+ {
+@@ -769,7 +763,6 @@ static const struct amd_ip_funcs ih_v6_1_ip_funcs = {
+ 	.suspend = ih_v6_1_suspend,
+ 	.resume = ih_v6_1_resume,
+ 	.wait_for_idle = ih_v6_1_wait_for_idle,
+-	.soft_reset = ih_v6_1_soft_reset,
+ 	.set_clockgating_state = ih_v6_1_set_clockgating_state,
+ 	.set_powergating_state = ih_v6_1_set_powergating_state,
+ 	.get_clockgating_state = ih_v6_1_get_clockgating_state,
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+index 3745439b86b3..e5f8742553eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+@@ -700,12 +700,6 @@ static int ih_v7_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ 	return -ETIMEDOUT;
+ }
+ 
+-static int ih_v7_0_soft_reset(struct amdgpu_ip_block *ip_block)
+-{
+-	/* todo */
+-	return 0;
+-}
 -
--	if (srbm_soft_reset) {
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--		tmp |= srbm_soft_reset;
--		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
--		WREG32(mmSRBM_SOFT_RESET, tmp);
--		tmp = RREG32(mmSRBM_SOFT_RESET);
+ static void ih_v7_0_update_clockgating_state(struct amdgpu_device *adev,
+ 					       bool enable)
+ {
+@@ -863,7 +857,6 @@ static const struct amd_ip_funcs ih_v7_0_ip_funcs = {
+ 	.suspend = ih_v7_0_suspend,
+ 	.resume = ih_v7_0_resume,
+ 	.wait_for_idle = ih_v7_0_wait_for_idle,
+-	.soft_reset = ih_v7_0_soft_reset,
+ 	.set_clockgating_state = ih_v7_0_set_clockgating_state,
+ 	.set_powergating_state = ih_v7_0_set_powergating_state,
+ 	.get_clockgating_state = ih_v7_0_get_clockgating_state,
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+index 1dae7df9ee17..df2245fa35b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -635,12 +635,6 @@ static int navi10_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ 	return -ETIMEDOUT;
+ }
+ 
+-static int navi10_ih_soft_reset(struct amdgpu_ip_block *ip_block)
+-{
+-	/* todo */
+-	return 0;
+-}
 -
--		udelay(50);
--
--		tmp &= ~srbm_soft_reset;
--		WREG32(mmSRBM_SOFT_RESET, tmp);
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--
--		/* Wait a little for things to settle down */
--		udelay(50);
--	}
+ static void navi10_ih_update_clockgating_state(struct amdgpu_device *adev,
+ 					       bool enable)
+ {
+@@ -698,7 +692,6 @@ static const struct amd_ip_funcs navi10_ih_ip_funcs = {
+ 	.suspend = navi10_ih_suspend,
+ 	.resume = navi10_ih_resume,
+ 	.wait_for_idle = navi10_ih_wait_for_idle,
+-	.soft_reset = navi10_ih_soft_reset,
+ 	.set_clockgating_state = navi10_ih_set_clockgating_state,
+ 	.set_powergating_state = navi10_ih_set_powergating_state,
+ 	.get_clockgating_state = navi10_ih_get_clockgating_state,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+index 4509e6130bc2..c9dca49fc2b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+@@ -561,13 +561,6 @@ static int vega10_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ 	return -ETIMEDOUT;
+ }
+ 
+-static int vega10_ih_soft_reset(struct amdgpu_ip_block *ip_block)
+-{
+-	/* todo */
 -
 -	return 0;
 -}
 -
- static int cik_ih_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- 					  enum amd_clockgating_state state)
+ static void vega10_ih_update_clockgating_state(struct amdgpu_device *adev,
+ 					       bool enable)
  {
-@@ -425,7 +395,6 @@ static const struct amd_ip_funcs cik_ih_ip_funcs = {
- 	.suspend = cik_ih_suspend,
- 	.resume = cik_ih_resume,
- 	.wait_for_idle = cik_ih_wait_for_idle,
--	.soft_reset = cik_ih_soft_reset,
- 	.set_clockgating_state = cik_ih_set_clockgating_state,
- 	.set_powergating_state = cik_ih_set_powergating_state,
+@@ -625,7 +618,6 @@ const struct amd_ip_funcs vega10_ih_ip_funcs = {
+ 	.suspend = vega10_ih_suspend,
+ 	.resume = vega10_ih_resume,
+ 	.wait_for_idle = vega10_ih_wait_for_idle,
+-	.soft_reset = vega10_ih_soft_reset,
+ 	.set_clockgating_state = vega10_ih_set_clockgating_state,
+ 	.set_powergating_state = vega10_ih_set_powergating_state,
  };
-diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-index 8d02602f8433..82bff26abd5e 100644
---- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-@@ -367,36 +367,6 @@ static int cz_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+index 460f4bf195e8..0bda48558d4d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+@@ -661,13 +661,6 @@ static int vega20_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
  	return -ETIMEDOUT;
  }
  
--static int cz_ih_soft_reset(struct amdgpu_ip_block *ip_block)
+-static int vega20_ih_soft_reset(struct amdgpu_ip_block *ip_block)
 -{
--	u32 srbm_soft_reset = 0;
--	struct amdgpu_device *adev = ip_block->adev;
--	u32 tmp = RREG32(mmSRBM_STATUS);
--
--	if (tmp & SRBM_STATUS__IH_BUSY_MASK)
--		srbm_soft_reset = REG_SET_FIELD(srbm_soft_reset, SRBM_SOFT_RESET,
--						SOFT_RESET_IH, 1);
--
--	if (srbm_soft_reset) {
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--		tmp |= srbm_soft_reset;
--		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
--		WREG32(mmSRBM_SOFT_RESET, tmp);
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--
--		udelay(50);
--
--		tmp &= ~srbm_soft_reset;
--		WREG32(mmSRBM_SOFT_RESET, tmp);
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--
--		/* Wait a little for things to settle down */
--		udelay(50);
--	}
+-	/* todo */
 -
 -	return 0;
 -}
 -
- static int cz_ih_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- 					  enum amd_clockgating_state state)
+ static void vega20_ih_update_clockgating_state(struct amdgpu_device *adev,
+ 					       bool enable)
  {
-@@ -421,7 +391,6 @@ static const struct amd_ip_funcs cz_ih_ip_funcs = {
- 	.suspend = cz_ih_suspend,
- 	.resume = cz_ih_resume,
- 	.wait_for_idle = cz_ih_wait_for_idle,
--	.soft_reset = cz_ih_soft_reset,
- 	.set_clockgating_state = cz_ih_set_clockgating_state,
- 	.set_powergating_state = cz_ih_set_powergating_state,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-index 49002c80dc71..29faaa726644 100644
---- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-@@ -361,36 +361,6 @@ static int iceland_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
- 	return -ETIMEDOUT;
- }
- 
--static int iceland_ih_soft_reset(struct amdgpu_ip_block *ip_block)
--{
--	u32 srbm_soft_reset = 0;
--	struct amdgpu_device *adev = ip_block->adev;
--	u32 tmp = RREG32(mmSRBM_STATUS);
--
--	if (tmp & SRBM_STATUS__IH_BUSY_MASK)
--		srbm_soft_reset = REG_SET_FIELD(srbm_soft_reset, SRBM_SOFT_RESET,
--						SOFT_RESET_IH, 1);
--
--	if (srbm_soft_reset) {
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--		tmp |= srbm_soft_reset;
--		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
--		WREG32(mmSRBM_SOFT_RESET, tmp);
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--
--		udelay(50);
--
--		tmp &= ~srbm_soft_reset;
--		WREG32(mmSRBM_SOFT_RESET, tmp);
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--
--		/* Wait a little for things to settle down */
--		udelay(50);
--	}
--
--	return 0;
--}
--
- static int iceland_ih_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- 					  enum amd_clockgating_state state)
- {
-@@ -413,7 +383,6 @@ static const struct amd_ip_funcs iceland_ih_ip_funcs = {
- 	.suspend = iceland_ih_suspend,
- 	.resume = iceland_ih_resume,
- 	.wait_for_idle = iceland_ih_wait_for_idle,
--	.soft_reset = iceland_ih_soft_reset,
- 	.set_clockgating_state = iceland_ih_set_clockgating_state,
- 	.set_powergating_state = iceland_ih_set_powergating_state,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-index 52118765dccf..2c5ac398b582 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-@@ -247,35 +247,6 @@ static int si_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
- 	return -ETIMEDOUT;
- }
- 
--static int si_ih_soft_reset(struct amdgpu_ip_block *ip_block)
--{
--	struct amdgpu_device *adev = ip_block->adev;
--
--	u32 srbm_soft_reset = 0;
--	u32 tmp = RREG32(mmSRBM_STATUS);
--
--	if (tmp & SRBM_STATUS__IH_BUSY_MASK)
--		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_IH_MASK;
--
--	if (srbm_soft_reset) {
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--		tmp |= srbm_soft_reset;
--		dev_info(adev->dev, "mmSRBM_SOFT_RESET=0x%08X\n", tmp);
--		WREG32(mmSRBM_SOFT_RESET, tmp);
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--
--		udelay(50);
--
--		tmp &= ~srbm_soft_reset;
--		WREG32(mmSRBM_SOFT_RESET, tmp);
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--
--		udelay(50);
--	}
--
--	return 0;
--}
--
- static int si_ih_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- 					  enum amd_clockgating_state state)
- {
-@@ -298,7 +269,6 @@ static const struct amd_ip_funcs si_ih_ip_funcs = {
- 	.suspend = si_ih_suspend,
- 	.resume = si_ih_resume,
- 	.wait_for_idle = si_ih_wait_for_idle,
--	.soft_reset = si_ih_soft_reset,
- 	.set_clockgating_state = si_ih_set_clockgating_state,
- 	.set_powergating_state = si_ih_set_powergating_state,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-index d84c08698dff..194487a71fd4 100644
---- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-@@ -379,37 +379,6 @@ static int tonga_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
- 	return -ETIMEDOUT;
- }
- 
--static int tonga_ih_soft_reset(struct amdgpu_ip_block *ip_block)
--{
--	struct amdgpu_device *adev = ip_block->adev;
--	u32 srbm_soft_reset;
--
--	if (!adev->irq.srbm_soft_reset)
--		return 0;
--	srbm_soft_reset = adev->irq.srbm_soft_reset;
--
--	if (srbm_soft_reset) {
--		u32 tmp;
--
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--		tmp |= srbm_soft_reset;
--		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
--		WREG32(mmSRBM_SOFT_RESET, tmp);
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--
--		udelay(50);
--
--		tmp &= ~srbm_soft_reset;
--		WREG32(mmSRBM_SOFT_RESET, tmp);
--		tmp = RREG32(mmSRBM_SOFT_RESET);
--
--		/* Wait a little for things to settle down */
--		udelay(50);
--	}
--
--	return 0;
--}
--
- static int tonga_ih_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- 					  enum amd_clockgating_state state)
- {
-@@ -432,7 +401,6 @@ static const struct amd_ip_funcs tonga_ih_ip_funcs = {
- 	.suspend = tonga_ih_suspend,
- 	.resume = tonga_ih_resume,
- 	.wait_for_idle = tonga_ih_wait_for_idle,
--	.soft_reset = tonga_ih_soft_reset,
- 	.set_clockgating_state = tonga_ih_set_clockgating_state,
- 	.set_powergating_state = tonga_ih_set_powergating_state,
+@@ -722,7 +715,6 @@ const struct amd_ip_funcs vega20_ih_ip_funcs = {
+ 	.suspend = vega20_ih_suspend,
+ 	.resume = vega20_ih_resume,
+ 	.wait_for_idle = vega20_ih_wait_for_idle,
+-	.soft_reset = vega20_ih_soft_reset,
+ 	.set_clockgating_state = vega20_ih_set_clockgating_state,
+ 	.set_powergating_state = vega20_ih_set_powergating_state,
  };
 -- 
 2.55.0
