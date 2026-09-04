@@ -4,47 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B941C79FA9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74ADFC79FAB
 	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 07:01:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C71010E686;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A335110E681;
 	Mon,  7 Sep 2026 07:01:07 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=willyv3.com header.i=@willyv3.com header.b="M/eILOId";
-	dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.b="DFPfYh5n";
-	dkim-atps=neutral
-X-Greylist: delayed 442 seconds by postgrey-1.36 at gabe;
- Sun, 06 Sep 2026 03:22:05 UTC
-Received: from a11-30.smtp-out.amazonses.com (a11-30.smtp-out.amazonses.com
- [54.240.11.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B51110E01F;
- Sun,  6 Sep 2026 03:22:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
- d=willyv3.com; t=1788664482;
- h=From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
- bh=pXOlrsxVn9sFrfQ+wohuB18GfxAbg92rHB0bgKqpf80=;
- b=M/eILOIdN6fpCKX4TPGjgBrGC6Xuurv2oE3NHH32Q53SxyPfXsPNeHlq3eZuPlpA
- LoMz2ZO8cJdPx3E4YXL4Q+u2SgW7FWv6bUJEwnUelH8+vWQVh1BtqtuWDh8G2Fn4RjL
- ngZmoY/BMuYEAza5XAkluJpIF+ImWerxaEd3S4jU=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1788664482;
- h=From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
- bh=pXOlrsxVn9sFrfQ+wohuB18GfxAbg92rHB0bgKqpf80=;
- b=DFPfYh5n1P7LYadPq+97Ev76Q1+jle3UwH+HcJa+KhGRl5q/PNfLD4i1R3ltRGz5
- Kh+eZslDgML/+v7ygByib3ZeqI+x4fd26Vr9s2FCt59ZRGNNHi170ioJFH5ZOZBmsk+
- 14uAl58WcmfP7lhzyT92H4QspH30Q16M2+PnYSz4=
-From: willy@willyv3.com
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: only treat a real S3 as a suspend abort on resume
-Message-ID: <010001a074b60857-4cb0239e-c529-4069-ba4e-e347cfe379a4-000000@email.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 6 Sep 2026 03:14:41 +0000
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0166510E147;
+ Fri,  4 Sep 2026 09:19:06 +0000 (UTC)
+X-UUID: a8e57e98a84111f19a56ed5b684f684d-20260904
+X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
+ HR_CTE_8B
+ HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+ HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+ HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
+ IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED
+ SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+ CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+ AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:2dae1310-a863-445a-9627-b33467bde2e8, IP:15,
+ URL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:40
+X-CID-INFO: VERSION:1.3.19, REQID:2dae1310-a863-445a-9627-b33467bde2e8, IP:15,
+ UR
+ L:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:40
+X-CID-META: VersionHash:7db8b62, CLOUDID:c7a44c824c7fc39714e6deba9a946e1c,
+ BulkI
+ D:260904171902CNTQOJ1R,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
+ C:nil,Content:0|15|50|99,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil
+ ,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: a8e57e98a84111f19a56ed5b684f684d-20260904
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
+ (envelope-from <yijiangshan@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 234142521; Fri, 04 Sep 2026 17:18:58 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: siqueira@igalia.com, alex.hung@amd.com, superm1@kernel.org,
+ timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
+ hamzamahfooz@linux.microsoft.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ 13667453960@163.com, Jiangshan Yi <yijiangshan@kylinos.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/amd/display: check dc_state_create_copy() for NULL in
+ dm_suspend
+Date: Fri,  4 Sep 2026 17:18:17 +0800
+Message-Id: <20260904091817.578894-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.us-east-1.tVoVnBTusQKwEv3FXsafng3gwgTXiveIP8uCFN696SRuTdSqJLPWcLHhZMGYqGEWfSP3N+is2iSOKdmX/9ngsLeiTVoJkakNxJEB+yEN1ZJPtwlO53LLRiFsTHXrFviVUeKFV0/4bko6iGjXsDtchIeimK+HIEYE/SJqJKFonco=:1.us-east-1.pAEstvQcjyhQNKGKcgSlzI7SVR8ZSG5wSmKwiz/A8Dg=:AmazonSES
-X-SES-Outgoing: 2026.09.06-54.240.11.30
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 07 Sep 2026 07:01:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,100 +76,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Willy VanSickle <vansicklewilly@gmail.com>
-Subject: [PATCH] =
-drm/amdgpu: only treat a real S3 as a suspend abort on resume
+dc_state_create_copy() can return NULL on allocation failure.
+dm_suspend() only conditionally skips dm_gpureset_toggle_interrupts()
+and continues execution, returning success.  dm_resume() then
+dereferences the NULL cached_dc_state in link_enc_cfg_copy() and the
+following dc_state->stream_count loop, crashing during GPU reset
+recovery.
 
-soc15_need_reset_on_resume() resets the ASIC when
-`adev->in_s3 && !=
-pm_resume_via_firmware()`, to recover from an aborted
-S3 suspend. Since commit 38e8ca3e4b6d ("amdgpu/soc15: enable asic
-reset for dGPU in case of suspend abort") this applies to dGPUs as
-well.
+Return -ENOMEM immediately if the copy fails, so the caller aborts
+suspend instead of leaving a NULL cached state for resume.
 
-Two things make that check fire on every suspend-to-idle resume of a
-dGPU, not just on aborts:
-
- - amdgpu_acpi_is_s3_active() returns true for =
-any non-APU regardless
-   of the sleep state actually used, so in_s3 is set=
- on s2idle too.
- - pm_resume_via_firmware() is only true when platform =
-firmware
-   resumed the system (ACPI S3). s2idle never sets it.
-
-So on an s2idle platform every dGPU resume is misread as an S3 abort
-and gets a mode1 reset it did not need. On most parts the spurious
-reset is survivable. On a MacBookPro15,3 (Radeon Pro Vega 20, PSP
-v11) the PSP goes into suspend with a failed TA unload and the mode1
-issued on that state leaves the bootloader unresponsive:
-
-  amdgpu 0000:03:00.0: S3 suspend abort case, let's reset ASIC.
-  amdgpu 0000:03:00.0: [drm] psp mode1 reset succeed
-  amdgpu 0000:03:00.0: PSP is resuming...
-  amdgpu 0000:03:00.0: psp reg =
-(0x16063) wait timed out, mask: 80000000,
-    read: 0 exp: 80000000
-  amdgpu 0000:03:00.0: PSP load sys drv failed!
-  amdgpu 0000:03:00.0: =
-resume of IP block <psp> failed -62
-
-The check was introduced by commit =
-58a8c756fc4c ("drm/amdgpu: correct the
-S3 abort check condition") for APUs,=
- on the basis that the PM core sets
-PM_SUSPEND_FLAG_FW_RESUME when a real =
-S3 completes, so its absence on
-resume means the S3 was aborted. That holds=
- for S3. It does not hold
-for s2idle, where firmware is never involved, and=
- commit 38e8ca3e4b6d
-("amdgpu/soc15: enable asic reset for dGPU in case of =
-suspend abort")
-dropped the APU gate without adding a check on the sleep =
-state.
-
-The driver already caches the sleep state it suspended with in
-adev->last_suspend_state. Use it: only a suspend whose target was
-PM_SUSPEND_MEM and which firmware did not resume can be an S3 abort.
-
-With this the Vega 20 resumes cleanly from s2idle (PSP up, all rings
-back) on 7.2.2 + t2linux patches; without it every resume fails as
-above.
-
-Fixes: 38e8ca3e4b6d ("amdgpu/soc15: enable asic reset for dGPU in case of =
-suspend abort")
-Signed-off-by: Willy VanSickle <vansicklewilly@gmail.com>
+Fixes: 8092aa3ab8f7 ("drm/amd/display: Add null checker before passing variables")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 ---
-Tested on a MacBookPro15,3 (Radeon Pro Vega 20, PSP v11) running 7.2.2
-with the t2linux patch set, s2idle only. Verified twice: without the gate
-every resume fails with psp -62; with it the PSP and all rings come back.
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/soc15.c | 7 ++++++-
- 1 file changed, 6 =
-insertions(+), 1 deletion(-)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ec483276d753..88505efb42a3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1582,9 +1582,14 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
+ 		dc_allow_idle_optimizations(adev->dm.dc, false);
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15=
-.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
---- a/drivers/gpu/drm/amd/amdgpu/so=
-c15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -591,7 +591,12 @@
- 	 * 1) S3 suspend aborted in the normal S3 suspend
- 	 * 2) S3 suspend aborted in performing pm core test.
- 	 */
--	if (adev->in_s3 && !pm_resume_via_firmware())
-+	/* Only a real S3 (mem) =
-that firmware did not resume is an abort.
-+	 * s2idle never resumes via =
-firmware, so without this gate every
-+	 * s2idle resume of a dGPU is =
-misread as an abort and mode1-reset.
-+	 */
-+	if (adev->in_s3 && !=
-pm_resume_via_firmware() &&
-+	    adev->last_suspend_state =3D=3D =
-PM_SUSPEND_MEM)
- 		return true;
- 	else
- 		return false;
+ 		dm->cached_dc_state = dc_state_create_copy(dm->dc->current_state);
++		if (!dm->cached_dc_state) {
++			drm_err(adev_to_drm(adev),
++				"Failed to allocate cached DC state during suspend\n");
++			mutex_unlock(&dm->dc_lock);
++			return -ENOMEM;
++		}
+
+-		if (dm->cached_dc_state)
+-			dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
++		dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
+
+ 		res = amdgpu_dm_commit_zero_streams(dm->dc);
+ 		if (res != DC_OK) {
+--
+2.25.1
