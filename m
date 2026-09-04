@@ -4,52 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02F15C79F89
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:30:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC15C79F85
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:30:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 628B910F8E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBE2310F8EE;
 	Fri,  4 Sep 2026 07:30:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FDfLknyr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DPTyrF4l";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 854F910F7B2;
- Thu,  3 Sep 2026 22:00:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=g22Pra4mO0TVH3yMOmSVyaFRrRsmYPg/PAnDmofFtvk=; b=FDfLknyrpIsXrHLi3GscB14Y/V
- bUYw/6FBe1lefqmlVsWM7ZgZo2AhSJxeJDvhUOj/j8N0r+Zdaw20lacfjnL8vTfkVQyaXz5ytapIK
- orSZJtZPD5SK7KW0ioeh05m4UjJYwl+5KEe6ne+Z4ZZPavc2xAf7e5QcDcbMEXazL9tdiD/3y81yc
- Z23mwJ7sEbodyIV6PSu1iU3anbhIswWG/XZFC69LcTB/Tfg5THQ+WRwerKD07BANAdBKvsB98qVN+
- mUHCfgu3adrbfUTk3JGRfP1MBC4I9JyNzW5bKkkvSUtv45Vq7vhJ3Riy++uzn9acPshqM5iphwtb5
- rlE+p8nQ==;
-Received: from [187.43.152.48] (helo=[127.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x2FUC-00EbUz-Un; Fri, 04 Sep 2026 00:00:45 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Thu, 03 Sep 2026 19:00:23 -0300
-Subject: [PATCH i-g-t v6 1/9] lib/igt_cgroup: add cgroup v2 and dmem
- controller helpers
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B697910E0FD
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 00:20:43 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2d560775ca2so3618695ad.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Sep 2026 17:20:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788481243; x=1789086043; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=FHlgj/dkKpC6zxE1oJxCqsVN4/80OFta20KY1XPRKnc=;
+ b=DPTyrF4lYgmLOojjnlZkZun/wQLZPRMp9chc3w2Li7YzNbMtG0bWCKTxXrV7FZPMlU
+ 8AplbsDUezmVfyvPF+wVqaB9qUjm9FO2XFz7nl9kvz0vBTan4az1VOXsifsI4yiCvTUR
+ jqGnUd6xpiGC2xiT3PiLyY6DcbuvAHTLVKlkPzhuvNyb2c8TSvFxQv4BuxCw8R7VgK17
+ qd3c5qeKKRz6pa9mkSjAiDD0pIlnNDJy3Id+srXomzq10BGzKq2fXKPadL+ZV0uD+FcP
+ HN/8Gminmj3fh52zj+idzX9+zvYl8zKUws5Ct4IVzlVlYMeFfS1ewk1RtpOvQpqQgOkM
+ sPiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788481243; x=1789086043;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=FHlgj/dkKpC6zxE1oJxCqsVN4/80OFta20KY1XPRKnc=;
+ b=N4AEWRxIbibI8huTcflOgleQcHnzd+6JhcqxWxy90/enCUqnFRanH5m6zyg/9uhrO4
+ o09j/uCCXO8YfflOUKs06k+hW/xq2dgktSivh0TJYFfI0kUQ5ytm+Smzhq00BvUMX8zZ
+ X306JQ3g7zAgbEVQamWWsYePXPfQKjR7jf88e5Ctxb7EnOgFBwdg1NiKHLZnzw0HYZTi
+ Dwz5iv1ts2JSPu4iolFJOZbbXBAZbYW3bvhu0vsVk/9p/vvL3Fi/dIGxVbu6CDeh3jvb
+ 2ue9OkSqYVlVMQQ7/L8r1UNK1MJpV1Jhqe3GfD/QK/2ZwlWvylDLwtUVWwFXTfZB47Mj
+ kptw==
+X-Gm-Message-State: AFuF++mtEYtYBYdnyhpW9mOxYMEKjOkiG3XbGI6EB7CcVNNb0OOBZGS4
+ SUxXJUvqJASx47a7JS5mP9liZqaj5w/88ni4wmtlszvSF3UpvtiISCTxUb5cKlPnHmo=
+X-Gm-Gg: AYBFou3eI5nu4aM5kwy5EW0eCYIBdXlWiAeoGBEjFJa8zone0GJ6wppCPIdSdOGsBUS
+ uk8CBmjtowzr41I7CKsmoHjnIAj/h9iNomcy6sC7SyttjhjJdq+6LZdFuBX7FdwYPA/k4Z1Lv4T
+ an/wBvnmN1zv+cbpSJ6dRY9SKrOBMh9MiYY7DvSNo+g6Z0Ji+rIugfsRgHaaMXuyxbbFsxDkhBa
+ vTgnwiaE2tbOqD01AInzobNKcp2fEga/D0/TXyCU5iHkPnwVY3hObmjRjBoAFg3AX2EGiNdEtWi
+ I5R46o7GqZCKslU1F14i1OA7Jp8PERMyaMB/+72s2eP48mxS6wZIY/huPGkzbfZutAT35fbfnwa
+ b+ki3mK9hgeGIVb/i1MDd+d4NmvXMS9UMW9P2qMNNm9IP5Ez4t/qPlmS/APFMLUQg+JLRvHZw6P
+ t5xCOySfe0cLvGKGhgC1j8DgnBCXvMJkq3dOiHGwf/A3xP9FA49QGFPDGNeyzbLxP/REkkd6nXb
+ 01uydMVRQux09DaCY5G7V9wapmdn+d270yRO5k4oPRSxQmRcJiIdFhbPgS5LEBOfbEmIA==
+X-Received: by 2002:a17:90a:fc47:b0:398:9c0c:7c72 with SMTP id
+ 98e67ed59e1d1-39b2627fe24mr3310678a91.25.1788481242997; 
+ Thu, 03 Sep 2026 17:20:42 -0700 (PDT)
+Received: from francomeister ([138.84.137.76])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39b260cd2aasm1339128a91.3.2026.09.03.17.20.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Sep 2026 17:20:42 -0700 (PDT)
+From: Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: sunpeng.li@amd.com,
+ Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
+Subject: [PATCH v2] drm/amd/display: fix MALL hysteresis timer underflow at
+ high refresh rates
+Date: Fri,  4 Sep 2026 08:20:21 +0800
+Message-ID: <20260904002021.9883-1-pacaro.francis.marlou.n@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <YOUR-V1-MESSAGE-ID>
+References: <YOUR-V1-MESSAGE-ID>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-dmem_max-v6-1-61dc62970fae@igalia.com>
-References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
-In-Reply-To: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, 
- maarten.lankhorst@linux.intel.com, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-X-Mailer: b4 0.16-dev-62088
 X-Mailman-Approved-At: Fri, 04 Sep 2026 07:30:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,771 +89,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+dcn30_apply_idle_power_optimizations() derives the MALL frame cache
+hysteresis timer with
 
-Add igt_cgroup, a library module providing helpers to create and manage
-cgroup v2 sub-cgroups from IGT tests, with support for the dmem
-controller that governs device memory (e.g. GPU VRAM) limits.
+	tmr_delay = (uint32_t)(div_u64(..., denom) - 64LL);
 
-The API covers:
- - igt_cgroup_new() / igt_cgroup_free(): create and destroy a named
-   sub-cgroup under the unified cgroupv2 hierarchy, enabling the dmem
-   controller automatically.
- - igt_cgroup_move_current(): move the calling process into a cgroup.
- - igt_cgroup_dmem_set/get_max/min/low(): write and read dmem.max,
-   dmem.min and dmem.low for a named device memory region.
- - igt_cgroup_dmem_get_current(): read current per-cgroup device memory
-   usage.
- - igt_cgroup_dmem_get_system_current(): read system-wide device memory
-   usage from the root cgroup.
- - igt_cgroup_dmem_get_capacity(): read total region capacity from the
-   root cgroup's dmem.capacity file.
- - igt_cgroup_dmem_regions() / igt_cgroup_dmem_regions_free(): enumerate
-   all registered device memory regions.
+div_u64() returns a u64, so when the quotient is smaller than 64 the
+subtraction wraps instead of going negative and tmr_delay ends up huge.
+The loop that follows tries to squeeze it into the 6 bit register field
+by doubling denom, but that only makes the quotient smaller, so tmr_delay
+can never converge.  tmr_scale is bumped past 3 and the function gives up
+with
 
-All public API functions that can fail use igt_assert internally rather
-than returning error codes, following the IGT convention.
+	/* Delay exceeds range of hysteresis timer */
+	ASSERT(false);
 
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+even though the requested delay is too *short* to encode, not too long.
+
+With mall_additional_timer_percent left at its default of 0, the quotient
+drops below 64 once the refresh rate used for the calculation goes above
+~243 Hz.  Every DCN 3.0 display above that loses MALL static screen
+entirely and splats a WARN once per boot.  Reproduced on Navi 23
+(RX 6600) driving 1920x1080, resetting /sys/kernel/debug/clear_warn_once
+between modes:
+
+	refresh   MALL       ASSERT
+	144 Hz    enabled    no
+	240 Hz    enabled    no
+	280 Hz    skipped    yes
+	360 Hz    skipped    yes
+
+Commit 3bb68cec4db8 ("drm/amd/display: Add Overflow check to skip MALL")
+already covered the other end of the range, where a large stutter period
+makes the delay too long to encode.  Cover the short end by clamping to
+0, which selects the shortest hysteresis the register can express,
+65.28us * 64 = ~4.18ms.  That is marginally longer than what the formula
+asks for at these refresh rates, and erring long is the safe direction:
+it only delays MALL entry, it can never enter early.
+
+The numerator does not change between iterations, only denom does, so
+compute it once and keep both call sites inside 100 columns.
+
+The genuinely out of range case at very low refresh rates still reaches
+the ASSERT, which is where it belongs.
+
+Fixes: 52f2e83e2fe5 ("drm/amdgpu/display: add MALL support (v2)")
+Signed-off-by: Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
 ---
- lib/igt.h        |   1 +
- lib/igt_cgroup.c | 638 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
- lib/igt_cgroup.h |  56 +++++
- lib/meson.build  |   1 +
- 4 files changed, 696 insertions(+)
+v2: s/u64/uint64_t/ to follow DC convention (Leo Li).
 
-diff --git a/lib/igt.h b/lib/igt.h
-index 173ca70bff28..d8e5de7dcd2f 100644
---- a/lib/igt.h
-+++ b/lib/igt.h
-@@ -27,6 +27,7 @@
- #include "drmtest.h"
- #include "i915_3d.h"
- #include "igt_aux.h"
-+#include "igt_cgroup.h"
- #include "igt_configfs.h"
- #include "igt_core.h"
- #include "igt_debugfs.h"
-diff --git a/lib/igt_cgroup.c b/lib/igt_cgroup.c
-new file mode 100644
-index 000000000000..60586ccc4861
---- /dev/null
-+++ b/lib/igt_cgroup.c
-@@ -0,0 +1,638 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2025 Intel Corporation
-+ */
-+
-+/**
-+ * SECTION:igt_cgroup
-+ * @short_description: cgroup v2 helpers for IGT tests
-+ * @title: cgroup
-+ * @include: igt_cgroup.h
-+ *
-+ * This library provides helpers for creating and managing cgroup v2
-+ * sub-cgroups from IGT tests, including support for the dmem controller
-+ * which governs device memory (e.g. GPU VRAM) limits.
-+ */
-+
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <inttypes.h>
-+#include <limits.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/stat.h>
-+#include <sys/statfs.h>
-+#include <sys/types.h>
-+#include <unistd.h>
-+
-+#include "igt_cgroup.h"
-+#include "igt_core.h"
-+#include "igt_fs.h"
-+
-+#ifndef CGROUP2_SUPER_MAGIC
-+#define CGROUP2_SUPER_MAGIC 0x63677270
-+#endif
-+
-+/**
-+ * struct igt_cgroup - Opaque handle to a cgroup v2 sub-cgroup.
-+ * @dirfd: File descriptor for the cgroup directory.
-+ * @path: Absolute path to the cgroup directory.
-+ * @parent_path: Absolute path to the parent cgroup directory.
-+ *
-+ * Allocated by igt_cgroup_new() and freed by igt_cgroup_free().
-+ */
-+struct igt_cgroup {
-+	int dirfd;
-+	char *path;
-+	char *parent_path;
-+};
-+
-+static const char *cgroupv2_mount(void)
-+{
-+	static const char *path;
-+	static const char * const candidates[] = {
-+		"/sys/fs/cgroup",
-+		"/sys/fs/cgroup/unified",
-+		NULL,
-+	};
-+	struct statfs st;
-+	int i;
-+
-+	if (path)
-+		return path;
-+
-+	for (i = 0; candidates[i]; i++) {
-+		if (statfs(candidates[i], &st) == 0 &&
-+		    (unsigned long)st.f_type == CGROUP2_SUPER_MAGIC) {
-+			path = candidates[i];
-+			return path;
-+		}
-+	}
-+
-+	return NULL;
-+}
-+
-+/*
-+ * Write "+controller" to @cgroup_path/cgroup.subtree_control to enable
-+ * the named controller for children of that cgroup.
-+ */
-+static int enable_controller(const char *cgroup_path, const char *controller)
-+{
-+	char path[PATH_MAX];
-+	char cmd[64];
-+	ssize_t ret;
-+	int fd;
-+
-+	snprintf(path, sizeof(path), "%s/cgroup.subtree_control", cgroup_path);
-+	snprintf(cmd, sizeof(cmd), "+%s", controller);
-+
-+	fd = open(path, O_WRONLY);
-+	if (fd < 0)
-+		return -errno;
-+
-+	ret = write(fd, cmd, strlen(cmd));
-+	close(fd);
-+
-+	return (ret < 0) ? -errno : 0;
-+}
-+
-+/*
-+ * Move every PID listed in @cgroup_path/cgroup.procs to
-+ * @parent_path/cgroup.procs.  Silently ignores individual failures
-+ * (a PID may have exited between reading and writing).
-+ */
-+static void drain_procs_to_parent(const char *cgroup_path,
-+				  const char *parent_path)
-+{
-+	char proc_path[PATH_MAX];
-+	char parent_procs[PATH_MAX];
-+	int parent_fd;
-+	FILE *f;
-+	int pid;
-+
-+	snprintf(proc_path, sizeof(proc_path), "%s/cgroup.procs", cgroup_path);
-+	snprintf(parent_procs, sizeof(parent_procs), "%s/cgroup.procs", parent_path);
-+
-+	parent_fd = open(parent_procs, O_WRONLY);
-+	if (parent_fd < 0)
-+		return;
-+
-+	f = fopen(proc_path, "r");
-+	if (f) {
-+		while (fscanf(f, "%d", &pid) == 1) {
-+			char pidbuf[32];
-+			ssize_t len = snprintf(pidbuf, sizeof(pidbuf), "%d", pid);
-+
-+			write(parent_fd, pidbuf, len);
-+		}
-+		fclose(f);
-+	}
-+
-+	close(parent_fd);
-+}
-+
-+/**
-+ * igt_cgroup_new() - Create a new cgroup v2 sub-cgroup.
-+ * @name: Name for the new cgroup directory.
-+ *
-+ * Creates a sub-cgroup named @name under the system's unified cgroupv2
-+ * hierarchy.  The dmem controller is enabled in the parent's
-+ * subtree_control so that igt_cgroup_dmem_set_max() and friends take effect
-+ * immediately.
-+ *
-+ * Return: Pointer to an &struct igt_cgroup on success, %NULL on failure.
-+ */
-+struct igt_cgroup *igt_cgroup_new(const char *name)
-+{
-+	struct igt_cgroup *cg;
-+	const char *mount;
-+	int ret;
-+
-+	mount = cgroupv2_mount();
-+	if (!mount) {
-+		igt_debug("cgroup v2 not found\n");
-+		return NULL;
-+	}
-+
-+	cg = calloc(1, sizeof(*cg));
-+	if (!cg)
-+		return NULL;
-+
-+	cg->parent_path = strdup(mount);
-+	if (!cg->parent_path)
-+		goto err_free;
-+
-+	if (asprintf(&cg->path, "%s/%s", mount, name) < 0) {
-+		cg->path = NULL;
-+		goto err_parent;
-+	}
-+
-+	/*
-+	 * Try to enable the dmem controller in the parent's subtree_control.
-+	 * Ignore EINVAL which the kernel returns when the controller is already
-+	 * listed (i.e. already enabled).
-+	 */
-+	ret = enable_controller(mount, "dmem");
-+	if (ret < 0 && ret != -EINVAL)
-+		igt_debug("Failed to enable dmem controller in %s: %d\n",
-+			  mount, ret);
-+
-+	if (mkdir(cg->path, 0755) < 0 && errno != EEXIST) {
-+		igt_debug("Failed to create cgroup %s: %m\n", cg->path);
-+		goto err_path;
-+	}
-+
-+	cg->dirfd = open(cg->path, O_RDONLY | O_DIRECTORY);
-+	if (cg->dirfd < 0) {
-+		igt_debug("Failed to open cgroup dir %s: %m\n", cg->path);
-+		goto err_rmdir;
-+	}
-+
-+	return cg;
-+
-+err_rmdir:
-+	rmdir(cg->path);
-+err_path:
-+	free(cg->path);
-+err_parent:
-+	free(cg->parent_path);
-+err_free:
-+	free(cg);
-+	return NULL;
-+}
-+
-+/**
-+ * igt_cgroup_free() - Destroy a cgroup and release its resources.
-+ * @cg: The cgroup to destroy.
-+ *
-+ * Moves any processes still running inside @cg back to the parent cgroup,
-+ * removes the cgroup directory, and frees all associated memory.
-+ * After this call @cg must not be used.
-+ */
-+void igt_cgroup_free(struct igt_cgroup *cg)
-+{
-+	if (!cg)
-+		return;
-+
-+	drain_procs_to_parent(cg->path, cg->parent_path);
-+
-+	close(cg->dirfd);
-+
-+	if (rmdir(cg->path) < 0)
-+		igt_debug("Failed to remove cgroup %s: %m\n", cg->path);
-+
-+	free(cg->path);
-+	free(cg->parent_path);
-+	free(cg);
-+}
-+
-+/**
-+ * igt_cgroup_move_current() - Move the calling process into a cgroup.
-+ * @cg: Target cgroup.
-+ *
-+ * Writes the calling process's PID to @cg's cgroup.procs file, transferring
-+ * it into the cgroup.  All threads of the process move together.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_move_current(struct igt_cgroup *cg)
-+{
-+	char pidbuf[32];
-+	ssize_t len;
-+	int fd, ret;
-+
-+	len = snprintf(pidbuf, sizeof(pidbuf), "%d", (int)getpid());
-+
-+	fd = openat(cg->dirfd, "cgroup.procs", O_WRONLY);
-+	igt_assert_f(fd >= 0, "Failed to open cgroup.procs: %m\n");
-+
-+	ret = write(fd, pidbuf, len);
-+	close(fd);
-+
-+	igt_assert_f(ret == len, "Failed to write PID to cgroup.procs: %m\n");
-+}
-+
-+/*
-+ * Parse a single dmem interface file line of the form "region_name value\n"
-+ * where value is either a decimal byte count or the string "max".
-+ * Returns 0 and writes to *out on success, -EINVAL on parse error.
-+ */
-+static int dmem_parse_line(char *line, const char *region, uint64_t *out)
-+{
-+	char *space = strchr(line, ' ');
-+
-+	if (!space)
-+		return -EINVAL;
-+
-+	*space = '\0';
-+	if (strcmp(line, region) != 0)
-+		return -ENOENT;
-+
-+	if (strcmp(space + 1, "max") == 0) {
-+		*out = IGT_CGROUP_DMEM_MAX;
-+		return 0;
-+	}
-+
-+	errno = 0;
-+	*out = strtoull(space + 1, &space, 10);
-+	if (errno || *space != '\0')
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Read a dmem interface file opened relative to @dirfd, searching for
-+ * @region.  On success writes the region's value to @out and returns 0.
-+ * Returns -ENOENT when @region is absent, or a negative errno otherwise.
-+ */
-+static int dmem_read_region(int dirfd, const char *file,
-+			    const char *region, uint64_t *out)
-+{
-+	char buf[4096];
-+	char *line, *saveptr;
-+	ssize_t n;
-+	int fd;
-+
-+	fd = openat(dirfd, file, O_RDONLY);
-+	if (fd < 0)
-+		return -errno;
-+
-+	n = igt_readn(fd, buf, sizeof(buf) - 1);
-+	close(fd);
-+	if (n < 0)
-+		return (int)n;
-+	buf[n] = '\0';
-+
-+	for (line = strtok_r(buf, "\n", &saveptr); line;
-+	     line = strtok_r(NULL, "\n", &saveptr)) {
-+		int ret = dmem_parse_line(line, region, out);
-+
-+		if (ret != -ENOENT)
-+			return ret;
-+	}
-+
-+	return -ENOENT;
-+}
-+
-+/*
-+ * Write "region_name value" (or "region_name max") to the dmem interface
-+ * file @file opened relative to @dirfd.
-+ * If @nonblock is true the file is opened with O_NONBLOCK, causing any
-+ * eviction triggered by the limit change to be skipped rather than waited
-+ * for; the write still succeeds (returns 0).
-+ * Returns 0 on success, negative errno on failure.
-+ */
-+static int dmem_write_region(int dirfd, const char *file,
-+			     const char *region, uint64_t bytes, bool nonblock)
-+{
-+	char buf[PATH_MAX + 64];
-+	ssize_t len;
-+	int fd, ret;
-+	int flags = O_WRONLY;
-+
-+	if (bytes == IGT_CGROUP_DMEM_MAX)
-+		len = snprintf(buf, sizeof(buf), "%s max", region);
-+	else
-+		len = snprintf(buf, sizeof(buf), "%s %" PRIu64, region, bytes);
-+
-+	if (nonblock)
-+		flags |= O_NONBLOCK;
-+
-+	fd = openat(dirfd, file, flags);
-+	if (fd < 0)
-+		return -errno;
-+
-+	do {
-+		ret = write(fd, buf, len);
-+		if (ret < 0 && errno == EINTR)
-+			igt_debug("dmem cgroup write interrupted by signal, retrying\n");
-+	} while (ret < 0 && errno == EINTR);
-+	close(fd);
-+
-+	return (ret < 0) ? -errno : 0;
-+}
-+
-+/**
-+ * igt_cgroup_dmem_set_max() - Set the hard device memory limit for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name (e.g. "drm/0000:03:00.0/vram0").
-+ * @bytes: Hard limit in bytes.  Use %IGT_CGROUP_DMEM_MAX for no limit.
-+ * @nonblock: If true, open the file with O_NONBLOCK so that eviction
-+ *            triggered by the limit change is skipped rather than awaited.
-+ *
-+ * Writes @bytes to dmem.max for @region inside @cg.  Allocation attempts
-+ * that would push usage past this limit fail with -EAGAIN in the kernel.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_set_max(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes, bool nonblock)
-+{
-+	igt_assert_f(dmem_write_region(cg->dirfd, "dmem.max", region, bytes,
-+				       nonblock) == 0,
-+		     "Failed to set dmem.max for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_set_min() - Set the hard protection threshold for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @bytes: Hard protection threshold in bytes.  Pass 0 to disable.
-+ *
-+ * Writes @bytes to dmem.min for @region inside @cg.  Device memory below
-+ * this threshold is never reclaimed regardless of system pressure.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_set_min(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes)
-+{
-+	igt_assert_f(dmem_write_region(cg->dirfd, "dmem.min", region, bytes,
-+				       false) == 0,
-+		     "Failed to set dmem.min for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_set_low() - Set the soft protection threshold for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @bytes: Soft protection threshold in bytes.  Pass 0 to disable.
-+ *
-+ * Writes @bytes to dmem.low for @region inside @cg.  Device memory below
-+ * this threshold is only reclaimed when no unprotected memory remains.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_set_low(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes)
-+{
-+	igt_assert_f(dmem_write_region(cg->dirfd, "dmem.low", region, bytes,
-+				       false) == 0,
-+		     "Failed to set dmem.low for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_current() - Read current device memory usage for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @out: Receives the current usage in bytes.
-+ *
-+ * Reads dmem.current from @cg and returns the usage for @region.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_current(struct igt_cgroup *cg, const char *region,
-+				 uint64_t *out)
-+{
-+	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.current", region, out) == 0,
-+		     "Failed to read dmem.current for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_max() - Read the configured hard limit for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @out: Receives the limit in bytes, or %IGT_CGROUP_DMEM_MAX if unset.
-+ *
-+ * Reads dmem.max from @cg for @region.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_max(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out)
-+{
-+	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.max", region, out) == 0,
-+		     "Failed to read dmem.max for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_min() - Read the configured hard protection threshold for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @out: Receives the threshold in bytes.
-+ *
-+ * Reads dmem.min from @cg for @region.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_min(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out)
-+{
-+	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.min", region, out) == 0,
-+		     "Failed to read dmem.min for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_low() - Read the configured soft protection threshold for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @out: Receives the threshold in bytes.
-+ *
-+ * Reads dmem.low from @cg for @region.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_low(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out)
-+{
-+	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.low", region, out) == 0,
-+		     "Failed to read dmem.low for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_available() - Check if the dmem cgroup controller is available.
-+ *
-+ * Probes the cgroup v2 hierarchy for the presence of a dmem.capacity file at
-+ * the root, indicating that the kernel dmem controller is compiled in and at
-+ * least one device memory region has been registered.
-+ *
-+ * Return: %true if the dmem controller is available, %false otherwise.
-+ */
-+bool igt_cgroup_dmem_available(void)
-+{
-+	char **regions = igt_cgroup_dmem_regions();
-+
-+	if (!regions)
-+		return false;
-+
-+	igt_cgroup_dmem_regions_free(regions);
-+	return true;
-+}
-+
-+/**
-+ * igt_cgroup_dmem_regions() - Enumerate all registered device memory regions.
-+ *
-+ * Reads the root cgroup's dmem.capacity file and returns a NULL-terminated
-+ * array of region name strings.  Each name can be passed directly to
-+ * igt_cgroup_dmem_get_capacity(), igt_cgroup_dmem_get_current(), and the
-+ * igt_cgroup_dmem_set_*() / igt_cgroup_dmem_get_*() family.
-+ *
-+ * Free the returned array with igt_cgroup_dmem_regions_free().
-+ *
-+ * Return: A NULL-terminated array of strings on success, %NULL if cgroupv2
-+ * is unavailable or no regions are registered.
-+ */
-+char **igt_cgroup_dmem_regions(void)
-+{
-+	char buf[4096];
-+	char *line, *saveptr, *space, *name;
-+	char **regions = NULL, **tmp;
-+	int count = 0;
-+	const char *mount;
-+	ssize_t n;
-+	int dirfd, fd;
-+
-+	mount = cgroupv2_mount();
-+	if (!mount)
-+		return NULL;
-+
-+	dirfd = open(mount, O_RDONLY | O_DIRECTORY);
-+	if (dirfd < 0)
-+		return NULL;
-+
-+	fd = openat(dirfd, "dmem.capacity", O_RDONLY);
-+	close(dirfd);
-+	if (fd < 0)
-+		return NULL;
-+
-+	n = igt_readn(fd, buf, sizeof(buf) - 1);
-+	close(fd);
-+	if (n <= 0)
-+		return NULL;
-+	buf[n] = '\0';
-+
-+	for (line = strtok_r(buf, "\n", &saveptr); line;
-+	     line = strtok_r(NULL, "\n", &saveptr)) {
-+		space = strchr(line, ' ');
-+
-+		if (!space)
-+			continue;
-+		*space = '\0';
-+
-+		name = strdup(line);
-+		if (!name)
-+			goto err;
-+
-+		tmp = realloc(regions, (count + 2) * sizeof(*regions));
-+		if (!tmp) {
-+			free(name);
-+			goto err;
-+		}
-+		regions = tmp;
-+		regions[count++] = name;
-+		regions[count] = NULL;
-+	}
-+
-+	return regions;
-+
-+err:
-+	igt_cgroup_dmem_regions_free(regions);
-+	return NULL;
-+}
-+
-+/**
-+ * igt_cgroup_dmem_regions_free() - Free a region list returned by igt_cgroup_dmem_regions().
-+ * @regions: NULL-terminated array returned by igt_cgroup_dmem_regions().
-+ *
-+ * Frees each string in @regions and the array itself.  Safe to call with
-+ * %NULL.
-+ */
-+void igt_cgroup_dmem_regions_free(char **regions)
-+{
-+	int i;
-+
-+	if (!regions)
-+		return;
-+
-+	for (i = 0; regions[i]; i++)
-+		free(regions[i]);
-+
-+	free(regions);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_capacity() - Read total device memory capacity for a region.
-+ * @region: Device memory region name.
-+ * @out: Receives the total capacity in bytes.
-+ *
-+ * Reads dmem.capacity from the root cgroup and returns the capacity for
-+ * @region.  This reflects the maximum allocatable bytes, excluding memory
-+ * reserved by the kernel for internal use.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_capacity(const char *region, uint64_t *out)
-+{
-+	const char *mount;
-+	int dirfd, ret;
-+
-+	mount = cgroupv2_mount();
-+	igt_assert_f(mount, "cgroup v2 not available\n");
-+
-+	dirfd = open(mount, O_RDONLY | O_DIRECTORY);
-+	igt_assert_f(dirfd >= 0, "Failed to open cgroup root: %m\n");
-+
-+	ret = dmem_read_region(dirfd, "dmem.capacity", region, out);
-+	close(dirfd);
-+
-+	igt_assert_f(ret == 0, "Failed to read dmem.capacity for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_system_current() - Read system-wide device memory usage for a region.
-+ * @region: Device memory region name.
-+ * @out: Receives the total system-wide usage in bytes.
-+ *
-+ * Reads dmem.current from the root cgroup for @region.  This reflects the
-+ * aggregate device memory usage across all cgroups on the system.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_system_current(const char *region, uint64_t *out)
-+{
-+	const char *mount;
-+	int dirfd, ret;
-+
-+	mount = cgroupv2_mount();
-+	igt_assert_f(mount, "cgroup v2 not available\n");
-+
-+	dirfd = open(mount, O_RDONLY | O_DIRECTORY);
-+	igt_assert_f(dirfd >= 0, "Failed to open cgroup root: %m\n");
-+
-+	ret = dmem_read_region(dirfd, "dmem.current", region, out);
-+	close(dirfd);
-+
-+	igt_assert_f(ret == 0, "Failed to read root dmem.current for region %s\n", region);
-+}
-diff --git a/lib/igt_cgroup.h b/lib/igt_cgroup.h
-new file mode 100644
-index 000000000000..379de457a54d
---- /dev/null
-+++ b/lib/igt_cgroup.h
-@@ -0,0 +1,56 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2025 Intel Corporation
-+ */
-+
-+#ifndef __IGT_CGROUP_H__
-+#define __IGT_CGROUP_H__
-+
-+#include <stdbool.h>
-+#include <stdint.h>
-+
-+/**
-+ * IGT_CGROUP_DMEM_MAX - Sentinel value meaning "no device memory limit".
-+ *
-+ * Pass this to igt_cgroup_dmem_set_max() to remove a previously set limit,
-+ * equivalent to writing "max" to the dmem.max interface file.
-+ */
-+#define IGT_CGROUP_DMEM_MAX UINT64_MAX
-+
-+/**
-+ * struct igt_cgroup - Opaque handle to a cgroup v2 sub-cgroup.
-+ *
-+ * Allocated by igt_cgroup_new() and freed by igt_cgroup_free().
-+ * All other functions in this module take a pointer to this type.
-+ */
-+struct igt_cgroup;
-+
-+struct igt_cgroup *igt_cgroup_new(const char *name);
-+void igt_cgroup_free(struct igt_cgroup *cg);
-+
-+void igt_cgroup_move_current(struct igt_cgroup *cg);
-+
-+void igt_cgroup_dmem_set_max(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes, bool nonblock);
-+void igt_cgroup_dmem_set_min(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes);
-+void igt_cgroup_dmem_set_low(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes);
-+
-+void igt_cgroup_dmem_get_max(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out);
-+void igt_cgroup_dmem_get_min(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out);
-+void igt_cgroup_dmem_get_low(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out);
-+
-+void igt_cgroup_dmem_get_current(struct igt_cgroup *cg, const char *region,
-+				 uint64_t *out);
-+void igt_cgroup_dmem_get_capacity(const char *region, uint64_t *out);
-+void igt_cgroup_dmem_get_system_current(const char *region, uint64_t *out);
-+
-+bool igt_cgroup_dmem_available(void);
-+char **igt_cgroup_dmem_regions(void);
-+void igt_cgroup_dmem_regions_free(char **regions);
-+
-+#endif /* __IGT_CGROUP_H__ */
-diff --git a/lib/meson.build b/lib/meson.build
-index a7cde027ed04..b7e1be61d844 100644
---- a/lib/meson.build
-+++ b/lib/meson.build
-@@ -19,6 +19,7 @@ lib_sources = [
- 	'i915/i915_dp.c',
- 	'igt_collection.c',
- 	'igt_color_encoding.c',
-+	'igt_cgroup.c',
- 	'igt_configfs.c',
- 	'igt_facts.c',
- 	'igt_crc.c',
+    Leo - I also restored the two (uint32_t) casts while I was in there.
+    v1 had drifted those from the (uint32_t) the replaced line used, and
+    leaving uint64_t declarations beside (u32) casts looked worse than
+    fixing both; dcn30_hwseq.c is back to zero u64/u32 uses.  Say the
+    word if you would rather that were its own patch and I will drop it
+    from this one.
 
--- 
-2.47.3
+    No functional change.  checkpatch --strict reports "Prefer kernel
+    type 'u64' over 'uint64_t'" on the two declarations; that is the
+    known DC false positive.  0 errors otherwise.
 
+Boot tested since v1, on the hardware named above: Navi 23 (RX 6600),
+DCN 3.0.2, 1920x1080 over DisplayPort, VRR 48-360 Hz.  Same v7.2.2 tree
+and .config either way, clang 22.1.8 / LLD 22.1.8:
+
+	7.2.2 build     boot at greeter    360 Hz
+	unpatched       WARN               WARN
+	patched         none               none
+
+Three boots of the patched build produced no WARN at all; the unpatched
+build warned once per boot at the login greeter, where v_total is
+briefly inconsistent across the handover and the computed refresh lands
+just above the cliff.  ASSERT() is WARN_ON_ONCE, so each 360 Hz test
+reset /sys/kernel/debug/clear_warn_once immediately beforehand, which
+keeps the negatives independent rather than one suppressed warning.
+
+No regression below the cliff: 240 Hz still idles at 96 MHz memory clock
+and ~5 W package power, unchanged from the unpatched build.  MALL entry
+itself is not instrumented, so this shows the ASSERT is gone and that
+nothing regressed at or below the cliff, not that the frame cache now
+engages above it.
+
+ .../gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+index 2d3587a..2ecd3a4 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+@@ -1058,10 +1058,12 @@ bool dcn30_apply_idle_power_optimizations(struct dc *dc, bool enable)
+ 				 */
+ 				unsigned int denom = refresh_hz * 6528;
+ 				unsigned int stutter_period = dc->current_state->perf_params.stutter_period_us;
++				uint64_t num = (1000000LL + 2 * stutter_period * refresh_hz) *
++					(100LL + dc->debug.mall_additional_timer_percent);
++				uint64_t tmr_ticks;
+ 
+-				tmr_delay = (uint32_t)(div_u64(((1000000LL + 2 * stutter_period * refresh_hz) *
+-						(100LL + dc->debug.mall_additional_timer_percent) + denom - 1),
+-						denom) - 64LL);
++				tmr_ticks = div_u64(num + denom - 1, denom);
++				tmr_delay = tmr_ticks > 64 ? (uint32_t)(tmr_ticks - 64) : 0;
+ 
+ 				/* In some cases the stutter period is really big (tiny modes) in these
+ 				 * cases MALL cant be enabled, So skip these cases to avoid a ASSERT()
+@@ -1083,9 +1085,8 @@ bool dcn30_apply_idle_power_optimizations(struct dc *dc, bool enable)
+ 					}
+ 
+ 					denom *= 2;
+-					tmr_delay = (uint32_t)(div_u64(((1000000LL + 2 * stutter_period * refresh_hz) *
+-							(100LL + dc->debug.mall_additional_timer_percent) + denom - 1),
+-							denom) - 64LL);
++					tmr_ticks = div_u64(num + denom - 1, denom);
++					tmr_delay = tmr_ticks > 64 ? (uint32_t)(tmr_ticks - 64) : 0;
+ 				}
+ 
+ 				/* Copy HW cursor */
