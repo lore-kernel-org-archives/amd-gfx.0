@@ -4,54 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B45C8C61DD6
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 12:40:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E5FAC624D3
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 12:59:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13FD910FAB8;
-	Fri,  4 Sep 2026 12:40:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B02010E159;
+	Fri,  4 Sep 2026 12:59:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MdbgDKP5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="krIHdaya";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD66110E1AB;
- Fri,  4 Sep 2026 12:40:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=Gw99tT+N6x1OL/o3iwipTcioh1ScKGsVIVybRoGfeaE=; b=MdbgDKP5su4pt0vUAXtIDUMvnj
- ZyunS+0GfNkJSeR6l1BMO2h/nHGQ4+RPWKCxdR21kcPKL55tVf8qtxTyHVUaSRRMHRIcKtjuiZH53
- svzN3Q+31wOKKN2BdG9ehY/fMrTyJfVE8gs4Vt6z8cXKwp6hAGghwXmMQoxAMPJuo+S2Uqt5IX20z
- eJpSOdfYwrPTGlB7ZbY56x02SmvIdhvdBpQdq+AfoYGxiICroNjjEFhVzjKzUK4mxWJCRJkxq7tb6
- hQnzuJA0NDi9+atZO8C6B47KTiR+7Lmgu8BxLPtIOYZXxC3R1V61wuHz3oqVj8VUcKNtJ372a17z1
- H/BTgzCg==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x2TDg-00EsvX-TJ; Fri, 04 Sep 2026 14:40:36 +0200
-Message-ID: <26f0c07d-5284-406e-ab26-5994859da6c0@igalia.com>
-Date: Fri, 4 Sep 2026 13:40:35 +0100
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012010.outbound.protection.outlook.com
+ [40.107.200.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5DA210E159
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 12:59:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qhmfiKBNCapn0N96774+DxrKBH4kRe7AZQdAQKZw4F0Te9nXvvqtKXLUmyi/LpnVZXNAle52ABrNJ/9Cqlq1obLKOYwRL7TAzjFGk5K7KFLZJPyV1NBvgqr4hETOfUYOURLsyFczSt9V1FzdGaxv77Vw+Sf1S3e4A4qOWc+P3OZRzJDsqsIR2lJkO4gPLzShroG2oSxFK7tez5V5SGHvzkeSWfv7RTeNkShLT6SBvQftzpR99JuCUAX4r6YwZ5iPfq5kvFINEJxJI5SQzy7FCRny8pgVg2Pp9Zrhfw4Wg4L+O4OYA+bnuw6ZMvstUVb9TiyK4NYUihlsCE5oZODoEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tDtX20bbnvM2tTDFw3j+Jf8cHkJVOzFRITJlo/Zcg7w=;
+ b=qPH0NWhzvBHXHQmhUqdQtmY8ZjAttpYdiUzjldFEW649/r4oAymPQoxRxfTZ+jD3+i0zvDR3ziDx/8y30M3fHOqX333HdlJ55ynXiTUWcRr+G3SnP+tG672FWNSTY69BCBvywxP13GTW1IAjcRGxpfs334bPRL7HGVeBulzZmavQxJZBoxeDlLVCgw/J4Kj9K5OVxsju8JfLZLN2EGWPrF8Q9KkzzsrvCfbp7r1YiT7Ohm9dE7XWN1AZ+gn7T0I5TicpCscBCtHkp1hmhZWhHqe0IK0sLqJGuvULBH5kZAUFTp2VpFi1kqx3gmmF5mCidYQeuHExPbDFO01hiDL7zQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tDtX20bbnvM2tTDFw3j+Jf8cHkJVOzFRITJlo/Zcg7w=;
+ b=krIHdayaQPKy+uRye321Lf0FZqKbtzmwHJ7ATdoYkQbwxcfqAsag/kwv/MigqGdXmEtASZwTKHelurKPsaQPHacpTm0BCzJAqhODHJ2Jl81Je1NvnoPcSsaNJ0EVr7iPYUAa0DkU+jIlGvhwJdhlCIuwkaWHu9vZB818Jru1cSU=
+Received: from SJ0PR05CA0209.namprd05.prod.outlook.com (2603:10b6:a03:330::34)
+ by SA1PR12MB8967.namprd12.prod.outlook.com (2603:10b6:806:38b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 12:59:39 +0000
+Received: from SJ1PEPF000023D5.namprd21.prod.outlook.com
+ (2603:10b6:a03:330:cafe::13) by SJ0PR05CA0209.outlook.office365.com
+ (2603:10b6:a03:330::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.4 via Frontend Transport; Fri, 4
+ Sep 2026 12:59:39 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000023D5.mail.protection.outlook.com (10.167.244.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.1 via Frontend Transport; Fri, 4 Sep 2026 12:59:38 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 4 Sep 2026 07:59:36 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH 0/3] drm/amdgpu: Second-level trap handler for render-node
+ user queues
+Date: Fri, 4 Sep 2026 18:29:20 +0530
+Message-ID: <20260904125923.321117-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH i-g-t v6 7/9] tests/cgroup_dmem: add test for dmem.current
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>,
- kernel-dev@igalia.com
-References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
- <20260903-dmem_max-v6-7-61dc62970fae@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260903-dmem_max-v6-7-61dc62970fae@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D5:EE_|SA1PR12MB8967:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71d01e9b-c0fb-4e05-7b25-08df0a8460ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|56012099006|10067099003|5023799004|18002099003|11063799006|13003099007;
+X-Microsoft-Antispam-Message-Info: YLr8xotmefIsCkDzYxieoZsoxWmFJ8QatPyW9t56FIs0ofPipiYxZOIYoGGEbHhxpQ+fKRZZiPDEcPdsneAOnU/w+Nf2Zd3JLdmXx52jn9MwfAOxGliSBA9gbBUWo/RuIBy1ncy5SWpIqwwyvVQzxGXH79TAL06BgYlc72mc9K9qNg8y4M/Xt/Fw15trJsaFU0KCltN0J0IgEfsqQK16ZjI+hzPQ6iy3IoIUNCeEVpDe3whLdgE/QkTLASApsZU+vXV+n5aGwvuqIs9l3I+n5ojGdCPiezPgtEgLCUKx8Ujq2l/7KvCfQUaxFaEoh70DlM/aN3U+Y30bfeDAFqpKOvtuvVKCepUF7+fN6zvZrenCM9z7PNfle/sBBu48AxWWOeIrHvyYTtQlbIUORs4XV19KSml+vLxIoP8hrR89CZQjvvDI05VKnAsUusXRLsWpYpcpnT7xNEfPl1B9JBMs085tNFApLfFD+shTs+jloKLFVCmhsCt8D9HDgEgkytqxowbv+0ejWTCuE9GDHZnSHkzivY5GDjGimbdXrjwzWhHIw5sPU7omto1f4zciz3yWwK5eox53CeAbdn7g7pXuc9r+r3eMiRtNB+N4HrGqE2azhJU1dCdGieXzS+o2P/oaPbNU9+os2ClqdqHGA70pbg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(56012099006)(10067099003)(5023799004)(18002099003)(11063799006)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: AZhHk7U4jOobX9ySWl8QSX0FGR9XUo35Rog8nJSR4PoRRGynOfO2+1C3Bml0rU40B2fhTU1WUoFqIqfOpBazLom2b5oqSfpNAj01BacIGdGRqlb2tUue9zdYLC0ZVU+0+I2vqmzr+7RJWyJmeYLffePE5/5YjvxY1HdWf8sSG+AsEy0+bPT9D08my407qlRg264x9YWETJ9ZjRxAyaN/v7qz5YVXOdB7amlk7C0VNasiU3krTJZvtO452Ua3aT5767DYJHMBfKG60IIDpsvelCDeqtpMnM5ZSI+SlSSMbqZC9IwE9srtnW7IUpH7cIe0EHXwifcg/9yxIPt+1ODdd0oiX9VShsQy80St3bipZEmTC4a0+UY3/oFkIRd5PFkfoOW6LhWMq5EuMaIrNn54It0DOllu4y1u7WDSBLYk0j9W3z3K/1AcJFSN60kGbCVA
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 12:59:38.6832 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71d01e9b-c0fb-4e05-7b25-08df0a8460ee
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D5.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8967
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,384 +112,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This series adds support for a userspace second-level trap handler on
+render-node user queues (UQs), equivalent to what KFD already provides
+for compute workloads via the HSA trap handler ABI.
 
-On 03/09/2026 23:00, Thadeu Lima de Souza Cascardo wrote:
-> Based on the work of Thomas Hellström to test dmem.max eviction, add a
-> test for dmem.current usage after allocations and setting dmem.max.
-> 
-> Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-> check current usage is within a small slack of the expected allocation.
-> Then, set max to a small value and check allocations and current usage
-> are limited to the max set.  Set max to less than a single BO size, then
-> check no allocations are allowed and current usage is also within the
-> slack. After each allocation, release memory and check current usage
-> has gone down.
-> 
-> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> ---
->   tests/cgroup_dmem.c | 262 +++++++++++++++++++++++++++++++++++++++++++++++++++-
->   1 file changed, 257 insertions(+), 5 deletions(-)
-> 
-> diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-> index 442c965f9bbf..ba5e6a2e3deb 100644
-> --- a/tests/cgroup_dmem.c
-> +++ b/tests/cgroup_dmem.c
-> @@ -1,6 +1,8 @@
->   // SPDX-License-Identifier: MIT
->   /*
->    * Copyright © 2025 Intel Corporation
-> + * Copyright © 2026 Intel Corporation
+When a GPU shader hits an exception, the hardware jumps to the
+first-level CWSR trap handler. The first-level handler checks two slots
+in the per-VM TMA buffer for a second-level handler address and
+forwards the trap to userspace if one is installed.
 
-This is from a patch by Thomas? I would put a Co-developed-by: or his 
-SoB even if that is agreeable since Intel's copyright is being recorded.
+The second-level handler is a per-VM (per-process) setting. All shader
+waves executing under this VMID share the same handler regardless of
+queue type. GFX and compute queues from the same process share the same
+VMID, so one SET_L2_TRAP covers all queue types for that DRM file
+descriptor. This is confirmed to work for GFX9 and later hardware.
 
-> + * Copyright 2026 Valve Corporation
->    */
->   
->   /**
-> @@ -17,10 +19,217 @@
->    * Test category: uapi
->    */
->   
-> +#include <errno.h>
->   #include <inttypes.h>
-> +#include <signal.h>
-> +#include <stdatomic.h>
-> +#include <stdint.h>
-> +#include <stdlib.h>
-> +#include <string.h>
-> +#include <unistd.h>
->   
-> +#include "drmtest.h"
->   #include "igt.h"
-> +#include "igt_aux.h"
->   #include "igt_cgroup.h"
-> +#include "igt_dmem_driver.h"
-> +
-> +#define BO_SIZE			SZ_64M
-> +#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
-> +#define USAGE_POLL_MS		10
-> +#define USAGE_DROP_TIMEOUT_MS	1000
-> +
-> +/**
-> + * SUBTEST: simple
-> + * DESCRIPTION:
-> + *  Creates a cgroup, moves the process into it, enumerates all dmem regions,
-> + *  prints their capacity, system-wide current usage, per-cgroup current usage
-> + *  and configured limits, then destroys the cgroup.
-> + */
-> +
-> +/**
-> + * SUBTEST: current
-> + * DESCRIPTION:
-> + *  Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-> + *  check current usage is within a small slack of the expected allocation.
-> + *  Then, set max to a small value and check allocations and current usage
-> + *  are limited to the max set.
-> + *  Set max to less than a single BO size, then check no allocations are allowed
-> + *  and current usage is also within the slack.
-> + *  After each allocation, release memory and check current usage has gone
-> + *  down.
-> + * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
+Two new VM ioctl operations are added:
+  AMDGPU_VM_OP_SET_L2_TRAP   (op = 3)
+  AMDGPU_VM_OP_CLEAR_L2_TRAP (op = 4)
 
-I am out of touch the IGT documentation requirements but assuming the 
-REQUIREMENTS: is real, I would suggest instead of "xe or amdgpu device" 
-you put something like "a device supported by igt_dmem_driver.c" or 
-something like that.
+Both TBA and TMA buffers MUST be allocated with VM_ALWAYS_VALID. The
+GPU jumps to TBA on hardware exception without any software submission,
+so the kernel cannot track these BOs in a job's used-buffer list. An
+evicted BO leaves a stale page table entry, causing a GPU page fault on
+the next shader exception.
 
-> + */
-> +
-> +static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
-> +				    uint64_t limit)
-> +{
-> +	uint64_t current;
-> +	unsigned int elapsed = 0;
-> +
-> +	do {
-> +		igt_cgroup_dmem_get_current(cg, region, &current);
-> +		if (current <= limit)
-> +			return current;
-> +		usleep(USAGE_POLL_MS * 1000);
-> +		elapsed += USAGE_POLL_MS;
-> +	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
-> +
-> +	return current;
-> +}
-> +
-> +static int allocate_vram(void **handles, const struct igt_dmem_driver *drv,
-> +			 void *ctx, int max_bo, size_t len)
-> +{
-> +	int i, err = 0;
+Changes in v2:
+  - Move SET_L2_TRAP from the old TRAP ioctl (never released to
+    upstream) into the VM ioctl as a per-VM property. The TRAP ioctl
+    and its associated structures are removed entirely (Patch 1).
+  - Add VM_ALWAYS_VALID validation in amdgpu_trap_validate_user_addr().
+    SET_L2_TRAP returns -EINVAL if TBA or TMA BO does not have this
+    flag. Without it, eviction leaves a stale page table entry
+    (Natalie Vock).
+  - Clarify in kdoc: SET_L2_TRAP is per-VM (per-process). No conflict
+    between processes on user queue VMIDs. kq_tma_bo is CWSR scratch
+    for the first-level handler only. SET_L2_TRAP for kernel queue
+    VMIDs is not supported in this series (Lijo Lazar).
+  - Replace void *tma_cpu_addr with struct iosys_map tma_map. On dGPUs
+    the TMA BO may be placed in VRAM and accessed via MMIO (PCI BAR);
+    raw pointer dereferences are unsafe there.
+  - Add evict-flush-write-restore sequence in SET_L2_TRAP. Writing TBA
+    and TMA as two separate stores creates a race window where a
+    trapping wave reads a mismatched pair.
+  - Evict user queues in amdgpu_trap_free() at file close to prevent
+    waves from trapping into a freed TMA BO.
+  - Intercept GEM_VA UNMAP and CLEAR to disable the handler when TBA
+    or TMA is unmapped without calling CLEAR_L2_TRAP first (Patch 3).
 
-Nit - blank lines between the declarations and bodies are a bit 
-inconsistent in the patch.
+RFC v1: https://patchwork.freedesktop.org/series/172489/
 
-> +	for (i = 0; i < max_bo; i++) {
-> +		err = drv->allocate_vram(ctx, len, &handles[i]);
-> +		if (err)
-> +			break;
-> +	}
-> +	/* These are expected failures we can ignore. */
-> +	if (err == -ENOMEM || err == -ENOSPC)
-> +		err = 0;
-> +	if (!err)
-> +		return i;
-> +	for (i--; i >= 0; i--)
-> +		drv->free_vram(ctx, handles[i]);
-> +	return err;
-> +}
-> +
-> +static void free_vram(void **handles, const struct igt_dmem_driver *drv,
-> +		      void *ctx, int max_bo)
-> +{
-> +	int i;
-> +	for (i = 0; i < max_bo; i++)
-> +		drv->free_vram(ctx, handles[i]);
-> +}
-> +
-> +static void test_current(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
-> +{
-> +	struct igt_cgroup *cg;
-> +	void **handles;
-> +	uint64_t current, capacity, cg_max;
-> +	int n_bo = 0, max_bo;
-> +
-> +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-> +	igt_require_f(capacity >= 4 * BO_SIZE,
+Srinivasan Shanmugam (3):
+  drm/amdgpu/uapi: Add second-level trap handler ops to VM ioctl
+  drm/amdgpu: Add VM ioctl handlers for second-level trap handler
+  drm/amdgpu: Disable L2 trap handler when its VA range is unmapped
 
-4 * BO_SIZE = 256 Mib - is that what you intended?
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 -
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  22 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c      | 298 ++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h      |  63 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |  16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  25 ++
+ include/uapi/drm/amdgpu_drm.h                 |  98 ++++--
+ 10 files changed, 402 insertions(+), 134 deletions(-)
 
-> +		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
-> +		      capacity / SZ_1M);
-> +
-> +	/*
-> +	 * Use up to 4 GiB, or the full capacity if the device has less.
-> +	 * Leave one BO_SIZE worth of headroom so the device isn't completely
-> +	 * exhausted before the cgroup limit is hit.
-> +	 */
-> +	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
-> +	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
-> +
-> +	/* Create cgroup and move into it */
-> +	cg = igt_cgroup_new("igt_cgroups_test");
-
-Looking at the igt_cgroup_new() implementation there isn't any automatic 
-cleanup on failure registered, right? If so, then any test failure below 
-will prevent further tests from running. At least for the Intel's 
-automated CI that will be a problem but I let Intel people give their 
-opinion on what should happen.
-
-> +	igt_cgroup_move_current(cg);
-> +
-> +	max_bo = cg_max / BO_SIZE;
-> +
-> +	handles = calloc(max_bo, sizeof(handles[0]));
-
-If clearing on alloc is required then it could be that clearing in 
-free_vram() also is since the array is reused in the test? Or clearing 
-is not needed at either end? What I am trying to say is that it looks 
-both should be the same in this respect.
-
-> +	igt_assert_f(handles, "failed to allocate handles array");
-> +
-> +	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-> +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current == cg_max,
-> +		     "current usage (%"PRIu64" MiB) is not requested allocation (%"PRIu64" MiB)\n",
-> +		     current / SZ_1M, cg_max / SZ_1M);
-
-Similar class of a problem as above - if the test fails here objects are 
-not freed and because fd is shared subsquent tests will also fail, right?
-
-On the assert itself, the strict equality may become a problem if driver 
-internal objects start getting charger to the cgroup. I know there are 
-plans underway to close that gap. So maybe it would be best to start 
-with current >= cg_max.
-
-> +
-> +	free_vram(handles, drv, ctx, n_bo);
-> +	wait_for_usage_drop(cg, cg_region, 0);
-
-Similar as above - usage may not drop to zero all while the fd is open. 
-I would make it robust by sampling a baseline at the start of the test 
-and have the checks relative to it.
-
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current == 0,
-> +		     "current usage (%"PRIu64" MiB) is not zero\n",
-> +		     current / SZ_1M);
-> +
-> +	/* Allow for a slack as there might be some extra pages allocated. */
-> +	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE, false);
-
-I did not get what is the slack? Max is set to 2 BOs and then below it 
-is checked usage is exactly 2 BOs.
-
-> +
-> +	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-> +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current == 2 * BO_SIZE,
-> +		     "current usage (%"PRIu64" MiB) is not requested max allocation (%"PRIu64" MiB)\n",
-> +		     current / SZ_1M, cg_max / SZ_1M);
-> +
-> +	free_vram(handles, drv, ctx, n_bo);
-> +	wait_for_usage_drop(cg, cg_region, 0);
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current == 0,
-> +		     "current usage (%"PRIu64" MiB) is not zero\n",
-> +		     current / SZ_1M);
-> +
-> +	igt_cgroup_dmem_set_max(cg, cg_region, 0, false);
-> +
-> +	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-> +
-> +	/*
-> +	 * amdgpu may succeed the allocation, by falling back to GTT, so no assertion here.
-> +	 * Verify by reading current usage.
-> +	 */
-
-On APUs or even discrete? Could you make the test explicitly control it 
-and ask for no automatic fallback?
-
-Ar at least pass drivers[].driver_flag so test can have stricter 
-asserts. Even strcmp on drv->name could work.
-
-Regards,
-
-Tvrtko
-
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current == 0,
-> +		     "current usage (%"PRIu64" MiB) is not zero\n",
-> +		     current / SZ_1M);
-> +
-> +	if (n_bo > 0)
-> +		free_vram(handles, drv, ctx, n_bo);
-> +	wait_for_usage_drop(cg, cg_region, 0);
-> +
-> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-> +		  "max = %"PRIu64" MiB\n",
-> +		  current / SZ_1M, cg_max / SZ_1M);
-> +	igt_assert_f(current == 0,
-> +		     "current usage (%"PRIu64" MiB) is not zero\n",
-> +		     current / SZ_1M);
-> +
-> +	igt_cgroup_free(cg);
-> +}
-> +
-> +static const struct {
-> +	const char *name;
-> +	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx);
-> +	unsigned int flags;
-> +} subtests[] = {
-> +	{ "current", test_current, 0 },
-> +	{ }
-> +};
-> +
-> +static const struct {
-> +	int driver_flag;
-> +	const struct igt_dmem_driver *driver;
-> +} drivers[] = {
-> +	{ DRIVER_XE, &xe_dmem_driver },
-> +	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
-> +	{ },
-> +};
->   
->   IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
->   
-> @@ -32,7 +241,7 @@ static void fmt_bytes(uint64_t v, char *buf, size_t len)
->   		snprintf(buf, len, "%" PRIu64, v);
->   }
->   
-> -int igt_simple_main()
-> +static void simple_cgroup(void)
->   {
->   	struct igt_cgroup *cg;
->   	const char *region;
-> @@ -42,10 +251,6 @@ int igt_simple_main()
->   	char min_s[32], low_s[32], max_s[32];
->   	int i;
->   
-> -	igt_require_f(igt_cgroup_dmem_available(),
-> -		      "No dmem regions found; is cgroup v2 with the "
-> -		      "dmem controller available?\n");
-> -
->   	cg = igt_cgroup_new("igt-cgroup-dmem-test");
->   	igt_assert_f(cg, "Failed to create cgroup\n");
->   
-> @@ -90,3 +295,50 @@ int igt_simple_main()
->   	igt_cgroup_dmem_regions_free(regions);
->   	igt_cgroup_free(cg);
->   }
-> +
-> +int igt_main()
-> +{
-> +	igt_fixture() {
-> +		igt_require_f(getuid() == 0, "Test requires root\n");
-> +		/* Check dmem cgroup controller is available before doing anything else */
-> +		igt_require_f(igt_cgroup_dmem_available(),
-> +			      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
-> +
-> +	}
-> +
-> +	igt_subtest("simple")
-> +		simple_cgroup();
-> +
-> +	for (int d = 0; drivers[d].driver; d++) {
-> +		igt_subtest_group() {
-> +			int fd = -1;
-> +			int ret = -1;
-> +			char *cg_region = NULL;
-> +			void *ctx = NULL;
-> +			igt_fixture() {
-> +				fd = drm_open_driver(drivers[d].driver_flag);
-> +				igt_require_f(fd >= 0,
-> +					"No %s device found, skipping\n",
-> +					drivers[d].driver->name);
-> +				ret = drivers[d].driver->init(&ctx, fd);
-> +				igt_require_f(ret == 0,
-> +					"Failed to initialize %s device, skipping\n",
-> +					drivers[d].driver->name);
-> +				cg_region = drivers[d].driver->get_region_name(ctx);
-> +				igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
-> +			}
-> +
-> +			for (int i = 0; subtests[i].name; i++)
-> +				igt_subtest_f("%s-%s", drivers[d].driver->name, subtests[i].name)
-> +					subtests[i].test_fn(fd, cg_region, subtests[i].flags, drivers[d].driver, ctx);
-> +
-> +			igt_fixture() {
-> +				if (!ret)
-> +					drivers[d].driver->deinit(ctx);
-> +				if (fd >= 0)
-> +					drm_close_driver(fd);
-> +				free(cg_region);
-> +			}
-> +		}
-> +	}
-> +}
-> 
+-- 
+2.34.1
 
