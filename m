@@ -4,73 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2AF3C79F80
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:29:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29801C624DE
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 07:29:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BD5C10F8CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A4D110F8D0;
 	Fri,  4 Sep 2026 07:29:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IgIu8NvA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="evVBawbi";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3541C10F8CD
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 07:29:10 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-49954b88fffso4966565e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Sep 2026 00:29:10 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C2EC10F8CF
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 07:29:12 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4998b5a63e2so7313235e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 04 Sep 2026 00:29:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788506948; x=1789111748; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788506950; x=1789111750; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=LSAXZsRyGXh9uGU1fWvyeJUrYgfAcg4d/bXc8vVz4Eo=;
- b=IgIu8NvAB3lin1hB8nXamBfOZmWjxmcS4z0YWh2GqxJLTsJF4AwDVKgByOvAmveSB5
- tLufBXsBSTNtZfqLKXH+DJtdL4k1cHguUClLYTC12+UYfR49cx2JdQ8sx9omV2r+cOk9
- TQTSv1sJBHxGNx54BAdh60KjxVSKfafjuERGHwCtDC1bcrtbkZFm6YSpKRZFB8WTuGWz
- xuzmcl3qZxcGe6mijEafJGgjUuDXYAGkaLShiTnG9napdzO5Z9lTxUZ1Qa3Uk4m+Kw8K
- UNluv40vhpVqhWUALWYXMFKhxEGO3dbuFqGbHe7RzzttNsZd+T2LKxx9GGFuRYmXoezZ
- 4QwQ==
+ bh=yCMkALgEIQr+YmXq/AUq2WVdmaE1l9VYvzQpuTEc8W0=;
+ b=evVBawbimGYVdiH2fsJj51OC+1ITdrA+W0GhYYDdrDNvHlP1i9yRc91jJcLNNiJTa3
+ kq7iSOwFK6Ocm7fjtnqb6Z+NLnyC6S2NN5y+ylKRJHZQjQYIvpfV3iBx6TxkwJDObNfW
+ Ia0pRHIH2t0Yfvpsfc2dFEqbkVddyYBI4P9D2f3JmG8cvPcb/m+gD2p0fW3nNgSPUBiN
+ bUWme0AtHQvPJc02k9EFhD+/U9qK5dmeH6trWlJj+zVfEfaD9vKvg8os+oUoTFp5bzki
+ kyWUB/a+IWPvlXqN7g8zjRSJJDWaGAZUxSwrNTPvCmZ0dJl88ZQmfUOvN7AOGNNJ1MzP
+ eJIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788506948; x=1789111748;
+ d=1e100.net; s=20251104; t=1788506950; x=1789111750;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=LSAXZsRyGXh9uGU1fWvyeJUrYgfAcg4d/bXc8vVz4Eo=;
- b=Ydjqsy5N0rSAmyvaB8OUZMmgjjfE0Q8s7n8/T3k8PGWjBhQaYLF4T+rc4DII8w8xov
- 3GayrDrG3H5Ox82wtwBh2Dvi6trtYqv8NfMQ6Iiwd82g5Fep3beFypM/Z3ElHSRZcklC
- jrtoMg/dNhthfTWSp5eRKJ0L6T+Ya9PBAuADxi+Wo2L2pM8KfcO3Xim5JFpm9Xl06Tj7
- wcPAKXrmD2fPOQWFFaUh9yl2/N/qNBkHJ3N5OdZAR/gfnKrBjCDAUqxYRAoW2/1Jz3OW
- XxwRfRNH3j/wJszdFZAMatmSHBJOmEOWTCX7h5tQUznXI8aRqoPRFcKfFoiidSbdcaeO
- FowQ==
-X-Gm-Message-State: AFuF++lxL3fF3yD1XcunHJkAN7p1L7SrTFCLZOGs0ZLgRC6BfzJ5Mj9w
- TyIR5xcDhH8wg6zHXnTlFYCB66/i2aEUJzEv7yIQwGCBMOiKqg7kmxUY9LbtLvcJVac=
-X-Gm-Gg: AYBFou0X2QlIE0qSKPaH2rCVr0SFhJHthR36kvgK5fSBKyqjTNk6gwrz6MVPuyYI3+S
- hLXW+ihxUKpudprXJH94Fgbt8HhHAq+gd9VCAV1u6DSUWjHIdjHcicyInQAFOEXHs6cni4kHsbU
- kSdp4oID6TE/+F3Dk6qMj4HagO2Y3WhRN00iC2w6pvrL+fUqgeCGG/cD5oOTIbtI/kBWiOxocyg
- 9vv0JJit/bqszBgheEoAjcOlmwrYlqEBwzRZMa41DQ3Pca8Fe3rJ//b+h/mzh0c9uJTF68SoZAd
- lOSYJjcR/AgwlLcKCDmofKdFwA+LdzhG3voLTy9RKnyeCA/AOzExes/7AWs2BYtVH/k2f6WLN8l
- JvovHO5K8wIvTGYgiPmTlw/cpcNsYdxYa/D5Zeum1LfDaZDWJDm8YnmwbvKozWFw+BQ8ZND97lQ
- memAaaoo8K8+uUtLchr0rIr3AVI5OwuMiYARRMMpoLxx4EdRptnyArA0YwLtSIKSUdTbL7qBumP
- so/h3xsOfkshIKt2Sz3
-X-Received: by 2002:a05:600c:5493:b0:49b:8f18:714a with SMTP id
- 5b1f17b1804b1-49cf824a6c5mr42518985e9.12.1788506948339; 
- Fri, 04 Sep 2026 00:29:08 -0700 (PDT)
+ bh=yCMkALgEIQr+YmXq/AUq2WVdmaE1l9VYvzQpuTEc8W0=;
+ b=S8EmPua741edGaL8V1zf2aFVAZw4pvLg37PIMb+cNHvRDNRzXN7FQORwhNba/LOMJ5
+ /OtoHtLK8kunigZqi04tezrk9gkbZjCCh93bHzvbvbk5TZPf2wzvXR+nvzWVFoEJmHAc
+ bP5Pkuc+MpAImerbVnxDnzSYUcNFLpzLDMElzOrhnduyOdOVUlJLtsmIeH2qfogK2u4t
+ HQCIqSOnOX16THx8jfR+tjfAVGid0OUmjaf/O2rPfcXATEnUdhSkPLJVorheJwAubRsi
+ Ub/S5oRRoTDR0xZmRUsdtf0Iq3nz86XBNb3RixKHkkOA3hAg0Nyv0wniR2e706NNgvi+
+ aksg==
+X-Gm-Message-State: AFuF++lQ5sU9U6o2adydChc9tRwLybY+v5Q7X0Zc0AeVGhqqElWCaWF0
+ 7f3ksv+hBA4lj2xDj+3kaJhU/l4M1b8fq4jBdNgPd9ghcP8Hvb/vbjpc8TtU80wLZhI=
+X-Gm-Gg: AYBFou20R0EwNqKTJTk1v8oLzNQLH71SoLYFC7NAB7IPkW8mgcYBw89p1N3xVYJ3X9S
+ tD/hIImFKr///Xrae9F5eJe2EW8G023lqMDRZ+2EMk1+bbTqBjVEKCvYTdoeBZ9NiBURMCjM4sj
+ 9q4o4QAWIJC/Av3838fYRX9lVKnN+0t64j1NcKZ+5W/ZSgpqReRNBRrEem9rv1WJ3WSyeBTYAPR
+ dzNo7hIRc2/SRi814NI74PCsBV7psZlkh7II93j+1wpRdaGIsJc0t3VNmep0hLu0bWlw+LYe/mO
+ uxVDIwgGhCcDncTOrgUQFqSqd7jYPDgMj8/WFgXD21L5BcBgD6O6oOrU6TU4P801g5pjFAmAWDE
+ dvpQ2M5xJq9jxmepjsf4tT7SG7qNMoFr8UrWnb8rKU3exDq6Gf79coC17Nc+rBfOHdLxgKRP0Of
+ VNR4W+djiqwwHKK30wKCKWDJCsOKq81mgvJSe48KmfpVz+Y0Ii6s21rf5L+LPNPgpvAhdsUmnPC
+ LGdL+rQqpEqSKBhfBh4
+X-Received: by 2002:a05:600c:548c:b0:49c:c96a:d36b with SMTP id
+ 5b1f17b1804b1-49cf8267dd3mr40452415e9.12.1788506950239; 
+ Fri, 04 Sep 2026 00:29:10 -0700 (PDT)
 Received: from Timur-Max (athedsl-4460056.home.otenet.gr. [79.129.254.8])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cf75ce49esm86698155e9.1.2026.09.04.00.29.07
+ 5b1f17b1804b1-49cf75ce49esm86698155e9.1.2026.09.04.00.29.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 00:29:07 -0700 (PDT)
+ Fri, 04 Sep 2026 00:29:09 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Natalie Vock <natalie.vock@gmx.de>, Tvrtko Ursulin <tursulin@ursulin.net>,
  Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 6/8] drm/amdgpu/sdma: Move SDMA v5.x queue reset to common code
-Date: Fri,  4 Sep 2026 09:28:48 +0200
-Message-ID: <20260904072850.321759-7-timur.kristof@gmail.com>
+Subject: [PATCH 7/8] drm/amdgpu/sdma: Always handle kernel queues in
+ amdgpu_sdma_reset_engine()
+Date: Fri,  4 Sep 2026 09:28:49 +0200
+Message-ID: <20260904072850.321759-8-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260904072850.321759-1-timur.kristof@gmail.com>
 References: <20260904072850.321759-1-timur.kristof@gmail.com>
@@ -91,164 +92,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The code was exactly the same between SDMA v5.0 and v5.2
-furthermore the exact same implementation can be shared
-between all SDMA versions that don't use MES.
+Remove the caller_handles_kernel_queues argument from
+the amdgpu_sdma_reset_engine() function and make it
+always handle kernel queues.
+
+Now the SDMA recovery sequence is more consistent
+between callers for the KFD as follows.
+Before recovery: first the KFD is suspended,
+then the SDMA queue contents are backed up.
+After recovery: first the SDMA queue contents
+are restored, then the KFD is resumed.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 37 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  4 +++
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 25 +---------------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 25 +---------------
- 4 files changed, 43 insertions(+), 48 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      | 68 ++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |  3 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |  2 +-
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |  2 +-
+ 4 files changed, 38 insertions(+), 37 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-index 66f278f77f71..9eebd8380834 100644
+index 9eebd8380834..07aac5b3ea92 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -635,3 +635,40 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
- 
- 	return ret;
+@@ -542,16 +542,14 @@ static int amdgpu_sdma_soft_reset(struct amdgpu_device *adev, u32 instance_id)
  }
-+
-+/**
-+ * amdgpu_sdma_reset_queue_legacy() - Reset legacy SDMA queue after timeout (without MES)
+ 
+ /**
+- * amdgpu_sdma_reset_engine - Reset a specific SDMA engine
++ * amdgpu_sdma_reset_engine() - Reset a specific SDMA engine instance.
 + *
-+ * @ring: Pointer to the ring of the SDMA queue
-+ * @vmid: VMID of the timed out job
-+ * @timedout_fence: Fence of the timed out job
-+ *
-+ * Common implementation for resetting SDMA queues without MES (legacy).
-+ * This relies on the proper amdgpu_sdma_funcs to be set up
-+ * for the given ring.
-+ *
-+ * Applicable to SDMA versions that don't rely on the MES yet,
-+ * that is all versions up to SDMA v5.x and older.
-+ */
-+int amdgpu_sdma_reset_queue_legacy(struct amdgpu_ring *ring,
-+				   unsigned int vmid,
-+				   struct amdgpu_fence *timedout_fence)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+	int r;
+  * @adev: Pointer to the AMDGPU device
+  * @instance_id: Logical ID of the SDMA engine instance to reset
+- * @caller_handles_kernel_queues: Skip kernel queue processing. Caller
+- * will handle it.
+  *
+  * Returns: 0 on success, or a negative error code on failure.
+  */
+-int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
+-			     bool caller_handles_kernel_queues)
++int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id)
+ {
+ 	struct amdgpu_sdma_instance *sdma_instance = &adev->sdma.instance[instance_id];
+ 	struct amdgpu_ring *gfx_ring = &sdma_instance->ring;
+@@ -564,20 +562,23 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
+ 
+ 	mutex_lock(&sdma_instance->engine_reset_mutex);
+ 
+-	if (!caller_handles_kernel_queues) {
+-		/* Stop the scheduler's work queue for the GFX and page rings if they are running.
+-		 * This ensures that no new tasks are submitted to the queues while
+-		 * the reset is in progress.
+-		 */
++	/*
++	 * Stop the scheduler's work queue for the GFX and page rings if they are running.
++	 * This ensures that no new tasks are submitted to the queues while
++	 * the reset is in progress.
++	 */
++	if (amdgpu_ring_sched_ready(gfx_ring) && !drm_sched_is_stopped(&gfx_ring->sched))
+ 		drm_sched_wqueue_stop(&gfx_ring->sched);
+-		gfx_fence = amdgpu_ring_find_guilty_fence(gfx_ring);
+-		amdgpu_ring_reset_helper_begin(gfx_ring, gfx_fence);
+ 
+-		if (adev->sdma.has_page_queue) {
++	gfx_fence = amdgpu_ring_find_guilty_fence(gfx_ring);
++	amdgpu_ring_reset_helper_begin(gfx_ring, gfx_fence);
 +
-+	if (ring->me >= adev->sdma.num_instances) {
-+		dev_err(adev->dev, "sdma instance not found\n");
-+		return -EINVAL;
-+	}
++	if (adev->sdma.has_page_queue) {
++		if (amdgpu_ring_sched_ready(page_ring) && !drm_sched_is_stopped(&page_ring->sched))
+ 			drm_sched_wqueue_stop(&page_ring->sched);
+-			page_fence = amdgpu_ring_find_guilty_fence(page_ring);
+-			amdgpu_ring_reset_helper_begin(page_ring, page_fence);
+-		}
 +
-+	amdgpu_ring_reset_helper_begin(ring, timedout_fence);
++		page_fence = amdgpu_ring_find_guilty_fence(page_ring);
++		amdgpu_ring_reset_helper_begin(page_ring, page_fence);
+ 	}
+ 
+ 	if (sdma_instance->funcs->stop_kernel_queue) {
+@@ -612,22 +613,25 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
+ 	}
+ 
+ exit:
+-	if (!caller_handles_kernel_queues) {
+-		/* Restart the scheduler's work queue for the GFX and page rings
+-		 * if they were stopped by this function. This allows new tasks
+-		 * to be submitted to the queues after the reset is complete.
+-		 */
+-		if (!ret) {
+-			ret = amdgpu_ring_reset_helper_end(gfx_ring, gfx_fence);
++	/* Restart the scheduler's work queue for the GFX and page rings
++	 * if they were stopped by this function. This allows new tasks
++	 * to be submitted to the queues after the reset is complete.
++	 */
++	if (!ret) {
++		ret = amdgpu_ring_reset_helper_end(gfx_ring, gfx_fence);
++		if (ret)
++			goto unlock;
 +
-+	amdgpu_amdkfd_suspend(adev, true);
-+	r = amdgpu_sdma_reset_engine(adev, ring->me, true);
-+	amdgpu_amdkfd_resume(adev, true);
-+	if (r)
-+		return r;
++		if (amdgpu_ring_sched_ready(gfx_ring))
++			drm_sched_wqueue_start(&gfx_ring->sched);
 +
-+	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
-+}
++		if (adev->sdma.has_page_queue) {
++			ret = amdgpu_ring_reset_helper_end(page_ring, page_fence);
+ 			if (ret)
+ 				goto unlock;
+-			drm_sched_wqueue_start(&gfx_ring->sched);
+-			if (adev->sdma.has_page_queue) {
+-				ret = amdgpu_ring_reset_helper_end(page_ring, page_fence);
+-				if (ret)
+-					goto unlock;
++
++			if (amdgpu_ring_sched_ready(page_ring))
+ 				drm_sched_wqueue_start(&page_ring->sched);
+-			}
+ 		}
+ 	}
+ unlock:
+@@ -662,13 +666,11 @@ int amdgpu_sdma_reset_queue_legacy(struct amdgpu_ring *ring,
+ 		return -EINVAL;
+ 	}
+ 
+-	amdgpu_ring_reset_helper_begin(ring, timedout_fence);
+-
+ 	amdgpu_amdkfd_suspend(adev, true);
+-	r = amdgpu_sdma_reset_engine(adev, ring->me, true);
++	r = amdgpu_sdma_reset_engine(adev, ring->me);
+ 	amdgpu_amdkfd_resume(adev, true);
+ 	if (r)
+ 		return r;
+ 
+-	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
++	return 0;
+ }
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-index 055dd2522ecd..cb41453c1a19 100644
+index cb41453c1a19..5709d438e824 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-@@ -156,6 +156,10 @@ struct amdgpu_buffer_funcs {
- int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
- 			     bool caller_handles_kernel_queues);
- 
-+int amdgpu_sdma_reset_queue_legacy(struct amdgpu_ring *ring,
-+				   unsigned int vmid,
-+				   struct amdgpu_fence *timedout_fence);
-+
- #define amdgpu_emit_copy_buffer(adev, ib, s, d, b, t) (adev)->mman.buffer_funcs->emit_copy_buffer((ib),  (s), (d), (b), (t))
- #define amdgpu_emit_fill_buffer(adev, ib, s, d, b) (adev)->mman.buffer_funcs->emit_fill_buffer((ib), (s), (d), (b))
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index b7bda6361ef9..86eef0a361a7 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -1491,29 +1491,6 @@ static int sdma_v5_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
- 	return -ETIMEDOUT;
- }
- 
--static int sdma_v5_0_reset_queue(struct amdgpu_ring *ring,
--				 unsigned int vmid,
--				 struct amdgpu_fence *timedout_fence)
--{
--	struct amdgpu_device *adev = ring->adev;
--	int r;
--
--	if (ring->me >= adev->sdma.num_instances) {
--		dev_err(adev->dev, "sdma instance not found\n");
--		return -EINVAL;
--	}
--
--	amdgpu_ring_reset_helper_begin(ring, timedout_fence);
--
--	amdgpu_amdkfd_suspend(adev, true);
--	r = amdgpu_sdma_reset_engine(adev, ring->me, true);
--	amdgpu_amdkfd_resume(adev, true);
--	if (r)
--		return r;
--
--	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
--}
--
- static int sdma_v5_0_stop_queue(struct amdgpu_ring *ring)
- {
- 	u32 f32_cntl, freeze, cntl, stat1_reg;
-@@ -1909,7 +1886,7 @@ static const struct amdgpu_ring_funcs sdma_v5_0_ring_funcs = {
- 	.emit_reg_write_reg_wait = sdma_v5_0_ring_emit_reg_write_reg_wait,
- 	.init_cond_exec = sdma_v5_0_ring_init_cond_exec,
- 	.preempt_ib = sdma_v5_0_ring_preempt_ib,
--	.reset = sdma_v5_0_reset_queue,
-+	.reset = amdgpu_sdma_reset_queue_legacy,
+@@ -153,8 +153,7 @@ struct amdgpu_buffer_funcs {
+ 				 uint32_t byte_count);
  };
  
- static void sdma_v5_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index d063babab833..09f00c99dd70 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -1409,29 +1409,6 @@ static int sdma_v5_2_wait_for_idle(struct amdgpu_ip_block *ip_block)
- 	return -ETIMEDOUT;
+-int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
+-			     bool caller_handles_kernel_queues);
++int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id);
+ 
+ int amdgpu_sdma_reset_queue_legacy(struct amdgpu_ring *ring,
+ 				   unsigned int vmid,
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+index 77f385b9ef53..796ea9f74763 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -1583,7 +1583,7 @@ static int sdma_v4_4_2_reset_queue(struct amdgpu_ring *ring,
+ 	int r;
+ 
+ 	amdgpu_amdkfd_suspend(adev, true);
+-	r = amdgpu_sdma_reset_engine(adev, id, false);
++	r = amdgpu_sdma_reset_engine(adev, id);
+ 	amdgpu_amdkfd_resume(adev, true);
+ 	return r;
  }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index a23384571193..f9fbc5628fb4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2576,7 +2576,7 @@ static int reset_hung_queues_sdma(struct device_queue_manager *dqm)
+ 				continue;
  
--static int sdma_v5_2_reset_queue(struct amdgpu_ring *ring,
--				 unsigned int vmid,
--				 struct amdgpu_fence *timedout_fence)
--{
--	struct amdgpu_device *adev = ring->adev;
--	int r;
--
--	if (ring->me >= adev->sdma.num_instances) {
--		dev_err(adev->dev, "sdma instance not found\n");
--		return -EINVAL;
--	}
--
--	amdgpu_ring_reset_helper_begin(ring, timedout_fence);
--
--	amdgpu_amdkfd_suspend(adev, true);
--	r = amdgpu_sdma_reset_engine(adev, ring->me, true);
--	amdgpu_amdkfd_resume(adev, true);
--	if (r)
--		return r;
--
--	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
--}
--
- static int sdma_v5_2_stop_queue(struct amdgpu_ring *ring)
- {
- 	u32 f32_cntl, freeze, cntl, stat1_reg;
-@@ -1924,7 +1901,7 @@ static const struct amdgpu_ring_funcs sdma_v5_2_ring_funcs = {
- 	.emit_reg_write_reg_wait = sdma_v5_2_ring_emit_reg_write_reg_wait,
- 	.init_cond_exec = sdma_v5_2_ring_init_cond_exec,
- 	.preempt_ib = sdma_v5_2_ring_preempt_ib,
--	.reset = sdma_v5_2_reset_queue,
-+	.reset = amdgpu_sdma_reset_queue_legacy,
- };
- 
- static void sdma_v5_2_set_ring_funcs(struct amdgpu_device *adev)
+ 			/* Reset engine and check. */
+-			if (amdgpu_sdma_reset_engine(dqm->dev->adev, i, false) ||
++			if (amdgpu_sdma_reset_engine(dqm->dev->adev, i) ||
+ 			    dqm->dev->kfd2kgd->hqd_sdma_get_doorbell(dqm->dev->adev, i, j) ||
+ 			    !set_sdma_queue_as_reset(dqm, doorbell_off)) {
+ 				r = -ENOTRECOVERABLE;
 -- 
 2.55.0
 
