@@ -4,61 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74ADFC79FAB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1FE4C79FAD
 	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 07:01:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A335110E681;
-	Mon,  7 Sep 2026 07:01:07 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0166510E147;
- Fri,  4 Sep 2026 09:19:06 +0000 (UTC)
-X-UUID: a8e57e98a84111f19a56ed5b684f684d-20260904
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
- HR_CTE_8B
- HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
- HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
- HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
- IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED
- SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
- CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
- AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:2dae1310-a863-445a-9627-b33467bde2e8, IP:15,
- URL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:40
-X-CID-INFO: VERSION:1.3.19, REQID:2dae1310-a863-445a-9627-b33467bde2e8, IP:15,
- UR
- L:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:40
-X-CID-META: VersionHash:7db8b62, CLOUDID:c7a44c824c7fc39714e6deba9a946e1c,
- BulkI
- D:260904171902CNTQOJ1R,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
- C:nil,Content:0|15|50|99,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil
- ,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: a8e57e98a84111f19a56ed5b684f684d-20260904
-X-User: yijiangshan@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
- (envelope-from <yijiangshan@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 234142521; Fri, 04 Sep 2026 17:18:58 +0800
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: siqueira@igalia.com, alex.hung@amd.com, superm1@kernel.org,
- timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
- hamzamahfooz@linux.microsoft.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- 13667453960@163.com, Jiangshan Yi <yijiangshan@kylinos.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: check dc_state_create_copy() for NULL in
- dm_suspend
-Date: Fri,  4 Sep 2026 17:18:17 +0800
-Message-Id: <20260904091817.578894-1-yijiangshan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6866D10E688;
+	Mon,  7 Sep 2026 07:01:08 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AYTnlyKb";
+	dkim-atps=neutral
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
+ [209.85.128.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B12610E27C
+ for <amd-gfx@lists.freedesktop.org>; Sat,  5 Sep 2026 13:34:24 +0000 (UTC)
+Received: by mail-yw1-f170.google.com with SMTP id
+ 00721157ae682-836c4474028so21100667b3.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 05 Sep 2026 06:34:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788615263; x=1789220063; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=9QXsz0fC9wZ+JNlekr0mg4nAz0vKv90Qs6khri27jlc=;
+ b=AYTnlyKb2whZffi4izozoY7wGmRp70h2LOtgQMMCjguBMDF/n2fngrqhOq+353zvNO
+ moPlGBNoQp1hvTSJ499MOklhnUEvn39zCzOVpjIaISC+4ew+qFL1MyI4IhcqjQd1sO9c
+ hydJe3KEqhCbooVY3O4aRdx8zX6TY0cuC+wbITT1rzkeVZ/tvTzqQvNPQY5kytRs6oUm
+ E4Ids6nZijB7tyEa0sl6J7BemLzJxrpM9MTng5XTd0Z1cTniD13oVJ3u6wWJ1/NJmzdY
+ wh+n6IwFv/o5GbxQ297wXURxJD+jcOnUcm9gTEgfDIpGNEELM8ZCa5/1sDuaThniYgrO
+ RHoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788615263; x=1789220063;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=9QXsz0fC9wZ+JNlekr0mg4nAz0vKv90Qs6khri27jlc=;
+ b=IPKSiOi6j5hpAESrwS7TegrddA9b1cILxHTC5VtmHya5X5uLdV00hcVHLU+QfNqFkl
+ xEJbqm5gd6ayZm/8Y4gm8biLPRwpZSbupVhGMB/O4nz/uCQrknbsXER4PtHLJEI59zVL
+ wodbsvp6NnrLL3atynOWSNr30+rr3olyI3wHTrpDR3qZr6jKEM2DhHYOGc4L3moG3Poe
+ 6KUAK3nMTyJUsowmkYPPx9W2LR3GcCssrKvdlnqqoLNPmEU7GSRP9LEU4vWguzHzOmnl
+ 6wq5s001yEGdNQQzHjzrHzS+DS87nt+YEV/TEqdBGi6a6VV3a95Tkeq//iIq5CXQivon
+ hfzA==
+X-Gm-Message-State: AFuF++lDOYmn+lqDzR181hYmwS/qkbzYH77qQ8jv3X+Sb7OpqAKQ27Zn
+ 5ETVK1AD1Z2vwD9eHaVdX4QlPDUpMi5Un6dCmnO2TUOpPqw/0tJ5FVcB
+X-Gm-Gg: AYBFou1o3oaZzGeke93r//bO1xIFcHs6BWc/SeMibkfdt7QfBTjppiINBK8gG6tNC1d
+ kgzGKS3zOFT1/LNf62MR/A98ZiLoo+XwDIu91M2gQpcOvF/YqY9qjYuhzqNpMZw0tMxjhvj9w5z
+ WsthIdlhath+X1EjKm8egzLwaYUBjAymeDnHYqGNzWwWfrd54tTlTV2ep3FAdBAASr8Trctu/RE
+ AfAAp36Krjwb8XjdU86ZR65JbxeOn8oex5w/+NQZBficOKe+zNBUFWKrsix2f4ybnil8fPGeHYV
+ lg9PMX9JT2x1X71OqOxFXIQd9rmwaVf4PeEoLvm64E89HAQkvMpAYCgabu7ViEV1Bn8dMAF4wz9
+ xgIjHlSAX527OEwmrFOOVvUllb/YvPRTYgJtb6vtQfpP8Q9s7OGVQTqV8LKomfH+mEu9NDXKQHH
+ CmEHfoyYo3u/MJfloqtGemd9R+kKvXTRCwdoAtaZdLazo+sOyNiGKW3TG6uOe9Ev7lHcu2QFV16
+ zeAlpfJ0YUMLxNVYKpXCWDME9TgKw==
+X-Received: by 2002:a05:690c:c1a:b0:854:d9d0:467b with SMTP id
+ 00721157ae682-87126aa91b3mr51195547b3.22.1788615262799; 
+ Sat, 05 Sep 2026 06:34:22 -0700 (PDT)
+Received: from localhost.localdomain ([2804:5698:103f:d00:26b6:2d03:3cc6:9121])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-8714b62bc77sm38919807b3.39.2026.09.05.06.34.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 05 Sep 2026 06:34:22 -0700 (PDT)
+From: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+Subject: [PATCH] drm/amdgpu/gfx8: fix register_list_format leak in
+ gfx_v8_0_init_microcode
+Date: Sat,  5 Sep 2026 10:34:05 -0300
+Message-ID: <20260905133405.3733-1-williandossantosdeoliveira287@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 07 Sep 2026 07:01:06 +0000
@@ -76,43 +87,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dc_state_create_copy() can return NULL on allocation failure.
-dm_suspend() only conditionally skips dm_gpureset_toggle_interrupts()
-and continues execution, returning success.  dm_resume() then
-dereferences the NULL cached_dc_state in link_enc_cfg_copy() and the
-following dc_state->stream_count loop, crashing during GPU reset
-recovery.
+gfx_v8_0_init_microcode() allocates rlc.register_list_format before
+loading the MEC firmware.
 
-Return -ENOMEM immediately if the copy fails, so the caller aborts
-suspend instead of leaving a NULL cached state for resume.
+If loading one of the subsequent firmware files fails, the function
+returns through the error path without freeing register_list_format.
 
-Fixes: 8092aa3ab8f7 ("drm/amd/display: Add null checker before passing variables")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Use gfx_v8_0_free_microcode() in the error path so all previously
+allocated firmware resources, including register_list_format, are
+released.
+
+Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ec483276d753..88505efb42a3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1582,9 +1582,14 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 		dc_allow_idle_optimizations(adev->dm.dc, false);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 7f91186ef1d1..b213870ecb96 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -1211,12 +1211,7 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
+ out:
+ 	if (err) {
+ 		dev_err(adev->dev, "gfx8: Failed to load firmware %s gfx firmware\n", chip_name);
+-		amdgpu_ucode_release(&adev->gfx.pfp_fw);
+-		amdgpu_ucode_release(&adev->gfx.me_fw);
+-		amdgpu_ucode_release(&adev->gfx.ce_fw);
+-		amdgpu_ucode_release(&adev->gfx.rlc_fw);
+-		amdgpu_ucode_release(&adev->gfx.mec_fw);
+-		amdgpu_ucode_release(&adev->gfx.mec2_fw);
++		gfx_v8_0_free_microcode(adev);
+ 	}
+ 	return err;
+ }
+-- 
+2.47.3
 
- 		dm->cached_dc_state = dc_state_create_copy(dm->dc->current_state);
-+		if (!dm->cached_dc_state) {
-+			drm_err(adev_to_drm(adev),
-+				"Failed to allocate cached DC state during suspend\n");
-+			mutex_unlock(&dm->dc_lock);
-+			return -ENOMEM;
-+		}
-
--		if (dm->cached_dc_state)
--			dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
-+		dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
-
- 		res = amdgpu_dm_commit_zero_streams(dm->dc);
- 		if (res != DC_OK) {
---
-2.25.1
