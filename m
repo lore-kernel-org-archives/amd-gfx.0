@@ -4,80 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A3D6C79FAA
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 07:01:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E3B6C79FA3
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 07:01:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8BC10E685;
-	Mon,  7 Sep 2026 07:01:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8D0D10E682;
+	Mon,  7 Sep 2026 07:01:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XZmbvy9G";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TtW8cTgx";
 	dkim-atps=neutral
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
- [209.85.210.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6BE10E0DE
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 12:01:38 +0000 (UTC)
-Received: by mail-ot1-f46.google.com with SMTP id
- 46e09a7af769-7f3f52143cdso773898a34.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Sep 2026 05:01:38 -0700 (PDT)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 977C210E012
+ for <amd-gfx@lists.freedesktop.org>; Sat,  5 Sep 2026 22:25:27 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-5b0231a3e86so1961980e87.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 05 Sep 2026 15:25:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788523297; x=1789128097; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Z1XyZzGqo8qtOw6QCVse2xuLQ0fYOXbEWeooM5I1+Fw=;
- b=XZmbvy9GA6c0VmzclTzNEcA0sGSzkbIprilNBysQM2YZDmTkGQEyWwmlJ4cL4ynymI
- 5IXtIXhS31MuBVUhwPtS8UEPnxdP0F8v2m8k1Jpx5wPO9a97lB6t0Ff9Q2gKcbgFIHQC
- L2QQhJIBPl0TNsUjsetRni/zq1TrySpIdR8j5giEFvh1J6sl6eLVBE51+EAwvVq8mqSP
- 8XPsNfJFfdDi0/z904DB43oW5+oJojYIq3OdJf87wx4pW52hz4G7nvlachs1IffP3mtG
- qEtgR2a+gPV2cXynEFd7+FSJm6ZYdblSHBwU2qhTUktIy6rA0+adz9jX4PeRwX8NLbgh
- GHsA==
+ d=gmail.com; s=20251104; t=1788647125; x=1789251925; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=up7v4iXfsfw0NZXjJnHOv6nLKWdrBroAhEtbXWzurTc=;
+ b=TtW8cTgxX0ChAX/Gpc+v1/IPXZ6QlNkpH2WVd/qe6yjcvK++elcsKpS/a554d12sSt
+ kp+9p2M2C2WdnmAh1scC4OURYjczlbJ/sgWuns7WEi4zZc5j1eyHBeAXBHpwpgOEdP0J
+ P5hvlbxf8dbM2KVBxxlWZ46gUc/Ndi0lpwWr0AVI4B4LdVqHpK1PpBkTYBUYFzpcu3LH
+ oTPj4/N+gGB6WBI4T35101otgLV3be9o3t+YdZms2UAwsuJD98KSdygP4CHWPJaIE9sh
+ dXQF/zWT757imUmHbI49Etmd+VxuqTxxTKJ9S1cd9wZCyzLz4KWMQq2aLl2NTD5w7gKB
+ ZAiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788523297; x=1789128097;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Z1XyZzGqo8qtOw6QCVse2xuLQ0fYOXbEWeooM5I1+Fw=;
- b=DJU3VYf/tftWtN1nxNQ9R05sxwed0v+KVIMEW3JnUn4ENorLjMEtsJNnJ/Fp8hBhxG
- xAfuvYeHCtzgmp7VwsJcysgtg0rigiuLL/WWki34AfngSGLf7k0Orxo+/imMYgFT/vXr
- L5p+96bpppGLQ2eUdL/xE6j11VVlvLWs6vVtTLysFt0yyK64H7ZaVr8dTGzGRfM3Kran
- pFazekClupwVNuWGyTK3sENQ/AL6nIIu0r9IJZag6cSa7Fz4v5Zpp8rAG4LZj8pK08/A
- PKh9pRSM/OaTeeBd94odHvaXJjqDhJBvY/4W+lU+nggINqtXzJ8VSkD7MhMcHkgZsFd0
- F6AA==
+ d=1e100.net; s=20251104; t=1788647125; x=1789251925;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=up7v4iXfsfw0NZXjJnHOv6nLKWdrBroAhEtbXWzurTc=;
+ b=sFn8F9kOO1qEduEP/2hZiY8YTgJHkywADDxNGwFm7A22TDfCq90CaN5NiBtZiY3fIx
+ XiQrOh6+x7/1P1Ws2EOtV7FXsRazHydjo6ApT4qN6TSPG/SGhf3f8zuvgRUZnOEJQ6Y1
+ RFPf/fkBX5Gqz0GIP4c8dg8eXjpmZFxgGzL2jd25pBkiB25vlhF0D8eN+qdI6afF1tdE
+ HpavMdthEHKmRvvtLf+Ap5+cL00OKZ5k4XjAOpU2RcZsGxuIm7tN+rZhvnNk9SrKdzb9
+ xmao8tijM38cLj1Xnmx/eBbdT58nbqpj4hGAjvf1xKfVUe43xoZ+p7ERBUhZ+Zqhzfsk
+ VceQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwZAnjg5FYQ4wwSN72eqtF2KGanVo9n5lCd4TYZGMzcd03YvF5WC/t2CwtP+WwFwkd3JRG2jvSe@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n9CfZWks/HbeROuk0/xAwY+nZjBHmh1259LzD1P6gv4okUeAob
- eq/kAih4rM1QTJA+iXElSqdmQ2RvAqJ+hACOV/FlQdnRhvN7ne4AE6+T
-X-Gm-Gg: AYBFou1RBX/xESnDPEWPB2/Qnfy9/ZQqhh4i3jm/Yc9pem+IODd2oH5aRn068hWYC5l
- JquMeT2MtVMgAETqPY2+Gu3Jun1CvcEaQgF3/2/ZNBOZLVftpoFNd3cq5YyJFTD/vgzG1q3qRru
- wjTX1Tf/a707hUfLZE+ubNJZ32zmF9eFf/J0NCM6heL8oL7CynLerIvwRKS/1NkOi2tniMhqkpV
- asboLyL9DIhTXXu9zjr5LGzcMEsxZLLyZuMQS441XvtIXewSuMZNphRehLRc48AuQiq+gfxM/jg
- XqsBomJAhQkqWNuQR3U3MBPyH5cYHOQDny819nVWNMbaMkSG3qMGTa+dcTv7uL/dkI9e3BcV6mu
- M72PHoohz1NVuAgLWe7RjBdNct8vBO2BByrNFUB26ZKvoxPbMeNSwbigTGUnrk4hB99pkj9fYg4
- SeVpEJ/3dRtcu0zWXP2ghwrJ5q2R3i7za2kdZHoEcxq9c4Z8GxdYZQ8hsEZz6OYkL0dCDtZwF3P
- muFAPYfHEEZvnY=
-X-Received: by 2002:a05:6820:1c87:b0:6b3:6920:4ca0 with SMTP id
- 006d021491bc7-6b6fabe1ff3mr3531638eaf.9.1788523295847; 
- Fri, 04 Sep 2026 05:01:35 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+ AKwUvBzg9qIWmp+FYtqQyp4LHJZ0llvfiOYuAiQj6299rfn1wcJaiSgT5M62TGHMEypmdZ6HymVM54sy@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kPLUdsLAbIZue2HvZ9mNnxlmQQ4uX/xou1wBnu2JRPNyVDr7HL
+ EY2o4vZlvD1zwNuZY1hrEOit+dCvVsjzR9H91ZP+h0st7GCphF2B6dnA
+X-Gm-Gg: AYBFou18CYnQv10x3HOeiRQ97AjP8akAMhedZtoIKMVbKW62kqFjNuIkzXxYqTfj4Cb
+ ijJnmtzVsUs/Er0uFD7M2v0tPVPouuzVMeD7foR56JAwjdG2NkCloFwIkfJzwKN5KsCWmO6F2sP
+ KLwGFZvkFspBBiUl5ITry3oz/HbEYhUucFuSByAVFagpAgb2c8ypsDqL5fRc+lrE/xyJAY1Avkh
+ bm1UpgjKQxGUj/Tuv8CMp7rru1ikPxJP2NzP7pVlIRPG4bUi0IXDtos3pcNVcI842jp2GH3g6a+
+ x57JiYJdC83H7HBmh1Dge82Xao6eMQyK7IjWc49URPkMYqkw683OK4MztM5dZEcQGmgzNKQ5qZ3
+ 1V3smE0L+p2xrWjBQ48nGYXyW7NPVuWVwwdjudxsIG1w1b0D56ABTikVB/kdUg/xe923zvJwnCo
+ mSjr+GsTPbz5H5Bh+H0Y0wEDdHD3lBvBYFcL8EBET3D//FWdg525A6pHUWY3lUuFuG20pLiIFBq
+ lVr
+X-Received: by 2002:a05:6512:3503:b0:5b5:e8d5:7fff with SMTP id
+ 2adb3069b0e04-5b616f0ba95mr2232510e87.8.1788647125226; 
+ Sat, 05 Sep 2026 15:25:25 -0700 (PDT)
+Received: from localhost (soda.int.kasm.eu.
+ [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14324356931sm10164241c88.4.2026.09.04.05.01.33
+ 2adb3069b0e04-5b6166f6c00sm1299495e87.35.2026.09.05.15.25.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Sep 2026 05:01:35 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Kenneth Feng <kenneth.feng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/amdgpu: fix typo in log message
-Date: Fri,  4 Sep 2026 17:30:09 +0530
-Message-ID: <20260904120044.14303-4-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904120044.14303-1-hemanth.selam@gmail.com>
-References: <20260904120044.14303-1-hemanth.selam@gmail.com>
+ Sat, 05 Sep 2026 15:25:24 -0700 (PDT)
+Date: Sun, 6 Sep 2026 00:25:24 +0200
+From: Klara Modin <klarasmodin@gmail.com>
+To: Manuel Ebner <manuelebner@mailbox.org>
+Cc: Thorsten Leemhuis <linux@leemhuis.info>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ Felix.Kuehling@amd.com, Mukul Joshi <mukul.joshi@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Mark Brown <broonie@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ rust-for-linux@vger.kernel.org,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: [PATCH 1/3] drm/gem: Add callback for when handle count goes to 0
+Message-ID: <apyTR-f8W6Jt7uP5@soda.int.kasm.eu>
+References: <20260831183311.1090131-1-alexander.deucher@amd.com>
+ <20260831183311.1090131-2-alexander.deucher@amd.com>
+ <aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info>
+ <e8a53eb241b2cc912e9cfad5f6a0120aa9683481.camel@mailbox.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <e8a53eb241b2cc912e9cfad5f6a0120aa9683481.camel@mailbox.org>
 X-Mailman-Approved-At: Mon, 07 Sep 2026 07:01:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,30 +102,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Correct the misspelling in a message the user sees, reported by
-scripts/checkpatch.pl using the list in scripts/spelling.txt.
+On 2026-09-05 11:31:41 +0200, Manuel Ebner wrote:
+> On Sat, 2026-09-05 at 07:36 +0200, Thorsten Leemhuis wrote:
+> > On 8/31/26 20:33, Alex Deucher wrote:
+> > > From: Mukul Joshi <mukul.joshi@amd.com>
+> > > ...
+> > ...
+> > 
+> > > > error[E0063]: missing field `handle_free` in initializer of `drm_gem_object_funcs`
+> > > >    --> rust/kernel/drm/gem/mod.rs:265:58
+> > > >     |
+> > > > 265 |     const OBJECT_FUNCS: bindings::drm_gem_object_funcs = bindings::drm_gem_object_funcs {
+> > > >     |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `handle_free`
+> > > > 
+> > > > error: aborting due to 1 previous error
+> > > > 
+> > > > For more information about this error, try `rustc --explain E0063`.
+> > > > make[2]: *** [rust/Makefile:799: rust/kernel.o] Error 1
+> > > > make[1]: *** [/builddir/build/BUILD/kernel-7.3.0-build/kernel-next-20260904/linux-7.3.0-0.0.next.20260904.221.vanilla.fc43.aarch64/Makefile:1442: prepare] Error 2
+> > > > make: *** [Makefile:256: __sub-make] Error 2
+> > """
+> > Full log:
+> > https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-43-aarch64/10951622-next-next-all/builder-live.log.gz
+> > 
+> > Reverting this change and 2/3 from this set fixed the problem for me.
 
-Only the message text changes, no code changes.
+That leaves only the documentation without the feature so might as well
+drop 3/3 too in that case?
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Otherwise, the following also fixes it for me:
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
-index 33c23532e29c..c0507d9193e2 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
-@@ -1759,7 +1759,7 @@ static int tonga_populate_vr_config(struct pp_hwmgr *hwmgr,
- 			table->VRConfig |= config;
- 		} else {
- 			pr_err("VDDC and VDDGFX should "
--				"be both on SVI2 control in splitted mode !\n");
-+				"be both on SVI2 control in split mode !\n");
- 		}
- 	} else {
- 		/* Merged mode  */
--- 
-2.48.1
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index e1ebad77ebe2..847e0ee38863 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -278,6 +278,7 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
+         vm_ops: core::ptr::null_mut(),
+         evict: None,
+         rss: None,
++        handle_free: None,
+     };
+ 
+     /// Returns the `Device` that owns this GEM object.
 
+> 
+> Verified.
+> 
+> Thanks
+>  Manuel
+> > 
+> > Ciao, Thorsten
+> > > ...
+
+Regards,
+Klara Modin
