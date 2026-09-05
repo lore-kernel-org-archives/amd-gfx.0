@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D031DC624D3
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Sep 2026 19:54:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64F37C624D6
+	for <amd-gfx@archiver.kernel.org>; Sat,  5 Sep 2026 04:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CC6010FB01;
-	Fri,  4 Sep 2026 19:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7807610E139;
+	Sat,  5 Sep 2026 04:30:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cUpRq9bh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l6PwQHET";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013021.outbound.protection.outlook.com
- [40.93.201.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E051210FB01
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Sep 2026 19:54:42 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012049.outbound.protection.outlook.com [52.101.48.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72CDB10E139
+ for <amd-gfx@lists.freedesktop.org>; Sat,  5 Sep 2026 04:30:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LCosvNMOGTJ/OgV4rxs+o964+zwPty0dElhcWIUtAtiwfbrnrTxHVSH7T5EAZuo24fXltCxo/WHSifyH6lro+sEnzdNzTgI+A/AxCXmcDG/qr0+33hdFX3Ru6V+VCEx64g6PxNT8aS0U52GFQhSUiV959x4vs0VlvIICx5CkPNqdrCeBLSChrgIWRo9typJ5kcPSZvGH0k3TKC3qsdD5plYkJT4bAouqRuLeiiOgnHT1M45NhxMKy5PSeQTKbjEWBCOi8c7tpdIdVsN27/ZHmzvBobwLW0/bcpYVZydvqZ76zaDgUPNwTAfjzwvdCquZhzfTGAYwLHW6hNWveBzFpw==
+ b=bYXYN0EmaWY5w5GP2mwUgfG+y5LMfCK2Oj+nyr/wzundZWhtCtRXTjfwBLpBA23hU3jFRjTeYtjH9gTo8JxdyTFbJ96hb/3EQxUqF1KJ5EQgaJD5VrXl0xFllAjlymqr5AR69aQrTUsjiU3EHlayuJDpz8dUvXsrkVguOsNG1zuIPDnFllEtPq/SQnNdKdMn0ztNKpe4EfO26iTBuVNQC4M8icqlk5HPpuHoOnoZSNNsGz0Sz6T+xjX7mj5tD2A++TTHewYBUAM/AzxEu+D++xGwYAmihAO2mDfKCTFiSkXmv5u3C4PGzCKzl2zFcGXagW4VCXbiqjhkJhs8I2+/WQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7MZ0me+cSregzWmAR7Nd/Gwe8N+tbhjFa7D1XgMwxio=;
- b=wy3kcUmvyCBC8pAXCXKMewz6f36nuM0cuPEWzW8aJ27Eg2OvdzpJB0zhxbiNqsTi8G85TVRn3DBTXdEtarBOjV0AocM0cjFTFj2dMYN1jT+Xmz88gffEsHzdUNz4Qu/b90hXnpuCAm9dAEI5O6eTs/0AsQQTH2PbHkg0o/qJfFFDxZR3JW3bH3WS/VPDKs9miw5OEO/BpgaDWCEMTXps0Xc13zQ7BuCGSOxuH0kFFQzQQ2BapXiKTMYKqZFnW0rJBPUuxGjSPj6HGMAMLhuc9h1rS6ijYRdZ+po5vUL+A9HhoOc9cdT4L2IRkqTTb8fOFsYwSETrkfHVn4a1/BkV3Q==
+ bh=LfkT+iZFPy6SithgCekb1JWFrGbSvSt3fgjnLOdz16w=;
+ b=Dj+ezIBrYBrxKOvf4OGYTyhbhLZqrzWtlqYP/t9KZPIfu0NJ7L90pWqU2mB7dCIhpOoD5qkHOON8Jkb9xgfNCYRcK3+/fPkOryKDYvmryEL2fH6UcbucoAt8q3gqN+0ZpOozngAce9wotCS+CPq7seJjTZeKM5b3ztNMvxA0LMtXjUhTspPLRCu6GBvKHyjJSL3U/Mp6xlCv/67I/4/f9LPQU4M5mrMvX4cxhXJXZlvbO6iB7y0J3GRu4hWGYNRXJH7JUK51+Z2tH8XSL7BYUwBY3+3b3lAtJELuFrVjdusoeT/Vlwp0WEG1yTSnDZ5SIjhMIMCJAcB0gAp1aXKrtw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7MZ0me+cSregzWmAR7Nd/Gwe8N+tbhjFa7D1XgMwxio=;
- b=cUpRq9bhqrviBkQKYKVGCJY952i9yefvDiKHH7AC4QOAAGsnvfEhMQAfwh6R15gYyRnq/wutjjNrpRcxufrKRtSkqxpMlmbipfI3FSjRM8cOG1v+c+Sp5pCzru3E2Z2yk6JYG2ULZgoea62YMjy/RN2OjsqyEmmgDBfMzGAhudw=
-Received: from BN0PR04CA0006.namprd04.prod.outlook.com (2603:10b6:408:ee::11)
- by SJ0PR12MB8167.namprd12.prod.outlook.com (2603:10b6:a03:4e6::5)
+ bh=LfkT+iZFPy6SithgCekb1JWFrGbSvSt3fgjnLOdz16w=;
+ b=l6PwQHETla6gOncFDEZRcuCu8dVSgiY9haPBfRKhhYOPLgaihDSXYUI64gnVfPJl1y4iXZbjJDkeHoeHOh1Hzs5QlnhAOTjA3LbjwbcdTObeToSLcarWWptNnONlUrhB7EAlaNntbbSuMMiLC33ppj0tvWu7Z+wQraUeHspiem4=
+Received: from MN2PR03CA0011.namprd03.prod.outlook.com (2603:10b6:208:23a::16)
+ by SA3PR12MB9131.namprd12.prod.outlook.com (2603:10b6:806:395::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Fri, 4 Sep
- 2026 19:54:29 +0000
-Received: from LV8PEPF00000066.namprd03.prod.outlook.com
- (2603:10b6:408:ee:cafe::91) by BN0PR04CA0006.outlook.office365.com
- (2603:10b6:408:ee::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
- Sep 2026 19:54:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
+ 2026 04:30:52 +0000
+Received: from BL6PEPF00020E66.namprd04.prod.outlook.com
+ (2603:10b6:208:23a::4) by MN2PR03CA0011.outlook.office365.com
+ (2603:10b6:208:23a::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Sat, 5
+ Sep 2026 04:30:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,54 +48,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- LV8PEPF00000066.mail.protection.outlook.com (10.167.248.38) with Microsoft
+ BL6PEPF00020E66.mail.protection.outlook.com (10.167.249.27) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 19:54:28 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ 15.21.382.8 via Frontend Transport; Sat, 5 Sep 2026 04:30:52 +0000
+Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 4 Sep
- 2026 14:54:25 -0500
-Received: from Xiaogang-ROCM-Dev.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46
- via Frontend Transport; Fri, 4 Sep 2026 14:54:25 -0500
-From: Xiaogang.Chen <xiaogang.chen@amd.com>
+ 2026 23:30:50 -0500
+From: Xiang Liu <xiang.liu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Xiaogang Chen <xiaogang.chen@amd.com>
-Subject: [PATCH v2 2/4] drm/amdkfd: Change migration size in CPU/GPU page
- fault handler to THP size
-Date: Fri, 4 Sep 2026 14:54:19 -0500
-Message-ID: <20260904195421.42919-3-xiaogang.chen@amd.com>
+CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Stanley.Yang@amd.com>,
+ <YiPeng.Chai@amd.com>, Xiang Liu <xiang.liu@amd.com>
+Subject: [PATCH 1/3] drm/amd/ras: reprogram MCA settings after reset
+Date: Sat, 5 Sep 2026 12:30:29 +0800
+Message-ID: <20260905043031.1015676-1-xiang.liu@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260904195421.42919-1-xiaogang.chen@amd.com>
-References: <20260904195421.42919-1-xiaogang.chen@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF00000066:EE_|SJ0PR12MB8167:EE_
-X-MS-Office365-Filtering-Correlation-Id: c695d40a-48aa-4014-5d3b-08df0abe545c
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E66:EE_|SA3PR12MB9131:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4e8ac2c-bb4b-4af9-de3c-08df0b067820
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|11063799006|56012099006|6133799003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: /nYpobJQAaRHR2sOmWp4j9pRYLTLE3pJx9Zr6+jf1nEjx06FML84EsebqU4jWh/lbOycYU/OkkPTkLcWMQ+TseeSc1bEDot5WsZfnJsDLyTO/7LgJgWIBlNKT764hFG4uIQJ6UZ2k7o5jeZKe1+oyaffZuHOi7Y7zPI4z4G3L9GMNum2Q9WvyXDGNwVGi9+d1xkkgVedF24TGkG00EPn929N9r8CNIXQKcoKo6aY4vUJCBbChbFHFwpDeX3X9HdNvd/SwRZruo+5gdFt5eRNG0ompIuIxKnosvBkBaBd28tUA0+KPsCfCkjheuVZWt1+pvWYk1TVY7j1GpZZvqZG5g15oigGxCpYUKtsU8czrZsLXpUAEHDl7lv8fB9Cl4pPXHAlVWnRqaxf4IkHSBxmBdX/E4CJ8OMY1o2pD2wLn9qX1vlXLzAZ41OARCKBmoaXPIC/sQHjASvch7IKMTsL1sk8v5/M0g2jxhB7Db+pA54347HN1gzQCWYG7yYRMeI6Wzxr/JA70LXPTCMwb/3REct4vwfmgMzJlrJ4UZk+Fzr/0EtkhNwT/yAB6QoO9iUc4xQ3cjR5EXLHdMy5ZZ9HmmA2cm77lqv2ZnZo+xy038DpddSlPDCexGUbMdLVn83pbssFQFdSO1KgASYyTtWje+GDTgEmGA7HAkwLHwSSB6+aHGYnwNJJuwhvZj+37wrxHJ05Emjy9yg6xOKnjm6/Og==
+ ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|6133799003|18002099003|18092099006|10086099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: WzxiDRW0JYIUbFckX3dxZT9mLDgHlf1vSwTD13XZjJ2xKGJzste52vmTuATYuEqbTJ9pmgzTem6EOk+gS7iWeC0iLYG2JaMmzwdXhmu6jrh10fNVPb10k0C2Zf8Fkc/t7WBKWZD37Y8t0FHtzVyGA+yN6uMzi7KWF4LGPnwGq9s8mlxljjEBsP0KwfMDIFxtjLI5hrOinQEKrK1R4DjR15lnRAZwXkGxhVwP6HuQjLBq7zaHdxeaf7zm5lreF08dKAmAr9QvYffV6KuDyW8QOof6UVT1TPHVLfIRa6+lD8XlWrGzEV92cXQVBFgl/lCi3Ouy4J8ZbUV1zpMyR5nSuMSJtdbzV9Gja2osoSw01gniaymWdjDVf9XffAgEccCzrVT0sNkS7CuDSW2sqL58PWVURgNQAbZwXctkn5i06E1VyZ3XqA5P+PIeasncUANhchtONI7ZRS58PVLw28xG7AyIAQQTBiuBjkk7CQ3FcA4UwnmVsDzn+QFhCAH4LSQB454VOCXeHazekBnKj62IxrmwSOME4nWetL7OrJ3717E7YMXYBKJVu3EVU90GwupvcKY+Gueb0TInXGuU1oI8uOJQzSUtkNpTDqIYMsxdf4mDwUnEFf5Xf7kWVyF4J+kZcFBoWo+z603WRadhKKMgm8pb3cIBsjo24G55x84/TjHJFVSjrglFdMzk29FQcMdnxC3wkjWMASQCrnyHpjr4DQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(11063799006)(56012099006)(6133799003)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(6133799003)(18002099003)(18092099006)(10086099003)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: TYBdn1NjsVHREVz6Wl3nBE18h6x88T0HtqpuXjWEPjMXFP6QLJ0yucgHCUWULMfrCkve1vzCW5l2+W5zVcRn5M5qpngLkzIuGzNuuI7IQjGZmgrWItQsz1+9bIdDAJnDlyAF1vH5yFbRX1oabx3iw58znR5Vn2mHtWpJYJCVxuMymYAf+gkAqh0E/5V/6gHjeIGTZi5yPGLRBk7v6+I4FEgjki5XrZqMT6ibti28+8AhD0haIrdREKz3QuSIYSotOnsmBW/hkKI3Xb37OVmvTUkLNkCReiwkCoPT4s1xRP5UBAmkVbhPgHkGwpMF3AZ8VewB8FWX/e9ad4gwbFuVi56PBRIyqQSDo0EXLTVTyRDOZ6LCYLb4g6cSlwPLDE5VZreeDNx5V2rtEMBuASEfx5K6ZknlIe2dXowKsW9ZcFMjl8aaQ7HbG6269FX4IJ7R
+X-MS-Exchange-AntiSpam-MessageData-0: lxYqY2BP3RcuXIdiEPUPW5d4q6rnVTU5SuGZi7LBTbDy+QhX3GudAPLF48QjQLzpanIiJn1xQtihEBdwYK518L57/DyS0/x0CdfrfE0p+6BpedHaOZPVQ4z1dEfiUcv+QfGn5cCdEfJEM/LsCk3RBFoIJnoZ4AAxreZNtc3hJe3PP21oZpWsIgP02iAOKRlxAjTHzAf0CDL5Ow286Td47cgNoO5bqQdi4sDLV8ippgvorQWx4O0m2AXtw5GlOX1S8yl2JVt9X5/n7uW+JQA079Hr3cGTRhWmxbqMTeHbLI5q9XHsQ05xfI4iWN/Fm/hH9IMXe02oEmiQL6Ivy0+IcEjIlYtMIxxnPRdKcxy3KRd6wJ7qStkte/c6/yNsrI4DYVCyWp/M5N6Z3zzYGoTP7ViUByGH2MlPeq8jOPXxBn/x8cRGyUNS7ds27Sleq7DJ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 19:54:28.4884 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c695d40a-48aa-4014-5d3b-08df0abe545c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 04:30:52.2599 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4e8ac2c-bb4b-4af9-de3c-08df0b067820
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF00000066.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E66.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8167
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9131
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,109 +108,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+When the driver is loaded on a device that still needs a hive reset,
+the RAS IP hw_init is deferred to amdgpu_ras_mgr_resume_after_reset().
+The MCA configuration is sent to PMFW from amdgpu_ras_late_init(),
+which runs during the reset while RAS is not ready yet, so the request
+is dropped and CE polling stays disabled. Correctable errors are then
+never harvested and only show up on the next driver load.
 
-When use HPAGE_PMD_SIZE based device private pages during migration core HMM
-treats device private memory in HPAGE_PMD_SIZE compound folio if possible.
-Current kfd driver uses prange->granularity that can be changed by user. Need
-have migration size in CPU and GPU page fault handler in HPAGE_PMD_SIZE based.
+Re-apply the current debug mode once hw_init has completed.
 
-For AMD GPU that exposes private device memory choose HPAGE_PMD_SIZE as
-minimums migration size in CPU and GPU page fault handler. For x86 it is
-same as default prange->granularity.
-
-Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  6 ++++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 13 +++++++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h     | 12 ++++++++++++
- 3 files changed, 27 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 813f3c1d29dc..bbf0fefd5722 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -1026,8 +1026,10 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
- 	if (!prange->actual_loc)
- 		goto out_unlock_prange;
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+index a02167397ce2..f550e83f2b96 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+@@ -483,6 +483,7 @@ int amdgpu_ras_mgr_resume_after_reset(struct amdgpu_device *adev)
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
+ 	struct amdgpu_ip_block *ip_block;
++	int ret;
  
--	/* Align migration range start and size to granularity size */
--	size = 1UL << prange->granularity;
-+	/* Align migration range start and size to max of
-+	 * THP with HPAGE_PMD_ORDER and granularity size
-+	 */
-+	size = 1UL << max(prange->granularity, HPAGE_PMD_ORDER);
- 	start = max(ALIGN_DOWN(addr, size), prange->start);
- 	last = min(ALIGN(addr + 1, size) - 1, prange->last);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 6b783d12bce4..482cd4e7eee5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3071,6 +3071,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 	struct kfd_node *node;
- 	int32_t best_loc;
- 	int32_t gpuid, gpuidx = MAX_GPU_INSTANCE;
-+	bool is_private_device = false;
- 	bool write_locked = false;
- 	struct vm_area_struct *vma;
- 	bool migration = false;
-@@ -3087,6 +3088,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	if (!con || !con->uniras_enabled)
  		return 0;
- 	}
- 	svms = &p->svms;
-+	is_private_device = svm_is_private_zone(adev);
+@@ -497,7 +498,12 @@ int amdgpu_ras_mgr_resume_after_reset(struct amdgpu_device *adev)
+ 	if (!ip_block)
+ 		return -EINVAL;
  
- 	pr_debug("restoring svms 0x%p fault address 0x%llx\n", svms, addr);
- 
-@@ -3224,8 +3226,15 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 	kfd_smi_event_page_fault_start(node, p->lead_thread, addr,
- 				       write_fault, timestamp);
- 
--	/* Align migration range start and size to granularity size */
--	size = 1UL << prange->granularity;
-+	if (is_private_device)
-+		/* Align migration range start and size to max of
-+		 * THP and granularity size
-+		 */
-+		size = 1UL << max(prange->granularity, HPAGE_PMD_ORDER);
-+	else
-+		/* Align migration range start and size to granularity size */
-+		size = 1UL << prange->granularity;
+-	return amdgpu_ras_mgr_hw_init(ip_block);
++	ret = amdgpu_ras_mgr_hw_init(ip_block);
++	if (ret)
++		return ret;
 +
- 	start = max_t(unsigned long, ALIGN_DOWN(addr, size), prange->start);
- 	last = min_t(unsigned long, ALIGN(addr + 1, size) - 1, prange->last);
- 	if (prange->actual_loc != 0 || best_loc != 0) {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index f2b3a05cd8cf..e78ee94ba33c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -215,6 +215,13 @@ void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
- void svm_range_set_max_pages(struct amdgpu_device *adev);
- int svm_range_switch_xnack_reserve_mem(struct kfd_process *p, bool xnack_enabled);
- 
-+/* check adev has device private zone memory */
-+static inline bool svm_is_private_zone(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_kfd_dev *kfddev = &adev->kfd;
-+	return (kfddev->pgmap.type == MEMORY_DEVICE_PRIVATE);
-+}
-+
- #else
- 
- struct kfd_process;
-@@ -277,6 +284,11 @@ static inline void svm_range_set_max_pages(struct amdgpu_device *adev)
- {
++	/* amdgpu_ras_late_init() runs before RAS is ready on this path */
++	return amdgpu_ras_mgr_set_debug_mode(adev, ras_mgr->is_debug_mode);
  }
  
-+static inline bool svm_is_private_zone(struct amdgpu_device *adev)
-+{
-+	return false;
-+}
-+
- #define KFD_IS_SVM_API_SUPPORTED(dev) false
- 
- #endif /* IS_ENABLED(CONFIG_HSA_AMD_SVM) */
+ struct amdgpu_ras_mgr *amdgpu_ras_mgr_get_context(struct amdgpu_device *adev)
 -- 
 2.34.1
 
