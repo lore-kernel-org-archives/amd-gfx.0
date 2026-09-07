@@ -4,120 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB7AC79FAA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E755CC79FAD
 	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 07:21:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52B1B10EA51;
-	Tue,  8 Sep 2026 07:21:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1211610EA62;
+	Tue,  8 Sep 2026 07:21:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="Q6BiCJay";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FCB+PE+p";
 	dkim-atps=neutral
-X-Greylist: delayed 532 seconds by postgrey-1.36 at gabe;
- Tue, 08 Sep 2026 04:43:00 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2B2E10E9A6;
- Tue,  8 Sep 2026 04:43:00 +0000 (UTC)
-Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
- by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hfB045B4Tz4829;
- Tue,  8 Sep 2026 06:33:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1788842020;
- bh=RM2uDjlFoSwaGz1ZGrnrQMAsuHPyc1eT3wom3p+9gY4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Q6BiCJayzYz6GjTSA2Dl8fdAucdaLi+G1TnvA83i/G4XOpecCGlYOF3m2FTY9qvW7
- PnRLZeJ9nSfceueOj9zyN5b5yEw5Migl07zQJqKj1GRARpF61/7KB0CdJd/jYShGTm
- Z/NLuXHcAFA4YKNSb9o3ziC+2CuUohSJJ+3z8fr4fu6ArgIe99UlU2L27cFPLZHSQN
- mc71aqGH0YDJitkLJE9Bzn3IxNcYhWlEk3NwlKnzyIX6o9dNIFdmiS2QWOObFFJXgE
- 2dQPCirqJvrDVluRVVXMslRq18XtlGPHREIEfxJ3a8Pf/gLtQ31dwPOEBwQZn5fumv
- 8/6nIRfgpIiOQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hfB044TD9z4825;
- Tue,  8 Sep 2026 06:33:40 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C487110E817
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 13:29:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1788787751;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=KjeZBR97TCcSu6Yi5+/kV6dt//KNAu887Dd5tax8g44=;
+ b=FCB+PE+pr+cIOee3mJCKpg8GRoyZPW3fBpPnpX+OZWhfbG6oRxY4xwFHw8xo8yKJWfDlpx
+ /Hci9BNyNOtS+Q2cZ2Y/SyrmJ6sy9u/9CuMjuYJ8ufCdpvCH/3yXgWtP9fs5hQxXeBLdzN
+ ozUVlDGKLe1EWhU+4vRKn5N1YljtdyM=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-325-s8jbVTQcPG2MVyvTqaa3lg-1; Mon,
+ 07 Sep 2026 09:29:08 -0400
+X-MC-Unique: s8jbVTQcPG2MVyvTqaa3lg-1
+X-Mimecast-MFC-AGG-ID: s8jbVTQcPG2MVyvTqaa3lg_1788787746
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hfB035dhHz8sZP;
- Tue,  8 Sep 2026 06:33:39 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id D879A5F9CD;
- Tue,  8 Sep 2026 06:33:34 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=linux@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <d408716c-7af3-4f29-a796-cda595befb98@leemhuis.info>
-Date: Tue, 8 Sep 2026 06:33:33 +0200
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 468DE18089B6; Mon,  7 Sep 2026 13:29:05 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb
+ (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 67CBD30001A2; Mon,  7 Sep 2026 13:29:00 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH 0/3] drm/amd/display: use kunit/visibility.h for test helpers
+Date: Mon, 07 Sep 2026 15:28:55 +0200
+Message-Id: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/gem: Add callback for when handle count goes to 0
-To: Klara Modin <klarasmodin@gmail.com>, Manuel Ebner <manuelebner@mailbox.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Felix.Kuehling@amd.com,
- Mukul Joshi <mukul.joshi@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Mark Brown <broonie@kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <20260831183311.1090131-1-alexander.deucher@amd.com>
- <20260831183311.1090131-2-alexander.deucher@amd.com>
- <aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info>
- <e8a53eb241b2cc912e9cfad5f6a0120aa9683481.camel@mailbox.org>
- <apyTR-f8W6Jt7uP5@soda.int.kasm.eu>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <apyTR-f8W6Jt7uP5@soda.int.kasm.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <178884201540.1018164.10882620288814615527@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: D879A5F9CD
-X-NC-CID: OfPuqa33tXIzRDlFuj7qC37NDFfZmiRRCGlOBkBPRqdvFQtbZiw=
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2Myw5AMBQFf0XuWpN6P35FLKhbTiIlLULEvyvLS
+ WbmJscW7KgObrJ8wGExHqIwIDV1ZmSBwTPFMs5lJQvxKT1mbJfYDTRUt/lE6CHJSpWVMk0L8vF
+ qWeP8x037PC8qLH2yaAAAAA==
+X-Change-ID: 20260907-visibility-unification-fd358c580447
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, Albert Esteve <aesteve@redhat.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788787739; l=4699;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=CSNKE3X9zGEThKEHTUj/MHt2L2p9PiFQgfv/1nvjjNU=;
+ b=8zHCFmM8DeOlXqSqlpqBu7B6JtthMEyk14mY/UJKGwYfbN7SV1iH7DPRsKgP16JKLpc0ZEDhi
+ YY6+2QFeYO8CIZM8sNv4uB3f/ORgwzuvvOQHWSfIWm4LQihGNiMJR0B
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-MFC-PROC-ID: gzkQ57GnemZrEnm-h-pXnZrxOiZG3H7nkVlYNysIAb8_1788787746
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 08 Sep 2026 07:21:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,48 +89,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/6/26 00:25, Klara Modin wrote:
-> On 2026-09-05 11:31:41 +0200, Manuel Ebner wrote:
->> On Sat, 2026-09-05 at 07:36 +0200, Thorsten Leemhuis wrote:
->>> On 8/31/26 20:33, Alex Deucher wrote:
->>>> From: Mukul Joshi <mukul.joshi@amd.com>
->
->>>>> error[E0063]: missing field `handle_free` in initializer of `drm_gem_object_funcs`
->>>>>    --> rust/kernel/drm/gem/mod.rs:265:58
->>>>>     |
->>>>> 265 |     const OBJECT_FUNCS: bindings::drm_gem_object_funcs = bindings::drm_gem_object_funcs {
->>>>>     |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `handle_free`
->>>>>
->>>>> error: aborting due to 1 previous error
->>>>>
->>>>> For more information about this error, try `rustc --explain E0063`.
->>>>> make[2]: *** [rust/Makefile:799: rust/kernel.o] Error 1
->>>>> make[1]: *** [/builddir/build/BUILD/kernel-7.3.0-build/kernel-next-20260904/linux-7.3.0-0.0.next.20260904.221.vanilla.fc43.aarch64/Makefile:1442: prepare] Error 2
->>>>> make: *** [Makefile:256: __sub-make] Error 2
->>> Full log:
->>> https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-43-aarch64/10951622-next-next-all/builder-live.log.gz
->>>
->>> Reverting this change and 2/3 from this set fixed the problem for me.
-> 
-> That leaves only the documentation without the feature so might as well
-> drop 3/3 too in that case?
+amdgpu_dm grew its own STATIC_IFN_KUNIT / EXPORT_IF_KUNIT /
+INLINE_IFN_KUNIT macros instead of using kunit/visibility.h. This
+series switches the KUnit helpers over to the common API.
 
-My intention was just to confirm that these patches are the problem, not
-suggest this as a solution, so I didn't bother about the docs. :-D
-> Otherwise, the following also fixes it for me:
+VISIBLE_IF_KUNIT is gated on CONFIG_KUNIT rather than
+CONFIG_DRM_AMD_DC_KUNIT_TEST, so the helpers are non-static whenever
+KUnit is enabled. EXPORT_SYMBOL_IF_KUNIT places the symbols in the
+EXPORTED_FOR_KUNIT_TESTING namespace; the AMD DC test files import
+that namespace with MODULE_IMPORT_NS().
 
-Thx, for me, too.
+INLINE_IFN_KUNIT is dropped rather than generalized. It was only used
+on amdgpu_dm_fixpt_from_s3132(), inverted the original static inline,
+and is unnecessary for tests in another translation unit.
 
-Ciao, Thorsten
-> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-> index e1ebad77ebe2..847e0ee38863 100644
-> --- a/rust/kernel/drm/gem/mod.rs
-> +++ b/rust/kernel/drm/gem/mod.rs
-> @@ -278,6 +278,7 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
->          vm_ops: core::ptr::null_mut(),
->          evict: None,
->          rss: None,
-> +        handle_free: None,
->      };
->  
->      /// Returns the `Device` that owns this GEM object.
+Tested with:
+  ./tools/testing/kunit/kunit.py run --arch=x86_64 \
+    --kunitconfig=drivers/gpu/drm/amd/display/amdgpu_dm/tests
+
+(CONFIG_GCOV omitted; it is not available on x86_64.)
+
+Suggested-by: Maxime Ripard <mripard@kernel.org>
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Albert Esteve (3):
+      drm/amd/display: replace STATIC_IFN_KUNIT with VISIBLE_IF_KUNIT
+      drm/amd/display: replace EXPORT_IF_KUNIT with EXPORT_SYMBOL_IF_KUNIT
+      drm/amd/display: drop INLINE_IFN_KUNIT
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  79 ++++-----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  26 +--
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  74 ++++----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 133 +++++++--------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  12 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 190 ++++++++++-----------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  38 ++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  52 +++---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c   |  10 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  30 ++--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c |  10 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 105 ++++++------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 140 +++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 146 ++++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |  40 ++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  60 +++----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 104 +++++------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   | 116 ++++++-------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  22 +--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c   |   4 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   9 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_services.c |  10 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  18 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c        |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c        |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_quirks_test.c        |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_services_test.c      |   1 +
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/core/dc_sink.c      |   6 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   2 +-
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  13 +-
+ tools/lib/python/kdoc/xforms_lists.py              |   3 +-
+ 51 files changed, 748 insertions(+), 728 deletions(-)
+---
+base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+change-id: 20260907-visibility-unification-fd358c580447
+
+Best regards,
+-- 
+Albert Esteve <aesteve@redhat.com>
+
