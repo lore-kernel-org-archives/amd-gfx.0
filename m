@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B82C79F89
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 13:31:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72F83C79F89
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 14:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07A8E10E02B;
-	Mon,  7 Sep 2026 13:31:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF92110E863;
+	Mon,  7 Sep 2026 14:18:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JOhZkdLH";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="G6eUz1qz";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11D3010E02B
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 13:31:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8DE110E860
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 14:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:From:To:Subject:
  MIME-Version:Date:Message-ID:From:Reply-To;
- bh=mQu3YUGnZqnQpBWNpnwHNrMfESUGIExfjyvo9kCSobo=; b=JOhZkdLHZjlBY4oBdm+U7wPZ1w
- ErLXVmVILa10UCQEB3FTdjwILgc3D1jSFXDG0os93QhKfgYyLCxFMzwk64h34eNovROel9ITWj9cw
- FjuZp/90Qo0MZx8WK71akqSYGN5Oz3T5L868VMcVrVD4PnCCfTaHtI7oqvbatH8WpnfJReM8FwMWU
- FOv67bf6KufAi6m4ZJpg7Z8C4yjge1hsY8GOC6CiigSBr0EBptSGbgLmfe5WwRZdL4hx7OxYoQq5b
- BAzqYg1p8lG8Eb/YjQEJDdBcwVc7JWTtX14g5Tj1crOGrbYzh6VxD6dMmm6QKdeZUhTFN5PhW1Nfj
- wbGAYJvQ==;
+ bh=ktEsTG+4Xgkkxw1wIPW6UY9Qbng7bcTesU1sekLTHBs=; b=G6eUz1qz/Whk9HA3w2EQXk2wkw
+ aw9tzR6w6DXfFz33z15eM4LUv6odKnsvJRN9LiR2Dr3rtAmAkh4RJpgY7BMJxfnwUK/xomMVteL6B
+ Ru4LTpMa9W1kG/HMB4qyI887+a31t0GR26Cvykb7kpOmnzDM52kGgzlMX2Tik2vFDZlzLnW6wrN1y
+ dDAvfmiL5ywh4PzJ/AE2HtYWDEiKN6aAlZUnDFVSA9kq/r1fCKGU6vGDD63es0REls5qukWZ5G9xW
+ 8YfWVlu4MNvKqyJ74XXV6269pTqzSiAH86NwVU6w43+yRy7GbJ7w4totOAiVPv14slyLqQ3cfyLP4
+ 5d6WiTNg==;
 Received: from [81.79.79.1] (helo=[192.168.0.116])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x3ZR9-00G3bk-31; Mon, 07 Sep 2026 15:31:03 +0200
-Message-ID: <83884774-9ff7-41e9-8ea5-ea06675b6fe2@igalia.com>
-Date: Mon, 7 Sep 2026 14:31:02 +0100
+ id 1x3aB1-00G4ww-Ni; Mon, 07 Sep 2026 16:18:27 +0200
+Message-ID: <d8c33c5a-37e5-403a-ad1d-bb1da77d114d@igalia.com>
+Date: Mon, 7 Sep 2026 15:18:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] drm/amdgpu: Add CHANGE_ID option for USERQ ioctl
+Subject: Re: [PATCH v4 1/2] drm/amdgpu: Add LIST option to USERQ ioctl
 To: David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20260827185935.89623-1-David.Francis@amd.com>
- <20260827185935.89623-2-David.Francis@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260827185935.89623-2-David.Francis@amd.com>
+In-Reply-To: <20260827185935.89623-1-David.Francis@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -58,205 +57,322 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 27/08/2026 19:59, David Francis wrote:
-> Add a new option to the USERQ ioctl, which is called with
-> the queue_id of an existing user queue and an unused queue_id,
-> and changes that queue's id to the new value.
+> Add a new option to ioctl USERQ which provides information
+> to a process about their own user queues on the queried
+> device.
 > 
-> Calling with an invalid new handle will fail. Calling with new_handle
-> = handle will succeed if that queue exists but not do anything.
+> The returned data is in the same format as that used to
+> create the queue in the first place.
 > 
-> A poison queue object is inserted at the old handle during the
-> rekey to prevent concurrent FREE from destroying the queue or the
-> old id being reused mid-operation.
-
-Looks complicated. Have you looked at how I've done the rename with no 
-external lock?
-
-https://lore.kernel.org/amd-gfx/20260806134712.91816-7-tvrtko.ursulin@igalia.com/
-
-I'll have a read through your approach but I can't say I am a fan.
-
-> Performing this operation on a queue with signals or waits
-> outstanding is fine, as those hold not the queue_id but a
-> direct reference to the queue object.
+> The interface uses retries; the user can guess at the number
+> of queues required; if insufficiently large, the correct
+> value will be returned.
+> The same is done for the mqd sizes of each entry.
 > 
-> v3: Poison queue and misc fixes
+> This operation holds userq_mutex for its entire duration
+> to prevent the queues from being freed or modified under it.
+> 
+> v3: Don't acquire xa_lock and other misc fixes
 > 
 > Signed-off-by: David Francis <David.Francis@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 60 +++++++++++++++++++++++
->   include/uapi/drm/amdgpu_drm.h             | 17 +++++--
->   2 files changed, 74 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 160 +++++++++++++++++++++-
+>   include/uapi/drm/amdgpu_drm.h             |  40 ++++++
+>   2 files changed, 197 insertions(+), 3 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 32d1787aa7e2..699838042bda 100644
+> index 3fe10d6af757..32d1787aa7e2 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -35,6 +35,8 @@
->   #include "amdgpu_userq_fence.h"
->   #include "amdgpu_trace.h"
->   
-> +struct amdgpu_usermode_queue poison_queue;
-> +
->   u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
->   {
->   	int i;
-> @@ -852,6 +854,11 @@ static int amdgpu_userq_input_args_validate(struct drm_device *dev,
+> @@ -850,6 +850,8 @@ static int amdgpu_userq_input_args_validate(struct drm_device *dev,
+>   		    args->in.mqd_size)
+>   			return -EINVAL;
 >   		break;
->   	case AMDGPU_USERQ_OP_LIST:
->   		break;
-> +	case AMDGPU_USERQ_OP_CHANGE_ID:
-> +		if (!args->change_in.new_queue_id ||
-> +		    args->change_in.new_queue_id > AMDGPU_MAX_USERQ_COUNT)
-> +			return -EINVAL;
+> +	case AMDGPU_USERQ_OP_LIST:
 > +		break;
 >   	default:
 >   		return -EINVAL;
 >   	}
-> @@ -1010,6 +1017,51 @@ amdgpu_userq_list(struct drm_file *filp, union drm_amdgpu_userq *args)
->   	return ret;
+> @@ -857,6 +859,157 @@ static int amdgpu_userq_input_args_validate(struct drm_device *dev,
+>   	return 0;
 >   }
 >   
-> +static int amdgpu_userq_change_id(struct drm_file *filp, union drm_amdgpu_userq *args)
+> +static int
+> +amdgpu_userq_list(struct drm_file *filp, union drm_amdgpu_userq *args)
 > +{
 > +	struct amdgpu_fpriv *fpriv = filp->driver_priv;
 > +	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
+> +	struct drm_amdgpu_userq_list_entry *entries;
 > +	struct amdgpu_usermode_queue *queue;
-> +	int ret = 0;
+> +	unsigned long queue_id;
+> +	size_t mqd_size, entry_buffer_size;
+> +	uint32_t num_queues = 0;
+> +	int ret;
+> +	int i = 0;
 > +
-> +	if (args->change_in.new_queue_id == args->change_in.queue_id) {
-> +		if (xa_load(&uq_mgr->userq_xa, args->change_in.queue_id))
-> +			return 0;
-> +		return -ENOENT;
-
-Why is is important to allow users to query for existence of an id like 
-this ie. why wouldn't be be EINVAL if new == old?
-
-> +	}
+> +	mutex_lock(&uq_mgr->userq_mutex);
 > +
-> +	/* Poison the old handle so it doesn't get freed or reused. */
-> +	queue = xa_store(&uq_mgr->userq_xa, args->change_in.queue_id, &poison_queue, GFP_KERNEL);
-
-What if userspace is silly and looks up this handle from a racing 
-thread? It gets the poison queue and things explode?
-
-> +	if (!queue) {
-> +		xa_erase(&uq_mgr->userq_xa, args->change_in.queue_id);
-> +		return -ENOENT;
+> +	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
+> +		num_queues += 1;
 > +	}
-> +	if (queue == &poison_queue)
-> +		return -EINVAL;
 
-Why is this EINVAL? Userspace races with itself I get it, but I think it 
-shows the weakness of the poison entry multi-stage approach.
+Previously I suggested not holding the mutex here and I still don't see 
+what value it brings, apart from making error handling more complicated. 
+AMDGPU_USERQ_OP_FREE does not take it so the count can still change, no?
 
 > +
-> +	ret = xa_insert(&uq_mgr->userq_xa, args->change_in.new_queue_id, queue, GFP_KERNEL);
-> +	if (ret == -EBUSY) {
-> +		queue = xa_store(&uq_mgr->userq_xa, args->change_in.queue_id, queue, GFP_KERNEL);
-> +		if (queue != &poison_queue) {
-> +			drm_err_once(adev_to_drm(uq_mgr->adev),
-> +				     "Expected poison queue to remain untouched during userqueue change id");
-
-Do you expect drm_err to be reachable by silly userspace or just 
-unexpected internal error?
-
-> +			return -EINVAL;
-> +		}
+> +	if (num_queues > args->list_in_out.num_entries) {
+> +		/**
+> +		 * If the num_entries buffer is too small,
+> +		 * return the correct size. User should
+> +		 * try again with the right space allocated.
+> +		 */
+> +		args->list_in_out.num_entries = num_queues;
+> +		mutex_unlock(&uq_mgr->userq_mutex);
+> +		return 0;
 > +	}
-> +	if (ret == -ENOMEM)
+> +	args->list_in_out.num_entries = num_queues;
+
+Assignment can go before the if and then you can remove the one inside 
+the block.
+
+> +
+> +	if (num_queues == 0) {
+> +		mutex_unlock(&uq_mgr->userq_mutex);
+> +		return 0;
+> +	}
+> +
+> +	entries = kvmalloc_objs(typeof(*entries), num_queues, GFP_KERNEL);
+> +
+> +	if (!entries) {
+> +		mutex_unlock(&uq_mgr->userq_mutex);
 > +		return -ENOMEM;
+> +	}
+> +
+> +	ret = check_mul_overflow(num_queues, sizeof(*entries), &entry_buffer_size);
 
-Is there another possibily from xa_insert other than EBUSY and ENOMEM?
+Could move to before the allocation which would perhaps be more logical.
+
+> +	if (ret) {
+> +		ret = -EINVAL;
+
+Maybe a different error code since userspace cannot do anything about 
+it. E2BIG? Not sure which one just that EINVAL would be confusing.
+
+> +		goto exit;
+> +	}
+> +
+> +	ret = copy_from_user(entries, u64_to_user_ptr(args->list_in_out.entries),
+> +			     entry_buffer_size);
+> +	if (ret) {
+> +		ret = -EFAULT;
+> +		goto exit;
+> +	}
+> +
+> +	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
+> +		/**
+> +		 * The xa may have added or removed queues since we counted
+> +		 * them, so break if there are now more queues than entries.
+> +		 */
+> +		if (i >= num_queues)
+> +			break;
+> +		/**
+> +		 * Check mqd size. As with num_entries, return the right sizes
+> +		 * if they are too small. These sizes also serve as
+> +		 * versioning for the mqd. Despite the names, these are the
+> +		 * mqd sizes for both gfx11 and gfx12.
+> +		 */
+> +		if (queue->queue_type == AMDGPU_HW_IP_COMPUTE) {
+> +			mqd_size = sizeof(struct drm_amdgpu_userq_mqd_compute_gfx11);
+> +		} else if (queue->queue_type == AMDGPU_HW_IP_GFX) {
+> +			mqd_size = sizeof(struct drm_amdgpu_userq_mqd_gfx11);
+> +		} else if (queue->queue_type == AMDGPU_HW_IP_DMA) {
+> +			mqd_size = sizeof(struct drm_amdgpu_userq_mqd_sdma_gfx11);
+> +		} else {
+> +			drm_err_once(adev_to_drm(uq_mgr->adev), "Unrecognized mqd size in USERQ_OP_LIST");
+> +			ret = -EINVAL;
+> +			goto exit;
+> +		}
+
+Or with switch statements here and below. Up to you what you find more 
+readable.
 
 > +
-> +	/* remove the poison */
-> +	queue = xa_erase(&uq_mgr->userq_xa, args->change_in.queue_id);
-> +	if (queue != &poison_queue) {
-> +		drm_err_once(adev_to_drm(uq_mgr->adev),
-> +			     "Expected poison queue to remain untouched during userqueue change id");
+> +		if (mqd_size > entries[i].mqd_size) {
+> +			entries[i].mqd_size = mqd_size;
+> +			entries[i].ip_type = queue->queue_type;
+> +			i += 1;
+> +			continue;
+> +		}
+> +		entries[i].mqd_size = mqd_size;
+> +		entries[i].ip_type = queue->queue_type;
 
-Same question as the previous drm_err_once.
+These two assignments can also be moved before the if and the ones 
+inside the block removed.
 
-Sorry I don't like this at all. I would much rather you try to punch a 
-hole in my approach or confirm it works fine.
+> +
+> +		entries[i].queue_id = queue_id;
+> +		/* userq prop handling */
+> +		entries[i].queue_va = queue->userq_prop->hqd_base_gpu_addr;
+> +		entries[i].queue_size = queue->userq_prop->queue_size;
+> +		entries[i].rptr_va = queue->userq_prop->rptr_gpu_addr;
+> +		entries[i].wptr_va = queue->userq_prop->wptr_gpu_addr;
+> +		/* flag handling (AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_MASK are the only flags in use) */
+> +		entries[i].flags = (queue->priority << AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_SHIFT)
+> +			& AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_MASK;
+> +		/* doorbell handling */
+> +		entries[i].doorbell_handle = queue->doorbell_handle;
+> +		/* This is the inverse of the calculation used in amdgpu_doorbell_index_on_bar
+> +		 * doorbell_index = db_bo_offset / sizeof(u32)
+> +		 *    + doorbell_offset * DIV_ROUND_UP(db_size, 4)
+> +		 * db_size is always sizeof(u64) = 8
+> +		 */
+> +		entries[i].doorbell_offset =
+> +			(queue->doorbell_index - amdgpu_bo_gpu_offset_no_check(queue->db_obj.obj) / 4) / 2;
+> +
+> +		if (queue->queue_type == AMDGPU_HW_IP_COMPUTE) {
+> +			struct drm_amdgpu_userq_mqd_compute_gfx11 compute_mqd = {0};
+> +
+> +			compute_mqd.eop_va = queue->userq_prop->eop_gpu_addr;
 
-I adapted that from some existing driver.. can't remember which now 
-after more than a month. But the approach sounds sane to me - do the 
-rename atomically under the lock using GFP_NOWAIT first and if that 
-fails drop the lock to pre-allocate space and retry.
+Matter of taste but you could also write this as:
+
+	struct drm_amdgpu_userq_mqd_compute_gfx11 compute_mqd = {
+		.eop_va = queue->userq_prop->eop_gpu_addr;
+	};
+
+> +
+> +			ret = copy_to_user(u64_to_user_ptr(entries[i].mqd_data),
+> +					   &compute_mqd,
+> +					   entries[i].mqd_size);
+> +		} else if (queue->queue_type == AMDGPU_HW_IP_GFX) {
+> +			struct drm_amdgpu_userq_mqd_gfx11 mqd_gfx_v11 = {0};
+> +
+> +			mqd_gfx_v11.shadow_va = queue->userq_prop->shadow_addr;
+> +			mqd_gfx_v11.csa_va = queue->userq_prop->csa_addr;
+> +
+> +			ret = copy_to_user(u64_to_user_ptr(entries[i].mqd_data),
+> +					   &mqd_gfx_v11,
+> +					   entries[i].mqd_size);
+> +		} else if (queue->queue_type == AMDGPU_HW_IP_DMA) {
+> +			struct drm_amdgpu_userq_mqd_sdma_gfx11 mqd_sdma_v11 = {0};
+> +
+> +			mqd_sdma_v11.csa_va = queue->userq_prop->csa_addr;
+> +
+> +			ret = copy_to_user(u64_to_user_ptr(entries[i].mqd_data),
+> +					   &mqd_sdma_v11,
+> +					   entries[i].mqd_size);
+> +		}
+
+Some optional comments:
+
+mqd_size would be more direct in all three and could save some lines.
+
+Also maybe see if caching entries[i] and queue->userq_prop in locals 
+would make it even more compact/readable.
 
 Regards,
 
 Tvrtko
 
-> +		return -EINVAL;
+> +		if (ret) {
+> +			ret = -EFAULT;
+> +			goto exit;
+> +		}
+> +		i += 1;
 > +	}
-> +
-> +	return 0;
+> +	ret = copy_to_user(u64_to_user_ptr(args->list_in_out.entries), entries,
+> +			   num_queues * sizeof(*entries));
+> +	if (ret)
+> +		ret = -EFAULT;
+> +exit:
+> +	mutex_unlock(&uq_mgr->userq_mutex);
+> +	kvfree(entries);
+> +	return ret;
 > +}
 > +
 >   bool amdgpu_userq_enabled(struct drm_device *dev)
 >   {
 >   	struct amdgpu_device *adev = drm_to_adev(dev);
-> @@ -1046,6 +1098,11 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+> @@ -891,7 +1044,7 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+>   			drm_file_err(filp, "Failed to create usermode queue\n");
+>   		break;
 >   
->   	case AMDGPU_USERQ_OP_FREE:
+> -	case AMDGPU_USERQ_OP_FREE: {
+> +	case AMDGPU_USERQ_OP_FREE:
 >   		xa_lock(&fpriv->userq_mgr.userq_xa);
-> +		queue = xa_load(&fpriv->userq_mgr.userq_xa, args->in.queue_id);
-> +		if (queue == &poison_queue) {
-> +			xa_unlock(&fpriv->userq_mgr.userq_xa);
-> +			return -EINVAL;
-> +		}
 >   		queue = __xa_erase(&fpriv->userq_mgr.userq_xa, args->in.queue_id);
 >   		xa_unlock(&fpriv->userq_mgr.userq_xa);
->   		if (!queue)
-> @@ -1056,6 +1113,9 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
->   	case AMDGPU_USERQ_OP_LIST:
->   		r = amdgpu_userq_list(filp, args);
+> @@ -900,8 +1053,9 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+>   
+>   		amdgpu_userq_put(queue);
 >   		break;
-> +	case AMDGPU_USERQ_OP_CHANGE_ID:
-> +		r = amdgpu_userq_change_id(filp, args);
+> -	}
+> -
+> +	case AMDGPU_USERQ_OP_LIST:
+> +		r = amdgpu_userq_list(filp, args);
 > +		break;
 >   	default:
 >   		drm_dbg_driver(dev, "Invalid user queue op specified: %d\n", args->in.op);
 >   		return -EINVAL;
 > diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 92738d630eea..37d0efd1eda4 100644
+> index b32c72a662b6..92738d630eea 100644
 > --- a/include/uapi/drm/amdgpu_drm.h
 > +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -330,9 +330,10 @@ union drm_amdgpu_ctx {
->   };
->   
+> @@ -332,6 +332,7 @@ union drm_amdgpu_ctx {
 >   /* user queue IOCTL operations */
-> -#define AMDGPU_USERQ_OP_CREATE	1
-> -#define AMDGPU_USERQ_OP_FREE	2
-> -#define AMDGPU_USERQ_OP_LIST	3
-> +#define AMDGPU_USERQ_OP_CREATE		1
-> +#define AMDGPU_USERQ_OP_FREE		2
-> +#define AMDGPU_USERQ_OP_LIST		3
-> +#define AMDGPU_USERQ_OP_CHANGE_ID	4
+>   #define AMDGPU_USERQ_OP_CREATE	1
+>   #define AMDGPU_USERQ_OP_FREE	2
+> +#define AMDGPU_USERQ_OP_LIST	3
 >   
 >   /* queue priority levels */
 >   /* low < normal low < normal high < high */
-> @@ -464,10 +465,20 @@ struct drm_amdgpu_userq_list_in_out {
->   	__u64   entries;
+> @@ -425,9 +426,48 @@ struct drm_amdgpu_userq_out {
+>   	__u32 _pad;
 >   };
 >   
-> +struct drm_amdgpu_userq_change_id_in {
-> +	/** AMDGPU_USERQ_OP_CHANGE_ID */
-> +	__u32   op;
-> +	/** Queue id of some queue */
-> +	__u32   queue_id;
-> +	/** Queue id to change that queue to */
-> +	__u32   new_queue_id;
+> +struct drm_amdgpu_userq_list_entry {
+> +	/** Userspace pointer to buffer holding mqd */
+> +	__u64	mqd_data;
+> +	/**
+> +	 *  In: Size of mqd_data user-allocated buffer.
+> +	 *  Out: If mqd_data was insufficiently large, the
+> +	 * size it needs to be.
+> +	 */
+> +	__u32	mqd_size;
+> +
+> +	/** Definitions same as drm_amdgpu_userq_in */
+> +	__u32	queue_id;
+> +	__u32   ip_type;
+> +	__u32   doorbell_handle;
+> +	__u32   doorbell_offset;
+> +	__u32   flags;
+> +	__u64   queue_va;
+> +	__u64   queue_size;
+> +	__u64   rptr_va;
+> +	__u64   wptr_va;
+> +};
+> +
+> +struct drm_amdgpu_userq_list_in_out {
+> +	/**
+> +	 * For operation AMDGPU_USERQ_OP_LIST: User will provide a buffer, which the
+> +	 * driver will fill with information about all of that process's queues on this device.
+> +	 */
+> +	/** AMDGPU_USERQ_OP_LIST */
+> +	__u32	op;
+> +	/**
+> +	 * Size of entries buffer / Number of handles in process
+> +	 * (if larger than size of buffer, must retry)
+> +	 */
+> +	__u32   num_entries;
+> +	/* User pointer to array of drm_amdgpu_userq_list_entry */
+> +	__u64   entries;
 > +};
 > +
 >   union drm_amdgpu_userq {
 >   	struct drm_amdgpu_userq_in in;
 >   	struct drm_amdgpu_userq_out out;
->   	struct drm_amdgpu_userq_list_in_out list_in_out;
-> +	struct drm_amdgpu_userq_change_id_in change_in;
+> +	struct drm_amdgpu_userq_list_in_out list_in_out;
 >   };
 >   
 >   /* GFX V11 IP specific MQD parameters */
