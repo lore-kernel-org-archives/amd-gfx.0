@@ -4,76 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E755CC79FAD
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 07:21:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9289CC79FA0
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 07:21:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1211610EA62;
-	Tue,  8 Sep 2026 07:21:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE90010EA66;
+	Tue,  8 Sep 2026 07:21:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FCB+PE+p";
+	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="AIbo9WB7";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C487110E817
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 13:29:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1788787751;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=KjeZBR97TCcSu6Yi5+/kV6dt//KNAu887Dd5tax8g44=;
- b=FCB+PE+pr+cIOee3mJCKpg8GRoyZPW3fBpPnpX+OZWhfbG6oRxY4xwFHw8xo8yKJWfDlpx
- /Hci9BNyNOtS+Q2cZ2Y/SyrmJ6sy9u/9CuMjuYJ8ufCdpvCH/3yXgWtP9fs5hQxXeBLdzN
- ozUVlDGKLe1EWhU+4vRKn5N1YljtdyM=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-325-s8jbVTQcPG2MVyvTqaa3lg-1; Mon,
- 07 Sep 2026 09:29:08 -0400
-X-MC-Unique: s8jbVTQcPG2MVyvTqaa3lg-1
-X-Mimecast-MFC-AGG-ID: s8jbVTQcPG2MVyvTqaa3lg_1788787746
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 468DE18089B6; Mon,  7 Sep 2026 13:29:05 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb
- (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 67CBD30001A2; Mon,  7 Sep 2026 13:29:00 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Subject: [PATCH 0/3] drm/amd/display: use kunit/visibility.h for test helpers
-Date: Mon, 07 Sep 2026 15:28:55 +0200
-Message-Id: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
+Received: from smtp-bc0d.mail.infomaniak.ch (smtp-bc0d.mail.infomaniak.ch
+ [45.157.188.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C24610E4D4
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 11:53:09 +0000 (UTC)
+Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch
+ [10.7.10.108])
+ by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdlnc10DszZxs;
+ Mon,  7 Sep 2026 13:53:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
+ s=20250113; t=1788781987;
+ bh=Xe6YwvkBOT9oiuGVuKp1br5sQHMUpB0fae8Da3Ql9Gw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=AIbo9WB7H1jtN2Q92nW0FHSg74YWWyHJWx63yYSuTVrKr2i9V/fIZr/HMzdaMtz2w
+ LGd7ycgsZIkubXdx8ImM858qDrwFzpLhGIfSbBW355v7raTKCZkkuvd+PH0PhtIV4l
+ zvc+gHv9Q1O1CR6eNGkGe92bnDoaaw5+//r/Q/XiDdOlvJ+TdOo71CZKbyaHN57biR
+ yUr+2ISyB/pgdCbrSpn4vCc+wHnpcrd0ZyuzdQu/W622coyIhGjgF6dcJepvbwVisa
+ 1z75FaLU6HyFkVY6GFLuf7kcOqpwVBjTt1he+sCt5DRQ7V8mVMJX8AhmsZ+aexd+vd
+ uGl6uO69LlCPQ==
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4hdlnb1THpz224; Mon,  7 Sep 2026 13:53:07 +0200 (CEST)
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/3] drm/amd/display: size frame-packed streams by the
+ doubled timing
+Date: Mon,  7 Sep 2026 13:52:29 +0200
+Message-ID: <20260907115229.64477-4-adrian.betschart@cinemaone.ch>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260907115229.64477-1-adrian.betschart@cinemaone.ch>
+References: <20260907115229.64477-1-adrian.betschart@cinemaone.ch>
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2Myw5AMBQFf0XuWpN6P35FLKhbTiIlLULEvyvLS
- WbmJscW7KgObrJ8wGExHqIwIDV1ZmSBwTPFMs5lJQvxKT1mbJfYDTRUt/lE6CHJSpWVMk0L8vF
- qWeP8x037PC8qLH2yaAAAAA==
-X-Change-ID: 20260907-visibility-unification-fd358c580447
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>, Albert Esteve <aesteve@redhat.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788787739; l=4699;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=CSNKE3X9zGEThKEHTUj/MHt2L2p9PiFQgfv/1nvjjNU=;
- b=8zHCFmM8DeOlXqSqlpqBu7B6JtthMEyk14mY/UJKGwYfbN7SV1iH7DPRsKgP16JKLpc0ZEDhi
- YY6+2QFeYO8CIZM8sNv4uB3f/ORgwzuvvOQHWSfIWm4LQihGNiMJR0B
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: gzkQ57GnemZrEnm-h-pXnZrxOiZG3H7nkVlYNysIAb8_1788787746
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 X-Mailman-Approved-At: Tue, 08 Sep 2026 07:21:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,92 +64,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm grew its own STATIC_IFN_KUNIT / EXPORT_IF_KUNIT /
-INLINE_IFN_KUNIT macros instead of using kunit/visibility.h. This
-series switches the KUnit helpers over to the common API.
+A frame-packed 3D mode scans out both views and the active space
+between them in one frame, so the CRTC is 2205 lines tall for a
+1080p mode. The stream scaling code took the source height from
+mode->vdisplay (1080) against the 2205-line addressable destination;
+with aspect scaling that keeps 1080 lines and centres them, so the
+first view is stretched across both eye windows and the second view
+is never shown. The plane viewport check clipped planes to
+crtc_vdisplay for the same reason.
 
-VISIBLE_IF_KUNIT is gated on CONFIG_KUNIT rather than
-CONFIG_DRM_AMD_DC_KUNIT_TEST, so the helpers are non-static whenever
-KUnit is enabled. EXPORT_SYMBOL_IF_KUNIT places the symbols in the
-EXPORTED_FOR_KUNIT_TESTING namespace; the AMD DC test files import
-that namespace with MODULE_IMPORT_NS().
+Use drm_mode_get_hv_timing(), which returns the doubled height for
+stereo modes and the plain display size otherwise, in both places.
 
-INLINE_IFN_KUNIT is dropped rather than generalized. It was only used
-on amdgpu_dm_fixpt_from_s3132(), inverted the original static inline,
-and is unnecessary for tests in another translation unit.
+Measured on a Radeon RX 7600 with a frame-packed 1920x1080p24 mode:
+before, a row-coded 2205-line test frame showed rows of the first
+view in both eyes; after, each eye receives its own view.
 
-Tested with:
-  ./tools/testing/kunit/kunit.py run --arch=x86_64 \
-    --kunitconfig=drivers/gpu/drm/amd/display/amdgpu_dm/tests
+The plane KUnit tests mocked only the CRTC-adjusted size; set the mode size
+they now derive it from as well.
 
-(CONFIG_GCOV omitted; it is not available on x86_64.)
-
-Suggested-by: Maxime Ripard <mripard@kernel.org>
-
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
 ---
-Albert Esteve (3):
-      drm/amd/display: replace STATIC_IFN_KUNIT with VISIBLE_IF_KUNIT
-      drm/amd/display: replace EXPORT_IF_KUNIT with EXPORT_SYMBOL_IF_KUNIT
-      drm/amd/display: drop INLINE_IFN_KUNIT
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 11 ++++++++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 13 +++++++++----
+ .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c  | 12 ++++++++++++
+ 3 files changed, 29 insertions(+), 7 deletions(-)
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  79 ++++-----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  26 +--
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  74 ++++----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 133 +++++++--------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  12 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 190 ++++++++++-----------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  38 ++---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  52 +++---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c   |  10 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  30 ++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c |  10 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 105 ++++++------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 140 +++++++--------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 146 ++++++++--------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |  40 ++---
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  60 +++----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 104 +++++------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   | 116 ++++++-------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  22 +--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c   |   4 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   9 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_services.c |  10 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  18 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c        |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c        |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_quirks_test.c        |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_services_test.c      |   1 +
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   1 +
- drivers/gpu/drm/amd/display/dc/core/dc_sink.c      |   6 +-
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   2 +-
- drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  13 +-
- tools/lib/python/kdoc/xforms_lists.py              |   3 +-
- 51 files changed, 748 insertions(+), 728 deletions(-)
----
-base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-change-id: 20260907-visibility-unification-fd358c580447
-
-Best regards,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index aa3f47632..2d35060d7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1418,9 +1418,14 @@ void amdgpu_dm_update_stream_scaling_settings(struct drm_device *dev,
+ 	if (!mode)
+ 		return;
+ 
+-	/* Full screen scaling by default */
+-	src.width = mode->hdisplay;
+-	src.height = mode->vdisplay;
++	/*
++	 * Full screen scaling by default. A frame-packed 3D mode scans out the
++	 * doubled timing, so the source size is the CRTC size, not vdisplay:
++	 * with 1080 lines against a 2205-line destination the aspect fit would
++	 * keep 1080 lines and centre them, putting the first view across both
++	 * eye windows and none of the second.
++	 */
++	drm_mode_get_hv_timing(mode, &src.width, &src.height);
+ 	dst.width = stream->timing.h_addressable;
+ 	dst.height = stream->timing.v_addressable;
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 0a5a73472..8db656ef8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1407,16 +1407,21 @@ int amdgpu_dm_plane_helper_check_state(struct drm_plane_state *state,
+ 		if (state->plane->type != DRM_PLANE_TYPE_CURSOR) {
+ 			int viewport_width = state->crtc_w;
+ 			int viewport_height = state->crtc_h;
++			int mode_hdisplay, mode_vdisplay;
++
++			/* frame-packed 3D scans out the doubled timing */
++			drm_mode_get_hv_timing(&new_crtc_state->mode,
++					       &mode_hdisplay, &mode_vdisplay);
+ 
+ 			if (state->crtc_x < 0)
+ 				viewport_width += state->crtc_x;
+-			else if (state->crtc_x + state->crtc_w > new_crtc_state->mode.crtc_hdisplay)
+-				viewport_width = new_crtc_state->mode.crtc_hdisplay - state->crtc_x;
++			else if (state->crtc_x + state->crtc_w > mode_hdisplay)
++				viewport_width = mode_hdisplay - state->crtc_x;
+ 
+ 			if (state->crtc_y < 0)
+ 				viewport_height += state->crtc_y;
+-			else if (state->crtc_y + state->crtc_h > new_crtc_state->mode.crtc_vdisplay)
+-				viewport_height = new_crtc_state->mode.crtc_vdisplay - state->crtc_y;
++			else if (state->crtc_y + state->crtc_h > mode_vdisplay)
++				viewport_height = mode_vdisplay - state->crtc_y;
+ 
+ 			if (viewport_width < 0 || viewport_height < 0) {
+ 				DRM_DEBUG_ATOMIC("Plane completely outside of screen\n");
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+index 1b39f41c8..80a952d47 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+@@ -642,6 +642,8 @@ static void dm_test_helper_check_state_viewport_reject(struct kunit *test)
+ 	state->crtc_y = 0;
+ 	state->crtc_w = 100;
+ 	state->crtc_h = 100;
++	new_crtc_state->mode.hdisplay = 100;
++	new_crtc_state->mode.vdisplay = 100;
+ 	new_crtc_state->mode.crtc_hdisplay = 100;
+ 	new_crtc_state->mode.crtc_vdisplay = 100;
+ 
+@@ -2286,6 +2288,8 @@ static void dm_test_helper_check_state_small_viewport_width(struct kunit *test)
+ 	state->crtc_y = 0;
+ 	state->crtc_w = 10;
+ 	state->crtc_h = 100;
++	new_crtc_state->mode.hdisplay = 1920;
++	new_crtc_state->mode.vdisplay = 1080;
+ 	new_crtc_state->mode.crtc_hdisplay = 1920;
+ 	new_crtc_state->mode.crtc_vdisplay = 1080;
+ 
+@@ -2327,6 +2331,8 @@ static void dm_test_helper_check_state_small_viewport_height(struct kunit *test)
+ 	state->crtc_y = -95;
+ 	state->crtc_w = 100;
+ 	state->crtc_h = 100;
++	new_crtc_state->mode.hdisplay = 1920;
++	new_crtc_state->mode.vdisplay = 1080;
+ 	new_crtc_state->mode.crtc_hdisplay = 1920;
+ 	new_crtc_state->mode.crtc_vdisplay = 1080;
+ 
+@@ -2369,6 +2375,8 @@ static void dm_test_helper_check_state_bottom_clipped_height(struct kunit *test)
+ 	state->crtc_y = 95;
+ 	state->crtc_w = 100;
+ 	state->crtc_h = 100;
++	new_crtc_state->mode.hdisplay = 1920;
++	new_crtc_state->mode.vdisplay = 100;
+ 	new_crtc_state->mode.crtc_hdisplay = 1920;
+ 	new_crtc_state->mode.crtc_vdisplay = 100;
+ 
+@@ -2429,6 +2437,8 @@ static void dm_test_helper_check_state_scaling_caps(struct kunit *test)
+ 	state->crtc_w = 200;
+ 	state->crtc_h = 200;
+ 	new_crtc_state->crtc = crtc;
++	new_crtc_state->mode.hdisplay = 1920;
++	new_crtc_state->mode.vdisplay = 1080;
+ 	new_crtc_state->mode.crtc_hdisplay = 1920;
+ 	new_crtc_state->mode.crtc_vdisplay = 1080;
+ 
+@@ -2738,6 +2748,8 @@ static struct amdgpu_device *dm_test_init_atomic_check_state(struct kunit *test,
+ 
+ 	(*new_crtc_state)->crtc = crtc;
+ 	(*new_crtc_state)->enable = true;
++	(*new_crtc_state)->mode.hdisplay = 1920;
++	(*new_crtc_state)->mode.vdisplay = 1080;
+ 	(*new_crtc_state)->mode.crtc_hdisplay = 1920;
+ 	(*new_crtc_state)->mode.crtc_vdisplay = 1080;
+ 
 -- 
-Albert Esteve <aesteve@redhat.com>
+2.43.0
 
