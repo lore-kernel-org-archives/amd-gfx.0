@@ -4,128 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C467C79FAE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77C7FC79FAF
 	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 07:21:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F12910EA76;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C53D10EA78;
 	Tue,  8 Sep 2026 07:21:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="b31XxE1N";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rTo4JCOT";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazolkn19012066.outbound.protection.outlook.com
- [52.103.14.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AFAA10E35F;
- Mon,  7 Sep 2026 15:21:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U5vz+ndVFrK8P4A/c4TyDURhc5mCwZC/kI8tJDIKXQFCj2kGWjQnyUfDJleAdK/OHca0WdDnj213w7Fb17UaaRPHMn5Ok6gmx5uIJWqHAlQkBMaJkkNKFDjTDtmf8CHzVGm7n1veGMrfVtllnWGy03ZBQMsKNnFw+xuwAt8zjaBDWEzsv59iF4/s10LABTzNLYyZ4T8cDJcgJmbGTPh7Wj+qvpVgwoN2+t92XbgP4FV8NvpEn9qR6DvqX9dCKKnJSegwKjVbzwhDvbPN6KIMiVSFpk3pSvvf94lMzaewhFE8U9ipHjq1U0S1s6YV7ncWdXEOlyQrnF57GlNUTdAA5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RjWpL3z1ExwwzVr8x5jZLQ8FBkoH1OHa3IKQre/V+EI=;
- b=SWf3KhhXWNvDFrzNpbFG5rva3ThjkO/Y5RAD09RFpNzYw0p9TTlxbOI7HY1wu0svg2ImyH5TfrKxgkMAmQMCi3OvgsdmR84Je7Pd6Io5jRwLUDeakq18QVGF9mWG9EZrI9m5CmpVna5miq25kdXmWdqarNnjLKtez4Ma1h6i3zFrvMVcy5THbpnp49xfQkfvJWCVO99uXisQp7xsRjtmCibF+1szDqxj6heK6ozrrVt9oaqdT73wSn4Nj6vZBWbziMuGL56RBK6nuQBVhJqCiVQ24OHrgD39Xhv/onkj+lo4oUmrycIjskTGPPbz/XA1TWrPTVnZpUmTAaSveRdeow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RjWpL3z1ExwwzVr8x5jZLQ8FBkoH1OHa3IKQre/V+EI=;
- b=b31XxE1NV1ojfz5/qVcQitZZ4e1i+MBczlh2KESeDIobNu+Ja0bPb/IltZqS/MZcs80A4HmJUI3QYd8HllEDnqwFCFH7kxUmW95WAoDxW4Q6G26qMPglQEsN0dFMmSyFtd+RIRbx6RKg5sLPlgEYcVJUQxTV71eu5TUsD/rgpGM1tTJRJCKG3IKFKRmOGGsOCfc+jt0T9PqckV2vuknTxq+0NPZo2J8zvCZVbhjKNkyiCuEfFXPuabOjIJY7vQGxy7o9navynkOTcRfY/rhVxL5+dJwAs5lgpVkxXUEsS07sAptHDNQMu9DY9iurppJvpOzKAmKwhoQFnvYtp1oIhQ==
-Received: from CPUPR80MB6583.lamprd80.prod.outlook.com (2603:10d6:103:180::10)
- by CPUPR80MB429769.lamprd80.prod.outlook.com (2603:10d6:103:3ae::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 15:21:04 +0000
-Received: from CPUPR80MB6583.lamprd80.prod.outlook.com
- ([fe80::26cd:a90b:7748:403d]) by CPUPR80MB6583.lamprd80.prod.outlook.com
- ([fe80::26cd:a90b:7748:403d%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 15:21:04 +0000
-From: Danilo Machado <danilomachado2002@hotmail.com>
-To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux@leemhuis.info" <linux@leemhuis.info>
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 555C010E028
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 15:01:18 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c254f9c60d5so20517466b.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Sep 2026 08:01:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788793277; cv=none;
+ d=google.com; s=arc-20260327;
+ b=GFASikyAnTOf9N39r0QORA8LS1wsIKR/KnI3a+q0i0+cszYwemE04nj9L6yjJ0cJmv
+ h/+c6fyN6uIaFxX7o+ctOFkT0DecFi2hb8tI9m5b/t/VtcV4ssKJMdZFQMBXDBPogTX9
+ bOo/adNXN4SKDCUYcER7aDzpX62stK1qRmL/iAcI7hYxXmd6XRA7LDuLxd11V+iZD+UX
+ TvlINu1Thld+cEXLtDvfHrl6S3AColkQOwmE/DklibUT+KHj+8d/7LbQpFf2F9pXEfJg
+ lhTHGdwaq4BHR/ub75+0cSsVW+d1LbpMsydiueVd41zhKv+x4/G7ahV4JM9RQvIHzFyn
+ C7Fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=C/5SbezyWi1anxyCL1WLStNOIqEcreSWVvPab6/As70=;
+ fh=y+XMpPis0J1y1U7cBEt8viyZRoMEB5NxzCqR/01LRNI=;
+ b=lHcG7XR0jb8Kd3zDf+eSHr7WdPwvaP1m/XuEWbZiijh1BKvZtAgV9qYAWyKhnhNhrA
+ VmNpWe4dWyZaUv9eZOF7m6SO/+4dYVDz59Y02/LJsFNWLdVSPyQ8FvsTYCMWgJQcGZB2
+ tya7pP6nJJCxr4v+XU3DNY9xTSM6rixt0WIrwduOm3Z9KMZ6MbsJIwykY8iQ4z4x7lbV
+ 5Vq+HTEkGMN3K8K2uvSq7tD+ec4RlfUd8F6qYxMA/Ji/AWcxWjt6VN4GJUU1P6I5s2ea
+ oaApjMpVCgEm65LdtVmBJWkM3QPi8uR8nNfwZC6ZqcrvXxM6zMBEQ9x1YirzRxIzGfqX
+ 0j+Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788793277; x=1789398077; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=C/5SbezyWi1anxyCL1WLStNOIqEcreSWVvPab6/As70=;
+ b=rTo4JCOTrwxmKcf05e/C3YVuQUlBYgjET//cvjCpR0N8paT4Gkb3GS1mGVLDLXUiMk
+ po/PK+f2s/eF36cHjvtv4XXuJgZklyKU5M/bB+/95bbsPnAv/SekdMPhbJ93tjaR7NDi
+ +QhR/UbfYC9dPJmFcvBZuQ4XYSnXhmCrYuVTOF/QEO6SJ6Lh0gJq88z85qCYmi9Y2QzK
+ Blx0m6IR4DL/b/7LOUrl+XBP1VSkyQPJPoa09xbIBI0gRDhkHf1UruRrtvA0JlXQsN3E
+ tiw6uuEpVn02rUUHgs+W01dbbFGCPhAuJ4RSkXLxIMgIGT3mHWkh27C+SVMg7ofMmJo6
+ cx5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788793277; x=1789398077;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=C/5SbezyWi1anxyCL1WLStNOIqEcreSWVvPab6/As70=;
+ b=K/oxeUJjuaBB71EB/CktGTObGQqO2A6KGE7WakIuWWiuksx9MPiJrfJo/H5kujqspP
+ 9DgpYhmQl9bWbCcOT+JGGM02iO0X0qy82k7j++9yHVHCq0iTXzYca1CPigKQ+BEzxpHL
+ +FL14FUlERt603M6wYyXl8Ldkfq4iBrttm7pF4UtBD6+RRMGkQji3V5CBS9EjFhLXzVJ
+ l3z+Ws8j+K+G7/j3XnLyrgMlGMVDMISqvVXQCEwrKnnwjuM4CAAsp/Z+PS5vqEQhPBbF
+ fFhDmH/QEhW/FFMD04tsLCdnHTDW1fClWTd5zbQG2Hb1Ivzou0gf1fVvjBMCK4DJasQp
+ kvyg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzQT90Q4wr9SPCF+Qpb9FaGKkpOKx77kbT4FJn8YEvtBFQ8KerTewA0mBwLUg5QnVKtJd86hQn9@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l5r1VnoYk/xeJ6kFTHoRmxBM5VzJgPa+l0O+vFsGer3+PNqhGR
+ l1FroapIihZhVIlwGy7DonTGj73qnLTx9txb7G4oZN6vbmWn+WZ/eSZxc8PUxED/f2tQ8w18F6P
+ zENwUaAh5b1J4pKnH5CW2MC98zdYEzg==
+X-Gm-Gg: AYBFou3tAWp3bu7L5CdrbMyC+DVm1Qu9pxqlkOI4J93us6kFo5MnMpnsnAw30YY9gDf
+ 1oMilXg6vfXv+ox0xETyxJnTTN67TU4KXOk+E3W144XLWEeGGlhJmaso1VHUQvkSF73BIlsOl/k
+ PaU6ZTnYrvtm9Qg3GAnJMp4yBNerDO7VARIa3mV8JdB3VNO284irm5epfeofmNugBNldq7L6oMm
+ nK3xxHyyudjA5cYX/nVSSf0fSJUl6Qxj9Ox+RqB2hR40hkDMPEGiWQsKe8PdQbQbC9dbVvxQBSH
+ IqxhB1eOpoGxyyYhqDRh7zHRhqVghe+UNkhLg3+3fSzMJunDiyZ20bxXhaQb03cI5fcvrUrCesN
+ WDQ==
+X-Received: by 2002:a17:906:c155:b0:c25:8b1e:3750 with SMTP id
+ a640c23a62f3a-c29044392d5mr61538766b.12.1788793276384; Mon, 07 Sep 2026
+ 08:01:16 -0700 (PDT)
+MIME-Version: 1.0
+From: Danilo Machado <danilomachado2002@gmail.com>
+Date: Mon, 7 Sep 2026 12:01:04 -0300
+X-Gm-Features: AcwNN1UiCuTQvo7sl7tJPmxlZo-IKKg34erNkbCORKYwkqa5XlsrWnMFLo27VyM
+Message-ID: <CAJ9xWr+xGevB00DzELbFK+LLGTn7Oj_ZbJ7OBN05+kHe-D-vNQ@mail.gmail.com>
 Subject: Re: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
  suspend / regression tracking update
-Thread-Topic: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
- suspend / regression tracking update
-Thread-Index: AQHdPtw9Ub0bdlVoJkOLBrcx72wrOA==
-Date: Mon, 7 Sep 2026 15:21:04 +0000
-Message-ID: <CPUPR80MB65833B1554155D4CCF024CF2A3B22@CPUPR80MB6583.lamprd80.prod.outlook.com>
-Accept-Language: pt-BR, en-US
-Content-Language: pt-BR
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CPUPR80MB6583:EE_|CPUPR80MB429769:EE_
-x-ms-office365-filtering-correlation-id: bb67ec1a-81b5-4c89-a678-08df0cf3a223
-x-microsoft-antispam: BCL:0;
- ARA:14566002|25031999004|21061999006|41001999006|8062599012|8060799015|24121999003|19110799012|24021099003|25010399006|22091999003|55001999006|31061999003|15080799012|15030799006|51005399006|5062599005|4295299021|440099028|3412199025|4302099013|102099032|1602099012|40105399003|2607281247196008|10035399007;
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?+rGcMLpkcrB5spUdI99dFGHfpZnRoEtQVktuCVRQsUqsFRPq2h9UzClGb6?=
- =?iso-8859-1?Q?ZMaNgH4wO1UUcb2MQbJagxR1jl9DFL4wz87y3duspRvE84NZoe1eaMoxfg?=
- =?iso-8859-1?Q?w0uISVXcKrjkRSfbdrM0TJJP483gkT/8DsD8VdxJ+yMPQZSXVTWoGne/GW?=
- =?iso-8859-1?Q?PgBiLNAbwlpCAnoDsjjRZvBNOGY6HeUU9FW6mcOuzwLkL/eTx3Frr1gAAM?=
- =?iso-8859-1?Q?BjICzZOaOYrIHJF/xxjamNYEDYgdgksGcFYYljIdc8CTUREMpVubH4Z5zw?=
- =?iso-8859-1?Q?mGd61WjIQ8ROfjOcTxpleDFNGIPmtsmOAJVLGezZznB666/yAArgUDPdba?=
- =?iso-8859-1?Q?R1jnIgRWvfxnLYMRbvQWKnqn+N839JmoW+t1T3HffhA25Gf5PLrmDvM5ni?=
- =?iso-8859-1?Q?Mo/8RFdi6Oy8nmKsVEZrXndVb1+8XCw6rt/OqCjlHgNKvs5i3CoK3WaZV5?=
- =?iso-8859-1?Q?6vm3926cHd3FtVlABztNCLAucDeaWdfNdrcKEgijmAZa9doIjFuF8FLNI1?=
- =?iso-8859-1?Q?lNyTr4YXB4v4CHeYf9PuUfmjqUIGcr6c4SkHZPkmEGvTq/6A/E4cmU3FxY?=
- =?iso-8859-1?Q?PfeS5+Xd4PPXFmMbjmNX0yOwmilT8Zi3iTf2yq9SuqyJVCcE6mKVtC9fwI?=
- =?iso-8859-1?Q?wmLU8QsP8jN6hBgztKm+qcpkgwjxu5vYcuX8jxScfsIAbxrPIJ76dyV1kQ?=
- =?iso-8859-1?Q?6UBgf6aegvUSOYxV93v8TH8PqgZi8sXShAfN6TSRTkZeD0VCzaLhLt2Q+o?=
- =?iso-8859-1?Q?LPJOzq87MoBsSQIZ9CTSjDUAjowFcemwcYn/VkP5Aw9kJiKPqpawK2NC/r?=
- =?iso-8859-1?Q?UMCvAw8MnByVLbWazQplc0dFcWkfGr22umNLuIvpJXmlpLBzIW/XfKY9fE?=
- =?iso-8859-1?Q?SXngt2LzrjYBTmme2dYawt34dFxf8Ga+5xXUDyEN9MWDAX3V6hsBNiPfR2?=
- =?iso-8859-1?Q?ZLm7qFIyNIks63lYm6B7xxSD+6HkhWm0KENiwVAqAtknmZnDFtQDlufFvz?=
- =?iso-8859-1?Q?vaoZxDAWzcLCfA8DZhQ8PH3XUofXqr5NINTG15nT1sTXAwniPNFDNXXjxy?=
- =?iso-8859-1?Q?YKp6CkpuqPSfQDcJq9ShRSKBGqMpUXJG4TOJW2u/vIB1bVku4U2VJbJu/4?=
- =?iso-8859-1?Q?98r2PmGnIlHvrvjWNOgoCgZ+1ZoUFQFqQcbW0qIHuyKLXaRQ84gdrcCGJJ?=
- =?iso-8859-1?Q?ysd2HhCX8x7diQmlL2Yy+Ja2nM8waLL7ysJeAZC3829/qbAaDVM3s97+km?=
- =?iso-8859-1?Q?+69cUpjHhnK9PSNBtuUHT1fVbrjyNr09kelBKSSVU=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?0WIuRoJoh/ylNCsD+cezshwDT2W1Nsp3k/yQ8TZ819tr83w872594TT6as?=
- =?iso-8859-1?Q?gD9nE1jrGZ+I0IA8nE9GETJ6JeHsf8Ws0+Ss67aks0fR+qHQSAbE7kmLfC?=
- =?iso-8859-1?Q?y4JorUOdNmOALpP3Lt6G1FKQQxcT/YJF3/cI0rJlYzbn+NYb9nYLYrJas1?=
- =?iso-8859-1?Q?6WHw1MxN3G0KDpHtOEXrME8iPL5qU4gWhsM4h1rp1A/e0DLQqfXNxu7m9s?=
- =?iso-8859-1?Q?lOnd+V8gCH+oVKweHyKLiyIrqkxrJdf6GraCrihRT6428GV10U9x70c8xf?=
- =?iso-8859-1?Q?74+T8rjDCIZkpz9eyLkAZMnvfhVujzmlt8XswEVWoBEHTesLMrdFqjYHA1?=
- =?iso-8859-1?Q?rv0hmXOOle92HJB6+hq7JXdQQ7ZfXboqUu2DNoMU2Wz/jrQOLSIruW2W+h?=
- =?iso-8859-1?Q?Ja0j2z9ZS9aK/+javeXT9XNSaVDaMwbEmxQU8NJZ8MlOT5Zy21yYHl+waF?=
- =?iso-8859-1?Q?W16Qx35ZcmBQtIARSH9fD8GQy9fW5n+5NRkIhhxWIIeRHcAmTJEcL0xQ/k?=
- =?iso-8859-1?Q?M1AoYhlNf/JjkKtAqRByHllufLERWTrjll6jzRqxQnzPzIxK6itaf8I0DU?=
- =?iso-8859-1?Q?+GfXRe2DNuwaGxva5Me6hxXvEW6YwujjO/Borz6UzpVJA+VzqXtHsnYiOs?=
- =?iso-8859-1?Q?auAP/bomsBswevoX2ETR6RdXo+KMY5RwMT44UhlaZaJL+kBYD2HjHiY9tI?=
- =?iso-8859-1?Q?WceBkbu3yJGsDkP06v4QYTA60CVkCWLMV0rK3UKBP0mW/eTRJ6i1vyP9+Y?=
- =?iso-8859-1?Q?7M83/o1rKwmGogS00O6/fmsGW1jXf2SgHLWwr33vEfJhlVABCxxt7W6S7a?=
- =?iso-8859-1?Q?B4UH6+7rwLNmqnZNxtmaEJNNLxSOGAyphYC5S1T04BYTBDmF5K/Imc30gz?=
- =?iso-8859-1?Q?UWmBLa8MzkrVTKQFpZE4Zu3U56ln9A+2USbTrJXm4TgISO4McD+Tr4cL/2?=
- =?iso-8859-1?Q?gjeI4fxRpghtw7cuem7UBwy9sWEIFE2wh3XkMSRUHWfjC5DJ+eQpKYXee+?=
- =?iso-8859-1?Q?cf+c/JvkPSEXVz+eTiCoGHBUNfZTY066frahpUMaWFaZGESZCz+IGbWVex?=
- =?iso-8859-1?Q?Eb0dbpXAk79zbPFLtHOHMsFkmWG1gsgFuzxgK4nX5W0ro3nFfUkB6QdSO3?=
- =?iso-8859-1?Q?vEGxK62nmMjiC2fmWuYfrjqgI3OZPGsxd+2VOCKNbKY4E9Sy6IrtEkhOOB?=
- =?iso-8859-1?Q?piUWZ4qd+LW8p8/+sm3/xm0VO9pbM/9R7RBf8oWy2whBGuKxauhoRRbgNa?=
- =?iso-8859-1?Q?NgDx+r6yqaiEM6E0Jiu0E9s2UEakRlJCsolFNB+Tdz13LP1jE3egNcXAZB?=
- =?iso-8859-1?Q?IWIB54rPQmfNBc2S3iiUJMYouEtYaZaDLy5pwK18Sy2qLo2ZIQM2U0/Zwp?=
- =?iso-8859-1?Q?+uRYkvUUajl4EYWFXUvCs6me0kKvdGlHF6VIWeNZDZuQz5GBraOiGBlFk7?=
- =?iso-8859-1?Q?ePePdq8DBQJh03x+5iKXZ3mbYSUb0l9NX5ewSJ4xBuZ6dYr3XAuZq+T5y5?=
- =?iso-8859-1?Q?X87xWHtOcRODROaS/dnSwIreQZ6IAPT9kXlit+zDvCOg=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-665fe.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CPUPR80MB6583.lamprd80.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb67ec1a-81b5-4c89-a678-08df0cf3a223
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 15:21:04.6289 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPUPR80MB429769
+To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org, 
+ linux@leemhuis.info
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 08 Sep 2026 07:21:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,49 +102,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-#regzbot back in-progress=0A=
-#regzbot monitor https://bugs.launchpad.net/ubuntu/+source/linux/+bug/21423=
-89=0A=
-#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123=
-=0A=
-=0A=
-Hi Thorsten, Alex, and Linux Kernel Maintainers,=0A=
-=0A=
-I am writing to update the status of this regression after checking the Reg=
-zbot tracking dashboard:=0A=
-https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=
-=3DMMWM=3DW41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/=0A=
-=0A=
-The dashboard currently lists this issue as "fizzled out / resolved: inconc=
-lusive", but I want to clarify that this bug is ACTIVE, UNRESOLVED, and act=
-ively tracked. The lack of recent email activity on LKML was due to ongoing=
- technical data collection on Launchpad and GitLab while awaiting upstream =
-feedback.=0A=
-=0A=
-Current Status & Verification:=0A=
-=0A=
-1. Launchpad Report (#2142389):=0A=
-   - Status: Confirmed (assigned to maintainer Timo Aaltonen).=0A=
-   - Heat/Users: 220 Bug Heat points with 44+ explicitly confirmed affected=
- users across various AMD architectures (Tonga R9 380, Polaris RX 400/500, =
-and recent Vega APUs).=0A=
-   - Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389=0A=
-=0A=
-2. Freedesktop GitLab Issue (#5123):=0A=
-   - Status: Open.=0A=
-   - Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5123=0A=
-=0A=
-3. Technical Summary:=0A=
-   - I have executed 3 full git bisect routines on hardware testbenches, is=
-olating the regression behavior between kernel transitions.=0A=
-   - Recent user reports confirm the same black screen / no EDID handshake =
-failure upon resume and DPMS display wake-up across multiple Linux distribu=
-tions (Ubuntu, Fedora, Void Linux) and kernel versions (up to kernel 7.0).=
-=0A=
-=0A=
-Please re-open and maintain active tracking for this regression on Regzbot.=
- I remain available to test candidate patches, kernel builds, or debug flag=
-s on physical hardware.=0A=
-=0A=
-Best regards,=0A=
-Danilo Machado=
+#regzbot back in-progress
+#regzbot monitor https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
+#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
+
+Hi Thorsten, Alex, and Linux Kernel Maintainers,
+
+I am writing to update the status of this regression after checking
+the Regzbot tracking dashboard:
+https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=MMWM=W41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/
+
+The dashboard currently lists this issue as "fizzled out / resolved:
+inconclusive", but I want to clarify that this bug is ACTIVE,
+UNRESOLVED, and actively tracked. The lack of recent email activity on
+LKML was due to ongoing technical data collection on Launchpad and
+GitLab while awaiting upstream feedback.
+
+Current Status & Verification:
+
+1. Launchpad Report (#2142389):
+   - Status: Confirmed (assigned to maintainer Timo Aaltonen).
+   - Heat/Users: 220 Bug Heat points with 44+ explicitly confirmed
+affected users across various AMD architectures (Tonga R9 380, Polaris
+RX 400/500, and recent Vega APUs).
+   - Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
+
+2. Freedesktop GitLab Issue (#5123):
+   - Status: Open.
+   - Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
+
+3. Technical Summary:
+   - I have executed 3 full git bisect routines on hardware
+testbenches, isolating the regression behavior between kernel
+transitions.
+   - Recent user reports confirm the same black screen / no EDID
+handshake failure upon resume and DPMS display wake-up across multiple
+Linux distributions (Ubuntu, Fedora, Void Linux) and kernel versions
+(up to kernel 7.0).
+
+Please re-open and maintain active tracking for this regression on
+Regzbot. I remain available to test candidate patches, kernel builds,
+or debug flags on physical hardware.
+
+Best regards,
+Danilo Machado
