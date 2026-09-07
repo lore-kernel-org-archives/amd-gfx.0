@@ -4,49 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE008C79FAD
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 07:21:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CCCFC79F99
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 07:21:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87C8310EA64;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCF9410EA79;
 	Tue,  8 Sep 2026 07:21:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="BSzhn4jq";
+	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="NeWIk2SM";
 	dkim-atps=neutral
-Received: from smtp-bc09.mail.infomaniak.ch (smtp-bc09.mail.infomaniak.ch
- [45.157.188.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D31EB10E4DA
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 12:50:20 +0000 (UTC)
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch
- [10.7.10.107])
- by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdn3b2TSczXs8;
- Mon,  7 Sep 2026 14:50:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
- s=20250113; t=1788785419;
- bh=whRlL2++i1D+jNozO5BnCZ9UuYCEK41dbC6Ql96DMBA=;
- h=From:To:Cc:Subject:Date:From;
- b=BSzhn4jqse+BMqrp3imOxB+PXJ4+rkyU4jskopUimHGS+/Rx1ql+67XtGk55xKkjF
- PGkoj3fXgcSfyMzwxyo7XzsyOrdyE4Ux1iF8EmSRZw1uv5kXvGLgUbNxcdrKM+tj1j
- 9szpNb9brcS3fS/8vtw2ucTMzfCCWUjJkSXil4Ep5kARRPm3x+fYduOh7S0hbasNeB
- 1m5lV7NvLX7+jE5iYcw9d8SXs1sPbUHSc4fba1aDzsQZKY+aLYcqOzopvqoR+2DR7e
- 7xT3ShS6GHM1sYPMmSUOJ6TaWopAR6KrjnO182HwMc5aHrHCj5a9aTdvl2QUMY6oPm
- u9nxRnUdQ2D8Q==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
- id 4hdn3Y3K4DzqY3; Mon,  7 Sep 2026 14:50:17 +0200 (CEST)
-From: Adrian Betschart <adrian.betschart@cinemaone.ch>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/3] drm/amd/display: HDMI 1.4 3D output (frame packing,
- top-and-bottom, side-by-side)
-Date: Mon,  7 Sep 2026 14:50:12 +0200
-Message-ID: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
-X-Mailer: git-send-email 2.55.0
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azolkn19010000.outbound.protection.outlook.com [52.103.12.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A908610E028;
+ Mon,  7 Sep 2026 14:52:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bwip5ePMz4uEPpLcK4THjFppEnabge++vyDN94Q9atYyIPAnUnkY7JnsKOBGUuaXUSND9JDSdAIG5NulLScCOUqRT9XdENHJuZ9DYXP8vCME4tG8lcDZGpGBUPCC/kstGN53FtT5chjf/KIT9Bxd6nbPJC3zr6KPS8x/MnuJdEYRqF0sPnceigc994eDFvPaH9C+kYOuFQaX2N+H16y8M/erYp4RRLXgSI8+JyL+ZQQvhCp48Uu1Y60gDj1VXxuKmZLLrmhDYRUSkwaOR17peBEIT65TIjXN4I8smvnnyBkfaSMxpg2AmPFBobcalKbStqva+VNcF442oUTjpS72JA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ohSMWJ8e7Dz6ZJyDC6o7mSMwxCrP/XnOaU36+BefuN8=;
+ b=tTEMAPEK5ZWdd6t8XmGYff4tB8kL3rsPaZWHWQ1k5uNuqayDZOem8g1xZB+g+iTVZeEuaFWPLyVAJhDKaRwT6KjKKDCpIFsL42RsJ6p3mAvUbmVjzp/CCVIsG1Wo4DHZyhjQ/+UwtsqpSk/NPscr/WyWWkBFKW+mk6tQLBxz6BRk/qbl47XwPHo57ondHGlHMZvHnpC4IGeOyFvgXZMzaQNeVTfAXpT9WipGLkyYcr0bCg4brE4zISI8DNBOJZbTRHz/VgAHJuew4mhk1G7BtsEXzd5ZzBbpB0jlm0+fqzS6xaQvidBMaO7E7o08rKTHIirskjkBL8lYckMuchaqLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ohSMWJ8e7Dz6ZJyDC6o7mSMwxCrP/XnOaU36+BefuN8=;
+ b=NeWIk2SM9EUHVm13a5G6lfvqvBF3Dh3kh7HuL9z27cqK/hCEGKakmYRDb/9L21CZ6epnsHizbJZGTzTN8uGPmGdx0wFfA87qefQj2NzIX92ai50GwJFkqV71xe8Ku0x9N2aG8IKWMA/p1w2oCprITsiMeTL+QEMx9aGTg4Tavk96ePyID7frTLZS6vE5p4oDapH0ebJFauroMKvJAjGGfCDQJOILydW/0k3snvK60whQlyAz6z3NfGedtvI2vjwkG8EAdG0tbAvhhEIxtKFbEbuXQE5Js2pGB5ESpBV/zxazeehH/WED5opBjG7hL0g1cCHzFf1CkMwcRYNBsESttA==
+Received: from CPUPR80MB6583.lamprd80.prod.outlook.com (2603:10d6:103:180::10)
+ by SCYPR80MB7228.lamprd80.prod.outlook.com (2603:10d6:300:a9::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Mon, 7 Sep
+ 2026 14:52:16 +0000
+Received: from CPUPR80MB6583.lamprd80.prod.outlook.com
+ ([fe80::26cd:a90b:7748:403d]) by CPUPR80MB6583.lamprd80.prod.outlook.com
+ ([fe80::26cd:a90b:7748:403d%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 14:52:16 +0000
+From: Danilo Machado <danilomachado2002@hotmail.com>
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux@leemhuis.info" <linux@leemhuis.info>
+Subject: Re: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
+ suspend / regression tracking update
+Thread-Topic: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
+ suspend / regression tracking update
+Thread-Index: AQHdPthZkh+T8RZazECAp8xXMBtPcg==
+Date: Mon, 7 Sep 2026 14:52:16 +0000
+Message-ID: <CPUPR80MB658316FEDF6220A3DA27A276A3B22@CPUPR80MB6583.lamprd80.prod.outlook.com>
+Accept-Language: pt-BR, en-US
+Content-Language: pt-BR
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CPUPR80MB6583:EE_|SCYPR80MB7228:EE_
+x-ms-office365-filtering-correlation-id: 355c2530-3870-44fe-288c-08df0cef9c12
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|24021099003|55001999006|15080799012|21061999006|51005399006|31061999003|5062599005|15030799006|41001999006|22091999003|25031999004|24121999003|4140399003|8062599012|8060799015|19110799012|25010399006|40105399003|1602099012|10035399007|2607281247196008|102099032|4302099013|440099028|3412199025;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?F/D8LBpcZw5eWKHjjL53rIKjKt3uQi7hyJE8DxZgC12I2ipRVwRdGQ0jKs?=
+ =?iso-8859-1?Q?ahdUEDYrlW9Zqt+rhbotQw+roPfcinwY64Fit6/D1rdUkEKbH+X+vSLmgP?=
+ =?iso-8859-1?Q?EXYuRkWZlgycrlkPDDwr2I9bgCd5EVuVMSzXJn1nf7H7c/NQuxniyi1PiN?=
+ =?iso-8859-1?Q?+ukitAMgkQ6a0nlIUoJELfcQWMwzzIFA0yfebLFgySJ3SUfG28h/kZHixx?=
+ =?iso-8859-1?Q?25kbMbUPrOhfJLkI9UVzfndrmMdcR7Uc+YWH5opuu6OZ9aWPVtXNQXQlB5?=
+ =?iso-8859-1?Q?lzNF/NNZIK4wyzc8B2bnv0aQ4uuXxudmcUe/2mclKzJ3iqEB9fMkLZkYzq?=
+ =?iso-8859-1?Q?t6t5Hj178Drc1yE9utaO+9gJ6WN/qOSQutWSsj7WVTwL3xRi31Gv1N//0O?=
+ =?iso-8859-1?Q?K38VhUMdtC/pNOCBtcmAoRNH1Jgq/TAjDxMqW+Nnj1vK53Hh88pHYndGjs?=
+ =?iso-8859-1?Q?Gb6JeDSEiR9AakEB7PL4ZL9o8vqRLJmonUtRDXcRA4uV5/QdshoXzuqN0i?=
+ =?iso-8859-1?Q?J/zPMjsgtEimJGJhx3AZusq7c5i0/bbj4TW4treNvBPM4xwmKKhNdwKbAQ?=
+ =?iso-8859-1?Q?N0+SGM7oNgDNAm/XhnLAbneXafeVc3p5pSSwUvEVbSHpTbR37huh3PegtM?=
+ =?iso-8859-1?Q?73bi+tAPcVozhm204XHDWhyts6rE5pD/BUkAjivxwJBdj0rABT2v90jxvC?=
+ =?iso-8859-1?Q?ou82Dz5isqFNKeA9MSvk7P9GjEwGdyQB8i6HbMoVIMROjYvFLgpZ7ydSZn?=
+ =?iso-8859-1?Q?24YrXRsUcmcJvI8FByEFNn3p1/tX33w2oZ0Aqa7rvMDxc4TjRaNue5izWQ?=
+ =?iso-8859-1?Q?PY8oAQOBvEw79o0pekFO6uDZxfCuRZ9ABr6ctUWu4ww3xvu8I+Wsy62OET?=
+ =?iso-8859-1?Q?xX3qzxblN96DN9O73Athb5Vyoj2bPtQTWVlOLvXKvkW2/qC4IQ1i1MSuKG?=
+ =?iso-8859-1?Q?vhB7n78QqFDz29RaoWRKjq18RblGCQMK+G99dIfDyRkRaC1T+QEBXXsowZ?=
+ =?iso-8859-1?Q?JPMMhZmh4YTSAx4JY2bVM79PCGkmbMGjCtE/O8NH9nZ8nsubJ5Ps6G10Ht?=
+ =?iso-8859-1?Q?y3WVtxJA+yEpFDOwI7iwkZm3BGCSLzEpp0DYg4h3tWCzqt8+3r9E5bcorv?=
+ =?iso-8859-1?Q?MgBSaVsppNU47F52fyjjyiDyWDx4rC75APoCcLYTATR5QByM4nE+qWYq73?=
+ =?iso-8859-1?Q?squRZP35PJ/tLS8GyNQPb7xrawJX8okC/hfHGuyabompsDgK7ZSyRgNbAj?=
+ =?iso-8859-1?Q?k2x1IYQ4pUfQvQGdwIWzpwacl8OmZtbv8n80fv7L4=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?GmZcRnanqkOc4ezEGGwLDyExWiB6b8/AjpaXh2f4ovdG/6QvVTG8N7OGHM?=
+ =?iso-8859-1?Q?rj3XQdTX5S8zBYheIgSw1U/GYIOYRoiwaLSUSfFozc2jp8q/19nT/Ot+RC?=
+ =?iso-8859-1?Q?iF1ojujHrusD3NGjaFOXPseFByNtNHn6jeFwZhgHUic737EWaVTknEHfSd?=
+ =?iso-8859-1?Q?oStaC5MNqUThik0EYiJgqUWPOiMNt6ROi5fYrvgPd9a4PJ3gXgIKYCtnsa?=
+ =?iso-8859-1?Q?gWFhKaihudr/GTSIoEsHc1jwNK/H3+es2HApTVZOxbFwJiIyhNLS8s5SmM?=
+ =?iso-8859-1?Q?RCyoabe/KoI/vLexXTbahhEPEC05Lete115YdhcCaZKQ7j7uuxOptF9XwK?=
+ =?iso-8859-1?Q?ldHI6K3lMBddvlRJLGDLx4SRiPW6UyWl/Rf01dLMgraroguCoPoVj7Zo03?=
+ =?iso-8859-1?Q?7qyeJF4mrJgA+bNovceHmq7suBfNW5b+lj+4ugIZZPQCvIRT6biElXlZrw?=
+ =?iso-8859-1?Q?E/JMtFDCDLFrtTU/lAAJrKYmAZwFhJvm7EmSbaOYdqgJEh2oqvfxkfTwpS?=
+ =?iso-8859-1?Q?iLLZTN5KfyvC45Lhqm0TW2STcPoa2/tD7AK1V1N9zG1BevYsWLuOcOFjfQ?=
+ =?iso-8859-1?Q?VscL/KGO+T2tXZD7tPBLVgfZlk9+HsHWnSY8kQYbzVrnW7POzctUc547JH?=
+ =?iso-8859-1?Q?mW9FYbYIVW2Mx50+7I69CzH9IPJj3/1DCh5FK0Z2eJhdzohxfrrqokW1IB?=
+ =?iso-8859-1?Q?ylRUtu30MnWQsHKIVhCoDnq08qc66v89jEZGMXQOwSxonhtCMjRaLd14Ts?=
+ =?iso-8859-1?Q?vLNjRQ56/WR+mCT39pNETntQe3VCz7RmuFUHgDtluVNDC+oMjMXCZv5lC4?=
+ =?iso-8859-1?Q?bjotRqKdgs+DrU0PAVap6zlWPysB1jRObPFQD+DTlDUl3mu1lOGEMqbk8D?=
+ =?iso-8859-1?Q?EfZ5y7LyqklDOFsRxQN+eqOP9gQYVLR23+157NFnfz99ctdsIuZ6V8nciq?=
+ =?iso-8859-1?Q?bN4Q7MilvuUVctRRW9NBl9IaSzx0SQbNcje54XRW5HoWkCDNBugPZRCYhn?=
+ =?iso-8859-1?Q?VxfXxsK9EgvZoNjTv89qHs036CwviLLojv6XtEQcr14/yokiGmMZMwKhv3?=
+ =?iso-8859-1?Q?PxOGKFsyAt1Umjxp9u9li4+ButBVKUC6Ggs/zcLhTagbfWP5bpmeCPAOyb?=
+ =?iso-8859-1?Q?sbIXyIc2l4Ght0o+bU695xsMZ0i/oTx5yyU5mEgX5w03i0X+EICGM0KkwF?=
+ =?iso-8859-1?Q?1jI6P4eXVhy3oVr3XW/gTnBvd65FN1Im1XcXaE9OcETNKwwEDJ1jSrt+um?=
+ =?iso-8859-1?Q?AeD+/xSEI/vKRW9WUUy5SOjUxVzZUXOb4MPZa2OCKTXYyGkD0ggRQg1Q7W?=
+ =?iso-8859-1?Q?J57zGi0eeikL/r77vpSEOw3CFeeKdml+JoCGupLlBDW74Y5JSPnr1mWtg0?=
+ =?iso-8859-1?Q?9MQ+RJO8qSQI0XJfSVJZFQnoQIgMkvMRHDUpOATQ80qc8n1fFS2wsy45S0?=
+ =?iso-8859-1?Q?sriiuz1G7DztMfRwpBoAMhJykFAHHt9u/iNxoOhVSHFL2jpTo2tp5tq31b?=
+ =?iso-8859-1?Q?NwT90WC7bI2aAVrmuC4A9MygRkhrQ9tgqol6hXmPzpiA=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CPUPR80MB658316FEDF6220A3DA27A276A3B22CPUPR80MB6583lamp_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-665fe.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CPUPR80MB6583.lamprd80.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 355c2530-3870-44fe-288c-08df0cef9c12
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 14:52:16.4614 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SCYPR80MB7228
 X-Mailman-Approved-At: Tue, 08 Sep 2026 07:21:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,82 +140,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu has never exposed the HDMI 1.4 3D modes that drm_edid derives
-from a sink's HDMI VSDB: stereo_allowed is false on every connector, so
-a 3D-capable TV or projector connected to a Radeon card cannot be driven
-in frame-packing, top-and-bottom or side-by-side mode, although i915
-has supported exactly this for a decade and the media players that
-produce 3D frames (Kodi, mpv with 3D filters) only need the mode to
-exist.
+--_000_CPUPR80MB658316FEDF6220A3DA27A276A3B22CPUPR80MB6583lamp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-These three patches add it for native HDMI connectors, in the simplest form
-that works on the hardware: the source packs both views into the frame
-and the display core scans that frame out as ordinary 2D; the only
-3D-specific output is the HDMI vendor infoframe. The reason it has to
-be done this way is in patch 1: any of DC's stereo timing formats,
-including the SW_PACKED ones, makes the hardware treat the surface as
-two views and paint the whole frame into each half. Patch 2 adds the
-3D_Ext_Data byte to the top-and-bottom vendor infoframe, without which
-at least JVC D-ILA projectors do not engage 3D (Amlogic sources send
-it, which is why those work with the same projector). Patch 3 sizes
-the stream and the plane viewport by the doubled frame-packing timing
-so each eye receives its own view rather than a stretched copy of the
-first.
+#regzbot back in-progress
+#regzbot monitor https://bugs.launchpad.net/ubuntu/+source/linux/+bug/21423=
+89
+#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
 
-Tested on a Radeon RX 7600 (Navi 33, DCN 3.2.1) driving a JVC
-DLA-RS4100 through an HDFury VRROOM, with Kodi (LibreELEC, GBM) as the
-source, on a 7.2.3 kernel carrying these patches; the series here is
-rebased onto amd-staging-drm-next and compile-tested there, and the
-amdgpu_dm connector (308) and plane (95) KUnit suites pass; the freesync suite
-crashes the same way on the unpatched base. All three layouts
-engage the projector's 3D mode at 1920x1080p24, RGB 12 bpc, with
-correct per-eye geometry (row-coded test frames read back through each
-eye of shutter glasses) and correct eye assignment; frame packing is
-also the format the projector uses for Blu-ray 3D.
+Hi Thorsten, Alex, and Linux Kernel Maintainers,
 
-Known limitation, not addressed here: a framebuffer with DCC enabled
-does not scan out in a frame-packed mode on this GPU (the first flip
-after the modeset never completes and the pipe wedges); the source has
-to allocate the 3D framebuffer without DCC. A separate report will
-follow once it is better understood.
+I am writing to update the status of this regression after checking the Reg=
+zbot tracking dashboard:
+https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=
+=3DMMWM=3DW41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/
 
-Two unrelated FRL/DSC issues found on the same setup are tracked as
-drm/amd issues 5770 and 5771.
+The dashboard currently lists this issue as "fizzled out / resolved: inconc=
+lusive", but I want to clarify that this bug is ACTIVE, UNRESOLVED, and act=
+ively tracked. The lack of recent email activity on LKML was due to ongoing=
+ technical data collection on Launchpad and GitLab while awaiting upstream =
+feedback.
 
-v3:
-- 1/3: pass CRTC_STEREO_DOUBLE unconditionally where amdgpu_dm recomputes the
-  CRTC fields, as the DRM core does in mode_fixup(); the flag only doubles a
-  frame-packing mode, and the previous `flags & DRM_MODE_FLAG_3D_FRAME_PACKING`
-  test also matched other 3D layouts (multi-bit field). The saved_mode variant
-  is back to its original form, since a stereo mode is no longer a FreeSync
-  video mode. Both from the Sashiko review of v2.
+Current Status & Verification:
 
-v2 (all three findings came from the Sashiko review bot, and all held up):
-- 1/3: a stereo mode keeps its own CRTC timing in
-  decide_crtc_timing_for_drm_display_mode() - with the native timing
-  copied over it, a frame-packed 1080p24 mode (which shares pixel clock
-  and totals with 1080p60) lost its doubled timing on a 1080p sink even
-  with scaling off; and amdgpu_dm_is_freesync_video_mode() rejects a
-  stereo-flagged mode, which otherwise could be replaced by the 2D
-  FreeSync base mode and lose its 3D flags. KUnit cases for both.
-- 3/3: the plane KUnit mocks now set hdisplay/vdisplay as well as the
-  crtc_* size, which drm_mode_get_hv_timing() derives the size from;
-  dm_test_helper_check_state_scaling_caps failed otherwise.
-- 2/3: unchanged.
+1. Launchpad Report (#2142389):
+   - Status: Confirmed (assigned to maintainer Timo Aaltonen).
+   - Heat/Users: 220 Bug Heat points with 44+ explicitly confirmed affected=
+ users across various AMD architectures (Tonga R9 380, Polaris RX 400/500, =
+and recent Vega APUs).
+   - Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
 
-Adrian Betschart (3):
-  drm/amd/display: support HDMI 1.4 3D modes on HDMI connectors
-  drm/amd/display: send the 3D_Ext_Data byte for top-and-bottom too
-  drm/amd/display: size frame-packed streams by the doubled timing
+2. Freedesktop GitLab Issue (#5123):
+   - Status: Open.
+   - Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5123
 
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 58 ++++++++++++--
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 13 ++-
- .../tests/amdgpu_dm_connector_test.c          | 80 +++++++++++++++++++
- .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    | 12 +++
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |  7 ++
- .../display/modules/info_packet/info_packet.c |  4 +
- 6 files changed, 165 insertions(+), 9 deletions(-)
+3. Technical Summary:
+   - I have executed 3 full git bisect routines on hardware testbenches, is=
+olating the regression behavior between kernel transitions.
+   - Recent user reports confirm the same black screen / no EDID handshake =
+failure upon resume and DPMS display wake-up across multiple Linux distribu=
+tions (Ubuntu, Fedora, Void Linux) and kernel versions (up to kernel 7.0).
 
--- 
-2.43.0
+Please re-open and maintain active tracking for this regression on Regzbot.=
+ I remain available to test candidate patches, kernel builds, or debug flag=
+s on physical hardware.
 
+Best regards,
+Danilo Machado
+
+--_000_CPUPR80MB658316FEDF6220A3DA27A276A3B22CPUPR80MB6583lamp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+#regzbot back in-progress</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+#regzbot monitor https://bugs.launchpad.net/ubuntu/+source/linux/+bug/21423=
+89</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123</=
+div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Hi Thorsten, Alex, and Linux Kernel Maintainers,</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+I am writing to update the status of this regression after checking the Reg=
+zbot tracking dashboard:</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=
+=3DMMWM=3DW41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+The dashboard currently lists this issue as &quot;fizzled out / resolved: i=
+nconclusive&quot;, but I want to clarify that this bug is ACTIVE, UNRESOLVE=
+D, and actively tracked. The lack of recent email activity on LKML was due =
+to ongoing technical data collection on Launchpad
+ and GitLab while awaiting upstream feedback.</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Current Status &amp; Verification:</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+1. Launchpad Report (#2142389):</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&nbsp; &nbsp;- Status: Confirmed (assigned to maintainer Timo Aaltonen).</d=
+iv>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&nbsp; &nbsp;- Heat/Users: 220 Bug Heat points with 44+ explicitly confirme=
+d affected users across various AMD architectures (Tonga R9 380, Polaris RX=
+ 400/500, and recent Vega APUs).</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&nbsp; &nbsp;- Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2=
+142389</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+2. Freedesktop GitLab Issue (#5123):</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&nbsp; &nbsp;- Status: Open.</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&nbsp; &nbsp;- Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/51=
+23</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+3. Technical Summary:</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&nbsp; &nbsp;- I have executed 3 full git bisect routines on hardware testb=
+enches, isolating the regression behavior between kernel transitions.</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&nbsp; &nbsp;- Recent user reports confirm the same black screen / no EDID =
+handshake failure upon resume and DPMS display wake-up across multiple Linu=
+x distributions (Ubuntu, Fedora, Void Linux) and kernel versions (up to ker=
+nel 7.0).</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Please re-open and maintain active tracking for this regression on Regzbot.=
+ I remain available to test candidate patches, kernel builds, or debug flag=
+s on physical hardware.</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: &quot;Calibri&quot;, &q=
+uot;Helvetica&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Best regards,</div>
+<div style=3D"font-family: &quot;Calibri&quot;, &quot;Helvetica&quot;, sans=
+-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Danilo Machado</div>
+</body>
+</html>
+
+--_000_CPUPR80MB658316FEDF6220A3DA27A276A3B22CPUPR80MB6583lamp_--
