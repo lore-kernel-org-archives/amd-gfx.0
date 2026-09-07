@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E91AC79FAA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12FBFC79FAC
 	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 07:21:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26F5410EA75;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07D8510EA74;
 	Tue,  8 Sep 2026 07:21:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="aDAFj4hp";
+	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="nznUTXLq";
 	dkim-atps=neutral
-Received: from smtp-bc08.mail.infomaniak.ch (smtp-bc08.mail.infomaniak.ch
- [45.157.188.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6595C10E7B5
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 11:52:52 +0000 (UTC)
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch
- [10.7.10.108])
- by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdlnG5W8fz2hl;
- Mon,  7 Sep 2026 13:52:50 +0200 (CEST)
+Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch
+ [45.157.188.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35F8310E7E4
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 12:50:28 +0000 (UTC)
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch
+ [10.7.10.107])
+ by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdn3k3cSNzbJM;
+ Mon,  7 Sep 2026 14:50:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
- s=20250113; t=1788781970;
- bh=D1pSM86rIzxqNVYpPYuzveYIC0zPnHexxjocqXZTpH4=;
+ s=20250113; t=1788785426;
+ bh=FSMW2HD+WgusnBjcbtcjOHidxkfywKTx62c2K4mKlFM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aDAFj4hp80TaiAHf7Ag1+lasWUwmW4r1rpn5aowjP4cTSlpPBi+tzHbbhpe0qT10G
- ZdllgYKxSgASV48ZN4AH4W86yVa0jOum03fwXCGCvZSs+LParipKnHkORjXcE1IGRX
- +H0potcLhivRN0ljfUrpBImMy6xs5u5fQxUP4FL00IoI0erI4bJdbMnyHvSjChtpZF
- ebs3Fk1cVwrwoseZl7ucMK1I+YqOoTGBj3IirIi5pWa3EY+0XXUj85HxqbU7pu5wsz
- mzx5rZnd1O2xIBYwRJc8r9V3EZcU7AoXYwNwftmeZR81aaWWeWJT21sAB100+lVmK4
- p4y8ypgy5A8kQ==
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA
- id 4hdlnG0P3yz1pL; Mon,  7 Sep 2026 13:52:50 +0200 (CEST)
+ b=nznUTXLq1NCHpsJHL+LxK4bV7cE7sw4W5uosCjyz4EGAky0ZrI3B/l/IveQUbyfQG
+ 9UDUq82fTIvhMIlVb+ejKjKnsAOngLJKdc6w1gyEgHScN/5x4Rm6EQGe9ysHTBLmVz
+ g41ENU2qTftEHtwSBs7RWnlNMrGn3sL6VitvXFdud12FA+bwP8Ez9ufM4w+XX7H7bX
+ wgzgzbIwqJ3MFOiwKeY13M088uh+Cnd86eE0HiJeOYARp9qdh2fBAl622dkqW/5733
+ zruzvDF3bHT5pbyI/qs3Xnv6au1u8/CyZIzBbbpSi7BchT9BpkKJ2wCy/dBWRPoljm
+ ZjysRehlZQQ8A==
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4hdn3c58X6zn9F; Mon,  7 Sep 2026 14:50:20 +0200 (CEST)
 From: Adrian Betschart <adrian.betschart@cinemaone.ch>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <siqueira@igalia.com>,
@@ -39,13 +39,13 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] drm/amd/display: support HDMI 1.4 3D modes on HDMI
+Subject: [PATCH v3 1/3] drm/amd/display: support HDMI 1.4 3D modes on HDMI
  connectors
-Date: Mon,  7 Sep 2026 13:52:27 +0200
-Message-ID: <20260907115229.64477-2-adrian.betschart@cinemaone.ch>
+Date: Mon,  7 Sep 2026 14:50:13 +0200
+Message-ID: <20260907125015.69811-2-adrian.betschart@cinemaone.ch>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907115229.64477-1-adrian.betschart@cinemaone.ch>
-References: <20260907115229.64477-1-adrian.betschart@cinemaone.ch>
+In-Reply-To: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
+References: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Infomaniak-Routing: alpha
@@ -105,14 +105,14 @@ FreeSync video mode; KUnit cases cover both.
 
 Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
 ---
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 54 ++++++++++++-
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 47 ++++++++++-
  .../tests/amdgpu_dm_connector_test.c          | 80 +++++++++++++++++++
  drivers/gpu/drm/amd/display/dc/dc_stream.h    |  7 ++
  .../display/modules/info_packet/info_packet.c |  3 +
- 4 files changed, 141 insertions(+), 3 deletions(-)
+ 4 files changed, 135 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 0e71ba498..aa3f47632 100644
+index 0e71ba498..987d98918 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
 @@ -851,6 +851,25 @@ STATIC_IFN_KUNIT bool adjust_colour_depth_from_display_info(
@@ -184,39 +184,25 @@ index 0e71ba498..aa3f47632 100644
  	timing_diff = high_mode->vtotal - mode->vtotal;
  
  	if (high_mode->clock == 0 || high_mode->clock != mode->clock ||
-@@ -1451,6 +1491,9 @@ create_stream_for_sink(struct drm_connector *connector,
+@@ -1451,6 +1491,8 @@ create_stream_for_sink(struct drm_connector *connector,
  	struct dc_sink *sink = NULL;
  
  	drm_mode_init(&mode, drm_mode);
 +	/* frame packing scans out both views plus the active space in one frame */
-+	if (mode.flags & DRM_MODE_FLAG_3D_FRAME_PACKING)
-+		drm_mode_set_crtcinfo(&mode, CRTC_STEREO_DOUBLE);
++	drm_mode_set_crtcinfo(&mode, CRTC_STEREO_DOUBLE);
  	memset(&saved_mode, 0, sizeof(saved_mode));
  
  	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK) {
-@@ -1530,7 +1573,9 @@ create_stream_for_sink(struct drm_connector *connector,
- 	}
- 
- 	if (recalculate_timing)
--		drm_mode_set_crtcinfo(&saved_mode, 0);
-+		drm_mode_set_crtcinfo(&saved_mode,
-+				      (saved_mode.flags & DRM_MODE_FLAG_3D_FRAME_PACKING) ?
-+				      CRTC_STEREO_DOUBLE : 0);
- 
- 	/*
- 	 * If scaling is enabled and refresh rate didn't change
-@@ -2449,7 +2494,9 @@ enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connec
+@@ -2449,7 +2491,7 @@ enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connec
  	if (!test_mode)
  		goto fail;
  
 -	drm_mode_set_crtcinfo(test_mode, 0);
-+	drm_mode_set_crtcinfo(test_mode,
-+			      (test_mode->flags & DRM_MODE_FLAG_3D_FRAME_PACKING) ?
-+			      CRTC_STEREO_DOUBLE : 0);
++	drm_mode_set_crtcinfo(test_mode, CRTC_STEREO_DOUBLE);
  
  	stream = amdgpu_dm_create_validate_stream_for_sink(connector, test_mode,
  						 to_dm_connector_state(connector->state),
-@@ -3143,7 +3190,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+@@ -3143,7 +3185,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
  	aconnector->dc_link = link;
  	aconnector->base.interlace_allowed = false;
  	aconnector->base.doublescan_allowed = false;
