@@ -4,124 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 641D6C79F89
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 07:44:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBCFDC79F89
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 08:21:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD0F310E463;
-	Mon,  7 Sep 2026 07:44:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2AF10E6B3;
+	Mon,  7 Sep 2026 08:21:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FzLopt8r";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n6U6loOY";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012015.outbound.protection.outlook.com
- [40.107.200.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D49D910E463
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 07:44:02 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013047.outbound.protection.outlook.com
+ [40.107.201.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 606C810E6CC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 08:21:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V+f2FnGkfZ2tLHZZW0Y+LbzJc6jwhS4U4QuL6doxL/3j9IFyJYpTEHfU+Jz6mExG1Qc04ninFhZE6Grt7MDFJ8W/k5NhLW+o6XJeXoRMRa+AVoHd0QSYDvkpYNG3TjadRYWVmz2Kxpe6pske35rewa/MLxmzJDEPhOBmfmOqABa5P8FJxsRs3xXO6QL4SOeWzQhTT6n90qqWM3mGy3jwPPxS0ksVybqgR14cQlBCS1aU4wbO2IVXKUhCaskTEyVhDBbt0BDqAGMgm7ThPvqFl3s9qzaWcYOQkJmpDmH2OS1+nOr0wRORkbUqS1AlG0TnEdxfZbJqkwGFFWRRWJIing==
+ b=teYXdshKhsV3h/pZc9xoYE1vF0Oydabin2mFOgphK7G15dQBFKl9tPq/TUS1xG7UhfcJ3z+Ctw6GMpPr+PP+YVxO1We45o78pmjnOKeOtOOy5T0RuqglcfRFEq7zpri/Ll5AHL5aOUBZE8y0vmxYHJUgTFTmPetYSVNyKWzHnCzIe79TlVatno7F3ftI6zZkEooByfgxmRM+t3WQHyB9HJKvfIDhdKJwsGkfBdfBT9NHv4XK/hvelhsErCMGn3EKnmklpglp6AHrXcoyRehthC9DDy9OPGxsO+M9oNAXHRU1bwWhyytmbuZnxMdtP9aYuAzZrxDMYcwm0RM30iy8qQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b69xHSq47tJkLy/kdjCVqKq7bCw+nv1pagv3N4sCpwI=;
- b=nfRbqSw9/pH2SGBq5FXpMKOtemfeslOSgXWX4ju9hMbkwj5vaRL3nvoI60TW4c+fvu+4aG3aduSm/WjcnJ9y1mOFbgO8YDzAm08X9bRaxf/yQSO0U2WOmQTM50QRpbQDzfjvw+IrvX1i/Q/+0BEpG/ogP1NwGjtf4NbCNuwHS2oba7j93/Onwx5EQSE6TEf61ODvZXndBisvlF56BydsE7SmIYbX+FKTGGndqG6v+hnb3auWrJhltfJLN/0yrsS7oFor4hvXBz20wToNE8Jp7m2OVMTsoOe/nApKutmZtC/eUgEsZzIRwKYpOg0KsTyVZgU+jBTQIaxhz3ZEfVaUWA==
+ bh=7ZTgxKAiAmXC6Em8C6MXS7tCzpbSAXtwyQjIZb92KzI=;
+ b=O1jh22i0VwaKM/GYfRi3U/6v/Yf7Mmq3wr+cPg9QTw3Gcnlf2EaHctdVH8LZpEaSsyaLnYHMDwxBIfeEPJdU9Afa7a0AUTS4gAwq0F7l1Q40Ri1pZrtv+fCppibeN92An3QL1DvwPlx0vpmx6mogRV9ZI6vCO3LHqINLOgM+MLeq4phnfCD5QOndhxjHBiZoTKFqiQYtE7F2ScyLsELQwbA62IVryAtu+TbBvehy45IMFIaCLMK7PcilKT24FQUgZBh86nQUmbct26QnflMWSlWDxhcG3llbv4uFOpfwjBNRMF9jf3/CECUnjeUGNA3etcInI5J99xuYHlYmiWC7aw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b69xHSq47tJkLy/kdjCVqKq7bCw+nv1pagv3N4sCpwI=;
- b=FzLopt8rw9AVJ9zWVLhTXVJBVkiFsqlKqnIUrlGti5bDgSvptWUEoJbsSl4fXSeXOlqvPlMWrJAjIAZkMFwok4otE3tKj5FAe7LuU3scQQYO/xXu4m3Gaq6vGbAVeKOqlgYIpjYJlFKv1yto+aljUVxoWLeXCc50GX3B2pXOj5k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB6423.namprd12.prod.outlook.com (2603:10b6:8:bd::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.15; Mon, 7 Sep 2026 07:43:59 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 7 Sep 2026
- 07:43:59 +0000
-Message-ID: <77bd73f2-3e33-4c78-adaa-634b381ea5b8@amd.com>
-Date: Mon, 7 Sep 2026 09:43:55 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] drm/amdgpu: Delete SI/CIK/VI IH soft_reset() code
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- Natalie Vock <natalie.vock@gmx.de>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
-References: <20260904183409.571117-1-timur.kristof@gmail.com>
+ bh=7ZTgxKAiAmXC6Em8C6MXS7tCzpbSAXtwyQjIZb92KzI=;
+ b=n6U6loOYw92baf8Q1XUS3bZ0/OQdYO9uA0TLbY9Z97+T37o7XfaSOebv2KW9k7DE8oZduLoKtwmncb+jBm5vJdmzoHHr7dpZohLVix/XZgrENcNdOGTu9H8Z6eASiX9eJ5TBEaUGOCxY++zb/22Q42ntFxLI8FsBMkudWu2LDNc=
+Received: from IA1PR12MB9530.namprd12.prod.outlook.com (2603:10b6:208:593::17)
+ by LV8PR12MB9270.namprd12.prod.outlook.com (2603:10b6:408:205::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 08:21:15 +0000
+Received: from IA1PR12MB9530.namprd12.prod.outlook.com
+ ([fe80::7bf2:b883:379a:3d41]) by IA1PR12MB9530.namprd12.prod.outlook.com
+ ([fe80::7bf2:b883:379a:3d41%7]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 08:21:15 +0000
+From: "Yao, Chengjun" <Chengjun.Yao@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Shi, Leslie"
+ <Yuliang.Shi@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig, 
+ Christian" <Christian.Koenig@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: fix rmmio iounmap skipped on device removal
+Thread-Topic: [PATCH] drm/amdgpu: fix rmmio iounmap skipped on device removal
+Thread-Index: AQHdOTuU06reO4P3oUeRbhbtLkv14rbCuXfA
+Date: Mon, 7 Sep 2026 08:21:15 +0000
+Message-ID: <IA1PR12MB95302C0A8E92235524097C6392B22@IA1PR12MB9530.namprd12.prod.outlook.com>
+References: <20260831112623.1475796-1-Chengjun.Yao@amd.com>
+In-Reply-To: <20260831112623.1475796-1-Chengjun.Yao@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260904183409.571117-1-timur.kristof@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0286.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e7::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6423:EE_
-X-MS-Office365-Filtering-Correlation-Id: 875bf16a-5257-44cf-c91f-08df0cb3c772
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Pys5WKuTukNmDNwHczR43SX+kaTjnRSysJ5UJAOwA8V13NSHrI+co0iyDCwzyynPse4jpMQulqaoMyKNXTV9FgXDWg5r77UoFIVlfdClAlD3WdxDrw9O1EBGOg2DfToRD59hufAOn/TJCfF5VLSky45n1aLJvVBryc6nVeb0YFqnVyb9jUROxWMmIYSJSluHHpKyyYzS2lU1j0Kz9xE/yGem62NBzFCiSpVk6abHK4DHr5BnPxK2Q8BQ/5d0pl3vR3UPkWSu60mXK+4Vg6WiMa0FWg0vGF1zdUdjvNSq3pC3All16alQa3CQet/TGMXuWgGXthG1CidPPCLeUsqgcTCXU9PWipBVNPmGv5YCK46NzqKhh0oUqcTUg6RPVmMD3e9zt+TD4Nf9QkhmvhqlzgQzgN/mfRh843JgFXcFWWXMyXIFrjP2UrH3pxNLfgdW28JTsckMa6uVRypiwTxMjPrzHAAxDoJKoN2zy73QgcIwxYP2xO6NddjYKyaHBKH6jKqNwwQ+49EtKCXs8PuDDXGKMPnosO/qibaXqqpBj5O3MG0t5v7iMEucSq/1cXkGMbw8nlA0+LW6qxxYUjv3FZGrrjHsGD1RdMvV0J7DR+W1Ak1QkyAceiv1Lzv3VIDIL/eHBx6Pe0uy19K4quofVQ0b5V1jiEE+TEZGZJhnNk4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-07T06:56:11.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR12MB9530:EE_|LV8PR12MB9270:EE_
+x-ms-office365-filtering-correlation-id: af906aa6-f70a-4f15-4db4-08df0cb8fc09
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|10067099003|56012099006|18002099003|22082099003|11063799006|38070700021;
+x-microsoft-antispam-message-info: 1wkhIFM8YTDYOfHdSwJ1R00Th01xNOlU4prevbnVhsS6zBXmQ6CBZZhRAtJaLLv7tb62BpIZHZdGv+iGeTy4LHHKZLIHyzhGnX2Wmpd5+579y8v6Zj3wbW03V2iLkUwB7MVsG46enVRHUj0RQVBSf3i1qe9MYZ/vYCZ6zP+WndbHWR4zTXyjD+FtU6W1YurJmGDCWUKf2R/v0icfJb6dX2PAnXnk+VA8ke0I2kKkv6/u+scsiU/6Xf4Cf8fB7XKm0fUx7xD4cOFJSZpFbpbpixmt9uhbBCxnrDvaLTJb7LqUGr5wkIYJnMMZoA/EPD8e75PTbTPHS9xzsbKVibk292gzPNEXgc+svEOxozIPZvZQJojx+DfdicqGF0yMODBrtk/AJbiJJHdeXSN8iUIR99SYDcldc6SzCR8ldzCBPJ/1VWf69YqAcYzTDX1YSpOnFLzQ8rBaKA2kljC6NlQ97Sk2ETE7hUXLBxiC4YzqoNbfAtDOFVGZ6C3wZa69AY++MCQUYgOOkpMhn35wqiLgihu68iWagTi3iegYie7HXYTryt1reWjuLYi8pu8QGwYbMI2dGzocT1ifejlCW0XP/cezlT2dObQ7RBVg5LSDYonjgyU0XF3TK/b83VHm/o/e0sNwqFCsN8IqiYeQb3oLpcKAdSjCcCuP86ONK4uTWAZcsEWafD7/9X4KOuIhCeLcJXL9/YBG91Rew3THj9BK9rvSEwhIi/ZohorqqD6PZOs=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB9530.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGd4SURzUzgvWFJzMWRmSzROYW5LcktWTGxFdDh3N29Hdk4reEo2MVkzNWlz?=
- =?utf-8?B?am1MRUNtamxURXpOaHoyQ0l4Q0NzZy9RQXdLTURRdzZhSmU0U1RsU2hIV1Zm?=
- =?utf-8?B?YXZvUkdxSXI5L3JUR0N0RHNUaGpYYXFSU1RtampCbE1xaml1cmpyWjRJelp6?=
- =?utf-8?B?aWhZY0VnYUZSNnFWRHZEVzNIN0JHSjI1bk9SelRvRmJ5amQ0N2hlM2RZNEwx?=
- =?utf-8?B?eDdXeGxMSGJwUE5WWEx5L3RYV3lIdm9iRXkvVlNhellHemxwWnhFWVp3WTZH?=
- =?utf-8?B?UHJBU25HQU9lOVE2VEQ5NUQwZm5jckxsVy9yR2xxckZwWk1Mc3ZFeDB3SDMz?=
- =?utf-8?B?a0NNcm5aRVNDSjI1SG5xNEUwWUlaeEFGR0x3N2xWMnBudndLRkcrMlRmbU5N?=
- =?utf-8?B?RGpWVnA0UDZiME9GRzhRL1NVdXNnYVdrZEtBendFN1RqNVhhNjlBOVB0NDA2?=
- =?utf-8?B?ODBNd2x1R0NaWWdOTkRLaFRFN1ljM1lpV01aOStDMTF4RU9LUkhxWDFEclhD?=
- =?utf-8?B?dks3UGtzR2FXL1UvdUZZdXAya2ViZXR0VTBDWkVXSitKNDdNRkkzWGFqUXVF?=
- =?utf-8?B?ejhuRVczR3dqOTR0QUJZYlRDbzh4WmNVd0FHT1RQbXFkSUljekRVSnZzRWdG?=
- =?utf-8?B?K2hYdlBIOEhnSllhUnc0cWgxUmQ0UXRiSWJBQmpYek5NMlV4cnZyLytoUy8r?=
- =?utf-8?B?NnRzMWkxNWZpaUVTeGhKRVAyY2R6bzRIMjExTUU0UHBDalpVdTU5SSt2RCs2?=
- =?utf-8?B?Q0poZHcxUWNTd0pFV2JOY2svTFlHNit6c2JvME1ZNnhaMThzR2tMYStpdU1I?=
- =?utf-8?B?SjNjMjl1ZjNrWHZYWGRjd05qclR0WHRLZWI4NEFnbDhhUVI4KzNVZ3VqUSt1?=
- =?utf-8?B?ZTkrY3VDQlErREpXT2dDbkQ1L3Z3eThFNW9Hb1lPUWJraS9MemlycldxWWx6?=
- =?utf-8?B?RFNaOUR4SHN1MUthSzk5R1o4bGdDVGZTa29RQW1kNm1IZkJDTHpCZXl1ajlC?=
- =?utf-8?B?ckkySTZoM0JscmI2TFI1YXhKUzB4cWJzbzVTQ1RVNXZWR2ZZMTBTVWEyTG15?=
- =?utf-8?B?a3ptY1M3aGd1dlE0bzVlbWRVTVcxNnpqTDFmSzFZWnFxbG5obzQ5ZmxHVDFN?=
- =?utf-8?B?b1lPYXYrOVhYYkFSSVRiZUdrSlJFR2JaNzhUa1BRbFdaeStUSGF5YmxvN2dm?=
- =?utf-8?B?K1duNlhOOVp1TlZudVpzZGhLUno4TVNIeE1mOERid3AzdEVhL3M5Z2ZJTFdt?=
- =?utf-8?B?VUE5TVRUa2ZXdzRrR1ppMmdZVkFwVFYyZGxHQ1AzU0hXc09UZHpqOERYZk9L?=
- =?utf-8?B?Qm1GbjNoS0JHQ04vQlVnQVJEYkMzWDZFeEZqOHhWUy9MZHdUWDJkSHo5WStY?=
- =?utf-8?B?L0lTL2h2ZlREMEk5eHZqaUo3dEVheHo1UzVUQjNidzNrWWNKRFJGNWlOcEFD?=
- =?utf-8?B?NnpHRjdvWG5vZGN2MmxUY1hpRXZCNHMxMVR2eS9sVUhBdTNjVS9LbWtlMXFv?=
- =?utf-8?B?cHFKc2EvZHJGVXpCbUFscjQwRVU0WmZGYVQ1OUNGVkJjcVJuQW1qUUl4WDlx?=
- =?utf-8?B?Q2JxaklQR3Jub2tIdWpxSzkya2NHN0tuZ29wblVhcXJ2NHBDenBscitkSzJT?=
- =?utf-8?B?Vmp0ME9uTTROYkRGcG9XR3NTMGUxQXFMZ1FMQTc0V3JZTVZ4QnNFaGlSeGZ4?=
- =?utf-8?B?MWJ1VWpJb1NQMTQySTR5WGZVaTJpclZOV2FhaENBZUNKa1Y0SjI4c2dFd28x?=
- =?utf-8?B?YWNWcTl4amlLZklDcDV1WnZyRmpUZW90aTZTTmRaQ1RCajZmd3lMZXQyMy9R?=
- =?utf-8?B?OXNOOEhNNzg5ZFlKUzhTRExGRjBkVk9VQXhVSVFlT3hkTTU5WGcrb2xlbDdj?=
- =?utf-8?B?bEZWWVhkYWNFeXRVU3l0T256YUd4Q3crNjhRbWRkdGRRY0JaM3l3OTJUN2JK?=
- =?utf-8?B?Q2RiREw5a3JDL0NXU2NaRncrMWtZbHdpWXdrM3N4c2MxbE12dXlFOEdNRVR5?=
- =?utf-8?B?cEhKNGtWSXJmZXJpd0laNUVISUF1T2dhQVlZcnk0S0lLV05LRkdMWlhuSmFo?=
- =?utf-8?B?aE1JRTJPd0kyS2xsRmhZeGZlUTM3SlY3WmIrNlhBZWNvY0phWUNQRHA3c0JW?=
- =?utf-8?B?b0xNd0RJQ3dRR2FxS3FSU2dLWXBwNTE0TnY5TWJTVHNvZTh2MjdPRWRmaTJS?=
- =?utf-8?B?eFhjZzUxUWRNRW0ydVZISTlaS0R0QzNocXd6aUxrUFR6TFdHR2x1WXlxWHRN?=
- =?utf-8?B?dW93eWNjZlBYcTdpWnVjVjh6RUxFSTNrUzZaaWxrZkFDOXV5eFhZRHpaKzFX?=
- =?utf-8?Q?93c6GriK1b2abVjhrm?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ulFaq00TXJML1j90bvG8I3kFNLqEaCpDNeve98Dxx2SAtCLV4vT9g0IlD+NK?=
+ =?us-ascii?Q?DDU31//n3KquX6qdNtBIvXwFJkNnn1man+WWPWaRWKaxOYTn0VD5a2sjoVBt?=
+ =?us-ascii?Q?eNGgbv4MJdKjPc9D4Ii7aKQTts280kXnpbZabSX7IWvgN/esVPW7LuH/qW3o?=
+ =?us-ascii?Q?Rp32wDZZGtEgmOgz1hTabGTMhT83SA/1jTmg0anDZ8s6n+eZx43rkDUcE+ax?=
+ =?us-ascii?Q?qGHPCH7PKU24vfcZCLOP0NWR7eIYwv7Wxhj8zWz1UHchZ+rkmuefARFarSAX?=
+ =?us-ascii?Q?c9kh8JXPkI83dBL/zPgRxhsTNCFthbDC1Y96oRqBJ3F8qwsA0QZHDjFQWUlW?=
+ =?us-ascii?Q?GoVAeYEYNvd3WKGD10WIfWTW2OxiUjN7eMGWNMZBHuDI/AWvXtlUagCt/11O?=
+ =?us-ascii?Q?exTfPoe6KDh1h+RyZYrp4e/FukdTg74FCcI4cY+ide1p9yjHDKAtvtd5w3tp?=
+ =?us-ascii?Q?S6ESac3FKXoMSABUjYqDgVRlXZfhLBypKEqbhjK0ZqzwPBiy2vjqvL8XuMIE?=
+ =?us-ascii?Q?pC+Hf6e8BSKAiad1/Ai5skeFWw6N+L0NtVS8g31vkqL/MQ9w4YGpsmRmw4ms?=
+ =?us-ascii?Q?jQbM1fmRNJFOHSQCLt9uBo/7cdxKPzt2Nwx8YWEBMC8NhAr8byvytqD/2kG4?=
+ =?us-ascii?Q?z8n/llCiZamKpB4SR2NCmvxlbb9Epn2uPvt9HazdmiNxBSXKRRN1kWH1yVMz?=
+ =?us-ascii?Q?mWQRFjMHhkCO0veKes3aq6D8D+KvF5phnOMAZicpKigL5oo3H2CowDPZMshY?=
+ =?us-ascii?Q?7Hh26jYSZIUX6Nw0HRJgk6ew53P9SL4E/Y6p9tgH7Xhz8lVHDlIXwDZ5wZm5?=
+ =?us-ascii?Q?sXdiqj7a2Z7/sFRZBRUSiCjx6yannXD/VLdaZpi4sIYDm7x4gzwOh9oG7l7I?=
+ =?us-ascii?Q?qyqzPtr8x84t4kxMnekWTI6qomRSlqWP3FX//5mQGuD5JOHJ1WxztRIXe02E?=
+ =?us-ascii?Q?kq34JXgAL7RN5nKzoweJd72troeoYGzWdoZ94oZWs8da2WZVXE8mMgrnoW8E?=
+ =?us-ascii?Q?gH4RGEgMIwsoPnQuL1NokhyFzTtWFq4Wf6IN/nGbmAuGQc/4qWI22VqnHla0?=
+ =?us-ascii?Q?He8tx5Gz0x5JuyOGgDYNJN8QSpcpzceTRjAZzVaW7q/t56zPjODmsf4r1yQa?=
+ =?us-ascii?Q?Lf3+dVYTPavDyUImsoW/OZxBa+6pPvum09kwnbwyO3ehflmnRwzuzCDMApKH?=
+ =?us-ascii?Q?Flq5+VNJEvpH50d9FU4rAcxUkyq0BnY1bkptSWIVC1KtBz/BiCTpi3kXZP3g?=
+ =?us-ascii?Q?yqGxVC2/OhBWOs7Wx+AgZ+XqTSmvwZrAcGUyTAODhuh5mV1M2+hljZuRGuzA?=
+ =?us-ascii?Q?8DOSZsotARrw4qStvKJH++XLynLDvZsNw6oYRPRRQEeLUwx9saytm32itZaC?=
+ =?us-ascii?Q?gvKLK/+FMjfP28UlSITLAoidv59XQZe+Ul9O4FzeV20EgBcMVKBKzakkNmvH?=
+ =?us-ascii?Q?6k2A1WDSqb3vGABlrq5RJfcs1cncUe2pjQZDikbaOW9JqHIbBqM78R0eyHPK?=
+ =?us-ascii?Q?CHU+2vgt2cMQ1gntac86XegIBnrtFURBzmQmyWagl8P8N/i9ZSExiV/Zsz0S?=
+ =?us-ascii?Q?xyp/iH3mqZBTw63xrEwcMEYzl5uNjNoDIfYeep6fNpMUoEE8n+G1ekyWmkOv?=
+ =?us-ascii?Q?wuwKSO9/G2ssc4zEmSX0oU12QlXja5cHEpsc808YomTpoaZQAug5Nar7oZ5A?=
+ =?us-ascii?Q?Iffb6ICX6XKLLZfQagopaAGIWEMXD7kAVrmwhbHswnRUYEyU?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 875bf16a-5257-44cf-c91f-08df0cb3c772
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 07:43:59.6165 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l3PpuCfcfjVaw3ymdg5FX4eYrDT/16vSITMo8A6QT3peAuv58z4agij9IILZzFoZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6423
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9530.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: af906aa6-f70a-4f15-4db4-08df0cb8fc09
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 08:21:15.1572 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hLBJuwIHg7QgAiQalh2Jv5527jRLPAQmk1qgtioLXF7ogSZ9F1WHh7i3JdGFj5FAC2MH8jvQBBhAPW2ZK4yGdQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9270
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,277 +133,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/4/26 20:34, Timur Kristóf wrote:
-> The code for SI/CIK/VI IH (interrupt handler) IP blocks
-> has a soft_reset() function for each block.
-> These functions are not called from anywhere and are
-> dead code. It's unclear what the original intention
-> was or why the IH block would ever need to be reset.
-> 
-> All SI/CIK/VI GPUs have been working well for
-> 10+ years without ever resetting the IH block
-> so it's time to just delete the dead code.
-> 
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+AMD General
 
-Acked-by: Christian König <christian.koenig@amd.com> for the entire series.
+Ping...
 
-@Alex do you pick them up or should I?
+-----Original Message-----
+From: Chengjun Yao <Chengjun.Yao@amd.com>
+Sent: Monday, August 31, 2026 7:26 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Shi, Leslie <Yuliang.Sh=
+i@amd.com>
+Cc: amd-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.=
+com>; Kamal, Asad <Asad.Kamal@amd.com>; andrey.grodzovsky@amd.com; Yao, Che=
+ngjun <Chengjun.Yao@amd.com>
+Subject: [PATCH] drm/amdgpu: fix rmmio iounmap skipped on device removal
 
-Thanks,
-Christian.
+amdgpu_pci_remove() calls drm_dev_unplug() before fini_sw(), so
+drm_dev_enter() is already false there and the iounmap() guarded by it is s=
+kipped. This .remove path runs on both hot-unplug and plain rmmod, so the r=
+egister BAR ioremap mapping leaks one instance per unload.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/cik_ih.c     | 31 ------------------------
->  drivers/gpu/drm/amd/amdgpu/cz_ih.c      | 31 ------------------------
->  drivers/gpu/drm/amd/amdgpu/iceland_ih.c | 31 ------------------------
->  drivers/gpu/drm/amd/amdgpu/si_ih.c      | 30 -----------------------
->  drivers/gpu/drm/amd/amdgpu/tonga_ih.c   | 32 -------------------------
->  5 files changed, 155 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_ih.c b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> index 314d8f1d64cc..73ec61bc69de 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik_ih.c
-> @@ -373,36 +373,6 @@ static int cik_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
->  	return -ETIMEDOUT;
->  }
->  
-> -static int cik_ih_soft_reset(struct amdgpu_ip_block *ip_block)
-> -{
-> -	struct amdgpu_device *adev = ip_block->adev;
-> -
-> -	u32 srbm_soft_reset = 0;
-> -	u32 tmp = RREG32(mmSRBM_STATUS);
-> -
-> -	if (tmp & SRBM_STATUS__IH_BUSY_MASK)
-> -		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_IH_MASK;
-> -
-> -	if (srbm_soft_reset) {
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -		tmp |= srbm_soft_reset;
-> -		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
-> -		WREG32(mmSRBM_SOFT_RESET, tmp);
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -
-> -		udelay(50);
-> -
-> -		tmp &= ~srbm_soft_reset;
-> -		WREG32(mmSRBM_SOFT_RESET, tmp);
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -
-> -		/* Wait a little for things to settle down */
-> -		udelay(50);
-> -	}
-> -
-> -	return 0;
-> -}
-> -
->  static int cik_ih_set_clockgating_state(struct amdgpu_ip_block *ip_block,
->  					  enum amd_clockgating_state state)
->  {
-> @@ -425,7 +395,6 @@ static const struct amd_ip_funcs cik_ih_ip_funcs = {
->  	.suspend = cik_ih_suspend,
->  	.resume = cik_ih_resume,
->  	.wait_for_idle = cik_ih_wait_for_idle,
-> -	.soft_reset = cik_ih_soft_reset,
->  	.set_clockgating_state = cik_ih_set_clockgating_state,
->  	.set_powergating_state = cik_ih_set_powergating_state,
->  };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cz_ih.c b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> index 8d02602f8433..82bff26abd5e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cz_ih.c
-> @@ -367,36 +367,6 @@ static int cz_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
->  	return -ETIMEDOUT;
->  }
->  
-> -static int cz_ih_soft_reset(struct amdgpu_ip_block *ip_block)
-> -{
-> -	u32 srbm_soft_reset = 0;
-> -	struct amdgpu_device *adev = ip_block->adev;
-> -	u32 tmp = RREG32(mmSRBM_STATUS);
-> -
-> -	if (tmp & SRBM_STATUS__IH_BUSY_MASK)
-> -		srbm_soft_reset = REG_SET_FIELD(srbm_soft_reset, SRBM_SOFT_RESET,
-> -						SOFT_RESET_IH, 1);
-> -
-> -	if (srbm_soft_reset) {
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -		tmp |= srbm_soft_reset;
-> -		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
-> -		WREG32(mmSRBM_SOFT_RESET, tmp);
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -
-> -		udelay(50);
-> -
-> -		tmp &= ~srbm_soft_reset;
-> -		WREG32(mmSRBM_SOFT_RESET, tmp);
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -
-> -		/* Wait a little for things to settle down */
-> -		udelay(50);
-> -	}
-> -
-> -	return 0;
-> -}
-> -
->  static int cz_ih_set_clockgating_state(struct amdgpu_ip_block *ip_block,
->  					  enum amd_clockgating_state state)
->  {
-> @@ -421,7 +391,6 @@ static const struct amd_ip_funcs cz_ih_ip_funcs = {
->  	.suspend = cz_ih_suspend,
->  	.resume = cz_ih_resume,
->  	.wait_for_idle = cz_ih_wait_for_idle,
-> -	.soft_reset = cz_ih_soft_reset,
->  	.set_clockgating_state = cz_ih_set_clockgating_state,
->  	.set_powergating_state = cz_ih_set_powergating_state,
->  };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> index 49002c80dc71..29faaa726644 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/iceland_ih.c
-> @@ -361,36 +361,6 @@ static int iceland_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
->  	return -ETIMEDOUT;
->  }
->  
-> -static int iceland_ih_soft_reset(struct amdgpu_ip_block *ip_block)
-> -{
-> -	u32 srbm_soft_reset = 0;
-> -	struct amdgpu_device *adev = ip_block->adev;
-> -	u32 tmp = RREG32(mmSRBM_STATUS);
-> -
-> -	if (tmp & SRBM_STATUS__IH_BUSY_MASK)
-> -		srbm_soft_reset = REG_SET_FIELD(srbm_soft_reset, SRBM_SOFT_RESET,
-> -						SOFT_RESET_IH, 1);
-> -
-> -	if (srbm_soft_reset) {
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -		tmp |= srbm_soft_reset;
-> -		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
-> -		WREG32(mmSRBM_SOFT_RESET, tmp);
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -
-> -		udelay(50);
-> -
-> -		tmp &= ~srbm_soft_reset;
-> -		WREG32(mmSRBM_SOFT_RESET, tmp);
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -
-> -		/* Wait a little for things to settle down */
-> -		udelay(50);
-> -	}
-> -
-> -	return 0;
-> -}
-> -
->  static int iceland_ih_set_clockgating_state(struct amdgpu_ip_block *ip_block,
->  					  enum amd_clockgating_state state)
->  {
-> @@ -413,7 +383,6 @@ static const struct amd_ip_funcs iceland_ih_ip_funcs = {
->  	.suspend = iceland_ih_suspend,
->  	.resume = iceland_ih_resume,
->  	.wait_for_idle = iceland_ih_wait_for_idle,
-> -	.soft_reset = iceland_ih_soft_reset,
->  	.set_clockgating_state = iceland_ih_set_clockgating_state,
->  	.set_powergating_state = iceland_ih_set_powergating_state,
->  };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> index 52118765dccf..2c5ac398b582 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-> @@ -247,35 +247,6 @@ static int si_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
->  	return -ETIMEDOUT;
->  }
->  
-> -static int si_ih_soft_reset(struct amdgpu_ip_block *ip_block)
-> -{
-> -	struct amdgpu_device *adev = ip_block->adev;
-> -
-> -	u32 srbm_soft_reset = 0;
-> -	u32 tmp = RREG32(mmSRBM_STATUS);
-> -
-> -	if (tmp & SRBM_STATUS__IH_BUSY_MASK)
-> -		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_IH_MASK;
-> -
-> -	if (srbm_soft_reset) {
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -		tmp |= srbm_soft_reset;
-> -		dev_info(adev->dev, "mmSRBM_SOFT_RESET=0x%08X\n", tmp);
-> -		WREG32(mmSRBM_SOFT_RESET, tmp);
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -
-> -		udelay(50);
-> -
-> -		tmp &= ~srbm_soft_reset;
-> -		WREG32(mmSRBM_SOFT_RESET, tmp);
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -
-> -		udelay(50);
-> -	}
-> -
-> -	return 0;
-> -}
-> -
->  static int si_ih_set_clockgating_state(struct amdgpu_ip_block *ip_block,
->  					  enum amd_clockgating_state state)
->  {
-> @@ -298,7 +269,6 @@ static const struct amd_ip_funcs si_ih_ip_funcs = {
->  	.suspend = si_ih_suspend,
->  	.resume = si_ih_resume,
->  	.wait_for_idle = si_ih_wait_for_idle,
-> -	.soft_reset = si_ih_soft_reset,
->  	.set_clockgating_state = si_ih_set_clockgating_state,
->  	.set_powergating_state = si_ih_set_powergating_state,
->  };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> index d84c08698dff..194487a71fd4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-> @@ -379,37 +379,6 @@ static int tonga_ih_wait_for_idle(struct amdgpu_ip_block *ip_block)
->  	return -ETIMEDOUT;
->  }
->  
-> -static int tonga_ih_soft_reset(struct amdgpu_ip_block *ip_block)
-> -{
-> -	struct amdgpu_device *adev = ip_block->adev;
-> -	u32 srbm_soft_reset;
-> -
-> -	if (!adev->irq.srbm_soft_reset)
-> -		return 0;
-> -	srbm_soft_reset = adev->irq.srbm_soft_reset;
-> -
-> -	if (srbm_soft_reset) {
-> -		u32 tmp;
-> -
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -		tmp |= srbm_soft_reset;
-> -		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
-> -		WREG32(mmSRBM_SOFT_RESET, tmp);
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -
-> -		udelay(50);
-> -
-> -		tmp &= ~srbm_soft_reset;
-> -		WREG32(mmSRBM_SOFT_RESET, tmp);
-> -		tmp = RREG32(mmSRBM_SOFT_RESET);
-> -
-> -		/* Wait a little for things to settle down */
-> -		udelay(50);
-> -	}
-> -
-> -	return 0;
-> -}
-> -
->  static int tonga_ih_set_clockgating_state(struct amdgpu_ip_block *ip_block,
->  					  enum amd_clockgating_state state)
->  {
-> @@ -432,7 +401,6 @@ static const struct amd_ip_funcs tonga_ih_ip_funcs = {
->  	.suspend = tonga_ih_suspend,
->  	.resume = tonga_ih_resume,
->  	.wait_for_idle = tonga_ih_wait_for_idle,
-> -	.soft_reset = tonga_ih_soft_reset,
->  	.set_clockgating_state = tonga_ih_set_clockgating_state,
->  	.set_powergating_state = tonga_ih_set_powergating_state,
->  };
+Unmap rmmio unconditionally (guard only on non-NULL) and drop the now unuse=
+d idx.
+
+Fixes: 62d5f9f7110a ("drm/amdgpu: Unmap MMIO mappings when device is not un=
+plugged")
+Signed-off-by: Chengjun Yao <Chengjun.Yao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 18cfa2dbcc2dc..c175c29040274 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4343,7 +4343,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev=
+)
+
+ void amdgpu_device_fini_sw(struct amdgpu_device *adev)  {
+-       int i, idx;
++       int i;
+        bool px;
+
+        amdgpu_device_ip_fini(adev);
+@@ -4385,11 +4385,10 @@ void amdgpu_device_fini_sw(struct amdgpu_device *ad=
+ev)
+        if ((adev->pdev->class >> 8) =3D=3D PCI_CLASS_DISPLAY_VGA)
+                vga_client_unregister(adev->pdev);
+
+-       if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+-
++       /* Unmap rmmio unconditionally; drm_dev_enter() is false after unpl=
+ug */
++       if (adev->rmmio) {
+                iounmap(adev->rmmio);
+                adev->rmmio =3D NULL;
+-               drm_dev_exit(idx);
+        }
+
+        if (IS_ENABLED(CONFIG_PERF_EVENTS))
+--
+2.43.0
 
