@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49813C79FA0
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 13:05:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B82C79F89
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 13:31:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F20E10E804;
-	Mon,  7 Sep 2026 13:05:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07A8E10E02B;
+	Mon,  7 Sep 2026 13:31:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JT8qQOdb";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JOhZkdLH";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECDC310E804;
- Mon,  7 Sep 2026 13:05:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11D3010E02B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 13:31:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=85HzFkneCzZ1dwH0wwKaOKHlHuGN3L2DB0zWPxUD0q4=; b=JT8qQOdb3HL2Ke4u0ATBJBl/ZA
- GqufTxG2Wt557p2kSlHHhAgKOxhRexhj84WfpsCMnQLGisXTULMbDnkdexdARs5TojBOLOm7O1pKO
- lva9Dv5GhIajz+FFufi0UvF7gBRDDcF/j6F6TWXdmeD6cTwyLo3oNJqYWin0XEFC8kV9YHAXtz1L8
- ejW+IlrgsGuKePm/aVGnVOxmMao5OYdN5AHWBZHS/3tewHzDoSe9plr7zsSFlugKLqM6rlWftOJEn
- OQ+oez4j+44zhpdypkAWUAqIhS4iN6KNGjYuweJ09t0S0l1ZsHfBjOr67S4ynbCSlMLlQno+hTmNQ
- W5HM171Q==;
-Received: from [81.79.79.1] (helo=localhost)
+ h=Content-Transfer-Encoding:Content-Type:From:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=mQu3YUGnZqnQpBWNpnwHNrMfESUGIExfjyvo9kCSobo=; b=JOhZkdLHZjlBY4oBdm+U7wPZ1w
+ ErLXVmVILa10UCQEB3FTdjwILgc3D1jSFXDG0os93QhKfgYyLCxFMzwk64h34eNovROel9ITWj9cw
+ FjuZp/90Qo0MZx8WK71akqSYGN5Oz3T5L868VMcVrVD4PnCCfTaHtI7oqvbatH8WpnfJReM8FwMWU
+ FOv67bf6KufAi6m4ZJpg7Z8C4yjge1hsY8GOC6CiigSBr0EBptSGbgLmfe5WwRZdL4hx7OxYoQq5b
+ BAzqYg1p8lG8Eb/YjQEJDdBcwVc7JWTtX14g5Tj1crOGrbYzh6VxD6dMmm6QKdeZUhTFN5PhW1Nfj
+ wbGAYJvQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x3Z2W-00G2yR-8P; Mon, 07 Sep 2026 15:05:36 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Luke.Wildhardt@proton.me,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, stable@vger.kernel.org
-Subject: [PATCH] drm/sched: Do not restore unsaved virtual runtime
-Date: Mon,  7 Sep 2026 14:05:27 +0100
-Message-ID: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.55.0
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x3ZR9-00G3bk-31; Mon, 07 Sep 2026 15:31:03 +0200
+Message-ID: <83884774-9ff7-41e9-8ea5-ea06675b6fe2@igalia.com>
+Date: Mon, 7 Sep 2026 14:31:02 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] drm/amdgpu: Add CHANGE_ID option for USERQ ioctl
+To: David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20260827185935.89623-1-David.Francis@amd.com>
+ <20260827185935.89623-2-David.Francis@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260827185935.89623-2-David.Francis@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,131 +56,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prevent pushing a new job to an entity seeing it being the first in the
-queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
-side in drm_sched_entity_pop_job() has de-queued the job but not yet
-updated the saved virtual time.
 
-We do this by pulling the locked sections out to encompass both the queue
-push/pop and corresponding rbtree management.
+On 27/08/2026 19:59, David Francis wrote:
+> Add a new option to the USERQ ioctl, which is called with
+> the queue_id of an existing user queue and an unused queue_id,
+> and changes that queue's id to the new value.
+> 
+> Calling with an invalid new handle will fail. Calling with new_handle
+> = handle will succeed if that queue exists but not do anything.
+> 
+> A poison queue object is inserted at the old handle during the
+> rekey to prevent concurrent FREE from destroying the queue or the
+> old id being reused mid-operation.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
-Suggested-by: Luke.Wildhardt@proton.me # via Claude Opus
-Tested-by: Luke.Wildhardt@proton.me
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Cc: <stable@vger.kernel.org> # v7.2+
----
- drivers/gpu/drm/scheduler/sched_entity.c |  8 +++++++-
- drivers/gpu/drm/scheduler/sched_rq.c     | 20 +++++++++-----------
- 2 files changed, 16 insertions(+), 12 deletions(-)
+Looks complicated. Have you looked at how I've done the rename with no 
+external lock?
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index bf97508a45b9..e4069fcb0272 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -563,9 +563,10 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 	 */
- 	smp_wmb();
- 
-+	spin_lock(&entity->lock);
- 	spsc_queue_pop(&entity->job_queue);
--
- 	drm_sched_rq_pop_entity(entity);
-+	spin_unlock(&entity->lock);
- 
- 	/* Jobs and entities might have different lifecycles. Since we're
- 	 * removing the job from the entities queue, set the jobs entity pointer
-@@ -651,6 +652,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 	 * Make sure to set the submit_ts first, to avoid a race.
- 	 */
- 	sched_job->submit_ts = submit_ts = ktime_get();
-+
-+	spin_lock(&entity->lock);
-+
- 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
- 
- 	/* first job wakes up scheduler */
-@@ -661,5 +665,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 		if (sched)
- 			drm_sched_wakeup(sched);
- 	}
-+
-+	spin_unlock(&entity->lock);
- }
- EXPORT_SYMBOL(drm_sched_entity_push_job);
-diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index 0464d324d98d..23f46ec610e7 100644
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -257,19 +257,17 @@ static ktime_t drm_sched_entity_get_job_ts(struct drm_sched_entity *entity)
- struct drm_gpu_scheduler *
- drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
- {
-+	struct drm_sched_rq *rq = entity->rq;
- 	struct drm_gpu_scheduler *sched;
--	struct drm_sched_rq *rq;
- 
- 	/* Add the entity to the run queue */
--	spin_lock(&entity->lock);
-+	lockdep_assert_held(&entity->lock);
-+
- 	if (entity->stopped) {
--		spin_unlock(&entity->lock);
--
- 		DRM_ERROR("Trying to push to a killed entity\n");
- 		return NULL;
- 	}
- 
--	rq = entity->rq;
- 	spin_lock(&rq->lock);
- 	sched = rq->sched;
- 
-@@ -289,7 +287,6 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
- 	drm_sched_rq_update_fifo_locked(entity, rq, ts);
- 
- 	spin_unlock(&rq->lock);
--	spin_unlock(&entity->lock);
- 
- 	return sched;
- }
-@@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
-  */
- void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- {
-+	struct drm_sched_rq *rq = entity->rq;
- 	struct drm_sched_job *next_job;
--	struct drm_sched_rq *rq;
-+
-+	lockdep_assert_held(&entity->lock);
-+
-+	spin_lock(&rq->lock);
- 
- 	/*
- 	 * Update the entity's location in the min heap according to
- 	 * the timestamp of the next job, if any.
- 	 */
--	spin_lock(&entity->lock);
--	rq = entity->rq;
--	spin_lock(&rq->lock);
- 	next_job = drm_sched_entity_queue_peek(entity);
- 	if (next_job) {
- 		ktime_t ts;
-@@ -375,8 +373,8 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- 			drm_sched_entity_save_vruntime(entity, min_vruntime);
- 		}
- 	}
-+
- 	spin_unlock(&rq->lock);
--	spin_unlock(&entity->lock);
- }
- 
- /**
--- 
-2.55.0
+https://lore.kernel.org/amd-gfx/20260806134712.91816-7-tvrtko.ursulin@igalia.com/
+
+I'll have a read through your approach but I can't say I am a fan.
+
+> Performing this operation on a queue with signals or waits
+> outstanding is fine, as those hold not the queue_id but a
+> direct reference to the queue object.
+> 
+> v3: Poison queue and misc fixes
+> 
+> Signed-off-by: David Francis <David.Francis@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 60 +++++++++++++++++++++++
+>   include/uapi/drm/amdgpu_drm.h             | 17 +++++--
+>   2 files changed, 74 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> index 32d1787aa7e2..699838042bda 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -35,6 +35,8 @@
+>   #include "amdgpu_userq_fence.h"
+>   #include "amdgpu_trace.h"
+>   
+> +struct amdgpu_usermode_queue poison_queue;
+> +
+>   u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
+>   {
+>   	int i;
+> @@ -852,6 +854,11 @@ static int amdgpu_userq_input_args_validate(struct drm_device *dev,
+>   		break;
+>   	case AMDGPU_USERQ_OP_LIST:
+>   		break;
+> +	case AMDGPU_USERQ_OP_CHANGE_ID:
+> +		if (!args->change_in.new_queue_id ||
+> +		    args->change_in.new_queue_id > AMDGPU_MAX_USERQ_COUNT)
+> +			return -EINVAL;
+> +		break;
+>   	default:
+>   		return -EINVAL;
+>   	}
+> @@ -1010,6 +1017,51 @@ amdgpu_userq_list(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   	return ret;
+>   }
+>   
+> +static int amdgpu_userq_change_id(struct drm_file *filp, union drm_amdgpu_userq *args)
+> +{
+> +	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+> +	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
+> +	struct amdgpu_usermode_queue *queue;
+> +	int ret = 0;
+> +
+> +	if (args->change_in.new_queue_id == args->change_in.queue_id) {
+> +		if (xa_load(&uq_mgr->userq_xa, args->change_in.queue_id))
+> +			return 0;
+> +		return -ENOENT;
+
+Why is is important to allow users to query for existence of an id like 
+this ie. why wouldn't be be EINVAL if new == old?
+
+> +	}
+> +
+> +	/* Poison the old handle so it doesn't get freed or reused. */
+> +	queue = xa_store(&uq_mgr->userq_xa, args->change_in.queue_id, &poison_queue, GFP_KERNEL);
+
+What if userspace is silly and looks up this handle from a racing 
+thread? It gets the poison queue and things explode?
+
+> +	if (!queue) {
+> +		xa_erase(&uq_mgr->userq_xa, args->change_in.queue_id);
+> +		return -ENOENT;
+> +	}
+> +	if (queue == &poison_queue)
+> +		return -EINVAL;
+
+Why is this EINVAL? Userspace races with itself I get it, but I think it 
+shows the weakness of the poison entry multi-stage approach.
+
+> +
+> +	ret = xa_insert(&uq_mgr->userq_xa, args->change_in.new_queue_id, queue, GFP_KERNEL);
+> +	if (ret == -EBUSY) {
+> +		queue = xa_store(&uq_mgr->userq_xa, args->change_in.queue_id, queue, GFP_KERNEL);
+> +		if (queue != &poison_queue) {
+> +			drm_err_once(adev_to_drm(uq_mgr->adev),
+> +				     "Expected poison queue to remain untouched during userqueue change id");
+
+Do you expect drm_err to be reachable by silly userspace or just 
+unexpected internal error?
+
+> +			return -EINVAL;
+> +		}
+> +	}
+> +	if (ret == -ENOMEM)
+> +		return -ENOMEM;
+
+Is there another possibily from xa_insert other than EBUSY and ENOMEM?
+
+> +
+> +	/* remove the poison */
+> +	queue = xa_erase(&uq_mgr->userq_xa, args->change_in.queue_id);
+> +	if (queue != &poison_queue) {
+> +		drm_err_once(adev_to_drm(uq_mgr->adev),
+> +			     "Expected poison queue to remain untouched during userqueue change id");
+
+Same question as the previous drm_err_once.
+
+Sorry I don't like this at all. I would much rather you try to punch a 
+hole in my approach or confirm it works fine.
+
+I adapted that from some existing driver.. can't remember which now 
+after more than a month. But the approach sounds sane to me - do the 
+rename atomically under the lock using GFP_NOWAIT first and if that 
+fails drop the lock to pre-allocate space and retry.
+
+Regards,
+
+Tvrtko
+
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   bool amdgpu_userq_enabled(struct drm_device *dev)
+>   {
+>   	struct amdgpu_device *adev = drm_to_adev(dev);
+> @@ -1046,6 +1098,11 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+>   
+>   	case AMDGPU_USERQ_OP_FREE:
+>   		xa_lock(&fpriv->userq_mgr.userq_xa);
+> +		queue = xa_load(&fpriv->userq_mgr.userq_xa, args->in.queue_id);
+> +		if (queue == &poison_queue) {
+> +			xa_unlock(&fpriv->userq_mgr.userq_xa);
+> +			return -EINVAL;
+> +		}
+>   		queue = __xa_erase(&fpriv->userq_mgr.userq_xa, args->in.queue_id);
+>   		xa_unlock(&fpriv->userq_mgr.userq_xa);
+>   		if (!queue)
+> @@ -1056,6 +1113,9 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+>   	case AMDGPU_USERQ_OP_LIST:
+>   		r = amdgpu_userq_list(filp, args);
+>   		break;
+> +	case AMDGPU_USERQ_OP_CHANGE_ID:
+> +		r = amdgpu_userq_change_id(filp, args);
+> +		break;
+>   	default:
+>   		drm_dbg_driver(dev, "Invalid user queue op specified: %d\n", args->in.op);
+>   		return -EINVAL;
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 92738d630eea..37d0efd1eda4 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -330,9 +330,10 @@ union drm_amdgpu_ctx {
+>   };
+>   
+>   /* user queue IOCTL operations */
+> -#define AMDGPU_USERQ_OP_CREATE	1
+> -#define AMDGPU_USERQ_OP_FREE	2
+> -#define AMDGPU_USERQ_OP_LIST	3
+> +#define AMDGPU_USERQ_OP_CREATE		1
+> +#define AMDGPU_USERQ_OP_FREE		2
+> +#define AMDGPU_USERQ_OP_LIST		3
+> +#define AMDGPU_USERQ_OP_CHANGE_ID	4
+>   
+>   /* queue priority levels */
+>   /* low < normal low < normal high < high */
+> @@ -464,10 +465,20 @@ struct drm_amdgpu_userq_list_in_out {
+>   	__u64   entries;
+>   };
+>   
+> +struct drm_amdgpu_userq_change_id_in {
+> +	/** AMDGPU_USERQ_OP_CHANGE_ID */
+> +	__u32   op;
+> +	/** Queue id of some queue */
+> +	__u32   queue_id;
+> +	/** Queue id to change that queue to */
+> +	__u32   new_queue_id;
+> +};
+> +
+>   union drm_amdgpu_userq {
+>   	struct drm_amdgpu_userq_in in;
+>   	struct drm_amdgpu_userq_out out;
+>   	struct drm_amdgpu_userq_list_in_out list_in_out;
+> +	struct drm_amdgpu_userq_change_id_in change_in;
+>   };
+>   
+>   /* GFX V11 IP specific MQD parameters */
 
