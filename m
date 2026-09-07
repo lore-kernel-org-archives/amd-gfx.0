@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFACFC79FA0
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 20:33:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3365C79F9E
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Sep 2026 20:33:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 885FC10E90D;
-	Mon,  7 Sep 2026 20:33:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F45310E911;
+	Mon,  7 Sep 2026 20:33:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dyJuqlbH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QzxvWd1G";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4201B10E90B
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 20:33:44 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-499ae1c6471so38132315e9.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Sep 2026 13:33:44 -0700 (PDT)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A396E10E911
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Sep 2026 20:33:47 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-485843aeab8so4373675f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Sep 2026 13:33:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788813223; x=1789418023; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788813226; x=1789418026; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=IGx8a3CudQi/B8DhviV1bXyv86yb1mrPDnu4nNJHzn8=;
- b=dyJuqlbHyz6Dybfm/kFVh4QWEaRRhoJrn4bGCX5kuc0C+Xw5UL8lAB9WzB2kJe5yKZ
- awoKUkVqzxjjcRsAU3Zm33ha4sbZ2LmiedpQ1YPoxxJZ39yB1JE/fzCB8Enp0TZICitV
- mkrQiG/Wr5DcGx635hTvdjxJPivIs9/81yz85s0zj0qDkrlQ2QmukhcHeWgA6WfNdsRw
- dUyczUX8SghU67Z+eoqyb10RRy+MXQL7aHvuDg7oFGxykGWLLWna0J7Z7Kf6XdD5WIwv
- vLyzNB+cQGA5HKTZUc4cvrfC5loMuH0ipKteBBTsQ7MN0k/tFH+PuiUm+SZyntPvFjF6
- i9Cw==
+ bh=gcwEoGfKHB0kpNlS0JXPMrysj6JKOl/aBl1tnjtQpBc=;
+ b=QzxvWd1GQPLTMN3E+9e0E5KG+6td1jOxYkdlG8K1YUzLzuIvnILLpr4GJgSzdVUNtV
+ AGOR4DjxC0DeSL01HAdC1A299WRkCaKFTNZHiUk+c+iLtfymk9jxhtKBQ8nvDVXfZrBf
+ EbUvufXxsxk7HqpYmYQjGAjzQcFQsCGHbuh+W3scqpOKjVtuqUz7wyQNIp04f4QurDFi
+ 8yRr27RTTVWGU96V3VnVb45HpGLPmeDYUKEFNO3DNze+2EULsBOWLa7w+f1150S5FN79
+ jCvJAM8/ssiTIQsjtlV8eBOtvZebX7DB3THLLU9ab6B5/iWmZ5vInXutYgq6eGUzOoKA
+ 81UA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788813223; x=1789418023;
+ d=1e100.net; s=20251104; t=1788813226; x=1789418026;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=IGx8a3CudQi/B8DhviV1bXyv86yb1mrPDnu4nNJHzn8=;
- b=APwBhXjFZtHO/vmxQbIjPhmkyl8oqDXrjtqh1kEzPr2B/JAUtoDNrEX3pkhOIiY/Ag
- aGE4pD1/tupJkWfq+FS5b+r15V2/zULKKWDGOcAoDIIRSC9ZqaIObtiABUNrUSxuFCCN
- dTGJ07UVxok4Lpm7cjKbijIQnfolUqkBbXvbBU3jWdi9GBgYDwtZj6LnbTS/vw9UXTdo
- PywYnV7ljIxYOG6siCcHMFRE4SOKTIOBzho/90zUJjlObA3cOqKrQtlIPkdXKkaGcq4I
- VBm9WDmuR8ON6Ff3hTnKImjBWNlM64t32GIVzG0vr75fclc1bDBSJX2jpJ5jXe7THKXC
- jsvA==
-X-Gm-Message-State: AFuF++k5/BJDn4ygG18W1m4z5adKlT1/Eq3H9lrShcUD4nDbnREp9eNA
- TZZqaxdj7uce/z5h87H2zLhqldLa1xe3pj0MrRBShlN7PWa0zm0FYNwx6qOug/PW
-X-Gm-Gg: AYBFou3wAOwlLX2BR8oNCkESiXIl6RJ7oZARurz6KaCno9wJ0eWbQ6CHw/5KLcnMCsk
- anePbbYgq7uvNprUF1e5avqwV2ilG9aiuvec6sZbxOB8WyFwBk0K5SlqJY0IA4bNC62qKnc6DKd
- SCj6lkA5b25P7oXAUIjDXM2qCINFs8TSVLWC6blXp7egCEniXP6VQ13MwpW2lHtR30lCLVL13bo
- sjaBvgglF72KEIT2HzPeop0cx2Ah/hfLn3NI169JU8Jl6bcvqlQrXxmJVqtfXm7yJxfCq/axqg2
- S+VqyGdeqY6DxdDUcFjm1GnMrBtjwkxwWx8PSX52CsKsj0PBzOLpdxWw4XQXTDJoUduHk6nsi2o
- YfFeWFLXAJvz7B4OP74KMzU3aA5QeZeIOaB2B9LV72P/OzHmwhL27dNG7u7nXB99yAYagJOk4E+
- iwSWxjae+L6RjPe3SaxAU0HpO7rdDlZVTMj/trk9MX0SD85pMBC8GR0ZePRDFsG570ZOMWHu5hP
- Jw77LGHrGMRcj3eiHxQ
-X-Received: by 2002:a05:600c:3496:b0:499:b65d:1250 with SMTP id
- 5b1f17b1804b1-49cf7fe62admr455392945e9.2.1788813222633; 
- Mon, 07 Sep 2026 13:33:42 -0700 (PDT)
+ bh=gcwEoGfKHB0kpNlS0JXPMrysj6JKOl/aBl1tnjtQpBc=;
+ b=XFKKKkH1oYtSQ/t5zUVJB/TWUCmbLQt7vPdPWWy4d1eDfSGjRohQL2vuYiG5f+s8wH
+ vuA5sEFl3r8tK7jXeb/gABoC6y9HDttbWxMpS3sVVfABBNOIQ45TG7QPckNMhpSTXgpT
+ gTUIMVi/tdFj/Crxg2zL+rwt1hOH8+egP89cN4FpDZSTLvarZrJUKOHsaGPZmgMKBqbh
+ IRY5W/AJgMgvF4/C69NxKHMCmV3odFKpeyBmgjVd0ZYIE/0Tfz0dxrcqXhBicb/jAi3f
+ xQOuiYeLSIcK6lhFAbGp+5bm678zV+9m8+zA935W2JhLxY9A9dc0vkTIHhlz6FGwyULz
+ 9rvg==
+X-Gm-Message-State: AFuF++nvCWytDfm9xLa60fhe2s/aOFOOKJb4qAMnA85TgFE6rqqE8GL8
+ EutGMs9mD9McQiPi/wZQzUHYT4oVCQNNzhoPFAxiA8VPL3aGR0gxGKvnncVp9OEz
+X-Gm-Gg: AYBFou21FSogwFtUmxjiIF3ebrHmg9WRWIz40/+oBZBz1Hz5jA2H8PKRWeFDEwRupEd
+ KEqm+695YQxtk4q/DlioSm5jN8brnyLT+EcFvPFbQCMYLRt5yNoxRxRjw9jVvVk/qJAvCqeE0Nv
+ TheHSFpucWoWq2ngPN2q0NeMloJv1X+2KFUYlP4xAnshV8nGN38BjYdLQz06ojTho8OPnvRwqL2
+ EPGHVv+9h8l0K4E2WuuBf75g21emSjDMjguft45+WgL0hS8T+CnFIT0YJ2VQlPAGirc19Kcv/3e
+ SHKGo81KxO53kU2M7iWjEiK4JZ5cjgijWAvfiyHyyg4Qz2p1EjX9OPU6Nvg8SrwIilhkqGBtVQ6
+ 6etr1La0ogxfbPnpELVauBynSyHQn5ZNPih4z0OGhl2H5m9CJZIByGKFvgyN1qWDEihWtd9yh/b
+ gLN87T0zrhiIQfHt9CZ+YXHRsXnnTTRqr5VyhkgJxmIX0u0UXlvWcxuQY0HxnfIUDBAbm9KYGph
+ 5Cl4a/VFq4w9yZYZ3db
+X-Received: by 2002:a05:6000:430b:b0:485:8ad6:3752 with SMTP id
+ ffacd0b85a97d-4858ad63a6fmr43153462f8f.5.1788813225904; 
+ Mon, 07 Sep 2026 13:33:45 -0700 (PDT)
 Received: from Timur-Max (athedsl-4460056.home.otenet.gr. [79.129.254.8])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48594172546sm22191354f8f.15.2026.09.07.13.33.40
+ ffacd0b85a97d-48594172546sm22191354f8f.15.2026.09.07.13.33.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Sep 2026 13:33:42 -0700 (PDT)
+ Mon, 07 Sep 2026 13:33:44 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org,
  =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
@@ -71,10 +71,10 @@ To: amd-gfx@lists.freedesktop.org,
  Natalie Vock <nat@pixelcluster.dev>, Lijo Lazar <lijo.lazar@amd.com>,
  Felix Kuehling <Felix.Kuehling@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 04/12] drm/amdgpu/sdma: Refactor CIK SDMA clock gating
- functions to be per-instance
-Date: Mon,  7 Sep 2026 22:33:08 +0200
-Message-ID: <20260907203316.159103-5-timur.kristof@gmail.com>
+Subject: [PATCH 05/12] drm/amdgpu/sdma: Refactor SDMA v2.4 functions to be per
+ instance
+Date: Mon,  7 Sep 2026 22:33:09 +0200
+Message-ID: <20260907203316.159103-6-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260907203316.159103-1-timur.kristof@gmail.com>
 References: <20260907203316.159103-1-timur.kristof@gmail.com>
@@ -95,102 +95,310 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Refactor clock gating functions to take the SDMA engine
-instance ID as an argument and only affect one SDMA engine
-instance at once.
+This prepares the code for implementing recovery for SDMA 2.4.
+
+Reorganize the SDMA 2.4 code so that the functions that are
+responsible for managing the SDMA engines take an instance ID
+as an argument.
+
+This makes it possible to manage the SDMA instances
+independently of each other, which will enable us to
+also use these functions to implement resetting and
+recovering them independently.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c | 50 ++++++++++-----------------
- 1 file changed, 19 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 189 +++++++++++++------------
+ 1 file changed, 100 insertions(+), 89 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-index 78fea0621ed9..61ff76fb8fc2 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-@@ -854,51 +854,39 @@ static void cik_sdma_ring_emit_wreg(struct amdgpu_ring *ring,
- }
- 
- static void cik_enable_sdma_mgcg(struct amdgpu_device *adev,
--				 bool enable)
-+				 const u32 instance_id,
-+				 const bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+index 7c8acdf73d44..0743b782527a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+@@ -331,163 +331,168 @@ static void sdma_v2_4_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 se
+  * sdma_v2_4_gfx_stop - stop the gfx async dma engines
+  *
+  * @adev: amdgpu_device pointer
++ * @instance_id: SDMA engine instance ID
+  *
+  * Stop the gfx async dma ring buffers (VI).
+  */
+-static void sdma_v2_4_gfx_stop(struct amdgpu_device *adev)
++static void sdma_v2_4_gfx_stop(struct amdgpu_device *adev, const u32 instance_id)
  {
 +	const u32 reg_offset = sdma_offsets[instance_id];
- 	u32 orig, data;
+ 	u32 rb_cntl, ib_cntl;
+-	int i;
  
- 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_SDMA_MGCG)) {
--		WREG32(mmSDMA0_CLK_CTRL + SDMA0_REGISTER_OFFSET, 0x00000100);
--		WREG32(mmSDMA0_CLK_CTRL + SDMA1_REGISTER_OFFSET, 0x00000100);
-+		WREG32(mmSDMA0_CLK_CTRL + reg_offset, 0x00000100);
- 	} else {
--		orig = data = RREG32(mmSDMA0_CLK_CTRL + SDMA0_REGISTER_OFFSET);
--		data |= 0xff000000;
--		if (data != orig)
--			WREG32(mmSDMA0_CLK_CTRL + SDMA0_REGISTER_OFFSET, data);
--
--		orig = data = RREG32(mmSDMA0_CLK_CTRL + SDMA1_REGISTER_OFFSET);
-+		orig = data = RREG32(mmSDMA0_CLK_CTRL + reg_offset);
- 		data |= 0xff000000;
- 		if (data != orig)
--			WREG32(mmSDMA0_CLK_CTRL + SDMA1_REGISTER_OFFSET, data);
-+			WREG32(mmSDMA0_CLK_CTRL + reg_offset, data);
- 	}
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		rb_cntl = RREG32(mmSDMA0_GFX_RB_CNTL + sdma_offsets[i]);
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 0);
+-		WREG32(mmSDMA0_GFX_RB_CNTL + sdma_offsets[i], rb_cntl);
+-		ib_cntl = RREG32(mmSDMA0_GFX_IB_CNTL + sdma_offsets[i]);
+-		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_ENABLE, 0);
+-		WREG32(mmSDMA0_GFX_IB_CNTL + sdma_offsets[i], ib_cntl);
+-	}
++	rb_cntl = RREG32(mmSDMA0_GFX_RB_CNTL + reg_offset);
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 0);
++	WREG32(mmSDMA0_GFX_RB_CNTL + reg_offset, rb_cntl);
++	ib_cntl = RREG32(mmSDMA0_GFX_IB_CNTL + reg_offset);
++	ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_ENABLE, 0);
++	WREG32(mmSDMA0_GFX_IB_CNTL + reg_offset, ib_cntl);
  }
  
- static void cik_enable_sdma_mgls(struct amdgpu_device *adev,
--				 bool enable)
-+				 const u32 instance_id,
-+				 const bool enable)
+ /**
+  * sdma_v2_4_enable - stop the async dma engines
+  *
+  * @adev: amdgpu_device pointer
++ * @instance_id: SDMA engine instance ID
+  * @enable: enable/disable the DMA MEs.
+  *
+  * Halt or unhalt the async dma engines (VI).
+  */
+-static void sdma_v2_4_enable(struct amdgpu_device *adev, bool enable)
++static void sdma_v2_4_enable(struct amdgpu_device *adev,
++			     const u32 instance_id,
++			     const bool enable)
  {
 +	const u32 reg_offset = sdma_offsets[instance_id];
- 	u32 orig, data;
+ 	u32 f32_cntl;
+-	int i;
  
- 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_SDMA_LS)) {
--		orig = data = RREG32(mmSDMA0_POWER_CNTL + SDMA0_REGISTER_OFFSET);
--		data |= 0x100;
--		if (orig != data)
--			WREG32(mmSDMA0_POWER_CNTL + SDMA0_REGISTER_OFFSET, data);
--
--		orig = data = RREG32(mmSDMA0_POWER_CNTL + SDMA1_REGISTER_OFFSET);
-+		orig = data = RREG32(mmSDMA0_POWER_CNTL + reg_offset);
- 		data |= 0x100;
- 		if (orig != data)
--			WREG32(mmSDMA0_POWER_CNTL + SDMA1_REGISTER_OFFSET, data);
-+			WREG32(mmSDMA0_POWER_CNTL + reg_offset, data);
- 	} else {
--		orig = data = RREG32(mmSDMA0_POWER_CNTL + SDMA0_REGISTER_OFFSET);
-+		orig = data = RREG32(mmSDMA0_POWER_CNTL + reg_offset);
- 		data &= ~0x100;
- 		if (orig != data)
--			WREG32(mmSDMA0_POWER_CNTL + SDMA0_REGISTER_OFFSET, data);
--
--		orig = data = RREG32(mmSDMA0_POWER_CNTL + SDMA1_REGISTER_OFFSET);
--		data &= ~0x100;
--		if (orig != data)
--			WREG32(mmSDMA0_POWER_CNTL + SDMA1_REGISTER_OFFSET, data);
-+			WREG32(mmSDMA0_POWER_CNTL + reg_offset, data);
+ 	if (!enable) {
+-		sdma_v2_4_gfx_stop(adev);
++		sdma_v2_4_gfx_stop(adev, instance_id);
  	}
+ 
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		f32_cntl = RREG32(mmSDMA0_F32_CNTL + sdma_offsets[i]);
+-		if (enable)
+-			f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 0);
+-		else
+-			f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 1);
+-		WREG32(mmSDMA0_F32_CNTL + sdma_offsets[i], f32_cntl);
+-	}
++	f32_cntl = RREG32(mmSDMA0_F32_CNTL + reg_offset);
++	if (enable)
++		f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 0);
++	else
++		f32_cntl = REG_SET_FIELD(f32_cntl, SDMA0_F32_CNTL, HALT, 1);
++	WREG32(mmSDMA0_F32_CNTL + reg_offset, f32_cntl);
  }
  
-@@ -1184,14 +1172,14 @@ static int cik_sdma_process_illegal_inst_irq(struct amdgpu_device *adev,
- static int cik_sdma_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- 					  enum amd_clockgating_state state)
+ /**
+  * sdma_v2_4_gfx_resume - setup and start the async dma engines
+  *
+  * @adev: amdgpu_device pointer
++ * @instance_id: SDMA engine instance ID
+  *
+  * Set up the gfx DMA ring buffers and enable them (VI).
+  * Returns 0 for success, error for failure.
+  */
+-static int sdma_v2_4_gfx_resume(struct amdgpu_device *adev)
++static int sdma_v2_4_gfx_resume(struct amdgpu_device *adev, const u32 instance_id)
  {
--	bool gate = false;
-+	const bool gate = state == AMD_CG_STATE_GATE;
- 	struct amdgpu_device *adev = ip_block->adev;
-+	int i;
- 
--	if (state == AMD_CG_STATE_GATE)
--		gate = true;
+-	struct amdgpu_ring *ring;
++	struct amdgpu_ring *const ring = &adev->sdma.instance[instance_id].ring;
++	const u32 reg_offset = sdma_offsets[instance_id];
+ 	u32 rb_cntl, ib_cntl;
+ 	u32 rb_bufsz;
+-	int i, j, r;
 -
--	cik_enable_sdma_mgcg(adev, gate);
--	cik_enable_sdma_mgls(adev, gate);
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		cik_enable_sdma_mgcg(adev, i, gate);
-+		cik_enable_sdma_mgls(adev, i, gate);
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		ring = &adev->sdma.instance[i].ring;
+-
+-		mutex_lock(&adev->srbm_mutex);
+-		for (j = 0; j < 16; j++) {
+-			vi_srbm_select(adev, 0, 0, 0, j);
+-			/* SDMA GFX */
+-			WREG32(mmSDMA0_GFX_VIRTUAL_ADDR + sdma_offsets[i], 0);
+-			WREG32(mmSDMA0_GFX_APE1_CNTL + sdma_offsets[i], 0);
+-		}
+-		vi_srbm_select(adev, 0, 0, 0, 0);
+-		mutex_unlock(&adev->srbm_mutex);
++	int j;
++
++	mutex_lock(&adev->srbm_mutex);
++	for (j = 0; j < 16; j++) {
++		vi_srbm_select(adev, 0, 0, 0, j);
++		/* SDMA GFX */
++		WREG32(mmSDMA0_GFX_VIRTUAL_ADDR + reg_offset, 0);
++		WREG32(mmSDMA0_GFX_APE1_CNTL + reg_offset, 0);
 +	}
++	vi_srbm_select(adev, 0, 0, 0, 0);
++	mutex_unlock(&adev->srbm_mutex);
+ 
+-		WREG32(mmSDMA0_TILING_CONFIG + sdma_offsets[i],
+-		       adev->gfx.config.gb_addr_config & 0x70);
++	WREG32(mmSDMA0_TILING_CONFIG + reg_offset,
++		adev->gfx.config.gb_addr_config & 0x70);
+ 
+-		WREG32(mmSDMA0_SEM_WAIT_FAIL_TIMER_CNTL + sdma_offsets[i], 0);
++	WREG32(mmSDMA0_SEM_WAIT_FAIL_TIMER_CNTL + reg_offset, 0);
+ 
+-		/* Set ring buffer size in dwords */
+-		rb_bufsz = order_base_2(ring->ring_size / 4);
+-		rb_cntl = RREG32(mmSDMA0_GFX_RB_CNTL + sdma_offsets[i]);
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_SIZE, rb_bufsz);
++	/* Set ring buffer size in dwords */
++	rb_bufsz = order_base_2(ring->ring_size / 4);
++	rb_cntl = RREG32(mmSDMA0_GFX_RB_CNTL + reg_offset);
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_SIZE, rb_bufsz);
+ #ifdef __BIG_ENDIAN
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_SWAP_ENABLE, 1);
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL,
+-					RPTR_WRITEBACK_SWAP_ENABLE, 1);
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_SWAP_ENABLE, 1);
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL,
++				RPTR_WRITEBACK_SWAP_ENABLE, 1);
+ #endif
+-		WREG32(mmSDMA0_GFX_RB_CNTL + sdma_offsets[i], rb_cntl);
++	WREG32(mmSDMA0_GFX_RB_CNTL + reg_offset, rb_cntl);
+ 
+-		/* Initialize the ring buffer's read and write pointers */
+-		WREG32(mmSDMA0_GFX_RB_RPTR + sdma_offsets[i], 0);
+-		WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], 0);
+-		WREG32(mmSDMA0_GFX_IB_RPTR + sdma_offsets[i], 0);
+-		WREG32(mmSDMA0_GFX_IB_OFFSET + sdma_offsets[i], 0);
++	/* Initialize the ring buffer's read and write pointers */
++	WREG32(mmSDMA0_GFX_RB_RPTR + reg_offset, 0);
++	WREG32(mmSDMA0_GFX_RB_WPTR + reg_offset, 0);
++	WREG32(mmSDMA0_GFX_IB_RPTR + reg_offset, 0);
++	WREG32(mmSDMA0_GFX_IB_OFFSET + reg_offset, 0);
+ 
+-		/* set the wb address whether it's enabled or not */
+-		WREG32(mmSDMA0_GFX_RB_RPTR_ADDR_HI + sdma_offsets[i],
+-		       upper_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFF);
+-		WREG32(mmSDMA0_GFX_RB_RPTR_ADDR_LO + sdma_offsets[i],
+-		       lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC);
++	/* set the wb address whether it's enabled or not */
++	WREG32(mmSDMA0_GFX_RB_RPTR_ADDR_HI + reg_offset,
++		upper_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFF);
++	WREG32(mmSDMA0_GFX_RB_RPTR_ADDR_LO + reg_offset,
++		lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC);
+ 
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RPTR_WRITEBACK_ENABLE, 1);
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RPTR_WRITEBACK_ENABLE, 1);
+ 
+-		WREG32(mmSDMA0_GFX_RB_BASE + sdma_offsets[i], ring->gpu_addr >> 8);
+-		WREG32(mmSDMA0_GFX_RB_BASE_HI + sdma_offsets[i], ring->gpu_addr >> 40);
++	WREG32(mmSDMA0_GFX_RB_BASE + reg_offset, ring->gpu_addr >> 8);
++	WREG32(mmSDMA0_GFX_RB_BASE_HI + reg_offset, ring->gpu_addr >> 40);
+ 
+-		ring->wptr = 0;
+-		WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], ring->wptr << 2);
++	ring->wptr = 0;
++	WREG32(mmSDMA0_GFX_RB_WPTR + reg_offset, ring->wptr << 2);
+ 
+-		/* enable DMA RB */
+-		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 1);
+-		WREG32(mmSDMA0_GFX_RB_CNTL + sdma_offsets[i], rb_cntl);
++	/* enable DMA RB */
++	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_GFX_RB_CNTL, RB_ENABLE, 1);
++	WREG32(mmSDMA0_GFX_RB_CNTL + reg_offset, rb_cntl);
+ 
+-		ib_cntl = RREG32(mmSDMA0_GFX_IB_CNTL + sdma_offsets[i]);
+-		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_ENABLE, 1);
++	ib_cntl = RREG32(mmSDMA0_GFX_IB_CNTL + reg_offset);
++	ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_ENABLE, 1);
+ #ifdef __BIG_ENDIAN
+-		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_SWAP_ENABLE, 1);
++	ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_GFX_IB_CNTL, IB_SWAP_ENABLE, 1);
+ #endif
+-		/* enable DMA IBs */
+-		WREG32(mmSDMA0_GFX_IB_CNTL + sdma_offsets[i], ib_cntl);
+-	}
++	/* enable DMA IBs */
++	WREG32(mmSDMA0_GFX_IB_CNTL + reg_offset, ib_cntl);
+ 
+-	sdma_v2_4_enable(adev, true);
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		ring = &adev->sdma.instance[i].ring;
+-		r = amdgpu_ring_test_helper(ring);
+-		if (r)
+-			return r;
+-	}
++	sdma_v2_4_enable(adev, instance_id, true);
+ 
+-	return 0;
++	return amdgpu_ring_test_helper(ring);
+ }
+ 
+-
+ /**
+  * sdma_v2_4_start - setup and start the async dma engines
+  *
+  * @adev: amdgpu_device pointer
++ * @instance_id: SDMA engine instance ID
+  *
+  * Set up the DMA engines and enable them (VI).
+  * Returns 0 for success, error for failure.
+  */
+-static int sdma_v2_4_start(struct amdgpu_device *adev)
++static int sdma_v2_4_start(struct amdgpu_device *adev, const u32 instance_id)
+ {
+ 	int r;
+ 
+ 	/* halt the engine before programing */
+-	sdma_v2_4_enable(adev, false);
++	sdma_v2_4_enable(adev, instance_id, false);
+ 
+ 	/* start the gfx rings and rlc compute queues */
+-	r = sdma_v2_4_gfx_resume(adev);
++	r = sdma_v2_4_gfx_resume(adev, instance_id);
+ 	if (r)
+ 		return r;
+ 
+ 	return 0;
+ }
+ 
++/**
++ * sdma_v2_4_stop() - Stop an SDMA engine
++ *
++ * @adev: amdgpu_device pointer
++ * @instance_id: SDMA engine instance ID
++ *
++ * Stop the given SDMA engine instance (VI).
++ */
++static void sdma_v2_4_stop(struct amdgpu_device *adev, const u32 instance_id)
++{
++	sdma_v2_4_enable(adev, instance_id, false);
++}
++
+ /**
+  * sdma_v2_4_ring_test_ring - simple async dma engine test
+  *
+@@ -863,14 +868,16 @@ static int sdma_v2_4_sw_fini(struct amdgpu_ip_block *ip_block)
+ 
+ static int sdma_v2_4_hw_init(struct amdgpu_ip_block *ip_block)
+ {
+-	int r;
+ 	struct amdgpu_device *adev = ip_block->adev;
++	int i, r;
+ 
+ 	sdma_v2_4_init_golden_registers(adev);
+ 
+-	r = sdma_v2_4_start(adev);
+-	if (r)
+-		return r;
++	for (i = 0; i < adev->sdma.num_instances; ++i) {
++		r = sdma_v2_4_start(adev, i);
++		if (r)
++			return r;
++	}
+ 
+ 	sdma_v2_4_set_buffer_funcs(adev);
+ 
+@@ -879,7 +886,11 @@ static int sdma_v2_4_hw_init(struct amdgpu_ip_block *ip_block)
+ 
+ static int sdma_v2_4_hw_fini(struct amdgpu_ip_block *ip_block)
+ {
+-	sdma_v2_4_enable(ip_block->adev, false);
++	struct amdgpu_device *adev = ip_block->adev;
++	int i;
++
++	for (i = 0; i < adev->sdma.num_instances; ++i)
++		sdma_v2_4_stop(adev, i);
  
  	return 0;
  }
