@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B60DEC79F82
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:11:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3155C79F99
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:11:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53BE910E8B0;
-	Tue,  8 Sep 2026 18:11:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7976410E8C1;
+	Tue,  8 Sep 2026 18:11:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BOt2vrSX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RoH3e/Re";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4359D10E8B0
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 18:11:08 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-49b0d8bc2aaso61928055e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 11:11:08 -0700 (PDT)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13BA710E8C1
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 18:11:10 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4957eefd361so39016425e9.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 11:11:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788891067; x=1789495867; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788891068; x=1789495868; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=a40DLe9vdT7Cbap8+hBjBOANFKPprFSbtVqTHu/PdSA=;
- b=BOt2vrSXuXdoVHK01FEasscTxw+9o6ssnlTDcJB1erhwDslrJ9BH4PEOUEQyfMkzwm
- Km8vqjZdCT5ljgxPwhQSMROLoYSwQ7P4XN/Ff4fPpUDChrNRkr82kk5J2p27Cvhpkf/g
- xxV1tqs6CONVw1QqPLKmpqFGRnqvTYzmJKyT1qFnSqYRYXl2HD5k6QDy4TSJZJ7P4a5w
- ZiSlkQ82ZVBCxcRHb7VrqjyC1PiKt018dB1XzT6i5m150mvtripvdMJa6B2iK6+FsHR+
- 9gHAR/Xr7D53AEq6h4QEsvnwSoOownLpFaHCeOTHwjDae0r/8L+FJtp1JZF4sgZTNHtL
- Aobw==
+ bh=nsX0s+NIbxTlU46SNcig6knlLOp4ZXdfSVseKyMtu9Y=;
+ b=RoH3e/ReBRHRmAril1snfaTiaDcTyh3De1q+TZ8FUT1881O5ALHowX2N130AS3ECkp
+ /stPDyXY75w2rP41SPsliXZiq9oxAQ3DlFpHKhshazPepc0VtsgnsBfKJtT2ANjOP8qI
+ y8XF4dPZ15DYge/s8izGyFuLSfmTBMz3L6LXCDKygTi3ANI8x7PzBMgzInurkjy8QrEg
+ 2nLK5dYv4yF9qqPy3Ajtbkxewjzaph6bVU18Vh2BJD1dWBuryCRRl1ddaE57rE9Ya+ax
+ HJOOhjLX7C7h86Sd5mWA6kKLTxB/Gq/2ITQYpxhQG8yzmlybQIOvTBSr2gAhGX4WKxsM
+ YNNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788891067; x=1789495867;
+ d=1e100.net; s=20251104; t=1788891068; x=1789495868;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=a40DLe9vdT7Cbap8+hBjBOANFKPprFSbtVqTHu/PdSA=;
- b=Zz09VqAdLHxr2p4d1Qol13TrrTRthBYz4QkQdLFxUrNbShr7BJnbT4L/EoOnX+nYER
- wWgQWnmF7diifuhVOw9stMkCkqdwWaW8wkOgs6Ezd9L3LMCjpmT+eVG6TNVNn7JbrViv
- wxHtFWo5s2djxdqVjeD/Obfs6jTSn4fEHc0c09ZZh3lV1161pZyhFTe5ECOanCW2GZYp
- G/EmZZ5jjA44wflmPIo5ZPQ9sluSvbU7+QnDjE2Dn65wnoLjJzGRKJXOXFMcgv1jgT/U
- k70o2iSMEnnw6iYETMdjP82KQsiGPCJOftDxrl6IKTAmeSQa5Ayifi3AW2WKfrp4TASJ
- GV0A==
-X-Gm-Message-State: AFuF++n0eiBz5Bel0J1XiFfBYkmghGKioVGAP6dwdDlhspWxIPBzr6zY
- 59j2JkpgwJ3genPBav477ioWDvSr3FIlgfM7G25cofBJuqnUUhraIRkhMi+DglQO
-X-Gm-Gg: AYBFou0OyyH3zm98Nknk0y+UrnY1BoQwXkgQhcZJ5ksWfKh9mplOOqrLx7OEk+q/5xW
- 9sZYT2sXRnhSQRfhgk9zp6b+4b/G3ELNzSpYBwmMe+KaMqeVWGR94MpFpVV26bjoIMtu+ly2dtT
- GaHXXbqa5Jz3cd74IDfiJcjh6BRJlSrAJ0CbXGmBd7BwgHNtK66XWNWmwUHfkuhIUuSHT9yuGfB
- lxzDYcxbIF4X/Mn9k/lXd9rH49wol+yBrJ/1f3ReKwIbwkk6iq2nA7rIuP9zg/z+mGN+EtB501P
- Mm9tP64CJaMvkPQrCAxoiJXvdKSEKfXEMJY1tW90pFqHTtBp6tiDu5Zd4D634ZIrb8YYukTRCun
- dJvMbZTmcv1bpwiMFF3egazT27yumlI3/8pfJkwB3oLu62MOYFeQuw2TG3wH6ATh2lZ0crG8BC8
- QEuPM8iM6aYakyQU/U+3BbgAHVmJ/A/OFkPJVm9lfIQtIosoarcN6KTabf7PtqKxHiOntXnwm8R
- fCYW3gtvupwVgSW9/dX
-X-Received: by 2002:a05:600c:4684:b0:49c:fc6c:be14 with SMTP id
- 5b1f17b1804b1-49cfc6cc10bmr274967005e9.26.1788891066214; 
- Tue, 08 Sep 2026 11:11:06 -0700 (PDT)
+ bh=nsX0s+NIbxTlU46SNcig6knlLOp4ZXdfSVseKyMtu9Y=;
+ b=OJNb0vpmeWuIUf8UHgFU/JjFiUXW8IqwIl7TRcm5AP6Bs6uzol7pOJq3K9SQyHmuTW
+ 3p59Dts3L/z/adnJf3hq4EBYr3D5YFXBKbQFwAc4dBc2ohXrw0TaQV9oDp2vKzWpdsQt
+ CVPUv4gUW7Sklp+qJhGUTIDMJPuOb1fIEYemuxfjVFSao5VT9umc4Gl64Lz5BYqgszrM
+ 6kaC6IrTJ82fv0101/VQQsHtsgKoTS2I4CntbJOwYmtqXmDSLUj091Ehj9J0LGVbAgJF
+ exj2spNHLk/gC+DbMlLWrA4YzMDxHLubXYRFaRQrS4p/Ia7AbsVkFiB5nOlp6fWJO+L7
+ crHw==
+X-Gm-Message-State: AFuF++lnOSpLn1fo/pOTOIHlKo6HqLKKuQb48JFfS7jIRTONgZG7reZY
+ zmCyLLnRqu8FNy6GKLK7PUKxlCnPl5Y52l2T3S2NGygVUDDW9zln5RVhwHX3zoEu
+X-Gm-Gg: AYBFou2A75S8RJxND/z3aUW6bW/BuhHc1X73SIm8hX0c/l3rIhfu1OFVRi7bREN14XZ
+ r9w3wwpXmAIZb2Deo062aAlReHbtJBpx4t8TK2ORDVWl832i9m37XdXWwLdADdHgJ5k7Cl8pvte
+ gLYZNrlsj8vdsgofv9LeXKsY12FB9nGi5VQ9hnw7YPIIF8veJjd+qYnonSj4SA4r0GILhg1CT5K
+ /DlGetdnCRXEXOCAanrM/MAdZpv9oQj1wxF744OpSbM5ehYXw7a+09MBOqXNNOWtQm4lIedVzMm
+ a4XL0+z37irUMakjVvxiSja1kB1ycckQxys45Nq4WIMQ1cFq8w2x+5pHo6BvdM9W7T2lIeWDPhr
+ Dxje2QleIsx1N+OSnwOpz46RTkcPct218/fCWAKZ64TfYI3t0MFIlzxmQwl9T57lmFgpLN4NmiN
+ dBkEXKb2gRyCp2CClJGc5AvO2L042kZl4pvkcVMOr9pC+PIjzcpkK6Lyox8XgLyj3tbdVMsFe1f
+ +u5pQInLTfJr2gbDJa2
+X-Received: by 2002:a05:600c:310d:b0:49c:dc14:d681 with SMTP id
+ 5b1f17b1804b1-49cf81e5449mr309126125e9.3.1788891068312; 
+ Tue, 08 Sep 2026 11:11:08 -0700 (PDT)
 Received: from Timur-Max (athedsl-4460056.home.otenet.gr. [79.129.254.8])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49d1fb1e4e4sm5190125e9.2.2026.09.08.11.11.03
+ 5b1f17b1804b1-49d1fb1e4e4sm5190125e9.2.2026.09.08.11.11.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 11:11:05 -0700 (PDT)
+ Tue, 08 Sep 2026 11:11:07 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org,
  =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
@@ -71,10 +71,10 @@ To: amd-gfx@lists.freedesktop.org,
  Natalie Vock <nat@pixelcluster.dev>, Lijo Lazar <lijo.lazar@amd.com>,
  Felix Kuehling <Felix.Kuehling@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 2/9] drm/amdgpu/sdma: Remove superfluous rlc_resume and
- rlc_stop functions
-Date: Tue,  8 Sep 2026 20:10:45 +0200
-Message-ID: <20260908181052.381126-3-timur.kristof@gmail.com>
+Subject: [PATCH 3/9] drm/amdgpu/sdma: Fix executing duplicate commands after
+ recovery on SDMA v4.4.2
+Date: Tue,  8 Sep 2026 20:10:46 +0200
+Message-ID: <20260908181052.381126-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260908181052.381126-1-timur.kristof@gmail.com>
 References: <20260908181052.381126-1-timur.kristof@gmail.com>
@@ -95,585 +95,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Every SDMA generation has an rlc_resume and rlc_stop function
-which are not doing anything.
+SDMA v4.4.2 had a custom recovery implementation that
+tried to keep ring contents and restore the rptr after
+an SDMA soft reset. Later it was changed to use the
+more common amdgpu_sdma_reset_engine() implementation.
 
-Starting from CIK, the SDMA engine supports additional queues
-which are called "SDMA compute" or "RLC" queues, and these
-queues are used by the KFD, and configured using the HWS.
-There is nothing for the kernel driver to do for these.
+Currently, SDMA v4.4.2 may execute some commands twice
+after a recovery:
 
-Let's delete the functions that don't do anything.
-In case of SDMA v4.0 and v4.4.2 let's move the init_pg()
-call to the start() function.
+1. From the old ring buffer contents at the restored rptr
+2. From the contents restored by amdgpu_sdma_reset_engine()
+   that calls the ring reset helper functions.
+
+Fix that by removing the code that restores rptr.
+This is not needed anymore because amdgpu_sdma_reset_engine()
+already saves and restores the contents of both the SDMA gfx
+and paging rings, so there is no need to do anything extra.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c    | 30 --------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   | 30 --------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   | 30 --------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 32 +--------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 36 +-----------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 27 ------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 27 ------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   | 27 ------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   | 27 ------------------
- 9 files changed, 2 insertions(+), 264 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |  2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  2 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 76 +++++-------------------
+ 3 files changed, 14 insertions(+), 66 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-index 511c9dd3778d..f444207fa550 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-@@ -316,18 +316,6 @@ static void cik_sdma_gfx_stop(struct amdgpu_device *adev)
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 686c92e96025..132ca5ce3a6d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -347,8 +347,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 	ring->buf_mask = (ring->ring_size / 4) - 1;
+ 	ring->ptr_mask = ring->funcs->support_64bit_ptrs ?
+ 		0xffffffffffffffff : ring->buf_mask;
+-	/*  Initialize cached_rptr to 0 */
+-	ring->cached_rptr = 0;
  
--/**
-- * cik_sdma_rlc_stop - stop the compute async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Stop the compute async dma queues (CIK).
-- */
--static void cik_sdma_rlc_stop(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--}
--
- /**
-  * cik_ctx_switch_enable - stop the async dma engines context switch
-  *
-@@ -400,7 +388,6 @@ static void cik_sdma_enable(struct amdgpu_device *adev, bool enable)
+ 	if (!ring->ring_backup) {
+ 		ring->ring_backup = kvzalloc(ring->ring_size, GFP_KERNEL);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 6b6ee4083c8d..61e30de1977b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -423,8 +423,6 @@ struct amdgpu_ring {
  
- 	if (!enable) {
- 		cik_sdma_gfx_stop(adev);
--		cik_sdma_rlc_stop(adev);
- 	}
+ 	bool            is_sw_ring;
+ 	unsigned int    entry_index;
+-	/* store the cached rptr to restore after reset */
+-	uint64_t cached_rptr;
+ };
  
- 	for (i = 0; i < adev->sdma.num_instances; i++) {
-@@ -501,20 +488,6 @@ static int cik_sdma_gfx_resume(struct amdgpu_device *adev)
- 	return 0;
- }
- 
--/**
-- * cik_sdma_rlc_resume - setup and start the async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Set up the compute DMA queues and enable them (CIK).
-- * Returns 0 for success, error for failure.
-- */
--static int cik_sdma_rlc_resume(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--	return 0;
--}
--
- /**
-  * cik_sdma_load_microcode - load the sDMA ME ucode
-  *
-@@ -577,9 +550,6 @@ static int cik_sdma_start(struct amdgpu_device *adev)
- 
- 	/* start the gfx rings and rlc compute queues */
- 	r = cik_sdma_gfx_resume(adev);
--	if (r)
--		return r;
--	r = cik_sdma_rlc_resume(adev);
- 	if (r)
- 		return r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-index 657ef6c93c61..7c8acdf73d44 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-@@ -349,18 +349,6 @@ static void sdma_v2_4_gfx_stop(struct amdgpu_device *adev)
- 	}
- }
- 
--/**
-- * sdma_v2_4_rlc_stop - stop the compute async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Stop the compute async dma queues (VI).
-- */
--static void sdma_v2_4_rlc_stop(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--}
--
- /**
-  * sdma_v2_4_enable - stop the async dma engines
-  *
-@@ -376,7 +364,6 @@ static void sdma_v2_4_enable(struct amdgpu_device *adev, bool enable)
- 
- 	if (!enable) {
- 		sdma_v2_4_gfx_stop(adev);
--		sdma_v2_4_rlc_stop(adev);
- 	}
- 
- 	for (i = 0; i < adev->sdma.num_instances; i++) {
-@@ -477,20 +464,6 @@ static int sdma_v2_4_gfx_resume(struct amdgpu_device *adev)
- 	return 0;
- }
- 
--/**
-- * sdma_v2_4_rlc_resume - setup and start the async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Set up the compute DMA queues and enable them (VI).
-- * Returns 0 for success, error for failure.
-- */
--static int sdma_v2_4_rlc_resume(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--	return 0;
--}
--
- 
- /**
-  * sdma_v2_4_start - setup and start the async dma engines
-@@ -509,9 +482,6 @@ static int sdma_v2_4_start(struct amdgpu_device *adev)
- 
- 	/* start the gfx rings and rlc compute queues */
- 	r = sdma_v2_4_gfx_resume(adev);
--	if (r)
--		return r;
--	r = sdma_v2_4_rlc_resume(adev);
- 	if (r)
- 		return r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-index 63c94fe52b3c..e929d62721b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -526,18 +526,6 @@ static void sdma_v3_0_gfx_stop(struct amdgpu_device *adev)
- 	}
- }
- 
--/**
-- * sdma_v3_0_rlc_stop - stop the compute async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Stop the compute async dma queues (VI).
-- */
--static void sdma_v3_0_rlc_stop(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--}
--
- /**
-  * sdma_v3_0_ctx_switch_enable - stop the async dma engines context switch
-  *
-@@ -614,7 +602,6 @@ static void sdma_v3_0_enable(struct amdgpu_device *adev, bool enable)
- 
- 	if (!enable) {
- 		sdma_v3_0_gfx_stop(adev);
--		sdma_v3_0_rlc_stop(adev);
- 	}
- 
- 	for (i = 0; i < adev->sdma.num_instances; i++) {
-@@ -752,20 +739,6 @@ static int sdma_v3_0_gfx_resume(struct amdgpu_device *adev)
- 	return 0;
- }
- 
--/**
-- * sdma_v3_0_rlc_resume - setup and start the async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Set up the compute DMA queues and enable them (VI).
-- * Returns 0 for success, error for failure.
-- */
--static int sdma_v3_0_rlc_resume(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--	return 0;
--}
--
- /**
-  * sdma_v3_0_start - setup and start the async dma engines
-  *
-@@ -784,9 +757,6 @@ static int sdma_v3_0_start(struct amdgpu_device *adev)
- 
- 	/* start the gfx rings and rlc compute queues */
- 	r = sdma_v3_0_gfx_resume(adev);
--	if (r)
--		return r;
--	r = sdma_v3_0_rlc_resume(adev);
- 	if (r)
- 		return r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index ded1f8abfb08..bdd140887e10 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -933,18 +933,6 @@ static void sdma_v4_0_gfx_enable(struct amdgpu_device *adev, bool enable)
- 	}
- }
- 
--/**
-- * sdma_v4_0_rlc_stop - stop the compute async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Stop the compute async dma queues (VEGA10).
-- */
--static void sdma_v4_0_rlc_stop(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--}
--
- /**
-  * sdma_v4_0_page_stop - stop the page async dma engines
-  *
-@@ -1047,7 +1035,6 @@ static void sdma_v4_0_enable(struct amdgpu_device *adev, bool enable)
- 
- 	if (!enable) {
- 		sdma_v4_0_gfx_enable(adev, enable);
--		sdma_v4_0_rlc_stop(adev);
- 		if (adev->sdma.has_page_queue)
- 			sdma_v4_0_page_stop(adev);
- 	}
-@@ -1312,21 +1299,6 @@ static void sdma_v4_0_init_pg(struct amdgpu_device *adev)
- 	}
- }
- 
--/**
-- * sdma_v4_0_rlc_resume - setup and start the async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Set up the compute DMA queues and enable them (VEGA10).
-- * Returns 0 for success, error for failure.
-- */
--static int sdma_v4_0_rlc_resume(struct amdgpu_device *adev)
--{
--	sdma_v4_0_init_pg(adev);
--
--	return 0;
--}
--
- /**
-  * sdma_v4_0_load_microcode - load the sDMA ME ucode
-  *
-@@ -1426,9 +1398,7 @@ static int sdma_v4_0_start(struct amdgpu_device *adev)
- 		sdma_v4_0_ctx_switch_enable(adev, true);
- 		sdma_v4_0_enable(adev, true);
- 	} else {
--		r = sdma_v4_0_rlc_resume(adev);
--		if (r)
--			return r;
-+		sdma_v4_0_init_pg(adev);
- 	}
- 
- 	for (i = 0; i < adev->sdma.num_instances; i++) {
+ #define amdgpu_ring_parse_cs(r, p, job, ib) ((r)->funcs->parse_cs((p), (job), (ib)))
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 5212ea6c46a2..7e8d528cf422 100644
+index 7e8d528cf422..53c816043eb8 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -520,20 +520,6 @@ static void sdma_v4_4_2_inst_gfx_stop(struct amdgpu_device *adev,
- 	}
- }
- 
--/**
-- * sdma_v4_4_2_inst_rlc_stop - stop the compute async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- * @inst_mask: mask of dma engine instances to be disabled
-- *
-- * Stop the compute async dma queues.
-- */
--static void sdma_v4_4_2_inst_rlc_stop(struct amdgpu_device *adev,
--				      uint32_t inst_mask)
--{
--	/* XXX todo */
--}
--
- /**
-  * sdma_v4_4_2_inst_page_stop - stop the page async dma engines
+@@ -660,12 +660,11 @@ static uint32_t sdma_v4_4_2_rb_cntl(struct amdgpu_ring *ring, uint32_t rb_cntl)
   *
-@@ -632,7 +618,6 @@ static void sdma_v4_4_2_inst_enable(struct amdgpu_device *adev, bool enable,
- 
- 	if (!enable) {
- 		sdma_v4_4_2_inst_gfx_stop(adev, inst_mask);
--		sdma_v4_4_2_inst_rlc_stop(adev, inst_mask);
- 		if (adev->sdma.has_page_queue)
- 			sdma_v4_4_2_inst_page_stop(adev, inst_mask);
- 
-@@ -888,23 +873,6 @@ static void sdma_v4_4_2_init_pg(struct amdgpu_device *adev)
- 
- }
- 
--/**
-- * sdma_v4_4_2_inst_rlc_resume - setup and start the async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- * @inst_mask: mask of dma engine instances to be enabled
-- *
-- * Set up the compute DMA queues and enable them.
-- * Returns 0 for success, error for failure.
-- */
--static int sdma_v4_4_2_inst_rlc_resume(struct amdgpu_device *adev,
--				       uint32_t inst_mask)
--{
--	sdma_v4_4_2_init_pg(adev);
--
--	return 0;
--}
--
- /**
-  * sdma_v4_4_2_inst_load_microcode - load the sDMA ME ucode
+  * @adev: amdgpu_device pointer
+  * @i: instance to resume
+- * @restore: used to restore wptr when restart
   *
-@@ -1019,9 +987,7 @@ static int sdma_v4_4_2_inst_start(struct amdgpu_device *adev,
- 		sdma_v4_4_2_inst_ctx_switch_enable(adev, true, inst_mask);
- 		sdma_v4_4_2_inst_enable(adev, true, inst_mask);
- 	} else {
--		r = sdma_v4_4_2_inst_rlc_resume(adev, inst_mask);
--		if (r)
--			return r;
-+		sdma_v4_4_2_init_pg(adev);
- 	}
- 
- 	tmp_mask = inst_mask;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index a6fcef36c501..d24659a69382 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -574,18 +574,6 @@ static void sdma_v5_0_gfx_stop(struct amdgpu_device *adev, uint32_t inst_mask)
- 	}
- }
- 
--/**
-- * sdma_v5_0_rlc_stop - stop the compute async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Stop the compute async dma queues (NAVI10).
-- */
--static void sdma_v5_0_rlc_stop(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--}
--
- /**
-  * sdma_v5_0_ctx_switch_enable - stop the async dma engines context switch
-  *
-@@ -661,7 +649,6 @@ static void sdma_v5_0_enable(struct amdgpu_device *adev, bool enable)
- 	inst_mask = GENMASK(adev->sdma.num_instances - 1, 0);
- 	if (!enable) {
- 		sdma_v5_0_gfx_stop(adev, 1 << inst_mask);
--		sdma_v5_0_rlc_stop(adev);
- 	}
- 
- 	if (amdgpu_sriov_vf(adev))
-@@ -858,19 +845,6 @@ static int sdma_v5_0_gfx_resume(struct amdgpu_device *adev)
- 	return 0;
- }
- 
--/**
-- * sdma_v5_0_rlc_resume - setup and start the async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Set up the compute DMA queues and enable them (NAVI10).
-- * Returns 0 for success, error for failure.
-- */
--static int sdma_v5_0_rlc_resume(struct amdgpu_device *adev)
--{
--	return 0;
--}
--
- /**
-  * sdma_v5_0_load_microcode - load the sDMA ME ucode
-  *
-@@ -951,7 +925,6 @@ static int sdma_v5_0_start(struct amdgpu_device *adev)
- 	r = sdma_v5_0_gfx_resume(adev);
- 	if (r)
- 		return r;
--	r = sdma_v5_0_rlc_resume(adev);
- 
- 	return r;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 35cdf6c149f8..76e1f9f39525 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -424,18 +424,6 @@ static void sdma_v5_2_gfx_stop(struct amdgpu_device *adev,  uint32_t inst_mask)
- 	}
- }
- 
--/**
-- * sdma_v5_2_rlc_stop - stop the compute async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Stop the compute async dma queues.
-- */
--static void sdma_v5_2_rlc_stop(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--}
--
- /**
-  * sdma_v5_2_ctx_switch_enable - stop the async dma engines context switch
-  *
-@@ -510,7 +498,6 @@ static void sdma_v5_2_enable(struct amdgpu_device *adev, bool enable)
- 	inst_mask = GENMASK(adev->sdma.num_instances - 1, 0);
- 	if (!enable) {
- 		sdma_v5_2_gfx_stop(adev, inst_mask);
--		sdma_v5_2_rlc_stop(adev);
- 	}
- 
- 	if (!amdgpu_sriov_vf(adev)) {
-@@ -705,19 +692,6 @@ static int sdma_v5_2_gfx_resume(struct amdgpu_device *adev)
- 	return 0;
- }
- 
--/**
-- * sdma_v5_2_rlc_resume - setup and start the async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Set up the compute DMA queues and enable them.
-- * Returns 0 for success, error for failure.
-- */
--static int sdma_v5_2_rlc_resume(struct amdgpu_device *adev)
--{
--	return 0;
--}
--
- /**
-  * sdma_v5_2_load_microcode - load the sDMA ME ucode
-  *
-@@ -851,7 +825,6 @@ static int sdma_v5_2_start(struct amdgpu_device *adev)
- 	r = sdma_v5_2_gfx_resume(adev);
- 	if (r)
- 		return r;
--	r = sdma_v5_2_rlc_resume(adev);
- 
- 	return r;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index 303fd7d1b7c8..52a141d0b356 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -407,18 +407,6 @@ static void sdma_v6_0_gfx_stop(struct amdgpu_device *adev)
- 	}
- }
- 
--/**
-- * sdma_v6_0_rlc_stop - stop the compute async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Stop the compute async dma queues.
-- */
--static void sdma_v6_0_rlc_stop(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--}
--
- /**
-  * sdma_v6_0_ctxempty_int_enable - enable or disable context empty interrupts
-  *
-@@ -457,7 +445,6 @@ static void sdma_v6_0_enable(struct amdgpu_device *adev, bool enable)
- 
- 	if (!enable) {
- 		sdma_v6_0_gfx_stop(adev);
--		sdma_v6_0_rlc_stop(adev);
- 	}
- 
- 	if (amdgpu_sriov_vf(adev))
-@@ -642,19 +629,6 @@ static int sdma_v6_0_gfx_resume(struct amdgpu_device *adev)
- 	return 0;
- }
- 
--/**
-- * sdma_v6_0_rlc_resume - setup and start the async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Set up the compute DMA queues and enable them.
-- * Returns 0 for success, error for failure.
-- */
--static int sdma_v6_0_rlc_resume(struct amdgpu_device *adev)
--{
--	return 0;
--}
--
- /**
-  * sdma_v6_0_load_microcode - load the sDMA ME ucode
-  *
-@@ -832,7 +806,6 @@ static int sdma_v6_0_start(struct amdgpu_device *adev)
- 	r = sdma_v6_0_gfx_resume(adev);
- 	if (r)
- 		return r;
--	r = sdma_v6_0_rlc_resume(adev);
- 
- 	return r;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-index d5552f206e4d..231bc347df2a 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-@@ -409,18 +409,6 @@ static void sdma_v7_0_gfx_stop(struct amdgpu_device *adev)
- 	}
- }
- 
--/**
-- * sdma_v7_0_rlc_stop - stop the compute async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Stop the compute async dma queues.
-- */
--static void sdma_v7_0_rlc_stop(struct amdgpu_device *adev)
--{
--	/* XXX todo */
--}
--
- /**
-  * sdma_v7_0_ctx_switch_enable - stop the async dma engines context switch
-  *
-@@ -448,7 +436,6 @@ static void sdma_v7_0_enable(struct amdgpu_device *adev, bool enable)
- 
- 	if (!enable) {
- 		sdma_v7_0_gfx_stop(adev);
--		sdma_v7_0_rlc_stop(adev);
- 	}
- 
- 	if (amdgpu_sriov_vf(adev))
-@@ -643,19 +630,6 @@ static int sdma_v7_0_gfx_resume(struct amdgpu_device *adev)
- 
- }
- 
--/**
-- * sdma_v7_0_rlc_resume - setup and start the async dma engines
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Set up the compute DMA queues and enable them.
-- * Returns 0 for success, error for failure.
-- */
--static int sdma_v7_0_rlc_resume(struct amdgpu_device *adev)
--{
--	return 0;
--}
--
- static void sdma_v12_0_free_ucode_buffer(struct amdgpu_device *adev)
+  * Set up the gfx DMA ring buffers and enable them.
+  * Returns 0 for success, error for failure.
+  */
+-static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i, bool restore)
++static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i)
  {
- 	int i;
-@@ -850,7 +824,6 @@ static int sdma_v7_0_start(struct amdgpu_device *adev)
- 	r = sdma_v7_0_gfx_resume(adev);
- 	if (r)
- 		return r;
--	r = sdma_v7_0_rlc_resume(adev);
+ 	struct amdgpu_ring *ring = &adev->sdma.instance[i].ring;
+ 	u32 rb_cntl, ib_cntl, wptr_poll_cntl;
+@@ -673,7 +672,6 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i, b
+ 	u32 doorbell;
+ 	u32 doorbell_offset;
+ 	u64 wptr_gpu_addr;
+-	u64 rwptr;
  
- 	return r;
- }
+ 	wb_offset = (ring->rptr_offs * 4);
+ 
+@@ -693,32 +691,16 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i, b
+ 	WREG32_SDMA(i, regSDMA_GFX_RB_BASE, ring->gpu_addr >> 8);
+ 	WREG32_SDMA(i, regSDMA_GFX_RB_BASE_HI, ring->gpu_addr >> 40);
+ 
+-	if (!restore)
+-		ring->wptr = 0;
++	ring->wptr = 0;
+ 
+ 	/* before programing wptr to a less value, need set minor_ptr_update first */
+ 	WREG32_SDMA(i, regSDMA_GFX_MINOR_PTR_UPDATE, 1);
+ 
+-	/* For the guilty queue, set RPTR to the current wptr to skip bad commands,
+-	 * It is not a guilty queue, restore cache_rptr and continue execution.
+-	 */
+-	if (adev->sdma.instance[i].gfx_guilty)
+-		rwptr = ring->wptr;
+-	else
+-		rwptr = ring->cached_rptr;
+-
+ 	/* Initialize the ring buffer's read and write pointers */
+-	if (restore) {
+-		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, lower_32_bits(rwptr << 2));
+-		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, upper_32_bits(rwptr << 2));
+-		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, lower_32_bits(rwptr << 2));
+-		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, upper_32_bits(rwptr << 2));
+-	} else {
+-		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, 0);
+-		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, 0);
+-		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, 0);
+-		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, 0);
+-	}
++	WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, 0);
++	WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, 0);
++	WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, 0);
++	WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, 0);
+ 
+ 	doorbell = RREG32_SDMA(i, regSDMA_GFX_DOORBELL);
+ 	doorbell_offset = RREG32_SDMA(i, regSDMA_GFX_DOORBELL_OFFSET);
+@@ -771,7 +753,7 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i, b
+  * Set up the page DMA ring buffers and enable them.
+  * Returns 0 for success, error for failure.
+  */
+-static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i, bool restore)
++static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i)
+ {
+ 	struct amdgpu_ring *ring = &adev->sdma.instance[i].page;
+ 	u32 rb_cntl, ib_cntl, wptr_poll_cntl;
+@@ -779,7 +761,6 @@ static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i,
+ 	u32 doorbell;
+ 	u32 doorbell_offset;
+ 	u64 wptr_gpu_addr;
+-	u64 rwptr;
+ 
+ 	wb_offset = (ring->rptr_offs * 4);
+ 
+@@ -787,26 +768,11 @@ static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i,
+ 	rb_cntl = sdma_v4_4_2_rb_cntl(ring, rb_cntl);
+ 	WREG32_SDMA(i, regSDMA_PAGE_RB_CNTL, rb_cntl);
+ 
+-	/* For the guilty queue, set RPTR to the current wptr to skip bad commands,
+-	 * It is not a guilty queue, restore cache_rptr and continue execution.
+-	 */
+-	if (adev->sdma.instance[i].page_guilty)
+-		rwptr = ring->wptr;
+-	else
+-		rwptr = ring->cached_rptr;
+-
+ 	/* Initialize the ring buffer's read and write pointers */
+-	if (restore) {
+-		WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR, lower_32_bits(rwptr << 2));
+-		WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_HI, upper_32_bits(rwptr << 2));
+-		WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR, lower_32_bits(rwptr << 2));
+-		WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR_HI, upper_32_bits(rwptr << 2));
+-	} else {
+-		WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR, 0);
+-		WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_HI, 0);
+-		WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR, 0);
+-		WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR_HI, 0);
+-	}
++	WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR, 0);
++	WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_HI, 0);
++	WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR, 0);
++	WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR_HI, 0);
+ 
+ 	/* set the wb address whether it's enabled or not */
+ 	WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_ADDR_HI,
+@@ -820,8 +786,7 @@ static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i,
+ 	WREG32_SDMA(i, regSDMA_PAGE_RB_BASE, ring->gpu_addr >> 8);
+ 	WREG32_SDMA(i, regSDMA_PAGE_RB_BASE_HI, ring->gpu_addr >> 40);
+ 
+-	if (!restore)
+-		ring->wptr = 0;
++	ring->wptr = 0;
+ 
+ 	/* before programing wptr to a less value, need set minor_ptr_update first */
+ 	WREG32_SDMA(i, regSDMA_PAGE_MINOR_PTR_UPDATE, 1);
+@@ -959,9 +924,9 @@ static int sdma_v4_4_2_inst_start(struct amdgpu_device *adev,
+ 		uint32_t temp;
+ 
+ 		WREG32_SDMA(i, regSDMA_SEM_WAIT_FAIL_TIMER_CNTL, 0);
+-		sdma_v4_4_2_gfx_resume(adev, i, restore);
++		sdma_v4_4_2_gfx_resume(adev, i);
+ 		if (adev->sdma.has_page_queue)
+-			sdma_v4_4_2_page_resume(adev, i, restore);
++			sdma_v4_4_2_page_resume(adev, i);
+ 
+ 		/* set utc l1 enable flag always to 1 */
+ 		temp = RREG32_SDMA(i, regSDMA_CNTL);
+@@ -1645,7 +1610,6 @@ static int sdma_v4_4_2_stop_queue(struct amdgpu_ring *ring)
+ 	struct amdgpu_device *adev = ring->adev;
+ 	u32 instance_id = ring->me;
+ 	u32 inst_mask;
+-	uint64_t rptr;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		return -EINVAL;
+@@ -1657,18 +1621,6 @@ static int sdma_v4_4_2_stop_queue(struct amdgpu_ring *ring)
+ 		adev->sdma.instance[instance_id].page_guilty =
+ 			sdma_v4_4_2_is_queue_selected(adev, instance_id, true);
+ 
+-	/* Cache the rptr before reset, after the reset,
+-	* all of the registers will be reset to 0
+-	*/
+-	rptr = amdgpu_ring_get_rptr(ring);
+-	ring->cached_rptr = rptr;
+-	/* Cache the rptr for the page queue if it exists */
+-	if (adev->sdma.has_page_queue) {
+-		struct amdgpu_ring *page_ring = &adev->sdma.instance[instance_id].page;
+-		rptr = amdgpu_ring_get_rptr(page_ring);
+-		page_ring->cached_rptr = rptr;
+-	}
+-
+ 	/* stop queue */
+ 	inst_mask = 1 << ring->me;
+ 	sdma_v4_4_2_inst_gfx_stop(adev, inst_mask);
 -- 
 2.55.0
 
