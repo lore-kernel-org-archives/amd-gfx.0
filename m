@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83625C79F82
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:40:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17F7DC79F82
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:41:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7F7810E0EA;
-	Tue,  8 Sep 2026 11:40:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A26A410E0DF;
+	Tue,  8 Sep 2026 11:41:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ywYtRi2Y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CXn1w1oA";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012035.outbound.protection.outlook.com [52.101.43.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66C6A10EB68
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:40:53 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012002.outbound.protection.outlook.com [52.101.53.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 320F910E0DF
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:41:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ky4Jfwi6qSKj5XAeG7rcSti0+WzLufL/BsboQU3c/lBUW3kZO/zK0VsQzteI5/+YF23HV3Zl6DnHjVyUWpOJiqn76XkxwtUelKFjBGhIdhxeF6RniPS6VNzdu4C39x360/hf5k+5tTn2FRphVtWLs/KSYUtOjcC4pobf9EfgvsKp+nyPc+u+SA9y7awjpj4dKKZ6xE0TfxY9QWK2asrOuHx6QDDjf9hWRxVP8Nwe4DHwwslHo4XQkVm70vhYZM/9smfi20VCzfCJj8Y4t6lAyhqs6fpX5ab8g+ckQlZgfTnTTKhHHE+841pwvIMK4l7C5nYX473tjoiarR/nm9nHlw==
+ b=MJ4vNJBf2y9swYECwAE7v3lmcfDYoOyffR/JT2lsj6TLkjlxhY9xDc3KE/6FFpANR0Fy/cGFgj91OpezgClDYWxqTooAqQ71o+M6nzniMgKU85sk92jo0lp1ElvbUFhWQpIJN1ftl753Me9Xn95i643PaMMtAiVipIkBx7rXyZXqhVOAY0c3C6cIkKyYE+byAHrQGfxwws3aJIpMuW7vP8sr3mPcOLIfCUgGDEcXE2QsyXndpQk3ayyDoA+uv1T0lCJGFSynknXKHqRCpxPygIB7ifxvLgizj+LlwqExvsJXbk1B8JrmpFUIAFgD7Ha9UFNb7RFDprgsqAZC8UMXoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aCUfwszkc2ji9av5LWfRswQxfBxaJvXYrooBDm4dw3o=;
- b=xBWLrgPXJlI+LIVYKL29gVeNspqOIsXPBVLSVaVoiBKMXG9e6Rqa3AOw8frWb6AFUkEs6SI9beELcvTtVu6AkW4Jw1dua9Uy8T9wJtU5SAeUMKB4lsAzdnLcGvgIhG4VEK2Ow0MW/DyrpWOtFEOH9uXEyzU+nmmAPCAK8jZedrrusRUOB4OagQJZoZ3QS3ybm+e7nub1UULxXixQNxALjgUplXImHVgu7zYc/D4kgZXq8VT93Ck1lUn45Eoa+L4CWH9sJRA4kVNFZt4AO2CVNSHyputmr99AR2CZBP1hl1Csbit9X/FBBix4RWPa0KEHxxvp4fHTnWus06Q3PnE46Q==
+ bh=pigG3CYwBiZcEt6P4r2C72bN16do2Rco2nEITwATTpU=;
+ b=rO8QRt2aSSKH2ZFBMr/EvoaXhzRnbJt7VquyBXc5cx8UcOjXgJhlT+gYwxlgaQWsN3eqRipHuV8m/0iwk8URhsE1JtL7SBdSZo57PYqY3cnYARiAjIo7NRkyVXOFpd5ZGgh1PhZo68eSOzjC1pVU5wTTXgi7pXrWlla+dGlzeilWvbIREhBnAx7C5HlW4Kazd5MXVjRtNcvxouCA6xk4FQ2JMrT05p/KGvA/4jaPwMIj0HdZMuGH1BIqLvTYibnvg2MtHidjk8DZ2t8vtcSlFsYdEmf5/A2Osa0HWcCLsJuVOKR02nKf6fUBxMGCPRLtS4nYKGf6wGKosvfuCXgLAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aCUfwszkc2ji9av5LWfRswQxfBxaJvXYrooBDm4dw3o=;
- b=ywYtRi2Y8RFSdcySRcKaA6UBtDsH/jILdW1v7zJz3NPpu+LFif6RlnXK4bFWC0swGLOAvXEg3vAreo0rb9kkjKKDwR4kPpLCKSdiBPWmOW5P65tPH2Y+oRuhyVhMtq4tkgKAO5ayTFpxH2AGAOC5xRNTT4wvRSJ9nb9jwrZTKmc=
-Received: from BLAP220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::8)
- by IA1PR12MB8360.namprd12.prod.outlook.com (2603:10b6:208:3d8::12) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=pigG3CYwBiZcEt6P4r2C72bN16do2Rco2nEITwATTpU=;
+ b=CXn1w1oAizIpGC4xNbcegyBdDhuXBW6r8kyIbN1EqM5tVAUFEwL+NZ3eUpLTbEjcVhnYeUqG3p3fbKRDdPYzgbwGzk7l3DeIMiYcpnYBYgthyrG2UKtnYQAZ4Wa8RFDsXU8kQRKz8O5Qld9G8MrQvUHFswRLlrV53yQuz/cGCCA=
+Received: from BN9PR03CA0265.namprd03.prod.outlook.com (2603:10b6:408:ff::30)
+ by MN2PR12MB4126.namprd12.prod.outlook.com (2603:10b6:208:199::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 11:40:48 +0000
-Received: from BN7PEPF0000009D.namprd04.prod.outlook.com
- (2603:10b6:208:32c:cafe::2d) by BLAP220CA0003.outlook.office365.com
- (2603:10b6:208:32c::8) with Microsoft SMTP Server (version=TLS1_3,
+ 11:41:12 +0000
+Received: from BN7PEPF0000009C.namprd04.prod.outlook.com
+ (2603:10b6:408:ff:cafe::1c) by BN9PR03CA0265.outlook.office365.com
+ (2603:10b6:408:ff::30) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 11:40:48 +0000
+ Sep 2026 11:41:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF0000009D.mail.protection.outlook.com (10.167.248.149) with Microsoft
+ BN7PEPF0000009C.mail.protection.outlook.com (10.167.248.148) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:40:48 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:41:12 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:40:47 -0500
+ 2026 06:41:01 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 06:41:01 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 8 Sep 2026 06:40:34 -0500
+ Transport; Tue, 8 Sep 2026 06:40:48 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -68,10 +72,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, James Lin <pinglei.lin@amd.com>, Chenyu Chen
  <chen-yu.chen@amd.com>
-Subject: [PATCH 46/66] drm/amd/display: Attach only plane updates that
- actually changed
-Date: Tue, 8 Sep 2026 19:31:39 +0800
-Message-ID: <20260908113338.2433445-47-chen-yu.chen@amd.com>
+Subject: [PATCH 47/66] drm/amd/display: Request DMUB HW cursor offload
+Date: Tue, 8 Sep 2026 19:31:40 +0800
+Message-ID: <20260908113338.2433445-48-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908113338.2433445-1-chen-yu.chen@amd.com>
 References: <20260908113338.2433445-1-chen-yu.chen@amd.com>
@@ -80,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF0000009D:EE_|IA1PR12MB8360:EE_
-X-MS-Office365-Filtering-Correlation-Id: d11088f5-3f14-494c-f3ca-08df0d9e071f
+X-MS-TrafficTypeDiagnostic: BN7PEPF0000009C:EE_|MN2PR12MB4126:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52c002c2-7388-44e5-edbd-08df0d9e15a0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|22082099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: rtILKyndfKF7Ji9pgOo+6LKowvlSPscJvcKE0GX4pF7iFyB7lKU8My69Yeqxo/CfzUIB+7d1FmvUsvTTf7ji3023wQn4s7p0LNv84wTHiKzy/15JNAqoM9xrcjArABwMm4IjjhzE+HuHUTnbuaB1hJS7f0YbP2aUxEn4kQ1hCSZZIx13yG6kAjBsM3PNXXdVfpOoi2vGIjMIHxAUKRC9gMvRdudc5XJnrl/DXK4LfO/sby0VWOQPX5O+QuyMHhbNi0NHkLQnGasULoA4TuCL0m2oE8RwUtINwznaxSIs/HSX2L0QYky72EC/YuxydgXdDRR6KzajNj0BSu9YLuZ8nweYF+G6WNXA1KmGqzC9A/TXqDCfPBRXgAjp307th3iCQoMr3rcZqcSSOds5hXkPupjnTgiOLPYMCNDvVWjylUyHXxmCbP7qZrZkQU8A5N+3HioYvGeKYSfdtmhilCZ5KTWrn7NAPPWEmRk+H9G+gconCffyQZq/EW3ziwjV/Bq6pRsvQf0J2x8aSKwjpbwybDrQXoKUTQYxH4/gAzoYM+cyLZ6v2H71/uupo5yvkyVF9KtBDyatWqU5MhR6YCAYlj2sEYqnaJx1Tmpnhh///0ETgxSuyt8bJ1or5maw6QaB8MTTtL17fAKJJ6ZPH+NS4rYXFXAAJUMbsEdX4WMD8igWXNbzFrg1HkdhHuWMPlG6Hu8iY367U7sb0M4qMD+VcA==
+ ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: cl5c5/+SR5xTIO2xW6+vV7cp87koG49Txnce2HU0BK5bSuGDTLoz3NSvetTGfii2ZJAkYLS2E9KT0b8PgqjG+knCRq2qoTR/WW3yNa4Q3SPwFUIdbu2q9jLgNyP3ivIYMuI4rFkUbIZCSjBOpdLazWHKb0TaINnLxb12KNVGPga6fpxindEpd3/ZpevjnkErZIOHhLUQCvqW6TIdpfS1H0vS6x/ypI3tKmfoK43rExQ4x6qf5bJMncoTYmGczJZXhvC2vzBJhyVs1Xodv7pglRW5+gZ5YSBfafhxm2P60z/VnuFyiv9Lm/XUqJSnHL45LT8CWt1w0jyWlyyzbKqtp4Yq1PR6vPnxst0gOB0CfuoSEU4235RYBqtMr6oueKR5pzh3mVYFKuWvofK/4OJzqIxY9PM08gkxnTGfiMIAJ6WFq54T3xvrgS9NbDUGVaDszQ5FgCS84BFNrjXlRDvKEckfCY2E/xV55UgDk0yK8CkskeDof0t1w528y1gGRk1KHpbpD8/VXP4j48BCtglZ2l1no0vqG1n5U2PxEfsmVPKbXjekGmjUeARiLh46d50hc9yxn0A+NuwevFmUz8thmM8E72pa2WuDWO9rAlfRgJuB/iFNRrf0gjg72lFFvMvrN8XwX1U2hBndU4Hj344cMH0AjtVmcLFVxHjIZk0XKRH/am+4PVDOh8EEInQuFQp+PBd6uu5if7qcWs7IC7SgCA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jgjG2+x6K5j2VhwqOj48wI/d4W1z/pdyEkx+K207KDJXmTbLonozccDO0SVJH3NZ36JH52OA6aBOOm8jDV3SJXVuf4qP3NqSsrA6VBU9P2Dd9nSjujF7hZJbXHjn2+Y6x0aNZrYGDMHE7SUQRAth3CGwG/crWl7fKxBBbD0eXp0NNJ3/Ju3q36Zy7Y2pgWGZxvlcPw/ZYpID8cW0VqvgxhR/AH5QVRU11ZYYEstcarJUhNHlu1SG0Ue8jOhBdys2fXANtHI5hd1J0/MTiikOxaITY9GqkqEUzwqNC/KYANH9+0MSitL+MDIVTKNKJnqNhJ2oo1Ph5Z9PmwBuyU8nio8/IF6BU8aOyyIApm9++PoluJaoH/kOiqWure8keNX60OcbMC4EUspQ32JigHoi74h5g2Q2xKAxq/4fUgSpUAhP1w2VVBV3kZNKS9bwgEtw
+X-MS-Exchange-AntiSpam-MessageData-0: YLsHMdD9ij3J4PmiY2aczvX6PlCkS6KXI4vzgPU4IUw+9mgAERFefZtyNHl7gAtF9bVIXiN68h1ocVhXIitGAx1iP+3azklrL6VOCyEhblzkSHp8vwPilwF8I7+wa+m4AJwtIn51TAzzAFRhe5vWzrBC9Z3WXN2vyJaot5NnADa/ZXir5j0TuMsXqz59mguFJxj8O/Idb/I3MndBOMxVkvPeFoYkq3aad+ZuAwmErP1336dgR10YwtRDGdilvcBACgX/isGtnknXV7oSU/pTKHYYSuWTaLN1CaI5M7YwobhEavQKNnExQYW0AU5h9x0pEXO0aAc5DGpXo/kbBfZb/v2K70NULjA4jIkxXkzsz8e32uHbQ53TV4G/VtO8g06SrCHlfkSArQAE7YEMivr6bzqDV+NuJKooGc+MVDtcy6zAqpVv8Iwv7GmfHp+xZJ9E
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:40:48.5042 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d11088f5-3f14-494c-f3ca-08df0d9e071f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:41:12.8244 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52c002c2-7388-44e5-edbd-08df0d9e15a0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF0000009D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF0000009C.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8360
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4126
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,248 +123,69 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: James Lin <pinglei.lin@amd.com>
 
 [Why & How]
-Cache the last programmed dc_flip_addrs/dc_plane_info/dc_scaling_info in
-dm_plane_state and carry them across atomic_duplicate_state. In
-amdgpu_dm_commit_planes() attach each flip_addr/plane_info/scaling_info
-surface update only when it differs from the cache (memcmp), so an
-address-only flip sends no plane_info/scaling_info update and stays on the
-FAMS2 offload path.
+Request cursor offload in dc_config and initialize it after DMUB is up
+(dc_dmub_srv_cursor_offload_init), which self-gates on the firmware
+cursor_offload_v1_support capability, so cursor programming no longer takes
+the inbox0 lock on alt-in-use streams.
 
 Reviewed-by: Leo Li <sunpeng.li@amd.com>
 Signed-off-by: James Lin <pinglei.lin@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 43 ++++++++++++++++---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 14 ++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 32 ++++++++++++++
- .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    | 21 ++++++++-
- 4 files changed, 101 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c      |  9 ++++++++-
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3ed0d8014d21..9c7fdd2844e5 100644
+index 9c7fdd2844e5..24cd21a39690 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3923,6 +3923,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 		bool plane_needs_flip;
- 		struct dc_plane_state *dc_plane;
- 		struct dm_plane_state *dm_new_plane_state = to_dm_plane_state(new_plane_state);
-+		struct dm_plane_state *dm_old_plane_state = to_dm_plane_state(old_plane_state);
+@@ -608,6 +608,13 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
  
- 		/* Cursor plane is handled after stream updates */
- 		if (plane->type == DRM_PLANE_TYPE_CURSOR &&
-@@ -3957,11 +3958,22 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 			bundle->surface_updates[planes_count].cm = &dc_plane->cm;
- 		}
+ 	init_data.flags.enable_mipi_converter_optimization = true;
  
--		amdgpu_dm_plane_fill_dc_scaling_info(dm->adev, new_plane_state,
--				     &bundle->scaling_infos[planes_count]);
-+		if (amdgpu_dm_plane_fill_dc_scaling_info(dm->adev, new_plane_state,
-+							 &bundle->scaling_infos[planes_count])) {
-+			planes_count += 1;
-+			continue;
-+		}
- 
--		bundle->surface_updates[planes_count].scaling_info =
--			&bundle->scaling_infos[planes_count];
-+		/* Cache the newly computed scaling_info in the plane state */
-+		*dm_new_plane_state->scaling_info =
-+			bundle->scaling_infos[planes_count];
-+
-+		/* Only send a scaling_info update if it changed vs the old state */
-+		if (memcmp(dm_old_plane_state->scaling_info,
-+			   dm_new_plane_state->scaling_info,
-+			   sizeof(struct dc_scaling_info)))
-+			bundle->surface_updates[planes_count].scaling_info =
-+				&bundle->scaling_infos[planes_count];
- 
- 		plane_needs_flip = old_plane_state->fb && new_plane_state->fb;
- 
-@@ -3982,8 +3994,16 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 				 new_plane_state->plane->index,
- 				 bundle->plane_infos[planes_count].dcc.enable);
- 
--		bundle->surface_updates[planes_count].plane_info =
--			&bundle->plane_infos[planes_count];
-+		/* Cache the newly computed plane_info in the plane state */
-+		*dm_new_plane_state->plane_info =
-+			bundle->plane_infos[planes_count];
-+
-+		/* Only send a plane_info update if it changed vs the old state */
-+		if (memcmp(dm_old_plane_state->plane_info,
-+			   dm_new_plane_state->plane_info,
-+			   sizeof(struct dc_plane_info)))
-+			bundle->surface_updates[planes_count].plane_info =
-+				&bundle->plane_infos[planes_count];
- 
- 		if (acrtc_state->stream->link->psr_settings.psr_feature_enabled ||
- 		    acrtc_state->stream->link->replay_settings.replay_feature_enabled) {
-@@ -4038,7 +4058,16 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 
- 		timestamp_ns = ktime_get_ns();
- 		bundle->flip_addrs[planes_count].flip_timestamp_in_us = div_u64(timestamp_ns, 1000);
--		bundle->surface_updates[planes_count].flip_addr = &bundle->flip_addrs[planes_count];
-+		/* Cache the newly computed flip_addr in the plane state */
-+		*dm_new_plane_state->flip_addr =
-+			bundle->flip_addrs[planes_count];
-+
-+		/* Only send a flip_addr update if it changed vs the old state */
-+		if (memcmp(dm_old_plane_state->flip_addr,
-+			   dm_new_plane_state->flip_addr,
-+			   sizeof(struct dc_flip_addrs)))
-+			bundle->surface_updates[planes_count].flip_addr =
-+				&bundle->flip_addrs[planes_count];
- 		bundle->surface_updates[planes_count].surface = dc_plane;
- 
- 		if (!bundle->surface_updates[planes_count].surface) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index c99a84bb040e..d2b1a63c99a5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -937,6 +937,10 @@ enum amdgpu_transfer_function {
- 	AMDGPU_TRANSFER_FUNCTION_COUNT
- };
- 
-+struct dc_flip_addrs;
-+struct dc_scaling_info;
-+struct dc_plane_info;
-+
- struct dm_plane_state {
- 	struct drm_plane_state base;
- 	struct dc_plane_state *dc_state;
-@@ -1006,6 +1010,16 @@ struct dm_plane_state {
- 	 * applying blend LUT.
- 	 */
- 	enum amdgpu_transfer_function blend_tf;
-+
-+	/* Cached per-plane surface descriptors kept in the DRM plane state.
-+	 * The DRM atomic old/new state swap lets us compare the previous
-+	 * commit's values (old) against the newly computed ones to detect a
-+	 * real plane change (vs an address-only flip) so DC only gets a
-+	 * scaling_info/plane_info surface update when it actually changed.
++	/*
++	 * Request HW cursor offload so DMUB programs the cursor; cursor
++	 * updates then avoid the DMUB inbox0 HW lock during mclk switches.
++	 * dc_dmub_srv_cursor_offload_init() self-gates on FW capability.
 +	 */
-+	struct dc_flip_addrs *flip_addr;
-+	struct dc_scaling_info *scaling_info;
-+	struct dc_plane_info *plane_info;
- };
++	init_data.flags.enable_cursor_offload = true;
++
+ 	init_data.dcn_reg_offsets = adev->reg_offset[DCE_HWIP][0];
+ 	init_data.nbio_reg_offsets = adev->reg_offset[NBIO_HWIP][0];
+ 	init_data.clk_reg_offsets = adev->reg_offset[CLK_HWIP][0];
+@@ -725,6 +732,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
  
- enum amdgpu_dm_cursor_mode {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 23054952a6f6..7f85ef395013 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -33,6 +33,7 @@
- #include <drm/drm_fourcc.h>
+ 	dc_hardware_init(adev->dm.dc);
  
- #include "amdgpu.h"
-+#include "dc.h"
- #include "dal_asic_id.h"
- #include "amdgpu_display.h"
- #include "amdgpu_dm_trace.h"
-@@ -1806,6 +1807,18 @@ STATIC_IFN_KUNIT void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
- 	if (!amdgpu_state)
++	/* Enable cursor offload if the DMUB firmware supports it. */
++	dc_dmub_srv_cursor_offload_init(adev->dm.dc);
++
+ 	/* GOP/vBIOS may leave an OPTC enabled for a display present at power-on
+ 	 * but no longer driven (e.g. an external DP unplugged at boot). Such a
+ 	 * dangling pipe keeps DCN out of idle and blocks s0i3. Power it down
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index e23137034130..1e7071f8d53f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -1211,9 +1211,16 @@ void dc_dmub_srv_subvp_save_surf_addr(const struct dc_dmub_srv *dc_dmub_srv, con
+ void dc_dmub_srv_cursor_offload_init(struct dc *dc)
+ {
+ 	struct dmub_rb_cmd_cursor_offload_init *init;
+-	struct dc_dmub_srv *dc_dmub_srv = dc->ctx->dmub_srv;
++	struct dc_dmub_srv *dc_dmub_srv;
+ 	union dmub_rb_cmd cmd;
+ 
++	if (!dc || !dc->ctx)
++		return;
++
++	dc_dmub_srv = dc->ctx->dmub_srv;
++	if (!dc_dmub_srv || !dc_dmub_srv->dmub)
++		return;
++
+ 	if (!dc->config.enable_cursor_offload)
  		return;
  
-+	amdgpu_state->flip_addr = kzalloc_obj(*amdgpu_state->flip_addr);
-+	amdgpu_state->scaling_info = kzalloc_obj(*amdgpu_state->scaling_info);
-+	amdgpu_state->plane_info = kzalloc_obj(*amdgpu_state->plane_info);
-+	if (!amdgpu_state->flip_addr || !amdgpu_state->scaling_info ||
-+	    !amdgpu_state->plane_info) {
-+		kfree(amdgpu_state->flip_addr);
-+		kfree(amdgpu_state->scaling_info);
-+		kfree(amdgpu_state->plane_info);
-+		kfree(amdgpu_state);
-+		return;
-+	}
-+
- 	if (plane->state)
- 		plane->funcs->atomic_destroy_state(plane, plane->state);
- 
-@@ -1827,6 +1840,21 @@ amdgpu_dm_plane_drm_plane_duplicate_state(struct drm_plane *plane)
- 	if (!dm_plane_state)
- 		return NULL;
- 
-+	dm_plane_state->flip_addr = kmemdup(old_dm_plane_state->flip_addr,
-+		sizeof(*old_dm_plane_state->flip_addr), GFP_KERNEL);
-+	dm_plane_state->scaling_info = kmemdup(old_dm_plane_state->scaling_info,
-+		sizeof(*old_dm_plane_state->scaling_info), GFP_KERNEL);
-+	dm_plane_state->plane_info = kmemdup(old_dm_plane_state->plane_info,
-+		sizeof(*old_dm_plane_state->plane_info), GFP_KERNEL);
-+	if (!dm_plane_state->flip_addr || !dm_plane_state->scaling_info ||
-+	    !dm_plane_state->plane_info) {
-+		kfree(dm_plane_state->flip_addr);
-+		kfree(dm_plane_state->scaling_info);
-+		kfree(dm_plane_state->plane_info);
-+		kfree(dm_plane_state);
-+		return NULL;
-+	}
-+
- 	__drm_atomic_helper_plane_duplicate_state(plane, &dm_plane_state->base);
- 
- 	if (old_dm_plane_state->dc_state) {
-@@ -1946,6 +1974,10 @@ STATIC_IFN_KUNIT void amdgpu_dm_plane_drm_plane_destroy_state(struct drm_plane *
- 	if (dm_plane_state->blend_lut)
- 		drm_property_blob_put(dm_plane_state->blend_lut);
- 
-+	kfree(dm_plane_state->flip_addr);
-+	kfree(dm_plane_state->scaling_info);
-+	kfree(dm_plane_state->plane_info);
-+
- 	if (dm_plane_state->dc_state)
- 		dc_plane_state_release(dm_plane_state->dc_state);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index a39c0acad6f7..9f9d99e1b47a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@ -2977,7 +2977,7 @@ static void dm_test_plane_reset_initializes_state(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, new_state->shaper_tf, AMDGPU_TRANSFER_FUNCTION_DEFAULT);
- 	KUNIT_EXPECT_EQ(test, new_state->blend_tf, AMDGPU_TRANSFER_FUNCTION_DEFAULT);
- 
--	kfree(new_state);
-+	amdgpu_dm_plane_drm_plane_destroy_state(plane, &new_state->base);
- }
- 
- /**
-@@ -3000,6 +3000,14 @@ static void dm_test_plane_duplicate_state_copies_fields(struct kunit *test)
- 	KUNIT_ASSERT_NOT_NULL(test, plane);
- 	KUNIT_ASSERT_NOT_NULL(test, old_state);
- 
-+	/* duplicate_state kmemdup()s these, so the source state must own them. */
-+	old_state->flip_addr = kunit_kzalloc(test, sizeof(*old_state->flip_addr), GFP_KERNEL);
-+	old_state->scaling_info = kunit_kzalloc(test, sizeof(*old_state->scaling_info), GFP_KERNEL);
-+	old_state->plane_info = kunit_kzalloc(test, sizeof(*old_state->plane_info), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, old_state->flip_addr);
-+	KUNIT_ASSERT_NOT_NULL(test, old_state->scaling_info);
-+	KUNIT_ASSERT_NOT_NULL(test, old_state->plane_info);
-+
- 	old_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_PQ_EOTF;
- 	old_state->hdr_mult = 0x123456789ULL;
- 	old_state->shaper_tf = AMDGPU_TRANSFER_FUNCTION_IDENTITY;
-@@ -3016,7 +3024,7 @@ static void dm_test_plane_duplicate_state_copies_fields(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, dup_state->blend_tf, AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF);
- 	KUNIT_EXPECT_NULL(test, dup_state->dc_state);
- 
--	kfree(dup_state);
-+	amdgpu_dm_plane_drm_plane_destroy_state(plane, dup_base);
- }
- 
- /*
-@@ -3067,6 +3075,15 @@ static void dm_test_plane_duplicate_state_copies_resources(struct kunit *test)
- 	kref_init(&dc_plane_state->refcount);
- 	old_state->dc_state = dc_plane_state;
- 	dm_test_attach_color_blobs(test, &adev->ddev, old_state);
-+
-+	/* duplicate_state kmemdup()s these, so the source state must own them. */
-+	old_state->flip_addr = kunit_kzalloc(test, sizeof(*old_state->flip_addr), GFP_KERNEL);
-+	old_state->scaling_info = kunit_kzalloc(test, sizeof(*old_state->scaling_info), GFP_KERNEL);
-+	old_state->plane_info = kunit_kzalloc(test, sizeof(*old_state->plane_info), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, old_state->flip_addr);
-+	KUNIT_ASSERT_NOT_NULL(test, old_state->scaling_info);
-+	KUNIT_ASSERT_NOT_NULL(test, old_state->plane_info);
-+
- 	plane->state = &old_state->base;
- 
- 	dup_base = amdgpu_dm_plane_drm_plane_duplicate_state(plane);
 -- 
 2.43.0
 
