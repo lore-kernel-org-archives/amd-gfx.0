@@ -4,96 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51B73C79F82
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:24:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83CF4C79F99
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 19:36:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E09FB10ED30;
-	Tue,  8 Sep 2026 18:24:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7FA510E165;
+	Tue,  8 Sep 2026 19:36:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gQ5dv6N9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oO97p0br";
 	dkim-atps=neutral
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
- [74.125.227.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C673D10ED2C
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 18:24:36 +0000 (UTC)
-Received: by mail-vs2-f12.google.com with SMTP id
- ada2fe7eead31-781d5818297so127964137.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 11:24:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788891876; cv=none;
- d=google.com; s=arc-20260327;
- b=PZOS63Tk3/W/4xqxh4zrNgx5PgPTmBvmlxRfkMYqsryWoplgrs61TWwPO7dk6BleZ3
- MHxJYs8Moe0FnTg/x7utwXADug5uTilSEaQsk+tdTD6QSsbX0kdpRdsjLwWDzijDe1kL
- 95++VAnWP1IrpuieJLy1zd0J0sNjgG/2hWOAbONlLw0mR6x8P/F2rHHNfPNzmtI6/N2O
- TAJXzKxGK6tbXVYRGvT0SBISr12QHS4B+GvtGVqSyixkVtkk82BAnDta02HYs0k7E1Rk
- 7kfRfOnDLdtqYrMYOVGQVCcK5+KPJnxrVr+xH55nVcAW9mQMVXwwa7+HlYAp4e6g7vTS
- cYWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=7dDlt7A15+D8kvp+wdkvNLV3QYDahtH6TWhi9Cb0jpE=;
- fh=qY2gmIBjRXzVRx1Crrxqj9gwq1af1SsGKBPLsDnuKf8=;
- b=p7897AvWpKuu4rE0y1z57ccFUv7FtVm+0dHWLub5tXBu57NiPGbjtfN4ung9I6Uhnk
- Y+KJupLAsAb7h9Rc5zqA+Q4zkbEBUzVwrrJUiYzw/rQYhZlT0gNJfHBwFY1xmahtC5qA
- NmLHvd07fl9qqtgaNCBXZ2zLkJm9FjD/O9zbYJf6zrVvpgJINN3c5SpvCJoWYHAieEWs
- 3Sfcw9mg47EcK9lU1OwfriQ4tvScUWZWQCFExl4Nc139KUlN+7q4PnVrLc11H9q9dRPg
- xFzBP6Bh5DXMBY2J9tU4BhZkaMdM7exB9nAko59U5X6E870C7cwrXl3nn6ardCAY2rtX
- udfQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788891876; x=1789496676; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=7dDlt7A15+D8kvp+wdkvNLV3QYDahtH6TWhi9Cb0jpE=;
- b=gQ5dv6N9pc0XQ5qNgGzneDhKKPMqpcc1iXj+R6xvK8DCbm/JmJYZv7pL9TEfnfYTwx
- y5eA1TjRXu1D6y7Z3LWdFzgJnhZ8gjwNfiYGpL8HrZeUm2sranRvE5OD77QOmQcXM1MU
- fhCn+XZAXrBuY9ZJMdRKVbV5gR3II/AeU2F7mbQsHmz6awlC1EBIYNBukeorS59goONR
- exiORASbBIcD/K1JtgX/cjfH85IFE3Pk06osVrK4mjQ/OSJUQGXR8TeYUhgz6v5JEHtG
- PdvtlxLfnXp/reKD9kFqTwW8fP1YC4P3/fazB+NzjVJhKlLhdodLVyEFPxsQzAmM4o1m
- yoFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788891876; x=1789496676;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=7dDlt7A15+D8kvp+wdkvNLV3QYDahtH6TWhi9Cb0jpE=;
- b=bC4IlblQ3FUwJPpHbA6yN2K2KMVgHWIdcYq1msWHXe7a0Q7HBc3Ipi7MGGsDNuqgRK
- LhuDWbu/TqZ9pQD3hcA2neSVGts5Iuls79+mlltNmv34XIEjQdjc8Lbi7u+jvLeTpO/f
- 0kZ1pXMuvKtTzcW1jTI0jdoEOFKpXv2LtBjGNXZ714VvOBEOO0XYrMLMcUEKrI9+1YsM
- jO+AkWelAmpKR+YX6MHE/2JpNYHk7Vb/0VkEhjWJHWPc7aZuyn6OV5HLsT6jSKDRIa8K
- phqWGbV06g+1T8zbFODM4Zq8mKi48SEK5zYfesayUcQekVN7J2DG6559Nzafs/QRu68M
- /VAg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxrxYH9TnfoQO/UmfsuM8Qvcdx1OsRuK7Tr5YqkyAFmzmcu3QlqFxmCMlWg/3EH7jnCDbn8kJX/@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n1PwcuPmov51ma0X5EU1T/hRDT+xJjM03LGjWK/u/AT7jyEbl/
- Fe6Ca5p/2hjGXCt29zITRHEBIVFmF2obGJt/Y/wA+EFo8sJx9Vj5mGhp91I0OV9ed4Lq959/mW5
- mvoq4QELa3qoZEx+AzCmTvgOUhJW8+vs=
-X-Gm-Gg: AYBFou2ZOBGfqjxtkFBfc5D5dwpLYmnPWtUfd9MKdfs6wt8ZMiFmKQQk3iadHL2yuti
- Zw3pjeZqTEINabiA2qDJ4coisYqUunxoa5EpQb40jWSnJei64ZRcIQMASospAgnPoq7P+jIneWq
- uc4bgadAVJPhVYL2Q0JyVAsycSlu4tEdxZ7KYQc6O5YxgvNrkJrSBiNvEkPxkJMjq1s4eyRN3P+
- Hr1oJfe/+cKwDbT8W4mu5Z3zx3kALvG1/jTKKSISWZDd458OQTwkKtRyIsRMnxqf1ySvsc8WGWI
- tRUM5PQH1ioh6rbUb3I1zBL/UQd7czyhVkh8a9IG/ci8vyB5VBk3Mpo7FkCAvODffS6+g/96pbb
- X5zgFejlArV5q1iHAJerHD8guUcjD+FZ6pOdtIp4vxF4=
-X-Received: by 2002:a05:6102:390b:b0:784:a169:1925 with SMTP id
- ada2fe7eead31-78a60f2f87fmr3978548137.2.1788891870816; Tue, 08 Sep 2026
- 11:24:30 -0700 (PDT)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012050.outbound.protection.outlook.com [40.107.209.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3490F10E165;
+ Tue,  8 Sep 2026 19:36:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nxuLpigCwQEUtGEj/E67AmDUgGXz3WIYXKmHmQaHRt9Iy8fIZTvhnT+7uVSCvUYiSz1sYgWpOniB5Wsj5QFWdUK38KU+TtPFyHGuGekep7SKrAadGO1MEmxhDs2dZERsDltS/0+M8Uzr1yJUgpiG1bUfqE3KKK+OEv5Iu+NBOQCYbBYlzBHMfFlCnOR9ehL1EpnYrtZ/hV+QaBCJQbSnXJMjp5rHbzyc5BuPZ6U5V3wztxD56ErQqRJeb4RiZinvQL0Z9WtegbO9//rZ+64kt/mXldNdwWQc0JK48ndCYeS/ttpjpdJraIocPTZty3/XXyvUzouk+DMus6Tm1YMcgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YwjCRdBldOjnZbX82/bhrZGXEzwCiuwHXAc7mUYGVFM=;
+ b=f4iqSh9Ecw/mJdDUMi6jxlgloqSkw+ZwtlhllWoIOojLa4FdDjDXWFi0B6fpIy8vgb7N6MnKDkZ74JSA9neiLG4DtCsaoAt7Gghy60GGvzSgSngeStnkJBo7zm15QPpHzms8hCxStz6nSzr05edBapIEztmBZs6MHaRc0X2S+FRSF70Z1zQFUBydSCQ1MkyyFZh9PKNyJbI2TEDAm8eSNEYsmhGDHl0J2CRw+R5/rAxtimK3A7x96ZansnM0lWJAFOmz/b0srv8iJdR3sSH8iVUxVMEfVEaXk72VQLSfAC0x66Mz/tqkFpFw1ijLrg9CIWcYjq4ZqkRdQRrT+Xff8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YwjCRdBldOjnZbX82/bhrZGXEzwCiuwHXAc7mUYGVFM=;
+ b=oO97p0brlvHs5DPeteskgWbbbbhdJeDw3uTCBQGFfyKCTHZBLnKY3YJw8NwxcKI76l9e771QHbWwjco/r4ZUlxS5ghm3iJZAuBu9VViZ8hIVZd8qrjhi8a7mRfMq7JRQ6/edSnGa0UYsS9EIfHGa8iG2KFaCeLa4BIbd/W+4Evc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by SA1PR12MB8947.namprd12.prod.outlook.com (2603:10b6:806:386::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 19:36:17 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%3]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 19:36:16 +0000
+Message-ID: <0e0dec3b-df41-4e9d-b975-57ff9a3ee856@amd.com>
+Date: Tue, 8 Sep 2026 13:36:14 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] drm/amd/display: Fix HDMI RGB quantization updates
+To: Satyajit Roy <edu042sjroy@proton.me>, amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, jerry.zuo@amd.com, wayne.lin@amd.com, yan.li@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Satyajit Roy <sroy14@alum.utk.edu>
+References: <20260830035120.937992-1-edu042sjroy@proton.me>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260830035120.937992-1-edu042sjroy@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0153.namprd03.prod.outlook.com
+ (2603:10b6:303:8d::8) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-References: <20260905133405.3733-1-williandossantosdeoliveira287@gmail.com>
-In-Reply-To: <20260905133405.3733-1-williandossantosdeoliveira287@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Sep 2026 14:24:16 -0400
-X-Gm-Features: AcwNN1Uk0e4DpddE6Fug7WAF4PUZv3cWBapnLxAt0DlxdiPlRpH65L6MJkBojVM
-Message-ID: <CADnq5_MKbn9CArL+JNT1NLkK0b80CMF4B+yThgbZTHbKS4FByg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gfx8: fix register_list_format leak in
- gfx_v8_0_init_microcode
-To: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SA1PR12MB8947:EE_
+X-MS-Office365-Filtering-Correlation-Id: a48b6258-04c1-47ff-8db5-08df0de0732a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|6133799003|18002099003|22082099003|3023799007|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: NeWH2+hj5uwfIqKLtxN5OnSvQjOqBexnesm+p5emU31ZGJkIdb29EmPeHe2iO/iSbTzT6ThTSiBIOK479wChPXigg2OtET5TH0bjjGxMev1MyQWJz+gcC4Q4F4zxAiJ6bymfVVzLDpe0qwhJh+UoPXuGYXctU6yoWIJXfUYboV7gWC/AOnBYxnC1ik4hsujgVAXQWA+Zj1aNQWgwtwwEpU8l8DuaOJJEjU7Arc2sPqTKkQyOvS/mTwqNhKXF7tfvjHSyL9Ml1QPsehXolx+T8j9JoO/rhXUCWkf4IfbMuhWOwLzWsmpfBM3uwNZchUDW6Klfdg56sn842BdumTSxsjQ8Xf6W9cTosaFzX3WxzLxsxmkLhrkx4Fatwc8BTxhsHl2g64j6qO92a1tR3GE/ZHBwEcpBdAyQJgEqdrcVAjA70/pnmr612SKzuCC8kWNZOX0DHMCq4HFF9b+SfFCQ+UmC1WM/MnhPkDMCXPP1SpW1/OZoyBKpC/jWNkf2sMTGKYfpf7FU6gh4Ee96FniVMTNP2E8w+nXPCTaWHbXOgtktySbJxhcCnMwb9XiaCXtISA6T9rEHjF2Xi8E4OJm6uKZTcj+WgQ9jYtDueG8+29JrLN2lZg2etWYSmMXWTFl9dSbhhJvTocPExWOKjbIijSe2F6h788hoTjZdl4vbjvM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZkJBWjJiYVJtMzRJeFVpSThYUFNRblV1Y1diL2VVdGFndVBLRmFSaHNwSTFi?=
+ =?utf-8?B?cURoVjN6MVJRS2JoRW5ycmlGNW02RjBmUUM3bm5YVGJJOS9NSnlFTEZZc2py?=
+ =?utf-8?B?blhhb3NmNjlRczlVMnJhbld2V1JTbmtTYzYxQzFXQ0d3RVBBRWkweld2VXk1?=
+ =?utf-8?B?VlR2MVR3ZmRaejV6RjRPVWdIWnZUc25VZzlSNEIxcVRaampGekhlU1hUYXJh?=
+ =?utf-8?B?UXlMZm42K25NWkVGdHVuYjVyR09YQTRWTXJwSnVBY0pTQnB5Vi9LMlVBQjFQ?=
+ =?utf-8?B?K1k2Z0o4NzgydVRWSFhaOWJyUlowcHlIa2tHQWc5ZGVZZmIvdy9FcUZtVXhi?=
+ =?utf-8?B?VDBXQy9ieHRZc2I3bTNCcyt5N2hmSitLYjd2a1FxQ2IzLzNiNjRuVXkva1ZQ?=
+ =?utf-8?B?aW1qVEI0SkNhb2VadW01bWlsMzNYdC9RUzhTeWU2ZjBGZzBtanVtdjMvelkx?=
+ =?utf-8?B?YlBKWVF5VUtVTjd5bENvTWllR0FadU1kblc5R0Y0QzRiVjRsRkV5Vjc1Z3Mw?=
+ =?utf-8?B?TGswSW44WEpJYS9vOTUxaEUrSEhxRlorbndubkZLei9wcFAvb2g4eU1XZG1W?=
+ =?utf-8?B?OEtJQk5ObFkxUGJoL3hFWVRqblJ2b2puT3gzVFZ1bnRMNHhnQTNTQXdKeU9t?=
+ =?utf-8?B?bmc5RGQ1M2FNNXVOWXpBQXN0Uzh4ZlF4cHRTbzZBSWFDUEhkNGdxTC9Hcks2?=
+ =?utf-8?B?cUpLZ1A2TkNHRU43SkRsYXJSVWVtcFdWdEZWNTRiSVF5dXRxYTVPYXdDREsw?=
+ =?utf-8?B?UmZROXVpUURPaXlZcGV0OTFiRFFnbDQ3VWlLM3Q2WXBsS3h4MDRlVlVtb2RN?=
+ =?utf-8?B?cTh2TXZ0TEpUNHV0Wm1MOC9rR25zWENCSDl2V01kVjJDSEMzbytpNHBsbk92?=
+ =?utf-8?B?cEtpK0MrRGEyUlZVUmEwSHBlOXJUWHhweCtubzR3SjJCdnBEa1oyRDJhVGRF?=
+ =?utf-8?B?SUxxTkRMNk1PLyt3anRRUTN0N3pJVE8vM21CYkcxdFVKcXZGdGpTSGgvdG9Y?=
+ =?utf-8?B?SDBFcXlSdDg0Qzc1TjdpcTFnQ2ZpMDdpV0NFOTRpSXN1S3FFVDZsMlByZGJh?=
+ =?utf-8?B?WHI3NDlQcDZBOVFTZ28ydGF3S0dqNjFjTFZQaXo3b3NYMTNNQWFQV25adG5S?=
+ =?utf-8?B?MGZzaVYvSnBldVBsb2NhcXdXVW9RK3g0MG9WNVBKTldTSHY4SytFRUFlMGxL?=
+ =?utf-8?B?NmJ6R1hRdkJhUnYxWUg2eGZYeDZGRDBwUGZybmRWR3dKeGNQOE00TTkveUhu?=
+ =?utf-8?B?QmZqQnJZWHFMaFBhY25kb0U0QmV6OEh2Q2tnc0ZyRFRlWTlTSGR4d2dXWnZo?=
+ =?utf-8?B?S3N2QmtvNHNBTjVGckxweDhvaW5Ecnk3ZVF1NTBlazBCR1J6d0I0S1FkZzB0?=
+ =?utf-8?B?Vm5lTlJvNnpmZEFnT3NqeFQxb05zT2tCd0FheWc5Zy9OWUo2MGVpbDFlT05v?=
+ =?utf-8?B?d2JWZ0NZa2loTFRvemNGL3ZKZlhlUG1OczNDeDdXb1dYRXVBV0xybm5paWtp?=
+ =?utf-8?B?WFpTQjdZQ1doU3lYelpkK01ESWhadUVRb1lmUE5XWGQ2Y3MwdnRuSmxKeUpq?=
+ =?utf-8?B?Z0djMGthdFpJa1h4b3JJeVl4RFVCeVJhVERDVnlXWGE5eWh2czNFN2VwcHdO?=
+ =?utf-8?B?WlExcUw0UjdiZ3Mzc0dxcU5EQ1AyU3kvZ1Q5U1dVZDdUZVBnSldLcHdSU2Yy?=
+ =?utf-8?B?eXlhcXk3ZUhla2JNc0NyU0QwSTdVcFk1dWdJUVBFdDUxVTBxSmZ5V1RtMnZs?=
+ =?utf-8?B?UXJaYllkb25JV2U0bnZoWVdwWCs0Rm8yZEEyTW9CY2N3T3dqSmsxS2ZYWUph?=
+ =?utf-8?B?UGl2UGthRnhSTDBDTVZuR0I0Z1dzRGFKdy81aFVTcVZ4S2h0ck5KTVk1djRU?=
+ =?utf-8?B?WGd3M3crN292dDI4aC9BbHZzMzZkSmtoYTBPNDZIT0MzVi9oY3BOTGppS016?=
+ =?utf-8?B?QU01OExOUVRRYXR4K3RTdUJhWmtHR2ppb1VDM2tZYUlHOEIzSTBNdVNBbWg5?=
+ =?utf-8?B?d3V0Z2pkRG9NM0pjNnFyNzVBUTJkeUh0dXp5SmhLWWpxZ05ZUkkwcmM0MkdN?=
+ =?utf-8?B?QXVxbzFLWkxqZm9DdktjbnRGVWpPMXk2b1Zkejc3VWdvU1pJVzAxOWVUKzFt?=
+ =?utf-8?B?NmcxQk5MVzdJc2VBTDhvUzlkOXRmcHNiL0J0WlFFOWFHQlk0b2szMUJYaWE1?=
+ =?utf-8?B?a2hIc2dBS1BOZzB6UFhXcmpQeWV5Z0FMdDNuekMyeENqRmp3MzRzemVUSnZ4?=
+ =?utf-8?B?SnVYSkJrT2swWlkxQVNyeXhIQkJ2VWt5MTVTbGExOTd6L2FtUWQ4bHhUVHZD?=
+ =?utf-8?Q?mkZURcCvLIvRdojknz?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a48b6258-04c1-47ff-8db5-08df0de0732a
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 19:36:16.7902 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RY65mHP2YkEJQ/tXdvF0OdG6hTCjm/H/N/dRIgkHb0L8LQObe4b7s+LnuWAAJcYYggmUzHkxAOagd3OMxSrcAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8947
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,47 +137,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-On Sat, Sep 5, 2026 at 12:00=E2=80=AFPM Willian Oliveira
-<williandossantosdeoliveira287@gmail.com> wrote:
->
-> gfx_v8_0_init_microcode() allocates rlc.register_list_format before
-> loading the MEC firmware.
->
-> If loading one of the subsequent firmware files fails, the function
-> returns through the error path without freeing register_list_format.
->
-> Use gfx_v8_0_free_microcode() in the error path so all previously
-> allocated firmware resources, including register_list_format, are
-> released.
->
-> Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 7 +------
->  1 file changed, 1 insertion(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v8_0.c
-> index 7f91186ef1d1..b213870ecb96 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -1211,12 +1211,7 @@ static int gfx_v8_0_init_microcode(struct amdgpu_d=
-evice *adev)
->  out:
->         if (err) {
->                 dev_err(adev->dev, "gfx8: Failed to load firmware %s gfx =
-firmware\n", chip_name);
-> -               amdgpu_ucode_release(&adev->gfx.pfp_fw);
-> -               amdgpu_ucode_release(&adev->gfx.me_fw);
-> -               amdgpu_ucode_release(&adev->gfx.ce_fw);
-> -               amdgpu_ucode_release(&adev->gfx.rlc_fw);
-> -               amdgpu_ucode_release(&adev->gfx.mec_fw);
-> -               amdgpu_ucode_release(&adev->gfx.mec2_fw);
-> +               gfx_v8_0_free_microcode(adev);
->         }
->         return err;
->  }
+On 8/29/26 21:51, Satyajit Roy wrote:
+> [Some people who received this message don't often get email from edu042sjroy@proton.me. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> From: Satyajit Roy <sroy14@alum.utk.edu>
+> 
+> The Broadcast RGB implementation currently has three gaps in the AMD
+> Display path:
+> 
+>    1. DM does not propagate the sink's RGB quantization-range
+>       selectability into DC, so the HDMI AVI InfoFrame Q field remains at
+>       its default value.
+>    2. BT.2020 RGB output is always selected as full range, so an explicit
+>       Limited setting has no effect in HDR modes using BT.2020 RGB.
+>    3. A property-only range transition updates the output CSC but does not
+>       rebuild and program the InfoFrame, leaving the sink with stale range
+>       signaling.
+> 
+> Together these can make the transmitted pixel range and the range inferred
+> by a television's automatic black-level setting disagree.
+> 
+> Patch 1 propagates the EDID QS capability. Patch 2 honors Limited for
+> BT.2020 RGB and adds KUnit coverage for both BT.2020 connector colorspace
+> values. Patch 3 rebuilds InfoFrames whenever output_color_space changes.
+> 
+> Validation performed on amd-staging-drm-next at the base commit below:
+> 
+>    - scripts/checkpatch.pl --strict: no errors, warnings, or checks
+>    - x86_64 AMD Display KUnit configuration built with CONFIG_WERROR=y
+>    - new EDID-capability and BT.2020 quantization KUnit cases compiled
+> 
+> Equivalent changes were also tested on an HDMI 2.1 television with a
+> Valve Linux 7.2 kernel. The television's automatic black-level selection
+> followed Full-to-Limited and Limited-to-Full transitions in SDR, HDR, and
+> HDR with VRR active. No modeset or visible link blank was observed.
+> 
+> Satyajit Roy (3):
+>    drm/amd/display: Propagate HDMI RGB quantization selectability
+>    drm/amd/display: Honor Broadcast RGB for BT.2020 RGB output
+>    drm/amd/display: Rebuild InfoFrames on output color space changes
+> 
+>   .../display/amdgpu_dm/amdgpu_dm_connector.c   | 10 +++--
+>   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  1 +
+>   .../tests/amdgpu_dm_connector_test.c          | 37 +++++++++++++++++++
+>   .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c  |  2 +
+>   drivers/gpu/drm/amd/display/dc/core/dc.c      |  3 ++
+>   5 files changed, 50 insertions(+), 3 deletions(-)
+> 
+> 
+> base-commit: 75a5e1b6b3661c3f946885d01eebeb6b031035ef
 > --
-> 2.47.3
->
+> 2.51.1
+
