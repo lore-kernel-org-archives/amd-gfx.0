@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B18C5C79FA1
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:42:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EFA6C79FA1
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:43:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E9DC10EB6F;
-	Tue,  8 Sep 2026 11:42:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADA7810EB72;
+	Tue,  8 Sep 2026 11:43:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ylu2ziWA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2MJLoLYy";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013042.outbound.protection.outlook.com
- [40.93.196.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 255F010EB6F
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:42:49 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010014.outbound.protection.outlook.com
+ [52.101.193.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98F0310EB70
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:42:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aHvoBRijKHMju+qlooMcoYthy4fmsq+f7edDiCyb3UYAYK3YK4ErQQTII6n+GBCNKUNouQf63JIfW7IzKt6BoH8gCbGmNM36pRAPpzs30BXqvxdgTciX3Q9Y8ofkiJ5s28DivVLLKpKvKLLYuu7DpTNOh9qOdjyZX2bueReq39WSsK2UQWFswgCJZNWczGYe5N31eA76/g7VWOBSMbsXYujE8i+VhN6kpgWYF4AEbXN+T3Yh9ivwqU/Caqi7cbUf2F6WaeJWNFCViQC1H2W6cB+TE+vBiTe+VAXK8tZw30Y5i5LD9KEa/qWGMmOlhg0THhbfX7VAEplxYmBjgdtJ0w==
+ b=juWO5ehvQytoDzamEfH8tsjKKRsGzwU2AXgvuXX5eFNx/jTpqwQVhQ++eStczkIfu5G1A8wcz4KJW+miwdiQUGphEYyLx+KfsnRD228m/fnRALOsThwf6gRgSteEE+S1M4+DbPshCTuyY8Ty0TYqOHTC4A6sMSZjSwt/Vz4HWExcgNce8tAP1vAEiFHcPaN086ocDzaiqyFTQvC82XfClUSZRS6jCe9JCzQxpTtPf82eH72yocuy+a+ZsIeHyXYQOwrodTP6DnmJ7PHqdMoH1JK+Xj6PZMj3QIvAeGFrFez3mBnNToeAtufRByqOhv3KF0GO6agu13oJx9QRbeDa3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s1P0sqLQYMSIskhiRcRhqt70MaEuuY5lYzdZYmjSIe0=;
- b=fR9+ZuifM1u74Up9bX7zO2BItSrvR+QitWZDiTrea27ccjDbaMs+r82qkasxPWQSq5GehlCCXUWdNNWqu66ms0GUZqGvM8Sh4sxDfs3aLl5+xwVoEqmVkzN1ogvTgD1wYnxn1Esob6V3QC4xKDAViUakOf6RB6tWhnje69a9aSqOHUk8Mmh2U2fIztNPeYKa+85QP0WftpOObNRD8W+lA3OAMEL79YyWhGQCA/UuyqKaAdxIb6FWshRglrn/FNKWXR+lseTC8ZJLOYLViTI5nyGT/hn2J1GuZPXb6bvciTqRq6T+1juTPuooSPDev+OqsphTDpz/vTwQjzuAZZIP0w==
+ bh=vxUWL+m6PXqjXFFsgnSKVJtKUWGZwVrf23HsL6c/QWs=;
+ b=Vj0VrkdsIB++1K2dQXpihPK3DBPOGD0ylIzhMXuV0aXzQYeIdGP+g3jyBGDNSCxdDfc0CgNFiv2xMqzC8S/2jY3lUvpS9L6t61U9QE4wUViOuxzPdBoRU02auCDK2ffZ/vYKK9LFVY0NuiYN3KZAIj0mYzegumdCKjCzOZD2U2V9Ft9mK0pZZ3PKqOijhpHfmKX9pvOre7tXWtZvWYxYrztCFRqs498XLO0S99H37CaMYHTh8t/ZxpooXKa+CioFdA9lg6szKvQeVeHCLcl+/Nods7a7/xIR5u5ND+xWNdw+cNn1MwI5QRfdO3gnUPzk0Z8QOhVfppWu07KC5Jcvyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s1P0sqLQYMSIskhiRcRhqt70MaEuuY5lYzdZYmjSIe0=;
- b=Ylu2ziWAZEYGQpRKjyZnvabNotwVMBfjApnSFGR8nB8zaGzFXtbd34/t9v5RLpL3faYDZkXWej+vFsqygJxNaBL7LBbq7B1M+T1Dh1M7940W4995a4rS70qlcS0IKtDOhLhuUKf6tpVhqtAA4OeLpWmnXoLalKDCeX96iuaYQJg=
+ bh=vxUWL+m6PXqjXFFsgnSKVJtKUWGZwVrf23HsL6c/QWs=;
+ b=2MJLoLYye+EFB2uVU385FqeP5oAg+kW3cURX3zrEvnKw0lJ9Plx+3sXB1eMHV/gwxuMtsVsWk7ifkp0Q+MLT1o4TUlOdnvVf2quSuRMV/35aV4zyNujC/hemJjEvhDTkW11U3/7j+yTNR86z6i9kWpX9mBbSo3SzbZuAUUyq/RY=
 Received: from BL1PR13CA0441.namprd13.prod.outlook.com (2603:10b6:208:2c3::26)
- by DM4PR12MB7624.namprd12.prod.outlook.com (2603:10b6:8:107::11) with
- Microsoft SMTP Server (version=TLS1_2,
+ by CH3PR12MB8658.namprd12.prod.outlook.com (2603:10b6:610:175::8)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 11:42:42 +0000
+ 11:42:53 +0000
 Received: from BN7PEPF0000009C.namprd04.prod.outlook.com
- (2603:10b6:208:2c3:cafe::70) by BL1PR13CA0441.outlook.office365.com
+ (2603:10b6:208:2c3:cafe::82) by BL1PR13CA0441.outlook.office365.com
  (2603:10b6:208:2c3::26) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Tue, 8
- Sep 2026 11:42:42 +0000
+ Sep 2026 11:42:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +51,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN7PEPF0000009C.mail.protection.outlook.com (10.167.248.148) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:42:41 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:42:53 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:42:29 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:42:28 -0500
+ 2026 06:42:37 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 8 Sep 2026 06:42:20 -0500
+ Transport; Tue, 8 Sep 2026 06:42:29 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,12 +67,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Jun Lei
- <jun.lei@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 55/66] drm/amd/display: Add SPDX license identifier to
- dcn30_dpp_cm.c
-Date: Tue, 8 Sep 2026 19:31:48 +0800
-Message-ID: <20260908113338.2433445-56-chen-yu.chen@amd.com>
+ <Chen-Yu.Chen@amd.com>, Gabe Teeger <gabe.teeger@amd.com>, Matthew Stewart
+ <matthew.stewart2@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 56/66] drm/amd/display: Remove MALL capabilities from DCN42B
+Date: Tue, 8 Sep 2026 19:31:49 +0800
+Message-ID: <20260908113338.2433445-57-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908113338.2433445-1-chen-yu.chen@amd.com>
 References: <20260908113338.2433445-1-chen-yu.chen@amd.com>
@@ -85,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF0000009C:EE_|DM4PR12MB7624:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0bb7dc58-bab8-4d29-c046-08df0d9e4ac0
+X-MS-TrafficTypeDiagnostic: BN7PEPF0000009C:EE_|CH3PR12MB8658:EE_
+X-MS-Office365-Filtering-Correlation-Id: cae5526a-db60-4888-342a-08df0d9e51c5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: n8IM0pqznu6AQv1cYmzG5y+bVk9JKzi8O6+Pd295xUasSzfSVbY32jg6Jiz3G39JQwLguKxUm+rnYS99WMTL2/KwlOkM60bhkOz9g8FcB/QE9nSh+6K1acwNnfrdH4s4fDz5YNLVWT1eXYzKuzgcLCDFKgAyAdcudolaUakjq6Qxu3RIP6uQPF2/hbXmiCF3RSqdR3weX+PGPU+n29G8HWP174ipLVdiF2pPzj9cuC10iJLHuZiVJr18YptXBLw+loSRt9sLDf4G5o7wEhVqO0t3A7aMZ1mz5zavOf2uMxa1b3In4Fyp726qAgM82I273Px0+yeBz7LCoyrL6mksk4dyj+vPMU0JoFMTb5Dxa+eFqnAEWQG1Cvc+GJLjf43mQdht/M+YDtzkY8qgAfnYNJ0wcdtugI/SDCrBXYUOYZ8TStDgRbU/JimSrsfCsuNPVoztgei4UGBcAGA9ot4xABqX4fMwX5oSOIz4Ru/HsT8LSm4wKx38uGrJ3QoAf8xVg3Rfl6kdDgslBWm587KU1HlIlL2bet2hjJbcPmpU96TZaM0hDb1ncx83umOYKFXK59Pdo+LtZZZFSe3AhjfjwNH9El822kI/VWioo6Tg69IUQ8upMUQ0rW+XYsgZcJ8PNdMKkO1qkghsBpSJy5fNJ9c3Ak0VlfVdDglpEI0Y/eDEAxZJJC87a44svSsVcqxBzzuNsqLoDmMb6RPfIm2efQ==
+ ARA:13230040|376014|23010399003|82310400026|1800799024|36860700016|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: PY4U9FAyyDGbL7++R+dyLUrCafincrcdgCEWuBAT21v4WQWltkJ39L7B78FCtUFhiNjIp18zg1NM2wMVWTlGaN0AU9oc3S3W/b6UDpX2xvjAUicXCgrypqKgFm9AY2OWZMJL4CUO9A6AF8b0Xz3KRm/FfzXOjniZRuqgQIuM4qBXkth2yY3uE8yxZkn+lkX1oQ+t/ZeLYnrf6pZ63LhQTRsfzQu2Wz9QldsnYUE6RJM3SWId+jl09tM4ncfmvOPEjhq7pm/9ASyaJ2cmIbfisu85Oen+PP2cQMt8lCWBZq7L6OxiJ4zusMQpoFqtxLO9wKw4yOBfR8ep8oKWhnTeQfo/dimbCTGJNYQCt9x+T/e+jPm51lrhs9lc4X4qaJbNKAebCkDK5fiLW2s9HJfLI1pc4u6g1iFM6NdhAL7vlwl50qtFNsRDzjZy50wKxbJ1IgCvEeZdWoQfrI0SVqGT44qFAv+viGJpyTTBO4O+p4/pocmyvq6JrO4SEw1p6h5N4Gaa1x4+hV0USqNlp3trW51sIFHVIAQbwl6JFEWTYlsbz+Xl6ifu7oFd2gx1QqZRxHuil5hV1SC/xsXzeMbUwVZgg7hxxhkvhHofSbXSNv0NXrGNK0hpc0yu6SrRVVTud/G4obvESN8jgQVssHytH1mr1YwmdWUKCISNuWEGXTlVC6bg8w9PbL6XG3w+WpDj
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(23010399003)(82310400026)(1800799024)(36860700016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Mwoj24y7v85pENFKxmyL7/MJa7h6GyuNO86bWBIVqs9bIIfvihvb+zn69bRB+Il4XK7SI1VGkJC0NnQMQR73xKPGFfp8GmViqRQIQVvbtqe4xFMv/BWeu1UErbF55PBmo80Ipcfy099O2VEtdrihDvuE2pY7nTq2m8VGUBbSjEEBBezu88tGH64Fx9TR1j0AmpJCio8/dX/bgNK93ZkYaeuLTyylg0gcgy7LCq/Mq3x3FZuRsZXNcTI8Bckq7NQzepz2MTuNDi6iVrYZBRCZhsQ0JqAXnP/iqA+oBxoEcA9n+SJRoE6HkPbvdpxPmpTHL10slImiUYGpEPYzA+2puYP7lVmGAj928+0s46huHQ3mO+eNoHHjPAZjpyHboXHdUpz1ay8d7VXIMxz730p1wf3QDb5co3cjt7xrExnV7BhsxscVIqrDhb+ofjDOdZOK
+X-MS-Exchange-AntiSpam-MessageData-0: CZcsr63UEDp3hJ++rJ4gm+JBvyq5KzK2DH7TWL7S+/UnS8Sge8H17P5Kk8uJ3lZaixP3hzykMRjpuFPZFic15ZgX0gu76JAqRbNTYrQ+BlA3lx6EhRStqMAjC6nc1c332+SJ7K9z3GiQI2a5F1qZGOmTtps4qWD4+IJaTAjC9Sc9ZQ8ENr4nXpkQ1O6qEIYKL0eCZmLPP3X3nWpcDjOjGOBEPqLse8N8ny/AuXKuUKUQpAOPkfyRqDG6bwQ9RZF8xgUYZ55Mm5BPSpmq4VIMllDvhN3D3U0BFzQzUobXNm+abl/55IvPCC5yfIovzR/Rh03FJJ8DYwb7b0pK9ND6ykKvA4qZjv9iv7IIifs0uQqK6R3jL9gqd905ILop4Hm7Dd+pfKV7zgwWnZ3qH/ahpsCp7Aq65ohswazUgxFtzMpQa9qr3Gf4DY0jew/6nGUh
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:42:41.9600 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bb7dc58-bab8-4d29-c046-08df0d9e4ac0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:42:53.7338 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cae5526a-db60-4888-342a-08df0d9e51c5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF0000009C.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7624
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8658
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,33 +117,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tony Cheng <Tony.Cheng@amd.com>
+From: Gabe Teeger <gabe.teeger@amd.com>
 
-[Why&How]
-dcn30_dpp_cm.c carries the full MIT license text but no SPDX tag. Add
-the SPDX-License-Identifier line so the file matches the rest of the
-tree.
+[Why]
+DCN42B has no MALL, but the resource file advertised MALL and CAB
+sizes. SubVP was also enabled even though its phantom surfaces
+are allocated in MALL.
 
-Reviewed-by: Jun Lei <jun.lei@amd.com>
-Signed-off-by: Tony Cheng <Tony.Cheng@amd.com>
+[How]
+Drop the MALL and SubVP caps, the dml2_options svp_pstate and
+mall_cfg setup, and the add_phantom_pipes and
+calculate_mall_ways_from_bytes callbacks. Disable SubVP.
+
+Reviewed-by: Matthew Stewart <matthew.stewart2@amd.com>
+Signed-off-by: Gabe Teeger <gabe.teeger@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../dc/resource/dcn42b/dcn42b_resource.c      | 45 +------------------
+ 1 file changed, 2 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c
-index 8fe3474411b7..083ab6acb687 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c
-@@ -1,6 +1,8 @@
- /*
-  * Copyright 2020 Advanced Micro Devices, Inc.
-  *
-+ * SPDX-License-Identifier: MIT
-+ *
-  * Permission is hereby granted, free of charge, to any person obtaining a
-  * copy of this software and associated documentation files (the "Software"),
-  * to deal in the Software without restriction, including without limitation
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
+index 092b61b3fafc..b31f8cbd5f4c 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
+@@ -851,7 +851,8 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.minimum_z8_residency_time = 1, /* Always allow when other conditions are met */
+ 	.support_eDP1_5 = true,
+ 	.use_max_lb = true,
+-	.force_disable_subvp = false,
++	/* SubVP phantom surfaces require MALL, which DCN42B does not have */
++	.force_disable_subvp = true,
+ 	.exit_idle_opt_for_cursor_updates = true,
+ 	.using_dml2 = true,
+ 	.using_dml21 = true,
+@@ -1974,8 +1975,6 @@ static struct resource_funcs dcn42b_res_pool_funcs = {
+ 	.get_panel_config_defaults = dcn42b_get_panel_config_defaults,
+ 	//.get_preferred_eng_id_dpia = dcn42b_get_preferred_eng_id_dpia,
+ 	.update_soc_for_wm_a = dcn30_update_soc_for_wm_a,
+-	.add_phantom_pipes = dcn32_add_phantom_pipes,
+-	.calculate_mall_ways_from_bytes = dcn32_calculate_mall_ways_from_bytes,
+ 	.prepare_mcache_programming = dcn42b_prepare_mcache_programming,
+ 	.build_pipe_pix_clk_params = dcn42b_build_pipe_pix_clk_params,
+ 	.get_power_profile = dcn401_get_power_profile,
+@@ -2041,27 +2040,7 @@ static bool dcn42b_resource_construct(
+ 	dc->caps.cursor_not_scaled = true;
+ 	dc->caps.min_horizontal_blanking_period = 80;
+ 	dc->caps.dmdata_alloc_size = 2048;
+-	dc->caps.mall_size_per_mem_channel = 4;
+-	/* total size = mall per channel * num channels * 1024 * 1024 */
+-	dc->caps.mall_size_total = dc->caps.mall_size_per_mem_channel *
+-		dc->ctx->dc_bios->vram_info.num_chans * 1048576;
+ 	dc->caps.cursor_cache_size = dc->caps.max_cursor_size * dc->caps.max_cursor_size * 8;
+-	dc->caps.cache_line_size = 64;
+-	dc->caps.cache_num_ways = 16;
+-
+-	/* Calculate the available MALL space */
+-	dc->caps.max_cab_allocation_bytes =
+-		dcn32_calc_num_avail_chans_for_mall(dc, dc->ctx->dc_bios->vram_info.num_chans) *
+-				dc->caps.mall_size_per_mem_channel * 1024 * 1024;
+-	dc->caps.mall_size_total = dc->caps.max_cab_allocation_bytes;
+-
+-	dc->caps.subvp_fw_processing_delay_us = 15;
+-	dc->caps.subvp_drr_max_vblank_margin_us = 40;
+-	dc->caps.subvp_prefetch_end_to_mall_start_us = 15;
+-	dc->caps.subvp_swath_height_margin_lines = 16;
+-	dc->caps.subvp_pstate_allow_width_us = 20;
+-	dc->caps.subvp_vertical_int_margin_us = 30;
+-	dc->caps.subvp_drr_vblank_start_margin_us = 100; // 100us margin
+ 
+ 	dc->caps.max_slave_planes = 2;
+ 	dc->caps.max_slave_yuv_planes = 2;
+@@ -2449,26 +2428,6 @@ static bool dcn42b_resource_construct(
+ 	resource_init_common_dml2_callbacks(dc, &dc->dml2_options);
+ 	dc->dml2_options.callbacks.can_support_mclk_switch_using_fw_based_vblank_stretch =
+ 			&dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch;
+-	dc->dml2_options.svp_pstate.callbacks.release_dsc = &dcn20_release_dsc;
+-	dc->dml2_options.svp_pstate.callbacks.calculate_mall_ways_from_bytes =
+-		pool->base.funcs->calculate_mall_ways_from_bytes;
+-
+-	dc->dml2_options.svp_pstate.subvp_fw_processing_delay_us = dc->caps.subvp_fw_processing_delay_us;
+-	dc->dml2_options.svp_pstate.subvp_prefetch_end_to_mall_start_us = dc->caps.subvp_prefetch_end_to_mall_start_us;
+-	dc->dml2_options.svp_pstate.subvp_pstate_allow_width_us = dc->caps.subvp_pstate_allow_width_us;
+-	dc->dml2_options.svp_pstate.subvp_swath_height_margin_lines = dc->caps.subvp_swath_height_margin_lines;
+-
+-	dc->dml2_options.svp_pstate.force_disable_subvp = dc->debug.force_disable_subvp;
+-	dc->dml2_options.svp_pstate.force_enable_subvp = dc->debug.force_subvp_mclk_switch;
+-
+-	dc->dml2_options.mall_cfg.cache_line_size_bytes = dc->caps.cache_line_size;
+-	dc->dml2_options.mall_cfg.cache_num_ways = dc->caps.cache_num_ways;
+-	dc->dml2_options.mall_cfg.max_cab_allocation_bytes =
+-				dc->caps.max_cab_allocation_bytes;
+-	dc->dml2_options.mall_cfg.mblk_height_4bpe_pixels = DCN3_2_MBLK_HEIGHT_4BPE;
+-	dc->dml2_options.mall_cfg.mblk_height_8bpe_pixels = DCN3_2_MBLK_HEIGHT_8BPE;
+-	dc->dml2_options.mall_cfg.mblk_size_bytes = DCN3_2_MALL_MBLK_SIZE_BYTES;
+-	dc->dml2_options.mall_cfg.mblk_width_pixels = DCN3_2_MBLK_WIDTH;
+ 
+ 	dc->dml2_options.max_segments_per_hubp = 24;
+ 	dc->dml2_options.det_segment_size = DCN42_CRB_SEGMENT_SIZE_KB;
 -- 
 2.43.0
 
