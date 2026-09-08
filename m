@@ -4,96 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 367B1C79F9E
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 02:33:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B06DC79F99
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 03:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB17510E08C;
-	Tue,  8 Sep 2026 02:33:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7883610E962;
+	Tue,  8 Sep 2026 03:12:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x0aAQCxn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zsy+17/K";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011062.outbound.protection.outlook.com [52.101.57.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24A5B10E08C
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 02:33:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1D0010E0A0;
+ Tue,  8 Sep 2026 03:12:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788837159; x=1820373159;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=5VzLsbaesXAvaFfy/keNnI0bhicEkerfqZaR3gsZLUM=;
+ b=Zsy+17/KFVBjAGwGUpw/+o0fR6lUhwpBv9UVU7pSlq+pTBNmob/6BTH5
+ /bTWJtoZqJ8BEAYKK4weBrNGSGdw6mnaOIllkG+mCReKrOLTCBUHw5qvU
+ ZFnqEonxYgep8x1UTjG5VRy61SjLc1k8NCs+jEDe7+iKsEIlQkpTLjWVv
+ pITe5PjtSz/wxHVR0GOFDCk1jdACygVAMXLsfSdWfAQ90y0lZ3/o+alSc
+ hK6x8St2mdWz3Kd2JB+UAAVCV3PpzrCYmT2NkBa3NDznz7Yvm17BZQyCF
+ s8Hv+GvjJBbnwxuoeNYRVKptwhB21k+//jfdk+wN5/TFWAqhRfrU/WUzm Q==;
+X-CSE-ConnectionGUID: 7dtwQup6TJ+ScVPjxa3c6A==
+X-CSE-MsgGUID: 9PtZcmNsQDuSDKFw1Km70A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99563512"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; d="scan'208";a="99563512"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2026 20:12:38 -0700
+X-CSE-ConnectionGUID: UzMpYxKyRN+TMg+a2Wxd8w==
+X-CSE-MsgGUID: cIwRjYTER1uv4Ycitkq1Vg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; d="scan'208";a="300739854"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2026 20:12:37 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 7 Sep 2026 20:12:36 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 7 Sep 2026 20:12:36 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.32) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 7 Sep 2026 20:12:34 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PjTTorivhqjizik0mMZzbyX2bEHZcFSv1mkFQaH7jJU+bHjhzJILfaxJHxxAf3vHS2zKehbPTTMLKYPxp3bEO30+g2vatp5Uff0DYtBGUYhcsB2EPN5G/3KOoULEA4Sk1BaQUVkQs+YJOAwFLbfQbJwT4OsK3MAS06xBFao6iIE/BrWOurYz43nW2p+3zQsfCZp0tYA2qT7s7vWtFN3jZfE6WfKCBFnsL2NKIDM+KQCV/VlhQgatXa7VXwGbRG90SU2dof+sy9IxGs2GbkHMa14Si64MXygP36Tdeo7n33U79WH9Wg/PsuInl36i5VZGE5NzYmPltOSklxxA8L1RIQ==
+ b=EosUpntDlKce6C4p+bGirZQdJweafPs88weV4FXR/JhluB7Qi5vjOX23sbNdhxje+b7L4n3BHVCYXFT74vtjX1Q2tzE8ZieJHTurqPREshrJRjAjsqEX14lHDz0AzQPirsST9Pxt6ANd8ke+j8tIyDjwil37HLrL9JOoYHK5q6h1hbjlaT4PCWVV1jHUGjoQps/HRB3zI0X9vejxoMEpzeBtVqpLBbsGIcJOL8RSaU4TugqJ7J6vox18L6puGjz0RxJx+NxNv2Odk5ALlpMoIvSuGbybwMY+170ZtkFy7XDLbsMNpnbENJY5qD4YdJG7h/SEILI1BAzrc8uhaOvHwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gFOyOHxCtnvUzuIH0+96E2waCwv162OHO4kHI0uho7s=;
- b=cnsAFJ2az+pSILOuZs9OiLAx/oRrjsbXhTqpSkab9pJEk9HetScXXQkLSAuYStbmgXZqfoTsH14FCDGuQqOjXxFl3DzG6p+s3AmHdwvyggaCGgC3j8NFXDIELL4EVLHC0koqjtfqQtN9t6ZK+C990TkannWY+usO+Gr3xQ0fxW9lOd5A5MhfLpnhjTIZNl3GE2tuxXtZugcAoumAFG1ZJvenq6u1ebo8+lLeGcLuZmxD7Vwp2qywrQ2K8GlubM3AogTg0M22zVSoznRoZJhE79Q47+DTwR/85SWLqcGVhNJXNN1C2bqzI/vrK7q4BP4CqI/c0bAJEcpjFKXAMd0htg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gFOyOHxCtnvUzuIH0+96E2waCwv162OHO4kHI0uho7s=;
- b=x0aAQCxn+zjIKQf1yi4Ihpo3xIY4jgHanCJYP5xk7u+vYg1nTZ80VdHrK3LP2ri7yxxGdBXPBizd0S6v+HZwFc/yzgLZ/ofJs6d6/tDms81p7KWs8vuJ1o1Wsz/VBorfWcL4GfDzBOGVDT0RrynYwNCuY8TpSsstZ9FaYa6kFHI=
-Received: from CH0PR08CA0003.namprd08.prod.outlook.com (2603:10b6:610:33::8)
- by DS0PR12MB8788.namprd12.prod.outlook.com (2603:10b6:8:14f::11) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=GojCxKjQBG7wurwa9LmoVmVrpyfSQSSk2IGpPEY4Nag=;
+ b=tRCB/Q0QtjLKQsx9SAA5D/do98Ejt44dGS2e42UDz0IX12uDHjyqgZIaIA6xMG7n0uJQKXT5nqNWT/SLV9PQpTQRYG1yN5vddP/CyF2326npYslc6AIWkcj03/fzix9569t0OnO3N0TwxbB5x6q+eDzBxRHCJxs5BcvGFasUGH8pkzfrgieU4dxjMVFwRC5RN+DtjQ/aU7xpY+puvROJGtqIeRYYd7NyK5gltlu/mW63luYn9gYttNYDBvtNGa4kgPc2gan+4H+uQJgn1cOkuLXqXYXNxMTg9GaQp2q8+Z2BMgCVcwit2zObQDm9NTRCoNa58asNDS5D1WaQU8K2gg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by SN7PR11MB6969.namprd11.prod.outlook.com (2603:10b6:806:2a9::20)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 02:33:10 +0000
-Received: from CH2PEPF0000009E.namprd02.prod.outlook.com
- (2603:10b6:610:33:cafe::a0) by CH0PR08CA0003.outlook.office365.com
- (2603:10b6:610:33::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 02:33:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000009E.mail.protection.outlook.com (10.167.244.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 02:33:09 +0000
-Received: from pyuan-Chachani-VN.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 21:33:06 -0500
-From: Perry Yuan <perry.yuan@amd.com>
-To: <Alexander.Deucher@amd.com>, <amd-gfx@lists.freedesktop.org>
-CC: <Christian.Koenig@amd.com>, <Yifan1.Zhang@amd.com>, <perry.yuan@amd.com>
-Subject: [PATCH] drm/amdgpu: use ttm_to_amdgpu_ttm_tt() instead of open-coded
- casts
-Date: Tue, 8 Sep 2026 10:32:48 +0800
-Message-ID: <20260908023248.2663780-1-perry.yuan@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 2026 03:12:32 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%3]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 03:12:31 +0000
+Date: Mon, 7 Sep 2026 20:12:29 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Honglei Huang <honghuan@amd.com>
+CC: <sima@ffwll.ch>, <rodrigo.vivi@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <himal.prasad.ghimiray@intel.com>,
+ <dakr@kernel.org>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <aliceryhl@google.com>,
+ <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
+ <Christian.Koenig@amd.com>, <Ray.Huang@amd.com>, <Junhua.Shen@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v4 5/6] drm/gpusvm: keep a single DMA mapping inline for
+ THP
+Message-ID: <ap99HVgI0GBq5Vma@gsse-cloud1.jf.intel.com>
+References: <20260905133142.3628027-1-honghuan@amd.com>
+ <20260905133142.3628027-6-honghuan@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260905133142.3628027-6-honghuan@amd.com>
+X-ClientProxiedBy: MW4PR03CA0267.namprd03.prod.outlook.com
+ (2603:10b6:303:b4::32) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009E:EE_|DS0PR12MB8788:EE_
-X-MS-Office365-Filtering-Correlation-Id: e047faf4-5bbd-41e7-77f2-08df0d5185e0
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|SN7PR11MB6969:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3534d0b0-538c-48f9-bac5-08df0d57054d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|10067099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 5zJjFgiT5IvXou5gCC2dNajiThTTqBpczrHxAudUgTc3gAYrgnWZKcylJju9j2jVr5Kt57FTo2dwBXu4xK56wEoo8pxC3Q5GhciD6pIhwZE9hoJIL6l2b7eWLM9D1e87nGtOM9imbl169UccyCr2hup/Ca5G8OlNqt3OuI1pzSsQCfKCkzmNO9C56wy/nHAh6BhFpvLyQdLLv/7DjdL3gsbf8cUFx8SjVn6vQwnfvHObpy3unvWKftHznqaenia3KqOT/uPxazyLDI0PqY1m5jq9u8yiwq5E6bYjZYnvXhJIGUT/eU4hG4g+FMpXurbCejefUXw0MGfW/iBBQN1sioDz8tzmJfYSgY3N6qdmCTIBaUBk7sLCoAG80+Lg9pL7iK+VFJ/Kwh5m3rMEU5vyP9eckiDu9vDShaZ7GhDnbfHlIjOSId5aqXCT6OjdBwS8Q9hWs4WrqggFDFFKI1Xr7NJd0htqrEoJKyp0+BAA3j7fITtb+1V4FUDgX1g5SPfRGbFcqfVYz4QchUe0Ha3eg14mWu1gG1U1VCLvsL85e6+7wU1/ZBhV6bH1QxhKtDnjya1l8eDlQ0kAAz7Ct340Y6cHVLeK2Epe1kO+16l5R1D5lnd1c5MazMaZP2bZCYeE1w60b3ZKmSwwB2hq4hg9AjXFZzUfYfntGvWiKyphEWbBwEesl5DmYUpimcSN5bmRRhkRtSEkDf6aPYzVKdaNkA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(10067099003)(18002099003)(11063799006)(56012099006);
+ ARA:13230040|1800799024|366016|7416014|376014|23010399003|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: Jwr+AY0XicTqi6DDiq7RYgMfrYldz7e6CAp2gFDMEd6Bh4XcXLnRfsafNE+YZ2z4HwmuRvgXjfYIHek8u+Sj/H9OP5sNn5qkdMyOqToKLtNgQjBZdpaj7J/vIPOeR50f36gk3TuADDoupskQbDgjzYDq2moY8/Yh2OgAUxEa1uAMqhg2S6fQSs6v7N7aTWPPjPFHt/YqwFuZBb3SVh7GmOzL/DSHzsCUBnleMTbMpWoDmsfa9pv0Et91TdYT8NpZwnK23Sov+Ji5+TEH/R8iE+I0Y5I6XTYlxQNifJvxQLEFeCTLdpK+RsFDdfCrRZL3RUGXntMqSLcugkHGoyTNMAfmvPSQpgCgdefmk3vucejWmLKUeOfH6zzXPjdZCv+joENHiefdJR5LGAuGgYCw6jc6mXWrFfPPuHKuPGwQTCMQPs9BYu153LMOZEbD6jrs2keS/SuGmoRrHORmcVWwmz2JEDv028HFRn0DDi8/Eq0px7jm3RPX3OA+rE7Qp7F4VUd7f0sQgrm1FldQA2Syyd+xg0nc6j/uDc2yTCMdAc8o7CTZ4JcXoz/LWKKPnrhZHy7vIlwZD0AAARCzA+GNh+1gbrzdCDvziAbz/OdMomsuLNR+w9aCnd+7XFZ+3jlq9L1nwLdHx4uenWqnSYAUhHK5WVRB91OsCiOw2NBE4sM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: J+3ekCfqDaRMAAISkd6776WT22jfmfkdufeJi653ECq94e4cPrSXuLyMa8eHPQ9vCXDOvzqGUdexeaLUVORT/jQxqEPi/KDRkW5bI/LhZYJgtZz5LH8HizI4INHa7DIQBvpaq6z5b2RqneMXISaYVQujZ/Un1VcO2u01hoWPD+EPdsJmjRK5ymIsylZpF2r6qauoHBx8KJ0Hy8IGKNAl0KpcSFZwLL8js0W6se7oJgJWUnABeE6h1ddVUEzaVEq5DXUKV9soU2wZ8DvQMcSr1EUnsxFdCrd6YWjYvgQt1r0Bf0V9t4bvfGSYiz+nXFDlwA9T48cwRyUKRoSwXpy7BF/ZO6JmlWSm5e+rxjf8jSLW4TeaPZ6R0z+prfNbWqiiPFstEet/UxiNRU5GGFMqW7+37kOJLW9roFW0qy1IgDDoOQcoCp4pjb5THgsIxp0l
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 02:33:09.8943 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e047faf4-5bbd-41e7-77f2-08df0d5185e0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8788
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?sd96oOqB5INcHgiwt0VfakDkVtUx7o93jNwmH8qiK5FKDDZgM6R3fY/IKgUQ?=
+ =?us-ascii?Q?6DJo2Biam7wgN5vRgkbzUbVo58lOoKiFLZyT6hAVojNUaeGGSHSmO97Nj4ky?=
+ =?us-ascii?Q?tH2Zap+tTUsOW5wcq8IA+nfQGxGA66RiglUocOSenOYHvkhdnSZfzv6GBQyd?=
+ =?us-ascii?Q?ZtY6CNIX1+DHBS31wLtTliZ/gj/JfFxXRtbnCt4UL9grBJ7uoYixRIynOPqJ?=
+ =?us-ascii?Q?4jG3bAeJ6V3clPUdBaxcdOceeQMDa7bBANcC87x61aUBdKsYVnlPuGgz3PiK?=
+ =?us-ascii?Q?uZNI5aXUhJDuk/UZX8SujQkopHwCxU40Fz2+znptGOnp7hM7KNQ0W6pZjyP0?=
+ =?us-ascii?Q?DjATLxnYyBrzsEkKkb8XZWlBOedpDW1uZGHop2lijpp4cdDPnEnUh7Htkb97?=
+ =?us-ascii?Q?cRrCStyegB3/UDTS7AU3S729llCpdvf6ogpy3p6YdBMs1m0oUR97AXi7jkfW?=
+ =?us-ascii?Q?oL6NygzfGglu7IB1sKo3T2h6mMLfCc2APX6owizqmDpUhc+ItMsjsSqn5Xf6?=
+ =?us-ascii?Q?fL6Ob9zemWrGTp6WeMYBh1HxO0/IaBw+M4OxeNipsyiyu3n+SczQWqiAByOe?=
+ =?us-ascii?Q?9y73kjXY1mJGCsc4bvSy9jV+D9UaFa0FH7BrRAbVwF5KeEamksRuUFtj+ize?=
+ =?us-ascii?Q?UaF/sL8WcSiSNoE2SYbUa9nWxl18ag6dYJYha7lZYEQonIYaGwF9kBKu3f24?=
+ =?us-ascii?Q?97dkVwirh6rgaeQJ4h4EQwkfnsS/mQzgY6Pbl5i46mqjxrsE6SUDBjHx+P9d?=
+ =?us-ascii?Q?47olVjS2lpCYfQI+c1vyJU76/zBaATbG6o6k07HA5Mh9AtgI8TsjTXeXantn?=
+ =?us-ascii?Q?EIIrTxckLpLGTN1EfYnd51cKRm8vy97vP4Dkqz4dAs/sPs29WlUcEPQxc+t3?=
+ =?us-ascii?Q?U82PHyye/bDHkolaF669JvEatDG7c2X1LESV02TZaZGvaUYoJcRVVbJfcXES?=
+ =?us-ascii?Q?cq0KuVQcYTcP/dE+HS7Ou4NAJiKLHcsU9rXeIGD/w8QgUcehBFTr93af8/hS?=
+ =?us-ascii?Q?NZiIfOs93XQ+/R+Xl29yYZ4qmFC5RD9s0qR+WgrbvkRnkeJVkckLcwVv0PVp?=
+ =?us-ascii?Q?Xdcd9OL/PJKHzB1N3h2uRhJTTpuH7a2/dx5r7yYU7IEmxkrcw2tZVTkfCJyT?=
+ =?us-ascii?Q?8jqI9+u/fMUmNHRapSttGqec8YUyhKRFDaS1DI60nOD8hvEQSvcU0ltvGxfv?=
+ =?us-ascii?Q?DYXi96UZ2CIX/EeGdtVeyEqx7FLmZRnyVBcOsPuwL5c+EJsXxqq33VZr3bW2?=
+ =?us-ascii?Q?wVCofoun13m79w8WoVPAcqS7Bpo5fz0051Wue1RAKa+x9nzwcbo3AHioCyn7?=
+ =?us-ascii?Q?rkAH/FMvyeR8nppO1O4eaZz4wwbWOMNFf5yC0Nob4vNkSo/RMrwt4Y8TIFZo?=
+ =?us-ascii?Q?BGmX7MRQAskzTsKWqdWVa9dJstbPIR1JDQPHhds8b781OkALSmyaNnlFxavj?=
+ =?us-ascii?Q?6ns8LviQEU6VWxPRWNQGdK8OXj9qp6OTS+Wy5a4vFZS6Chf7lIwppp6hizFA?=
+ =?us-ascii?Q?p/GcDin9i21dXlf1SFzkimyHgo2hlA8hgINg9ijHmq020xcpwyYWJvAZV+s0?=
+ =?us-ascii?Q?zOglOTJhT4rlkhPEl03efCI7F/re9bY27cqXNUoFfWy4arwDbzXBZgt2rjpE?=
+ =?us-ascii?Q?+noUyNh0m3eZo0PC0W9VORN1Wrxe9YAKwm3ooUTkY9PQLZ/znoaa+N0ZnHFT?=
+ =?us-ascii?Q?gr2o0iC4/zfRBBfaBlpSLmeDSQbe3VHl1DFKy26xjfHUiEXbytAcX8vE5rZE?=
+ =?us-ascii?Q?cLpWw1khuw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: kvpJ7vaMfDkZ+T+Fcg6wHXuks3xiZR30CTyCazJ1CbUUt+DknSa56WS+jLHuBmwe9XIdIZE3XuxRNXgdBgnWvWLPU7FncqP7W0pWHPscHVw4/du5Jg0/CwQaL1sQUsFTVcUvQ2k90+zptoMuWOgdL0vIFno38ERjNI1Y0cupfOSdTschyfZMhEp1fGhQRksLO62Yehv1jSU/hmo4DUPCbPF+Y7xqb4WvWQMSexxc7BQX9peaeU9xys5AT2BluWgW2OVerf6PSZasDsvfVOYqBp+whFPsWPD0gX/dDrgJYfFZNLSa/jakor2gJrY7VGmy+vkyvFtkD2DKY5eugj5Ndw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3534d0b0-538c-48f9-bac5-08df0d57054d
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 03:12:31.4293 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Eh3IfuSKrWPVhOcDoPYEHcFIZMmK+piL3jkCzief40LRHm9AS5gfI23johABMxK+kSIcJ38P/349OVHB+OJbRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6969
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,93 +164,309 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert all of them to the existing ttm_to_amdgpu_ttm_tt() helper, which
-goes through container_of() and is checked at build time.
+On Sat, Sep 05, 2026 at 09:31:41PM +0800, Honglei Huang wrote:
+> drm_gpusvm_get_pages() sizes the dma_addr array for one drm_pagemap_addr
+> per page, but the mapping loop advances by page order, so a range backed
+> by one huge page needs a single entry. For a 2 MiB THP that is an 8 KiB
+> array holding 16 bytes of address.
+> 
+> Union that entry with the array pointer, discriminated by a new
+> inline_dma_mapping flag. When drm_gpusvm_dma_map_pages() ends up with one
+> entry it stores it inline and frees the array, after the last error
+> unwind, which still walks the array form. An unchecked dma_addr read is
+> now type confusion rather than a compile error, so reads go through the
+> new drm_gpusvm_pages_first_dma() accessor, including the two
+> xe_pt_stage_bind() paths.
+> 
+> Only get_pages() and the free path write the union, never the notifier,
+> and both run under the driver lock that every address reader already
+> holds. The unlocked short circuit in drm_gpusvm_pages_valid_unlocked()
+> goes for the same reason: it cannot resolve the union, and every instance
+> it rejects has to be reset before the allocation loop reuses it.
+> 
+> Suggested-by: Matthew Brost <matthew.brost@intel.com>
 
-No functional change intended.
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
-Signed-off-by: Perry Yuan <perry.yuan@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index ff6eeca5dabf..6a24705b4b48 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -854,7 +854,7 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
- int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- {
- 	struct ttm_tt *ttm = bo->tbo.ttm;
--	struct amdgpu_ttm_tt *gtt = (void *)ttm;
-+	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
- 	struct mm_struct *mm = gtt->usertask->mm;
- 	unsigned int flags = 0;
- 	unsigned pinned = 0;
-@@ -950,7 +950,7 @@ void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct amdgpu_hmm_range *r
-  */
- void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct page **pages)
- {
--	struct amdgpu_ttm_tt *gtt = (void *)ttm;
-+	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
- 	unsigned i;
- 
- 	gtt->last_set_pages = atomic_read(&gtt->mmu_invalidations);
-@@ -969,7 +969,7 @@ void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct page **pages)
-  */
- void amdgpu_ttm_tt_mark_user_pages(struct ttm_tt *ttm)
- {
--	struct amdgpu_ttm_tt *gtt = (void *)ttm;
-+	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
- 	unsigned i;
- 
- 	for (i = 0; i < ttm->num_pages; ++i) {
-@@ -1067,7 +1067,7 @@ static void amdgpu_ttm_tt_unpin_userptr(struct ttm_device *bdev,
- static void amdgpu_ttm_gart_bind_gfx9_mqd(struct amdgpu_device *adev,
- 				struct ttm_tt *ttm, uint64_t flags)
- {
--	struct amdgpu_ttm_tt *gtt = (void *)ttm;
-+	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
- 	uint64_t total_pages = ttm->num_pages;
- 	int num_xcc = max(1U, adev->gfx.num_xcc_per_xcp);
- 	uint64_t page_idx, pages_per_xcc;
-@@ -1505,7 +1505,7 @@ int amdgpu_ttm_tt_get_userptr(const struct ttm_buffer_object *tbo,
- 	if (!tbo->ttm)
- 		return -EINVAL;
- 
--	gtt = (void *)tbo->ttm;
-+	gtt = ttm_to_amdgpu_ttm_tt(tbo->ttm);
- 	*user_addr = gtt->userptr;
- 	return 0;
- }
-@@ -1621,7 +1621,7 @@ bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
- bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
- 				  unsigned long end, unsigned long *userptr)
- {
--	struct amdgpu_ttm_tt *gtt = (void *)ttm;
-+	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
- 	struct amdgpu_ttm_gup_task_list *entry;
- 	unsigned long size;
- 
-@@ -1661,7 +1661,7 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
- bool amdgpu_ttm_tt_userptr_invalidated(struct ttm_tt *ttm,
- 				       int *last_invalidated)
- {
--	struct amdgpu_ttm_tt *gtt = (void *)ttm;
-+	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
- 	int prev_invalidated = *last_invalidated;
- 
- 	*last_invalidated = atomic_read(&gtt->mmu_invalidations);
-@@ -1674,7 +1674,7 @@ bool amdgpu_ttm_tt_userptr_invalidated(struct ttm_tt *ttm,
-  */
- bool amdgpu_ttm_tt_userptr_needs_pages(struct ttm_tt *ttm)
- {
--	struct amdgpu_ttm_tt *gtt = (void *)ttm;
-+	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
- 
- 	if (gtt == NULL || !gtt->userptr)
- 		return false;
--- 
-2.34.1
-
+> Signed-off-by: Honglei Huang <honghuan@amd.com>
+> ---
+>  drivers/gpu/drm/drm_gpusvm.c | 48 ++++++++++++++++++++++++++++------
+>  drivers/gpu/drm/xe/xe_pt.c   |  7 ++---
+>  drivers/gpu/drm/xe/xe_svm.h  | 18 +++++++++++++
+>  include/drm/drm_gpusvm.h     | 50 +++++++++++++++++++++++++++++++++---
+>  4 files changed, 109 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+> index 7efc35507f1..2c7c4c89dc4 100644
+> --- a/drivers/gpu/drm/drm_gpusvm.c
+> +++ b/drivers/gpu/drm/drm_gpusvm.c
+> @@ -1241,6 +1241,8 @@ static void __drm_gpusvm_unmap_pages(struct drm_gpusvm *gpusvm,
+>  		struct drm_gpusvm_pages_flags flags = {
+>  			.__flags = svm_pages->flags.__flags,
+>  		};
+> +		const struct drm_pagemap_addr *addrs =
+> +			drm_gpusvm_pages_first_dma(svm_pages);
+>  		bool use_iova = dma_use_iova(&svm_pages->state);
+>  
+>  		/*
+> @@ -1253,12 +1255,12 @@ static void __drm_gpusvm_unmap_pages(struct drm_gpusvm *gpusvm,
+>  			if (svm_pages->state_offset)
+>  				dma_iova_unlink(dev, &svm_pages->state, 0,
+>  						svm_pages->state_offset,
+> -						svm_pages->dma_addr[0].dir, 0);
+> +						addrs[0].dir, 0);
+>  			dma_iova_free(dev, &svm_pages->state);
+>  		}
+>  
+>  		for (i = 0, j = 0; i < npages; j++) {
+> -			struct drm_pagemap_addr *addr = &svm_pages->dma_addr[j];
+> +			const struct drm_pagemap_addr *addr = &addrs[j];
+>  
+>  			if (addr->proto == DRM_INTERCONNECT_SYSTEM) {
+>  				/*
+> @@ -1299,6 +1301,18 @@ static void __drm_gpusvm_free_pages(struct drm_gpusvm *gpusvm,
+>  {
+>  	lockdep_assert_held(&gpusvm->notifier_lock);
+>  
+> +	if (svm_pages->flags.inline_dma_mapping) {
+> +		struct drm_gpusvm_pages_flags flags = {
+> +			.__flags = svm_pages->flags.__flags,
+> +		};
+> +
+> +		svm_pages->inline_addr = (struct drm_pagemap_addr){};
+> +		flags.inline_dma_mapping = false;
+> +		/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+> +		WRITE_ONCE(svm_pages->flags.__flags, flags.__flags);
+> +		return;
+> +	}
+> +
+>  	if (svm_pages->dma_addr) {
+>  		kvfree(svm_pages->dma_addr);
+>  		svm_pages->dma_addr = NULL;
+> @@ -1463,11 +1477,6 @@ static bool drm_gpusvm_pages_valid_unlocked(struct drm_gpusvm *gpusvm,
+>  	bool pages_valid = true;
+>  	unsigned int p;
+>  
+> -	for (p = 0; p < num_pages; ++p) {
+> -		if (!svm_pages[p].dma_addr)
+> -			return false;
+> -	}
+> -
+>  	drm_gpusvm_notifier_lock(gpusvm);
+>  	for (p = 0; p < num_pages; ++p) {
+>  		if (drm_gpusvm_pages_valid(gpusvm, &svm_pages[p]))
+> @@ -1480,6 +1489,21 @@ static bool drm_gpusvm_pages_valid_unlocked(struct drm_gpusvm *gpusvm,
+>  	return pages_valid;
+>  }
+>  
+> +/**
+> + * drm_gpusvm_pages_inlinable() - Whether the dma address can be inlined
+> + * @nentries: Number of entries the mapping loop produced
+> + *
+> + * A THP maps as one huge page, so the whole range needs a single device
+> + * address: the dma_addr array can be freed and the address kept inline,
+> + * which is where the memory saving comes from.
+> + *
+> + * Return: True if the mapping fits in a single drm_pagemap_addr.
+> + */
+> +static bool drm_gpusvm_pages_inlinable(unsigned long nentries)
+> +{
+> +	return nentries == 1;
+> +}
+> +
+>  /**
+>   * drm_gpusvm_dma_map_pages() - DMA map one drm_gpusvm_pages instance
+>   * @gpusvm: Pointer to the GPU SVM structure
+> @@ -1632,6 +1656,14 @@ static int drm_gpusvm_dma_map_pages(struct drm_gpusvm *gpusvm,
+>  	if (pagemap)
+>  		flags.has_devmem_pages = true;
+>  
+> +	if (drm_gpusvm_pages_inlinable(j)) {
+> +		struct drm_pagemap_addr addr = svm_pages->dma_addr[0];
+> +
+> +		kvfree(svm_pages->dma_addr);
+> +		svm_pages->inline_addr = addr;
+> +		flags.inline_dma_mapping = true;
+> +	}
+> +
+>  	/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+>  	WRITE_ONCE(svm_pages->flags.__flags, flags.__flags);
+>  
+> @@ -1740,7 +1772,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+>  
+>  	if (map_dma) {
+>  		for (p = 0; p < num_pages; ++p) {
+> -			if (svm_pages[p].dma_addr)
+> +			if (drm_gpusvm_pages_first_dma(&svm_pages[p]))
+>  				continue;
+>  			svm_pages[p].dma_addr =
+>  				kvzalloc_objs(*svm_pages[p].dma_addr, npages);
+> diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+> index 5d990c1c374..fa4b29da0b6 100644
+> --- a/drivers/gpu/drm/xe/xe_pt.c
+> +++ b/drivers/gpu/drm/xe/xe_pt.c
+> @@ -831,7 +831,7 @@ xe_pt_stage_bind(struct xe_tile *tile, struct xe_vma *vma,
+>  			return -EAGAIN;
+>  		}
+>  		if (xe_svm_range_has_dma_mapping(range)) {
+> -			xe_res_first_dma(range->pages.dma_addr, 0,
+> +			xe_res_first_dma(xe_svm_range_first_dma(range), 0,
+>  					 xe_svm_range_size(range),
+>  					 &curs);
+>  			xe_svm_range_debug(range, "BIND PREPARE - MIXED");
+> @@ -866,8 +866,9 @@ xe_pt_stage_bind(struct xe_tile *tile, struct xe_vma *vma,
+>  
+>  	if (!xe_vma_is_null(vma) && !range && !is_purged) {
+>  		if (xe_vma_is_userptr(vma))
+> -			xe_res_first_dma(to_userptr_vma(vma)->userptr.pages.dma_addr, 0,
+> -					 xe_vma_size(vma), &curs);
+> +			xe_res_first_dma(drm_gpusvm_pages_first_dma
+> +					 (&to_userptr_vma(vma)->userptr.pages),
+> +					 0, xe_vma_size(vma), &curs);
+>  		else if (xe_bo_is_vram(bo) || xe_bo_is_stolen(bo))
+>  			xe_res_first(bo->ttm.resource, xe_vma_bo_offset(vma),
+>  				     xe_vma_size(vma), &curs);
+> diff --git a/drivers/gpu/drm/xe/xe_svm.h b/drivers/gpu/drm/xe/xe_svm.h
+> index 2a0dc0d125c..7eb80d4d6db 100644
+> --- a/drivers/gpu/drm/xe/xe_svm.h
+> +++ b/drivers/gpu/drm/xe/xe_svm.h
+> @@ -220,6 +220,18 @@ static inline unsigned long xe_svm_range_size(struct xe_svm_range *range)
+>  	return drm_gpusvm_range_size(&range->base);
+>  }
+>  
+> +/**
+> + * xe_svm_range_first_dma() - Resolve the device address array of a SVM range
+> + * @range: SVM range
+> + *
+> + * Return: Pointer to the first device address, NULL if none is populated.
+> + */
+> +static inline const struct drm_pagemap_addr *
+> +xe_svm_range_first_dma(struct xe_svm_range *range)
+> +{
+> +	return drm_gpusvm_pages_first_dma(&range->pages);
+> +}
+> +
+>  void xe_svm_flush(struct xe_vm *vm);
+>  
+>  int xe_pagemap_shrinker_create(struct xe_device *xe);
+> @@ -436,6 +448,12 @@ static inline bool xe_svm_range_is_removed(struct xe_svm_range *range)
+>  	return false;
+>  }
+>  
+> +static inline const struct drm_pagemap_addr *
+> +xe_svm_range_first_dma(struct xe_svm_range *range)
+> +{
+> +	return NULL;
+> +}
+> +
+>  #define xe_svm_range_has_dma_mapping(...) false
+>  #endif /* CONFIG_DRM_XE_GPUSVM */
+>  
+> diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
+> index ec7b81957b1..aaad5c9b510 100644
+> --- a/include/drm/drm_gpusvm.h
+> +++ b/include/drm/drm_gpusvm.h
+> @@ -10,6 +10,7 @@
+>  #include <linux/kref.h>
+>  #include <linux/interval_tree.h>
+>  #include <linux/mmu_notifier.h>
+> +#include <drm/drm_pagemap.h>
+>  
+>  struct dev_pagemap_ops;
+>  struct drm_device;
+> @@ -18,7 +19,6 @@ struct drm_gpusvm_notifier;
+>  struct drm_gpusvm_ops;
+>  struct drm_gpusvm_range;
+>  struct drm_pagemap;
+> -struct drm_pagemap_addr;
+>  
+>  /**
+>   * struct drm_gpusvm_ops - Operations structure for GPU SVM
+> @@ -112,6 +112,7 @@ struct drm_gpusvm_notifier {
+>   * @unmapped: Flag indicating if the pages has been unmapped
+>   * @has_devmem_pages: Flag indicating if the pages has devmem pages
+>   * @has_dma_mapping: Flag indicating if the pages has a DMA mapping
+> + * @inline_dma_mapping: Flag indicating if the pages have an inline DMA mapping
+>   * @__flags: Flags for pages in u16 form (used for READ_ONCE)
+>   */
+>  struct drm_gpusvm_pages_flags {
+> @@ -121,6 +122,7 @@ struct drm_gpusvm_pages_flags {
+>  			u16 unmapped : 1;
+>  			u16 has_devmem_pages : 1;
+>  			u16 has_dma_mapping : 1;
+> +			u16 inline_dma_mapping : 1;
+>  		};
+>  		u16 __flags;
+>  	};
+> @@ -130,17 +132,27 @@ struct drm_gpusvm_pages_flags {
+>   * struct drm_gpusvm_pages - Structure representing a GPU SVM mapped pages
+>   *
+>   * @drm: The DRM device that owns the dma mappings
+> - * @dma_addr: Device address array
+> + * @dma_addr: Device address array, valid while @flags.inline_dma_mapping is
+> + *            not set
+> + * @inline_addr: Device address inline address, valid while
+> + *               @flags.inline_dma_mapping is set
+>   * @dpagemap: The struct drm_pagemap of the device pages we're dma-mapping.
+>   *            Note this is assuming only one drm_pagemap per range is allowed.
+>   * @state: DMA IOVA state for mapping.
+>   * @state_offset: DMA IOVA offset for mapping.
+>   * @notifier_seq: Notifier sequence number of the range's pages
+>   * @flags: Flags for the range; see &struct drm_gpusvm_pages_flags
+> + *
+> + * @dma_addr and @inline_addr share storage, discriminated by
+> + * @flags.inline_dma_mapping. Driver should use drm_gpusvm_pages_first_dma()
+> + * to access the correct DMA address.
+>   */
+>  struct drm_gpusvm_pages {
+>  	struct drm_device *drm;
+> -	struct drm_pagemap_addr *dma_addr;
+> +	union {
+> +		struct drm_pagemap_addr *dma_addr;
+> +		struct drm_pagemap_addr inline_addr;
+> +	};
+>  	struct drm_pagemap *dpagemap;
+>  	struct dma_iova_state state;
+>  	unsigned long state_offset;
+> @@ -365,6 +377,38 @@ static inline void drm_gpusvm_init_pages(struct drm_gpusvm_pages *svm_pages,
+>  	svm_pages->notifier_seq = LONG_MAX;
+>  }
+>  
+> +/**
+> + * drm_gpusvm_pages_first_dma() - Resolve the device address array
+> + * @svm_pages: Pointer to the drm_gpusvm_pages.
+> + *
+> + * drm_gpusvm_pages use unions to optimize the storage of DMA addresses,
+> + * this function abstracts the access to the first device address. The driver
+> + * should use this helper instead of reading dma_addr directly to prevent
+> + * array out of bounds access.
+> + *
+> + * Only get_pages() and the free path switch between the two union members.
+> + * Both hold the notifier lock for read, so taking that lock does not stop
+> + * them; callers need the driver lock that does, which every reader of the
+> + * addresses holds anyway. The notifier never touches the union, so the
+> + * pointer returned here stays good and can then be used under the notifier
+> + * lock.
+> + *
+> + * Return: Pointer to the first device address, NULL if none is populated.
+> + */
+> +static inline const struct drm_pagemap_addr *
+> +drm_gpusvm_pages_first_dma(const struct drm_gpusvm_pages *svm_pages)
+> +{
+> +	struct drm_gpusvm_pages_flags flags = {
+> +		/* READ_ONCE pairs with the WRITE_ONCE of the flag writers */
+> +		.__flags = READ_ONCE(svm_pages->flags.__flags),
+> +	};
+> +
+> +	if (flags.inline_dma_mapping)
+> +		return &svm_pages->inline_addr;
+> +
+> +	return READ_ONCE(svm_pages->dma_addr);
+> +}
+> +
+>  /**
+>   * enum drm_gpusvm_scan_result - Scan result from the drm_gpusvm_scan_mm() function.
+>   * @DRM_GPUSVM_SCAN_UNPOPULATED: At least one page was not present or inaccessible.
+> -- 
+> 2.34.1
+> 
