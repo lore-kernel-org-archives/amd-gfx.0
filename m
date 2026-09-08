@@ -4,72 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B327BC79F82
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 13:03:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B01B3C79F99
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 13:03:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E13E10EBD5;
-	Tue,  8 Sep 2026 13:03:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E7910EBD8;
+	Tue,  8 Sep 2026 13:03:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ipr+Q4fq";
+	dkim=pass (2048-bit key; unprotected) header.d=aicharmers.com header.i=@aicharmers.com header.b="pCdMo5pn";
 	dkim-atps=neutral
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B8D610E0D7
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 08:21:05 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-84864086bfeso3794566b3a.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 01:21:05 -0700 (PDT)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3632D10EA25
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 07:26:09 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-cbb8b54fcf8so4467376a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 00:26:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788855664; x=1789460464; darn=lists.freedesktop.org;
+ d=aicharmers.com; s=google; t=1788852369; x=1789457169;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=S7HjTv87pabPliSISNoP4qhkCnlBzRe6Bo3kxEzQXmU=;
- b=ipr+Q4fqXStgzAPIAiN+WIfkPtFO8zELnE0kFday2JqCPZxmHai2BhzIFZDR6QYl2a
- //lzXyrt5MdJG6p7fsrLtObgzFy2GHYDk+dekl9lMJzGMAEVLJ+ao6NRnCZvz3JnN9w+
- Lq6jXa0ppwCX/mZjIGPkSL2XBDyAKWzuPYlT1N413Dkl4/VJJyzailqu+EOiKm/9veey
- 5dSH7+R75dHos5W/2UDNybWGrzyQEJLmktp17MZ8wp2qtwxtVr2iXik+rontyocrHgN/
- Fo1jyUKktT4frGmMkJQztUp3aEo1dHXolXZ7eMq8z8YZP7oX+zIcRc9axSI2/fcKzwRk
- f0ow==
+ bh=9p6gnFadNyB/qeih9jsIAGctpC57sjAwmCrr2gNlVmQ=;
+ b=pCdMo5pnUakXK0JsvDI6kPpAgVrUOl2AniTf8/N1slCM95GnejoRIobOyDJUtYCzWM
+ h4azqmzJGYdCYqTAhTZ+YJ8eRTRud41XQHe95sarxu4xUiD/InFjWko9SOGrYDHFImT5
+ mJmqEj9VpS8CWtWvL7u4X6y8fA1uWCmOlgPgu/HXSiwEfLpMstcxWRVRGHdxkzATb9lA
+ Zdox/XM3RUQTxURW4mO4mFL8uacs4MGrxN8p2wNFp7D9Iqz4X2+GVkRdnE/5misG92r8
+ dwC22cdQC5/E9x4ge4vARjovcYk132yMOrCf6vLLIQM39bI8SRB4u9aR802u54TyuvbI
+ fPYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788855664; x=1789460464;
+ d=1e100.net; s=20251104; t=1788852369; x=1789457169;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=S7HjTv87pabPliSISNoP4qhkCnlBzRe6Bo3kxEzQXmU=;
- b=W7Mj4gK7A+Vnpv2Ppl/74/gJLuBQoqkDtZBAbvC2bGL/IHcYRT0n0OeSDQ+mteHjdE
- +D0sF8Fe9QQVe7E0MxT14OK32rqS/rxM2dhPMw9E3cJLHUhFSU5vOWNmyWM7zsvboqC1
- AdzcaMcHMjXlW32s7ZqNWbstksI2yKTfa/cw+zTd8RL3lmS8U81neRI56Z8c2zmXrdrt
- NTfbfXdyrUZfTnuIkKtMEZ+OReCEaeBOcghOVUrQ4npCyTU2Av5Ki7t65vai1bub9IQD
- 0FBylQMRmObpyiAuVPQ/5GABfLQc+EtetcYOGhue/sRQPsqdyRuZPL0jMEt2JCQMQ33b
- IF/w==
-X-Gm-Message-State: AFuF++nGwziIIbSPPeQmomC31Hj+sCUnNlXHl96RxUsHelxbw2e47IEq
- T7OuAmPAIOnxqHP7b4yIE9iJeiN9LaJGXJRkPaoxxD8XGdOWPb3IMIpFkp9q0of/iA8=
-X-Gm-Gg: AYBFou2XUfwUgUVPEFzV2ys+kiPZV3yZgEBMieYpE2dVnmfw5ZLmqGvLocQEmYVyU2n
- UK3gVDJJVBccby/htesP7ALjMdnLFwo5RlJyIptENpF195jyxH4PJBoYjT3NE5eSdxMcu+qo8BN
- T8GShR7QrgVAQXsLCkaJb3vjhMxpiPw3TDTUvbwOjSJ+9nb67KxOcs7ki9Eb1tA0L34hmWHXV29
- 0AgZM519OmKfuKaXPjyEeOdeZa/yLNF1U4GlQspZx926g802Yo/v6Im/kUHjZPXaX1+blj7OuA0
- BphwCn+foBkHm5KzIM0+u6541TA811dWw/VZ118F3zPpyZ3yBhW6H6NoQntAI9z7l6Mmvfm8CaJ
- FddqFTuIeKkV5KAMe4g3lJomDDmeq1BEapnO5fzzaIn1I+hWgAzBXEEhODpIrvs6c34V6+9uXro
- Ia+2+trp/mpktOH3mpVjdTCccDpelyJoMyIkvWurPc0gIGxfXMtss5qOm1Byhx9vN7m7eT8Vgmn
- 9y7jxgWzpMV288fBsBR2zMmSMHbnCUypTqGJP7Ha9u1UQ==
-X-Received: by 2002:a05:6300:6ccf:20b0:3da:a65a:84f5 with SMTP id
- adf61e73a8af0-3daa65a8585mr3710405637.22.1788855664397; 
- Tue, 08 Sep 2026 01:21:04 -0700 (PDT)
-Received: from localhost.localdomain ([49.37.219.138])
+ bh=9p6gnFadNyB/qeih9jsIAGctpC57sjAwmCrr2gNlVmQ=;
+ b=GfSUZIi4oFASLlu4Qmn10cAr1jehTRy480fbRsBITMrARgBnfx7KiSyyM1qlT7H/Qk
+ i84IhNOGdhjQ1J4yUAVSEWJUKL7Fs0wUQm3ohL9o230hr/dTIadLw6C1LCOfykTG5uEZ
+ rl3STuwcONVlN/lO+xBXYn6h7hpaw+kXUGZ8vZBOqTDvYfMX15Zh7EslLEmBx0RJ9Zb6
+ 4F5JmfyBpRlXxYBXkU3+EYZvhXtS7O16SrBEAJcZQEFSi3wjHlR7jvIyvEPER8rjuOlh
+ cn49qHXwYCpEUD02wzxEh3GR96iKTt1zxNyVTGRTvx9V/yA1bRVM2q1+t7GDUEB/ZNs0
+ 7dmw==
+X-Gm-Message-State: AFuF++n5VqTl7cxf7DCnf+Y4D/v7Gx2Zj3aWUEh1J4Hj52ngcL2dAW+J
+ uWh9gqimOC3mgdAA8Og/nxxDzQ7FKCLlXpVtrZpqmqcRO/fr8Ay9lhtCQDDrUEo259omeLVzr80
+ IZ9gN
+X-Gm-Gg: AYBFou1ClJCGvpYJAHZ6cGRjrDSaGX6kbMM8Pg7/JLbud4OP3A972UWmEyC+AiPfYik
+ IlNVRtVjtZv/L/tAw3KkC/3XLWyd+ZRM9Ao86aRYSMJ+iyjLd0K+L7t/0YS0x00GP5pj5v8twFJ
+ wqNS2oT61GCvPOPw72BXR9HmZJ/4klFIUJmblzE2Rrnzoj9Df/mwKIAveC+5oSNmKnMOSPJmXz+
+ u1ckjI5j3/RUg+N040G0l39c7rh1rtQQ84jE0YgSl5D8BSFhKC1YsS0v25DvHWNeG1tjCgfe94c
+ LLXuS/O3a57dxXwDl/Cc6KagyJwdpxgXSqC3TGxjyx/WtrF9ogqET5t+lsBhO0q9WAX01ggHjVW
+ g648c9xdYe3tgPpXZqIOgNkrXE6kPzXfI4xv1KM8n6eB/zIQXMOQ2GcnAWhhNcqGzfQXJTiQQxR
+ QjUp7ZxrMkhhabjRzlnai6fSpbI1Xe4RUuc+910T7q9bhtVhyrjHkp80N5ZBoxMTCvuM37iH1S/
+ I3987L3AIDYhZeLL/X3IrkqE9tULNMWWA6+VotciLfhHAsusxr7V4IGA3MV3wmSuMPLPmzL0aAe
+ p9w3YPuXgcq4/nFVTGhI9XGixKkS4SEaxFRPafOOXg==
+X-Received: by 2002:a17:90b:5344:b0:395:4de4:92be with SMTP id
+ 98e67ed59e1d1-39b261b1a47mr44358365a91.13.1788852368553; 
+ Tue, 08 Sep 2026 00:26:08 -0700 (PDT)
+Received: from ip-192-168-20-24.ap-southeast-2.compute.internal
+ (2403-5803-1750-0-3d77-e76e-aa73-3d48.ip6.aussiebb.net.
+ [2403:5803:1750:0:3d77:e76e:aa73:3d48])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-333c9db92b1sm34177167eec.9.2026.09.08.01.21.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 01:21:03 -0700 (PDT)
-From: Mohammed Anees <pvmohammedanees2003@gmail.com>
+ 5a478bee46e88-3339aa33e96sm33210752eec.12.2026.09.08.00.26.03
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 08 Sep 2026 00:26:07 -0700 (PDT)
+From: Ed Schofield <ed@aicharmers.com>
 To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org,
- Mohammed Anees <pvmohammedanees2003@gmail.com>
-Subject: [PATCH] drm/amdgpu: pass scanout position values directly
-Date: Tue,  8 Sep 2026 13:50:45 +0530
-Message-ID: <20260908082045.99555-1-pvmohammedanees2003@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Cc: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
+ 0218
+Date: Tue,  8 Sep 2026 17:25:34 +1000
+Message-ID: <20260908072552.67798-1-ed@aicharmers.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 08 Sep 2026 13:03:20 +0000
@@ -87,393 +92,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The DC scanout position helper already returns vblank start, vblank end,
-horizontal position and vertical position as separate values.
+On the Apple 1002:7340/106b:0218 revision 41 board, enabling UCLK DPM
+with EnableAllSmuFeatures can time out and leave amdgpu without a DRM
+device. Omitting only UCLK avoids that timeout; enabling it separately
+immediately afterwards still timed out in a local experiment.
 
-dm_crtc_get_scanoutpos() currently packs these values into the legacy
-register-style vbl and position values, only for the amdgpu base driver
-to unpack them again.
+Defer UCLK enablement to the Navi post-init callback, then verify the
+firmware bit and refresh the supported-feature bit, memory DPM table
+and sustainable clock limits before the UMC workaround and UMD setup.
+Validate the PPT memory states consumed by DCN20 before that callback.
+Keep both memory-voltage features enabled and respect PP_MCLK_DPM_MASK.
+Limit the change to the board and revision tested locally.
 
-Change page_flip_get_scanoutpos() to return the individual values
-directly.
+Based on Atharva Tiwari's delayed-UCLK proposal for Apple board 0219.
+This adaptation uses the Navi callback and updates driver clock state;
+it does not change T2's existing 0219 allowed-mask workaround.
 
-For the legacy DCE implementations, keep decoding the packed hardware
-register values in the backend before returning them through the common
-interface. This keeps the register specific representation local to the
-DCE code.
-
-Signed-off-by: Mohammed Anees <pvmohammedanees2003@gmail.com>
+Link: https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg149770.html
+Link: https://github.com/t2linux/kernel/issues/19#issuecomment-5537823876
+Assisted-by: LLM
+Signed-off-by: Ed Schofield <ed@aicharmers.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 22 ++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.h   |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  8 ++-
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        | 20 +++++--
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 20 +++++--
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         | 20 +++++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 +++++-----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 56 ++++++++++++-------
- 9 files changed, 124 insertions(+), 60 deletions(-)
+This is a board-specific follow-up to Atharva Tiwari's August 25 delayed-UCLK
+proposal for Apple 0219:
+https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg149770.html
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 59ea338b554c..86c806f9fa97 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1762,7 +1762,8 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 			int *hpos, ktime_t *stime, ktime_t *etime,
- 			const struct drm_display_mode *mode)
+T2 review: https://github.com/t2linux/linux-t2-patches/pull/60
+Hardware report follow-up: https://github.com/t2linux/kernel/issues/19#issuecomment-5579537553
+
+The affected machine here is iMac20,1, PCI 1002:7340 / 106b:0218, revision 41,
+with SMU firmware 53.38.0, interface 38. The original-policy control times out
+in EnableAllSmuFeatures (message 6, -62). Omitting only UCLK avoids that
+timeout. Enabling it immediately afterwards also failed in an earlier local
+experiment; Navi's post-init callback is the point tested successfully.
+
+The patch refreshes driver state after enabling UCLK because initial table
+setup ran while that feature was disabled. DCN20 also consumes the PPT memory
+states before post-init, so their count and nonzero frequencies are checked.
+Both memory-voltage features remain enabled, and the public MCLK-DPM policy
+still takes precedence over the workaround.
+
+A direct control on this AMD staging base used the same kernel image,
+configuration, firmware, boot parameters and 6,434 companion modules, with
+only amdgpu rebuilt from the pristine upstream source. Comparing the two
+extracted initramfs images found exactly one changed file: amdgpu.ko.zst.
+The first unpatched warm boot passed rendering and video checks. The second
+reproduced the EnableAllSmuFeatures timeout (message 6, -62) and left no bound
+AMDGPU driver. Linux remained reachable over SSH. Warnings in amdgpu_irq_put
+followed during GPU error cleanup. The control series stopped at that point.
+Restoring the exact patched module/initramfs recovered GPU initialization,
+hardware rendering and all 60 VAAPI/software frame comparisons on the next
+warm boot. This demonstrates an intermittent GPU initialization fault on the
+upstream base, not an inability of every unpatched kernel boot to reach Linux.
+
+The experimental implementation passed 40 warm and ten cold boots on this
+machine. The extracted production implementation has separate T2 7.2.3 warm,
+rendering, video, sustained-render and public-policy checks. The production
+T2 patch also passed prescribed AC-connected and AC-unplugged cold starts,
+with operator-confirmed 60-second intervals and rendering/video validation.
+An intervening start was corrected to AC-connected when the operator clarified
+that he had not unplugged it; the actual unplugged test followed.
+The T2 build also passed a ten-minute, 2 GiB-budget
+Vulkan memory test with a load/idle/load transition and a normal boot after
+system updates and initramfs regeneration. This AMD staging variant has a
+successful W=1 object build, full kernel build and extracted-C ASan/UBSan
+checks; it has now passed ten warm boots: two attended boots, including
+recovery after the failed unpatched control, and eight further unattended
+boots. SMU initialization, SSH, hardware rendering and all 60 VAAPI H.264
+frame comparisons against software decoding passed on every boot. Console
+login was visually confirmed on the two attended boots.
+All four memory states (98, 500, 625 and 875 MHz) were available, with both
+memory-voltage features enabled. This build has only the proposed GPU fix
+on AMD staging, without the T2 patch collection. Rust was disabled after an unrelated Rust DRM
+preparation failure. This is AMD staging hardware coverage, not a boot of Linus's current tree.
+No AMD staging cold, suspend/resume or full desktop test is claimed. The staging
+boot also logged an applesmc probe failure (-5), Bluetooth initialization
+errors and the previously observed boot-time MCEs. The T2-patched SMC driver
+initialized successfully after returning to the protected production kernel.
+USB storage and wired Ethernet provided the boot and SSH path; this test does
+not establish full T2 device support.
+
+Is the Navi post-init callback the right place for this sequencing quirk, and
+are there additional clock-state consumers that should be refreshed? The
+predicate is deliberately limited to the tested subsystem and revision.
+The related 0219 board has an existing T2 allowed-mask override and needs
+separate evidence before combining the cases.
+
+Codex assisted with investigating the initialization sequence, writing the
+patch and tests, and preparing this message. The session progressed from
+reproducing the GPU boot failure to isolating UCLK timing and extracting a
+board-specific fix with public policy and error handling preserved. The
+patch contains an Assisted-by trailer. The host checks use extracted C with
+mocked firmware; the T2 hardware results are recorded separately above.
+
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 81 +++++++++++++++++++
+ 1 file changed, 81 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index f8ca5eb9a..4e8fb9e7c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -60,6 +60,18 @@
+ 
+ static int navi10_init_ppt_limits(struct smu_context *smu);
+ 
++static bool navi14_needs_late_uclk(struct amdgpu_device *adev)
++{
++	struct pci_dev *pdev = adev->pdev;
++
++	return pdev->vendor == PCI_VENDOR_ID_ATI &&
++		pdev->device == 0x7340 &&
++		pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
++		pdev->subsystem_device == 0x0218 &&
++		pdev->revision == 0x41 &&
++		(adev->pm.pp_feature & PP_MCLK_DPM_MASK);
++}
++
+ static const struct smu_feature_bits navi10_dpm_features = {
+ 	.bits = {
+ 		SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
+@@ -356,6 +368,11 @@ navi10_init_allowed_features(struct smu_context *smu)
+ 		smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEATURE_MEM_MVDD_SCALING_BIT);
+ 	}
+ 
++	/* This board times out if EnableAllSmuFeatures includes UCLK DPM. */
++	if (navi14_needs_late_uclk(adev))
++		smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
++					   FEATURE_DPM_UCLK_BIT);
++
+ 	if (is_asic_secure(smu) &&
+ 	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(11, 0, 0)) &&
+ 	    (adev->rev_id == 0))
+@@ -470,6 +487,25 @@ static int navi10_store_powerplay_table(struct smu_context *smu)
+ 	return 0;
+ }
+ 
++/* DCN20 consumes these PPT states before the post-init UCLK enable. */
++static int navi14_imac_check_uclk_states(struct smu_context *smu)
++{
++	PPTable_t *ppt = smu->smu_table.driver_pptable;
++	unsigned int count, i;
++
++	if (!navi14_needs_late_uclk(smu->adev))
++		return 0;
++
++	count = ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
++	if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
++		return -EINVAL;
++	for (i = 0; i < count; i++) {
++		if (!ppt->FreqTableUclk[i])
++			return -EINVAL;
++	}
++	return 0;
++}
++
+ static int navi10_setup_pptable(struct smu_context *smu)
  {
--	u32 vbl = 0, position = 0;
-+	u32 scan_vbl_start = 0, scan_vbl_end = 0;
-+	u32 scan_vpos = 0, scan_hpos = 0;
- 	int vbl_start, vbl_end, vtotal, ret = 0;
- 	bool in_vbl = true;
+ 	int ret = 0;
+@@ -490,6 +526,10 @@ static int navi10_setup_pptable(struct smu_context *smu)
+ 	if (ret)
+ 		return ret;
  
-@@ -1774,8 +1775,14 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 	if (stime)
- 		*stime = ktime_get();
++	ret = navi14_imac_check_uclk_states(smu);
++	if (ret)
++		return ret;
++
+ 	return navi10_init_ppt_limits(smu);
+ }
  
--	if (amdgpu_display_page_flip_get_scanoutpos(adev, pipe, &vbl, &position) == 0)
-+	if (amdgpu_display_page_flip_get_scanoutpos(adev, pipe,
-+						    &scan_vbl_start, &scan_vbl_end,
-+						    &scan_vpos, &scan_hpos) == 0) {
- 		ret |= DRM_SCANOUTPOS_VALID;
+@@ -3219,6 +3259,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu_context *smu)
+ 					       NULL);
+ }
+ 
++/* Rebuild memory clocks before the UMC workaround and UMD clock setup. */
++static int navi14_imac_late_uclk_enable(struct smu_context *smu)
++{
++	struct smu_11_0_dpm_context *dpm = smu->smu_dpm.dpm_context;
++	struct smu_dpm_table *table = &dpm->dpm_tables.uclk_table;
++	PPTable_t *ppt = smu->smu_table.driver_pptable;
++	struct smu_feature_bits enabled;
++	int ret;
++
++	if (!navi14_needs_late_uclk(smu->adev))
++		return 0;
++
++	ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT, true);
++	if (ret)
++		return ret;
++	ret = smu_cmn_get_enabled_mask(smu, &enabled);
++	if (ret)
++		return ret;
++	if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
++		return -EIO;
++
++	smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
++				 FEATURE_DPM_UCLK_BIT);
++	table->clk_type = SMU_UCLK;
++	ret = smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
++	if (ret)
++		return ret;
++	if (!table->count)
++		return -EINVAL;
++	if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
++		table->flags |= SMU_DPM_TABLE_FINE_GRAINED;
++
++	return smu_v11_0_init_max_sustainable_clocks(smu);
++}
++
+ static int navi10_post_smu_init(struct smu_context *smu)
+ {
+ 	struct amdgpu_device *adev = smu->adev;
+@@ -3227,6 +3302,12 @@ static int navi10_post_smu_init(struct smu_context *smu)
+ 	if (amdgpu_sriov_vf(adev))
+ 		return 0;
+ 
++	ret = navi14_imac_late_uclk_enable(smu);
++	if (ret) {
++		dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n", ret);
++		return ret;
 +	}
 +
-+	*vpos = scan_vpos;
-+	*hpos = scan_hpos;
- 
- 	/* Get optional system timestamp after query. */
- 	if (etime)
-@@ -1783,16 +1790,11 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 
- 	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
- 
--	/* Decode into vertical and horizontal scanout position. */
--	*vpos = position & 0x1fff;
--	*hpos = (position >> 16) & 0x1fff;
--
- 	/* Valid vblank area boundaries from gpu retrieved? */
--	if (vbl > 0) {
--		/* Yes: Decode. */
-+	if (scan_vbl_start || scan_vbl_end) {
- 		ret |= DRM_SCANOUTPOS_ACCURATE;
--		vbl_start = vbl & 0x1fff;
--		vbl_end = (vbl >> 16) & 0x1fff;
-+		vbl_start = scan_vbl_start;
-+		vbl_end = scan_vbl_end;
- 	} else {
- 		/* No: Fake something reasonable which gives at least ok results. */
- 		vbl_start = mode->crtc_vdisplay;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-index 49a29bf47a37..9390154c12a2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-@@ -33,7 +33,9 @@
- #define amdgpu_display_hpd_get_gpio_reg(adev) (adev)->mode_info.funcs->hpd_get_gpio_reg((adev))
- #define amdgpu_display_bandwidth_update(adev) (adev)->mode_info.funcs->bandwidth_update((adev))
- #define amdgpu_display_page_flip(adev, crtc, base, async) (adev)->mode_info.funcs->page_flip((adev), (crtc), (base), (async))
--#define amdgpu_display_page_flip_get_scanoutpos(adev, crtc, vbl, pos) (adev)->mode_info.funcs->page_flip_get_scanoutpos((adev), (crtc), (vbl), (pos))
-+#define amdgpu_display_page_flip_get_scanoutpos(adev, crtc, vbl_start, vbl_end, vpos, hpos) \
-+	((adev)->mode_info.funcs->page_flip_get_scanoutpos((adev), (crtc), \
-+			(vbl_start), (vbl_end), (vpos), (hpos)))
- #define amdgpu_display_add_encoder(adev, e, s, c) (adev)->mode_info.funcs->add_encoder((adev), (e), (s), (c))
- #define amdgpu_display_add_connector(adev, ci, sd, ct, ib, coi, h, r) (adev)->mode_info.funcs->add_connector((adev), (ci), (sd), (ct), (ib), (coi), (h), (r))
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 7c784277396a..7033531001cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -277,8 +277,12 @@ struct amdgpu_display_funcs {
- 	/* pageflipping */
- 	void (*page_flip)(struct amdgpu_device *adev,
- 			  int crtc_id, u64 crtc_base, bool async);
--	int (*page_flip_get_scanoutpos)(struct amdgpu_device *adev, int crtc,
--					u32 *vbl, u32 *position);
-+	int (*page_flip_get_scanoutpos)(struct amdgpu_device *adev,
-+					int crtc,
-+					u32 *vbl_start,
-+					u32 *vbl_end,
-+					u32 *vpos,
-+					u32 *hpos);
- 	/* display topology setup */
- 	void (*add_encoder)(struct amdgpu_device *adev,
- 			    uint32_t encoder_enum,
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 7de7adc8f225..8bbef608c5dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -256,14 +256,26 @@ static void dce_v10_0_page_flip(struct amdgpu_device *adev,
- 	RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset);
- }
- 
--static int dce_v10_0_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
--					u32 *vbl, u32 *position)
-+static int dce_v10_0_crtc_get_scanoutpos(struct amdgpu_device *adev,
-+					 int crtc,
-+					 u32 *vbl_start,
-+					 u32 *vbl_end,
-+					 u32 *vpos,
-+					 u32 *hpos)
- {
-+	u32 vbl, position;
-+
- 	if ((crtc < 0) || (crtc >= adev->mode_info.num_crtc))
- 		return -EINVAL;
- 
--	*vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
--	*position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+	vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
-+	position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+
-+	*vbl_start = vbl & 0x1fff;
-+	*vbl_end = (vbl >> 16) & 0x1fff;
-+
-+	*vpos = position & 0x1fff;
-+	*hpos = (position >> 16) & 0x1fff;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 3c1d6901127d..2181fe57dfdd 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -220,14 +220,26 @@ static void dce_v6_0_page_flip(struct amdgpu_device *adev,
- 	RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset);
- }
- 
--static int dce_v6_0_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
--					u32 *vbl, u32 *position)
-+static int dce_v6_0_crtc_get_scanoutpos(struct amdgpu_device *adev,
-+					int crtc,
-+					u32 *vbl_start,
-+					u32 *vbl_end,
-+					u32 *vpos,
-+					u32 *hpos)
- {
-+	u32 vbl, position;
-+
- 	if ((crtc < 0) || (crtc >= adev->mode_info.num_crtc))
- 		return -EINVAL;
- 
--	*vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
--	*position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+	vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
-+	position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+
-+	*vbl_start = vbl & 0x1fff;
-+	*vbl_end = (vbl >> 16) & 0x1fff;
-+
-+	*vpos = position & 0x1fff;
-+	*hpos = (position >> 16) & 0x1fff;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index a17944d5e843..1388f2161ae8 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -204,14 +204,26 @@ static void dce_v8_0_page_flip(struct amdgpu_device *adev,
- 	RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset);
- }
- 
--static int dce_v8_0_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
--					u32 *vbl, u32 *position)
-+static int dce_v8_0_crtc_get_scanoutpos(struct amdgpu_device *adev,
-+					int crtc,
-+					u32 *vbl_start,
-+					u32 *vbl_end,
-+					u32 *vpos,
-+					u32 *hpos)
- {
-+	u32 vbl, position;
-+
- 	if ((crtc < 0) || (crtc >= adev->mode_info.num_crtc))
- 		return -EINVAL;
- 
--	*vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
--	*position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+	vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
-+	position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
-+
-+	*vbl_start = vbl & 0x1fff;
-+	*vbl_end = (vbl >> 16) & 0x1fff;
-+
-+	*vpos = position & 0x1fff;
-+	*hpos = (position >> 16) & 0x1fff;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f49cc198fb0d..f77054060d87 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -186,10 +186,13 @@ STATIC_IFN_KUNIT u32 dm_vblank_get_counter(struct amdgpu_device *adev, int crtc)
- }
- EXPORT_IF_KUNIT(dm_vblank_get_counter);
- 
--STATIC_IFN_KUNIT int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
--					    u32 *vbl, u32 *position)
-+STATIC_IFN_KUNIT int dm_crtc_get_scanoutpos(struct amdgpu_device *adev,
-+					    int crtc,
-+					    u32 *vbl_start,
-+					    u32 *vbl_end,
-+					    u32 *vpos,
-+					    u32 *hpos)
- {
--	u32 v_blank_start = 0, v_blank_end = 0, h_position = 0, v_position = 0;
- 	struct amdgpu_crtc *acrtc = NULL;
- 	struct dc *dc = adev->dm.dc;
- 
-@@ -207,18 +210,16 @@ STATIC_IFN_KUNIT int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc
- 	if (dc && dc->caps.ips_support && dc->idle_optimizations_allowed)
- 		dc_allow_idle_optimizations(dc, false);
- 
--	/*
--	 * TODO rework base driver to use values directly.
--	 * for now parse it back into reg-format
--	 */
--	dc_stream_get_scanoutpos(acrtc->dm_irq_params.stream,
--				 &v_blank_start,
--				 &v_blank_end,
--				 &h_position,
--				 &v_position);
--
--	*position = v_position | (h_position << 16);
--	*vbl = v_blank_start | (v_blank_end << 16);
-+	if (!dc_stream_get_scanoutpos(acrtc->dm_irq_params.stream,
-+				      vbl_start,
-+				      vbl_end,
-+				      hpos,
-+				      vpos)) {
-+		*vbl_start = 0;
-+		*vbl_end = 0;
-+		*vpos = 0;
-+		*hpos = 0;
-+	}
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 089741ba0619..2819b58e8a9e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1167,7 +1167,8 @@ int dm_set_powergating_state(struct amdgpu_ip_block *ip_block,
- void dm_bandwidth_update(struct amdgpu_device *adev);
- u32 dm_vblank_get_counter(struct amdgpu_device *adev, int crtc);
- int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
--			   u32 *vbl, u32 *position);
-+			   u32 *vbl_start, u32 *vbl_end,
-+			   u32 *vpos, u32 *hpos);
- struct dm_atomic_state *dm_atomic_get_new_state(struct drm_atomic_commit *state);
- struct drm_private_state *dm_atomic_duplicate_state(struct drm_private_obj *obj);
- void dm_atomic_destroy_state(struct drm_private_obj *obj,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index a67774e6db36..4180f519b57b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -158,15 +158,19 @@ static void dm_test_vblank_get_counter_no_stream(struct kunit *test)
- static void dm_test_crtc_get_scanoutpos_invalid_crtc(struct kunit *test)
- {
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
--	u32 vbl = 0;
--	u32 position = 0;
-+	u32 vbl_start = 0;
-+	u32 vbl_end = 0;
-+	u32 vpos = 0;
-+	u32 hpos = 0;
- 
- 	adev->mode_info.num_crtc = 1;
- 
--	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, -1, &vbl, &position),
--			-EINVAL);
--	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 1, &vbl, &position),
--			-EINVAL);
-+	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, -1,
-+						     &vbl_start, &vbl_end,
-+						     &vpos, &hpos), -EINVAL);
-+	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 1,
-+						     &vbl_start, &vbl_end,
-+						     &vpos, &hpos), -EINVAL);
- }
- 
- /**
-@@ -177,8 +181,10 @@ static void dm_test_crtc_get_scanoutpos_no_stream(struct kunit *test)
- {
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
- 	struct amdgpu_crtc *acrtc;
--	u32 vbl = 0;
--	u32 position = 0;
-+	u32 vbl_start = 0;
-+	u32 vbl_end = 0;
-+	u32 vpos = 0;
-+	u32 hpos = 0;
- 
- 	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-@@ -186,9 +192,13 @@ static void dm_test_crtc_get_scanoutpos_no_stream(struct kunit *test)
- 	adev->mode_info.num_crtc = 1;
- 	adev->mode_info.crtcs[0] = acrtc;
- 
--	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0, &vbl, &position), 0);
--	KUNIT_EXPECT_EQ(test, vbl, 0U);
--	KUNIT_EXPECT_EQ(test, position, 0U);
-+	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0,
-+						     &vbl_start, &vbl_end,
-+						     &vpos, &hpos), 0);
-+	KUNIT_EXPECT_EQ(test, vbl_start, 0U);
-+	KUNIT_EXPECT_EQ(test, vbl_end, 0U);
-+	KUNIT_EXPECT_EQ(test, vpos, 0U);
-+	KUNIT_EXPECT_EQ(test, hpos, 0U);
- }
- 
- /**
-@@ -1211,14 +1221,20 @@ static void dm_test_crtc_get_scanoutpos_unmapped_stream(struct kunit *test)
- {
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
- 	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
--	u32 vbl = 0xdeadbeef;
--	u32 position = 0xdeadbeef;
-+	u32 vbl_start = 0xdeadbeef;
-+	u32 vbl_end = 0xdeadbeef;
-+	u32 vpos = 0xdeadbeef;
-+	u32 hpos = 0xdeadbeef;
- 
- 	dm_test_crtc_with_stream(test, adev, dc);
- 
--	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0, &vbl, &position), 0);
--	KUNIT_EXPECT_EQ(test, vbl, 0U);
--	KUNIT_EXPECT_EQ(test, position, 0U);
-+	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0,
-+						     &vbl_start, &vbl_end,
-+						     &vpos, &hpos), 0);
-+	KUNIT_EXPECT_EQ(test, vbl_start, 0U);
-+	KUNIT_EXPECT_EQ(test, vbl_end, 0U);
-+	KUNIT_EXPECT_EQ(test, vpos, 0U);
-+	KUNIT_EXPECT_EQ(test, hpos, 0U);
- }
- 
- /**
-@@ -1229,14 +1245,16 @@ static void dm_test_crtc_get_scanoutpos_exits_idle(struct kunit *test)
- {
- 	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
- 	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
--	u32 vbl = 0;
--	u32 position = 0;
-+	u32 vbl_start = 0, vbl_end = 0;
-+	u32 vpos = 0, hpos = 0;
- 
- 	dm_test_crtc_with_stream(test, adev, dc);
- 	dc->caps.ips_support = true;
- 	dc->idle_optimizations_allowed = true;
- 
--	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0, &vbl, &position), 0);
-+	KUNIT_EXPECT_EQ(test, dm_crtc_get_scanoutpos(adev, 0,
-+						     &vbl_start, &vbl_end,
-+						     &vpos, &hpos), 0);
- }
- 
- static struct drm_atomic_commit *dm_test_alloc_commit(struct kunit *test,
+ 	ret = navi10_run_umc_cdr_workaround(smu);
+ 	if (ret)
+ 		dev_err(adev->dev, "Failed to apply umc cdr workaround!\n");
+
+base-commit: c22f9a61e288580824edbbc3ae5a29c9a338594f
 -- 
 2.55.0
 
