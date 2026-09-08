@@ -4,51 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D20CC79FB8
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C350AC79FBC
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C88BD10EF67;
-	Wed,  9 Sep 2026 06:56:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 635A010EF6A;
+	Wed,  9 Sep 2026 06:56:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nDininVL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i4QZY7QG";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3034410E3E5;
- Tue,  8 Sep 2026 20:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=ZMEWZWXTXy0juUhCP/VyyM3JVOauhXG+wy/tuimbToY=; b=nDininVLMc5mMXDKjwlnZEW+t5
- 5Xw81cbU76TOGCDu9EPI/j6qbrVfutRABD9THlZlii3RLb+v/xP6CUyXhu1tMSfyi0NtgnjkowXRK
- sWthtG28KM4WX/hWcRLKZ+M0T2J/ABIxTvnEfp7zn8YJuAEm6ttmuyV7GloouowYKvqikq27hTSWG
- dR393y/7JxWoeThKqK4ictdoKqAm7KRXCn8b3mjo72zG/qToBWYOCX3vzjmlvKZmF+rsNF/bYgv9a
- 8w57+wx3yzON6qBjtyo6FiaJYLZZOiiL9uXiUGGzAk3e8kjQLvdm5pxwF2mbc6tqnM9P+SI/umYHe
- M7MuWWBw==;
-Received: from 179-125-79-245-dinamico.pombonet.net.br ([179.125.79.245]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x41z9-00Gfaw-PE; Tue, 08 Sep 2026 22:00:04 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Tue, 08 Sep 2026 16:59:51 -0300
-Subject: [PATCH] Revert "drm/amdgpu: debugfs: avoid extra EOLs in
- amdgpu_gem_info"
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 781E110E17F
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 19:56:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788897385; x=1820433385;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=92WNq9IfnRE2rL4eWooUtSOzTsGKkpp2lqGcKMajoB4=;
+ b=i4QZY7QGENeoLRuV3dOkrSRIKuzh709uqpMF5I5RgDhZNkhwpKstkuqm
+ XJUw1y5b5qhxem1DQH1XiPTrGVZWxI4+AB4FGPtx67O6uMF99LhC6nXkv
+ CpxEGWWyWzehVv06vXgdDZ/o4GduXRhLqbL4nsl/m/ZrBSGIyZKVzWQyH
+ 4nXi1dihRjSxSJhvqDOmm35hQl6MuZOZa3UXxbYpob4rcNc1iNzIJpQOl
+ PfR2W+Dh65e3lUcDi+ntws6ho9/ohXamFHjId5lvO4Msrf1RQZKmOu8bj
+ XiDpSxNDdvqAg9QspexZ9kl2g+uSrNLGM4xnF8oHvD3ngfJlzgfD9V8Zu A==;
+X-CSE-ConnectionGUID: Hsp5X2aBTEmanXePR4x/fA==
+X-CSE-MsgGUID: tIIpHvqKSKWeebVYKxz9Sg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100832555"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="100832555"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 12:56:24 -0700
+X-CSE-ConnectionGUID: UwuuMuwAQvCQ9Bk8kTaOrQ==
+X-CSE-MsgGUID: IYs5WnooRVaQr7up1rF9zQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="300970475"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.109])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2026 12:56:19 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 8 Sep 2026 22:56:16 +0300 (EEST)
+To: Liz Fong-Jones <lizf@honeycomb.io>
+cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+ LKML <linux-kernel@vger.kernel.org>, regressions@lists.linux.dev, 
+ amd-gfx@lists.freedesktop.org, Jon Nettleton <jon@solid-run.com>, 
+ Jon Nettleton <jon.nettleton@gmail.com>, 
+ Jacob Martin <jacob.martin@canonical.com>, 
+ Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org, 
+ =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kwilczynski@kernel.org>
+Subject: Re: [PATCH v4] PCI: Fix BAR resize for devices on a root bus
+In-Reply-To: <20260908-pci-rebar-root-bus-v4-1-2780e9c22e08@honeycomb.io>
+Message-ID: <8866d915-56d1-312b-ae68-b65021abd914@linux.intel.com>
+References: <20260908-pci-rebar-root-bus-v4-1-2780e9c22e08@honeycomb.io>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-amdgpu_debugfs-v1-1-3b659e744691@igalia.com>
-X-B4-Tracking: v=1; b=H4sIADZpoGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSwML3cTclPSC0viU1KTS9LRi3SRT48QUQyPzNGOzRCWgpoKi1LTMCrC
- B0bEQfnFpUlZqcgnIFKXaWgB0cmgjcgAAAA==
-X-Change-ID: 20260908-amdgpu_debugfs-b53ad127f36a
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com, 
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+Content-Type: multipart/mixed; boundary="8323328-308109410-1788897376=:1164"
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,38 +73,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit c119d05a36a884482decc67e55944648f8cba97e.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-It removes the newline even when there are no fences attached to a
-struct dma_resv, leading to multiple BOs being output on the same line,
-making the debug file less readable, not more as the commit intended.
+--8323328-308109410-1788897376=:1164
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+On Tue, 8 Sep 2026, Liz Fong-Jones wrote:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 5d9d137209b6..1b6c32a177fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1701,9 +1701,8 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
- 	if (dma_resv_trylock(bo->tbo.base.resv)) {
- 		dma_resv_describe(bo->tbo.base.resv, m);
- 		dma_resv_unlock(bo->tbo.base.resv);
--	} else {
--		seq_puts(m, "\n");
- 	}
-+	seq_puts(m, "\n");
- 
- 	return size;
- }
+> pci_do_resource_release_and_resize() releases the device BARs that
+> share a bridge window with the BAR being resized, but when the device
+> sits directly on a root bus (pdev->bus->self =3D=3D NULL) it then skips
+> resource assignment entirely and returns success, leaving the BARs it
+> just released unassigned (IORESOURCE_UNSET).
+>=20
+> Skipping pbus_reassign_bridge_resources() is correct in that case --
+> there is no bridge window to adjust -- but the device BARs still have
+> to be reassigned. Before the BAR release was consolidated into the PCI
+> core, this case worked for amdgpu because the driver released the BARs
+> itself and then called pci_assign_unassigned_bus_resources()
+> unconditionally after the resize, which assigns unassigned device BARs
+> also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+> side BAR release before resize") removed that call, so nothing assigns
+> the released BARs anymore.
+>=20
+> This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
+> LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+> on the root bus of its segment (there is no root port device, so
+> pdev->bus->self is NULL):
+>=20
+>   amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: =
+releasing
+>   amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: =
+releasing
+>   amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+>   amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+>   amdgpu 0004:01:00.0: Fatal error during GPU init
+>=20
+> No error is logged because the resize path reports success; amdgpu
+> then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+>=20
+> Assign the released BARs directly from the root bus windows when there
+> is no upstream bridge. On failure, roll back through the existing
+> restore path exactly as in the bridged case.
+>=20
+> The root bus path also had a locking bug that any fix here necessarily
+> touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+> matching down_read() (as does the "goto restore" taken when
+> pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+> before the BAR release loop so every path through the function holds
+> it exactly once.
+>=20
+> Use pci_upstream_bridge() rather than testing pdev->bus->self
+> directly to decide whether the device has an upstream bridge. The two
+> are usually equivalent, but pci_is_root_bus() -- which
+> pci_upstream_bridge() uses internally -- documents that "virtual"
+> buses added for SR-IOV via virtfn_add_bus() also have bus->self =3D=3D
+> NULL without being root buses. pci_do_resource_release_and_resize()
+> is reachable for VF BAR resizes (see the pci_resource_is_iov() checks
+> elsewhere in this file and in rebar.c), so testing bus->self directly
+> could misroute a VF resize into the root-bus assignment path added
+> above. Nothing about the bug being fixed here involves a VF; this is
+> purely for correctness on that path.
+>=20
+> Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path=
+")
+> Cc: stable@vger.kernel.org
+> Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/215959=
+6
+> Assisted-by: Claude:claude-fable-5 checkpatch
+> Assisted-by: Claude:claude-sonnet-5
+> Reviewed-by: Krzysztof Wilczy=C5=84ski <kwilczynski@kernel.org>
+> Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+> ---
+> #regzbot introduced: 337b1b566db0
+>=20
+> Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
+> linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
+> carries this code unmodified, and the affected function is identical
+> to current mainline. By source inspection the regression window is
+> v6.18 (old code paths) to v6.19 (consolidation). Workaround for
+> affected users: amdgpu.rebar=3D0.
+>=20
+> On the topology question raised in review: this is physical hardware,
+> not a virtualized guest, running the UEFI/ACPI firmware variant of
+> this board (SolidRun also ships a U-Boot/devicetree variant of the
+> same hardware). Deferring to Jon Nettleton (CC'd, SolidRun) on the
+> exact root complex wiring; see the hardware manual's block diagram:
+> https://dev.solid-run.com/nxp/lx2160a/com-som/lx2160a-com-hardware-user-m=
+anual#block-diagram
+> ---
+> Changes in v4:
+> - No functional changes. Resending per Thorsten Leemhuis (regressions
+>   tracking) -- this looked to have fallen through the cracks after
+>   v3. Confirmed still broken today on v7.3-rc2 (mainline) and v7.2.4
+>   (stable): pci_do_resource_release_and_resize() still has the
+>   original "if (!bus->self) goto out;" with no reassignment on that
+>   path.
+> - Rebase onto current mainline.
+> - Link to v3: https://patch.msgid.link/20260731-pci-rebar-root-bus-v3-1-6=
+732e233fc99@honeycomb.io
+>=20
+> Changes in v3:
+> - Add Reviewed-by from Krzysztof Wilczy=C5=84ski, received on v2.
+> - Use pci_upstream_bridge() instead of testing pdev->bus->self
+>   directly, per Bjorn Helgaas's review: bus->self =3D=3D NULL doesn't
+>   necessarily mean a root bus (SR-IOV virtfn_add_bus() buses are the
+>   same), and this function is reachable for VF BAR resizes elsewhere
+>   in this file. Doesn't affect the bug being fixed here (not a VF)
+>   but is more correct in general. Reviewed-by kept from v2 -- this is
+>   a narrow, mechanical change to a path this device doesn't exercise,
+>   not a substantive rework of what was reviewed.
+> - Rebase onto current mainline.
+> - Add Jacob Martin to Cc: he independently triaged and accepted the
+>   corresponding Ubuntu report (LP: #2159596) on the Canonical kernel
+>   team, so he has direct interest in this landing.
+> - Move Ilpo J=C3=A4rvinen to To: for final review, per Bjorn.
+> - Link to v2: https://patch.msgid.link/20260712-pci-rebar-root-bus-v2-1-a=
+1b9107a82dc@honeycomb.io
+>=20
+> Changes in v2:
+> - Add Assisted-by tags (missing from v1; required per
+>   Documentation/process/coding-assistants.rst)
+> - Add Link: to the corresponding Ubuntu bug report
+> - Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
+>   given the Fixes: tag already lets the stable team derive applicable
+>   versions (per stable-kernel-rules.rst)
+> - Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-5=
+5df70cbdd88@honeycomb.io
+>=20
+> To: Bjorn Helgaas <bhelgaas@google.com>
+> To: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: regressions@lists.linux.dev
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: Jon Nettleton <jon@solid-run.com>
+> Cc: Jon Nettleton <jon.nettleton@gmail.com>
+> Cc: Jacob Martin <jacob.martin@canonical.com>
+> Cc: Thorsten Leemhuis <regressions@leemhuis.info>
+> ---
+>  drivers/pci/setup-bus.c | 26 ++++++++++++++++++++------
+>  1 file changed, 20 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+> index e8c94aa1d3c1..9907dc5521aa 100644
+> --- a/drivers/pci/setup-bus.c
+> +++ b/drivers/pci/setup-bus.c
+> @@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_d=
+ev *pdev, int resno, int size
+>  =09struct resource *res =3D pci_resource_n(pdev, resno);
+>  =09struct pci_dev_resource *dev_res;
+>  =09struct pci_bus *bus =3D pdev->bus;
+> +=09struct pci_dev *bridge =3D pci_upstream_bridge(pdev);
+>  =09struct resource *b_win, *r;
+>  =09LIST_HEAD(saved);
+>  =09unsigned int i;
+> @@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_d=
+ev *pdev, int resno, int size
+>  =09if (ret)
+>  =09=09return ret;
+> =20
+> +=09down_read(&pci_bus_sem);
+> +
+>  =09pci_dev_for_each_resource(pdev, r, i) {
+>  =09=09if (i >=3D PCI_BRIDGE_RESOURCES)
+>  =09=09=09break;
+> @@ -2415,13 +2418,24 @@ int pci_do_resource_release_and_resize(struct pci=
+_dev *pdev, int resno, int size
+> =20
+>  =09pci_resize_resource_set_size(pdev, resno, size);
+> =20
+> -=09if (!bus->self)
+> -=09=09goto out;
+> +=09if (bridge) {
+> +=09=09ret =3D pbus_reassign_bridge_resources(bus, res, &saved);
+> +=09=09if (ret)
+> +=09=09=09goto restore;
+> +=09} else {
+> +=09=09/*
+> +=09=09 * A device on a root bus has no bridge windows to adjust.
+> +=09=09 * Assign the BARs released above directly from the root bus
+> +=09=09 * windows.
+> +=09=09 */
+> +=09=09list_for_each_entry(dev_res, &saved, list) {
+> +=09=09=09i =3D pci_resource_num(pdev, dev_res->res);
+> =20
+> -=09down_read(&pci_bus_sem);
+> -=09ret =3D pbus_reassign_bridge_resources(bus, res, &saved);
+> -=09if (ret)
+> -=09=09goto restore;
+> +=09=09=09ret =3D pci_assign_resource(pdev, i);
+> +=09=09=09if (ret)
+> +=09=09=09=09goto restore;
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260908-amdgpu_debugfs-b53ad127f36a
+Maybe this is what has to be done here, but I wonder if this could use=20
+pci_bus_assign_resources()?
 
-Best regards,
---  
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+--=20
+ i.
 
+--8323328-308109410-1788897376=:1164--
