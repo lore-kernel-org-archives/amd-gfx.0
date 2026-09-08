@@ -4,101 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3DAAC79FB9
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 624F7C79FB5
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 588C210EF60;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98E5310EF64;
 	Wed,  9 Sep 2026 06:56:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VievpDNd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B0UyyjoT";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B26310E4BE
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 20:00:47 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-84e27035206so4726181b3a.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 13:00:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788897646; cv=none;
- d=google.com; s=arc-20260327;
- b=pgswLo/9kyQarbIhbvCjHKe/rTwUxmSNfSImhqLl3DbAyxKnMpA1TzI4AhPNmdb+j2
- dkmOqW/17u0eLS2wuHjLDDgG8zJSoqBMUQ3LnQA2wsx+2USSB/NL88lA2lUV7w4qL63o
- R0Cj7aIsCEvBuQLjbFNscTrSsU7eBiXVol0igu4jvITgU3YRmhiBVLF7JCPn7PXD564j
- BxUD/afyP+8P9cR3hKkf9dluHZ0KAg9AW8jhf1o0d2nUGQ/FOmU4s7GWfvsbuDyCaIMx
- hmVEp5TyRaDHVYinECmQ2VC1HvbfEMmsh2Jk7fnm4olFXu4vwJP2U1c8PtK2BFB8gJOy
- O3gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=CgnFpj0KhXyBQSPhlPzZGfxCaAjurfhKYEu5Mk/FQ5I=;
- fh=Ul71IiJuojwXq3NNGvkE23P8+sAIMGBgH/iAPfzOAkE=;
- b=dX/wQxVGwtyUdbGElE+UN/rCPkcRbkutNEiX0pJk4HSGtASmG3D4GTUpW1U4q32QXo
- Qd5ufK1m5GD1k7O7eBBy0g1dYXBNDJ0/f+z9ncDb/b/HgzHwTbISejtCyYfyWuZqxADY
- 1ZNWon2IyNF0uHx0ez08nQX1SlH6k45yUjD5RNPUMPWFGmBD5nJHwYj/RnoDXBtol3E5
- tb9Q6Hw013R34Yf3+f5ydmXTW2y+xXCMrY1F0eh1rE1asK4WZ87mAQsXCG66RPD5n/4U
- KF+e7JicQ//x9DLIK/iR4sackUOS1SneFnzjqINi8QVVLR9sTulEbq01GuhML1kosYEa
- vYGg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9546E10E155
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 17:55:02 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-5b4adcce4b1so4212538e87.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 10:55:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788897646; x=1789502446; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=CgnFpj0KhXyBQSPhlPzZGfxCaAjurfhKYEu5Mk/FQ5I=;
- b=VievpDNde6CEW0R4lFbi8/0YZoUmriTrEagV5143CGgCwcQs8AeQ7QQH+JbxvTEqje
- GPN/Iy27LjRGArmjz4CkelD213RDuJoHkF6PAZEGC6sGQ5SmKJZfWLKZx1VL9+ipt8RV
- bpaXaVTLqpXN5i0tITfh14ElaJ6WQv1QaOAAv5A2Hw7Uh6Z8SpoPL9bEdS0nlgjPS/m2
- YpBKFWR6iKL8KbViBiASJB8EWMJHpYhh2BJ0hKj0SA6E4MMxuJ39TjDeeEz5VlZt5Ezt
- VAWG2BG4FMKerqv+/+M6AzwWaNI391WjmlhV280cGolIijQlaB1lnRtHmE4RVgBOYKE5
- 31Pw==
+ d=gmail.com; s=20251104; t=1788890100; x=1789494900; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=S3mHm6ZqbhRQ6tXzMkeFKmTWTzRDfTiWOZtRcgd3yZs=;
+ b=B0UyyjoTWiug5OSX31wuiBxNfCmTYICWIg6NwqjSpCNiz19t+BfUay/6lOD7w+ktPz
+ kKxD86ayi6J9jXkV7bB5+2RpOEssyw7Bc2/lryJjla2PabIKVtsSw2yUh0Y02VOqVfwW
+ myDNyrRspLFphYm4F8luUc8iz4v7lFwamgIti52Tjx5iYXc/j1SjbKF4GZPdL3fftZhb
+ PthPmFysH9loXeYRKOe6QYA1/8m3cQya/64yoN93wrnPb7MDModacAj2cUiQjuKnGTh+
+ ewHSG5eSN1yT0415o39/Gurzh4RAyihNkZwRRNRima+q0FZcu+lmCdrY1oCjCRZhWNbK
+ hhUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788897646; x=1789502446;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=CgnFpj0KhXyBQSPhlPzZGfxCaAjurfhKYEu5Mk/FQ5I=;
- b=lD4Utxg6zsD4fVSEcRDOCeRc5J0p/C6gi7KLhQUp1+vQSiqz47oMt/e9fWzOYc41Wo
- B+g8t6Jvf/a5d06kWzq1tmQtwgtWBAN9dwb1YGQH8mStlG6+Y2LxV35xrWq/jVv7Y47V
- WCA06rWG+xt5N7Msl81IJ8+oINfBLskktpz8W6nRU/xPRa1TVbDkyqETwiqkkNTzUwTv
- OiQXuLmUr3Tzom3knT+2F9kwWCVuMNioXcFrNFkxK5i/x8PNatugn01Axc9GwmquVsw3
- AsHn5kl9tqqLRb5pyJAab+Dpdu7k9YDgfp32e2ANWDOLs9TydZ9e149ovSehfmY1/T+j
- bPdw==
-X-Gm-Message-State: AFuF++m5BpgLLFoAbp2r9xTE7+RrmC2wXPCf+I4JVRZwYU2rAnKjlEhp
- QBQEA9pi/b7qgLvN/BgOSHJs9TmKN9HpLVHULzuoOAbqnMpdJg5Q2NDCnsFI9QE2ETi45p6/Tpt
- a3QMPgTOO/GrZKdYjgZqs9BEfnn3Ees0=
-X-Gm-Gg: AYBFou24VNHoqzXl/D/esX9/EWYeAsZL8WJuVpNbqOMGONZs6nlw7UN+dG+URATYwXx
- +csmvcGZoIm6tFiYXv9ZwxQdNvhASXDAA9oprnGJBwN4R2QdzlKxHboFMYGrGAj3IVrkhbhE/g5
- fPArSTPMeQS4sQykcNiRWOl+lnaM+xy/yNJWCBegN0JD/QWZDJBtuHpNi8vhk9L6TCGKIPKzmpf
- hQI6KtBdoBK2Ws5mVGaB5tYfh34XiWT9cYdEscYuSj4U8qixN/sWAFO7ElOgnY/iHkYaJSbE71E
- wKS3aqtxtgjzoWaVaBEmDg1eeedkqOlLj7wF0jUwbfInKihFKITc3cnk
-X-Received: by 2002:a05:6a21:a06:b0:3d3:aec2:4dcc with SMTP id
- adf61e73a8af0-3da3a0fd0f3mr52835956637.24.1788897646281; Tue, 08 Sep 2026
- 13:00:46 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1788890100; x=1789494900;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=S3mHm6ZqbhRQ6tXzMkeFKmTWTzRDfTiWOZtRcgd3yZs=;
+ b=hb7CieAQpn3xhp0G31atZ8mpyIpKpL/riRGnpXWcZY7/wj5keyhW326Al7wirqN/DA
+ MUpV3bad6PjxZ0we7hE/W9TQ3ZAhYmSPICbUF7vbjxlfbIdaabZkA5unFwVCBTmKaXSh
+ P8fVEvpIxFhOWLykcMSa77CBs12/fyNvWrStECEknVbFwh3c+0NWpWeOYY4INe+2o6Ze
+ +z5W/Cop7SiIgoA1FyRoPeX0QkZqmhffzPN8T7cDV6g3gD5AeckJlE2iTF9Z81kl+S7V
+ EpsA4hhODp6YZzpgtR2tqBf5FT5j6mYz7iNvzPMf1M5n4qmyGRqn487za+dvLNtZ7TIC
+ 5yPw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzeV+oGE6XpdGiCLJq5w5VZo6xXLfb35ZoTnXEZJ98pCR6QGnDPTaurLXE/fLZTkyFRVZQ3mqgM@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lx+OmQb9iQAIukrhvNFAtWs8TQ8QG6+mMI/gCbHT455uePcVbb
+ zMPNaU9dVc4ye/pkt6DFoWGZzSD2MBbTNJ1bY3teKgfLik/o9P6HPB3C
+X-Gm-Gg: AYBFou0/1dy9ygeFsbAsPPGSUfijeU59QXGToj/yHRmeQqyu75JpoFWGb1zQNnspdKM
+ dfQJyy4fnlSZ5x7XPj8qb4GL0FMHog8QQs0mC/VSUk8q468QYtO73e/vuq7qOcBjVC0TrMPczaF
+ z+V55V2VYW3IjiAUXDWrAfN53D7R1qafzSWHeubjrODpR5v0Eu3tcNbRQDcdHE07XUU+XAKIklI
+ W9JQznuFfJ9OgoTeSOsYn15feputLHxnN4v7sPlVMS5js1TlA20K3RCcldcvYohOi3+tfv2NhXp
+ ZkyfMzxVG1kSboqIc4byyQ2gevglZPLRlPX1/FKeQraKQpAP94Da0132zGJ3ruG8xti9aRQpbyM
+ U0jMWG4Z4JNk1gr+fgLL5/MnICob+K4ceAdK6TF7HKkpXymglXDbqIMSdWLFns54jxDTBwCqOFS
+ QMljkHTVHRQ1YJHbMBTVAzRE3ronaMQqg7prrSDhAL6kPwlGW/iP8sGOg1f1/hpyA7C7ZvxcO7w
+ zB0bTx8ekyC
+X-Received: by 2002:a05:6512:8393:b0:5b6:1836:8082 with SMTP id
+ 2adb3069b0e04-5b6183683cbmr7614121e87.28.1788890099983; 
+ Tue, 08 Sep 2026 10:54:59 -0700 (PDT)
+Received: from soda.int.kasm.eu (soda.int.kasm.eu.
+ [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b6166fcdf9sm3172156e87.46.2026.09.08.10.54.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2026 10:54:59 -0700 (PDT)
+From: Klara Modin <klarasmodin@gmail.com>
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
+ Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thorsten Leemhuis <linux@leemhuis.info>,
+ Manuel Ebner <manuelebner@mailbox.org>, Gary Guo <gary@garyguo.net>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Klara Modin <klarasmodin@gmail.com>
+Subject: [PATCH] rust/drm/gem: initialize callbacks with ..pin_init::zeroed()
+Date: Tue,  8 Sep 2026 19:54:27 +0200
+Message-ID: <20260908175427.47207-1-klarasmodin@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-References: <20260825211819.100210-1-mauriciobellon@gmail.com>
- <20260825211819.100210-3-mauriciobellon@gmail.com>
- <CHXPR12MB99922037436C4ADE71BA82E152E5B12@CHXPR12MB999220.namprd12.prod.outlook.com>
-In-Reply-To: <CHXPR12MB99922037436C4ADE71BA82E152E5B12@CHXPR12MB999220.namprd12.prod.outlook.com>
-From: Mauricio Bellon <mauriciobellon@gmail.com>
-Date: Tue, 8 Sep 2026 17:00:33 -0300
-X-Gm-Features: AcwNN1WthglvDl-B0dk2ve42MA1wB5FLHFgw6l5Zd038WYo8I01-a0pmBvdKj24
-Message-ID: <CABNo9DcRfNQyw436eP_Y4PdbbwW7NTH3tfH0SB4st+uShFvtJA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/display: enable sink DSC before source DSC
-To: "Zuo, Jerry" <Jerry.Zuo@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lin,
- Wayne" <Wayne.Lin@amd.com>, 
- "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- Mauricio Bellon <mbellon@lenovo.com>, 
- "Wentland, Harry" <Harry.Wentland@amd.com>, "Li,
- Sun peng (Leo)" <Sunpeng.Li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, 
- "Koenig, Christian" <Christian.Koenig@amd.com>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,121 +95,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jerry,
+When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
+count goes to 0") added the handle_free callback, it did not update the
+rust abstraction, which will cause a build failure when that is enabled.
+Rather than just adding another None initializer, use
+..pin_init::zeroed() to make all unlisted callbacks None, and remove the
+existing None-initializations.
 
-Thanks for catching that, you're right.
+Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
+Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
+Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info
+Suggested-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: Klara Modin <klarasmodin@gmail.com>
+---
+ rust/kernel/drm/gem/mod.rs | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-I went back through the sequence and confirmed that my new
-dp_set_dsc_on_rx() call runs in the pre-enable phase, before
-enable_link() performs DP link training. I had mixed up the requirement
-to configure source-side DSC before link setup with the separate
-requirement to enable DSC on the sink only after training.
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index 80d8f524f9d5..af8274134a71 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -266,18 +266,8 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
+         free: Some(Self::free_callback),
+         open: Some(open_callback::<T>),
+         close: Some(close_callback::<T>),
+-        print_info: None,
+-        export: None,
+-        pin: None,
+-        unpin: None,
+-        get_sg_table: None,
+-        vmap: None,
+-        vunmap: None,
+-        mmap: None,
+-        status: None,
+         vm_ops: core::ptr::null_mut(),
+-        evict: None,
+-        rss: None,
++        ..pin_init::zeroed()
+     };
+ 
+     /// Returns the `Device` that owns this GEM object.
+-- 
+2.55.0
 
-It happened to work with the X13 and monitor I tested, including the
-hotplug cases, but that clearly doesn't make the ordering safe for other
-sinks. I won't keep patch 2 in its current form.
-
-Would the right place for dp_set_dsc_on_rx() be at the start of the
-post-enable phase, after link training but before
-hwss->enable_stream()? Or should it stay in its current location after
-hwss->enable_stream()?
-
-I'll wait for your guidance on the intended placement before sending a
-revision. Patch 1 should be independent of this sink DSC ordering change.
-
-Thanks,
-Mauricio
-
-
-Em ter., 8 de set. de 2026 =C3=A0s 15:14, Zuo, Jerry <Jerry.Zuo@amd.com> es=
-creveu:
->
-> AMD General
->
-> Hi Mauricio:
->
->      This change breaks dsc, causing black screen.
->
->      Sink RX dsc enable should land after link training. Writing dsc enab=
-le to the RX on an untrained link is too early, that should be done after t=
-raining. That is likely to be the main sequence regression.
->
-> Regards,
-> Jerry
->
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> > Mauricio Bellon
-> > Sent: Tuesday, August 25, 2026 17:18
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Lin, Wayne <Wayne.Lin@amd.com>; Limonciello, Mario
-> > <Mario.Limonciello@amd.com>; Mauricio Bellon <mbellon@lenovo.com>;
-> > Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
-> > <Sunpeng.Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Deucher,
-> > Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>; stable@vger.kernel.org
-> > Subject: [PATCH 2/2] drm/amd/display: enable sink DSC before source DSC
-> >
-> > [Some people who received this message don't often get email from
-> > mauriciobellon@gmail.com. Learn why this is important at
-> > https://aka.ms/LearnAboutSenderIdentification ]
-> >
-> > From: Mauricio Bellon <mbellon@lenovo.com>
-> >
-> > Direct DisplayPort high-refresh modes using DSC and two-way ODM can
-> > commit without visible output during a 4K120-to-4K144 transition. A wor=
-king
-> > 4K144 stream can also return black after long-pulse hotplug reconstruct=
-ion.
-> >
-> > The DPMS-on path currently enables source DSC before link enablement bu=
-t
-> > does not enable sink DSC until after the source stream is enabled. This=
- leaves
-> > the sink and source compression state ordered differently while the str=
-eam is
-> > brought up.
-> >
-> > Enable sink DSC immediately before source DSC in the pre-enable phase, =
-and
-> > remove the later redundant sink-enable operation near PPS packet
-> > programming. This establishes the order as sink DSC, source DSC, stream
-> > enablement, and PPS before the compressed stream becomes visible.
-> >
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Mauricio Bellon <mbellon@lenovo.com>
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 5 +++--
-> >  1 file changed, 3 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> > b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> > index 48b086d15..412ce52b3 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> > @@ -2635,8 +2635,10 @@ static enum dc_status
-> > link_set_dpms_on_pre_enable_link(
-> >          */
-> >         if (stream->timing.flags.DSC) {
-> >                 if (dc_is_dp_signal(stream->signal) ||
-> > -                       dc_is_virtual_signal(stream->signal))
-> > +                       dc_is_virtual_signal(stream->signal)) {
-> > +                       dp_set_dsc_on_rx(pipe_ctx, true);
-> >                         link_set_dsc_enable(pipe_ctx, true);
-> > +               }
-> >         }
-> >
-> >         if (link->replay_settings.config.replay_supported
-> > && !dc_is_embedded_signal(link->connector_signal))
-> > @@ -2729,7 +2731,6 @@ static enum dc_status
-> > link_set_dpms_on_post_enable_link(
-> >         if (stream->timing.flags.DSC) {
-> >                 if (dc_is_dp_signal(stream->signal) ||
-> >                                 dc_is_virtual_signal(stream->signal)) {
-> > -                       dp_set_dsc_on_rx(pipe_ctx, true);
-> >                         link_set_dsc_pps_packet(pipe_ctx, true, true);
-> >                 }
-> >         }
-> > --
-> > 2.53.0
->
