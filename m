@@ -4,97 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E24B6C79F99
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 13:26:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF12EC79F82
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 14:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69FA110E0F2;
-	Tue,  8 Sep 2026 13:26:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BDAE10E09B;
+	Tue,  8 Sep 2026 14:30:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D1l6rbBQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d0ZzOD2n";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012070.outbound.protection.outlook.com [52.101.43.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A9C210E0F2
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 13:25:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w891lkTECe6spjhpNVtbwYBxOZ3oTp4kpSkmvxoZQFhKbcctDuSb7W9BuIxVqLtFCy/CCwda0hATTGnFQbO4N67w57Y8qpVjugo9FTH27rcTc831TvNaWa/MfYTnjInH4SfvVJm764P955V6yIt+MzPLOBFTyvdYQOWOHGOCTk4SETta4K68ULzV54LzJPiL8/idP3OD420i9P+v+JOs+M+PRK2HrluILP0L4F2+L6DuhfrPzd+lKuC+JFDvMuwvLcInwoDudy6utG3dZhgbdViY63o+keEqU0gY/4ZcrHw7QbJ6ytVExxIO5LQmQ5+rIPPOK7S51E3nctJnIPJ9pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=31IetvvbZbBRw71pRYf9SS9pZG5y47Xt0WFItRHkf0E=;
- b=EbPL44QwdeKdsrIuWx6NnQUm9xIe+j9FKYxULoQL8hJX0u8KMG5BsbSoVQX7kruDnSW9X/vWApM+nNUZcsYGx9VXaSUU11Wrk8GdhrEkimcp1EhsO5MRaIraBIlWqmHtojaU2Cm7qt/7qxg6YhESJL30FDozOzFBJvrgPTG8T6lXucyB2wxsheqWN1cgfeVSOVON6KpdxEI9c9DHooJo/wyOegGAaX3yD90+ndU+6aZWRv7QM97Sm6VAi6wu35xz/kABlFRxj34e9FksLAz7May0XrkqkQmMZ4Q7amOp1kz5l2a1SgvzxZbxuKdAwVU0YYTh4RhoW5NX3vMpWfj5ZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=31IetvvbZbBRw71pRYf9SS9pZG5y47Xt0WFItRHkf0E=;
- b=D1l6rbBQoe8n7tTmQLn/hxkJUoy6sLREISSU8y19HiXoEY51uVZvFcPUcoPH3vvv9WVCIIrHHslN3vryUdqT2Yp1iRer+gu1hMCH05KbDEcqJeBloeET2j+POM/nJc2S2c+HblEF9U5+6/7UkzI93j+/3Bj540QQgol/OvDDaM4=
-Received: from SJ0PR03CA0098.namprd03.prod.outlook.com (2603:10b6:a03:333::13)
- by DS7PR12MB5936.namprd12.prod.outlook.com (2603:10b6:8:7f::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.7; Tue, 8 Sep 2026 13:25:56 +0000
-Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
- (2603:10b6:a03:333:cafe::74) by SJ0PR03CA0098.outlook.office365.com
- (2603:10b6:a03:333::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 13:25:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 13:25:55 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 08:25:50 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix recursive ww_mutex lock in amdgpu_trap_alloc
-Date: Tue, 8 Sep 2026 18:55:37 +0530
-Message-ID: <20260908132537.388980-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
+ [74.125.228.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 135EC10E0F4
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 14:30:58 +0000 (UTC)
+Received: by mail-pz2-f12.google.com with SMTP id
+ d2e1a72fcca58-8523cc3d76eso240271b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 07:30:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788877857; cv=none;
+ d=google.com; s=arc-20260327;
+ b=EzcZ8dl4hZvsP/2UpD8sf+h9awL6tnE93lRXFu0/nYlCIjjHB35kFl2kXMovNUbaf+
+ Rgyvvtc1ilD/1bK5XL/TjBtEwQR6ktng989g6D/DliKDhIW5ceXys+ijRLVoWv11MUAx
+ VzcHuDo/IQ8sWxs8o+7rCxS9hpzZC33PHBTw0suifjGD7LRGpVIwYaDAN8vqA79vRrO4
+ +MbTAkPZpbN6XrpndkSTfAOT2rPxQ5NCX+xbu0zXijKrgpvTxc5zVTAxzq92cOAhrxDm
+ gEBjg9oW+wiW742faKa+tT+xmKglJHJ6NwoGx5lozhzy1KbVFK5vGdgj0EOJwVcLRoLi
+ KDgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ONrg+ixeE+npwl1waDzdomaITThLQI9+1cKhJ6k/3o8=;
+ fh=pjLESlSgwRh3/1a9EnCt8AGN+cvbnxOhw/jX9mvVG8Q=;
+ b=gxfj/M6EWmv1K0q6Mh5U7XbXX50UY1uHzTv/M7lThxJYGzL85bJCvN7YayGKtKoLNM
+ kwzRDMdd4UW/tf7RD4CgS/6IyDLewieKzBperZkiBM8+bzscwHRi9V5dP5lQ9vNaCNoR
+ /flxuiG4vEZ75DvzalptgqzhNcwNVMSEzb4WvllUln5wMcXuWnYY8tuBAapUj3v2JT2M
+ N1luGOzZvOrXZSliH9KQegSkbcOCTw5mkQmpjloQfaiElSiQVEd5mCS13cLSgynYuezN
+ amDM4WPGSkdJPF/YoIPViXOE31EjyX6AcxZ789gTj4pdoZMmKAIb7qUtW4Svb0SFIJyk
+ /v5Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788877857; x=1789482657; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ONrg+ixeE+npwl1waDzdomaITThLQI9+1cKhJ6k/3o8=;
+ b=d0ZzOD2n43H3FBN5IM06mdMdAZF5heg/DiVb/QimjztjhiTY4+H69VKne9vOsRD/ey
+ C57w5fb/vkd4YSiIEOi2gntwrZjCryntHoEJGsxY7N7ImG1wzzkafHa56WEXvbzY2PZ+
+ AUfk0EoAQHmHegTHk33kwx6VtfbC7zO5Fb7ppzL5gvyhwANrpPjjZwgC2cngEdUgtU1w
+ NKjcsCBZ/kOcEnTsDC401h3xJCswYD6e16HTaoXSv8l2sQy52XwNUQiXkx5a/rR3kf60
+ rmz14TjGsD9JxRVRSZwpj8IHci+wyQ8LjvkvEo3/tByndKCEkka4qzJN6NTPsqN8t7yY
+ cMgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788877857; x=1789482657;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ONrg+ixeE+npwl1waDzdomaITThLQI9+1cKhJ6k/3o8=;
+ b=VSVPc5Hv7plJgZwMId3Mvkyc6iSZtra54Vkgb/Rv0U56f3R3RICYZyvH8ZXPkrznEN
+ Yg54a5D77CHP8W7KZJHJjuCaCe1OJKKzBFTlzYIh92ngaHb0ptR6CJGEDIl6x5VkqHY1
+ okIQnfnLPMyzvdO23IKrtHJuix1w76MSBBhMhPkTFoZWyY28LLDskQvc1zcyrhJqUdoO
+ dYghE1hlHpYYZtvbdSwrH+hvaYYHk6tma5Ccs+nKl8ZvNtnInfvm50V19MHppm4CvTdZ
+ K0EQZhGby/Ksa86R3o3TWmdxrwHY/4idvLJ/i/DCAmuJwZHccWTjYcRoyTu8kSYVeWku
+ 1Z2w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy9hiJFjW2xkpvzcA0rOScgR+iLbp836QCfHaEPuJyBvGjOTaW+9u34Asz8wRkG7qCvluHxwLwz@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lohoLFLNcQhHhqpJ7H2it9Ih8Sqc3EARb+cfihJAGwErKXUQQx
+ g0tckHL4H/thBXxl5BsCvvIgtsn8agAyDCP3vWVAK1fcn95NTzPrBkNxpkZlSJYwTXwQFgdc8vP
+ 7jF1XyezD3CrXgo9jwTJOqo96uqVVqhtMqA==
+X-Gm-Gg: AYBFou2Pe/5QDl/M0GtOEycPcjK14NLikxaQHU0lB9pc3A09cJ5FSCcxSIwgaWxWzLd
+ evagPnQ4gl1biottQG/2ZzKxuQmd+esrtNXRW9CVgPG53ejpQk17NCI1fYoUNf2yuP9gSJH3njT
+ n+a0TAZBSvDr1hstPeo1a3V71dapcSeZoexqRf900yN9HF4iw0cEVwFizOFv04eWp5kt2DtZ9P1
+ bPcjsOiKigK2ImrKeRa/lHqBcCcE4tdR39nfqP9hzJcjyBtbuxQkmh7427nbolihVny45qzEMFO
+ /OoiDbNZlgM+wkZArBS3vKezWBfIf8F8osDJPdyFIRPzGiwamSnQjl1jSzzbWqnumeWHkLU2HY/
+ eO5XNUTn9Rr//usCsHMisfO0gGieqvO4=
+X-Received: by 2002:a17:90b:528c:b0:38e:7069:7117 with SMTP id
+ 98e67ed59e1d1-39b3d3f7890mr24314330a91.0.1788877857404; Tue, 08 Sep 2026
+ 07:30:57 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260820142802.1342066-2-rodrigo.vivi@intel.com>
+ <e48a854b-1240-4fcb-a429-2c02be10da5d@kernel.org>
+ <CADnq5_PvMKVbmukOJW9oHK-bw3110eAf97WXfUVi-urhcEGMMg@mail.gmail.com>
+ <CAPM=9tws_bMnxt9QVjt4bP_bO9YM5h2n4FtNZMg1p0ZLsrLw5g@mail.gmail.com>
+In-Reply-To: <CAPM=9tws_bMnxt9QVjt4bP_bO9YM5h2n4FtNZMg1p0ZLsrLw5g@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 8 Sep 2026 10:30:45 -0400
+X-Gm-Features: AcwNN1W8K8dzDY33k3zIoH3vtY8e1CWQdy1FWANClREVCmYHU1Mq0Bl_djRIt1M
+Message-ID: <CADnq5_Nt97pLDz6V3hB8CBSDcKA1OXiPnLP5USnN5xj=1NYDMQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Drop KUnit tests for removed
+ parse_hdmi_amd_vsdb()
+To: Dave Airlie <airlied@gmail.com>
+Cc: Mario Limonciello <superm1@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Alex Huang <Alex.Huang2@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|DS7PR12MB5936:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98c2c76e-f58e-4707-054c-08df0dacb65b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|6133799003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: SCOehzukYKZ6H5mLmPX8nsDgLFnBGwIK7npY0HFPmfpUHu3odyWafduPVx0xpBCIWaAFiEmVx9CBUvAZJMLQ8lpZZalHmIhgVMnx8ZkmZA/J0RlZtXMudyX0JznHQEPX9EMYfYKs0PoCN9vzQ244zfQ0EMy4V98oxuWoRcaMs681ZIJI06CQXtHX/Uhzv9xSC7dCHR9pu+cDbql0Ta4be2KroZGnoQpy0w3ydc3NB+ETSLhWDK8JZBRfsIX3R1XFJIPdYJY66esjkgTxvzkAukFnSDj+waRgt2sUQWmCEhp02CbiSa9i0aG/a8D90lvy6yXxonS9vPolLAZNwHbCTxyTzsO199+tn7M5Y4zVOcRjx5BZoh/jdEpOTawdXstj6BDNkaCdv0/R34xoJofMPO0Qoz89VQ997o10vFphDwdNRsTL3HNJIl72y/4igIu06JtdC1Sftawb61rv7xbRdNO+QGcRTEjGeQXnJUMSIxKo0LkEHe/mgVoS00lOoYJLoAI9Lb2dUK4cqvNFTOaiNLEL69l0UKxaN0XQGRrqB5kpeczWvRboT6e1C5wPmvxAKXH3iLsAGmvusZVWsL/SvyDtgmnAdCvH4eaUH6B9+yuxag+qN+MW5Ls/n1zRtgR+mwiZrOXrn3Bpwt1bROTw5fOQZmZgAaB+vV4yx1LANoXVZiZf7oJQHWpVZTIuh/ww4rGApenV++FLhGj9+6GaaA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: PIsPCGd74b5GmE8t+u7IhUVNYdToC3SMK4GdWGgFR9C3kaMHP+EOfyesIMi46LFh9v2jB04iE1vjsztzjcG1NXLFbCsQzKbheAAABtXf1d3RT83rXcTej13xSNGMNFvhQIhE1EYCwr27KAZrom0FMQeKlrz2QdKXtK3wir0MyRccv/9Tg/MUx2iSj9o+WHSwvxVInFmmLTWFTGBS5Q38yHRE4jcCk1f1weXtZ3Nwiwnfx6GgdA0gPOGMmC+GiB08UOBp9EZuf7cXtmLK71/ck3I9cqd2w5Ua1KPUVjhLbJzEp4SHs0RrtBrOwpGPHTmG9SLh3jH8O9s+T5Kt+XslHVg+4ndmr8nW6g+VWEqfRKL8VB56KrNmp+U0GQjKtDedviZC7izYACDnmWjNQkB50yl2572+Nx8wc3oa8TrM0KRq7H70QenywEFXK4jtI0n5
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 13:25:55.3451 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98c2c76e-f58e-4707-054c-08df0dacb65b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075ED.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5936
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,119 +112,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_trap_alloc() first acquires reservation_ww_class_mutex via
-drm_exec, and then calls amdgpu_bo_create_kernel() while still holding
-that lock. amdgpu_bo_create_kernel() internally calls
-amdgpu_bo_create_reserved() which tries to acquire the same
-reservation_ww_class_mutex again — causing a recursive lock and
-triggering a lockdep deadlock warning on Navi44:
+On Tue, Sep 8, 2026 at 6:27=E2=80=AFAM Dave Airlie <airlied@gmail.com> wrot=
+e:
+>
+> On Fri, 21 Aug 2026 at 07:30, Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > On Thu, Aug 20, 2026 at 3:30=E2=80=AFPM Mario Limonciello <superm1@kern=
+el.org> wrote:
+> > >
+> > > On 8/20/26 09:28, Rodrigo Vivi wrote:
+> > > > parse_hdmi_amd_vsdb() was removed when HDMI FreeSync detection move=
+d to
+> > > > the common EDID parser, but its declaration and KUnit tests remaine=
+d,
+> > > > breaking modpost:
+> > > >
+> > > >    ERROR: modpost: "parse_hdmi_amd_vsdb" [...connector_test.ko] und=
+efined!
+> > > >
+> > > > Remove the stale declaration and the three dead test cases.
+> > > >
+> > > > Fixes: f65198b3d073 ("drm/amd/display: Use HDMI FreeSync range from=
+ common EDID parser")
+> > > > Cc: Alex Huang <Alex.Huang2@amd.com>
+> > > > Cc: Mario Limonciello <superm1@kernel.org>
+> > > > Assisted-by: Copilot:Claude-Opus-5
+> > > > Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > > > ---
+> > > Thanks this looks correct to me.
+> > >
+> > > Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> > >
+> > > I'm not sure where we should apply it though, it's from a conflict
+> > > between drm-misc-next and Alex's drm-next pull.
+> >
+> > I'll pull it into my next -fixes PR.
+>
+> I think this should be merged into drm-misc-next ASAP, since the merge
+> is in there.
 
-  WARNING: possible recursive locking detected
-  6.19.0-kfd-root #38 Not tainted
-  --------------------------------------------
-  kworker/0:2/959 is trying to acquire lock:
-  ffff8bb17995d9e8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: amdgpu_bo_create_reserved+0xd2/0x2a0 [amdgpu]
+Applied.
 
-  but task is already holding lock:
-  ffffcc23c3397ba0 (reservation_ww_class_mutex){+.+.}-{4:4}, at: amdgpu_trap_alloc+0xac/0x230 [amdgpu]
-
-  Possible unsafe locking scenario:
-        CPU0
-        ----
-   lock(reservation_ww_class_mutex);
-   lock(reservation_ww_class_mutex);
-
-   *** DEADLOCK ***
-
-  Call Trace:
-   amdgpu_bo_create_kernel+0x1a/0x80 [amdgpu]
-   amdgpu_trap_alloc+0x18d/0x230 [amdgpu]
-   amdgpu_driver_open_kms+0x2f1/0x390 [amdgpu]
-   drm_file_alloc+0x20a/0x2d0 [drm]
-   drm_client_init+0x75/0x100 [drm]
-   amdgpu_amdkfd_drm_client_create+0x53/0x90 [amdgpu]
-   amdgpu_pci_probe+0x463/0x630 [amdgpu]
-
-Fix this by creating the TMA buffer object before drm_exec is
-initialized, so the lock is not held during BO creation. Then lock
-the TMA BO together with the TBA BO inside the drm_exec section as
-required for the subsequent map operations.
-
-Fixes: c50a45b2e98d ("drm/amdgpu: Add cwsr functions")
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c | 32 ++++++++++++++++--------
- 1 file changed, 21 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-index 31f653ec3fb1..3981e9447a26 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-@@ -390,40 +390,50 @@ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	if (!cwsr)
- 		return -ENOMEM;
- 
-+	/*
-+	 * Create TMA BO before acquiring drm_exec locks to avoid recursive
-+	 * ww_mutex acquisition. amdgpu_bo_create_kernel() calls
-+	 * amdgpu_bo_create_reserved() which acquires reservation_ww_class_mutex,
-+	 * but drm_exec already holds it — causing a lockdep deadlock warning.
-+	 */
-+	r = amdgpu_bo_create_kernel(adev, AMDGPU_TRAP_TMA_MAX_SIZE, PAGE_SIZE,
-+				    AMDGPU_GEM_DOMAIN_GTT, &cwsr->tma_bo, NULL,
-+				    &cwsr->tma_cpu_addr);
-+	if (r)
-+		goto err;
-+
- 	bo = adev->trap_info->isa_bo;
- 	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
- 	drm_exec_until_all_locked(&exec) {
- 		r = amdgpu_vm_lock_pd(vm, &exec, 0);
- 		if (likely(!r))
- 			r = drm_exec_lock_obj(&exec, &bo->tbo.base);
-+		if (likely(!r))
-+			r = drm_exec_lock_obj(&exec, &cwsr->tma_bo->tbo.base);
- 		drm_exec_retry_on_contention(&exec);
- 		if (unlikely(r)) {
- 			dev_err(adev->dev,
- 				"failed to reserve for CWSR allocs: err=%d\n",
- 				r);
--			goto err;
-+			goto err_exec;
- 		}
- 	}
- 
--	r = amdgpu_bo_create_kernel(adev, AMDGPU_TRAP_TMA_MAX_SIZE, PAGE_SIZE,
--				    AMDGPU_GEM_DOMAIN_GTT, &cwsr->tma_bo, NULL,
--				    &cwsr->tma_cpu_addr);
--	if (r)
--		goto err;
--
- 	r = amdgpu_trap_map_region(adev, vm, cwsr, AMDGPU_TRAP_TMA);
- 	if (r)
--		goto err;
-+		goto err_exec;
- 	r = amdgpu_trap_map_region(adev, vm, cwsr, AMDGPU_TRAP_TBA);
- 	if (r) {
- 		amdgpu_trap_unmap_region(adev, cwsr, AMDGPU_TRAP_TMA);
--		goto err;
-+		goto err_exec;
- 	}
- 
--err:
-+err_exec:
- 	drm_exec_fini(&exec);
--	if (r) {
-+	if (r)
- 		amdgpu_bo_free_kernel(&cwsr->tma_bo, NULL, NULL);
-+err:
-+	if (r) {
- 		kfree(cwsr);
- 		*trap_obj = NULL;
- 	} else {
--- 
-2.34.1
-
+Alex
