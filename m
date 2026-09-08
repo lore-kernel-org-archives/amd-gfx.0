@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A197EC79F99
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 04:41:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1E79C79FB5
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 04:41:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A85610E9BC;
-	Tue,  8 Sep 2026 04:41:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 960F510E9BB;
+	Tue,  8 Sep 2026 04:41:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fEx2pMbP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uQn2RN02";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010068.outbound.protection.outlook.com [52.101.46.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C592310E9A8;
- Tue,  8 Sep 2026 04:41:08 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010057.outbound.protection.outlook.com [52.101.56.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D272A10E9B9;
+ Tue,  8 Sep 2026 04:41:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lLk5PQ4WkO2sa4RJCeH3rQPsHne8DzDEBmBcM8s9G56XSfSgZPk4Pq0H1u2G7gJNWxjATaGe4pp9EuGzLlzXYnQckAcIUTTbAx6dFZHoVgfRANq3KeZVei3DEnG5+GHLFoQK7pH6ZkELr89LQmczhx93X3pJRqED4OI6OeVYjoAzsqJ45p++IkNb/pAAOr6fNUS10f1IsuxUUkON+o7xGSdIATLVpKwgZNzf9d1NDQeIngEFVaBpV1TxYdke+AGdUSy/nq823o0ofhG93BqvSKYco6Rua3RBMcOmtGhrmf2UAqQGzq07LBoJVuLCuOAtx1Y7nOq1HiCgPSjFfi1LkA==
+ b=Xag9Jp4geXFZMQTulTmxZ7V0Da1u2gsMdo/PpJRM/XQmddLUq1mcj4kniw76pH43KQ1cL1D3CjSF2prQaVX+5F56+CNNoRlg1fgns0hHUpD7mOMFIzkrkEKfmqybhgSI0xXdmDh6gE7MFGCeuaPdIaFQ5TW9Q/O25Crh50YYfXBZWmFe0Mo22SopXgNOw1LKUTV1wSNXkhT7xEqpZPHpdHwrkNKzBLzSLorp66rpjCJow72y1LOR9VeaplNysU1iaKupaeQgr50Vqr64U+gpwIbFRVWukcuLrCV8/f2+awpZi1r48gn/j7SeZJ5IVtr5je0wOc6Lpll6npTXuTrjYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eUyIY1HK1Yhq0IuwaPDZgfceb2Vvf0Njr/WfFQTDPmA=;
- b=pbJdaHLJJ6CT8+zlHMMdw4gmpciwCZJ+EpmoXfTnkBo5bo1OydCwhz9RLt8kb7W1TJCltqkBvWHfwmPMH4w62dKb33B1r6ypr2XwUbJ9Coca6KlF+SigH9AcIlrcE4MJtv7AiCyHiyVqsEq+skkO77SUIIRs86iZJAWP4rj/rTuPjjh31AC+IwSbevU0zp8bRiaXtxcGfTyNW8izFRX53l4CAzjkUbfHmVpVa3LRBG86E/fYaJmn/wktk38SFxPfMhi4T0PWrUblK9wDLgOWaN139xsTUfOu7a8NzZ68vIA8zJQVumfV/4sglkKDvKkx1r7HLpQNOACLdYdgaGxl1w==
+ bh=tpDFZwMxc6/l++xbOlznzEluNR4ZVRp/FQRnJRMVEHI=;
+ b=VUvQ0CnTX384ufDenCpQ1iiIl61VOD4DcpkpEopFeouinUAc4spTu/DJIviWapdxStCcbNhIykPdSkicAGgkfmwNa7gXO8HELyEvXDb6DLgGFIungerXFYMp0w8riED7kCrpCdR9QYETtOBeO5wQ04OKip+Ena8q6M9IIwH2RYlh06ttqQwlGI+5IPpq4dhcZQ/VhbQDmJzjbVG8FGMLG65zoAcmbuhZJhB1ZZzeESmk65ccg0KoBach6FEvrRvBm0TjAPlpGt1gkQOvVTyF2mwZFj8FcGBw83owXRYLLcxFIaoUbfk//dBJj+BV8KgfuMwEeTGHn9qZgP78s0ZTqg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eUyIY1HK1Yhq0IuwaPDZgfceb2Vvf0Njr/WfFQTDPmA=;
- b=fEx2pMbPB07By+GC2zY1fVSnbIPUQfikGjvo5w9sSA5vM2nQQmbQeOkAdJNllnhGzfgBHifx6z/kuQPNfrKAMEuihkudrVkV1NCjrlJtpYQVvBoCup6SdsqYvnu+OZndZnsqRtFiNmk+eyvbgTTRQxT3TEHxJ/GCJsEgR/ZLIIM=
-Received: from CY5PR15CA0026.namprd15.prod.outlook.com (2603:10b6:930:14::17)
- by DS0PR12MB6632.namprd12.prod.outlook.com (2603:10b6:8:d0::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.15; Tue, 8 Sep 2026 04:41:03 +0000
+ bh=tpDFZwMxc6/l++xbOlznzEluNR4ZVRp/FQRnJRMVEHI=;
+ b=uQn2RN02FhCUP1Kpg4ZJ0hoInoXRJV2qVAII2K1NihxWi3ElBwEINFrn3/O6qh1SXIMVGplzUSGMBjnqBdh9InBJHbDWH/2onGnpxp9lu5xfMzmS41YKWwf/+L2rKN0pkhDTYIO1Nxw8JQeJLPso9WrOwCwj1oLQdj7wAQKKfmU=
+Received: from CY5PR15CA0028.namprd15.prod.outlook.com (2603:10b6:930:14::24)
+ by SA1PR12MB7039.namprd12.prod.outlook.com (2603:10b6:806:24e::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Tue, 8 Sep 2026
+ 04:41:05 +0000
 Received: from CY4PEPF0000EE30.namprd05.prod.outlook.com
- (2603:10b6:930:14:cafe::42) by CY5PR15CA0026.outlook.office365.com
- (2603:10b6:930:14::17) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:930:14:cafe::27) by CY5PR15CA0028.outlook.office365.com
+ (2603:10b6:930:14::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 04:41:03 +0000
+ Sep 2026 04:41:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CY4PEPF0000EE30.mail.protection.outlook.com (10.167.242.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 04:41:02 +0000
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 04:41:05 +0000
 Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 23:41:00 -0500
+ 15.2.2562.46; Mon, 7 Sep 2026 23:41:03 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, Simona Vetter
  <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, "Maarten
@@ -67,10 +67,9 @@ CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
  I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Hans de Goede
  <hansg@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>, "Mario
  Limonciello" <superm1@kernel.org>
-Subject: [PATCH v8 06/14] drm/amd/display: Pass up errors reading actual
- brightness
-Date: Mon, 7 Sep 2026 23:40:27 -0500
-Message-ID: <20260908044035.62093-7-mario.limonciello@amd.com>
+Subject: [PATCH v8 08/14] drm/amd/display: use drm backlight
+Date: Mon, 7 Sep 2026 23:40:29 -0500
+Message-ID: <20260908044035.62093-9-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908044035.62093-1-mario.limonciello@amd.com>
 References: <20260908044035.62093-1-mario.limonciello@amd.com>
@@ -82,29 +81,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE30:EE_|DS0PR12MB6632:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd51b513-ca58-4a4d-f636-08df0d636364
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE30:EE_|SA1PR12MB7039:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe6006c3-fef3-4bc6-34f6-08df0d6364f5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|23010399003|7416014|376014|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: FPpRkL9PF7oI55byrvAxn8bwVZ3SMHYkMH6ckYf0ivPzsnNub80hnGY9lqvI93sJXtk9CgnYPafIGRC0jucjF8QR1csrVbJt5o2/A7XfsdD+KtJASrVRUY7AL5/OoagVQwWLOay8gYb7vK+Vmn2Hegt5FElOnzBRC45POVH+sL7+FmSb6j9moXz/5X0WHDl51Fgnkd7tdpyPYigeD8L75/YNUg/b6+VoVmDV1wh1UNoB4QOroqrEopHwKlI3x1VBsKe3OI5AZqNKQEUIrKlkdcky/jRWo0dco6Hf7EYkQ3ALabwPn9FiL1L8ffhPH+FEVXoS7EV0u5602E574F7WG9kkRWUPR8zEy0TQID/mQJdi4u/13oRgQQnFjfWeVQr9IbfTKW1gSOXpNL+icFGhc0cwrhXzzwzKGaP3Vpiim9D68MaUjgfmA3GR0BdevSnvx1DChxNqI0x8iE/lLxWt0t7JA2vEYpa2Hv0jTYbFC1ZarpIIkSNOpjhWgcNYfU6FTLFyke6DyoE3eD0llaE9WR7cjUkHwnjt8P55ujnQBFq3Vusq3gbn97iNt0QGl0WTlKMkoNo7JicOx+ryOdCaaMvc5P6Q+Y3lQpxl2gp+xbsnyubs8cQZSHv7wt/K8EaIpcvzxrZ/VAID1NK+Kuryo7I+vuoK03z6nTiPQZzQrX1gRo1vQOOAbCgTLTVoryYsIUropSiCqH8yEIz8lU/80Q==
+ ARA:13230040|36860700016|7416014|23010399003|376014|1800799024|82310400026|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: UldN7RoS2dfqsdx+MLvC/Zge6s4gXq2jkFJfxp5yenvfOjzwpq9x8z2TiMgdMPPmWYb4wvZZ5+LQeUQU7QRJq1QaKWjgZUchnX5N7uruzr3VMi/wQkS1K2YWkRBGEU4x2Gqq2rmt9TfYbw4mlqBfLr/h80+6hzFJMyDTA/SU2sUvXHgvAHxSrDyj33+g39ImniedwCKmN9rgStjUo6RfXn5QZ6hb/KLdYcmm0opIRa7tCQpfk5ZbJLTIczdyLUU7w9OBBULfpsHqUW74f2ykFu1ilwt3+pmGomuBC7yKH26yt4cAGcEXEH6EB2NTTbH3huZ0HG26LKFWujejHVM+g/U4Ew8JvZJE9QuRE5Vuz2wVtoua3uHggfFlaeTQM2VUA3V9u1K9FtRyA74i/OIunMcxMsZ9nFCQb0Xsv+UVlkfkqPBo6z2rVP1tNbiyf0tSao6kBIVxR2h6TM8l1V44wPtRIDyqmWQ9dUyZ3zP1Q0DXhTgy0f4HaUfn38zTG1e07/1bWm7Qww7O7gMpX79btzBJ/ZbRaF9tnkFqmwt7koHqZ19Eo607QNxfbCdE7ocVYTziDQipiPO04uxIePsKRVrRV/eGY3utj0Q52M750nnajYI4iqBEP8UcRODGrP+8nJG6sRGx5UK/5T9+N7VftOzDbXPQnb8dhDFzVe0jl0xpkq+hCq3/AeStHIOuTfJ1CTYmayXcAliCZf1IE1OukQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(36860700016)(7416014)(23010399003)(376014)(1800799024)(82310400026)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 62wxJH9efK1zD0HRv05Fx0fBro/FSKrfIQ+cP75coTULj0QGUb5fhRFv2Ln9f5FkwcQ4rOfPgdRioSiQNqyErRr2SwiXgIf/cj8atWikPbfC4+pb/LbU3WZQV30DsZOgBPH/24MANCtO9eGHMgDIPCjySX5NYsUdqy6h8jVQCmVi5vzXfVio0C2ilfTY6fIrxnkTbTI4rwHQCCBEtRQz4d8PDovRtbE2DVDkezsNU6ungFUZMIcdFwdEmQvGCg4Km4bPbsi5JQe83+3q904ZHzBNYm1iSZAlNoL3+sy/F+0gnzoE1KJ69je2EHvgsX5YULiuTsXuiCh57OFIOl6yJGlEk5H6C32vyfOgaa4uVlV6x5oW5j7KvvAByal7rEUQdfMG91F7gld1nmKG8j8DZDPz0zsyq+xY1Nw9svqKlF1uGdmnXnSSyQE4r1hET6XV
+X-MS-Exchange-AntiSpam-MessageData-0: yMxzCYWteUh4A47hQD7r0erQU4CNbvPoHMvx13EoRCKyGUEowrYXQ90UjKypQ2k4cPCPwWec6sm1HXe3Uqyr8aGdaV4PvsiLLPGzE+0yGuuvyjrugGd2CmwLGJpWdekOjGazHhXZi0GFdXzB1CV6B44QTfo7niZGLeJEaXEsoM0Ayuq648+OADOPVL1C2MBPAaAY46nx6F/uuU9v9q5Xs7LeC+OF3/odyuKd6QL+udl4eJGHxAm0nunLNHRfUTqDLVyWXRZeP9dUlE5TSQ+kz7cSNm5n6Fjg+HXR9ikraiOQ9dOArPsjmKY2SEKAaryV1GVeyrviguA0uaHmMgWOVT/sA6zBHN46zilEP5E3Tmq11caxAyoDdkY/gzN3MU1CcjuK+BGZ40PCGavQoGFlsUv7xhb1w4W26k1YrqP3bncK6u+vN7z3asQZuohEqGRk
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 04:41:02.9747 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd51b513-ca58-4a4d-f636-08df0d636364
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 04:41:05.5979 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe6006c3-fef3-4bc6-34f6-08df0d6364f5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE30.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6632
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7039
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,101 +118,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-If the DC API fails to return actual brightness when backlight control
-API requests it, then the wrong value may be returned.
-
-[How]
-Change return type of amdgpu_dm_backlight_get_level() to an integer
-and pass an error code up to the caller.
+Convert the AMD display driver to the DRM backlight infrastructure so
+brightness can be controlled through the connector LUMINANCE property.
+Link the registered backlight_device to the eDP connector and unlink it
+on teardown; the DRM core owns the embedded backlight state and its
+property, so no explicit allocation or failure handling is needed.
 
 Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c | 13 +++++++++----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h |  2 +-
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c      |  4 ++--
- 3 files changed, 12 insertions(+), 7 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++---
+ .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 23 ++++++++++++++++---
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  2 ++
+ 3 files changed, 34 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index b9e90ea449ca3..406a821d03cd6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -363,7 +363,7 @@ int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
- EXPORT_IF_KUNIT(amdgpu_dm_backlight_update_status);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 2fe934036e363..f7b1eaf34b59d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5050,10 +5050,21 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 			old_crtc_state = drm_atomic_get_old_crtc_state(state, &acrtc->base);
+ 		}
  
- STATIC_IFN_KUNIT
--u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx)
-+int amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx)
- {
- 	int ret;
- 	struct amdgpu_dm_backlight_caps caps;
-@@ -376,14 +376,14 @@ u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx)
- 		u32 avg, peak;
++		/*
++		 * Apply the LUMINANCE property first: a brightness-only commit
++		 * does not pull the CRTC into the atomic state (so new_crtc_state
++		 * is NULL), and a modeset is skipped below - in both cases the
++		 * backlight must still follow the requested luminance.
++		 */
++		drm_atomic_helper_connector_apply_luminance(new_con_state);
++
+ 		/* Skip any modesets/resets */
+-		if (!acrtc || drm_atomic_crtc_needs_modeset(new_crtc_state))
++		if (!acrtc || !new_crtc_state ||
++		    drm_atomic_crtc_needs_modeset(new_crtc_state))
+ 			continue;
  
- 		if (!dc_link_get_backlight_level_nits(link, &avg, &peak))
--			return dm->brightness[bl_idx];
-+			return -EINVAL;
- 		return convert_brightness_to_user(&caps, avg);
++		drm_connector_update_privacy_screen(new_con_state);
++
+ 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
+ 
+@@ -5133,8 +5144,6 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 					    &stream_update);
+ 		mutex_unlock(&dm->dc_lock);
+ 		kfree(dummy_updates);
+-
+-		drm_connector_update_privacy_screen(new_con_state);
  	}
  
- 	ret = dc_link_get_backlight_level(link);
+ 	/**
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index 406a821d03cd6..1fefe3837e4cf 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -40,6 +40,7 @@
  
- 	if (ret == DC_ERROR_UNEXPECTED)
--		return dm->brightness[bl_idx];
-+		return -EINVAL;
+ #include <linux/backlight.h>
+ #include <linux/power_supply.h>
++#include <drm/drm_backlight.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_utils.h>
  
- 	return convert_brightness_to_user(&caps, ret);
- }
-@@ -394,8 +394,13 @@ int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
+@@ -224,13 +225,17 @@ struct dc_stream_state *dm_find_stream_with_link(
+ 	struct amdgpu_display_manager *dm,
+ 	struct dc_link *link)
  {
- 	struct amdgpu_display_manager *dm = bl_get_data(bd);
- 	int i = amdgpu_dm_backlight_get_device_index(dm, bd);
-+	int ret;
+-	struct dc_state *cur_dc_state = dm->dc->current_state;
++	struct dc_state *cur_dc_state;
+ 	struct dc_stream_state *stream = NULL;
+ 	int i;
+ 
++	if (!dm || !dm->dc || !dm->dc->current_state || !link)
++		return NULL;
 +
-+	ret = amdgpu_dm_backlight_get_level(dm, i);
-+	if (ret < 0)
-+		return dm->brightness[i];
++	cur_dc_state = dm->dc->current_state;
+ 	for (i = 0; i < cur_dc_state->stream_count; i++) {
+ 		stream = cur_dc_state->streams[i];
+-		if (stream->link == link)
++		if (stream && stream->link == link)
+ 			return stream;
+ 	}
  
--	return amdgpu_dm_backlight_get_level(dm, i);
-+	return ret;
+@@ -284,7 +289,7 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 
+ 	dm->brightness[bl_idx] = user_brightness;
+ 	/* update scratch register */
+-	if (bl_idx == 0)
++	if (bl_idx == 0 && dm->adev && dm->adev->rmmio && dm->adev->bios_scratch_reg_offset)
+ 		amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brightness[bl_idx]);
+ 	brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
+ 	link = (struct dc_link *)dm->backlight_link[bl_idx];
+@@ -496,6 +501,9 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+ 			dm->actual_brightness[aconnector->bl_idx] = real_brightness;
+ 			dm->brightness[aconnector->bl_idx] = real_brightness;
+ 		}
++		/* Link the registered backlight device to the DRM connector. */
++		drm_backlight_link(&aconnector->base, dm->backlight_dev[aconnector->bl_idx]);
++
+ 		drm_dbg_driver(drm, "DM: Registered Backlight device: %s\n", bl_name);
+ 	}
  }
- EXPORT_IF_KUNIT(amdgpu_dm_backlight_get_brightness);
+@@ -582,6 +590,8 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
+ {
+ 	struct dc_link *link = aconnector->dc_link;
+ 	int bl_idx = dm->num_of_edps;
++	struct backlight_properties props = { 0 };
++	struct amdgpu_dm_backlight_caps *caps;
  
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index 07b75064847c7..72f1c8d861c8c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -56,7 +56,7 @@ extern const struct attribute_group amdgpu_group;
- struct dc_stream_state *dm_find_stream_with_link(struct amdgpu_display_manager *dm,
- 						 struct dc_link *link);
- int amdgpu_dm_backlight_update_status(struct backlight_device *bd);
--u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx);
-+int amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx);
- int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd);
- ssize_t panel_power_savings_show(struct device *device,
- 				 struct device_attribute *attr,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index 7ca17f803f9d7..e03173d4e5bd8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -382,7 +382,7 @@ static void dm_test_backlight_get_level_pwm_error(struct kunit *test)
- 	dm->brightness[0] = 4321;
- 	dm->backlight_link[0] = link;
+ 	if (!(link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) ||
+ 	    link->type == dc_connection_none)
+@@ -600,6 +610,13 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
  
--	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), 4321U);
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), -EINVAL);
- }
+ 	amdgpu_dm_update_connector_ext_caps(aconnector);
  
- /**
-@@ -424,7 +424,7 @@ static void dm_test_backlight_get_level_aux_error(struct kunit *test)
- 	caps->caps_valid = true;
- 	caps->aux_support = true;
++	caps = &dm->backlight_caps[bl_idx];
++	amdgpu_dm_backlight_fill_props(caps, power_supply_is_system_supplied() > 0,
++				       !(amdgpu_dc_debug_mask &
++					 DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE),
++				       &props);
++	drm_backlight_create_property(&aconnector->base, props.max_brightness, false);
++
+ 	/* Offer ABM property when user didn't turn off by module parameter.
+ 	 * OLED panels are included to support CACP (Content Adaptive
+ 	 * Contrast and Power) feature via set_abm_level.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index c8a1ab8c3b169..fe4ab55f5130f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -58,6 +58,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_backlight.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_eld.h>
+ #include <drm/drm_fixed.h>
+@@ -1911,6 +1912,7 @@ STATIC_IFN_KUNIT void amdgpu_dm_connector_destroy(struct drm_connector *connecto
+ 	}
  
--	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), 6789U);
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), -EINVAL);
- }
- 
- /**
+ 	if (aconnector->bl_idx != -1) {
++		drm_backlight_link(&aconnector->base, NULL);
+ 		backlight_device_unregister(dm->backlight_dev[aconnector->bl_idx]);
+ 		dm->backlight_dev[aconnector->bl_idx] = NULL;
+ 	}
 -- 
 2.43.0
 
