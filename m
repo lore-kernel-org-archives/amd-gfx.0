@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2968AC79FAD
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99468C79FAD
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:37:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B54BE10EB4B;
-	Tue,  8 Sep 2026 11:37:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3406110EB4C;
+	Tue,  8 Sep 2026 11:37:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mxKrJYwu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xRu7pAt6";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013016.outbound.protection.outlook.com
- [40.93.201.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14BC410EB5C
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:37:15 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012062.outbound.protection.outlook.com [52.101.48.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85F1510EB4C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:37:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u1B1qiEeXrhUct3lMyWbz/Nk18bUItTMnGLa76c0YbTQ4MNMxPb9+KRYLTwAXSQjGpdo9ZVCn9T+BpfNwqffsDfKW3XSeiZqmhusVd6yMNgMbTWWssGDvU6CrZXaOiV6pKHAx3a6BuUjhUcs996al0HAS/1aGi/uF8PsOVL/bcPbSOnOWerL5Ji8eWyicXvdR6SNoIZ7gDUCjbGVckv/H3PVH8IJ1S//NDu5LmRbJA5+H1/0Ymqf7AqRAEWTwTSy43O+m9BxYUKru/Zrgi/P6GcKKcq0UU0orebh+TcEGMJGEAgBBJf+9pExw595Fi3BIW9upVnzh8WQxiGvSGK9iQ==
+ b=W5CaOCYm2SbEIHwQ40ZvxTUjx0dZVkc8p1vfNEh5kJe1jkSIu02+tuvrw7TQnEf1WyVJGT+Q7ef/7utIghGllH60yckNMi9pv/bbO0hF7EbxeYLaAR2UPUr7QqMG21qbXQZYG6Dyi9k7bN5GhiGbZa68UyXxdxbhuopZ9SASsCG1XjiurlffjkdNs8VLmU0Vis/lX2EjoZ4wAtM0eSeLcC7tX2R9p4lkhziIM9rneL36hKzoUgU4NB6lTq/FYkZDupVdooQg+N3B+PzmrYEatW6u8RWxqrgLlzD70rnKJSrvbdDJ76h43lOtBpKnLayOqFXn/Qc8xIe3uIuFHMTjFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X+BVILtJedZyv63V+xHntPfE0nfj94r8SGYMIN0IXOc=;
- b=kO5mwJ3VGxxmDp/UxtFJg3UuSmY6fqOfyXFKgQNFLTPB1eYLpjCHtKP1KAdwyu+3X7lXC11OZrRsxJPk2zbhx3+8NdEYVlV6c44sSCZ2pu/UT+ei3Ra0ud4+Ff+2PlaDtCOMz3QDbgb0sMne65moh4D2Q8CZN9UzIUrii8cQlBZXmJNai2E5+IUUfxATg6TlzrQseeY9poqYNFjDT5pBemnHggO/SWFszWzvfOIjy+WZuFJAKJGfW/3AuZV6s1qbMVSXItFLVtyIzg6V2iGRsWoNCEkuduBYj+5am9OE+zXrz3XslcazMpgUKHemVguegH6YWlCvZdp4QMshZjP8Yg==
+ bh=vCvM41SKJxFp1peoKaIWcwW235ZfueDqeN4EEPiimCw=;
+ b=pjLd8kcEWYthYhX7ED95PDVwS2c4RvOPRgr2YcX5JTLKbDVfd2psQSJW1Vzl6XPSWSxBj3PGHho33FXmE4GPMqiOmRp/oIwgjTdHdpBg8ivwJoeaip+8c2iu4+37fOKyDULENau3NUabX58OiWJiB+uzL76iXMskxS1ELMoNX8EJ4QTCm887hsnpnnIRIy+KR+S+cRG9qIQ+UPPoSO+mL6dcFqZYzd90ZXjAwPqclO73UvrHxizSKmUB4H80Q1lUk6Gup1j9RsMA1+ecOMF+4X7hvTWq4ogkyvMqFIWK8RsNuW4JuQaSqSym7jugnoHi/kzhtyw/Wcg1F7G5l+7A7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X+BVILtJedZyv63V+xHntPfE0nfj94r8SGYMIN0IXOc=;
- b=mxKrJYwuRWNLQ7ZpFH1jX44MzXLOIVqbG287naImqCLeKk385BGPLpSJLkuPOqvcNkltls8t5o16xG+jlEXhu6rrNE9rGJpOGQwgmG1+yqQ0pxOcyYpZfciRIb0lv5PVNrA75y2q8Qu2DHPfOG1CZRyixhDDYQ0AZxZTkvXr+90=
-Received: from MW4PR03CA0242.namprd03.prod.outlook.com (2603:10b6:303:b4::7)
- by PH0PR12MB7011.namprd12.prod.outlook.com (2603:10b6:510:21c::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 11:37:10 +0000
-Received: from SJ1PEPF00002327.namprd03.prod.outlook.com
- (2603:10b6:303:b4:cafe::a) by MW4PR03CA0242.outlook.office365.com
- (2603:10b6:303:b4::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Tue, 8
- Sep 2026 11:37:09 +0000
+ bh=vCvM41SKJxFp1peoKaIWcwW235ZfueDqeN4EEPiimCw=;
+ b=xRu7pAt6mPk0kzhXpnQawk+588D4o5Wgfj5SpyMKgt3bzIADure8jzz151oQeehN/+7I+9Cp4eZKpyO4YVJ8UfjdwpzxAXvrBNC2hhFns2ax4WC0DlztXicPTJMO+XFKyNkQK7vmt9LEhNzlKGBTKFa9UmvCWQPcEStPRIWDomU=
+Received: from BY3PR05CA0003.namprd05.prod.outlook.com (2603:10b6:a03:254::8)
+ by LV8PR12MB9270.namprd12.prod.outlook.com (2603:10b6:408:205::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 11:37:15 +0000
+Received: from SJ1PEPF00002322.namprd03.prod.outlook.com
+ (2603:10b6:a03:254:cafe::ac) by BY3PR05CA0003.outlook.office365.com
+ (2603:10b6:a03:254::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Tue, 8
+ Sep 2026 11:37:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00002327.mail.protection.outlook.com (10.167.242.90) with Microsoft
+ SJ1PEPF00002322.mail.protection.outlook.com (10.167.242.84) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:37:09 +0000
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:37:15 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:37:02 -0500
+ 2026 06:37:11 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 8 Sep 2026 06:36:53 -0500
+ Transport; Tue, 8 Sep 2026 06:37:02 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,9 +68,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
  "Chenyu Chen" <chen-yu.chen@amd.com>
-Subject: [PATCH 22/66] drm/amd/display: Test link bandwidth readback
-Date: Tue, 8 Sep 2026 19:31:15 +0800
-Message-ID: <20260908113338.2433445-23-chen-yu.chen@amd.com>
+Subject: [PATCH 23/66] drm/amd/display: Test cascaded Panamera check
+Date: Tue, 8 Sep 2026 19:31:16 +0800
+Message-ID: <20260908113338.2433445-24-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908113338.2433445-1-chen-yu.chen@amd.com>
 References: <20260908113338.2433445-1-chen-yu.chen@amd.com>
@@ -80,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002327:EE_|PH0PR12MB7011:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa30ddb4-d950-4db2-201d-08df0d9d847d
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002322:EE_|LV8PR12MB9270:EE_
+X-MS-Office365-Filtering-Correlation-Id: 001d74eb-0879-45c1-572e-08df0d9d8801
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|6133799003|18002099003|22082099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: CLwAkmlSZLhfUA5PxDl2CMWJf8rw/n27+VWYbZ20EsTH4ZrXrGx0+O80/cg/xRTb8inkLwNQ8F1WVKeLfu1SV0ZLLhHgnBdnGrQMd+TBUWRtVxd278MHdwzOm/7iIblEP/r8K8Rg/VlErJAsLJN7Z66JOfTZervAE4rTl5p5eumFeplQKNCh3eN6wp4QuK0KmdMm6I9y1yxx3+ok9TfdLtA/WIkANRJpy6qXwnPUyPTXOOS414e2MdPX7kE5El9uDedPw8BOkj7OhefYD2cwjEJnvnpbYUFrYMcebY3Oxylv47ZTm616LDTYx7iXOOb8aUf1GikcUjnvxpyz21goUXGehf8Nv36hdftluJm+oQ1PSqOCTgflYxE6zhTmBK61gym7iqfKf6Tl2Yaxk0sSjrDHaOG4feIy6BXVK//ilrOObXfQlBC/Y2TsHlG/AiaE1v8j6uhqf4695LBkwyGE0QmXASo9eOXdy7idynvZr+imzRi8h0d/fEq3BArduzMdcSNXZWW7C3JLSLlvFQjTOp58O1xogVIPcKcqsxOcVTio4HN6D2vyOrteBJ5hvv2OBTPWH2Oj0T3IBriaBNldF/bZmUBUSsNAr+hH9yGzYPYwj/Ui51gwUPn67Y0qe4F45G3aL3hARppJAwAULF1rD8iwJ1wbQoGG0Q+p1CKwF6391Rqp+er9iPfiaS63orEDDpfe1Xx1kA4GTcTuxBuYVA==
+ ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|10067099003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: EIQd1phgs1Rlin4yYGtS04a10EzYqAyYcfEJ2SkuGkQLUymSFS/QVZxxe9k02R8mbi9Ed2QBD9Qpm0vBLB1uRh4yCz6urCmbMnQwsZ6hmzr3ZMCeTNxwxKJ50ebQx4mdxhQFd17YAaU0QsSGkGKqy5w/wruNAMqDrxocfH+R9SObwjqHT4W7CFxE5TYroK5z8MGt4yHxGk3nsbRs8EDN1hKLBrJTvt0y1aKOnsblITbzzs7Wz/t0QzwP02XgGlkE4sMPQhg+Z7/WktFLhllcW80LsLFI0wpp6IZ6X4UUonpAW9H+GVvEoJGgBTVPv+SILtUO+9M05rJY3N4iY6nHDpqz+OxOmmyrXmEZuUmbvLBlqcnt1EE2oml2sUt0dfE/qcTnhCSz77KL8G5zOYlczFf24bX60CKW/jDHgCT16nk7hQ18qLtwyRKZhFD7jcmluP6JWHvZnbH4GBxtkJyldYY7NW7YiySp+bJSrWJZ24u5As5Lt8oub1Ayvvi+9uqazNAqhVmW7b/KCWaT7zZVD3tf/Fwp+KLhuIK7/na/3VuUecSylWuHflq5A5J7SJIkB3x3ZbrWQ20LL/Wk8IcbyayoERtnuTYG8H97ECY5oSdaQwnh1vc2t1eu81u7y53eMxIsWvO7WVZvygux3YppgeDWRbcYbQTOT9DhY1Q7ePk93IYHAsbxzqHUHmpMQXiFBTJcW3WtNSs7y+amjFx+Fw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);
+ SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ecBLelyULK5+M041P+d/fYFJXyzHnSv2uiod8vpUAPSLahwmFpXeusRJOvyeOlgXNzLTcMDNjiAvbLE3YULKC2tOYlIjPvnRrHYSGJqvrC229MR5+0IZhbmmHBtsdMVTqhfCLcSa3wIdDMoaXXOxkjXh61up3Pjd1TVAGKuy+RG2sECkaV3edqEbVAQk88Gysu5UA8LANE9FmuqH3/glr1EO14oioDVI6Z3UqlWocEKEzT7Oj/c/8jAphlJWLEbr+hv34+pgcsl3zssyHlqTWDoZBtA4PAKykFGKiJDQl0qptWQpEFVR+08huSC3brttk/YVxYLuQM88GR0wjgDNyQgiokWN2BjYegxJ0PP+w6ShzUwKLtVhdHCaeQ8BrYasR+mFC4IyiYebEiQIJ/SThdH0SPemVFp83AHVsK3DYWpi9cV3OEPt1iIk+JAI7mNM
+X-MS-Exchange-AntiSpam-MessageData-0: L0zPfaM5W2MVkns0Xbq6sUO5icKv6ERU9idYF8NAczLoTGjgihWSKMubQfA3yFkT1JGJqlkxAZER+9z4QyiFl56046cOjSDk0rJkole2OQhTRMv08NSywc4vWhz0dr318osZuLxAFG8wpHNFOZfaVGaoSNOv6XY7Z86kK3VNPymdquIE6RFHxntHIU7OpCjcmDS7IzfzpsHkvCF9oOlfUVoVPkZxKYqqy+Qfj4kNvl/fbFCF/qnWQJ3oMmZOMfmBAsxLd8I9xt6DpjHkHN5rCxbEW2nC5CVFB18hkEk9cxGmM03Iov+ypHyVZQkLMZLsmi+e3Ig62TdXz+Rf+MsYwL+wy2tSq4zLx51u7dQblbobuKuAAAsKu2YzuCj9ydApHFqGAaM6aVvXzYmuhVjna8wCcjmLQwqY8lYINyfd7XDp+7oSkhdiLxiVErZs3+jV
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:37:09.3025 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa30ddb4-d950-4db2-201d-08df0d9d847d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:37:15.2087 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 001d74eb-0879-45c1-572e-08df0d9d8801
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002327.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002322.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7011
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9270
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,203 +119,155 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-Add KUnit tests for dp_get_link_current_set_bw() covering every link
-rate the helper knows about, the unknown rate fallback and the DPCD
-read error path.
+Add KUnit tests for is_synaptics_cascaded_panamera() covering a
+matching cascaded hub, a non Synaptics branch, a non Panamera device
+ID, an unsupported branch firmware revision and a port without a
+parent branch.
 
 [HOW]
-Add a DPCD backing store for the DSC helpers that is addressed
-absolutely, because they read offsets spread across the whole map. A
-table driven test then programs the link rate and lane count into the
-fake DPCD and checks the returned bandwidth, with one entry arming the
-AUX transfer to fail.
+Allocate an MST topology manager with a branch and a port, and drive a
+table driven test that fills in the branch OUI, device ID and firmware
+revision for each case before checking the returned verdict.
 
 Assisted-by: Copilot:Claude-Opus-5
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   3 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |   2 +
- .../tests/amdgpu_dm_mst_types_test.c          | 120 ++++++++++++++++++
- 3 files changed, 124 insertions(+), 1 deletion(-)
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  3 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |  1 +
+ .../tests/amdgpu_dm_mst_types_test.c          | 81 +++++++++++++++++++
+ 3 files changed, 84 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index f857303fe386..e8f4ca7e1f2a 100644
+index e8f4ca7e1f2a..c584906c8bb0 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -1930,7 +1930,7 @@ static bool is_dsc_common_config_possible(struct dc_stream_state *stream,
- #endif
+@@ -279,7 +279,7 @@ bool needs_dsc_aux_workaround(struct dc_link *link)
+ EXPORT_IF_KUNIT(needs_dsc_aux_workaround);
  
  #if defined(CONFIG_DRM_AMD_DC_FP) || IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
--static bool dp_get_link_current_set_bw(struct drm_dp_aux *aux, uint32_t *cur_link_bw)
-+STATIC_IFN_KUNIT bool dp_get_link_current_set_bw(struct drm_dp_aux *aux, uint32_t *cur_link_bw)
+-static bool is_synaptics_cascaded_panamera(struct dc_link *link, struct drm_dp_mst_port *port)
++STATIC_IFN_KUNIT bool is_synaptics_cascaded_panamera(struct dc_link *link, struct drm_dp_mst_port *port)
  {
- 	uint32_t total_data_bw_efficiency_x10000 = 0;
- 	uint32_t link_rate_per_lane_kbps = 0;
-@@ -1985,6 +1985,7 @@ static bool dp_get_link_current_set_bw(struct drm_dp_aux *aux, uint32_t *cur_lin
- 	*cur_link_bw = link_rate_per_lane_kbps * lane_count.bits.LANE_COUNT_SET / 10000 * total_data_bw_efficiency_x10000;
- 	return true;
- }
-+EXPORT_IF_KUNIT(dp_get_link_current_set_bw);
- #endif
+ 	u8 branch_vendor_data[4] = { 0 }; // Vendor data 0x50C ~ 0x50F
  
- enum dc_status dm_dp_mst_is_port_support_mode(
+@@ -293,6 +293,7 @@ static bool is_synaptics_cascaded_panamera(struct dc_link *link, struct drm_dp_m
+ 
+ 	return false;
+ }
++EXPORT_IF_KUNIT(is_synaptics_cascaded_panamera);
+ 
+ static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnector)
+ {
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-index 0e6189219eb2..4af3aac31223 100644
+index 4af3aac31223..f2e36807f0da 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-@@ -65,6 +65,7 @@ struct dc_state;
- struct dc_stream_state;
- struct dm_atomic_state;
- struct drm_atomic_commit;
-+struct drm_dp_aux;
- struct drm_dp_mst_port;
- struct drm_dp_mst_topology_mgr;
- 
-@@ -104,6 +105,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+@@ -105,6 +105,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
  
  #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
  void amdgpu_dm_mst_reset_mst_connector_setting(struct amdgpu_dm_connector *aconnector);
-+bool dp_get_link_current_set_bw(struct drm_dp_aux *aux, uint32_t *cur_link_bw);
++bool is_synaptics_cascaded_panamera(struct dc_link *link, struct drm_dp_mst_port *port);
+ bool dp_get_link_current_set_bw(struct drm_dp_aux *aux, uint32_t *cur_link_bw);
  bool retrieve_downstream_port_device(struct amdgpu_dm_connector *aconnector);
  bool retrieve_branch_specific_data(struct amdgpu_dm_connector *aconnector);
- ssize_t dm_dp_aux_transfer_result(ssize_t result,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-index f2bae3a50941..58a4bbb31e79 100644
+index 58a4bbb31e79..2e562c545c30 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-@@ -2276,6 +2276,124 @@ static void dm_mst_test_sideband_msg_ready_ack_write_fails(struct kunit *test)
- 	dm_mst_test_free_armed_sideband_connector(aconnector);
+@@ -2394,6 +2394,85 @@ static void dm_mst_test_link_current_set_bw(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, cur_link_bw, param->cur_link_bw);
  }
  
-+/*
-+ * Fake DPCD backing store for the DSC helpers. Unlike the sideband fake above
-+ * it is addressed absolutely, because these helpers read offsets spread across
-+ * the whole map (0x60 DSC caps, 0x100 link settings, 0x500 branch descriptor).
-+ */
-+#define DM_MST_TEST_DSC_DPCD_SIZE 0x600
-+
-+static u8 dm_mst_test_dsc_dpcd[DM_MST_TEST_DSC_DPCD_SIZE];
-+static struct drm_dp_aux *dm_mst_test_dsc_aux_fail;
-+
-+static ssize_t dm_mst_test_dsc_aux_transfer(struct drm_dp_aux *aux,
-+					    struct drm_dp_aux_msg *msg)
-+{
-+	size_t i;
-+
-+	if (aux == dm_mst_test_dsc_aux_fail)
-+		return -EIO;
-+
-+	if (msg->address + msg->size > DM_MST_TEST_DSC_DPCD_SIZE)
-+		return -EINVAL;
-+
-+	msg->reply = DP_AUX_NATIVE_REPLY_ACK;
-+
-+	if ((msg->request & ~DP_AUX_I2C_MOT) == DP_AUX_NATIVE_WRITE)
-+		return msg->size;
-+
-+	for (i = 0; i < msg->size; i++)
-+		((u8 *)msg->buffer)[i] = dm_mst_test_dsc_dpcd[msg->address + i];
-+
-+	return msg->size;
-+}
-+
-+/* Clears the shared store; call once per test before initialising any AUX. */
-+static void dm_mst_test_reset_dsc_dpcd(void)
-+{
-+	memset(dm_mst_test_dsc_dpcd, 0, sizeof(dm_mst_test_dsc_dpcd));
-+	dm_mst_test_dsc_aux_fail = NULL;
-+}
-+
-+static void dm_mst_test_init_dsc_aux(struct drm_dp_aux *aux, const char *name)
-+{
-+	aux->name = name;
-+	aux->transfer = dm_mst_test_dsc_aux_transfer;
-+	drm_dp_aux_init(aux);
-+	drm_dp_dpcd_set_probe(aux, false);
-+}
-+
-+static struct drm_dp_aux *dm_mst_test_alloc_dsc_aux(struct kunit *test, const char *name)
-+{
-+	struct drm_dp_aux *aux = kunit_kzalloc(test, sizeof(*aux), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, aux);
-+	dm_mst_test_init_dsc_aux(aux, name);
-+
-+	return aux;
-+}
-+
-+/* Tests for dp_get_link_current_set_bw */
++/* Tests for is_synaptics_cascaded_panamera */
 +
 +/*
-+ * Program DPCD 0x100..0x10f, the 16-byte window the helper reads in one go.
-+ * @coding is the raw DP_MAIN_LINK_CHANNEL_CODING_SET byte at 0x108.
++ * A Panamera hub is identified by its branch device ID plus the high nibble of
++ * the fifth branch device name byte; the cascaded variant additionally reports
++ * SYNAPTICS_CASCADED_HUB_ID at DPCD 0x50e.
 + */
-+static void dm_mst_test_set_link_settings(u8 link_bw_set, u8 lane_count, u8 coding)
++static void dm_mst_test_set_panamera_ids(struct dc_link *link, u32 branch_dev_id,
++					 u8 dev_name_4, u8 cascaded_id)
 +{
-+	dm_mst_test_dsc_dpcd[DP_LINK_BW_SET] = link_bw_set;
-+	dm_mst_test_dsc_dpcd[DP_LANE_COUNT_SET] = lane_count;
-+	dm_mst_test_dsc_dpcd[DP_MAIN_LINK_CHANNEL_CODING_SET] = coding;
++	link->dpcd_caps.branch_dev_id = branch_dev_id;
++	link->dpcd_caps.branch_dev_name[4] = dev_name_4;
++	dm_mst_test_dsc_dpcd[DP_BRANCH_VENDOR_SPECIFIC_START + 2] = cascaded_id;
 +}
 +
-+struct dm_mst_link_bw_param {
++static struct drm_dp_mst_port *dm_mst_test_alloc_mgr_port(struct kunit *test)
++{
++	struct drm_dp_mst_topology_mgr *mgr;
++	struct drm_dp_mst_port *port;
++
++	mgr = kunit_kzalloc(test, sizeof(*mgr), GFP_KERNEL);
++	port = kunit_kzalloc(test, sizeof(*port), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, mgr);
++	KUNIT_ASSERT_NOT_NULL(test, port);
++
++	mutex_init(&mgr->lock);
++	mgr->aux = dm_mst_test_alloc_dsc_aux(test, "dm_mst_test_mgr_aux");
++	port->mgr = mgr;
++
++	return port;
++}
++
++struct dm_mst_panamera_param {
 +	const char *name;
-+	u8 link_bw_set;
-+	u8 lane_count;
-+	u8 coding;
++	u32 branch_dev_id;
++	u8 dev_name_4;
++	u8 cascaded_id;
 +	bool aux_fails;
-+	bool supported;
-+	uint32_t cur_link_bw;
++	bool cascaded;
 +};
 +
-+static const struct dm_mst_link_bw_param dm_mst_link_bw_params[] = {
-+	{ "hbr2_8b_10b", DP_LINK_BW_5_4, 4, DP_8b_10b_ENCODING, false, true, 16761600 },
-+	{ "uhbr10", DP_LINK_BW_10, 4, DP_128b_132b_ENCODING, false, true, 38564000 },
-+	{ "uhbr13_5", DP_LINK_BW_13_5, 4, DP_128b_132b_ENCODING, false, true, 52061400 },
-+	{ "uhbr20", DP_LINK_BW_20, 4, DP_128b_132b_ENCODING, false, true, 77128000 },
-+	{ "unlisted_uhbr_rate", 0x1e, 4, DP_128b_132b_ENCODING, false, false, 0 },
-+	{ "unknown_encoding", DP_LINK_BW_5_4, 4, DP_UNKNOWN_ENCODING, false, false, 0 },
-+	{ "dpcd_read_error", DP_LINK_BW_5_4, 4, DP_8b_10b_ENCODING, true, false, 0 },
++static const struct dm_mst_panamera_param dm_mst_panamera_params[] = {
++	{ "cascaded_hub", DP_BRANCH_DEVICE_ID_90CC24, 0x50,
++	  SYNAPTICS_CASCADED_HUB_ID, false, true },
++	{ "wrong_dev_id", 0x001122, 0x50, SYNAPTICS_CASCADED_HUB_ID, false, false },
++	{ "not_panamera", DP_BRANCH_DEVICE_ID_90CC24, 0x40,
++	  SYNAPTICS_CASCADED_HUB_ID, false, false },
++	{ "not_cascaded", DP_BRANCH_DEVICE_ID_90CC24, 0x50, 0, false, false },
++	{ "dpcd_read_error", DP_BRANCH_DEVICE_ID_90CC24, 0x50,
++	  SYNAPTICS_CASCADED_HUB_ID, true, false },
 +};
 +
-+KUNIT_ARRAY_PARAM_DESC(dm_mst_link_bw, dm_mst_link_bw_params, name);
++KUNIT_ARRAY_PARAM_DESC(dm_mst_panamera, dm_mst_panamera_params, name);
 +
 +/**
-+ * dm_mst_test_link_current_set_bw - the current link settings are priced
++ * dm_mst_test_synaptics_cascaded - only a cascaded Panamera hub is detected
 + * @test: KUnit test context
 + *
-+ * For 8b/10b the raw DP_LINK_BW_SET byte is the link rate in 27MHz units, so
-+ * HBR2 (0x14) yields 20 * 27000 * 10 kbps per lane scaled by the 80% data
-+ * efficiency and the 97% FEC efficiency. For 128b/132b the byte instead
-+ * selects a UHBR rate scaled by its own efficiency. An unlisted UHBR rate, an
-+ * unknown channel coding and a short DPCD read all report no bandwidth.
++ * All three conditions must hold: the Synaptics branch device ID, a Panamera
++ * device name and the cascaded hub ID in the branch vendor data. A failed
++ * vendor read leaves the hub undetected.
 + */
-+static void dm_mst_test_link_current_set_bw(struct kunit *test)
++static void dm_mst_test_synaptics_cascaded(struct kunit *test)
 +{
-+	const struct dm_mst_link_bw_param *param = test->param_value;
-+	uint32_t cur_link_bw = 0xdeadbeef;
-+	struct drm_dp_aux *aux;
++	const struct dm_mst_panamera_param *param = test->param_value;
++	struct drm_dp_mst_port *port;
++	struct dc_link *link;
 +
 +	dm_mst_test_reset_dsc_dpcd();
-+	aux = dm_mst_test_alloc_dsc_aux(test, "dm_mst_test_link_bw_aux");
-+	dm_mst_test_set_link_settings(param->link_bw_set, param->lane_count, param->coding);
++	port = dm_mst_test_alloc_mgr_port(test);
++	link = dm_kunit_alloc_link(test);
++	dm_mst_test_set_panamera_ids(link, param->branch_dev_id, param->dev_name_4,
++				     param->cascaded_id);
 +	if (param->aux_fails)
-+		dm_mst_test_dsc_aux_fail = aux;
++		dm_mst_test_dsc_aux_fail = port->mgr->aux;
 +
-+	KUNIT_EXPECT_EQ(test, dp_get_link_current_set_bw(aux, &cur_link_bw), param->supported);
-+	KUNIT_EXPECT_EQ(test, cur_link_bw, param->cur_link_bw);
++	KUNIT_EXPECT_EQ(test, is_synaptics_cascaded_panamera(link, port), param->cascaded);
 +}
 +
  static struct kunit_case dm_mst_types_test_cases[] = {
  	/* needs_dsc_aux_workaround tests */
  	KUNIT_CASE(dm_mst_test_needs_dsc_aux_workaround_match),
-@@ -2360,6 +2478,8 @@ static struct kunit_case dm_mst_types_test_cases[] = {
- 	/* dm_dp_mst_connector_destroy tests */
- 	KUNIT_CASE(dm_mst_test_connector_destroy_no_sink),
+@@ -2480,6 +2559,8 @@ static struct kunit_case dm_mst_types_test_cases[] = {
  	KUNIT_CASE(dm_mst_test_connector_destroy_releases_sink),
-+	/* dp_get_link_current_set_bw tests */
-+	KUNIT_CASE_PARAM(dm_mst_test_link_current_set_bw, dm_mst_link_bw_gen_params),
+ 	/* dp_get_link_current_set_bw tests */
+ 	KUNIT_CASE_PARAM(dm_mst_test_link_current_set_bw, dm_mst_link_bw_gen_params),
++	/* is_synaptics_cascaded_panamera tests */
++	KUNIT_CASE_PARAM(dm_mst_test_synaptics_cascaded, dm_mst_panamera_gen_params),
  	{}
  };
  
