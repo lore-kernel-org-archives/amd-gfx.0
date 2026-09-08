@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2B38C79F82
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:40:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47DCCC79F82
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:40:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 624DD10EB5E;
-	Tue,  8 Sep 2026 11:40:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2E7E10EB62;
+	Tue,  8 Sep 2026 11:40:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hPrfmkC+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qGtlOQ/t";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010034.outbound.protection.outlook.com [52.101.46.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3479010EB5E
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:40:36 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012027.outbound.protection.outlook.com
+ [40.93.195.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F9A510EB62
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:40:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=siS4Mwj6S4lX0p4D22NV/tYrIA6TR4Oa8pi6kHqq+IIxlIGkWY9WZoGgbLVDtAoYCXvUKp+fZxjbpPlATpyS1MCXHhnDCbsRpqZut625zdXRDZMLo2A/vPNl9kgdbChtIKr7c/K9z6xefWplMoJc4FEAL6FPKpRgZbHsefYSi322cn42llS5jvtXtMXeJJm3Y0IkR/jX+k6llQmgPKhgT+eKUZZCFSivGD/X3hLZtEdu2vAyMuA8E4DUOs2DB5/SFrc1pcqdrakwhwaxQdugjA+7Cd+UIeQ8LAq4NiYv9fSpdHrzM+uwWQLnph3Wf9Tr5YkV9JvfJYl89VDk6J57NA==
+ b=vC/xv//cn9DpeY5aTZa3DQySfzmPxVRJksS6VtN8aEZioLZhuCCFUFITVb5LcNZ+VIBBvx5x2ISHkMshu2otYhoT/IyNjcqFI6BmR3kWmJW3ZWFluTKmAKM37NsA4im3kpe+/Y9mUg07VpuWYiNJqhTsk178QbfMNU7UPTtc5NsWrCK/UmSMSjGgs/kVhe5y3gkgdbEf8mFrQPDZ5gnrqJX2pLwiNpvh5vhu3bE/PfO0nZSOsyyif7sHfltc+W5+oQOHYbW+8c8Bj6S8qZgjY2GCA//i55DUarynwP/jI3vbvbwNXL6Ixv9K4LCH+rsU8ctMgntiiVAOvkr+WPo31Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gEUlvJm0qHvnna5058OPqA5FajsStkdy1680rnumCAs=;
- b=NRDsEottCi0LItgXbyDfdBYaPmWfvPtfBf62AWOOoCdcndtNEDVpZCt6bJ5H09wIcpIedjO0n9Hy5NJfP1H3bXGrK+/1qbRFKDBlGV2T/xTnKXj2Y3n+3iCCbQIdiE4E4SLBXO4NqmIWpaLGNhL+09rYTEh0/4fJ0jWDWNo7+M9mxUk8fMr2q9/TV5c5Y91FaRngkUIqB3vbFMZe3hcJJYbY8BmCzHQVBdpjgA6x+co2nZcsA3hNiEvz/jAaw4e83xbJmt/gDZcc1oWAWnsExd+w9l0FderbvBaVCfRSlmn04DTcOlmnJ+SMU4j+5G5ThaUktVjduK7lzbvtNRgmYg==
+ bh=CMjkXKO2xPJzldM0VFANhwDBvCtAk87hpkqmID0q/W8=;
+ b=xOjASdaeoZkctXxQkliaLo+dWaxUN1chXbCf/KUNdybPAqBRuEqtoKnK+t+cjyHZJlAf2y8p87sJk2yLEdvLtGFzXGos6MgLbLey0kJ+dpdgUN4m5wAZ5Tg6Yt5nfuMjlhePLgk1tU7hAun9SetW2Z8sIHy9yVGANtcKslm3Wew6RqkvvkzkTDYM65f9D6x/zZNS+ioQ0WPAJ2iwCZuVgJTCNqn+mlllYkbx6Xbvz62K1HIicJeN+S7lGz9UHZZ+95Va+WADRrEBbozFxFER2Yw06etGPM5xROoGn0Te9uAY2F19+xR3jGKU3nYgvv9mjX7SQYSNcsVAgrKptWjoGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gEUlvJm0qHvnna5058OPqA5FajsStkdy1680rnumCAs=;
- b=hPrfmkC+p6kxaX07KQyD3LbS6R071hQZXrjM+/bOhswwq4815TvA5GPTIrMEuOO1Ik9v5bMoCH0ry7KgSL8I1ScahdTZwSEEVU0LqJMcaSXgE7c++wgDg8lFOQmSXnn7lfdJIse4F8zSmZkoekj9SQvzGzGu4OhptroTas1EHzs=
-Received: from BN0PR04CA0015.namprd04.prod.outlook.com (2603:10b6:408:ee::20)
- by LV3PR12MB9410.namprd12.prod.outlook.com (2603:10b6:408:212::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Tue, 8 Sep
- 2026 11:40:28 +0000
-Received: from BN7PEPF000000A3.namprd04.prod.outlook.com
- (2603:10b6:408:ee:cafe::27) by BN0PR04CA0015.outlook.office365.com
- (2603:10b6:408:ee::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
- Sep 2026 11:40:28 +0000
+ bh=CMjkXKO2xPJzldM0VFANhwDBvCtAk87hpkqmID0q/W8=;
+ b=qGtlOQ/tWxJOFjbMLGNJyekdFWy5iOFEBtJ22uaSuEa2UMG86ANm3VRoj02s7dzuqbu9BYO38JvE+k1+OnQ23cJWc8r+RNE0vp/Jovvcg6Qujk6dQeiHmNHRuFNM4ZQ1Z2OBlHDE0RW9Qe0QdMJHWl+5pkp12iLjBFBEJbGKHPo=
+Received: from DS7PR06CA0036.namprd06.prod.outlook.com (2603:10b6:8:54::14) by
+ DS7PR12MB9504.namprd12.prod.outlook.com (2603:10b6:8:252::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.15; Tue, 8 Sep 2026 11:40:45 +0000
+Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
+ (2603:10b6:8:54:cafe::ad) by DS7PR06CA0036.outlook.office365.com
+ (2603:10b6:8:54::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
+ Sep 2026 11:40:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF000000A3.mail.protection.outlook.com (10.167.248.155) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:40:28 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:40:44 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:40:20 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 06:40:34 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:40:19 -0500
+ 2026 06:40:33 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 8 Sep 2026 06:40:11 -0500
+ Transport; Tue, 8 Sep 2026 06:40:20 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,12 +71,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Chenyu Chen
+ <Chen-Yu.Chen@amd.com>, James Lin <pinglei.lin@amd.com>, Chenyu Chen
  <chen-yu.chen@amd.com>
-Subject: [PATCH 44/66] drm/amd/display: Add lock-free memory pool
-Date: Tue, 8 Sep 2026 19:31:37 +0800
-Message-ID: <20260908113338.2433445-45-chen-yu.chen@amd.com>
+Subject: [PATCH 45/66] drm/amd/display: Rename lock_and_validation_needed to
+ needs_dc_state_realloc
+Date: Tue, 8 Sep 2026 19:31:38 +0800
+Message-ID: <20260908113338.2433445-46-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908113338.2433445-1-chen-yu.chen@amd.com>
 References: <20260908113338.2433445-1-chen-yu.chen@amd.com>
@@ -84,29 +85,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A3:EE_|LV3PR12MB9410:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a75405e-acfa-4d94-ef81-08df0d9dfb2c
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|DS7PR12MB9504:EE_
+X-MS-Office365-Filtering-Correlation-Id: d272f595-6ab7-4246-163d-08df0d9e04d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|6133799003|10067099003|5023799004|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: G4WB4GoQD14tPkaeSUEv/H/Cwn+NN1PbjDzhHb+DobUNWpaEoxPU5YCw2WC3PDCH7J05q8f5ebS2131yfMTbjB0oVPehcKob41JNqrqeauDakEBJu20kFccygnwT8fBjfKrvKYnmmjaSfCHYsdGN5IWV1mzAk+wpxHJ+RbHQ8NUeKobc2NoPb7yk/5jYIcXHrZweJhcEAXWq7K1CuE9t1L0NVQfmM5+kJr3ps64ybJoiXR/S6n4VZpPmbXOhMETOg6CTTlhPvFjIvNWevtKBbp+pFY4KpfFFK+O05Hsqt3OyhoK6Xi51T+wULr+iXBVXtnLWm67hU9gTyfFbJ69NQIHGKZIs2Epj4sDltZwpoM6LbVkUyZ2AtEeFDMX+LqBmq1aXcIa5/86XV+6brjN4eZhQ6liO4G8W3LGF8/J6+7QZ3dCsrf2r/+0j3+bfzmorz5JDDGUVAaNX8S7fWPckXNCSzzLXOteuL/b3LNVEJhxS3Qe9JX/+mSNdTfv6Z4fkA0hjIAXQQO4jp+tqaEUaArVoYiCFWTRipcX4aFnaGea76dLvqQHYkXJBiOoOXWZlYAPNBl5cc/XWN6fxgZoDXCTeTsS0kngfnr4ahKWxpGbk5h9CCFlI4MjXkwGt5jGLrAgoEehNAvFjX2CwzSBXTalpYCNDUn5MfjfYxC5ZgT5ZdQixj2OA4u+SaUYSIJvCRK5eSU3/rOBv++JJQedHHA==
+ ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|10067099003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: /1uGmSgJaofWN1U/gTW2hT2MZewgvb7LgJgRDw3zHrpt2Qayo2aQKqsOWPj7ec6PLkylpfEeFlysYNsMRFNyLQ6BZpBfvdq/GKFcR4LQHpOiMqQncLQ9kKMhmZ7b0VKFJjqbMDsu9waKQjus8NnRJh9rExImBHQhIXmdlCga6Z+bmgXRXl4hSHohqYbgeZLXRn/faah94Ny5xTnm0Pf22X9x3/T2wxX5qXzAUL8RTNShLxnheaWabmfJLXAKNzc5BEqL9MHyVw9LkECmdIlefDFRWSO2J88v8jg2iVQvfXIxml7GMqj/8nj4eLz+tqmmCZ7jv+VCOIvV13ILS+hgSoadAbDLip82dscB+RrjN6E8XmqSY0l3bIPccCMZZ4kdRmrODyXMO/TipAq1t4lvBnTPE/6bzOJadmrmqgtMXUefHXRMyQb6rgLeXcTVLw2N9tWaZ43xKHUrijaQabP30Evr+JYfn6vjbWAD1pSzL/LXaUMmTgBmKti7LqGY69GLL5wWVQ5/VyhUdMiZEB3msfzR4wt29d2huY89J++Wv4AoGcw9IAMpuHRzrq/x1LisSxNh8YFF4E/x5xBclGjVMNq4dZwndr7lYzk3M3JiBCD7PiAY9aM+JL/FQlHZm4NIMnufNojRntjiFUj/HFirPXXf1UTt/zmJev3jWvuQVTdAkIrpr+wARJHpGxxW93Ixw1ONAKVektY6aOji9DOQqg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(6133799003)(10067099003)(5023799004)(11063799006)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: tq33vElfQ8QS3OvN1f510xhgR6kWrQmZnWz0F+y6wzm1RSzTh0HXVPDc2tYqxcFiAaPwEoSlZtjAGUh3e/yQ45ruz/kepRR1UgyGHFQoNKc6iQI6aMOOV9Q/YxSxM88x0Qli48w/DTuhtyu33zrjZSk/MXh2jfaZ30zGAQyTmoX8Sooghhy6h84xo5Snd6+lOt/Q59sUTMGrsMTWqM3j33vyToTqzG2zYtx0LlV3EmugLcIQvYjwPyVqcJgqNIpMUlUIg/vlLUzfo/3fXZHbViUNhL8YLW9N/Lg9LtsLT71RQl8ALKCtuwYIPHKnQj7hwicKRAIvVEwfs3VUbi2mSU+PliYD6GJergNx/2/CIqhkf/s2LYqM/kGhsvE/MXxcPxHVb3pxpBJg3v0qGNh7on5HqMaHVtlkCQ4xbhVpAt0UOwryW20K2nrIqoC2DpCx
+X-MS-Exchange-AntiSpam-MessageData-0: TGoRzaMI00qljCNYE+3eTfxQV7jZsL4Vr9Iwgr9Ckww1n7UGfknp88nyTbF9HChWwUP+JN2rQlW3tGOKt5FGcD5HsN2z5qacVyP2IkcDzuKG9V0GGgehPC9G2wN56bGa24DNrvqIoXVFWS9lIlzhtCVqNjRMXk/2k8Gub+nsR2oPKGi2g/b3YIUw+1gZc04aMIR9IR0C+qCOvpzotUm81hzyqiUiUtU8dm+IWQFDR+Gdfji+EpDmTA3yAQoEuCNLR1mLx18Yj4pQJmqh+AHcD2KtUP8MKRS1uYKuydbnL9oDNskFddKD292HH9Ke7jb9aYwJuXYPgphkwmqoSs14SJj0cN5gqaKK6ZlzuUCvmYEGwfWuvBGdUsFNmXtWfjoP5hUtL7ubF5FizqbZcMXaD04+murDT/lvdqNHdpUg7cTFltABzULK9keTi5LLwqqL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:40:28.4542 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a75405e-acfa-4d94-ef81-08df0d9dfb2c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:40:44.6642 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d272f595-6ab7-4246-163d-08df0d9e04d5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF000000A3.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9410
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9504
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,457 +122,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dominik Kaszewski <dominik.kaszewski@amd.com>
+From: James Lin <pinglei.lin@amd.com>
 
-[Why]
-Two memory limitations - limited stack size and heap allocations
-not allowed in interrupts - combined together lead to scratch
-structures and buffers scattered throughout the code, requiring
-piping them through interfaces.
+[Why & How]
+Split the boolean's two meanings: it only tracks whether the commit needs
+to rebuild the dc_state and take the global lock, not the update magnitude.
+Rename it so the name reflects that; no functional change.
 
-[How]
-* OS-provided lock-free lists still need external locking for some
-operations, requiring a custom implementation.
-* Implement memory pool which can preallocate a number of blocks
-with given size, then later "allocate" from them without any heap use.
-* Pool implemented as lock-free Treiber stack to avoid operations
-being blocked by suspended thread, including a same-thread interrupt
-exemption causing an indefinite block.
-* Indexed free list and generation counter protect against ABA
-data corruption.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Dominik Kaszewski <dominik.kaszewski@amd.com>
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: James Lin <pinglei.lin@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/Makefile       |   1 +
- .../gpu/drm/amd/display/dc/dc_memory_pool.c   | 277 ++++++++++++++++++
- .../gpu/drm/amd/display/dc/dc_memory_pool.h   | 107 +++++++
- drivers/gpu/drm/amd/display/dc/os_types.h     |   1 +
- 4 files changed, 386 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dc_memory_pool.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dc_memory_pool.h
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 30 +++++++++----------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
-index 27d60493254f..99aa8f75de7b 100644
---- a/drivers/gpu/drm/amd/display/dc/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/Makefile
-@@ -67,6 +67,7 @@ FILES += dc_dmub_srv.o
- FILES += dc_edid_parser.o
- FILES += dc_fused_io.o
- FILES += dc_helper.o
-+FILES += dc_memory_pool.o
- FILES += core/dc.o
- FILES += core/dc_debug.o
- FILES += core/dc_hw_sequencer.o
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_memory_pool.c b/drivers/gpu/drm/amd/display/dc/dc_memory_pool.c
-new file mode 100644
-index 000000000000..904f8c4a4783
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dc_memory_pool.c
-@@ -0,0 +1,277 @@
-+/**
-+ * Copyright (C) Advanced Micro Devices, Inc. All rights reserved.
-+ *
-+ * You may not use this software and documentation (if any) (collectively, the
-+ * "Materials") except in compliance with the terms and conditions of the
-+ * Software License Agreement included with the Materials or otherwise as set
-+ * forth in writing and signed by you and an authorized signatory of AMD.
-+ *
-+ * If you do not have a copy of the Software License Agreement, contact your AMD
-+ * representative for a copy. You agree that you will not reverse engineer or
-+ * decompile the Materials, in whole or in part, except as allowed by applicable
-+ * law.
-+ *
-+ * THE MATERIALS ARE DISTRIBUTED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OR
-+ * REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
-+ */
-+#include "dc_memory_pool.h"
-+
-+#include <linux/atomic.h>
-+
-+enum {
-+	DC_MEMORY_POOL_SENTINEL = -1,
-+	DC_MEMORY_POOL_ACQUIRED = -2,
-+	DC_MEMORY_POOL_RELEASED = -3,
-+
-+	// Correct autoincrement for negative numbers
-+	DC_MEMORY_POOL_ENUM_SIZE_IMPL,
-+	DC_MEMORY_POOL_ENUM_SIZE = 1 - DC_MEMORY_POOL_ENUM_SIZE_IMPL,
-+};
-+
-+// Align everything to size of page to avoid false sharing
-+struct dc_memory_pool_page {
-+	__aligned(PAGE_SIZE) char _dummy[PAGE_SIZE];
-+};
-+
-+// Generation counter protects against ABA-problem
-+union index_t {
-+	struct {
-+		int32_t value;
-+		uint32_t generation;
-+	} s;
-+
-+	int64_t raw;
-+};
-+
-+struct dc_memory_pool {
-+	// Values and pointers constant after initialization, can share page
-+	__aligned(PAGE_SIZE) size_t size;
-+	size_t capacity;
-+
-+	void *unaligned_pool;
-+	void *unaligned_memory;
-+	struct dc_memory_pool_page *memory;
-+	atomic_t *free_list;
-+
-+	// Updated every operation, use separate page to avoid false sharing
-+	__aligned(PAGE_SIZE) atomic64_t free_head; // index_t
-+	char _reserved2[PAGE_SIZE - sizeof(atomic64_t)];
-+};
-+
-+static_assert(sizeof(struct dc_memory_pool) == 2 * PAGE_SIZE);
-+static_assert(offsetof(struct dc_memory_pool, free_head) == PAGE_SIZE);
-+
-+static size_t divide_ceiling(size_t x, size_t d)
-+{
-+	return (x + d - 1) / d;
-+}
-+
-+static size_t round_up_to_multiple(size_t x, size_t m)
-+{
-+	return divide_ceiling(x, m) * m;
-+}
-+
-+static size_t size_in_pages(size_t x)
-+{
-+	return divide_ceiling(x, PAGE_SIZE);
-+}
-+
-+static void *page_align_up(void *p)
-+{
-+	intptr_t i = (intptr_t)p;
-+
-+	i = (intptr_t)round_up_to_multiple((size_t)i, PAGE_SIZE);
-+	return (void *)i;
-+}
-+
-+__must_check struct dc_memory_pool *dc_memory_pool_create(size_t size,
-+							  size_t capacity)
-+{
-+	if (!size || !capacity)
-+		return NULL;
-+
-+	// Limited by split between size and generation in index_t
-+	if (capacity >= (uint32_t)-DC_MEMORY_POOL_ENUM_SIZE)
-+		return NULL;
-+
-+	// uint32_t because that's what alloc functions take
-+	const uint32_t block_pages = (uint32_t)size_in_pages(size);
-+	const uint32_t lines = (uint32_t)capacity * block_pages;
-+	const uint32_t padded_struct_size =
-+		sizeof(struct dc_memory_pool) + PAGE_SIZE;
-+
-+	void *unaligned_pool = kzalloc(padded_struct_size, GFP_KERNEL);
-+
-+	if (!unaligned_pool)
-+		return NULL;
-+
-+	struct dc_memory_pool *pool = page_align_up(unaligned_pool);
-+
-+	*pool = (struct dc_memory_pool){
-+		.size = size,
-+		.capacity = capacity,
-+		.unaligned_pool = unaligned_pool,
-+		.unaligned_memory = kcalloc(lines + 1, PAGE_SIZE, GFP_KERNEL),
-+		.free_list = kcalloc((uint32_t)capacity, sizeof(atomic_t),
-+				     GFP_KERNEL),
-+		.free_head = ATOMIC_INIT(0),
-+	};
-+	pool->memory = page_align_up(pool->unaligned_memory);
-+
-+	if (!pool->unaligned_memory || !pool->free_list) {
-+		dc_memory_pool_destroy(pool);
-+		return NULL;
-+	}
-+
-+	for (int32_t i = 0; i < (int32_t)capacity; i++)
-+		atomic_set_release(&pool->free_list[i], i + 1);
-+
-+	atomic_set_release(&pool->free_list[capacity - 1],
-+			   DC_MEMORY_POOL_SENTINEL);
-+
-+	return pool;
-+}
-+
-+void dc_memory_pool_destroy(struct dc_memory_pool *pool)
-+{
-+	if (!pool)
-+		return;
-+
-+	kfree(pool->free_list);
-+	kfree(pool->unaligned_memory);
-+	kfree(pool->unaligned_pool);
-+}
-+
-+static int32_t dc_memory_pool_get_index(const struct dc_memory_pool *pool,
-+					const void *memory)
-+{
-+	if (!pool || !memory) {
-+		ASSERT(false);
-+		return DC_MEMORY_POOL_SENTINEL;
-+	}
-+
-+	// Direct pointer arithmetic would be UB if called by false `owns()`
-+	if ((uintptr_t)memory < (uintptr_t)pool->memory)
-+		return DC_MEMORY_POOL_SENTINEL;
-+
-+	const uintptr_t distance = (uintptr_t)memory - (uintptr_t)pool->memory;
-+	const size_t block_size = size_in_pages(pool->size) * PAGE_SIZE;
-+	const size_t i = (size_t)distance / block_size;
-+
-+	if (distance % (uintptr_t)block_size != 0)
-+		return DC_MEMORY_POOL_SENTINEL;
-+
-+	if (i >= pool->capacity)
-+		return DC_MEMORY_POOL_SENTINEL;
-+
-+	return (int32_t)i;
-+}
-+
-+static void *dc_memory_pool_get_page(const struct dc_memory_pool *pool,
-+				     int32_t index)
-+{
-+	if (!pool) {
-+		ASSERT(false);
-+		return NULL;
-+	}
-+
-+	if (index < 0 || index >= (int32_t)pool->capacity) {
-+		ASSERT(false);
-+		return NULL;
-+	}
-+
-+	return &pool->memory[(size_t)index * size_in_pages(pool->size)];
-+}
-+
-+__must_check void *dc_memory_pool_acquire(struct dc_memory_pool *pool)
-+{
-+	if (!pool) {
-+		ASSERT(false);
-+		return NULL;
-+	}
-+
-+	// CAS-atomic `out = head; head = head->next;`
-+	union index_t old_head = {
-+		.raw = atomic64_read_acquire(&pool->free_head),
-+	};
-+	union index_t new_head = {
-+		.raw = 0,
-+	};
-+	int32_t i = 0;
-+
-+	do {
-+		i = old_head.s.value;
-+		if (i == DC_MEMORY_POOL_SENTINEL)
-+			return NULL;
-+
-+		new_head = (union index_t){
-+			.s.value = atomic_read_acquire(&pool->free_list[i]),
-+			.s.generation = old_head.s.generation + 1,
-+		};
-+	} while (!atomic64_try_cmpxchg(&pool->free_head, &old_head.raw,
-+				       new_head.raw));
-+
-+	atomic_set_release(&pool->free_list[i], DC_MEMORY_POOL_ACQUIRED);
-+	return dc_memory_pool_get_page(pool, i);
-+}
-+
-+void dc_memory_pool_release(struct dc_memory_pool *pool, void *memory)
-+{
-+	if (!dc_memory_pool_owns(pool, memory)) {
-+		// Likely acquired in different pool or (racing?) double free
-+		ASSERT(false);
-+		return;
-+	}
-+
-+	const int32_t i = dc_memory_pool_get_index(pool, memory);
-+
-+	if (atomic_xchg(&pool->free_list[i], DC_MEMORY_POOL_RELEASED) !=
-+	    DC_MEMORY_POOL_ACQUIRED) {
-+		// Double free from two racing threads, use krefs to sync
-+		ASSERT(false);
-+		return;
-+	}
-+
-+	// CAS-atomic `in->next = head; head = in;`
-+	union index_t old_head = {
-+		.raw = atomic64_read_acquire(&pool->free_head),
-+	};
-+	union index_t new_head = {
-+		.raw = 0,
-+	};
-+
-+	do {
-+		atomic_set_release(&pool->free_list[i], old_head.s.value);
-+		new_head = (union index_t){
-+			.s.value = i,
-+			.s.generation = old_head.s.generation + 1,
-+		};
-+	} while (!atomic64_try_cmpxchg(&pool->free_head, &old_head.raw,
-+				       new_head.raw));
-+}
-+
-+__must_check bool dc_memory_pool_owns(const struct dc_memory_pool *pool,
-+				      const void *memory)
-+{
-+	const int32_t i = dc_memory_pool_get_index(pool, memory);
-+
-+	if (i < 0)
-+		return false;
-+
-+	if (atomic_read_acquire(&pool->free_list[i]) != DC_MEMORY_POOL_ACQUIRED)
-+		return false;
-+
-+	return true;
-+}
-+
-+__must_check size_t dc_memory_pool_size(const struct dc_memory_pool *pool)
-+{
-+	ASSERT(pool);
-+	return pool->size;
-+}
-+
-+__must_check size_t dc_memory_pool_capacity(const struct dc_memory_pool *pool)
-+{
-+	ASSERT(pool);
-+	return pool->capacity;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_memory_pool.h b/drivers/gpu/drm/amd/display/dc/dc_memory_pool.h
-new file mode 100644
-index 000000000000..0ec305813d66
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dc_memory_pool.h
-@@ -0,0 +1,107 @@
-+/**
-+ * Copyright (C) Advanced Micro Devices, Inc. All rights reserved.
-+ *
-+ * You may not use this software and documentation (if any) (collectively, the
-+ * "Materials") except in compliance with the terms and conditions of the
-+ * Software License Agreement included with the Materials or otherwise as set
-+ * forth in writing and signed by you and an authorized signatory of AMD.
-+ *
-+ * If you do not have a copy of the Software License Agreement, contact your AMD
-+ * representative for a copy. You agree that you will not reverse engineer or
-+ * decompile the Materials, in whole or in part, except as allowed by applicable
-+ * law.
-+ *
-+ * THE MATERIALS ARE DISTRIBUTED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OR
-+ * REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
-+ */
-+#ifndef DC_MEMORY_POOL_H
-+#define DC_MEMORY_POOL_H
-+
-+#include "os_types.h"
-+
-+/**
-+ * Non-resizable lock-free memory pool with fixed capacity.
-+ *
-+ * Custom implementation is used over Linux llist, as llist requires external
-+ * locking if more than one thread pops from the list.
-+ *
-+ * Emplace and erase operations do not use any mutexes or spinlocks, which
-+ * guarantees forward progress even if another thread
-+ * has been suspended in the middle of the call. High contention might result
-+ * in multiple internal retries, but will eventually either succeed once other
-+ * threads stop actively modifying the pool, or fail if the pool is empty.
-+ *
-+ * Implemented as Treiber stack using indexed free list and head with generation
-+ * counter to solve ABA problem, as each modification of the head increments
-+ * the generation, preventing issue of `push(A)` being indistinguishable from
-+ * `push(A); { push(B); pop(B); }` to another thread, corrupting data structure.
-+ */
-+struct dc_memory_pool;
-+
-+/**
-+ * Create dc_memory_pool.
-+ *
-+ * @param size Non-zero pool block size, all acquires will be of this size.
-+ * @param capacity Non-zero number of blocks that can be acquired from the pool.
-+ * @return Pointer to the pool if succeeded, null if failed.
-+ */
-+__must_check struct dc_memory_pool *dc_memory_pool_create(size_t size,
-+							  size_t capacity);
-+
-+/**
-+ * Destroy given pool and free all allocated memory, invalidating any pointers.
-+ *
-+ * This operation is not synchronized, calling any other operation on the pool
-+ * while it is being destroyed results in Undefined Behavior.
-+ *
-+ * @param pool Can be null to support common destruction patterns.
-+ */
-+void dc_memory_pool_destroy(struct dc_memory_pool *pool);
-+
-+/**
-+ * Acquire single block from pool.
-+ *
-+ * @param pool Cannot be null.
-+ * @return Pointer to block if succeeded, null if empty.
-+ */
-+__must_check void *dc_memory_pool_acquire(struct dc_memory_pool *pool);
-+
-+/**
-+ * Release previously acquired block, freeing it for others to acquire.
-+ *
-+ * @param pool Cannot be null.
-+ * @param memory Cannot be null, has to be owned by the pool.
-+ */
-+void dc_memory_pool_release(struct dc_memory_pool *pool, void *memory);
-+
-+/**
-+ * Check if given memory is owned by the pool to facilitate arenas.
-+ *
-+ * @warning if (owns(pool, p)) release(pool, p);` pattern is not safe
-+ * if used with same `p` from multiple unsynchronized threads.
-+ * If multiple owning threads are desired, use krefs to assure single release.
-+ *
-+ * @param pool Cannot be null.
-+ * @param memory Cannot be null.
-+ * @return True if the memory was previously acquired from the pool.
-+ */
-+__must_check bool dc_memory_pool_owns(const struct dc_memory_pool *pool,
-+				      const void *memory);
-+
-+/**
-+ * Get pool block size.
-+ *
-+ * @param pool Cannot be null.
-+ * @return Pool block size as given to dc_memory_pool_create().
-+ */
-+__must_check size_t dc_memory_pool_size(const struct dc_memory_pool *pool);
-+
-+/**
-+ * Get pool block count.
-+ *
-+ * @param pool Cannot be null.
-+ * @return Pool block count as given to dc_memory_pool_create().
-+ */
-+__must_check size_t dc_memory_pool_capacity(const struct dc_memory_pool *pool);
-+
-+#endif // Header guard
-diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/os_types.h
-index 339372293a98..27d4a96b958f 100644
---- a/drivers/gpu/drm/amd/display/dc/os_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/os_types.h
-@@ -27,6 +27,7 @@
- #ifndef _OS_TYPES_H_
- #define _OS_TYPES_H_
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index df649ae66de2..3ed0d8014d21 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5443,7 +5443,7 @@ STATIC_IFN_KUNIT int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 					  struct drm_crtc_state *old_crtc_state,
+ 					  struct drm_crtc_state *new_crtc_state,
+ 					  bool enable,
+-					  bool *lock_and_validation_needed)
++					  bool *needs_dc_state_realloc)
+ {
+ 	struct dm_atomic_state *dm_state = NULL;
+ 	struct dm_crtc_state *dm_old_crtc_state, *dm_new_crtc_state;
+@@ -5616,7 +5616,7 @@ STATIC_IFN_KUNIT int dm_update_crtc_state(struct amdgpu_display_manager *dm,
  
-+#include <linux/compiler_attributes.h>
- #include <linux/slab.h>
- #include <linux/kgdb.h>
- #include <linux/delay.h>
+ 		amdgpu_dm_reset_freesync_config_for_crtc(dm_new_crtc_state);
+ 
+-		*lock_and_validation_needed = true;
++		*needs_dc_state_realloc = true;
+ 
+ 	} else {/* Add stream for any updated/enabled CRTC */
+ 		/*
+@@ -5654,7 +5654,7 @@ STATIC_IFN_KUNIT int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 				goto fail;
+ 			}
+ 
+-			*lock_and_validation_needed = true;
++			*needs_dc_state_realloc = true;
+ 		}
+ 	}
+ 
+@@ -5886,7 +5886,7 @@ dm_update_plane_state(struct dc *dc,
+ 		      struct drm_plane_state *old_plane_state,
+ 		      struct drm_plane_state *new_plane_state,
+ 		      bool enable,
+-		      bool *lock_and_validation_needed,
++		      bool *needs_dc_state_realloc,
+ 		      bool *is_top_most_overlay)
+ {
+ 
+@@ -5957,7 +5957,7 @@ dm_update_plane_state(struct dc *dc,
+ 
+ 		dm_new_plane_state->dc_state = NULL;
+ 
+-		*lock_and_validation_needed = true;
++		*needs_dc_state_realloc = true;
+ 
+ 	} else { /* Add new planes */
+ 		struct dc_plane_state *dc_new_plane_state;
+@@ -6035,7 +6035,7 @@ dm_update_plane_state(struct dc *dc,
+ 		 */
+ 		dm_new_plane_state->dc_state->update_bits.full_update = 1;
+ 
+-		*lock_and_validation_needed = true;
++		*needs_dc_state_realloc = true;
+ 	}
+ 
+ out:
+@@ -6192,7 +6192,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	struct drm_plane_state *old_plane_state, *new_plane_state, *new_cursor_state;
+ 	enum dc_status status;
+ 	int ret, i;
+-	bool lock_and_validation_needed = false;
++	bool needs_dc_state_realloc = false;
+ 	bool is_top_most_overlay = true;
+ 	struct dm_crtc_state *dm_old_crtc_state, *dm_new_crtc_state;
+ 	struct drm_dp_mst_topology_mgr *mgr;
+@@ -6366,7 +6366,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 					    old_plane_state,
+ 					    new_plane_state,
+ 					    false,
+-					    &lock_and_validation_needed,
++					    &needs_dc_state_realloc,
+ 					    &is_top_most_overlay);
+ 		if (ret) {
+ 			drm_dbg_atomic(dev, "dm_update_plane_state() failed: %pe\n", ERR_PTR(ret));
+@@ -6380,7 +6380,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 					   old_crtc_state,
+ 					   new_crtc_state,
+ 					   false,
+-					   &lock_and_validation_needed);
++					   &needs_dc_state_realloc);
+ 		if (ret) {
+ 			drm_dbg_atomic(dev, "DISABLE: dm_update_crtc_state() failed: %pe\n", ERR_PTR(ret));
+ 			goto fail;
+@@ -6393,7 +6393,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 					   old_crtc_state,
+ 					   new_crtc_state,
+ 					   true,
+-					   &lock_and_validation_needed);
++					   &needs_dc_state_realloc);
+ 		if (ret) {
+ 			drm_dbg_atomic(dev, "ENABLE: dm_update_crtc_state() failed: %pe\n", ERR_PTR(ret));
+ 			goto fail;
+@@ -6406,7 +6406,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 					    old_plane_state,
+ 					    new_plane_state,
+ 					    true,
+-					    &lock_and_validation_needed,
++					    &needs_dc_state_realloc,
+ 					    &is_top_most_overlay);
+ 		if (ret) {
+ 			drm_dbg_atomic(dev, "dm_update_plane_state() failed: %pe\n", ERR_PTR(ret));
+@@ -6521,7 +6521,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 		if (!is_scaling_state_different(dm_new_con_state, dm_old_con_state))
+ 			continue;
+ 
+-		lock_and_validation_needed = true;
++		needs_dc_state_realloc = true;
+ 	}
+ 
+ 	/* set the slot info for each mst_state based on the link encoding format */
+@@ -6557,7 +6557,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	 *
+ 	 * TODO: Remove this stall and drop DM state private objects.
+ 	 */
+-	if (lock_and_validation_needed) {
++	if (needs_dc_state_realloc) {
+ 		ret = dm_atomic_get_state(state, &dm_state);
+ 		if (ret) {
+ 			drm_dbg_atomic(dev, "dm_atomic_get_state() failed: %pe\n", ERR_PTR(ret));
+@@ -6658,7 +6658,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 		 * the FB pitch, the DCC state, rotation, mem_type, etc.
+ 		 */
+ 		if (new_crtc_state->async_flip &&
+-		    (lock_and_validation_needed ||
++		    (needs_dc_state_realloc ||
+ 		     amdgpu_dm_crtc_mem_type_changed(dev, state, new_crtc_state))) {
+ 			drm_dbg_atomic(crtc->dev,
+ 				       "[CRTC:%d:%s] async flips are only supported for fast updates\n",
+@@ -6667,7 +6667,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 			goto fail;
+ 		}
+ 
+-		dm_new_crtc_state->update_type = lock_and_validation_needed ?
++		dm_new_crtc_state->update_type = needs_dc_state_realloc ?
+ 			UPDATE_TYPE_FULL : UPDATE_TYPE_FAST;
+ 	}
+ 
 -- 
 2.43.0
 
