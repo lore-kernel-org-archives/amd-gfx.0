@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48060C79FA1
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:39:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D397C79F82
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:40:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D451B10EB5F;
-	Tue,  8 Sep 2026 11:39:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9D0010EB5D;
+	Tue,  8 Sep 2026 11:40:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0mKXSz/v";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cEU/QT0I";
 	dkim-atps=neutral
 Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010039.outbound.protection.outlook.com [52.101.56.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D98A10EB5D
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:39:54 +0000 (UTC)
+ (mail-eastus2azon11010061.outbound.protection.outlook.com [52.101.56.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3AA510EB5D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:40:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zb/JC0Yu99ZJ21R9Khm/MHPJP1O/4L1DoIkUKFJF/mgql7+VaHgHrS6jd9O2ejf/UFm/FfcWV2Pzz3rQZGXfUgT6Enp2uuT/8DDNdVWSIoELwz4S/f3XCRQZgx2d2BsDSV2Dm0NCxWAAY2F4RmpWQAAsyzEh1eVWFKj/0297Ugyu9Vo4bcfwHIpRJ3FvSLiig4FUhJAsxRpzhKHnmLsDiFMicRxmt1/Q57Hi5AFw8GxG/HSQn15EtlGj1hFMioN4VWCNtL4Aa9qU8nRFLY0NiSUiAT+7T6aZ/Y0natHQPANFabn8ZUZCflZoryZCTqecJm//D9S5IxPAtF4CEYP2jQ==
+ b=IdQ0Kv0oAkVf+HHZoNPhVpjVWj9hMeHA1JDIfO2xMJ/bMjYrFbiZDSEnCb9eaRqp6224PaWZztt2N/91XZcF2LQujR/QecKofTBpmvhH9gTzXq8A5SxOUCSv5rIBAFkzKStnZ4G46KjlHTu4WjOw+8WGWN6SsIxB4zhF4nt2XCjQNtAA2a8cce9lBkXWybtKcSFwLOzYWCmIvqZ16LWzKFhCRfn25WUKiJKJwKfBC4ThD2Ocevv/wSXWRX91C93FirGnzIblVjt4JVqCdQOhvw0ps1gj9p+1J6AdjPcNvB/HiBJnw6FnA45YGnSdJTu05AIfCI9TUfbgdMOzwl1VQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GaR4PKl7846cCOCBK50M0zaB3uGW6GDfwWZh81w04RY=;
- b=iWvh+3U7J3qiZeK60GdOv3PGas/oNqAzB+DrMXaHEghJPqaAFWCpEsDEXDOYpPLX8X4Lce+jQRO0WZ95XbdVtqXA5k10TXIaVYEidqwbCN6/IgtyUUmT+D9fq2gHtbXzhThOMz9g4Wua0psKZP+7gHrCapyoTk76iypCqnRELswNLstBLsbviF4IhhLq8wWWeDrJqR/24LC96Go65mdyqww7newhXlEJh2QmNrAcX5ReTgbaw3sT3BJ0Q3dFz/QwcmeTPYfv0NsyJiK2TSowWJlIjOG2oya4a03DrxQlFMMpc4nnT9ziQzPhetZX7PlftSrtE/781R97hNlnM8rjOA==
+ bh=VZa4zgffptAH0/aZsu64Zp10q7dnBWcIKjORRTKbEj4=;
+ b=loH5bu1qElHxGU5yz3Mx0916Vw8atdsRt2jsx8A0/lF1D+PySOYvN8MnWPDFLIjIDQ+4TRPK+MRRrx02Qxcgb8uubfXhIYVOtHuzbPQ5sH4Nnc1ypViXalpJJ8hO+wTjyOEzUsvrDd70wf/RwtHujbVmsADuTRjLjrwPr8oj9W1M6i4f64bwoiDWhq6pnyM6P9eaNqpWeXqXxTMhRfRgLT12OZZqVsw9ccae9QDXnew5JQRjdKY0zaX+I6d4gJtXtfi9SeTP7aSn4fDNqLMGd78YMPYxhnAy09Ds4fGyBoQiCAGINcnuYYWF5VBMqzKYFAdiGTZ8eh2LnsBb75PuGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GaR4PKl7846cCOCBK50M0zaB3uGW6GDfwWZh81w04RY=;
- b=0mKXSz/vT+OVZACHAJ3P/X/C14ha/vGdib4CooenVkK3P1M6WNbMwb4nzRt6XiltSRP51iyPZnwSE701iodrwGuXZOe6BfWa1gn6UZuS7yHIeTuHcTe36mgubdSdTvNPoOwn8yFWa4seipOJjuxZtThpzKefjwWssS1JYqLlZzw=
-Received: from SJ0PR03CA0204.namprd03.prod.outlook.com (2603:10b6:a03:2ef::29)
- by BL1PR12MB5826.namprd12.prod.outlook.com (2603:10b6:208:395::22)
+ bh=VZa4zgffptAH0/aZsu64Zp10q7dnBWcIKjORRTKbEj4=;
+ b=cEU/QT0IzRHKonSQaOA3GcuBOW9yCWgO+SwxBNav1jLGvgMLvxpGzwo/6UCWnEDZ6WGNVjF7S1r3DXSCChEJSwgieYMt1fr1kYY85RaiNPTHMa86DmlIEDFrOSi5jMOVXripO+dg5MqT+S0PDLr9NHIiYsvAbjjJZazMbpP4NjA=
+Received: from SJ0PR03CA0283.namprd03.prod.outlook.com (2603:10b6:a03:39e::18)
+ by MW5PR12MB5649.namprd12.prod.outlook.com (2603:10b6:303:19d::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 11:39:45 +0000
-Received: from SJ1PEPF00002326.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::23) by SJ0PR03CA0204.outlook.office365.com
- (2603:10b6:a03:2ef::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Tue, 8 Sep 2026
+ 11:39:55 +0000
+Received: from SJ1PEPF00002325.namprd03.prod.outlook.com
+ (2603:10b6:a03:39e:cafe::7) by SJ0PR03CA0283.outlook.office365.com
+ (2603:10b6:a03:39e::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 11:39:45 +0000
+ Sep 2026 11:39:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00002326.mail.protection.outlook.com (10.167.242.89) with Microsoft
+ SJ1PEPF00002325.mail.protection.outlook.com (10.167.242.88) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:39:45 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:39:54 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:39:43 -0500
+ 2026 06:39:53 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 06:39:52 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 8 Sep 2026 06:39:34 -0500
+ Transport; Tue, 8 Sep 2026 06:39:43 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,12 +70,13 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Tomasz Siemek <tomasz.siemek@amd.com>, "Rafal
- Ostrowski" <rafal.ostrowski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 40/66] drm/amd/display: Decouple HUBP_UPDATE_PLANE_ADDR from
- pipe_ctx
-Date: Tue, 8 Sep 2026 19:31:33 +0800
-Message-ID: <20260908113338.2433445-41-chen-yu.chen@amd.com>
+ <Chen-Yu.Chen@amd.com>, Dillon Varone <Dillon.Varone@amd.com>, Aric Cyr
+ <aric.cyr@amd.com>, Alvin Lee <alvin.lee2@amd.com>, Chenyu Chen
+ <chen-yu.chen@amd.com>
+Subject: [PATCH 41/66] drm/amd/display: Cleanup DMUB command submission
+ interfaces
+Date: Tue, 8 Sep 2026 19:31:34 +0800
+Message-ID: <20260908113338.2433445-42-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908113338.2433445-1-chen-yu.chen@amd.com>
 References: <20260908113338.2433445-1-chen-yu.chen@amd.com>
@@ -80,29 +85,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002326:EE_|BL1PR12MB5826:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba8008b3-8adf-4f88-dabb-08df0d9de16d
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002325:EE_|MW5PR12MB5649:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac7b1ad6-9923-47d6-9d96-08df0d9de738
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|10067099003|6133799003|3023799007|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: EpVrg8weE8xOGJCmJV5FdZ/PIDmn/FNi76AO94qWY+VC7qHr8dcRxlItsATJGc2XzfX7MdLF4+ReYIokclN1Z8XnXYIf6O4yPqsjM8Y6bUWh9bJNDasibyMHFQ3RiOZqnvduAFCr1XM5QzsW+Tg315S+ZxyDNPVfBkuKvVhCB0+RhEXpGBeFbT/A4UPFTRYc0Z7Egdbc3GsW1gcTbQ92AxyfY0rYgjR6uJ8PleCv7F91xnpvW5Joyep18Kl7UQzxBiv5OSthwS58JncLw/q1YzpYPbw//HYgu2zLJMlXnHWH5L/35Hyv5KHLjBc9RupJisR1JGJuF57ib4nV9Zg9kld1fhBvp0tkVaF+Q0xj9vHaBZ5Cc4EHUjso5aQDN83oDnfwXQF+L5PVxSHF1ExwUtbjd2kXIVg7qqRnNN/oyIFJ1xaONFaYT/i5rNldUwQtbkgzeFPgu7jVOTW/h6LfUNGiYh59uivGGZ96PA7P30UOTGoymu2+Wo71XW4GZUpsmXDfq0x7c6bqXbT0uygKl3pGAvb88ASmg9nBkXGVPsHgQUV4xZOFul9r0aWoKDVzqoZACVC30bQel1Klg2QYvoV6mKuISgjvx8xZwD3h1pdUe65BBe4N5FVv2APldts/IFFQeuu4ZW+U94zHtXkmCZzASf6v4/eUn+iXqyjHHLtWgqmXDGnyxHShPmqGfFl0F6tWeqJgMDOIatFIz2A5ng==
+ ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|10067099003|11063799006|56012099006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: hEcihQ3UZNDvzYShxcVUs0taFmLBUd/CCabEUiHPLajqAdchkGKFzd2jOdg2nkobHq3yVmsQG9y/dPTSvkE0LYU3J+zpXhHio8vFnst6zBGeaHil3G8EcJbmpKiOmWEmIJKTj0cvZNmpnN0O4h+8/7dpoJeUfHT3vVXItuS0QBc+HwpdMU2TvIXkci/VQw7A57K4jV56zSfFLGpkVJaGmB3ycs3zKHxYZaoN59ATzXb+xICXSModRxZEL+PsHkErAMJrPY9bDhQbd+mRArEPslu7d+5O4qeLysk45+5xA3tNx62XdHRjRNxRnmdV8BGEzz8xxzn7mUIzrQxewcl0r1rmpQ73+9Wy1k+PvhjEJWMuHavkj4wAjLBLDiUJU5i/2MoDp2tfIhhZ4ME0nHoKGD9WNNQ9ETKKa3v4Hyutig7ov74OqcoOm/Nkcwiz8Q1+x6ALEygNEcIASfCn+FGu5bSlN5+MSpratqK4Hi0q6TcSAh5SPrtXqLEQsNjc9i42jCL0sUyU8kdiz+0EjokaLxPjHSppJB+ZtNQH2Tdxowtmyg5sr4opM/ciKQoTMNB4R0mYGoQg4yVpbCkSMEHqqtQ8E3awDszGzq8AJjFAQRj+XTuYKl3DxpodKqE+aj6bns7FiGmtRJ28sTgsYgi/BY8mcRGuMl0NA5seqXNySCOR1/XpyPgQUCUkeb03bkPRDvkAIUXMcSqVvo8E07rBzg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(10067099003)(6133799003)(3023799007)(22082099003)(18002099003)(56012099006)(11063799006);
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(10067099003)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: KgDam/jS4+i4rfiKuj/ak58AieVhZaj8CmlBPf+ibnCcgQSjO5qim5pSLelUxGzHHPdLJCg5QGIwWKHolWn88Sbue+CQ261hoxECyWEviMtsZLW8aEJxusCBwaZ1KfdwiMQZ4HR03DRwS0clxo/xoV6jqCDDfh16/HndHA2O5aIMP+d7rh43lBGBNbH8jIz5YT20nZZsAKsRzW0flH6lgGPQlo8fDrYqG+fXAbTpotjlLgGhsA5stk8OA1IqWI8eJkcHra58tDumW4LCPIKBhgxIJ/H0XdKI7mJKEWBvfhagbgZmHWEClm+qjrXsnxiRFqnQy8b3iBKoOuDZGLKmusBCTzhQ4ny/3rSWOAZ010X7o6Gj+UsDDZ/dnHHtMJIskZvFJKDxcNej2JdcYCNgurmyqcnlXDoDmjt5kspt06zJcFSG4hUYQQZAw7O6LjMg
+X-MS-Exchange-AntiSpam-MessageData-0: iYK71JrbRooG/bojSPkSImqBKdzAb8VzOFOujWMapJJn1hlea2Y72mKTram6NOpLK/QnQN5UV6PcchWvaUalZhRj/PQYkB1XJO94PkqHYJKtEhfEjeWbdLtAcB+fsCHXk86l9q6Al+tkei1mV1bz4c47Hpgg1B+W2uLnQEM+deLQs1LsZghZOD94hNVnddwma3Iv4HPcnikHvYL04TpJGqpTpO+i2vX1E7GqKq1dyTUjeTxiU3gp462ds5G3KbeqSFjTXkzcltrEP2952CRIBANomMO/lwNA0fDrkoPSeryrklJQvVIjGRcmmzEibgLcN4YpCzThiIBoJ56/tD+84kuFznU//Fshh+F2w/k8tht0jYhFY3JmwVzdSz5vRInu/j81ZFuXImGI8eGJRVbRFMt6hPQWRvxC88DrAaOGjfVOI/XvXi17zPtxwM36j7Ql
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:39:45.2303 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba8008b3-8adf-4f88-dabb-08df0d9de16d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:39:54.8908 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac7b1ad6-9923-47d6-9d96-08df0d9de738
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002326.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002325.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5826
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5649
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,496 +122,232 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tomasz Siemek <tomasz.siemek@amd.com>
+From: Dillon Varone <Dillon.Varone@amd.com>
 
-[Why]
-Every HWSS Block Level Sequence operation should have flat parameter list
-and an explicit instance pointer. Global state should not be accessed at
-execute time.
+[WHY&HOW]
+Allow for custom timeout passing where needed, and make inputs
+const where applicable.
 
-HUBP_UPDATE_PLANE_ADDR does not adhere. It stashes pipe_ctx in its params.
-Pipe context is mutated during execution.
-
-[How]
-- Adjust HUBP_UPDATE_PLANE_ADDR params to hubp_program_surface_flip_and_addr
-  parameter list.
-- Add a build-phase hwss vtable entry - prepare_plane_addr_update that does
-  parameter preparation and all global state mutation.
-- Execute hubp_program_surface_flip_and_addr with precalculated parameters
-  during execution phase.
-
-Reviewed-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
-Signed-off-by: Tomasz Siemek <tomasz.siemek@amd.com>
+Reviewed-by: Aric Cyr <aric.cyr@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 26 ++++++++++++-------
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 25 ++++++++++++++----
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.h   |  2 ++
- .../amd/display/dc/hwss/dcn10/dcn10_init.c    |  1 +
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 25 ++++++++++++++----
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.h   |  2 ++
- .../amd/display/dc/hwss/dcn20/dcn20_init.c    |  1 +
- .../amd/display/dc/hwss/dcn201/dcn201_hwseq.c | 26 +++++++++++++++----
- .../amd/display/dc/hwss/dcn201/dcn201_hwseq.h |  2 ++
- .../amd/display/dc/hwss/dcn201/dcn201_init.c  |  1 +
- .../amd/display/dc/hwss/dcn21/dcn21_init.c    |  1 +
- .../amd/display/dc/hwss/dcn30/dcn30_init.c    |  1 +
- .../amd/display/dc/hwss/dcn301/dcn301_init.c  |  1 +
- .../amd/display/dc/hwss/dcn31/dcn31_init.c    |  1 +
- .../amd/display/dc/hwss/dcn314/dcn314_init.c  |  1 +
- .../amd/display/dc/hwss/dcn32/dcn32_init.c    |  1 +
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |  1 +
- .../amd/display/dc/hwss/dcn351/dcn351_init.c  |  1 +
- .../amd/display/dc/hwss/dcn401/dcn401_init.c  |  1 +
- .../amd/display/dc/hwss/dcn42/dcn42_init.c    |  1 +
- .../amd/display/dc/hwss/dcn60/dcn60_init.c    |  1 +
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |  9 +++++--
- 22 files changed, 105 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 41 +++++++++++--------
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  | 12 +++++-
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  2 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  7 +++-
+ 4 files changed, 41 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 7262596c470e..ccc58d42e0ab 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -1471,7 +1471,7 @@ void hwss_build_fast_sequence(struct dc *dc,
- 					block_sequence[*num_steps].func = HUBP_PROGRAM_TRIPLEBUFFER;
- 					(*num_steps)++;
- 				}
--				if (dc->hwss.update_plane_addr && current_mpc_pipe->plane_state->update_bits.addr_update) {
-+				if (dc->hwss.prepare_plane_addr_update && current_mpc_pipe->plane_state->update_bits.addr_update) {
- 					if (resource_is_pipe_type(current_mpc_pipe, OTG_MASTER) &&
- 							stream_status->mall_stream_config.type == SUBVP_MAIN) {
- 						block_sequence[*num_steps].params.subvp_save_surf_addr.dc_dmub_srv = dc->ctx->dmub_srv;
-@@ -1481,10 +1481,7 @@ void hwss_build_fast_sequence(struct dc *dc,
- 						(*num_steps)++;
- 					}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index d08dd372179c..e23137034130 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -41,8 +41,6 @@
+ #define DC_LOGGER CTX->logger
+ #define GPINT_RETRY_NUM 20
  
--					block_sequence[*num_steps].params.update_plane_addr_params.dc = dc;
--					block_sequence[*num_steps].params.update_plane_addr_params.pipe_ctx = current_mpc_pipe;
--					block_sequence[*num_steps].func = HUBP_UPDATE_PLANE_ADDR;
--					(*num_steps)++;
-+					hwss_add_hubp_update_plane_addr(&seq_state, dc, current_mpc_pipe);
- 				}
- 
- 				if (current_mpc_pipe->plane_state->update_bits.lut_3d &&
-@@ -1713,8 +1710,10 @@ void hwss_execute_sequence(struct dc *dc,
- 					params->program_triplebuffer_params.enableTripleBuffer);
- 			break;
- 		case HUBP_UPDATE_PLANE_ADDR:
--			dc->hwss.update_plane_addr(params->update_plane_addr_params.dc,
--					params->update_plane_addr_params.pipe_ctx);
-+			params->update_plane_addr_params.hubp->funcs->hubp_program_surface_flip_and_addr(
-+					params->update_plane_addr_params.hubp,
-+					&params->update_plane_addr_params.address,
-+					params->update_plane_addr_params.flip_immediate);
- 			break;
- 		case DPP_SET_INPUT_TRANSFER_FUNC:
- 			hws->funcs.set_input_transfer_func(&params->set_input_transfer_func_params);
-@@ -2345,9 +2344,18 @@ void hwss_add_hubp_update_plane_addr(struct block_sequence_state *seq_state,
- 		struct dc *dc,
- 		struct pipe_ctx *pipe_ctx)
+-#define MAX_WAIT_US 500000
+-
+ static void dc_dmub_srv_construct(struct dc_dmub_srv *dc_srv, struct dc *dc,
+ 				  struct dmub_srv *dmub)
  {
-+	struct hubp *hubp = pipe_ctx->plane_res.hubp;
-+
-+	if (!dc->hwss.prepare_plane_addr_update || !hubp || !hubp->funcs->hubp_program_surface_flip_and_addr)
-+		return;
-+
- 	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
--		seq_state->steps[*seq_state->num_steps].params.update_plane_addr_params.dc = dc;
--		seq_state->steps[*seq_state->num_steps].params.update_plane_addr_params.pipe_ctx = pipe_ctx;
-+		struct update_plane_addr_params *params =
-+			&seq_state->steps[*seq_state->num_steps].params.update_plane_addr_params;
-+
-+		dc->hwss.prepare_plane_addr_update(dc, pipe_ctx,
-+				&params->address, &params->flip_immediate);
-+		params->hubp = hubp;
- 		seq_state->steps[*seq_state->num_steps].func = HUBP_UPDATE_PLANE_ADDR;
- 		(*seq_state->num_steps)++;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index fefc9dea7054..270b6f2d4377 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -2060,7 +2060,8 @@ static bool patch_address_for_sbs_tb_stereo(
- 	return false;
+@@ -93,7 +91,7 @@ bool dc_dmub_srv_wait_for_pending(struct dc_dmub_srv *dc_dmub_srv)
+ 	dmub = dc_dmub_srv->dmub;
+ 
+ 	do {
+-		status = dmub_srv_wait_for_pending(dmub, MAX_WAIT_US);
++		status = dmub_srv_wait_for_pending(dmub, DMUB_CMD_DEFAULT_MAX_WAIT_US);
+ 	} while (dc_dmub_srv->ctx->dc->debug.disable_timeout && status != DMUB_STATUS_OK);
+ 
+ 	if (status != DMUB_STATUS_OK) {
+@@ -123,7 +121,7 @@ void dc_dmub_srv_wait_for_inbox0_ack(struct dc_dmub_srv *dc_dmub_srv)
+ 	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
+ 	enum dmub_status status = DMUB_STATUS_OK;
+ 
+-	status = dmub_srv_wait_for_inbox0_ack(dmub, MAX_WAIT_US);
++	status = dmub_srv_wait_for_inbox0_ack(dmub, DMUB_CMD_DEFAULT_MAX_WAIT_US);
+ 	if (status != DMUB_STATUS_OK) {
+ 		DC_ERROR("Error waiting for INBOX0 HW Lock Ack\n");
+ 		dc_dmub_srv_handle_failure(dc_dmub_srv);
+@@ -146,7 +144,8 @@ void dc_dmub_srv_send_inbox0_cmd(struct dc_dmub_srv *dc_dmub_srv,
+ 
+ static bool dc_dmub_srv_reg_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
+ 		unsigned int count,
+-		union dmub_rb_cmd *cmd_list)
++		const union dmub_rb_cmd *cmd_list,
++		unsigned int timeout_us)
+ {
+ 	struct dc_context *dc_ctx;
+ 	struct dmub_srv *dmub;
+@@ -162,7 +161,7 @@ static bool dc_dmub_srv_reg_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_s
+ 	for (i = 0 ; i < count; i++) {
+ 		/* confirm no messages pending */
+ 		do {
+-			status = dmub_srv_wait_for_idle(dmub, MAX_WAIT_US);
++			status = dmub_srv_wait_for_idle(dmub, timeout_us);
+ 		} while (dc_dmub_srv->ctx->dc->debug.disable_timeout && status != DMUB_STATUS_OK);
+ 
+ 		/* queue command */
+@@ -188,7 +187,8 @@ static bool dc_dmub_srv_reg_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_s
+ 
+ static bool dc_dmub_srv_fb_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
+ 		unsigned int count,
+-		union dmub_rb_cmd *cmd_list)
++		const union dmub_rb_cmd *cmd_list,
++		unsigned int timeout_us)
+ {
+ 	struct dc_context *dc_ctx;
+ 	struct dmub_srv *dmub;
+@@ -217,7 +217,7 @@ static bool dc_dmub_srv_fb_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_sr
+ 				return false;
+ 
+ 			do {
+-					status = dmub_srv_wait_for_inbox_free(dmub, MAX_WAIT_US, count - i);
++					status = dmub_srv_wait_for_inbox_free(dmub, timeout_us, count - i);
+ 			} while (dc_dmub_srv->ctx->dc->debug.disable_timeout && status != DMUB_STATUS_OK);
+ 
+ 			/* Requeue the command. */
+@@ -245,17 +245,18 @@ static bool dc_dmub_srv_fb_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_sr
+ 	return true;
  }
  
--void dcn10_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
-+void dcn10_prepare_plane_addr_update(const struct dc *dc, struct pipe_ctx *pipe_ctx,
-+		struct dc_plane_address *addr_to_program, bool *flip_immediate)
+-bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
++bool dc_dmub_srv_cmd_list_queue_execute_timeout(struct dc_dmub_srv *dc_dmub_srv,
+ 		unsigned int count,
+-		union dmub_rb_cmd *cmd_list)
++		const union dmub_rb_cmd *cmd_list,
++		unsigned int timeout_us)
  {
- 	(void)dc;
- 	bool addr_patched = false;
-@@ -2072,10 +2073,8 @@ void dcn10_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 	bool res = false;
  
- 	addr_patched = patch_address_for_sbs_tb_stereo(pipe_ctx, &addr);
+ 	if (dc_dmub_srv && dc_dmub_srv->dmub) {
+ 		if (dc_dmub_srv->dmub->inbox_type == DMUB_CMD_INTERFACE_REG) {
+-			res = dc_dmub_srv_reg_cmd_list_queue_execute(dc_dmub_srv, count, cmd_list);
++			res = dc_dmub_srv_reg_cmd_list_queue_execute(dc_dmub_srv, count, cmd_list, timeout_us);
+ 		} else {
+-			res = dc_dmub_srv_fb_cmd_list_queue_execute(dc_dmub_srv, count, cmd_list);
++			res = dc_dmub_srv_fb_cmd_list_queue_execute(dc_dmub_srv, count, cmd_list, timeout_us);
+ 		}
  
--	pipe_ctx->plane_res.hubp->funcs->hubp_program_surface_flip_and_addr(
--			pipe_ctx->plane_res.hubp,
--			&plane_state->address,
--			plane_state->flip_immediate);
-+	*addr_to_program = plane_state->address;
-+	*flip_immediate = plane_state->flip_immediate;
- 
- 	plane_state->status.requested_address = plane_state->address;
- 
-@@ -2086,6 +2085,22 @@ void dcn10_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
- 		pipe_ctx->plane_state->address.grph_stereo.left_addr = addr;
+ 		if (res)
+@@ -265,9 +266,17 @@ bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
+ 	return res;
  }
  
-+void dcn10_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
++bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
++		unsigned int count,
++		const union dmub_rb_cmd *cmd_list)
 +{
-+	struct dc_plane_address address;
-+	bool flip_immediate;
-+
-+	if (pipe_ctx->plane_state == NULL)
-+		return;
-+
-+	dcn10_prepare_plane_addr_update(dc, pipe_ctx, &address, &flip_immediate);
-+
-+	pipe_ctx->plane_res.hubp->funcs->hubp_program_surface_flip_and_addr(
-+			pipe_ctx->plane_res.hubp,
-+			&address,
-+			flip_immediate);
++	return dc_dmub_srv_cmd_list_queue_execute_timeout(dc_dmub_srv, count, cmd_list, DMUB_CMD_DEFAULT_MAX_WAIT_US);
 +}
 +
- bool dcn10_set_input_transfer_func(struct set_input_transfer_func_params *params)
+ bool dc_dmub_srv_wait_for_idle(struct dc_dmub_srv *dc_dmub_srv,
+ 		enum dm_dmub_wait_type wait_type,
+-		union dmub_rb_cmd *cmd_list)
++		union dmub_rb_cmd *cmd_list,
++		unsigned int timeout_us)
  {
- 	struct dpp *dpp = params->dpp;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h
-index 30c213f2e8d6..5cb109040d3d 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h
-@@ -73,6 +73,8 @@ void dcn10_program_output_csc(struct dc *dc,
- bool dcn10_set_output_transfer_func(struct set_output_transfer_func_params *params);
- bool dcn10_set_input_transfer_func(struct set_input_transfer_func_params *params);
- void dcn10_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx);
-+void dcn10_prepare_plane_addr_update(const struct dc *dc, struct pipe_ctx *pipe_ctx,
-+		struct dc_plane_address *addr_to_program, bool *flip_immediate);
- void dcn10_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx);
- void dcn10_reset_hw_ctx_wrap(
- 		struct dc *dc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c
-index 47ab50a3fab1..07e92742c11a 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c
-@@ -39,6 +39,7 @@ static const struct hw_sequencer_funcs dcn10_funcs = {
- 	.post_unlock_program_front_end = dcn10_post_unlock_program_front_end,
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.update_plane_addr = dcn10_update_plane_addr,
-+	.prepare_plane_addr_update = dcn10_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.clear_surface_dcc_and_tiling = dcn10_reset_surface_dcc_and_tiling,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index 0998106c1da0..a3d2385bc731 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -2777,7 +2777,8 @@ static bool patch_address_for_sbs_tb_stereo(
- 	return false;
+ 	struct dmub_srv *dmub;
+ 	enum dmub_status status;
+@@ -280,7 +289,7 @@ bool dc_dmub_srv_wait_for_idle(struct dc_dmub_srv *dc_dmub_srv,
+ 	// Wait for DMUB to process command
+ 	if (wait_type != DM_DMUB_WAIT_TYPE_NO_WAIT) {
+ 		do {
+-			status = dmub_srv_wait_for_idle(dmub, MAX_WAIT_US);
++			status = dmub_srv_wait_for_idle(dmub, timeout_us);
+ 		} while (dc_dmub_srv->ctx->dc->debug.disable_timeout && status != DMUB_STATUS_OK);
+ 
+ 		if (status != DMUB_STATUS_OK) {
+@@ -314,7 +323,7 @@ bool dc_dmub_srv_cmd_run_list(struct dc_dmub_srv *dc_dmub_srv, unsigned int coun
+ 	if (!dc_dmub_srv_cmd_list_queue_execute(dc_dmub_srv, count, cmd_list))
+ 		return false;
+ 
+-	return dc_dmub_srv_wait_for_idle(dc_dmub_srv, wait_type, cmd_list);
++	return dc_dmub_srv_wait_for_idle(dc_dmub_srv, wait_type, cmd_list, DMUB_CMD_DEFAULT_MAX_WAIT_US);
  }
  
--void dcn20_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
-+void dcn20_prepare_plane_addr_update(const struct dc *dc, struct pipe_ctx *pipe_ctx,
-+		struct dc_plane_address *addr_to_program, bool *flip_immediate)
- {
- 	bool addr_patched = false;
- 	PHYSICAL_ADDRESS_LOC addr;
-@@ -2792,10 +2793,8 @@ void dcn20_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
- 	vm_helper_mark_vmid_used(dc->vm_helper, plane_state->address.vmid,
- 			(uint8_t)pipe_ctx->plane_res.hubp->inst);
+ bool dc_dmub_srv_optimized_init_done(struct dc_dmub_srv *dc_dmub_srv)
+@@ -1370,7 +1379,7 @@ static void dc_dmub_srv_notify_idle(const struct dc *dc, bool allow_idle)
+ 			ips_fw->signals.bits.ips1_commit,
+ 			ips_fw->signals.bits.ips2_commit);
  
--	pipe_ctx->plane_res.hubp->funcs->hubp_program_surface_flip_and_addr(
--			pipe_ctx->plane_res.hubp,
--			&plane_state->address,
--			plane_state->flip_immediate);
-+	*addr_to_program = plane_state->address;
-+	*flip_immediate = plane_state->flip_immediate;
+-		dc_dmub_srv_wait_for_idle(dc->ctx->dmub_srv, DM_DMUB_WAIT_TYPE_WAIT, NULL);
++		dc_dmub_srv_wait_for_idle(dc->ctx->dmub_srv, DM_DMUB_WAIT_TYPE_WAIT, NULL, DMUB_CMD_DEFAULT_MAX_WAIT_US);
  
- 	plane_state->status.requested_address = plane_state->address;
+ 		memset(&new_signals, 0, sizeof(new_signals));
  
-@@ -2806,6 +2805,22 @@ void dcn20_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
- 		pipe_ctx->plane_state->address.grph_stereo.left_addr = addr;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+index 5737c78853fc..8056824d90e0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+@@ -29,6 +29,8 @@
+ #include "dm_services_types.h"
+ #include "dmub/dmub_srv.h"
+ 
++#define DMUB_CMD_DEFAULT_MAX_WAIT_US 500000
++
+ struct dmub_srv;
+ struct dc;
+ struct dc_context;
+@@ -59,11 +61,17 @@ bool dc_dmub_srv_optimized_init_done(struct dc_dmub_srv *dc_dmub_srv);
+ 
+ bool dc_dmub_srv_cmd_list_queue_execute(struct dc_dmub_srv *dc_dmub_srv,
+ 		unsigned int count,
+-		union dmub_rb_cmd *cmd_list);
++		const union dmub_rb_cmd *cmd_list);
++
++bool dc_dmub_srv_cmd_list_queue_execute_timeout(struct dc_dmub_srv *dc_dmub_srv,
++		unsigned int count,
++		const union dmub_rb_cmd *cmd_list,
++		unsigned int timeout_us);
+ 
+ bool dc_dmub_srv_wait_for_idle(struct dc_dmub_srv *dc_dmub_srv,
+ 		enum dm_dmub_wait_type wait_type,
+-		union dmub_rb_cmd *cmd_list);
++		union dmub_rb_cmd *cmd_list,
++		unsigned int timeout_us);
+ 
+ bool dc_dmub_srv_cmd_run(struct dc_dmub_srv *dc_dmub_srv, union dmub_rb_cmd *cmd, enum dm_dmub_wait_type wait_type);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+index d8a18cd97811..a5222ffc8ab6 100644
+--- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+@@ -1073,7 +1073,7 @@ void dmub_srv_set_power_state(struct dmub_srv *dmub, enum dmub_srv_power_state_t
+  *   DMUB_STATUS_OK - success
+  *   DMUB_STATUS_INVALID - unspecified error
+  */
+-enum dmub_status dmub_srv_reg_cmd_execute(struct dmub_srv *dmub, union dmub_rb_cmd *cmd);
++enum dmub_status dmub_srv_reg_cmd_execute(struct dmub_srv *dmub, const union dmub_rb_cmd *cmd);
+ 
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+index 587d26c742cd..dd868e38e0b0 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+@@ -1385,7 +1385,7 @@ void dmub_srv_set_power_state(struct dmub_srv *dmub, enum dmub_srv_power_state_t
+ 	dmub->power_state = dmub_srv_power_state;
  }
  
-+void dcn20_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
-+{
-+	struct dc_plane_address address;
-+	bool flip_immediate;
-+
-+	if (pipe_ctx->plane_state == NULL)
-+		return;
-+
-+	dcn20_prepare_plane_addr_update(dc, pipe_ctx, &address, &flip_immediate);
-+
-+	pipe_ctx->plane_res.hubp->funcs->hubp_program_surface_flip_and_addr(
-+			pipe_ctx->plane_res.hubp,
-+			&address,
-+			flip_immediate);
-+}
-+
- void dcn20_unblank_stream(struct pipe_ctx *pipe_ctx,
- 		struct dc_link_settings *link_settings)
+-enum dmub_status dmub_srv_reg_cmd_execute(struct dmub_srv *dmub, union dmub_rb_cmd *cmd)
++enum dmub_status dmub_srv_reg_cmd_execute(struct dmub_srv *dmub, const union dmub_rb_cmd *cmd)
  {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.h
-index c7bf79fda54c..9711b8bc9083 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.h
-@@ -41,6 +41,8 @@ void dcn20_post_unlock_program_front_end(
- 		struct dc *dc,
- 		struct dc_state *context);
- void dcn20_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx);
-+void dcn20_prepare_plane_addr_update(const struct dc *dc, struct pipe_ctx *pipe_ctx,
-+		struct dc_plane_address *addr_to_program, bool *flip_immediate);
- void dcn20_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx);
- bool dcn20_set_input_transfer_func(struct set_input_transfer_func_params *params);
- bool dcn20_set_output_transfer_func(struct set_output_transfer_func_params *params);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_init.c
-index 1c6c4e19bdda..c4de9cf11c23 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_init.c
-@@ -40,6 +40,7 @@ static const struct hw_sequencer_funcs dcn20_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
-index 9f4bc2a49873..916b6804e8e6 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
-@@ -133,7 +133,8 @@ static void plane_address_in_gpu_space_to_uma(struct dce_hwseq *hwseq,
- 	}
- }
+ 	uint64_t num_pending = 0;
  
--void dcn201_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
-+void dcn201_prepare_plane_addr_update(const struct dc *dc, struct pipe_ctx *pipe_ctx,
-+		struct dc_plane_address *addr_to_program, bool *flip_immediate)
- {
- 	bool addr_patched = false;
- 	PHYSICAL_ADDRESS_LOC addr;
-@@ -149,10 +150,9 @@ void dcn201_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
+@@ -1411,7 +1411,10 @@ enum dmub_status dmub_srv_reg_cmd_execute(struct dmub_srv *dmub, union dmub_rb_c
  
- 	plane_address_in_gpu_space_to_uma(hws, &uma);
+ 	/* clear last rsp ack and send message */
+ 	dmub->hw_funcs.clear_reg_inbox0_rsp_int_ack(dmub);
+-	dmub->hw_funcs.send_reg_inbox0_cmd_msg(dmub, cmd);
++	/* hw_funcs signature is not const as some ASIC variants may reuse the
++	 * buffer; send_reg_inbox0_cmd_msg implementations only read from cmd.
++	 */
++	dmub->hw_funcs.send_reg_inbox0_cmd_msg(dmub, (union dmub_rb_cmd *)cmd);
  
--	pipe_ctx->plane_res.hubp->funcs->hubp_program_surface_flip_and_addr(
--			pipe_ctx->plane_res.hubp,
--			&uma,
--			plane_state->flip_immediate);
-+	/* snapshot the UMA-converted address before the stereo patch is restored */
-+	*addr_to_program = uma;
-+	*flip_immediate = plane_state->flip_immediate;
- 
- 	plane_state->status.requested_address = plane_state->address;
- 
-@@ -163,6 +163,22 @@ void dcn201_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
- 		pipe_ctx->plane_state->address.grph_stereo.left_addr = addr;
- }
- 
-+void dcn201_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx)
-+{
-+	struct dc_plane_address address;
-+	bool flip_immediate;
-+
-+	if (pipe_ctx->plane_state == NULL)
-+		return;
-+
-+	dcn201_prepare_plane_addr_update(dc, pipe_ctx, &address, &flip_immediate);
-+
-+	pipe_ctx->plane_res.hubp->funcs->hubp_program_surface_flip_and_addr(
-+			pipe_ctx->plane_res.hubp,
-+			&address,
-+			flip_immediate);
-+}
-+
- /* Blank pixel data during initialization */
- void dcn201_init_blank(
- 		struct dc *dc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.h
-index bab5d9e6912e..dbcaa0a3a02c 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.h
-@@ -33,6 +33,8 @@ void dcn201_init_hw(struct dc *dc);
- void dcn201_unblank_stream(struct pipe_ctx *pipe_ctx,
- 		struct dc_link_settings *link_settings);
- void dcn201_update_plane_addr(const struct dc *dc, struct pipe_ctx *pipe_ctx);
-+void dcn201_prepare_plane_addr_update(const struct dc *dc, struct pipe_ctx *pipe_ctx,
-+		struct dc_plane_address *addr_to_program, bool *flip_immediate);
- void dcn201_plane_atomic_disconnect(struct dc *dc, struct dc_state *state, struct pipe_ctx *pipe_ctx);
- void dcn201_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx);
- void dcn201_set_cursor_attribute(struct pipe_ctx *pipe_ctx);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_init.c
-index 95dda06b6b17..be1fb2366c8a 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_init.c
-@@ -41,6 +41,7 @@ static const struct hw_sequencer_funcs dcn201_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn10_post_unlock_program_front_end,
- 	.update_plane_addr = dcn201_update_plane_addr,
-+	.prepare_plane_addr_update = dcn201_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c
-index b8ed664e1bab..20c6e7d7c897 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c
-@@ -41,6 +41,7 @@ static const struct hw_sequencer_funcs dcn21_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
-index b655c01f013b..f62f1c6efff8 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
-@@ -41,6 +41,7 @@ static const struct hw_sequencer_funcs dcn30_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c
-index dfacc59166cd..a62434138eca 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c
-@@ -43,6 +43,7 @@ static const struct hw_sequencer_funcs dcn301_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
-index 3c2e2162da11..30ad41d08d6e 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
-@@ -44,6 +44,7 @@ static const struct hw_sequencer_funcs dcn31_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-index b50ab468b8f8..a53e7fb6f23f 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-@@ -46,6 +46,7 @@ static const struct hw_sequencer_funcs dcn314_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-index 225128962216..7e68029f1e12 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-@@ -44,6 +44,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-index c9125cc25d15..69fa91aeb836 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-@@ -48,6 +48,7 @@ static const struct hw_sequencer_funcs dcn35_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-index e6f7d57cbfed..3ceaa4590148 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-@@ -47,6 +47,7 @@ static const struct hw_sequencer_funcs dcn351_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-index 783415e4e3a1..5ac79c32ee48 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-@@ -23,6 +23,7 @@ static const struct hw_sequencer_funcs dcn401_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn401_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_init.c
-index b074aa9a21d9..faeb365dbcab 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_init.c
-@@ -26,6 +26,7 @@ static const struct hw_sequencer_funcs dcn42_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn401_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_init.c
-index d2fae89dfa05..4aaecd6f8bb7 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_init.c
-@@ -25,6 +25,7 @@ static const struct hw_sequencer_funcs dcn60_funcs = {
- 	.wait_for_pending_cleared = dcn10_wait_for_pending_cleared,
- 	.post_unlock_program_front_end = dcn50_post_unlock_program_front_end,
- 	.update_plane_addr = dcn20_update_plane_addr,
-+	.prepare_plane_addr_update = dcn20_prepare_plane_addr_update,
- 	.update_dchub = dcn10_update_dchub,
- 	.update_pending_status = dcn10_update_pending_status,
- 	.program_output_csc = dcn20_program_output_csc,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index 4cf61eb647dd..4b2c801421d6 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -92,8 +92,9 @@ struct program_triplebuffer_params {
- };
- 
- struct update_plane_addr_params {
--	struct dc *dc;
--	struct pipe_ctx *pipe_ctx;
-+	struct hubp *hubp;
-+	struct dc_plane_address address;
-+	bool flip_immediate;
- };
- 
- struct set_input_transfer_func_params {
-@@ -1457,6 +1458,10 @@ struct hw_sequencer_funcs {
- 			struct dc_state *context);
- 	void (*update_plane_addr)(const struct dc *dc,
- 			struct pipe_ctx *pipe_ctx);
-+	void (*prepare_plane_addr_update)(const struct dc *dc,
-+			struct pipe_ctx *pipe_ctx,
-+			struct dc_plane_address *addr_to_program,
-+			bool *flip_immediate);
- 	void (*update_dchub)(struct dce_hwseq *hws,
- 			struct dchub_init_data *dh_data);
- 	void (*wait_for_mpcc_disconnect)(struct dc *dc,
+ 	dmub->reg_inbox0.num_submitted++;
+ 	dmub->reg_inbox0.is_pending = true;
 -- 
 2.43.0
 
