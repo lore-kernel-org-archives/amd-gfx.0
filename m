@@ -4,130 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2FC8C79FAA
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E80C79FB5
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58E4F10EF65;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DA4710EF69;
 	Wed,  9 Sep 2026 06:56:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="t1i3lBxT";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="bzDV0iRa";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022102.outbound.protection.outlook.com [52.101.101.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2307010ED9C;
- Tue,  8 Sep 2026 20:50:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R8rDCnwNab9OcuGR9hVMSYKw0qe6nCfolCUPQsqX2+Xb15S+S3iEdMXog8izrCd73jWUfKFW3WHGVBeZ6w1lAB7H1UON6eX0BWBWMX9YEN3GJuAYbaZfl1n7Wlmi7HR+azTLYiQy7v9em5AIY712Y+/wICFj/kyIUuAsf6ug7CleFMX9CZtHVQR7XcHeLdf78zG8AC8U3bj52nEO/rMlYZpXHPwCYPzpR5vxm8j2bIprDQWkKEJy0LQN9mE9vzWJgk7GVy9LFmgCiXP/9q9kfIQUC9KaVuXZRQL4Nu8idSEcOPqYVfRRiDSEZXAhM8cXhvyniyNK/qPTUILwG6pEzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=chQChBeSjx1UB0pM03IvI2fDn6JNa3pWfYrc/WcCCro=;
- b=AEKwFD8vDy/0wf+levG4lA9c71ZasToC2wpJ+l4jIy6HwF66u5E3AavCqU2yJ744/rvv2HlprN83Mkxtzh65XrN0HPT3ThM++Sd6DRXkPXOsU+Rgcd6xiZz7vfVHycQeUZ2S0Dj9wr7ESlri3RSww8PNQnNRH7oowg62QYJ2tgal1oEgnOLRY47wltxDiJRK7LAUTc4WhgnMKGNUNvTD5EfiGESHJyr9Z0tilgn+MlG9QbILOqMQ9mgkVbAyTxyNdDAi3BxTMEgryiZOgJ8CbQZ6RZg76JBbFuUcYrNRA6R1HYqsCkzd8NQ08OjVZF3IQLR/a1EotwrzfqdcH8j2RQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=chQChBeSjx1UB0pM03IvI2fDn6JNa3pWfYrc/WcCCro=;
- b=t1i3lBxTRoBY+okzgX6z/K7iPMhkPt5fTJofCJaqcsx+ceztecvb+0zu+biWkFZ77MnisbnqxE70Y/QiJ9XuYdlI7wkgxAr+YXbN51ykPdzMpBwf8JyTlOlSKtQhc1N7eHfc+un9gcn6Ra+aDmuusSVc+Tuw17Dn8Fm5DK4cUsQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWXP265MB5513.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:15b::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Tue, 8 Sep 2026
- 20:50:53 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 20:50:53 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 08 Sep 2026 21:50:51 +0100
-Message-Id: <DLA8CU2LX62I.3PVH3HG52YA2J@garyguo.net>
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Alex Deucher"
- <alexander.deucher@amd.com>, "Mukul Joshi" <mukul.joshi@amd.com>, "Felix
- Kuehling" <felix.kuehling@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Thorsten Leemhuis" <linux@leemhuis.info>,
- "Manuel Ebner" <manuelebner@mailbox.org>, "Gary Guo" <gary@garyguo.net>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] rust/drm/gem: initialize callbacks with
- ..pin_init::zeroed()
-From: "Gary Guo" <gary@garyguo.net>
-To: "Klara Modin" <klarasmodin@gmail.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>
-X-Mailer: aerc 0.22.0
-References: <20260908175427.47207-1-klarasmodin@gmail.com>
-In-Reply-To: <20260908175427.47207-1-klarasmodin@gmail.com>
-X-ClientProxiedBy: AS9PR06CA0455.eurprd06.prod.outlook.com
- (2603:10a6:20b:49a::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.63.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B86910E120;
+ Tue,  8 Sep 2026 15:15:01 +0000 (UTC)
+Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hfSD270bqz48f7;
+ Tue,  8 Sep 2026 17:14:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1788880499;
+ bh=npBVPIx/WRGawCVtXNGKZVl2Ht00Z+1uN1WEVDLUYEM=;
+ h=Date:Subject:To:References:From:Cc:In-Reply-To:From;
+ b=bzDV0iRasfIGoJ4eLj1TCVT70hJaEAOMRX7MIRrV5legW5CJh40FsucJFRm0xinxd
+ VSRAH2lnZTCW26I73YqQH0CzEhv+UKgfhE3rNts3CcTlfL6fLhwLarUaXQjI2TvO64
+ tHz6Z+I4GbUQbkfjVjwf82ds839gkPvHpHG51VbJlS+aMOX104cO14AS1n9+xE8FbD
+ QrItJsNcCCsnr+xemks/qx8yPJsQ1p5UXz/mZ56jGa1OWzbYJh9u4bUYkRhBM0g3qe
+ Z/Bc9BKJ2feWuNglm1ngFw7E42dPdaGaPgU1OLaaySRHe6l/zH9smHiomdWlZFBTL3
+ P4n3lkhjff7dA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hfSD26JNLz48V3;
+ Tue,  8 Sep 2026 17:14:58 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hfSD13Gv4z8svL;
+ Tue,  8 Sep 2026 17:14:57 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 983795F9C3;
+ Tue,  8 Sep 2026 17:14:56 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=linux@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <1b3d0eb2-9e9a-4d4e-b8c0-ff966033ef03@leemhuis.info>
+Date: Tue, 8 Sep 2026 17:14:55 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB5513:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ed5f0d6-d3af-4782-8dcd-08df0deadf80
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|10070799003|376014|7416014|366016|10067099003|6133799003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 0tKWfuqHfWVwwW9+2ncKmMqoXoyk1NXwY0PNG5jz7AGurEjp9TduZwFfS7j/Hnl8OxgNVhA4cLq8y23mNJOGlMuHKthiQIv7dVn4znydZzkCTWajpXgXX0/EEQRRXxwfrCd1F/ljX28LzDAYXeLg3Aifj/T77667Ezla9QITFFQLy8cd5SSfinZgbybLsHtktRYDcYTOjGe7/2zNq1pWSbWH1GYUr3iXL/sJgeWv2+bjwEadYfmfIWslsOQqxnEjA4xCOfTHyvAUY5tB6XBmMAYv3oTr538kT050ghxJ9TYyASA6bMfYp4OJOFlaFLN7ia1rHP4eGW5pQSNLB1UJ29oaTowyU0xbsOXTZJ/4dXBYJYeNErXJldeZw+tZXg3NYqKAfOlXhJvTBnqFWDeC0/UpudwJ4OvptVxyiyw1FIuZC10o9VgC1df4jwG6c7bQecm5fiOPsQFLRF8vvP+RlCk81IrLKjmWmPYcBoJLa+J7eAUxA9EgkewRkVxaJoU8u7wsBZSzLtWKA1PQVt/xfBmpeb9JjJEFxdDM+PVGXFwzfnP61Pf1IAVJl2VwNHcCMNNbZ68IOYo2Rnye6RTrN/S95qCY0aO/v7RgXed6Xvo15gryoxeDNOecd4+dlBh9UjnjXdlG5AVH0Iml/+JZDC0vNpwobegStqE3seUPlJY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(10070799003)(376014)(7416014)(366016)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZjlFMG9oMTNIMnQxTFoxMHNNZGtaQjNGcGQzUXdEeS95T2dQSFVRc0ZwS2Yw?=
- =?utf-8?B?VWJveSs4THdxNzNjRHBjdjA5MjBBa0ZwNk01ZkZoT3JJZ1phdHY0SHNER0x0?=
- =?utf-8?B?WGJ4cUxzQU5sN2Z4VTFKNXRaODdwTmo4ZjkwT3l2czdkdlh5WWdHQkhGVFBH?=
- =?utf-8?B?Wk51WFdobm1HYjJwSDdJbW9aT0hNbGNkeXhaSWpDKzZoODdQK2ZseHdCQnFI?=
- =?utf-8?B?ckJSNVBMZ3RhTGhFMU96a2xZMmVaL3gxbTgrTVZSVzJwSUNweWhpT1RDR0VE?=
- =?utf-8?B?ejNNT3NhZ0lxRkV2eVJYaXdrU3BlSnJuaTZUUnBrQnNvUVMySGRrZ2lKbFJ5?=
- =?utf-8?B?TE5UR0M1RnRRODBBV3IxOWFJZmllQ3VjK05mWWI4WlJSK1I2YVB6b0xvd3p0?=
- =?utf-8?B?eHVvMFl1emo2dkczOVdzZjVUbzhkTWVqYzVyZDkvTVA4aHZvaEpIY2N3c2U2?=
- =?utf-8?B?aDFTM2w5YkJvdzIzSEFLczdWa20yWmJZVXhUdzJ4eDBReE1BQWxrTXRBcFZw?=
- =?utf-8?B?Qkt5QlJIMXM5RkJjZ2ZZK2RQOFA4SmdNaFdxRGJVcCtRVzQ1YnhBZmZOYmlt?=
- =?utf-8?B?RFJGMG1XZGplekFjeWx5MXlIZGJYd2lSYS9UOHh3bllDajRJVkZHN3pGNytV?=
- =?utf-8?B?U01xM2NES3Q0ZXJWRUVndTNoZEhyQ1Z1RmRQeFhXMUZCTitxTU82MHd0ck9C?=
- =?utf-8?B?VWFEeTc3UlF6SFprb3VETlh6TmdGWlZ6YjlpMG5ZR0ZCT3BIZ3lGSDliaDlU?=
- =?utf-8?B?V2gydStGUXZyc3B6MnRJVmlURW1oMDB2UFQ2Q2IzZUlLWEhOU2F5bnZOUnJ3?=
- =?utf-8?B?VktZUVBOdy9KN3lBa2grUitHUnhIellmOHdpTC9ZTHl4WEtRTzhMR1dJRXEy?=
- =?utf-8?B?WURHSGtVdTVuclJXQzFRZC9MaVFwRUZ3bE9ma2I1Mk1US1lpYWVIaGMyWkw4?=
- =?utf-8?B?ZXJLdEc1bStwOU9DNmVoaXZtVGY3UnhWUUFRdVoxMXVDV0NnTHhUZDI0T2dY?=
- =?utf-8?B?TUhxQTk5WStZZWNYdFBwUytmbUJsZHZNNWJ1dUF1UnEremhrOXVNNlBBZ1RV?=
- =?utf-8?B?MFc5K0N0a2RLRWY1WUxWajdabG1kYmhnZ2g1RS9KV2NWRXNMQk15ZkRSS2pp?=
- =?utf-8?B?d2tNMU82dG9CZktkR0RpSXgxd3V6anpmelZKeDBLV0VjUzlMdzlqSldXaHd3?=
- =?utf-8?B?Z1hINVRzNEN5eGJUYUF5a3lXeVRnck9UcG9FWmFSYTNhVXZ2cU1SVjdZK01o?=
- =?utf-8?B?SVo0bEI5aGJzN011VGVKcE9obDE3TTR6MzlBQlFHVEVLS2J6SWpSVFFBU2Fh?=
- =?utf-8?B?Wk9vQVovdnUxT2dMR3d0djBOWnk5cnEwN3JnNVhtTGJTeDE3YU4zUDNyaW1q?=
- =?utf-8?B?dDBBOFpyK3p1dTlRbTE1VUFqYlVWUkkxdHBuT3BvcXZTdXZrOSt4TTkrVlY4?=
- =?utf-8?B?OGtqTHM0MGdNV015Q2pKV3RjUEdTVzhYQmVJcExja0RXczNTaEY3MHl6bUZV?=
- =?utf-8?B?UVVjUnpiWmhJc2hPcGcyZkIvMW1vOWNOUWM4OTZCK3NQM05aTGp3aUV2WlV6?=
- =?utf-8?B?TUhMdjZ5SkdLeitqckVKdEhzL1JSRWJFRUdSa3R2NThZZGZ3cmM4cjdCazRz?=
- =?utf-8?B?MzgvS0VBVU1Bc3o0dG9JdXFTN1A5RWw5Q2RtUVlJOXFrNTUyTFo5MjQxTHZI?=
- =?utf-8?B?bG5mdjk1NSt2YU93TG5KYStWQk9rcFJieis3QWo0WGNkV3BFckNraW9FTDNw?=
- =?utf-8?B?aWZYQkNHTS9NNjVXOEsyRTFjazQycitlOUt5VVNpZWJOYzhaelUyUEd0MVhj?=
- =?utf-8?B?VnBvZUdnU1hrbTU2dHNFVHdhWFd5K285VExoZVVYM1dYMVdnSTJXT1hTR21h?=
- =?utf-8?B?M0FUMno0NU1ydkg0UCtTc1RzS05LWmVnYlZUdmc1d1ZSR0lTaEVRZDFXZmFJ?=
- =?utf-8?B?WmEwUU9kUGg1OE5TbU1yc0MyK1pGSDJCOHBSczg2dURmd0h4dHkvTkZ6QXlH?=
- =?utf-8?B?dS9LNzNXbWpsTmhjSXRyUkZOaEZUZXcyL1Bia2J1ZDJVOXMrOHVoVVhWS2hF?=
- =?utf-8?B?NUVkc0JZenFKN2hhQ2RPN0pPdm5MQUt0Wi94S3dKUUc1ZzJFVU16eTJHSnFy?=
- =?utf-8?B?dk54VE1yMG14YjVFRG5IMjB3eGNDdGx3R01GYzFJWTVhNHZQbVZKaWRNMWZL?=
- =?utf-8?B?RlBQR010ZjlITjZ1UjBHZjNlSFV5aDVKa1J4T1RZK0tPQzFmVE8vdktZU3Fr?=
- =?utf-8?B?ZVdHZ1JpSGdDRlpXSFE0TXpWRC9MQU9rVnIvYTNsYTkxeEJaYkhtbkVSU2l4?=
- =?utf-8?B?NVpPcGdnaSs3MENGclJDOUtTTW9OWVlnLytONzlnL0NhUy9JMEpsZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ed5f0d6-d3af-4782-8dcd-08df0deadf80
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 20:50:53.4007 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EmQOLsYakR04Hs1eo2/hlIZBeaLIRixzeWRx/NL4fvvrPv9pMbtY09769vb8avxImyIE9Sl5nU1eYOODowrKHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB5513
+User-Agent: Mozilla Thunderbird
+Subject: Re: rust: Build error in DRM bindings
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "open list:RUST:Keyword:b(?i:rust)b" <rust-for-linux@vger.kernel.org>
+References: <4da62a4b-c4ef-492a-9a27-b56bd4784acf@suse.de>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+Cc: Mukul Joshi <mukul.joshi@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>
+In-Reply-To: <4da62a4b-c4ef-492a-9a27-b56bd4784acf@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <178888049708.3336765.16009071836980567864@mxe9fb.netcup.net>
+X-NC-CID: +8MkgHCp8RC5tsRYXFuTLb6WzoXvHmnlhMHKCi6gQfsCOicsRNQ=
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,55 +128,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue Sep 8, 2026 at 6:54 PM BST, Klara Modin wrote:
-> When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
-> count goes to 0") added the handle_free callback, it did not update the
-> rust abstraction, which will cause a build failure when that is enabled.
-> Rather than just adding another None initializer, use
-> ..pin_init::zeroed() to make all unlisted callbacks None, and remove the
-> existing None-initializations.
->
-> Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to=
- 0")
-> Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
-> Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@=
-leemhuis.info
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Klara Modin <klarasmodin@gmail.com>
-> ---
->  rust/kernel/drm/gem/mod.rs | 12 +-----------
->  1 file changed, 1 insertion(+), 11 deletions(-)
->
-> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-> index 80d8f524f9d5..af8274134a71 100644
-> --- a/rust/kernel/drm/gem/mod.rs
-> +++ b/rust/kernel/drm/gem/mod.rs
-> @@ -266,18 +266,8 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, =
-Ctx> {
->          free: Some(Self::free_callback),
->          open: Some(open_callback::<T>),
->          close: Some(close_callback::<T>),
-> -        print_info: None,
-> -        export: None,
-> -        pin: None,
-> -        unpin: None,
-> -        get_sg_table: None,
-> -        vmap: None,
-> -        vunmap: None,
-> -        mmap: None,
-> -        status: None,
->          vm_ops: core::ptr::null_mut(),
+On 9/8/26 09:11, Thomas Zimmermann wrote:
 
-This line can be gone too.
+> when building the Rust-DRM bindings with v7.3-rc2, I get
+> 
+>>>>
+> 
+>   RUSTC L rust/kernel.o
+> error[E0063]: missing field `handle_free` in initializer of
+> `drm_gem_object_funcs`
+>    --> /home/tzimmermann/Projekte/linux/rust/kernel/drm/gem/shmem.rs:130:52
+>     |
+> 130 |     const VTABLE: bindings::drm_gem_object_funcs =
+> bindings::drm_gem_object_funcs {
+>     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `handle_free`
+> 
+> error[E0063]: missing field `handle_free` in initializer of
+> `drm_gem_object_funcs`
+>    --> /home/tzimmermann/Projekte/linux/rust/kernel/drm/gem/mod.rs:265:58
+>     |
+> 265 |     const OBJECT_FUNCS: bindings::drm_gem_object_funcs =
+> bindings::drm_gem_object_funcs {
+>     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `handle_free`
+> 
+> error: aborting due to 2 previous errors
+> 
+> For more information about this error, try `rustc --explain E0063`.
+And I already wondered if I'm the only one that is running into this, as
+I reported this a few days ago already. Pseudo-patch to work around this
+can be found here:
+https://lore.kernel.org/all/apyTR-f8W6Jt7uP5@soda.int.kasm.eu/
 
-Best,
-Gary
+But for bisectibility I think it would be best if that fix could be
+folded into the culprit.
 
-> -        evict: None,
-> -        rss: None,
-> +        ..pin_init::zeroed()
->      };
-> =20
->      /// Returns the `Device` that owns this GEM object.
-
-
+Ciao, Thorsten
