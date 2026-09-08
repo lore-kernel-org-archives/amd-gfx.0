@@ -4,82 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 624F7C79FB5
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C7EDC79FB8
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98E5310EF64;
-	Wed,  9 Sep 2026 06:56:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B0BF10EF63;
+	Wed,  9 Sep 2026 06:56:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B0UyyjoT";
+	dkim=pass (2048-bit key; unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.b="Cqox37/R";
 	dkim-atps=neutral
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9546E10E155
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 17:55:02 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-5b4adcce4b1so4212538e87.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 10:55:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788890100; x=1789494900; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=S3mHm6ZqbhRQ6tXzMkeFKmTWTzRDfTiWOZtRcgd3yZs=;
- b=B0UyyjoTWiug5OSX31wuiBxNfCmTYICWIg6NwqjSpCNiz19t+BfUay/6lOD7w+ktPz
- kKxD86ayi6J9jXkV7bB5+2RpOEssyw7Bc2/lryJjla2PabIKVtsSw2yUh0Y02VOqVfwW
- myDNyrRspLFphYm4F8luUc8iz4v7lFwamgIti52Tjx5iYXc/j1SjbKF4GZPdL3fftZhb
- PthPmFysH9loXeYRKOe6QYA1/8m3cQya/64yoN93wrnPb7MDModacAj2cUiQjuKnGTh+
- ewHSG5eSN1yT0415o39/Gurzh4RAyihNkZwRRNRima+q0FZcu+lmCdrY1oCjCRZhWNbK
- hhUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788890100; x=1789494900;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=S3mHm6ZqbhRQ6tXzMkeFKmTWTzRDfTiWOZtRcgd3yZs=;
- b=hb7CieAQpn3xhp0G31atZ8mpyIpKpL/riRGnpXWcZY7/wj5keyhW326Al7wirqN/DA
- MUpV3bad6PjxZ0we7hE/W9TQ3ZAhYmSPICbUF7vbjxlfbIdaabZkA5unFwVCBTmKaXSh
- P8fVEvpIxFhOWLykcMSa77CBs12/fyNvWrStECEknVbFwh3c+0NWpWeOYY4INe+2o6Ze
- +z5W/Cop7SiIgoA1FyRoPeX0QkZqmhffzPN8T7cDV6g3gD5AeckJlE2iTF9Z81kl+S7V
- EpsA4hhODp6YZzpgtR2tqBf5FT5j6mYz7iNvzPMf1M5n4qmyGRqn487za+dvLNtZ7TIC
- 5yPw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzeV+oGE6XpdGiCLJq5w5VZo6xXLfb35ZoTnXEZJ98pCR6QGnDPTaurLXE/fLZTkyFRVZQ3mqgM@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lx+OmQb9iQAIukrhvNFAtWs8TQ8QG6+mMI/gCbHT455uePcVbb
- zMPNaU9dVc4ye/pkt6DFoWGZzSD2MBbTNJ1bY3teKgfLik/o9P6HPB3C
-X-Gm-Gg: AYBFou0/1dy9ygeFsbAsPPGSUfijeU59QXGToj/yHRmeQqyu75JpoFWGb1zQNnspdKM
- dfQJyy4fnlSZ5x7XPj8qb4GL0FMHog8QQs0mC/VSUk8q468QYtO73e/vuq7qOcBjVC0TrMPczaF
- z+V55V2VYW3IjiAUXDWrAfN53D7R1qafzSWHeubjrODpR5v0Eu3tcNbRQDcdHE07XUU+XAKIklI
- W9JQznuFfJ9OgoTeSOsYn15feputLHxnN4v7sPlVMS5js1TlA20K3RCcldcvYohOi3+tfv2NhXp
- ZkyfMzxVG1kSboqIc4byyQ2gevglZPLRlPX1/FKeQraKQpAP94Da0132zGJ3ruG8xti9aRQpbyM
- U0jMWG4Z4JNk1gr+fgLL5/MnICob+K4ceAdK6TF7HKkpXymglXDbqIMSdWLFns54jxDTBwCqOFS
- QMljkHTVHRQ1YJHbMBTVAzRE3ronaMQqg7prrSDhAL6kPwlGW/iP8sGOg1f1/hpyA7C7ZvxcO7w
- zB0bTx8ekyC
-X-Received: by 2002:a05:6512:8393:b0:5b6:1836:8082 with SMTP id
- 2adb3069b0e04-5b6183683cbmr7614121e87.28.1788890099983; 
- Tue, 08 Sep 2026 10:54:59 -0700 (PDT)
-Received: from soda.int.kasm.eu (soda.int.kasm.eu.
- [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b6166fcdf9sm3172156e87.46.2026.09.08.10.54.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 10:54:59 -0700 (PDT)
-From: Klara Modin <klarasmodin@gmail.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
- Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Thorsten Leemhuis <linux@leemhuis.info>,
- Manuel Ebner <manuelebner@mailbox.org>, Gary Guo <gary@garyguo.net>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Klara Modin <klarasmodin@gmail.com>
-Subject: [PATCH] rust/drm/gem: initialize callbacks with ..pin_init::zeroed()
-Date: Tue,  8 Sep 2026 19:54:27 +0200
-Message-ID: <20260908175427.47207-1-klarasmodin@gmail.com>
-X-Mailer: git-send-email 2.55.0
+X-Greylist: delayed 373 seconds by postgrey-1.36 at gabe;
+ Tue, 08 Sep 2026 19:29:52 UTC
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io
+ [149.72.141.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92F2810E165
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 19:29:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+ h=from:subject:date:in-reply-to:references:mime-version:to:cc:
+ content-transfer-encoding:content-type:cc:content-type:date:from:subject:to;
+ s=s1; t=1788895457;
+ bh=deZpy86mdL+0FuQa302UpRu/UqHamHeqdhK2hRsukYY=;
+ b=Cqox37/RxfSoxCDREwmfIPUkJ0lcViR12E/3Dn2uFcp6tIy6IW8vUfelqSwsMqfWfdsY
+ NMiioaWE2yR+3kHDyYiX2rk2pJgiggmxGV7aYxKchRKu/OS4xnF78kqJUqm5lDQ9egtBnu
+ 07+ZCJ7q0Nj7PN6ToCW52wkmeodeEvc8Zn0W3JH0MlnstODJTkLz10VFpqEfjH2G3oe0l9
+ c/pzaW0b0RgZ9QWX9Ii3AQLMwQiO+eEtvZgTEyD4aMdxDCve2Ej/nUqwjEZpF7HERhLizV
+ l1kOQTv++qtc2eu5QwAHMompuEkr1Yc9O2NN3HmlY0GAAd3fkHcml4zHwivx9P/A==
+Received: by recvd-b9cff7684-gvzpt with SMTP id
+ recvd-b9cff7684-gvzpt-1-6AA060E1-35
+ 2026-09-08 19:24:17.30759247 +0000 UTC m=+3630789.492945539
+Received: from daisy.dens.ffj.family (unknown) by geopod-ismtpd-58 (SG)
+ with ESMTP id gMk5nyFdTC6pjARQljyq8g
+ Tue, 08 Sep 2026 19:24:17.127 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Subject: Re: [PATCH v3] PCI: Fix BAR resize for devices on a root bus
+Date: Tue, 08 Sep 2026 19:24:17 +0000 (UTC)
+Message-ID: <20260908192415.48843-1-lizf@honeycomb.io>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <4db878f3-1c55-4ecb-93d8-a97a5e0c7a29@leemhuis.info>
+References: <4db878f3-1c55-4ecb-93d8-a97a5e0c7a29@leemhuis.info>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-SG-EID: =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeYtV+MVTZw+O?=
+ =?us-ascii?Q?DXUD7zff+Q6gIw0rZAuCnUYZjLK8jUMlsBaIOkJ?=
+ =?us-ascii?Q?ufBXuikqhX6NmCmaxaKjMqM8YQqVnbzriPvtcnn?=
+ =?us-ascii?Q?uu0g2fkMD+x6qg+1wFPTrKwEHHjNv2wTGiblC6Z?=
+ =?us-ascii?Q?hrOl6pPWtxFk9N8YsR7QI1aXRTzgMkrrUytI5nC?= =?us-ascii?Q?so1U?=
+To: regressions@leemhuis.info
+Cc: bhelgaas@google.com, bjorn.helgaas@gmail.com, helgaas@kernel.org,
+ ilpo.jarvinen@linux.intel.com, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, jon@solid-run.com, 
+ jon.nettleton@gmail.com, jacob.martin@canonical.com, stable@vger.kernel.org,
+ kwilczynski@kernel.org, lizf@honeycomb.io, linux-pci@vger.kernel.org
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,46 +72,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
-count goes to 0") added the handle_free callback, it did not update the
-rust abstraction, which will cause a build failure when that is enabled.
-Rather than just adding another None initializer, use
-..pin_init::zeroed() to make all unlisted callbacks None, and remove the
-existing None-initializations.
+On 9/3/26, Thorsten Leemhuis wrote:
+> Liz Fong-Jones: is this regression fix still needed with 7.3-rc1? I
+> assume so. But if it is, I guess it would be good to state that; maybe
+> reposting this might be even better, as I fear it might have fallen
+> through the cracks.
 
-Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
-Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
-Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info
-Suggested-by: Gary Guo <gary@garyguo.net>
-Signed-off-by: Klara Modin <klarasmodin@gmail.com>
----
- rust/kernel/drm/gem/mod.rs | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+Confirmed still present, and thanks for the nudge -- checked today
+against both v7.3-rc2 (mainline) and v7.2.4 (stable):
+pci_do_resource_release_and_resize() in drivers/pci/setup-bus.c still
+has the original "if (!bus->self) goto out;" with no reassignment on
+that path in both.
 
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index 80d8f524f9d5..af8274134a71 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -266,18 +266,8 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
-         free: Some(Self::free_callback),
-         open: Some(open_callback::<T>),
-         close: Some(close_callback::<T>),
--        print_info: None,
--        export: None,
--        pin: None,
--        unpin: None,
--        get_sg_table: None,
--        vmap: None,
--        vunmap: None,
--        mmap: None,
--        status: None,
-         vm_ops: core::ptr::null_mut(),
--        evict: None,
--        rss: None,
-+        ..pin_init::zeroed()
-     };
- 
-     /// Returns the `Device` that owns this GEM object.
--- 
-2.55.0
+Reposted as v4, no functional changes from v3, just the resend plus
+a rebase onto current mainline:
+
+  https://patch.msgid.link/20260908-pci-rebar-root-bus-v4-1-2780e9c22e08@honeycomb.io
 
