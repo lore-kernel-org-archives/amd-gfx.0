@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BBC0C79FA1
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32A6CC79FA1
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:39:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8DBB10EB59;
-	Tue,  8 Sep 2026 11:38:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B914310EB57;
+	Tue,  8 Sep 2026 11:39:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="29HD30Jq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3sDIvEAx";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012056.outbound.protection.outlook.com [52.101.48.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6710410EB56
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:38:56 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011025.outbound.protection.outlook.com [52.101.62.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A34E10EB56
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:39:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OegZgY1dO9zhmtF8lRrcOQrSHFUiLFYa3mmZqQaFwdY86Jw9eKzTMWRI2RkZ023AClM+ovEYt8qiuaq9+95APlCuetE8U2qWV0xqc7pLvNUdYgLyM+Dl9PGFS+M3Dqrq5hQiBgQvwbAX8hdNitcSA+w3b9rGGejoKWx+kUaBjQznMzw5XNwWfNrypHBQqSJ/Mh2MheF92f/fTVEgd4um4zPFHwRjuTD1tIXwkNdrS8Ckqwoiz2OMVl2TQ49cLjcm1W+kZIqW1xy6I1zngxbEfRL/PtiSDmVaDlUZSIptoS5xPIyeyFOHbFHCjFuxt2dXY5hV7QR+HkPlZtZBOMN6fw==
+ b=EOHJcEaRWz/bIo6jke/MkEysaPReWHsgiNP8IpIDasetzO8tO2UHwkS4Diq4ftSowOtlXn9Dza3CV7w7xZMY9gK0BEZG9ifXyNOSSdZ+zMxXEzj6y9+voBEMJ1QejTuWtywLt/WKFpfXW6fNsEv4uQkf+bENSqDgD+2fbYErB1lWG7iYrxVfLzGYGWu1e4o15uQqSAYEdijqsApGmEOK7hJEhZ7riyjhnen3bcbfP3SJDGQQHokMCrd3UdpbIIbC1Z8X7UCwO5CFFC9VBDQT/JP0o2ix6+S7P6KLmSNacz5IiupI1/AaILcqdyVraNiibx3gcsS04MNqIl8z7B+/6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rTMPZS9CKSrrlK/Sg8NQFqEAOcUaFG0Y5I0cmJ/ZNrY=;
- b=kPBC8pADkPKxhOBTlc2PvghjdQjN7c4onVjafcUapW0oyOCIHGXlGaTKxxsDwfJQg4357FuLqxdwQLzUjZGF0+Ox51jr5Wv6yxphrPTj4fRAHGinJCuLRdKDvYYqZtbE+H6+GkbOBSVwOyJryGiE8o0yZk78ls7y8c+1I9BJ9OIi0/THuLR9OSYtPyysPh6nWRKh/F4Hx5ackycoual0Sdj4a3CMTioGV8b1SaPyCUPbS/xHQRzX8x0OmOMwZ7eHq2+t0xwoI4y1fW8EN9NDsFr1DzfJoT4n3TG6DeM7KH+Nu+I54E+WfbzGhGoT2dqmf9WJXMLy6xSBRY1MB5lulQ==
+ bh=1lg9b4Kf3JxFJkTpB8V31o9fb4fLPmKA3+SZPVVxiuQ=;
+ b=D1F7cj+cpZYNvWZO8UtQoZTIIlJeU2GxFvhyfwOD4ls/xYWw8WxHNNdFQJ0C6/hpHXStCQLih5NxwcK2TDiwIXirx3+QCElQBTxW+4cM1Cb7GXASqxPTtOqD29N082AqD/xgzkmpxuEvuETytxmA1g+UHfOjy2Uzpis6+iI/fExZcAE2dA59LC6FoIh+qmhQvDb4/q5lhWf2ITzk1Pw5iydIqy9mDH+5inz6kV3ibUadTXbrG4Q8NWHtzhKk9PU7SjDz7EgIsYHfIHkAAAu0vuZwYHX4pE2slJ9PEnKpVAYeV9irx7OQlKLzVOR3UvXVYT0RlunT2A7rrd9CGM4v9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rTMPZS9CKSrrlK/Sg8NQFqEAOcUaFG0Y5I0cmJ/ZNrY=;
- b=29HD30JqDpsTgORlP0jmjnLx3r9bjIqcfT6QCZaKNfXc/97xi89i7xrAj1zU/P5ACBcVkdVsydI0OWEy/6KLhmQDXmDJK+KkVWrvv2U7SbUrnDKI3Rr3j8h9xcmIyDZno60z5GVau6cD2cRt5T5EvZV8DqYCiIJfXOr9pkgHeU0=
-Received: from BN9PR03CA0245.namprd03.prod.outlook.com (2603:10b6:408:ff::10)
- by MN0PR12MB6001.namprd12.prod.outlook.com (2603:10b6:208:37d::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 11:38:50 +0000
-Received: from BN2PEPF0000A88E.namprd04.prod.outlook.com
- (2603:10b6:408:ff:cafe::ad) by BN9PR03CA0245.outlook.office365.com
- (2603:10b6:408:ff::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 11:38:49 +0000
+ bh=1lg9b4Kf3JxFJkTpB8V31o9fb4fLPmKA3+SZPVVxiuQ=;
+ b=3sDIvEAx/rEZKBJjX/5VKyEiHM9S8kqU+gA4ejtRPrvGHqsbhI+To/ohVt7uMPBLes/O9K3p4HCQX682k1r6g+uibue8DU5z837gEhQc40L3NIZpelApv8LLZQHtos6/AHxWERiegh3ubjzTCKUYu0KSzADVhmBW49DT3jWqxZc=
+Received: from BN0PR04CA0091.namprd04.prod.outlook.com (2603:10b6:408:ec::6)
+ by PH8PR12MB7184.namprd12.prod.outlook.com (2603:10b6:510:227::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 11:38:58 +0000
+Received: from BN2PEPF0000A895.namprd04.prod.outlook.com
+ (2603:10b6:408:ec:cafe::70) by BN0PR04CA0091.outlook.office365.com
+ (2603:10b6:408:ec::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Tue, 8
+ Sep 2026 11:38:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A88E.mail.protection.outlook.com (10.167.248.180) with Microsoft
+ BN2PEPF0000A895.mail.protection.outlook.com (10.167.248.187) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:38:49 +0000
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:38:58 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:38:49 -0500
+ 2026 06:38:58 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 8 Sep 2026 06:38:40 -0500
+ Transport; Tue, 8 Sep 2026 06:38:50 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,11 +66,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Wei-Guang Li <wei-guang.li@amd.com>, Jack Chang
- <jack.chang@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 34/66] drm/amd/display: Add Replay cumulative residency query
-Date: Tue, 8 Sep 2026 19:31:27 +0800
-Message-ID: <20260908113338.2433445-35-chen-yu.chen@amd.com>
+ <Chen-Yu.Chen@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 35/66] drm/amd/display: Force DSC to 8bpp for MST DP tunneling
+ over USB4
+Date: Tue, 8 Sep 2026 19:31:28 +0800
+Message-ID: <20260908113338.2433445-36-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908113338.2433445-1-chen-yu.chen@amd.com>
 References: <20260908113338.2433445-1-chen-yu.chen@amd.com>
@@ -79,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A88E:EE_|MN0PR12MB6001:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18e425c2-a45a-4e59-2dd5-08df0d9dc077
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A895:EE_|PH8PR12MB7184:EE_
+X-MS-Office365-Filtering-Correlation-Id: 106d7e2a-438a-4a01-fc7d-08df0d9dc59f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|11063799006|6133799003|56012099006|3023799007|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: D8sxXk+Gk4949wPhkggg6BGi8GcrmSZ3hW+LMOyKys8rbx/jSKkwjfwkNR8KjrtS3Fb/k2fPfU+mNN+4lvNMOb4d3MJ09Fak7Db6KIyWAxgEAVFdMf8cQZ3zXs2eoVPKC1VEeiOVBPJOFQKkwKolcDnuxrLRTgYZ5CYcUKYeBypQUNojggdLm8G4a7a/wmr0+AscqVw1tLSFJ6dwU1lJS8BaUKL+2POcfYYAInal2teJUIzCH8buA4qK7amdZewCNk2IniMnX7WMTVLywGDtGyWBlNIXYEcdNLe63JZOucfub3laZZp1eEiIp2rZKXcfkYU/mtvqAxWIJDo7/UqFqtqvr/XoXOI2K+Uks7CUQTXRavQ8TWyCk2D4FMQLJAE2VQFa7p2OHe/jdhNQo0SFVpdXRuOj+wAf2qDHUAlMhTMn+dYblRpGFPvLPA0uH7BN2LtAP0iqjhpE52l8hfdpBm8uKA8E+r/h82hpuM2wRzGKQctw3VpIR4kHlEqJnSehcvKolou2XgBzu81wEqS6qEiU0zFl2NAVzNDtTDu5V8mCU/5t32yXRTSfQP5B72A2f+4Ui6RJSfQoCHVwaVglncVF+Qx4Hyr0/vA2O2Ogdxt8HONghqmzKmMuRT+hXvhOIat/M3dGxDX6rtErUju/ongg0VuDiz/KpXB2Vhzh+Xo/o7yAb/OkI3ivTaUokzHyZDjGvRbT0xWsDDHmuMrQ9A==
+ ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|10067099003|3023799007|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 9jtiiwkIbVGTM3I/rS3BavAnwMr51EhSvve1oIuzhcYBS0dlmmgdh8QTVrko8oRx6SS2biGxroHz3QCeaxrNzVRhnOYkUXiXeUeNRUJs9yoA6BpoiSu+cODS5zz/JoB3PWqls6raS8/l7ECtTaf1mF8UXjlvyX+kJWfa4HWEsmsLme5NVRBkuW1Zk4nnykTqHSnjceTUtJRo8mjAt8sNCDRL5Gmnn1pJvcfM7CfDxBy3eiCTIsinHgr0/QxXW4I/jNh0liS6JXuoQuUiR514K0lVo1y1F8SNV4cl2EqL7XMlP7CsXjYfcSLtmmHAlH42JMjlLj8+izoHGlMXZv5TJepyXyJ8yCaUOQ2h9azEPjNa9urL9Jn4iry2e8M50ktKTWJcdN/AeyMLwy9s9qdVba8IzCdYyesAl5qG9yrzyLuiPHeb31JmMhzZC5WrhShcwRxi5Zw8ugag9JvOi/V2WdXweDtXxdVEHxHXEXIJHfcGW3X72ywsHAa8ZZYnB5HN3ZeN4nC9Xa7OLA5Rlwval7yy3CvVX7mVVxdERwRZnafPv+L43MKgD94Z18yT6VGOQ6rOGaqKJeaNo25OwvXj7ulWJzuOdjAoJ7c80TLlTuUF/yDrXln3e5o3mVsSOGxHF3ypenh5MADzj41S5yx/Ig8AMLgyx2hO6GiPoJEUbFRNSFim6ppl4NceUbWCKD7RlH2ir1DyjgPdn4H1eppHdg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(11063799006)(6133799003)(56012099006)(3023799007)(10067099003)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(10067099003)(3023799007)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bi0IC9E9gyFzlg5CDFXqB9RJdegIVShF7XS1EE5viaGCyTTJoZzuJUXdnCl3bfCVjzPEg23Y2u2g4vJ6bD47LrPMKaTd+azF7kvYdPWIMp6vdd6GQLkwkxibqNXcK02TBZrIzUWyVppn1zXU4CDa9N7egQHAxfZ6YTVHviLWl63+ELUioe9FXdzpcGuyKDoGq+OV0H8dEBnOilMEXY2jafKjKtC9l74VTdywW+Gvfaqz5CRi9n1CmK3xLDBVLsqpJs4MAOUSAjSwZzjB/WSf4aAdCHQE1spN4dtgYD+2fTf3iRKIWXR8+A3278pyM2BogLoFb2m8YasX+Fq3GEmK8lb5geHyDDGCwBHIGuA/iAS5ZbYcAiNNBm2xnxyc6VOFboJ96OwonVzyq1J8COWHtvQzXUL6MvPfy4P7K/lnMMFP08ev4kh1kKkHnPXV4bXB
+X-MS-Exchange-AntiSpam-MessageData-0: aHsdxF3nmkq8pDckMdk6b+ZBTNYHE9q/7ZtclyL14UYXOymGzVwQjYInIOMBA1lxZ9waT/JlBi1q+Mht4xFwce1I+rlK9mNCzb1W26IgZ31hxfD3qqsmtlqKDJBR1ySbVK6nYMGArCnSVq73XqXfPEMuWHMDgBGY7hRaeDMie16kwv7UNA+Jr38Ta5hw3xANPJGSotDNwiP15G9rMtB8hb2qTfw2eMQXFDcFSpRZACJm1veD/6qMKwbOg98GB/30PshJduJ7ziWUvF87c/lPSfLvfpsve0DJwBOH++7HJTyibV6GL7dr+Eo9VVocb1BbXH16BsxQ2Y6xWioQk/g8uUudNDVWsk4LwOYlT9w3bbmcoYfa/UTLT5MWUWt4Ic4xIOD0NAQqKste/DSICMtzXjRzvRR+fur/IedqZ1Mia6qrjUye0npujP/uqcyFNdgN
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:38:49.9568 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18e425c2-a45a-4e59-2dd5-08df0d9dc077
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:38:58.6135 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 106d7e2a-438a-4a01-fc7d-08df0d9dc59f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A88E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A895.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6001
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7184
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,193 +116,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wei-Guang Li <wei-guang.li@amd.com>
+From: Fangzhi Zuo <jerry.zuo@amd.com>
 
-[Why&How]
-Add driver-side support for querying boot-time cumulative PHY-off
-residency via the REPLAY_SNAPSHOT_CUMULATIVE_RESIDENCY GPINT command
-implemented in DMUB FW.
+Commit "drm/amd/display: Force DSC to 8bpp for SST DP tunneling over USB4"
+forces DSC and caps the target to 8 bpp for SST streams on a USB4 DPIA
+link with bandwidth allocation enabled.  The MST DSC fairness path does
+not honor that policy: it derives the bpp range purely from the timing's
+DSC policy and picks the highest bpp the native DP link can carry, which
+overflows the smaller USB4 tunnel budget on a dock that fans out via an
+internal MST hub.
 
-Reviewed-by: Jack Chang <jack.chang@amd.com>
-Signed-off-by: Wei-Guang Li <wei-guang.li@amd.com>
-Signed-off-by: Jack Chang <jack.chang@amd.com>
+Apply the equivalent policy in compute_mst_dsc_configs_for_link(): when
+the link is a USB4 DPIA with BW allocation enabled, force DSC on
+(so the fairness pass does not leave a stream uncompressed just because
+the native link looks large enough) and pin the target to the minimum
+bpp (so the compressed stream fits the tunnel and reserves headroom for
+the other tunnels on the same host router).
+
+Reviewed-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dce/dmub_replay.c  | 25 +++++++++++++++++++
- .../gpu/drm/amd/display/dc/dce/dmub_replay.h  |  2 ++
- .../gpu/drm/amd/display/dc/inc/link_service.h |  2 ++
- .../drm/amd/display/dc/link/link_factory.c    |  1 +
- .../link/protocols/link_edp_panel_control.c   | 22 ++++++++++++++++
- .../link/protocols/link_edp_panel_control.h   |  2 ++
- .../drm/amd/display/modules/inc/mod_power.h   |  3 +++
- .../amd/display/modules/power/power_replay.c  | 13 ++++++++++
- 8 files changed, 70 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-index eda3a2f1402c..0785a30eb643 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
-@@ -415,6 +415,30 @@ static void dmub_replay_send_cmd(struct dmub_replay *dmub,
- 	dc_wake_and_execute_dmub_cmd(ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
- }
- 
-+static bool dmub_replay_get_cumulative_residency(struct dmub_replay *dmub,
-+	uint8_t panel_inst, uint32_t *residency_milli_pct)
-+{
-+	uint32_t milli_pct = 0;
-+	uint16_t param = (uint16_t)panel_inst;
-+
-+	if (!residency_milli_pct)
-+		return false;
-+
-+	/* Zero on failure so the caller never reads a stale value, and report
-+	 * false so a failed query is still distinguishable from a genuine 0%.
-+	 */
-+	*residency_milli_pct = 0;
-+
-+	if (!dc_wake_and_execute_gpint(dmub->ctx,
-+			DMUB_GPINT__REPLAY_SNAPSHOT_CUMULATIVE_RESIDENCY,
-+			param, &milli_pct, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY))
-+		return false;
-+
-+	*residency_milli_pct = milli_pct;
-+
-+	return true;
-+}
-+
- static const struct dmub_replay_funcs replay_funcs = {
- 	.replay_copy_settings				= dmub_replay_copy_settings,
- 	.replay_enable					= dmub_replay_enable,
-@@ -424,6 +448,7 @@ static const struct dmub_replay_funcs replay_funcs = {
- 	.replay_residency				= dmub_replay_residency,
- 	.replay_set_power_opt_and_coasting_vtotal	= dmub_replay_set_power_opt_and_coasting_vtotal,
- 	.replay_send_cmd				= dmub_replay_send_cmd,
-+	.replay_get_cumulative_residency		= dmub_replay_get_cumulative_residency,
- };
- 
- /*
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-index 07c79739a980..271a42a226e9 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
-@@ -33,6 +33,8 @@ struct dmub_replay_funcs {
- 	void (*replay_set_power_opt_and_coasting_vtotal)(struct dmub_replay *dmub,
- 		unsigned int power_opt, uint8_t panel_inst, uint32_t coasting_vtotal,
- 		uint16_t frame_skip_number);
-+	bool (*replay_get_cumulative_residency)(struct dmub_replay *dmub,
-+		uint8_t panel_inst, uint32_t *residency_milli_pct);
- };
- 
- struct dmub_replay *dmub_replay_create(struct dc_context *ctx);
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/link_service.h b/drivers/gpu/drm/amd/display/dc/inc/link_service.h
-index eaf20ca14bcc..b2f86c51d470 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/link_service.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/link_service.h
-@@ -297,6 +297,8 @@ struct link_service {
- 	bool (*edp_replay_residency)(const struct dc_link *link,
- 			unsigned int *residency, const bool is_start,
- 			const enum pr_residency_mode mode);
-+	bool (*edp_replay_get_cumulative_residency)(const struct dc_link *link,
-+			uint32_t *residency_milli_pct);
- 	bool (*edp_set_replay_power_opt_and_coasting_vtotal)(struct dc_link *link,
- 			const unsigned int *power_opts, uint32_t coasting_vtotal, uint16_t frame_skip_number);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-index fa281de1d566..3b192c539f8b 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-@@ -223,6 +223,7 @@ static void construct_link_service_edp_panel_control(struct link_service *link_s
- 	link_srv->edp_send_replay_cmd = edp_send_replay_cmd;
- 	link_srv->edp_set_coasting_vtotal = edp_set_coasting_vtotal;
- 	link_srv->edp_replay_residency = edp_replay_residency;
-+	link_srv->edp_replay_get_cumulative_residency = edp_replay_get_cumulative_residency;
- 	link_srv->edp_set_replay_power_opt_and_coasting_vtotal = edp_set_replay_power_opt_and_coasting_vtotal;
- 
- 	link_srv->edp_wait_for_t12 = edp_wait_for_t12;
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index 9883216dcc9d..e904c7dd320e 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -1154,6 +1154,28 @@ bool edp_replay_residency(const struct dc_link *link,
- 	return true;
- }
- 
-+bool edp_replay_get_cumulative_residency(const struct dc_link *link,
-+	uint32_t *residency_milli_pct)
-+{
-+	struct dc *dc = link->ctx->dc;
-+	struct dmub_replay *replay = dc->res_pool->replay;
-+	unsigned int panel_inst;
-+
-+	if (!dp_pr_get_pr_panel_inst(dc, link, &panel_inst))
-+		return false;
-+
-+	if (replay && link->replay_settings.replay_feature_enabled &&
-+	    replay->funcs->replay_get_cumulative_residency)
-+		return replay->funcs->replay_get_cumulative_residency(replay,
-+			(uint8_t)panel_inst, residency_milli_pct);
-+
-+	if (residency_milli_pct)
-+		*residency_milli_pct = 0;
-+
-+	return true;
-+}
-+
-+
- bool edp_set_replay_power_opt_and_coasting_vtotal(struct dc_link *link,
- 	const unsigned int *power_opts, uint32_t coasting_vtotal, uint16_t frame_skip_number)
- {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
-index 51de13e2387e..0082f5e91878 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
-@@ -60,6 +60,8 @@ bool edp_send_replay_cmd(struct dc_link *link,
- bool edp_set_coasting_vtotal(struct dc_link *link, uint32_t coasting_vtotal, uint16_t frame_skip_number);
- bool edp_replay_residency(const struct dc_link *link,
- 	unsigned int *residency, const bool is_start, const enum pr_residency_mode mode);
-+bool edp_replay_get_cumulative_residency(const struct dc_link *link,
-+	uint32_t *residency_milli_pct);
- bool edp_get_replay_state(const struct dc_link *link, uint64_t *state);
- bool edp_set_replay_power_opt_and_coasting_vtotal(struct dc_link *link,
- 	const unsigned int *power_opts, uint32_t coasting_vtotal, uint16_t frame_skip_number);
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_power.h b/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
-index 5d1275b7cd46..25a0c96ac754 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
-@@ -375,6 +375,9 @@ bool mod_power_replay_set_coasting_vtotal(struct mod_power *mod_power,
- void mod_power_replay_residency(const struct dc_stream_state *stream,
- 	unsigned int *residency, const bool is_start, const bool is_alpm);
- 
-+bool mod_power_replay_get_cumulative_residency(const struct dc_stream_state *stream,
-+	uint32_t *residency_milli_pct);
-+
- bool mod_power_replay_set_power_opt_and_coasting_vtotal(struct mod_power *mod_power,
- 	const struct dc_stream_state *stream, unsigned int active_replay_events, uint32_t coasting_vtotal,
- 	bool is_ultra_sleep_mode, uint16_t frame_skip_number);
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_replay.c b/drivers/gpu/drm/amd/display/modules/power/power_replay.c
-index 31d9cb3a12ba..7861e46c612d 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_replay.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_replay.c
-@@ -761,6 +761,19 @@ void mod_power_replay_residency(const struct dc_stream_state *stream,
- 		link->dc->link_srv->edp_replay_residency(link, residency, is_start, mode);
- }
- 
-+bool mod_power_replay_get_cumulative_residency(const struct dc_stream_state *stream,
-+	uint32_t *residency_milli_pct)
-+{
-+	const struct dc_link *link = dc_stream_get_link(stream);
-+
-+	if (!link || !link->dc || !link->dc->link_srv)
-+		return false;
-+
-+	return link->dc->link_srv->edp_replay_get_cumulative_residency(
-+		link, residency_milli_pct);
-+}
-+
-+
- bool mod_power_replay_set_power_opt_and_coasting_vtotal(struct mod_power *mod_power,
- 	const struct dc_stream_state *stream, unsigned int active_replay_events, uint32_t coasting_vtotal,
- 	bool is_ultra_sleep_mode, uint16_t frame_skip_number)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index b6b7fd7f8bca..a5b15bef8aa0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1375,6 +1375,10 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_commit *state,
+ 		params[count].num_slices_v = aconnector->dsc_settings.dsc_num_slices_v;
+ 		params[count].bpp_overwrite = aconnector->dsc_settings.dsc_bits_per_pixel;
+ 		params[count].compression_possible = stream->sink->dsc_caps.dsc_dec_caps.is_dsc_supported;
++		if (params[count].compression_possible &&
++		    dc_link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA &&
++		    dc_link->dpia_bw_alloc_config.bw_alloc_enabled)
++			params[count].clock_force_enable = DSC_CLK_FORCE_ENABLE;
+ 		dc_dsc_get_policy_for_timing(params[count].timing, 0, &dsc_policy, dc_link_get_highest_encoding_format(stream->link));
+ 		is_frl_endpoint_present = get_conv_frl_bw(aconnector, &frl_conv_bw_in_kbps, &frl_conv_dsc_bw_in_kbps);
+ 		if (stream->sink->dsc_caps.dsc_dec_caps.is_dsc_supported &&
+@@ -1386,7 +1390,10 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_commit *state,
+ 				stream->sink->ctx->dc->res_pool->dscs[0],
+ 				stream->sink->ctx->dc->debug.dsc_min_slice_height_override,
+ 				dsc_policy.min_target_bpp * 16,
+-				dsc_policy.max_target_bpp * 16,
++				(dc_link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA &&
++				 dc_link->dpia_bw_alloc_config.bw_alloc_enabled) ?
++					dsc_policy.min_target_bpp * 16 :
++					dsc_policy.max_target_bpp * 16,
+ 				&stream->sink->dsc_caps.dsc_dec_caps,
+ 				&stream->timing,
+ 				dc_link_get_highest_encoding_format(dc_link),
 -- 
 2.43.0
 
