@@ -4,26 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42B45C79FAA
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 15:24:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84EF2C79F82
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 15:24:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8011910EC95;
-	Tue,  8 Sep 2026 15:24:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9351810ECC7;
+	Tue,  8 Sep 2026 15:24:36 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K3q4EpWo";
+	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E705E10E129;
- Tue,  8 Sep 2026 15:23:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7AC810ECB2;
+ Tue,  8 Sep 2026 15:24:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5A4BA601DB;
- Tue,  8 Sep 2026 15:23:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885BE1F00A3A;
- Tue,  8 Sep 2026 15:23:57 +0000 (UTC)
-Message-ID: <2a3a7a962caadab3399d3e03f5538d90@kernel.org>
-Date: Tue, 08 Sep 2026 15:23:54 +0000
+ by tor.source.kernel.org (Postfix) with ESMTP id 492CF601F6;
+ Tue,  8 Sep 2026 15:24:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 754501F00A3D;
+ Tue,  8 Sep 2026 15:24:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788881074;
+ bh=PXr5c7hHW/s0gvhT0j+z4lGvWAuoX1i8hPPjZMT8+uA=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc;
+ b=K3q4EpWoRgrPNlSeSgNpfZ/yI6QNSgEXebIUQysMzS9lcIH6GnA9d+0Oz1u7sN0OB
+ WERrfZHOKMY2L+Ydrt0DDGUdTDbpbJ5DiNxPrasZMSlnjVSLIh2Yy+/1QRUG1Q/DWa
+ zdMa4xcP1MnmgzlZUBgnq8CwOyKsrQEEwEWNL0DhWzXvBMtPwu4h35DxY3oEVdUpKB
+ VHwxn8hFD9QDqLSKZ/YlhZadelUmd2a6xg8ucp5Cck1Iyw28BmZbYm+9XGHt2/nmjE
+ /d3DHkZ5GPFnHNdffFdImrqOmYWR9gUws86GEFky/8PpMqRkVdjVKlFt75OeHNj9sN
+ g0prrKv5Lbk1w==
+Message-ID: <027090776a56ad67876ade0f31039108@kernel.org>
+Date: Tue, 08 Sep 2026 15:24:25 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Subject: Re: [PATCH v2 1/7] drm/edid: Include <linux/fb.h>
-In-Reply-To: <20260709092215.168172-2-tzimmermann@suse.de>
-References: <20260709092215.168172-2-tzimmermann@suse.de>
+Subject: Re: [PATCH v2 2/7] drm/client: Add acquire_outputs callback;
+ implement for fbdev emulation
+In-Reply-To: <20260709092215.168172-3-tzimmermann@suse.de>
+References: <20260709092215.168172-3-tzimmermann@suse.de>
 Cc: airlied@gmail.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  christian.koenig@amd.com, dakr@kernel.org, deller@gmx.de,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
@@ -33,7 +47,7 @@ Cc: airlied@gmail.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, rodrigo.vivi@intel.com,
  sashiko-reviews@lists.linux.dev, simona@ffwll.ch, tursulin@ursulin.net,
  "Maxime Ripard" <mripard@kernel.org>
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,11 +62,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 9 Jul 2026 11:15:57 +0200, Thomas Zimmermann wrote:
-> We currently get <linux/fb.h> via <linux/vga_switcheroo.h>. Include it
-> explicitly.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+On Thu, 9 Jul 2026 11:15:58 +0200, Thomas Zimmermann wrote:
+> Add the callback acquire_outputs to drm_client_funcs to inform an internal
+> DRM client that vga-switcheroo is about to switch the physical outputs to
+> the client's device. Allows the client to prepare its internal state for
+> the upcoming switch.
+>=20
+>=20
+> [ ... ]
 
 Acked-by: Maxime Ripard <mripard@kernel.org>
 
