@@ -4,77 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F048AC79FA0
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 09:32:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22F46C79F82
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 10:27:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B8C910E0B9;
-	Tue,  8 Sep 2026 09:32:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9282E10E8D6;
+	Tue,  8 Sep 2026 10:27:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BQNlrMd5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HJrNuELy";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5A6010E0B9
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 09:32:43 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-49cd77e0f95so36009085e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 02:32:43 -0700 (PDT)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5773010EB1C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 10:27:17 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-9399798cdd2so180912085a.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 03:27:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788863236; cv=none;
+ d=google.com; s=arc-20260327;
+ b=nktNUgX/kCz6dX0H0I8bTo1HGHqIfhFlD5le8WVwiC0Qex+RrsAy4cWDBAEWVeC80P
+ /oCkc7END8p/Ad3OacTA5DTNuT6bGVZkAKeoN4O4cMh3CRTYK8mKQmZtPv63n4f3slQ4
+ PhumprmpPo5zZqwNT5InN8T0k00XBBqLBSAAgWqpAwsQgz6u5tPvFccAtLEp/BResLko
+ 0Q+tLG3qQf68OqmeKtqCA97rgNzN19173e0wX6/kbDZDk/IIiMghm715qbTPNGDIlY0S
+ uUrInWaftA4+zPaf70CEc3/oEAEYXJpHNqOml0ONTkMFqvyQ8Th004P9GFi65UhKz+ZH
+ R3cQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=z8a//pM/Ql6aGzlfUZAtH3NGbwHwZ/hnr+wzfI3LfTM=;
+ fh=CbhFwWSgrqnlQ6l28SVRgfQ+vib9rglbQhAc6zEVsQo=;
+ b=fDpmu9Z4Cd7cZNgr/3jEXVD4uV1PcUs3OV5e9Poqz+j2d3PTIZ+Ezqtb8BSzhuv0Wn
+ FFjatVkCHEsd2YGz3BDUQU3R0C4VF9lJqm07T0lJwi6Ah/s2bIfQoRI3SRMbcc09PGcx
+ PQW0jF8k2S7TSmVZYb5WQ8/tuKavcONKQ9obY8KZvB0XT5aExh3rLf98RFzGRxUCHVFM
+ u8VQVkAnu+WqjLzToSJNW/LWFnVq5RDR0n1tnOt85OBfMAEwSvrbwQy6Wpc7eL0HMXcE
+ zej4Gu+UfChIOfjsAFLuczDJDhQQ5/EVGtlin/I/2kLgp4QQidmEPmBpZSrodLykRdWX
+ PY5g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788859962; x=1789464762; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1788863236; x=1789468036; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=PK45U7tsNj1wK5eIxKWxdnWdGZ6BFKQXEIg8g26ZUL4=;
- b=BQNlrMd5bngNs02jbYWc91H0K4UNk/IRi0Wq4GHWvJMo5SiMdhQWJZszL286h2I+zR
- 9magoESsLdoVzrhc/VytWoL70FOmIH6LSHTvPwRz7c5ydd1EBiETVKDWAA731JYIfyrg
- qiNkmMvrR+wKYTzyi4rij1SYqt1gG+qjRWMXPoDrAXj6dHZIJKer2Ypbwv6Gf65ek6Cx
- G+fUp++wm5ClAAlGkDGkDGJPIa4jFx2Divg635icIZjjYBwT4qhMZchIALyFe3NN5DSH
- HnuAH3gVdmsjxtIYetM7s3wEy1Yo3cEfME1nKXUJyQ6dbkj+2ymVTlKLsTI08MPDuiQ8
- BWAA==
+ bh=z8a//pM/Ql6aGzlfUZAtH3NGbwHwZ/hnr+wzfI3LfTM=;
+ b=HJrNuELy0TftLDve0sK2P7IX2rOo83TLwnf7rRXkzMcH+5FdQIjImIFAFVxxj1TOA7
+ xL/1q6u348JcFDBfElycJW6a0v/F6dP3MrmOZkiz4DuVn6f0dQy9hyz72kIwbopMbdtC
+ ssOZe14y7gKhHT5ne1nLpr7M5rvqdbAH5/jNdqJg57hzVf+wz3djTcAXuzJFZ7l6c48s
+ omgqvfGS8Z3ZrtvX71mXjI+pDGV2RkWMi0JPZ67kTGzVyLAuHNQB7+sCnldQfrtzEbrG
+ dG8l0sFo/ejES/ZuFtlPjaF1hZGZosR1cebZSXYsGEC89FMVzetKJT+q4hnG+s58XBef
+ y0Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788859962; x=1789464762;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20251104; t=1788863236; x=1789468036;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=PK45U7tsNj1wK5eIxKWxdnWdGZ6BFKQXEIg8g26ZUL4=;
- b=f4eA8nZ4Oz+dy0q1RNj+B+cWf66Vtlkit7oTOjqD2Y2QZMbX/Mu/8zkeWuJFJSXSw5
- 0a3L9P2lEh5wJNutppO29Bda6nzpITJT/Bh6v09d5YkRHSk8EVVZtLnJ4Cbem3kx17nx
- 9mF+TQJlqz+qewZVEJcFLC+VstKVwhqhmBlw5LIaUcGP8qet8GsX/scdBF8ivEFmQmNv
- Pasa2PE49DimxViGh3XT8vMcQaVbWVEsvA+00TWmtTmYlZ8mOF4TEmYJ9zLT+ESZfRdl
- afDMO1mAQI2ew7kXQf0j+Jc6kkVNLI6egqRwbmls0qfEhGmvGkb5Jcnv3xsU2oGFbrU5
- OpNg==
-X-Gm-Message-State: AFuF++lEoY4y2m11AsFILY7SCPHohm57+ICN4pBzZzkzmehDTZpu/ITV
- HcLX2rrhWokQu0XsfUYL4UMQiHrWsqlKoazeR7gZk7qiK0NiNNwu4O0VUA6+wH6r
-X-Gm-Gg: AYBFou215kOj+GWjyzKfluBXONdcsY8jS2m6wqqpUj6g3JFdfIk7Mrp4ib8h/TLBwdg
- d5wXAzt4ss1+eXh5Q1NNYtcLvs+uph2CNXVjgdhgIPmQeRDF9sBLTaAtJe2n6A09+PXJ8Q1GBWQ
- toh+OXKKVZgU1JyFnrjo19+NAik30FDIAQzQyKxaLP0DSv49YT9lqVG0JtKQDLuaNSXEVyOVKUB
- WvLe97c+QGZVojsn8ttJYcz6flM1Kh1gWy3RrgweEhYZzBPVsmR8Cs7Z46g2WtNhW7hSZ2gyIef
- yC116suBlyro6cA2WCYb218wKDR5nP2zwkjPDBX79J/+G/riJARDdH8YLb9vQnvexne/F+tJ1t0
- U1aV5uygx8xqGKh6nYDZi8Rcf8gvumJcCJXjImFrgekKPfoOpN0HphsowYkZf1j3lPwh9J55pA6
- PyV3Pju+Ez7ZCRxMejIZhAH1Ii8OmmbJcYndVxSgdgEpT9nafiCOLzmOiGmDmpt/bG2mvV/b3H2
- fjeaqSqK7pBmyBhF9LGcjrhrcYdtMBL
-X-Received: by 2002:a05:600c:8706:b0:49d:191b:88be with SMTP id
- 5b1f17b1804b1-49d191b88e2mr40776565e9.0.1788859961838; 
- Tue, 08 Sep 2026 02:32:41 -0700 (PDT)
-Received: from timur-max.localnet (athedsl-4460056.home.otenet.gr.
- [79.129.254.8]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49d057f4778sm277565035e9.8.2026.09.08.02.32.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 02:32:41 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [RFC 1/2] drm/amdgpu: Store SDMA instance and index in the ring
-Date: Tue, 08 Sep 2026 11:32:38 +0200
-Message-ID: <F3N0UX71T9uRTCKIeAarRQ@gmail.com>
-In-Reply-To: <76000248-b0ac-478d-bb13-45d4eebb1676@igalia.com>
-References: <20260622143649.54632-1-tvrtko.ursulin@igalia.com>
- <15g9zLryTPO4j32E_pIEBQ@gmail.com>
- <76000248-b0ac-478d-bb13-45d4eebb1676@igalia.com>
+ bh=z8a//pM/Ql6aGzlfUZAtH3NGbwHwZ/hnr+wzfI3LfTM=;
+ b=jf8JSIxKFmMoE69jXVEUUC4z5UIEMlOF56V+FRs4DNKEs1eM7WdSJFx/7PU57ySQfn
+ CwHlrmBNdyKkIhZlgy3XfHfqXh9t5c3u2N92ouYUl72qpgAahx5pXbV8YPJhl4FHfH2M
+ 2GP5rI2kC9oFQqgIDPUFU1SexfpF79FVV8JZtErQ01aCn2xUL1OViPWiYIOzKTVqN4VU
+ 1Bii+NSzrZSUlsjYo04FTaYINSjsk6HLmwzrCQfmVFuEUpsOXDYAilwPNl0gRSTZBJVI
+ bA9Ns/CQXx4qyKxVjOzIxRYKJDL6iZyE0F5B5Xw3h+bfJVA1JKMlzzlO+P8LyJ7M0PuY
+ +lLA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz4NTO/Sikb1IIJSSM7SyjfJ2CgNG6Ia/9OQ+C4osX4U4ILIPtOnUcDf9qhitEYulek4FoxLEzx@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mhMFel1MOJxY2b3jpB5Kl20WTHeptbbHO/8wf2BCJ+X19E1T8Q
+ NpRrSWVaMAEZZqgM5t/qHKBjRgRGbtRHykadxVMIKOp6pKOu6L8yptxePBqMy+eEvEj2/LsX8r8
+ eT3TvaNUqKNYvtgzI3idDseAakXyM6Rk=
+X-Gm-Gg: AYBFou26orUUOzE2vgPyokck5O5Riz92rPDasage9Pttfu5OZ20871Bv1EFaoE9U78X
+ tKDwff7q5Nk6WG4DsDPX3OrOkMvqOzMDxOP86mCDYVj1Zo2NhtekdHCUiOh/DRNYWQxYtfmEEIx
+ 7SfTluKQS/62av7k6BGfzdN8WoNCqBmmdAZJwLzIiI+33ZSLyFI5FdhY3cBsv7nGymXBfU5aw7m
+ IMIRVqcGQ6+aNa6MuWyi61xnpwvBJxiUvUSKELAH6EpAPeAGGd+Infr9eqaIT3q+wMK3FOZuxjO
+ W1GiY5seRfOVLS61drGGhp/7pghz2IZ3zPLvNkuRHYWk8Qrk9QbocHybO3RvURWPWBx3fxXDHs2
+ sYz+UwnKsIm9r5OaUtkBU5asjisme/h6mwRdxQIDN
+X-Received: by 2002:a05:620a:234:b0:939:4b31:4669 with SMTP id
+ af79cd13be357-93980434d0bmr2329407185a.29.1788863236207; Tue, 08 Sep 2026
+ 03:27:16 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260820142802.1342066-2-rodrigo.vivi@intel.com>
+ <e48a854b-1240-4fcb-a429-2c02be10da5d@kernel.org>
+ <CADnq5_PvMKVbmukOJW9oHK-bw3110eAf97WXfUVi-urhcEGMMg@mail.gmail.com>
+In-Reply-To: <CADnq5_PvMKVbmukOJW9oHK-bw3110eAf97WXfUVi-urhcEGMMg@mail.gmail.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Tue, 8 Sep 2026 20:27:03 +1000
+X-Gm-Features: AcwNN1UdfEqDvqt4h6-mGvR-jvMGVCb1iWb0peyiWxGKDTiEmCJKruGXVCWaOeg
+Message-ID: <CAPM=9tws_bMnxt9QVjt4bP_bO9YM5h2n4FtNZMg1p0ZLsrLw5g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Drop KUnit tests for removed
+ parse_hdmi_amd_vsdb()
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Mario Limonciello <superm1@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Alex Huang <Alex.Huang2@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,51 +111,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. szeptember 8., kedd 10:54:04 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=C3=A1=
-ri id=C5=91 Tvrtko Ursulin=20
-wrote:
-> On 08/09/2026 09:42, Timur Krist=C3=B3f wrote:
-> > On 2026. j=C3=BAnius 22., h=C3=A9tf=C5=91 16:36:48 k=C3=B6z=C3=A9p-eur=
-=C3=B3pai ny=C3=A1ri id=C5=91 Tvrtko Ursulin
-> >=20
-> > wrote:
-> >> Instead of searching for the matching SDMA instance inside many of the
-> >> SDMA ring vfuncs, lets just cache the instance and index in the new SD=
-MA
-> >> specific section of struct amdgpu_ring. This converts a function call
-> >> plus
-> >> array walks to a direct lookup.
-> >=20
-> > AFAIK, the rings already have the IP block instance ID in the "me" fiel=
-d.
-> > So this could be simplified by using that. For example like this:
-> > https://pastebin.com/raw/jp4Uk2sE
->=20
-> Ah thank you, it never occurred to me ring->me is not a management
-> engine of some sort but ring's personal pronoun. :)
+On Fri, 21 Aug 2026 at 07:30, Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Thu, Aug 20, 2026 at 3:30=E2=80=AFPM Mario Limonciello <superm1@kernel=
+.org> wrote:
+> >
+> > On 8/20/26 09:28, Rodrigo Vivi wrote:
+> > > parse_hdmi_amd_vsdb() was removed when HDMI FreeSync detection moved =
+to
+> > > the common EDID parser, but its declaration and KUnit tests remained,
+> > > breaking modpost:
+> > >
+> > >    ERROR: modpost: "parse_hdmi_amd_vsdb" [...connector_test.ko] undef=
+ined!
+> > >
+> > > Remove the stale declaration and the three dead test cases.
+> > >
+> > > Fixes: f65198b3d073 ("drm/amd/display: Use HDMI FreeSync range from c=
+ommon EDID parser")
+> > > Cc: Alex Huang <Alex.Huang2@amd.com>
+> > > Cc: Mario Limonciello <superm1@kernel.org>
+> > > Assisted-by: Copilot:Claude-Opus-5
+> > > Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > > ---
+> > Thanks this looks correct to me.
+> >
+> > Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> >
+> > I'm not sure where we should apply it though, it's from a conflict
+> > between drm-misc-next and Alex's drm-next pull.
+>
+> I'll pull it into my next -fixes PR.
 
-I think the field should be better documented. AFAIU, it refers to the firm=
-ware=20
-instance that handles the ring. For SDMA it's the same as the instance ID.
+I think this should be merged into drm-misc-next ASAP, since the merge
+is in there.
 
-(For graphics/compute this is the "micro engine" CP (command processor)=20
-instance. There is only one graphics/compute IP block and there are several=
- CP=20
-instance within that same IP block.)
-
-In your words, "on a rainy day" we can write that documentation or just ren=
-ame=20
-the field to something more meaningful. :)
-=20
-> >> While at it, we also consolidate the initialization side with a new
-> >> amdgpu_sdma_ring_init() helper.
-> >=20
-> > Can you move that part to a separate commit?
->=20
-> Yes that makes much more sense indeed, will do.
-
-Thanks!
-
-
-
-
+Dave.
