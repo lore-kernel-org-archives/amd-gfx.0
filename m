@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68C43C79F82
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ECD9C79FA1
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:42:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0056D10EB69;
-	Tue,  8 Sep 2026 11:42:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA93910EB68;
+	Tue,  8 Sep 2026 11:42:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QyA0DH3G";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BZU50KK1";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010008.outbound.protection.outlook.com
- [40.93.198.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68ED610EB69
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:42:01 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012009.outbound.protection.outlook.com [40.107.209.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D677D10EB68
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:42:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OXZg4/Md/oXPuKnMIBE1bdQl97DkyPvQMyWjtl8BD/NYxyj1pOykO6NEOrNR+g7/Ng7Q8I9glpRrB/coLpyasiv9sF5cSDW5CTcnRbgSq1zhEWpp65UKs7jFTUUt3FLlJBEyhzlnnegP/U6rhqTYnKeGKZsJgzRnHJV+3QWkCdo63u9IvvtF4ZL06RSytu1a/D22xdmMSvQSOFGLJy4vBE+V2sTR55caW6p2QGU9kWqtrrFoXWivzXpom7i8veOvNCWMjZIsiU6eITlgTv86w03CJk3FD+yq5mA7vShRAojAV7o+v+JFg7DjJDRSOk8zLyxgel8aoePaRmOxjHedOw==
+ b=bG/uG1IKuadBgD9OjWihAsOvqLemedGT3UY+sDjGn/Y4t0Up2kiWcoZj5uRqysWsxzCQd5l6OTSd2FvpyVN1Ib0Rkjjh1HXeZHxTVGBriV2NnVXvrRTkr0cunfd3CWWOkQtG0q3rrXUgEZFx+RzRPlvLa9V++VtqwiJn8JxqrdlkMYnXsyc4n2LpHxYbZUmnc9Pwp9ilR5eQc0ahiRwKaxHjF4gvfLiiJ1V6i4yWdw4UTFeTebyQaAh9hLoHXAjRbA/qyfyDL1OJqNtIi9CFqXH22rTTpSyXre6whyJdKMM+/iaNEc6UuEY7ZmiuFghvxESj+XBwnxHhvamQcsJiQA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=shjUCQAS8lQRwrmLcOLMBpdwhfn9E81+L8HTxE9b32M=;
- b=E9RdKXTHQuRVy3peIjvjIlErj32qJLbdtyITTntiZuf3UDFRlPurotHwk7VmTPAFAnkBgWkDxJ9t2xP3vqqzynGDuPOTOU6bQdU84W47Q+OLIDQYbxuZ0M1up1BoMj4GXcRsu53+JU9Kz5jYDaXJ0nqw7TAlhcykq8KRa4nbdFnNNS4EgAK/ueb58saum0mQtuH/qvxQVsGvGVS/CHXPvgoqAMD+5mfqDCwFhMw8WXHcwJ4xeV6c1BoRSXVOiHqAx8NzUqVGDjK1u1KQz3JY9wtIASP7gRc/oHnwogZm/fjyZ5LPz6jlRQ2DIUygcjT6//H84gxTYX3efi3FXZEenw==
+ bh=FrWcYtpdd0pGrRZ2cj6+8PkO4SZm7vMKAOM5aevZWrU=;
+ b=IGCU2woItqJyPLmiV7JEW8A95AkgKchodvOG/scuklz0n8QziwEOgNiqUHRd4zAEOlE6c4/4RGz0tXj58aYvuCr+Y5rMASEaRlDvIGD8uSavDnxsPRajeBAuWmsvlPBZIFwvElva9G2Som+YIWmTRhTp5JCFzDW70OspuoXersUAPbxFQ1GC3RoTv7kir8W8ds+Qg0BjM7lCaoF43+Nt76PQp0YgowSCJIpdWc6fxak+qVF0M4aVW7gXCmyg4ztc+frHX0Ey2UNYEpMSktvrA2JYAPHhoaAihoWG3PZgfLOtjwfSz86w5Wyf36KwJOcoQUNsOTZd0JnWFtXvwlvfDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=shjUCQAS8lQRwrmLcOLMBpdwhfn9E81+L8HTxE9b32M=;
- b=QyA0DH3GRvifHXFPe24ML3B2/1vbPIsT3eWHfcD9dJRMJeuY0luw19OnyTuRvwcWu8+wUI2PNsBKWFI99DKEw1YNm70YGVNzbtO1SOXiJD68HWQStPjXEbgpUuP5JbI88GUFUwWn4SdRDfDSPKqokiVsF06fPGW/Y89flyk/8LI=
-Received: from BN0PR10CA0028.namprd10.prod.outlook.com (2603:10b6:408:143::34)
- by PH0PR12MB7958.namprd12.prod.outlook.com (2603:10b6:510:285::14)
+ bh=FrWcYtpdd0pGrRZ2cj6+8PkO4SZm7vMKAOM5aevZWrU=;
+ b=BZU50KK1j/vh4WVNu2gavK4gwrKhUlGgIZxxnDlJt882nzyU3/yHvAOqgq956ny2eTOAymXtFwRGcuRNL9R1mWvej3DvoJXALvhh6VrB6aNvK4K2ITSRpBNcxRhNb7mhMrzZeuel3fjwraU8XrF6kaLyj1go9qvjRwV5MV63CBU=
+Received: from BN9PR03CA0205.namprd03.prod.outlook.com (2603:10b6:408:f9::30)
+ by PH7PR12MB9224.namprd12.prod.outlook.com (2603:10b6:510:2e7::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 11:41:54 +0000
-Received: from BN7PEPF000000A0.namprd04.prod.outlook.com
- (2603:10b6:408:143:cafe::ae) by BN0PR10CA0028.outlook.office365.com
- (2603:10b6:408:143::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Tue, 8
- Sep 2026 11:41:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Tue, 8 Sep
+ 2026 11:42:11 +0000
+Received: from BN7PEPF000000A3.namprd04.prod.outlook.com
+ (2603:10b6:408:f9:cafe::5b) by BN9PR03CA0205.outlook.office365.com
+ (2603:10b6:408:f9::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
+ Sep 2026 11:42:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,16 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF000000A0.mail.protection.outlook.com (10.167.248.152) with Microsoft
+ BN7PEPF000000A3.mail.protection.outlook.com (10.167.248.155) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:41:53 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:42:10 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:41:43 -0500
+ 2026 06:42:01 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 06:42:01 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 8 Sep 2026 06:41:29 -0500
+ Transport; Tue, 8 Sep 2026 06:41:52 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -67,12 +70,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Ray Wu <ray.wu@amd.com>, Chenyu Chen
- <chen-yu.chen@amd.com>
-Subject: [PATCH 50/66] drm/amd/display: Flush ISM work before releasing the
- stream
-Date: Tue, 8 Sep 2026 19:31:43 +0800
-Message-ID: <20260908113338.2433445-51-chen-yu.chen@amd.com>
+ <Chen-Yu.Chen@amd.com>, "Wang, Sung-huai" <Danny.Wang@amd.com>, Aric Cyr
+ <aric.cyr@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 52/66] drm/amd/display: Add is_odm_enabled callback to skip
+ init_odm on active ODM pipes
+Date: Tue, 8 Sep 2026 19:31:45 +0800
+Message-ID: <20260908113338.2433445-53-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908113338.2433445-1-chen-yu.chen@amd.com>
 References: <20260908113338.2433445-1-chen-yu.chen@amd.com>
@@ -81,29 +84,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A0:EE_|PH0PR12MB7958:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5eb09db5-799d-4be3-32db-08df0d9e2e0a
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A3:EE_|PH7PR12MB9224:EE_
+X-MS-Office365-Filtering-Correlation-Id: 649cf04b-2d57-43ee-d983-08df0d9e3840
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|10067099003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: RHv4eX02MpCMNX6xkyYmHv6XtdHhEw6275eCgalIb18MilIFTV71pF61dpGR8AZeeg3lWS+OpF3g4hsOVpv1CdmmEGRdqnWjn8+nMa8aRf+znmmJhbHmOdMc44VISgX9mA0gEMUAehmNfHna2YdBk72gLL5G+R87PFwdDWOtaQww1NZvWVp8w/WniuJKee+3dSoaX7hl01yqSdcZfU7Vjan4w30Fjaudd8dyvmXKqYJC92NrZA4GMw2idaFbMSnzsN4xe93sAje+StjPyA+YCtaNYC63uvNFmomYHEqZCe6Jn/XvGHH5zqmYFoNNDfHxMeSUYTL82x9zw4I8VelzWxWtqw8A3xS1uYycrnXYthrXKQXlFjrO9CdSEgcUQ2m94MXDRSRfe70TPYMT5usJnCzONeigOfFD+M6RITt0bJSy1xbBCERmJjypOzR9usioxRBgweZNPECW5+wBDbAnvufRjI24gNRPLo/tsr4ifvvH8P1UkUkx5qFJJfdF+ylSomvJWZ7RVD+JHSSY9/9h4enqI66l9sW4eTn0hbxNtYLvUvnSCg7bOr58K6hUQ/ZiXbIXO0kiQemEQRyIVquVzPBG0uPvkcrqKX08Iy9Uy+DGinwZIFu1mhqWcI/8JL0ks6/VMlHSS6RRswpRYOsuXAPLmnN7m4KcXWBEWs79JjH9MUuKgSfDA0piAv+pnSneVw2bvGBgzf+f0HUEqhwwWA==
+ ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|11063799006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: oPDDpg+LslCC5PZ+a8s0mzLFDV67m4WZohlmoYJxNWvK+ijnGxzvMCEjSj3fg9l0u3Vhyzsife9y0CEGcM91jeuIEQRKHB9Lkf28MQ4rGhIevauCreMQOktfyEX2MqAJDImknSUH/0fwo2V0SmjfrFxo4UzPEE7NyvHX9s8HyFxfoxrauaHRj5NFPvZuXDmkds9WAa1uUK5t6XruUlV1rGvTP/HdufHPg5oGImrtzCBnR+49kViLQAweCXRsf8EBixVm1LJBiDKx6gNL3qFYWAFIuPv95yOTQY1YeFnt5qDE9RNb6EScRYp7ajunirIe8VKj623DZ5mdUrF8bwJRK79gkxjvv9JRmKjmIYkqyI/2WtaZdPtAIeg42ix3QViKlYLuR65LZg4NVoQ7gA/t/B9Mds81VCeQEsXFGNW3ll1YUVuxnRg/r5VScKxKJAzOgVP56K9EJ3pGEFwFQlYdumQ0kiB8uUDrjyBIFZN1Po+mmE3mfKVhOpGp98rM2LkmtflTfuXkIXtSmrIv/7jxM5Z45gDWU7Nz+Pxb/zwF7/AKCsqpp+Kk5ciPcPsbSIW6E6rJRDYKV6vOmuAJeih5k9OYSWhhY/Wp5qp693+1ypN094hnX4TsQ0GgOP3govnVvugMWLWPqpiBcbhQMpKesSVuDEtfwKNnNQv8HMrHm/CTGSY+mcJd35Lw+1OjbhX7rXB7Uo2ub111b4yhlqX3mw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /wdIfvI6YwvADbpetSV385JBs6Zi4AUCJ0wQnuzpQZsn2+hfm7HcqFoSp6w0nS5CUfV8cH5wakmDavJ18HXPw8pr5TqBFPoGtCIsVrHfywj5XNuPxquHrsOxtVHpsp1d61Z54pqsW2OJE60A45mQvfaiquUO0HT4pAHdWDThEjVrByh2Uu4GPYvm9zndfm9TVzrYnzvdurqI+yCbEeYtIq53QeVQ5m4zGLli6UPsvkKjmCW2YbfiKvpViiNSoJcrpCBlUz3zjvQ6kL/ns+9FzsNVVs1DvfV8+dIXfxEZsaB5PT5xG/mrcVJHgacdklsOvScvO5uiZbXUfx4ZbxlG4YWWpi9YvaoLskrQAEWZeu3nxsYkiat2g5o4GkRul0TMiYWC+GzQe66j4Qqz7hELXdM+l95rUO5QJXrSgxhkgcteohjcpK7Jh9eZHFv0Y8UX
+X-MS-Exchange-AntiSpam-MessageData-0: uZ0FvER7xf2jGsmsF9OppNeSn6wzTwguyWglevZDF/COTQNelQj1t26LTffhnyr7TjKYdMMT00c5Dysr7kNdb7bUj/OvMrz5Zo800ulQNpKQAkG+ekvYMc7AxtvEjNFmpC9EicX9ELkhfXQSycTzva3flCmDmP7L1Ys0b8XZNHZQKb72SIpgZPNDLRJ8vCGLWL1xEZ67Al0OYG3cuOSi6rtB6rZ1QiwD9vmb1xfGbOIxO+BEPNeoiXBy0b00CY5R0gDwyEhTsibLkTAEzBErJ609mlhiA5C8C5QgwgidoT78TAlhgM0NyZt1CmyuQj+xb+oFamnp5Ou/8u6mRHp/pNhosi+84B5iYpn9Nycx+Jpc1kjzY+KIY6g2HUbYYXWl41MXUOQD1mePWM9eXOx4vm852agbf3CB1Y8Irh9eso72N6KuTKpCuSrc0GjiZih4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:41:53.7888 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5eb09db5-799d-4be3-32db-08df0d9e2e0a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:42:10.9273 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 649cf04b-2d57-43ee-d983-08df0d9e3840
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF000000A0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF000000A3.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7958
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9224
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,319 +121,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ray Wu <ray.wu@amd.com>
+From: "Wang, Sung-huai" <Danny.Wang@amd.com>
 
 [Why]
-ISM timers are not tied to the atomic commit, so a timer armed before a
-DPMS off can still fire after the stream is released. The external display
-check in dcn35_apply_idle_power_optimizations() loops over the active
-streams, so with none left it never runs and idle is allowed on an
-external-only system.
+dcn10_init_pipes unconditionally calls init_odm on all enabled TGs,
+resetting ODM combine state even when it should be preserved.
 
 [How]
-Wait out pending and in-flight ISM work before dc_stream_release(); dc_lock
-is not held there, so the sync wait is safe. Rename amdgpu_dm_ism_fini() to
-amdgpu_dm_ism_flush() and assert dc_lock is not held.
+Add is_odm_enabled callback to timing_generator_funcs and
+guard init_odm to skip when ODM is already active.
 
-Assisted-by: Cursor:Claude-Opus-5
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
+Reviewed-by: Aric Cyr <aric.cyr@amd.com>
+Signed-off-by: Danny Wang <Danny.Wang@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 ++
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  6 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c | 21 ++++-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h |  2 +-
- .../amdgpu_dm/tests/amdgpu_dm_ism_test.c      | 83 ++++++++++---------
- 5 files changed, 72 insertions(+), 47 deletions(-)
+ .../gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |  4 +++-
+ .../gpu/drm/amd/display/dc/inc/hw/timing_generator.h   |  1 +
+ drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c | 10 ++++++++++
+ drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h |  1 +
+ .../gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c   |  1 +
+ drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c |  1 +
+ drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c |  1 +
+ 7 files changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 9a585f8b3d67..607aa5ae9b67 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4612,6 +4612,13 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
- 		    (!new_crtc_state->active ||
- 		     drm_atomic_crtc_needs_modeset(new_crtc_state))) {
- 			manage_dm_interrupts(adev, acrtc, NULL);
-+			/*
-+			 * ISM hysteresis lives on system_dfl_wq, not the
-+			 * vblank workqueue. Wait it out so a timer armed while
-+			 * the stream existed cannot allow idle after the
-+			 * stream is released.
-+			 */
-+			amdgpu_dm_ism_flush(&acrtc->ism);
- 			dc_stream_release(dm_old_crtc_state->stream);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+index 270b6f2d4377..7fa329229ae0 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+@@ -1750,7 +1750,9 @@ void dcn10_init_pipes(struct dc *dc, struct dc_state *context)
+ 
+ 		if (tg->funcs->is_tg_enabled(tg)) {
+ 			if (tg->funcs->init_odm)
+-				tg->funcs->init_odm(tg);
++				if (!tg->funcs->is_odm_enabled ||
++					!tg->funcs->is_odm_enabled(tg))
++						tg->funcs->init_odm(tg);
  		}
+ 
+ 		tg->funcs->tg_init(tg);
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
+index 2eaba65894ab..52d4d57358cd 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
+@@ -512,6 +512,7 @@ struct timing_generator_funcs {
+ 			uint32_t vtotal_change_limit);
+ 
+ 	void (*init_odm)(struct timing_generator *tg);
++	bool (*is_odm_enabled)(struct timing_generator *tg);
+ 	void (*wait_drr_doublebuffer_pending_clear)(struct timing_generator *tg);
+ 	void (*set_long_vtotal)(struct timing_generator *optc, const struct long_vtotal_params *params);
+ 	void (*wait_odm_doublebuffer_pending_clear)(struct timing_generator *tg);
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
+index 3ace83e1b50f..ce9cd32b807a 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.c
+@@ -221,6 +221,15 @@ void optc31_set_drr(
  	}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 4b8530d734e5..a7979b418c2b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -480,9 +480,9 @@ EXPORT_IF_KUNIT(amdgpu_dm_crtc_duplicate_state);
- STATIC_IFN_KUNIT void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc)
- {
- 	/*
--	 * amdgpu_dm_ism_fini() is intentionally called in amdgpu_dm_fini().
--	 * It must be called before dc_destroy() in amdgpu_dm_fini()
--	 * to avoid ISM accessing an invalid dc handle once dc is released.
-+	 * ISM workers are intentionally quiesced by amdgpu_dm_ism_disable()
-+	 * in amdgpu_dm_fini(). That must happen before dc_destroy() so ISM
-+	 * cannot access an invalid dc handle once dc is released.
- 	 */
- 
- 	drm_crtc_cleanup(crtc);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-index 4e57572e12b6..127eaba4de60 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-@@ -647,9 +647,26 @@ void amdgpu_dm_ism_init(struct amdgpu_dm_ism *ism,
- EXPORT_IF_KUNIT(amdgpu_dm_ism_init);
- 
- 
--void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism)
-+/**
-+ * amdgpu_dm_ism_flush - Cancel any pending, or wait out in-flight ISM work
-+ *
-+ * @ism: The CRTC's idle state manager
-+ *
-+ * Cancels the hysteresis and SSO timers and waits for a running worker to
-+ * finish. Callers that are about to drop the CRTC's stream use this so that a
-+ * timer armed while the stream was still around cannot allow idle afterwards.
-+ *
-+ * Must not be called with dc_lock held: the workers take dc_lock themselves,
-+ * so waiting for them under it would deadlock.
-+ */
-+void amdgpu_dm_ism_flush(struct amdgpu_dm_ism *ism)
- {
-+	struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-+	struct amdgpu_device *adev = drm_to_adev(acrtc->base.dev);
-+
-+	lockdep_assert_not_held(&adev->dm.dc_lock);
-+
- 	cancel_delayed_work_sync(&ism->sso_delayed_work);
- 	cancel_delayed_work_sync(&ism->delayed_work);
- }
--EXPORT_IF_KUNIT(amdgpu_dm_ism_fini);
-+EXPORT_IF_KUNIT(amdgpu_dm_ism_flush);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-index afce16f7085a..893e062bb281 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-@@ -142,7 +142,7 @@ struct amdgpu_dm_ism {
- 
- void amdgpu_dm_ism_init(struct amdgpu_dm_ism *ism,
- 			struct amdgpu_dm_ism_config *config);
--void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism);
-+void amdgpu_dm_ism_flush(struct amdgpu_dm_ism *ism);
- void amdgpu_dm_ism_commit_event(struct amdgpu_dm_ism *ism,
- 				enum amdgpu_dm_ism_event event);
- void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
-index b77df47d3095..a9c6485e2a9e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
-@@ -642,31 +642,6 @@ static void dm_test_ism_init_sets_initial_state(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, ism->config.sso_num_frames, config.sso_num_frames);
  }
  
--/* ===== Tests for amdgpu_dm_ism_fini ===== */
--
--/**
-- * dm_test_ism_fini_after_init - fini cancels never-scheduled work without error
-- * @test: KUnit test context
-- */
--static void dm_test_ism_fini_after_init(struct kunit *test)
--{
--	struct amdgpu_dm_ism *ism = alloc_test_ism(test);
--	struct amdgpu_dm_ism_config config = {
--		.filter_num_frames = 5,
--		.filter_entry_count = 3,
--		.activation_num_delay_frames = 10,
--		.sso_num_frames = 2,
--	};
--
--	amdgpu_dm_ism_init(ism, &config);
--	/* Work was never scheduled; cancel_delayed_work_sync is a no-op. */
--	amdgpu_dm_ism_fini(ism);
--
--	/* FSM state is untouched by fini */
--	KUNIT_EXPECT_EQ(test, (int)ism->current_state,
--			(int)DM_ISM_STATE_FULL_POWER_RUNNING);
--}
--
- /* ===== Tests for dm_ism_set_last_idle_ts ===== */
- 
- /**
-@@ -897,6 +872,32 @@ static void register_test_acrtc(struct amdgpu_device *adev,
- 	list_add_tail(&acrtc->base.head, &adev->ddev.mode_config.crtc_list);
- }
- 
-+/* ===== Tests for amdgpu_dm_ism_flush ===== */
-+
-+/**
-+ * dm_test_ism_flush_after_init - flush cancels never-scheduled work without error
-+ * @test: KUnit test context
-+ */
-+static void dm_test_ism_flush_after_init(struct kunit *test)
++bool optc3_is_odm_enabled(struct timing_generator *optc)
 +{
-+	struct amdgpu_crtc *acrtc = alloc_test_acrtc(test, NULL);
-+	struct amdgpu_dm_ism *ism = &acrtc->ism;
-+	struct amdgpu_dm_ism_config config = {
-+		.filter_num_frames = 5,
-+		.filter_entry_count = 3,
-+		.activation_num_delay_frames = 10,
-+		.sso_num_frames = 2,
-+	};
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++	uint32_t num_segments = 0;
 +
-+	amdgpu_dm_ism_init(ism, &config);
-+	/* Work was never scheduled; cancel_delayed_work_sync is a no-op. */
-+	amdgpu_dm_ism_flush(ism);
-+
-+	/* FSM state is untouched by flush */
-+	KUNIT_EXPECT_EQ(test, (int)ism->current_state,
-+			(int)DM_ISM_STATE_FULL_POWER_RUNNING);
++	REG_GET(OPTC_DATA_SOURCE_SELECT, OPTC_NUM_OF_INPUT_SEGMENT, &num_segments);
++	return num_segments > 0;
 +}
 +
- /* ===== Tests for amdgpu_dm_ism_commit_event ===== */
+ void optc3_init_odm(struct timing_generator *optc)
+ {
+ 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+@@ -503,6 +512,7 @@ static const struct timing_generator_funcs dcn31_tg_funcs = {
+ 		.setup_manual_trigger = optc2_setup_manual_trigger,
+ 		.get_hw_timing = optc1_get_hw_timing,
+ 		.init_odm = optc3_init_odm,
++		.is_odm_enabled = optc3_is_odm_enabled,
+ 		.is_two_pixels_per_container = optc1_is_two_pixels_per_container,
+ 		.read_otg_state = optc31_read_otg_state,
+ 		.optc_read_reg_state = optc31_read_reg_state,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h
+index 119a954fe3e5..19d90c65a22b 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h
+@@ -274,6 +274,7 @@ bool optc31_immediate_disable_crtc(struct timing_generator *optc);
+ void optc31_set_drr(struct timing_generator *optc, const struct drr_params *params);
  
- /**
-@@ -922,7 +923,7 @@ static void dm_test_ism_commit_event_no_state(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
- 			(int)DM_ISM_STATE_FULL_POWER_RUNNING);
+ void optc3_init_odm(struct timing_generator *optc);
++bool optc3_is_odm_enabled(struct timing_generator *optc);
  
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /**
-@@ -958,7 +959,7 @@ static void dm_test_ism_commit_event_cursor_transition(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
- 			(int)DM_ISM_STATE_FULL_POWER_RUNNING);
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /**
-@@ -988,7 +989,7 @@ static void dm_test_ism_commit_event_invalid_event(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
- 			(int)DM_ISM_STATE_FULL_POWER_RUNNING);
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /* ===== Tests for amdgpu_dm_ism_force_full_power ===== */
-@@ -1020,7 +1021,7 @@ static void dm_test_ism_force_full_power(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
- 			(int)DM_ISM_STATE_FULL_POWER_RUNNING);
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /* ===== Tests for amdgpu_dm_ism_disable / amdgpu_dm_ism_enable ===== */
-@@ -1048,7 +1049,7 @@ static void dm_test_ism_disable_enable_cycle(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
- 			(int)DM_ISM_STATE_FULL_POWER_RUNNING);
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /* ===== Tests for dm_ism_dispatch_power_state (via commit_event) ===== */
-@@ -1127,7 +1128,7 @@ static void dm_test_ism_dispatch_hysteresis_schedule_and_cancel(struct kunit *te
- 				(int)DM_ISM_STATE_HYSTERESIS_BUSY);
- 	}
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /**
-@@ -1183,7 +1184,7 @@ static void dm_test_ism_dispatch_optimized_idle_defers_sso(struct kunit *test)
- 		cancel_delayed_work(&acrtc->ism.sso_delayed_work);
- 	}
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /*
-@@ -1285,7 +1286,7 @@ static void dm_test_ism_commit_allows_idle_on_optimized_idle(struct kunit *test)
- 		cancel_delayed_work(&acrtc->ism.sso_delayed_work);
- 	}
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /**
-@@ -1322,7 +1323,7 @@ static void dm_test_ism_commit_enables_sso_on_optimized_idle_sso(struct kunit *t
- 		KUNIT_EXPECT_TRUE(test, adev->dm.dc->idle_optimizations_allowed);
- 	}
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /**
-@@ -1371,7 +1372,7 @@ static void dm_test_ism_commit_disallows_idle_on_timer_aborted(struct kunit *tes
- 		KUNIT_EXPECT_FALSE(test, adev->dm.dc->idle_optimizations_allowed);
- 	}
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /**
-@@ -1413,7 +1414,7 @@ static void dm_test_ism_exit_from_optimized_idle_disallows_idle(struct kunit *te
- 		KUNIT_EXPECT_EQ(test, acrtc->ism.next_record_idx, 1);
- 	}
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /**
-@@ -1452,7 +1453,7 @@ static void dm_test_ism_exit_from_sso_disallows_idle(struct kunit *test)
- 		KUNIT_EXPECT_EQ(test, acrtc->ism.next_record_idx, 1);
- 	}
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /**
-@@ -1496,7 +1497,7 @@ static void dm_test_ism_delayed_work_runs_timer_elapsed(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, dm_ism_test_idle.calls, 1);
- 	KUNIT_EXPECT_TRUE(test, adev->dm.dc->idle_optimizations_allowed);
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- /**
-@@ -1534,7 +1535,7 @@ static void dm_test_ism_sso_delayed_work_runs_sso_elapsed(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, dm_ism_test_idle.calls, 3);
- 	KUNIT_EXPECT_TRUE(test, adev->dm.dc->idle_optimizations_allowed);
- 
--	amdgpu_dm_ism_fini(&acrtc->ism);
-+	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
- static struct kunit_case dm_ism_test_cases[] = {
-@@ -1582,8 +1583,8 @@ static struct kunit_case dm_ism_test_cases[] = {
- 	KUNIT_CASE(dm_test_ism_idle_delay_entry_count_exceeds_history_size),
- 	/* amdgpu_dm_ism_init */
- 	KUNIT_CASE(dm_test_ism_init_sets_initial_state),
--	/* amdgpu_dm_ism_fini */
--	KUNIT_CASE(dm_test_ism_fini_after_init),
-+	/* amdgpu_dm_ism_flush */
-+	KUNIT_CASE(dm_test_ism_flush_after_init),
- 	/* dm_ism_set_last_idle_ts */
- 	KUNIT_CASE(dm_test_ism_set_last_idle_ts_updates_timestamp),
- 	/* dm_ism_insert_record */
+ void optc31_read_otg_state(struct timing_generator *optc,
+ 		struct dcn_otg_state *s);
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
+index 7250478a5092..f5faa49680ef 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.c
+@@ -247,6 +247,7 @@ static const struct timing_generator_funcs dcn314_tg_funcs = {
+ 		.setup_manual_trigger = optc2_setup_manual_trigger,
+ 		.get_hw_timing = optc1_get_hw_timing,
+ 		.init_odm = optc3_init_odm,
++		.is_odm_enabled = optc3_is_odm_enabled,
+ 		.set_odm_bypass = optc314_set_odm_bypass,
+ 		.set_odm_combine = optc314_set_odm_combine,
+ 		.set_h_timing_div_manual_mode = optc314_set_h_timing_div_manual_mode,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+index 897f857db448..406446e5eae5 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+@@ -614,6 +614,7 @@ static const struct timing_generator_funcs dcn35_tg_funcs = {
+ 		.setup_manual_trigger = optc2_setup_manual_trigger,
+ 		.get_hw_timing = optc1_get_hw_timing,
+ 		.init_odm = optc3_init_odm,
++		.is_odm_enabled = optc3_is_odm_enabled,
+ 		.set_long_vtotal = optc35_set_long_vtotal,
+ 		.is_two_pixels_per_container = optc1_is_two_pixels_per_container,
+ 		.read_otg_state = optc31_read_otg_state,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c
+index fd9c2b6b8b3c..1e4f2051d732 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c
+@@ -261,6 +261,7 @@ static struct timing_generator_funcs dcn42_tg_funcs = {
+ 		.setup_manual_trigger = optc2_setup_manual_trigger,
+ 		.get_hw_timing = optc1_get_hw_timing,
+ 		.init_odm = optc3_init_odm,
++		.is_odm_enabled = optc3_is_odm_enabled,
+ 		.set_long_vtotal = optc35_set_long_vtotal,
+ 		.is_two_pixels_per_container = optc1_is_two_pixels_per_container,
+ 		.get_optc_double_buffer_pending = optc3_get_optc_double_buffer_pending,
 -- 
 2.43.0
 
