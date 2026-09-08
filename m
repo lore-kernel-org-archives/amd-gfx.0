@@ -4,83 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C43BDC79FB9
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EE20C79FAA
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 06:56:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78DC510EF70;
-	Wed,  9 Sep 2026 06:56:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64AC610EF62;
+	Wed,  9 Sep 2026 06:56:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SMIRLe+F";
+	dkim=pass (2048-bit key; unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.b="Tp8/DpZr";
 	dkim-atps=neutral
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD30910ED53
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 18:57:08 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-5b76543681fso7355e87.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 11:57:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788893827; x=1789498627; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=dPAv9/DNHgYvkBswgfcYE+/SWcKiJRn1AWqpJM/JUGk=;
- b=SMIRLe+F3r4fG3ILlkjTWaww7qGwzhRc4F4ptLUeLX3S64rTL4Swe2EWSUw19E9RUa
- Du60UQFdO1v2vidV7ho953LCiPZ+p26Y9cur55ct4VxeHuiTZmSXQNe9jZ8hk9JO43lh
- YSN1KE63Qq7FyJhYASrc3FR2FWX0Yenc+yvcsRzDbSuTHjKY+YDt7rosaCuf0yi3x5kb
- kUyqHjP69pEN0OFIZMXvg+WPnVxr6SOpHjVlYJWmnFlZAJAGrsb4mlJR9HwzBMy3azCw
- +uMeElNELFMcgTAoTMQoi7AJuhWgQ+tbI7HPDcZcEa3jOJt80lMIyB7BpGCxTsGpJ+oJ
- B/uA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788893827; x=1789498627;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=dPAv9/DNHgYvkBswgfcYE+/SWcKiJRn1AWqpJM/JUGk=;
- b=BRREzf4eKBLwmoChRg98uFP8k9SLbWvrDhAB/qOBH8KXw+CAQFA3mnrf1GyaXShA4i
- ag5NrVs38A7kZQDEocu4pFMi/8YQBxsdbqI2GuxiB09wXKkC9QaW9YcedvxZ/6HiKnpV
- sTDU5f+VK5wPOunOWK9rJeVI2xPnAMzaVYHwqRsB3GKZBUELn8zkbHmisbcoGjCAxwZ5
- gMj6JyeWHumKGD8mM2b5N0zzMlxn5EX0eA+2FYE3QRLvwC9BAKUfVVcuFdCbmyNnhBe7
- xUEOll2GDsMVwaQlUy+0Tbc/OvgWmDEpeUkK5QMpfUfP4CZgQctlKRgHg9lIUUO2YS+h
- D/jw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwQ7oW0L2L9LByhm/yr7/ijP86ZOZE1sCRDLIKos4yX3pXPCupmycfD8sfUojX/SuC3l/YOgCdX@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l4r+94aO2UBvA2vIMjmSWjETN1PBTMUnMTtPhZzTLw26H+tnHK
- HTeR/SvArpFtfnXEcJy8qC+XmgeTY8e1uRsBhQUIWHhiMgMAOV2PKGXY
-X-Gm-Gg: AYBFou2kS4uZBiXtDUi84+7n75McMSOL5i8qukc7BcaqpuRbnfCOlLbaAvofk0l4NKo
- 91pjBpQCfFGfei+LqX46IQOh3FfF3pFZ0coqo+9VMN1lnPnG95DBaLhLdqfhom6BLcDlLDj66HE
- RJyJojrLkBphaCtbjy1F7mlVdWvpMtHGpF8CLaA022Wv+6vKtQQno8YRxaPdUd0CVJfcy+aObBC
- 0eBYT557FTlXd3pUAi3dhIXruzVchVVZm1WamX3AbzG/muOxvTzOnCcsXUYskjWvwZW9mjtC4VY
- JEBDjKVqhyHs1e47nsgw/rcefhLpsATc4+QrmUk+4RH8Rzfb1w+yXQeJqobfWUWBVD6z4+HvRXn
- TOx6gmxf4tBWw+RMAxnMWypp/Xj9cn510bvg3OH2cC6H4AzwivO4IiynlgSUgJ7YLy3+c4/AHGZ
- H2ej7E1DIsRllLrKA8FcNdPhc2GBLOX6RMLwztJJQET+FC9ro1iBwHY/0pVWz62R1sllAHFSIdV
- lPmC+U40l/ySw==
-X-Received: by 2002:a05:6512:ac2:b0:5b6:4b2:de82 with SMTP id
- 2adb3069b0e04-5b6170596d8mr4800979e87.32.1788893826465; 
- Tue, 08 Sep 2026 11:57:06 -0700 (PDT)
-Received: from localhost (soda.int.kasm.eu.
- [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b6166fe6d9sm3239335e87.56.2026.09.08.11.57.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 11:57:06 -0700 (PDT)
-Date: Tue, 8 Sep 2026 20:57:05 +0200
-From: Klara Modin <klarasmodin@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org, 
- rust-for-linux@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rust/drm/gem: initialize callbacks with
- ..pin_init::zeroed()
-Message-ID: <aqBX1siwtKuBTXBE@soda.int.kasm.eu>
-References: <20260908175427.47207-1-klarasmodin@gmail.com>
- <20260908180555.0830E1F00A3A@smtp.kernel.org>
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io
+ [149.72.141.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D694210E53B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 23:03:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+ h=from:subject:date:in-reply-to:references:mime-version:to:cc:
+ content-type:content-transfer-encoding:cc:content-type:date:from:subject:to;
+ s=s1; t=1788908617;
+ bh=UvAuWdRNhxBj0zIQCudhRLv5rmtQK2pKzB9otIfWB+I=;
+ b=Tp8/DpZrouDPj5p5W9hL6qnFC0t2gNV7V25Q/uWh5dsMHXp0BFTdIUm6z5//m4OWsycN
+ wvmVA2WxjpYTd5wJu0koV8NidGH6xamxqxA6tf3kZa7ei+l2Wy9Y6RYIttJMaBM29Ff9Jq
+ o9odSYAN4dtblVynT718T6vYx7xoPaH1s8mpmICadIHV7GQDEx9CZeCL9Rtmj3BuBS/W9T
+ TDvPZrJWAstqiTmEw38Pi8jVa30AoDvPYgb5nNKtB+4Q6+5XWFOzOWTqq1JETxbXbiUsaX
+ gDV+4dweWMWXIe/KdGChU0K+xs/qQPdnlonnkDya9Vk3PH1GGPfANFL+tBR8h79A==
+Received: by recvd-75688db57b-dswf8 with SMTP id
+ recvd-75688db57b-dswf8-1-6AA09449-12D
+ 2026-09-08 23:03:37.621995259 +0000 UTC m=+697365.363574854
+Received: from daisy.dens.ffj.family (unknown) by geopod-ismtpd-102 (SG)
+ with ESMTP id 8chTIw_2TIOU_JxuVrOLcw
+ Tue, 08 Sep 2026 23:03:37.406 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Subject: Re: [PATCH v4] PCI: Fix BAR resize for devices on a root bus
+Date: Tue, 08 Sep 2026 23:03:37 +0000 (UTC)
+Message-ID: <20260908230335.62766-1-lizf@honeycomb.io>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <8866d915-56d1-312b-ae68-b65021abd914@linux.intel.com>
+References: <8866d915-56d1-312b-ae68-b65021abd914@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-SG-EID: =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeSz1FDEY+=2Fil?=
+ =?us-ascii?Q?XfP63B3wHcxN57FkNN2flTO16G2tHBREDp1ByV9?=
+ =?us-ascii?Q?6wkjKG3MiIiHMwHVO7E4PGFvnjAFPVfRfnhGynp?=
+ =?us-ascii?Q?AJAGGbXCf9CVmgz24=2FPhFT6nlupJRnOhpBcvfuG?=
+ =?us-ascii?Q?SEgEUlK6POoJDd5H=2F0CH1xxG9+5+Ojp3Zxgt+hn?= =?us-ascii?Q?LqAX?=
+To: ilpo.jarvinen@linux.intel.com
+Cc: bhelgaas@google.com, bjorn.helgaas@gmail.com, helgaas@kernel.org,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, jon@solid-run.com, 
+ jon.nettleton@gmail.com, jacob.martin@canonical.com, stable@vger.kernel.org,
+ kwilczynski@kernel.org, regressions@leemhuis.info, lizf@honeycomb.io
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
+Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908180555.0830E1F00A3A@smtp.kernel.org>
 X-Mailman-Approved-At: Wed, 09 Sep 2026 06:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,82 +70,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-09-08 18:05:54 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Incomplete fix: missing `handle_free` field in conditionally compiled `shmem.rs`.
-> --
-> 
-> commit b5b83bb373847c99ca6d286c268d2e0ffab299f0
-> Author: Klara Modin <klarasmodin@gmail.com>
-> 
-> rust/drm/gem: initialize callbacks with ..pin_init::zeroed()
-> 
-> This commit updates the drm_gem_object_funcs struct initialization in the DRM
-> GEM module to use pin_init::zeroed() instead of explicitly assigning None to
-> unused callbacks. This fixes a build failure caused by a newly added callback
-> field in the C structure.
-> 
-> Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info
-> 
-> > diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-> > index e1ebad77ebe2a..c63b0fe5a15e1 100644
-> > --- a/rust/kernel/drm/gem/mod.rs
-> > +++ b/rust/kernel/drm/gem/mod.rs
-> > @@ -266,18 +266,8 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
-> >          free: Some(Self::free_callback),
-> >          open: Some(open_callback::<T>),
-> >          close: Some(close_callback::<T>),
-> > -        print_info: None,
-> > -        export: None,
-> > -        pin: None,
-> > -        unpin: None,
-> > -        get_sg_table: None,
-> > -        vmap: None,
-> > -        vunmap: None,
-> > -        mmap: None,
-> > -        status: None,
-> >          vm_ops: core::ptr::null_mut(),
-> > -        evict: None,
-> > -        rss: None,
-> > +        ..pin_init::zeroed()
-> >      };
-> 
-> [Severity: Medium]-
-> Does this commit miss a similar update in rust/kernel/drm/gem/shmem.rs?
-> 
-> The VTABLE initialization in shmem.rs explicitly lists fields without
-> using pin_init::zeroed(), similar to what was fixed here. When compiling
-> with CONFIG_RUST_DRM_GEM_SHMEM_HELPER=y, won't this cause a missing
-> field error for the newly added handle_free callback?
+On Ilpo Järvinen wrote:
+> Maybe this is what has to be done here, but I wonder if this could
+> use pci_bus_assign_resources()?
 
-Sure, but it should probably be a different patch in that case. The
-current patch fixes an issue to a currently existing build failure,
-while the issue mentioned here has not manifested yet.
+Good suggestion, and it brings the else condition of this code into
+alignment with your design goal that the core bookkeeping code should
+be used as much as possible. Implemented in v5 (note to reviewers, I
+am clearing reviewed-by as this is semantically different):
 
-Regards,
-Klara Modin
+  https://patch.msgid.link/20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io
 
-> 
-> rust/kernel/drm/gem/shmem.rs:
->     const VTABLE: bindings::drm_gem_object_funcs = bindings::drm_gem_object_funcs {
->         free: Some(Self::free_callback),
->         open: Some(super::open_callback::<T>),
->         close: Some(super::close_callback::<T>),
->         print_info: Some(bindings::drm_gem_shmem_object_print_info),
->         export: None,
->         pin: Some(bindings::drm_gem_shmem_object_pin),
->         unpin: Some(bindings::drm_gem_shmem_object_unpin),
->         get_sg_table: Some(bindings::drm_gem_shmem_object_get_sg_table),
->         vmap: Some(bindings::drm_gem_shmem_object_vmap),
->         vunmap: Some(bindings::drm_gem_shmem_object_vunmap),
->         mmap: Some(bindings::drm_gem_shmem_object_mmap),
->         status: None,
->         rss: None,
->         #[allow(unused_unsafe, reason = "Safe since Rust 1.82.0")]
->         // SAFETY: drm_gem_shmem_vm_ops is a valid, static const on the C side.
->         vm_ops: unsafe { &raw const bindings::drm_gem_shmem_vm_ops },
->         evict: None,
->     };
-> 
-> -- 
-> Sashiko AI review Â· https://sashiko.dev/#/patchset/20260908175427.47207-1-klarasmodin@gmail.com?part=1
