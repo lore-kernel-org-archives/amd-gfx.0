@@ -4,64 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A870C79FA1
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:37:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2968AC79FAD
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 11:37:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2CC10EB48;
-	Tue,  8 Sep 2026 11:37:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B54BE10EB4B;
+	Tue,  8 Sep 2026 11:37:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1CxAYsOd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mxKrJYwu";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010035.outbound.protection.outlook.com [52.101.85.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3167710EB48
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:36:59 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013016.outbound.protection.outlook.com
+ [40.93.201.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14BC410EB5C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 11:37:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ydnhflwyhtKc3moz6PQlohSrTmTJg6pssbA3dGAj/wJkqLFKWQ5Cyq+haIwc4YNk4AEyy1AURCukjot0hD/dEOmg5J9R6jB9EBGe7CHN0i1Caq+s4ek48fyOJ6Ad7JKLPIiBB4Ud9FptWLnfKlqWYq5Gz+/MJm4KdSBUEowuTebcp1DiRFuUJj0LNSkUIVa/60mf2KwNR1Jqvn3vwTFMeXJT9gC38940pQIYyfmpBsKnpGm5nCSvTfiUQEc4sOol6sTWp/3B0FgCPQqqaQURnJw7V3O4aE0+yS6FUVACg/RS0LnX9x4mAWao3Nl4O/Lq5Wgu8bt3C/7WedqiEcdW3w==
+ b=u1B1qiEeXrhUct3lMyWbz/Nk18bUItTMnGLa76c0YbTQ4MNMxPb9+KRYLTwAXSQjGpdo9ZVCn9T+BpfNwqffsDfKW3XSeiZqmhusVd6yMNgMbTWWssGDvU6CrZXaOiV6pKHAx3a6BuUjhUcs996al0HAS/1aGi/uF8PsOVL/bcPbSOnOWerL5Ji8eWyicXvdR6SNoIZ7gDUCjbGVckv/H3PVH8IJ1S//NDu5LmRbJA5+H1/0Ymqf7AqRAEWTwTSy43O+m9BxYUKru/Zrgi/P6GcKKcq0UU0orebh+TcEGMJGEAgBBJf+9pExw595Fi3BIW9upVnzh8WQxiGvSGK9iQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4X+2l3btByIEDNvvMaOep00dBZcEr9zhv62mju1uKpU=;
- b=ETFYSI3duilaI2ObwkrK7YS/pnSYnJ74DIqMtmxcEbHT0uwSsMUoeZGI5YPke/X+lOer/RFhM6jAq/ZqQ52Z6VrcDEPa/m2NEuNPIFF5Wohutm1YmEunljzy03X49aoufd12cJy8cCish4x3A12gQIEy2zC6vjyfAPR0unvc6QFhHlRGAvHhw3ZgLWnuXtAdjZjdhFHZJVIFSmaJLXNRDzrx01v/tc8r4SB7SHOXQiiLhEl+AUsEc5ZD5JVUUXRdr26Wf9VGOd06rb9KhQXPYtiFbsbTzkchaZusIjjRaoxDAm+M/AY+r+Ev0Ye/VS6cXsruprskjSmUmvDKS6GQ9A==
+ bh=X+BVILtJedZyv63V+xHntPfE0nfj94r8SGYMIN0IXOc=;
+ b=kO5mwJ3VGxxmDp/UxtFJg3UuSmY6fqOfyXFKgQNFLTPB1eYLpjCHtKP1KAdwyu+3X7lXC11OZrRsxJPk2zbhx3+8NdEYVlV6c44sSCZ2pu/UT+ei3Ra0ud4+Ff+2PlaDtCOMz3QDbgb0sMne65moh4D2Q8CZN9UzIUrii8cQlBZXmJNai2E5+IUUfxATg6TlzrQseeY9poqYNFjDT5pBemnHggO/SWFszWzvfOIjy+WZuFJAKJGfW/3AuZV6s1qbMVSXItFLVtyIzg6V2iGRsWoNCEkuduBYj+5am9OE+zXrz3XslcazMpgUKHemVguegH6YWlCvZdp4QMshZjP8Yg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4X+2l3btByIEDNvvMaOep00dBZcEr9zhv62mju1uKpU=;
- b=1CxAYsOdrphM4BRY1iOBc8QBtxas3rWe0gNxmDIqGm0QW7r4NwRyXSRg+LFpT2d8Hdk6f3PqrsRHHd0wBJcIl2aUGxYTytdnQOWHcKUFPYt1kkzhd4T9BcFer1rjSjadubboMvlbFCamJyY3NEIS7a2DYBmYlOlMJfHmNplgGIM=
-Received: from MN2PR18CA0021.namprd18.prod.outlook.com (2603:10b6:208:23c::26)
- by CH1PR12MB9576.namprd12.prod.outlook.com (2603:10b6:610:2ad::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=X+BVILtJedZyv63V+xHntPfE0nfj94r8SGYMIN0IXOc=;
+ b=mxKrJYwuRWNLQ7ZpFH1jX44MzXLOIVqbG287naImqCLeKk385BGPLpSJLkuPOqvcNkltls8t5o16xG+jlEXhu6rrNE9rGJpOGQwgmG1+yqQ0pxOcyYpZfciRIb0lv5PVNrA75y2q8Qu2DHPfOG1CZRyixhDDYQ0AZxZTkvXr+90=
+Received: from MW4PR03CA0242.namprd03.prod.outlook.com (2603:10b6:303:b4::7)
+ by PH0PR12MB7011.namprd12.prod.outlook.com (2603:10b6:510:21c::15) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 11:36:54 +0000
-Received: from BN2PEPF0000A892.namprd04.prod.outlook.com
- (2603:10b6:208:23c:cafe::18) by MN2PR18CA0021.outlook.office365.com
- (2603:10b6:208:23c::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 11:36:54 +0000
+ 11:37:10 +0000
+Received: from SJ1PEPF00002327.namprd03.prod.outlook.com
+ (2603:10b6:303:b4:cafe::a) by MW4PR03CA0242.outlook.office365.com
+ (2603:10b6:303:b4::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Tue, 8
+ Sep 2026 11:37:09 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A892.mail.protection.outlook.com (10.167.248.184) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00002327.mail.protection.outlook.com (10.167.242.90) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:36:54 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:37:09 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:36:53 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 06:36:53 -0500
+ 2026 06:37:02 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 8 Sep 2026 06:36:44 -0500
+ Transport; Tue, 8 Sep 2026 06:36:53 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,11 +67,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, Chenyu
- Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 21/66] drm/amd/display: Test MST connector creation
-Date: Tue, 8 Sep 2026 19:31:14 +0800
-Message-ID: <20260908113338.2433445-22-chen-yu.chen@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ "Chenyu Chen" <chen-yu.chen@amd.com>
+Subject: [PATCH 22/66] drm/amd/display: Test link bandwidth readback
+Date: Tue, 8 Sep 2026 19:31:15 +0800
+Message-ID: <20260908113338.2433445-23-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908113338.2433445-1-chen-yu.chen@amd.com>
 References: <20260908113338.2433445-1-chen-yu.chen@amd.com>
@@ -83,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A892:EE_|CH1PR12MB9576:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c186a65-3186-4e66-5a26-08df0d9d7b5e
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002327:EE_|PH0PR12MB7011:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa30ddb4-d950-4db2-201d-08df0d9d847d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|1800799024|36860700016|6133799003|3023799007|10067099003|56012099006|11063799006|5023799004|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: JQx8N/5HoFHEtUh6fEANM6O9aMil33aDBn74ZRhJrVX5FWAK0NADuZjqMVtUTBrY4uqezQid+l+CpiTPROJgpLg0vyXtqjIm0J/GaBt6GpAhIgUtjJPcnfEKd+gfqiyEottaK+dE0H7oTcGb/GFvnTxStgMkefWRKcNbMBtsIJfNPNCgwryXujDMc1rf5lT5On+TNcmdso5CmxyJZ+yWGMapG/TR9l+AQG/QLBJgEvLhxcxJCKhX7D/wy38jLRu220YAtrZqIVCxgVANFbmMn9/yrEYt6qFk49JsYIfoliP6MA3MrLMcjN0mv/YrRRpNRPEwFzuh8qshyh0DWE4r0MbeSJBB776e5L0u2cn2BtSAUhYuXkPuRbxot0F+mcTYbPGLuhV+rR+1grX9NsZ0BPUQXJr8V3xVF4wVTsCjuQJao3cRm7OzQvUKcY0w9fZ3rFRFuQNoG6eLW/7ivawVN24uKXH375H3s745qGAWYt28bS+VyYHcbRCGKawafxsOx513NUCEJJjOPvsjDSR7BAH6MVF8zdkbMhM5xcYYWyrZ+c2rKL6PcYwtcnGy3vwi0DqpxPFSeIJVwpVniRbqHlm7JqQFuGaR84PEGgtCTd3UL4CoNNe1k3Et0FfZNdp9kMfJsKgTFF9p/bzCcRBBFo1pOe/PNKxyDyzVrjNpqXxnG8+gajj0cOfXM0jrAF7HoNev2vcY9VecZR+xVPAfiA==
+ ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|6133799003|18002099003|22082099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: CLwAkmlSZLhfUA5PxDl2CMWJf8rw/n27+VWYbZ20EsTH4ZrXrGx0+O80/cg/xRTb8inkLwNQ8F1WVKeLfu1SV0ZLLhHgnBdnGrQMd+TBUWRtVxd278MHdwzOm/7iIblEP/r8K8Rg/VlErJAsLJN7Z66JOfTZervAE4rTl5p5eumFeplQKNCh3eN6wp4QuK0KmdMm6I9y1yxx3+ok9TfdLtA/WIkANRJpy6qXwnPUyPTXOOS414e2MdPX7kE5El9uDedPw8BOkj7OhefYD2cwjEJnvnpbYUFrYMcebY3Oxylv47ZTm616LDTYx7iXOOb8aUf1GikcUjnvxpyz21goUXGehf8Nv36hdftluJm+oQ1PSqOCTgflYxE6zhTmBK61gym7iqfKf6Tl2Yaxk0sSjrDHaOG4feIy6BXVK//ilrOObXfQlBC/Y2TsHlG/AiaE1v8j6uhqf4695LBkwyGE0QmXASo9eOXdy7idynvZr+imzRi8h0d/fEq3BArduzMdcSNXZWW7C3JLSLlvFQjTOp58O1xogVIPcKcqsxOcVTio4HN6D2vyOrteBJ5hvv2OBTPWH2Oj0T3IBriaBNldF/bZmUBUSsNAr+hH9yGzYPYwj/Ui51gwUPn67Y0qe4F45G3aL3hARppJAwAULF1rD8iwJ1wbQoGG0Q+p1CKwF6391Rqp+er9iPfiaS63orEDDpfe1Xx1kA4GTcTuxBuYVA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(1800799024)(36860700016)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(5023799004)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0AW541DyB56OSG8IMw4Ne56tSFVPD3ZOqvnNwk2+kbQ5z+azptKgp9oA1EG0SFOW1OJ1XCFKR2trV2d/QaRV7qKIUyngkwbfgnJhoMmH8V4ibB5fS3hD1E7/GTvqj4ZbQQeTnNFWjJS+rnpCy9bQKpRaXkpPOJHC2+A4HICG21X8auF6jlsvM7dTkjpOTCsiaprkBLDDD7bQZIckQpJjodyerqO5FTXEHBlB4fJZ5yxqldpLDSp6GOMQ0UrPfAErXwKCggXK0nnGUHcQ3KWRGFT/aTZ13M10eEerf2tr2ZTLiRu98Od3PWSRYsK60GYQ1+4T/BE0iDVoGCv/B3X59HBSHgav6IWxBuKYFpGQEADWH5OCtpSDA8qYrn5SappOygebJ1H7nkGK7f2aHesVa0m6zaTfE6J99ngigRGE25LzzLA63VdRFmox0kLl3515
+X-MS-Exchange-AntiSpam-MessageData-0: ecBLelyULK5+M041P+d/fYFJXyzHnSv2uiod8vpUAPSLahwmFpXeusRJOvyeOlgXNzLTcMDNjiAvbLE3YULKC2tOYlIjPvnRrHYSGJqvrC229MR5+0IZhbmmHBtsdMVTqhfCLcSa3wIdDMoaXXOxkjXh61up3Pjd1TVAGKuy+RG2sECkaV3edqEbVAQk88Gysu5UA8LANE9FmuqH3/glr1EO14oioDVI6Z3UqlWocEKEzT7Oj/c/8jAphlJWLEbr+hv34+pgcsl3zssyHlqTWDoZBtA4PAKykFGKiJDQl0qptWQpEFVR+08huSC3brttk/YVxYLuQM88GR0wjgDNyQgiokWN2BjYegxJ0PP+w6ShzUwKLtVhdHCaeQ8BrYasR+mFC4IyiYebEiQIJ/SThdH0SPemVFp83AHVsK3DYWpi9cV3OEPt1iIk+JAI7mNM
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:36:54.0271 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c186a65-3186-4e66-5a26-08df0d9d7b5e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:37:09.3025 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa30ddb4-d950-4db2-201d-08df0d9d847d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A892.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002327.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9576
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7011
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,17 +120,16 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-Add KUnit tests for dm_dp_add_mst_connector() covering successful
-connector creation, inheritance of the master connector properties and
-the connector init failure path.
+Add KUnit tests for dp_get_link_current_set_bw() covering every link
+rate the helper knows about, the unknown rate fallback and the DPCD
+read error path.
 
 [HOW]
-Set up an MST topology manager owned by a master amdgpu_dm_connector
-plus the mode properties the helper attaches, then add a port and check
-the resulting connector, its property values and the encoder links. The
-failure path is driven by a mode config without the connector functions
-required by drm_connector_init(), and the port reference count is
-checked to confirm the error unwind releases it.
+Add a DPCD backing store for the DSC helpers that is addressed
+absolutely, because they read offsets spread across the whole map. A
+table driven test then programs the link rate and lane count into the
+fake DPCD and checks the returned bandwidth, with one entry arming the
+AUX transfer to fail.
 
 Assisted-by: Copilot:Claude-Opus-5
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
@@ -141,280 +137,189 @@ Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   3 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |   4 +
- .../tests/amdgpu_dm_mst_types_test.c          | 202 ++++++++++++++++++
- 3 files changed, 208 insertions(+), 1 deletion(-)
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |   2 +
+ .../tests/amdgpu_dm_mst_types_test.c          | 120 ++++++++++++++++++
+ 3 files changed, 124 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index aad8fff2cd6f..f857303fe386 100644
+index f857303fe386..e8f4ca7e1f2a 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -660,7 +660,7 @@ dm_dp_create_fake_mst_encoders(struct amdgpu_device *adev)
+@@ -1930,7 +1930,7 @@ static bool is_dsc_common_config_possible(struct dc_stream_state *stream,
+ #endif
+ 
+ #if defined(CONFIG_DRM_AMD_DC_FP) || IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
+-static bool dp_get_link_current_set_bw(struct drm_dp_aux *aux, uint32_t *cur_link_bw)
++STATIC_IFN_KUNIT bool dp_get_link_current_set_bw(struct drm_dp_aux *aux, uint32_t *cur_link_bw)
+ {
+ 	uint32_t total_data_bw_efficiency_x10000 = 0;
+ 	uint32_t link_rate_per_lane_kbps = 0;
+@@ -1985,6 +1985,7 @@ static bool dp_get_link_current_set_bw(struct drm_dp_aux *aux, uint32_t *cur_lin
+ 	*cur_link_bw = link_rate_per_lane_kbps * lane_count.bits.LANE_COUNT_SET / 10000 * total_data_bw_efficiency_x10000;
+ 	return true;
  }
- EXPORT_IF_KUNIT(dm_dp_create_fake_mst_encoders);
++EXPORT_IF_KUNIT(dp_get_link_current_set_bw);
+ #endif
  
--static struct drm_connector *
-+STATIC_IFN_KUNIT struct drm_connector *
- dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
- 			struct drm_dp_mst_port *port,
- 			const char *pathprop)
-@@ -742,6 +742,7 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
- 
- 	return connector;
- }
-+EXPORT_IF_KUNIT(dm_dp_add_mst_connector);
- 
- /*
-  * Select the ESI[1] mask used to filter the MST sideband ready bits for a
+ enum dc_status dm_dp_mst_is_port_support_mode(
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-index 50dca0ef98fe..0e6189219eb2 100644
+index 0e6189219eb2..4af3aac31223 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
 @@ -65,6 +65,7 @@ struct dc_state;
  struct dc_stream_state;
  struct dm_atomic_state;
  struct drm_atomic_commit;
-+struct drm_dp_mst_port;
++struct drm_dp_aux;
+ struct drm_dp_mst_port;
  struct drm_dp_mst_topology_mgr;
  
- uint32_t dm_mst_get_pbn_divider(struct dc_link *link);
-@@ -119,6 +120,9 @@ int dm_dp_mst_atomic_check(struct drm_connector *connector,
- int dm_dp_mst_detect(struct drm_connector *connector,
- 			     struct drm_modeset_acquire_ctx *ctx, bool force);
- int dm_dp_mst_get_modes(struct drm_connector *connector);
-+struct drm_connector *dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
-+					      struct drm_dp_mst_port *port,
-+					      const char *pathprop);
- int amdgpu_dm_mst_connector_late_register(struct drm_connector *connector);
- void amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector);
- void dm_dp_mst_connector_destroy(struct drm_connector *connector);
+@@ -104,6 +105,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 
+ #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
+ void amdgpu_dm_mst_reset_mst_connector_setting(struct amdgpu_dm_connector *aconnector);
++bool dp_get_link_current_set_bw(struct drm_dp_aux *aux, uint32_t *cur_link_bw);
+ bool retrieve_downstream_port_device(struct amdgpu_dm_connector *aconnector);
+ bool retrieve_branch_specific_data(struct amdgpu_dm_connector *aconnector);
+ ssize_t dm_dp_aux_transfer_result(ssize_t result,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-index af2dd5b8e79d..f2bae3a50941 100644
+index f2bae3a50941..58a4bbb31e79 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-@@ -15,6 +15,7 @@
- #include <drm/drm_connector.h>
- #include <drm/drm_mode_config.h>
- #include <drm/drm_modeset_lock.h>
-+#include <drm/drm_property.h>
- #include <drm/display/drm_dp.h>
- #include <drm/display/drm_dp_helper.h>
- #include <drm/display/drm_dp_mst_helper.h>
-@@ -1297,6 +1298,203 @@ static void dm_mst_test_create_fake_mst_encoders(struct kunit *test)
- 	}
+@@ -2276,6 +2276,124 @@ static void dm_mst_test_sideband_msg_ready_ack_write_fails(struct kunit *test)
+ 	dm_mst_test_free_armed_sideband_connector(aconnector);
  }
  
-+/* Tests for dm_dp_add_mst_connector */
++/*
++ * Fake DPCD backing store for the DSC helpers. Unlike the sideband fake above
++ * it is addressed absolutely, because these helpers read offsets spread across
++ * the whole map (0x60 DSC caps, 0x100 link settings, 0x500 branch descriptor).
++ */
++#define DM_MST_TEST_DSC_DPCD_SIZE 0x600
 +
-+struct dm_mst_test_add_ctx {
-+	struct amdgpu_device *adev;
-+	struct amdgpu_dm_connector *master;
-+	struct drm_dp_mst_port *port;
-+	struct dc_link *link;
++static u8 dm_mst_test_dsc_dpcd[DM_MST_TEST_DSC_DPCD_SIZE];
++static struct drm_dp_aux *dm_mst_test_dsc_aux_fail;
++
++static ssize_t dm_mst_test_dsc_aux_transfer(struct drm_dp_aux *aux,
++					    struct drm_dp_aux_msg *msg)
++{
++	size_t i;
++
++	if (aux == dm_mst_test_dsc_aux_fail)
++		return -EIO;
++
++	if (msg->address + msg->size > DM_MST_TEST_DSC_DPCD_SIZE)
++		return -EINVAL;
++
++	msg->reply = DP_AUX_NATIVE_REPLY_ACK;
++
++	if ((msg->request & ~DP_AUX_I2C_MOT) == DP_AUX_NATIVE_WRITE)
++		return msg->size;
++
++	for (i = 0; i < msg->size; i++)
++		((u8 *)msg->buffer)[i] = dm_mst_test_dsc_dpcd[msg->address + i];
++
++	return msg->size;
++}
++
++/* Clears the shared store; call once per test before initialising any AUX. */
++static void dm_mst_test_reset_dsc_dpcd(void)
++{
++	memset(dm_mst_test_dsc_dpcd, 0, sizeof(dm_mst_test_dsc_dpcd));
++	dm_mst_test_dsc_aux_fail = NULL;
++}
++
++static void dm_mst_test_init_dsc_aux(struct drm_dp_aux *aux, const char *name)
++{
++	aux->name = name;
++	aux->transfer = dm_mst_test_dsc_aux_transfer;
++	drm_dp_aux_init(aux);
++	drm_dp_dpcd_set_probe(aux, false);
++}
++
++static struct drm_dp_aux *dm_mst_test_alloc_dsc_aux(struct kunit *test, const char *name)
++{
++	struct drm_dp_aux *aux = kunit_kzalloc(test, sizeof(*aux), GFP_KERNEL);
++
++	KUNIT_ASSERT_NOT_NULL(test, aux);
++	dm_mst_test_init_dsc_aux(aux, name);
++
++	return aux;
++}
++
++/* Tests for dp_get_link_current_set_bw */
++
++/*
++ * Program DPCD 0x100..0x10f, the 16-byte window the helper reads in one go.
++ * @coding is the raw DP_MAIN_LINK_CHANNEL_CODING_SET byte at 0x108.
++ */
++static void dm_mst_test_set_link_settings(u8 link_bw_set, u8 lane_count, u8 coding)
++{
++	dm_mst_test_dsc_dpcd[DP_LINK_BW_SET] = link_bw_set;
++	dm_mst_test_dsc_dpcd[DP_LANE_COUNT_SET] = lane_count;
++	dm_mst_test_dsc_dpcd[DP_MAIN_LINK_CHANNEL_CODING_SET] = coding;
++}
++
++struct dm_mst_link_bw_param {
++	const char *name;
++	u8 link_bw_set;
++	u8 lane_count;
++	u8 coding;
++	bool aux_fails;
++	bool supported;
++	uint32_t cur_link_bw;
 +};
 +
-+/*
-+ * Stand in for amdgpu_display_modeset_create_props(), which the test module
-+ * cannot link against. Only the properties amdgpu_dm_connector_init_helper()
-+ * attaches are created.
-+ */
-+static void dm_mst_test_create_mode_props(struct kunit *test, struct amdgpu_device *adev)
-+{
-+	struct amdgpu_mode_info *mode_info = &adev->mode_info;
-+	struct drm_device *drm = adev_to_drm(adev);
++static const struct dm_mst_link_bw_param dm_mst_link_bw_params[] = {
++	{ "hbr2_8b_10b", DP_LINK_BW_5_4, 4, DP_8b_10b_ENCODING, false, true, 16761600 },
++	{ "uhbr10", DP_LINK_BW_10, 4, DP_128b_132b_ENCODING, false, true, 38564000 },
++	{ "uhbr13_5", DP_LINK_BW_13_5, 4, DP_128b_132b_ENCODING, false, true, 52061400 },
++	{ "uhbr20", DP_LINK_BW_20, 4, DP_128b_132b_ENCODING, false, true, 77128000 },
++	{ "unlisted_uhbr_rate", 0x1e, 4, DP_128b_132b_ENCODING, false, false, 0 },
++	{ "unknown_encoding", DP_LINK_BW_5_4, 4, DP_UNKNOWN_ENCODING, false, false, 0 },
++	{ "dpcd_read_error", DP_LINK_BW_5_4, 4, DP_8b_10b_ENCODING, true, false, 0 },
++};
 +
-+	KUNIT_ASSERT_EQ(test, drm_mode_create_scaling_mode_property(drm), 0);
-+
-+	mode_info->underscan_property =
-+		drm_property_create_range(drm, 0, "underscan", 0, 1);
-+	mode_info->underscan_hborder_property =
-+		drm_property_create_range(drm, 0, "underscan hborder", 0, 128);
-+	mode_info->underscan_vborder_property =
-+		drm_property_create_range(drm, 0, "underscan vborder", 0, 128);
-+	KUNIT_ASSERT_NOT_NULL(test, mode_info->underscan_property);
-+	KUNIT_ASSERT_NOT_NULL(test, mode_info->underscan_hborder_property);
-+	KUNIT_ASSERT_NOT_NULL(test, mode_info->underscan_vborder_property);
-+}
-+
-+/*
-+ * Build the MST root connector and the topology port the new downstream
-+ * connector hangs off. The port has no parent branch so the callback takes the
-+ * "no branch descriptor" path without needing a sideband AUX backend.
-+ */
-+static void dm_mst_test_init_add_ctx(struct kunit *test, struct dm_mst_test_add_ctx *ctx)
-+{
-+	struct amdgpu_device *adev;
-+	struct drm_device *drm;
-+	int ret;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	drm = &adev->ddev;
-+	ret = drmm_mode_config_init(drm);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	dm_mst_test_create_mode_props(test, adev);
-+
-+	adev->dm.adev = adev;
-+	adev->dm.ddev = drm;
-+	adev->dm.display_indexes_num = 2;
-+	adev->mode_info.num_crtc = 2;
-+	dm_dp_create_fake_mst_encoders(adev);
-+
-+	ctx->adev = adev;
-+	ctx->link = dm_kunit_alloc_link(test);
-+	/* Inflexible DIG mapping lets link_enc_cfg_get_link_enc() skip the dc lookup. */
-+	ctx->link->link_enc = kunit_kzalloc(test, sizeof(*ctx->link->link_enc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->link->link_enc);
-+
-+	ctx->master = dm_kunit_alloc_connector(test, adev, ctx->link);
-+	ctx->master->connector_id = 5;
-+	ret = drm_connector_init(drm, &ctx->master->base, &dm_mst_test_connector_funcs,
-+				 DRM_MODE_CONNECTOR_DisplayPort);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ctx->port = kunit_kzalloc(test, sizeof(*ctx->port), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->port);
-+	kref_init(&ctx->port->malloc_kref);
-+	ctx->port->mgr = &ctx->master->mst_mgr;
-+}
-+
-+/* True when @prop is attached to the connector's mode object. */
-+static bool dm_mst_test_has_prop(struct drm_connector *connector, struct drm_property *prop)
-+{
-+	struct drm_object_properties *props = connector->base.properties;
-+	int i;
-+
-+	if (!prop)
-+		return false;
-+
-+	for (i = 0; i < props->count; i++)
-+		if (props->properties[i] == prop)
-+			return true;
-+
-+	return false;
-+}
++KUNIT_ARRAY_PARAM_DESC(dm_mst_link_bw, dm_mst_link_bw_params, name);
 +
 +/**
-+ * dm_mst_test_add_mst_connector_creates - Test downstream connector creation
++ * dm_mst_test_link_current_set_bw - the current link settings are priced
 + * @test: KUnit test context
 + *
-+ * The topology callback must allocate a DisplayPort connector bound to the port
-+ * and the root connector, inherit the root's dc_link and connector id, attach
-+ * every fake MST encoder, publish the path property and take a malloc
-+ * reference on the port.
++ * For 8b/10b the raw DP_LINK_BW_SET byte is the link rate in 27MHz units, so
++ * HBR2 (0x14) yields 20 * 27000 * 10 kbps per lane scaled by the 80% data
++ * efficiency and the 97% FEC efficiency. For 128b/132b the byte instead
++ * selects a UHBR rate scaled by its own efficiency. An unlisted UHBR rate, an
++ * unknown channel coding and a short DPCD read all report no bandwidth.
 + */
-+static void dm_mst_test_add_mst_connector_creates(struct kunit *test)
++static void dm_mst_test_link_current_set_bw(struct kunit *test)
 +{
-+	struct amdgpu_dm_connector *aconnector;
-+	struct dm_mst_test_add_ctx ctx;
-+	struct drm_connector *connector;
++	const struct dm_mst_link_bw_param *param = test->param_value;
++	uint32_t cur_link_bw = 0xdeadbeef;
++	struct drm_dp_aux *aux;
 +
-+	dm_mst_test_init_add_ctx(test, &ctx);
++	dm_mst_test_reset_dsc_dpcd();
++	aux = dm_mst_test_alloc_dsc_aux(test, "dm_mst_test_link_bw_aux");
++	dm_mst_test_set_link_settings(param->link_bw_set, param->lane_count, param->coding);
++	if (param->aux_fails)
++		dm_mst_test_dsc_aux_fail = aux;
 +
-+	connector = dm_dp_add_mst_connector(&ctx.master->mst_mgr, ctx.port, "1-3");
-+	KUNIT_ASSERT_NOT_NULL(test, connector);
-+
-+	aconnector = to_amdgpu_dm_connector(connector);
-+	KUNIT_EXPECT_PTR_EQ(test, aconnector->mst_output_port, ctx.port);
-+	KUNIT_EXPECT_PTR_EQ(test, aconnector->mst_root, ctx.master);
-+	KUNIT_EXPECT_PTR_EQ(test, aconnector->dc_link, ctx.link);
-+	KUNIT_EXPECT_EQ(test, aconnector->connector_id, 5);
-+	KUNIT_EXPECT_TRUE(test, aconnector->mst_status & MST_PROBE);
-+	KUNIT_EXPECT_EQ(test, aconnector->branch_ieee_oui, 0U);
-+	KUNIT_EXPECT_EQ(test, connector->connector_type, DRM_MODE_CONNECTOR_DisplayPort);
-+	KUNIT_EXPECT_EQ(test, connector->possible_encoders, 0x3U);
-+	KUNIT_EXPECT_NOT_NULL(test, connector->state);
-+	KUNIT_EXPECT_NOT_NULL(test, connector->path_blob_ptr);
-+	KUNIT_EXPECT_EQ(test, kref_read(&ctx.port->malloc_kref), 2U);
-+	KUNIT_EXPECT_TRUE(test,
-+			  dm_mst_test_has_prop(connector,
-+					       ctx.adev->ddev.mode_config.path_property));
-+	KUNIT_EXPECT_TRUE(test,
-+			  dm_mst_test_has_prop(connector,
-+					       ctx.adev->ddev.mode_config.tile_property));
-+
-+	dm_dp_mst_connector_destroy(connector);
++	KUNIT_EXPECT_EQ(test, dp_get_link_current_set_bw(aux, &cur_link_bw), param->supported);
++	KUNIT_EXPECT_EQ(test, cur_link_bw, param->cur_link_bw);
 +}
 +
-+/**
-+ * dm_mst_test_add_mst_connector_inherits_props - Test optional property sharing
-+ * @test: KUnit test context
-+ *
-+ * Max bpc, VRR capable and colorspace properties are only attached to the new
-+ * connector when the root connector already owns them, so the downstream
-+ * connector shares the root's property objects.
-+ */
-+static void dm_mst_test_add_mst_connector_inherits_props(struct kunit *test)
-+{
-+	struct dm_mst_test_add_ctx ctx;
-+	struct drm_connector *connector;
-+	struct drm_device *drm;
-+
-+	dm_mst_test_init_add_ctx(test, &ctx);
-+	drm = &ctx.adev->ddev;
-+
-+	ctx.master->base.max_bpc_property =
-+		drm_property_create_range(drm, 0, "max bpc", 8, 16);
-+	ctx.master->base.vrr_capable_property =
-+		drm_property_create_bool(drm, DRM_MODE_PROP_IMMUTABLE, "vrr_capable");
-+	KUNIT_ASSERT_NOT_NULL(test, ctx.master->base.max_bpc_property);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx.master->base.vrr_capable_property);
-+	KUNIT_ASSERT_EQ(test, drm_mode_create_dp_colorspace_property(&ctx.master->base, 0), 0);
-+
-+	connector = dm_dp_add_mst_connector(&ctx.master->mst_mgr, ctx.port, "1-4");
-+	KUNIT_ASSERT_NOT_NULL(test, connector);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, connector->max_bpc_property, ctx.master->base.max_bpc_property);
-+	KUNIT_EXPECT_PTR_EQ(test, connector->vrr_capable_property,
-+			    ctx.master->base.vrr_capable_property);
-+	KUNIT_EXPECT_PTR_EQ(test, connector->colorspace_property,
-+			    ctx.master->base.colorspace_property);
-+	KUNIT_EXPECT_TRUE(test, dm_mst_test_has_prop(connector, connector->max_bpc_property));
-+	KUNIT_EXPECT_TRUE(test, dm_mst_test_has_prop(connector, connector->colorspace_property));
-+
-+	dm_dp_mst_connector_destroy(connector);
-+}
-+
-+/**
-+ * dm_mst_test_add_mst_connector_init_fails - Test the connector init failure path
-+ * @test: KUnit test context
-+ *
-+ * Exhausting the device connector index space makes drm_connector_dynamic_init()
-+ * fail, so the callback must free the connector it allocated, leave the port
-+ * malloc reference untouched and report no connector to the MST helpers.
-+ */
-+static void dm_mst_test_add_mst_connector_init_fails(struct kunit *test)
-+{
-+	struct dm_mst_test_add_ctx ctx;
-+	struct drm_device *drm;
-+	int id;
-+
-+	dm_mst_test_init_add_ctx(test, &ctx);
-+	drm = &ctx.adev->ddev;
-+
-+	/* drm_connector_init_only() takes an index out of the same [0, 31] space. */
-+	do {
-+		id = ida_alloc_max(&drm->mode_config.connector_ida, 31, GFP_KERNEL);
-+	} while (id >= 0);
-+	KUNIT_ASSERT_EQ(test, id, -ENOSPC);
-+
-+	KUNIT_EXPECT_NULL(test, dm_dp_add_mst_connector(&ctx.master->mst_mgr, ctx.port, "1-5"));
-+	KUNIT_EXPECT_EQ(test, kref_read(&ctx.port->malloc_kref), 1U);
-+}
-+
- /**
-  * dm_mst_test_atomic_check_no_old_crtc - Test atomic check no-op path
-  * @test: KUnit test context
-@@ -2134,6 +2332,10 @@ static struct kunit_case dm_mst_types_test_cases[] = {
- 	KUNIT_CASE(dm_mst_test_atomic_best_encoder),
- 	/* dm_dp_create_fake_mst_encoders tests */
- 	KUNIT_CASE(dm_mst_test_create_fake_mst_encoders),
-+	/* dm_dp_add_mst_connector tests */
-+	KUNIT_CASE(dm_mst_test_add_mst_connector_creates),
-+	KUNIT_CASE(dm_mst_test_add_mst_connector_inherits_props),
-+	KUNIT_CASE(dm_mst_test_add_mst_connector_init_fails),
- 	/* dm_dp_mst_atomic_check tests */
- 	KUNIT_CASE(dm_mst_test_atomic_check_no_old_crtc),
- 	/* dm_dp_mst_detect tests */
+ static struct kunit_case dm_mst_types_test_cases[] = {
+ 	/* needs_dsc_aux_workaround tests */
+ 	KUNIT_CASE(dm_mst_test_needs_dsc_aux_workaround_match),
+@@ -2360,6 +2478,8 @@ static struct kunit_case dm_mst_types_test_cases[] = {
+ 	/* dm_dp_mst_connector_destroy tests */
+ 	KUNIT_CASE(dm_mst_test_connector_destroy_no_sink),
+ 	KUNIT_CASE(dm_mst_test_connector_destroy_releases_sink),
++	/* dp_get_link_current_set_bw tests */
++	KUNIT_CASE_PARAM(dm_mst_test_link_current_set_bw, dm_mst_link_bw_gen_params),
+ 	{}
+ };
+ 
 -- 
 2.43.0
 
