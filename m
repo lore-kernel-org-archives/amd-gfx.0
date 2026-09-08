@@ -4,46 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F5DCC79FAA
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 03:56:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E76CCC79F99
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 04:12:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 288B210E536;
-	Tue,  8 Sep 2026 03:56:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FB3710E013;
+	Tue,  8 Sep 2026 04:12:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BjorvTFA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1A6oUHTU";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C346210E536
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 03:55:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9CBA7601DB;
- Tue,  8 Sep 2026 03:55:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C83471F00A3E;
- Tue,  8 Sep 2026 03:55:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788839757;
- bh=jUeVX2knLP9sFnsr3pT3F8QUkckA7ehgQOz+lrE71Tc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=BjorvTFAGvBT/cuTdaysRBKKaFdeh4sGx0Z7xiZTDcte+yThaTIRlevNep+k+hCub
- otNbMR0Mxgk3iqqlv8kS80ME4BmqYt2njESylSGiotvK8xNiHPJSIYV7x5mN576fbJ
- 08EQCHTdgJ+WDBscvpwmVmadD39Idvf/fR33VelGSYvGOkQdcLxTvFh6WadWt2AAss
- Ll6HUDaImzu3w0svJgCgEm63mOW7CYDDWLixJTf4fZ+cYlSwKm9VT/xapYhit+1iWB
- 8oQDdIZzIbIzPeqoPQw3xv6G78Ha/TBZj9pB7hjG/4l5eIyX5AZd4PDNKYfPLgj1r1
- Mo2kPSLfYEMYw==
-Message-ID: <81ace942-3e71-43e3-b898-22d373d38ce9@kernel.org>
-Date: Mon, 7 Sep 2026 22:55:54 -0500
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011035.outbound.protection.outlook.com [40.107.208.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AC2910E013
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 04:12:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rWLEqRhPo9s58/6daAoq3nMm9W8kI0HG77pDLkoikr4nlDE8SuWjSE9NjGOVtFz2JwahPEmg9rQKCBfqz4otRXJtlOlTn0TPOssHkhNOzdl6bM3cLHRHlFR7cObC7KTXFIjUN7EAsdANhBn5F1/cPskbPqZsR4/xGilkrH7eI4pMaYx2UBkTt3eI6nZjHjZxmQmlatsWE7J2i18631RJYTJRt9IswSlEDI/DlqAchdjPlg3cFOfLlrUhfuUlCD/wgu9Ig7ExzOJ+21RwqGUuu4QZ4dmwnv717y8snyiY6f/2+VivQE+ek7kk0AllrN0RKLie7UaFlZFu77wqhB45SQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LnhDY705I09uNyxg6g3W6au5a2+WEtA0nIWKd+5Md/c=;
+ b=PzlvTsDDGlCrJhnhDBjo+IWGZpJjTrl5YIZHseJVIcFupFMc5GHDeIwHAzRLj8AxvUz0Xveuqk94fORq6++lVu+mVGAAHWJoxWfQBsVCnqcY7WrWrVj6RHTOoxMLGIiWezOiN93vs+lBI/T0x0xvEBxTo9RXzW0KTKHPb4nyNDknWTPf1j2pbswoBurH2Yw7rdk0zCxP3oIAGj8mpWEnB83d5YrJRIb8Gw4e6Sv5tU/hxs3bo/iBTnVk52XdujIwjfUs3ge89CcxIPpLWhBH7jkLSKOh/v32mi3tvVrdmuIXlslLUI4ZhTU6ppb8h0FwvmnGwv/67lIZFSqdF+oJ3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=8bytes.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LnhDY705I09uNyxg6g3W6au5a2+WEtA0nIWKd+5Md/c=;
+ b=1A6oUHTUuGevXdJzUDzhVzjmUCVHZEP0WJ+pkkvdgVHvWNAOCtmKM3FVmSlI3ZuR1MXkdFjAV2AhWCG750G8gAI+P4Q9+eR9olRtdx/niAFCEkYPMPTcB4qXE0DRtDLK0LD0u02k7cQyk7jLUvXRPmHDScwIWoh+yh/gEL4T7v4=
+Received: from BN9PR03CA0440.namprd03.prod.outlook.com (2603:10b6:408:113::25)
+ by IA1PR12MB8520.namprd12.prod.outlook.com (2603:10b6:208:44d::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 04:12:20 +0000
+Received: from LV8PEPF0000005D.namprd02.prod.outlook.com
+ (2603:10b6:408:113:cafe::82) by BN9PR03CA0440.outlook.office365.com
+ (2603:10b6:408:113::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
+ Sep 2026 04:12:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ LV8PEPF0000005D.mail.protection.outlook.com (10.167.245.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 04:12:20 +0000
+Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 7 Sep 2026 23:12:19 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>
+CC: <amd-gfx@lists.freedesktop.org>, Suravee Suthikulpanit
+ <suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, "Will
+ Deacon" <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "open
+ list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>, Jatin Kataria
+ <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>, Mario Limonciello
+ <mario.limonciello@amd.com>
+Subject: [PATCH v2 0/2] IOMMU Performance Optimization support
+Date: Mon, 7 Sep 2026 23:12:05 -0500
+Message-ID: <20260908041207.38113-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH] drm/amdgpu: avoid NULL deref in isp_genpd_remove_device
-Content-Language: en-US
-To: Bin Du <Bin.Du@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander.Deucher@amd.com, Christian.Koenig@amd.com
-Cc: Benjamin.Chan@amd.com, King.Li@amd.com, Pratap.Nirujogi@amd.com
-References: <20260907061138.59606-1-Bin.Du@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260907061138.59606-1-Bin.Du@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000005D:EE_|IA1PR12MB8520:EE_
+X-MS-Office365-Filtering-Correlation-Id: bbb5066b-f171-4a01-bb5f-08df0d5f60b3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|10067099003|56012099006|5023799004|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: ZFzTqy0QLuuH1jyi6Wwpe/Zrl+MCl1vqrQSn02WboRjKXOyxI+llrh92kTCYdekfSGSk7F+AygQ1auonkpkIXxzU1Vyzo+wiusDcnkctF3+CDavjz4YAOr0hRl2BhngjJEzxazK7cCVkBJ7BHs6wRYEuppJHxMJR9JPmqwu1GZuLPP1GCNtXWGUS5MMujMAEKiukbgQ4thZAzCa8uOpPELe4w7H4H31gnTV2u0y4V7fXV+qrxWA6YW7R8F9PoFN8DTnIQDZ9c1YBHTMH4X9xyYk6w0H2ff074Nb8YnbPXyi6SDIOIbJR8TAOLfqPSeQGxv7Nt90E/52Wok3vWaSFonBdi+ZHJ1xJ3tku4stGBfrFyvwZprWyg443FidnY7gDdEcDhJ02BQ6JBBq5Da4aJSN6Lj3SLn2HgZJs3UzHAkQwcMv8gJ+EcRINcXHIWD3phsLSm5fq1zaPR1fqVIqZVrXLDrQtUnlHhAkiyzH8i2+ELzwa6c04tk73okI17UbeQhMxXf86IXPYOjRwnoxtGMPQOQWp3FVv7iSZOb/SUhFJlCpBwjE/ewnlmNXdHtm+IRlaq+vVgsD1AdOxM4UdOAldGizg2URvHI2V6nXxRV5gWxTXPb1aXR4UXPZQb2YU/e31kJCnukQbGfvqu+9otLJcNlNEBlrVDMIXG7XEzO+Rr181dYk3d4AC3uZnCoIgCeaMQ95Nnnn9zOn03ghWnw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: SMxT4hb6WNBMjK9Vk1Pb5YJRife9lLXqBA6HrCx1XDp2yRWfXhgV5PWEFCycM2IV50XuOrm5jV9OopsqW8kJ+TMLg+q62O0AH2AFzN8weiLn3D88A7aIhXROtEaSyq5jAbOfyBYgdLkbmFCg0XPNTCmAESmbMjeOM8xrffOZ+YN0dX5ug7h8cXi615RNu8LRGjeyDZKnhPdrraXlx5T1oS/e8ECox8HIEM7bUWm+zcLLjn6zClUBOoKALkZ4g2eJkdwTwqq61KgpJT/ome9B539J3IguWQgBTzBjXXSy0ggkGov/wMWxWphJHaBJxQUK4Xbr7S7cY/HrfUCe0qmg1YxrqU3DuOAKppnpkGPDx4vPSfwt5Rk0xWVd/jXCqnRwM4JwnlziE+++dPjGILOQQgsOS4hDBhpE5xK6BT9dC2U0vJo9T7V+kJzHTnYYSEf1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 04:12:20.4923 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbb5066b-f171-4a01-bb5f-08df0d5f60b3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF0000005D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8520
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,65 +112,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Add support for the AMD IOMMU Performance Optimization (PerfOpt)
+feature as defined in the AMD I/O Virtualization Technology (IOMMU)
+Specification, Section 3.4.9 (MMIO Offset 016Ch).
 
+This feature allows privileged integrated I/O devices (GPUs) to bypass
+the IOMMU when directly accessing system memory.  The IOMMU only
+enforces the IR/IW permission bits without GPA->SPA translations.
 
-On 9/7/26 01:11, Bin Du wrote:
-> hw_fini passes NULL as device_for_each_child() data, but the callback
-> derived adev from that pointer for logging and oopsed on unbind. Drop
-> the unused genpd lookup, log against the child device, keep walking
-> on remove failure, and only clear syscore after a successful detach.
-> 
-> Fixes: fd1478607102 ("drm/amd/amdgpu: Add ISP Generic PM Domain (genpd) support")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5746
-> Signed-off-by: Bin Du <Bin.Du@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>> ---
->   drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c | 28 ++++++-------------------
->   1 file changed, 6 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> index 485ecdec9618..26dbfe2d2739 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> @@ -156,35 +156,19 @@ static int isp_genpd_add_device(struct device *dev, void *data)
->   
->   static int isp_genpd_remove_device(struct device *dev, void *data)
->   {
-> -	struct generic_pm_domain *gpd = data;
-> -	struct platform_device *pdev = container_of(dev, struct platform_device, dev);
-> -	struct amdgpu_isp *isp = container_of(gpd, struct amdgpu_isp, ispgpd);
-> -	struct amdgpu_device *adev = isp->adev;
->   	int ret;
->   
-> -	if (!pdev)
-> -		return -EINVAL;
-> -
-> -	if (!dev->type || !dev->type->name) {
-> -		drm_dbg(&adev->ddev, "Invalid device type to remove\n");
-> -		goto exit;
-> -	}
-> -
-> -	if (strcmp(dev->type->name, "mfd_device")) {
-> -		drm_dbg(&adev->ddev, "Invalid isp mfd device %s to remove\n",
-> -			pdev->mfd_cell->name);
-> -		goto exit;
-> -	}
-> +	if (!dev->type || !dev->type->name ||
-> +	    strcmp(dev->type->name, "mfd_device"))
-> +		return 0;
->   
->   	ret = pm_genpd_remove_device(dev);
->   	if (ret) {
-> -		drm_err(&adev->ddev, "Failed to remove dev from genpd %d\n", ret);
-> -		return -ENODEV;
-> +		dev_err(dev, "Failed to remove dev from genpd %d\n", ret);
-> +		return 0;
->   	}
-> -	dev_pm_syscore_device(dev, false);
->   
-> -exit:
-> -	/* Continue to remove */
-> +	dev_pm_syscore_device(dev, false);
->   	return 0;
->   }
->   
+Drivers will opt into this behavior, and enable amdgpu to turn this
+feature on when an integrated GPU is already in identity mode.
+If a user prefers to keep it always off (even with identity mode)
+there is also a module parameter to force it off.
+
+v2:
+ * Rebase on 7.3-rc2
+ * Adjust amdgpu parameter behavior
+
+Mario Limonciello (2):
+  iommu/amd: Add PerfOpt IOMMU performance optimization support
+  drm/amdgpu: Enable PerfOpt IOMMU perf optimization when GPU in
+    identity domain
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  50 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 ++
+ drivers/iommu/amd/amd_iommu.h              |   3 +
+ drivers/iommu/amd/amd_iommu_types.h        |   7 +
+ drivers/iommu/amd/init.c                   |  43 +++++
+ drivers/iommu/amd/iommu.c                  | 214 +++++++++++++++++++++
+ include/linux/amd-iommu.h                  |  11 ++
+ 8 files changed, 341 insertions(+)
+
+-- 
+2.43.0
 
