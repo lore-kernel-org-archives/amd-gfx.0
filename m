@@ -4,162 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FC25C79F9E
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 05:11:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45534C79F99
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 05:40:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A106D10E9E7;
-	Tue,  8 Sep 2026 05:11:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 895E610E061;
+	Tue,  8 Sep 2026 05:40:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b8kEqC2j";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eo/KD5RO";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1512310E9E7;
- Tue,  8 Sep 2026 05:11:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788844302; x=1820380302;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=1tAdUszI4RIuvXrWD01HONIROQgYk9B0hutvAgsauXc=;
- b=b8kEqC2jeOW+45hKv5F+MtKfEVXMjiDDMCXbM+O9EVfbz9nJIBqkEQB8
- RZu7S0+F6xs8bS5HGv5txMqR7+YiLVWO2dG/ufCSTltDqKYlE2a3tjAlS
- /BL98PFFB/ySyDAJPsRa+mH/64giyaB6s+MPSkQk2fkn0r+w2/5OB1Tsu
- 5LQEwbTYitKyvGYtFctG50lhhr2qTEyAULP7goMYA3MiLPHVj/CIBOfYE
- JS5RR+sEmNG311VNEoQEYejeE5YmfphomUF7L27WCMQBj+YLhqeg3cwND
- N6721XxcIytpT4IDPvP7UoATHCdQiUadqFfo/Ii0kqKI6a2jptjsGIzSz A==;
-X-CSE-ConnectionGUID: ft0svbunSHWECH6WfgXztg==
-X-CSE-MsgGUID: 259L0QpAS32zLVdHnqc+IA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="106607339"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; d="scan'208";a="106607339"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2026 22:11:41 -0700
-X-CSE-ConnectionGUID: ddWjuDOdR6KJA0AJvAHuWA==
-X-CSE-MsgGUID: f0DJYjLeRySHfNU4qIkbHQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; d="scan'208";a="264677378"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2026 22:11:43 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 22:11:43 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 7 Sep 2026 22:11:43 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.64) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 22:11:42 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013051.outbound.protection.outlook.com
+ [40.93.201.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7193B10E04C;
+ Tue,  8 Sep 2026 05:40:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WvVmiKYNJF5ZKurfO5aWW/BJh+J5GPjB7kV7tMy8zGTWHK0xDTC+JS+RmM92wPUKvu183M6l74XSd/VGmS+r0n9bNpt89Tgp7n03k8LAzrUtFK1u82Pk6aUU10UEh4BuPKAEWmcEDTDZTPmEeltIkDQa4YATNzBB6b3CTW91TMPpppq9Gz6406hy49Ar3gtDS0gIcYu40XRFOT1IIhWYrNvulOmaAKaof9v+W/MPUWalurfraJ1fGvP4ITfdf3gTvWJfUYbyLnHLdwHru3N0E61CVg7GJmd8cg6OCs+4RDKeUg3WJziOrTWU5YdmhZfRqCFYes6qjMStMpL7dfJZuw==
+ b=wAxxPduWca7WXA8sOKlLqQhqO8Y+pAqEFemdPUg7998yfaHk2+i0MuvjLrvliH49gRkaVU0zE2UXGHX+5NytHfmQkXAkNKeS45palL6zz75VprDBvfloBi/y0T+CV+nTfjokzXZNrukrl8NMMwBUkyK4NHASl6lHRUPRo5k0PeRta6y7O1DqyJdC8rv4fz63qLvAG43AFzezlwDhj2vFdHkThEMfdY28dLDuBJuv+9Gnuwf4P8w82DEhc7xVWsjFpKjPNRqOwbIeQObnaGtwapYSHCKZy3ZcxkEQDXSMfGf/SB15emXdY25pPxleu3XKM9owMvHAHI4P4Kb8ZLo/Sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dZ3Mox0P9SmZHLPdydZ2GGyBqZgSTklx1pOZcCfn8Cg=;
- b=pZrj3ulhT/ANisE9JDosumT5XjtPj2g5NWa18XjFF4utLizb9y1Bym5blvUUJtVJl4euKtYCbi6ghQ8Scd3IZtX8q+fiWWc04eXUo9rHsw6lWHvZmc8uM9fejhJHoaGF/4xcXI44g8VNMTHw/+Ac+m0B3+/tVh1hYhxZ6/Wa5eZ1VYe4N2ufl5gMIuDICslEy8ralyCohOv70hbj5ihHCOiHocNUYUccAidtHOJNG6FulWQ3gGEp4ZSQW65cBaYDP709rxNGP+F3u9RiVKa4oB/5pMAqfDUdqmCC87wY9okHfCFM4s+BGHW1UFTZf5ndeHKNQR2DZyJ8ppBbqJNQqg==
+ bh=BJCh/fkF7a+HoHLouArve1XWAiTQGsjhmo6l11XILUs=;
+ b=P0Ow4Bzymp9UOizsYwX5SBFCqSQbOlABMpnBVwUMNm4VtFo9pBiFdMVmxj8GSnmkbGkuwkgF/YPb+9LajvRgCesytQgH9togsvduSUWYOVf3R4sy9bBH5COtt2H3ZxA4aDmsvnBvP9+I/AK8YLRTUNz5f9RpaNhx2vp1nhyIX8PFldDwNywqKdwKS+hXOKFpITK6e/g361XoOS33q6Ian+3YVthmnT+ODMRDGTP5TD3QjaLy9Cu+i6QwtpjGoIuWK84ptl3ZsQ6vIlMV3TnCACeLj9wqLCQs8NF8Bb3lVg70iKd3p53zTEqd8+lc4ZDgDtPeXzO7OCWvmJkJEt6FnQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BJCh/fkF7a+HoHLouArve1XWAiTQGsjhmo6l11XILUs=;
+ b=eo/KD5ROQj7d4kICd+6SWi6LhGyh+3XUGdNja7LHDwpKKC8wCP5BZfEtyEtWm/ZIqjTP1uBiamftPFiAwq0pqGOPKa4wHMDnxiaEyEiKH7X82UU2lYaC6y64zOu4CiXu9wTE2eAjdh7qAshLPCVzvjpI08IFreMliYMymlt1O14=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
- by LV2PR11MB900551.namprd11.prod.outlook.com (2603:10b6:408:424::15)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by SA1PR12MB8857.namprd12.prod.outlook.com (2603:10b6:806:38d::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 05:11:40 +0000
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd%3]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
- 05:11:40 +0000
-Date: Mon, 7 Sep 2026 22:11:37 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-CC: <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, Mika Kuoppala
- <mika.kuoppala@linux.intel.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Christian =?iso-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>
-Subject: Re: [PATCH v7 3/4] drm/xe: Convert xe_user_fence to drm_user_fence
-Message-ID: <ap+ZCSZp4uxmwl7n@gsse-cloud1.jf.intel.com>
-References: <20260831134539.112690-2-srinivasan.shanmugam@amd.com>
- <20260902152049.183685-1-srinivasan.shanmugam@amd.com>
- <20260902152049.183685-3-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260902152049.183685-3-srinivasan.shanmugam@amd.com>
-X-ClientProxiedBy: MW4PR03CA0226.namprd03.prod.outlook.com
- (2603:10b6:303:b9::21) To CO1PR11MB4787.namprd11.prod.outlook.com
- (2603:10b6:303:95::23)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Tue, 8 Sep 2026
+ 05:40:23 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%6]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 05:40:23 +0000
+Message-ID: <d501f120-f029-4382-b8f8-007e042c251d@amd.com>
+Date: Tue, 8 Sep 2026 13:40:14 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 6/6] drm/gpusvm: keep an IOVA mapped range dma address
+ inline
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: sima@ffwll.ch, rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com,
+ himal.prasad.ghimiray@intel.com, dakr@kernel.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ aliceryhl@google.com, Alexander.Deucher@amd.com, Felix.Kuehling@amd.com,
+ Christian.Koenig@amd.com, Ray.Huang@amd.com, Junhua.Shen@amd.com,
+ amd-gfx@lists.freedesktop.org
+References: <20260905133142.3628027-1-honghuan@amd.com>
+ <20260905133142.3628027-7-honghuan@amd.com>
+ <ap9+cKNSFqX94F5k@gsse-cloud1.jf.intel.com>
+ <ap+FrI7yVa/mSbgP@gsse-cloud1.jf.intel.com>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <ap+FrI7yVa/mSbgP@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TP0P295CA0029.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:5::9)
+ To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|LV2PR11MB900551:EE_
-X-MS-Office365-Filtering-Correlation-Id: ddd154b9-5027-4357-2885-08df0d67aa13
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|SA1PR12MB8857:EE_
+X-MS-Office365-Filtering-Correlation-Id: 762466a4-3a81-477c-792f-08df0d6bad38
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|10067099003|6133799003|22082099003|18002099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: 1SV5qkvoDKSKYOS0nB0rlCzV8hBxo7vEyQ6HLplv9GhIUNOqomfrjIaMjEaD86VA5EmJfcT0orES1N772D3gXNcH72WjXtbNqXL8OczzyTX116VMC1zNZWQlrOSdiAhgLSQgQ16HQ8QuzMD0I5OUdaYq5YMdBN/cY6zawsBtIIKw1m3ir86VJ2aLtDbEFoOi39ELa6jniV1xTEkwGlaZM6tPJTzzPQni+PLACflS+WFY1qMdgcxUl0hWR96zP+36DRIq1i5lLPDIFH9pVb/H+3x9X0ffn2wnsJoShDsmdlaEUw3VLb1qegS1XS4+Z4RxsnzZicPJ4Cn1Dn5l84Mgyq6zpZQWcfxNvApuXABEWHfEH5l/tTpOCHhI0Eh6tQa9aZazHZ7/+qCI4V+DmpLW8ApktI2G5Ffe+pDd+ngkj93eMRPVggLszPjW/y8xbp/XbnpFd9Ml4PAd56QTWO17/Ph1/G5sn9p7tkysfq2gvrlIgHB+sBZhRwVkcGIGNAz1OyZwc8YX/aExxD5kI0WeA3ePMXZEfKx+d0E99FFlBV+ZUuwo6OxPD7Bj8zwQekutTjnVfvd3JLPXR8cRNjfooLhk1gvhSnCHxEnYusXz8wA=
+ ARA:13230040|23010399003|1800799024|376014|7416014|366016|10067099003|22082099003|18002099003|4143699003|5023799004|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: In+hF7vOkIkIJehHlUsAuAaAc+KHktkOuHoNMIWAoAgilo1zdw1KuOCftDWxXQRcX84tZ3/C7B1E+HZM+Vc28tuNPuR3BNe4pFdahSWjawUOSRGePxCnBg56tpd1Wm/v4c3NA6MkhPQSRarF55HsaZNqUn+j/uBH3mWILmN2nSkoGymMNslxno4Fs8PBHnP8tToShJ+StlL3STXfEYFhtsmeU88jUjAxdsPkr6lOMw/Y/I4KqPH6KHM6jC+fO1YZ0kjL9eslwN07QIbIlu5EIcRI981VPnOrm26iRvVtvDcYRI+Y6y5nph4IOtiQaLJF2CEWp/QBQ9GErTupKldSCxHgekIpAGaN7TAve0AraM8LQFf2U0h6Nv05+x04JsVIaHsoaA3q/+RhiZOrPXQc1oGL8Yrmnu3aAM6UKZf0qnbfy25X70q+CZVfQYbwZCTel84ULEBpUVoRhRYwg+jCJB4wcw4HLMkeqxVoW+Gaik+BQ8bjCRfDdPPv2g0MqI0pUQswHM4xsnjbnYVT/DjL2UzMVsQHotlqnuXXZWWicxs/BZkBGRxlbyveFHF3Veo+LmnohInQXJlC9RErUlqkjeMrz47kp0ITv8PZaZAkWQwJJyQpB/6ZKAhcmgWlSXsrS4MV6wTW2vEGGbchKZHs9h7T5jwbJ4Inf8xsV9MqwQU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(10067099003)(22082099003)(18002099003)(4143699003)(5023799004)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0hKSTZrUDRaQlRKNFFMNHF3cU1rNWltYmZvaWN3aTQveUU0VkszcVZaYUtw?=
- =?utf-8?B?Um1GRjVtUFl4UVU3RzBPR2kzdnFjSmpvMGNTeDFVSVVEQ1g3MkFHYytZNmUw?=
- =?utf-8?B?SmozM3MzRENURUpKcU9Zd3hKWEIvZGRTUVN4UjZGQ2lFUlhmWXc3QTVNMTlq?=
- =?utf-8?B?eDk5WkFaaFlwbDhhVHh2MmZpOHExbk9WV3hCNVQzUVRCZTNxT2Rmayt0dUo0?=
- =?utf-8?B?RDNuQzh2ZU9XTGk1M3ZjTnR1U0tLbkRmaDFVT3NDOGNBekxIcVpBRXl3VXRu?=
- =?utf-8?B?czAwQi9uTFV5N0h1NVBJQVZ1Z25wVjdKb2tNcUw1Q1hqdUtaVkhKNkpVczNl?=
- =?utf-8?B?ZGJkNFpSSWpZMzZWSHhIN0MvaGk3OC8xck5QWk9HVHYrNDdmTjJsejE4R0Ni?=
- =?utf-8?B?QXduSHo1MEhZNFVwVlZwSFpueERJU0F1Qys0NWZpbmdxU2FpRHhQdFdINnk2?=
- =?utf-8?B?Z1QxT0tJcGQrTTh2N3F0VFdLMEpLY0t1WStTYW9YN0N3dEtiZkhpc2VldG5w?=
- =?utf-8?B?VUpESTlWRDljLytBUWxCWU9Pa2pJTUJ2T2dGWDFpL3NZTUxWeFR3RFpjam1T?=
- =?utf-8?B?QTc5eklzTzhCVE1TRG9zdy90azBEK2dTZXhVNmNMU3puaDB4NXI2aGhLcC9I?=
- =?utf-8?B?Z3dIbnI3OWpJUDlaNlFzZFMzSi9pQ3JJNEJYT3hFazhsUmNLSTk0cDU5Tnhw?=
- =?utf-8?B?NUwxTWlybHhrbzVVZ2JoNnRWcUl3NklwOW83RW1tTGdqeFJDQXpQUXVWUFVL?=
- =?utf-8?B?SW91R05HQms5aGxRVmRpQ3NIc2Z3d05Nejd1OGdOWHJIUlh5blFqYU5TelYz?=
- =?utf-8?B?MnZWdkgyZnVzY2RwK0JsaVNuVWVJNEkwVHd1N1dZbnZUeGNKRUhoeDRVV0ZK?=
- =?utf-8?B?bVVHSFVybmdVb29QcTJnNDJ3VVB4Q0JLK0FVZTBoekRnNi9Fa0VETHNyb2Ir?=
- =?utf-8?B?N2tBbW80OWphRHNzZnBQVlRndFVRSmJiSzhDajBmenRSQlV5WTA3NWx6OURy?=
- =?utf-8?B?dUp6THdlbkdidWhHWTBFc1g2TEJUZUZYWXdDckd5eVpqVXBqSGF1Y0g3WVZH?=
- =?utf-8?B?RHVhcjBnbFZPMmI0YzZCNHVMcHJramt2MEw5dGNYWndDY3hnTlpuL2JaKzVJ?=
- =?utf-8?B?QjgwUUJMeEphZGtGdCt6VDkyNmpGcUJoNG9uTlpqNmNZVUFhc1JQczBqWmpk?=
- =?utf-8?B?M0EybUFFajhIanJTVUxjc01DNTc0NlgwS1V5dHozZ0FyTkpxRk5CbVFoVnNM?=
- =?utf-8?B?QUFLOVp5TW52dVVTaFNGZlEzQVZpY0tmZ1hha2xyVEl2UlMyckkwdVI5dWdT?=
- =?utf-8?B?QzVxQjVBZldSRmh1SHNBYTlNYzlpS2RNSEpwSkFsSHQ4S1Qyb1hJTTBxUmxm?=
- =?utf-8?B?c1RUZVhreGE0dEhoSUwwaW9LdUFvanRUcHJkOUNEY0ZQd1ptcWs0TDV2SEh0?=
- =?utf-8?B?MzExT05kYUhkczN6UVBxMGJ0OURWSDhhYk9obFV2SkNLb1FvV1JUWERZN2Jw?=
- =?utf-8?B?UVhXV0FCTnp5cHIyMk1OdFgxclJjT2NWQXh3RFhkQW9KL3UzQkR6dzdjSnls?=
- =?utf-8?B?NTNJbEZ1cys3VjJVOEZZTm50MU5uWFl6MithdVo4RyszaVNPYiszN0lvR0lP?=
- =?utf-8?B?eTJ3TCtDa0t0dkM3ZGJHZlppMTU0RHMremJBd0hkbXErc0doQ0JSN2FnSzlp?=
- =?utf-8?B?bzNxWnQ5Zzh2bXJaN1F3dG9xVDc3eC8xbDNQQzdnWWw2cnZOTFBIN0JjVVRo?=
- =?utf-8?B?ZlZFeVdvSmhXdkc1RFRXUUd2QXJmMFV1RW9Nd1lFbUU5THpieXBBS3MrQjlG?=
- =?utf-8?B?Q1BCSGVzRHQxMFFEQ2d1NHVlUGFwR3hxeXY1eVFUMTg0TlZLbTluWnJNMDVQ?=
- =?utf-8?B?OXNza2U3bVlNL0ZWQk50SDhqMEc1YmowVENTOWZQYXFrYXZBN1d3Mk5QYTFL?=
- =?utf-8?B?NVZVaER5YStFZFc2TTZ4UUJjNUVzbzBLcG5Gczd1cFRtQ00rdDM1YWdnM2t3?=
- =?utf-8?B?WmFBZ1pYVXc1UStyZzh3R3lXZ01RTzZaTEh5OUR0T3NERlBCZVFqUGl6TWZa?=
- =?utf-8?B?U2YxZk5OclVXa2JQK0pRdlUvQlBRKzA1S2MvclVZcEpnV0VjckR1VEpWdzZp?=
- =?utf-8?B?b0xNU1ZVOVk2WnZOanR4dVl5VmJITzhDM2kzMjNHUkEzU2sya2NvaE91bEtW?=
- =?utf-8?B?OExoNElhZWFYYmVrQm9ISVF3ZkcvNEtwTmU1ZDJjRG5EOEZTb1B5eGxsWGxs?=
- =?utf-8?B?RHJJbjhWMEpLTUZ2V0dCdHhNeTI5TGNqbUJBQmluNmZBOXlmVTFXZG1OdmVB?=
- =?utf-8?B?bUlUU3BHYUlWNUV2ZDNCOFZLYmZ3UXlyVkFRNnowdGd6VU1pNHUzQWtnUFpo?=
- =?utf-8?Q?g0BK9WPzSYqIjqDw=3D?=
-X-Exchange-RoutingPolicyChecked: 4KAVDDUCRa60t9zDurMGLCrxQXlSdrJXKw/ZY6CoxpUkTDQYqcr6jCfOC+0xWNZEgpf7wgInWuD090DWI65ZL4L307muxtTwBUufBJVzoVJOEjKZ1BVeObVa65gfaYKEwQS67WFVb+v9CrQSEPh+ZW4sCo0uyYgcYzh61xQxF8RGakEl0Ljw8Wn3M9lqXCI2bbZqTG7+QcBTclJvNWVgPvzG7MNmFZjxorwOUZP3KpZN7vAVQ3xkzgZq5HHdIagaPvXN6zzz02zXRhRHFklr75b2dRQp+Rvb86DPu3r4q3VVhjjKV2+ISwrv1TDWjw6gRQ1T2tkDoCfmdALWFWNE6A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ddd154b9-5027-4357-2885-08df0d67aa13
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVkzbjMyWFJ2OEpLUkRoVHIwOEpTWEF3QlN2SDlHaEdxSFVBOGU5MjJTeFVa?=
+ =?utf-8?B?aTlXS0NWaDNjemlnL1NjQlZpaVNpZUUreEIxTVZJTE1oaEdqT202bjZtaE1n?=
+ =?utf-8?B?Nnc5bHRDMjUxek0rZmh1ZEZvTUVpWnRyZ2xSbWMvNEcxTU1Ic3NvendNVkNT?=
+ =?utf-8?B?aG1qWXVKYXZ6OEgrS0hqbFoxSjdrVmpDZEt6NXBJRHVJSDhXUmRuTVNTMWt0?=
+ =?utf-8?B?U0NrTEViSDlTcjJuR2czMUpFcnpZTGtCaFhaOWRyTmh0SEZjUXFtZjNQbkdy?=
+ =?utf-8?B?Rm5tYWdMMVNZUVFpUGdwQWczc0VkbGhzM3pxVVdQU2NXOGlwVkk4T1pyTzZu?=
+ =?utf-8?B?UFBXOXpicTVPTUJ6UTdTaGNpTmpybnFJOHo0ZStPZ3U3SjJlL2tCVSt4WStl?=
+ =?utf-8?B?WXBLNHhzZFFsc0dGSlZycXB5elY0eWlocHJQWnRNemxQY21JRFNsWnREWWxM?=
+ =?utf-8?B?KzVNNTdCTXRiVEExeHBiQWNYTk4yb2NBSjBxbDR3bm1HRzNpbjFCMUwzSVM3?=
+ =?utf-8?B?K1RQY3U4TkdkL2M0VW8vSlpuZ2lQbnJZY20wU2JRZmVqUGZOQTI0VkpvMGkx?=
+ =?utf-8?B?RlBjZENLWGpLT1NCWXExM2pJVUp5MFZnV2RUenc5NWF6Y0hxNDNsOGt6Sjdj?=
+ =?utf-8?B?NXY3WlJ0V2lTQ01oUjNRcEl5QU5CV3J5cWZMVGUzTVVFNlJ0SlZXZUZ0WVRN?=
+ =?utf-8?B?MmRocEZNeGxzT1NVaHFMcDY5cmdIckttS0xzRHJ3b0o5MG03eW4xUzUxWmFm?=
+ =?utf-8?B?eU9ZOEF6OVdudHlQYkdZODBqUDdScGI0T0lBME93VTFSN2srb2R4anpzSFkv?=
+ =?utf-8?B?Y3JqQm5RbktXOFhHSUlZRjFEc3JwR3F3MGNZT1hWVVRicXZjR09yRjMvUUJu?=
+ =?utf-8?B?TzVFa0hoVS91cWVOM0dQd1VNTmZaODhqS1IyR3N2ZUpKcVNEZDdCMmMxdGFs?=
+ =?utf-8?B?NUdTTmxzL0tsS0pzQnV4Q3JLTUNKTnF4UzgwS21SUWlhaWZkMzQ5RUFqTHNS?=
+ =?utf-8?B?NGN0YWw2aDRMM2UrNXFhWVNSaFIrZUxyZE1rV25jeDZKWjJWVUNYcmUwRmM3?=
+ =?utf-8?B?M3hQSUVlSzRWUHdRZUhHbUllSktNclMySTM2aGZBZkh4Q2VhdzAvVWJoang4?=
+ =?utf-8?B?OUdvL0NKSWdBbm9rTE1ZWnRUU3BLTkd0YlBidjdOVEtKWDNTMTV4RUNIbmh3?=
+ =?utf-8?B?clFpWU5JWXErbEVOT1kwYUpyRFB1My95M2p3Q0E5ZkpkSGdRbmJOazdnQjdO?=
+ =?utf-8?B?RFRYMkdTNkpSalJFWDNySm9FRWRZNkpMeUNiSit2UU5ZYzFQeGhhblpMaWE1?=
+ =?utf-8?B?aTA3VW9UR2hjWThzdHEwcWpwTDdJYWZVdTk5YklwYndPRHhUL1g5NjFxa1Fo?=
+ =?utf-8?B?eWdMYW5JZ2VQaG0yQTdQcytsZzlCL1RXMDdBYWpkcEpIZ1puM3M0TnF4c0tt?=
+ =?utf-8?B?N1ZCRjdTUnFqeUhvREt6alZ1RFp2WHQvYlRjcHJXNWUxTDN0blE3MG1oS2tM?=
+ =?utf-8?B?UzdveTJ5TmFpanh3R1JJNlRvMDZUTU9OWHlyVDlLY3NlU0duNHpibWNEbm5G?=
+ =?utf-8?B?MVJWNWp0QythSTl1RHdFTzlCSldtT0lCVWdTM0pBaDhZRGJUREpqc2VuTnNP?=
+ =?utf-8?B?b0xDVk5uQmo0MWRXaENTcEsyMGJoaXlNK0lVcTZrSm5oSjh0MGFYOGtra0NF?=
+ =?utf-8?B?WkpMQWNnTEg0ODA2TU5HQ3liMHVzZFFxek9nN1RMckVHWnY1ZFlId0x2NTQy?=
+ =?utf-8?B?ZjZnUmJINGtIMUtjVkpNREdYTCtudi82SDc0OC81bjZ0Z1AzQnZNZ0FrWitm?=
+ =?utf-8?B?c0d4YlhRZU5ONjVDbkZlbWtFWEVOMlZpM1l2K1JHOWRvMktFUk9zMXh2UjlK?=
+ =?utf-8?B?Wkltdm82QmU1UFN5c1laNjNXZmNNTHFpbzRxTVZRQy9zNEpqMXB6d3RQZS9O?=
+ =?utf-8?B?SUZzMnk0OXVNOGRrSGNMYVNiZW5wMlJJY0lja3lQR00zMURmNHpZSW5uT29M?=
+ =?utf-8?B?NGROSElseURQalY2Y2l1YnhoZHVZa1pMbDF2c1d3L3VhK1ZQYU5iaEgxbzBS?=
+ =?utf-8?B?bVhFVThRSENSd0VWV09LMHNQQmVVOE5memFWei92bU4vUDF3ZjhiRWpUZ28v?=
+ =?utf-8?B?eWsrWmU5Y3ZSYUM5cFRrK2NubHQ1VlJyd290MVFXSldvN1RNb3l2MlBlVTUv?=
+ =?utf-8?B?eFcxRENRN3ZadEpXQnpTNXk5MEZsdUtaQWpSNEMrUFJxaWJZaDd6NFViVG9D?=
+ =?utf-8?B?eXFJbXI0YmlxMnJhSEE1OXk0dk5CWjdyRFJJMjg0OEdoL1g4ZFRkY3ljWmdP?=
+ =?utf-8?Q?iMYami5ZQ1vGy7PvNp?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 762466a4-3a81-477c-792f-08df0d6bad38
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 05:11:40.1344 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 05:40:23.0500 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z1fyHYFbSzWoaKpt6wqJ2tcPoRe4/t7vdB19wSmpNPj3REPbgN2kz4Son35rqtCYNuNIMaJFWPHBey8N/THeTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB900551
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: E5Ut0EhBiglS/i7JWhPJgSAhcwrq6aZM9nG61HbfWJiOuHDQBAAFuYFDMXUr/0+xjmSMQChJTEEwr/rBImxapw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8857
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,302 +143,294 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 02, 2026 at 08:50:48PM +0530, Srinivasan Shanmugam wrote:
-> Replace the open-coded user fence implementation in xe_sync.c with the
-> new common drm_user_fence helper.
+
+
+On 9/8/2026 11:49 AM, Matthew Brost wrote:
+> On Mon, Sep 07, 2026 at 08:18:08PM -0700, Matthew Brost wrote:
+>> On Sat, Sep 05, 2026 at 09:31:42PM +0800, Honglei Huang wrote:
+>>> dma_iova_try_alloc() reserves one contiguous IOVA for the whole range and
+>>> links each page at the next offset, so the device addresses run
+>>> contiguously from entry 0 and one entry describes them all. A 2 MiB range
+>>> of 4 KiB pages then drops the same 8 KiB array as a THP backed one.
+>>>
+>>> Fold only when state_offset covers the full range, which proves no device
+>>> page was mapped in between, and only single page entries, so the order
+>>> kept is 0 and stays true. Widening it instead would tell a consumer to use
+>>> a huge page for npages separate CPU pages, which hangs Vega20 on amdgpu.
+>>>
+>>> The kept entry no longer bounds the segment, so skip the unmap walk when
+>>> it has nothing to do, keyed off dpagemap rather than the flags, which are
+>>> not published yet on the error unwind. Consumers need the same
+>>> distinction, so drm_gpusvm_pages_first_dma() returns it alongside the
+>>> array from one read of the flags; xe passes it to xe_res_first_dma().
+>>>
+>>
+>> Nice trick for IOVA allocs and variabled sized mappings like userptr.
+>> Looks good.
+>>
+>> Going to megre entire series to drm-misc-next shortly. Thanks!
+>>
 > 
-> struct xe_user_fence now embeds struct drm_user_fence as its base.
-> XE-specific fields (xe_device pointer for the ufence_wq wake-up,
-> userspace VA, expected value, signalled flag) remain in the wrapper.
+> So small snafu merging - this series won't cleanly apply drm-misc-next
+> and won't until 7.4 because of patches in Xe targeted for 7.4. The
+> series will cleanly apply to drm-xe-next, so if AMD is ok with this, I
+> can merge there. Or I can work through the (minor) conflicts and merge
+> this into drm-misc-next (ofc I'll need confirm with the drm-misc
+> maintainers that this ok too).
+
+Merging to drm-xe-next is fine for us. Please proceed with the merge there.
+And thanks for the review and merging!
+
+Regards,
+Honglei
+
 > 
-> The local user_fence_destroy/get/put/worker/kick_ufence/user_fence_cb
-> functions are removed. Their logic moves to xe_ufence_ops.worker and
-> xe_ufence_ops.destroy, which are called by the drm_user_fence helper.
+> Matt
 > 
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: intel-xe@lists.freedesktop.org
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/xe/xe_sync.c       | 147 ++++++++++++++++-------------
->  drivers/gpu/drm/xe/xe_sync.h       |   2 +
->  drivers/gpu/drm/xe/xe_sync_types.h |   1 -
->  drivers/gpu/drm/xe/xe_vm.c         |   1 +
->  4 files changed, 82 insertions(+), 69 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
-> index 37866768d64c..05f6794af1ee 100644
-> --- a/drivers/gpu/drm/xe/xe_sync.c
-> +++ b/drivers/gpu/drm/xe/xe_sync.c
-> @@ -6,12 +6,11 @@
->  #include "xe_sync.h"
->  
->  #include <linux/dma-fence-array.h>
-> -#include <linux/kthread.h>
-> -#include <linux/sched/mm.h>
->  #include <linux/uaccess.h>
->  
->  #include <drm/drm_print.h>
->  #include <drm/drm_syncobj.h>
-> +#include <drm/drm_user_fence.h>
->  #include <uapi/drm/xe_drm.h>
->  
->  #include "xe_device.h"
-> @@ -19,36 +18,58 @@
->  #include "xe_macros.h"
->  #include "xe_sched_job_types.h"
->  
-> +/*
-> + * xe_user_fence wraps drm_user_fence with XE-specific fields.
-> + * The drm_user_fence base handles MM borrowing and work-item lifetime.
-> + */
->  struct xe_user_fence {
-> -	struct xe_device *xe;
-> -	struct kref refcount;
-> -	struct dma_fence_cb cb;
-> -	struct work_struct worker;
-> -	struct mm_struct *mm;
-> -	u64 __user *addr;
-> -	u64 value;
-> -	int signalled;
-> +	struct drm_user_fence base;
-> +	struct xe_device     *xe;
-> +	u64 __user           *addr;
-> +	u64                   value;
-> +	int                   signalled;
->  };
->  
-> -static void user_fence_destroy(struct kref *kref)
-> +static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
->  {
-> -	struct xe_user_fence *ufence = container_of(kref, struct xe_user_fence,
-> -						 refcount);
-> +	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
->  
-> -	mmdrop(ufence->mm);
-> -	kfree(ufence);
-> -}
-> +	if (mm_ok) {
-> +		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
-> +			drm_dbg(&ufence->xe->drm,
-> +				"copy_to_user failed, user fence wasn't signaled\n");
-> +	} else {
-> +		drm_dbg(&ufence->xe->drm,
-> +			"mmget_not_zero() failed, ufence wasn't signaled\n");
-> +	}
->  
-> -static void user_fence_get(struct xe_user_fence *ufence)
-> -{
-> -	kref_get(&ufence->refcount);
-> +	/*
-> +	 * Ensure the fence value write is visible before signalled=1.
-> +	 * A UMD polling signalled must see the committed fence value.
-> +	 */
-> +	smp_wmb();
-> +
-> +	/*
-> +	 * Mark signalled after the user memory write so UMD can safely
-> +	 * reuse the same ufence without hitting -EBUSY.
-> +	 */
-> +	WRITE_ONCE(ufence->signalled, 1);
+>>> Suggested-by: Matthew Brost <matthew.brost@intel.com>
+>>
+>> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+>>
+>>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/drm_gpusvm.c       | 41 +++++++++++++++++++++++-------
+>>>   drivers/gpu/drm/xe/xe_pt.c         | 23 +++++++++++------
+>>>   drivers/gpu/drm/xe/xe_res_cursor.h |  5 ++--
+>>>   drivers/gpu/drm/xe/xe_svm.h        |  8 +++---
+>>>   include/drm/drm_gpusvm.h           | 13 +++++++++-
+>>>   5 files changed, 67 insertions(+), 23 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+>>> index 2c7c4c89dc4..b6c9d3a07dc 100644
+>>> --- a/drivers/gpu/drm/drm_gpusvm.c
+>>> +++ b/drivers/gpu/drm/drm_gpusvm.c
+>>> @@ -1242,7 +1242,7 @@ static void __drm_gpusvm_unmap_pages(struct drm_gpusvm *gpusvm,
+>>>   			.__flags = svm_pages->flags.__flags,
+>>>   		};
+>>>   		const struct drm_pagemap_addr *addrs =
+>>> -			drm_gpusvm_pages_first_dma(svm_pages);
+>>> +			drm_gpusvm_pages_first_dma(svm_pages, NULL);
+>>>   		bool use_iova = dma_use_iova(&svm_pages->state);
+>>>   
+>>>   		/*
+>>> @@ -1259,7 +1259,15 @@ static void __drm_gpusvm_unmap_pages(struct drm_gpusvm *gpusvm,
+>>>   			dma_iova_free(dev, &svm_pages->state);
+>>>   		}
+>>>   
+>>> -		for (i = 0, j = 0; i < npages; j++) {
+>>> +		/*
+>>> +		 * With IOVA and no device page the unlink above tore every
+>>> +		 * entry down, and that is also when the range may be folded
+>>> +		 * to one entry, which must not be walked per entry. dpagemap
+>>> +		 * is set before the first device_map(), so it is also right
+>>> +		 * on the error path, where the flags are not published yet.
+>>> +		 */
+>>> +		for (i = 0, j = 0;
+>>> +		     (!use_iova || dpagemap) && i < npages; j++) {
+>>>   			const struct drm_pagemap_addr *addr = &addrs[j];
+>>>   
+>>>   			if (addr->proto == DRM_INTERCONNECT_SYSTEM) {
+>>> @@ -1491,17 +1499,32 @@ static bool drm_gpusvm_pages_valid_unlocked(struct drm_gpusvm *gpusvm,
+>>>   
+>>>   /**
+>>>    * drm_gpusvm_pages_inlinable() - Whether the dma address can be inlined
+>>> + * @svm_pages: The SVM pages instance that was just mapped
+>>>    * @nentries: Number of entries the mapping loop produced
+>>> + * @npages: Number of pages in the CPU range
+>>>    *
+>>> - * A THP maps as one huge page, so the whole range needs a single device
+>>> - * address: the dma_addr array can be freed and the address kept inline,
+>>> - * which is where the memory saving comes from.
+>>> + * A THP maps as one huge page, and an IOVA reservation links every page of
+>>> + * the range at the next offset, so the device addresses run contiguously from
+>>> + * entry 0. Either way one entry describes the whole range, so the dma_addr
+>>> + * array can be freed and the address kept inline.
+>>> + *
+>>> + * state_offset advances only on the IOVA branch, so reaching the full range
+>>> + * length proves no device page was mapped in between. Only single page
+>>> + * entries fold, so the order kept is 0 and describes the range truthfully.
+>>> + * Larger chunks, several huge pages among them, stay an array that is
+>>> + * already short and that a consumer places with one PTE each.
+>>>    *
+>>>    * Return: True if the mapping fits in a single drm_pagemap_addr.
+>>>    */
+>>> -static bool drm_gpusvm_pages_inlinable(unsigned long nentries)
+>>> +static bool drm_gpusvm_pages_inlinable(struct drm_gpusvm_pages *svm_pages,
+>>> +				       unsigned long nentries,
+>>> +				       unsigned long npages)
+>>>   {
+>>> -	return nentries == 1;
+>>> +	if (nentries == 1)
+>>> +		return true;
+>>> +
+>>> +	return nentries == npages && dma_use_iova(&svm_pages->state) &&
+>>> +	       svm_pages->state_offset == npages * PAGE_SIZE;
+>>>   }
+>>>   
+>>>   /**
+>>> @@ -1656,7 +1679,7 @@ static int drm_gpusvm_dma_map_pages(struct drm_gpusvm *gpusvm,
+>>>   	if (pagemap)
+>>>   		flags.has_devmem_pages = true;
+>>>   
+>>> -	if (drm_gpusvm_pages_inlinable(j)) {
+>>> +	if (drm_gpusvm_pages_inlinable(svm_pages, j, npages)) {
+>>>   		struct drm_pagemap_addr addr = svm_pages->dma_addr[0];
+>>>   
+>>>   		kvfree(svm_pages->dma_addr);
+>>> @@ -1772,7 +1795,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+>>>   
+>>>   	if (map_dma) {
+>>>   		for (p = 0; p < num_pages; ++p) {
+>>> -			if (drm_gpusvm_pages_first_dma(&svm_pages[p]))
+>>> +			if (drm_gpusvm_pages_first_dma(&svm_pages[p], NULL))
+>>>   				continue;
+>>>   			svm_pages[p].dma_addr =
+>>>   				kvzalloc_objs(*svm_pages[p].dma_addr, npages);
+>>> diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+>>> index fa4b29da0b6..7fb2fe1f826 100644
+>>> --- a/drivers/gpu/drm/xe/xe_pt.c
+>>> +++ b/drivers/gpu/drm/xe/xe_pt.c
+>>> @@ -831,9 +831,12 @@ xe_pt_stage_bind(struct xe_tile *tile, struct xe_vma *vma,
+>>>   			return -EAGAIN;
+>>>   		}
+>>>   		if (xe_svm_range_has_dma_mapping(range)) {
+>>> -			xe_res_first_dma(xe_svm_range_first_dma(range), 0,
+>>> -					 xe_svm_range_size(range),
+>>> -					 &curs);
+>>> +			const struct drm_pagemap_addr *addr;
+>>> +			bool contiguous;
+>>> +
+>>> +			addr = xe_svm_range_first_dma(range, &contiguous);
+>>> +			xe_res_first_dma(addr, 0, xe_svm_range_size(range),
+>>> +					 contiguous, &curs);
+>>>   			xe_svm_range_debug(range, "BIND PREPARE - MIXED");
+>>>   		} else {
+>>>   			xe_assert(xe, false);
+>>> @@ -865,11 +868,15 @@ xe_pt_stage_bind(struct xe_tile *tile, struct xe_vma *vma,
+>>>   		xe_bo_assert_held(bo);
+>>>   
+>>>   	if (!xe_vma_is_null(vma) && !range && !is_purged) {
+>>> -		if (xe_vma_is_userptr(vma))
+>>> -			xe_res_first_dma(drm_gpusvm_pages_first_dma
+>>> -					 (&to_userptr_vma(vma)->userptr.pages),
+>>> -					 0, xe_vma_size(vma), &curs);
+>>> -		else if (xe_bo_is_vram(bo) || xe_bo_is_stolen(bo))
+>>> +		if (xe_vma_is_userptr(vma)) {
+>>> +			const struct drm_pagemap_addr *addr;
+>>> +			bool contiguous;
+>>> +
+>>> +			addr = drm_gpusvm_pages_first_dma(&to_userptr_vma(vma)->userptr.pages,
+>>> +							  &contiguous);
+>>> +			xe_res_first_dma(addr, 0, xe_vma_size(vma), contiguous,
+>>> +					 &curs);
+>>> +		} else if (xe_bo_is_vram(bo) || xe_bo_is_stolen(bo))
+>>>   			xe_res_first(bo->ttm.resource, xe_vma_bo_offset(vma),
+>>>   				     xe_vma_size(vma), &curs);
+>>>   		else
+>>> diff --git a/drivers/gpu/drm/xe/xe_res_cursor.h b/drivers/gpu/drm/xe/xe_res_cursor.h
+>>> index 0522caafd89..c3a037e5f34 100644
+>>> --- a/drivers/gpu/drm/xe/xe_res_cursor.h
+>>> +++ b/drivers/gpu/drm/xe/xe_res_cursor.h
+>>> @@ -233,12 +233,13 @@ static inline void xe_res_first_sg(const struct sg_table *sg,
+>>>    * @dma_addr: struct drm_pagemap_addr array to walk
+>>>    * @start: Start of the range
+>>>    * @size: Size of the range
+>>> + * @contiguous: Whether one entry describes the whole range
+>>>    * @cur: cursor object to initialize
+>>>    *
+>>>    * Start walking over the range of allocations between @start and @size.
+>>>    */
+>>>   static inline void xe_res_first_dma(const struct drm_pagemap_addr *dma_addr,
+>>> -				    u64 start, u64 size,
+>>> +				    u64 start, u64 size, bool contiguous,
+>>>   				    struct xe_res_cursor *cur)
+>>>   {
+>>>   	XE_WARN_ON(!dma_addr);
+>>> @@ -248,7 +249,7 @@ static inline void xe_res_first_dma(const struct drm_pagemap_addr *dma_addr,
+>>>   	cur->node = NULL;
+>>>   	cur->start = start;
+>>>   	cur->remaining = size;
+>>> -	cur->dma_seg_size = PAGE_SIZE << dma_addr->order;
+>>> +	cur->dma_seg_size = contiguous ? start + size : PAGE_SIZE << dma_addr->order;
+>>>   	cur->dma_start = 0;
+>>>   	cur->size = 0;
+>>>   	cur->dma_addr = dma_addr;
+>>> diff --git a/drivers/gpu/drm/xe/xe_svm.h b/drivers/gpu/drm/xe/xe_svm.h
+>>> index 7eb80d4d6db..2ef4ef026cc 100644
+>>> --- a/drivers/gpu/drm/xe/xe_svm.h
+>>> +++ b/drivers/gpu/drm/xe/xe_svm.h
+>>> @@ -223,13 +223,14 @@ static inline unsigned long xe_svm_range_size(struct xe_svm_range *range)
+>>>   /**
+>>>    * xe_svm_range_first_dma() - Resolve the device address array of a SVM range
+>>>    * @range: SVM range
+>>> + * @contiguous: Where to store whether one entry spans the whole range
+>>>    *
+>>>    * Return: Pointer to the first device address, NULL if none is populated.
+>>>    */
+>>>   static inline const struct drm_pagemap_addr *
+>>> -xe_svm_range_first_dma(struct xe_svm_range *range)
+>>> +xe_svm_range_first_dma(struct xe_svm_range *range, bool *contiguous)
+>>>   {
+>>> -	return drm_gpusvm_pages_first_dma(&range->pages);
+>>> +	return drm_gpusvm_pages_first_dma(&range->pages, contiguous);
+>>>   }
+>>>   
+>>>   void xe_svm_flush(struct xe_vm *vm);
+>>> @@ -449,8 +450,9 @@ static inline bool xe_svm_range_is_removed(struct xe_svm_range *range)
+>>>   }
+>>>   
+>>>   static inline const struct drm_pagemap_addr *
+>>> -xe_svm_range_first_dma(struct xe_svm_range *range)
+>>> +xe_svm_range_first_dma(struct xe_svm_range *range, bool *contiguous)
+>>>   {
+>>> +	*contiguous = false;
+>>>   	return NULL;
+>>>   }
+>>>   
+>>> diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
+>>> index aaad5c9b510..9e35584812f 100644
+>>> --- a/include/drm/drm_gpusvm.h
+>>> +++ b/include/drm/drm_gpusvm.h
+>>> @@ -380,12 +380,19 @@ static inline void drm_gpusvm_init_pages(struct drm_gpusvm_pages *svm_pages,
+>>>   /**
+>>>    * drm_gpusvm_pages_first_dma() - Resolve the device address array
+>>>    * @svm_pages: Pointer to the drm_gpusvm_pages.
+>>> + * @contiguous: Where to store whether one entry spans the whole range, or NULL
+>>>    *
+>>>    * drm_gpusvm_pages use unions to optimize the storage of DMA addresses,
+>>>    * this function abstracts the access to the first device address. The driver
+>>>    * should use this helper instead of reading dma_addr directly to prevent
+>>>    * array out of bounds access.
+>>>    *
+>>> + * @contiguous comes from the same read of the flags as the array itself, so a
+>>> + * caller cannot see the two disagree and walk past that single entry into the
+>>> + * fields behind it. When it is set the length comes from the range rather than
+>>> + * from the order. The order still states what one PTE may cover: the range
+>>> + * length for a huge page, PAGE_SIZE for an IOVA mapped range of single pages.
+>>> + *
+>>>    * Only get_pages() and the free path switch between the two union members.
+>>>    * Both hold the notifier lock for read, so taking that lock does not stop
+>>>    * them; callers need the driver lock that does, which every reader of the
+>>> @@ -396,13 +403,17 @@ static inline void drm_gpusvm_init_pages(struct drm_gpusvm_pages *svm_pages,
+>>>    * Return: Pointer to the first device address, NULL if none is populated.
+>>>    */
+>>>   static inline const struct drm_pagemap_addr *
+>>> -drm_gpusvm_pages_first_dma(const struct drm_gpusvm_pages *svm_pages)
+>>> +drm_gpusvm_pages_first_dma(const struct drm_gpusvm_pages *svm_pages,
+>>> +			   bool *contiguous)
+>>>   {
+>>>   	struct drm_gpusvm_pages_flags flags = {
+>>>   		/* READ_ONCE pairs with the WRITE_ONCE of the flag writers */
+>>>   		.__flags = READ_ONCE(svm_pages->flags.__flags),
+>>>   	};
+>>>   
+>>> +	if (contiguous)
+>>> +		*contiguous = flags.inline_dma_mapping;
+>>> +
+>>>   	if (flags.inline_dma_mapping)
+>>>   		return &svm_pages->inline_addr;
+>>>   
+>>> -- 
+>>> 2.34.1
+>>>
 
-Sashiko [1] is complaining about the order inversion between copy_to_user
-and WRITE_ONCE is correct.
-
-See for more details:
-git format-patch -1 8ae04fe9ffc93
-
-The order should be WRITE_ONCE, then copy_to_user. Adding the smp_wmb()
-before wake_up_all is actually probably right though and could explain a
-random CI failure we seeing related to user fences.
-
-Matt
-
-[1] https://sashiko.dev/#/patchset/20260902152049.183685-1-srinivasan.shanmugam%40amd.com
-
-> +
-> +	wake_up_all(&ufence->xe->ufence_wq);
->  }
->  
-> -static void user_fence_put(struct xe_user_fence *ufence)
-> +static void xe_ufence_destroy(struct drm_user_fence *base)
->  {
-> -	kref_put(&ufence->refcount, user_fence_destroy);
-> +	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
-> +
-> +	kfree(ufence);
->  }
->  
-> +static const struct drm_user_fence_ops xe_ufence_ops = {
-> +	.worker  = xe_ufence_worker,
-> +	.destroy = xe_ufence_destroy,
-> +};
-> +
->  static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
->  					       u64 value)
->  {
-> @@ -63,51 +84,22 @@ static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
->  	if (!ufence)
->  		return ERR_PTR(-ENOMEM);
->  
-> -	ufence->xe = xe;
-> -	kref_init(&ufence->refcount);
-> -	ufence->addr = ptr;
-> +	ufence->xe    = xe;
-> +	ufence->addr  = ptr;
->  	ufence->value = value;
-> -	ufence->mm = current->mm;
-> -	mmgrab(ufence->mm);
-> +	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
->  
->  	return ufence;
->  }
->  
-> -static void user_fence_worker(struct work_struct *w)
-> -{
-> -	struct xe_user_fence *ufence = container_of(w, struct xe_user_fence, worker);
-> -
-> -	WRITE_ONCE(ufence->signalled, 1);
-> -	if (mmget_not_zero(ufence->mm)) {
-> -		kthread_use_mm(ufence->mm);
-> -		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
-> -			XE_WARN_ON("Copy to user failed");
-> -		kthread_unuse_mm(ufence->mm);
-> -		mmput(ufence->mm);
-> -	} else {
-> -		drm_dbg(&ufence->xe->drm, "mmget_not_zero() failed, ufence wasn't signaled\n");
-> -	}
-> -
-> -	/*
-> -	 * Wake up waiters only after updating the ufence state, allowing the UMD
-> -	 * to safely reuse the same ufence without encountering -EBUSY errors.
-> -	 */
-> -	wake_up_all(&ufence->xe->ufence_wq);
-> -	user_fence_put(ufence);
-> -}
-> -
-> -static void kick_ufence(struct xe_user_fence *ufence, struct dma_fence *fence)
-> +static void user_fence_get(struct xe_user_fence *ufence)
->  {
-> -	INIT_WORK(&ufence->worker, user_fence_worker);
-> -	queue_work(ufence->xe->ordered_wq, &ufence->worker);
-> -	dma_fence_put(fence);
-> +	drm_user_fence_get(&ufence->base);
->  }
->  
-> -static void user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
-> +static void user_fence_put(struct xe_user_fence *ufence)
->  {
-> -	struct xe_user_fence *ufence = container_of(cb, struct xe_user_fence, cb);
-> -
-> -	kick_ufence(ufence, fence);
-> +	drm_user_fence_put(&ufence->base);
->  }
->  
->  int xe_sync_entry_parse(struct xe_device *xe, struct xe_file *xef,
-> @@ -282,24 +274,15 @@ void xe_sync_entry_signal(struct xe_sync_entry *sync, struct dma_fence *fence)
->  	} else if (sync->syncobj) {
->  		drm_syncobj_replace_fence(sync->syncobj, fence);
->  	} else if (sync->ufence) {
-> -		int err;
-> -
->  		drm_syncobj_add_point(sync->ufence_syncobj,
->  				      sync->ufence_chain_fence,
->  				      fence, sync->ufence_timeline_value);
->  		sync->ufence_chain_fence = NULL;
->  
->  		fence = drm_syncobj_fence_get(sync->ufence_syncobj);
-> -		user_fence_get(sync->ufence);
-> -		err = dma_fence_add_callback(fence, &sync->ufence->cb,
-> -					     user_fence_cb);
-> -		if (err == -ENOENT) {
-> -			kick_ufence(sync->ufence, fence);
-> -		} else if (err) {
-> +		if (drm_user_fence_add_callback(&sync->ufence->base, fence))
->  			XE_WARN_ON("failed to add user fence");
-> -			user_fence_put(sync->ufence);
-> -			dma_fence_put(fence);
-> -		}
-> +		/* fence ref consumed by drm_user_fence_add_callback */
->  	}
->  }
->  
-> @@ -434,6 +417,34 @@ void xe_sync_ufence_put(struct xe_user_fence *ufence)
->  	user_fence_put(ufence);
->  }
->  
-> +/**
-> + * xe_sync_ufence_cancel() - Non-blocking cancel of user fence callback
-> + * @ufence: user fence reference
-> + *
-> + * Attempts to cancel the pending callback without waiting for the worker.
-> + * Safe to call while holding dma_resv_lock or vm->lock. If the callback
-> + * has already fired, the worker runs independently — xe_ufence_worker
-> + * only accesses device-level and userspace resources, both safe after
-> + * VMA teardown.
-> + */
-> +void xe_sync_ufence_cancel(struct xe_user_fence *ufence)
-> +{
-> +	drm_user_fence_cancel(&ufence->base);
-> +}
-> +
-> +/**
-> + * xe_sync_ufence_cancel_sync() - Cancel user fence callback and wait for worker
-> + * @ufence: user fence reference
-> + *
-> + * Cancels any pending dma-fence callback and waits for the worker to fully
-> + * complete before returning. Must be called during teardown before freeing
-> + * any resources accessed by the worker.
-> + */
-> +void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence)
-> +{
-> +	drm_user_fence_cancel_sync(&ufence->base);
-> +}
-> +
->  /**
->   * xe_sync_ufence_get_status() - Get user fence status
->   * @ufence: user fence
-> diff --git a/drivers/gpu/drm/xe/xe_sync.h b/drivers/gpu/drm/xe/xe_sync.h
-> index 6b949194acff..b5ff3387c592 100644
-> --- a/drivers/gpu/drm/xe/xe_sync.h
-> +++ b/drivers/gpu/drm/xe/xe_sync.h
-> @@ -44,6 +44,8 @@ static inline bool xe_sync_is_ufence(struct xe_sync_entry *sync)
->  struct xe_user_fence *__xe_sync_ufence_get(struct xe_user_fence *ufence);
->  struct xe_user_fence *xe_sync_ufence_get(struct xe_sync_entry *sync);
->  void xe_sync_ufence_put(struct xe_user_fence *ufence);
-> +void xe_sync_ufence_cancel(struct xe_user_fence *ufence);
-> +void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence);
->  int xe_sync_ufence_get_status(struct xe_user_fence *ufence);
->  
->  #endif
-> diff --git a/drivers/gpu/drm/xe/xe_sync_types.h b/drivers/gpu/drm/xe/xe_sync_types.h
-> index b88f1833e28c..67048199b070 100644
-> --- a/drivers/gpu/drm/xe/xe_sync_types.h
-> +++ b/drivers/gpu/drm/xe/xe_sync_types.h
-> @@ -12,7 +12,6 @@ struct drm_syncobj;
->  struct dma_fence;
->  struct dma_fence_chain;
->  struct drm_xe_sync;
-> -struct user_fence;
->  
->  struct xe_sync_entry {
->  	struct drm_syncobj *syncobj;
-> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-> index b01f31ed4417..fbd2c28de8a6 100644
-> --- a/drivers/gpu/drm/xe/xe_vm.c
-> +++ b/drivers/gpu/drm/xe/xe_vm.c
-> @@ -1181,6 +1181,7 @@ static void xe_vma_destroy_late(struct xe_vma *vma)
->  	struct xe_bo *bo = xe_vma_bo(vma);
->  
->  	if (vma->ufence) {
-> +		xe_sync_ufence_cancel(vma->ufence);
->  		xe_sync_ufence_put(vma->ufence);
->  		vma->ufence = NULL;
->  	}
-> -- 
-> 2.34.1
-> 
