@@ -4,161 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2923DC79F82
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 20:22:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFA45C79FA1
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 21:30:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFAE110ED4A;
-	Tue,  8 Sep 2026 20:22:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EDBF10E52E;
+	Tue,  8 Sep 2026 21:30:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IwI5lKJn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CulkiBtd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 365B510E177;
- Tue,  8 Sep 2026 20:22:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788898957; x=1820434957;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=fnz8DKFcdf8L5RpYzsp+oChwzZ7qkrorOkv4U8OEz64=;
- b=IwI5lKJnPSW9BC/FfCiY6WqaeYNE6O1eH8HwmcoZDIIPRepHZnWPU3HA
- Su4gaL3vTDHYwEKDqIwkahamlIk2kZbTnvFhg5bLt34OWAfgcApJ44sil
- ZcwGCJe/R6ESJjiBxMLqc7s+QlebT0DlNV/X5cnEPhv0vf5FaVJqJpj4N
- znhmNulSLfRpnDVgSPYiPv0sbEaNZ3iLe00E4higmAW6/SCf/T7Ain+9K
- jUQ5CdDpDZfG3QuWzmUPcAEW17mUcXhmz9QryUjCUScc1Ie5r5k5N76Q2
- 01ZQK4vYYRreRhCRHdJ8t1sh+N6N+oeqTfCnSI/x8oPy8ZrkdfFkuKEXT Q==;
-X-CSE-ConnectionGUID: bP1xc++vQw6ZnWwNBW8iDQ==
-X-CSE-MsgGUID: kOPcZnxwRQe3QG2PHXfd0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106683377"
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="106683377"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2026 13:22:37 -0700
-X-CSE-ConnectionGUID: CfhJggI9S4ipNWqq4NBHPw==
-X-CSE-MsgGUID: c/mtonwtQdKA7CXR0Y804Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; d="scan'208";a="269352595"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2026 13:22:36 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 13:22:35 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 13:22:35 -0700
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.50) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 13:22:35 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010024.outbound.protection.outlook.com
+ [52.101.193.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D25FB10E52E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 21:30:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nMpHlHbF75o75R9v2mHzgzGZ/1KJ74sORnzGoLSFC686ZYDpuDa4rcGHWHDpRFhuCGe4M1R0dYNL/QMPA10qGLhlrHtfSU/zLbMG7iAlKJ/tAB3BhJjxjdGtZ1O0ZcYeJS+s/JOpnP8NrgrtmfEcOPu+LBWXAxPz2rEMyQ7TMvxjX7jH0f+jDRr5/q2Ps53RDa0uhTol+ETqhCi/z0jjUgyKGaBKQolF/9GNyGGm+DW/XeDW0UnnRA2MFXxvZVlR4YPOjX8feoA2i2alPLiV0jk6SLeoGUWPH1YGS8Pc86TTh4hqNU2vMDFvzJ6HQ30GTuyw68cuYDE1TzQmhJg4fg==
+ b=GcW2uYT5nhHImFk3kbJoRtjQDEyBJKOCMeDOhhcP4CunEC36q6lsBAiX28H4gUZuKCUOGXjCdt5PTmQgBQUD0NyZYQIiNcD63JUrEthgj19+avyMcNiaqc3i/1Bw4k4H38RqKfkuNmAEVfFcdej3KBhgLGGi7s8e2GMO2oAAggqeiYL9RYG+h/U5YsQmCzAze/43VAg5o48iTpXGXpbLwr3KwyP7ud9+/52FJUG+TYO20JQs75qFpQ6ObmjfVkcmz61uSvDr3k43FMbAXpvxT3GkEOvAeSyKIjrs92d/7OlQbb7QtDTeoVVFPJrUMxd6Ge+WHkDupcDai0c9FJjcMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tkRnY6pl/upFFRVxJ51U5QHVYCCwgI2Dc3DhiMU+yBw=;
- b=Dya2YWHqRt6hEcaGuc9g9lP0I5npmfHmHBQ8sY3U98BYC5MVbRuZrCkVioqvN6KpLUsRRMlfDfJndBMnPYLztGarcxTIzXKS6fX36br8/Mc1tfwktRtcUuJiUmhFrpMhC2jS9kQ8CGPg2WOacDaSP8PLdyyB7m8+ABE9RJyzkw0OKZ1wR7HH3IStNjPwY1SPg//TO5diVpKhiRrOAHRNWmbaV3nG63kzRigPDDTxZyMAfwj/BZme98SN0glT9TEchPYYfKhv+d3PJJNvRm8uFsF5K4j7PZSjMyNP8kHSyo15ykjZPTOHntRsDcbG5WadD6R2MTiDT+zX0nJVtYLcrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
- by DS0PR11MB8718.namprd11.prod.outlook.com (2603:10b6:8:1b9::20) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=yOP7Z8Qx/6z2VL9wX2WNfhiei05pdZuhQkgUJxy6wXs=;
+ b=vi8OKyu+s7b2tbGHpZygBEAC2Sfz6fs9DDeftfdFgl/OQcP9EOSLpYXxMuPbAIvT2u9UcQNFf+SMaeEoNO/gDC7T36HYj9TQ868OjYA/Vl1lIzgHySC8llrLzA3SUazVjEPYQ/tBKGGqm7xMP/hfp0jTanpptbIusYI+1c7x8oSNtcZk9Q9qU7wD4VDOoFBjtJs+gW5vKOyim7d/+E/ULMfFh8AskE7xDk0CkhP450ndM4mQrakq16VHheV37orYiq2XZlClvEUvGbo4mTQf+/W0AhYvFTxRLPDR0teXQgXakFsM/8cz/Pp1GeKtfgq6FGwjKZHQZk1dncreG0lGbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yOP7Z8Qx/6z2VL9wX2WNfhiei05pdZuhQkgUJxy6wXs=;
+ b=CulkiBtdDO1YZIZz+aKOmSWkj1oqtpKY93znz5OoFVZ1w6xCcVwmYL+u13uHB/bHU3H5ymLMzxwc85kH9vOWNhoZo/HJ2RExnCBJX41rLJ+4y1B5oQkkMYftPI0Nl2A4nrNsoTENA/tV8MJuY6DoQw8uy4083kEnRTfCaKlknBQ=
+Received: from CH0PR03CA0319.namprd03.prod.outlook.com (2603:10b6:610:118::32)
+ by CY1PR12MB9699.namprd12.prod.outlook.com (2603:10b6:930:108::5)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 20:22:25 +0000
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd%3]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 20:22:25 +0000
-Date: Tue, 8 Sep 2026 13:22:23 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-CC: <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, Mika Kuoppala
- <mika.kuoppala@linux.intel.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Christian =?iso-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>
-Subject: Re: [PATCH v8 3/3] drm/xe: Convert xe_user_fence to drm_user_fence
-Message-ID: <aqBufwAli0Krw+s3@gsse-cloud1.jf.intel.com>
-References: <20260908084627.352535-1-srinivasan.shanmugam@amd.com>
- <20260908084627.352535-4-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908084627.352535-4-srinivasan.shanmugam@amd.com>
-X-ClientProxiedBy: MW4P223CA0030.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:303:80::35) To CO1PR11MB4787.namprd11.prod.outlook.com
- (2603:10b6:303:95::23)
+ 21:30:08 +0000
+Received: from CH3PEPF00000013.namprd21.prod.outlook.com
+ (2603:10b6:610:118:cafe::4e) by CH0PR03CA0319.outlook.office365.com
+ (2603:10b6:610:118::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
+ Sep 2026 21:30:08 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF00000013.mail.protection.outlook.com (10.167.244.118) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.1 via Frontend Transport; Tue, 8 Sep 2026 21:30:08 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 16:30:02 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
+ <Harish.Kasiviswanathan@amd.com>, <Mukul.Joshi@amd.com>
+CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH v8] drm/amdgpu: Resync UALink ring wptr after reboot
+Date: Tue, 8 Sep 2026 17:29:30 -0400
+Message-ID: <20260908212930.427287-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|DS0PR11MB8718:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9fd3c182-672d-4465-7f72-08df0de6e535
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000013:EE_|CY1PR12MB9699:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae8484cc-d30e-4cab-c217-08df0df05b36
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|4143699003|10067099003|6133799003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: DJaYtaazneNsLS01bBpKU5hugRsLzUg6glaDPxEfq1EVM7csZZ+pZLt8wOZ8m/Z7pHsWHgnrdga12MO4c7Ic0vgT7gLRmE6jy7jhuxLZ6lWg62Kw3Us72+QQbQnZUqp6RR4PpMZeswLEY86AS3jG9k3x+M3W7COYEQeSeUs0iOR+keE/R3QikfrpMYZWmcIwpzvo/9nO2h4FyXjyAVkaMIn11JUZThpDxyyrOHAsmzqlygvW0hiq89T3dOEZ8XVh8lDSK0NRG/06b/1i7ZK9XGrpdExr/zXxutEkhdTrCquRrjvqyCAEBwsVoRSFthTNILBBPYKa6Oj3oPNzkstTnhRkk49wXKBMO1NQ5Z4H5tTtRxzhsiETxx6zi90uzzcFbX/S0STpNqtAnMJbbROe82CglUI36oq8ABrsrE0KHo80VCRa6uFbWF1ph+oFjiOpnBfCvfW/XRS1ACCcBlDgvahgKwvZ8DjY93RLGPwVUKcFXVVrLJR6dH4phzVfr4sDCo+FP4Sf00bkXPIpxKYl+3rp84pIglMtAE7dudCM80tOx6RZ6IcwMaV/7qoYBYSqvKaMSwOZ7h0By9cywWYYGqRngFUrtRWI91aBDlti/sgHi5aZfWZ0sNlcOiOGbbBJWF53Tt7vpTE47YrMcjEq4hC5HN8cyyMo/DDvZU9HxCQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(4143699003)(10067099003)(6133799003)(11063799006)(56012099006)(18002099003)(22082099003);
+ ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|6133799003|3023799007|10067099003|11063799006|56012099006|5023799004|18002099003;
+X-Microsoft-Antispam-Message-Info: OlEKZtwTNBtI4R+cbQ30w4U1BV6oOfZCtMk3XeRHBFPrMibXwewOE860x+BqUDBhVawWM1y08CKmZF2fPACkP2PfJP9nqMjfMLZjhftcWwXhPOz/2//FxLGy79osBfYes+H0/CmwnnpW1I/q0cHTtzp7Mlj6RaBt0hhn6saYD/XOO2sxpigjc+SIFm3632fhs8ylS34nFrsbrtGu0UOb30kuezhHGKH78zujEIPDzxj0q2BN5hVgdkArNJNQQpMTOcCugSsE2m7sRxDAZhWspeJ6u9RrX2Glq9stge/BYmyv4RHXrnSpvw59Q5cUWFQOs/cBfhHwOUNeJfUZBK/f1fzWmFqYRa0HnhgReH97o5VQrKMGK7JR1ja51gQeQGkbNNZ1/qGGEig9ZiW3kdIF8A4Y8n9z/DF0o0819m9OhBb3dE/P/cdkYwkq3uNSKH77G7gQpxIczc3porIP5+L15ptr7Geymid3ADAXeioFOCsDoh55Dn9D0fxsH5M/OQhjnmBbPaja1TrvDCtCe3MeOS0+c3xs+WuRspdIFTcnzuJbk+0IqOhlyDS8TuQ72Csco+ZN3aA46+YBm8gg2nrXjAY1sqMZ6EtgOoPmtQsAU9UJRcosetCv/A0LE90gp8lESG+qGEqNUhbwTnnYcFdLDsGPSRql43XjrLKN2bg+zCBgODVTcQa9AKIqv8dntSTX6rGYYuivHKA30DqrldWWJw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(6133799003)(3023799007)(10067099003)(11063799006)(56012099006)(5023799004)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzNranV0RmI4UndjVHo0R0pUUXRNd3RnOHVsNnFSL3o1UmV0SlpJcGRkVk44?=
- =?utf-8?B?UllwUjcxd3RxbVRGS0loQ0pjbEd4YUNYZXRsK3o1SzVoUy9FQVRMblR1TllY?=
- =?utf-8?B?THFaTkdYZ0NLdHNJcm0xSWVoNW5Ka1ZWRUJDZ1FKTVdhNEk5REFyOWdic0xm?=
- =?utf-8?B?YlFsbVVjdmRQc2VMeUFnTm5laVpmNDZQR21zZ2ViSnBMdmM0TkdhaWI4VG14?=
- =?utf-8?B?MVlHbmpqNWdCVGltTTFjRVJZMHd3Zk1ESTNCRjlmdDE5bU5HaXhmcDFodktm?=
- =?utf-8?B?SWNYM09ENytvVEN6TUVMVEpOeHpUc2EwM2pjVUFMLzFvV0xwSlVTNkVYZENE?=
- =?utf-8?B?dE1lQmNpNnBRdU14S2E4OGdCcFpUeXI4Z3ZnOG5yNEVHVkRYTUR4Nll1ZUxC?=
- =?utf-8?B?Wm90ZnVzSjA4UTFiU0VETUdOU1JHbHpiVjNCQys1SDFEaGxzVWhPRnJRNERy?=
- =?utf-8?B?ZTBJck5GenNXMU1BMFo3RDQwTE1uMHFnQzZJUVphZUR0ODdnNlhpWDQzUXh4?=
- =?utf-8?B?ZnFoYk8vc1BrT1NMWFcvMWM1QUUvdWp4d2hUMytjb04xOTN6eHExVm1GMHcw?=
- =?utf-8?B?NFJzeGdJRmE2RzREVDJhdmpRZlNyQzlUcTVnczVLcFFwUlRVVC9hVGJaODRH?=
- =?utf-8?B?MU15UHJaUmRsYmhRNUtYR0pvZkJGWkZ4UGFWektYUEJYVCtFdXM5cU9zeFVL?=
- =?utf-8?B?VzhMbUErL3lZbklvZkNCbkNjcTVrOHdxQTJoV3dodmFrVGkxTVRRNVZoRi9p?=
- =?utf-8?B?VmtmNlNPWVY0SDJSd2tLZFNDaFBlM0FDQWRXUXdlanpoZkNWTnVLV05xeDdI?=
- =?utf-8?B?Q2g5dG94WlhGdmNISFpRcE44bkp2cGdPUmp6NkVKMWdKN3RrMk9RbDNxT0xI?=
- =?utf-8?B?MzZkYW1SL21UM2VWR0I1Q3FUaWt1SUxMcUxMT3NKaDEvZFRBODFEMVFJbjh6?=
- =?utf-8?B?Vmk2V08xMHpzWGFZVi96MG4xMTJWNk11SkdiYitrZ3kzaS9rWk9DaG1qcFZS?=
- =?utf-8?B?WExiNFJwMzdrWFJFUGVjRHY0eTF6azhVK3RCdW1sTEQ2dHVFTHh4TFNhQmdG?=
- =?utf-8?B?akZUaUllay9BS1pMYytVSjZkb3ZEeFpVd2p1ZWZzU1BmcnFMRUV1YlhOTzZp?=
- =?utf-8?B?Z21yTVlCOVdHVEdvRGU3czU0SXQrTWIyZVFwd0RGN3lEVFlUb2FLNVhkYnE2?=
- =?utf-8?B?cGpTOENmbjhlTGZteW5PZCt2dWdCUDJWOFZSbXJaZUNNQm0yNCtvZkF2RzlD?=
- =?utf-8?B?M09NL1d1Q2dFZ1RhMUdGZWxMS2ZsQTdGUWIrNFhmbEVaOVMxSGwrYlVUalJ4?=
- =?utf-8?B?bVA1NERLd2c2dUUzRGQ4RVBkbVB4aU0xMWtRelBwbllVZ0lRRVVhZTRCeEYw?=
- =?utf-8?B?aG9wTTFqK1p4dlhnRjdJTUV4ci9Qb3E1bzlTL1dwdnM3S1FDTlh1WUhzMzdH?=
- =?utf-8?B?K0pFdUVjQkRxNnFRcWprTnRoOW5aMU95TDJmQm93WlhLNWNybzlCby8wL2Q4?=
- =?utf-8?B?SU1rc0lMRGxyOW96N2MwWGswQnhtbTJiQllieG5uVFRsajVQK1ZsRm5KeW9V?=
- =?utf-8?B?QzV6ZXVHSzk2OGt1enc1ZjZicjVxWk5GYlowODBTVFBwYlQ2UlJ6ZFk4VE9s?=
- =?utf-8?B?bExxdURlSW93QXF4ek1KaW5YNE8vRi9GUEYwQmJxMkM2eG14ci8rUWNmZWVa?=
- =?utf-8?B?bXdxcFEycnl1WkR1dldqYVZjUnl6Vm5BZHh3Tm83di9SOE5YbXYrV3lZT25Z?=
- =?utf-8?B?Y3p4Y25OS3B2UlRrQjFpRldzUHcvSFZENjlHMENjZ1FENjJaMmVFRWRvd1lP?=
- =?utf-8?B?UEVOVEV6aUdHWDV0UnZnSkp4SnVuR0ZKdXUzUGNNWE4wS2dEVFVIOGFvT1RE?=
- =?utf-8?B?alpkVnAvL1VaL0wvdmJsN3c5Z1Jzbk83L3M4Yjd3WVhxSnhBK1BYbGlWeU1U?=
- =?utf-8?B?SkczVG5MNGpPeFJFL0tLQXlYMWVTL2hLVjFidzhLVE1IOGsrU1JhMjJEaDdG?=
- =?utf-8?B?Vm1HeEsySk5wQmROckRpK0lQTTF4SFNpL0s1YUljWklwbllDcGlGd0p4OUww?=
- =?utf-8?B?OFhKSDVYak9abTg2Q0gxVE9sOUlhVDB3ZE95NDFqYjM0a2luVHlmeHBwRWxM?=
- =?utf-8?B?Ti9UWjJ4b2t3Vit6ZGNSSmpqa05jcWJzWkI3anlWZCthNWNOeDFXbmRidjFy?=
- =?utf-8?B?cjhpNXVUdEdFMlZRT1dzamtnSU9ZQ3J0dmxmd1oveHpHQW9MNWhEUGxaOWpU?=
- =?utf-8?B?VnZVcUc4SDE4cDc5aGtjQXhvaFRZaGZZVDV3Q0FaTUVQTEk1L0J3eUUzWTdC?=
- =?utf-8?B?S1orMTNjTC96ajkzRGYwSCtQdGdJYlpreGFIOFZQcjJNYmhKVGsrdVVBUUdW?=
- =?utf-8?Q?KA1p72ctMM0qJuxs=3D?=
-X-Exchange-RoutingPolicyChecked: g4FvfZbaCzj6+Wvb57OTyhKqsTVscPgfAe2V8TmiVxEcotCizJjd4giLGbTuQUB8y0iZAZUAAOylmxDgci5io+8W6hUj26djWXCneaPgrMO3pvG475/n4YMJ2xX9PE12ufNqScmFW1tbQXQLKS8zmOXcSBbxFmy8a7RJbVRqeoPzhY21l5D7/zBrzd4nFqWZ4rOB9W7zJjW6/2WX39inJ4Vvke2+U3pQijbDcOtZcrcrADpzaDGEj5pmB4yJAlU330t6priDGTdRibaS9oO35aaNqloOa+kL+wlufjo3gtxVcCGl6WLzcZIs59YnWY3JtkvaZI3mIWcEuZ0b8eLmMg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fd3c182-672d-4465-7f72-08df0de6e535
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 20:22:25.1219 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NBXNSf0wTAXBi1CUvj9sPx2X4j9bGYsCPrp2B35f397Z4ZZmzcDsDASVIC5jDbDrAN4lBv2VA2YdGkcpavxAow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8718
-X-OriginatorOrg: intel.com
+X-MS-Exchange-AntiSpam-MessageData-0: f+WmNdYpyGTAjOaIjDz0JWTDGo3DEfRrQVwEuP7NMiZIBwqx0N7Hqr7JmirHDv9Elnm+N4m1PLL74NYM8kwOrL9AHO4gve7xsnXYZjh9CCIPzZXhWXrsSuX2oFbOGspqKuyrFxUtDf61dHUwPWwpHAQApkX7wSF5PusZwUrw9/7bIMQhGFiZjOgRs9Ltl676UQD7Pet7nSrUL08RkIBBVmKXvYvf/K9d+8lKnlAz6Ph67yJHXuBXz43XdmrlnhY1BIk8f4vSsbbHjWqSnuOhM40989TQZ3pZ/aeej++CbJ8XYAiebropXbbMarwuhRNZPtoJQW66JHV4huXSr4J8p9ksDTX+koCaq9/RSNbcP+0hJUKfspPONOgAuodDC56pkzBllyW8y+edLDOFVObtngyEi9FF/bp2AWYvww0VXzcScJndXcDxXCR90hXm2S1k
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 21:30:08.2975 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae8484cc-d30e-4cab-c217-08df0df05b36
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000013.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9699
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,314 +110,494 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 08, 2026 at 02:16:27PM +0530, Srinivasan Shanmugam wrote:
-> Replace the open-coded user fence implementation in xe_sync.c with the
-> new common drm_user_fence helper.
-> 
-> struct xe_user_fence now embeds struct drm_user_fence as its base.
-> XE-specific fields (xe_device pointer for the ufence_wq wake-up,
-> userspace VA, expected value, signalled flag) remain in the wrapper.
-> 
-> The local user_fence_destroy/get/put/worker/kick_ufence/user_fence_cb
-> functions are removed. Their logic moves to xe_ufence_ops.writeback and
-> xe_ufence_ops.destroy, which are called by the drm_user_fence helper.
-> 
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: intel-xe@lists.freedesktop.org
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
-> v8:
-> - Fix xe_ufence_worker ordering: WRITE_ONCE(signalled, 1) before
->   copy_to_user(), add smp_wmb() before wake_up_all() (Matt,
->   mirrors upstream fix 8ae04fe9ffc93)
-> - Rename .worker → .writeback in xe_ufence_ops (Matt)
-> - Update commit message: xe_ufence_ops.writeback (not .worker)
-> 
->  drivers/gpu/drm/xe/xe_sync.c       | 154 ++++++++++++++++-------------
->  drivers/gpu/drm/xe/xe_sync.h       |   2 +
->  drivers/gpu/drm/xe/xe_sync_types.h |   1 -
->  drivers/gpu/drm/xe/xe_vm.c         |   1 +
->  4 files changed, 89 insertions(+), 69 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
-> index 37866768d64c..c0e720cf579a 100644
-> --- a/drivers/gpu/drm/xe/xe_sync.c
-> +++ b/drivers/gpu/drm/xe/xe_sync.c
-> @@ -6,12 +6,11 @@
->  #include "xe_sync.h"
->  
->  #include <linux/dma-fence-array.h>
-> -#include <linux/kthread.h>
-> -#include <linux/sched/mm.h>
->  #include <linux/uaccess.h>
->  
->  #include <drm/drm_print.h>
->  #include <drm/drm_syncobj.h>
-> +#include <drm/drm_user_fence.h>
->  #include <uapi/drm/xe_drm.h>
->  
->  #include "xe_device.h"
-> @@ -19,36 +18,65 @@
->  #include "xe_macros.h"
->  #include "xe_sched_job_types.h"
->  
-> +/*
-> + * xe_user_fence wraps drm_user_fence with XE-specific fields.
-> + * The drm_user_fence base handles MM borrowing and work-item lifetime.
-> + */
->  struct xe_user_fence {
-> -	struct xe_device *xe;
-> -	struct kref refcount;
-> -	struct dma_fence_cb cb;
-> -	struct work_struct worker;
-> -	struct mm_struct *mm;
-> -	u64 __user *addr;
-> -	u64 value;
-> -	int signalled;
-> +	struct drm_user_fence base;
-> +	struct xe_device     *xe;
-> +	u64 __user           *addr;
-> +	u64                   value;
-> +	int                   signalled;
->  };
->  
-> -static void user_fence_destroy(struct kref *kref)
-> +static void xe_ufence_worker(struct drm_user_fence *base, bool mm_ok)
->  {
-> -	struct xe_user_fence *ufence = container_of(kref, struct xe_user_fence,
-> -						 refcount);
-> +	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
->  
-> -	mmdrop(ufence->mm);
-> -	kfree(ufence);
-> -}
-> +	/*
-> +	 * Mark signalled before the userspace write so that if userspace
-> +	 * observes the written value and immediately issues a VM unmap,
-> +	 * check_ufence() will see signalled=1 and not return -EBUSY.
-> +	 *
-> +	 * NOTE: copy_to_user() may block if userspace backs the address with
-> +	 * userfaultfd or FUSE. Drivers requiring non-blocking semantics should
-> +	 * use a dedicated workqueue instead of xe->ordered_wq.
-> +	 */
-> +	WRITE_ONCE(ufence->signalled, 1);
->  
-> -static void user_fence_get(struct xe_user_fence *ufence)
-> -{
-> -	kref_get(&ufence->refcount);
-> +	if (mm_ok) {
-> +		if (copy_to_user(ufence->addr, &ufence->value,
-> +				 sizeof(ufence->value)))
-> +			drm_dbg(&ufence->xe->drm,
-> +				"copy_to_user failed, user fence wasn't signaled\n");
-> +	} else {
-> +		drm_dbg(&ufence->xe->drm,
-> +			"mmget_not_zero() failed, ufence wasn't signaled\n");
-> +	}
-> +
-> +	/*
-> +	 * Ensure both signalled=1 and the fence value written by copy_to_user()
-> +	 * are visible to all CPUs before wake_up_all() wakes waiters. Without
-> +	 * this barrier, weakly ordered architectures (e.g. ARM64) may allow
-> +	 * waiters to observe the wakeup before seeing the updated values.
-> +	 */
-> +	smp_wmb();
-> +	wake_up_all(&ufence->xe->ufence_wq);
->  }
->  
-> -static void user_fence_put(struct xe_user_fence *ufence)
-> +static void xe_ufence_destroy(struct drm_user_fence *base)
->  {
-> -	kref_put(&ufence->refcount, user_fence_destroy);
-> +	struct xe_user_fence *ufence = container_of(base, struct xe_user_fence, base);
-> +
-> +	kfree(ufence);
->  }
->  
-> +static const struct drm_user_fence_ops xe_ufence_ops = {
-> +	.writeback = xe_ufence_worker,
-> +	.destroy   = xe_ufence_destroy,
-> +};
-> +
->  static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
->  					       u64 value)
->  {
-> @@ -63,51 +91,22 @@ static struct xe_user_fence *user_fence_create(struct xe_device *xe, u64 addr,
->  	if (!ufence)
->  		return ERR_PTR(-ENOMEM);
->  
-> -	ufence->xe = xe;
-> -	kref_init(&ufence->refcount);
-> -	ufence->addr = ptr;
-> +	ufence->xe    = xe;
-> +	ufence->addr  = ptr;
->  	ufence->value = value;
-> -	ufence->mm = current->mm;
-> -	mmgrab(ufence->mm);
-> +	drm_user_fence_init(&ufence->base, xe->ordered_wq, &xe_ufence_ops);
->  
->  	return ufence;
->  }
->  
-> -static void user_fence_worker(struct work_struct *w)
-> -{
-> -	struct xe_user_fence *ufence = container_of(w, struct xe_user_fence, worker);
-> -
-> -	WRITE_ONCE(ufence->signalled, 1);
-> -	if (mmget_not_zero(ufence->mm)) {
-> -		kthread_use_mm(ufence->mm);
-> -		if (copy_to_user(ufence->addr, &ufence->value, sizeof(ufence->value)))
-> -			XE_WARN_ON("Copy to user failed");
-> -		kthread_unuse_mm(ufence->mm);
-> -		mmput(ufence->mm);
-> -	} else {
-> -		drm_dbg(&ufence->xe->drm, "mmget_not_zero() failed, ufence wasn't signaled\n");
-> -	}
-> -
-> -	/*
-> -	 * Wake up waiters only after updating the ufence state, allowing the UMD
-> -	 * to safely reuse the same ufence without encountering -EBUSY errors.
-> -	 */
-> -	wake_up_all(&ufence->xe->ufence_wq);
-> -	user_fence_put(ufence);
-> -}
-> -
-> -static void kick_ufence(struct xe_user_fence *ufence, struct dma_fence *fence)
-> +static void user_fence_get(struct xe_user_fence *ufence)
->  {
-> -	INIT_WORK(&ufence->worker, user_fence_worker);
-> -	queue_work(ufence->xe->ordered_wq, &ufence->worker);
-> -	dma_fence_put(fence);
-> +	drm_user_fence_get(&ufence->base);
->  }
->  
-> -static void user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
-> +static void user_fence_put(struct xe_user_fence *ufence)
->  {
-> -	struct xe_user_fence *ufence = container_of(cb, struct xe_user_fence, cb);
-> -
-> -	kick_ufence(ufence, fence);
-> +	drm_user_fence_put(&ufence->base);
->  }
->  
->  int xe_sync_entry_parse(struct xe_device *xe, struct xe_file *xef,
-> @@ -282,24 +281,15 @@ void xe_sync_entry_signal(struct xe_sync_entry *sync, struct dma_fence *fence)
->  	} else if (sync->syncobj) {
->  		drm_syncobj_replace_fence(sync->syncobj, fence);
->  	} else if (sync->ufence) {
-> -		int err;
-> -
->  		drm_syncobj_add_point(sync->ufence_syncobj,
->  				      sync->ufence_chain_fence,
->  				      fence, sync->ufence_timeline_value);
->  		sync->ufence_chain_fence = NULL;
->  
->  		fence = drm_syncobj_fence_get(sync->ufence_syncobj);
-> -		user_fence_get(sync->ufence);
-> -		err = dma_fence_add_callback(fence, &sync->ufence->cb,
-> -					     user_fence_cb);
-> -		if (err == -ENOENT) {
-> -			kick_ufence(sync->ufence, fence);
-> -		} else if (err) {
-> +		if (drm_user_fence_add_callback(&sync->ufence->base, fence))
->  			XE_WARN_ON("failed to add user fence");
-> -			user_fence_put(sync->ufence);
-> -			dma_fence_put(fence);
-> -		}
-> +		/* fence ref consumed by drm_user_fence_add_callback */
->  	}
->  }
->  
-> @@ -434,6 +424,34 @@ void xe_sync_ufence_put(struct xe_user_fence *ufence)
->  	user_fence_put(ufence);
->  }
->  
-> +/**
-> + * xe_sync_ufence_cancel() - Non-blocking cancel of user fence callback
-> + * @ufence: user fence reference
-> + *
-> + * Attempts to cancel the pending callback without waiting for the worker.
-> + * Safe to call while holding dma_resv_lock or vm->lock. If the callback
-> + * has already fired, the worker runs independently — xe_ufence_worker
-> + * only accesses device-level and userspace resources, both safe after
-> + * VMA teardown.
-> + */
-> +void xe_sync_ufence_cancel(struct xe_user_fence *ufence)
-> +{
-> +	drm_user_fence_cancel(&ufence->base);
-> +}
-> +
-> +/**
-> + * xe_sync_ufence_cancel_sync() - Cancel user fence callback and wait for worker
-> + * @ufence: user fence reference
-> + *
-> + * Cancels any pending dma-fence callback and waits for the worker to fully
-> + * complete before returning. Must be called during teardown before freeing
-> + * any resources accessed by the worker.
-> + */
-> +void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence)
-> +{
-> +	drm_user_fence_cancel_sync(&ufence->base);
-> +}
+When one side of UALink nodes reboots, its ring wptr resets to 0 while
+the peer keeps a stale value. Read the remote wptr and adopt it as the
+local wptr and rptr to resync, when setting up the connection, before
+the first message is sent.
 
-This is unused in this patch.
+On the sdma path, read the wptr in a fence callback because the IB buffer
+holding the result is recycled once the fence signals, so reading it
+after dma_fence_wait_timeout() is too late. The lsdma path copies
+synchronously, so it reads the wptr directly.
 
-> +
->  /**
->   * xe_sync_ufence_get_status() - Get user fence status
->   * @ufence: user fence
-> diff --git a/drivers/gpu/drm/xe/xe_sync.h b/drivers/gpu/drm/xe/xe_sync.h
-> index 6b949194acff..b5ff3387c592 100644
-> --- a/drivers/gpu/drm/xe/xe_sync.h
-> +++ b/drivers/gpu/drm/xe/xe_sync.h
-> @@ -44,6 +44,8 @@ static inline bool xe_sync_is_ufence(struct xe_sync_entry *sync)
->  struct xe_user_fence *__xe_sync_ufence_get(struct xe_user_fence *ufence);
->  struct xe_user_fence *xe_sync_ufence_get(struct xe_sync_entry *sync);
->  void xe_sync_ufence_put(struct xe_user_fence *ufence);
-> +void xe_sync_ufence_cancel(struct xe_user_fence *ufence);
-> +void xe_sync_ufence_cancel_sync(struct xe_user_fence *ufence);
->  int xe_sync_ufence_get_status(struct xe_user_fence *ufence);
->  
->  #endif
-> diff --git a/drivers/gpu/drm/xe/xe_sync_types.h b/drivers/gpu/drm/xe/xe_sync_types.h
-> index b88f1833e28c..67048199b070 100644
-> --- a/drivers/gpu/drm/xe/xe_sync_types.h
-> +++ b/drivers/gpu/drm/xe/xe_sync_types.h
-> @@ -12,7 +12,6 @@ struct drm_syncobj;
->  struct dma_fence;
->  struct dma_fence_chain;
->  struct drm_xe_sync;
-> -struct user_fence;
->  
->  struct xe_sync_entry {
->  	struct drm_syncobj *syncobj;
-> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-> index b01f31ed4417..fbd2c28de8a6 100644
-> --- a/drivers/gpu/drm/xe/xe_vm.c
-> +++ b/drivers/gpu/drm/xe/xe_vm.c
-> @@ -1181,6 +1181,7 @@ static void xe_vma_destroy_late(struct xe_vma *vma)
->  	struct xe_bo *bo = xe_vma_bo(vma);
->  
->  	if (vma->ufence) {
-> +		xe_sync_ufence_cancel(vma->ufence);
+Take peer->lock in the callers (amdgpu_ualink_remote_interrupt and
+amdgpu_ualink_remote_shootdown) instead of in amdgpu_ualink_send_command,
+because amdgpu_ualink_update_wb_address() also reads the remote wptr and
+must run under the same lock.
 
-This is a behavior change in this patch. Why is this change?
+On connection reset, amdgpu_ualink_reset_peer_rings() only clears
+ring->ready; the remote wptr is re-read on the next update wb command.
 
-Also can't this prevent a user fence signaling on unbind if
-xe_vma_destroy_late() executes before the user fence? I'm somewhat
-suprised our CI didn't fail because of this change or Sashiko didn't
-complain about this, so maybe I'm missing something.
+v8:
+  - Fix regression with concurrent import ioctls: do the idle check and
+    ring reset in amdgpu_ualink_setup_connection() under conn_state->lock,
+    and return -EAGAIN for IN_PROGRESS/PENDING first.
+  - Reset the peer rings only, the imp/exp xarray cleanup is not needed to
+    resync wptr.
 
-Matt
+v7:
+  - With v6 reboot one node of vPOD test passed on minirack.
+  - Use the per-remote imported and exported handle lists for the idle
+    check instead of walking the xarrays.
+  - Rename amdgpu_ualink_resync_peer_rings() to
+    amdgpu_ualink_reset_peer_rings(), it only clears ring->ready.
 
->  		xe_sync_ufence_put(vma->ufence);
->  		vma->ufence = NULL;
->  	}
-> -- 
-> 2.34.1
-> 
+v6:
+  - Check idleness per remote accelerator instead of globally, and reset
+    the stale connection at the import ioctl so the peer re-runs the
+    HELLO handshake after a reboot.
+
+v5:
+  - Resync the ring pointers at the import ioctl when the connection is
+    completely idle (no exported or imported BOs), so the first command
+    from a new application after a remote reboot/reset succeeds.
+  - Put the sdma wptr read fence callback on the stack instead of
+    allocating it; it is cancelled on timeout so it never outlives the
+    call.
+
+v4:
+  - Cancel the sdma fence callback on the wait timeout/failure path so it
+    cannot write into the caller's stack after the function returns, and
+    free the callback state in one place.
+
+v3:
+  - Resync both rings at connection setup instead of on the send path.
+  - Set the writeback rptr too, the stale value disagrees with the
+    resynced wptr until the remote FW writes it back.
+
+v2:
+  - Match the FW change: resync wptr only on the first send or after a
+    timeout, instead of checking the remote periodically.
+
+Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 288 +++++++++++++++++----
+ 1 file changed, 244 insertions(+), 44 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index ab564202f550..5c6ef467043c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -55,6 +55,9 @@ static int amdgpu_ualink_remote_shootdown(struct amdgpu_device *adev,
+ 					  u32 size_in_pages, u32 flush_type);
+ static void __amdgpu_ualink_activate_vpod_locked(struct amdgpu_device *adev);
+ static bool amdgpu_ualink_vpod_membership_changed(struct amdgpu_device *adev);
++static void amdgpu_ualink_reset_peer_rings(struct amdgpu_device *adev,
++					   u32 remote_accel_id);
++static void amdgpu_ualink_metadata_fini(struct amdgpu_device *adev);
+ 
+ #define STRIP_NPA(addr)						\
+ 	(((u64)(addr) & ~AMDGPU_UALINK_NPA_ADDR_GPUID_MASK))
+@@ -2304,6 +2307,14 @@ static void amdgpu_ualink_process_hello_msg(struct amdgpu_device *adev,
+ 	mutex_unlock(&conn_state->lock);
+ }
+ 
++/* True if nothing is exported to, or imported from, this remote accelerator. */
++static bool amdgpu_ualink_peer_idle(struct amdgpu_device *adev, u32 remote_accel_id)
++{
++	/* Unlocked: a racing import at worst costs one redundant ring resync. */
++	return list_empty(&adev->ualink.imp_handles_list[remote_accel_id]) &&
++	       list_empty(&adev->ualink.exp_handles_list[remote_accel_id]);
++}
++
+ static int amdgpu_ualink_setup_connection(struct amdgpu_device *adev,
+ 					  u32 remote_acc_id)
+ {
+@@ -2325,13 +2336,21 @@ static int amdgpu_ualink_setup_connection(struct amdgpu_device *adev,
+ 	 * already done by another thread.
+ 	 */
+ 	mutex_lock(&conn_state->lock);
++	if (conn_state->state == AMDGPU_UALINK_CONN_IN_PROGRESS ||
++	    conn_state->state == AMDGPU_UALINK_CONN_PENDING) {
++		r = -EAGAIN;
++		goto out;
++	}
++
++	/* Peer is idle, it may have rebooted, force both rings to resync wptr
++	 * before the NPA handshake.
++	 */
++	if (amdgpu_ualink_peer_idle(adev, remote_acc_id))
++		amdgpu_ualink_reset_peer_rings(adev, remote_acc_id);
++
+ 	if (conn_state->state == AMDGPU_UALINK_CONN_ESTABLISHED) {
+ 		r = 0;
+ 		goto out;
+-	} else if (conn_state->state == AMDGPU_UALINK_CONN_IN_PROGRESS ||
+-		   conn_state->state == AMDGPU_UALINK_CONN_PENDING) {
+-		r = -EAGAIN;
+-		goto out;
+ 	}
+ 
+ 	conn_state->state = AMDGPU_UALINK_CONN_IN_PROGRESS;
+@@ -3671,7 +3690,7 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
+ 		dev_warn(adev->dev,
+ 			"IMPORT: NPA-REQ send failed to remote AccId:%u\n",
+ 			remote_acc_id);
+-		return r;
++		goto reset_conn;
+ 	}
+ 
+ 	/* Wait for the NPA_RSP to come back */
+@@ -5512,6 +5531,184 @@ static void amdgpu_ualink_emit_update_wb_addr(u32 **cpu_addr_p, u32 wb_data,
+ typedef void (*ualink_emit_packet)(u32 **cpu_addr_p, u32 wb, u32 dw0,
+ 				   u32 dw1, u32 dw2, u32 dw3);
+ 
++struct amdgpu_ualink_wptr_fence_cb {
++	struct dma_fence_cb base;
++	u64 *wptr_cpu;
++	u64 result;
++};
++
++static void amdgpu_ualink_read_wptr_fence_cb(struct dma_fence *fence,
++					     struct dma_fence_cb *cb)
++{
++	struct amdgpu_ualink_wptr_fence_cb *wptr_cb;
++
++	wptr_cb = container_of(cb, typeof(*wptr_cb), base);
++	wptr_cb->result = *wptr_cb->wptr_cpu;
++}
++
++static int amdgpu_ualink_read_remote_wptr(struct amdgpu_device *adev,
++					  u32 remote_accel_id,
++					  struct amdgpu_ualink_ring *ring,
++					  u64 *wptr)
++{
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	struct amdgpu_ualink_peer *peer = &remote->peer[remote_accel_id];
++	struct amdgpu_ualink_wptr_fence_cb wptr_cb = { };
++	struct amdgpu_ring *sdma_ring;
++	struct dma_fence *fence;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
++	u32 ndw, ndw_copy_cmd;
++	u64 wptr_gpu, *wptr_cpu;
++	int r = 0;
++
++	*wptr = 0;
++
++	/* 1 sdma copy command to read wptr */
++	ndw_copy_cmd = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
++
++	/* wptr 2 dwords */
++	ndw = ndw_copy_cmd + 2;
++	r = amdgpu_job_alloc_with_ib(adev, &peer->entity, AMDGPU_FENCE_OWNER_VM,
++				     ndw * 4, AMDGPU_IB_POOL_IMMEDIATE,
++				     AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER, &job);
++	if (r)
++		return r;
++
++	ib = &job->ibs[0];
++	wptr_gpu = ib->gpu_addr + ndw_copy_cmd * 4;
++	wptr_cpu = (u64 *)(ib->ptr + ndw_copy_cmd);
++
++	dev_dbg(adev->dev, "read wptr from remote %u npa gart wptr 0x%llx use %s\n",
++		remote_accel_id, ring->wptr_npa_gart,
++		remote->use_lsdma ? "lsdma" : "sdma");
++
++	if (remote->use_lsdma) {
++		r = amdgpu_lsdma_copy_mem(adev, ring->wptr_npa_gart, wptr_gpu, 8);
++		if (!r)
++			*wptr = *wptr_cpu;
++		amdgpu_job_free(job);
++		goto out;
++	}
++
++	wptr_cb.wptr_cpu = wptr_cpu;
++
++	amdgpu_emit_copy_buffer(adev, ib, ring->wptr_npa_gart, wptr_gpu, 8, 0);
++
++	sdma_ring = &adev->sdma.instance[0].ring;
++	amdgpu_ring_pad_ib(sdma_ring, ib);
++	WARN_ON(ib->length_dw > ndw_copy_cmd);
++
++	fence = amdgpu_job_submit(job);
++
++	r = dma_fence_add_callback(fence, &wptr_cb.base,
++				   amdgpu_ualink_read_wptr_fence_cb);
++	if (r == -ENOENT) {
++		/* Fence already signaled; the callback won't run, do it inline. */
++		amdgpu_ualink_read_wptr_fence_cb(fence, &wptr_cb.base);
++		r = 0;
++		goto out_put_fence;
++	} else if (r) {
++		/* -EINVAL: NULL fence or func, not expected here. */
++		goto out_put_fence;
++	}
++
++	r = dma_fence_wait_timeout(fence, false, AMDGPU_FENCE_JIFFIES_TIMEOUT);
++	if (r > 0) {
++		r = 0;	/* read wptr successfully */
++		goto out_put_fence;
++	}
++
++	dev_dbg(adev->dev, "remote %u sdma fence wait return r %d\n",
++		remote_accel_id, r);
++
++	if (r == 0)
++		r = -ETIME;
++
++	/*
++	 * Timed out: the callback is still armed and wptr_cb is on our stack.
++	 * Cancel it so it can't fire after we return and write into the freed
++	 * stack frame.
++	 */
++	dma_fence_remove_callback(fence, &wptr_cb.base);
++
++out_put_fence:
++	*wptr = wptr_cb.result;
++	dma_fence_put(fence);
++
++out:
++	dev_dbg(adev->dev, "remote %u wptr 0x%llx return %d\n",
++		remote_accel_id, *wptr, r);
++	return r;
++}
++
++/**
++ * amdgpu_ualink_ring_resync_ptrs - sync local ring pointers from remote
++ * @adev: amdgpu device pointer
++ * @remote_accel_id: remote accelerator ID
++ * @ring: ring buffer to resync
++ * @wb_cpu: CPU virtual address of the ring writeback buffer
++ *
++ * After a reboot on either side the two ends disagree on wptr. Read the
++ * remote wptr and copy it into the local wptr and rptr to resync.
++ *
++ * Return 0 on success or a negative error code if the remote read failed.
++ */
++static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
++					  u32 remote_accel_id,
++					  struct amdgpu_ualink_ring *ring,
++					  struct amdgpu_ualink_wb *wb_cpu)
++{
++	u64 remote_wptr;
++	int r;
++
++	/* Read remote wptr and adopt it as our wptr and rptr. */
++	r = amdgpu_ualink_read_remote_wptr(adev, remote_accel_id, ring, &remote_wptr);
++	if (r) {
++		dev_dbg(adev->dev, "accel_id %u read remote %u wptr failed %d\n",
++			ualink_accel_id(adev), remote_accel_id, r);
++		return r;
++	}
++
++	dev_dbg(adev->dev, "accel_id %u wptr 0x%llx sync to remote %u wptr 0x%llx\n",
++		ualink_accel_id(adev), ring->wptr, remote_accel_id, remote_wptr);
++
++	ring->wptr = remote_wptr;
++	ring->rptr = remote_wptr;
++
++	/* Drop the stale writeback rptr, it disagrees with the resynced wptr. */
++	WRITE_ONCE(wb_cpu->rptr, remote_wptr);
++	return 0;
++}
++
++/*
++ * Refresh rptr from the writeback and check the ring has room for one more
++ * command. The caller must hold the peer lock.
++ *
++ * Return 0 on success or a negative error code.
++ */
++static int amdgpu_ualink_ring_check_space(struct amdgpu_device *adev,
++					  u32 remote_accel_id,
++					  struct amdgpu_ualink_ring *ring,
++					  struct amdgpu_ualink_wb *wb_cpu)
++{
++	ring->rptr = READ_ONCE(wb_cpu->rptr);
++
++	if (WARN_ON_ONCE(ring->rptr > ring->wptr)) {
++		dev_err(adev->dev, "accel_id %u ring overflow wptr 0x%llx rptr 0x%llx\n",
++			remote_accel_id, ring->wptr, ring->rptr);
++		return -EFAULT;
++	}
++
++	if ((ring->wptr + 1 - ring->rptr) >= ring->rb_size) {
++		dev_err(adev->dev, "accel_id %u command ring full wptr 0x%llx rptr 0x%llx\n",
++			remote_accel_id, ring->wptr, ring->rptr);
++		return -ENOSPC;
++	}
++
++	return 0;
++}
++
+ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
+ 				      u32 remote_accel_id,
+ 				      struct amdgpu_ualink_ring *ring,
+@@ -5537,6 +5734,10 @@ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
+ 
+ 	peer = &remote->peer[remote_accel_id];
+ 
++	r = amdgpu_ualink_ring_check_space(adev, remote_accel_id, ring, wb_cpu);
++	if (r)
++		goto out;
++
+ 	/*
+ 	 * 3 sdma copy commands: write data to ring buffer, update wptr, ring doorbell
+ 	 *
+@@ -5553,25 +5754,7 @@ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
+ 				     ndw * 4, AMDGPU_IB_POOL_IMMEDIATE,
+ 				     AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER, &job);
+ 	if (r)
+-		return r;
+-
+-	mutex_lock(&peer->lock);
+-
+-	ring->rptr = READ_ONCE(wb_cpu->rptr);
+-
+-	if (WARN_ON_ONCE(ring->rptr > ring->wptr)) {
+-		dev_err(adev->dev, "accel_id %u ring overflow wptr 0x%llx rptr 0x%llx\n",
+-			remote_accel_id, ring->wptr, ring->rptr);
+-		r = -EFAULT;
+-		goto unlock_free;
+-	}
+-
+-	if ((ring->wptr + 1 - ring->rptr) >= ring->rb_size) {
+-		dev_err(adev->dev, "accel_id %u command ring full wptr 0x%llx rptr 0x%llx\n",
+-			remote_accel_id, ring->wptr, ring->rptr);
+-		r = -ENOSPC;
+-		goto unlock_free;
+-	}
++		goto out;
+ 
+ 	ib = &job->ibs[0];
+ 	src = ib->gpu_addr + ndw_copy_cmd * 4;
+@@ -5629,12 +5812,11 @@ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
+ 			dev_dbg(adev->dev,
+ 				"remote %u lsdma copy failed (r %d), skip completion wait\n",
+ 				remote_accel_id, r);
+-			mutex_unlock(&peer->lock);
+ 			return r;
+ 		}
+ 
+ 		goto out_wait_complete;
+-        }
++	}
+ 
+ 	sdma_ring = &adev->sdma.instance[0].ring;
+ 
+@@ -5665,12 +5847,9 @@ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
+ 	if (r <= 0) {
+ 		dev_dbg(adev->dev, "remote %u sdma fence wait return r %d\n",
+ 			remote_accel_id, r);
+-
+ 		if (r == 0)
+ 			r = -ETIME;
+-
+-		mutex_unlock(&peer->lock);
+-		return r;
++		goto out;
+ 	}
+ 
+ out_wait_complete:
+@@ -5679,21 +5858,15 @@ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
+ 	 */
+ 	r = amdgpu_ualink_remote_wait_timeout(adev, remote_accel_id, wb_cpu, seq);
+ 
+-	/* increase local copy ring wptr, only if FW not timeout */
+-	if (r != -ETIME)
+-		ring->wptr++;
+-
+ 	/*
+-	 * Release ring lock after the remote FW handle command completes to
+-	 * prevent race conditions.
++	 * Advance wptr unless the remote timed out, even if the FW returned an
++	 * error status. On timeout the caller resets the connection, which
++	 * resyncs wptr from the remote in amdgpu_ualink_setup_connection.
+ 	 */
+-	mutex_unlock(&peer->lock);
+-	return r;
+-
++	if (r != -ETIME)
++		ring->wptr++;
+ 
+-unlock_free:
+-	mutex_unlock(&peer->lock);
+-	amdgpu_job_free(job);
++out:
+ 	dev_dbg(adev->dev, "ret r = %d\n", r);
+ 	return r;
+ }
+@@ -5733,6 +5906,19 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
+ 		remote_accel_id, npa + offset);
+ }
+ 
++static void amdgpu_ualink_reset_peer_rings(struct amdgpu_device *adev,
++					   u32 remote_accel_id)
++{
++	struct amdgpu_ualink_peer *peer = &to_remote(adev)->peer[remote_accel_id];
++
++	dev_dbg(adev->dev, "remote accel_id %u\n", remote_accel_id);
++
++	scoped_guard(mutex, &peer->lock) {
++		peer->interrupt.ready = false;
++		peer->shootdown.ready = false;
++	}
++}
++
+ static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
+ 					   u32 remote_accel_id, u32 ring_type)
+ {
+@@ -5754,6 +5940,10 @@ static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
+ 	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &wb_cpu, &wb_npa,
+ 				  ring_type);
+ 
++	r = amdgpu_ualink_ring_resync_ptrs(adev, remote_accel_id, ring, wb_cpu);
++	if (r)
++		return r;
++
+ 	r = amdgpu_ualink_send_command(adev, remote_accel_id, ring, wb_cpu,
+ 				       amdgpu_ualink_emit_update_wb_addr,
+ 				       upper_32_bits(wb_npa),
+@@ -5795,18 +5985,23 @@ static int amdgpu_ualink_remote_shootdown(struct amdgpu_device *adev,
+ 
+ 	peer = &remote->peer[remote_accel_id];
+ 	ring = &peer->shootdown;
++
++	mutex_lock(&peer->lock);
++
+ 	if (!ring->ready) {
+ 		dev_dbg(adev->dev, "accel_id %u ring not ready\n", remote_accel_id);
+ 		r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
+ 						    RB_TYPE_TLB_INV);
+ 		if (r)
+-			return r;
++			goto out_unlock;
+ 	}
+ 
+ 	r = amdgpu_ualink_send_command(adev, remote_accel_id, ring, ring->wb_cpu,
+ 				       amdgpu_ualink_emit_shootdown,
+ 				       flush_type, upper_32_bits(addr),
+ 				       lower_32_bits(addr), size_in_pages);
++out_unlock:
++	mutex_unlock(&peer->lock);
+ 	return r;
+ }
+ 
+@@ -5836,17 +6031,22 @@ static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
+ 
+ 	peer = &remote->peer[remote_accel_id];
+ 	ring = &peer->interrupt;
++
++	mutex_lock(&peer->lock);
++
+ 	if (!ring->ready) {
+ 		dev_dbg(adev->dev, "accel_id %u ring not ready\n", remote_accel_id);
+ 		r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
+ 						    RB_TYPE_REMOTE_INTERRUPT);
+ 		if (r)
+-			return r;
++			goto out_unlock;
+ 	}
+ 
+ 	r = amdgpu_ualink_send_command(adev, remote_accel_id, ring, ring->wb_cpu,
+ 				       amdgpu_ualink_emit_interrupt,
+ 				       dw0, dw1, dw2, dw3);
++out_unlock:
++	mutex_unlock(&peer->lock);
+ 	return r;
+ }
+ 
+-- 
+2.50.1
+
