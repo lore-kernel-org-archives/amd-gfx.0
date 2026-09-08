@@ -4,83 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D5CAC79F9E
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:11:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2BDBC79F82
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 18:14:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C228010ED13;
-	Tue,  8 Sep 2026 18:11:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88E2E10E851;
+	Tue,  8 Sep 2026 18:14:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AvwQ3ZfR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ssThGMr6";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B258410ED13
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 18:11:24 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-49b8687630fso42346075e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 11:11:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788891083; x=1789495883; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=uP0h08cJg0UNU8c9ugw0e491cNAE70S7nyPdBugFBkQ=;
- b=AvwQ3ZfR7rdJeOAvvzgtxhBdI4VrxxCdw1kJJ4IF7KxlLCen/5W564YTeNfqzskjVB
- H3eRYZmuOzn58eJEGu93VdEU+1r1xv4pEOzi01TvPiV2ThI55gNwYfOH7G983MPy7oCd
- uRdvFP7+suWjAU7c36G2iW8EPyc3IFG+Lj0unF+MFec5sL8OaW3yfpORs/rLUliCtrH3
- 4vzFlJq8ALdwzPYcuLv6RCD4neJLeHNxMarfy0hJJtwLlUZKFOXmHLSN+YjcWi1siZJ3
- cady8/Yj6FS3aZHnCSA3Jv9ttDUXQ3Jp8AIdPpvI1FdcsTtxRnuR5zFee4VoDUZ+TWAO
- ocVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788891083; x=1789495883;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=uP0h08cJg0UNU8c9ugw0e491cNAE70S7nyPdBugFBkQ=;
- b=hD6DBpg2ZtvFm3gOM4vD+cVbY5FEVY85xZ0PHze8IR3B0wcp6lRlt+evNwlHQju9yK
- Lthho8P6LcSeYmvxqm4s2UV3Wd5eoNvWkXTg72tRQ0Xb4DFbmHRVXz7/AJlocti2vCfz
- 7QdijZ3LoHnpM/qT6hxIP9j+bZga7yA/y5Mi1ErzzkVHgyrjolwKiouD+iSjoJpbZY15
- j6x3O7ypf1f7ugjJPzcAX/ENwrqWgnGTYHhajd3PqyTLQuQk2r/Gr/kLHzNs+obAlBmG
- xWNxv66s5a+g7i7D1mAYNbxEEdwl+F5yJvKOZrZvEukZ5LIxM5kinHYIBCONnPqmQh4i
- w8fQ==
-X-Gm-Message-State: AFuF++kBElntDmWrc1IjbuwFymMGNMs+M1u7MKCA6piX8NIWGBqYTQhS
- wK3eZyaXlUqueGrut+B+JdAa6jzaZn1TCKmCpthD+24KISqWv2uMx0oylX1IjEyY
-X-Gm-Gg: AYBFou3Jy0koma7d8xXxE4qpHHgtGWMS69ZIfklmQV6iYmrWc2jKhsVSxkLSQkkMnPv
- +RBUaoqOJESGil0porRGNyao9ZdwQIhSXXZTcyUCV95bPvGv98pvFmD/SOdZpJbs9EMUALPfqX9
- GUeRSh8h9AKKyffqdJxglwa0V2BU6EhPdpNUYaVPzHGu5VlGfmjzRqCMiR6//toPSexAywcSBKe
- bqqITqP5v9NYRmQWoOJmMPpuVA5ORPQqbE36GtK5zMBzMxAW9JybaFS2hLhJWxZpcambk6bHBPD
- 4GlYYKwAvY9s6hOmqmBAB00hFWq1WYDSDQnbup9gavpn1sPQwc4+C9UYZeeuk3Qqp0NyNHu+U8d
- pPjCAvDb//qQOIUEGZ19mkhYOCCOxoe8lWREwet7gqts/cu/eMVl9zeCom9hKD9b+7QPyb9kNdl
- KJrlmEvMN+qI0ueSGqxn1SVAhjq7V8rcjXvwRDiD3Kg4PZ5qVrHmp8YsJumpdYF4UigC1Ik65FO
- +mdvPRUdL/nb10IoOEy
-X-Received: by 2002:a05:600c:6819:b0:49c:de80:b833 with SMTP id
- 5b1f17b1804b1-49cf81fb1acmr292242325e9.2.1788891082937; 
- Tue, 08 Sep 2026 11:11:22 -0700 (PDT)
-Received: from Timur-Max (athedsl-4460056.home.otenet.gr. [79.129.254.8])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49d1fb1e4e4sm5190125e9.2.2026.09.08.11.11.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 11:11:22 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, pierre-eric.pelloux-prayer@amd.com,
- Natalie Vock <nat@pixelcluster.dev>, Lijo Lazar <lijo.lazar@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 9/9] drm/amdgpu/sdma: Use common SDMA legacy queue reset on
- SDMA v4.4.2
-Date: Tue,  8 Sep 2026 20:10:52 +0200
-Message-ID: <20260908181052.381126-10-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260908181052.381126-1-timur.kristof@gmail.com>
-References: <20260908181052.381126-1-timur.kristof@gmail.com>
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012060.outbound.protection.outlook.com [52.101.43.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D750210E150
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 18:14:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VV3K4HpCaFxQ3qrsiekwkFj0+k+EkYvW0kbQAOvP+jGJ4l3U1ProS4+fF1CV6qYVqSGE2yTPxUEPX1hkzI8JQ5Y+Sm+SZLaMQcxhIcyrL0HtBtG4X2LeJKi8LvgcuFEqnMx5bgut5GYWQiOgeU1RbCZVODL6YnZR4yySIIHK8Z7W/vfwJonVy2nsLZaImOUNWa2GVeXcMoyExyiOpps5SnRbR+3svj5a3ghSzeTmFWmfPZAnJbYJghOcOD9kJYt9okQWrczMbGc9+C/TwcJKrnK/qIRpK1oew679p9RdPDLCJwTDTt0b9atbBW5K3fGrmmE9MVtTqe7St1atqocc+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NbKJtKBLG/IS1oeALfitw4YZeO5XN0sgqKtn67x9hPE=;
+ b=gVqXlbWiNAFIIMW57RkaMf/NEHin9y5AqT5Lsb3f/dXnBduOoyU9LO5dmOXZm+UOZgWuRrlHSI+/SgWsexNfumkNuTTMIhk6haKXT0cGzDbc/1XgS86nkNAh7u7oRc4/pcd2Z9z5GjW9vEe2Grje7xfJlc2Ck3z889WsGRsbS/3CxUeIV4a4ZOysusUb0eri8E4fNmDxVjbkRzsmOOErQhpffW9wpAf+Q3h+PQ06TACHEtO2XfWSFUCoobLDej88SIhDsNo/XqsDIGwmeCbFo4VX27IJladBr8MgDN/1eaO8RdDRVWY/lvrYSsccpA7ls31VLlvKQnCBheUVxUJpAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NbKJtKBLG/IS1oeALfitw4YZeO5XN0sgqKtn67x9hPE=;
+ b=ssThGMr6tFmYbO0dEcFqRUhnEEihzGJNXmH7Yz8s5wKgd/xInN7lRsLE0LDOgSTyCCn4okN5x1+Lb/WdfbCPlj7pas0Gp0Wrc5An3VdNiRwvXUhEQ9CJ5A3rtKcLNq50FQbjswukxNCwBf1CHbQ36Iz7YFbbkHp1OxbnAaYaYfE=
+Received: from CHXPR12MB999220.namprd12.prod.outlook.com
+ (2603:10b6:610:2fd::7) by IA0PR12MB9048.namprd12.prod.outlook.com
+ (2603:10b6:208:408::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 18:14:41 +0000
+Received: from CHXPR12MB999220.namprd12.prod.outlook.com
+ ([fe80::c13f:e49a:47dc:5c61]) by CHXPR12MB999220.namprd12.prod.outlook.com
+ ([fe80::c13f:e49a:47dc:5c61%6]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 18:14:41 +0000
+From: "Zuo, Jerry" <Jerry.Zuo@amd.com>
+To: Mauricio Bellon <mauriciobellon@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Lin, Wayne" <Wayne.Lin@amd.com>, "Limonciello, Mario"
+ <Mario.Limonciello@amd.com>, Mauricio Bellon <mbellon@lenovo.com>, "Wentland, 
+ Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH 2/2] drm/amd/display: enable sink DSC before source DSC
+Thread-Topic: [PATCH 2/2] drm/amd/display: enable sink DSC before source DSC
+Thread-Index: AQHdNVjsBEnDHhjZq0+GmN1h0gU4krbFDgaA
+Date: Tue, 8 Sep 2026 18:14:41 +0000
+Message-ID: <CHXPR12MB99922037436C4ADE71BA82E152E5B12@CHXPR12MB999220.namprd12.prod.outlook.com>
+References: <20260825211819.100210-1-mauriciobellon@gmail.com>
+ <20260825211819.100210-3-mauriciobellon@gmail.com>
+In-Reply-To: <20260825211819.100210-3-mauriciobellon@gmail.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-08T18:03:32.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CHXPR12MB999220:EE_|IA0PR12MB9048:EE_
+x-ms-office365-filtering-correlation-id: b9636c74-d46c-4c35-e40a-08df0dd50da3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|366016|10067099003|3023799007|18002099003|22082099003|4143699003|11063799006|56012099006|38070700021;
+x-microsoft-antispam-message-info: 4/jxYJNfvJIQ9Etc+SGOoxR+g783i3h8Fbk1sFjbw7isMNdjds7gowcN86ZBWwiNFbagRf646rsmiVsXBstAEWFq71dJbPEnbQrSI8+h2j5OVeKCxvqO90k1t0gBJ5wcQctb0pNIz+dRQiaf8Mnaw2Ca+hKvU4sNqLsTSShfV3cInNTf7RD01W5ELWS5CT7bQ5nh678MZaCP6FohYeQuMjjdvfRWkR7V4hoqXfBbCPTB7Xuu1DghUebHLDsNwBFkMjpJhEjt3+y2jVywYyJkBAEgT6ioRdfxqwAMGnPW/YiN8GUdnUQxB4A1VYpaxIjPxyd1a4RDVGAO7pEvhzVZZWeHpAEV17m2QILvdi1d70Ua1aNMEm4XY9LUBhI3OQK18z22uWXRZ4K8TJYtaTbLcRO1nDVy5OGoDOEue6jzCkUZN7YL01mHtYZkCoQmkPz/9mMJNx+7jG6MqFfYs9upmQH4nPJX2yR+1TE8jlTFfs+f19q9HlZ+9oUVlYu5dUypgWc6an1HDiUfYi+ek5LxwQK/i1qSeBpa9PEo9EkxrIf0rFKlVBQBkd4mPr7xTqI+cDzgRs1y8RMa5cwEVjfeayLdSoAPRom008WcUNsRHufZMOQu5pmBcyUiZ6ZtEZdkmV1aMe2UjAv+/QkIyuMrhXwfahs2HfFs0hEXp47hFKpuvZZTLIuV9GAiSmil4Pz001nq7D+ZdPyEpr6hqPs7Iaty0leXTzf/ROoT9RNmcXo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHXPR12MB999220.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(3023799007)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?pkFS+L9KEK0RnXmZcJ02RbslrKln2VM59Zi1iPSFybgMTuBWEfjBGPTXuEwn?=
+ =?us-ascii?Q?QK5da0/788R4BWzDazGo/ZdTG80LQXAXpWDSPB8ilhGYXnfeEjuCh3syZ/cY?=
+ =?us-ascii?Q?2X6Qm0SxqE0ZdIXH+1SOO2zInqtZ9oAEYQcCqprcEU6V2fZuzU0Hc30CO6wY?=
+ =?us-ascii?Q?Td7eF6k7k1IjEm54tXPYezVxCLx2SFIEPolKnv6EDeuRZcmENl8ev5NZD/7L?=
+ =?us-ascii?Q?W+Z8QB2xe802Y+c5Be7PfHKYAwKYn7gcCSzJx7juF0EyeGh3F+qQbE6VHG5S?=
+ =?us-ascii?Q?wxfl/Mw5Gst6nkPhErita8dBezwPNfiuCOhG7ORFZPR3+NETEAx6XP/NvQ82?=
+ =?us-ascii?Q?aO7O6Snt7wmNZEgbLyodHyS1NZsFJDvtcCJDdg1S8gLMStk9HbcP9tSl1spL?=
+ =?us-ascii?Q?0arlWC2gaTYnepvvDeabdnC/nyEXGMl1MU8tY53tZ3maOXAnTVu4R96dLlzk?=
+ =?us-ascii?Q?4axjmxAr1RQ2qswnIM5pD4g4pk5PzY3USuFbcz3368uqSdB2iAV8AFM2Nh1T?=
+ =?us-ascii?Q?quT/fB7yfwVO5mpEFblnL0hGEyxxoz/nwRUfYaJmW22nCdLdXYpIS/Mhi0QE?=
+ =?us-ascii?Q?jE/YEAnkU5IVDZkGTgHV4Ap7Czb57q/O9KRK8Epv0aXMxG9yv1jhhM+oO3hG?=
+ =?us-ascii?Q?VqHkTGSDPkhj5s9vFOg9s9HD5xR5HED86nCcUcJojUvhqf3rz2yTz2bGuoya?=
+ =?us-ascii?Q?KLUwaJIyeslAxyvCebTgZU2qaBkZfaTExmtQ5Se2YkYcNy7o6s/HFNohmEdc?=
+ =?us-ascii?Q?hlUXGbP/IFugyKR1V9beVNfSPZycmjkqlKtKUKENEmCLplQS0itNUnDBPHtr?=
+ =?us-ascii?Q?LNaCY3StjYFH1cb7h62JP6m1wL9BNbYmGGxRallgBGrtF9lq19P+o7ifwEea?=
+ =?us-ascii?Q?IPlfQvYLEvQNgPq3O6zRHrXFGXy9sVz/BAnyHYc1sHnsC1AUcicBHH4GEONB?=
+ =?us-ascii?Q?Miq8iOPL9HIqXrWNjNSEaOwuY0FmuqLINerDTM0EL3n/3VVhi2AwRh6c/IJt?=
+ =?us-ascii?Q?wjSrvd/WlJ94RxIHwCnHLSbzqe3Yj7quOx8PId8h8s4553oxFU8oToRGl3gF?=
+ =?us-ascii?Q?6r8MbzSMeUTyuf0ZxwTi8VxcmN8tAWTXq2edZhfbNzSlfXAbfqRZZQQaHD/4?=
+ =?us-ascii?Q?DGzEH+/3JqjHw7+h0ejHxWCjmIyM3+79r/B8pwvFJQOLb5hLJxLIciEinA6a?=
+ =?us-ascii?Q?O8yrCfIYGV0cdSm/TROWCPsaaU7rgULe5DQVxKW/12rwNzevvvFQKNdW/IcF?=
+ =?us-ascii?Q?i5FpXvjS6hEN2kKrzm/TISiXQH/jyJssucbnqpjJkPjeNk/ChNPdvKjtAyei?=
+ =?us-ascii?Q?9UxMKIws9VcmGHWWw4tkkvWOVEvjeBIKpMquGV1PEpEKK/GI3M4yhA5WbfSZ?=
+ =?us-ascii?Q?Yf63M+KvCrJKc+I7pZBrJeWBS6DQf9RPjA7icU7b5NHx3m9Qs2mbv1yuaoKP?=
+ =?us-ascii?Q?AAE28nlXZvGCdq2kLIgJ/cb4iWAguPzbBcSLzzZBhlxUaj3y3jBFuWGXss+q?=
+ =?us-ascii?Q?y7P0rG5dFvJnFU6ncWc4O7EAzCh8UODcrxrinnMAER2tFRdEbD+XGAztvP7K?=
+ =?us-ascii?Q?nTzOUsgbvIqXa8Np1vdTGJu2H85hlmK2gCo/VbO+srkG8izrSsackdAt2rap?=
+ =?us-ascii?Q?9vUZloO3seNfwgyEwvAwsw4QQO1jdZf88IwRbcE7wupRuaN5HjxuHVgzazV5?=
+ =?us-ascii?Q?9vDKM2SiNB2UX3v6F9t243B7HWEPQck0UfcC8dhqtjwf4e5W?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CHXPR12MB999220.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9636c74-d46c-4c35-e40a-08df0dd50da3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 18:14:41.7354 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: b1AlD4pAgjaZhM9tivWutSJmXpJX6EcWvhKXO8hpgvN3Pmjb1HCDzUT/BfPjm+Pw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9048
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,57 +137,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now, sdma_v4_4_2_reset_queue() does basically the same
-as amdgpu_sdma_reset_queue_legacy() so let's use that.
+AMD General
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 18 ++----------------
- 1 file changed, 2 insertions(+), 16 deletions(-)
+Hi Mauricio:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 4a1e941cfe2b..738341e889aa 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -1579,20 +1579,6 @@ static int sdma_v4_4_2_wait_for_idle(struct amdgpu_ip_block *ip_block)
- 	return -ETIMEDOUT;
- }
- 
--static int sdma_v4_4_2_reset_queue(struct amdgpu_ring *ring,
--				   unsigned int vmid,
--				   struct amdgpu_fence *timedout_fence)
--{
--	struct amdgpu_device *adev = ring->adev;
--	u32 id = ring->me;
--	int r;
--
--	amdgpu_amdkfd_suspend(adev, true);
--	r = amdgpu_sdma_reset_engine(adev, id);
--	amdgpu_amdkfd_resume(adev, true);
--	return r;
--}
--
- static int sdma_v4_4_2_stop_queue(struct amdgpu_ring *ring)
- {
- 	struct amdgpu_device *adev = ring->adev;
-@@ -2036,7 +2022,7 @@ static const struct amdgpu_ring_funcs sdma_v4_4_2_ring_funcs = {
- 	.emit_wreg = sdma_v4_4_2_ring_emit_wreg,
- 	.emit_reg_wait = sdma_v4_4_2_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
--	.reset = sdma_v4_4_2_reset_queue,
-+	.reset = amdgpu_sdma_reset_queue_legacy,
- };
- 
- static const struct amdgpu_ring_funcs sdma_v4_4_2_page_ring_funcs = {
-@@ -2068,7 +2054,7 @@ static const struct amdgpu_ring_funcs sdma_v4_4_2_page_ring_funcs = {
- 	.emit_wreg = sdma_v4_4_2_ring_emit_wreg,
- 	.emit_reg_wait = sdma_v4_4_2_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
--	.reset = sdma_v4_4_2_reset_queue,
-+	.reset = amdgpu_sdma_reset_queue_legacy,
- };
- 
- static void sdma_v4_4_2_set_ring_funcs(struct amdgpu_device *adev)
--- 
-2.55.0
+     This change breaks dsc, causing black screen.
+
+     Sink RX dsc enable should land after link training. Writing dsc enable=
+ to the RX on an untrained link is too early, that should be done after tra=
+ining. That is likely to be the main sequence regression.
+
+Regards,
+Jerry
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Mauricio Bellon
+> Sent: Tuesday, August 25, 2026 17:18
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Lin, Wayne <Wayne.Lin@amd.com>; Limonciello, Mario
+> <Mario.Limonciello@amd.com>; Mauricio Bellon <mbellon@lenovo.com>;
+> Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
+> <Sunpeng.Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Deucher,
+> Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; stable@vger.kernel.org
+> Subject: [PATCH 2/2] drm/amd/display: enable sink DSC before source DSC
+>
+> [Some people who received this message don't often get email from
+> mauriciobellon@gmail.com. Learn why this is important at
+> https://aka.ms/LearnAboutSenderIdentification ]
+>
+> From: Mauricio Bellon <mbellon@lenovo.com>
+>
+> Direct DisplayPort high-refresh modes using DSC and two-way ODM can
+> commit without visible output during a 4K120-to-4K144 transition. A worki=
+ng
+> 4K144 stream can also return black after long-pulse hotplug reconstructio=
+n.
+>
+> The DPMS-on path currently enables source DSC before link enablement but
+> does not enable sink DSC until after the source stream is enabled. This l=
+eaves
+> the sink and source compression state ordered differently while the strea=
+m is
+> brought up.
+>
+> Enable sink DSC immediately before source DSC in the pre-enable phase, an=
+d
+> remove the later redundant sink-enable operation near PPS packet
+> programming. This establishes the order as sink DSC, source DSC, stream
+> enablement, and PPS before the compressed stream becomes visible.
+>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mauricio Bellon <mbellon@lenovo.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> index 48b086d15..412ce52b3 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> @@ -2635,8 +2635,10 @@ static enum dc_status
+> link_set_dpms_on_pre_enable_link(
+>          */
+>         if (stream->timing.flags.DSC) {
+>                 if (dc_is_dp_signal(stream->signal) ||
+> -                       dc_is_virtual_signal(stream->signal))
+> +                       dc_is_virtual_signal(stream->signal)) {
+> +                       dp_set_dsc_on_rx(pipe_ctx, true);
+>                         link_set_dsc_enable(pipe_ctx, true);
+> +               }
+>         }
+>
+>         if (link->replay_settings.config.replay_supported
+> && !dc_is_embedded_signal(link->connector_signal))
+> @@ -2729,7 +2731,6 @@ static enum dc_status
+> link_set_dpms_on_post_enable_link(
+>         if (stream->timing.flags.DSC) {
+>                 if (dc_is_dp_signal(stream->signal) ||
+>                                 dc_is_virtual_signal(stream->signal)) {
+> -                       dp_set_dsc_on_rx(pipe_ctx, true);
+>                         link_set_dsc_pps_packet(pipe_ctx, true, true);
+>                 }
+>         }
+> --
+> 2.53.0
 
