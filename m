@@ -4,76 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C96F2C79FA0
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 08:42:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 828C0C79FA0
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Sep 2026 08:42:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5929010E0C3;
-	Tue,  8 Sep 2026 08:42:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED92F10E4E9;
+	Tue,  8 Sep 2026 08:42:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HJ41I7Kw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ofd3AreN";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 509B410E0C3
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 08:42:12 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-498028b3d5eso41658275e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 01:42:12 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35AF710E356
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Sep 2026 08:42:33 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-49ccfbe062eso41801795e9.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 01:42:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788856931; x=1789461731; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788856951; x=1789461751; darn=lists.freedesktop.org;
  h=content-type:content-transfer-encoding:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=joPEKDE4UQKIZJf0CfPXD8xX7p4OCRKtZfIi90wqNms=;
- b=HJ41I7Kwl71gKzUdBX9+znij9zxHktjSFL4Tb8qFGhcnGFlma92+m7IhJ4vJD2q+rc
- HX76HVNxhPDHjrfzpC8TEmBJK25CeQYO4YG8uoifBC1uJ9o5D5o6Y5ASmAzrZBPwO9yk
- IKru5/k+pYQOg5lwFVT9rqYU0aUsBrdN/EPUvD9/+804m9aj97dK1yPwdZP4nPGYd9lx
- qIkzNcLm7yze32MleXvuRrlfaUL34N49iZrlYfUvyNaN7sgOpCiYYZIOs8AbTKG8BeN7
- YsamvTdbC3RAkSJuBxJnjSdMu+wdPeQPEV55vj/hgHnbPevEi63IF+P+XiIOxpY2toJm
- ignQ==
+ bh=okyy8wBIYqLr3XCR+DJBWuL6CMZiWXhgfPD/oqOvsyk=;
+ b=Ofd3AreNvbXKRITqOkAIl11ZKqtSeC1lMBlpcRc3UQD+SQvmrjOAfKDct6GFjxFhxr
+ qvfSyJqu/MFa86FdJ4zwt4ypPWBAt0+HGkyEXGbC/ogWKWy9NfWkx27iok92/cJt2Nqo
+ Gg/GiDnKsDjJeO2NAGP2MUGbUWVJRRvYA/nNkZS1qpQgB7B2Zg3pguYOPNmbTQ/E+Yjs
+ N91WKnOSEhx2E4hOe7SGHzPz7ecCL7q1GyMfaQzagkfV3M2fjtOT4FEuMqr7o+H75u5q
+ V9yc8R+EoFY0gLWpfBreF/STAjq8ARZQyBGJKi4ZDSn/a8yJzP0nLz3sIkxMNN01qOuV
+ GRNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788856931; x=1789461731;
+ d=1e100.net; s=20251104; t=1788856951; x=1789461751;
  h=content-type:content-transfer-encoding:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=joPEKDE4UQKIZJf0CfPXD8xX7p4OCRKtZfIi90wqNms=;
- b=Xx00rr2REOTt0Po5afSOM38PKvOqqzUkTqfASQPK5+h8O9hpi5cDzD/Ro38dfqzZQ5
- msSB1wr/vgdp/e+3pENsgrV2TzywOVxauFpXncm6aCbmH9/wDKIbeLmfr6GY7t+jGRxL
- lkdVPSxUXOGTObBM+YkqNAHZ98ADgTUUK+Qbac07czje8SpX6H2IIZXhKqsZQEK7WCgh
- DuetgcA7qupvAsLNyjyX6K4lrIMuz3l2IanKkt2YjFlDbv2oXMEr4//x0YPkvTeAmucV
- rh6vVZHKOzJVfSYLFxsaWqQM0NWBii/yoWRhGpckpYcjW/El0/srFRKW2TPhMS/3Wfm4
- hyqQ==
-X-Gm-Message-State: AFuF++lHMYm4HsIzVo3PTVQh/1A5w+enEbSg7LjJ/bvNXBVpupee5idR
- qUIRAgRNCzq46aivEHx2TkbYC6kXTayoneSxaduiq30b5qAsuvydmm4yK4Ff1sFg
-X-Gm-Gg: AYBFou1PeLwjc8zPiqrBI0pUgRhES9+p++WME39UATUHuK4eQq8WQyLfViUgPGgo7X/
- HWMNYDiEzhy11+Z7kfp4u6xkMz50n8OwMKrqPU+/iWilGZKICuVdCMFIhkn6kXE0Tw8NNNgcDaI
- d1bPmiSVdPO0qUebOAs0KEgNymM70QvZwN5Ju2XpW/KstpC2iywebJ904XLIgZBM0/dQ7P+WecI
- Wc/xcBBixnDg5rjvLtqqoS3T2CcAR7AlDfqJCsOlME+5ybpq0kC7nX+gQPrYedtSbJDxDqBS1j3
- uBHB5hXlb4QhrTqwGexzvBDqM/oIEvwBG+gs4oY4Q9tdDrN9xA3EMSq5Yu13R+4itNQzIQbOedr
- HH+XdCan08G2+Zy/SKOFDeUyJEMtaog1FHKAI2SQtGk97zebczSOSDBbtxuUHlG2CVSfYxLPCsC
- ZOBii1fiyENGiRf/CxLlDRX+tS1b0O8E8mx6jS3ADnzhUNEuOjp1RS2fkKQOSHanpjt33T/6fAb
- 9Uvvgdq6zTROkLj/bK69fnEJ671FLDV
-X-Received: by 2002:a05:600c:1f87:b0:49d:827:e5b6 with SMTP id
- 5b1f17b1804b1-49d0827e5ffmr157291015e9.20.1788856930459; 
- Tue, 08 Sep 2026 01:42:10 -0700 (PDT)
+ bh=okyy8wBIYqLr3XCR+DJBWuL6CMZiWXhgfPD/oqOvsyk=;
+ b=f83xWILSGwjeWKXpyAfIO4vOuhYoxluX9p4oZCingrO0Bao7SY4COK+og26BMsg5Se
+ dLaGvbfcDTJnnlMdaBOgy5b7wzxCT2tZ4OUUojyuVVropElUSHfNQH0vQIWVqd2qOcWh
+ CtvOrMGSO1cz77NzZxaRmZZ3SQs9+MBwClvaa3ZLJQwQugAsRNgDkb+UOoHd6TXIxAUD
+ tteXXjNbb7+h5lcN3fFSvwvrHoNXLyEFLMPg8gV+ZEmIAMLt9OvgCRasvsiR6gXnr4gi
+ AAlaO1GXYjV+NFyhi0thKFH5bhO1iY/yApckmO/Rp8YCvyNRU0ksW0Z6FuomlFNrOIAk
+ EDBg==
+X-Gm-Message-State: AFuF++kQAqSwd67NhtWe/d14F7weOl1uIbl2KG0r8xyjCxe2MjzVbdFC
+ RZeTGy5qb74rlwYLzjEvyALhkTubXAO6N5C7BI+h1BILp6l+VK55t2ooWwtv1X+w
+X-Gm-Gg: AYBFou2vY4WwlJjIHOGpCb1ZIA8rSvYyA9BjH3DJFFE3SoV3nIElZ4K2pyVUatVhp/W
+ uCFWnHgfjpLUdJ4wXydjtINoC3p3EAMSY4Kq4rZZqA/deBJNiPQ9nT24AXXGLp4kALafy/sbGz6
+ zlP98SilTqoWp7Q/o/3aQKjDDQp1qc4tsotAikfn8HmUe7Hk8dCdp8gGWOAcbt0DEwZENF6NNZ0
+ qYvuACqELeIA2/scJNIRPqllhgSEIS26qHvdv5q+NCt5oTY4nqLJpM9ecJYgk00F+YsCKqLBk4q
+ wAvyGl6mRcEWRUtmzNjPlhCHmmmRnkj2hw52Cu5kIkbPWq6b9uyiSmpdjeTZ9AKTRDELCgLoc2l
+ vbgm0mDbYsi7D3A4NdLQ00QCwjQ8uqoOHSHiaP2Cke/jTPnSfqG91dK5dOPbGVKpAZcopiMXLnI
+ 8dX/pTWZkEZr6v+bbV6Ab2GszrLVeVr3RUhF1H4fQeMftkJUvn48zNNHgvGg38Sjaxm3lZU80AO
+ f/+ubpoT3Y7kYUtUw9EYUBjwdWsEssq
+X-Received: by 2002:a05:600c:3544:b0:49c:f5c0:aa79 with SMTP id
+ 5b1f17b1804b1-49cf8244bd0mr278760355e9.9.1788856951458; 
+ Tue, 08 Sep 2026 01:42:31 -0700 (PDT)
 Received: from timur-max.localnet (athedsl-4460056.home.otenet.gr.
  [79.129.254.8]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-485958f1493sm23213622f8f.37.2026.09.08.01.42.07
+ 5b1f17b1804b1-49cee7fec25sm538207635e9.13.2026.09.08.01.42.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 01:42:09 -0700 (PDT)
+ Tue, 08 Sep 2026 01:42:27 -0700 (PDT)
 From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: Re: [RFC 2/2] drm/amdgpu: Drop null SDMA instance checks from SDMA
- vfuncs
-Date: Tue, 08 Sep 2026 10:42:05 +0200
-Message-ID: <KxQ5VDZpTeijTso_Uy70_Q@gmail.com>
-In-Reply-To: <20260622143649.54632-3-tvrtko.ursulin@igalia.com>
+Subject: Re: [RFC 1/2] drm/amdgpu: Store SDMA instance and index in the ring
+Date: Tue, 08 Sep 2026 10:42:19 +0200
+Message-ID: <15g9zLryTPO4j32E_pIEBQ@gmail.com>
+In-Reply-To: <20260622143649.54632-2-tvrtko.ursulin@igalia.com>
 References: <20260622143649.54632-1-tvrtko.ursulin@igalia.com>
- <20260622143649.54632-3-tvrtko.ursulin@igalia.com>
+ <20260622143649.54632-2-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -91,35 +90,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. j=C3=BAnius 22., h=C3=A9tf=C5=91 16:36:49 k=C3=B6z=C3=A9p-eur=C3=
+On 2026. j=C3=BAnius 22., h=C3=A9tf=C5=91 16:36:48 k=C3=B6z=C3=A9p-eur=C3=
 =B3pai ny=C3=A1ri id=C5=91 Tvrtko Ursulin=20
 wrote:
-> Commit message TBD - Can these be NULL?
+> Instead of searching for the matching SDMA instance inside many of the
+> SDMA ring vfuncs, lets just cache the instance and index in the new SDMA
+> specific section of struct amdgpu_ring. This converts a function call plus
+> array walks to a direct lookup.
 
-I've looked it up, burst_nop was added 11 years ago in commit 18111de0dfc3.
-I have the following thoughts on this topic:
+AFAIK, the rings already have the IP block instance ID in the "me" field. S=
+o=20
+this could be simplified by using that. For example like this:
+https://pastebin.com/raw/jp4Uk2sE
 
-1. For newer SDMA IP block versions, I think burst_nop would be supported o=
-n=20
-all firmware versions and the check shouldn't be necessary at all. (Eg. I d=
-on't=20
-think there was ever any SDMA v5.x+ FW without this feature.) We should fin=
-d=20
-out which IP block versions exactly are the ones that always supported it a=
-nd=20
-we should just remove the check from those.
+>=20
+> While at it, we also consolidate the initialization side with a new
+> amdgpu_sdma_ring_init() helper.
 
-2. I don't understand why the burst_nop flag is per-instance. Is it really=
-=20
-possible that not all SDMA instances support it? We should find out and if=
-=20
-possible move the flag to amdgpu_sdma instead of amdgpu_sdma_instance.
-
-3. To actually answer the question in the commit message, I don't think the=
-y=20
-can be NULL, unless an invalid (not SDMA) amdgpu_ring pointer is passed. I=
-=20
-would rather just assert that the ring type is correct.
+Can you move that part to a separate commit?
 
 Best regards,
 Timur
