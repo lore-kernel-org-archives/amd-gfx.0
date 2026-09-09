@@ -4,103 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E51BC79F9F
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 13:21:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9C5FC79F9F
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 13:25:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2137810E5E6;
-	Thu, 10 Sep 2026 13:21:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C82D10E182;
+	Thu, 10 Sep 2026 13:25:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pE8QCnyx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jMHoJZUl";
 	dkim-atps=neutral
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
- [74.125.227.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E3D810E609
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 13:21:43 +0000 (UTC)
-Received: by mail-vs2-f12.google.com with SMTP id
- ada2fe7eead31-7911e4349d3so37767137.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 06:21:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789046502; cv=none;
- d=google.com; s=arc-20260327;
- b=iqu44sqAZv2oKkV2YR2FZHIO+NeWmncuiCiXkebMGRxuEgMpL56Ax5H3S8C1XwhbJb
- RrkzAYdPDBIPzCa/af3kBbK+wYRMQjrvrOgVCnDmp71DGHJB8J/mVQLtMgzwExEha3vu
- yKYlNlXh6HV140H0/m293r25gsNImRjpcAqxA2o+8lqyKK+bhuVfOQO7nQTphSesqmcO
- +xdlracxCd3avBJG4ieWUTHr6dFY4y7aGlervLroQ2LSqLwBkMvsSi4ZbtpyncEJebut
- DRU7fq7IiCO3LWqOy+u3GFsqm53cZQBeyKAh4XMpGJqQK5TUx8L6DdWXzF+nk1ceE1pI
- +tAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=4PtIkSiFzV3sIf3d9NLRzTCK6vH+MbAiKicnmJs6k5U=;
- fh=agT33ZQArzRKybLk72WJhLVl++fIdNZ+GqfNO2i6x5s=;
- b=EfWbPGFDZR66g4E1fJan7pSn9oetrYcALFW1dam6YWlDJHQ3IDxngzZVqo/yyokWM/
- NJxj6TLO7J4SkSHCRXEPLhWXv1KzF7kMpvy7l5Q5pEKURrQU9polxnpnuOGj1p/jUqC6
- WGuVzAYBQKx/sr1b2TJW754mei0sVWZbTjTM0qE+o3kxLO7603ukJOoGbwEtrQRcuGVs
- hO9APJk/qgyOiKuqgwyqgmr4YvKdfC/puxVzARvZ8KbOMGL5QbOo/Ots8Z3An54f6/lt
- Zpa05D06q5MwVaB8Mwh6+NG6vY1TaYtK9B7zRkM+46Zej6grjVIR4gamyNYfMfnTrvgt
- ZWRg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1671B10E182
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 13:25:20 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-c29432715d2so218075866b.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 06:25:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789046502; x=1789651302; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1789046718; x=1789651518; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=4PtIkSiFzV3sIf3d9NLRzTCK6vH+MbAiKicnmJs6k5U=;
- b=pE8QCnyxYJhXcnSphSQMlztmDd3WfPujtWuJl0q5VORS1pG1TL5pIA8MyVyIiOotpW
- bOTmmNikuQltgKf1N43xKQZSoKYv5N8wvFfDWzRD1nEb8D/tS4PNYFy4os+jrrj2BxwT
- AJ89nWXRZklsBtfCdbyNZhTHkTFph6YQ2oPBSgDvQgXxhpurLfgEHSR6OnjNA4B0XW1g
- ObdcgWKyF/ha0dDLmWnWwGt2s6uoR2bOsevtd1jsosy+s+kOPCDrmz/h1grC49WgUmge
- 54sfuh+sHHYJACSuFx5ddt5KFW9QQ8nBfbXCPISBlJjyfh3aGEWGENj5ViDw037f04wB
- CGNQ==
+ bh=Bno9+C1c7GXBH1GN2kKoRVvZNURrQNEcmb/HGTi1aes=;
+ b=jMHoJZUl+OEEEUJnQp/e6kEPVosRjXVEz5yVp/2jPdOiwlg5rmyBbEXbez1mrQEHDA
+ GIZC5x32QdjU1CDvHLRg50cbaz8YlPEVnDLkt1QJR6aDim1vrbINcYMCC7MJHXvVI/GU
+ VKf1Vr4I2b8uq1IGa1v43TWdJBCubNVu2n5ebS+GFWskuayBIrLkzMVoWW/ta2yRiy2T
+ xGSQrCIDZYy70g3G+N2T+lHgsh2XHpga7jW2HYg+9uMCuzuoT7x2eOzGYhk/7k9nNo2t
+ McL3sozhc3Z8pw0obgajFNo+Gi/Hei/trNFxOCEUj6EUFVaSGzubzjdnXxdKcJHkYfNw
+ Eozw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789046502; x=1789651302;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1789046718; x=1789651518;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=4PtIkSiFzV3sIf3d9NLRzTCK6vH+MbAiKicnmJs6k5U=;
- b=Vap6pxZQbjKfCasvXP6PHNYRGzESn0L5CpYtf8woH6Ss68Lv9u8QPdtn3asFDAuwOt
- +smxad+3tOesyiDpBaBfMTx9ERDDouOwzBugwR6G32CKg05hgLbQskikkw7TBW+hByl6
- gPMsG36oeqHwypqJyZQdpTQBf9Oxsns1Zp8Wx7zn/VpkCmUsSd7/kkB0O/PZpjT83JCn
- MbzNNhHqi2mB/fha0GAkc6dQ4nBZOHLveB9v3IEJ4ZfClYI5cu0MBJ+KrLCANkVs5IMc
- ykbeSCmDGnH+M28tpN3YC9LuGawDfuOsRwDmADDcM3PQ3D9Ge1t7RVlsMsOKqEEMRBdn
- dd0g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBygXBe7ZyWLlwT+CGq1jRbVjio/cHyFGwV88M9OBb/R1n5FYNINmOFTNoZKdDrBIIpuiDTCIEIB@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nz84mjtq5hAqpOMx808ZE6D/3+Ag0QwBdQ3+2myDQLukP2yior
- 6cTthJdKTVLw0+A2Nn/g/aXj6SFADSWHPqgKR8kM3/yAEiMHCTGLHmvwAZ6HpIC3W5jVxWuj4Sv
- MOAViHj4iD1o+ol2ZTY61+wntMlejo0NY/A==
-X-Gm-Gg: AYBFou12yDMWhP7+O+fs/pgFqOOX26BA21lPlyclBvJYJSFDRt6IKW+wLgl6cihnb+Y
- l6O69ylSJlyodhcUCtlRDJnMSFx8i+uNe4UbZTBZDRRqAbWf8iZI/iPCu+oa+m4uWbdhgNv7mfr
- 4ZS4IP+Y1eMAS1D0gcqNxR/itz4P3pzDwoI8BUPX//if27Fj0b6+Kxs4WVxIAH7MIJt1a3G/aI2
- Et8uEgS4aNFczoYGylFnpEqFLIh/tO42Cz0jshUz68T0Y2NlCdKuZ3x/ictmUwS1IlfQgY99ptA
- 8jnT3w1IUDQQzPiF5o4ZVdNRpHhRtzMYjwAOOjjl8rySihmutKMc3/04UxStX0GrAL5rpl8sqf8
- pay3WCmI7o4UMwpD6kmrsH+SKqOFK7mOYMfOnQ+994A==
-X-Received: by 2002:a67:cd93:0:b0:791:33c:9d1 with SMTP id
- ada2fe7eead31-791033c0c0amr737086137.1.1789046501887; 
- Thu, 10 Sep 2026 06:21:41 -0700 (PDT)
+ bh=Bno9+C1c7GXBH1GN2kKoRVvZNURrQNEcmb/HGTi1aes=;
+ b=AjzXgVa+VOucfHZC2f0GlmF6ZpopF7j5yRJ4yrL4bXmYTBqve96j2CyqZuPNC2YSme
+ 0S/NTBCVf+E2GsI81DoO2Ti3d9G6AE/Go9MKZxa3yG0CsB/5JUNaPBiz2vHEnJMaTGxd
+ vDRMP+gKM9fmnzrmj6LBLBVbaH4Lc76feVn8oYc+8Zi2zUgj42aIONlOWBDX5vw+G0MW
+ CL0vDAV3n9ewOsBGERXoajlZT2lxrXQ9qbjEo6IoZqXVaHJmFxTk0J3XqjWUek8FMnGk
+ 0NGbZp8b9gkxPtWPVWku/mTL5kpGwyn8whxEFwsU6w4a/kNb6UZ9y/gYfXqZ2iWtiyuD
+ 7FUw==
+X-Gm-Message-State: AFuF++lH7UyyGmG1gsMdzw5M841+EWvHeG9BwMENRnkg0fbPp1TJnFW+
+ i6tLs6tlyC7wf6xDSM0ekG++pEQo6vylmMqV9nOGve3Isb5jlZLVxyzXSIl0Ng==
+X-Gm-Gg: AYBFou1jB17/WPPdz/CtihocqFepLnoSCO1sum8ECTM2e/HCvHHxztkE+G6FEyxhIbx
+ OmFn/wcPFPfuEGY/J9pqvnNFRLso7kvgUD8btuPfEIejYraPFkCEks2s+n8MKgGfXylxhnIm8Yn
+ hTcbLHwS+iEJCWzAIHSS4MhYzruUQ1EECWr8AdioMnVQynV0rowpQjrXYdGgrbQm+WycXxsR0/Q
+ SY4ZQL/JeG4wXki3AptrOAoOX9Q1KwliMNwtuILEZbi+JFafYEFAwlWSaoTEFavsWum/PAyjWjw
+ 05xWtoioZM6T7CNY0eOiOlrVCYF3tNbmkN9JzGwULjJ8MUl+lB2ftaJWJB02T3AFl1E2N7hho/V
+ p9wEtOTkG9E9GsoGaB4KGG08rsSd2KLlgJdoWS8mwLEjh12W1Lqt7ZzO9hlgVjhzs+cjehjoyPC
+ cgBwka5Jt+v4gK1u78qLo+MJbfep+oIQKqrIOlqLy6WkghWYrrZl1RVIsRu01u622TknmXzcyIO
+ N0xHr6lbL0=
+X-Received: by 2002:a17:907:1c13:b0:c24:87e3:b8b8 with SMTP id
+ a640c23a62f3a-c260ca22522mr1716597066b.17.1789046717823; 
+ Thu, 10 Sep 2026 06:25:17 -0700 (PDT)
+Received: from timur-max.localnet ([37.220.204.82])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c260d5921e2sm911968266b.46.2026.09.10.06.25.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Sep 2026 06:25:17 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: Re: [PATCH 2/6] drm/amdgpu: Add amdgpu_sdma_types.h header
+Date: Wed, 09 Sep 2026 20:28:29 +0200
+Message-ID: <ujSsqFLQQ3WNDjDea3i5HQ@gmail.com>
+In-Reply-To: <20260909105215.88242-3-tvrtko.ursulin@igalia.com>
+References: <20260909105215.88242-1-tvrtko.ursulin@igalia.com>
+ <20260909105215.88242-3-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-References: <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
- <20260909123443.88228-1-ed@aicharmers.com>
- <MW4PR12MB6803AED9EAA4A98576CC3F428EBF2@MW4PR12MB6803.namprd12.prod.outlook.com>
-In-Reply-To: <MW4PR12MB6803AED9EAA4A98576CC3F428EBF2@MW4PR12MB6803.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 10 Sep 2026 09:21:28 -0400
-X-Gm-Features: AcwNN1UTe8M1-odt2iCgqossMzi7ldu5z1-OWpaSUlQIWuMy4BqVW8_dndwx5H8
-Message-ID: <CADnq5_PNt5Huo-bk=tqdCLorUp3BDCtdGmaFJDxfVbcKx-CPoQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Cc: Ed Schofield <ed@aicharmers.com>, 
- "atharvatiwarilinuxdev@gmail.com" <atharvatiwarilinuxdev@gmail.com>, 
- "062bel313@gmail.com" <062bel313@gmail.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, 
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,201 +88,587 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On 2026. szeptember 9., szerda 12:52:11 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=C3=
+=A1ri id=C5=91 Tvrtko Ursulin=20
+wrote:
+> There is an include loop between amdgpu.h and amdgpu_sdma.h which
+> prevents adding any interesting static inline helpers to the latter.
+>=20
+> Break it by moving the type definitions to a new amdgpu_sdma_types.h
+> header.
 
-On Thu, Sep 10, 2026 at 6:40=E2=80=AFAM Feng, Kenneth <Kenneth.Feng@amd.com=
-> wrote:
->
-> AMD General
->
-> Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
->
-> -----Original Message-----
-> From: Ed Schofield <ed@aicharmers.com>
-> Sent: Wednesday, September 9, 2026 8:35 PM
-> To: Feng, Kenneth <Kenneth.Feng@amd.com>
-> Cc: atharvatiwarilinuxdev@gmail.com; 062bel313@gmail.com; amd-gfx@lists.f=
-reedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Chr=
-istian <Christian.Koenig@amd.com>; airlied@gmail.com; simona@ffwll.ch; dri-=
-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 1=
-4
->
-> Apple Navi 14 boards 1002:7340/106b:0218 (revision 0x41) and
-> 1002:7340/106b:0219 can time out when EnableAllSmuFeatures includes UCLK =
-DPM, leaving amdgpu without a DRM device.
->
-> Exclude only UCLK DPM from the initial allowed features and enable it sep=
-arately in the Navi post-init callback. On 0218, enabling UCLK just after E=
-nableAllSmuFeatures or at the start of default DPM table setup still timed =
-out. The earlier 0218-only patch passed ten warm boots with UCLK enabled in=
- post-init. The earliest safe point remains unknown.
->
-> Check the enabled firmware bit, update the supported-feature bit and rebu=
-ild the memory DPM table and sustainable clock limits before the UMC workar=
-ound and UMD clock setup. Validate the PPT memory states that
-> DCN20 consumes before post-init. Preserve both memory-voltage features an=
-d honor PP_MCLK_DPM_MASK.
->
-> Combine Atharva Tiwari's delayed-UCLK proposal for 0219 with the Navi pos=
-t-init implementation for 0218. Retain the revision restriction for
-> 0218 and the revision-independent 0219 match from Atharva's proposal.
->
-> The combined patch passed ten warm boots on 0218, with rendering and
-> H.264 video decoding checks on every boot. Testing on 0219 is still pendi=
-ng.
->
-> Link: https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg14977=
-0.html
-> Link: https://github.com/t2linux/kernel/issues/19#issuecomment-5537823876
-> Assisted-by: Codex:GPT-6
-> Signed-off-by: Ed Schofield <ed@aicharmers.com>
+Wouldn't it be simpler to add some forward-declatations to amdgpu_sdma.h=20
+instead?
+
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 > ---
-> Changes since the 0218-only RFC:
-> - Add the 0219 board match from Atharva's proposal, without a revision
->   restriction. Keep the 0218 match limited to revision 0x41.
-> - Keep the Navi post-init implementation and clock-state updates from
->   the RFC. Atharva's proposal enabled UCLK at the end of smu_late_init().
-> - Record the failed tests at the start of default DPM table setup and
->   ten successful warm boots of the combined patch on 0218.
->
->  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 82 +++++++++++++++++++
->  1 file changed, 82 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
-u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index f8ca5eb9a..d7cc41a5d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -60,6 +60,19 @@
->
->  static int navi10_init_ppt_limits(struct smu_context *smu);
->
-> +static bool navi14_needs_late_uclk(struct amdgpu_device *adev) {
-> +       struct pci_dev *pdev =3D adev->pdev;
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |   2 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      | 141 ++--------------
+>  .../gpu/drm/amd/amdgpu/amdgpu_sdma_types.h    | 159 ++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |   1 +
+>  drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c    |   1 +
+>  drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |   1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |   1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |   1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |   1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |   1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |   1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c        |   1 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |   2 +
+>  18 files changed, 188 insertions(+), 131 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h index 79b69d74eb2e..5811709b33b7
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -79,7 +79,7 @@
+>  #include "amdgpu_umsch_mm.h"
+>  #include "amdgpu_gmc.h"
+>  #include "amdgpu_gfx.h"
+> -#include "amdgpu_sdma.h"
+> +#include "amdgpu_sdma_types.h"
+>  #include "amdgpu_lsdma.h"
+>  #include "amdgpu_nbio.h"
+>  #include "amdgpu_reg_access.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c index
+> d80fe17556da..d8786a93a851 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -36,6 +36,7 @@
+>  #include "amdgpu_rap.h"
+>  #include "amdgpu_securedisplay.h"
+>  #include "amdgpu_fw_attestation.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_umr.h"
+>=20
+>  #include "amdgpu_reset.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c index 7c0554506334..1bf2a42fa63c
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -33,6 +33,8 @@
+>  #include "amdgpu_gmc.h"
+>  #include "amdgpu_ras.h"
+>  #include "amdgpu_reset.h"
+> +#include "amdgpu_ring.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_xgmi.h"
+>  #include "amdgpu_atomfirmware.h"
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h index 2f1edef97c2f..526ea305a7=
+de
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> @@ -23,141 +23,22 @@
+>=20
+>  #ifndef __AMDGPU_SDMA_H__
+>  #define __AMDGPU_SDMA_H__
+> -#include "amdgpu_ras.h"
+>=20
+> -/* max number of IP instances */
+> -#define AMDGPU_MAX_SDMA_INSTANCES		16
+> +#include "amdgpu_sdma_types.h"
+>=20
+> -enum amdgpu_sdma_irq {
+> -	AMDGPU_SDMA_IRQ_INSTANCE0  =3D 0,
+> -	AMDGPU_SDMA_IRQ_INSTANCE1,
+> -	AMDGPU_SDMA_IRQ_INSTANCE2,
+> -	AMDGPU_SDMA_IRQ_INSTANCE3,
+> -	AMDGPU_SDMA_IRQ_INSTANCE4,
+> -	AMDGPU_SDMA_IRQ_INSTANCE5,
+> -	AMDGPU_SDMA_IRQ_INSTANCE6,
+> -	AMDGPU_SDMA_IRQ_INSTANCE7,
+> -	AMDGPU_SDMA_IRQ_INSTANCE8,
+> -	AMDGPU_SDMA_IRQ_INSTANCE9,
+> -	AMDGPU_SDMA_IRQ_INSTANCE10,
+> -	AMDGPU_SDMA_IRQ_INSTANCE11,
+> -	AMDGPU_SDMA_IRQ_INSTANCE12,
+> -	AMDGPU_SDMA_IRQ_INSTANCE13,
+> -	AMDGPU_SDMA_IRQ_INSTANCE14,
+> -	AMDGPU_SDMA_IRQ_INSTANCE15,
+> -	AMDGPU_SDMA_IRQ_LAST
+> -};
+> +#include "amdgpu.h"
+> +#include "amdgpu_ring.h"
 > +
-> +       return pdev->vendor =3D=3D PCI_VENDOR_ID_ATI &&
-> +               pdev->device =3D=3D 0x7340 &&
-> +               pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
-> +               ((pdev->subsystem_device =3D=3D 0x0218 &&
-> +                 pdev->revision =3D=3D 0x41) ||
-> +                pdev->subsystem_device =3D=3D 0x0219) &&
-> +               (adev->pm.pp_feature & PP_MCLK_DPM_MASK); }
+> +#include <linux/types.h>
 > +
->  static const struct smu_feature_bits navi10_dpm_features =3D {
->         .bits =3D {
->                 SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
-> @@ -356,6 +369,11 @@ navi10_init_allowed_features(struct smu_context *smu=
-)
->                 smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, F=
-EATURE_MEM_MVDD_SCALING_BIT);
->         }
->
-> +       /* These boards time out if EnableAllSmuFeatures includes UCLK DP=
-M. */
-> +       if (navi14_needs_late_uclk(adev))
-> +               smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
-> +                                          FEATURE_DPM_UCLK_BIT);
+> +struct amdgpu_device;
+> +struct amdgpu_iv_entry;
+> +struct amdgpu_irq_src;
+> +struct amdgpu_ring;
+> +struct ras_common_if;
+>=20
+>  #define NUM_SDMA(x) hweight32(x)
+>=20
+> -struct amdgpu_sdma_csa_info {
+> -	u32 size;
+> -	u32 alignment;
+> -};
+> -
+> -struct amdgpu_sdma_funcs {
+> -	int (*stop_kernel_queue)(struct amdgpu_ring *ring);
+> -	int (*start_kernel_queue)(struct amdgpu_ring *ring);
+> -	int (*soft_reset_kernel_queue)(struct amdgpu_device *adev, u32
+> instance_id); -};
+> -
+> -struct amdgpu_sdma_instance {
+> -	/* SDMA firmware */
+> -	const struct firmware	*fw;
+> -	uint32_t		fw_version;
+> -	uint32_t		feature_version;
+> -
+> -	struct amdgpu_ring	ring;
+> -	struct amdgpu_ring	page;
+> -	bool			burst_nop;
+> -	union {
+> -	    uint32_t		aid_id;
+> -	    uint32_t		xcc_id;
+> -	};
+> -
+> -	struct amdgpu_bo	*sdma_fw_obj;
+> -	uint64_t		sdma_fw_gpu_addr;
+> -	uint32_t		*sdma_fw_ptr;
+> -	struct mutex		engine_reset_mutex;
+> -	/* track guilty state of GFX and PAGE queues */
+> -	bool			gfx_guilty;
+> -	bool			page_guilty;
+> -	const struct amdgpu_sdma_funcs   *funcs;
+> -};
+> -
+> -struct amdgpu_sdma_ras {
+> -	struct amdgpu_ras_block_object ras_block;
+> -};
+> -
+> -struct amdgpu_sdma {
+> -	struct amdgpu_sdma_instance instance[AMDGPU_MAX_SDMA_INSTANCES];
+> -	struct amdgpu_irq_src	trap_irq;
+> -	struct amdgpu_irq_src	illegal_inst_irq;
+> -	struct amdgpu_irq_src	fence_irq;
+> -	struct amdgpu_irq_src	ecc_irq;
+> -	struct amdgpu_irq_src	vm_hole_irq;
+> -	struct amdgpu_irq_src	doorbell_invalid_irq;
+> -	struct amdgpu_irq_src	pool_timeout_irq;
+> -	struct amdgpu_irq_src	srbm_write_irq;
+> -	struct amdgpu_irq_src	ctxt_empty_irq;
+> -
+> -	int			num_instances;
+> -	uint32_t 		sdma_mask;
+> -	bool    		sdma_debug;
+> -	union {
+> -	    int			num_inst_per_aid;
+> -	    int			num_inst_per_xcc;
+> -	};
+> -	uint32_t                    srbm_soft_reset;
+> -	bool			has_page_queue;
+> -	struct ras_common_if	*ras_if;
+> -	struct amdgpu_sdma_ras	*ras;
+> -	uint32_t		*ip_dump;
+> -	uint32_t 		supported_reset;
+> -	struct list_head	reset_callback_list;
+> -	bool			no_user_submission;
+> -	bool			disable_uq;
+> -	void (*get_csa_info)(struct amdgpu_device *adev,
+> -			     struct amdgpu_sdma_csa_info *csa_info);
+> -};
+> -
+> -/*
+> - * Provided by hw blocks that can move/clear data.  e.g., gfx or sdma
+> - * But currently, we use sdma to move data.
+> - */
+> -struct amdgpu_buffer_funcs {
+> -	/* maximum bytes in a single operation */
+> -	uint32_t	copy_max_bytes;
+> -
+> -	/* number of dw to reserve per operation */
+> -	unsigned	copy_num_dw;
+> -
+> -	/* used for buffer migration */
+> -	void (*emit_copy_buffer)(struct amdgpu_ib *ib,
+> -				 /* src addr in bytes */
+> -				 uint64_t src_offset,
+> -				 /* dst addr in bytes */
+> -				 uint64_t dst_offset,
+> -				 /* number of byte to transfer */
+> -				 uint32_t byte_count,
+> -				 uint32_t copy_flags);
+> -
+> -	/* maximum bytes in a single operation */
+> -	uint32_t	fill_max_bytes;
+> -
+> -	/* number of dw to reserve per operation */
+> -	unsigned	fill_num_dw;
+> -
+> -	/* used for buffer clearing */
+> -	void (*emit_fill_buffer)(struct amdgpu_ib *ib,
+> -				 /* value to write to memory */
+> -				 uint32_t src_data,
+> -				 /* dst addr in bytes */
+> -				 uint64_t dst_offset,
+> -				 /* number of byte to fill */
+> -				 uint32_t byte_count);
+> -};
+> -
+>  int amdgpu_sdma_ring_init(struct amdgpu_device *adev, struct amdgpu_ring
+> *ring, const char *prefix, unsigned int index);
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h new file mode 100644
+> index 000000000000..d6e7a703c2e0
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
+> @@ -0,0 +1,159 @@
+> +/*
+> + * Copyright 2018 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the
+> "Software"), + * to deal in the Software without restriction, including
+> without limitation + * the rights to use, copy, modify, merge, publish,
+> distribute, sublicense, + * and/or sell copies of the Software, and to
+> permit persons to whom the + * Software is furnished to do so, subject to
+> the following conditions: + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed
+> in + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS
+> OR + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> MERCHANTABILITY, + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT=
+=2E=20
+> IN NO EVENT SHALL + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR
+> ANY CLAIM, DAMAGES OR + * OTHER LIABILITY, WHETHER IN AN ACTION OF
+> CONTRACT, TORT OR OTHERWISE, + * ARISING FROM, OUT OF OR IN CONNECTION WI=
+TH
+> THE SOFTWARE OR THE USE OR + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
 > +
->         if (is_asic_secure(smu) &&
->             (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0=
-, 0)) &&
->             (adev->rev_id =3D=3D 0))
-> @@ -470,6 +488,25 @@ static int navi10_store_powerplay_table(struct smu_c=
-ontext *smu)
->         return 0;
->  }
->
-> +/* DCN20 consumes these PPT states before the post-init UCLK enable. */
-> +static int navi14_imac_check_uclk_states(struct smu_context *smu) {
-> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
-> +       unsigned int count, i;
+> +#ifndef __AMDGPU_SDMA_TYPES_H__
+> +#define __AMDGPU_SDMA_TYPES_H__
+> +#include "amdgpu_ras.h"
 > +
-> +       if (!navi14_needs_late_uclk(smu->adev))
-> +               return 0;
+> +/* max number of IP instances */
+> +#define AMDGPU_MAX_SDMA_INSTANCES		16
 > +
-> +       count =3D ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
-> +       if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
-> +               return -EINVAL;
-> +       for (i =3D 0; i < count; i++) {
-> +               if (!ppt->FreqTableUclk[i])
-> +                       return -EINVAL;
-> +       }
-> +       return 0;
-> +}
+> +enum amdgpu_sdma_irq {
+> +	AMDGPU_SDMA_IRQ_INSTANCE0  =3D 0,
+> +	AMDGPU_SDMA_IRQ_INSTANCE1,
+> +	AMDGPU_SDMA_IRQ_INSTANCE2,
+> +	AMDGPU_SDMA_IRQ_INSTANCE3,
+> +	AMDGPU_SDMA_IRQ_INSTANCE4,
+> +	AMDGPU_SDMA_IRQ_INSTANCE5,
+> +	AMDGPU_SDMA_IRQ_INSTANCE6,
+> +	AMDGPU_SDMA_IRQ_INSTANCE7,
+> +	AMDGPU_SDMA_IRQ_INSTANCE8,
+> +	AMDGPU_SDMA_IRQ_INSTANCE9,
+> +	AMDGPU_SDMA_IRQ_INSTANCE10,
+> +	AMDGPU_SDMA_IRQ_INSTANCE11,
+> +	AMDGPU_SDMA_IRQ_INSTANCE12,
+> +	AMDGPU_SDMA_IRQ_INSTANCE13,
+> +	AMDGPU_SDMA_IRQ_INSTANCE14,
+> +	AMDGPU_SDMA_IRQ_INSTANCE15,
+> +	AMDGPU_SDMA_IRQ_LAST
+> +};
 > +
->  static int navi10_setup_pptable(struct smu_context *smu)  {
->         int ret =3D 0;
-> @@ -490,6 +527,10 @@ static int navi10_setup_pptable(struct smu_context *=
-smu)
->         if (ret)
->                 return ret;
->
-> +       ret =3D navi14_imac_check_uclk_states(smu);
-> +       if (ret)
-> +               return ret;
+> +struct amdgpu_sdma_csa_info {
+> +	u32 size;
+> +	u32 alignment;
+> +};
 > +
->         return navi10_init_ppt_limits(smu);
->  }
->
-> @@ -3219,6 +3260,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu=
-_context *smu)
->                                                NULL);
->  }
->
-> +/* Rebuild memory clocks before the UMC workaround and UMD clock setup.
-> +*/ static int navi14_imac_late_uclk_enable(struct smu_context *smu) {
-> +       struct smu_11_0_dpm_context *dpm =3D smu->smu_dpm.dpm_context;
-> +       struct smu_dpm_table *table =3D &dpm->dpm_tables.uclk_table;
-> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
-> +       struct smu_feature_bits enabled;
-> +       int ret;
+> +struct amdgpu_sdma_funcs {
+> +	int (*stop_kernel_queue)(struct amdgpu_ring *ring);
+> +	int (*start_kernel_queue)(struct amdgpu_ring *ring);
+> +	int (*soft_reset_kernel_queue)(struct amdgpu_device *adev, u32
+> instance_id); +};
 > +
-> +       if (!navi14_needs_late_uclk(smu->adev))
-> +               return 0;
+> +struct amdgpu_sdma_instance {
+> +	/* SDMA firmware */
+> +	const struct firmware	*fw;
+> +	uint32_t		fw_version;
+> +	uint32_t		feature_version;
 > +
-> +       ret =3D smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT=
-, true);
-> +       if (ret)
-> +               return ret;
-> +       ret =3D smu_cmn_get_enabled_mask(smu, &enabled);
-> +       if (ret)
-> +               return ret;
-> +       if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
-> +               return -EIO;
+> +	struct amdgpu_ring	ring;
+> +	struct amdgpu_ring	page;
+> +	bool			burst_nop;
+> +	union {
+> +	    uint32_t		aid_id;
+> +	    uint32_t		xcc_id;
+> +	};
 > +
-> +       smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
-> +                                FEATURE_DPM_UCLK_BIT);
-> +       table->clk_type =3D SMU_UCLK;
-> +       ret =3D smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
-> +       if (ret)
-> +               return ret;
-> +       if (!table->count)
-> +               return -EINVAL;
-> +       if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
-> +               table->flags |=3D SMU_DPM_TABLE_FINE_GRAINED;
+> +	struct amdgpu_bo	*sdma_fw_obj;
+> +	uint64_t		sdma_fw_gpu_addr;
+> +	uint32_t		*sdma_fw_ptr;
+> +	struct mutex		engine_reset_mutex;
+> +	/* track guilty state of GFX and PAGE queues */
+> +	bool			gfx_guilty;
+> +	bool			page_guilty;
+> +	const struct amdgpu_sdma_funcs   *funcs;
+> +};
 > +
-> +       return smu_v11_0_init_max_sustainable_clocks(smu);
-> +}
+> +struct amdgpu_sdma_ras {
+> +	struct amdgpu_ras_block_object ras_block;
+> +};
 > +
->  static int navi10_post_smu_init(struct smu_context *smu)  {
->         struct amdgpu_device *adev =3D smu->adev; @@ -3227,6 +3303,12 @@ =
-static int navi10_post_smu_init(struct smu_context *smu)
->         if (amdgpu_sriov_vf(adev))
->                 return 0;
->
-> +       ret =3D navi14_imac_late_uclk_enable(smu);
-> +       if (ret) {
-> +               dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n"=
-, ret);
-> +               return ret;
-> +       }
+> +struct amdgpu_sdma {
+> +	struct amdgpu_sdma_instance instance[AMDGPU_MAX_SDMA_INSTANCES];
+> +	struct amdgpu_irq_src	trap_irq;
+> +	struct amdgpu_irq_src	illegal_inst_irq;
+> +	struct amdgpu_irq_src	fence_irq;
+> +	struct amdgpu_irq_src	ecc_irq;
+> +	struct amdgpu_irq_src	vm_hole_irq;
+> +	struct amdgpu_irq_src	doorbell_invalid_irq;
+> +	struct amdgpu_irq_src	pool_timeout_irq;
+> +	struct amdgpu_irq_src	srbm_write_irq;
+> +	struct amdgpu_irq_src	ctxt_empty_irq;
 > +
->         ret =3D navi10_run_umc_cdr_workaround(smu);
->         if (ret)
->                 dev_err(adev->dev, "Failed to apply umc cdr workaround!\n=
-");
->
-> base-commit: c22f9a61e288580824edbbc3ae5a29c9a338594f
-> --
-> 2.55.0
+> +	int			num_instances;
+> +	uint32_t 		sdma_mask;
+> +	bool    		sdma_debug;
+> +	union {
+> +	    int			num_inst_per_aid;
+> +	    int			num_inst_per_xcc;
+> +	};
+> +	uint32_t                    srbm_soft_reset;
+> +	bool			has_page_queue;
+> +	struct ras_common_if	*ras_if;
+> +	struct amdgpu_sdma_ras	*ras;
+> +	uint32_t		*ip_dump;
+> +	uint32_t 		supported_reset;
+> +	struct list_head	reset_callback_list;
+> +	bool			no_user_submission;
+> +	bool			disable_uq;
+> +	void (*get_csa_info)(struct amdgpu_device *adev,
+> +			     struct amdgpu_sdma_csa_info *csa_info);
+> +};
+> +
+> +/*
+> + * Provided by hw blocks that can move/clear data.  e.g., gfx or sdma
+> + * But currently, we use sdma to move data.
+> + */
+> +struct amdgpu_buffer_funcs {
+> +	/* maximum bytes in a single operation */
+> +	uint32_t	copy_max_bytes;
+> +
+> +	/* number of dw to reserve per operation */
+> +	unsigned	copy_num_dw;
+> +
+> +	/* used for buffer migration */
+> +	void (*emit_copy_buffer)(struct amdgpu_ib *ib,
+> +				 /* src addr in bytes */
+> +				 uint64_t src_offset,
+> +				 /* dst addr in bytes */
+> +				 uint64_t dst_offset,
+> +				 /* number of byte to transfer */
+> +				 uint32_t byte_count,
+> +				 uint32_t copy_flags);
+> +
+> +	/* maximum bytes in a single operation */
+> +	uint32_t	fill_max_bytes;
+> +
+> +	/* number of dw to reserve per operation */
+> +	unsigned	fill_num_dw;
+> +
+> +	/* used for buffer clearing */
+> +	void (*emit_fill_buffer)(struct amdgpu_ib *ib,
+> +				 /* value to write to memory */
+> +				 uint32_t src_data,
+> +				 /* dst addr in bytes */
+> +				 uint64_t dst_offset,
+> +				 /* number of byte to fill */
+> +				 uint32_t byte_count);
+> +};
+> +
+> +#endif
+> \ No newline at end of file
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c index
+> ad8cc95e6cfa..29723ff53503 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -26,6 +26,7 @@
+>  #include <drm/drm_mm.h>
+>  #include <linux/random.h>
+>  #include "amdgpu.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_ualink.h"
+>  #include "amdgpu_xgmi.h"
+>  #include "amdgpu_dma_buf.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+> b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c index
+> cddfe4015f53..9a0c12b1a309 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+> @@ -30,6 +30,7 @@
+>  #include "gfxhub_v1_2.h"
+>  #include "sdma_v4_4_2.h"
+>  #include "amdgpu_ip.h"
+> +#include "amdgpu_sdma.h"
+>=20
+>  void aqua_vanjaram_doorbell_index_init(struct amdgpu_device *adev)
+>  {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+> b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c index de2323e23566..45f429ed23e4
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+> @@ -27,6 +27,7 @@
+>=20
+>  #include "amdgpu.h"
+>  #include "amdgpu_ucode.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_trace.h"
+>  #include "cikd.h"
+>  #include "cik.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c index fb2047d8e25a..1f9fd8b23ac7
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> @@ -28,6 +28,7 @@
+>=20
+>  #include "amdgpu.h"
+>  #include "amdgpu_ucode.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_trace.h"
+>  #include "vi.h"
+>  #include "vid.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c index 656f66527999..6577306311a3
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> @@ -28,6 +28,7 @@
+>=20
+>  #include "amdgpu.h"
+>  #include "amdgpu_ucode.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_trace.h"
+>  #include "vi.h"
+>  #include "vid.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c index e135dfb1c3e2..5ab191806b22
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> @@ -28,6 +28,7 @@
+>=20
+>  #include "amdgpu.h"
+>  #include "amdgpu_ucode.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_trace.h"
+>=20
+>  #include "sdma0/sdma0_4_2_offset.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c index 2e46e63a6dbf..365085a15a=
+34
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> @@ -30,6 +30,7 @@
+>  #include "amdgpu_xcp.h"
+>  #include "amdgpu_ucode.h"
+>  #include "amdgpu_trace.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_reset.h"
+>=20
+>  #include "sdma/sdma_4_4_2_offset.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c index a0614fa9ffa6..b803d74fc40f
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> @@ -28,6 +28,7 @@
+>=20
+>  #include "amdgpu.h"
+>  #include "amdgpu_ucode.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_trace.h"
+>=20
+>  #include "gc/gc_10_1_0_offset.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c index 5b3dafc194d7..213fa9ac883f
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -28,6 +28,7 @@
+>=20
+>  #include "amdgpu.h"
+>  #include "amdgpu_ucode.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_trace.h"
+>=20
+>  #include "gc/gc_10_3_0_offset.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c index 845e622d3c1a..2f5de866b248
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> @@ -28,6 +28,7 @@
+>=20
+>  #include "amdgpu.h"
+>  #include "amdgpu_ucode.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_trace.h"
+>=20
+>  #include "gc/gc_11_0_0_offset.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c index ea460a19b89d..d5cad2cede98
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> @@ -28,6 +28,7 @@
+>=20
+>  #include "amdgpu.h"
+>  #include "amdgpu_ucode.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_trace.h"
+>=20
+>  #include "gc/gc_12_0_0_offset.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+> b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c index 1704d406c34a..bf26cc515b9a
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+> @@ -28,6 +28,7 @@
+>=20
+>  #include "amdgpu.h"
+>  #include "amdgpu_ucode.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_trace.h"
+>=20
+>  #include "gc/gc_12_1_0_offset.h"
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c index 6b64b1692235..8b96e1fe74=
+1a
+> 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -24,6 +24,8 @@
+>  #include <linux/dma-direction.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/migrate.h>
+> +#include "amdgpu.h"
+> +#include "amdgpu_sdma.h"
+>  #include "amdgpu_sync.h"
+>  #include "amdgpu_object.h"
+>  #include "amdgpu_vm.h"
+
+
+
+
