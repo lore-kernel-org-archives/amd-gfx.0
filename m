@@ -4,100 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCA4BC79FB6
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 20:51:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FD64C79FB6
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 21:13:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59C7210E943;
-	Wed,  9 Sep 2026 20:51:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6A7A10F297;
+	Wed,  9 Sep 2026 21:13:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LFMKOmE0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MttsN2/g";
 	dkim-atps=neutral
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
- [74.125.227.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2750010E943
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 20:51:05 +0000 (UTC)
-Received: by mail-vs2-f12.google.com with SMTP id
- ada2fe7eead31-781d5818299so205603137.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 13:51:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788987064; cv=none;
- d=google.com; s=arc-20260327;
- b=NnU/4+1DI92Q19wi6KNJoq0SsrvlxEEerl36HEFGgoTZ17b+x4F0SVLXt/GHSxw201
- ELfCX7GQj2yaPHlXmNcXIWymqoDLIYD4kVBZOsvXLaFVCD0zBxmYOPSRjvqcdGhuGXk9
- MWVsi+nrfqzmQp4/Mh6JUTH4CBLiOTSGlsG7l0qWHuSoJiP2nPOE5DEQuu3W4uhEnBuM
- bVcjBS/nx1kVJbdz1H/pWIkt1ESdi30ZhgWCyv/j2gtxekZsRep6g3YVpTiDvBI29Yd+
- ndAbG1TrBZTxRABmgCamSaJExhCVcOsSNZMLTbf/PhANs4AVzASbdwrchuGNHysnbUZr
- KpoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=t3anDrESRoGxyy/BJegCxXPg/vVR8l/epg5gAmp3BIE=;
- fh=EL8o3zSXtVii4Z83Fl7KtGVA0EOCeol4Xbmu8vCrmI8=;
- b=m5aHZIRD6DWEKdYb/BRGzOztj7E0LypDVLvkVRF20W8VbeaFG6sOtKKUu7S7CgAL3p
- bzQiAozsSr9H0zPH3l9zVQBLFJ0VOc6LrC9WUdrJtWNnYb0X+f3RaIq+nzGlQm8bpewX
- Xy4NTG1IN/Dv+tN98JHQ8MGygpJTBqMQj2OTvBnV7m4D6gFUIfBC2jyaBqkMxtu/9Ll3
- HmJK01PziEu5eyQyp7DY9MtuStOXyNu7GxkHnlS1VrV2V0XyED9U3lDhMgHMQh6VLZqQ
- buLaOhvG6LBCRdKBG+Z9ckkd9uoM7/Cj5fE4dStt5COZQ0K14yDOxRplLiNgTTtLUOFp
- OVVQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788987064; x=1789591864; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=t3anDrESRoGxyy/BJegCxXPg/vVR8l/epg5gAmp3BIE=;
- b=LFMKOmE0K/6zW1MOswv2HxCBZba1/XJoUZBJVO5QaGGvpGBTkwLnfirRxJfvwc8s0k
- uHHbl1nUcxvu2mL0QABG+56bZje1TPGzy1nhCVUezwelBcFpj6iovkSgxH/ZhVynhKoT
- X3wZqbvr9zFoxK+/QVQLmI8+8xAj7B1tLdt5yIh72tytM/bowDEnI2/EhdEFYEWj+tDn
- ejWicldqB6p6Nc8gorsFMNjKjLQdmdGUp1riAJv3jB0mWikxxYdHXqNooUdxq4aldKHP
- zE544XCJ7jQj/sLcvleKTOBIeCWOBar1Sab1K+lIGcMA40j78e5RDsFZ/QeUQtWZZ3VV
- iyvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788987064; x=1789591864;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=t3anDrESRoGxyy/BJegCxXPg/vVR8l/epg5gAmp3BIE=;
- b=eu2SVRFvKokUJkVSHsUhn+G4W6M0IdAjueS5FXcmux0sDg84okNUvFvJUgjgi/Cmzs
- H/FAHkxhuGnOhPUB/8ASGssTGluyihEbnkPZJXcEkQ37QuVXW8bCfWSYVZEDnBanhprj
- ea+LMOaaFMwOkjzbwcQsURbkohUUDwCnGiIhBc3StVSuCOR9MNkHExXR8KkqTTvxwGjD
- jgro5r2q8TlRcB/Fkl7Em7RKDGwIVJwLU1byXK85CxkRr+EU7TtKIUfxjs2PaEX8H4ef
- +3LHKwk6yRbLN7qv0nALIDXgj8ePefCaR149tsX9Nimqu7F+sME/HgIbebdRUKzgdiGj
- UOkA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBybIvBvs/qEW/3L9WIYqtlqTbw4HqfHhtZWuuLXqNOEGLPx6gaoZmjiscRANNzMMww/DxFknsCy@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nfE0Otio7hJtlFHxXAduuxkSfeL29aPIg/SHytQlgPggksZb7u
- lgra9H4d26gvv+LigmT2Sze60K6a8aXvqIrPiVgjQinjIPFVQjVpfZrOBczdYD6/CkGQ+9GtOtf
- pGl/HZSLoFwKwlLCKWs4/anzzL/hxaTE=
-X-Gm-Gg: AYBFou3C4wwKD8m0UjBUFzeiWfk8smxQnyUYQDLlb8zrgoHjLl1QFRzqSf220erP+f+
- YTLZJkv2GoVbLKljs6kdsq+tS4k08FxHJKxO8JPVdJVct6TCI0uvDvSLU926fFLis5TimzHDKxN
- snXc5gG3ySiTHfZvwMAZNEPmcmXP0RLlQT4DVnqdVPQdWFHJhpdRQuVbjBa15q5tOehC19m9Czw
- 3uqDyqH2+e6PeMiaevk3f1PolIvoRBzo6CH6PAdkK7s3YbKppq2UuJjLmKeEoQEWkD6Jtvryd0e
- JvDRxIYvKJtuLl1weyHOU9VN1B0ouCmL6fJxrU5jZMfP5FfWWCDvjoyEeT2fMAQwYzmn/bKsr5h
- 5NeqSPUArjFr5Wle7L7hHiXNTypcZOTCZXXgJ/OEQzQ==
-X-Received: by 2002:a05:6102:390b:b0:784:a169:1925 with SMTP id
- ada2fe7eead31-78a60f2f87fmr5877970137.2.1788987063979; Wed, 09 Sep 2026
- 13:51:03 -0700 (PDT)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012050.outbound.protection.outlook.com [52.101.53.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF1110F297
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 21:13:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j9k3lS4w7moBMyx95Sb/pWtIs9ocqujTgXuxJGBwBxMi0Cvviu06geiIG/yfE3TtCR0M9bYUz4k+AeUAbjtjMy2wHVGL23lUrJQ9WL+D94kpQAfM1/uIzUwR54jmJRH2O/cy0y6gA/4bMQoiEQNzWuKmz8xB3fqY7aCTiMrAK37/meH3o+65EtnT4TwwskA0PUhXDyF8AgVq1QwesJFgkRqzT1Hwyq4kz3nAI8VxZn8wq0aTC1ldnpCZkmyr7/256wijuw1qHhUzlVWXrQ+TDgso+yz4HFCOirm7dyIW8w4bqOdD7CJUtmcfC9hpia1EkS9Hu2TISvrdi80A1/nAqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A5+d4sJjEur+Av6vfvPUrMqUvqobPqzDXh0nnIc7JH0=;
+ b=f0mYdKOa1WpRHv4JyP/Q6NEvve5rAIYxGhAOFEXiHpWb/eSZeorDKc7NdXsHnPS4Cmo2eKVNq5uF7OQ6aOm8Hkg7Pheww3JZ5ambh5VT8HflGWeBV6BIK6+mLNbZxLHrb5BNhlt/Vu2ar7uNDLiiqaGdvg2hLmfZZP/odPConT2d5i39yiEVMff9w+3Bq4e97aLiSiLwGRKIMMKM4O0SyxunoM0An2MjKLiMIieLTrkai2PKyu05adAEeE7NuaM3AXcYb80iAjFClE8WKpqfauv7smGO1Z26NdmltkrB9OuaPYiNUm4C0LKX4np+YHFTm83lDMM0DMsKLKg5MDsDQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A5+d4sJjEur+Av6vfvPUrMqUvqobPqzDXh0nnIc7JH0=;
+ b=MttsN2/g3t+ZvL0A2BCsq7ClIP+g3uWPwMU/LkwivMttIf+3DnTstIeiCheev3FuqLa2aSQz8SfflRy18Sfm92ZqZJaf/64vykgpnDec1u2AjJsw5q0AOTDVbv6ee10PETyLjxmrWKhRb7bK+pHn0ODeGrO97ZMP5/KeA4Dgbh0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY3PR12MB9629.namprd12.prod.outlook.com (2603:10b6:930:101::9)
+ by SA3PR12MB9132.namprd12.prod.outlook.com (2603:10b6:806:394::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 21:13:41 +0000
+Received: from CY3PR12MB9629.namprd12.prod.outlook.com
+ ([fe80::3d72:a3a9:e4ab:4afa]) by CY3PR12MB9629.namprd12.prod.outlook.com
+ ([fe80::3d72:a3a9:e4ab:4afa%4]) with mapi id 15.21.0382.014; Wed, 9 Sep 2026
+ 21:13:41 +0000
+Message-ID: <d1690b3b-3f91-4f1e-9035-c4508bc3ef7c@amd.com>
+Date: Wed, 9 Sep 2026 16:13:40 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/amdkfd: Fix TCP XNACK scoreboard reset race
+To: Gang Ba <Gang.Ba@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Kent.Russell@amd.com
+References: <20260909201536.942624-1-Gang.Ba@amd.com>
+Content-Language: en-US
+From: Jay Cornwall <jay.cornwall@amd.com>
+In-Reply-To: <20260909201536.942624-1-Gang.Ba@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS7P220CA0003.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:8:1ca::17) To CY3PR12MB9629.namprd12.prod.outlook.com
+ (2603:10b6:930:101::9)
 MIME-Version: 1.0
-References: <20260905081935.338775-1-srinivasan.shanmugam@amd.com>
- <20260905081935.338775-2-srinivasan.shanmugam@amd.com>
- <CADnq5_PHEQzUVTqJYzO3mALs9LfK9cAUMQtgi0JEzGvFSZk7Eg@mail.gmail.com>
-In-Reply-To: <CADnq5_PHEQzUVTqJYzO3mALs9LfK9cAUMQtgi0JEzGvFSZk7Eg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Sep 2026 16:50:51 -0400
-X-Gm-Features: AcwNN1VzKMLEU1BQCDP8kjMj9PhJmGcLe0QGRhvoLBjGkrQjRiCpz7GXHOxKj64
-Message-ID: <CADnq5_M+tLHSrfXQCxX2+LFq-x8OO1=BG+ou=qq2_Y0VS+b8AA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: Add per-VM kernel queue first-level trap
- handler infrastructure
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Lijo Lazar <lijo.lazar@amd.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Samuel Pitoiset <hakzsam@gmail.com>, Natalie Vock <natalie.vock@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY3PR12MB9629:EE_|SA3PR12MB9132:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80837f06-26f5-4680-ea40-08df0eb73964
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|1800799024|376014|56012099006|11063799006|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: L4fysAsDuRf7izPUPSqL6ODadwnYWmha7toHS5lPVeLvVMnbjyA1pK+sV2BlUei4n67YlCbVueEVNYFzaf9M2v0jtFBo1typ8QAEKTCcLWWzTg2Mjgildda3ZPj8u0EhqLbz7kuBbkPPPTlNl4DkIMwR/oGebtTLvGH+d04wQEAsKuzowyBeYw13f071jNVXXzdyr1or8HwkO40CRui9e3MTL/qdQO7kkcvXwAS1W/vvwUpVKf1qy+PiPxpcJw/F7jY6j8ob9PKHmkra8IBIOiWzrEgZ7iIoConXRtV3XJXOVr9vXUXtI6dLXdtslx9HHl92gDqFaIGePHFsfEWwUdto0Y1ECO/FtxGtErRNPN8FBF4i5J/JarMjSYJB5AjcM2667UD90wiPf4xz9xJUcu+k5W4eNcz3maAPUXOGim5P0Hb2iDzOc2IJnGaqHfJXT9UA0IkKlcz4PwHvsmV2g/49m0h6HkEblWYa1Uw/sLS68rzvO0yUmESz4El0csERdb/hqIEji9btWgNtxLpyz+FPxdDhR+3Ki6chLiheO9HMXSCFYYi1qTcNayOo/XJZuM8fheWh7EDRxR/TT21vGlIwz+ixH+jZwGt5hy0mNg6wpdkT2WvHxuLPJWnyTVduxWvR4jiWmlt0L7jPqOmvBedNmI8faQ9KylaQsn3bykk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY3PR12MB9629.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qzlzc2RLSWxLb0NKZmE2YjdtTG1LNUlNb3I0b3ZLc2J0TEliWlRiRTl4TXhP?=
+ =?utf-8?B?dzZLdk8yc0dORTluQ21iUTBIYy9aQXlZVld4eEpMRTZ5WER3d1VNY0F3YmNO?=
+ =?utf-8?B?Z2pZR1ZSN2ZnWWs0ZmlPYVZRR1FsdG9jcWUzVUl2K1lUY0wvUFNMdVVxODVY?=
+ =?utf-8?B?SVovVmtoZkZxYXNmRUx6SzdFcE9RMmlOd0xNSk9nNmJ2bisxTzdqN2xUdUZu?=
+ =?utf-8?B?bUhoUit2dWdLRXFrQTl1OUtWd2V0aE4rRk1MUUdvSU9vaEF4alNzaExHcmtu?=
+ =?utf-8?B?ZEJpTnF6d2QzTHlCNFR2TVZ6bWY4WGNyWTlqM1FCVEM0WjNhT1haRm91K1ZM?=
+ =?utf-8?B?ZXkxYTdTYUVmT1BMSFlSSlBQMXZFYi9BV0FtMVpmQWRUQnNHVHdJVmZ4UGVW?=
+ =?utf-8?B?S2RoelFqTmxwbHFPN1NsblZlVktiTjFJcXJGc21BMlhmb2QwaytCMEJxREkv?=
+ =?utf-8?B?c3hjT3FQMnl1K2VjZHk3djZYenFnd1ovRUV2V05MVFNhZlo5OVJoNE5ucWFR?=
+ =?utf-8?B?M2xKNGVWRDBwTFRZaWJwZ0pMa3ZzK3d0KzlaZFpmdDB4cWNxc2lyT0dONEU4?=
+ =?utf-8?B?RGd2ZndPQlRTeUZxbU9iT1A1MDJQcUtwVVJPZ25POGNIcXNKOEozRk82VWgx?=
+ =?utf-8?B?YzQ3clIrK1JhV01EVmcxSzNTeEJ5Qm8vREsvdFMrVnc1WHBLQU1sWklNZm9v?=
+ =?utf-8?B?NWNHb2k0MThKYWxHUzI0RkxJV1lndS90Z2VnWG5WRWt2Q3ZVL21xVkdnWWhH?=
+ =?utf-8?B?bSsxVnoxOFlKeFMxdmdsczd5VFQ0YXJmK1JLam1uUmFsT2UwR2tuWHloNHRs?=
+ =?utf-8?B?ekNJRGk4VHBmemxvYmh5cE9hR3VxSzJ5SzA1NFMrTkFzMHJSaHZHUzRmVkNh?=
+ =?utf-8?B?dVBlNnpMWTk1dFdxYkhJZzN3YjBnN3NSWEZZSVVqbk1SMmc0QjlneDFFcHEr?=
+ =?utf-8?B?dEFWMnAzSUlMeHVJZmE1Mzl4QzMrQzQvS2E4Y21NYU1HU3VVc0ZPRTAyTzU0?=
+ =?utf-8?B?Z2tGNmRudXcyRXZIYk5DcWRNMWRlUkdPUVZQampmSUMvSGU4emY5TmRZb3V5?=
+ =?utf-8?B?aWk4dHVTanlXN0lUMzM3SUlsQk5BWTZTanRIVElMNWwwMG40c1dtemRzWS9F?=
+ =?utf-8?B?M3U3NjRTZVdxeSsvaTJXWUF3eWEyK3IrbEpvcUl2SDVqOHZJMkJjUkpqb3p5?=
+ =?utf-8?B?MXczVzBQc0VjMXU5ZExHZGdwTzArbGVIK0xjMUFDRTBPVElTZmJ0UWdoOUVF?=
+ =?utf-8?B?eEk4SGFCY1F0TWd4WGFIQkQrQ0tDbjNybnBReEJHQnhLZG12WjhMTTBTYzlU?=
+ =?utf-8?B?T2Y4MU80TzVKMjduK1RGR2kvb2VJUnBYYkllWVVtK1dVQnpRWkFJb1JsWXZv?=
+ =?utf-8?B?Z1hlSnoxSk1QaWt4Y1BZTlpRZ0lmeHdDa2trVWlESFcvcVlFK01DSFVWeER1?=
+ =?utf-8?B?eDVjL2RuZ0Exdkt0eHJycVlKTkNacmJTY1diM25EazBxaGNtR0U1RytReDll?=
+ =?utf-8?B?Q0tZYlBWZ1FOdCthNUtTa3FsSlVUZGxwUGhDbjFSK0pkTzZvcnBGVGpxYjJx?=
+ =?utf-8?B?VEh5TjJneC9VSEUzaUZrTlF6M3VJRVZFaGdiVDlsZTFydVJtMWhubG1wK2lj?=
+ =?utf-8?B?RVVzVFE4ZUZHSmRkckt6ektPTEM4VDRYNTluTTQ1akFZTWdzMTIrUVhiTnNK?=
+ =?utf-8?B?eG05TEVpZEhVa2dZMU0zSFgwN2hRUTFHdXhmSUJVYURrRGR2aFU1RkNMb1kr?=
+ =?utf-8?B?a3M2WG04Y0tTSUhPdjM0UUtJMWpEL1ZONndCNWRWcnJyZTVRSVBodUp5RVlQ?=
+ =?utf-8?B?U2tpSDFnZEMxTFd0VzV3bGFmRUFLeldjZVF5eURlUHBBdkRSOEN1T2psUDZE?=
+ =?utf-8?B?Njc1dEo1b1FET2JNSEdwcDNEV2djS1I0R2MvL1FWZHpNT2dkdzg0aGt4Vzk5?=
+ =?utf-8?B?ZzhuNWFYOVZSdU8wbGgxUm9tck5RcUgwT0VGMjN2b05hUEFSdzJBaHY1RjBw?=
+ =?utf-8?B?dkkxY0hwNldkUElWNkxwdFZSVDZTc2swaHVBVXJpNE9oOTlYck5aaVNUem9I?=
+ =?utf-8?B?TTQxVThGdHBlOE4zQ2Mxb2lzb0tSWk93MEdTVm51aWduMHBMN0NYdTZ0NElx?=
+ =?utf-8?B?MmZ2c2NHZGpKZTZ1THhQRXBsSVBDa3JpMkhFc1RSb21zc0YvUjZjOHZCRE9o?=
+ =?utf-8?B?NEFrL2tPNFI5OHpqaVhXYkhhQWVqcnUwVHJTRVhJUUwzUVpYUmxXYTlaQ1Ax?=
+ =?utf-8?B?MGZoTkU4M1F6N2JyallyN3habCt3R0U4cFpNSVpJV3VYYW1OVVRPaGJwTXJ1?=
+ =?utf-8?Q?+sgsRgTlJgtG9dYRL+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80837f06-26f5-4680-ea40-08df0eb73964
+X-MS-Exchange-CrossTenant-AuthSource: CY3PR12MB9629.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 21:13:41.7383 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U1toyRO4XRpIPfHWtsDj7g543cf/b4s8EJ1tCKG5aHY5lxeO7aTV93hA/gCV6LP71Rzc6LJRT507vbnqcJ3bQg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9132
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,287 +133,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 9, 2026 at 4:42=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com>=
- wrote:
->
-> On Sat, Sep 5, 2026 at 4:55=E2=80=AFAM Srinivasan Shanmugam
-> <srinivasan.shanmugam@amd.com> wrote:
-> >
-> > MES owns kernel queue VMIDs (1..first_kfd_vmid-1) but does not program
-> > SQ_SHADER_TBA/TMA for them. On GFX11+ hardware MES maps kernel queues
-> > via ADD_QUEUE with map_legacy_kq=3D1 but does not set trap handler stat=
-e.
-> > On GFX10 and earlier HWS-based hardware, the driver programs trap
-> > registers via SRBM select for KFD queues but no equivalent exists for
-> > driver-managed kernel queue VMIDs.
-> >
-> > Add a vmhub callback program_kernel_trap_vmids() so each gfxhub version
-> > can write SQ_SHADER_TBA/TMA for kernel VMIDs. The TBA points to the
-> > device-level CWSR ISA BO. The TMA is set to the fixed per-VM virtual
-> > address AMDGPU_VA_RESERVED_TRAP_START =E2=80=94 each VM maps its own kq=
-_tma_bo
-> > there, so per-VM isolation is handled entirely by page tables without
-> > needing to reprogram the register per job or per submission.
-> >
-> > The per-VM kq_tma_bo is a small GTT BO allocated at VM creation time
-> > (parallel to page table allocation) and mapped read-only into the GPU V=
-M
-> > at AMDGPU_VA_RESERVED_TRAP_START. The kernel CPU writes the second-leve=
-l
-> > handler address into it via kq_tma_map when userspace calls SET_L2_TRAP=
-.
-> > The first-level CWSR handler reads this address to chain to the
-> > second-level handler when a shader exception fires.
-> >
-> > This design is:
-> >   - Per-VM BO (not device-level) =E2=80=94 same model as page tables
-> >   - Fixed VA in each VM's address space =E2=80=94 same VA, different ph=
-ysical BO
-> >   - Read-only from GPU =E2=80=94 kernel CPU updates it via CPU mapping
-> >   - Treat allocation/free lifecycle identical to page tables
-> >
-> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Suggested-by: Alexander Deucher <alexander.deucher@amd.com>
-> > Cc: Lijo Lazar <lijo.lazar@amd.com>
-> > Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > Cc: Samuel Pitoiset <hakzsam@gmail.com>
-> > Cc: Natalie Vock <natalie.vock@gmx.de>
-> > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> > Change-Id: I9ce352157c4aa84099cef926cba61264781e8ad9
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  1 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c | 80 ++++++++++++++++++++++++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h |  7 +++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |  9 +++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   | 13 ++++
-> >  5 files changed, 110 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gmc.h
-> > index 3ca187f5ade8..5624a5ab5c62 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> > @@ -115,6 +115,7 @@ struct amdgpu_vmhub_funcs {
-> >         void (*print_l2_protection_fault_status)(struct amdgpu_device *=
-adev,
-> >                                                  uint32_t status);
-> >         uint32_t (*get_invalidate_req)(unsigned int vmid, uint32_t flus=
-h_type);
-> > +       void (*program_kernel_trap_vmids)(struct amdgpu_device *adev);
-> >  };
-> >
-> >  struct amdgpu_vmhub {
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_trap.c
-> > index 623cac6781be..e913488ca3fa 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-> > @@ -263,6 +263,7 @@ int amdgpu_trap_init(struct amdgpu_device *adev)
-> >
-> >         amdgpu_trap_cwsr_init_save_area_info(adev, trap_info);
-> >         adev->trap_info =3D no_free_ptr(trap_info);
-> > +       amdgpu_trap_program_kernel_vmids(adev);
-> >
-> >         return 0;
-> >  }
-> > @@ -277,6 +278,85 @@ void amdgpu_trap_fini(struct amdgpu_device *adev)
-> >         adev->trap_info =3D NULL;
-> >  }
-> >
-> > +void amdgpu_trap_program_kernel_vmids(struct amdgpu_device *adev)
-> > +{
-> > +       struct amdgpu_vmhub *hub =3D &adev->vmhub[AMDGPU_GFXHUB(0)];
-> > +
-> > +       if (!amdgpu_trap_is_enabled(adev))
-> > +               return;
-> > +       if (!hub->vmhub_funcs || !hub->vmhub_funcs->program_kernel_trap=
-_vmids)
-> > +               return;
-> > +
-> > +       hub->vmhub_funcs->program_kernel_trap_vmids(adev);
-> > +}
-> > +
-> > +int amdgpu_trap_vm_kq_tma_alloc(struct amdgpu_device *adev,
-> > +                               struct amdgpu_vm *vm)
-> > +{
-> > +       void *cpu_addr;
-> > +       uint64_t va;
-> > +       int r;
-> > +
-> > +       dma_resv_assert_held(vm->root.bo->tbo.base.resv);
-> > +
-> > +       r =3D amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PAGE_SIZE, PAGE_=
-SIZE,
-> > +                                   AMDGPU_GEM_DOMAIN_GTT, &vm->kq_tma_=
-bo,
-> > +                                   NULL, &cpu_addr);
-> > +       if (r)
-> > +               return r;
-> > +
-> > +       if (vm->kq_tma_bo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
-> > +               iosys_map_set_vaddr_iomem(&vm->kq_tma_map,
-> > +                                         (void __iomem *)cpu_addr);
-> > +       else
-> > +               iosys_map_set_vaddr(&vm->kq_tma_map, cpu_addr);
-> > +
-> > +       vm->kq_tma_va =3D amdgpu_vm_bo_add(adev, vm, vm->kq_tma_bo);
-> > +       if (!vm->kq_tma_va) {
-> > +               r =3D -ENOMEM;
-> > +               goto err_free_bo;
-> > +       }
-> > +
-> > +       va =3D AMDGPU_VA_RESERVED_TRAP_START(adev) & AMDGPU_GMC_HOLE_MA=
-SK;
-> > +       r =3D amdgpu_vm_bo_map(adev, vm->kq_tma_va, va, 0,
-> > +                            AMDGPU_GPU_PAGE_SIZE,
-> > +                            AMDGPU_VM_PAGE_READABLE);
-> > +       if (r)
-> > +               goto err_del_va;
-> > +
-> > +       r =3D amdgpu_vm_bo_update(adev, vm->kq_tma_va, false);
-> > +       if (r)
-> > +               goto err_del_va;
-> > +
-> > +       return 0;
-> > +
-> > +err_del_va:
-> > +       amdgpu_vm_bo_del(adev, vm->kq_tma_va);
-> > +       vm->kq_tma_va =3D NULL;
-> > +err_free_bo:
-> > +       amdgpu_bo_free_kernel(&vm->kq_tma_bo, NULL, NULL);
-> > +       return r;
-> > +}
-> > +
-> > +void amdgpu_trap_vm_kq_tma_free(struct amdgpu_device *adev,
-> > +                               struct amdgpu_vm *vm)
-> > +{
-> > +       uint64_t va;
-> > +
-> > +       if (!vm->kq_tma_bo)
-> > +               return;
-> > +
-> > +       dma_resv_assert_held(vm->root.bo->tbo.base.resv);
-> > +
-> > +       if (vm->kq_tma_va) {
-> > +               va =3D AMDGPU_VA_RESERVED_TRAP_START(adev) & AMDGPU_GMC=
-_HOLE_MASK;
-> > +               amdgpu_vm_bo_unmap(adev, vm->kq_tma_va, va);
-> > +               amdgpu_vm_bo_del(adev, vm->kq_tma_va);
-> > +               vm->kq_tma_va =3D NULL;
-> > +       }
-> > +       amdgpu_bo_free_kernel(&vm->kq_tma_bo, NULL, NULL);
-> > +}
-> > +
-> >  static int amdgpu_trap_map_region(struct amdgpu_device *adev,
-> >                                   struct amdgpu_vm *vm,
-> >                                   struct amdgpu_trap_obj *cwsr,
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_trap.h
-> > index 7f83174a4742..9be5035abd1c 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
-> > @@ -155,4 +155,11 @@ int amdgpu_trap_set_trap_debug_flag(struct amdgpu_=
-device *adev,
-> >                                     struct amdgpu_trap_obj *cwsr_obj,
-> >                                     bool enabled);
-> >
-> > +/* Kernel queue trap handler =E2=80=94 per-VM TMA and register program=
-ming */
-> > +void amdgpu_trap_program_kernel_vmids(struct amdgpu_device *adev);
-> > +int  amdgpu_trap_vm_kq_tma_alloc(struct amdgpu_device *adev,
-> > +                                struct amdgpu_vm *vm);
-> > +void amdgpu_trap_vm_kq_tma_free(struct amdgpu_device *adev,
-> > +                               struct amdgpu_vm *vm);
-> > +
-> >  #endif
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vm.c
-> > index de3ef9ce2234..f5e228d4bfb5 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -2640,6 +2640,12 @@ int amdgpu_vm_init(struct amdgpu_device *adev, s=
-truct amdgpu_vm *vm,
-> >         if (r)
-> >                 goto error_free_root;
-> >
-> > +       if (amdgpu_trap_is_enabled(adev)) {
-> > +               r =3D amdgpu_trap_vm_kq_tma_alloc(adev, vm);
-> > +               if (r)
-> > +                       goto error_free_root;
-> > +       }
-> > +
-> >         r =3D amdgpu_vm_create_task_info(vm);
-> >         if (r)
-> >                 dev_dbg(adev->dev, "Failed to create task info for VM\n=
-");
-> > @@ -2774,6 +2780,9 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, s=
-truct amdgpu_vm *vm)
-> >                 amdgpu_vm_free_mapping(adev, vm, mapping, NULL);
-> >         }
-> >
-> > +       if (vm->kq_tma_bo)
-> > +               amdgpu_trap_vm_kq_tma_free(adev, vm);
-> > +
-> >         amdgpu_vm_pt_free_root(adev, vm);
-> >         amdgpu_bo_unreserve(root);
-> >         amdgpu_bo_unref(&root);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vm.h
-> > index dd825e179979..064f95a83790 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > @@ -25,6 +25,7 @@
-> >  #define __AMDGPU_VM_H__
-> >
-> >  #include <linux/idr.h>
-> > +#include <linux/iosys-map.h>
-> >  #include <linux/kfifo.h>
-> >  #include <linux/rbtree.h>
-> >  #include <drm/gpu_scheduler.h>
-> > @@ -488,6 +489,18 @@ struct amdgpu_vm {
-> >
-> >         /* cached fault info */
-> >         struct amdgpu_vm_fault_info fault_info;
-> > +
-> > +       /*
-> > +        * Per-VM kernel queue first-level TMA BO.
-> > +        * Allocated at VM init, freed at VM fini =E2=80=94 same lifecy=
-cle as page tables.
-> > +        * Mapped read-only at AMDGPU_VA_RESERVED_TRAP_START in the GPU=
- VM.
-> > +        * SQ_SHADER_TMA for all kernel VMIDs points to this fixed VA; =
-per-VM
-> > +        * isolation is via page tables mapping different physical BOs =
-there.
-> > +        * CPU kernel writes second-level handler address via kq_tma_ma=
-p.
-> > +        */
-> > +       struct amdgpu_bo        *kq_tma_bo;
-> > +       struct amdgpu_bo_va     *kq_tma_va;
-> > +       struct iosys_map         kq_tma_map;
->
-> These should be the same for both user and kernel queues.  The only
-> difference is who manages the vmids (driver vs MES).  They are per
-> vmid so it doesn't matter whether it's a kernel queue or user queue.
->
+On 9/9/2026 15:15, Gang Ba wrote:
 
-I would merge these patch sets.  The trap handling is the same for
-both kernel queues and user queues.  The only difference for kernel
-queues is that the driver has to set the TBA/TMA registers while
-MES/KIQ handles it for user queues.  At vm_init time, allocate the
-memory for the trap handler, copy the trap handler to the memory and
-add the mapping to the GPUVM address space.  Then in gfxhub init,
-program the TBA/TMA registers for the kernel managed vmids.  Finally,
-add the IOCTL to set/clear the second level trap handler and validate
-the user supplied GPU VA.
+> Fix a hardware RTL bug in the TCP XNACK scoreboard reset path where a wave
+> receiving a no-retry FAULT from UTC and subsequently terminating may leave
+> its scoreboard entry uncleared when reset events arrive back-to-back.
+> 
+> This can cause a later, unrelated wave using the same slot to incorrectly
+> inherit the XNACK error state, resulting in its VMEM operations being
+> dropped even though the wave never faulted.
+> 
+> Signed-off-by: Gang Ba <Gang.Ba@amd.com>
 
-Alex
+Reviewed-by: Jay Cornwall <jay.cornwall@amd.com>
 
-> Alex
->
-> >  };
-> >
-> >  struct amdgpu_vm_manager {
-> > --
-> > 2.34.1
-> >
