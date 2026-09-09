@@ -4,77 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1DABC79FAD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 09:46:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D218C79FAD
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 09:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE0410F062;
-	Wed,  9 Sep 2026 09:46:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0116F10F07C;
+	Wed,  9 Sep 2026 09:47:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="exB6boDY";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="wOvH354F";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9A5910F072
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 09:46:17 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4995b0343c1so79104085e9.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 02:46:17 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C994110F087
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 09:47:34 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-49557167508so65919585e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 02:47:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788947176; x=1789551976;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788947253; x=1789552053;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ej2jXznQ8MiiebMcPklRSS9215NaFP0hQU6L/r3E0Cc=;
- b=exB6boDY8YcdkR4fg6q0E2ZW2ZuqyLcKMRjgZZ3XlyKoHxdqZnEMox+KNNFkKaVMet
- GmfjtH+stJIqHjX3u7L5zRZIpVBP2r7RcKgkDG29NvK0tJCd0GkEFbg3IibYR+7X++1V
- dZTWYA6BrQTGDVMkXeffHS2zC0FjSsYxG59TpjLrxdmF7mzBKtlwT8Cm21Dm/IIV+6/t
- sU+2G2zzyv1//nKE091+qa0+gegZb3kqL4/M40O/PCWsvxYFcRmnYqvCmJFV1Ai5BlCN
- Cm5nRNr2/7zUDj/gJrUwwH/XH0KMUj4QPUe5XXPQnhYAdP/VSfQSxKfwn8xafkJB9zuD
- bXNQ==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4/HIVazkafDF+8hPirTfPnMH9fb4lkFfW6ga7qAMbzE=;
+ b=wOvH354FEEBdwurUakpUcy8Mvvy5pKXAzg2kvBz+JSf5LM1Q3oejvBYaPv61Q2PWn6
+ GysawwxEtFtItshFHeHa1rfZPm9CwPo2ZS1PqIDx8KbYKHQBTjLUsWe6q1Jj69ihPl1c
+ PYPpTWHTx2P+HJ97pyXHGrrw98IsSQ+5XGLukSPLi7wYAsQUvplONUYRd+c0TTjku+go
+ YaTqUEKe9uzNzhDRXLLnLUcPGb3kXhedDnhCjwOdwExzsvL5ebhw/CXKBNsrV5H/37Lh
+ XhUb3sNH0ZTNb2Dbl+9cOyYA+GSaeNN8pXbfyfzz1YfevjbRH0omT9j9fm4vMhQ22kLN
+ GCxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788947176; x=1789551976;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ej2jXznQ8MiiebMcPklRSS9215NaFP0hQU6L/r3E0Cc=;
- b=o4O+XkkR6K4NzbKeMdlm5KmAUG7mEO2BX6l3imYIEjMlrX4kN91zSeANPrQeC2KGEV
- nATyeGM7LsijgWYmf3B6fweqzR2k81I3vLl7H0JwUP3NyIel/KEoRsanSj/nhCBgNTbA
- eBzKR4vIOTQccbjM+IMJWXyOt6pm8Z2puSx+iY8OTCYx1JfqI3gUl16RH7TQn2X6wew3
- XsaQnqhRoMUZUr8Xm83C0y8kJWcW71m6V4izmlg7f26V5EycKptwprV/P6lkGN+84cMR
- x1YxYUwRsa80//G/VaHnEEXmkMHvCSl48ZQSh6SKU6H9FVd4LqU6ApNaHBkcPQiPqIVo
- z/4g==
-X-Gm-Message-State: AFuF++ke1FbUr87sRLY6MIKa2rlqFpoWxf75UVSg6VIUnkktlSzLz2Zf
- NkHiJ44Kqovf1bc1CdPYbYT3xZY7Zk7jTVyzzEWYHMcqwrKjn9ZG+Crmz6uQFoN9Q4ZiaTW8oBT
- S50SUCkZo
-X-Gm-Gg: AYBFou1393O4s6qXJQiEjgcFEyUizqMSeOCNsDgDASPM409KjbiJlFlBcgW5Dd0x901
- tp42icebUTCZIU+uH9zgateqM1lIMVPNT/Nt5JMg7bPQC7mCBl05ejDnK/cfa67kPraRWFE7f4T
- 3okLxKIC10cktuDyNdSOIwjZ363n6gdWk1lYo4z8Ycbd2+thSVt2EKx5Y4P+AoBn5H78B73c8do
- 4d4X/BMNXivc5LiLPcTgkk7Vg9LilMlois52n0SM/FiNEBxdzW15qEp7yZYPf5f8dcxnpkYvv5C
- /x/sfS0tlbU6a88hM+kRUEUNPSEPThhxyI0QgkfwHtZ1esSTFhq918bjc8TTXkgu/PQh0M1zmts
- 4AYfSWzbuEI/eOz04C8+BXHute3gmfrrD5Xye3k6zFBu1IFV4jxL1TvFNDgtRUR4HqDV6zlslxY
- i9qvfMc6yauVuB8KrfJoQWEbmHFXmoVjyKq5NiM1Kyptk81r6WBruG+iyN+DmhcWgfttSuSUMuk
- V5VPd8/kIOKXfgMjtIOiZHYzkM=
-X-Received: by 2002:a05:600c:8b48:b0:49c:fff9:f684 with SMTP id
- 5b1f17b1804b1-49cfff9f6efmr260109905e9.21.1788947175442; 
- Wed, 09 Sep 2026 02:46:15 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1788947253; x=1789552053;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4/HIVazkafDF+8hPirTfPnMH9fb4lkFfW6ga7qAMbzE=;
+ b=Pxe+yKJAxDxG5TGJYTiwmqETPHqS28chDFeE6279DoOtdzwLanMHBQXQ33o/0ZYECp
+ k24IrIhCRAP9BBqEg0lIN0fSzqeU5s6HMwSxqT3pT2WN4D7wMg4uPQGVtR9Hxvvnd2aE
+ hZOl2Xnh/lLYl/g+MQabEmUqsqS/ZU05dI2XoOQyxM3K/0AzuegVmYUwIh/cxpewC6Ul
+ W422CgSXNNHi29zwaQevmix9rJurm6X/PYcljyDhCQ/r3+dW9oBZ3HZgSsVmhUxR6wou
+ TXyqH227bBOrCaqGn7DtObbU6hmGr8nuUuoVoC3OCD+u5Ps46M61s+rUYOt5ka3w9tvD
+ ZXqg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxAcF1EYVMeC7dnW+Qupnd39GRqlb5tutWH8GaBT+RlpiQZCphMRxR4aEwQ48vXk0qKL/e8ec5y@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kfrPjS8oWE9xrfyQwHG2lpdf8YbA92Ma+cxHLkL8crd/QHF2NT
+ NjGglNZsvOUHinzYQqmGNyf6Xi7Nhjydg6tqg0VpHpbAkhbw6sfVbW/NmRd8MYa/PPQma28/B92
+ H7dP1imDm
+X-Gm-Gg: AYBFou0nVcIb1u7TBa6TVdDjlcosp9C+VzffODdn/i2rfwTndncCuj84FvbPYwHZSYY
+ mjTgp+Ib1cV74CrhEZ1ZEPK3jZgTuwjKIMgoAXBh3177zHES+ixiEe0HhaQF6y6D9u5xVZFwTKj
+ hY9+HB7oYL3qSRTtMmykrzPM/rFEVwuLjDn3Jfakh/1tDwnaW3tbGsHy+5kPHfU4V3Z+MJFdcD8
+ PKhucGj5dcMxf9PWHBqnhp/dowAN5E4LJ1MdD5tRDIohAdm2Mk4SNPCg0TFreHzan3F8FNqLCxy
+ G7/6QKucL6rstCweEX2y3eb0x9aIjxiLd90khWCTBekiJIKUrz9AZ358Qp7/cPNKW77g4huNb3K
+ zCVvh57ac60JCMVT93WwW2TCeXd6ZiD3VkMdk1NrPFTFfRAShR8T6kWtMWz1v71kJzAtEqltj98
+ XESZdLY/xhZhV++hryTL2mStcYQXBqteUPbd1BRbMSSBUvt6o5Pt9IIZEbTPOePb0mCZNyTpV0R
+ L8TCx58CwZMFv/4k4lyKDfsb2A=
+X-Received: by 2002:a05:600c:4514:b0:49d:1e09:694a with SMTP id
+ 5b1f17b1804b1-49d1e096970mr124975675e9.11.1788947252972; 
+ Wed, 09 Sep 2026 02:47:32 -0700 (PDT)
 Received: from quark ([2a01:4b00:d309:1c00:7807:3ba6:3446:4db2])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cf772692dsm537897555e9.10.2026.09.09.02.46.14
+ 5b1f17b1804b1-49cee5d476esm597615395e9.1.2026.09.09.02.47.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 02:46:14 -0700 (PDT)
+ Wed, 09 Sep 2026 02:47:32 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- kevinyang.wang@amd.com, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [PATCH v2] drm/amdgpu: don't migrate a dma-buf into VRAM while
- runtime suspended
-Date: Wed,  9 Sep 2026 10:46:09 +0100
-Message-ID: <20260909094609.1541-1-mike@fireburn.co.uk>
+To: dri-devel@lists.freedesktop.org
+Cc: dakr@kernel.org, aliceryhl@google.com, alexander.deucher@amd.com,
+ mukul.joshi@amd.com, rust-for-linux@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Mike Lothian <mike@fireburn.co.uk>
+Subject: [PATCH] rust: drm: gem: add missing handle_free to the object vtables
+Date: Wed,  9 Sep 2026 10:47:29 +0100
+Message-ID: <20260909094729.1593-1-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909020854.58462-1-mike@fireburn.co.uk>
-References: <20260909020854.58462-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,109 +89,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
-attachment, so ttm_bo_validate() can migrate the buffer from GTT into
-VRAM.  While the exporting device is runtime suspended its SDMA rings
-are down and the move fails:
+Both OBJECT_FUNCS and the shmem VTABLE initialise every member of
+drm_gem_object_funcs explicitly, so adding a field to the C struct
+breaks the Rust build:
 
-  amdgpu: Move buffer fallback to memcpy unavailable
+  error[E0063]: missing field `handle_free` in initializer of
+  `drm_gem_object_funcs`
 
-An importer on a second GPU reaches this holding no runtime PM
-reference on the exporter, e.g. a compositor on the APU submitting a
-frame that references a buffer exported by an idle dGPU:
+The callback is optional and the Rust abstraction has no equivalent
+DriverObject method, so leave it unset.
 
-  amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
-    -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
-      -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
+The shmem copy is only built with CONFIG_RUST_DRM_GEM_SHMEM_HELPER,
+which DRM_TYR selects.
 
-Only migrate into VRAM while holding the exporter awake.
-pm_runtime_get_if_active() takes a reference only when the device is
-already active and never resumes it, so it cannot deadlock against the
-reservation held across these callbacks.  That deadlock is why
-commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
-when we attach a buffer" v2") removed the pm_runtime_get_sync() from
-the attach callback.
-
-If the device is suspended or suspending the buffer stays in GTT, which
-remains accessible while the GPU is powered down.  A negative return
-means runtime PM is disabled, so the device cannot suspend and VRAM
-stays usable.
-
-Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
-Cc: stable@vger.kernel.org
+Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:Opus-5 [Claude Code]
 ---
 
-v2: hold the exporter with pm_runtime_get_if_active() across the
-    validate instead of testing adev->mman.buffer_funcs_enabled.  The
-    v1 check was racy - the device could suspend between the test and
-    ttm_bo_validate(), so amdgpu_bo_move() could still see the rings
-    torn down.  Reported by Sashiko AI review.
+b67d2d039f64 is only in agd5f/drm-next, so this can be squashed into it
+instead if you would rather keep that branch bisectable.
 
-Is this the failure that commit c52feb436539 ("drm/amdgpu: Disable
-runtime PM for externally attached dGPUs") was working around?  That
-commit explains how to detect external attachment but not what breaks,
-so I can't tell which.
+The shmem hunk is by inspection - CONFIG_RUST_DRM_GEM_SHMEM_HELPER is
+not set in my config, so only the mod.rs copy is compile-tested.
 
-If it is the same thing, could the pci_is_thunderbolt_attached() ||
-dev_is_removable() check there be narrowed or dropped on top of this,
-so eGPU users keep runtime PM?
+ rust/kernel/drm/gem/mod.rs   | 1 +
+ rust/kernel/drm/gem/shmem.rs | 1 +
+ 2 files changed, 2 insertions(+)
 
-I can't test that here: this box hits the bug by missing that check.
-The dGPU is on an oculink port off a native AMD root port, so
-pci_is_thunderbolt_attached() is false, dev_is_removable() is empty,
-and runtime PM stays enabled.
-
-Reproduced on a HawkPoint APU [1002:1900] driving the display with a
-Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
-offload.  Without the patch kwin_wayland hits the call chain above
-within a minute of the dGPU autosuspending and the desktop stops
-repainting until it resumes.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index b33c300e26e2..c89846f266d3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -43,6 +43,7 @@
- #include <linux/dma-buf.h>
- #include <linux/dma-fence-array.h>
- #include <linux/pci-p2pdma.h>
-+#include <linux/pm_runtime.h>
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index 80d8f524f9d5..ae61ca7e1246 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -278,6 +278,7 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
+         vm_ops: core::ptr::null_mut(),
+         evict: None,
+         rss: None,
++        handle_free: None,
+     };
  
- static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
+     /// Returns the `Device` that owns this GEM object.
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index a687d46d170d..d08a03cb7a13 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -145,6 +145,7 @@ impl<T: DriverObject> Object<T> {
+         // SAFETY: `drm_gem_shmem_vm_ops` is a valid, static const on the C side.
+         vm_ops: unsafe { &raw const bindings::drm_gem_shmem_vm_ops },
+         evict: None,
++        handle_free: None,
+     };
  
-@@ -189,14 +190,25 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
- 		/* move buffer into GTT or VRAM */
- 		struct ttm_operation_ctx ctx = { false, false };
- 		unsigned int domains = AMDGPU_GEM_DOMAIN_GTT;
-+		int pm_ref = 0;
- 
- 		if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
- 		    attach->peer2peer) {
--			bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
--			domains |= AMDGPU_GEM_DOMAIN_VRAM;
-+			/*
-+			 * Only migrate into VRAM while the exporter is held
-+			 * awake.  A negative return means runtime PM is
-+			 * disabled, so it cannot suspend either.
-+			 */
-+			pm_ref = pm_runtime_get_if_active(adev_to_drm(adev)->dev);
-+			if (pm_ref) {
-+				bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-+				domains |= AMDGPU_GEM_DOMAIN_VRAM;
-+			}
- 		}
- 		amdgpu_bo_placement_from_domain(bo, domains);
- 		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-+		if (pm_ref > 0)
-+			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 		if (r)
- 			return ERR_PTR(r);
- 	}
+     /// Return a raw pointer to the embedded drm_gem_shmem_object.
 -- 
 2.55.0
 
