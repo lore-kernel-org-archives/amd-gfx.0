@@ -4,46 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDAAEC79FAD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE555C79FB7
 	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 13:00:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C64D910F141;
-	Wed,  9 Sep 2026 13:00:09 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="r6NOYoU2";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C5AE10F0D3;
- Wed,  9 Sep 2026 11:47:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1A554601FF;
- Wed,  9 Sep 2026 11:47:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4504A1F00A3A;
- Wed,  9 Sep 2026 11:47:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1788954470;
- bh=JACaNHNmHxIE/tlyEv6SUwECo5kIGIEuVZ9NO/q8F2Q=;
- h=Subject:To:Cc:From:Date;
- b=r6NOYoU2rwV0CWgSG5nL3yiEzAd/6/fuPl4gN6ZGmQZW5uabfLxEZIBbGpSU1DT/N
- jz+XQwGx7FgMBz/e1ANDFHQSDC3EnPat4EQpjN+Oi05aa5BA8ik6xiOKerSZkR55c7
- Hb97TR1mzqTZjYWTG/CFtliFML1Mnv4YDs0UACGU=
-Subject: Patch "drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()" has
- been added to the 7.2-stable tree
-To: Arunpravin.PaneerSelvam@amd.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, cascardo@igalia.com, christian.koenig@amd.com,
- dev@lankhorst.se, dri-devel@lists.freedesktop.org, friedrich.vock@gmx.de,
- gregkh@linuxfoundation.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, sashiko-bot@kernel.org, thomas.hellstrom@linux.intel.com,
- tj@kernel.org
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:30:39 +0200
-Message-ID: <2026090939-sarcasm-demeaning-4889@gregkh>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2142810F143;
+	Wed,  9 Sep 2026 13:00:10 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D704D10F066;
+ Wed,  9 Sep 2026 09:39:05 +0000 (UTC)
+X-UUID: 4292cb60ac3211f19a56ed5b684f684d-20260909
+X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
+ HR_CTE_8B
+ HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+ HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+ HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
+ IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED
+ SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+ CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
+ GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:c14c31ab-8c0c-44b8-98fe-b4ed70361378, IP:15,
+ URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:15
+X-CID-INFO: VERSION:1.3.19, REQID:c14c31ab-8c0c-44b8-98fe-b4ed70361378, IP:15,
+ UR
+ L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+ elease,TS:15
+X-CID-META: VersionHash:7db8b62, CLOUDID:ecd0124f8c1ecf4945b9c1e0fac8627b,
+ BulkI
+ D:260909173851GI9TNYRZ,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
+ C:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
+ l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
+ 0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 4292cb60ac3211f19a56ed5b684f684d-20260909
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
+ (envelope-from <yijiangshan@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1446183854; Wed, 09 Sep 2026 17:38:49 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: tvrtko.ursulin@igalia.com, sunil.khatri@amd.com, vitaly.prosyak@amd.com,
+ pierre-eric.pelloux-prayer@amd.com, moonafterrain@outlook.com,
+ candice.li@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ 13667453960@163.com, Jiangshan Yi <yijiangshan@kylinos.cn>
+Subject: [PATCH] drm/amdgpu: remove redundant NULL check in
+ amdgpu_cs_vm_handling
+Date: Wed,  9 Sep 2026 17:37:28 +0800
+Message-Id: <20260909093728.642473-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Wed, 09 Sep 2026 13:00:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,105 +76,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+bo_va is assigned from fpriv->csa_va, which is already verified to be
+non-NULL by the surrounding if statement. The inner NULL check can
+therefore never trigger and is dead code, so remove it.
 
-This is a note to let you know that I've just added the patch titled
-
-    drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
-
-to the 7.2-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-amdgpu-fix-init-ordering-in-amdgpu_vram_mgr_init.patch
-and it can be found in the queue-7.2 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From e773798e14ac0aea54ca9676083b91f445e5bc59 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Sat, 25 Jul 2026 12:00:31 +0200
-Subject: drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-commit e773798e14ac0aea54ca9676083b91f445e5bc59 upstream.
-
-drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
-gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
-returns early and bypasses those initializations.
-
-Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
-is called, a failure triggers amdgpu_ttm_fini(), which calls
-amdgpu_vram_mgr_fini(), which then:
-
- - Calls list_for_each_entry_safe() on reservations_pending and
-   reserved_pages, whose list_head::next pointers are zero-initialized
-   (NULL). The loop does not recognize them as empty and dereferences NULL.
-
- - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
-   via for_each_free_tree(). Since mm->free_trees is NULL
-   (never allocated), this dereferences NULL.
-
-Both result in a kernel panic on the module load error path.
-
-Fix by moving drmm_cgroup_register_region() to after the list and buddy
-allocator are fully initialized, so the teardown path is safe to run.
-
-Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
-Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
-Cc: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org # v6.14+
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Reviewed-By: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Link: https://patch.msgid.link/20260725100036.2372-2-thomas.hellstrom@linux.intel.com
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |    7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 --
+ 1 file changed, 2 deletions(-)
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_d
- 	struct ttm_resource_manager *man = &mgr->manager;
- 	int err;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 03b41f803520..c978f042ae1f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1146,8 +1146,6 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
  
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
- 	ttm_resource_manager_init(man, &adev->mman.bdev,
- 				  adev->gmc.real_vram_size);
- 
-@@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_d
- 	if (err)
- 		return err;
- 
-+	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
-+	if (IS_ERR(man->cg))
-+		return PTR_ERR(man->cg);
-+
- 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
- 	ttm_resource_manager_set_used(man, true);
- 	return 0;
+ 	if (fpriv->csa_va) {
+ 		bo_va = fpriv->csa_va;
+-		if (!bo_va)
+-			return -ENOMEM;
+ 		r = amdgpu_vm_bo_update(adev, bo_va, false);
+ 		if (r)
+ 			return r;
+-- 
+2.25.1
 
-
-Patches currently in stable-queue which might be from thomas.hellstrom@linux.intel.com are
-
-queue-7.2/drm-amdgpu-fix-init-ordering-in-amdgpu_vram_mgr_init.patch
