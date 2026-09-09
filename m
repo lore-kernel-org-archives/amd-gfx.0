@@ -4,128 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A939C79FB6
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 13:02:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB3F0C79FB6
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 13:17:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E921610E18F;
-	Wed,  9 Sep 2026 13:02:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11CCE10E033;
+	Wed,  9 Sep 2026 13:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U8zGxGTb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c74dv+bN";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011067.outbound.protection.outlook.com [52.101.52.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E77F10E1AB
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 13:02:15 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011047.outbound.protection.outlook.com [40.107.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BBA210E1A4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 13:17:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pJuQXdULXpvmKfHl9x1cKrM2+LQJfEWJb2HGbb/9iciWk7UAdjtKJG65fINhcMUHIhWe4Lwh+Z6fHX/5N0BiI9cwd3CGlYaDJZd4XHPXARk2XX6B6L4cXMBtYBNl2PgGJ4IpjAvKliCcLm/hpJ5NjX/rlz958lrSsFzbMcRUzXrcO15I32zfpzCLKhRi23Rb9eNzM/w6q8wGqqxFUUvZY2ifmZPDDnkMP84b0JgBR67lGOL3jIk6hDaBDP3oabVetmzorl7mf7tBO48RKWbiGhECSNoPxAXLCZww0poZSwP3j+7ar/HRvgsmdj1OYNapzgUgLsdnPXX6an+449BRQw==
+ b=XHOEQIPgmPPXjOHXDBFq5PiCOJRdgYZSPh8vVibUFZBmhuSg1W0Ltuopv/TvNyoWxQKfkY7znFUVs5331fTMxAAFm83P8vyGgrHtuZ6YNt0YkZkymQPlF9XnspHvKdF8+/jYJLjSc/gL9G5YN9+9Kq/J4qBKgAszoCkrVzhsCAqH5rCTNZ45qCoQSIqXaZGOo275NvE/yjrh6yuEQJfwASHyyhBnr9Cr/BB4sjgvu427fzN++lrpB1Yjh+TrY0735ncggs15Npa5U4/zIAkY91jP0TwcdE0knB0g7hR2CWMmuEHfEmMapweSGTIPlhnu1sZs+I4aPlawB/FKEo0PlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wNTx77+yUzUPRnqP/xUzIKewYDYCfIlp/2xwpweiUaM=;
- b=X2t8aLxPsfEYDDjGrFButqYehinZqS3xt8r70z7w5JVMGVi9yQreHD3nyKj4qKbS6mfYp637z06F+0kiHOxVqwq54VkGs1B1NnchguHePZvZbsKM6ZX657XSLTdKyrsZBB1icANv0teAUpNVvciAX1UsdD+NON6nVNmQZSeBeWiKH4UlW6vnNFizZfl9jTSp7mqcV0ZO39YS/dPjZm2O18mG6maYWP8SF9Xaa760wj5NGja9oaXMEl2vznJpK5AHsEmXL+rr63RHNn2raD8wcNgSI2qR2nFA/UYG1uoebODdCnywOdz1/FxkUZz99YRGJ1EpjPYwne1OfXSCE/HN0g==
+ bh=4/kp7G7JDpg3J3HfFgxXKAuElInlVHd6zQRi6ZMW/cY=;
+ b=Tum9PzscPneclRkUuYHs3KNCSsw5U/twsUG9rDA6SvYL9eVI2zMCbbKXFkfhaMAmG+K4OYA/ryosIFoIwVhPLWJM1K+BXAljifx4YNFVTETwX9iJp7HFjj9UphRuyiazWek5ePUGz/DCtBCrcovk8oZ1zb3cu8bACUhgcUAYQv2/6llVwJwanJ4oHpsFTIqbhkRXNzb0/URwp+kcJaAKpjSnsOh/NvxCDz1xrbq9yBwHl4FT7VosyEzn1bkcEh+0O9+wCIArTnDLdlqJxmkrgPy2G/t09pFstaXTTF/tNfS4b3zjAcKGhI3eqhpTEA9lpyQHkvc98E8CzIkb57sNFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wNTx77+yUzUPRnqP/xUzIKewYDYCfIlp/2xwpweiUaM=;
- b=U8zGxGTbmfBvqu4rzvmRUUomfgC2EdTSL36b9qKTvvjV0kZDx1l/VynGkhP9hI0v3Sau0QAvVJRBDo+cajSWBXpjSUZ0kXGMsSjjtKmlX1cMkmrs+EsN/HiEo6iqoNVk4j8eHba8UDT8K2ugQLIYlVKK7Tv+5OGhdg604ykQkIA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
- by CH1PR12MB9597.namprd12.prod.outlook.com (2603:10b6:610:2ae::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Wed, 9 Sep
- 2026 13:02:10 +0000
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e%4]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
- 13:02:09 +0000
-Content-Type: multipart/alternative;
- boundary="------------u0WLdkhUR45PjDKDCKu0MrG0"
-Message-ID: <b652b617-de17-4e11-9492-ffb003a9e51e@amd.com>
-Date: Wed, 9 Sep 2026 18:32:03 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amdgpu: Add per-VM kernel queue first-level trap
- handler infrastructure
-To: "Lazar, Lijo" <lijo.lazar@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, Samuel Pitoiset <hakzsam@gmail.com>,
- Natalie Vock <natalie.vock@gmx.de>
-References: <20260905081935.338775-1-srinivasan.shanmugam@amd.com>
- <20260905081935.338775-2-srinivasan.shanmugam@amd.com>
- <4f97a5e8-8bef-4353-9998-9e6daee499d2@amd.com>
+ bh=4/kp7G7JDpg3J3HfFgxXKAuElInlVHd6zQRi6ZMW/cY=;
+ b=c74dv+bN2Tu8NIutdvwIoUdEFnlKBA0nS7pgkqiEGk79sx8i8NOTm2Dq0ndMtvfLdEcdAsuxqwnXLqUh+2esz39DU4rjGyPl8rH3tPTWe5/qDGxKjZvPOt7xit6C5ZN7snkp3mPmuKUfqZ46nT/dA4mQtN+BYgARJ5oVL8UDTjk=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ DM6PR12MB4297.namprd12.prod.outlook.com (2603:10b6:5:211::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.8; Wed, 9 Sep 2026 13:17:17 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::b2e1:64e5:3b9e:738a]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::b2e1:64e5:3b9e:738a%4]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 13:17:15 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Wu, Ray" <Ray.Wu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
+ Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
+ ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
+ "Wu, Ray" <Ray.Wu@amd.com>, "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>, "Hung,
+ Alex" <Alex.Hung@amd.com>, "Lin, Ping Lei" <PingLei.Lin@amd.com>, "Chen,
+ Chen-Yu" <Chen-Yu.Chen@amd.com>, "Wu, Ray" <Ray.Wu@amd.com>
+Subject: RE: [PATCH 00/40] DC Patches September 7, 2026
+Thread-Topic: [PATCH 00/40] DC Patches September 7, 2026
+Thread-Index: AQHdOpiJCfJ8ZyDs/UGV9KRwbUSXfLbGRbvg
+Date: Wed, 9 Sep 2026 13:17:15 +0000
+Message-ID: <DS0PR12MB65345E321315C556D8506E169CB02@DS0PR12MB6534.namprd12.prod.outlook.com>
+References: <20260902050411.3473916-1-ray.wu@amd.com>
+In-Reply-To: <20260902050411.3473916-1-ray.wu@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
-From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
-In-Reply-To: <4f97a5e8-8bef-4353-9998-9e6daee499d2@amd.com>
-X-ClientProxiedBy: MA5P287CA0352.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:219::16) To IA0PR12MB8208.namprd12.prod.outlook.com
- (2603:10b6:208:409::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|CH1PR12MB9597:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bdce36c-bcc1-4528-28ad-08df0e728eae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|4143699003|10067099003|18002099003|22082099003|8096899003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: LRVWUUCaP6bgtP6aeAeHAtaQThoMP6Pmbxk1Tfig4C5PKGqELHfssuiHJU8crQgs1/8iQGRsoomLrtBuhiNtyOvvngiWabtQM1pPtygeE4X5RnQ4J0nfnr0/gCbgaeAFWJ+ZLMrXyE+k7p94hmzK27G2TG9niq8oMc0pA4tqKrpkp3SkP/tFBLdBLsksWujSFOfEQGH/y9ChlaDPFDyLMzI/e1zN2TLJUdfqxLPDaHbVnkKGQE7YM4nBCRF9wSzJpkw+g79yikF4LlV6BWSkuhO0rJnMEkZFRBFadhP9GHwWrbgVOMYvPfOge/UEy3WLQgCUqnQykHdbs32BWt0EY/5FKg8akxRn6bFzcZBe8eupU8Q4T6hrpQe6yoOHhIGKG7sr4AZ6gmTN/2rBHtJeqXB05mXSbc6j7XJMxXZfv86LcsybFbokbz7N9OENxxclMUexbUOdxyw9biT6YiFuR6hNIhbyKQozV03ikKjBkQ62cQwI1KlJqduzYkgwAUtTVCRGvgZmzUFNhnNTG37Q+04QVATJN/by4Vrfx8WTKTHstLGKKRhQsOm/z7e1d4pHkmwB045YMmuqNGeynqr3kuUEU2coySitLxHFzQB1P9mnkPKGm0aOf+QhHLc+Wvvq8obdO5N2VzhgxFWJMuZ8y+h/44m60HNrtyzuf8Xoe3M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(4143699003)(10067099003)(18002099003)(22082099003)(8096899003)(56012099006)(11063799006);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-09-09T13:17:11.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
+ v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|DM6PR12MB4297:EE_
+x-ms-office365-filtering-correlation-id: 5ef059c6-cc8c-43bb-c017-08df0e74ab03
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|366016|38070700021|6133799003|3023799007|10067099003|11063799006|56012099006|22082099003|18002099003;
+x-microsoft-antispam-message-info: O2k1Hd/W5e97W0OZEbbkRd+p/pplASh1qoAhOLujygOCVdZrAQgU9BC/HdjNGxuvHFoNvIk0G5DPOp70zU+D6n+t12YtdZ4zAcx1DeCbq9CeD5dLsvBIIAN0HdseFicLjkML1a0Nm4s+UlPjlThXf9v4+UQ6ZmLD0HdrxaxycGBHSSbZ+aan1Gczz0500rqkEsF5EN+FlkWmY9XVdm5CGlJ9+fOrAwcGsft102ORRn5zgoGsWiQbUGPAMDpt4m/J2cA6vgf+AIjHFB6HlsdG9tMDcghi1PhRAbQ/yXvKSEDVydzqCnOmASx1gn0rkEQc6/60pgchO+zSvXls7dwgDloJDNE7ZZPwPlB65WwnRdX5cL6lISbooBIGPsx6rgGOU+WJsDZaCmNDjfS1qfBQu+mD9tv5Nt/tHZ0sXulDSkSzgNdt8nNm3bC5CSOTEdNXyvLYZpskh6AmI7VYeRVAQv6iacgaCRPiUC3QFN2KLfwPufcYfd4CUOIA5OYpx4B9RcUOWmcLRr3lLvDYZFAaf8x/J/S91M/mHnRPMz3dwnZ25yq5u3m2NqKq+STtRkDN3gkeaqS11mg61RKv0o9sQzmDo+7QlCqvazMkikI6hgym2qgMWr7sXicSQ4S2RCG2c40FCicqN/veBWEMZK15a2h8AEgvuypIvvNkhnEKha5EJAXcGeh0npZyeGbhDClukYk7QULw9x/yVQ8keBP+YyvEhEqVIRiERShLFWxCarw=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(38070700021)(6133799003)(3023799007)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aEFGcXc2MFR5cWdjeTlNTXZJd1dMcDQ5Vm1DRGRoclcwOUJ6TlEvMFg2OXhZ?=
- =?utf-8?B?UkNYS000UUhScVpaR2ZrN2gvTWpDTWtwOExZZ2xKVm42T2JPZUFtbmdZRUxs?=
- =?utf-8?B?dStoL3NJZGlrdUN1UElIcndKb1VseUxNaEJCWmc2T0pOZi9sdzI0Zjg2VFJ0?=
- =?utf-8?B?Q0VVUG16WE1jZ094dVlKWGcyTVE3VVY3c1QyOXF4bktNWmJCTjNlR1BqTjBh?=
- =?utf-8?B?aTlUQzN6SmpkNmh0RlQxaUZUVlYxa3ppdzFzUThJTUFLSWhIMnl3V3dQVXRo?=
- =?utf-8?B?V3VZcGdyU2RQNW94dE0yUkJsYlBOS2Y2VGlocmc0ejlZOGtreW5hUVBBNDUx?=
- =?utf-8?B?TmZmM2ROVmRMV1VtcGZCdHlib1RzbGQyWHRhQmR2TzVZMEx0dDdoSEhsTExO?=
- =?utf-8?B?V2h0QlkvSXVrYWJ1b21Jajh6dUtzMHFDRUxSSHRXanhNSUUwR3Q1d25iRzBm?=
- =?utf-8?B?Rnc4L2ZueE1ZYlNDRXA4UTN2cFFQYytlZHFFbWtkWDdmZlZKbEE4a3BIUmhs?=
- =?utf-8?B?a0ZvazZRU2VXNDluWTZPOHM3R09WSmtpWnY0KzJJdjVObmRleUVvaVZTMUF3?=
- =?utf-8?B?SnMvcEJzZnRFMi9wRXRJWWU0YzdESlh5MHRaNVUybTNYN0htbU5DSVZBazN6?=
- =?utf-8?B?eVJXcW5UM3REUXNMVkhaTXArSThPTjcrRjBteVVML1dvRFhzYW5tdEFDR0VX?=
- =?utf-8?B?MktzSURlVWlWRysvWXlEenE4T1dCL1NNTGJkMmoxZ0JVcCtCOGQ4ZWNDTG1z?=
- =?utf-8?B?bmdwZnByV3JiSkUvZ0dqMmlqK2xqbncyVGFiZ1dUSjJpTEdORi9jeUFBQkQ3?=
- =?utf-8?B?WTBpM0FORE90YTlPMENkYVU5SUxUM0JhNmpYZktWQ2VjN0t1WEpZK0JhZEFX?=
- =?utf-8?B?WCtyNjYvWFJ4aUp3dE1lUE5LVnI4dUh0YStGejEycHZxQmpHdURFNldIMVRz?=
- =?utf-8?B?dVBybjNxNWpMV3pobWN4M1Q5TmtsT3F4L2o4YWhXQ2RWNEwwZlpQL2FydHM3?=
- =?utf-8?B?Z1gyVGR6SXo0ZVJ1ajZZby9WVWxYaERPNjBjb3JRRjg1Tll2cDM2aVFsUnEv?=
- =?utf-8?B?K1ZybnVtSGN2cmNPdVNCaEl5UWliaVFEVFBScGJHUDdybUlwTE0rTmp4YVpC?=
- =?utf-8?B?RTdvYUd6dXBJOEQ0TUc4RHNCN3JRQi96Z2JPOUJRUUFYdkhNT2Y5Qk9Nbm5Q?=
- =?utf-8?B?UFg1azVvNkxPS1A4S1dtZkk2cVY5YXF3citmb2kwdUxjall3SzJ1VHZBTGx6?=
- =?utf-8?B?OE9PUGk0OGJGSDcxNTZVNkhqZEVpOGI4SUFvc0xUMUp0MWh3TklCK3pSSlIv?=
- =?utf-8?B?cWI5WUYxQ3prZ1BIWWZhUEkrdW5aL0tnaHA0TU5EZmhybkx0SThVZ2RzbFBy?=
- =?utf-8?B?T3pqY0ptcDgzQzNaenhkbUJuSnl5dTVRSjlmR0RNTUJjMGgxUmY4elJrLzZj?=
- =?utf-8?B?N05wemhlRXR4eTh2d0VqNEtxKzd3bWtOS3p5NXlqZklmajU1anVDN2R5VGgz?=
- =?utf-8?B?Z29rZDQzOTEwOXhodkxnd0hwd1BVMDJkN0RxUVo1ODNkaVlQV3pSWnFMcGRY?=
- =?utf-8?B?SEV4WkRMcXE2czhabWhobXFwb2FCNGgwSmszS2F3bnF4K1RubnZpWGYyakxs?=
- =?utf-8?B?ZFd1SjlWUkhFdkhCMjVwbnM0dVJNd3grY2ZBYVBHNzRKOVlBWFBFT0ZkRUdB?=
- =?utf-8?B?b0xKMlpjVWFlT2JsdThzUHQ3ZERIVCtMYXJLakc5cHIxWWFXSVZQVHBueVZk?=
- =?utf-8?B?Y0VqRVF2dlo5RTMwTHdjaHBlZFkxaTVZVUlzNDYwR2ZxcFhUMFp1Qkp1aFBG?=
- =?utf-8?B?aUp1REtDMnF1RmM1WjgwNmVUSVNyV24yOTFLcTY4NzRaSmExU21nemhhbzdj?=
- =?utf-8?B?MUhpMWJuWWhjU2lRVEFDR3o3Y0tQWlRGUVBRQXcreGVsckI0TUJQRHdVVFZ2?=
- =?utf-8?B?UGVGREQrNnN4RnUvRkQ5Umd3ak8yTTRvZ1lnRzV6aVJwcWE2M1d0bVZtM1Bw?=
- =?utf-8?B?YTlab2YxV3RIYmw4em94cElZRElLL0RmSjRBVVk1OExrdVhPWFJKblliQzdI?=
- =?utf-8?B?bVpmWW9MZnlzVjRLbTZnckg5dzc5akRGTzk3YTI4MVkyL1lnd0lyUTNmaDJu?=
- =?utf-8?B?UUd1aWJoQlltd3ZrYWY4OVJWemh0elFFc3pSMzFjUDMycXJKTUdRWXpyOHhp?=
- =?utf-8?B?bWI0bDZTNXV3QzB1OXpnNGxtcE94dklVTFovM3FwUEJFUERRU3pXVUJjZHhl?=
- =?utf-8?B?QzlHRXRwQStIVVJtQm9EZ1MxOStHcUVJa0crL1paZHJDaHUwRFZlU1FHNEYv?=
- =?utf-8?Q?ks+53xs6PPuQiQQ8xp?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?wVthPjFwL3gv5WACqJc+c/SG3u8LqFMxiiU5YnVLNVIelPMxZ0M1ZQAfUP?=
+ =?iso-8859-1?Q?TwZTalpoTrNecxjm1OT3Ey4ZBvdD/cBFjCQCcTYEVCmRUDOvTZZPAL7ktd?=
+ =?iso-8859-1?Q?RAqxHo38UsY+GJkcmQfnoIbRp2ymBzVrY6gLhq6tnrPAt+SYk9nX91hyiA?=
+ =?iso-8859-1?Q?RNEHLG52XLF9BZYo3NRNncF8N4R1wx8ITDblV2rm/nAtpHA4tzlxfpDmq4?=
+ =?iso-8859-1?Q?tCCEVCjsnzNIOLuP/sNgLVtoVBGx38ZmSxjFiUHez9VEby0wSG9maEKuRD?=
+ =?iso-8859-1?Q?bi/DRHycrS2cWS8SA4q2HIOtj/MyYIhSlVR3SENVG8u8YQlclY3oSYZsPE?=
+ =?iso-8859-1?Q?v58X41AahD1yL6Z3Lul7v3FkHPy4ddUYcgKhoOLVXvS1uMgAPaRXnYrP6s?=
+ =?iso-8859-1?Q?FBNVPY3fgzhZB1LtvkWxPpig+ND6U2QjSa61lgW6MJypra90ISg9YNDVl8?=
+ =?iso-8859-1?Q?U67rLD4v23vTBQTFon/IwBGOtUKnvMyAtOmv9iVEuhp6xfYl7+jdI/iwFP?=
+ =?iso-8859-1?Q?cvFs3a5WLosHg7ZJcs64j46Dfdm3UWIA8UoSi7Ccr+wUxP4ufByYS8lOPw?=
+ =?iso-8859-1?Q?2MN+kemXiPfNw9W2tOW2TVufBcilWAv2eSYP2BqKZghxMjDoSOpTfMSw7Z?=
+ =?iso-8859-1?Q?v3sqwwzSD+IZxNe8mmvt/WvHn1QmdaLPJYa9DpdS5cJXzGGBdeHzGjEj5C?=
+ =?iso-8859-1?Q?J2Ls9bAxos3IJDshkZMogqWmKpyFg86j/5mLVKOUjNjj2D235C+GsRbA0F?=
+ =?iso-8859-1?Q?Gr+wnNK9MuPXfmPjm7zI9rICY8q4SC5YsAotGWEU/bvdIxkMpKCPqSSZ8O?=
+ =?iso-8859-1?Q?IfFZ2mfxj4e9pMLKqGGnpvzm1KC3wo4CnskiSVZ5dv6dXQpUyEO9IsoAq5?=
+ =?iso-8859-1?Q?ELX9VtnWZ0XEohpEKwVFNAItI4Gp7IQfcU3tJCJ9uPt5njMUYMN126lPes?=
+ =?iso-8859-1?Q?XCy7cpfPaSR+cPsBFK+K1J5TXY6n/zhY3h4CjTFOfHYJOQqydRPzBP8PjX?=
+ =?iso-8859-1?Q?Xh4L5KRn6LqFw8ZuRJ9s+Jr+F9krNGgZAyDtQAFD3R17ySM875GDXLsQ9Z?=
+ =?iso-8859-1?Q?0/7gBAaWTOJSG90/lTEIjBQhabOB7rwIrLEX2OQbDJnSyUNVVLlyoR4XUw?=
+ =?iso-8859-1?Q?nu8GyGkpH+dk4FeUq9GEJOPyYFxP3nDn0FJgD5/lvg5q54gfF6JfuccB3C?=
+ =?iso-8859-1?Q?pKmFmGyVWAXGKs4xqqeqMftrMKp1QDuTy9kEN+guKgH6I2B15HXrtYIRHT?=
+ =?iso-8859-1?Q?o/bRblA8RlqPsdamaKNzjNexZVek9voEuSXpdFayvxZ0NXWhcls800IAYq?=
+ =?iso-8859-1?Q?aY/kIMAnmp1B1aGVC2fWYDZ6zWExtLSSIFoMafHvEnIwjJG8EInlW3Eg81?=
+ =?iso-8859-1?Q?5Jko82xlG/pHsPAKbGWv7kBoAm66qSnTIlV34uQ6H018bKtUZvRc5Ngq6f?=
+ =?iso-8859-1?Q?z1pR31emWHOIwdZeigsU40fWMKMNk1gJHx+jnSaJ8R5yDJIEmIwtS27RUB?=
+ =?iso-8859-1?Q?gXOCl8zraCdfT1jjtrkKutPtk836cjkIrSgV9svK1GzYI1h7f8fByhDilx?=
+ =?iso-8859-1?Q?oD5uTociaVrEfRXYB+KNHZTJOxYFtWhR1/qu7puTnXOS/5uApZ1KpnjElk?=
+ =?iso-8859-1?Q?Ro77wVxb8f+YMZch6Ut8A9vumfQ/1xQiDIcSZPjFCxlfZUnzibEas6hc0r?=
+ =?iso-8859-1?Q?EfYkySwtqvqH9FZIaBM7gjIkLe79djbS2k2dS0rnr7UQX3QD/o9putM4+U?=
+ =?iso-8859-1?Q?+Ji4jdc9tvUHuieviMIMyWs2svedZhFt7SL/xP16k3sOtF?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bdce36c-bcc1-4528-28ad-08df0e728eae
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 13:02:09.7534 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QEvY1HRl3L/JpVxNloaIS0kMLoh87izeLgA9vVi85H62S37oNy5xImY+WWoSplMlRevcS9H/lQLqYENQPl0Tpw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9597
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ef059c6-cc8c-43bb-c017-08df0e74ab03
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 13:17:15.7751 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GAwCfPgY5rcx5NOpazCmEpmO9NW2nG66Plvo61mgH2+3ysoleXYwkO5m09TU8Ezr9AW1fcGI/AezCgguB/1SSA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4297
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,423 +138,263 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------u0WLdkhUR45PjDKDCKu0MrG0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Public
+
+Hi all,
+
+This week this patchset was tested on 4 systems, two dGPU and two APU based=
+, and tested across multiple display and connection types.
+
+APU
+        * Single Display eDP -> 1080p 60hz, 1920x1200 165hz, 3840x2400 60hz
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
+, 4k 240hz (Includes USB-C to DP/HDMI adapters)
+        * Thunderbolt -> LG Ultrafine 5k
+        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
+lays, HP Hook G2 with 2x 4k60hz displays
+        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
+ DP and 1x 4k60hz HDMI displays
+        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
+ion supported by the dongle of 4k 120hz YUV420 12bpc.
+        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
+he adapter of 4k 120hz RGB 8bpc.
+
+DGPU
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multiple Display DP -> 4k240hz + 4k144hz
+        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
+        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
+isplays)
+
+The testing is a mix of automated and manual tests. Manual testing includes=
+ (but is not limited to)
+        * Changing display configurations and settings
+        * Video/Audio playback
+        * Benchmark testing
+        * Suspend/Resume testing
+        * Feature testing (Freesync, HDCP, etc.)
+
+Automated testing includes (but is not limited to)
+        * Script testing (scripts to automate some of the manual checks)
+        * IGT testing
+
+The testing is mainly tested on the following displays, but occasionally th=
+ere are tests with other displays
+        * Samsung G8 Neo 4k240hz
+        * Samsung QN55QN95B 4k 120hz
+        * Acer XV322QKKV 4k144hz
+        * HP U27 4k Wireless 4k60hz
+        * LG 27UD58B 4k60hz
+        * LG 32UN650WA 4k60hz
+        * LG Ultrafine 5k 5k60hz
+        * AU Optronics B140HAN01.1 1080p 60hz eDP
+        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
+        * Samsung ATNA60YV02-0 3840x2400 60Hz OLED eDP
 
 
-On 9/9/2026 1:15 PM, Lazar, Lijo wrote:
->
->
-> On 05-Sep-26 1:49 PM, Srinivasan Shanmugam wrote:
->> MES owns kernel queue VMIDs (1..first_kfd_vmid-1) but does not program
->> SQ_SHADER_TBA/TMA for them. On GFX11+ hardware MES maps kernel queues
->> via ADD_QUEUE with map_legacy_kq=1 but does not set trap handler state.
->> On GFX10 and earlier HWS-based hardware, the driver programs trap
->> registers via SRBM select for KFD queues but no equivalent exists for
->> driver-managed kernel queue VMIDs.
->>
->> Add a vmhub callback program_kernel_trap_vmids() so each gfxhub version
->> can write SQ_SHADER_TBA/TMA for kernel VMIDs. The TBA points to the
->> device-level CWSR ISA BO. The TMA is set to the fixed per-VM virtual
->> address AMDGPU_VA_RESERVED_TRAP_START — each VM maps its own kq_tma_bo
->> there, so per-VM isolation is handled entirely by page tables without
->> needing to reprogram the register per job or per submission.
->>
->> The per-VM kq_tma_bo is a small GTT BO allocated at VM creation time
->> (parallel to page table allocation) and mapped read-only into the GPU VM
->> at AMDGPU_VA_RESERVED_TRAP_START. The kernel CPU writes the second-level
->> handler address into it via kq_tma_map when userspace calls SET_L2_TRAP.
->> The first-level CWSR handler reads this address to chain to the
->> second-level handler when a shader exception fires.
->>
->> This design is:
->>    - Per-VM BO (not device-level) — same model as page tables
->>    - Fixed VA in each VM's address space — same VA, different 
->> physical BO
->>    - Read-only from GPU — kernel CPU updates it via CPU mapping
->>    - Treat allocation/free lifecycle identical to page tables
->>
->> Suggested-by: Christian König <christian.koenig@amd.com>
->> Suggested-by: Alexander Deucher <alexander.deucher@amd.com>
->> Cc: Lijo Lazar <lijo.lazar@amd.com>
->> Cc: Timur Kristóf <timur.kristof@gmail.com>
->> Cc: Samuel Pitoiset <hakzsam@gmail.com>
->> Cc: Natalie Vock <natalie.vock@gmx.de>
->> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
->> Change-Id: I9ce352157c4aa84099cef926cba61264781e8ad9
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  1 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c | 80 ++++++++++++++++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h |  7 +++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |  9 +++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   | 13 ++++
->>   5 files changed, 110 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->> index 3ca187f5ade8..5624a5ab5c62 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->> @@ -115,6 +115,7 @@ struct amdgpu_vmhub_funcs {
->>       void (*print_l2_protection_fault_status)(struct amdgpu_device 
->> *adev,
->>                            uint32_t status);
->>       uint32_t (*get_invalidate_req)(unsigned int vmid, uint32_t 
->> flush_type);
->> +    void (*program_kernel_trap_vmids)(struct amdgpu_device *adev);
->>   };
->>     struct amdgpu_vmhub {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
->> index 623cac6781be..e913488ca3fa 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
->> @@ -263,6 +263,7 @@ int amdgpu_trap_init(struct amdgpu_device *adev)
->>         amdgpu_trap_cwsr_init_save_area_info(adev, trap_info);
->>       adev->trap_info = no_free_ptr(trap_info);
->> +    amdgpu_trap_program_kernel_vmids(adev);
->>         return 0;
->>   }
->> @@ -277,6 +278,85 @@ void amdgpu_trap_fini(struct amdgpu_device *adev)
->>       adev->trap_info = NULL;
->>   }
->>   +void amdgpu_trap_program_kernel_vmids(struct amdgpu_device *adev)
->> +{
->> +    struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
->> +
->> +    if (!amdgpu_trap_is_enabled(adev))
->> +        return;
->> +    if (!hub->vmhub_funcs || 
->> !hub->vmhub_funcs->program_kernel_trap_vmids)
->> +        return;
->> +
->> +    hub->vmhub_funcs->program_kernel_trap_vmids(adev);
->> +}
->> +
->> +int amdgpu_trap_vm_kq_tma_alloc(struct amdgpu_device *adev,
->> +                struct amdgpu_vm *vm)
->> +{
->> +    void *cpu_addr;
->> +    uint64_t va;
->> +    int r;
->> +
->> +    dma_resv_assert_held(vm->root.bo->tbo.base.resv);
->> +
->> +    r = amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PAGE_SIZE, PAGE_SIZE,
->> +                    AMDGPU_GEM_DOMAIN_GTT, &vm->kq_tma_bo,
->> +                    NULL, &cpu_addr);
->> +    if (r)
->> +        return r;
->> +
->> +    if (vm->kq_tma_bo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
->> +        iosys_map_set_vaddr_iomem(&vm->kq_tma_map,
->> +                      (void __iomem *)cpu_addr);
->> +    else
->> +        iosys_map_set_vaddr(&vm->kq_tma_map, cpu_addr);
->> +
->> +    vm->kq_tma_va = amdgpu_vm_bo_add(adev, vm, vm->kq_tma_bo);
->> +    if (!vm->kq_tma_va) {
->> +        r = -ENOMEM;
->> +        goto err_free_bo;
->> +    }
->> +
->> +    va = AMDGPU_VA_RESERVED_TRAP_START(adev) & AMDGPU_GMC_HOLE_MASK;
->
-> Is this the same address used for mapping of TMA for user queues?
+The patchset consists of the amd-staging-drm-next branch (Head commit - a84=
+de5c9feaa2dbffac1f062ad3b4c0deca1ccc7 -> drm/amd/display: validate plane de=
+gamma LUT size for private color prop) with new patches added on top of it.
 
-No — these are *different, non-overlapping addresses* in the reserved VA 
-region:
+Tested on Ubuntu 26.04, on Gnome Wayland.
 
-  * |AMDGPU_VA_RESERVED_TRAP_UQ_START| = TRAP_START − 12 KiB
-    → used for UQ first-level TBA (8 KiB) + TMA (4 KiB)
-  * |AMDGPU_VA_RESERVED_TRAP_START| = SEQ64_START − 64 KiB
-    → used for KQ per-VM TMA (this patch)
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 
-The UQ region sits immediately below the KQ region in the reserved VA
-space. No collision between the two mappings in the same VM.
 
-Regards, Srini
+Thank you,
 
---------------u0WLdkhUR45PjDKDCKu0MrG0
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Dan Wheeler
+Sr. Technologist | AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+amd.com
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 9/9/2026 1:15 PM, Lazar, Lijo wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:4f97a5e8-8bef-4353-9998-9e6daee499d2@amd.com">
-      <br>
-      <br>
-      On 05-Sep-26 1:49 PM, Srinivasan Shanmugam wrote:
-      <br>
-      <blockquote type="cite">MES owns kernel queue VMIDs
-        (1..first_kfd_vmid-1) but does not program
-        <br>
-        SQ_SHADER_TBA/TMA for them. On GFX11+ hardware MES maps kernel
-        queues
-        <br>
-        via ADD_QUEUE with map_legacy_kq=1 but does not set trap handler
-        state.
-        <br>
-        On GFX10 and earlier HWS-based hardware, the driver programs
-        trap
-        <br>
-        registers via SRBM select for KFD queues but no equivalent
-        exists for
-        <br>
-        driver-managed kernel queue VMIDs.
-        <br>
-        <br>
-        Add a vmhub callback program_kernel_trap_vmids() so each gfxhub
-        version
-        <br>
-        can write SQ_SHADER_TBA/TMA for kernel VMIDs. The TBA points to
-        the
-        <br>
-        device-level CWSR ISA BO. The TMA is set to the fixed per-VM
-        virtual
-        <br>
-        address AMDGPU_VA_RESERVED_TRAP_START — each VM maps its own
-        kq_tma_bo
-        <br>
-        there, so per-VM isolation is handled entirely by page tables
-        without
-        <br>
-        needing to reprogram the register per job or per submission.
-        <br>
-        <br>
-        The per-VM kq_tma_bo is a small GTT BO allocated at VM creation
-        time
-        <br>
-        (parallel to page table allocation) and mapped read-only into
-        the GPU VM
-        <br>
-        at AMDGPU_VA_RESERVED_TRAP_START. The kernel CPU writes the
-        second-level
-        <br>
-        handler address into it via kq_tma_map when userspace calls
-        SET_L2_TRAP.
-        <br>
-        The first-level CWSR handler reads this address to chain to the
-        <br>
-        second-level handler when a shader exception fires.
-        <br>
-        <br>
-        This design is:
-        <br>
-        &nbsp;&nbsp; - Per-VM BO (not device-level) — same model as page tables
-        <br>
-        &nbsp;&nbsp; - Fixed VA in each VM's address space — same VA, different
-        physical BO
-        <br>
-        &nbsp;&nbsp; - Read-only from GPU — kernel CPU updates it via CPU mapping
-        <br>
-        &nbsp;&nbsp; - Treat allocation/free lifecycle identical to page tables
-        <br>
-        <br>
-        Suggested-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
-        <br>
-        Suggested-by: Alexander Deucher
-        <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
-        <br>
-        Cc: Lijo Lazar <a class="moz-txt-link-rfc2396E" href="mailto:lijo.lazar@amd.com">&lt;lijo.lazar@amd.com&gt;</a>
-        <br>
-        Cc: Timur Kristóf <a class="moz-txt-link-rfc2396E" href="mailto:timur.kristof@gmail.com">&lt;timur.kristof@gmail.com&gt;</a>
-        <br>
-        Cc: Samuel Pitoiset <a class="moz-txt-link-rfc2396E" href="mailto:hakzsam@gmail.com">&lt;hakzsam@gmail.com&gt;</a>
-        <br>
-        Cc: Natalie Vock <a class="moz-txt-link-rfc2396E" href="mailto:natalie.vock@gmx.de">&lt;natalie.vock@gmx.de&gt;</a>
-        <br>
-        Signed-off-by: Srinivasan Shanmugam
-        <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com">&lt;srinivasan.shanmugam@amd.com&gt;</a>
-        <br>
-        Change-Id: I9ce352157c4aa84099cef926cba61264781e8ad9
-        <br>
-        ---
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h&nbsp; |&nbsp; 1 +
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c | 80
-        ++++++++++++++++++++++++
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h |&nbsp; 7 +++
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c&nbsp;&nbsp; |&nbsp; 9 +++
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h&nbsp;&nbsp; | 13 ++++
-        <br>
-        &nbsp; 5 files changed, 110 insertions(+)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-        b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-        <br>
-        index 3ca187f5ade8..5624a5ab5c62 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-        <br>
-        @@ -115,6 +115,7 @@ struct amdgpu_vmhub_funcs {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*print_l2_protection_fault_status)(struct
-        amdgpu_device *adev,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t status);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t (*get_invalidate_req)(unsigned int vmid, uint32_t
-        flush_type);
-        <br>
-        +&nbsp;&nbsp;&nbsp; void (*program_kernel_trap_vmids)(struct amdgpu_device
-        *adev);
-        <br>
-        &nbsp; };
-        <br>
-        &nbsp; &nbsp; struct amdgpu_vmhub {
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-        b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-        <br>
-        index 623cac6781be..e913488ca3fa 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-        <br>
-        @@ -263,6 +263,7 @@ int amdgpu_trap_init(struct amdgpu_device
-        *adev)
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_trap_cwsr_init_save_area_info(adev, trap_info);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;trap_info = no_free_ptr(trap_info);
-        <br>
-        +&nbsp;&nbsp;&nbsp; amdgpu_trap_program_kernel_vmids(adev);
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
-        <br>
-        &nbsp; }
-        <br>
-        @@ -277,6 +278,85 @@ void amdgpu_trap_fini(struct amdgpu_device
-        *adev)
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;trap_info = NULL;
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; +void amdgpu_trap_program_kernel_vmids(struct amdgpu_device
-        *adev)
-        <br>
-        +{
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct amdgpu_vmhub *hub =
-        &amp;adev-&gt;vmhub[AMDGPU_GFXHUB(0)];
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (!amdgpu_trap_is_enabled(adev))
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (!hub-&gt;vmhub_funcs ||
-        !hub-&gt;vmhub_funcs-&gt;program_kernel_trap_vmids)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; hub-&gt;vmhub_funcs-&gt;program_kernel_trap_vmids(adev);
-        <br>
-        +}
-        <br>
-        +
-        <br>
-        +int amdgpu_trap_vm_kq_tma_alloc(struct amdgpu_device *adev,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vm *vm)
-        <br>
-        +{
-        <br>
-        +&nbsp;&nbsp;&nbsp; void *cpu_addr;
-        <br>
-        +&nbsp;&nbsp;&nbsp; uint64_t va;
-        <br>
-        +&nbsp;&nbsp;&nbsp; int r;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; dma_resv_assert_held(vm-&gt;root.bo-&gt;tbo.base.resv);
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; r = amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PAGE_SIZE,
-        PAGE_SIZE,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_GTT,
-        &amp;vm-&gt;kq_tma_bo,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL, &amp;cpu_addr);
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (r)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (vm-&gt;kq_tma_bo-&gt;kmap.bo_kmap_type &amp;
-        TTM_BO_MAP_IOMEM_MASK)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iosys_map_set_vaddr_iomem(&amp;vm-&gt;kq_tma_map,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (void __iomem *)cpu_addr);
-        <br>
-        +&nbsp;&nbsp;&nbsp; else
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iosys_map_set_vaddr(&amp;vm-&gt;kq_tma_map, cpu_addr);
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; vm-&gt;kq_tma_va = amdgpu_vm_bo_add(adev, vm,
-        vm-&gt;kq_tma_bo);
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (!vm-&gt;kq_tma_va) {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = -ENOMEM;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_free_bo;
-        <br>
-        +&nbsp;&nbsp;&nbsp; }
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; va = AMDGPU_VA_RESERVED_TRAP_START(adev) &amp;
-        AMDGPU_GMC_HOLE_MASK;
-        <br>
-      </blockquote>
-      <br>
-      Is this the same address used for mapping of TMA for user queues?
-      <br>
-    </blockquote>
-    <p dir="ltr">No — these are <strong>different, non-overlapping
-        addresses</strong> in the reserved VA region:</p>
-    <ul dir="ltr">
-      <li><code>AMDGPU_VA_RESERVED_TRAP_UQ_START</code> = TRAP_START −
-        12 KiB<br>
-        → used for UQ first-level TBA (8 KiB) + TMA (4 KiB)</li>
-      <li><code>AMDGPU_VA_RESERVED_TRAP_START</code> = SEQ64_START − 64
-        KiB<br>
-        → used for KQ per-VM TMA (this patch)</li>
-    </ul>
-    <p dir="ltr">The UQ region sits immediately below the KQ region in
-      the reserved VA<br>
-      space. No collision between the two mappings in the same VM.</p>
-    <p>Regards,&nbsp;Srini</p>
-  </body>
-</html>
 
---------------u0WLdkhUR45PjDKDCKu0MrG0--
+-----Original Message-----
+From: Ray Wu <ray.wu@amd.com>
+Sent: Wednesday, September 2, 2026 12:58 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
+Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
+uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel=
+.Wheeler@amd.com>; Wu, Ray <Ray.Wu@amd.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.=
+com>; Hung, Alex <Alex.Hung@amd.com>; Lin, Ping Lei <PingLei.Lin@amd.com>; =
+Chen, Chen-Yu <Chen-Yu.Chen@amd.com>; Wu, Ray <Ray.Wu@amd.com>
+Subject: [PATCH 00/40] DC Patches September 7, 2026
+
+This DC patchset brings improvements in multiple areas. In summary, we high=
+light:
+
+- Ensure requested LSDMA bandwidth stays within the SOP bound.
+- Refactor DC_SEND_CURSOR_INFO_TO_DMU to drop the pipe_ctx param.
+- Add an override for LSDMA bandwidth in the QoS table.
+- Expand amdgpu_dm KUnit coverage across vblank IRQ, self-refresh, GPU
+  reset, plane update, MST resume, cached suspend state, writeback
+  transitions, atomic validation, connector-state restore, EDID CEA
+  parsing and DM IRQ source handling.
+- Keep streamclk gating off when enabling streamclk.
+- Set mpc_tree_params->opp_id during OPP resource construct.
+- Add override capability for UTM table params.
+- Add immediate restore to FAMS2 for DRR.
+- Fix missing APG registers for DCN60 HDMI.
+- Exit IPS before connector detection on resume.
+- Fix HF-VSDB DSC bpc detection to be cumulative.
+- Fix unused params in flip schedule.
+- Enable the FW locality check in DCN6.
+- Fix DC Hub reference frequency assert range.
+- Dump clock registers in HW init instead of SW init.
+- Validate the IRQ source in the DM IRQ handler.
+- Revert "Fix CalculateFlipSchedule Calculation".
+- Assorted DML updates.
+- Update urgent burst calculation to account for unbounded requests.
+- Add a stressed peak-bandwidth probe with DMA contention.
+- Revert "Unify CalculateFlipSchedule Logic".
+
+Cc: Dan Wheeler <daniel.wheeler@amd.com>
+
+Alex Hung (12):
+  drm/amd/display: Test vblank IRQ handling
+  drm/amd/display: Test self refresh entry
+  drm/amd/display: Test GPU reset helpers
+  drm/amd/display: Test plane update adapter
+  drm/amd/display: Test MST resume guards
+  drm/amd/display: Test cached suspend state
+  drm/amd/display: Test writeback state transitions
+  drm/amd/display: Test atomic validation guards
+  drm/amd/display: Fix unused params in flip sched
+  drm/amd/display: Validate irq source in DM IRQ handler
+  drm/amd/display: Test DM IRQ handler source guard
+  drm/amd/display: Fix signedness mismatches in cm3
+
+Alvin Lee (5):
+  drm/amd/display: Ensure requested LSDMA BW is within the SOP bound
+  drm/amd/display: Add override for LSDMA BW in QoS table
+  drm/amd/display: Add override capability for UTM table params
+  drm/amd/display: Enable FW locality check in DCN6
+  drm/amd/display: Dump clock registers in HW init instead of SW init
+
+Austin Zheng (4):
+  drm/amd/display: Set DISPCLK per surface in DML
+  drm/amd/display: Update Urgent Burst Calculation To Account For
+    Unbounded Requests
+  Revert "drm/amd/display: Unify CalculateFlipSchedule Logic"
+  drm/amd/display: Update DML fields used for mode support
+
+Bhawanpreet Lakha (2):
+  drm/amd/display: Cover dm_restore_drm_connector_state
+  drm/amd/display: Cover EDID CEA parsing helpers
+
+Charlene Liu (1):
+  drm/amd/display: Make sure streamclk gating is off when enabling
+    streamclk
+
+Dillon Varone (1):
+  drm/amd/display: Add immediate restore to FAMS2 for DRR
+
+Fangzhi Zuo (3):
+  drm/amd/display: Exit IPS before connector detection on resume
+  drm/amd/display: Fix HF-VSDB DSC bpc detection to be cumulative
+  drm/amd/display: Fix NULL deref of new_stream->sink in VTEM guard
+
+Ilya Bakoulin (1):
+  drm/amd/display: Fix missing APG regs for DCN60 HDMI
+
+Joshua Aberback (1):
+  drm/amd/display: Remove unnecessary includes
+
+Nevenko Stupar (1):
+  drm/amd/display: Fix DC Hub reference frequency assert range
+
+Ovidiu Bunea (1):
+  drm/amd/display: Set mpc_tree_params->opp_id during OPP resource
+    construct
+
+Samson Tam (1):
+  Revert "drm/amd/display: Fix CalculateFlipSchedule Calculation"
+
+Taimur Hassan (2):
+  drm/amd/display: [FW Promotion] Release 0.1.74.0
+  drm/amd/display: Promote DC to 3.2.397
+
+Tomasz Siemek (1):
+  drm/amd/display: Refactor DC_SEND_CURSOR_INFO_TO_DMU to drop pipe_ctx
+
+Wenjing Liu (4):
+  drm/amd/display: Add stressed peak bandwidth probe with DMA contention
+  drm/amd/display: Add dml2_core_dcn6_calcs function pointer table
+  drm/amd/display: Route DCN6 mode support calcs through function
+    pointer table
+  drm/amd/display: Route DCN6 mode programming calcs through function
+    pointer table
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 141 ++--  .../gpu/drm/amd/=
+display/amdgpu_dm/amdgpu_dm.h |  50 ++
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  13 +-
+ .../display/amdgpu_dm/amdgpu_dm_connector.h   |  10 +
+ .../display/amdgpu_dm/amdgpu_dm_freesync.c    |   4 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |   5 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |   5 +
+ .../tests/amdgpu_dm_connector_test.c          | 514 +++++++++++++
+ .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c  |   2 +-
+ .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      |  45 ++
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 676 +++++++++++++++++-
+ .../drm/amd/display/dc/clk_mgr/dcn60/dalsmc.h |   2 +-
+ .../display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c  | 210 ++++--
+ .../dc/clk_mgr/dcn60/dcn60_smu_driver_if.h    |  44 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |   4 +-
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |   2 +
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c |  86 ++-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |   4 +
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |  21 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   4 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  45 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   7 +-
+ drivers/gpu/drm/amd/display/dc/dc_probe.h     |   1 +
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    |   1 +
+ .../amd/display/dc/dccg/dcn42/dcn42_dccg.c    |  14 +-
+ .../amd/display/dc/dccg/dcn42/dcn42_dccg.h    |   2 +-
+ .../amd/display/dc/dcn30/dcn30_cm_common.c    |   8 +-
+ .../drm/amd/display/dc/dml/dcn10/dcn10_fpu.c  |   1 -
+ .../drm/amd/display/dc/dml/dsc/rc_calc_fpu.c  |   1 -
+ .../gpu/drm/amd/display/dc/dml2_0/Makefile    |   1 +
+ .../dml21/inc/bounding_boxes/dcn4_soc_bb.h    |   2 +-
+ .../dml21/inc/bounding_boxes/dcn6_soc_bb.h    |  12 +
+ .../dml21/inc/dml_top_dchub_registers.h       |   1 +
+ .../dml21/inc/dml_top_soc_parameter_types.h   |   2 +
+ .../dc/dml2_0/dml21/inc/dml_top_types.h       |  13 +
+ .../dml2_0/dml21/src/dml2_cga/dml2_cga_dcn6.c |   4 +-
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      | 172 +++--
+ .../dml2_core/dml2_core_dcn5_calcs_dchub.c    |   8 +-
+ .../dml2_core/dml2_core_dcn5_calcs_dchub.h    |  23 +
+ .../dml2_core_dcn5_calcs_display_pipe.c       |   2 +-
+ .../dml2_core_dcn5_funcs_mode_programming.c   |   4 +
+ .../dml2_core_dcn5_funcs_mode_support.c       |   4 +
+ .../src/dml2_core/dml2_core_dcn6_calcs.c      |  63 +-
+ .../src/dml2_core/dml2_core_dcn6_calcs.h      | 468 ++++++++++++
+ .../dml2_core/dml2_core_dcn6_calcs_dchub.c    |  35 +-
+ .../dml2_core_dcn6_funcs_initialize.c         |   2 +
+ .../dml2_core_dcn6_funcs_mode_programming.c   |  52 +-
+ .../dml2_core_dcn6_funcs_mode_programming.h   |  31 +
+ .../dml2_core_dcn6_funcs_mode_support.c       | 312 ++++----
+ .../dml2_core_dcn6_funcs_mode_support.h       | 324 +++++++++
+ .../src/dml2_core/dml2_core_shared_types.h    |   7 +-
+ .../dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c    |  13 +
+ .../src/inc/dml2_internal_shared_types.h      |  18 +
+ .../display/dc/hubbub/dcn20/dcn20_hubbub.c    |   5 +-
+ .../display/dc/hubbub/dcn60/dcn60_hubbub.c    |   3 +-
+ .../amd/display/dc/hwss/dcn60/dcn60_hwseq.c   |  26 +-
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  25 +-
+ .../gpu/drm/amd/display/dc/inc/core_status.h  |   2 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   9 +
+ .../drm/amd/display/dc/opp/dcn20/dcn20_opp.c  |   2 +
+ .../dc/resource/dcn60/dcn60_resource.c        |  25 +-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  26 +
+ 62 files changed, 3148 insertions(+), 470 deletions(-)
+
+--
+2.43.0
+
