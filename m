@@ -4,73 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A449BC79FB9
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 10:08:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2844DC88E46
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 10:08:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDE3710F42F;
-	Thu, 10 Sep 2026 10:08:34 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dzUsPxLE";
-	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02C2F10E0FB
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 03:55:38 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-2d9520b9155so55964085ad.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 20:55:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789012538; x=1789617338; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=pPM4fbgv5y4YMJuB77L7DZFml4GSDExAAI3kJwNhoig=;
- b=dzUsPxLELxGZ8ssL/1vc3hQfwVhgUMsv08aHNIJdUlkYQmPhoObdnh5vV0cbVoVmyI
- uGK7I7vGI2QrteopcEUxrdmZ78znyg5GrWelR/AkJ7uPCzjE+w0vwbkjIMZwdPCVPgHT
- vFyx2cB9b4Im/kmhILCKvRr/8cdOCTieuGSQOH6L3ZXUoBtGo5Sdtydi/X5B2dhhg/N0
- uqz3Q9De+TEeAW3IUZEI33KODLPlrkc75QgCl5Hd2ofqfygDnB1DQiCajQudfYSQeSLj
- nLS7fPbwh9l71PklCs3NF5WakBg1kHi26hhe4Vl8zWGNx69cgaNlaNbWK6YvRj41pJps
- yQTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789012538; x=1789617338;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=pPM4fbgv5y4YMJuB77L7DZFml4GSDExAAI3kJwNhoig=;
- b=YZELpKxMGwgdbSHtwwI9PP0rDQs+arK3D1kEPdAmYqPwE0xpbMAHshR7iHXzKCZMH3
- p1EemRZYtrTcZOA3Lyk7QvelIcZs5Oyvao1QrvODBKZ+UVi5F/H0vfe/8cqb2sidC1y3
- QjwCdIgCpeliztr9DEU73MsfqKfC7vQ3zmz3euiDZD1daogxv3918FoHt1KdGV9Ag+kQ
- ABPVV5K72fzVm46ZWFKeQE0lij98LSUOiFyyS7M+Cvn5D/k1aklEBC5uk1+pCjSdlkff
- VckPo7juywplzzbbhcrfoi7sZydSWhKkAhvpn8FL+fXf0WRT2ZIbLr8iEapH1hxnzYua
- BFGg==
-X-Gm-Message-State: AFuF++nyyP7P/gV4oSHm7bCiO2DbmIMi9TuQASzd6gVn+/J71L9d5BBe
- KSR8hZO0WCb+2vUIVTD/eouXLHUrMwkKnLaUGsY/ttzxsDuIChkO7xY=
-X-Gm-Gg: AYBFou2iVjwaGYCBdwJ9rMCCiU1LF3r7xK0Z1QBs53tgrhDTSunJJaqozK1USTUcceN
- jFYdDKXMEz+g3e42e0WxbFB2UShTSxAsuAvnKWpmoTYa1ZV3d6u3eIXtEpid7eNZlTirEKGN0zs
- ro+SEJYqbpoINzSXJLmwQSv2Bv7xSIZCO3IoMTXKO6xL6QkzE81Ba23HeK8Oa9CtlP+fKVO8dao
- EtmYyyxY/b2yK13vMG9r0F3J13vAn1Y5P1mlyHM97G/3PxX92ftJ+onGh10loPy63rVgK+d4wji
- PFpRcgoVqPca6b5OoyfYi2HNO2KaA8jsXjnKyF9uHS/WpBANLMouGECNKABZA5utJ7pkG5C5m3r
- s4ub1uz9j3+Dv5biyjz9kZcguBFeh/4MaestN1t8foKpjtn1JYVDzpqGQVCUdXlks+xBOIux604
- uy0u9tjgPrg8Iz10VNOPuabOXzy5tyf9xZnl2+NDJeTJ6HHvaBtq1wl+VBxl6/8NTA31+eBZq/m
- X4bhoSJpXajSo4mv5ycTI7WzA==
-X-Received: by 2002:a17:902:e94f:b0:2dd:60d:8b7c with SMTP id
- d9443c01a7336-2dd060d8e01mr79963885ad.13.1789012538296; 
- Wed, 09 Sep 2026 20:55:38 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA
- ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2db1495b57fsm81545805ad.24.2026.09.09.20.55.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 20:55:37 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, donggeunyoo.kernel@gmail.com
-Subject: [PATCH] drm/amdgpu: don't release the fence reference consumed by the
- scheduler
-Date: Thu, 10 Sep 2026 12:55:31 +0900
-Message-ID: <20260910035531.559908-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95AAC10F422;
+	Thu, 10 Sep 2026 10:08:30 +0000 (UTC)
+X-Greylist: delayed 2170 seconds by postgrey-1.36 at gabe;
+ Wed, 09 Sep 2026 20:35:38 UTC
+Received: from mta1.migadu.com (out-90.mta1.migadu.com [95.215.58.90])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C8810EA23
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 20:35:37 +0000 (UTC)
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=3xBxnjBhziVXcwVHkmcYSv0+f/Vew5xWxclwpFprSyQ=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788986135; v=1; x=1789590935;
+ b=LisCKIChlR/lkcPjA8waeKhp2Uxton+JZOG5z91apc6cMpXvB28rXMN/fK6OP+oZ4+4+a0/8
+ RWlfGNcZJWWGTvOkSttQTMSgLMKcPMNPaqJP7e6IW9hhGs5GzZ0ggpuSQtr/50bfG5xuCafyZy9
+ qqhqFV9tysin5iGYBfrDkDj0=
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 2deb3a81c0726452;
+ Wed, 09 Sep 2026 19:59:26 +0000
+X-Mizu-Trace-ID: 2deb3a81c0726452
+X-Migadu-Flow: FLOW_OUT
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: Matthew Schwartz <matthew.schwartz@linux.dev>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Alan Liu <HaoPing.Liu@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Alvin Lee <Alvin.Lee2@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: only allow freesync on a VRR_ENABLED crtc
+Date: Wed,  9 Sep 2026 12:59:05 -0700
+Message-ID: <20260909195906.3584191-1-matthew.schwartz@linux.dev>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 10 Sep 2026 10:08:30 +0000
@@ -88,140 +61,311 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_sched_job_add_dependency() consumes the fence reference in both the
-success and the error case. The kernel-doc has said so since commit
-ebd5f74255b9 ("drm/sched: Add dependency tracking") added the function,
-and sched_main.c does the dma_fence_put() itself when its xa_alloc()
-fails.
+VRR-capable sinks set allow_freesync even with VRR_ENABLED=0, letting
+FPO stretch frames during UCLK switches. On a Navi 33 driving 4K120
+through a DP-HDMI PCON, a 40fps compositor limiter then runs at 37fps.
+This surfaced after commit d49086491bcb ("drm/amd/display: Adjust
+freesync pcon whitelist").
 
-Three amdgpu callers take an extra reference for the callee and then put
-it again when the callee returns an error, dropping a reference they no
-longer own. The refcount ends up one short of the number of owners, so a
-later put consumes someone else's reference and the fence is freed while
-that owner still points at it.
+Allow frame stretching only for VRR_STATE_ACTIVE_VARIABLE. Store the
+proposed permission in the private DC state so TEST_ONLY and failed
+checks cannot change the shared stream. Apply changed permissions at
+commit and force full DC validation, including native DP and eDP.
 
-In amdgpu_sync_push_to_job() the fence usually comes from
-amdgpu_sync_resv(), which walks a BO's dma_resv and hands each fence to
-amdgpu_sync_fence(), where the sync entry takes a reference of its own.
-The fence stays installed in that dma_resv, so once the entry's reference
-is gone amdgpu_sync_free() eats the reservation object's instead and the
-fence is freed underneath a dma_resv that still lists it. The
-use-after-free lands in an unrelated thread.
-
-amdgpu_vm_sdma_update() is cross-thread by construction. It walks with
-dma_resv_for_each_fence_unlocked(), whose cursor holds exactly one
-reference, and the dma_resv_iter_end() on the same error path drops it a
-second time.
-
-amdgpu_cs_submit() stays local: the extra put takes the gang member's
-scheduled fence to zero, handing the whole drm_sched_fence to call_rcu()
-while its finished half is still live.
-
-The extra get is correct at all three sites and stays. Only the put on
-the error path is wrong.
-
-Every other drm_sched_job_add_dependency() caller in the tree - etnaviv,
-imagination, msm, nouveau, panthor, v3d, xe - hands the reference over
-and returns the error untouched, as does
-drm_sched_job_add_resv_dependencies() in the scheduler itself.
-
-The trigger is xa_alloc() failing during command submission or a VM
-update.
-
-Measured on a Radeon 780M (GC 11.0.1) with a forced -ENOMEM return from
-drm_sched_job_add_dependency(), printing the fence's reference count in
-amdgpu_sync_push_to_job() on entry, after the failed call, and as the
-error is returned:
-
-  unpatched  entry=5 after_call=5 on_return=4
-             entry=6 after_call=6 on_return=5
-  patched    entry=5 after_call=5 on_return=5
-             entry=6 after_call=6 on_return=6
-
-after_call equals entry in both, which is the callee consuming the
-reference the caller took for it. Unpatched, the dma_fence_put() that
-follows takes it one below where it started, and that reference is the
-sync entry's own; patched, there is no put left to make and the count
-leaves the function as it arrived.
-
-Fixes: 41cc108b2451 ("drm/amdgpu: fix missing dma_fence_put in error path")
-Fixes: ed21f6c3fe42 ("drm/amdgpu: fix another missing fence reference in the CS code")
-Fixes: c1c4a8b21721 ("drm/amdgpu: grab extra fence reference for drm_sched_job_add_dependency")
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Fixes: 7eaef1163b82 ("drm/amd/display: set allow_freesync parameter in DM")
+Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 ---
-Tested on a Radeon 780M (GC 11.0.1) running 7.3-rc2 with KASAN, lockdep
-and DEBUG_LIST on, driving compute submissions through radeonsi. The
--ENOMEM was forced by a temporary module parameter on gpu-sched that
-makes drm_sched_job_add_dependency() fail after N calls, consuming the
-fence on the way out exactly as the xa_alloc() failure does; the counts
-above come from a probe printed in amdgpu_sync_push_to_job(), with the
-unpatched and patched drivers run through the same harness. Neither
-produced a KASAN report or a refcount warning: at the point of the extra
-put the fence still had four or five other owners, so it is not freed
-there. Observing the use-after-free itself needs the stolen reference to
-be the last one, which this workload does not arrange.
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 ++++++++++++++++
+ .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  1 -
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 +++
+ .../gpu/drm/amd/display/dc/core/dc_state.c    | 31 +++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc_state.h     |  6 ++++
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  3 ++
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  9 ++++--
+ .../dml21_wrapper/dml21_translation_helper.c  |  9 ++++--
+ .../dc/resource/dcn30/dcn30_resource.c        |  2 +-
+ .../resource/dcn32/dcn32_resource_helpers.c   | 10 ++++--
+ 10 files changed, 92 insertions(+), 9 deletions(-)
 
-Only the amdgpu_sync_push_to_job() site is reachable from a plain
-compute workload. amdgpu_cs_submit() skips its loop body unless the
-submission is a gang of more than one job, and amdgpu_vm_sdma_update()
-was not reached; both are fixed here on the same reasoning.
-
-No Cc: stable. I believe this qualifies under
-Documentation/process/stable-kernel-rules.rst:19 - it is a use-after-free,
-not the theoretical race condition line 27 excludes - but I have not
-observed the failure itself, so I am leaving the tag off rather than
-claiming more than I measured. No objection if you want to add it.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c    | 4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 1 -
- 3 files changed, 2 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 03b41f803520..12ec031c0812 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1303,10 +1303,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 		fence = &p->jobs[i]->base.s_fence->scheduled;
- 		dma_fence_get(fence);
- 		r = drm_sched_job_add_dependency(&leader->base, fence);
--		if (r) {
--			dma_fence_put(fence);
-+		if (r)
- 			return r;
--		}
- 	}
- 
- 	if (p->gang_size > 1) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index d6ae9974c952..4f31021b2152 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -447,10 +447,8 @@ int amdgpu_sync_push_to_job(struct amdgpu_sync *sync, struct amdgpu_job *job)
- 
- 		dma_fence_get(f);
- 		r = drm_sched_job_add_dependency(&job->base, f);
--		if (r) {
--			dma_fence_put(f);
-+		if (r)
- 			return r;
--		}
- 	}
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 50cc0779c340..c070c4a032eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -234,7 +234,6 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
- 		dma_fence_get(fence);
- 		r = drm_sched_job_add_dependency(&p->job->base, fence);
- 		if (r) {
--			dma_fence_put(fence);
- 			dma_resv_iter_end(&cursor);
- 			return r;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index f49cc198fb0d..09c088b878bb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3835,6 +3835,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 	unsigned long flags;
+ 	u32 target_vblank, last_flip_vblank;
+ 	bool vrr_active = amdgpu_dm_crtc_vrr_active(acrtc_state);
++	bool allow_freesync = acrtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
+ 	bool cursor_update = false;
+ 	bool pflip_present = false;
+ 	bool immediate_flip = false;
+@@ -4146,6 +4147,9 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
  		}
+ 		mutex_lock(&dm->dc_lock);
++		if (acrtc_state->update_type == UPDATE_TYPE_FULL &&
++		    allow_freesync != acrtc_state->stream->allow_freesync)
++			bundle->stream_update.allow_freesync = &allow_freesync;
+ 		update_planes_and_stream_adapter(dm->dc,
+ 					 acrtc_state->update_type,
+ 					 planes_count,
+@@ -5413,6 +5417,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	struct dc_stream_state *new_stream;
+ 	struct amdgpu_device *adev = dm->adev;
+ 	int ret = 0;
++	bool allow_freesync, old_allow_freesync;
+ 
+ 	/*
+ 	 * TODO Move this code into dm_crtc_atomic_check once we get rid of dc_validation_set
+@@ -5668,6 +5673,27 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	amdgpu_dm_get_freesync_config_for_crtc(dm_new_crtc_state,
+ 				     dm_new_conn_state);
+ 
++	allow_freesync = dm_new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
++	old_allow_freesync = dm_old_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
++
++	/* Keep the proposed FreeSync permission in the private DC state. */
++	if (dm_new_crtc_state->stream != dm_old_crtc_state->stream ||
++	    old_allow_freesync != allow_freesync) {
++		ret = dm_atomic_get_state(state, &dm_state);
++		if (ret)
++			goto fail;
++
++		if (!dc_state_set_stream_allow_freesync(dm_state->context,
++							dm_new_crtc_state->stream,
++							allow_freesync)) {
++			ret = -EINVAL;
++			goto fail;
++		}
++
++		/* DML must re-evaluate FPO when the permission changes. */
++		*lock_and_validation_needed = true;
++	}
++
+ 	return ret;
+ 
+ fail:
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+index 281c6cec9f4b..9f40064d13c5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+@@ -253,7 +253,6 @@ void amdgpu_dm_update_freesync_state_on_stream(
+ 	new_crtc_state->vrr_infopacket = vrr_infopacket;
+ 
+ 	new_stream->vrr_infopacket = vrr_infopacket;
+-	new_stream->allow_freesync = mod_freesync_get_freesync_enabled(&vrr_params);
+ 
+ 	/*
+ 	 * HDMI ALLM: when Gaming-VRR is active (VRR_EN=1) and the sink
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index ebbd81995c38..6064cc992d91 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3175,6 +3175,10 @@ static struct dc_update_descriptor check_update_surfaces_for_stream(
+ 		if (stream_update->mst_bw_update)
+ 			su_flags->bits.mst_bw = 1;
+ 
++		if (stream_update->allow_freesync &&
++		    *stream_update->allow_freesync != stream_update->stream->allow_freesync)
++			su_flags->bits.fams_changed = 1;
++
+ 		if (stream_update->stream->freesync_on_desktop &&
+ 			(stream_update->vrr_infopacket || stream_update->allow_freesync ||
+ 				stream_update->vrr_active_variable || stream_update->vrr_active_fixed))
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+index 1e4fe2f941ca..382858b6c1da 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+@@ -425,6 +425,7 @@ enum dc_status dc_state_add_stream(
+ 	}
+ 
+ 	state->streams[state->stream_count] = stream;
++	state->stream_status[state->stream_count].allow_freesync_valid = false;
+ 	dc_stream_retain(stream);
+ 	state->stream_count++;
+ 
+@@ -746,6 +747,36 @@ struct dc_stream_status *dc_state_get_stream_status(
+ 	return status.stream_count > 0 ? status.stream_status[0] : NULL;
+ }
+ 
++bool dc_state_get_stream_allow_freesync(const struct dc_state *state,
++					const struct dc_stream_state *stream)
++{
++	unsigned int i;
++
++	for (i = 0; i < state->stream_count; i++) {
++		if (state->streams[i] == stream &&
++		    state->stream_status[i].allow_freesync_valid)
++			return state->stream_status[i].allow_freesync;
++	}
++
++	return stream->allow_freesync;
++}
++
++bool dc_state_set_stream_allow_freesync(struct dc_state *state,
++					const struct dc_stream_state *stream, bool allow_freesync)
++{
++	unsigned int i;
++
++	for (i = 0; i < state->stream_count; i++) {
++		if (state->streams[i] == stream) {
++			state->stream_status[i].allow_freesync = allow_freesync;
++			state->stream_status[i].allow_freesync_valid = true;
++			return true;
++		}
++	}
++
++	return false;
++}
++
+ enum mall_stream_type dc_state_get_pipe_subvp_type(const struct dc_state *state,
+ 		const struct pipe_ctx *pipe_ctx)
+ {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_state.h b/drivers/gpu/drm/amd/display/dc/dc_state.h
+index acf461225e9d..40ad063cec09 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_state.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_state.h
+@@ -81,4 +81,10 @@ struct dc_get_status_options;
+ enum dc_status dc_state_get_status(struct dc_state_status *status,
+ 	const struct dc_get_status_options *options);
+ 
++bool dc_state_get_stream_allow_freesync(const struct dc_state *state,
++					const struct dc_stream_state *stream);
++
++bool dc_state_set_stream_allow_freesync(struct dc_state *state,
++					const struct dc_stream_state *stream, bool allow_freesync);
++
+ #endif /* _DC_STATE_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 934ae381e730..14d8da9f15e5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -62,6 +62,9 @@ struct dc_stream_status {
+ 	bool is_abm_supported;
+ 	struct mall_stream_config mall_stream_config;
+ 	bool fpo_in_use;
++	/* Proposed permission for validation, without modifying the stream. */
++	bool allow_freesync;
++	bool allow_freesync_valid;
+ };
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index b5bd1358fdfd..a816e47153ad 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -844,7 +844,9 @@ static bool subvp_drr_schedulable(struct dc *dc, struct dc_state *context)
+ 			continue;
+ 
+ 		if (dc_state_get_pipe_subvp_type(context, drr_pipe) == SUBVP_NONE && drr_pipe->stream->ignore_msa_timing_param &&
+-				(drr_pipe->stream->allow_freesync || drr_pipe->stream->vrr_active_variable || drr_pipe->stream->vrr_active_fixed)) {
++				(dc_state_get_stream_allow_freesync(context, drr_pipe->stream) ||
++				 drr_pipe->stream->vrr_active_variable ||
++				 drr_pipe->stream->vrr_active_fixed)) {
+ 			drr_found = true;
+ 			break;
+ 		}
+@@ -3444,7 +3446,10 @@ bool dcn32_allow_subvp_high_refresh_rate(struct dc *dc, struct dc_state *context
+ 				uint32_t height = subvp_high_refresh_list.res[i].height;
+ 
+ 				if (dcn32_check_native_scaling_for_res(pipe, width, height)) {
+-					if ((context->stream_count == 1 && !pipe->stream->allow_freesync) || context->stream_count > 1) {
++					if ((context->stream_count == 1 &&
++					     !dc_state_get_stream_allow_freesync(context,
++										 pipe->stream)) ||
++					    context->stream_count > 1) {
+ 						allow = true;
+ 						break;
+ 					}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+index 3c25de54d55b..031f90955b95 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+@@ -125,6 +125,7 @@ static unsigned int calc_vblank_nom_lines(const struct dc_stream_state *stream,
+ }
+ 
+ static void populate_dml21_timing_config_from_stream_state(struct dml2_timing_cfg *timing,
++		const struct dc_state *context,
+ 		struct dc_stream_state *stream,
+ 		struct pipe_ctx *otg_master_pipe,
+ 		struct dml2_context *dml_ctx)
+@@ -166,7 +167,7 @@ static void populate_dml21_timing_config_from_stream_state(struct dml2_timing_cf
+ 	timing->drr_config.enabled = stream->ignore_msa_timing_param;
+ 	timing->drr_config.drr_active_variable = stream->vrr_active_variable;
+ 	timing->drr_config.drr_active_fixed = stream->vrr_active_fixed;
+-	timing->drr_config.disallowed = !stream->allow_freesync;
++	timing->drr_config.disallowed = !dc_state_get_stream_allow_freesync(context, stream);
+ 
+ 	/* limit min refresh rate to DC cap */
+ 	min_hardware_refresh_in_uhz = stream->timing.min_refresh_in_uhz;
+@@ -923,6 +924,7 @@ bool dml21_map_dc_state_into_dml_display_cfg(const struct dc *in_dc, struct dc_s
+ 	struct dml2_display_cfg *dml_dispcfg = &dml_ctx->v21.display_config;
+ 	unsigned int plane_count = 0;
+ 	struct pipe_ctx *otg_master_pipe;
++	struct dml2_timing_cfg *timing;
+ 
+ 	memset(&dml_ctx->v21.dml_to_dc_pipe_mapping, 0, sizeof(struct dml2_dml_to_dc_pipe_mapping));
+ 
+@@ -952,7 +954,10 @@ bool dml21_map_dc_state_into_dml_display_cfg(const struct dc *in_dc, struct dc_s
+ 
+ 		ASSERT(disp_cfg_stream_location >= 0 && disp_cfg_stream_location < __DML2_WRAPPER_MAX_STREAMS_PLANES__);
+ 
+-		populate_dml21_timing_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].timing, context->streams[stream_index], otg_master_pipe, dml_ctx);
++		timing = &dml_dispcfg->stream_descriptors[disp_cfg_stream_location].timing;
++		populate_dml21_timing_config_from_stream_state(timing, context,
++							       context->streams[stream_index],
++							       otg_master_pipe, dml_ctx);
+ 		populate_dml21_output_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].output, context->streams[stream_index], otg_master_pipe);
+ 		populate_dml21_writeback_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].writeback, context->streams[stream_index]);
+ 		populate_dml21_stream_overrides_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location], context->streams[stream_index], &context->stream_status[stream_index]);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+index dbb8bb7fc20d..5333c4cc9eba 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+@@ -2152,7 +2152,7 @@ bool dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch(struct dc *dc,
+ 	if (!is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(context))
+ 		return false;
+ 
+-	if (!context->streams[0]->allow_freesync)
++	if (!dc_state_get_stream_allow_freesync(context, context->streams[0]))
+ 		return false;
+ 
+ 	if (context->streams[0]->vrr_active_variable && (dc->debug.disable_fams_gaming == INGAME_FAMS_DISABLE))
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
+index 602a0e4e5dc0..a86d3111703f 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
+@@ -579,7 +579,7 @@ struct dc_stream_state *dcn32_can_support_mclk_switch_using_fw_based_vblank_stre
+ 	if (!is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(fpo_candidate_stream, fpo_vactive_margin_us, refresh_rate))
+ 		return NULL;
+ 
+-	if (!fpo_candidate_stream->allow_freesync)
++	if (!dc_state_get_stream_allow_freesync(context, fpo_candidate_stream))
+ 		return NULL;
+ 
+ 	if (fpo_candidate_stream->vrr_active_variable &&
+@@ -673,7 +673,9 @@ bool dcn32_subvp_drr_admissable(struct dc *dc, struct dc_state *context)
+ 				non_subvp_pipes++;
+ 				drr_psr_capable = (drr_psr_capable || dcn32_is_psr_capable(pipe));
+ 				if (pipe->stream->ignore_msa_timing_param &&
+-						(pipe->stream->allow_freesync || pipe->stream->vrr_active_variable || pipe->stream->vrr_active_fixed)) {
++				    (dc_state_get_stream_allow_freesync(context, pipe->stream) ||
++				     pipe->stream->vrr_active_variable ||
++				     pipe->stream->vrr_active_fixed)) {
+ 					drr_pipe_found = true;
+ 				}
+ 			}
+@@ -734,7 +736,9 @@ bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context, int
+ 				non_subvp_pipes++;
+ 				vblank_psr_capable = (vblank_psr_capable || dcn32_is_psr_capable(pipe));
+ 				if (pipe->stream->ignore_msa_timing_param &&
+-						(pipe->stream->allow_freesync || pipe->stream->vrr_active_variable || pipe->stream->vrr_active_fixed)) {
++				    (dc_state_get_stream_allow_freesync(context, pipe->stream) ||
++				     pipe->stream->vrr_active_variable ||
++				     pipe->stream->vrr_active_fixed)) {
+ 					drr_pipe_found = true;
+ 				}
+ 			}
 -- 
-2.53.0
+2.55.0
 
