@@ -4,77 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D218C79FAD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 09:47:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77674C79FB6
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 09:59:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0116F10F07C;
-	Wed,  9 Sep 2026 09:47:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11F5D10F076;
+	Wed,  9 Sep 2026 09:59:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="wOvH354F";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fGGcSd72";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C994110F087
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 09:47:34 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-49557167508so65919585e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 02:47:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788947253; x=1789552053;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=4/HIVazkafDF+8hPirTfPnMH9fb4lkFfW6ga7qAMbzE=;
- b=wOvH354FEEBdwurUakpUcy8Mvvy5pKXAzg2kvBz+JSf5LM1Q3oejvBYaPv61Q2PWn6
- GysawwxEtFtItshFHeHa1rfZPm9CwPo2ZS1PqIDx8KbYKHQBTjLUsWe6q1Jj69ihPl1c
- PYPpTWHTx2P+HJ97pyXHGrrw98IsSQ+5XGLukSPLi7wYAsQUvplONUYRd+c0TTjku+go
- YaTqUEKe9uzNzhDRXLLnLUcPGb3kXhedDnhCjwOdwExzsvL5ebhw/CXKBNsrV5H/37Lh
- XhUb3sNH0ZTNb2Dbl+9cOyYA+GSaeNN8pXbfyfzz1YfevjbRH0omT9j9fm4vMhQ22kLN
- GCxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788947253; x=1789552053;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=4/HIVazkafDF+8hPirTfPnMH9fb4lkFfW6ga7qAMbzE=;
- b=Pxe+yKJAxDxG5TGJYTiwmqETPHqS28chDFeE6279DoOtdzwLanMHBQXQ33o/0ZYECp
- k24IrIhCRAP9BBqEg0lIN0fSzqeU5s6HMwSxqT3pT2WN4D7wMg4uPQGVtR9Hxvvnd2aE
- hZOl2Xnh/lLYl/g+MQabEmUqsqS/ZU05dI2XoOQyxM3K/0AzuegVmYUwIh/cxpewC6Ul
- W422CgSXNNHi29zwaQevmix9rJurm6X/PYcljyDhCQ/r3+dW9oBZ3HZgSsVmhUxR6wou
- TXyqH227bBOrCaqGn7DtObbU6hmGr8nuUuoVoC3OCD+u5Ps46M61s+rUYOt5ka3w9tvD
- ZXqg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxAcF1EYVMeC7dnW+Qupnd39GRqlb5tutWH8GaBT+RlpiQZCphMRxR4aEwQ48vXk0qKL/e8ec5y@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kfrPjS8oWE9xrfyQwHG2lpdf8YbA92Ma+cxHLkL8crd/QHF2NT
- NjGglNZsvOUHinzYQqmGNyf6Xi7Nhjydg6tqg0VpHpbAkhbw6sfVbW/NmRd8MYa/PPQma28/B92
- H7dP1imDm
-X-Gm-Gg: AYBFou0nVcIb1u7TBa6TVdDjlcosp9C+VzffODdn/i2rfwTndncCuj84FvbPYwHZSYY
- mjTgp+Ib1cV74CrhEZ1ZEPK3jZgTuwjKIMgoAXBh3177zHES+ixiEe0HhaQF6y6D9u5xVZFwTKj
- hY9+HB7oYL3qSRTtMmykrzPM/rFEVwuLjDn3Jfakh/1tDwnaW3tbGsHy+5kPHfU4V3Z+MJFdcD8
- PKhucGj5dcMxf9PWHBqnhp/dowAN5E4LJ1MdD5tRDIohAdm2Mk4SNPCg0TFreHzan3F8FNqLCxy
- G7/6QKucL6rstCweEX2y3eb0x9aIjxiLd90khWCTBekiJIKUrz9AZ358Qp7/cPNKW77g4huNb3K
- zCVvh57ac60JCMVT93WwW2TCeXd6ZiD3VkMdk1NrPFTFfRAShR8T6kWtMWz1v71kJzAtEqltj98
- XESZdLY/xhZhV++hryTL2mStcYQXBqteUPbd1BRbMSSBUvt6o5Pt9IIZEbTPOePb0mCZNyTpV0R
- L8TCx58CwZMFv/4k4lyKDfsb2A=
-X-Received: by 2002:a05:600c:4514:b0:49d:1e09:694a with SMTP id
- 5b1f17b1804b1-49d1e096970mr124975675e9.11.1788947252972; 
- Wed, 09 Sep 2026 02:47:32 -0700 (PDT)
-Received: from quark ([2a01:4b00:d309:1c00:7807:3ba6:3446:4db2])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cee5d476esm597615395e9.1.2026.09.09.02.47.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2026 02:47:32 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: dri-devel@lists.freedesktop.org
-Cc: dakr@kernel.org, aliceryhl@google.com, alexander.deucher@amd.com,
- mukul.joshi@amd.com, rust-for-linux@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [PATCH] rust: drm: gem: add missing handle_free to the object vtables
-Date: Wed,  9 Sep 2026 10:47:29 +0100
-Message-ID: <20260909094729.1593-1-mike@fireburn.co.uk>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CDF110F076;
+ Wed,  9 Sep 2026 09:59:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zNb7prscUv0SB1974X2uRRn92T1U7X6L9jkQR4BXIWlsrsLbkk9tOZGUEJjiX0svBr0PDvL2ySbTIHoc4uFJxIZSw4GT2ARhXqlRux2+g84f/c8tGuorea5UnAT3QXQIV9h3V71z+bMspxQeixpU8oDcltTU24ZkkRce13/bevGbzQ9mejyCEF2slvtRxJyH+3R8OykoZEQZD0ZtWN8nxOzsp4hp4Fjqjg7R8H+dLE6c2vsgbuKdejjBsd0Fh+lxjbCgt9K3X7+X85/XGJLBTyEDX32EsUMJS4t3M7ZpOF9K6nWQX6z1CoWsJK0CSpirWmAF68UtcWiP2pBX72YDRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SyNYFSmzaG3Fk5BQaWiMbkKJ4hE948d9BWn9KQTap1E=;
+ b=xq8VwBav2a8QXkajLTCGSCjW/K2U+wGMqQ6iE+80aHgqYK8A8qtFhWBtPVqGvAJJtzYHqIQ6hvHGJGOJ6gn7FYZUP4tBpLlVw3v3sFFdrVuzV2GjKsrywUS69wFdxH0JIPRvofUhLzItou1kZdS20jBNfhMnwdn8dZz+yueeEdW/h49Bmdu6PM6LDEcXDFZYFYnNAXl8AeQ/MD/A+tiHEb7yVe+FkRoqSMg8SCUHMX+dZk0Gjjtmhb4pbEf8EQioewSGy75z3WyphxCA/eIUhgBeRCFgGCC7nMHemHCa3w34jx8qeKQEMagRRE/bCtt/htr4OPBYfEtxB4Vps0bZRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SyNYFSmzaG3Fk5BQaWiMbkKJ4hE948d9BWn9KQTap1E=;
+ b=fGGcSd72gv7sGh41AWCnwchhWRFaawpNARs3zw3QiKKATXXBsLkmmEWTRcQsh9fDifKNjH1oAQXkM3KdOCT09Aoy9eie+PIrcSueIT612hpUkZinb3qJ5HvJG+t3xWquTIi0FMbJ3m5eMfmMqzHEBGk/bs9BKQTecrysZirxGaE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB5855.namprd12.prod.outlook.com (2603:10b6:510:1d6::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 09:59:53 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 09:59:53 +0000
+Message-ID: <37e9400e-47e7-49bf-9d75-0cfe9ae210ab@amd.com>
+Date: Wed, 9 Sep 2026 11:59:48 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: remove redundant NULL check in
+ amdgpu_cs_vm_handling
+To: Jiangshan Yi <yijiangshan@kylinos.cn>, alexander.deucher@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: tvrtko.ursulin@igalia.com, sunil.khatri@amd.com, vitaly.prosyak@amd.com,
+ pierre-eric.pelloux-prayer@amd.com, moonafterrain@outlook.com,
+ candice.li@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ 13667453960@163.com
+References: <20260909093728.642473-1-yijiangshan@kylinos.cn>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260909093728.642473-1-yijiangshan@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR03CA0019.namprd03.prod.outlook.com
+ (2603:10b6:208:32b::24) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5855:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7881f562-4f00-415d-850b-08df0e591857
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|366016|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 2QuAQPBZGHmhI9PqsCwR6asuF6PVndJbGOKfoBxLOoiYZLNrdIxiDqskjqYyUndJnlvZ04iwl4xPOh+3LJ3ArBbI1OGQtzUdU2o/xNPhKFy1gjAJZz+/IplXKlxJufa5CedQo9FpRkqfDNQdTeYkmTWmYk8VTp9V3hWh3pSpzJdMJYp2AEpJFrYTCFThIR38lZkVeIMMcx4Wi9oHeiao0UGGT0hFEiQ69c4SolTcvsm83KtD3sf7qO1BuWcaJnWoEutOVTUBeaBPaJj4JvDEW/DZvoEdlkil4iizB2Oo24Xdv9VLy0ofgOp1gU5a7md4L8SmI5IFINYowDdJk0qeY6dRRUnYWBxCrSGR1lRyu0kVK/KicsvvrHoiZfHgn8MoLK+vhhB4wAAyAekhHGuUB2uBPKI2XjgA6aW2tFp+CAzOHjwRJdS52ZzmB1DOqsNcsTdYENeXe4j/04Jog9vdv/KO9WU/f4tPf1vSFL3weqT6w3JeUdeXQR465QlE2V4ZQ8MkvR9ytBi9b9OH+7UX1jPGfzafQO5k6ckNXs70zOAoWY645XwfVxqgvWg94YWNuxIU9/K8gPAkDih1oI7/TEwmndBgd/6RpA88czSpfi9wyQVAEypKNdwhYA3teukglmPCSs6yGblIkDhIrB6BG8GJO7CB/u3dubHvcKndwu4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VzVpYlFpZUlGeDJWZWxsWTIzZHU3YlNqRm45MW40RisrUUJZdkJkT3VveGpC?=
+ =?utf-8?B?ZmMzRlZzclY0bnFaa2lTTmZDbldMQ0JQRHVXaDh4dy9UTFhtVy9CWGsxcjRh?=
+ =?utf-8?B?bFE5Q1Bpa3ZrdWFObCtCNmhNeUV0dmRSWGZFMkRrN0hmTVNueEtaditDaE9X?=
+ =?utf-8?B?VzZOTVcwTkpmSkNBSjF2Z2tEWDZLcmlrZmFCSFJuUERLNWcrMVZTQTc5LzNl?=
+ =?utf-8?B?OGtzdFRwcDUzTllYWjhGRFFDYUY3OU13RXYzZk1CenJlL2JKT0cvb29QNm1p?=
+ =?utf-8?B?cXI4N2dBaWJ1MlUybzlJSVlkaWtPV2wzaEllR3FYV3Z4N0hUemFXcVNHV2JF?=
+ =?utf-8?B?S2k2cEdqUUkxUFNKYVpRblBSVWRLRzJkMFRLdDM0RHhUUW5NekIrNGM2c05l?=
+ =?utf-8?B?U1doK0Y5Y3VlRlNMOFB1clZlQWVoNEFUenVzVG54WGdFLzFYVXdnNSs5dWpp?=
+ =?utf-8?B?RTROMlZPcU9oU1JOUG1zWVVZYmo3TTVLek8vZ2VrdW15MGFINWpWdXVISUVt?=
+ =?utf-8?B?VWxyZXFrTEtMeVpRVG1tQVNDQitUc0xyYVBlWlAvem1jOFlXd2MyZTZ4NFFF?=
+ =?utf-8?B?c2x5aVMyRW9IR3FUdGlqRXlDNUhQMEhuaURORENlVUVXUlVDMUdnNTB2aUpv?=
+ =?utf-8?B?Q2lQV2kzVnVNN2ZwVHlxbmxYTXdGWVg2ZTI0STBjdWFiVDZRWHBuMUhvMWZI?=
+ =?utf-8?B?cnl0TDZRd3NVZU93Y2JtTFNKWk5XVU9lM21jWFhNdGkrUGY5WlFGcGxLeDhz?=
+ =?utf-8?B?OHk4RGpKWEFJT1cxQ2NERXIvcnRDamI0QjF4MDZISjZhUXVzaUJXS3VVQVZh?=
+ =?utf-8?B?T0xiUUtuRk1YTEkyT1VJZTFKUHBPblJpQkRJdzdWc0NRZWFNM00rSnVDa0s0?=
+ =?utf-8?B?dTFmYkQzMnZrQTg3YlV5K2FyaVE5L0JCOHVkUGgrYWRIN1JrT2hnWXJTNjBz?=
+ =?utf-8?B?cnQ3blVpR0RrdG5DRmZObjZXcnFyb3piK3grS0RVaEhVTVc3SXh3cHRTUFY5?=
+ =?utf-8?B?dHRDNllyYlpDdlBuQmNWSjFRUlY2aExWN3JkNTJkeUxFdmw1NU1obXNOZzkv?=
+ =?utf-8?B?MnNJUVU4RGh3R0NaYjFvK2w1dXRoUlhNQ2UvNVNBMytQSnNGRWpNV1ovOEZI?=
+ =?utf-8?B?YUk1Z2ZSd3NXaDRpVkhuZWlEVzFldXduR0lPd1l3RitTZi9CSVkraXZNdVFp?=
+ =?utf-8?B?OHVKUjJncWllRGs2K0FTUktidGpIUW93bGpWb3RJTGFmRkdrcElsYWMxcjVq?=
+ =?utf-8?B?MUhzNUVvWjlKWnFMUGV6QjV6SW9WZEQzSzNFaTY4REdUY1kxajY2T0R2dEhq?=
+ =?utf-8?B?WnJyTXB1QlVTa1J3T0IxVUpKSGRCSVl3ampza3MwZ0xmRHQrMUNlajd5clFS?=
+ =?utf-8?B?ZXZBNkd0YzAwR0FYc1VhM1dCK3U3NXVSRVJnTXBxUWJDc3M3VzRHekVsYkZ0?=
+ =?utf-8?B?SnpWT1pMaDA1NjY0UFpOMTMvdEMzTW5qRnBQdWVFdHJkSVZvV0d3d2FaYlBn?=
+ =?utf-8?B?N05Ib2F1c0NocmZaYWhSeW5zY3BzMzNMYkU5SzdkZGNzWkNzZVRmNUhPaXZN?=
+ =?utf-8?B?WTRrWGUyQ3lBSEp2c1p4VmJjQkZvY003QjhzcU1ueFRoQ0xidVMycGdhajJQ?=
+ =?utf-8?B?UjlNWGZXQzdNcGJ1NkYxUmZwSkkwck5RdHBxMEhUYzIyT2p0SHgxU2p0MTZi?=
+ =?utf-8?B?WWszNHl6RTg2MnJHd3AvRitQamhhb1RrNFhrakpoVkh5UDhYdVRZVllEbDM2?=
+ =?utf-8?B?MXQ1NCtPSEtVbjNaK1l3VGdHMXlmYlAwNTZmczB1QzVrckV2cWZPVjBrYmNP?=
+ =?utf-8?B?SHpSTi9FU3pzZXl5dGVhK2ZLcWowYmZkTC85V0ZaWTJqQ0Y5OW90U1AvZ2Vk?=
+ =?utf-8?B?eHJjaGpjOWtxN2FIS3EwdEVPUUZ4eUhkQ29qU0FYM0kycDB6djFNMmE2VEtN?=
+ =?utf-8?B?Y1FwWFdGWFcycTNiWTFjQ1JDckZJb0lKWUJIQ2RGeVQySzlEU0lQaS9xRUVH?=
+ =?utf-8?B?WVNWTDVKQ0lLWmpXcm0wL3R3QUhuOTJsc2FGSkM2bkVUUWhyWjNRc2hNdisw?=
+ =?utf-8?B?U1hCOWZhSkt0NDNQMUwvVmV1ZUY3LythakdxeVRjUU4rN3NYeVgzVExtRkxS?=
+ =?utf-8?B?WG1jeDlGSzhSOHZpbmgyeTY3Z3BtSDd5OWhibGQyZGRBWFRTeXA4QktETDMz?=
+ =?utf-8?B?cTcvUlM4OGwxTGRrdkxNR1hGRjg2MnlSVU5tdU95Q1laTVNmYVZMQW5wQTFa?=
+ =?utf-8?B?Q0l6RXM5anlTeGhjYzlna3FRNGg0Y3FnczM1QUF1WmF3ZVY3WGFUVGdrTVpT?=
+ =?utf-8?Q?/z4fNTL86cD4z6DbeM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7881f562-4f00-415d-850b-08df0e591857
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 09:59:53.4862 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oGs75/higBeBzAAV8K1F9AexlNCrH/eaS+pM72dtL07j+TorQLhfj3vqdIt1Dty5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5855
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,58 +139,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Both OBJECT_FUNCS and the shmem VTABLE initialise every member of
-drm_gem_object_funcs explicitly, so adding a field to the C struct
-breaks the Rust build:
+On 9/9/26 11:37, Jiangshan Yi wrote:
+> bo_va is assigned from fpriv->csa_va, which is already verified to be
+> non-NULL by the surrounding if statement. The inner NULL check can
+> therefore never trigger and is dead code, so remove it.
+> 
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 
-  error[E0063]: missing field `handle_free` in initializer of
-  `drm_gem_object_funcs`
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-The callback is optional and the Rust abstraction has no equivalent
-DriverObject method, so leave it unset.
-
-The shmem copy is only built with CONFIG_RUST_DRM_GEM_SHMEM_HELPER,
-which DRM_TYR selects.
-
-Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-Assisted-by: Claude:Opus-5 [Claude Code]
----
-
-b67d2d039f64 is only in agd5f/drm-next, so this can be squashed into it
-instead if you would rather keep that branch bisectable.
-
-The shmem hunk is by inspection - CONFIG_RUST_DRM_GEM_SHMEM_HELPER is
-not set in my config, so only the mod.rs copy is compile-tested.
-
- rust/kernel/drm/gem/mod.rs   | 1 +
- rust/kernel/drm/gem/shmem.rs | 1 +
- 2 files changed, 2 insertions(+)
-
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index 80d8f524f9d5..ae61ca7e1246 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -278,6 +278,7 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
-         vm_ops: core::ptr::null_mut(),
-         evict: None,
-         rss: None,
-+        handle_free: None,
-     };
- 
-     /// Returns the `Device` that owns this GEM object.
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index a687d46d170d..d08a03cb7a13 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -145,6 +145,7 @@ impl<T: DriverObject> Object<T> {
-         // SAFETY: `drm_gem_shmem_vm_ops` is a valid, static const on the C side.
-         vm_ops: unsafe { &raw const bindings::drm_gem_shmem_vm_ops },
-         evict: None,
-+        handle_free: None,
-     };
- 
-     /// Return a raw pointer to the embedded drm_gem_shmem_object.
--- 
-2.55.0
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 03b41f803520..c978f042ae1f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1146,8 +1146,6 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+> 
+>         if (fpriv->csa_va) {
+>                 bo_va = fpriv->csa_va;
+> -               if (!bo_va)
+> -                       return -ENOMEM;
+>                 r = amdgpu_vm_bo_update(adev, bo_va, false);
+>                 if (r)
+>                         return r;
+> --
+> 2.25.1
+> 
 
