@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8AABC79F8C
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 08:01:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8103C79F8C
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 08:11:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DFE110EF9C;
-	Wed,  9 Sep 2026 08:01:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31C1110EFAA;
+	Wed,  9 Sep 2026 08:11:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="j27fhShv";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rAiVPu6p";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tHZ+68w/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="litFSRiF";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="b8wRu/0O";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9OLkoNhO";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="axZkKbtu";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="w32/qxR2";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB4BE10EF9C;
- Wed,  9 Sep 2026 08:01:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3935510E53D;
+ Wed,  9 Sep 2026 08:11:14 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5308A1F7AF;
- Wed,  9 Sep 2026 08:01:25 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5775D1F7AF;
+ Wed,  9 Sep 2026 08:11:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788940890; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1788941468; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=V+w6mHfMv7ALo2DRy+HOaCZ0lsuSiiOBsrZzxBKyKAw=;
- b=j27fhShvgAohUMfs8OwK3hesxgv/nJpbEf9u4Dft7c0wKiycToXgr9AIDoMlyWmtWUbgAS
- Jk+v1GMSDpWx37aCG/ErjIHWvomw2tV7yNGLhAjJsrq3ZKwfYYqrDuyzHTKNQWmGy+fIHq
- lbWU1e0uL7cHZNEV97HBn4xZuwBfGG4=
+ bh=rllXxWvekPGT6JcUJVm6kAFGd9AsgnX6R5dLdCZfjD8=;
+ b=b8wRu/0Ofl9SQJo9TV0LiNUgFnoIgUfQxNGstWJtgs5cAsPedA52k0stm4gyz6zcR501DT
+ y2K6xMFXh/bdWm+ugePznsrHgQYeeOX3oHWnRRVYOYt37vXRtcmLQFw5iYOV+mG50DNoOt
+ pLiafH3OOgYGY7T3Lv6c3SqboBntLqU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788940890;
+ s=susede2_ed25519; t=1788941468;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=V+w6mHfMv7ALo2DRy+HOaCZ0lsuSiiOBsrZzxBKyKAw=;
- b=rAiVPu6plSd7Zy67NELRDMXUGW0kJsTVWUJW3ENJPX86AYoZTcnnVZSj64aggPNahKAgy6
- E+riASYvOlIpCfCA==
+ bh=rllXxWvekPGT6JcUJVm6kAFGd9AsgnX6R5dLdCZfjD8=;
+ b=9OLkoNhOAGX53forjZe8iIvwwmxofOJDbWQVGX4oIDSblZxbF1+1GpiW8R6XRXrODsVKa6
+ 3Yv7qgXiBGiqDpDg==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="tHZ+68w/";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=litFSRiF
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=axZkKbtu;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="w32/qxR2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1788940885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1788941464; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=V+w6mHfMv7ALo2DRy+HOaCZ0lsuSiiOBsrZzxBKyKAw=;
- b=tHZ+68w/PpQ5aX2RKeT7BtD2CGvGXPZspFfjx24b2gWaEmmGb5/bPv+y08J7pK+EB+vZmF
- uoLmfM8ovodRWFHtQriMjSnLAEO5YeV2DXxCyNP1HR5wfKuxKe+v7HxVi9mKzy9iUa0GtK
- MwaJhDA+vLpw/gsZA1xpndzhXiu7bjY=
+ bh=rllXxWvekPGT6JcUJVm6kAFGd9AsgnX6R5dLdCZfjD8=;
+ b=axZkKbtu7gCvAKJv0Q3EjFTAarhdbfzvkSp/mt0VbAY6kDH6czWqRI9T3KKNTUPzOaodBE
+ xLmTncPsUAT8rwOIX0QjJQZJLru4JDgtex7fID2u7T9aUpfFYxFsIwm5B0Q3B4u62yXw6O
+ 86nux5XfG+GNdDFa2jZwbIToLpMb/eE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1788940885;
+ s=susede2_ed25519; t=1788941464;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=V+w6mHfMv7ALo2DRy+HOaCZ0lsuSiiOBsrZzxBKyKAw=;
- b=litFSRiFgfgWm4xB9HTHLoC46sB3724Rigpz/RTt8nF2O+/Nh1v2Q+Qlxkocu28Lt149UU
- dTGYYKQHPaPB7/CA==
+ bh=rllXxWvekPGT6JcUJVm6kAFGd9AsgnX6R5dLdCZfjD8=;
+ b=w32/qxR2D+ztjV/yI6qgHAIARrAUzRQl6/GLgciTbMLPBq+nLTY+KEZrUZVWmDNq8YR+I3
+ tP1YxzybaypWHMCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BDA121352C;
- Wed,  9 Sep 2026 08:01:24 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B2E7413354;
+ Wed,  9 Sep 2026 08:11:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id JEkJLVQSoWqzGQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 08:01:24 +0000
-Message-ID: <2642740a-b894-47bd-b26e-cabdaa14d8b8@suse.de>
-Date: Wed, 9 Sep 2026 10:01:23 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id S30sKpcUoWouIwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 08:11:03 +0000
+Message-ID: <a8f71685-6c49-4d52-a084-1153183a6f7a@suse.de>
+Date: Wed, 9 Sep 2026 10:11:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] rust/drm/gem: initialize callbacks with
  ..pin_init::zeroed()
-To: Klara Modin <klarasmodin@gmail.com>, David Airlie <airlied@gmail.com>,
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Klara Modin <klarasmodin@gmail.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
  Felix Kuehling <felix.kuehling@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Thorsten Leemhuis <linux@leemhuis.info>,
@@ -91,6 +91,8 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Alex Deucher
  dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260908175427.47207-1-klarasmodin@gmail.com>
+ <2642740a-b894-47bd-b26e-cabdaa14d8b8@suse.de>
+ <CANiq72ntt_2n03UReCt6zFD_AvTMvNE6O+v3E3sURTsqW6x4Ng@mail.gmail.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -117,29 +119,31 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908175427.47207-1-klarasmodin@gmail.com>
+In-Reply-To: <CANiq72ntt_2n03UReCt6zFD_AvTMvNE6O+v3E3sURTsqW6x4Ng@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 5308A1F7AF
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 5775D1F7AF
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com,ffwll.ch,kernel.org,google.com];
- RCPT_COUNT_TWELVE(0.00)[17]; MIME_TRACE(0.00)[0:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- ARC_NA(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,leemhuis.info:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,garyguo.net:email,suse.com:url];
- URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,garyguo.net:email,leemhuis.info:email];
- DKIM_TRACE(0.00)[suse.de:+]
+ FREEMAIL_TO(0.00)[gmail.com]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[18]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,kernel.org,google.com,amd.com,leemhuis.info,mailbox.org,garyguo.net,lists.freedesktop.org,vger.kernel.org];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ TAGGED_RCPT(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:dkim, suse.de:email,
+ suse.de:mid, imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,68 +160,21 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hi
 
-Am 08.09.26 um 19:54 schrieb Klara Modin:
-> When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
-> count goes to 0") added the handle_free callback, it did not update the
-> rust abstraction, which will cause a build failure when that is enabled.
-> Rather than just adding another None initializer, use
-> ..pin_init::zeroed() to make all unlisted callbacks None, and remove the
-> existing None-initializations.
+Am 09.09.26 um 10:05 schrieb Miguel Ojeda:
+> On Wed, Sep 9, 2026 at 10:01 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Please see my bug report at [1].  This patch fixes half of it. I still get
+> I think fixing that is the respin that Klara meant in
 >
-> Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
-> Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
-> Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info
-> Suggested-by: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Klara Modin <klarasmodin@gmail.com>
+>    https://lore.kernel.org/rust-for-linux/aqBf1UYNR-Q3T-cs@soda.int.kasm.eu/
 
-Please see my bug report at [1].  This patch fixes half of it. I still get
-
-error[E0063]: missing field `handle_free` in initializer of 
-`drm_gem_object_funcs`
-    --> /home/tzimmermann/Projekte/linux/rust/kernel/drm/gem/shmem.rs:130:52
-     |
-130 |     const VTABLE: bindings::drm_gem_object_funcs = 
-bindings::drm_gem_object_funcs {
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `handle_free`
-
-error: aborting due to 1 previous error
-
-[1] 
-https://lore.kernel.org/dri-devel/CANiq72mUW5d1dOQDgpYjuKoUaZAi-im7j3v30Wd4KTDznmM9zw@mail.gmail.com/T/#r8f10eefc91d3bbce58869433b8258882c2d19ff5
+Sure. I do have Tyr enabled FTR.
 
 Best regards
 Thomas
 
-
-
-> ---
->   rust/kernel/drm/gem/mod.rs | 12 +-----------
->   1 file changed, 1 insertion(+), 11 deletions(-)
 >
-> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-> index 80d8f524f9d5..af8274134a71 100644
-> --- a/rust/kernel/drm/gem/mod.rs
-> +++ b/rust/kernel/drm/gem/mod.rs
-> @@ -266,18 +266,8 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
->           free: Some(Self::free_callback),
->           open: Some(open_callback::<T>),
->           close: Some(close_callback::<T>),
-> -        print_info: None,
-> -        export: None,
-> -        pin: None,
-> -        unpin: None,
-> -        get_sg_table: None,
-> -        vmap: None,
-> -        vunmap: None,
-> -        mmap: None,
-> -        status: None,
->           vm_ops: core::ptr::null_mut(),
-> -        evict: None,
-> -        rss: None,
-> +        ..pin_init::zeroed()
->       };
->   
->       /// Returns the `Device` that owns this GEM object.
+> Cheers,
+> Miguel
 
 -- 
 --
