@@ -4,128 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B9D3C79F8C
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 09:30:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1DABC79FAD
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 09:46:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF7F110F053;
-	Wed,  9 Sep 2026 09:30:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE0410F062;
+	Wed,  9 Sep 2026 09:46:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lIEcQhc0";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="exB6boDY";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011055.outbound.protection.outlook.com [52.101.62.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4913B10F053
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 09:30:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lYPcfty1y8nwA1SZF7cfsBjgvET5y7FvKTUf/VdgbqYAVsYlJTcLsYIl1iJRtjMKpbP9eVh8v9VcMzJ1E8c1XBZwr+tQRs869+pg/rZGxUMMnYxrxmRjEqjeSsOYX4J+HZ08mV+aFMp9Q+jEqoJVwVGVMdnkxfObnOrmgbumYtx5kIjWDM8nsYupDOQ//dm0NeiHa247wy8snI40X7PcDyaWZft/THqz/3aP3rSFQK+D6KlNYodohMHt0HwW4jl4mmLHSU3dUAgCEQeNAGeY3/QEDG0hP8cKxvjIZeqevvrWMPiJiKHPXo/SuoHDtG3bK4mPwAXL/GIhWCZS2+yqqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zYHGJ931YGuNn/VCWD41ClpAdMIzBmuRRVXnfgSihwg=;
- b=RCivxo2MmAhfMdXYfFolZno1CqjNPHmB53yNQhgNDZM/Cug7pZMWtQO3tSaiJH5SoKFyE/5yVxip/BnMq3UUnhbyRpIYtgGJpVrhEClwK3zC77gaDw/nMU6S5ummjh17fAH6WMz4FvKIH92Wku8Y91OG0dRqbBijTHJqS6G4bSp+OVY8tpGKrqDCEz6F86gE3ZsYcCGBVku0yaUW4OMU9IRwzaUS5tdGMSJDPiTsu8rsrcd6Y1TNqdoqUInO/CPm0HuPsG9jdQWtP4ruIcJ2NEkL2gSF3KbyaHnI5izYMeu+0WMY4M/7W4GmjqtrWMEokO7EJHQNj1Y6sv8uOdEg+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zYHGJ931YGuNn/VCWD41ClpAdMIzBmuRRVXnfgSihwg=;
- b=lIEcQhc0JHDRUFzGb/8nkjiiTyXQdrBgpDK3j1L3pkJmECz4S0tAts1yd2+pi1UTLGpbVr9/+x7+M6Nhel+H9VGeVL+FAm29etS5kaMCu9btv8ENWx1soGv4DVOJRYO/AJXJzYU1N5hw+XCc/LeIMWAef/8nEXTew0LvnQkO30Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SA0PR12MB7478.namprd12.prod.outlook.com (2603:10b6:806:24b::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 09:29:57 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 09:29:57 +0000
-Message-ID: <3c0f1a05-f30c-4f97-96f9-0f7e96d400ee@amd.com>
-Date: Wed, 9 Sep 2026 14:59:51 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdkfd: correct vram_available calculation
-To: "Han, Zhen" <Zhen.Han@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Hou, Junhua (Richard)" <Junhua.Hou@amd.com>,
- "Liang, Lily" <Lily.Liang@amd.com>, "Zhu, Lejun" <Lejun.Zhu@amd.com>,
- "Yang, Philip" <Philip.Yang@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Joshi, Mukul" <Mukul.Joshi@amd.com>
-References: <20260909024252.3205045-1-Zhen.Han@amd.com>
- <20260909090756.847617-1-Zhen.Han@amd.com>
- <BY5PR12MB43219A04F6D680E68F8AB8EE8DB02@BY5PR12MB4321.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <BY5PR12MB43219A04F6D680E68F8AB8EE8DB02@BY5PR12MB4321.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0133.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d2::7) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9A5910F072
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 09:46:17 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4995b0343c1so79104085e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 02:46:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788947176; x=1789551976;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ej2jXznQ8MiiebMcPklRSS9215NaFP0hQU6L/r3E0Cc=;
+ b=exB6boDY8YcdkR4fg6q0E2ZW2ZuqyLcKMRjgZZ3XlyKoHxdqZnEMox+KNNFkKaVMet
+ GmfjtH+stJIqHjX3u7L5zRZIpVBP2r7RcKgkDG29NvK0tJCd0GkEFbg3IibYR+7X++1V
+ dZTWYA6BrQTGDVMkXeffHS2zC0FjSsYxG59TpjLrxdmF7mzBKtlwT8Cm21Dm/IIV+6/t
+ sU+2G2zzyv1//nKE091+qa0+gegZb3kqL4/M40O/PCWsvxYFcRmnYqvCmJFV1Ai5BlCN
+ Cm5nRNr2/7zUDj/gJrUwwH/XH0KMUj4QPUe5XXPQnhYAdP/VSfQSxKfwn8xafkJB9zuD
+ bXNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788947176; x=1789551976;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ej2jXznQ8MiiebMcPklRSS9215NaFP0hQU6L/r3E0Cc=;
+ b=o4O+XkkR6K4NzbKeMdlm5KmAUG7mEO2BX6l3imYIEjMlrX4kN91zSeANPrQeC2KGEV
+ nATyeGM7LsijgWYmf3B6fweqzR2k81I3vLl7H0JwUP3NyIel/KEoRsanSj/nhCBgNTbA
+ eBzKR4vIOTQccbjM+IMJWXyOt6pm8Z2puSx+iY8OTCYx1JfqI3gUl16RH7TQn2X6wew3
+ XsaQnqhRoMUZUr8Xm83C0y8kJWcW71m6V4izmlg7f26V5EycKptwprV/P6lkGN+84cMR
+ x1YxYUwRsa80//G/VaHnEEXmkMHvCSl48ZQSh6SKU6H9FVd4LqU6ApNaHBkcPQiPqIVo
+ z/4g==
+X-Gm-Message-State: AFuF++ke1FbUr87sRLY6MIKa2rlqFpoWxf75UVSg6VIUnkktlSzLz2Zf
+ NkHiJ44Kqovf1bc1CdPYbYT3xZY7Zk7jTVyzzEWYHMcqwrKjn9ZG+Crmz6uQFoN9Q4ZiaTW8oBT
+ S50SUCkZo
+X-Gm-Gg: AYBFou1393O4s6qXJQiEjgcFEyUizqMSeOCNsDgDASPM409KjbiJlFlBcgW5Dd0x901
+ tp42icebUTCZIU+uH9zgateqM1lIMVPNT/Nt5JMg7bPQC7mCBl05ejDnK/cfa67kPraRWFE7f4T
+ 3okLxKIC10cktuDyNdSOIwjZ363n6gdWk1lYo4z8Ycbd2+thSVt2EKx5Y4P+AoBn5H78B73c8do
+ 4d4X/BMNXivc5LiLPcTgkk7Vg9LilMlois52n0SM/FiNEBxdzW15qEp7yZYPf5f8dcxnpkYvv5C
+ /x/sfS0tlbU6a88hM+kRUEUNPSEPThhxyI0QgkfwHtZ1esSTFhq918bjc8TTXkgu/PQh0M1zmts
+ 4AYfSWzbuEI/eOz04C8+BXHute3gmfrrD5Xye3k6zFBu1IFV4jxL1TvFNDgtRUR4HqDV6zlslxY
+ i9qvfMc6yauVuB8KrfJoQWEbmHFXmoVjyKq5NiM1Kyptk81r6WBruG+iyN+DmhcWgfttSuSUMuk
+ V5VPd8/kIOKXfgMjtIOiZHYzkM=
+X-Received: by 2002:a05:600c:8b48:b0:49c:fff9:f684 with SMTP id
+ 5b1f17b1804b1-49cfff9f6efmr260109905e9.21.1788947175442; 
+ Wed, 09 Sep 2026 02:46:15 -0700 (PDT)
+Received: from quark ([2a01:4b00:d309:1c00:7807:3ba6:3446:4db2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49cf772692dsm537897555e9.10.2026.09.09.02.46.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2026 02:46:14 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ kevinyang.wang@amd.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
+Subject: [PATCH v2] drm/amdgpu: don't migrate a dma-buf into VRAM while
+ runtime suspended
+Date: Wed,  9 Sep 2026 10:46:09 +0100
+Message-ID: <20260909094609.1541-1-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909020854.58462-1-mike@fireburn.co.uk>
+References: <20260909020854.58462-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SA0PR12MB7478:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68c93f73-c3cc-4ba0-0e89-08df0e54ea07
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 1fWbW8ka6sOxGSPdCXSjEC+prhEf6CHju9YwkT6EvJny0rT2yqweXc6G/RMWOK9RU8h0W50HqkmnI0PNaMHCcdU1JW3CGlrsUdzZKifDRLZFWjUiwVxM26LkcvrI9XsIMqSrVrv/n6Sru0VuZ2+DrX3wewUF9QZPXH5IzlusdKO1UbLwBboUjBs2gwyrivhwi3qQlYe9pWB9Egmcg9Y9Jig/1uG/if3dkX/LVOjGgdF6WYbJlobewWIB09dW3vJsnbxzFP+nig/33kZADZoKSTN1DUs9odjop5hUZBplFygmt9LsXuNNEPC2vcUYJQvU2MWCo6zhyz55phFLOfonSN9UzrdDYWOuRoYabs1+Bi8rTU4dpKuDZo99WKk9o0zaPA8mYLo2gBJXmcqRZoF5ORmsu7D8jtxDn0lCMDZlF2M3C8YV4+7eJ5BB9WXMS3zkOIUpmHm5c4KmQWbG4ArwgKqph3c7nRDXj6tt2DqaWee/FjxatUvpsyHyWQUtIkkyjDsKp5LkFSJkcQZTFg1dTNQ8purOBcbTuMZEYnerr6a+ekJ+0Ny6mcFL/4WiJHaT3XYvmAajYLabzbEdN6++gM/O+VSZAe+j6bCwJlesEgePgLsLwCoHhXdYarnq+pgk1RSsrJ2WzXlOSMetyj50Avw+ixMjugJQhSy+MJWHna4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QUtBUUE0cmRlemVwNy80cExmZytrT0ZjUFplczNFTC9kd0h0emJxamxCdkJG?=
- =?utf-8?B?QXVvNFRkLzVYV0IzMGUyYStjQWJUQVdpNnc3QWN4YzU5MVIrZHBnYlFMdHF3?=
- =?utf-8?B?ZHNMRFVZRzIxMGFXTkdPdUt4alN5Q2hxZlZadDBFQ3BrN3FVaFphSXM3dmNa?=
- =?utf-8?B?Wm5xb24zUUNSNlBKa2NkTmxmODZsK1NqbjV2R0E3Z0xwMFJmYUNpcDFNdDRH?=
- =?utf-8?B?dXlyR2RwRFlPYXB3WW1IS3JFbVZpMW5LSTRZZm9tVXhobUZyV1dwOVJkbEpW?=
- =?utf-8?B?WXNiNGNzeUtmbHVRUWFGNmRzd0x6SVZzS1l5MGJKVXBrSE1Fb0wyTEMrWms3?=
- =?utf-8?B?MWk0cU1MbEhDSHh5TDRFMFpsc09nRWVUbnlua0tjS1Nza3VPMWZ0ZXZ0QS9v?=
- =?utf-8?B?K2N5MnVXRE9SUk1sL1BrS0oxWmFzeHJNZlJtdzlDOXVURXZXY1lCR0ljUHVz?=
- =?utf-8?B?MCtpdzdoY0JBN1IzbVhBanVUNjl5M2ZobjI5dUVNR3dCYnFFSUN2SGc1L2lq?=
- =?utf-8?B?WGdlSWllbG51TnJIbFF1UW9CUVBGaUZFWjBnZXl2S2x1VDRjbkVJYldmUXhH?=
- =?utf-8?B?OGJHY05kdlNGcGtBdDFaVGpnTW9CTFNsUVZyMSs4YWwwazN4c24rUG5sMk1O?=
- =?utf-8?B?Y3ZGeFlMZjM5Q2hvbUFvbGFFKzlpUWNnTDc0N2JrbjRjSlZsYlQxQVRjbnVm?=
- =?utf-8?B?RWdmclBXMmpRUEJzamhBYnlCUGVCN0dkNmk4MVMxWW9zeHFpbUw0TDlvSEdF?=
- =?utf-8?B?cEQxYkI4d2RQK1BhRi96S0dpOWdNN3I4QWdlVHBSNjZOajNYSHl3QWdnYlBk?=
- =?utf-8?B?NUtwdDZON3dlUU5VRXJHdjZTNlRGR0xxTmVQNm1UV3dlKy9jQXBWaGNzUDlt?=
- =?utf-8?B?UUtudmhQQnNuOEpRc2RqU05hVldKT0ZYTjJhdXNaT1psSHQyeC9xUWRkWGhv?=
- =?utf-8?B?amRBVll4aHd2Uk02NUR3SHVtT2d1ZWdUSjVmdGZOblJGaklqdXl5TXU5WC95?=
- =?utf-8?B?eXB5L25ONGxiVHFCQjFDUERINDRYenRPelN5bGxpN2F5ampZbXY4TDhWeFBw?=
- =?utf-8?B?a3I2bjFtMVZ0ZDlnUUJrL1lzNWxDNzczVEZkd3g1c3RHdkgyUkQrOTV4SmQy?=
- =?utf-8?B?TkFROFBISWFoVTM5N2lYUGxtd256Q1laUVV5QVc3SjJYUmxkenMraFdFSXI1?=
- =?utf-8?B?Qzdmd1BHbVYwdXNtTzFnMm0vYXhMYWNKbkNzRkFTbzQyYnp6VHpyQTZXUElS?=
- =?utf-8?B?UlNtU2ZBYW9BT2JMdHFjTkhZakpRaG9NRVU1bnE2V1hiRHRGcVpkUjQ4a2Ji?=
- =?utf-8?B?eVF5NGlMK0lqUTFGYkxpWTZVcXMvSXNSajZnd3RzTE1JWXd5TzVuakdXcFBH?=
- =?utf-8?B?Y2ZKSGJ6VnhRek53MXk2Z2lhWUNBcWQxUE4vQlU0NzYya2ZZY0tqK3VQOHFl?=
- =?utf-8?B?anRTRUpYOTgvWUtOS0UyQU8vVElwSjBoTXlDUmhHbzQ0L1Fha2N6VmU2Y1hy?=
- =?utf-8?B?Si9RSTIwTXhzREpvZmxrK1NuclB4QTJpdHloajhFc2t0Sjdmd3Vkc0dHK3ZG?=
- =?utf-8?B?WDVvamh4ek1TUE9wVnEvODJGY3NmS1RYcFdCZ0dzcDJyUHhraDk1bncxZG13?=
- =?utf-8?B?R1JlZ1YvRVlxQ3N5U2d0bWk0MEFXRzFIYUk3WUpxNWpxZ2FGZnhXOXkwRkgv?=
- =?utf-8?B?UHVBUXNDVEFQUUhTbnZQNHdRZ0ZlSlNSM0E0Wk40VGRVVDBGdGhRbW92RW1E?=
- =?utf-8?B?NllOVStDYUVoM3ppdExiZU9hWWRFWGkvandsV0hNYUdWQU9WWGtpWVNrbzZx?=
- =?utf-8?B?eXdxZ3YrY3RkN0pScGxCRHhaVkJYdXVjRTM5Vkh1K0JJa3E2eU5yYVhlNUQx?=
- =?utf-8?B?NHIrMkR1NFpSaHZ4alNLdTVhVXEzRDdUOXBjTEVhU0pUT3FZRVlZcG1JSXNE?=
- =?utf-8?B?aExSYnhMWEVtRERBOEhUcldkU2R6SkFGQmhkUjZiV3NBbEtNR3ByajVpV2FP?=
- =?utf-8?B?YWRIbEIyalF2alNITzcvZUtKRmRxSGtQNEE3eTVQTVdSOXhLY0VCeFpoWGgr?=
- =?utf-8?B?VTU3QUd1UDBZTmtEOERjenIrOGdTb2FQYlNpWXgxL21jZzkzTGpOVWg1V2pN?=
- =?utf-8?B?T3MxdWtacHZ5dGxZN0t2M0NZb0g3Vm1mZVJYQ01iZDFnMk1haTFKNkY0U1R3?=
- =?utf-8?B?UlV6SUMwQ0s0bHZjOXU3ejhxSDZSSXVYNFlLd0hIaWwxa01qemhqN290NENO?=
- =?utf-8?B?NlBTYThDeVVOeEJCR2p2ZjU1WE4vMDRTNkMxSGZCVUFEQzRlUVV6QWF3Vmsw?=
- =?utf-8?Q?n7Ajd/3QAFewEAhKkP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68c93f73-c3cc-4ba0-0e89-08df0e54ea07
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 09:29:57.7756 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5W5aVnKvmllqGj0XIcFd+qwQiiMMu1H2NqjMn8WIT2H2huWHJkfmxcfXl6tzglMJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7478
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,207 +91,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
+attachment, so ttm_bo_validate() can migrate the buffer from GTT into
+VRAM.  While the exporting device is runtime suspended its SDMA rings
+are down and the move fails:
 
+  amdgpu: Move buffer fallback to memcpy unavailable
 
-On 09-Sep-26 2:44 PM, Han, Zhen wrote:
-> AMD General
-> 
-> A new VRAM allocation needs to meet:
-> 
->          adev->kfd.vram_used + vram_needed <= vram_available
-> 
-> kfd.vram_used already includes BOs that are later pinned.
-> Pinning does not consume extra VRAM. Subtracting vram_pin_size without adding back kfd.vram_pinned counts those bytes twice and causes fake-OOM while VRAM is still free.
-> 
-> Add kfd.vram_pinned so reserve_mem_limit() matches get_available_memory().
-> 
-> kfd.vram_pinned is only updated in gpuvm_pin_bo(). dma-buf pin and vmap call amdgpu_bo_pin() only, so the counter stays zero and those BOs are still charged twice. Update the counter on first pin and last unpin in dma-buf pin/vmap and gpuvm_pin_bo.
-> 
-> Signed-off-by: Zhen Han <Zhen.Han@amd.com>
-> ---
-> v3:
-> - update kfd.vram_pinned from dma-buf pin/vmap and gpuvm_pin_bo
->    on first pin / last unpin in amdgpu_dma_buf.c
-> v2:
-> - keep vram_pin_size; add kfd.vram_pinned in reserve_mem_limit (Mukul Joshi)
-> - leave get_available_memory unchanged
-> - drop former 2/2 pin/unpin changes in amdgpu_object.c (Christian König)
-> 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 38 +++++++++++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   | 22 ++++++++++-
->   3 files changed, 53 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index 4541542a28df..9ebae5ffd2ed 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -378,6 +378,8 @@ void amdgpu_amdkfd_gpuvm_put_bo_ref(struct amdgpu_bo *bo);
->    * Return: ZERO if successful in pinning, Non-Zero in case of error.
->    */
->   int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain);
-> +void amdgpu_amdkfd_account_vram_pin(struct amdgpu_bo *bo); void
-> +amdgpu_amdkfd_account_vram_unpin(struct amdgpu_bo *bo);
-> 
->   /**
->    * amdgpu_amdkfd_gpuvm_unpin_bo() - Unpins BO using following criteria diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 89958d0f7e59..191985dbc569 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -237,7 +237,8 @@ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
->          if (adev && xcp_id >= 0 && (!adev->apu_prefer_gtt || adev->gmc.is_app_apu)) {
->                  uint64_t vram_available =
->                          vram_size - reserved_for_pt - reserved_for_ras -
-> -                       atomic64_read(&adev->vram_pin_size);
-> +                       atomic64_read(&adev->vram_pin_size) +
-> +                       atomic64_read(&adev->kfd.vram_pinned);
->                  if (adev->kfd.vram_used[xcp_id] + vram_needed > vram_available) {
->                          ret = -ENOMEM;
->                          goto release;
-> @@ -1584,6 +1585,28 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
->          return ret;
->   }
-> 
-> +void amdgpu_amdkfd_account_vram_pin(struct amdgpu_bo *bo) {
-> +       if (!bo->kfd_bo || !bo->tbo.resource)
-> +               return;
-> +       if (bo->tbo.resource->mem_type != TTM_PL_VRAM)
-> +               return;
-> +
-> +       atomic64_add(amdgpu_bo_size(bo),
-> +                    &amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
-> +}
-> +
-> +void amdgpu_amdkfd_account_vram_unpin(struct amdgpu_bo *bo) {
-> +       if (!bo->kfd_bo || !bo->tbo.resource)
-> +               return;
-> +       if (bo->tbo.resource->mem_type != TTM_PL_VRAM)
-> +               return;
-> +
-> +       atomic64_sub(amdgpu_bo_size(bo),
-> +                    &amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
-> +}
-> +
->   /**
->    * amdgpu_amdkfd_gpuvm_pin_bo() - Pins a BO using following criteria
->    * @bo: Handle of buffer object being pinned @@ -1598,11 +1621,14 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,  int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain)  {
->          int ret = 0;
-> +       bool first_pin;
-> 
->          ret = amdgpu_bo_reserve(bo, false);
->          if (unlikely(ret))
->                  return ret;
-> 
-> +       first_pin = !bo->tbo.pin_count;
-> +
->          if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS) {
->                  /*
->                   * If bo is not contiguous on VRAM, move to system memory first to ensure @@ -1626,9 +1652,8 @@ int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain)
-> 
->          amdgpu_bo_sync_wait(bo, AMDGPU_FENCE_OWNER_KFD, false);
-> 
-> -       if (!ret && bo->tbo.resource->mem_type == TTM_PL_VRAM)
-> -                atomic64_add(amdgpu_bo_size(bo),
-> -                        &amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
-> +       if (!ret && first_pin)
-> +               amdgpu_amdkfd_account_vram_pin(bo);
-> 
->   out:
->          amdgpu_bo_unreserve(bo);
-> @@ -1653,9 +1678,8 @@ void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
-> 
->          amdgpu_bo_unpin(bo);
-> 
-> -       if (bo->tbo.resource->mem_type == TTM_PL_VRAM)
-> -               atomic64_sub(amdgpu_bo_size(bo),
-> -                       &amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
-> +       if (!bo->tbo.pin_count)
-> +               amdgpu_amdkfd_account_vram_unpin(bo);
-> 
->          amdgpu_bo_unreserve(bo);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index 79828c6f694b..e2674540761d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -303,6 +303,8 @@ static int amdgpu_dma_buf_pin(struct dma_buf_attachment *attach)
->          struct dma_buf *dmabuf = attach->dmabuf;
->          struct amdgpu_bo *bo = gem_to_amdgpu_bo(dmabuf->priv);
->          u32 domains = bo->allowed_domains;
-> +       bool first_pin;
-> +       int r;
-> 
->          dma_resv_assert_held(dmabuf->resv);
-> 
-> @@ -328,7 +330,12 @@ static int amdgpu_dma_buf_pin(struct dma_buf_attachment *attach)
->          if (WARN_ON(!domains))
->                  return -EINVAL;
-> 
-> -       return amdgpu_bo_pin(bo, domains);
-> +       first_pin = !bo->tbo.pin_count;
-> +       r = amdgpu_bo_pin(bo, domains);
-> +       if (!r && first_pin)
-> +               amdgpu_amdkfd_account_vram_pin(bo);
-> +
+An importer on a second GPU reaches this holding no runtime PM
+reference on the exporter, e.g. a compositor on the APU submitting a
+frame that references a buffer exported by an idle dGPU:
 
-This looks incorrect. vram_pin_size already accounts for all the pinned 
-ones. The original intent looks to be to avoid double counting only for 
-KFD allocated BOs.
+  amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
+    -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
+      -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
 
-BTW, I don't see this patch in drm-next.
+Only migrate into VRAM while holding the exporter awake.
+pm_runtime_get_if_active() takes a reference only when the device is
+already active and never resumes it, so it cannot deadlock against the
+reservation held across these callbacks.  That deadlock is why
+commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
+when we attach a buffer" v2") removed the pm_runtime_get_sync() from
+the attach callback.
 
-Thanks,
-Lijo
+If the device is suspended or suspending the buffer stays in GTT, which
+remains accessible while the GPU is powered down.  A negative return
+means runtime PM is disabled, so the device cannot suspend and VRAM
+stays usable.
 
-> +       return r;
->   }
-> 
->   /**
-> @@ -344,6 +351,8 @@ static void amdgpu_dma_buf_unpin(struct dma_buf_attachment *attach)
->          struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
-> 
->          amdgpu_bo_unpin(bo);
-> +       if (!bo->tbo.pin_count)
-> +               amdgpu_amdkfd_account_vram_unpin(bo);
->   }
->   #endif
-> 
-> @@ -516,6 +525,7 @@ static int amdgpu_dma_buf_vmap(struct dma_buf *dma_buf, struct iosys_map *map)  {
->          struct drm_gem_object *obj = dma_buf->priv;
->          struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
-> +       bool first_pin;
->          int ret;
-> 
->          /*
-> @@ -523,12 +533,18 @@ static int amdgpu_dma_buf_vmap(struct dma_buf *dma_buf, struct iosys_map *map)
->           * domain is not that important as long as it's mapable. Using
->           * GTT and VRAM should be compatible with most use cases.
->           */
-> +       first_pin = !bo->tbo.pin_count;
->          ret = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT | AMDGPU_GEM_DOMAIN_VRAM);
->          if (ret)
->                  return ret;
-> +       if (first_pin)
-> +               amdgpu_amdkfd_account_vram_pin(bo);
->          ret = drm_gem_dmabuf_vmap(dma_buf, map);
-> -       if (ret)
-> +       if (ret) {
->                  amdgpu_bo_unpin(bo);
-> +               if (!bo->tbo.pin_count)
-> +                       amdgpu_amdkfd_account_vram_unpin(bo);
-> +       }
-> 
->          return ret;
->   }
-> @@ -540,6 +556,8 @@ static void amdgpu_dma_buf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map
-> 
->          drm_gem_dmabuf_vunmap(dma_buf, map);
->          amdgpu_bo_unpin(bo);
-> +       if (!bo->tbo.pin_count)
-> +               amdgpu_amdkfd_account_vram_unpin(bo);
->   }
->   #endif
-> 
-> --
-> 2.43.7
+Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+Assisted-by: Claude:Opus-5 [Claude Code]
+---
+
+v2: hold the exporter with pm_runtime_get_if_active() across the
+    validate instead of testing adev->mman.buffer_funcs_enabled.  The
+    v1 check was racy - the device could suspend between the test and
+    ttm_bo_validate(), so amdgpu_bo_move() could still see the rings
+    torn down.  Reported by Sashiko AI review.
+
+Is this the failure that commit c52feb436539 ("drm/amdgpu: Disable
+runtime PM for externally attached dGPUs") was working around?  That
+commit explains how to detect external attachment but not what breaks,
+so I can't tell which.
+
+If it is the same thing, could the pci_is_thunderbolt_attached() ||
+dev_is_removable() check there be narrowed or dropped on top of this,
+so eGPU users keep runtime PM?
+
+I can't test that here: this box hits the bug by missing that check.
+The dGPU is on an oculink port off a native AMD root port, so
+pci_is_thunderbolt_attached() is false, dev_is_removable() is empty,
+and runtime PM stays enabled.
+
+Reproduced on a HawkPoint APU [1002:1900] driving the display with a
+Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
+offload.  Without the patch kwin_wayland hits the call chain above
+within a minute of the dGPU autosuspending and the desktop stops
+repainting until it resumes.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index b33c300e26e2..c89846f266d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -43,6 +43,7 @@
+ #include <linux/dma-buf.h>
+ #include <linux/dma-fence-array.h>
+ #include <linux/pci-p2pdma.h>
++#include <linux/pm_runtime.h>
+ 
+ static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
+ 
+@@ -189,14 +190,25 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+ 		/* move buffer into GTT or VRAM */
+ 		struct ttm_operation_ctx ctx = { false, false };
+ 		unsigned int domains = AMDGPU_GEM_DOMAIN_GTT;
++		int pm_ref = 0;
+ 
+ 		if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
+ 		    attach->peer2peer) {
+-			bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+-			domains |= AMDGPU_GEM_DOMAIN_VRAM;
++			/*
++			 * Only migrate into VRAM while the exporter is held
++			 * awake.  A negative return means runtime PM is
++			 * disabled, so it cannot suspend either.
++			 */
++			pm_ref = pm_runtime_get_if_active(adev_to_drm(adev)->dev);
++			if (pm_ref) {
++				bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
++				domains |= AMDGPU_GEM_DOMAIN_VRAM;
++			}
+ 		}
+ 		amdgpu_bo_placement_from_domain(bo, domains);
+ 		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
++		if (pm_ref > 0)
++			pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ 		if (r)
+ 			return ERR_PTR(r);
+ 	}
+-- 
+2.55.0
 
