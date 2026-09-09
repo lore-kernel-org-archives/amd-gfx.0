@@ -4,46 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C879AC79FAD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 13:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E432C79FBF
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 13:00:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E69710F147;
-	Wed,  9 Sep 2026 13:00:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B639810F14B;
+	Wed,  9 Sep 2026 13:00:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mIXo1KEc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XTCV+r5S";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2460810E1C0;
- Wed,  9 Sep 2026 11:47:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 436E860120;
- Wed,  9 Sep 2026 11:47:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DCE71F00A3A;
- Wed,  9 Sep 2026 11:47:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1788954445;
- bh=z6z+pLAb/s5MlRCV9V2eTOzLbl55cogNJG5WC4FpWgQ=;
- h=Subject:To:Cc:From:Date;
- b=mIXo1KEcDRBJUUQAtkc4EzQx5jIyUYCyspHYpK5IFYhUxNWWgMqDS9szq3TcbWTBO
- yZoIbcPql55137LqyD1ddj/PN76rKXXXqdpouuIoq/Qsf+dEGLg6L0alqHroW0XEhL
- gE6SnK6o/nxZkyxVLty1pDcbm+jgPQ9FFeVGJMpo=
-Subject: Patch "drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()" has
- been added to the 6.18-stable tree
-To: Arunpravin.PaneerSelvam@amd.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, cascardo@igalia.com, christian.koenig@amd.com,
- dev@lankhorst.se, dri-devel@lists.freedesktop.org, friedrich.vock@gmx.de,
- gregkh@linuxfoundation.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, sashiko-bot@kernel.org, thomas.hellstrom@linux.intel.com,
- tj@kernel.org
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Sep 2026 13:30:37 +0200
-Message-ID: <2026090937-mangle-cinema-f62f@gregkh>
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1061310EFA3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 08:05:34 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-396672b2565so1088696a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 01:05:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788941133; cv=none;
+ d=google.com; s=arc-20260327;
+ b=AmnUJLXDRTCb9voxNtEhnF1D1nEMk8RM08OGLj7hhwdDJbXG7Q9JRa6bN9PTFfRKTB
+ iSdFPYGxgf3YMWLXm5MEwWZwErZrCLN0frIiPlA5FyYqrR7rHp9r8NZhUxpa06/9KxKO
+ i9H6jooCoAyP+P7tgC5ba8PpZUE1bU9g02dCS2xGAmC6bnZZbVF89OFOqYuMqxjiTQF5
+ JxavDcvMp+oTCvjyKoq+OvCCOq0hWoZcyU2gMTVQMADL3oNfhm8QNKLXjLm23p//haUZ
+ QkxAeNS7N7adCPyHHpVh90k55joVuOFoNp2zQub+z+PZb7w02318Lq3rSe1yxX6F1qKe
+ tXyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=PFzJhTwC5v2xxJH8grG7O2UX6Uz5UZc0kMv7qk7w9wE=;
+ fh=/fz2v4l0iSUevEW7LlOsd0bt23fg+14gcg8LxdhkQL4=;
+ b=fwbsiC0BEiQSSWueHnBgh1BHE1CnEpgLoZGq5VtnUtXnfH8sriQnc83wyS0gj48MyZ
+ AgoJlOArlXTt11r+xkgSCaqJaTl5lxvpm0DNYSIlXGRxbTlBt1Ygnsztx461cwO3jFlU
+ +oVohTjrn9vqE5kdkPws90RIw/ITgJd9wBDbrtwXoj0CKiVOEdUDHYw6YPjPzBJM7C71
+ ImXTdytIDG4rp5zaf6rZADuqWQNMP6HCDFfASckzWTmFzL5o1DLes2vp4hwllIkNuDza
+ zgtHybSPBlyaKwl9rd8+wUGdJgiP6LUBcBnnjhaTO2yOu1bg4tBoqsE7FSx4EQwyDvAC
+ urTg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788941133; x=1789545933; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=PFzJhTwC5v2xxJH8grG7O2UX6Uz5UZc0kMv7qk7w9wE=;
+ b=XTCV+r5SFH0XdE4qfFcGVaOgX8sw9wXFdpvdyPYQrl5B+gHuKZicQNIaWdBymA6+3h
+ unWi5iOcLCBgMhQxRTTf5krPV5g1X9Bli2SvccoUU/6USMom9t7ZVxGQmtfAJ2h84940
+ HiWIKeMRrnam0K9HKO04byRLJJFNZspeCboiigCDrOGpUH8smerfClCymsKUKjrMzr3y
+ sV2kYW/GvR6sgIOiizyIAuztmWYJ4SSZI3Q3aR3LG401mB7VkB3Wzs6H+LvjJfLthK4E
+ 6zGiaE+d19rBwpiKh1yEsev4NNPVzVuHPLZqIN7rFhZG+wZcUuHFe+upTowOPLaGP7Hz
+ zjNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788941133; x=1789545933;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=PFzJhTwC5v2xxJH8grG7O2UX6Uz5UZc0kMv7qk7w9wE=;
+ b=KdDHtlykLHKERFChDToDa5Wk4Za8ri+P3fN2SlEY94m4UAhxIyXBmR6GkZm+VRqp7X
+ NTRWVjfJ92R/TzatY1XUszOtoNrNOgfzY6BW58ZGnzjeK/V45mMKVWQwedPXqOj6ZqjK
+ GblIu02NVQJMXRMOPLZe8EE8J8AxRe6j7LWt/GwrfVAr9sVUYLQclxOAPfhE4YWK1CVQ
+ NhMoNtwACp8LeKXEBMoFy0oMy9hRM+5nNijl8/zObmcbWgzlsregec0Zginhx4gUuzvg
+ vDmG7V1s/3/IzRgYiMm1HM7vlTVO79iV0G74qUzmh+ZcjdzoqQXn+TDNrA0fh+MAnUr4
+ 1DwA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzz+7d1diUs7hTdRmPb2D768iOJKu+BSavgDX1pFOtFebtysbyAncKg+L7hcRAaWWzToOryEcUJ@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nckpurLiTTTiZbxTR24Dcp6Azd9AulZAZUq1Vi+K0PxZLc+4WR
+ juyvgI+cR1BneTWaZ3JLrJCuWJ1Rbvco7ZZ09UOqCxVeET+o7l1fqIok66b/bpKibA380500YAW
+ n38smFv2ZENNTdy8OPoA5/gFoLucodGo=
+X-Gm-Gg: AYBFou06P/aTCG6G0H4iwD0fK2R1l/atiy01vk78qbgujB+k0pb6O9P3wKO2nGF1VBF
+ PkRYRf/1Xb19Df5acn7eUMkBduYGJLdK++wfPBsjMJy6PXJSj25YRtaWxyihk2vW4e80wpiskJV
+ 3oTrXjQ75DRRn1S8PHSd23T6Kf6qSwV9a5FOwTADX+XFM1Q04w9clc4x29xanTCNnfm/z/klwVQ
+ mZ8JSnF1sKOGHCrNa6hFAtKJ8nIQ3mdHbbg3+0I/EF32ppENjmTsAUvlpZTgiEgaaasg3ZClxJy
+ ArbrIJXud5mY2tLqDNbnjNjJAFN7fu3rI0DVCLKyWyir+awQEsvxIvarvkak72WeCcyWKZ8Pbi6
+ 2QWLKwYrdZ2FL2qgkzpL/qJQoyN3CuHvDu3EMY3fAXt3HNfE1fWLUXgqwMSs47EDjvkojE2UzPk
+ 56QMpy3M0ciR03t4xxcSL9hEvsYTS8XBPVFxnhR+aQjTYXHbX5B2I=
+X-Received: by 2002:a17:90b:498c:b0:398:a2e4:c784 with SMTP id
+ 98e67ed59e1d1-39b3d5c4449mr23521825a91.1.1788941133232; Wed, 09 Sep 2026
+ 01:05:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+References: <20260908175427.47207-1-klarasmodin@gmail.com>
+ <2642740a-b894-47bd-b26e-cabdaa14d8b8@suse.de>
+In-Reply-To: <2642740a-b894-47bd-b26e-cabdaa14d8b8@suse.de>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 9 Sep 2026 10:05:20 +0200
+X-Gm-Features: AcwNN1VaFSH3EyJDGBY_TKDiMWxaUjeqs441wwiCpqb3pVX1iCtXogyjN7rFa0g
+Message-ID: <CANiq72ntt_2n03UReCt6zFD_AvTMvNE6O+v3E3sURTsqW6x4Ng@mail.gmail.com>
+Subject: Re: [PATCH] rust/drm/gem: initialize callbacks with
+ ..pin_init::zeroed()
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Klara Modin <klarasmodin@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, 
+ Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Thorsten Leemhuis <linux@leemhuis.info>, Manuel Ebner <manuelebner@mailbox.org>,
+ Gary Guo <gary@garyguo.net>, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 09 Sep 2026 13:00:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,105 +118,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Sep 9, 2026 at 10:01=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> Please see my bug report at [1].  This patch fixes half of it. I still ge=
+t
 
-This is a note to let you know that I've just added the patch titled
+I think fixing that is the respin that Klara meant in
 
-    drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+  https://lore.kernel.org/rust-for-linux/aqBf1UYNR-Q3T-cs@soda.int.kasm.eu/
 
-to the 6.18-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-amdgpu-fix-init-ordering-in-amdgpu_vram_mgr_init.patch
-and it can be found in the queue-6.18 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From e773798e14ac0aea54ca9676083b91f445e5bc59 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Sat, 25 Jul 2026 12:00:31 +0200
-Subject: drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-commit e773798e14ac0aea54ca9676083b91f445e5bc59 upstream.
-
-drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
-gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
-returns early and bypasses those initializations.
-
-Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
-is called, a failure triggers amdgpu_ttm_fini(), which calls
-amdgpu_vram_mgr_fini(), which then:
-
- - Calls list_for_each_entry_safe() on reservations_pending and
-   reserved_pages, whose list_head::next pointers are zero-initialized
-   (NULL). The loop does not recognize them as empty and dereferences NULL.
-
- - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
-   via for_each_free_tree(). Since mm->free_trees is NULL
-   (never allocated), this dereferences NULL.
-
-Both result in a kernel panic on the module load error path.
-
-Fix by moving drmm_cgroup_register_region() to after the list and buddy
-allocator are fully initialized, so the teardown path is safe to run.
-
-Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
-Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
-Cc: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org # v6.14+
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Reviewed-By: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Link: https://patch.msgid.link/20260725100036.2372-2-thomas.hellstrom@linux.intel.com
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |    7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_d
- 	struct ttm_resource_manager *man = &mgr->manager;
- 	int err;
- 
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
- 	ttm_resource_manager_init(man, &adev->mman.bdev,
- 				  adev->gmc.real_vram_size);
- 
-@@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_d
- 	if (err)
- 		return err;
- 
-+	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
-+	if (IS_ERR(man->cg))
-+		return PTR_ERR(man->cg);
-+
- 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
- 	ttm_resource_manager_set_used(man, true);
- 	return 0;
-
-
-Patches currently in stable-queue which might be from thomas.hellstrom@linux.intel.com are
-
-queue-6.18/drm-amdgpu-fix-init-ordering-in-amdgpu_vram_mgr_init.patch
+Cheers,
+Miguel
