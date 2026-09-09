@@ -4,88 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40AEFC79FBE
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 13:00:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22D3FC79FB6
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 13:00:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 276D810F144;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 505BD10F145;
 	Wed,  9 Sep 2026 13:00:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aicharmers.com header.i=@aicharmers.com header.b="lPy9xgPb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FXyeQ1R1";
 	dkim-atps=neutral
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
- [209.85.161.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75F6B10EFA3
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 08:02:47 +0000 (UTC)
-Received: by mail-oo1-f44.google.com with SMTP id
- 006d021491bc7-6b1497f0453so3976206eaf.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 01:02:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=aicharmers.com; s=google; t=1788940966; x=1789545766;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=NVqqZQHFQjLI1fAxKN559sk1nfYU8tizBv/uHckeKLc=;
- b=lPy9xgPbR8Fd2ypCWnF+dwl8JmPnM4tZ5BWx4f3A4sb4EUxNZguI/6nC9wuyFAuUI+
- CXnTzsy0Iby1GMW8SAFwkwC2lrN14n6huLnwaFQfIGNHZ9ian6Z+VEtngqO6KWjEOwjl
- acZQvIoDYjzJG8epopJ0zgoqyj3EWDsFHbQw/ONEgZvKYsWWKeZFKPq0RNzushD1SBOl
- 2ah4DoIDe8fRtx7wmIhM+RjqV+BSmI+2ASJLOE83sYTiZB0GRox7DaI9+67JAt3nTTuI
- 8FGLRjRjjfCjKu0V7s50B42jBg1CHBaIWLj308AgK/fLIYFaftR34gGkIJT08j9qgh1n
- T2Tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788940966; x=1789545766;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=NVqqZQHFQjLI1fAxKN559sk1nfYU8tizBv/uHckeKLc=;
- b=lF4I+ORoY6/QoOEequke42UKz/EfJzLRAqm7LxEGigBbGCraytHAPhdRGzF/uvfMAJ
- +frUyp+BjN5Ix1e86VT9Wu9NqxCwvopasyNpVilRn2Gcx9/PZ7jrKtr+Q5pQv4UiWio+
- 5y9oMP2/KpbBTntSEzRzKnhRuT6/XIg+0tpzS2mrWqM463nY0o3cs+Ol1p9K7h4z/lYI
- 5FFzlhz7/evzvcC5YZeJJnGLDGTU5BJbu+Lak9bIVu7DIQlMIP2nTmJ0qztofDcebAyP
- jC3AVIdihNmUuaTPU6eMTJJj1JImv2L/dM4ya1hBpL2VeNsRinxT0PrFNzAeUBczNFv5
- 0Bdg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwazZoR5BRZU97kmROnIJ3RJeQbstN++y7gmKbHGw+wUD0vuz5XSHlwea+wpu7FCnxmPUVZjFF0@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nMtPlQs9B2J7ZEEqrPj0AchBaBFPzR9AmJnwE9NjiyKgY1RGGG
- sM6f+5XQU7bWl63TBAp/YpqAX3BfHjF3ltRfZyHVPAieaFXavNvfZm6WwvZCt/BY0K0=
-X-Gm-Gg: AYBFou1PTxEeDLR6VH+DDJQhWKN+dPuANhLyye8vnA3j4NPQqHQXWrvmNmrJ6M75HKy
- tv+arbiLbcng61CEEtfjR4R9e7aHibjQq1BlMyYv+4ByeF7EIv95llizFbEIf6ald3VyDPupfm/
- qiITkOysWZw6QduRmfWLP8ueuFSc7F5lUf/axsVFF3JBaUXNcQTI0tOeMkk+i8mZk64sC+Xv57W
- 2fEncRZmdugifLoACZQ/hMvL6Ppfsx4KrftGX8n7tlgqibTW10omW4bXIQ6Qca7NKorxml84muK
- gY0m7iNruuHr5wDF2+4hrYruQYyKrGGeF4yjB9x/CDQZfhZwOHI0ZoNKlYDn5FTLPU0dCBKm5g0
- ywjqj7+FrZExCNhsCz3ROOaxCyUML/eA2+Cz6wjlV/Q3D2PKVxcwNKA40NOMYskPPF8TTm4R4w7
- SOHyMhL4lXfeml5M1GBf4HDbB8+yk8jBcZ1FiWouKl8yVCrMyPrBAGmNfkxmJXRSGnDhsj/aRSP
- uTFknZrenS1o27r0wd1WE6zpkoKp+Qap3/8t3T3zr5SO0GJXJSZ+budvcp3yCIU2urBN1AA1qIm
- RmFK7xj193CikU3FUy5XYtcCjmCZ2YDk+EDMMDvMtypU
-X-Received: by 2002:a05:6820:16a1:b0:6be:9627:196 with SMTP id
- 006d021491bc7-6be962710ffmr414461eaf.7.1788940966464; 
- Wed, 09 Sep 2026 01:02:46 -0700 (PDT)
-Received: from ip-192-168-20-24.ap-southeast-2.compute.internal
- (167-179-142-232.a7b38e.mel.nbn.aussiebb.net. [167.179.142.232])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3339bbf1feesm42549886eec.26.2026.09.09.01.02.41
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 09 Sep 2026 01:02:45 -0700 (PDT)
-From: Ed Schofield <ed@aicharmers.com>
-To: Kenneth Feng <Kenneth.Feng@amd.com>
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- "Guna R . Bharati" <062bel313@gmail.com>,
- Alexander Deucher <Alexander.Deucher@amd.com>,
- Christian Koenig <Christian.Koenig@amd.com>, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/amdgpu/smu: Enable UCLK after init in AMD Radeon Pro
- 5300
-Date: Wed,  9 Sep 2026 18:02:09 +1000
-Message-ID: <20260909080231.85025-1-ed@aicharmers.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
-References: <20260824190409.1724-1-atharvatiwarilinuxdev@gmail.com>
- <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 258BA10F079
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 10:17:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788949079; x=1820485079;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version:content-id;
+ bh=ESfukMun3UZJlSPYk/dz2ksbll6RS7m053nZO66LCuU=;
+ b=FXyeQ1R1X+sHT5icsttXWrhGPIZ1vm06cJevJPAip2vx5vx+K34DzMXR
+ mlynx20GjxZwbmWygjAvaHGr/D7BkZqYg+KK+S1/PTnhJ/KnITJpiJkxT
+ q12XHL7rcjLg+MZ3BCYyTs59ldf+2qS0Hmykc28uj8IaAPnny3PUm+ufX
+ Ed/Gu6FWadAn4g1MClQOzNj9sx4cPYNE/ECuAGkoPrzCMRsXPAcspiPb7
+ f0XjbfGpu4QZ72GSE0G5BtZOeQl0NRLXjzBxMNAHSQ1MwSu/QN7h3Xt4F
+ HQBMEsvZjCKDGRX4C0semB5JQ7iBPItWUTdp0pegPlExz+VaABcOmIczU A==;
+X-CSE-ConnectionGUID: H4nU3ZM0S8WE7viitCe2gQ==
+X-CSE-MsgGUID: WPAm7VDNSeapqOUs0yRifQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88516264"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="88516264"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2026 03:17:59 -0700
+X-CSE-ConnectionGUID: Vtoo3Y8BTO2pb7m85djLbQ==
+X-CSE-MsgGUID: /UHi7KrhQ4W4PxO2CYV5sA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; d="scan'208";a="294783282"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.78])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2026 03:17:55 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 9 Sep 2026 13:17:51 +0300 (EEST)
+To: Liz Fong-Jones <lizf@honeycomb.io>
+cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+ LKML <linux-kernel@vger.kernel.org>, regressions@lists.linux.dev, 
+ amd-gfx@lists.freedesktop.org, Jon Nettleton <jon@solid-run.com>, 
+ Jon Nettleton <jon.nettleton@gmail.com>, 
+ Jacob Martin <jacob.martin@canonical.com>, 
+ Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org
+Subject: Re: [PATCH v5] PCI: Fix BAR resize for devices on a root bus
+In-Reply-To: <20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io>
+Message-ID: <29c5916f-da42-58f0-d4c7-815bbaed711b@linux.intel.com>
+References: <20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; BOUNDARY="8323328-1291541364-1788949012=:1156"
+Content-ID: <ac91299a-1cf4-4b45-b9dc-b5931e0d84f3@linux.intel.com>
 X-Mailman-Approved-At: Wed, 09 Sep 2026 13:00:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,27 +73,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Kenneth, hi Atharva,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Thanks for bringing the two threads together. I've tried your suggestion on my iMac20,1 (1002:7340 / 106b:0218, revision 0x41), with SMU firmware 53.38.0. I tried two warm boots and both failed.
+--8323328-1291541364-1788949012=:1156
+Content-Type: text/plain; CHARSET=ISO-8859-2
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <d4054e8f-f2bf-aa5d-601e-5f28a115bd4e@linux.intel.com>
 
-On the same AMD staging base as my RFC, I moved UCLK enablement to the beginning of navi10_set_default_dpm_table(), along with the readback check and supported-feature update. I removed the later enable and refresh from post-init. UCLK was still excluded from enable-all, and both memory-voltage features stayed the same. I didn't add any delay or extra mailbox tracing.
+On Tue, 8 Sep 2026, Liz Fong-Jones wrote:
 
-Both boots reported:
+> pci_do_resource_release_and_resize() releases the device BARs that
+> share a bridge window with the BAR being resized, but when the device
+> sits directly on a root bus (pdev->bus->self =3D=3D NULL) it then skips
+> resource assignment entirely and returns success, leaving the BARs it
+> just released unassigned (IORESOURCE_UNSET).
+>=20
+> Skipping pbus_reassign_bridge_resources() is correct in that case --
+> there is no bridge window to adjust -- but the device BARs still have
+> to be reassigned. Before the BAR release was consolidated into the PCI
+> core, this case worked for amdgpu because the driver released the BARs
+> itself and then called pci_assign_unassigned_bus_resources()
+> unconditionally after the resize, which assigns unassigned device BARs
+> also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+> side BAR release before resize") removed that call, so nothing assigns
+> the released BARs anymore.
+>=20
+> This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
+> LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+> on the root bus of its segment (there is no root port device, so
+> pdev->bus->self is NULL):
+>=20
+>   amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: =
+releasing
+>   amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: =
+releasing
+>   amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+>   amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+>   amdgpu 0004:01:00.0: Fatal error during GPU init
+>=20
+> No error is logged because the resize path reports success; amdgpu
+> then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+>=20
+> When there is no upstream bridge, call pci_bus_assign_resources() on
+> the root bus to place the BARs released above, using the same
+> alignment-sorted algorithm as normal enumeration instead of a manual
+> per-BAR loop. This also walks the rest of the hierarchy under the
+> root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
+> before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
+> release before resize") removed that call -- the core-side fix that
+> commit asked for ("such a problem should be fixed inside
+> pci_resize_resource() instead").
+>=20
+> pci_bus_assign_resources() returns void, so failure is detected by
+> checking whether the released BARs are still assigned afterward; if
+> not, roll back as in the bridged case. This is stricter than the
+> bridged path -- it fails on any unplaced resource, not just required
+> ones -- since a root bus typically has one shared window, and failing
+> loudly seemed better than leaving something silently unassigned.
+>=20
+> The root bus path also had a locking bug that any fix here necessarily
+> touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+> matching down_read() (as does the "goto restore" taken when
+> pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+> before the BAR release loop so every path through the function holds
+> it exactly once.
+>=20
+> Use pci_upstream_bridge() rather than testing pdev->bus->self
+> directly. The two are usually equivalent, but pci_upstream_bridge()
+> is the canonical test -- pci_is_root_bus(), which it's built on,
+> warns that bus->self =3D=3D NULL doesn't necessarily mean a root bus
+> (SR-IOV virtual buses from virtfn_add_bus() are the same).
+>=20
+> Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path=
+")
+> Cc: stable@vger.kernel.org
+> Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/215959=
+6
+> Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
+> Suggested-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+> Assisted-by: Claude:claude-fable-5 checkpatch
+> Assisted-by: Claude:claude-sonnet-5
+> Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+> ---
+> #regzbot introduced: 337b1b566db0
+>=20
+> Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
+> linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
+> carries this code unmodified, and the affected function is identical
+> to current mainline. By source inspection the regression window is
+> v6.18 (old code paths) to v6.19 (consolidation). Workaround for
+> affected users: amdgpu.rebar=3D0.
+>=20
+> On the topology question raised in review: this is physical hardware,
+> not a virtualized guest, running the UEFI/ACPI firmware variant of
+> this board (SolidRun also ships a U-Boot/devicetree variant of the
+> same hardware). Deferring to Jon Nettleton (CC'd, SolidRun) on the
+> exact root complex wiring; see the hardware manual's block diagram:
+> https://dev.solid-run.com/nxp/lx2160a/com-som/lx2160a-com-hardware-user-m=
+anual#block-diagram
+> ---
+> Changes in v5:
+> - Per Ilpo J=E4rvinen's review of v4: use pci_bus_assign_resources()
+>   instead of a manual per-BAR pci_assign_resource() loop in the
+>   root-bus branch. Same outcome for the bug being fixed, but reuses
+>   the core's alignment-sorted placement algorithm
 
-    SMU: No response msg_reg: 8 resp_reg: 0
-    in params:00000008
-    Apple 0218 default-table UCLK enable failed: -62
+Great, it worked (I was somewhat afraid there might have been some=20
+landmine for the case where there's no bridge).
 
-AMDGPU failed to bind in both cases. I checked that the experimental module was loaded and the firmware files hadn't changed.
+And yes, it's very important in general case to assign the resource in=20
+correct order because the assignment algorithm is greedy.
 
-This also fits an earlier test with T2 7.1.8. With UCLK excluded from enable-all, I tried enabling it separately immediately after smu_v11_0_system_features_control(smu, true) returned successfully. The trace shows EnableAllSmuFeatures returning 0x1, then EnableSmuFeaturesLow with argument 0x8 timing out with response 0 and -ETIME.
+Reviewed-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
 
-The default-table function is reached only after enable-all returns successfully, so waiting for that acknowledgement doesn't seem to be enough on this board. I don't yet know whether it needs more time or some other initialization step. I'd keep post-init for now: that version passed the ten recorded AMD staging warm boots. These tests don't establish the earliest safe point.
+--=20
+ i.
 
-As for Apple, I can't speak for Apple or confirm their approval. I'm testing this as a Linux user. Do we need their input before merging an Apple-specific workaround? If so, could AMD help find the right contact? I'd still welcome a fix for the underlying firmware problem.
-
-I agree we should coordinate the two patches. Mine covers only 0218/rev 0x41; Atharva's covers 0219. We'd need to test the combined change on both boards before broadening the match.
-
-Thanks!
-    Ed
+>   and matches the
+>   design intent stated in db92e3fef53e's commit message, rather than
+>   reimplementing assignment ad hoc.
+> - Drop Reviewed-by from Krzysztof Wilczy=F1ski: this revision changes
+>   what the root-bus branch actually does (not just a predicate, as
+>   in v3's pci_upstream_bridge() change), so his v2 review doesn't
+>   carry over. Add Suggested-by for Ilpo instead.
+> - Add Suggested-by for Bjorn Helgaas too: overdue credit for the
+>   pci_upstream_bridge() suggestion from v3 review, which only ever
+>   made it into the cover letter's changelog, not the actual commit
+>   trailers.
+> - Link to v4: https://patch.msgid.link/20260908-pci-rebar-root-bus-v4-1-2=
+780e9c22e08@honeycomb.io
+>=20
+> Changes in v4:
+> - No functional changes. Resending per Thorsten Leemhuis (regressions
+>   tracking) -- this looked to have fallen through the cracks after
+>   v3. Confirmed still broken today on v7.3-rc2 (mainline) and v7.2.4
+>   (stable): pci_do_resource_release_and_resize() still has the
+>   original "if (!bus->self) goto out;" with no reassignment on that
+>   path.
+> - Rebase onto current mainline.
+> - Link to v3: https://patch.msgid.link/20260731-pci-rebar-root-bus-v3-1-6=
+732e233fc99@honeycomb.io
+>=20
+> Changes in v3:
+> - Add Reviewed-by from Krzysztof Wilczy=F1ski, received on v2.
+> - Use pci_upstream_bridge() instead of testing pdev->bus->self
+>   directly, per Bjorn Helgaas's review: bus->self =3D=3D NULL doesn't
+>   necessarily mean a root bus (SR-IOV virtfn_add_bus() buses are the
+>   same), and this function is reachable for VF BAR resizes elsewhere
+>   in this file. Doesn't affect the bug being fixed here (not a VF)
+>   but is more correct in general. Reviewed-by kept from v2 -- this is
+>   a narrow, mechanical change to a path this device doesn't exercise,
+>   not a substantive rework of what was reviewed.
+> - Rebase onto current mainline.
+> - Add Jacob Martin to Cc: he independently triaged and accepted the
+>   corresponding Ubuntu report (LP: #2159596) on the Canonical kernel
+>   team, so he has direct interest in this landing.
+> - Move Ilpo J=E4rvinen to To: for final review, per Bjorn.
+> - Link to v2: https://patch.msgid.link/20260712-pci-rebar-root-bus-v2-1-a=
+1b9107a82dc@honeycomb.io
+>=20
+> Changes in v2:
+> - Add Assisted-by tags (missing from v1; required per
+>   Documentation/process/coding-assistants.rst)
+> - Add Link: to the corresponding Ubuntu bug report
+> - Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
+>   given the Fixes: tag already lets the stable team derive applicable
+>   versions (per stable-kernel-rules.rst)
+> - Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-5=
+5df70cbdd88@honeycomb.io
+>=20
+> To: Bjorn Helgaas <bhelgaas@google.com>
+> To: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: regressions@lists.linux.dev
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: Jon Nettleton <jon@solid-run.com>
+> Cc: Jon Nettleton <jon.nettleton@gmail.com>
+> Cc: Jacob Martin <jacob.martin@canonical.com>
+> Cc: Thorsten Leemhuis <regressions@leemhuis.info>
+> ---
+>  drivers/pci/setup-bus.c | 23 +++++++++++++++++------
+>  1 file changed, 17 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+> index e8c94aa1d3c12..ed16ef7c26fa7 100644
+> --- a/drivers/pci/setup-bus.c
+> +++ b/drivers/pci/setup-bus.c
+> @@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_d=
+ev *pdev, int resno, int size
+>  =09struct resource *res =3D pci_resource_n(pdev, resno);
+>  =09struct pci_dev_resource *dev_res;
+>  =09struct pci_bus *bus =3D pdev->bus;
+> +=09struct pci_dev *bridge =3D pci_upstream_bridge(pdev);
+>  =09struct resource *b_win, *r;
+>  =09LIST_HEAD(saved);
+>  =09unsigned int i;
+> @@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_d=
+ev *pdev, int resno, int size
+>  =09if (ret)
+>  =09=09return ret;
+> =20
+> +=09down_read(&pci_bus_sem);
+> +
+>  =09pci_dev_for_each_resource(pdev, r, i) {
+>  =09=09if (i >=3D PCI_BRIDGE_RESOURCES)
+>  =09=09=09break;
+> @@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci=
+_dev *pdev, int resno, int size
+> =20
+>  =09pci_resize_resource_set_size(pdev, resno, size);
+> =20
+> -=09if (!bus->self)
+> -=09=09goto out;
+> +=09if (bridge) {
+> +=09=09ret =3D pbus_reassign_bridge_resources(bus, res, &saved);
+> +=09=09if (ret)
+> +=09=09=09goto restore;
+> +=09} else {
+> +=09=09/* No bridge window to adjust; let the core reassign the bus. */
+> +=09=09pci_bus_assign_resources(bus);
+> =20
+> -=09down_read(&pci_bus_sem);
+> -=09ret =3D pbus_reassign_bridge_resources(bus, res, &saved);
+> -=09if (ret)
+> -=09=09goto restore;
+> +=09=09list_for_each_entry(dev_res, &saved, list) {
+> +=09=09=09if (!resource_assigned(dev_res->res)) {
+> +=09=09=09=09ret =3D -ENOSPC;
+> +=09=09=09=09goto restore;
+> +=09=09=09}
+> +=09=09}
+> +=09}
+> =20
+>  out:
+>  =09up_read(&pci_bus_sem);
+>=20
+> ---
+> base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+> change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
+>=20
+> Best regards,
+> -- =20
+> Liz Fong-Jones <lizf@honeycomb.io>
+>=20
+--8323328-1291541364-1788949012=:1156--
