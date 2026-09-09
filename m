@@ -4,76 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AD7EC79F82
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 02:09:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BF97C79FA1
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Sep 2026 02:42:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A954A10EE2F;
-	Wed,  9 Sep 2026 02:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30D6D10EE52;
+	Wed,  9 Sep 2026 02:42:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="gwMgIwV5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jMQAe7hu";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 331C210EE2F
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 02:09:14 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4995b0343c1so74226025e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Sep 2026 19:09:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788919752; x=1789524552;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Q9Xayl9dx51mDNzYzQJokyIz5EKoLm+Ut42MJBF6ftI=;
- b=gwMgIwV5biTYD9MaZ/iHb6cqtJAI13ulc9R9k0HyYIAgyHVUsxIdB6lAaNR+8V4ba7
- +38RdiCK1fzSf9cvJl173X4L4ZPRlrZ21GqTxAT3g/pTlUZXGnpCK5KxVvwJWS6Q90Wk
- 7S02PQUJJDcAMyLIYwzLPpcA+Jl7oE7lN6ATmQqu9T/J/9EPiJbYe5Ql9t4GshEf0NlM
- spwNLNMfu/rK+ydFj4X1IAq9PsG5QBJ8tS+FQRaBgUL7Z83mJhqAKkaVaXTTHAXqCRzk
- 9L62oX9hUnvngb0TiYhW0+cLHklg9W+4O2Pp0922i3BIIRC6rNA9dYLoGKn+zPT5YF7r
- hL5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788919752; x=1789524552;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Q9Xayl9dx51mDNzYzQJokyIz5EKoLm+Ut42MJBF6ftI=;
- b=LjnJWcWzKqKFHCqyvyEfx+n6+OUzcRIWav1ow2/4zWN5dYzdEomAFfzlA7kwbznt6L
- Ab06BIsV5YGLYjzwqFp6kqpgdaOoObYdbRnwetWm1t3oyjXOracyHI8+i5Uj/+EFVWzU
- JIkNxQu6R5vbTAPFdlbTAhGaufWV0Ign0ioPm6uOhad0X429lg43O/CJHiX4JXDLDC+2
- pOyygIUkzSS3FJDIe77AlZE1lhysW8l8m0F0JscsDe+WJAaX/rtnrPBIl27PsX+UWySU
- mcsaEDDyVDjqw7Qr0ZmeuKIRLm660H4aR0tjb94RelqnrH+dbX5Af9dX8TBxdigx0y8i
- 2QUA==
-X-Gm-Message-State: AFuF++nbExR/lFAkrbRVXLaU1NZQ4mrH0xbajMOhWogyQUZ7yMjDv0SK
- +0l1HA5Yy+5i3XNQbEj3SP5Fd/dt1wwBPp5Lcs2tE9FnnAxKe9qkMM8in9IVEzRXwtpkj0tPY20
- LNIHte2OO
-X-Gm-Gg: AYBFou1FVSNF5uygGK1sfBIMNihmR0ZVo8zGI0mk1VxIbw2L8Zp97QpG/vLiMD/Lq3G
- MORnbeJAElS8o5kJXWBrt016lhDS9v4qVvLB3emCX/ts1eECJrMmGQLpPlci0bdxu35XGZfUv8U
- UPAE8Ynwagb05d0aGTI+5ByQraHwnu+UBvlqy2zwDF5xAcHcfBsG4m2OhLwSt+quwWUuAgq1+X0
- DmmDCCTUXpRMhtqnqPb5ivUuK00UQ5Xuv1bXcUMiKGhbzxGa4IvmTix0xRRrDlAdosEW9RGg5CA
- WZDHcMtFYdCImcm34hJJluFr/ecXhZB7TyiNtDQoxl/ghMZX14Mfs+TUtgYwNtOWk7y7T2MicxP
- mkhC+fUi6OS6wEsV90n5Opa3XtYswTxFB51Io17fxz2V5W5+LwrxM1OxlVw+IfNB/Xu5oekBhUb
- LuMtPJj9klO2OhxlyUzbmu9N2PYj9J+KPmMT8OoFkCTr3fcv9VB6gxfE8jtoNQFv3N8jTVUWnp9
- OoKih2oA71GfgAIAWcRBRpZ9ZA=
-X-Received: by 2002:a05:600c:a01:b0:499:7219:122f with SMTP id
- 5b1f17b1804b1-49cf8222d53mr323280465e9.4.1788919751903; 
- Tue, 08 Sep 2026 19:09:11 -0700 (PDT)
-Received: from quark ([2a01:4b00:d309:1c00:7807:3ba6:3446:4db2])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49d1fd5959fsm13203405e9.1.2026.09.08.19.09.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2026 19:09:10 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- kevinyang.wang@amd.com, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [PATCH] drm/amdgpu: don't migrate a dma-buf into VRAM while runtime
- suspended
-Date: Wed,  9 Sep 2026 03:08:54 +0100
-Message-ID: <20260909020854.58462-1-mike@fireburn.co.uk>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011041.outbound.protection.outlook.com [40.107.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E529C10EE52
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 02:42:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SkTb3W5Dsnafc/gTKamy+HFqyasuLoot7i9NraUS41wVknFGfdnRFIEos7itZHVMIEIuy+ty1gcg5zLG0Mp26cKcxGZzwPv8QuDnl0glkVzR1FCw7/+YKw2qcnjdhnwLuW7dIqKpYKwdB1R/16VbI9NZtkS+WHSGAgG8kdUWA8O0NuJQkOzC/B7udMGx5okF8bK4xfuk91qOSCag7bpGR6YoQMaSfayGy69IA1IzqaqeHDMiOL3EPO6TMME0NmerSY4WQVwAl1lwrew77tT8/zXkx+7b2NyN8TCvk6wZ3ThdNhHltFIA8n04ypv7iQUYtYmHxKZ0xdkYmxrijILWpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jMDjWrr3Yzv9/AucVvoNk2PROqYDEeBLIgKZPQE0g5c=;
+ b=K/x9TmrkQp/CMFqKE2ta/tk6YFwbvIa/qlk7iBuOaBraBZFfNihNyhrrGA97ntZXZuOwKT/pAkB6gyNH5merMqa8A6H5JrWESvBpZ8g1fkQgX8KAS5flK3J0QyZjC9KV2lGCLhKtVY+ZdsG9z6oCGiOr7FY+YwHvt+MhOEKdqYMzpw2BukbZEcULZ+CvmTNguZo/coO+3e/jIi+qjr6DliG+qcB524ZDeKOrKEIDjfTYQhHyfDWafaLWZfUz6wjYu/IQXu+3GO/2GxOJwkxYlRMA8LW/DIHHdvZrZevWz5Zn7c5OkGj2/f6yVu1oaLhF7atZhf1B3abxEN5Z3StaYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jMDjWrr3Yzv9/AucVvoNk2PROqYDEeBLIgKZPQE0g5c=;
+ b=jMQAe7hu1az5372mykeM3YkNCW5ZoC4gphZdwgGiGcNx8btcLAJtbgbsjKVD7mN25yqkLi7g2x7bfj1w/IdA4EliaMrc9RIW3Kv1keLRpvRLVHcXXuPSVkUxvVeBCQEL+zgL6oVu23oWbVjSt8xGqppKVlTD3b3amKd6knJssWg=
+Received: from IA4P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:558::8)
+ by DS0PR12MB999287.namprd12.prod.outlook.com (2603:10b6:8:424::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 02:42:06 +0000
+Received: from BN1PEPF00005FFD.namprd05.prod.outlook.com
+ (2603:10b6:208:558:cafe::75) by IA4P220CA0004.outlook.office365.com
+ (2603:10b6:208:558::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 9
+ Sep 2026 02:42:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00005FFD.mail.protection.outlook.com (10.167.243.229) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 02:42:05 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 21:42:04 -0500
+From: Kevin Wang <kevin.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amd/pm: report energy accumulator for smu 14.0.3
+Date: Wed, 9 Sep 2026 10:41:49 +0800
+Message-ID: <20260909024150.590580-1-kevin.wang@amd.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFD:EE_|DS0PR12MB999287:EE_
+X-MS-Office365-Filtering-Correlation-Id: f63bef68-3394-40a8-aa4d-08df0e1befc8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 90icnlXN4k1qDwuccsaU8A7dXH4RE291+6brJqngrOVN5372W6fMV2ZT9pMGoPdZVTpCmoPYO5bSOeLT/VP2GaOXM/HLFQy4snYkqEUHYj5lCSShjXhrnTzJyuuSZqIUcs7AAmxhQvnoiqot5XwdYOb5gcZiShL9eyRyN2QT0mec80mlQx/J8LFpUTARk2sClM2QHpQcizLm1HHJ60yrMPTV48Y/vRy9u3dkd4pSwyo5sZUy2uctrS0estzjFQptFsD2NxllaGSkiegAu3NN/fZE4YN/2MLQlXI8vtjm/S6K0eXB9/18P48jJtodwQbj/xyAYmoOlGk07c00S1ufyqXzAZq5x0xI/5Ujdit2AOvUEVvh0mowEjtJstRPHuJYzZBtOc9ow1FowjbmSZLNhODf2JFFWL5CoZpxOxHrrJxh9AFiuFJRDM35kwMGmN9tIkFbrSX5hpcagOxNsCZ4uBXtKUUCj6xBYWNlnda5G4eRxdocGYlScn5NCRekSa2jB4nYfWb1xxKNIKUiKFdrY/jmRn5PBIVOOqKD0og6nI8A7eMDPq2P/MdiWfsx/SccTevZjfVuUjSVM1KOU72hgwaXf3CpQAJKJ+eu/f4EJF8HwuWYqkNZOjXXNjhXhVCzP12RuNeiDIkv4AZo6TgIbWe8DU2GRVQsiFnuK0P/ePPuYJSxvkpCyz0Tbu+/Qvl1JTI4HRGhN6pjHJr7JEYLOw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: iXzYL7iFfAQk4snsZFAbAlOUvNIbAlVBnd0Y7kP+wv9JWTCf+p2KRYkA9gT6mHRwmcvDewxgM7XIiBQr3L+AMiAMviPl2APdi77hp+ZgDYgyeg3OgiSnMpXvVkeabUUN81QoKaxAKPN9XZ5VCMRO0MFD7+/S4a5i3eSkPuDhWudVcbV3TN+sdMte6bEagpHPQ3Hb5WYTK93ldVhDo13UW4Fv794j6zS4vEzRxvfgCdvFe2yimCQznFX3cZmK7IDLg+JTbjF+4gByRpBBjvMLe6KIelLAavLB2VO9UTVHOjG1rJ2/8vRwhx+V1pysV/sFhVFHQyua/f9ndiAqi8UFCtondZZJy5uOtBaG8dFnhmoxu6zpJdxnXwrC2Zljwo9pA2GccffqrAXxGuIok89uy2b03lUA64gYJKWR+68RN1mARcza/txlfPfKPesr/8fB
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 02:42:05.9280 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f63bef68-3394-40a8-aa4d-08df0e1befc8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999287
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,74 +106,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
-attachment, so ttm_bo_validate() can migrate the buffer from GTT into
-VRAM.  While the exporting device is runtime suspended its SDMA rings
-are down and the move fails:
+add energy accumulator on pmfw 0x00685000 and above version.
 
-  amdgpu: Move buffer fallback to memcpy unavailable
-
-An importer on a second GPU reaches this holding no runtime PM
-reference on the exporter, e.g. a compositor on the APU submitting a
-frame that references a buffer exported by an idle dGPU:
-
-  amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
-    -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
-      -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
-
-Taking a reference here would deadlock: the reservation is held across
-these callbacks and is also taken during resume, which is why
-commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
-when we attach a buffer" v2") removed it.  GTT stays accessible while
-the GPU is powered down, so leaving the buffer there is safe.
-
-Only request VRAM when the device can perform the move.
-
-Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-Assisted-by: Claude:Opus-5 [Claude Code]
+Signed-off-by: Kevin Wang <kevin.wang@amd.com>
 ---
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Is this the failure that commit c52feb436539 ("drm/amdgpu: Disable
-runtime PM for externally attached dGPUs") was working around?  That
-commit explains how to detect external attachment but not what breaks,
-so I can't tell which.
-
-If it is the same thing, could the pci_is_thunderbolt_attached() ||
-dev_is_removable() check there be narrowed or dropped on top of this,
-so eGPU users keep runtime PM?
-
-I can't test that here: this box hits the bug by missing that check.
-The dGPU is on an oculink port off a native AMD root port, so
-pci_is_thunderbolt_attached() is false, dev_is_removable() is empty,
-and runtime PM stays enabled.
-
-Reproduced on a HawkPoint APU [1002:1900] driving the display with a
-Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
-offload.  Without the patch kwin_wayland hits the call chain above
-within a minute of the dGPU autosuspending and the desktop stops
-repainting until it resumes.  With the patch the map stays in GTT
-(ttm_bo_validate() returns 0, mem_type TTM_PL_TT) and the dGPU keeps
-autosuspending.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index b33c300e26e2..d1dae5f3fee5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -191,7 +191,8 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
- 		unsigned int domains = AMDGPU_GEM_DOMAIN_GTT;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index ed5796a985b2..76a606095ae3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -2157,6 +2157,7 @@ static void smu_v14_0_2_init_msg_ctl(struct smu_context *smu)
+ static ssize_t smu_v14_0_2_get_gpu_metrics(struct smu_context *smu,
+ 					   void **table)
+ {
++	uint32_t mp1_ver = amdgpu_ip_version(smu->adev, MP1_HWIP, 0);
+ 	struct gpu_metrics_v1_3 *gpu_metrics =
+ 		(struct gpu_metrics_v1_3 *)smu_driver_table_ptr(
+ 			smu, SMU_DRIVER_TABLE_GPU_METRICS);
+@@ -2186,6 +2187,8 @@ static ssize_t smu_v14_0_2_get_gpu_metrics(struct smu_context *smu,
+ 					       metrics->Vcn1ActivityPercentage);
  
- 		if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
--		    attach->peer2peer) {
-+		    attach->peer2peer &&
-+		    adev->mman.buffer_funcs_enabled) {
- 			bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
- 			domains |= AMDGPU_GEM_DOMAIN_VRAM;
- 		}
+ 	gpu_metrics->average_socket_power = metrics->AverageSocketPower;
++	if (mp1_ver == IP_VERSION(14, 0, 3) && smu->smc_fw_version >= 0x00685000)
++	    gpu_metrics->energy_accumulator = metrics->EnergyAccumulator;
+ 
+ 	if (metrics->AverageGfxActivity <= SMU_14_0_2_BUSY_THRESHOLD)
+ 		gpu_metrics->average_gfxclk_frequency = metrics->AverageGfxclkFrequencyPostDs;
 -- 
 2.55.0
 
