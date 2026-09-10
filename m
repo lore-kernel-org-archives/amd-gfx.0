@@ -4,45 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29313C79FB9
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 14:40:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0F5DC79FB9
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 14:44:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6DEB10F4C6;
-	Thu, 10 Sep 2026 14:40:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DFDE10F492;
+	Thu, 10 Sep 2026 14:44:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="q7lWF8zA";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="tFzJW1cc";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 139C710F4BE
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 14:39:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=tAu0bxcJVMJ2pOpcoiKrGfMgmf5JvBK5OW75n+NtyFQ=; b=q7lWF8zAevwqdWQJBjWzfZlVrQ
- Ztcx5F1ZLL9RZvxeSK6a1KrDCri+6Hzef/moEHxQXWLcNyFtM8k/EMcJEl/fD/4WoDm0fDM84VJUY
- BPTPzVqCgM/Q52nBp4UTD98BpgNy9pU9T/Nolu6ksqN3S6CX8gzPfcM1MWGd41VtrvxH6uAFmIQwt
- mxW1bYHurSNp8x/yDR+9u4vMokTeO5d2BQMkYRH02SiUF6tq60T4t/NIMw3SEiH1iuYINWr9S/XUT
- IKMqFIxoAaq2ZZYYsJ2M638lHMheUx8vjKI4/6YcEAG2nGiYEBiwAV5YOkLEEB1R/gmLQdOLi4v5X
- vxM9l0Iw==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x4fwT-000D32-EV; Thu, 10 Sep 2026 16:39:57 +0200
-Message-ID: <1e90272c-cda9-478c-8542-0524801fba92@igalia.com>
-Date: Thu, 10 Sep 2026 15:39:56 +0100
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDA3D10F492
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 14:44:41 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-69f7fa1c548so12291106a12.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 07:44:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1789051480; x=1789656280; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+Sggb/yob4z5ntQx2PQmAeF0TT1qAbm9yFCDAVBjjQE=;
+ b=tFzJW1ccVvK0+CoxUU8zHNJoz0JihSPVIAUNhauo3YgyBSJClJOFproOjFUtNhyKhQ
+ fC1sHp8+sT0w1whhKIRKh0+tjs7risHqWDoMzSQ0CMZ1dvCQ8MPgJAMlBoNdrJ0XSvP5
+ R/eHeR8NN3yV37pCui76pm3+bw6mLJKiARq3rJy2HzqRbeZLlT/oPo+m+PS53vqw7RyI
+ Ch+zI9OBrsEZAzi76PEZwDmMwfOKw3nWOpodcRJoxJK5ka4PYJJJmhqG0MGbP+mp42ma
+ kKp84ukRhDIuQgCIk6EGnK3FAtxwdmvOR4YGFBM/07ZH+Tg1cvhj9GYSare49oiYUkox
+ RZcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789051480; x=1789656280;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+Sggb/yob4z5ntQx2PQmAeF0TT1qAbm9yFCDAVBjjQE=;
+ b=H4ZBTHNKgQtXIG9sIkfKE5HGaUIhQlm23DxGBCn/Z0To0TlvdAu9qXErBkQ+GpAhjE
+ CYBQRRSOxU29/qdrx8Rpa1Zgbi7AkFhP27GejRqBp1ik8GtLwM7AoCmLDDvDAud625n/
+ Y4Gt7Euj8ls/qwCD9WmAomQRCh4uvU7MU7YGIunX0hYk1e6cQ8JLky5f2QFf8cRqQ49i
+ DbiNg5Z1pYI60jwpn4uzc/gpbj+aIotAm1U5QqnOZAdmPEKZ+kU5i4cbQcy1tunCEgzq
+ lQQUIVl4AvzS6MFMaJf14mLyiYT8Sv0PeAl1cR756nZUTg62pXao14BBucGi/eovF6bM
+ RI+A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxlwbN3m8VpwClcUK6mlHXyzE3qVxHCFDf9YMkJdNLVdSp1cEIvurvbT40bzi5yjp0+IaWNWSOp@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ljBIAC+Jg1IJXsavv6RiX0nS0ZbUzvbk5zG9ia/ZTag22uCdix
+ b56ZQlFlgS2GSGBYJtDNE45/VaT91Or2zxZU/iTRcDZZ7xoguxjNXDXF/pcgwRON3g4=
+X-Gm-Gg: AYBFou0/KwOA/QHh6zkb6dcNKGImZVMtNy65zKdpihj1DVDula7JTjnMyk1TrKstfv8
+ bG/CcpzC9PhuceBRFwySI6b6SeTo556yO988y6cU2u/mNF5jNuyuI2WHM8Aar17MMDhwgWZ7E4H
+ pfDme75jttvsvZNHdnZnH+F9ZqQOubQXLIeW0ko1Ys0nTuNwINF5KqCtlHKioBTtRDA1BbdTqRm
+ a9jqmHoLGstRuQHp4vTtsdnAcIWZSEdbNzmDV9++1Ag/7YXkYNvw/uQA3o5ZNlsNsyBl0DseKax
+ b3zc0t6HcH8vUtSHofvSYWEmhoeHFzvG/vjtMjqbZwnBAsOw9nH0CZ1cwTWX+sC2CcS0aTn7ARA
+ yiVL/nODPq3wIIPUBvQzA38ugpegdRzM2daG3AkFPoSoguyf9xsWMMyyS+h3zfEd30d2kMTqesW
+ WCRleTgrXHSmU0o658HvbpsmFRzPBZXfv7MezrpSLMII46FWz5+IVXfSZQo519ybhq3Vh8Ms00C
+ WCx1hFhmHKTg8AwsLH2cXP6XQ==
+X-Received: by 2002:a05:6402:1ecd:b0:6a9:9522:f893 with SMTP id
+ 4fb4d7f45d1cf-6a99522fac4mr4301917a12.35.1789051479997; 
+ Thu, 10 Sep 2026 07:44:39 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6a7e6bf5072sm8218572a12.28.2026.09.10.07.44.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Sep 2026 07:44:39 -0700 (PDT)
+Message-ID: <02748b13-a1d9-4323-903e-21d0d6922ad4@ursulin.net>
+Date: Thu, 10 Sep 2026 15:44:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] drm/amdgpu: Add amdgpu_sdma_types.h header
+Subject: Re: [PATCH 10/12] drm/amdgpu/sdma: Refactor SDMA v4.0 functions to be
+ per instance
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com
-References: <20260909105215.88242-1-tvrtko.ursulin@igalia.com>
- <20260909105215.88242-3-tvrtko.ursulin@igalia.com>
- <ujSsqFLQQ3WNDjDea3i5HQ@gmail.com>
+ amd-gfx@lists.freedesktop.org, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
+ <maraeo@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ pierre-eric.pelloux-prayer@amd.com, Natalie Vock <nat@pixelcluster.dev>,
+ Lijo Lazar <lijo.lazar@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>
+References: <20260907203316.159103-1-timur.kristof@gmail.com>
+ <20260907203316.159103-11-timur.kristof@gmail.com>
+ <8c9a61ed-5c68-4391-8736-251ac9deef9b@ursulin.net>
+ <hzs0nGCHSt6jpoHrzEB04w@gmail.com>
 Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <ujSsqFLQQ3WNDjDea3i5HQ@gmail.com>
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <hzs0nGCHSt6jpoHrzEB04w@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -60,587 +99,59 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 09/09/2026 19:28, Timur Kristóf wrote:
-> On 2026. szeptember 9., szerda 12:52:11 közép-európai nyári idő Tvrtko Ursulin
+On 08/09/2026 09:14, Timur Kristóf wrote:
+> On 2026. szeptember 8., kedd 9:41:48 közép-európai nyári idő Tvrtko Ursulin
 > wrote:
->> There is an include loop between amdgpu.h and amdgpu_sdma.h which
->> prevents adding any interesting static inline helpers to the latter.
+>> On 07/09/2026 21:33, Timur Kristóf wrote:
+>>> This prepares the code for implementing recovery for SDMA 4.0.
+>>>
+>>> Reorganize the SDMA 4.0 code so that the functions that are
+>>> responsible for managing the SDMA engines take an instance ID
+>>> as an argument.
+>>>
+>>> This makes it possible to manage the SDMA instances
+>>> independently of each other, which will enable us to
+>>> also use these functions to implement resetting and
+>>> recovering them independently.
 >>
->> Break it by moving the type definitions to a new amdgpu_sdma_types.h
->> header.
+>> Radom patch to drop a comment on the whole series. It looks clean and
+>> reasonable to me. Once the pre-requisite series is reviewed I can do a
+>> more detail pass and slap an r-b to it.
 > 
-> Wouldn't it be simpler to add some forward-declatations to amdgpu_sdma.h
-> instead?
+> Thanks! If we agree this is the right approach, I would like to do the same
+> refactor for all the newer SDMA blocks as well for the sake of consistency.
+> 
+> This refactor is necessary because I want to reuse the same functions for
+> implementing per-instance SDMA soft reset (as opposed to duplicating a lot of
+> code which seems to me to be more error-prone).
+> 
+>> One discussion point could be is do we maybe want the prototype for all
+>> to be "struct amdgpu_sdma_instance *" instead of "struct amdgpu_device,
+>> const u32 instance_id"?
+> 
+> I don't want to complicate this with the amdgpu_sdma_instance struct, because
+> these functions only need the instance ID, and only for the purpose of knowing
+> the register offset.
 
-That was the first thing I tried but it doesn't work.
+Fine by me to keep the signatures as you have them.
 
 Regards,
 
 Tvrtko
 
+
+>> Could I also interest you in a related cleanup:
+>>
+>> https://lore.kernel.org/amd-gfx/20260622143649.54632-1-tvrtko.ursulin@igalia
+>> .com/#t
+>>
+>> ?
 > 
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Timur Kristóf <timur.kristof@gmail.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |   1 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |   2 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      | 141 ++--------------
->>   .../gpu/drm/amd/amdgpu/amdgpu_sdma_types.h    | 159 ++++++++++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |   1 +
->>   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c    |   1 +
->>   drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |   1 +
->>   drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |   1 +
->>   drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |   1 +
->>   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |   1 +
->>   drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |   1 +
->>   drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   1 +
->>   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   1 +
->>   drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   1 +
->>   drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |   1 +
->>   drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c        |   1 +
->>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |   2 +
->>   18 files changed, 188 insertions(+), 131 deletions(-)
->>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h index 79b69d74eb2e..5811709b33b7
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> @@ -79,7 +79,7 @@
->>   #include "amdgpu_umsch_mm.h"
->>   #include "amdgpu_gmc.h"
->>   #include "amdgpu_gfx.h"
->> -#include "amdgpu_sdma.h"
->> +#include "amdgpu_sdma_types.h"
->>   #include "amdgpu_lsdma.h"
->>   #include "amdgpu_nbio.h"
->>   #include "amdgpu_reg_access.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c index
->> d80fe17556da..d8786a93a851 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> @@ -36,6 +36,7 @@
->>   #include "amdgpu_rap.h"
->>   #include "amdgpu_securedisplay.h"
->>   #include "amdgpu_fw_attestation.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_umr.h"
->>
->>   #include "amdgpu_reset.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c index 7c0554506334..1bf2a42fa63c
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> @@ -33,6 +33,8 @@
->>   #include "amdgpu_gmc.h"
->>   #include "amdgpu_ras.h"
->>   #include "amdgpu_reset.h"
->> +#include "amdgpu_ring.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_xgmi.h"
->>   #include "amdgpu_atomfirmware.h"
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h index 2f1edef97c2f..526ea305a7de
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
->> @@ -23,141 +23,22 @@
->>
->>   #ifndef __AMDGPU_SDMA_H__
->>   #define __AMDGPU_SDMA_H__
->> -#include "amdgpu_ras.h"
->>
->> -/* max number of IP instances */
->> -#define AMDGPU_MAX_SDMA_INSTANCES		16
->> +#include "amdgpu_sdma_types.h"
->>
->> -enum amdgpu_sdma_irq {
->> -	AMDGPU_SDMA_IRQ_INSTANCE0  = 0,
->> -	AMDGPU_SDMA_IRQ_INSTANCE1,
->> -	AMDGPU_SDMA_IRQ_INSTANCE2,
->> -	AMDGPU_SDMA_IRQ_INSTANCE3,
->> -	AMDGPU_SDMA_IRQ_INSTANCE4,
->> -	AMDGPU_SDMA_IRQ_INSTANCE5,
->> -	AMDGPU_SDMA_IRQ_INSTANCE6,
->> -	AMDGPU_SDMA_IRQ_INSTANCE7,
->> -	AMDGPU_SDMA_IRQ_INSTANCE8,
->> -	AMDGPU_SDMA_IRQ_INSTANCE9,
->> -	AMDGPU_SDMA_IRQ_INSTANCE10,
->> -	AMDGPU_SDMA_IRQ_INSTANCE11,
->> -	AMDGPU_SDMA_IRQ_INSTANCE12,
->> -	AMDGPU_SDMA_IRQ_INSTANCE13,
->> -	AMDGPU_SDMA_IRQ_INSTANCE14,
->> -	AMDGPU_SDMA_IRQ_INSTANCE15,
->> -	AMDGPU_SDMA_IRQ_LAST
->> -};
->> +#include "amdgpu.h"
->> +#include "amdgpu_ring.h"
->> +
->> +#include <linux/types.h>
->> +
->> +struct amdgpu_device;
->> +struct amdgpu_iv_entry;
->> +struct amdgpu_irq_src;
->> +struct amdgpu_ring;
->> +struct ras_common_if;
->>
->>   #define NUM_SDMA(x) hweight32(x)
->>
->> -struct amdgpu_sdma_csa_info {
->> -	u32 size;
->> -	u32 alignment;
->> -};
->> -
->> -struct amdgpu_sdma_funcs {
->> -	int (*stop_kernel_queue)(struct amdgpu_ring *ring);
->> -	int (*start_kernel_queue)(struct amdgpu_ring *ring);
->> -	int (*soft_reset_kernel_queue)(struct amdgpu_device *adev, u32
->> instance_id); -};
->> -
->> -struct amdgpu_sdma_instance {
->> -	/* SDMA firmware */
->> -	const struct firmware	*fw;
->> -	uint32_t		fw_version;
->> -	uint32_t		feature_version;
->> -
->> -	struct amdgpu_ring	ring;
->> -	struct amdgpu_ring	page;
->> -	bool			burst_nop;
->> -	union {
->> -	    uint32_t		aid_id;
->> -	    uint32_t		xcc_id;
->> -	};
->> -
->> -	struct amdgpu_bo	*sdma_fw_obj;
->> -	uint64_t		sdma_fw_gpu_addr;
->> -	uint32_t		*sdma_fw_ptr;
->> -	struct mutex		engine_reset_mutex;
->> -	/* track guilty state of GFX and PAGE queues */
->> -	bool			gfx_guilty;
->> -	bool			page_guilty;
->> -	const struct amdgpu_sdma_funcs   *funcs;
->> -};
->> -
->> -struct amdgpu_sdma_ras {
->> -	struct amdgpu_ras_block_object ras_block;
->> -};
->> -
->> -struct amdgpu_sdma {
->> -	struct amdgpu_sdma_instance instance[AMDGPU_MAX_SDMA_INSTANCES];
->> -	struct amdgpu_irq_src	trap_irq;
->> -	struct amdgpu_irq_src	illegal_inst_irq;
->> -	struct amdgpu_irq_src	fence_irq;
->> -	struct amdgpu_irq_src	ecc_irq;
->> -	struct amdgpu_irq_src	vm_hole_irq;
->> -	struct amdgpu_irq_src	doorbell_invalid_irq;
->> -	struct amdgpu_irq_src	pool_timeout_irq;
->> -	struct amdgpu_irq_src	srbm_write_irq;
->> -	struct amdgpu_irq_src	ctxt_empty_irq;
->> -
->> -	int			num_instances;
->> -	uint32_t 		sdma_mask;
->> -	bool    		sdma_debug;
->> -	union {
->> -	    int			num_inst_per_aid;
->> -	    int			num_inst_per_xcc;
->> -	};
->> -	uint32_t                    srbm_soft_reset;
->> -	bool			has_page_queue;
->> -	struct ras_common_if	*ras_if;
->> -	struct amdgpu_sdma_ras	*ras;
->> -	uint32_t		*ip_dump;
->> -	uint32_t 		supported_reset;
->> -	struct list_head	reset_callback_list;
->> -	bool			no_user_submission;
->> -	bool			disable_uq;
->> -	void (*get_csa_info)(struct amdgpu_device *adev,
->> -			     struct amdgpu_sdma_csa_info *csa_info);
->> -};
->> -
->> -/*
->> - * Provided by hw blocks that can move/clear data.  e.g., gfx or sdma
->> - * But currently, we use sdma to move data.
->> - */
->> -struct amdgpu_buffer_funcs {
->> -	/* maximum bytes in a single operation */
->> -	uint32_t	copy_max_bytes;
->> -
->> -	/* number of dw to reserve per operation */
->> -	unsigned	copy_num_dw;
->> -
->> -	/* used for buffer migration */
->> -	void (*emit_copy_buffer)(struct amdgpu_ib *ib,
->> -				 /* src addr in bytes */
->> -				 uint64_t src_offset,
->> -				 /* dst addr in bytes */
->> -				 uint64_t dst_offset,
->> -				 /* number of byte to transfer */
->> -				 uint32_t byte_count,
->> -				 uint32_t copy_flags);
->> -
->> -	/* maximum bytes in a single operation */
->> -	uint32_t	fill_max_bytes;
->> -
->> -	/* number of dw to reserve per operation */
->> -	unsigned	fill_num_dw;
->> -
->> -	/* used for buffer clearing */
->> -	void (*emit_fill_buffer)(struct amdgpu_ib *ib,
->> -				 /* value to write to memory */
->> -				 uint32_t src_data,
->> -				 /* dst addr in bytes */
->> -				 uint64_t dst_offset,
->> -				 /* number of byte to fill */
->> -				 uint32_t byte_count);
->> -};
->> -
->>   int amdgpu_sdma_ring_init(struct amdgpu_device *adev, struct amdgpu_ring
->> *ring, const char *prefix, unsigned int index);
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h new file mode 100644
->> index 000000000000..d6e7a703c2e0
->> --- /dev/null
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
->> @@ -0,0 +1,159 @@
->> +/*
->> + * Copyright 2018 Advanced Micro Devices, Inc.
->> + *
->> + * Permission is hereby granted, free of charge, to any person obtaining a
->> + * copy of this software and associated documentation files (the
->> "Software"), + * to deal in the Software without restriction, including
->> without limitation + * the rights to use, copy, modify, merge, publish,
->> distribute, sublicense, + * and/or sell copies of the Software, and to
->> permit persons to whom the + * Software is furnished to do so, subject to
->> the following conditions: + *
->> + * The above copyright notice and this permission notice shall be included
->> in + * all copies or substantial portions of the Software.
->> + *
->> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
->> OR + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
->> MERCHANTABILITY, + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
->> IN NO EVENT SHALL + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR
->> ANY CLAIM, DAMAGES OR + * OTHER LIABILITY, WHETHER IN AN ACTION OF
->> CONTRACT, TORT OR OTHERWISE, + * ARISING FROM, OUT OF OR IN CONNECTION WITH
->> THE SOFTWARE OR THE USE OR + * OTHER DEALINGS IN THE SOFTWARE.
->> + *
->> + */
->> +
->> +#ifndef __AMDGPU_SDMA_TYPES_H__
->> +#define __AMDGPU_SDMA_TYPES_H__
->> +#include "amdgpu_ras.h"
->> +
->> +/* max number of IP instances */
->> +#define AMDGPU_MAX_SDMA_INSTANCES		16
->> +
->> +enum amdgpu_sdma_irq {
->> +	AMDGPU_SDMA_IRQ_INSTANCE0  = 0,
->> +	AMDGPU_SDMA_IRQ_INSTANCE1,
->> +	AMDGPU_SDMA_IRQ_INSTANCE2,
->> +	AMDGPU_SDMA_IRQ_INSTANCE3,
->> +	AMDGPU_SDMA_IRQ_INSTANCE4,
->> +	AMDGPU_SDMA_IRQ_INSTANCE5,
->> +	AMDGPU_SDMA_IRQ_INSTANCE6,
->> +	AMDGPU_SDMA_IRQ_INSTANCE7,
->> +	AMDGPU_SDMA_IRQ_INSTANCE8,
->> +	AMDGPU_SDMA_IRQ_INSTANCE9,
->> +	AMDGPU_SDMA_IRQ_INSTANCE10,
->> +	AMDGPU_SDMA_IRQ_INSTANCE11,
->> +	AMDGPU_SDMA_IRQ_INSTANCE12,
->> +	AMDGPU_SDMA_IRQ_INSTANCE13,
->> +	AMDGPU_SDMA_IRQ_INSTANCE14,
->> +	AMDGPU_SDMA_IRQ_INSTANCE15,
->> +	AMDGPU_SDMA_IRQ_LAST
->> +};
->> +
->> +struct amdgpu_sdma_csa_info {
->> +	u32 size;
->> +	u32 alignment;
->> +};
->> +
->> +struct amdgpu_sdma_funcs {
->> +	int (*stop_kernel_queue)(struct amdgpu_ring *ring);
->> +	int (*start_kernel_queue)(struct amdgpu_ring *ring);
->> +	int (*soft_reset_kernel_queue)(struct amdgpu_device *adev, u32
->> instance_id); +};
->> +
->> +struct amdgpu_sdma_instance {
->> +	/* SDMA firmware */
->> +	const struct firmware	*fw;
->> +	uint32_t		fw_version;
->> +	uint32_t		feature_version;
->> +
->> +	struct amdgpu_ring	ring;
->> +	struct amdgpu_ring	page;
->> +	bool			burst_nop;
->> +	union {
->> +	    uint32_t		aid_id;
->> +	    uint32_t		xcc_id;
->> +	};
->> +
->> +	struct amdgpu_bo	*sdma_fw_obj;
->> +	uint64_t		sdma_fw_gpu_addr;
->> +	uint32_t		*sdma_fw_ptr;
->> +	struct mutex		engine_reset_mutex;
->> +	/* track guilty state of GFX and PAGE queues */
->> +	bool			gfx_guilty;
->> +	bool			page_guilty;
->> +	const struct amdgpu_sdma_funcs   *funcs;
->> +};
->> +
->> +struct amdgpu_sdma_ras {
->> +	struct amdgpu_ras_block_object ras_block;
->> +};
->> +
->> +struct amdgpu_sdma {
->> +	struct amdgpu_sdma_instance instance[AMDGPU_MAX_SDMA_INSTANCES];
->> +	struct amdgpu_irq_src	trap_irq;
->> +	struct amdgpu_irq_src	illegal_inst_irq;
->> +	struct amdgpu_irq_src	fence_irq;
->> +	struct amdgpu_irq_src	ecc_irq;
->> +	struct amdgpu_irq_src	vm_hole_irq;
->> +	struct amdgpu_irq_src	doorbell_invalid_irq;
->> +	struct amdgpu_irq_src	pool_timeout_irq;
->> +	struct amdgpu_irq_src	srbm_write_irq;
->> +	struct amdgpu_irq_src	ctxt_empty_irq;
->> +
->> +	int			num_instances;
->> +	uint32_t 		sdma_mask;
->> +	bool    		sdma_debug;
->> +	union {
->> +	    int			num_inst_per_aid;
->> +	    int			num_inst_per_xcc;
->> +	};
->> +	uint32_t                    srbm_soft_reset;
->> +	bool			has_page_queue;
->> +	struct ras_common_if	*ras_if;
->> +	struct amdgpu_sdma_ras	*ras;
->> +	uint32_t		*ip_dump;
->> +	uint32_t 		supported_reset;
->> +	struct list_head	reset_callback_list;
->> +	bool			no_user_submission;
->> +	bool			disable_uq;
->> +	void (*get_csa_info)(struct amdgpu_device *adev,
->> +			     struct amdgpu_sdma_csa_info *csa_info);
->> +};
->> +
->> +/*
->> + * Provided by hw blocks that can move/clear data.  e.g., gfx or sdma
->> + * But currently, we use sdma to move data.
->> + */
->> +struct amdgpu_buffer_funcs {
->> +	/* maximum bytes in a single operation */
->> +	uint32_t	copy_max_bytes;
->> +
->> +	/* number of dw to reserve per operation */
->> +	unsigned	copy_num_dw;
->> +
->> +	/* used for buffer migration */
->> +	void (*emit_copy_buffer)(struct amdgpu_ib *ib,
->> +				 /* src addr in bytes */
->> +				 uint64_t src_offset,
->> +				 /* dst addr in bytes */
->> +				 uint64_t dst_offset,
->> +				 /* number of byte to transfer */
->> +				 uint32_t byte_count,
->> +				 uint32_t copy_flags);
->> +
->> +	/* maximum bytes in a single operation */
->> +	uint32_t	fill_max_bytes;
->> +
->> +	/* number of dw to reserve per operation */
->> +	unsigned	fill_num_dw;
->> +
->> +	/* used for buffer clearing */
->> +	void (*emit_fill_buffer)(struct amdgpu_ib *ib,
->> +				 /* value to write to memory */
->> +				 uint32_t src_data,
->> +				 /* dst addr in bytes */
->> +				 uint64_t dst_offset,
->> +				 /* number of byte to fill */
->> +				 uint32_t byte_count);
->> +};
->> +
->> +#endif
->> \ No newline at end of file
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c index
->> ad8cc95e6cfa..29723ff53503 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> @@ -26,6 +26,7 @@
->>   #include <drm/drm_mm.h>
->>   #include <linux/random.h>
->>   #include "amdgpu.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_ualink.h"
->>   #include "amdgpu_xgmi.h"
->>   #include "amdgpu_dma_buf.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
->> b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c index
->> cddfe4015f53..9a0c12b1a309 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
->> @@ -30,6 +30,7 @@
->>   #include "gfxhub_v1_2.h"
->>   #include "sdma_v4_4_2.h"
->>   #include "amdgpu_ip.h"
->> +#include "amdgpu_sdma.h"
->>
->>   void aqua_vanjaram_doorbell_index_init(struct amdgpu_device *adev)
->>   {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
->> b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c index de2323e23566..45f429ed23e4
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
->> @@ -27,6 +27,7 @@
->>
->>   #include "amdgpu.h"
->>   #include "amdgpu_ucode.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_trace.h"
->>   #include "cikd.h"
->>   #include "cik.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c index fb2047d8e25a..1f9fd8b23ac7
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
->> @@ -28,6 +28,7 @@
->>
->>   #include "amdgpu.h"
->>   #include "amdgpu_ucode.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_trace.h"
->>   #include "vi.h"
->>   #include "vid.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c index 656f66527999..6577306311a3
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->> @@ -28,6 +28,7 @@
->>
->>   #include "amdgpu.h"
->>   #include "amdgpu_ucode.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_trace.h"
->>   #include "vi.h"
->>   #include "vid.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c index e135dfb1c3e2..5ab191806b22
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
->> @@ -28,6 +28,7 @@
->>
->>   #include "amdgpu.h"
->>   #include "amdgpu_ucode.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_trace.h"
->>
->>   #include "sdma0/sdma0_4_2_offset.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c index 2e46e63a6dbf..365085a15a34
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
->> @@ -30,6 +30,7 @@
->>   #include "amdgpu_xcp.h"
->>   #include "amdgpu_ucode.h"
->>   #include "amdgpu_trace.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_reset.h"
->>
->>   #include "sdma/sdma_4_4_2_offset.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c index a0614fa9ffa6..b803d74fc40f
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
->> @@ -28,6 +28,7 @@
->>
->>   #include "amdgpu.h"
->>   #include "amdgpu_ucode.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_trace.h"
->>
->>   #include "gc/gc_10_1_0_offset.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c index 5b3dafc194d7..213fa9ac883f
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
->> @@ -28,6 +28,7 @@
->>
->>   #include "amdgpu.h"
->>   #include "amdgpu_ucode.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_trace.h"
->>
->>   #include "gc/gc_10_3_0_offset.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c index 845e622d3c1a..2f5de866b248
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
->> @@ -28,6 +28,7 @@
->>
->>   #include "amdgpu.h"
->>   #include "amdgpu_ucode.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_trace.h"
->>
->>   #include "gc/gc_11_0_0_offset.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c index ea460a19b89d..d5cad2cede98
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
->> @@ -28,6 +28,7 @@
->>
->>   #include "amdgpu.h"
->>   #include "amdgpu_ucode.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_trace.h"
->>
->>   #include "gc/gc_12_0_0_offset.h"
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c index 1704d406c34a..bf26cc515b9a
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
->> @@ -28,6 +28,7 @@
->>
->>   #include "amdgpu.h"
->>   #include "amdgpu_ucode.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_trace.h"
->>
->>   #include "gc/gc_12_1_0_offset.h"
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c index 6b64b1692235..8b96e1fe741a
->> 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> @@ -24,6 +24,8 @@
->>   #include <linux/dma-direction.h>
->>   #include <linux/dma-mapping.h>
->>   #include <linux/migrate.h>
->> +#include "amdgpu.h"
->> +#include "amdgpu_sdma.h"
->>   #include "amdgpu_sync.h"
->>   #include "amdgpu_object.h"
->>   #include "amdgpu_vm.h"
+> I've taken a quick look, I'd suggest a different approach to it.
+> I will reply on your commits.
 > 
-> 
+> Thanks & best regards,
+> Timur
 > 
 > 
 
