@@ -4,55 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CDF2C88E45
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A449BC79FB9
 	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 10:08:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBDD10F42D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDE3710F42F;
 	Thu, 10 Sep 2026 10:08:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fPo1T9LK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dzUsPxLE";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 367DE10E1B5;
- Wed,  9 Sep 2026 14:09:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 073FC40696;
- Wed,  9 Sep 2026 14:09:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B6161F00A3E;
- Wed,  9 Sep 2026 14:09:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1788962962;
- bh=LPNavIGiOI41vR8QsQ+KszY4MXrZZ+8Q7Z8N00qqej0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=fPo1T9LKDrUtavdzTEJ/WXWlYLu+Rzxj3YPAKribo2PkL7HDUxHHNWpze5CJs78jl
- XBXAMJICKQvlibGdQ/H4mD1/STwtp26ZyEgaiWR0W28hOGGDapdhh/6RkcjgDhdnHz
- V8ghTHI3r5vS3eib9cYaVRceGY0lSEhFQtiOPgXQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Sashiko-bot <sashiko-bot@kernel.org>,
- Friedrich Vock <friedrich.vock@gmx.de>,
- Maarten Lankhorst <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
- Maxime Ripard <mripard@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [PATCH 7.2 472/556] drm/amdgpu: Fix init ordering in
- amdgpu_vram_mgr_init()
-Date: Wed,  9 Sep 2026 15:42:32 +0200
-Message-ID: <20260909134247.153553699@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
-References: <20260909134230.441546314@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02C2F10E0FB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 03:55:38 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-2d9520b9155so55964085ad.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 20:55:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789012538; x=1789617338; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=pPM4fbgv5y4YMJuB77L7DZFml4GSDExAAI3kJwNhoig=;
+ b=dzUsPxLELxGZ8ssL/1vc3hQfwVhgUMsv08aHNIJdUlkYQmPhoObdnh5vV0cbVoVmyI
+ uGK7I7vGI2QrteopcEUxrdmZ78znyg5GrWelR/AkJ7uPCzjE+w0vwbkjIMZwdPCVPgHT
+ vFyx2cB9b4Im/kmhILCKvRr/8cdOCTieuGSQOH6L3ZXUoBtGo5Sdtydi/X5B2dhhg/N0
+ uqz3Q9De+TEeAW3IUZEI33KODLPlrkc75QgCl5Hd2ofqfygDnB1DQiCajQudfYSQeSLj
+ nLS7fPbwh9l71PklCs3NF5WakBg1kHi26hhe4Vl8zWGNx69cgaNlaNbWK6YvRj41pJps
+ yQTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789012538; x=1789617338;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=pPM4fbgv5y4YMJuB77L7DZFml4GSDExAAI3kJwNhoig=;
+ b=YZELpKxMGwgdbSHtwwI9PP0rDQs+arK3D1kEPdAmYqPwE0xpbMAHshR7iHXzKCZMH3
+ p1EemRZYtrTcZOA3Lyk7QvelIcZs5Oyvao1QrvODBKZ+UVi5F/H0vfe/8cqb2sidC1y3
+ QjwCdIgCpeliztr9DEU73MsfqKfC7vQ3zmz3euiDZD1daogxv3918FoHt1KdGV9Ag+kQ
+ ABPVV5K72fzVm46ZWFKeQE0lij98LSUOiFyyS7M+Cvn5D/k1aklEBC5uk1+pCjSdlkff
+ VckPo7juywplzzbbhcrfoi7sZydSWhKkAhvpn8FL+fXf0WRT2ZIbLr8iEapH1hxnzYua
+ BFGg==
+X-Gm-Message-State: AFuF++nyyP7P/gV4oSHm7bCiO2DbmIMi9TuQASzd6gVn+/J71L9d5BBe
+ KSR8hZO0WCb+2vUIVTD/eouXLHUrMwkKnLaUGsY/ttzxsDuIChkO7xY=
+X-Gm-Gg: AYBFou2iVjwaGYCBdwJ9rMCCiU1LF3r7xK0Z1QBs53tgrhDTSunJJaqozK1USTUcceN
+ jFYdDKXMEz+g3e42e0WxbFB2UShTSxAsuAvnKWpmoTYa1ZV3d6u3eIXtEpid7eNZlTirEKGN0zs
+ ro+SEJYqbpoINzSXJLmwQSv2Bv7xSIZCO3IoMTXKO6xL6QkzE81Ba23HeK8Oa9CtlP+fKVO8dao
+ EtmYyyxY/b2yK13vMG9r0F3J13vAn1Y5P1mlyHM97G/3PxX92ftJ+onGh10loPy63rVgK+d4wji
+ PFpRcgoVqPca6b5OoyfYi2HNO2KaA8jsXjnKyF9uHS/WpBANLMouGECNKABZA5utJ7pkG5C5m3r
+ s4ub1uz9j3+Dv5biyjz9kZcguBFeh/4MaestN1t8foKpjtn1JYVDzpqGQVCUdXlks+xBOIux604
+ uy0u9tjgPrg8Iz10VNOPuabOXzy5tyf9xZnl2+NDJeTJ6HHvaBtq1wl+VBxl6/8NTA31+eBZq/m
+ X4bhoSJpXajSo4mv5ycTI7WzA==
+X-Received: by 2002:a17:902:e94f:b0:2dd:60d:8b7c with SMTP id
+ d9443c01a7336-2dd060d8e01mr79963885ad.13.1789012538296; 
+ Wed, 09 Sep 2026 20:55:38 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA
+ ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2db1495b57fsm81545805ad.24.2026.09.09.20.55.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2026 20:55:37 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, donggeunyoo.kernel@gmail.com
+Subject: [PATCH] drm/amdgpu: don't release the fence reference consumed by the
+ scheduler
+Date: Thu, 10 Sep 2026 12:55:31 +0900
+Message-ID: <20260910035531.559908-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 10 Sep 2026 10:08:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,82 +88,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+drm_sched_job_add_dependency() consumes the fence reference in both the
+success and the error case. The kernel-doc has said so since commit
+ebd5f74255b9 ("drm/sched: Add dependency tracking") added the function,
+and sched_main.c does the dma_fence_put() itself when its xa_alloc()
+fails.
 
-------------------
+Three amdgpu callers take an extra reference for the callee and then put
+it again when the callee returns an error, dropping a reference they no
+longer own. The refcount ends up one short of the number of owners, so a
+later put consumes someone else's reference and the fence is freed while
+that owner still points at it.
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+In amdgpu_sync_push_to_job() the fence usually comes from
+amdgpu_sync_resv(), which walks a BO's dma_resv and hands each fence to
+amdgpu_sync_fence(), where the sync entry takes a reference of its own.
+The fence stays installed in that dma_resv, so once the entry's reference
+is gone amdgpu_sync_free() eats the reservation object's instead and the
+fence is freed underneath a dma_resv that still lists it. The
+use-after-free lands in an unrelated thread.
 
-commit e773798e14ac0aea54ca9676083b91f445e5bc59 upstream.
+amdgpu_vm_sdma_update() is cross-thread by construction. It walks with
+dma_resv_for_each_fence_unlocked(), whose cursor holds exactly one
+reference, and the dma_resv_iter_end() on the same error path drops it a
+second time.
 
-drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
-gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
-returns early and bypasses those initializations.
+amdgpu_cs_submit() stays local: the extra put takes the gang member's
+scheduled fence to zero, handing the whole drm_sched_fence to call_rcu()
+while its finished half is still live.
 
-Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
-is called, a failure triggers amdgpu_ttm_fini(), which calls
-amdgpu_vram_mgr_fini(), which then:
+The extra get is correct at all three sites and stays. Only the put on
+the error path is wrong.
 
- - Calls list_for_each_entry_safe() on reservations_pending and
-   reserved_pages, whose list_head::next pointers are zero-initialized
-   (NULL). The loop does not recognize them as empty and dereferences NULL.
+Every other drm_sched_job_add_dependency() caller in the tree - etnaviv,
+imagination, msm, nouveau, panthor, v3d, xe - hands the reference over
+and returns the error untouched, as does
+drm_sched_job_add_resv_dependencies() in the scheduler itself.
 
- - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
-   via for_each_free_tree(). Since mm->free_trees is NULL
-   (never allocated), this dereferences NULL.
+The trigger is xa_alloc() failing during command submission or a VM
+update.
 
-Both result in a kernel panic on the module load error path.
+Measured on a Radeon 780M (GC 11.0.1) with a forced -ENOMEM return from
+drm_sched_job_add_dependency(), printing the fence's reference count in
+amdgpu_sync_push_to_job() on entry, after the failed call, and as the
+error is returned:
 
-Fix by moving drmm_cgroup_register_region() to after the list and buddy
-allocator are fully initialized, so the teardown path is safe to run.
+  unpatched  entry=5 after_call=5 on_return=4
+             entry=6 after_call=6 on_return=5
+  patched    entry=5 after_call=5 on_return=5
+             entry=6 after_call=6 on_return=6
 
-Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
-Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
-Cc: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org # v6.14+
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Reviewed-By: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Link: https://patch.msgid.link/20260725100036.2372-2-thomas.hellstrom@linux.intel.com
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+after_call equals entry in both, which is the callee consuming the
+reference the caller took for it. Unpatched, the dma_fence_put() that
+follows takes it one below where it started, and that reference is the
+sync entry's own; patched, there is no put left to make and the count
+leaves the function as it arrived.
+
+Fixes: 41cc108b2451 ("drm/amdgpu: fix missing dma_fence_put in error path")
+Fixes: ed21f6c3fe42 ("drm/amdgpu: fix another missing fence reference in the CS code")
+Fixes: c1c4a8b21721 ("drm/amdgpu: grab extra fence reference for drm_sched_job_add_dependency")
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |    7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Tested on a Radeon 780M (GC 11.0.1) running 7.3-rc2 with KASAN, lockdep
+and DEBUG_LIST on, driving compute submissions through radeonsi. The
+-ENOMEM was forced by a temporary module parameter on gpu-sched that
+makes drm_sched_job_add_dependency() fail after N calls, consuming the
+fence on the way out exactly as the xa_alloc() failure does; the counts
+above come from a probe printed in amdgpu_sync_push_to_job(), with the
+unpatched and patched drivers run through the same harness. Neither
+produced a KASAN report or a refcount warning: at the point of the extra
+put the fence still had four or five other owners, so it is not freed
+there. Observing the use-after-free itself needs the stolen reference to
+be the last one, which this workload does not arrange.
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_d
- 	struct ttm_resource_manager *man = &mgr->manager;
- 	int err;
+Only the amdgpu_sync_push_to_job() site is reachable from a plain
+compute workload. amdgpu_cs_submit() skips its loop body unless the
+submission is a gang of more than one job, and amdgpu_vm_sdma_update()
+was not reached; both are fixed here on the same reasoning.
+
+No Cc: stable. I believe this qualifies under
+Documentation/process/stable-kernel-rules.rst:19 - it is a use-after-free,
+not the theoretical race condition line 27 excludes - but I have not
+observed the failure itself, so I am leaving the tag off rather than
+claiming more than I measured. No objection if you want to add it.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 4 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c    | 4 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 1 -
+ 3 files changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 03b41f803520..12ec031c0812 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1303,10 +1303,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 		fence = &p->jobs[i]->base.s_fence->scheduled;
+ 		dma_fence_get(fence);
+ 		r = drm_sched_job_add_dependency(&leader->base, fence);
+-		if (r) {
+-			dma_fence_put(fence);
++		if (r)
+ 			return r;
+-		}
+ 	}
  
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
- 	ttm_resource_manager_init(man, &adev->mman.bdev,
- 				  adev->gmc.real_vram_size);
+ 	if (p->gang_size > 1) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+index d6ae9974c952..4f31021b2152 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+@@ -447,10 +447,8 @@ int amdgpu_sync_push_to_job(struct amdgpu_sync *sync, struct amdgpu_job *job)
  
-@@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_d
- 	if (err)
- 		return err;
- 
-+	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
-+	if (IS_ERR(man->cg))
-+		return PTR_ERR(man->cg);
-+
- 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
- 	ttm_resource_manager_set_used(man, true);
+ 		dma_fence_get(f);
+ 		r = drm_sched_job_add_dependency(&job->base, f);
+-		if (r) {
+-			dma_fence_put(f);
++		if (r)
+ 			return r;
+-		}
+ 	}
  	return 0;
-
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 50cc0779c340..c070c4a032eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -234,7 +234,6 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 		dma_fence_get(fence);
+ 		r = drm_sched_job_add_dependency(&p->job->base, fence);
+ 		if (r) {
+-			dma_fence_put(fence);
+ 			dma_resv_iter_end(&cursor);
+ 			return r;
+ 		}
+-- 
+2.53.0
 
