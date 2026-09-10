@@ -4,49 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2844DC88E46
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 10:08:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4360C79FBF
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 10:31:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95AAC10F422;
-	Thu, 10 Sep 2026 10:08:30 +0000 (UTC)
-X-Greylist: delayed 2170 seconds by postgrey-1.36 at gabe;
- Wed, 09 Sep 2026 20:35:38 UTC
-Received: from mta1.migadu.com (out-90.mta1.migadu.com [95.215.58.90])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28C8810EA23
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Sep 2026 20:35:37 +0000 (UTC)
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=3xBxnjBhziVXcwVHkmcYSv0+f/Vew5xWxclwpFprSyQ=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788986135; v=1; x=1789590935;
- b=LisCKIChlR/lkcPjA8waeKhp2Uxton+JZOG5z91apc6cMpXvB28rXMN/fK6OP+oZ4+4+a0/8
- RWlfGNcZJWWGTvOkSttQTMSgLMKcPMNPaqJP7e6IW9hhGs5GzZ0ggpuSQtr/50bfG5xuCafyZy9
- qqhqFV9tysin5iGYBfrDkDj0=
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 2deb3a81c0726452;
- Wed, 09 Sep 2026 19:59:26 +0000
-X-Mizu-Trace-ID: 2deb3a81c0726452
-X-Migadu-Flow: FLOW_OUT
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: amd-gfx@lists.freedesktop.org
-Cc: Matthew Schwartz <matthew.schwartz@linux.dev>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
- Alan Liu <HaoPing.Liu@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Alvin Lee <Alvin.Lee2@amd.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: only allow freesync on a VRR_ENABLED crtc
-Date: Wed,  9 Sep 2026 12:59:05 -0700
-Message-ID: <20260909195906.3584191-1-matthew.schwartz@linux.dev>
-X-Mailer: git-send-email 2.55.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EEAC10E270;
+	Thu, 10 Sep 2026 10:31:46 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OO4tVS2A";
+	dkim-atps=neutral
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011017.outbound.protection.outlook.com [52.101.52.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6709E10E262;
+ Thu, 10 Sep 2026 10:31:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XChIr5U+eoPhbxFSS/jpaQ9gqdC5Dw3VptPWc4sajziPK4184/hgxmDoKGlGFyHhTLFsUz+WWLDHynuzDEKCKMbe3EgXAyA1m33uDA29QvcaR4aVQprelyPNC1mwe2tjJX93ywJXRpCR/yC/hh1NYWUqWb6dshlLl8biC9EisErSZCEqZX0pRNW6wX13SpNXCESMAIgc/3Mos32GBju5VbrNGoxvdfAoSzy0+hh2XADhiCDwJy4dhDKUSd71HcGkTIPD1FTeYrwZyRwE4X+1Wt7/N9xY6K6xSV/28O/U+BNuh9pKVyoRJBaIW42QamuS3OKlV4ZcLhfCYjNsD/sLrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XP6F6Pd4VtpD8GCG1OpEFG3xC7ZwWprvhggx0IE2tuQ=;
+ b=UQ3oQqONyWy23XY/1nC5VwiEi+YRUIEsYn3wQ3VgB3NMF/M37EjZORG5t4ObVxNXNUAJZXr1G7XNBapwtSnUc50RN5AHk7mN62e7RqAaXVA1NKfGbvExGSoKlpUUrbgZQgOh0WaaJxOOnnJidT2CvruQlpP1GfXCFQjbJa1XgPLNWIBGLAH7USUWuIO9BXNx/czx5BuzN9CvPoJsnms+ktFUbBQ9eZr0kdPe934jVqesnkkWoQkFtEsykAYzdOY114OhtJMR9d0Rvq+utCk7gRtGDxfXH8eB4qVUZITgOX0s01CgbduxYACp2OI6cmGVnMJO6fzOIfCaJF8FZOqpRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XP6F6Pd4VtpD8GCG1OpEFG3xC7ZwWprvhggx0IE2tuQ=;
+ b=OO4tVS2ALDdoy2yhtKeoEqf1xxq+atJ5fIKyZQhnO3BSmfEWZMS9WvJsZrVpAuzkkF7C/oPwlHWNpJa3nTmiHtjaeOeT+ivWcCG1FQu0X7xu011G28J51d3RrjAgk1PyvNOE1s2r9+WK+jLRC6BNqAOw+hoYVa0O6sv+kLbdltY=
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
+ by MN0PR12MB6004.namprd12.prod.outlook.com (2603:10b6:208:380::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 10:31:39 +0000
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd%6]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 10:31:38 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: Ed Schofield <ed@aicharmers.com>
+CC: "atharvatiwarilinuxdev@gmail.com" <atharvatiwarilinuxdev@gmail.com>,
+ "062bel313@gmail.com" <062bel313@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
+Thread-Topic: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
+Thread-Index: AQHdQFe5SjwIreibnk67bm4xdPhAZrbHnibQ
+Date: Thu, 10 Sep 2026 10:31:38 +0000
+Message-ID: <MW4PR12MB6803AED9EAA4A98576CC3F428EBF2@MW4PR12MB6803.namprd12.prod.outlook.com>
+References: <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
+ <20260909123443.88228-1-ed@aicharmers.com>
+In-Reply-To: <20260909123443.88228-1-ed@aicharmers.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-10T10:30:36.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|MN0PR12MB6004:EE_
+x-ms-office365-filtering-correlation-id: a4867a0a-f6e8-4f77-76cb-08df0f26b28b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|38070700021|22082099003|18002099003|11063799006|4143699003|56012099006|10067099003;
+x-microsoft-antispam-message-info: NK82oh/dQXWhsPoEeJa+5cG9dl1/w8LDlJJFL0mxym3FiCTlDNCFldZrR29JD3UeE2eTxhfMv/KNwwO0u0jnfw10tl06sm8ppQ3OXHegrCD1B05r2frzu6YwnJ1e58vGSz5gaeHSpbJjkLHp5qo0ls4gkUHPt1PwjcNviiPLZo6NK6yxJHxPNcq8EyYYwE1FXA+sXATMnrk5AtPGAUeJNtPF859J8V6rOYKCP38JoyiPOJTBrs1jBPaUH+Pjsa+IT8MAdt7PMmGbf7rz1Q/pvLnoQ/DiXnyKf6y7J9/9BkP0lLnk9JKSadc0hnLA/NkjO8UWXRhukBec8kuV4p7gWf8NueqHMqFFWdTmpVoFYPWaI4mjVlIjmx0yCkUqb7jscI2sHmqUbTXcXk6Irh3w0g+OsltI0W3KaeyXubEeRlsTUiXzsxtfe9V2Yn2dMk70mSO4EimqSk99NoFjBblR1+UruD0YVWAGZw6MuSvE+xopuPjzlqxp7VPXEKjBqbWLKPQhJFsVgsPSr3HsyImwOOyytnJRLGo9J5HORMM/nk5U2YRME3E8+z84Ih1fxoqKtv9X8colMos8TeyIy/j2GUu0Sh05iSsEy4aj9dGvgTPzj5eY+t3iJ8PDclzur3/m7vPs0h5skw0rcjoEFKNL4YPA2iEEZmq6WBHSZB0igKM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(10067099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Vncv4bIgfk1UdWV/W5n6KBRimrbOW1pSG+0C6p5D0lbzSt0FNqp17NYzDKGT?=
+ =?us-ascii?Q?yy3e1us9JrQqcAZUtmjIGw7lrPkbdTLJVJ5IXTZp6jBzC2PpgIu+lYZUxb+E?=
+ =?us-ascii?Q?xwcuxQe6V6UGi5Au0Qpaz8CjKvSFRL4jhwqooZfk2LyWb8WCg252GVNRlSN3?=
+ =?us-ascii?Q?j+v537WLhgwcG/8x4MAlWSIX5KCVqykMr/ySQkIHJckoxuZEFKrpktEqrcXv?=
+ =?us-ascii?Q?8TghRF3dvTAenUZXgVFdj7PHpdB5H9r/B1tkY86DZuphhASaPb5Gw55IXL2K?=
+ =?us-ascii?Q?/34DKCMJtScaz3xQk5IhZ2WR01pKcWnZ/9axyysyd9X2uhQRLQ1+6PLBoBhj?=
+ =?us-ascii?Q?RTjdt1MrXF831numhKMvUNXlFJis56ohIygYDv9whTN3L8WnDTp3n2yjWeWo?=
+ =?us-ascii?Q?mo3Wi08TedTJBQmECs3cuiweUFIKaBp2fSrReReqiQZ4zsmeJ5lutdaxMCbJ?=
+ =?us-ascii?Q?evBuD51OkLSEhRtWra43Lu3MAQQJl7lO2yTu2zE9VmaB83IXuwqvCoZxc3XU?=
+ =?us-ascii?Q?0K+/WAPF1ql7ugQynqIkX0XJeRqmieTKxmciDBDSJjYs9+a+eBttf49iHfh9?=
+ =?us-ascii?Q?gtzw0HM5ZPADG7LjU9iHBWJK/o+GTfNGYGXTnSqut2vucqlVGfpjaTMqBNfE?=
+ =?us-ascii?Q?S7HZmQy1h73NCd0gjwZeoJLUVA09IWneal0XvRYWkySrHXtvmYztVqEE9BBe?=
+ =?us-ascii?Q?82BTW1vRF2N8ZuxJOUslEP3qEEiUi3jNSgkrARC0Z2szvGY9LRga19EL5DPc?=
+ =?us-ascii?Q?Y/jljhq6jXSsnMlZ5Q5joyb3eigrq4leXMNIu1mUPbSesdbG0Tp/AND7An6s?=
+ =?us-ascii?Q?I3Bx5lIhQbEvsLBh6ERNS7LqQRyTlbniJuKIZEdHJdLymj8TSLoYaOMW7Oyn?=
+ =?us-ascii?Q?kV5NsyhXQUZAnOFCRzjkF8EM4Z29Fdb1eGSerMFfGb8Or+Yap33e0cLZuXp2?=
+ =?us-ascii?Q?bnu9g959BPveF0AGYabbxAWre6ZlAa7hRdyeKIrMg5im6OlKLmoCUuvBah0H?=
+ =?us-ascii?Q?MEPn7PfuTXlEw1k3nSbxcrNDNd35t+2Rg9TqQg6Ecl8DE/0ueMSJEDqqyXnC?=
+ =?us-ascii?Q?u2B61AquIz9i7yal1U4Ns9EBsdJviUGyjsSj8cJFH8py0MADHjWxEcLrI1e9?=
+ =?us-ascii?Q?EjWjuUn+zKMXBZLLLZQzJI/RHEDxuko10PDmXcQGM0g03qGPW7/OpUpg1e/T?=
+ =?us-ascii?Q?zFFG56c0F4Dxl+qNY4zS2nCt0pxZ9KUWsQmij39nqg6rBYwKa1bt4D4B3s5W?=
+ =?us-ascii?Q?Zgk/HzpmuapLaQeW/K0HGqLTMlBmml9Xu14pSN+WdM3J6jx5+aGQkmqiOMnI?=
+ =?us-ascii?Q?lLrg9xx43zpM3j4oKymfEqkIUflUnJOrzkT9dAqIg1qP67klGp6aNlb380Yz?=
+ =?us-ascii?Q?mCPGOpamSKZmnFHmUjXI7+9KW0qf0DzcSotxvgjx/YFscZhb+LHmOnee2OIt?=
+ =?us-ascii?Q?w2nijrLCjK+h4/cResfl4AkFYJV3avRiVK/6P4dsrz769qNx5x0ytoOslq/N?=
+ =?us-ascii?Q?r65xD6WHk3r5615uI46xITD6tOecEkfx7XimOQYeRnsAg7haYJYAQbYId9Bf?=
+ =?us-ascii?Q?Mib2l4piu7EwkNtO3QlnNgAuOKJ6UinMr7uBtnEjQ50fPkQtgcL4JYVzqLvN?=
+ =?us-ascii?Q?w5Usavyz4yKIktNUwWAb9OuLCtyEuMTVwBI2BVlfbLmcAI93oZpQ3sI9qxBU?=
+ =?us-ascii?Q?M0MHhufzsnYGAtcG3Th47AJRG6Wpqzi71LCeGgUpYHcROqBH?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 10 Sep 2026 10:08:30 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4867a0a-f6e8-4f77-76cb-08df0f26b28b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2026 10:31:38.7796 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ixHdxV8qo8nq42nGVLPIn+vcy9RiB3UHuBfNfwCtPoWy3uFIBwaV13KB9IgdiNyx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6004
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,311 +137,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VRR-capable sinks set allow_freesync even with VRR_ENABLED=0, letting
-FPO stretch frames during UCLK switches. On a Navi 33 driving 4K120
-through a DP-HDMI PCON, a 40fps compositor limiter then runs at 37fps.
-This surfaced after commit d49086491bcb ("drm/amd/display: Adjust
-freesync pcon whitelist").
+AMD General
 
-Allow frame stretching only for VRR_STATE_ACTIVE_VARIABLE. Store the
-proposed permission in the private DC state so TEST_ONLY and failed
-checks cannot change the shared stream. Apply changed permissions at
-commit and force full DC validation, including native DP and eDP.
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 
-Fixes: 7eaef1163b82 ("drm/amd/display: set allow_freesync parameter in DM")
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+-----Original Message-----
+From: Ed Schofield <ed@aicharmers.com>
+Sent: Wednesday, September 9, 2026 8:35 PM
+To: Feng, Kenneth <Kenneth.Feng@amd.com>
+Cc: atharvatiwarilinuxdev@gmail.com; 062bel313@gmail.com; amd-gfx@lists.fre=
+edesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Chris=
+tian <Christian.Koenig@amd.com>; airlied@gmail.com; simona@ffwll.ch; dri-de=
+vel@lists.freedesktop.org; linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
+
+Apple Navi 14 boards 1002:7340/106b:0218 (revision 0x41) and
+1002:7340/106b:0219 can time out when EnableAllSmuFeatures includes UCLK DP=
+M, leaving amdgpu without a DRM device.
+
+Exclude only UCLK DPM from the initial allowed features and enable it separ=
+ately in the Navi post-init callback. On 0218, enabling UCLK just after Ena=
+bleAllSmuFeatures or at the start of default DPM table setup still timed ou=
+t. The earlier 0218-only patch passed ten warm boots with UCLK enabled in p=
+ost-init. The earliest safe point remains unknown.
+
+Check the enabled firmware bit, update the supported-feature bit and rebuil=
+d the memory DPM table and sustainable clock limits before the UMC workarou=
+nd and UMD clock setup. Validate the PPT memory states that
+DCN20 consumes before post-init. Preserve both memory-voltage features and =
+honor PP_MCLK_DPM_MASK.
+
+Combine Atharva Tiwari's delayed-UCLK proposal for 0219 with the Navi post-=
+init implementation for 0218. Retain the revision restriction for
+0218 and the revision-independent 0219 match from Atharva's proposal.
+
+The combined patch passed ten warm boots on 0218, with rendering and
+H.264 video decoding checks on every boot. Testing on 0219 is still pending=
+.
+
+Link: https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg149770.=
+html
+Link: https://github.com/t2linux/kernel/issues/19#issuecomment-5537823876
+Assisted-by: Codex:GPT-6
+Signed-off-by: Ed Schofield <ed@aicharmers.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 ++++++++++++++++
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  1 -
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 +++
- .../gpu/drm/amd/display/dc/core/dc_state.c    | 31 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc_state.h     |  6 ++++
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |  3 ++
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  9 ++++--
- .../dml21_wrapper/dml21_translation_helper.c  |  9 ++++--
- .../dc/resource/dcn30/dcn30_resource.c        |  2 +-
- .../resource/dcn32/dcn32_resource_helpers.c   | 10 ++++--
- 10 files changed, 92 insertions(+), 9 deletions(-)
+Changes since the 0218-only RFC:
+- Add the 0219 board match from Atharva's proposal, without a revision
+  restriction. Keep the 0218 match limited to revision 0x41.
+- Keep the Navi post-init implementation and clock-state updates from
+  the RFC. Atharva's proposal enabled UCLK at the end of smu_late_init().
+- Record the failed tests at the start of default DPM table setup and
+  ten successful warm boots of the combined patch on 0218.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f49cc198fb0d..09c088b878bb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3835,6 +3835,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 	unsigned long flags;
- 	u32 target_vblank, last_flip_vblank;
- 	bool vrr_active = amdgpu_dm_crtc_vrr_active(acrtc_state);
-+	bool allow_freesync = acrtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
- 	bool cursor_update = false;
- 	bool pflip_present = false;
- 	bool immediate_flip = false;
-@@ -4146,6 +4147,9 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
- 		}
- 		mutex_lock(&dm->dc_lock);
-+		if (acrtc_state->update_type == UPDATE_TYPE_FULL &&
-+		    allow_freesync != acrtc_state->stream->allow_freesync)
-+			bundle->stream_update.allow_freesync = &allow_freesync;
- 		update_planes_and_stream_adapter(dm->dc,
- 					 acrtc_state->update_type,
- 					 planes_count,
-@@ -5413,6 +5417,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 	struct dc_stream_state *new_stream;
- 	struct amdgpu_device *adev = dm->adev;
- 	int ret = 0;
-+	bool allow_freesync, old_allow_freesync;
- 
- 	/*
- 	 * TODO Move this code into dm_crtc_atomic_check once we get rid of dc_validation_set
-@@ -5668,6 +5673,27 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 	amdgpu_dm_get_freesync_config_for_crtc(dm_new_crtc_state,
- 				     dm_new_conn_state);
- 
-+	allow_freesync = dm_new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
-+	old_allow_freesync = dm_old_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 82 +++++++++++++++++++
+ 1 file changed, 82 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/=
+drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index f8ca5eb9a..d7cc41a5d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -60,6 +60,19 @@
+
+ static int navi10_init_ppt_limits(struct smu_context *smu);
+
++static bool navi14_needs_late_uclk(struct amdgpu_device *adev) {
++       struct pci_dev *pdev =3D adev->pdev;
 +
-+	/* Keep the proposed FreeSync permission in the private DC state. */
-+	if (dm_new_crtc_state->stream != dm_old_crtc_state->stream ||
-+	    old_allow_freesync != allow_freesync) {
-+		ret = dm_atomic_get_state(state, &dm_state);
-+		if (ret)
-+			goto fail;
++       return pdev->vendor =3D=3D PCI_VENDOR_ID_ATI &&
++               pdev->device =3D=3D 0x7340 &&
++               pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
++               ((pdev->subsystem_device =3D=3D 0x0218 &&
++                 pdev->revision =3D=3D 0x41) ||
++                pdev->subsystem_device =3D=3D 0x0219) &&
++               (adev->pm.pp_feature & PP_MCLK_DPM_MASK); }
 +
-+		if (!dc_state_set_stream_allow_freesync(dm_state->context,
-+							dm_new_crtc_state->stream,
-+							allow_freesync)) {
-+			ret = -EINVAL;
-+			goto fail;
-+		}
+ static const struct smu_feature_bits navi10_dpm_features =3D {
+        .bits =3D {
+                SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
+@@ -356,6 +369,11 @@ navi10_init_allowed_features(struct smu_context *smu)
+                smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEA=
+TURE_MEM_MVDD_SCALING_BIT);
+        }
+
++       /* These boards time out if EnableAllSmuFeatures includes UCLK DPM.=
+ */
++       if (navi14_needs_late_uclk(adev))
++               smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
++                                          FEATURE_DPM_UCLK_BIT);
 +
-+		/* DML must re-evaluate FPO when the permission changes. */
-+		*lock_and_validation_needed = true;
-+	}
-+
- 	return ret;
- 
- fail:
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 281c6cec9f4b..9f40064d13c5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -253,7 +253,6 @@ void amdgpu_dm_update_freesync_state_on_stream(
- 	new_crtc_state->vrr_infopacket = vrr_infopacket;
- 
- 	new_stream->vrr_infopacket = vrr_infopacket;
--	new_stream->allow_freesync = mod_freesync_get_freesync_enabled(&vrr_params);
- 
- 	/*
- 	 * HDMI ALLM: when Gaming-VRR is active (VRR_EN=1) and the sink
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index ebbd81995c38..6064cc992d91 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3175,6 +3175,10 @@ static struct dc_update_descriptor check_update_surfaces_for_stream(
- 		if (stream_update->mst_bw_update)
- 			su_flags->bits.mst_bw = 1;
- 
-+		if (stream_update->allow_freesync &&
-+		    *stream_update->allow_freesync != stream_update->stream->allow_freesync)
-+			su_flags->bits.fams_changed = 1;
-+
- 		if (stream_update->stream->freesync_on_desktop &&
- 			(stream_update->vrr_infopacket || stream_update->allow_freesync ||
- 				stream_update->vrr_active_variable || stream_update->vrr_active_fixed))
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-index 1e4fe2f941ca..382858b6c1da 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-@@ -425,6 +425,7 @@ enum dc_status dc_state_add_stream(
- 	}
- 
- 	state->streams[state->stream_count] = stream;
-+	state->stream_status[state->stream_count].allow_freesync_valid = false;
- 	dc_stream_retain(stream);
- 	state->stream_count++;
- 
-@@ -746,6 +747,36 @@ struct dc_stream_status *dc_state_get_stream_status(
- 	return status.stream_count > 0 ? status.stream_status[0] : NULL;
+        if (is_asic_secure(smu) &&
+            (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0, =
+0)) &&
+            (adev->rev_id =3D=3D 0))
+@@ -470,6 +488,25 @@ static int navi10_store_powerplay_table(struct smu_con=
+text *smu)
+        return 0;
  }
- 
-+bool dc_state_get_stream_allow_freesync(const struct dc_state *state,
-+					const struct dc_stream_state *stream)
-+{
-+	unsigned int i;
+
++/* DCN20 consumes these PPT states before the post-init UCLK enable. */
++static int navi14_imac_check_uclk_states(struct smu_context *smu) {
++       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
++       unsigned int count, i;
 +
-+	for (i = 0; i < state->stream_count; i++) {
-+		if (state->streams[i] == stream &&
-+		    state->stream_status[i].allow_freesync_valid)
-+			return state->stream_status[i].allow_freesync;
-+	}
++       if (!navi14_needs_late_uclk(smu->adev))
++               return 0;
 +
-+	return stream->allow_freesync;
++       count =3D ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
++       if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
++               return -EINVAL;
++       for (i =3D 0; i < count; i++) {
++               if (!ppt->FreqTableUclk[i])
++                       return -EINVAL;
++       }
++       return 0;
 +}
 +
-+bool dc_state_set_stream_allow_freesync(struct dc_state *state,
-+					const struct dc_stream_state *stream, bool allow_freesync)
-+{
-+	unsigned int i;
+ static int navi10_setup_pptable(struct smu_context *smu)  {
+        int ret =3D 0;
+@@ -490,6 +527,10 @@ static int navi10_setup_pptable(struct smu_context *sm=
+u)
+        if (ret)
+                return ret;
+
++       ret =3D navi14_imac_check_uclk_states(smu);
++       if (ret)
++               return ret;
 +
-+	for (i = 0; i < state->stream_count; i++) {
-+		if (state->streams[i] == stream) {
-+			state->stream_status[i].allow_freesync = allow_freesync;
-+			state->stream_status[i].allow_freesync_valid = true;
-+			return true;
-+		}
-+	}
+        return navi10_init_ppt_limits(smu);
+ }
+
+@@ -3219,6 +3260,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu_c=
+ontext *smu)
+                                               NULL);
+ }
+
++/* Rebuild memory clocks before the UMC workaround and UMD clock setup.
++*/ static int navi14_imac_late_uclk_enable(struct smu_context *smu) {
++       struct smu_11_0_dpm_context *dpm =3D smu->smu_dpm.dpm_context;
++       struct smu_dpm_table *table =3D &dpm->dpm_tables.uclk_table;
++       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
++       struct smu_feature_bits enabled;
++       int ret;
 +
-+	return false;
++       if (!navi14_needs_late_uclk(smu->adev))
++               return 0;
++
++       ret =3D smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT, =
+true);
++       if (ret)
++               return ret;
++       ret =3D smu_cmn_get_enabled_mask(smu, &enabled);
++       if (ret)
++               return ret;
++       if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
++               return -EIO;
++
++       smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
++                                FEATURE_DPM_UCLK_BIT);
++       table->clk_type =3D SMU_UCLK;
++       ret =3D smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
++       if (ret)
++               return ret;
++       if (!table->count)
++               return -EINVAL;
++       if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
++               table->flags |=3D SMU_DPM_TABLE_FINE_GRAINED;
++
++       return smu_v11_0_init_max_sustainable_clocks(smu);
 +}
 +
- enum mall_stream_type dc_state_get_pipe_subvp_type(const struct dc_state *state,
- 		const struct pipe_ctx *pipe_ctx)
- {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_state.h b/drivers/gpu/drm/amd/display/dc/dc_state.h
-index acf461225e9d..40ad063cec09 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_state.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_state.h
-@@ -81,4 +81,10 @@ struct dc_get_status_options;
- enum dc_status dc_state_get_status(struct dc_state_status *status,
- 	const struct dc_get_status_options *options);
- 
-+bool dc_state_get_stream_allow_freesync(const struct dc_state *state,
-+					const struct dc_stream_state *stream);
+ static int navi10_post_smu_init(struct smu_context *smu)  {
+        struct amdgpu_device *adev =3D smu->adev; @@ -3227,6 +3303,12 @@ st=
+atic int navi10_post_smu_init(struct smu_context *smu)
+        if (amdgpu_sriov_vf(adev))
+                return 0;
+
++       ret =3D navi14_imac_late_uclk_enable(smu);
++       if (ret) {
++               dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n", =
+ret);
++               return ret;
++       }
 +
-+bool dc_state_set_stream_allow_freesync(struct dc_state *state,
-+					const struct dc_stream_state *stream, bool allow_freesync);
-+
- #endif /* _DC_STATE_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-index 934ae381e730..14d8da9f15e5 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-@@ -62,6 +62,9 @@ struct dc_stream_status {
- 	bool is_abm_supported;
- 	struct mall_stream_config mall_stream_config;
- 	bool fpo_in_use;
-+	/* Proposed permission for validation, without modifying the stream. */
-+	bool allow_freesync;
-+	bool allow_freesync_valid;
- };
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index b5bd1358fdfd..a816e47153ad 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -844,7 +844,9 @@ static bool subvp_drr_schedulable(struct dc *dc, struct dc_state *context)
- 			continue;
- 
- 		if (dc_state_get_pipe_subvp_type(context, drr_pipe) == SUBVP_NONE && drr_pipe->stream->ignore_msa_timing_param &&
--				(drr_pipe->stream->allow_freesync || drr_pipe->stream->vrr_active_variable || drr_pipe->stream->vrr_active_fixed)) {
-+				(dc_state_get_stream_allow_freesync(context, drr_pipe->stream) ||
-+				 drr_pipe->stream->vrr_active_variable ||
-+				 drr_pipe->stream->vrr_active_fixed)) {
- 			drr_found = true;
- 			break;
- 		}
-@@ -3444,7 +3446,10 @@ bool dcn32_allow_subvp_high_refresh_rate(struct dc *dc, struct dc_state *context
- 				uint32_t height = subvp_high_refresh_list.res[i].height;
- 
- 				if (dcn32_check_native_scaling_for_res(pipe, width, height)) {
--					if ((context->stream_count == 1 && !pipe->stream->allow_freesync) || context->stream_count > 1) {
-+					if ((context->stream_count == 1 &&
-+					     !dc_state_get_stream_allow_freesync(context,
-+										 pipe->stream)) ||
-+					    context->stream_count > 1) {
- 						allow = true;
- 						break;
- 					}
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
-index 3c25de54d55b..031f90955b95 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
-@@ -125,6 +125,7 @@ static unsigned int calc_vblank_nom_lines(const struct dc_stream_state *stream,
- }
- 
- static void populate_dml21_timing_config_from_stream_state(struct dml2_timing_cfg *timing,
-+		const struct dc_state *context,
- 		struct dc_stream_state *stream,
- 		struct pipe_ctx *otg_master_pipe,
- 		struct dml2_context *dml_ctx)
-@@ -166,7 +167,7 @@ static void populate_dml21_timing_config_from_stream_state(struct dml2_timing_cf
- 	timing->drr_config.enabled = stream->ignore_msa_timing_param;
- 	timing->drr_config.drr_active_variable = stream->vrr_active_variable;
- 	timing->drr_config.drr_active_fixed = stream->vrr_active_fixed;
--	timing->drr_config.disallowed = !stream->allow_freesync;
-+	timing->drr_config.disallowed = !dc_state_get_stream_allow_freesync(context, stream);
- 
- 	/* limit min refresh rate to DC cap */
- 	min_hardware_refresh_in_uhz = stream->timing.min_refresh_in_uhz;
-@@ -923,6 +924,7 @@ bool dml21_map_dc_state_into_dml_display_cfg(const struct dc *in_dc, struct dc_s
- 	struct dml2_display_cfg *dml_dispcfg = &dml_ctx->v21.display_config;
- 	unsigned int plane_count = 0;
- 	struct pipe_ctx *otg_master_pipe;
-+	struct dml2_timing_cfg *timing;
- 
- 	memset(&dml_ctx->v21.dml_to_dc_pipe_mapping, 0, sizeof(struct dml2_dml_to_dc_pipe_mapping));
- 
-@@ -952,7 +954,10 @@ bool dml21_map_dc_state_into_dml_display_cfg(const struct dc *in_dc, struct dc_s
- 
- 		ASSERT(disp_cfg_stream_location >= 0 && disp_cfg_stream_location < __DML2_WRAPPER_MAX_STREAMS_PLANES__);
- 
--		populate_dml21_timing_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].timing, context->streams[stream_index], otg_master_pipe, dml_ctx);
-+		timing = &dml_dispcfg->stream_descriptors[disp_cfg_stream_location].timing;
-+		populate_dml21_timing_config_from_stream_state(timing, context,
-+							       context->streams[stream_index],
-+							       otg_master_pipe, dml_ctx);
- 		populate_dml21_output_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].output, context->streams[stream_index], otg_master_pipe);
- 		populate_dml21_writeback_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].writeback, context->streams[stream_index]);
- 		populate_dml21_stream_overrides_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location], context->streams[stream_index], &context->stream_status[stream_index]);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-index dbb8bb7fc20d..5333c4cc9eba 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-@@ -2152,7 +2152,7 @@ bool dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch(struct dc *dc,
- 	if (!is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(context))
- 		return false;
- 
--	if (!context->streams[0]->allow_freesync)
-+	if (!dc_state_get_stream_allow_freesync(context, context->streams[0]))
- 		return false;
- 
- 	if (context->streams[0]->vrr_active_variable && (dc->debug.disable_fams_gaming == INGAME_FAMS_DISABLE))
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
-index 602a0e4e5dc0..a86d3111703f 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
-@@ -579,7 +579,7 @@ struct dc_stream_state *dcn32_can_support_mclk_switch_using_fw_based_vblank_stre
- 	if (!is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(fpo_candidate_stream, fpo_vactive_margin_us, refresh_rate))
- 		return NULL;
- 
--	if (!fpo_candidate_stream->allow_freesync)
-+	if (!dc_state_get_stream_allow_freesync(context, fpo_candidate_stream))
- 		return NULL;
- 
- 	if (fpo_candidate_stream->vrr_active_variable &&
-@@ -673,7 +673,9 @@ bool dcn32_subvp_drr_admissable(struct dc *dc, struct dc_state *context)
- 				non_subvp_pipes++;
- 				drr_psr_capable = (drr_psr_capable || dcn32_is_psr_capable(pipe));
- 				if (pipe->stream->ignore_msa_timing_param &&
--						(pipe->stream->allow_freesync || pipe->stream->vrr_active_variable || pipe->stream->vrr_active_fixed)) {
-+				    (dc_state_get_stream_allow_freesync(context, pipe->stream) ||
-+				     pipe->stream->vrr_active_variable ||
-+				     pipe->stream->vrr_active_fixed)) {
- 					drr_pipe_found = true;
- 				}
- 			}
-@@ -734,7 +736,9 @@ bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context, int
- 				non_subvp_pipes++;
- 				vblank_psr_capable = (vblank_psr_capable || dcn32_is_psr_capable(pipe));
- 				if (pipe->stream->ignore_msa_timing_param &&
--						(pipe->stream->allow_freesync || pipe->stream->vrr_active_variable || pipe->stream->vrr_active_fixed)) {
-+				    (dc_state_get_stream_allow_freesync(context, pipe->stream) ||
-+				     pipe->stream->vrr_active_variable ||
-+				     pipe->stream->vrr_active_fixed)) {
- 					drr_pipe_found = true;
- 				}
- 			}
--- 
+        ret =3D navi10_run_umc_cdr_workaround(smu);
+        if (ret)
+                dev_err(adev->dev, "Failed to apply umc cdr workaround!\n")=
+;
+
+base-commit: c22f9a61e288580824edbbc3ae5a29c9a338594f
+--
 2.55.0
-
