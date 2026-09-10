@@ -4,97 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5448C79FB7
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 00:15:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82FB8C79FB7
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 00:47:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9DBA10E199;
-	Thu, 10 Sep 2026 00:15:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D57DB10E223;
+	Thu, 10 Sep 2026 00:47:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="UIGJCp+I";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4hevG41P";
 	dkim-atps=neutral
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com
- [74.125.224.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B2F210E199
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 00:15:52 +0000 (UTC)
-Received: by mail-yx1-f45.google.com with SMTP id
- 956f58d0204a3-66fa10f35caso6544165d50.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 17:15:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788999351; cv=none;
- d=google.com; s=arc-20260327;
- b=krLJsbNCKyqVJKKUi5i5mB3cxgAMH1st1oLydb7vkpsyi+2IMbAu3VWAexWjyJ6hsm
- SLNIN8c96WdUVFRENdhtgZ7RYa5hHeYtVcVKqSAmte2jpYgK0MmY4D1qMY8sEOckEf4I
- kMHEcd5QsAReZJnRsgbESubU/aMzrttJqgnUMZJQiQWMeZxyhOk61SvtBl86sQuAQZzc
- DFL00lqXdx5+uMCE71ZANL4iIN61qVJvb68s1hmPwWK26txeMpXYvGSandq0GcJbIgyN
- i9j+3vvNImjgZC1cm/9BN8VEaAFErGg7MpD6CjMqEvyz6QwWwTM8VnraB2nwLvFEpHTo
- bRcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=FvfvgvsvTpdSimDtmvjd17d26cDmGGfX/zCh5Oy0Suw=;
- fh=GmKzObqgxpK10HewtF25g8DTjZfLFEip/qrGhWZrbAg=;
- b=YQsMqA1kBzoev5grUleekOkSrzk52sTjg1O4ngs9IsR5Kg7P90aK/Z3QiOc7yZ3ZYb
- 29J9CcD/jrN3z/lq5XjwoKDl80n8YPu34aUH3LC177d7h17TXjP0fBIuePFNIS0KXeBq
- H3Cshv3TiTKCfmvZiQOG11bK+2PlL9jVtKMj+OIMqyRWUI1nBNxJf0zPAOrb/V+0ZVa7
- 93an1vQpelEM8lxQySkp14HjAi9cyhJ5UgL9qdfYtXHQ8ol40qeeOdkMAfR/JE4Z1UI3
- 9Y0heQ7ae/gmukz2TCuaB/TvwlNxZXm7aq2er/Dm3+RnUTKYNDduw9NHp3/Sf1cDM/RY
- e4Hg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788999351; x=1789604151;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=FvfvgvsvTpdSimDtmvjd17d26cDmGGfX/zCh5Oy0Suw=;
- b=UIGJCp+IM7DHoxwFpu5cxXcNYUcQPYgvixoSUlM6AbQ9yfy4BUl3R3Y1O0T2peyHhI
- 15XhrG6FDvaR7Wj6OJZHy7niE/+wrJKgVvodXDUm+DDjIUTEMxIgazR5t3/rnkJG+KTb
- mwlyO76+wFAhqT99U7SF5So4jGemL7viev0MzonF9F3vdjHl5YpvcBntGPZvpxurcPA8
- ds4EeTelBYS5h64yFXX39sZTH9vu4lK9rBL9Q2X2Kwk2aPC8GPqBA/TmkdtzwUS+J/jO
- PAO3z+rbozWalCbH0Sv2S/hSntbMCfdKNa3mTtrwoKcP69q/EHcnUoptNThAfRnmsNrp
- /TjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788999351; x=1789604151;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=FvfvgvsvTpdSimDtmvjd17d26cDmGGfX/zCh5Oy0Suw=;
- b=VB+u3P4z7h9stkI+KLgtsLUx+nKb4hdqKnHmdSH35wBNmRrnZ3VMFV4RCBUqDCG+BZ
- QYShMC1Mxq9S57G61vCjaLSbpfNtMdpb7/Mm10SS2+9zXHQgsEiCNnjcsCHYRBOZPH3+
- 3IDLibAE8alrGNT9BsXueb8D3BeeapYSVhme5oJriz0WEJhOcQy/WqFRZq7Vbc0pCvtF
- akPCnKCl7JzBYpNQByuseCTLelFVaQF/rSyZ8Z1Qn+eHdKxrhUecs3zOtIBNwtckapnk
- ouTyvQ9NzoT9muSAYt0j1R0Kyo8mdFGxoSaXh8yUVbKCcFGJytsnZdjEeki/DaNIDcsf
- DzCw==
-X-Gm-Message-State: AFuF++kKBrZ7JQZktJDE8P//rpkk87X7RPARmyv7nFnZjsFMFBN3Pn3f
- OO6a5qgUWw5YOkRepvCXUsUOboSiZKq1hD1HqRnZMrW1Ai2pba1skT5hoFzBXx1mcMy4EwLyVep
- WB1ZmNVY1IhTq68RpJ7u+YQlgfiMfH53kFEIjxoxl
-X-Gm-Gg: AYBFou1GNSMWsdcCgAVexFTFqgrtIKlDW9L0317Dhl3zvbi+4iilW+sYqXp4HdW3uLf
- t5JdI3KEuolOJgOFDGkEruEhXJqXO5MqZRUZ6vmWqwOXvPObo+jSzHOHr1ma2mzgIA/SCDBbLZA
- Kq/CocDLTd4GhA+qv/VOR53G5XytzdF6ncAVnZ19XPuJcnEm4tXHpIwZCUhi2Mw6YDaEld+RNnK
- ToNu6n1znf+GjP2o15CzMveLGFKiLOrZxX9yq2DdrT1+er5zwO89oIZkH9hF1Y0W7f+FPPDsgX8
- ci+8h2n4ymJWmWP+ms0uSJcP+HihwBsBKLMT0T4XLP+cZ0+VqGGXx4/xaFkHAvigjotGrjvffqv
- wwhxSScvtWCRNHg0XcksftcfSZhvN/+JzA3AgR5JLiV59cA==
-X-Received: by 2002:a05:690e:2006:b0:66f:c1bc:4035 with SMTP id
- 956f58d0204a3-66fc1bc4670mr8352460d50.98.1788999351127; Wed, 09 Sep 2026
- 17:15:51 -0700 (PDT)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012054.outbound.protection.outlook.com [40.107.209.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4017010E223
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 00:47:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FRHM7riD11dyuiGVAkDH4EcVSTahrTFJ+dkWKVpB4rLx6bPkBr/cgB4uojMvnHShLLIl4N99CXr791DO9GcyymwpRjiaJ1MRHnhBMM4vqjYPmJ9vB7hz2B+gtC9QRR/1BEfeSjqQGS2gMsmuFCkvBoSytbe9eqsnt5KjvXRolsfT0ftzdZKpcPWgS5hZVD+uP1Xjdk+cMMPlB8GhMHp/6ImACsWqIw4c21CXdfRahZ491ZMaPZ3+nkZ9tBNEWOdANyG8QbH+QGGOfSeQ4LYspiB5jRS7kADEhoo2xQryO4n7QrcqWRj2yApwuy61Er/nfsn4zNki43rT0lLVNRPWAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zi3Vsuj/HNokdKxPxhQZm48YdpiuBy96XDgG+Xqdo/4=;
+ b=XMJh0PHcdlWVoG3AAHTXtdb9NG+iP+nGbE5Ayqk941xlmJWb6N1jPkYLLdBLuHpMvIBKpln+C2+EM8mnnxxkPoa/QF+5RPVB4ou3R0HJ2MPAgh//b7C+Tjl2Ua4LGI+syO7ra2xflanQZrlIXc/v6L+GdSyzG5tHoWxyRvzai5eMljOkN/bxFJgpq6WcAyVxCOQd9E4SwVCwa/oRPPl2P8W25/kihtG1VCoOp4liDsVOF5oQOIY7xnAfjdQbpVJpUW0ALz4rX773CDT+TmOxvwaoxIqB4SGIx1UQ+l7cxfIsNJB0XKNk8jl+gM8/zJYOUT2fz3wKkkqKCb5xvSrjoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zi3Vsuj/HNokdKxPxhQZm48YdpiuBy96XDgG+Xqdo/4=;
+ b=4hevG41P3uo1DnD3io2ykjGY+NfgrKtzj37x0lrDHBQ374Va+UAnjRXKQmUhxSKIANZLIBQ8enClaKoApYsOsOh/LkL6Is/U7tzRIplhQSz9XaetFUb3vLbgi90nN3iIrzDhuZi+LT8Xk2PmWzE46UuvC6GbMXvwWrEVKB6QP9k=
+Received: from DM6PR02CA0128.namprd02.prod.outlook.com (2603:10b6:5:1b4::30)
+ by DS0PR12MB7996.namprd12.prod.outlook.com (2603:10b6:8:14f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Thu, 10 Sep
+ 2026 00:47:10 +0000
+Received: from DS1PEPF00017095.namprd03.prod.outlook.com
+ (2603:10b6:5:1b4:cafe::a9) by DM6PR02CA0128.outlook.office365.com
+ (2603:10b6:5:1b4::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Thu, 10
+ Sep 2026 00:47:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF00017095.mail.protection.outlook.com (10.167.17.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 00:47:09 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
+ 2026 19:47:08 -0500
+Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 9 Sep 2026 19:47:08 -0500
+From: <vitaly.prosyak@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Vitaly Prosyak <vitaly.prosyak@amd.com>, Sunil Khatri
+ <sunil.khatri@amd.com>, Prike Liang <prike.liang@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: reserve eviction-fence slot at WPTR caller
+Date: Wed, 9 Sep 2026 20:45:39 -0400
+Message-ID: <20260910004701.94511-1-vitaly.prosyak@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-References: <20260909020854.58462-1-mike@fireburn.co.uk>
- <20260909094609.1541-1-mike@fireburn.co.uk>
- <e63d8ae9-f102-424f-88a5-0fd6837d79d4@amd.com>
-In-Reply-To: <e63d8ae9-f102-424f-88a5-0fd6837d79d4@amd.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Thu, 10 Sep 2026 01:15:39 +0100
-X-Gm-Features: AcwNN1XQBCK9-NYAn3J4DkDrAeUXfHy9OxsiStI2D5iE6i7vvIKZ7yAdxs_R1EA
-Message-ID: <CAHbf0-HAGCLcH2ryR6dgaTwMEjOgqbFFnzMUge-s1LZtjTohjA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: don't migrate a dma-buf into VRAM while
- runtime suspended
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- kevinyang.wang@amd.com, dri-devel@lists.freedesktop.org, 
- stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017095:EE_|DS0PR12MB7996:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c1a3145-5484-4e8b-60af-08df0ed50b9e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: GQ9MTyEWZgP3ZEQO2FG7PXIFvTNiTMNkZ3LYBORWmAuj5LGZNxH93BhoBJ/VPdH8Wj9oFa9XqIWU5Pu17ZBY/KOGUUgNWn5E7iIrKZZTBiMxhz9qPl6fzl41Tub2LjPS3ASxk9EfVgoFC+Rpa8QaZVZ9vou6zhAlZ3uniYNRX/LBNkvBSQO9Nh3lfGF0UgATNVk+5iHoczOHEJRksT7k6nqOLn+/9MIqnRZHGAEAFLQe0HO8K/M/BEffjU0rb486Om3fvFZwhrF1oOy34+XWR+Vk3CnRl7eKUm2RLylFhy2pHBrrxoodxG6lzbks32cFeikDj+ku3DW2lO4He5ZSecRShsKYnHb/uuoJXpuvFjzPiM4DZ2ngqZ80oWEuuAbZhWydCkfj2R7tPfhmhZiK3T2BEfwyQc1qZa6tieflXISWinQ0tRygpeeQkZFTROJxFEDltYT+eVqa4odGX6+sftV4GHk01ihdSJ777WRwgrGLC6W+S3BMSjE2sjQ4Fpc7+Ljlxu2a8Vcw9rzaeXyOkWYST/C/ARQEhpqUDT3dkLw+hHlWGxL23jnyD90h3qQ+hWVfUYEYiay5e8Lu5Ansm7owCThPDveh886dJqnMBOw+lixE6U242u51LKkxWkvhrI5yk0TZXzd48oqAXUVyG5IfZ0mzo7jLbi60XcEBa0usPmxZwPAXbBDt/s0z/qfEldgblewOLIEmbmfs3yIz9w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 3/ngwdoqEc6rmAPPl292RhWRTCx0f47c56yIgnGOmIi9jQ5Ex88mIqXV8Mgjt/PdBx8MTDbLQBjxEQnw59dabZgvNPuVGxiFof1ukdUe+UTo1fBuG/Vc+ITOoptyasjD+xC/WFRYk4PY2+Q44ucYTLbjxU8El8Krvxebp9ReOQdx5qMoel3Ll/EwktDoOFfhpCLTNTSwVmsrcz/GLg16OxejN8xaz4m/GZzzrEW/kTh55+P3eXmnBatVSdMxuIRJXExF/98qesPerNjAosF8ORM257H1GgGdO0crRz/QzMAkcCFJc9pblebAudSZJKDRDYigLsYLIDBQEhe+B5iyyzeCeNd+DF92TzCCJ8lQTQGb2yJwxWAQBsEBAccUkoBRp1+dANOj5CJ8EKO8lrRlI6S+sapyk48XE6eW5ZqVoKklFFDV8cdGzmqColyjVXVQ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 00:47:09.4919 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c1a3145-5484-4e8b-60af-08df0ed50b9e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017095.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7996
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,195 +110,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 9 Sept 2026 at 13:46, Christian K=C3=B6nig <christian.koenig@amd.co=
-m> wrote:
->
-> On 9/9/26 11:46, Mike Lothian wrote:
-> > amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
-> > attachment, so ttm_bo_validate() can migrate the buffer from GTT into
-> > VRAM.  While the exporting device is runtime suspended its SDMA rings
-> > are down and the move fails:
-> >
-> >   amdgpu: Move buffer fallback to memcpy unavailable
-> >
-> > An importer on a second GPU reaches this holding no runtime PM
-> > reference on the exporter, e.g. a compositor on the APU submitting a
-> > frame that references a buffer exported by an idle dGPU:
-> >
-> >   amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
-> >     -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
-> >       -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
-> >
-> > Only migrate into VRAM while holding the exporter awake.
-> > pm_runtime_get_if_active() takes a reference only when the device is
-> > already active and never resumes it, so it cannot deadlock against the
-> > reservation held across these callbacks.  That deadlock is why
-> > commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
-> > when we attach a buffer" v2") removed the pm_runtime_get_sync() from
-> > the attach callback.
-> >
-> > If the device is suspended or suspending the buffer stays in GTT, which
-> > remains accessible while the GPU is powered down.  A negative return
-> > means runtime PM is disabled, so the device cannot suspend and VRAM
-> > stays usable.
->
-> That is a good catch, but your bug explanation as well as the solution st=
-ill look a bit questionable to me.
-> > Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference whe=
-n we attach a buffer" v2")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-> > Assisted-by: Claude:Opus-5 [Claude Code]
-> > ---
-> >
-> > v2: hold the exporter with pm_runtime_get_if_active() across the
-> >     validate instead of testing adev->mman.buffer_funcs_enabled.  The
-> >     v1 check was racy - the device could suspend between the test and
-> >     ttm_bo_validate(), so amdgpu_bo_move() could still see the rings
-> >     torn down.  Reported by Sashiko AI review.
-> >
-> > Is this the failure that commit c52feb436539 ("drm/amdgpu: Disable
-> > runtime PM for externally attached dGPUs") was working around?  That
-> > commit explains how to detect external attachment but not what breaks,
-> > so I can't tell which.
-> >
-> > If it is the same thing, could the pci_is_thunderbolt_attached() ||
-> > dev_is_removable() check there be narrowed or dropped on top of this,
-> > so eGPU users keep runtime PM?
-> >
-> > I can't test that here: this box hits the bug by missing that check.
-> > The dGPU is on an oculink port off a native AMD root port, so
-> > pci_is_thunderbolt_attached() is false, dev_is_removable() is empty,
-> > and runtime PM stays enabled.
-> >
-> > Reproduced on a HawkPoint APU [1002:1900] driving the display with a
-> > Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
-> > offload.  Without the patch kwin_wayland hits the call chain above
-> > within a minute of the dGPU autosuspending and the desktop stops
-> > repainting until it resumes.
->
-> That sounds like there is also a bug in kwin as well.
->
-> The GPU can only go into suspend when the rendering application closes it=
- driver connection and that usually only happens when it terminates
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
-Not any more. amdgpu_driver_open_kms() does pm_runtime_get_sync() on
-entry and pm_runtime_put_autosuspend() at the pm_put: label on every
-path including success, so an open fd holds no reference.
-amdgpu_driver_postclose_kms() is the same shape. I see the dGPU
-autosuspend with the client's render node still open
+Root cause analysis showed that the previous workaround was fixing the
+symptom in the wrong layer.
 
-> So question is here why is kwin still having that imported DMA-buf as nec=
-essary resource for the rendering?
+Problem:
+  kernel BUG at drivers/dma-buf/dma-resv.c:319!
+  BUG_ON(fobj->num_fences >= fobj->max_fences)
+  Workqueue: events amdgpu_userq_restore_worker
 
-Because it is the content of a mapped window. kwin composites on the
-APU and samples the buffer the client rendered on the dGPU. In 6.7.5
-EglDisplay::importBufferAsImage() (src/opengl/egldisplay.cpp:395)
-caches the EGLImage per GraphicsBuffer and drops it when the buffer is
-destroyed, so the attach happens once, not per frame. The client can
-then idle for minutes with the window still on screen
+- amdgpu_evf_mgr_attach_fence() had been temporarily taught to reserve/add
+  fence bookkeeping internally as a workaround.
+- This hid the real contract violation and made reservation policy implicit
+  inside a helper.
 
-> But we still need to fix this properly in the kernel anyway to avoid havi=
-ng a deny of service.
->
-> >
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 16 ++++++++++++++--
-> >  1 file changed, 14 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_dma_buf.c
-> > index b33c300e26e2..c89846f266d3 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> > @@ -43,6 +43,7 @@
-> >  #include <linux/dma-buf.h>
-> >  #include <linux/dma-fence-array.h>
-> >  #include <linux/pci-p2pdma.h>
-> > +#include <linux/pm_runtime.h>
-> >
-> >  static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
-> >
-> > @@ -189,14 +190,25 @@ static struct sg_table *amdgpu_dma_buf_map(struct=
- dma_buf_attachment *attach,
-> >               /* move buffer into GTT or VRAM */
-> >               struct ttm_operation_ctx ctx =3D { false, false };
-> >               unsigned int domains =3D AMDGPU_GEM_DOMAIN_GTT;
-> > +             int pm_ref =3D 0;
-> >
-> >               if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
-> >                   attach->peer2peer) {
-> > -                     bo->flags |=3D AMDGPU_GEM_CREATE_CPU_ACCESS_REQUI=
-RED;
-> > -                     domains |=3D AMDGPU_GEM_DOMAIN_VRAM;
-> > +                     /*
-> > +                      * Only migrate into VRAM while the exporter is h=
-eld
-> > +                      * awake.  A negative return means runtime PM is
-> > +                      * disabled, so it cannot suspend either.
-> > +                      */
->
-> Setting AMDGPU_GEM_DOMAIN_VRAM doesn't automatically migrate the BO, it j=
-ust sets this as possible placement.
+Review clarification:
+- The helper-side dma_resv_add_fence-related workaround was only an intended
+  proposal sent for review discussion, not the final direction.
+- Final fix keeps fence-slot reservation explicit in callers and leaves the
+  helper free of policy decisions.
 
-Not on this path. amdgpu_bo_placement_from_domain() marks GTT
-TTM_PL_FLAG_FALLBACK when preferred_domains has VRAM and we are not an
-APU, which is exactly when amdgpu_dma_buf_map() adds VRAM.
-ttm_resource_compatible() skips fallback placements when not evicting,
-so a BO in GTT is not compatible and ttm_bo_validate() migrates it
+Findings from investigation:
+- drm_exec_prepare_obj() both locks and reserves fence slots.
+- drm_exec_lock_obj() only locks and does not reserve slots.
+- Existing attach_fence callers in the GEM/userq restore flows already reserve
+  TTM_NUM_MOVE_FENCES + 1 before adding the bookkeeping eviction fence.
+- The WPTR mapping path in mes_userq_create_wptr_mapping() used
+  drm_exec_lock_obj() and then called amdgpu_evf_mgr_attach_fence(), so this
+  specific path could add a fence without pre-reserved space.
 
-A WARN_ONCE on the failing branch gives old=3DTTM_PL_TT new=3DTTM_PL_VRAM
-with amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move in the
-backtrace
+Fix:
+- Switch the WPTR mapping path to drm_exec_prepare_obj(...,
+  TTM_NUM_MOVE_FENCES + 1), restoring the caller-side reservation contract.
+- Remove the helper-side reservation workaround from
+  amdgpu_evf_mgr_attach_fence().
 
-> BO migration is only triggered if the BO is swapped out or similar. What =
-most likely happens instead is that we suspend while something is still ong=
-oing.
->
-> But anyway the problem goes deeper than just the amdgpu_dma_buf_map() cal=
-lback.
->
-> We have picked up pinning DMA-buf to VRAM for RDMA without ODP (e.g. exac=
-tly the feature I mention in the commit message of c52feb436539), but faile=
-d to correctly fix the PM handling.
->
-> So we really need to call pm_runtime_get_if_active() in amdgpu_dma_buf_at=
-tach() and fail to let some other driver attach if the device is already su=
-spended.
+Why this is the right layer:
+- Reservation policy stays explicit at call sites that define how many fences
+  may be added in that execution context.
+- The helper only performs validate + add_fence when called with a properly
+  prepared reservation object, matching the existing drm_exec model.
 
-Happy to do that. Which behaviour do you want when it returns 0?
+Fixes: 91a358fe99d86 (drm/amdgpu: dont pin wptr bo instead use eviction fence)
 
-Failing the attach breaks render offload. The attachment lives as long
-as the buffer, so a client allocating a new one while the dGPU is idle
-gets a failed import and kwin has no texture for that window
+Cc: Sunil Khatri <sunil.khatri@amd.com>
+Cc: Prike Liang <prike.liang@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Change-Id: Ibb2ec1f210a8c6e5d2a48ed9b8ec77c6dabddb7e
+---
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Holding the reference until detach keeps offload working, but pins the
-dGPU awake for as long as any of its buffers are imported, which in
-practice is the whole session
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index 68beccee9fc0..fe49aa4dc5ff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -60,7 +60,8 @@ mes_userq_create_wptr_mapping(struct amdgpu_device *adev,
+ 		}
+ 
+ 		obj = wptr_mapping->bo_va->base.bo;
+-		ret = drm_exec_lock_obj(&exec, &obj->tbo.base);
++		ret = drm_exec_prepare_obj(&exec, &obj->tbo.base,
++					   TTM_NUM_MOVE_FENCES + 1);
+ 		drm_exec_retry_on_contention(&exec);
+ 		if (unlikely(ret))
+ 			goto fail_lock;
+-- 
+2.54.0
 
-Note the importer here is amdgpu on both ends, so "some other driver"
-would not cover this case
-
-Cheers
-
-Mike
-
-> Regards,
-> Christian.
->
-> > +                     pm_ref =3D pm_runtime_get_if_active(adev_to_drm(a=
-dev)->dev);
-> > +                     if (pm_ref) {
-> > +                             bo->flags |=3D AMDGPU_GEM_CREATE_CPU_ACCE=
-SS_REQUIRED;
-> > +                             domains |=3D AMDGPU_GEM_DOMAIN_VRAM;
-> > +                     }
-> >               }
-> >               amdgpu_bo_placement_from_domain(bo, domains);
-> >               r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-> > +             if (pm_ref > 0)
-> > +                     pm_runtime_put_autosuspend(adev_to_drm(adev)->dev=
-);
-> >               if (r)
-> >                       return ERR_PTR(r);
-> >       }
->
