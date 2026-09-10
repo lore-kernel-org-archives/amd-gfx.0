@@ -4,99 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36C60C79FB9
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 05:23:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAE94C79FB7
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 05:46:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B729E10E1CB;
-	Thu, 10 Sep 2026 05:23:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB2D210E8C2;
+	Thu, 10 Sep 2026 05:46:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bl0Wt86k";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N5NajTRI";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011028.outbound.protection.outlook.com [52.101.52.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A287310E1CB
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 05:23:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oZVPqxkAa4nNAnRiABtxl/XtivOGqtH27sy7XDMofsnlJgdUpT6pWmALkmhc3uJ3fdagIDc5zBffb7V7rU5U5nHm8gQKoTeYYPyKz1xRVyR8Qq0FgMXDQTeVe01fIHo5pPHTSQt0/GAB8MSRuGL1WJ8kBYuQelqOsCh/Zs7ybWEVGDVmRIn4JmR67pr5AN1Bmn2RQsBgJE01xtWLK/qKp539C8QyELaFD3KUIR8tQbwpeXdCgk5mnWST0TKXVZg3jhMSLXkLyFrv8s+PyfUTWaOZWCtArYwJFeh057vNkAIIaq51ZxxJGLEubVktb2mJrrqoCxaf3l5PBbCf7AXQtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yvm9RhROeWvHxXDzT1oNxuZTm63LshWOj6oE42p19qc=;
- b=YYfcF1htTOXCX02aL3PTJhX0J9DW0jVHcnhKKMCuE2RkJA6wt6pqBxgah42/ViLz617r93oAnz2SWMTyOcdC1XvKa+1fVNt2YyJEXwlRLK54tQyDOFHb+qLpoj2ifH3VER7FhEY15ll/w9jxaQumJwKiKwO91sw7z+TGSP+PnkIwag8MjjA8XrIpfmwkVIiZGArzsFlQ946rmu3jDed1m+yNyvUlClEm9pLCfu6r+4gjYSp/rvzglTK0pX/4bIHd4ADSy711XtSST1HwXALoRgr7q1q+2XXFNspFmbiScumKGNoNOhnU7WmgCOe9Gvmdm12eSj6DqpraSh6/Glb5vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yvm9RhROeWvHxXDzT1oNxuZTm63LshWOj6oE42p19qc=;
- b=Bl0Wt86kOvGZ7+i/k+ehedTi/R3l92NrT+NJDLdckVY9xy10/wsWSmey1HYCLKp7oPqXpJ0ZHjfNtKe8XNXT3oQviKKsTNwPi3Ylw7uJtD0FSdLUgtEFlfkBOaECqbRXCiBkRSDLPh7FU/4XUVRS86K6NxlsT1CiDwZ+79wqmIo=
-Received: from BN9PR03CA0216.namprd03.prod.outlook.com (2603:10b6:408:f8::11)
- by DS7PR12MB6239.namprd12.prod.outlook.com (2603:10b6:8:95::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Thu, 10 Sep
- 2026 05:23:38 +0000
-Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
- (2603:10b6:408:f8:cafe::ad) by BN9PR03CA0216.outlook.office365.com
- (2603:10b6:408:f8::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Thu, 10
- Sep 2026 05:23:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 05:23:37 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 00:23:34 -0500
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Christian.Koenig@amd.com>, <Yifan1.Zhang@amd.com>, <lijo.lazar@amd.com>, 
- <hawking.zhang@amd.com>, <le.ma@amd.com>, <shiwu.zhang@amd.com>,
- <alexander.deucher@amd.com>, <felix.kuehling@amd.com>, <Kevin.Wang@amd.com>,
- <asad.kamal@amd.com>
-Subject: [PATCH] drm/amdkfd: fix use-after-free and multi-container gap in
- kfd_dev_mapping
-Date: Thu, 10 Sep 2026 13:23:20 +0800
-Message-ID: <20260910052320.255714-1-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.46.0
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
+ [74.125.228.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62EBF10E8C2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 05:45:59 +0000 (UTC)
+Received: by mail-pz2-f12.google.com with SMTP id
+ 41be03b00d2f7-cc4ab4fe290so186447a12.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Sep 2026 22:45:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789019159; x=1789623959; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=YkmKEwjSzJzm/ZcQfO9s4H31K3Ko5LXj6dOZ0ec6uns=;
+ b=N5NajTRIvweJajMFSrqh6OVXj0H7rFmc+MnUoZAurAWISyS02nTWzQPhS5t4rkfsQg
+ +kVsOhMlQXBLuWAvZURv960JZf3zpGxMvoiKLnlSw0s1IS0BqZcsbEE1ODOv1FdHdUMe
+ 6MhMoHYvX4qSgPe0f3jewgOWqbOop0XmnEu7ON8gfs7v4zLm5fcOOxLb7twCeyVNr/Mt
+ ZI/DaqkVy3XNtC2N5bpF4rh0kiUCjTeEOu3U/uy2A6ayDg2y4HObn4ZuI1RvzRrUXuRl
+ R2YZYnnbIlkqi1cdybbpXaKiy2NW/RB2HzR72YT26e+DY/azlj/NCL2qyMo/h54gH361
+ T+4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789019159; x=1789623959;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=YkmKEwjSzJzm/ZcQfO9s4H31K3Ko5LXj6dOZ0ec6uns=;
+ b=JqTphZhCVSGEbbV1uX81TFpfmEnGHLNy9dr45yLYToKmgXTNCePjcynO4SZ5SbEhHm
+ yklFly7+qZC2y8sn2ExZGQs8A1iDbSTHV/UD6bZ1KmrRvNFAvySxjvofbcMMg1bjLt+2
+ 2lfLSbxv9XhErYwMVCQa7wr4K/5v4W23XaaJLTKlK2/yZZigT18i3ko4K6p+qVegNdoG
+ JuGQoXLRvVAd34ktaWPlzrtSvvHErYmKaJdRsjQCKrd8rtxhhiTrwIGWg9d+/jtfKksq
+ o/mQi2NTLtI7LMvKsUsUEmyUBZPLOr/EIuC3plDou39v0cG6+/O01/E1W2gSEOWMWRXw
+ fcFw==
+X-Gm-Message-State: AFuF++kdnDfqpk0kL5/iXn8KjaJOCxSb+ueoHNqeNXNdvPZNGzZiuVWm
+ eAlPbjxKXABdgXMhDZY9IknFAb2OS60bmq38iC1HFD8hZEUWTtWVB2g=
+X-Gm-Gg: AYBFou1j+GpgVJAy8Cb/4kmbl93ZcDPbzmwxZ5dHYTPnEDqnWCKG2mSklGjCOpLYifP
+ rDv1Mxs7tK1hPvL3iCVJLCON/X5HqyV1RM3tm/wF07AUjlq9h5VtW7JhTVdEfU06V2dyXkl6UcX
+ rw2K0/MDdAXissXxwRbSL/YqPqSl+yIeHbkK0yU6dAKItvWMDXQBSWmoVugxP1A+XOihVul6g4C
+ OE+hiO/xCXjaXCkweVEMD730c6ELRAJneK3loEzVOOc/V6nUmWf9X96lW2JcYCadalNqSly2Vtf
+ kvznLkjDYz8YU0DkJ1g1ppksiM1w35FyGfD2GxMZ0BoXJDDeV1nvWz/t+yJ2VccHHcgk2G3476y
+ O+jThXNvoBwMEqLqW3+xvqB3xWOfSJ8LvoKLinal0PmrcyiwUV1cj4ifod58zJzUQ4JdTwHFFhm
+ xN3JQhAYdA2WabWNh3vnIn9u1YQ4GLt2qt/16pSgt62+ZKjw//clBfuAWufZQiC4hn/kqCVLPeH
+ F4DhflL5zyzPSn5aDei0iFW/Q==
+X-Received: by 2002:a17:90a:fc47:b0:38e:6d55:b1a6 with SMTP id
+ 98e67ed59e1d1-39d7799fcc2mr2492773a91.3.1789019158573; 
+ Wed, 09 Sep 2026 22:45:58 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA
+ ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-39d7e77b1afsm2310421a91.5.2026.09.09.22.45.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2026 22:45:57 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, donggeunyoo.kernel@gmail.com
+Subject: [PATCH] drm/amdgpu: don't release the fence reference consumed by the
+ scheduler
+Date: Thu, 10 Sep 2026 14:45:51 +0900
+Message-ID: <20260910054551.634054-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|DS7PR12MB6239:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75f99fe4-3f93-4c78-e640-08df0efbaafc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|10067099003|56012099006|5023799004|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: ezdIyKwizdnrc7eWAp01muFARbLPddCnV1B9pPZhqsNdMGAvsHprWhL9sPJ8T5qqpda+I0HiDhFUuRWK7wVZWKwXmIpfSrcZO4Mc2Hhk3KrrRWKarT1QYr3StqSRXflpqgEXXv5pXTWAYJBJ5feLp4r+P5Y65bZ74hAya+uVrBp0le+ny4VFr+8vnK6dGJCpJ1Kg80Ha/njs7Dm55wpT39B9qJu4lfVu1KlHOuTfih3/nBCH7+/js0T4Ol/qou4N4lnmAkCNnuX/LrREvBKqgj6N32AVaIS+pMr1ZMxm2u4dMIyQj//4lZGSbF+M9cFNYQO/WfmOwNLWZ0eRzWWE3k7btb7bcTLnn1SNUD/QFu4t3FxAm5ybTn2RNijUKwfcWnTj6Ah4comk+HodC13DCPbhbsfFJwGemIvl7Gf75mD73y19bEG19hvu7u0OyJtfcKnEfN81YjhyyPxki34rbqrdO4Z5LUv/YrayMi6LL5k7fNSK19fThTmwR9N80FLdAXd+G/AAtal3yBaZGxA82o5qFbMWPhd4RVJwsRK2VFbPOVJ4ChR9LU4kMPj/XVHzMVBwaajPHMcShJqgingh8A7AmDJB55UfVB+6+MdNMQbliRWnTpw9BsqE8cETvAOtxwGdJMc1sbak81dhXtI+weYFnrBDeo3qLXvFBA0cs1JF45wlHHv+IOHJt2O7V+qHhSwbVpwk2glxsWGaKsNWiw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: oN5UcW855YA7P3w4XAKckiUGIZFG3bAGMBcbz65fVSn4cySGXTeVfCdq8+IXGM+ReNRX7UmXOjHYG2mwbW8DqqUXt0NaCsgUhRMtXTUsL5Ig3f7SEHMc2u5mQXwrOvs8N6gc5vKNE/82ryjPwKDW6yzSq0VtEI8kQc/DBEkRlr7WYotYZ5uozdPVPirVkSYhmM0OD5JdXv19gGEiDPouv8MmhGrAV5TdAH5EuAPOzxDmIIK3w2N6y6kjdxH3gO4ruNnfuY0yvhcENFML2Qu1tJwZy3HW69TiPMwTayepgPlq+M7yOl/ON79uG8fZy4BHLNIxhMva5dnm9Pss+8DAXjLbl2awjiKayA83J67hUkpON0Y91jDic6TLPqHOMs+hXLteQefwXhM5PhtRg6ncuj6mpFUg4j7IGBQgU7cggLkKwPBK3C8kaZgUXZsI4DPg
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 05:23:37.7762 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75f99fe4-3f93-4c78-e640-08df0efbaafc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6239
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,182 +87,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-kfd_dev_mapping caches the address_space of the first /dev/kfd opener
-so that the GPU reset path can call unmap_mapping_range() to zap all
-userspace mappings of doorbell and MMIO ranges.  This design has two
-bugs that both manifest under SRIOV with multiple containers:
+drm_sched_job_add_dependency() consumes the fence reference in both the
+success and the error case. The kernel-doc has said so since commit
+ebd5f74255b9 ("drm/sched: Add dependency tracking") added the function,
+and sched_main.c does the dma_fence_put() itself when its xa_alloc()
+fails.
 
-1. Use-after-free / rwsem deadlock.  The cached pointer refers to an
-   inode owned by the first opener's container.  When that container
-   exits and its inode is released, kfd_dev_mapping becomes a dangling
-   pointer.  A subsequent GPU reset dereferences it inside
-   unmap_mapping_range(), which takes i_mmap_rwsem on the freed inode,
-   causing a hard hang observable as an uninterruptible rwsem wait.
+Three amdgpu callers take an extra reference for the callee and then put
+it again when the callee returns an error, dropping a reference they no
+longer own. The refcount ends up one short of the number of owners, so a
+later put consumes someone else's reference and the fence is freed while
+that owner still points at it.
 
-2. Multi-container gap.  Only the first opener's address_space is cached;
-   VMAs created by later openers live in a different address_space and
-   are never reached by unmap_mapping_range().  After a GPU reset those
-   stale mappings keep doorbell and MMIO pages accessible to guest
-   userspace with no GPU behind them, risking PCIe transaction timeouts
-   and NMI panics.
+In amdgpu_sync_push_to_job() the fence usually comes from
+amdgpu_sync_resv(), which walks a BO's dma_resv and hands each fence to
+amdgpu_sync_fence(), where the sync entry takes a reference of its own.
+The fence stays installed in that dma_resv, so once the entry's reference
+is gone amdgpu_sync_free() eats the reservation object's instead and the
+fence is freed underneath a dma_resv that still lists it. The
+use-after-free lands in an unrelated thread.
 
-Fix both bugs with the same approach used by DRM core (drm_drv.c):
-create a private pseudo-filesystem at module init time and allocate one
-anonymous inode from it.  In kfd_open() redirect every opener's
-file->f_mapping to that inode's address_space.  The inode is
-module-owned, lives exactly as long as the amdgpu module, and collects
-VMAs from all openers in one address_space.  A single
-unmap_mapping_range() call in the reset path then correctly reaches
-every container's mappings with no dangling pointer risk.
+amdgpu_vm_sdma_update() is cross-thread by construction. It walks with
+dma_resv_for_each_fence_unlocked(), whose cursor holds exactly one
+reference, and the dma_resv_iter_end() on the same error path drops it a
+second time.
 
-The hang manifests as an NMI backtrace on the GPU reset workqueue stuck
-spinning in rwsem_down_read_slowpath() with a corrupted i_mmap_rwsem:
+amdgpu_cs_submit() stays local: the extra put takes the gang member's
+scheduled fence to zero, handing the whole drm_sched_fence to call_rcu()
+while its finished half is still live.
 
-  Workqueue: amdgpu-reset-dev xgpu_ai_mailbox_flr_work [amdgpu]
-  Call Trace:
-   <TASK>
-   kvm_wait+0x1f/0x40
-   __pv_queued_spin_lock_slowpath+0x31d/0x3a0
-   _raw_spin_lock_irq+0x51/0x80
-   rwsem_down_read_slowpath+0xb3/0x550
-   down_read+0x48/0xd0
-   unmap_mapping_range+0x71/0x140
-   kfd_dev_unmap_mapping_range+0x5b/0x140 [amdgpu]
-   amdgpu_amdkfd_clear_kfd_mapping+0xd8/0x190 [amdgpu]
-   amdgpu_device_gpu_recover+0x232/0x450 [amdgpu]
-   xgpu_ai_mailbox_flr_work+0xb5/0xc0 [amdgpu]
-   process_one_work+0x18e/0x3e0
-   worker_thread+0x2e3/0x420
-   kthread+0x10a/0x230
+The extra get is correct at all three sites and stays. Only the put on
+the error path is wrong.
 
-Fixes: 378301794d5d ("drm/amdgpu: unmap all user mappings of framebuffer and doorbell before mode1 reset")
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Every other drm_sched_job_add_dependency() caller in the tree - etnaviv,
+imagination, msm, nouveau, panthor, v3d, xe - hands the reference over
+and returns the error untouched, as does
+drm_sched_job_add_resv_dependencies() in the scheduler itself.
+
+The trigger is xa_alloc() failing during command submission or a VM
+update.
+
+Measured on a Radeon 780M (GC 11.0.1) with a forced -ENOMEM return from
+drm_sched_job_add_dependency(), printing the fence's reference count in
+amdgpu_sync_push_to_job() on entry, after the failed call, and as the
+error is returned:
+
+  unpatched  entry=5 after_call=5 on_return=4
+             entry=6 after_call=6 on_return=5
+  patched    entry=5 after_call=5 on_return=5
+             entry=6 after_call=6 on_return=6
+
+after_call equals entry in both, which is the callee consuming the
+reference the caller took for it. Unpatched, the dma_fence_put() that
+follows takes it one below where it started, and that reference is the
+sync entry's own; patched, there is no put left to make and the count
+leaves the function as it arrived.
+
+Fixes: 41cc108b2451 ("drm/amdgpu: fix missing dma_fence_put in error path")
+Fixes: ed21f6c3fe42 ("drm/amdgpu: fix another missing fence reference in the CS code")
+Fixes: c1c4a8b21721 ("drm/amdgpu: grab extra fence reference for drm_sched_job_add_dependency")
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 71 +++++++++++++++++++-----
- 1 file changed, 57 insertions(+), 14 deletions(-)
+Resent: the original reached lkml but not dri-devel/amd-gfx - I was not
+subscribed at the time. Apologies to those seeing it twice.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 7fcfc150a7fc..1d86ddfd6bde 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -35,6 +35,7 @@
- #include <linux/time.h>
- #include <linux/mm.h>
- #include <linux/mman.h>
-+#include <linux/pseudo_fs.h>
- #include <linux/ptrace.h>
- #include <linux/dma-buf.h>
- #include <linux/processor.h>
-@@ -70,18 +71,54 @@ static const struct class kfd_class = {
- };
+Tested on a Radeon 780M (GC 11.0.1) running 7.3-rc2 with KASAN, lockdep
+and DEBUG_LIST on, driving compute submissions through radeonsi. The
+-ENOMEM was forced by a temporary module parameter on gpu-sched that
+makes drm_sched_job_add_dependency() fail after N calls, consuming the
+fence on the way out exactly as the xa_alloc() failure does; the counts
+above come from a probe printed in amdgpu_sync_push_to_job(), with the
+unpatched and patched drivers run through the same harness. Neither
+produced a KASAN report or a refcount warning: at the point of the extra
+put the fence still had four or five other owners, so it is not freed
+there. Observing the use-after-free itself needs the stolen reference to
+be the last one, which this workload does not arrange.
+
+Only the amdgpu_sync_push_to_job() site is reachable from a plain
+compute workload. amdgpu_cs_submit() skips its loop body unless the
+submission is a gang of more than one job, and amdgpu_vm_sdma_update()
+was not reached; both are fixed here on the same reasoning.
+
+No Cc: stable. I believe this qualifies under
+Documentation/process/stable-kernel-rules.rst:19 - it is a use-after-free,
+not the theoretical race condition line 27 excludes - but I have not
+observed the failure itself, so I am leaving the tag off rather than
+claiming more than I measured. No objection if you want to add it.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 4 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c    | 4 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 1 -
+ 3 files changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 03b41f803520..12ec031c0812 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1303,10 +1303,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 		fence = &p->jobs[i]->base.s_fence->scheduled;
+ 		dma_fence_get(fence);
+ 		r = drm_sched_job_add_dependency(&leader->base, fence);
+-		if (r) {
+-			dma_fence_put(fence);
++		if (r)
+ 			return r;
+-		}
+ 	}
  
- /*
-- * Cache the address space of the chardev on first open so that the reset
-- * path can drop all userspace mappings of doorbell and MMIO ranges via
-- * unmap_mapping_range().
-+ * Private pseudo-filesystem for KFD, Provides a stable, module-owned
-+ * inode whose address_space is the unmap target for all /dev/kfd
-+ * openers during GPU reset.
-  */
--static struct address_space *kfd_dev_mapping;
-+static struct vfsmount *kfd_fs_mnt;
-+static int kfd_fs_cnt;
+ 	if (p->gang_size > 1) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+index d6ae9974c952..4f31021b2152 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+@@ -447,10 +447,8 @@ int amdgpu_sync_push_to_job(struct amdgpu_sync *sync, struct amdgpu_job *job)
  
--void kfd_dev_unmap_mapping_range(loff_t const holebegin, loff_t const holelen)
-+static int kfd_fs_init_fs_context(struct fs_context *fc)
-+{
-+	return init_pseudo(fc, 0x4b464400 /* "KFD" */) ? 0 : -ENOMEM;
-+}
-+
-+static struct file_system_type kfd_fs_type = {
-+	.name		= "kfd",
-+	.init_fs_context = kfd_fs_init_fs_context,
-+	.kill_sb	= kill_anon_super,
-+};
-+
-+static struct inode *kfd_fs_inode_new(void)
- {
--	struct address_space *mapping = READ_ONCE(kfd_dev_mapping);
-+	struct inode *inode;
-+	int r;
-+
-+	r = simple_pin_fs(&kfd_fs_type, &kfd_fs_mnt, &kfd_fs_cnt);
-+	if (r < 0)
-+		return ERR_PTR(r);
-+
-+	inode = alloc_anon_inode(kfd_fs_mnt->mnt_sb);
-+	if (IS_ERR(inode))
-+		simple_release_fs(&kfd_fs_mnt, &kfd_fs_cnt);
- 
--	if (mapping)
--		unmap_mapping_range(mapping, holebegin, holelen, 1);
-+	return inode;
-+}
-+
-+static void kfd_fs_inode_free(struct inode *inode)
-+{
-+	if (inode) {
-+		iput(inode);
-+		simple_release_fs(&kfd_fs_mnt, &kfd_fs_cnt);
-+	}
-+}
-+
-+static struct inode *kfd_anon_inode;
-+
-+void kfd_dev_unmap_mapping_range(loff_t const holebegin, loff_t const holelen)
-+{
-+	if (kfd_anon_inode)
-+		unmap_mapping_range(kfd_anon_inode->i_mapping, holebegin, holelen, 1);
+ 		dma_fence_get(f);
+ 		r = drm_sched_job_add_dependency(&job->base, f);
+-		if (r) {
+-			dma_fence_put(f);
++		if (r)
+ 			return r;
+-		}
+ 	}
+ 	return 0;
  }
- 
- static inline struct kfd_process_device *kfd_lock_pdd_by_id(struct kfd_process *p, __u32 gpu_id)
-@@ -107,6 +144,13 @@ int kfd_chardev_init(void)
- {
- 	int err = 0;
- 
-+	kfd_anon_inode = kfd_fs_inode_new();
-+	if (IS_ERR(kfd_anon_inode)) {
-+		err = PTR_ERR(kfd_anon_inode);
-+		kfd_anon_inode = NULL;
-+		return err;
-+	}
-+
- 	kfd_char_dev_major = register_chrdev(0, kfd_dev_name, &kfd_fops);
- 	err = kfd_char_dev_major;
- 	if (err < 0)
-@@ -130,6 +174,8 @@ int kfd_chardev_init(void)
- err_class_create:
- 	unregister_chrdev(kfd_char_dev_major, kfd_dev_name);
- err_register_chrdev:
-+	kfd_fs_inode_free(kfd_anon_inode);
-+	kfd_anon_inode = NULL;
- 	return err;
- }
- 
-@@ -138,6 +184,8 @@ void kfd_chardev_exit(void)
- 	device_destroy(&kfd_class, MKDEV(kfd_char_dev_major, 0));
- 	class_unregister(&kfd_class);
- 	unregister_chrdev(kfd_char_dev_major, kfd_dev_name);
-+	kfd_fs_inode_free(kfd_anon_inode);
-+	kfd_anon_inode = NULL;
- 	kfd_device = NULL;
- }
- 
-@@ -150,12 +198,7 @@ static int kfd_open(struct inode *inode, struct file *filep)
- 	if (iminor(inode) != 0)
- 		return -ENODEV;
- 
--	/*
--	 * /dev/kfd is a single chardev so all opens share one inode. Cache
--	 * its address_space on the first open for use by the reset path.
--	 */
--	if (!READ_ONCE(kfd_dev_mapping))
--		cmpxchg(&kfd_dev_mapping, NULL, inode->i_mapping);
-+	filep->f_mapping = kfd_anon_inode->i_mapping;
- 
- 	is_32bit_user_mode = in_compat_syscall();
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 50cc0779c340..c070c4a032eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -234,7 +234,6 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 		dma_fence_get(fence);
+ 		r = drm_sched_job_add_dependency(&p->job->base, fence);
+ 		if (r) {
+-			dma_fence_put(fence);
+ 			dma_resv_iter_end(&cursor);
+ 			return r;
+ 		}
 -- 
-2.46.0
+2.53.0
 
