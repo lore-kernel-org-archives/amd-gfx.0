@@ -4,76 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B51C0C79FB9
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 13:32:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F9D9C79FB9
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 13:47:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CF2310E842;
-	Thu, 10 Sep 2026 13:32:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CCA010F1D8;
+	Thu, 10 Sep 2026 13:47:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZzgXBNdL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="o525MRkD";
 	dkim-atps=neutral
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com
- [74.125.229.204])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04FFE10E842
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 13:32:55 +0000 (UTC)
-Received: by mail-lf2-f12.google.com with SMTP id
- 2adb3069b0e04-5b5e4f16f12so2157671e87.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 06:32:54 -0700 (PDT)
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
+ [74.125.228.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8619910F1D8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 13:47:06 +0000 (UTC)
+Received: by mail-pz2-f12.google.com with SMTP id
+ 41be03b00d2f7-cc1ab17a1e6so149385a12.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 06:47:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789048026; cv=none;
+ d=google.com; s=arc-20260327;
+ b=VV++gM/t/Q7T9MSNlNbFWs3iIN8A3xi7g84HdhlXo7dQtanO6VYgiCEd/JvgXboMqr
+ JX2SMJUpKCH+xu0FXMpCs6uG/TB53xluHtlk7EDCKx8RYgAOEwR170UARB9YO6vfIhrn
+ E2kF1vta0F4CZOt31qGJAMfq2MX3/rmiwfEqG1mBSXyB3xcPKffW9S3pGJZYEFvXlrDX
+ MmGoX0ak7ndPk3p/rVaNCzJ6cFuoEpH6+iXGDPgha0wxxY+8CF3NQcMIA6le4CKWrxWo
+ yEfUIjAJoU3NNLM08pBzPQLy11jo0dUUBpnRGN+H3mX8l56gwn3JEYxy+GADHusV6aiB
+ dWEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=lltNUV+MTO1LVvi0zYfxWX96sSnsAWbH789nqBfy24c=;
+ fh=Xpc/MOklghAy99Z5OWGMBN3ZCVDrR4lZGUOTJLtgLiQ=;
+ b=cvX1B1LZAQkErjHMLjXLSBjGpY1YFt3BFb2lxA4kjzOeFK43A7ksIH+TzD+nQ9PtOd
+ Hu4aqhpttlkcW8KsKPQ7ENvGbraX+dyJpkdKTQTn14xRQDQdvbmEo9Tf5TpX+Kce9Dtq
+ /uNVxMOzj0GoVi5Svki5HnRUeUeF6WTy05XDacndCHqnmxm6lQbI2aL0Mlv+x3+TpxDo
+ 6ntbzgbi84Xsc5UYEl1Oqp0kU7+216a8AbXKlMicmWtYOa2PCz0dhsXvVdsrT1IlGprE
+ kRXDVyhfcn4o0sz0icijpP6LzSTxDouinXJvWPv3ah9Ap1S0kpk/gg99+y04VoV+nCS6
+ M0RQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789047173; x=1789651973; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1789048026; x=1789652826; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=WOwxlgokdHb2jfAdfUM240g2J7udr7nQghWxHkBF554=;
- b=ZzgXBNdL8eG2fjI7+htbOmAH8sjatbboM/M46XL1wiyhEyj79T4MLqE48zNkLN6uwr
- xF9UeSzv344I0W5JtZyDihuCcwn/ejqCJBzQLHJk/LvXJBr9zXkBEWMFd4mDZn0oMMZJ
- 4Ltt830uPPK3uKg8WCjlV8tSonQL+KeRGg75YtB/DWC1tphyPBlUu1gVNiXqmDzpLr7m
- r1rwrWm5l42qlOBrz5abSoM9kVtlRi967XE5hMvWsuF/QlgSF4i0Im8WMkYsz5p/w2gX
- KIyLsXset/zuFkAMD95juAAbhhWzQLZGBhV6RTqT2rL6CHLZfjYQmV5R+qEt8r0BWkfW
- Fyqw==
+ bh=lltNUV+MTO1LVvi0zYfxWX96sSnsAWbH789nqBfy24c=;
+ b=o525MRkDAFWbIM9M/JcGTITwsG5n8aA6gfZgcePFTSsbENGvCTuaTUF/8NmJx0WsUC
+ C4KTIdH7XnkQI5bgwsplmPvK9c5o5ZVzPXGLfqRVkB1pmwzAc6NynF+x/eei38oHusfQ
+ K1eS1n26rZgT+dhj3ptI0dkLbU9k2Zsz4bE3OblzkABtFgPITlaF1Fz8V1DtRCErTXnP
+ mWieAMNKxomJVma3ZMybPVdrkzVnC5xjQxNiicsr2r1B6WosfNKUJrH9YrCPtIanva82
+ QzmA4L0Scbqmlnoit+Y1pP9ZqT5Z4RpJc1XP901c2VRTIoOqxXp6Th+ZRDxzUK7J/oh5
+ zz0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789047173; x=1789651973;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20251104; t=1789048026; x=1789652826;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=WOwxlgokdHb2jfAdfUM240g2J7udr7nQghWxHkBF554=;
- b=VAYBLEpPSk2jzeXbwMNpFXciO1JUC3lUC2sAnqIO5WphRHv4I6qXr68vP2yUhzNYpg
- 8x+pWvzcqulZdL4u5Xwzj7lEmFN0bwendH7asFny1KJq+WcN8wbpS/qQlL7J0yv0BHEh
- mYahC7r+RZaNgpkDrPHVnm7GT1R+Fuj04B3HX9UdunzqQojrs4E13hoYDJ5rWfnwf3Aw
- mAN28URUifAkidBF6AI9/dFf51/oZJMxrWmro2O12ICTs6GxR0cm4U24oiYIUAn/aUiL
- dvvy9J+7ka5yKZCIkXc583YENAJ26yoFkvuruqr90U2VtneVdvIGmzP7gPu38NgezpJR
- Bx2w==
-X-Gm-Message-State: AFuF++nLPuTwOTgJhbV5EzO6cyaCCclgCw1I1GuxsPveGBqaJOuHGeos
- 2gDW/pof/dFXvAg1igLtlcU+iuvDVOw5rJny5FwfFmUeOBGw8P7wVArlLNaAwQ==
-X-Gm-Gg: AYBFou25K9zvVaOIQB5lA1zdb3fQ8xoj/jojoheALI9vFCYpsdJc5b5rdmqHTaSqRFx
- sKupaqDf+VQ1pDieK9PcB3uHRc50V1bmThxaqgsKBPUki1/KDeFoDp+NgHG3t/S6LvYXLDGfeRf
- +wN8g2uFVNyq0Fl1zDwnTmYLTBJ72NfSlmn8Hd02fyeded6AWuZN1jSzHuN03Wfk9Eks/7vj7cz
- 8pxrhkUgNOL67XV5GMqOS2LWzOt8nOnl7ERvCKXCr7+cxLF2pgshNIJtBl6/jwa+tmwj8NMkR8r
- ELdgylERlSE63SrMBlealnLyV+nVbXV7QfD8NFhTl12W/cakn5pnL3xsVlzXeKNxIo7mdMcKea3
- IU4BpSOCnCxlPNu/wLqVtjLkvzXcirWBB0Beepu3il8SsYybzJlW8PpaY4OZ2GPXHA3xwahXYJk
- LIHGMF+U3fF0phblBIvNqxbwIhISkJrlEP6Fy5jV/qRa0vq5hWiQcgOfJIUsh5IIxtV+fZpZEYc
- 8Iuf56Ja3Q=
-X-Received: by 2002:a05:6402:5024:b0:6a6:32f5:90b3 with SMTP id
- 4fb4d7f45d1cf-6a98e04ebdbmr9519240a12.21.1789046719283; 
- Thu, 10 Sep 2026 06:25:19 -0700 (PDT)
-Received: from timur-max.localnet ([37.220.204.82])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a88b7c04edsm3413159a12.15.2026.09.10.06.25.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Sep 2026 06:25:18 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: Re: [PATCH 6/6] drm/amdgpu: Use memset32 for SDMA padding
-Date: Wed, 09 Sep 2026 20:37:53 +0200
-Message-ID: <ax2H_UmvS4-HpuCRpSm7EA@gmail.com>
-In-Reply-To: <20260909105215.88242-7-tvrtko.ursulin@igalia.com>
-References: <20260909105215.88242-1-tvrtko.ursulin@igalia.com>
- <20260909105215.88242-7-tvrtko.ursulin@igalia.com>
+ bh=lltNUV+MTO1LVvi0zYfxWX96sSnsAWbH789nqBfy24c=;
+ b=EUqNroABitB26cAAR+XUT4EdgDWUaOSOyPgJuIWY/mIUqYG0FkiHMz6uzd14LXjFOS
+ VbU+1sKcjeWnRZDI1tczvNfpT9NMLQVazVF279zXcARR54ROd/38twGq2VK/QySEeTQm
+ ivOdzVNbgXOwL0CQAnpIkfhl2yezR55cNxUPEwz4wafTlCXE97fRTzXMwpttLAuqEJNE
+ o/02WUmPHh1xs8sPXnpId/efWumpahXK5siALOMzr1kqnbj+smGTHW03RiTT3LrlNNo0
+ iHgu/u8W6xgbZ28SHA37n3A02445q8p7HUn9bedL8aUFU4ElJATr95bF6UAIDcpwLBZ3
+ SWWA==
+X-Gm-Message-State: AFuF++nIuVTsVKKv1XcNIDmIQS9Vh/tv5TyAZ5HgQF7F12pF1icygpOh
+ Yiwi4hif5UTFR6ZFyf4+iqLWPeWtG+kYVpcbjbQx71AkxtneIz0aoT6mjbPVtB3DdpihWJUpugu
+ Rt22FvZsH3MHF9VNdWQuvP+Q2ndj+oD3Q/g==
+X-Gm-Gg: AYBFou30dupVem+1TRvshjCHt/53tqDSHZdLJ2hXwRhFlifk1SiI3JnDLtBmgbfJLQ7
+ skyrnNhe1v0/uMTa94PyAFu/SYb1muijQXcQZYveTmKFG6XOSA6jWarq6GOB+xtKg/iVzXwVZqz
+ aBnPQjL1n52ZMj/jCPyeotgmU8U8NcQq0GPLueaXl/hpU3gId8chFCzSDyUrJdgLHDrTem9jM6M
+ fJugmuulAsk2+Yd3ViGf1GnHqzmB50g35bQSa1UpewPMQBJEfFgE4UZ/CBh4NQwg7vzQEjzbAsE
+ 2YM9Y7POkxpHatcs8OzJTHCwxZ2SrPWx2BSLAUdShtSdLsADKshkB7vPlYDXgbHb5T4rPrWw9/U
+ 33Icla5joZoAyafa1e6OOxp191G+xcqUMS4BZgFHZ3wyU/O6oj59E
+X-Received: by 2002:a17:90b:2801:b0:38f:aa76:88b with SMTP id
+ 98e67ed59e1d1-39b3d7d056fmr31987582a91.4.1789048025808; Thu, 10 Sep 2026
+ 06:47:05 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260831195550.962209-1-David.Francis@amd.com>
+In-Reply-To: <20260831195550.962209-1-David.Francis@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 10 Sep 2026 09:46:53 -0400
+X-Gm-Features: AcwNN1X-h8_UKcJo9oNW60JP_44PEGkxHo338R5yrzLZmrt5Y73CfgyCqVjpb-E
+Message-ID: <CADnq5_OLyH13wyE6bCRLYkheYjuhR_4PabYBQQkR8WUeGmRDJw@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/amdgpu: Add trace events for pid
+ register/deregister
+To: David Francis <David.Francis@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <Sunil.Khatri@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,405 +104,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. szeptember 9., szerda 12:52:15 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=C3=
-=A1ri id=C5=91 Tvrtko Ursulin=20
-wrote:
-> Instead of open coding it via the inefficient amdgpu_ring_write(), which
-> which the compiler is not able to optimise much, we can add a new
-> amdgpu_ring_fill() helper which pads using memset32.
+On Mon, Aug 31, 2026 at 3:56=E2=80=AFPM David Francis <David.Francis@amd.co=
+m> wrote:
+>
+> Some debugging applications need to track when a process starts
+> or stops using the amdgpu driver. For those processes, add ftrace
+> events that track when a amdgpu_vm task info is changed or destroyed.
+>
+> v2: Deregister in fini, not destroy.
+>
+> v3: Also report render minor and major
+>
+> cc: Sunil Khatri <Sunil.Khatri@amd.com>
+> Signed-off-by: David Francis <David.Francis@amd.com>
 
-Can you elaborate more on that? It seems to me that amdgpu_ring_insert_nop(=
-)=20
-already uses memset32() so I don't see how the commit improves it.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
->=20
-> We convert the amdgpu_ring_insert_nop() used by the GFX rings and also
-> the SDMA ones.
-
-As far as I see amdgpu_ring_insert_nop() is used by all rings not just GFX =
-and=20
-SDMA, isn't it?
-
-> Although with SDMA this should have much less benefit than
-> with GFX (only SDMA v4.0 uses the 256 byte ring padding while the rest use
-> 16), but on the other hand it should not harm and is at least more
-> consistent.
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 17 +---------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 26 ++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   | 15 +++++++-------
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   | 15 +++++++-------
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 15 +++++++-------
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 15 +++++++-------
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 15 +++++++-------
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 15 +++++++-------
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   | 15 +++++++-------
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   | 15 +++++++-------
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c   | 15 +++++++-------
->  11 files changed, 90 insertions(+), 88 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c index 686c92e96025..38434a4c35=
-66
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -117,22 +117,7 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring,
-> unsigned int ndw) */
->  void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
->  {
-> -	uint32_t occupied, chunk1, chunk2;
-> -
-> -	occupied =3D ring->wptr & ring->buf_mask;
-> -	chunk1 =3D ring->buf_mask + 1 - occupied;
-> -	chunk1 =3D (chunk1 >=3D count) ? count : chunk1;
-> -	chunk2 =3D count - chunk1;
-> -
-> -	if (chunk1)
-> -		memset32(&ring->ring[occupied], ring->funcs->nop,=20
-chunk1);
-> -
-> -	if (chunk2)
-> -		memset32(ring->ring, ring->funcs->nop, chunk2);
-> -
-> -	ring->wptr +=3D count;
-> -	ring->wptr &=3D ring->ptr_mask;
-> -	ring->count_dw -=3D count;
-> +	amdgpu_ring_fill(ring, ring->funcs->nop, count);
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     | 33 +++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 26 +++++++++++++++
+>  .../amd/amdkfd/ctx_save_restore_area_address  |  0
+>  3 files changed, 59 insertions(+)
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/ctx_save_restore_area_addr=
+ess
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_trace.h
+> index 5324030a13f5..546794097631 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> @@ -732,6 +732,39 @@ TRACE_EVENT(amdgpu_userq_state_changed,
+>                       __entry->client_id, __entry->queue_type, __entry->d=
+oorbell_index, __entry->to)
+>  );
+>
+> +TRACE_EVENT(amdgpu_register_pid,
+> +           TP_PROTO(uint32_t pid, int major, int minor),
+> +           TP_ARGS(pid, major, minor),
+> +           TP_STRUCT__entry(
+> +                       __field(u32, pid)
+> +                       __field(int, major)
+> +                       __field(int, minor)
+> +           ),
+> +           TP_fast_assign(
+> +                       __entry->pid =3D pid;
+> +                       __entry->major =3D major;
+> +                       __entry->minor =3D minor;
+> +           ),
+> +           TP_printk("amdgpu register pid %d render %d:%d",
+> +                     __entry->pid, __entry->major, __entry->minor)
+> +);
+> +TRACE_EVENT(amdgpu_deregister_pid,
+> +           TP_PROTO(uint32_t pid, int major, int minor),
+> +           TP_ARGS(pid, major, minor),
+> +           TP_STRUCT__entry(
+> +                       __field(u32, pid)
+> +                       __field(int, major)
+> +                       __field(int, minor)
+> +           ),
+> +           TP_fast_assign(
+> +                       __entry->pid =3D pid;
+> +                       __entry->major =3D major;
+> +                       __entry->minor =3D minor;
+> +           ),
+> +           TP_printk("amdgpu deregister pid %d render %d:%d",
+> +                     __entry->pid, __entry->major, __entry->minor)
+> +);
+> +
+>  #undef AMDGPU_JOB_GET_TIMELINE_NAME
+>  #endif
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index aac8ace9d7a6..6be83cd2e162 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -33,6 +33,7 @@
+>
+>  #include <drm/amdgpu_drm.h>
+>  #include <drm/drm_drv.h>
+> +#include <drm/drm_ioctl.h>
+>  #include <drm/ttm/ttm_tt.h>
+>  #include <drm/drm_exec.h>
+>  #include "amdgpu.h"
+> @@ -2530,6 +2531,12 @@ static int amdgpu_vm_create_task_info(struct amdgp=
+u_vm *vm)
+>         return 0;
 >  }
->=20
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h index 6b6ee4083c8d..2b1d3956cd=
-d3
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -522,6 +522,32 @@ static inline void amdgpu_ring_write_multiple(struct
-> amdgpu_ring *ring, ring->count_dw -=3D count_dw;
->  }
->=20
-> +static inline void amdgpu_ring_fill(struct amdgpu_ring *ring,
-> +				    u32 val, u32 count)
+>
+> +static void amdgpu_vm_render_devt(struct amdgpu_device *adev, int *major=
+, int *minor)
 > +{
-> +	const u32 buf_mask =3D ring->buf_mask;
-> +	u32 occupied, chunk1, chunk2;
-> +	u64 wptr =3D ring->wptr;
-> +
-> +	if (count =3D=3D 0)
-> +		return;
-> +
-> +	occupied =3D wptr & buf_mask;
-> +	chunk1 =3D buf_mask + 1 - occupied;
-> +	chunk1 =3D (chunk1 >=3D count) ? count : chunk1;
-> +	chunk2 =3D count - chunk1;
-> +
-> +	if (chunk1)
-> +		memset32(&ring->ring[occupied], val, chunk1);
-> +
-> +	if (chunk2)
-> +		memset32(ring->ring, val, chunk2);
-> +
-> +	wptr +=3D count;
-> +	ring->wptr =3D wptr & ring->ptr_mask;
-> +	ring->count_dw -=3D count;
+> +       *major =3D DRM_MAJOR;
+> +       *minor =3D adev_to_drm(adev)->render->index;
 > +}
 > +
->  static inline unsigned int amdgpu_ring_get_dw_distance(struct amdgpu_ring
-> *ring, u64 start_wptr, u64 end_wptr)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c index 006f3fd3464a..e461e0236b5f
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-> @@ -224,15 +224,14 @@ static void sdma_v2_4_ring_set_wptr(struct amdgpu_r=
-ing
-> *ring) static void sdma_v2_4_ring_insert_nop(struct amdgpu_ring *ring,
-> uint32_t count) {
->  	struct amdgpu_sdma_instance *sdma =3D
-> amdgpu_sdma_get_instance_from_ring(ring); -	const bool burst_nop =3D
-> sdma->burst_nop;
-> -	int i;
-> +	const u32 nop =3D ring->funcs->nop;
->=20
-> -	for (i =3D 0; i < count; i++)
-> -		if (i =3D=3D 0 && burst_nop)
-> -			amdgpu_ring_write(ring, ring->funcs->nop |
-> -				SDMA_PKT_NOP_HEADER_COUNT(count -=20
-1));
-> -		else
-> -			amdgpu_ring_write(ring, ring->funcs->nop);
-> +	if (sdma->burst_nop) {
-> +		--count;
-> +		amdgpu_ring_write(ring, nop |=20
-SDMA_PKT_NOP_HEADER_COUNT(count));
-> +	}
-> +
-> +	amdgpu_ring_fill(ring, nop, count);
->  }
->=20
 >  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c index 3fb15032e1ef..5cca7f715c6a
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> @@ -401,15 +401,14 @@ static void sdma_v3_0_ring_set_wptr(struct amdgpu_r=
-ing
-> *ring) static void sdma_v3_0_ring_insert_nop(struct amdgpu_ring *ring,
-> uint32_t count) {
->  	struct amdgpu_sdma_instance *sdma =3D
-> amdgpu_sdma_get_instance_from_ring(ring); -	const bool burst_nop =3D
-> sdma->burst_nop;
-> -	int i;
-> +	const u32 nop =3D ring->funcs->nop;
->=20
-> -	for (i =3D 0; i < count; i++)
-> -		if (i =3D=3D 0 && burst_nop)
-> -			amdgpu_ring_write(ring, ring->funcs->nop |
-> -				SDMA_PKT_NOP_HEADER_COUNT(count -=20
-1));
-> -		else
-> -			amdgpu_ring_write(ring, ring->funcs->nop);
-> +	if (sdma->burst_nop) {
-> +		--count;
-> +		amdgpu_ring_write(ring, nop |=20
-SDMA_PKT_NOP_HEADER_COUNT(count));
-> +	}
+>   * amdgpu_vm_set_task_info - Sets VMs task info.
+>   *
+> @@ -2543,6 +2550,18 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
+>         if (vm->task_info->task.pid =3D=3D current->pid)
+>                 return;
+>
+> +       if (vm->root.bo) {
+> +               struct amdgpu_device *adev =3D amdgpu_ttm_adev(vm->root.b=
+o->tbo.bdev);
+> +               int major, minor;
 > +
-> +	amdgpu_ring_fill(ring, nop, count);
->  }
->=20
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c index dfb0ea709bad..63bdf8d4e8d5
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> @@ -784,15 +784,14 @@ static void sdma_v4_0_page_ring_set_wptr(struct
-> amdgpu_ring *ring) static void sdma_v4_0_ring_insert_nop(struct amdgpu_ri=
-ng
-> *ring, uint32_t count) {
->  	struct amdgpu_sdma_instance *sdma =3D
-> amdgpu_sdma_get_instance_from_ring(ring); -	const bool burst_nop =3D
-> sdma->burst_nop;
-> -	int i;
-> +	const u32 nop =3D ring->funcs->nop;
->=20
-> -	for (i =3D 0; i < count; i++)
-> -		if (i =3D=3D 0 && burst_nop)
-> -			amdgpu_ring_write(ring, ring->funcs->nop |
-> -				SDMA_PKT_NOP_HEADER_COUNT(count -=20
-1));
-> -		else
-> -			amdgpu_ring_write(ring, ring->funcs->nop);
-> +	if (sdma->burst_nop) {
-> +		--count;
-> +		amdgpu_ring_write(ring, nop |=20
-SDMA_PKT_NOP_HEADER_COUNT(count));
-> +	}
+> +               amdgpu_vm_render_devt(adev, &major, &minor);
 > +
-> +	amdgpu_ring_fill(ring, nop, count);
->  }
->=20
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c index f2e6abe44a43..145f862cbc=
-c6
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> @@ -350,15 +350,14 @@ static void sdma_v4_4_2_page_ring_set_wptr(struct
-> amdgpu_ring *ring) static void sdma_v4_4_2_ring_insert_nop(struct
-> amdgpu_ring *ring, uint32_t count) {
->  	struct amdgpu_sdma_instance *sdma =3D
-> amdgpu_sdma_get_instance_from_ring(ring); -	const bool burst_nop =3D
-> sdma->burst_nop;
-> -	int i;
-> +	const u32 nop =3D ring->funcs->nop;
->=20
-> -	for (i =3D 0; i < count; i++)
-> -		if (i =3D=3D 0 && burst_nop)
-> -			amdgpu_ring_write(ring, ring->funcs->nop |
-> -				SDMA_PKT_NOP_HEADER_COUNT(count -=20
-1));
-> -		else
-> -			amdgpu_ring_write(ring, ring->funcs->nop);
-> +	if (sdma->burst_nop) {
-> +		--count;
-> +		amdgpu_ring_write(ring, nop |=20
-SDMA_PKT_NOP_HEADER_COUNT(count));
-> +	}
+> +               if (vm->task_info->task.pid)
+> +                       trace_amdgpu_deregister_pid(vm->task_info->task.p=
+id,
+> +                                                   major, minor);
+> +               trace_amdgpu_register_pid(current->pid, major, minor);
+> +       }
 > +
-> +	amdgpu_ring_fill(ring, nop, count);
->  }
->=20
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c index cb36b38582c5..124bc5768983
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-> @@ -407,15 +407,14 @@ static void sdma_v5_0_ring_set_wptr(struct amdgpu_r=
-ing
-> *ring) static void sdma_v5_0_ring_insert_nop(struct amdgpu_ring *ring,
-> uint32_t count) {
->  	struct amdgpu_sdma_instance *sdma =3D
-> amdgpu_sdma_get_instance_from_ring(ring); -	const bool burst_nop =3D
-> sdma->burst_nop;
-> -	int i;
-> +	const u32 nop =3D ring->funcs->nop;
->=20
-> -	for (i =3D 0; i < count; i++)
-> -		if (i =3D=3D 0 && burst_nop)
-> -			amdgpu_ring_write(ring, ring->funcs->nop |
-> -				SDMA_PKT_NOP_HEADER_COUNT(count -=20
-1));
-> -		else
-> -			amdgpu_ring_write(ring, ring->funcs->nop);
-> +	if (sdma->burst_nop) {
-> +		--count;
-> +		amdgpu_ring_write(ring, nop |=20
-SDMA_PKT_NOP_HEADER_COUNT(count));
-> +	}
+>         vm->task_info->task.pid =3D current->pid;
+>         get_task_comm(vm->task_info->task.comm, current);
+>
+> @@ -2803,6 +2822,13 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, st=
+ruct amdgpu_vm *vm)
+>                          ti->process_name, ti->task.pid, ti->task.comm, t=
+i->tgid);
+>         }
+>
+> +       if (vm->task_info->task.pid) {
+> +               int major, minor;
 > +
-> +	amdgpu_ring_fill(ring, nop, count);
->  }
->=20
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c index 2858820bb864..242586ea951a
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> @@ -255,15 +255,14 @@ static void sdma_v5_2_ring_set_wptr(struct amdgpu_r=
-ing
-> *ring) static void sdma_v5_2_ring_insert_nop(struct amdgpu_ring *ring,
-> uint32_t count) {
->  	struct amdgpu_sdma_instance *sdma =3D
-> amdgpu_sdma_get_instance_from_ring(ring); -	const bool burst_nop =3D
-> sdma->burst_nop;
-> -	int i;
-> +	const u32 nop =3D ring->funcs->nop;
->=20
-> -	for (i =3D 0; i < count; i++)
-> -		if (i =3D=3D 0 && burst_nop)
-> -			amdgpu_ring_write(ring, ring->funcs->nop |
-> -				SDMA_PKT_NOP_HEADER_COUNT(count -=20
-1));
-> -		else
-> -			amdgpu_ring_write(ring, ring->funcs->nop);
-> +	if (sdma->burst_nop) {
-> +		--count;
-> +		amdgpu_ring_write(ring, nop |=20
-SDMA_PKT_NOP_HEADER_COUNT(count));
-> +	}
+> +               amdgpu_vm_render_devt(adev, &major, &minor);
+> +               trace_amdgpu_deregister_pid(vm->task_info->task.pid, majo=
+r, minor);
+> +       }
 > +
-> +	amdgpu_ring_fill(ring, nop, count);
+>         amdgpu_vm_put_task_info(vm->task_info);
 >  }
->=20
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c index d3504606bee7..ae063ac3bd74
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> @@ -243,15 +243,14 @@ static void sdma_v6_0_ring_set_wptr(struct amdgpu_r=
-ing
-> *ring) static void sdma_v6_0_ring_insert_nop(struct amdgpu_ring *ring,
-> uint32_t count) {
->  	struct amdgpu_sdma_instance *sdma =3D
-> amdgpu_sdma_get_instance_from_ring(ring); -	const bool burst_nop =3D
-> sdma->burst_nop;
-> -	int i;
-> +	const u32 nop =3D ring->funcs->nop;
->=20
-> -	for (i =3D 0; i < count; i++)
-> -		if (i =3D=3D 0 && burst_nop)
-> -			amdgpu_ring_write(ring, ring->funcs->nop |
-> -				SDMA_PKT_NOP_HEADER_COUNT(count -=20
-1));
-> -		else
-> -			amdgpu_ring_write(ring, ring->funcs->nop);
-> +	if (sdma->burst_nop) {
-> +		--count;
-> +		amdgpu_ring_write(ring, nop |=20
-SDMA_PKT_NOP_HEADER_COUNT(count));
-> +	}
-> +
-> +	amdgpu_ring_fill(ring, nop, count);
->  }
->=20
->  /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c index 1760f03db9e7..fd92830d3324
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-> @@ -245,15 +245,14 @@ static void sdma_v7_0_ring_set_wptr(struct amdgpu_r=
-ing
-> *ring) static void sdma_v7_0_ring_insert_nop(struct amdgpu_ring *ring,
-> uint32_t count) {
->  	struct amdgpu_sdma_instance *sdma =3D
-> amdgpu_sdma_get_instance_from_ring(ring); -	const bool burst_nop =3D
-> sdma->burst_nop;
-> -	int i;
-> +	const u32 nop =3D ring->funcs->nop;
->=20
-> -	for (i =3D 0; i < count; i++)
-> -		if (i =3D=3D 0 && burst_nop)
-> -			amdgpu_ring_write(ring, ring->funcs->nop |
-> -				SDMA_PKT_NOP_HEADER_COUNT(count -=20
-1));
-> -		else
-> -			amdgpu_ring_write(ring, ring->funcs->nop);
-> +	if (sdma->burst_nop) {
-> +		--count;
-> +		amdgpu_ring_write(ring, nop |=20
-SDMA_PKT_NOP_HEADER_COUNT(count));
-> +	}
-> +
-> +	amdgpu_ring_fill(ring, nop, count);
->  }
->=20
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c index b9f11f2f7e5c..c0824c83ace9
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-> @@ -239,15 +239,14 @@ static void sdma_v7_1_ring_set_wptr(struct amdgpu_r=
-ing
-> *ring) static void sdma_v7_1_ring_insert_nop(struct amdgpu_ring *ring,
-> uint32_t count) {
->  	struct amdgpu_sdma_instance *sdma =3D
-> amdgpu_sdma_get_instance_from_ring(ring); -	const bool burst_nop =3D
-> sdma->burst_nop;
-> -	int i;
-> +	const u32 nop =3D ring->funcs->nop;
->=20
-> -	for (i =3D 0; i < count; i++)
-> -		if (i =3D=3D 0 && burst_nop)
-> -			amdgpu_ring_write(ring, ring->funcs->nop |
-> -				SDMA_PKT_NOP_HEADER_COUNT(count -=20
-1));
-> -		else
-> -			amdgpu_ring_write(ring, ring->funcs->nop);
-> +	if (sdma->burst_nop) {
-> +		--count;
-> +		amdgpu_ring_write(ring, nop |=20
-SDMA_PKT_NOP_HEADER_COUNT(count));
-> +	}
-> +
-> +	amdgpu_ring_fill(ring, nop, count);
->  }
->=20
->  /**
-
-
-
-
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/ctx_save_restore_area_address b/d=
+rivers/gpu/drm/amd/amdkfd/ctx_save_restore_area_address
+> new file mode 100644
+> index 000000000000..e69de29bb2d1
+> --
+> 2.34.1
+>
