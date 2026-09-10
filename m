@@ -4,97 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E8B5C79FA1
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 07:22:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB050C79FA1
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 08:01:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E225B89D63;
-	Fri, 11 Sep 2026 07:22:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73E3210F53E;
+	Fri, 11 Sep 2026 08:01:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d5yaIjYR";
+	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="CaVJgGpl";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012052.outbound.protection.outlook.com
- [40.107.200.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A81D89DA5
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 07:22:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZI7FJRumRv671LqD2qrur/G9IuBCqZqvLqiJjmOtcXZmeg0am43hMu4mRcxXGD4hSNb4X7+LwPzBP78/lbr6VGJX1Rf0vIQ37TVwvsR9a+D7YAa7aP4q0nhXbYQV+/1rEdH2XKub1jBtFADI2HOhI8fk00tMIICcl/Ae0Afou9mmRO7rRlzxyQbhv+ucjEVaUUHP9TbsBK+vHP+qK1zyoooxGxZCujUJmkyrvFoJfj7f3sRp2m/cL0N/cQJdLFN1UG7I9BZIXH49Z38jEj9LQCAmmLhEy4P+OrqqRPYrwfAD6UeJDDNkzqfIMaG8pYNa51cH/DenJ2EXrhm+qbNnhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lDHKFeROYqPN8W7wh8wpkTrhkQP8khIjuBaoF2oJLys=;
- b=NuyzFx65eu0TlzWfyw6j68PwF+DbuFEXQSUJ4qov4CPR1d0RhlhSzJz9f1tPAQ6hNxwhJxdNUIjrnahQQw7FdN2ImCKk19XLacWDb66AZW7eLUY1Z/wCSP5SL7Xzr5zFajD0xOhPVZT0igo7xfoJRgkntVkc6Jd+RWoS6toAPcNvMDuy1GUGOB6Jdssh1FGDBA0F/fsBZCm6ZPyzAo94kDb9NquXUcNtDZgDGHCggkPxTI2qX1y8ZfvwmlH7IkYcFUneQHr0GLkUarCu/p70+J2aBB/LEUJVgRCAnE+CV8kyuCIw+aR6ZMcogZ47+RyZZrnQVxvXp7tALh9r6V+hlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lDHKFeROYqPN8W7wh8wpkTrhkQP8khIjuBaoF2oJLys=;
- b=d5yaIjYRxNPFQmPqQ8cRoxF7TreRD0F35cyKH6IJVHnuItA9T3ZWRvN9jpZkSFaE9ZCJZE1Pe9AbaO41/MJXBuDfLqvjQxuehdV1eipKWw1S7EWOPOPccudKowJDWqe+NvvJ0pvFdgcw0j7dEU8bCp1d8WPAWIv05jviffQf8yE=
-Received: from CH2PR17CA0030.namprd17.prod.outlook.com (2603:10b6:610:53::40)
- by SA1PR12MB9246.namprd12.prod.outlook.com (2603:10b6:806:3ac::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 07:22:33 +0000
-Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
- (2603:10b6:610:53:cafe::43) by CH2PR17CA0030.outlook.office365.com
- (2603:10b6:610:53::40) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Fri, 11
- Sep 2026 07:22:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 07:22:32 +0000
-Received: from amd-03.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 11 Sep
- 2026 02:22:26 -0500
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <kevin.wang@amd.com>,
- <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>
-Subject: [PATCH] drm/amd/pm: Add GetRmaStatus message
-Date: Fri, 11 Sep 2026 15:21:56 +0800
-Message-ID: <20260911072156.1698346-1-YiPeng.Chai@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from smtp-8faa.mail.infomaniak.ch (smtp-8faa.mail.infomaniak.ch
+ [83.166.143.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90F8F10E2D4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 18:15:21 +0000 (UTC)
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown
+ [IPv6:2001:1600:4:17::246b])
+ by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hgm7C4Mw1z3tQ;
+ Thu, 10 Sep 2026 20:15:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
+ s=20250113; t=1789064119;
+ bh=RZefKOnVfiL9JNII1ZYlmPnKnTh94CstW5go0Osd9Xg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=CaVJgGpl1eBzB9wnSMes3HiZ+tX/fAtXsEPvdA5HSzKCgQ5flcLi461UIDkE+g5St
+ DR+Q2Xg14CYWzZM0vZpGj2FytrNkTmnUGZysDnVj4bWFLUZZvsbS3Adhca08BfkdFG
+ Pf4sSv5Mf02VNL2eRMdGBuhm3p/xqvMhDfrSShPDuwbaC8N7WMw1tLBeq344pNJCgt
+ ZB7VJCl+kRtfwP0cvnoQA3ZD4aiGJ1BlJze5xskiMFtumP+42oe1Ry1qVU/EX71gZW
+ 9XKGZPVHccWTnq8aoPFgP+S90GcDeHYxRbd+tWH9Vy58tHGRrjMLisHYTibHbX6bCT
+ smb1VRqafm2TA==
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4hgm7B3jv5zf3K; Thu, 10 Sep 2026 20:15:18 +0200 (CEST)
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Satyajit Roy <sroy14@alum.utk.edu>, Alex Hung <alex.hung@amd.com>,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Default HDMI RGB output to limited range on
+ CTA modes
+Date: Thu, 10 Sep 2026 20:15:17 +0200
+Message-ID: <20260910181517.68781-1-adrian.betschart@cinemaone.ch>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|SA1PR12MB9246:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2fc6fc56-e0c1-44d7-9411-08df0fd5721a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|56012099006|11063799006|6133799003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: I8tgdXZgkgW/Fowu8TmJo4oFo3LN6c2iX1DtZvIOImmewNA7eKytYD/0goFu+JDami3KJzyZS5wQiVwJng+E4UByi767uSzzE4exH2EaBTEvlhATS5dwptEmQXxKEwZqrdQWEPK+F/9/Z8mzjDJQF4qQiU1fSrrROazJwVOapritGPdHf6FKKaQian9UQJ4h57kNTzrc6B1r4YI7NJ4kFhhCf66gE5xszJBUohzIi5/IZiUj9wQF5LH0dMure0DuZPTrhU4uW2owZ0Yr0tjEJAEpW99iQS2dPxuQiaEiiYmZ37o68qUewcdpeAXNhpqBOMFFwSxuRQzhD9mD0X9sGNfwVlT5cKLdV2j+mhw0bDzIWKTIXRCYUPDNhfwHFmkqqmM1V+Np/q3I5EQ3Ja3mbGGR4hhmQqVqY2lL7GNUfpUv69b3S6JR6M2j51yM8AWMpbenOG1YeLQk058KPVBig1We9zlqa8GJtDppZUhbbiYNqDDv7z4uXcE7YVegzJroiqO2ChPgF7eIZN7KNQ/H7ZuPjwNtVkCSHTfxd1OvotFT3V/LCMNxYwdqkWvGTRg8cvGeycnjjQvDfbCMuarUwVwOrLImfDG8TkLDbnKLtyyDDL6UNI4KLYND/xWnNpePjahdthQzIAg9MtSQT3BCwakukhmvHNBhHfR7AOPeRKgf5dWdTOG1bz8G+BsEkcMPfnPd46WkCS1SbA1j/QswXA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(56012099006)(11063799006)(6133799003)(10067099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: cGmgALsAL2WbATlil4b0CFzXErPuRpGkkuzZQ+sdmcLN3Q4My4jM7oAtNSnEMwbl+iex3GzbxfRTdNCAvtsX1kGLSOUCfK1QquI/NluHcCTZNCqQXa/p+QvFG6WukxcpVFlexdwBpdtYJc0ALQMbY+fPT6AOhIhiLCK5Jp4q2SEDIIkz8FTWPeTvya7qRyWJkPnyGC7cyCGXKuNsAdiEr4aHabPVRUtPug9SMQ8nv54NH7jMRWpUZJO9dDeRoyd09hWeoG/e5fLJVgQ/3YQ48Tp+RSBN19K6MmzoS4akadHGYSyQwQ1sSNMTZGzYjPWbIwL4nmWcaCl4gNI7st3R9I8GltnN76P75XoU9jE/RNrZVUbPr+pNLvPg5MwHAwpoWcXti+pJU8Q31hxdji7K0wkt1+JxP1tim3QY42w9ydxffY0h5+lHvFBCFDv3LYJl
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 07:22:32.6141 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fc6fc56-e0c1-44d7-9411-08df0fd5721a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9246
+X-Infomaniak-Routing: alpha
+X-Mailman-Approved-At: Fri, 11 Sep 2026 08:01:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,77 +63,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add GetRmaStatus message for smu_v13_0_12 and smu_v15_0_8.
+With the Broadcast RGB property at Automatic, amdgpu_dm_get_output_color_space()
+selects COLOR_SPACE_SRGB for RGB output, so DC neither compresses the pixels
+nor, without a QS-capable sink, signals full range in the AVI InfoFrame. A sink
+that follows CTA-861 treats the default quantization of a CTA video format as
+limited and expands 16-235 to 0-255: everything below 16 is crushed to black,
+everything above 235 clips.
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+Follow the CTA-861 default for Automatic instead, as the DRM HDMI state helper
+(hdmi_is_limited_range()) and i915 do: limited range on an HDMI sink for CTA
+modes other than 640x480, full range elsewhere. Full and Limited keep their
+explicit meaning. The same rule applies to the BT.2020 RGB branch. With
+commit a56a50074 ("drm/amd/display: Propagate HDMI RGB quantization
+selectability") the AVI InfoFrame then carries the matching Q value on
+sinks that support selection.
+
+Measured on a Radeon RX 7600 (DCN 3.2.1) driving a JVC DLA-RS4100 at
+1920x1080p24 RGB 12 bpc: the sink reports the signal as limited range while
+the picture shows crushed shadows; rendering limited range in the client makes
+it match a reference source.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5796
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Assisted-by: Claude Code:claude-fable-5-1
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h | 1 +
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h                  | 1 +
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c         | 1 +
- drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c          | 1 +
- drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c              | 1 +
- 5 files changed, 5 insertions(+)
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 22 +++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
-index d09b6ae9827e..ac7e617e64ad 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
-@@ -105,6 +105,7 @@
- #define PPSMC_MSG_UpdatePccWaitDecMaxStr            0x4C
- #define PPSMC_MSG_ResetSDMA                         0x4D
- #define PPSMC_MSG_GetRasTableVersion                0x4E
-+#define PPSMC_MSG_GetRmaStatus                      0x4F
- #define PPSMC_MSG_GetBadPageCount                   0x50
- #define PPSMC_MSG_GetBadPageMcaAddress              0x51
- #define PPSMC_MSG_SetTimestamp                      0x53
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-index 1edef38c9209..35ef95a820dc 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -292,6 +292,7 @@
- 	__SMU_DUMMY_MAP(GetStaticMetricsTable), \
- 	__SMU_DUMMY_MAP(GetSystemMetricsTable), \
- 	__SMU_DUMMY_MAP(GetRASTableVersion), \
-+	__SMU_DUMMY_MAP(GetRmaStatus),    \
- 	__SMU_DUMMY_MAP(GetBadPageCount), \
- 	__SMU_DUMMY_MAP(GetBadPageMcaAddr), \
- 	__SMU_DUMMY_MAP(SetTimestamp), \
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-index 0033453f27e5..4f3d59897aae 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-@@ -152,6 +152,7 @@ const struct cmn2asic_msg_mapping smu_v13_0_12_message_map[SMU_MSG_MAX_COUNT] =
- 	MSG_MAP(GetStaticMetricsTable,               PPSMC_MSG_GetStaticMetricsTable,           1),
- 	MSG_MAP(GetSystemMetricsTable,               PPSMC_MSG_GetSystemMetricsTable,           1),
- 	MSG_MAP(GetRASTableVersion,                  PPSMC_MSG_GetRasTableVersion,              0),
-+	MSG_MAP(GetRmaStatus,                        PPSMC_MSG_GetRmaStatus,                    0),
- 	MSG_MAP(GetBadPageCount,                     PPSMC_MSG_GetBadPageCount,                 0),
- 	MSG_MAP(GetBadPageMcaAddr,                   PPSMC_MSG_GetBadPageMcaAddress,            0),
- 	MSG_MAP(SetTimestamp,                        PPSMC_MSG_SetTimestamp,                    0),
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-index b886208ad93d..b69efaecc1bb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-@@ -126,6 +126,7 @@ static const struct cmn2asic_msg_mapping smu_v15_0_8_message_map[SMU_MSG_MAX_COU
- 	MSG_MAP(GetTimestamp,                        PPSMC_MSG_GetTimestamp,                    0),
- 	MSG_MAP(GetBadPageIpid,                      PPSMC_MSG_GetBadPageIpIdLoHi,              0),
- 	MSG_MAP(EraseRasTable,                       PPSMC_MSG_EraseRasTable,                   0),
-+	MSG_MAP(GetRmaStatus,                        PPSMC_MSG_GetRmaStatus,                    0),
- 	MSG_MAP(GetStaticMetricsTable,               PPSMC_MSG_GetStaticMetricsTable,		1),
- 	MSG_MAP(GetSystemMetricsTable,               PPSMC_MSG_GetSystemMetricsTable,           1),
- 	MSG_MAP(GetSystemMetricsVersion,             PPSMC_MSG_GetSystemMetricsVersion,		0),
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c
-index d8a446d0179e..7ca2f33f2cf0 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c
-@@ -36,6 +36,7 @@ static const enum smu_message_type ras_smu_msg_maps[RAS_MP1_MSG_MAX] = {
- 	[RAS_MP1_MSG_QueryValidMcaCeCount] = SMU_MSG_QueryValidMcaCeCount,
- 	[RAS_MP1_MSG_McaBankCeDumpDW] = SMU_MSG_McaBankCeDumpDW,
- 	[RAS_MP1_MSG_GetRasTableVersion] = SMU_MSG_GetRASTableVersion,
-+	[RAS_MP1_MSG_GetRmaStatus] = SMU_MSG_GetRmaStatus,
- 	[RAS_MP1_MSG_GetBadPageCount] = SMU_MSG_GetBadPageCount,
- 	[RAS_MP1_MSG_GetBadPageMcaAddr] = SMU_MSG_GetBadPageMcaAddr,
- 	[RAS_MP1_MSG_SetTimestamp] = SMU_MSG_SetTimestamp,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 0b446133e..13cbe099c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -734,6 +734,24 @@ get_aspect_ratio(const struct drm_display_mode *mode_in)
+ }
+ EXPORT_IF_KUNIT(get_aspect_ratio);
+ 
++/*
++ * CTA-861 5.1: RGB video formats default to limited range except 640x480 (VIC 1).
++ * With Broadcast RGB left at Automatic follow that default, as i915 does.
++ */
++static bool rgb_output_is_limited_range(const struct dc_crtc_timing *dc_crtc_timing,
++					const struct drm_connector_state *connector_state)
++{
++	switch (connector_state->hdmi.broadcast_rgb) {
++	case DRM_HDMI_BROADCAST_RGB_FULL:
++		return false;
++	case DRM_HDMI_BROADCAST_RGB_LIMITED:
++		return true;
++	default:
++		return connector_state->connector->display_info.is_hdmi &&
++		       dc_crtc_timing->vic > 1;
++	}
++}
++
+ enum dc_color_space
+ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 				 const struct drm_connector_state *connector_state)
+@@ -759,7 +777,7 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 	case DRM_MODE_COLORIMETRY_BT2020_RGB:
+ 	case DRM_MODE_COLORIMETRY_BT2020_YCC:
+ 		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
+-			if (connector_state->hdmi.broadcast_rgb == DRM_HDMI_BROADCAST_RGB_LIMITED)
++			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state))
+ 				color_space = COLOR_SPACE_2020_RGB_LIMITEDRANGE;
+ 			else
+ 				color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
+@@ -771,7 +789,7 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 	default:
+ 		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
+ 			color_space = COLOR_SPACE_SRGB;
+-			if (connector_state->hdmi.broadcast_rgb == DRM_HDMI_BROADCAST_RGB_LIMITED)
++			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state))
+ 				color_space = COLOR_SPACE_SRGB_LIMITED;
+ 		/*
+ 		 * 27030khz is the separation point between HDTV and SDTV
 -- 
-2.43.0
+2.55.0
 
