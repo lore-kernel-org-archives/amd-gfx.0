@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2177EC79FBF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 16:32:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F132DC88E41
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Sep 2026 16:42:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9389710E2B7;
-	Thu, 10 Sep 2026 16:32:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 813E710E4B6;
+	Thu, 10 Sep 2026 16:42:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1BLyx+MR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5nj2B7xp";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012043.outbound.protection.outlook.com
- [40.107.200.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D47F10E2B7;
- Thu, 10 Sep 2026 16:32:04 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010036.outbound.protection.outlook.com [52.101.61.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49F4710E47F;
+ Thu, 10 Sep 2026 16:42:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MkLBoPNs7omjJr/K7JCd0AK/23GFyeny1Rj0+wkWIvpceKy7CAYOjLMO8V1lg+FQVp1m36Yu6jm7RSZlj/DqybK3PxQNbjPrEk77tLOyc8szrljFEmtBPTiA3uxhhUhrxDhAXyZ+ODXulaHul3uQCSAdByHqODhHf48ikUbJKRDv+EcZTdrdkmQu43b88B5NJafdbwL6AUAi6fJD/9TyJCVpiLvakG3bLpEnAEqOFuybwEDnSUVEFx9Lat9NSViCOlG3gn5kN12rUqlHf7+XOWk88J2UdBdP5wxKL75M5V4xm34uBm/1i1RdhmDsIC5giEWP9F76h6kvYaGiY/0abg==
+ b=BtkuraN6Tmzc4ik0zVqcY65DdYBvdaAyvteiDUiwvQRwIP+aCh/Yl2wDC6Ua8hPP/VllOBC7uOe8I62hvdMwKbvGcOOpVeb5fLsII9+eW94oviqwyejrnjJS8ygZepj5cM0lpsz7w4waEDsTpW3fbUfIFt+jDgz8xxX5+ZAPER8PAgef3nTIUk3CdDEohf3stO3hLl75ZUshAXfHvDl1RpPGqkHIUWEEbqn+qUQWM6pgf4XRxRaXOD7ubkz8Ef/mG/eeE1nbI+tNCN5hSkCc2dTzDiBV/zTtM48O3oXFhF7rjWUS0OGdsGpgKOaKPRXzl7mCBgVlIAlDpVv60X0mng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HAl4YIHYeSNg7S+vNu0F7P4VzzhesClEgVKCCVLT4wk=;
- b=H8V5Y8mpWnZhoQGGwn2zOohkeHLQ6jMiQbMbJnKsNQy5GEasKcAnzZu8FG0cDcHsAWl+Gw3zzjVr3D0sCRVBAs9QyRumYMhePUIxYQUJgJq2HHdcWF2mRWKT/dkdttLy93emOeAfwS4nw8KQ3zUW2kIBo37ItXb0lgJvzVmTf73ZEVtKlGjkT2VKvjYUpN5lnQNuNxIRmjr3PcutUUUdIP57h2STH3DTu2E1JsAQyEXcc7wHprM8aLvNCdJcO/XLq5hnZqNJgUBgpd0FB9B8EwQiSgT6ajV5wAc/WdN5ITcShOKmylGt0DErPX1O55A2ZVZrPU5bPAMk92mVCd3eHA==
+ bh=ds63tCNSo411S3JbHn3iAxLp/ZHYlZAd9tDVI9s2rGk=;
+ b=n+tFyA0IbVWVZfN6aVt7v+XDf4GZWBEq/CXuvEZSb/7b9btbu16phTw6Gi1HHmlbE5KR0ieRZ/OpyqEofFWLpX67zLboy5zp5g4GubS3lvWMLcTYacXIGZPefr/1bhtbSsGKY53dABPutQgkojjv/TyFUGKvYUxsw8AYRMYwB4jG7R6DpY7rQ+SsWa0/Sy6lhBANyTb5w3bibX4k1D3M6/rHjPry0Iero8FBeKJV/kaaxS+K9biYUcl7Zk6peBqKRTcwDTtTpajd+L4TeXzQvlO2Yh+k5NA4iCvsxKp9G8UXXsxG2ZTjVFEFb7eDlHPk+sBCR0eNEItXTh/K9e9JBA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HAl4YIHYeSNg7S+vNu0F7P4VzzhesClEgVKCCVLT4wk=;
- b=1BLyx+MRe0NSfynC+10IZI48zo5hnWnXnAhWwT9RVWctG6WKR79/J+d/YxFuE/Njnsxg0m92SAWV3DTKwZ2/+tf0YwMB95OGMnLcMXO5oESR8TwGNd+0M1dH7AFfCbbEduO7YY01KPBpfSYMWa2gRsf9t9nZp76QeTBEC0BLdAs=
-Received: from CH2PR18CA0041.namprd18.prod.outlook.com (2603:10b6:610:55::21)
- by CY5PR12MB6455.namprd12.prod.outlook.com (2603:10b6:930:35::10)
+ bh=ds63tCNSo411S3JbHn3iAxLp/ZHYlZAd9tDVI9s2rGk=;
+ b=5nj2B7xpj29vDyNNeLdYKpXryV9Xa+JoJciJP9/4FLke7nQgjq1hI2o48J7l3BRIbHJlWPQJwdKnZnA7P5Jz2DG818mjsdM0hkhfIe0cnLXGeEyJDwOe2D4xs37dD4jgyFeegYi2CAxtWAyJ+Fb/q6q1uUeQOYJxlEg7nikTXSc=
+Received: from CH2PR08CA0024.namprd08.prod.outlook.com (2603:10b6:610:5a::34)
+ by CH3PR12MB8934.namprd12.prod.outlook.com (2603:10b6:610:17a::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 16:31:59 +0000
-Received: from CH2PEPF00000144.namprd02.prod.outlook.com
- (2603:10b6:610:55:cafe::8a) by CH2PR18CA0041.outlook.office365.com
- (2603:10b6:610:55::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Thu, 10
- Sep 2026 16:31:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Thu, 10 Sep
+ 2026 16:41:51 +0000
+Received: from DM2PEPF00003FC4.namprd04.prod.outlook.com
+ (2603:10b6:610:5a:cafe::15) by CH2PR08CA0024.outlook.office365.com
+ (2603:10b6:610:5a::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
+ Sep 2026 16:41:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,59 +48,60 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000144.mail.protection.outlook.com (10.167.244.101) with Microsoft
+ DM2PEPF00003FC4.mail.protection.outlook.com (10.167.23.22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 16:31:59 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 16:41:50 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 11:31:58 -0500
-Received: from [10.254.92.142] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Thu, 10 Sep 2026 11:31:58 -0500
-Message-ID: <80397669-ae75-43ce-a072-f94de5720ddf@amd.com>
-Date: Thu, 10 Sep 2026 12:31:57 -0400
+ 2026 11:41:47 -0500
+Received: from [10.254.92.142] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Thu, 10 Sep 2026 11:41:47 -0500
+Message-ID: <1e734f27-e7fe-4e1b-9987-795d930e9237@amd.com>
+Date: Thu, 10 Sep 2026 12:41:46 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 26/41] drm/amdgpu_dm: Convert to atomic_create_state
+Subject: Re: [PATCH v3 07/13] drm/amdgpu: dm: Convert to atomic_create_state
 To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <alexander.deucher@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
- <harry.wentland@amd.com>, <siqueira@igalia.com>
-References: <20260908-drm-no-more-plane-reset-v4-0-a31b3fcfc989@kernel.org>
- <20260908-drm-no-more-plane-reset-v4-26-a31b3fcfc989@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Harry
+ Wentland" <harry.wentland@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ <amd-gfx@lists.freedesktop.org>
+References: <20260904-drm-no-more-crtc-reset-v3-0-27d9891512ce@kernel.org>
+ <20260904-drm-no-more-crtc-reset-v3-7-27d9891512ce@kernel.org>
 Content-Language: en-US
 From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20260908-drm-no-more-plane-reset-v4-26-a31b3fcfc989@kernel.org>
+In-Reply-To: <20260904-drm-no-more-crtc-reset-v3-7-27d9891512ce@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000144:EE_|CY5PR12MB6455:EE_
-X-MS-Office365-Filtering-Correlation-Id: f839f02c-4ac6-4ce3-f349-08df0f59094f
+X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC4:EE_|CH3PR12MB8934:EE_
+X-MS-Office365-Filtering-Correlation-Id: 93e64eee-5494-439f-994d-08df0f5a69c4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|42112799006|376014|1800799024|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: o7lvpKBsIRgJGxUO23VjXk8wHjqpauDL+sxb9bUSdYjz8vm4vWrC50hvYl7+vMx0oHTy6B0RDRQ9QcttjzEMBoCqV+2pCypdofpBGElIFo23suhurW6hsqK1EQOMIGv6yOTwylkgb2qLd4ZlNZ6lJBRZUWQ1lxbupXd2wdQrviMI3YTeSqoRMehsrqyQjXyrKrIPWHeGsek/THNO6+ZxZK7CKCpmbYKW9VL2sO3sPzDupbc3Q6b6+ZZ0hY65p8BMdlpTrFkAv0JsI7f5OedeLwBeuJg5UXMBgVQU7KAPHcCbpNtX+wQzIFPPMtg0r+Ml4QB+B+mawPJKx/u0ylqkRa02JWXcdkp4Dv8GNyHZYCwevsxX0aiL2Z0XaBnChveWcD6sCAoZlgQllYnZ+xogNZMBpQMDtUi5IhbGH+Fb//j7zm6YiNUpUk5TIHHpPfneI4+xdIMmVMKXyD+kCa1YlBBDizXx758LV/H3o2vUEJFg6CRWfJP/Wu1EJfupfcssI6Q/34s54orEhi3mKDUIjt2NJ1DU0En5+pCdTt7pasLoYuYSn6IQm8hZOlLbSc9KbMy5U/MLy10ECorzVCLEmGgm51ltlBik9ZoFWdVfJ5lFaK6xNdEqvB8d/T8DH1Nacfy15Q5kzVBBN/lD7+W6WilF+s8Two4OYwsGwOBgY9HzUIjpO3uXDiKCJwXrMosrK1pDmWP/P1N4xLZMNSC2DQ==
+ ARA:13230040|42112799006|82310400026|36860700016|1800799024|376014|23010399003|4143699003|11063799006|10067099003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: wMPVEjO/hU/Gc8ZUuOCsTh9AMbgGK+aLwnq50FCNGkahaVJTOmxrtZsx+aR/T2jDwzmBm5Cnix1RhZ3q533M3Zm4xcUHK8Ak2lz9I7slMckzQRAp92EXfNTy1raV4mPGYeEFEVcEN4w3gRv5Mk0GHqO/Tn5lOuiG0rVsM4heFdC34T+czzB8PNg+t5C5jFBvfPH1k4iDZUG7LW0LYj7Ab8XWdHy0mAc9zM3nmH3Qt5m89RxM7fkUqK2U+DGCO3eofYz26l7U3MCinY0iWH+KT5OvAMIp6v/YweqHDk3qBePp2uRNikJnhiyaAhhQCSs2xiSWQZJBuy59wEiVxX2BC4sopD4YCPPNAE9qFOFI1ASfX/3e6cgJ8cN3hoYZkmj4ViaGojPDpRTWAH/xIdW3+sY0axg46X0tiJAxBCwfMiCyBkd99QlK+Ng1nOlUH9o2QrPm+6g1+NbH7jJfujCaCbaQ4jdIZaZFH4ml9x2E6v10X1aZqKOKWm+MfJjltuB3mU17u4T6pWd8mFqt9Oj+IPfUKgbO4MqI40J6OH6+ZfmYC7exLs1FzXZX3ML1fxYU+E2xoKLXlXpvtEH6TazFzW6i6mO61b1UtLRLGvL5E0QtpawgLjG4ODk+NI5XapozaztWqRj1EuqNqDszt6K61mamgjctNEscGV3RXAB0lPuL+bmn7Uf/aCGrPMqqIQLBXm5bYIEVPpWPSw7oF5/+8g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(42112799006)(376014)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);
+ SFS:(13230040)(42112799006)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6QV8OvmFKb2FF7wQF6tRpTalWHyVKhWJXFfXw8jdb3oNY3Y9yxieiYk86QHQNV85i5h3PSymRpmRfA42Jt1PLBsglFsLFEUBqNVLUzuuFq3YkueQoCI5KoYTvjwAA2THGpcbx3sZ0z3D1RGY4qwpADS4tQgGsm1YkmJTbLjLHTTCtFFW7ux8aT8uh7i6vemYzZ+vJNxeSy4g/yUwkxNuHiuJqWcwV2I7Qdec+OWOSNN8+J1JX071Mas9IjTkAWnpU3dvYl+r06lJUJimReX+msU99+KYzs4DHa/Mk+29QgkKjII7J8W6l/qU1KdN96NmWuWiYa6ThW9jx6tdIbL3/cV+1WC7VsyPipt9GOYykXmBD07vmk5iIwdMEhiajIAELjxDSa1RCsmEQOCnfhMcPHz2te1FUDglaMtoPLh3nm4+hGKKqbwoiON1xCxayCrx
+X-MS-Exchange-AntiSpam-MessageData-0: bVc1vEmmmHCG/cWFYJgq/wwYqDpwW2pOkYNZhh+tVsQbCz7BGDcM90xLRKjI/JwtwatRL2o/LoMowTNw64qOhJMDi4T9ePtUG8BkiQAPBUYyR+eFUds0vZqnG28kYq/VnSlcpi1ro2lkaOIT4NuuvCBT+58yqN38pPWziP9mu/St4u5/S+Iyj5rzYuuHHSwwcWGO3le9G7jnrSlty5la29PmsYf4pOA+zVVBD8ct0V2RCxOXrSFXkeUJ0hCQaOb15NPPYHFgtiAiGknkh2p4/OSb/5Tt9fWQazvrA69oO9jqEDfMPgJO+m5BsH3cBmaD15o/buQq33ldba/bgDWrGE6Bh0ny0BcM9wm+fMIZXZ52NCPt7x77uRm0gzQNF42U3Fj/qI6MA9BPCg16EcXtvE3FBlpq2H7K+8RONj+mocbv9zoJfelf3xvTSSeBZsAy
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 16:31:59.2059 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f839f02c-4ac6-4ce3-f349-08df0f59094f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 16:41:50.5139 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93e64eee-5494-439f-994d-08df0f5a69c4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000144.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM2PEPF00003FC4.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6455
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8934
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,453 +118,208 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 2026-09-08 10:46, Maxime Ripard wrote:
-> The plane reset implementation creates a custom state
-> subclass, but only initializes a pristine state without resetting any
-> hardware. This is equivalent to what atomic_create_state expects.
-> Convert to it.
+On 2026-09-04 05:07, Maxime Ripard wrote:
+> The amdgpu display manager crtc implementation provides a custom reset
+> hook. However, this hook only allocates the state, initializes it with
+> __drm_atomic_helper_crtc_reset(), and frees the previous state. It
+> does not perform any hardware reset.
 > 
-> The conversion was done using the following Coccinelle semantic patch:
+> Since this is exactly what the atomic_create_state hook is meant to
+> do, minus the old state cleanup which the caller handles, convert the
+> implementation to use atomic_create_state with
+> __drm_atomic_helper_crtc_state_init() instead.
 > 
-> @@
-> identifier funcs;
-> symbol drm_atomic_helper_plane_reset;
-> symbol drm_atomic_helper_plane_create_state;
-> @@
-> 
-> struct drm_plane_funcs funcs = {
->   ...,
-> - .reset = drm_atomic_helper_plane_reset,
-> + .atomic_create_state = drm_atomic_helper_plane_create_state,
->   ...,
-> };
-> 
-> @match_struct_reset@
-> identifier funcs, reset_func;
-> @@
-> struct drm_plane_funcs funcs = {
->     ...,
->     .reset = reset_func,
->     ...,
-> };
-> 
-> @reset_uses_helpers depends on match_struct_reset@
-> identifier match_struct_reset.reset_func;
-> @@
-> 
->  void reset_func(...)
->  {
->  	<+...
-> (
->  	__drm_atomic_helper_plane_reset(...);
-> |
-> 	__drm_gem_reset_shadow_plane(...);
-> )
->  	...+>
->  }
-> 
-> @match_struct_destroy@
-> identifier funcs, destroy_func;
-> @@
-> struct drm_plane_funcs funcs = {
->     ...,
->     .atomic_destroy_state = destroy_func,
->     ...,
-> };
-> 
-> @script:python renamed_func@
-> old_name << match_struct_reset.reset_func;
-> new_name;
-> @@
-> if old_name.endswith("_reset"):
->     coccinelle.new_name = old_name.replace("_reset", "_create_state")
-> else:
->     coccinelle.new_name = old_name
-> 
-> @update_struct depends on match_struct_reset && reset_uses_helpers@
-> identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> @@
-> struct drm_plane_funcs funcs = {
->     ...,
-> -   .reset = reset_func,
-> +   .atomic_create_state = new_name,
->     ...,
-> };
-> 
-> @drop_destroy depends on update_struct && match_struct_destroy@
-> identifier match_struct_reset.reset_func;
-> identifier match_struct_destroy.destroy_func;
-> identifier container_func;
-> identifier P;
-> symbol drm_atomic_helper_plane_destroy_state;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> @@
-> 
->  void reset_func(struct drm_plane *P)
->  {
->  	...
-> (
-> -	if (P->state) {
-> - 		<+...
-> (
-> -		drm_atomic_helper_plane_destroy_state(P, P->state);
-> |
-> -		__drm_atomic_helper_plane_destroy_state(P->state);
-> |
-> -		P->funcs->atomic_destroy_state(P, P->state);
-> |
-> -		destroy_func(P, P->state);
-> )
-> - 		...+>
-> - 	}
-> |
-> -	drm_WARN_ON_ONCE(P->dev, P->state);
-> |
-> -	WARN_ON(P->state);
-> )
->  	...
-> (
-> -	kfree(P->state);
-> |
-> -	kfree(container_func(P->state));
-> |
->  	// kfree is optional
-> )
-> (
-> -	P->state = NULL;
-> |
->  	// plane->state clearing is optional
-> )
->  	...
->  }
-> 
-> @drop_destroy_mtk depends on update_struct@
-> identifier P;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> symbol to_mtk_plane_state;
-> @@
-> 
->  void mtk_plane_reset(struct drm_plane *P)
->  {
->  	...
-> -	if (P->state) {
-> -		__drm_atomic_helper_plane_destroy_state(P->state);
-> -		...
-> -	} else {
->  		...
-> -	}
->  	...
->  }
-> 
-> @transform_nv50_wndw depends on update_struct@
-> identifier S;
-> @@
-> 
->  void nv50_wndw_reset(...)
->  {
->  	...
-> -	if (WARN_ON(!(S = kzalloc_obj(*S))))
-> +	S = kzalloc_obj(*S);
-> +	if (WARN_ON(!S))
->  		return;
->  	...
->  }
-> 
-> @transform_kzalloc depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier P, S;
-> statement ST;
-> statement list STL;
-> @@
-> 
->  void reset_func(struct drm_plane *P)
->  {
->  	<...
->  	S = kzalloc_obj(*S);
-> (
-> -	if (S)
-> -	{
-> -		STL
-> -	}
-> +	if (!S) return;
-> +
-> +	STL
-> |
-> -	if (S) ST
-> +	if (!S) return;
-> +
-> +	ST
-> )
-> 	...>
->  }
-> 
-> @transform_body depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier S, P;
-> expression PS;
-> @@
-> - void reset_func(struct drm_plane *P)
-> + struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	S = kzalloc_obj(*S);
-> 	...
-> (
->  	if (!S) {
-> 		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> |
->  	if (WARN_ON(!S)) {
-> 		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> |
->  	if (S == NULL) {
->  		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> )
-> 	...
-> (
-> -	__drm_atomic_helper_plane_reset(P, PS);
-> +	__drm_atomic_helper_plane_state_init(PS, P);
-> |
-> -	__drm_gem_reset_shadow_plane(P, PS);
-> +	__drm_gem_shadow_plane_state_init(P, PS);
-> )
-> 	...
-> }
-> 
-> @update_early_return depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	<+...
-> -	return;
-> +	return ERR_PTR(-EINVAL);
-> 	...+>
-> }
-> 
-> @update_return_plane depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	__drm_atomic_helper_plane_state_init(PS, P);
-> 	...
-> +
-> +	return PS;
-> }
-> 
-> @update_return_shadow depends on update_struct@
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	__drm_gem_shadow_plane_state_init(P, PS);
-> 	...
-> +
-> +	return &PS->base;
-> }
-> 
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+> Cc: "Christian König" <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Leo Li <sunpeng.li@amd.com>
+> Cc: Rodrigo Siqueira <siqueira@igalia.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 31 +++++++++++++++-------
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h |  2 +-
+>  .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  | 23 ++++++++--------
+>  3 files changed, 33 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> index 62eac6e65334..53910056da20 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> @@ -473,24 +473,23 @@ static void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc)
+>  
+>  	drm_crtc_cleanup(crtc);
+>  	kfree(crtc);
+>  }
+>  
+> -STATIC_IFN_KUNIT void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
+> +STATIC_IFN_KUNIT struct drm_crtc_state *amdgpu_dm_crtc_create_state(struct drm_crtc *crtc)
+>  {
+>  	struct dm_crtc_state *state;
+>  
+>  	state = kzalloc_obj(*state);
+>  	if (!state)
+> -		return;
+> +		return ERR_PTR(-ENOMEM);
+>  
+> -	if (crtc->state)
+> -		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
+> +	__drm_atomic_helper_crtc_state_init(&state->base, crtc);
+>  
+> -	__drm_atomic_helper_crtc_reset(crtc, &state->base);
+> +	return &state->base;
+>  }
+> -EXPORT_IF_KUNIT(amdgpu_dm_crtc_reset_state);
+> +EXPORT_IF_KUNIT(amdgpu_dm_crtc_create_state);
+>  
+>  #ifdef CONFIG_DEBUG_FS
+>  static int amdgpu_dm_crtc_late_register(struct drm_crtc *crtc)
+>  {
+>  	crtc_debugfs_init(crtc);
+> @@ -563,11 +562,11 @@ amdgpu_dm_atomic_crtc_get_property(struct drm_crtc *crtc,
+>  }
+>  #endif
+>  
+>  /* Implemented only the options currently available for the driver */
+>  static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs = {
+> -	.reset = amdgpu_dm_crtc_reset_state,
+> +	.atomic_create_state = amdgpu_dm_crtc_create_state,
+>  	.destroy = amdgpu_dm_crtc_destroy,
+>  	.set_config = drm_atomic_helper_set_config,
+>  	.page_flip = drm_atomic_helper_page_flip,
+>  	.atomic_duplicate_state = amdgpu_dm_crtc_duplicate_state,
+>  	.atomic_destroy_state = amdgpu_dm_crtc_destroy_state,
+> @@ -779,13 +778,22 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+>  
+>  	amdgpu_dm_ism_init(&acrtc->ism, &default_ism_config);
+>  
+>  	drm_crtc_helper_add(&acrtc->base, &amdgpu_dm_crtc_helper_funcs);
+>  
+> -	/* Create (reset) the plane state */
+> -	if (acrtc->base.funcs->reset)
+> -		acrtc->base.funcs->reset(&acrtc->base);
+> +	/* Create the plane state */
+
+Looks like an existing typo, could you s/plane state/crtc state/ along with
+this change?
 
 Reviewed-by: Leo Li <sunpeng.li@amd.com>
 
 Thanks!
-Leo
+- Leo
 
-> ---
-> Cc: alexander.deucher@amd.com
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: christian.koenig@amd.com
-> Cc: harry.wentland@amd.com
-> Cc: siqueira@igalia.com
-> Cc: sunpeng.li@amd.com
-> ---
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 28 ++++++++++++--------
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h    |  2 +-
->  .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c | 30 ++++++++--------------
->  3 files changed, 29 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 824ef3ce5de0..f9655f534d3b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1786,28 +1786,27 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
->  	.atomic_async_update = amdgpu_dm_plane_atomic_async_update,
->  	.get_scanout_buffer = amdgpu_display_get_scanout_buffer,
->  	.panic_flush = amdgpu_dm_plane_panic_flush,
->  };
->  
-> -STATIC_IFN_KUNIT void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
-> +STATIC_IFN_KUNIT struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(struct drm_plane *plane)
->  {
->  	struct dm_plane_state *amdgpu_state;
->  
->  	amdgpu_state = kzalloc_obj(*amdgpu_state);
->  	if (!amdgpu_state)
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  
-> -	if (plane->state)
-> -		plane->funcs->atomic_destroy_state(plane, plane->state);
-> -
-> -	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
-> +	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
->  	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
->  	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
->  	amdgpu_state->shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
->  	amdgpu_state->blend_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+> +	if (acrtc->base.funcs->atomic_create_state) {
+> +		struct drm_crtc_state *crtc_state;
 > +
-> +	return &amdgpu_state->base;
->  }
-> -EXPORT_IF_KUNIT(amdgpu_dm_plane_drm_plane_reset);
-> +EXPORT_IF_KUNIT(amdgpu_dm_plane_drm_plane_create_state);
->  
->  STATIC_IFN_KUNIT struct drm_plane_state *
->  amdgpu_dm_plane_drm_plane_duplicate_state(struct drm_plane *plane)
->  {
->  	struct dm_plane_state *dm_plane_state, *old_dm_plane_state;
-> @@ -2166,11 +2165,11 @@ dm_plane_init_colorops(struct drm_plane *plane)
->  
->  static const struct drm_plane_funcs dm_plane_funcs = {
->  	.update_plane	= drm_atomic_helper_update_plane,
->  	.disable_plane	= drm_atomic_helper_disable_plane,
->  	.destroy	= drm_plane_helper_destroy,
-> -	.reset = amdgpu_dm_plane_drm_plane_reset,
-> +	.atomic_create_state = amdgpu_dm_plane_drm_plane_create_state,
->  	.atomic_duplicate_state = amdgpu_dm_plane_drm_plane_duplicate_state,
->  	.atomic_destroy_state = amdgpu_dm_plane_drm_plane_destroy_state,
->  	.format_mod_supported = amdgpu_dm_plane_format_mod_supported,
->  	.format_mod_supported_async = amdgpu_dm_plane_format_mod_supported,
->  #ifdef AMD_PRIVATE_COLOR
-> @@ -2276,13 +2275,20 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
->  	res = dm_plane_init_colorops(plane);
->  	if (res)
->  		return res;
->  #endif
->  
-> -	/* Create (reset) the plane state */
-> -	if (plane->funcs->reset)
-> -		plane->funcs->reset(plane);
-> +	/* Create the plane state */
-> +	if (plane->funcs->atomic_create_state) {
-> +		struct drm_plane_state *plane_state;
+> +		crtc_state = acrtc->base.funcs->atomic_create_state(&acrtc->base);
+> +		if (IS_ERR(crtc_state)) {
+> +			res = PTR_ERR(crtc_state);
+> +			goto error_ism_fini;
+> +		}
 > +
-> +		plane_state = plane->funcs->atomic_create_state(plane);
-> +		if (IS_ERR(plane_state))
-> +			return PTR_ERR(plane_state);
-> +
-> +		plane->state = plane_state;
+> +		acrtc->base.state = crtc_state;
 > +	}
 >  
+>  	acrtc->max_cursor_width = dm->adev->dm.dc->caps.max_cursor_size;
+>  	acrtc->max_cursor_height = dm->adev->dm.dc->caps.max_cursor_size;
+>  
+>  	acrtc->crtc_id = crtc_index;
+> @@ -813,10 +821,13 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+>  #ifdef AMD_PRIVATE_COLOR
+>  	dm_crtc_additional_color_mgmt(&acrtc->base);
+>  #endif
 >  	return 0;
+>  
+> +error_ism_fini:
+> +	amdgpu_dm_ism_fini(&acrtc->ism);
+> +	drm_crtc_cleanup(&acrtc->base);
+>  fail:
+>  	kfree(acrtc);
+>  	kfree(cursor_plane);
+>  	return res;
+>  }
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
+> index 93c6d0d8d7fd..ad516aeb9798 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
+> @@ -47,11 +47,11 @@ bool amdgpu_dm_crtc_helper_mode_fixup(struct drm_crtc *crtc,
+>  				      const struct drm_display_mode *mode,
+>  				      struct drm_display_mode *adjusted_mode);
+>  void amdgpu_dm_crtc_destroy_state(struct drm_crtc *crtc,
+>  				  struct drm_crtc_state *state);
+>  struct drm_crtc_state *amdgpu_dm_crtc_duplicate_state(struct drm_crtc *crtc);
+> -void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc);
+> +struct drm_crtc_state *amdgpu_dm_crtc_create_state(struct drm_crtc *crtc);
+>  int amdgpu_dm_crtc_count_crtc_active_planes(struct drm_crtc_state *new_crtc_state);
+>  void amdgpu_dm_crtc_update_crtc_active_planes(struct drm_crtc *crtc,
+>  					      struct drm_crtc_state *new_crtc_state);
+>  void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work);
+>  void amdgpu_dm_idle_worker(struct work_struct *work);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+> index 4dacddd23878..20ae31d2bf6a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+> @@ -1402,35 +1402,34 @@ static void dm_test_crtc_duplicate_state_copies_fields(struct kunit *test)
+>  	KUNIT_EXPECT_TRUE(test, dm_dup->mpo_requested);
+>  
+>  	amdgpu_dm_crtc_destroy_state(crtc, dup);
 >  }
 >  
->  bool amdgpu_dm_plane_is_video_format(uint32_t format)
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-> index 092ade738ce9..6aaea290206d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-> @@ -115,11 +115,11 @@ void amdgpu_dm_plane_get_min_max_dc_plane_scaling(struct drm_device *dev,
->  int amdgpu_dm_plane_atomic_async_check(struct drm_plane *plane,
->  				       struct drm_atomic_commit *state, bool flip);
->  int amdgpu_dm_plane_atomic_check(struct drm_plane *plane,
->  				 struct drm_atomic_commit *state);
->  void amdgpu_dm_plane_panic_flush(struct drm_plane *plane);
-> -void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane);
-> +struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(struct drm_plane *plane);
->  struct drm_plane_state *amdgpu_dm_plane_drm_plane_duplicate_state(struct drm_plane *plane);
->  void amdgpu_dm_plane_drm_plane_destroy_state(struct drm_plane *plane,
->  					     struct drm_plane_state *state);
->  void amdgpu_dm_plane_add_modifier_dedup(uint64_t **mods, uint64_t *size,
->  					uint64_t *cap, uint64_t mod);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-> index ba97092c7bb8..ab425ee14f30 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-> @@ -2922,40 +2922,32 @@ static void dm_test_panic_flush_no_dc_state(struct kunit *test)
->  static const struct drm_plane_funcs dm_test_plane_reset_funcs = {
->  	.atomic_destroy_state = amdgpu_dm_plane_drm_plane_destroy_state,
->  };
+> -/* Tests for amdgpu_dm_crtc_reset_state() */
+> +/* Tests for amdgpu_dm_crtc_create_state() */
 >  
 >  /**
-> - * dm_test_plane_reset_initializes_state() - Verify reset installs default state.
-> + * dm_test_plane_create_state_initializes_state() - Verify create_state allocates default state.
->   * @test: KUnit test context.
+> - * dm_test_crtc_reset_state_allocates_state - Test reset installs a fresh state
+> + * dm_test_crtc_create_state_allocates_state - Test create_state allocates a fresh state
+>   * @test: The KUnit test context
 >   *
-> - * Verify amdgpu_dm_plane_drm_plane_reset() destroys the existing plane state,
-> - * allocates a fresh dm_plane_state, and initializes the AMD-specific transfer
-> - * function and HDR multiplier defaults.
-> + * Verify amdgpu_dm_plane_drm_plane_create_state() allocates a fresh
-> + * dm_plane_state, and initializes the AMD-specific transfer function and HDR
-> + * multiplier defaults.
+> - * Resetting a CRTC with no existing state must allocate and install a new
+> - * drm_crtc_state.
+> + * Creating state for a CRTC must allocate a new drm_crtc_state.
 >   */
-> -static void dm_test_plane_reset_initializes_state(struct kunit *test)
-> +static void dm_test_plane_create_state_initializes_state(struct kunit *test)
+> -static void dm_test_crtc_reset_state_allocates_state(struct kunit *test)
+> +static void dm_test_crtc_create_state_allocates_state(struct kunit *test)
 >  {
-> -	struct dm_plane_state *old_state;
-> +	struct drm_plane_state *plane_state;
->  	struct dm_plane_state *new_state;
->  	struct drm_plane *plane;
+>  	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+> +	struct drm_crtc_state *crtc_state;
+>  	struct drm_crtc *crtc;
 >  
->  	plane = kunit_kzalloc(test, sizeof(*plane), GFP_KERNEL);
->  	KUNIT_ASSERT_NOT_NULL(test, plane);
+>  	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
+>  	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
+>  	crtc->dev = &adev->ddev;
+>  	crtc->state = NULL;
 >  
-> -	/*
-> -	 * Provide an existing state plus a funcs table so reset exercises the
-> -	 * destroy-existing-state path. The destroy hook frees this state, so it
-> -	 * must be a plain (non-KUnit-managed) allocation.
-> -	 */
-> -	old_state = kzalloc(sizeof(*old_state), GFP_KERNEL);
-> -	KUNIT_ASSERT_NOT_NULL(test, old_state);
->  	plane->funcs = &dm_test_plane_reset_funcs;
-> -	plane->state = &old_state->base;
+> -	amdgpu_dm_crtc_reset_state(crtc);
+> +	crtc_state = amdgpu_dm_crtc_create_state(crtc);
+> +	KUNIT_EXPECT_NOT_ERR_OR_NULL(test, crtc_state);
 >  
-> -	amdgpu_dm_plane_drm_plane_reset(plane);
-> +	plane_state = amdgpu_dm_plane_drm_plane_create_state(plane);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane_state);
+> -	KUNIT_EXPECT_NOT_NULL(test, crtc->state);
+> -
+> -	if (crtc->state)
+> -		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
+> +	if (!IS_ERR(crtc_state))
+> +		amdgpu_dm_crtc_destroy_state(crtc, crtc_state);
+>  }
 >  
-> -	KUNIT_ASSERT_NOT_NULL(test, plane->state);
-> -	new_state = to_dm_plane_state(plane->state);
-> +	new_state = to_dm_plane_state(plane_state);
->  	KUNIT_EXPECT_EQ(test, new_state->degamma_tf, AMDGPU_TRANSFER_FUNCTION_DEFAULT);
->  	KUNIT_EXPECT_EQ(test, new_state->hdr_mult, AMDGPU_HDR_MULT_DEFAULT);
->  	KUNIT_EXPECT_EQ(test, new_state->shaper_tf, AMDGPU_TRANSFER_FUNCTION_DEFAULT);
->  	KUNIT_EXPECT_EQ(test, new_state->blend_tf, AMDGPU_TRANSFER_FUNCTION_DEFAULT);
+>  /* Tests for amdgpu_dm_crtc_destroy_state() */
 >  
-> @@ -3096,12 +3088,12 @@ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
->  	KUNIT_CASE(dm_test_atomic_check_helper_failure),
->  	KUNIT_CASE(dm_test_atomic_check_color_pipeline_conflict),
->  	KUNIT_CASE(dm_test_atomic_check_scaling_failure),
->  	/* amdgpu_dm_plane_panic_flush() */
->  	KUNIT_CASE(dm_test_panic_flush_no_dc_state),
-> -	/* amdgpu_dm_plane_drm_plane_reset() */
-> -	KUNIT_CASE(dm_test_plane_reset_initializes_state),
-> +	/* amdgpu_dm_plane_drm_plane_create_state() */
-> +	KUNIT_CASE(dm_test_plane_create_state_initializes_state),
->  	/* amdgpu_dm_plane_drm_plane_duplicate_state() */
->  	KUNIT_CASE(dm_test_plane_duplicate_state_copies_fields),
->  	/* amdgpu_dm_plane_drm_plane_destroy_state() */
->  	KUNIT_CASE(dm_test_plane_destroy_state_minimal),
->  	/* amdgpu_dm_plane_add_modifier() */
+>  /**
+> @@ -1905,12 +1904,12 @@ static struct kunit_case amdgpu_dm_crtc_tests[] = {
+>  	/* amdgpu_dm_crtc_count_crtc_active_planes */
+>  	KUNIT_CASE(dm_test_count_crtc_active_planes_none),
+>  	KUNIT_CASE(dm_test_count_crtc_active_planes_mixed),
+>  	/* amdgpu_dm_crtc_duplicate_state */
+>  	KUNIT_CASE(dm_test_crtc_duplicate_state_copies_fields),
+> -	/* amdgpu_dm_crtc_reset_state */
+> -	KUNIT_CASE(dm_test_crtc_reset_state_allocates_state),
+> +	/* amdgpu_dm_crtc_create_state */
+> +	KUNIT_CASE(dm_test_crtc_create_state_allocates_state),
+>  	/* amdgpu_dm_crtc_destroy_state */
+>  	KUNIT_CASE(dm_test_crtc_destroy_state_no_stream),
+>  	KUNIT_CASE(dm_test_crtc_destroy_state_releases_stream),
+>  	/* amdgpu_dm_crtc_handle_vblank */
+>  	KUNIT_CASE(dm_test_crtc_handle_vblank_no_event),
 > 
 
