@@ -4,59 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48ADCC88E53
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 08:01:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA142C88E4C
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 08:01:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9FD610F542;
-	Fri, 11 Sep 2026 08:01:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 385E710F545;
+	Fri, 11 Sep 2026 08:01:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.b="CctjByDp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZepLRA5H";
 	dkim-atps=neutral
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io
- [149.72.141.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0075110E2B0
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 16:23:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
- h=from:subject:date:in-reply-to:references:mime-version:to:cc:
- content-type:content-transfer-encoding:cc:content-type:date:from:subject:to;
- s=s1; t=1789057423;
- bh=Ojl/NWsC9MSjDYgGDCuYdo4PQAJl7yOv7aALgpvhTkU=;
- b=CctjByDpfVpmnxgsUyiWguRtHQFglltrewxGSBTFmzx1pQDJTZZ4NMZ5bOva2GKcYVY7
- TNFulDf3GzGJNpZSCfjYZUcwzzcYmr3ahV8JfXCHxkk9jdOYyvKOPdrjoq3OazNtpyHlmv
- ns/FsTmTLLChVAuywYtb1G4Q4oj1nPb7194jTOwOwUCOt6aFolv43GCYMO21YsWUpYHzkJ
- g3kRUQ1FGVfOKUNC8T/DpBdSaLK9tBJjzgx1IAwixQVmg2k2NTaLF4gyv7psrpHsBtw0fk
- 1GpyIlSnu91vSaGImW+BZD6sNdOCQouVSy0svPb8rhgvQRJEKj+1oyTPc1NXiDTg==
-Received: by recvd-69664d99dd-bcjr2 with SMTP id
- recvd-69664d99dd-bcjr2-1-6AA2D98E-78
- 2026-09-10 16:23:42.801218343 +0000 UTC m=+836507.408174706
-Received: from daisy.dens.ffj.family (unknown) by geopod-ismtpd-6 (SG)
- with ESMTP id uocpkYPWStS876SvS2QkZQ
- Thu, 10 Sep 2026 16:23:42.691 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: Re: [PATCH v5] PCI: Fix BAR resize for devices on a root bus
-Date: Thu, 10 Sep 2026 16:23:43 +0000 (UTC)
-Message-ID: <20260910162342.9854-1-lizf@honeycomb.io>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <29c5916f-da42-58f0-d4c7-815bbaed711b@linux.intel.com>
-References: <20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io>
- <29c5916f-da42-58f0-d4c7-815bbaed711b@linux.intel.com>
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 358B710E28E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 17:15:50 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-49b392ccaacso1034565e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Sep 2026 10:15:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789060548; x=1789665348; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=oPi1IgNLqOUMA04/Cu6FTzQTvp2Q7hytMqSvlR+BzXc=;
+ b=ZepLRA5HIz/XWVRuXbZktWROVyylvFRa7MllRMDZW1Us/thwiCkRz62Sw7AYh4jGnw
+ jr15RQdHNa7HjKtQUIARWL1LBE7vKSZBcfvnkCHcx9N11y1VBW+hNyApOaPl4uOYEUIO
+ DbNZ1GdsCP1uMcsHTkrOHTNvwAS/VLPeFa3v7roF3xAM1+eU1RfQkfe5Y5XzWT5EVQOj
+ Q53QbIa75qSwx7ABSnbSezL0t+m7wSDXxG3WZwzpIGxjxhG4aMRcDp9k9ORiaguxcKyK
+ CUp9Ni2ORph5+HQ0lXM1RJzP62FnVwjcfLhsZtH1ybh66xZrktB0ci9EJRsBdgaeNWoH
+ sfzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789060548; x=1789665348;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=oPi1IgNLqOUMA04/Cu6FTzQTvp2Q7hytMqSvlR+BzXc=;
+ b=UqztIJMEohkMBHj7R2AmCd66gTBTWEeHVuM0Aygj2SMpkbbw1ROOR2+HkVlB1glcx1
+ gj6ulCxR0N1kxcoP9sJrRGXsColSBbav0zL9Y1fJaxwNjr43sZW8cUaCuqOFCduDyyAF
+ QmcHfJoqekxtdGDUKPAKEwEtsSPPHRUZTQiWry00IBxrTG7u5twvnuB0dgzrTCgMGWgu
+ unOe3SsmAkedcKJQyY1mQFSuQFp8Y5e/hIHi3O1Gc3fsOHNraugDAOscHaJux4uEgWtO
+ 8TXmQlqmJWPy9T4Bqe/xGWYyrvrGSNnATm59j21gDx+lgypF2ZQ92cSH8ZWnX+cm8Yq/
+ UcAw==
+X-Gm-Message-State: AFuF++mr0f19cdkqhmsy0IhgkA17Z8Uhr7aL8FWY9PmgXUm1N8x4BBmz
+ NaiSNYC802Y1pDE1OvNGqiuwi0ilE5m3Gxk/FbNmnIVRhQ3v7a6TF2fJ
+X-Gm-Gg: AYBFou0XmeIZzyYKo2M1uF4ijqVlbL/nS36QTSjnLfPV+gS6v0eqEeDp7SsewSN4FJy
+ iWaZ4Yx2osC7m4FmeDBzIrGosctYX31xXX4jEnljyGpS2t4g9CcPLPF7fu22hSOaXTAlXEBKd43
+ NruM1RgREtoSVGFCJITnP4zXIjaLVBk2HnmFygZPtET3zQRGwwyFgAy/Tn2X48w3n1dyCbZC1+O
+ yKVZi4dapd9AKrUToMLgClSQLTT+bLtMjphIa0Ssve0DLEU9ilu79+UEq68k5hsoOyRNALcxi0+
+ WtyXoyhmqw277BZGy2h2mZwdqh+HkYAiWVkzIz5lGy26LNZRIMNQ54R1/Ky/L6Gcl2/n8+JwptT
+ /p70IWVw+UENwMigsACRXIxl/GasGqVE3ddJTnS1PXFSg5YU2mIn1mqMhenfdD1zsfxxjm5e5OW
+ hSismfmRG3/3Azgw+o9uC42T/uIp3ftXQPw9zrbIcYYCUY0rH5+iXRyOFXF/uqU7jPNeM=
+X-Received: by 2002:a05:600c:358c:b0:49c:cee0:f383 with SMTP id
+ 5b1f17b1804b1-49e619bb961mr264475e9.16.1789060548080; 
+ Thu, 10 Sep 2026 10:15:48 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49e60aba026sm9357125e9.3.2026.09.10.10.15.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Sep 2026 10:15:47 -0700 (PDT)
+Date: Thu, 10 Sep 2026 20:15:43 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amd/display: Test GPU memory allocation
+Message-ID: <aqLlv7dOd9WB70hJ@stanley.mountain>
 MIME-Version: 1.0
-X-SG-EID: =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmednNviVbiXOC?=
- =?us-ascii?Q?oREWn0PvvJP53Uz8gPPC5zPjaNtjMPM+hLjOqwU?=
- =?us-ascii?Q?QawE=2F3B72uKOWIppfuG513fXq618S6PDhcLuM4o?=
- =?us-ascii?Q?nJbwgG=2FTeg2=2FM8hDiqcsuwCTOoE4w93lLByoDkz?=
- =?us-ascii?Q?husjCkOm7VGK0Bh6Sl1JqcoyTQJNTHP1a4t5Kaq?= =?us-ascii?Q?Jh8E?=
-To: Ilpo =?iso-8859-1?q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Liz Fong-Jones <lizf@honeycomb.io>, Bjorn Helgaas <bhelgaas@google.com>,
- linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, Jon Nettleton
- <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, Jacob Martin
- <jacob.martin@canonical.com>, Thorsten Leemhuis <regressions@leemhuis.info>,
- stable@vger.kernel.org
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Fri, 11 Sep 2026 08:01:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,39 +84,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Ilpo Järvinen wrote:
-> Great, it worked (I was somewhat afraid there might have been some
-> landmine for the case where there's no bridge).
->
-> And yes, it's very important in general case to assign the resource in
-> correct order because the assignment algorithm is greedy.
+Hello Alex Hung,
 
-Thanks, Ilpo, for both reviews.
+Commit e3d5618d4dad ("drm/amd/display: Test GPU memory allocation")
+from Aug 10, 2026 (linux-next), leads to the following Smatch static
+checker warning:
 
-Yes, it works fine even without the bridge. This is what it looks
-like when triggering the resize through sysfs, and through amdgpu's
-probe-on-insmod, on the actual root-bus hardware (HoneyComb LX2K,
-LX2160A, dGPU directly on the root bus, no upstream bridge).
+	drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_services_test.c:340 dm_test_gpu_mem_init()
+	warn: sizeof(void)
 
-Manual trigger via sysfs (shrink then grow back, forcing the release
-+ reassign path both directions):
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_services_test.c
+    336 static int dm_test_gpu_mem_init(struct kunit *test)
+    337 {
+    338         void *cpu_ptr;
+    339 
+--> 340         cpu_ptr = kunit_kzalloc(test, sizeof(*cpu_ptr), GFP_KERNEL);
+                                                     ^^^^^^^^
+cpu_ptr is a void pointer.  It doesn't make sense.  Probably remove
+the asterisk.
 
-  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa4ffffffff 64bit pref]: releasing
-  pci 0004:01:00.0: BAR 2 [mem 0xa500000000-0xa5001fffff 64bit pref]: releasing
-  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: assigned
-  pci 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: assigned
-  ...
-  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
-  pci 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
-  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa4ffffffff 64bit pref]: assigned
-  pci 0004:01:00.0: BAR 2 [mem 0xa500000000-0xa5001fffff 64bit pref]: assigned
+    341         KUNIT_ASSERT_NOT_NULL(test, cpu_ptr);
+    342 
+    343         dm_test_bo_ctx = (struct dm_test_bo_ops_ctx) {
+    344                 .cpu_ptr = cpu_ptr,
+    345                 .gpu_addr = DM_TEST_FAKE_GPU_ADDR,
+    346         };
+    347 
+    348         amdgpu_dm_services_kunit_set_ops(&dm_test_bo_ops);
+    349 
+    350         return 0;
+    351 }
 
-And the real-world path, amdgpu's own probe with the amdgpu.rebar=0
-workaround removed:
+This email is a free service from the Smatch-CI project [smatch.sf.net].
 
-  amdgpu 0004:01:00.0: VRAM: 4096M 0x000000F400000000 - 0x000000F4FFFFFFFF (4096M used)
-  amdgpu 0004:01:00.0: [drm] Detected VRAM RAM=4096M, BAR=4096M
-  amdgpu 0004:01:00.0:  4096M of VRAM memory ready
-
-No "Fatal error during GPU init" (the original regression's failure
-signature), full IP block init, driver comes up clean.
+regards,
+dan carpenter
