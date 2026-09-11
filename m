@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75986C88E58
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDC64C88E59
 	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 17:56:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D612310F6AA;
-	Fri, 11 Sep 2026 17:56:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28AAA10F6A2;
+	Fri, 11 Sep 2026 17:56:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HxnVPjgZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Fl4R8Vj/";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012010.outbound.protection.outlook.com [40.107.209.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD14310F69F
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 17:56:18 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012028.outbound.protection.outlook.com [52.101.53.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AADB010F69F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 17:56:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mUqPAZhAntAs88NSjxUK1MQ3MaFjyiExwCUW7P33NXvbjXSwXScEzC5iYWAxV3znj3A/ALJtj+fgZL9oZ5lXXmgDA3GwYRzdDQGipPqpXQMzUpc+0jst7EP8E6CegPFm+BiwIvxXAjS8NGfYcOi2pj1PV7Mb9yEg3X76DJv3c3xgaZH5eF/fHLxn/8MG3UpoH1XQVJ/6keu0zhecnoIeoYYVyXluf5E7/N3Dyv7VIqTu4cRNJ+Q4+xDTEBW9W4eTa2NhLTKEGvlt1at9yBbWM/HWdLCunoFyvVEhLKXpUu3+D+AarpNEdjPCJToI6Nz3eIos9oWqmmT4pUGJehnn7w==
+ b=x0U/fwYUMaSqbG3syrdwGYDdi5HTBExzVnWKTYpWVb6hRn/ZANyXZgxKnpyKLCJKNyIvU6noceVefyUyfDMVX6Pr6YkfQjTEbRsX0N+v8hwxL/v9ecZvGEGxKugFc1XPAjDz+R+tiVg377jnQ97JSjtu2B7WulBcTNkQApMtGpnzBPZBDD803+gEMao0U2lLno6igxnJ4SfkfDV72kJYuLu5yln4keOGLwc2z5BhryonArb61bg2aoU0KnxMz7or+gk6+h4jB6XeyGT2zBou5JH7zdIOu0gV1yZ3aqsF2eiuFUToA220D0TequfF4y/8Ufgr7G7nIrhfMLtSnx74wA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jivYjk4DE129D45wHl1Gpj4BpKUqqcwfj1nPGwnGSoM=;
- b=jfzeJGW3BzCSf/OMbihpwrzsW1hmykGX5/GGBTf1MqJ18QMySjr/gMDud3meOIKrHvLqmEv3PLtrO4EfljalpNqKEwhWdImNM+Z0sjR/HCst8EU0QDyoNsz2EF1DoWaa6Wei2Ua1IzirYD6sWXtJQjSRFSC/dydA88WfP12Co8gTLVwrqM/jtv5AEfz3XTTrRjOTHglrW5oU+20vi0+1Bb+qDHju6hYyhG4IsXHv2o4uzN3wX2k/zfMutwXzAfHAvnOFL/v9RuSbgSwygoz1d3/9lindJpmt7QE2WTcdLJWX0C6ZUAz4euhMmwFEemzSV0E3aaQucJ0WyYDASUaN/A==
+ bh=Geot7SOdWvRNEgY6YxBNrivOQUTvaKlYOLyFkbuP5oE=;
+ b=oHSVpb2ZBrXiUeQxcFc1aP4m1wmsUSGWQGZgahcRfmTbBn5Gz27cTGkreG5aJ+eyqMqWakOeQbk27Xl7xzAN0DYaaV6iD7TxmT/E7RUx95gWkizroDm+J9HKwKE1GYXUKtPtLSHQo2cSFtkNqZHn9W+rjTBGOBKWvq9ws5ICo3VcGVbOUQw00NaYGQLhvHa/K0+s2l/SGSh/VjyhuQO7uVRXnB3o2wh3zmkr9DxhMLjCRqipBFXFsctW4zRNHvudUcmyZve1GfZLSM+pR92Krr+lkygMTHlTnakF5r5aIeEgKHAALqA+CpO5X53kYsrnviK6Ee/c8xI/GzZ7xXHgPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jivYjk4DE129D45wHl1Gpj4BpKUqqcwfj1nPGwnGSoM=;
- b=HxnVPjgZ4ftJU8sLj8UHPrEA+QhTMtRqcWqNf/L97pTXFWMCho+wA4w/0YZx6JZsWhjV+nXXsTvxM9SES6iI14VrVNDuHQErVRNn32wVwVWt2wkLdx9GIdLazUzw14pDPPGYCwqIbClSsACxLXkjLeAvldynwTxCwfD9bOvZWOk=
-Received: from BN9PR03CA0171.namprd03.prod.outlook.com (2603:10b6:408:f4::26)
- by EAYPR12MB999180.namprd12.prod.outlook.com (2603:10b6:303:2c2::7)
+ bh=Geot7SOdWvRNEgY6YxBNrivOQUTvaKlYOLyFkbuP5oE=;
+ b=Fl4R8Vj/biAOmbgtzMQ4k1wwPUOOgYCU1iNS2j/AM1wkzJhjo9ikAGutEgJkDPL2aEGL/qWFs4O+e1JSVtG4KJqnhd+4wfJuPqrVowwfTcx3oody/MYprfcBaTekOKyUfpSAkMGqUMVC49BnSFsr8i+Vian82nJy7iqmkMYTa18=
+Received: from BN9PR03CA0174.namprd03.prod.outlook.com (2603:10b6:408:f4::29)
+ by SA1PR12MB7365.namprd12.prod.outlook.com (2603:10b6:806:2ba::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 17:56:10 +0000
+ 2026 17:56:04 +0000
 Received: from BN1PEPF00018071.namprd04.prod.outlook.com
- (2603:10b6:408:f4:cafe::48) by BN9PR03CA0171.outlook.office365.com
- (2603:10b6:408:f4::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.10 via Frontend Transport; Fri,
- 11 Sep 2026 17:56:10 +0000
+ (2603:10b6:408:f4:cafe::67) by BN9PR03CA0174.outlook.office365.com
+ (2603:10b6:408:f4::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Fri, 11
+ Sep 2026 17:56:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,25 +50,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN1PEPF00018071.mail.protection.outlook.com (10.167.245.199) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 17:56:10 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 17:56:04 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 11 Sep
- 2026 12:56:03 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 11 Sep
- 2026 12:56:02 -0500
+ 2026 12:55:58 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 11 Sep 2026 12:56:02 -0500
+ Transport; Fri, 11 Sep 2026 12:55:57 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 14/23] drm/amdgpu/gmc: add new callback to lookup vmid to
- pasid mapping
-Date: Fri, 11 Sep 2026 13:55:35 -0400
-Message-ID: <20260911175544.1314467-15-alexander.deucher@amd.com>
+Subject: [PATCH 05/23] drm/amdgpu/gmc9: set vmhub funcs for gfxhub and mmhub
+Date: Fri, 11 Sep 2026 13:55:26 -0400
+Message-ID: <20260911175544.1314467-6-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911175544.1314467-1-alexander.deucher@amd.com>
 References: <20260911175544.1314467-1-alexander.deucher@amd.com>
@@ -77,29 +72,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018071:EE_|EAYPR12MB999180:EE_
-X-MS-Office365-Filtering-Correlation-Id: c457a96e-ad61-4502-5636-08df102df65b
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018071:EE_|SA1PR12MB7365:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67b6c60d-30db-4b9d-15d1-08df102df303
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|10067099003|6133799003|3023799007|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: emSQoh+NHl8PoqVyjWpLE+7cIW6uKZO1qVjOhqcG826FPrzhKQNo1NaOe9BN731JSb7vMiZcWLyXuyVnc7tBxFtrAvis8PPbsffxhFN1sEZw4O3sru7WluddHULqnWuZc8htuSgFuKDwud+do8oGzgKzgeB5IzagU1DlaHXAAiQjeKhOsY4mxCTA8/UQN/8vfaqRLqeiuda7AvQEHiQ7CEsNESdwf0176dOyF4+eSDeyQS/u7HDU71cvA3bbLZWpHyQRmtY4fk6/KbByVdHmJ+eWDftZ4i2O+4RK2lPMNxjR9fM7yMYxfzzO5ye/s9rX9t5xwB6Nbi10alzluSs5Tf+LyW9643WpK1Kc3EOrWmURHTivBFQB8igb21eQnI1pIzs5pYLOp/2kyWtFU4U7pBQTiV/gsZMPnI6sc+Gzqo2ZBcCuGfvwkbhrgA41Iy3JCtIY3IdqOh3nhTj1KJDTPYxnGVpnjh5LKvwVt82v/wlTSdtvYTql1o43SfRuktkb7Xf7W+X9KqrjGVAv2H4iiisFnXAGHX+ufJS7inEpPbc897Xu4WnvN0jKG7bVCHZO9rJ1ljEJ3sAk5qUxH8NevEqluix7ICvJkrEGDweSo/fgR6W0WriVh+bbqcocCFAXyTqZeU3rU3UEoy3tkjbzb2IGoiBtzISV8anB3dHreVJu+6FczLq2FKsQfjjqHear83sigqpxIy3pd/gGO7pdRw==
+ ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: nackiNS+RMXtlhFJPp+CSzD/mNlgzlIE7mkVgf4Cy5RtYjDp1ewwGvss5EE8sasmFCP+hwx1DGch0l0bvY1JmUQIPXjaEomQEPUhIFXNA8ZXjUC7QE3CzavaMNCTs+Co922PV0adBpP8EuAg0hUGLdmhs6H2szI+74DrmR7q+ct5WdxmG4mDH1fvroJFxN/WN8KeAsI7tCNC9lJbFJJcZrNhva+Ljycp+l2Hb2rqwndf1DDF61Kp0JUqnZgfeBD522NLAHzPbjTQ6aomsSEvsh0nBQl9fPgN+cuYr/9SnCfxM9+uOPQoGD0V8WsV6BJGPtEO/WCOyszbzjOs1dfAkEwqpcZZqc1hhvam7iqKBv+C1Dsfcx0TPMBhijUEZ9MlHQQ1P+HJyyLXV4CrHopYAUOJBbaeK9DSDGeZeD7Z7DWe7drPulHznvi1GW09i9+eRBK5KiuDJp21aQ4b7pQA3GEDNFKqZPydswONb7AxNSOdfpTTaK9BqtRrFW1q+r1/wQCb+hMdM6FQyh7bTfTEOkBum/VIg80ZxK1Jv90M6j5xi7zom7Jjl4LNlgxPyJu7T7iRcpx00DwqJ8Dng96TjNkgpTi0Ve2Im3Mixvrfqtfe9YFn3WFIhOr1+w8Vgk/jeST53lDDFSQxr6kPLMuoIByNQ/psDZPp8Aaf/kypH/I8Kz4wc1QPN6B3EkQpiRgy4OSvWx9NRvmdWy3zHXo+kQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(10067099003)(6133799003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006);
+ SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: onHEf3gYtKAE4KyLrYZUU1JWJU+iUxrGeROtOXc9i46nx84O0kOqECNuj6kiDnX6pr1Y8ZeauxVlWevjTsL6VuS1+dDjkTjti1peDMTS6KXLc8q+HXRvh1eh3ApzlTOYzgvFyXib2G/nOEPWBRxC65O4VlaenQutYAHhwwdmDn1DwOPBFc/j1Yl5JeVp5nmx3akjYeBB+WV9affKisI9EVgbWjD/QcaQXwlR78V0fKZxg3QDlkbd3aFL5rJLczfRHocwTS3ZaSRpMtyR8Fztm8sMhbVeBu6SE6CRSaZjoOUquAFJYByDZEXUlPsnzy3iwcWvqIhXfMkQOQU5OCnhqQCPo20B0YeVcfiIXZvvfp1EmR9QKXN9IYA1mhO0eXOuv1Su+V8A1dD/VuhrlXjeHnkvMVsZaymyDW7vbY3/tmLBwpV1oHkNqqEa41JyHxS7
+X-MS-Exchange-AntiSpam-MessageData-0: WipPDldltqOGJGCNx+9SxeuYTbPI2Fa77TdttzMXrEOG0NtXadqidc+LRuEjycp+ESKVwrebV0OVB31mhfaPmZO91yGfWnYblo5OLQUnZe6H51lgEvIlt3T7OfQiWl7lxXlkBZf02/CfbyX26NMgDbpZH73SGHFE7ADcfrZykXXQy/RtRyWJ9qRMJpkUa1JCv+t2stzDbOzfgBFyFUxWryoycgdGCc7Iz/xD8hS9NAsnvnOyStjIgm5MZhm20GlxoZMAZNHMW7k3sSoDrToKXEt2x+p4setrtQ45tS6Wytkcq2RI9m9yCbJNQkVZx3aD6QH5zd5xAZjP2ZsEbSeZKlt45b9PUIh1RssPMGMXXFA08nlSQ26kLVhdFtwjXD4XgD7Air1d32DG8UN7YQDZaL4svzrpcAUdJjvbWN0jwzC6qy5rhbhBuB8RdDE+OgIq
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 17:56:10.2206 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c457a96e-ad61-4502-5636-08df102df65b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 17:56:04.6102 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67b6c60d-30db-4b9d-15d1-08df102df303
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018071.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999180
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7365
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,179 +109,372 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Look up the mapping so we know which vmid to flush.
+This was handled in gmc_v9_0 directly.  Set the pointers
+so that we can use rely on the callbacks in the generic gmc
+helpers.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 7 ++++++-
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c  | 1 +
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 6 ++++--
- 6 files changed, 23 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 33 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c | 33 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 23 ++---------------
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  | 33 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c  | 32 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c  | 32 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c  | 32 +++++++++++++++++++++++
+ 7 files changed, 197 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 55b696b85d544..bbd52028a775f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -174,6 +174,10 @@ struct amdgpu_gmc_funcs {
- 	/* Change the VMID -> PASID mapping */
- 	void (*emit_pasid_mapping)(struct amdgpu_ring *ring, unsigned vmid,
- 				   unsigned pasid);
-+	/* look up the vmids for the pasid */
-+	bool (*get_vmid_pasid_mapping_info)(struct amdgpu_device *adev,
-+					    uint8_t vmid, uint8_t inst,
-+					    uint16_t *p_pasid);
- 	/* enable/disable PRT support */
- 	void (*set_prt)(struct amdgpu_device *adev, bool enable);
- 	/* get the pde for a given mc addr */
-@@ -385,7 +389,8 @@ struct amdgpu_gmc {
- #define amdgpu_gmc_emit_flush_gpu_tlb(r, vmid, addr) (r)->adev->gmc.gmc_funcs->emit_flush_gpu_tlb((r), (vmid), (addr))
- #define amdgpu_gmc_emit_pasid_mapping(r, vmid, pasid) (r)->adev->gmc.gmc_funcs->emit_pasid_mapping((r), (vmid), (pasid))
- #define amdgpu_gmc_get_vm_pde(adev, level, dst, flags) (adev)->gmc.gmc_funcs->get_vm_pde((adev), (level), (dst), (flags))
--#define amdgpu_gmc_get_vm_pte(adev, vm, bo, vm_flags, pte_flags) \
-+#define amdgpu_gmc_get_vmid_pasid_mapping_info(adev, v, i, p) (adev)->gmc.gmc_funcs->get_vmid_pasid_mapping_info((a), (v), (i), (p))
-+#define amdgpu_gmc_get_vm_pte(adev, vm, bo, vm_flags, pte_flags)	\
- 	((adev)->gmc.gmc_funcs->get_vm_pte((adev), (vm), (bo), (vm_flags), \
- 					   (pte_flags)))
- #define amdgpu_gmc_override_vm_pte_flags(adev, vm, addr, pte_flags)	\
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 4f287e9118893..d1fdebaad488f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -204,7 +204,8 @@ static bool gmc_v10_0_use_invalidate_semaphore(struct amdgpu_device *adev,
- 
- static bool gmc_v10_0_get_atc_vmid_pasid_mapping_info(
- 					struct amdgpu_device *adev,
--					uint8_t vmid, uint16_t *p_pasid)
-+					uint8_t vmid, uint8_t inst,
-+					uint16_t *p_pasid)
- {
- 	uint32_t value;
- 
-@@ -346,7 +347,7 @@ static void gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 	for (vmid = 1; vmid < AMDGPU_NUM_VMID; vmid++) {
- 		bool valid;
- 
--		valid = gmc_v10_0_get_atc_vmid_pasid_mapping_info(adev, vmid,
-+		valid = gmc_v10_0_get_atc_vmid_pasid_mapping_info(adev, vmid, 0,
- 								  &queried);
- 		if (!valid || queried != pasid)
- 			continue;
-@@ -555,6 +556,7 @@ static const struct amdgpu_gmc_funcs gmc_v10_0_gmc_funcs = {
- 	.flush_gpu_tlb_pasid = gmc_v10_0_flush_gpu_tlb_pasid,
- 	.emit_flush_gpu_tlb = gmc_v10_0_emit_flush_gpu_tlb,
- 	.emit_pasid_mapping = gmc_v10_0_emit_pasid_mapping,
-+	.get_vmid_pasid_mapping_info = gmc_v10_0_get_atc_vmid_pasid_mapping_info,
- 	.get_vm_pde = gmc_v10_0_get_vm_pde,
- 	.get_vm_pte = gmc_v10_0_get_vm_pte,
- 	.get_vbios_fb_size = gmc_v10_0_get_vbios_fb_size,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index f7aae39f2d1b9..715fe442ccee3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -203,7 +203,8 @@ static bool gmc_v11_0_use_invalidate_semaphore(struct amdgpu_device *adev,
- 
- static bool gmc_v11_0_get_vmid_pasid_mapping_info(
- 					struct amdgpu_device *adev,
--					uint8_t vmid, uint16_t *p_pasid)
-+					uint8_t vmid, uint8_t inst,
-+					uint16_t *p_pasid)
- {
- 	*p_pasid = RREG32(SOC15_REG_OFFSET(OSSSYS, 0, regIH_VMID_0_LUT) + vmid) & 0xffff;
- 
-@@ -341,7 +342,7 @@ static void gmc_v11_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 	for (vmid = 1; vmid < 16; vmid++) {
- 		bool valid;
- 
--		valid = gmc_v11_0_get_vmid_pasid_mapping_info(adev, vmid,
-+		valid = gmc_v11_0_get_vmid_pasid_mapping_info(adev, vmid, 0,
- 							      &queried);
- 		if (!valid || queried != pasid)
- 			continue;
-@@ -549,6 +550,7 @@ static const struct amdgpu_gmc_funcs gmc_v11_0_gmc_funcs = {
- 	.flush_gpu_tlb_pasid = gmc_v11_0_flush_gpu_tlb_pasid,
- 	.emit_flush_gpu_tlb = gmc_v11_0_emit_flush_gpu_tlb,
- 	.emit_pasid_mapping = gmc_v11_0_emit_pasid_mapping,
-+	.get_vmid_pasid_mapping_info = gmc_v11_0_get_vmid_pasid_mapping_info,
- 	.get_vm_pde = gmc_v11_0_get_vm_pde,
- 	.get_vm_pte = gmc_v11_0_get_vm_pte,
- 	.get_vbios_fb_size = gmc_v11_0_get_vbios_fb_size,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index 6e2168794d31c..17766b7ce8c45 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -199,7 +199,8 @@ static bool gmc_v12_0_use_invalidate_semaphore(struct amdgpu_device *adev,
- 
- static bool gmc_v12_0_get_vmid_pasid_mapping_info(
- 					struct amdgpu_device *adev,
--					uint8_t vmid, uint16_t *p_pasid)
-+					uint8_t vmid, uint8_t inst,
-+					uint16_t *p_pasid)
- {
- 	*p_pasid = RREG32(SOC15_REG_OFFSET(OSSSYS, 0, regIH_VMID_0_LUT) + vmid) & 0xffff;
- 
-@@ -377,7 +378,7 @@ static void gmc_v12_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 	for (vmid = 1; vmid < 16; vmid++) {
- 		bool valid;
- 
--		valid = gmc_v12_0_get_vmid_pasid_mapping_info(adev, vmid,
-+		valid = gmc_v12_0_get_vmid_pasid_mapping_info(adev, vmid, 0,
- 							      &queried);
- 		if (!valid || queried != pasid)
- 			continue;
-@@ -584,6 +585,7 @@ static const struct amdgpu_gmc_funcs gmc_v12_0_gmc_funcs = {
- 	.flush_gpu_tlb_pasid = gmc_v12_0_flush_gpu_tlb_pasid,
- 	.emit_flush_gpu_tlb = gmc_v12_0_emit_flush_gpu_tlb,
- 	.emit_pasid_mapping = gmc_v12_0_emit_pasid_mapping,
-+	.get_vmid_pasid_mapping_info = gmc_v12_0_get_vmid_pasid_mapping_info,
- 	.get_vm_pde = gmc_v12_0_get_vm_pde,
- 	.get_vm_pte = gmc_v12_0_get_vm_pte,
- 	.get_vbios_fb_size = gmc_v12_0_get_vbios_fb_size,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-index 3349e8bc1c206..efb8e0c15c968 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-@@ -757,6 +757,7 @@ static const struct amdgpu_gmc_funcs gmc_v12_1_gmc_funcs = {
- 	.flush_gpu_tlb_pasid = gmc_v12_1_flush_gpu_tlb_pasid,
- 	.emit_flush_gpu_tlb = gmc_v12_1_emit_flush_gpu_tlb,
- 	.emit_pasid_mapping = gmc_v12_1_emit_pasid_mapping,
-+	.get_vmid_pasid_mapping_info = gmc_v12_1_get_vmid_pasid_mapping_info,
- 	.get_vm_pde = gmc_v12_1_get_vm_pde,
- 	.get_vm_pte = gmc_v12_1_get_vm_pte,
- 	.query_mem_partition_mode = &amdgpu_gmc_query_memory_partition,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index cae11bd1c754a..9367282d7a5ee 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -727,7 +727,8 @@ static bool gmc_v9_0_use_invalidate_semaphore(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+index c35856180c3c4..8ff366f7b0b87 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+@@ -415,6 +415,37 @@ static void gfxhub_v1_0_set_fault_enable_default(struct amdgpu_device *adev,
+ 	WREG32_SOC15(GC, 0, mmVM_L2_PROTECTION_FAULT_CNTL, tmp);
  }
  
- static bool gmc_v9_0_get_atc_vmid_pasid_mapping_info(struct amdgpu_device *adev,
--					uint8_t vmid, uint16_t *p_pasid)
-+						     uint8_t vmid, uint8_t inst,
-+						     uint16_t *p_pasid)
++static void
++gfxhub_v1_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
++					     uint32_t status)
++{
++	/* this is handled in gmc_v9_0.c already */
++}
++
++static uint32_t gfxhub_v1_0_get_invalidate_req(unsigned int vmid,
++					       uint32_t flush_type)
++{
++	u32 req = 0;
++
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    PER_VMID_INVALIDATE_REQ, 1 << vmid);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, FLUSH_TYPE, flush_type);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE0, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE1, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE2, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L1_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    CLEAR_PROTECTION_FAULT_STATUS_ADDR,	0);
++
++	return req;
++}
++
++static const struct amdgpu_vmhub_funcs gfxhub_v1_0_vmhub_funcs = {
++	.print_l2_protection_fault_status = gfxhub_v1_0_print_l2_protection_fault_status,
++	.get_invalidate_req = gfxhub_v1_0_get_invalidate_req,
++};
++
+ static void gfxhub_v1_0_init(struct amdgpu_device *adev)
  {
- 	uint32_t value;
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
+@@ -444,6 +475,8 @@ static void gfxhub_v1_0_init(struct amdgpu_device *adev)
+ 	hub->eng_distance = mmVM_INVALIDATE_ENG1_REQ - mmVM_INVALIDATE_ENG0_REQ;
+ 	hub->eng_addr_distance = mmVM_INVALIDATE_ENG1_ADDR_RANGE_LO32 -
+ 		mmVM_INVALIDATE_ENG0_ADDR_RANGE_LO32;
++
++	hub->vmhub_funcs = &gfxhub_v1_0_vmhub_funcs;
+ }
  
-@@ -889,7 +890,7 @@ static void gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 		bool valid;
+ const struct amdgpu_gfxhub_funcs gfxhub_v1_0_funcs = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+index 8397d3d382875..e45eee485204d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+@@ -541,6 +541,37 @@ static void gfxhub_v1_2_set_fault_enable_default(struct amdgpu_device *adev,
+ 	gfxhub_v1_2_xcc_set_fault_enable_default(adev, value, xcc_mask);
+ }
  
- 		valid = gmc_v9_0_get_atc_vmid_pasid_mapping_info(adev, vmid,
--								 &queried);
-+								 inst, &queried);
- 		if (!valid || queried != pasid)
- 			continue;
++static void
++gfxhub_v1_2_print_l2_protection_fault_status(struct amdgpu_device *adev,
++					     uint32_t status)
++{
++	/* this is handled in gmc_v9_0.c already */
++}
++
++static uint32_t gfxhub_v1_2_get_invalidate_req(unsigned int vmid,
++					       uint32_t flush_type)
++{
++	u32 req = 0;
++
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    PER_VMID_INVALIDATE_REQ, 1 << vmid);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, FLUSH_TYPE, flush_type);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE0, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE1, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE2, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L1_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    CLEAR_PROTECTION_FAULT_STATUS_ADDR,	0);
++
++	return req;
++}
++
++static const struct amdgpu_vmhub_funcs gfxhub_v1_2_vmhub_funcs = {
++	.print_l2_protection_fault_status = gfxhub_v1_2_print_l2_protection_fault_status,
++	.get_invalidate_req = gfxhub_v1_2_get_invalidate_req,
++};
++
+ static void gfxhub_v1_2_xcc_init(struct amdgpu_device *adev, uint32_t xcc_mask)
+ {
+ 	struct amdgpu_vmhub *hub;
+@@ -579,6 +610,8 @@ static void gfxhub_v1_2_xcc_init(struct amdgpu_device *adev, uint32_t xcc_mask)
+ 		hub->eng_addr_distance =
+ 				regVM_INVALIDATE_ENG1_ADDR_RANGE_LO32 -
+ 				regVM_INVALIDATE_ENG0_ADDR_RANGE_LO32;
++
++		hub->vmhub_funcs = &gfxhub_v1_2_vmhub_funcs;
+ 	}
+ }
  
-@@ -1302,6 +1303,7 @@ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
- 	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
- 	.emit_flush_gpu_tlb = gmc_v9_0_emit_flush_gpu_tlb,
- 	.emit_pasid_mapping = gmc_v9_0_emit_pasid_mapping,
-+	.get_vmid_pasid_mapping_info = gmc_v9_0_get_atc_vmid_pasid_mapping_info,
- 	.get_vm_pde = gmc_v9_0_get_vm_pde,
- 	.get_vm_pte = gmc_v9_0_get_vm_pte,
- 	.override_vm_pte_flags = gmc_v9_0_override_vm_pte_flags,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index b036f7fe27b8c..cae11bd1c754a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -705,25 +705,6 @@ static void gmc_v9_0_set_irq_funcs(struct amdgpu_device *adev)
+ 	}
+ }
+ 
+-static uint32_t gmc_v9_0_get_invalidate_req(unsigned int vmid,
+-					uint32_t flush_type)
+-{
+-	u32 req = 0;
+-
+-	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
+-			    PER_VMID_INVALIDATE_REQ, 1 << vmid);
+-	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, FLUSH_TYPE, flush_type);
+-	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PTES, 1);
+-	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE0, 1);
+-	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE1, 1);
+-	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE2, 1);
+-	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L1_PTES, 1);
+-	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
+-			    CLEAR_PROTECTION_FAULT_STATUS_ADDR,	0);
+-
+-	return req;
+-}
+-
+ /**
+  * gmc_v9_0_use_invalidate_semaphore - judge whether to use semaphore
+  *
+@@ -785,7 +766,7 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	BUG_ON(vmhub >= AMDGPU_MAX_VMHUBS);
+ 
+ 	hub = &adev->vmhub[vmhub];
+-	inv_req = gmc_v9_0_get_invalidate_req(vmid, flush_type);
++	inv_req = hub->vmhub_funcs->get_invalidate_req(vmid, flush_type);
+ 	sem = hub->vm_inv_eng0_sem + hub->eng_distance * eng;
+ 	req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+ 	ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+@@ -931,7 +912,7 @@ static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+ 	bool use_semaphore = gmc_v9_0_use_invalidate_semaphore(ring->adev, ring->vm_hub);
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[ring->vm_hub];
+-	uint32_t req = gmc_v9_0_get_invalidate_req(vmid, 0);
++	uint32_t req = hub->vmhub_funcs->get_invalidate_req(vmid, 0);
+ 	unsigned int eng = ring->vm_inv_eng;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+index 243eabda06077..46b0fc94007cc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+@@ -464,6 +464,37 @@ static void mmhub_v1_0_set_fault_enable_default(struct amdgpu_device *adev, bool
+ 	WREG32_SOC15(MMHUB, 0, mmVM_L2_PROTECTION_FAULT_CNTL, tmp);
+ }
+ 
++static uint32_t mmhub_v1_0_get_invalidate_req(unsigned int vmid,
++					      uint32_t flush_type)
++{
++	u32 req = 0;
++
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    PER_VMID_INVALIDATE_REQ, 1 << vmid);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, FLUSH_TYPE, flush_type);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE0, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE1, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE2, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L1_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    CLEAR_PROTECTION_FAULT_STATUS_ADDR,	0);
++
++	return req;
++}
++
++static void
++mmhub_v1_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
++					     uint32_t status)
++{
++	/* this is handled in gmc_v9_0.c already */
++}
++
++static const struct amdgpu_vmhub_funcs mmhub_v1_0_vmhub_funcs = {
++	.print_l2_protection_fault_status = mmhub_v1_0_print_l2_protection_fault_status,
++	.get_invalidate_req = mmhub_v1_0_get_invalidate_req,
++};
++
+ static void mmhub_v1_0_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB0(0)];
+@@ -493,6 +524,8 @@ static void mmhub_v1_0_init(struct amdgpu_device *adev)
+ 	hub->eng_distance = mmVM_INVALIDATE_ENG1_REQ - mmVM_INVALIDATE_ENG0_REQ;
+ 	hub->eng_addr_distance = mmVM_INVALIDATE_ENG1_ADDR_RANGE_LO32 -
+ 		mmVM_INVALIDATE_ENG0_ADDR_RANGE_LO32;
++
++	hub->vmhub_funcs = &mmhub_v1_0_vmhub_funcs;
+ }
+ 
+ static void mmhub_v1_0_update_medium_grain_clock_gating(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+index 2adee2b94c37d..84d1dc32728bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c
+@@ -448,6 +448,37 @@ static void mmhub_v1_7_set_fault_enable_default(struct amdgpu_device *adev, bool
+ 	WREG32_SOC15(MMHUB, 0, regVM_L2_PROTECTION_FAULT_CNTL, tmp);
+ }
+ 
++static void
++mmhub_v1_7_print_l2_protection_fault_status(struct amdgpu_device *adev,
++					     uint32_t status)
++{
++	/* this is handled in gmc_v9_0.c already */
++}
++
++static uint32_t mmhub_v1_7_get_invalidate_req(unsigned int vmid,
++					      uint32_t flush_type)
++{
++	u32 req = 0;
++
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    PER_VMID_INVALIDATE_REQ, 1 << vmid);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, FLUSH_TYPE, flush_type);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE0, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE1, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE2, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L1_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    CLEAR_PROTECTION_FAULT_STATUS_ADDR,	0);
++
++	return req;
++}
++
++static const struct amdgpu_vmhub_funcs mmhub_v1_7_vmhub_funcs = {
++	.print_l2_protection_fault_status = mmhub_v1_7_print_l2_protection_fault_status,
++	.get_invalidate_req = mmhub_v1_7_get_invalidate_req,
++};
++
+ static void mmhub_v1_7_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB0(0)];
+@@ -476,6 +507,7 @@ static void mmhub_v1_7_init(struct amdgpu_device *adev)
+ 	hub->eng_addr_distance = regVM_INVALIDATE_ENG1_ADDR_RANGE_LO32 -
+ 		regVM_INVALIDATE_ENG0_ADDR_RANGE_LO32;
+ 
++	hub->vmhub_funcs = &mmhub_v1_7_vmhub_funcs;
+ }
+ 
+ static void mmhub_v1_7_update_medium_grain_clock_gating(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+index 47d07cd25fc41..4c9f41905b650 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+@@ -577,6 +577,37 @@ static void mmhub_v1_8_set_fault_enable_default(struct amdgpu_device *adev, bool
+ 	}
+ }
+ 
++static void
++mmhub_v1_8_print_l2_protection_fault_status(struct amdgpu_device *adev,
++					     uint32_t status)
++{
++	/* this is handled in gmc_v9_0.c already */
++}
++
++static uint32_t mmhub_v1_8_get_invalidate_req(unsigned int vmid,
++					      uint32_t flush_type)
++{
++	u32 req = 0;
++
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    PER_VMID_INVALIDATE_REQ, 1 << vmid);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, FLUSH_TYPE, flush_type);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE0, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE1, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE2, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ, INVALIDATE_L1_PTES, 1);
++	req = REG_SET_FIELD(req, VM_INVALIDATE_ENG0_REQ,
++			    CLEAR_PROTECTION_FAULT_STATUS_ADDR,	0);
++
++	return req;
++}
++
++static const struct amdgpu_vmhub_funcs mmhub_v1_8_vmhub_funcs = {
++	.print_l2_protection_fault_status = mmhub_v1_8_print_l2_protection_fault_status,
++	.get_invalidate_req = mmhub_v1_8_get_invalidate_req,
++};
++
+ static void mmhub_v1_8_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_vmhub *hub;
+@@ -610,6 +641,7 @@ static void mmhub_v1_8_init(struct amdgpu_device *adev)
+ 			regVM_INVALIDATE_ENG0_REQ;
+ 		hub->eng_addr_distance = regVM_INVALIDATE_ENG1_ADDR_RANGE_LO32 -
+ 			regVM_INVALIDATE_ENG0_ADDR_RANGE_LO32;
++		hub->vmhub_funcs = &mmhub_v1_8_vmhub_funcs;
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+index fe0710b55c3ac..af7958931b152 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+@@ -536,6 +536,37 @@ static void mmhub_v9_4_set_fault_enable_default(struct amdgpu_device *adev, bool
+ 	}
+ }
+ 
++static void
++mmhub_v9_4_print_l2_protection_fault_status(struct amdgpu_device *adev,
++					    uint32_t status)
++{
++	/* this is handled in gmc_v9_0.c already */
++}
++
++static uint32_t mmhub_v9_4_get_invalidate_req(unsigned int vmid,
++					      uint32_t flush_type)
++{
++	u32 req = 0;
++
++	req = REG_SET_FIELD(req, VML2VC0_VM_INVALIDATE_ENG0_REQ,
++			    PER_VMID_INVALIDATE_REQ, 1 << vmid);
++	req = REG_SET_FIELD(req, VML2VC0_VM_INVALIDATE_ENG0_REQ, FLUSH_TYPE, flush_type);
++	req = REG_SET_FIELD(req, VML2VC0_VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PTES, 1);
++	req = REG_SET_FIELD(req, VML2VC0_VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE0, 1);
++	req = REG_SET_FIELD(req, VML2VC0_VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE1, 1);
++	req = REG_SET_FIELD(req, VML2VC0_VM_INVALIDATE_ENG0_REQ, INVALIDATE_L2_PDE2, 1);
++	req = REG_SET_FIELD(req, VML2VC0_VM_INVALIDATE_ENG0_REQ, INVALIDATE_L1_PTES, 1);
++	req = REG_SET_FIELD(req, VML2VC0_VM_INVALIDATE_ENG0_REQ,
++			    CLEAR_PROTECTION_FAULT_STATUS_ADDR,	0);
++
++	return req;
++}
++
++static const struct amdgpu_vmhub_funcs mmhub_v9_4_vmhub_funcs = {
++	.print_l2_protection_fault_status = mmhub_v9_4_print_l2_protection_fault_status,
++	.get_invalidate_req = mmhub_v9_4_get_invalidate_req,
++};
++
+ static void mmhub_v9_4_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_vmhub *hub[MMHUB_NUM_INSTANCES] = {
+@@ -584,6 +615,7 @@ static void mmhub_v9_4_init(struct amdgpu_device *adev)
+ 			mmVML2VC0_VM_INVALIDATE_ENG0_REQ;
+ 		hub[i]->eng_addr_distance = mmVML2VC0_VM_INVALIDATE_ENG1_ADDR_RANGE_LO32 -
+ 			mmVML2VC0_VM_INVALIDATE_ENG0_ADDR_RANGE_LO32;
++		hub[i]->vmhub_funcs = &mmhub_v9_4_vmhub_funcs;
+ 	}
+ }
+ 
 -- 
 2.55.0
 
