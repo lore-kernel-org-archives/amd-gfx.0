@@ -4,98 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15569C88E4D
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 19:00:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38408C88E59
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 19:13:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6737F10F6BA;
-	Fri, 11 Sep 2026 19:00:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8923C10E4FE;
+	Fri, 11 Sep 2026 19:13:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hp36Asa+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O/HnHzuq";
 	dkim-atps=neutral
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com
- [74.125.227.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 878AB10F6BA
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 19:00:21 +0000 (UTC)
-Received: by mail-vs2-f43.google.com with SMTP id
- ada2fe7eead31-781d5e2a1c6so13172137.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 12:00:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789153220; cv=none;
- d=google.com; s=arc-20260327;
- b=FAsS3JvpBONAr0hrSp9AfrCNvvhIWXXaU+iP55V3e/5l0T0yznYFeaQsYFmANzl4Rg
- zu2ieLjap+oG3SGvAFZrpNv339vmunbYbFHlFoVOqDsML87SbQ7VDey7/tajnF0FXJlT
- j9jJD7ryxVywXQbfjlAWADb9x96MC95C0yfCPgGNy/Yph+r9x9/MnTp4AHhq+/An2Mj4
- HMQhcocj6C+4IG2qIPN6QwdYmqTKOiyZC+RoIOMCh5+XllCzQ0eD1YUPTtcPqffr9xJD
- P1Q7aozh5V7ciwGlH56Nqcgo8emPlhtZWHgpaTew39oY+hIipiDAuO90Dl1njh9R5kFi
- T5fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=0kWWIhr1Ci7OdlQEamxLVjjrAhAjo3tmTNDFkk507VA=;
- fh=MV8xSw5YdrK5iIewyHRxo4ax7j3M5t3LyeF9RNB5UuI=;
- b=G3K+/FVJfQHeoG3+1Q9aXwskVoOhvzrzOUMXmPLd3vg2460dEXnNWLfNr7Zjc9o5CS
- RRmVdkpU8FvN7Fk5yOjNJvb2bo1eHfEJbGA9zyLlyiBEp5ccplPcz/LGaJrSzug3VXIZ
- ZXZPZcbhg/sSgEy8GRx9oZ8XCzfQaaJcYLzqeJPrwyasM82kay+tTIHvtfQGX/gCaw8P
- /Dxl9nS7Okfwk/ySaWHS9tmpZc2eJ5gYBeHIbGR8UBlPMiY2QkFqhTvWrJYYaU+PT9a5
- Tc+uwUpOab+0E9WJYk9v4nc+jCywzXmr7ExzLvLCzkFbIfju86p9tCLAt6LQ3e/B+Yq+
- bW9g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789153220; x=1789758020; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=0kWWIhr1Ci7OdlQEamxLVjjrAhAjo3tmTNDFkk507VA=;
- b=Hp36Asa+JlacgIJrVILJfz0GJhYkB9BmYjt4h+7xc+NvQr7h0jYlo3cU0CkiQHuzu5
- vMO/n+6Y7Qij+wVeXVppYb308MXQ3RpE2kcB8RCF2UElwhUQ6Bz0X6fqzumae4WL4Brl
- obTGxX3JxpJwURP2CsL5y27BoTL+EHnXK4i+jmxHqUlgq17PQtMEADVHEVpqHlLnOtiW
- MMVthKB6e2+XXnLz1M6WLMmX0SmhINKnqwl99fOIy4KIpj7Gsx+UAOG8Zrb4VVP+zI4k
- S+Svbuw+UPywC97UjwgmKi+xL6LXJrGU71Z914Fvjf1G8xg9bDTMirM2N89F3ocw9RRz
- 5Qfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789153220; x=1789758020;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=0kWWIhr1Ci7OdlQEamxLVjjrAhAjo3tmTNDFkk507VA=;
- b=BekiNGA9soc8a3IfMqEk/g6G7M70g2HUzKRVWLv7d6h2SOeq6slTvvszPZ6UnFx1iI
- yZ5U95yAdHGpGZmjoViX6ZaYdACPgZi18HainJOdJeSae9Lz3+x0s3uTmwVkkcILCvwW
- rgkEKdYDuS3XgVW3xa2BniBH7OseRPu0Ut5VXWolON7qsdH7pihS7LnwdYCR9X3GT4X9
- tDvXDgIqRDua8KxdDDiEmNFi0OrAwMdcoIExY0SEF5+99IlcidMB0vw0sErKZideOh9H
- 0tkchEWIh5y0Gr/nbcS1fDkzhzpRD/MGN5IF8o8YjNJ+9vrhv5tagirlvKvm2S+EerCD
- Zr7Q==
-X-Gm-Message-State: AFuF++lDx4TdoIZEXxXREHICcEspAmalxRdLm9/P5xw7NTcOKda9d8EM
- k5/Cu/LDBB2O6avYQ/izxprI0Y3+PNaKLXTHRUqtit0Xf97+cs4oVHJ/vcSj4M4K9KCAdjfssVI
- i1UBNVMO7K8vhowo/NYBsuNWuH7hoaHo=
-X-Gm-Gg: AYBFou228gerKHMWotwHf90HNAOhVuQa1l9scawJhYrOK2CWvMYJJP783hBjmqBcZEk
- DEsKnUzOaIfMLNYld2FVv8sbk+b65/Y8PjBoqJJqSzSLoSiPhv6hiAOitoS+NoobmvfbHdxyn2i
- vZFlsxl0KpxY6lr+gCbUXh6M7PAmhT8Us+8lDUtLKdj4YXKh2PBjB/buMH28lVuQPxjqrTAYe0R
- OdthQ6QXUQKQHBE2fnT6LdxYjOjdREAb6vPqmSb+xo5LAumZzhmItkFC+znqBGAAa8O3Iwyu7Y6
- PhmgCNW+e/fXe2Xc4Wu1gDaglm/GLGIIpaeo0MHD47TpsdVxzFT9c6VWQ9ra/gzAUHYVKk6FZ75
- Q3zx97aMA01xMEUppafCrJPIeLF40CYsHjYzlUG/E3QyZLEnJmoFG
-X-Received: by 2002:a05:6102:149e:b0:786:8d84:5aca with SMTP id
- ada2fe7eead31-792a7a1a2d3mr2220506137.2.1789153220095; Fri, 11 Sep 2026
- 12:00:20 -0700 (PDT)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012030.outbound.protection.outlook.com [52.101.53.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 160A310E4FE;
+ Fri, 11 Sep 2026 19:13:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oz65z6FC2b/ANT74jEsB/yQWixOrS0HVmfMBMrIBjngjnZ0FDzTuFxYStu2BsQE+/A9ndsX95/I8fK+5PQ/i9MJWJhNI5M0/OWd1QVOKSZBs6tQ7r/6/vctk4dCdnJer1/GWa0Piv71LvlN/XOuTM5GugAKS5Vfu9VwyF3Q+IRKV1C1/CugTchcPRYL17V9Ag7mxA5ovkNpkEdazzWpPGh04yW2KyPkLsiEoovEJxVNg7hCuFxLvqavjrOyuOS0m/Ew/hi/l4cBbizllsD6icsAYR5+putGmzO41DNdtUqTgsBJwGBzrX8Jhj3nIuNzy30iaRXC1ouM/p/HymXFroA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=72IdhyQa5gsNwBfatUtiMBt4p5g479KGTD7hRCZmA34=;
+ b=vN6Q0fBU3bbKzuEegfF5oT7fAHUDSpl4ALVOBarx9Q8GKL+g1n0zU1dhOmphYBKQOY38sOwwCtDp5ZyOuOcdGnJdv0ukKe5VSOS55BMzjMoOJ9wj6Ek0OpJtbGPNXmxyM5izXkYWkOhON1ieAgVfq9XwTvdn6O/cMWCH5DhD2u14l2DYMbLNmns1/t0goINCoc/aO3s0HuN8sBeECQPsfuDV+Ei0cK5mD2UZZa2fXlY2C6i5RKLm8zSN0KmWCjzrdX2D8Utg0h2V+YwhnwFr/dz0yCsyys2KIIdf+F7ZlAHrEsL+n6yR0sl46CzlUX2PGzLby+l8VY4Df+UK9pOWGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=72IdhyQa5gsNwBfatUtiMBt4p5g479KGTD7hRCZmA34=;
+ b=O/HnHzuqRJ9sU6bvwAZ47wno+g8BjLPhwcNIxls/2hMzVI7/XA2kQa8H048ZrB8JWJjpkfHfv2iEgboAsEvjJNkiSXPLgr0W0qdrCMJHjNsQmhhXNoQWBA3UVK2FkJOWmtwcafvl2PukZqJXIW5gSKHeQe+XkGolhUEJU9Khe6g=
+Received: from CH0PR13CA0055.namprd13.prod.outlook.com (2603:10b6:610:b2::30)
+ by SJ1PR12MB6217.namprd12.prod.outlook.com (2603:10b6:a03:458::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Fri, 11 Sep
+ 2026 19:13:25 +0000
+Received: from CH3PEPF0000000E.namprd04.prod.outlook.com
+ (2603:10b6:610:b2:cafe::7d) by CH0PR13CA0055.outlook.office365.com
+ (2603:10b6:610:b2::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.4 via Frontend Transport; Fri, 11
+ Sep 2026 19:13:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF0000000E.mail.protection.outlook.com (10.167.244.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 19:13:25 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 11 Sep
+ 2026 14:13:24 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 11 Sep 2026 14:13:24 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <felix.kuehling@amd.com>
+Subject: [PATCH] MAINTAINERS: update git tree for radeon, amdgpu, amdkfd
+Date: Fri, 11 Sep 2026 15:13:16 -0400
+Message-ID: <20260911191316.1705352-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-References: <20260907203316.159103-1-timur.kristof@gmail.com>
-In-Reply-To: <20260907203316.159103-1-timur.kristof@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 11 Sep 2026 15:00:07 -0400
-X-Gm-Features: AcwNN1Wpbh63Mo7XWGfYOZbmVSUX4YwCb_X9RN7QTjRcXY6osls0DQZsfWLEYLo
-Message-ID: <CADnq5_P_cVmHqd5sB6vwGqYA6jSY_fY6EWQp+WofptCgC8nRLw@mail.gmail.com>
-Subject: Re: [PATCH 00/12] RFC: drm/amdgpu/sdma: Refactor SDMA v4 and older
- functions to be per-instance
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, pierre-eric.pelloux-prayer@amd.com, 
- Natalie Vock <nat@pixelcluster.dev>, Lijo Lazar <lijo.lazar@amd.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000E:EE_|SJ1PR12MB6217:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88b51af3-0b4a-4ae7-e863-08df1038c11e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|13003099007|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: cYuFo0em50iR//7NgZxNQN1iOvxy+Xunlae5VEXOLcWpDYIHvUCpfucOTHBp2XB9mWwowee7ytW0PeZfTYzVl8faugZMbyGcFKKasnpiqOhM7EZOWIgAj8sPuiYbTfeXU6TZaAk652U0Of6/yocmTJ4Vzbyb650mPvtQ8YHwVsn8lbCujcuc2bIp5vRflJdVhD323+knmGbSN532L1Q52auZZ+v1eVcG6lURJ8EoqiXBb3K92/fi3csJC6lNlwu2VTNiTvuSVGp8J2yRVYGdioqBz8zePUdflXXoPcJvs81+9v/jgz2QwOaHYpnR/IzRQfaXz4g1ddh0h5YFaiNrcTwYkZhu0WzO3ec/HsURnDYFfqK6twePwudkQBu0ZcosIrTOOpuBW06dVYwM/0vFPvYg2aMLDvvHpsAJEb87KwcMxlkSZ+caqCpph6aQv+PekbzQKddZQLMNyKuGv5e2BTYFOAHL6e4kHytaofHJ4cymFXZLnoTq+kQlhul8cx+KAHqEcwRjoANvdqXfxyMwq0fz9eZNktWCl73jkElX5JvJ6pjXFWi8kwSGAg0C3pdWMof5Y+3ZHGRgTC6f9ikqKwwuvB5tgT09NlrA1JA4h8KVzdsm33+NYxJYs6wZal3iwMJ69dcK7qyhPHALwGGQXQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(13003099007)(10067099003)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: bDfj/V0DhYIbUbg5Zq9WggPsSiyypM+xSpRArvVlyEC0E/hXfH2RvgZyZLTz8/fJ5b66gnFHnI1TlfovsUtF9jz/2oVRXrIDUabNBZINJSpQWFn/NgQ983oyqMeDxaec6l5J/cLCr9dBlJqHwyZoT8iT6FMFMAW27BTDdesEE+ZDYouwfoORf7CvR2/Zewu7L7wm0W1NZaJfmQdKZj9UD/xeyn1KqbR4cRHDOQzIjQYlA2P8F6encB199+BNkOgmkO8lpZegPPLw5Jz2ZVhlLFeYD46Esbi8s1Zp33H7+EiWfxRsyRblaZncmDFwFJDwdvt+tluBqpJW7r2VhT1zPhpMu+mqz+CVyuE2xmK5WXWZpe7jwn/uQsE+9YIvPsQgNqXLC3DJXBpq9UJsFDdULaO42Y5Q0cDwfrMuLeBz+5BDHAuxWm5F4kblcLVdTZaC
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 19:13:25.3539 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88b51af3-0b4a-4ae7-e863-08df1038c11e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6217
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,63 +108,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 7, 2026 at 4:40=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@gm=
-ail.com> wrote:
->
-> This series applies on top of my previous series:
-> "Improve existing SDMA queue resets" (currently under review)
->
-> Prepare the code for implementing recovery for
-> SDMA v4 and all older SDMA (and SI DMA) versions.
-> Reorganize the SDMA 4.0 code so that the functions that are
-> responsible for managing the SDMA engines take an instance ID
-> as an argument.
->
-> This makes it possible to manage the SDMA instances
-> independently of each other, which will enable us to
-> also use these functions to implement resetting and
-> recovering them independently. (The actual recovery
-> implementation will be in a follow-up patch series
-> which I will submit after this one is accepted.)
+Point to the new repo on gitlab.
 
-This series looks fine to me, although I think I would prefer to apply
-it along with the relevant soft reset changes to avoid churning the
-code until each family is ready.  E.g., apply the cik_sdma refactor
-along with the CIK soft reset support, etc.  Unless you have something
-else in mind.  Series in general is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: christian.koenig@amd.com
+Cc: felix.kuehling@amd.com
+---
+ MAINTAINERS | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Alex
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cc2d3e4275654..4c5ad2d7f3f88 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1188,7 +1188,7 @@ AMD KFD
+ M:	Felix Kuehling <Felix.Kuehling@amd.com>
+ L:	amd-gfx@lists.freedesktop.org
+ S:	Supported
+-T:	git https://gitlab.freedesktop.org/agd5f/linux.git
++T:	git https://gitlab.freedesktop.org/drm/amdgpu/kernel.git
+ F:	drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd*.[ch]
+ F:	drivers/gpu/drm/amd/amdkfd/
+ F:	drivers/gpu/drm/amd/include/cik_structs.h
+@@ -22193,7 +22193,7 @@ L:	amd-gfx@lists.freedesktop.org
+ S:	Supported
+ B:	https://gitlab.freedesktop.org/drm/amd/-/issues
+ C:	irc://irc.oftc.net/radeon
+-T:	git https://gitlab.freedesktop.org/agd5f/linux.git
++T:	git https://gitlab.freedesktop.org/drm/amdgpu/kernel.git
+ F:	Documentation/gpu/amdgpu/
+ F:	drivers/gpu/drm/amd/
+ F:	drivers/gpu/drm/ci/xfails/amd*
+-- 
+2.55.0
 
->
-> Timur Krist=C3=B3f (12):
->   drm/amdgpu/sdma: Refactor SI DMA functions to be per instance
->   drm/amdgpu/sdma: Refactor SI DMA clock gating functions to be
->     per-instance
->   drm/amdgpu/sdma: Refactor CIK SDMA functions to be per instance
->   drm/amdgpu/sdma: Refactor CIK SDMA clock gating functions to be
->     per-instance
->   drm/amdgpu/sdma: Refactor SDMA v2.4 functions to be per instance
->   drm/amdgpu/sdma: Refactor SDMA v2.4 golden registers to be
->     per-instance
->   drm/amdgpu/sdma: Refactor SDMA v3.0 functions to be per instance
->   drm/amdgpu/sdma: Refactor SDMA v3.0 clock gating functions to be
->     per-instance
->   drm/amdgpu/sdma: Refactor SDMA v3.0 golden registers to be
->     per-instance
->   drm/amdgpu/sdma: Refactor SDMA v4.0 functions to be per instance
->   drm/amdgpu/sdma: Refactor SDMA v4.0 clock gating functions to be
->     per-instance
->   drm/amdgpu/sdma: Refactor SDMA v4.0 golden registers to be
->     per-instance
->
->  drivers/gpu/drm/amd/amdgpu/cik_sdma.c  | 322 +++++++-------
->  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 232 +++++-----
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 561 ++++++++++++++----------
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 577 +++++++++++++++----------
->  drivers/gpu/drm/amd/amdgpu/si_dma.c    | 160 ++++---
->  5 files changed, 1043 insertions(+), 809 deletions(-)
->
-> --
-> 2.55.0
->
