@@ -4,105 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52934C88E50
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 14:41:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E9FCC88E45
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 15:18:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFB1B10E3DA;
-	Fri, 11 Sep 2026 14:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C514510F65C;
+	Fri, 11 Sep 2026 15:18:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i884wNl9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jnVjp/yD";
 	dkim-atps=neutral
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
- [74.125.228.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C94810E002
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 14:41:28 +0000 (UTC)
-Received: by mail-pz2-f12.google.com with SMTP id
- 41be03b00d2f7-cc1ab17a810so4158a12.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 07:41:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789137688; cv=none;
- d=google.com; s=arc-20260327;
- b=dh+J4wspBk0AACvkIucT2xrggFHESiQeThuYqPFG3QesURY9h3ckSiYfFZheJAhhNd
- 0H9egFFplYIUECyPx2xREf6BMpr3juMWTM14ylP9QbKeE0tort3ELNHVoDlkHt3ZujtS
- 8c5NYKtc/i+T81gilddWE3OQckaI+vFmuDLIeITMewG/GHM+7miyo65/OrFzSGCFb7l0
- fA7LA0IqNWHljFg1s3ShoG9UdNE2YsJXjRGqYClZRFYWvlDBWSKVmtooobw2aipMjRzA
- c22G6HlNXL4SoF1I3XzP6uOa8+0qCPYEKuxd6R5SXgX6PmsT5bwrPY0Nz0z83cPlprEN
- agXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=qBOpXEFj+5l1ohymQl3BIgsA2zVwiD3FzuPJ8XW64GI=;
- fh=FKlFLOkqhqcIrPDIJCw3b2uSwIx5WgAQBBJzEgBPTqM=;
- b=DaLf11SIgkZwgcoBx4DGrCjOEhdi1ER+IM/pWS01qQVCdyZmC5+eETs1QxXgjRGmXr
- pIlgu1w8at6X8rPI+aAdtZHntTFO3aS66ComEB3gkUMDwWbhu837TMDmn0Yt/JUw4hQ0
- dq1jWEMO8gLTbXuO/ikFt+Uu+lO9wx0XwzkY+GyISqwYGXqkqwKXsJ4m+JNgjdgbd/nn
- VDg46d7fFqE/aF/29a/uPSnzp3Ltwvr9WPqfxVL4OJfkmIO+cXokXDi9UkVCNlRQEBBB
- rLdpUv+hAe3iuS0USBPd0UYQUk2KD+H1T240x9DX9yFe8kwYfzbU6YLPken4NBUdEb/a
- LnSw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789137688; x=1789742488; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qBOpXEFj+5l1ohymQl3BIgsA2zVwiD3FzuPJ8XW64GI=;
- b=i884wNl9Lnhu8NDtZcOsV6R9yAJVM8Zy4sY93ialJehx2WorBDYuuqkP+Uh6hZ+NIi
- WzGMT3jPP1IiGw5wqYLNjcxwi69yd55qXcIgz/pKycvf8OMZAu0xpfB2wC/OzVYNyFq5
- +aR2jDrcnAgO0EYuCezjsKQOzJ+GqqwRdETrtT1s8CyLJWmzw82jsnVpPCwcEmOJQazT
- YD8xCKYMPWq4YG+VgRmy3Gp+zqJGIz73nF7eiob1gQ9Tyv66nw6wvJmAFFCE6k5Jklux
- cuTQf8fvUBdHCYLvnkmTU6ZgNb5Y5yx8abnwa9yxiGR89ksBgRlDWaI8fFvqbKwRm2XI
- ASgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789137688; x=1789742488;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qBOpXEFj+5l1ohymQl3BIgsA2zVwiD3FzuPJ8XW64GI=;
- b=VRcAlw9kqaAqRG6AuKWeRX4LoFErYeCu3TwDMcH8dHOfvt9bsKyuOzLhbNzO+DKpIG
- 2N3wFTL5jAjYgMgrpdvMg3p368RM/5W+h+FzZmivO7q0rbePAACanNOQ9CKGXmiHon2a
- jnLCFNDzQMzjyMBI8Hiz+PQfkllIpTb1LDhlRy1tMa5hIFa83xnrIAqgUKGAMlh/EOXJ
- zsoVqzOLxEJHbb7D0VJRQxFYesyM/xRGTn22ONQCdC3h473NpfAPSxWhcD9cnJpux+aC
- zpas1tJK6fnn2IdO2qM4Xmj7P2ZctHkwnvcVGEKLQLcW9mtgVbHlZ0GJ87/fixwsYg3i
- /Fcw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBynRo3KuoJ4BqLQ9voxLk6wXTk88pI8yVzHGQQEpjAIRxWANQCpN0l2G/PdTaZ6EvK0k/4xSZlM@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m5oajXe/yb+N7BHRQmpfxX7nIvW2TfSfuAkjAkTUl2dDpHMlyy
- Pw1auir93YSINprgFnIRrcAFmdJtxp7o0W9HVq1iall62DrBUiE8TJzDTss4JLolx5JVHxWVGPa
- dstzfesUeUYiq5jllmZrGCQ7RKGb9/zQ=
-X-Gm-Gg: AYBFou39KOVkiJMfAn2HNYTk+DiXmUMkv7mJmWvuYSt62Hd/VU69LQnPaM1nnLf/nQZ
- 37W3oozs8STnHSEF9QyMxaDuVsrjXXw4x+gxf3wDvUHUHjTEOC7BsgY4uya1wMHlIyXzR7seP8q
- VtS4GtcbKqdd149rDdIjBPbgLFXfe6zQXE48uxGhJeLWWRo5yTxuYdQToLy2wfUN4ngm5WnYIIu
- 5P0jhAM+gH0daqiR/DtiCMD4wGa8rdMsD4/bvDZR6DF0jFS4LAUvZ86b69U2jxTOT67MnsRzf47
- vU1hZRqcJRxvu+jhYHORpM66uKRfH89dGloOmNi88ueKbQ/hpoSSV7Hw0ZL83cAsCLiimEiw058
- qyo5AxpXKhrNJ7g+CLdhbsaOMNw1hnxRepCmKUrHpLQ==
-X-Received: by 2002:a17:90b:3808:b0:38e:76f8:fcbb with SMTP id
- 98e67ed59e1d1-39d9c2249c2mr4897030a91.4.1789137687394; Fri, 11 Sep 2026
- 07:41:27 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260905081935.338775-1-srinivasan.shanmugam@amd.com>
- <20260905081935.338775-2-srinivasan.shanmugam@amd.com>
- <CADnq5_PHEQzUVTqJYzO3mALs9LfK9cAUMQtgi0JEzGvFSZk7Eg@mail.gmail.com>
- <CADnq5_M+tLHSrfXQCxX2+LFq-x8OO1=BG+ou=qq2_Y0VS+b8AA@mail.gmail.com>
- <8573edf1-9af4-423d-8af8-08ac38f33ab2@amd.com>
- <61caf661-a844-47b6-87b5-e7b71c3cd6b3@amd.com>
- <3aeba017-08b7-4554-9c71-e031c42e8a21@amd.com>
-In-Reply-To: <3aeba017-08b7-4554-9c71-e031c42e8a21@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 11 Sep 2026 10:41:14 -0400
-X-Gm-Features: AcwNN1UwxyKbWAKON8YlzHMDdcXhTkk9QuThLGNo78ewQZGJIivqF-B0PActm2g
-Message-ID: <CADnq5_PBQbLQ99c_uW6FCm4SOhLUrbC38TdcJsZ2pMO8o_EV1w@mail.gmail.com>
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013024.outbound.protection.outlook.com
+ [40.93.201.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2536E10F65C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 15:18:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mIpgpXY77GP8zEUCYZEoV2XWy6bmEp+fhv074UE5hDUa1H8wIs0Vd9Yy5KsmWwIHgKskFfnGOPPoPkH2PBCIgGKEUQAelCCER8ZW3xJPDrS3QOGHspFPEIlhLsjGoPsySnOfe6A6zHVJvAbaeNYX+Q5TFwFsEUeTQhV6U/KtWR+FfwEZU/zNLSa7UZpT3Swv7yqCo4rw08ljNOPxbtoUy8G5xq6jUTBimXLUHsYxWN+bHnQU8utwtZTdf4ciLbURCF2LEibXwMnyy6cqJA8r/vQzk3z8S0TSvVzfiac1eN4gMXIgBJv0RI4TBmhE7FXzAmFgFzzAXc9r0KkV6V5YhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iZzY1M9qXDdA+HwoPD/kJVzMGSEkEEhDBVr5LNDUyP8=;
+ b=LpKgnJcsI/yIWIJN2KvO4x5KmEp2KR3EpPZKizV6O+DyxrlNUpw+9XEm5SpEJhbQ5adgEwlqJGwqEfI9bJLhJlcmB1A3IgEzVH96i/MsXoaQdFnzt95TxoNWzmhCu/s3u6uBWT+hmth3Prpaunm2UX75G7osuWieK8DIA38bCDPnjPnUEAD2NwnbGhRvhzAw8czMAmh8g79bCxaOBPOuU3N2Xg8vlYjseymitPnbKRD4NdkkMLAvjtWdwyi9v2LBrtKJh4ag7vQWIBuK/BFJ8OF+agaLgdy0ds0fa0T8nrOQq9hRy5EJpmvTJGexULEQhOIApiX3ouZ/he+LaPwGyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iZzY1M9qXDdA+HwoPD/kJVzMGSEkEEhDBVr5LNDUyP8=;
+ b=jnVjp/yDkSOELh1DNFhg0WCEvokSXQY9AmsCLUn/p1imBC/3aXr1de6nw9cURT7xpXYor7x0k9jhE1TUgdotjfmorMVvHXobrQ+DbPfmxDoZw0Hb+5nU4MSqnKKfypFeiD6et1h52CsOwslVd4wCYM8UlG6pJGO3/TtKEsuFQIM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by PH0PR12MB7931.namprd12.prod.outlook.com (2603:10b6:510:289::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Fri, 11 Sep
+ 2026 15:18:03 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 15:18:03 +0000
+Message-ID: <a02c8f42-7783-498d-938e-0034da998c40@amd.com>
+Date: Fri, 11 Sep 2026 20:47:56 +0530
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/3] drm/amdgpu: Add per-VM kernel queue first-level trap
  handler infrastructure
-To: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
-Cc: "Lazar, Lijo" <lijo.lazar@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Samuel Pitoiset <hakzsam@gmail.com>, Natalie Vock <natalie.vock@gmx.de>, 
- Felix Kuehling <Felix.Kuehling@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Samuel Pitoiset <hakzsam@gmail.com>, Natalie Vock <natalie.vock@gmx.de>
+References: <20260905081935.338775-1-srinivasan.shanmugam@amd.com>
+ <20260905081935.338775-2-srinivasan.shanmugam@amd.com>
+ <4f97a5e8-8bef-4353-9998-9e6daee499d2@amd.com>
+ <b652b617-de17-4e11-9492-ffb003a9e51e@amd.com>
+ <SA0PR12MB7091A430EEAB0FD042DF601597B02@SA0PR12MB7091.namprd12.prod.outlook.com>
+ <CADnq5_N38NE6Q8Bstcwx5aVh5Jfm8yCJO=ffD-vhBND9mZkisw@mail.gmail.com>
+ <SA0PR12MB7091203029CC7166AB28355597BF2@SA0PR12MB7091.namprd12.prod.outlook.com>
+ <0d91c47d-086f-4fae-a92d-8b69f14410f0@amd.com>
+ <CADnq5_Nya37VsLXL+X07HzOG1N9eGvOgCVR+=x_b0Xejh_6WCw@mail.gmail.com>
+ <CADnq5_Pr1LCN_VL7504RMDo+q+MDw3Svj7bG4TS4LgcSSnm5wA@mail.gmail.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <CADnq5_Pr1LCN_VL7504RMDo+q+MDw3Svj7bG4TS4LgcSSnm5wA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0138.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d2::18) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH0PR12MB7931:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e01554e-35a4-4615-53d0-08df1017df74
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|4143699003|10067099003|11063799006|56012099006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: rCxjqpaxNK43kWL8IeQcrbQs8yzQkd9IWjJJJYXoWJ0gxVpWrumekH2c1QsAlXdziXNYQ1nG4xploEtU/z9FOv1T13TNhWrgjJyyzPqvWwz+ZM+glCe8+ovOFcmaJ0GqU3L5453cpBSo/mslzluYB/VHBZGO6JFKCRXUQ6/MsFB79tau9k72C71nSC40nVw8CL+M7aL8VyPDily0vFDLyLLv/bPU7TiQ1U1I8bj167G8asBTmzRFtUCPfIiHvQfjbN4FqZicifo3ncGuSql5tzh3Ml5dUuozH93uZ9D/D6HYBvzb+e++crPhmqyO6Po/U9n2B7/fzcov+g8iOPw+LjkNNBmkICZHpJ1l92/cFgC6ykMSUve2aA9Dxh7jxKK5bSnel56FhHOSBSlSh3/PcA34Yp00UtUUDIdhNOfjg68HX3dxdXEKkoRVrENQd7qUdq4wXw7KKNBTI1ZDzzPhX2XDtCMUPyUFBgSJ/cS9Dlf8h+74sNKbPBm8/xI/2qZ0T4DztYu02d/VBdUsIA+3r1TrhDLS9IFSbGCXnj3Nbpmg2VSSGOYTc8tDSkD2kOzZKtYs+DvtEj9ILa8WlLpP5WIvdYcOA8VdfNgnkYPQA/t/dIK0rCJ8qo+PqS1rvS9ZOsRAlDKRzPA6z94Aih+xXQBmhgDu90xP0ZHwmqTM0o8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(4143699003)(10067099003)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c3lhZytqUHdLaG1lUCszeng3MEUyVFlIeVgrdnkzN3JuR3VkeWRWd2NSRlZT?=
+ =?utf-8?B?aVdzR1VNd3ZTUDJtSGRWTG9SRS9ld1dnV2wyeWRmQ09LK1puL3JQQ1Myaklu?=
+ =?utf-8?B?dCtaazZheU9lTXNtNVdVeW9kYm5WK282UExwL2NYUVkrZWMwVGQwV2VPNm1X?=
+ =?utf-8?B?aVg5cVFNQnhHaElCSFo3ZjZPU0JKb0JLT3JKOHhCaEFZMDN2M0FzRzdLSEVz?=
+ =?utf-8?B?NWJ0ckZPcmIwOTdVekxSMWlJTlpod05kYkR6V0Z1eXVzWWs2M1pEWkxNdGN0?=
+ =?utf-8?B?ZS9BcldTRjhCRFRBZDU4aDZCcTc0RjFvTUVlVlJPM2dLSk9rMWt4K0dOdEVq?=
+ =?utf-8?B?RGZUY0lERzRPR0EzUlh0a3VadlRDTVhlS1hTMTBja0tOWU9adElaTThkK3kw?=
+ =?utf-8?B?aTB0VVdPREkycFAzWVNuWCtoeDlsSlpGeE0ydmh4M0E1c0JlRFFhdlZqbnJY?=
+ =?utf-8?B?ZDNxZFJielU3UmI5TWJ4NzNyUXREZEYvekxONDVUWU9jbk4rNnpKaFJ6QTVh?=
+ =?utf-8?B?dUNhTEhEWkg5UmJKQUpTOUFBbHBRWGVVUjdTeERkUHY3STRLUlZwby9ITlpL?=
+ =?utf-8?B?U1FWQlpReTFkd2JKTkp5Zk5vaFJIeGZPbEIrUmxNa0Jodmx3RnppR2k1b2ph?=
+ =?utf-8?B?M2EzQWJ2U2pRb2VmUmxuNXc0RmVNZnp1TGJSN3JQTVpwT1BMLytjMkFMQWhi?=
+ =?utf-8?B?cGJhR0tiZTN5TTR3OFRsaTBsR2I1c2R2Q0lLRkNYM2NaemVhMm40WXJiUFNO?=
+ =?utf-8?B?TlhvanVka3UyempHdlNIaHpES1BxMFc0dE45ZFdjS3lZVEh2WFd3VTc0NXQ0?=
+ =?utf-8?B?OWR3cGhjSkpZNjJqVHc1VFJXUjkzdVM4QmNMc1lsempzM1VrQ3BDUXdBMFEv?=
+ =?utf-8?B?dnUrMkFXWnM0ZjZRNEVUcHNvS0d5Nk50bU1XZUFRVG9HZXYrY2pSYy9SdFRB?=
+ =?utf-8?B?OVQ0R3pwbkF4QVhKbDFKQldDb3FRcmhSOHZBSXBvVXpORm1UTmNydURBaUdH?=
+ =?utf-8?B?K1BWNVorcnN6OFNVNG5QeGpzSVNLeFBRV01sbTY2S3J2VThFV0UxQU1DZEVh?=
+ =?utf-8?B?ZHBhbU9yT3hoK0dWUCtBNEMvWkVYSVNwcVdpMms5a1NpemY5cyt5SWpoZ29v?=
+ =?utf-8?B?RW9TR2tmSTA5emhTdk9pLzhHR1BaNFZKRHZQQW11Z0UxT0lPQndXNlZhakpz?=
+ =?utf-8?B?bjhYMnVJWWxaeXR5bm9lOE1QTE5ZYlFIelYzd2hoSXdxMEIzVE42Y3lsUmkz?=
+ =?utf-8?B?MEJsTmtOeDdscnExbEt1bzh2M21Sd252YzY4VUVlZGxyN1FhMkNGUkhOSVpo?=
+ =?utf-8?B?SGZrd0dTSU94QVRUaXE4UmVmdU5nT0k3K2gyRFU4d2g5NTVPUmhoNjA4WEJy?=
+ =?utf-8?B?L0J2cHA3aG02dWFRVGh3ZnZ0QVZDRDBXUWJlcURUNGNjWlM2cUNaZXlOSkwz?=
+ =?utf-8?B?N0pSY3k3ZGVtdldJZXp5aDczUGlWakNvTW4xWWlXQVRycjE0MlZmSjNHcXov?=
+ =?utf-8?B?b1VJQS9HN3c5YXpjMkVDaHMwaS9oM2RWYzhRVXhPSzFpM2Q0SnMzTDhVdGdp?=
+ =?utf-8?B?d2hSa25nT3lENCtIMG9VSlJsRzBuM3hZaVVvdHk2UWFEVExnRnFuKzF1THBz?=
+ =?utf-8?B?NmJlVnNvOTZnbGgzbzY2V0NKSC9FN0dZZkRCblhad1E3aXVyWWVOcUM0STI2?=
+ =?utf-8?B?VWR1Zk9EbzNZZHcvVXpCZzhmR0JKNVJBWm8wUVZuc2sxVnhGSjRvRjFlZkJN?=
+ =?utf-8?B?UlczSnptV3ZlcDgxL2FwTlcySDBYTWQ3WnBwOXdhaW9sMHBZV2pxZm5RNzlB?=
+ =?utf-8?B?WlFVYjVmRzB2TDBWbllUTU93S2NsUXlrUXVaaE9Ld3NsSExjRTNET0Q5Zzgw?=
+ =?utf-8?B?MU9sZmxlNWpqT3NlVThsaitaRGovc0ovZnRYK2dBT240UDh6ajBmRFRORDRU?=
+ =?utf-8?B?MDRHZnlnT1B3QzN5Vm9WRDhEWHlYTThOQktUc1RqWHZUS2lrdk0zdEgyNlYz?=
+ =?utf-8?B?QU1PYWl4UzN6VUFSY3FiMTB3aU1ZM2NTTDNIREo5cEwvOEZIR3hvV3FhZEZx?=
+ =?utf-8?B?dy90ZFVPdW1ZNU1VQlR2MFozZGkvbXk1cU5oY1NKOWFqekpRL093RFliZ3Zn?=
+ =?utf-8?B?QlY4RzhETTM2Vm1mWnBMR1UvTnVZMlkvTnlSMThSNVJGMXF2TitwUGF6ZzFG?=
+ =?utf-8?B?TzYrQVpiUTlpM1ViNzN1UUtrdmJMTFBESXV2bUdyWXpzZ3VldnRYU1BWZllC?=
+ =?utf-8?B?R1dyNW9JVmdtVUVnRVlTdDIxSXhBb2V2VlQ4M2dyUDhrbjJLd1NQZzB6Rzdt?=
+ =?utf-8?B?VzBxMW9EcmpxQml5Uys1TzhBc0RhbUFaMktGcWZFREFBU2lLMzErUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e01554e-35a4-4615-53d0-08df1017df74
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:18:03.0756 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iKIFH9dYL9+pt7tDogANoMhMZU29rZM0dQcqz2HTH7zBUynNdwLtU7/ZaZmJCeW1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7931
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,462 +149,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 10, 2026 at 4:25=E2=80=AFAM SRINIVASAN SHANMUGAM
-<srinivasan.shanmugam@amd.com> wrote:
->
->
-> On 9/10/2026 12:27 PM, Lazar, Lijo wrote:
->
->
->
-> On 10-Sep-26 11:43 AM, SRINIVASAN SHANMUGAM wrote:
->
->
-> On 9/10/2026 2:20 AM, Alex Deucher wrote:
->
-> On Wed, Sep 9, 2026 at 4:42=E2=80=AFPM Alex Deucher<alexdeucher@gmail.com=
-> wrote:
->
-> On Sat, Sep 5, 2026 at 4:55=E2=80=AFAM Srinivasan Shanmugam
-> <srinivasan.shanmugam@amd.com> wrote:
->
-> MES owns kernel queue VMIDs (1..first_kfd_vmid-1) but does not program
-> SQ_SHADER_TBA/TMA for them. On GFX11+ hardware MES maps kernel queues
-> via ADD_QUEUE with map_legacy_kq=3D1 but does not set trap handler state.
-> On GFX10 and earlier HWS-based hardware, the driver programs trap
-> registers via SRBM select for KFD queues but no equivalent exists for
-> driver-managed kernel queue VMIDs.
->
-> Add a vmhub callback program_kernel_trap_vmids() so each gfxhub version
-> can write SQ_SHADER_TBA/TMA for kernel VMIDs. The TBA points to the
-> device-level CWSR ISA BO. The TMA is set to the fixed per-VM virtual
-> address AMDGPU_VA_RESERVED_TRAP_START =E2=80=94 each VM maps its own kq_t=
-ma_bo
-> there, so per-VM isolation is handled entirely by page tables without
-> needing to reprogram the register per job or per submission.
->
-> The per-VM kq_tma_bo is a small GTT BO allocated at VM creation time
-> (parallel to page table allocation) and mapped read-only into the GPU VM
-> at AMDGPU_VA_RESERVED_TRAP_START. The kernel CPU writes the second-level
-> handler address into it via kq_tma_map when userspace calls SET_L2_TRAP.
-> The first-level CWSR handler reads this address to chain to the
-> second-level handler when a shader exception fires.
->
-> This design is:
->    - Per-VM BO (not device-level) =E2=80=94 same model as page tables
->    - Fixed VA in each VM's address space =E2=80=94 same VA, different phy=
-sical BO
->    - Read-only from GPU =E2=80=94 kernel CPU updates it via CPU mapping
->    - Treat allocation/free lifecycle identical to page tables
->
-> Suggested-by: Christian K=C3=B6nig<christian.koenig@amd.com>
-> Suggested-by: Alexander Deucher<alexander.deucher@amd.com>
-> Cc: Lijo Lazar<lijo.lazar@amd.com>
-> Cc: Timur Krist=C3=B3f<timur.kristof@gmail.com>
-> Cc: Samuel Pitoiset<hakzsam@gmail.com>
-> Cc: Natalie Vock<natalie.vock@gmx.de>
-> Signed-off-by: Srinivasan Shanmugam<srinivasan.shanmugam@amd.com>
-> Change-Id: I9ce352157c4aa84099cef926cba61264781e8ad9
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c | 80 ++++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h |  7 +++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |  9 +++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   | 13 ++++
->   5 files changed, 110 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gmc.h
-> index 3ca187f5ade8..5624a5ab5c62 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -115,6 +115,7 @@ struct amdgpu_vmhub_funcs {
->          void (*print_l2_protection_fault_status)(struct amdgpu_device *a=
-dev,
->                                                   uint32_t status);
->          uint32_t (*get_invalidate_req)(unsigned int vmid, uint32_t flush=
-_type);
-> +       void (*program_kernel_trap_vmids)(struct amdgpu_device *adev);
->   };
->
->   struct amdgpu_vmhub {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_trap.c
-> index 623cac6781be..e913488ca3fa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-> @@ -263,6 +263,7 @@ int amdgpu_trap_init(struct amdgpu_device *adev)
->
->          amdgpu_trap_cwsr_init_save_area_info(adev, trap_info);
->          adev->trap_info =3D no_free_ptr(trap_info);
-> +       amdgpu_trap_program_kernel_vmids(adev);
->
->          return 0;
->   }
-> @@ -277,6 +278,85 @@ void amdgpu_trap_fini(struct amdgpu_device *adev)
->          adev->trap_info =3D NULL;
->   }
->
-> +void amdgpu_trap_program_kernel_vmids(struct amdgpu_device *adev)
-> +{
-> +       struct amdgpu_vmhub *hub =3D &adev->vmhub[AMDGPU_GFXHUB(0)];
-> +
-> +       if (!amdgpu_trap_is_enabled(adev))
-> +               return;
-> +       if (!hub->vmhub_funcs || !hub->vmhub_funcs->program_kernel_trap_v=
-mids)
-> +               return;
-> +
-> +       hub->vmhub_funcs->program_kernel_trap_vmids(adev);
-> +}
-> +
-> +int amdgpu_trap_vm_kq_tma_alloc(struct amdgpu_device *adev,
-> +                               struct amdgpu_vm *vm)
-> +{
-> +       void *cpu_addr;
-> +       uint64_t va;
-> +       int r;
-> +
-> +       dma_resv_assert_held(vm->root.bo->tbo.base.resv);
-> +
-> +       r =3D amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PAGE_SIZE, PAGE_SI=
-ZE,
-> +                                   AMDGPU_GEM_DOMAIN_GTT, &vm->kq_tma_bo=
-,
-> +                                   NULL, &cpu_addr);
-> +       if (r)
-> +               return r;
-> +
-> +       if (vm->kq_tma_bo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
-> +               iosys_map_set_vaddr_iomem(&vm->kq_tma_map,
-> +                                         (void __iomem *)cpu_addr);
-> +       else
-> +               iosys_map_set_vaddr(&vm->kq_tma_map, cpu_addr);
-> +
-> +       vm->kq_tma_va =3D amdgpu_vm_bo_add(adev, vm, vm->kq_tma_bo);
-> +       if (!vm->kq_tma_va) {
-> +               r =3D -ENOMEM;
-> +               goto err_free_bo;
-> +       }
-> +
-> +       va =3D AMDGPU_VA_RESERVED_TRAP_START(adev) & AMDGPU_GMC_HOLE_MASK=
-;
-> +       r =3D amdgpu_vm_bo_map(adev, vm->kq_tma_va, va, 0,
-> +                            AMDGPU_GPU_PAGE_SIZE,
-> +                            AMDGPU_VM_PAGE_READABLE);
-> +       if (r)
-> +               goto err_del_va;
-> +
-> +       r =3D amdgpu_vm_bo_update(adev, vm->kq_tma_va, false);
-> +       if (r)
-> +               goto err_del_va;
-> +
-> +       return 0;
-> +
-> +err_del_va:
-> +       amdgpu_vm_bo_del(adev, vm->kq_tma_va);
-> +       vm->kq_tma_va =3D NULL;
-> +err_free_bo:
-> +       amdgpu_bo_free_kernel(&vm->kq_tma_bo, NULL, NULL);
-> +       return r;
-> +}
-> +
-> +void amdgpu_trap_vm_kq_tma_free(struct amdgpu_device *adev,
-> +                               struct amdgpu_vm *vm)
-> +{
-> +       uint64_t va;
-> +
-> +       if (!vm->kq_tma_bo)
-> +               return;
-> +
-> +       dma_resv_assert_held(vm->root.bo->tbo.base.resv);
-> +
-> +       if (vm->kq_tma_va) {
-> +               va =3D AMDGPU_VA_RESERVED_TRAP_START(adev) & AMDGPU_GMC_H=
-OLE_MASK;
-> +               amdgpu_vm_bo_unmap(adev, vm->kq_tma_va, va);
-> +               amdgpu_vm_bo_del(adev, vm->kq_tma_va);
-> +               vm->kq_tma_va =3D NULL;
-> +       }
-> +       amdgpu_bo_free_kernel(&vm->kq_tma_bo, NULL, NULL);
-> +}
-> +
->   static int amdgpu_trap_map_region(struct amdgpu_device *adev,
->                                    struct amdgpu_vm *vm,
->                                    struct amdgpu_trap_obj *cwsr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_trap.h
-> index 7f83174a4742..9be5035abd1c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
-> @@ -155,4 +155,11 @@ int amdgpu_trap_set_trap_debug_flag(struct amdgpu_de=
-vice *adev,
->                                      struct amdgpu_trap_obj *cwsr_obj,
->                                      bool enabled);
->
-> +/* Kernel queue trap handler =E2=80=94 per-VM TMA and register programmi=
-ng */
-> +void amdgpu_trap_program_kernel_vmids(struct amdgpu_device *adev);
-> +int  amdgpu_trap_vm_kq_tma_alloc(struct amdgpu_device *adev,
-> +                                struct amdgpu_vm *vm);
-> +void amdgpu_trap_vm_kq_tma_free(struct amdgpu_device *adev,
-> +                               struct amdgpu_vm *vm);
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index de3ef9ce2234..f5e228d4bfb5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2640,6 +2640,12 @@ int amdgpu_vm_init(struct amdgpu_device *adev, str=
-uct amdgpu_vm *vm,
->          if (r)
->                  goto error_free_root;
->
-> +       if (amdgpu_trap_is_enabled(adev)) {
-> +               r =3D amdgpu_trap_vm_kq_tma_alloc(adev, vm);
-> +               if (r)
-> +                       goto error_free_root;
-> +       }
-> +
->          r =3D amdgpu_vm_create_task_info(vm);
->          if (r)
->                  dev_dbg(adev->dev, "Failed to create task info for VM\n"=
-);
-> @@ -2774,6 +2780,9 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, str=
-uct amdgpu_vm *vm)
->                  amdgpu_vm_free_mapping(adev, vm, mapping, NULL);
->          }
->
-> +       if (vm->kq_tma_bo)
-> +               amdgpu_trap_vm_kq_tma_free(adev, vm);
-> +
->          amdgpu_vm_pt_free_root(adev, vm);
->          amdgpu_bo_unreserve(root);
->          amdgpu_bo_unref(&root);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.h
-> index dd825e179979..064f95a83790 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -25,6 +25,7 @@
->   #define __AMDGPU_VM_H__
->
->   #include <linux/idr.h>
-> +#include <linux/iosys-map.h>
->   #include <linux/kfifo.h>
->   #include <linux/rbtree.h>
->   #include <drm/gpu_scheduler.h>
-> @@ -488,6 +489,18 @@ struct amdgpu_vm {
->
->          /* cached fault info */
->          struct amdgpu_vm_fault_info fault_info;
-> +
-> +       /*
-> +        * Per-VM kernel queue first-level TMA BO.
-> +        * Allocated at VM init, freed at VM fini =E2=80=94 same lifecycl=
-e as page tables.
-> +        * Mapped read-only at AMDGPU_VA_RESERVED_TRAP_START in the GPU V=
-M.
-> +        * SQ_SHADER_TMA for all kernel VMIDs points to this fixed VA; pe=
-r-VM
-> +        * isolation is via page tables mapping different physical BOs th=
-ere.
-> +        * CPU kernel writes second-level handler address via kq_tma_map.
-> +        */
-> +       struct amdgpu_bo        *kq_tma_bo;
-> +       struct amdgpu_bo_va     *kq_tma_va;
-> +       struct iosys_map         kq_tma_map;
->
-> These should be the same for both user and kernel queues.  The only
-> difference is who manages the vmids (driver vs MES).  They are per
-> vmid so it doesn't matter whether it's a kernel queue or user queue.
->
-> I would merge these patch sets.  The trap handling is the same for
-> both kernel queues and user queues.  The only difference for kernel
-> queues is that the driver has to set the TBA/TMA registers while
-> MES/KIQ handles it for user queues.  At vm_init time, allocate the
-> memory for the trap handler, copy the trap handler to the memory and
-> add the mapping to the GPUVM address space.  Then in gfxhub init,
-> program the TBA/TMA registers for the kernel managed vmids.  Finally,
-> add the IOCTL to set/clear the second level trap handler and validate
-> the user supplied GPU VA.
->
->
-> Hi Alex,
->
-> Thank you for the review. I have few questions before proceeding with the=
- implementation.
->
-> I looked at how KFD handles this today in |kfd_process.c|:
->
-> /* KFD writes second-level TBA/TMA into first-level TMA */
-> iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET,
->               uint64_t, tba_addr);
-> iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET + sizeof(uint64_t),
->               uint64_t, tma_addr);
->
-> Where |KFD_CWSR_TMA_OFFSET =3D AMDGPU_GPU_PAGE_SIZE + 2048 =3D 0x1800|. K=
-FD uses physical GPU addresses for TBA/TMA registers, not VM virtual addres=
-ses.
->
->
-> KFD doesn't use physical adddress, it uses the below fixed virtual addres=
-s.
->
-> pdd->qpd.cwsr_base =3D AMDGPU_VA_RESERVED_TRAP_START(pdd->dev->adev)
->
-> KFD mechanism is to allocate one BO which is mapped to the above virtual =
-address. That BO accounts for both TMA and TBA size. TMA is located at KFD_=
-CWSR_TMA_OFFSET within that BO.
->
-> TBA region carries the first level handler code. It's not allowed to be o=
-verridden by user. Hence when we moved to new design, TBA is kept common fo=
-r all user VMs.
->
-> TMA BO is the place through where user's second level TMA/TBA addresses a=
-re passed and also the place where stack is saved.
->
->                 iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET,
->                              uint64_t, tba_addr);
->                 iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET + sizeof=
-(uint64_t),
->                              uint64_t, tma_addr);
->
-> What this code does is to write the second level handler tba/tma addresse=
-s in the TMA, which is located at KFD_CWSR_TMA_OFFSET within the BO.
->
->
-> TMA region is the only variable thing per VM. First level handler code ex=
-ecuted is the same for all VMs. So in the new design, we have a first level=
- TBA BO that is shared by all VMs, and that carries first level trap handle=
-r code. The second level TBA is allocated per VM.
->
-> I see Alex is saying the same thing which I asked through a different thr=
-ead. There is no need to allocate separate BOs for kernel queues. All you n=
-eed to do is program the fixed TBA/TMA first level virtual addresses for no=
-n-KFD VMs during init.
->
-> Regarding kernel queue draining - my understanding is that the condition =
-is no work having that VMID is in progress during the change. So, it may no=
-t be required to entirely drain kernel queue.
->
-> Thanks,
-> Lijo
->
-> I would like to take a moment to summarize what has been agreed upon and =
-share my thoughts on the remaining open points, to ensure we are all aligne=
-d.
->
-> What is agreed:
->
-> Fixed VA =3D AMDGPU_VA_RESERVED_TRAP_START =E2=80=94 same as KFD
-> TMA starts at offset 0x1800 from BO start =E2=80=94 matching KFD_CWSR_TMA=
-_OFFSET
-> SQ_SHADER_TBA/TMA registers programmed in gfxhub init =E2=80=94 kernel VM=
-IDs only
-> UQ and KQ series merged into one =E2=80=94 no separate kq_tba_bo/kq_tma_b=
-o
-> SET_L2_TRAP: evict user queues, ensure no VMID work in progress, write TM=
-A, flush TL
->
-> Open Point 1 =E2=80=94 Shared TBA or per-VM TBA copy?
->
-> Alex said: "copy the trap handler to the memory at vm_init" =E2=86=92 sou=
-nds like per-VM copy.
-> Lijo said: "TBA is kept common for all user VMs" =E2=86=92 sounds like on=
-e shared BO.
->
-> IMO: The first-level handler code (ISA binary) is identical across all VM=
-s for the same hardware. Based on this, one option is to keep a single shar=
-ed device-level TBA BO (adev->trap_info->isa_bo) mapped into each VM at AMD=
-GPU_VA_RESERVED_TRAP_START, and allocate only the TMA BO per-VM at vm_init.=
- This avoids duplicating the same ISA binary N times in memory. Please let =
-me know if a per-VM TBA copy is preferred instead.
->
 
-Yes, I think we can have 1 global TBA and a per VM TMAs.
 
-> Open Point 2 =E2=80=94 What happens to AMDGPU_VA_RESERVED_TRAP_UQ_START?
->
-> After merging, AMDGPU_VA_RESERVED_TRAP_START covers both UQ and KQ in one=
- buffer.
->
-> IMO: Remove AMDGPU_VA_RESERVED_TRAP_UQ_START from the reserved VA space e=
-ntirely since it is no longer needed.
->
+On 11-Sep-26 7:39 PM, Alex Deucher wrote:
+> On Fri, Sep 11, 2026 at 10:07 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>>
+>> On Thu, Sep 10, 2026 at 1:23 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+>>>
+>>>
+>>>
+>>> On 10-Sep-26 7:36 AM, Lazar, Lijo wrote:
+>>>> AMD General
+>>>>
+>>>>
+>>>> My question was slightly different context - The first level TMA is
+>>>> fetched based on VMID of execution context .
+>>>>
+>>>> If user waves are executed in IB VMID context (even though submitted
+>>>> through kernel queues), do we need to allow user to install handlers for
+>>>> kernel VMIDs?
+>>>>
+>>>
+>>>
+>>> To clarify -
+>>>
+>>> For other non-zero VMIDs, is there a need to allocate separate BOs like
+>>> kq_tba_bo/kq_tma_bo?
+>>>
+>>> Can't we keep just one set of tba/tma bo for first level? User handling
+>>> may always be through second level as the ioctl allows user to install
+>>> only second level ones. If separate handling is required based on queue
+>>> type (kq vs uq), I think trap handler can identify the queue based on
+>>> doorbell offset.
+>>
+>> Maybe I'm misunderstanding how the second level registration works.  I
+>> thought the pointer to the second level trap handler was changed in
+>> the first level trap handler when the user registers the second level
+>> trap handler. If so, we need a per VM BO for the first level trap
+>> handler.  Then the second level trap handler is either NULL or
+>> whatever the user registers for their GPU VM.
+>>
+> 
+> I guess the TBA and TMA could be split and the TBA could be a common
+> allocation and the TMA could be per VM.  Was that what you were
+> getting at?
+> 
 
-As long as the sizes are correct.  We need to make sure we have the
-sizes and the locations for the TBA and TMA correct.
+I was getting at using a single set of TMA (only one tma bo, not one 
+more kq_tma_bo) for first level trap. Later I noticed the thread with 
+Srini and I see you asking for the same (i.e, only to program SQ 
+registers for non-kfd VMIDs also with the address of the single TMA BO 
+allocated and not have one more kq_tma_bo).
 
-> Open Point 3 =E2=80=94 When to set TRAP_EN?
->
-> IMO: Set TRAP_EN at gfxhub init time. Since the per-VM TMA BO is always a=
-llocated at vm_init before any work is submitted, AMDGPU_VA_RESERVED_TRAP_S=
-TART is always valid when any shader executes. No need to defer.
->
+Thanks,
+Lijo
 
-Yes.
+> Alex
+> 
+>> Alex
+>>
+>>>
+>>> Thanks,
+>>> Lijo
+>>>
+>>>> Thanks,
+>>>> Lijo
+>>>> ------------------------------------------------------------------------
+>>>> *From:* Alex Deucher <alexdeucher@gmail.com>
+>>>> *Sent:* Thursday, 10 September 2026 00:24:03
+>>>> *To:* Lazar, Lijo <Lijo.Lazar@amd.com>
+>>>> *Cc:* SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Koenig,
+>>>> Christian <Christian.Koenig@amd.com>; Deucher, Alexander
+>>>> <Alexander.Deucher@amd.com>; amd-gfx@lists.freedesktop.org <amd-
+>>>> gfx@lists.freedesktop.org>; Timur Kristóf <timur.kristof@gmail.com>;
+>>>> Samuel Pitoiset <hakzsam@gmail.com>; Natalie Vock <natalie.vock@gmx.de>
+>>>> *Subject:* Re: [PATCH 1/3] drm/amdgpu: Add per-VM kernel queue first-
+>>>> level trap handler infrastructure
+>>>> On Wed, Sep 9, 2026 at 2:05 PM Lazar, Lijo <Lijo.Lazar@amd.com> wrote:
+>>>>>
+>>>>> AMD General
+>>>>>
+>>>>>
+>>>>> One generic question - I am assuming the overall purpose is to debug a user job submitted to kernel queue. When user IBs are submitted to kernel queue, those IBs carry VMID assigned to user. When wave submitted through such a job encounters a trap, isn't it having the user VMID? If so, when is this kernel queue related TBA/
+>>>> TMA helpful or selected? If it's only for driver submitted jobs, then
+>>>> this control to user is not required.
+>>>>
+>>>> Each fpriv GPUVM will have a copy of the first level trap handler
+>>>> mapped at the same GPU virtual address.  If the user requests a second
+>>>> level trap handler, their copy of the first level trap handler will be
+>>>> updated to point to the provided second level trap handler.
+>>>>
+>>>> Alex
+>>>>
+>>>>>
+>>>>> Thanks,
+>>>>> Lijo
+>>>>> ________________________________
+>>>>> From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
+>>>>> Sent: Wednesday, 09 September 2026 18:32:03
+>>>>> To: Lazar, Lijo <Lijo.Lazar@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+>>>>> Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Timur Kristóf <timur.kristof@gmail.com>; Samuel Pitoiset <hakzsam@gmail.com>; Natalie Vock <natalie.vock@gmx.de>
+>>>>> Subject: Re: [PATCH 1/3] drm/amdgpu: Add per-VM kernel queue first-level trap handler infrastructure
+>>>>>
+>>>>>
+>>>>>
+>>>>> On 9/9/2026 1:15 PM, Lazar, Lijo wrote:
+>>>>>
+>>>>>
+>>>>>
+>>>>> On 05-Sep-26 1:49 PM, Srinivasan Shanmugam wrote:
+>>>>>
+>>>>> MES owns kernel queue VMIDs (1..first_kfd_vmid-1) but does not program
+>>>>> SQ_SHADER_TBA/TMA for them. On GFX11+ hardware MES maps kernel queues
+>>>>> via ADD_QUEUE with map_legacy_kq=1 but does not set trap handler state.
+>>>>> On GFX10 and earlier HWS-based hardware, the driver programs trap
+>>>>> registers via SRBM select for KFD queues but no equivalent exists for
+>>>>> driver-managed kernel queue VMIDs.
+>>>>>
+>>>>> Add a vmhub callback program_kernel_trap_vmids() so each gfxhub version
+>>>>> can write SQ_SHADER_TBA/TMA for kernel VMIDs. The TBA points to the
+>>>>> device-level CWSR ISA BO. The TMA is set to the fixed per-VM virtual
+>>>>> address AMDGPU_VA_RESERVED_TRAP_START — each VM maps its own kq_tma_bo
+>>>>> there, so per-VM isolation is handled entirely by page tables without
+>>>>> needing to reprogram the register per job or per submission.
+>>>>>
+>>>>> The per-VM kq_tma_bo is a small GTT BO allocated at VM creation time
+>>>>> (parallel to page table allocation) and mapped read-only into the GPU VM
+>>>>> at AMDGPU_VA_RESERVED_TRAP_START. The kernel CPU writes the second-level
+>>>>> handler address into it via kq_tma_map when userspace calls SET_L2_TRAP.
+>>>>> The first-level CWSR handler reads this address to chain to the
+>>>>> second-level handler when a shader exception fires.
+>>>>>
+>>>>> This design is:
+>>>>>     - Per-VM BO (not device-level) — same model as page tables
+>>>>>     - Fixed VA in each VM's address space — same VA, different physical BO
+>>>>>     - Read-only from GPU — kernel CPU updates it via CPU mapping
+>>>>>     - Treat allocation/free lifecycle identical to page tables
+>>>>>
+>>>>> Suggested-by: Christian König <christian.koenig@amd.com>
+>>>>> Suggested-by: Alexander Deucher <alexander.deucher@amd.com>
+>>>>> Cc: Lijo Lazar <lijo.lazar@amd.com>
+>>>>> Cc: Timur Kristóf <timur.kristof@gmail.com>
+>>>>> Cc: Samuel Pitoiset <hakzsam@gmail.com>
+>>>>> Cc: Natalie Vock <natalie.vock@gmx.de>
+>>>>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+>>>>> Change-Id: I9ce352157c4aa84099cef926cba61264781e8ad9
+>>>>> ---
+>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  1 +
+>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c | 80 ++++++++++++++++++++++++
+>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h |  7 +++
+>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |  9 +++
+>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   | 13 ++++
+>>>>>    5 files changed, 110 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>>>>> index 3ca187f5ade8..5624a5ab5c62 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>>>>> @@ -115,6 +115,7 @@ struct amdgpu_vmhub_funcs {
+>>>>>        void (*print_l2_protection_fault_status)(struct amdgpu_device *adev,
+>>>>>                             uint32_t status);
+>>>>>        uint32_t (*get_invalidate_req)(unsigned int vmid, uint32_t flush_type);
+>>>>> +    void (*program_kernel_trap_vmids)(struct amdgpu_device *adev);
+>>>>>    };
+>>>>>      struct amdgpu_vmhub {
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+>>>>> index 623cac6781be..e913488ca3fa 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+>>>>> @@ -263,6 +263,7 @@ int amdgpu_trap_init(struct amdgpu_device *adev)
+>>>>>          amdgpu_trap_cwsr_init_save_area_info(adev, trap_info);
+>>>>>        adev->trap_info = no_free_ptr(trap_info);
+>>>>> +    amdgpu_trap_program_kernel_vmids(adev);
+>>>>>          return 0;
+>>>>>    }
+>>>>> @@ -277,6 +278,85 @@ void amdgpu_trap_fini(struct amdgpu_device *adev)
+>>>>>        adev->trap_info = NULL;
+>>>>>    }
+>>>>>    +void amdgpu_trap_program_kernel_vmids(struct amdgpu_device *adev)
+>>>>> +{
+>>>>> +    struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
+>>>>> +
+>>>>> +    if (!amdgpu_trap_is_enabled(adev))
+>>>>> +        return;
+>>>>> +    if (!hub->vmhub_funcs || !hub->vmhub_funcs->program_kernel_trap_vmids)
+>>>>> +        return;
+>>>>> +
+>>>>> +    hub->vmhub_funcs->program_kernel_trap_vmids(adev);
+>>>>> +}
+>>>>> +
+>>>>> +int amdgpu_trap_vm_kq_tma_alloc(struct amdgpu_device *adev,
+>>>>> +                struct amdgpu_vm *vm)
+>>>>> +{
+>>>>> +    void *cpu_addr;
+>>>>> +    uint64_t va;
+>>>>> +    int r;
+>>>>> +
+>>>>> +    dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+>>>>> +
+>>>>> +    r = amdgpu_bo_create_kernel(adev, AMDGPU_GPU_PAGE_SIZE, PAGE_SIZE,
+>>>>> +                    AMDGPU_GEM_DOMAIN_GTT, &vm->kq_tma_bo,
+>>>>> +                    NULL, &cpu_addr);
+>>>>> +    if (r)
+>>>>> +        return r;
+>>>>> +
+>>>>> +    if (vm->kq_tma_bo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
+>>>>> +        iosys_map_set_vaddr_iomem(&vm->kq_tma_map,
+>>>>> +                      (void __iomem *)cpu_addr);
+>>>>> +    else
+>>>>> +        iosys_map_set_vaddr(&vm->kq_tma_map, cpu_addr);
+>>>>> +
+>>>>> +    vm->kq_tma_va = amdgpu_vm_bo_add(adev, vm, vm->kq_tma_bo);
+>>>>> +    if (!vm->kq_tma_va) {
+>>>>> +        r = -ENOMEM;
+>>>>> +        goto err_free_bo;
+>>>>> +    }
+>>>>> +
+>>>>> +    va = AMDGPU_VA_RESERVED_TRAP_START(adev) & AMDGPU_GMC_HOLE_MASK;
+>>>>>
+>>>>>
+>>>>> Is this the same address used for mapping of TMA for user queues?
+>>>>>
+>>>>> No — these are different, non-overlapping addresses in the reserved VA region:
+>>>>>
+>>>>> AMDGPU_VA_RESERVED_TRAP_UQ_START = TRAP_START − 12 KiB
+>>>>> → used for UQ first-level TBA (8 KiB) + TMA (4 KiB)
+>>>>> AMDGPU_VA_RESERVED_TRAP_START = SEQ64_START − 64 KiB
+>>>>> → used for KQ per-VM TMA (this patch)
+>>>>>
+>>>>> The UQ region sits immediately below the KQ region in the reserved VA
+>>>>> space. No collision between the two mappings in the same VM.
+>>>>>
+>>>>> Regards, Srini
+>>>
 
-> Open Point 4 =E2=80=94 How to ensure no VMID work is in progress?
->
-> When SET_L2_TRAP is called, the TMA slots must be written only when no GP=
-U work is actively executing under that VMID. One option is to use amdgpu_v=
-m_wait_idle() before writing the TMA slots, which waits for all pending GPU=
- work in the VM to complete. This is already used in the existing trap hand=
-ler code for the same purpose. Please confirm if this is sufficient or if a=
- different mechanism is needed.
->
-
-For user queues, we can just unmap the queues.  For kernel queues,
-you'd need to wait for the VM to be idle and take the appropriate
-locks to ensure that that VM doesn't get used while you are updating
-the TMA.
-
-Alex
-
-> Please confirm or correct any of the above
->
-> I would greatly appreciate it if anyone has a different perspective on an=
-y of the above or anything missing to be included or added  =E2=80=94 so th=
-at the design is aligned with everyone.
->
-> Regards,
->
-> Srini
->
-> Question 1 =E2=80=94 Which fixed GPU virtual address for the merged buffe=
-r?
->
-> KFD uses physical addresses for the TBA/TMA registers. Our design maps th=
-e buffer into each VM at a fixed virtual address for page table isolation. =
-Should the merged per-VM buffer use | AMDGPU_VA_RESERVED_TRAP_UQ_START| as =
-the fixed VA? Or a different address?
->
-> Question 2 =E2=80=94 TMA offset inside the merged buffer =E2=80=94 0x1800=
- or 0x2000?
->
-> KFD places the TMA section at offset |0x1800| from the TBA start (| KFD_C=
-WSR_TMA_OFFSET|). The current UQ design uses offset |0x2000| (| AMDGPU_TRAP=
-_TBA_MAX_SIZE|). After merging into one per-VM buffer, should TMA start at =
-|0x1800| to match KFD's layout?
->
-> Question 3 =E2=80=94 When should TRAP_EN be set?
->
-> When programming |SQ_SHADER_TBA_HI| for kernel VMIDs, should |TRAP_EN| be=
- set only after the per-VM buffer is fully mapped? Or is it safe to set it =
-at boot time since TMA slots start zeroed (meaning no second- level handler=
- installed yet)?
->
-> Question 4 =E2=80=94 Drain kernel queues before writing second-level hand=
-ler?
->
-> When |SET_L2_TRAP| is called, user queues are evicted and TLB is flushed =
-before writing. After the merge, kernel queue VMIDs also read from the same=
- TMA. Should kernel queue work be drained as well before writing the second=
--level handler addresses?
->
-> Thanks,
-> Srini
->
->
