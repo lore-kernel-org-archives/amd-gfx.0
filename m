@@ -4,100 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05644C88E50
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 15:42:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D506C88E53
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 16:48:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BE7410F69B;
-	Fri, 11 Sep 2026 15:42:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 720A010E3FD;
+	Fri, 11 Sep 2026 16:48:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QAAbEXHH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U61eWThJ";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010060.outbound.protection.outlook.com
- [52.101.193.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A03210F69A
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 15:42:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mOsxQaMAJOkBK1zetnQ2ZzxjKxdai67l0qM0+hzLBEpldXnQnDihtXQF/Hn+xi3zQoyyg5vh7oTb7WwRj1V+z8yZwf5h5AZw1X0+cTaaltOwJC5Gdd7N1hpNBNcApgTdSW46S5GjPFw14wjZFA0PZgQPgqCCPALTks90mkLHEftmbHF0KYjDjTJpVa+aPMj8/v8BA6lj1ZPqfvb8aT+kzDiYpWFInNjiS7Ffa+ndTOZCelOz48pV79xHmiIieMIzfBVR4R0nVQ6lcBCEHpGzq285+vqNVmpc1FYLAtlk1Jsdh1U9PYJQR8cy0jYyZWrH4L/W8Y8JKXxArFemXqB3Sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p7t0JWBsadNL8+KwKO//ywBgkx2E63yprSwYN4XE978=;
- b=HaTzvoBdw1iedmIqTR7ivMXeJWDWiwJsnPegn1Va/YfD0OKCEAar58W1d6cqPWbAbvyB1f0IfcqhZScucvuEUoDipYm+iAY0CQYYHNVTSpiGBoWisDPXBvohWMvT3q7UGad+wqaBjkC7MJVB/w56sQJP4I0ozDCAFJHrSZtwJD5A/etJhuihZNfYfkB8tSdNaiVTSwexKZSGJS97Hld7R5F1rvintb12PcmT4Vh7pkEdjcNaLh7gvBEkpKTtYwNxd3B54Bj6gdgaj0DOR/EgiZymZxT3Duiyzkf4DhZH2m8ZA0EEyNEMLcJs+p1+XgDbns78KPSHsFfAU5zN+1QOyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p7t0JWBsadNL8+KwKO//ywBgkx2E63yprSwYN4XE978=;
- b=QAAbEXHHHcNp8yzaIwZ8GHa03xosVpS6uE1GWAgPN2WYHY0JmVi5hK53bexh1bUsQQmS/5qbKEwtvbnoyfMc/DhpW7Rl7LJJTRJUbZR32/hJ1Cru6EOV6NUXA3Au1YW2kmwabkie4ypXOrlXh/EOStkNV7bW3kdDt2fUKO+e+Gs=
-Received: from CH2PR07CA0064.namprd07.prod.outlook.com (2603:10b6:610:5b::38)
- by SJ0PR12MB6783.namprd12.prod.outlook.com (2603:10b6:a03:44e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 15:42:24 +0000
-Received: from BL02EPF00021F68.namprd02.prod.outlook.com
- (2603:10b6:610:5b:cafe::6e) by CH2PR07CA0064.outlook.office365.com
- (2603:10b6:610:5b::38) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Fri, 11
- Sep 2026 15:42:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F68.mail.protection.outlook.com (10.167.249.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 15:42:23 +0000
-Received: from amd-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 11 Sep
- 2026 10:42:22 -0500
-From: Shahyan Soltani <shahyan.soltani@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <pierre-eric.pelloux-prayer@amd.com>
-Subject: [PATCH 1/8] drm/amdgpu: use pm_runtime_resume_and_get
- amdgpu_gem_create_ioctl
-Date: Fri, 11 Sep 2026 11:42:04 -0400
-Message-ID: <20260911154212.591213-2-shahyan.soltani@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911154212.591213-1-shahyan.soltani@amd.com>
-References: <20260911154212.591213-1-shahyan.soltani@amd.com>
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE72610E3FD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 16:48:04 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-49b392ccaacso16793205e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 09:48:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789145283; x=1789750083; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:reply-to:content-type:mime-version
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=2VpNw7spc6pHiQlKXxN6lubcVAEgDKI8LDADcCUsz7o=;
+ b=U61eWThJ/gHcf7VUS99pgB3tmJA3HEu3mPCwPlXESP02HKHBWym7ooVo59CRhMUNiM
+ aqbGVP4bXxBIaML2Qr+fA2vFTllMxDwA4/N4LOkvIZDa4nHi8wtRY/QcdIwh2K1XMH09
+ z020l++rogpiXridZa/6wjaukoZkmecQjfmItklnXCOasMaetdXbCUf2lMPqnEpNGEHD
+ lh+ScrgKGw/Xmv6Gj7KpyXUat4IYlTqQHYrOik79FNRz7MR0eqQ9PcJie3lppWHc8zoE
+ +EwqF5bLBNuKuaGCM6eKjB4FX02JvnaX9MdpMTBk8tuSa9mqg9lLWUsEqpzrKGT/9hu5
+ NWYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789145283; x=1789750083;
+ h=content-transfer-encoding:reply-to:content-type:mime-version
+ :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=2VpNw7spc6pHiQlKXxN6lubcVAEgDKI8LDADcCUsz7o=;
+ b=eQyp49W4KxgwbZ0/gFAVkOa0waeIPF7hiq3HaZrPjpOW9Y7ssfNKaQYwx1rlx7eOpr
+ lmcSmZeCPWz0n+LepahLFUkqkICwtVe9cQM73XtV1e/Es9ld/KdyeaE0rQyqstzhTYly
+ 22UV6PoLrugap3FTvBByw+SewAb+VtmmCo56jOMM9QtUE/LjM2TKabKme+iHvSxP/GBv
+ Yfgnxo04EGlIOdONiPUT3fWMR+4jyKv2thAwq2YMBDmvKtHUyJCgMI0hoxbTKnVFef4+
+ Wdz54cwfCE3An7lj8ytxV9AEw+ww/0Zz/fdt1gbC6vsz8pokx6wPjzRRrn1HtmGX1NpR
+ s1iQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzM3o5aV33ZeK0WqQGyop1Dbr28Hn9rG+YWXLL24GsmficwlKBHyd1QKJOnC3kzMRHhHsmbypZK@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kym5bdFyeQIgFIEX2UFy725EMj0Lv2419/Cinj33OJAjYcLbTB
+ HUB7HCARgVyV477vHTImap+AgVUKvxutWkeCItNx1kriiPMUknyIlCLo
+X-Gm-Gg: AYBFou1s1i1OVTcxG7iVBt9a66rDJurNbAyK6wToD49L2ElKbMHbNMwvAplp8uDj3No
+ b5W3lbgG0h+Lm9Ht2f75q1FBa5ZHyeeKoIQ3I2KCTj79yvHn/sYI50B+VuqcJsU/uSHf8/fnKfi
+ J5y/SSDHfd1VHUqNdTUGpAyw6aMdk0hg9OrtRM3Lc4otjEJGlDJHp17tfFUqsxHHFFJmj4Eps8O
+ UXsftJ3UnDFk7Us3joGn8jcOkmxW/J2KlcnP8r5xA/z2BJ3mZ1npFk1ONnqxUhdnsrQ72d/vq3G
+ 8e8AHBoWi1vbdvT2r4skaxn0xhOSU7TQXGtNXvCD+wPCzVsu6Bz3SMV0Fz0UhJgwLCHGso3X0ya
+ j41mj3zscr6lhuY8Ps2iAqcAtwC8q6xv3RJHWOclj/BtqsJIhoMemFI7gGc41KnL7M4rYp7GOUe
+ tAxDgUMy/dGGFzUxGW9tGWWlrsII5wYq/41cmg0LANdXi48/BELnko+bqQc6jf+81EHTnkSlvl9
+ vkXVMf9c1DA
+X-Received: by 2002:a05:600c:8b22:b0:499:7219:122f with SMTP id
+ 5b1f17b1804b1-49e61888908mr61296355e9.4.1789145282702; 
+ Fri, 11 Sep 2026 09:48:02 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:1598:3600:fdfa:c947:bca7:ed36])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-486f0403125sm4927578f8f.8.2026.09.11.09.48.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Sep 2026 09:48:02 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Honglei1.Huang@amd.com, timur.kristof@gmail.com, natalie.vock@gmx.de,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: nuke most amdgpu_vm_eviction_(try)lock uses
+Date: Fri, 11 Sep 2026 18:48:00 +0200
+Message-ID: <20260911164801.50175-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F68:EE_|SJ0PR12MB6783:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a5aa035-4dc9-4bfa-786f-08df101b4623
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: E9c2jGPhc+OrK5TlaxgDNrWxza02WE1Zls0gNaQHcjFzbKBSUj58AI3rqtj/2R+I7F/l0gF3TtFsv4Qa9+DV/TFoLliI+Qyy+6QVWj56amg5lPf/6OcYQbJ6QqW1qJOfCPeVUSvjxrUGtKi/KA7FdKFcwqqH2b/ir3vL52/aNc+gspaiqduPMYb19bsvMeN8mEwR617ekPXfE5KDqmH5KF5HTVUhBaZIr0EnuQvkRlsPGF2UAFT8bVyGxF/1CsIV25YsrMJtcN2NxlERk+5DrF9f5mTVb559M4kkIbgQNr1CA982ky9JcjCCRFGPcthiEY0FDlWgzyDlqiQu2ypw5vkjW1YmiaNzpZnstLdE3hNdoXMsLfpCukV5A5WpQv6VBaLywVKBJOVL+wwW6bzwrNkvWIJ0Lanr1vmUyBWJs3+jR/+48O6vJ+T5JULkQkngepUlYAMcyUVd2yy+qFS6ZFZ53wKDzkbywtjTj5vEGl5uHRi3rC64BnDXJl4cHngzimoQSOIGJjxr7eeKXK4XQYAN51jgpDWWo24tU55aEyc7Me8cDLiJSmHSv/HgXxR478SZ2X2WQBVULzNV/m9C7y9hdGtztcmwAdreVeE095taAAAOgt7cCm2v4k4r4umPnu20t0Jc77J2+0A09vwjhtFFoVBhj8BQ+xTn7hdCrnqYnxt6q4EraoaZItQT6BLwL7JYG8fFWW/UggUmck9Gpg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: pDdg/Jz5pvVJnSdLSN23ECxPK9crWt/u1NlWSf4oT0YG1tq6Cbe5pz0eVkXzg6qahm1YBmehI9DJ86y8SBr2Q1ndtV1uucqwslQGSO9I/gCCcau8ttknNDKp5eXCev3GA8Jof3HDwMh1Es2T1E8CWuMzNiJFgnZkKJyfADM4NStoRrqqYEDrUOlJjX6ueW4MXlPLE3qqqQf9scyNnmAyByFUUm/ooSbosgsek+/42Dr4/6J04bQXS6kqkNtI+BJGwRVinB93BIzn2nItQ1CuOY4CIme/ZH5+N3++fA/mTiAeNvoggmJRiMBHRAkMxlX9L30hqBs+Ufv3AS6yhwBOXItX+FPutTuNyeEuqNOZDm3Shhm6h2uRzOnqI6IOpPob/K2Pr6Qzse+3/vpLvEnz8T2I3F228+zg8V1kTGJfi475HM7rudxT168ZLYGb9LIb
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:42:23.6341 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a5aa035-4dc9-4bfa-786f-08df101b4623
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F68.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6783
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,118 +86,101 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Use scoped_guard/scoped_cond_guard instead.
 
-This ioctl might trigger GPU work through ttm so make sure the GPU
-is awake.
+Saving and restoring the GFP flags is not necessary in those use case.
 
-Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-[shahyan.soltani@amd.com: Applied the same logic to
-!amdgpu_gem_are_domains_valid(args->in.domains)]
-Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 43 ++++++++++++++++++-------
- 1 file changed, 31 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 27 +++++++++----------
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_internal.h   |  9 -------
+ 2 files changed, 12 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 0d579517c03c..7b92e7b9fbb8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -33,6 +33,7 @@
- #include <linux/dma-buf.h>
- #include <linux/dma-fence-unwrap.h>
- #include <linux/uaccess.h>
-+#include <linux/pm_runtime.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 47cde54594693..7ced26c9c651b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -616,9 +616,8 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	 * As soon as all page tables are in place we can start updating them
+ 	 * again.
+ 	 */
+-	amdgpu_vm_eviction_lock(vm);
+-	vm->evicting = false;
+-	amdgpu_vm_eviction_unlock(vm);
++	scoped_guard(mutex, &vm->eviction_lock)
++		vm->evicting = false;
  
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_drv.h>
-@@ -442,19 +443,31 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 	uint32_t handle, initial_domain;
- 	int r;
+ 	list_for_each_entry_safe(bo_base, tmp, &vm->always_valid.evicted,
+ 				 vm_status) {
+@@ -678,9 +677,8 @@ bool amdgpu_vm_ready(struct amdgpu_vm *vm)
  
-+	r = pm_runtime_resume_and_get(dev->dev);
-+	if (r < 0)
-+		return r;
-+
- 	/* reject invalid gem flags */
--	if (flags & ~AMDGPU_GEM_CREATE_SETTABLE_MASK)
--		return -EINVAL;
-+	if (flags & ~AMDGPU_GEM_CREATE_SETTABLE_MASK) {
-+		r = -EINVAL;
-+		goto pm_out;
+ 	amdgpu_vm_assert_locked(vm);
+ 
+-	amdgpu_vm_eviction_lock(vm);
+-	ret = !vm->evicting;
+-	amdgpu_vm_eviction_unlock(vm);
++	scoped_guard(mutex, &vm->eviction_lock)
++		ret = !vm->evicting;
+ 
+ 	ret &= list_empty(&vm->kernel.evicted);
+ 
+@@ -2274,6 +2272,7 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+ bool amdgpu_vm_evictable(struct amdgpu_bo *bo)
+ {
+ 	struct amdgpu_vm_bo_base *bo_base = bo->vm_bo;
++	struct amdgpu_vm *vm;
+ 
+ 	/* Page tables of a destroyed VM can go away immediately */
+ 	if (!bo_base || !bo_base->vm)
+@@ -2284,17 +2283,15 @@ bool amdgpu_vm_evictable(struct amdgpu_bo *bo)
+ 		return false;
+ 
+ 	/* Try to block ongoing updates */
+-	if (!amdgpu_vm_eviction_trylock(bo_base->vm))
+-		return false;
++	vm = bo_base->vm;
++	scoped_cond_guard(mutex_try, return false, &vm->eviction_lock) {
+ 
+-	/* Don't evict VM page tables while they are updated */
+-	if (!dma_fence_is_signaled(bo_base->vm->last_unlocked)) {
+-		amdgpu_vm_eviction_unlock(bo_base->vm);
+-		return false;
+-	}
++		/* Don't evict VM page tables while they are updated */
++		if (!dma_fence_is_signaled(vm->last_unlocked))
++			return false;
+ 
+-	bo_base->vm->evicting = true;
+-	amdgpu_vm_eviction_unlock(bo_base->vm);
++		vm->evicting = true;
 +	}
- 
- 	/* reject invalid gem domains */
--	if (args->in.domains & ~AMDGPU_GEM_DOMAIN_MASK)
--		return -EINVAL;
--	if (!amdgpu_gem_are_domains_valid(args->in.domains))
--		return -EINVAL;
-+	if (args->in.domains & ~AMDGPU_GEM_DOMAIN_MASK) {
-+		r = -EINVAL;
-+		goto pm_out;
-+	}
-+
-+	if (!amdgpu_gem_are_domains_valid(args->in.domains)) {
-+		r = -EINVAL;
-+		goto pm_out;
-+	}
- 
- 	if (!amdgpu_is_tmz(adev) && (flags & AMDGPU_GEM_CREATE_ENCRYPTED)) {
- 		DRM_NOTE_ONCE("Cannot allocate secure buffer since TMZ is disabled\n");
--		return -EINVAL;
-+		r = -EINVAL;
-+		goto pm_out;
- 	}
- 
- 	/* always clear VRAM */
-@@ -468,7 +481,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 			 * passed to bo list
- 			 */
- 			DRM_ERROR("GDS bo cannot be per-vm-bo\n");
--			return -EINVAL;
-+			r = -EINVAL;
-+			goto pm_out;
- 		}
- 		flags |= AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
- 	}
-@@ -476,7 +490,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 	if (flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID) {
- 		r = amdgpu_bo_reserve(vm->root.bo, false);
- 		if (r)
--			return r;
-+			goto pm_out;
- 
- 		resv = vm->root.bo->tbo.base.resv;
- 	}
-@@ -509,17 +523,22 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 		amdgpu_bo_unreserve(vm->root.bo);
- 	}
- 	if (r)
--		return r;
-+		goto pm_out;
- 
- 	r = drm_gem_handle_create(filp, gobj, &handle);
- 	/* drop reference from allocate - handle holds it now */
- 	drm_gem_object_put(gobj);
- 	if (r)
--		return r;
-+		goto pm_out;
- 
-+	r = 0;
- 	memset(args, 0, sizeof(*args));
- 	args->out.handle = handle;
--	return 0;
-+
-+pm_out:
-+	pm_runtime_put_autosuspend(dev->dev);
-+
-+	return r;
+ 	return true;
  }
  
- int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+index 447195cc45932..ca86eaac75235 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+@@ -137,15 +137,6 @@ static inline void amdgpu_vm_eviction_lock(struct amdgpu_vm *vm)
+ 	vm->saved_flags = memalloc_noreclaim_save();
+ }
+ 
+-static inline bool amdgpu_vm_eviction_trylock(struct amdgpu_vm *vm)
+-{
+-	if (mutex_trylock(&vm->eviction_lock)) {
+-		vm->saved_flags = memalloc_noreclaim_save();
+-		return true;
+-	}
+-	return false;
+-}
+-
+ static inline void amdgpu_vm_eviction_unlock(struct amdgpu_vm *vm)
+ {
+ 	memalloc_noreclaim_restore(vm->saved_flags);
 -- 
-2.55.0
+2.43.0
 
