@@ -4,79 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0277BC88E50
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 07:29:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9B78C88E67
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 07:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 793A010EBA9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8980F10EBAD;
 	Mon, 14 Sep 2026 07:29:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iCny66GA";
+	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="1ppHOcoh";
 	dkim-atps=neutral
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
- [74.125.227.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8138010E788
- for <amd-gfx@lists.freedesktop.org>; Sun, 13 Sep 2026 00:50:56 +0000 (UTC)
-Received: by mail-pj2-f13.google.com with SMTP id
- 98e67ed59e1d1-396ccafb752so1009983a91.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 12 Sep 2026 17:50:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789260656; x=1789865456; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=uZqrmQnZ68N7oDm3XCrSRrggNkZKtA35ciFNphe4Q48=;
- b=iCny66GAvW2vqeDbJsPpCL9Zf9vhee5sLIEJ3vrk2Bq2ADjv6+A58ObRA1DaY8Zs1j
- 5CYob3rXGsOiJ6zwuEk5QEIwOQEhQ9jcsd1SIiDikb7h9PtnQIu5YAsjOAF478s4nRQI
- ayGyWMeKdF+YH6RXjAqZ8ArAgOJVSSkENiMBgkyLrIEYc232T5wrXbwMheOa1S/AhI+i
- cczJYG6IlqzoYibwnXMm4UVT4hHnIRS5QIKhuIUuI7jE51qVkGjD2rYJH5qVQ/AfbQXa
- caT7W00aljVd9z3w6nGxfd4VNSoEkCTinwLKVqiNzzvaE5dIGT7o0JS2SecyMTRKB8Cb
- 1RbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789260656; x=1789865456;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=uZqrmQnZ68N7oDm3XCrSRrggNkZKtA35ciFNphe4Q48=;
- b=Cqngbq2bYk7hyuZTngSsjKk2wgRQuS/GrL0KB6O75KAih9ZRphQsAQ8IlCoRDJMlR1
- B7kG7FflcMmhurymlF5m8bCWKpGMOAAt7WHHc9e+GwOFRqqYJ3uXeI7mufryRzf1ssUx
- 96Y78c1btn01MZXG495qj6L4hwAnf4T/2xVVQavypfvgc0bC5Mqo31AkPneVTkgGJStO
- laZf7eKIElUuIbj/B4NU9sjaEESXA/UUVu7VfkZybpoIJjCmG1ZMMXAlVc4I0MHidzLk
- c5SbmFhEcfn56q4JSuuJKjDnwnG2CXlVI5pIchCEyCP/d+XtJ5R7dV9iw+fAGu5WFM0a
- oD6g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy0CcAA8k1SwDttn+JXYx6soeVjmFSOzdQ5ygDpwpmd5H3xvF0x1cdbZYC/YB5XichcA9duvGT5@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m7sbisBKJwL4++27kef5Fb+7fHI7fKeHbWGhcedwjx/IMXq9X2
- bcV1OdCO/uCAwr+mC6k8bE9WsFPTRz4cYHBXfKd4fYuEcSTiqPdFme0=
-X-Gm-Gg: AYBFou1ArxvDaQIFBT+8Yd6FDGv5WPBptiYd/0b1i1WA3D4JAO20Sm5VOmaIZOUAwBS
- 0fnXoIkEF8ob6a/Mt2Wmc42nVQ4k4j5rPI6pK5WNYH4hBpGDbMEN8Bxr1EiGjeaA637sjtV7GeH
- 6xby3ck6DJqmfxouDPrI8CrS/R07smjss6U1Gu9pKrnkOIR6uWyUFimZM1J9c/6X8g18J/INn83
- zkamfYNJpNZALYAn3yz232oQGzatKJrBQ1Y0Xv9MrBKXQzP3y8G76A9+aJ9hTx6OBuoK8yBLNUW
- 3kDk0DeZVygcFUq9LzHK4oVuPjvny8AvU/wSwXjwSbLO8P2MnhfKg8ANwYCdpkfZgqkstdyJzzh
- 6VQ7cir7iftH8nO1eQ4wbLXZjIWXyAmpUAgjndJDn/fHYg2o7Ift051ED3tQyNV1vQlxuBwzBJ1
- KDaDztPayzWnaueMq/R3KN88V+WRA16MyljN0WUOU933xu4Ykvd9AYf1JaQONKKnFA5EVVePf7T
- xpIC/PYs6trtueiMvXOSVUbSTwa8vTPMMdX
-X-Received: by 2002:a17:90b:560e:b0:398:a2ed:7b5c with SMTP id
- 98e67ed59e1d1-39d9c3a1fc2mr20056368a91.24.1789260655987; 
- Sat, 12 Sep 2026 17:50:55 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.205.210.251])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14365b8ead8sm15820897c88.10.2026.09.12.17.50.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Sep 2026 17:50:55 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: alexdeucher@gmail.com
-Cc: 062bel313@gmail.com, Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
- Kenneth.Feng@amd.com, airlied@gmail.com, amd-gfx@lists.freedesktop.org,
- atharvatiwarilinuxdev@gmail.com, dri-devel@lists.freedesktop.org,
- ed@aicharmers.com, linux-kernel@vger.kernel.org, simona@ffwll.ch
-Subject: Re: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
-Date: Sat, 12 Sep 2026 20:50:48 -0400
-Message-ID: <20260913005048.1167-1-atharvatiwarilinuxdev@gmail.com>
+Received: from smtp-190b.mail.infomaniak.ch (smtp-190b.mail.infomaniak.ch
+ [185.125.25.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A47F10E3D8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 15:13:24 +0000 (UTC)
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch
+ [10.4.36.108])
+ by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hhJ2p73XDz9V1;
+ Fri, 11 Sep 2026 17:13:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
+ s=20250113; t=1789139602;
+ bh=BJ4BHJ5I3o/lGlBOtZ6qsSILrtULmXOdWu3DEGOudng=;
+ h=From:To:Cc:Subject:Date:From;
+ b=1ppHOcohDnsGGaO7HoDHo/WxEWtobcfKNzKpZcWyEkKDq1BLb0uMTFFyNHzpl6Ow8
+ 7bpC6k+6+sQpu8Mw7YQkvi7ihrNqmk6YjDGn7KZ/d8Hw2SE13UeUqUr1CAJ+gbhGpP
+ t5ikD/YkLqdl/H6BT4+Y6jWddBmeeWT+ppTriCqyBp367WIGy7EUIxek6nfrnFilFH
+ IWIlo77vHoeiSGHUkTD/R2VwCxCp2togcwZEqEkMbXUYootT5u5XFSw1th8vzG4P1+
+ 14yNH1jmCNB9zfavS666qtnwW0LEZvLwZSfZs/X+xxO/joVGFNkoZRb9Ahgfe5Gq+J
+ 4ScOBpV8/GJMQ==
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4hhJ2n5KGYzc1x; Fri, 11 Sep 2026 17:13:21 +0200 (CEST)
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Adolfo Rodrigues <adolfotregosa@gmail.com>
+Subject: [PATCH] drm/amd/display: Try RGB before YCbCr 4:4:4 in stream
+ validation
+Date: Fri, 11 Sep 2026 17:13:14 +0200
+Message-ID: <20260911151314.66957-1-adrian.betschart@cinemaone.ch>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CADnq5_PNt5Huo-bk=tqdCLorUp3BDCtdGmaFJDxfVbcKx-CPoQ@mail.gmail.com>
-References: <CADnq5_PNt5Huo-bk=tqdCLorUp3BDCtdGmaFJDxfVbcKx-CPoQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 X-Mailman-Approved-At: Mon, 14 Sep 2026 07:29:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,20 +65,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> Applied.  Thanks!
+amdgpu_dm_create_validate_stream_for_sink() walks encoding_order[] and
+uses the first encoding that validates. YCbCr 4:4:4 is listed before
+RGB, so an HDMI sink that advertises 4:4:4 gets YCbCr 4:4:4 whenever the
+"color format" property is left at AUTO, even though RGB fits the same
+link.
 
-Hey, so im the author of the original patch:
+That contradicts the documented AUTO behaviour for HDMI in enum
+drm_connector_color_format (RGB, falling back to YCbCr 4:2:0 only when
+the bandwidth is not available or the mode is 4:2:0-only), which the
+amdgpu implementation of the property also describes. It also leaves
+the "Broadcast RGB" property without effect on such sinks, since the
+quantization range it selects only applies to RGB output.
 
-https://github.com/t2linux/wiki/issues/743#issuecomment-5347204171
+Try RGB first. The mask still holds every encoding the sink supports,
+so a mode that cannot carry RGB falls back exactly as before.
 
-The author of the patch mentions this:
-> Combine Atharva Tiwari's delayed-UCLK proposal for 0219 with the Navi post-init implementation for 0218. Retain the revision restriction for
-> 0218 and the revision-independent 0219 match from Atharva's proposal.
+For reference, v7.2 picked RGB here unless YCbCr 4:4:4 was forced
+through debugfs, while earlier kernels picked YCbCr 4:4:4 for any HDMI
+sink that advertised it.
 
-So as the main developer of the patch, i would like you to remove this patch,
-as it dosent give me credit, and also this is not the solution to this problem
-as i have mentioned here:
+Fixes: 0b0ff65d3ca1 ("drm/amd/display: Refactor stream validation")
+Suggested-by: Adolfo Rodrigues <adolfotregosa@gmail.com>
+Tested-by: Adolfo Rodrigues <adolfotregosa@gmail.com>
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Assisted-by: Claude Code:claude-fable-5-1
+---
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  2 +-
+ .../tests/amdgpu_dm_connector_test.c          | 34 +++++++++++++++++++
+ 2 files changed, 35 insertions(+), 1 deletion(-)
 
-https://github.com/t2linux/wiki/issues/743#issuecomment-5608044095
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 0b446133edd8..98d0b35ed4e4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -2226,8 +2226,8 @@ amdgpu_dm_create_validate_stream_for_sink(struct drm_connector *connector,
+ 	 * below gate which of these entries are actually attempted.
+ 	 */
+ 	static const enum dc_pixel_encoding encoding_order[] = {
+-		PIXEL_ENCODING_YCBCR444,
+ 		PIXEL_ENCODING_RGB,
++		PIXEL_ENCODING_YCBCR444,
+ 		PIXEL_ENCODING_YCBCR422,
+ 		PIXEL_ENCODING_YCBCR420,
+ 	};
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 6e70d72135dc..c064def8253b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -7175,6 +7175,39 @@ static void dm_test_create_validate_stream_prune_context(struct kunit *test)
+ 								    NULL));
+ }
+ 
++static enum dc_pixel_encoding dm_test_cvs_first_encoding;
++
++static bool dm_test_cvs_record_first_encoding(struct timing_generator *tg,
++					      const struct dc_crtc_timing *timing)
++{
++	if (dm_test_cvs_first_encoding == PIXEL_ENCODING_UNDEFINED)
++		dm_test_cvs_first_encoding = timing->pixel_encoding;
++
++	return false;
++}
++
++/**
++ * dm_test_create_validate_stream_hdmi_rgb_first - HDMI tries RGB before YCbCr 4:4:4
++ * @test: The KUnit test context
++ */
++static void dm_test_create_validate_stream_hdmi_rgb_first(struct kunit *test)
++{
++	struct dm_test_cvs_dc *c = dm_test_cvs_dc_alloc(test);
++
++	c->link->connector_signal = SIGNAL_TYPE_HDMI_TYPE_A;
++	c->aconnector->base.display_info.color_formats =
++		BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444);
++	c->tgfuncs->validate_timing = dm_test_cvs_record_first_encoding;
++	dm_test_cvs_first_encoding = PIXEL_ENCODING_UNDEFINED;
++
++	KUNIT_EXPECT_NULL(test,
++			  amdgpu_dm_create_validate_stream_for_sink(&c->aconnector->base,
++								    c->mode,
++								    c->dm_state,
++								    NULL));
++	KUNIT_EXPECT_EQ(test, (int)dm_test_cvs_first_encoding, (int)PIXEL_ENCODING_RGB);
++}
++
+ /* Further tests for amdgpu_dm_connector_mode_valid() */
+ 
+ /**
+@@ -9268,6 +9301,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_create_validate_stream_force_ycbcr444),
+ 	KUNIT_CASE(dm_test_create_validate_stream_prune_timing),
+ 	KUNIT_CASE(dm_test_create_validate_stream_prune_context),
++	KUNIT_CASE(dm_test_create_validate_stream_hdmi_rgb_first),
+ 	/* amdgpu_dm_update_connector_after_detect */
+ 	KUNIT_CASE(dm_test_update_after_detect_mst_noop),
+ 	KUNIT_CASE(dm_test_update_after_detect_sink_unchanged),
+-- 
+2.55.0
 
-thanks
