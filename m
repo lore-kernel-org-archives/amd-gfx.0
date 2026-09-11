@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25E5FC88E42
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A1F9C79FA1
 	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 06:46:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C45110F4E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E074D10F4EB;
 	Fri, 11 Sep 2026 06:46:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="icCkqZ3S";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CA+gFibF";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013042.outbound.protection.outlook.com
- [40.93.196.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A90110F4EC
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012045.outbound.protection.outlook.com [52.101.53.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DD1A10F4EB
  for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 06:46:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w4Qm/rS3iqn1R+wZycrWwdP/G2pHwpqhl1zZ693X3tJ1kbWf+AFn+2q4NevnhmQkAWp6rsqQw08D6XYrUJexYHT5usHJGcOyKX63T94MkW1EEmioQQ2bInveLSZ8xq7KidF2XHPeviasXacgoVBIjrLmJRlO8pXJwcIwX4vxnZRsBBVYoCl5TajqlALKBy+eGv73mBJHSewKoq1OpYPe9dbqe6UtJpQorYZqOUPyi4Evb4328GgdmXQqdf3/AKR9A+dhogUYdzmM6NlbivnFGjW47HufTeM9WV+6MwNP78eFSlAfJmhET+S5aY394wVQaVxAHReP8vYjxVW0TECQPA==
+ b=c7ni+v5yFR9w7iHW6OFq/Xb7chgeLrqYbxpGB3wCZqV3IIynYhbY1zb/arVFizWEuryZtDoAT33NfEJ2l/iqja7k+8XEDe9tXq0PdW4PhJIVYCYv46L+hWP5WQeeKtLwKfd4LQKLJqfuIb2JNFgb9HhEOYabWLcxVYkJXKlgm60fO5lK78S6ZRmAKtpMp5ZpbLXoT3SH7A8UOeQkbPa/Q5HwOw5c0s/4anZSlzbkW/99WLmHwXsCp1qIPVWJmNDm5BsJbuimzT0dq14gCJ55qODi3vDYCTcp49st78CkweP87D0XxNYC4oXzlt4Qvw2j04vV+jRsdYjwR7o+7xplVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xnk2Um4VJDso9SDu55JNBb47AR9G2Pdf7Bn4ixFDNwM=;
- b=JlckEQ3dNJhOE1CIHcGm/SC/Nbv7vYIpan2nAN/t4/uvI0xVMEsahLk70ivcK4VxlUaFdehr7HjJICoqzHr2PswN5Imfnwk58TSrQLQSrueICaKR8CrpUVzGR2mAD6r/TgOIR2xataqyWo2hVDJplgWCFs9AYJ5yFkfGUt54a9l5u4deYnUuZY2mRxL4ot4QtR0t8wdidc5W2G2+ZNyLuK0ST+3S5JjX5Z+1t6fCw0k16DNLikr5wMci38+1Blp+k79CL0I15/3/08gOsE4bIpCBamwa1ujQI1fi6Fdasg1uI3hpxe7LG69Bsa7sAZWABEqgeBZ76AltxTPjhd3Hlg==
+ bh=2LIM8OeIWKJkH/9Ya5UzCmwKmeroWt2MwJYegT3mGWs=;
+ b=EvLUlQpcUyLE+5+7judmST//WJhHxSODTauETzBhPyI1OzoUkuQ9lOfi41UnTikDWg0tGgs+3Iqg5yY/f3pgjn6SgxYZQlq68mcu6oU5qy1cnQkx8u1YaWqEqO++/KWeptRIQbr3SXIfTLBT4+2ibqiTYgwY4RcD0TqYg2TzvIVOFa0EBb0e5Od6ACu2sia8V65Y7QMZMhjjRh3CMwA488Pxy/rMOMPGR5Np+MRo6UxpLBsnVKhjLtvC/V7TPuqLyddQxCBGfOl8cMRnrZ35vsKnrjqJb7kIFDi6qYJiS0Ci3G/CLFqzG+WCJuwwop7diuuTQoh7sWM/+sH9Uhgf1A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xnk2Um4VJDso9SDu55JNBb47AR9G2Pdf7Bn4ixFDNwM=;
- b=icCkqZ3SWA1RuCfeGmi9yKfeL6XtULeCWwgnDMNAKfVayMyN4qMx3JDZ2wfB2f1wy59mEyNdC23DXhDaof9gh0cvMfqu+KTdBsvRHKXLJgiCFE2TbfZJEc4fki1yLwkH4tmuOS7kn0kQN3/KwEaBWmzFaa8g8kwUaiCt3oCZtkI=
-Received: from CH0PR07CA0023.namprd07.prod.outlook.com (2603:10b6:610:32::28)
- by SN7PR12MB8770.namprd12.prod.outlook.com (2603:10b6:806:34b::21)
+ bh=2LIM8OeIWKJkH/9Ya5UzCmwKmeroWt2MwJYegT3mGWs=;
+ b=CA+gFibFugS5t9ZvPvUh+Jpc/6zmsq760+k1sRhuPkTLEPD3NiWX6xSDcwovZH4HpVhyTFEciy8PlQsMgLz+ZWQjAi2f+CTbIjAjVffn3o6Oq+88rx9N/KsVXsw8XGLH2I5/WjU/h9YI4RC13hKZO41Q97WBTIvem2y75lHPFcs=
+Received: from CH0PR07CA0030.namprd07.prod.outlook.com (2603:10b6:610:32::35)
+ by SA3PR12MB9197.namprd12.prod.outlook.com (2603:10b6:806:39e::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
  2026 06:46:04 +0000
 Received: from CH2PEPF0000009F.namprd02.prod.outlook.com
- (2603:10b6:610:32:cafe::45) by CH0PR07CA0023.outlook.office365.com
- (2603:10b6:610:32::28) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:32:cafe::97) by CH0PR07CA0030.outlook.office365.com
+ (2603:10b6:610:32::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Fri, 11
  Sep 2026 06:46:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -51,20 +50,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CH2PEPF0000009F.mail.protection.outlook.com (10.167.244.21) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 06:46:03 +0000
+ 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 06:46:04 +0000
 Received: from amd-03.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 11 Sep
- 2026 01:46:00 -0500
+ 2026 01:46:02 -0500
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
  <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>
-Subject: [PATCH 1/6] drm/amd/ras: retrieve ras error info via common interface
- and message for mp1_v13_0
-Date: Fri, 11 Sep 2026 14:44:05 +0800
-Message-ID: <20260911064410.1693567-1-YiPeng.Chai@amd.com>
+Subject: [PATCH 2/6] drm/amd/ras: add pmfw-managed eeprom support for mp1_v13_0
+Date: Fri, 11 Sep 2026 14:44:06 +0800
+Message-ID: <20260911064410.1693567-2-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260911064410.1693567-1-YiPeng.Chai@amd.com>
+References: <20260911064410.1693567-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -73,29 +73,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009F:EE_|SN7PR12MB8770:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19449aac-965e-4425-7829-08df0fd05978
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009F:EE_|SA3PR12MB9197:EE_
+X-MS-Office365-Filtering-Correlation-Id: c15bfc3b-9090-4181-522b-08df0fd059e8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|18002099003|3023799007|10067099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: 8m/JnX8WKQvcmfrdfVeanO++H7VAheUtbLpVF8Y9QaXnWNzEKMe2iq0uiHOGachZd9kW9wqB8xvwvRKbV66k9tvgrQZYvuNdb0nUybDDQEuWfLFQwU/du1riHozg7lN31s6bjZgWg+9yLNgIei1DpBUvP192vbYb3vhheLMLGhrOsMU+L5NwHWUskfCv9ehEWVqONQFpYToDr/cPoWcFkBhEqV0dDGDX7y9pjESH0+wpY5qZtcQRRkytEQ/If06Gcyo+jIFtganzwTdXgIENNQYBjBV/dxOmXWkSieQktjNy1xHplXjt/7oMQGULCMAY8b3T5csgBsqstVBB1nA8Ut0UC/OvSEXN9RjhFVQbA/1ynWYX5g4uJS3QWV3shW/7Yg3vVoRF9Hrh/rHjNOntpueenUHPDqFH6PEzwnqLm5jzRq+0Ne9+fuFRRyTAIU73BZGz+yOpiv8FQyMskcfZufMEwTmByTllnYqXns2p+fxVP2AL/VnbF8k7RNCFPyQL1XSWh7T7BknEALl/ERwEHUXbMltUK8YFAPS/08xpkW/NcPCxdEGKU19EicNMKjItTtC5OtrSnNujiUwLNpeAyZXKGhd8QTT42Xy3OE6x+QAbfw2gUi68DPZpdDxW/X45vmi/jTBtfm0f6gELfd8tu4dbe7QKbrsZ/ETgk706IH3OrCi4Gf8DuB2hXdgtRQ7vH7Z6Iuua964DKS1tcYcEjA==
+ ARA:13230040|23010399003|1800799024|82310400026|36860700016|376014|10067099003|6133799003|3023799007|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: dCZN6TyZy8RvIu/z6kMG4gJRnzmqhvWYAXtT+4VoiMprEuO45ufyAr56j2YQ3126FD8jwgD6f572NM3zwivL8G1t1qxxP067BNH8uWznSMXiZm8qpW0PzV4Kjhmpl3rUWNhzA544cdNVv+n0h0HOv+YyV099nnxGZB8OGh+n8GHFOLY6zP4UsOCyWh3QjbesDBYxRohcoEDxG5vLOPct1/DsmwAxFHFo/o5zCiOeOkrHQ/t6ofsVCib5QWfvc76kBl8YZzBTZd9cMjqgfv1WVfgZS/5XIkdnPC4iyNkCjxtoifGYkWys63crCv1/cP3/e5tdX5FwYB1GpB4B+JwnH0vv6ooruAgFlekBfc3UlSpFUSdBT5HsbSsZGfXfp4o0uxUJdQgjWx/YSmZfCeJ34GIvh4UHbmFdOLBNO2vKW+tIV+bkBojs7xckgGB5K1SQwfNRssHFcXZOKYj6DtC08e/drFVV6xIwiKAAz9PUbOma6gc3TIzwwVQRGmjOljHfK24LXj8VHFcAMSnCp8Q2YYqcf0GhkLEoKamVpa9/IMNZWtmPGiIT169RSFbmyE1rp+rOypqFESn5y7woeg23j+05gygMIKROosqUUmBUl4No4ysCzaCEaP++4ouZhOVJPAAYj1yuFR2WjN2lxceu1Zn2jl7dQ6/C2KwTs6P8hyB0iaKn49dZQXYdx7ToNxTnNvNDboFlqeNDb0ZDiO2kaA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(18002099003)(3023799007)(10067099003)(11063799006)(56012099006)(6133799003);
+ SFS:(13230040)(23010399003)(1800799024)(82310400026)(36860700016)(376014)(10067099003)(6133799003)(3023799007)(11063799006)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5Nn1gMeAwHm5s5UoU2QnxWDp5E9DvnSyKCnLOhxZCbwmzgHeRwrZQUGsLSVqEx4pcjcmxjhlXEtIELjS1s3qJznN1oFhJJbBAYHG4QJRwqRYTiXq6/Lz/aPwKEg/QapJrSq3TTBuUuQWBGJ0MATcAfwjJCenvTSwIca3yJlo2dLV8bPucTZYJMExV7ugpxzUoVzI5MJ/tWOjs3P97J4B5nSQdDCYVj7/fFbARQNCt2Th+8B6/N0yJ7oAu4q8JPa2QbI0CHrlfwQuGNp34h3+V4nZ9hZ9/pU1/ilg0EO34rLjE2T9p197RJirimfjpqIgZsKgSPh4tXil+OI5huCcymHBmRX2hTezdDB9xR0LIKqAVr7vXII02PykXKldStl4ZPdaOVCkEUfkFjWYhA1PnWwmGEZbm4Pr3jCwUCcbjjLy3fvJgi6rtXMs+Us0i6di
+X-MS-Exchange-AntiSpam-MessageData-0: 7L1VMfYbTwrXNivMBzPD4bZyZlzBsA7yQlaD6YYtNccZIoJbB+7WztH0YgpYOc5MPeKvu7x1QZXPh5gcfqd5GaaEL7Ijs7NAaYOPofDWSr9dirL6VJEKMqBO63zEtVDn1U3qYu5pl+IwRV8jdvgZe2bF7OKoq2nFuSaCecIEvKpElZR71w2OpI1nEilCRtqMDNXSdGNrwmpv9JjjRyX5ozw7EfXSCc9aJ0IM/IdzqhyQvMK3C2ePQiLGCy/zW5fwgWj+zH6hlEkZzBBc4kOCk5k2GKVlO0/l4V0PA4A96HNp86MHJfolpoAyuj+DXM9TKh8Z+egI2oCxcvjz+vDvu+2eX2UO0wkfGkeeJL6U4i121NaWeil1EKks6RBngmntJ21YeP1QDH6p21SPTwY7hwgGWSVfNdk04749K7JdwTSv7/lnTT8yJ2ABDrLKqj93
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 06:46:03.8027 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19449aac-965e-4425-7829-08df0fd05978
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 06:46:04.5597 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c15bfc3b-9090-4181-522b-08df0fd059e8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8770
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9197
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,159 +110,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Retrieve ras error info via common interface and message for mp1_v13_0.
+Add pmfw-managed eeprom support for mp1_v13_0.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/ras/core/ras_mp1.h        |  8 +++
- drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c  | 61 +++++++++++++------
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c  |  4 ++
- 3 files changed, 53 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/ras/core/ras_mp1.h       | 26 +++++-
+ drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c | 89 ++++++++++++++++++++
+ 2 files changed, 112 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1.h b/drivers/gpu/drm/amd/ras/core/ras_mp1.h
-index d70070645ced..81d5f1eed676 100644
+index 81d5f1eed676..410530fb8ada 100644
 --- a/drivers/gpu/drm/amd/ras/core/ras_mp1.h
 +++ b/drivers/gpu/drm/amd/ras/core/ras_mp1.h
-@@ -25,7 +25,15 @@
- #define __RAS_MP1_H__
- #include "ras.h"
+@@ -48,9 +48,29 @@ enum ras_mp1_msg_id {
+ };
  
-+#define MAX_UE_BANKS_PER_QUERY  12
-+#define MAX_CE_BANKS_PER_QUERY  12
+ struct eeprom_err_record {
+-	u64 timestamp;
+-	u64 mca_addr;
+-	u64 ipid;
++	union {
++		struct {
++			u32 timestamp_low;
++			u32 timestamp_high;
++		};
++		u64 timestamp;
++	};
 +
- enum ras_mp1_msg_id {
-+	RAS_MP1_MSG_QueryValidMcaCount,
-+	RAS_MP1_MSG_McaBankDumpDW,
-+	RAS_MP1_MSG_ClearMcaOnRead,
-+	RAS_MP1_MSG_QueryValidMcaCeCount,
-+	RAS_MP1_MSG_McaBankCeDumpDW,
- 	RAS_MP1_MSG_GetRasTableVersion,
- 	RAS_MP1_MSG_GetRmaStatus,
- 	RAS_MP1_MSG_GetBadPageCount,
++	union {
++		struct {
++			u32 mca_addr_low;
++			u32 mca_addr_high;
++		};
++		u64 mca_addr;
++	};
++
++	union {
++		struct {
++			u32 ipid_low;
++			u32 ipid_high;
++		};
++		u64 ipid;
++	};
+ };
+ 
+ enum ras_err_type;
 diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c b/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c
-index 6fd746fe64c4..bdedaadd85b3 100644
+index bdedaadd85b3..a450e79a55ff 100644
 --- a/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c
 +++ b/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c
-@@ -26,30 +26,52 @@
- #include "core_status.h"
- #include "ras_mp1_v13_0.h"
+@@ -37,6 +37,89 @@ static int __send_mp1_msg32(struct ras_core_context *ras_core,
+ 				msg_id, &input, 1, output, output ? 1 : 0);
+ }
  
--#define RAS_MP1_MSG_QueryValidMcaCount                0x36
--#define RAS_MP1_MSG_McaBankDumpDW                     0x37
--#define RAS_MP1_MSG_ClearMcaOnRead                    0x39
--#define RAS_MP1_MSG_QueryValidMcaCeCount              0x3A
--#define RAS_MP1_MSG_McaBankCeDumpDW                   0x3B
-+static int __send_mp1_msg32(struct ras_core_context *ras_core,
-+		enum ras_mp1_msg_id msg_id, u32 input, u32 *output)
++static int mp1_v13_0_get_table_version(struct ras_core_context *ras_core,
++				     u32 *table_ver)
 +{
-+	if (!ras_core->ras_mp1.sys_func ||
-+	    !ras_core->ras_mp1.sys_func->mp1_send_ras_msg)
-+		return -EOPNOTSUPP;
-+
-+	return ras_core->ras_mp1.sys_func->mp1_send_ras_msg(ras_core,
-+				msg_id, &input, 1, output, output ? 1 : 0);
-+}
-+
-+static int __dump_mp1_bank_reg64(struct ras_core_context *ras_core,
-+				     u32 msg, u32 idx, u32 reg_idx, u64 *val)
-+{
-+	u32 data[2] = {0, 0};
-+	u32 param;
-+	int ret;
-+	u32 i, offset;
-+
-+	offset = reg_idx * 8;
-+	for (i = 0; i < ARRAY_SIZE(data); i++) {
-+		param = ((idx & 0xffff) << 16) | ((offset + (i << 2)) & 0xfffc);
-+		ret = __send_mp1_msg32(ras_core, msg, param, &data[i]);
-+		if (ret) {
-+			RAS_DEV_ERR(ras_core->dev,
-+				"ACA failed to read register[%u], offset:0x%x\n",
-+				reg_idx, offset);
-+			return ret;
-+		}
-+	}
- 
--#define MAX_UE_BANKS_PER_QUERY  12
--#define MAX_CE_BANKS_PER_QUERY  12
-+	*val = ((u64)data[1] << 32) | data[0];
-+
-+	return 0;
-+}
- 
- static int mp1_v13_0_get_bank_count(struct ras_core_context *ras_core,
- 			    enum ras_err_type type, u32 *count)
- {
--	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
--	const struct ras_mp1_sys_func *sys_func = mp1->sys_func;
--	uint32_t bank_count = 0;
-+	u32 bank_count = 0;
- 	u32 msg;
- 	int ret;
- 
- 	if (!count)
- 		return -EINVAL;
- 
--	if (!sys_func || !sys_func->mp1_get_valid_bank_count)
--		return -RAS_CORE_NOT_SUPPORTED;
--
- 	switch (type) {
- 	case RAS_ERR_TYPE__UE:
- 		msg = RAS_MP1_MSG_QueryValidMcaCount;
-@@ -62,10 +84,11 @@ static int mp1_v13_0_get_bank_count(struct ras_core_context *ras_core,
- 		return -EINVAL;
- 	}
- 
--	ret = sys_func->mp1_get_valid_bank_count(ras_core, msg, &bank_count);
-+	ret = __send_mp1_msg32(ras_core, msg, 0, &bank_count);
- 	if (!ret) {
- 		if (((type == RAS_ERR_TYPE__UE) && (bank_count >= MAX_UE_BANKS_PER_QUERY)) ||
--			((type == RAS_ERR_TYPE__CE) && (bank_count >= MAX_CE_BANKS_PER_QUERY)))
-+			((type == RAS_ERR_TYPE__CE || type == RAS_ERR_TYPE__DE) &&
-+			 (bank_count >= MAX_CE_BANKS_PER_QUERY)))
- 			return -EINVAL;
- 
- 		*count = bank_count;
-@@ -77,13 +100,11 @@ static int mp1_v13_0_get_bank_count(struct ras_core_context *ras_core,
- static int mp1_v13_0_dump_bank(struct ras_core_context *ras_core,
- 			enum ras_err_type type, u32 idx, u64 *regs, u32 regs_sz)
- {
--	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
--	const struct ras_mp1_sys_func *sys_func = mp1->sys_func;
- 	int i, ret, reg_cnt;
- 	u32 msg;
- 
--	if (!sys_func || !sys_func->mp1_dump_valid_bank)
--		return -RAS_CORE_NOT_SUPPORTED;
-+	if (!regs || !regs_sz || (idx > 0xffff))
++	if (!table_ver)
 +		return -EINVAL;
- 
- 	switch (type) {
- 	case RAS_ERR_TYPE__UE:
-@@ -99,7 +120,7 @@ static int mp1_v13_0_dump_bank(struct ras_core_context *ras_core,
- 
- 	reg_cnt = min_t(int, 16, regs_sz);
- 	for (i = 0; i < reg_cnt; i++) {
--		ret = sys_func->mp1_dump_valid_bank(ras_core, msg, idx, i, &regs[i]);
-+		ret = __dump_mp1_bank_reg64(ras_core, msg, idx, i, &regs[i]);
- 		if (ret)
- 			return ret;
- 	}
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c
-index baf5f156fc6f..8dd4b678e13a 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c
-@@ -26,6 +26,10 @@
- #include "ras.h"
- 
- static const enum smu_message_type ras_smu_msg_maps[RAS_MP1_MSG_MAX] = {
-+	[RAS_MP1_MSG_QueryValidMcaCount] = SMU_MSG_QueryValidMcaCount,
-+	[RAS_MP1_MSG_McaBankDumpDW] = SMU_MSG_McaBankDumpDW,
-+	[RAS_MP1_MSG_QueryValidMcaCeCount] = SMU_MSG_QueryValidMcaCeCount,
-+	[RAS_MP1_MSG_McaBankCeDumpDW] = SMU_MSG_McaBankCeDumpDW,
- 	[RAS_MP1_MSG_GetRasTableVersion] = SMU_MSG_GetRASTableVersion,
- 	[RAS_MP1_MSG_GetBadPageCount] = SMU_MSG_GetBadPageCount,
- 	[RAS_MP1_MSG_GetBadPageMcaAddr] = SMU_MSG_GetBadPageMcaAddr,
++
++	return __send_mp1_msg32(ras_core, RAS_MP1_MSG_GetRasTableVersion,
++			0, table_ver);
++}
++
++static bool mp1_v13_0_rma_detected(struct ras_core_context *ras_core)
++{
++	u32 rma = 0;
++
++	if (__send_mp1_msg32(ras_core, RAS_MP1_MSG_GetRmaStatus, 0, &rma))
++		return false;
++
++	return rma;
++}
++
++static int mp1_v13_0_set_timestamp(struct ras_core_context *ras_core,
++			u64 timestamp)
++{
++	if (!timestamp)
++		return -EINVAL;
++
++	return __send_mp1_msg32(ras_core, RAS_MP1_MSG_SetTimestamp, (u32)timestamp, NULL);
++}
++
++static int mp1_v13_0_reset_ras_table(struct ras_core_context *ras_core,
++				   u32 *result)
++{
++	if (!result)
++		return -EINVAL;
++
++	return __send_mp1_msg32(ras_core, RAS_MP1_MSG_EraseRasTable, 0, result);
++}
++
++static int mp1_v13_0_get_record_count(struct ras_core_context *ras_core,
++				u32 *count)
++{
++	if (!count)
++		return -EINVAL;
++
++	*count = 0;
++
++	return __send_mp1_msg32(ras_core, RAS_MP1_MSG_GetBadPageCount, 0, count);
++}
++
++static int mp1_v13_0_get_record(struct ras_core_context *ras_core,
++			u32 idx, struct eeprom_err_record *rec)
++{
++	int ret;
++
++	if (!rec || (idx > 0xFFFFU))
++		return -EINVAL;
++
++	ret = __send_mp1_msg32(ras_core, RAS_MP1_MSG_GetTimestamp,
++			idx, &rec->timestamp_low);
++	if (ret)
++		return ret;
++
++	ret = __send_mp1_msg32(ras_core, RAS_MP1_MSG_GetBadPageMcaAddr,
++			MSG_DATA_LOW32(idx), &rec->mca_addr_low);
++	if (ret)
++		return ret;
++
++	ret = __send_mp1_msg32(ras_core, RAS_MP1_MSG_GetBadPageMcaAddr,
++			MSG_DATA_HIGH32(idx), &rec->mca_addr_high);
++	if (ret)
++		return ret;
++
++	ret = __send_mp1_msg32(ras_core, RAS_MP1_MSG_GetBadPageIpId,
++			MSG_DATA_LOW32(idx), &rec->ipid_low);
++	if (ret)
++		return ret;
++
++	ret = __send_mp1_msg32(ras_core, RAS_MP1_MSG_GetBadPageIpId,
++			MSG_DATA_HIGH32(idx), &rec->ipid_high);
++
++	return ret;
++}
++
+ static int __dump_mp1_bank_reg64(struct ras_core_context *ras_core,
+ 				     u32 msg, u32 idx, u32 reg_idx, u64 *val)
+ {
+@@ -144,4 +227,10 @@ const struct ras_mp1_ip_func mp1_ras_func_v13_0 = {
+ 	.get_valid_bank_count = mp1_v13_0_get_bank_count,
+ 	.dump_valid_bank = mp1_v13_0_dump_bank,
+ 	.set_debug_mode = mp1_v13_0_set_debug_mode,
++	.get_table_version = mp1_v13_0_get_table_version,
++	.rma_detected = mp1_v13_0_rma_detected,
++	.set_timestamp = mp1_v13_0_set_timestamp,
++	.reset_ras_table = mp1_v13_0_reset_ras_table,
++	.get_record_count = mp1_v13_0_get_record_count,
++	.get_record = mp1_v13_0_get_record,
+ };
 -- 
 2.43.0
 
