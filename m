@@ -4,86 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF249C88E50
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 12:59:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0513CC88E4D
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Sep 2026 12:59:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31D8E10F60C;
-	Fri, 11 Sep 2026 12:59:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73C5910F60E;
+	Fri, 11 Sep 2026 12:59:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="OQMlXoST";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="PzwR2YEm";
 	dkim-atps=neutral
-Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64F9510F575
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 11:56:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1789127753;
- h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=sttmLPJbXqHF8O2Q3VVBCslXXNEiPN/DARq1dGZW598=;
- b=OQMlXoSTiuvUh7CxiC5gLNt14LEf46Dtw5N1y9TaRUMgUAEbWiqpkOqm0ncnRdZPPaX5WN
- +7332n9yh/AjDbL9q9NMuDGJ4h586I5taapQ8crFSTTRrMnMKOs82sei94VtVx6AI6Ywfv
- Q6M42sakRiNUUKSy0YH2DVbVBrHPftEDFZ3+2bAAzZGuTpW5QtCRjpHDX+i0/mt0XhW2ju
- H4QmUIwK9UatLW6KjazoQhUy634Sh0v7/vo+XH7cPDbYfQmulzOg8r7yQuAkvvyqEB5wpa
- tJBCJI928v28otULxTLw41gm416Wr5V6NtTZPn4N8gDCtijbvakvF5kvh72BVQ==
-Content-Transfer-Encoding: 7bit
-X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
-Content-Language: en-US
-To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
- "Alex Deucher" <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-User-Agent: Mozilla Thunderbird
-Date: Fri, 11 Sep 2026 18:55:50 +0700
-Message-Id: <a92e12a1-bd95-449d-bb02-9ab62481e8c7@imm0nv1nhtv.is-a.dev>
-Mime-Version: 1.0
-Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] drm/amd/display: close DDC on I2C engine setup
- failure
-Received: from [192.168.100.185] ([42.112.63.158]) by smtp.larksuite.com with
- ESMTPS; Fri, 11 Sep 2026 11:55:52 +0000
-In-Reply-To: <20260826204457.4666-2-neptune@imm0nv1nhtv.is-a.dev>
-References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
- <20260826204457.4666-1-neptune@imm0nv1nhtv.is-a.dev>
- <20260826204457.4666-2-neptune@imm0nv1nhtv.is-a.dev>
-Autocrypt: addr=neptune@imm0nv1nhtv.is-a.dev; keydata=
- xsDNBGlpE4YBDADdJ9Xs0FJiKeow1yArazocdPeRUmNYBuZzCKontjToiRlzYtChOp/sBbUg
- s3HUscAmlZhBSiEzcJTpdWkBHmQxh/CQypVuIRuoRY5g0vgt2wXm9jFSHa13/qCGwy7kZqBn
- G1jb4rJYM6365gSE5STPNHzRvgTVuN6U0qke/YjoTP9lSsURnXiBcqhYkCaTfFylcfk8luWh
- TPgKTtXbEcu8h6iOUZ2r9nYE5h3kAslax/aS5IDbTBT1LENEr5QmVbfJOHmEBHXMof56trLX
- cacxCOcXbEfPVO0huNytXwBZ7FPClJstdBF4B8WEA1SCTStQqzcSpPF7A2okAKgbr301pQ+O
- QlviLaVF6xWbRovejjXR3XWbtG6Y9dX4P9wlIebR9ewUnhmDYiE5I7EM7vBVhifAUr+/9GFM
- +u9NCiZtsYvg4fx94NXPLiTn32zuqxYsoCNKf8fU7xNcpyfXCL5KXhn8WsmnlnAjwlXefJk3
- 1+W6Ul8cCFJmHrwJfDN2nbkAEQEAAc0vTXkgQW5nZWwgTmVwdHVuZSA8bmVwdHVuZUBpbW0w
- bnYxbmh0di5pcy1hLmRldj7CwQcEEwEIADEWIQQb1mgX6WovTr9mR8Baku4UlTewDQUCaWkT
- hwIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEFqS7hSVN7ANQ5kL/3aqsGhxyikeOFY6RhJbb3mX
- 9YHTVasOScuCa5/kxWmxox9OorraURWThmJw5pkCkAyF+5l2mGZvVvwx0s4dmHOB7JTEtuQe
- mqet73PLjTvjSVNBuuscUYgbjIdAu1PO5li2ERGvgXPMPgty0ov/1pz9fSIid+Jitryztm6f
- Up2KV1pwVPGIJqzX1KOEsWrDZ/c5nakwrFRw6d3lg4QXNWc9IqkIcLUF3FETV60ZC1gj6ohk
- Orf8m8YipSymp44kjpRqmbDPiiJ3Mela8I+rDF9Sm7lC5a5yEbezHdN5PUbIaFiarjVWg3Ko
- oQqhHcOmgOs23GjqfUmnjPOhy7ztAJuArFQscMUuDwSftg3WcAXYp3RnpfeUs0rc+tF24Wl/
- /lbdD0AcdSx8oJQN3HqhhZ62bjQQ2TfYUI5xaWW268holLFZfMaRpT8ACcOts5wLmtG1l7X2
- gKyek8XwymCCm6fV8ux7lzvRyrhnkJEC2akj5tMyuV2N3sjoDEm5wofn6M7AzQRpaROHAQwA
- pu1jDa80Rq1zt6yyVjwCcaqaujuo4lcr67jk4A/vDxm0oGABNFNp/Ux5C8mlsb865+czEXli
- RF9cBplIOwIp9JD+Xt+XsU9hW6OrbmwTR0Buye/s25YhRCbz681J24XIIJV9Pn75mmyG/FYK
- vNSDXjnlPWhfUmVk0vJsR4gBALptM9zryKu+/0s/+vdfvZQR4+jvNfwmikTRydh2l6yJa87p
- Ravh0f9V0OJYUH5qOQF631T6kXZtgwtx9zB5dtlh/N38qBnGIT8nRxpisg26zbzAY+wdkp1u
- rtoraQy3gXWQy6JI1ji9c2zmtXUM7dgHuWQ4+BYnp0c7lpvzTh/+Q9l2p/BIvdeEp/dRKCfn
- dBEdopj5E/38IUb0e3/q28E+rL8feIIzlaQ0ZGOx0aI8Nyj/GfKveoxmFkhGGmPOlakjn/y2
- TcUmT0jB9t9C7XqjcJLAwLE9qnuCCY2jHT6XUb8X/QadY1iRESvvKA3UCYq5QMnoywENFq/+
- 4Jjr3fhhABEBAAHCwPYEGAEIACAWIQQb1mgX6WovTr9mR8Baku4UlTewDQUCaWkTiAIbDAAK
- CRBaku4UlTewDZokDACz91XRD7dw6RS3CYZ+ly4DwI5H/sxU3M4acj5icUldaG/h6YS/tm3R
- 0f4n307/MdztZX/HAZ+ZOmhO4k+BKWqV8E0Cp+sTApptUNkVZP7DeGWH/fec/+SwRyoY0uOZ
- hFuTPOTrN5SDtQUcgh1cixv1idq/EqNfb64vWllKZKD06QuSVgR/4QwagkvIXBKcIUjqR8Tq
- CiLRBSN/3u/CfST9/3/nQ4ljS91B0HYDgHLPzz7sLfz/4IvkMJ/x1D5VXEF6yNQ4dHqK0uoF
- eYeTTXKBoDNZPEWbmhwRo+UR8o50C1VwUKysqnrhboMN+mdR7pR2WeDEffWcAREfvhKuRPUx
- 3L7+e+gtFasiWKa1uwTuQOERz2nGZ9R7VSISB+DDPuFEoYc7pxszQO8fCTcRlZo8Qh1AhR52
- YD5wInz80GjxRKWenY2uibA1k3/r7anzaK3XBST0SDR6DWRJ5RziYXK52up1lz0AkEvAOv/R
- w7556xiTImYhxhLT4QiuJfjqiGM=
-Content-Type: text/plain; charset=UTF-8
-From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-X-Lms-Return-Path: <lba+26aa3ec49+9ad036+lists.freedesktop.org+neptune@imm0nv1nhtv.is-a.dev>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1789310E012;
+ Fri, 11 Sep 2026 08:56:33 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hh7gx3TmjzMlKK;
+ Fri, 11 Sep 2026 10:56:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1789116989; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ALcg9Vd2npenlt0/QL85p1BH7ueYmsjnSxLgqn+ltps=;
+ b=PzwR2YEmy86J27En3HvOQRYRRuqhQq4R4lMZ/rk4CoTTFxyZ163J2dIdgHgvBeHci6e6Wc
+ 7PZw2Rym2+n0H8gGVrm0Kz52ppShzDKo3v1tj3oXVD0PePAHvLNkRczz4GTbHYMWps2jqL
+ j+LWmcnyS7dZASoQVdbNk5FReahby9dfCmoBLaF2hdyKM1c1JH48zCMH5P/Df6zbpjwCnv
+ 0ajDXD3wS8Dq4Lsp8YKJ02M5xyaj+7tZ1Rox0K/yRXhLwuSU7Cg0Yr8OIRhxFoe99VnJWO
+ o7/36ZIEuRpl+lj/pSTGU0r9Yws0wFF4iHrsN+tedzA6RtoA7J/s7vlBsJ2rKg==
+Message-ID: <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Philipp Stanner	 <phasta@kernel.org>, Pierre-Eric
+ Pelloux-Prayer	 <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
+ <matthew.brost@intel.com>,  Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ stable@vger.kernel.org
+Date: Fri, 11 Sep 2026 10:56:23 +0200
+In-Reply-To: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
+References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MBO-RS-META: z9t3txr6jjnc7f1rorymfnawnrafryo9
+X-MBO-RS-ID: af8d3356cabcd556fd9
 X-Mailman-Approved-At: Fri, 11 Sep 2026 12:59:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,41 +66,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just a kind reminder to check this patch, thank you!
+On Mon, 2026-09-07 at 14:05 +0100, Tvrtko Ursulin wrote:
+> Prevent pushing a new job to an entity seeing it being the first in the
+> queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
+> side in drm_sched_entity_pop_job() has de-queued the job but not yet
+> updated the saved virtual time.
 
-Best regards,
-NepNep7601
+I think I don't fully get the bug from that message. The bug (is it
+even one?) you address is the performance bottleneck for CFS under high
+load, right?
 
-On 27/08/2026 03:44, NepNep7601 wrote:
-> acquire_i2c_hw_engine() opens the DDC pins before setting up the
-> hardware engine. If setup_engine() fails, the error path releases the
-> engine but leaves the DDC pins open and the engine's DDC pointer set.
-> 
-> Subsequent attempts to open the pins then return
-> GPIO_RESULT_ALREADY_OPENED, preventing further I2C transfers, EDID
-> reads and hotplug detection on that port until reboot.
-> 
-> Mirror the normal teardown path by closing the DDC pins and clearing
-> the pointer after releasing the engine.
-> 
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
-> ---
->   drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-> index 05892ab4529f..e7a05494abab 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-> @@ -485,6 +485,8 @@ struct dce_i2c_hw *acquire_i2c_hw_engine(
->   
->   	if (!setup_engine(dce_i2c_hw)) {
->   		release_engine(dce_i2c_hw);
-> +		dal_ddc_close(dce_i2c_hw->ddc);
-> +		dce_i2c_hw->ddc = NULL;
->   		return NULL;
->   	}
+Anyways, I think I got a better idea:
+
+>=20
+> We do this by pulling the locked sections out to encompass both the queue
+> push/pop and corresponding rbtree management.
+
+So basically you move for locking the spsc-queue, the lockless queue
+which is usually used with the locks next to it anyways. That's cool
+stuff. I've suggested this for a while already
+
+https://docs.kernel.org/gpu/todo.html#replace-the-lockless-queue-with-a-loc=
+ked-list
+
+So from a maintainability perspective, it would be far cooler if you go
+down this road one step further and kill the spsc_queue for good,
+replacing it with a fully locked list. AFAIR Christian and Danilo also
+have agreed to this.
+
+
+[=E2=80=A6]
+
+> @@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
+> =C2=A0 */
+> =C2=A0void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+> =C2=A0{
+> +	struct drm_sched_rq *rq =3D entity->rq;
+> =C2=A0	struct drm_sched_job *next_job;
+> -	struct drm_sched_rq *rq;
+> +
+> +	lockdep_assert_held(&entity->lock);
+
+btw. I think it *reads* a bit safer if the rq initalization happens
+below the lockdep assertion. Also might make the diff nicer.
+
+
+P.
