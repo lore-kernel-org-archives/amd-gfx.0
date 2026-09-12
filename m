@@ -4,52 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9B78C88E67
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 07:29:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A8AC88E64
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 07:29:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8980F10EBAD;
-	Mon, 14 Sep 2026 07:29:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7436E10EBB3;
+	Mon, 14 Sep 2026 07:29:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="1ppHOcoh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L9/uwUy/";
 	dkim-atps=neutral
-Received: from smtp-190b.mail.infomaniak.ch (smtp-190b.mail.infomaniak.ch
- [185.125.25.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A47F10E3D8
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 15:13:24 +0000 (UTC)
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch
- [10.4.36.108])
- by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hhJ2p73XDz9V1;
- Fri, 11 Sep 2026 17:13:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
- s=20250113; t=1789139602;
- bh=BJ4BHJ5I3o/lGlBOtZ6qsSILrtULmXOdWu3DEGOudng=;
- h=From:To:Cc:Subject:Date:From;
- b=1ppHOcohDnsGGaO7HoDHo/WxEWtobcfKNzKpZcWyEkKDq1BLb0uMTFFyNHzpl6Ow8
- 7bpC6k+6+sQpu8Mw7YQkvi7ihrNqmk6YjDGn7KZ/d8Hw2SE13UeUqUr1CAJ+gbhGpP
- t5ikD/YkLqdl/H6BT4+Y6jWddBmeeWT+ppTriCqyBp367WIGy7EUIxek6nfrnFilFH
- IWIlo77vHoeiSGHUkTD/R2VwCxCp2togcwZEqEkMbXUYootT5u5XFSw1th8vzG4P1+
- 14yNH1jmCNB9zfavS666qtnwW0LEZvLwZSfZs/X+xxO/joVGFNkoZRb9Ahgfe5Gq+J
- 4ScOBpV8/GJMQ==
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA
- id 4hhJ2n5KGYzc1x; Fri, 11 Sep 2026 17:13:21 +0200 (CEST)
-From: Adrian Betschart <adrian.betschart@cinemaone.ch>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BE8A10E4F6
+ for <amd-gfx@lists.freedesktop.org>; Sat, 12 Sep 2026 17:26:51 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ 98e67ed59e1d1-39b31b4281eso877595a91.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 12 Sep 2026 10:26:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789234010; x=1789838810; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=7izVhFPU5f2Mxv3Dnub39YzR+1KtOurbwyZEjfxW9ME=;
+ b=L9/uwUy/yenucfezIrYxo39q3q/2f2eF1rS1bFY9VNHgEVs7LD9ScC6GmCtlj+3/sw
+ 7Ug8iuf4R/OomXhIh8tfubHsalEwjGgEF3lvldBb6H0CHKP9UzFkzBs0bZhG4LTmuH+J
+ 9cis2JeWotawzKF1sbgbmEgqKakZaB8U+esT9wa/C9JoIv7+D41hvTlyFSqKRoxCcXJl
+ 996BQZpGEPrjGcs/5lZA8jfYkJT/jD0LTXZBJXQE8Up8ri3uk9TZlXvWdN7+iDLQItFF
+ uKzua2WGQ3vvwvxwaZPY0LhKIXZcHHYvwdXfOWEiLt96171g46NMU1nWO+J7L/L9aAi4
+ DjTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789234010; x=1789838810;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=7izVhFPU5f2Mxv3Dnub39YzR+1KtOurbwyZEjfxW9ME=;
+ b=C+UYB2NbKU/XxY+DVUzp6TwM6aly4KIHD5CNucAdmxio8bj9C5xLa75LE7Llnb7h1S
+ EAMbsShwkD+9AdVmT+5qABlnelO58dEn7z+Zg+X03pP81gOUvkR39hyua2/cmnDX+d5z
+ 5F2l5TCMtfpc0flH6ZocolEqUKcXV2XLdUCIjw017mfeFR01R1Vo9lQcbM2EOlU6qwUa
+ MBKnuhj2gnZG0kLpJIcQMNWbmEFOXdIH0JmC7b5IUn3zMZ1LX5B8K3ZwY/Nmgf/N29vy
+ znVTBmL3Cu+E31eFNlX0aVlfD/Yhts2R529t8MP4+dZFYpaAACsFNtXsg4iCznv87fEA
+ kD4Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxgM7+jxUeySJeM0H12gEHWeNNHFt/1mgONbYaNquwRVzRskka4sX+kjGsI74+1mILcqh3Lxusi@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kLaO1VOIiM7ifEmxB56PyNjDyjOCaL8mh7lGJEu66WxxJCVI4L
+ jNmC6/JV0Cw7v4B6XTjT0tuJgW5dvkQZHKKQ8sjqmawJH+F+EV7s8zDD
+X-Gm-Gg: AYBFou0Esm9+p9iH9eHMa+UICm1WjBFBcKT4kkWrImmabsMGmdfshR7i9W/tYXLVtRp
+ b+nPfemitRPdB1aqQDY5FYqauPaCT2flIieSryjfhl7HIgoZGv4SvCtRCH44XZkJN1RT0lZbGoQ
+ mfO+7p5NAgs5kGXBiE48sfxlPFFeh8q761jYh35XVFpnX1IUv4vdB76qz7MxlygRo+8V+xa3X6d
+ m9CgIK7dOtKBVz5r8wbq2QeHi/sjrWbDqhtk3XqzWjUDOYwvivBUNzPEja0YQPotEuqHixK1Yog
+ YC1WORzx/kpUBOGGZNmg9cSz7Tn4iKCh6jr2ApHI623kZRNf19HzhJrghBK93rrcMEdzx9rrfts
+ fyI9M7QZ9whzO1ODUYtTKYWRkvlsUL7loX5yD64u75qF1auwAkpdE9iNwnYYCNDXU7XbMLft3Wy
+ 4H2Rq7merE/Fzg1l2257NgreK8C0jyv5Wa90NdQAZ03f38hC/O6FQ7uAJcN3HI/5sM1ASDIgaL1
+ SmkfUSu9Jw=
+X-Received: by 2002:a17:90b:2741:b0:393:19a3:4f1 with SMTP id
+ 98e67ed59e1d1-39d9bdbb0e4mr16432141a91.6.1789234010571; 
+ Sat, 12 Sep 2026 10:26:50 -0700 (PDT)
+Received: from G15-5520 ([103.206.144.35]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-143659a9a06sm14279263c88.0.2026.09.12.10.26.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 12 Sep 2026 10:26:50 -0700 (PDT)
+From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Adolfo Rodrigues <adolfotregosa@gmail.com>
-Subject: [PATCH] drm/amd/display: Try RGB before YCbCr 4:4:4 in stream
- validation
-Date: Fri, 11 Sep 2026 17:13:14 +0200
-Message-ID: <20260911151314.66957-1-adrian.betschart@cinemaone.ch>
-X-Mailer: git-send-email 2.55.0
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Subject: [PATCH] drm/amdgpu: replace kmalloc_array with kmalloc_objs
+Date: Sat, 12 Sep 2026 17:25:52 +0000
+Message-ID: <20260912172552.70502-1-lalitshankarch@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
 X-Mailman-Approved-At: Mon, 14 Sep 2026 07:29:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,102 +90,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm_create_validate_stream_for_sink() walks encoding_order[] and
-uses the first encoding that validates. YCbCr 4:4:4 is listed before
-RGB, so an HDMI sink that advertises 4:4:4 gets YCbCr 4:4:4 whenever the
-"color format" property is left at AUTO, even though RGB fits the same
-link.
+Replace the remaining kmalloc_array instances with kmalloc_objs.
 
-That contradicts the documented AUTO behaviour for HDMI in enum
-drm_connector_color_format (RGB, falling back to YCbCr 4:2:0 only when
-the bandwidth is not available or the mode is 4:2:0-only), which the
-amdgpu implementation of the property also describes. It also leaves
-the "Broadcast RGB" property without effect on such sinks, since the
-quantization range it selects only applies to RGB output.
+No functional changes.
 
-Try RGB first. The mask still holds every encoding the sink supports,
-so a mode that cannot carry RGB falls back exactly as before.
-
-For reference, v7.2 picked RGB here unless YCbCr 4:4:4 was forced
-through debugfs, while earlier kernels picked YCbCr 4:4:4 for any HDMI
-sink that advertised it.
-
-Fixes: 0b0ff65d3ca1 ("drm/amd/display: Refactor stream validation")
-Suggested-by: Adolfo Rodrigues <adolfotregosa@gmail.com>
-Tested-by: Adolfo Rodrigues <adolfotregosa@gmail.com>
-Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
-Assisted-by: Claude Code:claude-fable-5-1
+Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_connector.c   |  2 +-
- .../tests/amdgpu_dm_connector_test.c          | 34 +++++++++++++++++++
- 2 files changed, 35 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c     | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c         | 3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 9 +++------
+ 3 files changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 0b446133edd8..98d0b35ed4e4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -2226,8 +2226,8 @@ amdgpu_dm_create_validate_stream_for_sink(struct drm_connector *connector,
- 	 * below gate which of these entries are actually attempted.
- 	 */
- 	static const enum dc_pixel_encoding encoding_order[] = {
--		PIXEL_ENCODING_YCBCR444,
- 		PIXEL_ENCODING_RGB,
-+		PIXEL_ENCODING_YCBCR444,
- 		PIXEL_ENCODING_YCBCR422,
- 		PIXEL_ENCODING_YCBCR420,
- 	};
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 6e70d72135dc..c064def8253b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -7175,6 +7175,39 @@ static void dm_test_create_validate_stream_prune_context(struct kunit *test)
- 								    NULL));
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 132d054900b5..f2427bf07905 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -986,7 +986,7 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct file *f, char __user *buf,
+ 	if (size & 0x3 || *pos & 0x3)
+ 		return -EINVAL;
  
-+static enum dc_pixel_encoding dm_test_cvs_first_encoding;
-+
-+static bool dm_test_cvs_record_first_encoding(struct timing_generator *tg,
-+					      const struct dc_crtc_timing *timing)
-+{
-+	if (dm_test_cvs_first_encoding == PIXEL_ENCODING_UNDEFINED)
-+		dm_test_cvs_first_encoding = timing->pixel_encoding;
-+
-+	return false;
-+}
-+
-+/**
-+ * dm_test_create_validate_stream_hdmi_rgb_first - HDMI tries RGB before YCbCr 4:4:4
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_create_validate_stream_hdmi_rgb_first(struct kunit *test)
-+{
-+	struct dm_test_cvs_dc *c = dm_test_cvs_dc_alloc(test);
-+
-+	c->link->connector_signal = SIGNAL_TYPE_HDMI_TYPE_A;
-+	c->aconnector->base.display_info.color_formats =
-+		BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444);
-+	c->tgfuncs->validate_timing = dm_test_cvs_record_first_encoding;
-+	dm_test_cvs_first_encoding = PIXEL_ENCODING_UNDEFINED;
-+
-+	KUNIT_EXPECT_NULL(test,
-+			  amdgpu_dm_create_validate_stream_for_sink(&c->aconnector->base,
-+								    c->mode,
-+								    c->dm_state,
-+								    NULL));
-+	KUNIT_EXPECT_EQ(test, (int)dm_test_cvs_first_encoding, (int)PIXEL_ENCODING_RGB);
-+}
-+
- /* Further tests for amdgpu_dm_connector_mode_valid() */
+-	config = kmalloc_array(256, sizeof(*config), GFP_KERNEL);
++	config = kmalloc_objs(*config, 256);
+ 	if (!config)
+ 		return -ENOMEM;
  
- /**
-@@ -9268,6 +9301,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_create_validate_stream_force_ycbcr444),
- 	KUNIT_CASE(dm_test_create_validate_stream_prune_timing),
- 	KUNIT_CASE(dm_test_create_validate_stream_prune_context),
-+	KUNIT_CASE(dm_test_create_validate_stream_hdmi_rgb_first),
- 	/* amdgpu_dm_update_connector_after_detect */
- 	KUNIT_CASE(dm_test_update_after_detect_mst_noop),
- 	KUNIT_CASE(dm_test_update_after_detect_sink_unchanged),
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 242c48e85912..f67caa255327 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -900,8 +900,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		if (info->read_mmr_reg.count > 128)
+ 			return -EINVAL;
+ 
+-		regs = kmalloc_array(info->read_mmr_reg.count, sizeof(*regs),
+-				     GFP_KERNEL);
++		regs = kmalloc_objs(*regs, info->read_mmr_reg.count);
+ 		if (!regs)
+ 			return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index 743b41db5b7c..cbdbd8196eb2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -486,8 +486,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 	if (IS_ERR(syncobj_handles))
+ 		return PTR_ERR(syncobj_handles);
+ 
+-	syncobj = kmalloc_array(num_syncobj_handles, sizeof(*syncobj),
+-				GFP_KERNEL);
++	syncobj = kmalloc_objs(*syncobj, num_syncobj_handles);
+ 	if (!syncobj) {
+ 		r = -ENOMEM;
+ 		goto free_syncobj_handles;
+@@ -726,13 +725,11 @@ amdgpu_userq_wait_return_fence_info(struct drm_device *dev, struct drm_file *fil
+ 	struct drm_exec exec;
+ 	int i, cnt, r;
+ 
+-	fence_info = kmalloc_array(wait_info->num_fences, sizeof(*fence_info),
+-				   GFP_KERNEL);
++	fence_info = kmalloc_objs(*fence_info, wait_info->num_fences);
+ 	if (!fence_info)
+ 		return -ENOMEM;
+ 
+-	fences = kmalloc_array(wait_info->num_fences, sizeof(*fences),
+-			       GFP_KERNEL);
++	fences = kmalloc_objs(*fences, wait_info->num_fences);
+ 	if (!fences) {
+ 		r = -ENOMEM;
+ 		goto free_fence_info;
 -- 
-2.55.0
+2.53.0
 
