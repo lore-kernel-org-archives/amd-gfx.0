@@ -4,131 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AD33C88E72
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 17:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 596E2C88E6F
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 18:05:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75B4810F0B1;
-	Mon, 14 Sep 2026 17:49:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3F4610F0DB;
+	Mon, 14 Sep 2026 18:05:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EfCnxAfl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rJ5ouBSI";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010062.outbound.protection.outlook.com
- [40.93.198.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD8C10E1EB;
- Mon, 14 Sep 2026 17:49:02 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013012.outbound.protection.outlook.com
+ [40.107.201.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 579F610F0DB;
+ Mon, 14 Sep 2026 18:05:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fZLGEM7VhH5RBWhT8oAPDwWWUiyWHlk6nNntxgQrAK0MDGIKGrYdv9jhXXvxiAI+sFKKMVGhcCJ9mDQCANnDPNJi0i9nz5zDMYfIfjEHxTaLhieY0ODZ9mX9KT7Qwz68gpuQ8HRsRckEDhO+Ho3ezHDu5qSuJjTgZV6qtOEQvepM6hMSgCQ66DZrIW2mZ6rPJh+o9A5vBAVOjHx2EOda53gK8DOOIny4LAp73Na0mIQZgrVgWJPdhg4vV+8grFkl4oGx2Vonj0ZNkyOOEvRSbugivC6ltllB9EgENtSPt/SlWupewvEHskv5FbtChBHbtyVpcNy5VfqSN6kj18Xb0w==
+ b=uChoOnJOxwO3gjnPjl3uOJPDnS8HAZGDzFAum5Y4gvaFH7vm1z1DdT7sfZwENuwbC+Gwzxs0kSgFOdig2ntdWUmirvZdK5hjQKVD3su5snqO14aaiqVRUeBglfi6Dcp4zMxjsHDUALRV/rzbF3VtBHtXjZmiYLVHWqZLY5OjcBuOS8ajDg4XqvGWFMFTZDm7U1nLtp6Kty/hmwXj1/EQWNEi1WHRSxsdbu/sfd7ZZ27ABJL5oKTo8jJyLQYRi9PLUNfk63kwkYuFEAicEZq9Hl4IawisxN0pb7BsFHmFDhiZOsSSZxFPtW9iotlsBaFj03S9NC/Wqyb7/w//TtM5SA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5rdB5sl+hWMWlLhEXroZ3nLSphAol+CoLrX+tiU7/ws=;
- b=qa2VX+71n8yoyrV02+CLMrf0gWTL9d7KpNtlbvZbhkT4Hk2r11wSnf2Q0wHPFsh4UNmT9aZOXkC3aDv6Vw0O+KIvErwPVrBxEdzf6fZDruyEi4gyIu1GxGcswoLlVpGLc0lNG7LeKStQ/vY4+mHHOjBjUm6zZJ9xiT/KAYa8lqH8WpcolShbZIKxCAwbd3470n21Zlq9by9puiPn4iNIadOMhy+iIIkc+fBS94PdGRE7uAcupYhMigpibhMABF97a8UtLr9CcFBXBGaKH3JOytaZT6s38Pi4djjX5MyZUtEj/5aAcL7Uer5ftrQsEbmLjbDCgpqKCVVX1znATDIO4w==
+ bh=d4h7rafOmRPUxLqkjodLRK20qDKV8ULQrrO+q7GrKEk=;
+ b=Ro6fR59D6e86lKyqRBQ4Gm24KtuBf4uGvekKPjqnPy4wralol6NgOvawpJSqf5XI18SrTS3KoSuHsN4y5ynS/IRVMcAnXkCsa0cDp6eSRnyZUX6+EI/YCccs7rurC2JT5k6IdS5rTi9yMAlW609fskpy/BhDiPEbaPpKGk6BUSJb0PL6a5gzsZxn139ixxGCx0C1yqjWgFuNgKfd+Ocd6VRE4o0zg42+uIEHjRWVUW7W7WLE1wPNQb4s4hPJ1eU32ItahSVU8t+lURWjJkvX1h+TP7Nua/6Mdn1XqmkBWjy8WVg7yQr3pc4GzIkan0OVfbffUA9NJCm5zb/bcWJYlw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5rdB5sl+hWMWlLhEXroZ3nLSphAol+CoLrX+tiU7/ws=;
- b=EfCnxAfly3zVgpq8RX9rP1uH7Ie2caC+QeuuNC6WGrCzkiiSPjX+7pwipE86HG5tpTrFkeLBUheXB/NbvRPIC7V1uJ3Kwft327dHAS1RfWC2gtO5xD5mB6uxDQ4/0II3+Z4VBwWLL05dGxmy8+YsewDsHUOX4PyqNqXFSjrGIfg=
+ bh=d4h7rafOmRPUxLqkjodLRK20qDKV8ULQrrO+q7GrKEk=;
+ b=rJ5ouBSIc6xOMTAWqCC0edT2Nx9KyUGm5e5m+zQiZoGt2AFPxlelEscvevqhvGtZmbPrSbL9tUMZY+p0awKVJhOe6JUHwFlRP36wmoS8+zOH0Ng55X7woHlN1whodp7kQWYQurIMNwsVQp1///Q/4nc+HCNe/maL4JjX9tP4oVI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV8PR12MB9156.namprd12.prod.outlook.com (2603:10b6:408:181::6)
+ by SJ0PR12MB7036.namprd12.prod.outlook.com (2603:10b6:a03:483::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 17:48:47 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Mon, 14 Sep
+ 2026 18:04:52 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
- 17:48:47 +0000
-Message-ID: <41428e7e-22e3-44d5-afdf-8a72165883f5@amd.com>
-Date: Mon, 14 Sep 2026 19:48:41 +0200
+ 18:04:51 +0000
+Message-ID: <47b7f1e6-0c14-42c1-8224-d5d86cc08159@amd.com>
+Date: Mon, 14 Sep 2026 20:04:46 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: zero reg_state buffer before filling it
-To: "Lazar, Lijo" <lijo.lazar@amd.com>,
- Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
- Alexander Deucher <alexander.deucher@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Samuel Zhang <guoqing.zhang@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-References: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
- <bc9cf07a-ef97-490a-b98a-a05bc9f5b186@amd.com>
- <05b669e6-1c66-4789-9916-b8030e232385@amd.com>
- <aeeff331-8b2e-41d8-acf8-d5d758935d38@amd.com>
- <c4f2f082-8956-4f20-af92-119b873c3759@amd.com>
+Subject: Re: [PATCH v1] drm/amdgpu: keep freed VM mappings on clear failure
+To: oushinnyo <oushinnyo@163.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ Harish.Kasiviswanathan@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260905023151.90699-1-oushinnyo@163.com>
+ <c0f0b76b-fc3d-4473-83d7-ad820efcbbbc@amd.com>
+ <3efdfbf9.7999.1a09efb9469.Coremail.oushinnyo@163.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <c4f2f082-8956-4f20-af92-119b873c3759@amd.com>
+In-Reply-To: <3efdfbf9.7999.1a09efb9469.Coremail.oushinnyo@163.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0019.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c9::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0158.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ba::15) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV8PR12MB9156:EE_
-X-MS-Office365-Filtering-Correlation-Id: 177feef7-2739-4303-0894-08df12886d63
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB7036:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04bf739b-9365-4b9b-6c5c-08df128aac62
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|10067099003|4143699003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: RcWGEMcxgORxcfDO6XBQr2qMCp0aK5AV8cHaeQdFKhN9+cUVPGhRU4g94EmcbZU2GhsV7jTDJ7DwzmZGJuXuv0g8EW5H/qFFG7fJdHMKQrLfr6tQw1Tr1sia9vhwocd8bJNivH1Kkh0Ww43SySEiUSJHGnM/B7YndBPwzioJa20tqmSoZq0u00MqyQWApgqctSzfw8WRAdF2rscw7Ic6waUuxLPfBKPcjX4HTMxTuS3ZVd/kCX3saI8Y1+uZaK1zZ4hmetvrsGTV2n7vI0dTkjAY3/uZYgN+SnvuNYFejJ6x7Q2sEFNWGA0oEhIYI4kQz3Xds3i8VMoo8MY036CDg198Pr9L1X28ZGSjvXsnY1rQd+D5BKO0oskQ+yelQf5DyiyGdauw2Xyyio88wUPCpS5sKfQjlvyFvjjJZY/2QTqUEJBncvv2SqpNScGmNjdDU5CcItSXyvIRX1P0TkgLQdtKonoj++ii5aZ5t4nZKTfA8bqJDqkDVheqRdyW1N+6h0w7dznw1ofW34b75y8iVl8JlWCHtfexT6eB4csGE48=
+ ARA:13230040|376014|1800799024|23010399003|366016|18002099003|10067099003|11063799006|22082099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: lMi3iX93LAaJ4ydQCO5iiEQbrxoumDCljeNcXjhv++p1zMHj9+d18MZ7HNGq+hopROpV7Skkbrtvv03b6fau5tOuKjPsvGyD98S6FGlFGuFdTGrRdcUz8DT1yIqxd76hIw/sd9l0yj53ws9WcdKiUrF2BhhbHgEj6qXp8t78DcY2rz+/UBWgoFM4ho2AOyCPoA/GXX9X8sRwvW+gylAmuZne06+k8rW0hn2nae1Nv2PSsw+xfPUbaX3jgVOnH47DWLB+5oEkdycrOMmiqJs5IEjW6CAJuGa1fDdNdWsICowCoufyLddcTHoT77t2imdRQDHLHibqof3k3PMktJMFmUHwlPzegogBZzfO804CXKFjBDmDMBcKAW9k+14xO/thOSQnRWCZY2bMtYYxCQ3lnJweIvyGjcu0eHI1v6Q+itReRT+NKMhe9QC0f2qogvKs459BS3Jacm4AXNJKxuOkdrh5KWmDWIE65a5/mYyG7bXDyS3caxMpYUxKO9hrx2WjzLjY/Tkz1GPaW4PQVlPJoB3nxKUcHdJeaaXFmZ4deZ6p1VmqXZT9+qPkoP0ak71/5Z2AeR5JfhYSBNsKRb8oPL225SBcGTTFSe3Zb5xpG59jFEdB6dSdClHVP4ZIWj/WDscrMdUXA6sGXNSAJ49xYS7Pi4T24qplfAn3ARvjcpI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006);
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(18002099003)(10067099003)(11063799006)(22082099003)(4143699003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TVdjeVg0T1Y5cjN0UisrV1Rod3ZMRHNCQVNOVVQxUmFGSFp6RWF5ZkJySW1X?=
- =?utf-8?B?Z254NEJXWDkrME9PTUg3L1dIRXVWQWtRN3B0LzhzUHFocFBCeHVreW5jYlAw?=
- =?utf-8?B?aUFXS0hzTkpFZWtPTDJURVczM0V4WHRxc09uN0FkZno0V2NrSXIyK3dTeGhp?=
- =?utf-8?B?eUZSSlAwM1F3TkNzVnh3eEZQa1gvblB1MHEwZ1NRTnhzK3J4ek4rbFF0MjMw?=
- =?utf-8?B?elBnUjFiQjdUMElIc3B4Y25YQllOY3lidkQ5NTFCeFFyZytKOEtBVk5MckJw?=
- =?utf-8?B?OGtwTmsxdzF1alROU25Vb0NTU3IxK3ZXSEJkV0xMUTQ5YTJEcXNaM0VnQyta?=
- =?utf-8?B?Ym5HaFM4U3JobTBIZExScHhvLzFUM1ZIZlduU0cyTHBqUCt6dzd2Q3N2ckVz?=
- =?utf-8?B?NWpJZHRrblZDUk9QakVLRWcyVXg4RExONitYNVJVWmJPcGZPczVnUk16emxz?=
- =?utf-8?B?M251RzMybnFBMHhoR2IwWjNtU00ydXdodmI1Qmh4bHhNR0dwbjBnNEVXcDRC?=
- =?utf-8?B?cnY4SllLMHhEamRVZjVEL0lrMFBwMUxPMGVIYlQzYlBEZ0JlMXNqRUZRNXBS?=
- =?utf-8?B?VzNta0NZZFlmd01zWENjTjVTRGgrYWVhYmxqbElpUFNndm9iUVFIWnpYRWFn?=
- =?utf-8?B?a256TXorRWgwRWNTQUhCOVJKWmNCbWZXWXE0WHoycWh2RVFGZGxHMWI1QmU3?=
- =?utf-8?B?aFhEV3dkVm5VVk5uNTBWc0F0Q1lwRW9HdThRaFRjV0JIMzY5UE9KQWVXbnFi?=
- =?utf-8?B?S0NZbTNBYXUvSmcycnRPRXFnSGVaSjV0cDZvazh5cTU2Z0cvQlZZR3lhd0l3?=
- =?utf-8?B?dkJJb2dzWTJDWlROaEJSVGJXOG9yZGJyZllSTlgzL0ZGSk9nRW9UaElpU2Uy?=
- =?utf-8?B?bkRYVlplU2FqdGlvR3ZML2RHcmVKbHlzLzhkdDlZTnhlKzlDbmRsZ3hnWVhM?=
- =?utf-8?B?OUFZMEVYOXNMZlB6TUUxdkNITTNMT2k2MnlrN1IvYWpZak51Z1JNSTNnMzNa?=
- =?utf-8?B?YzlKOU80NnZZcldwK3dYaDBoRHJNSTZYa2hEWGQwaHdHcWxQbEJoaWp3cTBx?=
- =?utf-8?B?OVpzcm1RUGRnTmdWUittbkhXWmVUMSt0MDFhNFIyUElOR28vQ1h6T3UybTdp?=
- =?utf-8?B?MnA5cTkxdjdWQ0p4bXA2SjRpQkxOSWZRcXZqaTl6dkVsZERKWStYUzRlejVw?=
- =?utf-8?B?cHloS1FVOE1ucXJNWHBmY2k4aDZVa293QXhWMForTHRhZjZNdzZLdEhheEtt?=
- =?utf-8?B?NStmdGwrUjZTM09LQnU3aHFKTTZoUVo0S3NJenRZNFp4TUtRNFh2aDhTYzdm?=
- =?utf-8?B?WEloOW5VUDM2SlBDcG5kaFZLOTFVUGNFYTYwZmNvTkJiVE43OTlIWEtCMEpJ?=
- =?utf-8?B?R29sbWh6aHF5ZXBiUENtcXZaNkYwNkM2LzMyWmh1TDhpOHBFN3I2WUg0c1ZN?=
- =?utf-8?B?MGhsNEtZWTRSc3ZIR3hqemZHTmZuL3BpOXQ4ajF2WDdEUnJ3YXhJeUJMOU5R?=
- =?utf-8?B?cW1BM2FlRzRCU0xIWE52allWTkM1MXN2N1AvZjZwVUVHcUFQMXNxbFdncVQx?=
- =?utf-8?B?bTNrVWRHeVp6eDJQTWFya3ZaRW9nRndHRXM5S3Y4a3FjY0xkbmRSMU8vTlJ2?=
- =?utf-8?B?SHF5QW1lTWpHQmxMSjJpRGZqclZvNEc4cElQTGR5SjV6NjZOQzFoQXlUMGoz?=
- =?utf-8?B?T1ZXN0E4ZUJvRmFRWUVPVkUzVUd4ano3Szh4K0QyaXlONjBjMEU4NEp5WkRj?=
- =?utf-8?B?ckFvL3dLRTNpdGxRNm05aWI0a28rWGxUWlFjbmY2czVWQ2lDU0tnNVdVRFZn?=
- =?utf-8?B?Qmt2NTJoN0RjNlZuOG1wR2dBZWxUVy9zM0NmQkdENUtjRHk2NUJWTDc4aXUz?=
- =?utf-8?B?MDlKYnZET3FWbEJUNEJ3VVBUZldvektZeTF2QU9OSlhkS0laeVhFNysvb0NU?=
- =?utf-8?B?eHllWWJsQytZcU0xdmZzWVl6eFE4a2pVZ1lSZmZBU1JYL1VuZXZTT1hpeGkr?=
- =?utf-8?B?emNueHd4OG03dkVzb256SWlsSnZtYlJjWjhtY0h3YS9OYzBtd0JNSTdKOTUy?=
- =?utf-8?B?WC9tOE5Cb0l3Mzh6cFF5UlNkcmlWQTZ2ODF6QzZqb1BET1NVK1ZtT29NTjJ3?=
- =?utf-8?B?bzJFY1AvTFhiYnUveFgwL2VRSHVqVkt6TUx0WHprWk80Yi9ZRHdhVnlsNVJm?=
- =?utf-8?B?Y09Rcnl0NXZTZDI3aS9iV1BvRVpiWTE4Zm9aWElCeitMMVAwRG1aRTJzY1dq?=
- =?utf-8?B?K0NseDRPZjBYVVBMWUZMVlJlYTBpWkJzaEg1YlJPTFl6ZXZQV0xTWngzMEpH?=
- =?utf-8?Q?WaHDvuyDOifuov6diq?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TE1ZK1FKdzQyWWNHcGl0U0Y2akZkM1ZKbXI3ZHNrSVZINEpDODRVTTdMemVk?=
+ =?utf-8?B?YkJhTm1LOFRIMUViRlBDY2NSY0tsWmZpSmx4VjJBK3NxUGh2NkpWb1pJUUMv?=
+ =?utf-8?B?eDdORE0vNmlpWFI1VkpacmRrZGVLZGE1TCtFRUI1WGpWNjFZY2FQcXg0SkFY?=
+ =?utf-8?B?VWVBRHh5dzFDNzRMcjZlaDlkWDc1MG1HbHFyRDFUTFlJZWtzUGs5MklCQkgw?=
+ =?utf-8?B?Uzg5VkdoUDhOa0hOUG9CWUQ3OTBhZEo4eVhXMzlHK0dDYVlWVXdIaXRBckFN?=
+ =?utf-8?B?dHFiZTdUd1BVbXJwY29CdktsZGxBMG1EVHV6NTgwQlFKSG5NUElBV0p1MkM2?=
+ =?utf-8?B?YmFCaUsxSVo5emo0TDdUM1BpR1o5ODhjUWZobzNJYzdMNk1yZ1lMcGpnUUkz?=
+ =?utf-8?B?YmZjRnU1azRPelpHcGJTd04xWnBDa284MUR1RW0vNVJiR2xQeWZ5eTNRR2lt?=
+ =?utf-8?B?akQ2TlBUSDM5TjI2UlpEaUhVVWU1Q2lteng0cUtsRmJkMkJabkNDdzhBYThw?=
+ =?utf-8?B?WFM0M21SbTVxK0wrWXpiN0Y0bXU2eldFK1VaaEZxRlJjbmtKSmFJaWRIalBS?=
+ =?utf-8?B?Y0VIOWlQTUZpeElBREZGOUJQK25mY2RETnNSZGlFM3J0NzBVOG5pZ1VCcmRT?=
+ =?utf-8?B?NlJ5UUtxYlR3VENxczduK3RLYUtGaHNYS0tZWWx0azBzbG4vaEpMWmlsU1pO?=
+ =?utf-8?B?anZNenVFdXVNa3VNUzBIUnFFM3hQUE9wV1g3NlVSTzh3akloLzNQSEZnUjIv?=
+ =?utf-8?B?QTY5R2JXVmJ0dlc2K1JCb1J2ZDVDamQvcjdjbzdheERyK29XNTgvaUhsdzlP?=
+ =?utf-8?B?WC8vaHFQQjk1NjN0ZEVPZ1JJRXNTcWU0bk13dTZ6OXdIY3lzNkNSR0txMHlW?=
+ =?utf-8?B?a1FqYlJhaTZCdHZPTEJLMTBpY2xKZjdLcm5UbzJFcGhXU1AwVTdYb25GaU1N?=
+ =?utf-8?B?d3BCN3k2d1V5UU9uVGYrWVRGMEdMMWlHdlhnSjRIUzNhMCttWi9abFBvQ2JN?=
+ =?utf-8?B?aWJFMURpMVV1VXVjS2NhVEVLWjdscVd1SFZzZnJiWTRyZmUwaEhzVjdZOE10?=
+ =?utf-8?B?K3gwejBRTUFlTEt2by95MzVEZ0JqTGpkWkR5dnNTL3F4cnE3dWJwTW8wUjE3?=
+ =?utf-8?B?WW5wNzRMUUx4MDI2SWJucGk1eFI2b2tiRG5qRDVkMkpKYW9sN0ZJYU13UFNu?=
+ =?utf-8?B?bThWYzhqa2pkTjE5bG9hNitzYXRKVXpveFVVTHpaRnAvRkFYaXlWWjh1NlJE?=
+ =?utf-8?B?TWZJUXRwMXlNbGE5aFB4RXNPOUhQdnVieW9tN29ZU2VEV3JXUlZibHdkeDMr?=
+ =?utf-8?B?d3B1azJHM2QvWHI2aDd0ZXZVZ09YK0h2UHY1eDJYT05NNFVwNTJBS2tDczUx?=
+ =?utf-8?B?ZHc5Zy95eHVDYU52dXVsamFObzVqMzJzM0UzOW9ZVXRwWThXQnpGKzlLc05n?=
+ =?utf-8?B?Nk1Dc09mRmh3N2RXKzV1VGxxQXNlM0FVUi9oSThxdzhON2RDMUlTS0FCZW1M?=
+ =?utf-8?B?RndXUmZMcjcvSHl6VmtMcWVOWURyUlU3TDBKSDQyUEJ3c0JzNmRpb01WdUpk?=
+ =?utf-8?B?ZkY2cDVQYjNmUGVvczl1NzUyNiszSkZBNGxjZzhGZDlOdzhxbGR5eCtqZFJ5?=
+ =?utf-8?B?eWYyTVJLV0tQdlhWSS9FLzdhWHlpWTNpMjRyN3dlTWVyN21oeXVyZUZHbmg5?=
+ =?utf-8?B?aFFaS1Z2dlVnK01XejJwMVNZNlZnNXhqWk9MT0lrcnVzVzIvblFOWFVYQkpk?=
+ =?utf-8?B?Wjk5YW1vTVVkWXp1Y25hc3JybXYwSHFBeHcxUDUxOU5MQjRiYmROTnJOSjhU?=
+ =?utf-8?B?RGJDTHVVMzlpM0R3V1BxY1Q0ODZsOERPZlp3a3V4dGFZL2dmbENkR2xvVHFU?=
+ =?utf-8?B?cE5MTDd4dDRMOHZvb3J6WU1ybmIwenVjN2thY0R4a0NvbXp4dDBkTXI1Wm5F?=
+ =?utf-8?B?dDB2WXc1dW0rdDlMVEtDOVgyNUlRRnB4S0ZkR0NMNkplKzdUWGlPYmpLa1Q1?=
+ =?utf-8?B?TnRnRUNjb3poVFQwYVlnenQ0alZpN0J2dEdWeU9RSVdRQlI1R3p5MksrUzd5?=
+ =?utf-8?B?N0R2SVA5TGV5Q2dsL0tWU3dsMTRLSVdNZ0M0cy9iZlU3djQ2RS8vYmhuRllx?=
+ =?utf-8?B?VWc2SWNIa0YxcGFMRlBoRE96RTd4SmUwUzN2VmQzZXI2K1VoNDF1UktzSjNl?=
+ =?utf-8?B?SWcrdklSYTJDY0NjTU9WZVlGaXNzVXpVVGNnRzd3c3NrZTJRK0lmeGNMalpS?=
+ =?utf-8?B?OVk4a0VJZVJYc3A3RHJnZXZLdFVCYWc0NmFWcVZ4bXZRNVptUzFzRm10Qita?=
+ =?utf-8?Q?sdTfKs1nz3sDj2dfXH?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 177feef7-2739-4303-0894-08df12886d63
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04bf739b-9365-4b9b-6c5c-08df128aac62
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 17:48:47.2142 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 18:04:51.8619 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Jt9d/CPyicV1Q82kPfKzROA/TSSiS6vQdkcf19+cvMqcsxGwdLaiVF1qxT9/uq+O
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9156
+X-MS-Exchange-CrossTenant-UserPrincipalName: IHcPMxMyCB7UDDIa9LQSJ45BwwZGjS+oC9n15XXvnjP5/ZV1v91RUzyL5V7Zgb/G
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7036
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,119 +138,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/14/26 17:25, Lazar, Lijo wrote:
-> On 14-Sep-26 8:24 PM, Christian König wrote:
->> On 9/14/26 16:45, Lazar, Lijo wrote:
->>>
->>>
->>> On 14-Sep-26 7:30 PM, Christian König wrote:
->>>> On 9/14/26 15:56, Dmitriy Chumachenko wrote:
->>>>> The reg_state readouts return szbuf bytes but never write the pad members
->>>>> of the headers and of amdgpu_smn_reg_data (and, for pcie, the fields
->>>>> skipped when the upstream port or AER capability is absent). The sysfs
->>>>> buffer is a plain kmalloc(), so those bytes leak stale slab data to any
->>>>> local user through the 0444 reg_state attribute.
->>>>>
->>>>> Zero the buffer once the size is known.
->>>>>
->>>>> Found by Linux Verification Center (linuxtesting.org) with SVACE.
->>>>>
->>>>> Fixes: 081a6eda2b25 ("drm/amdgpu: Read aquavanjaram PCIE register state")
->>>>> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
->>>>
->>>> Good catch, but stuff like that should be handled by using kzalloc() instead of calling memset it manually.
->>>>
->>>
->>> It's the default sysfs buffer allocation which may not be used entirely by all drivers.
->>>
->>> The concern in this case is that driver is telling it has written x bytes whereas it could have left some fields unfilled in the buffer. I think the fix is fine.
->>
->> Wait a second, is that because of messed up padding in sysfs structures? That is usually a really big NO-GO for upstreaming.
->>
->> Structures returned to userspace must be padding free, see the tool pahole for how to double check that on different architectures.
->>
-> 
-> It's an explicit padding like below for alignment. Those fields also could go unfilled.
-> 
-> struct amdgpu_reg_state_header {
->         uint16_t                structure_size;
->         uint8_t                 format_revision;
->         uint8_t                 content_revision;
->         uint8_t                 state_type;
->         uint8_t                 num_instances;
->         uint16_t                pad;
-> };
+Hi oushinnyo,
 
-Ok, got it. Yeah that approach is perfectly fine.
+On 9/14/26 17:00, oushinnyo wrote:
+>   Hi Christian,
+> 
+>   thanks for the review. I understand that re-adding the mapping to
+>   vm->freed is not a valid approach, so I will drop this patch.
 
-But we should still us kzalloc() or at least do the memset at the IOCTL level and not in the backend.
+Keeping the freed mappings on the list is actually ok when the updated fails.
+
+The problem is that we then need to revert all other changes to housekeeping structures as well to still have a consistent picture and I don't think that this would be easily possible.
+
+> 
+>   The failure path I had in mind was the interruptible CPU update wait in
+>   amdgpu_vm_cpu_prepare():
+> 
+>     amdgpu_sync_wait(sync, true)
+>       -> dma_fence_wait(fence, true)
+
+Mhm that wait should probably not be interruptible, but it is extremely unlikely that this actually matters. The wait is there just in case.
+
+The only thing which can potentially go wrong is that the device was hot plugged and in that case it doesn't matter any more what we do with the page tables.
 
 Regards,
 Christian.
 
 > 
-> Thanks,
-> Lijo
+>   I do not have a minimal reproducer yet. I will investigate the actual
+>   call path further before proposing another change.
 > 
->> Regards,
->> Christian.
+>   Regards,
+>   oushinnyo
+> 
+> At 2026-09-07 20:04:16, "Christian König" <christian.koenig@amd.com> wrote:
+>>On 9/5/26 04:31, oushinnyo wrote:
+>>> amdgpu_vm_clear_freed() removes a mapping from vm->freed before
+>>> clearing its page table entries. If amdgpu_vm_update_range() fails,
+>>> the mapping is currently freed even though the PTE update might not
+>>> have completed.
+>>>
+>>> This is particularly problematic with CPU VM updates. Waiting for an
+>>> earlier submission is interruptible, so a signal can abort the wait
+>>> before any PTE is cleared. The old mapping then exists neither in the
+>>> VA tree nor on the freed list, allowing a later VM update to reuse the
+>>> virtual address while an earlier submission still references it.
 >>
->>>
->>> Thanks,
->>> Lijo
->>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>> ---
->>>>>    drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 8 ++++++++
->>>>>    1 file changed, 8 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
->>>>> index 72ea37dbfea8..0086de0f685d 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
->>>>> @@ -610,6 +610,8 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
->>>>>           if (max_size < szbuf)
->>>>>                   return -EOVERFLOW;
->>>>>
->>>>> +       memset(buf, 0, szbuf);
->>>>> +
->>>>>           pcie_regs = (struct amdgpu_regs_pcie_v1_0 *)((uint8_t *)buf +
->>>>>                                                        sizeof(*pcie_reg_state));
->>>>>           pcie_regs->inst_header.instance = 0;
->>>>> @@ -702,6 +704,8 @@ static ssize_t aqua_vanjaram_read_xgmi_state(struct amdgpu_device *adev,
->>>>>           if (max_size < szbuf)
->>>>>                   return -EOVERFLOW;
->>>>>
->>>>> +       memset(buf, 0, szbuf);
->>>>> +
->>>>>           p = &xgmi_reg_state->xgmi_state_regs[0];
->>>>>           for_each_inst(i, adev->aid_mask) {
->>>>>                   for (j = 0; j < xgmi_inst; ++j) {
->>>>> @@ -776,6 +780,8 @@ static ssize_t aqua_vanjaram_read_wafl_state(struct amdgpu_device *adev,
->>>>>           if (max_size < szbuf)
->>>>>                   return -EOVERFLOW;
->>>>>
->>>>> +       memset(buf, 0, szbuf);
->>>>> +
->>>>>           p = &wafl_reg_state->wafl_state_regs[0];
->>>>>           for_each_inst(i, adev->aid_mask) {
->>>>>                   for (j = 0; j < wafl_inst; ++j) {
->>>>> @@ -902,6 +908,8 @@ static ssize_t aqua_vanjaram_read_usr_state(struct amdgpu_device *adev,
->>>>>           if (max_size < szbuf)
->>>>>                   return -EOVERFLOW;
->>>>>
->>>>> +       memset(buf, 0, szbuf);
->>>>> +
->>>>>           p = &usr_reg_state->usr_state_regs[0];
->>>>>           for_each_inst(i, adev->aid_mask) {
->>>>>                   usr_regs = (struct amdgpu_regs_usr_v1_0 *)p;
->>>>> -- 
->>>>> 2.49.0
->>>>>
->>>>
->>>
+>>That would be indeed problematic, where exactly do you see that? Do you have a test case for this?
+>>> Put the mapping back on vm->freed on every update error. This keeps the
+>>> pending clear operation alive and makes later VM updates retry it before
+>>> installing new PTEs. It also covers partial CPU or SDMA updates
+>>> conservatively.
 >>
+>>Clear NAK to that approach.
+>>
+>>Freed up areas of the page tables must be cleared when that function is called or otherwise we run into tons of problems reverting previous changes to the housekeeping structures.
+>>
+>>The only valid reason this function can fail is because the device is hot removed and in that case it doesn't matter any more what we do here.
+>>
+>>Regards,
+>>Christian.
+>>
+>>> 
+>>> Fixes: b4d42511b7f2 ("drm/amdgpu: Support page table update via CPU")
+>>> Cc: stable@vger.kernel.org
+>>> Assisted-by: Codex:gpt-5
+>>> Signed-off-by: oushinnyo <oushinnyo@163.com>
+>>> ---
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 ++-
+>>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>> 
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index 47cde5459469..e20905d2d90c 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -1606,11 +1606,12 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>>>                 r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
+>>>                                            &sync, mapping->start, mapping->last,
+>>>                                            0, 0, 0, NULL, NULL, &f);
+>>> -               amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>>>                 if (r) {
+>>> +                       list_add(&mapping->list, &vm->freed);
+>>>                         dma_fence_put(f);
+>>>                         goto error_free;
+>>>                 }
+>>> +               amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>>>         }
+>>> 
+>>>         if (fence && f) {
+>>> --
+>>> 2.25.1
+>>> 
 > 
 
