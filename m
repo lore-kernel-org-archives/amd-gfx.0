@@ -4,124 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95968C88E65
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 10:51:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 702B8C88E64
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 10:52:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1601B10ED3B;
-	Mon, 14 Sep 2026 10:51:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E54F610E472;
+	Mon, 14 Sep 2026 10:52:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v2b6mtlr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DMB9u2z4";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011001.outbound.protection.outlook.com
- [40.93.194.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D104C10ED3B;
- Mon, 14 Sep 2026 10:51:21 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013065.outbound.protection.outlook.com
+ [40.93.196.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 213EE10E472
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 10:52:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ec0ulXtTFJ/w0FCM6f6Bt0HaBHW6eYjYXPe65b0tBvD6LgLFlN4GrdP92mc5G+AeYaFjdkiYUvPjzTJkckWD0zJKBDgIvWcmf9eiW4gek4SUcBEQKXtvNgIS+3Bkjw+a1+LcVpfMo4bVmb8djfw1HHka55TEgBd/sxB+1BDprv8d6w/ZIararU+h9W/mV8niBuitLW+LUb9UUMBdYH7N27WTqcqdspOdL+ocnF0eiKdI/GjVR8Y9irL7xNSmb/sJ0MH7s0p1PQ0RaXv4x4JNSYOv/q9yDl0rshgMert4suripubv6yCqxLjJ29itk+rSMR3fdVHZNYudCVsBO3CEXA==
+ b=hlxAYaLYLwIvKAnHUG2ifT+qyXEYONRaRs5GlqXPchGsIV6Pxrw/H6tR2iYeRb4FQCxDJf/njFY1TkfrVYOsy8KWiF1l6K3wIshA2d0U02ZYb8E+cWWsQro3pglwreTLoKQxW/hOB61POjMBNQ+Lf55ybHyBJOqzq6qPb3cAAitXh7S1l8WeDBA/K3d9/RFdL5/F7CZeYaIyIzJOQObEYfO8vb6DvlShZhmptEAT3TkF8+QP4qVUVbhKS7GpccjawOMkqhS1APQ0SMb6khSA1/bfOBFrg2vn2gXfcPxChFBYREG82/1R5420xFaNcUg3Fsqn9uf/JCBA95N5obA1Dg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t+bcMVF1Z2rYLuGd+h48J18MVrpvWKMe/XXsyvgl9K0=;
- b=QcK6PAtGq+GOK/WtwcA5Y9DUiBZUW4kLoX0npLGT3EJdr7sUaB/GU1Mq1934k6A3i7jClDMvBCqcnJQD8BihjdCvnpKuC1EpZkxWVBllRQJldYxpJR3rS+0566aoH93SUX3qDbl+5PAfyojqG8M3DI0uSdOocMglYY2L9ZYeBM3KXaAEvkqOWstsMV1WGqvi8iSsS5qPBQWcwcC99knQBUpBxCJTn2wWT2DFzccgn0ME+dtS9Io1ZFVBRV8x7tYDIt7f2ntEN+wBaG0TFfzbzf6WmARvsPTQyWRFd0imAzHvcaWzYyChJGJ7ps6qNaT8amGBvg2Z584esi5RCJ5wXw==
+ bh=qPLjyHoa5JwnwwDShraSsc2ce6sK99YHvjUOOWVIFDw=;
+ b=S1sNkAmr5UtTlSBjzarrAv54Ibniz83ZvSvMaDO70N4HSV/GIWJ179KR6zIycWg/Y3jkCFZeEHvDUD68hzJ86JqZryFVoOQYKSc2bjUMli4GcrmDeyWuetF8Ub0e9NBXIhUcudbuyhyEYHO7lskamrCQWXvSPL2I3rBYEkUiVUBdxdi0WHGCDpSJwxZgRDE4gVZInTPdZytWRDtvd2tgl35dbYOizx36Qyp3MgNMtA0Y1eJOwbKVU/NLzx//ONBJ8NSDhGW1wiQoom/UrhKyxdsv9J3NDCZ++7RW92D6qaSJzLF0TTlkZ5KUNFmjBLtlztCEiiO5yQp1zBfqdQeLKQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t+bcMVF1Z2rYLuGd+h48J18MVrpvWKMe/XXsyvgl9K0=;
- b=v2b6mtlrStMeAlxykRKUUgomL6bfEQ7aXgMDTbeauZ4GztqTE89mXgtvodj0wnh1p8bIZB1VAhbbUIUbXJkTTaOtZTcghegln3kU76WDVQD3t+W90rZsJ9SvDXcf/llLuifVqkfMhybwadJcwTyo0mv6uVnH912ENnpAXNjvNOo=
+ bh=qPLjyHoa5JwnwwDShraSsc2ce6sK99YHvjUOOWVIFDw=;
+ b=DMB9u2z4EIsj3wg0QEU0FHSmbYaWaxo9rYB53Xqe4m4/nu844b7AuOWfiqQWig8oHZC2/RCbETVkCC9lifORviA2SC9S1TUJaLR0zXJ69+ySKGNy4S25Abc1Eay3EVPparypQAsbtXyBc/oZzrvu1adPmvNUJtc8rFVysgC0iu8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by CY1PR12MB9625.namprd12.prod.outlook.com (2603:10b6:930:106::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 10:51:17 +0000
+ 2026 10:52:27 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
- 10:51:17 +0000
-Message-ID: <afb6cf0f-ca0b-4fb9-b7f7-2355ed45386c@amd.com>
-Date: Mon, 14 Sep 2026 12:51:13 +0200
+ 10:52:27 +0000
+Message-ID: <76a0b557-0122-41ab-ae74-4d6bd9b2719f@amd.com>
+Date: Mon, 14 Sep 2026 12:52:24 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdgpu: hold a runtime PM reference for P2P
- dma-buf attachments
-To: Mike Lothian <mike@fireburn.co.uk>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, kevinyang.wang@amd.com,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-References: <358a518d-1490-40ba-bbe3-7f3696c1d696@amd.com>
- <20260911183825.935140-1-mike@fireburn.co.uk>
+Subject: Re: [PATCH 7/8] drm/amdgpu: get rid of amdgpu_drm_ioctl
+To: Shahyan Soltani <shahyan.soltani@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, pierre-eric.pelloux-prayer@amd.com
+References: <20260911154212.591213-1-shahyan.soltani@amd.com>
+ <20260911154212.591213-8-shahyan.soltani@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260911183825.935140-1-mike@fireburn.co.uk>
+In-Reply-To: <20260911154212.591213-8-shahyan.soltani@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0430.namprd13.prod.outlook.com
- (2603:10b6:208:2c3::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL1PR13CA0426.namprd13.prod.outlook.com
+ (2603:10b6:208:2c3::11) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY1PR12MB9625:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18c92262-f347-4348-8ed0-08df124e1a6c
+X-MS-Office365-Filtering-Correlation-Id: e7ed4984-f697-4cfa-c3ba-08df124e4457
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|6133799003|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: CmTS3Dlhdd8k6OvMUG0BT/5yoUX6E481br1EtMyRbCeF8Z3mtAYimDELcMgRjIbHSlhRbRBwUZertlMMniL/Z4TmhrReaebgSeHIYsHHmAkixLxAlpI/xr8GUmijqus53X2zoc5pYQrE9/OhtKEnJkHFBem+H880j0W4UYxQHNa6DHy7GD0t3cUf8gt6gchmL8aPRNSgJ6lkiABXw6RC1TMHK9fmH8r3bJQfxrThXFMfqDNBc2BizUDo1BxknfCx7e8bx0H4X96piQrBIErOw8yOaVI0/4HCvbDDnBTcoCrgl+YffqnqPJkW07tiIywCHRAC2avU/7slXUJoWN0xlR/7MZ5T3j4Cv4SAxKUEluqEgT84WmLT8GKZdujAwbswYvwiv1php5oUJFO5BLNlbbSO+5ZIdmwvG9t4qobZucZkFRHJMv5r5SqUNkrVTuh1tBCVYcqLEYGB6kPHpOly1zbeeV8uBlNFTc1d9P9Z9zC84a8NdPQcik6GEuLnzQnaj9TuAjm/vsGbp+3Ctc0rE6PsaiYOq/fDDVuQ95yuXMoVOQl+syja+UO+dfAPTAMRtamuARvW2H+NEd177gPKSsSfiDoYKF197F996I0lfo8ilJUApd4nqOaPawoGAkUPTZeMvfysJEJ1f7VnBHynougZVP57sf+NOY8XYOwrQbo=
+ ARA:13230040|366016|376014|23010399003|1800799024|3023799007|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: vrUhrnfhWRiJo2VlOiLvfptOHI+LAF/bidBfUPNZzJK+MYqsZd6XqUr4Lyv/HDdHGBSv9UkcrJ57DlxgVfSkbzmyWP3S9it8MS04t7dpz1hfBT4San2BGdHwDE5xobFxPZIgfQ8oxOMIYlPAFES3KSWM6JxaNFYDCJx8KWQ0Qxgynt0BHGQjcDjExja1vRw6uV8hzFpcF8hNZfc+9Arpv5WCS8nvLRr18YxRAxBiUgmloztVsl9Hv67kMUJMjdDXpG5lEWiq8FURHqEOHhDnSUzJkUFvzFgcsqq0HyTLbcO6OtQs5OtBDxWhLYXcJQSEzGoDCHCNRo84N1sGvcSH9Q9+AYoi7D0FsLNzRAAqeoiq53AIF5suCjucsbn1MNReq829ZYdGQjaepnkyyfTpO7zVCi/FD4JDS15iumSKwVtavFCv2qim8jSAiDmrkdQFbMNve8fmvbKlimxLPVeOAn/TN+Am7/mgPHzLkSqdnIMeAo77uO46kZVfiwwymDhjMDSjdOU6h17/UrZLzrbgVgCXCXFe/zmSZ19d5hZLJ2T+5uWS0WzQhK7y/De4S/sWLkOq9C/BzEIArlJLDdBCpsufV7liPRpllVlYWXJRgWPXMXdBBcZAQk2YpEjbKPm4hjFcZ361ZFddkSEHzPVXxLb5Dts4wMT5tKvsbMDM1ZU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(3023799007)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUJYVlFBRDNrZFc3OTVBSFpRY3RPcElPWmlITm8zM3JXUHNXUGZZQi8zQlF2?=
- =?utf-8?B?b3graEZtSXhGZXV1NG5LWnRwdkJQcXJOR2RqM0NGQUc2NEdXMEhuMElSQUFl?=
- =?utf-8?B?STBTY2w2MURJOVJZT0Zwc0hOdDMreWRjcC8xTG1ndk9HeHB2R2VLOENKNVhO?=
- =?utf-8?B?OWw4ayszRHg3cHF5NnR2VmFzaEN3SE1xM1o0UTY4c05uUGUyNXVKTkdmazN6?=
- =?utf-8?B?N3Z3aVVnNHBCVUFsWDBjbk5pTVBmQmhtSlpGaXRXTXIvRkNiUHZrd0t0aXpE?=
- =?utf-8?B?QVNnR2pJVXFrV3FTYTNYejFVUGlVUk5SZW5CUlBmQlF2RzI4RE9CQ0dGb1hi?=
- =?utf-8?B?OGtoWjBiMGZ2UFJqb1JmTE94SXZiMjYvZzdJVWhPaTkzdXJEdFRRQU8reWFX?=
- =?utf-8?B?a3h0bnFTdUh6RG9DSlZOTDJrMU0vN2JhTkdtTzJaU293UlJyL2FpK2UwRzBy?=
- =?utf-8?B?ZG9EK1B4ZmVwQlBVMUpyY1RHTTBwdjYyRlRHMmMrMTJ6M3NiL2ovMlFkY3Np?=
- =?utf-8?B?OS9uRTFhNTgxcnRScC9YYlNTNGZzdkxPYnZYODZWMi9VRUJlMDhVWGNhanAx?=
- =?utf-8?B?NDBCdXFlTmMyUWovYjIxaXMvdCt0SnBZL1FMMjR0aTVBQkNwaktEaDc2YzR0?=
- =?utf-8?B?WjVXR01SdFJSMEFlRkorQ0IwNm1JcEd4VjV3bzdlWklzT0JQOVlaOWh2ZndO?=
- =?utf-8?B?SW5NTzVEYnFLbG16NElwNUZmUjZKdmNtaW80TFVjd3BMTHIyVm11Qi8wVmJ1?=
- =?utf-8?B?c08yNW8vS0VNOXVUOGxKTy85bWxkei8rRDl0VUdJSnE3N3puaDlMWHlndjhv?=
- =?utf-8?B?TWhBQ3QvNkdObzltZ3N0dmYrYnBqa0JwTlB3aU9JKzVObnJLWkJGTlZsNm1o?=
- =?utf-8?B?ZlRxbEMyc3lyZXpMZDA5QStwZ1JXTjFnOHlPaGhtb3pYS09ERElBdytSVUVk?=
- =?utf-8?B?ZFJKT1k3OGRzTGhNYmc0ZDA1bWxiUHI5bjNSSDMzM2xzWm0wOWxFZDNpbkps?=
- =?utf-8?B?L21KaXR4bFR1RmszVHBEU1lJQWF1VjBPVjI1QzRad2xncmFVR3dyQy9VenJI?=
- =?utf-8?B?di9ZVUtSbUgzOXZTT0dkNlRieHhrc0RhOFRBTzJrM3VpU1g0OHZpelFLaEw1?=
- =?utf-8?B?bnhQQ2IyN1JOYjdEUmY3Q3FhY2ZhOVVySStWM256bVE0V3lOK2V1L3d5bGdk?=
- =?utf-8?B?RlNkVGEvS2FXUGxvZHNsNS9vL2NQV1duZ2JURzIyelpZc2hJaG1yS3pvUy81?=
- =?utf-8?B?Z0lOcmtCczF3Nklxa25aTTdJYjhORUpxL2JyRmdZWGFhOWdObm1hVWhSSXhF?=
- =?utf-8?B?Vll5RGRTT3RMOVZjQ2JJQVg2R2V0c21DZWQvTlpKYVVOQ21XM3J1WWw0MmJM?=
- =?utf-8?B?NXJEdDlndjlROHZyTDdUL3BCN2dwOXRQTy9MZFFyZkRuamVhd1R1N1pNUkFF?=
- =?utf-8?B?dkdHeEd3MDdWdmxpcmF0bDYzNVdHV0dIeGFGdnNxZXI3SG9RWkMxREJKcmlZ?=
- =?utf-8?B?dmJFdkpmU0U2aCs4SHdLZU8yTWlTR3orcWJYLzYwbWpZRXNyeHhBa0tyelI5?=
- =?utf-8?B?cGNTNEtsbmdoSHpHZG1oMjhkbi9OSHhZemt2Q0dZTVl2aEc1M2JOUWVodnBO?=
- =?utf-8?B?R0I1TDRGZEF6bFFiMW4vRDNaNTYrNEZ4allNY1kvYnBEeXR6MDlLY215eGhi?=
- =?utf-8?B?eDVpMjNrRzQ0dVpjL0RiWUJkNjBTOUhpbXRQQjg2OFhLM29VWmZSUk9kZ1FN?=
- =?utf-8?B?ZXRsK3hXTE5zNzNJaWFwTVRJcE5DZWJudkVIQ3VwUG5zeFNWeTUvUnBTcndq?=
- =?utf-8?B?VEsxWVhyNUMwdWQwVFVjSWZQUXBmd0U1MWpQNEh4VllSZ05hWW95ejlUcVhG?=
- =?utf-8?B?MFRqUUVjemplQS9JVzM2ODRhSlJRc0hEVlFicmR3TFlZQk1oZnQxZVI0bFd2?=
- =?utf-8?B?Wjk4Z1VCclJUdEdKTHRJNUYyYTJwdThSRFhoRkVqNmJGOXFidTFuZmRXMlNj?=
- =?utf-8?B?djU4U1ppamdOaW9DS0FuNlowYUFQVlQrWmZhdUlZa1pidjM2UjlIZlVkN2xE?=
- =?utf-8?B?amU0WUZKeCtGa3Z5clkxVnp6UU9MUEMrZWg2RVJlY3hUU1RxdlowemFpUzdP?=
- =?utf-8?B?SnliUUhZQ3Jjc0JyalhiKzRkWnVOcmh1WVdmZmgzMWpaeldWQ2dtdE1uTU1n?=
- =?utf-8?B?RkhDU1BnWEMyeFdYL0J0OHhGNkJUMmxyR1dqMmRldUZiM1RXM3pnT3NjMlNo?=
- =?utf-8?B?K0ZYeEtNUUNVTzhYeUdBNmNwZ0xha3FJWXNTTDJhUFQ3OHpVcXcwNTQ3V3pH?=
- =?utf-8?Q?zKWNvYNkfS1T8MND6B?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YlNaVUE1U2RaU3pnMllyb2pMZ25tVnNWandRNVB5NlVveDZtME00ZTI4dHJT?=
+ =?utf-8?B?MitvTXljdGlMbWZGRTVEODZaSFJTcFdOamYrK1hTa3NYV2VDUkN1eE1JK1Zp?=
+ =?utf-8?B?MW91clFMS2NxYnFiZGppTzBSV2xDZVpFWkpZMTNFTjZON054MjNFR1gxMklR?=
+ =?utf-8?B?Ums0a1ZqZ095OVFuTzJrZ1p4Zk9YUHdBZXZCSHNoOFV6Q1N3QUNxUjBCazVJ?=
+ =?utf-8?B?aERybUZyVmdTMjVaN2dIWEU0R0g4RFkyWm55eVZnaldKbHRDcVhEeHRqY0hm?=
+ =?utf-8?B?KzZadGxKaWRYM09QazBORnFQQk1oUGNINmFqSW0yR29HeENvbWZhUlRISEtK?=
+ =?utf-8?B?NytsYnp5TDNyNmVFT1VIR0FoblZuY3BMa3hBS21kY2lLUXJ6UnYxbWQ2U0Fx?=
+ =?utf-8?B?azVqYlhzMW9YdTJHMS9WT3VvVE1PSSt1eE0vOXpoL24xeHBWSGVXNk16SnYr?=
+ =?utf-8?B?OTYxNGdWRUVkUDB6N213ZUhxaWoxaUNaaG9MZ2Q5dXl4SHlVeE5lbkFMRGd3?=
+ =?utf-8?B?Vmw0OUR3cExXWWl1dDU3R09YaHhVNWpiblZ6Ri9KdDZrTzc2ZDRUUFNvSDBV?=
+ =?utf-8?B?aWk1cnV1YlE1SStRdFFCWE5jVmN6TENXSE1oUGZzZmlkMUV1TW1LV3hLZitq?=
+ =?utf-8?B?ZjVEam9jZUhEczREbEpoSlhKRVh2OFBjZE9kdStaQk5McWJuWjJzK0p4SFdF?=
+ =?utf-8?B?SE0xN1NVYnRwMWdkR2tTb3o5elROMmlwOXVqV2ZKR0RPRnFZczVlb0tKQUhU?=
+ =?utf-8?B?L2tUNXFxdTVUbkl4Y3JqNUsxQ3E4ZVRSaW44QXNxdUwydHZhZFp2d1EyZWZm?=
+ =?utf-8?B?OE5PU3pZRVQ5SkcySTRoLzU5QlN0NFo1Z0VqdUo0TEVUUmpBUmFKYjU1ditR?=
+ =?utf-8?B?cTNQcTc5eUVMbzdOZ2R6K1R1aDR2L2w2aU1YczBxUTB1VG11cmM2Mm1FODEy?=
+ =?utf-8?B?TmtUWlNJQnB2S2JVNmdBVUZGdVpTanFtbUpmbUp3UUhLLzRsYU0zVThRTFBp?=
+ =?utf-8?B?RjlUZDhJeGpwYlA1WFVTQnMrR21ndG0rYWFwZTRkOXRjZElJa2FtVHpDa0pY?=
+ =?utf-8?B?WGxCUlhYU09VaTJxQVlGbkdQbWt5RnFqb0lOR3V2YzdTUXlkTkJrOFREajAy?=
+ =?utf-8?B?UHBSa01Tc05QTytPZjhXem5rU1NmMlhZMzVXZUxNWXJsM3k4dzgrMjVvd2dV?=
+ =?utf-8?B?S01wNTFGUFNDUHdsZ3lWa3Rtak5DYzFYNUxCMGlhTWlsWFNMSlpodHBXdkNC?=
+ =?utf-8?B?SjVnTUtmNWR5M1RsRzVPTklDWTB0eG1LNnc3ODJqYVczV3VKZEc1UDVHNWJT?=
+ =?utf-8?B?b1M4ZUNxSnZ0RE5kOU9tZmNQS1FyUU1XNk1YQjVXdWhLWGdFclN2VlJNRjJo?=
+ =?utf-8?B?N0lkOExpTjA5V0NzN0lseHhwTTVFSjFOSFp6NEdVWUpvT3BJdWUvMThydWZj?=
+ =?utf-8?B?Rk1KZHhhbVM3ZnczOEE4MFRTSjRGcnp4MjZTWjNESVd6NXdkRUxEbG1DbjRR?=
+ =?utf-8?B?UFMzb3VSQzJRSGpOZHpKRGZwcW9BaUpXcHgyck1nZVF6SUZKVFE1VCtBSEtz?=
+ =?utf-8?B?K2NMZEY4Njd6ZFpKTjBTajZCY3ljNnZTdm9qd3pEdk5ZUFZFYjFOem9WZnNS?=
+ =?utf-8?B?RUUwVTREaDFmZmdSU3ZqOWxNamhPM0dFN01JNHo5bjZLeWNxVGcrZnVWT2ZK?=
+ =?utf-8?B?MWVTS2NKMVJOcGpiV2oyTlRmL01UejVUeU93SVpjZ2JGbHZrSGJ6UWR0Y1J5?=
+ =?utf-8?B?OHhpaHdBOFBDVjVBbWhtY0I3UWxneXhiZHlZcVNUcExRYXZqblNvZExmV0kx?=
+ =?utf-8?B?MXhOQkNKMjArRmI5VFpGQ21YeFI4VW1mSTNRVkJUWTk5RjFLOVVSQ21XbmRp?=
+ =?utf-8?B?QjdDZ0FZNmpXSnZ2dnludE5yUDFiYXQ4Sm9NcnFOUkJuVUdTSm4zbWtCZm5s?=
+ =?utf-8?B?b1F6UDh1YVVDS3BiU3pmUXRITEdLWlJFUS80L1RwU216YWtnWVVFVEdVZDhv?=
+ =?utf-8?B?YURneG5wNHU1WGxZTThJVVRLSWtLbithQmUrT0pxaVFHa3VFZDg4UEIyZjJq?=
+ =?utf-8?B?anBmOFZiUC9NR3pWVTRhYlNyV2IxSzcrcnVGTGsvOU5qcUJsYzBYSzNFZjdF?=
+ =?utf-8?B?OHB1QnNnOXY3OUh5bERmaS9JemYwbEpqYTlNQWNBM3plYlMvcWRBR3dPM3pi?=
+ =?utf-8?B?dXZNNWZkUk5QT2lGcHFVNklrUSt5TW9pY3RxbHZGYXh1cFE3bzlBdGI2ak1R?=
+ =?utf-8?B?UXlrSHZ5akl2RW8rRmZ3UzZPSHlIQ0cxT0FpcXE0QkZpdFY0UDE4bllOV2p6?=
+ =?utf-8?Q?eGwWh2yHI/kS2N3ZAJ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18c92262-f347-4348-8ed0-08df124e1a6c
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7ed4984-f697-4cfa-c3ba-08df124e4457
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 10:51:17.1943 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 10:52:27.4520 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PU7PEvocksnStBPBBiGrBVb20+5gfAulESaEKJW+GSllvOVhGGI2HUvw6Kgf0fcB
+X-MS-Exchange-CrossTenant-UserPrincipalName: R9FctQaxIzF4iLt/IkLOjB3eM4YaFKevkyjAbyVJtmm1DpQhIKo2CGJ0/PyeIlaT
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9625
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,138 +135,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/11/26 20:38, Mike Lothian wrote:
-> amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
-> attachment.  GTT is only a fallback placement when VRAM is preferred, so
-> ttm_bo_validate() migrates the buffer from GTT into VRAM.  While the
-> exporting device is runtime suspended its SDMA rings are down and the
-> move fails:
+
+
+On 9/11/26 17:42, Shahyan Soltani wrote:
+> From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 > 
->   amdgpu: Move buffer fallback to memcpy unavailable
+> Remove the entire amdgpu_drm_ioctl handler system in favor of drm_ioctl.
 > 
-> An importer on a second GPU reaches this holding no runtime PM
-> reference on the exporter, e.g. a compositor on the APU submitting a
-> frame that references a buffer exported by an idle dGPU:
-> 
->   amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
->     -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
->       -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
-> 
-> Pinning a dma-buf into VRAM has the same requirement, which
-> commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
-> when we attach a buffer" v2") called out as the one case that would
-> need the reference back.
-> 
-> Take it in attach and drop it in detach.  pm_runtime_get_if_active()
-> never resumes the device, so it cannot deadlock against the reservation
-> taken during resume, which is why the old pm_runtime_get_sync() had to
-> go.  If the device is not active, clear peer2peer instead: the buffer
-> then stays in GTT, which remains accessible while the GPU is powered
-> down.
-> 
-> Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference when we attach a buffer" v2")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-> Assisted-by: Claude:Opus-5 [Claude Code]
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> [shahyan.soltani@amd.com: Added commit description]
+
+When you modified the logic significantly it is usually a good idea to add Co-developed-by tag as well.
+
+Apart from that you can add something like:
+
+v2 (Shahyan): added commit description.
+> Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
 
 Reviewed-by: Christian König <christian.koenig@amd.com>
 
+Regards,
+Christian.
+
 > ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile       |  1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   | 23 +-----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.h   |  6 ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c | 45 -----------------------
+>  4 files changed, 2 insertions(+), 73 deletions(-)
+>  delete mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c
 > 
-> v3: take the reference in attach and drop it in detach, clearing
->     peer2peer when the device is not active, as suggested by Christian.
->     v2 only covered amdgpu_dma_buf_map() and left VRAM pinning exposed.
-> v2: use pm_runtime_get_if_active() instead of testing
->     adev->mman.buffer_funcs_enabled, which was racy against a
->     concurrent suspend.  Reported by Sashiko AI review.
-> 
-> Reproduced on a HawkPoint APU [1002:1900] driving the display with a
-> Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
-> offload.  Without the patch kwin_wayland hits the call chain above
-> within a minute of the dGPU autosuspending and the desktop stops
-> repainting until it resumes.
-> 
-> Tested with v3: Chromium rendering on the dGPU and composited by kwin
-> 6.7.5 for five minutes, then closed.  The dGPU stayed active while the
-> window was on screen and suspended six seconds after Chromium exited,
-> with no fallback errors or runtime PM usage count underflows.  After
-> an hour of yuzu render offload the dGPU also suspended once yuzu
-> exited.
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 39 ++++++++++++++++++++-
->  1 file changed, 38 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index b33c300e26e2..fae695c3e531 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -43,6 +43,7 @@
->  #include <linux/dma-buf.h>
->  #include <linux/dma-fence-array.h>
->  #include <linux/pci-p2pdma.h>
-> +#include <linux/pm_runtime.h>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 7b08814a24da..d5ddf236a6f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -321,7 +321,6 @@ include $(FULL_AMD_PATH)/acp/Makefile
+>  amdgpu-y += $(AMD_ACP_FILES)
+>  endif
 >  
->  static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
->  
-> @@ -100,15 +101,50 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
->  	    pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
->  		attach->peer2peer = false;
->  
-> +	/*
-> +	 * P2P access needs the exporter awake for the lifetime of the
-> +	 * attachment.  pm_runtime_get_if_active() never resumes the device,
-> +	 * so it cannot deadlock against the reservation taken during resume.
-> +	 * A negative return means runtime PM is disabled and the device
-> +	 * cannot suspend, in which case the put in detach is a no-op.
-> +	 */
-> +	if (attach->peer2peer &&
-> +	    !pm_runtime_get_if_active(adev_to_drm(adev)->dev))
-> +		attach->peer2peer = false;
-> +
->  	r = dma_resv_lock(bo->tbo.base.resv, NULL);
->  	if (r)
-> -		return r;
-> +		goto err_pm_put;
->  
->  	amdgpu_vm_bo_update_shared(bo);
->  
->  	dma_resv_unlock(bo->tbo.base.resv);
->  
->  	return 0;
-> +
-> +err_pm_put:
-> +	if (attach->peer2peer)
-> +		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +	return r;
-> +}
-> +
-> +/**
-> + * amdgpu_dma_buf_detach - &dma_buf_ops.detach implementation
-> + *
-> + * @dmabuf: DMA-buf where we remove the attachment from
-> + * @attach: the attachment to remove
-> + *
-> + * Drop the runtime PM reference taken in amdgpu_dma_buf_attach().
-> + */
-> +static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
-> +				  struct dma_buf_attachment *attach)
-> +{
-> +	struct drm_gem_object *obj = dmabuf->priv;
-> +	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
-> +	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-> +
-> +	if (attach->peer2peer)
-> +		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> -amdgpu-$(CONFIG_COMPAT) += amdgpu_ioc32.o
+>  amdgpu-$(CONFIG_VGA_SWITCHEROO) += amdgpu_atpx_handler.o
+>  amdgpu-$(CONFIG_ACPI) += amdgpu_acpi.o
+>  amdgpu-$(CONFIG_HMM_MIRROR) += amdgpu_hmm.o
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 9c5e93cd3ee6..f51f03ae5241 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -3019,25 +3019,6 @@ static int amdgpu_drm_release(struct inode *inode, struct file *filp)
+>  	return drm_release(inode, filp);
 >  }
 >  
->  /**
-> @@ -350,6 +386,7 @@ static void amdgpu_dma_buf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map
+> -long amdgpu_drm_ioctl(struct file *filp,
+> -		      unsigned int cmd, unsigned long arg)
+> -{
+> -	struct drm_file *file_priv = filp->private_data;
+> -	struct drm_device *dev;
+> -	long ret;
+> -
+> -	dev = file_priv->minor->dev;
+> -	ret = pm_runtime_get_sync(dev->dev);
+> -	if (ret < 0)
+> -		goto out;
+> -
+> -	ret = drm_ioctl(filp, cmd, arg);
+> -
+> -out:
+> -	pm_runtime_put_autosuspend(dev->dev);
+> -	return ret;
+> -}
+> -
+>  static const struct dev_pm_ops amdgpu_pm_ops = {
+>  	.prepare = pm_sleep_ptr(amdgpu_pmops_prepare),
+>  	.complete = pm_sleep_ptr(amdgpu_pmops_complete),
+> @@ -3070,12 +3051,12 @@ static const struct file_operations amdgpu_driver_kms_fops = {
+>  	.open = drm_open,
+>  	.flush = amdgpu_flush,
+>  	.release = amdgpu_drm_release,
+> -	.unlocked_ioctl = amdgpu_drm_ioctl,
+> +	.unlocked_ioctl = drm_ioctl,
+>  	.mmap = drm_gem_mmap,
+>  	.poll = drm_poll,
+>  	.read = drm_read,
+>  #ifdef CONFIG_COMPAT
+> -	.compat_ioctl = amdgpu_kms_compat_ioctl,
+> +	.compat_ioctl = drm_compat_ioctl,
+>  #endif
+>  #ifdef CONFIG_PROC_FS
+>  	.show_fdinfo = drm_show_fdinfo,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.h
+> index 2d86cc6f7f4d..6b06c0956e48 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.h
+> @@ -43,10 +43,4 @@
 >  
->  const struct dma_buf_ops amdgpu_dmabuf_ops = {
->  	.attach = amdgpu_dma_buf_attach,
-> +	.detach = amdgpu_dma_buf_detach,
->  	.pin = amdgpu_dma_buf_pin,
->  	.unpin = amdgpu_dma_buf_unpin,
->  	.map_dma_buf = amdgpu_dma_buf_map,
+>  extern const struct drm_driver amdgpu_partition_driver;
+>  
+> -long amdgpu_drm_ioctl(struct file *filp,
+> -		      unsigned int cmd, unsigned long arg);
+> -
+> -long amdgpu_kms_compat_ioctl(struct file *filp,
+> -			     unsigned int cmd, unsigned long arg);
+> -
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c
+> deleted file mode 100644
+> index a1cbd7c3deb2..000000000000
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c
+> +++ /dev/null
+> @@ -1,45 +0,0 @@
+> -/*
+> - * \file amdgpu_ioc32.c
+> - *
+> - * 32-bit ioctl compatibility routines for the AMDGPU DRM.
+> - *
+> - * \author Paul Mackerras <paulus@samba.org>
+> - *
+> - * Copyright (C) Paul Mackerras 2005
+> - * All Rights Reserved.
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining a
+> - * copy of this software and associated documentation files (the "Software"),
+> - * to deal in the Software without restriction, including without limitation
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice (including the next
+> - * paragraph) shall be included in all copies or substantial portions of the
+> - * Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> - * THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+> - * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+> - * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+> - * IN THE SOFTWARE.
+> - */
+> -#include <linux/compat.h>
+> -
+> -#include <drm/amdgpu_drm.h>
+> -#include <drm/drm_ioctl.h>
+> -
+> -#include "amdgpu_drv.h"
+> -
+> -long amdgpu_kms_compat_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+> -{
+> -	unsigned int nr = DRM_IOCTL_NR(cmd);
+> -
+> -	if (nr < DRM_COMMAND_BASE)
+> -		return drm_compat_ioctl(filp, cmd, arg);
+> -
+> -	return amdgpu_drm_ioctl(filp, cmd, arg);
+> -}
 
