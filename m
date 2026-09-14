@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EA7DC88E53
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 07:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC659C88E75
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 07:33:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEB0410FA49;
-	Tue, 15 Sep 2026 07:33:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 712B110FA50;
+	Tue, 15 Sep 2026 07:33:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="jQgUtWJm";
-	dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="iH+0PQWr";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="nsVPWhqD";
 	dkim-atps=neutral
-Received: from mx2.cyberprotect.ru (mx2.cyberprotect.ru [176.10.93.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CD6310EF66;
- Mon, 14 Sep 2026 15:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=cyberprotect.ru; s=dkim-r; h=MIME-Version:Date:From:Sender:Reply-To;
- bh=RdvBOVnEKQdDMFBx5aH72LXneDiwa7iML9qml3N/n84=; b=jQgUtWJmwNKw1hsXIaa+KnSSfo
- fZGI8a9YpV01Tor+l0gK6kmC5kSEiZL4xsR6a0+FWXhcela7Cx7abQISYIrNiVgCAzUppfOyskxd9
- ZOJDz7QfoQB6dvhPhoEu0jBwJjXx+loDO6o49dbk8l15nuJJF0XfqbUvvUpLzA6N+oUN+BIROlYmF
- 5mRS07PG62zUh8YNKOuT2ARVjmJ/8Fng+eeeoaGIpTEjA5eBAbJY8KwwoFr/m3T5NgA/qcyAZYAp+
- RKLrdAskaorCHc722Iimdr/FQXaDsq7MU77PA0f6LOHLkgx0zvrIVE2RdkxUhiIPODESF2Z7ndneJ
- 5TkY2/RQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
- d=cyberprotect.ru; s=dkim; h=MIME-Version:Date:From:Sender:Reply-To;
- bh=RdvBOVnEKQdDMFBx5aH72LXneDiwa7iML9qml3N/n84=; b=iH+0PQWr4FzqmqQctLMfFKUiaq
- G+UVxyqir2zVBRTA5K0Q5xjWLJiAlGG0/zpjxhckkuCfNiOZn9GTdsZYh4Cw==;
-From: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-To: Austin Zheng <austin.zheng@amd.com>
-CC: Jun Lei <jun.lei@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li
- <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Dillon Varone <dillon.varone@amd.com>, Nicholas Carbones
- <Nicholas.Carbones@amd.com>, Wayne Lin <wayne.lin@amd.com>, Ray Wu
- <ray.wu@amd.com>, Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>, Dmitriy
- Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-Subject: [PATCH] drm/amd/display: guard NULL secondary pipe in
- dcn_validate_bandwidth()
-Date: Mon, 14 Sep 2026 18:14:46 +0300
-Message-ID: <20260914151446.94380-1-Dmitry.Chumachenko@cyberprotect.ru>
-X-Mailer: git-send-email 2.49.0
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22CEE10E164;
+ Mon, 14 Sep 2026 15:06:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=5Z4howC/uRpUc29d84yFvYfM7hmpJAEuKi5Mgrdj2m0=; b=n
+ sVPWhqD+wjxu+w6M1oFNGlyBT9L/OwEU9isAvR6G6yBNBVQt3mxk6oo+FsY+Qy/2
+ HO8jwPtmFkTH5mjl79Tgt9AB7dsjndhmcpTsmTH8yHueYjuQKNKOvr4elkYUHhGf
+ uzeVXKJSS6s9H1RiwCQOtfct1D5ec74CCPZR5e85is=
+Received: from localhost (unknown [::1])
+ by gzsmtp6 (Coremail) with SMTP id TSWEB_0013CC05000021B66AA80BF0;
+ Mon, 14 Sep 2026 23:00:00 +0800 (CST)
+Received: from oushinnyo$163.com ( [240e:804:1720:b6ad:7d17:545b:f6d7:1f06]
+ ) by ajax-webmail-wmsvr-40-101 (Coremail) ; Mon, 14 Sep 2026 16:14:42 +0800
+ (CST)
+X-Originating-IP: [240e:804:1720:b6ad:7d17:545b:f6d7:1f06]
+Date: Mon, 14 Sep 2026 23:00:00 +0800 (CST)
+From: oushinnyo  <oushinnyo@163.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ Harish.Kasiviswanathan@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re:Re: [PATCH v1] drm/amdgpu: keep freed VM mappings on clear failure
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <c0f0b76b-fc3d-4473-83d7-ad820efcbbbc@amd.com>
+References: <20260905023151.90699-1-oushinnyo@163.com>
+ <c0f0b76b-fc3d-4473-83d7-ad820efcbbbc@amd.com>
+X-NTES-SC: AL_Qu2TC/+cvE4j5CeQZ+kdnksRge0+XsOyuv8k2YRXc+oEogrpyhEgdHpAOkXO3siLKjqNjwemSxpT8vx9cKZD3aAXwedbuu6TBw8nUSTgow==
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_116899_1558594582.1789373682792"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.0.30]
-X-ClientProxiedBy: AIP-EXCH-1.aip.ooo (10.77.28.101) To AIP-EXCH-1.aip.ooo
- (10.77.28.101)
+Message-ID: <3efdfbf9.7999.1a09efb9469.Coremail.oushinnyo@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: QSgvCgBHtczyC6hqQuweAA--.57498W
+X-CM-SenderInfo: xrxvxxpqq10qqrwthudrp/xtbC5BLrOWqnrPI-HgAA3W
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:32:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,42 +65,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-resource_find_free_secondary_pipe_legacy() returns NULL when no free
-pipe is available, but the result is only passed to ASSERT() (a
-WARN_ON_ONCE() that does not stop execution) and then dereferenced in
-split_stream_across_pipes() and dcn_bw_calc_rq_dlg_ttu().
 
-The sibling resource callers (dcn10/dcn20/dcn201) already NULL-check
-this function's result. Do the same here and skip the split when no
-free pipe is available.
+------=_Part_116899_1558594582.1789373682792
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+ICBIaSBDaHJpc3RpYW4sCgoKICB0aGFua3MgZm9yIHRoZSByZXZpZXcuIEkgdW5kZXJzdGFuZCB0
+aGF0IHJlLWFkZGluZyB0aGUgbWFwcGluZyB0bwogIHZtLT5mcmVlZCBpcyBub3QgYSB2YWxpZCBh
+cHByb2FjaCwgc28gSSB3aWxsIGRyb3AgdGhpcyBwYXRjaC4KCgogIFRoZSBmYWlsdXJlIHBhdGgg
+SSBoYWQgaW4gbWluZCB3YXMgdGhlIGludGVycnVwdGlibGUgQ1BVIHVwZGF0ZSB3YWl0IGluCiAg
+YW1kZ3B1X3ZtX2NwdV9wcmVwYXJlKCk6CgoKICAgIGFtZGdwdV9zeW5jX3dhaXQoc3luYywgdHJ1
+ZSkKICAgICAgLT4gZG1hX2ZlbmNlX3dhaXQoZmVuY2UsIHRydWUpCgoKICBJIGRvIG5vdCBoYXZl
+IGEgbWluaW1hbCByZXByb2R1Y2VyIHlldC4gSSB3aWxsIGludmVzdGlnYXRlIHRoZSBhY3R1YWwK
+ICBjYWxsIHBhdGggZnVydGhlciBiZWZvcmUgcHJvcG9zaW5nIGFub3RoZXIgY2hhbmdlLgoKCiAg
+UmVnYXJkcywKICBvdXNoaW5ueW8KCgpBdCAyMDI2LTA5LTA3IDIwOjA0OjE2LCAiQ2hyaXN0aWFu
+IEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4gd3JvdGU6Cj5PbiA5LzUvMjYgMDQ6
+MzEsIG91c2hpbm55byB3cm90ZToKPj4gYW1kZ3B1X3ZtX2NsZWFyX2ZyZWVkKCkgcmVtb3ZlcyBh
+IG1hcHBpbmcgZnJvbSB2bS0+ZnJlZWQgYmVmb3JlCj4+IGNsZWFyaW5nIGl0cyBwYWdlIHRhYmxl
+IGVudHJpZXMuIElmIGFtZGdwdV92bV91cGRhdGVfcmFuZ2UoKSBmYWlscywKPj4gdGhlIG1hcHBp
+bmcgaXMgY3VycmVudGx5IGZyZWVkIGV2ZW4gdGhvdWdoIHRoZSBQVEUgdXBkYXRlIG1pZ2h0IG5v
+dAo+PiBoYXZlIGNvbXBsZXRlZC4KPj4KPj4gVGhpcyBpcyBwYXJ0aWN1bGFybHkgcHJvYmxlbWF0
+aWMgd2l0aCBDUFUgVk0gdXBkYXRlcy4gV2FpdGluZyBmb3IgYW4KPj4gZWFybGllciBzdWJtaXNz
+aW9uIGlzIGludGVycnVwdGlibGUsIHNvIGEgc2lnbmFsIGNhbiBhYm9ydCB0aGUgd2FpdAo+PiBi
+ZWZvcmUgYW55IFBURSBpcyBjbGVhcmVkLiBUaGUgb2xkIG1hcHBpbmcgdGhlbiBleGlzdHMgbmVp
+dGhlciBpbiB0aGUKPj4gVkEgdHJlZSBub3Igb24gdGhlIGZyZWVkIGxpc3QsIGFsbG93aW5nIGEg
+bGF0ZXIgVk0gdXBkYXRlIHRvIHJldXNlIHRoZQo+PiB2aXJ0dWFsIGFkZHJlc3Mgd2hpbGUgYW4g
+ZWFybGllciBzdWJtaXNzaW9uIHN0aWxsIHJlZmVyZW5jZXMgaXQuCj4KPlRoYXQgd291bGQgYmUg
+aW5kZWVkIHByb2JsZW1hdGljLCB3aGVyZSBleGFjdGx5IGRvIHlvdSBzZWUgdGhhdD8gRG8geW91
+IGhhdmUgYSB0ZXN0IGNhc2UgZm9yIHRoaXM/Cj4+IFB1dCB0aGUgbWFwcGluZyBiYWNrIG9uIHZt
+LT5mcmVlZCBvbiBldmVyeSB1cGRhdGUgZXJyb3IuIFRoaXMga2VlcHMgdGhlCj4+IHBlbmRpbmcg
+Y2xlYXIgb3BlcmF0aW9uIGFsaXZlIGFuZCBtYWtlcyBsYXRlciBWTSB1cGRhdGVzIHJldHJ5IGl0
+IGJlZm9yZQo+PiBpbnN0YWxsaW5nIG5ldyBQVEVzLiBJdCBhbHNvIGNvdmVycyBwYXJ0aWFsIENQ
+VSBvciBTRE1BIHVwZGF0ZXMKPj4gY29uc2VydmF0aXZlbHkuCj4KPkNsZWFyIE5BSyB0byB0aGF0
+IGFwcHJvYWNoLgo+Cj5GcmVlZCB1cCBhcmVhcyBvZiB0aGUgcGFnZSB0YWJsZXMgbXVzdCBiZSBj
+bGVhcmVkIHdoZW4gdGhhdCBmdW5jdGlvbiBpcyBjYWxsZWQgb3Igb3RoZXJ3aXNlIHdlIHJ1biBp
+bnRvIHRvbnMgb2YgcHJvYmxlbXMgcmV2ZXJ0aW5nIHByZXZpb3VzIGNoYW5nZXMgdG8gdGhlIGhv
+dXNla2VlcGluZyBzdHJ1Y3R1cmVzLgo+Cj5UaGUgb25seSB2YWxpZCByZWFzb24gdGhpcyBmdW5j
+dGlvbiBjYW4gZmFpbCBpcyBiZWNhdXNlIHRoZSBkZXZpY2UgaXMgaG90IHJlbW92ZWQgYW5kIGlu
+IHRoYXQgY2FzZSBpdCBkb2Vzbid0IG1hdHRlciBhbnkgbW9yZSB3aGF0IHdlIGRvIGhlcmUuCj4K
+PlJlZ2FyZHMsCj5DaHJpc3RpYW4uCj4KPj4gCj4+IEZpeGVzOiBiNGQ0MjUxMWI3ZjIgKCJkcm0v
+YW1kZ3B1OiBTdXBwb3J0IHBhZ2UgdGFibGUgdXBkYXRlIHZpYSBDUFUiKQo+PiBDYzogc3RhYmxl
+QHZnZXIua2VybmVsLm9yZwo+PiBBc3Npc3RlZC1ieTogQ29kZXg6Z3B0LTUKPj4gU2lnbmVkLW9m
+Zi1ieTogb3VzaGlubnlvIDxvdXNoaW5ueW9AMTYzLmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDMgKystCj4+ICAxIGZpbGUgY2hhbmdlZCwg
+MiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+IAo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdm0uYwo+PiBpbmRleCA0N2NkZTU0NTk0NjkuLmUyMDkwNWQyZDkwYyAxMDA2
+NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gQEAgLTE2MDYsMTEg
+KzE2MDYsMTIgQEAgaW50IGFtZGdwdV92bV9jbGVhcl9mcmVlZChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwKPj4gICAgICAgICAgICAgICAgIHIgPSBhbWRncHVfdm1fdXBkYXRlX3JhbmdlKGFk
+ZXYsIHZtLCBmYWxzZSwgZmFsc2UsIHRydWUsIGZhbHNlLAo+PiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgJnN5bmMsIG1hcHBpbmctPnN0YXJ0LCBtYXBwaW5nLT5s
+YXN0LAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMCwgMCwg
+MCwgTlVMTCwgTlVMTCwgJmYpOwo+PiAtICAgICAgICAgICAgICAgYW1kZ3B1X3ZtX2ZyZWVfbWFw
+cGluZyhhZGV2LCB2bSwgbWFwcGluZywgZik7Cj4+ICAgICAgICAgICAgICAgICBpZiAocikgewo+
+PiArICAgICAgICAgICAgICAgICAgICAgICBsaXN0X2FkZCgmbWFwcGluZy0+bGlzdCwgJnZtLT5m
+cmVlZCk7Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgIGRtYV9mZW5jZV9wdXQoZik7Cj4+ICAg
+ICAgICAgICAgICAgICAgICAgICAgIGdvdG8gZXJyb3JfZnJlZTsKPj4gICAgICAgICAgICAgICAg
+IH0KPj4gKyAgICAgICAgICAgICAgIGFtZGdwdV92bV9mcmVlX21hcHBpbmcoYWRldiwgdm0sIG1h
+cHBpbmcsIGYpOwo+PiAgICAgICAgIH0KPj4gCj4+ICAgICAgICAgaWYgKGZlbmNlICYmIGYpIHsK
+Pj4gLS0KPj4gMi4yNS4xCj4+IAo=
+------=_Part_116899_1558594582.1789373682792
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-Fixes: 74c49c7ac14f ("drm/amdgpu/display: Add calcs code for DCN")
-Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
----
- drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-index 61553e24d53e..de54807ade43 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-@@ -1261,10 +1261,12 @@ bool dcn_validate_bandwidth(
- 						/* pipe not split previously needs split */
- 						hsplit_pipe = resource_find_free_secondary_pipe_legacy(&context->res_ctx, pool, pipe);
- 						ASSERT(hsplit_pipe);
--						split_stream_across_pipes(&context->res_ctx, pool, pipe, hsplit_pipe);
-+						if (hsplit_pipe)
-+							split_stream_across_pipes(&context->res_ctx, pool, pipe, hsplit_pipe);
- 					}
- 
--					dcn_bw_calc_rq_dlg_ttu(dc, v, hsplit_pipe, input_idx);
-+					if (hsplit_pipe)
-+						dcn_bw_calc_rq_dlg_ttu(dc, v, hsplit_pipe, input_idx);
- 				} else if (hsplit_pipe && hsplit_pipe->plane_state == pipe->plane_state) {
- 					/* merge previously split pipe */
- 					pipe->bottom_pipe = hsplit_pipe->bottom_pipe;
--- 
-2.49.0
+PGRpdiBkYXRhLW50ZXM9Im50ZXNfbWFpbF9ib2R5X3Jvb3QiIHN0eWxlPSJsaW5lLWhlaWdodDox
+Ljc7Y29sb3I6IzAwMDAwMDtmb250LXNpemU6MTRweDtmb250LWZhbWlseTpBcmlhbCI+PGRpdiBp
+ZD0ic3BuRWRpdG9yQ29udGVudCI+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+Jm5ic3A7IEhpIENo
+cmlzdGlhbiw8L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9kaXY+PGRpdiBzdHls
+ZT0ibWFyZ2luOiAwOyI+Jm5ic3A7IHRoYW5rcyBmb3IgdGhlIHJldmlldy4gSSB1bmRlcnN0YW5k
+IHRoYXQgcmUtYWRkaW5nIHRoZSBtYXBwaW5nIHRvPC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luOiAw
+OyI+Jm5ic3A7IHZtLSZndDtmcmVlZCBpcyBub3QgYSB2YWxpZCBhcHByb2FjaCwgc28gSSB3aWxs
+IGRyb3AgdGhpcyBwYXRjaC48L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9kaXY+
+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+Jm5ic3A7IFRoZSBmYWlsdXJlIHBhdGggSSBoYWQgaW4g
+bWluZCB3YXMgdGhlIGludGVycnVwdGlibGUgQ1BVIHVwZGF0ZSB3YWl0IGluPC9kaXY+PGRpdiBz
+dHlsZT0ibWFyZ2luOiAwOyI+Jm5ic3A7IGFtZGdwdV92bV9jcHVfcHJlcGFyZSgpOjwvZGl2Pjxk
+aXYgc3R5bGU9Im1hcmdpbjogMDsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46IDA7Ij4m
+bmJzcDsgJm5ic3A7IGFtZGdwdV9zeW5jX3dhaXQoc3luYywgdHJ1ZSk8L2Rpdj48ZGl2IHN0eWxl
+PSJtYXJnaW46IDA7Ij4mbmJzcDsgJm5ic3A7ICZuYnNwOyAtJmd0OyBkbWFfZmVuY2Vfd2FpdChm
+ZW5jZSwgdHJ1ZSk8L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9kaXY+PGRpdiBz
+dHlsZT0ibWFyZ2luOiAwOyI+Jm5ic3A7IEkgZG8gbm90IGhhdmUgYSBtaW5pbWFsIHJlcHJvZHVj
+ZXIgeWV0LiBJIHdpbGwgaW52ZXN0aWdhdGUgdGhlIGFjdHVhbDwvZGl2PjxkaXYgc3R5bGU9Im1h
+cmdpbjogMDsiPiZuYnNwOyBjYWxsIHBhdGggZnVydGhlciBiZWZvcmUgcHJvcG9zaW5nIGFub3Ro
+ZXIgY2hhbmdlLjwvZGl2PjxkaXYgc3R5bGU9Im1hcmdpbjogMDsiPjxicj48L2Rpdj48ZGl2IHN0
+eWxlPSJtYXJnaW46IDA7Ij4mbmJzcDsgUmVnYXJkcyw8L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46
+IDA7Ij4mbmJzcDsgb3VzaGlubnlvPC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwv
+ZGl2PjwvZGl2PjxwcmU+QXQgMjAyNi0wOS0wNyAyMDowNDoxNiwgIkNocmlzdGlhbiBLw7ZuaWci
+ICZsdDtjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20mZ3Q7IHdyb3RlOgomZ3Q7T24gOS81LzI2IDA0
+OjMxLCBvdXNoaW5ueW8gd3JvdGU6CiZndDsmZ3Q7IGFtZGdwdV92bV9jbGVhcl9mcmVlZCgpIHJl
+bW92ZXMgYSBtYXBwaW5nIGZyb20gdm0tJmd0O2ZyZWVkIGJlZm9yZQomZ3Q7Jmd0OyBjbGVhcmlu
+ZyBpdHMgcGFnZSB0YWJsZSBlbnRyaWVzLiBJZiBhbWRncHVfdm1fdXBkYXRlX3JhbmdlKCkgZmFp
+bHMsCiZndDsmZ3Q7IHRoZSBtYXBwaW5nIGlzIGN1cnJlbnRseSBmcmVlZCBldmVuIHRob3VnaCB0
+aGUgUFRFIHVwZGF0ZSBtaWdodCBub3QKJmd0OyZndDsgaGF2ZSBjb21wbGV0ZWQuCiZndDsmZ3Q7
+CiZndDsmZ3Q7IFRoaXMgaXMgcGFydGljdWxhcmx5IHByb2JsZW1hdGljIHdpdGggQ1BVIFZNIHVw
+ZGF0ZXMuIFdhaXRpbmcgZm9yIGFuCiZndDsmZ3Q7IGVhcmxpZXIgc3VibWlzc2lvbiBpcyBpbnRl
+cnJ1cHRpYmxlLCBzbyBhIHNpZ25hbCBjYW4gYWJvcnQgdGhlIHdhaXQKJmd0OyZndDsgYmVmb3Jl
+IGFueSBQVEUgaXMgY2xlYXJlZC4gVGhlIG9sZCBtYXBwaW5nIHRoZW4gZXhpc3RzIG5laXRoZXIg
+aW4gdGhlCiZndDsmZ3Q7IFZBIHRyZWUgbm9yIG9uIHRoZSBmcmVlZCBsaXN0LCBhbGxvd2luZyBh
+IGxhdGVyIFZNIHVwZGF0ZSB0byByZXVzZSB0aGUKJmd0OyZndDsgdmlydHVhbCBhZGRyZXNzIHdo
+aWxlIGFuIGVhcmxpZXIgc3VibWlzc2lvbiBzdGlsbCByZWZlcmVuY2VzIGl0LgomZ3Q7CiZndDtU
+aGF0IHdvdWxkIGJlIGluZGVlZCBwcm9ibGVtYXRpYywgd2hlcmUgZXhhY3RseSBkbyB5b3Ugc2Vl
+IHRoYXQ/IERvIHlvdSBoYXZlIGEgdGVzdCBjYXNlIGZvciB0aGlzPwomZ3Q7Jmd0OyBQdXQgdGhl
+IG1hcHBpbmcgYmFjayBvbiB2bS0mZ3Q7ZnJlZWQgb24gZXZlcnkgdXBkYXRlIGVycm9yLiBUaGlz
+IGtlZXBzIHRoZQomZ3Q7Jmd0OyBwZW5kaW5nIGNsZWFyIG9wZXJhdGlvbiBhbGl2ZSBhbmQgbWFr
+ZXMgbGF0ZXIgVk0gdXBkYXRlcyByZXRyeSBpdCBiZWZvcmUKJmd0OyZndDsgaW5zdGFsbGluZyBu
+ZXcgUFRFcy4gSXQgYWxzbyBjb3ZlcnMgcGFydGlhbCBDUFUgb3IgU0RNQSB1cGRhdGVzCiZndDsm
+Z3Q7IGNvbnNlcnZhdGl2ZWx5LgomZ3Q7CiZndDtDbGVhciBOQUsgdG8gdGhhdCBhcHByb2FjaC4K
+Jmd0OwomZ3Q7RnJlZWQgdXAgYXJlYXMgb2YgdGhlIHBhZ2UgdGFibGVzIG11c3QgYmUgY2xlYXJl
+ZCB3aGVuIHRoYXQgZnVuY3Rpb24gaXMgY2FsbGVkIG9yIG90aGVyd2lzZSB3ZSBydW4gaW50byB0
+b25zIG9mIHByb2JsZW1zIHJldmVydGluZyBwcmV2aW91cyBjaGFuZ2VzIHRvIHRoZSBob3VzZWtl
+ZXBpbmcgc3RydWN0dXJlcy4KJmd0OwomZ3Q7VGhlIG9ubHkgdmFsaWQgcmVhc29uIHRoaXMgZnVu
+Y3Rpb24gY2FuIGZhaWwgaXMgYmVjYXVzZSB0aGUgZGV2aWNlIGlzIGhvdCByZW1vdmVkIGFuZCBp
+biB0aGF0IGNhc2UgaXQgZG9lc24ndCBtYXR0ZXIgYW55IG1vcmUgd2hhdCB3ZSBkbyBoZXJlLgom
+Z3Q7CiZndDtSZWdhcmRzLAomZ3Q7Q2hyaXN0aWFuLgomZ3Q7CiZndDsmZ3Q7IAomZ3Q7Jmd0OyBG
+aXhlczogYjRkNDI1MTFiN2YyICgiZHJtL2FtZGdwdTogU3VwcG9ydCBwYWdlIHRhYmxlIHVwZGF0
+ZSB2aWEgQ1BVIikKJmd0OyZndDsgQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKJmd0OyZndDsg
+QXNzaXN0ZWQtYnk6IENvZGV4OmdwdC01CiZndDsmZ3Q7IFNpZ25lZC1vZmYtYnk6IG91c2hpbm55
+byAmbHQ7b3VzaGlubnlvQDE2My5jb20mZ3Q7CiZndDsmZ3Q7IC0tLQomZ3Q7Jmd0OyAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAzICsrLQomZ3Q7Jmd0OyAgMSBmaWxl
+IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQomZ3Q7Jmd0OyAKJmd0OyZn
+dDsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKJmd0OyZndDsgaW5kZXggNDdj
+ZGU1NDU5NDY5Li5lMjA5MDVkMmQ5MGMgMTAwNjQ0CiZndDsmZ3Q7IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCiZndDsmZ3Q7ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCiZndDsmZ3Q7IEBAIC0xNjA2LDExICsxNjA2LDEyIEBA
+IGludCBhbWRncHVfdm1fY2xlYXJfZnJlZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiZn
+dDsmZ3Q7ICAgICAgICAgICAgICAgICByID0gYW1kZ3B1X3ZtX3VwZGF0ZV9yYW5nZShhZGV2LCB2
+bSwgZmFsc2UsIGZhbHNlLCB0cnVlLCBmYWxzZSwKJmd0OyZndDsgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICZhbXA7c3luYywgbWFwcGluZy0mZ3Q7c3RhcnQsIG1h
+cHBpbmctJmd0O2xhc3QsCiZndDsmZ3Q7ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAwLCAwLCAwLCBOVUxMLCBOVUxMLCAmYW1wO2YpOwomZ3Q7Jmd0OyAtICAgICAg
+ICAgICAgICAgYW1kZ3B1X3ZtX2ZyZWVfbWFwcGluZyhhZGV2LCB2bSwgbWFwcGluZywgZik7CiZn
+dDsmZ3Q7ICAgICAgICAgICAgICAgICBpZiAocikgewomZ3Q7Jmd0OyArICAgICAgICAgICAgICAg
+ICAgICAgICBsaXN0X2FkZCgmYW1wO21hcHBpbmctJmd0O2xpc3QsICZhbXA7dm0tJmd0O2ZyZWVk
+KTsKJmd0OyZndDsgICAgICAgICAgICAgICAgICAgICAgICAgZG1hX2ZlbmNlX3B1dChmKTsKJmd0
+OyZndDsgICAgICAgICAgICAgICAgICAgICAgICAgZ290byBlcnJvcl9mcmVlOwomZ3Q7Jmd0OyAg
+ICAgICAgICAgICAgICAgfQomZ3Q7Jmd0OyArICAgICAgICAgICAgICAgYW1kZ3B1X3ZtX2ZyZWVf
+bWFwcGluZyhhZGV2LCB2bSwgbWFwcGluZywgZik7CiZndDsmZ3Q7ICAgICAgICAgfQomZ3Q7Jmd0
+OyAKJmd0OyZndDsgICAgICAgICBpZiAoZmVuY2UgJmFtcDsmYW1wOyBmKSB7CiZndDsmZ3Q7IC0t
+CiZndDsmZ3Q7IDIuMjUuMQomZ3Q7Jmd0OyAKPC9wcmU+PC9kaXY+
+------=_Part_116899_1558594582.1789373682792--
 
