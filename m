@@ -4,75 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51055C88E50
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4E6DC88E64
 	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 12:47:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F11210E0F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E123410E889;
 	Mon, 14 Sep 2026 12:47:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XYXe2rWd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pxlpBnSC";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B01C410E43E
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 11:20:43 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49ccf3ca94bso8946515e9.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 04:20:43 -0700 (PDT)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85CE210E395
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 10:21:49 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-6a601ba6870so5725510a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 03:21:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789384842; x=1789989642; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Q7ZdNSjtN9ojPIBbMzg3azdsXUNRiHAmCEOATn6Atxc=;
- b=XYXe2rWdbueOErvdkbqzpRc0+MgbKCicCmwOblZUQaYxrO9PlIeJcubmJtHeqM+RkF
- OiCPSFAt5Avp2jOqInGE6LY1BnMdUWo7QJFK8/vReTuCDMqsyEXmBCWB0/Otdyc9/z+E
- IIPEdto9K0aRssFniY3OvL7OCGhMsu0pnnJfmpSnUUFsrmImWtVe45/jsdleZh9y1uj7
- 5XpKIpwBPfQF+Bo5SZ9l0ThN94Qv0x53K9dWIiF2L8nL301I0fPBAXvcT/an7QqasCwn
- HFE9Z71ztOX3e8ghIFjTKUxOuFQUjqzfwgjS90gg2FbwTS4NFOf5NPLGvwWdQII+5RSe
- B1UQ==
+ d=gmail.com; s=20251104; t=1789381308; x=1789986108; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=2mF+xH5cIcST6u0nrbtly+TRzH2eXbiWgA+pO5N6DIg=;
+ b=pxlpBnSCCiWsDWRC7mNj6/ve7h9XwpWKj0v6BWdordwqJMd21KKqxlwCB3cyg4HPL4
+ +X1FIlRCxQowT3+vR0yVRoQ3UbV7GMrFk0osPvi1sWiBPwYzXeeK6bp5h8GK84wFkJh2
+ S6kbLYd/dAHfAlQr/IVJRB0GRjNUFATjWTzDlwDsTHj76cpdLmrQAWKsNUWpfI2tH7vp
+ QsshrC/qDwo70F7KF2yAVuVutMI18gPd2d5dRYA45ZL0bCrKlTgMqC2VDansV13IBJIZ
+ IT0xDcNV7A4Zz64JEo2HmkB7osGyIBZlEWjosYnBIZF3mYjC00dlQUynbVEVvDVG571J
+ cnEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789384842; x=1789989642;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Q7ZdNSjtN9ojPIBbMzg3azdsXUNRiHAmCEOATn6Atxc=;
- b=JLKRzqXdbMjujcvmiEwK3wno9ZtZHo9GaleFtAb+4wNVfqVWYbgFPiGP41gbXzuHQT
- Db6V3Q1jm2XsVo+16e2xS2U2jsjyMaRzWkYTQo5pNCZl0pDG8++gOEBAOlBqUtNUzP1b
- cXox0hTsPORnt/YUr4epk8cy6Otr5vY4tn8Z6bjGY1nV9lQJoWRzrLZBk5pug3xoWec9
- SaNgvnR59h9jdn3vyhFiN73ISlQJeyP6JQWuu2PO9ciY/hp5KykJXOMooiw6JSKwO5oT
- 9XY67LfeT8Ueu6jlrBDxPeKR/jwVAps5rEEotJpFirUAuJiLDvc+V8Ln9ZZb2477JA8W
- wqyw==
-X-Gm-Message-State: AFuF++nc10VVI7SuT6Oz1UlycwDuy68Nr1oSwjK4yqHlTr0z2kc8moDx
- F3wlT/ss9aZOJtn7Vvk1vKNF+igzSGUzMFyFEwdXQ+8kBUBWlH0tf88p
-X-Gm-Gg: AYBFou3VzyfBOPQv2rzkpwVNAOdCEomVMATXTpPQkYFW0T/3fAorAIWho5ep2OfzH+s
- aWcdM+S7boMaJLJtYt6lyeYmiX8b9JRBE/F6SmafzFJPrtEZdPzLwyNdSipDgoqkubdZaa/OAVp
- ctRXhG/KoSSj3WMt96U01wXmOnJGMFiqMMj7pPtcY5CVHHeppNSTMhaEO1BpCZQOZhklpGiG+VP
- HgsjuG2xuzzbMawjFBXjUTcnICJpt/uMDZ/FDJbBZUUdpB9o0t0SewT3YOispfnzn88l+xNvUNk
- nnFDSHnOlWbVi9UyoPhn+ON1N0ID3pgzRz1TF/mvYB9aM9xx+ELzw6zuHeRrFsm2IbYefcRZF5H
- 3AVjwDIZxs+QB//07f3cyUZ3l4YPjIGFbubzLOrQKWZRFlsQzBCy3qKcWRy48aFxdaYVncBxMd7
- WtMbitN6LNk29J+76WR89YyKZLq1FMYBf86lSiqFA0EnhBrC9fd2IIA1e6iVSA2OOSbRI=
-X-Received: by 2002:a05:600c:8012:b0:49c:fc6c:be08 with SMTP id
- 5b1f17b1804b1-49e7a67c769mr23852755e9.31.1789384841405; 
- Mon, 14 Sep 2026 04:20:41 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1789381308; x=1789986108;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=2mF+xH5cIcST6u0nrbtly+TRzH2eXbiWgA+pO5N6DIg=;
+ b=OBLB6870MZc733gM/RvKTZwLCDyHQ6v5mkYIVq2neCiaOrVg/Wh/HNLFCJ7kpS+hYO
+ XeHnyqTDN3RjEEZMLf/PGayh4guVc3vJF12JkkdRuDmCFckR97B/njksM7Kgvg83Pxfx
+ CSzL9ElwTOUVjJcBSxSjfK47jeGAZuP4VPL+TKxkEpW5pcZ/6XLx39QZewRm5DNGRhxT
+ CHHtJaK+OiC3dV7SbgRbMUXjnjG0sxDzz3t0tWuuu8399xUpYVC8KcwfsVtabGcqKcjm
+ uFqwINYNRMIFhSdkukpWHv1TupzszwC/kdO3mzbVjz+PUosVnQF6TRl5+7fqI35KKJIy
+ dTMA==
+X-Gm-Message-State: AFuF++nxMkn7o1tDsMwjNfOl/gfakpjsRkOWkQD5QMIcFxbY/NCh3icy
+ Du6IWhxdlNyWUG/KGMfPD2UA+gSUzc2pdwcg5Kb9clAdOUUEbAIplDYH
+X-Gm-Gg: AYBFou2JL9n0HdgLV80wdaPpSMLvZvA2Sl7SPMhWXsTGua/whsGAyr9ZHNYWl26EpUv
+ sxU8lKgTXfic48OwmPBqnGzOJkrlDc0lZBZnWNLcz4e76I9UCiB2b2ZScxIGhkcw9fiBKE3POAy
+ 89GEy9Agq8HpxnZAn2Ql1M449/M+4LP0W8UYSClQK1OAUk9BmwgRkjTKcWBeS2EzXyJYXjRXpJh
+ jEI3eI3/aZ6Up2lL2oVZWx44cLh8mMzzN+gKOadCgfFSxulZ3XZggs87OHbr4mWQgnaTdSD6GcX
+ qAldwGKdNDpMUh2hunOFn9cs/RM1LjKoYhqHrYwjQMqa1yl5BZFIwntF+svirgeTZba+7ZrGW0j
+ xIA6uIo6rLX+mIQvHCx/k3sKwvPs2d7GvYItdrXdtjYPi4SOMQe0wyDa+EYFTm4I17n25xjGunn
+ dzcns5i/Dhzow6ZpM8jxWbm2c1FiE1O/RtLav9J0RlyJyodUHXnLlYqFXCAwFD9INd4FA=
+X-Received: by 2002:a17:906:c10e:b0:c26:2a2:b91d with SMTP id
+ a640c23a62f3a-c29b84b85a2mr122980466b.6.1789381307718; 
+ Mon, 14 Sep 2026 03:21:47 -0700 (PDT)
 Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49e6221963dsm210420155e9.2.2026.09.14.04.20.39
+ a640c23a62f3a-c29660234f2sm403605166b.12.2026.09.14.03.21.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 04:20:40 -0700 (PDT)
-Date: Mon, 14 Sep 2026 14:20:36 +0300
+ Mon, 14 Sep 2026 03:21:47 -0700 (PDT)
+Date: Mon, 14 Sep 2026 13:21:43 +0300
 From: Dan Carpenter <error27@gmail.com>
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: Leo Chen <leo.chen@amd.com>
 Cc: amd-gfx@lists.freedesktop.org,
  "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: Re: [bug report] drm/amd/display: Add new sources for DCN6
-Message-ID: <aqfYhEAF8EB2SNO0@stanley.mountain>
-References: <aqfT_w8H_hN1ywfY@stanley.mountain>
+Subject: [bug report] drm/amd/display: Register DCN as a PMFW DF C-state
+ client on DCN42
+Message-ID: <aqfKt3Ry75gaA4Vz@stanley.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqfT_w8H_hN1ywfY@stanley.mountain>
 X-Mailman-Approved-At: Mon, 14 Sep 2026 12:47:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,21 +85,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 14, 2026 at 02:01:19PM +0300, Dan Carpenter wrote:
-> Hello Aurabindo Pillai,
-> 
-> Commit 7f7d7ea1fa51 ("drm/amd/display: Add new sources for DCN6")
-> from Jul 22, 2026 (linux-next), leads to the following Smatch static
-> checker warning:
-> 
-> 	drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn50/dcn50_hwseq.c:641 dcn50_init_hw()
-> 	error: we previously assumed 'dc->clk_mgr' could be null (see line 541)
-> 
+Hello Leo Chen,
 
-There also:
+Commit 53845307d52e ("drm/amd/display: Register DCN as a PMFW DF
+C-state client on DCN42") from Jul 9, 2026, leads to the following
+Smatch complaint:
 
-    drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn60/dcn60_hwseq.c:650 dcn60_init_hw()
-    error: we previously assumed 'dc->clk_mgr->funcs' could be null (see line 556)
+    drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:686 dcn42_prepare_bandwidth()
+    warn: variable dereferenced before check 'dc->clk_mgr' (see line 681)
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c
+   680	
+   681		dcn401_prepare_bandwidth(dc, context);
+                                         ^^
+dc->clk_mgr is dereferenced here.
+
+   682	
+   683		/* valid C-state watermarks have now been committed to HW, so it
+   684		 * is safe to vote "allow" to PMFW.
+   685		 */
+   686		if (dc->clk_mgr && dc->clk_mgr->funcs && dc->clk_mgr->funcs->notify_cstate_disable)
+                    ^^^^^^^^^^^
+so this check is too late.
+
+   687			dc->clk_mgr->funcs->notify_cstate_disable(dc->clk_mgr, false);
+   688	}
+
+This email is a free service from the Smatch-CI project [smatch.sf.net].
 
 regards,
 dan carpenter
