@@ -4,127 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 541A6C88E75
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 14:00:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCF41C88E77
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 14:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A279710EEDF;
-	Mon, 14 Sep 2026 14:00:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68DB910EED3;
+	Mon, 14 Sep 2026 14:11:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ori51gJz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RR+IW2no";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011052.outbound.protection.outlook.com
- [40.93.194.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4708B10EEC6;
- Mon, 14 Sep 2026 14:00:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RpeF5LS8qIB+zyblQtOq/Po4d3EdbNkX+KhbqZ2mNv15MMACXU3UuM/+gcE12E3RIC3FBKaCZff/Jo2hfIEokKmey29liRR8dyykuz5/ga4PnO9kC+527EHt62QwvxN/aIeNnADEBkVdHgUT5LHT3lT/mPKtcGdLzpa9tsY9wQwpPBA/fjSq9S2ah2cTpkY7S8bqbYSU+a+YGpDbaZfEwMrvbIzYVthkCDb822xtKkjCA1pNluO3cNauYfa+KUg/F9Biyc++bcjrf5+aAiUF0hR7gZXiuwuH/9ZHuifEqU6MlmxPJ1H/ldQz/7fIs6Z7vo9yYkodQuH3aI3RKpMsfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C+hNOkDVFhRRxvg7C+kos6VHqJitfihQfY8GrDTZxKg=;
- b=tA8QIc+WGAB/lmb49Q3obu9WcwV8jFGgP3q8/9sqQ1bV4qPnUdh4uWCnPP2bzaYsZf59ZmQymeeBiNBe78QTEf+z7/QwJI2IwffRRpztTn+RGVDeh8dtNnx7YaIauZlsr7qANcDW5N5QNS4V9ya/BqToMWoJr9rHBmV81KT1ll0ie6Fjp6U5Iah/FoJ4FvhkDqAevyHWLd/Hpd8mxWt3mqI1VvnXvof+/KSWZBbrl8zouZaaTmfNp5TLQ2GhhdsSHP7bWlMQfgtwB0pmu1xeFHiRSyaIo9dPj3A+SshefmGGKKdALVqiKdWhfQqRQYkqHCtqbEvyUulCYiuzylxaTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C+hNOkDVFhRRxvg7C+kos6VHqJitfihQfY8GrDTZxKg=;
- b=ori51gJzqzu57cxXtDCUdhC8luTSey1DX8AAfYuQbBRks1GIcNBa9r8/tpd0CJl3vmch07+UJxTc6QjB7iwgQsJJXBt2SQUED0GF5T6LelN0okTHcy/42Dd2+JTMyobOcQG+A3KWs31P/1lUOb1bI7kIgjmNOYv9s1h1VkvjBIg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN6PR12MB8568.namprd12.prod.outlook.com (2603:10b6:208:471::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 14:00:39 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
- 14:00:37 +0000
-Message-ID: <bc9cf07a-ef97-490a-b98a-a05bc9f5b186@amd.com>
-Date: Mon, 14 Sep 2026 16:00:33 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: zero reg_state buffer before filling it
-To: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
- Alexander Deucher <alexander.deucher@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Samuel Zhang <guoqing.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-References: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN0P222CA0028.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:208:531::30) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
+ [74.125.228.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F40A810E8C6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 14:11:56 +0000 (UTC)
+Received: by mail-pz2-f42.google.com with SMTP id
+ 41be03b00d2f7-cc4e4979c47so80963a12.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 07:11:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789395116; cv=none;
+ d=google.com; s=arc-20260327;
+ b=rdVJ1loAQtEl4/tIUexj0/TLdZH7axmH3/z9d7gCdWqfTfGI9L/YJTpiv7mJ2VecaH
+ ewGJOPd3NiPAZ6JPGBQm+lwm7BOjOah77ukXzWmhL1At3K5N0BIwUOj7Jc6Lhd8Epsuh
+ lPJSG59OQ4HC5cKuzNZFD5eNjiezIuWuLY0/k5yVdxEskqBnvWymqpOlY7VnLJVDEkd6
+ FWX4yNVjR3CrouENvxRQ/4yvi5m4NMJpPbzUz0UPx+XFsCtwvXAc3/0jWsuJkz/joCDT
+ p88jloIyxotppTwYzU/bULDjlbhX4aZsjt8FUj+Pp7Hek2FokHdwLEwZ68mcjHoNuYXJ
+ DlhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=4rj/r25LyFLXL2H83H1Ljh+5fD7NhfkZssLHdM2663E=;
+ fh=nO7cB3uWcOULCv9hLT0gsUFKFgzC3QvuzsO3l3yfx+s=;
+ b=EUECCpKxk006RpojyXeRbmCt9eheSU24Suz0DZ5NENrHlF7OMtAb1Tvd3QOlWhTA3S
+ 2QkguUHkvUTOdlt01P4/DhG+P2wLws+l7Rp4fyndBFxZoSQJft5pRWCAsnXQHZGLxBsr
+ lBUsc8Qa998+ZXo5ddsYRiKLjcJ/PUIocy+4HJpJraeT5mGLXfOUmrDL+bM9gauZr+Ts
+ G68nmLZvv9IcpF7NIhHcrpxiXVWXH+jwCK0fB7ehA7rKkr/VdNIVnCJ8Ie30KapuMNTj
+ rcvOhChLx0M9ASEbXlEhgB+coZRBU8Ijse0RfzPN3O8/I+rc5tzEmox+2Ex/g3N8oA1e
+ gosA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789395116; x=1789999916; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=4rj/r25LyFLXL2H83H1Ljh+5fD7NhfkZssLHdM2663E=;
+ b=RR+IW2nofCjAlirBSZkMODluabgsIYiIIuvWSr8xp/Q9bRvFjPIk/x25178fySVlkG
+ q5jndsW6+JbCe6B4plgRv9JUQZYpPUxDca3N7BbE5yLEJ6x1CJVbegczgd09UfCEd3yD
+ p3FDJnJHkFMTxjKd6KKxD2x7ZCpvk8VtM6t6Cn83ythVXSlARuDV01j1+dj+0EdGB47V
+ HfWyUznnwwqZrzzQMTBZ9FhS2Dbp+PC4znBx3PU1OAncomto2BsoVU83vb5p1H6e1Fo8
+ qyTnYkhFPic4KgS714BAedaGf2wFu3uZfJcryovO8vtM7Z9X+9cz3JO2tKSFnkU9Zwjf
+ Wwuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1789395116; x=1789999916;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=4rj/r25LyFLXL2H83H1Ljh+5fD7NhfkZssLHdM2663E=;
+ b=BOtLZ2WswbpzjW1eBNqwUS49ReveMAhppWyxLRr41dXFB/qC7dmTWcMhs/vmWOCHbB
+ nySh2x/JWRCPAuO5Bdlm6xMrTlhYhUtqgwHQ6j/KpzoR2YBiPKxsuKHh4bXZuVrng9fO
+ 1SzJle4/eZkOYaQDXH+KAuiGKStNrrldrQEjyzxNtlgMS/4HyzaEP6edm7mNaxUwlb5b
+ avSt81Af2nnwtzgUw//omx4FYqVwkqqnuOV8Y9OfjM/Fx3hQaNsz3smK7iE+FnU9l8+s
+ HLNhrq3c78kMwG6mM6kWEko5vSPxOfMtdg4pj2W0r91yUdt9jb1ajH7k6ZUPeIVFlG87
+ dU4Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzul2u7v3ufeBSHi2lPAPDBjQN4ohSug2/mlw3/o8EHghPDtaHuCdRXJSm27GLeDiywlzp4gf3N@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mXG3bWiXL6V8riv5NehQUuv3+0ad6zBdT//2fYMlIsShQdt9eP
+ qgA03hihC18g6V4zznQcP1JN1wbJe9e/eVkDmxO1umyb9hvKy1BdMOxL12cDwelxCagPsolLpVP
+ QPjs974PTSTcXTSKEz/NWBef2tGZt6WU=
+X-Gm-Gg: AYBFou39mOXrdpwhm9wDSotvfiuYoPwcfi+WlBQWE99Ejm/CFOEStq2gY098K7prlVO
+ 0qVKNTehOaS/nA+8Wtkhp31R9DZP6pGI7dWLsCzTyMeCF6V8SKVVpRgNo7FvPuctf97/9mg/F+k
+ XoCJ9QyiAQCc3uzB1NNjNs2qgEnt/pAMDA0x+8W3SfvmmhNSqDdYQn4Ik8YqLEjZbspUdHd0xrR
+ wQFAKd2SpRlFFYWDrg1B+9aSKP+3HPrnDbH5ea9cZH0zPAryH83KZmjHaC2wkLZuioZxuDgCFmM
+ O3mRCZpprQg82GvcNoqZuRSTiQTBMRH9Ojx4s1QEwY99BXfgBTf59PWOuxM5ka8IXqYVbwoS1Dx
+ k55Ucstn/ZbW2gMlfvf4zMJiXQVJ47d1EyJ1ZvizJqg==
+X-Received: by 2002:a17:90b:390f:b0:38e:76f8:fcbb with SMTP id
+ 98e67ed59e1d1-39dec1aa1cbmr3754762a91.4.1789395116294; Mon, 14 Sep 2026
+ 07:11:56 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN6PR12MB8568:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9da5a203-1878-475d-12c6-08df12688d8f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 2AWE3wGet0ZKzVOKsT+dJhLcNHMUv71gc7dumfSUh+vC1YLhpmVoEWgeRCEENTisERtTmixuFemJiwbijikCLB8AQDsB+SfAr7k2rWuzS8y8krL75ftEPLU3nMLCsk9v1vezWSbOCb17OovWaX8SG6lzo9peXIWnoCCXiwGxklictd0EaKVOI34qHgfgz8P0FiFMDGA2njbFYoNrKEhtdM97+WoknGNmWJXca0a4myktlTRWF50OraCtwOj9vGbLWhMRqHgv+sEhaYrg8UMwKrI1TPWWVadklHmhCtH6jfrcFlc00LbgsXP2Lpe0KEbaEwi3ONZXlf7JHuwvt4/p33BYzLMo6DlhoK8RlH1N5xQr34ortEtU9tNmDp0Oo5z3nK9ou6IFFyaoZEno7wXUgbq2bYvtn3myZfPIzR2JnEClmcvH2SvhiQtLPPO27ILe7vWZL5VbZ7lhVdUi5PPJsegn1MZMLRewxMtBuHVIvx/lMGzd71rIliF31EpnZnYVv6XVFgu3wiDsZdQWBL+2GKHxd6AkCV7UmuzZ9hdQaQpwYL1wNQxo7OJteSi4hoWo9oZWyqvFOYmEYEouqccqCsMxXWz+CSPGb9iL9TFcvvVymxJRXdlRUqqTKGT+9EmV1mGcMNQI0f90KiCrmRjqkcZ0TAltT3/on76l3pnBLOY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzNXUm1aa2Q4TjcxWnhkWm5rZFB5ZEQzQnZkUUpRdUwvM1BKM0hDdGx3UTZZ?=
- =?utf-8?B?WG5KakNacFd1QlRjTW5kNmU0OXBWbjRsZ3FFSkY2a2NSeERzb01hSnBPNlFP?=
- =?utf-8?B?SS9lRGpQSERuNFdZVnoxTUcxUUlZMVhYc3RQV1VOamx0VCtlMmk3V3VET291?=
- =?utf-8?B?RFJTU2swY3NBbDJrb2pzSDREQ0Q5TFh1L2ozNHdGdDYrRC9hdVZHRGVycmJH?=
- =?utf-8?B?TkU2U3c4U0JuUzFYL2ZOL1NtOTF5bzVMQ1N5ZEhLSFdzMVhtZzIzWFBnZllR?=
- =?utf-8?B?Y3JpK2RXckFuQlcwN1RIOW5GYy9ySVFHaXo0aFgvaTltQTFVQy9TcERWUk9o?=
- =?utf-8?B?aHRoMHJ1c25DOCs3c1AwblM0a0FvSWFGOWxIamhRQmgrZWZEaS9iVlkvdm9z?=
- =?utf-8?B?SVVxSFhJODErNWFTWExsYXh0V0VzRDRuWWcwK1dVK1Q4UWtDVkptY1o1Um1s?=
- =?utf-8?B?TzRHdlpCVmRYNDFCcENYQlJPMFpOYkNLaXZEcFJLY09CTGRWNS9XMW41WkFW?=
- =?utf-8?B?SjBRaEdrZnVQL3p0OFdpbHYvaFp6MWtCZU0vYitybXo2SkJOUkt3TFFKUjdW?=
- =?utf-8?B?dUR6TUE0MlZpMHNRd2Q0S1d0eW5Td2g1cUcwVnA1RnpmUzhReXBDWjE3WmFO?=
- =?utf-8?B?MTUvd3p4Y3BRQVdhZ0J1Tk53NkpQK3cvNmx1Wk1RaW5HbU16TUc4cnhLbVNV?=
- =?utf-8?B?dXRvZXJ2dmErbXByZzNwaFA5ZmVuNE9nZGd6b2FNQUE5bGR1cEpmaXArYjha?=
- =?utf-8?B?VTBHWUtqNytaTXBVMFl4Q3VTcCtxK0JOWTFpMk1RU2VSRG5WZW9VcXByTVZq?=
- =?utf-8?B?dWNrM1JVdEVhU0YrV0pGNFBPSjczdkF3WElPNDBYZElRS2tGRUF4NUU3eC9Q?=
- =?utf-8?B?Uk9aSXR0V2xHTXJsUmZZSmVoMk8vclFXR1RQT3hjZkFVUVBKNm1Ua3IyRU13?=
- =?utf-8?B?cjJTMUYya3o0aklVZ2N5bTd3MjhPUDZPd2lENlNSVWlkVEw0b3pSVnBEa1JL?=
- =?utf-8?B?UXhLNkhGSzNIMEhRWjZKOU5IMUN0VlR5cEJNYm4rTjdUZk9lWWdMbkorYkFY?=
- =?utf-8?B?bzMxdE9abmJxYVlVbTZHL0hxOVhTZDBFUTR0WDRoNnVlR210Sm1xVUhMV1ZF?=
- =?utf-8?B?VFBpQUdsV21vRkhuSXdYbVdPREIyaWV5anBjdDMvSk84YVcvVTZ0UitZbDdi?=
- =?utf-8?B?b3dIT0o1c1l3Z2llWVhVb1dpRnN6ZzJDNklKMEdzc0lPU0FoOUQxcDZwSUxt?=
- =?utf-8?B?MDZJeFJrV2xaWlRVVFd0bFQ2QWdTV29mZGg5bSsyU1NTZnk5RTM4K1diWnYz?=
- =?utf-8?B?c2kvSE9GUWxpaDZKYzFQSTc1emZHT0VmeGpqMmZKVFR2ZWdBdUJvWGw2d3Nq?=
- =?utf-8?B?ZTRKSk1JanpoMmxJaG9Scyt2ZWJKemQwQXptMWdwREVDelA0WDVwTXpjVXNp?=
- =?utf-8?B?TFRIUWNOR3RTM0pEN04xR084YlM0REE0b3ZmTWZsYVJvSGZwcXZVNHNBeU1y?=
- =?utf-8?B?WERFZHNUaktONlJWeDUwVDQ4azc0RVhLd082MUY3WTBQNG1POEo2ekNLZi93?=
- =?utf-8?B?RVZHbVpEQURiWGtGQm1vL2hmU2puUlVqN0lvcUlqcW1YMHlLQzZ0NnB4MEpN?=
- =?utf-8?B?bGdtMG1zdkxzajNQUVF2ckNDZlFJS3RVdWV0VVBrUS9lMmRKeEFtcTYyZGND?=
- =?utf-8?B?TE1mSFdDMTE2dkNUSHMyaEVpcklaZkcyV0FjMFlaNWVjRWZmVDZtZUVqcTY4?=
- =?utf-8?B?MkpSN1h1OFpUcUxYUDlmeEpqSURDU2JkZEhmMFRCdE9OVHU3elZXc3dqckF4?=
- =?utf-8?B?dWpmblQ4QXVNcE44N1RGTWZWYmI4eXhDY3FSbXRKTFNWeG9aTlBGWkxIRXpX?=
- =?utf-8?B?NVJqalBudHd6SndtTmZ3MWVtQXZUb3RPVkF4YlpVRHBYeGJDL2FDNW40bWFv?=
- =?utf-8?B?b3JaUEVFNmo4OHRPY0JKWWZDRmRaNWNSeGpvelgwT2tsQThsNTE2bUY0Q082?=
- =?utf-8?B?dXFUT083cmppU2RPOWtPbnEyd01KQVE3aUZxVWJQMWtmMW9lcG9LTm8ySlha?=
- =?utf-8?B?RUdNUzBKN0NXb0RkL1dwaVVETmg1cEtPS3lFWFo1UmVkdDRIeG5vZUg1anZw?=
- =?utf-8?B?Rmh0YkZneUhudEYwRm01ZmQ5Q2dWUXNBYlludlc4cVI0bUZkWFprR0haa3lw?=
- =?utf-8?B?Tkg2TU9tQXRiMU5kbmFpcGhxS0NwTW5qY1kwTzhjQUFkOWt2cGdRUTNHNWdE?=
- =?utf-8?B?UUJDUkx2eVJpakJ0S2hLNzh0WXU3cVhvN1NHMWJPbG1zTGRyeWpaT2hQTjF3?=
- =?utf-8?Q?7C6NeAZ+HZLlsTILIw?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9da5a203-1878-475d-12c6-08df12688d8f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 14:00:37.3103 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oKwvn+HmQffXnzklNgkiYK1xI/q1NCUqPGjsL8uqaEdB+zP8S3WoGDPmp3DX6AfZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8568
+References: <358a518d-1490-40ba-bbe3-7f3696c1d696@amd.com>
+ <20260911183825.935140-1-mike@fireburn.co.uk>
+ <afb6cf0f-ca0b-4fb9-b7f7-2355ed45386c@amd.com>
+In-Reply-To: <afb6cf0f-ca0b-4fb9-b7f7-2355ed45386c@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 14 Sep 2026 10:11:44 -0400
+X-Gm-Features: AcwNN1VTuk_e5gAg5i1SrKs6UFcqZjBHCJ6WW0AE0n88d1R64cVdkQO01fkBy4Y
+Message-ID: <CADnq5_Ngcrfh4m5fHs4R-S8kRHVf-9qT1_wPwBcV6OsXfigDrA@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: hold a runtime PM reference for P2P
+ dma-buf attachments
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Mike Lothian <mike@fireburn.co.uk>, amd-gfx@lists.freedesktop.org, 
+ alexander.deucher@amd.com, kevinyang.wang@amd.com, 
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,70 +110,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/14/26 15:56, Dmitriy Chumachenko wrote:
-> The reg_state readouts return szbuf bytes but never write the pad members
-> of the headers and of amdgpu_smn_reg_data (and, for pcie, the fields
-> skipped when the upstream port or AER capability is absent). The sysfs
-> buffer is a plain kmalloc(), so those bytes leak stale slab data to any
-> local user through the 0444 reg_state attribute.
-> 
-> Zero the buffer once the size is known.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Fixes: 081a6eda2b25 ("drm/amdgpu: Read aquavanjaram PCIE register state")
-> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+Applied.  Thanks!
 
-Good catch, but stuff like that should be handled by using kzalloc() instead of calling memset it manually.
-
-Regards,
-Christian.
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> index 72ea37dbfea8..0086de0f685d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> @@ -610,6 +610,8 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
->         if (max_size < szbuf)
->                 return -EOVERFLOW;
-> 
-> +       memset(buf, 0, szbuf);
-> +
->         pcie_regs = (struct amdgpu_regs_pcie_v1_0 *)((uint8_t *)buf +
->                                                      sizeof(*pcie_reg_state));
->         pcie_regs->inst_header.instance = 0;
-> @@ -702,6 +704,8 @@ static ssize_t aqua_vanjaram_read_xgmi_state(struct amdgpu_device *adev,
->         if (max_size < szbuf)
->                 return -EOVERFLOW;
-> 
-> +       memset(buf, 0, szbuf);
-> +
->         p = &xgmi_reg_state->xgmi_state_regs[0];
->         for_each_inst(i, adev->aid_mask) {
->                 for (j = 0; j < xgmi_inst; ++j) {
-> @@ -776,6 +780,8 @@ static ssize_t aqua_vanjaram_read_wafl_state(struct amdgpu_device *adev,
->         if (max_size < szbuf)
->                 return -EOVERFLOW;
-> 
-> +       memset(buf, 0, szbuf);
-> +
->         p = &wafl_reg_state->wafl_state_regs[0];
->         for_each_inst(i, adev->aid_mask) {
->                 for (j = 0; j < wafl_inst; ++j) {
-> @@ -902,6 +908,8 @@ static ssize_t aqua_vanjaram_read_usr_state(struct amdgpu_device *adev,
->         if (max_size < szbuf)
->                 return -EOVERFLOW;
-> 
-> +       memset(buf, 0, szbuf);
-> +
->         p = &usr_reg_state->usr_state_regs[0];
->         for_each_inst(i, adev->aid_mask) {
->                 usr_regs = (struct amdgpu_regs_usr_v1_0 *)p;
-> --
-> 2.49.0
-> 
-
+On Mon, Sep 14, 2026 at 6:51=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 9/11/26 20:38, Mike Lothian wrote:
+> > amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
+> > attachment.  GTT is only a fallback placement when VRAM is preferred, s=
+o
+> > ttm_bo_validate() migrates the buffer from GTT into VRAM.  While the
+> > exporting device is runtime suspended its SDMA rings are down and the
+> > move fails:
+> >
+> >   amdgpu: Move buffer fallback to memcpy unavailable
+> >
+> > An importer on a second GPU reaches this holding no runtime PM
+> > reference on the exporter, e.g. a compositor on the APU submitting a
+> > frame that references a buffer exported by an idle dGPU:
+> >
+> >   amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
+> >     -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
+> >       -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
+> >
+> > Pinning a dma-buf into VRAM has the same requirement, which
+> > commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
+> > when we attach a buffer" v2") called out as the one case that would
+> > need the reference back.
+> >
+> > Take it in attach and drop it in detach.  pm_runtime_get_if_active()
+> > never resumes the device, so it cannot deadlock against the reservation
+> > taken during resume, which is why the old pm_runtime_get_sync() had to
+> > go.  If the device is not active, clear peer2peer instead: the buffer
+> > then stays in GTT, which remains accessible while the GPU is powered
+> > down.
+> >
+> > Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference whe=
+n we attach a buffer" v2")
+> > Cc: stable@vger.kernel.org
+> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+> > Assisted-by: Claude:Opus-5 [Claude Code]
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> >
+> > v3: take the reference in attach and drop it in detach, clearing
+> >     peer2peer when the device is not active, as suggested by Christian.
+> >     v2 only covered amdgpu_dma_buf_map() and left VRAM pinning exposed.
+> > v2: use pm_runtime_get_if_active() instead of testing
+> >     adev->mman.buffer_funcs_enabled, which was racy against a
+> >     concurrent suspend.  Reported by Sashiko AI review.
+> >
+> > Reproduced on a HawkPoint APU [1002:1900] driving the display with a
+> > Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
+> > offload.  Without the patch kwin_wayland hits the call chain above
+> > within a minute of the dGPU autosuspending and the desktop stops
+> > repainting until it resumes.
+> >
+> > Tested with v3: Chromium rendering on the dGPU and composited by kwin
+> > 6.7.5 for five minutes, then closed.  The dGPU stayed active while the
+> > window was on screen and suspended six seconds after Chromium exited,
+> > with no fallback errors or runtime PM usage count underflows.  After
+> > an hour of yuzu render offload the dGPU also suspended once yuzu
+> > exited.
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 39 ++++++++++++++++++++-
+> >  1 file changed, 38 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_dma_buf.c
+> > index b33c300e26e2..fae695c3e531 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > @@ -43,6 +43,7 @@
+> >  #include <linux/dma-buf.h>
+> >  #include <linux/dma-fence-array.h>
+> >  #include <linux/pci-p2pdma.h>
+> > +#include <linux/pm_runtime.h>
+> >
+> >  static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
+> >
+> > @@ -100,15 +101,50 @@ static int amdgpu_dma_buf_attach(struct dma_buf *=
+dmabuf,
+> >           pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
+> >               attach->peer2peer =3D false;
+> >
+> > +     /*
+> > +      * P2P access needs the exporter awake for the lifetime of the
+> > +      * attachment.  pm_runtime_get_if_active() never resumes the devi=
+ce,
+> > +      * so it cannot deadlock against the reservation taken during res=
+ume.
+> > +      * A negative return means runtime PM is disabled and the device
+> > +      * cannot suspend, in which case the put in detach is a no-op.
+> > +      */
+> > +     if (attach->peer2peer &&
+> > +         !pm_runtime_get_if_active(adev_to_drm(adev)->dev))
+> > +             attach->peer2peer =3D false;
+> > +
+> >       r =3D dma_resv_lock(bo->tbo.base.resv, NULL);
+> >       if (r)
+> > -             return r;
+> > +             goto err_pm_put;
+> >
+> >       amdgpu_vm_bo_update_shared(bo);
+> >
+> >       dma_resv_unlock(bo->tbo.base.resv);
+> >
+> >       return 0;
+> > +
+> > +err_pm_put:
+> > +     if (attach->peer2peer)
+> > +             pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> > +     return r;
+> > +}
+> > +
+> > +/**
+> > + * amdgpu_dma_buf_detach - &dma_buf_ops.detach implementation
+> > + *
+> > + * @dmabuf: DMA-buf where we remove the attachment from
+> > + * @attach: the attachment to remove
+> > + *
+> > + * Drop the runtime PM reference taken in amdgpu_dma_buf_attach().
+> > + */
+> > +static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
+> > +                               struct dma_buf_attachment *attach)
+> > +{
+> > +     struct drm_gem_object *obj =3D dmabuf->priv;
+> > +     struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
+> > +     struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
+> > +
+> > +     if (attach->peer2peer)
+> > +             pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> >  }
+> >
+> >  /**
+> > @@ -350,6 +386,7 @@ static void amdgpu_dma_buf_vunmap(struct dma_buf *d=
+ma_buf, struct iosys_map *map
+> >
+> >  const struct dma_buf_ops amdgpu_dmabuf_ops =3D {
+> >       .attach =3D amdgpu_dma_buf_attach,
+> > +     .detach =3D amdgpu_dma_buf_detach,
+> >       .pin =3D amdgpu_dma_buf_pin,
+> >       .unpin =3D amdgpu_dma_buf_unpin,
+> >       .map_dma_buf =3D amdgpu_dma_buf_map,
+>
