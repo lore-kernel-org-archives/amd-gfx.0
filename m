@@ -4,58 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21414C982C1
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 07:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B74AC982C2
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 07:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D75A410FA40;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7DDE10FA3F;
 	Tue, 15 Sep 2026 07:32:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="pgjZ+D3d";
-	dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="MYoSiWh7";
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="pgjZ+D3d";
-	dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="MYoSiWh7";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="IAV6QyNQ";
+	dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="ySXOaoe0";
 	dkim-atps=neutral
-X-Greylist: delayed 1161 seconds by postgrey-1.36 at gabe;
- Mon, 14 Sep 2026 14:16:45 UTC
-Received: from mx1.cyberprotect.ru (mx1.cyberprotect.ru [185.232.107.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67A4F89BF4;
- Mon, 14 Sep 2026 14:16:45 +0000 (UTC)
+X-Greylist: delayed 2172 seconds by postgrey-1.36 at gabe;
+ Mon, 14 Sep 2026 14:33:26 UTC
+Received: from mx2.cyberprotect.ru (mx2.cyberprotect.ru [176.10.93.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A334210E2D1;
+ Mon, 14 Sep 2026 14:33:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=cyberprotect.ru; s=dkim-r; h=MIME-Version:Date:From:Sender:Reply-To;
- bh=Y76w9BTOjCpEbJnDNx2234JNCrHlNulwkjOo2N/Tktg=; b=pgjZ+D3ds6ds8uiNLbmKo+HXp+
- AEc6vvGCMAODeHcLok5TJBjIN8EX/sGpZoiF4D+6uvn0ONzXu3jYZNmYEgN9s0r7bPNwYbOOnvEmC
- eWhlUvt3x7Q6kJT40g7upogSn+rVg6JoVgPrPmbdCna37LJdI2KUPFVvi5jV1UecciLOhtJnlS+Xy
- uIwnay19Jskn8Uq32d/fIPIBNwrtkX9Avf6fnmOSwJhHR/jnw1fM/oT8WQkB2vNjTcjicrzT9jgzw
- 0L2SsNGL0TxT01W4Zg2rn7cLEVGHMMJYnLzKDvYzCaycgz4sfwF+aCSDXHc2ZqOKq9aRuqhxgQvze
- Qxz8S75w==;
+ bh=G7k+5ltUYjwES1HZ+tIrvRED7WHcVnAbVMsryiyMzYI=; b=IAV6QyNQXJUIg8acSVFC6THTCw
+ WBHaUHAPEEMCe/djnyt516IwdSuKhD4bzNXH6J7prLpCeT0LJ6EATfTgW/2wVX4tjzeRA6Uf4jB1D
+ Qf3fJfGkqhThFGfeMhdpzSb7ohUuICHI2NUQLutuxM5XvPFHLaYhF+gX/DWp6ofXVdoCjRJNL7rE4
+ MGRmceJXYPRSzRg0Xsnjy/yk4E1siAoK+X7YI+MfYmhkFVusE0mPHSAEfTsgbHTmFmxwWHVHn4Nlq
+ Eo6Pem+TONK6/x8WZXSPl0S7B7rmUMUyIBYaMyHSTCSGTqkDNee0aig5/3mxy9Z070t4ebVaSoCdL
+ fozrA4eg==;
 DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
  d=cyberprotect.ru; s=dkim; h=MIME-Version:Date:From:Sender:Reply-To;
- bh=Y76w9BTOjCpEbJnDNx2234JNCrHlNulwkjOo2N/Tktg=; b=MYoSiWh7wZ3/ARTzg3Mi/nUL2p
- 3yBq7DAfyrbReaEQ35AMNJrTyxV3/4Ny+WceKloqIQVwTTmWT3otMZSJwNBA==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=cyberprotect.ru; s=dkim-r; h=MIME-Version:Date:From:Sender:Reply-To;
- bh=Y76w9BTOjCpEbJnDNx2234JNCrHlNulwkjOo2N/Tktg=; b=pgjZ+D3ds6ds8uiNLbmKo+HXp+
- AEc6vvGCMAODeHcLok5TJBjIN8EX/sGpZoiF4D+6uvn0ONzXu3jYZNmYEgN9s0r7bPNwYbOOnvEmC
- eWhlUvt3x7Q6kJT40g7upogSn+rVg6JoVgPrPmbdCna37LJdI2KUPFVvi5jV1UecciLOhtJnlS+Xy
- uIwnay19Jskn8Uq32d/fIPIBNwrtkX9Avf6fnmOSwJhHR/jnw1fM/oT8WQkB2vNjTcjicrzT9jgzw
- 0L2SsNGL0TxT01W4Zg2rn7cLEVGHMMJYnLzKDvYzCaycgz4sfwF+aCSDXHc2ZqOKq9aRuqhxgQvze
- Qxz8S75w==;
-DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
- d=cyberprotect.ru; s=dkim; h=MIME-Version:Date:From:Sender:Reply-To;
- bh=Y76w9BTOjCpEbJnDNx2234JNCrHlNulwkjOo2N/Tktg=; b=MYoSiWh7wZ3/ARTzg3Mi/nUL2p
- 3yBq7DAfyrbReaEQ35AMNJrTyxV3/4Ny+WceKloqIQVwTTmWT3otMZSJwNBA==;
+ bh=G7k+5ltUYjwES1HZ+tIrvRED7WHcVnAbVMsryiyMzYI=; b=ySXOaoe0A71bsidyk23w2to3m8
+ TRsAEjiBzayhV2sFsHMPC/03gAgfyQS+K+3EK1oQf9szHwJZcS8XFVwit/Dg==;
 From: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
 To: Alexander Deucher <alexander.deucher@amd.com>
 CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lijo Lazar
- <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Samuel Zhang
- <guoqing.zhang@amd.com>, Dmitriy Chumachenko
- <Dmitry.Chumachenko@cyberprotect.ru>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <lvc-project@linuxtesting.org>
-Subject: [PATCH] drm/amdgpu: zero reg_state buffer before filling it
-Date: Mon, 14 Sep 2026 16:56:50 +0300
-Message-ID: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
+ Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang
+ <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>, Dmitriy
+ Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+Subject: [PATCH] drm/amdgpu: check ras and obj before dereference
+Date: Mon, 14 Sep 2026 17:33:03 +0300
+Message-ID: <20260914143303.90614-1-Dmitry.Chumachenko@cyberprotect.ru>
 X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -78,62 +63,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The reg_state readouts return szbuf bytes but never write the pad members  
-of the headers and of amdgpu_smn_reg_data (and, for pcie, the fields       
-skipped when the upstream port or AER capability is absent). The sysfs     
-buffer is a plain kmalloc(), so those bytes leak stale slab data to any    
-local user through the 0444 reg_state attribute.                    
-                                                                           
-Zero the buffer once the size is known.
+nbio_v7_9_handle_ras_controller_intr_no_bifring() dereferences ras and obj
+without checking either for NULL. Both amdgpu_ras_get_context() and 
+amdgpu_ras_find_obj() can return NULL, e.g. during the window between 
+adev->nbio.ras being set (early in amdgpu_ras_init(), by design, to 
+enable the fatal-error interrupt as soon as possible) and the PCIE_BIF 
+ras object actually being created in RAS late_init. Any interrupt in that 
+window crashes in hard-IRQ context.
+
+This is analogous to commit d190b459b2a4 ("drm/amdgpu: the warning
+dereferencing obj for nbio_v7_4"), which fixed the same issue in the
+nbio_v7_4 handler.
 
 Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Fixes: 081a6eda2b25 ("drm/amdgpu: Read aquavanjaram PCIE register state")
+Fixes: 7692e1ee2446 ("drm/amdgpu: add RAS fatal error handler for NBIO v7.9")
 Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
 ---
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-index 72ea37dbfea8..0086de0f685d 100644
---- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-@@ -610,6 +610,8 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
- 	if (max_size < szbuf)
- 		return -EOVERFLOW;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+index 8e401f8b2a05..2b3a1b9f8efc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+@@ -518,7 +518,7 @@ static void nbio_v7_9_handle_ras_controller_intr_no_bifring(struct amdgpu_device
+ 						RAS_CNTLR_INTERRUPT_CLEAR, 1);
+ 		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
  
-+	memset(buf, 0, szbuf);
-+
- 	pcie_regs = (struct amdgpu_regs_pcie_v1_0 *)((uint8_t *)buf +
- 						     sizeof(*pcie_reg_state));
- 	pcie_regs->inst_header.instance = 0;
-@@ -702,6 +704,8 @@ static ssize_t aqua_vanjaram_read_xgmi_state(struct amdgpu_device *adev,
- 	if (max_size < szbuf)
- 		return -EOVERFLOW;
- 
-+	memset(buf, 0, szbuf);
-+
- 	p = &xgmi_reg_state->xgmi_state_regs[0];
- 	for_each_inst(i, adev->aid_mask) {
- 		for (j = 0; j < xgmi_inst; ++j) {
-@@ -776,6 +780,8 @@ static ssize_t aqua_vanjaram_read_wafl_state(struct amdgpu_device *adev,
- 	if (max_size < szbuf)
- 		return -EOVERFLOW;
- 
-+	memset(buf, 0, szbuf);
-+
- 	p = &wafl_reg_state->wafl_state_regs[0];
- 	for_each_inst(i, adev->aid_mask) {
- 		for (j = 0; j < wafl_inst; ++j) {
-@@ -902,6 +908,8 @@ static ssize_t aqua_vanjaram_read_usr_state(struct amdgpu_device *adev,
- 	if (max_size < szbuf)
- 		return -EOVERFLOW;
- 
-+	memset(buf, 0, szbuf);
-+
- 	p = &usr_reg_state->usr_state_regs[0];
- 	for_each_inst(i, adev->aid_mask) {
- 		usr_regs = (struct amdgpu_regs_usr_v1_0 *)p;
+-		if (!ras->disable_ras_err_cnt_harvest) {
++		if (ras && !ras->disable_ras_err_cnt_harvest && obj) {
+ 			/*
+ 			 * clear error status after ras_controller_intr
+ 			 * according to hw team and count ue number
 -- 
 2.49.0
 
