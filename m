@@ -4,98 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCF41C88E77
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 14:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 750DEC88E72
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 14:19:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68DB910EED3;
-	Mon, 14 Sep 2026 14:11:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E26EC10EEF5;
+	Mon, 14 Sep 2026 14:19:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RR+IW2no";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="A8V76iMo";
 	dkim-atps=neutral
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
- [74.125.228.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F40A810E8C6
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 14:11:56 +0000 (UTC)
-Received: by mail-pz2-f42.google.com with SMTP id
- 41be03b00d2f7-cc4e4979c47so80963a12.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 07:11:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789395116; cv=none;
- d=google.com; s=arc-20260327;
- b=rdVJ1loAQtEl4/tIUexj0/TLdZH7axmH3/z9d7gCdWqfTfGI9L/YJTpiv7mJ2VecaH
- ewGJOPd3NiPAZ6JPGBQm+lwm7BOjOah77ukXzWmhL1At3K5N0BIwUOj7Jc6Lhd8Epsuh
- lPJSG59OQ4HC5cKuzNZFD5eNjiezIuWuLY0/k5yVdxEskqBnvWymqpOlY7VnLJVDEkd6
- FWX4yNVjR3CrouENvxRQ/4yvi5m4NMJpPbzUz0UPx+XFsCtwvXAc3/0jWsuJkz/joCDT
- p88jloIyxotppTwYzU/bULDjlbhX4aZsjt8FUj+Pp7Hek2FokHdwLEwZ68mcjHoNuYXJ
- DlhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=4rj/r25LyFLXL2H83H1Ljh+5fD7NhfkZssLHdM2663E=;
- fh=nO7cB3uWcOULCv9hLT0gsUFKFgzC3QvuzsO3l3yfx+s=;
- b=EUECCpKxk006RpojyXeRbmCt9eheSU24Suz0DZ5NENrHlF7OMtAb1Tvd3QOlWhTA3S
- 2QkguUHkvUTOdlt01P4/DhG+P2wLws+l7Rp4fyndBFxZoSQJft5pRWCAsnXQHZGLxBsr
- lBUsc8Qa998+ZXo5ddsYRiKLjcJ/PUIocy+4HJpJraeT5mGLXfOUmrDL+bM9gauZr+Ts
- G68nmLZvv9IcpF7NIhHcrpxiXVWXH+jwCK0fB7ehA7rKkr/VdNIVnCJ8Ie30KapuMNTj
- rcvOhChLx0M9ASEbXlEhgB+coZRBU8Ijse0RfzPN3O8/I+rc5tzEmox+2Ex/g3N8oA1e
- gosA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789395116; x=1789999916; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=4rj/r25LyFLXL2H83H1Ljh+5fD7NhfkZssLHdM2663E=;
- b=RR+IW2nofCjAlirBSZkMODluabgsIYiIIuvWSr8xp/Q9bRvFjPIk/x25178fySVlkG
- q5jndsW6+JbCe6B4plgRv9JUQZYpPUxDca3N7BbE5yLEJ6x1CJVbegczgd09UfCEd3yD
- p3FDJnJHkFMTxjKd6KKxD2x7ZCpvk8VtM6t6Cn83ythVXSlARuDV01j1+dj+0EdGB47V
- HfWyUznnwwqZrzzQMTBZ9FhS2Dbp+PC4znBx3PU1OAncomto2BsoVU83vb5p1H6e1Fo8
- qyTnYkhFPic4KgS714BAedaGf2wFu3uZfJcryovO8vtM7Z9X+9cz3JO2tKSFnkU9Zwjf
- Wwuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789395116; x=1789999916;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=4rj/r25LyFLXL2H83H1Ljh+5fD7NhfkZssLHdM2663E=;
- b=BOtLZ2WswbpzjW1eBNqwUS49ReveMAhppWyxLRr41dXFB/qC7dmTWcMhs/vmWOCHbB
- nySh2x/JWRCPAuO5Bdlm6xMrTlhYhUtqgwHQ6j/KpzoR2YBiPKxsuKHh4bXZuVrng9fO
- 1SzJle4/eZkOYaQDXH+KAuiGKStNrrldrQEjyzxNtlgMS/4HyzaEP6edm7mNaxUwlb5b
- avSt81Af2nnwtzgUw//omx4FYqVwkqqnuOV8Y9OfjM/Fx3hQaNsz3smK7iE+FnU9l8+s
- HLNhrq3c78kMwG6mM6kWEko5vSPxOfMtdg4pj2W0r91yUdt9jb1ajH7k6ZUPeIVFlG87
- dU4Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzul2u7v3ufeBSHi2lPAPDBjQN4ohSug2/mlw3/o8EHghPDtaHuCdRXJSm27GLeDiywlzp4gf3N@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mXG3bWiXL6V8riv5NehQUuv3+0ad6zBdT//2fYMlIsShQdt9eP
- qgA03hihC18g6V4zznQcP1JN1wbJe9e/eVkDmxO1umyb9hvKy1BdMOxL12cDwelxCagPsolLpVP
- QPjs974PTSTcXTSKEz/NWBef2tGZt6WU=
-X-Gm-Gg: AYBFou39mOXrdpwhm9wDSotvfiuYoPwcfi+WlBQWE99Ejm/CFOEStq2gY098K7prlVO
- 0qVKNTehOaS/nA+8Wtkhp31R9DZP6pGI7dWLsCzTyMeCF6V8SKVVpRgNo7FvPuctf97/9mg/F+k
- XoCJ9QyiAQCc3uzB1NNjNs2qgEnt/pAMDA0x+8W3SfvmmhNSqDdYQn4Ik8YqLEjZbspUdHd0xrR
- wQFAKd2SpRlFFYWDrg1B+9aSKP+3HPrnDbH5ea9cZH0zPAryH83KZmjHaC2wkLZuioZxuDgCFmM
- O3mRCZpprQg82GvcNoqZuRSTiQTBMRH9Ojx4s1QEwY99BXfgBTf59PWOuxM5ka8IXqYVbwoS1Dx
- k55Ucstn/ZbW2gMlfvf4zMJiXQVJ47d1EyJ1ZvizJqg==
-X-Received: by 2002:a17:90b:390f:b0:38e:76f8:fcbb with SMTP id
- 98e67ed59e1d1-39dec1aa1cbmr3754762a91.4.1789395116294; Mon, 14 Sep 2026
- 07:11:56 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B47A10EF07
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 14:19:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=g6auwP7u4mNH4rQVLO4WDcgCZfvlDqRMnGwQCx/6Bhk=; b=A8V76iMo1jXRvXHdbUykom8GEK
+ YPpnV8Qz4pAcZKUhMUVhrNFuH8+JRAvGOgYpyL1iWfCWalAp0qfZ6uOKo75J8C7uTo0pLRQKWarDf
+ Z7MV8JeQm+6zgoZCT0lG+9/eIj0A+5p4hgEMF4+AaZmRBjkg9w0lp07Lnbj5fb/nwbCmtOwu9mXqf
+ BK3NKRKzMgsn98dcYv83gtIJ49jM+1kePcboxwf5JFWWJB6qH+ZftIjfcEFOKzRN3TF+jts+HG26s
+ OwkTlZVuC5ukrMkVyRF/WMV3EV4e+bcYnLoGBT1V9ejwYcTM6fPH3zmAEZ2Ugd7A2ZK5EyjphzHR8
+ LaVPtISA==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x67WT-001w6o-Uo; Mon, 14 Sep 2026 16:19:05 +0200
+Message-ID: <126315e8-ae75-4d16-8736-f4db1058bca0@igalia.com>
+Date: Mon, 14 Sep 2026 15:19:04 +0100
 MIME-Version: 1.0
-References: <358a518d-1490-40ba-bbe3-7f3696c1d696@amd.com>
- <20260911183825.935140-1-mike@fireburn.co.uk>
- <afb6cf0f-ca0b-4fb9-b7f7-2355ed45386c@amd.com>
-In-Reply-To: <afb6cf0f-ca0b-4fb9-b7f7-2355ed45386c@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 14 Sep 2026 10:11:44 -0400
-X-Gm-Features: AcwNN1VTuk_e5gAg5i1SrKs6UFcqZjBHCJ6WW0AE0n88d1R64cVdkQO01fkBy4Y
-Message-ID: <CADnq5_Ngcrfh4m5fHs4R-S8kRHVf-9qT1_wPwBcV6OsXfigDrA@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/amdgpu: hold a runtime PM reference for P2P
- dma-buf attachments
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Mike Lothian <mike@fireburn.co.uk>, amd-gfx@lists.freedesktop.org, 
- alexander.deucher@amd.com, kevinyang.wang@amd.com, 
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] drm/amdgpu: Add SDMA ring init helper
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ kernel-dev@igalia.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>
+References: <20260914110401.48209-1-tvrtko.ursulin@igalia.com>
+ <20260914110401.48209-2-tvrtko.ursulin@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260914110401.48209-2-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,150 +60,356 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
 
-On Mon, Sep 14, 2026 at 6:51=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 9/11/26 20:38, Mike Lothian wrote:
-> > amdgpu_dma_buf_map() adds VRAM to the allowed domains for a peer2peer
-> > attachment.  GTT is only a fallback placement when VRAM is preferred, s=
-o
-> > ttm_bo_validate() migrates the buffer from GTT into VRAM.  While the
-> > exporting device is runtime suspended its SDMA rings are down and the
-> > move fails:
-> >
-> >   amdgpu: Move buffer fallback to memcpy unavailable
-> >
-> > An importer on a second GPU reaches this holding no runtime PM
-> > reference on the exporter, e.g. a compositor on the APU submitting a
-> > frame that references a buffer exported by an idle dGPU:
-> >
-> >   amdgpu_cs_ioctl -> amdgpu_cs_parser_bos -> amdgpu_cs_bo_validate
-> >     -> ttm_bo_validate -> amdgpu_bo_move -> dma_buf_map_attachment
-> >       -> amdgpu_dma_buf_map -> ttm_bo_validate -> amdgpu_bo_move
-> >
-> > Pinning a dma-buf into VRAM has the same requirement, which
-> > commit 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference
-> > when we attach a buffer" v2") called out as the one case that would
-> > need the reference back.
-> >
-> > Take it in attach and drop it in detach.  pm_runtime_get_if_active()
-> > never resumes the device, so it cannot deadlock against the reservation
-> > taken during resume, which is why the old pm_runtime_get_sync() had to
-> > go.  If the device is not active, clear peer2peer instead: the buffer
-> > then stays in GTT, which remains accessible while the GPU is powered
-> > down.
-> >
-> > Fixes: 030631e97b20 ("drm/amdgpu: revert "take runtime pm reference whe=
-n we attach a buffer" v2")
-> > Cc: stable@vger.kernel.org
-> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-> > Assisted-by: Claude:Opus-5 [Claude Code]
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> > ---
-> >
-> > v3: take the reference in attach and drop it in detach, clearing
-> >     peer2peer when the device is not active, as suggested by Christian.
-> >     v2 only covered amdgpu_dma_buf_map() and left VRAM pinning exposed.
-> > v2: use pm_runtime_get_if_active() instead of testing
-> >     adev->mman.buffer_funcs_enabled, which was racy against a
-> >     concurrent suspend.  Reported by Sashiko AI review.
-> >
-> > Reproduced on a HawkPoint APU [1002:1900] driving the display with a
-> > Navi 48 [Radeon AI PRO R9700] [1002:7551] on oculink for render
-> > offload.  Without the patch kwin_wayland hits the call chain above
-> > within a minute of the dGPU autosuspending and the desktop stops
-> > repainting until it resumes.
-> >
-> > Tested with v3: Chromium rendering on the dGPU and composited by kwin
-> > 6.7.5 for five minutes, then closed.  The dGPU stayed active while the
-> > window was on screen and suspended six seconds after Chromium exited,
-> > with no fallback errors or runtime PM usage count underflows.  After
-> > an hour of yuzu render offload the dGPU also suspended once yuzu
-> > exited.
-> >
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 39 ++++++++++++++++++++-
-> >  1 file changed, 38 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_dma_buf.c
-> > index b33c300e26e2..fae695c3e531 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> > @@ -43,6 +43,7 @@
-> >  #include <linux/dma-buf.h>
-> >  #include <linux/dma-fence-array.h>
-> >  #include <linux/pci-p2pdma.h>
-> > +#include <linux/pm_runtime.h>
-> >
-> >  static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops;
-> >
-> > @@ -100,15 +101,50 @@ static int amdgpu_dma_buf_attach(struct dma_buf *=
-dmabuf,
-> >           pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
-> >               attach->peer2peer =3D false;
-> >
-> > +     /*
-> > +      * P2P access needs the exporter awake for the lifetime of the
-> > +      * attachment.  pm_runtime_get_if_active() never resumes the devi=
-ce,
-> > +      * so it cannot deadlock against the reservation taken during res=
-ume.
-> > +      * A negative return means runtime PM is disabled and the device
-> > +      * cannot suspend, in which case the put in detach is a no-op.
-> > +      */
-> > +     if (attach->peer2peer &&
-> > +         !pm_runtime_get_if_active(adev_to_drm(adev)->dev))
-> > +             attach->peer2peer =3D false;
-> > +
-> >       r =3D dma_resv_lock(bo->tbo.base.resv, NULL);
-> >       if (r)
-> > -             return r;
-> > +             goto err_pm_put;
-> >
-> >       amdgpu_vm_bo_update_shared(bo);
-> >
-> >       dma_resv_unlock(bo->tbo.base.resv);
-> >
-> >       return 0;
-> > +
-> > +err_pm_put:
-> > +     if (attach->peer2peer)
-> > +             pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> > +     return r;
-> > +}
-> > +
-> > +/**
-> > + * amdgpu_dma_buf_detach - &dma_buf_ops.detach implementation
-> > + *
-> > + * @dmabuf: DMA-buf where we remove the attachment from
-> > + * @attach: the attachment to remove
-> > + *
-> > + * Drop the runtime PM reference taken in amdgpu_dma_buf_attach().
-> > + */
-> > +static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
-> > +                               struct dma_buf_attachment *attach)
-> > +{
-> > +     struct drm_gem_object *obj =3D dmabuf->priv;
-> > +     struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
-> > +     struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
-> > +
-> > +     if (attach->peer2peer)
-> > +             pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> >  }
-> >
-> >  /**
-> > @@ -350,6 +386,7 @@ static void amdgpu_dma_buf_vunmap(struct dma_buf *d=
-ma_buf, struct iosys_map *map
-> >
-> >  const struct dma_buf_ops amdgpu_dmabuf_ops =3D {
-> >       .attach =3D amdgpu_dma_buf_attach,
-> > +     .detach =3D amdgpu_dma_buf_detach,
-> >       .pin =3D amdgpu_dma_buf_pin,
-> >       .unpin =3D amdgpu_dma_buf_unpin,
-> >       .map_dma_buf =3D amdgpu_dma_buf_map,
->
+On 14/09/2026 12:03, Tvrtko Ursulin wrote:
+> Consolidate one part of the SDMA ring initialization with a new
+> amdgpu_sdma_ring_init() helper.
+> 
+> Only code which is completely IP version agnostic is moved to the helper.
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+> v2:
+>   - Use va args to consolidate even better.
+
+I messed up something in v2 - hold off the review please.
+
+I though I smoke tested it but on this instance Steam Deck managed to 
+fool me by quickly rebooting into a working kernel.
+
+Regards,
+
+Tvrtko
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 18 ++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  4 ++++
+>   drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   |  7 +------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   |  7 +------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 13 ++-----------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 20 +++++---------------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  7 +------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  6 +-----
+>   drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  8 ++------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |  7 +------
+>   drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c   | 10 +++-------
+>   11 files changed, 39 insertions(+), 68 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> index fbac732f3e01..7d975c1680a1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> @@ -22,6 +22,7 @@
+>    */
+>   
+>   #include <linux/firmware.h>
+> +#include <linux/stdarg.h>
+>   #include "amdgpu.h"
+>   #include "amdgpu_sdma.h"
+>   #include "amdgpu_ras.h"
+> @@ -37,6 +38,23 @@
+>    * GPU SDMA IP block helpers function.
+>    */
+>   
+> +int __printf(4, 5)
+> +amdgpu_sdma_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+> +		      unsigned int instance, const char *fmt, ...)
+> +{
+> +	va_list args;
+> +
+> +	ring->ring_obj = NULL;
+> +
+> +	va_start(args, fmt);
+> +	vsnprintf(ring->name, sizeof(ring->name), fmt, args);
+> +	va_end(args);
+> +
+> +	return amdgpu_ring_init(adev, ring, 1024, &adev->sdma.trap_irq,
+> +				AMDGPU_SDMA_IRQ_INSTANCE0 + instance,
+> +				AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +}
+> +
+>   struct amdgpu_sdma_instance *amdgpu_sdma_get_instance_from_ring(struct amdgpu_ring *ring)
+>   {
+>   	struct amdgpu_device *adev = ring->adev;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> index 671cfbb67b7a..0a692804bc53 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> @@ -158,6 +158,10 @@ struct amdgpu_buffer_funcs {
+>   				 uint32_t byte_count);
+>   };
+>   
+> +int __printf(4, 5)
+> +amdgpu_sdma_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+> +		      unsigned int instance, const char *fmt, ...);
+> +
+>   int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
+>   			     bool caller_handles_kernel_queues);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> index 657ef6c93c61..11e118a4aee8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> @@ -865,13 +865,8 @@ static int sdma_v2_4_sw_init(struct amdgpu_ip_block *ip_block)
+>   
+>   	for (i = 0; i < adev->sdma.num_instances; i++) {
+>   		ring = &adev->sdma.instance[i].ring;
+> -		ring->ring_obj = NULL;
+>   		ring->use_doorbell = false;
+> -		sprintf(ring->name, "sdma%d", i);
+> -		r = amdgpu_ring_init(adev, ring, 1024, &adev->sdma.trap_irq,
+> -				     (i == 0) ? AMDGPU_SDMA_IRQ_INSTANCE0 :
+> -				     AMDGPU_SDMA_IRQ_INSTANCE1,
+> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +		r = amdgpu_sdma_ring_init(adev, ring, i, "sdma%d", i);
+>   		if (r)
+>   			return r;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> index 9478dd034aff..87743fe6ae44 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> @@ -1146,7 +1146,6 @@ static int sdma_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   
+>   	for (i = 0; i < adev->sdma.num_instances; i++) {
+>   		ring = &adev->sdma.instance[i].ring;
+> -		ring->ring_obj = NULL;
+>   		if (!amdgpu_sriov_vf(adev)) {
+>   			ring->use_doorbell = true;
+>   			ring->doorbell_index = adev->doorbell_index.sdma_engine[i];
+> @@ -1154,11 +1153,7 @@ static int sdma_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   			ring->use_pollmem = true;
+>   		}
+>   
+> -		sprintf(ring->name, "sdma%d", i);
+> -		r = amdgpu_ring_init(adev, ring, 1024, &adev->sdma.trap_irq,
+> -				     (i == 0) ? AMDGPU_SDMA_IRQ_INSTANCE0 :
+> -				     AMDGPU_SDMA_IRQ_INSTANCE1,
+> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +		r = amdgpu_sdma_ring_init(adev, ring, i, "sdma%d", i);
+>   		if (r)
+>   			return r;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> index 9d7d919a5aa1..e77e29855c68 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> @@ -1858,7 +1858,6 @@ static int sdma_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   
+>   	for (i = 0; i < adev->sdma.num_instances; i++) {
+>   		ring = &adev->sdma.instance[i].ring;
+> -		ring->ring_obj = NULL;
+>   		ring->use_doorbell = true;
+>   
+>   		DRM_DEBUG("SDMA %d use_doorbell being set to: [%s]\n", i,
+> @@ -1878,16 +1877,12 @@ static int sdma_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   		else
+>   			ring->vm_hub = AMDGPU_MMHUB0(0);
+>   
+> -		sprintf(ring->name, "sdma%d", i);
+> -		r = amdgpu_ring_init(adev, ring, 1024, &adev->sdma.trap_irq,
+> -				     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
+> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +		r = amdgpu_sdma_ring_init(adev, ring, i, "sdma%d", i);
+>   		if (r)
+>   			return r;
+>   
+>   		if (adev->sdma.has_page_queue) {
+>   			ring = &adev->sdma.instance[i].page;
+> -			ring->ring_obj = NULL;
+>   			ring->use_doorbell = true;
+>   
+>   			/* paging queue use same doorbell index/routing as gfx queue
+> @@ -1915,11 +1910,7 @@ static int sdma_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   			else
+>   				ring->vm_hub = AMDGPU_MMHUB0(0);
+>   
+> -			sprintf(ring->name, "page%d", i);
+> -			r = amdgpu_ring_init(adev, ring, 1024,
+> -					     &adev->sdma.trap_irq,
+> -					     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
+> -					     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +			r = amdgpu_sdma_ring_init(adev, ring, i, "page%d", i);
+>   			if (r)
+>   				return r;
+>   		}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> index 461f8b220a3e..2bed58e983be 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> @@ -1484,7 +1484,6 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
+>   		adev->sdma.instance[i].funcs = &sdma_v4_4_2_sdma_funcs;
+>   
+>   		ring = &adev->sdma.instance[i].ring;
+> -		ring->ring_obj = NULL;
+>   		ring->use_doorbell = true;
+>   		aid_id = adev->sdma.instance[i].aid_id;
+>   
+> @@ -1495,18 +1494,13 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
+>   		ring->doorbell_index = adev->doorbell_index.sdma_engine[i] << 1;
+>   		ring->vm_hub = AMDGPU_MMHUB0(aid_id);
+>   		ring->no_user_submission = adev->sdma.no_user_submission;
+> -
+> -		sprintf(ring->name, "sdma%d.%d", aid_id,
+> -				i % adev->sdma.num_inst_per_aid);
+> -		r = amdgpu_ring_init(adev, ring, 1024, &adev->sdma.trap_irq,
+> -				     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
+> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +		r = amdgpu_sdma_ring_init(adev, ring, i, "sdma%d.%d", aid_id,
+> +					  i % adev->sdma.num_inst_per_aid);
+>   		if (r)
+>   			return r;
+>   
+>   		if (adev->sdma.has_page_queue) {
+>   			ring = &adev->sdma.instance[i].page;
+> -			ring->ring_obj = NULL;
+>   			ring->use_doorbell = true;
+>   
+>   			/* doorbell index of page queue is assigned right after
+> @@ -1515,13 +1509,9 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
+>   			ring->doorbell_index =
+>   				(adev->doorbell_index.sdma_engine[i] + 1) << 1;
+>   			ring->vm_hub = AMDGPU_MMHUB0(aid_id);
+> -
+> -			sprintf(ring->name, "page%d.%d", aid_id,
+> -					i % adev->sdma.num_inst_per_aid);
+> -			r = amdgpu_ring_init(adev, ring, 1024,
+> -					     &adev->sdma.trap_irq,
+> -					     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
+> -					     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +			r = amdgpu_sdma_ring_init(adev, ring, i, "page%d.%d",
+> +						  aid_id,
+> +						  i % adev->sdma.num_inst_per_aid);
+>   			if (r)
+>   				return r;
+>   		}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> index 97fee70dc2f6..fa25d1508404 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> @@ -1411,7 +1411,6 @@ static int sdma_v5_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   		mutex_init(&adev->sdma.instance[i].engine_reset_mutex);
+>   		adev->sdma.instance[i].funcs = &sdma_v5_0_sdma_funcs;
+>   		ring = &adev->sdma.instance[i].ring;
+> -		ring->ring_obj = NULL;
+>   		ring->use_doorbell = true;
+>   
+>   		DRM_DEBUG("SDMA %d use_doorbell being set to: [%s]\n", i,
+> @@ -1422,11 +1421,7 @@ static int sdma_v5_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   			: (adev->doorbell_index.sdma_engine[1] << 1); // get DWORD offset
+>   
+>   		ring->vm_hub = AMDGPU_GFXHUB(0);
+> -		sprintf(ring->name, "sdma%d", i);
+> -		r = amdgpu_ring_init(adev, ring, 1024, &adev->sdma.trap_irq,
+> -				     (i == 0) ? AMDGPU_SDMA_IRQ_INSTANCE0 :
+> -				     AMDGPU_SDMA_IRQ_INSTANCE1,
+> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +		r = amdgpu_sdma_ring_init(adev, ring, i, "sdma%d", i);
+>   		if (r)
+>   			return r;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> index 35cdf6c149f8..8d0ffad0284a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -1331,7 +1331,6 @@ static int sdma_v5_2_sw_init(struct amdgpu_ip_block *ip_block)
+>   		mutex_init(&adev->sdma.instance[i].engine_reset_mutex);
+>   		adev->sdma.instance[i].funcs = &sdma_v5_2_sdma_funcs;
+>   		ring = &adev->sdma.instance[i].ring;
+> -		ring->ring_obj = NULL;
+>   		ring->use_doorbell = true;
+>   		ring->me = i;
+>   
+> @@ -1342,10 +1341,7 @@ static int sdma_v5_2_sw_init(struct amdgpu_ip_block *ip_block)
+>   			(adev->doorbell_index.sdma_engine[i] << 1); //get DWORD offset
+>   
+>   		ring->vm_hub = AMDGPU_GFXHUB(0);
+> -		sprintf(ring->name, "sdma%d", i);
+> -		r = amdgpu_ring_init(adev, ring, 1024, &adev->sdma.trap_irq,
+> -				     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
+> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +		r = amdgpu_sdma_ring_init(adev, ring, i, "sdma%d", i);
+>   		if (r)
+>   			return r;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> index 303fd7d1b7c8..b28934739d32 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> @@ -1335,7 +1335,6 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   
+>   	for (i = 0; i < adev->sdma.num_instances; i++) {
+>   		ring = &adev->sdma.instance[i].ring;
+> -		ring->ring_obj = NULL;
+>   		ring->use_doorbell = true;
+>   		ring->me = i;
+>   		ring->no_user_submission = adev->sdma.no_user_submission;
+> @@ -1347,11 +1346,8 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   			(adev->doorbell_index.sdma_engine[i] << 1); // get DWORD offset
+>   
+>   		ring->vm_hub = AMDGPU_GFXHUB(0);
+> -		sprintf(ring->name, "sdma%d", i);
+> -		r = amdgpu_ring_init(adev, ring, 1024,
+> -				     &adev->sdma.trap_irq,
+> -				     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
+> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +
+> +		r = amdgpu_sdma_ring_init(adev, ring, i, "sdma%d", i);
+>   		if (r)
+>   			return r;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> index d5552f206e4d..4503bae1d48c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> @@ -1319,7 +1319,6 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   
+>   	for (i = 0; i < adev->sdma.num_instances; i++) {
+>   		ring = &adev->sdma.instance[i].ring;
+> -		ring->ring_obj = NULL;
+>   		ring->use_doorbell = true;
+>   		ring->me = i;
+>   		ring->no_user_submission = adev->sdma.no_user_submission;
+> @@ -1331,11 +1330,7 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   			(adev->doorbell_index.sdma_engine[i] << 1); // get DWORD offset
+>   
+>   		ring->vm_hub = AMDGPU_GFXHUB(0);
+> -		sprintf(ring->name, "sdma%d", i);
+> -		r = amdgpu_ring_init(adev, ring, 1024,
+> -				     &adev->sdma.trap_irq,
+> -				     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
+> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +		r = amdgpu_sdma_ring_init(adev, ring, i, "sdma%d", i);
+>   		if (r)
+>   			return r;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+> index 0f30eb503c2a..f33b0dc17c50 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+> @@ -1305,7 +1305,6 @@ static int sdma_v7_1_sw_init(struct amdgpu_ip_block *ip_block)
+>   
+>   	for (i = 0; i < adev->sdma.num_instances; i++) {
+>   		ring = &adev->sdma.instance[i].ring;
+> -		ring->ring_obj = NULL;
+>   		ring->use_doorbell = true;
+>   		ring->me = i;
+>   		ring->no_user_submission = adev->sdma.no_user_submission;
+> @@ -1323,12 +1322,9 @@ static int sdma_v7_1_sw_init(struct amdgpu_ip_block *ip_block)
+>   			(adev->doorbell_index.sdma_engine[i] << 1); // get DWORD offset
+>   
+>   		ring->vm_hub = AMDGPU_GFXHUB(xcc_id);
+> -		sprintf(ring->name, "sdma%d.%d", xcc_id,
+> -				GET_INST(SDMA0, i) % adev->sdma.num_inst_per_xcc);
+> -		r = amdgpu_ring_init(adev, ring, 1024,
+> -				     &adev->sdma.trap_irq,
+> -				     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
+> -				     AMDGPU_RING_PRIO_DEFAULT, NULL);
+> +		r = amdgpu_sdma_ring_init(adev, ring, i, "sdma%d.%d", xcc_id,
+> +					  GET_INST(SDMA0, i) %
+> +					  adev->sdma.num_inst_per_xcc);
+>   		if (r)
+>   			return r;
+>   	}
+
