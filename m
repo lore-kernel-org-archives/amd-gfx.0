@@ -4,90 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BF27C88E6D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B84E8C88E6A
 	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 07:29:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8083910EBB8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B767E10EBBC;
 	Mon, 14 Sep 2026 07:29:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nDnVStjn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LLZto3IQ";
 	dkim-atps=neutral
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com
- [74.125.230.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE76010F73D
- for <amd-gfx@lists.freedesktop.org>; Sat, 12 Sep 2026 02:30:40 +0000 (UTC)
-Received: by mail-lr2-f12.google.com with SMTP id
- 38308e7fff4ca-3a49a10ee5aso1217141fa.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Sep 2026 19:30:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789180238; cv=none;
- d=google.com; s=arc-20260327;
- b=bwapj93qSKpvw8jBT5IWrQDvRdQ4ZSvboR1KdY9rPmPANTWXSnFLU1blcWksMb6idw
- jkXfSflYJqDAzoo2LnjXjQ6O/R82eAzxkPJwzmE/imRjRO9PVxLfGZ9iP8Sz72++EoT9
- Yyo+ZubM8j5PNtV88fndbMUEd+eipAWW6fxxap9hGcbemnTXwzqZ9oOna0cLgfrXeBnn
- 5RRscAWFp2pJVsxmoZw/VBvuI0Qygg5DIjtLA4sVRaMmjPEEOMnmex5uL1Yo7ROJVEs1
- RXhluYONGdAWGa4e0gGwppXEdu9OmJ/fGhRdwaFouCzzPsZDbWyBLCVGySAHgdPYQ/Bk
- ecQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=LhlEYDWQpemuIMnWvpMSCy+QwKP38TCR3oYFVMnKb9A=;
- fh=OjGPIe5FcUd88TiOtm/FAPQQ6rjxBRqpM62kItB6HJg=;
- b=Ehn57C+BEG2wvobgvzn+jwMba2vdCVGb+1a9VC/i2X/tuSaU5jzvlGeCh+/D9h9eQU
- dqkxSBy5xSE+0Kbe6dv5EEt1piVZlZXNYTAe3bDRqmxCknDKIDwtgXxQ8LPM8rWiWzJN
- xZbuPhMMcC7zTdKVKMCQsqpeEEwwUexYrgKCZ0Q6UNdUratf5L7h1Q/PkPHE2Ok+Nd2U
- tauDWtLU6ren5A3AMQMX4HhlsjAxEMoRl0KTQQMvnZEEqN9ndx76M4ajXxoHvEhlKw5V
- MN+9VM4g9ErWN8KEJ+lMPtmLKnaIaOQJ25NOHYyPsxfMWxJqjyZrK/hOYiO4uwGKDEzZ
- 5s/A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ADC910EB7C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 05:47:27 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-47de0093c42so2704591f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 13 Sep 2026 22:47:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789180238; x=1789785038; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=LhlEYDWQpemuIMnWvpMSCy+QwKP38TCR3oYFVMnKb9A=;
- b=nDnVStjng/rUn32PabZkEJhl5ZypfdBZXAeb2uTUvZWP6cxIXMQictZwtQTFST0uFn
- lDN9UnPHr/nT6xaHOZ0Nu7rxcUF8t+PAcD7IqKgT/c4RKIsH1GBH7Fib9q6P9/4P3CAY
- aHBbrTrbAZg0WxsN9UavFWDbwfhHb/+tA9Ga8Y5OxQijtMadohlRFknt6buvIHI+noqP
- OphznEND91DANZ9JAxrb+DWtdXEkwpDORPLuUprVXJnBL8wncn77eT9iHvH/XD9xASup
- XKvadfUOS4yIqZD832o45lDwcPYWkWJdMV3NXOGwlECWTJU31eqekQbC5+4ChihfUdH1
- ur/g==
+ d=gmail.com; s=20251104; t=1789364846; x=1789969646; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=rjb+OYWz+/bKaY6AiNvmi3TeWvwlpKbGSDH/yB8xs0k=;
+ b=LLZto3IQ0QFExUHxE6dboM1CfajU5828xlFT2KMrMA1iucaBQTqBAk2KxVy6vpuP1V
+ FavuUyIO/uaVJ0/54xYPwi/Pl/zUHuFo5h3lS/CWYfaBTr3FTXHwqrDvewCTY+PczxSg
+ uew8P+8acy04E8C6dwehx2S4NH9x22IUMifusDdiZBC59hWkNLgoziQVWOFwdMP5DulV
+ YSvs+zmYFyaElIOg7S407YGD8MGwfqD3KoSdVzj/roJo7BTdLuFoihNNVEv/5hK1o8jR
+ z6AKdh+ynkf+s8DJn1vKvA9lS1Y9DtzDjeza9hJoDLuOBgm3emHN5rHX2gTamamNkart
+ 9v0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789180238; x=1789785038;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=LhlEYDWQpemuIMnWvpMSCy+QwKP38TCR3oYFVMnKb9A=;
- b=KJ9SSzlF5uJv6cmwfv8SW1R3bISDhc+uoDgre3FXVPMmfQ6YuiUT3/+3fCgF/H5HAr
- mNeSmPwq8S0MXRt4AZ86AdC0VSCO7CynRO8Gve65i/wcvpH0DNHU36CYS2K4j4+uDy16
- x5kANVP2rT4d2Ow+qDc9LK8RbPI7GsSAf0f7w3Eka1ls05y6crmmDj3HP9b0RkgF4doH
- SmWU4iVV+g1KxAf/m3Qa1/SDiCquZ1pauz5B9nc/XM4rTmEIjjJ5m9l4G+QPzrF6CpmL
- uBEOBbDOg4ekauESn4DzOYpRj1McLYGluKnkg6utIv80qX/pj+O8PyvHuxOV9Ao5/QlW
- Z+gw==
-X-Gm-Message-State: AFuF++mgcYKZ5OU0iNbjVzrCAOfFyWFE+FsaaRoYni16QgVgu44o7G+P
- MR+dBfEYzIVWMP04VLyGwOCQ/4v5mZzh9ettZuH6PpCHy++L2Fg8SK9/KVitrv1kZm2sKBefLJB
- oe+twij8gkuejxLDXhEBRzz0BRleIJo1dnjskabS59w==
-X-Gm-Gg: AYBFou2sw4msU/KJ4UwHKpJznFYKRQ4N2Mz6U4nC2mCvqOf1VaXs1PqJpbaz11K4FVs
- B+ZVfcZAhqCQzBPg9JiCjLjC0mWUhnQaCt/XPU2b39J57wmZ4TH1sI4Mv/smjdikwQI87ZQn1Kk
- N7s3lDhIzfFKvPDN7XLIiEFvHTbB+OKuXN/CQzDvrlB7227LckECzzh/dq9eyr10njUqnKGmt+2
- R3CzWyfkPRjKSJCey+uB1E5lm8hvWSRJHhWHPLrVFOLrJGzVjbRbi5s7U6mpsZcqMuWQLEKJkXc
- da55KIUkVeE9Rm8g+QXLCriszY+7rI5ZbCUR18BTpuFJcqmuP3ZyrfE=
-X-Received: by 2002:a05:651c:b25:b0:3a3:7681:6d67 with SMTP id
- 38308e7fff4ca-3a5b37ef2f7mr1209821fa.16.1789180238192; Fri, 11 Sep 2026
- 19:30:38 -0700 (PDT)
-MIME-Version: 1.0
-From: Dan Himebauch <danielhimebauch@gmail.com>
-Date: Fri, 11 Sep 2026 22:30:26 -0400
-X-Gm-Features: AcwNN1V963IeDUd-QUldO-pjWGCQZiXzrgoLRjiqt0-JerrHpoXg4IvNra2ffgs
-Message-ID: <CAJxfpZ+AzJnBCw-jP5_E8FH_+cpCE68FCtf_tsi9pt7q=P2Dsw@mail.gmail.com>
-Subject: [PATCH] drm/amd/display: invalidate DP CEC state on s3 suspend
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, alex.hung@amd.com, bhawanpreet.lakha@amd.com, 
- wayne.lin@amd.com, george.zhang@amd.com, jerry.zuo@amd.com, 
- chen-yu.chen@amd.com, ivan.lipski@amd.com, evg28bur@yandex.ru, 
- Kun.Liu2@amd.com, mario.limonciello@amd.com, dri-devel@lists.freedesktop.org, 
+ d=1e100.net; s=20251104; t=1789364846; x=1789969646;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rjb+OYWz+/bKaY6AiNvmi3TeWvwlpKbGSDH/yB8xs0k=;
+ b=Vyh88zpKA4l3+scz3Xl7xKz7PsCvFPVgF9Bv5wGzGFhHGIIyiUbsrWhQV3GRmcrf9n
+ F38wwLWlAlN2epI6HDVTJK6t+Yr4nMrfs3Ug0e65HhgNWIl8nKk8vrqJplC9stndoADF
+ 2R3OhEhvoZR1pk/MnNMX9vaJxBGKziFBnoLQqFq4BnzeoPeOVeTLxJfU/do28we+ngHS
+ zgcMmLOQeIBV1S8n9r3RMfj3QPO+JtfHep9jc4OepErtsWLmCXnlldQsXRY0nkELDAEx
+ IbiVil4pmYnk1lGAScBKdsKCjiX5KZd7UmbDYBpsHsEDAbmC5m8/Hgf0NCWwl1IsHQUv
+ 9ZtQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxeSgjlafPvWZPXK7HNRWBRAR4gWzu0Vv71NxNwAU/x2Y5W6qH38l/LcR7nDNssp4hXEhTa63WS@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nbZdXmjyVaZLkHadlMPs1DF16PhwYikbOZnqaknj3NAro8grVG
+ 3+f7mNCM17//NCLvgOyFGrSP//x/WSC1XjZH25Tf6v47kfJ7kSDv73t8
+X-Gm-Gg: AYBFou3WWAxlEsWTk6GUlLRkXeiNEr55oFoDr0oDU6TY/AMzkbe6qqHKNTXerMrGl6F
+ uO6Z5BGJATdTUlWfjd++x8sTS0En9HGyCad3oqHvyO2jq+8Y8XWGItmMObRsVU1xvVExf9rJY6C
+ j60lphiHhgKJ7hpZx4+p9ftDLxPjXkCIZZVSQc6zmHViYypxZyd0iGriIGA+t9GYLwvuaaiWLzm
+ +M+0NljWs20H7Qod3iAfjEtuASPthMfTRjns4N3JR0oTYaZiJKmRJvJ9xCF8wpgEBVMGXMKb2Lc
+ dDkeYrC6MK+rpEGxqGHVlLGX8NPh+MFG7vchRpMbaEEOxOQ+1BKNc7WPHYO16hT6W1gRCMKxGGk
+ uSyC9Tba3k/f0T4wa0K/6+TUXIE+emtenAx+ggOylfX050s8k0SWZUYquUHhzqRKPtCrIbjsmPa
+ yh2rr4sF3MZoE3O6H/ewOaHx+xI7YVAaGgE0075zPoLsYuz+IwD7RESZMfx4IvIfTWRRp4hz6he
+ uLqdS8k6cyBsq3J1RNn5AOaA4sBd3E7dlHR20ZRAfK1AVBBMpe9e49WzT3mZ+E8UgVE31g4UQY6
+ NC9tDCo6/VVjmG/2+iikO83JFXthic8=
+X-Received: by 2002:a05:6000:288e:b0:485:8c16:5efc with SMTP id
+ ffacd0b85a97d-48702b31ab6mr934116f8f.54.1789364845667; 
+ Sun, 13 Sep 2026 22:47:25 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-077-007-122-014.77.7.pool.telefonica.de. [77.7.122.14])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-486eb32d3c7sm22609515f8f.10.2026.09.13.22.47.24
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 13 Sep 2026 22:47:25 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Mukul Joshi <mukul.joshi@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Subject: [PATCH next] drm/amdgpu: Initialize UALink handle uniqueness state
+Date: Mon, 14 Sep 2026 07:46:04 +0200
+Message-Id: <20260914054604.12850-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 14 Sep 2026 07:29:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,52 +93,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-HTPC setups on Linux with discrete GPUs can opt to use an active DP to
-HDMI adaptor in order to carry CEC over DP AUX, as most GPUs do not
-wire up CEC pin 13.
+amdgpu_generate_ualink_handle() continues when handle_lo is zero. For
+accelerator ID 0, the random value can become zero after the low 10 bits
+are cleared. This path reaches while (!unique) without assigning unique.
 
-Currently under s3 suspend, amdgpu invalidates native HDMI CEC state
-but leaves DP AUX CEC physical address valid, which can leave these
-adapter's CEC states stale across suspend and make wake transmissions
-to fail before adapter is reconfigured.
+Clang's -Wconditional-uninitialized reports the read. A reduced
+MemorySanitizer test reports use-of-uninitialized-value at the loop
+condition.
 
-This patch allows invalidating the DP AUX CEC physical address during
-suspend for AUX mode connectors. Normal connector detection reattaches
-adaptor using the physical address from EDID.
+If the uninitialized value ends the loop, handle 0 is inserted into
+exp_xa while robj->ualink_handle_lo still says that the BO has no handle.
+A later export can create another entry for the same BO.
 
-Tested on a 9070xt HTPC on steamOS and UGREEN DP to HDMI adapter on
-amd-staging-drm-next at d8ab7636160e20bf6a2ad69cd975f4d63319f1d4 where
-unmodified tree reproduced resume NACK, with this patch, multiple
-cycles succeeded with ImageViewOn and ActiveSource transmission, and
-intended behavior on wake was observed with cecd.
+Initialize unique to false so the zero-handle path repeats the loop.
 
+Fixes: c67cb19811ec ("drm/amdgpu: Implement UALink handle export")
 Assisted-by: LLM
-Signed-off-by: xXJSONDeruloXx <danielhimebauch@gmail.com>
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 0b446133edd8..919394778a25 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -372,10 +372,13 @@ void amdgpu_dm_s3_handle_hdmi_cec(struct
-drm_device *ddev, bool suspend)
-  continue;
-
-  aconnector = to_amdgpu_dm_connector(connector);
-- if (suspend)
-+ if (suspend) {
-  hdmi_cec_unset_edid(aconnector);
-- else
-+ if (aconnector->dc_link && aconnector->dc_link->aux_mode)
-+ drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
-+ } else {
-  amdgpu_dm_hdmi_cec_set_edid(aconnector);
-+ }
-  }
-  drm_connector_list_iter_end(&conn_iter);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index ab56420..c6b7122 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -1819,7 +1819,7 @@ static void amdgpu_ualink_npa_mm_fini(struct amdgpu_device *adev)
+ static void amdgpu_generate_ualink_handle(struct amdgpu_device *adev,
+ 				   struct amdgpu_ualink_handle *handle)
+ {
+-	bool unique;
++	bool unique = false;
+ 
+ 	do {
+ 		handle->handle_lo = get_random_u64();
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
+
