@@ -4,126 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C8D2C88E72
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 14:46:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1793CC88E72
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 14:54:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A760E10EF32;
-	Mon, 14 Sep 2026 14:46:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9319710E2D1;
+	Mon, 14 Sep 2026 14:54:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Lnys3PHb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1bt1JA7E";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011059.outbound.protection.outlook.com [40.107.208.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A02C10EF32;
- Mon, 14 Sep 2026 14:46:22 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010025.outbound.protection.outlook.com [52.101.201.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4B5F10E1C6;
+ Mon, 14 Sep 2026 14:54:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cGr4Q3mxw22w754fRffg293iNekFi8QJjdwSs713G+vrxTElnu6KOjS7NxL7+s4IHkonjDGlAEhGX0t+yQBFqpFy1ndDIvxXyfSdf22Hk7iI9Ztbhvu8UzXLV0N5zLjYK8X2h4S2lFZBtwtLqxd87dPcvsRnWMWN7E0QR1ifxiw5SN5FIKnq4dxHEmJfduRbDeKOb0QxwMgN3xyZf7KxGnxF8HW9oj/ssFB8hopSEkKPs2n689PdVco4uiMx8rBVTyKzQPNhfJGDcY/W7qAfLBtXwclcysXjEEA2PvZ2YJLr28VGHZSnq6DFE+l71Dfm6n6ZeVOzIxjG03OtScZlgQ==
+ b=S88+k8Z6A6CKOMOqRmsI13olHkKKSpC5lybhar9TKzKmeVy9PRLS4/EUl2ytbO3A8dQtc9Dbcye9bkwAwbzOMqFQ1nVyuQj2E6tm/oQfftRqwCR9y+M8tBibah6XisHjKN844bLSIweCv1+nB8afnrXmq/UOJDKZNU5AdGNOWjcsd2Vrb0bwDSeJn1Rke74APXN13ZdE/kA0/qzfcYqP+Zh/vVeVUeHBhKvM5V/haoY8qD0j7kmpm07V2KGySVKvuv9JCMXL7Vr+btzUKa6mH7hdO0uoCTJGFcLeHdNtW7FRaVcfPLNeyjVDP54tMHnA4uPyrJUO68zsz9JQZ4LA5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vxYOcCyCdle1ZXiywb7YXUMnnCJ6m3gXGeZEO2caC6M=;
- b=FudexCL46Tbt/DcGXM5VGjyTQwKo4rCK/TiT6wM1owjFW3W5SoQ2PaaB6HXaC3uVjcFhM/YWrG4EL/wES0y8TUDznzMhBCTL3SOw0dIQhCPw6+O0M3/WQCF6G6DN/5lNyq/ogLu78SpO+R2yUt46t55Mqno76yZJJn5rpqGDMTV91CaRkbopIzTPzWZYCxxFyFJj1Nh5b/Br5umrHWct22asXs3COoQBNUo89u3mqqOSfsmhyYIdGMqcQ3NLib1egq1cm3vmhHMIZBNiAUVy1WTvi3aLZyCv76tc5wc5yqtHU/WI6sczvOE6oFFtt3S5gGtM4EqPYggVgninEG1tow==
+ bh=hMYQA5hqkANy0qe67m4PQri4ZQlVrXu1IijAy+ho67g=;
+ b=wkh2IZeXBFTaGo+POGfX44xbK9eWQBf+Mp1SRBTN28t+fn4HN9RuKmflTnvpVYjB5KOKgXfSZJ45EBl17wAF5ea9a/+/mjyuj7VQs7lIRZR+25/cAWCgAhrsoBVPXdWGKPRCcOQboWJZyUVEz5yh50D0H94w6/ALbo1Wz/PkGLcwTYMVa0TE0B6v+H5sLIZoMc1IfAutUTb8uG/tk+Lya2AOl73DnYOVTZUHeAESwrv+XvWnTHWpc6yKFMV+OulHF0v0aGh24IIh9tjzozo41mRHdsZdBcP8y8vP+Na3E5OT5PIElmqioS1HGOkyLkXLVbruPpZBJ+L6rK2A9lOvjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vxYOcCyCdle1ZXiywb7YXUMnnCJ6m3gXGeZEO2caC6M=;
- b=Lnys3PHbkskQ5YI35io1Duemc9CirT/4jNLhNxBVgz80O6+bxvsn2B8uFZdQ157XMcWo8hSLK+dIIA0AyiA9iKsvHmZ/OThrfiXcd4W3AIZSN7ft8K6rBx2znlzR+JCWyOJ41HYJ/mRK33G8qVDP+8YYtG2jeH7CpoEkQ0XNHDA=
+ bh=hMYQA5hqkANy0qe67m4PQri4ZQlVrXu1IijAy+ho67g=;
+ b=1bt1JA7EUfOMDU60qDkaykDstzPRzUAC0NelOtgcJkBAAdF2tPAB3NIyCJHufzf3fMyqaEjjhk5HRsE5hdu3lOr2o3HY/2aTThapPqSbh+0nnbcOysR7C3zS6EeoBih7mWJNs7wP8JulYbo0UVviMlOszoRbrKVLlyib9UWvVG4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SN7PR12MB6715.namprd12.prod.outlook.com (2603:10b6:806:271::19)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS0PR12MB8453.namprd12.prod.outlook.com (2603:10b6:8:157::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 14:46:17 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 14:46:17 +0000
-Message-ID: <59194d11-c21c-40e8-a41b-2d91b31130cc@amd.com>
-Date: Mon, 14 Sep 2026 20:16:09 +0530
+ 2026 14:54:47 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
+ 14:54:47 +0000
+Message-ID: <aeeff331-8b2e-41d8-acf8-d5d758935d38@amd.com>
+Date: Mon, 14 Sep 2026 16:54:42 +0200
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/amdgpu: zero reg_state buffer before filling it
-To: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
+To: "Lazar, Lijo" <lijo.lazar@amd.com>,
+ Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
  Alexander Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Hawking Zhang <Hawking.Zhang@amd.com>, Samuel Zhang <guoqing.zhang@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
 References: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
+ <bc9cf07a-ef97-490a-b98a-a05bc9f5b186@amd.com>
+ <05b669e6-1c66-4789-9916-b8030e232385@amd.com>
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0024.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:b8::10) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <05b669e6-1c66-4789-9916-b8030e232385@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR03CA0005.namprd03.prod.outlook.com
+ (2603:10b6:208:23a::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SN7PR12MB6715:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67360ddb-b918-4326-e672-08df126eeea6
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8453:EE_
+X-MS-Office365-Filtering-Correlation-Id: c86af5b1-6339-4bc8-1902-08df12701edd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|10067099003|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: wPHIpgvlKpPIKtHlAM753rGNz+TgvUuh0PfQ/PObELVA+btIj5kAznWt7bkT63I0AmQS5R5ULBaZ7ZoNK27lO71GIXrdvGmwIWXbpRH8HloPgLbBV+1qwxGiUZXUrRdWPtRX5Ci50ppo6UY9RZ1xwHrGr0iCerHxrst9sKiOl41rtswSmGU4zOYrww1YERp+WQqKzEvrgUoXzgVEOOj7+UVu0Zuj1avUnn3L3mspJdsiHUj6azAm19X5jkRsNukPHCQjdf7EbUyk9H0dCkGPy/N3mEpuYpD8Eu6e3qHyCaQF3ZiYtlef5fQlcY1K1UeTkW0PEVoD8OLJTXwVzTwxPKLEZizQa4++Rtp2L7ZWbCiNLQtAYHIaTxkRW7ZndmJ4Lm3+iUaCOsq9F5LRZHB8F37n7tqrN5Pp5SYkewRxF5YTy9ZP6435mzOLpgwQZPC9TZA+6vmFPaVvvjgZr5JBdYmqtEpOdJ3K+ZahO1/Q/Gq6PrMGkfJtxfc+S/16K/l7kTfalRZt1dNQdJ5Puo8QZBgAGo5Vex7F9VifwM2601mizhoQ542oelBRmdzIyeG4GMR1R5l7zrqfZJZcFpQQvFigbV+jnc3AOoo7gajqE4u8YJ8qlrICm9xpKLynWNnYrUk6EAdz+YMmANF2y/Gy2nA7thREEWnoVPrY80Msebw=
+ ARA:13230040|376014|23010399003|1800799024|366016|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: +iS3BFLHJeucFKuQopg/c0MNTCY362bwWjov+MIQXiC1x1g4Ap0Urtk4F0RjeQXbx+Ifme/q+geS0fyZF0REuxTCsan+FwIvutUjfEOGZZn0lWVQRM3BjMiX4HVbp6bDjdytcJr7uPMl+mtoS8Afvh80PJS0W4bd9XI2MJ35DEWGdRXzS+Ad8/rK5xXR0zw3wbVXTiwIZz+iI+8W7RZnmP08J/qaiKjGbvjPgRx2v8NsiBFRJ8g1hSKnBikpUh1BvTkxfDKJL//5fN7d25E2VPNCr7Ug6phCqmojKSzo3yMxlahrhwRLTM/fgILbklyoo9V8pmq5f+7PAZprNBnYmmxyrPoBZ4G7kN4TifT/ChazpWuhV/8+szp5AYbrX7W3Y3BiyB0cCHj2QQF+cuIRjS/mCnHcYIxzvkzW1hPTPVQK5fgzjlzYLSzNc4kJlXqg6aJk/w4jJBbKKbwdyfGi3INl/NVuXJkXt9NXuWKAP/fH+KIZrCYTVtsHLTPEKkmB1vhOvS2g6ePgCJWetDkzMXi67KYCyBKgs7D9Oue/flpaKiZGfM60OT+h8h/COsZId2iJwOFhAUnuDxwOHh5Z5M5rXGID9FlxucSl/GoCtPonu2LCGmcvpCSYEEhiEvrrnl/K2EYvfDCq8fg8WwDhW8NVPCflj/IXGZFelDwftOI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?enNmNGR6WHFhWU9kT051eVhHSys3eS81RHROekRSbWVWMFVFWDM1aHRGbEJp?=
- =?utf-8?B?ZU9yOW9OSmFVY1U5bGQ1a2VTbjZDYVZWcjhkT2xtaXdva1pWNmxPZlNackNm?=
- =?utf-8?B?YUx5d3VXajZ3M3NBTjdPbTBPZFJsWmQzSHk3eXpYUnh3WE84aDFTa0U0aGow?=
- =?utf-8?B?UndYS0o2akluWXFPeUs4N1FYQzdrMmdPMHFIdDlyeVZpSHVIY3lGbjc3WHhT?=
- =?utf-8?B?NlM3UDczVlBYcVZoNTdReE81SW9mRXNCY3FOZW5UYk9LWUVrWWtQSGZPdUJn?=
- =?utf-8?B?VGV0Y24vdVpyNVA0aEIxNzVrWU8yUnFYdGt0bFNhUU5vTHJXYTVpSTFIcVVr?=
- =?utf-8?B?S2l0V0NWUkNDTXYxbjRFS3lzVExNODBSbkF1ejZYZ0t0ODllNmR5RTdxcTIw?=
- =?utf-8?B?d0FXenRIdWw2SXJEWGFwUHMyTWorNWN1N2pYMjIyT0FzdkhlK0JidWtnc2ho?=
- =?utf-8?B?V0YzSFlkZGZLR3JlVEczUG5TUEZpdGdVVmN0ZHlhYWpqNHFYSjJtcFpNMmsz?=
- =?utf-8?B?WldSWDc3bm9PbW9aSHBKbkE2d0JLd2JmYkFEbmtRcTduSEt2MXB5ckhjNjFF?=
- =?utf-8?B?NDh3VE1aL0lQYzlUdFA5UnVNbFBMK0hiUEYyU3JmTnZLNzBaQkl3L3RDcHYy?=
- =?utf-8?B?amtsNE15Uzk3M1Q5MlJyWlQwZGpwNk1nc0F0NVpwUlRkenJBdWZqOUNZRVhj?=
- =?utf-8?B?N3NUaGhNYWpDVzlaSFJKWWJ4YTN0T2FwSnRFNTNheVhETUp5ekpBSkVuTzBQ?=
- =?utf-8?B?eHNpK2s3dTQyUkxPQUo1ektsQmFEdWVVT0JzZERMZzdFUjVHK3YrSzkyc3o3?=
- =?utf-8?B?Wng4ZE5DZ0VORlNBKy9sNDVsdWJDRmdsYStYc0F3Rlkvd0FWb294QmpIN0JE?=
- =?utf-8?B?ZGR6Zi9tSjJRYjRHOGxMT3kvVTRudXhjOFMrWVRMN21PMDJ6RDI2OVJIM2Zx?=
- =?utf-8?B?YUIwaEJWd2V3MHBicm9FTlFudGEvVXNzNXdJV3hkL1N3OVNUemx6T0Y4Zkk3?=
- =?utf-8?B?N0cyLzA3M0RRcVdvdzREeGVRTjVMWkMvdmpaNEZML2ZSSjZzVnN2bXRrMGdN?=
- =?utf-8?B?dU9TMVlZVUh6ZlR1YktseS9Wd3hVWjQ0RUVxMk5GSDdLZm1pWDNzTnFNYUxo?=
- =?utf-8?B?S2FvSG9IMERsZXozV3VQZkxYMWJBN3JWRDZqVFlkM2VCMm1vbTFweFhLTDI1?=
- =?utf-8?B?SHVkQjBzWUdtb2N1V2NZNWxOMmlab05RWVpjUEFxZTdUOXJoNXQ5SDVCbVFl?=
- =?utf-8?B?UGI5MDFwcFNqb1pRQitwWHgrUzFyeFBoN0huNmFtdG9rWlVtVUloeHFjMVhM?=
- =?utf-8?B?MC9LSS9XMmVPRXN2a0dnVHFBbVBoUTczUSs4cEZyL29WVXVSSTQ5amRRM2JB?=
- =?utf-8?B?VW9hREd2L3lGM3BtMFJWbndBaUZmV2ZQL09CNUorUEhwYWJjaDJmLy94bHA0?=
- =?utf-8?B?VVFOSE1GWU9QV1B5VWt3eWJobmFPUW8zL0VVd2NPdndiV3d0dFdMMHp4WkVY?=
- =?utf-8?B?SEJaYmhXKytxYWsrU2dVekMrTFc0ajBPTnRvS0tWTkRCOU1WNklEOTdOUGcv?=
- =?utf-8?B?dTdCWTAzZEhVemZCN05sa1BWdjhxREhQWU1vS2ptd1hiMk8rRUx6L0lhNVlE?=
- =?utf-8?B?TjVoeEUvRUlQSzdMY1JqbW0wOTdkbWNuZjliY21lT2VUeGdjS1R4dGVmbDZX?=
- =?utf-8?B?UUlDR3RpSm1uU1dWcFJxcFNBTlZwTmtrbnUvNVpnRkM4NHBIN2oyUkVXb0FJ?=
- =?utf-8?B?eDNtUERBSWZXVWhrSXI4RkZOZHJKZmNFSHR6c3F2cVpWZDQ1NERSTERSZVBQ?=
- =?utf-8?B?ZTNRL0hxaVFoSHV0Nm5GVHQ4dVhtTTc5TGFCdWJyc2Q5WXdTYnloRTNyK3F1?=
- =?utf-8?B?b1Zzb2hvU0hyZkh0OWt1aGZqVzFtU054Z2dZaEJTRjVBSFEzNHZXTnVhS1Yx?=
- =?utf-8?B?WTNoQXl4UTJ2TThDdVM3b0djdEIrQkRCL2k1OW5aajhWYzU2dXpzdE5SaXJW?=
- =?utf-8?B?NU1idU1qQ1ZtSGQ2NENzZ2NWd1d3WWtJc1RuYzU0dVhJaE5QL2MxUjlqZlFH?=
- =?utf-8?B?dHozWDZXM2xiK2hJNzA5YmRUTGRqSFhDWDl6US9EU2ljUWF5eVd6VlE3UEZI?=
- =?utf-8?B?cHZSZkJSRFpCTElOeWxwTXpQV0hWNGxLazdaWHFuZkZtSVpMV1R4VzJ1RjVo?=
- =?utf-8?B?SmlhNFZmOGoyYkNNQ1BVSDR3czZvWml2cEpsTkVGVUpYeHpaY3k0N1d5TllN?=
- =?utf-8?B?UjRRMmxkaTZ2b2JDRlNPVHpBaUI0QXQxNHVJL0V2RzAxdThNL2hMdEpzNHFn?=
- =?utf-8?Q?sd7pYiPDIcQRvqc01X?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S1VxT1RlL0pqS09makd5Q2JBVWtjamVzRmpaRlprdWttUE5sbStpSmo5bW5v?=
+ =?utf-8?B?dWFpK2ZsbmNHVGo2a05seTAwcTU3R0dFcHFkKzB6RlY5Ym42Q1FMNEZubmZo?=
+ =?utf-8?B?d1I4ZlRseDFqM1hSWWFEUHF3Rk95R3hVcWgrUUxTdlo1N3FGMUlzVGs4cGE1?=
+ =?utf-8?B?ckp5NjhTN0VRcjI2ZWkvenNOdGlPTmozWlhwMGVNQVNheERKUUg0alV1Tnl6?=
+ =?utf-8?B?YVNoYmxGcUgvME0xb3hUUjNSdk1ZTFNYRXZQSFV5bktEUGFlT1B2cVE4alVZ?=
+ =?utf-8?B?bkxpRFpiOWJGdk95ejR1UUNtZTJNM0luMyt6aitOWmVKcWFxMzRWeGYwc0JG?=
+ =?utf-8?B?Z0J4YklxSFRrbXlxb3NKdG95dUVoVHl4M3FaNGRIQ3JuNnVjT2M5OU9MdjU0?=
+ =?utf-8?B?OXF3SHZ2L3lqaDY5V05sb2RKWWZ0Rm52M0FKcm5GNDhRSTZUUEN1SGUrLzM2?=
+ =?utf-8?B?NWpZL3A4cjRZckhVaWpXaksvY1U1WTNVU0d1SWxab0VrYWFHUzRaNXQzUVlC?=
+ =?utf-8?B?aVFYaFZ2ZzBvMEEvWkRCdmlkaFBOVUdrU1UyZDJtSGJRY1BJcXpGSjIzamY4?=
+ =?utf-8?B?V0RVODVTVk9iMVRuS0RNdXhrOE12T1lrc1JaSTR5MHAzUDlpU1o4cTRrNVg0?=
+ =?utf-8?B?NnFTblY4RXdSQ2htU2lySlY1RW8yQXpIQVhVZ2JYQUFtZnl3b2I2M3BzS1Yx?=
+ =?utf-8?B?bitVK20yaWdpKzRjR2I0K3VNUVVOaitpYlpqUDQwWFFIZk5CWFJqZ1M0WEZq?=
+ =?utf-8?B?WXMrSm92eGhwVUEwdkdNTjJZWFIzWVpIODBZUXEzOGhiYXRkazUvaWgzS3Q3?=
+ =?utf-8?B?aDhRNTdGNW8yQzlyK0lJUlpXZWdUWVluMGw2aFRxczRTSndVTVIzQzFEanlX?=
+ =?utf-8?B?bmRjRnRGZE5GNnFWRC8vRENFSEFxblBKekF0UDZjTGZLS0VxOVpQcE9CMmpD?=
+ =?utf-8?B?SGEzNmlUUm8vSEVHTFFHYmFJMjM2YUxBYkVqZG9raE9pQlRkQTBuK1ZuV1VO?=
+ =?utf-8?B?MzM4S3hxY2E3SkU2eXhMK0Y1STVmaE95L1NxSnYvL3FWRmRjRWQwbDBIRDlG?=
+ =?utf-8?B?b1g4bzhzS3gyQXgyVUtGWTZTbFF2WjBsbVY5OFoxRVA1V2hEdWlmRGhpcU1s?=
+ =?utf-8?B?RnhTem91eCtUUkFQZDRRdWlaczRPeitta2NaYWhpQXdQS3hZczJROG1QcXJy?=
+ =?utf-8?B?MDlndThpSTFOcFhCbXpUSEpKVXNFejhTTUEzWitqRCtnd05XdnpYdStsOXJI?=
+ =?utf-8?B?ZjlyaUJhM2VFNEdoeVgya2c2UXJ5aXovTGpIWENjeG1PdVpTQzVOWEhwZ0Fa?=
+ =?utf-8?B?cVJaMTcreHZQRjBFVUozemFIVDVxSTJjS3VMV1duZmFoTVBRS2NCUklnZHRM?=
+ =?utf-8?B?Q2x6M3FSeWxiUjUzZG9RbGRiM0tzMXpYRnlOWXIyS0xld1cwY0l1ZVlIWUtS?=
+ =?utf-8?B?d3VJM3UwdjFFOGtxMlJQOEcrQ1NVSWVKaThINFVCSkIxa2VaR1EyOUdSY0lK?=
+ =?utf-8?B?Nm9scHVuUjNTWEh0a01FTEF4cHlxRzIzbGcwTmhKRlZER2pnZVJ6a1lFKzlh?=
+ =?utf-8?B?ZE1vcU1yM1VzQ3NaQnRtVk5ibHJSckZaMlFyMTJXa2hsUE10WVpKbG4yaHU5?=
+ =?utf-8?B?dUErWkppaVRMSGJ5VEl4eEJOenNqZFV0VGlQQ0ozWHdKa3JDajc5eFQvMmJw?=
+ =?utf-8?B?QzA3OTFxWkNiRk5RZUwyTzJrd2MzUVNuYmNpMWlaTGpsZmNRdjRxUzhzU2sy?=
+ =?utf-8?B?cXhwKzRYOTE4bjhwVm1pcnRqVU9DdU5YZ0hKU05hSmdudXdBQ3pkRWFTK1M4?=
+ =?utf-8?B?M2pSTjdSMXBseld3QkRDWkQzajU1ZW1FTmd0Z0E0VG1WR3hhRXhpdnAwUXlD?=
+ =?utf-8?B?RmpFNjdLem1wbHFwMmZlRCt3cisvbHovcmRSNkFPeXJhUytRbUxNdEY5aDc1?=
+ =?utf-8?B?VDNsMktldjJ2eDYrU2E2ZHhOM3prMEFMMTdEWURlMjN3MEE2cmZlYUJheExs?=
+ =?utf-8?B?ekR3UkIrN2hqSG4wQ1RPSWlZU0tGcGJuUUlaU0VISk1HOXZTejJ3L1AxWEJV?=
+ =?utf-8?B?b1NwS1BTdEg3OGw2bTZHaE1GOGNrc3Z3SEpTaDd0Q0x0UVR1bGJLSjkrN1hh?=
+ =?utf-8?B?OUVlWG1QdDdFbUxGbCtXS05rQ1htbTh6QTBmWFV6dmlrSWNoeGhWS0tiK2VK?=
+ =?utf-8?B?TjJOYkJvTnNQQzcwdVhIMmd2UWkyYTNmNWd4VkpORHNFdlNGSmFtM1V3YWZm?=
+ =?utf-8?B?dldlSC9ZNTRmRGJ0UFo3dDN5Vlg1bEtMSFpUcDNjRXk2M25mdVhmdm9CZU0y?=
+ =?utf-8?Q?q4M5UchEoQm+Qy8Ity?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67360ddb-b918-4326-e672-08df126eeea6
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c86af5b1-6339-4bc8-1902-08df12701edd
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 14:46:17.0417 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 14:54:47.5539 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kyvY1boRpDjSHQhuwPr3dg+HUphnu+hpNOICDh8tGpqsNOOX6pc9Dtgu3W/bs59k
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6715
+X-MS-Exchange-CrossTenant-UserPrincipalName: xk7HpoyD35bfqaQuAY0lgn7PcOk/uQsGPsmR0EYP3fovONOJnwucFqHk4PDUEUC5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8453
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,73 +140,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 9/14/26 16:45, Lazar, Lijo wrote:
+> 
+> 
+> On 14-Sep-26 7:30 PM, Christian König wrote:
+>> On 9/14/26 15:56, Dmitriy Chumachenko wrote:
+>>> The reg_state readouts return szbuf bytes but never write the pad members
+>>> of the headers and of amdgpu_smn_reg_data (and, for pcie, the fields
+>>> skipped when the upstream port or AER capability is absent). The sysfs
+>>> buffer is a plain kmalloc(), so those bytes leak stale slab data to any
+>>> local user through the 0444 reg_state attribute.
+>>>
+>>> Zero the buffer once the size is known.
+>>>
+>>> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+>>>
+>>> Fixes: 081a6eda2b25 ("drm/amdgpu: Read aquavanjaram PCIE register state")
+>>> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+>>
+>> Good catch, but stuff like that should be handled by using kzalloc() instead of calling memset it manually.
+>>
+> 
+> It's the default sysfs buffer allocation which may not be used entirely by all drivers.
+> 
+> The concern in this case is that driver is telling it has written x bytes whereas it could have left some fields unfilled in the buffer. I think the fix is fine.
 
+Wait a second, is that because of messed up padding in sysfs structures? That is usually a really big NO-GO for upstreaming.
 
-On 14-Sep-26 7:26 PM, Dmitriy Chumachenko wrote:
-> [Some people who received this message don't often get email from dmitry.chumachenko@cyberprotect.ru. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> The reg_state readouts return szbuf bytes but never write the pad members
-> of the headers and of amdgpu_smn_reg_data (and, for pcie, the fields
-> skipped when the upstream port or AER capability is absent). The sysfs
-> buffer is a plain kmalloc(), so those bytes leak stale slab data to any
-> local user through the 0444 reg_state attribute.
-> 
-> Zero the buffer once the size is known.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Fixes: 081a6eda2b25 ("drm/amdgpu: Read aquavanjaram PCIE register state")
-> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+Structures returned to userspace must be padding free, see the tool pahole for how to double check that on different architectures.
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Regards,
+Christian.
 
-Thanks,
-Lijo
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> index 72ea37dbfea8..0086de0f685d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> @@ -610,6 +610,8 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
->          if (max_size < szbuf)
->                  return -EOVERFLOW;
+> Thanks,
+> Lijo
 > 
-> +       memset(buf, 0, szbuf);
-> +
->          pcie_regs = (struct amdgpu_regs_pcie_v1_0 *)((uint8_t *)buf +
->                                                       sizeof(*pcie_reg_state));
->          pcie_regs->inst_header.instance = 0;
-> @@ -702,6 +704,8 @@ static ssize_t aqua_vanjaram_read_xgmi_state(struct amdgpu_device *adev,
->          if (max_size < szbuf)
->                  return -EOVERFLOW;
+>> Regards,
+>> Christian.
+>>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 8 ++++++++
+>>>   1 file changed, 8 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>> index 72ea37dbfea8..0086de0f685d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>> @@ -610,6 +610,8 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
+>>>          if (max_size < szbuf)
+>>>                  return -EOVERFLOW;
+>>>
+>>> +       memset(buf, 0, szbuf);
+>>> +
+>>>          pcie_regs = (struct amdgpu_regs_pcie_v1_0 *)((uint8_t *)buf +
+>>>                                                       sizeof(*pcie_reg_state));
+>>>          pcie_regs->inst_header.instance = 0;
+>>> @@ -702,6 +704,8 @@ static ssize_t aqua_vanjaram_read_xgmi_state(struct amdgpu_device *adev,
+>>>          if (max_size < szbuf)
+>>>                  return -EOVERFLOW;
+>>>
+>>> +       memset(buf, 0, szbuf);
+>>> +
+>>>          p = &xgmi_reg_state->xgmi_state_regs[0];
+>>>          for_each_inst(i, adev->aid_mask) {
+>>>                  for (j = 0; j < xgmi_inst; ++j) {
+>>> @@ -776,6 +780,8 @@ static ssize_t aqua_vanjaram_read_wafl_state(struct amdgpu_device *adev,
+>>>          if (max_size < szbuf)
+>>>                  return -EOVERFLOW;
+>>>
+>>> +       memset(buf, 0, szbuf);
+>>> +
+>>>          p = &wafl_reg_state->wafl_state_regs[0];
+>>>          for_each_inst(i, adev->aid_mask) {
+>>>                  for (j = 0; j < wafl_inst; ++j) {
+>>> @@ -902,6 +908,8 @@ static ssize_t aqua_vanjaram_read_usr_state(struct amdgpu_device *adev,
+>>>          if (max_size < szbuf)
+>>>                  return -EOVERFLOW;
+>>>
+>>> +       memset(buf, 0, szbuf);
+>>> +
+>>>          p = &usr_reg_state->usr_state_regs[0];
+>>>          for_each_inst(i, adev->aid_mask) {
+>>>                  usr_regs = (struct amdgpu_regs_usr_v1_0 *)p;
+>>> -- 
+>>> 2.49.0
+>>>
+>>
 > 
-> +       memset(buf, 0, szbuf);
-> +
->          p = &xgmi_reg_state->xgmi_state_regs[0];
->          for_each_inst(i, adev->aid_mask) {
->                  for (j = 0; j < xgmi_inst; ++j) {
-> @@ -776,6 +780,8 @@ static ssize_t aqua_vanjaram_read_wafl_state(struct amdgpu_device *adev,
->          if (max_size < szbuf)
->                  return -EOVERFLOW;
-> 
-> +       memset(buf, 0, szbuf);
-> +
->          p = &wafl_reg_state->wafl_state_regs[0];
->          for_each_inst(i, adev->aid_mask) {
->                  for (j = 0; j < wafl_inst; ++j) {
-> @@ -902,6 +908,8 @@ static ssize_t aqua_vanjaram_read_usr_state(struct amdgpu_device *adev,
->          if (max_size < szbuf)
->                  return -EOVERFLOW;
-> 
-> +       memset(buf, 0, szbuf);
-> +
->          p = &usr_reg_state->usr_state_regs[0];
->          for_each_inst(i, adev->aid_mask) {
->                  usr_regs = (struct amdgpu_regs_usr_v1_0 *)p;
-> --
-> 2.49.0
 
