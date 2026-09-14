@@ -4,100 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 876FEC88E6E
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 16:00:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E03FAC88E72
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 16:12:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D468710EF2A;
-	Mon, 14 Sep 2026 16:00:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43CD110EFFC;
+	Mon, 14 Sep 2026 16:12:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sZ+y546/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="brE53jes";
 	dkim-atps=neutral
-Received: from mail-pz2-f24.google.com (mail-pz2-f24.google.com
- [74.125.228.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42DD010EFAD
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 16:00:54 +0000 (UTC)
-Received: by mail-pz2-f24.google.com with SMTP id
- 41be03b00d2f7-cc4c1847d64so61859a12.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 09:00:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789401654; cv=none;
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
+ [74.125.227.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7011810EFF2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 16:12:53 +0000 (UTC)
+Received: by mail-vs2-f12.google.com with SMTP id
+ ada2fe7eead31-781d5f20ed2so85079137.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 09:12:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789402372; cv=none;
  d=google.com; s=arc-20260327;
- b=U10U3VDWKjMx0EYd4+X9Psi+GJ4/Ok588rHJ1xg7K+7oSoAafnT3sTynM+8dSUU5Fo
- xw8GeS1pw0M+FLj9UTghneAkAfnAo61yrwsiAT4kCkKh5duRDr9Y1yWBSNqdmHLk7arB
- 9w8Ly+jlOKGGGvx8VaSMCs2yQHjgQGcYa6RLPrfurNg8oH/Ta19ESGiPgF4j5s1Nww8W
- t3V4rDF38AZbg6+lVcl0MjRG2X6dJ+kOTNK0QdkH2KGb4zfXAJilCTiImSDshycNgfV8
- VqN869jHZ86zeYx10STE2qhzVkzc2pqVAT1Gnt6uM4JShIpkOKl4h1bMCiUgbKiNQK3+
- I4Ew==
+ b=jje4AdJTwRrPS8u6E4Kk2qN28Te209xdpxG2buI+MeooyfRTywz0ZZWJu7Vuzr7ci2
+ VLeJzs3Hsrmc93QrlLFZc4PxKuMxyecrj4I2bE2JiAN3XtrL6Bkyhk3U1KmrQzF5Fiiu
+ i8bhDGGimNZVglcYupXGYgtCB92/4yIucpbFj+mmMgHdP9R+Tq9KVKQn2SglXjM9AzQv
+ vOEoolvYymC1Js2drI921qzEhYBO8VsqNLa7DOkrCg93ROCNU9VB8P3fA0XyxOS52QFR
+ n0db5Wvrupe2cUvi/crDK6Jx+UhdHcDbf+P1nvDgKF6HMpcNrsFmdyZ+iFwjcjiL7qbS
+ aKEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=DY2MERo4pqi0K0VhneHvwSpwoimTnvKFD3fY4QkQorI=;
- fh=BnIxZSY380/7wz/65n6Z+oJX7hesMSUG0oAf7PWQNm0=;
- b=ZWC7Y4Xar8IppLSdDHcNvsPUUvPz4MvmfPxFQV5CvlNCulumTChBP2HBPCD3Kjhbsd
- YrfTZqs3VpLwz5Y/syrmjw9EdIuxLfIdQw26PzQ6RQazH8uDjtgXmnrst0N4JqD4JyX0
- v42MVksKEzowCVx1kn0c0gERLXWnTjlKbEoHokgt+9t9+ezorhATizaPAdqowQcanhOW
- 5bVK9lRMVlPSVjyDnLHW3Bs9OFuyUoww1sHiUgWkCgshkomUukMtcxwvqOtk7gD/nzX2
- 51XAdD0UVQ1RmeqMwjKdEY1BcnUsDgYmcs+IEKf8tG1BolPELmVp1u3Rof83YpzZbhbx
- O7bw==; darn=lists.freedesktop.org
+ bh=Z/02PYO5WkcKW0ekvpAtiy3eBIUToWmxvBxdkAfUeaM=;
+ fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
+ b=qTSvixDQvukTS+qralqymbs85TAbpE1Xe3YmpdinfWi5Tv8tTjr1JyHDUlkvD5K1oz
+ wyy7h9IncjIUKmodvDLPdjUu7HyjiFIRPAlDzruVNNrv3QQoo+gt+mpxcf2oncQkSlUT
+ e8PagyTf2sdUAeLud68LglPKiGhKTBrZNLXMkO9WZHNzCWwekwk2p084J9QwHk5Xy5Z7
+ OJJXh6n5UNF0vzpcKuaB40Fk4dQPz3H3oBdCKAIXcjsmTyN1eydkucpP6piVfjhSLQ62
+ uZaLegf2PRMe9Jph7c2uamXhRtSA3FwDwv/lrZ5otQMbTQGFiSc0kcbQJyRv93E4N0+s
+ 1Uuw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789401654; x=1790006454; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789402372; x=1790007172; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=DY2MERo4pqi0K0VhneHvwSpwoimTnvKFD3fY4QkQorI=;
- b=sZ+y546/Biw2v9r6xnQ32GNjw1C/V+WKTTMGaTU9nsqygVnJ1cRZ1bzcDphopwzkjX
- HFtyl4gZGGAOU6sdJAy5K0mVjxS/RSYfJ8hqMNq6H2IaNbjNIrGObC5/xTPMdsRFmFHf
- qmXPTOBdb4Mv7pSOGDroBDnwcOsVcN1PhlMPy6yNgwDbnjgHzfGGeosheG5CMqpT3ymL
- jFuzSLnM5U6KPo66rsH0gxUNDaIHsvAVxKoff+ycfzWiLV/YeoaVKsLUiqTGtRq5KYbM
- SusaKoN5hfwGRp04DnMyF2gZ0rOWpFb2TMpStU8jtGHWNVt4kOIu/xpjd8rKsLNVeCJN
- QsZw==
+ bh=Z/02PYO5WkcKW0ekvpAtiy3eBIUToWmxvBxdkAfUeaM=;
+ b=brE53jeserfdGCIFG/9DGMFyXSHIdzYy+VIMmEtQHZgWo/RwxvxLWs5qgEtdlVgxBG
+ 1Q1irUhuNMdLoPnxf5P3wnRXK9hjaH+YzDksK9t3/xYsffuX3vvI09TviWz9leC3r08u
+ QVwIpN/QMsvuFmtQaM+GLD6XUbV6nT0fq3Z77pKlnPD8NM3+9i/VKSyHfQ9anUlmSuEF
+ lZ9QzVIwswF1MBjzAGxoTdR9Ioq8Rbd3SKc751h+D6bwnAiMLyZMAdfYpOfpCu37A7IT
+ MAVcZGpECEMrUace+6py2VOGFdS9vZ33/LFCUXfkYMHCxIjSeVPWlv7kdJfgv3IjLPd/
+ pxYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789401654; x=1790006454;
+ d=1e100.net; s=20260707; t=1789402372; x=1790007172;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=DY2MERo4pqi0K0VhneHvwSpwoimTnvKFD3fY4QkQorI=;
- b=aDpH2tmmt1z1mSBC20S8OaM6vv2cSXERwSKZ6UKnAcmJC4oZMKyE1FETU/Ftj8TxM1
- BdeYboovLuucx9FOVTviB4+G8y5YEAcgo73ScTUEgAJiHzHgUVJe6GOuJsEQe+oQ3fnZ
- DWuTazVilxyX6PoXQN/di/qKLbkdEkp/bEI6zoVuyH08+Vn+o7aNZVmOz/dlpcAVbQ5f
- zC+4fHOiAwvZuTRDwolOTRnQRb2ZXFemna4OUzYPKzFxqAMz0oBi50wNh3iRB66lGYnL
- RIKtoCQcJQsjcGg7ni3q9sXcj8uFERCCmOqHeYhfMs4ZkJr+xNLh+Nm3eUqA2gG0J0ck
- ARbg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzis1D7o8/xQN9EElaB3tfTySy/5Ev/qxI8RkfNhfhs8U1wn24O1fk4LyrZ0Pv+HbDYB7eEU+Fo@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m0CjNnA3lT/qKfqqjTw4G+xaSfj71h4+9WjD6u1Vx/dZEhJA/3
- udQMCyCXftRWlSXPtYee3NU9Syc86elJ1REKmf95hSvNey0FX9NFEcSjUz9XMYOXxnOdkmPVJ1N
- mxoiS1COLz+VSu9M2M5lF/giGdd2kBEY=
-X-Gm-Gg: AYBFou3w0UI1912caK43TRtp99UZOulq6Cwl+90VBL3rCnuO/J4BlQdc3MYd+gzC5CG
- k0NRVcU2GiJHppKGqblSwzL+SmFLI3Fkk82OXHL2BP3mMy+Z95SG8elN+P8ZXF7Pljl/vq0P/qz
- WEbXWpd3jqdQm6DxtRT3rHCDMrFYrQGN9xR4+nhScefZ4rlkbSjzXAHnpaEnL6JvxQxLjsd7ori
- dp8Re/3EQzi3xaL6dKDt0cKSPu81DJvvNvgA2ZpEzvJW9V+K57jYkhqpJ4z8fdJSebeGSLu2KgO
- pmcH89G8UHBfFFjOg8G1BB8Z+QXqshbQC6dBKF466+ubLDR7H+WwPzTEWI/w8HO70bCJ8wLtwvu
- HFmiBBEJGZ8rqT9OuT77p9b3O5MwccM66KeQngYdP7w==
-X-Received: by 2002:a17:90b:1d4f:b0:38f:aa76:88b with SMTP id
- 98e67ed59e1d1-39dec1c3dabmr4866025a91.4.1789401653630; Mon, 14 Sep 2026
- 09:00:53 -0700 (PDT)
+ bh=Z/02PYO5WkcKW0ekvpAtiy3eBIUToWmxvBxdkAfUeaM=;
+ b=nxDcjuVRAG+/gHWREX/QnJJRIt0s38zlmGEXH/xx/KnwX7HeLETcErJp/FEFeuiXub
+ 2D88nUiU0TXICjEWyMk93t1RP4AaaUuztt2PzY2BsJ7wQ1wbsVm/HLB3NqblsAcfdO5w
+ WciMNNehyni4v3ob0hdURfvuduweUC2LCHn98Pn70VkSRo0L7r8gWpu0it+Ncy47ncgQ
+ mmsSn0y/Nl0JNwTi1JG4aC85Q4dbjnUwPJnsqfPiFvWLvZr+sJ9SrInEJqrkpRIhIj6k
+ C5M2E7TcZMIjnCqMMEgAs4HyAtfSASDfZTn4PYmbAqxknkZq+dWOvghAXBSMoxNejQDC
+ NGCg==
+X-Gm-Message-State: AFuF++nL2x2qSd0cPrKShx3hCwcUv46vpvsuXhHwHBtWHwFtQXlJ/I37
+ EzrfkBXHHgwApmWGq/Rfyr1sECb+qJp0BxPBMs9t8fl6jGXN5O1Ehhe7N8jCiCewIha/+BG2GT8
+ bJLT60Zv6K4E5Lfi18ek+6T+Q6rR5Yaw=
+X-Gm-Gg: AYBFou2izX2aJJEYG6hg7SD9Lg628rMqN82VA1y2xoMeDnP69qEvJus82kZFODXWA4K
+ YttC2xTn8zRf5wfN2HZ+/N9VmGs3dStMRoW7resOAFOWTHl2dNiPTcjY/QE4w2l2KWNMCIz64++
+ jrVqthIsHTHdDWQxvY2uNSeVRj4LtNOnqe2zLTF7BaF2F2SRfqx4WbPKg8liSW70+KacpqSUBvN
+ gz2MG/5Ci+uo91NCt2leAbDtzQlDYcilcHkOG9wS6OMXwFTlKgYw2g9/GpL9YlYRshw9WIQmuNX
+ ZHFCML+nuDEVTUxQrDtoNj8S3L8xza6zXQauA9SpiBrr1uq2Vps13J2DipcT479wvHmQIXNgAhi
+ zwzOi7dNKPKCC+E2lXYQTwQ/zb8bbua+rgkjktQMzDQ==
+X-Received: by 2002:a05:6102:160b:b0:78f:c6f5:27c9 with SMTP id
+ ada2fe7eead31-79b509df7c8mr1072980137.0.1789402372071; Mon, 14 Sep 2026
+ 09:12:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260914132920.10127-1-harimishal1@gmail.com>
-In-Reply-To: <20260914132920.10127-1-harimishal1@gmail.com>
+References: <20260907014629.2186163-1-Jesse.Zhang@amd.com>
+ <20260907014629.2186163-8-Jesse.Zhang@amd.com>
+In-Reply-To: <20260907014629.2186163-8-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 14 Sep 2026 12:00:40 -0400
-X-Gm-Features: AcwNN1Wxf9uW0Stp_OdrSiy6kLoKP1kUMtA3NKxerasiMRbBAeEiR0U57Nj_bA4
-Message-ID: <CADnq5_PKDe2dtDVsfzjNFwu+tjoH5DzE+GU7x+O8X=ymbDAmKg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: bound SCLK FCW range entries to the table size
-To: Hari Mishal <harimishal1@gmail.com>
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Hawking Zhang <Hawking.Zhang@amd.com>, Xiang Liu <xiang.liu@amd.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, Yang Wang <kevinyang.wang@amd.com>, 
- Asad Kamal <asad.kamal@amd.com>, Rex Zhu <Rex.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Mon, 14 Sep 2026 12:12:39 -0400
+X-Gm-Features: AcwNN1W0fUW5JhEY6uj_UQ5vpYtlV8d8BHSOVjmTVHUstl-dWmE2g_sRp-erWH0
+Message-ID: <CADnq5_MFHfw9mwFwEQhUz1a9EvwPbXW_MSEX8oHwLdxterZQFQ@mail.gmail.com>
+Subject: Re: [PATCH v4 8/8] drm/amdgpu/mes_userqueue: add SDMA MODIFY support
+To: Jesse Zhang <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -114,50 +105,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Mon, Sep 14, 2026 at 10:36=E2=80=AFAM Hari Mishal <harimishal1@gmail.com=
-> wrote:
+On Sun, Sep 6, 2026 at 9:46=E2=80=AFPM Jesse Zhang <Jesse.Zhang@amd.com> wr=
+ote:
 >
-> atomctrl_get_smc_sclk_range_table() copies ucSclkEntryNum entries from
-> the VBIOS SMU_Info table into pp_atom_ctrl_sclk_range_table. Both the
-> source (asSclkFcwRangeEntry[]) and destination (table->entry[]) arrays
-> are fixed at MAX_SCLK_RANGE (8) entries, but ucSclkEntryNum is an
-> unchecked u8 read straight from the VBIOS, so it can be up to 255. The
-> destination is stack-allocated in both callers
-> (polaris10_get_sclk_range_table(), vegam_get_sclk_range_table()), so a
-> count above 8 overflows a stack buffer, not just a heap read.
+> Add mes_userq_sdma_mqd_update() to update an SDMA queue's MQD from a
+> drm_amdgpu_userq_mqd_sdma_gfx11 (csa address, queue size, ring base),
+> re-init it in place via prop->modify, and wire it into the queue_type
+> dispatcher. This aligns KGD user queues with KFD's update_mqd_sdma.
 >
-> Reject counts above MAX_SCLK_RANGE rather than clamping to it. Only
-> one version of this VBIOS struct (ATOM_SMU_INFO_V2_1) has ever
-> existed, so a count above 8 corresponds to no legitimate table format
-> and means either a corrupted or a tampered VBIOS.
+> v3: re-init the MQD via the mqd_prop modify flag instead of a separate
+>     update_mqd callback, per review.
+> v4: keep the context-saved wptr instead of forwarding a user_wptr, per
+>     review.
 >
-> Fixes: a23eefa2f461 ("drm/amd/powerplay: enable dpm for baffin.")
-> Assisted-by: gkh_clanker_t1000
-> Signed-off-by: Hari Mishal <harimishal1@gmail.com>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> Suggested-by: Alexander Deucher <Alexander.Deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c | 3 +++
->  1 file changed, 3 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   |   1 +
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 104 ++++++++++++++++++++-
+>  include/uapi/drm/amdgpu_drm.h              |  12 +++
+>  3 files changed, 116 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-> index 4b796d60b03d..3217ad3c1d17 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-> @@ -1025,6 +1025,9 @@ int atomctrl_get_smc_sclk_range_table(struct pp_hwm=
-gr *hwmgr, struct pp_atom_ctr
->         if (!psmu_info)
->                 return -EINVAL;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ring.c
+> index 686c92e96025..5210ec381be7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -840,6 +840,7 @@ static void amdgpu_ring_to_mqd_prop(struct amdgpu_rin=
+g *ring,
+>         prop->use_doorbell =3D ring->use_doorbell;
+>         prop->doorbell_index =3D ring->doorbell_index;
+>         prop->kernel_queue =3D true;
+> +       prop->modify =3D false;
 >
-> +       if (psmu_info->ucSclkEntryNum > MAX_SCLK_RANGE)
-> +               return -EINVAL;
+>         /* map_queues packet doesn't need activate the queue,
+>          * so only kiq need set this field.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
+/amd/amdgpu/mes_userqueue.c
+> index 82bb4369451e..5b53e6ec8897 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -479,6 +479,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermod=
+e_queue *queue,
+>         userq_props->use_doorbell =3D true;
+>         userq_props->doorbell_index =3D queue->doorbell_index;
+>         userq_props->fence_address =3D queue->fence_drv->gpu_addr;
+> +       userq_props->modify =3D false;
+>
+>         if (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPUTE) {
+>                 struct drm_amdgpu_userq_mqd_compute_gfx11 *compute_mqd;
+> @@ -573,8 +574,16 @@ static int mes_userq_mqd_create(struct amdgpu_usermo=
+de_queue *queue,
+>                         goto free_mqd;
+>                 }
+>
+> +               if (mqd_gfx_v11->queue_percentage > AMDGPU_USERQ_MAX_QUEU=
+E_PERCENTAGE) {
+> +                       DRM_ERROR("Queue percentage must be between 0 to =
+AMDGPU_USERQ_MAX_QUEUE_PERCENTAGE.\n");
+> +                       r =3D -EINVAL;
+> +                       kfree(mqd_gfx_v11);
+> +                       goto free_mqd;
+> +               }
 > +
->         for (i =3D 0; i < psmu_info->ucSclkEntryNum; i++) {
->                 table->entry[i].ucVco_setting =3D psmu_info->asSclkFcwRan=
-geEntry[i].ucVco_setting;
->                 table->entry[i].ucPostdiv =3D psmu_info->asSclkFcwRangeEn=
-try[i].ucPostdiv;
+>                 userq_props->shadow_addr =3D mqd_gfx_v11->shadow_va;
+>                 userq_props->csa_addr =3D mqd_gfx_v11->csa_va;
+> +               userq_props->queue_percentage =3D mqd_gfx_v11->queue_perc=
+entage;
+>                 userq_props->tmz_queue =3D
+>                         mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE=
+_SECURE;
+>
+> @@ -618,6 +627,13 @@ static int mes_userq_mqd_create(struct amdgpu_usermo=
+de_queue *queue,
+>                         goto free_mqd;
+>                 }
+>
+> +               if (mqd_sdma_v11->queue_percentage > AMDGPU_USERQ_MAX_QUE=
+UE_PERCENTAGE) {
+> +                       DRM_ERROR("Queue percentage must be between 0 to =
+AMDGPU_USERQ_MAX_QUEUE_PERCENTAGE.\n");
+> +                       r =3D -EINVAL;
+> +                       kfree(mqd_sdma_v11);
+> +                       goto free_mqd;
+> +               }
+> +
+>                 r =3D amdgpu_bo_reserve(queue->vm->root.bo, false);
+>                 if (r) {
+>                         kfree(mqd_sdma_v11);
+> @@ -633,6 +649,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermod=
+e_queue *queue,
+>                 }
+>
+>                 userq_props->csa_addr =3D mqd_sdma_v11->csa_va;
+> +               userq_props->queue_percentage =3D mqd_sdma_v11->queue_per=
+centage;
+>                 kfree(mqd_sdma_v11);
+>         }
+>
+> @@ -681,6 +698,85 @@ static int mes_userq_mqd_create(struct amdgpu_usermo=
+de_queue *queue,
+>         return r;
+>  }
+>
+> +static int mes_userq_sdma_mqd_update(struct amdgpu_usermode_queue *queue=
+,
+> +                                    struct drm_amdgpu_userq_in *args_in)
+> +{
+> +       int retval =3D 0;
+> +       struct amdgpu_device *adev =3D queue->userq_mgr->adev;
+> +       struct amdgpu_mqd_prop *userq_props =3D queue->userq_prop;
+> +       struct amdgpu_mqd *mqd_hw_default =3D &adev->mqds[queue->queue_ty=
+pe];
+> +       struct drm_amdgpu_userq_mqd_sdma_gfx11 *sdma_mqd_v11;
+> +
+> +       if (args_in->mqd_size !=3D sizeof(*sdma_mqd_v11)) {
+> +               DRM_ERROR("Invalid SDMA IP MQD size\n");
+> +               return -EINVAL;
+> +       }
+> +
+> +       sdma_mqd_v11 =3D memdup_user(u64_to_user_ptr(args_in->mqd), args_=
+in->mqd_size);
+> +       if (IS_ERR(sdma_mqd_v11)) {
+> +               DRM_ERROR("Failed to read user MQD\n");
+> +               return -ENOMEM;
+> +       }
+> +
+> +       if (sdma_mqd_v11->queue_percentage > AMDGPU_USERQ_MAX_QUEUE_PERCE=
+NTAGE) {
+> +               DRM_ERROR("Queue percentage must be between 0 to AMDGPU_U=
+SERQ_MAX_QUEUE_PERCENTAGE.\n");
+> +               kfree(sdma_mqd_v11);
+> +               return -EINVAL;
+> +       }
+> +
+> +       userq_props->csa_addr =3D sdma_mqd_v11->csa_va;
+> +       userq_props->queue_size =3D args_in->queue_size;
+> +       userq_props->hqd_base_gpu_addr =3D args_in->queue_va;
+> +       userq_props->queue_percentage =3D sdma_mqd_v11->queue_percentage;
+> +       userq_props->modify =3D true;
+> +
+> +       retval =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_=
+ptr,
+> +                                        userq_props);
+> +
+> +       kfree(sdma_mqd_v11);
+> +       return retval;
+> +}
+> +
+> +static int mes_userq_gfx_mqd_update(struct amdgpu_usermode_queue *queue,
+> +                                   struct drm_amdgpu_userq_in *args_in)
+> +{
+> +       int retval =3D 0;
+> +       struct amdgpu_device *adev =3D queue->userq_mgr->adev;
+> +       struct amdgpu_mqd_prop *userq_props =3D queue->userq_prop;
+> +       struct amdgpu_mqd *mqd_hw_default =3D &adev->mqds[queue->queue_ty=
+pe];
+> +       struct drm_amdgpu_userq_mqd_gfx11 *gfx_mqd_v11;
+> +
+> +       if (args_in->mqd_size !=3D sizeof(*gfx_mqd_v11)) {
+> +               DRM_ERROR("Invalid GFX IP MQD size\n");
+> +               return -EINVAL;
+> +       }
+> +
+> +       gfx_mqd_v11 =3D memdup_user(u64_to_user_ptr(args_in->mqd), args_i=
+n->mqd_size);
+> +       if (IS_ERR(gfx_mqd_v11)) {
+> +               DRM_ERROR("Failed to read user MQD\n");
+> +               return -ENOMEM;
+> +       }
+> +
+> +       if (gfx_mqd_v11->queue_percentage > AMDGPU_USERQ_MAX_QUEUE_PERCEN=
+TAGE) {
+> +               DRM_ERROR("Queue percentage must be between 0 to AMDGPU_U=
+SERQ_MAX_QUEUE_PERCENTAGE.\n");
+> +               kfree(gfx_mqd_v11);
+> +               return -EINVAL;
+> +       }
+> +
+> +       userq_props->shadow_addr =3D gfx_mqd_v11->shadow_va;
+> +       userq_props->csa_addr =3D gfx_mqd_v11->csa_va;
+> +       userq_props->queue_size =3D args_in->queue_size;
+> +       userq_props->hqd_base_gpu_addr =3D args_in->queue_va;
+> +       userq_props->queue_percentage =3D gfx_mqd_v11->queue_percentage;
+> +       userq_props->modify =3D true;
+> +
+> +       retval =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_=
+ptr,
+> +                                        userq_props);
+> +
+> +       kfree(gfx_mqd_v11);
+> +       return retval;
+> +}
+> +
+>  static int mes_userq_compute_mqd_update(struct amdgpu_usermode_queue *qu=
+eue,
+>                                         struct drm_amdgpu_userq_in *args_=
+in)
+>  {
+> @@ -707,8 +803,10 @@ static int mes_userq_compute_mqd_update(struct amdgp=
+u_usermode_queue *queue,
+>
+>         userq_props->queue_size =3D args_in->queue_size;
+>         userq_props->hqd_base_gpu_addr =3D args_in->queue_va;
+> +       userq_props->modify =3D true;
+>
+> -       retval =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_=
+ptr, userq_props);
+> +       retval =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_=
+ptr,
+> +                                        userq_props);
+>
+>  free:
+>         kfree(compute_mqd_v11);
+> @@ -723,6 +821,10 @@ static int mes_userq_mqd_update(struct amdgpu_usermo=
+de_queue *queue, struct drm_
+>         switch (queue->queue_type) {
+>         case AMDGPU_HW_IP_COMPUTE:
+>                 return mes_userq_compute_mqd_update(queue, args_in);
+> +       case AMDGPU_HW_IP_GFX:
+> +               return mes_userq_gfx_mqd_update(queue, args_in);
+> +       case AMDGPU_HW_IP_DMA:
+> +               return mes_userq_sdma_mqd_update(queue, args_in);
+>         default:
+>                 return -EINVAL;
+>         }
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
+h
+> index 2de47ff7c4d0..94497d1217b8 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -449,6 +449,12 @@ struct drm_amdgpu_userq_mqd_gfx11 {
+>          * Use AMDGPU_INFO_IOCTL to find the exact size of the object.
+>          */
+>         __u64   csa_va;
+> +       /**
+> +        * @queue_percentage: Queue resource allocation percentage (0-100=
+)
+> +        * Defines the percentage of GPU resources allocated to this queu=
+e.
+> +        * A value of 0 marks the queue inactive and it will not be mappe=
+d.
+> +        */
+> +       __u32   queue_percentage;
+>  };
+>
+>  /* GFX V11 SDMA IP specific MQD parameters */
+> @@ -459,6 +465,12 @@ struct drm_amdgpu_userq_mqd_sdma_gfx11 {
+>          * to get the size.
+>          */
+>         __u64   csa_va;
+> +       /**
+> +        * @queue_percentage: Queue resource allocation percentage (0-100=
+)
+> +        * Defines the percentage of GPU resources allocated to this queu=
+e.
+> +        * A value of 0 marks the queue inactive and it will not be mappe=
+d.
+> +        */
+> +       __u32   queue_percentage;
+>  };
+>
+>  /* GFX V11 Compute IP specific MQD parameters */
 > --
-> 2.43.0
+> 2.49.0
 >
