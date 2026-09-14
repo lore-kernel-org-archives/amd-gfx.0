@@ -4,128 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1793CC88E72
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 14:54:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7708C88E72
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 14:55:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9319710E2D1;
-	Mon, 14 Sep 2026 14:54:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B2EC10EF1D;
+	Mon, 14 Sep 2026 14:55:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1bt1JA7E";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DzHGnoU6";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010025.outbound.protection.outlook.com [52.101.201.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4B5F10E1C6;
- Mon, 14 Sep 2026 14:54:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S88+k8Z6A6CKOMOqRmsI13olHkKKSpC5lybhar9TKzKmeVy9PRLS4/EUl2ytbO3A8dQtc9Dbcye9bkwAwbzOMqFQ1nVyuQj2E6tm/oQfftRqwCR9y+M8tBibah6XisHjKN844bLSIweCv1+nB8afnrXmq/UOJDKZNU5AdGNOWjcsd2Vrb0bwDSeJn1Rke74APXN13ZdE/kA0/qzfcYqP+Zh/vVeVUeHBhKvM5V/haoY8qD0j7kmpm07V2KGySVKvuv9JCMXL7Vr+btzUKa6mH7hdO0uoCTJGFcLeHdNtW7FRaVcfPLNeyjVDP54tMHnA4uPyrJUO68zsz9JQZ4LA5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hMYQA5hqkANy0qe67m4PQri4ZQlVrXu1IijAy+ho67g=;
- b=wkh2IZeXBFTaGo+POGfX44xbK9eWQBf+Mp1SRBTN28t+fn4HN9RuKmflTnvpVYjB5KOKgXfSZJ45EBl17wAF5ea9a/+/mjyuj7VQs7lIRZR+25/cAWCgAhrsoBVPXdWGKPRCcOQboWJZyUVEz5yh50D0H94w6/ALbo1Wz/PkGLcwTYMVa0TE0B6v+H5sLIZoMc1IfAutUTb8uG/tk+Lya2AOl73DnYOVTZUHeAESwrv+XvWnTHWpc6yKFMV+OulHF0v0aGh24IIh9tjzozo41mRHdsZdBcP8y8vP+Na3E5OT5PIElmqioS1HGOkyLkXLVbruPpZBJ+L6rK2A9lOvjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hMYQA5hqkANy0qe67m4PQri4ZQlVrXu1IijAy+ho67g=;
- b=1bt1JA7EUfOMDU60qDkaykDstzPRzUAC0NelOtgcJkBAAdF2tPAB3NIyCJHufzf3fMyqaEjjhk5HRsE5hdu3lOr2o3HY/2aTThapPqSbh+0nnbcOysR7C3zS6EeoBih7mWJNs7wP8JulYbo0UVviMlOszoRbrKVLlyib9UWvVG4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB8453.namprd12.prod.outlook.com (2603:10b6:8:157::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 14:54:47 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
- 14:54:47 +0000
-Message-ID: <aeeff331-8b2e-41d8-acf8-d5d758935d38@amd.com>
-Date: Mon, 14 Sep 2026 16:54:42 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: zero reg_state buffer before filling it
-To: "Lazar, Lijo" <lijo.lazar@amd.com>,
- Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
- Alexander Deucher <alexander.deucher@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Samuel Zhang <guoqing.zhang@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-References: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
- <bc9cf07a-ef97-490a-b98a-a05bc9f5b186@amd.com>
- <05b669e6-1c66-4789-9916-b8030e232385@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <05b669e6-1c66-4789-9916-b8030e232385@amd.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6670710EF1D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 14:55:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=EwKd2QQBeEcAGs4oDpEwBIbdD4B4txKcar4f1YX/G74=; b=DzHGnoU6mmJ6+Idp8kCHkCBo2s
+ 5yDhhNc/p2l507avNcf4kN1NTg53yU+n+QXdW7H21GvwXnFGR3xhJRDnDDQpSV04lUqGVO7mhVcbz
+ t88AVSi5uwEQ/xplgkQdYPhmNaCgvTq0kQMPblTBrHC+oYslEdqKRI7bruAWtXQ38ibdlDF3FKzgp
+ UB5OZaeLhLvTpQw6XfAXhu951xbdK4db+Hfj2oXmf/vo8dLAYoXJwEehlKrQBIPoFEE13j/V4xbf6
+ euz7ScUPT0eSyrHEdb4FW1K9y4B90DsMT+IG44pxUDI4DygPvZnfMTqqsiIO7EKxPLwSFeVrfYJCe
+ 9ZWz0cXw==;
+Received: from [81.79.79.1] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x685N-001x2g-LB; Mon, 14 Sep 2026 16:55:09 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH v3 2/6] drm/amdgpu: Add amdgpu_sdma_types.h header
+Date: Mon, 14 Sep 2026 15:54:22 +0100
+Message-ID: <20260914145426.51458-3-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260914145426.51458-1-tvrtko.ursulin@igalia.com>
+References: <20260914145426.51458-1-tvrtko.ursulin@igalia.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR03CA0005.namprd03.prod.outlook.com
- (2603:10b6:208:23a::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8453:EE_
-X-MS-Office365-Filtering-Correlation-Id: c86af5b1-6339-4bc8-1902-08df12701edd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: +iS3BFLHJeucFKuQopg/c0MNTCY362bwWjov+MIQXiC1x1g4Ap0Urtk4F0RjeQXbx+Ifme/q+geS0fyZF0REuxTCsan+FwIvutUjfEOGZZn0lWVQRM3BjMiX4HVbp6bDjdytcJr7uPMl+mtoS8Afvh80PJS0W4bd9XI2MJ35DEWGdRXzS+Ad8/rK5xXR0zw3wbVXTiwIZz+iI+8W7RZnmP08J/qaiKjGbvjPgRx2v8NsiBFRJ8g1hSKnBikpUh1BvTkxfDKJL//5fN7d25E2VPNCr7Ug6phCqmojKSzo3yMxlahrhwRLTM/fgILbklyoo9V8pmq5f+7PAZprNBnYmmxyrPoBZ4G7kN4TifT/ChazpWuhV/8+szp5AYbrX7W3Y3BiyB0cCHj2QQF+cuIRjS/mCnHcYIxzvkzW1hPTPVQK5fgzjlzYLSzNc4kJlXqg6aJk/w4jJBbKKbwdyfGi3INl/NVuXJkXt9NXuWKAP/fH+KIZrCYTVtsHLTPEKkmB1vhOvS2g6ePgCJWetDkzMXi67KYCyBKgs7D9Oue/flpaKiZGfM60OT+h8h/COsZId2iJwOFhAUnuDxwOHh5Z5M5rXGID9FlxucSl/GoCtPonu2LCGmcvpCSYEEhiEvrrnl/K2EYvfDCq8fg8WwDhW8NVPCflj/IXGZFelDwftOI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S1VxT1RlL0pqS09makd5Q2JBVWtjamVzRmpaRlprdWttUE5sbStpSmo5bW5v?=
- =?utf-8?B?dWFpK2ZsbmNHVGo2a05seTAwcTU3R0dFcHFkKzB6RlY5Ym42Q1FMNEZubmZo?=
- =?utf-8?B?d1I4ZlRseDFqM1hSWWFEUHF3Rk95R3hVcWgrUUxTdlo1N3FGMUlzVGs4cGE1?=
- =?utf-8?B?ckp5NjhTN0VRcjI2ZWkvenNOdGlPTmozWlhwMGVNQVNheERKUUg0alV1Tnl6?=
- =?utf-8?B?YVNoYmxGcUgvME0xb3hUUjNSdk1ZTFNYRXZQSFV5bktEUGFlT1B2cVE4alVZ?=
- =?utf-8?B?bkxpRFpiOWJGdk95ejR1UUNtZTJNM0luMyt6aitOWmVKcWFxMzRWeGYwc0JG?=
- =?utf-8?B?Z0J4YklxSFRrbXlxb3NKdG95dUVoVHl4M3FaNGRIQ3JuNnVjT2M5OU9MdjU0?=
- =?utf-8?B?OXF3SHZ2L3lqaDY5V05sb2RKWWZ0Rm52M0FKcm5GNDhRSTZUUEN1SGUrLzM2?=
- =?utf-8?B?NWpZL3A4cjRZckhVaWpXaksvY1U1WTNVU0d1SWxab0VrYWFHUzRaNXQzUVlC?=
- =?utf-8?B?aVFYaFZ2ZzBvMEEvWkRCdmlkaFBOVUdrU1UyZDJtSGJRY1BJcXpGSjIzamY4?=
- =?utf-8?B?V0RVODVTVk9iMVRuS0RNdXhrOE12T1lrc1JaSTR5MHAzUDlpU1o4cTRrNVg0?=
- =?utf-8?B?NnFTblY4RXdSQ2htU2lySlY1RW8yQXpIQVhVZ2JYQUFtZnl3b2I2M3BzS1Yx?=
- =?utf-8?B?bitVK20yaWdpKzRjR2I0K3VNUVVOaitpYlpqUDQwWFFIZk5CWFJqZ1M0WEZq?=
- =?utf-8?B?WXMrSm92eGhwVUEwdkdNTjJZWFIzWVpIODBZUXEzOGhiYXRkazUvaWgzS3Q3?=
- =?utf-8?B?aDhRNTdGNW8yQzlyK0lJUlpXZWdUWVluMGw2aFRxczRTSndVTVIzQzFEanlX?=
- =?utf-8?B?bmRjRnRGZE5GNnFWRC8vRENFSEFxblBKekF0UDZjTGZLS0VxOVpQcE9CMmpD?=
- =?utf-8?B?SGEzNmlUUm8vSEVHTFFHYmFJMjM2YUxBYkVqZG9raE9pQlRkQTBuK1ZuV1VO?=
- =?utf-8?B?MzM4S3hxY2E3SkU2eXhMK0Y1STVmaE95L1NxSnYvL3FWRmRjRWQwbDBIRDlG?=
- =?utf-8?B?b1g4bzhzS3gyQXgyVUtGWTZTbFF2WjBsbVY5OFoxRVA1V2hEdWlmRGhpcU1s?=
- =?utf-8?B?RnhTem91eCtUUkFQZDRRdWlaczRPeitta2NaYWhpQXdQS3hZczJROG1QcXJy?=
- =?utf-8?B?MDlndThpSTFOcFhCbXpUSEpKVXNFejhTTUEzWitqRCtnd05XdnpYdStsOXJI?=
- =?utf-8?B?ZjlyaUJhM2VFNEdoeVgya2c2UXJ5aXovTGpIWENjeG1PdVpTQzVOWEhwZ0Fa?=
- =?utf-8?B?cVJaMTcreHZQRjBFVUozemFIVDVxSTJjS3VMV1duZmFoTVBRS2NCUklnZHRM?=
- =?utf-8?B?Q2x6M3FSeWxiUjUzZG9RbGRiM0tzMXpYRnlOWXIyS0xld1cwY0l1ZVlIWUtS?=
- =?utf-8?B?d3VJM3UwdjFFOGtxMlJQOEcrQ1NVSWVKaThINFVCSkIxa2VaR1EyOUdSY0lK?=
- =?utf-8?B?Nm9scHVuUjNTWEh0a01FTEF4cHlxRzIzbGcwTmhKRlZER2pnZVJ6a1lFKzlh?=
- =?utf-8?B?ZE1vcU1yM1VzQ3NaQnRtVk5ibHJSckZaMlFyMTJXa2hsUE10WVpKbG4yaHU5?=
- =?utf-8?B?dUErWkppaVRMSGJ5VEl4eEJOenNqZFV0VGlQQ0ozWHdKa3JDajc5eFQvMmJw?=
- =?utf-8?B?QzA3OTFxWkNiRk5RZUwyTzJrd2MzUVNuYmNpMWlaTGpsZmNRdjRxUzhzU2sy?=
- =?utf-8?B?cXhwKzRYOTE4bjhwVm1pcnRqVU9DdU5YZ0hKU05hSmdudXdBQ3pkRWFTK1M4?=
- =?utf-8?B?M2pSTjdSMXBseld3QkRDWkQzajU1ZW1FTmd0Z0E0VG1WR3hhRXhpdnAwUXlD?=
- =?utf-8?B?RmpFNjdLem1wbHFwMmZlRCt3cisvbHovcmRSNkFPeXJhUytRbUxNdEY5aDc1?=
- =?utf-8?B?VDNsMktldjJ2eDYrU2E2ZHhOM3prMEFMMTdEWURlMjN3MEE2cmZlYUJheExs?=
- =?utf-8?B?ekR3UkIrN2hqSG4wQ1RPSWlZU0tGcGJuUUlaU0VISk1HOXZTejJ3L1AxWEJV?=
- =?utf-8?B?b1NwS1BTdEg3OGw2bTZHaE1GOGNrc3Z3SEpTaDd0Q0x0UVR1bGJLSjkrN1hh?=
- =?utf-8?B?OUVlWG1QdDdFbUxGbCtXS05rQ1htbTh6QTBmWFV6dmlrSWNoeGhWS0tiK2VK?=
- =?utf-8?B?TjJOYkJvTnNQQzcwdVhIMmd2UWkyYTNmNWd4VkpORHNFdlNGSmFtM1V3YWZm?=
- =?utf-8?B?dldlSC9ZNTRmRGJ0UFo3dDN5Vlg1bEtMSFpUcDNjRXk2M25mdVhmdm9CZU0y?=
- =?utf-8?Q?q4M5UchEoQm+Qy8Ity?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c86af5b1-6339-4bc8-1902-08df12701edd
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 14:54:47.5539 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xk7HpoyD35bfqaQuAY0lgn7PcOk/uQsGPsmR0EYP3fovONOJnwucFqHk4PDUEUC5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8453
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,92 +58,560 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/14/26 16:45, Lazar, Lijo wrote:
-> 
-> 
-> On 14-Sep-26 7:30 PM, Christian König wrote:
->> On 9/14/26 15:56, Dmitriy Chumachenko wrote:
->>> The reg_state readouts return szbuf bytes but never write the pad members
->>> of the headers and of amdgpu_smn_reg_data (and, for pcie, the fields
->>> skipped when the upstream port or AER capability is absent). The sysfs
->>> buffer is a plain kmalloc(), so those bytes leak stale slab data to any
->>> local user through the 0444 reg_state attribute.
->>>
->>> Zero the buffer once the size is known.
->>>
->>> Found by Linux Verification Center (linuxtesting.org) with SVACE.
->>>
->>> Fixes: 081a6eda2b25 ("drm/amdgpu: Read aquavanjaram PCIE register state")
->>> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
->>
->> Good catch, but stuff like that should be handled by using kzalloc() instead of calling memset it manually.
->>
-> 
-> It's the default sysfs buffer allocation which may not be used entirely by all drivers.
-> 
-> The concern in this case is that driver is telling it has written x bytes whereas it could have left some fields unfilled in the buffer. I think the fix is fine.
+There is an include loop between amdgpu.h and amdgpu_sdma.h which
+prevents adding any interesting static inline helpers to the latter.
 
-Wait a second, is that because of messed up padding in sysfs structures? That is usually a really big NO-GO for upstreaming.
+Break it by moving the type definitions to a new amdgpu_sdma_types.h
+header.
 
-Structures returned to userspace must be padding free, see the tool pahole for how to double check that on different architectures.
+This is required so static inline helpers which need to dereference
+struct amdgpu_device can be added to amdgpu_sdma.h.
 
-Regards,
-Christian.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+---
+v2:
+ * More explanation in the commit message.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      | 141 ++--------------
+ .../gpu/drm/amd/amdgpu/amdgpu_sdma_types.h    | 159 ++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |   1 +
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c    |   1 +
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c        |   1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |   2 +
+ 18 files changed, 188 insertions(+), 131 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
 
-> 
-> Thanks,
-> Lijo
-> 
->> Regards,
->> Christian.
->>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 8 ++++++++
->>>   1 file changed, 8 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
->>> index 72ea37dbfea8..0086de0f685d 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
->>> @@ -610,6 +610,8 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
->>>          if (max_size < szbuf)
->>>                  return -EOVERFLOW;
->>>
->>> +       memset(buf, 0, szbuf);
->>> +
->>>          pcie_regs = (struct amdgpu_regs_pcie_v1_0 *)((uint8_t *)buf +
->>>                                                       sizeof(*pcie_reg_state));
->>>          pcie_regs->inst_header.instance = 0;
->>> @@ -702,6 +704,8 @@ static ssize_t aqua_vanjaram_read_xgmi_state(struct amdgpu_device *adev,
->>>          if (max_size < szbuf)
->>>                  return -EOVERFLOW;
->>>
->>> +       memset(buf, 0, szbuf);
->>> +
->>>          p = &xgmi_reg_state->xgmi_state_regs[0];
->>>          for_each_inst(i, adev->aid_mask) {
->>>                  for (j = 0; j < xgmi_inst; ++j) {
->>> @@ -776,6 +780,8 @@ static ssize_t aqua_vanjaram_read_wafl_state(struct amdgpu_device *adev,
->>>          if (max_size < szbuf)
->>>                  return -EOVERFLOW;
->>>
->>> +       memset(buf, 0, szbuf);
->>> +
->>>          p = &wafl_reg_state->wafl_state_regs[0];
->>>          for_each_inst(i, adev->aid_mask) {
->>>                  for (j = 0; j < wafl_inst; ++j) {
->>> @@ -902,6 +908,8 @@ static ssize_t aqua_vanjaram_read_usr_state(struct amdgpu_device *adev,
->>>          if (max_size < szbuf)
->>>                  return -EOVERFLOW;
->>>
->>> +       memset(buf, 0, szbuf);
->>> +
->>>          p = &usr_reg_state->usr_state_regs[0];
->>>          for_each_inst(i, adev->aid_mask) {
->>>                  usr_regs = (struct amdgpu_regs_usr_v1_0 *)p;
->>> -- 
->>> 2.49.0
->>>
->>
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 79b69d74eb2e..5811709b33b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -79,7 +79,7 @@
+ #include "amdgpu_umsch_mm.h"
+ #include "amdgpu_gmc.h"
+ #include "amdgpu_gfx.h"
+-#include "amdgpu_sdma.h"
++#include "amdgpu_sdma_types.h"
+ #include "amdgpu_lsdma.h"
+ #include "amdgpu_nbio.h"
+ #include "amdgpu_reg_access.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index d80fe17556da..d8786a93a851 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -36,6 +36,7 @@
+ #include "amdgpu_rap.h"
+ #include "amdgpu_securedisplay.h"
+ #include "amdgpu_fw_attestation.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_umr.h"
+ 
+ #include "amdgpu_reset.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 7c0554506334..1bf2a42fa63c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -33,6 +33,8 @@
+ #include "amdgpu_gmc.h"
+ #include "amdgpu_ras.h"
+ #include "amdgpu_reset.h"
++#include "amdgpu_ring.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_xgmi.h"
+ #include "amdgpu_atomfirmware.h"
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+index 0a692804bc53..e77ea4ade8ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+@@ -23,141 +23,22 @@
+ 
+ #ifndef __AMDGPU_SDMA_H__
+ #define __AMDGPU_SDMA_H__
+-#include "amdgpu_ras.h"
+ 
+-/* max number of IP instances */
+-#define AMDGPU_MAX_SDMA_INSTANCES		16
++#include "amdgpu_sdma_types.h"
+ 
+-enum amdgpu_sdma_irq {
+-	AMDGPU_SDMA_IRQ_INSTANCE0  = 0,
+-	AMDGPU_SDMA_IRQ_INSTANCE1,
+-	AMDGPU_SDMA_IRQ_INSTANCE2,
+-	AMDGPU_SDMA_IRQ_INSTANCE3,
+-	AMDGPU_SDMA_IRQ_INSTANCE4,
+-	AMDGPU_SDMA_IRQ_INSTANCE5,
+-	AMDGPU_SDMA_IRQ_INSTANCE6,
+-	AMDGPU_SDMA_IRQ_INSTANCE7,
+-	AMDGPU_SDMA_IRQ_INSTANCE8,
+-	AMDGPU_SDMA_IRQ_INSTANCE9,
+-	AMDGPU_SDMA_IRQ_INSTANCE10,
+-	AMDGPU_SDMA_IRQ_INSTANCE11,
+-	AMDGPU_SDMA_IRQ_INSTANCE12,
+-	AMDGPU_SDMA_IRQ_INSTANCE13,
+-	AMDGPU_SDMA_IRQ_INSTANCE14,
+-	AMDGPU_SDMA_IRQ_INSTANCE15,
+-	AMDGPU_SDMA_IRQ_LAST
+-};
++#include "amdgpu.h"
++#include "amdgpu_ring.h"
++
++#include <linux/types.h>
++
++struct amdgpu_device;
++struct amdgpu_iv_entry;
++struct amdgpu_irq_src;
++struct amdgpu_ring;
++struct ras_common_if;
+ 
+ #define NUM_SDMA(x) hweight32(x)
+ 
+-struct amdgpu_sdma_csa_info {
+-	u32 size;
+-	u32 alignment;
+-};
+-
+-struct amdgpu_sdma_funcs {
+-	int (*stop_kernel_queue)(struct amdgpu_ring *ring);
+-	int (*start_kernel_queue)(struct amdgpu_ring *ring);
+-	int (*soft_reset_kernel_queue)(struct amdgpu_device *adev, u32 instance_id);
+-};
+-
+-struct amdgpu_sdma_instance {
+-	/* SDMA firmware */
+-	const struct firmware	*fw;
+-	uint32_t		fw_version;
+-	uint32_t		feature_version;
+-
+-	struct amdgpu_ring	ring;
+-	struct amdgpu_ring	page;
+-	bool			burst_nop;
+-	union {
+-	    uint32_t		aid_id;
+-	    uint32_t		xcc_id;
+-	};
+-
+-	struct amdgpu_bo	*sdma_fw_obj;
+-	uint64_t		sdma_fw_gpu_addr;
+-	uint32_t		*sdma_fw_ptr;
+-	struct mutex		engine_reset_mutex;
+-	/* track guilty state of GFX and PAGE queues */
+-	bool			gfx_guilty;
+-	bool			page_guilty;
+-	const struct amdgpu_sdma_funcs   *funcs;
+-};
+-
+-struct amdgpu_sdma_ras {
+-	struct amdgpu_ras_block_object ras_block;
+-};
+-
+-struct amdgpu_sdma {
+-	struct amdgpu_sdma_instance instance[AMDGPU_MAX_SDMA_INSTANCES];
+-	struct amdgpu_irq_src	trap_irq;
+-	struct amdgpu_irq_src	illegal_inst_irq;
+-	struct amdgpu_irq_src	fence_irq;
+-	struct amdgpu_irq_src	ecc_irq;
+-	struct amdgpu_irq_src	vm_hole_irq;
+-	struct amdgpu_irq_src	doorbell_invalid_irq;
+-	struct amdgpu_irq_src	pool_timeout_irq;
+-	struct amdgpu_irq_src	srbm_write_irq;
+-	struct amdgpu_irq_src	ctxt_empty_irq;
+-
+-	int			num_instances;
+-	uint32_t 		sdma_mask;
+-	bool    		sdma_debug;
+-	union {
+-	    int			num_inst_per_aid;
+-	    int			num_inst_per_xcc;
+-	};
+-	uint32_t                    srbm_soft_reset;
+-	bool			has_page_queue;
+-	struct ras_common_if	*ras_if;
+-	struct amdgpu_sdma_ras	*ras;
+-	uint32_t		*ip_dump;
+-	uint32_t 		supported_reset;
+-	struct list_head	reset_callback_list;
+-	bool			no_user_submission;
+-	bool			disable_uq;
+-	void (*get_csa_info)(struct amdgpu_device *adev,
+-			     struct amdgpu_sdma_csa_info *csa_info);
+-};
+-
+-/*
+- * Provided by hw blocks that can move/clear data.  e.g., gfx or sdma
+- * But currently, we use sdma to move data.
+- */
+-struct amdgpu_buffer_funcs {
+-	/* maximum bytes in a single operation */
+-	uint32_t	copy_max_bytes;
+-
+-	/* number of dw to reserve per operation */
+-	unsigned	copy_num_dw;
+-
+-	/* used for buffer migration */
+-	void (*emit_copy_buffer)(struct amdgpu_ib *ib,
+-				 /* src addr in bytes */
+-				 uint64_t src_offset,
+-				 /* dst addr in bytes */
+-				 uint64_t dst_offset,
+-				 /* number of byte to transfer */
+-				 uint32_t byte_count,
+-				 uint32_t copy_flags);
+-
+-	/* maximum bytes in a single operation */
+-	uint32_t	fill_max_bytes;
+-
+-	/* number of dw to reserve per operation */
+-	unsigned	fill_num_dw;
+-
+-	/* used for buffer clearing */
+-	void (*emit_fill_buffer)(struct amdgpu_ib *ib,
+-				 /* value to write to memory */
+-				 uint32_t src_data,
+-				 /* dst addr in bytes */
+-				 uint64_t dst_offset,
+-				 /* number of byte to fill */
+-				 uint32_t byte_count);
+-};
+-
+ int __printf(4, 5)
+ amdgpu_sdma_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 		      unsigned int instance, const char *fmt, ...);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
+new file mode 100644
+index 000000000000..d6e7a703c2e0
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
+@@ -0,0 +1,159 @@
++/*
++ * Copyright 2018 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __AMDGPU_SDMA_TYPES_H__
++#define __AMDGPU_SDMA_TYPES_H__
++#include "amdgpu_ras.h"
++
++/* max number of IP instances */
++#define AMDGPU_MAX_SDMA_INSTANCES		16
++
++enum amdgpu_sdma_irq {
++	AMDGPU_SDMA_IRQ_INSTANCE0  = 0,
++	AMDGPU_SDMA_IRQ_INSTANCE1,
++	AMDGPU_SDMA_IRQ_INSTANCE2,
++	AMDGPU_SDMA_IRQ_INSTANCE3,
++	AMDGPU_SDMA_IRQ_INSTANCE4,
++	AMDGPU_SDMA_IRQ_INSTANCE5,
++	AMDGPU_SDMA_IRQ_INSTANCE6,
++	AMDGPU_SDMA_IRQ_INSTANCE7,
++	AMDGPU_SDMA_IRQ_INSTANCE8,
++	AMDGPU_SDMA_IRQ_INSTANCE9,
++	AMDGPU_SDMA_IRQ_INSTANCE10,
++	AMDGPU_SDMA_IRQ_INSTANCE11,
++	AMDGPU_SDMA_IRQ_INSTANCE12,
++	AMDGPU_SDMA_IRQ_INSTANCE13,
++	AMDGPU_SDMA_IRQ_INSTANCE14,
++	AMDGPU_SDMA_IRQ_INSTANCE15,
++	AMDGPU_SDMA_IRQ_LAST
++};
++
++struct amdgpu_sdma_csa_info {
++	u32 size;
++	u32 alignment;
++};
++
++struct amdgpu_sdma_funcs {
++	int (*stop_kernel_queue)(struct amdgpu_ring *ring);
++	int (*start_kernel_queue)(struct amdgpu_ring *ring);
++	int (*soft_reset_kernel_queue)(struct amdgpu_device *adev, u32 instance_id);
++};
++
++struct amdgpu_sdma_instance {
++	/* SDMA firmware */
++	const struct firmware	*fw;
++	uint32_t		fw_version;
++	uint32_t		feature_version;
++
++	struct amdgpu_ring	ring;
++	struct amdgpu_ring	page;
++	bool			burst_nop;
++	union {
++	    uint32_t		aid_id;
++	    uint32_t		xcc_id;
++	};
++
++	struct amdgpu_bo	*sdma_fw_obj;
++	uint64_t		sdma_fw_gpu_addr;
++	uint32_t		*sdma_fw_ptr;
++	struct mutex		engine_reset_mutex;
++	/* track guilty state of GFX and PAGE queues */
++	bool			gfx_guilty;
++	bool			page_guilty;
++	const struct amdgpu_sdma_funcs   *funcs;
++};
++
++struct amdgpu_sdma_ras {
++	struct amdgpu_ras_block_object ras_block;
++};
++
++struct amdgpu_sdma {
++	struct amdgpu_sdma_instance instance[AMDGPU_MAX_SDMA_INSTANCES];
++	struct amdgpu_irq_src	trap_irq;
++	struct amdgpu_irq_src	illegal_inst_irq;
++	struct amdgpu_irq_src	fence_irq;
++	struct amdgpu_irq_src	ecc_irq;
++	struct amdgpu_irq_src	vm_hole_irq;
++	struct amdgpu_irq_src	doorbell_invalid_irq;
++	struct amdgpu_irq_src	pool_timeout_irq;
++	struct amdgpu_irq_src	srbm_write_irq;
++	struct amdgpu_irq_src	ctxt_empty_irq;
++
++	int			num_instances;
++	uint32_t 		sdma_mask;
++	bool    		sdma_debug;
++	union {
++	    int			num_inst_per_aid;
++	    int			num_inst_per_xcc;
++	};
++	uint32_t                    srbm_soft_reset;
++	bool			has_page_queue;
++	struct ras_common_if	*ras_if;
++	struct amdgpu_sdma_ras	*ras;
++	uint32_t		*ip_dump;
++	uint32_t 		supported_reset;
++	struct list_head	reset_callback_list;
++	bool			no_user_submission;
++	bool			disable_uq;
++	void (*get_csa_info)(struct amdgpu_device *adev,
++			     struct amdgpu_sdma_csa_info *csa_info);
++};
++
++/*
++ * Provided by hw blocks that can move/clear data.  e.g., gfx or sdma
++ * But currently, we use sdma to move data.
++ */
++struct amdgpu_buffer_funcs {
++	/* maximum bytes in a single operation */
++	uint32_t	copy_max_bytes;
++
++	/* number of dw to reserve per operation */
++	unsigned	copy_num_dw;
++
++	/* used for buffer migration */
++	void (*emit_copy_buffer)(struct amdgpu_ib *ib,
++				 /* src addr in bytes */
++				 uint64_t src_offset,
++				 /* dst addr in bytes */
++				 uint64_t dst_offset,
++				 /* number of byte to transfer */
++				 uint32_t byte_count,
++				 uint32_t copy_flags);
++
++	/* maximum bytes in a single operation */
++	uint32_t	fill_max_bytes;
++
++	/* number of dw to reserve per operation */
++	unsigned	fill_num_dw;
++
++	/* used for buffer clearing */
++	void (*emit_fill_buffer)(struct amdgpu_ib *ib,
++				 /* value to write to memory */
++				 uint32_t src_data,
++				 /* dst addr in bytes */
++				 uint64_t dst_offset,
++				 /* number of byte to fill */
++				 uint32_t byte_count);
++};
++
++#endif
+\ No newline at end of file
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index ad8cc95e6cfa..29723ff53503 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -26,6 +26,7 @@
+ #include <drm/drm_mm.h>
+ #include <linux/random.h>
+ #include "amdgpu.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_ualink.h"
+ #include "amdgpu_xgmi.h"
+ #include "amdgpu_dma_buf.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+index cddfe4015f53..9a0c12b1a309 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
++++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+@@ -30,6 +30,7 @@
+ #include "gfxhub_v1_2.h"
+ #include "sdma_v4_4_2.h"
+ #include "amdgpu_ip.h"
++#include "amdgpu_sdma.h"
+ 
+ void aqua_vanjaram_doorbell_index_init(struct amdgpu_device *adev)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+index de2323e23566..45f429ed23e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+@@ -27,6 +27,7 @@
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_ucode.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_trace.h"
+ #include "cikd.h"
+ #include "cik.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+index 11e118a4aee8..cf2ae307933f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+@@ -28,6 +28,7 @@
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_ucode.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_trace.h"
+ #include "vi.h"
+ #include "vid.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+index 87743fe6ae44..287c1796370f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+@@ -28,6 +28,7 @@
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_ucode.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_trace.h"
+ #include "vi.h"
+ #include "vid.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index e77e29855c68..dc260fa3caa9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -28,6 +28,7 @@
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_ucode.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_trace.h"
+ 
+ #include "sdma0/sdma0_4_2_offset.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+index 2bed58e983be..2412ed9a9376 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -30,6 +30,7 @@
+ #include "amdgpu_xcp.h"
+ #include "amdgpu_ucode.h"
+ #include "amdgpu_trace.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_reset.h"
+ 
+ #include "sdma/sdma_4_4_2_offset.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index fa25d1508404..fdbb5195b354 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -28,6 +28,7 @@
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_ucode.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_trace.h"
+ 
+ #include "gc/gc_10_1_0_offset.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index 8d0ffad0284a..13addc71ae17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -28,6 +28,7 @@
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_ucode.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_trace.h"
+ 
+ #include "gc/gc_10_3_0_offset.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+index b28934739d32..11a0d87e56e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+@@ -28,6 +28,7 @@
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_ucode.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_trace.h"
+ 
+ #include "gc/gc_11_0_0_offset.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+index 4503bae1d48c..c1ba1777f915 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+@@ -28,6 +28,7 @@
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_ucode.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_trace.h"
+ 
+ #include "gc/gc_12_0_0_offset.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+index f33b0dc17c50..916e92bae535 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+@@ -28,6 +28,7 @@
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_ucode.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_trace.h"
+ 
+ #include "gc/gc_12_1_0_offset.h"
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 6b64b1692235..8b96e1fe741a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -24,6 +24,8 @@
+ #include <linux/dma-direction.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/migrate.h>
++#include "amdgpu.h"
++#include "amdgpu_sdma.h"
+ #include "amdgpu_sync.h"
+ #include "amdgpu_object.h"
+ #include "amdgpu_vm.h"
+-- 
+2.55.0
 
