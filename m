@@ -4,78 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05ED2C88E53
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 974A0C88E7D
 	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 07:32:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49B8810F322;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36DB510F302;
 	Tue, 15 Sep 2026 07:32:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CXRIKr0/";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="HtRnEm46";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FAC410F7F8
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 00:54:34 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c25331b31e8so52634566b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 17:54:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789433673; x=1790038473; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=hWZ4Y4zJql57aJqzMLFBZaa2Td+FuNKRPfVlv/bP7Sk=;
- b=CXRIKr0/ZmMDrS73QRqW4KiweIpOB79NuQakt8Xw2/Mc1qoym3pK1rd1W61GFrN4LV
- JHk0eA2GLD8O4KmVCHA1Nw9o5Xmatsr6lMODE+P9kjbILQDKcECPZ9bX/bQFnTRXQIYb
- e/3hB+90wZ0D99D81uVpXwjrsNfvuYb7JD6GsDuJeeud/h3l7YnSrhfaQ2hDW9TocA/A
- JfZwQNvQX922M76nyqM02hwHL2WRsgTugiWBUbfjfHtPj75hzo1N8XHMqK+W0ra99giw
- cUUTdVPchPLxh3aiJj89cO5n6H/Q2B1bMmrJCiYV6NjJKKxYoIp/krSE1TMsnr7jjhKs
- WYBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789433673; x=1790038473;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hWZ4Y4zJql57aJqzMLFBZaa2Td+FuNKRPfVlv/bP7Sk=;
- b=pSmf0BnJbf7vpCpLgL3gF1cWodaRBRyOdmqPvyG+W/XKSn6khVVkoHQh5yxRpHI+AN
- wgPqJBviPYyAnU/DE4vl4PAwwavHCvxcAz15aVo3U3uaUPCMb65xbvQa9HTIW8sQJut7
- BU43EuKvlGDVHiTSz+vxV+ymDqkEZoAsNh13VuZ3q1PvYvTILxyLchYhLzymPtVFq1L5
- S7arrFreKdMXi2CAOZXXK8ieHyq9xLbjVR22oiiz7S6gVi9koXtvMYrWGqcSDrX2UtNx
- MMHX+MPAQMXSs1lzjITrJSkbOd68n7wxJiwbT9At8bUAn7IVsH6Tzo7amkrUv0tGBJps
- pXhA==
-X-Gm-Message-State: AFuF++moc95mKWXMB06aFaETIido9m2UUdyDJFphrwF5KTCmuq3XCZuh
- KPlTe1OAVgSpotDQyw5sRQqbS9jjSF3YTsggmh6p4ankufH3lX/HSAN9+jTa62YyBLWRNg==
-X-Gm-Gg: AYBFou3iamvx9kwwP52YnX4hWa0GKowr8cszs07HigVaKAdV0yrrpMtZWiLbjnXcAUN
- Uk5HOXzbCqEWLOCBR+ogv3HHKSqoDyzR8KnFnCvDW/ZHMhY32I2YfFXUyUyQzGsGNrKPQ14Pv6i
- H4F9iysRK1vm94KxMpAtUQT50NjyYqkWtJvtuigcHfBKYSTP4xDEd6RiwV2d6f4dJthiZ18hrXa
- JYNNP2dFhn0+CT+7VIWG0JkZX9Rf9Hlavrx7uzuCl9KI0Wb39OAlDOxX1ZqX2ZNGGt1Gw9Pry3g
- 9ba8wGFbmiSphw/KtVXnxyxyR9OUCF0piZ4voR2NAJmoMay/O4iTYOid/xlfyixriaMBEVrjRky
- i/ZOqocUsdq6mhNt/Krg8l/d6618KP0UoZcVySRWyS6SIDseI2Uht43D6dfJV1bjxDAvd8M9wg0
- kb3Zdspfqlj9W8W937t8t6Bz3LtJI7fB9/5C5y6ZPeF8YxP60Hbu/Eb/P22mfQxwDbIo8rl+M/1
- EId9Nzfj9fVUuw9/bQ=
-X-Received: by 2002:a17:907:9491:b0:c20:c5f4:e19f with SMTP id
- a640c23a62f3a-c29b881e271mr346326166b.4.1789433672479; 
- Mon, 14 Sep 2026 17:54:32 -0700 (PDT)
-Received: from Nuel20.localdomain ([105.113.65.85])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c29660ead67sm501097966b.51.2026.09.14.17.54.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 17:54:32 -0700 (PDT)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, bhawanpreet.lakha@amd.com,
- Wayne.Lin@amd.com, ivan.lipski@amd.com, matthew.schwartz@linux.dev,
- Jerry.Zuo@amd.com, chiahsuan.chung@amd.com, emmaonana18@gmail.com,
- chen-yu.chen@amd.com, skhan@linuxfoundation.org, me@brighamcampbell.com
-Subject: [PATCH] drm/amd/display: fix kernel-doc warnings for
- amdgpu_display_manager
-Date: Tue, 15 Sep 2026 01:54:21 +0100
-Message-ID: <20260915005421.20570-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C943310F217;
+ Mon, 14 Sep 2026 20:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=mJrts+4KNWw+Qpn1jq6RnZXLVwPNNYne7gXKHU9E03c=; b=HtRnEm46Q8JauGgpN6SYHjKGHv
+ o/KFNChwDJwIfwaUcETfGJCbfYpjPk5lVUKfPhV/fBZEJbjHMTIyM6J/wGoCXq8omCtOhgpOIxW6s
+ 20vmRJnpeaiY0jyIqYE7g/0g9KQdL5b+P9qoski1/8CpaL1WhdBc9JQPoBKUIS0QD660m2MHiActg
+ YA2k2yoR2egQ0lzEHAhitJTfGPKGT6QOCL8BwnHToJCuf0qhqsDfY1N1GPF1xVcZdMb0HoFz/FsT7
+ xkCuSWT7XISr9yhaXb4rwddj9pwmoH9mvhGjIbNpCfefcC/5ATtCeWtJ6hUDdWCVASv7RqlpefrhE
+ OH/OYrrQ==;
+Received: from 179-125-70-185-dinamico.pombonet.net.br ([179.125.70.185]
+ helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x6DEy-00258e-6L; Mon, 14 Sep 2026 22:25:24 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Mon, 14 Sep 2026 17:25:04 -0300
+Subject: [PATCH 1/4] drm/amdgpu: make amdgpu_vm_sdma_commit handle NULL or
+ empty job
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-amdgpu_vm_fixes-v1-1-d6d835591e0f@igalia.com>
+References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
+In-Reply-To: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>, 
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>, 
+ Shashank Sharma <shashank.sharma@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, kernel-dev@igalia.com, 
+ Natalie Vock <nat@pixelcluster.dev>
+X-Mailer: b4 0.16-dev-62088
 X-Mailman-Approved-At: Tue, 15 Sep 2026 07:32:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,66 +65,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-scripts/kernel-doc reports missing and excess member descriptions
-for struct amdgpu_display_manager:
+When amdgpu_vm_update_range hits a failure at amdgpu_vm_ptes_update, it
+will skip calling update_funcs commit, which might lead to a memory
+leak.
 
-  struct member 'power_module' not described
-  struct member 'hdmi_frl_status_polling_wq' not described
-  struct member 'hdmi_frl_status_polling_delay_ms' not described
-  struct member 'boot_time_crc_info' not described
-  Excess struct member 'dm_boot_time_crc_info' description
+Prepare the commit function to be called in such error paths, where job
+might be NULL or empty.
 
-Add @power_module to the main struct doc, document
-hdmi_frl_status_polling_wq/work/delay_ms with separate inline
-comments, and rename @dm_boot_time_crc_info to @boot_time_crc_info
-to match the actual member name.
+This allows the following commits to prevent the job leak below in the
+presence of such failures.
 
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+[ 2877.877264] kmemleak: unreferenced object 0xffff89b1f3cf0800 (size 1024):
+[ 2877.877273] kmemleak:   comm "vm_always_valid", pid 3027, jiffies 4295714403
+[ 2877.877275] kmemleak:   hex dump (first 32 bytes):
+[ 2877.877277] kmemleak:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+[ 2877.877279] kmemleak:     00 03 da 52 b1 89 ff ff 38 25 5f cb b1 89 ff ff  ...R....8%_.....
+[ 2877.877280] kmemleak:   backtrace (crc d52b9041):
+[ 2877.877282] kmemleak:     __kmalloc_noprof+0x4b3/0x770
+[ 2877.877288] kmemleak:     amdgpu_job_alloc+0x69/0x280 [amdgpu]
+[ 2877.877668] kmemleak:     amdgpu_job_alloc_with_ib+0x55/0xf0 [amdgpu]
+[ 2877.878023] kmemleak:     amdgpu_vm_sdma_prepare+0x4b/0xa0 [amdgpu]
+[ 2877.878350] kmemleak:     amdgpu_vm_update_range+0x24f/0x940 [amdgpu]
+[ 2877.878668] kmemleak:     amdgpu_vm_clear_freed+0x13b/0x290 [amdgpu]
+[ 2877.878983] kmemleak:     amdgpu_gem_object_close+0x1ac/0x270 [amdgpu]
+[ 2877.879300] kmemleak:     drm_gem_object_release_handle+0x35/0xd0
+[ 2877.879305] kmemleak:     idr_for_each+0x70/0xe0
+[ 2877.879310] kmemleak:     drm_gem_release+0x23/0x30
+[ 2877.879311] kmemleak:     drm_file_free+0x217/0x2a0
+[ 2877.879314] kmemleak:     drm_release+0x61/0xe0
+[ 2877.879317] kmemleak:     amdgpu_drm_release+0x62/0xd0 [amdgpu]
+[ 2877.879630] kmemleak:     __fput+0xfb/0x2d0
+[ 2877.879634] kmemleak:     __x64_sys_close+0x3d/0x80
+[ 2877.879637] kmemleak:     do_syscall_64+0x12d/0x6c0
+
+Fixes: 81417bea8755 ("drm/amdgpu: explicitly sync VM update to PDs/PTs")
+Fixes: c3546695830e ("drm/amdgpu: use the new VM backend for PTEs")
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 15 +++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 15 +++++++++++++--
  1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 3524931451c8..61756c089fcc 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -330,6 +330,7 @@ struct hpd_rx_irq_offload_work {
-  * @backlight_link: Link on which to control backlight
-  * @backlight_caps: Capabilities of the backlight device
-  * @freesync_module: Module handling freesync calculations
-+ * @power_module: Module handling power calculations
-  * @hdcp_workqueue: AMDGPU content protection queue
-  * @fw_dmcu: Reference to DMCU firmware
-  * @dmcu_fw_version: Version of the DMCU firmware
-@@ -716,16 +717,26 @@ struct amdgpu_display_manager {
- 		char reply_data[0x40];  // Cannot include dmub_cmd here
- 	} fused_io[8];
- 	/**
--	 * @hdmi_frl_status_polling_work:
-+	 * @hdmi_frl_status_polling_wq:
- 	 *
- 	 * workqueue for 200ms frl status polling
- 	 */
- 	struct workqueue_struct *hdmi_frl_status_polling_wq;
-+	/**
-+	 * @hdmi_frl_status_polling_work:
-+	 *
-+	 * Delayed work for 200ms HDMI FRL status polling.
-+	 */
- 	struct delayed_work hdmi_frl_status_polling_work;
-+	/**
-+	 * @hdmi_frl_status_polling_delay_ms:
-+	 *
-+	 * Delay, in milliseconds, between HDMI FRL status polls.
-+	 */
- 	unsigned int hdmi_frl_status_polling_delay_ms;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 50cc0779c340..975e26a48cd3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -90,6 +90,7 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
+ 	if (r) {
+ 		p->num_dw_left = 0;
+ 		amdgpu_job_free(p->job);
++		p->job = NULL;
+ 	}
+ 	return r;
+ }
+@@ -106,14 +107,24 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
+ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
+ 				 struct dma_fence **fence)
+ {
+-	struct amdgpu_ib *ib = p->job->ibs;
++	struct amdgpu_ib *ib;
+ 	struct amdgpu_ring *ring;
+ 	struct dma_fence *f;
  
- 	/**
--	 * @dm_boot_time_crc_info:
-+	 * @boot_time_crc_info:
- 	 *
- 	 * Buffer info for the boot time crc.
- 	 */
++	if (!p->job)
++		return 0;
++
++	ib = p->job->ibs;
++
++	if (ib->length_dw == 0) {
++		amdgpu_job_free(p->job);
++		p->job = NULL;
++		return 0;
++	}
++
+ 	ring = container_of(p->vm->delayed.rq->sched, struct amdgpu_ring,
+ 			    sched);
+ 
+-	WARN_ON(ib->length_dw == 0);
+ 	amdgpu_ring_pad_ib(ring, ib);
+ 
+ 	if (p->needs_flush)
+
 -- 
-2.43.0
+2.47.3
 
