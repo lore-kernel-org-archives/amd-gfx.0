@@ -4,71 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D808C88E50
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 12:47:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC27AC88E70
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 12:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A400A10EE25;
-	Mon, 14 Sep 2026 12:47:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1570010EE35;
+	Mon, 14 Sep 2026 12:47:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f/xVubnU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YiVYkzYV";
 	dkim-atps=neutral
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E051C10E462
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 10:18:57 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-6a9983162dcso3880967a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 03:18:57 -0700 (PDT)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4C3710E81F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 10:23:48 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-6a9cb66f7b4so2758335a12.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 03:23:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789381136; x=1789985936; darn=lists.freedesktop.org;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=cPP5td9MAORHe1l/GFVMlFJbMlk9RTsBaXkMCRs+hdM=;
- b=f/xVubnUi+gCwr6fn148IW8IDLAUc7EJAYatPsgvEqFM3YFg3VZgsg3slJugJwm7Qm
- akAlg+Lgg8cwaQ9n8zcLaTof0YQ7nJbRXLzwwExIhHEcXKsqAYr1G3YkxURLH7mOKe4m
- YR4gMJ6CkUX6UgY8vxCJfSq3514UZ0cbqitWaT36N6N+myxOlZY+c/R3cIFIPFr5VJbw
- IwtDgeG8LQmsDG2nNwTW+ZXqGgQfGIgSGJvAvIMFVK6X6Xgn7xWAI3lWwmlSuy6Zt4B4
- 6EtHStUnJP3fuFuz3XHwazM8oHuoYBFI3nLfQ9yIm+oVCjWOfuajh+Idvkj/XtfViKlY
- HomQ==
+ d=gmail.com; s=20251104; t=1789381427; x=1789986227; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=E1sCd6BdyPRJ9aYNHdQzAgjNIIzlvS2qtHsqw6qJAKg=;
+ b=YiVYkzYVGKVHqMeebwdHE+Ykl5+ovDHjJ2hb/NqlVaOkxRFv5XEIb738RYrRiptU0d
+ 3mtaforz2NuqoHMHJvj5UiMpTaXj3ekpmhQAdbv//NZl4seyUtc36DbAXBkQ6iOaiVPJ
+ YcZOkQtM9HgFvymDr0CZJ4YJ8SwspLIGw2Oxj4WKEMTnNbQEA323M+7IUaQlsOa0VCxy
+ nbDeh02vi+Vhad82055JwNCnMUF04187cPySHZT9T57zfDU7DdUQrqnpMBUfSUcYNBKd
+ TiG7FqD1cgO6wYbJWLSwYSd6x4mpO3U/4uC0SqBwVUQJlRmyH7hoFZ2+2g1Cn8g2uWuX
+ h2Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789381136; x=1789985936;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=cPP5td9MAORHe1l/GFVMlFJbMlk9RTsBaXkMCRs+hdM=;
- b=gLvOTN8tC+ptdGsaMKjnSXC8MORASymXKAQrQfNxhsdVBOgRM1egY5M+C3PMpkiAFS
- 4wSxGUCg0DhInnMBxj9SXhXyv2kKgOvjOy2tClB0XFufums9NQm0xTXK7L5Bv5v6dZui
- ruTzG+B/PK/ajz0qijZpOti++9E6x+Yiz9fyYhnIBMpvMU+MY/ZvjdBIpAOFFfrGSiwU
- rjl7Vxv8XkhPzXClidNSBHMEhzm6DCl2Q9kT0flu1f79739ofUBI2jp+nI0/LQ/GOrGV
- 4oJ6ywNzmKQAONaJINaOwvpF4ZU+sroHqpvVsQVwgUdkEl6Fvi9f54kaiyZVJ/2arwxh
- 0j8Q==
-X-Gm-Message-State: AFuF++nOJrHG3MDnT6hd1cru60056jVhPI2aW7XMBBi6jVpQdcBSUK8U
- xFhnAVjQJ6wsRsOxubv0bvwYO8uC24A1X5S5WfXy6rg4/1UAnq03rfkO
-X-Gm-Gg: AYBFou10mUxlo+t61stCeJjFiCBRk2FHkttFuTCobMicCTLERWdBH3dVimdCRhkfITM
- nmI5aTZEQeMfmgYOiAmeS+IS5EZjr71voklj3xO3Vj9atHedeNfHUAvTdq0NMfk7IFkeF2G8Jp/
- ArV1yyD2NUWrmLom9XmCPHjYuYkpcJMjB1mOK/rji4OYGoBrY3FNTwgPNdqP2dTJ/19GcaeFEQa
- w2b07l54hZ9cWvK/izJ/7oh9Y+eM03RHjb2efEY3rqkdg9TCeFCcK4eXSOGjMljIx3kSP9G+9V3
- eVm2NWJuosOroY+nEsF63fxG4Qt7sFufF8BjYITBCFgHLVHbF0e2KuCui2u2NY/6VBN3Pk2HS2c
- 2Fhxgx5/ETPRmU6eq1YjCOnIN8RtDJu8sxKx8SUbcpXYv9DgexxuleqeVT8cHvbbXNbcra2ncBn
- D9xVCxovPcIeUb5Jarbm3jPLQ8mtHVw/JSc3rfeDMLmxEr+VuPx9aRGvCiGH1a8xu/OBk=
-X-Received: by 2002:a05:6402:3245:b0:6a9:9833:2ecf with SMTP id
- 4fb4d7f45d1cf-6a9f62265a4mr896459a12.10.1789381136056; 
- Mon, 14 Sep 2026 03:18:56 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1789381427; x=1789986227;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=E1sCd6BdyPRJ9aYNHdQzAgjNIIzlvS2qtHsqw6qJAKg=;
+ b=iycINN0vJnlRM4NRFkgT+k0PFJHCoX/2egpBaulbJww0nkf1RoBUYC5BnWW08siGXn
+ fkQC/YkR/cV032hsWaTD5ywYg2JT4iLAFJoz6khUw7/F8PvBBGqCXJbRx7wkvD84/mOk
+ s+FEF7mDqyc8EPrkSNkhL5n5NEx3ABebZDcJ8VkHSX3R9G5qXoIr6yV6+tOK0Kta8HpZ
+ +FMw7fj5JcuL19EnZ5IBvKTVP+k3z1R2w3OVbeJPevgmtlsPr86Ra7RX5X3LTkTWqaGG
+ YR7XLUnHxphem1Yel86uYFUJtk+C0tiDKOUuFd5u6zP0bVPJJdycGx4vUw9voHpHCw2a
+ Xazg==
+X-Gm-Message-State: AFuF++nvsQfAwYYLGki6RALFw8g+g2L+TFyDSco9PKt4UGbwa7PMHJuq
+ 8ztAaeNN9c80HgS+7ZFxivKX3AbBia8xabMlZdDuAPM/W7byajS05o9K
+X-Gm-Gg: AYBFou35dshMM8A83kf9sbS4N6AyPNF8Hyy2Z34tlz32hM+tYshEkzID2DTUQ92AWNu
+ 8PCC2NDkmIG1296Tk6iR46Z3+V50wHOniasYg3HSliUdUiOsjeobzs+89wzr+L2SB6oC3/YK9Kj
+ SD1BaqXDnTO4QVS6RtgXaGQwVPuf9+RpzHogGwdvdPILUZfW0B+IYNVvWvf2n3XStd5u8bJN66g
+ QE2T5AI59x3mP8MeiDfmPj3LO3n35RSU5yaJEG2JZzoerVxRz5rG1m3L1NewCo/aC3zfCa3EJUb
+ nixnKyVljcWhyj3+le86MlceRbhE4N+tLBtLZSJmdfQqBHH7Avd7/o20i56NISYadXOYbwdSNIC
+ mP84FUUPYrgZDUjI6LKNBaDETNJKhYMJfJVRF+JXav6I3yk1MRs97iVZiKY8nxHvOcV1obB0Lxh
+ S70eUiVWWyXSXpARoF5VEQmFSV8jvy8GfAkfk5BzHuO1uw1vG9KdfbtYue1kvmP38TlRYWM8c1T
+ 2Ei2w==
+X-Received: by 2002:a17:907:d19:b0:c29:6400:ef8e with SMTP id
+ a640c23a62f3a-c29b876253emr121178966b.42.1789381426952; 
+ Mon, 14 Sep 2026 03:23:46 -0700 (PDT)
 Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a9b592470asm3936498a12.17.2026.09.14.03.18.54
+ a640c23a62f3a-c2966021c63sm404118766b.13.2026.09.14.03.23.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 03:18:55 -0700 (PDT)
-Date: Mon, 14 Sep 2026 13:18:51 +0300
+ Mon, 14 Sep 2026 03:23:45 -0700 (PDT)
+Date: Mon, 14 Sep 2026 13:23:42 +0300
 From: Dan Carpenter <error27@gmail.com>
-To: Lijo Lazar <lijo.lazar@amd.com>
+To: Leo Chen <leo.chen@amd.com>
 Cc: amd-gfx@lists.freedesktop.org,
  "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amdgpu: Improve ualink state transitions
-Message-ID: <aqfKCyOnoxf0oxIX@stanley.mountain>
+Subject: Re: [bug report] drm/amd/display: Register DCN as a PMFW DF C-state
+ client on DCN42
+Message-ID: <aqfLLt5rO31_2y_g@stanley.mountain>
+References: <aqfKt3Ry75gaA4Vz@stanley.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <aqfKt3Ry75gaA4Vz@stanley.mountain>
 X-Mailman-Approved-At: Mon, 14 Sep 2026 12:47:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,32 +90,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Lijo Lazar,
+On Mon, Sep 14, 2026 at 01:21:43PM +0300, Dan Carpenter wrote:
+> Hello Leo Chen,
+> 
+> Commit 53845307d52e ("drm/amd/display: Register DCN as a PMFW DF
+> C-state client on DCN42") from Jul 9, 2026, leads to the following
+> Smatch complaint:
+> 
+>     drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:686 dcn42_prepare_bandwidth()
+>     warn: variable dereferenced before check 'dc->clk_mgr' (see line 681)
+> 
+> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c
+>    680	
+>    681		dcn401_prepare_bandwidth(dc, context);
+>                                          ^^
+> dc->clk_mgr is dereferenced here.
+> 
+>    682	
+>    683		/* valid C-state watermarks have now been committed to HW, so it
+>    684		 * is safe to vote "allow" to PMFW.
+>    685		 */
+>    686		if (dc->clk_mgr && dc->clk_mgr->funcs && dc->clk_mgr->funcs->notify_cstate_disable)
+>                     ^^^^^^^^^^^
+> so this check is too late.
+> 
 
-Commit 0a6da5dcfe42 ("drm/amdgpu: Improve ualink state transitions")
-from Jun 9, 2026, leads to the following Smatch complaint:
-
-    drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c:169 amdgpu_ualink_info_set_accel_state()
-    warn: variable dereferenced before check 'info' (see line 164)
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-   163	{
-   164		enum amdgpu_ualink_accel_state cur = info->accel_state;
-                                                     ^^^^^^^^^^^^^^^^^
-The patch adds a new dereference
-
-   165		enum amdgpu_ualink_accel_state target;
-   166		bool ppod_validated;
-   167		bool vpod_validated;
-   168	
-   169		if (!info)
-                    ^^^^^
-The old code assumed info could be NULL.
-
-   170			return;
-   171	
-
-This email is a free service from the Smatch-CI project [smatch.sf.net].
+Actually, dc->clk_mgr->funcs is dereferenced as well.
 
 regards,
 dan carpenter
+
