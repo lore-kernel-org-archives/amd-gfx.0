@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4E6DC88E64
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 12:47:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E77EAC88E70
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 12:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E123410E889;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA30610EDF8;
 	Mon, 14 Sep 2026 12:47:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pxlpBnSC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ckj5Lgnt";
 	dkim-atps=neutral
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85CE210E395
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 10:21:49 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-6a601ba6870so5725510a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 03:21:49 -0700 (PDT)
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C851810E397
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 10:30:36 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c254fa4c24cso252002866b.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 03:30:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789381308; x=1789986108; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789381835; x=1789986635; darn=lists.freedesktop.org;
  h=content-disposition:content-type:mime-version:message-id:subject:cc
  :to:from:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=2mF+xH5cIcST6u0nrbtly+TRzH2eXbiWgA+pO5N6DIg=;
- b=pxlpBnSCCiWsDWRC7mNj6/ve7h9XwpWKj0v6BWdordwqJMd21KKqxlwCB3cyg4HPL4
- +X1FIlRCxQowT3+vR0yVRoQ3UbV7GMrFk0osPvi1sWiBPwYzXeeK6bp5h8GK84wFkJh2
- S6kbLYd/dAHfAlQr/IVJRB0GRjNUFATjWTzDlwDsTHj76cpdLmrQAWKsNUWpfI2tH7vp
- QsshrC/qDwo70F7KF2yAVuVutMI18gPd2d5dRYA45ZL0bCrKlTgMqC2VDansV13IBJIZ
- IT0xDcNV7A4Zz64JEo2HmkB7osGyIBZlEWjosYnBIZF3mYjC00dlQUynbVEVvDVG571J
- cnEA==
+ :content-type; bh=ZKeoHyxJcGHvnZP+SSp3fLq1fos9BUNkVIoHSvpzm6Y=;
+ b=Ckj5Lgnt+ImJgdE5b71g4LvcArDMI6IdF1yP955Xn1IKDSohTdjUEVUAk7/5yNwhBF
+ tuIkXyvKKybj/4zypvEVJkB67L+G36bzu0zj2vOntJytwmaxhAyeq8+/i5aQcqoTePDt
+ 9f22icwf/xHjlpgnk/NYst5yh5V2f2j9hXcGWS9bcCa2OEiID316zNrlLXg/fzDIH3C6
+ QwWeEdTBZ45682pn6TQdiy35GWHzL5fDvRnQ3qLF4cowNNQvXwzB7vLE5A4PpXdYkrMQ
+ yvjw0iVnxLS8FbvjppQtx3LdQ5gukzGTPlDFhmnO3pPsZSCM8Sv+t+kRc5s57ToBNhIp
+ eflg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789381308; x=1789986108;
+ d=1e100.net; s=20251104; t=1789381835; x=1789986635;
  h=content-disposition:content-type:mime-version:message-id:subject:cc
  :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=2mF+xH5cIcST6u0nrbtly+TRzH2eXbiWgA+pO5N6DIg=;
- b=OBLB6870MZc733gM/RvKTZwLCDyHQ6v5mkYIVq2neCiaOrVg/Wh/HNLFCJ7kpS+hYO
- XeHnyqTDN3RjEEZMLf/PGayh4guVc3vJF12JkkdRuDmCFckR97B/njksM7Kgvg83Pxfx
- CSzL9ElwTOUVjJcBSxSjfK47jeGAZuP4VPL+TKxkEpW5pcZ/6XLx39QZewRm5DNGRhxT
- CHHtJaK+OiC3dV7SbgRbMUXjnjG0sxDzz3t0tWuuu8399xUpYVC8KcwfsVtabGcqKcjm
- uFqwINYNRMIFhSdkukpWHv1TupzszwC/kdO3mzbVjz+PUosVnQF6TRl5+7fqI35KKJIy
- dTMA==
-X-Gm-Message-State: AFuF++nxMkn7o1tDsMwjNfOl/gfakpjsRkOWkQD5QMIcFxbY/NCh3icy
- Du6IWhxdlNyWUG/KGMfPD2UA+gSUzc2pdwcg5Kb9clAdOUUEbAIplDYH
-X-Gm-Gg: AYBFou2JL9n0HdgLV80wdaPpSMLvZvA2Sl7SPMhWXsTGua/whsGAyr9ZHNYWl26EpUv
- sxU8lKgTXfic48OwmPBqnGzOJkrlDc0lZBZnWNLcz4e76I9UCiB2b2ZScxIGhkcw9fiBKE3POAy
- 89GEy9Agq8HpxnZAn2Ql1M449/M+4LP0W8UYSClQK1OAUk9BmwgRkjTKcWBeS2EzXyJYXjRXpJh
- jEI3eI3/aZ6Up2lL2oVZWx44cLh8mMzzN+gKOadCgfFSxulZ3XZggs87OHbr4mWQgnaTdSD6GcX
- qAldwGKdNDpMUh2hunOFn9cs/RM1LjKoYhqHrYwjQMqa1yl5BZFIwntF+svirgeTZba+7ZrGW0j
- xIA6uIo6rLX+mIQvHCx/k3sKwvPs2d7GvYItdrXdtjYPi4SOMQe0wyDa+EYFTm4I17n25xjGunn
- dzcns5i/Dhzow6ZpM8jxWbm2c1FiE1O/RtLav9J0RlyJyodUHXnLlYqFXCAwFD9INd4FA=
-X-Received: by 2002:a17:906:c10e:b0:c26:2a2:b91d with SMTP id
- a640c23a62f3a-c29b84b85a2mr122980466b.6.1789381307718; 
- Mon, 14 Sep 2026 03:21:47 -0700 (PDT)
+ bh=ZKeoHyxJcGHvnZP+SSp3fLq1fos9BUNkVIoHSvpzm6Y=;
+ b=Y2k5RRZQDMnAF+cIFF3IzB+VjwdOcv+wC6+HzzjPvRGDyKSJiHJhqpN6FpBczboyJm
+ fUfSHEKeopJEhK49cCBbU7Wx9MtgLBlN0/nfjgO4IcWBmMsqyklrH/h56+ghzYNOJEOM
+ 5so1C71BQPiHqTajyM8OeNLoCNF2CNkVVQS72oftNVy3j4tjgR+d/g+XsbRukkvv905+
+ yIkUS23fvRY/Jt5LShKPQuAvblp0IVmH/uJDuFn9BxSOfoHuwsUu8z6hQO23FVOLR26q
+ ef+Cj0l9x6BUSkllsWVEUSUBumysdri7uV82Ppl+1mj2NzWAqQtO7wP+ifAM5qS+julk
+ oQlQ==
+X-Gm-Message-State: AFuF++mjp1X/aeiiSjIOeDsd7BRz5jdSSMiH6E1KHITY1/cn/aPPL9DU
+ aYCXUwoD7DQaT8dlscdgLItm0kAFaqUNRj7yEIiaB7+W95TEiUQ9k+Zh
+X-Gm-Gg: AYBFou16iCfiR8y1O8REdFnP0ApIQBRti/kTkC0z2iUGaL/TGUCNuM9LK0wbsOTMudJ
+ U8iMDD1PM4mbaKbbZRulbxen/wgehA4mSfdwFnZ4vUF+wn1cNM9L58Ev99cyjG2gcDlxIAHW3XI
+ +u6dD/p0FfYKyG24Frktt6QmoLOOfeTgSNPiV42jAKFK/o4qLTGdKgbD3PaMtDbKg7af0JjrJ3y
+ HUDGNBZxIVkQRT8TfBMDv4noz5Qcfiw7fk5WzburRvdm3BbcJCbFR7EmOzg+eB/wSRyGckI9MaM
+ XxLN3+IGXpL/qqrncspcMJKJ5y0UJPsJjYxkses8iU6KuXYt2GsPJUwVac2lM/pEltDS43tlN20
+ ObDoR6TNbi/FD7WeH6fHxer5LXU9vZZPBNA8agvy70eBODEMnoevIdk3UFT1hOjboOQWAVVIeQj
+ lh6+Em/U/Ldj+ktBtKdc2szS3b7Q4DAKRf5IgwOWjABapveN4mfRCjSwmloIGt/2YeV0I=
+X-Received: by 2002:a17:907:9411:b0:c26:3190:296b with SMTP id
+ a640c23a62f3a-c29b876b1e3mr119972266b.48.1789381835026; 
+ Mon, 14 Sep 2026 03:30:35 -0700 (PDT)
 Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c29660234f2sm403605166b.12.2026.09.14.03.21.46
+ a640c23a62f3a-c2966026e2esm402972066b.19.2026.09.14.03.30.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 03:21:47 -0700 (PDT)
-Date: Mon, 14 Sep 2026 13:21:43 +0300
+ Mon, 14 Sep 2026 03:30:34 -0700 (PDT)
+Date: Mon, 14 Sep 2026 13:30:30 +0300
 From: Dan Carpenter <error27@gmail.com>
-To: Leo Chen <leo.chen@amd.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Cc: amd-gfx@lists.freedesktop.org,
  "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amd/display: Register DCN as a PMFW DF C-state
- client on DCN42
-Message-ID: <aqfKt3Ry75gaA4Vz@stanley.mountain>
+Subject: [bug report] drm/amd/display: Enable DCN6 sources compilation
+Message-ID: <aqfMxsk1sVyVHNKt@stanley.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -85,31 +84,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Leo Chen,
+Hello Aurabindo Pillai,
 
-Commit 53845307d52e ("drm/amd/display: Register DCN as a PMFW DF
-C-state client on DCN42") from Jul 9, 2026, leads to the following
-Smatch complaint:
+Commit 992694ad2858 ("drm/amd/display: Enable DCN6 sources
+compilation") from Jul 21, 2026, leads to the following Smatch
+complaint:
 
-    drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:686 dcn42_prepare_bandwidth()
-    warn: variable dereferenced before check 'dc->clk_mgr' (see line 681)
+    drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dce110/dce110_hwseq.c:3500 dce110_enable_tmds_link_output()
+    warn: variable dereferenced before check 'link->link_enc' (see line 3490)
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c
-   680	
-   681		dcn401_prepare_bandwidth(dc, context);
-                                         ^^
-dc->clk_mgr is dereferenced here.
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dce110/dce110_hwseq.c
+  3489		(void)link_res;
+  3490		link->link_enc->funcs->enable_tmds_output(
+                ^^^^^^^^^^^^^^^^
+The exiting code dereferences link->link_enc
 
-   682	
-   683		/* valid C-state watermarks have now been committed to HW, so it
-   684		 * is safe to vote "allow" to PMFW.
-   685		 */
-   686		if (dc->clk_mgr && dc->clk_mgr->funcs && dc->clk_mgr->funcs->notify_cstate_disable)
-                    ^^^^^^^^^^^
-so this check is too late.
+  3491				link->link_enc,
+  3492				clock_source,
+  3493				color_depth,
+  3494				signal,
+  3495				pixel_clock);
+  3496		link->phy_state.symclk_state = SYMCLK_ON_TX_ON;
+  3497	
+  3498		// For dongle Type 2 with no I2C support on board, setup sw mode of Ri/Pj check with proper aux instance
+  3499		if (link->force_to_use_aux) {
+  3500			if (link->link_enc && link->link_enc->funcs->setup_ri_pj_check_in_sw_or_hw_mode)
+                            ^^^^^^^^^^^^^^
 
-   687			dc->clk_mgr->funcs->notify_cstate_disable(dc->clk_mgr, false);
-   688	}
+  3501				link->link_enc->funcs->setup_ri_pj_check_in_sw_or_hw_mode(link->link_enc,
+  3502					link->aux_hw_inst, true);
+  3503          } else
+  3504                  // For HDMI setup hw mode of Ri/Pj check with proper ddc pin instance
+  3505                  if (link->link_enc && link->link_enc->funcs->setup_ri_pj_check_in_sw_or_hw_mode)
+                            ^^^^^^^^^^^^^^
+So these checks don't make sense.
+
+  3506                          link->link_enc->funcs->setup_ri_pj_check_in_sw_or_hw_mode(link->link_enc,
+  3507                                  link->ddc_hw_inst, false);
+  3508  }
+
 
 This email is a free service from the Smatch-CI project [smatch.sf.net].
 
