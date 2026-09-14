@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04103C88E66
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 11:04:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70E21C88E72
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 11:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA1C10ED55;
-	Mon, 14 Sep 2026 11:04:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6EE910ED56;
+	Mon, 14 Sep 2026 11:04:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pyIK16Sq";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XVQKCfmg";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0F410EB55
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 11:04:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A40F10ED57
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 11:04:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=EwKd2QQBeEcAGs4oDpEwBIbdD4B4txKcar4f1YX/G74=; b=pyIK16Sq28gl17I+ug6aVstEtF
- pKc5t1EP0MdxN71uCJbXhYUo3gVVx8LIZzJZ0g8CxMLW/H+60b+rDmqZSaQTAoR60h7TPENVyhCuC
- LwNFU8zBoukqaifzt3nkj1rcgtnNmXHM9WBVb/hxLEY3HBFbIy/W1wFObPGiQNbn0tdzgm6vVM/eK
- FVPW4k9TjokOcJ7GavKxXAcxjcJu5JUX6+XBJjj0sWMN3bAMl2Aet2+5hMJiv3bf55QhHIApda0Wp
- a5O2KdR2+JUhxgmjFi3fiGhl/sdbO8o+4R8uTB0e3/5sd944cfSwisyFOBiI7i/oLVxrZ+/v/TS4Y
- LBNzDHow==;
+ bh=eyiWCyZ/G3YDESkhStuf1//Ynt+wjoh6wDkJTfRqMd0=; b=XVQKCfmgybMMSK7x7UjYAhju8j
+ dByo0EUFyQDpUxTJkGVge5nQwXZh4VYeYeHkvU1NhoTZlAh2i1KmCc27qye8h+qWSFP09YivWMYLo
+ ++W3ZUjlPECp8/L6t05ppolJOXHCYDJpXSlF28LdcwD9WIucNBUEw/H6iqSz3F2DqdN8hI1MNas1Y
+ wUipb4L0sam7xXXqycYh1BfsXlE7Z53IZX+WwfialF9MDtQrE9mSyJUyRtXyOfeRQOBjCm2fDEIKS
+ 3f9No87FfvZ6AknZcgIfelbYpV7doDtd9pjFoe14XkuK0c3KkdeFV4pgcHhqd/CUjQU8xp4vItl4S
+ OfzgjR/Q==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x64Tl-001qMJ-AL; Mon, 14 Sep 2026 13:04:05 +0200
+ id 1x64Tn-001qMp-DV; Mon, 14 Sep 2026 13:04:07 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH v2 2/6] drm/amdgpu: Add amdgpu_sdma_types.h header
-Date: Mon, 14 Sep 2026 12:03:57 +0100
-Message-ID: <20260914110401.48209-3-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v2 5/6] drm/amdgpu: Extend logical to device instance lookup
+ to all devices
+Date: Mon, 14 Sep 2026 12:04:00 +0100
+Message-ID: <20260914110401.48209-6-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260914110401.48209-1-tvrtko.ursulin@igalia.com>
 References: <20260914110401.48209-1-tvrtko.ursulin@igalia.com>
@@ -58,560 +59,616 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is an include loop between amdgpu.h and amdgpu_sdma.h which
-prevents adding any interesting static inline helpers to the latter.
+A subset of supported devices can have a mismatch between the logical and
+device engine instance numbers which the driver currently solves by a
+combination of lookup table generated at driver init time, and a
+conditionally set vfunc checked and used at runtime to do the lookup.
 
-Break it by moving the type definitions to a new amdgpu_sdma_types.h
-header.
+As the requirement to do these lookups is relatively widespread in the
+code base, plus the fact the mapping table is already allocated for all
+possible hw ips and instances, we can significantly streamline them by
+initializing the said lookup table unconditionally to the predominant
+"identity map" (logical instance numbers equal to device instances),
+and allow affected parts to re-configure the table based on their
+configuration.
 
-This is required so static inline helpers which need to dereference
-struct amdgpu_device can be added to amdgpu_sdma.h.
+The effect is that for each lookup site we replace the conditional
+followed by a indirect function call with a simple two-dimensional table
+lookup.
+
+Bloat-o-meter agrees the savings are significant:
+
+add/remove: 13/12 grow/shrink: 23/279 up/down: 51626/-198973 (-147347)
+...
+Total: Before=10139692, After=9992345, chg -1.45%
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Timur Kristóf <timur.kristof@gmail.com>
 ---
-v2:
- * More explanation in the commit message.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      | 141 ++--------------
- .../gpu/drm/amd/amdgpu/amdgpu_sdma_types.h    | 159 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |   1 +
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c    |   1 +
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c        |   1 +
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |   2 +
- 18 files changed, 188 insertions(+), 131 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   |  1 +
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c        | 49 +++++++------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h        | 21 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c      |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |  1 +
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  8 +--
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c      |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      |  1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      |  1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      |  1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c      |  1 +
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c        |  1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |  1 +
+ drivers/gpu/drm/amd/amdgpu/soc15_common.h     |  6 +--
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c       |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  1 +
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c |  1 +
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  1 +
+ drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h     |  7 ++-
+ 34 files changed, 70 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 79b69d74eb2e..5811709b33b7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -79,7 +79,7 @@
- #include "amdgpu_umsch_mm.h"
- #include "amdgpu_gmc.h"
- #include "amdgpu_gfx.h"
--#include "amdgpu_sdma.h"
-+#include "amdgpu_sdma_types.h"
- #include "amdgpu_lsdma.h"
- #include "amdgpu_nbio.h"
- #include "amdgpu_reg_access.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index d80fe17556da..d8786a93a851 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -36,6 +36,7 @@
- #include "amdgpu_rap.h"
- #include "amdgpu_securedisplay.h"
- #include "amdgpu_fw_attestation.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_umr.h"
- 
- #include "amdgpu_reset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 7c0554506334..1bf2a42fa63c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -33,6 +33,8 @@
- #include "amdgpu_gmc.h"
- #include "amdgpu_ras.h"
- #include "amdgpu_reset.h"
-+#include "amdgpu_ring.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_xgmi.h"
- #include "amdgpu_atomfirmware.h"
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-index 0a692804bc53..e77ea4ade8ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-@@ -23,141 +23,22 @@
- 
- #ifndef __AMDGPU_SDMA_H__
- #define __AMDGPU_SDMA_H__
--#include "amdgpu_ras.h"
- 
--/* max number of IP instances */
--#define AMDGPU_MAX_SDMA_INSTANCES		16
-+#include "amdgpu_sdma_types.h"
- 
--enum amdgpu_sdma_irq {
--	AMDGPU_SDMA_IRQ_INSTANCE0  = 0,
--	AMDGPU_SDMA_IRQ_INSTANCE1,
--	AMDGPU_SDMA_IRQ_INSTANCE2,
--	AMDGPU_SDMA_IRQ_INSTANCE3,
--	AMDGPU_SDMA_IRQ_INSTANCE4,
--	AMDGPU_SDMA_IRQ_INSTANCE5,
--	AMDGPU_SDMA_IRQ_INSTANCE6,
--	AMDGPU_SDMA_IRQ_INSTANCE7,
--	AMDGPU_SDMA_IRQ_INSTANCE8,
--	AMDGPU_SDMA_IRQ_INSTANCE9,
--	AMDGPU_SDMA_IRQ_INSTANCE10,
--	AMDGPU_SDMA_IRQ_INSTANCE11,
--	AMDGPU_SDMA_IRQ_INSTANCE12,
--	AMDGPU_SDMA_IRQ_INSTANCE13,
--	AMDGPU_SDMA_IRQ_INSTANCE14,
--	AMDGPU_SDMA_IRQ_INSTANCE15,
--	AMDGPU_SDMA_IRQ_LAST
--};
-+#include "amdgpu.h"
-+#include "amdgpu_ring.h"
-+
-+#include <linux/types.h>
-+
-+struct amdgpu_device;
-+struct amdgpu_iv_entry;
-+struct amdgpu_irq_src;
-+struct amdgpu_ring;
-+struct ras_common_if;
- 
- #define NUM_SDMA(x) hweight32(x)
- 
--struct amdgpu_sdma_csa_info {
--	u32 size;
--	u32 alignment;
--};
--
--struct amdgpu_sdma_funcs {
--	int (*stop_kernel_queue)(struct amdgpu_ring *ring);
--	int (*start_kernel_queue)(struct amdgpu_ring *ring);
--	int (*soft_reset_kernel_queue)(struct amdgpu_device *adev, u32 instance_id);
--};
--
--struct amdgpu_sdma_instance {
--	/* SDMA firmware */
--	const struct firmware	*fw;
--	uint32_t		fw_version;
--	uint32_t		feature_version;
--
--	struct amdgpu_ring	ring;
--	struct amdgpu_ring	page;
--	bool			burst_nop;
--	union {
--	    uint32_t		aid_id;
--	    uint32_t		xcc_id;
--	};
--
--	struct amdgpu_bo	*sdma_fw_obj;
--	uint64_t		sdma_fw_gpu_addr;
--	uint32_t		*sdma_fw_ptr;
--	struct mutex		engine_reset_mutex;
--	/* track guilty state of GFX and PAGE queues */
--	bool			gfx_guilty;
--	bool			page_guilty;
--	const struct amdgpu_sdma_funcs   *funcs;
--};
--
--struct amdgpu_sdma_ras {
--	struct amdgpu_ras_block_object ras_block;
--};
--
--struct amdgpu_sdma {
--	struct amdgpu_sdma_instance instance[AMDGPU_MAX_SDMA_INSTANCES];
--	struct amdgpu_irq_src	trap_irq;
--	struct amdgpu_irq_src	illegal_inst_irq;
--	struct amdgpu_irq_src	fence_irq;
--	struct amdgpu_irq_src	ecc_irq;
--	struct amdgpu_irq_src	vm_hole_irq;
--	struct amdgpu_irq_src	doorbell_invalid_irq;
--	struct amdgpu_irq_src	pool_timeout_irq;
--	struct amdgpu_irq_src	srbm_write_irq;
--	struct amdgpu_irq_src	ctxt_empty_irq;
--
--	int			num_instances;
--	uint32_t 		sdma_mask;
--	bool    		sdma_debug;
--	union {
--	    int			num_inst_per_aid;
--	    int			num_inst_per_xcc;
--	};
--	uint32_t                    srbm_soft_reset;
--	bool			has_page_queue;
--	struct ras_common_if	*ras_if;
--	struct amdgpu_sdma_ras	*ras;
--	uint32_t		*ip_dump;
--	uint32_t 		supported_reset;
--	struct list_head	reset_callback_list;
--	bool			no_user_submission;
--	bool			disable_uq;
--	void (*get_csa_info)(struct amdgpu_device *adev,
--			     struct amdgpu_sdma_csa_info *csa_info);
--};
--
--/*
-- * Provided by hw blocks that can move/clear data.  e.g., gfx or sdma
-- * But currently, we use sdma to move data.
-- */
--struct amdgpu_buffer_funcs {
--	/* maximum bytes in a single operation */
--	uint32_t	copy_max_bytes;
--
--	/* number of dw to reserve per operation */
--	unsigned	copy_num_dw;
--
--	/* used for buffer migration */
--	void (*emit_copy_buffer)(struct amdgpu_ib *ib,
--				 /* src addr in bytes */
--				 uint64_t src_offset,
--				 /* dst addr in bytes */
--				 uint64_t dst_offset,
--				 /* number of byte to transfer */
--				 uint32_t byte_count,
--				 uint32_t copy_flags);
--
--	/* maximum bytes in a single operation */
--	uint32_t	fill_max_bytes;
--
--	/* number of dw to reserve per operation */
--	unsigned	fill_num_dw;
--
--	/* used for buffer clearing */
--	void (*emit_fill_buffer)(struct amdgpu_ib *ib,
--				 /* value to write to memory */
--				 uint32_t src_data,
--				 /* dst addr in bytes */
--				 uint64_t dst_offset,
--				 /* number of byte to fill */
--				 uint32_t byte_count);
--};
--
- int __printf(4, 5)
- amdgpu_sdma_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
- 		      unsigned int instance, const char *fmt, ...);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
-new file mode 100644
-index 000000000000..d6e7a703c2e0
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma_types.h
-@@ -0,0 +1,159 @@
-+/*
-+ * Copyright 2018 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __AMDGPU_SDMA_TYPES_H__
-+#define __AMDGPU_SDMA_TYPES_H__
-+#include "amdgpu_ras.h"
-+
-+/* max number of IP instances */
-+#define AMDGPU_MAX_SDMA_INSTANCES		16
-+
-+enum amdgpu_sdma_irq {
-+	AMDGPU_SDMA_IRQ_INSTANCE0  = 0,
-+	AMDGPU_SDMA_IRQ_INSTANCE1,
-+	AMDGPU_SDMA_IRQ_INSTANCE2,
-+	AMDGPU_SDMA_IRQ_INSTANCE3,
-+	AMDGPU_SDMA_IRQ_INSTANCE4,
-+	AMDGPU_SDMA_IRQ_INSTANCE5,
-+	AMDGPU_SDMA_IRQ_INSTANCE6,
-+	AMDGPU_SDMA_IRQ_INSTANCE7,
-+	AMDGPU_SDMA_IRQ_INSTANCE8,
-+	AMDGPU_SDMA_IRQ_INSTANCE9,
-+	AMDGPU_SDMA_IRQ_INSTANCE10,
-+	AMDGPU_SDMA_IRQ_INSTANCE11,
-+	AMDGPU_SDMA_IRQ_INSTANCE12,
-+	AMDGPU_SDMA_IRQ_INSTANCE13,
-+	AMDGPU_SDMA_IRQ_INSTANCE14,
-+	AMDGPU_SDMA_IRQ_INSTANCE15,
-+	AMDGPU_SDMA_IRQ_LAST
-+};
-+
-+struct amdgpu_sdma_csa_info {
-+	u32 size;
-+	u32 alignment;
-+};
-+
-+struct amdgpu_sdma_funcs {
-+	int (*stop_kernel_queue)(struct amdgpu_ring *ring);
-+	int (*start_kernel_queue)(struct amdgpu_ring *ring);
-+	int (*soft_reset_kernel_queue)(struct amdgpu_device *adev, u32 instance_id);
-+};
-+
-+struct amdgpu_sdma_instance {
-+	/* SDMA firmware */
-+	const struct firmware	*fw;
-+	uint32_t		fw_version;
-+	uint32_t		feature_version;
-+
-+	struct amdgpu_ring	ring;
-+	struct amdgpu_ring	page;
-+	bool			burst_nop;
-+	union {
-+	    uint32_t		aid_id;
-+	    uint32_t		xcc_id;
-+	};
-+
-+	struct amdgpu_bo	*sdma_fw_obj;
-+	uint64_t		sdma_fw_gpu_addr;
-+	uint32_t		*sdma_fw_ptr;
-+	struct mutex		engine_reset_mutex;
-+	/* track guilty state of GFX and PAGE queues */
-+	bool			gfx_guilty;
-+	bool			page_guilty;
-+	const struct amdgpu_sdma_funcs   *funcs;
-+};
-+
-+struct amdgpu_sdma_ras {
-+	struct amdgpu_ras_block_object ras_block;
-+};
-+
-+struct amdgpu_sdma {
-+	struct amdgpu_sdma_instance instance[AMDGPU_MAX_SDMA_INSTANCES];
-+	struct amdgpu_irq_src	trap_irq;
-+	struct amdgpu_irq_src	illegal_inst_irq;
-+	struct amdgpu_irq_src	fence_irq;
-+	struct amdgpu_irq_src	ecc_irq;
-+	struct amdgpu_irq_src	vm_hole_irq;
-+	struct amdgpu_irq_src	doorbell_invalid_irq;
-+	struct amdgpu_irq_src	pool_timeout_irq;
-+	struct amdgpu_irq_src	srbm_write_irq;
-+	struct amdgpu_irq_src	ctxt_empty_irq;
-+
-+	int			num_instances;
-+	uint32_t 		sdma_mask;
-+	bool    		sdma_debug;
-+	union {
-+	    int			num_inst_per_aid;
-+	    int			num_inst_per_xcc;
-+	};
-+	uint32_t                    srbm_soft_reset;
-+	bool			has_page_queue;
-+	struct ras_common_if	*ras_if;
-+	struct amdgpu_sdma_ras	*ras;
-+	uint32_t		*ip_dump;
-+	uint32_t 		supported_reset;
-+	struct list_head	reset_callback_list;
-+	bool			no_user_submission;
-+	bool			disable_uq;
-+	void (*get_csa_info)(struct amdgpu_device *adev,
-+			     struct amdgpu_sdma_csa_info *csa_info);
-+};
-+
-+/*
-+ * Provided by hw blocks that can move/clear data.  e.g., gfx or sdma
-+ * But currently, we use sdma to move data.
-+ */
-+struct amdgpu_buffer_funcs {
-+	/* maximum bytes in a single operation */
-+	uint32_t	copy_max_bytes;
-+
-+	/* number of dw to reserve per operation */
-+	unsigned	copy_num_dw;
-+
-+	/* used for buffer migration */
-+	void (*emit_copy_buffer)(struct amdgpu_ib *ib,
-+				 /* src addr in bytes */
-+				 uint64_t src_offset,
-+				 /* dst addr in bytes */
-+				 uint64_t dst_offset,
-+				 /* number of byte to transfer */
-+				 uint32_t byte_count,
-+				 uint32_t copy_flags);
-+
-+	/* maximum bytes in a single operation */
-+	uint32_t	fill_max_bytes;
-+
-+	/* number of dw to reserve per operation */
-+	unsigned	fill_num_dw;
-+
-+	/* used for buffer clearing */
-+	void (*emit_fill_buffer)(struct amdgpu_ib *ib,
-+				 /* value to write to memory */
-+				 uint32_t src_data,
-+				 /* dst addr in bytes */
-+				 uint64_t dst_offset,
-+				 /* number of byte to fill */
-+				 uint32_t byte_count);
-+};
-+
-+#endif
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index ad8cc95e6cfa..29723ff53503 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -26,6 +26,7 @@
- #include <drm/drm_mm.h>
- #include <linux/random.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+index bc079b95fc52..4626e0b13909 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+@@ -20,6 +20,7 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  */
  #include "amdgpu.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_ualink.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_amdkfd.h"
+ #include "amdgpu_amdkfd_gfx_v9.h"
+ #include "amdgpu_amdkfd_aldebaran.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index b30ad9701bce..38566dfea023 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -20,6 +20,7 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  */
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_amdkfd.h"
+ #include "gc/gc_9_0_offset.h"
+ #include "gc/gc_9_0_sh_mask.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 0426118a9279..7af65416acc5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -68,6 +68,7 @@
+ #include "amdgpu_vf_error.h"
+ 
+ #include "amdgpu_amdkfd.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_pm.h"
+ 
  #include "amdgpu_xgmi.h"
- #include "amdgpu_dma_buf.h"
+@@ -3850,6 +3851,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 
+ 	spin_lock_init(&adev->irq.lock);
+ 
++	amdgpu_ip_map_init(adev);
+ 	amdgpu_early_init_rlc_reg_funcs(adev);
+ 	amdgpu_device_init_apu_flags(adev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+index a426327f2141..5b908b4ce54a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+@@ -24,39 +24,16 @@
+ #include "amdgpu.h"
+ #include "amdgpu_ip.h"
+ 
+-static int8_t amdgpu_logical_to_dev_inst(struct amdgpu_device *adev,
+-					 enum amd_hw_ip_block_type block,
+-					 int8_t inst)
++u32 amdgpu_ip_map_logical_to_dev_mask(struct amdgpu_ip_map_info *ip_map,
++				      enum amd_hw_ip_block_type block,
++				      u32 mask)
+ {
+-	int8_t dev_inst;
+-
+-	switch (block) {
+-	case GC_HWIP:
+-	case SDMA0_HWIP:
+-	/* Both JPEG and VCN as JPEG is only alias of VCN */
+-	case VCN_HWIP:
+-		dev_inst = adev->ip_map.dev_inst[block][inst];
+-		break;
+-	default:
+-		/* For rest of the IPs, no look up required.
+-		 * Assume 'logical instance == physical instance' for all configs. */
+-		dev_inst = inst;
+-		break;
+-	}
+-
+-	return dev_inst;
+-}
+-
+-static uint32_t amdgpu_logical_to_dev_mask(struct amdgpu_device *adev,
+-					   enum amd_hw_ip_block_type block,
+-					   uint32_t mask)
+-{
+-	uint32_t dev_mask = 0;
+-	int8_t log_inst, dev_inst;
++	unsigned int log_inst, dev_inst;
++	u32 dev_mask = 0;
+ 
+ 	while (mask) {
+ 		log_inst = ffs(mask) - 1;
+-		dev_inst = amdgpu_logical_to_dev_inst(adev, block, log_inst);
++		dev_inst = ip_map->dev_inst[block][log_inst];
+ 		dev_mask |= (1 << dev_inst);
+ 		mask &= ~(1 << log_inst);
+ 	}
+@@ -80,6 +57,17 @@ static void amdgpu_populate_ip_map(struct amdgpu_device *adev,
+ }
+ 
+ void amdgpu_ip_map_init(struct amdgpu_device *adev)
++{
++	int i, j;
++
++	/* Assume 'logical instance == physical instance' unless overridden. */
++	for (i = 0; i < MAX_HWIP; i++) {
++		for (j = 0; j < HWIP_MAX_INSTANCE; j++)
++			adev->ip_map.dev_inst[i][j] = j;
++	}
++}
++
++void amdgpu_ip_map_aqua_vanjaram_override(struct amdgpu_device *adev)
+ {
+ 	u32 ip_map[][2] = {
+ 		{ GC_HWIP, adev->gfx.xcc_mask },
+@@ -90,9 +78,6 @@ void amdgpu_ip_map_init(struct amdgpu_device *adev)
+ 
+ 	for (i = 0; i < ARRAY_SIZE(ip_map); ++i)
+ 		amdgpu_populate_ip_map(adev, ip_map[i][0], ip_map[i][1]);
+-
+-	adev->ip_map.logical_to_dev_inst = amdgpu_logical_to_dev_inst;
+-	adev->ip_map.logical_to_dev_mask = amdgpu_logical_to_dev_mask;
+ }
+ 
+ int amdgpu_ip_block_suspend(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+index 70fc4e5db51f..8e739d19dec2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+@@ -90,13 +90,7 @@ struct amdgpu_fence;
+ 
+ struct amdgpu_ip_map_info {
+ 	/* Map of logical to actual dev instances/mask */
+-	uint32_t dev_inst[MAX_HWIP][HWIP_MAX_INSTANCE];
+-	int8_t (*logical_to_dev_inst)(struct amdgpu_device *adev,
+-				      enum amd_hw_ip_block_type block,
+-				      int8_t inst);
+-	uint32_t (*logical_to_dev_mask)(struct amdgpu_device *adev,
+-					enum amd_hw_ip_block_type block,
+-					uint32_t mask);
++	unsigned int dev_inst[MAX_HWIP][HWIP_MAX_INSTANCE];
+ };
+ 
+ #define AMDGPU_MAX_IP_NUM AMD_IP_BLOCK_TYPE_NUM
+@@ -124,6 +118,19 @@ struct amdgpu_ip_block {
+ };
+ 
+ void amdgpu_ip_map_init(struct amdgpu_device *adev);
++void amdgpu_ip_map_aqua_vanjaram_override(struct amdgpu_device *adev);
++
++u32 amdgpu_ip_map_logical_to_dev_mask(struct amdgpu_ip_map_info *ip_map,
++				      enum amd_hw_ip_block_type block,
++				      u32 mask);
++
++static inline unsigned int
++amdgpu_ip_map_logical_to_dev_inst(struct amdgpu_ip_map_info *ip_map,
++				  enum amd_hw_ip_block_type block,
++				  unsigned int inst)
++{
++	return ip_map->dev_inst[block][inst];
++}
+ 
+ int amdgpu_ip_block_suspend(struct amdgpu_ip_block *ip_block);
+ int amdgpu_ip_block_resume(struct amdgpu_ip_block *ip_block);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+index 208566ffe898..9887a4f99aed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+@@ -25,6 +25,7 @@
+  */
+ 
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_jpeg.h"
+ #include "amdgpu_pm.h"
+ #include "soc15d.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index a676fccc466d..66eb2f34cc0d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -27,6 +27,7 @@
+ #include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_psp.h"
+ #include "amdgpu_ucode.h"
+ #include "amdgpu_xgmi.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+index c80ffa08920d..0c2e045dc397 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+@@ -23,6 +23,7 @@
+ #include "amdgpu.h"
+ #include "amdgpu_xcp.h"
+ #include "amdgpu_drv.h"
++#include "amdgpu_ip.h"
+ 
+ #include <drm/drm_drv.h>
+ #include "../amdxcp/amdgpu_xcp_drv.h"
 diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-index cddfe4015f53..9a0c12b1a309 100644
+index 9a0c12b1a309..87db0aeb0461 100644
 --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
 +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-@@ -30,6 +30,7 @@
- #include "gfxhub_v1_2.h"
- #include "sdma_v4_4_2.h"
- #include "amdgpu_ip.h"
-+#include "amdgpu_sdma.h"
+@@ -548,7 +548,7 @@ int aqua_vanjaram_init_soc_config(struct amdgpu_device *adev)
+ 	if (ret)
+ 		return ret;
  
- void aqua_vanjaram_doorbell_index_init(struct amdgpu_device *adev)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-index de2323e23566..45f429ed23e4 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+-	amdgpu_ip_map_init(adev);
++	amdgpu_ip_map_aqua_vanjaram_override(adev);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index ce48da12edb2..484ecde55ac9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -23,6 +23,7 @@
+ #include <linux/firmware.h>
+ 
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_gfx.h"
+ #include "soc15.h"
+ #include "soc15d.h"
+@@ -1646,10 +1647,9 @@ static bool gfx_v9_4_3_check_rlcg_range(struct amdgpu_device *adev,
+ 		const struct soc15_reg_rlcg *entry;
+ 
+ 		entry = &entries[i];
+-		inst = adev->ip_map.logical_to_dev_inst ?
+-			       adev->ip_map.logical_to_dev_inst(
+-				       adev, entry->hwip, entry->instance) :
+-			       entry->instance;
++		inst = amdgpu_ip_map_logical_to_dev_inst(&adev->ip_map,
++							 entry->hwip,
++							 entry->instance);
+ 		reg = adev->reg_offset[entry->hwip][inst][entry->segment] +
+ 		      entry->reg;
+ 		if (offset == reg)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+index 8397d3d38287..e89813590539 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+@@ -21,6 +21,7 @@
+  *
+  */
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_xcp.h"
+ #include "gfxhub_v1_2.h"
+ #include "gfxhub_v1_1.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 9a8a7921ce98..490b4c4eb662 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -26,6 +26,7 @@
+ #include <drm/drm_cache.h>
+ 
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_atomfirmware.h"
+ #include "gmc_v10_0.h"
+ #include "umc_v8_7.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index bee269a8877a..3cdc7893587a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -26,6 +26,7 @@
+ #include <drm/drm_cache.h>
+ 
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_atomfirmware.h"
+ #include "gmc_v11_0.h"
+ #include "umc_v8_10.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+index 0cc73982ed6f..fcbaaca2dda5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
 @@ -27,6 +27,7 @@
  
  #include "amdgpu.h"
- #include "amdgpu_ucode.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_trace.h"
- #include "cikd.h"
- #include "cik.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-index 11e118a4aee8..cf2ae307933f 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-@@ -28,6 +28,7 @@
+ #include "amdgpu_atomfirmware.h"
++#include "amdgpu_ip.h"
+ #include "gmc_v12_0.h"
+ #include "gmc_v12_1.h"
+ #include "athub/athub_4_1_0_sh_mask.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 633772fa71fd..5245d8850a42 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -63,6 +63,7 @@
+ 
+ #include "ivsrcid/vmc/irqsrcs_vmc_1_0.h"
+ 
++#include "amdgpu_ip.h"
+ #include "amdgpu_ras.h"
+ #include "amdgpu_xgmi.h"
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+index 49f84e6647a5..0343a64595f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+@@ -22,6 +22,7 @@
+  */
  
  #include "amdgpu.h"
- #include "amdgpu_ucode.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_trace.h"
- #include "vi.h"
- #include "vid.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-index 87743fe6ae44..287c1796370f 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -28,6 +28,7 @@
++#include "amdgpu_ip.h"
+ #include "amdgpu_jpeg.h"
+ #include "soc15.h"
+ #include "soc15d.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+index 197d1af18a3a..4da3f9c995c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+@@ -22,6 +22,7 @@
+  */
  
  #include "amdgpu.h"
- #include "amdgpu_ucode.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_trace.h"
- #include "vi.h"
- #include "vid.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index e77e29855c68..dc260fa3caa9 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -28,6 +28,7 @@
++#include "amdgpu_ip.h"
+ #include "amdgpu_jpeg.h"
+ #include "amdgpu_pm.h"
+ #include "soc15.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+index 9b57fdc1e69a..dcdb089b4308 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+@@ -22,6 +22,7 @@
+  */
  
  #include "amdgpu.h"
- #include "amdgpu_ucode.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_trace.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_jpeg.h"
+ #include "amdgpu_pm.h"
+ #include "soc15.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+index f67868132bed..f2debf6b6bd0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+@@ -22,6 +22,7 @@
+  */
  
- #include "sdma0/sdma0_4_2_offset.h"
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_jpeg.h"
+ #include "amdgpu_pm.h"
+ #include "soc15.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+index bdfd2917e3ca..80f5e8106d5e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+@@ -22,6 +22,7 @@
+  */
+ #include "amdgpu.h"
+ #include "nbio_v7_9.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_ras.h"
+ 
+ #include "nbio/nbio_7_9_0_offset.h"
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 2bed58e983be..2412ed9a9376 100644
+index dd0fe773456b..332536454aee 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -30,6 +30,7 @@
+@@ -27,6 +27,7 @@
+ #include <linux/pci.h>
+ 
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
  #include "amdgpu_xcp.h"
  #include "amdgpu_ucode.h"
  #include "amdgpu_trace.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_reset.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+index 47e0329b6f3f..937d02ef7124 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
++++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+@@ -26,11 +26,9 @@
  
- #include "sdma/sdma_4_4_2_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index fa25d1508404..fdbb5195b354 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -28,6 +28,7 @@
+ /* GET_INST returns the physical instance corresponding to a logical instance */
+ #define GET_INST(ip, inst) \
+-	(adev->ip_map.logical_to_dev_inst ? \
+-	adev->ip_map.logical_to_dev_inst(adev, ip##_HWIP, inst) : inst)
++	amdgpu_ip_map_logical_to_dev_inst(&adev->ip_map, ip##_HWIP, inst)
+ #define GET_MASK(ip, mask) \
+-	(adev->ip_map.logical_to_dev_mask ? \
+-	adev->ip_map.logical_to_dev_mask(adev, ip##_HWIP, mask) : mask)
++	amdgpu_ip_map_logical_to_dev_mask(&adev->ip_map, ip##_HWIP, mask)
  
- #include "amdgpu.h"
- #include "amdgpu_ucode.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_trace.h"
- 
- #include "gc/gc_10_1_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 8d0ffad0284a..13addc71ae17 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -28,6 +28,7 @@
- 
- #include "amdgpu.h"
- #include "amdgpu_ucode.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_trace.h"
- 
- #include "gc/gc_10_3_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index b28934739d32..11a0d87e56e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -28,6 +28,7 @@
+ /* Register Access Macros */
+ #define SOC15_REG_OFFSET(ip, inst, reg)	(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index c559213e442c..7d2b9e4b913a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -25,6 +25,7 @@
+ #include <drm/drm_drv.h>
  
  #include "amdgpu.h"
- #include "amdgpu_ucode.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_trace.h"
- 
- #include "gc/gc_11_0_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-index 4503bae1d48c..c1ba1777f915 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-@@ -28,6 +28,7 @@
- 
- #include "amdgpu.h"
- #include "amdgpu_ucode.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_trace.h"
- 
- #include "gc/gc_12_0_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-index f33b0dc17c50..916e92bae535 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-@@ -28,6 +28,7 @@
++#include "amdgpu_ip.h"
+ #include "amdgpu_vcn.h"
+ #include "soc15.h"
+ #include "soc15d.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index 732aaa1d8e67..10ef5616b2f5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -25,6 +25,7 @@
+ #include <drm/drm_drv.h>
  
  #include "amdgpu.h"
- #include "amdgpu_ucode.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_trace.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_vcn.h"
+ #include "amdgpu_pm.h"
+ #include "soc15.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index e876733b754a..0f4f4d66e2e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -23,6 +23,7 @@
  
- #include "gc/gc_12_1_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 6b64b1692235..8b96e1fe741a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -24,6 +24,8 @@
- #include <linux/dma-direction.h>
- #include <linux/dma-mapping.h>
- #include <linux/migrate.h>
-+#include "amdgpu.h"
-+#include "amdgpu_sdma.h"
- #include "amdgpu_sync.h"
- #include "amdgpu_object.h"
- #include "amdgpu_vm.h"
+ #include <linux/firmware.h>
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_vcn.h"
+ #include "amdgpu_pm.h"
+ #include "amdgpu_cs.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 60a5636c0073..4b7f7bbe18da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -23,6 +23,7 @@
+ 
+ #include <linux/firmware.h>
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_vcn.h"
+ #include "amdgpu_pm.h"
+ #include "amdgpu_cs.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index 3d28289bc4f1..2fa8f0d911d0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -25,6 +25,7 @@
+ #include <drm/drm_drv.h>
+ 
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_vcn.h"
+ #include "amdgpu_pm.h"
+ #include "soc15.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index 660dab262dfb..f30f80c1b07f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -23,6 +23,7 @@
+ 
+ #include <linux/firmware.h>
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_vcn.h"
+ #include "amdgpu_pm.h"
+ #include "amdgpu_cs.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+index 08fca20b2c99..7b7c3bc9f046 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+@@ -23,6 +23,7 @@
+ 
+ #include <linux/firmware.h>
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_vcn.h"
+ #include "amdgpu_pm.h"
+ #include "soc15.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+index b3b83ad20103..09e553b8a657 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+@@ -23,6 +23,7 @@
+ 
+ #include <linux/firmware.h>
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_vcn.h"
+ #include "amdgpu_pm.h"
+ #include "soc15.h"
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 1c1e7878a2a7..351ca8718c87 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -34,6 +34,7 @@
+ #include "kfd_svm.h"
+ #include "kfd_migrate.h"
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_xcp.h"
+ 
+ #define MQD_SIZE_ALIGNED 768
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index 0033453f27e5..1ecf65d402ba 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -25,6 +25,7 @@
+ 
+ #include <linux/firmware.h>
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_smu.h"
+ #include "smu_v13_0_12_pmfw.h"
+ #include "smu_v13_0_6_ppt.h"
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 19bc6ce29da0..ee380488d212 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -25,6 +25,7 @@
+ 
+ #include <linux/firmware.h>
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ #include "amdgpu_smu.h"
+ #include "atomfirmware.h"
+ #include "amdgpu_atomfirmware.h"
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
+index de3da5571ef8..1c5e02de7fca 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
+@@ -31,6 +31,7 @@
+ #include <linux/math64.h>
+ #include <linux/time.h>
+ #include "amdgpu.h"
++#include "amdgpu_ip.h"
+ 
+ /* inject address is 52 bits */
+ #define RAS_UMC_INJECT_ADDR_LIMIT       (0x1ULL << 52)
+@@ -96,15 +97,13 @@
+ #define RAS_GET_INST(dev, ip, inst) \
+ ({ \
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)dev; \
+-	adev->ip_map.logical_to_dev_inst ? \
+-		adev->ip_map.logical_to_dev_inst(adev, ip##_HWIP, inst) : inst; \
++	amdgpu_ip_map_logical_to_dev_inst(&adev->ip_map, ip##_HWIP, inst); \
+ })
+ 
+ #define RAS_GET_MASK(dev, ip, mask) \
+ ({ \
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)dev; \
+-	(adev->ip_map.logical_to_dev_mask ? \
+-		adev->ip_map.logical_to_dev_mask(adev, ip##_HWIP, mask) : mask); \
++	amdgpu_ip_map_logical_to_dev_mask(&adev->ip_map, ip##_HWIP, mask); \
+ })
+ 
+ static inline void *ras_radix_tree_delete_iter(struct radix_tree_root *root, void *iter)
 -- 
 2.55.0
 
