@@ -4,47 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7A92C88E75
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 14:55:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E270C88E75
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 15:25:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8855B10EF3A;
-	Mon, 14 Sep 2026 14:55:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7102A10E55B;
+	Mon, 14 Sep 2026 15:25:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Z6KL7snk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j4Typ5Gs";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E03D610E348
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 14:55:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=eyiWCyZ/G3YDESkhStuf1//Ynt+wjoh6wDkJTfRqMd0=; b=Z6KL7snkzE+UEZ1BMpnFCv/69H
- g6xnM/zFtuZ3qHtKojkywgzkGumjWerseBU+57vj9INmlDkWLQAn0QtNfEDGhmZqgWaKfE3Y6Yyl3
- cSqIIRc9kDO34+OpE330QvxMJhVaL8/9P89z6oFBiOmLJx3I7FCnCxgdzr7RuJCybPaPlYCFWPtQE
- nE3Ea8gdmo69E3sRJSvO2XKvZqwWt/lpE68ZKReW0WPo/uggQ92krc3cnKiwn37klzLUwLziGzR+Q
- E4bcf/Gw23vkrn7M/8xeCKQJsliJRHRGKR+ywgF4xbLyVISkerk7x/mGd2k5NvI1FLhhEFvi8czMq
- +Oe91hVA==;
-Received: from [81.79.79.1] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x685P-001x2t-OI; Mon, 14 Sep 2026 16:55:11 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH v3 5/6] drm/amdgpu: Extend logical to device instance lookup
- to all devices
-Date: Mon, 14 Sep 2026 15:54:25 +0100
-Message-ID: <20260914145426.51458-6-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914145426.51458-1-tvrtko.ursulin@igalia.com>
-References: <20260914145426.51458-1-tvrtko.ursulin@igalia.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010053.outbound.protection.outlook.com [52.101.61.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 518C610E55B;
+ Mon, 14 Sep 2026 15:25:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FAZQE6anVUckRqYEzjr8DcJvOqlZ0oo2ALNGAz8hQpG+r68tIGh3BSWKQMaOam1vzL+PqSi1wr5fdD/BfGnPSKONUq1KFhFb81fldPIkf5ujH6MuRcUElxxJpXNc2kzZOlS+O0+65kAFuWTNv+6rwhI2nVCRyFXOtSpDaoU40McHGfPtH6PgkcyqOqHQ75rePk5HXZBFlMBZwsztH5lrYjUFtc70XgNT6lAGy3UKcZFIqkK3DlI3wNZ/0O+1IABmYMIZO3DmkzWM3PsFcwvAFQChZozgo65/ZsJnnx1O5sAfpqNnQYwu3zc03jsbeAA1FpnUwnbeKRTHhpAdctHmzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cqO3ywEggk1BpsVUd8A9q7mA95JB8DnMDI6S1MBK9z0=;
+ b=EkduE4w6D3d0BifPflSmg0r7HHkKB3uXKmsE4bDMOQ7W/s0DkoHnIqop0VTu+ZECobm56yX/quXC3fvpVjFIs5bj4nPAiz1Gv5Xs1qUZTE9LckAC04e2rkKibBD8SIWwJ7y5U+GWdV3UVRfA8a7rs9Awt/z+xYAHV+7i363yijXoyLB8VIdFPJ0S7IV0ZR9tixJlx78pHIWnVKUuZAGgNF2Gt02pbL7Jt7xY1VTQQfErdtABrDHqdd7fpWWmMAgbAUgpr9OtiPJHNtQVlwdXgNZaOVxSPM6jFkV2a9S1L+4BBBb1cUtQGTncvKcUW504uc15USCMSkHOMx32ptNVkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cqO3ywEggk1BpsVUd8A9q7mA95JB8DnMDI6S1MBK9z0=;
+ b=j4Typ5Gsgmarw8DTXi5bA9k9fHp4Y6YJxe5rs95zET/13l6aydlbOT0UJyhLnq2LP61UG6lyOPyAj9l31eJGoekaY89BwXmuetS3rAjlpxi3sHruMyaxFmdFxg11hloir19cJqMgB6ePqJHX+BZmApRHA3QA3mqKibbaHG+PbnE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by MW4PR12MB6732.namprd12.prod.outlook.com (2603:10b6:303:1ea::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Mon, 14 Sep
+ 2026 15:25:28 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 15:25:28 +0000
+Message-ID: <c4f2f082-8956-4f20-af92-119b873c3759@amd.com>
+Date: Mon, 14 Sep 2026 20:55:19 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: zero reg_state buffer before filling it
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
+ Alexander Deucher <alexander.deucher@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Samuel Zhang <guoqing.zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+References: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
+ <bc9cf07a-ef97-490a-b98a-a05bc9f5b186@amd.com>
+ <05b669e6-1c66-4789-9916-b8030e232385@amd.com>
+ <aeeff331-8b2e-41d8-acf8-d5d758935d38@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <aeeff331-8b2e-41d8-acf8-d5d758935d38@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0286.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:21b::12) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|MW4PR12MB6732:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ecd42b4-d197-4220-9bd4-08df1274683c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|1800799024|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ETJQcClLYl3SXGSJbFMuvbNhE+ghao6vtZG8aCeAe3fg3MFdsh19GmOajxIzS6vLNRCiI/wbsbzek4Nqt3U0TpxIGNHIU6DhPQjBS0LqAy5roL2LqyIgMfdzRiZ2ov695JvZktDtf0NBlh9Oh6G7G4FfgGymb4wvYKPs6j8bExYRR8C7y0cSgMWmouV4c/Dw/Pbc1yY22ZxhmqIRXXMEOeDxbtsG2uZ9ZqI0GTnjWdOUMA+i3Pg6Sc42DHcETRmveUVCCi4DHMUbnt4z09t3sMfZWluSX0MPtL0gtWxseW+Z1mV2zoe843/p3zGZ9vkPE6UiTp7DACPflopbMFDr/2Fz1l0uvO+poWNBJXDnfAjac4VtDs3V8NqBN6XFF2gAzWYxBQD1J27HYM2LSQBLhp+SbJAoeGtWq2TwSAZDIDtakbc5PHzYvyBy2Fe7/qn5eh87NfMmrqoLHhwe1S7QII7AfWF2WSqKUEOunDjcE3YMiloEqdeyQrTNOLbi+pLCSocqvcz8idaTiiEfNRUufNc8POOitS6axf01UMikQSgzq9fclL5M7p2bRYqIVcSI6d7lA/TeCCaiy3xDIzlSZbnXlEgVS3UT81N5b7Zh7nunT9lxo0YMT0e65Ud2jgdCIDkt05bOO+iNGb3XpKBhh0uc2YoyYB0/W1lGOiv+zQU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aklUNkxtWHhqZ25uYzVZMk0xY3lBSTQ3NUtOaFBzWno2QlJYWXhyVitwdXo2?=
+ =?utf-8?B?eThlMWt1Q0w0WHRQTFpqMHFWS3FKQTFHeWtFNmlFVmFPTW0vMG5KVEZ5N1E4?=
+ =?utf-8?B?QlREUmhIZlVjREJWa1FOMklHaXd5ZU4yWTZOQ2JRVC9yMU4zYkFySEhBK1Zt?=
+ =?utf-8?B?VVRZTzBSeVBtZnJ2TzBnMEMwcE1MRDluQ05qYlhIbW40MUNBb2FLZ1dSQzhD?=
+ =?utf-8?B?Yng5dEcxOHFCSGM4UkpHZThCRnJBQ2VpQTZsOVlBQkRCaXhxdlpQbDIyOXpx?=
+ =?utf-8?B?VXdja1lWS1lEeEFyWUFzbGhFZ2l1U0lsU1ZaUG8wMTJNRkhWQ0JWOTRZbG9p?=
+ =?utf-8?B?VHVmRGV2N3hHZVdnZzJKMnhmS3VycklMNURBQlV1N2wzNk84UEhqYWVVMjFK?=
+ =?utf-8?B?T0lad3VuQzBHUlpTSFVudC9JQ3JGN1dnMVVpQUZsNll6ZTFjb042ajVST0FC?=
+ =?utf-8?B?cmhaVVFQU0p0OHlKbEFJcTlURVBiM2ZhN0VDblgwc1J6QU11WHpPd1ltdnVu?=
+ =?utf-8?B?YTlzcmRSSWFUYW1PdXdScTNzVGVsZmhwT1RPMUdSTmIrSGpnVW9COUZFOWtB?=
+ =?utf-8?B?UXArWmZIcmNreU9PS1BlTGEzQ0FzalpIYnhmTTFnSVRvamYwdlVuSjM5Y3B3?=
+ =?utf-8?B?WlgwNWM4WVRrbXNPSVd3YnRFeXF2Y1NQTzBFbEdaSjNhU0hDZGNiVDY2R2FM?=
+ =?utf-8?B?TURKZE9sOHZsTzkxcHVOZTYvZnExOFV2OUJINy9NbnBCY2RKUkI4QjJ2VWd4?=
+ =?utf-8?B?MmNDNTVOb0hVZUI0aFNUQ2xqV2p3UTB2V3hmYUY5dHF1cUtjdHNOZnNoZ3pr?=
+ =?utf-8?B?aE5SWjIvdTNZckp4Z3R1VEZuMTRvKzlCT09lL0Z3MWZSa0ErNjdvdVFmS1VQ?=
+ =?utf-8?B?SmV2VTNqZGN1L0tFcUVOSmxrVVRwVllzMG94bFZUNHFPUVVXczZEbEVtYUk0?=
+ =?utf-8?B?dnRzUkU3a0tiR0MvY1pUb1c1NUdNSnRXODBmUkc0ZHdkbjZIL01lQ2V4VlAx?=
+ =?utf-8?B?TUlEMlZ2dk9rd3NFMUxWU2JDdHNKbXdmSis2ZElpWjQxVUFXWW9GRkNRVTFE?=
+ =?utf-8?B?end0cEk2V0NicXZRTlVsNXhDd3RYa01RY2JXQmdiTzdQMHRoblZwcC9MemQz?=
+ =?utf-8?B?Qkp6L3VYdFZEMEhjS2lQRG9RZGhhN0VsblBZa1JWRjhneWI0K0krU2JzdDkr?=
+ =?utf-8?B?MG1ZQ1R4MGdNOEFzTmNybDlkckhDektrSForaVV4TW0wZWtMUFFuMzRFc21n?=
+ =?utf-8?B?cDlQVGJxbkpJR1Y3eTJsMmNMNFg0bEpvQTBQRTN3YXh4UnB6QThSMkNuNVVJ?=
+ =?utf-8?B?anFqaWw5eUEzK2c2V3prdlRGQXZyOUVpaVVISS92NjhlMFFQajA2c3pFc0p4?=
+ =?utf-8?B?YkNLRG45SlhGZWc4WnlyZkg1eTc5dWNPYVhCWUpBZTFYOVkzTk9pQ2h3a0dI?=
+ =?utf-8?B?OHZpcEJQNm5GVEI0VCtEZEZDaUEzWG03V0FYVGtKaU1NOW9Mcnpac3psUkhZ?=
+ =?utf-8?B?ZGR4bU9hWDlMdkxMd1gyakl4bENVam9veG4xeDk2Q0xXWVNHanBETVlpNUF6?=
+ =?utf-8?B?Y2tMYzdwaE0yTXVMRzBUM0JuMGRyTnVEL2pETTdvS0k0bTlYUXQ2WDcyMXdy?=
+ =?utf-8?B?dDMveC8zN3lBRWYrNHVpMGMyWXZaTUdFaFpDS2lJYVJWTUZWclFlSHozVHZQ?=
+ =?utf-8?B?NW9uQkZ4RzZFN3pnOTNGdklOZm9DdmV4dlhzdlFBTm9WSDFDZ0tIQ1JidTBT?=
+ =?utf-8?B?SlFmUzBSWFVUcEdURHVtS3JYaVN3bEtmL3hWMXBUTnJIa2hyVHRWVURNamQv?=
+ =?utf-8?B?cW14ajdFajRSNTYyUm5BU2tpK0xkSUhPbVFTRGJ6R1pRQXZQaWJQUUhPaXY0?=
+ =?utf-8?B?Wkt5WUEvSDBQMStKcytmbk5YdlpWNG9HcCtaVXplU20vdXdSdDZFZXNISkli?=
+ =?utf-8?B?VjlhbzFRMGM3YzBIL2hKdUo0Y2hFQkNMYkQ3T1Flc20rNUVNNFhCNytkbzVq?=
+ =?utf-8?B?VUlmUy9QQURmemhCLzJ6M3MzQVY4Vnp6bjNXRE9pakJ0WFIyV0dNQ2VTYXZH?=
+ =?utf-8?B?bkoyRGxOQXRRR25sWW9DWGIranpCYnkwS21zZ3B4RjMwUEFKNkFTR09BRXoz?=
+ =?utf-8?B?Mmo3Y0FTcDloQW9Hei94ZEgzTnc5ZWszdTNCc2k3TUw4TWwxdjNsYXN6S3NG?=
+ =?utf-8?B?cUt6MXBJdm1tK0FrWW9BSmlaMzdqSkF4NG9hZXZ1b2IxZ01XY2E4d2RUVjBu?=
+ =?utf-8?B?N0hNSkxOV3pQM3J2cFQrV2gyZ0RGZG9NZXVrcEdEdjkrdXl1TjZGdEhTUUZx?=
+ =?utf-8?Q?O/Gjz1R4POocNyqrwf?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ecd42b4-d197-4220-9bd4-08df1274683c
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 15:25:28.5669 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NwtvKPSM0ALuh6C4L0zRZZbrzQajKcgtB7x9WOS8iik4NL2syESMRWnEueVLhLp4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6732
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,616 +141,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A subset of supported devices can have a mismatch between the logical and
-device engine instance numbers which the driver currently solves by a
-combination of lookup table generated at driver init time, and a
-conditionally set vfunc checked and used at runtime to do the lookup.
 
-As the requirement to do these lookups is relatively widespread in the
-code base, plus the fact the mapping table is already allocated for all
-possible hw ips and instances, we can significantly streamline them by
-initializing the said lookup table unconditionally to the predominant
-"identity map" (logical instance numbers equal to device instances),
-and allow affected parts to re-configure the table based on their
-configuration.
 
-The effect is that for each lookup site we replace the conditional
-followed by a indirect function call with a simple two-dimensional table
-lookup.
+On 14-Sep-26 8:24 PM, Christian König wrote:
+> On 9/14/26 16:45, Lazar, Lijo wrote:
+>>
+>>
+>> On 14-Sep-26 7:30 PM, Christian König wrote:
+>>> On 9/14/26 15:56, Dmitriy Chumachenko wrote:
+>>>> The reg_state readouts return szbuf bytes but never write the pad members
+>>>> of the headers and of amdgpu_smn_reg_data (and, for pcie, the fields
+>>>> skipped when the upstream port or AER capability is absent). The sysfs
+>>>> buffer is a plain kmalloc(), so those bytes leak stale slab data to any
+>>>> local user through the 0444 reg_state attribute.
+>>>>
+>>>> Zero the buffer once the size is known.
+>>>>
+>>>> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+>>>>
+>>>> Fixes: 081a6eda2b25 ("drm/amdgpu: Read aquavanjaram PCIE register state")
+>>>> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+>>>
+>>> Good catch, but stuff like that should be handled by using kzalloc() instead of calling memset it manually.
+>>>
+>>
+>> It's the default sysfs buffer allocation which may not be used entirely by all drivers.
+>>
+>> The concern in this case is that driver is telling it has written x bytes whereas it could have left some fields unfilled in the buffer. I think the fix is fine.
+> 
+> Wait a second, is that because of messed up padding in sysfs structures? That is usually a really big NO-GO for upstreaming.
+> 
+> Structures returned to userspace must be padding free, see the tool pahole for how to double check that on different architectures.
+> 
 
-Bloat-o-meter agrees the savings are significant:
+It's an explicit padding like below for alignment. Those fields also 
+could go unfilled.
 
-add/remove: 13/12 grow/shrink: 23/279 up/down: 51626/-198973 (-147347)
-...
-Total: Before=10139692, After=9992345, chg -1.45%
+struct amdgpu_reg_state_header {
+         uint16_t                structure_size;
+         uint8_t                 format_revision;
+         uint8_t                 content_revision;
+         uint8_t                 state_type;
+         uint8_t                 num_instances;
+         uint16_t                pad;
+};
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Timur Kristóf <timur.kristof@gmail.com>
----
- .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   |  1 +
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c        | 49 +++++++------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h        | 21 +++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c      |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |  1 +
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  8 +--
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c      |  1 +
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  1 +
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  1 +
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |  1 +
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  1 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      |  1 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      |  1 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      |  1 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c      |  1 +
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c        |  1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |  1 +
- drivers/gpu/drm/amd/amdgpu/soc15_common.h     |  6 +--
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |  1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |  1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |  1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |  1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       |  1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       |  1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       |  1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c       |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  1 +
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c |  1 +
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  1 +
- drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h     |  7 ++-
- 34 files changed, 70 insertions(+), 52 deletions(-)
+Thanks,
+Lijo
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-index bc079b95fc52..4626e0b13909 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-@@ -20,6 +20,7 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_amdkfd.h"
- #include "amdgpu_amdkfd_gfx_v9.h"
- #include "amdgpu_amdkfd_aldebaran.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index b30ad9701bce..38566dfea023 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -20,6 +20,7 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_amdkfd.h"
- #include "gc/gc_9_0_offset.h"
- #include "gc/gc_9_0_sh_mask.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 0426118a9279..7af65416acc5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -68,6 +68,7 @@
- #include "amdgpu_vf_error.h"
- 
- #include "amdgpu_amdkfd.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_pm.h"
- 
- #include "amdgpu_xgmi.h"
-@@ -3850,6 +3851,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 
- 	spin_lock_init(&adev->irq.lock);
- 
-+	amdgpu_ip_map_init(adev);
- 	amdgpu_early_init_rlc_reg_funcs(adev);
- 	amdgpu_device_init_apu_flags(adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-index a426327f2141..5b908b4ce54a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-@@ -24,39 +24,16 @@
- #include "amdgpu.h"
- #include "amdgpu_ip.h"
- 
--static int8_t amdgpu_logical_to_dev_inst(struct amdgpu_device *adev,
--					 enum amd_hw_ip_block_type block,
--					 int8_t inst)
-+u32 amdgpu_ip_map_logical_to_dev_mask(struct amdgpu_ip_map_info *ip_map,
-+				      enum amd_hw_ip_block_type block,
-+				      u32 mask)
- {
--	int8_t dev_inst;
--
--	switch (block) {
--	case GC_HWIP:
--	case SDMA0_HWIP:
--	/* Both JPEG and VCN as JPEG is only alias of VCN */
--	case VCN_HWIP:
--		dev_inst = adev->ip_map.dev_inst[block][inst];
--		break;
--	default:
--		/* For rest of the IPs, no look up required.
--		 * Assume 'logical instance == physical instance' for all configs. */
--		dev_inst = inst;
--		break;
--	}
--
--	return dev_inst;
--}
--
--static uint32_t amdgpu_logical_to_dev_mask(struct amdgpu_device *adev,
--					   enum amd_hw_ip_block_type block,
--					   uint32_t mask)
--{
--	uint32_t dev_mask = 0;
--	int8_t log_inst, dev_inst;
-+	unsigned int log_inst, dev_inst;
-+	u32 dev_mask = 0;
- 
- 	while (mask) {
- 		log_inst = ffs(mask) - 1;
--		dev_inst = amdgpu_logical_to_dev_inst(adev, block, log_inst);
-+		dev_inst = ip_map->dev_inst[block][log_inst];
- 		dev_mask |= (1 << dev_inst);
- 		mask &= ~(1 << log_inst);
- 	}
-@@ -80,6 +57,17 @@ static void amdgpu_populate_ip_map(struct amdgpu_device *adev,
- }
- 
- void amdgpu_ip_map_init(struct amdgpu_device *adev)
-+{
-+	int i, j;
-+
-+	/* Assume 'logical instance == physical instance' unless overridden. */
-+	for (i = 0; i < MAX_HWIP; i++) {
-+		for (j = 0; j < HWIP_MAX_INSTANCE; j++)
-+			adev->ip_map.dev_inst[i][j] = j;
-+	}
-+}
-+
-+void amdgpu_ip_map_aqua_vanjaram_override(struct amdgpu_device *adev)
- {
- 	u32 ip_map[][2] = {
- 		{ GC_HWIP, adev->gfx.xcc_mask },
-@@ -90,9 +78,6 @@ void amdgpu_ip_map_init(struct amdgpu_device *adev)
- 
- 	for (i = 0; i < ARRAY_SIZE(ip_map); ++i)
- 		amdgpu_populate_ip_map(adev, ip_map[i][0], ip_map[i][1]);
--
--	adev->ip_map.logical_to_dev_inst = amdgpu_logical_to_dev_inst;
--	adev->ip_map.logical_to_dev_mask = amdgpu_logical_to_dev_mask;
- }
- 
- int amdgpu_ip_block_suspend(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
-index 70fc4e5db51f..8e739d19dec2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
-@@ -90,13 +90,7 @@ struct amdgpu_fence;
- 
- struct amdgpu_ip_map_info {
- 	/* Map of logical to actual dev instances/mask */
--	uint32_t dev_inst[MAX_HWIP][HWIP_MAX_INSTANCE];
--	int8_t (*logical_to_dev_inst)(struct amdgpu_device *adev,
--				      enum amd_hw_ip_block_type block,
--				      int8_t inst);
--	uint32_t (*logical_to_dev_mask)(struct amdgpu_device *adev,
--					enum amd_hw_ip_block_type block,
--					uint32_t mask);
-+	unsigned int dev_inst[MAX_HWIP][HWIP_MAX_INSTANCE];
- };
- 
- #define AMDGPU_MAX_IP_NUM AMD_IP_BLOCK_TYPE_NUM
-@@ -124,6 +118,19 @@ struct amdgpu_ip_block {
- };
- 
- void amdgpu_ip_map_init(struct amdgpu_device *adev);
-+void amdgpu_ip_map_aqua_vanjaram_override(struct amdgpu_device *adev);
-+
-+u32 amdgpu_ip_map_logical_to_dev_mask(struct amdgpu_ip_map_info *ip_map,
-+				      enum amd_hw_ip_block_type block,
-+				      u32 mask);
-+
-+static inline unsigned int
-+amdgpu_ip_map_logical_to_dev_inst(struct amdgpu_ip_map_info *ip_map,
-+				  enum amd_hw_ip_block_type block,
-+				  unsigned int inst)
-+{
-+	return ip_map->dev_inst[block][inst];
-+}
- 
- int amdgpu_ip_block_suspend(struct amdgpu_ip_block *ip_block);
- int amdgpu_ip_block_resume(struct amdgpu_ip_block *ip_block);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-index 208566ffe898..9887a4f99aed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-@@ -25,6 +25,7 @@
-  */
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_jpeg.h"
- #include "amdgpu_pm.h"
- #include "soc15d.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index a676fccc466d..66eb2f34cc0d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -27,6 +27,7 @@
- #include <drm/drm_drv.h>
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_psp.h"
- #include "amdgpu_ucode.h"
- #include "amdgpu_xgmi.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-index c80ffa08920d..0c2e045dc397 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-@@ -23,6 +23,7 @@
- #include "amdgpu.h"
- #include "amdgpu_xcp.h"
- #include "amdgpu_drv.h"
-+#include "amdgpu_ip.h"
- 
- #include <drm/drm_drv.h>
- #include "../amdxcp/amdgpu_xcp_drv.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-index 9a0c12b1a309..87db0aeb0461 100644
---- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-@@ -548,7 +548,7 @@ int aqua_vanjaram_init_soc_config(struct amdgpu_device *adev)
- 	if (ret)
- 		return ret;
- 
--	amdgpu_ip_map_init(adev);
-+	amdgpu_ip_map_aqua_vanjaram_override(adev);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index ce48da12edb2..484ecde55ac9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -23,6 +23,7 @@
- #include <linux/firmware.h>
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_gfx.h"
- #include "soc15.h"
- #include "soc15d.h"
-@@ -1646,10 +1647,9 @@ static bool gfx_v9_4_3_check_rlcg_range(struct amdgpu_device *adev,
- 		const struct soc15_reg_rlcg *entry;
- 
- 		entry = &entries[i];
--		inst = adev->ip_map.logical_to_dev_inst ?
--			       adev->ip_map.logical_to_dev_inst(
--				       adev, entry->hwip, entry->instance) :
--			       entry->instance;
-+		inst = amdgpu_ip_map_logical_to_dev_inst(&adev->ip_map,
-+							 entry->hwip,
-+							 entry->instance);
- 		reg = adev->reg_offset[entry->hwip][inst][entry->segment] +
- 		      entry->reg;
- 		if (offset == reg)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-index 8397d3d38287..e89813590539 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-@@ -21,6 +21,7 @@
-  *
-  */
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_xcp.h"
- #include "gfxhub_v1_2.h"
- #include "gfxhub_v1_1.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 9a8a7921ce98..490b4c4eb662 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -26,6 +26,7 @@
- #include <drm/drm_cache.h>
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_atomfirmware.h"
- #include "gmc_v10_0.h"
- #include "umc_v8_7.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index bee269a8877a..3cdc7893587a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -26,6 +26,7 @@
- #include <drm/drm_cache.h>
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_atomfirmware.h"
- #include "gmc_v11_0.h"
- #include "umc_v8_10.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index 0cc73982ed6f..fcbaaca2dda5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -27,6 +27,7 @@
- 
- #include "amdgpu.h"
- #include "amdgpu_atomfirmware.h"
-+#include "amdgpu_ip.h"
- #include "gmc_v12_0.h"
- #include "gmc_v12_1.h"
- #include "athub/athub_4_1_0_sh_mask.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 633772fa71fd..5245d8850a42 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -63,6 +63,7 @@
- 
- #include "ivsrcid/vmc/irqsrcs_vmc_1_0.h"
- 
-+#include "amdgpu_ip.h"
- #include "amdgpu_ras.h"
- #include "amdgpu_xgmi.h"
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-index 49f84e6647a5..0343a64595f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-@@ -22,6 +22,7 @@
-  */
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_jpeg.h"
- #include "soc15.h"
- #include "soc15d.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-index 197d1af18a3a..4da3f9c995c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-@@ -22,6 +22,7 @@
-  */
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_jpeg.h"
- #include "amdgpu_pm.h"
- #include "soc15.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-index 9b57fdc1e69a..dcdb089b4308 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-@@ -22,6 +22,7 @@
-  */
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_jpeg.h"
- #include "amdgpu_pm.h"
- #include "soc15.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-index f67868132bed..f2debf6b6bd0 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-@@ -22,6 +22,7 @@
-  */
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_jpeg.h"
- #include "amdgpu_pm.h"
- #include "soc15.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-index bdfd2917e3ca..80f5e8106d5e 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -22,6 +22,7 @@
-  */
- #include "amdgpu.h"
- #include "nbio_v7_9.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_ras.h"
- 
- #include "nbio/nbio_7_9_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index dd0fe773456b..332536454aee 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -27,6 +27,7 @@
- #include <linux/pci.h>
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_xcp.h"
- #include "amdgpu_ucode.h"
- #include "amdgpu_trace.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-index 47e0329b6f3f..937d02ef7124 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-@@ -26,11 +26,9 @@
- 
- /* GET_INST returns the physical instance corresponding to a logical instance */
- #define GET_INST(ip, inst) \
--	(adev->ip_map.logical_to_dev_inst ? \
--	adev->ip_map.logical_to_dev_inst(adev, ip##_HWIP, inst) : inst)
-+	amdgpu_ip_map_logical_to_dev_inst(&adev->ip_map, ip##_HWIP, inst)
- #define GET_MASK(ip, mask) \
--	(adev->ip_map.logical_to_dev_mask ? \
--	adev->ip_map.logical_to_dev_mask(adev, ip##_HWIP, mask) : mask)
-+	amdgpu_ip_map_logical_to_dev_mask(&adev->ip_map, ip##_HWIP, mask)
- 
- /* Register Access Macros */
- #define SOC15_REG_OFFSET(ip, inst, reg)	(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index c559213e442c..7d2b9e4b913a 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -25,6 +25,7 @@
- #include <drm/drm_drv.h>
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_vcn.h"
- #include "soc15.h"
- #include "soc15d.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index 732aaa1d8e67..10ef5616b2f5 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -25,6 +25,7 @@
- #include <drm/drm_drv.h>
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_vcn.h"
- #include "amdgpu_pm.h"
- #include "soc15.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index e876733b754a..0f4f4d66e2e4 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -23,6 +23,7 @@
- 
- #include <linux/firmware.h>
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_vcn.h"
- #include "amdgpu_pm.h"
- #include "amdgpu_cs.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 60a5636c0073..4b7f7bbe18da 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -23,6 +23,7 @@
- 
- #include <linux/firmware.h>
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_vcn.h"
- #include "amdgpu_pm.h"
- #include "amdgpu_cs.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 3d28289bc4f1..2fa8f0d911d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -25,6 +25,7 @@
- #include <drm/drm_drv.h>
- 
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_vcn.h"
- #include "amdgpu_pm.h"
- #include "soc15.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-index 660dab262dfb..f30f80c1b07f 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-@@ -23,6 +23,7 @@
- 
- #include <linux/firmware.h>
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_vcn.h"
- #include "amdgpu_pm.h"
- #include "amdgpu_cs.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-index 08fca20b2c99..7b7c3bc9f046 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-@@ -23,6 +23,7 @@
- 
- #include <linux/firmware.h>
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_vcn.h"
- #include "amdgpu_pm.h"
- #include "soc15.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-index b3b83ad20103..09e553b8a657 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-@@ -23,6 +23,7 @@
- 
- #include <linux/firmware.h>
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_vcn.h"
- #include "amdgpu_pm.h"
- #include "soc15.h"
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 1c1e7878a2a7..351ca8718c87 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -34,6 +34,7 @@
- #include "kfd_svm.h"
- #include "kfd_migrate.h"
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_xcp.h"
- 
- #define MQD_SIZE_ALIGNED 768
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-index 0033453f27e5..1ecf65d402ba 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-@@ -25,6 +25,7 @@
- 
- #include <linux/firmware.h>
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_smu.h"
- #include "smu_v13_0_12_pmfw.h"
- #include "smu_v13_0_6_ppt.h"
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 19bc6ce29da0..ee380488d212 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -25,6 +25,7 @@
- 
- #include <linux/firmware.h>
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- #include "amdgpu_smu.h"
- #include "atomfirmware.h"
- #include "amdgpu_atomfirmware.h"
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
-index de3da5571ef8..1c5e02de7fca 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
-@@ -31,6 +31,7 @@
- #include <linux/math64.h>
- #include <linux/time.h>
- #include "amdgpu.h"
-+#include "amdgpu_ip.h"
- 
- /* inject address is 52 bits */
- #define RAS_UMC_INJECT_ADDR_LIMIT       (0x1ULL << 52)
-@@ -96,15 +97,13 @@
- #define RAS_GET_INST(dev, ip, inst) \
- ({ \
- 	struct amdgpu_device *adev = (struct amdgpu_device *)dev; \
--	adev->ip_map.logical_to_dev_inst ? \
--		adev->ip_map.logical_to_dev_inst(adev, ip##_HWIP, inst) : inst; \
-+	amdgpu_ip_map_logical_to_dev_inst(&adev->ip_map, ip##_HWIP, inst); \
- })
- 
- #define RAS_GET_MASK(dev, ip, mask) \
- ({ \
- 	struct amdgpu_device *adev = (struct amdgpu_device *)dev; \
--	(adev->ip_map.logical_to_dev_mask ? \
--		adev->ip_map.logical_to_dev_mask(adev, ip##_HWIP, mask) : mask); \
-+	amdgpu_ip_map_logical_to_dev_mask(&adev->ip_map, ip##_HWIP, mask); \
- })
- 
- static inline void *ras_radix_tree_delete_iter(struct radix_tree_root *root, void *iter)
--- 
-2.55.0
+> Regards,
+> Christian.
+> 
+>>
+>> Thanks,
+>> Lijo
+>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 8 ++++++++
+>>>>    1 file changed, 8 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>>> index 72ea37dbfea8..0086de0f685d 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>>> @@ -610,6 +610,8 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
+>>>>           if (max_size < szbuf)
+>>>>                   return -EOVERFLOW;
+>>>>
+>>>> +       memset(buf, 0, szbuf);
+>>>> +
+>>>>           pcie_regs = (struct amdgpu_regs_pcie_v1_0 *)((uint8_t *)buf +
+>>>>                                                        sizeof(*pcie_reg_state));
+>>>>           pcie_regs->inst_header.instance = 0;
+>>>> @@ -702,6 +704,8 @@ static ssize_t aqua_vanjaram_read_xgmi_state(struct amdgpu_device *adev,
+>>>>           if (max_size < szbuf)
+>>>>                   return -EOVERFLOW;
+>>>>
+>>>> +       memset(buf, 0, szbuf);
+>>>> +
+>>>>           p = &xgmi_reg_state->xgmi_state_regs[0];
+>>>>           for_each_inst(i, adev->aid_mask) {
+>>>>                   for (j = 0; j < xgmi_inst; ++j) {
+>>>> @@ -776,6 +780,8 @@ static ssize_t aqua_vanjaram_read_wafl_state(struct amdgpu_device *adev,
+>>>>           if (max_size < szbuf)
+>>>>                   return -EOVERFLOW;
+>>>>
+>>>> +       memset(buf, 0, szbuf);
+>>>> +
+>>>>           p = &wafl_reg_state->wafl_state_regs[0];
+>>>>           for_each_inst(i, adev->aid_mask) {
+>>>>                   for (j = 0; j < wafl_inst; ++j) {
+>>>> @@ -902,6 +908,8 @@ static ssize_t aqua_vanjaram_read_usr_state(struct amdgpu_device *adev,
+>>>>           if (max_size < szbuf)
+>>>>                   return -EOVERFLOW;
+>>>>
+>>>> +       memset(buf, 0, szbuf);
+>>>> +
+>>>>           p = &usr_reg_state->usr_state_regs[0];
+>>>>           for_each_inst(i, adev->aid_mask) {
+>>>>                   usr_regs = (struct amdgpu_regs_usr_v1_0 *)p;
+>>>> -- 
+>>>> 2.49.0
+>>>>
+>>>
+>>
+> 
 
