@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09E0DC88E64
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 02:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 673D0C88E64
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Sep 2026 02:41:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86D4810E06B;
-	Mon, 14 Sep 2026 02:20:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEFAC10E04B;
+	Mon, 14 Sep 2026 02:41:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QzqRWAA/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="px2cKI8U";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010029.outbound.protection.outlook.com
- [40.93.198.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 646E010E06B
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 02:20:38 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012062.outbound.protection.outlook.com [52.101.43.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E37AA10E04B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 02:41:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xtpcZ3XwrV6mRfxkwBQQTxgQwDf09c5fFQQdLz0FuAvepZ6rgp9GVGnQbU4K1QYpqlP/suASNyfzS1DGrK2wcNsOTolM2M/LVN3iq9ibPNk5Ls02aQt+hKOhDKbF8LC9oMmG0dGKmZSpaJFgSqpKI9IuJAnPIdMrUlXRSoIF/McdjnMn1PIAep+QjTFRIQ21ONLN5iy7FQij7uNnQfw3OjQ1AKRq0N8+BEA8kuZRbrI17kfFTBkqN+/PA3R8bt7tfQ9huE2BWF3WFDpMB7I5uT/L2CC2Cp31AyxHYfmGFVaVIiGPehaEIASOPcuAkrztyka17Kh7y/ou8eSudsJWhA==
+ b=ApF4scm/ppiMJ+VGtaN3fHNpvWNq4ldhCy1NxBnB47adBqjkYSn4XQuZgRrpKB081sP64YsBPogBnPRi+JP4dxJtHZ/GlV/44/mBGfLRO1O0ADB0/0ZBhrkFFaiPZthC3DUDmqfVfvqRP54dBOaFw2xUoR+V8EZk3uLmp0qONQN/E0HCyynSM1wmV7Gp+JPpTquv667HK3uy0JfNbd8Dl3I/bpEu+pf+z9D/Qs5KshPVPH8eqfhDKxdljZhq/CYaGfIqHyQvYfGkcApTU/O3RRenxOc2QOY0GebR+WXfh7DCylUAo1iWOUqdVOmISB2Ik7P0Rs2F6IdEJN8GgqPiIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TMI9nNVZK/4yBhcy2SbTdb7yc74RRzBz5oMy5PbAckE=;
- b=deUzHPZUs5WL6yRaA7bpH+/t73qXW++iLQCEp17RUiaq6dUNANIQb6FiQXFmfcKcubhOxiFZYtp5YSa13Y5CV0AW6Jh3h98FFe8FGIkJEgqdqZ3npnikvVy0oJaUCaLRgmJQkI9Ox6MjsmtYfR3auwGae5q5g3mSBCC5X9e3jWk6l6AlgvSeyClp5F4LQlCUGhLK7IrNwyIzJ73ysXh0nvpXIyeDNBumF/7fJN69l0+x70VaYlBCZbJQVTUDZumJ73piD/RWsRqnGfdwc+yc3axEO5FnUXmWbtxV9pzFv3KVSDAZxOrdkwO9wtA0udsZ3L+dc8lJSxSxdfYoZmuPRg==
+ bh=T+N6DT/fLgD5WUVfr1TIWyjzsY0FR3g13PF7nTkM5C8=;
+ b=GS6MoQ9PC0lYEkT0xtvVNIwfe8gbKb+G5ew/tuzI6lupkCNo6lYGMNnEYL0TkIMfKSFWrH7d9VVNJrzHYqz0ZxyVvRHgD/H6h2otBW748wNCRt+1rHlKLteSSns0WHV/8VNdDziFetZnSrNOXS9dmLMHkGCFh5n3fQZp2cdjDbBAjt8bD0qbIACBX9wbNNGZziv9DCjx5GBVG6CBII3jxn7KKm52Nm3Roe+ElPWAPqhUoPZ0G6i9AbKObLLJQGVTSJe00Va8mtXsrAbnCVm5mICnARNH4v5CY9FtNOYH1TNQ4hUFzi2FEbBMdgdwZnLX9aZzk8RDVmB8ndljYmBkeA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TMI9nNVZK/4yBhcy2SbTdb7yc74RRzBz5oMy5PbAckE=;
- b=QzqRWAA/HQYNPyT3BbXVdLVLYSG2TLIb9pt/L7XvOYpxxI7Kv5fEy5AzniP9rE0gdL+cs2fjBUXGznW0Acw/DGP6o3jOuHZefUzBvt+r46gxvvCRj7tGAcN0hIIHySY+Y0XHfxzcqv+Zli7jvbnBOJj5lN38n49VacNkmZU36LE=
-Received: from DS7PR03CA0258.namprd03.prod.outlook.com (2603:10b6:5:3b3::23)
- by CHXPR12MB999221.namprd12.prod.outlook.com (2603:10b6:610:2fa::7) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=T+N6DT/fLgD5WUVfr1TIWyjzsY0FR3g13PF7nTkM5C8=;
+ b=px2cKI8UFt6wnQatiY0W5MYyiMr/wF06DlUBiYvIqHrn+BuRxHAfoLii1AXocnUamzdNZn5anUdgCDOw1Xng2l/Tiuop+5MGdgfyrKNmEf+NKNr6E/nw/Cv+D+lJnS/l48WXg72UKhsWU10e36QLJASf1ivJG8soh7RfmhwX1c4=
+Received: from SJ0PR13CA0130.namprd13.prod.outlook.com (2603:10b6:a03:2c6::15)
+ by SJ1PR12MB6098.namprd12.prod.outlook.com (2603:10b6:a03:45f::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 02:20:33 +0000
-Received: from BN3PEPF00022BBA.namprd04.prod.outlook.com
- (2603:10b6:5:3b3:cafe::8e) by DS7PR03CA0258.outlook.office365.com
- (2603:10b6:5:3b3::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
- 14 Sep 2026 02:20:33 +0000
+ 2026 02:41:39 +0000
+Received: from SJ1PEPF000037B8.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::96) by SJ0PR13CA0130.outlook.office365.com
+ (2603:10b6:a03:2c6::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.8 via Frontend Transport; Mon, 14
+ Sep 2026 02:41:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,52 +48,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BBA.mail.protection.outlook.com (10.167.248.116) with Microsoft
+ SJ1PEPF000037B8.mail.protection.outlook.com (10.167.244.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 02:20:33 +0000
-Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 13 Sep
- 2026 21:20:32 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH] drm/radeon: restore eDP panel power sequencer on Apple DCE3.2
- iMacs
-Date: Sun, 13 Sep 2026 21:20:02 -0500
-Message-ID: <20260914022002.2005150-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 02:41:39 +0000
+Received: from pyuan-Chachani-VN.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 13 Sep 2026 21:41:37 -0500
+From: Perry Yuan <perry.yuan@amd.com>
+To: <Alexander.Deucher@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: <Christian.Koenig@amd.com>, <Yifan1.Zhang@amd.com>, <perry.yuan@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: fix sched entity leak in ttm buffer entity
+ init
+Date: Mon, 14 Sep 2026 10:41:24 +0800
+Message-ID: <20260914024125.443258-1-perry.yuan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBA:EE_|CHXPR12MB999221:EE_
-X-MS-Office365-Filtering-Correlation-Id: afddc6a2-518c-4677-cbec-08df1206c139
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037B8:EE_|SJ1PR12MB6098:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17d64efd-9d45-4bd3-235f-08df1209b42d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|56012099006|11063799006|10067099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info: kPMgMspTMZwuLKkL/li2nFrXs+q5620yHOeBfI9YAAbGWvRQdbYcmlwAOkWjHa2c1KceQAgRtcQcTInYWiliEvafVol5xV2CQC/MCee5mduSpOmRgm4LiCNB+KRsHIqcD1uxAswSETZrl5rNPLo/904hTCnTodVf/C8EggKEn8a230GEojh7cptUSeirr4iQVneCBEjQP12rjisXcnezNpb6X0WU4yvrbVxji14gNOo4iWIZjNJgWDo+YTNuKT5hGiVx2JE1vQ0kkbT0k3dafd1LnPYSjh2LGxqf3/Mbqf3v3ZFfxhTDsFv0nIFzWqf3lkaqiqb0eooDP8gt7BZo8pCiBf7sK+7zRaAvTVfto0KkO9pc0UypsWqnauRW0eIdkj23awsU9ifne8cB56ZgNHpWH4LuEwkUGytH0JA+7wrJn6xfEK/d3pz4r6ICJs4sz8vOaLa1cI4+jQ3Vdd+uaHeJz29Vu4fSniZLPss7hE3jx0KX/7TsmTtVzu+T8ODT0fcLRnSy2/4qMdrY78xM7GhbhXQopwkG1/ANtvlg6g9uylvtdEH9DViuUStIPUSJFWUWXZ/eeCX6cG2UEjJaULz2Ku8gNCq9BNATRxJzHYluZE0E//n8Bs4PqLJB03d/GWSLGdsPxh4kt86eFBLlYQ==
+ ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|18002099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: ZgHYCCcIOfSgNiD6ltCqxPix/c+2eHLdldtZy97uN9vmE6oRakFzZc6fxly789llcoWwSH4eQ8HkkcWjn7+GVXovjPOMvACU3Bf8izDyX5jgOzZjn+9pSWF6s+XPy7ETuHWWwVzEfRxoa9WH/lsmGD7m3MSLVvVhWQWp7X3aY+CxnqwN7mEiVUyPwlOxvnnXLbS+cqM4zLQnN6UV4aEZNPKhZZgiM0cD4Y+IyubfwSYr9g2nAkwSFVtUvaon9QZHc+mCphxXZ/HeaOJlas+r7XU3300gL1CD21iUhKpnA971JSv2Y1avkXKWqriJbUuer88jnbDLRfbs7wRDfkNO+FtSbo1Pe6FapOVWOZWKbgSvaAzNSNpWzMVvbYCC97WY2Ctlp6DaJyBc0CSHp1uxVYfz52vbUnUP8dTN2xnvIYmLSx9WlWp8gT+rVjE2LHU84U+RsclVPOl0ryAU0Y2UlF68lFVDt97lEA37tnKCSGCJkzixiUfXfV0uXx5OcZF0Yo33hGpphX5fQn8hKVfm/CslfhJOqCZ6q+jpVx/WXMuPB4Ok5RCV3KNk8eCJWekIdbutErNMSHnOuRd/VwfNlPcgP6X4d9GiKe/mHtiMH0xG31o6sHvE6XvAHqV8GH9XVJ/tEb6R6lh8e/ErBeidDbCPH7Jm6ei4tfXAelGu2t2by3LXa3yGKGsr+I2kh+3A
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(56012099006)(11063799006)(10067099003)(18002099003)(13003099007);
+ SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(18002099003)(11063799006)(10067099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: M6Qf3xs5DviY0tvUXjG1RlchqVEX1jjCL+frkK9uLq890rSogJqHU8e7b/UnX5nvT5C7BhoiQT6WE4NarG13iBRL3D2zSiFtXv13XOFvJQ06InEBecx6EiUh3jeeLZZUNY3ke/t8Q53MO1/A4aSLabH4RvTfu9H0HMaMGTUjQNVX8IQyIGoN0XVejnFxB8yyOcB1ZmPwSQQiRsutkdbD7ig+hCr4KYVaFNjIlmRjKcUh/yNrc4F/94GF8BE4xwyP+cYvQS+2mwv14R6QpMnDyPfTLiJAibV5pu0CFgknuUtukyBiNby8bmWRSCboMSg0mXo3zPMD5sI9ERj1GFI1wdbTiGIQnVxAjj4gPoN+E40pycvRiiEBkqP5sQG6f+u9QlRlOFeMevX8/MoCc2NvTN4+Eb9ftKKqxN+w1JM+zMRKLfVau9ac16qXbHdnlD8N
+X-MS-Exchange-AntiSpam-MessageData-0: P60xymu3kID62QcJkMgFfWTq3xrY12Cmrq4cWyRGjH2KuLGvzb66j2wPtrsaMwNMkySJw9wEVRShM3V06pMqSdTGuaUFAPCQCzH70V/Hcmopm3aJv79PxgZ4rrr6PN1E/SwRvYkVAE4RTq9u7xtDHgQxahdvkWZRFfLzm8Sc0Hs+ADsuCwVTwwJ8HCfa2jVY3JXnrwpWfncPeM4fIPa5v9vE6Djd0lHeSARIGbMABUKpyZ82RJTXpeNfRxNa+PzEQJhci81vMG8opGwyBfnM0doQd6C7FXZ/olijn1xGVoMsHWZtInk+/r5Dib0uV1g/7dnVlfO6MMHtYDu+4699QDpvt8RnXTL0Qt/KQnyOLNq/ThcGTtjWymdUjr5ciqQ28Q3yt/pM9YH0a0DUsYSimOpwtkafguRmiR7Dy2tTWTBeR4S6+05nU3gc7B3J1BLn
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 02:20:33.0360 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: afddc6a2-518c-4677-cbec-08df1206c139
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 02:41:39.5512 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17d64efd-9d45-4bd3-235f-08df1209b42d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BBA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037B8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHXPR12MB999221
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6098
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,91 +108,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The Apple iMac10,1 and iMac11,2 (RV730/DCE3.2) drive their internal eDP
-panel through an LVTMA power sequencer whose enable bit (PWRSEQ_EN in
-LVTMA_PWRSEQ_CNTL) is programmed exactly once, by EFI at cold boot.
-Apple's minimal ATOM tables never touch it afterwards, so any GPU
-re-initialisation - S3 resume or a GPU-lockup reset - clears PWRSEQ_EN
-and the panel comes back dark while the rest of the GPU resumes fine.
+amdgpu_ttm_buffer_entity_init() checks num_gart_windows after
+drm_sched_entity_init() has already attached the entity to a
+scheduler run-queue. Returning -EINVAL from that check leaks the
+entity.
 
-The driver never programs this register itself; on every other radeon
-board the platform firmware maintains it across a re-POST, which is why
-this only bites the Apple machines. Re-assert PWRSEQ_EN in the eDP
-DPMS-on path when it is found cleared; the hardware then runs the
-DIGON->DE->VARY_BL->BLON power-on sequence on its own. Both failure
-paths pass through here, as radeon_gpu_reset() restores the modeset
-state via radeon_resume_kms(), so a single site covers resume and reset.
+Move the ARRAY_SIZE() check before any resources are acquired.
 
-The write is gated to Apple parts and to exactly DCE3.2 (ASIC_IS_DCE32
-is >= RV730, so DCE4+ must be excluded - Apple also shipped DCE5, e.g.
-the 2011 MacBook Pro, where the register lives at a different offset).
-It is skipped when the sequencer is already enabled, so lit panels,
-DCE4+ boards and non-Apple boards are untouched. DCE3.2 places the
-register 0x18 above the documented R600 offset.
-
-Only iMac11,2 is verified on hardware; iMac10,1 shares the same RV730
-design and Apple EFI behaviour.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5719
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Fixes: 2c3725572561 ("drm/amdgpu: statically assign gart windows to ttm entities")
+Signed-off-by: Perry Yuan <perry.yuan@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/radeon/atombios_encoders.c | 36 ++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
-index 8b3f8303a967e..5b9c72bf40994 100644
---- a/drivers/gpu/drm/radeon/atombios_encoders.c
-+++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-@@ -1646,6 +1646,38 @@ radeon_atom_encoder_dpms_avivo(struct drm_encoder *encoder, int mode)
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 3d620ec2937f..5465787f730a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -2076,14 +2076,15 @@ static int amdgpu_ttm_buffer_entity_init(struct amdgpu_gtt_mgr *mgr,
+ 	int i, r, num_pages;
+ 	const u64 GTT_MAX_PAGES = (AMDGPU_GTT_MAX_TRANSFER_SIZE >> PAGE_SHIFT);
  
-+/*
-+ * Apple's EFI enables the internal eDP panel power sequencer
-+ * (LVTMA_PWRSEQ_CNTL) exactly once, at cold boot, and its minimal ATOM tables
-+ * never touch it afterwards.  Any GPU re-initialisation - S3 resume or a GPU
-+ * reset - clears PWRSEQ_EN, so the panel comes back dark on the DCE3.2 iMacs
-+ * (iMac10,1 / iMac11,2, RV730).  Re-assert PWRSEQ_EN when we find it cleared;
-+ * the hardware then runs the DIGON->DE->VARY_BL->BLON power-on sequence itself.
-+ * DCE3.2 places the register 0x18 above the R600 offset.
-+ *
-+ * This is restricted to Apple DCE3.2 parts: the register lives at a different
-+ * offset on DCE4+ (which Apple also shipped, e.g. the 2011 MacBook Pro), and
-+ * non-Apple boards program the sequencer from their own firmware.  The
-+ * read-modify-write only fires when the sequencer is actually disabled, so a
-+ * lit panel is never disturbed.
-+ *
-+ * https://gitlab.freedesktop.org/drm/amd/-/issues/5719
-+ */
-+static void radeon_atom_apple_edp_pwrseq_restore(struct radeon_device *rdev)
-+{
-+	u32 pwrseq_cntl = R600_LVTMA_PWRSEQ_CNTL + 0x18;
++	if (ARRAY_SIZE(entity->gart_window_offs) < num_gart_windows)
++		return -EINVAL;
 +
-+	if (rdev->pdev->subsystem_vendor != PCI_VENDOR_ID_APPLE)
-+		return;
-+	if (!ASIC_IS_DCE32(rdev) || ASIC_IS_DCE4(rdev))
-+		return;
-+
-+	if (!(RREG32(pwrseq_cntl) & AVIVO_LVTMA_PWRSEQ_EN))
-+		WREG32(pwrseq_cntl, AVIVO_LVTMA_PWRSEQ_EN |
-+				    AVIVO_LVTMA_SYNCEN_OVRD |
-+				    AVIVO_LVTMA_DIGON);
-+}
-+
- static void
- radeon_atom_encoder_dpms_dig(struct drm_encoder *encoder, int mode)
- {
-@@ -1711,6 +1743,10 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *encoder, int mode)
- 				atombios_dig_encoder_setup(encoder, ATOM_ENCODER_CMD_DP_VIDEO_ON, 0);
- 		}
- 		if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT)) {
-+			/* restore the panel power sequencer on Apple eDP iMacs
-+			 * that lose it across resume/reset (see helper above)
-+			 */
-+			radeon_atom_apple_edp_pwrseq_restore(rdev);
- 			if (rdev->mode_info.bl_encoder)
- 				atombios_set_backlight_level(radeon_encoder, dig->backlight_level);
- 			else
+ 	r = drm_sched_entity_init(&entity->base, prio, scheds, num_schedulers, NULL);
+ 	if (r)
+ 		return r;
+ 
+ 	mutex_init(&entity->lock);
+ 
+-	if (ARRAY_SIZE(entity->gart_window_offs) < num_gart_windows)
+-		return -EINVAL;
+ 	if (num_gart_windows == 0)
+ 		return 0;
+ 
 -- 
-2.43.0
+2.34.1
 
