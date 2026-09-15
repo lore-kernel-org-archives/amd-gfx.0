@@ -4,125 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBB93C88E75
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 03:15:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 200B2C88E53
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 03:38:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF30310F8B8;
-	Tue, 15 Sep 2026 03:15:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BCC910F8DE;
+	Tue, 15 Sep 2026 03:38:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eMQNRz7r";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dbERmnzI";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011071.outbound.protection.outlook.com [40.107.208.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE85810F8B7;
- Tue, 15 Sep 2026 03:15:03 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013040.outbound.protection.outlook.com
+ [40.93.196.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57ED110F8DE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 03:38:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bbMWCR6JDBQJjjjwAogFTh8nq3ddZyWpQXdqMAei4dnUSonZqD8tk0FIl9WcAF7m3mNbMnmkAeuwiZrDnf47JmtgHnGEl/NlRrcl7PFrWUNNVSIFXpIQpWGSJIGD9GKISuUaOzIGLvDZ6DiifduTJzTazCrHaj8Npl5YGDuUyfc0MJ/r6DPAxiZ2fqJuBR85oIWWY1FRaCsVUu/w1RaU8/zcUYVke7xN4HRXKyagqit2i6zJ1DiemXTwGoFC2ufEAwysgj7nwqIiTTChzA7XLjihgVbY/zNnEW32VVb2qF9iBQF3FlQ39be1QwnoxW5k9vwK43P4+2csFPE0so8s1w==
+ b=U8rjSpvQ9U0aUUGIUt4Whh8yUQqD3GjGLjiMdai98J+HVR/rf8wxOPZ4ZKWnUlQWryi0TF8aME/0F1I8byfp2nBr+d0tDsL/Zsr+VYaWxSJOtbE+ybx/847LB44iaIdv1w+T73xvfiM1L96qzy681SuPOGqEh6z02pWJN0Ax5PGk9tydJNk3h6vMjdooz019i64iWQ/kCc+QTuKFfRpQl88Y5xSW4hh1Q2MR5I++bppWEjlGqfFIq83xhTL5RURVL/rEZtHsjOx/rqvJjai0TXCQbNft8PLVxkqwi5dH51uxc/72vLDSRxOE2fW4BlYmuDAiVD4FSy21mJ9c8kh/jg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RlATQlF7uF+FqQUAAr/QrvHWOhv4xld3KSABwxjFrn8=;
- b=XXthugZa4ky832nCz4ru7DId3jLz3GPRam+T2HWXer69Xwzkja8oHa4Mh9vJ4ozz0JIowHUv1960aU4FV6jsvZf2mQ9X5s3nO57mvFjMoHgpNLBXPwsAaJI5uwnAbff2U+vXxooGVLQsUxIw3fWJVhi4s2+yoNDcI9jQq526tXmcxTtrSYKMQkaqmy09J+y1W7MZrCD2+zxCxsGMjNk8bXhmPNaphVgfvEK2W65+qdRJwZLjf1IE3gRh8sO0tSCUD5EgchnLcn1Qj06QNxcLw1vFrGaRBZFIZBb5bt+eWSkP5bGEEC5ZkmO1CLnC6d3xViPqkC9nQQzVvwRVQy4KEg==
+ bh=BlillwS6YAc+vNDVjIWlvsTrgcZVvkZdCZfiG/yd9nE=;
+ b=hNuYekN5Q11RqvNBPbfjfuYxbf5WFsB3DLe+f4+iAc5Wk1JW3U7ncViIW5zepC5gvjElbVzhSM2lvbARglK2FAHBGFffXhe25N9rqLy8QKNRq/YsEbYDjIygXsCXgEto83cqBfBhNYo8Y/n3zZLd16ZOHC5Ffy5kf32XHlYjeEmDLtsYEWTHpnWL8QvyGLzCZKs6mkn7iA0uhO3r3UuEbR7QbTJoKxYjlGNhZ51MvAdsTVRwllEW+ypGq5wi0tlpxp6+uUJnl+dGXF8gI2ZT9iDDFV49bf2R6U6KreK4YRVhW75VDU7pAk+5TLYsiUuY8Vif67gTxl392pLuFQKJVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RlATQlF7uF+FqQUAAr/QrvHWOhv4xld3KSABwxjFrn8=;
- b=eMQNRz7rjIQlw9SGLB3dTpFq41fHGXCy8P843NlyoOQC3VETVLBXVVhPeJklFRdiF8fEAdh1Xaw+7mLvEz+XIyOUzgv40T8TcegvbNUiGGuuQwakac+PwgZo6CLf+ivX3El7ehCiz5Ak4EMbFtNThlJxIMkHWlkvteQfM/1Cymk=
+ bh=BlillwS6YAc+vNDVjIWlvsTrgcZVvkZdCZfiG/yd9nE=;
+ b=dbERmnzIO7bXvrwvuNXLs/ag8ZZ7s21QApDmZIRaeJiDvzUkFS8o3iNlENeLUnZTJ59HoJ7Hstxi/7CTS6ht5+5CgIJCOpAn0hgBhdOJthl3RqYwwMm9wY0SkFI8Vsf3Wv/P9791GU6ms9aKht6VsH9YTiTtEq/i/R9/k5nHu+c=
 Received: from CYYPR12MB8729.namprd12.prod.outlook.com (2603:10b6:930:c2::5)
- by BL4PR12MB9508.namprd12.prod.outlook.com (2603:10b6:208:58e::22) with
+ by PH7PR12MB7937.namprd12.prod.outlook.com (2603:10b6:510:270::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 03:14:56 +0000
+ 2026 03:38:07 +0000
 Received: from CYYPR12MB8729.namprd12.prod.outlook.com
  ([fe80::1f0c:463f:a438:d85]) by CYYPR12MB8729.namprd12.prod.outlook.com
  ([fe80::1f0c:463f:a438:d85%2]) with mapi id 15.21.0428.008; Tue, 15 Sep 2026
- 03:14:56 +0000
+ 03:38:07 +0000
 From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-CC: "Koenig, Christian" <Christian.Koenig@amd.com>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "lvc-project@linuxtesting.org"
- <lvc-project@linuxtesting.org>
-Subject: RE: [PATCH] drm/amdgpu: check ras and obj before dereference
-Thread-Topic: [PATCH] drm/amdgpu: check ras and obj before dereference
-Thread-Index: AQHdRFYFtZn8geEUOkmlar+g2ZfQLbbO+A1w
-Date: Tue, 15 Sep 2026 03:14:55 +0000
-Message-ID: <CYYPR12MB8729B5365277A22CAF0E3481B0BA2@CYYPR12MB8729.namprd12.prod.outlook.com>
-References: <20260914143303.90614-1-Dmitry.Chumachenko@cyberprotect.ru>
-In-Reply-To: <20260914143303.90614-1-Dmitry.Chumachenko@cyberprotect.ru>
+To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Li, Candice"
+ <Candice.Li@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>
+Subject: RE: [PATCH 6/6] drm/amd/ras: remove obsolete ras mp1 v13 manager code
+Thread-Topic: [PATCH 6/6] drm/amd/ras: remove obsolete ras mp1 v13 manager code
+Thread-Index: AQHdQbk/SMKdH5pjEUynB6BpM73GrbbPA70g
+Date: Tue, 15 Sep 2026 03:38:07 +0000
+Message-ID: <CYYPR12MB872908B09C9610D900ABF8F7B0BA2@CYYPR12MB8729.namprd12.prod.outlook.com>
+References: <20260911064410.1693567-1-YiPeng.Chai@amd.com>
+ <20260911064410.1693567-6-YiPeng.Chai@amd.com>
+In-Reply-To: <20260911064410.1693567-6-YiPeng.Chai@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-15T03:14:47.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-15T03:37:54.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR12MB8729:EE_|BL4PR12MB9508:EE_
-x-ms-office365-filtering-correlation-id: ff78a8e1-1cfd-4be6-5b25-08df12d7848d
+x-ms-traffictypediagnostic: CYYPR12MB8729:EE_|PH7PR12MB7937:EE_
+x-ms-office365-filtering-correlation-id: aa471dd4-ef57-47b6-0645-08df12dac215
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|11063799006|56012099006|10067099003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: Ybh4ZFXLJ8MwZpED1ygBZdmHkv15OAOV2KBIE7nNPL2/MNa+qf4LvJhi1zs9Snd6S48AwUi6egx52ubNjm7XX7zfgFmOLDkjsBqmih/bk+TZ2uKD2UKo6F9lPuCj0P4F3hpVyKQsyeivvNu/FoOgNdlxaE7VyGRtfsZE9xtOPd76nbmaKBT/lkGBGuS0jLfTzYWwdQ55i9v/d9mWAVrc/6kjsQeTOnf3oC19xXDqUXv+pY55s6Uu635YinLfmG6wCkglenGrKM9rKMpxO5uWe7VgVTATzIbJ61sXealF0t57rLjtWgxF+sXAmII53xpU99ciHy40s5CV5/B94M6d9vjX0qVt4e+UEjLiBeTi9PTjNsaw4HM3sqqeUTDNP646Bvo2GV2OzP4iNkr8UwRduZYVeLCmW5zbDpb9DVBL8Dd2Ct/Al7jN3XhvaEly7qHFC2bdfukvvM2Q54rBnduVP8fhMyNA3Z6JiDJHeiIpuKXH5Ig7Z/okCrYglSUVwjPSdj5yIibig5WpVLoAcm8eTYdkKgWDzzATmtLqwCwN0xo7aw1KoyfgR1R42Nfrj5Gc77sY4jsF5Ne6LPX+zPPYntFpEsuu1SLk/DrEua/ViFBoV74UGGXjXqXB627szk912mBOb8vUnu/mLl86P1laOyCJhyVmSZQ8Bky2D8qQv1PkvPeJwSfQkOv9Qg8Xda3EhEb60IKT3CHrFBZs3YCRr4ewQal/Ujyy/sVME3RAIaw=
+ ARA:13230040|23010399003|376014|1800799024|366016|6133799003|18002099003|22082099003|3023799007|38070700021|4143699003|10067099003|56012099006|11063799006;
+x-microsoft-antispam-message-info: UHs0sgMuGdBeSXC/G+2gxlfbt+b2awDrtZZR1tkto15uA+wXuF3oN/0mI0M8J3B+EHx7brEmrv3szFKW6cbLOI+489Z+cIsPvLL5BspEOQ0VtPTGdIvMFMnJ2wc5QCK30NJ3heIL931YIyN9vFbv8SZb6nn10WiEO2yWlXcd6iWbIIwNP2oh8QVWm1kv/JoEj6YcFP4o0a866ZwCZrwTx3IdRxuped++cmkjRV3DhcaThPxd0XO9wSznmi00UQJHAixNA2UTK1o3ocf5T7gi9tqhjGN5H8awXoZk/OuGTuk7zbL9qJWyxWhaP8H3Ky/kTha0IU4dV59+EmKblYW8+44RSDqDYU99nwb8rQM01h0qZ4IjAOJ80h6N02XAkBwb+z+ktM9PGRPEDEYRcnOPRFrLzJu+3GE7BtdN4NtScpv9/PqNgYudBEpisotVLeaiMASXWbYXVAH2DPgA3+JAtysgWS9TF/w2Qo2I36VeU773dlJfnP6LC52wdBrcn7e6lyd1BjfiN5kFl9rafAtMAlV4Us0ESjyXqTQKg5GwwKwHo8ZmDljOGn3zVJsTKSUI9HlJlcJk0Kb//n2B40XlqF0u1VuCBR6dB85ucQfNM7lBZVOGjG1BSC45ro7rrtdINYka4sTpwN1/i6IXAb5AvP4X1NUUbmLT2ykXA8hMb6C1zhfQHVtCGqT9o7I4bmduK4Mm2RspPoK4Q3PRIpsHl1ILAmeM8JTqxiJ0PS84N0I=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CYYPR12MB8729.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(38070700021);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(3023799007)(38070700021)(4143699003)(10067099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?cVfTgwTfRx43k6jD0lY+bz0r4W8JxhZcn7OQs0n/NajNFJy1+O0PqNur0dbH?=
- =?us-ascii?Q?Otp5/Qk02jlqYNxfmc9lHRIDzZuF6zAGwF8phoMwshnFwvtkzbqhdei2+5z6?=
- =?us-ascii?Q?qFHbKWJxQ7vP1hjYUhN5VqEl2p2MIu3HcsGU8ltYlfmkXhJGdGw4Jzm6z/sx?=
- =?us-ascii?Q?ILGCDPfDlPY7H3jIXqOuxiCPhSO+w2WHuOANEMzwkWoyDLz/8wy+r+S2xjnO?=
- =?us-ascii?Q?ktVCVEJ21/dVPzlETgNoRLITQkd/UYPniFrwghw1fNPkq+d5vPUaELkeVxVA?=
- =?us-ascii?Q?xeRx85yWff+Y+JSydJNbHb9LQSdTV/At0id8ZRmd3XbrgxjA39nkRzFeij/z?=
- =?us-ascii?Q?WZ+YSzAWF2123BshpO8Ux4U0L7M3DA7LOSb7jyzSowj3UW0DoMdpevoeRR0P?=
- =?us-ascii?Q?7aITFARENm5HhH5cWvxEezgq3HkdoWIAtfESkZGUvRABCHIzzAfIz/y5PxFz?=
- =?us-ascii?Q?NBEP5zyWa6urMYa3XBgOK3z8E4kBUTSGttNanJMAiDogfDKxXQnpowZu+8ih?=
- =?us-ascii?Q?mwGcRtd2zjclFuemKKmZ5WusgKlXYp242vdT/V34jna6fK/L05VKVk8kT9ER?=
- =?us-ascii?Q?g1CrG5MFcG8+Lh/6f8dlRzQG1ptBa70v0F/81OqkcNYvBY8ZTRVjG2UhWm+9?=
- =?us-ascii?Q?Y3Y+1GdbXaXiUCohiIinYG6nS2Z12WhHLdbom6XxD9HmTK2BhAat9b1FxqvM?=
- =?us-ascii?Q?4lJlw8y88KsEeL+WhzP4ile/zV1kvk8vcY9FKCEKUk+3odiT7jvvNmtqaK6w?=
- =?us-ascii?Q?CFPTlhEPSl7Ahojb27hOxK4aM1/6TAa3Sn90kRUWhmqi7ccJczV8JTf/chVV?=
- =?us-ascii?Q?08vL2dGpv5TbfDZXdtbDsB6BmoVehQP3wwj7hcZqlBX/wcr9868h3jnX9grW?=
- =?us-ascii?Q?oDuoN5sVgKMFVWU+Zc6TEhn6ZRjek8j9FZ5IC8ziXskhKME++2ZIbub/JY+M?=
- =?us-ascii?Q?P7b03Yz5zcEAk9o7zK+wB1UaewVFvHwMLci7Cin8gaDUiJDxuFvPnc/tbFvc?=
- =?us-ascii?Q?n8rBcSQxciYiFdq4d6HJpBLV8NFDQNg6i2VyMI1Bi0Cq1gwlleUahQIfxUGk?=
- =?us-ascii?Q?6k4iNwrPjEU52THwIpNN3QF2wsp/JdnRv79JtpvCANhScC1A0q597RTNXDSG?=
- =?us-ascii?Q?OQewwPo5/ra8BQQtt3xb/EbqOReFUj0Q8Uj9vLKmfVCJhQ1pVOD+Jno6AXNG?=
- =?us-ascii?Q?wtz572mq7eIhRG0oSW8nS1+UTe1JLVpgPkfTBymVaLE1i04S+Ge0zs6Laa5m?=
- =?us-ascii?Q?p71VhTjo/DmiI6LNxMHieZB5r6jStIq0t7zbWIQfPNC5/V6BMjnpn2MlNTuK?=
- =?us-ascii?Q?UsYg20OWMf2q9v9IJ8dqX3jDYbwxhI1ZtPrQqM6iiQwV3j6Qa6OLRuVM5MnL?=
- =?us-ascii?Q?VxnenjGO2UWCAdgsgdo+TB9UA1dCoDqqDBI328Uo91Im/hTbWJFQYFfyWar/?=
- =?us-ascii?Q?6M6M4RFTjzcQ67BtHp3+X2ogPw3d+aiaAZ9wv+nwaW1PFgEevHTlupR1aGKY?=
- =?us-ascii?Q?ziVD/x16fivoUcP/BmfNYCPVtnplxofoqwvlu7CF4lrIi8YPSTaxGwviFq6G?=
- =?us-ascii?Q?dD6RUqtJDSdVeX+iNfVWuDHPE1j2kHt+Ie49zwu4nbo/8VV9m1y/MljIrXR/?=
- =?us-ascii?Q?qyIVI6zVo17RFHhACXahYq3j2yFCEteedzFRGPdq8r6X7dMv40rdrK0aK3mq?=
- =?us-ascii?Q?5ZorclLC9mr/fnxfvkLN6vAIs5y3RNZoe4q2jYwFKTTO8R28?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NfitOPc284RvlI+hdFvDCiDmtuyjPnoJNOyw6MFItmmgMwiyqbEcASBBeOyH?=
+ =?us-ascii?Q?ha6QQlbltFGLKo+XGIQ9YdsdoRehqHsmDCH4lEiIt52czl6VUM7ZWwEnwYtX?=
+ =?us-ascii?Q?rfMJEFOm8HcuPGVWM/EgaiYyi/3t0D7SNP9jpDYS0Dkz5+9Bkh5Ww4i98VSQ?=
+ =?us-ascii?Q?7fbWxZYAOvchPzc/M+mGNCIyI6MSqBWtg5yn0jPdecvKROJ2EMY5W2JJ3Eh/?=
+ =?us-ascii?Q?YDL2nKV6qxi40dm2RgXqQUoibhuGpOrqKX9QvGXLL1DyvvsvrNdc6SYuWPNr?=
+ =?us-ascii?Q?Z2jh2dUTdJf9iVrt2VTUdVuxn/R2ZIu/Q4mp7y6r/R4PAG59oE9O3CcC8+SV?=
+ =?us-ascii?Q?DgWOJnYJGPVGWk7EFeP7193pVNmUADH5adKzOwCNex8072SsJKnwnW2PTmlB?=
+ =?us-ascii?Q?iRFxIcQ/KWEvbWSzzN3lx0+z2SplO+wdNFkxxebDolS5iL1KNE5qs2O7PSKK?=
+ =?us-ascii?Q?jQXXmyJJUFJZ4KzIyAVfniu+HzjrcWFgN03TmHlxMo4pS5SqZDiLgXOmTOD3?=
+ =?us-ascii?Q?Njv8h6fU2JTionyqXr/ysaRKSzg7yppGP1XfhdJdmJEdApeWBDDPJ5tKbQcN?=
+ =?us-ascii?Q?sbx8Ky5EBLcqzE8wlMQAqAD38RbOlQTsqxB05EeAnb+OAZmnNdA5ggjccLu1?=
+ =?us-ascii?Q?xqWkQBfYBZq9HEWr8DeuvmeyiayoTTp3o35uHOsijQJuq/qkXDgFtOiQdCuL?=
+ =?us-ascii?Q?hQ91ulthD92lD+JxxE1JmmkGrTh9XF0z2lYG29zizNop2NXyghxzki+8ilzW?=
+ =?us-ascii?Q?5XuQs9bKRCjdeT5wh3wIz+v+JbfRb61vmu71TYOHfq/0aiOJX4VwKeIpjQP/?=
+ =?us-ascii?Q?+Q/6E4AfC1inskYPok9Dfwb0qQvuEJEvCrXG2pgQNdC40Zbi/rxcgKChXUGT?=
+ =?us-ascii?Q?0eTw6WEOOVb5Tzy+qr/HIgSOMqbhv7+m2BYANnJzoUvP0JpzdaTEEPYQJ9og?=
+ =?us-ascii?Q?8s2g/h1++ro3asa13djSxvDVyUma42E0+s33w1Em+LsYQNajUgIO3u6q2OnE?=
+ =?us-ascii?Q?Xh4HJH4PeYycrVYQE/C9psY+UailmeJP0aVELZ3QWY0SxVtqzCV0vVAqAtzG?=
+ =?us-ascii?Q?3qMlN6POxANVAvBmDH9wV6GXBjQK7C1pAkaq3+DsywybpE5Yt6xqaXBChDSB?=
+ =?us-ascii?Q?JGDgP1XSHNdqAtTCFk5/+AMX75+2SF8fiFwd7EJF48vXOXPz6338shqBZ13H?=
+ =?us-ascii?Q?niHoohEz0MI2XYD0FG5654oIR7hkI4TURyMa8TE8GH5rUC3yufYF5MDGJUKE?=
+ =?us-ascii?Q?nAHSjUpF94sKPuoXWrFEnAo6Dorj64q+qUUXvt7dMCubVzOjcupJS6VWgiW1?=
+ =?us-ascii?Q?I9WHWEgJOgtmfwbAZUJwGfkcqiiCvDBU2y/ATHwYNt/iOs773BH5aE8vsxQS?=
+ =?us-ascii?Q?pHJYuH1rtk3Oe3YKt+gdh5kJ0AzdmrEH8YS4Hgud0M6wQWxJNcyNKAwNhbIT?=
+ =?us-ascii?Q?fPgRbH+TeLXOQoh/DSyIzMIFsiqKAxqnJF31exATbTZP/1pLaUUmSPiwLZJ3?=
+ =?us-ascii?Q?Rrm7njEgrvCWZzyWb6eF9J4z3cfI/eBpaZv6l+KkaJ4geCZ5KaVKCuzEO3Yc?=
+ =?us-ascii?Q?gPMLoVGpN1XomTG0N7XkLDJp83RAXG0UpFx/Yjilw+wugWY4AKuMug7hYU/U?=
+ =?us-ascii?Q?aOYblbR6HuBffo3wv9QMVYkzyfYNNcYOEHKkNuf6fCAlDgCYxBWi72O/0Yj6?=
+ =?us-ascii?Q?5ifXbMAUGylQ2P/YSIUhWb6q834o2u3qWaEX9jqbtrpwtNz+?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB8729.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff78a8e1-1cfd-4be6-5b25-08df12d7848d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2026 03:14:56.0743 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa471dd4-ef57-47b6-0645-08df12dac215
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2026 03:38:07.8086 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DwJEf0IJGOOnoY5QaXWOitQNr5F1D9VkbG2uYwN4pZnC0B60ROj2ZYRL38pLZzNd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9508
+X-MS-Exchange-CrossTenant-userprincipalname: qc2UzQNVVzpiVVAy1e1dvzvgOzABgkNg2uHG4AU4YWx4lWBTFn6maJtRcpHeEgam
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7937
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,66 +136,332 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
+The series is:
+
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
 > -----Original Message-----
-> From: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-> Sent: Monday, September 14, 2026 10:33 PM
-> To: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Cc: Koenig, Christian <Christian.Koenig@amd.com>; David Airlie <airlied@l=
-inux.ie>;
-> Daniel Vetter <daniel@ffwll.ch>; Zhang, Hawking <Hawking.Zhang@amd.com>;
-> Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org; dri-
-> devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; lvc-
-> project@linuxtesting.org; Dmitriy Chumachenko
-> <Dmitry.Chumachenko@cyberprotect.ru>
-> Subject: [PATCH] drm/amdgpu: check ras and obj before dereference
+> From: Chai, Thomas <YiPeng.Chai@amd.com>
+> Sent: Friday, September 11, 2026 2:44 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao
+> <Tao.Zhou1@amd.com>; Li, Candice <Candice.Li@amd.com>; Yang, Stanley
+> <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+> Subject: [PATCH 6/6] drm/amd/ras: remove obsolete ras mp1 v13 manager cod=
+e
 >
-> [Some people who received this message don't often get email from
-> dmitry.chumachenko@cyberprotect.ru. Learn why this is important at
-> https://aka.ms/LearnAboutSenderIdentification ]
+> Remove obsolete ras mp1 v13 manager code.
 >
-> nbio_v7_9_handle_ras_controller_intr_no_bifring() dereferences ras and ob=
-j without
-> checking either for NULL. Both amdgpu_ras_get_context() and
-> amdgpu_ras_find_obj() can return NULL, e.g. during the window between
-> adev->nbio.ras being set (early in amdgpu_ras_init(), by design, to
-> enable the fatal-error interrupt as soon as possible) and the PCIE_BIF ra=
-s object
-> actually being created in RAS late_init. Any interrupt in that window cra=
-shes in hard-
-> IRQ context.
->
-> This is analogous to commit d190b459b2a4 ("drm/amdgpu: the warning
-> dereferencing obj for nbio_v7_4"), which fixed the same issue in the
-> nbio_v7_4 handler.
->
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
->
-> Fixes: 7692e1ee2446 ("drm/amdgpu: add RAS fatal error handler for NBIO v7=
-.9")
-> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+> Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/ras/core/ras.h            |   9 -
+>  drivers/gpu/drm/amd/ras/ras_mgr/Makefile      |   1 -
+>  .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  |   1 -
+>  .../amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c    | 161 ------------------
+>  .../amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.h    |  30 ----
+>  5 files changed, 202 deletions(-)
+>  delete mode 100644 drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.=
+c
+>  delete mode 100644 drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.=
+h
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-> b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-> index 8e401f8b2a05..2b3a1b9f8efc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-> @@ -518,7 +518,7 @@ static void
-> nbio_v7_9_handle_ras_controller_intr_no_bifring(struct amdgpu_device
->                                                 RAS_CNTLR_INTERRUPT_CLEAR=
-, 1);
->                 WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL,
-> bif_doorbell_intr_cntl);
+> diff --git a/drivers/gpu/drm/amd/ras/core/ras.h b/drivers/gpu/drm/amd/ras=
+/core/ras.h
+> index 47fa30f94a2a..73e3960c7c8e 100644
+> --- a/drivers/gpu/drm/amd/ras/core/ras.h
+> +++ b/drivers/gpu/drm/amd/ras/core/ras.h
+> @@ -205,15 +205,6 @@ struct ras_psp;
+>  struct ras_eeprom_mgr;
 >
-> -               if (!ras->disable_ras_err_cnt_harvest) {
-> +               if (ras && !ras->disable_ras_err_cnt_harvest && obj) {
->                         /*
->                          * clear error status after ras_controller_intr
->                          * according to hw team and count ue number
+>  struct ras_mp1_sys_func {
+> -     int (*mp1_get_valid_bank_count)(struct ras_core_context *ras_core,
+> -                     u32 msg, u32 *count);
+> -     int (*mp1_dump_valid_bank)(struct ras_core_context *ras_core,
+> -                     u32 msg, u32 idx, u32 reg_idx, u64 *val);
+> -     int (*mp1_send_eeprom_msg)(struct ras_core_context *ras_core,
+> -                     u32 msg_id, uint32_t param, uint32_t *read_arg);
+> -     int (*mp1_get_ras_enabled_mask)(struct ras_core_context *ras_core,
+> -                     uint64_t *enabled_mask);
+> -     int (*mp1_set_debug_mode)(struct ras_core_context *ras_core, bool e=
+nable);
+>       int (*mp1_send_ras_msg)(struct ras_core_context *ras_core, u32 msg_=
+id,
+>               u32 *params, u32 num_params, u32 *read_args, u32
+> num_read_args);
+>       int (*check_ras_feature_status)(struct ras_core_context *ras_core, =
+diff --git
+> a/drivers/gpu/drm/amd/ras/ras_mgr/Makefile
+> b/drivers/gpu/drm/amd/ras/ras_mgr/Makefile
+> index 4f94c97c15ca..c70760f10ffd 100644
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/Makefile
+> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/Makefile
+> @@ -21,7 +21,6 @@
+>  RAS_MGR_FILES =3D amdgpu_ras_sys.o  \
+>               amdgpu_ras_mgr.o \
+>               amdgpu_ras_eeprom_i2c.o \
+> -             amdgpu_ras_mp1_v13_0.o \
+>               amdgpu_ras_mp1.o \
+>               amdgpu_ras_cmd.o \
+>               amdgpu_virt_ras_cmd.o \
+> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> index 7dd8a331bd1d..07dd62ae460b 100644
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> @@ -30,7 +30,6 @@
+>  #include "amdgpu_virt_ras_cmd.h"
+>  #include "amdgpu_ras_process.h"
+>  #include "amdgpu_ras_eeprom_i2c.h"
+> -#include "amdgpu_ras_mp1_v13_0.h"
+>  #include "amdgpu_ras_mp1.h"
+>  #include "amdgpu_ras_nbio_v7_9.h"
+>  #include "amdgpu_ras_bert.h"
+> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+> b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+> deleted file mode 100644
+> index 548594373d0b..000000000000
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+> +++ /dev/null
+> @@ -1,161 +0,0 @@
+> -// SPDX-License-Identifier: MIT
+> -/*
+> - * Copyright 2025 Advanced Micro Devices, Inc.
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> - * copy of this software and associated documentation files (the "Softwa=
+re"),
+> - * to deal in the Software without restriction, including without limita=
+tion
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice shall be includ=
+ed in
+> - * all copies or substantial portions of the Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> EXPRESS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> MERCHANTABILITY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+> EVENT SHALL
+> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+> DAMAGES OR
+> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+> OTHERWISE,
+> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+> THE USE OR
+> - * OTHER DEALINGS IN THE SOFTWARE.
+> - *
+> - */
+> -#include "amdgpu_smu.h"
+> -#include "amdgpu_reset.h"
+> -#include "amdgpu_ras_mp1_v13_0.h"
+> -#include "smu13_driver_if_v13_0_6.h"
+> -
+> -#define RAS_MP1_MSG_QueryValidMcaCeCount  0x3A
+> -#define RAS_MP1_MSG_McaBankCeDumpDW       0x3B
+> -
+> -static const enum smu_message_type pmfw_eeprom_msgs[] =3D {
+> -     [RAS_SMU_GetRASTableVersion] =3D SMU_MSG_GetRASTableVersion,
+> -     [RAS_SMU_GetBadPageCount] =3D SMU_MSG_GetBadPageCount,
+> -     [RAS_SMU_SetTimestamp] =3D SMU_MSG_SetTimestamp,
+> -     [RAS_SMU_GetTimestamp] =3D SMU_MSG_GetTimestamp,
+> -     [RAS_SMU_GetBadPageIpid] =3D SMU_MSG_GetBadPageIpid,
+> -     [RAS_SMU_EraseRasTable] =3D SMU_MSG_EraseRasTable,
+> -     [RAS_SMU_GetBadPageMcaAddr] =3D SMU_MSG_GetBadPageMcaAddr,
+> -};
+> -
+> -static int mp1_v13_send_smu_msg(struct amdgpu_device *adev, enum
+> smu_message_type msg,
+> -                     uint32_t param, uint32_t *read_arg)
+> -{
+> -     return amdgpu_smu_ras_send_msg(adev, msg, &param, 1, read_arg,
+> read_arg ? 1 : 0);
+> -}
+> -
+> -static int mp1_v13_0_get_valid_bank_count(struct ras_core_context *ras_c=
+ore,
+> -                                       u32 msg, u32 *count)
+> -{
+> -     struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->de=
+v;
+> -     u32 smu_msg;
+> -     int ret =3D 0;
+> -
+> -     if (!count)
+> -             return -EINVAL;
+> -
+> -     smu_msg =3D (msg =3D=3D RAS_MP1_MSG_QueryValidMcaCeCount) ?
+> -                     SMU_MSG_QueryValidMcaCeCount :
+> SMU_MSG_QueryValidMcaCount;
+> -
+> -     if (down_read_trylock(&adev->reset_domain->sem)) {
+> -             ret =3D mp1_v13_send_smu_msg(adev, smu_msg, 0, count);
+> -             up_read(&adev->reset_domain->sem);
+> -     } else {
+> -             ret =3D -RAS_CORE_GPU_IN_MODE1_RESET;
+> -     }
+> -
+> -     if (ret)
+> -             *count =3D 0;
+> -
+> -     return ret;
+> -}
+> -
+> -static int mp1_v13_0_dump_valid_bank(struct ras_core_context *ras_core,
+> -                                  u32 msg, u32 idx, u32 reg_idx, u64 *va=
+l)
+> -{
+> -     struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->de=
+v;
+> -     uint32_t data[2] =3D {0, 0};
+> -     uint32_t param;
+> -     int ret =3D 0;
+> -     int i, offset;
+> -     u32 smu_msg =3D (msg =3D=3D RAS_MP1_MSG_McaBankCeDumpDW) ?
+> -                          SMU_MSG_McaBankCeDumpDW :
+> SMU_MSG_McaBankDumpDW;
+> -
+> -     if (down_read_trylock(&adev->reset_domain->sem)) {
+> -             offset =3D reg_idx * 8;
+> -             for (i =3D 0; i < ARRAY_SIZE(data); i++) {
+> -                     param =3D ((idx & 0xffff) << 16) | ((offset + (i <<=
+ 2)) & 0xfffc);
+> -                     ret =3D mp1_v13_send_smu_msg(adev, smu_msg, param,
+> &data[i]);
+> -                     if (ret) {
+> -                             RAS_DEV_ERR(adev, "ACA failed to read
+> register[%d], offset:0x%x\n",
+> -                                     reg_idx, offset);
+> -                             break;
+> -                     }
+> -             }
+> -             up_read(&adev->reset_domain->sem);
+> -
+> -             if (!ret)
+> -                     *val =3D (uint64_t)data[1] << 32 | data[0];
+> -     } else {
+> -             ret =3D -RAS_CORE_GPU_IN_MODE1_RESET;
+> -     }
+> -
+> -     return ret;
+> -}
+> -
+> -static int mp1_v13_0_eeprom_send_msg(struct ras_core_context *ras_core,
+> -                             u32 msg_id, uint32_t param, uint32_t *read_=
+arg)
+> -{
+> -     struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->de=
+v;
+> -     int ret =3D 0;
+> -
+> -     if (down_read_trylock(&adev->reset_domain->sem)) {
+> -             ret =3D mp1_v13_send_smu_msg(adev,
+> -                     pmfw_eeprom_msgs[msg_id], param, read_arg);
+> -             up_read(&adev->reset_domain->sem);
+> -     } else {
+> -             ret =3D -RAS_CORE_GPU_IN_MODE1_RESET;
+> -     }
+> -
+> -     return ret;
+> -}
+> -
+> -static int mp1_v13_0_get_ras_enabled_mask(struct ras_core_context *ras_c=
+ore,
+> -                                          uint64_t *enabled_mask)
+> -{
+> -     struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->de=
+v;
+> -     int ret =3D 0;
+> -
+> -     if (down_read_trylock(&adev->reset_domain->sem)) {
+> -             if (amdgpu_smu_ras_feature_is_enabled(adev,
+> SMU_FEATURE_HROM_EN_BIT))
+> -                     *enabled_mask |=3D
+> RAS_CORE_FW_FEATURE_BIT__RAS_EEPROM;
+> -             up_read(&adev->reset_domain->sem);
+> -     } else {
+> -             ret =3D -RAS_CORE_GPU_IN_MODE1_RESET;
+> -     }
+> -
+> -     return ret;
+> -}
+> -
+> -static int mp1_v13_0_set_debug_mode(struct ras_core_context *ras_core, b=
+ool
+> enable) -{
+> -     struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->de=
+v;
+> -     u32 param =3D enable ? 0 : ClearMcaOnRead_UE_FLAG_MASK |
+> -             ClearMcaOnRead_CE_POLL_MASK;
+> -     int ret;
+> -     u32 smu_msg =3D SMU_MSG_ClearMcaOnRead;
+> -
+> -     ret =3D amdgpu_smu_ras_send_msg(adev, smu_msg,
+> -                     &param, 1, NULL, 0);
+> -     return ret;
+> -}
+> -
+> -const struct ras_mp1_sys_func amdgpu_ras_mp1_sys_func_v13_0 =3D {
+> -     .mp1_get_valid_bank_count =3D mp1_v13_0_get_valid_bank_count,
+> -     .mp1_dump_valid_bank =3D mp1_v13_0_dump_valid_bank,
+> -     .mp1_send_eeprom_msg =3D mp1_v13_0_eeprom_send_msg,
+> -     .mp1_get_ras_enabled_mask =3D mp1_v13_0_get_ras_enabled_mask,
+> -     .mp1_set_debug_mode =3D mp1_v13_0_set_debug_mode,
+> -};
+> -
+> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.h
+> b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.h
+> deleted file mode 100644
+> index 71c614ae1ae4..000000000000
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.h
+> +++ /dev/null
+> @@ -1,30 +0,0 @@
+> -/* SPDX-License-Identifier: MIT */
+> -/*
+> - * Copyright 2025 Advanced Micro Devices, Inc.
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> - * copy of this software and associated documentation files (the "Softwa=
+re"),
+> - * to deal in the Software without restriction, including without limita=
+tion
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice shall be includ=
+ed in
+> - * all copies or substantial portions of the Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> EXPRESS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> MERCHANTABILITY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+> EVENT SHALL
+> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+> DAMAGES OR
+> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+> OTHERWISE,
+> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+> THE USE OR
+> - * OTHER DEALINGS IN THE SOFTWARE.
+> - */
+> -
+> -#ifndef __AMDGPU_RAS_MP1_V13_0_H__
+> -#define __AMDGPU_RAS_MP1_V13_0_H__
+> -#include "ras.h"
+> -
+> -extern const struct ras_mp1_sys_func amdgpu_ras_mp1_sys_func_v13_0;
+> -
+> -#endif
 > --
-> 2.49.0
+> 2.43.0
 
