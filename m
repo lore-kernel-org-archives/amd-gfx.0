@@ -4,55 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C3EEC982C5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C995C982C4
 	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 07:37:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1CE10E6A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE7A410E781;
 	Wed, 16 Sep 2026 07:37:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="uDVhELxM";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GGPjy4LZ";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C59C10E09A;
- Wed, 16 Sep 2026 07:23:01 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hl9Mk4CvxzKp4h;
- Wed, 16 Sep 2026 09:22:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1789543378; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=enXKx7Hs6kAeb6eftCq6yc1nHOzd5D+PNTY9rTPv1hM=;
- b=uDVhELxMnPG9PuTwD/vxA52OIDDa3G1qh2sc1DdSCIotIjs2gOjwjI9nvxMWtX/HSI3hSv
- xUbDMqyr05F1FE3uZVZlfm2SAmxWkqrzr6P5LpYHnfVBUJR5LEZfRdY5WC5K8RmH24zhQ4
- nx1re/IxD/izT+ZRDVVjs18PT/iCS+rgq+CF1bIq5Km97t91EueirGknvcRTFjpjK05NgD
- BDc3in1NQiwxxMSP8EB9AmxvEYDfholNEYsB1bcgKKxIONuRmMjurMILXiVyddFeL75aC9
- 6M7xytKhoHo/nLGYiWdmabYUlxJbqY4jFsKmCpo6beLrUc3y8IpNC82dj1j4Cw==
-Message-ID: <166cf2ef60079cb1598db6687ee9395d447ba8e5.camel@mailbox.org>
-Subject: Re: [PATCH v2] drm/sched: Do not restore unsaved virtual runtime
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Philipp Stanner	 <phasta@kernel.org>, Pierre-Eric
- Pelloux-Prayer	 <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
- <matthew.brost@intel.com>,  Vitaly Prosyak <vitaly.prosyak@amd.com>,
- stable@vger.kernel.org
-Date: Wed, 16 Sep 2026 09:22:52 +0200
-In-Reply-To: <20260915150557.62847-1-tvrtko.ursulin@igalia.com>
-References: <20260915150557.62847-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3ED810E1C7;
+ Tue, 15 Sep 2026 22:48:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789512526; x=1821048526;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=iCsV6Yt3i0365LsOOymIdc9BbzAJGLoMTOgYbTHFBjo=;
+ b=GGPjy4LZsAg7YM/T+zM9KpnnaeJZzeD4YbgZ2q9PnrGcOfJYa5NBbHRK
+ BeTwhWB0CToHFh1PeJteeNAo9aYU4Y7FjPs7zQPwy9f/q1M/d0XRes3xo
+ eqdmVTA+jP4geNhkUtPsMalPcr3+CaeDDYsMq7ypiwMWVhubGvlLf8oeW
+ B6YmyMUfIRaohO4l/FrxR1ffqBim+du4N6BtJ4alnnp7XABUWlxkSNLqw
+ r3muVCYzWFNeXYjc+cpMq5rMG0PFVnTzK/iyFe1fCCMPoEznPDcnfgod7
+ s6Skatie3ApTZgcV9vHUvEyKNeil1oqms5Xep27F7ywnj9EPcM9TYftlV A==;
+X-CSE-ConnectionGUID: jAFKqmNFQxOZUhbyy3CC3A==
+X-CSE-MsgGUID: Af+94HEsSVmESpFmYyMtJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93588505"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93588505"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 15:48:45 -0700
+X-CSE-ConnectionGUID: l6aLB3sHSDCVOF+13n2dww==
+X-CSE-MsgGUID: N/e3gBTeQPOkIldTAQHVPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="277276980"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.24])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2026 15:48:40 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 16 Sep 2026 01:48:36 +0300 (EEST)
+To: Andre Eikmeyer <dev@deq.rocks>
+cc: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ linux-sound@vger.kernel.org, 
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Kenneth Feng <kenneth.feng@amd.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.de>, Takashi Iwai <tiwai@suse.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 1/3] platform/x86: apple-gmux: add MacBookPro15, 1 dGPU
+ power sequence
+In-Reply-To: <20260812144750.36797-2-dev@deq.rocks>
+Message-ID: <54a9c55c-4437-1974-dc3a-106bc2488fee@linux.intel.com>
+References: <20260812144221.35877-1-dev@deq.rocks>
+ <20260812144750.36797-1-dev@deq.rocks> <20260812144750.36797-2-dev@deq.rocks>
 MIME-Version: 1.0
-X-MBO-RS-META: 4mc338tpkdujkpseogqzxpj41o8waqwx
-X-MBO-RS-ID: 5a6222f57c809116da5
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Wed, 16 Sep 2026 07:36:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,33 +75,198 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-09-15 at 16:05 +0100, Tvrtko Ursulin wrote:
-> Prevent pushing a new job to an entity seeing it being the first in the
-> queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
-> side in drm_sched_entity_pop_job() has just de-queued the job but not yet
-> updated the saved virtual time.
->=20
-> Restoring the unsaved virtual time, which is at this point not a delta bu=
-t
-> still an absolute value, pushes the said entity to the rear of the run qu=
-eue
-> for a potentially very long time.
->=20
-> We close this race by pulling the locked sections out to encompass both
-> the queue push/pop and corresponding rbtree management.
->=20
-> This is aligned with the future direction to replace the current lockless
-> job queue with one of the fully locked standard list primitives.
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
-> Suggested-by: Luke.Wildhardt@proton.me=C2=A0# via Claude Opus
-> Tested-by: Luke.Wildhardt@proton.me
+On Wed, 12 Aug 2026, Andre Eikmeyer wrote:
 
-Shoved it to misc-fixes, thx guys
+> From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+> 
+> The discrete GPU on the MacBookPro15,1 does not return after the legacy
 
-P.
+"return" seems wrong term in this sentence.
+
+> GMUX power-on sequence. PCI configuration space remains inaccessible, so
+> runtime PM cannot provide usable hybrid graphics with the integrated GPU
+> as primary.
+> 
+> Evaluate the firmware PWG1 and PWG3 link methods around the GMUX
+> transition and wait for PCI configuration space before completing power-on.
+> Keep the sequence limited to the MacBookPro15,1 and retain the existing
+> path for every other model.
+
+
+
+> This was tested on both the 2018 and 2019 MacBookPro15,1 revisions with the
+> integrated GPU as primary. The discrete GPU transitions between DynOff and
+> DynPwr, and external displays work across the transitions.
+> 
+> Co-developed-by: Andre Eikmeyer <dev@deq.rocks>
+> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+> ---
+>  drivers/platform/x86/apple-gmux.c | 86 ++++++++++++++++++++++++++++---
+>  1 file changed, 80 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+> index 9c728ac..ccb059a 100644
+> --- a/drivers/platform/x86/apple-gmux.c
+> +++ b/drivers/platform/x86/apple-gmux.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/pci.h>
+>  #include <linux/vga_switcheroo.h>
+>  #include <linux/debugfs.h>
+> +#include <linux/dmi.h>
+>  #include <acpi/video.h>
+>  #include <asm/io.h>
+>  
+> @@ -74,6 +75,8 @@ struct apple_gmux_data {
+>  	enum vga_switcheroo_client_id switch_state_external;
+>  	enum vga_switcheroo_state power_state;
+>  	struct completion powerchange_done;
+> +	struct pci_dev *discrete_pdev;
+> +	bool use_pwg_power_sequence;
+>  
+>  	/* debugfs data */
+>  	u8 selected_port;
+> @@ -82,6 +85,34 @@ struct apple_gmux_data {
+>  
+>  static struct apple_gmux_data *apple_gmux_data;
+>  
+> +static int gmux_call_pwg(struct apple_gmux_data *gmux_data,
+> +			 const char *method)
+> +{
+> +	acpi_handle handle = ACPI_HANDLE(&gmux_data->discrete_pdev->dev);
+> +	unsigned long long result;
+> +	acpi_status status;
+> +
+> +	if (!handle)
+> +		return -ENODEV;
+> +
+> +	status = acpi_evaluate_integer(handle, (acpi_string)method, NULL,
+> +				       &result);
+> +	if (ACPI_FAILURE(status)) {
+> +		dev_err(&gmux_data->discrete_pdev->dev,
+> +			"failed to evaluate %s: %s\n", method,
+> +			acpi_format_exception(status));
+
+Add hinclude for dev_err().
+
+> +		return -EIO;
+> +	}
+> +
+> +	if (result) {
+> +		dev_err(&gmux_data->discrete_pdev->dev,
+> +			"%s failed: %llu\n", method, result);
+> +		return -EIO;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  struct apple_gmux_config {
+>  	u8 (*read8)(struct apple_gmux_data *gmux_data, int port);
+>  	void (*write8)(struct apple_gmux_data *gmux_data, int port, u8 val);
+> @@ -510,14 +541,49 @@ static int gmux_switch_ddc(enum vga_switcheroo_client_id id)
+>  static int gmux_set_discrete_state(struct apple_gmux_data *gmux_data,
+>  				   enum vga_switcheroo_state state)
+>  {
+> +	int ret;
+> +
+>  	reinit_completion(&gmux_data->powerchange_done);
+>  
+>  	if (state == VGA_SWITCHEROO_ON) {
+> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
+> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
+> +		if (gmux_data->use_pwg_power_sequence &&
+> +		    gmux_data->discrete_pdev) {
+> +			u16 vendor;
+> +			int i;
+> +
+> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 2);
+> +			msleep(100);
+> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
+> +
+> +			ret = gmux_call_pwg(gmux_data, "PWG1");
+> +			if (ret)
+> +				return ret;
+> +
+> +			for (i = 0; i < 1000; i++) {
+> +				pci_read_config_word(gmux_data->discrete_pdev,
+> +						     PCI_VENDOR_ID, &vendor);
+> +				if (vendor != 0xffff)
+> +					break;
+> +				usleep_range(1000, 2000);
+> +			}
+> +			if (vendor == 0xffff) {
+
+Does this duplicate pci_bus_read_dev_vendor_id() ?
+
+> +				dev_err(&gmux_data->discrete_pdev->dev,
+> +					"timed out waiting for PCI config space\n");
+> +				return -ETIMEDOUT;
+> +			}
+> +
+> +			ret = gmux_call_pwg(gmux_data, "PWG3");
+> +			if (ret)
+> +				return ret;
+> +		} else {
+> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
+> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
+> +		}
+>  		pr_debug("Discrete card powered up\n");
+>  	} else {
+>  		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
+> +		if (gmux_data->use_pwg_power_sequence)
+> +			usleep_range(10000, 11000);
+
+Where do these numbers come from?
+
+>  		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
+>  		pr_debug("Discrete card powered down\n");
+>  	}
+> @@ -549,11 +615,16 @@ static enum vga_switcheroo_client_id gmux_get_client_id(struct pci_dev *pdev)
+>  	 */
+>  	if (pdev->vendor == PCI_VENDOR_ID_INTEL)
+>  		return VGA_SWITCHEROO_IGD;
+> -	else if (pdev->vendor == PCI_VENDOR_ID_NVIDIA &&
+> -		 pdev->device == 0x0863)
+> +	if (pdev->vendor == PCI_VENDOR_ID_NVIDIA && pdev->device == 0x0863)
+>  		return VGA_SWITCHEROO_IGD;
+> -	else
+> -		return VGA_SWITCHEROO_DIS;
+> +
+> +	if (apple_gmux_data->use_pwg_power_sequence &&
+> +	    apple_gmux_data->discrete_pdev != pdev) {
+> +		pci_dev_put(apple_gmux_data->discrete_pdev);
+> +		apple_gmux_data->discrete_pdev = pci_dev_get(pdev);
+> +	}
+> +
+> +	return VGA_SWITCHEROO_DIS;
+>  }
+>  
+>  static const struct vga_switcheroo_handler gmux_handler_no_ddc = {
+> @@ -803,6 +874,8 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+>  	if (!gmux_data)
+>  		return -ENOMEM;
+>  	pnp_set_drvdata(pnp, gmux_data);
+> +	gmux_data->use_pwg_power_sequence = type == APPLE_GMUX_TYPE_MMIO &&
+> +		dmi_match(DMI_PRODUCT_NAME, "MacBookPro15,1");
+
+This formatting is hard to read.
+
+>  	switch (type) {
+>  	case APPLE_GMUX_TYPE_MMIO:
+> @@ -1009,6 +1082,7 @@ static void gmux_remove(struct pnp_dev *pnp)
+>  	} else
+>  		release_region(gmux_data->iostart, gmux_data->iolen);
+>  	apple_gmux_data = NULL;
+> +	pci_dev_put(gmux_data->discrete_pdev);
+>  	kfree(gmux_data);
+>  }
+>  
+> 
+
+-- 
+ i.
+
