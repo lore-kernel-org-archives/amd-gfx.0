@@ -4,56 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D142EC88E77
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 21:01:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B25DC982C1
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 21:01:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3625F10E3CB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 380FB10E4E8;
 	Tue, 15 Sep 2026 21:01:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="oQzMHwzF";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ZdWWWKWA";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4D1E10E171;
- Tue, 15 Sep 2026 14:42:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=zCGi4w9d5jru4vEsLM5FpfQfaDkBG3AruS5yhUo1Geo=; b=oQzMHwzFiW0Dwv0WRwj4wrgREh
- S4vBk/HyO1LBtQDepyAd890bDP25UOpsJCy7r2xyo/yqoBxzZ+5c2c5roSC0blVT+gu5BvehSjLgN
- 3YwFbZCtilusH7HFKBM+WHsdMMj7EfydHChvVbzHhIBdBUPnCPZzJ0qYNLu31UOO2kOA7xMlDBbhx
- quSM3QigI15Aix5T96bGGKcxJ6+VZ6Y2SKHeZdIRHA2xJ18Bu4Mdzqn7orQ3TbE3WlBYWuSwh13b4
- NEm/xNgxdKtWbRcz+j/w4elubKbhO3yUyWN4KvNdgCuCLDaCccatIC8yhsUp81GSWOCjZRPTNKXuD
- rZKhHkGw==;
-Received: from 179-125-70-185-dinamico.pombonet.net.br ([179.125.70.185]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x6UMP-002URd-U8; Tue, 15 Sep 2026 16:42:14 +0200
-Date: Tue, 15 Sep 2026 11:42:08 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com
-Subject: Re: [PATCH i-g-t v6 9/9] tests/cgroup_dmem: add
- write_eviction_nonblock subtest
-Message-ID: <aqlZQENgx5px15hb@quatroqueijos.cascardo.eti.br>
-References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
- <20260903-dmem_max-v6-9-61dc62970fae@igalia.com>
- <ec2d6a48-f243-4990-8c22-132fb3ef1007@igalia.com>
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A29610E040;
+ Tue, 15 Sep 2026 14:17:22 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hkkcH3C1VzKmJ9;
+ Tue, 15 Sep 2026 16:17:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1789481839; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qoUybKolGpMVSrpKPnSxjyM3WuM7fg6PJ5WlGQw4DUk=;
+ b=ZdWWWKWAwwVvTwg3DG9y6HRFrPQvVvFCflhZlxEBY3eZcoJ9HlEgt0YwmRkVUknQf4/TxT
+ ifYLmn5xLUaPa+x1w7S/o8FJieMJX9IR2f1QFJWJajOumis6bnKHM+wzANxWZkzFF5brkg
+ kBxSKSl88p/kDmKZqsUAuEZJFkq93Dhk8GrsM+ZUBoj0u6rscuNXf0jq3xv6p7HAcMUQ/3
+ RNr93oJzqr1v8oGRbTtGMlC0Hp0jinJIHbYVvo0AoARIvGL8GW7pDzmOEUU6OeUTDe2f+T
+ Veb8rw3ztsxW6QiyP70YlScK+UYDGQnW5qi3nIIOmsvCk+QQkjLq27yMpWyjvA==
+Message-ID: <aa8db13d6133855cee5a76cb8b77b05c3eec9807.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
+ <matthew.brost@intel.com>, Vitaly Prosyak	 <vitaly.prosyak@amd.com>,
+ stable@vger.kernel.org, Michel Daenzer	 <mdaenzer@redhat.com>
+Date: Tue, 15 Sep 2026 16:17:11 +0200
+In-Reply-To: <0766f89f-380f-49ef-a55b-dda1d3bedeac@igalia.com>
+References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
+ <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
+ <35456574-5fc6-4270-85f9-940201998116@igalia.com>
+ <2958b5de0ab4ee1c46e2068eeb7448d6e2072ee6.camel@mailbox.org>
+ <acfea48c-dd63-4352-917e-a97a10a8b810@igalia.com>
+ <28a236dcae3e2cac75b4f5afc091136db04134e7.camel@mailbox.org>
+ <0766f89f-380f-49ef-a55b-dda1d3bedeac@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ec2d6a48-f243-4990-8c22-132fb3ef1007@igalia.com>
+X-MBO-RS-META: p43c91dk7ogw8pydrfzy6i1m848dauj1
+X-MBO-RS-ID: 3d384f5940539f8fe9c
 X-Mailman-Approved-At: Tue, 15 Sep 2026 21:01:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,122 +72,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 04, 2026 at 03:51:33PM +0100, Tvrtko Ursulin wrote:
-> 
-> On 03/09/2026 23:00, Thadeu Lima de Souza Cascardo wrote:
-> > From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> > 
-> > Add write_eviction_nonblock to exercise the O_NONBLOCK path of the dmem
-> > cgroup max interface.  After filling VRAM to the cgroup limit, each
-> > limit-lowering step writes dmem.max with O_NONBLOCK so that synchronous
-> > eviction is skipped.  The test then verifies that usage has not yet
-> > dropped below the new limit, allocates a small BO to trigger eviction
-> > explicitly, and finally confirms that usage falls within bounds.
-> > 
-> > Assisted-by: GitHub Copilot:claude-sonnet-4.6
-> > Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> > ---
-> >   tests/cgroup_dmem.c | 37 ++++++++++++++++++++++++++++++++++---
-> >   1 file changed, 34 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-> > index 0d3b415acd54..ee6345c17878 100644
-> > --- a/tests/cgroup_dmem.c
-> > +++ b/tests/cgroup_dmem.c
-> > @@ -41,6 +41,7 @@
-> >   #define USAGE_DROP_TIMEOUT_MS	1000
-> >   #define TEST_INTERRUPTIBLE	(1 << 0)
-> > +#define TEST_NONBLOCK		(1 << 1)
-> >   /**
-> >    * SUBTEST: simple
-> > @@ -90,6 +91,18 @@
-> >    * REQUIREMENTS: must run as root; xe device with at least one VRAM region
-> >    */
-> > +/**
-> > + * SUBTEST: write_eviction_nonblock
-> > + * DESCRIPTION:
-> > + *   Same fill phase as write_eviction.  In the limit-lowering phase dmem.max
-> > + *   is written with O_NONBLOCK, which causes the kernel to skip synchronous
-> > + *   eviction.  After each nonblock write the test verifies that usage has not
-> > + *   yet dropped below the new limit, then triggers eviction explicitly by
-> > + *   allocating a small BO.  Finally verifies that usage falls within bounds
-> > + *   after the forced eviction.
-> > + * REQUIREMENTS: must run as root; xe device with at least one VRAM region
-> > + */
-> > +
-> >   static atomic_int signal_count;
-> >   static struct sigaction sigcont_oldact;
-> > @@ -277,7 +290,7 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
-> >   	struct igt_cgroup *cg;
-> >   	void **handles;
-> >   	int max_bo;
-> > -	uint64_t current, capacity, cg_max, limit, after;
-> > +	uint64_t current, capacity, cg_max, limit, after, before;
-> >   	int err;
-> >   	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-> > @@ -322,14 +335,31 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
-> >   	while (limit >= EVICT_STEP) {
-> >   		limit -= EVICT_STEP;
-> > -		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
-> > +
-> > +		if (flags & TEST_NONBLOCK)
-> > +			igt_cgroup_dmem_get_current(cg, cg_region, &before);
-> > +
-> > +		igt_cgroup_dmem_set_max(cg, cg_region, limit,
-> > +					!!(flags & TEST_NONBLOCK));
-> >   		igt_cgroup_dmem_get_current(cg, cg_region, &after);
-> >   		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
-> >   			  limit / SZ_1M, after / SZ_1M);
-> > +		if (flags & TEST_NONBLOCK) {
-> > +			/*
-> > +			 * O_NONBLOCK skips eviction: verify usage has not
-> > +			 * dropped below the new limit yet.
-> > +			 */
-> 
-> Is this userspace ABI contract or happens to be? It feels odd - even if we
-> ask for non block for the write why would kernel not be allowed to do stuff
-> behind the covers?
-> 
+On Mon, 2026-09-14 at 13:31 +0100, Tvrtko Ursulin wrote:
+> On 14/09/2026 10:37, Philipp Stanner wrote:
 
-You bring up an interesting perspective. So maybe the test below might
-fail. But we are assuming the test is running with no other users, so this
-would be unexpected. Unless we setup dmem.min, there is no guarantee that
-eviction won't happen. However, I think the test is still useful as it is.
-We are checking that nonblocking behavior will not trigger eviction right
-away. We risk not catching up such regression if we leave it out. If we end
-up noticing on CI that this happens, we can investigate and revisit.
+[=E2=80=A6]
 
-Thanks.
-Cascardo.
+> > I took another look and I think my only issue is basically just that
+> > the patch addresses something which we should have done regardless of
+> > the bug at hands. So I'd be already happy if the commit just had a
+> > different title and slightly extended commit message, like:
+> >=20
+> > "drm/sched: Fix vruntime race by extending locking"
+> >=20
+> > plus sth like
+> >=20
+> > "this simultaneously serves as a preparational step to replace the
+> > spsc_queue as a whole".
+>=20
+> As I think it is fine as is I would prefer not to spend time on a respin=
+=20
+> unless you insist.
+
+As I see it every patch that fixes something by moving or adding a lock
+solves a race condition. So we should call the child by the name. By
+calling it that we also publicly agree on our desire to extend locking
+and document in the log that drm_sched is moving towards that goal.
+
+If the effort bothers you too much, I could also apply it and thereby
+rephrase a bit.
+
+We can then request backmerge into misc-next and base the followup-
+cleanups on it.
+
+>=20
+> > > > Is there a plan btw as to how you would like to proceed with CFS?
+> > >=20
+> > > So for me the most typical and useful plan, and in the context of the
+> > > desired spsc removal, is:
+> > >=20
+> > > =C2=A0=C2=A0 - Merge this fix so it gets into 7.2
+> > > =C2=A0=C2=A0 - Spsc removal RFC for some upcoming release N.
+> > > =C2=A0=C2=A0 - Remove experimental status from fair policy for kernel=
+ release >=3D N.
+> > > =C2=A0=C2=A0 - Switch fair to default at >=3D N+1.
+> >=20
+> > Couldn't it be enabled first for dedicated users? AFAIK it was
+> > developed with Steam's gaming platforms in mind. Can their OS devs be
+> > asked to switch it on or test it downstream?
+>=20
+> It wasn't quite developed for single game use cases, but with the wider=
+=20
+> goal of improving the code base and DRM landscape in general.
+>=20
+> Also, I think it could give us false confidence since the matrix of=20
+> hardware + kernel setups is quite small. Even this bug wasn't caught on=
+=20
+> an official platform, neither could I repro it on a Steam Deck. So I=20
+> would say a release or two after it is set as default is quite safe=20
+> since it can be easily reverted with a one line change.
+
+OK.
 
 
-> Regards,
-> 
-> Tvrtko
-> 
-> > +			igt_assert_f(after == before,
-> > +				     "Expected no eviction with O_NONBLOCK, but "
-> > +				     "usage dropped from %"PRIu64" MiB to %"PRIu64" MiB "
-> > +				     "(limit %"PRIu64" MiB)\n",
-> > +				     before / SZ_1M, after / SZ_1M, limit / SZ_1M);
-> > +		}
-> > +
-> >   		if (limit > EVICT_STEP) {
-> > -			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
-> > +			if ((flags & (TEST_INTERRUPTIBLE | TEST_NONBLOCK)) && after > limit) {
-> >   				/* Let a new bo creation trigger eviction. */
-> >   				void *handle;
-> >   				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
-> > @@ -368,6 +398,7 @@ static const struct {
-> >   	{ "current", test_current, 0 },
-> >   	{ "write_eviction", test_write_eviction, 0 },
-> >   	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
-> > +	{ "write_eviction_nonblock", test_write_eviction, TEST_NONBLOCK },
-> >   	{ }
-> >   };
-> > 
-> 
+P.
