@@ -4,99 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB087C88E75
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 16:09:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 499F6C88E75
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 17:23:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AAAC10E226;
-	Tue, 15 Sep 2026 16:09:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCC0010E109;
+	Tue, 15 Sep 2026 17:23:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tUDga1J5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NdAD9SYc";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010058.outbound.protection.outlook.com
- [40.93.198.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A978210E226
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 16:09:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cQQu5fZlRrxO6dftnBrc4Zdh/3CMe41FMCCQLPsatQtGUnsjtDS/lnl+C5idYFiATgCRiqB/h73wWnFaYNZu12Mj4fPE4CTNSk7mzGGIb8Z3hbL9ymiXjYsvf9gmMqSvwkkOSBUq6PsbzMRDB07PMBgx0KXbOyItZ1+GCty1GdHKbGhcu4J0IrW7QuIq5SsV42MIOQSHFj4EAWiA0CH5YRaR4L2GLV+K6wSfNPIWUdy+Y05SvjWOBqDZRQmvOlwzuz0uavvF3zSk8tjwtewNsDe4TLWiOwj8/IfZbtA/LA4xpfF+CX/mJ/VZb9nUtLqVAGpqGVoHQ2g7ucX837/06Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tcsNaHRrYvPPwX29woGQjk78uCrvjt570VTVgMu/4kg=;
- b=aMzc3n1yBZomcCNP1bQcT0JXzqT+cWR+k3K+AX/L5knpogWKDx0QO/Q2/pMsun9wu0qCqhlcCEgD1Y9iQbt0ZgyrHw+aFRSH1kg2y+7hYGHObFlKhqF7UfKJMZ+MabcysjuA0iiXR3qZsOsieJg1ECG83KQfZbuLJz1/DZw4eknkJNRUQrKwNnJ3FzjERC2jaWHz2qArOGkkH41ml8jISum6ZRw6WefRyGLoMaFR4hTvAmqmxkMwQMk8VvBxsRPWYg7xKmnmkf2OYnh8Vgfd7n/vcbHw5o6F0AFIoda/CEqoDf3oYlag/mZnk7UQmDqA/36jerJiJmVvBZmHTI3b4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tcsNaHRrYvPPwX29woGQjk78uCrvjt570VTVgMu/4kg=;
- b=tUDga1J56Amx7kL1QK7u6aZZF/r8OrbaqxIEi/3+wMDLQAd4RDGBFZIGoE8JgzvyPb7b4ZY0uieAy+3jyw7bp+if7C2kt9dkjOOqetOoiNBNdfJWzTp0a0R7fDjWZyTLRe5kgR1uVLzaxU46BvapeJHNk1/j3k1/Ml0Qfcto9is=
-Received: from CH0PR03CA0325.namprd03.prod.outlook.com (2603:10b6:610:118::31)
- by DS0PR12MB8562.namprd12.prod.outlook.com (2603:10b6:8:164::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 15 Sep
- 2026 16:09:42 +0000
-Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
- (2603:10b6:610:118:cafe::55) by CH0PR03CA0325.outlook.office365.com
- (2603:10b6:610:118::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
- Sep 2026 16:09:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.0 via Frontend Transport; Tue, 15 Sep 2026 16:09:41 +0000
-Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 15 Sep 2026 11:09:40 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>, Lijo Lazar
- <lijo.lazar@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH] drm/amdgpu: Fix GPU PCIe link capability reporting
-Date: Tue, 15 Sep 2026 11:09:32 -0500
-Message-ID: <20260915160932.2118978-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E59E510E109
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 17:23:10 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c2940ef15c1so13118866b.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 10:23:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789492989; x=1790097789; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=drXxK3Ob4F1sjELs/THgN0WFq+7nK1SJBnzarpIaRqY=;
+ b=NdAD9SYcbl6/9YPA+/YCuY1Jm2TgI+wnJoqLKN4ulXyoVhKDWS26ign5FBkerpYx5/
+ 2Ykxf9cSi/IlcSCf07Lidqz/whORjsJvwrSaceCd27e/zuQPKIlnrQuKx5rJJMW/pxlo
+ eMfGNpf6//1nnDeHi4WraOKdFLzJ6L08BjC3uHS18i8+3wRC2jErrjDycetpLavvgKfA
+ RbBdbbg9Mgkznxv9mhU9Dmd9OPBR2lGP4Cz17xL8Qa6WuQN/NJbnbEfzgKcshRhxECnb
+ E3iJMDbZJ1PoPQse22D1dyDd6cnBfw5Epv66Iz6dcP0XME7inoIAadH0IGoI/cMiWshO
+ bvVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789492989; x=1790097789;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=drXxK3Ob4F1sjELs/THgN0WFq+7nK1SJBnzarpIaRqY=;
+ b=PayiLrqdYAoed06jX46wBrxvKnPxsVqUGHLWBOkazatJHCrw2QkLrEIifXjoMmzEqJ
+ H908i5dYID8cGgO/DOyn+QZq41dFzK3DxGov1bMylCIiOictNUZpKxp6vSq2DzorGji0
+ hpSWqjJs7CncMbi4YtDEGvCMnjXy84qeYHRYexVioqEoYxS5Y82CH98r6urx5I5fdbSN
+ QJxN+NKWrBzjBRSZKLLbBp9Psxzmr2LW+l090ttOAUnU9PAEHANxyKfkyrkQBdHKgemT
+ xQUOFwRBZ/jOeBonSvij22RBmn77465/Fh25FMnI4ETo1sVG1xFZWvgDuH+wEDBXC4r2
+ AsnQ==
+X-Gm-Message-State: AFuF++mwvVghYHUGhMTMsPhzE2BAIbFqzplbZq25FvLno2csAJwylzWs
+ 3sjURx/sX/w5I8kXJ/uvp6+Sfmk6ITfmc069U33g4moljOmgGsZ22+aV
+X-Gm-Gg: AYBFou2Y0xnHoQhLLCVnTmyMGq9RDz906OhbJcbW3DuBVOLKuxxNVn3iWCvlyavFFjE
+ RdTsFNIprTZuaZnE8c6nY9UgAxUmwBeNVzGhJD8YdtSQogFx8/n4PSvRiMdW7Gf5sQAQCn/nPd4
+ Riv/ydLfX3kv0kL/sPGGndIg192B0GyrfMIV7hbJ2dLYVqPxuWMu1gIh/TaA0jlIy30flwpufIk
+ FJMZjp5G2ySqFcrUi8p9TiPfd2P3qH5NplyjxZbdPeMYrXD5P+IH+vXH0qDPckvfp3S5jQ/ittF
+ kBgMTjh1KCYpTvSGNcNey4qsEya4wmFj0uVq/nWkzWp0nk3s/HOvg+L50jCYGbiaBDroZ42764L
+ iAxkZ/HzcAJjDgP34ZstKvIVY6mHiDB4bNd48uEA+PZr+DxcNhS3NAQ7jw5c32rDo9ugmgl1bmh
+ 09QYiW+XHAfiVUvTEZaaDbnRiOwjzj5OCCCVPbuFoDRnKDPRwkBlbU46MxvuPgiEOCI+5q1cuDd
+ s/EMQ8UfZWKaY5gWImeFlOM7sT4f4tOMtCshR31GH4Gdt52tUz2nC9/
+X-Received: by 2002:a17:907:3cc2:b0:c29:5d41:dfe8 with SMTP id
+ a640c23a62f3a-c29d79b9fcfmr164712266b.43.1789492989039; 
+ Tue, 15 Sep 2026 10:23:09 -0700 (PDT)
+Received: from timur-hyperion.localnet (54001FD5.dsl.pool.telekom.hu.
+ [84.0.31.213]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c29de48755asm6606766b.24.2026.09.15.10.23.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Sep 2026 10:23:08 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, pierre-eric.pelloux-prayer@amd.com,
+ Natalie Vock <nat@pixelcluster.dev>, Lijo Lazar <lijo.lazar@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
+Subject: Re: [PATCH 00/12] RFC: drm/amdgpu/sdma: Refactor SDMA v4 and older
+ functions to be per-instance
+Date: Tue, 15 Sep 2026 19:23:07 +0200
+Message-ID: <CBgaIVTsRE2O7KG28C_9bw@gmail.com>
+In-Reply-To: <CADnq5_P_cVmHqd5sB6vwGqYA6jSY_fY6EWQp+WofptCgC8nRLw@mail.gmail.com>
+References: <20260907203316.159103-1-timur.kristof@gmail.com>
+ <CADnq5_P_cVmHqd5sB6vwGqYA6jSY_fY6EWQp+WofptCgC8nRLw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|DS0PR12MB8562:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09b5b8cd-09b8-45d4-7e0d-08df1343c014
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|13003099007|4133799003|6133799003|10067099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: g0FC6Z/zoR7KWWiE8jXr0F0bcEPhuUUTC2PXl9WulxSUAWB+FgtU0qDC8dfhBj4Ib2e8jxOvjSffv4j/2GHtmHjSt1DUt8ElTYtRP+yVSB3flG/5AgdMogkiJ89iiJ5n2lJhNYDbnA6sW4Czqn9krBGQyLpGVTlX+g4rWkwf5hkTJo4aOtmyAxOsFpFWM9QuejC8pSjpfe0n01vs9S/R2XZ0PDstC+Tt5pEeQSaGLcLNH6nQlS4nnUkqMqtpjfMFNdGIPgbLX6nuEF88NYSuQq6aBHXEL7F8j4oHIiKSnZX2xP2tNZ1Ci8rwCpsG7E22sqd/Ubw/iLcNmOLkXmuP42RI4mEjMCNjKZ6lo3J2nIU+PjzmUMA/vmzbpEHT72jqIhoiU6Rv4MhA8q8xkOXsroIzjDRIq5GJrVATrIxQGEKBjnO/eXzvqn7Wp4qPdBkct2NFDT1XW4rNURpBcL+6voUpBFKZLg5Xk39EcivIl7QyQftGLQzGTxRNqKqzSnscBA6FE7jXXP8wKZafsy63IQWIEiNGgHjMrGc6qGIQS1wUgXJuyEgUG8t0mPTjlOL80nWH0G0GS2ETdHGFn65WHAeFgJA3WIE867ZEwlnJsxXy9nayJ7sv6QZwnmU0lDhnIz04hrBkieVcJZejmxkK6+kncYRWBt0NgnyqSI5r4QiCNKOygkK2daC6p0huz7M02AjatDA8jtC2gWyuQ9op1Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(13003099007)(4133799003)(6133799003)(10067099003)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vhPvEe5Of7+h4450949g+tmil/+M2fY8JBm3rgYsgfqQbDxJghCVuTgVJ0oY51vriV+b79DkDcdSf8zidfI+fPcr2+CmMzoSQNRs2+fRovqlY3DMEr3JLBzyinFiajAQm6H+TVtS+zvmHbd5J/nDd3lFTfyi8idAWcVjh21xL2p88kGNRUNkSCnB1TvYDwmBi20LEWCtW+dMA/cOXv07Eegyxz6XzGCTyiHIHudG8Jv8j9GIZL35Byu/lIfIB0l0NpI0C9sXvnRLUViIs5lmsWhuU10Sw9q0CzVxg34HWSdekZK0QMEjEFq3pjPvuBGKD/bc3Xcl2GRXXQNR+k2+EkWLm8H6jPIOenSNUuao4MZ9K7bnejgsqFaBM1QpXU64mS7u4F/4OpaU2JMTNV+wMbh+zivTPsm3Pqjsl9bmwfsNlPAAVJqXMTHM6MUEHfLg
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 16:09:41.5777 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09b5b8cd-09b8-45d4-7e0d-08df1343c014
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36F.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8562
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,144 +95,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit eb53125a7ad9 ("drm/amd: Add dedicated helper for
-amdgpu_device_find_parent()") made amdgpu_device_gpu_bandwidth() query
-the first device outside the dGPU. That is the host side of the
-physical link, not the GPU side.
+On Friday, September 11, 2026 9:00:07=E2=80=AFPM Central European Summer Ti=
+me Alex=20
+Deucher wrote:
+> On Mon, Sep 7, 2026 at 4:40=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@=
+gmail.com>=20
+wrote:
+> > This series applies on top of my previous series:
+> > "Improve existing SDMA queue resets" (currently under review)
+> >=20
+> > Prepare the code for implementing recovery for
+> > SDMA v4 and all older SDMA (and SI DMA) versions.
+> > Reorganize the SDMA 4.0 code so that the functions that are
+> > responsible for managing the SDMA engines take an instance ID
+> > as an argument.
+> >=20
+> > This makes it possible to manage the SDMA instances
+> > independently of each other, which will enable us to
+> > also use these functions to implement resetting and
+> > recovering them independently. (The actual recovery
+> > implementation will be in a follow-up patch series
+> > which I will submit after this one is accepted.)
+>=20
+> This series looks fine to me, although I think I would prefer to apply
+> it along with the relevant soft reset changes to avoid churning the
+> code until each family is ready.  E.g., apply the cik_sdma refactor
+> along with the CIK soft reset support, etc.  Unless you have something
+> else in mind.
 
-As a result, the ASIC and platform capability masks can both be based
-on the host port. drm_amdgpu_info_device then exposes the host
-capabilities to userspace, such as Gen5 x16 for a Gen4 x8 GPU.
+Thank you Alex.
 
-Cache both ends of the physical link during device initialization.
-Use link_dev for the GPU capability and link_partner for the platform
-capability and _PR3 detection.
+My plan is the following:
 
-Reported-by: "Marek Olšák" <maraeo@gmail.com>
-Closes: https://lore.kernel.org/amd-gfx/CAAxE2A4VhsAzzO1QjBjUg+NgnbD04ZzMyN6xsUJxjKJHH6hxiw@mail.gmail.com/
-Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-Fixes: eb53125a7ad9 ("drm/amd: Add dedicated helper for amdgpu_device_find_parent()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 48 ++++++++--------------
- 2 files changed, 20 insertions(+), 31 deletions(-)
+1. I would like to first refactor the functions for every SDMA IP block ver=
+sion=20
+to be per-instance.
+2. Then, I'd like to improve the soft reset code, more specifically the mul=
+ti-
+ring reset helpers and amdgpu_device_ip_soft_reset() to make them aware of =
+IP=20
+block instances and change SDMA v4.4.2, v5.0 and v5.2 over to use that code.
+3. With all of that out of the way, it will be pretty easy to hook up the s=
+ame=20
+soft reset mechanism for SI, CIK, VI as well.
+4. At that point, we should also consider if we want soft reset for SDMA v6=
+=20
+and v7. Technically these versions support proper queue reset through the M=
+ES,=20
+but in practice I've seen the MES fail so often that I wouldn't consider it=
+=20
+stable.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 79b69d74eb2e5..3bad7b8f621cc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -626,6 +626,9 @@ enum amdgpu_enforce_isolation_mode {
- struct amdgpu_device {
- 	struct device			*dev;
- 	struct pci_dev			*pdev;
-+	/* The two ends of the physical PCIe link outside the device. */
-+	struct pci_dev			*link_dev;
-+	struct pci_dev			*link_partner;
- 	struct drm_device		ddev;
- 
- #ifdef CONFIG_DRM_AMD_ACP
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 44091ac12fa9c..0d277516fd55e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1959,18 +1959,17 @@ static void amdgpu_uid_fini(struct amdgpu_device *adev)
- 	adev->uid_info = NULL;
- }
- 
--static struct pci_dev *amdgpu_device_find_parent(struct amdgpu_device *adev)
-+static void amdgpu_device_init_pcie_links(struct amdgpu_device *adev)
- {
--	struct pci_dev *parent = adev->pdev;
-+	adev->link_dev = adev->pdev;
-+	adev->link_partner = pci_upstream_bridge(adev->link_dev);
- 
--	/* skip upstream/downstream switches internal to dGPU */
--	while ((parent = pci_upstream_bridge(parent))) {
--		if (parent->vendor == PCI_VENDOR_ID_ATI)
--			continue;
--		break;
-+	/* Skip upstream/downstream switches internal to the dGPU. */
-+	while (adev->link_partner &&
-+	       adev->link_partner->vendor == PCI_VENDOR_ID_ATI) {
-+		adev->link_dev = adev->link_partner;
-+		adev->link_partner = pci_upstream_bridge(adev->link_dev);
- 	}
--
--	return parent;
- }
- 
- /**
-@@ -1986,7 +1985,6 @@ static struct pci_dev *amdgpu_device_find_parent(struct amdgpu_device *adev)
- static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ip_block *ip_block;
--	struct pci_dev *parent;
- 	bool total, skip_bios, early_full_gpu_access = false;
- 	uint32_t bios_flags;
- 	int i, r;
-@@ -2082,10 +2080,9 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- 	    !dev_is_removable(&adev->pdev->dev))
- 		adev->flags |= AMD_IS_PX;
- 
--	if (!(adev->flags & AMD_IS_APU)) {
--		parent = amdgpu_device_find_parent(adev);
--		adev->has_pr3 = parent ? pci_pr3_present(parent) : false;
--	}
-+	if (!(adev->flags & AMD_IS_APU))
-+		adev->has_pr3 = adev->link_partner &&
-+			pci_pr3_present(adev->link_partner);
- 
- 	adev->pm.pp_feature = amdgpu_pp_feature_mask;
- 	if (amdgpu_sriov_vf(adev) || sched_policy == KFD_SCHED_POLICY_NO_HWS)
-@@ -3783,6 +3780,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 
- 	adev->shutdown = false;
- 	adev->flags = flags;
-+	amdgpu_device_init_pcie_links(adev);
- 
- 	if (amdgpu_force_asic_type >= 0 && amdgpu_force_asic_type < CHIP_LAST)
- 		adev->asic_type = amdgpu_force_asic_type;
-@@ -5880,11 +5878,9 @@ static void amdgpu_device_partner_bandwidth(struct amdgpu_device *adev,
- 	*width = PCIE_LNK_WIDTH_UNKNOWN;
- 
- 	if (amdgpu_device_pcie_dynamic_switching_supported(adev)) {
--		struct pci_dev *parent = amdgpu_device_find_parent(adev);
--
--		if (parent) {
--			*speed = pcie_get_speed_cap(parent);
--			*width = pcie_get_width_cap(parent);
-+		if (adev->link_partner) {
-+			*speed = pcie_get_speed_cap(adev->link_partner);
-+			*width = pcie_get_width_cap(adev->link_partner);
- 		}
- 	} else {
- 		/* use the current speeds rather than max if switching is not supported */
-@@ -5906,21 +5902,11 @@ static void amdgpu_device_gpu_bandwidth(struct amdgpu_device *adev,
- 					enum pci_bus_speed *speed,
- 					enum pcie_link_width *width)
- {
--	struct pci_dev *parent = adev->pdev;
--
- 	if (!speed || !width)
- 		return;
- 
--	/* use the device itself */
--	*speed = pcie_get_speed_cap(adev->pdev);
--	*width = pcie_get_width_cap(adev->pdev);
--
--	/* use the link outside the device */
--	parent = amdgpu_device_find_parent(adev);
--	if (parent) {
--		*speed = pcie_get_speed_cap(parent);
--		*width = pcie_get_width_cap(parent);
--	}
-+	*speed = pcie_get_speed_cap(adev->link_dev);
-+	*width = pcie_get_width_cap(adev->link_dev);
- }
- 
- /**
--- 
-2.43.0
+This RFC is basically a prototype for step (1) and only takes care of SDMA =
+v4=20
+and older just to show how I imagine doing the refactor. If you like this=20
+direction, I would like to do the same for all IP versions before moving=20
+forward with soft reset changes and other refactors. I prefer to do this fi=
+rst=20
+for all IP versions because I think it's important to have consistency with=
+in=20
+the code base regarding how the SDMA is programmed.
+
+What do you think, would that be OK for you?
+I understand this causes code churn, sorry about that.
+
+Thanks & best regards,
+Timur
+
+>=20
+> > Timur Krist=C3=B3f (12):
+> >   drm/amdgpu/sdma: Refactor SI DMA functions to be per instance
+> >   drm/amdgpu/sdma: Refactor SI DMA clock gating functions to be
+> >  =20
+> >     per-instance
+> >  =20
+> >   drm/amdgpu/sdma: Refactor CIK SDMA functions to be per instance
+> >   drm/amdgpu/sdma: Refactor CIK SDMA clock gating functions to be
+> >  =20
+> >     per-instance
+> >  =20
+> >   drm/amdgpu/sdma: Refactor SDMA v2.4 functions to be per instance
+> >   drm/amdgpu/sdma: Refactor SDMA v2.4 golden registers to be
+> >  =20
+> >     per-instance
+> >  =20
+> >   drm/amdgpu/sdma: Refactor SDMA v3.0 functions to be per instance
+> >   drm/amdgpu/sdma: Refactor SDMA v3.0 clock gating functions to be
+> >  =20
+> >     per-instance
+> >  =20
+> >   drm/amdgpu/sdma: Refactor SDMA v3.0 golden registers to be
+> >  =20
+> >     per-instance
+> >  =20
+> >   drm/amdgpu/sdma: Refactor SDMA v4.0 functions to be per instance
+> >   drm/amdgpu/sdma: Refactor SDMA v4.0 clock gating functions to be
+> >  =20
+> >     per-instance
+> >  =20
+> >   drm/amdgpu/sdma: Refactor SDMA v4.0 golden registers to be
+> >  =20
+> >     per-instance
+> > =20
+> >  drivers/gpu/drm/amd/amdgpu/cik_sdma.c  | 322 +++++++-------
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 232 +++++-----
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 561 ++++++++++++++----------
+> >  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 577 +++++++++++++++----------
+> >  drivers/gpu/drm/amd/amdgpu/si_dma.c    | 160 ++++---
+> >  5 files changed, 1043 insertions(+), 809 deletions(-)
+> >=20
+> > --
+> > 2.55.0
+
+
+
 
