@@ -4,84 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C603FC88E75
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 13:14:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBE3BC88E7B
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 13:14:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C8DA10E757;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9A410E650;
 	Tue, 15 Sep 2026 13:14:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hDQxxHON";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="m7HB4ItW";
 	dkim-atps=neutral
-Received: from mail-lf1-f65.google.com (mail-lf1-f65.google.com
- [209.85.167.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63C7A10FC18
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 12:14:26 +0000 (UTC)
-Received: by mail-lf1-f65.google.com with SMTP id
- 2adb3069b0e04-5b8997bc6e6so676050e87.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 05:14:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789474464; x=1790079264; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=hT109/DKD8D3ImrzvgTZ3A2CRXv9GUhxcQttm3TUwyQ=;
- b=hDQxxHONauGGsgYgKg+NR58zgeQNy2X82s/K4l9I7AdUABc+gEHDyiez5IuATTEo+E
- DTTk3ObigaJQinQePrM28oUEttvPuyZm8GJPrZyb7ueV8FaootknCrHoxR+hjmWnCUUe
- M//iPTklXoWeEjTlYLSRFd6/rFjb+0ANrkeHBlrts5zP7iW5T7ufbSnwK83jK1zImyJW
- nIqQUHgeplUlxScpgSveG2mymOO0EWfYR3JLuzkjnpnFFUrqpmpk2SYZGYX6HNLZmIAo
- aLnpSGNpENNjykr1SvD7ttci0ZmL9i0CnCuQWJ0NOAQgM9WS3T3IyYxzaOldKG5h1t3v
- v41A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789474464; x=1790079264;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hT109/DKD8D3ImrzvgTZ3A2CRXv9GUhxcQttm3TUwyQ=;
- b=IfGgMSp0ike6S1e8WvyLapKdbs5AG7lzeRmd7GC+xTtdyZinZ8naDhvbQJd7KcI+ps
- uBb1gBLIHf3OJy7DTkY0IhIzHJJNzWxwjPk576Q7Z+IJxwLQae2KH3j1qaQ0O1pYsdbY
- WvAmjRC0gSDMPDEcDVkMmSwrp71Bvn/H0Uoa9wOzRwDBKpR3vcAN0GhSYzA9muVOcpDD
- /SAU/2MCQm1Az8hCLHaEH2ZWUbDEwpAS8JD/aaU3AWISTljEvtvEOh2x07zrk1fA/KXh
- PbQwGY+EVhKKNXb7AjhwUxeQXFE1Q0wCaYmEHe5k+FOJcuzWYGlapLbTdVKg7iL7+76r
- EF6g==
-X-Forwarded-Encrypted: i=1;
- AKwUvByJnb19NA4j8+CoO4zfU38GsIIVgnH+PIp1rCZXHY3i8m1xnF4hMuPcjH7gXK2gMQOQB4IpssAd@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nFEXU4GZXyF7C051hikD0dPr3xZ92Ro+RhgL0pJdI3KBzXwPDh
- +WGILELmBZdk3hXN2lIHxG6KjyqA/JLZuH0xxoockw2Gjug3EDca4vzZ
-X-Gm-Gg: AYBFou3KLtjqO7UxH8t9aq8jDMmzA2+U0lt2RIxhxW8wX/hdpVzHCmZEyYh8//kBGqv
- /HUyh+CSUjwgS+/SW5cWhMCL5dBpZ2hvycF0vjdH6SgECG3rlLzVXxVykXg9q7wj0dd1iS0PdNm
- eHvJUPFEYMAos9u0OSibI10OzgwqQEDzN1ASsM10N+EkTCzyI4Dl1rrx/EF1r3T0LlvGeP7iWL3
- x9CRbbafbacs2SzDWS37651Pr8kGnZhdB/2onJiRMk39kfXnKo5Mjhk5FWAD7LVNNXNTdjcUYMs
- nztqphc/juUm1Or0KggB84E9rN7Lfv/zR8d3pFNPPcnpLrZFM54XE2VqkOiJfzBPXKEUGFpZPZJ
- 3xAM5N5unmPedNAewB9/im1OQ5wY1eoZ1rwc8uARkAOnMxcvsZqXI4BEzsYNHIze3vKsHojfM4B
- 2GIHaCTDG93ObH030zN/2EPK6u3nEaZ/QOY6wvypD2tUFYgguKE2iwvBX7zNr+0PxtA4jfA4dmr
- Sgyj1A5/IG0QLmA
-X-Received: by 2002:a05:6512:6ce:b0:5ae:b5d7:4b99 with SMTP id
- 2adb3069b0e04-5b8b29d4641mr846404e87.0.1789474464385; 
- Tue, 15 Sep 2026 05:14:24 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8b3a58fdasm446114e87.12.2026.09.15.05.14.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Sep 2026 05:14:24 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DB6110F395;
+ Tue, 15 Sep 2026 10:37:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:From:Reply-To;
+ bh=pUaNdE/ksclSo83DfteFLMPN1opeeAZY4wWnZgrFVTY=; b=m7HB4ItWLBzRfKQN//n5ufcrsY
+ 4+h8RdKbOqH7GB6vAtbk+yUHIAMOXgw/KbDyVCSlc/9pzfsP0mBajUw/V4lQVwY61Iye4IgdB/z9B
+ TvcHQJtAdWWnTz/QPhQSJQLVKrCIHp/1T6Xt1Ksv3ywCDPUc6/+Xb9e8kID5mb0CDPr29RKAy986e
+ ZYyQZdiD1BQbiqCKCYA7mT7iwYsHtD6sw1aM4k5FtL/kH910C6hQaM7MLYDJ513HgYs8AOE3oy3hr
+ JjeWVtSE8/l8GoYV2fTUmu99WHdIJpCGTyt9W6hI31aq/JmTOctSS+dU4vCtwwzIIC0/4Nhg4JBII
+ 2ZQR4F7g==;
+Received: from 179-125-70-185-dinamico.pombonet.net.br ([179.125.70.185]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x6QXH-002NlV-GJ; Tue, 15 Sep 2026 12:37:11 +0200
+Date: Tue, 15 Sep 2026 07:37:04 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Natalie Vock <nat@pixelcluster.dev>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Oded Gabbay <oded.gabbay@gmail.com>,
- Kent Russell <kent.russell@amd.com>, Amber Lin <Amber.Lin@amd.com>,
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>
-Subject: [PATCH 5.10] drm/amdkfd: Check for null pointer after calling kmemdup
-Date: Tue, 15 Sep 2026 15:14:03 +0300
-Message-ID: <20260915121405.107068-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
+ amdgpu_vm_update_range fails
+Message-ID: <aqkf0LE51mObdEJc@quatroqueijos.cascardo.eti.br>
+References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
+ <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
+ <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
+ <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
 X-Mailman-Approved-At: Tue, 15 Sep 2026 13:14:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,41 +68,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+On Tue, Sep 15, 2026 at 10:53:43AM +0200, Natalie Vock wrote:
+> On 9/15/26 10:33, Christian König wrote:
+> > On 9/14/26 22:25, Thadeu Lima de Souza Cascardo wrote:
+> > > If amdgpu_vm_update_range fails when called by amdgpu_vm_clear_freed,
+> > > the clearing of that mapping will not be attempted again. Later on, when
+> > > an IB tries to read that mapping, the read succeeds, leading to a
+> > > potential info leak, or even data corruption, if it attempts to write to
+> > > it.
+> > > 
+> > > If the mapping is left in the freed list, then clearing will be
+> > > attempted again during amdgpu_cs_ioctl, which will either fail and not
+> > > submit the job or will succeed in clearing the mapping, preventing the
+> > > invalid access.
+> > 
+> > Same as I replied to oushinnyo <oushinnyo@163.com>, absolutely clear NAK to that.
+> > 
+> > amdgpu_vm_update_range() can only fail when the device is hot removed and we don't care about clearing page tables in that case.
+> 
+> Actually, how so? The SDMA update path has lots of allocations that happen
+> at random points throughout the update process (think the SDMA IB being
+> exhausted, then vm_funcs->update() will allocate a new one and can fail on
+> that, or various fence allocations. Some paths allocate from the delayed IB
+> pool which is just regular GFP_KERNEL, why couldn't these allocations fail?
+> 
+> Aside from that, the more trivial failure path that I think Thadeu is also
+> talking about here is that amdgpu_vm_ptes_update will call
+> amdgpu_vm_pt_alloc (so that happens in the middle of VM updates) and these
+> allocations can fail. I'm not even sure if drm_exec can save this one
+> because we need to be ready to drop locks and retry.
+> 
+> I get that failing is unacceptable for the cases inside a pagefault handler
+> (though I'm not sure if anything of what I mentioned applies here, pagefault
+> VM updates are immediate so they get GFP_ATOMIC, but maybe the pagefault
+> handler could still allocate PTs?) but for anything else, failure seems like
+> a possibility and maybe we should think about handling it in some way.
+> 
+> I'm not sure I see a problem in keeping BOs invalidated and backing off
+> later, since new submissions should be rejected unless the VM manages to
+> complete all updates successfully.
+> 
+> Best,
+> Natalie
+> 
 
-commit abfaf0eee97925905e742aa3b0b72e04a918fa9e upstream.
+Thanks, Natalie, those are exactly the possible scenarios here:
+amdgpu_job_alloc and amdgpu_vm_pt_alloc might fail.
 
-As the possible failure of the allocation, kmemdup() may return NULL
-pointer.
-Therefore, it should be better to check the 'props2' in order to prevent
-the dereference of NULL pointer.
+Christian,
 
-Fixes: 3a87177eb141 ("drm/amdkfd: Add topology support for dGPUs")
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for CVE-2022-3108
+I have started this investigation once I observed the kmemleak that is
+fixed by the other 3 patches. Natalie brings up the exact case where this
+might happen: amdgpu_vm_pt_alloc fails as all other VRAM BOs are locked as
+they are either ALWAYS_VALID BOs or PT BOs, thus sharing the same dma_resv.
 
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 3 +++
- 1 file changed, 3 insertions(+)
+Here is a log showing up that something failed during the update:
+[ 3839.556311] [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-12)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 86b4dadf772e..02e3c650ed1c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -408,6 +408,9 @@ static int kfd_parse_subtype_iolink(struct crat_subtype_iolink *iolink,
- 			return -ENODEV;
- 		/* same everything but the other direction */
- 		props2 = kmemdup(props, sizeof(*props2), GFP_KERNEL);
-+		if (!props2)
-+			return -ENOMEM;
-+
- 		props2->node_from = id_to;
- 		props2->node_to = id_from;
- 		props2->kobj = NULL;
--- 
-2.53.0
+The investigation then led to a reproducer, which is able to trigger the
+list corruption that is mentioned in patch 4.
 
+And given the kmemleak stack trace shows amdgpu_vm_clear_freed in the stack
+trace, that should clearly be where the failure has happened. Looking at
+the function, then I noticed it ignores the return code and still removes
+the mappings from the list. I was able to write a second reproducer that
+triggers the failure, then releases some memory and demonstrate that
+amdgpu_cs_ioctl does not clear the freed page tables as the freed list is
+empty.
+
+Regards.
+Cascardo.
+
+> > 
+> > Regards,
+> > Christian.
+> > 
+> > > 
+> > > Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+> > > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > > ---
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+> > >   1 file changed, 2 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > > index 09037df76400..5bde36754607 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > > @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+> > >   	while (!list_empty(&vm->freed)) {
+> > >   		mapping = list_first_entry(&vm->freed,
+> > >   			struct amdgpu_bo_va_mapping, list);
+> > > -		list_del(&mapping->list);
+> > >   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
+> > >   					   &sync, mapping->start, mapping->last,
+> > >   					   0, 0, 0, NULL, NULL, &f);
+> > > -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+> > >   		if (r) {
+> > >   			dma_fence_put(f);
+> > >   			goto error_free;
+> > >   		}
+> > > +		list_del(&mapping->list);
+> > > +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+> > >   	}
+> > >   	if (fence && f) {
+> > > 
+> > 
+> 
