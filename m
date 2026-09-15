@@ -4,71 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81C52C88E73
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 08:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84E26C88E75
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 09:45:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D11F010FB1B;
-	Tue, 15 Sep 2026 08:53:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0795910FB2B;
+	Tue, 15 Sep 2026 09:45:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="dCblNtuj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vo53yK4T";
 	dkim-atps=neutral
-Received: from smtpout6.mo536.mail-out.ovh.net
- (smtpout6.mo536.mail-out.ovh.net [51.210.91.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 029AA10FB1C
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 08:53:48 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net [79.137.60.36])
- by mo536.mail-out.ovh.net (Postfix) with ESMTPS id 4hkbQy41Vpz88QW;
- Tue, 15 Sep 2026 08:53:46 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net. [127.0.0.1])
- by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <Felix.Kuehling@amd.com>; Tue, 15 Sep 2026 08:53:46 +0000 (UTC)
-Received: from mta3.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.54.195])
- by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4hkbQy2jX3z1xnN; Tue, 15 Sep 2026 08:53:46 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.10])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta3.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id BD736941C0F; 
- Tue, 15 Sep 2026 08:53:44 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-112S0062fb875ee-7c31-4641-b87e-a825690d011d,
- 634639D5DEE1255606E722C812DAF3B2B8290A83) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
-Date: Tue, 15 Sep 2026 10:53:43 +0200
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012023.outbound.protection.outlook.com [40.107.209.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89F9A10FB2B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 09:44:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AIkH6JfAFSZAws+4AD9Bo4wEffCnRHHq5kqmEGH17i3UE+naF6lwMZDc39Gi+G6G/yH/CKuAj5D3YAD9QJIc8ymYxkF9lSQ7uN9Eyv5M83OMjclGzb8MlY12kswXOoSfcN1CqK6Qo5Cl0RXtFERS1GH2d73Vt9ojEMfExUCbtBDT9ajneIpNnATTPKBhu7uFaMrsx0KEM+pbgVzEX7L8LephMebNTqsamu7nsfyiz/KBhKPojNuUj9Q6THn+6NWkTqC7TeZNnNlH2kV7zLJaorO9ty8IXEPuigbixi7oxAPrHrvKhspZ91YckZPFFFvvs2MhrDobPyR/hSFgJFUTYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i9BLjJQsB9eMmFXHd+fPF1gvWXwBoCMB65JAV2XqDyI=;
+ b=HTaWQB63i9S1ynTSIh2/FGlgfk7UzIybQfCoU+2qU6iSGNaR5OqDd1pDVXInShVNuNg6O2YIYzHUdSrB52b7P+dj0ZmJPMsjqzvGeoKcoor3NKR1OgFoJeBcUz8mJ4nzIq157b4PcTq/BPQhVTNcEUhgB/958XUmZOeq2H3SoIFEhQEgn/4TdDDfbGkpm1M6VMJYK49hMGhJD84U9PC5UTdvSvmdkQmdliLAqS08w6eeXz3OnAZSHEaCKCCSwjVrbjri29G8xEqNxv4rGnAhDoe8ya2jxcn77cckUqIjQHqXdtdI/J7RVJM09CFIulya/fLYt/p0CdUdM7l8ofHi3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i9BLjJQsB9eMmFXHd+fPF1gvWXwBoCMB65JAV2XqDyI=;
+ b=vo53yK4TbKgVBg1UDxOMzSkpXImXdqnC7T4FzJ+yEWzFsGA6xG75+6ph5COYgRlvk8CDdxGebtGaeofFdp2cRvjIvHRiKiYDDVhAfp/6Sb3Scb1BSP2LDiWpmHbIL0qwTiCDySYvXxt5Gqvo91lmj4vn9CBpqjzQLtMkYnOcD80=
+Received: from SN7PR04CA0234.namprd04.prod.outlook.com (2603:10b6:806:127::29)
+ by DM6PR12MB4089.namprd12.prod.outlook.com (2603:10b6:5:213::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 09:44:54 +0000
+Received: from SA2PEPF00003AE9.namprd02.prod.outlook.com
+ (2603:10b6:806:127:cafe::42) by SN7PR04CA0234.outlook.office365.com
+ (2603:10b6:806:127::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Tue,
+ 15 Sep 2026 09:44:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003AE9.mail.protection.outlook.com (10.167.248.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 09:44:53 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
+ 2026 04:44:51 -0500
+From: Ce Sun <cesun102@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
+ <Stanley.Yang@amd.com>, Ce Sun <cesun102@amd.com>
+Subject: [PATCH] drm/amdgpu: skip ras error reset in gpu reset only when
+ uniras is enabled
+Date: Tue, 15 Sep 2026 17:44:42 +0800
+Message-ID: <20260915094442.108755-1-cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
- amdgpu_vm_update_range fails
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
- <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
- <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
-Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 547750305977950490
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFP1GB/Mq9ugbM65ptfFecNw4cE6zHrfZis2lK1tpIUbbCcsZCoCSFfIOYVagt4YIq6NPVPxnGw8Qn+mRW35l0FjHn7gkVpMsWM8Aoy8pg6AuYbdux3eM4ZnDMxpSrEhhRfu0D75a8OUHZCTD/D4eg6Veszz3P0NBvRChc5XjdNmB+xu1GWYUbP/aW2KD1Pm3bIIv1G1t1F6ePePgqMNDdjfqKRF1fgTbVHGZRcv9k6PMA6xy3ytIu6K7LKgLTuzVnzeH8XMZjX+ckOOvLPbZl8sl7W363UDy8pmdCJyYuxlXecjiWWPz0NFdUJIBR/wrFlHiSRQc1oU0AvNaQhSWetEFQo089szU/wSCVpVdOiFhWauRVD2iUJZlqzxkmOT/uP82ygCdOz8FNHJHGULPVqMrgCepOdeXEO3afwUKAjoS+QuDhhfzlTwQX7pQTzGAVO2cMov1jP6QJKuOEcGSA5AOjm8ek+vLMJkWw/Ui3GYfNR0CdUwzNzX3OUEgLUFH9F0OsMFaUifLWOt6v3RKxlYzcXo3IxkmY0SjJWqtpSieyey4M8BVmugQz06bojCyHmRvjXEcpfdlifHQ/rIeW9oHIfrrAeSudljTDXeRzFjeTspxJjrjy+0BPivI3bVpBLXFEP9Jx0Eef0djplfGgnoFdVQj4yGynCuu6LEQ3Qdw
-DKIM-Signature: a=rsa-sha256; bh=WRp+mPf4zKF8qWvhUr9y9cqRugHJ5fNXfhoLK6UIoMg=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1789462427; v=1;
- b=dCblNtujZMaVqLQ5ejsv/FUac444JD5iLJ/cjyYv6Wmecsc9pxaiIDYjbyPPSvrfSLTUi4BG
- 70FWkIHS1gMPdpCtFZbe1Twpw55foc1Gty8CT6sfhEYabfPcBhrc52kgJySHl7zeH1BMmDwdGX1
- s5tTh5mX5u5A9C9FoZnJ2kle7CZYEv0SLk7WPv9L+O+sbPW4nYL+Fi4AJik9N5nZpMb//RaazTD
- aSsKlnrwyJBpsc4244i1YpTEbcBFoKccbVvKqhzsJTPUTuDqLgWi0g+SiCFubuQaUxbMsoGHLn2
- 2weeEVrAbDUR4ImuA6q8Vp1wKuHTr3q8M9rctk2DZ8fyw==
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE9:EE_|DM6PR12MB4089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70cf1de3-9f2d-48f5-e2e3-08df130dfeaa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: CxeiNN9+4MbS06r2cX5Tj7+5ALhcRO2gj0AMLZhaGS/1YG77mYt4W9X+NmC4z4k9ZvNb6410ynCciO4VQlduSGR2gfTo1EXHgBFmb2HXBiynt4mxwZiAzOuCOzpkQ5Y8F0VyncQ3MezMdJ37dMn24xgwNr1aX8CdbGfkJdsEOU79zknaCD3QGyk94nWQy0GLp29UhflvKtN1+12jejNSdEbDIFTTjUkSR1Censi1Tn3vIdtAs9Q/gOPDkoGodxQdIc8bNdFQmlMprIwvWmsB4/ozvTwy22zrqq0YGH26IOBsrEkPasklvHzZe6xuzsmtdSKO7dq7LoRy6dIB2UCHctZeg8weTi+noMnf74hmufiOJm1aQIzk9UirVU1IZAMkFCA3Oz9V7wK5DhXF/TfUW+XyybSXa71gQUdjcEV6N0MCzLOWjcjH2U5f/+NpR1fQ7g3/X02s949/qpXKpi7wEiRoXuGsqxxix/4yO/ERSk9teX710rbAeiXJOkkYL8Dqaw9Ssc847j0NXPJFn1cVAbMXvHWJvwO6c+uQ+R+DCOFQVVf3z1XXrGIDoswNxfWS4uI+3KiuOym6b77V++cguoABBsvxiJECfAIMD4zT5HnkOOi11m/K3RYX6Vo8wu1nb3BY115t68hEZyc0MUbfpjUD7fQ/sD9LniB3dRZ8Cfo6/trWja6YuJCXOspJoZscqrbsWt+vQHFvuBb/3EW8hg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(18002099003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: FDD5QwA3QOESJ6MV1Q5iERt20SeLfA66ApPILxGM8E9HL/sjZQSK/fgdH2XuSaycjkQ4apcXV3aLlPAcQ/mBMoDO8tH7XZNvBOz0gJcwpPpbYcZUdsAftQo1KQsxVFuL/a0YxY4CtoIwWIUoxWdxCwJV9olSu0qG+LFdfU/SjfM+19U3+EzxUBZFFZIpxfpY+ppGmKkiiSwvM5obJl4fCqW4+KYbQgAE9bTkaQWaZGPJ+E8T/f777cXVvhLpJppZbjU9K4QQI9r4E6JYAgmHH1sI3JquCjbI4WLmsobtUWrGuoY3aeupNDDRHqIq9jYFXyiBUAnX1MydRYXsYsABi4R1FiuMqNl259lqTVwJ+8xNiEHjP+qBttb3SBKHF2wqImr6mzU+8nXou4X4QOHtCPb4Hu1o7aAS/HkFH0QAqo3Q6/P3YHqqTddYkWG35uoE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 09:44:53.7368 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70cf1de3-9f2d-48f5-e2e3-08df130dfeaa
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4089
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,84 +109,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/15/26 10:33, Christian König wrote:
-> On 9/14/26 22:25, Thadeu Lima de Souza Cascardo wrote:
->> If amdgpu_vm_update_range fails when called by amdgpu_vm_clear_freed,
->> the clearing of that mapping will not be attempted again. Later on, when
->> an IB tries to read that mapping, the read succeeds, leading to a
->> potential info leak, or even data corruption, if it attempts to write to
->> it.
->>
->> If the mapping is left in the freed list, then clearing will be
->> attempted again during amdgpu_cs_ioctl, which will either fail and not
->> submit the job or will succeed in clearing the mapping, preventing the
->> invalid access.
-> 
-> Same as I replied to oushinnyo <oushinnyo@163.com>, absolutely clear NAK to that.
-> 
-> amdgpu_vm_update_range() can only fail when the device is hot removed and we don't care about clearing page tables in that case.
+The original logic skips RAS error reset whenever GPU is in reset or RAS recovery.
+This change adds amdgpu_uniras_enabled() condition, so we only skip the reset
+when uniras is enabled. For ASICs without uniras, we still perform RAS error
+reset during GPU reset.
 
-Actually, how so? The SDMA update path has lots of allocations that 
-happen at random points throughout the update process (think the SDMA IB 
-being exhausted, then vm_funcs->update() will allocate a new one and can 
-fail on that, or various fence allocations. Some paths allocate from the 
-delayed IB pool which is just regular GFP_KERNEL, why couldn't these 
-allocations fail?
+Signed-off-by: Ce Sun <cesun102@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Aside from that, the more trivial failure path that I think Thadeu is 
-also talking about here is that amdgpu_vm_ptes_update will call 
-amdgpu_vm_pt_alloc (so that happens in the middle of VM updates) and 
-these allocations can fail. I'm not even sure if drm_exec can save this 
-one because we need to be ready to drop locks and retry.
-
-I get that failing is unacceptable for the cases inside a pagefault 
-handler (though I'm not sure if anything of what I mentioned applies 
-here, pagefault VM updates are immediate so they get GFP_ATOMIC, but 
-maybe the pagefault handler could still allocate PTs?) but for anything 
-else, failure seems like a possibility and maybe we should think about 
-handling it in some way.
-
-I'm not sure I see a problem in keeping BOs invalidated and backing off 
-later, since new submissions should be rejected unless the VM manages to 
-complete all updates successfully.
-
-Best,
-Natalie
-
-> 
-> Regards,
-> Christian.
-> 
->>
->> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
->> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index 09037df76400..5bde36754607 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->>   	while (!list_empty(&vm->freed)) {
->>   		mapping = list_first_entry(&vm->freed,
->>   			struct amdgpu_bo_va_mapping, list);
->> -		list_del(&mapping->list);
->>   
->>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
->>   					   &sync, mapping->start, mapping->last,
->>   					   0, 0, 0, NULL, NULL, &f);
->> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->>   		if (r) {
->>   			dma_fence_put(f);
->>   			goto error_free;
->>   		}
->> +		list_del(&mapping->list);
->> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->>   	}
->>   
->>   	if (fence && f) {
->>
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 6b2b8acdbf9b..c65916d84683 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1513,7 +1513,8 @@ int amdgpu_ras_reset_error_count(struct amdgpu_device *adev,
+ 		return -EOPNOTSUPP;
+ 
+ 	/* skip ras error reset in gpu reset */
+-	if (amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev))
++	if ((amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev)) &&
++	     amdgpu_uniras_enabled(adev))
+ 		return -EOPNOTSUPP;
+ 
+ 	if (block_obj->hw_ops->reset_ras_error_count)
+-- 
+2.34.1
 
