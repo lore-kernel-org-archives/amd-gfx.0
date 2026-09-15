@@ -4,93 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F8F9C88E75
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 17:29:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E60EFC88E7D
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 17:56:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A337F10E600;
-	Tue, 15 Sep 2026 17:29:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F83010E30B;
+	Tue, 15 Sep 2026 17:56:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OjuvZTnh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BwSzfAzX";
 	dkim-atps=neutral
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
- [74.125.227.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E536510E600
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 17:29:47 +0000 (UTC)
-Received: by mail-vs2-f12.google.com with SMTP id
- ada2fe7eead31-78a2363d4aaso158178137.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 10:29:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789493386; cv=none;
- d=google.com; s=arc-20260327;
- b=boFjAjDX2JIxp63uebqzKFoz5n5HYyRRlCwO84Yg0shPOlVyhOC0P62yeDCYbZe9yi
- FJ9jpXCjsbKnqdokcvkWe5UHtPSHn4DkYZvMrJayu+fq0rG+gBeWhMgqzWtQypsWaj2P
- ZoUaoafjctJbTuK8V3OJn1mkOC3ypyK6c9HfU6XRGJpc9RkTEZsSWMrdvi2OJ5p1mkGn
- 0O4QLWxLwOpYwkQGrSmkIg8RJKU57jlrKzo1gT3NC4xUdT/f03a7g+853dqsgmljQ365
- g53WbtuiW/Nd27+9mdNL0qyiBUij6qV3xLnAAG2rn6aAMGDLoQmPvaTyrV/PXD9DiePp
- 3ACw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=PRIZ0SbJpIKYCW1C7yb08vaQ3wYoz2PXRv2Ia1mtPl0=;
- fh=jo4jpBq/De51/qbDPyzrotNGkAC6XcnI9ZRhvfov3F4=;
- b=BkV7kgMJf8F906hou4lCwSdgsXF/M1kD/pyEtifgUZDmVaJik8P/ry9bicbA1EU3Rs
- CZviYcriNIPe7qaIcnNIvK8gNyv8psq8cLZpoLRfy0bMvNU/30jlBPy0J5I6qj/ZFSqC
- 9CfsGdF8jBHZTBZkan1fiZTUPc/w15dZWyJKZdjDMGU8NZxsE3IR2OQZHbN5karcw4Dd
- ISM52/k7a5y4SXxOW11vR12vlA7JeD1W0O3w4S2QX8iTRHATZrwvgvW8TXnDVDeCkmjw
- sqUMP1MQPNjB5cN9w60i4NuOSJk0CW/WvZrRqGGxaxHDwdEZP5TRR5nYlhLcDraCX/Xc
- ay/g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789493386; x=1790098186; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=PRIZ0SbJpIKYCW1C7yb08vaQ3wYoz2PXRv2Ia1mtPl0=;
- b=OjuvZTnhpR6TVoJd4MzJuAkvQh4Daz6gA5FoZIQ8bih/fyevjBV03v1i/uk+QT/tLk
- gbjxbAe/L/+mu6LVSFfMcdzFcJtUhoGRUpHMVfxxTX/1nTI61U5cZg2LGH83tuRmNQdn
- AIUGewX3MxLGokDlK+t2dCna4C1Xd25s8hynhO+bJFifj8Dmna9kmwgTyoPn4D484CJl
- 55WG41DXdZldGnVHIAkdtU3Ip2QRvq2gmrJ8XBV6c+P9CRFEqXLQawtn0OBN2mgtbX4r
- 9k1ZJCap5zegp9o+UMznM0Wyc93F0lXYbzlOSmHYafNjcCCoRG9W1wvK3KAcALEWC4jn
- bF5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789493386; x=1790098186;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=PRIZ0SbJpIKYCW1C7yb08vaQ3wYoz2PXRv2Ia1mtPl0=;
- b=1Gw7xhiJaZ1JIaqlwkdzockGz42RSh+nw/EBhmPpdrLteUa3lsl9TXYHgA+klASxDo
- 0g/uVtcvCug3uSy4nCxfSd2VztiXp0vC2tuwGpdCPSlJhH86CbamzOWQbONg4M+zrtXg
- a4Qmvo7z/4Vudq8nebljfPo3KKtrimOyNen8qxbYxofG2W9oD/3aKVRbkbPigkUbwlhd
- 0r8wUvs8emJKDSfRRBtAU/feYhqxPWOZ9gneFg2Zk0VkjXuvwBGL28KzzJm2KxkRmW4T
- HM0m41iI+56YtvqaGFrDBJz61p35UAIkA+l+oJhkJDG7JuLoNJOQd6H4hwdE6z7/rjdc
- cNqQ==
-X-Gm-Message-State: AFuF++kSgdK7Us9Kg/CrbGYAIWofihYchjyt/OwvRv6K7sjDoQf8C1k1
- nv8GQx16Y/pjZlxmrere31Zon/V3iNGlROfXf+XarSJex+wooSB5haZhTohPgjRIQhGFDhbDrPc
- 1EskIP19ch4Zh4OJPscNsZvMWRIueRDU=
-X-Gm-Gg: AYBFou0VohElg7BPim+Y8dvaJHd6w9MaXC70BHKneeW6xVhZCDzCm8oZd8niivc62t3
- Y44GDlJvRFLzNk9o/i4qFHkRQOD2Nk8UToMZ07RkoGPHRymx1DfsmbqgQcayjHK0YrDN0701mGM
- ZUXWQKoVHmjIZoK6jvNdFY+ulZNm8/Kbyv7F/a3LR2u67ygjacBqNjqz8VT+cUdJ2sjkhpUqVCL
- rxywu7RwRXWO3bzBpKFolrvYN0D0HfuOTrZev2m6SVyyfJqTYc9mzyHouuoXDUerWrKBjbPV8Pm
- c6RR1HXbBcc75xqsK930ZwWbeZjw6QBHNWUSDHNBHX6/t30KOEtoBh1lkf3ANRYP4P8CNifHvAG
- bL4PIh/Ahia0qV9a0I3Vd9W80/MZnclXkEJHk/Akd1tQynzM1IJDpyg==
-X-Received: by 2002:a05:6102:54a9:b0:797:bbf2:197 with SMTP id
- ada2fe7eead31-79b58c77125mr3303718137.1.1789493386428; Tue, 15 Sep 2026
- 10:29:46 -0700 (PDT)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013020.outbound.protection.outlook.com
+ [40.93.201.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 577C410E30B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 17:56:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eDLGcuGglCFQNa2WIgUEXkkDYk3LRQ+xjVeZWGZ0n1Ttzs6UBNNUBmaM9uaW+v1O6VLa0orGIx46rIgB7xHTTvT4Rr3Il5M/E3c3AQe/puD2l8YqjF2Kbu2vEp/kiEUea3KHWZvMcG2EUc9EsRswdpE5PM9B2n96ZbNOL2db0E55IdcxJgDc8FZyUaBNAUqANT4z1vUF1ZOBAH3CXYou6bspffZdBQqm8wOQPI/t1lyfXc0TMEWdUDlRNxGYai0ZIPZf1mq+w/0wUTdSoxzScC5NdjMxqoLNez3UrgwJD78AcJK830aOe2qO8utVymcksoW7C0bJ4T5rsQZ4Ck6F9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CIa28jOqbF7pEIyq9KTKiW+y52QXykCZfoIhiRAaBzA=;
+ b=aqL41r/n9KxiCM/4e357m8Vz0gzpBZ90EycX0Jh109tXzXJYerU7ZtPIiTb133TErhrkdiG1zc1D91vuZQbNkh8SQSOJ2NjUWerbQkkS+C532MVqtjCLKpovfWLtrLxCI7IG/nEImaTQu7WgDj25SwpQjV0aOVlGCTbNAqNKEHxnIseq73VeRBmORG2bdESUI+bCahOfbZAb66A/b0TZ9b3Chkjq0lyFl2LerjZ935VEUx1rcJ3MMarnLAKg3mKd0bXiLfC8Q1Ne6ptEWpvlcCatXTSNUjPMKIAb/Ucsm1fmAbKksh2sfxXOqWn2kDnXKlkl4j2SXd9kTVTE+0EbxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CIa28jOqbF7pEIyq9KTKiW+y52QXykCZfoIhiRAaBzA=;
+ b=BwSzfAzXuwA09BFLRKRGqJNq5FwRQ3sopQT4FZxLvpNhAewIfkmyCarw/KRl9AF3pUE25SuuvrVPwB2qvMmGt3Q+CSNT+yxYLr8cvYP4y2f9/j3XBfux/MA10s/5Dl2V7bHtWaIR7dKXtoaig/1WmlJ97qXnoPF2UQzK+neXrM4=
+Received: from MW4PR03CA0225.namprd03.prod.outlook.com (2603:10b6:303:b9::20)
+ by DS7PR12MB6144.namprd12.prod.outlook.com (2603:10b6:8:98::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.9; Tue, 15 Sep 2026 17:56:05 +0000
+Received: from CO1PEPF00012E80.namprd03.prod.outlook.com
+ (2603:10b6:303:b9:cafe::49) by MW4PR03CA0225.outlook.office365.com
+ (2603:10b6:303:b9::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
+ Sep 2026 17:56:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E80.mail.protection.outlook.com (10.167.249.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 17:56:05 +0000
+Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 15 Sep 2026 12:56:04 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH] drm/amdgpu: Reuse cached PCIe link device
+Date: Tue, 15 Sep 2026 12:55:56 -0500
+Message-ID: <20260915175556.2160918-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260915160932.2118978-1-mario.limonciello@amd.com>
-In-Reply-To: <20260915160932.2118978-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Sep 2026 13:29:33 -0400
-X-Gm-Features: AcwNN1WggCnKhZSO4Q2ivnkdYn-qdPXO1O6WPVPWUs8MPC-asbPgH8ecQ9WrDuE
-Message-ID: <CADnq5_PJ6vrxctfaPVUu8DomnhvY0rUWv7YfqPEb0dLsVu3STg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix GPU PCIe link capability reporting
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E80:EE_|DS7PR12MB6144:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57fcd476-67ca-44de-07d9-08df13529d16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|82310400026|376014|23010399003|6133799003|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: qgTTx8V1cKhajBXYdK+OOR48vgMbsXLyZX/ftihTS8PWqpgTOS3LFmba7aXaq2B+5PqIUvdhl5cd/b8SDiJTBoTxBRTqj9gUbWh5ZP2sTmAOW8E/M9Lr5o3wh1TVnBPThyx7xljWYi4NskkGoDO/dRgATKEK+3WfS+03K8eYqKP93UKyTt0lvmcLRpMtgKEIqp4eFNYTm1l99nbR1ZbQzNFYju7+OiSc1udpfRGdXBIS0k6qfiYafr3mt7vU/hTRUxY6IVTcCatZc5VHekWwq2zuiE2hYR3VcWIj0/S1d3c34nwdMq+eU38G4XelQhNL/vhvURiS71onwI/vtQw7RNh9GBP3sYZBp5owOar+rKnzG3jQGczU8+RPPkIj9/39A0AxPc/D8+znGls2IY5utpSNe74LQEsQFfoN68vC09fJMjhiPpBnBbWEoJRdrKqJsJO2G4aXbqpepsm/3Tei0YbefJChanyh0Gz874BIqWGAtHyakKpb9fV2L/oDDDp3NfM8fdo58DSh288We9rLHX/5BlF8EW+rDyPeeDN/C/ZSjff7v926k5aThVWbkZY0CLjmIkABLjljWtlR8Wx0oesJ6UreYk+47UNRkFRk8pWBzXqwwphD5T+O4HGZwecVUyg4whDy+u4O6iCM/csYKeupU18uBqFNKtayeRSyiGNBlEqbNxtIRXl8Q8uLBB/b1+FmewjSoLsHjcl64kfq7A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(23010399003)(6133799003)(18002099003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: GIfqK4jw2WgxeiC6649FF7eUSqMEDDejOPFlfdgfd0zDLnYK78fFwRgq24zTLY4AGHp1y27hznItMV9DTlPGnVZtX/jVEYT192AVWqQIiBsVB3UmGBq4EUVZm6wffybOpZctgGgnR9wJx2Im31X6XQb+1RZVrX/Rog5JbyKMQIDkCchEKeX5qBTkSzvtyUL+kHQzNUa2ndKTbJMt5xgiPo074OxOBwPwXKanA+sDrJ2Q2ervO5rm8lpZ+1D7NdHnaS02gfbx8/1MX7TaWHnSAeovEqBV455DviWiAlblagr3W3W2aB5n7N6w6RjlESu0t9nA90nbU1+/141vzXg4ysP3Eopv9sXc83EB8HiuoFnbn45EtWE+beyR74/6C4O94NnAbvjlVTZgPEwapM1esPOvt5+cSHuh5ACkkqOGYvTMgCXZGNJQu7oXLlEvuLHE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 17:56:05.2248 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57fcd476-67ca-44de-07d9-08df13529d16
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E80.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6144
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,168 +108,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 12:09=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> Commit eb53125a7ad9 ("drm/amd: Add dedicated helper for
-> amdgpu_device_find_parent()") made amdgpu_device_gpu_bandwidth() query
-> the first device outside the dGPU. That is the host side of the
-> physical link, not the GPU side.
->
-> As a result, the ASIC and platform capability masks can both be based
-> on the host port. drm_amdgpu_info_device then exposes the host
-> capabilities to userspace, such as Gen5 x16 for a Gen4 x8 GPU.
->
-> Cache both ends of the physical link during device initialization.
-> Use link_dev for the GPU capability and link_partner for the platform
-> capability and _PR3 detection.
->
-> Reported-by: "Marek Ol=C5=A1=C3=A1k" <maraeo@gmail.com>
-> Closes: https://lore.kernel.org/amd-gfx/CAAxE2A4VhsAzzO1QjBjUg+NgnbD04ZzM=
-yN6xsUJxjKJHH6hxiw@mail.gmail.com/
-> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-> Fixes: eb53125a7ad9 ("drm/amd: Add dedicated helper for amdgpu_device_fin=
-d_parent()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+After "drm/amdgpu: Fix GPU PCIe link capability reporting" there are
+now a few areas of walking topology.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Use the cached GPU-side link device for ASPM queries and switch state
+caching instead of walking the PCI topology independently in each path.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 48 ++++++++--------------
->  2 files changed, 20 insertions(+), 31 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 79b69d74eb2e5..3bad7b8f621cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -626,6 +626,9 @@ enum amdgpu_enforce_isolation_mode {
->  struct amdgpu_device {
->         struct device                   *dev;
->         struct pci_dev                  *pdev;
-> +       /* The two ends of the physical PCIe link outside the device. */
-> +       struct pci_dev                  *link_dev;
-> +       struct pci_dev                  *link_partner;
->         struct drm_device               ddev;
->
->  #ifdef CONFIG_DRM_AMD_ACP
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 44091ac12fa9c..0d277516fd55e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1959,18 +1959,17 @@ static void amdgpu_uid_fini(struct amdgpu_device =
-*adev)
->         adev->uid_info =3D NULL;
->  }
->
-> -static struct pci_dev *amdgpu_device_find_parent(struct amdgpu_device *a=
-dev)
-> +static void amdgpu_device_init_pcie_links(struct amdgpu_device *adev)
->  {
-> -       struct pci_dev *parent =3D adev->pdev;
-> +       adev->link_dev =3D adev->pdev;
-> +       adev->link_partner =3D pci_upstream_bridge(adev->link_dev);
->
-> -       /* skip upstream/downstream switches internal to dGPU */
-> -       while ((parent =3D pci_upstream_bridge(parent))) {
-> -               if (parent->vendor =3D=3D PCI_VENDOR_ID_ATI)
-> -                       continue;
-> -               break;
-> +       /* Skip upstream/downstream switches internal to the dGPU. */
-> +       while (adev->link_partner &&
-> +              adev->link_partner->vendor =3D=3D PCI_VENDOR_ID_ATI) {
-> +               adev->link_dev =3D adev->link_partner;
-> +               adev->link_partner =3D pci_upstream_bridge(adev->link_dev=
-);
->         }
-> -
-> -       return parent;
->  }
->
->  /**
-> @@ -1986,7 +1985,6 @@ static struct pci_dev *amdgpu_device_find_parent(st=
-ruct amdgpu_device *adev)
->  static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->  {
->         struct amdgpu_ip_block *ip_block;
-> -       struct pci_dev *parent;
->         bool total, skip_bios, early_full_gpu_access =3D false;
->         uint32_t bios_flags;
->         int i, r;
-> @@ -2082,10 +2080,9 @@ static int amdgpu_device_ip_early_init(struct amdg=
-pu_device *adev)
->             !dev_is_removable(&adev->pdev->dev))
->                 adev->flags |=3D AMD_IS_PX;
->
-> -       if (!(adev->flags & AMD_IS_APU)) {
-> -               parent =3D amdgpu_device_find_parent(adev);
-> -               adev->has_pr3 =3D parent ? pci_pr3_present(parent) : fals=
-e;
-> -       }
-> +       if (!(adev->flags & AMD_IS_APU))
-> +               adev->has_pr3 =3D adev->link_partner &&
-> +                       pci_pr3_present(adev->link_partner);
->
->         adev->pm.pp_feature =3D amdgpu_pp_feature_mask;
->         if (amdgpu_sriov_vf(adev) || sched_policy =3D=3D KFD_SCHED_POLICY=
-_NO_HWS)
-> @@ -3783,6 +3780,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->
->         adev->shutdown =3D false;
->         adev->flags =3D flags;
-> +       amdgpu_device_init_pcie_links(adev);
->
->         if (amdgpu_force_asic_type >=3D 0 && amdgpu_force_asic_type < CHI=
-P_LAST)
->                 adev->asic_type =3D amdgpu_force_asic_type;
-> @@ -5880,11 +5878,9 @@ static void amdgpu_device_partner_bandwidth(struct=
- amdgpu_device *adev,
->         *width =3D PCIE_LNK_WIDTH_UNKNOWN;
->
->         if (amdgpu_device_pcie_dynamic_switching_supported(adev)) {
-> -               struct pci_dev *parent =3D amdgpu_device_find_parent(adev=
-);
-> -
-> -               if (parent) {
-> -                       *speed =3D pcie_get_speed_cap(parent);
-> -                       *width =3D pcie_get_width_cap(parent);
-> +               if (adev->link_partner) {
-> +                       *speed =3D pcie_get_speed_cap(adev->link_partner)=
-;
-> +                       *width =3D pcie_get_width_cap(adev->link_partner)=
-;
->                 }
->         } else {
->                 /* use the current speeds rather than max if switching is=
- not supported */
-> @@ -5906,21 +5902,11 @@ static void amdgpu_device_gpu_bandwidth(struct am=
-dgpu_device *adev,
->                                         enum pci_bus_speed *speed,
->                                         enum pcie_link_width *width)
->  {
-> -       struct pci_dev *parent =3D adev->pdev;
-> -
->         if (!speed || !width)
->                 return;
->
-> -       /* use the device itself */
-> -       *speed =3D pcie_get_speed_cap(adev->pdev);
-> -       *width =3D pcie_get_width_cap(adev->pdev);
-> -
-> -       /* use the link outside the device */
-> -       parent =3D amdgpu_device_find_parent(adev);
-> -       if (parent) {
-> -               *speed =3D pcie_get_speed_cap(parent);
-> -               *width =3D pcie_get_width_cap(parent);
-> -       }
-> +       *speed =3D pcie_get_speed_cap(adev->link_dev);
-> +       *width =3D pcie_get_width_cap(adev->link_dev);
->  }
->
->  /**
-> --
-> 2.43.0
->
+Validate the internal downstream/upstream switch pair when initializing
+the cached link devices so all consumers share the existing topology
+checks.
+
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 62 ++++++++--------------
+ 1 file changed, 21 insertions(+), 41 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 0d277516fd55e..07121d4aed3dc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1353,31 +1353,6 @@ static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
+ #endif
+ }
+ 
+-/*
+- * Some dGPUs expose their display endpoint below an internal PCIe switch.
+- * Use the switch upstream port to query the host-facing link.
+- */
+-static struct pci_dev *amdgpu_device_get_aspm_pdev(struct amdgpu_device *adev)
+-{
+-	struct pci_dev *swds, *swus;
+-
+-	swds = pci_upstream_bridge(adev->pdev);
+-	if (!swds ||
+-	    (swds->vendor != PCI_VENDOR_ID_ATI &&
+-	     swds->vendor != PCI_VENDOR_ID_AMD) ||
+-	    pci_pcie_type(swds) != PCI_EXP_TYPE_DOWNSTREAM)
+-		return adev->pdev;
+-
+-	swus = pci_upstream_bridge(swds);
+-	if (!swus ||
+-	    (swus->vendor != PCI_VENDOR_ID_ATI &&
+-	     swus->vendor != PCI_VENDOR_ID_AMD) ||
+-	    pci_pcie_type(swus) != PCI_EXP_TYPE_UPSTREAM)
+-		return adev->pdev;
+-
+-	return swus;
+-}
+-
+ /**
+  * amdgpu_device_should_use_aspm - check if the device should program ASPM
+  *
+@@ -1413,7 +1388,7 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
+ 	 * the immediate upstream bridge. Use SWUS for dGPUs with an
+ 	 * internal switch so that this is the host-facing link.
+ 	 */
+-	aspm_pdev = amdgpu_device_get_aspm_pdev(adev);
++	aspm_pdev = adev->link_dev;
+ 	parent = pci_upstream_bridge(aspm_pdev);
+ 	if (!parent) {
+ 		dev_dbg(adev->dev, "ASPM: no upstream PCIe link for %s\n",
+@@ -1961,15 +1936,26 @@ static void amdgpu_uid_fini(struct amdgpu_device *adev)
+ 
+ static void amdgpu_device_init_pcie_links(struct amdgpu_device *adev)
+ {
++	struct pci_dev *swds, *swus;
++
+ 	adev->link_dev = adev->pdev;
+ 	adev->link_partner = pci_upstream_bridge(adev->link_dev);
+ 
+-	/* Skip upstream/downstream switches internal to the dGPU. */
+-	while (adev->link_partner &&
+-	       adev->link_partner->vendor == PCI_VENDOR_ID_ATI) {
+-		adev->link_dev = adev->link_partner;
+-		adev->link_partner = pci_upstream_bridge(adev->link_dev);
+-	}
++	/* Skip an upstream/downstream switch internal to the dGPU. */
++	swds = adev->link_partner;
++	if (!swds || swds->vendor != PCI_VENDOR_ID_ATI ||
++	    pci_pcie_type(swds) != PCI_EXP_TYPE_DOWNSTREAM)
++		return;
++
++	swus = pci_upstream_bridge(swds);
++	if (!swus ||
++	    (swus->vendor != PCI_VENDOR_ID_ATI &&
++	     swus->vendor != PCI_VENDOR_ID_AMD) ||
++	    pci_pcie_type(swus) != PCI_EXP_TYPE_UPSTREAM)
++		return;
++
++	adev->link_dev = swus;
++	adev->link_partner = pci_upstream_bridge(swus);
+ }
+ 
+ /**
+@@ -6428,16 +6414,10 @@ static void amdgpu_device_cache_switch_state(struct amdgpu_device *adev)
+ 	struct pci_dev *swus, *swds;
+ 	int r;
+ 
+-	swds = pci_upstream_bridge(adev->pdev);
+-	if (!swds || swds->vendor != PCI_VENDOR_ID_ATI ||
+-	    pci_pcie_type(swds) != PCI_EXP_TYPE_DOWNSTREAM)
+-		return;
+-	swus = pci_upstream_bridge(swds);
+-	if (!swus ||
+-	    (swus->vendor != PCI_VENDOR_ID_ATI &&
+-	     swus->vendor != PCI_VENDOR_ID_AMD) ||
+-	    pci_pcie_type(swus) != PCI_EXP_TYPE_UPSTREAM)
++	swus = adev->link_dev != adev->pdev ? adev->link_dev : NULL;
++	if (!swus)
+ 		return;
++	swds = pci_upstream_bridge(adev->pdev);
+ 
+ 	/* If already saved, return */
+ 	if (adev->pcie_reset_ctx.swus)
+-- 
+2.43.0
+
