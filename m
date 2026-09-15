@@ -4,58 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3F94C88E53
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 13:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B751C88E53
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 13:16:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 217B210EA60;
-	Tue, 15 Sep 2026 13:14:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9858210E2A5;
+	Tue, 15 Sep 2026 13:16:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FhTWnISt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qGZiRks5";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F261510FBC2;
- Tue, 15 Sep 2026 11:34:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=Tz70FkAmxl8+RAnBZsRyzCmi4ZFCRbX5FfKa0dCDfRY=; b=FhTWnIStr2QmZKS8U2wEyumk3s
- 4V5NyVgoqVvSIyHakgrUGhNjEvix4irLlOGoCtfvkxjtUMm0g2k6IiDt5saGWLfDDkTz2YF7jxkEN
- N/3lGVSK3aKst/YoGUzevX5+38x1vou3MkmcFLsuEo1h5Z0kEcjsuiy1EH2uU4M4KBOoHY5lKBYaP
- LToycRHnq658/tEGCyyOshiz7ZC4W7JWZVKfmLh052h/woMwXNmIbGRzEUX6z66X2p5MX0aEJfyZD
- 5YA/+z8v2NS+/zIf55gorzY6GsnwcB/GT26li9aV0U+srcJMtyCe3zd5L77nBAIrj2Mul39zJlRWA
- 9PnaETPA==;
-Received: from 179-125-70-185-dinamico.pombonet.net.br ([179.125.70.185]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x6RQS-002Pae-SU; Tue, 15 Sep 2026 13:34:13 +0200
-Date: Tue, 15 Sep 2026 08:34:07 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Natalie Vock <nat@pixelcluster.dev>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
- amdgpu_vm_update_range fails
-Message-ID: <aqktL4Ui1MaIvs_j@quatroqueijos.cascardo.eti.br>
-References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
- <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
- <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
- <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
- <aqkf0LE51mObdEJc@quatroqueijos.cascardo.eti.br>
- <fb733813-9e4d-494a-ba60-469261340e74@amd.com>
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAA0210E2A5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 13:16:18 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ d9443c01a7336-2dd8476135dso373405ad.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 06:16:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789478178; cv=none;
+ d=google.com; s=arc-20260327;
+ b=KihuqKNHMjXZlOmr6rlLifzKbe4RUQFFzI0s6y1HQqtUQwGu6mqz/L3J5bRaZcp1t/
+ Te5Q7cS2/+Wwp76SpqP6CE3zPZfL29dr7qwgmE/WmQCi8p7q49+B4apHy8SzLkTzAl17
+ nN2zjvAor2UPPuRMnb5nfPLJ24U7XUDzuA9kgcMQo5j8PGAAOPiC9bZFEMh4CDPXPmLd
+ X59h7NLkbzcVUnNkEwiTKEECuHxMwA/r25VNlDyeM3oX2gfwWyzqKoA78lIRj61y+852
+ yAnveJLbKnx+57LAlNlPt7YcN3knsdb6C45e0u1z4IKJqzDjd50uzmL7laU4cTDfiwof
+ SOXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=40dgU6qQqb6dTdxX1to4cgoPEtY07lrdVwEJ0254YtU=;
+ fh=2ODVRezT8Ewz3H/FTeFIRlbFApnUOct5TGkpGvmhybM=;
+ b=Hlnrf1G75Uc2DjmtlwkoRp44KhI1Dzy0ZZFJPI7d2D+D7yaQBy7P8xpybnss6u1q0+
+ QdB/JzprIf8hsvnodP2H5P0fl8LtGhd69t11lztC3tleVZdSMXB5COfc3kx/oGViaHgh
+ 3NCe3pNEiYs/EQMcvTj6avf/VDi3uXmEXHThMFtZ6X4FdRP9SSdzgC8L5BO/Ww2FrhTh
+ KYFKdLxDnigFMPeBgUoJ+9vgPrPmH00+SxqftFO/hWq6a6Ya7zFxr+HXrG4nqvk4zUbC
+ MwEnHJH9Ic09Gxy8nW53tDTMg+WE/V/mmDz7H4wld+v8vmX2S/JuL+CkTvUOU4Poc5OF
+ H8Wg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789478178; x=1790082978; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=40dgU6qQqb6dTdxX1to4cgoPEtY07lrdVwEJ0254YtU=;
+ b=qGZiRks5pK5HCbd5z4e5JM9UsB+R7hx8DIXKx/PsoixjpAvqD7NRic1pm1wzkY0fyI
+ +gGhBCNc0O/jbo5gqUIBDv8VB6NJKGac5Gyg96UN68iljyjr9pBYeTy4MkpDuj+pvOq1
+ K/DNVlYYQm6JTQnhXnal9qVSKrG0rL5QXs+MDoeVkDd6XRM5pEYUCkys+LK/Sy+ZHy2D
+ OknR9Rwm8ZxCBUteJPm2n6v/uGWajFO5mMgXMsz2xNUHXpr1q3W25/zVo6ZMnZWBbCyI
+ cE3mGn1hFPSB4s2R87hetm7Z9jphQ6jvqh/I9sXDc8vbGo9N5CWuIpYiGWKLC/5hzfGr
+ fLAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789478178; x=1790082978;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=40dgU6qQqb6dTdxX1to4cgoPEtY07lrdVwEJ0254YtU=;
+ b=B50JFQYSdyLAhkWTOjbgz0y7wvG5hwu8GvCOdwGlSromSlW7ADbJCbmFtB4YzT+SVZ
+ SPRWm4RS7O3PhNLuP0h77/UbSe5NF5V2uJSAbKnKoqGOAr0q/3d5b/09fpmW0dH9Aw0d
+ E6tAxst5x5iRXEkghTnUaq1ZixrLtlIMUK4o17vnDavrIpLm+kXcJWZCU8JxGQ7FUpEG
+ Mq6ysbrj2gNYlipXpkKc6XqzOtbj30lhRNPwja5veottGG+V9y73GxNa0GhqHUokbCQv
+ qKDlizeOOi0dbR1ekOJqNIU6M3iSgqiQwKwITvnCS9S5P2QvZJ9DbX8lB2lLH8gNsPQy
+ Arhg==
+X-Gm-Message-State: AFuF++mpQUuCE1ueRwkzOnSVgdY0iBA5Ll9RROniwVzgNoF9Aotz/ZqP
+ lOkD5Jf0u1KbLGU6S9z4fBIrC8VhyCxhfrWgGkT8VK+Ibwb6/OznFSmi852gef/X7CAGZ1fQomy
+ c7ICX7WsscXhz6T7J7r+cwauJRKOVMM8=
+X-Gm-Gg: AYBFou3EHtP2tOttQvV9s8Kjf+T2TeQj6cDE9YNl5a3tUT1M7HFeFlL8B6sG766cTLR
+ /qd7kSC22l1+dybpf57VsDvCoDdI6cRHi+rUD8YpYqrbJpSaDQMmvUH69ZkLC+oYv7pWrqNeQmh
+ 9xcAhsVhWSzOX1XmFKbAytvc2OvzPxeLvb8zY2M2QhL9FGnhMiRck7l9Acwp9jckpO8XgU4ndAY
+ HTgQrjdtdkj/y2fAiTyKCcCP/BoKM4LfWBlrzwjGE3LFraF7W03UEmZg5v3ZEtoparSY/phC3Vj
+ jPCe+KcrRuTNP6Wcn41Y9P+tUn3zlSwDuyYn5vPDij0gpWW8e6u4FmsZOWqJng2bL0OQFXY5wZG
+ lVelb2XpCTuZUomvQHZ3S1O+3zIV7w74foU7H5hkIt+t+zcc7pYJd
+X-Received: by 2002:a17:90b:2709:b0:39d:fcef:e241 with SMTP id
+ 98e67ed59e1d1-39dfcefe940mr6008219a91.2.1789478178048; Tue, 15 Sep 2026
+ 06:16:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fb733813-9e4d-494a-ba60-469261340e74@amd.com>
-X-Mailman-Approved-At: Tue, 15 Sep 2026 13:14:42 +0000
+References: <20260915072432.1751101-1-YiPeng.Chai@amd.com>
+ <20260915072432.1751101-3-YiPeng.Chai@amd.com>
+In-Reply-To: <20260915072432.1751101-3-YiPeng.Chai@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 15 Sep 2026 09:16:06 -0400
+X-Gm-Features: AcwNN1XBPaJ6RJzzRPGfBX2Vrd_DyvcNNCsYzc71Zf44SqPq5ob0hCovKaKMYiM
+Message-ID: <CADnq5_N7n_8tt-3UkDKUgUcuu2D8Yf3VxMAi2RpkVkCSapnjiQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amd/ras: use __le32 pointer type to resolve the
+ sparse warnings
+To: YiPeng Chai <YiPeng.Chai@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Tao.Zhou1@amd.com, 
+ Stanley.Yang@amd.com, kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,149 +106,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 01:22:48PM +0200, Christian König wrote:
-> On 9/15/26 12:37, Thadeu Lima de Souza Cascardo wrote:
-> > On Tue, Sep 15, 2026 at 10:53:43AM +0200, Natalie Vock wrote:
-> >> On 9/15/26 10:33, Christian König wrote:
-> >>> On 9/14/26 22:25, Thadeu Lima de Souza Cascardo wrote:
-> >>>> If amdgpu_vm_update_range fails when called by amdgpu_vm_clear_freed,
-> >>>> the clearing of that mapping will not be attempted again. Later on, when
-> >>>> an IB tries to read that mapping, the read succeeds, leading to a
-> >>>> potential info leak, or even data corruption, if it attempts to write to
-> >>>> it.
-> >>>>
-> >>>> If the mapping is left in the freed list, then clearing will be
-> >>>> attempted again during amdgpu_cs_ioctl, which will either fail and not
-> >>>> submit the job or will succeed in clearing the mapping, preventing the
-> >>>> invalid access.
-> >>>
-> >>> Same as I replied to oushinnyo <oushinnyo@163.com>, absolutely clear NAK to that.
-> >>>
-> >>> amdgpu_vm_update_range() can only fail when the device is hot removed and we don't care about clearing page tables in that case.
-> >>
-> >> Actually, how so? The SDMA update path has lots of allocations that happen
-> >> at random points throughout the update process (think the SDMA IB being
-> >> exhausted, then vm_funcs->update() will allocate a new one and can fail on
-> >> that, or various fence allocations. Some paths allocate from the delayed IB
-> >> pool which is just regular GFP_KERNEL, why couldn't these allocations fail?
-> >>
-> >> Aside from that, the more trivial failure path that I think Thadeu is also
-> >> talking about here is that amdgpu_vm_ptes_update will call
-> >> amdgpu_vm_pt_alloc (so that happens in the middle of VM updates) and these
-> >> allocations can fail. I'm not even sure if drm_exec can save this one
-> >> because we need to be ready to drop locks and retry.
-> >>
-> >> I get that failing is unacceptable for the cases inside a pagefault handler
-> >> (though I'm not sure if anything of what I mentioned applies here, pagefault
-> >> VM updates are immediate so they get GFP_ATOMIC, but maybe the pagefault
-> >> handler could still allocate PTs?) but for anything else, failure seems like
-> >> a possibility and maybe we should think about handling it in some way.
-> >>
-> >> I'm not sure I see a problem in keeping BOs invalidated and backing off
-> >> later, since new submissions should be rejected unless the VM manages to
-> >> complete all updates successfully.
-> >>
-> >> Best,
-> >> Natalie
-> >>
-> > 
-> > Thanks, Natalie, those are exactly the possible scenarios here:
-> > amdgpu_job_alloc and amdgpu_vm_pt_alloc might fail.
-> > 
-> > Christian,
-> > 
-> > I have started this investigation once I observed the kmemleak that is
-> > fixed by the other 3 patches. Natalie brings up the exact case where this
-> > might happen: amdgpu_vm_pt_alloc fails as all other VRAM BOs are locked as
-> > they are either ALWAYS_VALID BOs or PT BOs, thus sharing the same dma_resv.
-> 
-> Yeah and on a clear there is never a single page table allocated. What could be is that temporary memory allocations fail, but we need to make sure that never happens by using the emergency reserves and/or pools.
-> > Here is a log showing up that something failed during the update:
-> > [ 3839.556311] [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-12)
-> 
-> That is failed memory allocation while trying to map something which we also ignore and delegate to the next CS.
-> 
+On Tue, Sep 15, 2026 at 4:01=E2=80=AFAM YiPeng Chai <YiPeng.Chai@amd.com> w=
+rote:
+>
+> Use __le32 pointer type to resolve the sparse warnings.
+>
+> sparse warnings:
+>  ras/core/eeprom.c:275:15: sparse: expected unsigned int [usertype]
+>  ras/core/eeprom.c:275:15: sparse: got restricted __le32 [usertype]
+>
+>  ras/core/eeprom.c:277:15: sparse: expected unsigned int [usertype]
+>  ras/core/eeprom.c:277:15: sparse: got restricted __le32 [usertype]
+>
+>  ras/core/eeprom.c:288:33: sparse: sparse: cast to restricted __le32
+>  ras/core/eeprom.c:289:33: sparse: sparse: cast to restricted __le32
+>  ras/core/eeprom.c:290:33: sparse: sparse: cast to restricted __le32
+>  ras/core/eeprom.c:291:33: sparse: sparse: cast to restricted __le32
+>
+>  ras/core/eeprom.c:333:15: sparse: expected unsigned int [usertype]
+>  ras/core/eeprom.c:333:15: sparse: got restricted __le32 [usertype]
+>  ras/core/eeprom.c:343:15: sparse: sparse: cast to restricted __le32
+>
+> Fixes: d95700604fbc ("drm/amd/ras: rename core ras_* files and update inc=
+lude guards")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609101657.kczNjTnY-lkp@i=
+ntel.com/
+>
+> Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 
-Yep, that is a possibility as well and amdgpu_vm_bo_update is not ignoring
-the failure here and leaves the mappings in the invalids list, which the
-next CS will try to map.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-> > 
-> > The investigation then led to a reproducer, which is able to trigger the
-> > list corruption that is mentioned in patch 4.
-> > 
-> > And given the kmemleak stack trace shows amdgpu_vm_clear_freed in the stack
-> > trace, that should clearly be where the failure has happened. Looking at
-> > the function, then I noticed it ignores the return code and still removes
-> > the mappings from the list. I was able to write a second reproducer that
-> > triggers the failure, then releases some memory and demonstrate that
-> > amdgpu_cs_ioctl does not clear the freed page tables as the freed list is
-> > empty.
-> 
-> Unmap/clear operations are also used in MMU notifiers who can't give an error back to higher levels but rather need to unmap the area no matter what.
-> 
-> So basically that is an operation which can never fail in the first place (except for device is completely gone and then we don't care any more).
-> 
-> I'm about to split the map/unmap into separate functions to make it clear that unmap operations can't fail.
-> 
-> When you have a reproducer and can pinpoint where exactly the memory allocation fails that would be rather helpful here.
-> 
-
-What I understand that happens in the case of clear_freed is that we are
-breaking a PDB/hugepage and descending, as the clear happened in the middle
-of the hugepage. With the specific reproducer I had to go through lengths
-of making sure that the original mapping landed on a hugepage-aligned
-address, then used CLEAR/amdgpu_vm_clear_mappings to unmap a single page in
-the middle of it.
-
-The other reproducer that I have required that I used REPLACE instead of
-MAP in order to trigger the tlb_flush_waitlist issue. REPLACE does call
-amdgpu_vm_clear_mappings too. Notice that RADV Mesa driver uses REPLACE,
-instead of MAP, so that explains that we can see this in production.
-
-Regards.
-Cascardo.
-
-> Regards,
-> Christian.
-> 
-> > 
-> > Regards.
-> > Cascardo.
-> > 
-> >>>
-> >>> Regards,
-> >>> Christian.
-> >>>
-> >>>>
-> >>>> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-> >>>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> >>>> ---
-> >>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
-> >>>>   1 file changed, 2 insertions(+), 2 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> >>>> index 09037df76400..5bde36754607 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> >>>> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
-> >>>>   	while (!list_empty(&vm->freed)) {
-> >>>>   		mapping = list_first_entry(&vm->freed,
-> >>>>   			struct amdgpu_bo_va_mapping, list);
-> >>>> -		list_del(&mapping->list);
-> >>>>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
-> >>>>   					   &sync, mapping->start, mapping->last,
-> >>>>   					   0, 0, 0, NULL, NULL, &f);
-> >>>> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
-> >>>>   		if (r) {
-> >>>>   			dma_fence_put(f);
-> >>>>   			goto error_free;
-> >>>>   		}
-> >>>> +		list_del(&mapping->list);
-> >>>> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
-> >>>>   	}
-> >>>>   	if (fence && f) {
-> >>>>
-> >>>
-> >>
-> 
+> ---
+>  drivers/gpu/drm/amd/ras/core/eeprom.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/ras/core/eeprom.c b/drivers/gpu/drm/amd/=
+ras/core/eeprom.c
+> index e7aad113b98a..efa04cd8fbe0 100644
+> --- a/drivers/gpu/drm/amd/ras/core/eeprom.c
+> +++ b/drivers/gpu/drm/amd/ras/core/eeprom.c
+> @@ -260,7 +260,7 @@ static void
+>  __encode_table_header_to_buf(struct ras_eeprom_table_header *hdr,
+>                              unsigned char *buf)
+>  {
+> -       u32 *pp =3D (uint32_t *)buf;
+> +       __le32 *pp =3D (__le32 *)buf;
+>
+>         pp[0] =3D cpu_to_le32(hdr->header);
+>         pp[1] =3D cpu_to_le32(hdr->version);
+> @@ -273,7 +273,7 @@ static void
+>  __decode_table_header_from_buf(struct ras_eeprom_table_header *hdr,
+>                                unsigned char *buf)
+>  {
+> -       u32 *pp =3D (uint32_t *)buf;
+> +       __le32 *pp =3D (__le32 *)buf;
+>
+>         hdr->header           =3D le32_to_cpu(pp[0]);
+>         hdr->version          =3D le32_to_cpu(pp[1]);
+> @@ -315,7 +315,7 @@ static void
+>  __encode_table_ras_info_to_buf(struct ras_eeprom_table_ras_info *rai,
+>                                unsigned char *buf)
+>  {
+> -       u32 *pp =3D (uint32_t *)buf;
+> +       __le32 *pp =3D (__le32 *)buf;
+>         u32 tmp;
+>
+>         tmp =3D ((uint32_t)(rai->rma_status) & 0xFF) |
+> --
+> 2.43.0
+>
