@@ -4,96 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2177EC88E77
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 18:49:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1788C88E7D
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 19:42:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 912AC10E910;
-	Tue, 15 Sep 2026 18:49:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC1510E1B3;
+	Tue, 15 Sep 2026 19:42:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ChonS8pE";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="noqRitbl";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 112EA10E910
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 18:49:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HMMykRKjysW2+CU5jXrvvoh4VCAltwm24bUKM/BAHwSoEm5ZVW81g3IQsAK+4StxHDLcJYSr4X4Tkb2hGbgfWRzEq3qI6R4Kvu3Zb0/7HuMziDK+ReOQv/WJIygt2nAifeBi9rEjwHN7lxYQhkkd+ralQ4rSoPJAL3H3pxmiAilggL+f78gEP2RyOymTg0yj9A/yR9Z0z5U4dSFgpVPUxY/S5WbtJVlJoUNEnz2xLCngA5tMLkRjhuTFAFOTvWIQQJFbmJB+khfWIgXMtFXmi4w7src7Nyau9pLR3tUBPbwZEybj01McdQRXTCzIFXtzw8MJswnA03ICJkCNSgu/9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HI1600zVI1P7NT8uIb+yIBQziwFx+GofrMMb3b9Njlo=;
- b=JDlkdrkWwmO1d1iru+QKri0vImp5qoi14DRwMO4PcMFMNPk0xGKvPRwsfHUDX4bNMoRVZX8Ugyq0N7DK29lxtQw8uOwxGZLMKhJpbmcUnE6MCle6nphHILKwzk44fNNhf9d8PLaBb1Qvw6+beUrnijXqDFenwxdxiJSrxnIEPxv7kxYr/iR177lcAfUjZlLjD19r8ISnqQDD1SW4FGNsDCzhVy10eDTB45m8RZKPFxayyIfih2lQUf0wqNSt0HcR5v0IveFjGjbuIIPYOXandHz9tXnI+4BxT0OtVewhgdRjoMrVdeIoBihKLwHoy+jNiug8XijTmvMDp/rNCAJNcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HI1600zVI1P7NT8uIb+yIBQziwFx+GofrMMb3b9Njlo=;
- b=ChonS8pEgR+h6FVLt++DyUu/Us9ZxxoQtFbMgrlqgZDg9q2lHStyNFnpUxBxfbjnexlXn5uN01rZryuQ3wBgogG5e3kgS1JT0wcEW0k9BDgjtSQHZUf2bcOigjuq7rGYLr4YPpJvOL9YCpGVv4MVPp70BvTlw8hv6IuQa7iCBNk=
-Received: from ROAP284CA0399.BRAP284.PROD.OUTLOOK.COM (2603:10d6:10:145::20)
- by DM4PR12MB7717.namprd12.prod.outlook.com (2603:10b6:8:103::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
- 2026 18:49:14 +0000
-Received: from BN1PEPF0000468D.namprd05.prod.outlook.com
- (2603:10d6:10:145:cafe::69) by ROAP284CA0399.outlook.office365.com
- (2603:10d6:10:145::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
- Sep 2026 18:49:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF0000468D.mail.protection.outlook.com (10.167.243.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 18:49:12 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
- 2026 13:49:09 -0500
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harish.Kasiviswanathan@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
-Subject: [PATCH] drm/amdkfd: set CP_HQD_PQ_CONTROL.SCOPE for PM4 queues too on
- GFX 12.1
-Date: Tue, 15 Sep 2026 14:48:00 -0400
-Message-ID: <20260915184800.395995-1-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.55.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E798110E309;
+ Tue, 15 Sep 2026 19:42:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:From:Reply-To;
+ bh=VQcgSRBZVg8fcFUVw9T/QgAY7H1wxZh0cJocF8+cq0Y=; b=noqRitblJoXh+Y2+9fk+5fKaSN
+ hZNRS78lO9H4YW+qPoZA3zlE/o3cboJjwLWyFM7A2IwGmd5oTZX/Dk+Ipo8k5nMgvIPIGlEDXh7oI
+ xpVc1v2cWlKpjWw2mukTydQDXimFiPEvYQ57D2pq7uaaQZVSsax/sZ3YnNwOJ5Tp6Lesg4c3o+yTJ
+ /ojSb7m50A78jFH8vqphc63GaNiHqfnBt8/wJWvEdILpoAfy2P+CEI7zNrHEVbV/vB0u5Xhe2oKrV
+ 7ViCxHiipwx3W4e+mCQ40GBjYOBKWPQO+0hcROVLuRkts2C12oUzhjg8f7ANwfIvo2opljtaQ6F5F
+ Q1zH7vPA==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x6Z3A-002bhq-Gz; Tue, 15 Sep 2026 21:42:40 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH v3 0/7] drm: Consolidate the wait timeout conversion
+ helpers
+Date: Tue, 15 Sep 2026 16:42:15 -0300
+Message-Id: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468D:EE_|DM4PR12MB7717:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56d9d91c-6bd6-4e00-33bd-08df135a08fe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|10067099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: XkbU725MusdtPG/lfBT7By5usCdRUP9Mods+xrzq6IO9PyYQ08JAj03bxls2SfgFWLzmcXzIppKA0YaVpUu95B2rcY/3X4gHnZjeEpXpzYxKFEElav6s29E46GU7at3+5DXNPBjlO/LCt0FTAuaTxwHCGhrZW68dEWiBgrmTi+gD8F74QI3eZJXsvP8ZUbkYLpvuYyOeMfhfaPwVMKDZFy0dcPx3edGhvbcwkxb7iz6uBI67wBAhVLpFDyOjKxl3Lm95Dseql2/maggo+zFiKeiUK8kqauLZKGux+xpc9UPSn8OfDyfBWJXNyPwOdo7B4Y7VcwwmhZw5mRd0tLxcicZWHHcShV5nnNoqLKgyQL/0mXTMsPe2jfkpf7av5FJCpHh+Zx3rOuB0GUXenirbxxhg9+0KWHrJWTVALSk0FhFhPrnWXz0L+Qxb7KClMzYpGs3WNPoqbbn6NG+Xi2wwKsaJAPPdLUg8k48MyOeAE8Zn/+XpVuYnCctQmAv17FYx7PsHjUKhE57x3n5eFcPpZaOoztUOTIyh09kZ9PLQXyXOOIgbyOGlE2DERekBUUp+EkH9IaesdCNK/7QYTUjNr7+gZIqJGwFfjJf8AxLPE7/v6r3P4dHewQrlzILgkSrw0fSIukS310RlurBCibzStzUosE7i8h05KaA/RhZFWF5HH+4kRyo2RqS79WUJojz5VD9gY14iSQBkuWusFlOv5Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(10067099003)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: g4EsBGjYOWORN1IE9WJjZw+wXkwK8JY5x7HKVAsdUzH1T2wgDVV7A7bT+XlWZSMz3zDEM44lmXqoEG28VKx7hhpAzVXzcfIVRzqkkAq7TmNl2Pa4GG2FHyIwHoyf9Hzz6qVjngEME6CDWM/gFi2YWaGy0h3MntNTBsoDpwUaWYMmtJAzmbx0YfAH/BiiiUiKgEEpdoVs/hhRu7k9sAE2x1zmi3m6qo8LLsOUrMiCcI6KqH2olwWLDducqoP8v+Dt2xs2n5k2KSu6NvMoWWctOuHxOE8Gm792G7XHI1NEisyRsudzGWuNDlTGThmsHzyEyf9mVIa45aMn8jUZ7OxjuN0rSBGm/53twzO4g57xn5z6afuSgNZ343n0I6J4kVdHpHbq67PHtBFJ6C96Avz8PIt+K4JBVZVDs7dFU5R0pNV+A/X+7Dl8iengjOhb9Yhg
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 18:49:12.8381 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56d9d91c-6bd6-4e00-33bd-08df135a08fe
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468D.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7717
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NTQ6CMBCG4auQrq1pS3/AlfcwLiodYBKwpMVGQ
+ 7i7hZUmxuX7JfPMQiIEhEhOxUICJIzo7znKQ0Ga3t47oOhyE8GEZhWrqQsjnXEE/5hpD8MEIVK
+ lpClBVqZ2nOTLKUCLz129XHP3GGcfXvuTxLf1v5c4ZVQ40EYyZblUZ+zsgPbY+JFsYBIfCDe/E
+ ZERUzIlblrXray/kHVd38RFRXP8AAAA
+X-Change-ID: 20260809-drm-timeout-helpers-55473e4879d1
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4469; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=NFjDU+6WENVW0r7cAfeYOqC6zQRX3HsRAv3rTOyEAw0=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqqZ+oAKjwcuKHNEVziVjGXg5SygW5GgWjLPu7F
+ Xo19qIKurqJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaqmfqAAKCRA/8w6Kdoj6
+ quQ/B/4yxxGzrhLo3VM8HiJnM4RsnfLaGepwQrDZQS/QC7q5fOmpigh2gs525ursHhdSk/TNiaz
+ eAVJkJfW+8XSpkbLxmHoAqXEJsLzXxzeF/vhssLIw0Txc8yi/+Pj5jalGDLan9hfg9CKMo4Klyp
+ l2yHvzsTLyJwFDpG20jcdeJnsjp+yVZsqFCzMdjfZm6/dNNTFwNS2bzAuk6lJqGXC6LugqnCSNk
+ dl2lTV52F9AYi5D0ID8pvSoo4oX/7qiJAmIGtwGjiPqjrFEjJL615CnXm5l300YKXwspqt2BI+3
+ B6wwM6ErlnL6KGBs+QHeQiNAOJurytFYZVR6IYA19cf53OsT
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,38 +83,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The previous change set CP_HQD_PQ_CONTROL.SCOPE=3 (SYSTEM) only for AQL
-queues, but PM4 queues can also use non-coherently cached ring buffers
-and hit the same stale-packet problem.
+DRM wait ioctls express their timeout in one of two ways: as an absolute
+deadline in ns, or as a duration in ns. The core has a helper for the first
+form, drm_timeout_abs_to_jiffies(), which panfrost, lima, tegra, xe and
+some accel drivers use. However, there is no equivalent for the second
+form, so the drivers that take a duration convert it themselves.
 
-Move the SCOPE=3 assignment into the common path so it applies to both
-AQL and PM4 queues.
+For example, i915 has a local helper to handle the relative timeout case,
+and v3d carries a copy of it. This series moves that conversion into a DRM
+helper called drm_timeout_rel_to_jiffies(), next to the absolute variant,
+and converts the drivers that were open-coding either form.
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+This series becomes particularly relevant as the new helper will be used
+in the next version of the series "drm/vc4: Switch to DRM GPU scheduler"
+[1]. With this series, we avoid another duplication of the
+nsecs_to_jiffies_timeout() function (and thanks Tvrtko for the suggestion).
+
+PATCH 1 moves drm_timeout_abs_to_jiffies() out of drm_syncobj.c and into a
+file of its own, so that both helpers live together. PATCH 2 adds a helper
+for the relative variant. Patches 3 to 6 convert amdgpu, v3d, i915 and vc4.
+Finally, PATCH 7 renames the drm_utils.h header to drm_panel_quirks.h to
+better express its meaning.
+
+Let me know your thoughts about it.
+
+[1] https://lore.kernel.org/dri-devel/20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com/T/
+
+Best regards,
+- Maíra
+
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v1 -> v2: https://lore.kernel.org/r/20260809-drm-timeout-helpers-v1-0-2de67405a145@igalia.com
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-index 29c20398c60b..61e9282f3fb6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-@@ -274,6 +274,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
- 	m->cp_hqd_pq_control |=
- 			ffs(q->queue_size / sizeof(unsigned int)) - 1 - 1;
- 	m->cp_hqd_pq_control |= CP_HQD_PQ_CONTROL__UNORD_DISPATCH_MASK;
-+	m->cp_hqd_pq_control |= 3 << CP_HQD_PQ_CONTROL__SCOPE__SHIFT;
- 	pr_debug("cp_hqd_pq_control 0x%x\n", m->cp_hqd_pq_control);
- 
- 	m->cp_hqd_pq_base_lo = lower_32_bits((uint64_t)q->queue_address >> 8);
-@@ -335,7 +336,6 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
- 		/* GC 10 removed WPP_CLAMP from PQ Control */
- 		m->cp_hqd_pq_control |= CP_HQD_PQ_CONTROL__NO_UPDATE_RPTR_MASK |
- 				2 << CP_HQD_PQ_CONTROL__SLOT_BASED_WPTR__SHIFT |
--				3 << CP_HQD_PQ_CONTROL__SCOPE__SHIFT |
- 				1 << CP_HQD_PQ_CONTROL__QUEUE_FULL_EN__SHIFT;
- 		m->cp_hqd_pq_doorbell_control |=
- 			1 << CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_BIF_DROP__SHIFT;
--- 
-2.55.0
+- [2/6] Add comment discouraging the use of relative timeouts in uAPIs
+        (Christian König)
+- [3/6] Make it more explicit that any timeout that doesn't fit in a s64
+        is mapped into an infinite wait (Christian König)
+
+v2 -> v3: https://lore.kernel.org/r/20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com
+
+- [1/7] Move the function definitions to a new header file: drm_timeout.h
+        (Thomas Zimmermann)
+- [1/7] Add Tvrtko's R-b (Tvrtko Ursulin)
+- [1/7, 2/7] Apply adjustments to the function's kerneldoc (Thomas Zimmermann)
+- [2/7] Fixed an inadequate overflow check in drm_timeout_rel_to_jiffies(),
+        which allowed `nsecs_to_jiffies64` to wrap around on 64-bit systems.
+	(Tvrtko Ursulin, Sashiko)
+- [7/7] Rename drm_utils.h to drm_panel_quirks.h (Thomas Zimmermann)
+
+---
+Maíra Canal (7):
+      drm: Move drm_timeout_abs_to_jiffies() to drm_timeout.c
+      drm: Add drm_timeout_rel_to_jiffies()
+      drm/amdgpu: Use drm_timeout_abs_to_jiffies()
+      drm/v3d: Use drm_timeout_rel_to_jiffies()
+      drm/i915: Use drm_timeout_rel_to_jiffies()
+      drm/vc4: Use drm_timeout_rel_to_jiffies()
+      drm: Rename drm_utils.h to drm_panel_quirks.h
+
+ drivers/accel/ethosu/ethosu_drv.c                  |  2 +-
+ drivers/accel/ivpu/ivpu_gem.c                      |  2 +-
+ drivers/accel/rocket/rocket_gem.c                  |  2 +-
+ drivers/gpu/drm/Makefile                           |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            | 20 +----
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  1 -
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  1 -
+ drivers/gpu/drm/drm_connector.c                    |  2 +-
+ drivers/gpu/drm/drm_panel_backlight_quirks.c       |  2 +-
+ drivers/gpu/drm/drm_panel_orientation_quirks.c     |  2 +-
+ drivers/gpu/drm/drm_syncobj.c                      | 35 +-------
+ drivers/gpu/drm/drm_timeout.c                      | 95 ++++++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c           | 17 +---
+ drivers/gpu/drm/lima/lima_gem.c                    |  2 +-
+ drivers/gpu/drm/panfrost/panfrost_drv.c            |  2 +-
+ drivers/gpu/drm/panthor/panthor_drv.c              |  1 -
+ drivers/gpu/drm/tegra/uapi.c                       |  2 +-
+ drivers/gpu/drm/v3d/v3d_bo.c                       |  3 +-
+ drivers/gpu/drm/v3d/v3d_drv.h                      | 10 ---
+ drivers/gpu/drm/vc4/vc4_gem.c                      |  3 +-
+ drivers/gpu/drm/xe/xe_wait_user_fence.c            |  2 +-
+ drivers/video/fbdev/efifb.c                        |  2 +-
+ include/drm/{drm_utils.h => drm_panel_quirks.h}    | 10 +--
+ include/drm/drm_timeout.h                          | 17 ++++
+ 25 files changed, 140 insertions(+), 98 deletions(-)
+---
+base-commit: 5363e01e4ff03a204cab85292b89cf90c2d1b101
+change-id: 20260809-drm-timeout-helpers-55473e4879d1
 
