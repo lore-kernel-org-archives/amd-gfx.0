@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7EFDC88E75
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 07:20:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E12F3C88E75
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 07:25:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2641610F1C5;
-	Tue, 15 Sep 2026 07:20:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63AB110F19E;
+	Tue, 15 Sep 2026 07:25:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4mxkUuKz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O7nnpThr";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010052.outbound.protection.outlook.com
- [52.101.193.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FBC010F1C5
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 07:20:17 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012056.outbound.protection.outlook.com [52.101.43.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA2A810F19E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 07:25:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kBnLofESD/uF2OwDk1B4j+jw+am2+ljxaNEQ7Fu3Au6jzE7F5YdCLc9wR3zLfAaOxXB38NIquI32idxDGXOk9rl3tHleaEPNGN53aXCn6mC94BEUsj9CSJpIguwzdxFibNHmcvkOstJeqfGkPu3yVsQ2RYhOMgqaJY/TyC1+LD6481mK22pAo2ZTif2NYUGmSI/KoBY8tGBYYxk9UFrOqBbiZjjpj4gCQPAIddkF/lsv43m1PnNfr1ZoZTkB7KLoPIE5dTZisCIXnqFCJCNBgbGPKk93oVwEnDsyhTE1qCBwO6QpRkByACKQI3hlCO3MwwxKmXUvwbMuDCdlci3tIg==
+ b=DrsEjUhtx3cIbb0hJyBEwxnbYIbmZv5cs4orvcOuiLiE+N0OwYNcJfTx65DwG8GYWohfEDDx1X/SfVc3jQ/82W1I8wnYdS5E3pkkGmf5PQ5f6rNtO/ZudtfaeR1m639LOTiFlbVUzlKa2T93XoFBXIvgG5d3R6VTFcHkXMyDzM2sRaeCR/jupsYc/Z781tN3Imq3SVTq/VZSwocUQp5MIJRABu8HS2Md2x+wgDpNiguMgpeEpiZAi1utD+6mB2RGeBFw1KZdhN3IZPdGaTFs/xu6/jUuV5qzu4bukhRvXWQUA/zU6PEsN2KZGt0T4BdiQH35mBuJYDTF/yV+n7GQFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X0Ck8EZtz2Cl1KDYN44Z98jH1i5j2b8l0UdAWe+JWTM=;
- b=L5ILFiwtEcAj8rPJCQvXsteNzes8jVvMGmtybGOFlhavPAqhyxm9LkD4GSejNEsQf0LlyvMF+zz5k822BYd0Ma9Muco7AvsZaMck1Gb6Br9lrRQVLJHtk108aVbMTnw628Wu/z0BDhE1h5I804DckC5QpFTDudF9ZWDiP9nSPjUB7FacGLoeDgoMBEdjInL5FkrP4JiOXEXZXNnrkaERPl176eVyOdxU7pbVs1tz4vYpSjN8MZNhvZYzAubp/3/hHvo2OZmuenz2nGfqS5LDT/lmrg9kigIerrBPOgub8qeEfKbOc4mFvopDvrf1K/15yJcwU6dufVz9WRfStFoENQ==
+ bh=fkjbKg+BCzUlQUj+JgfCqv214r/ZnlFnyh8DoBW92T0=;
+ b=v8kaH3yBr8lnIqgd+C+9vFGKRHFenuhQA2DLSzB3t76yeFG5CCJSWVTCuuVCwjtyEagjqZ7x6I8On927rEkav4QtWrJZ/CDhDa4m2w1P8xc+/TNKmGcf+Rdz4cyglQIm6gmKEj88H2Ibknmj539yyF2m5VY+UW1yvn1RzCIkvEPVfuYP9LJ9/n8r2Auoi4ytu6BkRmLgkQAsEIn/SWHrma33qLUz7cFCaOkPNU9tEkexB4qE7kbSWtZVTS8UjGEH8ZYJJKtgg6roSNu2ldnpd2ZbN3I/pb3C8p5bf3Hz+fTE13wIu3Ru1Xgm/ug0w91vQZ/IIP9BEKuSJCRbtsYagg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X0Ck8EZtz2Cl1KDYN44Z98jH1i5j2b8l0UdAWe+JWTM=;
- b=4mxkUuKzTRRG3uPqGF3l7l3eed+JHhAj8OZ1MvPqKbmnmnH3raeJZCIC/rUlPTc/OrwNXf0W0a5sP9nuT3lQlTm6hYyZZhuAGmZEy+1QHfctMJoAXRI4eh7WRO/bHH86ziGEGfb6lTbR4SjgTW9nvQyaTv7emmTcAL15ApsDsIw=
-Received: from CH0PR03CA0220.namprd03.prod.outlook.com (2603:10b6:610:e7::15)
- by SN7PR12MB7809.namprd12.prod.outlook.com (2603:10b6:806:34e::21)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=fkjbKg+BCzUlQUj+JgfCqv214r/ZnlFnyh8DoBW92T0=;
+ b=O7nnpThrv8rcXHTkF7oEAygWtqv4VxSNbonghzr/Bjuq8ecPvP40u1X4EJhUtm9/OzYyscSsJ5U4GewcdjzNAZpM5ir+MAUUs0AAlMwXU4CV/TUIdgPzFiVU5BCJaxBA7G1MW2WsOTr4qKndYf49lbO4l0xNs6uub5WnmsXyT78=
+Received: from DM6PR05CA0041.namprd05.prod.outlook.com (2603:10b6:5:335::10)
+ by DM4PR12MB5916.namprd12.prod.outlook.com (2603:10b6:8:69::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 07:20:12 +0000
-Received: from BN2PEPF0000A801.namprd02.prod.outlook.com
- (2603:10b6:610:e7:cafe::1a) by CH0PR03CA0220.outlook.office365.com
- (2603:10b6:610:e7::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Tue,
- 15 Sep 2026 07:20:12 +0000
+ 2026 07:25:20 +0000
+Received: from BL6PEPF00020E64.namprd04.prod.outlook.com
+ (2603:10b6:5:335:cafe::7d) by DM6PR05CA0041.outlook.office365.com
+ (2603:10b6:5:335::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.8 via Frontend Transport; Tue, 15
+ Sep 2026 07:25:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,55 +48,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A801.mail.protection.outlook.com (10.167.245.170) with Microsoft
+ BL6PEPF00020E64.mail.protection.outlook.com (10.167.249.25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 07:20:12 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 07:25:20 +0000
+Received: from amd-03.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
- 2026 02:20:03 -0500
-From: Prike Liang <Prike.Liang@amd.com>
+ 2026 02:25:10 -0500
+From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
- <Pierre-eric.Pelloux-prayer@amd.com>, Prike Liang <Prike.Liang@amd.com>
-Subject: [PATCH v2 5/5] drm/amdgpu: mark queue and process as guilty for hung
- user queue
-Date: Tue, 15 Sep 2026 15:19:46 +0800
-Message-ID: <20260915071946.710846-5-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260915071946.710846-1-Prike.Liang@amd.com>
-References: <20260915071946.710846-1-Prike.Liang@amd.com>
+CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Stanley.Yang@amd.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>
+Subject: [PATCH 1/3] drm/amd/ras: add error log for unhandled gpu mce data
+Date: Tue, 15 Sep 2026 15:24:30 +0800
+Message-ID: <20260915072432.1751101-1-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A801:EE_|SN7PR12MB7809:EE_
-X-MS-Office365-Filtering-Correlation-Id: d326bd6b-3fe4-4048-8323-08df12f9c82b
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E64:EE_|DM4PR12MB5916:EE_
+X-MS-Office365-Filtering-Correlation-Id: f23a10ef-641b-4cc7-8fad-08df12fa7fc0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: +rJWy+CBOdHUK023R8JT5YnV7d5U9gmAohVp/GLc6/t+rYMmIGbNiEoNN1Ep97HPn5j7r5Pb1Oqt7sCrKR5vkgju7zdCBEXdG6sbLC0zV6w9H5A2WKUiFqOxL8q+PigL0E3HDnrFyfelgVsGmkhHq2CFE+AMS4qv3PML3g1g/70r5Q+5AavPFvFYoLdAS0spA6hZWHgFGvxKU1KzMWW+LdssaLceeilafPv3IdHXM+nKaHcyGfTdNnk0yyjANS73yxhBadOHOsRIOjkW/C3gw9C7kcjlgiV5E0Vtv4bzIJMHR4DjRgcQeDkuylbyUNPQxWdZX0fCoT+LHW6dsyROgUONoi2XD5t4YaGQTZ6t+Urlk/Z3TnAhamQOUkvivtCdyBbT4K+S2aEdeA/wsjqr1jbcTYP6opTCyKD2HhzLytUeZcRzGKpIrRRSw9KwJstF2f6lNBY/dOmpE3C7oaq41GD9IokIlbyYtQEuyAxXTe7Q6lgVuaNGcgYBWMkH/NNw0Dm2V/8mPW4LQxJDj6moQJTUGWHRW9bw3IMdc8d2GmiEpCZ1IoqzzR4CcLAv4hGPOYiEJNnrR3MW0GYocHKE8iCWR4/SLi5Z3D3WaGLLnRrUfthObHka/IMopz5FUatr6dmlMervbm6uAvgv9kQe6sTgqo+p/l2IxOHYSzC1BsuEoKgBtXgFOuUC4GfoNbi7/AURszYMCMCo0pQfdKAXZA==
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|18002099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: Iuym/+aniVI3b+TyL7p71f3lDFwZS48Iukt+GwpO5XPB/vwouNy85Ve3Vg9bS3IKDLM97gjichKxXmDQps8a/D+yEAE+KyLihXkKmXnQ4NQIYJZmC5G6Nm6u7LjfLlZewTyLDHEXI9DM6cJJ6ZJ0G4hv0wCVCK4YEc7K5bCWrZTn6rNGgX5yk/tqaUiS4D6q74uQKXH5QbD5OpQ5pnpa5ZxV3HyZ7vvcMSu4R7KPaSj0RrzDXc/5vTjHKt49DJTJ92npqXYXCILQ58Z0L85jK2ilr1TbHYNGUULCD/hU29N9gTyP4cR+MSx4jXyf/a066H1MjwPEo7D9/aE0JtqQEXyusm65oMon2koIW8hPhQ5oXIwfcHWA+At3akQryWLFjv4oJMQWaxPZv1Krzzup9sqObZJr4MuzaNeEMOGIBs7sHzMzeIKFZiE5y+R5SsXhGZrzCu2YpAq4Nu/e/nVct3FT85tCYUSDab89f06AbtnNjTyUdAPFbCo+KtVVsMUB/Qf8PjApDCc3STz+j9qdg+hPKdTkgsQsi7jKQd4vGlItLe71C5puqc8bCR0y23s1kIiaai2OHOi+VVOLzqPJOrCd7erwbTtactBZdWgDhYiBTFET0lXsOKq3TedDGpX6CUJ2EvbY7pghNbg3LSIz/zd2N10Kqogi88ILwsaNEDZYXLymlPX3Lnh1FnswOv4MnPKGYEvpyAAw3Vnn6/g1Lg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(10067099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5+J0AtOx3g8E+BkieRQZqmb7PVcMTe79NM5NGa9zyyASZcffB3IjRhOmpz+DrITeajcNjxs/pD1g30i37i931QbPDgCOQg8AERzbaDaJp5kM78MYXQgjKSKUK8yJa6/dbhRN3GX63lOoVKE/Kjp9YI/4lH4v2reTcdsVoY4YDX1F82pqAKYujgPdP87skpwOhqYQLhFkWe5qLnTSBWZtoqNRJwSJ9Er9gSEowILX6phpFmCL9qoWImJnzW5W3Mx4gSSao5kzytNiD7trtaQyA6ccETKCZVW//yDwVnJIahK0XoXbLocbRBl2XBlFWXnZ+kYHjKl25LTPPMbVlzYdXc8RyiLiuJUqe696QIDEpmg4449zc05YDzRWel+QThfWEt4bmoUtDeWK5DW6viKgwHO42u9Y5CsPgVqpc88slu/mkNwDzMccTuZJ/aG2tqhW
+X-MS-Exchange-AntiSpam-MessageData-0: C+LKt6qKAFg0W7mU3g8FqTDEYqFKLPnfF75w7SIfzR+W86XHnrxo1sQKYaWGvGF1eOHX6KzT7/e5aBf60cl1cvaXNlY76IrNOtD5Mw+H79tzuPRNihh3SbAC4NBvy+GsYS52TjKKOxV2cktVN+AF/ohUFzouk77JeFtf5d/byCgt/whLIu2EzAB7gFp6U2Gp3+2ZEeHJtXdc+Fd9e0gx1k185UZAZZKeLzTtzewliiHMLp2JJPo3RBn8MCCvrh8uziMkeRZ+u5iRJWWDNVptq67qbiBhX3GGAW/dBiGw0aDE1dEZtIIhmP3nlNPAzl+jjAgyGUZkxeW9gNBNKyIlOt7GVLXcnsptq5pNz709XY/cLRtM0EZauksSTwJPUFxdoyoaFX0prn9ghlAis6rpua8u5AD8dZi0Fvo5/gIGH9Ap0v7JEA9FwS2o7y2DpaWl
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 07:20:12.3867 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d326bd6b-3fe4-4048-8323-08df12f9c82b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 07:25:20.3920 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f23a10ef-641b-4cc7-8fad-08df12fa7fc0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A801.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E64.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7809
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5916
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,173 +108,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a hung user queue triggers a reset, its context becomes corrupted
-and must not be replayed. Mark both the queue and its owning process as
-guilty so that user space is notified that the offending queue is no
-longer usable and must recreate the context before resubmitting work.
+Add error log for unhandled gpu mce data.
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c   |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 48 +++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  5 ++-
- 3 files changed, 51 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mce.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index b15ed4a534f1..1094057d2e1d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -589,7 +589,9 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
- 	if (ctx->generation != amdgpu_vm_generation(adev, &fpriv->vm))
- 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_VRAMLOST;
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mce.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mce.c
+index 0edb3dc06a69..6bb8bc1b52a9 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mce.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mce.c
+@@ -163,8 +163,13 @@ static int amdgpu_ras_mce_notifier_v1(struct amdgpu_device *adev, unsigned int i
  
--	if (amdgpu_ctx_guilty(ctx))
-+	if (amdgpu_ctx_guilty(ctx) ||
-+	    ((out->state.flags & AMDGPU_CTX_QUERY2_FLAGS_RESET) &&
-+	     READ_ONCE(fpriv->userq_mgr.guilty)))
- 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_GUILTY;
+ 	__fill_mce_to_aca_bank(adev, MCE_BANK_TYPE_GPU, m, &aca_bank);
  
- 	if (amdgpu_in_reset(adev))
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 6c92575213c1..6bd8867a6eae 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -126,6 +126,7 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
- 		adev->userq_funcs[queue->queue_type];
- 	struct drm_wedge_task_info *info = NULL;
- 	struct amdgpu_task_info *ti = NULL;
-+	unsigned long flags;
- 	bool gpu_reset = false;
- 
- 	if (unlikely(adev->debug_disable_gpu_ring_reset)) {
-@@ -148,6 +149,11 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
- 		}
- 	}
- 
-+	xa_lock_irqsave(&adev->userq_doorbell_xa, flags);
-+	WRITE_ONCE(queue->guilty, true);
-+	WRITE_ONCE(uq_mgr->guilty, true);
-+	xa_unlock_irqrestore(&adev->userq_doorbell_xa, flags);
-+
- 	if (amdgpu_userq_is_reset_type_supported(adev, queue->queue_type,
- 						 AMDGPU_RESET_TYPE_PER_QUEUE)) {
- 		int r;
-@@ -174,7 +180,7 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
- 	 * handler to another is illegal if you don't take extra precautions!
- 	 */
- 	if (gpu_reset)
--		amdgpu_userq_mgr_reset_work(&queue->userq_mgr->reset_work);
-+		amdgpu_userq_mgr_reset_work(&uq_mgr->reset_work);
- }
- 
- /*
-@@ -338,6 +344,10 @@ static int amdgpu_userq_restore_helper(struct amdgpu_usermode_queue *queue)
- 		adev->userq_funcs[queue->queue_type];
- 	int r = 0;
- 
-+	if (READ_ONCE(queue->guilty) ||
-+	    queue->generation != amdgpu_vm_generation(adev, queue->vm))
-+		return 0;
-+
- 	if (queue->state == AMDGPU_USERQ_STATE_PREEMPTED) {
- 		trace_amdgpu_userq_state_start(queue);
- 
-@@ -388,9 +398,12 @@ static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
- 		adev->userq_funcs[queue->queue_type];
- 	int r;
- 
-+	if (READ_ONCE(queue->guilty) ||
-+	    queue->generation != amdgpu_vm_generation(adev, queue->vm))
-+		return 0;
-+
- 	if (queue->state == AMDGPU_USERQ_STATE_UNMAPPED) {
- 		trace_amdgpu_userq_state_start(queue);
--
- 		r = userq_funcs->map(queue);
- 		if (r) {
- 			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
-@@ -630,6 +643,27 @@ static int amdgpu_userq_priority_permit(struct drm_file *filp,
- 	return -EACCES;
- }
- 
-+static void amdgpu_userq_mgr_clear_guilty(struct amdgpu_userq_mgr *uq_mgr)
-+{
-+	struct xarray *xa = &uq_mgr->adev->userq_doorbell_xa;
-+	struct amdgpu_usermode_queue *queue;
-+	unsigned long flags, queue_id;
-+
-+	xa_lock_irqsave(xa, flags);
-+	if (!READ_ONCE(uq_mgr->guilty))
-+		goto unlock;
-+
-+	xa_for_each(xa, queue_id, queue) {
-+		if (queue->userq_mgr == uq_mgr && READ_ONCE(queue->guilty))
-+			goto unlock;
+-	if (ras_aca_parse_bank(ras_mgr->ras_core, &aca_bank, &err))
++	if (ras_aca_parse_bank(ras_mgr->ras_core, &aca_bank, &err)) {
++		RAS_DEV_ERR(adev,
++			"Unrecognized gpu mce: bank:%u IPID:0x%llx"
++			" STATUS:0x%llx ADDR:0x%llx SYND:0x%llx\n",
++			m->bank, m->ipid, m->status, m->addr, m->synd);
+ 		return -EINVAL;
 +	}
-+
-+	WRITE_ONCE(uq_mgr->guilty, false);
-+
-+unlock:
-+	xa_unlock_irqrestore(xa, flags);
-+}
-+
- static int
- amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- {
-@@ -789,6 +823,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 		return r;
- 	}
  
-+	amdgpu_userq_mgr_clear_guilty(uq_mgr);
- 	amdgpu_debugfs_userq_init(filp, queue, qid);
- 	trace_amdgpu_userq_create_end(queue, 0);
- 	args->out.queue_id = qid;
-@@ -831,7 +866,8 @@ amdgpu_userq_query_status(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	}
+ 	/* GPU device only record bank data that matches its own socket id.*/
+ 	if (adev->smuio.funcs->get_socket_id(adev) != err.bank_info.socket_id)
+@@ -201,9 +206,13 @@ static int amdgpu_ras_mce_notifier_v5(struct amdgpu_device *adev, unsigned int i
+ 	__fill_mce_to_aca_bank(adev, bank_type, m, &aca_bank);
  
- 	args->out_qs.flags = 0;
--	if (queue->state == AMDGPU_USERQ_STATE_HUNG)
-+	if (queue->state == AMDGPU_USERQ_STATE_HUNG ||
-+	    READ_ONCE(queue->guilty))
- 		args->out_qs.flags |= AMDGPU_USERQ_QUERY_STATUS_FLAGS_HUNG;
- 	if (queue->generation != amdgpu_vm_generation(adev, &fpriv->vm))
- 		args->out_qs.flags |= AMDGPU_USERQ_QUERY_STATUS_FLAGS_VRAMLOST;
-@@ -1594,7 +1630,11 @@ int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool vram_lost)
- 	int ret = 0, r;
- 
- 	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
--		if (queue->state == AMDGPU_USERQ_STATE_HUNG && !vram_lost) {
-+		if (vram_lost || READ_ONCE(queue->guilty) ||
-+		    queue->generation != amdgpu_vm_generation(adev, queue->vm))
-+			continue;
-+
-+		if (queue->state == AMDGPU_USERQ_STATE_HUNG) {
- 			trace_amdgpu_userq_state_start(queue);
- 
- 			userq_funcs = adev->userq_funcs[queue->queue_type];
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 40228c60a1ea..f2eca744a3c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -51,6 +51,8 @@ struct amdgpu_userq_obj {
- struct amdgpu_usermode_queue {
- 	int			queue_type;
- 	enum amdgpu_userq_state state;
-+	/* Reset due to a hang; must not be re-mapped, userspace recreates. */
-+	bool			guilty;
- 	uint64_t		doorbell_handle;
- 	uint64_t		doorbell_index;
- 	u32			doorbell_offset;
-@@ -132,7 +134,8 @@ struct amdgpu_userq_mgr {
- 	struct drm_file			*file;
- 	struct mutex			proc_ctx_lock;
- 	struct amdgpu_userq_obj		proc_ctx_obj;
+ 	if (bank_type == MCE_BANK_TYPE_GPU) {
 -
-+	/* Set when any queue owned by this process is reset guilty */
-+	bool                            guilty;
- 	bool				proc_ctx_allocated;
- 	uint32_t			proc_ctx_array_index;
- 	/**
+-		if (ras_aca_parse_bank(ras_mgr->ras_core, &aca_bank, &err))
++		if (ras_aca_parse_bank(ras_mgr->ras_core, &aca_bank, &err)) {
++			RAS_DEV_ERR(adev,
++				"Unrecognized gpu mce: bank:%u IPID:0x%llx"
++				" STATUS:0x%llx ADDR:0x%llx SYND:0x%llx\n",
++				m->bank, m->ipid, m->status, m->addr, m->synd);
+ 			return -EINVAL;
++		}
+ 
+ 		/* GPU device only record bank data that matches its own socket id.*/
+ 		if (adev->smuio.funcs->get_socket_id(adev) != err.bank_info.socket_id)
 -- 
-2.34.1
+2.43.0
 
