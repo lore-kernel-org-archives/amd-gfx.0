@@ -4,97 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84E26C88E75
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 09:45:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A59E6C88E75
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 10:12:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0795910FB2B;
-	Tue, 15 Sep 2026 09:45:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 208A510E814;
+	Tue, 15 Sep 2026 10:12:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vo53yK4T";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n7FGizkm";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012023.outbound.protection.outlook.com [40.107.209.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89F9A10FB2B
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 09:44:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AIkH6JfAFSZAws+4AD9Bo4wEffCnRHHq5kqmEGH17i3UE+naF6lwMZDc39Gi+G6G/yH/CKuAj5D3YAD9QJIc8ymYxkF9lSQ7uN9Eyv5M83OMjclGzb8MlY12kswXOoSfcN1CqK6Qo5Cl0RXtFERS1GH2d73Vt9ojEMfExUCbtBDT9ajneIpNnATTPKBhu7uFaMrsx0KEM+pbgVzEX7L8LephMebNTqsamu7nsfyiz/KBhKPojNuUj9Q6THn+6NWkTqC7TeZNnNlH2kV7zLJaorO9ty8IXEPuigbixi7oxAPrHrvKhspZ91YckZPFFFvvs2MhrDobPyR/hSFgJFUTYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i9BLjJQsB9eMmFXHd+fPF1gvWXwBoCMB65JAV2XqDyI=;
- b=HTaWQB63i9S1ynTSIh2/FGlgfk7UzIybQfCoU+2qU6iSGNaR5OqDd1pDVXInShVNuNg6O2YIYzHUdSrB52b7P+dj0ZmJPMsjqzvGeoKcoor3NKR1OgFoJeBcUz8mJ4nzIq157b4PcTq/BPQhVTNcEUhgB/958XUmZOeq2H3SoIFEhQEgn/4TdDDfbGkpm1M6VMJYK49hMGhJD84U9PC5UTdvSvmdkQmdliLAqS08w6eeXz3OnAZSHEaCKCCSwjVrbjri29G8xEqNxv4rGnAhDoe8ya2jxcn77cckUqIjQHqXdtdI/J7RVJM09CFIulya/fLYt/p0CdUdM7l8ofHi3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i9BLjJQsB9eMmFXHd+fPF1gvWXwBoCMB65JAV2XqDyI=;
- b=vo53yK4TbKgVBg1UDxOMzSkpXImXdqnC7T4FzJ+yEWzFsGA6xG75+6ph5COYgRlvk8CDdxGebtGaeofFdp2cRvjIvHRiKiYDDVhAfp/6Sb3Scb1BSP2LDiWpmHbIL0qwTiCDySYvXxt5Gqvo91lmj4vn9CBpqjzQLtMkYnOcD80=
-Received: from SN7PR04CA0234.namprd04.prod.outlook.com (2603:10b6:806:127::29)
- by DM6PR12MB4089.namprd12.prod.outlook.com (2603:10b6:5:213::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 09:44:54 +0000
-Received: from SA2PEPF00003AE9.namprd02.prod.outlook.com
- (2603:10b6:806:127:cafe::42) by SN7PR04CA0234.outlook.office365.com
- (2603:10b6:806:127::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Tue,
- 15 Sep 2026 09:44:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003AE9.mail.protection.outlook.com (10.167.248.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 09:44:53 +0000
-Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
- 2026 04:44:51 -0500
-From: Ce Sun <cesun102@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
- <Stanley.Yang@amd.com>, Ce Sun <cesun102@amd.com>
-Subject: [PATCH] drm/amdgpu: skip ras error reset in gpu reset only when
- uniras is enabled
-Date: Tue, 15 Sep 2026 17:44:42 +0800
-Message-ID: <20260915094442.108755-1-cesun102@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2119C10E814;
+ Tue, 15 Sep 2026 10:12:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CEE6D434D4;
+ Tue, 15 Sep 2026 10:12:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D19C1F000FF;
+ Tue, 15 Sep 2026 10:12:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789467175;
+ bh=NfoUQduSWmFink/5S/bNRnGZCA/pdLAU6Bd1CaQ3OmA=;
+ h=From:To:Cc:Subject:Date;
+ b=n7FGizkmfQbWAi/P/l7kyg2dNBaSsE4HHCIF8HWXp3ubbjNJgTo0yXYdP8rPtQGZN
+ cmRNHObtJMQ66e3cPhcaMdzW5H1TMJwvNvKAEzRYv0w+5SWjmyqpq2O55VgAvmn3x+
+ M/m/Z8g9O5Mttp3DFNg40318CJz3KwfHQUi0roIyG3kw22DG8QKblL//yIoSMbawmG
+ IlaYp+tIxP7Ntn3Q8OlGrn9zgU4aZnBLU9r9pPind3RdsqEFh+pLZP5Ai5eMhuys11
+ OAKmQKirBNTYKd7nlZ70SSCwSObZPlWvCrmEvZYqxiQAKmSMptycyOKdq06qitfbeb
+ Sh8nGbs3JrXuA==
+From: Maxime Ripard <mripard@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu_dm: tests: Fix wrong variable declaration after
+ merge conflict
+Date: Tue, 15 Sep 2026 12:12:51 +0200
+Message-ID: <20260915101251.1711103-1-mripard@kernel.org>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE9:EE_|DM6PR12MB4089:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70cf1de3-9f2d-48f5-e2e3-08df130dfeaa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: CxeiNN9+4MbS06r2cX5Tj7+5ALhcRO2gj0AMLZhaGS/1YG77mYt4W9X+NmC4z4k9ZvNb6410ynCciO4VQlduSGR2gfTo1EXHgBFmb2HXBiynt4mxwZiAzOuCOzpkQ5Y8F0VyncQ3MezMdJ37dMn24xgwNr1aX8CdbGfkJdsEOU79zknaCD3QGyk94nWQy0GLp29UhflvKtN1+12jejNSdEbDIFTTjUkSR1Censi1Tn3vIdtAs9Q/gOPDkoGodxQdIc8bNdFQmlMprIwvWmsB4/ozvTwy22zrqq0YGH26IOBsrEkPasklvHzZe6xuzsmtdSKO7dq7LoRy6dIB2UCHctZeg8weTi+noMnf74hmufiOJm1aQIzk9UirVU1IZAMkFCA3Oz9V7wK5DhXF/TfUW+XyybSXa71gQUdjcEV6N0MCzLOWjcjH2U5f/+NpR1fQ7g3/X02s949/qpXKpi7wEiRoXuGsqxxix/4yO/ERSk9teX710rbAeiXJOkkYL8Dqaw9Ssc847j0NXPJFn1cVAbMXvHWJvwO6c+uQ+R+DCOFQVVf3z1XXrGIDoswNxfWS4uI+3KiuOym6b77V++cguoABBsvxiJECfAIMD4zT5HnkOOi11m/K3RYX6Vo8wu1nb3BY115t68hEZyc0MUbfpjUD7fQ/sD9LniB3dRZ8Cfo6/trWja6YuJCXOspJoZscqrbsWt+vQHFvuBb/3EW8hg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(18002099003)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: FDD5QwA3QOESJ6MV1Q5iERt20SeLfA66ApPILxGM8E9HL/sjZQSK/fgdH2XuSaycjkQ4apcXV3aLlPAcQ/mBMoDO8tH7XZNvBOz0gJcwpPpbYcZUdsAftQo1KQsxVFuL/a0YxY4CtoIwWIUoxWdxCwJV9olSu0qG+LFdfU/SjfM+19U3+EzxUBZFFZIpxfpY+ppGmKkiiSwvM5obJl4fCqW4+KYbQgAE9bTkaQWaZGPJ+E8T/f777cXVvhLpJppZbjU9K4QQI9r4E6JYAgmHH1sI3JquCjbI4WLmsobtUWrGuoY3aeupNDDRHqIq9jYFXyiBUAnX1MydRYXsYsABi4R1FiuMqNl259lqTVwJ+8xNiEHjP+qBttb3SBKHF2wqImr6mzU+8nXou4X4QOHtCPb4Hu1o7aAS/HkFH0QAqo3Q6/P3YHqqTddYkWG35uoE
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 09:44:53.7368 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70cf1de3-9f2d-48f5-e2e3-08df130dfeaa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4089
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,30 +61,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The original logic skips RAS error reset whenever GPU is in reset or RAS recovery.
-This change adds amdgpu_uniras_enabled() condition, so we only skip the reset
-when uniras is enabled. For ASICs without uniras, we still perform RAS error
-reset during GPU reset.
+Commit 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
+converted dm_test_plane_create_state_initializes_state() to call
+amdgpu_dm_plane_drm_plane_create_state(), which returns a struct
+drm_plane_state pointer stored in a new plane_state variable.
 
-Signed-off-by: Ce Sun <cesun102@amd.com>
+However, the merge conflict resolution kept the old declaration
+(struct dm_plane_state *old_state) instead of replacing it with
+struct drm_plane_state *plane_state, leaving an unused variable with
+the wrong type.
+
+Fix the declaration to match what the conversion intended.
+
+Fixes: 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 6b2b8acdbf9b..c65916d84683 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1513,7 +1513,8 @@ int amdgpu_ras_reset_error_count(struct amdgpu_device *adev,
- 		return -EOPNOTSUPP;
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+---
+ .../gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c  | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+index c75a2ef87479..4a2ea3ea2ce5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+@@ -2931,11 +2931,11 @@ static const struct drm_plane_funcs dm_test_plane_reset_funcs = {
+  * dm_plane_state, and initializes the AMD-specific transfer function and HDR
+  * multiplier defaults.
+  */
+ static void dm_test_plane_create_state_initializes_state(struct kunit *test)
+ {
+-	struct dm_plane_state *old_state;
++	struct drm_plane_state *plane_state;
+ 	struct dm_plane_state *new_state;
+ 	struct drm_plane *plane;
  
- 	/* skip ras error reset in gpu reset */
--	if (amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev))
-+	if ((amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev)) &&
-+	     amdgpu_uniras_enabled(adev))
- 		return -EOPNOTSUPP;
- 
- 	if (block_obj->hw_ops->reset_ras_error_count)
+ 	plane = kunit_kzalloc(test, sizeof(*plane), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, plane);
 -- 
-2.34.1
+2.55.0
 
