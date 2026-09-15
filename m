@@ -4,81 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 350E3C88E7D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D142EC88E77
 	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 21:01:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C27C10E7B9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3625F10E3CB;
 	Tue, 15 Sep 2026 21:01:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W2t5bnOX";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="oQzMHwzF";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB1C10E583
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 16:37:50 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-482f633ecdeso459888f8f.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 09:37:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789490269; x=1790095069; darn=lists.freedesktop.org;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=uyYww1vw22YFRnFO2kz8YhlMFLNE8VmPnf3mijbwEdw=;
- b=W2t5bnOX8n8Xsi6Y3RNKEZj5Dh3C2NLtL+iza8LQzAIxdyeQDX6/Wyox36RydKzY8k
- oyKHTCCef9FgXFYqA6tavR0WhGo5OIC6VXsIAlAXLffS2cS8H7TujGO1JyoIrDtwF2Rk
- W4gKNKA5ZZYaqUV0twfOdtSIVnRcfJvX0DJwWgk9pB0upCASwa9aw/9/Mh99L9tlW0H8
- pfWby6TgGPAbvN8cfslIb+FKOwtk9nm82eH1wqZaxjQ1cclULmKawFQrvVMzna8izu8x
- 6X53iRU9Nn0k1r0VBzkoCs5ehgzF8NccW+K31V6dU9q1/p6CfXTWJobpJ3VF/wCy3JJK
- 5YQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789490269; x=1790095069;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=uyYww1vw22YFRnFO2kz8YhlMFLNE8VmPnf3mijbwEdw=;
- b=Tw/3uKLlBbkrntL6drlDQuN3b/SoSdQU1vN6HT65HrN1Djng/8a7uHkizMk3PcDBKE
- 24IUOZ8ZG36dXUIBIxRzk1yOfr3Bfjszj13pbJNDOJilxAx0DWYv0opv6/qTfXU0qrUk
- OJK5FUMTwYQBlLQwVyEgW8xIN+mE7WXP9UBlVN6C5PHXo0q3Ex1Jtbz7SgkRe98DoqB+
- 7490k99OXwyESxrZWruXXCD/uBADF9jqkZ7+FPbMYnp7F7VS0YqzgrnEiTGxba+AVlvU
- UaI1R3d1Sw0/ic/0P5YRGJx/gktJiARYB1AosP79wqbZHgmMXH2lNF9fwC4U/KS4fJtB
- LbGQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxIjNFq3K+eMxgmJsKACL5CDDcEejS2509HwqewM6GU59isVH1MLvGXCFzv9dykq4EBolVcPzmk@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nLUrPLeNooPwQOgDOhSHUlktZw9cBXgzeOjk/Hpl9xntLKnPBr
- iUlz6RWGcqWfFL3WOSBdGIrykwqUZr4C9N3RSR6JySYBGt3Y3+eV8I0o
-X-Gm-Gg: AYBFou3z2i5p7FVpNgKDO1I+TuXkY8Q7HQ/hQ0pqdNAoke+nc9IBY3eU438BoN4PF+8
- OPSdCqJnwAlQw/bmB8BoVBYFm7u+9ClT6RlgjFr2q5F0dwM8C1fcov5l1TOMXo9pL03MBpZ8oSl
- vy5AHfLVX9pTsElsT4Rd4ZbHQX0n2/dRA688vkr980xHBXlf8XcUwwysuuU7t7xbnG3d5gn05yR
- K78uW/igpfpIRzEfbUdxBL7ipmsKlfnYDT9f7vZMKjgqYi8DoVW6IRVOMeFRMWQslA7NS+2XpHE
- DN/K4g5jcvouZYRLJJEBiNFPRyPogQ+382G/BGyMUEDoJpZNlPuZlJq8eUWGheUYLZW5sE4ho0/
- 6AvSHrx2elc3ktTtEF82lv0OIJiK4WxDPVdReItlJnk3mVzF5HvOVrPFlsl7kXRPG9B3uFdBFIM
- uOwPG/nDTwyVR1N8721GwPytuMuPzbx2jJwIG9AYUDyhxR2JYRqNkAl0DmimApqeSQq+IwvEgI+
- h3m3w==
-X-Received: by 2002:a05:6000:310f:b0:486:e9b7:cb9 with SMTP id
- ffacd0b85a97d-4870a9dd928mr2076898f8f.45.1789490268678; 
- Tue, 15 Sep 2026 09:37:48 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4870bf1fa70sm256434f8f.9.2026.09.15.09.37.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Sep 2026 09:37:47 -0700 (PDT)
-Date: Tue, 15 Sep 2026 19:37:44 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Yang Wang <kevinyang.wang@amd.com>
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lijo Lazar <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>,
- Kevin Wang <kevin.wang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-Subject: [PATCH] drm/amd/pm: delete a stray tab
-Message-ID: <aql0WF8CnlzgS4nz@stanley.mountain>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4D1E10E171;
+ Tue, 15 Sep 2026 14:42:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:From:Reply-To;
+ bh=zCGi4w9d5jru4vEsLM5FpfQfaDkBG3AruS5yhUo1Geo=; b=oQzMHwzFiW0Dwv0WRwj4wrgREh
+ S4vBk/HyO1LBtQDepyAd890bDP25UOpsJCy7r2xyo/yqoBxzZ+5c2c5roSC0blVT+gu5BvehSjLgN
+ 3YwFbZCtilusH7HFKBM+WHsdMMj7EfydHChvVbzHhIBdBUPnCPZzJ0qYNLu31UOO2kOA7xMlDBbhx
+ quSM3QigI15Aix5T96bGGKcxJ6+VZ6Y2SKHeZdIRHA2xJ18Bu4Mdzqn7orQ3TbE3WlBYWuSwh13b4
+ NEm/xNgxdKtWbRcz+j/w4elubKbhO3yUyWN4KvNdgCuCLDaCccatIC8yhsUp81GSWOCjZRPTNKXuD
+ rZKhHkGw==;
+Received: from 179-125-70-185-dinamico.pombonet.net.br ([179.125.70.185]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x6UMP-002URd-U8; Tue, 15 Sep 2026 16:42:14 +0200
+Date: Tue, 15 Sep 2026 11:42:08 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>, kernel-dev@igalia.com
+Subject: Re: [PATCH i-g-t v6 9/9] tests/cgroup_dmem: add
+ write_eviction_nonblock subtest
+Message-ID: <aqlZQENgx5px15hb@quatroqueijos.cascardo.eti.br>
+References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
+ <20260903-dmem_max-v6-9-61dc62970fae@igalia.com>
+ <ec2d6a48-f243-4990-8c22-132fb3ef1007@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ec2d6a48-f243-4990-8c22-132fb3ef1007@igalia.com>
 X-Mailman-Approved-At: Tue, 15 Sep 2026 21:01:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,27 +69,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This tab was accidentally added in commit 6c9e0328d1de ("drm/amd/pm:
-refactor PPT limits by controller and power source").  Delete it.
+On Fri, Sep 04, 2026 at 03:51:33PM +0100, Tvrtko Ursulin wrote:
+> 
+> On 03/09/2026 23:00, Thadeu Lima de Souza Cascardo wrote:
+> > From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > 
+> > Add write_eviction_nonblock to exercise the O_NONBLOCK path of the dmem
+> > cgroup max interface.  After filling VRAM to the cgroup limit, each
+> > limit-lowering step writes dmem.max with O_NONBLOCK so that synchronous
+> > eviction is skipped.  The test then verifies that usage has not yet
+> > dropped below the new limit, allocates a small BO to trigger eviction
+> > explicitly, and finally confirms that usage falls within bounds.
+> > 
+> > Assisted-by: GitHub Copilot:claude-sonnet-4.6
+> > Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > ---
+> >   tests/cgroup_dmem.c | 37 ++++++++++++++++++++++++++++++++++---
+> >   1 file changed, 34 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+> > index 0d3b415acd54..ee6345c17878 100644
+> > --- a/tests/cgroup_dmem.c
+> > +++ b/tests/cgroup_dmem.c
+> > @@ -41,6 +41,7 @@
+> >   #define USAGE_DROP_TIMEOUT_MS	1000
+> >   #define TEST_INTERRUPTIBLE	(1 << 0)
+> > +#define TEST_NONBLOCK		(1 << 1)
+> >   /**
+> >    * SUBTEST: simple
+> > @@ -90,6 +91,18 @@
+> >    * REQUIREMENTS: must run as root; xe device with at least one VRAM region
+> >    */
+> > +/**
+> > + * SUBTEST: write_eviction_nonblock
+> > + * DESCRIPTION:
+> > + *   Same fill phase as write_eviction.  In the limit-lowering phase dmem.max
+> > + *   is written with O_NONBLOCK, which causes the kernel to skip synchronous
+> > + *   eviction.  After each nonblock write the test verifies that usage has not
+> > + *   yet dropped below the new limit, then triggers eviction explicitly by
+> > + *   allocating a small BO.  Finally verifies that usage falls within bounds
+> > + *   after the forced eviction.
+> > + * REQUIREMENTS: must run as root; xe device with at least one VRAM region
+> > + */
+> > +
+> >   static atomic_int signal_count;
+> >   static struct sigaction sigcont_oldact;
+> > @@ -277,7 +290,7 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
+> >   	struct igt_cgroup *cg;
+> >   	void **handles;
+> >   	int max_bo;
+> > -	uint64_t current, capacity, cg_max, limit, after;
+> > +	uint64_t current, capacity, cg_max, limit, after, before;
+> >   	int err;
+> >   	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+> > @@ -322,14 +335,31 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
+> >   	while (limit >= EVICT_STEP) {
+> >   		limit -= EVICT_STEP;
+> > -		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
+> > +
+> > +		if (flags & TEST_NONBLOCK)
+> > +			igt_cgroup_dmem_get_current(cg, cg_region, &before);
+> > +
+> > +		igt_cgroup_dmem_set_max(cg, cg_region, limit,
+> > +					!!(flags & TEST_NONBLOCK));
+> >   		igt_cgroup_dmem_get_current(cg, cg_region, &after);
+> >   		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
+> >   			  limit / SZ_1M, after / SZ_1M);
+> > +		if (flags & TEST_NONBLOCK) {
+> > +			/*
+> > +			 * O_NONBLOCK skips eviction: verify usage has not
+> > +			 * dropped below the new limit yet.
+> > +			 */
+> 
+> Is this userspace ABI contract or happens to be? It feels odd - even if we
+> ask for non block for the write why would kernel not be allowed to do stuff
+> behind the covers?
+> 
 
-Signed-off-by: Dan Carpenter <error27@gmail.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+You bring up an interesting perspective. So maybe the test below might
+fail. But we are assuming the test is running with no other users, so this
+would be unexpected. Unless we setup dmem.min, there is no guarantee that
+eviction won't happen. However, I think the test is still useful as it is.
+We are checking that nonblocking behavior will not trigger eviction right
+away. We risk not catching up such regression if we leave it out. If we end
+up noticing on CI that this happens, we can investigate and revisit.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index a29e76b03476..6beafabf1306 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -3077,7 +3077,7 @@ static int smu_v13_0_0_set_ppt_limit(struct smu_context *smu,
- 				return ret;
- 			}
- 		}
--			return smu_v13_0_set_ppt_limit(smu, limit_type, limit);
-+		return smu_v13_0_set_ppt_limit(smu, limit_type, limit);
- 	} else if (smu->od_enabled) {
- 		ret = smu_v13_0_set_ppt_limit(smu, limit_type, msg_limit);
- 		if (ret)
--- 
-2.53.0
+Thanks.
+Cascardo.
 
+
+> Regards,
+> 
+> Tvrtko
+> 
+> > +			igt_assert_f(after == before,
+> > +				     "Expected no eviction with O_NONBLOCK, but "
+> > +				     "usage dropped from %"PRIu64" MiB to %"PRIu64" MiB "
+> > +				     "(limit %"PRIu64" MiB)\n",
+> > +				     before / SZ_1M, after / SZ_1M, limit / SZ_1M);
+> > +		}
+> > +
+> >   		if (limit > EVICT_STEP) {
+> > -			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
+> > +			if ((flags & (TEST_INTERRUPTIBLE | TEST_NONBLOCK)) && after > limit) {
+> >   				/* Let a new bo creation trigger eviction. */
+> >   				void *handle;
+> >   				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
+> > @@ -368,6 +398,7 @@ static const struct {
+> >   	{ "current", test_current, 0 },
+> >   	{ "write_eviction", test_write_eviction, 0 },
+> >   	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
+> > +	{ "write_eviction_nonblock", test_write_eviction, TEST_NONBLOCK },
+> >   	{ }
+> >   };
+> > 
+> 
