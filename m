@@ -4,83 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC309C88E75
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 12:31:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82A3FC88E53
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 12:40:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E767010E2C7;
-	Tue, 15 Sep 2026 12:31:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF42610F44B;
+	Tue, 15 Sep 2026 12:40:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hJ+lJtZG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vJhEI78c";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8C710E0A7;
- Tue, 15 Sep 2026 12:31:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789475499; x=1821011499;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=32KwHaouwkg2IFwHsP/xenwquCRjaCAgeCXIRNVazDA=;
- b=hJ+lJtZGPKUSn/L2DsFexOyf2JqhQaDaOwVNlMmc9pU/uK+IrMD4mRQJ
- d4+SSKP/HhuFeM7ZyTqq05YWWj35cGG1smah6h5RJQd8LLuX326RgujVE
- 0YUIK/Og4VxzpZHyOITPsRAZ6ZZGlOfC0RDj/JPIrUapT8l5kLIeOoPbY
- p8rpQx5InDr1kXNoUma9Gqa3kp6pz2NRT/Xf9WuzaQmMsT+dvrWitiIU9
- 6TMLUZMYM7cMrOZAF74qCLRltYyLRUIdaUjXWYptXA8IWkUNqIwl7xSmv
- W6FNaGRUuEhe0ZGe+UfLXE1NIdp85wFUXSqPm8409w93TxidMQQopCPnf Q==;
-X-CSE-ConnectionGUID: s6kvmaqqRaGhH3+BWfabPA==
-X-CSE-MsgGUID: itV0qUyGTai45pvZU3CK8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89678870"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="89678870"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 05:31:38 -0700
-X-CSE-ConnectionGUID: 5CzhA7o5R7Oo8KIgkAMvug==
-X-CSE-MsgGUID: JuygdXRlSY+0CJx23WbFTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="266786085"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.243])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2026 05:31:32 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Armin
- Wolf <W_Armin@gmx.de>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "hansg@kernel.org"
- <hansg@kernel.org>, "platform-driver-x86@vger.kernel.org"
- <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux@weissschuh.net"
- <linux@weissschuh.net>, "rafael@kernel.org" <rafael@kernel.org>,
- "lenb@kernel.org" <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
- <linux-acpi@vger.kernel.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "patrik.r.jakobsson@gmail.com"
- <patrik.r.jakobsson@gmail.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net"
- <tursulin@ursulin.net>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "matthew.brost@intel.com"
- <matthew.brost@intel.com>, "thomas.hellstrom@linux.intel.com"
- <thomas.hellstrom@linux.intel.com>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
- nvidia_wmi_ec_supported()
-In-Reply-To: <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260724025959.142826-1-W_Armin@gmx.de>
- <20260724025959.142826-3-W_Armin@gmx.de>
- <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
- <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
- <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
-Date: Tue, 15 Sep 2026 15:31:29 +0300
-Message-ID: <11976ed3784675ad241646287a909286a42675a8@intel.com>
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012046.outbound.protection.outlook.com [52.101.48.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9564710F44B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 12:40:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gmsGUUrAlt+/nWUoP8YTY1K6ZiBUm5FgBC0SB7J2PbBY2N1EPA09dTi9q96pyTcKXm61xsKhV+19mUL0Q2+SVtBjfQxAo0fknQ7wMTyCtbVrymBzdUmCbtoht/KnkIqa0P9C7WJqNLLqwTEGID/uqkm2LRQtFcmQTZjWiOD4X56KYKJuuYtx4Y+AYhtcm3YG7WwANg1kQ6Nh6PYJDjjG1F9P9VM4hT4lzDonyrZUQxnN/leDdo3zincq+ESeyTSCKjRuEsmsuhf06zu5OI0xElu7pbW8iqbX02sQALd9XbD2nq2PiEFPrqNK7we2akcxdfi4QUu+mTMfBhuPDpY+3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CHc8fCwNuUPsvDA2al0bKas9obvBdwCp6cVxHiFdRag=;
+ b=eEfDVom7zccx5XwO/3wDRMAbr2JyJ5TYFHbLH3FG6EHmwiK0v2IXBwZtlvGYRqQiplyL0FQc4k0RwEp5KqtfMEW0hnxhPkcX22Kk4rkk9WgmYYCYDIRXS9fuG6WNQcOtAi0JYGLkJfQsMeZ3l3MiZRVk1tdmofL8lJWSL5pkjWE/sV2r9tXVg57uT7CLaufz8LrkWSvlHVxaLyFMYzW2MBrMbGqHAXA7DELY/rQHHYd4OlGcc0eG3kIgj9lKJsa5qy8Jlkxe7cc92JULtvVA5P1gJNedOlLdG1E5ySvncKf0YD7KH3A72g6afzCQDYAELaa9suWJ1NvN5hKbh9QvyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CHc8fCwNuUPsvDA2al0bKas9obvBdwCp6cVxHiFdRag=;
+ b=vJhEI78cpXJEfH13P/AxKbw4suxf4tlX6XhUBgR2W+XXevVbaKgMzva3HbrZWsqcFPfb2cy/A7MD1WPBSwH2wQK2O2ft+4R4lfbFkB6w4eUyIs2nfsG090LCyJ5bExBDZ1h/2G/g1KWrEgdiHxT55JwftZdM24n4f35DjqM1EWo=
+Received: from CH2PR15CA0007.namprd15.prod.outlook.com (2603:10b6:610:51::17)
+ by MN2PR12MB4287.namprd12.prod.outlook.com (2603:10b6:208:1dd::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Tue, 15 Sep
+ 2026 12:40:42 +0000
+Received: from CH1PEPF0000A34C.namprd04.prod.outlook.com
+ (2603:10b6:610:51:cafe::5b) by CH2PR15CA0007.outlook.office365.com
+ (2603:10b6:610:51::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Tue,
+ 15 Sep 2026 12:40:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000A34C.mail.protection.outlook.com (10.167.244.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 12:40:42 +0000
+Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 15 Sep 2026 07:40:40 -0500
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Likun Gao <Likun.Gao@amd.com>, "Horatio
+ Zhang" <hongkun.zhang@amd.com>
+CC: Hawking Zhang <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu/gfx_v12_0: Remove legacy CP programming
+Date: Tue, 15 Sep 2026 20:40:24 +0800
+Message-ID: <20260915124024.14573-1-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34C:EE_|MN2PR12MB4287:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b704384-6ba3-43d9-6c40-08df13268deb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|10067099003|56012099006|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: DXHBYVJlFBKNF2nkbJ6IELaZ3/+Xvzs8GiIVJovBzl1RmdupX24YjVYMO4wuB+BAeJ1PR4BXqsW5vpQa/NH6zMAKUqDFXe6AJodEnjSRqloTUJjuTb1P/3zoBtIe6Q96MFOqbp63iDE4YSj0WHs4a4M+lM8dZRMk95HXe0V62vNpX9uFL34n9NNIjW0jtc3tzXebWqf3o1Rhp6/vyxqAFe8R7NzgDbSVLMe+MiRReAMheSVfiPbvBD//RXq51WYVcgG9g9PlXLi09hI0uAsQ20GtenA2dB8HXQLFK4VS+Ga9k4xyicStOOM12FzAh8Ae7LZYDfPHuv9JXAVKYQuv5oAVeXiSOR0KVKkFVjAdEDYepasZ4F1Mw9g01B5lpZMi6Vqh4HBWDeFMZe8nXjNMQMdX6nlntmUG3p/mYIIek6qE+lrmgqYr5Sr1YlWrY3TvYVsl2baxNcMvUqzSFcK4zdHu0lvMTlQJDgQ9F3qABWsFnBhmzgPZZfiaw2luxzoYWYwxDjlLrpRbasKuX8vs/CxIwrVcTZJzIytJuTBZPL+ILyusctesNEfBfKAOBAL2Ge2RcxioKqoTI/1plxKzPqAbOY3aYEz6mZZELWiE6IInEtgW4WRgydgpiwNypb5wE2T2R4qj1eganQooLg/m7WFA+rbeNxn6cDc+sf5ntdLelynbKgZWRiBlFXg/Mha8gWCjDVl7YHEEnhCLlmAvfw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(10067099003)(56012099006)(18002099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: hrq4R1O4cn9vr6bcrVCc1hcm1rhFLAEpjA+I6iYYsxod0uZQkcna6VV6TBxouhnkMucE4fuRy7obQrU9g7Ks+cMxXlsA5p0S1Jp6vQkWCAJHIxUDBJAyKtCVI3mvEZfS2kuDOWGgw3Ixt4EklLCaARpvCVGgYB+C6NqrkOr3xFr/Mx6XMeJoXpHiMLS1qTDgjomMo5hVdek9LIlathIBFwyGw47l5QCcOlAVK/uNe3slWD3NAojPv3DiFCzPJGPPn3JX8jiuHVgovRGE1Ah3LeLVWWXdo8eJrl8TvTp/ZYBOitNWKj8sONCFbUiLCzb8G2qZeMWusxpigwXItEqK7qc95kqEF0OBlkWW8UGkOiFaRnZS0+uQuAyhyP9X2Qlm6w8vROXltY6xUv0i/kobAn42rKM0E2c9xqYrByQnszqg8XEs22ARFPP1o1NQtH2s
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 12:40:42.0003 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b704384-6ba3-43d9-6c40-08df13268deb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A34C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4287
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,237 +107,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> wro=
-te:
-> GPU people heads up!!
->
-> On Wed, 2 Sep 2026, Armin Wolf wrote:
->
->> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
->>=20
->> > Public
->> >=20
->> > > -----Original Message-----
->> > > From: Armin Wolf <W_Armin@gmx.de>
->> > > Sent: Thursday, July 23, 2026 11:00 PM
->> > > To: hansg@kernel.org; ilpo.jarvinen@linux.intel.com
->> > > Cc: platform-driver-x86@vger.kernel.org; linux-kernel@vger.kernel.or=
-g;
->> > > linux@weissschuh.net; rafael@kernel.org; lenb@kernel.org; linux-
->> > > acpi@vger.kernel.org; Deucher, Alexander <Alexander.Deucher@amd.com>;
->> > > Koenig, Christian <Christian.Koenig@amd.com>; airlied@gmail.com;
->> > > simona@ffwll.ch; amd-gfx@lists.freedesktop.org; dri-
->> > > devel@lists.freedesktop.org; patrik.r.jakobsson@gmail.com;
->> > > maarten.lankhorst@linux.intel.com; mripard@kernel.org;
->> > > tzimmermann@suse.de; jani.nikula@linux.intel.com;
->> > > joonas.lahtinen@linux.intel.com; rodrigo.vivi@intel.com;
->> > > tursulin@ursulin.net; intel-gfx@lists.freedesktop.org;
->> > > matthew.brost@intel.com; thomas.hellstrom@linux.intel.com; intel-
->> > > xe@lists.freedesktop.org
->> > > Subject: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
->> > > nvidia_wmi_ec_supported()
->> > >=20
->> > > The WMI-ACPI driver now supports architectures other than x86.
->> > > Remove the CONFIG_X86 handling from video-detect and the associated
->> > > drivers to simplify the resulting code.
->> > >=20
->> > > Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
->> > > Signed-off-by: Armin Wolf <W_Armin@gmx.de>
->> > > ---
->> > >   drivers/acpi/Kconfig               | 2 +-
->> > >   drivers/acpi/video_detect.c        | 8 --------
->> > >   drivers/gpu/drm/amd/amdgpu/Kconfig | 4 +---
->> > >   drivers/gpu/drm/gma500/Kconfig     | 1 -
->> > >   drivers/gpu/drm/i915/Kconfig       | 1 -
->> > >   drivers/gpu/drm/radeon/Kconfig     | 4 +---
->> > >   drivers/gpu/drm/xe/Kconfig         | 5 ++---
->> > >   drivers/platform/loongarch/Kconfig | 1 +
->> > >   8 files changed, 6 insertions(+), 20 deletions(-)
->> > >=20
->> > > diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig index
->> > > f165d14cf61a..cc1e58fa664b 100644
->> > > --- a/drivers/acpi/Kconfig
->> > > +++ b/drivers/acpi/Kconfig
->> > > @@ -224,7 +224,7 @@ config ACPI_VIDEO
->> > >        tristate "Video"
->> > >        depends on BACKLIGHT_CLASS_DEVICE
->> > >        depends on INPUT
->> > > -     depends on ACPI_WMI || !X86
->> > > +     depends on ACPI_WMI
->> > >        select THERMAL
->> > >        help
->> > >          This driver implements the ACPI Extensions For Display Adap=
-ters
->> > > diff
->> > > --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c in=
-dex
->> > > 458efa4fe9d4..af9280b244f1 100644
->> > > --- a/drivers/acpi/video_detect.c
->> > > +++ b/drivers/acpi/video_detect.c
->> > > @@ -82,8 +82,6 @@ find_video(acpi_handle handle, u32 lvl, void *cont=
-ext,
->> > > void **rv)
->> > >        return AE_OK;
->> > >   }
->> > >=20
->> > > -/* This depends on ACPI_WMI which is X86 only */ -#ifdef CONFIG_X86
->> > > static bool nvidia_wmi_ec_supported(void)  {
->> > >        struct wmi_brightness_args args =3D {
->> > > @@ -105,12 +103,6 @@ static bool nvidia_wmi_ec_supported(void)
->> > >         */
->> > >        return args.ret =3D=3D WMI_BRIGHTNESS_SOURCE_EC;  } -#else -s=
-tatic bool
->> > > nvidia_wmi_ec_supported(void) -{
->> > > -     return false;
->> > > -}
->> > > -#endif
->> > >=20
->> > >   /* Force to use vendor driver when the ACPI device is known to be
->> > >    * buggy */
->> > > diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
->> > > b/drivers/gpu/drm/amd/amdgpu/Kconfig
->> > > index 12e4a41bf1f0..50305630f533 100644
->> > > --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
->> > > +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
->> > > @@ -30,9 +30,7 @@ config DRM_AMDGPU
->> > >        # ACPI_VIDEO's dependencies must also be selected.
->> > >        select INPUT if ACPI
->> > >        select ACPI_VIDEO if ACPI
->> > > -     # On x86 ACPI_VIDEO also needs ACPI_WMI
->> > > -     select X86_PLATFORM_DEVICES if ACPI && X86
->> > The change below makes sense, but this one looks like it should remain
->> > unless X86_PLATFORM_DEVICES is handled some other way?
->> >=20
->> > Alex
->>=20
->> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary because
->> ACPI-WMI depended on it in the past.
->> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 anymore.
->
-> Hi all,
->
-> Could more GPU people besides Alex take a look on this. I'd want to make=
-=20
-> progress with this series within this cycle but would prefer to have Acks=
-=20
-> from GPU side.
+CP resume through MMIO programming is no longer
+supported on GFX 12.0 and later generations. Remove
+this obsolete code to prevent it from being carried
+forward into future GFX generations.
 
-I share the same concern with Alex. It seems to me we could now end up
-with x86 configurations without X86_PLATFORM_DEVICES, which handle
-e.g. backlight on a lot of platforms.
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 129 ++-----------------------
+ 1 file changed, 7 insertions(+), 122 deletions(-)
 
-I think the safer option might be to go for:
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index ec1e142549c5..a9bd0c9f83b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -2707,108 +2707,6 @@ static int gfx_v12_0_cp_gfx_start(struct amdgpu_device *adev)
+ 		     adev->gfx.config.max_hw_contexts - 1);
+ 	WREG32_SOC15(GC, 0, regCP_DEVICE_ID, 1);
+ 
+-	if (!amdgpu_async_gfx_ring)
+-		gfx_v12_0_cp_gfx_enable(adev, true);
+-
+-	return 0;
+-}
+-
+-static void gfx_v12_0_cp_gfx_switch_pipe(struct amdgpu_device *adev,
+-					 CP_PIPE_ID pipe)
+-{
+-	u32 tmp;
+-
+-	tmp = RREG32_SOC15(GC, 0, regGRBM_GFX_CNTL);
+-	tmp = REG_SET_FIELD(tmp, GRBM_GFX_CNTL, PIPEID, pipe);
+-
+-	WREG32_SOC15(GC, 0, regGRBM_GFX_CNTL, tmp);
+-}
+-
+-static void gfx_v12_0_cp_gfx_set_doorbell(struct amdgpu_device *adev,
+-					  struct amdgpu_ring *ring)
+-{
+-	u32 tmp;
+-
+-	tmp = RREG32_SOC15(GC, 0, regCP_RB_DOORBELL_CONTROL);
+-	if (ring->use_doorbell) {
+-		tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
+-				    DOORBELL_OFFSET, ring->doorbell_index);
+-		tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
+-				    DOORBELL_EN, 1);
+-	} else {
+-		tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
+-				    DOORBELL_EN, 0);
+-	}
+-	WREG32_SOC15(GC, 0, regCP_RB_DOORBELL_CONTROL, tmp);
+-
+-	tmp = REG_SET_FIELD(0, CP_RB_DOORBELL_RANGE_LOWER,
+-			    DOORBELL_RANGE_LOWER, ring->doorbell_index);
+-	WREG32_SOC15(GC, 0, regCP_RB_DOORBELL_RANGE_LOWER, tmp);
+-
+-	WREG32_SOC15(GC, 0, regCP_RB_DOORBELL_RANGE_UPPER,
+-		     CP_RB_DOORBELL_RANGE_UPPER__DOORBELL_RANGE_UPPER_MASK);
+-}
+-
+-static int gfx_v12_0_cp_gfx_resume(struct amdgpu_device *adev)
+-{
+-	struct amdgpu_ring *ring;
+-	u32 tmp;
+-	u32 rb_bufsz;
+-	u64 rb_addr, rptr_addr, wptr_gpu_addr;
+-
+-	/* Set the write pointer delay */
+-	WREG32_SOC15(GC, 0, regCP_RB_WPTR_DELAY, 0);
+-
+-	/* set the RB to use vmid 0 */
+-	WREG32_SOC15(GC, 0, regCP_RB_VMID, 0);
+-
+-	/* Init gfx ring 0 for pipe 0 */
+-	mutex_lock(&adev->srbm_mutex);
+-	gfx_v12_0_cp_gfx_switch_pipe(adev, PIPE_ID0);
+-
+-	/* Set ring buffer size */
+-	ring = &adev->gfx.gfx_ring[0];
+-	rb_bufsz = order_base_2(ring->ring_size / 8);
+-	tmp = REG_SET_FIELD(0, CP_RB0_CNTL, RB_BUFSZ, rb_bufsz);
+-	tmp = REG_SET_FIELD(tmp, CP_RB0_CNTL, RB_BLKSZ, rb_bufsz - 2);
+-	WREG32_SOC15(GC, 0, regCP_RB0_CNTL, tmp);
+-
+-	/* Initialize the ring buffer's write pointers */
+-	ring->wptr = 0;
+-	WREG32_SOC15(GC, 0, regCP_RB0_WPTR, lower_32_bits(ring->wptr));
+-	WREG32_SOC15(GC, 0, regCP_RB0_WPTR_HI, upper_32_bits(ring->wptr));
+-
+-	/* set the wb address whether it's enabled or not */
+-	rptr_addr = ring->rptr_gpu_addr;
+-	WREG32_SOC15(GC, 0, regCP_RB0_RPTR_ADDR, lower_32_bits(rptr_addr));
+-	WREG32_SOC15(GC, 0, regCP_RB0_RPTR_ADDR_HI, upper_32_bits(rptr_addr) &
+-		     CP_RB_RPTR_ADDR_HI__RB_RPTR_ADDR_HI_MASK);
+-
+-	wptr_gpu_addr = ring->wptr_gpu_addr;
+-	WREG32_SOC15(GC, 0, regCP_RB_WPTR_POLL_ADDR_LO,
+-		     lower_32_bits(wptr_gpu_addr));
+-	WREG32_SOC15(GC, 0, regCP_RB_WPTR_POLL_ADDR_HI,
+-		     upper_32_bits(wptr_gpu_addr));
+-
+-	mdelay(1);
+-	WREG32_SOC15(GC, 0, regCP_RB0_CNTL, tmp);
+-
+-	rb_addr = ring->gpu_addr >> 8;
+-	WREG32_SOC15(GC, 0, regCP_RB0_BASE, rb_addr);
+-	WREG32_SOC15(GC, 0, regCP_RB0_BASE_HI, upper_32_bits(rb_addr));
+-
+-	WREG32_SOC15(GC, 0, regCP_RB_ACTIVE, 1);
+-
+-	gfx_v12_0_cp_gfx_set_doorbell(adev, ring);
+-	mutex_unlock(&adev->srbm_mutex);
+-
+-	/* Switch to pipe 0 */
+-	mutex_lock(&adev->srbm_mutex);
+-	gfx_v12_0_cp_gfx_switch_pipe(adev, PIPE_ID0);
+-	mutex_unlock(&adev->srbm_mutex);
+-
+-	/* start the ring */
+-	gfx_v12_0_cp_gfx_start(adev);
+ 	return 0;
+ }
+ 
+@@ -3511,9 +3409,6 @@ static int gfx_v12_0_kcq_resume(struct amdgpu_device *adev)
+ {
+ 	int i, r;
+ 
+-	if (!amdgpu_async_gfx_ring)
+-		gfx_v12_0_cp_compute_enable(adev, true);
+-
+ 	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+ 		r = gfx_v12_0_kcq_init_queue(&adev->gfx.compute_ring[i]);
+ 		if (r)
+@@ -3544,10 +3439,8 @@ static int gfx_v12_0_cp_resume(struct amdgpu_device *adev)
+ 
+ 	gfx_v12_0_cp_set_doorbell_range(adev);
+ 
+-	if (amdgpu_async_gfx_ring) {
+-		gfx_v12_0_cp_compute_enable(adev, true);
+-		gfx_v12_0_cp_gfx_enable(adev, true);
+-	}
++	gfx_v12_0_cp_compute_enable(adev, true);
++	gfx_v12_0_cp_gfx_enable(adev, true);
+ 
+ 	if (adev->enable_mes_kiq && adev->mes.kiq_hw_init) {
+ 		r = amdgpu_mes_kiq_hw_init(adev, 0);
+@@ -3569,15 +3462,9 @@ static int gfx_v12_0_cp_resume(struct amdgpu_device *adev)
+ 	if (r)
+ 		return r;
+ 
+-	if (!amdgpu_async_gfx_ring) {
+-		r = gfx_v12_0_cp_gfx_resume(adev);
+-		if (r)
+-			return r;
+-	} else {
+-		r = gfx_v12_0_cp_async_gfx_ring_resume(adev);
+-		if (r)
+-			return r;
+-	}
++	r = gfx_v12_0_cp_async_gfx_ring_resume(adev);
++	if (r)
++		return r;
+ 
+ 	for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+ 		ring = &adev->gfx.gfx_ring[i];
+@@ -3893,10 +3780,8 @@ static int gfx_v12_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ 	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
+ 
+ 	if (!adev->no_hw_access) {
+-		if (amdgpu_async_gfx_ring) {
+-			if (amdgpu_gfx_disable_kgq(adev, 0))
+-				DRM_ERROR("KGQ disable failed\n");
+-		}
++		if (amdgpu_gfx_disable_kgq(adev, 0))
++			DRM_ERROR("KGQ disable failed\n");
+ 
+ 		if (amdgpu_gfx_disable_kcq(adev, 0))
+ 			DRM_ERROR("KCQ disable failed\n");
+-- 
+2.17.1
 
-	depends on X86_PLATFORM_DEVICES || !X86
-
-in all of the cases that select/depend on X86_PLATFORM_DEVICES in drm.
-
-The alternative is to find out, and handle the fallout, if any.
-
-
-BR,
-Jani.
-
-
->
->> > > -     select ACPI_WMI if ACPI && X86
->> > > +     select ACPI_WMI if ACPI
->> > >        help
->> > >          Choose this option if you have a recent AMD Radeon graphics=
- card.
->> > >=20
->> > > diff --git a/drivers/gpu/drm/gma500/Kconfig
->> > > b/drivers/gpu/drm/gma500/Kconfig index a2acaa699dd5..dc4c56638819
->> > > 100644
->> > > --- a/drivers/gpu/drm/gma500/Kconfig
->> > > +++ b/drivers/gpu/drm/gma500/Kconfig
->> > > @@ -11,7 +11,6 @@ config DRM_GMA500
->> > >        select ACPI_VIDEO if ACPI
->> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
->> > >        select INPUT if ACPI
->> > > -     select X86_PLATFORM_DEVICES if ACPI
->> > >        select ACPI_WMI if ACPI
->> > >        help
->> > >          Say yes for an experimental 2D KMS framebuffer driver for t=
-he
->> > > diff --
->> > > git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig in=
-dex
->> > > 5e939004b646..71426b9c91f0 100644
->> > > --- a/drivers/gpu/drm/i915/Kconfig
->> > > +++ b/drivers/gpu/drm/i915/Kconfig
->> > > @@ -28,7 +28,6 @@ config DRM_I915
->> > >        # but for select to work, need to select ACPI_VIDEO's depende=
-ncies,
->> > > ick
->> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
->> > >        select INPUT if ACPI
->> > > -     select X86_PLATFORM_DEVICES if ACPI
->> > >        select ACPI_WMI if ACPI
->> > >        select ACPI_VIDEO if ACPI
->> > >        select SYNC_FILE
->> > > diff --git a/drivers/gpu/drm/radeon/Kconfig
->> > > b/drivers/gpu/drm/radeon/Kconfig index c479f0c0dd5c..3cd70aef770e
->> > > 100644
->> > > --- a/drivers/gpu/drm/radeon/Kconfig
->> > > +++ b/drivers/gpu/drm/radeon/Kconfig
->> > > @@ -25,9 +25,7 @@ config DRM_RADEON
->> > >        # ACPI_VIDEO's dependencies must also be selected.
->> > >        select INPUT if ACPI
->> > >        select ACPI_VIDEO if ACPI
->> > > -     # On x86 ACPI_VIDEO also needs ACPI_WMI
->> > > -     select X86_PLATFORM_DEVICES if ACPI && X86
->> > > -     select ACPI_WMI if ACPI && X86
->> > > +     select ACPI_WMI if ACPI
->> > >        help
->> > >          Choose this option if you have an ATI Radeon graphics card.
->> > > There
->> > >          are both PCI and AGP versions.  You don't need to choose th=
-is to
->> > > diff -
->> > > -git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig index
->> > > 4d7dcaff2b91..502c7b3c1f16 100644
->> > > --- a/drivers/gpu/drm/xe/Kconfig
->> > > +++ b/drivers/gpu/drm/xe/Kconfig
->> > > @@ -4,7 +4,6 @@ config DRM_XE
->> > >        depends on DRM && PCI
->> > >        depends on KUNIT || !KUNIT
->> > >        depends on INTEL_VSEC || !INTEL_VSEC
->> > > -     depends on X86_PLATFORM_DEVICES || !(X86 && ACPI)
->> > >        depends on PAGE_SIZE_4KB || COMPILE_TEST || BROKEN
->> > >        select INTERVAL_TREE
->> > >        # we need shmfs for the swappable backing store, and in parti=
-cular
->> > > @@ -29,8 +28,8 @@ config DRM_XE
->> > >        # but for select to work, need to select ACPI_VIDEO's depende=
-ncies,
->> > > ick
->> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
->> > >        select INPUT if ACPI
->> > > -     select ACPI_VIDEO if X86 && ACPI
->> > > -     select ACPI_WMI if X86 && ACPI
->> > > +     select ACPI_VIDEO if ACPI
->> > > +     select ACPI_WMI if ACPI
->> > >        select SYNC_FILE
->> > >        select CRC32
->> > >        select SND_HDA_I915 if SND_HDA_CORE
->> > > diff --git a/drivers/platform/loongarch/Kconfig
->> > > b/drivers/platform/loongarch/Kconfig
->> > > index 447528797d07..db7833842142 100644
->> > > --- a/drivers/platform/loongarch/Kconfig
->> > > +++ b/drivers/platform/loongarch/Kconfig
->> > > @@ -23,6 +23,7 @@ config LOONGSON_LAPTOP
->> > >        depends on INPUT
->> > >        depends on MACH_LOONGSON64
->> > >        select ACPI_VIDEO
->> > > +     select ACPI_WMI
->> > >        select INPUT_SPARSEKMAP
->> > >        default y
->> > >        help
->> > > --
->> > > 2.39.5
->> >=20
->>=20
-
---=20
-Jani Nikula, Intel
