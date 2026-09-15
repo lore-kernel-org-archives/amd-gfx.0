@@ -4,80 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59890C88E77
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE542C88E75
 	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 21:01:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBB5410E314;
-	Tue, 15 Sep 2026 21:01:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04D8110E793;
+	Tue, 15 Sep 2026 21:01:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cq1LvBCE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AVZpDY0v";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4043D10E2A5
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 13:15:53 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c254f9f7db0so51549866b.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 06:15:53 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1817310E583
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 16:38:52 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49ccf3ca626so156845e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 09:38:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789478151; x=1790082951; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=4U3SB71ReF0ifx8bqGHa72DWklfVhQ9vcJBUaK3Uflc=;
- b=cq1LvBCEku282kaHiExfLKpyx24QxdLfwW7PZ9bP9NjPEqRRG+pYBXTfaEkTuSZ9qS
- c/Y/cvpq3ac2+m2EnMg6CC6gTAjPE1Fp7ktX/EyhzPTuaGloeI2+R1mdVo3GkE8Q7J2Q
- eJAm9al1cXO6M2V9HffjSoHlA+qyvS2R4GccKco+0HvxF5VeWX50ZtgYIQPieBMvd3q2
- KEWcdjtkTz2oHOeZxvtQvITFHRwPtqmRDqnSJt5+H3DL7PvU0AoQJ6L+eylb7TaL4Frr
- xKsMbOo+5pgslRK8vJ+EcIXY5JySXWMDBiNIDLXVDORA9jGVde0++W0eo64xgGCjhcjQ
- WObA==
+ d=gmail.com; s=20251104; t=1789490330; x=1790095130; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=mTDvtPFQggoQf4cXx8Wad+QLGOoydsdaoqZ1S/WXXmU=;
+ b=AVZpDY0vr1Gokz6nmyVKZnUVerlkjaTCb7vkluJA9D0rX7fPACtdreu+cYh66FTmDB
+ I5tiCulrbzfx8mob9GjY6P7dmFBjRBxkT3aBxWFD9faBbG1OFneDSD+zLOkdegVSNPA3
+ 6a34TLsLFSDNpTy91SrY8T4wSl3ZXhZPBPytFzHFoz6RSLR0uznQF93dzCqeCKVlpRPT
+ f5DTNWGZfddwveVlfBvcbTGlRQdGFcyT3cGfBUWaiCy0/SO7IM6jWz5m/c27jDTMZo1n
+ nm6OYtiqW4eL+hEeFqq8ouerAAEi7gixvRlWooi9r/7vRpS57KQhC8ktMfSAZmHX1e3r
+ em4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789478151; x=1790082951;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1789490330; x=1790095130;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=4U3SB71ReF0ifx8bqGHa72DWklfVhQ9vcJBUaK3Uflc=;
- b=wgoIdMUXVNq3wclpDwpkwzYrpvOSH1CXfYajWG3P17HTwOtq0yiSoVBlFvTd6lbqIh
- 8cdbNTuWqb8OYdhXxbzMuy8Zjaw4XiQ9BJyfkyYk9ZF/U7TQM7lsFzFaMNhlyOLwoyoj
- PJub9XJ/6bdqf5QQq93YMtjRt58vNf13sqvy/iY0U/LIcPOfzIq9hQXGftmBHHLW+M1/
- TG9Zvl8wGWukTA4Oq5g8VpEcrFhbg5+DRVJq7z/kj9/uaq3AUVZ7CydJA9o/2ew9D/Ts
- xpJWnmzYpBFlRGW68A2bq8QvM7++NWvh7GLIw0QCIs9PBvsCpDBrRjkZG2SkJsT2GP8b
- YLrg==
-X-Forwarded-Encrypted: i=1;
- AKwUvByGv8IdRYx7cjxpGA4JjdRUH6GxLXpfsJkEu4d/yOv9ZYyJgyTXge8SYxCZgY+pI9/HF7KD5jh2@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nbAKqHAvVnxZCyHGlpH6jlrEgYds9DXeFtwQC6TgHcVi0BQDwr
- NipTpBx0geAqiRgAXNWUmVYo0l4vzshCeSF0UkkF5e72FXKbKd1G6IMq
-X-Gm-Gg: AYBFou3sTqHOgqJQW/8mv3PWjzQnpEVp8T7X1ROes8SgG/ov8TqcAWuZ3PJH6GrZN/C
- CakHldKdxa3LBjDDYC/aeUKd0xXPzAoiyXcmljmAq6K0Mme6JTz0RvldzgFt2GywGI51bFMauXl
- h6jDq4Pu7d0zCbPj200N0rzBeaKl6JGT/T8clrsPy6AFmqWnJCrTEICa9b68fr5peE6zLopthTO
- NtFZ4uFPvw+pEoswjC4Ey84TFcBvFaiYT2sm72jXOtfQwFeetDD6xgwyiXs9nZei+w9wFnUaazn
- qgsayJNioucprU21x9m5C0tGwIQcfi6xLbRfTrdG/Fi7O9SaOJTnQiodhJ+GslFrK06iDf/GCJA
- uLoGP8O8ibBaQLLD7LvghXWLIy7seI9zVcj0Oq1sq5dAM3Te72YE2qjQKFtV0NJvL30SD8v4vzq
- +yMgDaHtOCEroLwhD/LwAF9uTthYI2t82i/PmcHLiAoCsV5gBUl2Tm99lS64nbYxu8y8Ib0TEoG
- Uize9TPDFlR8HK5uLvX3FprOZ4exjsZmDm2fMdhQ/JqbC+3krKe+C8WGwtJ
-X-Received: by 2002:a17:907:c1b:b0:c26:19de:9aec with SMTP id
- a640c23a62f3a-c29d79c7b95mr73457266b.43.1789478151079; 
- Tue, 15 Sep 2026 06:15:51 -0700 (PDT)
-Received: from misharu.home
- (2a02-a463-a071-0-a3ef-793b-4960-e77.fixed6.kpn.net.
- [2a02:a463:a071:0:a3ef:793b:4960:e77])
+ bh=mTDvtPFQggoQf4cXx8Wad+QLGOoydsdaoqZ1S/WXXmU=;
+ b=YOeICMtrhWn98ySoIrp3oK6qhPrKtxvDjb/PvPmC/XCqy1llX/yQzfTbVAxAhRL3So
+ FQCKLwrRbwTqc9tc0VThTJvLXNbAs91hJqytjr65SfnAovZrPeQd2a4g1v3iWNNJAu5c
+ MgYZzzxZpL9wBU1xTT6ATmNOEub4gjAk46jCCPAWTHF0ZYYEPKtFi5LpjPK4w0e8EqPz
+ SVYiX5zIApuIEZHVqB60xG2cOou9ltDJnIVBydR/8Mlse32RJVI6yeypM1nGf3hZgwIK
+ ZphgBAhqqV1wygdo42tkXsvKGw2DfDcTSmk1HFXTIResoza1uVNOQvW+kRaUSa/zCQMI
+ 6khw==
+X-Gm-Message-State: AFuF++n3O25e8Y+olElUSoUjLhCn5rDQDU37tm0SwWvduKhryK2snFkq
+ 8FJIJqU3J1B0DQdqV1fx/DwKXff9CGWq7WuudEvFqKyqPIhYPEChPhGB
+X-Gm-Gg: AYBFou2UBpctzTVfbUMnGwS0b5oqO/ckzfu0l2vj0/HU3Sg+4J63ax2Zk4m5V9UHSEe
+ 81ht2aU8p/a2yuTCrwMUhWPwtk7iZWmifwzrv1io77Sl7yFxtGdBLefV524eBiC1W8hLVB4JEBk
+ 8y1cLiOLrJDhlr0T4A/uqbSaCCxFR9Wx6UDd8JjclQquPiT6ZSedJ3kZXUxmkGwtKRcolQxzdBX
+ S5FFOoYmdHU6mmrv9tt9GRwxSqS1CgfHG2O/ifpfSZko+RkLg9feQQvjOgGCwmTpbPZK0/dxGBa
+ x2y65iwxCmPdUwSJFkEJqt5smNDzUe4upzcHriroX6WfjELlmgnBNPqnqr7vhaFUmnxL4OLTk4J
+ JRg2kK7Y6UTR+FMpuFHrZYVr7Do7wpnkMfG//dw4LIHNXtRIwS+Pp3/3wCBtrNM1PyLVx4ayTya
+ xjZUCpbjmalm96ANVdS2pYj3rhyNR35nxZ2WqqDgqnQfAxrumbYjUVsGtFORqtOn9NKXk=
+X-Received: by 2002:a05:600c:350d:b0:49c:fa20:cbfb with SMTP id
+ 5b1f17b1804b1-49e7a66b28amr95234905e9.18.1789490330275; 
+ Tue, 15 Sep 2026 09:38:50 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2966066b76sm90275266b.29.2026.09.15.06.15.50
+ 5b1f17b1804b1-49e83da8e06sm2642055e9.9.2026.09.15.09.38.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Sep 2026 06:15:50 -0700 (PDT)
-From: Hari Mishal <harimishal1@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, lijo.lazar@amd.com, Jiawei.Gu@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
- Hari Mishal <harimishal1@gmail.com>
-Subject: [PATCH] drm/amdgpu/atom: bound the VBIOS date, part number,
- version and build getters
-Date: Tue, 15 Sep 2026 15:15:48 +0200
-Message-ID: <20260915131548.28292-1-harimishal1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Tue, 15 Sep 2026 09:38:49 -0700 (PDT)
+Date: Tue, 15 Sep 2026 19:38:46 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Dominik Kaszewski <dominik.kaszewski@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amd/display: Remove sink usage from DPMS
+Message-ID: <aql0litI1KOTQNLk@stanley.mountain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Tue, 15 Sep 2026 21:01:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,109 +84,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-atom_get_vbios_date(), atom_get_vbios_pn(), atom_get_vbios_version()
-and atom_get_vbios_build() all walk the BIOS image using offsets and
-counts taken from the image itself, checked only against each other
-and never against ctx->bios_size:
+Hello Dominik Kaszewski,
 
- - atom_get_vbios_date() reads 14 bytes at a fixed offset that
-   check_atom_bios()'s minimum size (0x49) does not cover.
- - atom_get_vbios_pn() dereferences an image-supplied u16 string
-   offset unchecked, then walks and copies from it with only a length
-   cap, not an image cap.
- - atom_get_vbios_version() takes its search bounds from image u16s;
-   atom_find_str_in_rom() already clamps the search itself, but the
-   match is then advanced by a fixed 18 bytes and STRLEN_NORMAL bytes
-   are copied from there with no check that this still lands inside
-   the image.
- - atom_get_vbios_build() walks from an image-supplied config-string
-   offset toward the ROM header; a config offset at or past the
-   header makes the pointer difference negative, wrapping through the
-   u16 'len' and passing strscpy() a bound far larger than the
-   32-byte destination.
+Commit 8fa813b7fd1e ("drm/amd/display: Remove sink usage from DPMS")
+from Jun 19, 2026 (linux-next), leads to the following Smatch static
+checker warning:
 
-Bound each getter's reads, walks and copies to ctx->bios_size, falling
-back to an empty string on a malformed image.
+	drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dpms.c:2423 link_set_dpms_off()
+	error: we previously assumed 'stream->sink' could be null (see line 2412)
 
-Fixes: 29b4c589b43d ("drm/amdgpu: Add vbios info ioctl interface")
-Fixes: d6fa80266178 ("drm/amdgpu: Add vbios build number interface")
-Assisted-by: gkh_clanker_t1000
-Signed-off-by: Hari Mishal <harimishal1@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/atom.c | 29 ++++++++++++++++++++++++-----
- 1 file changed, 24 insertions(+), 5 deletions(-)
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dpms.c
+    2386 enum dc_status link_set_dpms_off(struct pipe_ctx *pipe_ctx)
+    2387 {
+    2388         DC_LOGGER_INIT(pipe_ctx->stream->ctx->logger);
+    2389         struct dc_stream_state *stream = pipe_ctx->stream;
+    2390         struct dc *dc = stream->ctx->dc;
+    2391         struct dc_link *link = stream->link;
+    2392         struct vpg *vpg = get_vpg(pipe_ctx);
+    2393         enum dp_panel_mode panel_mode_dp = dp_get_panel_mode(link);
+    2394 
+    2395         ASSERT(is_master_pipe_for_link(link, pipe_ctx));
+    2396 
+    2397         if (dc_is_virtual_signal(stream->signal))
+    2398                 /* No real hardware to program for virtual signals. */
+    2399                 return DC_DPMS_SKIPPED_HANDSHAKE;
+    2400 
+    2401         if (stream->sink) {
+                     ^^^^^^^^^^^^
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index e74253682929..fe9af26ccc11 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -1445,6 +1445,11 @@ static void atom_get_vbios_date(struct atom_context *ctx)
- 
- 	p_rom = ctx->bios;
- 
-+	if (ctx->bios_size < OFFSET_TO_VBIOS_DATE + 14) {
-+		ctx->date[0] = '\0';
-+		return;
-+	}
-+
- 	date_in_rom = p_rom + OFFSET_TO_VBIOS_DATE;
- 
- 	ctx->date[0] = '2';
-@@ -1513,17 +1518,24 @@ static void atom_get_vbios_pn(struct atom_context *ctx)
- 		vbios_str = p_rom + OFFSET_TO_VBIOS_PART_NUMBER;
- 	}
- 
--	if (*vbios_str == 0) {
-+	if (vbios_str >= p_rom + ctx->bios_size)
-+		vbios_str = NULL;
-+
-+	if (vbios_str == NULL || *vbios_str == 0) {
- 		vbios_str = atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
- 		if (vbios_str)
- 			vbios_str += sizeof(BIOS_ATOM_PREFIX) - 1;
-+		if (vbios_str >= p_rom + ctx->bios_size)
-+			vbios_str = NULL;
- 	}
- 	if (vbios_str != NULL && *vbios_str == 0)
- 		vbios_str++;
- 
- 	if (vbios_str != NULL) {
- 		count = 0;
--		while ((count < BIOS_STRING_LENGTH) && vbios_str[count] >= ' ' &&
-+		while ((count < BIOS_STRING_LENGTH) &&
-+		       vbios_str + count < p_rom + ctx->bios_size &&
-+		       vbios_str[count] >= ' ' &&
- 		       vbios_str[count] <= 'z') {
- 			ctx->vbios_pn[count] = vbios_str[count];
- 			count++;
-@@ -1556,9 +1568,10 @@ static void atom_get_vbios_version(struct atom_context *ctx)
- 	/* find anchor ATOMBIOSBK-AMD */
- 	vbios_ver =
- 		atom_find_str_in_rom(ctx, BIOS_VERSION_PREFIX, start, end, 64);
--	if (vbios_ver != NULL) {
--		/* skip ATOMBIOSBK-AMD VER */
--		vbios_ver += 18;
-+	if (vbios_ver != NULL)
-+		vbios_ver += 18; /* skip ATOMBIOSBK-AMD VER */
-+
-+	if (vbios_ver != NULL && vbios_ver + STRLEN_NORMAL <= p_rom + ctx->bios_size) {
- 		memcpy(ctx->vbios_ver_str, vbios_ver, STRLEN_NORMAL);
- 	} else {
- 		ctx->vbios_ver_str[0] = '\0';
-@@ -1574,7 +1587,13 @@ static void atom_get_vbios_build(struct atom_context *ctx)
- 	base = CU16(ATOM_ROM_TABLE_PTR);
- 	atom_rom_hdr = CSTR(base);
- 
-+	if ((uint32_t)base + ATOM_ROM_CFG_PTR + sizeof(uint16_t) > ctx->bios_size)
-+		return;
-+
- 	str = CSTR(CU16(base + ATOM_ROM_CFG_PTR));
-+	if (str >= atom_rom_hdr)
-+		return;
-+
- 	/* Skip config string */
- 	while (str < atom_rom_hdr && *str++)
- 		;
--- 
-2.43.0
+    2402                 if (stream->sink->sink_signal != SIGNAL_TYPE_VIRTUAL &&
+    2403                         stream->sink->sink_signal != SIGNAL_TYPE_NONE) {
+    2404                         DC_LOG_DC("%s pipe_ctx dispname=%s signal=%x link=%d sink_count=%d\n", __func__,
+    2405                         stream->sink->edid_caps.display_name,
+    2406                         stream->signal, link->link_index, link->sink_count);
+    2407                 }
+    2408         }
+    2409 
+    2410         link_wait_for_unlocked(link);
+    2411 
+    2412         if (stream->sink && !stream->sink->edid_caps.panel_patch.skip_avmute) {
+                     ^^^^^^^^^^^^
+These places check for NULL
 
+    2413                 if (dc_is_hdmi_signal(stream->signal))
+    2414                         set_avmute(pipe_ctx, true);
+    2415         }
+    2416 
+    2417         dc->hwss.disable_audio_stream(pipe_ctx);
+    2418 
+    2419         update_psp_stream_config(pipe_ctx, true);
+    2420         dc->hwss.blank_stream(pipe_ctx);
+    2421 
+    2422         if (pipe_ctx->link_config.dp_tunnel_settings.should_use_dp_bw_allocation)
+--> 2423                 deallocate_usb4_bandwidth(stream);
+                                                   ^^^^^^
+But here stream->sink is dereferenced without checking.
+
+    2424 
+    2425         if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
+    2426                 deallocate_mst_payload(pipe_ctx);
+    2427         else if (dc_is_dp_sst_signal(stream->signal) &&
+
+This email is a free service from the Smatch-CI project [smatch.sf.net].
+
+regards,
+dan carpenter
