@@ -4,98 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D264C88E75
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 13:23:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A8A8C88E7B
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 13:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8448D10E140;
-	Tue, 15 Sep 2026 13:23:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0855110E22F;
+	Tue, 15 Sep 2026 13:28:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="miK4nm4Y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rdITowwC";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013050.outbound.protection.outlook.com
- [40.93.196.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3948610E140
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 13:23:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c4r1GPSCNQ+NG0VTmiAVh6TrvBYletPXP4rsItRLXWMYHKKsSL8ss5ryFDzqLD9fIdVRmyhXKClQIdoKJ4JfPYLLbi1EfmLCzyYoeNOEzMXFadouM64fqJafOZZrJiVEr/rp+MHNJClaAV0qLPopXvdELx/Pc6dg6v0lNMmP0k4zk9MLfnyzcCoIuBcpFoBKpG2vuMwWZ8NbKJIexeb1EcklK1eNrhSsQEauVHJbQ59Ili2MJkeJMZMjM6fnNg7gSSVijFsLL7ybCpNauZvg6B65ieHtXdapmQP2GjCMUevjrYgR9uDF9gPy7NFGvOVTRDoTDF4bF4zVWbURLV8o1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=umE2l/i2WTCRu7uMS1FBmOoD0TpsySw11z0XAgFGe+0=;
- b=R6DzyKzzsL9Gq53aHGZ13+/5uyssu9CSIJbJkw1wyRlTYq/GEUK9IifnzPMea4xJVHsydsXtQYztjs4x+nr2IuHsVp2W/PX2cg3+oqhllH/aAIk4AkSWcVzolcCS9IWgRgJ6h5oBe57JG83We69yHT9EzKBn+hx8FfneetQOcwSSqgJqTP7OQ6MfyveMVy2ZqQbMduxzjjEzQX/2B6QKWEeNW0uqoa9xdUliiEu9JLojjB3vyEGtWt9bEKiIaJd95lD9QesU2QkQbunvGU7gUwXC/fcKnmrb3eQ5Zg+A75sdXyiqYshVhomvCzYwPoVxneYtM+eKyD36+9TdDpTuow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=umE2l/i2WTCRu7uMS1FBmOoD0TpsySw11z0XAgFGe+0=;
- b=miK4nm4YyyJqmoErmRkujPJcYldFTaBAd94ve5Bsr1+J7LMOHcnihwTruIsyHNW90eDRm9kGyATHyzJgPEZV2b9VmTN62drRmfscs0PVDiccN/SZhpuV+X6ETaxqkM6Cjf5pRT6cWHrWnF0bm5QqeoqThS9ksr9Z/IbVs9sBFoA=
-Received: from CH0PR03CA0257.namprd03.prod.outlook.com (2603:10b6:610:e5::22)
- by CH2PR12MB4294.namprd12.prod.outlook.com (2603:10b6:610:a9::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
- 2026 13:23:16 +0000
-Received: from BL6PEPF00022571.namprd02.prod.outlook.com
- (2603:10b6:610:e5:cafe::62) by CH0PR03CA0257.outlook.office365.com
- (2603:10b6:610:e5::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Tue,
- 15 Sep 2026 13:23:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00022571.mail.protection.outlook.com (10.167.249.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 13:23:15 +0000
-Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
- 2026 08:23:14 -0500
-From: William Palacek <William.Palacek@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
- <harish.kasiviswanathan@amd.com>, <Amir.Shetaia@amd.com>
-Subject: [PATCH] drm/amdgpu: preempt KFD queues before taking the reset domain
- lock
-Date: Tue, 15 Sep 2026 09:22:39 -0400
-Message-ID: <20260915132239.1788233-1-William.Palacek@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
+ [74.125.227.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E73B610E22F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 13:28:24 +0000 (UTC)
+Received: by mail-vs2-f12.google.com with SMTP id
+ 71dfb90a1353d-5c6560f7a78so128129e0c.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 06:28:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789478904; cv=none;
+ d=google.com; s=arc-20260327;
+ b=RcqV288XZdBPrf2GjqXs0DH79Eg9y9gk5f6pFZAYQSgkdWNd3WZnrzKySySr1Vbtu7
+ 5DfPz1KS6mHBesImFxmTM9RWQ+/qKEbd0TIgqXRU4fOI4dbgFpWTuh4XcGe7tbrYussN
+ KPe11qIjR1rOYhqBJqomtHVmjhsCKID3B/LF90+h3wwAy0bSh5F39a59CVtMh4WfVHz3
+ Z3/rRVe1TTZCeM0uRWFLobwF9/5k6FHVzjDd6PPlLfdPQ7QKqZJBfuncIlBT6dEaIuZh
+ kILTFzwHMcw9UT9sY1KmdfQHsSCC4aa9nIGeMuSlUiK5B0nupgtUAmZ3HNqUySVyhGAM
+ cFXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ksqut+SFMGozKUh2aW7b3gP0VFTuqBmkuZSHWKj21Zw=;
+ fh=96Y6V5a5kyh9Xtmi3wHzFpWy5VOX1QgW3w/S4UWRGow=;
+ b=JK/j4tddkokETzSWg87b9pbd+NcGbtITJgluNv0jokuqNjLtLMQS8SkKg+pnhBi4FJ
+ iDAAe7R/JbSyFmEi3v/G8jGy3Lsy6FlSel8PSTjrDiwCG6BYE1Uhy+o75f1QGf1nIzTL
+ 1POb+TeuzdcZ7lZqrMcOWbPXq/MJ9X8fnXPiu8u5zpinlDSgYC722hP4bwz8m1p/SlDP
+ 6PmEk1SHiF4akFFGG7GDXedPOAzlXHQ0EyVtXn69tccFNkf7pqu+J419R5ZZx14EC+Tv
+ k/TNjCfSnm8lou2o6edf9RJCtSch9jwOnRexO0k7hFEeoPG5qtGjnTjwkVIeYAhx1C54
+ e08A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789478904; x=1790083704; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ksqut+SFMGozKUh2aW7b3gP0VFTuqBmkuZSHWKj21Zw=;
+ b=rdITowwC0rc4ane2A66X25PeFXMURtUAdTSst8Aw8gEMtTkj8GF+5u1hnXP8ReA2Ol
+ d7wGw/qv06K5CYZKaeSfNeL3qSaKE9RcIzGvQ0L7q6rVl1vBTI2SvZ7qrBLtIUAs/b5c
+ 6TmZGxOzsxWrVakCgxErvw2YKwkKWH1c74v8DoKyI5YczJLSVhACOwTSVIUKKwRB7oYS
+ 98ZzqCAYsjVDF/V1LyDeEKcpAoGMRh8uxX+kXkRl7nV+S/AkeMJ+i/jI/ybVJNBCCpTu
+ dhHa/Tn7s/pniZ/iv4/l9f8vdtVzHNQ2hMSINjHmQWTA1o9pwNLlsf8snYm/Z4nRAgyh
+ mBEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789478904; x=1790083704;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ksqut+SFMGozKUh2aW7b3gP0VFTuqBmkuZSHWKj21Zw=;
+ b=XFWPjS2BVtrB4F3wVEsDSymhgeT6P8MN1w03FvVvQv8yKKwR65G2KcENAT3hNMW1e8
+ MeBHZkFifebZPYu5jm4K/koZPIgaQRHZH6mbqTlBnTjWKWkJ/Cgsokogpj85CrmssPD2
+ tJDYxyaIuZK6Y2UndYZ8v36mP8w3iJ1M4JRQwRb4j4BykZzIzeOnvSEzAjz+RBHhgQ4w
+ bKgLOequJa6qcL+rgpiaKhWySfHCl2aBAnWDRnx6A7VGJbeQHW0JfCuG9w2DsroGuRUq
+ MWUFixHWKyRcjIoKA6hJLjA+QDCKzzUN1XSwC+D6f+m/0CA4rT3Up2mNMZwQdYg+tfie
+ wuAQ==
+X-Gm-Message-State: AFuF++nLj+CfSCNuSKUpWeSPIlGnaOXH5NMytuc5P1IOTwKwy5bJ9GSI
+ VC8Tkp5QVfNG34UxXdbGT56KAYF+X3YjxTHqfu5HxkvbT6saOrTFszPkDccd1ImTbmzM5W8MPLo
+ RdYgM+qoqkXrE48QlgMJNZM8VBhxK0Dg=
+X-Gm-Gg: AYBFou2NfFjKQjbFoTXcKxEmIVPSUdMzskGJnXJLNfORNrQXsF1wz1SQlYHLdx/0HYL
+ HLW7v7aul524n769Mtw61tAeqTcK1hxLiGheosdr3ggaxeEiXdQDVwsjTgRLMKvwVpkKqNZ4Ttq
+ OOpbEAV1+uAbsHdoMZlGdLb1SOKI6jihRL7AXAwocD9792FJhrGQkbKJcpJDpKqqjsZc03qFTYI
+ VtkcnnSCPEHYrGMPG023zpXeQFbu08ueHaTUdM+BHgGiRVfRBldbFD++X2t6QMcFtpzqSlHlIQC
+ rsBdvPf+1H3yaCeLwpsq4Mth1MNX7xrGRiv6cxbIDdD3K/L5vXCVLzmvQsWqaFZHlBE7Iu5Bbj5
+ XN8o3Ml8MSDNKt0kuLK307M+7rVE8AaEGPIupRXNtYg==
+X-Received: by 2002:a05:6122:4a52:20b0:5c8:356d:c872 with SMTP id
+ 71dfb90a1353d-5c981ebdb36mr2425819e0c.3.1789478903526; Tue, 15 Sep 2026
+ 06:28:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022571:EE_|CH2PR12MB4294:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65e1941d-9044-4218-b8b8-08df132c7fb7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|11063799006|56012099006|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: Cs8vhpYUmNX0UhXGD6y18P90btKAuoFIhQrvANYCG0lwyyazNyziZc6Liba8Qzm41mKMYcyMmmsZTqYRyiDIGAz0yCwalkys5hAyQh7pWadmzYbd7wRoREFLsMAH7/e3T/Ti3A5nSzlZMrDODDHPVApJtDwfjmDHmYfAd6IO7YdqE+UBeYQSSZF+szEIWPbdaJFR/PSSoOT12jzyo7uqQ1C7Iqfk7HsIp7uEz7NQDjCYJ1eKPijcLktGQ+49hvGFLT9gNANl+6VXi/fouCQRiBtN93MtFNWVDg6V0Hj7eud0EIONEs/r7l/aYsYgH7u0vj/QLSWQSxwF41Rg698h8YRND5vPDwwXaqe16tZGwONkHOH+AQVZH+tXUgAT1mFWitfx5kpwjBBPa39uhye3XWSgK8NSvtx/3xP67b4n+Q0gb0/hSIpSPWaiHzn4yLFa2rnEkElzUDBHF1Ev2mLpC3PFdSw/MHQUGa4z9C65FfKFY9DPlpiHm56VeqbmlF4qNrev3fFD0Wjvdmm8WgAI7NJTvmLvLYt4gTGvhAqUPTPqCVSMk5Rx+h/pwojbIqtITXKakJtKojaUfwLcCQtUv/dy+IcdfpDQn4e8hHhp4zwno1rCW/cTqYRXokYRe053UMlQyUGbAW3Zu9NKOB0pAXiXF8cDF/tMhULMeSbRfDgicO0giB7+olxRNyk2sAseXaSfRTk7fsAK4ElMBMpUYg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: B8b5M2JggTfHXMBJTrye4NT8U2JG11wiWsJ0KNc/uZGiD3j1/mxYNB9w5jc5GRtFh2eRqWeEGSNbA6szLfWaVH4dUkwjrCtaQh7/SggOeRdB1AvjjZMY4nvm4rBTEtXjar+ENuFKAkphBCAW/b8PLVQxWORajSKwWp0hNPmeFwvpTZazLRIDAJIG4SLXOGL1krn9xwyCDQvKwF/k1XAqgeyu2Pb3rJKizPqQUpR6kO0JmyeJkQgF2w2sSI5kK4SL5TmWBLLUN7P6jp+cTC94YYQzzCgHxLLVj9D5qkkZWrBfEft5A2bMtkgLfE0x2y0yI+BCoyMrE0ajvbvk4KnBRR/OG4Z9gDJIHzpuk9Fr9Vr9ZGRjuxA/Ab+dkzNDaQU3a4HoWCV0dlwVh6wueyT1uwA8LsnwtGpMor6yTt8uyBdSwZTDwFCJjEoQoWzUbIIO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 13:23:15.1777 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65e1941d-9044-4218-b8b8-08df132c7fb7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022571.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4294
+References: <CAKp7ksXoZmWC23JOG3xX7=7d0fSerxtCNPB+8PMnVqqRCAAdoA@mail.gmail.com>
+In-Reply-To: <CAKp7ksXoZmWC23JOG3xX7=7d0fSerxtCNPB+8PMnVqqRCAAdoA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 15 Sep 2026 09:28:11 -0400
+X-Gm-Features: AcwNN1VsmFmI8RxJM9vORQJp26J6-Rk-p2V-Hqwq4524rXR7NmU_FWoc4vownyw
+Message-ID: <CADnq5_My0iBc+VLJ8E82QDurakCRHbdjC2RK_LjW53G+eZobxw@mail.gmail.com>
+Subject: Re: [BUG] amd/display: planes advertise DRM_FORMAT_RGBA8888 but
+ atomic check rejects it
+To: Nakildias Professionnel <nakildiaspro@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,96 +104,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A user-requested GPU reset issued while several processes are using
-the device can Oops the host during munmap():
+On Tue, Sep 15, 2026 at 3:51=E2=80=AFAM Nakildias Professionnel
+<nakildiaspro@gmail.com> wrote:
+>
+> Hi,
+>
+> amdgpu lists DRM_FORMAT_RGBA8888 (RA24) as a supported format on every
+> primary and overlay plane, both in the plane's format list and in its
+> IN_FORMATS blob. Any atomic commit that puts an RA24 framebuffer on one
+> of those planes, TEST_ONLY included, fails with -EINVAL:
+>
+>   amdgpu 0000:03:00.0: [drm] *ERROR* Unsupported screen format RA24 littl=
+e-endian (0x34324152)
+>   [drm:amdgpu_dm_atomic_check [amdgpu]] dm_update_plane_state() failed
+>   [drm:amdgpu_dm_atomic_check [amdgpu]] Atomic check failed with err: -22
+>   [drm:drm_atomic_check_only] atomic driver check for 00000000e90a6d65 fa=
+iled: -22
+>
+> A compositor that trusts the advertised list and picks RA24 can't light
+> the display. KWin 6.7 does this on most starts: it ranks RA24 equal to
+> AR24 and AB24, and the order among the three is random. It then fails
+> every output configuration, retries for one to two seconds, and stops
+> presenting for several seconds, which shows up as a freeze at every
+> login. I'm reporting the KWin side to KDE separately, but fixing the
+> driver removes the trap for every compositor.
 
-  amdgpu: Faulty UTCL2 client ID: SDMA1 (0x101)
-  amdgpu: RW: 0x1
-  BUG: unable to handle page fault for address: 00000000000132e8
-  RIP: 0010:free_swap_cache+0x5/0xb0
-   free_pages_and_swap_cache+0x3a/0x60
-   tlb_batch_pages_flush+0x43/0x80
-   zap_pte_range+0x80d/0xcd0
-   unmap_page_range+0x2c6/0x4f0
-   do_vmi_align_munmap+0x3e8/0x5b0
-   __x64_sys_munmap+0x1b/0x30
+Please see this ticket for discussion and patches:
+https://gitlab.freedesktop.org/drm/amd/-/work_items/5339
 
-amdgpu_device_gpu_recover() locks the reset domain before
-amdgpu_device_halt_activities() reaches amdgpu_amdkfd_pre_reset().
-amdgpu_device_lock_reset_domain() holds reset_domain->sem for write,
-so the down_read_trylock() at the top of unmap_queues_cpsch() always
-fails and it returns -EIO without ever sending the unmap packet.
-stop_cpsch() still clears dqm->sched_running, so the driver believes
-KFD scheduling has been stopped while the user queues are in fact
-still on the hardware.
+Alex
 
-The application then takes its reset errors, exits, and munmap()
-frees pages that an SDMA user queue is still writing into. That
-corrupts the mm bookkeeping and faults on a bogus struct page.
-
-Draining adev->sdma.instance[].ring does not cover this case. The
-faulting engine runs in the process VMID and is fed by a user queue
-that only the HWS can dequeue.
-
-For a user-requested reset the GPU is still healthy and the queues
-can be preempted normally, so quiesce KFD before the reset domain
-lock is taken.
-
-Only AMDGPU_RESET_SRC_USER is handled. A job timeout, an MES or HWS
-failure and a frozen PCI link cannot preempt, so hang recovery is
-left untouched rather than delayed. A RAS-triggered recovery can run
-with the GPU still able to preempt; it is not covered here and needs
-its own change.
-
-Signed-off-by: William Palacek <William.Palacek@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 ++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 472e96ae884e..2a1243a2e578 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5308,6 +5308,30 @@ static void amdgpu_device_recovery_prepare(struct amdgpu_device *adev,
- 	}
- }
- 
-+/*
-+ * unmap_queues_cpsch() needs reset_domain->sem for read, so KFD must be
-+ * quiesced before amdgpu_device_lock_reset_domain() takes it for write.
-+ * Otherwise the preemption silently fails and SDMA user queues keep running
-+ * while userspace tears its address space down.
-+ *
-+ * This is restricted to a user-requested reset, where the GPU is known to be
-+ * healthy and the queues can still be dequeued. Other sources are left alone:
-+ * a job timeout, an MES or HWS failure and a frozen PCI link cannot preempt,
-+ * and adding a preemption attempt there would only delay recovery.
-+ */
-+static void amdgpu_device_kfd_quiesce_pre_reset_lock(
-+				struct amdgpu_reset_context *reset_context,
-+				struct list_head *device_list)
-+{
-+	struct amdgpu_device *kfd_adev;
-+
-+	if (!reset_context || reset_context->src != AMDGPU_RESET_SRC_USER)
-+		return;
-+
-+	list_for_each_entry(kfd_adev, device_list, reset_list)
-+		amdgpu_amdkfd_suspend(kfd_adev, false);
-+}
-+
- static void amdgpu_device_recovery_get_reset_lock(struct amdgpu_device *adev,
- 						  struct list_head *device_list)
- {
-@@ -5613,6 +5637,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	/* Cannot be called after locking reset domain */
- 	amdgpu_ras_pre_reset(adev, &device_list);
- 
-+	amdgpu_device_kfd_quiesce_pre_reset_lock(reset_context, &device_list);
-+
- 	/* We need to lock reset domain only once both for XGMI and single device */
- 	amdgpu_device_recovery_get_reset_lock(adev, &device_list);
- 
--- 
-2.43.0
-
+>
+>
+> Where in the source
+> -------------------
+>
+> Checked against mainline at v7.3-rc3:
+>
+> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>
+>   DRM_FORMAT_RGBA8888 is in rgb_formats[] and overlay_formats[], the
+>   lists passed to drm_universal_plane_init(), so userspace sees it. It is
+>   also in alpha_formats[] in the blending setup.
+>
+> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>
+>   fill_dc_plane_info_and_addr() switches on fb->format->format to choose =
+a
+>   SURFACE_PIXEL_FORMAT_*. It has cases for C8, RGB565, XRGB/ARGB8888,
+>   XBGR/ABGR8888, the 2101010 and 16161616 formats, NV12/NV21/P010 and the
+>   half-float formats. There is no case for DRM_FORMAT_RGBA8888, so it fal=
+ls
+>   through to default:, logs "Unsupported screen format %p4cc" and returns
+>   -EINVAL.
+>
+> So either RGBA8888 should come out of rgb_formats[] and overlay_formats[]
+> (and alpha_formats[]), or fill_dc_plane_info_and_addr() needs a mapping
+> for it. I haven't checked whether DC has a surface pixel format that
+> fits, so I don't know which of the two is right.
+>
+>
+> Reproduction
+> ------------
+>
+> 1. On an affected card, read any primary plane's formats with drm_info,
+>    drmModeGetPlane() or the IN_FORMATS blob. RA24 is listed. Here every
+>    primary and overlay plane lists 20 formats, RA24 among them, and 17 of
+>    the 340 IN_FORMATS format/modifier pairs are RA24. The cursor planes
+>    list only AR24.
+>
+> 2. As DRM master, create an RA24 framebuffer and do an atomic commit, or =
+a
+>    TEST_ONLY one, with it on a primary plane of an active CRTC.
+>
+> 3. The commit fails with -EINVAL, and the kernel log shows the lines
+>    above.
+>
+> In practice the easiest way to hit it is Plasma Wayland with KWin 6.7:
+> log in a few times and grep the kernel log for "Unsupported screen format
+> RA24". Most starts produce hundreds of lines. When RA24 is hidden from
+> KWin (an LD_PRELOAD wrapper that removes it from drmModeGetPlane() and
+> drmModeFormatModifierBlobIterNext()), the same configuration succeeds
+> first time on every start, and the primary planes run AB30.
+>
+>
+> System
+> ------
+>
+>   GPU: AMD Radeon RX 9070 XT, Navi 48 [1002:7550] rev c0
+>   Display Core: v3.2.384 on DCN 4.0.1
+>   Kernel: 7.2.4-arch1-2 (Arch Linux)
+>   linux-firmware: 20260910
+>   Mesa: 26.2.2
+>   libdrm: 2.4.134
+>   Compositor: KWin 6.7.5, Plasma Wayland
+>   Displays: 3x AOC Q27G41ZE, 2560x1440 @ 240 Hz, DisplayPort
+>                   (DP-1, DP-2, DP-3)
+>   Command line: root=3DUUID=3D... rw loglevel=3D3 quiet video=3D2560x1440=
+-32
+>
+> Not bisected. Going by the source, mainline still has the mismatch, and
+> since rgb_formats[] is shared by every GPU that DC drives, other AMD
+> cards are presumably affected as well. I've only tested this one.
+>
+>
+> Log
+> ---
+>
+> Kernel with drm.debug=3D0x16, one failing check during KWin's first modes=
+et
+> for DP-2 (CRTC 437, primary plane 152). 10 bpc is pruned for link
+> bandwidth and 8 bpc validates, so the stream itself is fine. The plane
+> state is what fails:
+>
+>   [drm:drm_atomic_set_fb_for_plane] Set [FB:495] for [PLANE:152:plane-2] =
+state 000000001159dc5f
+>   [drm:drm_atomic_set_mode_prop_for_crtc] Set [MODE:2560x1440] for [CRTC:=
+437:crtc-1] state 0000000007556867
+>   [drm:drm_atomic_check_only] checking 00000000e90a6d65
+>   [drm:drm_atomic_helper_check_modeset] [CRTC:437:crtc-1] mode changed
+>   [drm:drm_atomic_helper_check_modeset] [CONNECTOR:459:DP-2] keeps [ENCOD=
+ER:458:TMDS-458], now on [CRTC:437:crtc-1]
+>   [drm:amdgpu_dm_atomic_check [amdgpu]] Disabling DRM plane: 152 on DRM c=
+rtc 437
+>   [drm:dm_update_crtc_state [amdgpu]] Disabling DRM crtc: 437
+>   [drm:create_validate_stream_for_sink [amdgpu]] Trying with 10 bpc
+>   [drm:create_validate_stream_for_sink [amdgpu]] Pruned mode 2560 x 1440 =
+(clk 992260) RGB 10-bpc -- No DP link bandwidth
+>   [drm:create_validate_stream_for_sink [amdgpu]] Trying with 8 bpc
+>   [drm:dm_update_crtc_state [amdgpu]] Enabling DRM crtc: 437
+>   [drm:amdgpu_dm_atomic_check [amdgpu]] Enabling DRM plane: 152 on DRM cr=
+tc 437
+>   [drm] *ERROR* Unsupported screen format RA24 little-endian (0x34324152)
+>   [drm:amdgpu_dm_atomic_check [amdgpu]] dm_update_plane_state() failed
+>   [drm:amdgpu_dm_atomic_check [amdgpu]] Atomic check failed with err: -22
+>   [drm:drm_atomic_check_only] atomic driver check for 00000000e90a6d65 fa=
+iled: -22
+>
+> In one 4-second capture of KWin starting, all 602 failed atomic checks
+> were this same RA24 rejection, on planes 206 and 152.
+>
+> Formats per plane, as read from userspace:
+>
+>   plane 44: XR24 AR24 RA24 XR30 XB30 AR30 AB30 XR48 XB48 AR48 AB48 XB24 A=
+B24 RG16 NV12 P010 XR4H AR4H XB4H AB4H
+>   plane 98: same
+>   plane 152: same
+>   plane 206: same
+>   plane 260: same
+>   plane 316: same
+>   plane 372: same
+>   plane 428: AR24 (cursor)
+>   plane 433: AR24
+>   plane 438: AR24
+>   plane 443: AR24
+>
+> I can capture a longer drm.debug log or test a patch if that helps.
+>
+> Thanks,
+>
