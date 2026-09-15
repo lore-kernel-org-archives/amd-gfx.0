@@ -4,83 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 499F6C88E75
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 17:23:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F8F9C88E75
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 17:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCC0010E109;
-	Tue, 15 Sep 2026 17:23:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A337F10E600;
+	Tue, 15 Sep 2026 17:29:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NdAD9SYc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OjuvZTnh";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E59E510E109
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 17:23:10 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c2940ef15c1so13118866b.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 10:23:10 -0700 (PDT)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
+ [74.125.227.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E536510E600
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 17:29:47 +0000 (UTC)
+Received: by mail-vs2-f12.google.com with SMTP id
+ ada2fe7eead31-78a2363d4aaso158178137.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 10:29:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789493386; cv=none;
+ d=google.com; s=arc-20260327;
+ b=boFjAjDX2JIxp63uebqzKFoz5n5HYyRRlCwO84Yg0shPOlVyhOC0P62yeDCYbZe9yi
+ FJ9jpXCjsbKnqdokcvkWe5UHtPSHn4DkYZvMrJayu+fq0rG+gBeWhMgqzWtQypsWaj2P
+ ZoUaoafjctJbTuK8V3OJn1mkOC3ypyK6c9HfU6XRGJpc9RkTEZsSWMrdvi2OJ5p1mkGn
+ 0O4QLWxLwOpYwkQGrSmkIg8RJKU57jlrKzo1gT3NC4xUdT/f03a7g+853dqsgmljQ365
+ g53WbtuiW/Nd27+9mdNL0qyiBUij6qV3xLnAAG2rn6aAMGDLoQmPvaTyrV/PXD9DiePp
+ 3ACw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=PRIZ0SbJpIKYCW1C7yb08vaQ3wYoz2PXRv2Ia1mtPl0=;
+ fh=jo4jpBq/De51/qbDPyzrotNGkAC6XcnI9ZRhvfov3F4=;
+ b=BkV7kgMJf8F906hou4lCwSdgsXF/M1kD/pyEtifgUZDmVaJik8P/ry9bicbA1EU3Rs
+ CZviYcriNIPe7qaIcnNIvK8gNyv8psq8cLZpoLRfy0bMvNU/30jlBPy0J5I6qj/ZFSqC
+ 9CfsGdF8jBHZTBZkan1fiZTUPc/w15dZWyJKZdjDMGU8NZxsE3IR2OQZHbN5karcw4Dd
+ ISM52/k7a5y4SXxOW11vR12vlA7JeD1W0O3w4S2QX8iTRHATZrwvgvW8TXnDVDeCkmjw
+ sqUMP1MQPNjB5cN9w60i4NuOSJk0CW/WvZrRqGGxaxHDwdEZP5TRR5nYlhLcDraCX/Xc
+ ay/g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789492989; x=1790097789; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1789493386; x=1790098186; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=drXxK3Ob4F1sjELs/THgN0WFq+7nK1SJBnzarpIaRqY=;
- b=NdAD9SYcbl6/9YPA+/YCuY1Jm2TgI+wnJoqLKN4ulXyoVhKDWS26ign5FBkerpYx5/
- 2Ykxf9cSi/IlcSCf07Lidqz/whORjsJvwrSaceCd27e/zuQPKIlnrQuKx5rJJMW/pxlo
- eMfGNpf6//1nnDeHi4WraOKdFLzJ6L08BjC3uHS18i8+3wRC2jErrjDycetpLavvgKfA
- RbBdbbg9Mgkznxv9mhU9Dmd9OPBR2lGP4Cz17xL8Qa6WuQN/NJbnbEfzgKcshRhxECnb
- E3iJMDbZJ1PoPQse22D1dyDd6cnBfw5Epv66Iz6dcP0XME7inoIAadH0IGoI/cMiWshO
- bvVw==
+ bh=PRIZ0SbJpIKYCW1C7yb08vaQ3wYoz2PXRv2Ia1mtPl0=;
+ b=OjuvZTnhpR6TVoJd4MzJuAkvQh4Daz6gA5FoZIQ8bih/fyevjBV03v1i/uk+QT/tLk
+ gbjxbAe/L/+mu6LVSFfMcdzFcJtUhoGRUpHMVfxxTX/1nTI61U5cZg2LGH83tuRmNQdn
+ AIUGewX3MxLGokDlK+t2dCna4C1Xd25s8hynhO+bJFifj8Dmna9kmwgTyoPn4D484CJl
+ 55WG41DXdZldGnVHIAkdtU3Ip2QRvq2gmrJ8XBV6c+P9CRFEqXLQawtn0OBN2mgtbX4r
+ 9k1ZJCap5zegp9o+UMznM0Wyc93F0lXYbzlOSmHYafNjcCCoRG9W1wvK3KAcALEWC4jn
+ bF5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789492989; x=1790097789;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20260707; t=1789493386; x=1790098186;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=drXxK3Ob4F1sjELs/THgN0WFq+7nK1SJBnzarpIaRqY=;
- b=PayiLrqdYAoed06jX46wBrxvKnPxsVqUGHLWBOkazatJHCrw2QkLrEIifXjoMmzEqJ
- H908i5dYID8cGgO/DOyn+QZq41dFzK3DxGov1bMylCIiOictNUZpKxp6vSq2DzorGji0
- hpSWqjJs7CncMbi4YtDEGvCMnjXy84qeYHRYexVioqEoYxS5Y82CH98r6urx5I5fdbSN
- QJxN+NKWrBzjBRSZKLLbBp9Psxzmr2LW+l090ttOAUnU9PAEHANxyKfkyrkQBdHKgemT
- xQUOFwRBZ/jOeBonSvij22RBmn77465/Fh25FMnI4ETo1sVG1xFZWvgDuH+wEDBXC4r2
- AsnQ==
-X-Gm-Message-State: AFuF++mwvVghYHUGhMTMsPhzE2BAIbFqzplbZq25FvLno2csAJwylzWs
- 3sjURx/sX/w5I8kXJ/uvp6+Sfmk6ITfmc069U33g4moljOmgGsZ22+aV
-X-Gm-Gg: AYBFou2Y0xnHoQhLLCVnTmyMGq9RDz906OhbJcbW3DuBVOLKuxxNVn3iWCvlyavFFjE
- RdTsFNIprTZuaZnE8c6nY9UgAxUmwBeNVzGhJD8YdtSQogFx8/n4PSvRiMdW7Gf5sQAQCn/nPd4
- Riv/ydLfX3kv0kL/sPGGndIg192B0GyrfMIV7hbJ2dLYVqPxuWMu1gIh/TaA0jlIy30flwpufIk
- FJMZjp5G2ySqFcrUi8p9TiPfd2P3qH5NplyjxZbdPeMYrXD5P+IH+vXH0qDPckvfp3S5jQ/ittF
- kBgMTjh1KCYpTvSGNcNey4qsEya4wmFj0uVq/nWkzWp0nk3s/HOvg+L50jCYGbiaBDroZ42764L
- iAxkZ/HzcAJjDgP34ZstKvIVY6mHiDB4bNd48uEA+PZr+DxcNhS3NAQ7jw5c32rDo9ugmgl1bmh
- 09QYiW+XHAfiVUvTEZaaDbnRiOwjzj5OCCCVPbuFoDRnKDPRwkBlbU46MxvuPgiEOCI+5q1cuDd
- s/EMQ8UfZWKaY5gWImeFlOM7sT4f4tOMtCshR31GH4Gdt52tUz2nC9/
-X-Received: by 2002:a17:907:3cc2:b0:c29:5d41:dfe8 with SMTP id
- a640c23a62f3a-c29d79b9fcfmr164712266b.43.1789492989039; 
- Tue, 15 Sep 2026 10:23:09 -0700 (PDT)
-Received: from timur-hyperion.localnet (54001FD5.dsl.pool.telekom.hu.
- [84.0.31.213]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c29de48755asm6606766b.24.2026.09.15.10.23.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Sep 2026 10:23:08 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org,
- Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, pierre-eric.pelloux-prayer@amd.com,
- Natalie Vock <nat@pixelcluster.dev>, Lijo Lazar <lijo.lazar@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
-Subject: Re: [PATCH 00/12] RFC: drm/amdgpu/sdma: Refactor SDMA v4 and older
- functions to be per-instance
-Date: Tue, 15 Sep 2026 19:23:07 +0200
-Message-ID: <CBgaIVTsRE2O7KG28C_9bw@gmail.com>
-In-Reply-To: <CADnq5_P_cVmHqd5sB6vwGqYA6jSY_fY6EWQp+WofptCgC8nRLw@mail.gmail.com>
-References: <20260907203316.159103-1-timur.kristof@gmail.com>
- <CADnq5_P_cVmHqd5sB6vwGqYA6jSY_fY6EWQp+WofptCgC8nRLw@mail.gmail.com>
+ bh=PRIZ0SbJpIKYCW1C7yb08vaQ3wYoz2PXRv2Ia1mtPl0=;
+ b=1Gw7xhiJaZ1JIaqlwkdzockGz42RSh+nw/EBhmPpdrLteUa3lsl9TXYHgA+klASxDo
+ 0g/uVtcvCug3uSy4nCxfSd2VztiXp0vC2tuwGpdCPSlJhH86CbamzOWQbONg4M+zrtXg
+ a4Qmvo7z/4Vudq8nebljfPo3KKtrimOyNen8qxbYxofG2W9oD/3aKVRbkbPigkUbwlhd
+ 0r8wUvs8emJKDSfRRBtAU/feYhqxPWOZ9gneFg2Zk0VkjXuvwBGL28KzzJm2KxkRmW4T
+ HM0m41iI+56YtvqaGFrDBJz61p35UAIkA+l+oJhkJDG7JuLoNJOQd6H4hwdE6z7/rjdc
+ cNqQ==
+X-Gm-Message-State: AFuF++kSgdK7Us9Kg/CrbGYAIWofihYchjyt/OwvRv6K7sjDoQf8C1k1
+ nv8GQx16Y/pjZlxmrere31Zon/V3iNGlROfXf+XarSJex+wooSB5haZhTohPgjRIQhGFDhbDrPc
+ 1EskIP19ch4Zh4OJPscNsZvMWRIueRDU=
+X-Gm-Gg: AYBFou0VohElg7BPim+Y8dvaJHd6w9MaXC70BHKneeW6xVhZCDzCm8oZd8niivc62t3
+ Y44GDlJvRFLzNk9o/i4qFHkRQOD2Nk8UToMZ07RkoGPHRymx1DfsmbqgQcayjHK0YrDN0701mGM
+ ZUXWQKoVHmjIZoK6jvNdFY+ulZNm8/Kbyv7F/a3LR2u67ygjacBqNjqz8VT+cUdJ2sjkhpUqVCL
+ rxywu7RwRXWO3bzBpKFolrvYN0D0HfuOTrZev2m6SVyyfJqTYc9mzyHouuoXDUerWrKBjbPV8Pm
+ c6RR1HXbBcc75xqsK930ZwWbeZjw6QBHNWUSDHNBHX6/t30KOEtoBh1lkf3ANRYP4P8CNifHvAG
+ bL4PIh/Ahia0qV9a0I3Vd9W80/MZnclXkEJHk/Akd1tQynzM1IJDpyg==
+X-Received: by 2002:a05:6102:54a9:b0:797:bbf2:197 with SMTP id
+ ada2fe7eead31-79b58c77125mr3303718137.1.1789493386428; Tue, 15 Sep 2026
+ 10:29:46 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260915160932.2118978-1-mario.limonciello@amd.com>
+In-Reply-To: <20260915160932.2118978-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 15 Sep 2026 13:29:33 -0400
+X-Gm-Features: AcwNN1WggCnKhZSO4Q2ivnkdYn-qdPXO1O6WPVPWUs8MPC-asbPgH8ecQ9WrDuE
+Message-ID: <CADnq5_PJ6vrxctfaPVUu8DomnhvY0rUWv7YfqPEb0dLsVu3STg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix GPU PCIe link capability reporting
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,118 +105,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Friday, September 11, 2026 9:00:07=E2=80=AFPM Central European Summer Ti=
-me Alex=20
-Deucher wrote:
-> On Mon, Sep 7, 2026 at 4:40=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@=
-gmail.com>=20
-wrote:
-> > This series applies on top of my previous series:
-> > "Improve existing SDMA queue resets" (currently under review)
-> >=20
-> > Prepare the code for implementing recovery for
-> > SDMA v4 and all older SDMA (and SI DMA) versions.
-> > Reorganize the SDMA 4.0 code so that the functions that are
-> > responsible for managing the SDMA engines take an instance ID
-> > as an argument.
-> >=20
-> > This makes it possible to manage the SDMA instances
-> > independently of each other, which will enable us to
-> > also use these functions to implement resetting and
-> > recovering them independently. (The actual recovery
-> > implementation will be in a follow-up patch series
-> > which I will submit after this one is accepted.)
->=20
-> This series looks fine to me, although I think I would prefer to apply
-> it along with the relevant soft reset changes to avoid churning the
-> code until each family is ready.  E.g., apply the cik_sdma refactor
-> along with the CIK soft reset support, etc.  Unless you have something
-> else in mind.
+On Tue, Sep 15, 2026 at 12:09=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> Commit eb53125a7ad9 ("drm/amd: Add dedicated helper for
+> amdgpu_device_find_parent()") made amdgpu_device_gpu_bandwidth() query
+> the first device outside the dGPU. That is the host side of the
+> physical link, not the GPU side.
+>
+> As a result, the ASIC and platform capability masks can both be based
+> on the host port. drm_amdgpu_info_device then exposes the host
+> capabilities to userspace, such as Gen5 x16 for a Gen4 x8 GPU.
+>
+> Cache both ends of the physical link during device initialization.
+> Use link_dev for the GPU capability and link_partner for the platform
+> capability and _PR3 detection.
+>
+> Reported-by: "Marek Ol=C5=A1=C3=A1k" <maraeo@gmail.com>
+> Closes: https://lore.kernel.org/amd-gfx/CAAxE2A4VhsAzzO1QjBjUg+NgnbD04ZzM=
+yN6xsUJxjKJHH6hxiw@mail.gmail.com/
+> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+> Fixes: eb53125a7ad9 ("drm/amd: Add dedicated helper for amdgpu_device_fin=
+d_parent()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Thank you Alex.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-My plan is the following:
-
-1. I would like to first refactor the functions for every SDMA IP block ver=
-sion=20
-to be per-instance.
-2. Then, I'd like to improve the soft reset code, more specifically the mul=
-ti-
-ring reset helpers and amdgpu_device_ip_soft_reset() to make them aware of =
-IP=20
-block instances and change SDMA v4.4.2, v5.0 and v5.2 over to use that code.
-3. With all of that out of the way, it will be pretty easy to hook up the s=
-ame=20
-soft reset mechanism for SI, CIK, VI as well.
-4. At that point, we should also consider if we want soft reset for SDMA v6=
-=20
-and v7. Technically these versions support proper queue reset through the M=
-ES,=20
-but in practice I've seen the MES fail so often that I wouldn't consider it=
-=20
-stable.
-
-This RFC is basically a prototype for step (1) and only takes care of SDMA =
-v4=20
-and older just to show how I imagine doing the refactor. If you like this=20
-direction, I would like to do the same for all IP versions before moving=20
-forward with soft reset changes and other refactors. I prefer to do this fi=
-rst=20
-for all IP versions because I think it's important to have consistency with=
-in=20
-the code base regarding how the SDMA is programmed.
-
-What do you think, would that be OK for you?
-I understand this causes code churn, sorry about that.
-
-Thanks & best regards,
-Timur
-
->=20
-> > Timur Krist=C3=B3f (12):
-> >   drm/amdgpu/sdma: Refactor SI DMA functions to be per instance
-> >   drm/amdgpu/sdma: Refactor SI DMA clock gating functions to be
-> >  =20
-> >     per-instance
-> >  =20
-> >   drm/amdgpu/sdma: Refactor CIK SDMA functions to be per instance
-> >   drm/amdgpu/sdma: Refactor CIK SDMA clock gating functions to be
-> >  =20
-> >     per-instance
-> >  =20
-> >   drm/amdgpu/sdma: Refactor SDMA v2.4 functions to be per instance
-> >   drm/amdgpu/sdma: Refactor SDMA v2.4 golden registers to be
-> >  =20
-> >     per-instance
-> >  =20
-> >   drm/amdgpu/sdma: Refactor SDMA v3.0 functions to be per instance
-> >   drm/amdgpu/sdma: Refactor SDMA v3.0 clock gating functions to be
-> >  =20
-> >     per-instance
-> >  =20
-> >   drm/amdgpu/sdma: Refactor SDMA v3.0 golden registers to be
-> >  =20
-> >     per-instance
-> >  =20
-> >   drm/amdgpu/sdma: Refactor SDMA v4.0 functions to be per instance
-> >   drm/amdgpu/sdma: Refactor SDMA v4.0 clock gating functions to be
-> >  =20
-> >     per-instance
-> >  =20
-> >   drm/amdgpu/sdma: Refactor SDMA v4.0 golden registers to be
-> >  =20
-> >     per-instance
-> > =20
-> >  drivers/gpu/drm/amd/amdgpu/cik_sdma.c  | 322 +++++++-------
-> >  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 232 +++++-----
-> >  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 561 ++++++++++++++----------
-> >  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 577 +++++++++++++++----------
-> >  drivers/gpu/drm/amd/amdgpu/si_dma.c    | 160 ++++---
-> >  5 files changed, 1043 insertions(+), 809 deletions(-)
-> >=20
-> > --
-> > 2.55.0
-
-
-
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 48 ++++++++--------------
+>  2 files changed, 20 insertions(+), 31 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 79b69d74eb2e5..3bad7b8f621cc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -626,6 +626,9 @@ enum amdgpu_enforce_isolation_mode {
+>  struct amdgpu_device {
+>         struct device                   *dev;
+>         struct pci_dev                  *pdev;
+> +       /* The two ends of the physical PCIe link outside the device. */
+> +       struct pci_dev                  *link_dev;
+> +       struct pci_dev                  *link_partner;
+>         struct drm_device               ddev;
+>
+>  #ifdef CONFIG_DRM_AMD_ACP
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 44091ac12fa9c..0d277516fd55e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1959,18 +1959,17 @@ static void amdgpu_uid_fini(struct amdgpu_device =
+*adev)
+>         adev->uid_info =3D NULL;
+>  }
+>
+> -static struct pci_dev *amdgpu_device_find_parent(struct amdgpu_device *a=
+dev)
+> +static void amdgpu_device_init_pcie_links(struct amdgpu_device *adev)
+>  {
+> -       struct pci_dev *parent =3D adev->pdev;
+> +       adev->link_dev =3D adev->pdev;
+> +       adev->link_partner =3D pci_upstream_bridge(adev->link_dev);
+>
+> -       /* skip upstream/downstream switches internal to dGPU */
+> -       while ((parent =3D pci_upstream_bridge(parent))) {
+> -               if (parent->vendor =3D=3D PCI_VENDOR_ID_ATI)
+> -                       continue;
+> -               break;
+> +       /* Skip upstream/downstream switches internal to the dGPU. */
+> +       while (adev->link_partner &&
+> +              adev->link_partner->vendor =3D=3D PCI_VENDOR_ID_ATI) {
+> +               adev->link_dev =3D adev->link_partner;
+> +               adev->link_partner =3D pci_upstream_bridge(adev->link_dev=
+);
+>         }
+> -
+> -       return parent;
+>  }
+>
+>  /**
+> @@ -1986,7 +1985,6 @@ static struct pci_dev *amdgpu_device_find_parent(st=
+ruct amdgpu_device *adev)
+>  static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+>  {
+>         struct amdgpu_ip_block *ip_block;
+> -       struct pci_dev *parent;
+>         bool total, skip_bios, early_full_gpu_access =3D false;
+>         uint32_t bios_flags;
+>         int i, r;
+> @@ -2082,10 +2080,9 @@ static int amdgpu_device_ip_early_init(struct amdg=
+pu_device *adev)
+>             !dev_is_removable(&adev->pdev->dev))
+>                 adev->flags |=3D AMD_IS_PX;
+>
+> -       if (!(adev->flags & AMD_IS_APU)) {
+> -               parent =3D amdgpu_device_find_parent(adev);
+> -               adev->has_pr3 =3D parent ? pci_pr3_present(parent) : fals=
+e;
+> -       }
+> +       if (!(adev->flags & AMD_IS_APU))
+> +               adev->has_pr3 =3D adev->link_partner &&
+> +                       pci_pr3_present(adev->link_partner);
+>
+>         adev->pm.pp_feature =3D amdgpu_pp_feature_mask;
+>         if (amdgpu_sriov_vf(adev) || sched_policy =3D=3D KFD_SCHED_POLICY=
+_NO_HWS)
+> @@ -3783,6 +3780,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>
+>         adev->shutdown =3D false;
+>         adev->flags =3D flags;
+> +       amdgpu_device_init_pcie_links(adev);
+>
+>         if (amdgpu_force_asic_type >=3D 0 && amdgpu_force_asic_type < CHI=
+P_LAST)
+>                 adev->asic_type =3D amdgpu_force_asic_type;
+> @@ -5880,11 +5878,9 @@ static void amdgpu_device_partner_bandwidth(struct=
+ amdgpu_device *adev,
+>         *width =3D PCIE_LNK_WIDTH_UNKNOWN;
+>
+>         if (amdgpu_device_pcie_dynamic_switching_supported(adev)) {
+> -               struct pci_dev *parent =3D amdgpu_device_find_parent(adev=
+);
+> -
+> -               if (parent) {
+> -                       *speed =3D pcie_get_speed_cap(parent);
+> -                       *width =3D pcie_get_width_cap(parent);
+> +               if (adev->link_partner) {
+> +                       *speed =3D pcie_get_speed_cap(adev->link_partner)=
+;
+> +                       *width =3D pcie_get_width_cap(adev->link_partner)=
+;
+>                 }
+>         } else {
+>                 /* use the current speeds rather than max if switching is=
+ not supported */
+> @@ -5906,21 +5902,11 @@ static void amdgpu_device_gpu_bandwidth(struct am=
+dgpu_device *adev,
+>                                         enum pci_bus_speed *speed,
+>                                         enum pcie_link_width *width)
+>  {
+> -       struct pci_dev *parent =3D adev->pdev;
+> -
+>         if (!speed || !width)
+>                 return;
+>
+> -       /* use the device itself */
+> -       *speed =3D pcie_get_speed_cap(adev->pdev);
+> -       *width =3D pcie_get_width_cap(adev->pdev);
+> -
+> -       /* use the link outside the device */
+> -       parent =3D amdgpu_device_find_parent(adev);
+> -       if (parent) {
+> -               *speed =3D pcie_get_speed_cap(parent);
+> -               *width =3D pcie_get_width_cap(parent);
+> -       }
+> +       *speed =3D pcie_get_speed_cap(adev->link_dev);
+> +       *width =3D pcie_get_width_cap(adev->link_dev);
+>  }
+>
+>  /**
+> --
+> 2.43.0
+>
