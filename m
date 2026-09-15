@@ -4,81 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68E98C88E75
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 07:32:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05ED2C88E53
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Sep 2026 07:32:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA73610E244;
-	Tue, 15 Sep 2026 07:32:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49B8810F322;
+	Tue, 15 Sep 2026 07:32:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BlpkF+5I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CXRIKr0/";
 	dkim-atps=neutral
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A65610E1C7
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 13:29:44 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-6a9ac6aa620so4413843a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 06:29:44 -0700 (PDT)
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FAC410F7F8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Sep 2026 00:54:34 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c25331b31e8so52634566b.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Sep 2026 17:54:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789392582; x=1789997382; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789433673; x=1790038473; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=JytMekM1O3tqnBvhWTtqVwMI/KxX0kYwHkxZRtcjzKg=;
- b=BlpkF+5IKILPqw2a5pzf5ef/HMIKwPCGO7Y26L5Sj2m6lMsLWVhJojsvhxCeUF6YKO
- NyinZ0UZ6l8zNjSRYQG5ANdAeqOeaE6qryIe9pO9LaIth+F6eq8OD7rlnPmETH6el3jA
- he5aRqTe/DTMfqJRwM6RjMsM0QSOTU7V5gkf5jrWdQIO9nHmR13r0ZJ9c4jKfSbXbBsS
- pBo10U8sMI19hZOKvw0cHvFJfm+x4lnAksZgdMS/g86f7+UvEz113jbiINc1RIuwt6M/
- S6RGm2+6X9Aj3IZXaLnTFlQhE9LeeBcBDYvwlc+osxLJ2nWGy0uxdvtffSFHSxlzeOEV
- rWcA==
+ bh=hWZ4Y4zJql57aJqzMLFBZaa2Td+FuNKRPfVlv/bP7Sk=;
+ b=CXRIKr0/ZmMDrS73QRqW4KiweIpOB79NuQakt8Xw2/Mc1qoym3pK1rd1W61GFrN4LV
+ JHk0eA2GLD8O4KmVCHA1Nw9o5Xmatsr6lMODE+P9kjbILQDKcECPZ9bX/bQFnTRXQIYb
+ e/3hB+90wZ0D99D81uVpXwjrsNfvuYb7JD6GsDuJeeud/h3l7YnSrhfaQ2hDW9TocA/A
+ JfZwQNvQX922M76nyqM02hwHL2WRsgTugiWBUbfjfHtPj75hzo1N8XHMqK+W0ra99giw
+ cUUTdVPchPLxh3aiJj89cO5n6H/Q2B1bMmrJCiYV6NjJKKxYoIp/krSE1TMsnr7jjhKs
+ WYBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1789392582; x=1789997382;
+ d=1e100.net; s=20260707; t=1789433673; x=1790038473;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=JytMekM1O3tqnBvhWTtqVwMI/KxX0kYwHkxZRtcjzKg=;
- b=gpPQ+M1u6RiEMSzg2JJexm0Cb8QClocyJaHULD3SxxcOWHsS7BxaWK2CSdQQgXWtVf
- NfPnMJEFnYSA03gAUxFKwrp83iCwp55uECRUzmxOHQSdKIiIJx2Y3qttnGvsTatJINZn
- 3Nh/VJ66ZYMSAO+DJd2bh/i/aqUsfeyA6VlHrTEGSrUVcCZ8lRrzFkaiuezWx8N+7n1G
- wtPtAiG1GjBDwdSjw0jPmF2mBxdApkhpmeFWJ+g026WeE/PTk8MfzkbPinyQahy8frqs
- /DTG3WFmDrtZdEC/vXyzoR/0w7gO1RmvXvUMaGHbeVr0VQSePDCXLWMKYepkr02PYNkh
- a/rA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByPl5XooBL5S7MBEsiN5yujeKWG2oQkpIi3Prk/G1xhTZVgPMIdclHp8iTiANjuFS6pz7xFNRbJ@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mS4A59MbnYy+HwTU3aCLxECyJWmcrmKLh96HDA/oJ8zpSz8pOR
- MVRfmtKGqaUF9VEURiorsPHvdnNQUhfYkiV+yWamhk75EeuNZvQUmr/1
-X-Gm-Gg: AYBFou0YEFR0SBQYvCMqAtQCUNO960BWB2ikXMoueWnelAUD5gy2T3K95TWW9VqwwH8
- LEmRI6H1VTYOepCZj8GPMmB2NrHtZdHUGsvjRn1hhQTb/SDHVkt8abAh3eZAiRCupF522NpJbwC
- BWI6P9tVoXfd8/LVKmXzJ4RxDJOrtaLPtKK5wZeZsnvjBw0IJAk4KkosG32wBzYYpBvHkhByto+
- VcasvDqRamCx8cz9EN1romNH/AqhauSzWsW/VuvT+IdTMrA0VJr391vRo/vd/lrJWQXrP6jABKd
- 5uZbGsjOWk9m4g+Z4zWPq2LJWfgaf3tKdVZewmbg5mGpV+qOuzIG/DJXxm3xGeeQluZqK6kPoC7
- ax5Mk++xXLzJfTyfiBJvKWzVfwDHQJbeHVGbdYzsGj9yztTLIwSX78O1qXqj2d/r0SfKnow8W7F
- mNOBAELbhnkLxRxpYZcWNE4QgdlgnFOMQys3PSM8pshdkdb2VkVKbIqTCEEwN8qEDVpec1cNFYh
- 5f8GEU+0ZOKuQWW66cxEsq9cV558z10R13UFSxqMLnPfk73smFyGZL+JqymMBY=
-X-Received: by 2002:a17:907:3f20:b0:c26:1f8f:ed53 with SMTP id
- a640c23a62f3a-c29a4339baemr362278166b.12.1789392582327; 
- Mon, 14 Sep 2026 06:29:42 -0700 (PDT)
-Received: from misharu.home
- (2a02-a463-a071-0-7759-cb87-66e5-4165.fixed6.kpn.net.
- [2a02:a463:a071:0:7759:cb87:66e5:4165])
+ bh=hWZ4Y4zJql57aJqzMLFBZaa2Td+FuNKRPfVlv/bP7Sk=;
+ b=pSmf0BnJbf7vpCpLgL3gF1cWodaRBRyOdmqPvyG+W/XKSn6khVVkoHQh5yxRpHI+AN
+ wgPqJBviPYyAnU/DE4vl4PAwwavHCvxcAz15aVo3U3uaUPCMb65xbvQa9HTIW8sQJut7
+ BU43EuKvlGDVHiTSz+vxV+ymDqkEZoAsNh13VuZ3q1PvYvTILxyLchYhLzymPtVFq1L5
+ S7arrFreKdMXi2CAOZXXK8ieHyq9xLbjVR22oiiz7S6gVi9koXtvMYrWGqcSDrX2UtNx
+ MMHX+MPAQMXSs1lzjITrJSkbOd68n7wxJiwbT9At8bUAn7IVsH6Tzo7amkrUv0tGBJps
+ pXhA==
+X-Gm-Message-State: AFuF++moc95mKWXMB06aFaETIido9m2UUdyDJFphrwF5KTCmuq3XCZuh
+ KPlTe1OAVgSpotDQyw5sRQqbS9jjSF3YTsggmh6p4ankufH3lX/HSAN9+jTa62YyBLWRNg==
+X-Gm-Gg: AYBFou3iamvx9kwwP52YnX4hWa0GKowr8cszs07HigVaKAdV0yrrpMtZWiLbjnXcAUN
+ Uk5HOXzbCqEWLOCBR+ogv3HHKSqoDyzR8KnFnCvDW/ZHMhY32I2YfFXUyUyQzGsGNrKPQ14Pv6i
+ H4F9iysRK1vm94KxMpAtUQT50NjyYqkWtJvtuigcHfBKYSTP4xDEd6RiwV2d6f4dJthiZ18hrXa
+ JYNNP2dFhn0+CT+7VIWG0JkZX9Rf9Hlavrx7uzuCl9KI0Wb39OAlDOxX1ZqX2ZNGGt1Gw9Pry3g
+ 9ba8wGFbmiSphw/KtVXnxyxyR9OUCF0piZ4voR2NAJmoMay/O4iTYOid/xlfyixriaMBEVrjRky
+ i/ZOqocUsdq6mhNt/Krg8l/d6618KP0UoZcVySRWyS6SIDseI2Uht43D6dfJV1bjxDAvd8M9wg0
+ kb3Zdspfqlj9W8W937t8t6Bz3LtJI7fB9/5C5y6ZPeF8YxP60Hbu/Eb/P22mfQxwDbIo8rl+M/1
+ EId9Nzfj9fVUuw9/bQ=
+X-Received: by 2002:a17:907:9491:b0:c20:c5f4:e19f with SMTP id
+ a640c23a62f3a-c29b881e271mr346326166b.4.1789433672479; 
+ Mon, 14 Sep 2026 17:54:32 -0700 (PDT)
+Received: from Nuel20.localdomain ([105.113.65.85])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2965c4dfc7sm437207966b.4.2026.09.14.06.29.41
+ a640c23a62f3a-c29660ead67sm501097966b.51.2026.09.14.17.54.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Sep 2026 06:29:41 -0700 (PDT)
-From: Hari Mishal <harimishal1@gmail.com>
-To: Kenneth Feng <kenneth.feng@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Xiang Liu <xiang.liu@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
- Asad Kamal <asad.kamal@amd.com>, Rex Zhu <Rex.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hari Mishal <harimishal1@gmail.com>
-Subject: [PATCH] drm/amd/pm: bound SCLK FCW range entries to the table size
-Date: Mon, 14 Sep 2026 15:29:20 +0200
-Message-ID: <20260914132920.10127-1-harimishal1@gmail.com>
+ Mon, 14 Sep 2026 17:54:32 -0700 (PDT)
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, bhawanpreet.lakha@amd.com,
+ Wayne.Lin@amd.com, ivan.lipski@amd.com, matthew.schwartz@linux.dev,
+ Jerry.Zuo@amd.com, chiahsuan.chung@amd.com, emmaonana18@gmail.com,
+ chen-yu.chen@amd.com, skhan@linuxfoundation.org, me@brighamcampbell.com
+Subject: [PATCH] drm/amd/display: fix kernel-doc warnings for
+ amdgpu_display_manager
+Date: Tue, 15 Sep 2026 01:54:21 +0100
+Message-ID: <20260915005421.20570-1-emmaonana18@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -97,41 +91,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-atomctrl_get_smc_sclk_range_table() copies ucSclkEntryNum entries from
-the VBIOS SMU_Info table into pp_atom_ctrl_sclk_range_table. Both the
-source (asSclkFcwRangeEntry[]) and destination (table->entry[]) arrays
-are fixed at MAX_SCLK_RANGE (8) entries, but ucSclkEntryNum is an
-unchecked u8 read straight from the VBIOS, so it can be up to 255. The
-destination is stack-allocated in both callers
-(polaris10_get_sclk_range_table(), vegam_get_sclk_range_table()), so a
-count above 8 overflows a stack buffer, not just a heap read.
+scripts/kernel-doc reports missing and excess member descriptions
+for struct amdgpu_display_manager:
 
-Reject counts above MAX_SCLK_RANGE rather than clamping to it. Only
-one version of this VBIOS struct (ATOM_SMU_INFO_V2_1) has ever
-existed, so a count above 8 corresponds to no legitimate table format
-and means either a corrupted or a tampered VBIOS.
+  struct member 'power_module' not described
+  struct member 'hdmi_frl_status_polling_wq' not described
+  struct member 'hdmi_frl_status_polling_delay_ms' not described
+  struct member 'boot_time_crc_info' not described
+  Excess struct member 'dm_boot_time_crc_info' description
 
-Fixes: a23eefa2f461 ("drm/amd/powerplay: enable dpm for baffin.")
-Assisted-by: gkh_clanker_t1000
-Signed-off-by: Hari Mishal <harimishal1@gmail.com>
+Add @power_module to the main struct doc, document
+hdmi_frl_status_polling_wq/work/delay_ms with separate inline
+comments, and rename @dm_boot_time_crc_info to @boot_time_crc_info
+to match the actual member name.
+
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-index 4b796d60b03d..3217ad3c1d17 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-@@ -1025,6 +1025,9 @@ int atomctrl_get_smc_sclk_range_table(struct pp_hwmgr *hwmgr, struct pp_atom_ctr
- 	if (!psmu_info)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 3524931451c8..61756c089fcc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -330,6 +330,7 @@ struct hpd_rx_irq_offload_work {
+  * @backlight_link: Link on which to control backlight
+  * @backlight_caps: Capabilities of the backlight device
+  * @freesync_module: Module handling freesync calculations
++ * @power_module: Module handling power calculations
+  * @hdcp_workqueue: AMDGPU content protection queue
+  * @fw_dmcu: Reference to DMCU firmware
+  * @dmcu_fw_version: Version of the DMCU firmware
+@@ -716,16 +717,26 @@ struct amdgpu_display_manager {
+ 		char reply_data[0x40];  // Cannot include dmub_cmd here
+ 	} fused_io[8];
+ 	/**
+-	 * @hdmi_frl_status_polling_work:
++	 * @hdmi_frl_status_polling_wq:
+ 	 *
+ 	 * workqueue for 200ms frl status polling
+ 	 */
+ 	struct workqueue_struct *hdmi_frl_status_polling_wq;
++	/**
++	 * @hdmi_frl_status_polling_work:
++	 *
++	 * Delayed work for 200ms HDMI FRL status polling.
++	 */
+ 	struct delayed_work hdmi_frl_status_polling_work;
++	/**
++	 * @hdmi_frl_status_polling_delay_ms:
++	 *
++	 * Delay, in milliseconds, between HDMI FRL status polls.
++	 */
+ 	unsigned int hdmi_frl_status_polling_delay_ms;
  
-+	if (psmu_info->ucSclkEntryNum > MAX_SCLK_RANGE)
-+		return -EINVAL;
-+
- 	for (i = 0; i < psmu_info->ucSclkEntryNum; i++) {
- 		table->entry[i].ucVco_setting = psmu_info->asSclkFcwRangeEntry[i].ucVco_setting;
- 		table->entry[i].ucPostdiv = psmu_info->asSclkFcwRangeEntry[i].ucPostdiv;
+ 	/**
+-	 * @dm_boot_time_crc_info:
++	 * @boot_time_crc_info:
+ 	 *
+ 	 * Buffer info for the boot time crc.
+ 	 */
 -- 
 2.43.0
 
