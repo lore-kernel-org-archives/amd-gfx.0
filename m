@@ -4,70 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38429C982CD
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 16:07:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF6A1C982C9
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 866E110E2EF;
-	Wed, 16 Sep 2026 16:07:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48F9410E493;
+	Wed, 16 Sep 2026 17:41:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W/yDxESd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fHwk6kWe";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D438A10E19F;
- Wed, 16 Sep 2026 16:07:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789574833; x=1821110833;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=97hcJwbWQnSyhO/AE+RfsqlANRbBsH05NzqjDLVib6w=;
- b=W/yDxESdkfLmX3ezAZSHT4X0NSjqFKlWdPbGNQ/1FiKKGX61wAQpAAlN
- hAMrJ9mGy81s4xpieMa7Yb2RerN3Ohxout0VRb6ZA7tZ3Wx7GtjKcYwi/
- LscAqDvI/N474AcvUaJcdwTF1I1leGhiT4/6ZzNNJv4kAUQGTHBioyfhR
- YsRePs4cL+ld/LzI8K/2x45AluOk+OHn2XlAEh9v23cbmUBlKZ2XkO7Mj
- 7leS+BXkJlHBInqlPetMQZvArzdREKNoup7OFMyiIXw60fQ5w7b2bMGnU
- cILbjqrQ7cs3L7ZElCoDHf8pMYV2D25zfig/SAgirnhiyih2FwtqmBUpB Q==;
-X-CSE-ConnectionGUID: j0X8DNU4RLu7pLVTDK65oQ==
-X-CSE-MsgGUID: q3jrjotZQreLm0glTXPQdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93780159"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93780159"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2026 09:07:01 -0700
-X-CSE-ConnectionGUID: 786FK0E0SV62ILy+10QEOg==
-X-CSE-MsgGUID: JMFGyQ2QSy66aZnmkg1nOA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="269675732"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.224])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2026 09:06:57 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: =?utf-8?Q?Ma=C3=ADra?= Canal <mcanal@igalia.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, Melissa Wen
- <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v3 2/7] drm: Add drm_timeout_rel_to_jiffies()
-In-Reply-To: <3f134188-0af1-4c7e-8bb8-ddb2504c9efe@igalia.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
- <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
- <c20c43109d3ebb08ad6a0c811ffaeb48f90efed5@intel.com>
- <3f134188-0af1-4c7e-8bb8-ddb2504c9efe@igalia.com>
-Date: Wed, 16 Sep 2026 19:06:54 +0300
-Message-ID: <0c3770584e44853af296eac4418b3cace9a1d0c6@intel.com>
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010060.outbound.protection.outlook.com [52.101.85.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF7D310E493;
+ Wed, 16 Sep 2026 17:41:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Uztt3z3DfLea2nlNNldwfA/5YP9IQAmYm7yvAFZxl8ATKO56N2Hs7qJ1IV/5EBoxcSMFg7MPk8iFxCFm/IHPCJb2Wp2PUdoz0WJG9AjaTJJyqap1Yh+agUrOtpEz+veS5RnQXQYLrjgNuUd9toi01hP8HrqVhnKIJJBvAt0bDib0w+6kKimI1n8L1ZukQT+PiEMawqWFzBj7GDWFZCTvzHvB150WDKbw14Y2cfD62HM3w33ZrWyAHByAQm7MruGZSzFDMG7xLCmDTeE9fbPWo5yW62qnf+YSTJzaol/wNjf+gaw+F3YnKr4Ko2QD5b1Ms1hrYndz6AZCZ/+rGCJmEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dlqPj8EPOIl8ZePBYSA1ZYhp0CrSa5Gej1WqWXtHbOk=;
+ b=H7p3vphxOKIQzQsJnD9abanHaQL84GbfYQZeIfOV2lLwtq42KHD6MzI/CAZjElP5FTOkiScoyXjFkhB+EUMT0uEEtZ6Ymu5ElN0hWBXHD3NEcW0PEbGkgyqmrt8ko97VmIEc/gfkwC8KM5nBLZs1bS/6WRrSa4LCribTaPezu1CB9kl+Yyl/Z336ynxIe/+J5gy5msqrEF4HsGNVyzFcs0F2pbNJoN/iQfi02vKJ1Jk9aRKpmwK+YwJgcBcmLzQwqw4lgYvuQOYVXxVudMrPJ6cVRqaoiqwy6k0qQFwwpRjq0dY6nm4QkLyfS+RL9E+EQ46eiQv+R9ncsGsS3Vfb5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dlqPj8EPOIl8ZePBYSA1ZYhp0CrSa5Gej1WqWXtHbOk=;
+ b=fHwk6kWeREI2nw1ggZuNsNk6B2T1TlmkhAMhtd7b4MwsUoGPMGsbi8HSf2Txyz92dhZZOmD2syUfzLYpsY8gHfHLikzDOcH5bZy7Q/o2MwBlZwoByg7LuvE68adKZ3GJp0NTKWs2fuNzXTi3Gn240hah4daLuSQ6HcxHY/KrKTQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by LV2PR12MB5992.namprd12.prod.outlook.com
+ (2603:10b6:408:14e::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 17:41:31 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
+ 17:41:31 +0000
+Message-ID: <79d276fc-865f-4723-a9fb-93e4b1564535@amd.com>
+Date: Wed, 16 Sep 2026 13:41:29 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH next] drm/amdgpu: Initialize UALink handle uniqueness state
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Mukul Joshi <mukul.joshi@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260914054604.12850-1-kmehltretter@gmail.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20260914054604.12850-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0165.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ac::19) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|LV2PR12MB5992:EE_
+X-MS-Office365-Filtering-Correlation-Id: e290e37d-3f1a-4c77-9455-08df1419be8d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 4iQ5jVSqHFKv9c7TQCw3YikY4oU+KMOHhGCrEfnjV/cH409WMIBbVZY3VjNSLVFQNWX3o5WByfpmnFFpC74BAO0xbVpjJRpmDp5kkFh37UlM09KZILf0Y1ZMWYZr8Jd37+iykMm5dnTcbSthgadhFbcAQMbumvzQ5yBo+XZGY0M44QpfjVTP+9lCAzQgft6BfE8Bqaw1Nch/ta1hYMHqYWfeMjfawZBc6KwuCVXwrj0FjoI/+TatsCmeAnCYkW1M0StqixcAnNpXvmmuXMZ1ACGdB43KKl0UwTTJibSslmn8zer9HwWED63d1e9ln/98ZFykY/A3+NdLOLU9TWDnv4d0ZXpvY7n6IM80ZUyfBIPhb6N/1wUO021SU+30cTAo7x3NYaqBCH75TSHSvyKeZANs/TGCSwGFnHNoLOsc4baGmrB4I2nKkE4Nr/g3d7mY3RCE+I2Mswuc7HRAyFg0iQaUQo78Ugsp6HCvw7Kravs6h2fWzcUyyfTlcLf4Gheoqt+f7XWHGJ0betuuqek/BfQkZZDxVQUQ0HnWFrJbiV/GCiBvCpgcpE9Npn2qr1R0ozmuU6EARgF20KEPimKkT1j9C77dTNZW7VAYzKFbV09tu868GnIFbipk9hdtrs+j+2s9CnneNCiWUaGocg1PVBZ4t3ZJwjAwtYq3cBKap1E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SzNZTXMrbVBkVGhVNmhZZjdyeW9JOUxqOGlqRTZFK091b0t6YTBPekE4aXcz?=
+ =?utf-8?B?NVNtYkpKOTNMbkQ1WW5Ea1VsR3ZIS2sycVc2OWQvU0xqRmdQWTEwUzN0ZDZy?=
+ =?utf-8?B?bzUyM3ZqZVZZMmNLVko4MXpITW5JdnZHVzU3d08yL2RGak1BRXVvMzdQWk5u?=
+ =?utf-8?B?SWozam1zTjRGMXRFWkxuZVJ0S2xWSkZQUVMraGh5RjMreSs4cWlOWHFOWkF2?=
+ =?utf-8?B?bTFZN0ZoWWhpWnlKSWM1emE4SUZrQWMyR1YxeDJYVmZZcDFHVEhxL21BQVFi?=
+ =?utf-8?B?RTJKR2lxV3U5L2pmZFdScGdrei8vRFo4TU9DSTVoU0crUDlEcGdUcXlFdkhR?=
+ =?utf-8?B?Z2UyWHpqTkpQTGtCSjhZcWhxN0h2d3htU1R2L25jYWo1T0tJKzZBVkpsL3dF?=
+ =?utf-8?B?ZTRuaG5rRWNsTm40eVM3a1NuLzlIY1JJeFdyMDNUaXgzVHFwZlFpaFM2SU9Y?=
+ =?utf-8?B?TDJXUzBMdjhtVWt2dVdtVXhZV1Y0b2MvbFdzSEYybXVmNGVzYnA5VnVFSE96?=
+ =?utf-8?B?OHRIZ1J2SWdYcW1IY0lsUWdNdmZRM281M24wd3U3dkVsK0FmYllWUGlxd25W?=
+ =?utf-8?B?bWVrUFpHTGxISS9hSkxudlR2eXJBZktrRnlhTTBZVk0zWlQxWXFPeHZnZ2hL?=
+ =?utf-8?B?QVQzam1oNit0aTM0OEJWNlE1b0k0bFZKdjhSOGJDbUZ6d1NaYm5oMUxTTnBv?=
+ =?utf-8?B?dHlFdXRmZ0cwVFBZcnZibnhGK1d1SjJmS2d6bmp1amlmMXZxZXEwWDBCa0xO?=
+ =?utf-8?B?aE5USE8weDBhZzNHZ2Rrb2tOMkZpNWJXVDlHMkoyVkVGakRSUldudmlMUkpP?=
+ =?utf-8?B?ZTlIREhsLzJ6LzlmMlpNN25xb2V2dkQ4cEFMc21Vc0gwVFB0ZDM3dUUrQzNU?=
+ =?utf-8?B?cUNOd2NHMFZqRDFzbUJLSXdpM1k5WGZtemZEYWpSQ0l4WGduYXJYaUEvWVJZ?=
+ =?utf-8?B?RTNlNkdUdVhpbjN3aHZGb0VHdmJzS2NHVENsME5qekFYTTJySHYydTc0SFVC?=
+ =?utf-8?B?WmR4aThQVjAwNlJTRDZDbUY5TEFSWHcveldRMElRUFBNR3pvNlZFQjE4MkFP?=
+ =?utf-8?B?TmUvYkRNb0hWRDhPV3pBdXhiL0Qxb3Q4aWJlK2Jtd2UrRFhrcmFDS3JGT2Rw?=
+ =?utf-8?B?SUpPWUZOUkdmbUFsZFg1RmRIVXpZczVyZUplc3RLYzkxdlZOazVpc1ZUOFFh?=
+ =?utf-8?B?dFlOS0RxY0pqcGpDcitwWlJWSDdKb0RtQm9UcVk5aEVYWXVtbnJ4YkxNNFNF?=
+ =?utf-8?B?SFYvK2FqRGdQdk92L0dsSnk2cU5kNkl5ejlXeDZpdFlwMmVoWUhWN0lyaTcy?=
+ =?utf-8?B?TTB5bklQTDdTL2RSSnBEYUJBS2pJUXdEMHRLRzJXSzVYL2RoL1RQckFSK0Nu?=
+ =?utf-8?B?elp5bkRINmpmOHlXWEVmbktPTjVqcWVVa3FRTm5rSUEvZ3ZoRWwrQ3lGSnRo?=
+ =?utf-8?B?NHRvVkJ5Rk52NXc5dWl1d2VKSkVRYThJK3VnSXhINDNkMk9IWjVGYlRsQ1p4?=
+ =?utf-8?B?KytibWZXTExIVk0zR2ZXckpDOXJHS085YU1KdjRJT0w2cXJCaEVaVmhseVk3?=
+ =?utf-8?B?QXBQalBVT041OXJvNThQYU1rU0h0U2RVOWliZkEyNjV0LzIzbmc4ZUYycmNQ?=
+ =?utf-8?B?ZDc2QXpuRENBc1RGZldGY24wY0t5dDBZUXlrajZvNGJWN1RTWjUyOGxNT2tK?=
+ =?utf-8?B?LzgrZHp2RlJZLzVNbE9vdk1JaERiTkRNLzVFem1xYXJPV2NqTk56WWJVdDBW?=
+ =?utf-8?B?dXc4ZWg3SEVzYUVpd3BNNHpHUVpwSGw2bDJMTTJXNkk5eDJzeUtwUzRYditp?=
+ =?utf-8?B?aTRiby9aeFlQZ1B0dWUzVU4xa1lld3hBd1VPQWhSVG5xR3VKRm9PMy9vZjhq?=
+ =?utf-8?B?MzhTaWc3UDNKUUVWeksxbDVxRkF4Qmo5Y3hnSWxQSXQ2TDA4QmVDTzhtT3lH?=
+ =?utf-8?B?c053YmFLRGhHT2U1THEvUVdpS2xmelRrY0xLUkY1TUdZY1EzazY3RERibmFi?=
+ =?utf-8?B?VHZ0Q2Vtdzk5SmRhUFduVW9iNHpjWjhEdm5Vc2M0dUUrRStJMEVOdHRFcVJW?=
+ =?utf-8?B?K0VISklqcjBkM1poS2F5SUl4RVNSVVFTTlM3cUg1cExzSGNKRjhJaVQwOFlQ?=
+ =?utf-8?B?eUNwTmR3NHhoSzNocG5EQVlHdDd0c0tNN0JIOXBNRzNMTnV5dnkrdDlVMndB?=
+ =?utf-8?B?OEQyOXhHL0ZOS0krL1hxWnVFZkRwbUV2QjMvcmxyMy9KRmQ5TTdabUxucnR6?=
+ =?utf-8?B?WmpiTmJnaU56cE9vdkhFMEoyNzUrWDRTYytUeEhFa1MvaTNoNFJiTUh3VUJY?=
+ =?utf-8?B?ZGdnTWhEMFp2NXZZUEc0NjdoUHpEL0xaNmZXL0hlandtVkRXODYvUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e290e37d-3f1a-4c77-9455-08df1419be8d
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:41:31.5350 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JdQ7xBDkw80JC8+f8T7v702tXb4QhcUK93qiA/SoB42gJu36mO2pmWi5czfQxD0YTTUh3Xtc+bZvValU1iyXhA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5992
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,81 +138,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 16 Sep 2026, Ma=C3=ADra Canal <mcanal@igalia.com> wrote:
-> Hi Jani,
+On 2026-09-14 01:46, Karl Mehltretter wrote:
+> amdgpu_generate_ualink_handle() continues when handle_lo is zero. For
+> accelerator ID 0, the random value can become zero after the low 10 bits
+> are cleared. This path reaches while (!unique) without assigning unique.
 >
-> On 16/09/26 07:38, Jani Nikula wrote:
->> On Tue, 15 Sep 2026, Ma=C3=ADra Canal <mcanal@igalia.com> wrote:
->>> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
->>> absolute deadline, but there is no equivalent for the drivers that
->>> express a wait as a duration. Drivers such as i915 and v3d convert the
->>> value themselves.
->>>
->>> Converting a nanosecond duration to jiffies needs some care.
->>> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
->>> userspace-supplied timeout overflows its range and is silently truncate=
-d.
->>>
->>> i915 already handles both cases in a local helper, which v3d has a copy
->>> of. Add the same conversion to the core, so that it is available to any
->>> driver and both copies can be dropped.
->>>
->>> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
->>> ---
->>>   drivers/gpu/drm/drm_timeout.c | 45 ++++++++++++++++++++++++++++++++++=
-+++++++++
->>>   include/drm/drm_timeout.h     |  1 +
->>>   2 files changed, 46 insertions(+)
->>>
+> Clang's -Wconditional-uninitialized reports the read. A reduced
+> MemorySanitizer test reports use-of-uninitialized-value at the loop
+> condition.
 >
-> [...]
+> If the uninitialized value ends the loop, handle 0 is inserted into
+> exp_xa while robj->ualink_handle_lo still says that the BO has no handle.
+> A later export can create another entry for the same BO.
 >
->>> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
->>> index cd9621c52062..6ee222a3e97c 100644
->>> --- a/include/drm/drm_timeout.h
->>> +++ b/include/drm/drm_timeout.h
->>> @@ -12,5 +12,6 @@
->>>   #include <linux/types.h>
->>>=20=20=20
->>>   signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
->>> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
->>=20
->> The signed/unsigned differences here bug me a little. Maybe explain why
->> in the commit message if there's a rationale?
->>=20
+> Initialize unique to false so the zero-handle path repeats the loop.
 >
-> Answering both your e-mails, the rational behind this change was: don't
-> make any changes to drm_timeout_abs_to_jiffies(); only move it as it is.
-> As I'm the one introducing drm_timeout_rel_to_jiffies(), I took the
-> liberty to implement it in a way that makes more sense to me, which is
-> using `unsigned long`, considering that a timeout in jiffies should
-> always be positive. Also, i915 and v3d implement the function returning
-> an unsigned long.
->
-> I believe that drm_timeout_abs_to_jiffies() historically returned a
-> signed long because dma_fence_wait_timeout() takes a signed long timeout
-> parameter (I'm not sure why).
+> Fixes: c67cb19811ec ("drm/amdgpu: Implement UALink handle export")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Right. Maybe add something about it in the commit message(s) while
-applying? No need to resend.
+Thanks for the catch. I'm applying the patch to amd-staging-drm-next.
 
-Thanks,
-Jani.
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+
+Mukul is looking into the other pre-existing issues pointed out by Sashiko.
+
+Regards,
+   Felix
 
 
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> Best regards,
-> - Ma=C3=ADra
->
->> I note that drm_timeout_rel_to_jiffies() return value is assigned to
->> unsigned long variables half the time. I guess its kernel-doc could say
->> it never returns negative values?
->>=20
->> BR,
->> Jani.
->>=20
->
->
-
---=20
-Jani Nikula, Intel
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index ab56420..c6b7122 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -1819,7 +1819,7 @@ static void amdgpu_ualink_npa_mm_fini(struct amdgpu_device *adev)
+>   static void amdgpu_generate_ualink_handle(struct amdgpu_device *adev,
+>   				   struct amdgpu_ualink_handle *handle)
+>   {
+> -	bool unique;
+> +	bool unique = false;
+>   
+>   	do {
+>   		handle->handle_lo = get_random_u64();
+> base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
