@@ -4,124 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBA77C982C5
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 14:32:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C385EC982C4
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 14:44:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8182210EB71;
-	Wed, 16 Sep 2026 14:32:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2047B10E13E;
+	Wed, 16 Sep 2026 14:44:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N82IRspb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ONvrsIbe";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012013.outbound.protection.outlook.com [52.101.53.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FBDC10E3C4;
- Wed, 16 Sep 2026 14:31:59 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010043.outbound.protection.outlook.com [52.101.201.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89D7D10E13E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 14:44:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ymwmKrDpN2nKh5g83LCiTiCZ53o59aQxtxnwJrPUS5VgrG1gvJjjnDczhOBvTg570lme/tKTGc4lfH0p2HQsEXKUNGba4wMVU0WBMoWc6HyQ2GX95uPCaQwA+ndRPFrd+o5AkbzXL2twGdfxTD2AhjD0lFOF2H2VNoiGzdwoZa3Zb8hAPSpbzIMTEZ8Z8DFSRisEu153KW6t8v2PS9muyULBd8iQVUv2d/sG93yfrDSUucB4TEtkwUkZC2Sx+KSW85p0XM7VoJnfOePX2igEh61ZnDBoiC04JUo7glc0gQAJsqGdlQgK/b64xNdGwDUnIFyTDt7TEQL+vZ8XXtOk6Q==
+ b=yq/eSkaXzbrJNTY8WDrWXwz5/ls04OO5f1E2wk579aE2LK0PU0rJ8ifx6pKadl6PQwiiDtoHzD912M+VcRAUtiH8kqXXdw+7lBlUfwM+fIbqlf89IMUiBjOmEX4Ni3jGf9DQ/GPo9bKYa9JKptTzju4HFMjMK0f1x2V1rH0DmEmX+iCo+miACv9cGR4xq67XvL8mVpnA1eRg0uE0X6Tb90I5HUWLi5TtY5hlgnyIyoKvhtLaTJSBu8wY61+kWIfDZStIVQATZ/GhGhcODzJ4Mmyn+pM4hwXZV4xepxeuZGH6Z7nTV5NZA1bS19wLfoqiwbXeBBuSjQ7TFb4C6Wf1/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bxelOUoC46zFPtDKIdHkITI26kx4z4PpqeCjfdgiYIk=;
- b=EA8oAeze0m3cgBADtTo0iVoIEW6u1CttpWWad6ahbUuVTcuk0ljgs0tog91R7hehmtb9Uo6219EDOcNK3VbGJqpwnKjC8PrlWaZ698dv8tRL2yAInFjVnq0ELlMeatT1huTq16fPCDJJa3KBJ5GT4G759zDhiRvLGmf3yCLw3ptrtGkw03oAbZCcRmuQ4m9DknkGyb9g3s28/u5kXcjKueyBZLOH/C8/+L4s8w+irARp0rwvMyETjVzwvSTjK2DUPWzpH53nWcwpArMEqSG6nFgRfsE/15mOr/9iHV9YAJeFkSNaFoXliEfkiN6GLafLn/lJIwOyqk7HxqBVOWaqkQ==
+ bh=omRF3KyJWWByAWfMLBY25XYPr/5ou/QSJdm0zfajumU=;
+ b=Pa/wVTrlUWLf+KMgcZ6ASMBpfYubN5WWg8sF2LJ/PIkivEeGSb6yEyb5GVaUyprLk5C6CeQPy7wQyDxTy1MQ76HYlhEQrS+rXrVJRLS95cOPRg9EftKG3KGHUDK+3JEUVjoLvEiLXtIafNpbIBO9NBFT/sdpTbiBTL7fFRf0Q4jUD1aHR/e/1UAm5CiB1VxN1m69LMC2OTdczvgPRvJ9QQJl41/NXjYVvvtPpJnIEHGLyvJA3//TQie+QZV+u4lSNAx+yZ5kc7ay3TYN51DVcTD1ziEvcHlICndOoR5NbC1ws/gOGMEnpmtfsCKV+ZzbsQFhV/mvkN2/s/oJ2upK+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bxelOUoC46zFPtDKIdHkITI26kx4z4PpqeCjfdgiYIk=;
- b=N82IRspbvy8VqllXtIyZEFpDRmOKoHQ56nxPQpFasudi1rcnGOWKqUMrsFbSKlsOCWK/WuSutFJr32thw7xE9PFC9tXd0kpPJRgDYqYurOkgT4DTXtVQQ97Ore6a/pK/BwOJjn7qh0FOV7zVHxzhQmQXzqtAeG0wZmGLhSbZruQ=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by MN0PR12MB5739.namprd12.prod.outlook.com (2603:10b6:208:372::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 14:31:49 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%3]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
- 14:31:49 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, "airlied@gmail.com" <airlied@gmail.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "andrey.grodzovsky@amd.com" <andrey.grodzovsky@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init()
-Thread-Topic: [PATCH] drm/amdgpu: Fix vmid_wait fence leak in
- amdgpu_ring_init()
-Thread-Index: AQHdRcJ1L4hkNykmt0eBui5/npDryrbRRKgg
-Date: Wed, 16 Sep 2026 14:31:49 +0000
-Message-ID: <BN9PR12MB5146E89DBAC7095ED960BFA5F7B92@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20260916100139.2012124-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260916100139.2012124-1-vulab@iscas.ac.cn>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-16T14:31:41.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=omRF3KyJWWByAWfMLBY25XYPr/5ou/QSJdm0zfajumU=;
+ b=ONvrsIbe1x/d2HPQNpudOWC12LndSbcdj9tSSD0CUA4AM1gxENuDH9Pm8HLAt/O8Cb7UxRBrBku1l0QXb6DJJjcHXlnP89nDs33+vwqEoyMXLODzO4+dGkUTgSXPlVw/Yc9W1jzZBTGC4w6DIM4DplSvlZNF89qNWuilB7/a1gU=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|MN0PR12MB5739:EE_
-x-ms-office365-filtering-correlation-id: b6a90918-a0e2-4fb5-37c0-08df13ff3e9e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|38070700021|6133799003|10067099003|22082099003|18002099003|5023799004|11063799006|56012099006;
-x-microsoft-antispam-message-info: 6aAXy0VvbpkD8HSmy2cUr5/j480FZGq3YpAVuhHlVuryD6RQARzItP0l9KfolkFA69lL+ILeQPaI87AP0s/DzHXvH6z90PiNXJsyyaAdbJxMDMdsOGpzjqXcCbVOFSYdlRdbysOFxS1HdEtL2SOigKtJWHduiIVtwm1GXwnbR6EJeEDVshvSS6HC9pLvNNYpugpFaFfZambdoiykd7zMe3gj1gdqFToJ/ZZ7XiVuRVBbxwigLT9mgf2/OK83yyU1PJmZQ1Q1UcbviYUEGblLHoo/1p0ARv2i8Ommpd3+c1XRkqtM/o5G5Xkh7SN2N3JUJQNKe4RVfAEfgW7flsBUu6ILr6ZjePyQ9XHlf2PKpMVgfP9qsog2UxMxXgYJAyamCL17w+s9vqv2Azwoq6iOGzAEhSYav4xWxLK1iHsHPUn6m/si9l8giqAa+aKx15F2YzIKadQi0HXsQzVJzZEQeCsXfn93Vv0OzQxckklGK2ExgNzzCe/ES0CJ7Ah4BELobBsaacyf5RIx/pPrCqgSkQV8xDT9izsTkJBbPvenMRyjbwg+vlu42oL/8j0FANp0RKk+k0Zl7uFYiIsRKnZsNB8mqI5l7rN++QCbQy1qYg1RosqE6UEjbGiqmWo/Gw9IGEResVl4qaoTb3Cp6byicRVv9+Uvb95Cyb66aRXZr21c3PA/07eABiFXHTy8ThMY1lqWCWz8YsK71CbYKxB8vPDAagGxaeRRDmkPrf9cAzU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(38070700021)(6133799003)(10067099003)(22082099003)(18002099003)(5023799004)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?op0HiNp3dWkPHhQMFEu4V9Ldv1b4PoqsxCYnl5CPzvtfNR4tjD70rKCv/XcG?=
- =?us-ascii?Q?KtQb4iwswSM9slSgB4bEgcISlCw7Qw9ONY3ayqmipuP/3WVz3+kcUMQmviLc?=
- =?us-ascii?Q?yim+FYPyjFDTte4jZFVEwmW+yS0mtItlgWBe2fjPsccZetJjuH+dRD99cL/i?=
- =?us-ascii?Q?PJtgIYCl6ywK57Xn13n71jsjPFnR4aRCRmBJNk/W0M029YKm5d4vqn11du8k?=
- =?us-ascii?Q?7hJwDuBOv+9GhDzr5Btfnt+474ggQhvgbAhG8FM8drNCQkCIoWvmf3ORPc6E?=
- =?us-ascii?Q?0FjkzSPX9gTRqpLExDLXdT9shd2ZLoJOURhM8foFtNmWm3wWd9yM8VY5kq4F?=
- =?us-ascii?Q?8nr/d+d0Hgnd8DMOc7ElzUHWcTD9cHdv03p6SofaOXxtr5Yx6W2QYXMLtLrr?=
- =?us-ascii?Q?hLx18wiTucvwJXYO/5WEk87TZmIjcblBPuXKhVOTFT1sk6olfB21gUpw/o7I?=
- =?us-ascii?Q?We5ArOVVYgva9usTY7DcIcvd7OFW1JbJoHfJ6A7OfQKpioKRCS5/JWCvKl+L?=
- =?us-ascii?Q?TLFni9atJs6GctuoVwX7/npjBwc3R4jvqhas+w3jCbTVwVIYKjvfAAr0ARuc?=
- =?us-ascii?Q?kzHEN2OGcTMZv2vvyqDEoAI/sWOnM1QmaaeDhyRnwItMTWBwzGEqYQ8POKEK?=
- =?us-ascii?Q?hG2eQRXR99/M5VcKZ7iuIR6Qn+8jzVn4NJQ9kCxy5CF8w4VrrQ65vWM+1mIv?=
- =?us-ascii?Q?b3kvVFvahkQnUUlMH8y37qkyh3E8uZ/Gs9T5XmbUHoEq5q69Vji++SEGwNXR?=
- =?us-ascii?Q?UGz65vyxbO0FbAY0Hzd528JqPpajEmQ5Dda7l6pRkmpGWduKARI1ylIKAiwH?=
- =?us-ascii?Q?KoKRIET/fm7yC6fzey3XiMVSpcVi2v0AYu5eIzN7REOF+DEBH8UNWqUeXRZz?=
- =?us-ascii?Q?1YTRFAkdgPL+jdPkg4cyAg3uZ9aR2NXfCLKXLa0pgwQ2PmWAOBfE7+v+jilW?=
- =?us-ascii?Q?pT5hHnt4hc+9AKkg3gOGlflpwAR3CZ4rHMc2KSfvrE5OtbNWlOkthR1ENw3I?=
- =?us-ascii?Q?iG4yHHqT+qRo4kS+2ItDvXF7x0Wb4jLb+lHdDrA++BBSbW+pcs/R4JhIJloW?=
- =?us-ascii?Q?M5xOHK5yPUQdrd+X8Q9Luh+Nw3BrfRRIyvn8F6d9HRTq5ktcf0+MHkmFes/I?=
- =?us-ascii?Q?Q+AX69Vung6PTDHov+Ys4kzpRuuMcU1JhTRaab5a/iAqA4TR9ke1EUCC/vED?=
- =?us-ascii?Q?pH0UwlpqpZzjbrIkpGjFOsYBeiD/yfiZ6vw7oj+z/psSKLoaOpPhq2eq6i93?=
- =?us-ascii?Q?SqELL+ZFsoIi8pvhUaAd+tiEJkDnmsoPx4ggyGIew+6qAfYbAoXMvna7kXIm?=
- =?us-ascii?Q?AUGHZsX78bFbUrz6pFcj6/EQqfNyvuB0m1KuoGOWK2sT3u7uX6fSTddGQ5To?=
- =?us-ascii?Q?A9foozqMVTgPHj1NqpAPwRLz/e+tleOLaRp86niVHa2Az+As/Dt07pPTP+Rn?=
- =?us-ascii?Q?cxauLi11m0ZnER0UKLRqm4YbVY52Q0ixI97o0kcopyoc6Zw3o8991H9tzZ4y?=
- =?us-ascii?Q?cvF3DXBf+Zvk+v9iOrhmuLU1eVUzLuAzSdW2R2w8MJZDwg8QrwRF/2zh+u0i?=
- =?us-ascii?Q?tkPOLoEEecTA7+bHcNbnKZo5A8hL414FKEyWeBSktZhrEBx0kjpDoOQ3PX4s?=
- =?us-ascii?Q?WbWHIxvHLDmiia6+ST4LkhZEnew2TexKHLGk/pyhEnaJSo8dy+jcYf0V7RDV?=
- =?us-ascii?Q?/8Pob2t5sCb3Sp1nAYr2ISUPjaKhhqALTu0rz1+JW8IVvlSk?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PPFD4454CAA9.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::be5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 14:44:26 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 14:44:26 +0000
+Message-ID: <f7edaea8-f172-4573-952f-6a85d1302d8f@amd.com>
+Date: Wed, 16 Sep 2026 16:44:22 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] drm/amdgpu: Add second-level trap handler
+ infrastructure
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Samuel Pitoiset <hakzsam@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Felix Kuehling <felix.kuehling@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>
+References: <20260916053722.601067-1-srinivasan.shanmugam@amd.com>
+ <20260916053722.601067-2-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260916053722.601067-2-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0329.namprd13.prod.outlook.com
+ (2603:10b6:208:2c1::34) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PPFD4454CAA9:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce67a0ab-ccda-465c-7f25-08df14010175
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|23010399003|6133799003|5023799004|11063799006|56012099006|4143699003|3023799007|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Zs7o8koIDmwbTLV00gBi415DEI0i/qHfddk4f07eHvrxcJc47PF/ForS2EX0oEKXLJPiMGJ3nXGXp432ba0LWuU0gX0yJbRBTb9jUqMbG6HiWDBBLGAjBKD3phyqRJ56CZgJra1reCna9mXjkQrHu+TinND6zW7fqX5lL/2wYcAqzIMAS+gEC/xZzVqhAs+I//tUOx0GaAB8jiBJzW+fNRXOyCGUARfyrhlBsOnrt9xHuMvyVpw8lQdfBow8ecqJWX75T0RXc8zoqsDQyumNnxunLwAMkHBxGVkBDrJhwG+TBOLtjfcpHAZF7QZSIJZ94gVXSKmuQpgz0osVOUdb/lnngem3EwbnZ0unLV5hTB2N3QhfRF8XD1ERk5T2ewV3m/ruXLPcxQeW8XH3xMRT2ZJmree8nOgm7FN9zvfF+Fh2aEd8A6VgTqv4E9yRY0BtQhrOzyICgw50BthJKF2RmhCX9P2OWS+QgxKtYFnuNpj2nbvhoyKi1ttlfrpMy8h0xvlG58s1UI01JGh7lrPWT21qHcVGeprzhPGd56R6G3n+S2jP71TUSQismuj8w7MX85GQy/kBrWNXKlcVxpwRRuarT31qv9ISOWp6Fp+S5lB26UmNEGkw1mbMDiqcg+/dLNC13ZWXEZuE0ZQqqoUWzDmiyWNBDHy2i7YFxaHi5b8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(6133799003)(5023799004)(11063799006)(56012099006)(4143699003)(3023799007)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFVqYnlVUEl5akI0ME5hRHBQMGUveWhIUEZWeWpoMCt1MHNRTWtaTnRvcTZZ?=
+ =?utf-8?B?eXFsbkVDNjlhOFVneUtSQ1UyWVhjN3ZKV1lmVVZtK0VYV3dpWlk3YklmWk1Q?=
+ =?utf-8?B?SEVaTis4ZmljMkVBUzNiQm45di83eWkvemZCbWVWQkphMXlCOWs1WUNsb213?=
+ =?utf-8?B?WjhvU2RjdVpjeUcra2ZZWm1EUm1lQ2JKZGhSM3Exd1U3YVRJM0xERFlXL2p0?=
+ =?utf-8?B?K1dLRzNFT1FEdGxNNFBRMnpQU2VUWFR4ZFZDMFFqeEJlNWZ3SDJ1VW1uOUZx?=
+ =?utf-8?B?RTBtcHVjbldoeW9aSlFLZHZhRVIrSUQ1TDZrVVlidkRSWWlxQWlmWUpZTlJp?=
+ =?utf-8?B?UWw0d0lYZmZMRWV0V09qcEVZcWUxalRqTkJ1eG9RNzhURnEzVUhtTHB3NXBP?=
+ =?utf-8?B?UVdkQ2xKeXF1dy9uN056SWlDS1J0WGpkNmdLa3pEdVJnaFNUZXRZcEErNkJp?=
+ =?utf-8?B?em1aKzQ1ckg4cmpodTVkbWNjZk1PeWFwbzQzRXFNWVJIdW91RENpRS8rbjJr?=
+ =?utf-8?B?WXAwNzBJOENMMzQ3c3R2MUcrSFBXUWVvbnZSWWtYeE9HSVF2UFZ6WlMwZTRt?=
+ =?utf-8?B?dmU1WU9Id1psNWc5WmxRamE2RzB6UHRpamdDZmxNMFF6QmRmVzJpM3VVMytz?=
+ =?utf-8?B?OEJhdWtHOU5rU2pxMWc3OUdhYzZrTkx6SVkyYnV2VXBDcmpTZzVjR3daZ1FG?=
+ =?utf-8?B?NDdwN0c3dFB0OG9BVEREL3hvZkhGbnlUclFTbEkvQXU3Wm5BYzZxd2dwOURJ?=
+ =?utf-8?B?UUdVQ1lmMmYwaURTR2ZvUWdzdXVNQzJTOXZxdTFtMzVscjFFZS9ySEI4Ukl6?=
+ =?utf-8?B?enQvdTJBcDVVMGFDbVB6VE1xQWRzUzhhTDZLUW1QLzNuMWpmalZRUWFGWGRC?=
+ =?utf-8?B?bzZSYVNkejU2NXd1VjRtUzAxTUxEanNyMk1wSytjSlFXZHlucFNPNHo2MmxZ?=
+ =?utf-8?B?clFHZStMY3Q4NkR0N2xobGZDREVaTHNNR1dZUWRSTEpKdm9tc0p4UHpwaTdP?=
+ =?utf-8?B?cWRRbERqK2U1MFRyc2VnQUZHdytkWFdrWUVDWG5seWlpZnVyRXZGSUkrUkdj?=
+ =?utf-8?B?aWxxZFNTdm1JM0w1ZUVrN0ZwYXU5eUxIQnJFNEJBbk00RTI2NldCa0tEYjVM?=
+ =?utf-8?B?WXc5dVRwVlZ3OVQramNWN3o5WUZhOTI4MzNRUi94bGNJVVEyWHpWcGxwWmRm?=
+ =?utf-8?B?dm5qSFpodFBBcFlVY2w1SmNVSXYvb1RvTStKbDRoTVRRNFFqb2ZYOHRwRFdC?=
+ =?utf-8?B?SDBDTjRRNWN5eFZnaTBDb3JTYkZRTWNZbFhuVEN6N1ZzSG9NclJaQkMxYzJk?=
+ =?utf-8?B?NXZEeTlCUjk2YUFZaFltb3UxaTkvSGVFTnA4SmhMNnV4YS95TEFaOVk2Ym0v?=
+ =?utf-8?B?MTZ5UEVPQTBURys3bE5CUUZzT3ZJdjhPZTFZSWxIamRnMDYwVHF0bU5DWkFB?=
+ =?utf-8?B?eTA1dVk4VmQ4ejhZdm9CZDZhd0VtUVh3dXlMVERhMXZlNFIwbG9hNHJoRmRZ?=
+ =?utf-8?B?QTVERlM4Yk5rRVBwdlVNTVUrOUNteUY5WDJVMnFqUlEzZGF3NHlOOHpzeTEx?=
+ =?utf-8?B?RUIzOGFhamV4ZUhjc0pDOXlMNmhSOVFSREVpMUpOQWhCUFUzazlTcG9iMXhF?=
+ =?utf-8?B?T0VPeEY4MU53Mkk3aE1KRWMxN0E4bURrVTdjS0RuRUszaG9rT2RTLzFoTzRl?=
+ =?utf-8?B?N2E5dm5nbTRyNUtTOHBnZmJESEFDSmE3NWp3b3Z3amdEY3RxUENlM085U1lI?=
+ =?utf-8?B?dmVOUDZGRHFmM1drVlBObjAyVkxFUEhacml1TzBhdE1CWW82NmdKS2ZrL2FB?=
+ =?utf-8?B?YjJjV01TRmFubnRtWGdFdGZ0MFB2cUxIYjR0cGRNcDlVTU0zTzlKdkxmTFRO?=
+ =?utf-8?B?QVRjM2c5SDBmR2V5SjN1RU9OVXdudlZ4eVY4QjdQTlJmaUw2a2FXQy9TTTE0?=
+ =?utf-8?B?K0RXTUNvUDJyb2o3MnVkRUpEdmJ3SkdGSklkODdCMVFKdmROeE1pV29RanlS?=
+ =?utf-8?B?U2tuS1FWdlR1eXhMeFFXQ01kZUJEYkUvbnNSZncrYmZLUzgvemRsMms2Znc0?=
+ =?utf-8?B?SjdNNTdYUEpCK0ZlZWo4dXI2MzdReDBSdkljeHNWWlBVZDZCdk05STllZFli?=
+ =?utf-8?B?Q1QxQ01ydUkxSXExNVVCSENNbTF3L0RFbHg4TmFhV2M3UzVxVXBIaTQrRWhF?=
+ =?utf-8?B?bC9Yb1l2TEhTK1pvOEsxRlhDL1dMR1EvNDE3djJIMWcrNVp3QXdKSUdldVR5?=
+ =?utf-8?B?MHF4aWM3dUhYNWpXdEhzQVNYanJ3VEwrbFVBT0hXV1Axc1BkZVNUaFk2U1dj?=
+ =?utf-8?Q?cm6OWaLWxFOGNWfrkG?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce67a0ab-ccda-465c-7f25-08df14010175
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6a90918-a0e2-4fb5-37c0-08df13ff3e9e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 14:31:49.7766 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HzxIme/bNdA1uHZSb0ItkMZRWXuYZ1N7rF/oVT/36IRMSL0ess6GvOr1GZ5AUUkkk1KWlYDHSMHulJVnEBYclw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5739
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 14:44:26.5048 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uLQav4LJ3P/WBMZv/e1WDK2+LGgJ67NexGpYq2BH0aWTo8C+LPI45drlC1v2jZQc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFD4454CAA9
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,76 +139,707 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+Hi Srini,
 
-Applied.  Thanks!
+please keep Timur, Natalie and Samuel on CC.
 
-> -----Original Message-----
-> From: Wentao Liang <vulab@iscas.ac.cn>
-> Sent: Wednesday, September 16, 2026 6:02 AM
-> To: airlied@gmail.com
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
-> gfx@lists.freedesktop.org; andrey.grodzovsky@amd.com; Koenig, Christian
-> <Christian.Koenig@amd.com>; dri-devel@lists.freedesktop.org; linux-
-> kernel@vger.kernel.org; simona@ffwll.ch; Wentao Liang <vulab@iscas.ac.cn>=
-;
-> stable@vger.kernel.org
-> Subject: [PATCH] drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init=
-()
->
-> amdgpu_ring_init() initializes ring->vmid_wait with a reference to the st=
-ub
-> fence taken via dma_fence_get_stub().  When a later step of the initializ=
-ation
-> fails, e.g. amdgpu_fence_driver_init_ring(), a writeback slot allocation =
-or the
-> ring buffer allocation, the function returns an error without releasing t=
-he stub
-> fence reference and the reference is leaked if the ring is torn down with=
-out
-> amdgpu_ring_fini().
->
-> Move the stub fence assignment to the end of the initialization, right be=
-fore
-> the ring is registered with the GPU scheduler, where no further failure i=
-s
-> possible.  The stub fence is only consumed by command submission handling
-> in amdgpu_ids.c once the ring is up and running, so nothing reads it duri=
-ng the
-> error-prone part of the initialization.
->
-> Fixes: 48e9fbd1a284 ("drm/amdgpu: initialize the vmid_wait with the stub
-> fence")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+On 9/16/26 07:37, Srinivasan Shanmugam wrote:
+> Render-node user queues had no mechanism to install a userspace
+> second-level trap handler equivalent to what KFD provides for compute.
+> 
+> On dGPUs the CWSR TMA buffer is placed in VRAM and accessed via MMIO
+> (PCI BAR). Raw CPU pointer dereferences are unsafe on platforms that
+> lack full load/store support for MMIO. Replace void *tma_cpu_addr with
+> struct iosys_map tma_map and use iosys_map_wr() for all TMA writes.
+> 
+> Writing TBA and TMA as two separate stores creates a race where a
+> trapping wave can observe a mismatched pair. For user queues, evict all
+> queues and flush the GPU TLB before writing, then restore queues after.
+> For kernel queues, wait for the VM to be idle via amdgpu_vm_wait_idle()
+> before eviction and the descriptor write.
+> 
+> Evict user queues in amdgpu_trap_free() at file close. Without eviction
+> a freed TMA BO can be accessed via a stale TBA, causing a GPU page
+> fault.
+> 
+> Export amdgpu_userq_restore_all() for immediate queue restore after
+> SET/CLEAR without waiting for the eviction fence.
+> 
+> Add VM_ALWAYS_VALID validation in amdgpu_trap_validate_user_addr().
+> SET_L2_TRAP returns -EINVAL if TBA or TMA BO does not have this flag.
+
+Works for me, Timur/Natalie/Samuel any objections to that?
+
+> 
+> The old TRAP ioctl and its internal handler are removed. The new
+> SET/CLEAR path is exposed via the VM ioctl in a later patch.
+> 
+> SET_L2_TRAP is per-VM (per-process). Each process has its own TMA buffer
+> allocated in amdgpu_trap_alloc(). There is no conflict between processes
+> on user queue VMIDs.
+> 
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Felix Kuehling <felix.kuehling@amd.com>
+> Cc: Lijo Lazar <lijo.lazar@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index d6bee5c30073..8c12c373ab7b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -254,7 +254,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev,
-> struct amdgpu_ring *ring,
->               ring->adev =3D adev;
->               ring->num_hw_submission =3D sched_hw_submission;
->               ring->sched_score =3D sched_score;
-> -             ring->vmid_wait =3D dma_fence_get_stub();
->
->               ring->idx =3D adev->num_rings++;
->               adev->rings[ring->idx] =3D ring;
-> @@ -374,6 +373,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev,
-> struct amdgpu_ring *ring,
->
->       ring->max_dw =3D max_dw;
->       ring->hw_prio =3D hw_prio;
-> +     ring->vmid_wait =3D dma_fence_get_stub();
->
->       if (!ring->no_scheduler && ring->funcs->type <
-> AMDGPU_HW_IP_NUM) {
->               hw_ip =3D ring->funcs->type;
-> --
-> 2.34.1
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c   |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c  | 284 ++++++++++++++++------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h  |  64 ++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c |  22 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |   1 +
+>  include/uapi/drm/amdgpu_drm.h             |   2 -
+>  7 files changed, 285 insertions(+), 91 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index a93ee106ab92..6473faf18d71 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -3079,7 +3079,6 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_SCHED, amdgpu_sched_ioctl, DRM_MASTER),
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_BO_LIST, amdgpu_bo_list_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_FENCE_TO_HANDLE, amdgpu_cs_fence_to_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+> -	DRM_IOCTL_DEF_DRV(AMDGPU_TRAP, amdgpu_trap_ioctl, DRM_AUTH | DRM_RENDER_ALLOW),
+>  	/* KMS */
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_MMAP, amdgpu_gem_mmap_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_WAIT_IDLE, amdgpu_gem_wait_idle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 47e4680db797..559c9222fc48 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1716,7 +1716,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+>  	}
+>  
+>  	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
+> -	amdgpu_trap_free(adev, &fpriv->vm, &fpriv->trap_obj);
+> +	amdgpu_trap_free(adev, &fpriv->vm, &fpriv->userq_mgr, &fpriv->trap_obj);
+>  
+>  	if (pasid)
+>  		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+> index 31f653ec3fb1..3313bc099cf4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+> @@ -19,12 +19,23 @@
+>   * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   */
+> +#include <linux/iosys-map.h>
+> +#include <drm/ttm/ttm_bo.h>
+> +
+>  #include <drm/drm_exec.h>
+>  
+>  #include "amdgpu.h"
+> +#include "amdgpu_gmc.h"
+> +#include "amdgpu_userq.h"
+> +#include "amdgpu_vm.h"
+>  #include "cwsr_trap_handler.h"
+>  #include "amdgpu_trap.h"
+>  
+> +/* First-level TMA layout shared with second-level trap handler ABI */
+> +#define AMDGPU_TRAP_L2_TBA_INDEX	0
+> +#define AMDGPU_TRAP_L2_TMA_INDEX	1
+> +#define AMDGPU_TRAP_DEBUG_FLAG_INDEX	2
+> +
+>  extern int cwsr_enable;
+>  
+>  #define AMDGPU_TRAP_TBA_MAX_SIZE (2 * AMDGPU_GPU_PAGE_SIZE)
+> @@ -380,6 +391,7 @@ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  	struct amdgpu_trap_obj *cwsr;
+>  	struct amdgpu_bo *bo;
+>  	struct drm_exec exec;
+> +	void *cpu_addr;
+>  	int r;
+>  
+>  	if (!amdgpu_trap_is_enabled(adev))
+> @@ -407,10 +419,21 @@ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  
+>  	r = amdgpu_bo_create_kernel(adev, AMDGPU_TRAP_TMA_MAX_SIZE, PAGE_SIZE,
+>  				    AMDGPU_GEM_DOMAIN_GTT, &cwsr->tma_bo, NULL,
+> -				    &cwsr->tma_cpu_addr);
+> +				    &cpu_addr);
+>  	if (r)
+>  		goto err;
+>  
+> +	/*
+> +	 * Build an iosys_map for the TMA CPU mapping. On dGPUs the TMA BO
+> +	 * may be placed in VRAM and accessed via MMIO (PCI BAR). Check
+> +	 * TTM_BO_MAP_IOMEM_MASK to select the correct write accessor.
+> +	 */
+> +	if (cwsr->tma_bo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
+> +		iosys_map_set_vaddr_iomem(&cwsr->tma_map,
+> +					  (void __iomem *)cpu_addr);
+> +	else
+> +		iosys_map_set_vaddr(&cwsr->tma_map, cpu_addr);
+> +
+
+Clear NAK to that hack. Please use ttm_bo_vmap() instead if you need an iosys_map.
+
+
+
+>  	r = amdgpu_trap_map_region(adev, vm, cwsr, AMDGPU_TRAP_TMA);
+>  	if (r)
+>  		goto err;
+> @@ -433,6 +456,29 @@ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  	return r;
+>  }
+>  
+> +void amdgpu_trap_clear_l2_handler(struct amdgpu_vm *vm,
+> +				  struct amdgpu_trap_obj *trap_obj)
+> +{
+> +	if (!trap_obj || iosys_map_is_null(&trap_obj->tma_map))
+> +		return;
+> +
+> +	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+> +
+> +	/*
+> +	 * Zero TBA first to disable dispatch before clearing TMA.
+> +	 */
+> +	iosys_map_wr(&trap_obj->tma_map,
+> +		     AMDGPU_TRAP_L2_TBA_INDEX * sizeof(u64), u64, 0);
+> +	dma_wmb();
+> +	iosys_map_wr(&trap_obj->tma_map,
+> +		     AMDGPU_TRAP_L2_TMA_INDEX * sizeof(u64), u64, 0);
+
+It's most likely a good idea to grab the reset lock around all iosys_map_wr() as well.
+
+> +
+> +	trap_obj->l2_tba_addr = 0;
+> +	trap_obj->l2_tba_size = 0;
+> +	trap_obj->l2_tma_addr = 0;
+> +	trap_obj->l2_tma_size = 0;
+> +}
+> +
+>  int amdgpu_trap_validate_params(struct amdgpu_device *adev,
+>  				struct amdgpu_trap_params *trap_params,
+>  				int num_xcc)
+> @@ -464,6 +510,7 @@ int amdgpu_trap_validate_params(struct amdgpu_device *adev,
+>  }
+>  
+>  void amdgpu_trap_free(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +		      struct amdgpu_userq_mgr *uq_mgr,
+>  		      struct amdgpu_trap_obj **trap_obj)
+>  {
+>  	struct amdgpu_bo *tba_bo;
+> @@ -473,32 +520,41 @@ void amdgpu_trap_free(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  
+>  	if (!trap_obj || !*trap_obj || !(*trap_obj)->tma_bo)
+>  		return;
+> +
+> +	/*
+> +	 * Evict all user queues before freeing. At file-close time waves
+> +	 * may still be active; without eviction a wave can trap into the
+> +	 * handler after the TMA BO is freed, causing a GPU page fault.
+> +	 */
+> +	if (uq_mgr)
+> +		amdgpu_userq_evict(uq_mgr);
+> +
+>  	tba_bo = adev->trap_info->isa_bo;
+>  	tma_bo = (*trap_obj)->tma_bo;
+>  
+>  	if (!tba_bo || !tma_bo)
+>  		return;
+>  
+> -	drm_exec_init(&exec, 0, 0);
+> -	drm_exec_until_all_locked(&exec)
+> -	{
+> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> +	drm_exec_until_all_locked(&exec) {
+>  		r = amdgpu_vm_lock_pd(vm, &exec, 0);
+> -		if (likely(!r))
+> -			r = drm_exec_lock_obj(&exec, &tba_bo->tbo.base);
+> -		drm_exec_retry_on_contention(&exec);
+>  		if (likely(!r))
+>  			r = drm_exec_lock_obj(&exec, &tma_bo->tbo.base);
+> +		if (likely(!r))
+> +			r = drm_exec_lock_obj(&exec, &tba_bo->tbo.base);
+
+Please don't do such hacks. drm_exec_retry_on_contention() should be called after each drm_exec_lock_obj() call and if (r) goto error handling used here.
+
+>  		drm_exec_retry_on_contention(&exec);
+>  		if (unlikely(r)) {
+>  			dev_err(adev->dev,
+>  				"failed to reserve CWSR BOs: err=%d\n", r);
+> -			goto err;
+> +			goto out;
+>  		}
+>  	}
+>  
+> +	amdgpu_trap_clear_l2_handler(vm, *trap_obj);
+> +
+>  	amdgpu_trap_unmap_region(adev, *trap_obj, AMDGPU_TRAP_TBA);
+>  	amdgpu_trap_unmap_region(adev, *trap_obj, AMDGPU_TRAP_TMA);
+> -err:
+> +out:
+>  	drm_exec_fini(&exec);
+>  	amdgpu_bo_free_kernel(&(*trap_obj)->tma_bo, NULL, NULL);
+>  	kfree(*trap_obj);
+> @@ -509,120 +565,186 @@ static int amdgpu_trap_validate_user_addr(struct amdgpu_device *adev,
+>  					  struct amdgpu_vm *vm,
+>  					  struct amdgpu_trap_usr_addr *usr_addr)
+>  {
+> +	struct amdgpu_bo *bo;
+>  	struct amdgpu_bo_va_mapping *va_map;
+> -	uint64_t addr;
+> -	uint32_t size;
+> -	int r;
+> +	u64 addr;
+> +	u32 size;
+> +
+> +	/*
+> +	 * Caller holds the VM root BO reservation; assert rather than
+> +	 * taking it again.
+> +	 */
+> +	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+>  
+>  	addr = (usr_addr->addr & AMDGPU_GMC_HOLE_MASK) >> AMDGPU_GPU_PAGE_SHIFT;
+>  	size = usr_addr->size >> AMDGPU_GPU_PAGE_SHIFT;
+>  
+> -	r = amdgpu_bo_reserve(vm->root.bo, false);
+> -	if (r)
+> -		return r;
+> -
+>  	va_map = amdgpu_vm_bo_lookup_mapping(vm, addr);
+> -	if (!va_map) {
+> -		r = -EINVAL;
+> -		goto err;
+> -	}
+> -	/* validate whether resident in the VM mapping range */
+> -	if (addr >= va_map->start && va_map->last - addr + 1 >= size) {
+> -		amdgpu_bo_unreserve(vm->root.bo);
+> -		return 0;
+> +	if (!va_map)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * TBA/TMA BOs must be VM_ALWAYS_VALID. The GPU jumps to TBA on
+> +	 * hardware exception without any software job submission, so the
+> +	 * kernel cannot add TBA/TMA to a job's used-buffer list to keep
+> +	 * page tables current. Without VM_ALWAYS_VALID the BO can be
+> +	 * evicted and the page table entry becomes stale, causing a GPU
+> +	 * page fault or memory corruption on the next shader exception.
+> +	 */
+
+That comment is not correct. This would work completely without AMDGPU_GEM_CREATE_VM_ALWAYS_VALID.
+
+Please just completely drop it.
+
+> +	bo = va_map->bo_va->base.bo;
+> +	if (!(bo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID)) {
+> +		dev_dbg(adev->dev,
+> +			"TBA/TMA BO at VA 0x%llx must use VM_ALWAYS_VALID\n",
+> +			usr_addr->addr);
+> +		return -EINVAL;
+>  	}
+>  
+> -	r = -EINVAL;
+> -err:
+> -	amdgpu_bo_unreserve(vm->root.bo);
+> +	if (addr >= va_map->start && va_map->last - addr + 1 >= size)
+> +		return 0;
+>  
+> -	return r;
+> +	return -EINVAL;
+>  }
+>  
+> -static int amdgpu_trap_set_l2_trap_handler(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> -					   struct amdgpu_trap_obj *cwsr_obj,
+> -					   struct amdgpu_trap_usr_addr *tma,
+> -					   struct amdgpu_trap_usr_addr *tba)
+> +int amdgpu_trap_vm_set_l2_trap(struct amdgpu_device *adev,
+> +			       struct amdgpu_vm *vm,
+> +			       struct amdgpu_userq_mgr *uq_mgr,
+> +			       struct amdgpu_trap_obj *trap_obj,
+> +			       u64 tba_va, uint32_t tba_sz,
+> +			       u64 tma_va, uint32_t tma_sz)
+>  {
+> -	uint64_t *l1tma;
+> +	struct amdgpu_trap_usr_addr tba = { .addr = tba_va, .size = tba_sz };
+> +	struct amdgpu_trap_usr_addr tma = { .addr = tma_va, .size = tma_sz };
+> +	long timeout;
+>  	int r;
+>  
+>  	if (!amdgpu_trap_is_enabled(adev))
+>  		return -EOPNOTSUPP;
+> -
+> -	if (!cwsr_obj || !cwsr_obj->tma_cpu_addr || !tma || !tba)
+> +	if (!trap_obj || iosys_map_is_null(&trap_obj->tma_map))
+>  		return -EINVAL;
+> -	r = amdgpu_trap_validate_user_addr(adev, vm, tma);
+> +
+> +	/*
+> +	 * Wait for any kernel-queue work using this VM to drain before
+> +	 * evicting user queues and writing the new descriptor. Without
+> +	 * this wait a kernel-queue wave can observe a partially-written
+> +	 * TBA/TMA pair during the update window. SET fails if the wait
+> +	 * is interrupted or times out so the caller can retry.
+> +	 */
+> +	timeout = amdgpu_vm_wait_idle(vm, MAX_SCHEDULE_TIMEOUT);
+> +	if (timeout <= 0)
+> +		return timeout < 0 ? timeout : -ETIMEDOUT;
+> +
+> +	/*
+> +	 * Evict all user queues before updating TBA/TMA. Writing TBA and
+> +	 * TMA as two separate stores creates a race: a wave that traps
+> +	 * between them reads a mismatched pair. Evicting first ensures no
+> +	 * wave is active during the update.
+> +	 */
+> +	amdgpu_userq_evict(uq_mgr);
+> +
+> +	/* Flush GPU TLB to remove stale cached TBA/TMA values */
+> +	amdgpu_gmc_flush_gpu_tlb_pasid(adev, vm->pasid, 2, true, 0);
+> +
+> +	r = amdgpu_bo_reserve(vm->root.bo, false);
+>  	if (r)
+>  		return r;
+> -	r = amdgpu_trap_validate_user_addr(adev, vm, tba);
+> +
+> +	r = amdgpu_trap_validate_user_addr(adev, vm, &tba);
+> +	if (r)
+> +		goto out_unreserve;
+> +	r = amdgpu_trap_validate_user_addr(adev, vm, &tma);
+> +	if (r)
+> +		goto out_unreserve;
+> +
+> +	/* Zero TBA first to disable residual handler, then TMA, then TBA */
+
+That doesn't seem to make sense. Why should that be necessary.
+
+> +	iosys_map_wr(&trap_obj->tma_map,
+> +		     AMDGPU_TRAP_L2_TBA_INDEX * sizeof(u64), u64, 0);
+> +	dma_wmb();
+> +	iosys_map_wr(&trap_obj->tma_map,
+> +		     AMDGPU_TRAP_L2_TMA_INDEX * sizeof(u64), u64, tma_va);
+> +	dma_wmb();
+
+That's the wrong order. The wmb() must come *after* the last write, not before it.
+
+Regards,
+Christian.
+
+> +	iosys_map_wr(&trap_obj->tma_map,
+> +		     AMDGPU_TRAP_L2_TBA_INDEX * sizeof(u64), u64, tba_va);
+> +
+> +	trap_obj->l2_tba_addr = tba_va;
+> +	trap_obj->l2_tba_size = tba_sz;
+> +	trap_obj->l2_tma_addr = tma_va;
+> +	trap_obj->l2_tma_size = tma_sz;
+> +
+> +out_unreserve:
+> +	amdgpu_bo_unreserve(vm->root.bo);
+> +	if (!r) {
+> +		trap_obj->l2_trap_removed = false;
+> +		amdgpu_userq_restore_all(uq_mgr);
+> +	}
+> +	return r;
+> +}
+> +
+> +int amdgpu_trap_vm_clear_l2_trap(struct amdgpu_device *adev,
+> +				 struct amdgpu_vm *vm,
+> +				 struct amdgpu_userq_mgr *uq_mgr,
+> +				 struct amdgpu_trap_obj *trap_obj)
+> +{
+> +	int r;
+> +
+> +	amdgpu_vm_wait_idle(vm, MAX_SCHEDULE_TIMEOUT);
+> +	amdgpu_userq_evict(uq_mgr);
+> +	amdgpu_gmc_flush_gpu_tlb_pasid(adev, vm->pasid, 2, true, 0);
+> +
+> +	r = amdgpu_bo_reserve(vm->root.bo, false);
+>  	if (r)
+>  		return r;
+>  
+> -	l1tma = (uint64_t *)(cwsr_obj->tma_cpu_addr);
+> -	l1tma[0] = tma->addr;
+> -	l1tma[1] = tba->addr;
+> +	amdgpu_trap_clear_l2_handler(vm, trap_obj);
+> +	trap_obj->l2_trap_removed = false;
+>  
+> +	amdgpu_bo_unreserve(vm->root.bo);
+> +	amdgpu_userq_restore_all(uq_mgr);
+>  	return 0;
+>  }
+>  
+> -/*
+> - * Userspace trap handler related ioctl
+> - */
+> -/**
+> - * amdgpu_trap_ioctl - Handle trap handler specific requests.
+> - *
+> - * @dev: drm device pointer
+> - * @data: request object
+> - * @filp: drm filp
+> - *
+> - * This function is used to perform cwsr and trap handler related operations
+> - * Returns 0 on success, error code on failure.
+> - */
+> -int amdgpu_trap_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+> +void amdgpu_trap_handle_l2_unmap(struct amdgpu_device *adev,
+> +				 struct amdgpu_vm *vm,
+> +				 struct amdgpu_userq_mgr *uq_mgr,
+> +				 struct amdgpu_trap_obj *trap_obj,
+> +				 u64 addr, u64 size)
+>  {
+> -	struct amdgpu_device *adev = drm_to_adev(dev);
+> -	union drm_amdgpu_trap *cwsr = data;
+> -	struct amdgpu_fpriv *fpriv;
+> -	int r;
+> +	bool tba_overlap, tma_overlap;
+>  
+> -	fpriv = (struct amdgpu_fpriv *)filp->driver_priv;
+> +	if (!trap_obj || !size || !uq_mgr)
+> +		return;
+>  
+> -	if (!fpriv->trap_obj)
+> -		return -EOPNOTSUPP;
+> +	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+>  
+> -	switch (cwsr->in.op) {
+> -	case AMDGPU_TRAP_OP_SET_L2_TRAP: {
+> -		struct amdgpu_trap_usr_addr tba;
+> -		struct amdgpu_trap_usr_addr tma;
+> -
+> -		tba.addr = cwsr->in.l2trap.tba_va;
+> -		tba.size = cwsr->in.l2trap.tba_sz;
+> -		tma.addr = cwsr->in.l2trap.tma_va;
+> -		tma.size = cwsr->in.l2trap.tma_sz;
+> -		r = amdgpu_trap_set_l2_trap_handler(adev, &fpriv->vm, fpriv->trap_obj, &tma, &tba);
+> -	} break;
+> -	default:
+> -		return -EINVAL;
+> -	}
+> +	tba_overlap = trap_obj->l2_tba_size &&
+> +		      addr < trap_obj->l2_tba_addr + trap_obj->l2_tba_size &&
+> +		      trap_obj->l2_tba_addr < addr + size;
+> +	tma_overlap = trap_obj->l2_tma_size &&
+> +		      addr < trap_obj->l2_tma_addr + trap_obj->l2_tma_size &&
+> +		      trap_obj->l2_tma_addr < addr + size;
+>  
+> -	return r;
+> +	if (!tba_overlap && !tma_overlap)
+> +		return;
+> +
+> +	amdgpu_vm_wait_idle(vm, MAX_SCHEDULE_TIMEOUT);
+> +	amdgpu_userq_evict(uq_mgr);
+> +	amdgpu_gmc_flush_gpu_tlb_pasid(adev, vm->pasid, 2, true, 0);
+> +	amdgpu_trap_clear_l2_handler(vm, trap_obj);
+> +	trap_obj->l2_trap_removed = true;
+>  }
+>  
+>  int amdgpu_trap_set_trap_debug_flag(struct amdgpu_device *adev,
+>  				    struct amdgpu_trap_obj *cwsr_obj,
+>  				    bool enabled)
+>  {
+> -	uint64_t *l1tma;
+> -
+>  	if (!amdgpu_trap_is_enabled(adev))
+>  		return -EOPNOTSUPP;
+>  
+>  	if (!cwsr_obj)
+>  		return -EINVAL;
+>  
+> -	l1tma = (uint64_t *)(cwsr_obj->tma_cpu_addr);
+> -	l1tma[2] = enabled;
+> +	iosys_map_wr(&cwsr_obj->tma_map,
+> +		     AMDGPU_TRAP_DEBUG_FLAG_INDEX * sizeof(u64), u64,
+> +		     (u64)enabled);
+>  
+>  	return 0;
+> -}
+> \ No newline at end of file
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
+> index 6d4664469bad..2d855433308a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
+> @@ -24,11 +24,13 @@
+>  #define AMDGPU_TRAP_H
+>  
+>  #include <linux/types.h>
+> +#include <linux/iosys-map.h>
+>  
+>  struct amdgpu_bo;
+>  struct amdgpu_bo_va;
+>  struct amdgpu_device;
+>  struct amdgpu_vm;
+> +struct amdgpu_userq_mgr;
+>  
+>  /**
+>   * struct amdgpu_trap_obj - CWSR (Compute Wave Save Restore) buffer tracking
+> @@ -42,7 +44,23 @@ struct amdgpu_trap_obj {
+>  	struct amdgpu_bo *tma_bo;
+>  	struct amdgpu_bo_va *tba_va;
+>  	struct amdgpu_bo_va *tma_va;
+> -	void *tma_cpu_addr;
+> +	struct iosys_map tma_map;  /* GTT or VRAM MMIO, set at alloc time */
+> +
+> +	/*
+> +	 * Active second-level trap-handler VA ranges.
+> +	 * Protected by the VM root BO reservation object.
+> +	 */
+> +	u64 l2_tba_addr;
+> +	u64 l2_tba_size;
+> +	u64 l2_tma_addr;
+> +	u64 l2_tma_size;
+> +
+> +	/*
+> +	 * Set when TBA or TMA was removed via GEM_VA UNMAP without calling
+> +	 * CLEAR_L2_TRAP first. Prevents queues restarting with a missing
+> +	 * trap handler. Cleared when SET_L2_TRAP or CLEAR_L2_TRAP is called.
+> +	 */
+> +	bool l2_trap_removed;
+>  };
+>  
+>  struct amdgpu_trap_info {
+> @@ -75,16 +93,31 @@ void amdgpu_trap_fini(struct amdgpu_device *adev);
+>  int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  		      struct amdgpu_trap_obj **trap_obj);
+>  void amdgpu_trap_free(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +		      struct amdgpu_userq_mgr *uq_mgr,
+>  		      struct amdgpu_trap_obj **trap_obj);
+> +
+>  static inline bool amdgpu_trap_is_enabled(struct amdgpu_device *adev)
+>  {
+>  	return adev->trap_info;
+>  }
+>  
+> +/**
+> + * amdgpu_trap_l2_was_removed - check if TBA/TMA was forcibly removed.
+> + *
+> + * Returns true if the second-level trap handler TBA or TMA was removed
+> + * via GEM_VA UNMAP without calling CLEAR_L2_TRAP first. Queues must
+> + * not restart with a missing trap handler.
+> + */
+> +static inline bool amdgpu_trap_l2_was_removed(struct amdgpu_trap_obj *obj)
+> +{
+> +	return obj && obj->l2_trap_removed;
+> +}
+> +
+>  uint32_t amdgpu_trap_size_needed(struct amdgpu_device *adev, int num_xcc);
+>  int amdgpu_trap_validate_params(struct amdgpu_device *adev,
+>  				struct amdgpu_trap_params *trap_params,
+>  				int num_xcc);
+> +
+>  static inline bool amdgpu_trap_has_dbg_wa(struct amdgpu_device *adev)
+>  {
+>  	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
+> @@ -92,8 +125,33 @@ static inline bool amdgpu_trap_has_dbg_wa(struct amdgpu_device *adev)
+>  	return gc_ver >= IP_VERSION(11, 0, 0) && gc_ver <= IP_VERSION(11, 0, 3);
+>  }
+>  
+> -int amdgpu_trap_ioctl(struct drm_device *dev, void *data,
+> -		      struct drm_file *filp);
+> +void amdgpu_trap_clear_l2_handler(struct amdgpu_vm *vm,
+> +				  struct amdgpu_trap_obj *trap_obj);
+> +
+> +/**
+> + * amdgpu_trap_vm_set_l2_trap - install the second-level trap handler.
+> + *
+> + * Exclusivity: SET_L2_TRAP is per-VM (per-process). Each process has its
+> + * own per-process TMA buffer created in amdgpu_trap_alloc(). App A's
+> + * handler address lives in App A's TMA; App B's in App B's TMA. There
+> + * is no conflict between processes on user queue VMIDs.
+> + */
+> +int amdgpu_trap_vm_set_l2_trap(struct amdgpu_device *adev,
+> +			       struct amdgpu_vm *vm,
+> +			       struct amdgpu_userq_mgr *uq_mgr,
+> +			       struct amdgpu_trap_obj *trap_obj,
+> +			       u64 tba_va, uint32_t tba_sz,
+> +			       u64 tma_va, uint32_t tma_sz);
+> +int amdgpu_trap_vm_clear_l2_trap(struct amdgpu_device *adev,
+> +				 struct amdgpu_vm *vm,
+> +				 struct amdgpu_userq_mgr *uq_mgr,
+> +				 struct amdgpu_trap_obj *trap_obj);
+> +void amdgpu_trap_handle_l2_unmap(struct amdgpu_device *adev,
+> +				 struct amdgpu_vm *vm,
+> +				 struct amdgpu_userq_mgr *uq_mgr,
+> +				 struct amdgpu_trap_obj *trap_obj,
+> +				 u64 addr, u64 size);
+> +
+>  int amdgpu_trap_set_trap_debug_flag(struct amdgpu_device *adev,
+>  				    struct amdgpu_trap_obj *cwsr_obj,
+>  				    bool enabled);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> index db09e879b85e..aef11786e119 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -997,9 +997,10 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+>  	return r;
+>  }
+>  
+> -static int
+> +int
+>  amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
+>  {
+> +	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
+>  	struct amdgpu_usermode_queue *queue;
+>  	unsigned long queue_id;
+>  	int ret = 0, r;
+> @@ -1011,7 +1012,21 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
+>  		if (!amdgpu_userq_buffer_vas_mapped(queue)) {
+>  			drm_file_err(uq_mgr->file,
+>  				     "trying restore queue without va mapping\n");
+> -			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_INVALID_VA);
+> +			trace_amdgpu_userq_state_changed(queue,
+> +							 AMDGPU_USERQ_STATE_INVALID_VA);
+> +			queue->state = AMDGPU_USERQ_STATE_INVALID_VA;
+> +			continue;
+> +		}
+> +
+> +		/*
+> +		 * If the second-level trap handler TBA or TMA was forcibly
+> +		 * removed by GEM_VA UNMAP without CLEAR_L2_TRAP, do not
+> +		 * restart the queue. A queue must not run without a valid
+> +		 * resident trap handler if one was previously configured.
+> +		 */
+> +		if (amdgpu_trap_l2_was_removed(fpriv->trap_obj)) {
+> +			trace_amdgpu_userq_state_changed(queue,
+> +							 AMDGPU_USERQ_STATE_INVALID_VA);
+>  			queue->state = AMDGPU_USERQ_STATE_INVALID_VA;
+>  			continue;
+>  		}
+> @@ -1024,7 +1039,8 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
+>  
+>  	if (ret)
+>  		drm_file_err(uq_mgr->file,
+> -			     "Failed to map all the queues, restore failed ret=%d\n", ret);
+> +			     "Failed to map all the queues, restore failed ret=%d\n",
+> +			     ret);
+>  	return ret;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> index 3e19bc6103a0..d1569346bfae 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> @@ -164,6 +164,7 @@ void amdgpu_userq_mgr_cancel_resume(struct amdgpu_userq_mgr *userq_mgr);
+>  void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
+>  
+>  void amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr);
+> +int amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr);
+>  
+>  void amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *userq_mgr,
+>  				  struct amdgpu_eviction_fence_mgr *evf_mgr);
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 552cbf483543..4785cf48da17 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -59,7 +59,6 @@ extern "C" {
+>  #define DRM_AMDGPU_USERQ_WAIT		0x18
+>  #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
+>  #define DRM_AMDGPU_PROC_OPTIONS		0x1A
+> -#define DRM_AMDGPU_TRAP			0x1B
+>  
+>  #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>  #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> @@ -82,7 +81,6 @@ extern "C" {
+>  #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+>  #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+>  #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
+> -#define DRM_IOCTL_AMDGPU_TRAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_TRAP, union drm_amdgpu_trap)
+>  
+>  /**
+>   * DOC: memory domains
 
