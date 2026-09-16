@@ -4,124 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D53A8C88E5C
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 11:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BDE8C88E77
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 12:22:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC7D10E68F;
-	Wed, 16 Sep 2026 11:19:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E049D10E151;
+	Wed, 16 Sep 2026 12:22:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vzWIHTmU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="y0zDYFMG";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011044.outbound.protection.outlook.com [52.101.57.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2527910E3B2;
- Wed, 16 Sep 2026 11:19:10 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011065.outbound.protection.outlook.com [40.107.208.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C687B10E151;
+ Wed, 16 Sep 2026 12:22:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WA/slzZ7OjC4CwjDZ5tutFO53KY8E3jJ3zhnv6Yrr/uxKD9d1LI5MthqNkgdF1BUtSL3c50lreP+tQ77kplokYo1RThnhWVR6khAQaV6QAMXRGrkgsp/8gJdIypon6OtCrjlmzTYaKJ0CEBP/j0/ptDEqHztMLvSQgHpTgra4uhAODvzlZcCKfwEhI9m+Eol9nro7JJSulthbtb+a7ZR/VE4xLsl0suG5ylnNXFGSacYbhmcVtjzUPF3zEAqzStcBkIcLvUqFYa37MiF2TWhKQwB7qL06c0xa+dS6nSfe2cNj1Mct1vRpKO74xZzjTD4BMuaNg80ZdI2PrtI7Ykbeg==
+ b=mWaFjbJ4I+ABgcHksfLneAQfAjjJJPf0taca05wDZSrSJcSwe2/oev+7j7rzXt3WlFG0+UTeoKX08cmfp6AeTj1ZqnUA5QmKnLkjb4CSU4tsZUrPABgddWg4EvrAwsqurc5wRZ1agvBoCMrVYcfoNTPOZoPS2eDpG2TtVBAdcqAuuG6liQNEtnKGWdS2ySJt+S6qHmCOOg8Dn4fGr8WeVpJpsgkOnufOjSKKClQPG9C+FLPcLMhtnA6cyjg2Y1GIxNc+ERFWhgPn5Vlw6ooUQ8TO0YsrZ0cOyArHVk7YUd1buJOmn3h8BpbcLGPH587EwhU/eJZHcox22D5zjmNopg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=24KkJcuLcIDtrYRK/8ReN6ySBnOu0wkjbuD3eGn3dGQ=;
- b=Loz+KXLbQ3Sk3IKASResYO0XVSdzzhwxYWX1hyhD8KRR4t03ctGlI5C+FXA2rAQRgcTuAEC9L44zSBJDXxteNA1dEHcA2shrAXkTPb216qGYvWUX9ppufOCTpC8c1vFfqBFdXGXy7uJ04XNEwdG+tTH83wUdRO362E7lBuzwarJ1m0Cjk26kDtJYlTXOu8SY5anDKIYDfZPGOY78lBo9r7yFC7sL300BXM49Y2e89/0Fz3/GArufK6StZ9sEZjbo3QVpfr3rca9QN4fnD2XUdeY6oQAXumHfUwy/DVQYxR+BFl08RjvTgT/VScqLb/tVPrbcEAALbz7NTNuKyYtw+Q==
+ bh=8jMAPNct1VDdv0UxLayAxOuHRKQk6WO64zDZsviwsGI=;
+ b=ZbyfztRqK9MCbVNKZ9dwNfzykkPvsOsSKoP18t1NndLo67/ycQ24ErsmSuBzKR+07NmJSOI4vaYulSoUISDqM8DkA2x/H+mheTg0thUIeK79FCdNmbmCp7x73zBFrJMfP9ZAQq4DmDIcF5mWYgjKr6PFB02jiyqpttcTcJMODbtrZSq1PCVhaAYgTHzZAdIylca9u8TebZ1QTWEbX1bZOpH/dtgzPsbrwwbwc30nXdyV+njsgiWFxpOmcyyXTOlBbMwsfGzESnyDTPnW0aReSf+nNGTLA9sk2JkEF8NBZAHeEp3UEE6RVK9ygD+uMt4HB0gan5UUxghiCsSImbb0Lw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=24KkJcuLcIDtrYRK/8ReN6ySBnOu0wkjbuD3eGn3dGQ=;
- b=vzWIHTmUyEAUdv+5tG4pqvSsCO8Rc7QjpjixEkHXMhFxqDMW8+B4mc1vLUHDWLOmQFK2DaQc2B8Ozi0A6HGJcG9IU6mtGTZxZWGtM/8C6CSBpEwn/2xphjMflcKWZjAU4d4jwgunuypgyrB2HD1NZm/9HO9woQmy77UFXyh/HPk=
+ bh=8jMAPNct1VDdv0UxLayAxOuHRKQk6WO64zDZsviwsGI=;
+ b=y0zDYFMG1it+vr9tTfwXgYKJPFJ7R4hz3/gezRB9dVodC4jzIy6W1Vqma/uJh9SvLXta4Rn5OMLYWBqAiok7YAVErUoBN/LQt2sSaQe6I0IU9xvRMwO7hZip6vNJciKZw5P7wts6BchuJqiZ6pp+J6mM0pDXDGAw5v6wNOjbjm0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by DS5PPFDF2DDE6CD.namprd12.prod.outlook.com (2603:10b6:f:fc00::665)
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB5613.namprd12.prod.outlook.com (2603:10b6:806:22b::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 11:18:59 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
- 11:18:59 +0000
-Message-ID: <931daaa1-5c90-42ea-ad86-20ee22130851@amd.com>
-Date: Wed, 16 Sep 2026 16:48:53 +0530
+ 2026 12:22:28 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 12:22:27 +0000
+Message-ID: <3baa8af9-208f-4b3e-b538-6e91fa81a253@amd.com>
+Date: Wed, 16 Sep 2026 14:22:22 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix acpi device leak in
- amdgpu_acpi_enumerate_xcc()
-To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, simona@ffwll.ch, stable@vger.kernel.org
-References: <20260916095432.2009976-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH v3 0/7] drm: Consolidate the wait timeout conversion
+ helpers
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Iago Toral <itoral@igalia.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260916095432.2009976-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0052.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ac::13) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0321.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:eb::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS5PPFDF2DDE6CD:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd18ee14-a02e-4699-ae0a-08df13e44e2c
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB5613:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94aad3ec-727f-489a-38d3-08df13ed2bfd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|3023799007|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: poKezRqueB36XSp73Vo/aXkrVUEdm9IPYJGIiRa9/fJEDbKz4tkHkgJ6kSEgvQKaDrK1akinzfOxeeFfcY3bdblX0INQpUbeUdMiU57mEL890M3GW/PHtfhBrQuDcoXylsOyV8dgDB3qUk0538fCmrKllZaTAstI+yEcxNC0bLJFQKcgV3yKbOdD5bnpmhYjQUaPEcmugaPW9HRYcbxtOXJ7iQYmk10tpbcbKqjYz0A2x+PcM8N974tYQ18fxlhFINVhvJKVz6tdVrqBf2fTmJrKfzOfyf0rbu/zCXOwUH5vA2RJuAD+T1pSCQxLH8QuOTxqEUXMaR29VH1tAwBgRQSleK5U+FIPu2CwllbuloUnJeL0F9uO3IYzs1qZ9t/DXdqCQnXZgqp1yDLlGln2hqkid+ZI0u+mmUxY9T1KfNgsOoVmJROqzAQP4cEQNcHy/hX8cOzn2b0VKEpJc3DyrvqRWyKZqghUO+fbcYwmFvO8Hxs5hMEiVscZGJ9RlHxt2AlF8eAX4AXuYCe4oFUG9LEzIBdGwQYQyl4YLEyCDXYFt33nvgPUhOY5GCm2izpRZrhu3ohDPB5htANDCTKCRR19wzaYKls76cAlu7xPV1obOVllC9UYgaaqe9E3/bnrfcaOEwcQdJ6lQQEEkvuANmdLsXvKXE0aZucaW9yxKJU=
+ ARA:13230040|366016|7416014|1800799024|23010399003|376014|921020|56012099006|11063799006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: c4L5aPA/QPNdNtmD3R3NhySSfE8ZpudpOqo7lpQisalvHQbYwJfDDWMlc/LN5tR4xDVCZRsNUrupeSW99BdOUNBU/RKZYEh5Zmol9wJbdIpWM/7x121GZK+LYraNL7sinsqulzrfGGzbs1Y/4I8LvlDAk/8+TE1b2bZTBZej2bRoawqku3wV6ewmZm/vW/Q10BfYNXhX9XKSQt9u9D5NQG9KfFBxFsQxOeOBCMYOr8giZ4n4cjDo0Ixnlf2GGGIQgNbKRJlkiqQ0gux02c9ZtQoCLkLGV4EAXJEIBnQN+BFnZ4A29WwYdts/S0lm3Cq/OfC3GDqSHqtDn+KNOeIEwscREMv0AndQM6rdmC0ocqa1UfHlGGN2AutAzOMA+/2uINSCs3KeMyRv2SQHpaJCxhb7AOOXOnW3VBroYw45AS6VzVH8ry8K8rdHkY8rNlKrD6KtS3TTQUxMi12kVWxdYcu7ao8T+exWhX6QjHO0UQCflBlHY9afRvMZqQNFxaGv6WZfTr8Ay1xn6PdBqu6oXzzhNkyN9q5sV0PLHIrqBI8tBvSn2pFOPF6VsP19hLIZFEYq1gInP3p2AHeaIu9XVsOvQEzCxG6slAg24o+N+F5pLbup2Sc9z5vnyYKohuJ7uudqI9h5To8R8PX/yKWBBmNrsp0uz6H+UFYJ8vnUf4k=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(3023799007)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(1800799024)(23010399003)(376014)(921020)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SEwvNSt5NTltVG9jdmJVTjF6QW9aKzF6clVrNjE4bmhEYVZPcVNCRDBqYlBm?=
- =?utf-8?B?SzQzTExiRzIzUlJGUlYrR2JuaE5pdGoyNEcrajFrVmZQd1RqZjJvRHlxWnpp?=
- =?utf-8?B?ditvQmgxUDFwUlBLeExjcnFaZ0pqdFBPUjc0NXZNWCtzMndHbkY0TUJCQ0JS?=
- =?utf-8?B?aFVmSjAxd3NPZTQ0K0ZwdnN4aE1FMmV0MkVCODNadW9kUVlSMlJhSnJOQUFM?=
- =?utf-8?B?TUZiMHovYTBVWnhUaGNTYXV2Yi9WaDVuaDlkSzVRYWlVcER4V3BvdTBSakZj?=
- =?utf-8?B?SHRUUFRDUnN3ckRkTzFLUTNrS2JHQUlnbzZQYTZWS1JNTmZEbmloa2FTVVNl?=
- =?utf-8?B?MlB1U2pnZjZRc00vSjNCWGRXYVBveWQyYUd4R0Z4Rm1ub2NBMzFVVVpiazYv?=
- =?utf-8?B?cHhsbGpWN3d2WlIvbXRBaTg0VlprNkFXaUo2VDZIclZhOFc5YmRBSmdlYkFF?=
- =?utf-8?B?cGVETkdTZkxnZFp0SnZDSzh5YzVwSUQzSTlvczVFemNHbmlBWkM4ZjNaK3Zk?=
- =?utf-8?B?WExNb3FUTE5rSzEvWDJVQklLaDlucFFnRXlxMjFaY3hjMXl1UHM0ZFc1TGYw?=
- =?utf-8?B?bHJPOXNlWmFtb04rL3I4dnNUNGN3L3NDczZoZFV0SU5YR29WRlVmb3N5SHdt?=
- =?utf-8?B?aEhTN0ZmK3pQKzc2QVZOUW02eThmRjErc2pHVXRkSTRuSGJZaXZSeUhMaXo1?=
- =?utf-8?B?dmVJUGJhNlhESkIxNGRMQnZ4bUpPUnlsVHdlN21sMnlXTnIxYUFlbiszOE96?=
- =?utf-8?B?eFA3UCszTXR4MEZoWHNicndMcnRYT09UME9kU0dxcE82YTlwWHBPbVlUN2R4?=
- =?utf-8?B?NnZtRWJVcWZoY1ArWGp2aVpjQlZuKy82ei9RN3RpL05wcEtVbGRvL1VGd0x4?=
- =?utf-8?B?THlQL05yNEZ2eWJqaFpoYWVGVTVhdHliRExRSkt3ck9yQ0xzTE01ekpHa1NT?=
- =?utf-8?B?TFpYR0xlRGVteGtLbWZWS01uRE1xaUF4NmExcGpwTlp1QWF4TDU3SHVUaUtQ?=
- =?utf-8?B?L3BFYUNwcWlPTi9PbGQxM0N2VFhtemNkSTdxQTVFOGhINnlqMlBLalBZV3A0?=
- =?utf-8?B?U2t2U0ZYbXRzK0htZjlKS2w4VllLWlM3WWhOT1BxWHFhQjI3Nk9jY2YxMjJv?=
- =?utf-8?B?UmU3NWdTNWRxdDBrck8vMjFwUW9pbWpqYlhUNDFJdDdBQkxEdG1RM2U0Unl0?=
- =?utf-8?B?OC9CNGdMWFpRVTJBRUoxdjdDb0hXS2t5NkdsNEwvSjRsVWhkbUlRb04vVGpS?=
- =?utf-8?B?b0lNQWhQdnVRSDVwcFZ0aEJYR3NWL3ljNkh1dmg1d3dreWdyZmdTb3c0dGxi?=
- =?utf-8?B?N0RuNTlEdkRQaG4zMlF1SDBVQSt5WHFlUXJUSDJid0xoN1lTY0dnalplVktZ?=
- =?utf-8?B?MWhBeWhCanh5UHQrcm1FWElQaWdkTThTMHVHVXQ1aitiNUhqUEwwbWdieElN?=
- =?utf-8?B?cDdUUHptdzJ5Zzk4WFlJT2hMbGJVZGkwUTR1QWlOY0M3blYrOFNmc0pTaFdS?=
- =?utf-8?B?eGRseW1rMW9IWUc1cEJycDBLZGlyeVJ5cE83d3lOS0pOV2lHYkt5Y284bnJW?=
- =?utf-8?B?Wk5YcmNwdXZwSmRMd1h4dnpQeHpZS0dIcjBINGNtTkFtbUhTelVYeHFsdFBQ?=
- =?utf-8?B?cy9Tc2pxeWRETExRaGFyRCs2dzB1R2RJQk91NnBUcTk0N2pCa05GWHpybmU2?=
- =?utf-8?B?MElOZC9UYkhUTVI4M0xBdjBFcklEQzdReFFVNmRmTW52NkNFUWlxWkt1Ynp4?=
- =?utf-8?B?SEVnRXJSMkRhdEpEY3ZZa2hvMzZvdjdzK0Z1cXEzODRDR0JteHJwQXoxUTNU?=
- =?utf-8?B?b3A0NjZ1dFJpRlY1ZzJKL21nU0R0amh5d2pRUHdqTFBZVUYzV0hNM1hJMDMz?=
- =?utf-8?B?UjEwMFBuc0I3WWtsa3ZkOXdiUG0vZlpmeC9JdmlhWm9zUlhzeWhMK2VWd25J?=
- =?utf-8?B?bldQb1pScGgzOVEvOEY0eit4alN1UThjSUtTcTZlRTliYUluckVmTnJydFlN?=
- =?utf-8?B?K0ZkL0N1d3h0VjY1SXp0VmVYMHQrakdEMlpkcFdZQXB3dGRZNFdXalFlQTZh?=
- =?utf-8?B?MnRqQ0krMzJ4by9jdHMwRGg3VGZhMDhrZFpKUVltem5PclZEYllzTTRuTENv?=
- =?utf-8?B?ZkdyZXZvR1A4NUF6ekFTOE5uV2ltMFNiQ0hWbC9NOG43RnpHT0hLUnhKc3c4?=
- =?utf-8?B?cXY3Z2lxVUV2SzQwK0VmNHJVQTdOS2dJUTBBVHBTMG5pdDVOWWU2YnJRMjZJ?=
- =?utf-8?B?NFhmT244MW1TZHIyK3JMWVg0TlZadVNJU1lWUGRNbG5mQS8wYjByVXJIRFBj?=
- =?utf-8?Q?M9KJUYZS3V3YdDNfSa?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NEhRU2RFN1NVd25kRU51dnJGSkczL0JCcW96Vkd3enZBZkg2NElZVlBSa3dj?=
+ =?utf-8?B?Q1ZHeUtMMDg1UDdWYkJwTit4Y2lKZnR1MFU4Z2c4T0hvbTUzendOWmtXZ0lS?=
+ =?utf-8?B?c2U3Y2kwUGtXSDRDYlRpRkZneWpsTWxiSWFPTkY5dHhSR1FBVnd4dTNNRjZH?=
+ =?utf-8?B?VitmTWFLNFI3ZGRCQXROcEhDN3pobWoveUhQOUJ4dmphVkZ2VHRycy9sckxO?=
+ =?utf-8?B?cEIxMDdySWJxVTB3Sm8zdHEzVjc2SVNCSmxCZzE2U0ZoQkFJdGdqeTBvdVBL?=
+ =?utf-8?B?RDZYRFl6RW9mRnRmRDdaaXVSazV0RHl3TzlLTGlmRDJneW5xM094djZEZ1dL?=
+ =?utf-8?B?d0xUeWs4QldFTmN6UU14OWxsejF2d0FhaUNLSkoyVmpyQjY3NWIzZ1BvcVc0?=
+ =?utf-8?B?WVhZT2IvaXpuK2J6ZFI0MWRLQnlGYXFBUThVczNxQlZwanBNSFdOdkQ5eEtR?=
+ =?utf-8?B?dUFzdGZnanEvSjRRVHoyMWRTOUJXY0dsR1EvVTk4MzVnblRXUU9nTHRxTFB6?=
+ =?utf-8?B?b0RlbTdGYWxBMStoTGdSUjFkYlpyR3JGUE4wdDBJekhJQXh3M20rMFR1a3V4?=
+ =?utf-8?B?NGRUUCsxMng2dHN1aTMwbUgwaER2bnVMZ2VqUlBzVGQrcGFYeGJtRWx6cS92?=
+ =?utf-8?B?QWN6YjFleFRUTmtBWTJpYmJCU0RvWURlVFhHbVJrVS9Oa3NSQzEzeS80T09R?=
+ =?utf-8?B?aTh5UXhxR3JHN1ZpcXZLVmNpUFh6cVcwM29MdzdlbDhkbXdob0E1ODBMaTBq?=
+ =?utf-8?B?L0VPU0srRXJlL0NrcFdTZkVLZTgxZlRvSHhwTHpZOTZ6ZytETVY2UTNvS21W?=
+ =?utf-8?B?R2RlZDVDZWJkUVpDOFZzY1pnZ3I2T0g4alZZTTdjQU5pTmduN3h2M3hQSk5j?=
+ =?utf-8?B?Z3lVeHIyY1dkZUNNVmZSMzFsUFY0WmRKY1lXcmNyUjZGeCtVQzVIY0JlWC9q?=
+ =?utf-8?B?UCtjVm1rWm5KMVRXT2FWckJUUk13WGxCWUZKcTdLbnE5bUhlTXRqUHQvK1Zv?=
+ =?utf-8?B?UzM5eDVrbzB2cTFVQmpjU0phb1QxcmhXUExTMkdJendYZHZjbXJDYXVEeWYy?=
+ =?utf-8?B?SmhPOVI5SjdSZjQwYWRkNFpuSVZsNEFGeEhtS1pBaDEvQnYreFB0QzhkK1dZ?=
+ =?utf-8?B?UXYzZSsybVFUaThKZ0N5bFEyemJZS3lXMjZSeElLciszQ0xaRkVpUExlVEda?=
+ =?utf-8?B?MGZVWStqczlhdkxIWCtuNnA3MXZlZ2F2c0VBOUF4YVllb29uTUtJZFlRenRH?=
+ =?utf-8?B?QjFKUCs0ZTJ1SXZVUjdmQi80V0l6Y2FMWjB2TUQzS3ljbzFRbytkK09saGkw?=
+ =?utf-8?B?MUJGczBKYVQydWlnL0dWQzhkY2xzZ0g1ZHFjUk9aR2dpUVhsRytWU0k5bStk?=
+ =?utf-8?B?VnEwTUVwU3JLTkxkbTZTK1hTNWNVc08zTHVxa3E3Wktnc1pyaHRtSHRhWG83?=
+ =?utf-8?B?d3RONDcyUzV0SlBUakZEYkRWV1VTUkdMZDdRYWRIcGdQTVlzT2x0Mml6ZnE3?=
+ =?utf-8?B?YTNuMXhIZkFYbXcwZGlEdDBmSVRWZUwza0JlWWswZFFNTXN2R0YyNVdxRkNq?=
+ =?utf-8?B?YmR5L2JMWnFxSUJVOElmK3dIYS8xcWR0Ky85WnJMbnlPOUluUFVXVkViMzIw?=
+ =?utf-8?B?aTFhRHcvOEJNbjhtZ0dRWGRpTE9nUEhZTVVsbVlGdm42MW1oblI1Q0pvRUdu?=
+ =?utf-8?B?enEzaXNzT0Y0TlVlS2U4V0RuYXFjK1Zkd1p0V0xNMlJvendMY2M5ZkRSRlJS?=
+ =?utf-8?B?UVZrRHJCejBVaEp0b3AwdHJyVTBPbEZBYTh2WkdxYVh6dlA4a3BGY3BlMDB0?=
+ =?utf-8?B?Z1Y2dUUzendsZ0lMQ1JlbnlBK1JOVVljK2VGby8vcXgxSEJjR3ZTRDBia3dW?=
+ =?utf-8?B?bkpJM2JCdzlXaCt3K2FMdEtyV0NXMytKTXA0QVhwNDBHTEZwTnU5QXhDMFBy?=
+ =?utf-8?B?R1B3WmVlQlJycUhMSHA4aVExdDY1SkRvcE5KSGlVaUdjdVlaODVwdDc3T2Rm?=
+ =?utf-8?B?azd1a1NuYkltNmpDRkdlTXhhV3ArS1JpRmx4cHFaVmN3NlZhTFlnWkRpZkpM?=
+ =?utf-8?B?K1R5eU1kQzg5VGhOdUFLQk1JTFlWUnpaTU82d040VzdOdUhvVjVFUW96WExE?=
+ =?utf-8?B?M29GbVI5QVI0bVplVVJld3dYeUJaT2UvYjA2WnBHRS9FVzJxd2NwQ0RTSWxh?=
+ =?utf-8?B?aGM5UmFOSnFJMnBaLzhzYU50b2dHcmhjcmNuOGJ5bkc0ZTlTZ0FhS3FFZm41?=
+ =?utf-8?B?M2xHOUZNNFZXekVSTUx2d2ttMTZ4WGRiZ0t2TE04azNBTXRxSmZDN09qa2E0?=
+ =?utf-8?Q?IV1RkchZUpItkG7frc?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd18ee14-a02e-4699-ae0a-08df13e44e2c
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94aad3ec-727f-489a-38d3-08df13ed2bfd
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 11:18:59.6384 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 12:22:27.7912 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mGQXaATxcmzDfMW0i3J+7CLdwvp79jqUkTwzuB7rHz0/q+EogXXR5e9LURhnTIz2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFDF2DDE6CD
+X-MS-Exchange-CrossTenant-UserPrincipalName: Et7Aj9yoxntGTrZbjWYg6LNzFYz0DQtigbtwiHpcRTug0K52vNkNIMch+uPaaHrs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5613
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,46 +145,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 16-Sep-26 3:24 PM, Wentao Liang wrote:
-> amdgpu_acpi_enumerate_xcc() looks up each XCC ACPI device with
-> acpi_dev_get_first_match_dev(), which takes a reference to the device.
-> The reference is dropped with acpi_dev_put() after the XCC info is
-> initialized, but if the kzalloc_obj() allocation of the XCC info fails
-> the function returns -ENOMEM without releasing the reference, leaking
-> the last reference to the ACPI device.
+On 9/15/26 21:42, Maíra Canal wrote:
+> DRM wait ioctls express their timeout in one of two ways: as an absolute
+> deadline in ns, or as a duration in ns. The core has a helper for the first
+> form, drm_timeout_abs_to_jiffies(), which panfrost, lima, tegra, xe and
+> some accel drivers use. However, there is no equivalent for the second
+> form, so the drivers that take a duration convert it themselves.
 > 
-> Drop the ACPI device reference on the allocation failure path before
-> returning.
+> For example, i915 has a local helper to handle the relative timeout case,
+> and v3d carries a copy of it. This series moves that conversion into a DRM
+> helper called drm_timeout_rel_to_jiffies(), next to the absolute variant,
+> and converts the drivers that were open-coding either form.
 > 
-> Fixes: 4d5275ab0b18 ("drm/amdgpu: Add parsing of acpi xcc objects")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> This series becomes particularly relevant as the new helper will be used
+> in the next version of the series "drm/vc4: Switch to DRM GPU scheduler"
+> [1]. With this series, we avoid another duplication of the
+> nsecs_to_jiffies_timeout() function (and thanks Tvrtko for the suggestion).
+> 
+> PATCH 1 moves drm_timeout_abs_to_jiffies() out of drm_syncobj.c and into a
+> file of its own, so that both helpers live together. PATCH 2 adds a helper
+> for the relative variant. Patches 3 to 6 convert amdgpu, v3d, i915 and vc4.
+> Finally, PATCH 7 renames the drm_utils.h header to drm_panel_quirks.h to
+> better express its meaning.
+> 
+> Let me know your thoughts about it.
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Feel free to add Reviewed-by: Christian König <christian.koenig@amd.com> to patches #1-#3 and Acked-by: Christian König <christian.koenig@amd.com> to the whole set and merge the amdgpu patch through drm-misc-next.
 
-Thanks,
-Lijo
+Regards,
+Christian.
 
+> 
+> [1] https://lore.kernel.org/dri-devel/20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com/T/
+> 
+> Best regards,
+> - Maíra
+> 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+> v1 -> v2: https://lore.kernel.org/r/20260809-drm-timeout-helpers-v1-0-2de67405a145@igalia.com
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index 516ab9cf88fc..8d3f1f5a141e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -1167,8 +1167,10 @@ int amdgpu_acpi_enumerate_xcc(void)
->   		}
->   
->   		xcc_info = kzalloc_obj(struct amdgpu_acpi_xcc_info);
-> -		if (!xcc_info)
-> +		if (!xcc_info) {
-> +			acpi_dev_put(acpi_dev);
->   			return -ENOMEM;
-> +		}
->   
->   		INIT_LIST_HEAD(&xcc_info->list);
->   		xcc_info->handle = acpi_device_handle(acpi_dev);
+> - [2/6] Add comment discouraging the use of relative timeouts in uAPIs
+>         (Christian König)
+> - [3/6] Make it more explicit that any timeout that doesn't fit in a s64
+>         is mapped into an infinite wait (Christian König)
+> 
+> v2 -> v3: https://lore.kernel.org/r/20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com
+> 
+> - [1/7] Move the function definitions to a new header file: drm_timeout.h
+>         (Thomas Zimmermann)
+> - [1/7] Add Tvrtko's R-b (Tvrtko Ursulin)
+> - [1/7, 2/7] Apply adjustments to the function's kerneldoc (Thomas Zimmermann)
+> - [2/7] Fixed an inadequate overflow check in drm_timeout_rel_to_jiffies(),
+>         which allowed `nsecs_to_jiffies64` to wrap around on 64-bit systems.
+> 	(Tvrtko Ursulin, Sashiko)
+> - [7/7] Rename drm_utils.h to drm_panel_quirks.h (Thomas Zimmermann)
+> 
+> ---
+> Maíra Canal (7):
+>       drm: Move drm_timeout_abs_to_jiffies() to drm_timeout.c
+>       drm: Add drm_timeout_rel_to_jiffies()
+>       drm/amdgpu: Use drm_timeout_abs_to_jiffies()
+>       drm/v3d: Use drm_timeout_rel_to_jiffies()
+>       drm/i915: Use drm_timeout_rel_to_jiffies()
+>       drm/vc4: Use drm_timeout_rel_to_jiffies()
+>       drm: Rename drm_utils.h to drm_panel_quirks.h
+> 
+>  drivers/accel/ethosu/ethosu_drv.c                  |  2 +-
+>  drivers/accel/ivpu/ivpu_gem.c                      |  2 +-
+>  drivers/accel/rocket/rocket_gem.c                  |  2 +-
+>  drivers/gpu/drm/Makefile                           |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            | 20 +----
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  1 -
+>  .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  2 +-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  1 -
+>  drivers/gpu/drm/drm_connector.c                    |  2 +-
+>  drivers/gpu/drm/drm_panel_backlight_quirks.c       |  2 +-
+>  drivers/gpu/drm/drm_panel_orientation_quirks.c     |  2 +-
+>  drivers/gpu/drm/drm_syncobj.c                      | 35 +-------
+>  drivers/gpu/drm/drm_timeout.c                      | 95 ++++++++++++++++++++++
+>  drivers/gpu/drm/i915/gem/i915_gem_wait.c           | 17 +---
+>  drivers/gpu/drm/lima/lima_gem.c                    |  2 +-
+>  drivers/gpu/drm/panfrost/panfrost_drv.c            |  2 +-
+>  drivers/gpu/drm/panthor/panthor_drv.c              |  1 -
+>  drivers/gpu/drm/tegra/uapi.c                       |  2 +-
+>  drivers/gpu/drm/v3d/v3d_bo.c                       |  3 +-
+>  drivers/gpu/drm/v3d/v3d_drv.h                      | 10 ---
+>  drivers/gpu/drm/vc4/vc4_gem.c                      |  3 +-
+>  drivers/gpu/drm/xe/xe_wait_user_fence.c            |  2 +-
+>  drivers/video/fbdev/efifb.c                        |  2 +-
+>  include/drm/{drm_utils.h => drm_panel_quirks.h}    | 10 +--
+>  include/drm/drm_timeout.h                          | 17 ++++
+>  25 files changed, 140 insertions(+), 98 deletions(-)
+> ---
+> base-commit: 5363e01e4ff03a204cab85292b89cf90c2d1b101
+> change-id: 20260809-drm-timeout-helpers-55473e4879d1
+> 
 
