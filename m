@@ -4,93 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F24A4C88E77
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 13:43:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CC7DC88E77
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 13:56:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C5E10E047;
-	Wed, 16 Sep 2026 13:43:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB9EC10E3B4;
+	Wed, 16 Sep 2026 13:55:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rqaXsysu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Na+maJc/";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5276010E047
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 13:43:23 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-39d67a9ae5bso120682a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 06:43:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789566203; cv=none;
- d=google.com; s=arc-20260327;
- b=c+T9/lsSvq0sIdLQmX1rjNYbVHssx0Q8STOlVkE1x56VVDGmLkQkLV/e+dRTZFWTLi
- lRrYh3lIud60QV70xhtu/q/MWlNJKXFxLno+XwO/eTwVolxyDlyD8c3/H2cNs0LnXVY8
- VyzxgEqfn0pDTTzG9gNsbOnZh79TngzDGeP54QWZJzGImVfAncx0XzuHkpz8z0IY6f0c
- PcezCVzX72s90tjOfAPnF+MYPnFmABe/+wNrNy+mChrYn+UPIOL2aKdfQjdwYBwQkUtd
- GZ9DALRjY+ynMrSPxvoDakTJ7sOAL7jBiOSOdraoGmUjyV2YYZegqOejnP/kuGuXx7bJ
- Rs8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Vjh1DnpPWqPbpHLga85FABWYuMiu7ASGXtOHEMufVrk=;
- fh=WmyEQsrKOgFkobcaAxSvn2AqDeMXcd+G7obYtOqMQhg=;
- b=qEbmL7uLoe2aog0UzYTgE0T9UDHwqLcP/xLNwJLg027wxg20R0qqciaehmRx8upTKR
- 2Hj06ouFp/hisRrM2jvAW8lWN9LXBP6JFhs1RwMUctk2dtLXlaV+NJY4Vhaq18EiR1lZ
- TYKBd4MxZdx2Hualm3oUc6/fFV5W3JuY9iDYfV4xYn4pHA6bcDWmoycStjFpUmaapKO8
- 7redS8tRy4Zu4HnD4Uw7fBVfX4oAhU/Tluyz7rM4FL75vYPf7oLM0UP9fPsge5q+5Ifn
- onee/mkfJKew6i454zHr+Cva35rQcxtqOq6DIz4RU1euVwCZfXiNqGnFt8nm2fqJrMfW
- sw1w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789566203; x=1790171003; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Vjh1DnpPWqPbpHLga85FABWYuMiu7ASGXtOHEMufVrk=;
- b=rqaXsysue0wDJoD2RsWIqlIp0rn4AzHo43KXekQQoP7n2oboalKa/AtRHRv55OckLv
- /nypvrfrdrk4YbVvM58lzLNHBpEzViEzCyBfirhTD54ejIQZ7dbbc3mbX09Xijp6Fixc
- 2j0vyqLVNf1QFzpuV0UgyjnKCrPfTttF/tKxtlkzZyHRxvkQsMEAos9SbnAEwqfD/FxO
- NwU0HLNOymDqi/JaxESf5Q6IA+10aqnfMIcgCaBllduwLjNl78N/0sQn3n3JOq1yYqh/
- HIpIMHRPu5D/HmFLZpiA7Ibl2gEHBF9giRPENckZIHReGSISeP0/VjULaShVJWEJY1gn
- QRfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789566203; x=1790171003;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Vjh1DnpPWqPbpHLga85FABWYuMiu7ASGXtOHEMufVrk=;
- b=V6EVBYpJDH4WtUSZAB0H25rqEHJafHVfXw1exsov/h60ov60GzD3H7FYdKNPVPt250
- Rg+JM0Hactk+mEs8aYIMXhleIyM2iPcM3dzMWwLrTwxKK7Ss82r0sopc3ScYdxiC9KRx
- w/GjXvT9+o6FYusWdegGmh+Zn5X/dXSNOSZR6/GJxZHK3g9DObC3KUlcbRtY5BwjIURp
- QpkPflR4/00wWh+xS7vutYqzvc3Po0tFqMIKeNPs6k+71tBMz3yD5nXLc3JfWGCsk3b1
- jOZX4nhvH+I9afrS8BnHUr/6wcvjGeaqd9ojwaLZK5LewUitLfoa4rFsBRtl2bS/8mO2
- kE7g==
-X-Gm-Message-State: AFuF++krjY93K2JdQbUFu0SPTqR56onA4gpMYan0r/Rurmw695QO758G
- bVQOosJP+0K4psq1cZa2VbLwYMSLlckPaCt6KbxOfwXKPaRYDNZJzdSqv8t+yEtXDi7Dsa9sMoh
- SKhqH8p16z2NPQm6Ik1QX53pBxe2MfdU=
-X-Gm-Gg: AYBFou1FGbtiXtRmj73YXZM0Swn0jw9mFRbp5WxdLR5kw3wVneB5xQ21TkZfsjya1mG
- KiVc2gOIuy0XwsVCiAbroYNx96NB/ebuO7SDDdzEAPGba1rX4FeFF4AXGzxexKjfR10hj2yasaJ
- grtaue/8ndDmrTgKri02HQ5coFnKDbT+9eqE8XoWSard3LubrYItd20gkoyPIIgdz2uADsHLa9w
- JbotX6ecLUG/BAGwYfKqy4mDR4gfTmftqXDCITYtNxj4KmFJk4syBMLfbdA/n9fACCUQGVrPjLK
- xv3st4rpat3qwV8bMSrWyUJoCtp9EPs5nbEak+Natiui/ujocGyeR3O6miK65VFTFV9d/6WDpf/
- mr5FGU2GA8VUZ7wQzQt54D3/COeIoL50I3GZbMCYJew==
-X-Received: by 2002:a17:90a:281:b0:39e:2f57:67c0 with SMTP id
- 98e67ed59e1d1-39e2f58489bmr602054a91.0.1789566202629; Wed, 16 Sep 2026
- 06:43:22 -0700 (PDT)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012051.outbound.protection.outlook.com
+ [40.93.195.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2145410E3B4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 13:55:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZZGY5aPrSaZAU/SvVSQfK7h1xeV5BaTaypx71sNKBzKD7BO3NKLwl/wiruUkVIDPXsrmzwOh4bpN3Ndt7yQ3G2iB0+/MHCcsI4s34QEvwvxCz3sdleqJP3zZ/XUMXxkdVgbDNg3t1VgynXvauTEIJDdTVl7DNSlg6UHA9Rix2OFt31PmCvF6lQofI1lIJDmYWpivOBFQrBG8Gp0NK+576mzVUpH5zMRCDe3GnMtBfjKECHNlOT+on33P0xDYlr7uLJnavbO+Woru3MUd+3NLvPXA7WRg+2R967H5JZCtLeAgTNlbT7JePpqL4AlxocnShWZA+JRFJeCBqkoVx98VOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rQ8Dr/prBBevRRRq5OGCjxp5c/6ZcTz2+lI++ENpR9Y=;
+ b=QXsc10Zyy1osRLikb6NCmnFVVy9XlbZj/kWxnEzOvREsdfGNQRob0GgqmRVTnsg7+3pXCtLClPh+vzy+N7YK9m+mZ7vhmq5pDHduga98/wyL+rJ3L3lewhUKT8w4r0u4RLi4rv1mvZvrZsmpnea2yr0Bt7qPDolED2JaR6P5UASHvMSO9TgbvR+W/f+6nY+JEzOvi30EyW3alEvl1YtHRL0nFfZ58IITfcVeRnwVhoAvo+2ONWAfZz9brgSAIXEW+e3RLUew5O8xOCg/g7NZaO01Mqo+Bxasv9WJNNZs0Qxacstq94PBvPHFrsaIPDUqEwv15MSbA+Ykum/oDhEicw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rQ8Dr/prBBevRRRq5OGCjxp5c/6ZcTz2+lI++ENpR9Y=;
+ b=Na+maJc/hOrtnIEhkczzsr6ySw5t24IeUiy+1VcIrMeXVy1IwwsUoJC1GH66o879p5EC3/1pHSETYRHumzebok99ZjsO9ptdLjJj6hu1it7wUA7Vk9s8BWXn11Wj/eYJknGhW7wNd3VQmwYiP1j5U3D6WUf2YgtxkaRUnDbbgis=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB7226.namprd12.prod.outlook.com (2603:10b6:806:2a9::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 13:55:54 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 13:55:54 +0000
+Message-ID: <43e91c31-ace4-437e-afae-26297102176d@amd.com>
+Date: Wed, 16 Sep 2026 15:55:50 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/5] drm/amdgpu: mark queue and process as guilty for
+ hung user queue
+To: "Liang, Prike" <Prike.Liang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
+References: <20260915071946.710846-1-Prike.Liang@amd.com>
+ <20260915071946.710846-5-Prike.Liang@amd.com>
+ <633738ea-bde0-4658-83e7-9cdf0f47c2e5@amd.com>
+ <DS7PR12MB6005BB1C3565E77FA94DD005FBB92@DS7PR12MB6005.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <DS7PR12MB6005BB1C3565E77FA94DD005FBB92@DS7PR12MB6005.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0322.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:eb::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <20260916045117.1658211-1-lijo.lazar@amd.com>
- <20260916045117.1658211-2-lijo.lazar@amd.com>
-In-Reply-To: <20260916045117.1658211-2-lijo.lazar@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Sep 2026 09:43:08 -0400
-X-Gm-Features: AcwNN1WsL8XOotE8yxtimEk38RD7sL95aRAE8IHtW6xXf4tSMKQj3XaVfeC2YVk
-Message-ID: <CADnq5_NJWyQdL8wX5hYDyz2A-7vULDUjnLDyDou4LeN9QoUJOw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/pm: Drop redundant power_context_size
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
- Alexander.Deucher@amd.com, Asad.Kamal@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7226:EE_
+X-MS-Office365-Filtering-Correlation-Id: e688e087-134c-4a9f-2940-08df13fa39db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: gpBQRqBdeOSD3yQ4JtrUiaSrgA2m1N0EJR7YFEM1NiPRaduorX3BIngeH0A2dVz+ELZbzVtnumvfJinwlPXlGzLfJMMyzx/qdMs8HzvAEatf6pV5NL/++MLaE8YL8lol6f9nKXuba3yygRFsyETGgki6YOqSzKWU8CpnoTqIPROG70VQSdnGJXjPspG2hqwr+k/La4ar+D/S5UnJXRdBnYmCFjk5E3DIrC0oTvjCMaN4xSlkaGgFbxueOf3/lv9cuuI3/z73Z2YeI29AAbi7IDhxMyG32rNCwlN85zt11Lf000BxGP9oF0Ugnel8W3D63RNyMHkEopYUkrdvzTDp2DjViWHVW1GHD/PVqaSquzrNv+f86dfqarB/ZkPSpM9pGvZV27jmko08VcjiHmGB8GCfrhFy4AjvTcY7d2EbICTJ0Wgpot8zzYpMIe4DlEnb8hSZnRdKtCIy5YZcm5E4Gy46WRiMg9dUmuwDz0INDavZq+ND3MWQXT8HKZ9hXHL8ay9/6hX1KoaHsgFE+/PuqJ8CVB14KuIBVKnWdEU4VRV6hSFik1KJAbvEube9txyNmtZMFDB7P2AFQUBmrlU6qg4vFXu0LxUhnT5cDCx71jfCGFcq+nw6dylSZ5YOchJ0hTFbb3HzIeHBn8KBAd+NPxb8fX+j0iVoFTXoPFR9lKo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NHBENEpoN0h1dW12TzA4bXBzaXZ1dTRoanBaOW9JNWt5UDkwS0FQQUx5c0Yy?=
+ =?utf-8?B?dE1hdW5YWGxGV2g4RWFFYUptNFA4S0xMY1o2cCtkZFpBZ2h4YXNBOVovaHh0?=
+ =?utf-8?B?eTk1NjAzb0s3NmVkUjhXMXFWeHd6dHBNN0pzdlFpOFIvbXJ5VXpzRXlxa0V0?=
+ =?utf-8?B?TTNKUDQyRURUNUJMYXlUcG8yTktLaWVLTkhYd3llREFEVEV3eUlERzE5RWRZ?=
+ =?utf-8?B?MTVzMmZjNVR1QWp6ZCtTa3loQ1hRMzlaOVBpRzZIRVlaTG01dS83LzRXdnJD?=
+ =?utf-8?B?WUVJazdydWd2cEg5ZjlUUjAxdUl0VDMwUkhsTHNTbkdSTFIzQVVRQnRIbWdl?=
+ =?utf-8?B?TFNFaUxLUm9SOE1MZUx0NVY1R0JXTk5yNkluS1R6eXVOTUlTVXEvM3BzWW5G?=
+ =?utf-8?B?bUJ3NzN2aHhZaXpaQWh0TUQwVTFSQjNuZGpCSGtlZ3FwdmlJb1J3TnBCd2pV?=
+ =?utf-8?B?U1lpR0E0YzM0YVRlbHVMcUdNdXNOem5RU1kzbG81RG1ZUk1vNlRrMUFSbFFU?=
+ =?utf-8?B?bzZXcHBMTFFsL2x4NnJ2eHlkNXR5Vmh5Uyt1dUNPODlqMUZqK0lIaGxhR0FZ?=
+ =?utf-8?B?ZDF6d09jNENXQUQ2YjB3bkY5UU8xZnJ4bVpLWXVlalh2K2h0RUtoemUvSVV2?=
+ =?utf-8?B?MlppM0t2UGxrZVZIaWt0VmVMa0JLRDdIWkc2OFF3NUhpcnNLeEVHQVlqTWtm?=
+ =?utf-8?B?azBUcTdnbitFSDkyMXQ3aEp1bm1VRDBFRTY0dWZlUFlwUzJoc0IrVURBd1lT?=
+ =?utf-8?B?M3pkVXF2bnRiMHREMUNCdXlCRUNFNFNGeFVjbGtlWkl2NnBNYnZwWGVHQXJZ?=
+ =?utf-8?B?L2h2dkMzaDFoeERoN0ZpTzZjOUtCYlNIVjRZVWUxNUtGVFpvR3BPSVB6blk5?=
+ =?utf-8?B?MUpsUWlRZG9VQzRnbmJMbTlraGQvOENvUTdPY2YzNVJMUjQ4MUJUS1NFL3VO?=
+ =?utf-8?B?dUJqWVQyTFVpVDRMUzdjaWhieVpvVnJWKzRiZ3dKaEh2cUpRdVRXMVdzdXM4?=
+ =?utf-8?B?bmp1OWwxb1crdUpyR1dyNFNqQmxSd05nTGh4RUlOWFdyZTA5ZW1kUGVsVUN5?=
+ =?utf-8?B?cjg0MTdOSmJNUjhFeS9OOHZnMHBKVmwyT3Rocnd0TUpjcFE1SE42aytndS9B?=
+ =?utf-8?B?eE84b09SNXgwdHN4NzdpZUVQWW1ZcURrZGtZUXhDcFhLOWU2WEVHVGxCSUhw?=
+ =?utf-8?B?YWYxZlN4OFhqMy9TR01icEI0MjJCV3JuemM5cExEM0QvUlh3MnNGZFk4cDdh?=
+ =?utf-8?B?K0VuRENlVFd1Q3labkJrQXJFb29NWEc4RW1STUlxOU9haEdOSjBPR1RoWTN4?=
+ =?utf-8?B?V3ZzR2JFeXU3OXBTeEtLcjZtM1FaZk1pNFNnOWd3MFJkUmdoYUFJYXV1eVIy?=
+ =?utf-8?B?Q2NxZ3pFczFXWW0vbGJJQUw1dXZTeEpncTRWc0ova3pjd1haMnUyVnlHU2Nv?=
+ =?utf-8?B?L3ZyTDBqeWdKN0FVRkRHWlF1TFhhakIzZ2RRc0x3bjFjMzZSVWduY3NmMlo4?=
+ =?utf-8?B?WTBaSE1HTFFRbGMyTmxzWDY4WHpCcHJBWVQ1cFRPcGdHWVk5dUVtcDNqK0NT?=
+ =?utf-8?B?UWh6bW5EeTZBdTBucS9xdEpPY0VsS3ZWcXFMZFJSenRzeENNbmExTkJHb0xL?=
+ =?utf-8?B?c2luTCtEVHVxeUJLSGJFL2FCdDE1bzhqUSttYmV6Tlk5TnlZdmtIZmpoVWw5?=
+ =?utf-8?B?ZStjQ08zcWtKTzEzQnpwS25wNWhvUldkeHVvbzg4alQzNEhhRnFxb0Njb0xi?=
+ =?utf-8?B?Z2UwMytFSStlWFQwY3djNGhManV2RGdxdElYcThWVXpLWDQyNWplTVRXUEEz?=
+ =?utf-8?B?Q2ZRREZPVEtVK2s5M1pob1R0djRGMXBvZGVrTW1uL3pwcCsxYzAyZXRodXU5?=
+ =?utf-8?B?cHJybW1rMUtZUU9Gc1AwSkpqNjFNcVNTa1JBTlZ2Vm1yNEFaNUV2L0RqYm5u?=
+ =?utf-8?B?SDQvTlN1UmN6MU1IbmhEVGxpKzlZbjh0VHdpM1dyUlpEOW9HREVjMHJwdi9C?=
+ =?utf-8?B?UFVLU3NXdm1nVU1sSnpPZGNDak9NeEpNcUdiallTR0NBYStTL2RsT0dkSFJp?=
+ =?utf-8?B?K3R1aWMxRkJ2T25LUlprU1pXUEtpeTduVk45czZNQk5DSks1VWRzRkdsZFF2?=
+ =?utf-8?B?WmoxamxyVk1hRzVKQ0hNOWV4S1BYSFRRR1hkMkU3cnE4dEt5Z1dLb25WYmU3?=
+ =?utf-8?B?Qmg5Sk54eWY2SGNQb1RDaDdoZy9XZzNQc1d6dEljd2pvMm9kMnNXQll1dWdK?=
+ =?utf-8?B?RkxUNmdDb1Q2MU05WTZvdHRsQ1M0bEZJYit4ZnNLRXlYaXlSdzdxdzM0K0lr?=
+ =?utf-8?Q?m6ZPhhwRABgeGd/ZrN?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e688e087-134c-4a9f-2940-08df13fa39db
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 13:55:54.6964 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xoVYYl8JO6mZ1UzdkAj1QTJJisCeypp2u+sP8Iw5+8nUqzvmsR4rI/qTuLh6/wuW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7226
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,174 +140,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2026 at 1:16=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
-te:
->
-> The size is stored and cleared in init/fini but never used to for
-> anything else like copy. Drop the size and use pointer for init/fini
-> checks.
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+On 9/16/26 05:38, Liang, Prike wrote:
+> AMD General
+> 
+> Regards,
+>       Prike
+> 
+>> -----Original Message-----
+>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>> Sent: Tuesday, September 15, 2026 10:03 PM
+>> To: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Pelloux-Prayer, Pierre-
+>> Eric <Pierre-eric.Pelloux-prayer@amd.com>
+>> Subject: Re: [PATCH v2 5/5] drm/amdgpu: mark queue and process as guilty for
+>> hung user queue
+>>
+>> On 9/15/26 09:19, Prike Liang wrote:
+>> ...
+>>> @@ -132,7 +134,8 @@ struct amdgpu_userq_mgr {
+>>>     struct drm_file                 *file;
+>>>     struct mutex                    proc_ctx_lock;
+>>>     struct amdgpu_userq_obj         proc_ctx_obj;
+>>> -
+>>> +   /* Set when any queue owned by this process is reset guilty */
+>>> +   bool                            guilty;
+>>>     bool                            proc_ctx_allocated;
+>>>     uint32_t                        proc_ctx_array_index;
+>>>     /**
+>>
+>> Again, clear NAK to having a flag in the queue manager as well.
+>>
+>> We should not track that here, especially since there is no way to reset it as far as I
+>> can see.
+> 
+> The userq_mgr->guilty was originally added to track VRAM-lost resets through amdgpu_ctx_query2() so userspace could reuse its EGL_EXT_create_context_robustness handling.
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Hui? I don't understand what you mean.
 
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h  | 1 -
->  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 --
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 6 ++----
->  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c | 6 ++----
->  drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c | 6 ++----
->  5 files changed, 6 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/=
-drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 2586f9fa6589..ab43a5cd0dcd 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -487,7 +487,6 @@ struct smu_power_gate {
->
->  struct smu_power_context {
->         void *power_context;
-> -       uint32_t power_context_size;
->         struct smu_power_gate power_gate;
->  };
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> index f0b2e7da67b1..09e20d5ee044 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> @@ -345,7 +345,6 @@ int smu_v11_0_init_power(struct smu_context *smu)
->         smu_power->power_context =3D kzalloc(size, GFP_KERNEL);
->         if (!smu_power->power_context)
->                 return -ENOMEM;
-> -       smu_power->power_context_size =3D size;
->
->         return 0;
->  }
-> @@ -356,7 +355,6 @@ int smu_v11_0_fini_power(struct smu_context *smu)
->
->         kfree(smu_power->power_context);
->         smu_power->power_context =3D NULL;
-> -       smu_power->power_context_size =3D 0;
->
->         return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index c4b2fe60da62..b250c5e41e45 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -427,13 +427,12 @@ int smu_v13_0_init_power(struct smu_context *smu)
->  {
->         struct smu_power_context *smu_power =3D &smu->smu_power;
->
-> -       if (smu_power->power_context || smu_power->power_context_size !=
-=3D 0)
-> +       if (smu_power->power_context)
->                 return -EINVAL;
->
->         smu_power->power_context =3D kzalloc_obj(struct smu_13_0_power_co=
-ntext);
->         if (!smu_power->power_context)
->                 return -ENOMEM;
-> -       smu_power->power_context_size =3D sizeof(struct smu_13_0_power_co=
-ntext);
->
->         return 0;
->  }
-> @@ -442,12 +441,11 @@ int smu_v13_0_fini_power(struct smu_context *smu)
->  {
->         struct smu_power_context *smu_power =3D &smu->smu_power;
->
-> -       if (!smu_power->power_context || smu_power->power_context_size =
-=3D=3D 0)
-> +       if (!smu_power->power_context)
->                 return -EINVAL;
->
->         kfree(smu_power->power_context);
->         smu_power->power_context =3D NULL;
-> -       smu_power->power_context_size =3D 0;
->
->         return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> index f2e6105b0d79..5e890b56fd37 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> @@ -393,13 +393,12 @@ int smu_v14_0_init_power(struct smu_context *smu)
->  {
->         struct smu_power_context *smu_power =3D &smu->smu_power;
->
-> -       if (smu_power->power_context || smu_power->power_context_size !=
-=3D 0)
-> +       if (smu_power->power_context)
->                 return -EINVAL;
->
->         smu_power->power_context =3D kzalloc_obj(struct smu_14_0_power_co=
-ntext);
->         if (!smu_power->power_context)
->                 return -ENOMEM;
-> -       smu_power->power_context_size =3D sizeof(struct smu_14_0_power_co=
-ntext);
->
->         return 0;
->  }
-> @@ -408,12 +407,11 @@ int smu_v14_0_fini_power(struct smu_context *smu)
->  {
->         struct smu_power_context *smu_power =3D &smu->smu_power;
->
-> -       if (!smu_power->power_context || smu_power->power_context_size =
-=3D=3D 0)
-> +       if (!smu_power->power_context)
->                 return -EINVAL;
->
->         kfree(smu_power->power_context);
->         smu_power->power_context =3D NULL;
-> -       smu_power->power_context_size =3D 0;
->
->         return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-> index dfc1022112d5..4be864e4f0e6 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-> @@ -335,13 +335,12 @@ int smu_v15_0_init_power(struct smu_context *smu)
->  {
->         struct smu_power_context *smu_power =3D &smu->smu_power;
->
-> -       if (smu_power->power_context || smu_power->power_context_size !=
-=3D 0)
-> +       if (smu_power->power_context)
->                 return -EINVAL;
->
->         smu_power->power_context =3D kzalloc_obj(struct smu_15_0_power_co=
-ntext);
->         if (!smu_power->power_context)
->                 return -ENOMEM;
-> -       smu_power->power_context_size =3D sizeof(struct smu_15_0_power_co=
-ntext);
->
->         return 0;
->  }
-> @@ -350,12 +349,11 @@ int smu_v15_0_fini_power(struct smu_context *smu)
->  {
->         struct smu_power_context *smu_power =3D &smu->smu_power;
->
-> -       if (!smu_power->power_context || smu_power->power_context_size =
-=3D=3D 0)
-> +       if (!smu_power->power_context)
->                 return -EINVAL;
->
->         kfree(smu_power->power_context);
->         smu_power->power_context =3D NULL;
-> -       smu_power->power_context_size =3D 0;
->
->         return 0;
->  }
-> --
-> 2.49.0
->
+amdgpu_ctx_query2() does the VRAM lost tracking through a VM generation check. See this line here:
+
+if (ctx->generation != amdgpu_vm_generation(adev, &fpriv->vm))
+	out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_VRAMLOST;
+
+Why would we need an userq guilty flag for that?
+
+Regards,
+Christian.
+
+> If userspace switches to querying user queue status via amdgpu_userq_query_status(), we can drop userq_mgr->guilty and rely directly on AMDGPU_USERQ_QUERY_STATUS_FLAGS_VRAMLOST for identifying the case of userq vram lost.
+> 
+> Thanks,
+>   Prike
+> 
+>> Regards,
+>> Christian.
+
