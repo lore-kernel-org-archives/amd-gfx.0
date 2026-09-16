@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67C5AC982D0
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:52:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F5C8C982CC
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:52:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CACCC10E7B7;
-	Wed, 16 Sep 2026 17:52:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 074F710E89C;
+	Wed, 16 Sep 2026 17:52:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Rh+SMici";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5lJsrKlg";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012020.outbound.protection.outlook.com [52.101.43.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACC8510E970
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:35 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010035.outbound.protection.outlook.com [52.101.85.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D76610E89C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bT5r8m38J3l+zyZZ1f1jYH3eNIm/mE85P9/oHGc31EX4TeKpvCyQv40G/qm4XOmOxI2N3e4Msk6MK2R5Q/4bHev3ki46BIG+phzOZ+gR8R+h2HY7nNP0p3/xJPhPB3vlztWOclW9bDjei4LPu2P+d98URBeebFkClnndm6WlmjzkFMrF2y67x6Ih4gYzywYDv+o8GCfKin+jTlFxPIoqivGN6TZJkW/6Vhy8N01qZCrbPZzlFgfZbi4ZHIu8sPRXangY6EEatOlWCHuYOxx0KC4VczS3DGDjpNlL7mFzUIWWKyGLFsqkbG4fOOvizQasFJUMWSAGb3BnMC/SAR9uow==
+ b=bFw86qNVDGPZsvqt+hgCEKHYUpUwEzVal+Ra+DmKs6+pSw25ZQx5D5FUyrGu3Brdy2oVYm6c0DtiWhE1TDQE24zjW+XVYWmeWvMcjNmZoYf/PksW6Mq/CXEuOw/Tx9ema6vgnfPUF7Cgms/j1v2IQ06CG8y08cpVIZabfHxZfV9MukHWyXVDN+GxZVuKTeleBjhZiyHxL+CFiMiVA1SpLlb7wuVIdDBpqfCuj7/eGb/EYGG2vbyaVi+dV9Y9JV/oGvwQzRiaQnIhONjaVzoiKNUUzyqbMWe+IAOibEDD5yOBrfFxjFOiGVJbx8mNgNZGfwa79c5hsNz+VsqoVNXl3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7nTOs6Z72nze7ja+c2Nbpg/g8MmsbRiz0pY5koVHNi8=;
- b=Hu8I7V7BPuoPi5KPdjgCqmJASqwXgnNgu2zme4w8qlujr5D9tSPgWEjFZDiBwy9ibCccqsgSzaGQHdBkdUJ3gapstUwaszl4uajKVXY04zOjsPJgIcCfQ2ulGuJzrlX7tMMvKFlcsSr9uWI+OYETHoSNAwhqUd3yP5FoTArdkrmiDFrHu3EXlF9mOOd3Wrix7RlmC4Uhi1gs7kw4RUGPYMEs8RBJ8ropulvTvlkPIHEHKpulHaNOEXDUAhtRmjrlJNCoX02nYWfT5D4/TWDbfzXi5wY0HzdpRsBM6TOuSMMzrUp55QBSM0YDP4JZX5A0Bn3fiJQ0eWC0vjCQK8B8GA==
+ bh=AMmZV2u7u/NK8WiJ0wCNZ/rLq/nsF4mbuVsUwgUUlBg=;
+ b=dSLUKq/zHOGNzNRzgksNvF5OVp+sH73ZtFzfky+hiLsXzNphrogcXQQMYtXuOIcPxg4PtQWyExgVzp9H2DRyeucoYeR/XIakbM9FlPLeoEmVff71XlNEdLz1XXDzA1rjOWChmNqhkQBsbhvdTFO9ivEawvbJDscBDXgyeV/o8jOyzWxC4sOzjN9xN6fJdtHkm76It9ny2ECGDOeLlHVluO3C8K/QlwY1yOqmNik5Mr+POgdTrZZ62v+FYFTZAHysWbikKYep6XsVrjkpiuS3lTXLFsbdYwotfJlKxO+3/bRWSCW7iCVptVkWLJEX/RSa2nIC/8bLT3l1fd/b50s7hA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7nTOs6Z72nze7ja+c2Nbpg/g8MmsbRiz0pY5koVHNi8=;
- b=Rh+SMici+IUpswSbtp5QB5W98t9sfuxQTVU3KonRYkb7wYtl8k7OrWSSHI4EfFwJTMQm1Cu64RQ3PQHjlSlERgpiYnmGx2FUQnESJNRivleBwAZkogkAp20jyJzBBNOaNptR0aoNKvSOa2a3UY7UgN3JORtjYTMbo3PloxuOqao=
-Received: from CH2PR10CA0013.namprd10.prod.outlook.com (2603:10b6:610:4c::23)
- by CH3PR12MB8258.namprd12.prod.outlook.com (2603:10b6:610:128::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 17:52:28 +0000
-Received: from CH3PEPF0000000A.namprd04.prod.outlook.com
- (2603:10b6:610:4c:cafe::a0) by CH2PR10CA0013.outlook.office365.com
- (2603:10b6:610:4c::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.11 via Frontend Transport; Wed,
- 16 Sep 2026 17:52:28 +0000
+ bh=AMmZV2u7u/NK8WiJ0wCNZ/rLq/nsF4mbuVsUwgUUlBg=;
+ b=5lJsrKlg6yn478ao2ZJG8HsuFC8zFcIc/HgBDmJm0SxfdHbQXwgY/6OGfgNZdyxVji2aTo0jl6nI52MeX4AhoHoJnoygoirCtlLNGmUAB39fRM5/96JYbhillbCNJLSNfn2/7HDz4KpXlXl6GwGfuaigBRnzitrsJPzCBz8Aqoo=
+Received: from CH0PR03CA0262.namprd03.prod.outlook.com (2603:10b6:610:e5::27)
+ by DS7PR12MB5789.namprd12.prod.outlook.com (2603:10b6:8:74::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Wed, 16 Sep
+ 2026 17:52:34 +0000
+Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
+ (2603:10b6:610:e5:cafe::62) by CH0PR03CA0262.outlook.office365.com
+ (2603:10b6:610:e5::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
+ 16 Sep 2026 17:52:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:28 +0000
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:34 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 12:52:18 -0500
+ 2026 12:52:20 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Jun Lei
- <jun.lei@amd.com>, George Zhang <george.zhang@amd.com>
-Subject: [PATCH 09/64] drm/amd/display: Add inst field to struct dmub_psr
-Date: Wed, 16 Sep 2026 13:51:24 -0400
-Message-ID: <20260916175301.368306-10-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ "George Zhang" <george.zhang@amd.com>
+Subject: [PATCH 11/64] drm/amd/display: Select KUnit helpers
+Date: Wed, 16 Sep 2026 13:51:26 -0400
+Message-ID: <20260916175301.368306-12-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916175301.368306-1-george.zhang@amd.com>
 References: <20260916175301.368306-1-george.zhang@amd.com>
@@ -79,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|CH3PR12MB8258:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0677dea2-6ffd-444e-2a6e-08df141b4617
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|DS7PR12MB5789:EE_
+X-MS-Office365-Filtering-Correlation-Id: 15dfde82-87f3-480b-b067-08df141b4999
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: +o0TNbJhBrUdElvphzN/aoeSmV1Tz5m+UOch3EcbSfuB+tB9NIfoK25kT/ljACLA1Zd0W2NKJzSBQItdP7ckMSM1XR+yE0JFnCA0kwbaKCsz85NibbCQDFx29pUvvcidsuOoxnxBm4JeDnGjSAw8gAIQH2bQfUiFqckL/PuSFpWlYdsF78TwRBtrFSSMHrwlXKPWfVlC5EeLRdk/hsP2Rzdb7/SmHo3oKiGE9ba4SGHyueWwzHo44C+vt5OYvlv0myPwJoziSP/wfUqoNNBXCM7tR/2jL/OinJnXC3DXyP65Ym3feL3mRAd4yKie8zjGjmWMTGiDEGEcTODooV8S6bJJqx14M0Y4GE46qqfFzTmf6Vw4/Z0/xXrslHzUf9T0j4e0IT9JBi9N0ikoIrNi/ziD7QybiZT4le0BsbLJIPfg1sK0Y39nCt42giOeEnx9Mh5aCFhB68vOQ+dH3r2zBuU8NR4gh3nOfBq2q+2pFwjwlu9AfqVRP0HNtV/CA56n8mZ9rvbJsysCnT0Xcr0mK+tFmSeeN5i4L9WSc89N540/FuUtezLG8VMMHnI1bDyV5ah+VEp8ko40tbaUVsruwYmVAZpr//UAQHNS7ncgGEaMiS7mCUH10cJ3h9oKhZ/WnH7tTii7HpmrlK8R0EWalxhZmdqTC6gV+f2rUcijPXc9bSPgU58MwKMRZ54RkOxMsC1DR/t2Xaq6zLANDUZfqg==
+ ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|10067099003|11063799006|6133799003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: kmZBcY6gparYYmSIke8zcsmjW1u5rOCoWMYaKZhIHLDv5dsd+CUVwd7iwINLEr1+Q++mN4yzfb1nMLD/M1Tu3tVhNudvcS5IOBagtiYyhNd66h9hXloA1ifr9LM8FGh4kZS/G9TY2CRmf/QzmKzbqR3GbciR5yjOd+PDQKUwhbRzF+cvW1DMv7E3FMd3052eqsYo/BZKeyHcgGpi/wefs16yvDWTVz4lI4gH4+SOFtr+Soq4xtFhzDpxuWuumKghSsE2E2rrj53E4eaUa448nSLvv38tE+XI6CQgFKLPSCmjD7U1NKkLZJQH6N2cLTPFgAcLzfZ4apho4pgS8aVeHOW/uFzGqeBPUhWpLirgN6Q5D9dNXe4KUNtMzipzqTFDlYG0t9PJ2v6dB9Z5aPLaSOHxwwJsVJHJ35XWcDa2pmKRe8QFuIDdroo1wDFI9pqnXcH8c074Bu5ME4VKdnjsWGfPUgyyl8vAGIMXFLRD1p0w3VKkt2Ca/sGQ7m92dt0+Tfv4DTGsZ5oUXKhRecydMvS9/MKGdKr40rRBdekYt431udxO2HN29qxJd+4bYA5bjV1t/JOyjt+At4gu3YCqhLfZmHYhAXqXX0pN/XmpFzEIw7rT/OyWM9LaRhlrXn1eoukG7Lqxm17yKF7x/i282vdaZHOIpnzIrcBm6Luzdr36gDP94gvJ+vv+FlbV5iF3WjpqrcaSqsvxqtacy4jhWQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(10067099003)(11063799006)(6133799003)(18002099003)(22082099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ffbF+2+Yow1hDv/VNmT5xqhpqGF3SUc8uW10T9oScSl0OQJWwaG8KYnSjl1tfLNm9vU97HZRyExWw3NHFlgl69jttrHGnUu/CKqPgyngBXMPi8jv2r8IFrC51q5fEGhvXNX0/aI2EC7kSXxM0VOOYBbYwmNjlvYsXRm79aT4cZs5hg89lA3IyzbbKaYdVzboX1Y55CyaG/x8510Hay/qHLXBOlCL4xDyV+JZ/79/Qt10Ic+22KyAhyp7Ls68XL5rB04h54HFOw3pi10Enndysfv5bR1RcaEJrHJ1pabsFsPJUMywhfMf+zItev2PeE2CG39noP6RlJ3+H0boAFolZkBNzopaB1+N7k7D5NbvsnBcru2pyybo7R9Y+7Uwt6vufozZHQdqKqDqPGL2dwfSJ3cYNfMVK7iJBNBBVQT1CEsZEPgsNj66S3VTJcBznHjp
+X-MS-Exchange-AntiSpam-MessageData-0: /eylfyeY6JF896lUpfM0l/sjdwckOU0pqlTvb0GOBHTI4hgucK73mCvi4L+5oXUB2jOnZNG3sJ5/DIkQkL5WJcY8MN5iPv6objg4TiA70rT/wkPUP4CNYJoIQywuA+Cdt8cNwcsEzNKIZhdWKf8bt817mV6hIsH0PiIovI/BattkJHnanEHdhhYXMKRZtsTlwx8/X4tEP42biQdTPXHJ3GZYlIjfxfMf3XtdQ/pXvtz/FmsoR5rf99wh0GOFRdbeCyEsUGJ2pGeJaJWjEgq4Rewn2I39cno3gLX1ugDH+G0Lzj2HAFRtz08Qtmj/4wTo4Ra2m3QcfO3RHyIA1tJGo2eP9OCOXuXi/kNa8CFEgzBsWkJQpTHB+poX7NfDnn+SMhyyqS8O+g0OETV/6h4ZCZOyvHYht8NpR9m6ozPVnzfNPhmNqUWcTWpqAniZqrvK
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:28.1932 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0677dea2-6ffd-444e-2a6e-08df141b4617
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:34.1092 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15dfde82-87f3-480b-b067-08df141b4999
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8258
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5789
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,46 +116,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tony Cheng <Tony.Cheng@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-Add an inst member to struct dmub_psr and set it to 0 in
-dmub_psr_construct(), since the PSR object is a pool singleton.
+[WHAT]
+DRM_KUNIT_TEST_HELPERS has no prompt, so it can only be turned on by a
+select.  DRM_AMD_DC_KUNIT_TEST merely depended on it, which forced the
+amdgpu_dm KUnit config to enable CONFIG_DRM_KUNIT_TEST as well and drag
+in the entire core DRM test suite.
 
-No functional change; the field has no readers yet.
+[HOW]
+Select DRM_KUNIT_TEST_HELPERS from DRM_AMD_DC_KUNIT_TEST, matching what
+DRM_KUNIT_TEST and DRM_TTM_KUNIT_TEST already do, and drop
+CONFIG_DRM_KUNIT_TEST from the amdgpu_dm kunitconfig.  The amdgpu_dm
+tests now build standalone and a run executes only the amdgpu_dm suites.
 
-Reviewed-by: Jun Lei <jun.lei@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Tony Cheng <Tony.Cheng@amd.com>
+Assisted-by: Copilot:Claude-Opus-5
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 1 +
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/Kconfig                      | 3 ++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig | 1 -
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-index 45630c3effe1..66d8ba73d38b 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-@@ -481,6 +481,7 @@ static void dmub_psr_construct(struct dmub_psr *psr, struct dc_context *ctx)
- {
- 	psr->ctx = ctx;
- 	psr->funcs = &psr_funcs;
-+	psr->inst = 0;
- }
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index 617bc1932524..a319680c329b 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -67,7 +67,8 @@ config DRM_AMD_SECURE_DISPLAY
  
- /*
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-index a6e282d950c3..45ba9902ebbb 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-@@ -34,6 +34,7 @@ struct dmub_psr_funcs;
- struct dmub_psr {
- 	struct dc_context *ctx;
- 	const struct dmub_psr_funcs *funcs;
-+	uint32_t inst;
- };
- 
- struct dmub_psr_funcs {
+ config DRM_AMD_DC_KUNIT_TEST
+ 	tristate "KUnit tests for the AMD DC display driver" if !KUNIT_ALL_TESTS
+-	depends on DRM_AMD_DC && KUNIT && DEBUG_FS && DRM_KUNIT_TEST_HELPERS
++	depends on DRM_AMD_DC && KUNIT && DEBUG_FS
++	select DRM_KUNIT_TEST_HELPERS
+ 	default KUNIT_ALL_TESTS
+ 	help
+ 	  This option enables KUnit tests for the AMD Display Core driver.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
+index c7c8527dbb10..0c26c510f7a5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
+@@ -6,7 +6,6 @@ CONFIG_DRM_AMD_DC=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_DRM_AMD_DC_KUNIT_TEST=y
+ CONFIG_FW_LOADER=y
+-CONFIG_DRM_KUNIT_TEST=y
+ CONFIG_DRM_KUNIT_TEST_HELPERS=y
+ CONFIG_DRM_KMS_HELPER=y
+ CONFIG_DRM_TTM=y
 -- 
 2.55.0
 
