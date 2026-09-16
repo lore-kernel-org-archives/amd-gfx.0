@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79155C982D3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CCE5C982D2
 	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 07:07:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B4EE10E99A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C72310E993;
 	Thu, 17 Sep 2026 07:07:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Q0mHmn6s";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="hWVN5pT3";
 	dkim-atps=neutral
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Wed, 16 Sep 2026 19:14:38 UTC
-Received: from mta0.migadu.com (out-200.mta0.migadu.com [91.218.175.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F88010E164
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 19:14:38 +0000 (UTC)
+Received: from mta0.migadu.com (out-238.mta0.migadu.com [91.218.175.238])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E150710E397
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 19:17:22 +0000 (UTC)
 X-Envelope-To: amd-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=d5rIYyuUq1yZ3+uvYAUim7aaKaINlMEW4ezCIRPM5Fs=; 
+DKIM-Signature: a=rsa-sha256; bh=e8COaffNECHJoBz+99fGiuGWKjkgRyKe5SPUvBaBQG4=; 
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789586076; v=1; x=1790190876;
- b=Q0mHmn6szaiFQhU9pdAlueNu/5N+QDPEowouD0fGDNEG+alQfirZmT2oFGaK8f+VeiUTVWaq
- KoHLiX26WsszwEjZY6ivAF+Fz0aIlHWYDMvUB+5ktJ0Q8PX+/EjgXHf1EmWFXr/B+8rhznsh4fU
- BsQANzV0ieivfP3yJGGqOM7U=
+ t=1789586241; v=1; x=1790191041;
+ b=hWVN5pT33dSgqR2lv1+H56Ljsf2NA5r9wmpbzuJPI4b8fNL5L2A6TsEQS50nHHgYCCuxzmCr
+ gP0yNlxeTtcH2blsukKzO+Ga+GeZF71ppr96QNGkLfotSShBOYe6O5pxk3bDofXEh9SSyjdqQs3
+ +IZngYn/wuzRL0wpmCZ0ceo8=
 X-Envelope-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id deeea5a6716aa5cc;
- Wed, 16 Sep 2026 19:08:32 +0000
-X-Mizu-Trace-ID: deeea5a6716aa5cc
+Received: by smtp.migadu.com with ESMTPS id 76568a483f617875;
+ Wed, 16 Sep 2026 19:11:17 +0000
+X-Mizu-Trace-ID: 76568a483f617875
 X-Migadu-Flow: FLOW_OUT
 From: Matthew Schwartz <matthew.schwartz@linux.dev>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -36,11 +34,13 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Matthew Schwartz <matthew.schwartz@linux.dev>
-Subject: [PATCH 1/2] [FOR-UPSTREAM] drm/amd/display: Use linear backlight
- curve in power module
-Date: Wed, 16 Sep 2026 12:08:22 -0700
-Message-ID: <20260916190823.1193460-1-matthew.schwartz@linux.dev>
+Subject: [PATCH RESEND 2/2] drm/amd/display: Keep backlight precision in
+ millipercent
+Date: Wed, 16 Sep 2026 12:11:02 -0700
+Message-ID: <20260916191102.1195881-2-matthew.schwartz@linux.dev>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916191102.1195881-1-matthew.schwartz@linux.dev>
+References: <20260916191102.1195881-1-matthew.schwartz@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 17 Sep 2026 07:07:03 +0000
@@ -58,37 +58,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm already applies the ATIF custom brightness curve in
-convert_custom_brightness() before handing the level to the power
-module. The power module then builds its own percent to PWM LUT from
-the same ATIF data in initialize_backlight_caps() and applies the curve
-a second time. On the Lenovo Legion Go S this maps the bottom 40% of the
-brightness range to under 12% PWM, where the panel no longer visibly
-changes.
+The power module takes the backlight level in millipercent, but DM
+rounds the 16-bit level to a whole percent before multiplying by 1000,
+collapsing the range to 101 steps. It also divides the absolute level,
+which already includes the panel minimum, by the min to max span, so
+panels with a nonzero minimum PWM overshoot the top of the range.
 
-Tell the power module to use its linear curve so the PWM is a straight
-rescale of the level DM computed, matching the behavior before the power
-module took over backlight programming.
+Scale the offset from the minimum to millipercent directly so the full
+resolution reaches the power module and the minimum is only added once.
 
 Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
 Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ca795cda8084..63acefc0acfb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -455,7 +455,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_init_power_module(struct amdgpu_display_manager *
- 			!(amdgpu_dc_feature_mask & DC_DISABLE_FRACTIONAL_PWM_MASK);
- 		init_data[i].use_custom_backlight_caps = false;
- 		init_data[i].custom_backlight_caps_config_no = 0;
--		init_data[i].use_linear_backlight_curve = false;
-+		init_data[i].use_linear_backlight_curve = true;
- 		init_data[i].def_varibright_enable = 0;
- 		init_data[i].varibright_level = 0;
- 		/*
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index 45e1732a5b04..079277d47b3f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -326,7 +326,8 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 	} else {
+ 		/* power module uses millipercent */
+ 		get_brightness_range(caps, &min, &max);
+-		brightness = DIV_ROUND_CLOSEST(brightness * 100, (max - min)) * 1000;
++		brightness = DIV_ROUND_CLOSEST_ULL((u64)(brightness - min) * 100000,
++						   max - min);
+ 		rc = mod_power_set_backlight_percent(dm->power_module, stream,
+ 						     brightness, 0, false);
+ 	}
 -- 
 2.55.0
 
