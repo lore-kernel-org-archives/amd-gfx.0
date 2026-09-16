@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA5B3C982C9
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:52:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 413AAC88E7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:52:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D95D10E80C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BB1010E970;
 	Wed, 16 Sep 2026 17:52:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="swltRTd+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5b1vY3Wp";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012001.outbound.protection.outlook.com [52.101.43.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0631510E80C
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:44 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012037.outbound.protection.outlook.com
+ [40.107.200.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAF3810E973
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ub5LwuHgsxwOsgLFeZGWIVlSJKiuugSCD571UUq6Rsl4A2ew6AtLIayb0ypImU8tMI/TFVCXFATVpjq6TrIfOe66oFsE/CRNDiyTD7vkW1j3BHKxvFNT7hYpxBCpNoXQzvceMBZVQ5LB92Bh+6GJ5pUKMxJmKZua9HWHHSRiEEH5WtiXBbDnzKv7LS5yk4DFnPtF9PeqYbVlEJcDBpZp+ZQJtmsYKonTfhiFLY5tnWAgid0mCCSJ0xB0GIKaaAMn5MUM0vTXimfAryRFf84doCTXGmFnpTFh0NXK3cmHpH+Pyv2i2QqzAn7mjc5WadEyM5w9hcghld6qNoxSMwzndQ==
+ b=MbkRZ3l3vfPnipSQ5CmbmZ4UAPPIcohMZT02WN6MoegqXW1xf+SGQOSgwSM4MF/rNEnwqSpWcqBxRVfKQbYL2Xuk31i1M73cYWT5w41ziheUwMaC8Y1wDqSH8QUza01zuXTcZVCM0rOJzFad4iwGHluMg/i7dZb2f0wUoheCvcDwLMaXDl+TGkqBmFQMNAdmuFqMnrEBmrjl9hQlLKMeCU8Y4pgL7p2q+QhTWtNJTEkYmYuGQ+OP2CTDevDz44kO1g4w+350OufhxSPQuWI+u2Y3rpWzaePPkyEpK3xo5aN/r2UeLsVO0SeGtL0SU/hoUUcdKtGVw/JSbhFqc9YDQA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Io7m/SkyFbplPTyY1HkdK7MMzcEyi0g0tV2jgIjiZwY=;
- b=I0i6AF8mAvopdusM8SyzRB+SBmfV5Eg/zETT0w3/i5ctsi543G0SzO3tTc0lnAZcHv8vIntjCXJsC/RdG3HYVsgQ34SDT3OyGze7dDlzguMWahPOHE7EIgM7dERZbu/YIdqPy6JZwbg/XutJkCpcHx01ajzoTmD27j/O8iOFCnMPltntHJphIjvICnvspuBOi7TqEwQ8ECeIjfXCcFvE7QL4ekOqQJXjKbU1KTJXt3Pfk6TcGPPi0PEEWgo0HLA95N/Fvg1Re08ln1tq0I6gJoV6cMrly8682vS39gm5Zs8uz5eNnIQlHZcWfZINy+IzSKMEB1DnCXkJffB8Mv4gDA==
+ bh=fmLWM+pruBYG/ePjdKJyPVhz3fB1Z0nCV/p9MxNIGN8=;
+ b=gJH2zO+7P6ve2D2yeRZ71vWTU9lae1Iy3c+IsUYTdMhIRKSYNJ4N9IFb2RCXx2S15WdDUSTldnYOBXc3Y4RLGrW5U6fcYajd3Kfdb9v0hTcLc65q40+ZT1bMAXlY5e1kqRfu7W/QowroF8McMVN2CjcEqoUIEKcq/lSSQWOXgA8MlyxPvVMDjEw7+ht/Q1+FwXVQoQf+9t/Vi5zX1nOCJvJ6jWcDJzycGRCEszx9VKP1bKGJGK9w4fLB2z1Is2MqP7FWqNQ8LfehUzEvwLvzoFgQshggWTbangOXqxTLCftNpAL/5bCOUJ7KUXW/sAKP4hL5YMHWA9/1RxRBV/SbDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Io7m/SkyFbplPTyY1HkdK7MMzcEyi0g0tV2jgIjiZwY=;
- b=swltRTd+NMfkOAiYbIgZjGvCv9lGZsxeD3289eOAQQcCINqSATgQuBVPjyw/4gAOAKTS1pib/nqVBBpkQMiHgqMqdh2ub2IXxGLzH144aeTPeRCyaEOuRvVeQddwtX+jWxZs1gCQlKJL7njEXljD7bLhfW8vpj94jDcNwlyPB/w=
-Received: from CH0PR03CA0248.namprd03.prod.outlook.com (2603:10b6:610:e5::13)
- by DS3PR12MB999239.namprd12.prod.outlook.com (2603:10b6:8:38c::13)
+ bh=fmLWM+pruBYG/ePjdKJyPVhz3fB1Z0nCV/p9MxNIGN8=;
+ b=5b1vY3WpXEsvdmHgcFMDpkZFlsP7j2sSFVEyP75cGrDuRnREmZfOmjSFWk67YxelPLVE4xSlctZHjKwizcNjkC9NUzvLxk3uLx9BrxiAkR3yVwqGxCXhs4GA8Cmargi9grBFstQ+0OFz0dh2ghvSOT5N5SZflKSJSXxD2asMkSo=
+Received: from CH0PR03CA0255.namprd03.prod.outlook.com (2603:10b6:610:e5::20)
+ by CY1PR12MB9698.namprd12.prod.outlook.com (2603:10b6:930:107::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 17:52:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 17:52:35 +0000
 Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
- (2603:10b6:610:e5:cafe::59) by CH0PR03CA0248.outlook.office365.com
- (2603:10b6:610:e5::13) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:e5:cafe::67) by CH0PR03CA0255.outlook.office365.com
+ (2603:10b6:610:e5::20) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 17:52:39 +0000
+ 16 Sep 2026 17:52:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +51,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:39 +0000
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:34 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 12:52:27 -0500
+ 2026 12:52:22 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,9 +66,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
  "George Zhang" <george.zhang@amd.com>
-Subject: [PATCH 18/64] drm/amd/display: Fold DCC validation tests
-Date: Wed, 16 Sep 2026 13:51:33 -0400
-Message-ID: <20260916175301.368306-19-george.zhang@amd.com>
+Subject: [PATCH 12/64] drm/amd/display: Fold blending tests into two cases
+Date: Wed, 16 Sep 2026 13:51:27 -0400
+Message-ID: <20260916175301.368306-13-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916175301.368306-1-george.zhang@amd.com>
 References: <20260916175301.368306-1-george.zhang@amd.com>
@@ -79,29 +80,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|DS3PR12MB999239:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc48a912-de0a-4101-873b-08df141b4c91
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|CY1PR12MB9698:EE_
+X-MS-Office365-Filtering-Correlation-Id: 077b738f-a55e-40da-3941-08df141b49ff
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|11063799006|5023799004|56012099006|3023799007|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: PVfGdFh8Uonl6ikHkuYfslTUrDfJKalmPxBpSddqeBQHlm6A5RXhB7rH4GrXv46PMnzEYUzI8vIWJvdjwwRJUFK8UquPvx+8Wl9VVAespExlWRnXQ1zrFxjByia5lAhbVaEKEsNcfGDvYTu458bfgyWkep6WpXbF7OUYk+THHyevK7DQ2xCkx+xZKPpxOaCFcnylZSwALmEiPxtLQvkSXZsD3A89DxYCg9LgN5egRb8/3PgFS+CA7YcL2lZJF/oOEj+9eQzVv2VT4n1IWZiqyc03xtevbwgf+b5NPrja2vQ2J4eoX7F2xGvLKN+XV8DUB8Zyhdcl4ZdQxNas1cXf3IpcCOKOs2gzPPNk8yGwxihqqDR1dC0i1AzTxXOki8n3CI+nLtyyGJy9fU7j/KLkfVCAe0VKxfm8k74fPsDkdfUOSXC0fJRFzcHTgQaCW9o3DNAdW/t6eswlKI1/6aJdJYRvKJDF/nVVOZn/EeTTUqejKqTddQh2rEt5HFpk/vhwCDz/aa2FwuzAOOQqd8iyDuz+4UX+KAGEBfslwQrgzuq3sA/H+aU3uyBhZJBS6ePr1oLqtaEs1jqufP5XcoDYQf85SV9ybGL3laNm4k1rt/fsS7eBBv5tPNTraXlt/VLxPhDLdzMheT7BUw7TbonyrmZcmaPr+I0jRMRzyXAQWDbnZN0zQARliNKzosXMYlg3acv6mu+o6UjWBiygAQ3MBg==
+ ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|10067099003|3023799007|18002099003|22082099003|5023799004|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: CsXc1G6VXAu9525q0PVSwU+xQhfeaU3sYH3lW2dRjxogoLyxF4BdDmxNN9q1Nk/tWcll5w03LA3UCiudR6m0vfrzclBqo/Nc77Z8rpWjpm0yWtA747zl6VhiEhn7jE/QpiGF0ZEHQ/bRntqRzn2wkBACbthsm14FGAh86Btp9fq0N3utDVwFn35UN+kybZFHsyNMgIitTsZPnk16Q6XTNbA6H8PouW4hUoHv0P+z3Z1O9dNUmeMLDej8dGQr6QD9SzhDGpnHw4ZwNdZwIfPwYG32q/eDs2KgG57tF6ISPvpafKdwIP9xRNcX4SmBXWDncZizcSAOfEKtChsssv5mUuJZBRTzIUaedWC2YxdpXMmfKMihVaCwOmVASjUS7STuuRFYWaxE2OAwmso3DgUqR5ETLNN/BUqWzxRhz23xMwyjsaljS5oYlYJHgd1h8aj2xtZuFWUx7J2QKnUTVa1OQ3fKkewMdkzUnfP157lmCOf5HLaBQ/lbd38ItPvDvSi13T6esiCYnUOyfxRCxXXInu9ThmzTkysLvd3dXq+Hhz3dOKeJJwEGk5dw9V99rHldgrWf/5WXwZiHTpQ4HpD8Eg2uBzQKO8HD9nXOEfxLd3tI6Wla0Uk4P3J3JbZl11uyks6AW6ZlvNvywtN8PGz/fx3+q1KQ2BS3qFVqs6wqXrsimltTmflPBcDHFOA3LOpaa9msc5wQewEsDkwH9p5tSQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(11063799006)(5023799004)(56012099006)(3023799007)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(10067099003)(3023799007)(18002099003)(22082099003)(5023799004)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 8a36jWu+eGC5lJm2LlPyn4BUm/RMUkc/jRWJd7fY6bvnlvpY+zVRdpJfJ1eYUpndD9ekHQJM3E6szGJKXWLS2Qa1G54QfOuf3VRyVeKwEGDZd1X/10xZIKtYCukiKWiGHpGlw1wyoRFAp+wEMMR3AR7Xv9GGZ2CHQgyXYo2MdHJ0VLbcVMa40KS7QQ3iZs9ngLqpKzlqKmgNqH+EYTGoQA7FqhSajx0p4rZyWvhRMxs3Zhi3+NmRnrwXrfths1ZDRgfHOEb9r7cHRp5wjKZ2zD0Ttm+7H/pSdH7f8jowSJ47Hg42AYFDuHW76ASCyYYdyiZfSvuoqS7I/pCSay2kRQ14GRZpxHkL1lwmKs99M+vLqi/udRj/GC7pQdKsRtfmxmBEfTruCyaKNFv3Q0yD89oqNHkczYOByXjreYr+w4820ieDf4Stnu1WL01h3IC6
+X-MS-Exchange-AntiSpam-MessageData-0: o4tNVAnlNI+epECADqI9xKcPAffQlZ37ZYC3SQitK1SQ4LwaizqEo1sWUEdRrkFEoh46jFvp2fnoz+36R507L7ga3DQSEANKsCkJuMABHITE0mizdyiN5r/QLdqlIoMMKLl4IRaQbr3OWtktkg3u+mm6j/VMUEOjmIJG+ijqYnu7WBVzMgv0iBH3b88FALxj/jhiYUi437Ub+VzeN4hW2Vv5WZASAP5sRYzD90BpQmzu5Wo7PlOGTNVOk6wO0ENanwRSVSxINGrFwQ+HtAY2t9ULOAYRR0RyRiq19KVZHamUhixyDql83L8BUsAACZv6JwaqWFNxl+QJ6G9mjvtgNwhvrXXnrvYpYznhiIl6wQpIYwgGdUFGNxhIfBqh5ASgF8sDTml+7RHxqu7+P7YWJVCVGt+RaXW1bm9vrZ9QkBAqsgulz9NFM749Zinc1NZE
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:39.0621 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc48a912-de0a-4101-873b-08df141b4c91
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:34.7720 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 077b738f-a55e-40da-3941-08df141b49ff
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR12MB999239
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9698
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,311 +120,317 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-Reduce the seven KUnit tests for amdgpu_dm_plane_validate_dcc() to
-three.
+Reduce the five KUnit tests for
+amdgpu_dm_plane_fill_blending_from_plane_state() to two, keeping every
+covered path.
 
 [HOW]
-Split them into a table-driven test for the checks that run before the
-DC capability query and a table-driven test for the rejections that come
-out of it, leaving the success and scan-mapping test unchanged.
+Turn the opaque, premultiplied and coverage cases into one table-driven
+test over the pixel blend mode, and fold the DCN 4.2 case into the
+global alpha test as a second table row selecting the DCE IP version.
 
 Assisted-by: Copilot:Claude-Opus-5
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    | 248 ++++++------------
- 1 file changed, 76 insertions(+), 172 deletions(-)
+ .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    | 251 +++++++-----------
+ 1 file changed, 89 insertions(+), 162 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index b8489a0b185e..807c91bd8ab1 100644
+index 9f9d99e1b47a..f60bb6239e53 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@ -633,152 +633,95 @@ static void dm_test_helper_check_state_viewport_reject(struct kunit *test)
+@@ -117,142 +117,111 @@ static void dm_test_plane_is_video_format_known_video(struct kunit *test)
  }
  
  /**
-- * dm_test_validate_dcc_disabled_returns_success() - Verify disabled DCC is accepted.
-+ * dm_test_validate_dcc_early_exits() - Verify the checks before the DC query.
+- * dm_test_fill_blending_defaults() - Verify default blending output values.
++ * dm_test_fill_blending_pixel_blend_modes() - Verify per-pixel blending modes.
   * @test: KUnit test context.
   *
-- * Verify if DCC validation succeeds when DCC is disabled.
-+ * Verify if disabled DCC is accepted without consulting DC, and if a video
-+ * format on a pre-GFX12 device and a missing capability callback are rejected.
+- * Verify if default blending output values are used for opaque alpha and no
+- * per-pixel blending.
++ * Verify if opaque alpha keeps the default outputs, and if the premultiplied
++ * and coverage modes enable per-pixel alpha for an alpha-capable format.
   */
--static void dm_test_validate_dcc_disabled_returns_success(struct kunit *test)
-+static void dm_test_validate_dcc_early_exits(struct kunit *test)
- {
--	struct amdgpu_device *adev;
--	struct dc *dc;
--	struct dc_tiling_info tiling_info = {0};
--	struct dc_plane_dcc_param dcc = {0};
--	struct dc_plane_address address = {0};
--	struct plane_size plane_size = {0};
+-static void dm_test_fill_blending_defaults(struct kunit *test)
+-{
+-	struct drm_plane_state state = { 0 };
+-	bool per_pixel_alpha;
+-	bool pre_multiplied_alpha;
+-	bool global_alpha;
+-	int global_alpha_value;
 -
--	dm_test_init_validate_dcc_inputs(&adev, &dc, &tiling_info, &dcc, &address,
--					 &plane_size, test);
--	dcc.enable = 0;
+-	state.pixel_blend_mode = DRM_MODE_BLEND_PIXEL_NONE;
+-	state.alpha = 0xffff;
 -
--	KUNIT_EXPECT_EQ(test,
--			amdgpu_dm_plane_validate_dcc(adev, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
--			ROTATION_ANGLE_0, &tiling_info, &dcc,
--			&address, &plane_size),
--			0);
+-	amdgpu_dm_plane_fill_blending_from_plane_state(&state,
+-						       &per_pixel_alpha,
+-						       &pre_multiplied_alpha,
+-						       &global_alpha,
+-						       &global_alpha_value);
+-
+-	KUNIT_EXPECT_FALSE(test, per_pixel_alpha);
+-	KUNIT_EXPECT_TRUE(test, pre_multiplied_alpha);
+-	KUNIT_EXPECT_FALSE(test, global_alpha);
+-	KUNIT_EXPECT_EQ(test, global_alpha_value, 0xff);
 -}
 -
 -/**
-- * dm_test_validate_dcc_video_non_gfx12_fails() - Verify video format restriction on pre-GFX12.
+- * dm_test_fill_blending_premulti_alpha_format() - Verify premultiplied alpha path.
 - * @test: KUnit test context.
 - *
-- * Verify if video format DCC validation fails on non-GFX12 devices.
+- * Verify if premultiplied mode enables per-pixel alpha for ARGB8888.
 - */
--static void dm_test_validate_dcc_video_non_gfx12_fails(struct kunit *test)
+-static void dm_test_fill_blending_premulti_alpha_format(struct kunit *test)
 -{
--	struct amdgpu_device *adev;
--	struct dc *dc;
--	struct dc_tiling_info tiling_info = {0};
--	struct dc_plane_dcc_param dcc = {0};
--	struct dc_plane_address address = {0};
--	struct plane_size plane_size = {0};
+-	struct drm_plane_state state = { 0 };
+-	struct drm_framebuffer fb = { 0 };
+-	bool per_pixel_alpha;
+-	bool pre_multiplied_alpha;
+-	bool global_alpha;
+-	int global_alpha_value;
 -
--	dm_test_init_validate_dcc_inputs(&adev, &dc, &tiling_info, &dcc, &address,
--					 &plane_size, test);
--	adev->family = AMDGPU_FAMILY_NV;
+-	fb.format = drm_format_info(DRM_FORMAT_ARGB8888);
+-	KUNIT_ASSERT_NOT_NULL(test, fb.format);
 -
--	KUNIT_EXPECT_EQ(test,
--			amdgpu_dm_plane_validate_dcc(adev, SURFACE_PIXEL_FORMAT_VIDEO_420_YCbCr,
--			ROTATION_ANGLE_0, &tiling_info, &dcc,
--			&address, &plane_size),
--			-EINVAL);
+-	state.fb = &fb;
+-	state.pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
+-	state.alpha = 0xffff;
+-
+-	amdgpu_dm_plane_fill_blending_from_plane_state(&state,
+-						       &per_pixel_alpha,
+-						       &pre_multiplied_alpha,
+-						       &global_alpha,
+-						       &global_alpha_value);
+-
+-	KUNIT_EXPECT_TRUE(test, per_pixel_alpha);
+-	KUNIT_EXPECT_TRUE(test, pre_multiplied_alpha);
+-	KUNIT_EXPECT_FALSE(test, global_alpha);
+-	KUNIT_EXPECT_EQ(test, global_alpha_value, 0xff);
 -}
 -
 -/**
-- * dm_test_validate_dcc_missing_cap_func_fails() - Verify missing capability callback fails.
+- * dm_test_fill_blending_coverage_alpha_format() - Verify coverage mode behavior.
 - * @test: KUnit test context.
 - *
-- * Verify if validation fails when DCC capability callback is not provided.
+- * Verify if coverage mode sets per-pixel alpha and disables
+- * pre_multiplied_alpha for ARGB8888.
 - */
--static void dm_test_validate_dcc_missing_cap_func_fails(struct kunit *test)
+-static void dm_test_fill_blending_coverage_alpha_format(struct kunit *test)
 -{
--	struct amdgpu_device *adev;
--	struct dc *dc;
--	struct dc_tiling_info tiling_info = {0};
--	struct dc_plane_dcc_param dcc = {0};
--	struct dc_plane_address address = {0};
--	struct plane_size plane_size = {0};
--
--	dm_test_init_validate_dcc_inputs(&adev, &dc, &tiling_info, &dcc, &address,
--					 &plane_size, test);
--	dc->cap_funcs.get_dcc_compression_cap = NULL;
--
--	KUNIT_EXPECT_EQ(test,
--			amdgpu_dm_plane_validate_dcc(adev, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
--			ROTATION_ANGLE_0, &tiling_info, &dcc,
--			&address, &plane_size),
--			-EINVAL);
--}
--
--/**
-- * dm_test_validate_dcc_cap_callback_fails() - Verify callback failure path.
-- * @test: KUnit test context.
-- *
-- * Verify if validation fails when the DCC capability callback returns false.
-- */
--static void dm_test_validate_dcc_cap_callback_fails(struct kunit *test)
--{
--	struct amdgpu_device *adev;
--	struct dc *dc;
--	struct dc_tiling_info tiling_info = {0};
--	struct dc_plane_dcc_param dcc = {0};
--	struct dc_plane_address address = {0};
--	struct plane_size plane_size = {0};
--	enum surface_pixel_format format = SURFACE_PIXEL_FORMAT_GRPH_ARGB8888;
--	enum dc_rotation_angle rotation = ROTATION_ANGLE_0;
--	struct dm_test_dcc_cap_ctx ctx = {
--		.callback_ret = false,
--		.capable = true,
+-	struct drm_plane_state state = { 0 };
++static void dm_test_fill_blending_pixel_blend_modes(struct kunit *test)
++{
 +	static const struct {
 +		const char *name;
-+		bool dcc_enable;
-+		enum surface_pixel_format format;
++		unsigned int blend_mode;
++		bool with_fb;
++		bool per_pixel_alpha;
++		bool pre_multiplied_alpha;
++	} cases[] = {
++		{ "defaults", DRM_MODE_BLEND_PIXEL_NONE, false, false, true },
++		{ "premultiplied", DRM_MODE_BLEND_PREMULTI, true, true, true },
++		{ "coverage", DRM_MODE_BLEND_COVERAGE, true, true, false },
++	};
+ 	struct drm_framebuffer fb = { 0 };
+-	bool per_pixel_alpha;
+-	bool pre_multiplied_alpha;
+-	bool global_alpha;
+-	int global_alpha_value;
++	unsigned int i;
+ 
+ 	fb.format = drm_format_info(DRM_FORMAT_ARGB8888);
+ 	KUNIT_ASSERT_NOT_NULL(test, fb.format);
+ 
+-	state.fb = &fb;
+-	state.pixel_blend_mode = DRM_MODE_BLEND_COVERAGE;
+-	state.alpha = 0xffff;
+-
+-	amdgpu_dm_plane_fill_blending_from_plane_state(&state,
+-						       &per_pixel_alpha,
+-						       &pre_multiplied_alpha,
+-						       &global_alpha,
+-						       &global_alpha_value);
+-
+-	KUNIT_EXPECT_TRUE(test, per_pixel_alpha);
+-	KUNIT_EXPECT_FALSE(test, pre_multiplied_alpha);
+-	KUNIT_EXPECT_FALSE(test, global_alpha);
+-	KUNIT_EXPECT_EQ(test, global_alpha_value, 0xff);
++	for (i = 0; i < ARRAY_SIZE(cases); i++) {
++		struct drm_plane_state state = { 0 };
++		bool per_pixel_alpha;
++		bool pre_multiplied_alpha;
++		bool global_alpha;
++		int global_alpha_value;
++
++		if (cases[i].with_fb)
++			state.fb = &fb;
++		state.pixel_blend_mode = cases[i].blend_mode;
++		state.alpha = 0xffff;
++
++		amdgpu_dm_plane_fill_blending_from_plane_state(&state,
++							       &per_pixel_alpha,
++							       &pre_multiplied_alpha,
++							       &global_alpha,
++							       &global_alpha_value);
++
++		KUNIT_EXPECT_EQ_MSG(test, per_pixel_alpha, cases[i].per_pixel_alpha,
++				    "%s", cases[i].name);
++		KUNIT_EXPECT_EQ_MSG(test, pre_multiplied_alpha, cases[i].pre_multiplied_alpha,
++				    "%s", cases[i].name);
++		KUNIT_EXPECT_FALSE_MSG(test, global_alpha, "%s", cases[i].name);
++		KUNIT_EXPECT_EQ_MSG(test, global_alpha_value, 0xff, "%s", cases[i].name);
++	}
+ }
+ 
+ /**
+- * dm_test_fill_blending_global_alpha() - Verify global alpha conversion to 8 bits.
++ * dm_test_fill_blending_global_alpha() - Verify global alpha down-scaling.
+  * @test: KUnit test context.
+  *
+- * Verify if global alpha is enabled and converted from 16-bit to 8-bit.
++ * Verify if global alpha is enabled and the 16-bit DRM alpha is scaled down to
++ * the 8-bit hardware field, or to the 12-bit field used by DCN 4.2.
+  */
+ static void dm_test_fill_blending_global_alpha(struct kunit *test)
+ {
+-	struct amdgpu_device *adev;
+-	struct drm_plane *plane;
+-	struct drm_plane_state *state;
+-	bool per_pixel_alpha;
+-	bool pre_multiplied_alpha;
+-	bool global_alpha;
+-	int global_alpha_value;
+-
+-	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
+-	plane = kunit_kzalloc(test, sizeof(*plane), GFP_KERNEL);
+-	state = kunit_kzalloc(test, sizeof(*state), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, adev);
+-	KUNIT_ASSERT_NOT_NULL(test, plane);
+-	KUNIT_ASSERT_NOT_NULL(test, state);
++	static const struct {
++		const char *name;
++		u32 dce_version;
 +		int expected;
 +	} cases[] = {
-+		{ "dcc disabled", false, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888, 0 },
-+		{ "video before gfx12", true, SURFACE_PIXEL_FORMAT_VIDEO_420_YCbCr, -EINVAL },
-+		{ "no capability callback", true, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888, -EINVAL },
- 	};
--	int ret;
--
--	dm_test_init_validate_dcc_inputs(&adev, &dc, &tiling_info, &dcc, &address,
--					 &plane_size, test);
--	dc->cap_funcs.get_dcc_compression_cap = dm_test_get_dcc_compression_cap;
--	dm_test_dcc_ctx = &ctx;
--
--	ret = amdgpu_dm_plane_validate_dcc(adev, format, rotation, &tiling_info,
--					   &dcc, &address, &plane_size);
--	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
--	KUNIT_EXPECT_TRUE(test, ctx.called);
++		{ "8-bit field", IP_VERSION(4, 0, 0), 0x80 },
++		{ "DCN 4.2 12-bit field", IP_VERSION(4, 2, 0), 0x800 },
++	};
 +	unsigned int i;
  
--	dm_test_dcc_ctx = NULL;
+-	plane->dev = &adev->ddev;
+-	state->plane = plane;
+-	state->pixel_blend_mode = DRM_MODE_BLEND_PIXEL_NONE;
+-	state->alpha = 0x8000;
+-
+-	amdgpu_dm_plane_fill_blending_from_plane_state(state,
+-						       &per_pixel_alpha,
+-						       &pre_multiplied_alpha,
+-						       &global_alpha,
+-						       &global_alpha_value);
+-
+-	KUNIT_EXPECT_FALSE(test, per_pixel_alpha);
+-	KUNIT_EXPECT_TRUE(test, pre_multiplied_alpha);
+-	KUNIT_EXPECT_TRUE(test, global_alpha);
+-	KUNIT_EXPECT_EQ(test, global_alpha_value, 0x80);
 +	for (i = 0; i < ARRAY_SIZE(cases); i++) {
 +		struct amdgpu_device *adev;
-+		struct dc *dc;
-+		struct dc_tiling_info tiling_info = {0};
-+		struct dc_plane_dcc_param dcc = {0};
-+		struct dc_plane_address address = {0};
-+		struct plane_size plane_size = {0};
-+		int ret;
++		struct drm_plane *plane;
++		struct drm_plane_state *state;
++		bool per_pixel_alpha;
++		bool pre_multiplied_alpha;
++		bool global_alpha;
++		int global_alpha_value;
 +
-+		dm_test_init_validate_dcc_inputs(&adev, &dc, &tiling_info, &dcc, &address,
-+						 &plane_size, test);
-+		dcc.enable = cases[i].dcc_enable;
++		adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++		plane = kunit_kzalloc(test, sizeof(*plane), GFP_KERNEL);
++		state = kunit_kzalloc(test, sizeof(*state), GFP_KERNEL);
++		KUNIT_ASSERT_NOT_NULL(test, adev);
++		KUNIT_ASSERT_NOT_NULL(test, plane);
++		KUNIT_ASSERT_NOT_NULL(test, state);
 +
-+		ret = amdgpu_dm_plane_validate_dcc(adev, cases[i].format, ROTATION_ANGLE_0,
-+						   &tiling_info, &dcc, &address, &plane_size);
-+		KUNIT_EXPECT_EQ_MSG(test, ret, cases[i].expected, "%s", cases[i].name);
++		adev->ip_versions[DCE_HWIP][0] = cases[i].dce_version;
++		plane->dev = &adev->ddev;
++		state->plane = plane;
++		state->pixel_blend_mode = DRM_MODE_BLEND_PIXEL_NONE;
++		state->alpha = 0x8000;
++
++		amdgpu_dm_plane_fill_blending_from_plane_state(state,
++							       &per_pixel_alpha,
++							       &pre_multiplied_alpha,
++							       &global_alpha,
++							       &global_alpha_value);
++
++		KUNIT_EXPECT_FALSE_MSG(test, per_pixel_alpha, "%s", cases[i].name);
++		KUNIT_EXPECT_TRUE_MSG(test, pre_multiplied_alpha, "%s", cases[i].name);
++		KUNIT_EXPECT_TRUE_MSG(test, global_alpha, "%s", cases[i].name);
++		KUNIT_EXPECT_EQ_MSG(test, global_alpha_value, cases[i].expected,
++				    "%s", cases[i].name);
 +	}
  }
  
  /**
-- * dm_test_validate_dcc_not_capable_fails() - Verify not-capable callback output.
-+ * dm_test_validate_dcc_rejects_from_cap() - Verify rejections from the DC query.
-  * @test: KUnit test context.
-  *
-- * Verify if validation fails when the DCC capability callback reports that the
-- * surface is not DCC capable.
-+ * Verify if a failing capability callback, a surface reported as not DCC
-+ * capable, and an independent_64b_blks mismatch are all rejected.
-  */
--static void dm_test_validate_dcc_not_capable_fails(struct kunit *test)
-+static void dm_test_validate_dcc_rejects_from_cap(struct kunit *test)
- {
--	struct amdgpu_device *adev;
--	struct dc *dc;
--	struct dc_tiling_info tiling_info = {0};
--	struct dc_plane_dcc_param dcc = {0};
--	struct dc_plane_address address = {0};
--	struct plane_size plane_size = {0};
--	enum surface_pixel_format format = SURFACE_PIXEL_FORMAT_GRPH_ARGB8888;
--	enum dc_rotation_angle rotation = ROTATION_ANGLE_0;
--	struct dm_test_dcc_cap_ctx ctx = {
--		.callback_ret = true,
--		.capable = false,
-+	static const struct {
-+		const char *name;
-+		bool callback_ret;
-+		bool capable;
-+		bool output_independent_64b_blks;
-+		u32 independent_64b_blks;
-+	} cases[] = {
-+		{ "callback fails", false, true, false, 1 },
-+		{ "not capable", true, false, false, 1 },
-+		{ "independent 64B mismatch", true, true, true, 0 },
- 	};
--	int ret;
--
--	dm_test_init_validate_dcc_inputs(&adev, &dc, &tiling_info, &dcc, &address,
--					 &plane_size, test);
--	dc->cap_funcs.get_dcc_compression_cap = dm_test_get_dcc_compression_cap;
--	dm_test_dcc_ctx = &ctx;
--
--	ret = amdgpu_dm_plane_validate_dcc(adev, format, rotation, &tiling_info,
--					   &dcc, &address, &plane_size);
--	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
--	KUNIT_EXPECT_TRUE(test, ctx.called);
-+	unsigned int i;
- 
--	dm_test_dcc_ctx = NULL;
-+	for (i = 0; i < ARRAY_SIZE(cases); i++) {
-+		struct amdgpu_device *adev;
-+		struct dc *dc;
-+		struct dc_tiling_info tiling_info = {0};
-+		struct dc_plane_dcc_param dcc = {0};
-+		struct dc_plane_address address = {0};
-+		struct plane_size plane_size = {0};
-+		struct dm_test_dcc_cap_ctx ctx = {
-+			.callback_ret = cases[i].callback_ret,
-+			.capable = cases[i].capable,
-+			.output_independent_64b_blks = cases[i].output_independent_64b_blks,
-+		};
-+		int ret;
-+
-+		dm_test_init_validate_dcc_inputs(&adev, &dc, &tiling_info, &dcc, &address,
-+						 &plane_size, test);
-+		dcc.independent_64b_blks = cases[i].independent_64b_blks;
-+		dc->cap_funcs.get_dcc_compression_cap = dm_test_get_dcc_compression_cap;
-+		dm_test_dcc_ctx = &ctx;
-+
-+		ret = amdgpu_dm_plane_validate_dcc(adev, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
-+						   ROTATION_ANGLE_0, &tiling_info, &dcc,
-+						   &address, &plane_size);
-+		dm_test_dcc_ctx = NULL;
-+
-+		KUNIT_EXPECT_EQ_MSG(test, ret, -EINVAL, "%s", cases[i].name);
-+		KUNIT_EXPECT_TRUE_MSG(test, ctx.called, "%s", cases[i].name);
-+	}
- }
- 
- /**
-@@ -819,41 +762,6 @@ static void dm_test_validate_dcc_success_and_scan_mapping(struct kunit *test)
- 	dm_test_dcc_ctx = NULL;
+@@ -1157,45 +1126,6 @@ static void dm_test_get_format_info(struct kunit *test)
+ 	KUNIT_EXPECT_NOT_NULL(test, format_info);
  }
  
 -/**
-- * dm_test_validate_dcc_independent_64b_mismatch_fails() - Verify 64B compatibility check.
+- * dm_test_fill_blending_global_alpha_dcn42() - Verify DCN 4.2 alpha scaling.
 - * @test: KUnit test context.
 - *
-- * Verify if validation fails when independent_64b_blks values do not match.
+- * Verify if DCN 4.2 scales the 16-bit DRM alpha down by 4 bits instead of 8.
 - */
--static void dm_test_validate_dcc_independent_64b_mismatch_fails(struct kunit *test)
+-static void dm_test_fill_blending_global_alpha_dcn42(struct kunit *test)
 -{
 -	struct amdgpu_device *adev;
--	struct dc *dc;
--	struct dc_tiling_info tiling_info = {0};
--	struct dc_plane_dcc_param dcc = {0};
--	struct dc_plane_address address = {0};
--	struct plane_size plane_size = {0};
--	struct dm_test_dcc_cap_ctx ctx = {
--		.callback_ret = true,
--		.capable = true,
--		.output_independent_64b_blks = true,
--	};
+-	struct drm_plane *plane;
+-	struct drm_plane_state *state;
+-	bool per_pixel_alpha;
+-	bool pre_multiplied_alpha;
+-	bool global_alpha;
+-	int global_alpha_value;
 -
--	dm_test_init_validate_dcc_inputs(&adev, &dc, &tiling_info, &dcc, &address,
--					 &plane_size, test);
--	dcc.independent_64b_blks = 0;
--	dc->cap_funcs.get_dcc_compression_cap = dm_test_get_dcc_compression_cap;
--	dm_test_dcc_ctx = &ctx;
+-	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
+-	plane = kunit_kzalloc(test, sizeof(*plane), GFP_KERNEL);
+-	state = kunit_kzalloc(test, sizeof(*state), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, adev);
+-	KUNIT_ASSERT_NOT_NULL(test, plane);
+-	KUNIT_ASSERT_NOT_NULL(test, state);
 -
--	KUNIT_EXPECT_EQ(test,
--			amdgpu_dm_plane_validate_dcc(adev, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
--			ROTATION_ANGLE_0, &tiling_info, &dcc,
--			&address, &plane_size),
--			-EINVAL);
+-	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 2, 0);
+-	plane->dev = &adev->ddev;
+-	state->plane = plane;
+-	state->pixel_blend_mode = DRM_MODE_BLEND_PIXEL_NONE;
+-	state->alpha = 0x8000;
 -
--	dm_test_dcc_ctx = NULL;
+-	amdgpu_dm_plane_fill_blending_from_plane_state(state,
+-						       &per_pixel_alpha,
+-						       &pre_multiplied_alpha,
+-						       &global_alpha,
+-						       &global_alpha_value);
+-
+-	KUNIT_EXPECT_TRUE(test, global_alpha);
+-	KUNIT_EXPECT_EQ(test, global_alpha_value, 0x800);
 -}
 -
- /**
-  * dm_test_add_modifier_appends_and_grows() - Verify append and capacity growth.
-  * @test: KUnit test context.
-@@ -3876,13 +3784,9 @@ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
- 	/* amdgpu_dm_plane_fill_gfx9_tiling_info_from_modifier() */
- 	KUNIT_CASE(dm_test_fill_gfx9_tiling_info_from_modifier),
- 	/* amdgpu_dm_plane_validate_dcc() */
--	KUNIT_CASE(dm_test_validate_dcc_disabled_returns_success),
--	KUNIT_CASE(dm_test_validate_dcc_video_non_gfx12_fails),
--	KUNIT_CASE(dm_test_validate_dcc_missing_cap_func_fails),
--	KUNIT_CASE(dm_test_validate_dcc_cap_callback_fails),
--	KUNIT_CASE(dm_test_validate_dcc_not_capable_fails),
-+	KUNIT_CASE(dm_test_validate_dcc_early_exits),
-+	KUNIT_CASE(dm_test_validate_dcc_rejects_from_cap),
- 	KUNIT_CASE(dm_test_validate_dcc_success_and_scan_mapping),
--	KUNIT_CASE(dm_test_validate_dcc_independent_64b_mismatch_fails),
- 	/* amdgpu_dm_plane_init() */
- 	KUNIT_CASE(dm_test_plane_init_creates_optional_properties),
- 	KUNIT_CASE(dm_test_plane_init_creates_color_pipeline),
+ /* Modifier lists are terminated by DRM_FORMAT_MOD_INVALID, which is not counted. */
+ static int dm_test_mods_count(const u64 *mods)
+ {
+@@ -4031,11 +3961,8 @@ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
+ 	/* amdgpu_dm_plane_get_format_info() */
+ 	KUNIT_CASE(dm_test_get_format_info),
+ 	/* amdgpu_dm_plane_fill_blending_from_plane_state() */
+-	KUNIT_CASE(dm_test_fill_blending_defaults),
+-	KUNIT_CASE(dm_test_fill_blending_premulti_alpha_format),
+-	KUNIT_CASE(dm_test_fill_blending_coverage_alpha_format),
++	KUNIT_CASE(dm_test_fill_blending_pixel_blend_modes),
+ 	KUNIT_CASE(dm_test_fill_blending_global_alpha),
+-	KUNIT_CASE(dm_test_fill_blending_global_alpha_dcn42),
+ 	/* amdgpu_dm_plane_modifier_* helpers() */
+ 	KUNIT_CASE(dm_test_modifier_has_dcc),
+ 	KUNIT_CASE(dm_test_modifier_gfx9_swizzle_mode),
 -- 
 2.55.0
 
