@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7ECEC88E77
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 12:46:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 376D6C982C7
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 12:46:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3543810E4A7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F69A10E59A;
 	Wed, 16 Sep 2026 12:46:10 +0000 (UTC)
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E299910E028;
- Wed, 16 Sep 2026 09:53:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 819B410E898;
+ Wed, 16 Sep 2026 09:56:06 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowACXoT_9ZqpqEbPgBw--.16820S2;
- Wed, 16 Sep 2026 17:53:01 +0800 (CST)
+ by APP-03 (Coremail) with SMTP id rQCowACnrTu0Z6pqUb3gBw--.42600S2;
+ Wed, 16 Sep 2026 17:56:04 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: David.Francis@amd.com
+To: Lang.Yu@amd.com
 Cc: airlied@gmail.com, alexander.deucher@amd.com,
  amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  simona@ffwll.ch, Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Fix GEM object leak in amdgpu_gem_op_ioctl()
-Date: Wed, 16 Sep 2026 09:52:33 +0000
-Message-Id: <20260916095233.2009025-1-vulab@iscas.ac.cn>
+Subject: [PATCH] drm/amdgpu: Fix last_update fence leak in amdgpu_vm_init()
+Date: Wed, 16 Sep 2026 09:55:36 +0000
+Message-Id: <20260916095536.2010601-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACXoT_9ZqpqEbPgBw--.16820S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AFWUWFWDZw48Jw4rArykuFg_yoW8Xr1DpF
- s3Xr1jyrWUZF4Ut347Z3Wkuas0kw4IgFW8GF4293ya9w1rJF93XFy5CryjqF97ArZruF42
- qryqyrWFgFnYvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: rQCowACnrTu0Z6pqUb3gBw--.42600S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WrWDtFykWr1fGrW5Gr4rKrg_yoW8XryUpF
+ WfGF17K3yDZr4xtw4UZF18ZFyqkw47XFyFkr4qkr1fWw1rJwnakry5ZrW8Wr97CFZ5AFW3
+ tr1DA3y8XF1qyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
  1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
@@ -45,7 +45,7 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7AFWUWFWDZw48Jw4rArykuFg_yoW8Xr1DpF
  JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
  UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
 X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQMA2qqP7mgDwAAsu
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqP7miUQAAs3
 X-Mailman-Approved-At: Wed, 16 Sep 2026 12:46:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,40 +61,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In the AMDGPU_GEM_OP_GET_MAPPING_INFO case, amdgpu_gem_op_ioctl()
-takes a reference to the GEM object with drm_gem_object_lookup() and
-holds the buffer object locked through drm_exec.  When the allocation
-of the mapping array fails, the function returns -ENOMEM directly,
-leaving the exec locks held and leaking the GEM object reference
-returned by drm_gem_object_lookup().
+amdgpu_vm_init() initializes vm->last_update, vm->last_unlocked and
+vm->last_tlb_flush with references to the stub fence taken via
+dma_fence_get_stub().  The error label at the end of the function
+releases the last_unlocked and last_tlb_flush references with
+dma_fence_put(), but the reference stored in vm->last_update is never
+dropped, so whenever the page table root creation, the reservation of
+the root BO or the PASID registration fails, the stub fence reference
+leaks.
 
-Jump to the out_exec label instead so that drm_exec_fini() and
-drm_gem_object_put() release the locks and the GEM object reference.
+Drop the vm->last_update reference together with the other stub fence
+references on the error path.
 
-Fixes: 4d82724f7f2b ("drm/amdgpu: Add mapping info option for GEM_OP ioctl")
+Fixes: 187916e6ed9d ("drm/amdgpu: install stub fence into potential unused fence pointers")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 123d4a09114d..06dd2e8a5b47 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -1094,8 +1094,10 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 		 * be retried.
- 		 */
- 		vm_entries = kvcalloc(args->num_entries, sizeof(*vm_entries), GFP_KERNEL);
--		if (!vm_entries)
--			return -ENOMEM;
-+		if (!vm_entries) {
-+			r = -ENOMEM;
-+			goto out_exec;
-+		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index fccd758b6699..494197ac20e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2693,6 +2693,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	amdgpu_bo_unref(&root_bo);
  
- 		amdgpu_vm_bo_va_for_each_valid_mapping(bo_va, mapping) {
- 			if (num_mappings < args->num_entries) {
+ error_free_delayed:
++	dma_fence_put(vm->last_update);
+ 	dma_fence_put(vm->last_tlb_flush);
+ 	dma_fence_put(vm->last_unlocked);
+ 	ttm_lru_bulk_move_fini(&adev->mman.bdev, &vm->lru_bulk_move);
 -- 
 2.34.1
 
