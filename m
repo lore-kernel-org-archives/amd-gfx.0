@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75346C982D0
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:52:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E43CEC982C9
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:53:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA9510ECA4;
-	Wed, 16 Sep 2026 17:52:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB0F10ECA1;
+	Wed, 16 Sep 2026 17:53:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tfCqGl6+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tookN4xx";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012016.outbound.protection.outlook.com [52.101.43.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24FFF10EA44
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:57 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010020.outbound.protection.outlook.com
+ [40.93.198.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DADEB10ECA6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ijIOJR0oUodTU1RJy0qzEc3lRGnwIYpQTJ6sDMDIISRnZqmXod/xAmSo4HGboXT/ktbzME63xos1DUkH/tBMj3F9TQCFEMAh4wpibIMK4sT+wpBg9+i3WpEywLFHRy/PkwxJyKM380bNUIiPivWkFRd7F5jKKSLDDjN/uqBPWgdiIq2pnVkrEdvxMJQH8PRTCu6W+L780C/ToMliUemoNJ4qOEFrlb0nJzvnr22ekcQGq4g6ueq612E9wjJbz1tISQ8sE53t/Tijioaj/lXtKA8ja+xrDOEp0clXhbEnkkw206Xvp/ME+U/YAnoiofeyJeoejEXI3e1JhzrRcMXPHg==
+ b=KHSs8iup4X9npqQYONHHEs2aSWvk4q4SSQ3nYKYA5O770FntHMeWUv+Mq+gTzaIlfMF3YoHpqhVU4tMndLjrEkf7qrbmZjPqCFlRXc25liMV+7ifiWMLOfGvgehBMwg37N19KB0hlrKh3R1SJ623yDfvJkWBzqsG5q0dggHWDTZArY7JsnRZML0kLMQOtoF+vsQHTKCHS3xElmIhZQhm0hR9JaIvMWwsCtu93KV2tZzB+Rc45uctNZAtPkia0Ryv67kCnrM8q3E70mtZME/dRpTx2/DvMg63H5TkoIpTaN5V4P3RzwZngYKath0sUsO9komxnOn7t3Ehr0z92MD0GA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QcDBLeoWo1+O2JXhJE4lWAiQRQHS5OBb8mcHu2WJ09E=;
- b=l8Pw3qjr/zwABlUQzUwouRFm/MvFewOMzH9eu9Z2oLEcUHidTYnynrBKIU0wAEujuy6QI/35cd3nYFJlJVXVbbqDikQFkCCt9WMYrVP7Cu41KYbRRmC1fAcKc2biaD/j2ShozkUQSVlCw4ZUQMIvePVqXZCUqdKy57oynxdrh2BfjX8z67Ss7l6nnD2aziE5F9S2Rm+fivXcYQp8TC6OEYEtp8FvCar4FanBFza9iRfVtb2XLcSaI+0Un6DjbArb7ZepqkkV405g0oMBVJuj5VGp3MRPPLWhCD2QVDWGHXfwc3FKNG8p1b7cB7lchlvvX6xoTUG6hMQlNhARIQ3oPw==
+ bh=yNdoKw/F96jNB1b7uzIYKJgUR2wnbW4n5wkvpoygqcI=;
+ b=m05Vnj3+lJiCRD8/lJaym76AA43tVDPYwDu/gUr7Ldkeb3gxLlsbKnsVASrOJgylI7hltDy3WMHRjKIUAwEp5ANjre+LzhaFNBqSqzZuIhm/52NWYWeaOf4Z8aJbarQ1jMyqW/lcYBXiKAMzwNbQaBTucXiZVuEyWiNttdnzX5oUuoSzGDDWqskI09ifnI+Tr+S4mx6bjymKttIWe6wOvIkZbdlTzMvA8XlaqPc7G1SeMNa9INDrGQElqOV3fOpeAvmstHD5TEFFrUvdGcgeQjvpmcg/WVabLouTJ8B5nt43zv3H6bf8nvkOuoQzzntGlba1fTre5g+5n/+hcSJyBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QcDBLeoWo1+O2JXhJE4lWAiQRQHS5OBb8mcHu2WJ09E=;
- b=tfCqGl6+R1O5KSDT8xXKQWcGln+1QTx7Frm8MjT+/F82auAmSnvHZnYA1Md6Ej6IOxEfGPlCXalkrx7gPBFoYDXz8uO80hE7wYLFIjib6i0C2jb25JrXf5U/qHtebz2ezwYYelaLnmA+S4VzpIQ2lo17NqiD1pFkSxUsMCHm6w4=
-Received: from CH0PR03CA0189.namprd03.prod.outlook.com (2603:10b6:610:e4::14)
- by LV3PR12MB9141.namprd12.prod.outlook.com (2603:10b6:408:1a7::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 17:52:46 +0000
-Received: from CH3PEPF00000010.namprd04.prod.outlook.com
- (2603:10b6:610:e4:cafe::aa) by CH0PR03CA0189.outlook.office365.com
- (2603:10b6:610:e4::14) with Microsoft SMTP Server (version=TLS1_3,
+ bh=yNdoKw/F96jNB1b7uzIYKJgUR2wnbW4n5wkvpoygqcI=;
+ b=tookN4xx2RrsI6o+2KtbylrGMlq4CO/hOB2+WkjgWuQEWh4DLweDnDx1w0EGDwvyiJipu2+M5L733CTDby+Akqmbv/O9kk1cr0w9jvXEduQz4AlYub3z28a7tEN2K4yV94qRmfEHXc2jBcfG+jE10f0FchhZT8qizSKaq/Cnlwg=
+Received: from CH0PR03CA0261.namprd03.prod.outlook.com (2603:10b6:610:e5::26)
+ by CY5PR12MB6372.namprd12.prod.outlook.com (2603:10b6:930:e::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
+ 2026 17:52:41 +0000
+Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
+ (2603:10b6:610:e5:cafe::6) by CH0PR03CA0261.outlook.office365.com
+ (2603:10b6:610:e5::26) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 17:52:46 +0000
+ 16 Sep 2026 17:52:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000010.mail.protection.outlook.com (10.167.244.41) with Microsoft
+ CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:46 +0000
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:40 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 12:52:35 -0500
+ 2026 12:52:30 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +64,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- "George Zhang" <george.zhang@amd.com>
-Subject: [PATCH 28/64] drm/amd/display: Test EDID helper paths
-Date: Wed, 16 Sep 2026 13:51:43 -0400
-Message-ID: <20260916175301.368306-29-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Piotr Maziarz <piotr.maziarz@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 22/64] drm/amd/display: Refactor DPP_PROGRAM_UPSP to drop
+ pipe_ctx
+Date: Wed, 16 Sep 2026 13:51:37 -0400
+Message-ID: <20260916175301.368306-23-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916175301.368306-1-george.zhang@amd.com>
 References: <20260916175301.368306-1-george.zhang@amd.com>
@@ -79,29 +81,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000010:EE_|LV3PR12MB9141:EE_
-X-MS-Office365-Filtering-Correlation-Id: 794447bf-00d0-499f-cba3-08df141b50e9
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|CY5PR12MB6372:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6888427-6388-43f6-af27-08df141b4d68
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|10067099003|6133799003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: inp6TPb/0a57SrMHaq2rp7wmnoI1LOSIZnujDNUkWL/wHDeTboiPbrmRodmVyA8sNgyKDLTb7eZ0cpxZgPFTCKnOzXZnPwp2vF/F5Y+yZPLCt3xHjTxV9p98l13hTGSG40jG0hXiAL8wBK80SPjPr8UE/w/meC7dpPjJaTRC+cL2f3i903kqpazqu8gjLFI1TP/n4DuEM0Q2ZLW6k+rFNdw8gcAFFQSIM1NYHp2MhA9eewsncnz8z7sIW6ZpCLs8M5Mdt9l8Hn/Xo7IxzCv6SsyS+5FPNXbZUlMYEHpOK1O6bUlU2BUevfKSPgSfb5aabtsYhXDmewMNxevTfDYtAETTI+p5u7Dhy+iawKvHTWTtr1eVD2F9zL6KST5J5qwF/Umm0cpo92AtCK56rMfGvppT+ws4I712pA94XJHVXLJR5c7HjznyFZUut1dsE4ybiufy/Arh6yCdfR5Lh4xONermbpb90NpOsyGL7wOgfdH6+5AENDOGgNFfO2WCmdomxh09DtBvLWr6kF1Rk0ViH02DUBU/GVu4xMdweFPc42X15VCtTQWMQRtgp81FkLDGERA25Qkt3dkpAVBsCI+dABOgPE+Rrwi8rkTSLuQdDHzGhClEf6jHLNqlqTsYco9J0h0oG2LZKzuiFcmYbah2wxAtz8fpWb1j8ngiamOlnJb8JXaT9z/dKpNa1KC12fSOjeL+RfijFlpYj1X3+y6Q3A==
+ ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|56012099006|3023799007|11063799006|22082099003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info: Zfvau1ApBrAG2Vplw2r02sNy4YWZFslDYnV0Z4y6+/h3ehHmREcNJluYWEvFlQML7iwbQ/9o5focNkp+8tVHyK3idHKSFdTRHZGGZex8RBg7p6QPIAIN6x4tHlvdVWYudNPEyPI8cLRRANjKT2M6vGjnLFfTyBEULWrAKNNheBgoS70f7MDK5ksDiV25uDBIm3reFwJQwTY+p1OFBzTPpADG0OPPDF3nhogkaPdlx5odO+UaZS1SXakQDF7CugXgYgxY/AXbsBNwd074unmRQBUfuZek3Nv0k7ucd2VWZJddJIusT6iiE9m/1twSNDyawQh+u83OSZthnLGESH9bawzS1Q/4U76ZTLqJT8Zsj6i1qIP10stZZowBr5u6gAExCzq90CMLhdqtet3wIl9GkjFx4fyBt2xMpjHiNFA66PgRm0s+CWcAKA0c+vlPd9QS7xEtjeTzLsWjkQk1dPEs3/p5xwpbM7VQLMqskN9KJrqh4zbakc0dh6/NRgvIzNT7H0ptVu/ye4sEU/4x2EMFNtivL2Ah2pYI1su9Plr1E9IWTkOLk2/cU2AmkpscXMO5HLoZXdGUxB68pD7R1bNg/RGYoc4mmcVDfcpbcuQpWtv2jNvJSSqkpLGIeHcnC2TCr2OWc+Z2PxTUVaA/umiV3zXYh2yVTA3SriqCNcFf0mVeVlzBeSqnrWYmg/RKYBzQQc35TYcNX7QhxycBqnz17w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006);
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(56012099006)(3023799007)(11063799006)(22082099003)(18002099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: yD4UDSpI54CKlB0iJrqaDELYemBERzlWFXqEGcxqZAm0tn8/I/NumuHN2S2ieiVeLZu0/Wk2eqAQvKPGuIAsdYrGjlUWgWy8XuaRWjVb6BsLIAGj0gRU/8/W9+jnjzguO4D77e3dt9eZYp9hOKIsFzfHrVD3a/N1OsGdPSA1sfkypN3ZBsAOKiCobJlWzz6A9pAJP8u28f5hjHGg15iGTTCgNMJqjbvGWUu+9IrsJgVaUv7347O7eNy/hWF4sFWuEjpDqYM0mGUyOFmVWFqGOU8JsCmI0d2+nKh+KwGBbddP81qPMJSJkO05d0/Kv29T/il1iLzpvoVGZXXDdXqaNefakdQRgJE5q7IEiKrqJU0CFPmXbayUbRdEro5BC2CU3fuVtmPo9+icISe2A17Vs2AKmbaLcTq+AR2FINDAPOfzoJ/iADcJHscklHbIWN61
+X-MS-Exchange-AntiSpam-MessageData-0: Wz0fgVnNv93f5FXdAMv1AR6ZONi7txsqwE2OwJlwVgKAQHA2Ro1VGFlNoJguifiDuFgqBq8Xd9gn6KofWu9buzoyPtJXksKiM8EAsDkLJSdytzSZfnxz+SWWtlkI+ij+3hqWKnQISQjWDO3KyAfK1/+hpBaJ+CUadn3pucFNSnCJ5lxtYqv8oIHRZrHW3fbMBNJCXy63wEryo/u/glwsC8ZFCStlC3/R5FIl0P+sawiiGGV/J3jdjOMGzw4hR2Ga0MVYMF+sCrf0Hh+vRjBqA608QJPHPxsASEPXq0+mY0wlQBE0r7LwzWu2dGuJ0hxN8dYIquF58xEe9o5hm1sb2dxAOpW2NxbwkX23zMcbeZvJQGad+CxULYbNPZtlOpSc73hNdRLb6KcFhsWHbalRTWbVWGBmMAY0EcUtjCaqngJykYCuhGCd2CBfVqrFQR2Y
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:46.3477 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 794447bf-00d0-499f-cba3-08df141b50e9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:40.4662 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6888427-6388-43f6-af27-08df141b4d68
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000010.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9141
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6372
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,203 +118,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Piotr Maziarz <piotr.maziarz@amd.com>
 
-[WHAT]
-Add KUnit tests for three EDID paths in amdgpu_dm_helpers.c the SDC
-panel PSR PHY power-down quirk in apply_edid_quirks(), the HDMI
-compliance-auto branch of dm_helpers_parse_edid_caps(), and the VBIOS
-fallback and corrupt-EDID paths of dm_helpers_read_local_edid().
+[Why]
+Hwss executors shouldn't be coupled to complex dc structs such as
+pipe_ctx. The DPP_PROGRAM_UPSP executor took a whole pipe_ctx only to
+reach two fields.
 
-[HOW]
-apply_edid_quirks() is driven twice with the SDC panel ids, once on a
-DisplayPort signal and once on eDP, showing the quirk is embedded-only.
+[How]
+Change program_upsp_params to hold the dpp and the dscl_prog_data that
+dpp_program_upsp() actually needs, and extract them in the generic HWSS
+layer. Add hwss_add_dpp_program_upsp() so the build site uses a helper
+with the standard bounds check instead of assigning the step inline.
+Update the BLS specs.
 
-dm_helpers_parse_edid_caps() runs against an HDMI connector whose
-hdmi_comp_auto flag is set, so the FRL and FRL DSC debug options are
-forced on and the quirk is recorded in the panel patch.
-
-dm_helpers_read_local_edid() is given an embedded link with no DDC
-line, so it falls back to the EDID hardcoded in the VBIOS embedded
-panel info that the existing fake dc_bios supplies. A second test
-corrupts the base block checksum served by the fake AUX DDC, so the
-read fails, the real checksum is written back and EDID_BAD_CHECKSUM is
-reported.
-
-Assisted-by: Copilot:Claude-Opus-5
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Piotr Maziarz <piotr.maziarz@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c  | 120 ++++++++++++++++++
- 1 file changed, 120 insertions(+)
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 35 ++++++++++---------
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  8 ++++-
+ 2 files changed, 26 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
-index 51c3995de76d..b433634e0390 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
-@@ -176,6 +176,34 @@ static void dm_test_apply_edid_quirks_disable_colorimetry(struct kunit *test)
- 	KUNIT_EXPECT_TRUE(test, edid_caps.panel_patch.disable_colorimetry);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index 6ed22b2e9c74..b3270f5bb56e 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -1023,11 +1023,9 @@ void hwss_build_full_sequence(struct dc *dc,
+ 					if (current_pipe->plane_res.hubp->funcs->hubp_program_mcache_id_and_split_coordinate)
+ 						hwss_add_hubp_program_mcache_id(&seq_state, current_pipe->plane_res.hubp, &current_pipe->mcache_regs);
+ 
+-					if (current_pipe->plane_res.dpp->funcs->dpp_program_upsp) {
+-						block_sequence[*num_steps].params.program_upsp_params.pipe_ctx = current_pipe;
+-						block_sequence[*num_steps].func = DPP_PROGRAM_UPSP;
+-						(*num_steps)++;
+-					}
++					if (current_pipe->plane_res.dpp->funcs->dpp_program_upsp)
++						hwss_add_dpp_program_upsp(&seq_state, current_pipe->plane_res.dpp,
++							&current_pipe->plane_res.scl_data.dscl_prog_data);
+ 				}
+ 			}
+ 			current_pipe = current_pipe->bottom_pipe;
+@@ -3009,18 +3007,11 @@ void hwss_program_bias_and_scale(union block_sequence_params *params)
+ 
+ void hwss_program_upsp(union block_sequence_params *params)
+ {
+-	struct pipe_ctx *pipe_ctx = params->program_upsp_params.pipe_ctx;
+-	struct dpp *dpp = pipe_ctx->plane_res.dpp;
+-	struct dscl_prog_data *dscl_prog_data = &pipe_ctx->plane_res.scl_data.dscl_prog_data;
++	struct dpp *dpp = params->program_upsp_params.dpp;
++	const struct dscl_prog_data *dscl_prog_data = params->program_upsp_params.dscl_prog_data;
+ 
+-	if (!dpp || !dscl_prog_data)
+-		return;
+-
+-	if (dpp && dpp->funcs->dpp_program_upsp) {
+-		// program upsampler
+-		dpp->funcs->dpp_program_upsp(dpp,
+-				dscl_prog_data);
+-	}
++	if (dpp && dscl_prog_data && dpp->funcs->dpp_program_upsp)
++		dpp->funcs->dpp_program_upsp(dpp, dscl_prog_data);
  }
  
-+/**
-+ * dm_test_apply_edid_quirks_psr_phy_power_down - Test SDC PSR PHY power-down quirk
-+ * @test: The KUnit test context
-+ *
-+ * The quirk is embedded-only, so an external signal leaves the debug option
-+ * alone and an embedded one forces PHY power down/up level 2.
-+ */
-+static void dm_test_apply_edid_quirks_psr_phy_power_down(struct kunit *test)
-+{
-+	struct dc_edid_caps edid_caps = {0};
-+	struct dc_link *link = dm_test_quirk_link(test);
-+	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
-+	struct edid *external = dm_test_edid_with_panel_id(test,
-+			drm_edid_encode_panel_id('S', 'D', 'C', 0x4197));
-+	struct edid *embedded = dm_test_edid_with_panel_id(test,
-+			drm_edid_encode_panel_id('S', 'D', 'C', 0x4203));
-+
-+	link->ctx = dc->ctx;
-+
-+	link->connector_signal = SIGNAL_TYPE_DISPLAY_PORT;
-+	apply_edid_quirks(link, external, &edid_caps);
-+	KUNIT_EXPECT_FALSE(test, dc->debug.psr_phy_force_phy_power_down_up_level_2);
-+
-+	link->connector_signal = SIGNAL_TYPE_EDP;
-+	apply_edid_quirks(link, embedded, &edid_caps);
-+	KUNIT_EXPECT_TRUE(test, dc->debug.psr_phy_force_phy_power_down_up_level_2);
-+}
-+
- /**
-  * dm_test_apply_edid_quirks_skip_phy_ssc - Test DEL 0x4147 PHY SSC quirk
-  * @test: The KUnit test context
-@@ -463,6 +491,40 @@ static void dm_test_parse_edid_caps_hdmi_frl_dsc(struct kunit *test)
- 	KUNIT_EXPECT_TRUE(test, edid_caps->frl_dsc_10bpc);
+ void hwss_power_on_mpc_mem_pwr(union block_sequence_params *params)
+@@ -5737,6 +5728,18 @@ void hwss_add_dpp_set_scaler(struct block_sequence_state *seq_state,
+ 	}
  }
  
-+/**
-+ * dm_test_parse_edid_caps_hdmi_comp_auto - Test the HDMI compliance-auto branch
-+ * @test: The KUnit test context
-+ *
-+ * A connector flagged for automated HDMI compliance forces the FRL and FRL DSC
-+ * debug options on and records the quirk in the panel patch.
-+ */
-+static void dm_test_parse_edid_caps_hdmi_comp_auto(struct kunit *test)
++void hwss_add_dpp_program_upsp(struct block_sequence_state *seq_state,
++		struct dpp *dpp,
++		const struct dscl_prog_data *dscl_prog_data)
 +{
-+	struct dc_link *link = dm_test_quirk_link(test);
-+	struct amdgpu_dm_connector *aconnector = link->priv;
-+	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
-+	struct dc_edid_caps *edid_caps;
-+	struct dc_edid *dc_edid;
-+
-+	dc_edid = kunit_kzalloc(test, sizeof(*dc_edid), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, dc_edid);
-+	edid_caps = kunit_kzalloc(test, sizeof(*edid_caps), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, edid_caps);
-+
-+	link->dc = dc;
-+	link->ctx = dc->ctx;
-+
-+	dm_test_fill_base_edid(dc_edid, true);
-+
-+	aconnector->base.display_info.is_hdmi = true;
-+	aconnector->hdmi_comp_auto = true;
-+
-+	KUNIT_EXPECT_EQ(test, dm_helpers_parse_edid_caps(link, dc_edid, edid_caps), EDID_OK);
-+	KUNIT_EXPECT_TRUE(test, edid_caps->panel_patch.hdmi_comp_auto);
-+	KUNIT_EXPECT_TRUE(test, dc->debug.force_frl_max);
-+	KUNIT_EXPECT_TRUE(test, dc->debug.force_frl_dsc);
++	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
++		seq_state->steps[*seq_state->num_steps].func = DPP_PROGRAM_UPSP;
++		seq_state->steps[*seq_state->num_steps].params.program_upsp_params.dpp = dpp;
++		seq_state->steps[*seq_state->num_steps].params.program_upsp_params.dscl_prog_data = dscl_prog_data;
++		(*seq_state->num_steps)++;
++	}
 +}
 +
- /*
-  * Build a 2-block EDID: a valid base block plus a CTA-861 extension block
-  * carrying one LPCM Short Audio Descriptor and, when @with_speaker is set, a
-@@ -4570,6 +4632,60 @@ static void dm_test_read_local_edid_i2c_no_response(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, dm_test_prepare_ddc_calls, 1U);
- }
- 
-+/**
-+ * dm_test_read_local_edid_vbios_embedded - Test the VBIOS hardcoded EDID path
-+ * @test: The KUnit test context
-+ *
-+ * An embedded panel with no DDC line has no I2C adapter to read from, so the
-+ * helper falls back to the EDID hardcoded in the VBIOS embedded panel info.
-+ */
-+static void dm_test_read_local_edid_vbios_embedded(struct kunit *test)
-+{
-+	struct dm_test_local_edid fixture = dm_test_setup_local_edid(test);
-+	struct dm_test_vbios_edid *vbios;
-+
-+	vbios = kunit_kzalloc(test, sizeof(*vbios), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, vbios);
-+
-+	vbios->bios.funcs = &dm_test_vbios_edid_funcs;
-+	vbios->result = BP_RESULT_OK;
-+	/* the fixture already holds a valid base EDID */
-+	vbios->fake_edid = fixture.aux->edid;
-+	vbios->fake_edid_size = EDID_LENGTH;
-+
-+	fixture.ctx->dc_bios = &vbios->bios;
-+	fixture.link->ctx = fixture.ctx;
-+	fixture.link->aux_mode = false;
-+	fixture.link->ddc_hw_inst = GPIO_DDC_LINE_UNKNOWN;
-+	fixture.link->connector_signal = SIGNAL_TYPE_EDP;
-+
-+	KUNIT_EXPECT_EQ(test,
-+			dm_helpers_read_local_edid(fixture.ctx, fixture.link, fixture.sink),
-+			EDID_OK);
-+	KUNIT_EXPECT_EQ(test, fixture.sink->dc_edid.length, (uint32_t)EDID_LENGTH);
-+	KUNIT_EXPECT_EQ(test, fixture.sink->edid_caps.manufacturer_id, 0xAC10);
-+}
-+
-+/**
-+ * dm_test_read_local_edid_corrupt_checksum - Test the corrupt-EDID compliance path
-+ * @test: The KUnit test context
-+ *
-+ * The sink serves an EDID with a bad checksum, so the DDC read fails and marks
-+ * the connector's EDID corrupt. The helper writes the real checksum back over
-+ * AUX, clears the corrupt flag and reports EDID_BAD_CHECKSUM.
-+ */
-+static void dm_test_read_local_edid_corrupt_checksum(struct kunit *test)
-+{
-+	struct dm_test_local_edid fixture = dm_test_setup_local_edid(test);
-+
-+	fixture.aux->edid[EDID_LENGTH - 1] ^= 0xFF;
-+
-+	KUNIT_EXPECT_EQ(test,
-+			dm_helpers_read_local_edid(fixture.ctx, fixture.link, fixture.sink),
-+			EDID_BAD_CHECKSUM);
-+	KUNIT_EXPECT_FALSE(test, fixture.aconnector->base.edid_corrupt);
-+}
-+
- static struct kunit_case amdgpu_dm_helpers_test_cases[] = {
- 	/* edid_extract_panel_id */
- 	KUNIT_CASE(dm_test_edid_extract_panel_id_basic),
-@@ -4579,6 +4695,7 @@ static struct kunit_case amdgpu_dm_helpers_test_cases[] = {
- 	KUNIT_CASE(dm_test_apply_edid_quirks_disable_fams),
- 	KUNIT_CASE(dm_test_apply_edid_quirks_remove_sink_ext_caps),
- 	KUNIT_CASE(dm_test_apply_edid_quirks_disable_colorimetry),
-+	KUNIT_CASE(dm_test_apply_edid_quirks_psr_phy_power_down),
- 	KUNIT_CASE(dm_test_apply_edid_quirks_skip_phy_ssc),
- 	KUNIT_CASE(dm_test_apply_edid_quirks_force_freesync_min),
- 	KUNIT_CASE(dm_test_apply_edid_quirks_unknown_noop),
-@@ -4591,6 +4708,7 @@ static struct kunit_case amdgpu_dm_helpers_test_cases[] = {
- 	KUNIT_CASE(dm_test_parse_edid_caps_bad_checksum),
- 	KUNIT_CASE(dm_test_parse_edid_caps_hdmi_frl),
- 	KUNIT_CASE(dm_test_parse_edid_caps_hdmi_frl_dsc),
-+	KUNIT_CASE(dm_test_parse_edid_caps_hdmi_comp_auto),
- 	KUNIT_CASE(dm_test_parse_edid_caps_cea_audio),
- 	KUNIT_CASE(dm_test_parse_edid_caps_cea_no_speaker),
- 	/* ACPI / VBIOS / local EDID readers */
-@@ -4774,6 +4892,8 @@ static struct kunit_case amdgpu_dm_helpers_test_cases[] = {
- 	KUNIT_CASE(dm_test_read_local_edid_aux_mode),
- 	KUNIT_CASE(dm_test_read_local_edid_test_request),
- 	KUNIT_CASE(dm_test_read_local_edid_i2c_no_response),
-+	KUNIT_CASE(dm_test_read_local_edid_vbios_embedded),
-+	KUNIT_CASE(dm_test_read_local_edid_corrupt_checksum),
- 	{}
+ void hwss_add_hubp_mem_program_viewport(struct block_sequence_state *seq_state,
+ 		struct hubp *hubp,
+ 		const struct rect *viewport,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index fc5935b1e8b7..7d4310c0ef3f 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -54,6 +54,7 @@ struct pg_block_update;
+ struct drr_params;
+ struct dc_underflow_debug_data;
+ struct dsc_optc_config;
++struct dscl_prog_data;
+ struct vm_system_aperture_param;
+ struct stream_encoder;
+ struct hpo_dp_stream_encoder;
+@@ -171,7 +172,8 @@ struct set_output_transfer_func_params {
+ 	const struct dc_stream_state *stream;
+ };
+ struct program_upsp_params {
+-	struct pipe_ctx *pipe_ctx;
++	struct dpp *dpp;
++	const struct dscl_prog_data *dscl_prog_data;
  };
  
+ struct update_visual_confirm_params {
+@@ -2628,6 +2630,10 @@ void hwss_add_dpp_set_scaler(struct block_sequence_state *seq_state,
+ 		struct dpp *dpp,
+ 		const struct scaler_data *scl_data);
+ 
++void hwss_add_dpp_program_upsp(struct block_sequence_state *seq_state,
++		struct dpp *dpp,
++		const struct dscl_prog_data *dscl_prog_data);
++
+ void hwss_add_hubp_mem_program_viewport(struct block_sequence_state *seq_state,
+ 		struct hubp *hubp,
+ 		const struct rect *viewport,
 -- 
 2.55.0
 
