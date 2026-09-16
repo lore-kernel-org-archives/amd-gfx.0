@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A484BC88E77
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 10:38:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75CBBC88E7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 10:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7FF310E7C1;
-	Wed, 16 Sep 2026 10:38:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98ACA10E334;
+	Wed, 16 Sep 2026 10:42:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iRR3Vb7G";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jyRcyFW7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48D6410E6D2;
- Wed, 16 Sep 2026 10:38:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C009910E1F7;
+ Wed, 16 Sep 2026 10:42:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789555126; x=1821091126;
+ t=1789555359; x=1821091359;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version:content-transfer-encoding;
- bh=Xxykja+4BoQlnwOxSeW9w41xWfp/zSMiUOg5SOqiDLI=;
- b=iRR3Vb7GH3MKD7Rpj8HuiIay1ntqoUoH6WMIPi7ptEZNrnz+OKruATkm
- 04RANuEiur/qmfgvGZlZcxLgCQ1bnl8fyT1KU+Hc844w57qes9zC9j+Ga
- tGNPNMZrDqkwz4p21Fvcc7ExArmSypsoUcHJgCW7lS8LrVIOgeJ5vG5oP
- sBSknrhuyafuUdBubBC1WO655Z0AS4lXvvnRqF4keKKl2Cp7s3jVu48O3
- 8DbRt+NFpWkjZMFtV4ThVCpOTFDJrPiuQNDvzlNHHai43yuwI6xnJs54E
- M7Q/iW8ooZ0da9MZPtC17EQEmrRDhPySZ92/p0fAmjioiXh8h3uDigkq8 A==;
-X-CSE-ConnectionGUID: pKF8vw1gTCiO/QFQYSHwGg==
-X-CSE-MsgGUID: M813it9iRSiJVetTKrAlBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112696478"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="112696478"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2026 03:38:45 -0700
-X-CSE-ConnectionGUID: PArHnSarQJ6INAQ9PBuLTQ==
-X-CSE-MsgGUID: FPa+hUYUSR2kOVzjtbOrsA==
+ bh=jybIAO1GLgcddy90NEDtvTS4obrkgO3TiNCU1c7O9uo=;
+ b=jyRcyFW7FbganaVAxlywt8nsX7dK9tsR4Tpo0icA8uUxDM+B0YyAfgz6
+ tJB8PuR/Sg4NAk2YpCk2GolVVGG7YE8sml0CAFqZC4OqwFCoxJbCohK6W
+ m/lbGHV7oHSo5z+4D2/tpNZHN45EWj6Pa8x2BrubhRN+6AClliiTBFJr3
+ SdbbDp/owE+kUowPXYyKROu+9ER19G8HdS35PIaq/gcyY5i03SPDqDwtM
+ xkNZQgXP7vEKevKSQ5Oqwgh3DcZqwFdNTOZ4z6CG2mMIIbQjprXJoBar8
+ 9voNG1IPVjUwSE28BbXm7Nn8jaHBAP7+voCCxiwCg0IC3fUq9WCxeS8gs Q==;
+X-CSE-ConnectionGUID: sa8RkIPvR52N3wQwLR+WOg==
+X-CSE-MsgGUID: k6baR9duTge7SShPnjc8RA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89771838"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="89771838"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 03:42:39 -0700
+X-CSE-ConnectionGUID: UfEt6JBJQuqv4M9vFNp5Ow==
+X-CSE-MsgGUID: oR1r9IgtR6ecYm8gQUvzyA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="273270270"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="273846995"
 Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.147])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2026 03:38:40 -0700
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2026 03:42:33 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: =?utf-8?Q?Ma=C3=ADra?= Canal <mcanal@igalia.com>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
@@ -56,15 +56,14 @@ To: =?utf-8?Q?Ma=C3=ADra?= Canal <mcanal@igalia.com>, Maarten Lankhorst
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  =?utf-8?Q?Ma=C3=ADra?= Canal <mcanal@igalia.com>
-Subject: Re: [PATCH v3 2/7] drm: Add drm_timeout_rel_to_jiffies()
-In-Reply-To: <c20c43109d3ebb08ad6a0c811ffaeb48f90efed5@intel.com>
+Subject: Re: [PATCH v3 5/7] drm/i915: Use drm_timeout_rel_to_jiffies()
+In-Reply-To: <20260915-drm-timeout-helpers-v3-5-f2ae987d861f@igalia.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
- <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
- <c20c43109d3ebb08ad6a0c811ffaeb48f90efed5@intel.com>
-Date: Wed, 16 Sep 2026 13:38:37 +0300
-Message-ID: <92e315da6bd0a3daa36948f4de2e1b4f82c49e27@intel.com>
+ <20260915-drm-timeout-helpers-v3-5-f2ae987d861f@igalia.com>
+Date: Wed, 16 Sep 2026 13:42:30 +0300
+Message-ID: <14ba4c66ffb00d478e71448112492a1bcd13facb@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -82,128 +81,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 16 Sep 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Tue, 15 Sep 2026, Ma=C3=ADra Canal <mcanal@igalia.com> wrote:
->> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
->> absolute deadline, but there is no equivalent for the drivers that
->> express a wait as a duration. Drivers such as i915 and v3d convert the
->> value themselves.
->>
->> Converting a nanosecond duration to jiffies needs some care.
->> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
->> userspace-supplied timeout overflows its range and is silently truncated.
->>
->> i915 already handles both cases in a local helper, which v3d has a copy
->> of. Add the same conversion to the core, so that it is available to any
->> driver and both copies can be dropped.
->>
->> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
->> ---
->>  drivers/gpu/drm/drm_timeout.c | 45 ++++++++++++++++++++++++++++++++++++=
-+++++++
->>  include/drm/drm_timeout.h     |  1 +
->>  2 files changed, 46 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout=
-.c
->> index 35e10293e0a1..ee545475429c 100644
->> --- a/drivers/gpu/drm/drm_timeout.c
->> +++ b/drivers/gpu/drm/drm_timeout.c
->> @@ -9,6 +9,7 @@
->>  #include <linux/export.h>
->>  #include <linux/jiffies.h>
->>  #include <linux/ktime.h>
->> +#include <linux/math64.h>
->>  #include <linux/sched.h>
->>=20=20
->>  #include <drm/drm_timeout.h>
->> @@ -48,3 +49,47 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeou=
-t_nsec)
->>  	return timeout_jiffies64 + 1;
->>  }
->>  EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
->> +
->> +/**
->> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative=
- value
->> + * @timeout_nsec: relative timeout in ns, 0 for poll
->> + *
->> + * Calculate the timeout in jiffies from a relative timeout in ns, for =
-drivers
->> + * whose UAPI expresses a wait as a duration rather than as a deadline.
->> + *
->> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive on=
-ce it is
->> + * converted to the signed long taken by dma_fence_wait_timeout() and f=
-riends,
->> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIM=
-EOUT so
->> + * that a finite wait is never understood as an infinite one.
->> + *
->> + * It's strongly discouraged to use relative timeouts in uAPIs, as they=
- do not
->> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered =
-with the
->> + * same arguments, so the duration starts counting from zero again. New=
- uAPIs
->> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies(=
-).
->> + *
->> + * Returns:
->> + * 0 if @timeout_nsec is 0. Otherwise the equivalent number of jiffies =
+On Tue, 15 Sep 2026, Ma=C3=ADra Canal <mcanal@igalia.com> wrote:
+> nsecs_to_jiffies_timeout() originated here and has since been copied into
+> another driver. It is now available in "drm_timeout.c", so use it and drop
+> the local definition.
+>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
 and
->> + * clamped to MAX_JIFFY_OFFSET.
->> + */
->> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
->> +{
->> +	u64 secs;
->> +	u32 rem;
->> +
->> +	/* Make 0 timeout means poll, as for the absolute variant. */
->> +	if (timeout_nsec =3D=3D 0)
->> +		return 0;
->> +
->> +	/*
->> +	 * As nsecs_to_jiffies64() does not guard against overflow, split
->> +	 * the timeout into whole seconds and nanoseconds. This way
->> +	 * nsecs_to_jiffies64() is always handed a value below a second.
->> +	 */
->> +	secs =3D div_u64_rem(timeout_nsec, NSEC_PER_SEC, &rem);
->> +	if (secs >=3D MAX_JIFFY_OFFSET / HZ)
->> +		return MAX_JIFFY_OFFSET;
->> +
->> +	return min_t(u64, MAX_JIFFY_OFFSET,
->> +		     secs_to_jiffies(secs) + nsecs_to_jiffies64(rem) + 1);
->> +}
->> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
->> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
->> index cd9621c52062..6ee222a3e97c 100644
->> --- a/include/drm/drm_timeout.h
->> +++ b/include/drm/drm_timeout.h
->> @@ -12,5 +12,6 @@
->>  #include <linux/types.h>
->>=20=20
->>  signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
->> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
->
-> The signed/unsigned differences here bug me a little. Maybe explain why
-> in the commit message if there's a rationale?
->
-> I note that drm_timeout_rel_to_jiffies() return value is assigned to
-> unsigned long variables half the time. I guess its kernel-doc could say
-> it never returns negative values?
 
-Gah, I meant drm_timeout_abs_to_jiffies() here, sorry.
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
+for merging via drm-misc.
+
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_wait.c | 17 +++--------------
+>  1 file changed, 3 insertions(+), 14 deletions(-)
 >
-> BR,
-> Jani.
->
->
->
->
->>=20=20
->>  #endif
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i=
+915/gem/i915_gem_wait.c
+> index 2893df65c359..872d4045813a 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
+> @@ -7,6 +7,8 @@
+>  #include <linux/dma-fence-chain.h>
+>  #include <linux/jiffies.h>
+>=20=20
+> +#include <drm/drm_timeout.h>
+> +
+>  #include "gt/intel_engine.h"
+>  #include "gt/intel_rps.h"
+>=20=20
+> @@ -184,25 +186,12 @@ i915_gem_object_wait(struct drm_i915_gem_object *ob=
+j,
+>  	return !timeout ? -ETIME : 0;
+>  }
+>=20=20
+> -static inline unsigned long nsecs_to_jiffies_timeout(const u64 n)
+> -{
+> -	/* nsecs_to_jiffies64() does not guard against overflow */
+> -	if ((NSEC_PER_SEC % HZ) !=3D 0 &&
+> -	    div_u64(n, NSEC_PER_SEC) >=3D MAX_JIFFY_OFFSET / HZ)
+> -		return MAX_JIFFY_OFFSET;
+> -
+> -	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(n) + 1);
+> -}
+> -
+>  static unsigned long to_wait_timeout(s64 timeout_ns)
+>  {
+>  	if (timeout_ns < 0)
+>  		return MAX_SCHEDULE_TIMEOUT;
+>=20=20
+> -	if (timeout_ns =3D=3D 0)
+> -		return 0;
+> -
+> -	return nsecs_to_jiffies_timeout(timeout_ns);
+> +	return drm_timeout_rel_to_jiffies(timeout_ns);
+>  }
+>=20=20
+>  /**
 
 --=20
 Jani Nikula, Intel
