@@ -4,120 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16C6FC88E77
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 09:31:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8580C88E77
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 10:02:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 862D110E97C;
-	Wed, 16 Sep 2026 09:31:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E35610E039;
+	Wed, 16 Sep 2026 10:02:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qm5q9D8W";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xH322+AJ";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010041.outbound.protection.outlook.com [52.101.201.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF7A210EAD2
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 09:31:24 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013035.outbound.protection.outlook.com
+ [40.107.201.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F130710E039
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 10:02:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TbCWqcCdP2TbmrjjtVGZMlbpneKxaBjVM56DgltdHGM/Q+pNX1qoeJAeLDxDTdBY+1W8SBbE2o5EOmtYnTyYUeeQK8c/lRfhthYwIYxaNEqO8cOfsYZHHcZtTzHI3qc1/tjfOh5RZAQKG7rn9WShI9/7Q6snZQ6hCjmswxPKnk8Plk6UvqfZ0ray9EvkaERgcls9tTB61mimI/S55/XEuXqmM/Oo7HfTqomBkKNFkn2z82fL5wdiKP+d2Y63EVLw1GvYbHalhpTcg74RobHJdB1Wu0TJPjKiDiuDmXKdcJmSGHcdqmoC1QRfvh8f6upSwCtnaiY1vXe1qySdVI3PMw==
+ b=QTGDM/zWbPljQFZf7BiBXC+ouq0H5A/jZaEdeB6sBbT6bsEJmQX96Oilk2T3LDxaz0TXbevq5lesxxoECFKX49p+Rr1D84buu3k6DyxZkJwlw1z0DM6fDDWs7XqQqOh4UlZ+/T7K0+C2VyfqUZxLirJy9Sq7DUfbVpW4WbxAjmudXvz+YS1WsauCWmGOU0Q5Sk7P6cuaxBbzMoPExEQgkh1TKPlCdRDdT6O3XKVt+/3vLLTSKY9NQX4bwuH13HqsUGBBQbyO3zAcc6oZafwO964iqecfNMknZUpS3aYG7aFoFzy1wLEYpkvH05LDYuT+/nG4uZ188qiDN2Z55hnRxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RhNwK5xNdhJ7Yalgg21tiapeKhSAr5FGc263h87ofBs=;
- b=UBjs9bmv8dS3NZf1SVL+w9xawZyV1865j3MPFKBW9yhAK824lVxQzkujdWI7VvK7Jx99G6l/r9dY21gf8jDKMdWMfmIlQkF+PtPv7IPaG1hD1wbwg1K0AG9XCIx9JLNYzOvG/V+q3rjXTmgtnPi+S9/G9gqsgPxbVFNw3NTojHrt5tFiY7VLNwAxahzw/scjXCBHVEE6njesf6GWf0mUgBD48K28C+zXv/fUh6fjQYzpI4WqCN/A6/M4cJCcVJ50D4MRJSi5zgvCvH27sXGA/BO8a1fdRY55nRcB/UJvCGBHmpN8NLfo+Vz316m/dImHo8y0i0pS8/8BplkfJaP/Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=f9OhSNAPbA42CiyXzUT8Wv26Xql5pmePcIp9tuTDwH4=;
+ b=JdlZFEow5A7KZ0LGo5UBMPBufeGJZ57hV8QwiOqREXez03Q3/TBbN02F3Hc8BIhytvbXPz67GPYOJ6zXfTU7u8CtwSfxstbytIpk+q2Y/b1CXZmohjQMaMWBAekK4q84TIkHS7DMkShyDTuXaaY0EC1C0nJr5cmrFXbcVNNO+L4wy9YYWvII4j22ccNc93k/AUqY4TFwt/KTVLe94yU+PKkRhj7NrOZKempDtqC0MUabV6gPviMYAvE6DBoi52LDHlhdWwUsy/ecziN2/K4Ydg5zET2ihYY5Q7yCc4JGPunAmkTnmO/taYdaENQtMhZ0TykwGVBR2BBCn9ARNwsZew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RhNwK5xNdhJ7Yalgg21tiapeKhSAr5FGc263h87ofBs=;
- b=Qm5q9D8WnyXq3jQhAVR4H+E+6IGV2So21sQ/vwzzCy+3uM+Sy/CyjMBxrfmYMeZdDl/9fYhAOYJ/FlgtbkcAtcz+87v5lE1srozeLa/c6Q41nctgMqjaZCR3OGDsseg72gEUvOTT3SKfwOXIyqB4Y0luR1agrIlAtc7Anb0ests=
-Received: from CYYPR12MB8729.namprd12.prod.outlook.com (2603:10b6:930:c2::5)
- by PH8PR12MB7277.namprd12.prod.outlook.com (2603:10b6:510:223::13) with
+ bh=f9OhSNAPbA42CiyXzUT8Wv26Xql5pmePcIp9tuTDwH4=;
+ b=xH322+AJxlXTY87TYrCbRGvmh1mtcvRhbtenXQcY7KzIPi01KUSZl2HJ7A+txYwABgJ3utpSK5IW+kn4BSTOVkEcm3rDcA3PiKztHc6KQhhqr+aD23Ro/8n/H/jv+JZpol872C0og1tarYgLcINrWXap1s9Ha9bhg/WElSGk88w=
+Received: from SJ0PR03CA0046.namprd03.prod.outlook.com (2603:10b6:a03:33e::21)
+ by DS0PR12MB6582.namprd12.prod.outlook.com (2603:10b6:8:d2::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 09:31:20 +0000
-Received: from CYYPR12MB8729.namprd12.prod.outlook.com
- ([fe80::1f0c:463f:a438:d85]) by CYYPR12MB8729.namprd12.prod.outlook.com
- ([fe80::1f0c:463f:a438:d85%2]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 09:31:19 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Chai, Thomas"
- <YiPeng.Chai@amd.com>, "Li, Candice" <Candice.Li@amd.com>
-Subject: RE: [PATCH] drm/amd/ras: enable UniRAS for psp v15_0_8
-Thread-Topic: [PATCH] drm/amd/ras: enable UniRAS for psp v15_0_8
-Thread-Index: AQHdRb2r2vGGkQg5Q0iFhCX9pPWR6bbQ8MCw
-Date: Wed, 16 Sep 2026 09:31:19 +0000
-Message-ID: <CYYPR12MB872956A19A93F8675A31A725B0B92@CYYPR12MB8729.namprd12.prod.outlook.com>
-References: <20260916092732.1054500-1-candice.li@amd.com>
-In-Reply-To: <20260916092732.1054500-1-candice.li@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-16T09:31:13.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR12MB8729:EE_|PH8PR12MB7277:EE_
-x-ms-office365-filtering-correlation-id: be0d1b8f-9876-4ac0-7dc4-08df13d543f9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|38070700021|10067099003|56012099006|11063799006;
-x-microsoft-antispam-message-info: lyDkpTwwNg0uXOVoFinYWin8K2yzAQ6QB9m9wv3YhOh9UJto2Wa6YYZjLdgCm8f3d5s+LAOSX7qGYxa0ENR3eT7j1HpmSqGIyu+BDmIjgNbCMb4CBo1Ffo7eNTJyOm/Hk5RnNB/oceu6wbHvEKum8AaDiONJWWvNErVvj6zzVvUCWn6IvmM3qDvGxqWn8GquMloF0x2pZfMoFJj8v54vPd+ud3DAsdBsfhEZCW4DAW0Zh7KoWaIpsJ/dZNosh6sS2obZ67Vrjh+roE55tCxHNsWi8MdayvGJCfE4SL1qlnDW4xUNDo+ZVdLUUUVFFrikdUCo3gNQvaMAZBSxWoyQwR0yP4ZBYKeOCr26yTbm7GOc+Msk06FvbUqZ+H7pWlA38NNdlj7r6S1zH8e7EF9X/cpTE3iW3Gjq0AadWoWlZ1ADTGp8uaO107CDQ6387fhW4K0/vEuXmbbW+lJbCDew3Ar/dFbAKANG3AfDuMKAJ4Jd6lKXLBqyTE2BCNtNumakLewnQYH+L/bOF6bqq8stkGTGmnR4Q00EmPEhkmOQnH6GydcwQgryqoHQqZYybV1tmh5AGG9uxFLzxIYLzHoE/OGeGemUraiNNfZeUfedyLSKhCnLaP1X/owkS8ePZlodVghrS4/t+261QGdvxwDZ0Sn3yzjIYAnExLPPYS5gfMoNSIgPjCPhl1hafJ97oOuQN9Cl+En8KFkr5mVAtmJo/Y83XKQY+dvJqeXV9XaFKOo=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CYYPR12MB8729.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(38070700021)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KB/Gzd1Xu4iHJiAZRMq64u6hCOrMZxywy4qaZl4dPne3MEGz0sgHHb3VXoSA?=
- =?us-ascii?Q?ztGJ640TFGRGJQJVH8rDcXhbvSybY8Y3lVNRPFPjAlFIsLVBRyvgOt0cQ0CO?=
- =?us-ascii?Q?x0sdK57V5P5frwmJGHAm7evF6ZbcuT3+2nCRhX0ZNJTYLAW9m2sgzwJ9PbZQ?=
- =?us-ascii?Q?X/V0vHpoEaKSHRpCm3C6ritEmyz0eb7nZEH6dY4TTbt3nZGqEY7SZNufvD8J?=
- =?us-ascii?Q?7hVbTENN0xd8Fl8BHjvc6DZ39SNng3vJOFPnj6T48nnI8XWZUZ8uc9RlIvzc?=
- =?us-ascii?Q?Va5jStDra+JwYw4hm7wgSSEdLAvmxLPJEovHXiP6s234dqVf4z4q6XvrqRuh?=
- =?us-ascii?Q?/L362e+uAUY2zyH0wFvWpMM1dfHfabm4CM/vs/yDAcv1Lvcp3f9tFgr+mwqO?=
- =?us-ascii?Q?9b+vy3Fd8tlNpRS9YOORNYRNuoipclv5qn3zazmLHVmeCJ0Pg3g2ziJUs82B?=
- =?us-ascii?Q?dWss5K2EE2L3Ax5hfw9ULyfcw+UgPg+DNevLaXthekSStegCbCCwCegEv8Ux?=
- =?us-ascii?Q?cnLD+55eqMcP2cdO1CW4B3Qr2y2IPgZmZL454jSy2KVAWRCsySFojq/c+UGA?=
- =?us-ascii?Q?qFxT9E9MoPxyZwzQNgZKgrastDmDLYzddtuOb3015uTDb+AR0fhdTwxdZFBw?=
- =?us-ascii?Q?hVYz0m8eB8dTgBq3IXFU0spvO2pDoh03b+XiEc4QjYJ+0LZOXyiDV2kiO4G9?=
- =?us-ascii?Q?iCnmkNISiHmLuhKucWeBKVGJlKfrcLjvOL0OcxlLV3vVNw5d1VKs1HOIj04Q?=
- =?us-ascii?Q?5IoF2iv5rQ/xbmA4x+XyUKIJO09G8/EH3x3+Oi/AO5fMdz8T1lEqaWJccoMY?=
- =?us-ascii?Q?16CaJSgUF4i3N6Iev70xpAETctygs+1SYwWxA12Hv/xRtpxvwROQZS/ZBebK?=
- =?us-ascii?Q?b+5e19tl9y5sT86Rk1LPK0v/Xm6wtYPDSH5k+4b8ws36Vxv1NcQfBESTUcQY?=
- =?us-ascii?Q?EAABElZhmMI4+pXbwLdFic+iPNtrQgMugThoiqvCPavPoZT7IMiNrlktCRkv?=
- =?us-ascii?Q?kKmh1Xynb+IAr6tAxSgPgxkfDh7I+h08CbZgJkC4SUvO+kHWrG00Wog36kQ4?=
- =?us-ascii?Q?yg9DE+iOb+d/DM/SLPLut99mLQ30vBcmqn7vpshXD39WoGTb7lgPC0ZnZYYl?=
- =?us-ascii?Q?kqz2aY/5uFxLO/TSB31eovcMqBh0m11TV+MFlASBzgePzuy34eRbKVVAks30?=
- =?us-ascii?Q?GFLIIuOAjA4ul1miRF4ZAr9NFJq2DZeZaz8dhjBBzQBBm8OHenPUFIA9RbbT?=
- =?us-ascii?Q?JITema6pL0QxUc3Tl9OwFaOf3CL2r1rLedQx5CjIwpR5zAkNhW1dWvsiQTNs?=
- =?us-ascii?Q?rNVhQxNc2UWt7Z0fLrqhMNZjBeQheNXeDEKDe6DmJnockoul/fkKz4PEE2kw?=
- =?us-ascii?Q?YPnkKKd4T2Ooqi2OcbDg/qVn3bTSEoNQ+GH4ociG00w0vEq2VmWv8DjhtmYR?=
- =?us-ascii?Q?WP4BTQ9UUxV9Rztbsw1VrxLLLhOe9cX/Db7LnlhawW8aLMrW71wy7gFf6Q3g?=
- =?us-ascii?Q?EX+1Isdeicnc0nwb8QCM2MlowRj/sCEYRUjKvSwdPPA7KWhudUB35h3rJSlE?=
- =?us-ascii?Q?X6gh6f5FEKO2nrH+Le8So4m/DMp3B0VvktALZsMnlQsniX+nsx170zzY7Vly?=
- =?us-ascii?Q?V9UdNpaZwvdOecOlW6GKnsBn8mZ+Z61vzDZFEiZz6xsMiJMUnkHxgg7sEwKz?=
- =?us-ascii?Q?QbV/y2OdAHtIgZejCHd2QA10f//yEEQRQCYEv3I2WMAY5/D2?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2026 10:02:28 +0000
+Received: from SJ1PEPF00001CEA.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e:cafe::32) by SJ0PR03CA0046.outlook.office365.com
+ (2603:10b6:a03:33e::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
+ 16 Sep 2026 10:02:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00001CEA.mail.protection.outlook.com (10.167.242.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 10:02:28 +0000
+Received: from yifan.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
+ 2026 05:02:26 -0500
+From: Yifan Zhang <yifan1.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
+ <Perry.Yuan@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: serialize GEM fault mappings with GPU reset
+Date: Wed, 16 Sep 2026 18:02:04 +0800
+Message-ID: <20260916100204.3750592-1-yifan1.zhang@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEA:EE_|DS0PR12MB6582:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2366e8bf-141e-4263-b1d7-08df13d99dd1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: 9A1X+3bCzZO4/tB6coFyPw3pk5fHbpFITE62+I4iEKkYYMF9raod/CeeyCbq47hSh32O1bST+vJ2tTI/lTuZsG3U3zwaD73dw69zBevr/V/f7Z4ADGFj03xiVOsp9SPYVtMmoxy1EkFX2qkLpj2wKvfRXHwAwYTse/1wCAZ++DLlOVWK3bAHfeXId8PJobYkC6GeuEJUhhqBE7xtRLkN9ySXoztWevEbE8QVqvtagvAjkuN8v5w6gZX5eJ5/cbnqYuHkbFEUgO3KPCYfvBUW1VJ9h8nJqiv+KtcoNmn7QwXS2tA8X3JNkAQv8cEmKSwTZn6VB+1OjFLpz8A9YvraZeNob/WrgeRyhS6YWyOfAtBlj4oZdqJRqxdH/J2DxkU0JLy9EVtcPiL5/zf6NwN3qBaqIPL+DVFH/Fd8lz4Ng6pPnD4hEN73VGh/qp5+hO1DXaunKQlKY4OVlfEvcBy9sCKEE7z+DJeQXjRbZ7xjz/Tviy040DKfEkFJkdYD/XcIleQYcbdNXwKnpJpDLs7YN3IDS3bIByXKz68hlvpZ0v3rgvpvev8ny81QFLyhQmkWvl+35CxsqbuiXVQtu2QOTXu6p2R5lOCnO0Ha1cPo1yfsZkO8Sxxo89plRsP2ThV3Ly2PPfHHqBYIjAxy62oCL+bjv5Tf9Fm4+/I5CFDzGxUgbjATbJ5dCMNC6nY2JDMrEIfTA3+UtG8Bcdthcw3OAA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(10067099003)(56012099006)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: zHVf7qu2VbHpxIAWtlHxcS56e/H3JHerb+MvyjcRN1t5/dEk2EjM20o9c3I214MY30yny/qoqJlAjKKCyyxOjSYYNdBReSOGBxv97Cd1gLFHvLHD22NMYMBlafnfmzmjAuQyGSjjEJWl4J2zfjdNgrIDUdIsDTe/aSWdYOtGDyAfn51SeIx12VYCSL5/AL+Ro+AsHEzxBeWIeq9UFQ8OMlK+xY4JMBfN0TLAKFTCJH89lvN2pH001I/y5yvCKezkyDQWDuX+88dBmB2yrNP0x37D+ngOCHMI4cCKkp/8gFsyIUiQ4mB3WZBaoOFmMjCvCPu3TmkRnfvTQWy5J42orR2f21N7gYGx/49OzSMVhjmPNlcynhQUUdBYlyXYC9mUYlWH8xTXOMJEYRGl/U+zEopaLf3DZdIBAbSaAK+OIc1cOOJZKb+HFZ5yonQbBxLQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB8729.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be0d1b8f-9876-4ac0-7dc4-08df13d543f9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 09:31:19.9135 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +uEufaedtw00L0kxv393qYO3rUGNSQhWR7AU6i4zagzDhThmFYiL7QZS9lkoB1MP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7277
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 10:02:28.5465 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2366e8bf-141e-4263-b1d7-08df13d99dd1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CEA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6582
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,49 +109,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+GPU recovery invalidates CPU mappings before resetting the device. A
+concurrent GEM fault can install a new mapping after invalidation and
+allow userspace to access the framebuffer BAR while the device is being
+reset. Serialize PFN insertion with the reset-domain write semaphore to
+close this race.
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Holding the read semaphore across the entire fault is unsafe: migration
+fence waits may depend on recovery, and page-table allocation inside
+vmf_insert_pfn_prot() can enter reclaim and wait for GPU fences through
+MMU notifier callbacks. Recovery cannot complete those fences while it
+is blocked acquiring the write semaphore.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Candic=
-e Li
-> Sent: Wednesday, September 16, 2026 5:28 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chai, Thomas
-> <YiPeng.Chai@amd.com>; Li, Candice <Candice.Li@amd.com>
-> Subject: [PATCH] drm/amd/ras: enable UniRAS for psp v15_0_8
->
-> Enable UniRAS for psp v15_0_8.
->
-> Signed-off-by: Candice Li <candice.li@amd.com>
-> ---
->  drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-> b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-> index a02167397ce28b..e893d9901c08db 100644
-> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-> @@ -328,7 +328,8 @@ int amdgpu_ras_mgr_sw_init(struct amdgpu_device *adev=
-,
-> struct ras_module_param *
->               return 0;
->       else if (amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(13,=
- 0, 14)
-> ||
->           amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(13, 0, 1=
-2) ||
-> -         amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(13, 0, 6=
-))
-> +         amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(13, 0, 6=
-) ||
-> +         amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(15, 0, 8=
-))
->               con->uniras_enabled =3D true;
->       else
->               return 0;
-> --
-> 2.50.1
+Add an optional mapping semaphore to the TTM reserved fault helper.
+Prepare page tables with apply_to_page_range() before taking the read
+semaphore, then insert the PFN through vmf_insert_pfn_prot(). Restrict
+this path to non-COW PFNMAP VMAs with mmap_lock held, relying on mapping
+invalidation clearing PTEs without freeing the prepared page tables.
+Keep the existing MM PFN permission and cache-mode checks, and leave
+fence waits, BO population and page-table allocation outside reset
+exclusion.
+
+On semaphore contention, retry the fault when allowed. Drop the BO
+reservation and mmap_lock before waiting, and retain an extra GEM
+reference to protect the object and semaphore lifetime. RETRY_NOWAIT
+keeps both locks held; faults that cannot retry return SIGBUS. Keep the
+existing TTM helper as an unlocked wrapper so other callers retain their
+original behavior, and opt AMDGPU GEM faults into the new helper.
+
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |   6 +-
+ drivers/gpu/drm/ttm/ttm_bo_vm.c         | 104 +++++++++++++++++++++++-
+ include/drm/ttm/ttm_bo.h                |   3 +
+ 3 files changed, 109 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 0d579517c03c..2937f6cda62a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -119,6 +119,7 @@ amdgpu_gem_update_timeline_node(struct drm_file *filp,
+ static vm_fault_t amdgpu_gem_fault(struct vm_fault *vmf)
+ {
+ 	struct ttm_buffer_object *bo = vmf->vma->vm_private_data;
++	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+ 	struct drm_device *ddev = bo->base.dev;
+ 	vm_fault_t ret;
+ 	int idx;
+@@ -134,8 +135,9 @@ static vm_fault_t amdgpu_gem_fault(struct vm_fault *vmf)
+ 			goto unlock;
+ 		}
+ 
+-		ret = ttm_bo_vm_fault_reserved(vmf, vmf->vma->vm_page_prot,
+-					       TTM_BO_VM_NUM_PREFAULT);
++		ret = ttm_bo_vm_fault_reserved_lock(vmf, vmf->vma->vm_page_prot,
++						    TTM_BO_VM_NUM_PREFAULT,
++						    &adev->reset_domain->sem);
+ 
+ 		drm_dev_exit(idx);
+ 	} else {
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+index a80510489c45..e9ac14c471ab 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+@@ -162,6 +162,70 @@ vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
+ }
+ EXPORT_SYMBOL(ttm_bo_vm_reserve);
+ 
++static vm_fault_t ttm_bo_vm_mapping_retry(struct ttm_buffer_object *bo,
++					  struct vm_fault *vmf,
++					  struct rw_semaphore *mapping_lock)
++{
++	if (!(vmf->flags & FAULT_FLAG_ALLOW_RETRY))
++		return VM_FAULT_SIGBUS;
++
++	if (vmf->flags & FAULT_FLAG_RETRY_NOWAIT)
++		return VM_FAULT_RETRY;
++
++	drm_gem_object_get(&bo->base);
++	dma_resv_unlock(bo->base.resv);
++	mmap_read_unlock(vmf->vma->vm_mm);
++	if (!down_read_killable(mapping_lock))
++		up_read(mapping_lock);
++	drm_gem_object_put(&bo->base);
++
++	return VM_FAULT_RETRY;
++}
++
++/**
++ * ttm_bo_vm_insert_pfn - prepare page tables before taking mapping exclusion
++ * @vma: non-COW PFNMAP VMA, protected by mmap_lock
++ * @address: page-aligned address within @vma
++ * @pfn: backing page frame
++ * @prot: protection for this page
++ * @mapping_lock: semaphore held for writing while invalidating mappings
++ *
++ * The empty page tables must survive until insertion: mmap_lock excludes
++ * munmap/mremap, PFNMAP excludes MADV_DONTNEED and THP collapse, and mapping
++ * invalidation clears PTEs without freeing page tables. Thus the subsequent
++ * vmf_insert_pfn_prot() does not allocate page tables under @mapping_lock,
++ * while retaining the MM's PFN permission and cache-mode checks.
++ *
++ * Return: VM_FAULT_RETRY on contention, with all caller-owned locks retained;
++ * otherwise the insertion result or an allocation/validation error.
++ */
++static vm_fault_t ttm_bo_vm_insert_pfn(struct vm_area_struct *vma,
++				       unsigned long address, unsigned long pfn,
++				       pgprot_t prot,
++				       struct rw_semaphore *mapping_lock)
++{
++	vm_fault_t ret;
++	int err;
++
++	mmap_assert_locked(vma->vm_mm);
++	if ((vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP)) != VM_PFNMAP ||
++	    is_cow_mapping(vma->vm_flags))
++		return VM_FAULT_SIGBUS;
++	if (address < vma->vm_start || address >= vma->vm_end)
++		return VM_FAULT_SIGBUS;
++
++	err = apply_to_page_range(vma->vm_mm, address, PAGE_SIZE, NULL, NULL);
++	if (err)
++		return err == -ENOMEM ? VM_FAULT_OOM : VM_FAULT_SIGBUS;
++
++	if (!down_read_trylock(mapping_lock))
++		return VM_FAULT_RETRY;
++	ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
++	up_read(mapping_lock);
++
++	return ret;
++}
++
+ /**
+  * ttm_bo_vm_fault_reserved - TTM fault helper
+  * @vmf: The struct vm_fault given as argument to the fault callback
+@@ -183,6 +247,33 @@ EXPORT_SYMBOL(ttm_bo_vm_reserve);
+ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+ 				    pgprot_t prot,
+ 				    pgoff_t num_prefault)
++{
++	return ttm_bo_vm_fault_reserved_lock(vmf, prot, num_prefault, NULL);
++}
++EXPORT_SYMBOL(ttm_bo_vm_fault_reserved);
++
++/**
++ * ttm_bo_vm_fault_reserved_lock - fault a BO with optional mapping exclusion
++ * @vmf: fault information, with mmap_lock held
++ * @prot: page protection
++ * @num_prefault: maximum number of pages to prefault
++ * @mapping_lock: optional semaphore held for writing during invalidation
++ *
++ * The BO must be reserved. The caller must not hold @mapping_lock. Its lifetime
++ * must be protected by the BO's reference to the DRM device. When supplied,
++ * only non-COW PFNMAP mappings are supported. Fence waits, BO population and
++ * page-table allocation run without the semaphore.
++ *
++ * On contention, ALLOW_RETRY drops the BO reservation and mmap_lock before
++ * waiting, except RETRY_NOWAIT which retains both locks. Without ALLOW_RETRY,
++ * contention returns SIGBUS with both locks held rather than blocking reset.
++ *
++ * Return: Fault result. VM_FAULT_RETRY without RETRY_NOWAIT means both locks
++ * have been dropped; otherwise both locks remain held.
++ */
++vm_fault_t ttm_bo_vm_fault_reserved_lock(struct vm_fault *vmf, pgprot_t prot,
++					 pgoff_t num_prefault,
++					 struct rw_semaphore *mapping_lock)
+ {
+ 	struct vm_area_struct *vma = vmf->vma;
+ 	struct ttm_buffer_object *bo = vma->vm_private_data;
+@@ -263,7 +354,16 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+ 		 * at arbitrary times while the data is mmap'ed.
+ 		 * See vmf_insert_pfn_prot() for a discussion.
+ 		 */
+-		ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
++		if (mapping_lock) {
++			ret = ttm_bo_vm_insert_pfn(vma, address, pfn, prot,
++						   mapping_lock);
++			if (ret == VM_FAULT_RETRY)
++				return ttm_bo_vm_mapping_retry(bo, vmf, mapping_lock);
++			if (ret & VM_FAULT_ERROR)
++				return i ? VM_FAULT_NOPAGE : ret;
++		} else {
++			ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
++		}
+ 
+ 		/* Never error on prefaulted PTEs */
+ 		if (unlikely((ret & VM_FAULT_ERROR))) {
+@@ -279,7 +379,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+ 	}
+ 	return ret;
+ }
+-EXPORT_SYMBOL(ttm_bo_vm_fault_reserved);
++EXPORT_SYMBOL_GPL(ttm_bo_vm_fault_reserved_lock);
+ 
+ static void ttm_bo_release_dummy_page(struct drm_device *dev, void *res)
+ {
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index 8310bc3d55f9..06138c1688f6 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -438,6 +438,9 @@ vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
+ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+ 				    pgprot_t prot,
+ 				    pgoff_t num_prefault);
++vm_fault_t ttm_bo_vm_fault_reserved_lock(struct vm_fault *vmf, pgprot_t prot,
++					 pgoff_t num_prefault,
++					 struct rw_semaphore *mapping_lock);
+ vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf);
+ void ttm_bo_vm_open(struct vm_area_struct *vma);
+ void ttm_bo_vm_close(struct vm_area_struct *vma);
+-- 
+2.43.0
 
