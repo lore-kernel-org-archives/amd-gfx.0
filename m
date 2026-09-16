@@ -4,85 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3019C88E77
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 07:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C3EEC982C5
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 07:37:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A9A010E29A;
-	Wed, 16 Sep 2026 07:16:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1CE10E6A4;
+	Wed, 16 Sep 2026 07:37:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aMmykuyK";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="uDVhELxM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2D5410E035;
- Wed, 16 Sep 2026 07:16:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789542984; x=1821078984;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=wJASVwD5FkjisPWHjqrTjFP3UNclm4eHqGrZ4f0/D5M=;
- b=aMmykuyKBvCHKZEuEVrJLkrqq9ovCWoYo17jq6YCT+F2nH5dciI56bIa
- YK6e4NsJftIYVY2RRRK9+FKibJdfyfIwBVHmSGVQuzC1LIYVk36aU2FyC
- oyrCtbGQvhThLOiceJk9A9snsTnvyM76CXuQGeDt6t7HgdORh7aYmRrJ7
- YWCeFCttudXEWSVgMBdE1ULXG/Q7SxNcdnY37KvBtukIVWzn6O75YX5hP
- zF8eWezkAdJsR1JevyoQOUwWjaBN5TwOl5Gk7dBIWnxHVdVUMxvDg+Gjn
- v8GBMJyWR78s5RSFZE098zKKdOdPmjJtAcq8Taxd4UmpGW9JgwZ1F1R/1 g==;
-X-CSE-ConnectionGUID: d5obTUjFQZaPTk7oRZxHFA==
-X-CSE-MsgGUID: dAmvrDFASyqV2D0jfhFkqQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93785557"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="93785557"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2026 00:16:24 -0700
-X-CSE-ConnectionGUID: lJQK1QvPQCyySz8RA97EBA==
-X-CSE-MsgGUID: TqnnTvGPT1OVP8fTWzuNdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="276776558"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.147])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2026 00:16:16 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Armin Wolf <W_Armin@gmx.de>, Ilpo =?utf-8?Q?J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "hansg@kernel.org"
- <hansg@kernel.org>, "platform-driver-x86@vger.kernel.org"
- <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux@weissschuh.net"
- <linux@weissschuh.net>, "rafael@kernel.org" <rafael@kernel.org>,
- "lenb@kernel.org" <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
- <linux-acpi@vger.kernel.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "patrik.r.jakobsson@gmail.com"
- <patrik.r.jakobsson@gmail.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net"
- <tursulin@ursulin.net>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "matthew.brost@intel.com"
- <matthew.brost@intel.com>, "thomas.hellstrom@linux.intel.com"
- <thomas.hellstrom@linux.intel.com>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
- nvidia_wmi_ec_supported()
-In-Reply-To: <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260724025959.142826-1-W_Armin@gmx.de>
- <20260724025959.142826-3-W_Armin@gmx.de>
- <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
- <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
- <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
- <11976ed3784675ad241646287a909286a42675a8@intel.com>
- <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
-Date: Wed, 16 Sep 2026 10:16:13 +0300
-Message-ID: <62d7da838e7042df8456e76190db792093065b57@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C59C10E09A;
+ Wed, 16 Sep 2026 07:23:01 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hl9Mk4CvxzKp4h;
+ Wed, 16 Sep 2026 09:22:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1789543378; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=enXKx7Hs6kAeb6eftCq6yc1nHOzd5D+PNTY9rTPv1hM=;
+ b=uDVhELxMnPG9PuTwD/vxA52OIDDa3G1qh2sc1DdSCIotIjs2gOjwjI9nvxMWtX/HSI3hSv
+ xUbDMqyr05F1FE3uZVZlfm2SAmxWkqrzr6P5LpYHnfVBUJR5LEZfRdY5WC5K8RmH24zhQ4
+ nx1re/IxD/izT+ZRDVVjs18PT/iCS+rgq+CF1bIq5Km97t91EueirGknvcRTFjpjK05NgD
+ BDc3in1NQiwxxMSP8EB9AmxvEYDfholNEYsB1bcgKKxIONuRmMjurMILXiVyddFeL75aC9
+ 6M7xytKhoHo/nLGYiWdmabYUlxJbqY4jFsKmCpo6beLrUc3y8IpNC82dj1j4Cw==
+Message-ID: <166cf2ef60079cb1598db6687ee9395d447ba8e5.camel@mailbox.org>
+Subject: Re: [PATCH v2] drm/sched: Do not restore unsaved virtual runtime
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Philipp Stanner	 <phasta@kernel.org>, Pierre-Eric
+ Pelloux-Prayer	 <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
+ <matthew.brost@intel.com>,  Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ stable@vger.kernel.org
+Date: Wed, 16 Sep 2026 09:22:52 +0200
+In-Reply-To: <20260915150557.62847-1-tvrtko.ursulin@igalia.com>
+References: <20260915150557.62847-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MBO-RS-META: 4mc338tpkdujkpseogqzxpj41o8waqwx
+X-MBO-RS-ID: 5a6222f57c809116da5
+X-Mailman-Approved-At: Wed, 16 Sep 2026 07:36:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,72 +65,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
-> Am 15.09.26 um 14:31 schrieb Jani Nikula:
->
->> On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> =
-wrote:
->>> GPU people heads up!!
->>>
->>> On Wed, 2 Sep 2026, Armin Wolf wrote:
->>>
->>>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>> index 12e4a41bf1f0..50305630f533 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>> @@ -30,9 +30,7 @@ config DRM_AMDGPU
->>>>>>         # ACPI_VIDEO's dependencies must also be selected.
->>>>>>         select INPUT if ACPI
->>>>>>         select ACPI_VIDEO if ACPI
->>>>>> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
->>>>>> -     select X86_PLATFORM_DEVICES if ACPI && X86
->>>>> The change below makes sense, but this one looks like it should remain
->>>>> unless X86_PLATFORM_DEVICES is handled some other way?
->>>>>
->>>>> Alex
->>>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary because
->>>> ACPI-WMI depended on it in the past.
->>>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 anymore.
->>> Hi all,
->>>
->>> Could more GPU people besides Alex take a look on this. I'd want to make
->>> progress with this series within this cycle but would prefer to have Ac=
-ks
->>> from GPU side.
->> I share the same concern with Alex. It seems to me we could now end up
->> with x86 configurations without X86_PLATFORM_DEVICES, which handle
->> e.g. backlight on a lot of platforms.
->>
->> I think the safer option might be to go for:
->>
->> 	depends on X86_PLATFORM_DEVICES || !X86
->>
->> in all of the cases that select/depend on X86_PLATFORM_DEVICES in drm.
->>
->> The alternative is to find out, and handle the fallout, if any.
->>
->>
->> BR,
->> Jani.
->
-> Alright, should i leave the original "select X86_PLATFORM_DEVICES if ..."=
- statements
-> as-is or should is change them to "depends on X86_PLATFORM_DEVICES || !X8=
-6" everywhere?
+On Tue, 2026-09-15 at 16:05 +0100, Tvrtko Ursulin wrote:
+> Prevent pushing a new job to an entity seeing it being the first in the
+> queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
+> side in drm_sched_entity_pop_job() has just de-queued the job but not yet
+> updated the saved virtual time.
+>=20
+> Restoring the unsaved virtual time, which is at this point not a delta bu=
+t
+> still an absolute value, pushes the said entity to the rear of the run qu=
+eue
+> for a potentially very long time.
+>=20
+> We close this race by pulling the locked sections out to encompass both
+> the queue push/pop and corresponding rbtree management.
+>=20
+> This is aligned with the future direction to replace the current lockless
+> job queue with one of the fully locked standard list primitives.
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+> Suggested-by: Luke.Wildhardt@proton.me=C2=A0# via Claude Opus
+> Tested-by: Luke.Wildhardt@proton.me
 
-There are some places that depends on X86_PLATFORM_DEVICES. I think it's
-almost always a mistake to have some places select and some places
-depends on, and select should anyway be used with care. I'd go for
-depends on.
+Shoved it to misc-fixes, thx guys
 
-BR,
-Jani.
-
-
---=20
-Jani Nikula, Intel
+P.
