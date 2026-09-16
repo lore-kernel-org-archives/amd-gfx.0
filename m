@@ -4,103 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7379DC88E7F
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:57:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49750C982C9
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 18:22:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B50B910ED09;
-	Wed, 16 Sep 2026 17:57:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB19110ED38;
+	Wed, 16 Sep 2026 18:22:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JZjiawt7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BFro73De";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCB1D10ED10
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:57:11 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-396673bd283so210190a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 10:57:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789581431; cv=none;
- d=google.com; s=arc-20260327;
- b=G2wBXsX/1ICmzRooS18+qQk6BMbLhgSM92oyiXsPgRgUKJMuZYxysEPsqBrnpGnoSd
- SbndKwSncEn8EsXDfFJ4AIzkyx8kjldAqSxDwA/Z7Zs3kqP9AhTZX58grTpBoSFOCwRX
- /VqcTYdl0JGA/Dc2SAcfmf/rlPJwE3cNXnLDSlA7Drd7bSITUq6Lm9NI6Wz4/BQTGPJH
- m71N/DpHnoXjYYL8xpX4K5u4d2u36686bDdxBcQGrMNRXn7nCz2dIstC8nRMnaEUzPMS
- L5R5K1iwxka09M1MgxgBiJ2D2TVtldcMTvDJBOlFH30y7WJot98zFCC+s9WW7O3vwySk
- 7fzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=bRhmmCrAtVPev1jQLA09AINV4vc5qQ/mpuw1U6wCpOQ=;
- fh=hc/BLZFObJVhLCUqC1oiwO84FSWzCpju30n1XM0jJdQ=;
- b=syIEx1yLBv9WEc+C5yUzKPuaWs+lvN0CJrfLqbrezmSQkj623/qw8zrzF65Niwtc10
- eFEacFU4wiOTtflnTdmtWKw76f6UkJMG3n7nP58HiUE0qRgDNMZbsfbA8X2kV2B2xPZP
- rD2Ypui4eXBeqXnmuAjRMQ49/cGwScak8cs+3PQsWyHGYR2t636vKpJcAsk35A0ziMTq
- 1ZI6zVa0i/u41j5XbNpivvBiXZ+DTfjxRVInA2qZ77nDDXFC98KfFSFGU63BnuQKdMEJ
- UO57ocBN7sKt+GcQLwfYihlt6C2GoYjiAhuQwV3BPJsmry8b8r8YaHTORtOmlXD2ZsJ6
- 0LtA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789581431; x=1790186231; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bRhmmCrAtVPev1jQLA09AINV4vc5qQ/mpuw1U6wCpOQ=;
- b=JZjiawt7DOi9MRWB6haEQtK8c+kiIH9iitR+NkeF2asLJbfeO9Ea69be1CI5ROcZ23
- M0Zu9DpAaNaBPSeQuTTuEhxXCX49Yaz/yk67Ix/qzOXTABIKcVUpdWSEVcslEjUyOkU0
- jTYew+AIMjmhikDo64qawIjvjtkguVcLrARD/lUKDvc46YzZoSh/PTNqUCYbGBsxfyui
- b6XZkmCZY+/6gg32DMj12VVaMjuaDgSzMbeN5elNyYV9zQbK4gnSkKHQGowtoQzucnil
- qjcmvewpUTbqf2LIvp9TthSbnWOx29R5JFa/XEGE4q9YaD2DQFC1fwQx1YA2/FHT3DAB
- pciA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789581431; x=1790186231;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=bRhmmCrAtVPev1jQLA09AINV4vc5qQ/mpuw1U6wCpOQ=;
- b=gcqa4z5nb+M3wKp4chA/+cV5CSWF6SqB0lh4ax4dq5DZfj5Hqja/eISmn6owlDCQ9X
- R0FTb41SinWnVpObOP2cLTqzF/pr2keZAo9Rs7jekYKr2StjkM47ka10W7dJPIwAhoXG
- j3YxKfx6J1mTtWdXbG9IvzJnsXc2DDG44tk6sEd8v7+FaLCfIrM8xJ5kSq/TqAMdNY4a
- DN8s0qyXJBv7naf3xjQDzoSD08LBVOJGogJ3rSMpZHmf0vFk4l9urK90VDtKiC9QdQ4+
- /SGX8A+iv+seu6v1Kvj2Hk6nnzBEuDbS9IpIWbVDrgmAG4rDjt6KGusXEHktoG8yTrRw
- AJ1A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzvK21D7xRPi5RQtQvAjSg/mkUWwsxYzbOXzCDfEQ9Vvuf/tMY1GwTyYXCeDK6MIuCWFYI9eBow@lists.freedesktop.org
-X-Gm-Message-State: AFuF++njM7S2MubhjJ1hardWbHcLyxoI7F2slsbVzHUGMXwwQIyWzFp7
- rV5xdqKhr4/0URtauEio+zhy92y6X/J+4AzQi1YnKZxBAbtcufuS10SL3PZCQJXsTUWQNgF85K9
- dfXvo0f/Dmw4A2L71gw0TQYLB339m+Lw=
-X-Gm-Gg: AYBFou0fc7shjC8nZbOY9TrtbIgzwQrcBc5kI46zfiaycNlMy3UsztREnhR6F73PXwh
- DVY6Pjyldxr0qVJvYFblmUI1uIVV+h+1FolDsq31D/1WXZ7ZHv8Q+tl5c/UoKKMusBVozoud/HU
- j+PQFPL5EbkyZ3KFGHGJSS87kFpa9M4EtKVo2JNz8fIIanN1SVw1zmItEqEMWzM/+itXUbFCBl+
- Y+A57E4rTiM2lt0pHdY9KcGToKNmEpjjINMmwzRBwer2X0zn4JnDV0vb5GSCiecB7yv7Y4KJCeM
- XtRuctZWNIBwKmeKLM6o6HsbPgSxJ23XWGeUC2jwLu5N3oD4F2jcg7L8CMJGMfGdXURCb+bL4pu
- fR8Yp+UHW3n5LFHjJoAZ9qrRXArspsnEOOmAxyjG8ceor3Y8grm9f
-X-Received: by 2002:a17:90b:4c49:b0:39d:fcbe:fdd7 with SMTP id
- 98e67ed59e1d1-39e1e23cff7mr5673235a91.1.1789581431294; Wed, 16 Sep 2026
- 10:57:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260915201525.3530491-1-arnd@kernel.org>
-In-Reply-To: <20260915201525.3530491-1-arnd@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Sep 2026 13:56:58 -0400
-X-Gm-Features: AcwNN1WqFxHVyo89bZ3kWQkp1b6VgBRYVdOql17xbIgcYVCDABYsam0h7bBy_4M
-Message-ID: <CADnq5_MG+Yrws17OPHCCtc2Sw2yVBZUf-6ym8QCxnOW+SFKFfg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix unused function warnings
-To: Arnd Bergmann <arnd@kernel.org>, "Wentland, Harry" <Harry.Wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tom Chung <chiahsuan.chung@amd.com>, 
- Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, 
- Arnd Bergmann <arnd@arndb.de>, Rodrigo Siqueira <siqueira@igalia.com>, 
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Alex Hung <alex.hung@amd.com>, Ray Wu <ray.wu@amd.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010055.outbound.protection.outlook.com [52.101.85.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 673F910ED38
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 18:22:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tsz9DKesFfSYK1BSWe9pGE3Dr3Wjeldn0qzzSl07fegUAr/gnsmk3HgvpK7UGyD8yh11uZduAkN7vSoHw60zH4BErt23c+r1fKNezQmzHzvOwFfkK7dNK//qlPB+Zq0WQegHX/xXYr/wWJ/K3Y1bS9ZFMGZPuAIivHB8AeAS7vv/Y50aks1jFUQO92aeLoFcYJyQjfdnth7izMoHGAWOEalcwB/M+nFKVCec5ib7r6R6j+QkDdm3CMHJy/jmuD69YmaK5OeQswxGiHMGrMsl3GJ+HBf6YeyLt1X/3AtRyy79KJ12fUNNyPxTtOsuMP52UCtNmskNEhpTHi8CgU1+AQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bs74g2GR/RtVt3DNA8stXb7+SggBwO49+DX5xxUiI/Y=;
+ b=FYD4pXBHyoP9BpNHTcF4AWRuxs6/1zKenTahCzTCFouop7Cd9ZrlkCDM5KzJjOAY5Mu9aDDZCd/DcPWyR2N8qi1n4GyMQzI80Os+A9cAumyYjZs6zNL1mmUQ+0jZhtI3lv/I+3ymID10dc9l8PWE9EhUWfZS4x0L9U3QXdAe+uWdT5qYV0Px391BO+G05ePADV+7AV/caWkkq7cTeWFz08vRc7UXTlaikAxTScba1YSwy35ngjTfPw2qEn2LVWCy7Yoe0AGZgFYD+t5CeA6B/pMi5WuyhOBA+r9zbw14tWXS3a29Mm4L9fsXIsNK/+gpO5INFMZ2zYFnfHN+YVoBSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Bs74g2GR/RtVt3DNA8stXb7+SggBwO49+DX5xxUiI/Y=;
+ b=BFro73De/GEeyYbWmucAFthkk9UtkZS8hKTeg9hm2qWNKUBc7YczzT3+U5Qhkggr0mcCebmUBFWkjluAbqybVFcTCdl7MVnYnZRaioKEVsKiKTLuXF+8IFDJp2J9p8H8aBsfLSlQz/dmuJGE3oGjwBbRSnSF9WA2JIxs4VUj+Bc=
+Received: from BL1PR12MB5062.namprd12.prod.outlook.com (2603:10b6:208:313::6)
+ by DS5PPF7671D5CC0.namprd12.prod.outlook.com (2603:10b6:f:fc00::653)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 18:22:01 +0000
+Received: from BL1PR12MB5062.namprd12.prod.outlook.com
+ ([fe80::5155:289a:c3ed:f959]) by BL1PR12MB5062.namprd12.prod.outlook.com
+ ([fe80::5155:289a:c3ed:f959%4]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 18:22:01 +0000
+From: "Pan, Ellen" <Yunru.Pan@amd.com>
+To: "Lu, Victor Cheng Chi (Victor)" <VictorChengChi.Lu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lu, Victor Cheng Chi
+ (Victor)" <VictorChengChi.Lu@amd.com>, "Skvortsov, Victor"
+ <Victor.Skvortsov@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Check for PCIe atomic ops support when
+ reading pf2vf data
+Thread-Topic: [PATCH] drm/amdgpu: Check for PCIe atomic ops support when
+ reading pf2vf data
+Thread-Index: AQHdReb6vzUnJZRfZ0OHZvSNPYJiI7bRhHiw
+Date: Wed, 16 Sep 2026 18:22:01 +0000
+Message-ID: <BL1PR12MB5062C6BEA2EF6EB26A01FAC8E9B92@BL1PR12MB5062.namprd12.prod.outlook.com>
+References: <20260916142307.94158-1-victorchengchi.lu@amd.com>
+In-Reply-To: <20260916142307.94158-1-victorchengchi.lu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-16T18:21:05.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5062:EE_|DS5PPF7671D5CC0:EE_
+x-ms-office365-filtering-correlation-id: 90e76377-32fb-4c21-f906-08df141f6730
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|38070700021|10067099003|56012099006|11063799006|22082099003|18002099003;
+x-microsoft-antispam-message-info: DjQaDTXvDRXqh5iFWqmk6xXbtgKGbjPcev+sKs8jKLNAHCSTpoqLk0CqnmmhbxB6UGVMOQ75RN91VxQRK77BcEIon5YSUhoH19tk/J8GpX+oK/vsO3OzpdQJ5RgjbSrvejBirj7CGUTMP4pDpfQlvddsApLUcCMdzzhWHs8/MogcW1D9bFdwieJ798UAjXTqVTwXXp9TK2wuFfC8NIujP+SedYW1Y6IYSbJaqoE/TopHp/JW45UhpwxMdKPdSLz4Qprn3hjO1wta3t3AEEhL83Ti4NdAuZvCC+rT0VvtAH/2FJ4mvEPnQ0YQii9IE7nb8TUWP10Cs8S7Btk5fR3UF5xDlmFC8/X+uwsoXy7ReW6Y4KjLaymWqzMoUwszWalwlzn7jZmi8emPOsBC+gCTsHIvQ2vA4YCKyw1Ec+L4PF+rS7uWxTS9fh5upEaBDxHGly+7A3acn9axTpqv6LSRFf8yMpM6e4nESUlpWAL7i6PTOUsNTuwMgdNl1UyjppD1gfwvF6/SYTBhWgDDU4aVr73by0frgmJT0qImAbp1Hcs3GFtgxwPZjupHzC1yp+qPbMWfNhbXc+2VcV/Dd6jgBbIDASw9+kc7fEt6ba3faXHkU8XIroSd9pfMN33zYMjOAFm/LOzDTkLBc5eHjrn7PQWmirvWdRkzkaMGkmci7bJv2xOZvpWreflGL7cHpc+QYPoyw9s54E0uvjp39wNlOsmRzkXHrEM01S9rEpnnYfQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5062.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(38070700021)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?RvebJ6luumTEv5TSuDIEUjlVFc+NJ8wg3S1iEyH0lFhZYTMoAKcpw3VuF8jG?=
+ =?us-ascii?Q?5JL6E0REnbaxgaC3nyV1sG6X7uSk6zBuAWsMCK2o+cryei3cokFy0LsBetWp?=
+ =?us-ascii?Q?uMMFfhqsQwmHzSVvMLwyTHwbHs1e5e+0QUZMoc+E7GCfTg+NV+xvKbOVPSBv?=
+ =?us-ascii?Q?FiYQw3T/Du0HiuRMA7d/V975Xk3dQefzxLV+6oGOgRYPr8vPZ4SRL7/3joPD?=
+ =?us-ascii?Q?v0KrSMWEK2U78Ssdw0huu3zOo4T1owKFul+35jz7fJU59eVpIkS9KjyGahay?=
+ =?us-ascii?Q?s6mT+4wt6x68EGGw0tghZdxmP1wRrmMH+ulNg3LwJVHohgmmspgZ8wHilF5K?=
+ =?us-ascii?Q?bIFZr6X5PVg/wwuE9FB41vSDUvxJO+zMhtorubqE+UGpAy0SAy1ADuKMMyh8?=
+ =?us-ascii?Q?5yjkXUStODchFUcSx2sXKioJw+oMk3tX1KIOujJXzczKhSRF2px6FGq/ypv3?=
+ =?us-ascii?Q?n5Pl0DTDbLuhkORpH6MUfo2zKnzD98ln4lqFdDxzvVd4O/6DbX1zFtv62eNM?=
+ =?us-ascii?Q?hfV/QtzNGOR2T0cKO7ZtCZs8c3GgYfODYACZZ8tHuN+P6rb+uBiezsZlTc3F?=
+ =?us-ascii?Q?oH1pDtdSWGe2bUc0DrzA/NK4rtIGU9+kAWXVmf7cjux9nBnsqgqFMRRIut+h?=
+ =?us-ascii?Q?yJ1mAf3MoBJ83/vSUjQl1wX7edPOsPAx7EbLHlVqQZiANogx//Uu6H+ePcB/?=
+ =?us-ascii?Q?yZFIZR3OszM3TeHK4gfT+/LVAMjtAoS6yzCldyywJLN9eenxceuOuttvwcqj?=
+ =?us-ascii?Q?mYnIytish74LYVeK7Z9WoBkKO+ZzZm3g+rOC57tlpDXgS0U7XsE1cZyxbQFW?=
+ =?us-ascii?Q?orZErOWKOXR+1SotjGJbX6pYVnXmkGaLB3oX0f1Xhtj8XPTapzr6o6f6/eJu?=
+ =?us-ascii?Q?b0OWAVw3vo416E4eiwLRIjoHHU9d6bDbM1Q5p6NV2RXlBjZ9HH9t3Afcn9i/?=
+ =?us-ascii?Q?pIrpDXpJtaUvjPUC9Xty0Q7zt2JgpLQqOXizbh2O0Pgqy4/Extj4owqLel5U?=
+ =?us-ascii?Q?KkFWqNk2IyaZhqQA7K2AZj0dWYFI/6ZQJR10ruZzIwM0x4v6/aqX1ldZYhGr?=
+ =?us-ascii?Q?J2+d20olMV5Jlicl3B8LQgI7fTYrfdCBujl32EUwNFDVoG4E6EHinJSjneZP?=
+ =?us-ascii?Q?3FraoEJ8sakGM4iFsCrare/GXUK5ncOqaA5TaJUhLnLJ+dOeA6hDbgESxCzu?=
+ =?us-ascii?Q?ZpUfdwZQaeVPKQ4YrFWUjUWkpEM06iomySvDdi3dz1BXUL0LGheS/dVaHwde?=
+ =?us-ascii?Q?iR7+wqLUJepKfRrSCUedg301mUNFl+VpXsaSpdbqU8+25XlVrcT0QC5WUUkq?=
+ =?us-ascii?Q?O2BchFkWLsorzTkfcfz3y+h6vjXXA6zdy2bVezSP2twVIPA6vy+ttYfgvytS?=
+ =?us-ascii?Q?4TM95Q1XAjtkzb+5lEolNXyyuShSXLy/ocLJO4bHPbOdK267CVmGWVaqpk0E?=
+ =?us-ascii?Q?Ha5Z9fdikUtv2ltsYNXnt64vqbbytZlFrqL55ovkjbqqR88hOmygb2X4oujL?=
+ =?us-ascii?Q?AGKPtrxPZeDLcRgt98RM5y11XeyVv94vqCcdB5VK/y3E5r4PqmxfHW9nPkZl?=
+ =?us-ascii?Q?Y5o4UFkBc6CtNFg1vR2qgw2uRVDWOpomuMK1Ktgiqokx/c08pudSY8lc0P5S?=
+ =?us-ascii?Q?cuxhSVgqs2HeBx75gHCqJ1x68SNxUXy7uu/CNZBWfYIzMStt9VErUrNSC3RH?=
+ =?us-ascii?Q?OYQjKjlGQEXHpU//pH6N9Zo/u/VPiUSSUzJpuzG8azzkUinj?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5062.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90e76377-32fb-4c21-f906-08df141f6730
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 18:22:01.7462 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ET0PgeRHGOFP32PKtL4ipTDmRqRxJmWHPvtWjPd1Hvwmgyi8xIfCwCA7KohKV+Rx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF7671D5CC0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,76 +135,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 4:21=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wro=
-te:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> When CONFIG_DRM_AMD_DC_DCE is disabled, most functions insde dce110_hwseq=
-.c
-> are no longer referenced, causing a lot of warnings such as
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dce110/dce110_hwseq.c:3510:=
-13: error: 'dce110_enable_analog_link_output' defined but not used [-Werror=
-=3Dunused-function]
->  3510 | static void dce110_enable_analog_link_output(
->       |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dce110/dce110_hwseq.c:3391:=
-13: error: 'dce110_set_cursor_attribute' defined but not used [-Werror=3Dun=
-used-function]
->  3391 | static void dce110_set_cursor_attribute(struct pipe_ctx *pipe_ctx=
-)
->
-> Replace the #ifdef with an IS_ENABLED() check that leads to an empty func=
-tion
-> in this configuration, so the compiler can eliminate the unused functions
-> and not complain about it.
->
-> Fixes: cd2cfe4d1504 ("drm/amd/display: gate DCE ASIC code behind CONFIG_D=
-RM_AMD_DC_DCE")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> This still leaves an unused empty function, not sure how much harder
-> we should try. Maybe the file should just be built conditionally?
+AMD General
 
-I think so?  @Wentland, Harry What do you think?
+Looks good to me.
+Reviewed-by: Ellen Pan <yunru.pan@amd.com>
 
-Alex
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Victor L=
+u
+Sent: Wednesday, September 16, 2026 10:23 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Pan, Ellen <Yunru.Pan@a=
+md.com>; Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com>
+Subject: [PATCH] drm/amdgpu: Check for PCIe atomic ops support when reading=
+ pf2vf data
 
-> ---
->  .../gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/=
-drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> index 817f2bf736f4..a334e10eb1cd 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> @@ -3618,7 +3618,6 @@ void dce110_disable_link_output(struct dc_link *lin=
-k,
->         dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTE=
-R_DISABLE_LINK_PHY);
->  }
->
-> -#if defined(CONFIG_DRM_AMD_DC_DCE)
->  static const struct hw_sequencer_funcs dce110_funcs =3D {
->         .program_gamut_remap =3D program_gamut_remap,
->         .program_output_csc =3D program_output_csc,
-> @@ -3685,9 +3684,8 @@ static const struct hwseq_private_funcs dce110_priv=
-ate_funcs =3D {
->
->  void dce110_hw_sequencer_construct(struct dc *dc)
->  {
-> -       dc->hwss =3D dce110_funcs;
-> -       dc->hwseq->funcs =3D dce110_private_funcs;
-> +       if (IS_ENABLED(CONFIG_DRM_AMD_DC_DCE)) {
-> +               dc->hwss =3D dce110_funcs;
-> +               dc->hwseq->funcs =3D dce110_private_funcs;
-> +       }
->  }
-> -
-> -#endif /* CONFIG_DRM_AMD_DC_DCE */
-> -
-> --
-> 2.53.0
->
+The critical region v2 patches clear the fw_reserve.p_pf2vf variable after =
+pf2vf data is read the first time. have_atomics_support relies on that vari=
+able to check for PCIe atomic ops support.
+
+Move have_atomics_support check for SRIOV VFs to be when pf2vf data is read=
+.
+
+Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 33 ++++++++++------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   |  3 ++
+ 2 files changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 44091ac12fa9..42704dd8d790 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4012,24 +4012,21 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+        }
+
+        /* enable PCIE atomic ops */
+-       if (amdgpu_sriov_vf(adev)) {
+-               if (adev->virt.fw_reserve.p_pf2vf)
+-                       adev->have_atomics_support =3D ((struct amd_sriov_m=
+sg_pf2vf_info *)
+-                                                     adev->virt.fw_reserve=
+.p_pf2vf)->pcie_atomic_ops_support_flags =3D=3D
+-                               (PCI_EXP_DEVCAP2_ATOMIC_COMP32 | PCI_EXP_DE=
+VCAP2_ATOMIC_COMP64);
+-       /* APUs w/ gfx9 onwards doesn't reply on PCIe atomics, rather it is=
+ a
+-        * internal path natively support atomics, set have_atomics_support=
+ to true.
+-        */
+-       } else if ((adev->flags & AMD_IS_APU &&
+-                  amdgpu_ip_version(adev, GC_HWIP, 0) > IP_VERSION(9, 0, 0=
+)) ||
+-                  (adev->gmc.xgmi.connected_to_cpu &&
+-                  amdgpu_ip_version(adev, GC_HWIP, 0) >=3D IP_VERSION(12, =
+1, 0))) {
+-               adev->have_atomics_support =3D true;
+-       } else {
+-               adev->have_atomics_support =3D
+-                       !pci_enable_atomic_ops_to_root(adev->pdev,
+-                                         PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
+-                                         PCI_EXP_DEVCAP2_ATOMIC_COMP64);
++       if (!amdgpu_sriov_vf(adev)) {
++               /* APUs w/ gfx9 onwards doesn't reply on PCIe atomics, rath=
+er it is a
++                * internal path natively support atomics, set have_atomics=
+_support to true.
++                */
++               if ((adev->flags & AMD_IS_APU &&
++                          amdgpu_ip_version(adev, GC_HWIP, 0) > IP_VERSION=
+(9, 0, 0)) ||
++                          (adev->gmc.xgmi.connected_to_cpu &&
++                          amdgpu_ip_version(adev, GC_HWIP, 0) >=3D IP_VERS=
+ION(12, 1, 0))) {
++                       adev->have_atomics_support =3D true;
++               } else {
++                       adev->have_atomics_support =3D
++                               !pci_enable_atomic_ops_to_root(adev->pdev,
++                                                 PCI_EXP_DEVCAP2_ATOMIC_CO=
+MP32 |
++                                                 PCI_EXP_DEVCAP2_ATOMIC_CO=
+MP64);
++               }
+        }
+
+        if (!adev->have_atomics_support)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_virt.c
+index 73169cb775f9..a454c6f12d38 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -652,6 +652,9 @@ static int amdgpu_virt_read_pf2vf_data(struct amdgpu_de=
+vice *adev)
+                adev->virt.ras_en_caps.all =3D pf2vf->pf2vf_ras_caps.ras_en=
+_caps.all;
+                adev->virt.ras_telemetry_en_caps.all =3D
+                        pf2vf->pf2vf_ras_caps.ras_telemetry_en_caps.all;
++
++               adev->have_atomics_support =3D pf2vf->pcie_atomic_ops_suppo=
+rt_flags =3D=3D
++                       (PCI_EXP_DEVCAP2_ATOMIC_COMP32 | PCI_EXP_DEVCAP2_AT=
+OMIC_COMP64);
+                break;
+        default:
+                dev_err(adev->dev, "invalid pf2vf version: 0x%x\n", pf2vf_i=
+nfo->version);
+--
+2.34.1
+
