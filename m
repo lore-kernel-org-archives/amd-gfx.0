@@ -4,105 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25330C88E7F
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7379DC88E7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:57:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91E8610ECF2;
-	Wed, 16 Sep 2026 17:54:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B50B910ED09;
+	Wed, 16 Sep 2026 17:57:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F21vk2BU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JZjiawt7";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010059.outbound.protection.outlook.com
- [52.101.193.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 639CA10ED09
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:54:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oCvz5zEX8IkzCWGb0r3BqIxZMX+MQ4jW/4PiFPWXG76DrjiJSaeP627tl2wGFCrDgwB8FWWzXrFn7I/MdRyb+LgJrm/Z68Q+WBgRWMeNI9P68UThBFfkcG7Ca38j803TE1z+3JE1Ej23Z/R8aEyVYoalRbIejG1WgVfOr9j1WgT3q137hqqX8kfkIr6wpV8izLGJ6NKB2r4+rMxdIQ0V1/OEBw0aRfLA9EWkGhWDff58F+0R5vwRzgUJ9DcwP00nVLuXkKTAmiUW2nHvoCO+8kqZ203GvCxEnmJ3+7XeooWQXiBpplTlZU6rQ7XSn8hvS9T911JWZk7uBrdeQCx0jA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FmMoOn9Mo7yuAHMD4LYHTPZTXkQ/E9Z4rYrfEzYs6AM=;
- b=uvI33HwII0vDN0x9lab1cLQBiQacUrLdjsRG3fiIjmGMBkskhFNUoIBQ618baZe+h7KCObCaSMK5GKIjY/ocJfi33TWY5w3Aty34U5UqbF5hNUT+vUDqTNFmwyv3ofCElCtibZfSUy1BGJSILhDM9JPh/xDfr/v+BAaS4FgEn5ETCH1P9CGo+tOWYRCes/mqJEIqmHuj/OCsURE7/40m+uMV4zZ9Fh1Z0h4apI9Kj50P13VllUu7HUofJstdEB3AVca2MWm3GLz+tkAliXjRFzymCHORjd2phOKQq9Dx3UDriZ08qYMFe7K93jN/nqc+pLuxrGqoYcwG3xlhQqhP2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FmMoOn9Mo7yuAHMD4LYHTPZTXkQ/E9Z4rYrfEzYs6AM=;
- b=F21vk2BUn+Jvc7ydxuR2tYYRf7M8vSXqJIkjSriG534/kIhOMws5DYa5M2+sHoU5t4PaXK3b/RHBsXoWPNTXQKu64DHXtpOChT3eOJjGdOlbpRkRiAhZQuRQADZXmFImpG/3oDOPf/7igH28P9u6BmK8w8gOldJ3qv23onEHFi0=
-Received: from CH5P220CA0016.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::22)
- by SA1PR12MB8164.namprd12.prod.outlook.com (2603:10b6:806:338::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 17:53:05 +0000
-Received: from CH3PEPF0000000D.namprd04.prod.outlook.com
- (2603:10b6:610:1ef:cafe::80) by CH5P220CA0016.outlook.office365.com
- (2603:10b6:610:1ef::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 17:53:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000D.mail.protection.outlook.com (10.167.244.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:53:04 +0000
-Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 12:52:51 -0500
-From: George Zhang <george.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- "George Zhang" <george.zhang@amd.com>
-Subject: [PATCH 49/64] drm/amd/display: Fix KUnit MST warnings
-Date: Wed, 16 Sep 2026 13:52:04 -0400
-Message-ID: <20260916175301.368306-50-george.zhang@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916175301.368306-1-george.zhang@amd.com>
-References: <20260916175301.368306-1-george.zhang@amd.com>
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCB1D10ED10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:57:11 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-396673bd283so210190a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 10:57:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789581431; cv=none;
+ d=google.com; s=arc-20260327;
+ b=G2wBXsX/1ICmzRooS18+qQk6BMbLhgSM92oyiXsPgRgUKJMuZYxysEPsqBrnpGnoSd
+ SbndKwSncEn8EsXDfFJ4AIzkyx8kjldAqSxDwA/Z7Zs3kqP9AhTZX58grTpBoSFOCwRX
+ /VqcTYdl0JGA/Dc2SAcfmf/rlPJwE3cNXnLDSlA7Drd7bSITUq6Lm9NI6Wz4/BQTGPJH
+ m71N/DpHnoXjYYL8xpX4K5u4d2u36686bDdxBcQGrMNRXn7nCz2dIstC8nRMnaEUzPMS
+ L5R5K1iwxka09M1MgxgBiJ2D2TVtldcMTvDJBOlFH30y7WJot98zFCC+s9WW7O3vwySk
+ 7fzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=bRhmmCrAtVPev1jQLA09AINV4vc5qQ/mpuw1U6wCpOQ=;
+ fh=hc/BLZFObJVhLCUqC1oiwO84FSWzCpju30n1XM0jJdQ=;
+ b=syIEx1yLBv9WEc+C5yUzKPuaWs+lvN0CJrfLqbrezmSQkj623/qw8zrzF65Niwtc10
+ eFEacFU4wiOTtflnTdmtWKw76f6UkJMG3n7nP58HiUE0qRgDNMZbsfbA8X2kV2B2xPZP
+ rD2Ypui4eXBeqXnmuAjRMQ49/cGwScak8cs+3PQsWyHGYR2t636vKpJcAsk35A0ziMTq
+ 1ZI6zVa0i/u41j5XbNpivvBiXZ+DTfjxRVInA2qZ77nDDXFC98KfFSFGU63BnuQKdMEJ
+ UO57ocBN7sKt+GcQLwfYihlt6C2GoYjiAhuQwV3BPJsmry8b8r8YaHTORtOmlXD2ZsJ6
+ 0LtA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789581431; x=1790186231; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=bRhmmCrAtVPev1jQLA09AINV4vc5qQ/mpuw1U6wCpOQ=;
+ b=JZjiawt7DOi9MRWB6haEQtK8c+kiIH9iitR+NkeF2asLJbfeO9Ea69be1CI5ROcZ23
+ M0Zu9DpAaNaBPSeQuTTuEhxXCX49Yaz/yk67Ix/qzOXTABIKcVUpdWSEVcslEjUyOkU0
+ jTYew+AIMjmhikDo64qawIjvjtkguVcLrARD/lUKDvc46YzZoSh/PTNqUCYbGBsxfyui
+ b6XZkmCZY+/6gg32DMj12VVaMjuaDgSzMbeN5elNyYV9zQbK4gnSkKHQGowtoQzucnil
+ qjcmvewpUTbqf2LIvp9TthSbnWOx29R5JFa/XEGE4q9YaD2DQFC1fwQx1YA2/FHT3DAB
+ pciA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789581431; x=1790186231;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=bRhmmCrAtVPev1jQLA09AINV4vc5qQ/mpuw1U6wCpOQ=;
+ b=gcqa4z5nb+M3wKp4chA/+cV5CSWF6SqB0lh4ax4dq5DZfj5Hqja/eISmn6owlDCQ9X
+ R0FTb41SinWnVpObOP2cLTqzF/pr2keZAo9Rs7jekYKr2StjkM47ka10W7dJPIwAhoXG
+ j3YxKfx6J1mTtWdXbG9IvzJnsXc2DDG44tk6sEd8v7+FaLCfIrM8xJ5kSq/TqAMdNY4a
+ DN8s0qyXJBv7naf3xjQDzoSD08LBVOJGogJ3rSMpZHmf0vFk4l9urK90VDtKiC9QdQ4+
+ /SGX8A+iv+seu6v1Kvj2Hk6nnzBEuDbS9IpIWbVDrgmAG4rDjt6KGusXEHktoG8yTrRw
+ AJ1A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzvK21D7xRPi5RQtQvAjSg/mkUWwsxYzbOXzCDfEQ9Vvuf/tMY1GwTyYXCeDK6MIuCWFYI9eBow@lists.freedesktop.org
+X-Gm-Message-State: AFuF++njM7S2MubhjJ1hardWbHcLyxoI7F2slsbVzHUGMXwwQIyWzFp7
+ rV5xdqKhr4/0URtauEio+zhy92y6X/J+4AzQi1YnKZxBAbtcufuS10SL3PZCQJXsTUWQNgF85K9
+ dfXvo0f/Dmw4A2L71gw0TQYLB339m+Lw=
+X-Gm-Gg: AYBFou0fc7shjC8nZbOY9TrtbIgzwQrcBc5kI46zfiaycNlMy3UsztREnhR6F73PXwh
+ DVY6Pjyldxr0qVJvYFblmUI1uIVV+h+1FolDsq31D/1WXZ7ZHv8Q+tl5c/UoKKMusBVozoud/HU
+ j+PQFPL5EbkyZ3KFGHGJSS87kFpa9M4EtKVo2JNz8fIIanN1SVw1zmItEqEMWzM/+itXUbFCBl+
+ Y+A57E4rTiM2lt0pHdY9KcGToKNmEpjjINMmwzRBwer2X0zn4JnDV0vb5GSCiecB7yv7Y4KJCeM
+ XtRuctZWNIBwKmeKLM6o6HsbPgSxJ23XWGeUC2jwLu5N3oD4F2jcg7L8CMJGMfGdXURCb+bL4pu
+ fR8Yp+UHW3n5LFHjJoAZ9qrRXArspsnEOOmAxyjG8ceor3Y8grm9f
+X-Received: by 2002:a17:90b:4c49:b0:39d:fcbe:fdd7 with SMTP id
+ 98e67ed59e1d1-39e1e23cff7mr5673235a91.1.1789581431294; Wed, 16 Sep 2026
+ 10:57:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000D:EE_|SA1PR12MB8164:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7fed8822-202c-4e08-e3c9-08df141b5bab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|6133799003|22082099003|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: t5a4A6WAJmSrH2I0aP94XOKFrIlhYceJW6PS166LpOhQXU6WW7QGPtMvdcIRJaKPu6fwTv2yyy5Rl7lKpqRbQ0btL6yEx2TY6Y5rcrZn8n+qUEs4pxgL02Gz0V/PQ+ei0umxIINSI93FiVG7CJICDKDcXrT6hr6UyiVMei0rl+r76tUOJLcUXRUUJFACTV1VRPra9WKj1YxVO+8Ux9EpGcdAeSe5UH0OuKdTlc2JD7QhTyHUl9w0DL/mMSGkVNT4/8nM4DmOmcqAp4ZrtJHfEsGeqKDg4gK+gRAJdt6CmXdQTmP53bgN90bTWxoXZpSKDz01zb3exTKSX16xvUwlGrBkH9LJxATGxAaf9yeu0z6gL5KByTYbHDlZszVmlZdf1WEFPcV8C51VCYOyegN8uCdwsiucBHehZBJMjNqKkgBpgFnsK5KM09Bg3KdQm/tyktfnJDHN+/bhDmpqdlhJFOYaD3zCx/GMQLd9z2v1vgv4+lZP1hTaJAB6XPgtECePGxvfexO9NTD2NiX5Qa17EZYcRuMQjO6ZM3KvKt0arb9S86rG4DptemZIQ4qmJdTVf//u+zBwI7ffbpOcb9z+JrWNbkyU3l7ft6MR20DIVpPrLRYcowR/04OU9uW1vRT0B6WeuX+/LGnqGAjHe0BL2oQf1oLk1BQhd5489v771CIvqhreTlu9/vtg39OZfpx1PHWcGwfAKAxVs+0Wv0JmdA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(6133799003)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: JinA13b4Njey78cx/If5ZM8lX7UD8OSGv5iGXs9g6Lqty3ZQKFd8uvU47b+tbUMsBPWJREGOV7sqTPjuI5n73+0gXUDs1KPyDD+pKa7zR5z8nXFR2rVeXHQFj8okA0N+oydOabDCzawac4+tqaNAkLxySA65om+tcY9IBcSS1wf4EJVp3dbXMDI9Cwbu+W9F7bhIQl/wKG4D5hWlDqfqfyc7fc/aqbyHT/HJPCHU5HYrVTYVKXQXkaxMYp9TFdGsAXI+5UurhmhWgltFD+HSRTPrIgCYiLcH5Ya7m2SAXEmETTxOr9M/sUvJwji/hAeZ1fl+YHLGwx1WgWpl+RU2KS3LrqwqlCowqKC0OH2y4BN6J/llfrx04P9GTHAx4EI9y1lGh/WBFoGEPQnFNxFeaLmWC6eeN40tsNi7uz0TIjs7P0Pu28DI7W/onfCQ7T+S
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:53:04.4241 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7fed8822-202c-4e08-e3c9-08df141b5bab
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000D.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8164
+References: <20260915201525.3530491-1-arnd@kernel.org>
+In-Reply-To: <20260915201525.3530491-1-arnd@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 16 Sep 2026 13:56:58 -0400
+X-Gm-Features: AcwNN1WqFxHVyo89bZ3kWQkp1b6VgBRYVdOql17xbIgcYVCDABYsam0h7bBy_4M
+Message-ID: <CADnq5_MG+Yrws17OPHCCtc2Sw2yVBZUf-6ym8QCxnOW+SFKFfg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix unused function warnings
+To: Arnd Bergmann <arnd@kernel.org>, "Wentland, Harry" <Harry.Wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Tom Chung <chiahsuan.chung@amd.com>, 
+ Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Alex Hung <alex.hung@amd.com>, Ray Wu <ray.wu@amd.com>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,51 +115,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+On Tue, Sep 15, 2026 at 4:21=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wro=
+te:
+>
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> When CONFIG_DRM_AMD_DC_DCE is disabled, most functions insde dce110_hwseq=
+.c
+> are no longer referenced, causing a lot of warnings such as
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dce110/dce110_hwseq.c:3510:=
+13: error: 'dce110_enable_analog_link_output' defined but not used [-Werror=
+=3Dunused-function]
+>  3510 | static void dce110_enable_analog_link_output(
+>       |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dce110/dce110_hwseq.c:3391:=
+13: error: 'dce110_set_cursor_attribute' defined but not used [-Werror=3Dun=
+used-function]
+>  3391 | static void dce110_set_cursor_attribute(struct pipe_ctx *pipe_ctx=
+)
+>
+> Replace the #ifdef with an IS_ENABLED() check that leads to an empty func=
+tion
+> in this configuration, so the compiler can eliminate the unused functions
+> and not complain about it.
+>
+> Fixes: cd2cfe4d1504 ("drm/amd/display: gate DCE ASIC code behind CONFIG_D=
+RM_AMD_DC_DCE")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+> This still leaves an unused empty function, not sure how much harder
+> we should try. Maybe the file should just be built conditionally?
 
-[WHY]
-The MST add-connector fixture registers an unmanaged master connector
-but does not clean it up before its KUnit-owned storage is released.
+I think so?  @Wentland, Harry What do you think?
 
-[HOW]
-Register a KUnit action after successful connector initialization to
-run drm_connector_cleanup before freeing the master connector.
+Alex
 
-Assisted-by: Copilot:GPT-6-Astra
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: George Zhang <george.zhang@amd.com>
----
- .../display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c   | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-index 382eafab2d43..eafa3e6733a6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-@@ -1311,6 +1311,13 @@ struct dm_mst_test_add_ctx {
- 	struct dc_link *link;
- };
- 
-+static void dm_mst_test_cleanup_add_ctx(void *data)
-+{
-+	struct amdgpu_dm_connector *master = data;
-+
-+	drm_connector_cleanup(&master->base);
-+}
-+
- /*
-  * Stand in for amdgpu_display_modeset_create_props(), which the test module
-  * cannot link against. Only the properties amdgpu_dm_connector_init_helper()
-@@ -1368,6 +1375,8 @@ static void dm_mst_test_init_add_ctx(struct kunit *test, struct dm_mst_test_add_
- 	ret = drm_connector_init(drm, &ctx->master->base, &dm_mst_test_connector_funcs,
- 				 DRM_MODE_CONNECTOR_DisplayPort);
- 	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_ASSERT_EQ(test,
-+			kunit_add_action_or_reset(test, dm_mst_test_cleanup_add_ctx, ctx->master), 0);
- 
- 	ctx->port = kunit_kzalloc(test, sizeof(*ctx->port), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, ctx->port);
--- 
-2.55.0
-
+> ---
+>  .../gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/=
+drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> index 817f2bf736f4..a334e10eb1cd 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> @@ -3618,7 +3618,6 @@ void dce110_disable_link_output(struct dc_link *lin=
+k,
+>         dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTE=
+R_DISABLE_LINK_PHY);
+>  }
+>
+> -#if defined(CONFIG_DRM_AMD_DC_DCE)
+>  static const struct hw_sequencer_funcs dce110_funcs =3D {
+>         .program_gamut_remap =3D program_gamut_remap,
+>         .program_output_csc =3D program_output_csc,
+> @@ -3685,9 +3684,8 @@ static const struct hwseq_private_funcs dce110_priv=
+ate_funcs =3D {
+>
+>  void dce110_hw_sequencer_construct(struct dc *dc)
+>  {
+> -       dc->hwss =3D dce110_funcs;
+> -       dc->hwseq->funcs =3D dce110_private_funcs;
+> +       if (IS_ENABLED(CONFIG_DRM_AMD_DC_DCE)) {
+> +               dc->hwss =3D dce110_funcs;
+> +               dc->hwseq->funcs =3D dce110_private_funcs;
+> +       }
+>  }
+> -
+> -#endif /* CONFIG_DRM_AMD_DC_DCE */
+> -
+> --
+> 2.53.0
+>
