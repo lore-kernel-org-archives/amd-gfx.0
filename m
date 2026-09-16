@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AEFFC982C3
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 12:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A35DC982C4
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 12:46:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1D2B10E162;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA4F810E3EA;
 	Wed, 16 Sep 2026 12:46:09 +0000 (UTC)
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D9FC896C7;
- Wed, 16 Sep 2026 10:02:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BA3110E7E0;
+ Wed, 16 Sep 2026 09:55:02 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowACXmjgfaapqL8_gBw--.61668S2;
- Wed, 16 Sep 2026 18:02:07 +0800 (CST)
+ by APP-03 (Coremail) with SMTP id rQCowABXXDp0Z6pqbrngBw--.37206S2;
+ Wed, 16 Sep 2026 17:55:00 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: airlied@gmail.com
 Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- andrey.grodzovsky@amd.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- simona@ffwll.ch, Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init()
-Date: Wed, 16 Sep 2026 10:01:39 +0000
-Message-Id: <20260916100139.2012124-1-vulab@iscas.ac.cn>
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ lijo.lazar@amd.com, linux-kernel@vger.kernel.org, simona@ffwll.ch,
+ Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix acpi device leak in
+ amdgpu_acpi_enumerate_xcc()
+Date: Wed, 16 Sep 2026 09:54:32 +0000
+Message-Id: <20260916095432.2009976-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACXmjgfaapqL8_gBw--.61668S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw17JrWDXr13uw18Ar43KFg_yoW8Zr4xpF
- WSg345JrykZF17K3yUAFy8WFyUK3WxJrWIgF4xCw1F9wn8CF95tFyrJw4YqryDCFsFkF43
- tr98Xa9rGF1qkrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: rQCowABXXDp0Z6pqbrngBw--.37206S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw15ZFy5XF48Zr48GryxuFg_yoW8Jw4Upr
+ 4Sqr15CryDuF12k3yUJanrXF90kay7uryfCrW7ZwnF9w45XFyrXFy5J3Wj9r97AFZ3CFsI
+ yr9rJay8XF1qyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
  JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
  CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
  2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
@@ -45,7 +46,7 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Aw17JrWDXr13uw18Ar43KFg_yoW8Zr4xpF
  JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
  UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
 X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYMA2qqPpSvhAAAsO
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqP4ejfgAAsx
 X-Mailman-Approved-At: Wed, 16 Sep 2026 12:46:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,46 +62,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_ring_init() initializes ring->vmid_wait with a reference to the
-stub fence taken via dma_fence_get_stub().  When a later step of the
-initialization fails, e.g. amdgpu_fence_driver_init_ring(), a writeback
-slot allocation or the ring buffer allocation, the function returns an
-error without releasing the stub fence reference and the reference is
-leaked if the ring is torn down without amdgpu_ring_fini().
+amdgpu_acpi_enumerate_xcc() looks up each XCC ACPI device with
+acpi_dev_get_first_match_dev(), which takes a reference to the device.
+The reference is dropped with acpi_dev_put() after the XCC info is
+initialized, but if the kzalloc_obj() allocation of the XCC info fails
+the function returns -ENOMEM without releasing the reference, leaking
+the last reference to the ACPI device.
 
-Move the stub fence assignment to the end of the initialization, right
-before the ring is registered with the GPU scheduler, where no further
-failure is possible.  The stub fence is only consumed by command
-submission handling in amdgpu_ids.c once the ring is up and running, so
-nothing reads it during the error-prone part of the initialization.
+Drop the ACPI device reference on the allocation failure path before
+returning.
 
-Fixes: 48e9fbd1a284 ("drm/amdgpu: initialize the vmid_wait with the stub fence")
+Fixes: 4d5275ab0b18 ("drm/amdgpu: Add parsing of acpi xcc objects")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index d6bee5c30073..8c12c373ab7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -254,7 +254,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
- 		ring->adev = adev;
- 		ring->num_hw_submission = sched_hw_submission;
- 		ring->sched_score = sched_score;
--		ring->vmid_wait = dma_fence_get_stub();
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 516ab9cf88fc..8d3f1f5a141e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1167,8 +1167,10 @@ int amdgpu_acpi_enumerate_xcc(void)
+ 		}
  
- 		ring->idx = adev->num_rings++;
- 		adev->rings[ring->idx] = ring;
-@@ -374,6 +373,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 		xcc_info = kzalloc_obj(struct amdgpu_acpi_xcc_info);
+-		if (!xcc_info)
++		if (!xcc_info) {
++			acpi_dev_put(acpi_dev);
+ 			return -ENOMEM;
++		}
  
- 	ring->max_dw = max_dw;
- 	ring->hw_prio = hw_prio;
-+	ring->vmid_wait = dma_fence_get_stub();
- 
- 	if (!ring->no_scheduler && ring->funcs->type < AMDGPU_HW_IP_NUM) {
- 		hw_ip = ring->funcs->type;
+ 		INIT_LIST_HEAD(&xcc_info->list);
+ 		xcc_info->handle = acpi_device_handle(acpi_dev);
 -- 
 2.34.1
 
