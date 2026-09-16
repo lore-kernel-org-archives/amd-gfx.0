@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F5C8C982CC
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:52:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51229C982C9
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:52:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 074F710E89C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B81A410E91B;
 	Wed, 16 Sep 2026 17:52:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5lJsrKlg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LN7vXxmr";
 	dkim-atps=neutral
 Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010035.outbound.protection.outlook.com [52.101.85.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D76610E89C
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:37 +0000 (UTC)
+ (mail-westusazon11010039.outbound.protection.outlook.com [52.101.85.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EFFF10E89C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bFw86qNVDGPZsvqt+hgCEKHYUpUwEzVal+Ra+DmKs6+pSw25ZQx5D5FUyrGu3Brdy2oVYm6c0DtiWhE1TDQE24zjW+XVYWmeWvMcjNmZoYf/PksW6Mq/CXEuOw/Tx9ema6vgnfPUF7Cgms/j1v2IQ06CG8y08cpVIZabfHxZfV9MukHWyXVDN+GxZVuKTeleBjhZiyHxL+CFiMiVA1SpLlb7wuVIdDBpqfCuj7/eGb/EYGG2vbyaVi+dV9Y9JV/oGvwQzRiaQnIhONjaVzoiKNUUzyqbMWe+IAOibEDD5yOBrfFxjFOiGVJbx8mNgNZGfwa79c5hsNz+VsqoVNXl3w==
+ b=NEq7mtaj2TTt9yiwF1zzVOVLvuslyT2+qEkFgcIqjsaZBik2x6pVj//SdSwqxxblYDjeRDvHLceWUHQ0BQjBoZZlVHsOV0ruNlK4Y8ZPnBDIrch7hpbi4I8jK3+YFF0IHrITlg2ZXwVxJMisXdMQ6G7x7fZ7QTaNFkgmlA0ORxBfaLkKiWSZk+hZrXrsH/lth/YIgnUx5oihkIW8H1HL4HZJ+VxrUK/xz+UYlwC0vS5wEGMSc8+P5H/1OxlDt5gyQN1vQ2Ok96nNBWKegbNnCct9WRyhQvW2FCrz5ykZLbLa3lLtBZXG2gmfJy+dJS9knVdQPDnuitCyhg0uZ7dAxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AMmZV2u7u/NK8WiJ0wCNZ/rLq/nsF4mbuVsUwgUUlBg=;
- b=dSLUKq/zHOGNzNRzgksNvF5OVp+sH73ZtFzfky+hiLsXzNphrogcXQQMYtXuOIcPxg4PtQWyExgVzp9H2DRyeucoYeR/XIakbM9FlPLeoEmVff71XlNEdLz1XXDzA1rjOWChmNqhkQBsbhvdTFO9ivEawvbJDscBDXgyeV/o8jOyzWxC4sOzjN9xN6fJdtHkm76It9ny2ECGDOeLlHVluO3C8K/QlwY1yOqmNik5Mr+POgdTrZZ62v+FYFTZAHysWbikKYep6XsVrjkpiuS3lTXLFsbdYwotfJlKxO+3/bRWSCW7iCVptVkWLJEX/RSa2nIC/8bLT3l1fd/b50s7hA==
+ bh=Epp8HR1fm7AM1usX7UDnQZrY+RrocsKDxY2d929QREk=;
+ b=gC2yUnC+7Szr5etlTDaeCXlU0vFwjsUPCnL6rNxFm6Q59gcbrZiyzb20kie6nd9FdcMgyQhmwmleddRz3mpVifAqrWZy6NSVOGDzFuy8RMXfS0TorcHTIPND17Oh83itvveb52AU0u1CBNW1XRiUdDPFrem/VJZSfC6OMrLpJntOqQCIGu9zG6vqEymZVJr/a0JDMMD/OMKbh93hELVhFM36BWxD2A2fzQO6VoV0XQez5CaZLbAzFrmoZT01E7hlQrZrm8OlyrksRR42QZ8i00YABuejRqKiojPr6C0A91hv//CgpH097qyVroettPdG8phYlshGKSyliLaB0nqPOQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AMmZV2u7u/NK8WiJ0wCNZ/rLq/nsF4mbuVsUwgUUlBg=;
- b=5lJsrKlg6yn478ao2ZJG8HsuFC8zFcIc/HgBDmJm0SxfdHbQXwgY/6OGfgNZdyxVji2aTo0jl6nI52MeX4AhoHoJnoygoirCtlLNGmUAB39fRM5/96JYbhillbCNJLSNfn2/7HDz4KpXlXl6GwGfuaigBRnzitrsJPzCBz8Aqoo=
-Received: from CH0PR03CA0262.namprd03.prod.outlook.com (2603:10b6:610:e5::27)
- by DS7PR12MB5789.namprd12.prod.outlook.com (2603:10b6:8:74::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Wed, 16 Sep
- 2026 17:52:34 +0000
-Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
- (2603:10b6:610:e5:cafe::62) by CH0PR03CA0262.outlook.office365.com
- (2603:10b6:610:e5::27) with Microsoft SMTP Server (version=TLS1_3,
+ bh=Epp8HR1fm7AM1usX7UDnQZrY+RrocsKDxY2d929QREk=;
+ b=LN7vXxmrsuZ7vFPFEBKKA/C2M9WnY15VcMPLtDH3THakXsGDWbtO1P/QbbO72z6Ja0kqeUCcSqSml4MJrlpYsmHGz46P68fOLGflCG9nXtFdKCt0CEWrT8HKMn7py+oL0BeR+cDTg3XwXopzUZLdc+mdwKHbFESokefLxHyTdt8=
+Received: from CH2PR10CA0028.namprd10.prod.outlook.com (2603:10b6:610:4c::38)
+ by PH7PR12MB7284.namprd12.prod.outlook.com (2603:10b6:510:20b::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 17:52:32 +0000
+Received: from CH3PEPF0000000A.namprd04.prod.outlook.com
+ (2603:10b6:610:4c:cafe::72) by CH2PR10CA0028.outlook.office365.com
+ (2603:10b6:610:4c::38) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 17:52:34 +0000
+ 16 Sep 2026 17:52:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
+ CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:34 +0000
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:32 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 12:52:20 -0500
+ 2026 12:52:19 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- "George Zhang" <george.zhang@amd.com>
-Subject: [PATCH 11/64] drm/amd/display: Select KUnit helpers
-Date: Wed, 16 Sep 2026 13:51:26 -0400
-Message-ID: <20260916175301.368306-12-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Jun Lei
+ <jun.lei@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 10/64] drm/amd/display: Add inst field to struct dmub_replay
+Date: Wed, 16 Sep 2026 13:51:25 -0400
+Message-ID: <20260916175301.368306-11-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916175301.368306-1-george.zhang@amd.com>
 References: <20260916175301.368306-1-george.zhang@amd.com>
@@ -79,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|DS7PR12MB5789:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15dfde82-87f3-480b-b067-08df141b4999
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|PH7PR12MB7284:EE_
+X-MS-Office365-Filtering-Correlation-Id: 586df237-f156-4150-6654-08df141b489c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|10067099003|11063799006|6133799003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: kmZBcY6gparYYmSIke8zcsmjW1u5rOCoWMYaKZhIHLDv5dsd+CUVwd7iwINLEr1+Q++mN4yzfb1nMLD/M1Tu3tVhNudvcS5IOBagtiYyhNd66h9hXloA1ifr9LM8FGh4kZS/G9TY2CRmf/QzmKzbqR3GbciR5yjOd+PDQKUwhbRzF+cvW1DMv7E3FMd3052eqsYo/BZKeyHcgGpi/wefs16yvDWTVz4lI4gH4+SOFtr+Soq4xtFhzDpxuWuumKghSsE2E2rrj53E4eaUa448nSLvv38tE+XI6CQgFKLPSCmjD7U1NKkLZJQH6N2cLTPFgAcLzfZ4apho4pgS8aVeHOW/uFzGqeBPUhWpLirgN6Q5D9dNXe4KUNtMzipzqTFDlYG0t9PJ2v6dB9Z5aPLaSOHxwwJsVJHJ35XWcDa2pmKRe8QFuIDdroo1wDFI9pqnXcH8c074Bu5ME4VKdnjsWGfPUgyyl8vAGIMXFLRD1p0w3VKkt2Ca/sGQ7m92dt0+Tfv4DTGsZ5oUXKhRecydMvS9/MKGdKr40rRBdekYt431udxO2HN29qxJd+4bYA5bjV1t/JOyjt+At4gu3YCqhLfZmHYhAXqXX0pN/XmpFzEIw7rT/OyWM9LaRhlrXn1eoukG7Lqxm17yKF7x/i282vdaZHOIpnzIrcBm6Luzdr36gDP94gvJ+vv+FlbV5iF3WjpqrcaSqsvxqtacy4jhWQ==
+ ARA:13230040|1800799024|82310400026|23010399003|376014|36860700016|18002099003|22082099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: 6hJf38O9cTX2IVpYvE8VsA6budRW1FW8hdkDT7aMqdeqE/pIX3YWdYkCemhwWQzYyNLehvtezdubWKqSPsfmtp7Di8nVFLdYJJSvdvvEtcWISz7glHAziOXRDwAwbhULay1n2AuE+0sWyGHgb/ICTpUBj0izoCiRdjlx8glgL8gdq+Pkey9/kgH3ZUBiPIBFawPw8s6K0eGUZfiquZ5J+ofDDHPgMRJVgbp8KiVPH/OkkIYDSK1Hp63N6W8rZnQhfQA/eFJjJ/XpdHcZu8IEElurYFfhzkHQZtZnb9z4rqoUkWdONPMD/gMod3H+yNCs/xqCmuR47MHEbkEbo9Tb4gsX/X6855G171O8NMBKcLPlnqjDQBT9L2HR2SU2NZdBc11uh45G4PPFdCWOuGb73J9kXWvxyHB+wp1oBpPtPj2fVRL5HYmsCvrFNpAmYp/f8x1r5OuV9PD+DRfP4gTBA9SYMSywTN/w5VNA6kYFEiiEC+AiybxY87xlPjOKCWhvCplOfH1EKGvIc25FTy+BwwT7DsryudFJQn9iQag/2vHthDrY5XqZp9S0KWpaRK4q/JARhdCLtlEKCg4uY6PkhtvPPyNsdfeDj/N28i6o6079RwREeks0urALoT0783jZl44+YJ+vL1ezcpJA1AEDUy2BTRn9jtxi6Wmz34vbjQLwexWrrEjx7wE81aDMnq/t8NZDA8Z4E3mjLMPedUJgSg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(10067099003)(11063799006)(6133799003)(18002099003)(22082099003)(56012099006);
+ SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(36860700016)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /eylfyeY6JF896lUpfM0l/sjdwckOU0pqlTvb0GOBHTI4hgucK73mCvi4L+5oXUB2jOnZNG3sJ5/DIkQkL5WJcY8MN5iPv6objg4TiA70rT/wkPUP4CNYJoIQywuA+Cdt8cNwcsEzNKIZhdWKf8bt817mV6hIsH0PiIovI/BattkJHnanEHdhhYXMKRZtsTlwx8/X4tEP42biQdTPXHJ3GZYlIjfxfMf3XtdQ/pXvtz/FmsoR5rf99wh0GOFRdbeCyEsUGJ2pGeJaJWjEgq4Rewn2I39cno3gLX1ugDH+G0Lzj2HAFRtz08Qtmj/4wTo4Ra2m3QcfO3RHyIA1tJGo2eP9OCOXuXi/kNa8CFEgzBsWkJQpTHB+poX7NfDnn+SMhyyqS8O+g0OETV/6h4ZCZOyvHYht8NpR9m6ozPVnzfNPhmNqUWcTWpqAniZqrvK
+X-MS-Exchange-AntiSpam-MessageData-0: S9YJ2CJyQ5t4zAz2m905+2JRntqe7TKbXMbHF7yHrK148E03+r3EFn9ldGojoDAKyCE0rwQUtHeGfnyI+cip7PY0eDXP6McK/PsRf7E2h0ZdibA22KMhRuTvHEt58JHWTf2ABJqBvi4C+uX0IzFUv4TsIP4WQDa/ItRCEP/hOf1Sab6WI8sQSVIeV/G9qWDBv0HVE5FckIVCVAkIlPvYa+3+U2a44vmiXM030J4kxV+NGJ9X/mMd2aFi4lnDnGmAhfdtPfPwqOdDu7842tEHBrS8KznBy/3+nkRXx9VQ0+cMnOAALTohr01+jSA3nNYBp2IAc+k4e+thThDnYzbVMiZGGnFX/+Phc4AddF3falIeTPxiOoLCMbzDraLw4ktWCEH1buIFygZPcU2GjDr3fvDXHtXU5cbLZA06VYJ0Jnhz8xwphIrHmP1iVHUliCjG
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:34.1092 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15dfde82-87f3-480b-b067-08df141b4999
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:32.4227 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 586df237-f156-4150-6654-08df141b489c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5789
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7284
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,55 +116,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Tony Cheng <Tony.Cheng@amd.com>
 
-[WHAT]
-DRM_KUNIT_TEST_HELPERS has no prompt, so it can only be turned on by a
-select.  DRM_AMD_DC_KUNIT_TEST merely depended on it, which forced the
-amdgpu_dm KUnit config to enable CONFIG_DRM_KUNIT_TEST as well and drag
-in the entire core DRM test suite.
+Add an inst member to struct dmub_replay and set it to 0 in
+dmub_replay_construct(), since the replay object is a pool singleton.
 
-[HOW]
-Select DRM_KUNIT_TEST_HELPERS from DRM_AMD_DC_KUNIT_TEST, matching what
-DRM_KUNIT_TEST and DRM_TTM_KUNIT_TEST already do, and drop
-CONFIG_DRM_KUNIT_TEST from the amdgpu_dm kunitconfig.  The amdgpu_dm
-tests now build standalone and a run executes only the amdgpu_dm suites.
+Also move the (void)panel_inst cast in dmub_replay_set_coasting_vtotal()
+below the local declarations, where it belongs.
 
-Assisted-by: Copilot:Claude-Opus-5
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+No functional change; the inst field has no readers yet.
+
+Reviewed-by: Jun Lei <jun.lei@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Tony Cheng <Tony.Cheng@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/display/Kconfig                      | 3 ++-
- drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig | 1 -
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c | 3 ++-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index 617bc1932524..a319680c329b 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -67,7 +67,8 @@ config DRM_AMD_SECURE_DISPLAY
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
+index 0785a30eb643..e6adca240ccf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
+@@ -217,13 +217,13 @@ static void dmub_replay_set_coasting_vtotal(struct dmub_replay *dmub,
+ 		uint8_t panel_inst,
+ 		uint16_t frame_skip_number)
+ {
+-	(void)panel_inst;
+ 	union dmub_rb_cmd cmd;
+ 	struct dc_context *dc = dmub->ctx;
+ 	struct dmub_rb_cmd_replay_set_coasting_vtotal *pCmd = NULL;
  
- config DRM_AMD_DC_KUNIT_TEST
- 	tristate "KUnit tests for the AMD DC display driver" if !KUNIT_ALL_TESTS
--	depends on DRM_AMD_DC && KUNIT && DEBUG_FS && DRM_KUNIT_TEST_HELPERS
-+	depends on DRM_AMD_DC && KUNIT && DEBUG_FS
-+	select DRM_KUNIT_TEST_HELPERS
- 	default KUNIT_ALL_TESTS
- 	help
- 	  This option enables KUnit tests for the AMD Display Core driver.
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
-index c7c8527dbb10..0c26c510f7a5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
-@@ -6,7 +6,6 @@ CONFIG_DRM_AMD_DC=y
- CONFIG_DEBUG_FS=y
- CONFIG_DRM_AMD_DC_KUNIT_TEST=y
- CONFIG_FW_LOADER=y
--CONFIG_DRM_KUNIT_TEST=y
- CONFIG_DRM_KUNIT_TEST_HELPERS=y
- CONFIG_DRM_KMS_HELPER=y
- CONFIG_DRM_TTM=y
+ 	pCmd = &(cmd.replay_set_coasting_vtotal);
+ 
++	(void)panel_inst;
+ 	memset(&cmd, 0, sizeof(cmd));
+ 	pCmd->header.type = DMUB_CMD__REPLAY;
+ 	pCmd->header.sub_type = DMUB_CMD__REPLAY_SET_COASTING_VTOTAL;
+@@ -458,6 +458,7 @@ static void dmub_replay_construct(struct dmub_replay *replay, struct dc_context
+ {
+ 	replay->ctx = ctx;
+ 	replay->funcs = &replay_funcs;
++	replay->inst = 0;
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
+index 271a42a226e9..fa17cd395e5c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
+@@ -13,6 +13,7 @@ struct dmub_replay_funcs;
+ struct dmub_replay {
+ 	struct dc_context *ctx;
+ 	const struct dmub_replay_funcs *funcs;
++	uint32_t inst;
+ };
+ 
+ struct dmub_replay_funcs {
 -- 
 2.55.0
 
