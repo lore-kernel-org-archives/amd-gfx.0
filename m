@@ -4,51 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58614C88E77
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 12:46:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 197FCC88E5C
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 12:46:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8102D10E154;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 749FF10E0F9;
 	Wed, 16 Sep 2026 12:46:09 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADA7510E71C;
- Wed, 16 Sep 2026 09:50:29 +0000 (UTC)
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowAC3wkBgZqpqWKrgBw--.1636S2;
- Wed, 16 Sep 2026 17:50:24 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Bhawanpreet.Lakha@amd.com
-Cc: airlied@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- linux-kernel@vger.kernel.org, nicholas.kazlauskas@amd.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Fix dc stream excess put in
- dm_update_crtc_state()
-Date: Wed, 16 Sep 2026 09:49:56 +0000
-Message-Id: <20260916094956.2008436-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="siM4TMnc";
+	dkim-atps=neutral
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51B2910E72B;
+ Wed, 16 Sep 2026 07:37:43 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hl9hh5XVyz8ty1;
+ Wed, 16 Sep 2026 09:37:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1789544260; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GDtzL67scSq2UWnFotGDkOZ3m1EtjuZAhaUshRza66s=;
+ b=siM4TMnch2rn4U1j6hPM6Y+Jrosea3tVMCzDOpwciv+u9hM/WtCLYH/76ONpw67XdtlStN
+ R8kouwYNsLsggAhrLqD4C0+4IVH+Fh2wfBb6qjM17f+S/a+Nyo1B28TuvNAbt0X1hUoTSh
+ BAAAxddN/HeS4UuSn3vdf8CpMUka9TSEAzC85DX28ZqI3MFJ5pHCGE5mXXU2uWU0mdnR7/
+ mVGIVF+9UO3fCdgsSoTxdYBIwRsy6cOv9NTjnA3k70WBpgJnXXqrY8qNqpMAg6/erHcxlm
+ qOiZgZaUG6GVqbXwV689je8/JWmbrGG1LJlbsVHr1FQVns0/UHYJdpr3QXMhSA==
+Message-ID: <763ba7b5895ac8f850662eaad84a2d5b523a8902.camel@mailbox.org>
+Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ Luke.Wildhardt@proton.me
+Cc: Danilo Krummrich <dakr@kernel.org>, "matthew.brost@intel.com"
+ <matthew.brost@intel.com>, "ckoenig.leichtzumerken@gmail.com"
+ <ckoenig.leichtzumerken@gmail.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "regressions@lists.linux.dev"
+ <regressions@lists.linux.dev>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Date: Wed, 16 Sep 2026 09:37:34 +0200
+In-Reply-To: <ab60bdb4-351f-4911-9246-2719d078cb96@igalia.com>
+References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+ <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
+ <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
+ <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
+ <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
+ <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
+ <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
+ <932892b196f7bbba7f5e9bff22f9b484854aaccc.camel@mailbox.org>
+ <ab60bdb4-351f-4911-9246-2719d078cb96@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowAC3wkBgZqpqWKrgBw--.1636S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WrW3trW3ury5Cw1UKF43GFg_yoW8Aw1xpr
- s5Gw1Fvr9rAF1xta47J3WF9Fy0kw4fJFySkr4UCw1Sva45Jr1rJF1rXr4vgrZrCFZ3ZayY
- qa98J3y7X3ZF93DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
- 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
- 628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
- IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
- MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
- W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
- JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
- UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
-X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgMA2qqQJWZugAAs2
+X-MBO-RS-META: t7tj41edfc77zcym3yib1pm5n7ffxnii
+X-MBO-RS-ID: 134a4ce73af47e1eb91
 X-Mailman-Approved-At: Wed, 16 Sep 2026 12:46:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,49 +76,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In dm_update_crtc_state(), when a modeset is required the newly created
-stream is stored in dm_new_crtc_state->stream and an extra reference is
-taken with dc_stream_retain().  The reference returned by
-create_validate_stream_for_sink() is released as an extra reference at
-the skip_modeset label, leaving the stream owned by the new CRTC state.
+On Wed, 2026-08-12 at 13:29 +0100, Tvrtko Ursulin wrote:
+> Not sure if you are calling me out here or not, since apart from a=20
+> direct mention, the lore link above is also a reply to my email, so for=
+=20
+> the record, I did give my ack for those patches. Plus I spent time=20
+> testing them. So if you were in fact calling me out, I don't see how=20
+> that is warranted. And on the wider topic I also never shied away from=
+=20
+> the non-glamorous work.
 
-If amdgpu_dm_check_crtc_color_mgmt() fails afterwards, the code jumps
-to the fail label which releases new_stream again.  Since the extra
-reference was already released at skip_modeset, this drops the
-reference owned by dm_new_crtc_state->stream and the stream is
-released while the atomic state still points to it, leading to a
-premature free of the dc stream.
+I was addressing what I perceive to be the general problems within DRM
+=E2=80=93 I still believe the general points are valid, but want to stress =
+that
+it's a collective problem in which we all play a role, though no one is
+the protagonist. I mentioned the media outlet (which quoted your name)
+as part of the problem because there are external cheerleaders for
+performance (whose unconditional priority is *the* reason for the
+design mistakes in drm_sched) and features.
 
-Set new_stream to NULL after releasing the extra reference at the
-skip_modeset label so that a later goto fail cannot release the
-reference owned by the new CRTC state.
+Nevertheless, I apologize for the rough tone and want to emphasize that
+you're indeed the most engaged contributor and have improved many
+things. The unit tests alone are worth their weight in silver.
 
-Fixes: 7cd4b70091a5 ("drm/amd/display: Rework CRTC color management")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+The wider, problematic patterns in DRM might be worth addressing with
+the appropriate tenderness in a suitable format; I will try to collect
+my thoughts on that.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5fc5d5608506..28300a3e757a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -11706,8 +11706,10 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 
- skip_modeset:
- 	/* Release extra reference */
--	if (new_stream)
-+	if (new_stream) {
- 		dc_stream_release(new_stream);
-+		new_stream = NULL;
-+	}
- 
- 	/*
- 	 * We want to do dc stream updates that do not require a
--- 
-2.34.1
 
+Regards,
+Philipp
