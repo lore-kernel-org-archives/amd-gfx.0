@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CC04C982D0
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:53:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4029C982CC
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:53:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A27910ECD0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20B3A10ECCE;
 	Wed, 16 Sep 2026 17:53:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DijxfcDn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OweTzZIA";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011007.outbound.protection.outlook.com
- [40.93.194.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57C9410ECC3
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:53:04 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010065.outbound.protection.outlook.com [52.101.85.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A6F010ECC3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:53:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hE/J5TIC+Nva31apho8J4q1LlBLvVLo8nLts9AXy6ntkL2DkdUU5qPfedqx5Ypspu8oFSLZNNkPaXvb+fNTwG++/4RvzE71RwMNmTDlApZsdxXIXvmFr3czOWkmv8CeNOB7nAHiwni71OnqZ9OZJX4W3MvatNCZVenWhMeYSmB5LXB3H8CBhhCEMixdwZ7Xo5e0+fE6eYPoymRu1MhNEUhQkc5OJV+ennOAICspqu+hgPxp+GrWSlot4fWVZILL90Sb3fGVsfaCOF+3M/xyJBO2fS7aCoMQh0xjTTH+ZpCHy+j1SswxmS9QzBd9e6V9pgMQAGvi17CxQdg/flIUnhg==
+ b=hR+TCtpopx4rW+Kusx4RRypM/W8qlo9x/4pcr6jh3DWfCmgn+2MtalBaldAvZWMwIkWud893TUkXBuzPIHhtkJhCwg8QZ8YnLaKO9hCD8PgpkhSzwMXD8PWl4NFXo95F1DIW9RW3yzy75mu0KHbQW0P4GtufLvRBMN8vWW+QR5GwkQKMUbSoIRVNujmtc44WNviKXpSb2WaWQlfIj21w2b2RmR3GDBXJB/PgIKzzNFE1eWGasHrrSTCJ5Ja8jjusI6SCECIwmHFuQK/1mS4l29nNiN3leeA5bvWnAHKDCnvFPa5MwsVIQ+83u+zK1V12EnqE8Jus6N7niuPeU0mp0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Iza/8sfxm5TXcOd/iLHc994APwqi03sijlDxd32E2CU=;
- b=lSHZrV8yazNELXwIIlbLknIzSC4aB1ZK+dk/LfRIqlK7rfBJvrQ+RQ3nPSzejdv+nL7dTHfzKH4Z1achMsFynFWXCOKXBpzZolf6psmGDQGGGN6uQmh8cGJE3oD29zLpGG/j/V9BoL3duVWo2f5a+rscYZRUo/Su/ANYtknPRmgRtOX+t70gAoqn7ufYjy+YD/7PYlhklsbXxXQ42Ae3tPXel7qsQM7SjI/QT8p3iIjAz+fBbDHQvzj++vqwQkS0JH2ZAy8ShI3sfXsCx56DQFG+Rj2zlX9DOL+4HXftO2/JnuqBzQ+C+dLjVlmec2ADWVNEJJpL56cl1SZdGZlriw==
+ bh=+DWv47ECP0dIaKsYl3ur6/IOfYYTbuqBjMtt33yzX64=;
+ b=nNpY4eu3VaCsLu48nPdaQxEsjpCnm27A/b/K40ao1fgFvyb4xCWo2beuW4/HQq9+C+60sXn9EMnGQ2WBhHdiGHujhiBIA7OPUeiTAzu38WTy3sGJACDA9IEADB659/63e1UBWwN7TysNx7BQkp7d/RRKHrVs7QMsNlNcywz80NJw8UBAn6P2YqnIppQDKSXa7vDV3L/MeL3h9Y4w7IDg5Fz1nNdcpg0hSSO5YDNnDvDJQFTiHKzQXHhchiZfGys7MzjlJ+onTgOpXPA32zvLYmOQrI/ZoIsHWVChdgoD4v9WIfwgxWybEN+DAg3Hro4UemB99AEq+0ToDEqaOxkqIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Iza/8sfxm5TXcOd/iLHc994APwqi03sijlDxd32E2CU=;
- b=DijxfcDnGZAe8G8bJFMfOfatEantB4gsyF7svPFjwOAwcy8uwyG7FXKlD17OsYTmuOwhGTL7+G0EOzVvh3fy+W5j1pjANkS085lbeaMBIapU0lonc7GORszL/aXoJBLwp6A+kedCivqINkYww66w/1v8wa59h6dK/zei6/2YfFA=
-Received: from CH5P220CA0019.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::17)
- by DS7PR12MB8232.namprd12.prod.outlook.com (2603:10b6:8:e3::12) with
+ bh=+DWv47ECP0dIaKsYl3ur6/IOfYYTbuqBjMtt33yzX64=;
+ b=OweTzZIAI3rWW4tN2jIX8b8HpzPyyq3rQJfF6LopKEptTnyKtCfBGu30OfjaYtDOCyv7ThZj7HTLW/9c6m3Hb4232Z5JxrDFUap1cD4KywYiJ2vN9tVmAlAz2D4A//mG0aX+yQnrUcFBEhQ/XBZQajTFF1wuRlOi0HNy1VRrkak=
+Received: from CH0PR03CA0184.namprd03.prod.outlook.com (2603:10b6:610:e4::9)
+ by CYYPR12MB8749.namprd12.prod.outlook.com (2603:10b6:930:c6::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 17:52:59 +0000
-Received: from CH3PEPF0000000D.namprd04.prod.outlook.com
- (2603:10b6:610:1ef:cafe::57) by CH5P220CA0019.outlook.office365.com
- (2603:10b6:610:1ef::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Wed, 16 Sep
+ 2026 17:53:00 +0000
+Received: from CH3PEPF00000010.namprd04.prod.outlook.com
+ (2603:10b6:610:e4:cafe::3c) by CH0PR03CA0184.outlook.office365.com
+ (2603:10b6:610:e4::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 17:52:56 +0000
+ 16 Sep 2026 17:52:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000D.mail.protection.outlook.com (10.167.244.43) with Microsoft
+ CH3PEPF00000010.mail.protection.outlook.com (10.167.244.41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:56 +0000
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:59 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 12:52:44 -0500
+ 2026 12:52:47 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- George Zhang <george.zhang@amd.com>, Zhikai Zhai <zhikai.zhai@amd.com>
-Subject: [PATCH 40/64] drm/amd/display: Fix missing gaps for link lock with
- inbox0
-Date: Wed, 16 Sep 2026 13:51:55 -0400
-Message-ID: <20260916175301.368306-41-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ "George Zhang" <george.zhang@amd.com>
+Subject: [PATCH 43/64] drm/amd/display: Fix KUnit connector warnings
+Date: Wed, 16 Sep 2026 13:51:58 -0400
+Message-ID: <20260916175301.368306-44-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916175301.368306-1-george.zhang@amd.com>
 References: <20260916175301.368306-1-george.zhang@amd.com>
@@ -81,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000D:EE_|DS7PR12MB8232:EE_
-X-MS-Office365-Filtering-Correlation-Id: 213d854c-76f4-4f59-2e04-08df141b5736
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000010:EE_|CYYPR12MB8749:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2f98e2f-182c-46f7-5c32-08df141b58d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|22082099003|18002099003|10067099003|56012099006|5023799004|11063799006;
-X-Microsoft-Antispam-Message-Info: u6MdQZAdrwyx8zR/evZcbUcc3tfF0dL6OgjDSbMWOF1Yyp1ZNYaiSvQZEETMOPNAw4tA7iYQvHYn43Y7BUNJpO3aBiz4BP0KhzO2/3Xq5pJQEQzcB8haWzjTSzn1qfREmdbHvEs2ubBfa4B9V87R+RxS8kFUS44dMipL98s7xGTb2xci1IeDvvl5CDC2hCsBmKm7AN3KsOk8umApngzIKo05xpGVP0XVGhwsFgJD7Fr8IbxSx/fdbXUMqqruSWad3QhoUVyhm+XtMSN3SyI3VvykpRl2CoWtrPt3bHkk5thKNPaePitTU9Hv44k5o9nJIWECCoDe3TViuhfJBCIaYfsnMafrS5lRWemLzf8ysHgaJBxxiQ7fICxBjo5nRFoO+HfOzr/4POR9DxoCb1wSMMgdP8nh0IxNhxj/eWJBmm/VgxD4eeEd7nP1DieqjgVY3Maq2q2UkkVmPpmyvUHOnWgxwT62jAruBdTm2v3ehrsYAx7rr8DO4RCmyrENzM7P7W+XLW968U8gWfce8c8YGZtYZc3ayeh/8iAvyXptSaXjVTQppX+8EmNcfSopwz8wi9sCD7tW/ZAZe4GtybR3L2VKCFTeKCqCTHpDTZUzw9hxkDoeHqcA/GANq3Dsrbrcv9n61u1p4hYmMqGKp5sk1rz6vfjrmkdudEqvVdmDYTdu0knAYeysaXKHLx3mILRHmD3rVgumyn3aZ4pNeWY6Jw==
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: guZ/zJpFP5qFONfrFG8Bk9tPexjJKqBUJV6Ay6PYAmYZuH9FTQRfaKL/uUE6VFzNoxWsnGd3IfskAHqUOgJxVA5WgYapjPb5kA6ySr0hZdHbPiUvea3qQ1xYSeplY3QqVDP0mCU+t1mcxAzKU0DezLZ0SnfsKmzk8Fe2Z9EFvfTxfbdOO2pg+UkYltFENE+npUNnOKHGG6O5AQPnwkh8Mlv+KvqL6D1BmzeuL6G+axtJwrJRLy+KuvC/AZFpyuFSbVarpdt1Z3xixNH76FTLT2dY+H3k0zO4lwNGFqlCn8MWJ/MD0bkWNTEQBom9oA2HvAXcYr5JPErLqZsiCXckY02c+oKQRLZBGIEGTz657Ejlsr7USBhy6o62jZoy8JRV1G39ArTxPrL/yC2BR/cA3T//Ua6UTMNa01cEEyc9dNDjZnLOpugwr+W0OeiFyDdq/K33DGdB+qnyagHqxKHwWSYchN+VAOIyQaOIUw9iyKLTQ9TvTZ95vl6UTiHitRzMOjLGm8z3NEijYjqwlSaQ7npB1nGL7lgzeuDKjWt5iWa4KMygkpMQpmheBmphUN6rBL1B3HE3UIijuvXvyNfhnF65Gbnr3vkTtyhtHpXLyN23o+4zDhsqgtc4omgrpSleafh/8oLSXHQIgPLgT20QPEduc5FdDRZM9MNKgMVYBGc3eu3P8QNBCek2+uKc/7faddRvDOxwOVQ4d5qwC4ziYg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(22082099003)(18002099003)(10067099003)(56012099006)(5023799004)(11063799006);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jRWL4iQOugi6PIQS0zUE4GEeCaae4Y0Bcaf7vVlqnQ3W/XXQnJwp3HSJs/cocQqbY8TvhlXQFArERpTkNgBohbTyv9F+cn1xLQgSNBocvVUQ9ng0qlApGt9f+4tldJNIsIuks26H2/FfycTiGGet1Jw2NzxBXmy9Lp1yzvXpaYYf3zsztCv6EaweCGBLpjQIxaER35nH9cFsyySoYP4mlFVSwMvLFxYfae8Q+F/U9yGgt0694HvJpyNAecyAl3ccY4MT1u4dX4UQ0naI10S6Gov/YtVUb2t+e9c95P2jfS6UbfcTr19Q7W6Rsz5KzBpHlLDMXE5rQoP7dxy1L5Lz0r7J3n3eLq4d8tp6nSjDZj2W5UBfy5HNY1v0PQAqiNDSByuXlQyHQurS+gfqMIqKIW/1cBZ0lnO9qnG6ie5HhGSOq2WSR8qA3a2HvN3kD/nR
+X-MS-Exchange-AntiSpam-MessageData-0: Yzy/J32Dn94iK5/97h2aTMrMWAqfnngUHpgyF1ruIz2KHGQWoyjmDKlV1awxAQcL9hl5Pz2e43bAmX023kQr+ODudFoWW/6/rMe9d1AUXYy99Wmd8fh/UmI64uFkKst8SuYDAwoh4Eu3tKt4SIlVeZsqlF8tPXs/jrLzE+UDRWJyCtQ/U3K9hBVloyRJXKE3E4ti8S/LyXyMjv3/EeXcd1tsAMdPBA1T6l4KpR9FCFrCFhm9BZ3iN3BPtgpLPB7vSLU6OF9TnlY1VJRbeThauA6GsOJX1y+Zgh2/DDGhw40+jTRIR7BDjQuDYoyEuYSXdaANEsxyOYL1FoU05e4l99jCHaakLQ2OniP+eloPa9taelb2+Rpm50N3goTmUNeJArzgKq8HljlEVO0aSYMcwpXFLBomJE3eGgVj4pSJdok+lM0OugOqWDbPuUCGT6Js
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:56.9191 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 213d854c-76f4-4f59-2e04-08df141b5736
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:59.6398 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2f98e2f-182c-46f7-5c32-08df141b58d5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000010.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8232
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8749
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,147 +116,211 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-[Why]
-Inbox1 was previously being used for cursor and DIG locking with
-DMUB doing the relevant programming on behalf of driver.
+[WHY]
+Connector mode population without mode_config.mutex produces warning
+stack traces. Legacy property reads also warn on atomic DRM devices.
 
-With the Inbox0 lock the driver is expected to do the programming
-itself and the Inbox0 lock acts as nothing more than a SW mutex.
+[HOW]
+Lock mode-population calls and release the mutex before assertions.
+Read stored property values with the atomic-compatible default getter.
 
-There are still a few gaps in how Inbox1 was being leveraged in the
-cursor path that need to be addressed for Inbox0.
-
-[How]
-Add a `should_use_dmub_inbox0_lock_for_link` helper to help
-check if we support the Inbox0 locking infrastructure and we should
-be locking it if the specific link in question requires it.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewend-by: George Zhang <george.zhang@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Zhikai Zhai <zhikai.zhai@amd.com>
+Assisted-by: Copilot:GPT-6-Astra
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_stream.c   | 21 +++++++++++++++++++
- .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.c | 10 ++++++++-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  3 ++-
- 3 files changed, 32 insertions(+), 2 deletions(-)
+ .../tests/amdgpu_dm_connector_test.c          | 53 +++++++++++++++----
+ 1 file changed, 42 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 8d3aacc7b96c..88ac4a4cfd6e 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -34,6 +34,7 @@
- #include "dc_dmub_srv.h"
- #include "dc_state_priv.h"
- #include "dc_stream_priv.h"
-+#include "dce/dmub_hw_lock_mgr.h"
-
- #define DC_LOGGER dc->ctx->logger
- #ifndef MIN
-@@ -307,6 +308,7 @@ void program_cursor_attributes(
- 	struct resource_context *res_ctx;
- 	struct pipe_ctx *pipe_to_program = NULL;
- 	bool enable_cursor_offload = dc_dmub_srv_is_cursor_offload_enabled(dc);
-+	bool unlock_dmub = false;
-
- 	if (!stream)
- 		return;
-@@ -330,6 +332,12 @@ void program_cursor_attributes(
- 						pipe_ctx->plane_res.dpp, pipe_ctx->plane_res.hubp,
- 						top_pipe->pipe_idx);
- 			} else {
-+				if (dc->hwss.dmub_hw_control_lock && pipe_ctx->stream &&
-+				    should_use_dmub_inbox0_lock_for_link(dc, pipe_ctx->stream->link)) {
-+					dc->hwss.dmub_hw_control_lock(dc, dc->current_state, true);
-+					unlock_dmub = true;
-+				}
-+
- 				dc->hwss.cursor_lock(dc, pipe_to_program, true);
- 				if (pipe_to_program->next_odm_pipe)
- 					dc->hwss.cursor_lock(dc, pipe_to_program->next_odm_pipe, true);
-@@ -362,6 +370,9 @@ void program_cursor_attributes(
- 			dc->hwss.cursor_lock(dc, pipe_to_program, false);
- 			if (pipe_to_program->next_odm_pipe)
- 				dc->hwss.cursor_lock(dc, pipe_to_program->next_odm_pipe, false);
-+
-+			if (unlock_dmub)
-+				dc->hwss.dmub_hw_control_lock(dc, dc->current_state, false);
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 1848b81e45a9..ff22e79e7c92 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -2735,7 +2735,7 @@ static void dm_test_update_subconnector_dp_with_sink(struct kunit *test)
+ 
+ 	update_subconnector_property(aconnector);
+ 
+-	KUNIT_EXPECT_EQ(test, drm_object_property_get_value(&aconnector->base.base,
++	KUNIT_EXPECT_EQ(test, drm_object_property_get_default_value(&aconnector->base.base,
+ 				aconnector->base.dev->mode_config.dp_subconnector_property,
+ 				&val), 0);
+ 	KUNIT_EXPECT_EQ(test, (int)val, (int)DRM_MODE_SUBCONNECTOR_VGA);
+@@ -2778,7 +2778,7 @@ static void dm_test_update_subconnector_dp_no_sink(struct kunit *test)
+ 
+ 	update_subconnector_property(aconnector);
+ 
+-	KUNIT_EXPECT_EQ(test, drm_object_property_get_value(&aconnector->base.base,
++	KUNIT_EXPECT_EQ(test, drm_object_property_get_default_value(&aconnector->base.base,
+ 				aconnector->base.dev->mode_config.dp_subconnector_property,
+ 				&val), 0);
+ 	KUNIT_EXPECT_EQ(test, (int)val, (int)DRM_MODE_SUBCONNECTOR_Unknown);
+@@ -2827,7 +2827,7 @@ static void dm_test_update_subconnector_non_dp_noop(struct kunit *test)
+ 	update_subconnector_property(aconnector);
+ 
+ 	/* Non-DP connector: value must remain what we seeded */
+-	KUNIT_EXPECT_EQ(test, drm_object_property_get_value(&aconnector->base.base,
++	KUNIT_EXPECT_EQ(test, drm_object_property_get_default_value(&aconnector->base.base,
+ 				aconnector->base.dev->mode_config.dp_subconnector_property,
+ 				&val), 0);
+ 	KUNIT_EXPECT_EQ(test, (int)val, (int)DRM_MODE_SUBCONNECTOR_VGA);
+@@ -3339,7 +3339,7 @@ static uint64_t dm_test_panel_prop_value(struct kunit *test,
+ 	uint64_t val = ~0ULL;
+ 
+ 	KUNIT_EXPECT_EQ(test,
+-		drm_object_property_get_value(&ctx->aconnector->base.base,
++		drm_object_property_get_default_value(&ctx->aconnector->base.base,
+ 			ctx->drm->mode_config.panel_type_property, &val), 0);
+ 	return val;
  }
-@@ -481,6 +492,7 @@ void program_cursor_position(
- 	struct resource_context *res_ctx;
- 	struct pipe_ctx *pipe_to_program = NULL;
- 	bool enable_cursor_offload = dc_dmub_srv_is_cursor_offload_enabled(dc);
-+	bool unlock_dmub = false;
-
- 	if (!stream)
- 		return;
-@@ -508,6 +520,12 @@ void program_cursor_position(
- 						pipe_ctx->plane_res.dpp, pipe_ctx->plane_res.hubp,
- 						top_pipe->pipe_idx);
- 			} else {
-+				if (dc->hwss.dmub_hw_control_lock && pipe_ctx->stream &&
-+				    should_use_dmub_inbox0_lock_for_link(dc, pipe_ctx->stream->link)) {
-+					dc->hwss.dmub_hw_control_lock(dc, dc->current_state, true);
-+					unlock_dmub = true;
-+				}
-+
- 				dc->hwss.cursor_lock(dc, pipe_to_program, true);
- 			}
- 		}
-@@ -535,6 +553,9 @@ void program_cursor_position(
- 					top_pipe->pipe_idx);
- 		} else {
- 			dc->hwss.cursor_lock(dc, pipe_to_program, false);
-+
-+			if (unlock_dmub)
-+				dc->hwss.dmub_hw_control_lock(dc, dc->current_state, false);
- 		}
- 	}
+@@ -5733,9 +5733,11 @@ static void dm_test_native_mode_copies_preferred(struct kunit *test)
+ 	mode->clock = 148500;
+ 	mode->hdisplay = 1920;
+ 	mode->vdisplay = 1080;
++	mutex_lock(&ctx->drm->mode_config.mutex);
+ 	drm_mode_probed_add(&ctx->aconnector->base, mode);
+ 
+ 	amdgpu_dm_get_native_mode(&ctx->aconnector->base);
++	mutex_unlock(&ctx->drm->mode_config.mutex);
+ 
+ 	KUNIT_EXPECT_EQ(test, ctx->aenc->native_mode.hdisplay, 1920);
+ 	KUNIT_EXPECT_EQ(test, ctx->aenc->native_mode.vdisplay, 1080);
+@@ -5788,8 +5790,10 @@ static void dm_test_add_common_modes_non_edp_noop(struct kunit *test)
+ 	ctx->aenc->native_mode.hdisplay = 1920;
+ 	ctx->aenc->native_mode.vdisplay = 1200;
+ 
++	mutex_lock(&ctx->drm->mode_config.mutex);
+ 	amdgpu_dm_connector_add_common_modes(&ctx->aenc->base,
+ 					     &ctx->aconnector->base);
++	mutex_unlock(&ctx->drm->mode_config.mutex);
+ 
+ 	KUNIT_EXPECT_EQ(test, ctx->aconnector->num_modes, 0);
  }
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
-index 52673e2f504c..2ac1485a3438 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
-@@ -36,6 +36,14 @@ static bool dmub_hw_lock_has_inbox0_lock(const struct dc *dc)
- 	       dc->ctx->dmub_srv->dmub->meta_info.feature_bits.bits.inbox0_lock_support;
+@@ -5809,8 +5813,10 @@ static void dm_test_add_common_modes_edp_adds(struct kunit *test)
+ 	ctx->aenc->native_mode.hdisplay = 1920;
+ 	ctx->aenc->native_mode.vdisplay = 1200;
+ 
++	mutex_lock(&ctx->drm->mode_config.mutex);
+ 	amdgpu_dm_connector_add_common_modes(&ctx->aenc->base,
+ 					     &ctx->aconnector->base);
++	mutex_unlock(&ctx->drm->mode_config.mutex);
+ 
+ 	KUNIT_EXPECT_EQ(test, ctx->aconnector->num_modes, 10);
  }
-
-+static bool dmub_hw_lock_has_inbox0_lock_split(const struct dc *dc)
-+{
-+	return dc->ctx && dc->ctx->dmub_srv &&
-+		dc->hwss.dmub_hw_control_lock &&
-+		dc->hwss.dmub_hw_control_lock_fast &&
-+		dc->ctx->dmub_srv->dmub->meta_info.feature_bits.bits.inbox0_lock_split;
-+}
-+
- void dmub_hw_lock_mgr_cmd(struct dc_dmub_srv *dmub_srv,
- 				bool lock,
- 				union dmub_hw_lock_flags *hw_locks,
-@@ -121,5 +129,5 @@ bool should_use_dmub_inbox1_lock(const struct dc *dc, const struct dc_link *link
-
- bool should_use_dmub_inbox0_lock_for_link(const struct dc *dc, const struct dc_link *link)
+@@ -5887,12 +5893,18 @@ static struct amdgpu_dm_connector *dm_test_fs_setup(struct kunit *test)
+ static void dm_test_add_fs_modes_generates(struct kunit *test)
  {
--	return dmub_hw_lock_has_inbox0_lock(dc) && dmub_hw_lock_mgr_does_link_require_lock(dc, link);
-+	return dmub_hw_lock_has_inbox0_lock_split(dc) && dmub_hw_lock_mgr_does_link_require_lock(dc, link);
+ 	struct amdgpu_dm_connector *aconnector = dm_test_fs_setup(test);
++	unsigned int count, duplicate_count;
+ 
+ 	aconnector->min_vfreq = 20;
+ 	aconnector->max_vfreq = 60;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)add_fs_modes(aconnector), 8);
+-	KUNIT_EXPECT_EQ(test, (int)add_fs_modes(aconnector), 0);
++	mutex_lock(&aconnector->base.dev->mode_config.mutex);
++	count = add_fs_modes(aconnector);
++	duplicate_count = add_fs_modes(aconnector);
++	mutex_unlock(&aconnector->base.dev->mode_config.mutex);
++
++	KUNIT_EXPECT_EQ(test, count, 8);
++	KUNIT_EXPECT_EQ(test, duplicate_count, 0);
  }
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index ef576640de5b..af621b8552e1 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -1004,7 +1004,8 @@ union dmub_fw_meta_feature_bits {
- 		uint32_t shared_state_link_detection : 1; /**< 1 supports link detection via shared state */
- 		uint32_t cursor_offload_v1_support: 1; /**< 1 supports cursor offload */
- 		uint32_t inbox0_lock_support: 1; /**< 1 supports inbox0 lock mechanism */
--		uint32_t reserved : 29;
-+		uint32_t inbox0_lock_split: 1; /**< 1 supports inbox0 lock acquire/release split mechanism */
-+		uint32_t reserved : 28;
- 	} bits; /**< status bits */
- 	uint32_t all; /**< 32-bit access to status bits */
- };
---
+ 
+ /**
+@@ -8404,9 +8416,13 @@ static void dm_test_get_modes_noedid_default(struct kunit *test)
+ {
+ 	struct dm_test_gm_ctx *ctx =
+ 		dm_test_gm_ctx_alloc(test, DRM_MODE_CONNECTOR_DisplayPort);
++	int count;
++
++	mutex_lock(&ctx->drm->mode_config.mutex);
++	count = amdgpu_dm_connector_get_modes(&ctx->aconnector->base);
++	mutex_unlock(&ctx->drm->mode_config.mutex);
+ 
+-	KUNIT_EXPECT_GT(test,
+-			amdgpu_dm_connector_get_modes(&ctx->aconnector->base), 0);
++	KUNIT_EXPECT_GT(test, count, 0);
+ }
+ 
+ /**
+@@ -8422,10 +8438,12 @@ static void dm_test_get_modes_noedid_128b_adds_more(struct kunit *test)
+ 		dm_test_gm_ctx_alloc(test, DRM_MODE_CONNECTOR_DisplayPort);
+ 	int n_8b, n_128b;
+ 
++	mutex_lock(&ctx->drm->mode_config.mutex);
+ 	n_8b = amdgpu_dm_connector_get_modes(&ctx->aconnector->base);
+ 
+ 	ctx->link_srv->dp_get_encoding_format = dm_test_gm_enc_128b;
+ 	n_128b = amdgpu_dm_connector_get_modes(&ctx->aconnector->base);
++	mutex_unlock(&ctx->drm->mode_config.mutex);
+ 
+ 	KUNIT_EXPECT_GT(test, n_128b, n_8b);
+ }
+@@ -8444,7 +8462,9 @@ static void dm_test_get_modes_noedid_analog_adds_common(struct kunit *test)
+ 	struct dc_sink *sink;
+ 	int n_base, n_analog;
+ 
++	mutex_lock(&ctx->drm->mode_config.mutex);
+ 	n_base = amdgpu_dm_connector_get_modes(&ctx->aconnector->base);
++	mutex_unlock(&ctx->drm->mode_config.mutex);
+ 
+ 	sink = kunit_kzalloc(test, sizeof(*sink), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, sink);
+@@ -8452,7 +8472,9 @@ static void dm_test_get_modes_noedid_analog_adds_common(struct kunit *test)
+ 	ctx->aconnector->dc_sink = sink;
+ 	ctx->link->link_id.id = CONNECTOR_ID_VGA;
+ 
++	mutex_lock(&ctx->drm->mode_config.mutex);
+ 	n_analog = amdgpu_dm_connector_get_modes(&ctx->aconnector->base);
++	mutex_unlock(&ctx->drm->mode_config.mutex);
+ 
+ 	KUNIT_EXPECT_GT(test, n_analog, n_base);
+ }
+@@ -8469,6 +8491,7 @@ static void dm_test_get_modes_with_edid(struct kunit *test)
+ 	struct dm_test_gm_ctx *ctx =
+ 		dm_test_gm_ctx_alloc(test, DRM_MODE_CONNECTOR_eDP);
+ 	const struct drm_edid *drm_edid;
++	int count;
+ 
+ 	drm_edid = drm_edid_alloc(dm_test_uad_edid, sizeof(dm_test_uad_edid));
+ 	KUNIT_ASSERT_NOT_NULL(test, drm_edid);
+@@ -8478,8 +8501,11 @@ static void dm_test_get_modes_with_edid(struct kunit *test)
+ 	ctx->aenc->native_mode.hdisplay = 1920;
+ 	ctx->aenc->native_mode.vdisplay = 1200;
+ 
+-	KUNIT_EXPECT_GT(test,
+-			amdgpu_dm_connector_get_modes(&ctx->aconnector->base), 0);
++	mutex_lock(&ctx->drm->mode_config.mutex);
++	count = amdgpu_dm_connector_get_modes(&ctx->aconnector->base);
++	mutex_unlock(&ctx->drm->mode_config.mutex);
++
++	KUNIT_EXPECT_GT(test, count, 0);
+ 
+ 	drm_edid_free(drm_edid);
+ 	ctx->aconnector->drm_edid = NULL;
+@@ -10068,6 +10094,7 @@ static void dm_test_conn_init_get_modes_hook(struct kunit *test)
+ 		dm_test_conn_init_ctx_alloc(test, SIGNAL_TYPE_HDMI_TYPE_A);
+ 	const struct drm_connector_helper_funcs *helper;
+ 	struct drm_connector *connector = &ctx->aconnector->base;
++	int count;
+ 
+ 	KUNIT_ASSERT_EQ(test,
+ 			amdgpu_dm_connector_init(ctx->dm, ctx->aconnector, 0,
+@@ -10077,7 +10104,11 @@ static void dm_test_conn_init_get_modes_hook(struct kunit *test)
+ 	KUNIT_ASSERT_NOT_NULL(test, helper);
+ 	KUNIT_ASSERT_NOT_NULL(test, helper->get_modes);
+ 
+-	KUNIT_EXPECT_GT(test, helper->get_modes(connector), 0);
++	mutex_lock(&ctx->drm->mode_config.mutex);
++	count = helper->get_modes(connector);
++	mutex_unlock(&ctx->drm->mode_config.mutex);
++
++	KUNIT_EXPECT_GT(test, count, 0);
+ 	KUNIT_EXPECT_GT(test, ctx->aconnector->num_modes, 0);
+ }
+ 
+-- 
 2.55.0
 
