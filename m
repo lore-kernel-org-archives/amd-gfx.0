@@ -4,82 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A401C88E5C
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 13:08:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F24A4C88E77
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 13:43:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 012B010E665;
-	Wed, 16 Sep 2026 13:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71C5E10E047;
+	Wed, 16 Sep 2026 13:43:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NrG7S+UY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rqaXsysu";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C9AE10E665;
- Wed, 16 Sep 2026 13:08:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=X2rxwilczNJ6ldHARZUdKBvRtCkMFchMNSB1ii9fkZk=; b=NrG7S+UYe3WaWMj2cKDB/dU80O
- UtZ7RwfEmHvOUvah0KiMxldqn8ttnycG1Js/mLdipLaPDhoPA2f8vknKDT1FWToE/FMR/8PNWHOYz
- beXqpU7U2r1tJAmA5GxM0ZvYXF6EpLyUoYfgqRu8GGIbWrX7a5FddYJvkcJyKZfXzTrpMMUtoPjhK
- xYHlkfI5rhUXLAPhBK5aq5oto88zogJh7TeaQ1NBs311rzJs8D/6I9+1fBgojnV+bEplQRLdGmjGR
- JBoxJCuhkOWsbfYui4hhLW6TCctbbVBcDClIlzG32rK+MhKcJf3kzOyhlSPwDYSRAAvYOyb03dv8L
- FMIEZ2RQ==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x6pN8-002wbV-Tp; Wed, 16 Sep 2026 15:08:22 +0200
-Message-ID: <3f134188-0af1-4c7e-8bb8-ddb2504c9efe@igalia.com>
-Date: Wed, 16 Sep 2026 10:08:11 -0300
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5276010E047
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 13:43:23 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-39d67a9ae5bso120682a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 06:43:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789566203; cv=none;
+ d=google.com; s=arc-20260327;
+ b=c+T9/lsSvq0sIdLQmX1rjNYbVHssx0Q8STOlVkE1x56VVDGmLkQkLV/e+dRTZFWTLi
+ lRrYh3lIud60QV70xhtu/q/MWlNJKXFxLno+XwO/eTwVolxyDlyD8c3/H2cNs0LnXVY8
+ VyzxgEqfn0pDTTzG9gNsbOnZh79TngzDGeP54QWZJzGImVfAncx0XzuHkpz8z0IY6f0c
+ PcezCVzX72s90tjOfAPnF+MYPnFmABe/+wNrNy+mChrYn+UPIOL2aKdfQjdwYBwQkUtd
+ GZ9DALRjY+ynMrSPxvoDakTJ7sOAL7jBiOSOdraoGmUjyV2YYZegqOejnP/kuGuXx7bJ
+ Rs8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Vjh1DnpPWqPbpHLga85FABWYuMiu7ASGXtOHEMufVrk=;
+ fh=WmyEQsrKOgFkobcaAxSvn2AqDeMXcd+G7obYtOqMQhg=;
+ b=qEbmL7uLoe2aog0UzYTgE0T9UDHwqLcP/xLNwJLg027wxg20R0qqciaehmRx8upTKR
+ 2Hj06ouFp/hisRrM2jvAW8lWN9LXBP6JFhs1RwMUctk2dtLXlaV+NJY4Vhaq18EiR1lZ
+ TYKBd4MxZdx2Hualm3oUc6/fFV5W3JuY9iDYfV4xYn4pHA6bcDWmoycStjFpUmaapKO8
+ 7redS8tRy4Zu4HnD4Uw7fBVfX4oAhU/Tluyz7rM4FL75vYPf7oLM0UP9fPsge5q+5Ifn
+ onee/mkfJKew6i454zHr+Cva35rQcxtqOq6DIz4RU1euVwCZfXiNqGnFt8nm2fqJrMfW
+ sw1w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789566203; x=1790171003; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Vjh1DnpPWqPbpHLga85FABWYuMiu7ASGXtOHEMufVrk=;
+ b=rqaXsysue0wDJoD2RsWIqlIp0rn4AzHo43KXekQQoP7n2oboalKa/AtRHRv55OckLv
+ /nypvrfrdrk4YbVvM58lzLNHBpEzViEzCyBfirhTD54ejIQZ7dbbc3mbX09Xijp6Fixc
+ 2j0vyqLVNf1QFzpuV0UgyjnKCrPfTttF/tKxtlkzZyHRxvkQsMEAos9SbnAEwqfD/FxO
+ NwU0HLNOymDqi/JaxESf5Q6IA+10aqnfMIcgCaBllduwLjNl78N/0sQn3n3JOq1yYqh/
+ HIpIMHRPu5D/HmFLZpiA7Ibl2gEHBF9giRPENckZIHReGSISeP0/VjULaShVJWEJY1gn
+ QRfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789566203; x=1790171003;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Vjh1DnpPWqPbpHLga85FABWYuMiu7ASGXtOHEMufVrk=;
+ b=V6EVBYpJDH4WtUSZAB0H25rqEHJafHVfXw1exsov/h60ov60GzD3H7FYdKNPVPt250
+ Rg+JM0Hactk+mEs8aYIMXhleIyM2iPcM3dzMWwLrTwxKK7Ss82r0sopc3ScYdxiC9KRx
+ w/GjXvT9+o6FYusWdegGmh+Zn5X/dXSNOSZR6/GJxZHK3g9DObC3KUlcbRtY5BwjIURp
+ QpkPflR4/00wWh+xS7vutYqzvc3Po0tFqMIKeNPs6k+71tBMz3yD5nXLc3JfWGCsk3b1
+ jOZX4nhvH+I9afrS8BnHUr/6wcvjGeaqd9ojwaLZK5LewUitLfoa4rFsBRtl2bS/8mO2
+ kE7g==
+X-Gm-Message-State: AFuF++krjY93K2JdQbUFu0SPTqR56onA4gpMYan0r/Rurmw695QO758G
+ bVQOosJP+0K4psq1cZa2VbLwYMSLlckPaCt6KbxOfwXKPaRYDNZJzdSqv8t+yEtXDi7Dsa9sMoh
+ SKhqH8p16z2NPQm6Ik1QX53pBxe2MfdU=
+X-Gm-Gg: AYBFou1FGbtiXtRmj73YXZM0Swn0jw9mFRbp5WxdLR5kw3wVneB5xQ21TkZfsjya1mG
+ KiVc2gOIuy0XwsVCiAbroYNx96NB/ebuO7SDDdzEAPGba1rX4FeFF4AXGzxexKjfR10hj2yasaJ
+ grtaue/8ndDmrTgKri02HQ5coFnKDbT+9eqE8XoWSard3LubrYItd20gkoyPIIgdz2uADsHLa9w
+ JbotX6ecLUG/BAGwYfKqy4mDR4gfTmftqXDCITYtNxj4KmFJk4syBMLfbdA/n9fACCUQGVrPjLK
+ xv3st4rpat3qwV8bMSrWyUJoCtp9EPs5nbEak+Natiui/ujocGyeR3O6miK65VFTFV9d/6WDpf/
+ mr5FGU2GA8VUZ7wQzQt54D3/COeIoL50I3GZbMCYJew==
+X-Received: by 2002:a17:90a:281:b0:39e:2f57:67c0 with SMTP id
+ 98e67ed59e1d1-39e2f58489bmr602054a91.0.1789566202629; Wed, 16 Sep 2026
+ 06:43:22 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] drm: Add drm_timeout_rel_to_jiffies()
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
- <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
- <c20c43109d3ebb08ad6a0c811ffaeb48f90efed5@intel.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <c20c43109d3ebb08ad6a0c811ffaeb48f90efed5@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260916045117.1658211-1-lijo.lazar@amd.com>
+ <20260916045117.1658211-2-lijo.lazar@amd.com>
+In-Reply-To: <20260916045117.1658211-2-lijo.lazar@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 16 Sep 2026 09:43:08 -0400
+X-Gm-Features: AcwNN1WsL8XOotE8yxtimEk38RD7sL95aRAE8IHtW6xXf4tSMKQj3XaVfeC2YVk
+Message-ID: <CADnq5_NJWyQdL8wX5hYDyz2A-7vULDUjnLDyDou4LeN9QoUJOw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/pm: Drop redundant power_context_size
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com, Asad.Kamal@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,67 +105,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jani,
+On Wed, Sep 16, 2026 at 1:16=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+te:
+>
+> The size is stored and cleared in init/fini but never used to for
+> anything else like copy. Drop the size and use pointer for init/fini
+> checks.
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
-On 16/09/26 07:38, Jani Nikula wrote:
-> On Tue, 15 Sep 2026, Maíra Canal <mcanal@igalia.com> wrote:
->> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
->> absolute deadline, but there is no equivalent for the drivers that
->> express a wait as a duration. Drivers such as i915 and v3d convert the
->> value themselves.
->>
->> Converting a nanosecond duration to jiffies needs some care.
->> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
->> userspace-supplied timeout overflows its range and is silently truncated.
->>
->> i915 already handles both cases in a local helper, which v3d has a copy
->> of. Add the same conversion to the core, so that it is available to any
->> driver and both copies can be dropped.
->>
->> Signed-off-by: Maíra Canal <mcanal@igalia.com>
->> ---
->>   drivers/gpu/drm/drm_timeout.c | 45 +++++++++++++++++++++++++++++++++++++++++++
->>   include/drm/drm_timeout.h     |  1 +
->>   2 files changed, 46 insertions(+)
->>
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-[...]
-
->> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
->> index cd9621c52062..6ee222a3e97c 100644
->> --- a/include/drm/drm_timeout.h
->> +++ b/include/drm/drm_timeout.h
->> @@ -12,5 +12,6 @@
->>   #include <linux/types.h>
->>   
->>   signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
->> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
-> 
-> The signed/unsigned differences here bug me a little. Maybe explain why
-> in the commit message if there's a rationale?
-> 
-
-Answering both your e-mails, the rational behind this change was: don't
-make any changes to drm_timeout_abs_to_jiffies(); only move it as it is.
-As I'm the one introducing drm_timeout_rel_to_jiffies(), I took the
-liberty to implement it in a way that makes more sense to me, which is
-using `unsigned long`, considering that a timeout in jiffies should
-always be positive. Also, i915 and v3d implement the function returning
-an unsigned long.
-
-I believe that drm_timeout_abs_to_jiffies() historically returned a
-signed long because dma_fence_wait_timeout() takes a signed long timeout
-parameter (I'm not sure why).
-
-Best regards,
-- Maíra
-
-> I note that drm_timeout_rel_to_jiffies() return value is assigned to
-> unsigned long variables half the time. I guess its kernel-doc could say
-> it never returns negative values?
-> 
-> BR,
-> Jani.
-> 
-
-
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h  | 1 -
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 --
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 6 ++----
+>  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c | 6 ++----
+>  drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c | 6 ++----
+>  5 files changed, 6 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/=
+drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index 2586f9fa6589..ab43a5cd0dcd 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -487,7 +487,6 @@ struct smu_power_gate {
+>
+>  struct smu_power_context {
+>         void *power_context;
+> -       uint32_t power_context_size;
+>         struct smu_power_gate power_gate;
+>  };
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> index f0b2e7da67b1..09e20d5ee044 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> @@ -345,7 +345,6 @@ int smu_v11_0_init_power(struct smu_context *smu)
+>         smu_power->power_context =3D kzalloc(size, GFP_KERNEL);
+>         if (!smu_power->power_context)
+>                 return -ENOMEM;
+> -       smu_power->power_context_size =3D size;
+>
+>         return 0;
+>  }
+> @@ -356,7 +355,6 @@ int smu_v11_0_fini_power(struct smu_context *smu)
+>
+>         kfree(smu_power->power_context);
+>         smu_power->power_context =3D NULL;
+> -       smu_power->power_context_size =3D 0;
+>
+>         return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index c4b2fe60da62..b250c5e41e45 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -427,13 +427,12 @@ int smu_v13_0_init_power(struct smu_context *smu)
+>  {
+>         struct smu_power_context *smu_power =3D &smu->smu_power;
+>
+> -       if (smu_power->power_context || smu_power->power_context_size !=
+=3D 0)
+> +       if (smu_power->power_context)
+>                 return -EINVAL;
+>
+>         smu_power->power_context =3D kzalloc_obj(struct smu_13_0_power_co=
+ntext);
+>         if (!smu_power->power_context)
+>                 return -ENOMEM;
+> -       smu_power->power_context_size =3D sizeof(struct smu_13_0_power_co=
+ntext);
+>
+>         return 0;
+>  }
+> @@ -442,12 +441,11 @@ int smu_v13_0_fini_power(struct smu_context *smu)
+>  {
+>         struct smu_power_context *smu_power =3D &smu->smu_power;
+>
+> -       if (!smu_power->power_context || smu_power->power_context_size =
+=3D=3D 0)
+> +       if (!smu_power->power_context)
+>                 return -EINVAL;
+>
+>         kfree(smu_power->power_context);
+>         smu_power->power_context =3D NULL;
+> -       smu_power->power_context_size =3D 0;
+>
+>         return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+> index f2e6105b0d79..5e890b56fd37 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+> @@ -393,13 +393,12 @@ int smu_v14_0_init_power(struct smu_context *smu)
+>  {
+>         struct smu_power_context *smu_power =3D &smu->smu_power;
+>
+> -       if (smu_power->power_context || smu_power->power_context_size !=
+=3D 0)
+> +       if (smu_power->power_context)
+>                 return -EINVAL;
+>
+>         smu_power->power_context =3D kzalloc_obj(struct smu_14_0_power_co=
+ntext);
+>         if (!smu_power->power_context)
+>                 return -ENOMEM;
+> -       smu_power->power_context_size =3D sizeof(struct smu_14_0_power_co=
+ntext);
+>
+>         return 0;
+>  }
+> @@ -408,12 +407,11 @@ int smu_v14_0_fini_power(struct smu_context *smu)
+>  {
+>         struct smu_power_context *smu_power =3D &smu->smu_power;
+>
+> -       if (!smu_power->power_context || smu_power->power_context_size =
+=3D=3D 0)
+> +       if (!smu_power->power_context)
+>                 return -EINVAL;
+>
+>         kfree(smu_power->power_context);
+>         smu_power->power_context =3D NULL;
+> -       smu_power->power_context_size =3D 0;
+>
+>         return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu15/smu_v15_0.c
+> index dfc1022112d5..4be864e4f0e6 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
+> @@ -335,13 +335,12 @@ int smu_v15_0_init_power(struct smu_context *smu)
+>  {
+>         struct smu_power_context *smu_power =3D &smu->smu_power;
+>
+> -       if (smu_power->power_context || smu_power->power_context_size !=
+=3D 0)
+> +       if (smu_power->power_context)
+>                 return -EINVAL;
+>
+>         smu_power->power_context =3D kzalloc_obj(struct smu_15_0_power_co=
+ntext);
+>         if (!smu_power->power_context)
+>                 return -ENOMEM;
+> -       smu_power->power_context_size =3D sizeof(struct smu_15_0_power_co=
+ntext);
+>
+>         return 0;
+>  }
+> @@ -350,12 +349,11 @@ int smu_v15_0_fini_power(struct smu_context *smu)
+>  {
+>         struct smu_power_context *smu_power =3D &smu->smu_power;
+>
+> -       if (!smu_power->power_context || smu_power->power_context_size =
+=3D=3D 0)
+> +       if (!smu_power->power_context)
+>                 return -EINVAL;
+>
+>         kfree(smu_power->power_context);
+>         smu_power->power_context =3D NULL;
+> -       smu_power->power_context_size =3D 0;
+>
+>         return 0;
+>  }
+> --
+> 2.49.0
+>
