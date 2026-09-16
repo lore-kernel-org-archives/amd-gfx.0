@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8571BC982D3
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:53:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE437C982CC
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:53:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48D4010ECB1;
-	Wed, 16 Sep 2026 17:53:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C600C10ECB2;
+	Wed, 16 Sep 2026 17:53:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dIkxtf6y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mnSCftkO";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010071.outbound.protection.outlook.com [52.101.85.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A51010EBD9
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013045.outbound.protection.outlook.com
+ [40.93.201.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6637B10EBD2
  for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MDn0MQD+5Fxo4zv6FoHf6pYdFDJZ7dj4jbF/FyVj/+zkBwmU995YOPnhd2ZnKnD+VMCesai6sPUMt2JdSUgcPnNW7Gqk2AeSxZJAFOfUW/JOYmKkyOkKwUBYl5RGyqpo8wk4tThQCZRfhpbzxlOuxvX1mYnXQKSt9WoDm3EbGSi8SM+ZqGEQfxFfaCGHiUYC5qajFRiHOReHgGh1NlyZgecTc+++xCzIAbB7FpgMLyqVLVVCRntWHrYx/zzMtRVhBPFh3QvyDnZBYfhB4epoghXsWJjEYuW6IjKW8by+LDPLa0kQy3FydfMk65x97ea6YqegDwCI+nEXHvl+Omiw+A==
+ b=Sq7hVgINOAkGwjvXnEWf6SzoryaJejD6LFKdiuaU7yldUvEUYku1/L2dime17aXnVBjoD6wf+EwD93v3ErwsWiahcugqDXgKfBkWN6eaHiQvE9MgngBupynOtx+FQK4nSR1QTXq2LWTK6SdDHcomv2nFudsW2qPna0mC2lvDeUKIdheZbX8EX5DdHkqWmMjMXnQeZ+Aw6UenMFEMMwd9t39gDWGl7HOFsSJWqhI/PigOfmowPykQlLQ53EG1vUVnHU4LAJ8wjNOcqi5S1L3ChjSP1m2/JD4L08eapCG6NFb3JStz9r1qTZb+OvlTJOkMqEAzlPyyHfw3YKzQU3d9SQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WEBCuLBOYOhITEaJdNR70qSZNRl8DhA0D+KCFSv8f/Y=;
- b=S5aK6Js9s/Kgm203wV9asyO+Y2RfByPPRHY3PnBcA9sN6nVlA6D3Hy2BlFAPXySHj+nR4vLqVVQ00Db4PjGBha8EzEIlQyAvWkikZ7kh7JDKNGPiw7nlfaDlSyZO+rKs5toH75tw6CfCxjZkvPU1NxkC/H1zuFKQiPpxFD6Kg+uiPeX81lOH+T0YyBvOid9tDJIORw3Br+lP5VPrRcMqEW6/UibYC7inL/JKDGS3Kfnmp5SjAGhKJ6kvaGWRAKl9DDTneRBp3oYxB9UVgcItDlaSH2UaI8wsvvgHkRz/XOrYaXIQbTTGttmmE+UVCc6afNyKMHWjfmP98wnFouLYzw==
+ bh=ip5zUlVe1jwsF9yiuLOUQ/I8Cd6LKYBzQvFCz7BODWU=;
+ b=OVbtF/tyZ3GElBnaJvJCNaBzIlyJyayI9bBIBvC+6XWcHS0JpEs+pZ8Ei84wAvodAYPY0eJYXcT1DQCUhkih8gTYU1wA6Xh9NmbN1iGfjrx9tZXjS2THxNXuXEJWjyfQ0kCbC+hUH3Zk1YmoSH17NpVfDl/hzAqTG3YiHJtynFig9rSw2tfBmsscp4QYwrI8o29YIlcodIF4iRrLktzcrpDbRq1h4d4cE8Kw8VvRd0Uj0DsUzOxpDoKM8Mi+21Mqa5ubgNkAS0xneX96+oqt5vGuV1BJp09xd9KVp5sjjIAq/KC8EGB07wjOB8RpyKTViz2vsZi63AB+jdQdIvbUGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WEBCuLBOYOhITEaJdNR70qSZNRl8DhA0D+KCFSv8f/Y=;
- b=dIkxtf6yIGtWl6/5iF70l7eMQU9sLYmwDhKCvtHD1ZOkim3eCgXz6r3Dlys5mdjCoRE36RKVOtytNsAfPxDOlX3OcqwLt8AIBsaVT1fH7L1rDPpZIw7KrVuqU4wq8D/2TpiCydQ17SFPMnInxVuX4BFMYmUOQltCGCcGuJf6/o0=
-Received: from CH0PR03CA0206.namprd03.prod.outlook.com (2603:10b6:610:e4::31)
- by CY5PR12MB6621.namprd12.prod.outlook.com (2603:10b6:930:43::15)
+ bh=ip5zUlVe1jwsF9yiuLOUQ/I8Cd6LKYBzQvFCz7BODWU=;
+ b=mnSCftkOC9x08HajgWLXuk9TZsT6mC/gEdITsTguiYscBpJcjM5HtIXjZPwg/RshxmtJiRPSIagfxQupkpvEaAn6dZ1SE1NulgiN52dFIurKN8OpXkTmFmAaOsCESYU87g3DIFQnfTrzMmqBMrAH7mV9rJJMfRY8TQpTQdzym74=
+Received: from CH5P220CA0016.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::22)
+ by CHXPR12MB999243.namprd12.prod.outlook.com (2603:10b6:610:2fc::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
  2026 17:52:54 +0000
-Received: from CH3PEPF00000010.namprd04.prod.outlook.com
- (2603:10b6:610:e4:cafe::10) by CH0PR03CA0206.outlook.office365.com
- (2603:10b6:610:e4::31) with Microsoft SMTP Server (version=TLS1_3,
+Received: from CH3PEPF0000000D.namprd04.prod.outlook.com
+ (2603:10b6:610:1ef:cafe::75) by CH5P220CA0016.outlook.office365.com
+ (2603:10b6:610:1ef::22) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
  16 Sep 2026 17:52:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -48,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000010.mail.protection.outlook.com (10.167.244.41) with Microsoft
+ CH3PEPF0000000D.mail.protection.outlook.com (10.167.244.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:54 +0000
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:53 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 12:52:40 -0500
+ 2026 12:52:39 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,9 +66,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
  "George Zhang" <george.zhang@amd.com>
-Subject: [PATCH 35/64] drm/amd/display: Test HPD handler HDCP and detect
-Date: Wed, 16 Sep 2026 13:51:50 -0400
-Message-ID: <20260916175301.368306-36-george.zhang@amd.com>
+Subject: [PATCH 34/64] drm/amd/display: Test HDMI HPD debounce re-detect
+Date: Wed, 16 Sep 2026 13:51:49 -0400
+Message-ID: <20260916175301.368306-35-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916175301.368306-1-george.zhang@amd.com>
 References: <20260916175301.368306-1-george.zhang@amd.com>
@@ -79,29 +80,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000010:EE_|CY5PR12MB6621:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05b68470-a9df-4c06-8586-08df141b5586
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000D:EE_|CHXPR12MB999243:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d283952-0950-4307-93c7-08df141b5576
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|11063799006|56012099006|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: giFwA6eiXwxR0xq8EzBhLsKVdJSlRjSzljKB0nptQMbcUIzAmElbrhd2T7LZiFaTUaPADB4WYasX/R4Yl0pyFeoHsxaqRVZt8RrgY7Od21LhVfxqbqSi285xi8UN3Pw0wMRq4S+alJLK/ok5jwewlAU45ND6coNbov59YgqfUd+Jj7gbPbXD7eVMyXN1pIFwCHkzBcLeJC8Jss3HF3mreWeSZNn0RKkKzhvVAYeC3uRfl+Wzlc+EtG/wHMHNhtukWldazOc451dKhJJCw5Yo9padmhTSLaX39JK61FlK2yBh95eBz4EUJvOUHINqmQ28DYNTtBvFlF7BXJ+paTwCXunXhWS+HsT/b42heCn2k/d5qkhJXB40kBhrEeyqpS1e2N13nLOW4GD8oBVcvRzBj9+Vpdl5ajUE8sjFfYPsqcAS9WKPlimHjlLSQa9tuasQXesy99zH0A34PobN1aT4VXlpnXH1fRIKHt78Pfb+MKkEBkHKmgO6sGDNK9dynfcN0tKufOovN/X/VgL9XhbblVrnA2E6AQNB0X860en5wD8q5oBHqq6x9iRSxzRnu+S38IUT2ExvB1OypKwuQJpIsgr3kV2FklhnI2hcFcxjBATxzaReJWNqryESXlCWgGvr0QGccXP/QE5CaN3DQ5ow11CqNrhE9JGA/iwQ7JTfEFmRG/JTwhwUMrLALUqmDM3aPJX5lRwJa/Pjorr9DGp2KA==
+ ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|18002099003|22082099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: ip0Wy29/L8FChqmiBdCYQK2mjXvlAqGLUTlcflj2R2QxCk9UdQ3W3IRNJx/pShCqGC7QvNTad18U5ZJxPRdvx86L3hUUhjaNQdlJMiXmwtJ6oGcn8gaW65I3UzPZEH2qolzUV6UVc6E2gY54NLdICj/HAxQVJpl9P9Dqed7n98CDYh85p1VTmbv6RhkGYENeygDbW6QvNgxPkmfFIwpR3GP7YXYXxrWRRLyMkdPLu9C0gH8yxLjgPu6i6nN+psryTlja5euNW+96fnfNk8sL/4yE1Uy2C6Vn3ZJJcR7wXlU6Ii7ykCtp/FILo4oaDp6NXMTeWGJoYIst7LOW2Wtm6v7DfhKzNCwuWVL5PXcqdsAKGsTnIESsdLqpgs8ucHppJQYkanqiNy9DrlARYj+Hc/eCEFeg3h810FXIt+mIP1wpBc5t7p/tODqfhXy4rWgZJO07LoISucNPuTHxs2BOvK4rIGg/XEQi5B3KtZq0alG5vn1aRKwLbF8WdjFCW9698cv8sMTZt1mUPg8fnnMMTmFeTY893BeRLJEaSwmCp4EWRqtSrnJipwGdeGfSIMICUng/OSet9ACw0jZEbmQl0B8BoaXpwq1Dku4lRgPCzuYBkgE4AH6I+6uVwqO4QHMmo2CNwibFolh/H8ZyWmBG3+MtJVYLaBWzj8qPNj598yg2RKsfCr/fa/Itu41EAI4Zgf7yfRwI9bYY3+g/c5rf+w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: I9PDvKP3JWz7G+k/ntnRRz//Ct/mu7kaDACHaL4tzYzyuaHPUvF0BqR/g3UNBu7B/TbJ0DmPo/gf1zy6SeW6mud5aIRYWq8PaM4hpvqdTzyMq1fr83Lo1/Zazj94RB/2H6o4B4iJH7OzznLrYqVdfUB9hefXMXujZnklyrJj4Y7ZYFn1njdVH+bxrcpCfN1SXwMYUXljXK6bMySicn0X4wbQK/YHES01S8NaWUAOULJPBBi6gRbbwFuK66V2qAJHwrJ15aCzjur5Szqhx2jgfbe6YZDHreLvDAz6JxzR3YhKskCrwGoV2Y3uafJTtutLJcZGb+598Mg4smTF0JQmzm+dWzIxaUoMWZKRR2SwXZuFrr6+9mSDBQuTnUehAP9ILbcZT6F5sjoyEaWw18erk3pqOs9D0XMW4bV0sK/JMkwkp7prKVPh/SmcR6tN8rc+
+X-MS-Exchange-AntiSpam-MessageData-0: 5fi/7cmLhyKU/bJXCYrimEjaIjr0hhKD1/OS/1q0eeARrHun7vWelwE8G2YWIAi6YUzNEbUMbTJiOwS69Zmnv0vLpyYPlC89zwMiNNTVYJSCtQNbddr8Y96zfheK0/OfpnzB4l9+kEwkUPpRlKontvWbZ0F1tg+QZweSMagT1uDLA5B40SyTsoQ9e6wL9wFEfzaSyLYIEbMAILe12CdmtzEw+v3pSunuoSNyQbIdGN2jDaYfZAXO5rkJeWSIwzGNwh008SR5UlE/IWOmkrt/1g1mBlVsgbbzLFfvjnrT6Si47T++ihjOUk5cc4YEMAhuEhzTADLl3dUCxna/+fFSSPKohkUYHG6rQzuNI3StSxWoXAYNz3hdcoMjrbcb2KK+Y27fo+jS+qp6UYDVYkljttp0vq3J3v7pPZUmI2a3vV8+2h8VzmBw3nM5QOXLyMJp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:54.0889 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05b68470-a9df-4c06-8586-08df141b5586
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:53.9851 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d283952-0950-4307-93c7-08df141b5576
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000010.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000D.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6621
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHXPR12MB999243
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,175 +120,170 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-handle_hpd_irq_helper() never ran its HDCP reset, its forced
-connector branch or its successful re-detect branch.
+amdgpu_dm_hdmi_hpd_debounce_work() only ran with detection
+failing, so neither outcome of the sink comparison that decides whether
+an HPD toggle was spurious was covered.
 
 [HOW]
-Add a minimal HDCP work queue fixture and three tests: an HPD on
-a driver that carries an HDCP work queue, which must reset the display
-and flag the connector state; a connector forced on that reports no
-connection and is emulated instead of detected; and a successful
-re-detect that notifies userspace.
+Add a fixture for the debounce work item and two tests: a
+re-detect finding the same sink, which re-enables internally without
+notifying userspace, and one finding a different sink, which sends the
+hotplug event.
 
 Assisted-by: Copilot:Claude-Opus-5
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 119 ++++++++++++++++++
- 1 file changed, 119 insertions(+)
+ .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 114 ++++++++++++++++++
+ 1 file changed, 114 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index 04cc5dd5812b..5f877c50b120 100644
+index 352ec7773e32..04cc5dd5812b 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -21,6 +21,7 @@
- #include "amdgpu.h"
- #include "amdgpu_mode.h"
- #include "amdgpu_dm.h"
-+#include "amdgpu_dm_hdcp.h"
- #include "amdgpu_dm_irq.h"
- #include "amdgpu_dm_kunit_test_helpers.h"
- #include "dc_dmub_srv.h"
-@@ -547,6 +548,39 @@ static void dm_test_register_drm_dev(struct kunit *test, struct amdgpu_device *a
- 							&adev->ddev), 0);
+@@ -61,6 +61,12 @@ static bool dm_test_detect_link_false(struct dc_link *link,
+ 	return false;
  }
  
-+static void dm_test_hdcp_dummy_work(struct work_struct *work)
++static bool dm_test_detect_link_true(struct dc_link *link,
++				     enum dc_detect_reason reason)
 +{
++	return true;
 +}
 +
+ /* Spy on dc_link_detect() to prove the debounce early-return skipped it. */
+ static int dm_test_detect_link_count;
+ 
+@@ -2764,6 +2770,51 @@ static void dm_test_hpd_rx_offload_work_link_loss(struct kunit *test)
+ 
+ /* Tests for amdgpu_dm_hdmi_hpd_debounce_work() */
+ 
 +/*
-+ * Allocate the minimal hdcp_workqueue that hdcp_reset_display() and
-+ * hdcp_handle_cpirq() touch: the per-link mutex, the delayed works
-+ * process_output() re-arms, and the CP IRQ work item.
++ * Build an aconnector wired for amdgpu_dm_hdmi_hpd_debounce_work(): an HPD
++ * lock, the debounce work item and a dc/link pair whose re-detect fails.
++ * Caller sets the link_srv stubs and any sinks the branch under test needs.
 + */
-+static struct hdcp_workqueue *dm_test_alloc_hdcp_workqueue(struct kunit *test)
++static struct amdgpu_dm_connector *dm_test_setup_hdmi_debounce(struct kunit *test,
++							       struct link_service **link_srv_out)
 +{
-+	struct hdcp_workqueue *hdcp_work;
++	struct amdgpu_dm_connector *aconn;
++	struct link_service *link_srv;
++	struct amdgpu_device *adev;
++	struct dc_context *ctx;
++	struct dc_link *link;
++	struct dc *dc;
 +
-+	hdcp_work = kunit_kzalloc(test, sizeof(*hdcp_work), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, hdcp_work);
++	adev = dm_kunit_alloc_adev(test);
++	mutex_init(&adev->dm.dc_lock);
 +
-+	mutex_init(&hdcp_work->mutex);
-+	INIT_WORK(&hdcp_work->cpirq_work, dm_test_hdcp_dummy_work);
-+	INIT_DELAYED_WORK(&hdcp_work->callback_dwork, dm_test_hdcp_dummy_work);
-+	INIT_DELAYED_WORK(&hdcp_work->watchdog_timer_dwork, dm_test_hdcp_dummy_work);
-+	INIT_DELAYED_WORK(&hdcp_work->property_validate_dwork, dm_test_hdcp_dummy_work);
++	aconn = dm_kunit_alloc_connector(test, adev, NULL);
++	mutex_init(&aconn->hpd_lock);
++	INIT_DELAYED_WORK(&aconn->hdmi_hpd_debounce_work,
++			  amdgpu_dm_hdmi_hpd_debounce_work);
 +
-+	return hdcp_work;
++	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
++	link_srv = kunit_kzalloc(test, sizeof(*link_srv), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link_srv);
++	link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link);
++
++	link_srv->detect_link = dm_test_detect_link_false;
++	dc->ctx = ctx;
++	dc->link_srv = link_srv;
++	ctx->dc = dc;
++	link->dc = dc;
++	link->ctx = ctx;
++	aconn->dc_link = link;
++
++	*link_srv_out = link_srv;
++
++	return aconn;
 +}
 +
-+static void dm_test_flush_hdcp_workqueue(struct hdcp_workqueue *hdcp_work)
-+{
-+	flush_work(&hdcp_work->cpirq_work);
-+	cancel_delayed_work_sync(&hdcp_work->callback_dwork);
-+	cancel_delayed_work_sync(&hdcp_work->watchdog_timer_dwork);
-+	cancel_delayed_work_sync(&hdcp_work->property_validate_dwork);
-+}
-+
- /* Tests for amdgpu_dm_hpd_to_dal_irq_source() */
- 
  /**
-@@ -3206,6 +3240,88 @@ static void dm_test_handle_hpd_irq_helper_detect_type_fails(struct kunit *test)
- 	KUNIT_EXPECT_FALSE(test, aconn->fake_enable);
+  * dm_test_hdmi_hpd_debounce_detect_false - Test debounce false detect path
+  * @test: The KUnit test context
+@@ -2874,6 +2925,67 @@ static void dm_test_hdmi_hpd_debounce_reallow_idle(struct kunit *test)
+ 	KUNIT_EXPECT_NULL(test, aconn->hdmi_prev_sink);
  }
  
 +/**
-+ * dm_test_handle_hpd_irq_helper_hdcp_reset - Test the HDCP reset branch
++ * dm_test_hdmi_hpd_debounce_sink_unchanged - Test the spontaneous-toggle path
 + * @test: The KUnit test context
 + *
-+ * An HPD invalidates the link's HDCP authentication, so a driver carrying an
-+ * HDCP work queue must reset the display and flag the connector state for a
-+ * property update.
++ * A re-detect that finds the same sink as before the HPD toggle is an internal
++ * re-enable, so the connector state is refreshed but no hotplug event is sent
++ * to userspace. An MST-state connector keeps
++ * amdgpu_dm_update_connector_after_detect() to its early return.
 + */
-+static void dm_test_handle_hpd_irq_helper_hdcp_reset(struct kunit *test)
-+{
-+	struct amdgpu_dm_connector *aconn;
-+	struct hdcp_workqueue *hdcp_work;
-+	struct link_service *link_srv;
-+
-+	aconn = dm_test_setup_hpd_irq_helper(test, &link_srv);
-+	link_srv->detect_link = dm_test_detect_link_false;
-+
-+	hdcp_work = dm_test_alloc_hdcp_workqueue(test);
-+	drm_to_adev(aconn->base.dev)->dm.hdcp_workqueue = hdcp_work;
-+
-+	handle_hpd_irq_helper(aconn, DETECT_REASON_HPD);
-+
-+	KUNIT_EXPECT_TRUE(test, to_dm_connector_state(aconn->base.state)->update_hdcp);
-+
-+	dm_test_flush_hdcp_workqueue(hdcp_work);
-+}
-+
-+/**
-+ * dm_test_handle_hpd_irq_helper_forced_detect - Test the forced-connector branch
-+ * @test: The KUnit test context
-+ *
-+ * A connector forced on but reporting no connection is emulated rather than
-+ * detected, and an HPD RX always notifies userspace. An unset connector signal
-+ * keeps amdgpu_dm_emulated_link_detect() to its unsupported-signal early
-+ * return.
-+ */
-+static void dm_test_handle_hpd_irq_helper_forced_detect(struct kunit *test)
++static void dm_test_hdmi_hpd_debounce_sink_unchanged(struct kunit *test)
 +{
 +	struct amdgpu_dm_connector *aconn;
 +	struct link_service *link_srv;
++	struct dc_link *link;
 +
-+	dm_test_detect_link_count = 0;
-+
-+	aconn = dm_test_setup_hpd_irq_helper(test, &link_srv);
-+	dm_test_register_drm_dev(test, drm_to_adev(aconn->base.dev));
-+
-+	link_srv->detect_link = dm_test_detect_link_false_count;
-+	aconn->base.force = DRM_FORCE_ON;
-+	aconn->dc_link->ctx->driver_context = drm_to_adev(aconn->base.dev);
-+
-+	handle_hpd_irq_helper(aconn, DETECT_REASON_HPDRX);
-+
-+	/* The emulated path replaces detection entirely. */
-+	KUNIT_EXPECT_EQ(test, dm_test_detect_link_count, 0);
-+}
-+
-+/**
-+ * dm_test_handle_hpd_irq_helper_detect_true - Test the connected detect branch
-+ * @test: The KUnit test context
-+ *
-+ * A successful re-detect refreshes the connector state and notifies userspace.
-+ * An MST-state connector keeps amdgpu_dm_update_connector_after_detect() to its
-+ * early return.
-+ */
-+static void dm_test_handle_hpd_irq_helper_detect_true(struct kunit *test)
-+{
-+	struct amdgpu_dm_connector *aconn;
-+	struct link_service *link_srv;
-+
-+	aconn = dm_test_setup_hpd_irq_helper(test, &link_srv);
-+	dm_test_register_drm_dev(test, drm_to_adev(aconn->base.dev));
-+
-+	link_srv->detect_connection_type = dm_test_detect_connection_single;
++	aconn = dm_test_setup_hdmi_debounce(test, &link_srv);
 +	link_srv->detect_link = dm_test_detect_link_true;
 +	aconn->mst_mgr.mst_state = true;
-+	aconn->fake_enable = true;
++	link = aconn->dc_link;
 +
-+	handle_hpd_irq_helper(aconn, DETECT_REASON_HPD);
++	/* Two identically zeroed sinks compare equal, i.e. a spurious toggle. */
++	link->local_sink = dm_test_sink_create(link);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link->local_sink);
++	aconn->hdmi_prev_sink = dm_test_sink_create(link);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconn->hdmi_prev_sink);
 +
-+	KUNIT_EXPECT_FALSE(test, aconn->fake_enable);
++	amdgpu_dm_hdmi_hpd_debounce_work(&aconn->hdmi_hpd_debounce_work.work);
++
++	KUNIT_EXPECT_NULL(test, aconn->hdmi_prev_sink);
++
++	dm_test_sink_release(link->local_sink);
 +}
 +
++/**
++ * dm_test_hdmi_hpd_debounce_sink_changed - Test the real-hotplug path
++ * @test: The KUnit test context
++ *
++ * A re-detect that finds a different sink than the one cached before the HPD
++ * toggle is a real hotplug, so userspace must be notified. Sending the uevent
++ * needs a registered DRM device.
++ */
++static void dm_test_hdmi_hpd_debounce_sink_changed(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconn;
++	struct link_service *link_srv;
++
++	aconn = dm_test_setup_hdmi_debounce(test, &link_srv);
++	dm_test_register_drm_dev(test, drm_to_adev(aconn->base.dev));
++
++	link_srv->detect_link = dm_test_detect_link_true;
++	aconn->mst_mgr.mst_state = true;
++
++	/* The link lost its sink, so it cannot match the cached one. */
++	aconn->hdmi_prev_sink = dm_test_sink_create(aconn->dc_link);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconn->hdmi_prev_sink);
++
++	amdgpu_dm_hdmi_hpd_debounce_work(&aconn->hdmi_hpd_debounce_work.work);
++
++	KUNIT_EXPECT_NULL(test, aconn->hdmi_prev_sink);
++}
++
+ /* Tests for handle_hpd_irq()/handle_hpd_irq_helper() */
+ 
  /**
-  * dm_test_handle_hpd_irq_helper_debounce_pending - Test pending-debounce exit
-  * @test: The KUnit test context
-@@ -5419,6 +5535,9 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
- 	KUNIT_CASE(dm_test_handle_hpd_irq_helper_detect_false),
- 	KUNIT_CASE(dm_test_handle_hpd_irq_helper_detect_type_fails),
- 	KUNIT_CASE(dm_test_handle_hpd_irq_helper_debounce_pending),
-+	KUNIT_CASE(dm_test_handle_hpd_irq_helper_hdcp_reset),
-+	KUNIT_CASE(dm_test_handle_hpd_irq_helper_forced_detect),
-+	KUNIT_CASE(dm_test_handle_hpd_irq_helper_detect_true),
- 	/* handle_hpd_rx_irq/schedule_hpd_rx_offload_work */
- 	KUNIT_CASE(dm_test_handle_hpd_rx_irq_disabled),
- 	KUNIT_CASE(dm_test_handle_hpd_rx_irq_no_left_work),
+@@ -5298,6 +5410,8 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
+ 	/* amdgpu_dm_hdmi_hpd_debounce_work */
+ 	KUNIT_CASE(dm_test_hdmi_hpd_debounce_detect_false),
+ 	KUNIT_CASE(dm_test_hdmi_hpd_debounce_reallow_idle),
++	KUNIT_CASE(dm_test_hdmi_hpd_debounce_sink_unchanged),
++	KUNIT_CASE(dm_test_hdmi_hpd_debounce_sink_changed),
+ 	/* handle_hpd_irq/handle_hpd_irq_helper */
+ 	KUNIT_CASE(dm_test_handle_hpd_irq_disabled),
+ 	KUNIT_CASE(dm_test_handle_hpd_irq_helper_debounce_schedule),
 -- 
 2.55.0
 
