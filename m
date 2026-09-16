@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FEBFC88E7F
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:52:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67C5AC982D0
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:52:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E25F310E946;
-	Wed, 16 Sep 2026 17:52:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CACCC10E7B7;
+	Wed, 16 Sep 2026 17:52:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x8WAndQB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Rh+SMici";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013045.outbound.protection.outlook.com
- [40.93.201.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C118510ECA4
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:31 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012020.outbound.protection.outlook.com [52.101.43.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACC8510E970
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MuD69qNceq8X70tIc2gKkPlTcpmyD2iH9W8vOi9MYthlJmq7LeNL/zfTod8hyrZfPoED9ZHb2CKqT1n74Lp/+I8lweX5h0JTLRQLHkiF2zDx1815MvSSexVjiRpzTeYnuA4oBwG/KILWBnWEiL/xbe7txsRJ8IlI2p/V0alR4A+cFAMoxkKUONS4pF8xNpyZJqo4WnrKt3vNIyQdyN4wO1QRKpKplLTv6n4IVS3VQUBqdpCSaXwiEkK4ikpCosKaCCeR+kMpHmSfGhq3eTSn1cSI7VqudzuGMALGogBaQK8QR3tkRKQMR9X7ez3ujnL62hmK+5H3RZW+p+YaMEfpfQ==
+ b=bT5r8m38J3l+zyZZ1f1jYH3eNIm/mE85P9/oHGc31EX4TeKpvCyQv40G/qm4XOmOxI2N3e4Msk6MK2R5Q/4bHev3ki46BIG+phzOZ+gR8R+h2HY7nNP0p3/xJPhPB3vlztWOclW9bDjei4LPu2P+d98URBeebFkClnndm6WlmjzkFMrF2y67x6Ih4gYzywYDv+o8GCfKin+jTlFxPIoqivGN6TZJkW/6Vhy8N01qZCrbPZzlFgfZbi4ZHIu8sPRXangY6EEatOlWCHuYOxx0KC4VczS3DGDjpNlL7mFzUIWWKyGLFsqkbG4fOOvizQasFJUMWSAGb3BnMC/SAR9uow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=byMdAY2d6eawCbZiqRalylZE67O4ksJWzaFuDjUKFjc=;
- b=S5M2F317UCm3j25ujHJimMeJOM46VMS/9FuDraXt3NQvRWMX86qE1DvPFU7NNzhPzn4FbWDySDWmEjurH4HSoV0WT+aJeY9KGNonRPSwZz0IcRQIh/79oD4aq5HD5DS5jLdqHTkadlF9fnAsXjTI3HJ7vTEvqOp7oAA4PIv0fZIEmqU+mC0hSdBN8DiM1re17pXvPjiB0o88Ha62F91p9nONlRId5iQrMU8UKB22h6kab6xSCw0WtFX/oySLm+ZarzGBDGKpiDiGOCThWkw8mvD4fNPjcoy9xJfKswDgRRjtFDyO+htD++K0BG1FtVD81hctUmZLjVC//LeAyyRG0w==
+ bh=7nTOs6Z72nze7ja+c2Nbpg/g8MmsbRiz0pY5koVHNi8=;
+ b=Hu8I7V7BPuoPi5KPdjgCqmJASqwXgnNgu2zme4w8qlujr5D9tSPgWEjFZDiBwy9ibCccqsgSzaGQHdBkdUJ3gapstUwaszl4uajKVXY04zOjsPJgIcCfQ2ulGuJzrlX7tMMvKFlcsSr9uWI+OYETHoSNAwhqUd3yP5FoTArdkrmiDFrHu3EXlF9mOOd3Wrix7RlmC4Uhi1gs7kw4RUGPYMEs8RBJ8ropulvTvlkPIHEHKpulHaNOEXDUAhtRmjrlJNCoX02nYWfT5D4/TWDbfzXi5wY0HzdpRsBM6TOuSMMzrUp55QBSM0YDP4JZX5A0Bn3fiJQ0eWC0vjCQK8B8GA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=byMdAY2d6eawCbZiqRalylZE67O4ksJWzaFuDjUKFjc=;
- b=x8WAndQBxXVsERU6d/U32q3stIfEsJiEQFEh9w8KS6LkkGGqZUEUQ5IsecpjA/LUMoMjnt/U9EGtQeGLpb75N0rIT3nZdSJE8MELYVfwP096YgUpo6MRp3KqX7s922KioxFVQIG52noTDS2nU+toPdyh68o+Fv2nP/ownRoIPWk=
+ bh=7nTOs6Z72nze7ja+c2Nbpg/g8MmsbRiz0pY5koVHNi8=;
+ b=Rh+SMici+IUpswSbtp5QB5W98t9sfuxQTVU3KonRYkb7wYtl8k7OrWSSHI4EfFwJTMQm1Cu64RQ3PQHjlSlERgpiYnmGx2FUQnESJNRivleBwAZkogkAp20jyJzBBNOaNptR0aoNKvSOa2a3UY7UgN3JORtjYTMbo3PloxuOqao=
 Received: from CH2PR10CA0013.namprd10.prod.outlook.com (2603:10b6:610:4c::23)
- by SJ0PR12MB6808.namprd12.prod.outlook.com (2603:10b6:a03:47a::10)
+ by CH3PR12MB8258.namprd12.prod.outlook.com (2603:10b6:610:128::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 17:52:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 17:52:28 +0000
 Received: from CH3PEPF0000000A.namprd04.prod.outlook.com
- (2603:10b6:610:4c:cafe::76) by CH2PR10CA0013.outlook.office365.com
+ (2603:10b6:610:4c:cafe::a0) by CH2PR10CA0013.outlook.office365.com
  (2603:10b6:610:4c::23) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.11 via Frontend Transport; Wed,
- 16 Sep 2026 17:52:22 +0000
+ 16 Sep 2026 17:52:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:22 +0000
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:28 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 12:52:17 -0500
+ 2026 12:52:18 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,11 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Austin Zheng <Austin.Zheng@amd.com>, Dillon Varone
- <dillon.varone@amd.com>, George Zhang <george.zhang@amd.com>
-Subject: [PATCH 07/64] drm/amd/display: Add Back Unified CalculateFlipSchedule
-Date: Wed, 16 Sep 2026 13:51:22 -0400
-Message-ID: <20260916175301.368306-8-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Jun Lei
+ <jun.lei@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 09/64] drm/amd/display: Add inst field to struct dmub_psr
+Date: Wed, 16 Sep 2026 13:51:24 -0400
+Message-ID: <20260916175301.368306-10-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916175301.368306-1-george.zhang@amd.com>
 References: <20260916175301.368306-1-george.zhang@amd.com>
@@ -80,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|SJ0PR12MB6808:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a181ac8-69d8-43bb-5f36-08df141b42a9
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|CH3PR12MB8258:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0677dea2-6ffd-444e-2a6e-08df141b4617
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|36860700016|30052699003|82310400026|22082099003|6133799003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: FNOclwsqDfyXPSG4ykz8XbKIQF428XYIVvJTbYNx0euDGAKTbGDROXqcaGXhvBOsU6VwFLPuP/FKNzPovCidLcYHInx4KqeWf5YrZEHgnqtdKqJN9FayyDVCunEGP6U5Q8lQoueuG9ZjYRNM7TCJWmdPmN7quLUt5fmVT2RoUOdSl8YuLA18RcBlqXkj809XlR3cCkfiBdV++jypG+hXnAM8t46H0EoXnBnCjcLlTlA+jeCVF9pLNUQXXpjEd8tgbfaBULVns1sc8uHPtXhEkv8ldNxOPpn3CIYPfGahL9T7rff1tbGRd/uw04bOFqH0wBXASjToaH914xAL14y2DjYY8JqibQpw4IeQAQ2+u+NgaGR28zcdYdh2BFPru2NMt5dSCIlHmwku3H+dH5EC0dD3UGvcCh7zMy7aQ42vl5dAOnKO1BfmeJPbTUxfQ3mOoSN6ubn+bMXvOpNkLpkrhRrPcgegH+5mzZu66MuAziHGjJfTzErEOy7vqDoAKNIDkClKMw3gA9DRT/R172nFuiR8+tWO232MFjZ/4HH/FAHW2a69Qh6e/eiHF4we2MXQR/BtZ82NQ9R63d61m0L0IRvZEi0D0yTdufKKYaKYqRU+pGtnljA2A6MPYCMa13fpanhlQtOpof5WqGChT5nbfuva3k8FqR14rULVJgJ+R+9E6phcwt2W/+QTESufWJ+7BYdAHTp4IGw8/Nnr+TcARg==
+ ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|11063799006|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: +o0TNbJhBrUdElvphzN/aoeSmV1Tz5m+UOch3EcbSfuB+tB9NIfoK25kT/ljACLA1Zd0W2NKJzSBQItdP7ckMSM1XR+yE0JFnCA0kwbaKCsz85NibbCQDFx29pUvvcidsuOoxnxBm4JeDnGjSAw8gAIQH2bQfUiFqckL/PuSFpWlYdsF78TwRBtrFSSMHrwlXKPWfVlC5EeLRdk/hsP2Rzdb7/SmHo3oKiGE9ba4SGHyueWwzHo44C+vt5OYvlv0myPwJoziSP/wfUqoNNBXCM7tR/2jL/OinJnXC3DXyP65Ym3feL3mRAd4yKie8zjGjmWMTGiDEGEcTODooV8S6bJJqx14M0Y4GE46qqfFzTmf6Vw4/Z0/xXrslHzUf9T0j4e0IT9JBi9N0ikoIrNi/ziD7QybiZT4le0BsbLJIPfg1sK0Y39nCt42giOeEnx9Mh5aCFhB68vOQ+dH3r2zBuU8NR4gh3nOfBq2q+2pFwjwlu9AfqVRP0HNtV/CA56n8mZ9rvbJsysCnT0Xcr0mK+tFmSeeN5i4L9WSc89N540/FuUtezLG8VMMHnI1bDyV5ah+VEp8ko40tbaUVsruwYmVAZpr//UAQHNS7ncgGEaMiS7mCUH10cJ3h9oKhZ/WnH7tTii7HpmrlK8R0EWalxhZmdqTC6gV+f2rUcijPXc9bSPgU58MwKMRZ54RkOxMsC1DR/t2Xaq6zLANDUZfqg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(30052699003)(82310400026)(22082099003)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);
+ SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: fBv/JJXHvC5kegKoy+x+PBOSZh1BG+pdvZgEVsu/T15Cd/fpsbAMNwPWFsgvrbHAw+aeY/Y/XHC8zOZ1jkB3Uf2PHTyidwwrEb/AUfYHFYoy5TOyxBYG+lJwIDdZcF9OOAsC8Q4C70wdSR/8sfIQE6er0PQx/OYynsXxA1Ln4j+QuS434kxy8QDqjQ9uUsRhaMqJxmaqjScTOFv/Oev3Dxwws8KGKs5sFvcujGg6jWBEMDDMOXyeyautAjyKBw6lOendnkIlSV4ZsiSp8y09WlBt9yEIbr3GMbT70/TOwc7e27FWOMrzzs9n0cxHsA8D+MNPJUcbvP2scSzHeh1QginH3oDskCc0v1WBrLtYOm8KKq27dh+IwlRc5BLy9WdFGnvpMprBqsVGyBvqA/v7ghyh1AZLQHYYJaRTnz+W9aE/109fdT5HHlhz+WiKFmJp
+X-MS-Exchange-AntiSpam-MessageData-0: ffbF+2+Yow1hDv/VNmT5xqhpqGF3SUc8uW10T9oScSl0OQJWwaG8KYnSjl1tfLNm9vU97HZRyExWw3NHFlgl69jttrHGnUu/CKqPgyngBXMPi8jv2r8IFrC51q5fEGhvXNX0/aI2EC7kSXxM0VOOYBbYwmNjlvYsXRm79aT4cZs5hg89lA3IyzbbKaYdVzboX1Y55CyaG/x8510Hay/qHLXBOlCL4xDyV+JZ/79/Qt10Ic+22KyAhyp7Ls68XL5rB04h54HFOw3pi10Enndysfv5bR1RcaEJrHJ1pabsFsPJUMywhfMf+zItev2PeE2CG39noP6RlJ3+H0boAFolZkBNzopaB1+N7k7D5NbvsnBcru2pyybo7R9Y+7Uwt6vufozZHQdqKqDqPGL2dwfSJ3cYNfMVK7iJBNBBVQT1CEsZEPgsNj66S3VTJcBznHjp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:22.4393 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a181ac8-69d8-43bb-5f36-08df141b42a9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:28.1932 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0677dea2-6ffd-444e-2a6e-08df141b4617
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6808
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8258
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,311 +116,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Austin Zheng <Austin.Zheng@amd.com>
+From: Tony Cheng <Tony.Cheng@amd.com>
 
-[Why]
-CalculateFlipSchedule has slightly different calculations depending on
-if it was called by mode support or mode programming.
+Add an inst member to struct dmub_psr and set it to 0 in
+dmub_psr_construct(), since the PSR object is a pool singleton.
 
-Mode support calculates the lower bound of the required bandwidth for
-immediate flips. This takes into the account of the register limits to
-ensure it is still programmable.
+No functional change; the field has no readers yet.
 
-Mode programming uses the required bandwidth for immediate flips on a
-per-plane basis to calculate the number of dst_y lines needed to achieve
-this bandwidth.
-
-Usually the immediate flip bandwidth per plane determined by mode
-programming is above the lower bound calculated by mode support.
-However, mode programming can fail if that isn't the case since a
-bandwidth lower than the lower bound will end up exceeding the register
-limit used by hardware. e.g. The proportion of a single plane's flip
-bandwidth w.r.t to the total bandwidth available for all planes can
-result in one of the planes having a lower BW than the lower bound
-calculated in mode support
-
-[How]
-Update function to always use the use_lb_flip_bw path. Add calculations
-for dst_y_per_vm/row_flip lines. Consolidate calculation of lb_flip_bw
-by having it consider register limits: Instead of doing two steps of: 1.
-Taking the max of the bandwidths without considering register limits. 2.
-Taking the max of itself with the bandwidths with register limits
-accounted for. Do it in one step as it is easy to miss either step 1 or
-2.
-
-Also add some local variables for intermediate values and remove no
-longer referenced inputs to improve readability.
-
-Also increase DCN401 max_flip_time_lines by 2 lines to ensure previously
-supported configs remain supported as worst-case bandwidth can increase
-compared to before.
-
-Fixes: c3ae66ed0ee3 ("Revert "Unify CalculateFlipSchedule Logic"")
-Fixes: 04009276da2d ("revert CalculationFlipSchedule change")
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Reviewed-by: Jun Lei <jun.lei@amd.com>
 Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
+Signed-off-by: Tony Cheng <Tony.Cheng@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../dml21/inc/bounding_boxes/dcn4_soc_bb.h    |   2 +-
- .../src/dml2_core/dml2_core_dcn4_calcs.c      | 164 +++++++-----------
- .../src/dml2_core/dml2_core_shared_types.h    |   3 +
- 3 files changed, 66 insertions(+), 103 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/dcn4_soc_bb.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/dcn4_soc_bb.h
-index f26366ebeeda..ed82ef55b651 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/dcn4_soc_bb.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/dcn4_soc_bb.h
-@@ -342,7 +342,7 @@ static const struct dml2_ip_capabilities dml2_dcn401_max_ip_caps = {
- 	.compressed_buffer_segment_size_in_kbytes = 64,
- 	.cursor_buffer_size = 24,
- 	.max_flip_time_us = 80,
--	.max_flip_time_lines = 32,
-+	.max_flip_time_lines = 34,
- 	.hostvm_mode = 0,
- 	.subvp_drr_scheduling_margin_us = 100,
- 	.subvp_prefetch_end_to_mall_start_us = 15,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index 64afb67054d5..2d43a35c4c42 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -6555,7 +6555,6 @@ static void CalculateFlipSchedule(
- 	bool GPUVMEnable,
- 	double vm_bytes, // vm_bytes
- 	double DPTEBytesPerRow, // dpte_row_bytes
--	double BandwidthAvailableForImmediateFlip,
- 	unsigned int TotImmediateFlipBytes,
- 	enum dml2_source_format_class SourcePixelFormat,
- 	double LineTime,
-@@ -6567,7 +6566,6 @@ static void CalculateFlipSchedule(
- 	bool use_one_row_for_frame_flip,
- 	unsigned int max_flip_time_us,
- 	unsigned int max_flip_time_lines,
--	unsigned int per_pipe_flip_bytes,
- 	unsigned int meta_row_bytes,
- 	unsigned int meta_row_height,
- 	unsigned int meta_row_height_chroma,
-@@ -6589,7 +6587,6 @@ static void CalculateFlipSchedule(
- 	DML_LOG_VERBOSE("DML::%s: GPUVMEnable = %u\n", __func__, GPUVMEnable);
- 	DML_LOG_VERBOSE("DML::%s: ip.max_flip_time_us = %d\n", __func__, max_flip_time_us);
- 	DML_LOG_VERBOSE("DML::%s: ip.max_flip_time_lines = %d\n", __func__, max_flip_time_lines);
--	DML_LOG_VERBOSE("DML::%s: BandwidthAvailableForImmediateFlip = %f\n", __func__, BandwidthAvailableForImmediateFlip);
- 	DML_LOG_VERBOSE("DML::%s: TotImmediateFlipBytes = %u\n", __func__, TotImmediateFlipBytes);
- 	DML_LOG_VERBOSE("DML::%s: use_lb_flip_bw = %u\n", __func__, use_lb_flip_bw);
- 	DML_LOG_VERBOSE("DML::%s: iflip_enable = %u\n", __func__, iflip_enable);
-@@ -6637,104 +6634,71 @@ static void CalculateFlipSchedule(
- #endif
- 		DML_ASSERT(l->min_row_time > 0);
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+index 45630c3effe1..66d8ba73d38b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+@@ -481,6 +481,7 @@ static void dmub_psr_construct(struct dmub_psr *psr, struct dc_context *ctx)
+ {
+ 	psr->ctx = ctx;
+ 	psr->funcs = &psr_funcs;
++	psr->inst = 0;
+ }
  
--		if (use_lb_flip_bw) {
--			// For mode check, calculation the flip bw requirement with worst case flip time
--			l->max_flip_time = math_min2(math_min2(l->min_row_time, (double)max_flip_time_lines * LineTime / VRatio),
--				math_max2(Tvm_trips_flip_rounded + 2 * Tr0_trips_flip_rounded, (double)max_flip_time_us));
--
--			//The lower bound on flip bandwidth
--			// Note: The get_urgent_bandwidth_required already consider dpte_row_bw and meta_row_bw in bandwidth calculation, so leave final_flip_bw = 0 if iflip not required
--			l->lb_flip_bw = 0;
--
--			if (iflip_enable) {
--				l->hvm_scaled_vm_bytes = vm_bytes * HostVMInefficiencyFactor;
--				l->num_rows = 2;
--				l->hvm_scaled_row_bytes = (l->num_rows * l->dpte_row_bytes * HostVMInefficiencyFactor + l->num_rows * meta_row_bytes);
--				l->hvm_scaled_vm_row_bytes = l->hvm_scaled_vm_bytes + l->hvm_scaled_row_bytes;
--				l->lb_flip_bw = math_max3(
--					l->hvm_scaled_vm_row_bytes / (l->max_flip_time - Tno_bw_flip),
--					l->hvm_scaled_vm_bytes / (l->max_flip_time - Tno_bw_flip - 2 * Tr0_trips_flip_rounded),
--					l->hvm_scaled_row_bytes / (l->max_flip_time - Tvm_trips_flip_rounded));
--#ifdef __DML_VBA_DEBUG__
--				DML_LOG_VERBOSE("DML::%s: max_flip_time = %f\n", __func__, l->max_flip_time);
--				DML_LOG_VERBOSE("DML::%s: total vm bytes (hvm ineff scaled) = %f\n", __func__, l->hvm_scaled_vm_bytes);
--				DML_LOG_VERBOSE("DML::%s: total row bytes (%f row, hvm ineff scaled) = %f\n", __func__, l->num_rows, l->hvm_scaled_row_bytes);
--				DML_LOG_VERBOSE("DML::%s: total vm+row bytes (hvm ineff scaled) = %f\n", __func__, l->hvm_scaled_vm_row_bytes);
--				DML_LOG_VERBOSE("DML::%s: lb_flip_bw for vm and row = %f\n", __func__, l->hvm_scaled_vm_row_bytes / (l->max_flip_time - Tno_bw_flip));
--				DML_LOG_VERBOSE("DML::%s: lb_flip_bw for vm = %f\n", __func__, l->hvm_scaled_vm_bytes / (l->max_flip_time - Tno_bw_flip - 2 * Tr0_trips_flip_rounded));
--				DML_LOG_VERBOSE("DML::%s: lb_flip_bw for row = %f\n", __func__, l->hvm_scaled_row_bytes / (l->max_flip_time - Tvm_trips_flip_rounded));
--
--				if (l->lb_flip_bw > 0) {
--					DML_LOG_VERBOSE("DML::%s: mode_support est Tvm_flip = %f (bw-based)\n", __func__, Tno_bw_flip + l->hvm_scaled_vm_bytes / l->lb_flip_bw);
--					DML_LOG_VERBOSE("DML::%s: mode_support est Tr0_flip = %f (bw-based)\n", __func__, l->hvm_scaled_row_bytes / l->lb_flip_bw / l->num_rows);
--					DML_LOG_VERBOSE("DML::%s: mode_support est dst_y_per_vm_flip = %f (bw-based)\n", __func__, Tno_bw_flip + l->hvm_scaled_vm_bytes / l->lb_flip_bw / LineTime);
--					DML_LOG_VERBOSE("DML::%s: mode_support est dst_y_per_row_flip = %f (bw-based)\n", __func__, l->hvm_scaled_row_bytes / l->lb_flip_bw / LineTime / l->num_rows);
--					DML_LOG_VERBOSE("DML::%s: Tvm_trips_flip_rounded + 2*Tr0_trips_flip_rounded = %f\n", __func__, (Tvm_trips_flip_rounded + 2 * Tr0_trips_flip_rounded));
--				}
--#endif
--				l->lb_flip_bw = math_max3(l->lb_flip_bw,
--						l->hvm_scaled_vm_bytes / (31 * LineTime) - Tno_bw_flip,
--						(l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes) / (15 * LineTime));
--
--#ifdef __DML_VBA_DEBUG__
--				DML_LOG_VERBOSE("DML::%s: lb_flip_bw for vm reg limit = %f\n", __func__, l->hvm_scaled_vm_bytes / (31 * LineTime) - Tno_bw_flip);
--				DML_LOG_VERBOSE("DML::%s: lb_flip_bw for row reg limit = %f\n", __func__, (l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes) / (15 * LineTime));
--#endif
--			}
--
--			*final_flip_bw = l->lb_flip_bw;
--
--			*dst_y_per_vm_flip = 1; // not used
--			*dst_y_per_row_flip = 1; // not used
--			*ImmediateFlipSupportedForPipe = l->min_row_time >= (Tvm_trips_flip_rounded + 2 * Tr0_trips_flip_rounded);
--		} else {
--			if (iflip_enable) {
--				l->ImmediateFlipBW = (double)per_pipe_flip_bytes * BandwidthAvailableForImmediateFlip / (double)TotImmediateFlipBytes; // flip_bw(i)
--
--#ifdef __DML_VBA_DEBUG__
--				DML_LOG_VERBOSE("DML::%s: per_pipe_flip_bytes = %d\n", __func__, per_pipe_flip_bytes);
--				DML_LOG_VERBOSE("DML::%s: BandwidthAvailableForImmediateFlip = %f\n", __func__, BandwidthAvailableForImmediateFlip);
--				DML_LOG_VERBOSE("DML::%s: ImmediateFlipBW = %f\n", __func__, l->ImmediateFlipBW);
--				DML_LOG_VERBOSE("DML::%s: portion of flip bw = %f\n", __func__, (double)per_pipe_flip_bytes / (double)TotImmediateFlipBytes);
--#endif
--				if (l->ImmediateFlipBW == 0) {
--					l->Tvm_flip = 0;
--					l->Tr0_flip = 0;
--				} else {
--					l->Tvm_flip = math_max3(Tvm_trips_flip,
--						Tno_bw_flip + vm_bytes * HostVMInefficiencyFactor / l->ImmediateFlipBW,
--						LineTime / 4.0);
--
--					l->Tr0_flip = math_max3(Tr0_trips_flip,
--						(l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes) / l->ImmediateFlipBW,
--						LineTime / 4.0);
--				}
--#ifdef __DML_VBA_DEBUG__
--				DML_LOG_VERBOSE("DML::%s: total vm bytes (hvm ineff scaled) = %f\n", __func__, vm_bytes * HostVMInefficiencyFactor);
--				DML_LOG_VERBOSE("DML::%s: total row bytes (hvm ineff scaled, one row) = %f\n", __func__, (l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes));
--
--				DML_LOG_VERBOSE("DML::%s: Tvm_flip = %f (bw-based), Tvm_trips_flip = %f (latency-based)\n", __func__, Tno_bw_flip + vm_bytes * HostVMInefficiencyFactor / l->ImmediateFlipBW, Tvm_trips_flip);
--				DML_LOG_VERBOSE("DML::%s: Tr0_flip = %f (bw-based), Tr0_trips_flip = %f (latency-based)\n", __func__, (l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes) / l->ImmediateFlipBW, Tr0_trips_flip);
--#endif
--				*dst_y_per_vm_flip = math_ceil2(4.0 * (l->Tvm_flip / LineTime), 1.0) / 4.0;
--				*dst_y_per_row_flip = math_ceil2(4.0 * (l->Tr0_flip / LineTime), 1.0) / 4.0;
--
--				*final_flip_bw = math_max2(vm_bytes * HostVMInefficiencyFactor / (*dst_y_per_vm_flip * LineTime),
--					(l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes) / (*dst_y_per_row_flip * LineTime));
--
--				if (*dst_y_per_vm_flip >= 32 || *dst_y_per_row_flip >= 16 || l->Tvm_flip + 2 * l->Tr0_flip > l->min_row_time) {
--					*ImmediateFlipSupportedForPipe = false;
--				} else {
--					*ImmediateFlipSupportedForPipe = iflip_enable;
--				}
-+		// For mode check, calculation the flip bw requirement with worst case flip time
-+		l->max_flip_time = math_min2(math_min2(l->min_row_time, (double)max_flip_time_lines * LineTime / VRatio),
-+			math_max2(Tvm_trips_flip_rounded + 2 * Tr0_trips_flip_rounded, (double)max_flip_time_us));
-+
-+		//The lower bound on flip bandwidth
-+		// Note: The get_urgent_bandwidth_required already consider dpte_row_bw and meta_row_bw in bandwidth calculation, so leave final_flip_bw = 0 if iflip not required
-+		l->lb_flip_bw = 0;
-+
-+		l->vm_and_row_time_budget = l->max_flip_time - Tno_bw_flip;
-+		l->vm_time_budget = l->max_flip_time - Tno_bw_flip - 2 * Tr0_trips_flip_rounded;
-+		l->row_time_budget = l->max_flip_time - Tvm_trips_flip_rounded;
-+
-+		if (iflip_enable) {
-+			l->hvm_scaled_vm_bytes = vm_bytes * HostVMInefficiencyFactor;
-+			l->num_rows = 2;
-+			l->hvm_scaled_row_bytes = (l->num_rows * l->dpte_row_bytes * HostVMInefficiencyFactor + l->num_rows * meta_row_bytes);
-+			l->hvm_scaled_vm_row_bytes = l->hvm_scaled_vm_bytes + l->hvm_scaled_row_bytes;
-+			l->lb_flip_bw = math_max3(
-+				l->hvm_scaled_vm_row_bytes / l->vm_and_row_time_budget,
-+				l->hvm_scaled_vm_bytes / math_min2(l->vm_time_budget, 31.75 * LineTime - Tno_bw_flip),
-+				(l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes) / math_min2(l->row_time_budget / 2, 15.75 * LineTime)); //use bandwidth for a single row
-+#ifdef __DML_VBA_DEBUG__
-+			DML_LOG_VERBOSE("DML::%s: max_flip_time = %f\n", __func__, l->max_flip_time);
-+			DML_LOG_VERBOSE("DML::%s: total vm bytes (hvm ineff scaled) = %f\n", __func__, l->hvm_scaled_vm_bytes);
-+			DML_LOG_VERBOSE("DML::%s: total row bytes (%f row, hvm ineff scaled) = %f\n", __func__, l->num_rows, l->hvm_scaled_row_bytes);
-+			DML_LOG_VERBOSE("DML::%s: total vm+row bytes (hvm ineff scaled) = %f\n", __func__, l->hvm_scaled_vm_row_bytes);
-+			DML_LOG_VERBOSE("DML::%s: lb_flip_bw for vm and row = %f\n", __func__, l->hvm_scaled_vm_row_bytes / l->vm_and_row_time_budget);
-+			DML_LOG_VERBOSE("DML::%s: lb_flip_bw for vm = %f\n", __func__, l->hvm_scaled_vm_bytes / l->vm_time_budget);
-+			DML_LOG_VERBOSE("DML::%s: lb_flip_bw for row = %f\n", __func__, l->hvm_scaled_row_bytes / l->row_time_budget);
-+			DML_LOG_VERBOSE("DML::%s: lb_flip_bw for vm reg limit = %f\n", __func__, l->hvm_scaled_vm_bytes / (31.75 * LineTime - Tno_bw_flip));
-+			DML_LOG_VERBOSE("DML::%s: lb_flip_bw for row reg limit = %f\n", __func__, (l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes) / (15.75 * LineTime));
-+#endif
-+		}
-+
-+		*final_flip_bw = l->lb_flip_bw;
-+
-+		if (l->lb_flip_bw > 0) {
-+			DML_LOG_VERBOSE("DML::%s: mode_support est Tvm_flip = %f (bw-based)\n", __func__, Tno_bw_flip + l->hvm_scaled_vm_bytes / l->lb_flip_bw);
-+			DML_LOG_VERBOSE("DML::%s: mode_support est Tr0_flip = %f (bw-based)\n", __func__, l->hvm_scaled_row_bytes / l->lb_flip_bw / l->num_rows);
-+			DML_LOG_VERBOSE("DML::%s: mode_support est dst_y_per_vm_flip = %f (bw-based)\n", __func__, Tno_bw_flip + l->hvm_scaled_vm_bytes / l->lb_flip_bw / LineTime);
-+			DML_LOG_VERBOSE("DML::%s: mode_support est dst_y_per_row_flip = %f (bw-based)\n", __func__, l->hvm_scaled_row_bytes / l->lb_flip_bw / LineTime / l->num_rows);
-+			DML_LOG_VERBOSE("DML::%s: Tvm_trips_flip_rounded + 2*Tr0_trips_flip_rounded = %f\n", __func__, (Tvm_trips_flip_rounded + 2 * Tr0_trips_flip_rounded));
-+
-+			l->Tvm_flip = math_max3(Tvm_trips_flip,
-+					Tno_bw_flip + vm_bytes * HostVMInefficiencyFactor / l->lb_flip_bw,
-+					LineTime / 4.0);
-+			l->Tr0_flip = math_max3(Tr0_trips_flip,
-+					(l->dpte_row_bytes * HostVMInefficiencyFactor + meta_row_bytes) / l->lb_flip_bw,
-+					LineTime / 4.0);
-+
-+			*dst_y_per_vm_flip = math_ceil2(4.0 * l->Tvm_flip / LineTime, 1.0) / 4.0;
-+			*dst_y_per_row_flip = math_ceil2(4.0 * l->Tr0_flip / LineTime, 1.0) / 4.0;
-+
-+			if (*dst_y_per_vm_flip >= 32 || *dst_y_per_row_flip >= 16 || l->Tvm_flip + 2 * l->Tr0_flip > l->min_row_time) {
-+				*ImmediateFlipSupportedForPipe = false;
- 			} else {
--				l->Tvm_flip = 0;
--				l->Tr0_flip = 0;
--				*dst_y_per_vm_flip = 0;
--				*dst_y_per_row_flip = 0;
--				*final_flip_bw = 0;
- 				*ImmediateFlipSupportedForPipe = iflip_enable;
- 			}
-+		} else {
-+			l->Tvm_flip = 0;
-+			l->Tr0_flip = 0;
-+			*dst_y_per_vm_flip = 0;
-+			*dst_y_per_row_flip = 0;
-+			*final_flip_bw = 0;
-+			*ImmediateFlipSupportedForPipe = iflip_enable;
- 		}
- 	} else {
- 		l->Tvm_flip = 0;
-@@ -7891,7 +7855,6 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
- 				display_cfg->gpuvm_enable,
- 				mode_lib->ms.vm_bytes[k],
- 				mode_lib->ms.DPTEBytesPerRow[k],
--				mode_lib->ms.BandwidthAvailableForImmediateFlip,
- 				mode_lib->ms.TotImmediateFlipBytes,
- 				display_cfg->plane_descriptors[k].pixel_format,
- 				(display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].timing.h_total / ((double)display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].timing.pixel_clock_khz / 1000)),
-@@ -7903,7 +7866,6 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
- 				mode_lib->ms.use_one_row_for_frame_flip[k],
- 				mode_lib->ip.max_flip_time_us,
- 				mode_lib->ip.max_flip_time_lines,
--				s->per_pipe_flip_bytes[k],
- 				mode_lib->ms.meta_row_bytes[k],
- 				s->meta_row_height_luma[k],
- 				s->meta_row_height_chroma[k],
-@@ -11692,7 +11654,6 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 					display_cfg->gpuvm_enable,
- 					mode_lib->mp.vm_bytes[k],
- 					mode_lib->mp.PixelPTEBytesPerRow[k],
--					mode_lib->mp.BandwidthAvailableForImmediateFlip,
- 					mode_lib->mp.TotImmediateFlipBytes,
- 					display_cfg->plane_descriptors[k].pixel_format,
- 					display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].timing.h_total / ((double)display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].timing.pixel_clock_khz / 1000),
-@@ -11704,7 +11665,6 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 					mode_lib->mp.use_one_row_for_frame_flip[k],
- 					mode_lib->ip.max_flip_time_us,
- 					mode_lib->ip.max_flip_time_lines,
--					s->per_pipe_flip_bytes[k],
- 					mode_lib->mp.meta_row_bytes[k],
- 					mode_lib->mp.meta_row_height[k],
- 					mode_lib->mp.meta_row_height_chroma[k],
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-index d4e6464640ad..9eabee1fc001 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-@@ -1659,6 +1659,9 @@ struct dml2_core_shared_CalculateFlipSchedule_locals {
- 	double num_rows;
- 	double hvm_scaled_row_bytes;
- 	double hvm_scaled_vm_row_bytes;
-+	double vm_time_budget;
-+	double row_time_budget;
-+	double vm_and_row_time_budget;
- 	bool dual_plane;
+ /*
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
+index a6e282d950c3..45ba9902ebbb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
+@@ -34,6 +34,7 @@ struct dmub_psr_funcs;
+ struct dmub_psr {
+ 	struct dc_context *ctx;
+ 	const struct dmub_psr_funcs *funcs;
++	uint32_t inst;
  };
  
+ struct dmub_psr_funcs {
 -- 
 2.55.0
 
