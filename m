@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6830C88E5C
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 12:46:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D2E0C982C9
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 12:46:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77D1110E3B9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EE1D10E943;
 	Wed, 16 Sep 2026 12:46:10 +0000 (UTC)
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A0DD89DA5;
- Wed, 16 Sep 2026 07:42:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A07C510E087;
+ Wed, 16 Sep 2026 09:58:35 +0000 (UTC)
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-03 (Coremail) with SMTP id rQCowACnqjh0SKpqqELfBw--.41180S2;
- Wed, 16 Sep 2026 15:42:45 +0800 (CST)
+ by APP-03 (Coremail) with SMTP id rQCowABXXDpJaKpqJMXgBw--.37267S2;
+ Wed, 16 Sep 2026 17:58:33 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Felix.Kuehling@amd.com
+To: Dennis.Li@amd.com
 Cc: airlied@gmail.com, alexander.deucher@amd.com,
  amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- david.yatsin@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rajneesh.bhardwaj@amd.com, simona@ffwll.ch,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] drm/amdkfd: Fix file reference leak in criu_restore_devices()
-Date: Wed, 16 Sep 2026 07:42:16 +0000
-Message-Id: <20260916074216.1973191-1-vulab@iscas.ac.cn>
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ monk.liu@amd.com, simona@ffwll.ch, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix runtime PM leak in
+ amdgpu_debugfs_test_ib_show()
+Date: Wed, 16 Sep 2026 09:58:05 +0000
+Message-Id: <20260916095805.2011304-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACnqjh0SKpqqELfBw--.41180S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XrW8tw1UAF4xZr45tryrJFb_yoWDJwb_G3
- yUXr9xXry2kF4vqr1F9r4FvrWIyw4UurWkXw48ta1FyFyUZF9rW34Ygr95XF1UJanruFn8
- X3s5ur1rAwnrCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbakFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
- 6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
- 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
- 8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
- Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
- x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
- 4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
- 6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
- IYCTnIWIevJa73UjIFyTuYvjfUogAwDUUUU
+X-CM-TRANSID: rQCowABXXDpJaKpqJMXgBw--.37267S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFW5JFWDtFW5uFW5Gry8Zrb_yoW8GFy7p3
+ 9Yg3WYvr1DZF17t34DAa18XFyru3yaqryxGrykuw1Uu3Z8JF1rJF15JrWjgry8GrZ7CwsI
+ vrZ7KrW3ZF1qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+ 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+ 628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+ IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+ MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
+ W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+ JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
+ UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
 X-Originating-IP: [36.110.52.2]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqP4cnwQAAsK
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggMA2qqPpSseAAAs-
 X-Mailman-Approved-At: Wed, 16 Sep 2026 12:46:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,32 +63,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In criu_restore_devices(), drm_file is obtained using fget(drm_fd). If
-pdd->drm_file is already set, the function returns -EINVAL without
-releasing the acquired reference via fput(drm_file), leading to a file
-reference count leak.
+amdgpu_debugfs_test_ib_show() resumes the device with
+pm_runtime_get_sync() before taking the reset domain semaphore with
+down_write_killable().  If the write lock acquisition is interrupted,
+the function returns without calling pm_runtime_put_autosuspend(),
+leaking the runtime PM reference acquired for the device and keeping
+the GPU awake.
 
-Fix this by adding fput(drm_file) before returning -EINVAL.
+Drop the runtime PM reference on the interrupted down_write_killable()
+error path before returning.
 
-Fixes: bef153b70c6e ("drm/amdkfd: CRIU implement gpu_id remapping")
+Fixes: 6049db43d6dd ("drm/amdgpu: change reset lock from mutex to rw_semaphore")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 03b266b26738..5453fa4ce4fd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2311,6 +2311,7 @@ static int criu_restore_devices(struct kfd_process *p,
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 092fd3309099..adc0252f6400 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1764,8 +1764,10 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
  
- 		if (pdd->drm_file) {
-+			fput(drm_file);
- 			ret = -EINVAL;
- 			goto exit;
- 		}
+ 	/* Avoid accidently unparking the sched thread during GPU reset */
+ 	r = down_write_killable(&adev->reset_domain->sem);
+-	if (r)
++	if (r) {
++		pm_runtime_put_autosuspend(dev->dev);
+ 		return r;
++	}
+ 
+ 	/* hold on the scheduler */
+ 	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
 -- 
 2.34.1
 
