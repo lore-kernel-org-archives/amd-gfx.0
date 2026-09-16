@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE437C982CC
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:53:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E65B0C982D4
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Sep 2026 17:53:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C600C10ECB2;
-	Wed, 16 Sep 2026 17:53:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF4AA10ECC7;
+	Wed, 16 Sep 2026 17:53:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mnSCftkO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tGy0Y92Z";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013045.outbound.protection.outlook.com
- [40.93.201.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6637B10EBD2
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:52:57 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010014.outbound.protection.outlook.com [52.101.85.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB21810EC90
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 17:53:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Sq7hVgINOAkGwjvXnEWf6SzoryaJejD6LFKdiuaU7yldUvEUYku1/L2dime17aXnVBjoD6wf+EwD93v3ErwsWiahcugqDXgKfBkWN6eaHiQvE9MgngBupynOtx+FQK4nSR1QTXq2LWTK6SdDHcomv2nFudsW2qPna0mC2lvDeUKIdheZbX8EX5DdHkqWmMjMXnQeZ+Aw6UenMFEMMwd9t39gDWGl7HOFsSJWqhI/PigOfmowPykQlLQ53EG1vUVnHU4LAJ8wjNOcqi5S1L3ChjSP1m2/JD4L08eapCG6NFb3JStz9r1qTZb+OvlTJOkMqEAzlPyyHfw3YKzQU3d9SQ==
+ b=KtjzKYzeHP1xK60OQ5rjTA1gFnvO9YFdzKdC9hRBg0rXFsVX4M0k8iraLD2V3XtOR0lXZr591UacM/2mngot6Pk/s3/JkofD0xzQTv4/sfzdvKBM/i8Y218fWneBeUW41jIFqoO3XDRWy7c8+XBFBsO2U0mfRQe7IMAEWLOYm6QSsa0QroVXBiItUL5gv4JZtL0tp7HVuej/xHIa4MtT3MrDw+65W2pAnOWNJXu/MTcGL9CW0v505O81c0tArTyYjU9NgEpIIfVmiq52S40YKhLAIYBRLF2RgAWubpRxdklgPQciRgm2kq4hpWX3oBbsCnPehb0fzU/+etfR/7OOtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ip5zUlVe1jwsF9yiuLOUQ/I8Cd6LKYBzQvFCz7BODWU=;
- b=OVbtF/tyZ3GElBnaJvJCNaBzIlyJyayI9bBIBvC+6XWcHS0JpEs+pZ8Ei84wAvodAYPY0eJYXcT1DQCUhkih8gTYU1wA6Xh9NmbN1iGfjrx9tZXjS2THxNXuXEJWjyfQ0kCbC+hUH3Zk1YmoSH17NpVfDl/hzAqTG3YiHJtynFig9rSw2tfBmsscp4QYwrI8o29YIlcodIF4iRrLktzcrpDbRq1h4d4cE8Kw8VvRd0Uj0DsUzOxpDoKM8Mi+21Mqa5ubgNkAS0xneX96+oqt5vGuV1BJp09xd9KVp5sjjIAq/KC8EGB07wjOB8RpyKTViz2vsZi63AB+jdQdIvbUGA==
+ bh=aWZc59iRY76eFaWPVQA7TBVazuUH2m/OGA1HcPNObh0=;
+ b=vuQWxUbalE1dXiiLT0XAfDdHDug/rkr/NT45V1QQ+gocCOcrTNRLHvDGSEzX9RWRHI+LdmxobXlbqomJ9ggAb2MBLThWexZrWGpFpbKDlCwKelp8fw28Fu43sC1eHAKNTq8UtEA9M9GgB4VJKfJI49kDChFzIYl2diodie95o0SIwELaA6QO7gq7zflDqGtGzKqMi8hRjO323zZTFLM4a34uZN6oTZgPNm7MKJKhoP5lSj2d6O+gWT8IJoWlBZHOl2dWTmgCAcDjR+QHAyygrVGjnOqA/GMEOKKI+BWyaUu/XiNT3D0WkiZ2SBz0XC4pn7RlMJIF5My1kEp/Ah99ZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ip5zUlVe1jwsF9yiuLOUQ/I8Cd6LKYBzQvFCz7BODWU=;
- b=mnSCftkOC9x08HajgWLXuk9TZsT6mC/gEdITsTguiYscBpJcjM5HtIXjZPwg/RshxmtJiRPSIagfxQupkpvEaAn6dZ1SE1NulgiN52dFIurKN8OpXkTmFmAaOsCESYU87g3DIFQnfTrzMmqBMrAH7mV9rJJMfRY8TQpTQdzym74=
-Received: from CH5P220CA0016.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::22)
- by CHXPR12MB999243.namprd12.prod.outlook.com (2603:10b6:610:2fc::23)
+ bh=aWZc59iRY76eFaWPVQA7TBVazuUH2m/OGA1HcPNObh0=;
+ b=tGy0Y92ZEvUE33JtBUsr9lgaKRCw8gVbweMR2bx22FR0lKtdxZNiUsVzC89uEGlts7Af2LCwanD7DXGvXuPQQI681WKFSww7WB7i3CO1fRdLI4QItAfAXzg2fqem38CwXD6DEoIQv3HT4jcFTfV6e18kKVGikwGtVckrWBjop1M=
+Received: from CH5P220CA0014.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::15)
+ by LV0PR12MB136056.namprd12.prod.outlook.com (2603:10b6:408:3b5::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 17:52:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
+ 2026 17:52:56 +0000
 Received: from CH3PEPF0000000D.namprd04.prod.outlook.com
- (2603:10b6:610:1ef:cafe::75) by CH5P220CA0016.outlook.office365.com
- (2603:10b6:610:1ef::22) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:1ef:cafe::16) by CH5P220CA0014.outlook.office365.com
+ (2603:10b6:610:1ef::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 17:52:54 +0000
+ 16 Sep 2026 17:52:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CH3PEPF0000000D.mail.protection.outlook.com (10.167.244.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:53 +0000
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 17:52:56 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 12:52:39 -0500
+ 2026 12:52:43 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,11 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- "George Zhang" <george.zhang@amd.com>
-Subject: [PATCH 34/64] drm/amd/display: Test HDMI HPD debounce re-detect
-Date: Wed, 16 Sep 2026 13:51:49 -0400
-Message-ID: <20260916175301.368306-35-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Jun Lei
+ <jun.lei@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 38/64] drm/amd/display: Add inst field to encoder structs
+Date: Wed, 16 Sep 2026 13:51:53 -0400
+Message-ID: <20260916175301.368306-39-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916175301.368306-1-george.zhang@amd.com>
 References: <20260916175301.368306-1-george.zhang@amd.com>
@@ -80,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000D:EE_|CHXPR12MB999243:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d283952-0950-4307-93c7-08df141b5576
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000D:EE_|LV0PR12MB136056:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0a811c9-7c95-4bdd-7c29-08df141b56e0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|18002099003|22082099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: ip0Wy29/L8FChqmiBdCYQK2mjXvlAqGLUTlcflj2R2QxCk9UdQ3W3IRNJx/pShCqGC7QvNTad18U5ZJxPRdvx86L3hUUhjaNQdlJMiXmwtJ6oGcn8gaW65I3UzPZEH2qolzUV6UVc6E2gY54NLdICj/HAxQVJpl9P9Dqed7n98CDYh85p1VTmbv6RhkGYENeygDbW6QvNgxPkmfFIwpR3GP7YXYXxrWRRLyMkdPLu9C0gH8yxLjgPu6i6nN+psryTlja5euNW+96fnfNk8sL/4yE1Uy2C6Vn3ZJJcR7wXlU6Ii7ykCtp/FILo4oaDp6NXMTeWGJoYIst7LOW2Wtm6v7DfhKzNCwuWVL5PXcqdsAKGsTnIESsdLqpgs8ucHppJQYkanqiNy9DrlARYj+Hc/eCEFeg3h810FXIt+mIP1wpBc5t7p/tODqfhXy4rWgZJO07LoISucNPuTHxs2BOvK4rIGg/XEQi5B3KtZq0alG5vn1aRKwLbF8WdjFCW9698cv8sMTZt1mUPg8fnnMMTmFeTY893BeRLJEaSwmCp4EWRqtSrnJipwGdeGfSIMICUng/OSet9ACw0jZEbmQl0B8BoaXpwq1Dku4lRgPCzuYBkgE4AH6I+6uVwqO4QHMmo2CNwibFolh/H8ZyWmBG3+MtJVYLaBWzj8qPNj598yg2RKsfCr/fa/Itu41EAI4Zgf7yfRwI9bYY3+g/c5rf+w==
+ ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|10067099003|11063799006|5023799004|3023799007|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: dEEjLUzEGvezb23PmZhKQaRruBcKLAlCTib4/tA6+rP6SXvdv11Ea3yFCkwWuMffZVWOUPnMaMnHCTKGPrWxR9J2MjnG5Gq4QAVyGh7bcxDl8TKR5XjBwTn1dHWcLJNb/ejcZjJx5dyg0XREauJqTbMLWtH1vXq4NQfWPuAbdzGjF7dbPE9osOU0/a5+Qm5Ja1IuVW5uxI/v7QumvuC9rjat3GZMMyRFxqTRyIwOljGoZLvPumtiYVikjVZSZu11k5qOViqzBLL2jXYCvIDF46wr87rMPcV4tjrBQrmt+7Kmvpsv2Y1H/U9j+Nl9XxZzKcWWGzVXKjzW0jmUOf0BVhqao/Lu+/hL1DdhUJ9zpKwk3hCbqUOV+aSjDGslz+KZQyVOkEGZlAcmIScwWUVYM0lhZOd/zSrSnYsCaxjDTGo3/PjXxRZAKG7lmRggyNx/7GDt/noohOvtm8BDWZH+X5jfO0wfqOdzwUNjq9d3EBZ3yzWBPhndYazY6FfRSPLRx2lM9lN7fXltvSkV1jYB8zAQ9aGjczamHxqtCHRAvtLhDcEWBckbNSeKfZzlVMeVBrvS1qBHKWIBf1mDVW3g5Hc5IZqhrVtIai11qwJJspTO37GZoUhrtKfsDDqp1MkDveWTMj6EBgK+K6M4m0zJIWg591VXMa/Yt5ZOs8KVAdJ5VSPOkX3+KjIoY02VsEcAuJXkQQiouW5Tz35Jipz+8w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);
+ SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(10067099003)(11063799006)(5023799004)(3023799007)(18002099003)(22082099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5fi/7cmLhyKU/bJXCYrimEjaIjr0hhKD1/OS/1q0eeARrHun7vWelwE8G2YWIAi6YUzNEbUMbTJiOwS69Zmnv0vLpyYPlC89zwMiNNTVYJSCtQNbddr8Y96zfheK0/OfpnzB4l9+kEwkUPpRlKontvWbZ0F1tg+QZweSMagT1uDLA5B40SyTsoQ9e6wL9wFEfzaSyLYIEbMAILe12CdmtzEw+v3pSunuoSNyQbIdGN2jDaYfZAXO5rkJeWSIwzGNwh008SR5UlE/IWOmkrt/1g1mBlVsgbbzLFfvjnrT6Si47T++ihjOUk5cc4YEMAhuEhzTADLl3dUCxna/+fFSSPKohkUYHG6rQzuNI3StSxWoXAYNz3hdcoMjrbcb2KK+Y27fo+jS+qp6UYDVYkljttp0vq3J3v7pPZUmI2a3vV8+2h8VzmBw3nM5QOXLyMJp
+X-MS-Exchange-AntiSpam-MessageData-0: OBKLKYe6d1QALxUR0ttovTGv+oXxZE40eJIbrRMgQ9HIg70Zd1yEFAZy1HbOPDYnwW5qX3/rkFvvZuCxjMJ2CVUIPc2STV1RYfudk2q2uPI5/T+/Lg7LdXrKnGFbsnZwltSoheF4uUroJUcRwovE8Itm5/6G8fyr9D8GoPFh4+oCV73aNsT4Pv+cHeqpwTVh1BFhMS2EpgxPtjqPIzXXYYhMvWHOW/5S/C1spuPjaSJoLil8Ss5f2wuS1QEIUiC/XhTskLqeCx1t62wYN1NQHKX03Or32VL54l8gQ358C70ILoSYyHVWCD473piC8e4XihZYSvU2bEqULY2Skc7E/kcJHDq28njhcNfmfrfIh5CQpUDqKO39GDmSSv2lOdeE3bJooJ7IoZqbc/hmRVKQiKnCNEFqHhPj/RMlPBWNxXZoChrH1iUsqjwsbWDv/Utz
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:53.9851 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d283952-0950-4307-93c7-08df141b5576
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 17:52:56.3539 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0a811c9-7c95-4bdd-7c29-08df141b56e0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000D.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHXPR12MB999243
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB136056
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,173 +116,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Tony Cheng <Tony.Cheng@amd.com>
 
-[WHAT]
-amdgpu_dm_hdmi_hpd_debounce_work() only ran with detection
-failing, so neither outcome of the sink comparison that decides whether
-an HPD toggle was spurious was covered.
+Add an inst member to struct link_encoder, struct stream_encoder and
+struct hpo_frl_stream_encoder, and populate it in the DCN10 through
+DCN60 construct paths.
 
-[HOW]
-Add a fixture for the debounce work item and two tests: a
-re-detect finding the same sink, which re-enables internally without
-notifying userspace, and one finding a different sink, which sends the
-hotplug event.
+No functional change; the field has no readers yet.
 
-Assisted-by: Copilot:Claude-Opus-5
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Jun Lei <jun.lei@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Tony Cheng <Tony.Cheng@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 114 ++++++++++++++++++
- 1 file changed, 114 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c  | 2 ++
+ .../gpu/drm/amd/display/dc/dio/dcn10/dcn10_stream_encoder.c    | 2 ++
+ drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_link_encoder.c  | 2 ++
+ .../gpu/drm/amd/display/dc/dio/dcn20/dcn20_stream_encoder.c    | 2 ++
+ .../gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.c  | 2 ++
+ .../drm/amd/display/dc/dio/dcn30/dcn30_dio_stream_encoder.c    | 2 ++
+ .../drm/amd/display/dc/dio/dcn301/dcn301_dio_link_encoder.c    | 2 ++
+ .../gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c  | 2 ++
+ .../drm/amd/display/dc/dio/dcn314/dcn314_dio_stream_encoder.c  | 2 ++
+ .../gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c  | 2 ++
+ .../drm/amd/display/dc/dio/dcn32/dcn32_dio_stream_encoder.c    | 2 ++
+ .../drm/amd/display/dc/dio/dcn321/dcn321_dio_link_encoder.c    | 2 ++
+ .../gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_link_encoder.c  | 2 ++
+ .../drm/amd/display/dc/dio/dcn35/dcn35_dio_stream_encoder.c    | 2 ++
+ .../drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c    | 2 ++
+ .../drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.c  | 1 +
+ .../gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.c  | 2 ++
+ .../drm/amd/display/dc/dio/dcn42/dcn42_dio_stream_encoder.c    | 2 ++
+ .../gpu/drm/amd/display/dc/dio/dcn60/dcn60_dio_link_encoder.c  | 2 ++
+ .../drm/amd/display/dc/dio/dcn60/dcn60_dio_stream_encoder.c    | 2 ++
+ .../gpu/drm/amd/display/dc/dio/virtual/virtual_link_encoder.c  | 3 +++
+ .../drm/amd/display/dc/dio/virtual/virtual_stream_encoder.c    | 1 +
+ .../amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c    | 2 ++
+ .../amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c  | 2 ++
+ .../amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c    | 2 ++
+ .../amd/display/dc/hpo/dcn60/dcn60_hpo_frl_stream_encoder.c    | 2 ++
+ drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h           | 1 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h         | 2 ++
+ 28 files changed, 54 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index 352ec7773e32..04cc5dd5812b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -61,6 +61,12 @@ static bool dm_test_detect_link_false(struct dc_link *link,
- 	return false;
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
+index aee9a363e336..32e12d894e31 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
+@@ -781,6 +781,8 @@ void dcn10_link_encoder_construct(
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable) {
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
+ 	}
++
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
  }
  
-+static bool dm_test_detect_link_true(struct dc_link *link,
-+				     enum dc_detect_reason reason)
-+{
-+	return true;
-+}
+ bool dcn10_link_encoder_validate_output_with_stream(
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_stream_encoder.c
+index d913f065ecca..c937788d0763 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_stream_encoder.c
+@@ -1625,5 +1625,7 @@ void dcn10_stream_encoder_construct(
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
+ 	enc1->base.stream_enc_inst = eng_id - ENGINE_ID_DIGA;
++	enc1->base.inst = enc1->base.stream_enc_inst;
 +
- /* Spy on dc_link_detect() to prove the debounce early-return skipped it. */
- static int dm_test_detect_link_count;
- 
-@@ -2764,6 +2770,51 @@ static void dm_test_hpd_rx_offload_work_link_loss(struct kunit *test)
- 
- /* Tests for amdgpu_dm_hdmi_hpd_debounce_work() */
- 
-+/*
-+ * Build an aconnector wired for amdgpu_dm_hdmi_hpd_debounce_work(): an HPD
-+ * lock, the debounce work item and a dc/link pair whose re-detect fails.
-+ * Caller sets the link_srv stubs and any sinks the branch under test needs.
-+ */
-+static struct amdgpu_dm_connector *dm_test_setup_hdmi_debounce(struct kunit *test,
-+							       struct link_service **link_srv_out)
-+{
-+	struct amdgpu_dm_connector *aconn;
-+	struct link_service *link_srv;
-+	struct amdgpu_device *adev;
-+	struct dc_context *ctx;
-+	struct dc_link *link;
-+	struct dc *dc;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	mutex_init(&adev->dm.dc_lock);
-+
-+	aconn = dm_kunit_alloc_connector(test, adev, NULL);
-+	mutex_init(&aconn->hpd_lock);
-+	INIT_DELAYED_WORK(&aconn->hdmi_hpd_debounce_work,
-+			  amdgpu_dm_hdmi_hpd_debounce_work);
-+
-+	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+	link_srv = kunit_kzalloc(test, sizeof(*link_srv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link_srv);
-+	link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link);
-+
-+	link_srv->detect_link = dm_test_detect_link_false;
-+	dc->ctx = ctx;
-+	dc->link_srv = link_srv;
-+	ctx->dc = dc;
-+	link->dc = dc;
-+	link->ctx = ctx;
-+	aconn->dc_link = link;
-+
-+	*link_srv_out = link_srv;
-+
-+	return aconn;
-+}
-+
- /**
-  * dm_test_hdmi_hpd_debounce_detect_false - Test debounce false detect path
-  * @test: The KUnit test context
-@@ -2874,6 +2925,67 @@ static void dm_test_hdmi_hpd_debounce_reallow_idle(struct kunit *test)
- 	KUNIT_EXPECT_NULL(test, aconn->hdmi_prev_sink);
  }
  
-+/**
-+ * dm_test_hdmi_hpd_debounce_sink_unchanged - Test the spontaneous-toggle path
-+ * @test: The KUnit test context
-+ *
-+ * A re-detect that finds the same sink as before the HPD toggle is an internal
-+ * re-enable, so the connector state is refreshed but no hotplug event is sent
-+ * to userspace. An MST-state connector keeps
-+ * amdgpu_dm_update_connector_after_detect() to its early return.
-+ */
-+static void dm_test_hdmi_hpd_debounce_sink_unchanged(struct kunit *test)
-+{
-+	struct amdgpu_dm_connector *aconn;
-+	struct link_service *link_srv;
-+	struct dc_link *link;
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_link_encoder.c
+index 3bd35f3392dc..dbd4c534c5c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_link_encoder.c
+@@ -502,4 +502,6 @@ void dcn20_link_encoder_construct(
+ 	if (enc10->base.ctx->dc->debug.hdmi20_disable) {
+ 		enc10->base.features.flags.bits.HDMI_6GB_EN = 0;
+ 	}
 +
-+	aconn = dm_test_setup_hdmi_debounce(test, &link_srv);
-+	link_srv->detect_link = dm_test_detect_link_true;
-+	aconn->mst_mgr.mst_state = true;
-+	link = aconn->dc_link;
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_stream_encoder.c
+index bec0b4aaeb2b..ac6ca7771d2f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn20/dcn20_stream_encoder.c
+@@ -657,5 +657,7 @@ void dcn20_stream_encoder_construct(
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
+ 	enc1->base.stream_enc_inst = eng_id - ENGINE_ID_DIGA;
++	enc1->base.inst = enc1->base.stream_enc_inst;
 +
-+	/* Two identically zeroed sinks compare equal, i.e. a spurious toggle. */
-+	link->local_sink = dm_test_sink_create(link);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, link->local_sink);
-+	aconn->hdmi_prev_sink = dm_test_sink_create(link);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconn->hdmi_prev_sink);
-+
-+	amdgpu_dm_hdmi_hpd_debounce_work(&aconn->hdmi_hpd_debounce_work.work);
-+
-+	KUNIT_EXPECT_NULL(test, aconn->hdmi_prev_sink);
-+
-+	dm_test_sink_release(link->local_sink);
-+}
-+
-+/**
-+ * dm_test_hdmi_hpd_debounce_sink_changed - Test the real-hotplug path
-+ * @test: The KUnit test context
-+ *
-+ * A re-detect that finds a different sink than the one cached before the HPD
-+ * toggle is a real hotplug, so userspace must be notified. Sending the uevent
-+ * needs a registered DRM device.
-+ */
-+static void dm_test_hdmi_hpd_debounce_sink_changed(struct kunit *test)
-+{
-+	struct amdgpu_dm_connector *aconn;
-+	struct link_service *link_srv;
-+
-+	aconn = dm_test_setup_hdmi_debounce(test, &link_srv);
-+	dm_test_register_drm_dev(test, drm_to_adev(aconn->base.dev));
-+
-+	link_srv->detect_link = dm_test_detect_link_true;
-+	aconn->mst_mgr.mst_state = true;
-+
-+	/* The link lost its sink, so it cannot match the cached one. */
-+	aconn->hdmi_prev_sink = dm_test_sink_create(aconn->dc_link);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconn->hdmi_prev_sink);
-+
-+	amdgpu_dm_hdmi_hpd_debounce_work(&aconn->hdmi_hpd_debounce_work.work);
-+
-+	KUNIT_EXPECT_NULL(test, aconn->hdmi_prev_sink);
-+}
-+
- /* Tests for handle_hpd_irq()/handle_hpd_irq_helper() */
+ }
  
- /**
-@@ -5298,6 +5410,8 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
- 	/* amdgpu_dm_hdmi_hpd_debounce_work */
- 	KUNIT_CASE(dm_test_hdmi_hpd_debounce_detect_false),
- 	KUNIT_CASE(dm_test_hdmi_hpd_debounce_reallow_idle),
-+	KUNIT_CASE(dm_test_hdmi_hpd_debounce_sink_unchanged),
-+	KUNIT_CASE(dm_test_hdmi_hpd_debounce_sink_changed),
- 	/* handle_hpd_irq/handle_hpd_irq_helper */
- 	KUNIT_CASE(dm_test_handle_hpd_irq_disabled),
- 	KUNIT_CASE(dm_test_handle_hpd_irq_helper_debounce_schedule),
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.c
+index 8c4010c5b2e7..5fd5158482ea 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_link_encoder.c
+@@ -456,6 +456,8 @@ void dcn30_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
+ 		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
+ 	}
++
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
+ }
+ 
+ #define AUX_REG(reg)\
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_stream_encoder.c
+index c14fb51c2611..9757d3bcdf32 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn30/dcn30_dio_stream_encoder.c
+@@ -899,5 +899,7 @@ void dcn30_dio_stream_encoder_construct(
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
+ 	enc1->base.stream_enc_inst = vpg->inst;
++	enc1->base.inst = enc1->base.stream_enc_inst;
++
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn301/dcn301_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn301/dcn301_dio_link_encoder.c
+index 02fb844670f9..7106669eab5b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn301/dcn301_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn301/dcn301_dio_link_encoder.c
+@@ -209,4 +209,6 @@ void dcn301_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
+ 		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
+ 	}
++
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
+index f57f3ba68a02..1b9ba0e9f068 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
+@@ -509,6 +509,8 @@ void dcn31_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
+ 		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
+ 	}
++
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
+ }
+ 
+ void dcn31_link_encoder_construct_minimal(
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn314/dcn314_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn314/dcn314_dio_stream_encoder.c
+index d1fd5462dca5..482c52c1d7d6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn314/dcn314_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn314/dcn314_dio_stream_encoder.c
+@@ -504,5 +504,7 @@ void dcn314_dio_stream_encoder_construct(
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
+ 	enc1->base.stream_enc_inst = vpg->inst;
++	enc1->base.inst = enc1->base.stream_enc_inst;
++
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c
+index 68e0dc93ae7d..63990c47ac14 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c
+@@ -551,4 +551,6 @@ void dcn32_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
+ 		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
+ 	}
++
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_stream_encoder.c
+index edafa3808455..3dd8fe423232 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_stream_encoder.c
+@@ -491,5 +491,7 @@ void dcn32_dio_stream_encoder_construct(
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
+ 	enc1->base.stream_enc_inst = vpg->inst;
++	enc1->base.inst = enc1->base.stream_enc_inst;
++
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn321/dcn321_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn321/dcn321_dio_link_encoder.c
+index 4108fd0f4380..67d6050d5163 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn321/dcn321_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn321/dcn321_dio_link_encoder.c
+@@ -210,4 +210,6 @@ void dcn321_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
+ 		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
+ 	}
++
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_link_encoder.c
+index 8fa9b8c500f2..9375c9b939be 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_link_encoder.c
+@@ -290,6 +290,8 @@ void dcn35_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
+ 	}
+ 
++
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
+ }
+ 
+ /* DPIA equivalent of link_transmitter_control. */
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_stream_encoder.c
+index de24dcd27e6c..dabcb45840a7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn35/dcn35_dio_stream_encoder.c
+@@ -517,5 +517,7 @@ void dcn35_dio_stream_encoder_construct(
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
+ 	enc1->base.stream_enc_inst = vpg->inst;
++	enc1->base.inst = enc1->base.stream_enc_inst;
++
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
+index dad4ef565168..6594fbb3fa43 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
+@@ -557,4 +557,6 @@ void dcn401_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
+ 		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
+ 	}
++
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.c
+index 79d0c2896d29..4616b6f76aeb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.c
+@@ -793,6 +793,7 @@ void dcn401_dio_stream_encoder_construct(
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
+ 	enc1->base.stream_enc_inst = vpg->inst;
++	enc1->base.inst = enc1->base.stream_enc_inst;
+ }
+ 
+ void enc401_set_dynamic_metadata(struct stream_encoder *enc,
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.c
+index 50174aded6aa..3b11be9991c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_link_encoder.c
+@@ -223,4 +223,6 @@ void dcn42_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_FRL_10G_CAPABLE = 1;
+ 		enc10->base.features.flags.bits.IS_FRL_12G_CAPABLE = 1;
+ 	}
++
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_stream_encoder.c
+index 35845e6dd5aa..b7671d41ea24 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn42/dcn42_dio_stream_encoder.c
+@@ -581,4 +581,6 @@ void dcn42_dio_stream_encoder_construct(
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
+ 	enc1->base.stream_enc_inst = vpg->inst;
++	enc1->base.inst = enc1->base.stream_enc_inst;
++
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn60/dcn60_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn60/dcn60_dio_link_encoder.c
+index 6fe15324ea50..f65326a0f6d2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn60/dcn60_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn60/dcn60_dio_link_encoder.c
+@@ -370,4 +370,6 @@ void dcn60_link_encoder_construct(
+ 		enc10->base.features.flags.bits.IS_FRL_20G_CAPABLE = 1;
+ 		enc10->base.features.flags.bits.IS_FRL_24G_CAPABLE = 0;
+ 	}
++
++	enc10->base.inst = (unsigned int)enc10->base.preferred_engine;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn60/dcn60_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn60/dcn60_dio_stream_encoder.c
+index b76cc891857d..b645914c1c71 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn60/dcn60_dio_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn60/dcn60_dio_stream_encoder.c
+@@ -535,4 +535,6 @@ void dcn60_dio_stream_encoder_construct(
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
+ 	enc1->base.stream_enc_inst = vpg->inst;
++	enc1->base.inst = enc1->base.stream_enc_inst;
++
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/virtual/virtual_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/virtual/virtual_link_encoder.c
+index 5b2bba0eff0e..f847fef069c9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/virtual/virtual_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/virtual/virtual_link_encoder.c
+@@ -27,6 +27,7 @@
+ #include "dm_services_types.h"
+ 
+ #include "virtual_link_encoder.h"
++#include "stream_encoder.h"
+ 
+ static bool virtual_link_encoder_validate_output_with_stream(
+ 	struct link_encoder *enc,
+@@ -167,5 +168,7 @@ bool virtual_link_encoder_construct(
+ 
+ 	enc->preferred_engine = ENGINE_ID_VIRTUAL;
+ 
++	enc->inst = 0;
++
+ 	return true;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/virtual/virtual_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/virtual/virtual_stream_encoder.c
+index 27448f2b2467..f6b1e2a42baa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/virtual/virtual_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/virtual/virtual_stream_encoder.c
+@@ -190,6 +190,7 @@ bool virtual_stream_encoder_construct(
+ 	struct dc_context *ctx,
+ 	struct dc_bios *bp)
+ {
++	enc->inst = 0;
+ 	if (!enc)
+ 		return false;
+ 	if (!bp)
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c
+index f4c21998d845..f0128c5bf993 100644
+--- a/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn30/dcn30_hpo_frl_stream_encoder.c
+@@ -1040,4 +1040,6 @@ void dcn30_hpo_frl_stream_encoder_construct(
+ 	enc3->hpo_se_shift = hpo_se_shift;
+ 	enc3->hpo_se_mask = hpo_se_mask;
+ 	enc3->base.stream_enc_inst = vpg->inst;
++	enc3->base.inst = enc3->base.stream_enc_inst;
++
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c
+index 85b7a44c0a11..4b14a3bfe56d 100644
+--- a/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn401/dcn401_hpo_frl_stream_encoder.c
+@@ -904,4 +904,6 @@ void dcn401_hpo_frl_stream_encoder_construct(
+ 	enc401->hpo_se_shift = hpo_se_shift;
+ 	enc401->hpo_se_mask = hpo_se_mask;
+ 	enc401->base.stream_enc_inst = vpg->inst;
++	enc401->base.inst = enc401->base.stream_enc_inst;
++
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c
+index 43870d84ca2f..1aed194b58bd 100644
+--- a/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn42/dcn42_hpo_frl_stream_encoder.c
+@@ -209,4 +209,6 @@ void dcn42_hpo_frl_stream_encoder_construct(
+ 	enc42->hpo_se_shift = hpo_se_shift;
+ 	enc42->hpo_se_mask = hpo_se_mask;
+ 	enc42->base.stream_enc_inst = vpg->inst;
++	enc42->base.inst = enc42->base.stream_enc_inst;
++
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn60/dcn60_hpo_frl_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn60/dcn60_hpo_frl_stream_encoder.c
+index b5397d6760b1..de42f8c5f7f0 100644
+--- a/drivers/gpu/drm/amd/display/dc/hpo/dcn60/dcn60_hpo_frl_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn60/dcn60_hpo_frl_stream_encoder.c
+@@ -231,4 +231,6 @@ void dcn60_hpo_frl_stream_encoder_construct(
+ 	enc401->hpo_se_shift = hpo_se_shift;
+ 	enc401->hpo_se_mask = hpo_se_mask;
+ 	enc401->base.stream_enc_inst = vpg->inst;
++	enc401->base.inst = enc401->base.stream_enc_inst;
++
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+index 70545df981ef..f3ef5bbfad81 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+@@ -100,6 +100,7 @@ struct link_encoder {
+ 	struct graphics_object_id connector;
+ 	uint32_t output_signals;
+ 	enum engine_id preferred_engine;
++	unsigned int inst;
+ 	enum engine_id analog_engine;
+ 	struct encoder_feature_support features;
+ 	enum transmitter transmitter;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
+index 2b95cb11eede..5b8688b3aaef 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
+@@ -126,6 +126,7 @@ struct stream_encoder {
+ 	struct dc_bios *bp;
+ 	enum engine_id id;
+ 	uint32_t stream_enc_inst;
++	unsigned int inst;
+ 	struct vpg *vpg;
+ 	struct afmt *afmt;
+ 	struct apg *apg;
+@@ -319,6 +320,7 @@ struct hpo_frl_stream_encoder {
+ 	 * @stream_enc_inst: Instance ID reference.
+ 	 */
+ 	uint32_t stream_enc_inst;
++	unsigned int inst;
+ 
+ 	/**
+ 	 * @ctx: DC context.
 -- 
 2.55.0
 
