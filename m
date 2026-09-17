@@ -4,76 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8716C982D2
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:44:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43A6AC982D2
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:44:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F285710F226;
-	Fri, 18 Sep 2026 07:44:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B99110F234;
+	Fri, 18 Sep 2026 07:44:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iAR2/6yS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fCin9IMU";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2882D10F08A
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 19:15:25 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c254f8694aeso82554766b.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 12:15:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789672523; x=1790277323; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=UVO42avi1AUnneieHW+g4jz1dvgdxwcJ0ctKNKrRziI=;
- b=iAR2/6yS2LRdsTLru3rvafZOFu5L8Nn/Rw0XQarPxcvuYNhLm8G7c/31K2O+DOw2Uu
- zExKri7Z/6IbD6lEjejm/uCcO/crSs1SkUWPtgJIMxK5P/qDNOJ6ifqg3DzFGeJxaH8v
- QmvYqo6nUdaXB2kA5XZjBnOjbviE2A/QbY5J6/GytyLPX4iASH91vWTPH9Boigv2KP/w
- S5xRZTjZkDcprW+Ih6eX+l6rJd+niQMPcQFRyhSoaF+Bwvxai75mKK6/nFD+VvgBIBFw
- 8iVXnsWnKxbyCXIVfl0er9tKMMNQoUWneo7wuLxweXjnVs92oSsG35B3t9n3olxDgYoI
- xCeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789672523; x=1790277323;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=UVO42avi1AUnneieHW+g4jz1dvgdxwcJ0ctKNKrRziI=;
- b=pbRg6lcin+wFa4r4Y5ZhxZ1g+kqxpkHhQoX5MvKck9SG/VyvFvCoXt6sVl9OWSzD4+
- mg/sBWiGCsJzehpdY/P1DBLGsnH08sMNb4uhnINWSijW4Q0W0YA++gp4qM8YYtzmu1Lg
- g870BYe/DdNnt8TaRPathIgtCeGjGgEruboUGbAuW4oIGLLmjqIN3uSdOLizHLQRtcOm
- Dnpid9gQXukmuQzSm5zJBxa9sfvgEBsUBktKMYBbHlnfKYDp3r6v/yHgrMrrWxYOSTr0
- uxuOQPCsOCHfyS6sIM5uzviXf0nh3aNy/w/w/KbmWENJ4sNfYJi5mNO6a6yTpfDr5n/L
- 4MvQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxPBfE4/vWfU3Y3BCfScF+cFOT6gq7XOm5V3cJ04ojMmUg3LkXbJTOJFtwp89gREfi5PQMLh7OA@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nQEipixaxx5bROpeq8Xf4Kj3J3um+CLf8BohKbpH8Xnsfrnl4f
- LsQOyduTUpvWhFX69j2OI7iLYygNXDeg6pfstC8HchVaC/q9OlvxaJXF
-X-Gm-Gg: AYBFou2vhctBU/OG5/n2VW87Hr5ncyY+rtnldUQRR6LNtAx2GnBZQxgXA3DNXIb1klR
- fXqzH71exEnYHB07eZrKq1d/Cv1v0lRy9GZ9mTZamNTumt3XwUgo0gxWsVwFXt5tbu0UVZ3Hpsd
- E19cwkap7oDLEcdTUUK+NRTtDCCxNhj7oPaQj4nAQ2+7AxaOVKRr6teglnp8D9gIYMDvCYvf8ju
- OQftAtGRy6dTSOwks2xNt7I3LVj68/+mkbntn2iA2Nuth13S/9c4I67OZ+9DZNZL5fyGjFvBS96
- AhAYbhuw6V31uLRejCZLbVAGolN/cmRo220GMaARqovvkRxDvNgCuMGl8+DzDAzd6Q4SlnPrTB9
- Isftm34Z8d7CaItvhKPs8GlW5CwZ+Sf5ZdWloPW6ria6ua4VVM4zdYPwMCFumAGPklQNOKYeC+y
- AM+XOaGNEDuTXejKempR+QCOrcP8l3YJhHRYYEQLCQeB0UvDR9ljeTPqnuDT517r2+Y5Q=
-X-Received: by 2002:a17:907:9703:b0:c24:6382:2648 with SMTP id
- a640c23a62f3a-c2a16403e1fmr9238266b.5.1789672523059; 
- Thu, 17 Sep 2026 12:15:23 -0700 (PDT)
-Received: from cartold ([77.213.69.61]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c29de454b4csm333264166b.17.2026.09.17.12.15.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2026 12:15:22 -0700 (PDT)
-From: Theo Andersen Carton <andersen.theo@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, kai.heng.feng@canonical.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Theo Andersen Carton <andersen.theo@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: skip the noirq suspend reset for a
- switcheroo-parked GPU
-Date: Thu, 17 Sep 2026 21:15:12 +0200
-Message-ID: <20260917191512.38838-1-andersen.theo@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E747710E692;
+ Thu, 17 Sep 2026 09:46:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789638365; x=1821174365;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Lvwos+bDcxGCm+kU+UMqwnT6yriVYKFRQg992nJI2/A=;
+ b=fCin9IMUEFpFIeUGsmhXsPsCyxsLlpHujKvyNRiv/8UkPn+zkicsqVnO
+ z626GyUhDeM4sIvoEQ5DjQqyYWPRUT9BSVK9oZ46FQC/4ZvD82maSwCC+
+ Tc6qNx4QBEIhcSb4GvTMUEsLQ6VcnKwPuQrL9Gm2VnlWUcOUhYXkJ5UFC
+ 84c11p71Rw9NnJKRD9DXQQQZ1sgUscKPHclCHxaKlAfU8EuQ0oOOICXfD
+ Ah7ohSqBNUqw/gb+iJJJIN/J86bbQvuJuAyJujpUOrkzoAzwi3dYMF6na
+ 7gV1mYvVh0ASpilesZ4cSXSSjgLb87ErIDOyTkuU4IHwWKfFaEhtQPJIk w==;
+X-CSE-ConnectionGUID: gZq+sgJqRee9n/4SG4lprw==
+X-CSE-MsgGUID: kihspIrxRS+bGHcIxobK1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="551637"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="551637"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 02:46:05 -0700
+X-CSE-ConnectionGUID: gORvuf4vT7i0YP9unWG3oQ==
+X-CSE-MsgGUID: UONN/wkGToON1y62A2cIUQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1906608"
+Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 02:46:02 -0700
+Date: Thu, 17 Sep 2026 11:45:59 +0200
+From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: Re: [PATCH i-g-t v6 2/9] tests/cgroup_dmem: add dmem cgroup
+ controller test
+Message-ID: <20260917094559.3mgy6enka2dfeuq6@kamilkon-DESK.igk.intel.com>
+Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
+ <20260903-dmem_max-v6-2-61dc62970fae@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260903-dmem_max-v6-2-61dc62970fae@igalia.com>
 X-Mailman-Approved-At: Fri, 18 Sep 2026 07:44:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,54 +93,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_pmops_suspend_noirq() resets the ASIC unconditionally. When the GPU
-has been parked by vga_switcheroo it has neither power nor a PCIe link, so
-the reset cannot reach it: pci_set_power_state() reports the device as
-inaccessible and amdgpu_asic_reset() returns -EINVAL. A failure there
-aborts the entire noirq suspend phase, and with it the system suspend, so
-the machine cannot sleep at all while the GPU is switched off.
+Hi Thadeu,
+On 2026-09-03 at 19:00:24 -0300, Thadeu Lima de Souza Cascardo wrote:
+> From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> 
+> Add a test that exercises the cgroup v2 dmem controller interface using
+> the new igt_cgroup library.
+> 
+> The test uses igt_simple_main and:
+>   - Skips if no dmem regions are registered (no cgroup v2 or no
+>    dmem-capable device).
+>   - Creates a sub-cgroup and moves the test process into it.
+>   - Enumerates all registered device memory regions and prints their
+>    capacity, system-wide current usage, per-cgroup current usage, and
+>    configured min, low and max limits.
+>   - Destroys the cgroup on completion.
+> 
+> Assisted-by: GitHub Copilot:claude-sonnet-4.6
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> ---
+>  tests/cgroup_dmem.c | 92 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  tests/meson.build   |  1 +
+>  2 files changed, 93 insertions(+)
+> 
+> diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+> new file mode 100644
+> index 000000000000..442c965f9bbf
+> --- /dev/null
+> +++ b/tests/cgroup_dmem.c
+> @@ -0,0 +1,92 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright © 2025 Intel Corporation
+> + */
+> +
+> +/**
+> + * TEST: cgroup dmem
+> + * Description: Exercises the cgroup v2 dmem controller interface.  Creates a
+> + *              cgroup, moves the process into it, enumerates all dmem regions,
+> + *              prints their capacity, system-wide current usage, per-cgroup
+> + *              current usage and configured limits, then destroys the cgroup.
+> + * Category: Core
+> + * Mega feature: General Core features
+> + * Sub-category: uapi
+> + * Functionality: cgroup
+> + * Feature: dmem
+> + * Test category: uapi
+> + */
+> +
+> +#include <inttypes.h>
+> +
+> +#include "igt.h"
+> +#include "igt_cgroup.h"
+> +
+> +IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
+> +
+> +static void fmt_bytes(uint64_t v, char *buf, size_t len)
+> +{
+> +	if (v == IGT_CGROUP_DMEM_MAX)
+> +		snprintf(buf, len, "max");
+> +	else
+> +		snprintf(buf, len, "%" PRIu64, v);
+> +}
+> +
+> +int igt_simple_main()
 
-amdgpu_device_prepare(), amdgpu_device_suspend() and amdgpu_device_resume()
-all bail out early on DRM_SWITCH_POWER_OFF. This callback was added later,
-for an unrelated reason, and did not inherit the check. nouveau guards
-every one of its PM callbacks the same way.
+Can it be igt_main() with igt_fixture for require and a basic
+subtest? It is not blocker, it could be converted later.
 
-Bail out the same way here. On a single-GPU system switch_power_state is
-never DRM_SWITCH_POWER_OFF, so this is a no-op there.
+Regards,
+Kamil
 
-Found on a MacBookPro11,5, where the Radeon is powered down through
-apple-gmux so that the internal panel can be driven by the iGPU instead.
-Every suspend failed in amdgpu_pmops_suspend_noirq() while the card was
-off; with this check a full S3 cycle completes.
-
-Fixes: 9e051720f9d3 ("drm/amdgpu: Ensure HDA function is suspended before ASIC reset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 5c33c19fd9bc..d9d794a7db96 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2664,6 +2664,14 @@ static int amdgpu_pmops_suspend_noirq(struct device *dev)
- 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
- 	int r;
- 
-+	/*
-+	 * A GPU parked by vga_switcheroo has no power and no PCIe link, so the
-+	 * ASIC reset below would fail and abort the whole noirq suspend phase.
-+	 * Bail out like amdgpu_device_prepare/suspend/resume() already do.
-+	 */
-+	if (drm_dev->switch_power_state == DRM_SWITCH_POWER_OFF)
-+		return 0;
-+
- 	if (amdgpu_acpi_should_gpu_reset(adev)) {
- 		amdgpu_device_lock_reset_domain(adev->reset_domain);
- 		r = amdgpu_asic_reset(adev);
-
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
--- 
-2.55.0
-
+> +{
+> +	struct igt_cgroup *cg;
+> +	const char *region;
+> +	char **regions;
+> +	uint64_t capacity, sys_current, cg_current, min, low, max;
+> +	char cap_s[32], sys_s[32], cg_s[32];
+> +	char min_s[32], low_s[32], max_s[32];
+> +	int i;
+> +
+> +	igt_require_f(igt_cgroup_dmem_available(),
+> +		      "No dmem regions found; is cgroup v2 with the "
+> +		      "dmem controller available?\n");
+> +
+> +	cg = igt_cgroup_new("igt-cgroup-dmem-test");
+> +	igt_assert_f(cg, "Failed to create cgroup\n");
+> +
+> +	igt_cgroup_move_current(cg);
+> +
+> +	regions = igt_cgroup_dmem_regions();
+> +	igt_assert_f(regions, "Failed to enumerate dmem regions\n");
+> +
+> +	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
+> +		 "region", "capacity", "system-current",
+> +		 "cgroup-current", "min", "low", "max");
+> +	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
+> +		 "------", "--------", "--------------",
+> +		 "--------------", "---", "---", "---");
+> +
+> +	for (i = 0; regions[i]; i++) {
+> +		region = regions[i];
+> +
+> +		igt_cgroup_dmem_get_capacity(region, &capacity);
+> +		fmt_bytes(capacity, cap_s, sizeof(cap_s));
+> +
+> +		igt_cgroup_dmem_get_system_current(region, &sys_current);
+> +		fmt_bytes(sys_current, sys_s, sizeof(sys_s));
+> +
+> +		igt_cgroup_dmem_get_current(cg, region, &cg_current);
+> +		fmt_bytes(cg_current, cg_s, sizeof(cg_s));
+> +
+> +		igt_cgroup_dmem_get_min(cg, region, &min);
+> +		fmt_bytes(min, min_s, sizeof(min_s));
+> +
+> +		igt_cgroup_dmem_get_low(cg, region, &low);
+> +		fmt_bytes(low, low_s, sizeof(low_s));
+> +
+> +		igt_cgroup_dmem_get_max(cg, region, &max);
+> +		fmt_bytes(max, max_s, sizeof(max_s));
+> +
+> +		igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
+> +			 region, cap_s, sys_s, cg_s,
+> +			 min_s, low_s, max_s);
+> +	}
+> +
+> +	igt_cgroup_dmem_regions_free(regions);
+> +	igt_cgroup_free(cg);
+> +}
+> diff --git a/tests/meson.build b/tests/meson.build
+> index 1ac89bab7e15..c362d42888ba 100644
+> --- a/tests/meson.build
+> +++ b/tests/meson.build
+> @@ -1,4 +1,5 @@
+>  test_progs = [
+> +	'cgroup_dmem',
+>  	'core_auth',
+>  	'core_debugfs',
+>  	'core_getclient',
+> 
+> -- 
+> 2.47.3
+> 
