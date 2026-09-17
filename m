@@ -4,43 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0172C982CD
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 07:07:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31E45C982D0
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 07:07:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04BD210EB7C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 517C310EAFB;
 	Thu, 17 Sep 2026 07:07:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="i1ver//s";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LbuJhhcM";
 	dkim-atps=neutral
-Received: from mta0.migadu.com (out-235.mta0.migadu.com [91.218.175.235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A49AA10E2A4
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 19:17:19 +0000 (UTC)
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=d5rIYyuUq1yZ3+uvYAUim7aaKaINlMEW4ezCIRPM5Fs=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789586238; v=1; x=1790191038;
- b=i1ver//sppL39s68YOLnMzn5Ht0wCNw7OknSR/bMshC/mkga5HKgclBIC+pwTqpvDbsTZVTt
- qfZE3qlE0ddS+UmsOBS5JK8FOjrIveGowKZjlRnGP4dGxpnxBclZe9m5nTfh/jq+gulpUi7k1OF
- 33QOQMLJuNvBqcqQGFGPfXwU=
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 7b29d5cee3ba1853;
- Wed, 16 Sep 2026 19:11:14 +0000
-X-Mizu-Trace-ID: 7b29d5cee3ba1853
-X-Migadu-Flow: FLOW_OUT
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Ray Wu <ray.wu@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Matthew Schwartz <matthew.schwartz@linux.dev>
-Subject: [PATCH RESEND 1/2] drm/amd/display: Use linear backlight curve in
- power module
-Date: Wed, 16 Sep 2026 12:11:01 -0700
-Message-ID: <20260916191102.1195881-1-matthew.schwartz@linux.dev>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
+ [74.125.228.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D664310E2E7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 04:44:33 +0000 (UTC)
+Received: by mail-pz2-f12.google.com with SMTP id
+ d2e1a72fcca58-85469f204f6so247621b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Sep 2026 21:44:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789620273; cv=none;
+ d=google.com; s=arc-20260327;
+ b=HslE6HrTqoyBZrskqGe25HaEGgs/azFsUXRi6nIjE9DaC28fXeFsh5dphgqASbN+ut
+ 0QTI6KzUyIFM07S90Xrtlj30M9+RCzXtglGWiHyJ2M3iXuOcTaw++XMzfadmjle1llUM
+ CV5FKt8k8EqpI6DIdqEFCXtTC48Bqz2HeplA6kO7zs/A+2JZGTVL4OUum2ay5C0RvH0g
+ QMiy663u2q5VTHiVO+24jwX7kWTSn+qI0sTuh7whNBOHkxDMnJLjSy5x9t/UgcJqY43o
+ ySExGoNuETNLLwRecErk+GFvRNWMscZjxGAA60IuI8y9OGGhJKqIG2PHDtnxLbSCTNT0
+ lE/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=6i3JoZy6C1V7fXOfv3bvsIlHU6zj+GVM9e0GX0h0LOU=;
+ fh=QIxx9forRpXuDFewm7+XdbhEwQt9gpUhxgLOyjALaHw=;
+ b=Q/+lEQss4tChZvyqW6KwT7uVTZEyUsG6ENUtKjHsQXSKOAfEq5B5AqMO2BVBwIRxee
+ NZ5p2D2jvu7MuDPGZQcKtgOXyHHZFBYwftqvWP/ApMe9d1TTf0NZwl2w7+jaPK4lbnxT
+ Ot4uSQb/nmrKVm/ZC1pnHDCtTEo7zp3L1HBbLE2Bz/ifn+JUa0pjC3Lm/0gqPdX6MCGv
+ gV9BDTUCLPxzyMTfyv45x4AJS8spGWv6Z5BCH9/kfYr8c1VTIHYFi21KR6CAiF/2leu7
+ 2Per2VA+YgjxhlXLy+XiNLoG2hXm3ElryLn6vyHidVMa8/zjnI0g5+izB/P0TLo7K5Rw
+ 0hXg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789620273; x=1790225073; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6i3JoZy6C1V7fXOfv3bvsIlHU6zj+GVM9e0GX0h0LOU=;
+ b=LbuJhhcMRKPxNVPRWRlcn41WxKc7lnjsjge4Z+Xd9xfbqQBhCYIl5l21fDy2twGXxI
+ GWq1l91J5X4SB7bK58tOQOaCjEPkETKpXR21yo1c3TEv2+9x32O7AaKPDME/8iYG60KV
+ WDoP3d1kaB2Ce6+kf2verZaV4BTrLQ+VaEc0D7E9mvARiab+HDd+zYxTbMLlqJ6GhIcQ
+ NQ52MFvq9403p/BECiiN4TPTFjdObIZWkbL7bVxGq18Gr+MoIeuyNpKWWizrD0n5VhYA
+ Tc1TxrdAICl5xOFfRXvYDRQX7AYVirqm+vU8T1sNLKEx39tbsLko/EAmk1Rum7+wu4xC
+ yH1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789620273; x=1790225073;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=6i3JoZy6C1V7fXOfv3bvsIlHU6zj+GVM9e0GX0h0LOU=;
+ b=ym/c8JvA2aqr09+nthhiJGRHke9JcoUEl9Zo2hPEoUSzAnUCWZ8vDH3WwUHneGStlK
+ EyMeI/xk9OvsIaKxOKbv8GLWxyuzkde54fgWSR2wYlIJMMKY4l1ygl+gesH/MGduAXN2
+ mP7rQRU42AHYcuaguz7mEh1BVME1ZYAoaEtw62pqkOihULoFL1WWIaHJNiUyMItHQlzv
+ rxaNs9676K1RWv9RP5S2GMpPDU2xztfGZJ1z6xQYvxrp/4RBlssbuOKB8M8gTcW+58B1
+ 6mUQ2P6voEP33vtSX/3a75lYfQ9VBteuS33VhGJl+jUgLK6aNlEUgG/Mg4lVGVHEKDWs
+ 5WAg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx/rTcFjZhBZsan21LvFApgWuYklH4Y+O7JpRjpCY07v5+a4y9E+26TsKA8l+hBuCDWjeBgAQsM@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mpHdXlSEkXf1yoJXdzAglBeTNV63KTnIUtZ2M3z6NoVFlIhL4s
+ 2SxvDdH9LqEarl60Sv5wdpz90ETHsnhdRhInzJcL2dNkC/kUkOTUJ5GuKwIQQdm8jMfCjEe3oUo
+ V2Z2YvMwNkhmrLqg5Y1dr6FB9GN95FHXxutr9
+X-Gm-Gg: AYBFou1+PKoGup2ENggX8J9bjp879kwFQGeQUWvbT6jlmxwy6oqq/FDa7bOPMM1vPSM
+ 6CZcCQPIs3GIvYn0CwJsIbSkSW6m+N/wKXzFT3CqJn77Dk+fvcctmgVVh98XqpUbjKjlqEGuBrK
+ PY0dxSkggLLIZ4z1hpfiBLCBKR1hwDscbW4yh0MVMqHGgiy8osMHLzU78q/q1ADU0QB2YRjkJMT
+ U1gcynIbZk63b0PUEXy3vjkm4hZhQkSXbQb7NOUShzyrwrbtRRUgO644epExGMAirMVeeFMdIup
+ QquB5psxb3MgHHR+nUnXm4CxDcmU+WX94pIkTuT9zUemXxPudo+V+3Re
+X-Received: by 2002:a05:6a00:9094:b0:85a:bc69:bfc4 with SMTP id
+ d2e1a72fcca58-8723412fe92mr12964700b3a.0.1789620273335; Wed, 16 Sep 2026
+ 21:44:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Jacques Serfontein <jacques.serfontein@gmail.com>
+Date: Thu, 17 Sep 2026 06:44:21 +0200
+X-Gm-Features: AcwNN1WWhl0RHjb5F6CxLVUUMLymgDbzXzm9TtsyM1X-5aejmFqeZfIrNGpsx7Q
+Message-ID: <CADGM-+Xgh23YEf4Un1oz+hKKv-_E_Va9-8Q23UyxfRA4ridfxA@mail.gmail.com>
+Subject: Re: [RDNA4] RX 9060 XT - Pageflip timed out causes complete desktop
+ lockup under KDE Wayland
+To: Jacques Serfontein <jacques.serfontein@gmail.com>
+Cc: alexdeucher@gmail.com, amd-gfx@lists.freedesktop.org, 
+ gabriel.aquino86@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 17 Sep 2026 07:07:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,37 +101,6 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm already applies the ATIF custom brightness curve in
-convert_custom_brightness() before handing the level to the power
-module. The power module then builds its own percent to PWM LUT from
-the same ATIF data in initialize_backlight_caps() and applies the curve
-a second time. On the Lenovo Legion Go S this maps the bottom 40% of the
-brightness range to under 12% PWM, where the panel no longer visibly
+Setting power_dpm_force_performance_level=high has given 11 days
+without incident, versus multiple hangs per week at auto; no other
 changes.
-
-Tell the power module to use its linear curve so the PWM is a straight
-rescale of the level DM computed, matching the behavior before the power
-module took over backlight programming.
-
-Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ca795cda8084..63acefc0acfb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -455,7 +455,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_init_power_module(struct amdgpu_display_manager *
- 			!(amdgpu_dc_feature_mask & DC_DISABLE_FRACTIONAL_PWM_MASK);
- 		init_data[i].use_custom_backlight_caps = false;
- 		init_data[i].custom_backlight_caps_config_no = 0;
--		init_data[i].use_linear_backlight_curve = false;
-+		init_data[i].use_linear_backlight_curve = true;
- 		init_data[i].def_varibright_enable = 0;
- 		init_data[i].varibright_level = 0;
- 		/*
--- 
-2.55.0
-
