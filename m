@@ -4,56 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04502C982DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:44:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56FC7C982D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:44:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C71810F244;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8686210F243;
 	Fri, 18 Sep 2026 07:44:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.b="r5UHZPWC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nS0LDMf8";
 	dkim-atps=neutral
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io
- [149.72.141.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1351B10F16A
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 03:56:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
- h=from:subject:date:mime-version:to:cc:content-type:
- content-transfer-encoding:cc:content-type:date:from:subject:to;
- s=s1; t=1789703793;
- bh=ByQ3HjxGq3mISarOfpCbkfBfl3mweeLSYVmVj0cAQbw=;
- b=r5UHZPWC0JWyS61uy4juyR7vcqkgXJMedolCFwx1GIrWUKTaFWKdlj3EjJw/97/2iVpn
- r9OHmKHhyTK/p6r4pt4L8+76/dLjJpBfO5aDT1ITYhc87eDHWtnuAojcGbrN4JSK70aZqg
- pPSNpVCz4LYRt+n7th8+e+2zcl7tHbkVoCQ9O2TAmbQFFeESCjyM+DhQ8I3BWUrlWYh4bY
- CWJW28HV2R9akuMpP6R/geFFTUiSc6K7UwgTYqNXuJkEIUIjxRMwvwXwbzhc23kOTEcuaq
- JPEuBZIum/TF/trBMkROgQfYG75q87Yot5t4pWSYbNOiuqjejMX1jJEps5RTdxtA==
-Received: by recvd-7d7dd758d8-fn74v with SMTP id
- recvd-7d7dd758d8-fn74v-1-6AACB671-3C
- 2026-09-18 03:56:33.7941501 +0000 UTC m=+1485602.227445126
-Received: from daisy.dens.ffj.family (unknown) by geopod-ismtpd-19 (SG)
- with ESMTP id Jvjjs0mySB-kvyIuCIscTA
- Fri, 18 Sep 2026 03:56:33.721 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: [PATCH v6] PCI: Fix BAR resize for devices on a root bus
-Date: Fri, 18 Sep 2026 03:56:33 +0000 (UTC)
-Message-ID: <20260918035633.566823-1-lizf@honeycomb.io>
-X-Mailer: git-send-email 2.53.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B129210E6B6;
+ Thu, 17 Sep 2026 09:43:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789638222; x=1821174222;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=hT90yr46vIWAseLBHlTX1615zlQ9HOhd6Q0hde9I/lA=;
+ b=nS0LDMf8OJPmawkSChx7Ws146ydt9mNc5r+8SVH/KEQYDsSWWbqNMl2p
+ FPT8hu8ATesVJg3eFHTz3tbtFpINLHb4zdVrH0T1qBYQKz8zrUJPnrUgK
+ c2tlSUuKIIF1EVhAIAzGhUIWMRXAfAPQP/OpFD8M4XiqAKy56FcnkGO1/
+ hBhsn95cl7KqBiylP5XuZnaT2S2MiabjVMbuxoAGX74EzxTcVdkwYY73B
+ QdO7SCRcyjkQ183ucdpq/qaotZwJt3OXtkWH4dTYV7WX4MHm5mRNRluFO
+ dGX6YvsT21J8f4oytVpC8VdDb44nbPDdoVqc3yLLOY3KrKELvZ1mwQtqs Q==;
+X-CSE-ConnectionGUID: KOeQiZecTemRVjC+XqOCyQ==
+X-CSE-MsgGUID: LhA8nMDOQBSsXe61G4rpag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115578462"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="115578462"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2026 02:43:41 -0700
+X-CSE-ConnectionGUID: 2bmIONC0TQ6AyF05DrV3dw==
+X-CSE-MsgGUID: jGm6IRlUSxiQTbAr72Vkrw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="275634918"
+Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
+ by fmviesa004-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 02:43:38 -0700
+Date: Thu, 17 Sep 2026 11:43:36 +0200
+From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: Re: [PATCH i-g-t v6 4/9] lib/xe: Introduce dmem driver and implement
+ Xe support
+Message-ID: <20260917094336.o7fg5tcidio3tsb6@kamilkon-DESK.igk.intel.com>
+Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
+ <20260903-dmem_max-v6-4-61dc62970fae@igalia.com>
 MIME-Version: 1.0
-X-SG-EID: =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeTg5nVuRRDKF?=
- =?us-ascii?Q?THtSYYaKDWLtyCa2ILtxfj5ijKKKbNpm1Uu=2FWbm?=
- =?us-ascii?Q?rgic8xPn0fHnVNEpIDrwzROnAWIQTJH8wKVerZh?=
- =?us-ascii?Q?WGwxVY9YIvIikuTa1IwLyVbqSdF+yTbXk0P7E0T?=
- =?us-ascii?Q?NCDEo2q8BsOJ7cO8CU4AiyKknof+Jvn5+mIlU1d?= =?us-ascii?Q?wvxu?=
-To: lizf@honeycomb.io, Bjorn Helgaas <bhelgaas@google.com>,
- Ilpo =?iso-8859-1?q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, Jon Nettleton
- <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, Jacob Martin
- <jacob.martin@canonical.com>, Thorsten Leemhuis <regressions@leemhuis.info>,
- stable@vger.kernel.org
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260903-dmem_max-v6-4-61dc62970fae@igalia.com>
 X-Mailman-Approved-At: Fri, 18 Sep 2026 07:44:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,147 +91,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pci_do_resource_release_and_resize() releases the device BARs that
-share a bridge window with the BAR being resized, but when the device
-sits directly on a root bus (pdev->bus->self == NULL) it then skips
-resource assignment entirely and returns success, leaving the BARs it
-just released unassigned (IORESOURCE_UNSET).
+Hi Thadeu,
+On 2026-09-03 at 19:00:26 -0300, Thadeu Lima de Souza Cascardo wrote:
+> In order to be reuse the same dmem tests with multiple drivers, we need to
+> abstract a few operations. That includes getting the region name, and
+> allocating and releasing VRAM. As there is some initialization also when
+> multiple allocations are done, also provide init and deinit functions.
+> 
+> The Xe implementation was based on the original operations from
+> xe_cgroups.c written by Thomas HellstrÃ¶m. However, instead of doing a
+> deferred backing, followed by a bind, it does a simple non-deferred GEM
+> object creation on the VRAM region.
+> 
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> ---
+>  lib/igt_dmem_driver.h | 34 ++++++++++++++++++
+>  lib/meson.build       |  1 +
+>  lib/xe/xe_dmem.c      | 97 +++++++++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 132 insertions(+)
+> 
+> diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+> new file mode 100644
+> index 000000000000..e6998387eff9
+> --- /dev/null
+> +++ b/lib/igt_dmem_driver.h
+> @@ -0,0 +1,34 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright 2026 Valve Corporation
+> + * Authors:
+> + *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> + */
+> +
+> +#ifndef __IGT_DMEM_DRIVER_H__
+> +#define __IGT_DMEM_DRIVER_H__
+> +
+> +#include <stdlib.h>
 
-Skipping pbus_reassign_bridge_resources() is correct in that case --
-there is no bridge window to adjust -- but the device BARs still have
-to be reassigned. Before the BAR release was consolidated into the PCI
-core, this case worked for amdgpu because the driver released the BARs
-itself and then called pci_assign_unassigned_bus_resources()
-unconditionally after the resize, which assigns unassigned device BARs
-also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
-side BAR release before resize") removed that call, so nothing assigns
-the released BARs anymore.
+Please drop this include from header, and if needed move to .c lib.
 
-This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
-LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
-on the root bus of its segment (there is no root port device, so
-pdev->bus->self is NULL):
+Regards,
+Kamil
 
-  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
-  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
-  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
-  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
-  amdgpu 0004:01:00.0: Fatal error during GPU init
-
-No error is logged because the resize path reports success; amdgpu
-then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
-
-When there is no upstream bridge, call pci_bus_assign_resources() on
-the root bus to place the BARs released above, using the same
-alignment-sorted algorithm as normal enumeration instead of a manual
-per-BAR loop. This also walks the rest of the hierarchy under the
-root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
-before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
-release before resize") removed that call -- the core-side fix that
-commit asked for ("such a problem should be fixed inside
-pci_resize_resource() instead").
-
-pci_bus_assign_resources() returns void, so failure is detected by
-checking whether the released BARs are still assigned afterward; if
-not, roll back as in the bridged case. This is stricter than the
-bridged path -- it fails on any unplaced resource, not just required
-ones -- since a root bus typically has one shared window, and failing
-loudly seemed better than leaving something silently unassigned.
-
-The root bus path also had a locking bug that any fix here necessarily
-touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
-matching down_read() (as does the "goto restore" taken when
-pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
-before the BAR release loop so every path through the function holds
-it exactly once.
-
-Use pci_upstream_bridge() rather than testing pdev->bus->self
-directly. The two are usually equivalent, but pci_upstream_bridge()
-is the canonical test -- pci_is_root_bus(), which it's built on,
-warns that bus->self == NULL doesn't necessarily mean a root bus
-(SR-IOV virtual buses from virtfn_add_bus() are the same).
-
-Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
-Cc: stable@vger.kernel.org
-Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
-Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
-Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Assisted-by: Claude:claude-fable-5 checkpatch
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
----
-
-Confirmed against v7.3-rc3: drivers/pci/setup-bus.c is unpatched
-there, pci_do_resource_release_and_resize() still returns without
-reassigning the released BARs when bus->self is NULL.
-
-Tested on the real root-bus hardware this fixes (SolidRun HoneyComb
-LX2K): both a manual resize via the resource0_resize sysfs attribute
-(shrink to 256M then back to 4G, forcing the release+reassign path
-both directions) and amdgpu's own natural probe-time resize (with the
-amdgpu.rebar=0 workaround removed) succeed cleanly -- VRAM and BAR
-size match, no "Fatal error during GPU init", full IP block init.
-
-Changes in v6:
-- Repost, confirmed still affects v7.3-rc3
-- Added real-hardware test confirmation (both a manual sysfs-triggered
-  resize and amdgpu's own natural probe-time resize)
-- Picked up Reviewed-by from Ilpo
-- Link to v5: https://patch.msgid.link/20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io
-
- drivers/pci/setup-bus.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index e8c94aa1d3c12..ed16ef7c26fa7 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	struct resource *res = pci_resource_n(pdev, resno);
- 	struct pci_dev_resource *dev_res;
- 	struct pci_bus *bus = pdev->bus;
-+	struct pci_dev *bridge = pci_upstream_bridge(pdev);
- 	struct resource *b_win, *r;
- 	LIST_HEAD(saved);
- 	unsigned int i;
-@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	if (ret)
- 		return ret;
- 
-+	down_read(&pci_bus_sem);
-+
- 	pci_dev_for_each_resource(pdev, r, i) {
- 		if (i >= PCI_BRIDGE_RESOURCES)
- 			break;
-@@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 
- 	pci_resize_resource_set_size(pdev, resno, size);
- 
--	if (!bus->self)
--		goto out;
-+	if (bridge) {
-+		ret = pbus_reassign_bridge_resources(bus, res, &saved);
-+		if (ret)
-+			goto restore;
-+	} else {
-+		/* No bridge window to adjust; let the core reassign the bus. */
-+		pci_bus_assign_resources(bus);
- 
--	down_read(&pci_bus_sem);
--	ret = pbus_reassign_bridge_resources(bus, res, &saved);
--	if (ret)
--		goto restore;
-+		list_for_each_entry(dev_res, &saved, list) {
-+			if (!resource_assigned(dev_res->res)) {
-+				ret = -ENOSPC;
-+				goto restore;
-+			}
-+		}
-+	}
- 
- out:
- 	up_read(&pci_bus_sem);
--- 
-2.53.0
-
+> +
+> +/**
+> + * struct igt_dmem_driver - vendor driver to allocate and free device memory
+> + *
+> + */
+> +struct igt_dmem_driver {
+> +	/** @name: Driver name */
+> +	const char *name;
+> +	/** @init: Initialize an opaque context given a DRM device fd */
+> +	int (*init)(void **ctx, int fd);
+> +	/** @deinit: Release resources associated with context */
+> +	void (*deinit)(void *ctx);
+> +	/** @get_region_name: Return expected region name at dmem cgroup files */
+> +	char * (*get_region_name)(void *ctx);
+> +	/** @allocate_vram: Allocate @len sized vram and return an opaque @handle */
+> +	int (*allocate_vram)(void *ctx, size_t len, void **handle);
+> +	/** @free_vram: Free vram associated with @handle */
+> +	void (*free_vram)(void *ctx, void *handle);
+> +};
+> +
+> +extern const struct igt_dmem_driver xe_dmem_driver;
+> +
+> +#endif
+> diff --git a/lib/meson.build b/lib/meson.build
+> index b7e1be61d844..022408ce6864 100644
+> --- a/lib/meson.build
+> +++ b/lib/meson.build
+> @@ -130,6 +130,7 @@ lib_sources = [
+>  	'igt_dsc.c',
+>  	'igt_hook.c',
+>  	'xe/xe_device.c',
+> +	'xe/xe_dmem.c',
+>  	'xe/xe_ggtt.c',
+>  	'xe/xe_gt.c',
+>  	'xe/xe_ioctl.c',
+> diff --git a/lib/xe/xe_dmem.c b/lib/xe/xe_dmem.c
+> new file mode 100644
+> index 000000000000..628c905997d4
+> --- /dev/null
+> +++ b/lib/xe/xe_dmem.c
+> @@ -0,0 +1,97 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright 2026 Valve Corporation
+> + * Authors:
+> + *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> + */
+> +
+> +#include <errno.h>
+> +
+> +#include "igt.h"
+> +#include "igt_cgroup.h"
+> +#include "igt_dmem_driver.h"
+> +#include "xe_drm.h"
+> +#include "xe/xe_ioctl.h"
+> +#include "xe/xe_query.h"
+> +
+> +struct xe_dmem_ctx {
+> +	int fd;
+> +	uint64_t vram_region;
+> +};
+> +
+> +static int xe_dmem_init(void **ctx, int fd)
+> +{
+> +	struct xe_dmem_ctx *xe_ctx;
+> +	uint64_t region;
+> +
+> +	xe_ctx = malloc(sizeof(*xe_ctx));
+> +	if (!xe_ctx)
+> +		return -ENOMEM;
+> +
+> +	xe_ctx->vram_region = 0;
+> +	/* Find first VRAM region */
+> +	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
+> +		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
+> +			xe_ctx->vram_region = region;
+> +			break;
+> +		}
+> +	}
+> +	if (!xe_ctx->vram_region)
+> +		goto out;
+> +
+> +	xe_ctx->fd = fd;
+> +
+> +	*ctx = xe_ctx;
+> +
+> +	return 0;
+> +
+> +out:
+> +	free(xe_ctx);
+> +
+> +	return -ENOMEM;
+> +}
+> +
+> +static void xe_dmem_deinit(void *ctx)
+> +{
+> +	struct xe_dmem_ctx *xe_ctx = ctx;
+> +
+> +	free(xe_ctx);
+> +}
+> +
+> +static char * xe_dmem_get_region_name(void *ctx)
+> +{
+> +	struct xe_dmem_ctx *xe_ctx = ctx;
+> +
+> +	return xe_cgroup_region_name(xe_ctx->fd, xe_ctx->vram_region);
+> +}
+> +
+> +static int xe_dmem_allocate_vram(void *ctx, size_t len, void **ret_handle)
+> +{
+> +	struct xe_dmem_ctx *xe_ctx = ctx;
+> +	uint32_t handle;
+> +	int err;
+> +
+> +	err = __xe_bo_create(xe_ctx->fd, 0, len, xe_ctx->vram_region, 0,
+> +			     NULL, &handle);
+> +	if (err)
+> +		return err;
+> +
+> +	*ret_handle = (void *)(uintptr_t) handle;
+> +	return 0;
+> +}
+> +
+> +static void xe_dmem_free_vram(void *ctx, void *handle)
+> +{
+> +	struct xe_dmem_ctx *xe_ctx = ctx;
+> +
+> +	gem_close(xe_ctx->fd, (uint32_t)(uintptr_t) handle);
+> +}
+> +
+> +const struct igt_dmem_driver xe_dmem_driver = {
+> +	.name = "xe",
+> +	.get_region_name = xe_dmem_get_region_name,
+> +	.init = xe_dmem_init,
+> +	.deinit = xe_dmem_deinit,
+> +	.allocate_vram = xe_dmem_allocate_vram,
+> +	.free_vram = xe_dmem_free_vram,
+> +};
+> 
+> -- 
+> 2.47.3
+> 
