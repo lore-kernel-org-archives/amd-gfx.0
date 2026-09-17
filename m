@@ -4,61 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A399BC982CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 02:20:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2635C982C1
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 06:15:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA99E10E524;
-	Thu, 17 Sep 2026 02:20:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18F5310E447;
+	Thu, 17 Sep 2026 06:15:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C+O6n/Tc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YVj27mVr";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A02410E3FB;
- Thu, 17 Sep 2026 02:20:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789611639; x=1821147639;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=uaRNHAbNqeF/mMuH2ZtQgqqmjOT8sz6v8esrl6uU8GU=;
- b=C+O6n/Tcgj4dMA4kstcVTrFa9r+O2eLPlEB138qYBDC1xkMtrQGONvYl
- i3+HEZk6JU27NTe1Nt7MsCKMZrGhlHSklDT2weBB8o6/EDo6U3K3i+akx
- YzvFdBHFVUv0Vee2LKIB44J0Ik54Vj2zne3WprtwRq5g0PZTtVnILLxr4
- 89172vMj4XEnyx0l0p8Goq/pwlYXIqdxAexEfR6KTzF/kPMMejz16ezCK
- SX3hVFVnHZX/kOvZMQA86RTfI0xRXtWYvYrLpX2F+Ul4hawRV2GDXusRm
- vQngt45XoixrboW1MN7ynwzkLzMzV9Ug35f8WvBJ9JGDkGDokEZralAur w==;
-X-CSE-ConnectionGUID: d4vlEyeQRWiqqmsDT9GIDA==
-X-CSE-MsgGUID: x956KzkwTeiqBaCon1gGcA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100593461"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="100593461"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2026 19:20:38 -0700
-X-CSE-ConnectionGUID: a+FrgqhxRjKDOKkVEATCSQ==
-X-CSE-MsgGUID: y3/3CyIPRK6AE7Rx+yu9QQ==
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
- by fmviesa003.fm.intel.com with ESMTP; 16 Sep 2026 19:20:35 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1x71jk-0000000071J-3YSR;
- Thu, 17 Sep 2026 02:20:32 +0000
-Date: Thu, 17 Sep 2026 10:20:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, Felix.Kuehling@amd.com
-Cc: oe-kbuild-all@lists.linux.dev, airlied@gmail.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, david.yatsin@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rajneesh.bhardwaj@amd.com, simona@ffwll.ch,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/amdkfd: Fix file reference leak in
- criu_restore_devices()
-Message-ID: <202609171036.aewbdced-lkp@intel.com>
-References: <20260916074216.1973191-1-vulab@iscas.ac.cn>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011054.outbound.protection.outlook.com [52.101.52.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6829110E447
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 06:14:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O1XLhliA85d2/v72pAVR5nbTjRxykF8Oa+nmSb8fVAR/bf5U5ydVtZN+vT3JaIZEC5J3qOJZsVzEGJLhvmOCL8IGf11CcZ9I9gVOP3kxcSbRsbQCxYM1Mupb8SB/J4LOgX/gMorA0p+/GzFKojX+ch+BFbF5l2tyITIv+p1tVFMAxM5XVYc9aKWojd/M9AcHqgZVel20EeJIOc5BI3LQkVNapnZx7Ldn7eehyYC750hgUIcBm2rMKfeBW3QBcWv2a1zspKGT5F1VebV80VxJKo20yfp4TEMcQnXbS99WYcw0YsHnl6eVOHP4MFTk/SI2PPW06NdvA0d1c7zh1/2eWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mgDDTXNlESAGjmYgLyautZGMjnVjTGiU8cV7pMQjDBs=;
+ b=e4mYwo9l8r1gVFUDcwZ4CQQjMQAA2Z3FRJpQfIilPamNxFRXt+CFMTCORV8pv9ba7S2KrOiLtuXf4i4fVkblgYHi+ONClObao2TeGN5h+JJJ5UYrU1uCl3nd/gzycqaL+n6d3v5VhcOcfzJmJdsHelKUFSUIatSaV8/N3sJGVonxyOMl5iJFWcZ7DQHBTeAFFvIr2eVkDklPm3aweVqPIL7oWcd+Iud0PDRaTStwNUgdhWSUj1+6bg5MmhZLzmvFJtwddGXpXteETJ9qybEDAS6WN0dyw16MIGwYMk4zd9r8zv8Ng+rTRizNULMdFvcG7Wzag6ZYcgUhBgg9yjdZvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mgDDTXNlESAGjmYgLyautZGMjnVjTGiU8cV7pMQjDBs=;
+ b=YVj27mVrVdk+ukU5kg35SpDNaLN6lsDq2b/5BNm9KaHFGkhxe2dZJ5vRCYwT2IGHDRGZwkX10mW3RRcz/IJCXJ5e91TyRNwOX/rp2N3PzIOXJYqRj/g347tbTDxaf0ELYxj/aDrA9pU8MFLsyqIwdPQWZzLcdrCUn2MDR0CgkQA=
+Received: from BN9PR03CA0803.namprd03.prod.outlook.com (2603:10b6:408:13f::28)
+ by SA1PR12MB9491.namprd12.prod.outlook.com (2603:10b6:806:458::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Thu, 17 Sep
+ 2026 06:14:52 +0000
+Received: from BN2PEPF0000A894.namprd04.prod.outlook.com
+ (2603:10b6:408:13f:cafe::68) by BN9PR03CA0803.outlook.office365.com
+ (2603:10b6:408:13f::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Thu,
+ 17 Sep 2026 06:14:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF0000A894.mail.protection.outlook.com (10.167.248.186) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Thu, 17 Sep 2026 06:14:52 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 17 Sep 2026 01:14:48 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Dan Carpenter <error27@gmail.com>, "Nicholas
+ Kazlauskas" <nicholas.kazlauskas@amd.com>, Dominik Kaszewski
+ <dominik.kaszewski@amd.com>, George Zhang <george.zhang@amd.com>, Roman Li
+ <Roman.Li@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Dan Wheeler
+ <daniel.wheeler@amd.com>, Tom Chung <chiahsuan.chung@amd.com>
+Subject: [PATCH v2] drm/amd/display: Fix NULL sink dereference in USB4
+ bandwidth functions
+Date: Thu, 17 Sep 2026 11:44:33 +0530
+Message-ID: <20260917061433.623709-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916074216.1973191-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A894:EE_|SA1PR12MB9491:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13c25bae-9081-4eaf-3cbd-08df1482fc4d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: krKmxziOYNkvSyJq32lhkECCweIFysA4NVyJS2ypLDfoFU7MbkEiXBRMv3WsKFAAEfbbZQPC+MyAIfjBdIACzQmbD/Aa9ubO9cTc1NBdEBjcA1hDD9pB8+Cr4rznoBckS2MSoiS9Y1pGHR4IjQWCVKYIqndpLNcDrgma675H9srPMXLFbIeSGk0m0v7MBDRj3vLoVAA5CEWPrY5J0G+lPR24j4jpgpvzMo9WDMAHIUQv7VEO/2FB0tZXLiocrkD4jJRvUrl+mJvTYjlxg79Ll3IHHN49RmC1hnnl667bGnv9bUwCfwmSq/F8xIeq+PZA72V/5LLUHeJiUgapQArtQYXc1Wv4cVVzfweE9lqk91jfH+y4Y5nXhXaf5LN7ORD2h5mCW/r1r/PXwvh+1ihl+Q9f8QIghI8Xpd4N0/0vsdFnjNJlv7ZCn1R7E1yWb+nAPCpEcggrxGkkkJeH2J7qpBbzlM5sXwpWFiWivfeNmON4ZXuOpuybdPQIdb7ittA1ujmCyxGZslvX8+zb5nRchuURWc+BNKbchae7z5PXn6iGiH36jEQdX1qResSOI3xDyRJbQFcF3xpVhfoUdz7UCejTJqOG9uPIzBQQTEkpPSOcA5G7uwdab0YGyEPFxp020MJKH0ECAZIfDnhudK3kUWfl/p9q02BofRkG1Z8Dc3l9kv1ZSpn5wNg7U9LBR5b2hfXS4cq952sLdQ+DBoLsTA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(18002099003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: vvPIFetOPGGkG/sZe4k0dldM5gbA64EHDuATw618bZ5iFSeoRPEnseAw+zLEB6jN+Sl0488VHNjyEXXhDD+INT2spqHkQf2o9aCBa3wUhCs0hG7NL5CKrcX6E/7nNYArdJLoCOWJ/qOdAiML/VuyraIFPz+WZ8uPXjCbD0Lz2y3h4YyFT8tXbLSt9FctKPt4kHwUqs/5OTk4u3bfMGWr+dPqisaDLBypgiPH9n2+5dHdEeDJ/kloWmGSgsraLmIbOvnpacu/a268uMJa4UufNoLbW+e6WSquQxfeIRJZ9eRyNHa4TKtCwOBccM3VZbByvX5SoIaU9nssUPdb4KVFgVLJ+NVU8GON4PCcqaW78DxoJhh1SaBT9VEud8ILfu+Nug4fAIVokW9s8O9k3rFIu7YlOBMaKtoiPen1Bzp9PPDctQzYLCmTdiCdcfTdDTkW
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 06:14:52.0696 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13c25bae-9081-4eaf-3cbd-08df1482fc4d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A894.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,149 +113,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Wentao,
+allocate_usb4_bandwidth_for_stream() and allocate_usb4_bandwidth() both
+use ASSERT(stream->sink) before dereferencing stream->sink->link. ASSERT
+is compiled out in production builds, so a NULL stream->sink causes a
+NULL pointer dereference.
 
-kernel test robot noticed the following build warnings:
+link_set_dpms_off() already guards two earlier accesses to stream->sink
+with explicit NULL checks, confirming that stream->sink can legitimately
+be NULL. The subsequent call to deallocate_usb4_bandwidth() had no
+equivalent guard.
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v7.3-rc3 next-20260916]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Replace the ASSERT() calls with proper NULL checks that return false
+early, and add a matching stream->sink guard at the call site in
+link_set_dpms_off() consistent with the surrounding pattern.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-amdkfd-Fix-file-reference-leak-in-criu_restore_devices/20260916-074216
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260916074216.1973191-1-vulab%40iscas.ac.cn
-patch subject: [PATCH] drm/amdkfd: Fix file reference leak in criu_restore_devices()
-config: x86_64-randconfig-1300-20260917 (https://download.01.org/0day-ci/archive/20260917/202609171036.aewbdced-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260917/202609171036.aewbdced-lkp@intel.com/reproduce)
+v2: Keep the existing ASSERT() calls for diagnostics (to report
+    unexpected NULL sink), and add explicit NULL checks that return false
+    before dereferencing stream->sink. Also add a matching stream->sink
+    guard at the deallocation call site in link_set_dpms_off(). (Alex)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609171036.aewbdced-lkp@intel.com/
+Fixes: 06ab8d420454 ("drm/amd/display: Remove sink usage from DPMS")
+Reported-by: Dan Carpenter <error27@gmail.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Dominik Kaszewski <dominik.kaszewski@amd.com>
+Cc: George Zhang <george.zhang@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Roman Li <Roman.Li@amd.com>
+Cc: Ivan Lipski <ivan.lipski@amd.com>
+Cc: Dan Wheeler <daniel.wheeler@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ .../gpu/drm/amd/display/dc/link/link_dpms.c    | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-All warnings (new ones prefixed by >>):
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+index 48b086d15ab0..25ec3d38a14e 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+@@ -2306,9 +2306,14 @@ static bool allocate_usb4_bandwidth_for_stream(struct dc_stream_state *stream, i
+ {
+ 	ASSERT(stream->sink);
+ 
+-	struct dc_link *link = stream->sink->link;
++	struct dc_link *link;
+ 	int req_bw = stream_bw;
+ 
++	if (!stream->sink)
++		return false;
++
++	link = stream->sink->link;
++
+ 	DC_LOGGER_INIT(link->ctx->logger);
+ 
+ 	if (!link->dpia_bw_alloc_config.bw_alloc_enabled)
+@@ -2355,9 +2360,13 @@ static bool allocate_usb4_bandwidth(struct dc_stream_state *stream)
+ 	ASSERT(stream->sink);
+ 
+ 	bool ret;
++	int bw;
+ 
+-	int bw = dc_bandwidth_in_kbps_from_timing(&stream->timing,
+-			dc_link_get_highest_encoding_format(stream->sink->link));
++	if (!stream->sink)
++		return false;
++
++	bw = dc_bandwidth_in_kbps_from_timing(&stream->timing,
++					      dc_link_get_highest_encoding_format(stream->sink->link));
+ 
+ 	ret = allocate_usb4_bandwidth_for_stream(stream, bw);
+ 
+@@ -2419,7 +2428,8 @@ enum dc_status link_set_dpms_off(struct pipe_ctx *pipe_ctx)
+ 	update_psp_stream_config(pipe_ctx, true);
+ 	dc->hwss.blank_stream(pipe_ctx);
+ 
+-	if (pipe_ctx->link_config.dp_tunnel_settings.should_use_dp_bw_allocation)
++	if (pipe_ctx->link_config.dp_tunnel_settings.should_use_dp_bw_allocation &&
++	    stream->sink)
+ 		deallocate_usb4_bandwidth(stream);
+ 
+ 	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
+-- 
+2.34.1
 
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_chardev.c:2383:9: warning: variable 'drm_file' is uninitialized when used here [-Wuninitialized]
-    2383 |                         fput(drm_file);
-         |                              ^~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_chardev.c:2356:24: note: initialize the variable 'drm_file' to silence this warning
-    2356 |                 struct file *drm_file;
-         |                                      ^
-         |                                       = NULL
-   1 warning generated.
-
-
-vim +/drm_file +2383 drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_chardev.c
-
-  2330	
-  2331	static int criu_restore_devices(struct kfd_process *p,
-  2332					struct kfd_ioctl_criu_args *args,
-  2333					uint64_t *priv_offset,
-  2334					uint64_t max_priv_data_size)
-  2335	{
-  2336		struct kfd_criu_device_bucket *device_buckets;
-  2337		struct kfd_criu_device_priv_data *device_privs;
-  2338		int ret = 0;
-  2339		uint32_t i;
-  2340	
-  2341		if (args->num_devices != p->n_pdds)
-  2342			return -EINVAL;
-  2343	
-  2344		if (*priv_offset + (args->num_devices * sizeof(*device_privs)) > max_priv_data_size)
-  2345			return -EINVAL;
-  2346	
-  2347		device_buckets = memdup_array_user((void *)args->devices,
-  2348						args->num_devices, sizeof(*device_buckets));
-  2349	
-  2350		if (IS_ERR(device_buckets))
-  2351			return PTR_ERR(device_buckets);
-  2352	
-  2353		for (i = 0; i < args->num_devices; i++) {
-  2354			struct kfd_node *dev;
-  2355			struct kfd_process_device *pdd;
-  2356			struct file *drm_file;
-  2357	
-  2358			/* device private data is not currently used */
-  2359	
-  2360			if (!device_buckets[i].user_gpu_id) {
-  2361				pr_err("Invalid user gpu_id\n");
-  2362				ret = -EINVAL;
-  2363				goto exit;
-  2364			}
-  2365	
-  2366			dev = kfd_device_by_id(device_buckets[i].actual_gpu_id);
-  2367			if (!dev) {
-  2368				pr_err("Failed to find device with gpu_id = %x\n",
-  2369					device_buckets[i].actual_gpu_id);
-  2370				ret = -EINVAL;
-  2371				goto exit;
-  2372			}
-  2373	
-  2374			pdd = kfd_get_process_device_data(dev, p);
-  2375			if (!pdd) {
-  2376				pr_err("Failed to get pdd for gpu_id = %x\n",
-  2377						device_buckets[i].actual_gpu_id);
-  2378				ret = -EINVAL;
-  2379				goto exit;
-  2380			}
-  2381	
-  2382			if (pdd->drm_file) {
-> 2383				fput(drm_file);
-  2384				ret = -EINVAL;
-  2385				goto exit;
-  2386			}
-  2387			pdd->user_gpu_id = device_buckets[i].user_gpu_id;
-  2388	
-  2389			drm_file = fget(device_buckets[i].drm_fd);
-  2390			if (!drm_file) {
-  2391				pr_err("Invalid render node file descriptor sent from plugin (%d)\n",
-  2392					device_buckets[i].drm_fd);
-  2393				ret = -EINVAL;
-  2394				goto exit;
-  2395			}
-  2396	
-  2397			/* create the vm using render nodes for kfd pdd */
-  2398			if (kfd_process_device_init_vm(pdd, drm_file)) {
-  2399				pr_err("could not init vm for given pdd\n");
-  2400				/* On success, the PDD keeps the drm_file reference */
-  2401				fput(drm_file);
-  2402				ret = -EINVAL;
-  2403				goto exit;
-  2404			}
-  2405			/*
-  2406			 * pdd now already has the vm bound to render node so below api won't create a new
-  2407			 * exclusive kfd mapping but use existing one with renderDXXX but is still needed
-  2408			 * for iommu v2 binding  and runtime pm.
-  2409			 */
-  2410			pdd = kfd_bind_process_to_device(dev, p);
-  2411			if (IS_ERR(pdd)) {
-  2412				ret = PTR_ERR(pdd);
-  2413				goto exit;
-  2414			}
-  2415	
-  2416			if (!pdd->qpd.proc_doorbells) {
-  2417				ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
-  2418				if (ret)
-  2419					goto exit;
-  2420			}
-  2421		}
-  2422	
-  2423		/*
-  2424		 * We are not copying device private data from user as we are not using the data for now,
-  2425		 * but we still adjust for its private data.
-  2426		 */
-  2427		*priv_offset += args->num_devices * sizeof(*device_privs);
-  2428	
-  2429	exit:
-  2430		kfree(device_buckets);
-  2431		return ret;
-  2432	}
-  2433	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
