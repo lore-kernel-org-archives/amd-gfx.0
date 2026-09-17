@@ -4,139 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34A69C88E72
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:39:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46698C88E72
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:40:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9980D10EEA3;
-	Thu, 17 Sep 2026 12:39:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADF5610EEAA;
+	Thu, 17 Sep 2026 12:40:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="YqpKqDwc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EPo3XEJX";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="U+OGHNBd";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BYaLMfXt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kJ3l+xft";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A668E10EEA3;
- Thu, 17 Sep 2026 12:39:04 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 09E9921D59;
- Thu, 17 Sep 2026 12:38:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789648739; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hfwml94N//0QUL0iIYXjGV7IPMWoJR+z6L22PTmzYFs=;
- b=YqpKqDwcpb91fV/E6zZPpDhG6FxCDIAzBKXRDMFvPHD3hYB9zW3hEpQxjw4pbgxUCVbwr5
- zm6Ql7sctbITTiB+7LU3pThvkw5voyej36fGRQIAbQdaVSZ3dswmga6xIOEYUn141SBcq5
- 2G+8uwU/4XzO08u8GDSWxB22e0O5G4Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789648739;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hfwml94N//0QUL0iIYXjGV7IPMWoJR+z6L22PTmzYFs=;
- b=EPo3XEJXritQp6PGmR7TDMIVwa+VtZZxcvM0Kmw5DFm3jW5NCPnsCWxpxngzphAva/4X2m
- 8KP57wmlC8RKPWBA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=U+OGHNBd;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BYaLMfXt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789648735; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hfwml94N//0QUL0iIYXjGV7IPMWoJR+z6L22PTmzYFs=;
- b=U+OGHNBdbJk6+h1fGy2DmT2dy8aZ5u1PrD5CBZ5Ww90UVR2F2slGCGVK922GszXjuJUftR
- jYlO0a0ScGWRvj6Z3yPX/9YAQ2S/yrCJL+8x/q+8A3RbK/6frsX9Z0pwD4zNGM69N89aEq
- 5cGu/jdq5e5eizYXVket4GSd5jZEu3s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789648735;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hfwml94N//0QUL0iIYXjGV7IPMWoJR+z6L22PTmzYFs=;
- b=BYaLMfXtzOShtvEe7S8OPGref/Y4GVNT5weXS1/qdmYuiLmTqQRUDEi6elH+u7IXb1reUs
- o8j0D7PAeMC8YgDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8B38B134B3;
- Thu, 17 Sep 2026 12:38:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id EiFQD17fq2q9CgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 17 Sep 2026 12:38:54 +0000
-Message-ID: <e6ed76bb-e95c-48c3-b51b-99a59cb524f4@suse.de>
-Date: Thu, 17 Sep 2026 14:38:53 +0200
-MIME-Version: 1.0
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013071.outbound.protection.outlook.com
+ [40.93.201.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1167610EEAA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 12:40:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V51V0lz3NIdW3O64g25L8KhaRHfmvuxBu/j3tJk0PYA1Putk5hOAQgValJJtttMPcf6M5G1Hyc3nI4x8BYJymnkj8nr8VJFP3c/Zhz94MibWPBQnFR6JFdnMUJ4y88D6AeRHS4dhUt//c52iku29aOSOIEfxdkz6AlToUJkTmlM2G7OkgSMhWRzE2H6INhtjgGFcsj6PZjROhVIntII/o3mOcagaUpk0clrU4zQfMY9aiL7V4sFRvAhySlnISRIfn6jHqD4GQeLFa0cSzU7E2XChTCseklpBBzrDO8YZIqXJZ9nVr1zI1TUXX7l6Fhwf/ZfgPMA5OOC3wGYAOQpDog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UN7SP6BdvvvIoEhGAVR5fSWkSJWijwKLS2yaxgqulcc=;
+ b=YAUSYwrY16fwWYHYhs320PLOGnWg39F/BvBrHcAuKjqU/5Iw1ajV8u62ngY1kD2HuyB5H7CF5QADY3dZ0JvpotyyKbXx05+h15PSLq2DV9NaXsu95G5xIaZtddRlz/qCAFVixNxzkg/nnB2TJS+ibdTlVmkFXDkeZ4ifFyf54o/GHd53Rkpgh0JCF0Iip82oeSI9xxn6lG/wra3rhxkODd/H1Kibsw3qlnrAOoNfjKBqQ70JSU7nxYWBPisHNzdwdSeyIiMgkzzSrKUhi/CZV/TER9dPKC3W+7cb/97UsZGwuZXlyNWYFiGCr674lajmB9iV/bGW6yNYd6xFs+bc9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UN7SP6BdvvvIoEhGAVR5fSWkSJWijwKLS2yaxgqulcc=;
+ b=kJ3l+xftxOjMmsHo3Wcfc98An4Fji7PjJIXwvzTmfEnu+JZP2lldWflxv9w/JYw5yVaPIwiWnq8tsEZCbsBbXd1wzlTce8v6pvgOgpY+Ms/+mQA0bSWOYFoD2PZIweaXe+Ujbs12+dnmj55LeBqqrLCdhPB6lF/9qPlOvEhJavI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB9172.namprd12.prod.outlook.com (2603:10b6:610:198::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
+ 2026 12:40:21 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 12:40:20 +0000
+Message-ID: <0fe02414-9951-4a39-a631-0a190ffa88f6@amd.com>
+Date: Thu, 17 Sep 2026 14:40:17 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 1/2] drm: Allow drivers to report standardized memory stats
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Ludovico de Nittis <ludovico.denittis@collabora.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-References: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
- <20260917120444.86471-2-tvrtko.ursulin@igalia.com>
+Subject: Re: [PATCH] drm/amdgpu: Use iosys_map for trap TMA BO mappings
+To: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20260917090530.666757-1-srinivasan.shanmugam@amd.com>
+ <d54c9aa9-6414-4984-8816-84db74de309f@amd.com>
+ <2f3df784-35a3-4108-8d1d-cbded59ef727@amd.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260917120444.86471-2-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <2f3df784-35a3-4108-8d1d-cbded59ef727@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 09E9921D59
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[igalia.com,collabora.com,amd.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[ffwll.ch:email,suse.com:url,amd.com:email,suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
+X-ClientProxiedBy: FR2P281CA0130.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9e::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB9172:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf450f08-65f5-4644-1053-08df14b8d5dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|22082099003|18002099003|11063799006|10067099003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: pxnJsYg5v5XKbTI9Gw5BHujAe8ZlmZGbI+9gjfZ/h9K0GZUMf6ZZLZYdaYRzH8/3+hPxOfgDtVxGIQ78mBRS4tDlJqmzg44SOEctIuzP1yf296hefOM95INXReoFfqBBMYELjEb6pdJ4asbrOdaiVpyc4Lmq0V03O8JUcVt1trrw5SVLzgLQ8Bv19+ReHDcrP4BTZDwJFfcPDdldQo6SzTx+j+YHASZhZAW7XHPBaI4nxNM/ITZIfcbKfbwwdLbdE4fXdRLByiQKxObg5yfbKWcT31Y7/hCCTfv/p/wrdCAPVutHka8tWRzJuNaITAM9/3W9+io9HSx/3ZnLiFzf0KHk1MHQ/3tFywxvcXaH25Nq7S/Rzz5WUL1AA8U52k79+aOVH/MsdW0c8J0TF9R/Q6MShEVMtTy4jUal9feCLZc7GFuPey6eKlqzjt6mEHYxcxed7gX/cP7zL/jSmX/jD6soi/EQXAnAqBl9OA1ZvhSknfjFhVNE6ryU+KyEi+IntbL6BaTpLiAmS08D3hKAwTysBbTCJ2iNrgGlqzSDS1udS1qsN06BGJgvkip+/oR5W7GV0z3Oypuxr0CPZUfvV0876XilVPZfNqiyhIGSJwONYCRzltuZwpxxJxX4ebxP/3BIAy/cW2iMoz+Skx2aTGS4wglVdOZIElNscnsWVvs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3ErUWtqUGo1RlhiRHdpaVEvZ1BJYkVLQi9VaHVac2E1Y1Vyb2xWd2E2cTdL?=
+ =?utf-8?B?eEUvNVBNRUdPKzEwbkNGdWo0NWdBRTNvd3kzNnlsaUh4UkpFME93VnYvUzlM?=
+ =?utf-8?B?RlgwYnhobmlIVmNsb25kMDlJOC8zbUZsa2gzUm5qbTgzTzhEQjd0eWRnYldq?=
+ =?utf-8?B?Z0pSSlg1YzZFRjlmcmhHbkJ1RUIzeW8xN0MvS3pNRHgwMVBlUm1aZEpZRkl0?=
+ =?utf-8?B?c1JQMEdLZzlxU3A3bkVsT3pyd2tFamhuVk5rZVlCM3h6c29MaktyZENQY1Uz?=
+ =?utf-8?B?WjhKUzFBbTBOMUhUTWkwTnNFZ240T21ZYitCaWpQU0NMTWNCQmpQN3g5c29a?=
+ =?utf-8?B?cHF0anM5TTlORTBQZC83ZnZwMU1qOWw4cEJuUExpMm80RTlyeUJQRHZzcGRi?=
+ =?utf-8?B?ZXRkOHE5TnFsY3VQSHA0cnVYZ0N5ZzZsalRTLzRLUS94V3lMYmJHTDdNRXc3?=
+ =?utf-8?B?WXJoK2dzbG40N1NIeXZCOUppMWpjUjQ3NUk2QmNFbzZyL294QmpsamlpYklI?=
+ =?utf-8?B?WXBFWENzNzFWZWxmSExQbXN6L3pRa1FHVmxEMkw3SXo1NmNPTXRIS1lwSkFD?=
+ =?utf-8?B?blJ6VnJ5MnZnY1F0RDVYcE5zOXZFSGZ4QklqV2xCZk5wRDB0ekk1eWpTZlQx?=
+ =?utf-8?B?VThpcDROb3I5L3BtNnd5b0ZBYmtzM05WY1BNM09OenhGVkYzcStJNVJoWkx2?=
+ =?utf-8?B?WER3L0MvbTJkaDhLTVgzWTN6L2V3YlJReUJac2VQSEZzOWhQbkgwV0FVS3JC?=
+ =?utf-8?B?anVtc0EvSW1aZ04xcUIzb0NxcUltdHoxSlpHeTUvdytkaGZkK1pNK0xld3JS?=
+ =?utf-8?B?a3A2cU1BeGhiU3JZUy9TN0Nic2xIQ0JHeDRCVDBhbXlVZzY4SmNLTXMzWWVB?=
+ =?utf-8?B?WWk5SEw4ZTBsRGk2UVBURzlpY3ZVa2RIUEZMMXlXeEVWVXYyc09iWWV1MjVO?=
+ =?utf-8?B?SU04QmJIK3Q2WU00bGZJM01BbTN1SFJWVUZMOGY5TWpwd3Q4NE5waTVTNW9m?=
+ =?utf-8?B?bERCZkpZV2M4cFQ3dURzZ24rMXV6ZVFYQ3Rwb1FKNWhINmI5TklKTUxzZElu?=
+ =?utf-8?B?Z0RIS1UxbEpuQzEvc2VvekpKSXJKOXhzVG00OTRweUNqSG5OVGh5U1p1ZWVV?=
+ =?utf-8?B?ZnQyOEx4aEdNN1Qya0J3Y3J3NXRzTnZHR2lwcHFJeDdsWUE0SUR2Z2hDK0xR?=
+ =?utf-8?B?UFU0WjlyUFJiTDFXaEo3ZG4xeER3QnVHUm01M0JJL3h3NXNlWGhGTG9rdWhm?=
+ =?utf-8?B?S3ZTYlVTamtzaXFoMDF4K1VEWHFCSmlheFpNZEdpWXJ0WnBSbHNCMHhxcUlP?=
+ =?utf-8?B?OHp5UDlMOXp5ZTBBQ2R3NmVPNUV6c3JiWm9hcjdvS1VDeWlwV1JPUzJGc25L?=
+ =?utf-8?B?U1VJaXlOQk8wM01BVTJteUJ1TVJwT0U5ekZHZnJKbEJmTWl5RmFHVUNWdWJG?=
+ =?utf-8?B?WDRPcUYxamh5aG8xbkM3TW5PemcvY2ZwakZ6aS9EM2djU2JaVHVOaXVMNmZ5?=
+ =?utf-8?B?VFBGdVNtcmhmbXhXc3kxWEc5NnpKV25QVmJHVWRSMjFUc2Z1Rnd0dlk3N1A2?=
+ =?utf-8?B?YlpIVm9YaUJSZ0V1RXFaNW1PTTRoSy84NHA3eDhEU0hsV25nYUNjRW8wdGly?=
+ =?utf-8?B?KzFwc1ZCUGppN3liMUZHSXZIYmI2Wlp1WlNKQytTR0NPd3RWQXAxM2FpK2cx?=
+ =?utf-8?B?azNtYkw2WXYzY3JqUU9EVXlhSVhWN0xoQzNFdDBPQ3h1aVhMQ1h6MXZnaVdr?=
+ =?utf-8?B?RzI4LyszS3JsZW5JSEI4ZDh6RFIvNk5LbWlHc2J0NERyeHJBNG9vcHQya2t0?=
+ =?utf-8?B?SG5aem56dlJ5eUtrbitzUnBYR2hmTGEyYUp2YVplalc2L1JCbVhRLysxUWln?=
+ =?utf-8?B?cU83a0xTa0JRYnNVMlZXNEtDKzJlckp0NFQyV1g1QlAwRmk2WTVrZWJENzM0?=
+ =?utf-8?B?dEtNTS9yZTlRZ0ZwZXc2QTZ5NXFDcXV0elFNVmlibEZKaWt1Y3NHZGduTVVM?=
+ =?utf-8?B?eFR0NGpiSWQxcXppMHl5djBGMGF4NkNvRnFieS9lWHlXL0RkVGYrSWlYNUlj?=
+ =?utf-8?B?enFheWxLU0s4eG9xZFI5dzd2MHNnSTVzenJWOHVia2hQQ01RWjUrbGRxVnh4?=
+ =?utf-8?B?cVhkNjJDZXY1bElqWTdZLzhuQVJ4RWVTVVN0QWxMaVR0RUwrdHZpNExpNnd2?=
+ =?utf-8?B?SmxMQUlaRGtUSXBTSVdTcHptcG11M21GSnc1eDJIQ2VTTUsvdzZWaDFDRlBq?=
+ =?utf-8?B?d1NEQU82Nk1BUmFWSDF1eFpxaU5tK3QyNS92Yng2QnZhSGJDamxpL3NDRHZC?=
+ =?utf-8?Q?tIZ1gg9p2/JgELp/g2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf450f08-65f5-4644-1053-08df14b8d5dc
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 12:40:20.6731 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lPeNBgO77WvWywtONKiQpvbvsCn/rto/eEa5jIAT+dmD270SpUVFeWItQTDLlhsN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9172
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,368 +137,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+On 9/17/26 14:12, SRINIVASAN SHANMUGAM wrote:
+> 
+> On 9/17/2026 5:13 PM, Christian König wrote:
+>> On 9/17/26 11:05, Srinivasan Shanmugam wrote:
+>>> Replace amdgpu_bo_kmap()/amdgpu_bo_kunmap() in the trap handler code
+>>> with ttm_bo_vmap()/ttm_bo_vunmap().
+>>>
+>>> Store the mapping as struct iosys_map and use iosys_map helpers for
+>>> memory access. This aligns the trap code with the modern DRM/TTM mapping
+>>> interfaces.
+>>>
+>>> Using iosys_map allows the code to use common DRM mapping helpers
+>>> instead of directly accessing memory through raw CPU pointers.
+>> I'm really wondering if we shouldn't rework amdgpu_bo_kmap() into amdgpu_bo_vmap() and use that everywhere?
+> 
+> Hi Christian,
+> 
+> Thanks, that's a very good point.
+> 
+> Introducing amdgpu_bo_vmap()/amdgpu_bo_vunmap() and gradually
+> converting existing amdgpu_bo_kmap() users sounds like a useful
+> cleanup for AMDGPU in general.
+> 
+> I did a quick grep and found amdgpu_bo_kmap() users in a number
+> of AMDGPU/KFD files, so this seems broader than the trap-specific
+> conversion.
 
-Am 17.09.26 um 14:04 schrieb Tvrtko Ursulin:
-> Add a DRM driver level vfunc which allows drivers to opt-in into
-> reporting standardized memory stats via sysfs.
->
-> Via the vfunc drivers can report a list of memory regions in a stable
-> order, with the names following the memory region names used for fdinfo
-> memory stats. The region names become directory names under the parent
-> 'memstat' directory.
->
-> Each region reports the total size of the region and its current usage,
-> represented respectively in the total_mb and used_mb files present under
-> the aforementioned memory region named directories.
->
-> The card level 'memstat' directory is only created for drivers who report
-> at least one memory region.
->
-> Amdgpu example:
->
-> /sys/class/drm/card1/memstat/
-> ├── gtt
-> │   ├── total_mb
-> │   └── used_mb
-> └── vram
->      ├── total_mb
->      └── used_mb
+That's what I meant with a backward compatible interface. E.g. just return the kernel pointer the same way kmap does, it isn't 100% clean but still better than what we do today.
 
-This looks simple enough to be generally useful. A-b me.
+> 
+> Would it make sense to keep this trap change focused on the
+> original conversion and handle the wider AMDGPU migration as a
+> separate follow-up cleanup activity?
 
->
-> Or with concrete numbers:
->
-> $ grep -Hr . /sys/class/drm/card1/memstat/
-> /sys/class/drm/card1/memstat/vram/total_mb:1024
-> /sys/class/drm/card1/memstat/vram/used_mb:445
-> /sys/class/drm/card1/memstat/gtt/total_mb:7394
-> /sys/class/drm/card1/memstat/gtt/used_mb:71
+I leave that up to you, if you feel that this is to much work feel free to add my rb to the existing patch. That one looks good enough that we can land it.
 
-These seem easy to track.  What about other, shared regions?
+Regards,
+Christian.
 
-IIRC some systems (RasPi) use CMA areas for allocating BOs and run out 
-of that quickly. Could this be represented here?
-
-Is there a representation of 'unknown value' ?
-
-Best regards
-Thomas
-
->
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Maíra Canal <mcanal@igalia.com>
-> Cc: Ludovico de Nittis <ludovico.denittis@collabora.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> ---
->   drivers/gpu/drm/drm_drv.c   |  10 +++
->   drivers/gpu/drm/drm_sysfs.c | 123 ++++++++++++++++++++++++++++++++++++
->   include/drm/drm_device.h    |  19 ++++++
->   include/drm/drm_drv.h       |   8 +++
->   include/drm/drm_file.h      |   9 +++
->   include/drm/drm_sysfs.h     |   4 ++
->   6 files changed, 173 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 0cdc606af8d1..ab26cfd73002 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -54,6 +54,7 @@
->   #include <drm/drm_print.h>
->   #include <drm/drm_privacy_screen_machine.h>
->   #include <drm/drm_ras_genl_family.h>
-> +#include <drm/drm_sysfs.h>
->   
->   #include "drm_crtc_internal.h"
->   #include "drm_internal.h"
-> @@ -197,10 +198,15 @@ static int drm_minor_register(struct drm_device *dev, enum drm_minor_type type)
->   	if (ret)
->   		goto err_debugfs;
->   
-> +	ret = drm_sysfs_register_memstat(minor);
-> +	if (ret)
-> +		goto err_kdev;
-> +
->   	/* replace NULL with @minor so lookups will succeed from now on */
->   	entry = xa_store(drm_minor_get_xa(type), minor->index, minor, GFP_KERNEL);
->   	if (xa_is_err(entry)) {
->   		ret = xa_err(entry);
-> +		drm_sysfs_unregister_memstat(minor);
->   		goto err_debugfs;
->   	}
->   	WARN_ON(entry);
-> @@ -208,6 +214,9 @@ static int drm_minor_register(struct drm_device *dev, enum drm_minor_type type)
->   	DRM_DEBUG("new minor registered %d\n", minor->index);
->   	return 0;
->   
-> +err_kdev:
-> +	device_del(minor->kdev);
-> +
->   err_debugfs:
->   	drm_debugfs_unregister(minor);
->   	return ret;
-> @@ -224,6 +233,7 @@ static void drm_minor_unregister(struct drm_device *dev, enum drm_minor_type typ
->   	/* replace @minor with NULL so lookups will fail from now on */
->   	xa_store(drm_minor_get_xa(type), minor->index, NULL, GFP_KERNEL);
->   
-> +	drm_sysfs_unregister_memstat(minor);
->   	device_del(minor->kdev);
->   	dev_set_drvdata(minor->kdev, NULL); /* safety belt */
->   	drm_debugfs_unregister(minor);
-> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-> index 7b16d32b6ff6..4a8c5b0b458d 100644
-> --- a/drivers/gpu/drm/drm_sysfs.c
-> +++ b/drivers/gpu/drm/drm_sysfs.c
-> @@ -25,6 +25,7 @@
->   #include <drm/drm_accel.h>
->   #include <drm/drm_connector.h>
->   #include <drm/drm_device.h>
-> +#include <drm/drm_drv.h>
->   #include <drm/drm_file.h>
->   #include <drm/drm_modes.h>
->   #include <drm/drm_print.h>
-> @@ -589,3 +590,125 @@ struct device *drm_sysfs_minor_alloc(struct drm_minor *minor)
->   	put_device(kdev);
->   	return ERR_PTR(r);
->   }
-> +
-> +static ssize_t total_mb_show(struct kobject *kobj, struct kobj_attribute *attr,
-> +			     char *buf)
-> +{
-> +	struct drm_memstat_attr *mattr = container_of(kobj, typeof(*mattr), kobj);
-> +	struct drm_device *drm = mattr->drm;
-> +	const struct drm_memory_info *info;
-> +
-> +	if (drm->driver->get_memory_info) {
-> +		info = drm->driver->get_memory_info(drm);
-> +		if (info)
-> +			return sysfs_emit(buf, "%u\n",
-> +					  info->region[mattr->region].total_mb);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static ssize_t used_mb_show(struct kobject *kobj, struct kobj_attribute *attr,
-> +			    char *buf)
-> +{
-> +	struct drm_memstat_attr *mattr = container_of(kobj, typeof(*mattr), kobj);
-> +	struct drm_device *drm = mattr->drm;
-> +	const struct drm_memory_info *info;
-> +
-> +	if (drm->driver->get_memory_info) {
-> +		info = drm->driver->get_memory_info(drm);
-> +		if (info)
-> +			return sysfs_emit(buf, "%u\n",
-> +					  info->region[mattr->region].used_mb);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static struct kobj_attribute total_attr = __ATTR_RO(total_mb);
-> +static struct kobj_attribute used_attr = __ATTR_RO(used_mb);
-> +
-> +static struct attribute *memstat_attrs[] = {
-> +	&total_attr.attr,
-> +	&used_attr.attr,
-> +	NULL,
-> +};
-> +
-> +ATTRIBUTE_GROUPS(memstat);
-> +
-> +static void kobj_memstat_release(struct kobject *kobj)
-> +{
-> +}
-> +
-> +static const struct kobj_type memstat_ktype = {
-> +	.release = kobj_memstat_release,
-> +	.sysfs_ops = &kobj_sysfs_ops,
-> +	.default_groups = memstat_groups,
-> +};
-> +
-> +int drm_sysfs_register_memstat(struct drm_minor *minor)
-> +{
-> +	const struct drm_memory_info *info = NULL;
-> +	struct drm_device *drm = minor->dev;
-> +	struct drm_memstat_attr *regions;
-> +	struct kobject *root;
-> +	int i, ret = -ENOMEM;
-> +
-> +	if (drm->driver->get_memory_info)
-> +		info = drm->driver->get_memory_info(drm);
-> +
-> +	if (!info || !info->num_regions)
-> +		return 0;
-> +
-> +	regions = kmalloc_objs(*regions, info->num_regions + 1);
-> +	if (!regions)
-> +		return -ENOMEM;
-> +
-> +	root = kobject_create_and_add("memstat", &minor->kdev->kobj);
-> +	if (!root)
-> +		goto err_root;
-> +
-> +	for (i = 0; i < info->num_regions; i++) {
-> +		regions[i].region = i;
-> +		regions[i].drm = drm;
-> +		ret = kobject_init_and_add(&regions[i].kobj, &memstat_ktype,
-> +					   root, "%s", info->region[i].name);
-> +		if (ret)
-> +			goto err_regions;
-> +	}
-> +
-> +	minor->sysfs_memstat = root;
-> +	minor->sysfs_memstat_regions = regions;
-> +
-> +	return 0;
-> +
-> +err_regions:
-> +	while (i-- > 0) {
-> +		kobject_del(&regions[i].kobj);
-> +		kobject_put(&regions[i].kobj);
-> +	}
-> +
-> +	kobject_del(root);
-> +	kobject_put(root);
-> +
-> +err_root:
-> +	kfree(regions);
-> +
-> +	return ret;
-> +}
-> +
-> +void drm_sysfs_unregister_memstat(struct drm_minor *minor)
-> +{
-> +	struct drm_memstat_attr *region = minor->sysfs_memstat_regions;
-> +
-> +	while (region && region->kobj.state_initialized) {
-> +		kobject_del(&region->kobj);
-> +		kobject_put(&region->kobj);
-> +		region++;
-> +	}
-> +
-> +	kfree(minor->sysfs_memstat_regions);
-> +
-> +	kobject_del(minor->sysfs_memstat);
-> +	kobject_put(minor->sysfs_memstat);
-> +}
-> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-> index 75f030d027ee..0c9260c85b30 100644
-> --- a/include/drm/drm_device.h
-> +++ b/include/drm/drm_device.h
-> @@ -67,6 +67,25 @@ enum switch_power_state {
->   	DRM_SWITCH_POWER_DYNAMIC_OFF = 3,
->   };
->   
-> +/**
-> + * struct drm_memory_region_info - Memory name and stats for a region
-> + * @name: Name of the memory region
-> + * @total_mb: Total available memory in mebibytes
-> + * @used_mb: Used memory in mebibytes
-> + */
-> +struct drm_memory_region_info {
-> +	char	name[24];
-> +
-> +	u32	total_mb;
-> +	u32	used_mb;
-> +};
-> +
-> +struct drm_memory_info {
-> +	unsigned int num_regions;
-> +
-> +	struct drm_memory_region_info region[];
-> +};
-> +
->   /**
->    * struct drm_device - DRM device structure
->    *
-> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> index b23830494ed4..a3f1906961ac 100644
-> --- a/include/drm/drm_drv.h
-> +++ b/include/drm/drm_drv.h
-> @@ -45,6 +45,7 @@ struct drm_minor;
->   struct dma_buf;
->   struct dma_buf_attachment;
->   struct drm_display_mode;
-> +struct drm_device_memory_info;
->   struct drm_mode_create_dumb;
->   struct drm_printer;
->   struct sg_table;
-> @@ -387,6 +388,13 @@ struct drm_driver {
->   	 */
->   	void (*show_fdinfo)(struct drm_printer *p, struct drm_file *f);
->   
-> +	/**
-> +	 * @get_memory_info:
-> +	 *
-> +	 * Get device specific memory info.  See Documentation/gpu/drm-memory-info.rst.
-> +	 */
-> +	const struct drm_memory_info * (*get_memory_info)(struct drm_device *dev);
-> +
->   	/** @major: driver major number */
->   	int major;
->   	/** @minor: driver minor number */
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index 6ee70ad65e1f..ebb227a91f60 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -66,6 +66,12 @@ enum drm_minor_type {
->   	DRM_MINOR_ACCEL = 32,
->   };
->   
-> +struct drm_memstat_attr {
-> +	struct kobject kobj;
-> +	unsigned int region;
-> +	struct drm_device *drm;
-> +};
-> +
->   /**
->    * struct drm_minor - DRM device minor structure
->    *
-> @@ -82,6 +88,9 @@ struct drm_minor {
->   	struct device *kdev;		/* Linux device */
->   	struct drm_device *dev;
->   
-> +	struct kobject	*sysfs_memstat;
-> +	struct drm_memstat_attr  *sysfs_memstat_regions;
-> +
->   	struct dentry *debugfs_symlink;
->   	struct dentry *debugfs_root;
->   };
-> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
-> index 7695873a9456..10ed468965b0 100644
-> --- a/include/drm/drm_sysfs.h
-> +++ b/include/drm/drm_sysfs.h
-> @@ -4,10 +4,14 @@
->   
->   struct drm_device;
->   struct drm_connector;
-> +struct drm_minor;
->   struct drm_property;
->   
->   void drm_sysfs_hotplug_event(struct drm_device *dev);
->   void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
->   void drm_sysfs_connector_property_event(struct drm_connector *connector,
->   					struct drm_property *property);
-> +
-> +int drm_sysfs_register_memstat(struct drm_minor *minor);
-> +void drm_sysfs_unregister_memstat(struct drm_minor *minor);
->   #endif
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+> 
+> I'd be happy to look into that separately as well.
+> 
+> Regards,
+> Srini
+> 
+>>
+>> We can of course start with backward compatible return the kernel poiunter and then switch other users of amdgpu_bo_kmap() over to iosys_map one by one.
+>>
+>> Regards,
+>> Christian.
 
