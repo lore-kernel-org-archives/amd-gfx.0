@@ -4,123 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70FD2C88E72
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 07:39:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 508B7C982C1
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 08:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7BEE10E636;
-	Thu, 17 Sep 2026 07:39:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDFEC10E375;
+	Thu, 17 Sep 2026 08:03:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L/TCPC8I";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="SuMhFrIa";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010066.outbound.protection.outlook.com [52.101.56.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D5B410E636
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 07:39:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VvSqoD9ds9JRTi0jglvnTEXnsCOtrTrQIfucLHjLfbpQu73AcwP/KeJjdoPxDoeLtDGmAfUTvOWgMJB7+D3L+Fp7kvWBWl+LjWOXqLU/clYyG473iOBzaEXA/u2wSQecVsvEe3huxh6ElkPErhswqLZEQ00H8gZcW88lMJeka2fCdXCgS9VtmoKNSfO5RT43FlsYVNnaoyRpPcCwEJWmODYJlsc3y1Kc+RKVYN8USQ0Bam0/E0u5H+hHPNtSM5njw2kxNiDLWQ40DdKcKY7+LhONdJ29tXEx5M6WMhkfKxVfOi499a/Y7qXMYVxg+Tglf5NK3O9UnpEcQKg1LmlxPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ma495E6GNkoZRa6SkA5/YUCtw16x4pWwGTwyNvdGAx4=;
- b=upltTd6jcIenJcAfOFuB95J7Z0g6ebtHbayvjIrUelc6/iZ2GfeMZ9OKUxZXpMe7dx9IXOnup03bWPvGHKBbdArSH3i71C5Bwc+67QSxIUyXvlmU+UODlmYnulwz/d6tggi2ZIyxwDfJtaGgL17NeJY9DRsLi3rVkfJiNvnN4WBW6BhtH+rf66mRO3xXwqLzGc46mBqXo4/OaQmVCM30FwzWvLFJ7Kfp09iditoxVtu7nAashtx5bIocK/EVCrURqfmv4pe3fdUKk6GHUT85CCE84b3IzlKCFOrpoSYAv36Q+IheE0n+ysP6LgIUk+BuTNefNjMdvFBJTlkWpJdnkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ma495E6GNkoZRa6SkA5/YUCtw16x4pWwGTwyNvdGAx4=;
- b=L/TCPC8IgkVAkUizuxutxHa/r7FNEWdA59c53HQGfGYBc1LfN4bcNanO2Kcygo5M4UUVyL5ndbfAZdKhkv30deJ5gXozCXxO1iDX9UxPpMASzWUtpXvqIT5qXX5T4NCSXxqSfsXaxa3gTjDjxW3IFh4ebliA9G/HItIxFz30kcQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ1PR12MB6220.namprd12.prod.outlook.com (2603:10b6:a03:455::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
- 2026 07:39:38 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 07:39:37 +0000
-Message-ID: <9352933c-a23e-46fb-819b-62c79b28906a@amd.com>
-Date: Thu, 17 Sep 2026 09:39:34 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdgpu: Fix recursive ww_mutex lock in
- amdgpu_trap_alloc
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>
-References: <20260915074245.457529-1-srinivasan.shanmugam@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260915074245.457529-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR06CA0029.namprd06.prod.outlook.com
- (2603:10b6:208:23d::34) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90BCE10EB56
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 08:03:56 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c254f56039dso76166266b.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 01:03:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1789632235; x=1790237035; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+HUf6Jowh1+WPb1BCRCr6BL/tYaNnVE+FAszmKXmQss=;
+ b=SuMhFrIaHK/z6DHAnhiRM1kwklVTh0dVmTLe9TvDpi/bUsqII+mM3uhEG7yFdYnQgI
+ xlBLtd/0eR3I3i1sbdC89mp3+VnZ/DgS088Pxoxv80zB2Adj4wcJMd9WDG3gkAthOiag
+ 5z0l8JUTCU95HOqyaJR8ObWTh9UHbDhaZ7Gd9Wy+kWLYHmJ461ZFdIzPKzIgz5BotDFz
+ Rt9uN67se+Cys4zAPsgd1mNT+JB+uzRNc0Bc6JDrBwPhCQs/eEPfNMZ56x5/nBb0eDjT
+ CkI+kytTZg4XTKGLjIQnY+yep0/s8GHovCOknJ59KkE4dHHtOFwuxAMFiDbYf71GByXj
+ DTRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789632235; x=1790237035;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+HUf6Jowh1+WPb1BCRCr6BL/tYaNnVE+FAszmKXmQss=;
+ b=Gvw3D8MvSpcHviOMcL6gqy/Q3vlhEkDg13z1xOji0CSob8CFBbc4XG9fRFNzqiIPet
+ eMe8+ZXz1C2o6Psl2pUM5Fw7mROU3bAYUGZDqNCrAMZr1l0F7y3YwaJbQA7vmwYvrrzb
+ Czj1iIdtc9w39LU6widtazuZWKtK/nfnw2k9HXfj7pq9drs7JQzRSJLifXDzGylH86sm
+ acQXl9Spr4vIB4lIgwGNpBjecpkfb2PtzTdE0W/Prp2AgzkteMczQcptG2oD3a1UH5KN
+ g134c5pJ1nCH39VKZJNLU8bpZhSj6RfWWf3agM9H71jwc5XG/4azvb5L42iIk3nfRntK
+ tXzA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxE7ZvyNGvZII/YdUWlSyQ2DZTyCYiDMZk+Ulad0Jf54wznxHZlGCxb1Fbdx0CSL5b7eb25McQj@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k3ie220YcqISTJyVvUL9pXL0bEB1h2+UA/mkEo+S2oGOIoCcXu
+ ron6tiOaWozPNvLk1mM1bxPlm7us64mMT0m8diGiYF/tQZeDWp1nD2VZB3dVSYhJDgQ=
+X-Gm-Gg: AYBFou0WKsYcyrxRiEkOJiCxyL3H6DT2vSNPRhR1Jr/ynhT09M8coAJaG24YKWZLiA9
+ uYARWISxgi1Mb8DmYaI62jD7tIlYIBrXgjMgOrCmeKkwmhYP4Hgycs4gm8mjIaaXWd/oBRWxb+j
+ 2Q244EjFjG9Kbnah+paJJUybgbSe00jQX/5yNSxpZGW6aSuhrHh3PYEBOmS29ti3bGWsA0wEWjG
+ P7fp6OfvK13UICliCH9JiEGyF/tR8Fyc8Ny0EOiEqtYG0I87mFphLL39vQbUJMneJe8eTMLeN3T
+ l+FA7jdLSVpLf+MvEIjHPvNzh2s560ET1a89fjHzsUeUq6nHYtHbr1PNkWXz+5tJFoEbHT9z5vt
+ zO1B/nQzvbaoBJThMfMN5WZLCq/kF71nPPqBMCUdrlnbxbHPYoN1MxfRr9yDx7wFDdSf4hzQy/W
+ E6QmpyMcMS/GwuAQttkziHNziankQcNKvEL0Lyrp9rgV8gk1THhtjL6k/cUnHuFtNdwbReGFVVF
+ Qmn4vErShD1SZc=
+X-Received: by 2002:a17:907:7287:b0:c26:19de:912c with SMTP id
+ a640c23a62f3a-c29e530a4c5mr405765466b.31.1789632234807; 
+ Thu, 17 Sep 2026 01:03:54 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c29de5f478dsm250536966b.46.2026.09.17.01.03.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Sep 2026 01:03:53 -0700 (PDT)
+Message-ID: <eecffa03-ba11-4952-a208-6d528e94bdf5@ursulin.net>
+Date: Thu, 17 Sep 2026 09:03:52 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6220:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c12c011-0167-468f-2074-08df148ed380
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|376014|11063799006|6133799003|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 4tkeK7FLF+4J/bFddKUVAbzsxIiuYIdBRCQJFjMSniBYh+j6xvJhOKu/Rj3jZkcT5+tXgbtN6HTpevMT8dgYdGe9deLetdh1+eKNgUpuoHYVDwf5kNl4xYYc9VC5dAVd2dwFj/0uBQWVbutR7qCROP2+do0RctuwKbUmA+TzEDS8dOECEjBGsKXMnAW/lnnEfsBslbsTCWM42Ojwp23sM8aC7iIGTH63N4+qLqGNIdGdbP1hxgFdA0PAzqfNnnfaElk5JF+gtHajOvRkSYLm/cbwmnfT3xdrMAdqlxkVR6fzYpS9li4/YOP6dnPpgpb6a3WCtXUGnsIk5LX58WhMxV9t5LdG5MLIvjY9SKhJjwLoPBHH2fajES2i2fdREnl9kl/YXdPKZISGn5XiFYoMj+XFjBUEEZM/UrAxnLAK/mzSe5Tl74Ev46RjS5dcCvKmh1/7pYA6gUCnklkE19l/wpj7HuU3w5HdwBjFkfQyrNJMp2toIPfFIsbj+ny0FmWw4WK/URXCsd9XceWWZ9jnXEmRECJwca7NecF+OfK4z90T3o8AQzNKdUrmnYO193JAbeRAOWhegChXreH4PdFt8nG8CElxxR8mV5CM/jCvB2Fb5UAlz1E8mxbXBZafhiFjZPbQOW+DMhJdsrAfyNJMUrbYPpNrHfmhqhvJnICogoQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(11063799006)(6133799003)(56012099006)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEoyRDJnYzEwa1hmU3pCWHNldHgyenRwYnVhOG1OYS9BaGN5a3NsZkFhVlZH?=
- =?utf-8?B?SmpXanRPaTlOb3N4djVZa210YmFPRFhUNjMwTzdyN3JqVVdLeVNkcnYyTlRz?=
- =?utf-8?B?THQxc2ZaVVBqSGVGVlh0a3R5Y0pWbEVUd2RMT1RlSHFVdnptaWlkWDRYOGcv?=
- =?utf-8?B?d1JPcmgrdDRTWnRneXd0Vy9qTWFwNjJiNFhNRFAxSjJtTCtaWDVXTzZyYVE4?=
- =?utf-8?B?M2JJY2hibisyaFlER01YT3REK3piMCtqTzU4SmpLa0JTWkpvRjZMcUduRnBE?=
- =?utf-8?B?N0pZVWZpbGlwb3ZpYjZib0srblJPMU5RV3dLQ3pQdkVkUUs2WDMrNkVCL2RZ?=
- =?utf-8?B?VnVOeUZiMEg5TGhCSjJJRVg1QXkxdXNFMGQzVEZuWkJINVU1UDdpZ3lsV1BQ?=
- =?utf-8?B?VlJXY1hrZUFPY0IySXlPTHoxWGFWL3FQYzFpRENrY29JL2l5WCt0RVYweEdv?=
- =?utf-8?B?MER1a00ydlRJUVpScjlCVzhBR2JjVXl1c0tXU3J6ZWcyd0NMbjZBbU9WLzZz?=
- =?utf-8?B?MHEwQzgwMko5Rk9kT2NmWlhIbE4vNnl3TWE3TDVLSzhVbFJaT1ZQTnVqRkpP?=
- =?utf-8?B?aXJlam5GU0pXZXB6ZURPek5MOE84RUtSeVczWWdSTXBIM1VjKzQwWS8vNEVn?=
- =?utf-8?B?Y1NzSWxvbDhmSkRBb01lNC9wN3NIM2lna1ZQMW5ydVFLUk4wZ0pCak1xVS94?=
- =?utf-8?B?d2ZuUjJETG1MMFgvRkk1RGU2L29QYW5BSm9SY2tJS3VKOUVSbFdzWGFDOXZp?=
- =?utf-8?B?WjZ5VlNkV0VyWUlIZkp4V3dxYUV1VTVpTXZkU3VrSW9La0dIRkdkNnFYcGkr?=
- =?utf-8?B?R3Rmb2JobWZqWDY4MUZSaitjNDZ2bGFKSXlBM3VZV20zeHlTSC9UM2Z5VzNK?=
- =?utf-8?B?aFJZU095UUpNSEhCRGd6WW4yVEs3T25vd1BacVhHQ0x1WkRsbEd1dU13S21D?=
- =?utf-8?B?YXZzQ1JYVHZuNU13d2NEZ3g0R2psZmovS2QyNTZRSktucmY0dXpYVVREZTFS?=
- =?utf-8?B?VlhMWVV5WGczZ1JLVksrYVB4a1llUGR5aTA0aTFjN2NZUy9VOUhCSy9VK0Nl?=
- =?utf-8?B?N3U2S0YzVjZxTVl2UUxSTmtzdDJsYVdJSUlxUXg4eExWUUZMcWhnYjgrZFdh?=
- =?utf-8?B?RE5QOU5sNUFRTFBTSndtVHJtT0F1MHJBS2JROU5UeHN6blMrZy9kb2swZHpy?=
- =?utf-8?B?N0E1aThNV056MEpxdU1jTkZ0ZHlkME5wQ0xHSk1JTTdBdG5QeWlkMlpWWDFv?=
- =?utf-8?B?VjJWN0lPU0tJYmIxOS9IZTFFZ2VxUDNXYXFXQWhsSlI2dG5iaUdXdS9tK2hm?=
- =?utf-8?B?QXl5bkFNU1dnRVBsZ3VhOFAwOHBpWGsrcHE1VEhNbVA1T3pCaXRaamVXRXVY?=
- =?utf-8?B?V216MERRLzBnLzJ5TklJNDRqZ2RTQXZ1bU9kRGJnTjlDRDZtdU1nam1nTml2?=
- =?utf-8?B?TVFjb2FiaFk4MWQ1MWJUWGhiSXdSeTR0cEFTUkI0MXNxR1BSNDlxa2s1MHFs?=
- =?utf-8?B?Y09QcU55SlpyQTNnc1pDKzNhMUU4OXFzY1J1Q1h0ODBWWmRaWXp0MlBZSGZt?=
- =?utf-8?B?V2JTLzcyMTBVWmV3SXRra1BEMExna0ZuZlRHODg2L0tMSmdjR25QU25Hc1Vx?=
- =?utf-8?B?cWwyT2hRN3VQTEZGSWd4eXBQdTVvNnNUVWhOcmhZaGhnVGtiMHhPeERrMEZJ?=
- =?utf-8?B?OTdHSGtIQUo1dm91alhkWFd6K3ZGVlVOUHVqUkxrcFZ2NE13UWJIRU5QZWMr?=
- =?utf-8?B?dkF4M2h6NU5hMCs2ZEw5WDg2OTQ0TTBxZ1BmTjV5eS9DdVVQbS9leGVGRFl0?=
- =?utf-8?B?MXhvNC9idTNzenRZaWdScUZDSWZZdVRnQjN4OEZpOHdISW85R2xQNFA5Yk80?=
- =?utf-8?B?ZlVBc05BZWdaZ3JpUG1OTUhNdFJTK3dDeEFlbUdxYXcrUjVyN00rYWVrWTMr?=
- =?utf-8?B?NVFrSUFOSHdXWjlJQlJNVEZhaFdnUldGVnN3aEVSdVNqcW03T28rZUcxQ0lP?=
- =?utf-8?B?Ky9pb0VGK1BVdlh0L3hsaGJiYXg1SWRJWk5kMkxRWXpHdUs1ZDZwNmlOT3h0?=
- =?utf-8?B?OCtCQkpPaGkrbjZwKzV0TnlUTm16MGdaa0J5MWx1WXplNkUxVFAzL3dKRGtq?=
- =?utf-8?B?cWRUWWZNQzA3TG4rSE9mNVArQ2wxSG91SDc5ZFBiQWtOM0Fqbm1FRW83TktB?=
- =?utf-8?B?OHVNdGlFZCtaaWl1VS9VM1pkVkhRSFZDVVVFUjBYVnUzV1JxNS9KMmtkQVpi?=
- =?utf-8?B?YWtZdDZ1QmpOTUdEQjBmVmg5dkx0SEhXRWh6Ym1PbENYZENQSXQ5TDFsMjVD?=
- =?utf-8?Q?+J9Nh61HcC6qitktPm?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c12c011-0167-468f-2074-08df148ed380
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 07:39:37.8534 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gWAkgSBpaw/KYLhVudqwA1gybBTWb0tS436IXHrVqSQDUctIdDnynh1FurtN/OXl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6220
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu/gmc: Use amdgpu_gmc_handle_retry_fault() for
+ GMC v12.1
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>
+References: <20260916225549.282123-1-timur.kristof@gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260916225549.282123-1-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,198 +94,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/15/26 09:42, Srinivasan Shanmugam wrote:
-> amdgpu_trap_alloc() first acquires reservation_ww_class_mutex via
-> drm_exec, and then calls amdgpu_bo_create_kernel() while still holding
-> that lock. amdgpu_bo_create_kernel() internally calls
-> amdgpu_bo_create_reserved() which tries to acquire the same
-> reservation_ww_class_mutex again — causing a recursive lock and
-> triggering a lockdep deadlock warning on Navi44:
-> 
->   WARNING: possible recursive locking detected
->   6.19.0-kfd-root #38 Not tainted
->   --------------------------------------------
->   kworker/0:2/959 is trying to acquire lock:
->   ffff8bb17995d9e8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: amdgpu_bo_create_reserved+0xd2/0x2a0 [amdgpu]
-> 
->   but task is already holding lock:
->   ffffcc23c3397ba0 (reservation_ww_class_mutex){+.+.}-{4:4}, at: amdgpu_trap_alloc+0xac/0x230 [amdgpu]
-> 
->   Possible unsafe locking scenario:
->         CPU0
->         ----
->    lock(reservation_ww_class_mutex);
->    lock(reservation_ww_class_mutex);
-> 
->    *** DEADLOCK ***
-> 
->   Call Trace:
->    amdgpu_bo_create_kernel+0x1a/0x80 [amdgpu]
->    amdgpu_trap_alloc+0x18d/0x230 [amdgpu]
->    amdgpu_driver_open_kms+0x2f1/0x390 [amdgpu]
->    drm_file_alloc+0x20a/0x2d0 [drm]
->    drm_client_init+0x75/0x100 [drm]
->    amdgpu_amdkfd_drm_client_create+0x53/0x90 [amdgpu]
->    amdgpu_pci_probe+0x463/0x630 [amdgpu]
-> 
-> Fix this by setting bp.resv = vm->root.bo->tbo.base.resv when calling
-> amdgpu_bo_create() inside the drm_exec locked section. This causes
-> amdgpu_bo_create() to reuse the VM's already-held reservation object
-> instead of acquiring a new one, eliminating the recursive lock entirely.
-> The TMA BO requires no separate drm_exec_lock_obj() call since it shares
-> the VM's resv and is implicitly covered by amdgpu_vm_lock_pd().
-> 
-> v3 (Christian):
-> - Set bp.resv = vm->root.bo->tbo.base.resv so amdgpu_bo_create() reuses
->   the VM's already-held lock, keeping TMA BO creation inside the locked
->   section without a recursive acquire.
-> 
-> v2 (Christian):
-> - Use amdgpu_bo_create() instead of amdgpu_bo_create_kernel() for the
->   per-VM TMA BO; eviction is handled by the VM's BO list via
->   amdgpu_vm_bo_add(), no pinning needed.
-> 
-> Fixes: c50a45b2e98d ("drm/amdgpu: Add cwsr functions")
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
 
+On 16/09/2026 23:55, Timur Kristóf wrote:
+> Use the same helper for GMC v12.1 that is used by other
+> GMC IP block versions.
+> 
+> No functional changes intended. Just code cleanup.
+> 
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c | 67 ++++++++++++++++--------
->  1 file changed, 46 insertions(+), 21 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c | 45 ++++----------------------
+>   1 file changed, 7 insertions(+), 38 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-> index 31f653ec3fb1..29eba2968350 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-> @@ -377,6 +377,7 @@ static int amdgpu_trap_unmap_region(struct amdgpu_device *adev,
->  int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  		      struct amdgpu_trap_obj **trap_obj)
->  {
-> +	struct amdgpu_bo_param bp;
->  	struct amdgpu_trap_obj *cwsr;
->  	struct amdgpu_bo *bo;
->  	struct drm_exec exec;
-> @@ -386,6 +387,7 @@ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  		return -EOPNOTSUPP;
->  	if (!vm || !trap_obj)
->  		return -EINVAL;
-> +
->  	cwsr = kzalloc(sizeof(*cwsr), GFP_KERNEL);
->  	if (!cwsr)
->  		return -ENOMEM;
-> @@ -401,35 +403,59 @@ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  			dev_err(adev->dev,
->  				"failed to reserve for CWSR allocs: err=%d\n",
->  				r);
-> -			goto err;
-> +			goto err_exec;
->  		}
->  	}
->  
-> -	r = amdgpu_bo_create_kernel(adev, AMDGPU_TRAP_TMA_MAX_SIZE, PAGE_SIZE,
-> -				    AMDGPU_GEM_DOMAIN_GTT, &cwsr->tma_bo, NULL,
-> -				    &cwsr->tma_cpu_addr);
-> +	/*
-> +	 * Create TMA BO using the VM's already-locked resv so no new
-> +	 * reservation_ww_class_mutex acquisition is needed — avoiding the
-> +	 * recursive ww_mutex deadlock. Unpinned; eviction is handled via
-> +	 * amdgpu_vm_bo_add() inside amdgpu_trap_map_region().
-> +	 */
-> +	memset(&bp, 0, sizeof(bp));
-> +	bp.size        = AMDGPU_TRAP_TMA_MAX_SIZE;
-> +	bp.byte_align  = PAGE_SIZE;
-> +	bp.domain      = AMDGPU_GEM_DOMAIN_GTT;
-> +	bp.flags       = AMDGPU_GEM_CREATE_CPU_GTT_USWC |
-> +			 AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> +	bp.type        = ttm_bo_type_kernel;
-> +	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-> +	bp.resv        = vm->root.bo->tbo.base.resv;
-> +
-> +	r = amdgpu_bo_create(adev, &bp, &cwsr->tma_bo);
->  	if (r)
-> -		goto err;
-> +		goto err_exec;
-> +
-> +	/* VM resv already held — kmap directly, no separate reserve needed */
-> +	r = amdgpu_bo_kmap(cwsr->tma_bo, &cwsr->tma_cpu_addr);
-> +	if (r)
-> +		goto err_tma;
-> +
-> +	memset(cwsr->tma_cpu_addr, 0, AMDGPU_TRAP_TMA_MAX_SIZE);
->  
->  	r = amdgpu_trap_map_region(adev, vm, cwsr, AMDGPU_TRAP_TMA);
->  	if (r)
-> -		goto err;
-> +		goto err_kmap;
-> +
->  	r = amdgpu_trap_map_region(adev, vm, cwsr, AMDGPU_TRAP_TBA);
->  	if (r) {
->  		amdgpu_trap_unmap_region(adev, cwsr, AMDGPU_TRAP_TMA);
-> -		goto err;
-> +		goto err_kmap;
->  	}
->  
-> -err:
->  	drm_exec_fini(&exec);
-> -	if (r) {
-> -		amdgpu_bo_free_kernel(&cwsr->tma_bo, NULL, NULL);
-> -		kfree(cwsr);
-> -		*trap_obj = NULL;
-> -	} else {
-> -		*trap_obj = cwsr;
-> -	}
-> +	*trap_obj = cwsr;
-> +	return 0;
->  
-> +err_kmap:
-> +	amdgpu_bo_kunmap(cwsr->tma_bo);
-> +err_tma:
-> +	amdgpu_bo_unref(&cwsr->tma_bo);
-> +err_exec:
-> +	drm_exec_fini(&exec);
-> +	kfree(cwsr);
-> +	*trap_obj = NULL;
->  	return r;
->  }
->  
-> @@ -473,6 +499,7 @@ void amdgpu_trap_free(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  
->  	if (!trap_obj || !*trap_obj || !(*trap_obj)->tma_bo)
->  		return;
-> +
->  	tba_bo = adev->trap_info->isa_bo;
->  	tma_bo = (*trap_obj)->tma_bo;
->  
-> @@ -480,15 +507,11 @@ void amdgpu_trap_free(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  		return;
->  
->  	drm_exec_init(&exec, 0, 0);
-> -	drm_exec_until_all_locked(&exec)
-> -	{
-> +	drm_exec_until_all_locked(&exec) {
->  		r = amdgpu_vm_lock_pd(vm, &exec, 0);
->  		if (likely(!r))
->  			r = drm_exec_lock_obj(&exec, &tba_bo->tbo.base);
->  		drm_exec_retry_on_contention(&exec);
-> -		if (likely(!r))
-> -			r = drm_exec_lock_obj(&exec, &tma_bo->tbo.base);
-> -		drm_exec_retry_on_contention(&exec);
->  		if (unlikely(r)) {
->  			dev_err(adev->dev,
->  				"failed to reserve CWSR BOs: err=%d\n", r);
-> @@ -500,7 +523,9 @@ void amdgpu_trap_free(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  	amdgpu_trap_unmap_region(adev, *trap_obj, AMDGPU_TRAP_TMA);
->  err:
->  	drm_exec_fini(&exec);
-> -	amdgpu_bo_free_kernel(&(*trap_obj)->tma_bo, NULL, NULL);
-> +	/* TMA BO not pinned — release CPU mapping and free */
-> +	amdgpu_bo_kunmap((*trap_obj)->tma_bo);
-> +	amdgpu_bo_unref(&(*trap_obj)->tma_bo);
->  	kfree(*trap_obj);
->  	*trap_obj = NULL;
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
+> index 3349e8bc1c20..cfc46f912d47 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
+> @@ -131,7 +131,7 @@ static int gmc_v12_1_process_interrupt(struct amdgpu_device *adev,
+>   	struct amdgpu_vmhub *hub;
+>   	uint32_t cam_index = 0;
+>   	const char *hub_name;
+> -	int ret, xcc_id = 0;
+> +	int xcc_id = 0;
+>   	uint32_t status = 0, status_hi = 0;
+>   	const char *die_name;
+>   	char die_name_buf[32];
+> @@ -164,44 +164,13 @@ static int gmc_v12_1_process_interrupt(struct amdgpu_device *adev,
+>   	hub = &adev->vmhub[vmhub];
+>   
+>   	if (retry_fault) {
+> -		if (adev->irq.retry_cam_enabled) {
+> -			/* Delegate it to a different ring if the hardware hasn't
+> -			 * already done it.
+> -			 */
+> -			if (entry->ih == &adev->irq.ih) {
+> -				amdgpu_irq_delegate(adev, entry, 8);
+> -				return 1;
+> -			}
+> -
+> -			cam_index = entry->src_data[3] & 0x3ff;
+> -
+> -			ret = amdgpu_vm_handle_fault(adev, entry->pasid, entry->vmid, node_id,
+> -							addr, entry->timestamp, write_fault);
+> -			WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
+> -			if (ret)
+> -				return 1;
+> -		} else {
+> -			/* Process it onyl if it's the first fault for this address */
+> -			if (entry->ih != &adev->irq.ih_soft &&
+> -				amdgpu_gmc_filter_faults(adev, entry->ih, addr, entry->pasid,
+> -							 entry->timestamp))
+> -				return 1;
+> -
+> -			/* Delegate it to a different ring if the hardware hasn't
+> -			 * already done it.
+> -			 */
+> -			if (entry->ih == &adev->irq.ih) {
+> -				amdgpu_irq_delegate(adev, entry, 8);
+> -				return 1;
+> -			}
+> +		cam_index = entry->src_data[3] & 0x3ff;
+>   
+> -			/* Try to handle the recoverable page faults by filling page
+> -			 * tables
+> -			 */
+> -			if (amdgpu_vm_handle_fault(adev, entry->pasid, entry->vmid, node_id,
+> -						   addr, entry->timestamp, write_fault))
+> -				return 1;
+> -		}
+> +		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, cam_index, node_id,
+> +							write_fault);
+> +		/* Returning 1 here also prevents sending the IV to the KFD */
+> +		if (ret == 1)
+> +			return 1;
+>   	}
+>   
+>   	if (kgd2kfd_vmfault_fast_path(adev, entry, retry_fault))
 
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Regards,
+
+Tvrtko
