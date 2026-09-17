@@ -4,56 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B36F7C982D2
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 10:08:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0259C982CF
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 11:02:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6E4A10E6EA;
-	Thu, 17 Sep 2026 10:08:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6328A10E38E;
+	Thu, 17 Sep 2026 11:02:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="iZ8vfKiu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rhdIkZJd";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE05510E6BC;
- Thu, 17 Sep 2026 10:08:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=M4bN2C7s/6zOley9omRubsgYnDZticA8q7pf30uDR1o=; b=iZ8vfKiufR/D8EEUFITCzUQ93W
- SxguyEG6HHr3uG+iJfCVlDcOzrHIulnsozIcYT5nVkZI8b9jsaNg8Mh5si1pgeShpYVK2MLZqUcz8
- FUhZqyDWK5TNNIu7/AeHI7e6R9Bmnum/0FjrkRNtuHSd4R7Uk4lBdI/gdfq6LOBMrZ7Q8i1EN47Uw
- ivzF+BQepyt1V5MQ/dd5WF2a6Xg1K4MWFN6W+3H3BjtY/Nb5NLE3w3DT5o5NmGMEV3MOQAOWbjvp/
- /BnDjpd1umh1jj9jH3s3lILGyyJ8GC/9JVpI4A7v/KC1pRZZ/3FJaSJLqz+3PanHkN5p4qiyQmm7O
- MLACkfEA==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x792F-003LBf-TL; Thu, 17 Sep 2026 12:08:07 +0200
-Message-ID: <22f3541b-6c35-406f-9caa-7ff9fe6793da@igalia.com>
-Date: Thu, 17 Sep 2026 11:08:06 +0100
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012010.outbound.protection.outlook.com
+ [40.107.200.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6774D10E38E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 11:02:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Iej6xiqJ3ce5ux9jA1A+Z52PDYImKr2aBKOcRtgRwtC8I8/vlIryO9HriMjOsFmYxKqeOuY5VfnpzmIkn0J7UiP9Pmg8JX94UhsgCYLIFCgVGPePZ51pRstlKXOzOoYZiumiRpr1H/Kruk5F1ykXytaxr2nPOQwFnUo/DIu0HSNqYjhX20iJZVzDLoZ6Z82DsDYOynPigVx6IrVI47Bwsvk64yF7yFYfQM+4+JcADHTJq58dd40D2c51DovSLtG4RvnqPZddrrA3N0hYQfTE0eJNOorgyluBlEW5GWIX4tsBDE2Trra2A8wujLkdErexnB9ykj6Se+SREWEsE2r0UQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t54JUm/ZewVv8Cz40EfQRdPMJ1Ehz4O4DiEb+QH2ksI=;
+ b=P/0zfgukHrQIEUTGIaipiLZiQbybamE98UPsfvNPSdNUvhv5/+u8tnsT6a5xKa7fnOocxQycvN3POCMxODCl+Ot7Q2aharrZAryW7140PASLY4x5HIZTjnODxHu+bYTzdEkc/ZlE76CQMXTo6Nq3zrboyhBbFWFpZB1sjmpqsPhSyyFdaXIqhtGuCa3ndJ/oWU02p2etz57DrIBXwqwfmBb3Z16A8H/7Dx6fVkSfXh8hxoH/TgN53+aoUMssH6HkZmiHpAduNzPLXbAbF5wGXOwKPOui8uj65rrzHv9uC0T8oRZMa/TzC4StO/G/8dYn3SKzMlUqPfe3O/pES06BIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t54JUm/ZewVv8Cz40EfQRdPMJ1Ehz4O4DiEb+QH2ksI=;
+ b=rhdIkZJdjjtIusVLnB8EAsP9FN/rEXUWt9ROHI3Pul8uxWbQv8d4gRTrdDHYWhH/TqRvenRElwXIoJ5fO0cDA1ER1oXLCttmxfUrJR6C7vb5PZtiDstU/eZXFvyZVP74TelHXB40c3mH9JSoWMWo23SCwohy8FQgsMa52e+jpc0=
+Received: from RI1P284CA0016.BRAP284.PROD.OUTLOOK.COM (2603:10d6:10:150::15)
+ by SJ2PR12MB8829.namprd12.prod.outlook.com (2603:10b6:a03:4d0::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 17 Sep
+ 2026 11:02:43 +0000
+Received: from SJ5PEPF00000206.namprd05.prod.outlook.com
+ (2603:10d6:10:150:cafe::21) by RI1P284CA0016.outlook.office365.com
+ (2603:10d6:10:150::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
+ 17 Sep 2026 11:02:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF00000206.mail.protection.outlook.com (10.167.244.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 11:02:41 +0000
+Received: from yhuang-B850M-AORUS-PRO-WIFI7.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 17 Sep 2026 06:02:38 -0500
+From: Huang Yu <yhuang13@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+CC: Yu Huang <Yu.Huang@amd.com>, Honglei Huang <honghuan@amd.com>, Ray Huang
+ <ray.huang@amd.com>, Shen Junhua <junhshen@amd.com>, Lingshan Zhu
+ <lingszhu@amd.com>, Timur Cristof <timur.kristof@gmail.com>, Natalie Vock
+ <natalie.vock@gmx.de>, AMD-GFX <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/13] drm/amdgpu: fixes for the VM critical section and page
+ fault rework
+Date: Thu, 17 Sep 2026 19:01:45 +0800
+Message-ID: <20260917110158.296198-1-yhuang13@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH i-g-t v6 9/9] tests/cgroup_dmem: add
- write_eviction_nonblock subtest
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>,
- kernel-dev@igalia.com
-References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
- <20260903-dmem_max-v6-9-61dc62970fae@igalia.com>
- <ec2d6a48-f243-4990-8c22-132fb3ef1007@igalia.com>
- <aqlZQENgx5px15hb@quatroqueijos.cascardo.eti.br>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <aqlZQENgx5px15hb@quatroqueijos.cascardo.eti.br>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000206:EE_|SJ2PR12MB8829:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23e87d27-7d11-4745-f5a6-08df14ab31c4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|10067099003|3023799007|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: lRE/qhghe7k6bpQxNaAVvo7RszA1NO97tBdFyBVyqFTxB/CguUJcX8OzqAip286uissNJXVUUbOadrAvMvfeXsp+2jQBX2PxTpHg+lKD3dUIYpV0omAARLWvujq+aHCj6agHDLda6ttO8IfCIG0i9kopkTZanHbVoBJozlKKkYEx0776zpFHq7gtT+OxEd7E6+1vnIXQf5Dr7I6lWecB4nf8JkHC8MhLOwA3Oro/LZkhT3F9WaLhdWcFsMVxSUVc5czeiZXD10vT1whRT2rJMuh1Ov9T/50cBTx7GmBXfh6ulZ9aYd9swCMeYl/2kQPs+132hnwM7Q1ocXTD6ypAV7+eNFrQSAt3R4HrL3XwUXCoVLpNWkAbtHxO7Khsm2hc8IgbTQh961MeP6+hHdZ/eX6SU5FshoX6h4B1sSbzJw4Z9mjzjviPf7MLIkHE9zy+SZujPoNXIznmSm8aYHd06SnhnDw13OLiSXAkoRM2oL8gh2ozSPmeeRCraWCvxKcjUECCIydjl2pC1C7UG8RTtdj4gHbGzFrOkKuz4fnUedhAm85hWL0PlSgQDajCTMHzIPuptNsZ3y/GwE8K6jEPz2cixxbPFjVBZcNxwwT24M6Cf4MMpkCI1reRkg1kq45VqhJFjuShLwoLWE0HDozc7KP7XxFzdbepvK7reI7GSnH1FygMaki+jE4IS81rwgjzkQ4HCTL/tUX4EvGsh1+ZTw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(10067099003)(3023799007)(18002099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: h6BZUcZgsjPAaQgPUVqzYs9L6//UVUF9JjP6dL9mfSaVrqKHviNUkjakJt4ugAPxmxlFjZhRT0CbkFFnCPspkjEwxs1i7s/Ddk9QGdRnimfOsxadfRCZbBt/sKIAJ82L9QscSiYygDTmsRJEEzz42mHBxMRyZ14t0wKOO1FmOuiFTxtXJiXIwUdw7P73P8cilgzjbegCdwnjlC4nypfwhU0HndBrSKn1tZJbWC6PDHOsWc1inwLQ1RGmNZ4ivbOQxJ8ahZ9TZNBCxXsknkBn0jVUlJCvuzQ/Sv9Ty5eYtCRtmGKc08/Oyc5DoTb2W8E64ULvDu/FVUfeGUT8aQlGjeQ7OJmz0FgVv81JwP5n2KlzhfSZ9ZHgLxxL2V3dEL5B7Blz/920tHqtOxtsEFTMDBGMsUHO+fdbYSRZ5wqXFs2TDDRx79IGWENfv8r90y7z
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 11:02:41.5857 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23e87d27-7d11-4745-f5a6-08df14ab31c4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000206.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8829
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,138 +112,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Christian,
 
-On 15/09/2026 15:42, Thadeu Lima de Souza Cascardo wrote:
-> On Fri, Sep 04, 2026 at 03:51:33PM +0100, Tvrtko Ursulin wrote:
->>
->> On 03/09/2026 23:00, Thadeu Lima de Souza Cascardo wrote:
->>> From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>>
->>> Add write_eviction_nonblock to exercise the O_NONBLOCK path of the dmem
->>> cgroup max interface.  After filling VRAM to the cgroup limit, each
->>> limit-lowering step writes dmem.max with O_NONBLOCK so that synchronous
->>> eviction is skipped.  The test then verifies that usage has not yet
->>> dropped below the new limit, allocates a small BO to trigger eviction
->>> explicitly, and finally confirms that usage falls within bounds.
->>>
->>> Assisted-by: GitHub Copilot:claude-sonnet-4.6
->>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->>> ---
->>>    tests/cgroup_dmem.c | 37 ++++++++++++++++++++++++++++++++++---
->>>    1 file changed, 34 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
->>> index 0d3b415acd54..ee6345c17878 100644
->>> --- a/tests/cgroup_dmem.c
->>> +++ b/tests/cgroup_dmem.c
->>> @@ -41,6 +41,7 @@
->>>    #define USAGE_DROP_TIMEOUT_MS	1000
->>>    #define TEST_INTERRUPTIBLE	(1 << 0)
->>> +#define TEST_NONBLOCK		(1 << 1)
->>>    /**
->>>     * SUBTEST: simple
->>> @@ -90,6 +91,18 @@
->>>     * REQUIREMENTS: must run as root; xe device with at least one VRAM region
->>>     */
->>> +/**
->>> + * SUBTEST: write_eviction_nonblock
->>> + * DESCRIPTION:
->>> + *   Same fill phase as write_eviction.  In the limit-lowering phase dmem.max
->>> + *   is written with O_NONBLOCK, which causes the kernel to skip synchronous
->>> + *   eviction.  After each nonblock write the test verifies that usage has not
->>> + *   yet dropped below the new limit, then triggers eviction explicitly by
->>> + *   allocating a small BO.  Finally verifies that usage falls within bounds
->>> + *   after the forced eviction.
->>> + * REQUIREMENTS: must run as root; xe device with at least one VRAM region
->>> + */
->>> +
->>>    static atomic_int signal_count;
->>>    static struct sigaction sigcont_oldact;
->>> @@ -277,7 +290,7 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
->>>    	struct igt_cgroup *cg;
->>>    	void **handles;
->>>    	int max_bo;
->>> -	uint64_t current, capacity, cg_max, limit, after;
->>> +	uint64_t current, capacity, cg_max, limit, after, before;
->>>    	int err;
->>>    	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
->>> @@ -322,14 +335,31 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
->>>    	while (limit >= EVICT_STEP) {
->>>    		limit -= EVICT_STEP;
->>> -		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
->>> +
->>> +		if (flags & TEST_NONBLOCK)
->>> +			igt_cgroup_dmem_get_current(cg, cg_region, &before);
->>> +
->>> +		igt_cgroup_dmem_set_max(cg, cg_region, limit,
->>> +					!!(flags & TEST_NONBLOCK));
->>>    		igt_cgroup_dmem_get_current(cg, cg_region, &after);
->>>    		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
->>>    			  limit / SZ_1M, after / SZ_1M);
->>> +		if (flags & TEST_NONBLOCK) {
->>> +			/*
->>> +			 * O_NONBLOCK skips eviction: verify usage has not
->>> +			 * dropped below the new limit yet.
->>> +			 */
->>
->> Is this userspace ABI contract or happens to be? It feels odd - even if we
->> ask for non block for the write why would kernel not be allowed to do stuff
->> behind the covers?
->>
-> 
-> You bring up an interesting perspective. So maybe the test below might
-> fail. But we are assuming the test is running with no other users, so this
-> would be unexpected. Unless we setup dmem.min, there is no guarantee that
-> eviction won't happen. However, I think the test is still useful as it is.
-> We are checking that nonblocking behavior will not trigger eviction right
-> away. We risk not catching up such regression if we leave it out. If we end
-> up noticing on CI that this happens, we can investigate and revisit.
+patches 1-8 and 10 are your VM rework. The other four are fixes found
+while testing it with KFD SVM on top:
 
-I looked at the commit which added it:
+1. patch 09: amdgpu_vm_pt_alloc() leaks the new PT BO when the
+   allocation succeeds but the VM is evicting once the critical section
+   is re-entered. Release the unpublished BO, keep the critical section
+   owned by the caller.
 
-commit 747c4bb450adcd8b99d3543448419e1952755832
-Author: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Date:   Sat Jul 25 12:00:33 2026 +0200
+2. patch 11: amdgpu_vm_pt_leaves() always updated cursor.parent->bo, so
+   a walk stopping at an allocated PTB wrote a PDE in the parent instead
+   of the PTEs in the leaf. Use the entry's own BO and level, and go
+   through amdgpu_vm_pte_update_flags().
 
-     cgroup/dmem: Add reclaim callback for lowering max below current usage
+3. patch 12: both callers passed an inclusive last address, but
+   amdgpu_vm_pt_leaves() works on a half-open range. That dropped the
+   last page in amdgpu_vm_unmap_range(), and made amdgpu_vm_handle_fault()
+   skip the loop entirely, so AMDGPU_VM_NORETRY_FLAGS were never written
+   and the wave kept retrying.
 
-...
+4. patch 13: for a redirect to the dummy hierarchy above the PTE level
+   the entry points to the next-level dummy PD/PT, but
+   amdgpu_vm_pte_update_flags() treats everything above PTB as a leaf and
+   applies AMDGPU_PDE_PTE_FLAG(). Encode it with
+   amdgpu_gmc_get_pde_for_bo() instead.
 
-     Also honor O_NONBLOCK so that if that flag is set during the
-     max value write, no reclaim is initiated. The idea is to avoid
-     charging the reclaim cost to the writer of the max value.
+One question on patch 13: it special cases the dummy PDE inside
+amdgpu_vm_pt_leaves(), which adds a second update path next to
+amdgpu_vm_pte_update_flags(). The alternatives are to let
+amdgpu_vm_pte_update_flags() encode a directory entry when the level is
+not AMDGPU_VM_PTB, or to pass already encoded dummy PDEs in dst[] from
+amdgpu_vm_handle_fault(). Which one do you prefer?
 
-So it was by design. I assume the charging avoidance is for the case 
-when eviction needs to allocate in a different placement. Perhaps a bit 
-of a kludge but perhaps I also miss some historical conversations about it.
+Thanks,
+Yu
 
-Either way, the test itself is a-okay.
+Christian König (9):
+  drm/amdgpu: start to move VM internals into amdgpu_vm_internal.h
+  drm/amdgpu: remove unecessary parameters from
+    trace_amdgpu_vm_update_ptes
+  drm/amdgpu: allocate and fill dummy PDs/PTs
+  drm/amdgpu: add amdgpu_vm_pt_leaves()
+  drm/amdgpu: drop immediate updates from amdgpu_vm_update_range
+  drm/amdgpu: split amdgpu_vm_update_range
+  drm/amdgpu: nuke most amdgpu_vm_eviction_(try)lock uses
+  drm/amdgpu: rework eviction lock handling into critical section v2
+  drm/amdgpu: fix the HMM range handling for KFD SVM
 
-Regards,
+Yu Huang (4):
+  drm/amdgpu: free PT when VM critical section cannot resume
+  drm/amdgpu: update the PTB itself in amdgpu_vm_pt_leaves()
+  drm/amdgpu: pass an exclusive end to amdgpu_vm_pt_leaves()
+  drm/amdgpu: use directory flags for dummy PDEs
 
-Tvrtko
-
->>> +			igt_assert_f(after == before,
->>> +				     "Expected no eviction with O_NONBLOCK, but "
->>> +				     "usage dropped from %"PRIu64" MiB to %"PRIu64" MiB "
->>> +				     "(limit %"PRIu64" MiB)\n",
->>> +				     before / SZ_1M, after / SZ_1M, limit / SZ_1M);
->>> +		}
->>> +
->>>    		if (limit > EVICT_STEP) {
->>> -			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
->>> +			if ((flags & (TEST_INTERRUPTIBLE | TEST_NONBLOCK)) && after > limit) {
->>>    				/* Let a new bo creation trigger eviction. */
->>>    				void *handle;
->>>    				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
->>> @@ -368,6 +398,7 @@ static const struct {
->>>    	{ "current", test_current, 0 },
->>>    	{ "write_eviction", test_write_eviction, 0 },
->>>    	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
->>> +	{ "write_eviction_nonblock", test_write_eviction, TEST_NONBLOCK },
->>>    	{ }
->>>    };
->>>
->>
+-- 
+2.53.0
 
