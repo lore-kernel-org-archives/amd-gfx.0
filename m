@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25CE0C88E72
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C2CDC982D3
 	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 12:04:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9040610EE1E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91E1910EE2D;
 	Thu, 17 Sep 2026 12:04:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sS9mxmH7";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="b0LP64rp";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD31910EE2D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4C2210E3F8;
  Thu, 17 Sep 2026 12:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=aKd7pCju4B8d/7p/PpXBZz6Zvw4V9MdgN77MOjhy1xY=; b=sS9mxmH7oaJJnPA1prFs58O5VG
- rX6RAfQ8rtYGdLMMJp6gU1OmUBHx9StWUhY/gQ5kQxBlpSXlfba5O+C7tqenUKBsUwU/1ETv4yLG/
- xUpvOZRpkVlP9aqxLBOWMhzYWdQT5kN9L/d5lGDbk8+b8WCKigkSv1DZb7yE94SvwLo6OdWNx+S/J
- 9esBputejglVivJL1ld8DmqTYPNmrGOPFaMfj3XjotoNNPUKwaU35GZMbpXV372bfLSSgWxpHcoqu
- Izla8mXIkIJ4Zsc0hbxFRm8ZGIRue4z4QJvxZrO+kapqq7mUlKh3Lp4HE30TpzZ7GBqR/h1ykSs7S
- 3/Ekbe6w==;
+ bh=gs4Qd+KMY/RhH/19Tr5sJ3MNG94oFeTViDA1dKLFHu8=; b=b0LP64rpk8jXLFacYIMAITrb3V
+ dTLpjo1t0U0JkKpugHu5HFAtB4mTaRMJCHglnQu+F6P3w4ZaVNK1FW5+4okYnJAl5FdhgdNAnWrFM
+ REXt76a9IkTFhs2gCIQ5ulz4b4VAJ12BgHz/wv5pp23L1MtO3OIE2PElx8W232UP1sSE/bwJ3een4
+ 0VU+XEiLlqYIBhMIQ1kUywUujpXhdo8U26QIClOV25OKn2D8psDikzFA9bT2EaLzvLGFKMnVNs80e
+ 5ZiUYm+ofcECXChcTBd0FNeWs8VxBM+iYlvUxdCuqhRSkqcoH0QQIrHYeGiqd6i5oyUAfl5XSfMyD
+ YvHAjyPg==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x7Ar9-003NUM-4P; Thu, 17 Sep 2026 14:04:47 +0200
+ id 1x7Ar9-003NUO-Sd; Thu, 17 Sep 2026 14:04:47 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -41,9 +41,9 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Subject: [RFC 1/2] drm: Allow drivers to report standardized memory stats
-Date: Thu, 17 Sep 2026 13:04:43 +0100
-Message-ID: <20260917120444.86471-2-tvrtko.ursulin@igalia.com>
+Subject: [RFC 2/2] drm/amdgpu: Wire up DRM memory stats reporting
+Date: Thu, 17 Sep 2026 13:04:44 +0100
+Message-ID: <20260917120444.86471-3-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
 References: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
@@ -64,38 +64,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a DRM driver level vfunc which allows drivers to opt-in into
-reporting standardized memory stats via sysfs.
+Wire up the driver agnostic DRM memory reporting for the VRAM and GTT
+memory regions.
 
-Via the vfunc drivers can report a list of memory regions in a stable
-order, with the names following the memory region names used for fdinfo
-memory stats. The region names become directory names under the parent
-'memstat' directory.
+As the list of regions and their stats needs to be returned to the DRM
+core for inspection and remain valid after the callback had exited, the
+persistent storage is kept at the device level and updated on each query.
 
-Each region reports the total size of the region and its current usage,
-represented respectively in the total_mb and used_mb files present under
-the aforementioned memory region named directories.
-
-The card level 'memstat' directory is only created for drivers who report
-at least one memory region.
-
-Amdgpu example:
-
-/sys/class/drm/card1/memstat/
-├── gtt
-│   ├── total_mb
-│   └── used_mb
-└── vram
-    ├── total_mb
-    └── used_mb
-
-Or with concrete numbers:
-
-$ grep -Hr . /sys/class/drm/card1/memstat/
-/sys/class/drm/card1/memstat/vram/total_mb:1024
-/sys/class/drm/card1/memstat/vram/used_mb:445
-/sys/class/drm/card1/memstat/gtt/total_mb:7394
-/sys/class/drm/card1/memstat/gtt/used_mb:71
+The current list of memory region names as reported for fdinfo memory
+stats is exported as a helper in order to achieve standardized names, as
+required by the DRM contract.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Maíra Canal <mcanal@igalia.com>
@@ -108,299 +86,174 @@ Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Simona Vetter <simona@ffwll.ch>
 ---
- drivers/gpu/drm/drm_drv.c   |  10 +++
- drivers/gpu/drm/drm_sysfs.c | 123 ++++++++++++++++++++++++++++++++++++
- include/drm/drm_device.h    |  19 ++++++
- include/drm/drm_drv.h       |   8 +++
- include/drm/drm_file.h      |   9 +++
- include/drm/drm_sysfs.h     |   4 ++
- 6 files changed, 173 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  6 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 40 +++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 37 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  3 ++
+ 5 files changed, 75 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 0cdc606af8d1..ab26cfd73002 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -54,6 +54,7 @@
- #include <drm/drm_print.h>
- #include <drm/drm_privacy_screen_machine.h>
- #include <drm/drm_ras_genl_family.h>
-+#include <drm/drm_sysfs.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 79b69d74eb2e..8c00f76cfc7b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -965,6 +965,9 @@ struct amdgpu_device {
  
- #include "drm_crtc_internal.h"
- #include "drm_internal.h"
-@@ -197,10 +198,15 @@ static int drm_minor_register(struct drm_device *dev, enum drm_minor_type type)
- 	if (ret)
- 		goto err_debugfs;
+ 	struct amdgpu_uma_carveout_info uma_info;
  
-+	ret = drm_sysfs_register_memstat(minor);
-+	if (ret)
-+		goto err_kdev;
++	struct drm_memory_info		memory_info;
++	struct drm_memory_region_info	__memory_region_info[2]; /* Storage for memory_info */
 +
- 	/* replace NULL with @minor so lookups will succeed from now on */
- 	entry = xa_store(drm_minor_get_xa(type), minor->index, minor, GFP_KERNEL);
- 	if (xa_is_err(entry)) {
- 		ret = xa_err(entry);
-+		drm_sysfs_unregister_memstat(minor);
- 		goto err_debugfs;
+ 	/* KFD
+ 	 * Must be last --ends in a flexible-array member.
+ 	 */
+@@ -1350,4 +1353,7 @@ void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
+ 			   uint64_t uid);
+ uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
+ 			       enum amdgpu_uid_type type, uint8_t inst);
++
++const struct drm_memory_info *amdgpu_drm_memory_info(struct drm_device *drm);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 9c5e93cd3ee6..9830497b9ed2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -3142,7 +3142,7 @@ static const struct drm_driver amdgpu_kms_driver = {
+ #ifdef CONFIG_PROC_FS
+ 	.show_fdinfo = amdgpu_show_fdinfo,
+ #endif
+-
++	.get_memory_info = amdgpu_drm_memory_info,
+ 	.gem_prime_import = amdgpu_gem_prime_import,
+ 
+ 	.name = DRIVER_NAME,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+index b349bb3676d5..3bbd053cd9f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+@@ -55,14 +55,9 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
+ 	[AMDGPU_HW_IP_VPE]	=	"vpe",
+ };
+ 
+-void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
++const char *amdgpu_ttm_pl_to_name(unsigned int placement)
+ {
+-	struct amdgpu_fpriv *fpriv = file->driver_priv;
+-	struct amdgpu_vm *vm = &fpriv->vm;
+-
+-	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
+-	ktime_t usage[AMDGPU_HW_IP_NUM];
+-	const char *pl_name[] = {
++	static const char *names[] = {
+ 		[TTM_PL_VRAM] = "vram",
+ 		[TTM_PL_TT] = "gtt",
+ 		[TTM_PL_SYSTEM] = "cpu",
+@@ -72,6 +67,30 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+ 		[AMDGPU_PL_DOORBELL] = "doorbell",
+ 		[AMDGPU_PL_MMIO_REMAP] = "mmioremap",
+ 	};
++
++	if (WARN_ON_ONCE(placement >= ARRAY_SIZE(names)))
++		return "unknown";
++
++	return names[placement];
++}
++
++void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
++{
++	struct amdgpu_fpriv *fpriv = file->driver_priv;
++	struct amdgpu_vm *vm = &fpriv->vm;
++
++	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
++	ktime_t usage[AMDGPU_HW_IP_NUM];
++	static const unsigned int regions[] = {
++		TTM_PL_VRAM,
++		TTM_PL_TT,
++		TTM_PL_SYSTEM,
++		AMDGPU_PL_GDS,
++		AMDGPU_PL_GWS,
++		AMDGPU_PL_OA,
++		AMDGPU_PL_DOORBELL,
++		AMDGPU_PL_MMIO_REMAP,
++	};
+ 	unsigned int hw_ip, i;
+ 
+ 	amdgpu_vm_get_memory(vm, stats);
+@@ -85,15 +104,12 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+ 
+ 	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
+ 
+-	for (i = 0; i < ARRAY_SIZE(pl_name); i++) {
+-		if (!pl_name[i])
+-			continue;
+-
++	for (i = 0; i < ARRAY_SIZE(regions); i++) {
+ 		drm_print_memory_stats(p,
+ 				       &stats[i].drm,
+ 				       DRM_GEM_OBJECT_RESIDENT |
+ 				       DRM_GEM_OBJECT_PURGEABLE,
+-				       pl_name[i]);
++				       amdgpu_ttm_pl_to_name(regions[i]));
  	}
- 	WARN_ON(entry);
-@@ -208,6 +214,9 @@ static int drm_minor_register(struct drm_device *dev, enum drm_minor_type type)
- 	DRM_DEBUG("new minor registered %d\n", minor->index);
- 	return 0;
  
-+err_kdev:
-+	device_del(minor->kdev);
-+
- err_debugfs:
- 	drm_debugfs_unregister(minor);
- 	return ret;
-@@ -224,6 +233,7 @@ static void drm_minor_unregister(struct drm_device *dev, enum drm_minor_type typ
- 	/* replace @minor with NULL so lookups will fail from now on */
- 	xa_store(drm_minor_get_xa(type), minor->index, NULL, GFP_KERNEL);
+ 	/* Legacy amdgpu keys, alias to drm-resident-memory-: */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index c509dc45ba19..2336ea1cd008 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -3027,3 +3027,40 @@ void amdgpu_ttm_debugfs_init(struct amdgpu_device *adev)
  
-+	drm_sysfs_unregister_memstat(minor);
- 	device_del(minor->kdev);
- 	dev_set_drvdata(minor->kdev, NULL); /* safety belt */
- 	drm_debugfs_unregister(minor);
-diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-index 7b16d32b6ff6..4a8c5b0b458d 100644
---- a/drivers/gpu/drm/drm_sysfs.c
-+++ b/drivers/gpu/drm/drm_sysfs.c
-@@ -25,6 +25,7 @@
- #include <drm/drm_accel.h>
- #include <drm/drm_connector.h>
- #include <drm/drm_device.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_modes.h>
- #include <drm/drm_print.h>
-@@ -589,3 +590,125 @@ struct device *drm_sysfs_minor_alloc(struct drm_minor *minor)
- 	put_device(kdev);
- 	return ERR_PTR(r);
+ #endif
  }
 +
-+static ssize_t total_mb_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			     char *buf)
++const struct drm_memory_info *amdgpu_drm_memory_info(struct drm_device *drm)
 +{
-+	struct drm_memstat_attr *mattr = container_of(kobj, typeof(*mattr), kobj);
-+	struct drm_device *drm = mattr->drm;
-+	const struct drm_memory_info *info;
++	struct amdgpu_device *adev = drm_to_adev(drm);
++	struct drm_memory_info *info = &adev->memory_info;
++	static const unsigned int regions[] = {
++		TTM_PL_VRAM,
++		TTM_PL_TT,
++	};
++	struct drm_memory_region_info *region;
++	struct ttm_resource_manager *man;
++	unsigned int i;
 +
-+	if (drm->driver->get_memory_info) {
-+		info = drm->driver->get_memory_info(drm);
-+		if (info)
-+			return sysfs_emit(buf, "%u\n",
-+					  info->region[mattr->region].total_mb);
++	if (WARN_ON_ONCE(ARRAY_SIZE(adev->__memory_region_info) !=
++			 ARRAY_SIZE(regions)))
++		return NULL;
++
++	if (!info->num_regions) {
++		for (i = 0; i < ARRAY_SIZE(regions); i++) {
++			region = &info->region[i];
++			strscpy(region->name,
++				amdgpu_ttm_pl_to_name(regions[i]),
++				sizeof(region->name));
++			man = ttm_manager_type(&adev->mman.bdev, regions[i]);
++			region->total_mb = man->size >> 20;
++			info->num_regions++;
++		}
 +	}
 +
-+	return 0;
-+}
-+
-+static ssize_t used_mb_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			    char *buf)
-+{
-+	struct drm_memstat_attr *mattr = container_of(kobj, typeof(*mattr), kobj);
-+	struct drm_device *drm = mattr->drm;
-+	const struct drm_memory_info *info;
-+
-+	if (drm->driver->get_memory_info) {
-+		info = drm->driver->get_memory_info(drm);
-+		if (info)
-+			return sysfs_emit(buf, "%u\n",
-+					  info->region[mattr->region].used_mb);
++	for (i = 0; i < ARRAY_SIZE(regions); i++) {
++		region = &info->region[i];
++		man = ttm_manager_type(&adev->mman.bdev, regions[i]);
++		region->used_mb = ttm_resource_manager_usage(man) >> 20;
 +	}
 +
-+	return 0;
++	return &adev->memory_info;
 +}
-+
-+static struct kobj_attribute total_attr = __ATTR_RO(total_mb);
-+static struct kobj_attribute used_attr = __ATTR_RO(used_mb);
-+
-+static struct attribute *memstat_attrs[] = {
-+	&total_attr.attr,
-+	&used_attr.attr,
-+	NULL,
-+};
-+
-+ATTRIBUTE_GROUPS(memstat);
-+
-+static void kobj_memstat_release(struct kobject *kobj)
-+{
-+}
-+
-+static const struct kobj_type memstat_ktype = {
-+	.release = kobj_memstat_release,
-+	.sysfs_ops = &kobj_sysfs_ops,
-+	.default_groups = memstat_groups,
-+};
-+
-+int drm_sysfs_register_memstat(struct drm_minor *minor)
-+{
-+	const struct drm_memory_info *info = NULL;
-+	struct drm_device *drm = minor->dev;
-+	struct drm_memstat_attr *regions;
-+	struct kobject *root;
-+	int i, ret = -ENOMEM;
-+
-+	if (drm->driver->get_memory_info)
-+		info = drm->driver->get_memory_info(drm);
-+
-+	if (!info || !info->num_regions)
-+		return 0;
-+
-+	regions = kmalloc_objs(*regions, info->num_regions + 1);
-+	if (!regions)
-+		return -ENOMEM;
-+
-+	root = kobject_create_and_add("memstat", &minor->kdev->kobj);
-+	if (!root)
-+		goto err_root;
-+
-+	for (i = 0; i < info->num_regions; i++) {
-+		regions[i].region = i;
-+		regions[i].drm = drm;
-+		ret = kobject_init_and_add(&regions[i].kobj, &memstat_ktype,
-+					   root, "%s", info->region[i].name);
-+		if (ret)
-+			goto err_regions;
-+	}
-+
-+	minor->sysfs_memstat = root;
-+	minor->sysfs_memstat_regions = regions;
-+
-+	return 0;
-+
-+err_regions:
-+	while (i-- > 0) {
-+		kobject_del(&regions[i].kobj);
-+		kobject_put(&regions[i].kobj);
-+	}
-+
-+	kobject_del(root);
-+	kobject_put(root);
-+
-+err_root:
-+	kfree(regions);
-+
-+	return ret;
-+}
-+
-+void drm_sysfs_unregister_memstat(struct drm_minor *minor)
-+{
-+	struct drm_memstat_attr *region = minor->sysfs_memstat_regions;
-+
-+	while (region && region->kobj.state_initialized) {
-+		kobject_del(&region->kobj);
-+		kobject_put(&region->kobj);
-+		region++;
-+	}
-+
-+	kfree(minor->sysfs_memstat_regions);
-+
-+	kobject_del(minor->sysfs_memstat);
-+	kobject_put(minor->sysfs_memstat);
-+}
-diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-index 75f030d027ee..0c9260c85b30 100644
---- a/include/drm/drm_device.h
-+++ b/include/drm/drm_device.h
-@@ -67,6 +67,25 @@ enum switch_power_state {
- 	DRM_SWITCH_POWER_DYNAMIC_OFF = 3,
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index adb6cfae5052..1ed07fb4a755 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -271,4 +271,7 @@ void amdgpu_ttm_mmio_remap_free_sgt(struct device *dev,
+ 				    enum dma_data_direction dir,
+ 				    struct sg_table *sgt);
  
-+/**
-+ * struct drm_memory_region_info - Memory name and stats for a region
-+ * @name: Name of the memory region
-+ * @total_mb: Total available memory in mebibytes
-+ * @used_mb: Used memory in mebibytes
-+ */
-+struct drm_memory_region_info {
-+	char	name[24];
++const char *amdgpu_ttm_pl_to_name(unsigned int placement);
++const struct drm_memory_info *amdgpu_drm_memory_info(struct drm_device *drm);
 +
-+	u32	total_mb;
-+	u32	used_mb;
-+};
-+
-+struct drm_memory_info {
-+	unsigned int num_regions;
-+
-+	struct drm_memory_region_info region[];
-+};
-+
- /**
-  * struct drm_device - DRM device structure
-  *
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index b23830494ed4..a3f1906961ac 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -45,6 +45,7 @@ struct drm_minor;
- struct dma_buf;
- struct dma_buf_attachment;
- struct drm_display_mode;
-+struct drm_device_memory_info;
- struct drm_mode_create_dumb;
- struct drm_printer;
- struct sg_table;
-@@ -387,6 +388,13 @@ struct drm_driver {
- 	 */
- 	void (*show_fdinfo)(struct drm_printer *p, struct drm_file *f);
- 
-+	/**
-+	 * @get_memory_info:
-+	 *
-+	 * Get device specific memory info.  See Documentation/gpu/drm-memory-info.rst.
-+	 */
-+	const struct drm_memory_info * (*get_memory_info)(struct drm_device *dev);
-+
- 	/** @major: driver major number */
- 	int major;
- 	/** @minor: driver minor number */
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 6ee70ad65e1f..ebb227a91f60 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -66,6 +66,12 @@ enum drm_minor_type {
- 	DRM_MINOR_ACCEL = 32,
- };
- 
-+struct drm_memstat_attr {
-+	struct kobject kobj;
-+	unsigned int region;
-+	struct drm_device *drm;
-+};
-+
- /**
-  * struct drm_minor - DRM device minor structure
-  *
-@@ -82,6 +88,9 @@ struct drm_minor {
- 	struct device *kdev;		/* Linux device */
- 	struct drm_device *dev;
- 
-+	struct kobject	*sysfs_memstat;
-+	struct drm_memstat_attr  *sysfs_memstat_regions;
-+
- 	struct dentry *debugfs_symlink;
- 	struct dentry *debugfs_root;
- };
-diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
-index 7695873a9456..10ed468965b0 100644
---- a/include/drm/drm_sysfs.h
-+++ b/include/drm/drm_sysfs.h
-@@ -4,10 +4,14 @@
- 
- struct drm_device;
- struct drm_connector;
-+struct drm_minor;
- struct drm_property;
- 
- void drm_sysfs_hotplug_event(struct drm_device *dev);
- void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
- void drm_sysfs_connector_property_event(struct drm_connector *connector,
- 					struct drm_property *property);
-+
-+int drm_sysfs_register_memstat(struct drm_minor *minor);
-+void drm_sysfs_unregister_memstat(struct drm_minor *minor);
  #endif
 -- 
 2.55.0
