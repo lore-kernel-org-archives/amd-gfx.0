@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B90C982D0
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 19:59:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5903C982D2
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Sep 2026 20:12:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3906A10F0B7;
-	Thu, 17 Sep 2026 19:59:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F0F910E004;
+	Thu, 17 Sep 2026 20:12:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0vZIs+y+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="as4M5n9s";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011012.outbound.protection.outlook.com [52.101.62.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4415510F0B7
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Sep 2026 19:59:05 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012011.outbound.protection.outlook.com [52.101.48.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 430A710E004;
+ Thu, 17 Sep 2026 20:12:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xX8RTCQsb4cJB74ejEFHXqLMq68V3ivNRitcqbZs9jFPZQ+VVWULHj4UOPhPsBPY/cvSwOEUIEMXDjhavBcIiA5v1uvapAab4ZiEW2mJpPtP25HF6WEAySAOlJTZ8Gc7BdyY3bp/Ydh/vkO8c/BN5D/OVGqd7NJSLhoStGL95XwfzWCvsMEotWkCpkP5ktOzekuxITEiI0hi8kv2OARdndLQ4BWQgm5CISxfj8CQPyp8IM//l4RWw8agtWULMGsvfkSxS3xaaIo7eMZeKgBZGclGr+HThXPyZb6YY51zHxq22iMLR+JXBcmKRGVExCW03+lmxtxtc/ti/4OWTnLupw==
+ b=ZyxwPOvMbhh4O0vJYLFoZtWvFAlaFCMm3ZVt0koyWiNmNZ0dAICQc1F2usMUYyprrbxotzr4Fsw12+B0H2kEEO6pRJJGePfFdo5cqdv+eQV5wFQqSkaG6Oo0WrmN5wRFmDI4Vg0NxsNYXCLznhQ+w2Vz4B9ElA8rbDJB6C9iaTQh3tpDOaJpZ0C6mYf+wP3LyzcHhLAKH3PO0s9WAywiH0CWmY4mVRz7ZMyxFl1hCVhW/KvXEmHmxk4o5XGKLCfkySz8qx22E9pHgsXyaqV1Qs2S6gXjPLI+NVzZ2A/HjeXIdPc0QxwQjdJzDIRulInNIE2ukONX+KzTqFfsEb5N5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EydSbgzbtj5w8tSIa9H6ExU8S3GeFIR+udY9bWg4/fU=;
- b=wSJygKPy58MaU+LKrKdnkRKoqtUJ1uwNHP8XDjJ+RRTHq+AK/e5wJqJ7UdptTrQnd59qe+QIU2+KCKifnBuVQMAVDQNBtrPa4QfbG6Gb+JG6i+QfynqVBnNg1pYFw5uos0maB//bqsqFoL48soxZMdkquBwATWofbEoQfwAw+1LFx5T9BN0PWPp12jN6un+OtHeDEP1o2CI6QNTYsnyNfahEUB3OvcWIsqPOFZ4RT12lNLK3mOJ2jCYq0M62QgVKncXXH6E0B3iLSmDGZJpxfabBrDF6G+rXhWYd7i2jkDXvt119FOQkYDmnWdcXCFCWcOckbXyzX2vGyen7yMFROA==
+ bh=urg/TFxxcxspg8TA0n05SsXUmnCaHizVvhwuneFSyT8=;
+ b=F8uZ8FXPg2vpAeW9tNJYALirwXFA94Fki/uCz4IXPcYFdMDk0Kwh+CNOkWvbHz6+hw6s1UJY462WTRtd0ny5iDBlwtwOpEa1N98qtgLRPwWPCZO5PnSSD3u+BU8BqyUJeMZloeV8Z0TjCqTHZkMEg0U+9woltE2UykDFsDfM1cMHGaK0comFOlkN2L3tgYR47/4MmisFcrFcumnt9GaDnrEQzi7nZskeT8TuASb3uum7ElSYa362A0VApr0n4KHcS/rj5ymcW0Y/7oajNjTl8+PbRahMcAnvV3P2fVTD8Wn3VZdn/TfzpC0nqKMxTkarVtlmP6n79+I5djx58f4a8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EydSbgzbtj5w8tSIa9H6ExU8S3GeFIR+udY9bWg4/fU=;
- b=0vZIs+y+nw+w8EpeZiSzjZHpoLZ/rrxLAmCp90dxu4JQRjCji85+6ycYtKnctToVHAfy0pkGdTYvag/rizpHaCkaglf2Kv2JqcOaqNvuffHUWDPBKhcysPwuEcgF1KrNxAAXLGA6qhetanFIQGvj3UideJjsjdcsxVdU3NrDXhI=
-Received: from MN0PR04CA0030.namprd04.prod.outlook.com (2603:10b6:208:52d::29)
- by DS0PR12MB7928.namprd12.prod.outlook.com (2603:10b6:8:14c::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 17 Sep
- 2026 19:58:24 +0000
-Received: from SJ1PEPF00001CDD.namprd05.prod.outlook.com
- (2603:10b6:208:52d:cafe::3) by MN0PR04CA0030.outlook.office365.com
- (2603:10b6:208:52d::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
- 17 Sep 2026 19:58:24 +0000
+ bh=urg/TFxxcxspg8TA0n05SsXUmnCaHizVvhwuneFSyT8=;
+ b=as4M5n9sOtFnfvjQ5XGDdzAieg/Z1trYFAV2bIORLS/m6dVDC4RRtznHPC+pFUUHsk6FKwSeeN28bgKzw5nQIUuwVITdFOFb+NTWIFmBHSe+ijDd9Dbsdk489Ht1LAioslw52fizBbC/ULQXohVRP44ZKauhQ2kK65TyG3kYUR0=
+Received: from SJ0PR13CA0203.namprd13.prod.outlook.com (2603:10b6:a03:2c3::28)
+ by LV8PR12MB9112.namprd12.prod.outlook.com (2603:10b6:408:184::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
+ 2026 20:12:34 +0000
+Received: from CO1PEPF000075F2.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c3:cafe::24) by SJ0PR13CA0203.outlook.office365.com
+ (2603:10b6:a03:2c3::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.7 via Frontend Transport; Thu, 17
+ Sep 2026 20:12:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,52 +48,56 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CDD.mail.protection.outlook.com (10.167.242.5) with Microsoft
+ CO1PEPF000075F2.mail.protection.outlook.com (10.167.249.41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 19:58:23 +0000
-Received: from amd-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 20:12:29 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 14:58:22 -0500
-From: Shahyan Soltani <shahyan.soltani@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <pierre-eric.pelloux-prayer@amd.com>, <kevin.wang@amd.com>
-Subject: [PATCH v2 0/8] rework runtime_pm for GPU ioctl access
-Date: Thu, 17 Sep 2026 15:58:01 -0400
-Message-ID: <20260917195812.72917-1-shahyan.soltani@amd.com>
+ 2026 15:12:21 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 15:12:21 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 17 Sep 2026 15:12:20 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-7.3
+Date: Thu, 17 Sep 2026 16:12:13 -0400
+Message-ID: <20260917201213.3880863-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDD:EE_|DS0PR12MB7928:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8077562-84a7-4753-2776-08df14f607ef
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075F2:EE_|LV8PR12MB9112:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d9d7cca-f563-4c2d-ccd4-08df14f8002c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|6133799003|10067099003|11063799006|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: tx4RdoGSZXy5ZhO6VGQQLP1sFNoJMrDKeG2b68vhmgpiQM4Ea8/Gv/J+FW+/FXA08M0LfXav+XEielPYt9sdTu1tfMaLP71SdHzGPCdrjJ4Wa8MDsyHSD4/u46z6JT9rhCLyr156pkeboEdQK08AI+B3kXEfNwehWOJ0YnMsJZOXK2R9u8Vz0ZXw1Ag+rrxAvDLkXqqBuXL8/iBFnfukqWEA6zjdwYjqx7aQtxkLTQUwjdvgh+pFkkzhCtYMxoOf4nVnsy+O0Kb7rLaFj3ZO0XloUugIhe0PmKNZf+NTLd667hU84kod6/pxHvJrfRDIqfB10xPNIng8g8f2sKB7Xwq8HqMig5G72qiSmHkGfYhEcYqk7Y4mW36S5wtXvjKTft0MBbq8xhSzOQe/bnHEX5o/IpHKUwpXIoXraV7AvEL/mPe36Tx+B22CeQdsYhe42FS9Anbb6NxC3vaIZmIfa6SGgJY332lZtNZlNNWjs3+JDk0uvR1wphjSev3EWLpLg0SSd6KNXoIyKJNuAqnv2vouEajLB7Roji/AGNAHMiZJHw7yakHQL5AXN+SecNnfUhSKcMzUFvm1GhU9EZpsRN7KRrf9vOqBLOfVRkaFXAYfmQ/AU1S6rJSK2WDMMuh71OJsY4NCFJ4TZW1TGbvoIR+t7LjyOxa6EwMLjxULXHCewtyqZc8HM9JsFxGAMKDi6oGxI5z6YnY1PurRsqdlXg==
+ ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|13003099007|18002099003|11063799006|56012099006|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info: +AN3sV+elLTaechej/Q7xaTQcoQI3Xb3ErbObBYH756Yqa4unZ6SwFakB2aLUpbg5Q89t+8xtNkSiuOx1LmxLHgZEFUJXrRuZkwRJBLRjScdhRYmBeJeB12HsAAUYhh3DgX92rfTbQ8xITvKMTHrZuWxL+0XClZvyQSZ8Bx9lRUapv2f14s4g0xFsiPOtxnJ6vcTR+dSo6r+WvH7X5jlwZeHOnzTOoQKRIMEXnNMgkm1TGxYvXML8XvO1b1xbyOF8Wxe3W05Mi84bKwBjAq/L6SfU3nKGgBud9EEnON5xsK1gHiVjpl4j0B978vfUhzfGa5ua1NHH/CAo0YUN8SQBicx9Vtj6JbKRUKEDnSUyk7qVYX3a82KDuBEUHmYhqnPee0+xWaVOOVlPkJd0rzmzzbHSNOssyq79kCHQ5lubwG7CPtK1i9gOl54H/HLvTga/rVXctcMB3YJPsVrFYd4LdLyz1QudI0YwePxpRoJJ8zyfqcH/5I9IzMqFi20pgQnR0qQh6f1qqfk3EMZ8zcvHcGWG9xv6Ra793SL8flLsxkehYzaaufap/CLpKBWlOgmEM216GCyYoQ1lqc5fbpvU4sEcIOxU8UEag4lD0CVHZW5IPnLQqYL29UP4OzDDUTh2OK+Ym3BZlkd5uKiLXpWsy4VLYyUTHGLVGExhoA7vQU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(6133799003)(10067099003)(11063799006)(18002099003)(56012099006);
+ SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(13003099007)(18002099003)(11063799006)(56012099006)(10067099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +SyyA/2KoEeuVQj7mCTX3qUtOgbJ5YQi4JltAFMeGdOAwAB5GtIWm2R7dPSAjFBG+CEtP/YlK7L0wW/gKX9up89gYc6ISp5B8vUO046xZT0D1SonKCNKkeYdMBwwCcqfCBkesEdSaW9R0wgiwylZLnM4doVdS/qnhQjg4rQky79mf7mENF3bZrJFi/XwAFkjrPc3Uj8vuS3ZSSXW8zeCZwTpU7ocMgt6q37Q3Nl3XdXisiOaJ8DzDgjM3YCYkwbAKwzkmQmrYrUOPNN4AjHtb7uQjVHDDNYSbV83kjfekgs5vEHQEZ18Qtzjm67JS7ZEhgd/LRwAWP8gHvPn16VFXo0WRAyoAIsoudad4IY7S/oOOvZifXLtkSFHqxlLad/3dySO1A9fTDxhC5MvNEHqIMHjMxmnZxh4f+pHPnCDqjkULg0Jh++hRQ0zQZ0C75Tf
+X-MS-Exchange-AntiSpam-MessageData-0: rFcsQxX+yPxiK8i6KtJzELmvJHaFNMos4kqS47zQ8v4HTC7pLNsuMUdHfv+JcE2m48okfjcrZ/abfxoWlJ6t/U5vJ6wTfIHVvTqhY/iBrirIy296+MyQp45F6kZEBDl17ifB3WAWXhabmMZK8pOxTTau5Se7WuNZ/oNsijHUHLvSN4WMT+CQAUa5lpFpYBEa08eraq+CDTL45ouPsVuPR7waUFd197A8iyMVhMrmLlVrUGcauhmnNrkfmcPNRrsUQIr92OZxHFa1FqRF3oWfDUX8hOJNmt8tzyE9FXo7eGB9z8RT1Jo9pc5jZ/yAYR8oNzfE5hp9Lz5sT9Ey7N+2rryDrSSkLy+nAiNtY2TC1QFc4bVyT1o65q0gZN/6qsqK6jnhMjFdyaMGCQ0Shf1oHWKH06ywY7L2dPoUzD4Sd1SpcGyOERSvkmrNNGeNgXzP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 19:58:23.6266 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8077562-84a7-4753-2776-08df14f607ef
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 20:12:29.6155 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d9d7cca-f563-4c2d-ccd4-08df14f8002c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075F2.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7928
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9112
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,52 +112,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Historically, the GPU was woken up from sleep anytime userspace
-triggered an open system call or utilized an ioctl, even if 
-hardware access to the GPU was not required.
+Hi Dave, Simona,
 
-This 8-patch series reworks the runtime_pm system for ioctls, jobs, and
-open/close calls to allow a few tools such as AMD-SMI to function
-without waking up the GPU.
+Fixes for 7.3
 
-v2:
-Refactor patch "drm/amdgpu: use pm_runtime_resume_and_get
-amdgpu_gem_create_ioctl" to use a conditional guard instead as suggested by
-Kevin and Christian.
+The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
 
-Change the descriptions for several patches to fit kernel conventions as
-suggested by Christian.
+  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
 
-Pierre-Eric Pelloux-Prayer (7):
-  drm/amdgpu: use pm_runtime_resume_and_get amdgpu_gem_create_ioctl
-  drm/amdgpu: use pm_runtime_resume_and_get for ctx ioctl
-  drm/amdgpu: rework runtime pm management for cs
-  drm/amdgpu: push down runtime pm handling in amdgpu_gem_create_ioctl
-  drm/amdgpu: handle runtime pm in amdgpu_gem_userptr_ioctl
-  drm/amdgpu: prevent suspend in fault handler
-  drm/amdgpu: get rid of amdgpu_drm_ioctl
+are available in the Git repository at:
 
-Shahyan Soltani (1):
-  drm/amdgpu: defer GPU resume from open/close to first use
+  https://gitlab.freedesktop.org/drm/amdgpu/kernel.git tags/amd-drm-fixes-7.3-2026-09-17
 
- drivers/gpu/drm/amd/amdgpu/Makefile        |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    | 10 ++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 23 +----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.h    |  6 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 27 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c     | 15 +++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c  | 45 ----------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 42 +++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.h    |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 16 ++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c  | 12 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     |  8 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  5 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c  |  2 +-
- 15 files changed, 114 insertions(+), 102 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c
+for you to fetch changes up to 2ac2fe765ef475f409616ac0b57c4a3922749b0f:
 
--- 
-2.55.0
+  drm/amd/display: fix MALL hysteresis timer underflow at high refresh rates (2026-09-17 11:59:24 -0400)
 
+----------------------------------------------------------------
+amd-drm-fixes-7.3-2026-09-17:
+
+amdgpu:
+- SMU 14.x fix
+- DC IRQ fix
+- Runtime PM fix for P2P
+- RAS fix
+- PCIe reporting fix
+- DCN 6 fix
+- Device removal fix
+- DC MALL fix
+
+amdkfd:
+- GC 12.x fixes
+- Boundary checks
+- Mapping clear fix
+
+----------------------------------------------------------------
+Chengjun Yao (1):
+      drm/amdgpu: fix rmmio iounmap skipped on device removal
+
+David Francis (2):
+      drm/amdkfd: Avoid integer underflow with ffs in EOP ring size calc
+      drm/amdkfd: Avoid integer underflow in EOP ring size calculation.
+
+Dmitriy Chumachenko (1):
+      drm/amdgpu: check ras and obj before dereference
+
+Francis Marlou Pacaro (1):
+      drm/amd/display: fix MALL hysteresis timer underflow at high refresh rates
+
+Kevin Wang (1):
+      drm/amd/pm: report energy accumulator for smu 14.0.3
+
+Leo Li (1):
+      drm/amd/display: Atomize IRQ register read/modify/write ops
+
+Mario Limonciello (2):
+      drm/amdgpu: Fix GPU PCIe link capability reporting
+      drm/amdgpu: Skip KFD mapping clear before initialization
+
+Mike Lothian (1):
+      drm/amdgpu: hold a runtime PM reference for P2P dma-buf attachments
+
+Srinivasan Shanmugam (1):
+      drm/amd/display: Fix NULL dereference in dcn50/dcn60 init_hw
+
+Vladimir Marioukhine (1):
+      drm/amdkfd: implement restore_mqd callbacks for GFX12/12.1
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 54 ++++++-----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c        | 43 ++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c             |  2 +-
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  7 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c   | 61 ++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c | 70 +++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |  6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    |  5 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  4 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  | 12 ++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  3 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  3 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 64 ++++++++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h  | 28 +++++++++
+ .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  | 16 +++--
+ .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |  8 ++-
+ .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   | 34 +++++------
+ .../drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c    | 13 ++--
+ .../drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c    |  6 +-
+ .../drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c    |  5 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  3 +
+ 25 files changed, 346 insertions(+), 110 deletions(-)
