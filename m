@@ -4,130 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92703C982D2
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 04:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 029FFC982D2
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 04:20:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 147DF10E42F;
-	Fri, 18 Sep 2026 04:09:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73ECA10F171;
+	Fri, 18 Sep 2026 04:20:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ux8TOw6A";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kikpfp9m";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010029.outbound.protection.outlook.com
- [52.101.193.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B252410E42F
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 04:09:09 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012010.outbound.protection.outlook.com [52.101.43.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C6D410F171
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 04:20:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vwwY0SKDBU8ERnORJ7utZ3h0RCE536HgfPJ6zLDIdtABw2and6WS8NrSARQepCaXcK+df42QpZ1+kPDJqMimj98OXelL/lKDkNRPCUISWa+2t1Lw7GdxPxRqkrj9L5zqieoBHYCLtrzfHC+vZT+XF785ntnZQ6HlLPDiA4iTUwhH/x6DEafz5dDVSLzPZcfnvrMRznWUvht+HTXSmJj9vJxy8XQwKgPq35K5fS3KR9xLOKlwG7JEiTD5iNupN+/HF+7jJPu58S0b4HWBL59X/e+hIHESZyGlSpkT3jDHjpkzmC895Pi0f+pRYzhBisrk8I1eHx+L7+2pdvTgUeYL+g==
+ b=lXamECzBLgW7yu7IDrzl3+FBmdEvRPaN0emWawd4B+gyXjG8F6kozFo9XUsyFjNHH3HNVB0wtWDJ8EbR8eugxdxyexKQl6pnV29zec4q65hRoL+l7+FYBoRaciWUls3Oatm0+edD+zwZJqbDfEYiuKrvUk3+t+QgIXlSTVhtXrnoq+3qtfVb82UgVqJDc7eCosPG+g5DkynnqCGG9ZeeQTOZOs2BeJjmwkJjN/0qNyZ6qs8fdKZsSiVf8Rrcy/l6GIhMCQgChlRa64DBHyyqAsIi/0a1cYswUhR2GBZUfQweshU8r68uGe/+aYvQLtmHJHp53tUnoxBmu1BSd/nYLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LDYQRYR1ZV7NSjGXZs0dlR4doRVnXtvF6eVp3W06LpM=;
- b=vAj2xQwl997S+E8JJrucV/pb0Jfj5fMiy2rUcRycqFCvK8C9BWmWD8QCEEq5nkvsgCRTvqVjn2cXD7qiOtC0j5fPNH1lyTNz+CNlbavUSnZfvlx3vp9V0xCgbAUUjCMJVatXGFn41emDqtwPFsUbsb44/TT2rvB3LUOFtaDxWATRCUbqctw40W3l1N24DVleJPIPCXxkGy/GL8TATZPnXAFpt+KHSXeXKuM48bAJLUcMRIe+V3bBsAtJGxHq9a7G1vYkeGK5iWA4CEpciSCWXdhAlUU3k6AR9NBvBCYxhvOqRf33ZnptET2qMAJ04WJUuCBiLWXvcAeBQKx8LTDMBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=mK1XvDZQBmXOktt7TXTX4dFp2DUwCcRzLk1A4MUk58U=;
+ b=Y3Xb7cg1nzUveq5JFSfhxusov/DvGoBFrI+quBY64VX1WeGHhQDYz8Lsd0i7aLu9aKUwuecj4darolmqBBFgYlxV8+Ib+5dELtITtozjKV3J79jiMPZolYM4xlVyBZmDXTpb7TK8wNiSxG4c/G5tNlOOvUFaV5JiCzRVAKHhcW7c6KgpeVoVj4nRAKejAMu1iKOuyTkkEH75TFqx3a4iGb9sAsjh3bBKeb4thxK50M82WxfC078TaHaoh5Ya7MaK9NX5ZUMBSl5NE34D69gArLgcnQnQyfQlcauTij9sV2JFOLryTXN+G/GDRmXR8F5oOtq/Xy/MiG/FuaZMDZMVdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LDYQRYR1ZV7NSjGXZs0dlR4doRVnXtvF6eVp3W06LpM=;
- b=Ux8TOw6AdDWDPsYuyp0l+biiT/0QIQ29Jvt/ubGWlXZhkOkbIZt8TnP4Ue8uPtFzx/EVL2wQ4TjDFgqEvnQK7/SM+urjbgvT0Hq9E/7ciJnKyuVJyase15pwmhwcA3DwAC4lcj7f0mYBaS3/XqrJrNhHDK21K/UWQyjkBnxgZSo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
- by DS2PR12MB9800.namprd12.prod.outlook.com (2603:10b6:8:2b5::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
- 2026 04:09:07 +0000
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e%4]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 04:09:07 +0000
-Content-Type: multipart/alternative;
- boundary="------------vPJC4WfVhbz300jg1YXWWCRe"
-Message-ID: <2bff4151-c6c5-493d-9ad7-c7d886cc7dc8@amd.com>
-Date: Fri, 18 Sep 2026 09:39:01 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/amdgpu: Add second-level trap handler
- infrastructure
-From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Natalie Vock <natalie.vock@gmx.de>, Samuel Pitoiset <hakzsam@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Felix Kuehling <felix.kuehling@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>
-References: <20260916053722.601067-1-srinivasan.shanmugam@amd.com>
- <20260916053722.601067-2-srinivasan.shanmugam@amd.com>
- <f7edaea8-f172-4573-952f-6a85d1302d8f@amd.com>
- <e25c9ad5-a211-44d5-9b71-9e403dfb7426@amd.com>
-Content-Language: en-US
-In-Reply-To: <e25c9ad5-a211-44d5-9b71-9e403dfb7426@amd.com>
-X-ClientProxiedBy: MA5PR01CA0287.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:21b::19) To IA0PR12MB8208.namprd12.prod.outlook.com
- (2603:10b6:208:409::17)
+ bh=mK1XvDZQBmXOktt7TXTX4dFp2DUwCcRzLk1A4MUk58U=;
+ b=kikpfp9mHDFU+AfrFa9NoKxOhokUMQSK1nzIoDUfwz8DLtD06VrmMVRAZ93IAW0xNvfflu+w2DGlc90A74oEeZ1NujAwYWk/sI0+ot2XuKlzJVyPbX9ttRGfuzjHEB6UIioFaxXwa9a+e4xR0V7/NIzVRD63CqaYbUXc7Nt4azM=
+Received: from BN9PR03CA0545.namprd03.prod.outlook.com (2603:10b6:408:138::10)
+ by SA3PR12MB8437.namprd12.prod.outlook.com (2603:10b6:806:2f5::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
+ 2026 04:20:32 +0000
+Received: from BN1PEPF0001854B.namprd05.prod.outlook.com
+ (2603:10b6:408:138:cafe::54) by BN9PR03CA0545.outlook.office365.com
+ (2603:10b6:408:138::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.13 via Frontend Transport; Fri,
+ 18 Sep 2026 04:20:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF0001854B.mail.protection.outlook.com (10.167.248.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 04:20:32 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 23:20:29 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Le.Ma@amd.com>,
+ <Asad.Kamal@amd.com>, <YuBiao.Wang@amd.com>
+Subject: [PATCH] drm/amdgpu: Use offset macros for sdma v7.1
+Date: Fri, 18 Sep 2026 09:50:12 +0530
+Message-ID: <20260918042012.1788773-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|DS2PR12MB9800:EE_
-X-MS-Office365-Filtering-Correlation-Id: cff9a27a-f0b5-4502-aba9-08df153a9562
+X-MS-TrafficTypeDiagnostic: BN1PEPF0001854B:EE_|SA3PR12MB8437:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9ba84ba-657a-4332-0902-08df153c2de1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|6133799003|8096899003|3023799007;
-X-Microsoft-Antispam-Message-Info: gj7ZsQ1ZwU8N9cgoIClw+uCITdjP1Iv9sVIe6X0c15DfFGNEjP71bE9/Gh5qJlXuZiHgRoZgql7gQwVaOERZIp1bFyV7DbTQN61QEa32NEYKyeBGWdXzCxDmVhZs8CeNolJtcd4X+p+plfevhwW9o6OQwFWJvn/f994FXigbZHSqouwrywZOnb8J72Vy56aqWCFutYO7ia9QZyNtwDJsBhAnF8n/mNqmGJdnqgG58nD7Z9h2EHXc7LTgvLNKV5pe6WsX/jdXIfQBEpjs2CoZrZ0vaemA5iiltzxrRmesvbiQKY/2rS79VTJQdpIdZ97rsvGr7vlEveAlTM6Mr1NnJ8tviox+48JlWr3JCH2ltxHCJbvDMs1caQTTqM4oKoHx55KdM6ElwIj7kMjDb5MLjg/Ptvi3vhOseW1GlD0SmVLAldcpBW6xiNAYRFFHkO/pmy2VNrjDHx/8zdlrcvUvvHuh9zExxYpV3gmX/9/zzWDkvb42oNpLjAEbatCqO4/q+r9etiZrJ9AOby9O4mbfFlH10muXzq0sbZ3Q1YnIp59pXp5X0zLhSHPBi1tvEt/PxClOcNpVv+hvB/OOD+GErLjwjmtAr++TlYRCmNGVV8A9cfzlcX1KalCDbpn6e9KiJnecA64VL+x4Tgb86JlzR874Gpc1KsW8Hkjg2sidgtM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003)(8096899003)(3023799007);
+ ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|56012099006|10067099003|18002099003|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: d4v1pNZq8u3l62aN5c/X1UDxl8tjgHgQKiwn1dfbZsV72Vj/5Lla0/xuYAnIZ/GYNk/MtqNyIvj1DWDNvoxNAKdfzEFu5/s2Ah5xolyjK8uawaaNTo58Q54aoG33JGCELTHMMu23kPQ3fFkpaOVyYLw86YfzeaChf3+vRmwuXSE2r7srtD2r6bI9X2QwcJdcuVGNV4O55yANNfhScaRzRQOdLhaH6grj06EA30VreaW6D4jN49jxQPfpin+mRDon9rcLxTVDxuZYnqZ+kEwfUdmKtdoka6kfYmde4svJUzO4FwJGdWU1S+PbIHe8t6u7sdSEA0SOBtv2UpofDSPZMzs0qmglKNtcA6i3Pt7B3oO/XaGB5uKBuYPsQy7cqY0zZW3dYnw2qiKExJl+HUUTiXR9kr5TsrD3FJL9bkm3P7rblPfp6I4aarsF+QdmyN26PjqqyNgCUFvRc2zp2esv2XbyYR18ef0iyg7aProKydY07bNCoc7b9tnTZygO4xJKvm8HC4eiSa9pAOZZZE7uNioyUK3W6DqROWM9+JKuCln1LgPwi/Bc4zPBJlOQMcbTdEZ05yfjhei6L9Kt1ucT3YRhcrM4dQUI5mwy6U05oNgCN4IJBT061u03Nbj+TH+fHh8C50gS1gJPMHNHBD2Ecy7P9vJE4HcMre/Xst2uUZR0YA6h337zW2kgSIaMCu6drKsKJ6YMQW+2hnJRzg91gg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(56012099006)(10067099003)(18002099003)(11063799006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1ByenZmekQzeUZWbElqd2hvZ0JCT1Vlcnp1anBQR3pEQS8rbkhNclRDSi90?=
- =?utf-8?B?K3FXSzdXR2x0dnArQzVrSHV5QndBaG0wVnFyMTluZ2pjNTNwRnhFUkpoUFZM?=
- =?utf-8?B?Sk8yb0pHSVMyMlExWDBmbmtsZ3ZCUUcxeEJ2NmR1M1JjUUhNR3dScmtESTVs?=
- =?utf-8?B?M3dpaC9QZ05QWVQ2UlNYa0wxZjc2ajRIWkRnZjI2cDg2bk4rakZkdmt3MTRm?=
- =?utf-8?B?ak1Zc1hvUGpUb2MvaHNHNkttL1l0ekpsSDVhVmNpR0FRZUFqdnVZSk9Lelho?=
- =?utf-8?B?enR1NUZ6QkJXbU8vS1pYWVV0amd1NmhwVDF5Zm5ES200SlBoY3pnU3BkT0lp?=
- =?utf-8?B?SGZGOXpXTXF5dUVNK0JGWmtiQ0JWcHBLNjZSSWRTbHBQelhZOFMyZXZJTXgw?=
- =?utf-8?B?L0dvSWxhc1duUUpLVFBsUW9rdXdST20vNm4zdUZKTFAvRlJNRGluVDRaYlRh?=
- =?utf-8?B?K1d3MFYzSUlTbFhBQzZSbEtUa0JHb296SXNjUGtjZEpjalB6M0h6NTZIR1RX?=
- =?utf-8?B?LzJvQkpxbC9nUEhlQzg1RlFzOTFxWW5PVzZjMFdXVGljdWJBcVFWMHZkQ09w?=
- =?utf-8?B?MGw0QTRBeUhqYURhRllJemlDbG1uQW1pYXRTYVhyU1BqaHNRVjg2VjhKZlhM?=
- =?utf-8?B?Sk5hY3RGaVJBblcwL3Zwa1YvaVBaSzRsdUtNdi9CMUFPRS9EWUJmQW10NVFX?=
- =?utf-8?B?Nlo2UXRnTU5wekNTU25EOWs5QllIS2cvditZV1JiUzVvUnVoQ240NWU0aDc0?=
- =?utf-8?B?T2w1Rmh5SmtnYW5Gb2ZubkQzR1AxbGdUcmNCS0xWTWZwMGFmOU9vRWhYQWts?=
- =?utf-8?B?djZtZTFUbGp1c0U3Mld5aytJNFVBN0NVdSs3Qkxuem13S2dnK1RuMm12WldZ?=
- =?utf-8?B?aFh5UEdQOUlla1lmc0Q0anRZUFFBbTlvODBBRHpCaTF0WXg1TkJ1ellTOVF0?=
- =?utf-8?B?VjFpRmRseGllK2NON0NlYkYyVUJ4SGpwSlBFcGUrdHJ5TkRJeHZmYXpSaWFi?=
- =?utf-8?B?ZW9pVUtxcWY4dFkxaXp3RlNJRE85a3NEUHlWZGxhNkhqVkhIS1lIcDYyMWF2?=
- =?utf-8?B?QjFCdG9FTXN6anBHWjFTUmQ4RzdOeENIQzNnRWZGOC9CL3hQRDU5UVU0L25h?=
- =?utf-8?B?ZGtBRUxHWVk1ZlUrLzJjQXEzNTlNMjNhRnUrdU5nSjNGMDErcmttUjdjbzFV?=
- =?utf-8?B?U0piRWJwcHdudVVKUzY3d1ZobFpCbE9TYXplTkZwVTlqZ2tIclR3MjJEQ3Rk?=
- =?utf-8?B?aUVBY1dESUgrWjduQ1YzYzQ3S01LRXFMVE1waEdtRmZwVnJmQWk4Z2hXdmtE?=
- =?utf-8?B?enljOXcwNGtScWZVUzBOMUFjNjNKaGhUMUpUZ2ovL1BMMGdsZ2VDNnAzeVBh?=
- =?utf-8?B?cjQrL0V4blQzcERBYS93QVo3NGltejhaZUZYbzM0cWRwOER0RTkyVXZCUkJT?=
- =?utf-8?B?dllHOGQ4cnJyQ3hWb053Z1dxc2twbkw3VDkvUjZ0MTVkenRYS0xkTnp4Zmts?=
- =?utf-8?B?di9nSjI4alFXcmYzMnE4R3JUYTdLUzFoS2hmT3NrM2xoNTBKTWV4MU9KTUh5?=
- =?utf-8?B?UUNhc1EwQ0k4Um42V2daMVFrb1hEZEd0dUk2Y2E0cHFXMEJCT2tVcWd5RmRH?=
- =?utf-8?B?VDg1Mmg5RklEWmpaeE4xYys1Sm4ybFQ2NWc1cG5OQlFtdWcwblJlRzlSbE1M?=
- =?utf-8?B?QWtrZVVMOTZMYkF1SlNqVlV2d3F2eDRJZ29jV1VlNW80ZUZNazB1bkozcWI4?=
- =?utf-8?B?aCtGcVh5eUZMY3VRMW5GdXc1TGh2MlVXTm1za0Jscm0zTmJ4cmFRQmZ6QUF2?=
- =?utf-8?B?OW4wZktsSXNNQkVSVVdJRkhpUTFGZHRVeEZ3MTRpMXZCbUpaMDQzcWhobUdL?=
- =?utf-8?B?OWQ2TFZYSmpJU2NJbk9id2x4WDdHZ2paK3FrQ25CbitTMmVnVGp3R3k4am9Z?=
- =?utf-8?B?YVA5Y3VFS2svemc0Z1BTV0hvRXE3dnJ6VUJHbkQra3ZIOW5VMWV5eUNSQU9a?=
- =?utf-8?B?d0lxY2kzUTlZSGxmOXAyUTd3Z2tURzN0QWhpanRjeUNsMjhUcStzbER4NFBj?=
- =?utf-8?B?bXVzOUlOQjM2bXcybzcxdDUxejA5RlFKS1F2V0hXTGVzQlhBYlJXaVN1Y1Va?=
- =?utf-8?B?eTE2U29oZWtrK1VWdCtheTJZVmwyaEJldzFVeGxiMWZFclJ2QjdrMlRLYm0v?=
- =?utf-8?B?M000TCs2M093a0NhcGZTUFYvYnJuWTJKZml1RGxIOHZCbnlVNGFDUTIvR3Qw?=
- =?utf-8?B?VS9ndGROTDdFaEhnUDFwMW5rdlh6VTRtL1JrZ0UzeDg4RExPVlB4TCszV2Ey?=
- =?utf-8?Q?TPVS0TiOxeZ8dKy2++?=
+X-MS-Exchange-AntiSpam-MessageData-0: DBcW61xoPb8C9XKrm5TusguU7s89x/IURrakQboYrnWQCNhReM+Rwedh6c+H4aSA83bAX1tqUYGCOVTG/IoInUJE7luABFW18XcDGlOcGyFpZbwD4SdM2YVjaGEbRJxj1WBCsMgkIR0zTKdTLNZxAg3uUJKPm3x0wHfMpYCcV074XmxgzmQkAFjF2aiwLQCwhKteem0irZ4gSNW7YdQnimocdEExE2DeUEAqli6L9CN6O57Q5zm1YvHZSTY7TYdARntVufcIKi7ORIaFdASiqXT6+vqT3F80lW8R5ul/WG8xNSexkdpoRtKiF035vGIct6AQsBXgRDms/ayTZ/esPH564dyn+eNdUUlxozvKe9QSsFl24gZsqqakQuFeCPohPgyM3BXy822P2p57oUCO9mJc/G0ghVYruNyS4N51GD7RgHS/1TvIWHjS1VMTN2Aq
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cff9a27a-f0b5-4502-aba9-08df153a9562
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:09:07.0609 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:20:32.1417 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9ba84ba-657a-4332-0902-08df153c2de1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: j8DWLtppQi6NVOwIRJKf7nt647D6YW9okZrTC2P5ae8n8aM3eUjFWlHdAkG/saqjRAxuCuEPRBMUo/2JPOnnIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9800
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0001854B.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8437
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,384 +108,616 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------vPJC4WfVhbz300jg1YXWWCRe
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Use WREG32_SOC15_OFFSET/RREG32_SOC15_OFFSET macros for register accesses
+of SDMA instances within a XCD. Those macros take instance arg which
+is helpful in SRIOV accesses to identify the XCC through which access
+can be routed. Use build time assert to make sure only register offsets
+from the mapped segments are accessed.
 
-
-On 9/18/2026 9:13 AM, SRINIVASAN SHANMUGAM wrote:
->
->
-> On 9/16/2026 8:14 PM, Christian König wrote:
->> Hi Srini,
->>
->> please keep Timur, Natalie and Samuel on CC.
->>
->> On 9/16/26 07:37, Srinivasan Shanmugam wrote:
->>> Render-node user queues had no mechanism to install a userspace
->>> second-level trap handler equivalent to what KFD provides for compute.
->>>
->>> On dGPUs the CWSR TMA buffer is placed in VRAM and accessed via MMIO
->>> (PCI BAR). Raw CPU pointer dereferences are unsafe on platforms that
->>> lack full load/store support for MMIO. Replace void *tma_cpu_addr with
->>> struct iosys_map tma_map and use iosys_map_wr() for all TMA writes.
->>>
->>> Writing TBA and TMA as two separate stores creates a race where a
->>> trapping wave can observe a mismatched pair. For user queues, evict all
->>> queues and flush the GPU TLB before writing, then restore queues after.
->>> For kernel queues, wait for the VM to be idle via amdgpu_vm_wait_idle()
->>> before eviction and the descriptor write.
->>>
->>> Evict user queues in amdgpu_trap_free() at file close. Without eviction
->>> a freed TMA BO can be accessed via a stale TBA, causing a GPU page
->>> fault.
->>>
->>> Export amdgpu_userq_restore_all() for immediate queue restore after
->>> SET/CLEAR without waiting for the eviction fence.
->>>
->>> Add VM_ALWAYS_VALID validation in amdgpu_trap_validate_user_addr().
->>> SET_L2_TRAP returns -EINVAL if TBA or TMA BO does not have this flag.
->> Works for me, Timur/Natalie/Samuel any objections to that?
->>
->>> The old TRAP ioctl and its internal handler are removed. The new
->>> SET/CLEAR path is exposed via the VM ioctl in a later patch.
->>>
->>> SET_L2_TRAP is per-VM (per-process). Each process has its own TMA buffer
->>> allocated in amdgpu_trap_alloc(). There is no conflict between processes
->>> on user queue VMIDs.
->>>
->>> Cc: Christian König<christian.koenig@amd.com>
->>> Cc: Alex Deucher<alexander.deucher@amd.com>
->>> Cc: Felix Kuehling<felix.kuehling@amd.com>
->>> Cc: Lijo Lazar<lijo.lazar@amd.com>
->>> Signed-off-by: Srinivasan Shanmugam<srinivasan.shanmugam@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |   1 -
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c   |   2 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c  | 284 ++++++++++++++++------
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h  |  64 ++++-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c |  22 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |   1 +
->>>   include/uapi/drm/amdgpu_drm.h             |   2 -
->>>   7 files changed, 285 insertions(+), 91 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> index a93ee106ab92..6473faf18d71 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> @@ -3079,7 +3079,6 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
->>>   	DRM_IOCTL_DEF_DRV(AMDGPU_SCHED, amdgpu_sched_ioctl, DRM_MASTER),
->>>   	DRM_IOCTL_DEF_DRV(AMDGPU_BO_LIST, amdgpu_bo_list_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->>>   	DRM_IOCTL_DEF_DRV(AMDGPU_FENCE_TO_HANDLE, amdgpu_cs_fence_to_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->>> -	DRM_IOCTL_DEF_DRV(AMDGPU_TRAP, amdgpu_trap_ioctl, DRM_AUTH | DRM_RENDER_ALLOW),
->>>   	/* KMS */
->>>   	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_MMAP, amdgpu_gem_mmap_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->>>   	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_WAIT_IDLE, amdgpu_gem_wait_idle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>> index 47e4680db797..559c9222fc48 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>> @@ -1716,7 +1716,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
->>>   	}
->>>   
->>>   	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
->>> -	amdgpu_trap_free(adev, &fpriv->vm, &fpriv->trap_obj);
->>> +	amdgpu_trap_free(adev, &fpriv->vm, &fpriv->userq_mgr, &fpriv->trap_obj);
->>>   
->>>   	if (pasid)
->>>   		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
->>> index 31f653ec3fb1..3313bc099cf4 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
->>> @@ -19,12 +19,23 @@
->>>    * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
->>>    * OTHER DEALINGS IN THE SOFTWARE.
->>>    */
->>> +#include <linux/iosys-map.h>
->>> +#include <drm/ttm/ttm_bo.h>
->>> +
->>>   #include <drm/drm_exec.h>
->>>   
->>>   #include "amdgpu.h"
->>> +#include "amdgpu_gmc.h"
->>> +#include "amdgpu_userq.h"
->>> +#include "amdgpu_vm.h"
->>>   #include "cwsr_trap_handler.h"
->>>   #include "amdgpu_trap.h"
->>>   
->>> +/* First-level TMA layout shared with second-level trap handler ABI */
->>> +#define AMDGPU_TRAP_L2_TBA_INDEX	0
->>> +#define AMDGPU_TRAP_L2_TMA_INDEX	1
->>> +#define AMDGPU_TRAP_DEBUG_FLAG_INDEX	2
->>> +
->>>   extern int cwsr_enable;
->>>   
->>>   #define AMDGPU_TRAP_TBA_MAX_SIZE (2 * AMDGPU_GPU_PAGE_SIZE)
->>> @@ -380,6 +391,7 @@ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->>>   	struct amdgpu_trap_obj *cwsr;
->>>   	struct amdgpu_bo *bo;
->>>   	struct drm_exec exec;
->>> +	void *cpu_addr;
->>>   	int r;
->>>   
->>>   	if (!amdgpu_trap_is_enabled(adev))
->>> @@ -407,10 +419,21 @@ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->>>   
->>>   	r = amdgpu_bo_create_kernel(adev, AMDGPU_TRAP_TMA_MAX_SIZE, PAGE_SIZE,
->>>   				    AMDGPU_GEM_DOMAIN_GTT, &cwsr->tma_bo, NULL,
->>> -				    &cwsr->tma_cpu_addr);
->>> +				    &cpu_addr);
->>>   	if (r)
->>>   		goto err;
->>>   
->>> +	/*
->>> +	 * Build an iosys_map for the TMA CPU mapping. On dGPUs the TMA BO
->>> +	 * may be placed in VRAM and accessed via MMIO (PCI BAR). Check
->>> +	 * TTM_BO_MAP_IOMEM_MASK to select the correct write accessor.
->>> +	 */
->>> +	if (cwsr->tma_bo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
->>> +		iosys_map_set_vaddr_iomem(&cwsr->tma_map,
->>> +					  (void __iomem *)cpu_addr);
->>> +	else
->>> +		iosys_map_set_vaddr(&cwsr->tma_map, cpu_addr);
->>> +
->> Clear NAK to that hack. Please use ttm_bo_vmap() instead if you need an iosys_map.
->
-> Hi Christian,
->
-> Thanks. One clarification regarding using |ttm_bo_vmap()| here.
->
-> The per-VM TMA BO is unpinned and can be moved/evicted. Currently 
-> |amdgpu_bo_move_notify()| calls |amdgpu_bo_kunmap()|, so the existing 
-> |amdgpu_bo_kmap()| mapping is dropped before a move.
->
-> If we replace it with |ttm_bo_vmap()| and keep the returned 
-> |iosys_map| in the trap object, should we also handle 
-> unmapping/remapping it across BO moves, or would you prefer mapping it 
-> only around the TMA accesses?
->
-Since the per-VM TMA BO is unpinned and movable, keeping the 
-|ttm_bo_vmap()| mapping in the trap object would require us to 
-invalidate/remap it whenever the BO moves.
-
-To avoid maintaining a long-lived mapping for an evictable BO, I'm 
-thinking of using |ttm_bo_vmap()| only around the TMA CPU accesses while 
-the BO is reserved, and calling |ttm_bo_vunmap()| before releasing the 
-reservation.
-
-This should also avoid leaving a stale |iosys_map| after BO migration.
-
-Does that sound like the preferred approach?
-
-Thanks,
-Srini
-
-
---------------vPJC4WfVhbz300jg1YXWWCRe
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 9/18/2026 9:13 AM, SRINIVASAN
-      SHANMUGAM wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:e25c9ad5-a211-44d5-9b71-9e403dfb7426@amd.com">
-      
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 9/16/2026 8:14 PM, Christian König
-        wrote:<br>
-      </div>
-      <blockquote type="cite" cite="mid:f7edaea8-f172-4573-952f-6a85d1302d8f@amd.com">
-        <pre wrap="" class="moz-quote-pre">Hi Srini,
-
-please keep Timur, Natalie and Samuel on CC.
-
-On 9/16/26 07:37, Srinivasan Shanmugam wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">Render-node user queues had no mechanism to install a userspace
-second-level trap handler equivalent to what KFD provides for compute.
-
-On dGPUs the CWSR TMA buffer is placed in VRAM and accessed via MMIO
-(PCI BAR). Raw CPU pointer dereferences are unsafe on platforms that
-lack full load/store support for MMIO. Replace void *tma_cpu_addr with
-struct iosys_map tma_map and use iosys_map_wr() for all TMA writes.
-
-Writing TBA and TMA as two separate stores creates a race where a
-trapping wave can observe a mismatched pair. For user queues, evict all
-queues and flush the GPU TLB before writing, then restore queues after.
-For kernel queues, wait for the VM to be idle via amdgpu_vm_wait_idle()
-before eviction and the descriptor write.
-
-Evict user queues in amdgpu_trap_free() at file close. Without eviction
-a freed TMA BO can be accessed via a stale TBA, causing a GPU page
-fault.
-
-Export amdgpu_userq_restore_all() for immediate queue restore after
-SET/CLEAR without waiting for the eviction fence.
-
-Add VM_ALWAYS_VALID validation in amdgpu_trap_validate_user_addr().
-SET_L2_TRAP returns -EINVAL if TBA or TMA BO does not have this flag.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">Works for me, Timur/Natalie/Samuel any objections to that?
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">The old TRAP ioctl and its internal handler are removed. The new
-SET/CLEAR path is exposed via the VM ioctl in a later patch.
-
-SET_L2_TRAP is per-VM (per-process). Each process has its own TMA buffer
-allocated in amdgpu_trap_alloc(). There is no conflict between processes
-on user queue VMIDs.
-
-Cc: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com" moz-do-not-send="true">&lt;christian.koenig@amd.com&gt;</a>
-Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com" moz-do-not-send="true">&lt;alexander.deucher@amd.com&gt;</a>
-Cc: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com" moz-do-not-send="true">&lt;felix.kuehling@amd.com&gt;</a>
-Cc: Lijo Lazar <a class="moz-txt-link-rfc2396E" href="mailto:lijo.lazar@amd.com" moz-do-not-send="true">&lt;lijo.lazar@amd.com&gt;</a>
-Signed-off-by: Srinivasan Shanmugam <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com" moz-do-not-send="true">&lt;srinivasan.shanmugam@amd.com&gt;</a>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c   |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c  | 284 ++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h  |  64 ++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c |  22 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |   1 +
- include/uapi/drm/amdgpu_drm.h             |   2 -
- 7 files changed, 285 insertions(+), 91 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c | 313 ++++++++++++++++---------
+ 1 file changed, 201 insertions(+), 112 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index a93ee106ab92..6473faf18d71 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3079,7 +3079,6 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_SCHED, amdgpu_sched_ioctl, DRM_MASTER),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_BO_LIST, amdgpu_bo_list_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_FENCE_TO_HANDLE, amdgpu_cs_fence_to_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
--	DRM_IOCTL_DEF_DRV(AMDGPU_TRAP, amdgpu_trap_ioctl, DRM_AUTH | DRM_RENDER_ALLOW),
- 	/* KMS */
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_MMAP, amdgpu_gem_mmap_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_WAIT_IDLE, amdgpu_gem_wait_idle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 47e4680db797..559c9222fc48 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1716,7 +1716,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+index 50058118235f..3155a5c655bf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+@@ -46,9 +46,9 @@
+ 
+ MODULE_FIRMWARE("amdgpu/sdma_7_1_0.bin");
+ 
+-#define SDMA1_REG_OFFSET 0x600
+-#define SDMA0_SDMA_IDX_0_END 0x450
+-#define SDMA1_HYP_DEC_REG_OFFSET 0x30
++/* per-instance stride is the SDMA0 to SDMA1 delta of the owning address block */
++#define SDMA1_DEC_REG_OFFSET (regSDMA1_SDMA_DEC_START - regSDMA0_SDMA_DEC_START)
++#define SDMA1_HYP_DEC_REG_OFFSET (regSDMA1_SDMA_VM_CTX_LO - regSDMA0_SDMA_VM_CTX_LO)
+ 
+ static const struct amdgpu_hwip_reg_entry sdma_reg_list_7_1[] = {
+ 	SOC15_REG_ENTRY_STR(GC, 0, regSDMA0_SDMA_STATUS_REG),
+@@ -114,26 +114,27 @@ static void sdma_v7_1_set_irq_funcs(struct amdgpu_device *adev);
+ static int sdma_v7_1_inst_start(struct amdgpu_device *adev,
+ 				uint32_t inst_mask);
+ 
+-static u32 sdma_v7_1_get_reg_offset(struct amdgpu_device *adev, u32 instance, u32 internal_offset)
++/* per-instance stride of each SDMA address block, indexed by register BASE_IDX */
++static const u32 sdma_v7_1_inst_stride[] = {
++	SDMA1_DEC_REG_OFFSET,
++	SDMA1_HYP_DEC_REG_OFFSET,
++};
++
++/*
++ * Offset from an SDMA0 register to the same register of SDMA instance
++ * within its own XCC, i.e. SDMA0 to SDMA1 register address delta.
++ */
++static u32 sdma_v7_1_inst_offset(struct amdgpu_device *adev, u32 instance,
++				 u32 base_idx)
+ {
+-	u32 base;
+-	u32 dev_inst = GET_INST(SDMA0, instance);
+-	int xcc_id = adev->sdma.instance[instance].xcc_id;
+-	int xcc_inst = dev_inst % adev->sdma.num_inst_per_xcc;
+-
+-	if (internal_offset >= SDMA0_SDMA_IDX_0_END) {
+-		base = adev->reg_offset[GC_HWIP][xcc_id][1];
+-		if (xcc_inst != 0)
+-			internal_offset += SDMA1_HYP_DEC_REG_OFFSET * xcc_inst;
+-	} else {
+-		base = adev->reg_offset[GC_HWIP][xcc_id][0];
+-		if (xcc_inst != 0)
+-			internal_offset += SDMA1_REG_OFFSET * xcc_inst;
+-	}
++	u32 xcc_inst = GET_INST(SDMA0, instance) % adev->sdma.num_inst_per_xcc;
+ 
+-	return base + internal_offset;
++	return xcc_inst * sdma_v7_1_inst_stride[base_idx];
+ }
+ 
++#define SDMA_INST_OFFSET(i, reg) \
++	(BUILD_BUG_ON_ZERO(ARRAY_SIZE(sdma_v7_1_inst_stride) <= reg##_BASE_IDX) + \
++	 sdma_v7_1_inst_offset(adev, (i), reg##_BASE_IDX))
+ static unsigned sdma_v7_1_ring_init_cond_exec(struct amdgpu_ring *ring,
+ 					      uint64_t addr)
+ {
+@@ -199,6 +200,7 @@ static uint64_t sdma_v7_1_ring_get_wptr(struct amdgpu_ring *ring)
+ static void sdma_v7_1_ring_set_wptr(struct amdgpu_ring *ring)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
++	u32 xcc_id = adev->sdma.instance[ring->me].xcc_id;
+ 
+ 	DRM_DEBUG("Setting write pointer\n");
+ 
+@@ -224,14 +226,12 @@ static void sdma_v7_1_ring_set_wptr(struct amdgpu_ring *ring)
+ 			  lower_32_bits(ring->wptr << 2),
+ 			  ring->me,
+ 			  upper_32_bits(ring->wptr << 2));
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev,
+-							     ring->me,
+-							     regSDMA0_SDMA_QUEUE0_RB_WPTR),
+-				lower_32_bits(ring->wptr << 2));
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev,
+-							     ring->me,
+-							     regSDMA0_SDMA_QUEUE0_RB_WPTR_HI),
+-				upper_32_bits(ring->wptr << 2));
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR,
++				    SDMA_INST_OFFSET(ring->me, regSDMA0_SDMA_QUEUE0_RB_WPTR),
++				    lower_32_bits(ring->wptr << 2));
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI,
++				    SDMA_INST_OFFSET(ring->me, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI),
++				    upper_32_bits(ring->wptr << 2));
  	}
+ }
  
- 	amdgpu_ctx_mgr_fini(&amp;fpriv-&gt;ctx_mgr);
--	amdgpu_trap_free(adev, &amp;fpriv-&gt;vm, &amp;fpriv-&gt;trap_obj);
-+	amdgpu_trap_free(adev, &amp;fpriv-&gt;vm, &amp;fpriv-&gt;userq_mgr, &amp;fpriv-&gt;trap_obj);
+@@ -367,15 +367,22 @@ static void sdma_v7_1_inst_gfx_stop(struct amdgpu_device *adev,
+ 				    uint32_t inst_mask)
+ {
+ 	u32 rb_cntl, ib_cntl;
++	u32 xcc_id;
+ 	int i;
  
- 	if (pasid)
- 		amdgpu_pasid_free_delayed(pd-&gt;tbo.base.resv, pasid);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-index 31f653ec3fb1..3313bc099cf4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-@@ -19,12 +19,23 @@
-  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
-+#include &lt;linux/iosys-map.h&gt;
-+#include &lt;drm/ttm/ttm_bo.h&gt;
+ 	for_each_inst(i, inst_mask) {
+-		rb_cntl = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_CNTL));
++		xcc_id = adev->sdma.instance[i].xcc_id;
 +
- #include &lt;drm/drm_exec.h&gt;
++		rb_cntl = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_CNTL,
++					      SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_CNTL));
+ 		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RB_ENABLE, 0);
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_CNTL), rb_cntl);
+-		ib_cntl = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_IB_CNTL));
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_CNTL,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_CNTL), rb_cntl);
++		ib_cntl = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_IB_CNTL,
++					      SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_IB_CNTL));
+ 		ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_SDMA_QUEUE0_IB_CNTL, IB_ENABLE, 0);
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_IB_CNTL), ib_cntl);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_IB_CNTL,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_IB_CNTL), ib_cntl);
+ 	}
+ }
  
- #include &quot;amdgpu.h&quot;
-+#include &quot;amdgpu_gmc.h&quot;
-+#include &quot;amdgpu_userq.h&quot;
-+#include &quot;amdgpu_vm.h&quot;
- #include &quot;cwsr_trap_handler.h&quot;
- #include &quot;amdgpu_trap.h&quot;
+@@ -405,11 +412,14 @@ static void sdma_v7_1_inst_rlc_stop(struct amdgpu_device *adev,
+ static void sdma_v7_1_inst_ctx_switch_enable(struct amdgpu_device *adev,
+ 					     bool enable, uint32_t inst_mask)
+ {
++	u32 xcc_id;
+ 	int i;
  
-+/* First-level TMA layout shared with second-level trap handler ABI */
-+#define AMDGPU_TRAP_L2_TBA_INDEX	0
-+#define AMDGPU_TRAP_L2_TMA_INDEX	1
-+#define AMDGPU_TRAP_DEBUG_FLAG_INDEX	2
+ 	for_each_inst(i, inst_mask) {
+-		WREG32_SOC15_IP(GC,
+-			sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_UTCL1_TIMEOUT), 0x80);
++		xcc_id = adev->sdma.instance[i].xcc_id;
 +
- extern int cwsr_enable;
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_UTCL1_TIMEOUT,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_UTCL1_TIMEOUT), 0x80);
+ 	}
+ }
  
- #define AMDGPU_TRAP_TBA_MAX_SIZE (2 * AMDGPU_GPU_PAGE_SIZE)
-@@ -380,6 +391,7 @@ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	struct amdgpu_trap_obj *cwsr;
- 	struct amdgpu_bo *bo;
- 	struct drm_exec exec;
-+	void *cpu_addr;
+@@ -426,6 +436,7 @@ static void sdma_v7_1_inst_enable(struct amdgpu_device *adev,
+ 				  bool enable, uint32_t inst_mask)
+ {
+ 	u32 mcu_cntl;
++	u32 xcc_id;
+ 	int i;
+ 
+ 	if (!enable) {
+@@ -437,9 +448,13 @@ static void sdma_v7_1_inst_enable(struct amdgpu_device *adev,
+ 		return;
+ 
+ 	for_each_inst(i, inst_mask) {
+-		mcu_cntl = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_MCU_CNTL));
++		xcc_id = adev->sdma.instance[i].xcc_id;
++
++		mcu_cntl = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_CNTL,
++					       SDMA_INST_OFFSET(i, regSDMA0_SDMA_MCU_CNTL));
+ 		mcu_cntl = REG_SET_FIELD(mcu_cntl, SDMA0_SDMA_MCU_CNTL, HALT, enable ? 0 : 1);
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_MCU_CNTL), mcu_cntl);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_CNTL,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_MCU_CNTL), mcu_cntl);
+ 	}
+ }
+ 
+@@ -462,13 +477,15 @@ static int sdma_v7_1_gfx_resume_instance(struct amdgpu_device *adev, int i, bool
+ 	u32 doorbell_offset;
+ 	u32 temp;
+ 	u64 wptr_gpu_addr;
++	u32 xcc_id = adev->sdma.instance[i].xcc_id;
  	int r;
  
- 	if (!amdgpu_trap_is_enabled(adev))
-@@ -407,10 +419,21 @@ int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	ring = &adev->sdma.instance[i].ring;
  
- 	r = amdgpu_bo_create_kernel(adev, AMDGPU_TRAP_TMA_MAX_SIZE, PAGE_SIZE,
- 				    AMDGPU_GEM_DOMAIN_GTT, &amp;cwsr-&gt;tma_bo, NULL,
--				    &amp;cwsr-&gt;tma_cpu_addr);
-+				    &amp;cpu_addr);
- 	if (r)
- 		goto err;
+ 	/* Set ring buffer size in dwords */
+ 	rb_bufsz = order_base_2(ring->ring_size / 4);
+-	rb_cntl = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_CNTL));
++	rb_cntl = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_CNTL,
++				      SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_CNTL));
+ 	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RB_SIZE, rb_bufsz);
+ #ifdef __BIG_ENDIAN
+ 	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RB_SWAP_ENABLE, 1);
+@@ -476,32 +493,49 @@ static int sdma_v7_1_gfx_resume_instance(struct amdgpu_device *adev, int i, bool
+ 				RPTR_WRITEBACK_SWAP_ENABLE, 1);
+ #endif
+ 	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RB_PRIV, 1);
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_CNTL), rb_cntl);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_CNTL,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_CNTL), rb_cntl);
  
-+	/*
-+	 * Build an iosys_map for the TMA CPU mapping. On dGPUs the TMA BO
-+	 * may be placed in VRAM and accessed via MMIO (PCI BAR). Check
-+	 * TTM_BO_MAP_IOMEM_MASK to select the correct write accessor.
-+	 */
-+	if (cwsr-&gt;tma_bo-&gt;kmap.bo_kmap_type &amp; TTM_BO_MAP_IOMEM_MASK)
-+		iosys_map_set_vaddr_iomem(&amp;cwsr-&gt;tma_map,
-+					  (void __iomem *)cpu_addr);
-+	else
-+		iosys_map_set_vaddr(&amp;cwsr-&gt;tma_map, cpu_addr);
+ 	/* Initialize the ring buffer's read and write pointers */
+ 	if (restore) {
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_RPTR), lower_32_bits(ring->wptr << 2));
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_RPTR_HI), upper_32_bits(ring->wptr << 2));
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_WPTR), lower_32_bits(ring->wptr << 2));
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI), upper_32_bits(ring->wptr << 2));
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPTR,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_RPTR),
++				    lower_32_bits(ring->wptr << 2));
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPTR_HI,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_RPTR_HI),
++				    upper_32_bits(ring->wptr << 2));
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_WPTR),
++				    lower_32_bits(ring->wptr << 2));
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI),
++				    upper_32_bits(ring->wptr << 2));
+ 	} else {
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_RPTR), 0);
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_RPTR_HI), 0);
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_WPTR), 0);
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI), 0);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPTR,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_RPTR), 0);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPTR_HI,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_RPTR_HI), 0);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_WPTR), 0);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI), 0);
+ 	}
+ 	/* setup the wptr shadow polling */
+ 	wptr_gpu_addr = ring->wptr_gpu_addr;
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_WPTR_POLL_ADDR_LO),
+-	       lower_32_bits(wptr_gpu_addr));
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_WPTR_POLL_ADDR_HI),
+-	       upper_32_bits(wptr_gpu_addr));
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR_POLL_ADDR_LO,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_WPTR_POLL_ADDR_LO),
++			    lower_32_bits(wptr_gpu_addr));
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR_POLL_ADDR_HI,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_WPTR_POLL_ADDR_HI),
++			    upper_32_bits(wptr_gpu_addr));
+ 
+ 	/* set the wb address whether it's enabled or not */
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_RPTR_ADDR_HI),
+-	       upper_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFF);
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_RPTR_ADDR_LO),
+-	       lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPTR_ADDR_HI,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_RPTR_ADDR_HI),
++			    upper_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFF);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPTR_ADDR_LO,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_RPTR_ADDR_LO),
++			    lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC);
+ 
+ 	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RPTR_WRITEBACK_ENABLE, 1);
+ 	if (amdgpu_sriov_vf(adev))
+@@ -511,22 +545,32 @@ static int sdma_v7_1_gfx_resume_instance(struct amdgpu_device *adev, int i, bool
+ 
+ 	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, MCU_WPTR_POLL_ENABLE, 1);
+ 
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_BASE), ring->gpu_addr >> 8);
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_BASE_HI), ring->gpu_addr >> 40);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_BASE,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_BASE), ring->gpu_addr >> 8);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_BASE_HI,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_BASE_HI),
++			    ring->gpu_addr >> 40);
+ 
+ 	if (!restore)
+ 		ring->wptr = 0;
+ 
+ 	/* before programing wptr to a less value, need set minor_ptr_update first */
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_MINOR_PTR_UPDATE), 1);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_MINOR_PTR_UPDATE,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_MINOR_PTR_UPDATE), 1);
+ 
+ 	if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write for wptr */
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_WPTR), lower_32_bits(ring->wptr) << 2);
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI), upper_32_bits(ring->wptr) << 2);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_WPTR),
++				    lower_32_bits(ring->wptr) << 2);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_WPTR_HI),
++				    upper_32_bits(ring->wptr) << 2);
+ 	}
+ 
+-	doorbell = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_DOORBELL));
+-	doorbell_offset = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_DOORBELL_OFFSET));
++	doorbell = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_DOORBELL,
++				       SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_DOORBELL));
++	doorbell_offset = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_DOORBELL_OFFSET,
++					      SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_DOORBELL_OFFSET));
+ 
+ 	if (ring->use_doorbell) {
+ 		doorbell = REG_SET_FIELD(doorbell, SDMA0_SDMA_QUEUE0_DOORBELL, ENABLE, 1);
+@@ -535,8 +579,11 @@ static int sdma_v7_1_gfx_resume_instance(struct amdgpu_device *adev, int i, bool
+ 	} else {
+ 		doorbell = REG_SET_FIELD(doorbell, SDMA0_SDMA_QUEUE0_DOORBELL, ENABLE, 0);
+ 	}
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_DOORBELL), doorbell);
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_DOORBELL_OFFSET), doorbell_offset);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_DOORBELL,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_DOORBELL), doorbell);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_DOORBELL_OFFSET,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_DOORBELL_OFFSET),
++			    doorbell_offset);
+ 
+ 	if (i == 0)
+ 		adev->nbio.funcs->sdma_doorbell_range(adev, i, ring->use_doorbell,
+@@ -547,53 +594,66 @@ static int sdma_v7_1_gfx_resume_instance(struct amdgpu_device *adev, int i, bool
+ 		sdma_v7_1_ring_set_wptr(ring);
+ 
+ 	/* set minor_ptr_update to 0 after wptr programed */
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_MINOR_PTR_UPDATE), 0);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_MINOR_PTR_UPDATE,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_MINOR_PTR_UPDATE), 0);
+ 
+ 	/* Set up sdma hang watchdog */
+-	temp = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_WATCHDOG_CNTL));
++	temp = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_WATCHDOG_CNTL,
++				   SDMA_INST_OFFSET(i, regSDMA0_SDMA_WATCHDOG_CNTL));
+ 	/* Disable sdma hang watchdog, need revist this when issue resolved.
+ 	Once issue resoved, the QUEUE_HANG_COUNT should be set to max(adev->usec_timeout/100000,1)
+ 	*/
+ 	temp = REG_SET_FIELD(temp, SDMA0_SDMA_WATCHDOG_CNTL, QUEUE_HANG_COUNT, 0);
+ 	temp = REG_SET_FIELD(temp, SDMA0_SDMA_WATCHDOG_CNTL, CMD_TIMEOUT_COUNT, 0);
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_WATCHDOG_CNTL), temp);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_WATCHDOG_CNTL,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_WATCHDOG_CNTL), temp);
+ 
+ 	dev_dbg(adev->dev, "Disable SDMA Hang WatchDog, regSDMA0_SDMA_WATCHDOG_CNTL = %d\n",
+-		RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_WATCHDOG_CNTL)));
++		RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_WATCHDOG_CNTL,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_WATCHDOG_CNTL)));
+ 
+ 	/* Set up RESP_MODE to non-copy addresses */
+-	temp = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_UTCL1_CNTL));
++	temp = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_UTCL1_CNTL,
++				   SDMA_INST_OFFSET(i, regSDMA0_SDMA_UTCL1_CNTL));
+ 	temp = REG_SET_FIELD(temp, SDMA0_SDMA_UTCL1_CNTL, RESP_MODE, 3);
+ 	temp = REG_SET_FIELD(temp, SDMA0_SDMA_UTCL1_CNTL, REDO_DELAY, 9);
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_UTCL1_CNTL), temp);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_UTCL1_CNTL,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_UTCL1_CNTL), temp);
+ 
+ 	/* program default cache read and write policy */
+-	temp = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_UTCL1_PAGE));
++	temp = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_UTCL1_PAGE,
++				   SDMA_INST_OFFSET(i, regSDMA0_SDMA_UTCL1_PAGE));
+ 	/* clean read policy and write policy bits */
+ 	temp &= 0xFF0FFF;
+ 	temp |= ((CACHE_READ_POLICY_L2__DEFAULT << 12) |
+ 		 (CACHE_WRITE_POLICY_L2__DEFAULT << 14));
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_UTCL1_PAGE), temp);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_UTCL1_PAGE,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_UTCL1_PAGE), temp);
+ 
+ 	if (!amdgpu_sriov_vf(adev)) {
+ 		/* unhalt engine */
+-		temp = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_MCU_CNTL));
++		temp = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_CNTL,
++					   SDMA_INST_OFFSET(i, regSDMA0_SDMA_MCU_CNTL));
+ 		temp = REG_SET_FIELD(temp, SDMA0_SDMA_MCU_CNTL, HALT, 0);
+ 		temp = REG_SET_FIELD(temp, SDMA0_SDMA_MCU_CNTL, RESET, 0);
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_MCU_CNTL), temp);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_CNTL,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_MCU_CNTL), temp);
+ 	}
+ 
+ 	/* enable DMA RB */
+ 	rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RB_ENABLE, 1);
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_CNTL), rb_cntl);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_CNTL,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_CNTL), rb_cntl);
+ 
+-	ib_cntl = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_IB_CNTL));
++	ib_cntl = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_IB_CNTL,
++				      SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_IB_CNTL));
+ 	ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_SDMA_QUEUE0_IB_CNTL, IB_ENABLE, 1);
+ #ifdef __BIG_ENDIAN
+ 	ib_cntl = REG_SET_FIELD(ib_cntl, SDMA0_SDMA_QUEUE0_IB_CNTL, IB_SWAP_ENABLE, 1);
+ #endif
+ 	/* enable DMA IBs */
+-	WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_IB_CNTL), ib_cntl);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_IB_CNTL,
++			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_IB_CNTL), ib_cntl);
+ 	ring->sched.ready = true;
+ 
+ 	if (amdgpu_sriov_vf(adev)) { /* bare-metal sequence doesn't need below to lines */
+@@ -675,6 +735,7 @@ static int sdma_v7_1_inst_load_microcode(struct amdgpu_device *adev,
+ 	const __le32 *fw_data;
+ 	u32 fw_size;
+ 	uint32_t tmp, sdma_status, ic_op_cntl;
++	u32 xcc_id;
+ 	int i, r, j;
+ 
+ 	/* halt the MEs */
+@@ -692,6 +753,8 @@ static int sdma_v7_1_inst_load_microcode(struct amdgpu_device *adev,
+ 	fw_size = le32_to_cpu(hdr->ucode_size_bytes);
+ 
+ 	for_each_inst(i, inst_mask) {
++		xcc_id = adev->sdma.instance[i].xcc_id;
 +
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">Clear NAK to that hack. Please use ttm_bo_vmap() instead if you need an iosys_map.</pre>
-      </blockquote>
-      <p>Hi Christian,</p>
-      <p>
-        <style>@scope { a {
-    text-decoration: none;
-    color: #464feb;
-}tr th, tr td {
-    border: 1px solid #e6e6e6;
-}tr th {
-    background-color: #f5f5f5;
-} }</style> </p>
-      <div style="font-family:'Segoe UI';font-size:14px;font-style:normal;font-weight:400;line-height:20px">
-        <p>Thanks. One clarification regarding using <code>ttm_bo_vmap()</code>
-          here.</p>
-        <p>The per-VM TMA BO is unpinned and can be moved/evicted.
-          Currently <code>amdgpu_bo_move_notify()</code> calls <code>amdgpu_bo_kunmap()</code>,
-          so the existing <code>amdgpu_bo_kmap()</code> mapping is
-          dropped before a move.</p>
-        <p>If we replace it with <code>ttm_bo_vmap()</code> and keep
-          the returned <code>iosys_map</code> in the trap object,
-          should we also handle unmapping/remapping it across BO moves,
-          or would you prefer mapping it only around the TMA accesses?</p>
-      </div>
-    </blockquote>
-    <p dir="auto" data-start="1203" data-end="1377" class="PDq2pG_selectionAnchorContainer">Since the per-VM TMA BO is
-      unpinned and movable, keeping the <code data-start="1272" data-end="1287">ttm_bo_vmap()</code> mapping in the trap object
-      would require us to invalidate/remap it whenever the BO moves.<span aria-hidden="true" class="PDq2pG_selectionAnchor"></span></p>
-    <p dir="auto" data-start="1382" data-end="1605">To avoid maintaining
-      a long-lived mapping for an evictable BO, I'm thinking of using <code data-start="1467" data-end="1482">ttm_bo_vmap()</code> only
-      around the TMA CPU accesses while the BO is reserved, and calling
-      <code data-start="1554" data-end="1571">ttm_bo_vunmap()</code>
-      before releasing the reservation.</p>
-    <p dir="auto" data-start="1610" data-end="1680">This should also
-      avoid leaving a stale <code data-start="1649" data-end="1660">iosys_map</code>
-      after BO migration.</p>
-    <p dir="auto" data-start="1685" data-end="1729">Does that sound like
-      the preferred approach?</p>
-    <p dir="auto" data-start="1734" data-end="1751">Thanks,<br data-start="1741" data-end="1744">
-      Srini</p>
-    <br>
-  </body>
-</html>
+ 		r = amdgpu_bo_create_reserved(adev, fw_size,
+ 					      PAGE_SIZE,
+ 					      AMDGPU_GEM_DOMAIN_VRAM,
+@@ -708,25 +771,31 @@ static int sdma_v7_1_inst_load_microcode(struct amdgpu_device *adev,
+ 		amdgpu_bo_kunmap(adev->sdma.instance[i].sdma_fw_obj);
+ 		amdgpu_bo_unreserve(adev->sdma.instance[i].sdma_fw_obj);
+ 
+-		tmp = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_IC_CNTL));
++		tmp = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_CNTL,
++					  SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_CNTL));
+ 		tmp = REG_SET_FIELD(tmp, SDMA0_SDMA_IC_CNTL, GPA, 0);
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_IC_CNTL), tmp);
+-
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_IC_BASE_LO),
+-			lower_32_bits(adev->sdma.instance[i].sdma_fw_gpu_addr));
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_IC_BASE_HI),
+-			upper_32_bits(adev->sdma.instance[i].sdma_fw_gpu_addr));
+-
+-		tmp = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_IC_OP_CNTL));
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_CNTL,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_CNTL), tmp);
++
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_BASE_LO,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_BASE_LO),
++				    lower_32_bits(adev->sdma.instance[i].sdma_fw_gpu_addr));
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_BASE_HI,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_BASE_HI),
++				    upper_32_bits(adev->sdma.instance[i].sdma_fw_gpu_addr));
++
++		tmp = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_OP_CNTL,
++					  SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_OP_CNTL));
+ 		tmp = REG_SET_FIELD(tmp, SDMA0_SDMA_IC_OP_CNTL, PRIME_ICACHE, 1);
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_IC_OP_CNTL), tmp);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_OP_CNTL,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_OP_CNTL), tmp);
+ 
+ 		/* Wait for sdma ucode init complete */
+ 		for (j = 0; j < adev->usec_timeout; j++) {
+-			ic_op_cntl = RREG32_SOC15_IP(GC,
+-					sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_IC_OP_CNTL));
+-			sdma_status = RREG32_SOC15_IP(GC,
+-					sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_STATUS_REG));
++			ic_op_cntl = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_OP_CNTL,
++							 SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_OP_CNTL));
++			sdma_status = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_STATUS_REG,
++							  SDMA_INST_OFFSET(i, regSDMA0_SDMA_STATUS_REG));
+ 			if ((REG_GET_FIELD(ic_op_cntl, SDMA0_SDMA_IC_OP_CNTL, ICACHE_PRIMED) == 1) &&
+ 			    (REG_GET_FIELD(sdma_status, SDMA0_SDMA_STATUS_REG, UCODE_INIT_DONE) == 1))
+ 				break;
+@@ -746,6 +815,7 @@ static int sdma_v7_1_soft_reset(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	uint32_t inst_mask;
++	u32 xcc_id;
+ 	u32 tmp;
+ 	int i;
+ 
+@@ -753,15 +823,22 @@ static int sdma_v7_1_soft_reset(struct amdgpu_ip_block *ip_block)
+ 	sdma_v7_1_inst_gfx_stop(adev, inst_mask);
+ 
+ 	for_each_inst(i, inst_mask) {
+-		//tmp = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_FREEZE));
++		xcc_id = adev->sdma.instance[i].xcc_id;
++
++		//tmp = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_FREEZE,
++		//			    SDMA_INST_OFFSET(i, regSDMA0_SDMA_FREEZE));
+ 		//tmp |= SDMA0_SDMA_FREEZE__FREEZE_MASK;
+-		//WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_FREEZE), tmp);
+-		tmp = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_MCU_CNTL));
++		//WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_FREEZE,
++		//		      SDMA_INST_OFFSET(i, regSDMA0_SDMA_FREEZE), tmp);
++		tmp = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_CNTL,
++					  SDMA_INST_OFFSET(i, regSDMA0_SDMA_MCU_CNTL));
+ 		tmp |= SDMA0_SDMA_MCU_CNTL__HALT_MASK;
+ 		tmp |= SDMA0_SDMA_MCU_CNTL__RESET_MASK;
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_MCU_CNTL), tmp);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_CNTL,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_MCU_CNTL), tmp);
+ 
+-		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_PREEMPT), 0);
++		WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_PREEMPT,
++				    SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_PREEMPT), 0);
+ 
+ 		udelay(100);
+ 
+@@ -857,6 +934,7 @@ static int sdma_v7_1_mqd_init(struct amdgpu_device *adev, void *mqd,
+ 			      struct amdgpu_mqd_prop *prop)
+ {
+ 	struct v12_1_sdma_mqd *m = mqd;
++	u32 xcc_id = adev->sdma.instance[0].xcc_id;
+ 	uint64_t wb_gpu_addr;
+ 
+ 	m->sdmax_queuen_rb_cntl =
+@@ -876,8 +954,8 @@ static int sdma_v7_1_mqd_init(struct amdgpu_device *adev, void *mqd,
+ 	m->sdmax_queuen_rb_rptr_addr_lo = lower_32_bits(wb_gpu_addr);
+ 	m->sdmax_queuen_rb_rptr_addr_hi = upper_32_bits(wb_gpu_addr);
+ 
+-	m->sdmax_queuen_ib_cntl = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, 0,
+-							regSDMA0_SDMA_QUEUE0_IB_CNTL));
++	m->sdmax_queuen_ib_cntl = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_IB_CNTL,
++						    SDMA_INST_OFFSET(0, regSDMA0_SDMA_QUEUE0_IB_CNTL));
+ 
+ 	m->sdmax_queuen_doorbell_offset =
+ 		prop->doorbell_index << SDMA0_SDMA_QUEUE0_DOORBELL_OFFSET__OFFSET__SHIFT;
+@@ -1380,13 +1458,18 @@ static int sdma_v7_1_sw_fini(struct amdgpu_ip_block *ip_block)
+ static void sdma_v7_1_rb_cmd_switch(struct amdgpu_device *adev,
+ 				    uint32_t inst_mask)
+ {
++	u32 xcc_id;
+ 	int i, fe_cntl;
+-	
++
+ 	if (adev->sdma.sdma_debug) {
+ 		for_each_inst(i, inst_mask) {
+-			fe_cntl = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_FE_CNTL0));
++			xcc_id = adev->sdma.instance[i].xcc_id;
++
++			fe_cntl = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_FE_CNTL0,
++						      SDMA_INST_OFFSET(i, regSDMA0_SDMA_FE_CNTL0));
+ 			fe_cntl &= 0x7fffffff;
+-			WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_FE_CNTL0), fe_cntl);
++			WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_FE_CNTL0,
++					    SDMA_INST_OFFSET(i, regSDMA0_SDMA_FE_CNTL0), fe_cntl);
+ 		}
+ 	}
+ }
+@@ -1442,8 +1525,10 @@ static int sdma_v7_1_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ 
+ 	for (i = 0; i < adev->usec_timeout; i++) {
+ 		for (j = 0; j < adev->sdma.num_instances; j++) {
+-			sdma[j] = RREG32(sdma_v7_1_get_reg_offset(adev,
+-						j, regSDMA0_SDMA_STATUS_REG));
++			u32 xcc_id = adev->sdma.instance[j].xcc_id;
++
++			sdma[j] = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_STATUS_REG,
++					SDMA_INST_OFFSET(j, regSDMA0_SDMA_STATUS_REG));
+ 			if (!(sdma[j] & SDMA0_SDMA_STATUS_REG__IDLE_MASK))
+ 				break;
+ 		}
+@@ -1459,11 +1544,10 @@ static int sdma_v7_1_ring_preempt_ib(struct amdgpu_ring *ring)
+ 	int i, r = 0;
+ 	struct amdgpu_device *adev = ring->adev;
+ 	u32 index = 0;
+-	u64 sdma_gfx_preempt;
++	u32 xcc_id;
+ 
+ 	amdgpu_sdma_get_index_from_ring(ring, &index);
+-	sdma_gfx_preempt =
+-		sdma_v7_1_get_reg_offset(adev, index, regSDMA0_SDMA_QUEUE0_PREEMPT);
++	xcc_id = adev->sdma.instance[index].xcc_id;
+ 
+ 	/* assert preemption condition */
+ 	amdgpu_ring_set_preempt_cond_exec(ring, false);
+@@ -1480,7 +1564,8 @@ static int sdma_v7_1_ring_preempt_ib(struct amdgpu_ring *ring)
+ 	amdgpu_ring_commit(ring);
+ 
+ 	/* assert IB preemption */
+-	WREG32(sdma_gfx_preempt, 1);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_PREEMPT,
++			    SDMA_INST_OFFSET(index, regSDMA0_SDMA_QUEUE0_PREEMPT), 1);
+ 
+ 	/* poll the trailing fence */
+ 	for (i = 0; i < adev->usec_timeout; i++) {
+@@ -1496,7 +1581,8 @@ static int sdma_v7_1_ring_preempt_ib(struct amdgpu_ring *ring)
+ 	}
+ 
+ 	/* deassert IB preemption */
+-	WREG32(sdma_gfx_preempt, 0);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_PREEMPT,
++			    SDMA_INST_OFFSET(index, regSDMA0_SDMA_QUEUE0_PREEMPT), 0);
+ 
+ 	/* deassert the preemption condition */
+ 	amdgpu_ring_set_preempt_cond_exec(ring, true);
+@@ -1508,14 +1594,15 @@ static int sdma_v7_1_set_trap_irq_state(struct amdgpu_device *adev,
+ 					unsigned type,
+ 					enum amdgpu_interrupt_state state)
+ {
++	u32 xcc_id = adev->sdma.instance[type].xcc_id;
+ 	u32 sdma_cntl;
+ 
+-	u32 reg_offset = sdma_v7_1_get_reg_offset(adev, type, regSDMA0_SDMA_CNTL);
+-
+-	sdma_cntl = RREG32(reg_offset);
++	sdma_cntl = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_CNTL,
++					SDMA_INST_OFFSET(type, regSDMA0_SDMA_CNTL));
+ 	sdma_cntl = REG_SET_FIELD(sdma_cntl, SDMA0_SDMA_CNTL, TRAP_ENABLE,
+ 		       state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+-	WREG32(reg_offset, sdma_cntl);
++	WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_CNTL,
++			    SDMA_INST_OFFSET(type, regSDMA0_SDMA_CNTL), sdma_cntl);
+ 
+ 	return 0;
+ }
+@@ -1620,11 +1707,13 @@ static void sdma_v7_1_dump_ip_state(struct amdgpu_ip_block *ip_block)
+ 
+ 	amdgpu_gfx_off_ctrl(adev, false);
+ 	for (i = 0; i < adev->sdma.num_instances; i++) {
++		u32 xcc_id = adev->sdma.instance[i].xcc_id;
++
+ 		instance_offset = i * reg_count;
+ 		for (j = 0; j < reg_count; j++)
+ 			adev->sdma.ip_dump[instance_offset + j] =
+-				RREG32(sdma_v7_1_get_reg_offset(adev, i,
+-				       sdma_reg_list_7_1[j].reg_offset));
++				RREG32(SOC15_REG_ENTRY_OFFSET_INST(sdma_reg_list_7_1[j], xcc_id) +
++				       sdma_v7_1_inst_offset(adev, i, sdma_reg_list_7_1[j].seg));
+ 	}
+ 	amdgpu_gfx_off_ctrl(adev, true);
+ }
+-- 
+2.49.0
 
---------------vPJC4WfVhbz300jg1YXWWCRe--
