@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40BD1C982DA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0984C982DD
 	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 12:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9884610F319;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E9510F311;
 	Fri, 18 Sep 2026 12:05:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DaRulld/";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Ce0XxqEL";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0419F10F2F8
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 12:05:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BEA610F30D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 12:05:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=E7paS7UnBFCt3otdExWqJcosWl87f6m2Fpch069tA8Q=; b=DaRulld/9XuAqk2nSpnsLHooEC
- NmkX3z1rO1KWYbdE2eLOkhMRfnLmYjEwhEEIlHqodc5XWEcRiBwLhSgXqOayztC1PBh/PQPrT7fJO
- mUGVOpWVr/TYk5GP8LHA+anayQkIDrOBNDVohhhgfdKY+3QI6QG2pxKYJC/mmutICXcKHBcAzi1mp
- 6MrKav0+tNg81WbKdGv+tuJOgFnEpQUBBefLk4GjuVVbVTLSbOT05TfZh6bo9RdCdMQbFB7afHE6e
- tbp5V9B0LlpS/IEw+VdCGiuUagnpCP7rS0sup395nc5JqO0anBetiGomEMVL8oYsuwrVrmim4aCct
- OcXgG4EA==;
+ bh=nL5nUcaBqS7hivhTURYJGMNQAgK+Z4ZQSoLM8RYueF4=; b=Ce0XxqEL2oOL2MaRTRDx3oYIIc
+ CMJxpCfW4vpLyt/lXd/XCkWLyAqm9e0FyH5dxYllDdKVFm+gAGFijeK01WKgyYT4VAYdQzc1pd3XA
+ HyTpoGrgLZnQMwOZP/j4vj4g5eQFtS9S/09uAQtfATLsSv8NpefCZ7toVnygOdwB78uCzx3vNW3CU
+ iEs4Z/4UjduZtvmi3e/gVJQRTQM281Ru/yrRxH6pY29QRUhS8Ytda3M7MInoVdhslj7BKUcalVlWD
+ 0h4ANGr2PoCxmO3t9Nl7jAJz1i0ShGLHes9krx5ZCKQII3kIFuyQNLlJuwqEHhJ1lOAgpO2lhCsFl
+ tIjgYKrg==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x7XLJ-003vMf-Us; Fri, 18 Sep 2026 14:05:25 +0200
+ id 1x7XLM-003vND-W2; Fri, 18 Sep 2026 14:05:28 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 01/18] drm/amdgpu: More compact VCN IB emission
-Date: Fri, 18 Sep 2026 13:05:01 +0100
-Message-ID: <20260918120518.96922-2-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 05/18] drm/amdgpu: More compact SI SDMA emission
+Date: Fri, 18 Sep 2026 13:05:05 +0100
+Message-ID: <20260918120518.96922-6-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918120518.96922-1-tvrtko.ursulin@igalia.com>
 References: <20260918120518.96922-1-tvrtko.ursulin@igalia.com>
@@ -64,242 +64,157 @@ Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Timur Kristóf <timur.kristof@gmail.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 ---
-v2:
- *  Fix decode buffer overwrite.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 134 +++++++++++++-----------
- 1 file changed, 75 insertions(+), 59 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/si_dma.c | 84 +++++++++++++++++------------
+ 1 file changed, 51 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 17db7264269e..2c367ee6e182 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -622,9 +622,12 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
- {
- 	u64 addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
- 	struct amdgpu_device *adev = ring->adev;
-+	struct amdgpu_vcn_reg *internal = &adev->vcn.inst[ring->me].internal;
-+	uint32_t nop = PACKET0(internal->nop, 0);
- 	struct dma_fence *f = NULL;
- 	struct amdgpu_job *job;
- 	struct amdgpu_ib *ib;
-+	uint32_t *ptr;
- 	int i, r;
- 
- 	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
-@@ -635,15 +638,16 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
- 		goto err;
- 
- 	ib = &job->ibs[0];
--	ib->ptr[0] = PACKET0(adev->vcn.inst[ring->me].internal.data0, 0);
--	ib->ptr[1] = addr;
--	ib->ptr[2] = PACKET0(adev->vcn.inst[ring->me].internal.data1, 0);
--	ib->ptr[3] = addr >> 32;
--	ib->ptr[4] = PACKET0(adev->vcn.inst[ring->me].internal.cmd, 0);
--	ib->ptr[5] = 0;
-+	ptr = ib->ptr;
-+	*ptr++ = PACKET0(internal->data0, 0);
-+	*ptr++ = addr;
-+	*ptr++ = PACKET0(internal->data1, 0);
-+	*ptr++ = addr >> 32;
-+	*ptr++ = PACKET0(internal->cmd, 0);
-+	*ptr++ = 0;
- 	for (i = 6; i < 16; i += 2) {
--		ib->ptr[i] = PACKET0(adev->vcn.inst[ring->me].internal.nop, 0);
--		ib->ptr[i+1] = 0;
-+		*ptr++ = nop;
-+		*ptr++ = 0;
- 	}
- 	ib->length_dw = 16;
- 
-@@ -763,17 +767,20 @@ int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- static uint32_t *amdgpu_vcn_unified_ring_ib_header(struct amdgpu_ib *ib,
- 						uint32_t ib_pack_in_dw, bool enc)
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+index 31ab701d45d3..333861204546 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+@@ -328,14 +328,16 @@ static void si_dma_vm_copy_pte(struct amdgpu_ib *ib,
+ 			       uint64_t pe, uint64_t src,
+ 			       unsigned count)
  {
 +	u32 *ptr = &ib->ptr[ib->length_dw];
- 	uint32_t *ib_checksum;
+ 	unsigned bytes = count * 8;
  
--	ib->ptr[ib->length_dw++] = 0x00000010; /* single queue checksum */
--	ib->ptr[ib->length_dw++] = 0x30000002;
--	ib_checksum = &ib->ptr[ib->length_dw++];
--	ib->ptr[ib->length_dw++] = ib_pack_in_dw;
-+	*ptr++ = 0x00000010; /* single queue checksum */
-+	*ptr++ = 0x30000002;
-+	ib_checksum = ptr++;
-+	*ptr++ = ib_pack_in_dw;
- 
--	ib->ptr[ib->length_dw++] = 0x00000010; /* engine info */
--	ib->ptr[ib->length_dw++] = 0x30000001;
--	ib->ptr[ib->length_dw++] = enc ? 0x2 : 0x3;
--	ib->ptr[ib->length_dw++] = ib_pack_in_dw * sizeof(uint32_t);
-+	*ptr++ = 0x00000010; /* engine info */
-+	*ptr++ = 0x30000001;
-+	*ptr++ = enc ? 0x2 : 0x3;
-+	*ptr++ = ib_pack_in_dw * sizeof(uint32_t);
+-	ib->ptr[ib->length_dw++] = DMA_PACKET(DMA_PACKET_COPY,
+-					      1, 0, 0, bytes);
+-	ib->ptr[ib->length_dw++] = lower_32_bits(pe);
+-	ib->ptr[ib->length_dw++] = lower_32_bits(src);
+-	ib->ptr[ib->length_dw++] = upper_32_bits(pe) & 0xff;
+-	ib->ptr[ib->length_dw++] = upper_32_bits(src) & 0xff;
++	*ptr++ = DMA_PACKET(DMA_PACKET_COPY, 1, 0, 0, bytes);
++	*ptr++ = lower_32_bits(pe);
++	*ptr++ = lower_32_bits(src);
++	*ptr++ = upper_32_bits(pe) & 0xff;
++	*ptr++ = upper_32_bits(src) & 0xff;
 +
 +	ib->length_dw = ptr - ib->ptr;
- 
- 	return ib_checksum;
  }
-@@ -803,7 +810,8 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
- 	uint64_t addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
- 	uint32_t *ib_checksum;
- 	uint32_t ib_pack_in_dw;
--	int i, r;
-+	u32 *ptr;
-+	int r;
  
- 	if (adev->vcn.inst[ring->me].using_unified_queue)
- 		ib_size_dw += 8;
-@@ -825,18 +833,20 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
- 		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, ib_pack_in_dw, false);
+ /**
+@@ -353,16 +355,19 @@ static void si_dma_vm_write_pte(struct amdgpu_ib *ib, uint64_t pe,
+ 				uint64_t value, unsigned count,
+ 				uint32_t incr)
+ {
++	u32 *ptr = &ib->ptr[ib->length_dw];
+ 	unsigned ndw = count * 2;
+ 
+-	ib->ptr[ib->length_dw++] = DMA_PACKET(DMA_PACKET_WRITE, 0, 0, 0, ndw);
+-	ib->ptr[ib->length_dw++] = lower_32_bits(pe);
+-	ib->ptr[ib->length_dw++] = upper_32_bits(pe);
++	*ptr++ = DMA_PACKET(DMA_PACKET_WRITE, 0, 0, 0, ndw);
++	*ptr++ = lower_32_bits(pe);
++	*ptr++ = upper_32_bits(pe);
+ 	for (; ndw > 0; ndw -= 2) {
+-		ib->ptr[ib->length_dw++] = lower_32_bits(value);
+-		ib->ptr[ib->length_dw++] = upper_32_bits(value);
++		*ptr++ = lower_32_bits(value);
++		*ptr++ = upper_32_bits(value);
+ 		value += incr;
  	}
- 
--	ib->ptr[ib->length_dw++] = sizeof(struct amdgpu_vcn_decode_buffer) + 8;
--	ib->ptr[ib->length_dw++] = cpu_to_le32(AMDGPU_VCN_IB_FLAG_DECODE_BUFFER);
--	decode_buffer = (struct amdgpu_vcn_decode_buffer *)&(ib->ptr[ib->length_dw]);
--	ib->length_dw += sizeof(struct amdgpu_vcn_decode_buffer) / 4;
-+	ptr = &ib->ptr[ib->length_dw];
-+
-+	*ptr++ = sizeof(struct amdgpu_vcn_decode_buffer) + 8;
-+	*ptr++ = cpu_to_le32(AMDGPU_VCN_IB_FLAG_DECODE_BUFFER);
-+	decode_buffer = (struct amdgpu_vcn_decode_buffer *)ptr;
-+	ptr += sizeof(struct amdgpu_vcn_decode_buffer) / 4;
-+	ib->length_dw = ptr - ib->ptr;
- 	memset(decode_buffer, 0, sizeof(struct amdgpu_vcn_decode_buffer));
- 
- 	decode_buffer->valid_buf_flag |= cpu_to_le32(AMDGPU_VCN_CMD_FLAG_MSG_BUFFER);
- 	decode_buffer->msg_buffer_address_hi = cpu_to_le32(addr >> 32);
- 	decode_buffer->msg_buffer_address_lo = cpu_to_le32(addr);
- 
--	for (i = ib->length_dw; i < ib_size_dw; ++i)
--		ib->ptr[i] = 0x0;
-+	memset32(ptr, 0, ib_size_dw - ib->length_dw);
- 
- 	if (adev->vcn.inst[ring->me].using_unified_queue)
- 		amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, ib_pack_in_dw);
-@@ -934,7 +944,8 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
- 	struct dma_fence *f = NULL;
- 	uint32_t *ib_checksum = NULL;
- 	uint64_t addr;
--	int i, r;
-+	u32 *ptr;
-+	int r;
- 
- 	if (adev->vcn.inst[ring->me].using_unified_queue)
- 		ib_size_dw += 8;
-@@ -947,31 +958,33 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
- 		return r;
- 
- 	ib = &job->ibs[0];
--	addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
--
- 	ib->length_dw = 0;
-+	addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
- 
- 	if (adev->vcn.inst[ring->me].using_unified_queue)
- 		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, 0x11, true);
- 
--	ib->ptr[ib->length_dw++] = 0x00000018;
--	ib->ptr[ib->length_dw++] = 0x00000001; /* session info */
--	ib->ptr[ib->length_dw++] = handle;
--	ib->ptr[ib->length_dw++] = upper_32_bits(addr);
--	ib->ptr[ib->length_dw++] = addr;
--	ib->ptr[ib->length_dw++] = 0x00000000;
-+	ptr = &ib->ptr[ib->length_dw];
- 
--	ib->ptr[ib->length_dw++] = 0x00000014;
--	ib->ptr[ib->length_dw++] = 0x00000002; /* task info */
--	ib->ptr[ib->length_dw++] = 0x0000001c;
--	ib->ptr[ib->length_dw++] = 0x00000000;
--	ib->ptr[ib->length_dw++] = 0x00000000;
-+	*ptr++ = 0x00000018;
-+	*ptr++ = 0x00000001; /* session info */
-+	*ptr++ = handle;
-+	*ptr++ = upper_32_bits(addr);
-+	*ptr++ = addr;
-+	*ptr++ = 0x00000000;
- 
--	ib->ptr[ib->length_dw++] = 0x00000008;
--	ib->ptr[ib->length_dw++] = 0x08000001; /* op initialize */
-+	*ptr++ = 0x00000014;
-+	*ptr++ = 0x00000002; /* task info */
-+	*ptr++ = 0x0000001c;
-+	*ptr++ = 0x00000000;
-+	*ptr++ = 0x00000000;
- 
--	for (i = ib->length_dw; i < ib_size_dw; ++i)
--		ib->ptr[i] = 0x0;
-+	*ptr++ = 0x00000008;
-+	*ptr++ = 0x08000001; /* op initialize */
 +
 +	ib->length_dw = ptr - ib->ptr;
-+
-+	memset32(ptr, 0, ib_size_dw - ib->length_dw);
+ }
  
- 	if (adev->vcn.inst[ring->me].using_unified_queue)
- 		amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, 0x11);
-@@ -1002,7 +1015,8 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
- 	struct dma_fence *f = NULL;
- 	uint32_t *ib_checksum = NULL;
- 	uint64_t addr;
--	int i, r;
-+	u32 *ptr;
-+	int r;
+ /**
+@@ -382,6 +387,7 @@ static void si_dma_vm_set_pte_pde(struct amdgpu_ib *ib,
+ 				     uint64_t addr, unsigned count,
+ 				     uint32_t incr, uint64_t flags)
+ {
++	u32 *ptr = &ib->ptr[ib->length_dw];
+ 	uint64_t value;
+ 	unsigned ndw;
  
- 	if (adev->vcn.inst[ring->me].using_unified_queue)
- 		ib_size_dw += 8;
-@@ -1015,31 +1029,33 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
- 		return r;
+@@ -396,19 +402,21 @@ static void si_dma_vm_set_pte_pde(struct amdgpu_ib *ib,
+ 			value = 0;
  
- 	ib = &job->ibs[0];
--	addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
--
- 	ib->length_dw = 0;
-+	addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
- 
- 	if (adev->vcn.inst[ring->me].using_unified_queue)
- 		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, 0x11, true);
- 
--	ib->ptr[ib->length_dw++] = 0x00000018;
--	ib->ptr[ib->length_dw++] = 0x00000001;
--	ib->ptr[ib->length_dw++] = handle;
--	ib->ptr[ib->length_dw++] = upper_32_bits(addr);
--	ib->ptr[ib->length_dw++] = addr;
--	ib->ptr[ib->length_dw++] = 0x00000000;
-+	ptr = &ib->ptr[ib->length_dw];
- 
--	ib->ptr[ib->length_dw++] = 0x00000014;
--	ib->ptr[ib->length_dw++] = 0x00000002;
--	ib->ptr[ib->length_dw++] = 0x0000001c;
--	ib->ptr[ib->length_dw++] = 0x00000000;
--	ib->ptr[ib->length_dw++] = 0x00000000;
-+	*ptr++ = 0x00000018;
-+	*ptr++ = 0x00000001;
-+	*ptr++ = handle;
-+	*ptr++ = upper_32_bits(addr);
-+	*ptr++ = addr;
-+	*ptr++ = 0x00000000;
- 
--	ib->ptr[ib->length_dw++] = 0x00000008;
--	ib->ptr[ib->length_dw++] = 0x08000002; /* op close session */
-+	*ptr++ = 0x00000014;
-+	*ptr++ = 0x00000002;
-+	*ptr++ = 0x0000001c;
-+	*ptr++ = 0x00000000;
-+	*ptr++ = 0x00000000;
- 
--	for (i = ib->length_dw; i < ib_size_dw; ++i)
--		ib->ptr[i] = 0x0;
-+	*ptr++ = 0x00000008;
-+	*ptr++ = 0x08000002; /* op close session */
+ 		/* for physically contiguous pages (vram) */
+-		ib->ptr[ib->length_dw++] = DMA_PTE_PDE_PACKET(ndw);
+-		ib->ptr[ib->length_dw++] = pe; /* dst addr */
+-		ib->ptr[ib->length_dw++] = upper_32_bits(pe) & 0xff;
+-		ib->ptr[ib->length_dw++] = lower_32_bits(flags); /* mask */
+-		ib->ptr[ib->length_dw++] = upper_32_bits(flags);
+-		ib->ptr[ib->length_dw++] = value; /* value */
+-		ib->ptr[ib->length_dw++] = upper_32_bits(value);
+-		ib->ptr[ib->length_dw++] = incr; /* increment size */
+-		ib->ptr[ib->length_dw++] = 0;
++		*ptr++ = DMA_PTE_PDE_PACKET(ndw);
++		*ptr++ = pe; /* dst addr */
++		*ptr++ = upper_32_bits(pe) & 0xff;
++		*ptr++ = lower_32_bits(flags); /* mask */
++		*ptr++ = upper_32_bits(flags);
++		*ptr++ = value; /* value */
++		*ptr++ = upper_32_bits(value);
++		*ptr++ = incr; /* increment size */
++		*ptr++ = 0;
+ 		pe += ndw * 4;
+ 		addr += (ndw / 2) * incr;
+ 		count -= ndw / 2;
+ 	}
 +
 +	ib->length_dw = ptr - ib->ptr;
-+
-+	memset32(ptr, 0, ib_size_dw - ib->length_dw);
+ }
  
- 	if (adev->vcn.inst[ring->me].using_unified_queue)
- 		amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, 0x11);
+ /**
+@@ -420,8 +428,12 @@ static void si_dma_vm_set_pte_pde(struct amdgpu_ib *ib,
+  */
+ static void si_dma_ring_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib)
+ {
+-	while (ib->length_dw & 0x7)
+-		ib->ptr[ib->length_dw++] = DMA_PACKET(DMA_PACKET_NOP, 0, 0, 0, 0);
++	int pad = 8 - (ib->length_dw & 0x7);
++
++	if (pad && pad < 8) {
++		memset32(ib->ptr, DMA_PACKET(DMA_PACKET_NOP, 0, 0, 0, 0), pad);
++		ib->length_dw += pad;
++	}
+ }
+ 
+ /**
+@@ -793,12 +805,15 @@ static void si_dma_emit_copy_buffer(struct amdgpu_ib *ib,
+ 				       uint32_t byte_count,
+ 				       uint32_t copy_flags)
+ {
+-	ib->ptr[ib->length_dw++] = DMA_PACKET(DMA_PACKET_COPY,
+-					      1, 0, 0, byte_count);
+-	ib->ptr[ib->length_dw++] = lower_32_bits(dst_offset);
+-	ib->ptr[ib->length_dw++] = lower_32_bits(src_offset);
+-	ib->ptr[ib->length_dw++] = upper_32_bits(dst_offset) & 0xff;
+-	ib->ptr[ib->length_dw++] = upper_32_bits(src_offset) & 0xff;
++	u32 *ptr = &ib->ptr[ib->length_dw];
++
++	*ptr++ = DMA_PACKET(DMA_PACKET_COPY, 1, 0, 0, byte_count);
++	*ptr++ = lower_32_bits(dst_offset);
++	*ptr++ = lower_32_bits(src_offset);
++	*ptr++ = upper_32_bits(dst_offset) & 0xff;
++	*ptr++ = upper_32_bits(src_offset) & 0xff;
++
++	ib->length_dw = ptr - ib->ptr;
+ }
+ 
+ /**
+@@ -816,11 +831,14 @@ static void si_dma_emit_fill_buffer(struct amdgpu_ib *ib,
+ 				       uint64_t dst_offset,
+ 				       uint32_t byte_count)
+ {
+-	ib->ptr[ib->length_dw++] = DMA_PACKET(DMA_PACKET_CONSTANT_FILL,
+-					      0, 0, 0, byte_count / 4);
+-	ib->ptr[ib->length_dw++] = lower_32_bits(dst_offset);
+-	ib->ptr[ib->length_dw++] = src_data;
+-	ib->ptr[ib->length_dw++] = upper_32_bits(dst_offset) << 16;
++	u32 *ptr = &ib->ptr[ib->length_dw];
++
++	*ptr++ = DMA_PACKET(DMA_PACKET_CONSTANT_FILL, 0, 0, 0, byte_count / 4);
++	*ptr++ = lower_32_bits(dst_offset);
++	*ptr++ = src_data;
++	*ptr++ = upper_32_bits(dst_offset) << 16;
++
++	ib->length_dw = ptr - ib->ptr;
+ }
+ 
+ 
 -- 
 2.55.0
 
