@@ -4,50 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76B56C982D9
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:44:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04502C982DA
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:44:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1738810F23C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C71810F244;
 	Fri, 18 Sep 2026 07:44:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="DPLa8jGx";
+	dkim=pass (2048-bit key; unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.b="r5UHZPWC";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CA8610ED5D;
- Thu, 17 Sep 2026 10:42:53 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hlslt2LtTzKnRT;
- Thu, 17 Sep 2026 12:42:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1789641770;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=XZlvotagOvflyuk537rr2+uKdsrQpekdHo/pQQ1mK5w=;
- b=DPLa8jGxG4sezSnxU2+XQYs4Wgsw8TPb3BvBG/Mn0N2E0iTJXRKM+zrqg7MVU9DURCjTj8
- h2uVVIPaX/SVGsRb6MNyuEGchQBp4+j2gLis3zSFelVaKWC1UndJB4EE6GiQJ2wROPz5MM
- p+CwHJVdzF1SXTi5i1pOrLw8rc5MbD4vzdmfwz3AQ4sG0OBy3Ig29CDUT6iwsllUTe5L7B
- rIzwt/d+nbS+pU4GWqWre+gQ40hMJ+TQbEAj7EBiHhR04Sm0ASJGofpc5X7ecmDmhaqbrk
- pypyEbwtiAWpfkEFFNiIBWl5jACtkZYJh9dcygJiFvvLzasQtcQCiX3cW1G89w==
-From: Simon Polack <spolack+git@mailbox.org>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Ray Wu <ray.wu@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: Fix stale replay_events after mod_power
- stream removal
-Date: Thu, 17 Sep 2026 12:42:34 +0200
-Message-ID: <20260917104234.18858-1-spolack+git@mailbox.org>
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io
+ [149.72.141.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1351B10F16A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 03:56:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+ h=from:subject:date:mime-version:to:cc:content-type:
+ content-transfer-encoding:cc:content-type:date:from:subject:to;
+ s=s1; t=1789703793;
+ bh=ByQ3HjxGq3mISarOfpCbkfBfl3mweeLSYVmVj0cAQbw=;
+ b=r5UHZPWC0JWyS61uy4juyR7vcqkgXJMedolCFwx1GIrWUKTaFWKdlj3EjJw/97/2iVpn
+ r9OHmKHhyTK/p6r4pt4L8+76/dLjJpBfO5aDT1ITYhc87eDHWtnuAojcGbrN4JSK70aZqg
+ pPSNpVCz4LYRt+n7th8+e+2zcl7tHbkVoCQ9O2TAmbQFFeESCjyM+DhQ8I3BWUrlWYh4bY
+ CWJW28HV2R9akuMpP6R/geFFTUiSc6K7UwgTYqNXuJkEIUIjxRMwvwXwbzhc23kOTEcuaq
+ JPEuBZIum/TF/trBMkROgQfYG75q87Yot5t4pWSYbNOiuqjejMX1jJEps5RTdxtA==
+Received: by recvd-7d7dd758d8-fn74v with SMTP id
+ recvd-7d7dd758d8-fn74v-1-6AACB671-3C
+ 2026-09-18 03:56:33.7941501 +0000 UTC m=+1485602.227445126
+Received: from daisy.dens.ffj.family (unknown) by geopod-ismtpd-19 (SG)
+ with ESMTP id Jvjjs0mySB-kvyIuCIscTA
+ Fri, 18 Sep 2026 03:56:33.721 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Subject: [PATCH v6] PCI: Fix BAR resize for devices on a root bus
+Date: Fri, 18 Sep 2026 03:56:33 +0000 (UTC)
+Message-ID: <20260918035633.566823-1-lizf@honeycomb.io>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+X-SG-EID: =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeTg5nVuRRDKF?=
+ =?us-ascii?Q?THtSYYaKDWLtyCa2ILtxfj5ijKKKbNpm1Uu=2FWbm?=
+ =?us-ascii?Q?rgic8xPn0fHnVNEpIDrwzROnAWIQTJH8wKVerZh?=
+ =?us-ascii?Q?WGwxVY9YIvIikuTa1IwLyVbqSdF+yTbXk0P7E0T?=
+ =?us-ascii?Q?NCDEo2q8BsOJ7cO8CU4AiyKknof+Jvn5+mIlU1d?= =?us-ascii?Q?wvxu?=
+To: lizf@honeycomb.io, Bjorn Helgaas <bhelgaas@google.com>,
+ Ilpo =?iso-8859-1?q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, Jon Nettleton
+ <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, Jacob Martin
+ <jacob.martin@canonical.com>, Thorsten Leemhuis <regressions@leemhuis.info>,
+ stable@vger.kernel.org
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
+Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: uuheci4qwo3eshwuxs89sousmrgsghxi
-X-MBO-RS-ID: 254495ab169330d7d59
 X-Mailman-Approved-At: Fri, 18 Sep 2026 07:44:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,81 +69,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-mod_power_remove_stream() shifts the remaining power_entity slots down
-but does not move replay_events, and mod_power_add_stream() does not
-initialize it. replay_events therefore stay bound to the map slot
-instead of the stream.
+pci_do_resource_release_and_resize() releases the device BARs that
+share a bridge window with the BAR being resized, but when the device
+sits directly on a root bus (pdev->bus->self == NULL) it then skips
+resource assignment entirely and returns success, leaving the BARs it
+just released unassigned (IORESOURCE_UNSET).
 
-When several streams are disabled in one atomic commit,
-amdgpu_dm_mod_power_update_streams() removes them one after another.
-The eDP stream can then be looked up in a slot whose stale
-replay_events already have replay_event_hw_programming set, so
-amdgpu_dm_replay_set_event() returns early ("already in desired state")
-without calling mod_power_set_replay_event(). Replay is not disabled
-before the eDP panel is powered off. After DPMS on, the sink reports
-neither replay state nor frame lock (DPCD 0x378 = 0x00, no error bits),
-so the HPD IRQ recovery does not trigger and the panel stays black
-until a full modeset.
+Skipping pbus_reassign_bridge_resources() is correct in that case --
+there is no bridge window to adjust -- but the device BARs still have
+to be reassigned. Before the BAR release was consolidated into the PCI
+core, this case worked for amdgpu because the driver released the BARs
+itself and then called pci_assign_unassigned_bus_resources()
+unconditionally after the resize, which assigns unassigned device BARs
+also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+side BAR release before resize") removed that call, so nothing assigns
+the released BARs anymore.
 
-Seen with an eDP panel using FreeSync Replay plus two DP-MST displays:
-DPMS off/on of all outputs leaves eDP black, while DPMS of eDP alone
-works. Doing an eDP-only DPMS first makes the next all-output DPMS
-fail reliably.
+This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
+LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+on the root bus of its segment (there is no root port device, so
+pdev->bus->self is NULL):
 
-[How]
-Shift replay_events together with the PSR cached fields in
-mod_power_remove_stream() and initialize it to replay_event_vsync in
-mod_power_add_stream(), matching the psr_event_vsync initial value used
-for PSR (both vsync events are driven together by
-amdgpu_dm_crtc_set_static_screen_optimze()).
+  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+  amdgpu 0004:01:00.0: Fatal error during GPU init
 
-Tested on 7.3.0-rc3 (238650ef6c7c): the reproducer above now recovers
-reliably, and Replay still engages when the screen is idle.
+No error is logged because the resize path reports success; amdgpu
+then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
 
-The issue was debugged with help from an AI assistant (Claude), which
-analysed ftrace/kprobe traces and the driver source, pointed to the
-missing replay_events handling and suggested this change. I collected
-the traces and built and tested the fix on the affected hardware.
+When there is no upstream bridge, call pci_bus_assign_resources() on
+the root bus to place the BARs released above, using the same
+alignment-sorted algorithm as normal enumeration instead of a manual
+per-BAR loop. This also walks the rest of the hierarchy under the
+root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
+before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
+release before resize") removed that call -- the core-side fix that
+commit asked for ("such a problem should be fixed inside
+pci_resize_resource() instead").
 
-Fixes: 4cef2ac4c795 ("drm/amd/display: Introduce power module on Linux")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Simon Polack <spolack+git@mailbox.org>
+pci_bus_assign_resources() returns void, so failure is detected by
+checking whether the released BARs are still assigned afterward; if
+not, roll back as in the bridged case. This is stricter than the
+bridged path -- it fails on any unplaced resource, not just required
+ones -- since a root bus typically has one shared window, and failing
+loudly seemed better than leaving something silently unassigned.
+
+The root bus path also had a locking bug that any fix here necessarily
+touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+matching down_read() (as does the "goto restore" taken when
+pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+before the BAR release loop so every path through the function holds
+it exactly once.
+
+Use pci_upstream_bridge() rather than testing pdev->bus->self
+directly. The two are usually equivalent, but pci_upstream_bridge()
+is the canonical test -- pci_is_root_bus(), which it's built on,
+warns that bus->self == NULL doesn't necessarily mean a root bus
+(SR-IOV virtual buses from virtfn_add_bus() are the same).
+
+Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+Cc: stable@vger.kernel.org
+Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
+Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
+Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Assisted-by: Claude:claude-fable-5 checkpatch
+Assisted-by: Claude:claude-sonnet-5
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 ---
-Based on v7.3-rc3 (238650ef6c7c), where it was tested; also applies to
-amd-staging-drm-next.
 
-This does not address why stale replay_events can reach the eDP slot
-with replay_event_hw_programming already set in the first place; with
-per-stream bookkeeping that state is consistent again. Traces
-(kprobes/fprobes on the Replay path, eDP-only vs. all-output DPMS) and
-DPCD dumps are available on request.
+Confirmed against v7.3-rc3: drivers/pci/setup-bus.c is unpatched
+there, pci_do_resource_release_and_resize() still returns without
+reassigning the released BARs when bus->self is NULL.
 
- drivers/gpu/drm/amd/display/modules/power/power.c | 2 ++
- 1 file changed, 2 insertions(+)
+Tested on the real root-bus hardware this fixes (SolidRun HoneyComb
+LX2K): both a manual resize via the resource0_resize sysfs attribute
+(shrink to 256M then back to 4G, forcing the release+reassign path
+both directions) and amdgpu's own natural probe-time resize (with the
+amdgpu.rebar=0 workaround removed) succeed cleanly -- VRAM and BAR
+size match, no "Fatal error during GPU init", full IP block init.
 
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power.c b/drivers/gpu/drm/amd/display/modules/power/power.c
-index 2f9690e65ca9..d900be8cb5fc 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power.c
-@@ -328,6 +328,7 @@ bool mod_power_add_stream(struct mod_power *mod_power,
- 		core_power->map[core_power->num_entities].psr_enabled = 0;
- 		core_power->map[core_power->num_entities].psr_events = psr_event_vsync;
- 		core_power->map[core_power->num_entities].psr_power_opt = 0;
-+		core_power->map[core_power->num_entities].replay_events = replay_event_vsync;
- 		core_power->num_entities++;
- 		return true;
- 	}
-@@ -387,6 +388,7 @@ bool mod_power_remove_stream(struct mod_power *mod_power,
- 		core_power->map[i].psr_enabled = core_power->map[i + 1].psr_enabled;
- 		core_power->map[i].psr_events = core_power->map[i + 1].psr_events;
- 		core_power->map[i].psr_power_opt = core_power->map[i + 1].psr_power_opt;
-+		core_power->map[i].replay_events = core_power->map[i + 1].replay_events;
+Changes in v6:
+- Repost, confirmed still affects v7.3-rc3
+- Added real-hardware test confirmation (both a manual sysfs-triggered
+  resize and amdgpu's own natural probe-time resize)
+- Picked up Reviewed-by from Ilpo
+- Link to v5: https://patch.msgid.link/20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io
+
+ drivers/pci/setup-bus.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index e8c94aa1d3c12..ed16ef7c26fa7 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	struct resource *res = pci_resource_n(pdev, resno);
+ 	struct pci_dev_resource *dev_res;
+ 	struct pci_bus *bus = pdev->bus;
++	struct pci_dev *bridge = pci_upstream_bridge(pdev);
+ 	struct resource *b_win, *r;
+ 	LIST_HEAD(saved);
+ 	unsigned int i;
+@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	if (ret)
+ 		return ret;
  
- 		memcpy(core_power->map[i].psr_context, core_power->map[i + 1].psr_context, sizeof(struct mod_power_psr_context));
- 		memset(core_power->map[i + 1].psr_context, 0, sizeof(struct mod_power_psr_context));
-
-base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
++	down_read(&pci_bus_sem);
++
+ 	pci_dev_for_each_resource(pdev, r, i) {
+ 		if (i >= PCI_BRIDGE_RESOURCES)
+ 			break;
+@@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 
+ 	pci_resize_resource_set_size(pdev, resno, size);
+ 
+-	if (!bus->self)
+-		goto out;
++	if (bridge) {
++		ret = pbus_reassign_bridge_resources(bus, res, &saved);
++		if (ret)
++			goto restore;
++	} else {
++		/* No bridge window to adjust; let the core reassign the bus. */
++		pci_bus_assign_resources(bus);
+ 
+-	down_read(&pci_bus_sem);
+-	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+-	if (ret)
+-		goto restore;
++		list_for_each_entry(dev_res, &saved, list) {
++			if (!resource_assigned(dev_res->res)) {
++				ret = -ENOSPC;
++				goto restore;
++			}
++		}
++	}
+ 
+ out:
+ 	up_read(&pci_bus_sem);
 -- 
-2.55.0
+2.53.0
 
