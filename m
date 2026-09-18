@@ -4,125 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB53AC88E75
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 05:01:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4435C88E75
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 05:06:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 309FB10E807;
-	Fri, 18 Sep 2026 05:01:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BDA710E801;
+	Fri, 18 Sep 2026 05:06:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="C4neBH1P";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BNBHRYYi";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010000.outbound.protection.outlook.com
- [40.93.198.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68A4A10E807
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 05:00:58 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011021.outbound.protection.outlook.com [52.101.52.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D8C110E801
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 05:06:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gCPEGFXVVToRnt5y4dzYsTqBOK69y/6g/yMPFOre3MzfJPyGUaHwAHdWfe3RkjpsBHYtD6sk+rOBWpZH6wDu/uYcGOtvdjcfLaoQyyOEpN96GbbBo8oNq4WCYj43vCXgaJ/2xcX3/5KYoBjyNyNSFNHRtxZoa8XTCEG9WvgenqQkjTiFsIZ9zJ2ktSQ3tdo50faQl+Hbo8RWxskyippl/FQ2G2xJDT3QGd4dnY0Grkyu3roPCSuBj1fMqojo1UQuobvQI9+jL1+2yxfyEpWTFfIQIJnB5wG4h+EeWeDeVo6l9D/w/S418NTCpMx3wG5ughsiqOGDyW6F4kDHOYdzYA==
+ b=fSLHDtY5MN2SIQCHePH8G1hlkJh8YfuS//BBxkufbrSqFuzK0USxsD4BBoFal89h/H5yPzlXC9Lu1C2JnZtN+pUPyrNx9aq0eBZGtE0izrVZetoNUEFop+G262dGDLe+G+Z0pStFFyw4+MgrrJHir5+N3LESjVAtKb3eN8RgLpMsfkm7O4Ulye/5wvv4zMVRWMsHVHnMnQILzUrZJZsuQe516Fe3MFZ5oOdU5uoaTyjZiQ1gs03VclVm+HPT4HVSqUuWKBmzt/hzJRzZqMvbufyWeSSB9To9NMdIT5UvVRyr9g1i2ekO0glxiJNOOkhjbav0fW+02iDttShBGbiP4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7SUD004r/uftgQhuBf3iVWVxgjDqeMRJhcEWPG9lloE=;
- b=Sgo6ePuMPnWXdo9pz2v6oVDFDlrGKWDnw4r+/qL5dUl6BJP5cVUISmpyqJIxqKuKR4ChvwKW9d+0185Nshq4hpZ2xPon/QEd2jBXpyJcyCgeFEcFh9eNOxGDNt715AcG2zOI/CvRf9mjyItNlHO5MRbQIqOaQE52FsRDm4ca2naTSwcbF8TI6FMf3NxZfYWKYb68JFcmgoZtxOg+jZejBIzb0rxz+wcadyYIeFYv2Kmsszqw794CqDBo3DwVz1p3biW/VNP7qQ5LAXUI8CRCyFYs6FzJKXGIU9n1sncFkwOneq0jglM+CtD8JMUpHTJg4H0wmV97EVeisQ9YK4DHfA==
+ bh=o0aclhRkPe+9hB0iLpgnHg4dPSTRC/BwripV+YNvXp0=;
+ b=T91oAJLjiLRNEHWIjArvP1bYtrhVjhJoAOwEPcMj3lPl2LGS1a0yVSwBXUZGsDecTfiaWDTeOO5YV4FrSfp4OrhsTXnYAO5MxMhes9KY3cCod/mM/XmmfNTKtBFVvvOtzU6h/vq1fB8DF9rDn6/EZWBp5ZN+h081DUDlhiTd3AmREYuwhnLGdoKG017Zo4NkVFkRGbKbgnmSc/lN+p2BSWy4JKoPkwEX3nRMJ0nGqpJaqrL3kvPkxuIiEGvlHKJJUMe0X2j8J9O4ADDFRjIuiXupm1S1sAwklufjOZVBKFbvmvZ4LIfFOpWU0Le4FQ6Z50ViPjS6ehmsmfUPdnkYFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7SUD004r/uftgQhuBf3iVWVxgjDqeMRJhcEWPG9lloE=;
- b=C4neBH1PiB37qQpvpZqxLd4cJ+zsR9Wjk/hkO187aXqT1QO6OBjFT1yRbEIzUOkF+wBibtJKOxdWGB4mVyPU7UTzsr/ghavHRRuyvUd0txdWhd/IdtNZw/aTWYWzcBs1QA16ci0a3GqshoQBISyZWECp+3q/IU9qN/dEd4PCU6s=
+ bh=o0aclhRkPe+9hB0iLpgnHg4dPSTRC/BwripV+YNvXp0=;
+ b=BNBHRYYigljQKQsPz54VE4nuH0X8s3IoBFVzVhv4IS7WcfHUis9ZM6SG3yR/SToaqMubaJKp5KjNadgCGlhqjXj3HxW9d1v7BZEeEzPW0gStif6hwxvdA/j0yhtLdT5nKFLE491QNOBEYFkPR3sg64U4KLD/xfTB97CDVqI+MG0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
  by SA1PR12MB5640.namprd12.prod.outlook.com (2603:10b6:806:23e::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Fri, 18 Sep
- 2026 05:00:55 +0000
+ 2026 05:06:14 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 05:00:55 +0000
-Message-ID: <04f954fd-bf4a-4677-ab0f-69b7a3edafc4@amd.com>
-Date: Fri, 18 Sep 2026 10:30:49 +0530
+ 05:06:14 +0000
+Message-ID: <8b5e55f4-5d9d-41af-bf09-c3c6231c9123@amd.com>
+Date: Fri, 18 Sep 2026 10:36:08 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/amdgpu: Program trap TBA/TMA for kernel-managed
- VMIDs
+Subject: Re: [PATCH 2/4] drm/amdgpu: Make first-level trap state GPUVM-owned
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Felix Kuehling <felix.kuehling@amd.com>
 References: <20260916053722.601067-1-srinivasan.shanmugam@amd.com>
- <20260916053722.601067-4-srinivasan.shanmugam@amd.com>
+ <20260916053722.601067-3-srinivasan.shanmugam@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260916053722.601067-4-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260916053722.601067-3-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0151.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1ac::11) To SA0PR12MB7091.namprd12.prod.outlook.com
+X-ClientProxiedBy: MA5PR01CA0153.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ac::14) To SA0PR12MB7091.namprd12.prod.outlook.com
  (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SA1PR12MB5640:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d13ee80-cc19-4f92-b491-08df1541d1dc
+X-MS-Office365-Filtering-Correlation-Id: 54c6c153-21ae-4877-beaa-08df1542902e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|23010399003|366016|376014|10067099003|6133799003|18002099003|56012099006|11063799006|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info: eHgea3uBEEfmENQg3PtFel5ywpstKFJCVS60pNxrwr//OQTew/keXApUfMHVsMHuL4P1miU5DpsZMX2Kx/wf2xRXJtIpuCF/Voky5zhLDW+E25SXSSn8FMVE1Kwo41A0TNwkhafz1UpCdwhPf6kMsuetB9ukZNlxWF4LEMAoI7BORumLkG9ppYRc/Xmrm2HSVgFTUCxaH+1WyZKzKXcIMZWG9XX526a/nV9BAaeSRVlmVnI2zx00RyxU07QgaAf79Tm/pL+QJbtgkwPQVsA0DAQ7QzdntwcNbCnFhyVkQGtSYzPfqNp07ZLtbAUYI0jkbB131ToC2imKJbj6fQMcMKPyFA+DPcj/1BttNomwSVzcrhkV7n2Zs2crw82PkAD40vO3JXT3AmDekROI0502WsUmQtYmgJ1UbTUzD0zKJIQtyDVM0qCBuTWwFtqZJHQ2A62jHXeOIqUnQrawAYKWCCr0Vl+iKmxvI6yhzgbkRIIXXDvY4VjsSx3OF8rPJ+7160tHgRKaw3Kf0vLbaOEytJJjtTlOZ0VMSyssVLUNybk+qwftB0sa8Et5mVO3X9/3BcagrD0Xjd+NaPXhLbAqbcjDGV1Uf7qSzrevICeo3a6u2U0gyBusevXV8NscPMYFEWW6x2o52OqnXN2a8tyz051KaCZR2/oF4riwQmV/97s=
+X-Microsoft-Antispam-Message-Info: fxuLGE6mAT7MqwSr8D4kM0hw2ujrg+Wt9CVxn86SWx89ii9tUX+DOSvbSvjegcLjX+hIbli/lxk+nd19Luw4iIetIAYrEAzcrN1aalIUIZVLvoQqAoEbQLtD9hyad4NrRvFPSIhJz387ZjVrc++JguJovPVYzRJ6QsDi89vw2g9pUkYOfPBjfHGTRcz33dsNxhyQp7r73495zbF2CpKCh4qPznHR31KNriQiVpxc7EWM14Kd1hZLmVHYQSf/TB6DcrfdkgmPZA6Rk069tomtq7pcGImBfOV8r93A9cuHEq/6Kwy7a5xUrT9yAO1zloHvTmIIStryIIDqMibQ5ihI3vhsrrc8qWOlFE627+ILgGZ2sKAU1mgwcmJiDJMs9okNDNhq9rwpFqK1EZr43eRxwVDT9adHlMt7adxrm8p4LwFY79QfBfICHcCStIeMXgSaRj0AgCLwKNJcyiPekpkOH28OplPfns0HGf5WFSGtKECzkKIlO4Z4cD+0hhLRC3MN0K6rMokNAEiBgJEjIUMRMZ2wVL4+fbETxqmj6bbqcVhltUjsiToU/9M/2HZzO4uTP+cD0XE7ssTOV3X/wRZu4tdmS9cGQPAOC7SsnoHOAAp3Atkh/ncLoRIEvNuqZ8eRfgrJgbiPwTkb0jmY61LxKnWUWnk1QJi4D1C2iyPX3cI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(10067099003)(6133799003)(18002099003)(56012099006)(11063799006)(22082099003)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cVhpYVpVbTVjRTFiQ1JuWW5Ga2NaSEw0eVRicjNGcGVoVkRteGFMb0VTOFRQ?=
- =?utf-8?B?YjMrL0Yrd0tKVTBvMXk2UUdVdUR6UUtNMkUya3NFM1dzeHdQQjVpU2VBbURr?=
- =?utf-8?B?RXhwdXNRWUNGTEZpeXkxY0ZVbUlRWHRvYWZOZ0didlJSYXRoNjZyKzJuMlNz?=
- =?utf-8?B?OGVlMFhOTEdHeXAxdmRjaWRjd1VHdWpoR2ZhWkd4Ymg4Z1VsUHROYXlteGlB?=
- =?utf-8?B?ZDdFYW4vT2srMXVYNmFkNXJvM1lxeTdPTmdFbVpXRXk5SnZDMzRHeWVlVFQ2?=
- =?utf-8?B?UCtkMUFOU3I0M2RFRndhTVlkaEEzWVZaK0xRK1A4VTdJc1B1WkExbnA2RCs5?=
- =?utf-8?B?OSt3WjRTYzRCRVdQdEpvQWJpRG81WVdsc0NUQUhpN0J6bzE3bzBHdG9jR3kw?=
- =?utf-8?B?MGIzSlA1TmF2NUtNbU9BZnhyeEZIK2pTaXF1dmVhaGpVUWVZbVNHWGhzcy9u?=
- =?utf-8?B?RGFsSFQ1SytRV0lQaVZ6SUpJT1NFcDE3QVRJTjk0RW1YeWFaNnFoSjZWeTI3?=
- =?utf-8?B?QWhnZ1FyUlMwQzNEdXJOV2hCeHhZY2ZwOTJWOWpNK3d1am44b2JmTVJHNy9n?=
- =?utf-8?B?bndoNXk1RU9rRWdYWVBVdGtsMXU2cDFiUWZ2SWx4NUtBUk1QbFRicG9pRlVn?=
- =?utf-8?B?NGQ4SnA4UjNYMUpuM2k1cENNQ3QxWXpUbzAxckRLbWZLWk9jQTYvOW5BZzZk?=
- =?utf-8?B?QThHMUgxT1FVRkg1R3pOcVRsQ1psOTRkL2VUWEFFbW5FZWJNMTZ2TkJKV1Ju?=
- =?utf-8?B?MklBdWNkL0hudnNxTVpiTVZQYzVnVmN4QS9MZEk5NjF5dHdhZ1RoaXZtMnNo?=
- =?utf-8?B?UnM4TlZOd1RpMUVBQlJxd3F5VEFJVnBpYlg4Qk1OaUZkR2pZUTI2QktyemFw?=
- =?utf-8?B?S2I0Qm1mNXV0eEV3VWVYdFo2SUJ0S0lqb0VhaFVxV1RwT1ZVTHVEQVIvZ3NY?=
- =?utf-8?B?ZTVFYlFicUZJQXYrVUpLT09jM21tQ0laYzdCN3RwN1JCU1VEanJNcVdxaU5l?=
- =?utf-8?B?VnQwdElLcEZSMkpxeitUNFQ1SzBkNE8xUEhhZVg5RFBXdjFZSm1oNEtic05R?=
- =?utf-8?B?WkdxcTVwcUYyOVhvRFZ6Wkw1OGNuMStWOEoyYi9KTGF2WVZUbC9oaDBmVmw0?=
- =?utf-8?B?aEp5clJRUjJYOFo4cXNsY2lSK25YY25GU2xKK1lFcGJwcEwzMnNNeTlrc3Yy?=
- =?utf-8?B?R21GU3AwMnpmMWRoWk9CaVJjMzhpWXQrdndudUUyNlc1dGVpVkNiNTFxTEN4?=
- =?utf-8?B?N2Q4ZmFhK2IrMHZ5N3owcmN4d1h6b1dBdktjQXZLMlE5ZG1WdnJZN0h6SFky?=
- =?utf-8?B?L0xTcmo2K055bWdMeGo3QVZ2TzRGaFZEc3ZYbksxVlNxdWVOU0pyVlpBb0ll?=
- =?utf-8?B?K2ZuVkE4Yi9VYlBvZjdMd29ZK05aWWl2eW8rRE5oUXdYZ3E4UWR2VWQrVFk3?=
- =?utf-8?B?d3AwUzk3Q3BTeHgvbDE0elZtc1RQTG81VDJ2UTNneUh5RUFqM3BlTHVPTE5R?=
- =?utf-8?B?RmI3OGdXS3NBU0N0YXNlaDF5VzZXcE5nNEk3NmZYaFJJOHc1R2c2VlVFMmNO?=
- =?utf-8?B?QnRKMWhMbUVqUjA1TitmRStEclVwWmw2bnlabHpTdEM2RVB4aXJaOUZUektj?=
- =?utf-8?B?d3dKY3BpN1lUYk04WGtCVXBnZXN5dDRoL3RTbkxmY2tKckk3VlluZ0lLdThj?=
- =?utf-8?B?T0FuKys4bWc0bmFkWC9hL0l3N25IV0VEK1BwL1p4bWYzWmY2cHZRL1dBRUlT?=
- =?utf-8?B?aldYQlBXbHlWcVBZSTBwaTg5U2x3Rm9uSXRmZnI2SDIrM1NEb29YaVNuSkFJ?=
- =?utf-8?B?ZzBXZnh2a01MVktrNlFibFVNOWJJTXhnTXFsakN4ZUdSbFRWSWpVd3RrdCtI?=
- =?utf-8?B?YUxGNkphZXo4WlZYc0h2WnM4ajBaR2ZHWnk5YU9VeGFSbDdIK3UrMVQxdzRL?=
- =?utf-8?B?dnFkTHRhdENPOEV4SFNlZmcwOEg5TFFXd2NINGI0bjJYczRjNTdmSDJMZDBv?=
- =?utf-8?B?VWpyc3ZKS3l2TnM2T0NVdU04bjRpOCtkZWJCK2tVTUFZUXB3K3hHRlpBamxm?=
- =?utf-8?B?SmFTRXVJNmJKazl3L2RMVUlHK1ArbERlZnFwNUlVbXhSN05nSFBjN3BYV1Bn?=
- =?utf-8?B?TjhtYjI4Z1ErN3Z3QWhhMGphbk8yRnMxMFBQbm0zK1gra3N4Q0V4a2FQMjNs?=
- =?utf-8?B?UWRNWDd3SDFOeUd3TjlTUnZiYTl2R3pPRS8vNnVITzZyNEhMK0dHbnk1Tm5W?=
- =?utf-8?B?dTlwOEk5b3RzaHA2K0ExeVNXS05tR0N2SmV4Rmt1d3dVVll4aW51bm9DcDdl?=
- =?utf-8?Q?j6Bjr5f9FBfhJgEJkP?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGRuSytUUmVhQWhJeXkyekFnbWZ3UFlyc20waHR4Zk44NmpWYjR4QXo0OWsw?=
+ =?utf-8?B?UEdwTjJxdkVMcDk0ckV1Mk83RXloeU5tMzJBSmhyQ3RnaTNjbnNsOWZTaDAr?=
+ =?utf-8?B?SzhLM2l0YzllMVYrVS8xV2N6MDlVcHNmQkpqeEtuZ2poNkY1SXZrcVk4QW1s?=
+ =?utf-8?B?ZGpwSVhLdzRqT2t4QUJ3VDd6cVJ6SHpXeW53OXBWOE10R1hZNGlqZW9nNkV5?=
+ =?utf-8?B?TjFnN21WdmNJdkI1emR2NHNHVzcyZXRlTk8zZzNFYnFqSEYrSTJHbkU4SDRP?=
+ =?utf-8?B?Q2oxMk1icUNWcVBxaFdYS3lkbysvT0kwRzZKUW1kNFNILzFTMHdWUHNHVkwz?=
+ =?utf-8?B?eEN1alR1VWlLTVZpRFBaTWc2TUVXUkpjaERLb3BobHlGcllIeGt5WDkxQ1Ux?=
+ =?utf-8?B?V0tCNVVFcC9qR0IwUWUzQXg3ZEJyN0JvSXFPOTA3WmxCSnVRYldBOUxHQnZV?=
+ =?utf-8?B?dzFhS1ZVRGxkeVhhR2t4dWpINmFIYXVLV3p1Vk9QOE8rSkFuVWtnY3RlZHR2?=
+ =?utf-8?B?Y2lVdWhCc2V5TWovQ1ZwTXJlNHRlUXFkVmJnYWEvc202dXErMmUxYllYcTNG?=
+ =?utf-8?B?OTdmMk5LRDR5bjFrNDhrM3JHdm9waEV4YnUxcTlCVWlNeGhRVmFwWmFGejhH?=
+ =?utf-8?B?VC9TcG5Dc2xFb2lLSys1bWRqOVB0Nm9LYmY0M040L2xBUzQveUdidit0Tng1?=
+ =?utf-8?B?Z1NxQlBxQ1Q1ZWhUNzhCODY2aU10SUNaVlJOY093K2Y4MzlPcVc5bjZkcEpi?=
+ =?utf-8?B?SW44N1d1VXZhYTZRekFjcmFaUm8xUG5POUZrZFBONVo0TjVsbEZ1ZGtnMjJl?=
+ =?utf-8?B?bVdHa3J5SjNmSFFIR3ZLQzZ4MUNjS0JJd0hGeTg5bDFjNGdQYms4dW1DWjN4?=
+ =?utf-8?B?ZjM0YUdRQlk2QkdrRzdQQm1MakNuWWVuK25BcUNGY09jdkxNRGtWK1RvMTMy?=
+ =?utf-8?B?bkplWERnWmo5U0RMQ0lSWC9sTGhxbGwvTlR1aXRwaC9WY1dIU2FMZEhjaWJB?=
+ =?utf-8?B?MzNKcVJ1eUY5YTIyejQ0SlpsNUU2VTUrM2tBUW9OM1UvYllQeUtDbm9YQjhX?=
+ =?utf-8?B?MVB4U1Jlak42U0tLazhKdjNMTzhGei90UktNZU9CTy9DeWlEaHkxU0F0akU2?=
+ =?utf-8?B?OVgwV0dtWk40RXZ0YUoxZG40ZGFLbEYyNWhpRmhCdFVDcndzTEczYU5KeFda?=
+ =?utf-8?B?VzZNbG93djViZUtvR0x5Tzk2U2kxdjgzNFJWLzRrTU5INUhuWDRDQWxBdmRD?=
+ =?utf-8?B?SDRQeWt2dEdwWlpRdEtDSEhXdmxLSis4QUdQU1Q1azUwWTZrbnM5dmZqQzc2?=
+ =?utf-8?B?M0IxVFNVdjg0ZmxVZUgzazlJeG5ySE9jb1RVdldVSExFU3NpSVRqRzdrWWZC?=
+ =?utf-8?B?cGJvN2hIcjZPUitjWXg1N1FYcWZXenNCd2F3c21JOVA1eFZ5N2Q1cXNDS2l1?=
+ =?utf-8?B?cHM5QnZCV0czbm42ZEtwS0pWRytoaFZUY3V6cUNXaWI2aXdMSG1ibXZmVXhZ?=
+ =?utf-8?B?VkpSL202NzZYUXBXQUVXa0M1aHVWTzdhUXZXV0xXdkx5ZWFhYWNFbGhacHBn?=
+ =?utf-8?B?b1NjVi9NRXNzMmx0eXkzSGJZUU1wd3F6b21DMmkxdjBmODJFcXNQbEFvUnY5?=
+ =?utf-8?B?N3NVU0lzSm5RcXV2YjdrQ1docWNybWxjNW5mcndqODNkY3NuUFF4OU50YU1i?=
+ =?utf-8?B?RFpsdzZaUmFJSzFYbURhYUh0NVRQODRhWk0xT2Y0TmVRZnVGeHpVQS9zZ1RG?=
+ =?utf-8?B?VXg2NDhzeElJYm5tSmdMKzRBaEJZam5QYzFMQ2RwcjlRK2tJek1hdzBlWHJk?=
+ =?utf-8?B?TnNiejV4MzdoQkFhRlZ3US9XeWR6cnBHam1hT3JwZGFOZFFBTmFIOG9iWlM0?=
+ =?utf-8?B?N1NHcDl4cDVrRGlyRTZUaDdkUkMxTzRPZXlJcFFmT3BDL0Zrd05IVk5oYita?=
+ =?utf-8?B?QlRaZDUrVlh1T0x5NG1OclJVWmM5ajFPaGFLUVMzd0g2TjlyQVVpczd1SEFu?=
+ =?utf-8?B?cFBVSlhkTy9Gd1ZBbDR1bTludjB3TFpnU1l5cmtZUDZxMVR6YkdsdGZGLzhT?=
+ =?utf-8?B?Zi9kRVJUL2twc2pXREZYb3lXMWx6dnJ6TlEyNGFXWUJkcU5wS0k5WkZJV25X?=
+ =?utf-8?B?RFNDa0luWVJNdkpaVUdHc2tOWDA4bWJFS2FTVzI2TDBUOTBDZW9UTTZFS3Ry?=
+ =?utf-8?B?S1hBMGZIR2RWaWFRdFpEVEFEb1hTM25RWlg5S2NqVDRRZG04SEloRGNFdzUv?=
+ =?utf-8?B?RDEvY2JJWEcvUXZrQWRpNzMxWU1vc09kNWh2QVNGbW9QYmRCTW11NUxLNFB5?=
+ =?utf-8?Q?pPCBpz5lirWk/0kaU+?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d13ee80-cc19-4f92-b491-08df1541d1dc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54c6c153-21ae-4877-beaa-08df1542902e
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 05:00:54.9260 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 05:06:14.4278 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hmqrvi2wHCuskzRYcz8zNSSFgB7rwZn2o9BgdgWZalyAlPb22u2QrEaWoXGqOzrl
+X-MS-Exchange-CrossTenant-UserPrincipalName: AGkMNwOgZrEYUeSIyp0WY8JBDxPycLW9ZQa9Xn68Z/X0CU5BIxXQlF7sQwldvDwj
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5640
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,26 +139,22 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 16-Sep-26 11:07 AM, Srinivasan Shanmugam wrote:
-> User-queue VMIDs receive their trap register state from MES/KIQ at queue
-> creation. Kernel-managed VMIDs do not; program them here.
+> The first-level trap mapping is a property of a GPU virtual address
+> space, not of a queue type. User queues and kernel queues executing in
+> the same GPUVM read the same TMA, so both paths must not carry separate
+> trap allocations.
 > 
-> Add program_kernel_trap_tba_tma() to each gfxhub generation and call it
-> from setup_vmid_config(). No vmhub callback is introduced: the operation
-> is generation-specific and belongs in each gfxhub's own setup path.
+> Move ownership of the trap object to struct amdgpu_vm and create it
+> during VM initialization. Keep fpriv->trap_obj as a read-only alias so
+> the existing render-node ioctl paths do not need changes.  This also
+> establishes the trap mapping before a GPUVM can be used by any queue
+> type, which allows the gfxhub setup code in the following patch to
+> enable TRAP_EN without a deferred allocation.
 > 
-> Both TBA and TMA addresses are GPU virtual addresses taken from the
-> common trap mapping established at vm_init. TRAP_EN is safe to set at
-> this point: any GPUVM assigned to a kernel-managed VMID already has a
-> valid trap mapping before it can execute work.
-> 
-> TBA is the shared device-level ISA BO mapped into each VM at
-> AMDGPU_VA_RESERVED_TRAP_START. TMA starts at offset 0x1800 from the same
-> base, matching KFD_CWSR_TMA_OFFSET so both KFD and render-node VMs use
-> the same per-VM buffer layout.
-> 
-> The helper is named program_kernel_trap_tba_tma() because it selects
-> each kernel-managed VMID and writes its TBA/TMA registers; it does not
-> configure the VMIDs themselves.
+> The first-level ISA binary is identical across VMs for the same hardware
+> generation. It is copied once into adev->trap_info->isa_bo at device
+> init and mapped into each GPUVM at vm_init rather than duplicated
+> per-VM.
 > 
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > Cc: Christian König <christian.koenig@amd.com>
@@ -168,364 +162,99 @@ On 16-Sep-26 11:07 AM, Srinivasan Shanmugam wrote:
 > Cc: Felix Kuehling <felix.kuehling@amd.com>
 > Cc: Lijo Lazar <lijo.lazar@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c    |  4 ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h    |  9 +++++
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c | 35 ++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c   | 35 ++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c   | 39 +++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c    | 35 ++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c    | 35 ++++++++++++++++++
->   7 files changed, 188 insertions(+), 4 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  8 ++------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 18 ++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  3 +++
+>   3 files changed, 23 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-> index 3313bc099cf4..d17f54ccadb0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
-> @@ -38,10 +38,6 @@
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 559c9222fc48..5ff3e62671b1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1641,11 +1641,8 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
 >   
->   extern int cwsr_enable;
+>   	amdgpu_evf_mgr_init(&fpriv->evf_mgr);
 >   
-> -#define AMDGPU_TRAP_TBA_MAX_SIZE (2 * AMDGPU_GPU_PAGE_SIZE)
-> -#define AMDGPU_TRAP_TMA_MAX_SIZE (AMDGPU_GPU_PAGE_SIZE)
-> -#define AMDGPU_TRAP_TMA_OFFSET (AMDGPU_TRAP_TBA_MAX_SIZE)
-> -
->   #define SGPR_SIZE_PER_CU 0x4000
->   #define LDS_SIZE_PER_CU 0x10000
->   #define HWREG_SIZE_PER_CU 0x1000
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
-> index 2d855433308a..5769c5acb5c0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
-> @@ -26,6 +26,15 @@
->   #include <linux/types.h>
->   #include <linux/iosys-map.h>
->   
-> +/*
-> + * TBA occupies one page plus 2 KiB (0x1800). TMA starts at that offset.
-> + * Matches KFD_CWSR_TMA_OFFSET so both KFD and render-node paths share
-> + * the same per-VM buffer layout.
-> + */
-> +#define AMDGPU_TRAP_TBA_MAX_SIZE (AMDGPU_GPU_PAGE_SIZE + 2048)  /* 0x1800 */
-> +#define AMDGPU_TRAP_TMA_MAX_SIZE (AMDGPU_GPU_PAGE_SIZE)
-> +#define AMDGPU_TRAP_TMA_OFFSET   (AMDGPU_TRAP_TBA_MAX_SIZE)     /* 0x1800 */
-> +
+> -	if (amdgpu_trap_is_enabled(adev)) {
+> -		r = amdgpu_trap_alloc(adev, &fpriv->vm, &fpriv->trap_obj);
+> -		if (r)
+> -			dev_dbg(adev->dev, "trap handler not enabled");
+> -	}
+> +	/* The trap object is owned by the GPUVM; expose it as an alias. */
+> +	fpriv->trap_obj = fpriv->vm.trap_obj;
 
-This doesn't work after the split to a separate tma bo. A new bo mapping 
-has to be at AMDGPU_PAGE_SIZE aligned offset. There is some check like 
-that in the mapping API is what I recall.
-
->   struct amdgpu_bo;
->   struct amdgpu_bo_va;
->   struct amdgpu_device;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> index 652eea6eae4a..687268e23344 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> @@ -22,6 +22,7 @@
->    */
->   
->   #include "amdgpu.h"
-> +#include "amdgpu_trap.h"
->   #include "gfxhub_v11_5_0.h"
->   
->   #include "gc/gc_11_5_0_offset.h"
-> @@ -290,6 +291,37 @@ static void gfxhub_v11_5_0_disable_identity_aperture(struct amdgpu_device *adev)
->   
->   }
->   
-> +static void
-> +gfxhub_v11_5_0_program_kernel_trap_tba_tma(struct amdgpu_device *adev)
-> +{
-> +	u64 tba_addr = AMDGPU_VA_RESERVED_TRAP_START(adev);
-> +	u64 tma_addr = tba_addr + AMDGPU_TRAP_TMA_OFFSET;  /* tba_addr + 0x1800 */
-
-Better to get it through a helper like amdgpu_trap_get_l1_addr(tba, 
-tma). The layout needs to stay within amdgpu_trap.
+If it's getting moved, suggest to remove this altogether and fetch 
+through fpriv->vm always.
 
 Thanks,
 Lijo
 
-> +	int vmid;
-> +
-> +	if (!amdgpu_trap_is_enabled(adev) ||
-> +	    !adev->gfx.funcs || !adev->gfx.funcs->select_me_pipe_q)
-> +		return;
-> +
-> +	WARN_ON(!IS_ALIGNED(tba_addr, 256));
-> +	WARN_ON(!IS_ALIGNED(tma_addr, 256));
-> +
-> +	mutex_lock(&adev->srbm_mutex);
-> +	for (vmid = 1; vmid < adev->vm_manager.first_kfd_vmid; vmid++) {
-> +		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, vmid, 0);
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TBA_LO,
-> +			     lower_32_bits(tba_addr >> 8));
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TBA_HI,
-> +			     upper_32_bits(tba_addr >> 8) |
-> +			     (1 << SQ_SHADER_TBA_HI__TRAP_EN__SHIFT));
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TMA_LO,
-> +			     lower_32_bits(tma_addr >> 8));
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TMA_HI,
-> +			     upper_32_bits(tma_addr >> 8));
-> +	}
-> +	amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0, 0);
-> +	mutex_unlock(&adev->srbm_mutex);
-> +}
-> +
->   static void gfxhub_v11_5_0_setup_vmid_config(struct amdgpu_device *adev)
->   {
->   	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
-> @@ -337,6 +369,9 @@ static void gfxhub_v11_5_0_setup_vmid_config(struct amdgpu_device *adev)
+>   
+>   	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
+>   
+> @@ -1716,7 +1713,6 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
 >   	}
 >   
->   	hub->vm_cntx_cntl = tmp;
-> +
-> +	if (amdgpu_trap_is_enabled(adev))
-> +		gfxhub_v11_5_0_program_kernel_trap_tba_tma(adev);
->   }
+>   	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
+> -	amdgpu_trap_free(adev, &fpriv->vm, &fpriv->userq_mgr, &fpriv->trap_obj);
 >   
->   static void gfxhub_v11_5_0_program_invalidation(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c
-> index 6cbf837d50dd..b521a6c6eaf6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c
-> @@ -22,6 +22,7 @@
->    */
->   
->   #include "amdgpu.h"
+>   	if (pasid)
+>   		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 930b744c5f5f..d981915ac2f4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -44,6 +44,7 @@
+>   #include "amdgpu_dma_buf.h"
+>   #include "amdgpu_res_cursor.h"
+>   #include "kfd_svm.h"
 > +#include "amdgpu_trap.h"
->   #include "gfxhub_v12_0.h"
 >   
->   #include "gc/gc_12_0_0_offset.h"
-> @@ -295,6 +296,37 @@ static void gfxhub_v12_0_disable_identity_aperture(struct amdgpu_device *adev)
+>   /**
+>    * DOC: GPUVM
+> @@ -2639,6 +2640,14 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	if (r)
+>   		goto error_free_root;
 >   
->   }
->   
-> +static void
-> +gfxhub_v12_0_program_kernel_trap_tba_tma(struct amdgpu_device *adev)
-> +{
-> +	u64 tba_addr = AMDGPU_VA_RESERVED_TRAP_START(adev);
-> +	u64 tma_addr = tba_addr + AMDGPU_TRAP_TMA_OFFSET;  /* tba_addr + 0x1800 */
-> +	int vmid;
-> +
-> +	if (!amdgpu_trap_is_enabled(adev) ||
-> +	    !adev->gfx.funcs || !adev->gfx.funcs->select_me_pipe_q)
-> +		return;
-> +
-> +	WARN_ON(!IS_ALIGNED(tba_addr, 256));
-> +	WARN_ON(!IS_ALIGNED(tma_addr, 256));
-> +
-> +	mutex_lock(&adev->srbm_mutex);
-> +	for (vmid = 1; vmid < adev->vm_manager.first_kfd_vmid; vmid++) {
-> +		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, vmid, 0);
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TBA_LO,
-> +			     lower_32_bits(tba_addr >> 8));
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TBA_HI,
-> +			     upper_32_bits(tba_addr >> 8) |
-> +			     (1 << SQ_SHADER_TBA_HI__TRAP_EN__SHIFT));
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TMA_LO,
-> +			     lower_32_bits(tma_addr >> 8));
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TMA_HI,
-> +			     upper_32_bits(tma_addr >> 8));
-> +	}
-> +	amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0, 0);
-> +	mutex_unlock(&adev->srbm_mutex);
-> +}
-> +
->   static void gfxhub_v12_0_setup_vmid_config(struct amdgpu_device *adev)
->   {
->   	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
-> @@ -342,6 +374,9 @@ static void gfxhub_v12_0_setup_vmid_config(struct amdgpu_device *adev)
->   	}
->   
->   	hub->vm_cntx_cntl = tmp;
-> +
-> +	if (amdgpu_trap_is_enabled(adev))
-> +		gfxhub_v12_0_program_kernel_trap_tba_tma(adev);
->   }
->   
->   static void gfxhub_v12_0_program_invalidation(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-> index 4c2fd1e6616e..ac52ccda713d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-> @@ -21,6 +21,7 @@
->    *
->    */
->   #include "amdgpu.h"
-> +#include "amdgpu_trap.h"
->   #include "amdgpu_xcp.h"
->   #include "gfxhub_v12_1.h"
->   
-> @@ -406,6 +407,41 @@ static void gfxhub_v12_1_xcc_disable_identity_aperture(struct amdgpu_device *ade
->   	}
->   }
->   
-> +static void
-> +gfxhub_v12_1_program_kernel_trap_tba_tma(struct amdgpu_device *adev)
-> +{
-> +	u64 tba_addr = AMDGPU_VA_RESERVED_TRAP_START(adev);
-> +	u64 tma_addr = tba_addr + AMDGPU_TRAP_TMA_OFFSET;  /* tba_addr + 0x1800 */
-> +	int xcc, vmid;
-> +
-> +	if (!amdgpu_trap_is_enabled(adev) ||
-> +	    !adev->gfx.funcs || !adev->gfx.funcs->select_me_pipe_q)
-> +		return;
-> +
-> +	WARN_ON(!IS_ALIGNED(tba_addr, 256));
-> +	WARN_ON(!IS_ALIGNED(tma_addr, 256));
-> +
-> +	mutex_lock(&adev->srbm_mutex);
-> +	for_each_inst(xcc, adev->gfx.xcc_mask) {
-> +		for (vmid = 1; vmid < adev->vm_manager.first_kfd_vmid; vmid++) {
-> +			amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, vmid, xcc);
-> +			WREG32_SOC15(GC, GET_INST(GC, xcc), regSQ_SHADER_TBA_LO,
-> +				     lower_32_bits(tba_addr >> 8));
-> +			WREG32_SOC15(GC, GET_INST(GC, xcc), regSQ_SHADER_TBA_HI,
-> +				     upper_32_bits(tba_addr >> 8) |
-> +				     (1 << SQ_SHADER_TBA_HI__TRAP_EN__SHIFT));
-> +			WREG32_SOC15(GC, GET_INST(GC, xcc), regSQ_SHADER_TMA_LO,
-> +				     lower_32_bits(tma_addr >> 8));
-> +			WREG32_SOC15(GC, GET_INST(GC, xcc), regSQ_SHADER_TMA_HI,
-> +				     upper_32_bits(tma_addr >> 8));
+> +	if (amdgpu_trap_is_enabled(adev)) {
+> +		r = amdgpu_trap_alloc(adev, vm, &vm->trap_obj);
+> +		if (r) {
+> +			amdgpu_vm_fini(adev, vm);
+> +			return r;
 > +		}
 > +	}
-> +	/* Reset the VMID selector on every XCC instance. */
-> +	for_each_inst(xcc, adev->gfx.xcc_mask)
-> +		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0, xcc);
-> +	mutex_unlock(&adev->srbm_mutex);
-> +}
 > +
->   static void gfxhub_v12_1_xcc_setup_vmid_config(struct amdgpu_device *adev,
->   					       uint32_t xcc_mask)
->   {
-> @@ -468,6 +504,9 @@ static void gfxhub_v12_1_xcc_setup_vmid_config(struct amdgpu_device *adev,
+>   	r = amdgpu_vm_create_task_info(vm);
+>   	if (r)
+>   		dev_dbg(adev->dev, "Failed to create task info for VM\n");
+> @@ -2753,6 +2762,15 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
 >   
->   		hub->vm_cntx_cntl = tmp;
->   	}
+>   	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
+>   
+> +	/*
+> +	 * Free trap state before reserving root. amdgpu_trap_free()
+> +	 * uses drm_exec to lock the page directory internally; calling
+> +	 * it after amdgpu_bo_reserve(root) would deadlock on the same
+> +	 * ww_mutex.
+> +	 */
+> +	if (vm->trap_obj)
+> +		amdgpu_trap_free(adev, vm, NULL, &vm->trap_obj);
 > +
-> +	if (amdgpu_trap_is_enabled(adev))
-> +		gfxhub_v12_1_program_kernel_trap_tba_tma(adev);
->   }
+>   	root = amdgpu_bo_ref(vm->root.bo);
+>   	amdgpu_bo_reserve(root, true);
+>   	dma_fence_wait(vm->last_unlocked, false);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index dd825e179979..8707618c199e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -488,6 +488,9 @@ struct amdgpu_vm {
 >   
->   static void gfxhub_v12_1_xcc_program_invalidation(struct amdgpu_device *adev,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> index 9ea593e2c719..ba2d5d719474 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> @@ -22,6 +22,7 @@
->    */
->   
->   #include "amdgpu.h"
-> +#include "amdgpu_trap.h"
->   #include "gfxhub_v2_0.h"
->   
->   #include "gc/gc_10_1_0_offset.h"
-> @@ -280,6 +281,37 @@ static void gfxhub_v2_0_disable_identity_aperture(struct amdgpu_device *adev)
->   
->   }
->   
-> +static void
-> +gfxhub_v2_0_program_kernel_trap_tba_tma(struct amdgpu_device *adev)
-> +{
-> +	u64 tba_addr = AMDGPU_VA_RESERVED_TRAP_START(adev);
-> +	u64 tma_addr = tba_addr + AMDGPU_TRAP_TMA_OFFSET;  /* tba_addr + 0x1800 */
-> +	int vmid;
+>   	/* cached fault info */
+>   	struct amdgpu_vm_fault_info fault_info;
 > +
-> +	if (!amdgpu_trap_is_enabled(adev) ||
-> +	    !adev->gfx.funcs || !adev->gfx.funcs->select_me_pipe_q)
-> +		return;
-> +
-> +	WARN_ON(!IS_ALIGNED(tba_addr, 256));
-> +	WARN_ON(!IS_ALIGNED(tma_addr, 256));
-> +
-> +	mutex_lock(&adev->srbm_mutex);
-> +	for (vmid = 1; vmid < adev->vm_manager.first_kfd_vmid; vmid++) {
-> +		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, vmid, 0);
-> +		WREG32_SOC15(GC, 0, mmSQ_SHADER_TBA_LO,
-> +			     lower_32_bits(tba_addr >> 8));
-> +		WREG32_SOC15(GC, 0, mmSQ_SHADER_TBA_HI,
-> +			     upper_32_bits(tba_addr >> 8) |
-> +			     (1 << SQ_SHADER_TBA_HI__TRAP_EN__SHIFT));
-> +		WREG32_SOC15(GC, 0, mmSQ_SHADER_TMA_LO,
-> +			     lower_32_bits(tma_addr >> 8));
-> +		WREG32_SOC15(GC, 0, mmSQ_SHADER_TMA_HI,
-> +			     upper_32_bits(tma_addr >> 8));
-> +	}
-> +	amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0, 0);
-> +	mutex_unlock(&adev->srbm_mutex);
-> +}
-> +
->   static void gfxhub_v2_0_setup_vmid_config(struct amdgpu_device *adev)
->   {
->   	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
-> @@ -327,6 +359,9 @@ static void gfxhub_v2_0_setup_vmid_config(struct amdgpu_device *adev)
->   	}
+> +	/* First-level trap state shared by all queue paths using this GPUVM. */
+> +	struct amdgpu_trap_obj *trap_obj;
+>   };
 >   
->   	hub->vm_cntx_cntl = tmp;
-> +
-> +	if (amdgpu_trap_is_enabled(adev))
-> +		gfxhub_v2_0_program_kernel_trap_tba_tma(adev);
->   }
->   
->   static void gfxhub_v2_0_program_invalidation(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> index 9e6a6e13dec0..204a8817df30 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> @@ -22,6 +22,7 @@
->    */
->   
->   #include "amdgpu.h"
-> +#include "amdgpu_trap.h"
->   #include "gfxhub_v3_0.h"
->   
->   #include "gc/gc_11_0_0_offset.h"
-> @@ -287,6 +288,37 @@ static void gfxhub_v3_0_disable_identity_aperture(struct amdgpu_device *adev)
->   
->   }
->   
-> +static void
-> +gfxhub_v3_0_program_kernel_trap_tba_tma(struct amdgpu_device *adev)
-> +{
-> +	u64 tba_addr = AMDGPU_VA_RESERVED_TRAP_START(adev);
-> +	u64 tma_addr = tba_addr + AMDGPU_TRAP_TMA_OFFSET;  /* tba_addr + 0x1800 */
-> +	int vmid;
-> +
-> +	if (!amdgpu_trap_is_enabled(adev) ||
-> +	    !adev->gfx.funcs || !adev->gfx.funcs->select_me_pipe_q)
-> +		return;
-> +
-> +	WARN_ON(!IS_ALIGNED(tba_addr, 256));
-> +	WARN_ON(!IS_ALIGNED(tma_addr, 256));
-> +
-> +	mutex_lock(&adev->srbm_mutex);
-> +	for (vmid = 1; vmid < adev->vm_manager.first_kfd_vmid; vmid++) {
-> +		amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, vmid, 0);
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TBA_LO,
-> +			     lower_32_bits(tba_addr >> 8));
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TBA_HI,
-> +			     upper_32_bits(tba_addr >> 8) |
-> +			     (1 << SQ_SHADER_TBA_HI__TRAP_EN__SHIFT));
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TMA_LO,
-> +			     lower_32_bits(tma_addr >> 8));
-> +		WREG32_SOC15(GC, 0, regSQ_SHADER_TMA_HI,
-> +			     upper_32_bits(tma_addr >> 8));
-> +	}
-> +	amdgpu_gfx_select_me_pipe_q(adev, 0, 0, 0, 0, 0);
-> +	mutex_unlock(&adev->srbm_mutex);
-> +}
-> +
->   static void gfxhub_v3_0_setup_vmid_config(struct amdgpu_device *adev)
->   {
->   	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
-> @@ -334,6 +366,9 @@ static void gfxhub_v3_0_setup_vmid_config(struct amdgpu_device *adev)
->   	}
->   
->   	hub->vm_cntx_cntl = tmp;
-> +
-> +	if (amdgpu_trap_is_enabled(adev))
-> +		gfxhub_v3_0_program_kernel_trap_tba_tma(adev);
->   }
->   
->   static void gfxhub_v3_0_program_invalidation(struct amdgpu_device *adev)
+>   struct amdgpu_vm_manager {
 
