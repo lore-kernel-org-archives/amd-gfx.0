@@ -4,127 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47546C982D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 18:09:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28AEDC982D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 19:28:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A22410F493;
-	Fri, 18 Sep 2026 18:09:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6895010E150;
+	Fri, 18 Sep 2026 19:28:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ixj5bkQo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xvf9Vbeu";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013062.outbound.protection.outlook.com
- [40.107.201.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4117B10F48C;
- Fri, 18 Sep 2026 18:09:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DJxbTzlxGfTjZR6bG3MYa7IuBq8M1524DckJpSb0932W3vPUxXfXNNEOscQ3z35AkOxktRhbxGKMuUzOyOM0coC+dDPPI7ruPMr0QOrXIvXQS9FUcI27NrEmfgCHcx5iAMw8jPdtvE/T2O7bsriIGudPj1vWvaO+oCk541UkiryuEDe3eRexyAMv94hBua3Tbp4bzcj1xrn+PTmaYH4mnFKZXlsGOF65iXIj4UFugme+Pu1LDwPFdEPdBSBHBrt7hFJzgiMaxNYdka/ek8iBtQrEriUipTMZJXfdSJ4XAXKZRkvzhKM/YTsZIq1sLAWWdZKDPxo9EIga9AU47mJJQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ddG3RTP/bSnQN7AKIWy4wCF6mKnjjbqAUmtagm1hGBo=;
- b=emLHPk4rTaG+eHf5oZO+sdjWG3FBZAx37TaajsjBmvyEXei3g2m5xDZtaF3dB1SMOvxm/toK5nEfI27McHRS9CzWmqaa710rwviVRiAJtyzArC2U2D0hyL0aKjnEdZW3IHLmsGu/doUswT7AHKIsfnMkYXKLpFi79OtGwNBwdgrPKVtb/lLJB1D4dZEummV2sxM8BiSkA/pnDHKhZWkCxTlAKi8OfP6pEyIIIQNuu9SckfNroUIv14KaSMp49nRzHTPJBio/qZr/oE2gkWO3aCWiIc7mzh/+8Usg95I/9469CSerVs9cLS2Mc6NNix/OhMJIhAORUaUDFfe5ZPaj5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ddG3RTP/bSnQN7AKIWy4wCF6mKnjjbqAUmtagm1hGBo=;
- b=ixj5bkQoIM9qbAJ+EePAm10K5cRhFrhgTG17dCeqBsQTfGyl7QIGBYR2gIi6zXpBGsiTdR0WXsWt6BhMtggKHSGuHY3KUDqIJ9XcnvySvuoCA9BUNKacGPus7IRMJTqPx7DoU+0tfMOl9rUdMhXDzaYDiFhvxXHyxPzLBVTr3sc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DS7PR12MB9551.namprd12.prod.outlook.com (2603:10b6:8:24f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 18:08:57 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%3]) with mapi id 15.21.0428.008; Fri, 18 Sep 2026
- 18:08:57 +0000
-Message-ID: <18a8b7ee-d588-48be-bfe4-0b79309e3339@amd.com>
-Date: Fri, 18 Sep 2026 12:08:55 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Preserve eDP mode on initial ASSR failure
-To: Arthur Heymans <arthur@aheymans.xyz>, amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- michael.mityushkin@amd.com, nicholas.kazlauskas@amd.com,
- qingqing.zhuo@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- "Zhang, George" <George.Zhang@amd.com>
-References: <20260912151137.3913987-1-arthur@aheymans.xyz>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260912151137.3913987-1-arthur@aheymans.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0154.namprd03.prod.outlook.com
- (2603:10b6:303:8d::9) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBE810E150
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 19:28:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3396040799;
+ Fri, 18 Sep 2026 19:28:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99BB1F00898;
+ Fri, 18 Sep 2026 19:28:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789759701;
+ bh=vfQpgzL0yQfcKMep+p5Od+GqI+HCHPfznhvSO3/vutY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=Xvf9VbeupeHL6KGvvHdN2PaAbMhDbiWGTlBP4AwduEIqaPXlc07HWgHs/m0pG866p
+ S9/4STpZuQc9pU890xPT/fNHiSO+Swb3mRDVGHxoH9wCZ0TchVr/uPeeT0pb8oZkpF
+ blHs+xCc1/awYUPoyn3kRrzqWFggqRhIJF2MkELIc7gtajn9ZRknWAPwx5owHfdT/I
+ BCrnChZyijlVFbNE32b74qXO3snhpGnTy/2/w7cm4BUuldv9NY2cwn5YCotki3ggAG
+ lcrA9nUdwquE7nK3nh3KRfYKCJaZpilEMGQ2kYv/2LhesE2SARxF5EJQoSS3Iz6gbW
+ nGpiVHooHfBQw==
+Date: Fri, 18 Sep 2026 14:28:19 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Liz Fong-Jones <lizf@honeycomb.io>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ Jon Nettleton <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>,
+ Jacob Martin <jacob.martin@canonical.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org
+Subject: Re: [PATCH v6] PCI: Fix BAR resize for devices on a root bus
+Message-ID: <20260918192819.GA1179462@bhelgaas>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS7PR12MB9551:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca8ef721-8615-402e-1462-08df15afe867
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|10067099003|56012099006|11063799006|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: YY1HkPNCNaKASMRMUYi+Q4dpHEpJkrmwnWh6uUqO9jXz1gkUHZ5u3ZQkPpZ4+y/3HnGr20IXlbaggIi192eIij27PeRGFVZBB3sqtCjwhtbwlUuQ4I6OytoQ7swSwUCcnMnTX+lr2AZbr/wZ9DjNGfOo6vHecf98Fdhd+x1j9M57b+OrDLCCYMCIyEvC1sUFmrKLujAv60KOAKLCyvVN8p6m6PNHPnPBmEso/CCkBJOIkp4p/HpuS0ydLohrXLwn2m6BSckvi/jrvvMJE4pP0S7IlWOb9ipUh/lCNhhWJ3Tv0bQ0k7kjrz+br7NGQVTpDHhZjceIzUzAy7foPpHTUe0Bx0uqL1/PTSEb4K2MNw0zlRNwBRCemmnR3okjroxNREIDbcCGWyNiB76DDtZs9JBihWEsdnVRAWNmjqKf5LOr8i67bqOQgsHfFxBtgJkAxjHwbrxl928t2ImJnf/hW0o9HTXEThhuVW4DPBKYOCoPvfdW41c7hNNxzWlwdbsf/JD8GhdHrzy8AODSmFwIqd9byMqC+fV4a+Yd4nBXVZBSYBfg1V7N2AkfEib0kICgrvg2a6dYA7PaEcfqc9KhMtL03tfLHHCyLZAGjQ+vggYWZuJzH/fMQQU48f9hdeoO7Vh6G1ackTNLK6CtyFBu92Asel7eas90AnHqmka0z90=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWNuQTJDZE1YQ1FHczVLZnNLTkpuTGJsclQxZmpESTNVU0M5WGV4UVppQlF1?=
- =?utf-8?B?SWRIckJuWE4yLzVDd2RPRDByUlBxV3h1Mlc4ckxwSGo0NUFSWTIzNmpEOEd5?=
- =?utf-8?B?L3d3aVFicE5UcExrMXIwT3Q0MWlkNU10Q1o4anVreklDdFVNVFdtdWhVRWp0?=
- =?utf-8?B?MzlXYllNZTliaWlWdldwbCtBMGRMaWdINWMraktPWG81RDhVT3Y2d3BHTUdn?=
- =?utf-8?B?dXlNQ29BUmdmUVpqaTZSUjduTk1HdlRBYWtoalNSQnZGb3hZRE1jVFVYWUNX?=
- =?utf-8?B?ejJiR2FlYkhxNWtyeDEzQjVGQU1KZ2Yxem9EZ1ZQZVNtNGxzcXZzTDV0T3N0?=
- =?utf-8?B?NDg5MnlnQnJOTGNWZkxiNDBoajJBMEU5TGp5NGFJNXJUdTVleHRFdS9yT0Jn?=
- =?utf-8?B?SWZUakJIcUE0ZnVkUXlrRTFVem8xQldSNE9ITDdpemZmYkRHd0hlWlhZSkNT?=
- =?utf-8?B?S1dTZHJWazFidDZ2MXNrMnhrcWdDYm9vdm94TkZtMmtyWS93NHdkTDVzNHRX?=
- =?utf-8?B?VTJ2cC96VDFrbzRNQ0dKVDl6YW01YkVlTllPbmUzbzZFUUJUUDFaT1FncGRO?=
- =?utf-8?B?c2lNVU8vQ3FiaVNHbmlidmhvRXFsSHpVVzlJYWRvcmFmemVCWFlWaU5FUjBD?=
- =?utf-8?B?NGlRRkIwMXYzZUdFRUdrNTlKTGtXKzBhQ0hWN0hXNy82QXhrTE1oZ1RDRzJk?=
- =?utf-8?B?eXhuMmo4bllFU1pocUhOWmsycUc1bTkxNUJBMllJandsUnVIWWljdG5aaS91?=
- =?utf-8?B?MHlwMU1rTllOZlhoVTlTYTBsUVdpNTducjZlbStwN1RLQnJIT0pLcDAwWi91?=
- =?utf-8?B?QlorYmNVSFlTWE9XN0U2ZHBZaXhPb2Nwa3hCMmhwSVNrc0xLeDRwcHBjN2Fq?=
- =?utf-8?B?M2xnbnpUVFI2ZzY0QUtmd2lzSFFYWUNzbWNCT29rdXNxZVo4b3dBenZodG1B?=
- =?utf-8?B?WExHNFlCS09NRjNLR1ZOQjlHYTlhNkU4T2I5NzhGbkhjYUFCL1FWT1dMRm9W?=
- =?utf-8?B?TWNXVWNIdG8wYnhXMEd1Ym5tVVR0dzdxR0U4eUF3VFExM1BINjFVUVh0bzY3?=
- =?utf-8?B?NE14Z0dZRDJxZnZKZmR2YWtvNVpHVlF0ZFpiSFdPZERDT2wyZHp1NndOYnVt?=
- =?utf-8?B?OGlSK1pOYlZubUVPVDRIWU01L0JpMGdHSUZzcXArMHI1aGwySHVDUWFmQUlt?=
- =?utf-8?B?V2hUaG5jTEVGOUl4cjNUVjl0WWVhRUVPVXBJQ0gwYWNNOG1qVVpRWDQyalVv?=
- =?utf-8?B?dGQ2MGQraHk5YlNNWWd4U1hSNGFvYlZ2ck5SOGNPNllPMGR0MmhZQjk4Sk13?=
- =?utf-8?B?cHdCUjQvV0wxVVJYVUV0L2JWUkd0QjM1UE93R29DSmZ6KzREQkVGTnYydnI5?=
- =?utf-8?B?N01VV0lKQ2grMDJmdDQ3YWlENUJZblhpK0orQVAyRHBSRitwbGJ6Tm1tbEFJ?=
- =?utf-8?B?Q2d3US8zbnViZS8vcVBUd3A5TXNYQUtVSVArQTY0NlhiN1hNbjhja0hDckhM?=
- =?utf-8?B?WGtlWG00czlaSGNBSzAvMFNacHMyd2xlSklXU2NZTnh2RzJBRUdtQ1ZnbXpU?=
- =?utf-8?B?TUY3S2I4K3hiaWMvK0NxdTdnUGIxWXMvWnVkczdIbzF0SEFYYm12YzJwbytJ?=
- =?utf-8?B?MjVzVmlhNENMUlFtd1J6U3VYbXl4UmJVa0hub3BlZDhiRnF4bmJrSzZsa0dt?=
- =?utf-8?B?bUNQUUJkSmJXeVZVblBSQXAySFhFWTdZUjdXaXZnWGJ5NUtFKzlWQ1dsYTVr?=
- =?utf-8?B?ZlBvYTNnVXZRYUlwSTlrdXc3YytkSm14K3BaQ3BxRnVXWHRjaUlwazVzY3ZC?=
- =?utf-8?B?RU9tU0pKSFoyb3dFUGZqOW9hVmhjTi9tVHlrZ2RnZGVvWmg3c0ZsVE5mUlFD?=
- =?utf-8?B?NVIvWkZ1RmQ0ZGNQNk5Sa3N0SmlZRFRKc0NQeUZjTlBZeUt1bXUrK3EwZ2Fz?=
- =?utf-8?B?dS80RFMyTml4Y0NNWVBhNVB4K3grbkp3aVQ1dlpNN2VZTFBBM0EwMXpuRFVJ?=
- =?utf-8?B?OTNKS2lZa3pkQmNhbWs4dTlkU1NnaGtYb3ZwLzc5TjR5dEY1RlBONTdLMDkx?=
- =?utf-8?B?a3lKVEF5d29LMnkvM0RKeEN2VWRFNW5EbTQ4akRFNkF5Y2RjOWgvZk1BRUNj?=
- =?utf-8?B?Vi9FQUk4OVRTblFzUkNXbDVsUmowYUJvYWFpZEhKMG90ekZ1NTdINGlRcWRE?=
- =?utf-8?B?VmdKMWhyRW1uTzg0ek1aMjROYzROQ2NRd2ZHcGNkMUQ1T00wQ0EzRUs5cytK?=
- =?utf-8?B?UjlNVmkvVHFpWHREM0JWK2NEb3NnMlMzdnJrWVhHTjRSQU9yTElKZkJJUU5M?=
- =?utf-8?Q?7tWn2wZMhzeKsi7vIK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca8ef721-8615-402e-1462-08df15afe867
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 18:08:57.4351 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kVVfWpJLv5FM0+u4T7Fg+DYxZNgeCoOJvHxvHhw7uZLcGCi+zsPYJxA+/RdJzNMXjBrnGfbBCPssDEA+NQSoEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9551
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260918035633.566823-1-lizf@honeycomb.io>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,72 +61,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+On Fri, Sep 18, 2026 at 03:56:33AM +0000, Liz Fong-Jones wrote:
+> pci_do_resource_release_and_resize() releases the device BARs that
+> share a bridge window with the BAR being resized, but when the device
+> sits directly on a root bus (pdev->bus->self == NULL) it then skips
+> resource assignment entirely and returns success, leaving the BARs it
+> just released unassigned (IORESOURCE_UNSET).
+> 
+> Skipping pbus_reassign_bridge_resources() is correct in that case --
+> there is no bridge window to adjust -- but the device BARs still have
+> to be reassigned. Before the BAR release was consolidated into the PCI
+> core, this case worked for amdgpu because the driver released the BARs
+> itself and then called pci_assign_unassigned_bus_resources()
+> unconditionally after the resize, which assigns unassigned device BARs
+> also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+> side BAR release before resize") removed that call, so nothing assigns
+> the released BARs anymore.
+> 
+> This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
+> LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+> on the root bus of its segment (there is no root port device, so
+> pdev->bus->self is NULL):
+> 
+>   amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+>   amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+>   amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+>   amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+>   amdgpu 0004:01:00.0: Fatal error during GPU init
+> 
+> No error is logged because the resize path reports success; amdgpu
+> then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+> 
+> When there is no upstream bridge, call pci_bus_assign_resources() on
+> the root bus to place the BARs released above, using the same
+> alignment-sorted algorithm as normal enumeration instead of a manual
+> per-BAR loop. This also walks the rest of the hierarchy under the
+> root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
+> before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
+> release before resize") removed that call -- the core-side fix that
+> commit asked for ("such a problem should be fixed inside
+> pci_resize_resource() instead").
+> 
+> pci_bus_assign_resources() returns void, so failure is detected by
+> checking whether the released BARs are still assigned afterward; if
+> not, roll back as in the bridged case. This is stricter than the
+> bridged path -- it fails on any unplaced resource, not just required
+> ones -- since a root bus typically has one shared window, and failing
+> loudly seemed better than leaving something silently unassigned.
+> 
+> The root bus path also had a locking bug that any fix here necessarily
+> touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+> matching down_read() (as does the "goto restore" taken when
+> pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+> before the BAR release loop so every path through the function holds
+> it exactly once.
+> 
+> Use pci_upstream_bridge() rather than testing pdev->bus->self
+> directly. The two are usually equivalent, but pci_upstream_bridge()
+> is the canonical test -- pci_is_root_bus(), which it's built on,
+> warns that bus->self == NULL doesn't necessarily mean a root bus
+> (SR-IOV virtual buses from virtfn_add_bus() are the same).
+> 
+> Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+> Cc: stable@vger.kernel.org
+> Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
+> Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
+> Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+> Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+> Assisted-by: Claude:claude-fable-5 checkpatch
+> Assisted-by: Claude:claude-sonnet-5
+> Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 
-On 9/12/26 09:11, Arthur Heymans wrote:
-> [Some people who received this message don't often get email from arthur@aheymans.xyz. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Commit 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when
-> reinitializing hardware") made ASSR failure fall back to the default panel
-> mode unless eDP mode had previously been applied.
-> 
-> However, dc_link is zero-initialized and DP_PANEL_MODE_DEFAULT is zero.
-> Before the first call to dp_set_panel_mode(), panel_mode therefore looks
-> like a previously applied default mode. If ASSR setup fails during the
-> first link training attempt, the driver incorrectly trains the eDP link
-> using the default scrambling mode.
-> 
-> On a Google Vilboz Chromebook running self-built coreboot firmware and
-> PSP verstage, this leaves the panel mostly black with corrupted output
-> along the top edge.
-> 
-> Track whether panel_mode has actually been initialized, and only consult
-> the saved mode after it has been applied. This retains the recovery
-> behavior while preserving eDP mode during initial link training.
-> 
-> Fixes: 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when reinitializing hardware")
-> Cc: stable@vger.kernel.org # v6.4+
-> Assisted-by: Pi:gpt-5.6-sol
-> Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
+Applied to pci/for-linus for v7.3, thank you!
+
 > ---
->   drivers/gpu/drm/amd/display/dc/dc.h                           | 1 +
->   .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 +++-
->   2 files changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-> index 4ecd5699ac5e..0db55a73da0c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-> @@ -1912,6 +1912,7 @@ struct dc_scratch_space {
->          struct ddc_service *ddc;
+> Confirmed against v7.3-rc3: drivers/pci/setup-bus.c is unpatched
+> there, pci_do_resource_release_and_resize() still returns without
+> reassigning the released BARs when bus->self is NULL.
 > 
->          enum dp_panel_mode panel_mode;
-> +       bool panel_mode_initialized;
->          bool aux_mode;
+> Tested on the real root-bus hardware this fixes (SolidRun HoneyComb
+> LX2K): both a manual resize via the resource0_resize sysfs attribute
+> (shrink to 256M then back to 4G, forcing the release+reassign path
+> both directions) and amdgpu's own natural probe-time resize (with the
+> amdgpu.rebar=0 workaround removed) succeed cleanly -- VRAM and BAR
+> size match, no "Fatal error during GPU init", full IP block init.
 > 
->          /* Private to DC core */
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> index 9883216dcc9d..cd90576bc6f0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> @@ -93,6 +93,7 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
->          }
+> Changes in v6:
+> - Repost, confirmed still affects v7.3-rc3
+> - Added real-hardware test confirmation (both a manual sysfs-triggered
+>   resize and amdgpu's own natural probe-time resize)
+> - Picked up Reviewed-by from Ilpo
+> - Link to v5: https://patch.msgid.link/20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io
 > 
->          link->panel_mode = panel_mode;
-> +       link->panel_mode_initialized = true;
->          DC_LOG_DETECTION_DP_CAPS("%d eDP panel mode supported: %d, enabled: %d\n",
->                                   link->link_index,
->                                   link->dpcd_caps.panel_mode_edp,
-> @@ -1300,7 +1301,8 @@ void edp_set_panel_assr(struct dc_link *link, struct pipe_ctx *pipe_ctx,
+>  drivers/pci/setup-bus.c | 23 +++++++++++++++++------
+>  1 file changed, 17 insertions(+), 6 deletions(-)
 > 
->                  result = cp_psp->funcs.enable_assr(cp_psp->handle, link);
+> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+> index e8c94aa1d3c12..ed16ef7c26fa7 100644
+> --- a/drivers/pci/setup-bus.c
+> +++ b/drivers/pci/setup-bus.c
+> @@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+>  	struct resource *res = pci_resource_n(pdev, resno);
+>  	struct pci_dev_resource *dev_res;
+>  	struct pci_bus *bus = pdev->bus;
+> +	struct pci_dev *bridge = pci_upstream_bridge(pdev);
+>  	struct resource *b_win, *r;
+>  	LIST_HEAD(saved);
+>  	unsigned int i;
+> @@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+>  	if (ret)
+>  		return ret;
+>  
+> +	down_read(&pci_bus_sem);
+> +
+>  	pci_dev_for_each_resource(pdev, r, i) {
+>  		if (i >= PCI_BRIDGE_RESOURCES)
+>  			break;
+> @@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+>  
+>  	pci_resize_resource_set_size(pdev, resno, size);
+>  
+> -	if (!bus->self)
+> -		goto out;
+> +	if (bridge) {
+> +		ret = pbus_reassign_bridge_resources(bus, res, &saved);
+> +		if (ret)
+> +			goto restore;
+> +	} else {
+> +		/* No bridge window to adjust; let the core reassign the bus. */
+> +		pci_bus_assign_resources(bus);
+>  
+> -	down_read(&pci_bus_sem);
+> -	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+> -	if (ret)
+> -		goto restore;
+> +		list_for_each_entry(dev_res, &saved, list) {
+> +			if (!resource_assigned(dev_res->res)) {
+> +				ret = -ENOSPC;
+> +				goto restore;
+> +			}
+> +		}
+> +	}
+>  
+>  out:
+>  	up_read(&pci_bus_sem);
+> -- 
+> 2.53.0
 > 
-> -               if (!result && link->panel_mode != DP_PANEL_MODE_EDP)
-> +               if (!result && link->panel_mode_initialized &&
-> +                   link->panel_mode != DP_PANEL_MODE_EDP)
->                          *panel_mode = DP_PANEL_MODE_DEFAULT;
->          }
->   }
-> --
-> 2.55.0
-
