@@ -4,75 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0177DC982F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 07:12:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57E6EC982F7
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 07:12:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C14B310E4A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8073510E494;
 	Mon, 21 Sep 2026 07:11:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oKQ/xK8Z";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FdDUPc/z";
 	dkim-atps=neutral
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com
- [74.125.231.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E04F210E70C
- for <amd-gfx@lists.freedesktop.org>; Sun, 20 Sep 2026 01:31:06 +0000 (UTC)
-Received: by mail-oa2-f12.google.com with SMTP id
- 586e51a60fabf-46accbdfc20so1550953fac.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 18:31:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789867866; x=1790472666; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=6hTqSEJnD6ZpSU2Pd3zom/nMKHhVqSJvkKONP60toIw=;
- b=oKQ/xK8Z0PhAZz85YxTUWY2/H/W19gHzFznal+fO52eEV87Z51JG7Up+YWZUruTmsU
- xrH4mn9hBXzc81MBmq+yjd6Gl2LSbtBvP8CfEQ0YmZvKaLVQfZ/P4FVzc3d6S7qFXpJo
- Javrx4syJbZHYsCT2F//X50wLn1gP0F8N/TdCviyagkqXB/IyvmB5QK2xg3sdx/PsMG2
- uJqvALIIxmgQ2UiIPRjUp+jrrrzZnHFQNGoqgnKi1Nkz+8QJZuYq2Dd607NgPot6KCpL
- ZDvtX8IqsjEhodi3YoROs/Ti8D21XnFBQVP0OObDSyyofydG+UQLHU4fRb+IvJEPMfaH
- CjMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789867866; x=1790472666;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6hTqSEJnD6ZpSU2Pd3zom/nMKHhVqSJvkKONP60toIw=;
- b=Rse9KmofHtw6X3eOJae40B8StjSNiBl5QOiYoyil/AtPHSiNdrkax76Ttf6lcYjqc3
- LBLwfYDa99hhbKxD6ZV9cA1LxZ24HvbmrTrkwSPP9ZUUGKHCRC0mizA08RKicxiW33OT
- F856Dl0odXIGs5zKm8uZ4qAgwwx4eEpe4tcMe4PedwxsCbXkxFUX9lTi2Gq4APJunkAJ
- moEMENXkIh9c4pMQ8+LN+ubqIxIs2+RjzsoXLVsF3okvmychecBnEOn/dY6LpRGDlnhg
- 5A/gPytYQ8lDMAc7FAXYduKR85Gxl9OzUFO4ii9Ma+8U1ncmdfi/NkjfstDr/EO0ckIX
- Jw5Q==
-X-Gm-Message-State: AFuF++ngAREaAqGHfIz7Yk8cCzS2im9OxlIizAeYUmwPoqeNxOtPZRs4
- gF3rgZg7cF80Tly4w5c0nKGsewHZt48Av+r/tx38dm2TQmjVU+wcJIzfxYk78lC3V3w=
-X-Gm-Gg: AYBFou3j/AwFrH5xlCKZ5adOO3QXWfLASR2NrMtdmv1MiSyF0RhUiOj1adkiH17XY0h
- qJG7EWgvFdNA9RJ5s8a71mhHrRAVpI5qqBkbP0NMiC8ZXe2Qv/AQo2S6ROzWm8mkbhSMXTdlJ8U
- pyMgDbYlOaFkSB+u4PFFA1NvLTbuNL9ewg0RBiPhmij/AiBRHw11DS7JSP63Po50rYF+U57uAzV
- gZ0vBbCzMUk/lfQCRDf9SmgwwZOSBlVLTEgP0HcUh20GZT5CopLhDdFu8KIfAcU4EQxGBrJRXPe
- BxUTrzEzMJnZjwoa/Vw4W+9KhwwnDbPGA4UXCwhZgmul/cbilEpf3PT27PSXFJRyE851S+ft0oQ
- XUXtXV2q53vvHimjPNciv3rvIebyEJ1EYV+pKsZRvY1Kobimrya011MEMRPj06btqhdaXqb86CG
- rPPxT0Anez4G8w0yCCgJbKOMIlCKJrhSOlejZmVCxN3kYyWzR0rXqK0+7tws1mDnubPxnNcBG8F
- 7BJwwMluVnKXfSW+MozQJfT482Y5EqiLJ8bdB9yuO+QaniMXxnW
-X-Received: by 2002:a05:6870:31a1:b0:485:d31b:775a with SMTP id
- 586e51a60fabf-486e6de37d1mr7187523fac.24.1789867865863; 
- Sat, 19 Sep 2026 18:31:05 -0700 (PDT)
-Received: from cachyos-x8664.localdomain ([167.89.205.219])
- by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-48821db449dsm3552088fac.15.2026.09.19.18.31.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 19 Sep 2026 18:31:05 -0700 (PDT)
-From: David Janice <djanice1980@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- dri-devel@lists.freedesktop.org, David Janice <djanice1980@gmail.com>
-Subject: [PATCH] drm/amd/display: Allow 300 ms for HDMI FRL link training at
- every rate
-Date: Sat, 19 Sep 2026 20:30:50 -0500
-Message-ID: <20260920013050.21259-1-djanice1980@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D68710F348;
+ Fri, 18 Sep 2026 12:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:To:From:Date:From:Reply-To;
+ bh=Iee394mqfwxTLAURR3viKDxcnu4q6zhVi5eyIe3N21c=; b=FdDUPc/zzW65vpaDzCpjBnqML5
+ KEbB7hwa7u7J3ZfzpZ+lDCzyvh3theIkuEFGvobwknEqBtic2Ojg6R4oZFs3jeLvIMStRYneffdXz
+ /jQMbqVuB2BJD2RRe3oem0hLPZ1Il7Mg7kUaWv9jI3rOBOFwlt1h+gT6SwodJ27wf+mxNl86HO2V/
+ u+uIRw1YodmhzvD3tYRD6QlB37XnI8JIinM9LA4F1WRHRVvKtXwEhSRsUaaqFXnORvIjRKiStQ/G7
+ Ap6s5w1bccFtVra+g474npXLfv08ggt07AZjUFHeSyF+59E3s9E3lO2Q7g8/orjdHCAoX/9dx12CF
+ Z0STIGVQ==;
+Received: from 179-125-70-185-dinamico.pombonet.net.br ([179.125.70.185]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x7XZ2-003vjO-IC; Fri, 18 Sep 2026 14:19:36 +0200
+Date: Fri, 18 Sep 2026 09:19:29 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: Re: [PATCH i-g-t v6 2/9] tests/cgroup_dmem: add dmem cgroup
+ controller test
+Message-ID: <aq0sUV6Lfb8lVs4N@quatroqueijos.cascardo.eti.br>
+References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
+ <20260903-dmem_max-v6-2-61dc62970fae@igalia.com>
+ <20260917094559.3mgy6enka2dfeuq6@kamilkon-DESK.igk.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260917094559.3mgy6enka2dfeuq6@kamilkon-DESK.igk.intel.com>
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:11:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,68 +69,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-hdmi_frl_perform_link_training() gives LTS:3 a single budget of 105 polls
-at 2 ms (~210 ms) that starts at the FRL_Rate write and is not restarted
-when the sink raises its first FLT_update with the LTP request. A sink
-that needs close to 200 ms after the LTP request to report lock therefore
-fails whenever its LTP request itself takes more than a few tens of ms.
+On Thu, Sep 17, 2026 at 11:45:59AM +0200, Kamil Konieczny wrote:
+> Hi Thadeu,
+> On 2026-09-03 at 19:00:24 -0300, Thadeu Lima de Souza Cascardo wrote:
+> > From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > 
+> > Add a test that exercises the cgroup v2 dmem controller interface using
+> > the new igt_cgroup library.
+> > 
+> > The test uses igt_simple_main and:
+> >   - Skips if no dmem regions are registered (no cgroup v2 or no
+> >    dmem-capable device).
+> >   - Creates a sub-cgroup and moves the test process into it.
+> >   - Enumerates all registered device memory regions and prints their
+> >    capacity, system-wide current usage, per-cgroup current usage, and
+> >    configured min, low and max limits.
+> >   - Destroys the cgroup on completion.
+> > 
+> > Assisted-by: GitHub Copilot:claude-sonnet-4.6
+> > Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > ---
+> >  tests/cgroup_dmem.c | 92 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+> >  tests/meson.build   |  1 +
+> >  2 files changed, 93 insertions(+)
+> > 
+> > diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+> > new file mode 100644
+> > index 000000000000..442c965f9bbf
+> > --- /dev/null
+> > +++ b/tests/cgroup_dmem.c
+> > @@ -0,0 +1,92 @@
+> > +// SPDX-License-Identifier: MIT
+> > +/*
+> > + * Copyright © 2025 Intel Corporation
+> > + */
+> > +
+> > +/**
+> > + * TEST: cgroup dmem
+> > + * Description: Exercises the cgroup v2 dmem controller interface.  Creates a
+> > + *              cgroup, moves the process into it, enumerates all dmem regions,
+> > + *              prints their capacity, system-wide current usage, per-cgroup
+> > + *              current usage and configured limits, then destroys the cgroup.
+> > + * Category: Core
+> > + * Mega feature: General Core features
+> > + * Sub-category: uapi
+> > + * Functionality: cgroup
+> > + * Feature: dmem
+> > + * Test category: uapi
+> > + */
+> > +
+> > +#include <inttypes.h>
+> > +
+> > +#include "igt.h"
+> > +#include "igt_cgroup.h"
+> > +
+> > +IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
+> > +
+> > +static void fmt_bytes(uint64_t v, char *buf, size_t len)
+> > +{
+> > +	if (v == IGT_CGROUP_DMEM_MAX)
+> > +		snprintf(buf, len, "max");
+> > +	else
+> > +		snprintf(buf, len, "%" PRIu64, v);
+> > +}
+> > +
+> > +int igt_simple_main()
+> 
+> Can it be igt_main() with igt_fixture for require and a basic
+> subtest? It is not blocker, it could be converted later.
+> 
+> Regards,
+> Kamil
+> 
 
-Measured on an LG C2 (GSM 49352, 2022) driven by a Strix Halo DP-HDMI
-FRL PCON, DPMS off/on with drm.debug=0x2, kernel 7.2.6:
+I do change it to igt_main() in a later patch. So, it is converted later. I
+will it as is, then.
 
-  6G x4  (3840x2160@60 10bpc):  LTP request at poll 11 (~21 ms),
-         lock at poll 100 (~179 ms later): PASSED first try.
-  10G x4 (3840x2160@120 10bpc): LTP request at poll 22 (~44 ms),
-         no lock by poll 105: "FAILED - Timeout waiting for FLT_UPDATE".
-         Retry 200 ms later: LTP request at poll 11, lock at poll 101:
-         PASSED.
+Thanks.
+Cascardo.
 
-The sink answers FLT_READY on the first poll every time and locks in a
-steady ~180 ms at both rates, so it is neither slow to wake nor
-marginal; the total just does not fit 210 ms once the LTP request is
-late, which happens far more often at 10G. On this system that is the
-difference between reliable DPMS wakes at 4K60 and mostly dark ones at
-4K120: hdmi_frl_perform_link_training_with_retries() retrains at the same
-rate up to four times 200 ms apart and the output is then left dark.
-
-"drm/amd/display: Update and revert FRL LT Timeout behaviour" already
-allows 155 polls (~300 ms) for 16 Gbps and above. Use that budget at
-every rate. With the change applied to 7.2.6, five consecutive DPMS
-wakes at 10G x4 trained on the first attempt; three of them locked at
-poll 104-105, i.e. inside the last 1-2 polls of the old budget.
-
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Signed-off-by: David Janice <djanice1980@gmail.com>
----
- .../amd/display/dc/link/protocols/link_hdmi_frl.c  | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-index 7f93009..005feb9 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-@@ -528,10 +528,18 @@ static enum link_result hdmi_frl_perform_link_training(struct ddc_service *ddc_s
- 
- 		FRL_INFO("FRL LINK TRAINING:  Poll for FLT_UPDATE.\n");
- 		/*LTS:3: Start Link Training*/
--		/*Start FLT Timer = 200 ms, or 300ms if link rate >= 16Gbps*/
-+		/*
-+		 * Start FLT Timer = 300 ms. HDMI 2.1 specifies FLT_TIMEOUT = 200 ms,
-+		 * but this budget runs from the FRL_Rate write to the final
-+		 * FLT_update and some sinks need more than that in total: an LG C2
-+		 * (2022) at 10G x4 raises its first FLT_update (the LTP request)
-+		 * ~45 ms after the rate write and reports lock a further ~180 ms
-+		 * later, ~225 ms in all, so it failed the 105-poll (~210 ms) budget on
-+		 * most DPMS wakes at 4K120 while at 6G x4 (~20 ms + ~180 ms) it just
-+		 * fit. Use the 300 ms already allowed for >= 16 Gbps at every rate.
-+		 */
- 		num_polls = 0;
--		if (link_settings->frl_link_rate >= HDMI_FRL_LINK_RATE_16GBPS)
--			max_polls = 155;
-+		max_polls = 155;
- 
- 		while (num_polls < max_polls) {
- 			flt_poll_cur_time = dm_get_timestamp(ddc_service->ctx);
--- 
-2.55.0
-
+> > +{
+> > +	struct igt_cgroup *cg;
+> > +	const char *region;
+> > +	char **regions;
+> > +	uint64_t capacity, sys_current, cg_current, min, low, max;
+> > +	char cap_s[32], sys_s[32], cg_s[32];
+> > +	char min_s[32], low_s[32], max_s[32];
+> > +	int i;
+> > +
+> > +	igt_require_f(igt_cgroup_dmem_available(),
+> > +		      "No dmem regions found; is cgroup v2 with the "
+> > +		      "dmem controller available?\n");
+> > +
+> > +	cg = igt_cgroup_new("igt-cgroup-dmem-test");
+> > +	igt_assert_f(cg, "Failed to create cgroup\n");
+> > +
+> > +	igt_cgroup_move_current(cg);
+> > +
+> > +	regions = igt_cgroup_dmem_regions();
+> > +	igt_assert_f(regions, "Failed to enumerate dmem regions\n");
+> > +
+> > +	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
+> > +		 "region", "capacity", "system-current",
+> > +		 "cgroup-current", "min", "low", "max");
+> > +	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
+> > +		 "------", "--------", "--------------",
+> > +		 "--------------", "---", "---", "---");
+> > +
+> > +	for (i = 0; regions[i]; i++) {
+> > +		region = regions[i];
+> > +
+> > +		igt_cgroup_dmem_get_capacity(region, &capacity);
+> > +		fmt_bytes(capacity, cap_s, sizeof(cap_s));
+> > +
+> > +		igt_cgroup_dmem_get_system_current(region, &sys_current);
+> > +		fmt_bytes(sys_current, sys_s, sizeof(sys_s));
+> > +
+> > +		igt_cgroup_dmem_get_current(cg, region, &cg_current);
+> > +		fmt_bytes(cg_current, cg_s, sizeof(cg_s));
+> > +
+> > +		igt_cgroup_dmem_get_min(cg, region, &min);
+> > +		fmt_bytes(min, min_s, sizeof(min_s));
+> > +
+> > +		igt_cgroup_dmem_get_low(cg, region, &low);
+> > +		fmt_bytes(low, low_s, sizeof(low_s));
+> > +
+> > +		igt_cgroup_dmem_get_max(cg, region, &max);
+> > +		fmt_bytes(max, max_s, sizeof(max_s));
+> > +
+> > +		igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
+> > +			 region, cap_s, sys_s, cg_s,
+> > +			 min_s, low_s, max_s);
+> > +	}
+> > +
+> > +	igt_cgroup_dmem_regions_free(regions);
+> > +	igt_cgroup_free(cg);
+> > +}
+> > diff --git a/tests/meson.build b/tests/meson.build
+> > index 1ac89bab7e15..c362d42888ba 100644
+> > --- a/tests/meson.build
+> > +++ b/tests/meson.build
+> > @@ -1,4 +1,5 @@
+> >  test_progs = [
+> > +	'cgroup_dmem',
+> >  	'core_auth',
+> >  	'core_debugfs',
+> >  	'core_getclient',
+> > 
+> > -- 
+> > 2.47.3
+> > 
