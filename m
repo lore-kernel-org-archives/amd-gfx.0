@@ -4,51 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD282C982DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 14:07:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 072ACC982DA
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 14:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 262C810F39A;
-	Fri, 18 Sep 2026 14:07:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA0610F371;
+	Fri, 18 Sep 2026 14:14:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JHGHomAk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cQJjtYRb";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E54A10E8DC
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 14:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=BiKd1ppL9DoWCARVx+wUZbSla4Y9VA19W4gCe1R5m+A=; b=JHGHomAk2nqmB65fxJ9/cEpdL2
- LGStftRI7JzpsM3Z6oJCPcm/5NfVaeK/O35x8LPNzRwsv1d0joZHeKPpsPVQYXCSosmTtZH52Cs38
- fb4m/vY5eim0UxYFHmGXOgp9lp9ZR9bp5slYsZEPcbs2idPmTXowCcfiHkLWxGSqO2MR6S5pf6PHa
- Y1XrsgIVtInHN+h7xBRg8q8SRkPW5nSe9WOHj2XBi7yQO9vNVrwnT5V1Y7igjU9aLdS7V84nu56gk
- TiOdbZChUq6vzG1yCjWBgFRwwvLFgVYpZXGU0mXN0JR1oh7KIcS+vBcTDC61JEXTnGciZN5CcSFzi
- rjqj3kvQ==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1x7ZF3-003yUq-EI; Fri, 18 Sep 2026 16:07:05 +0200
-Message-ID: <720027b8-deec-4953-a1e5-8b1781285c8c@igalia.com>
-Date: Fri, 18 Sep 2026 15:07:04 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 300CF10F371;
+ Fri, 18 Sep 2026 14:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789740875; x=1821276875;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=HQHYY5tAJcBWvJ3Ln0zxpLTMvoOoSyCh4MotZ8ordXI=;
+ b=cQJjtYRbaQQ3s1V9b9YjPGSiD8F+ocNxFI08uhpDoDKhgLGvXANPIn7P
+ uSicygol1BV8KmrlCUeHQisy2rBjdypeas/JjdgzN8dx/jvCx7uNkwTi3
+ Jpuph8difIKHEBf3dfCniMLSZ7fJe7woq0VYQR/QtwCAqwmLObv7hRolJ
+ TwH8xjYSqTbHLjzZdv94I/+u65rukZp9h5kfBy2anNm1HmW4wI8ysUyDP
+ DAIxL1oXmhsbcB0PTXOrkLDYIMb/8TFfJWOfOqQxpbr2XH4m6E+7UNJZq
+ 8FCpSrqhkJQ3nGx2l3p0IWULX4fkCIvOr2k5MoE4X4NLrDn5fwc1Byask A==;
+X-CSE-ConnectionGUID: 2qg/3dVzRVGlGb79dyTEBg==
+X-CSE-MsgGUID: F5tXEzgdQFmJP7kMFSq5xA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="90115289"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; d="scan'208";a="90115289"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 07:14:35 -0700
+X-CSE-ConnectionGUID: 3rINgxueQ6+GfWZpb4EUBg==
+X-CSE-MsgGUID: GXMcpvWgReuOxq/KIbTdWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="2622332"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.216])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2026 07:14:32 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Timo =?utf-8?Q?Pr=C3=B6mer?= <timo.proemer04@gmail.com>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Timoyoungster <timo.proemer04@gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/edid: Export drm_edid_block_count()
+In-Reply-To: <20260713193237.2639-2-timo.proemer04@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260713193237.2639-1-timo.proemer04@gmail.com>
+ <20260713193237.2639-2-timo.proemer04@gmail.com>
+Date: Fri, 18 Sep 2026 17:14:28 +0300
+Message-ID: <76f22a9fac1eb0dbf6ed52de66a00d0412ead885@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/18] drm/amdgpu: More compact VCN IB emission
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, Alex Deucher <alexander.deucher@amd.com>
-References: <20260918120518.96922-1-tvrtko.ursulin@igalia.com>
- <20260918120518.96922-2-tvrtko.ursulin@igalia.com>
- <474139b2-c3c2-4d2b-81d7-e209231870f2@amd.com>
- <84ae6c9c-6ea5-4e02-9dbe-5ba855580da1@igalia.com>
- <de963600-ba53-4e34-bba1-2a838cbc2457@amd.com>
- <052c9390-8906-4f8f-a501-30730c41f011@igalia.com>
- <04dc6bc5-4fb0-4e8b-a3f4-bc681ddf0b73@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <04dc6bc5-4fb0-4e8b-a3f4-bc681ddf0b73@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,325 +79,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon, 13 Jul 2026, Timo Pr=C3=B6mer <timo.proemer04@gmail.com> wrote:
+> From: Timoyoungster <timo.proemer04@gmail.com>
+>
+> Drivers currently calculating EDID size by reading the `extensions`
+> field of the raw EDID structure (e.g., `edid->extensions + 1`) will
+> calculate the wrong size if the EDID contains an HF-EEODB (HDMI Forum
+> EDID Extension Override Data Block). The base extension flag does not
+> account for these override blocks, leading to truncated EDIDs.
+>
+> Remove the static declaration and export drm_edid_block_count() so
+> drivers can safely query the true block count. This allows drivers to
+> leverage the core DRM's proper handling of HF-EEODB and other edge
+> cases without having to parse the raw EDID fields themselves.
+>
+> Signed-off-by: Timo Pr=C3=B6mer <timo.proemer04@gmail.com>
+> ---
+>  drivers/gpu/drm/drm_edid.c | 3 ++-
+>  include/drm/drm_edid.h     | 1 +
+>  2 files changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index df3c25bac..34560b33a 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -1698,12 +1698,13 @@ static int __drm_edid_block_count(const struct dr=
+m_edid *drm_edid)
+>  }
+>=20=20
+>  /* EDID block count, limited by allocated size */
+> -static int drm_edid_block_count(const struct drm_edid *drm_edid)
+> +int drm_edid_block_count(const struct drm_edid *drm_edid)
+>  {
+>  	/* Limit by allocated size */
+>  	return min(__drm_edid_block_count(drm_edid),
+>  		   (int)drm_edid->size / EDID_LENGTH);
+>  }
+> +EXPORT_SYMBOL(drm_edid_block_count);
 
-On 18/09/2026 14:34, Lazar, Lijo wrote:
-> On 18-Sep-26 6:59 PM, Tvrtko Ursulin wrote:
->>
->> On 18/09/2026 14:23, Lazar, Lijo wrote:
->>> On 18-Sep-26 6:43 PM, Tvrtko Ursulin wrote:
->>>>
->>>> On 18/09/2026 14:08, Lazar, Lijo wrote:
->>>>>
->>>>>
->>>>> On 18-Sep-26 5:35 PM, Tvrtko Ursulin wrote:
->>>>>> Avoid constant register reloads while emitting IBs by using a 
->>>>>> local write
->>>>>> pointer and only updating the size at the end of each helper.
->>>>>>
->>>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>>> Cc: Timur Kristóf <timur.kristof@gmail.com>
->>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>>>> ---
->>>>>> v2:
->>>>>>   *  Fix decode buffer overwrite
->>>>>
->>>>> Overall for this series, below type of calculation  -
->>>>>
->>>>>      ib->length_dw = ptr - ib->ptr;
->>>>>
->>>>> is not anticipating a case like below.
->>>>>
->>>>>          r = amdgpu_vcn_enc_get_create_msg(ring, 1, &ib, NULL);
->>>>>          if (r)
->>>>>                  goto error;
->>>>>
->>>>>          r = amdgpu_vcn_enc_get_destroy_msg(ring, 1, &ib, &fence);
->>>>>          if (r)
->>>>>                  goto error;
->>>>
->>>> So amdgpu_vcn_enc_ring_test_ib() - are you saying there is a bug 
->>>> there? Help me see it please.
->>>>
->>>> ib->length_dw update is enclosed in both of those helpers, same as 
->>>> before the patch.
->>>>
->>>
->>> What I'm saying is -
->>>
->>> It's the same ib pointer that is passed to back to back calls.
->>>
->>> Legacy implementation fills like -
->>>
->>> ib->ptr[ib->length_dw++]
->>>
->>> So no assumption that it is starting from offset 0 always. After the 
->>> function is filled, length gets updated based on what is filled.
->>>
->>> I don't see the same with an assignment like
->>>
->>>      ib->length_dw = ptr - ib->ptr;
->>
->> Hm, but both of those helpers emit separate jobs with their own 
->> respective IB.
->>
-> 
-> Wouldn't this kind of logic help to be on the safer side -
-> 
-> ib->length_dw += ptr - &ib->ptr[start_size];
+Not everything that's inside drm_edid.c is supposed to be looked
+into. It's abstracted and hidden for a reason. Please don't hack into
+this.
 
-I am not sure at which call sites you would suggest that?
+BR,
+Jani.
 
-I used the pattern of whoever writes to the IB starts their block with:
+>=20=20
+>  /* EDID extension block count, limited by allocated size */
+>  static int drm_edid_extension_block_count(const struct drm_edid *drm_edi=
+d)
+> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+> index 04f7a7f1f..4a990bf87 100644
+> --- a/include/drm/drm_edid.h
+> +++ b/include/drm/drm_edid.h
+> @@ -481,6 +481,7 @@ const struct drm_edid *drm_edid_read_switcheroo(struc=
+t drm_connector *connector,
+>  int drm_edid_connector_update(struct drm_connector *connector,
+>  			      const struct drm_edid *edid);
+>  int drm_edid_connector_add_modes(struct drm_connector *connector);
+> +int drm_edid_block_count(const struct drm_edid *drm_edid);
+>  bool drm_edid_is_digital(const struct drm_edid *drm_edid);
+>  void drm_edid_get_product_id(const struct drm_edid *drm_edid,
+>  			     struct drm_edid_product_id *id);
 
-	u32 *ptr = &ib->ptr[ib->length_dw];
-
-Then they emit their stuff, and finally close with:
-
-	ib->length_dw = ptr - ib->ptr;
-
-By that design callers are safe since all are self-contained. I at the 
-moment do not see how making that more complicated would make it safer.
-
-Regards,
-
-Tvrtko
-
->>>>>> ---
->>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 134 ++++++++++++ 
->>>>>> +-----------
->>>>>>   1 file changed, 75 insertions(+), 59 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/ 
->>>>>> gpu/ drm/amd/amdgpu/amdgpu_vcn.c
->>>>>> index 17db7264269e..2c367ee6e182 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
->>>>>> @@ -622,9 +622,12 @@ static int amdgpu_vcn_dec_send_msg(struct 
->>>>>> amdgpu_ring *ring,
->>>>>>   {
->>>>>>       u64 addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
->>>>>>       struct amdgpu_device *adev = ring->adev;
->>>>>> +    struct amdgpu_vcn_reg *internal = &adev->vcn.inst[ring- 
->>>>>> >me].internal;
->>>>>> +    uint32_t nop = PACKET0(internal->nop, 0);
->>>>>>       struct dma_fence *f = NULL;
->>>>>>       struct amdgpu_job *job;
->>>>>>       struct amdgpu_ib *ib;
->>>>>> +    uint32_t *ptr;
->>>>>>       int i, r;
->>>>>>       r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
->>>>>> @@ -635,15 +638,16 @@ static int amdgpu_vcn_dec_send_msg(struct 
->>>>>> amdgpu_ring *ring,
->>>>>>           goto err;
->>>>>>       ib = &job->ibs[0];
->>>>>> -    ib->ptr[0] = PACKET0(adev->vcn.inst[ring->me].internal.data0, 
->>>>>> 0);
->>>>>> -    ib->ptr[1] = addr;
->>>>>> -    ib->ptr[2] = PACKET0(adev->vcn.inst[ring->me].internal.data1, 
->>>>>> 0);
->>>>>> -    ib->ptr[3] = addr >> 32;
->>>>>> -    ib->ptr[4] = PACKET0(adev->vcn.inst[ring->me].internal.cmd, 0);
->>>>>> -    ib->ptr[5] = 0;
->>>>>> +    ptr = ib->ptr;
->>>>>> +    *ptr++ = PACKET0(internal->data0, 0);
->>>>>> +    *ptr++ = addr;
->>>>>> +    *ptr++ = PACKET0(internal->data1, 0);
->>>>>> +    *ptr++ = addr >> 32;
->>>>>> +    *ptr++ = PACKET0(internal->cmd, 0);
->>>>>> +    *ptr++ = 0;
->>>>>>       for (i = 6; i < 16; i += 2) {
->>>>>> -        ib->ptr[i] = PACKET0(adev->vcn.inst[ring- 
->>>>>> >me].internal.nop, 0);
->>>>>> -        ib->ptr[i+1] = 0;
->>>>>> +        *ptr++ = nop;
->>>>>> +        *ptr++ = 0;
->>>>>>       }
->>>>>>       ib->length_dw = 16;
->>>>>> @@ -763,17 +767,20 @@ int amdgpu_vcn_dec_ring_test_ib(struct 
->>>>>> amdgpu_ring *ring, long timeout)
->>>>>>   static uint32_t *amdgpu_vcn_unified_ring_ib_header(struct 
->>>>>> amdgpu_ib *ib,
->>>>>>                           uint32_t ib_pack_in_dw, bool enc)
->>>>>>   {
->>>>>> +    u32 *ptr = &ib->ptr[ib->length_dw];
->>>>>>       uint32_t *ib_checksum;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000010; /* single queue 
->>>>>> checksum */
->>>>>> -    ib->ptr[ib->length_dw++] = 0x30000002;
->>>>>> -    ib_checksum = &ib->ptr[ib->length_dw++];
->>>>>> -    ib->ptr[ib->length_dw++] = ib_pack_in_dw;
->>>>>> +    *ptr++ = 0x00000010; /* single queue checksum */
->>>>>> +    *ptr++ = 0x30000002;
->>>>>> +    ib_checksum = ptr++;
->>>>>> +    *ptr++ = ib_pack_in_dw;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000010; /* engine info */
->>>>>> -    ib->ptr[ib->length_dw++] = 0x30000001;
->>>>>> -    ib->ptr[ib->length_dw++] = enc ? 0x2 : 0x3;
->>>>>> -    ib->ptr[ib->length_dw++] = ib_pack_in_dw * sizeof(uint32_t);
->>>>>> +    *ptr++ = 0x00000010; /* engine info */
->>>>>> +    *ptr++ = 0x30000001;
->>>>>> +    *ptr++ = enc ? 0x2 : 0x3;
->>>>>> +    *ptr++ = ib_pack_in_dw * sizeof(uint32_t);
->>>>>> +
->>>>>> +    ib->length_dw = ptr - ib->ptr;
->>>>>>       return ib_checksum;
->>>>>>   }
->>>>>> @@ -803,7 +810,8 @@ static int amdgpu_vcn_dec_sw_send_msg(struct 
->>>>>> amdgpu_ring *ring,
->>>>>>       uint64_t addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
->>>>>>       uint32_t *ib_checksum;
->>>>>>       uint32_t ib_pack_in_dw;
->>>>>> -    int i, r;
->>>>>> +    u32 *ptr;
->>>>>> +    int r;
->>>>>>       if (adev->vcn.inst[ring->me].using_unified_queue)
->>>>>>           ib_size_dw += 8;
->>>>>> @@ -825,18 +833,20 @@ static int amdgpu_vcn_dec_sw_send_msg(struct 
->>>>>> amdgpu_ring *ring,
->>>>>>           ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, 
->>>>>> ib_pack_in_dw, false);
->>>>>>       }
->>>>>> -    ib->ptr[ib->length_dw++] = sizeof(struct 
->>>>>> amdgpu_vcn_decode_buffer) + 8;
->>>>>> -    ib->ptr[ib->length_dw++] = 
->>>>>> cpu_to_le32(AMDGPU_VCN_IB_FLAG_DECODE_BUFFER);
->>>>>> -    decode_buffer = (struct amdgpu_vcn_decode_buffer *)&(ib- 
->>>>>> >ptr[ib- >length_dw]);
->>>>>> -    ib->length_dw += sizeof(struct amdgpu_vcn_decode_buffer) / 4;
->>>>>> +    ptr = &ib->ptr[ib->length_dw];
->>>>>> +
->>>>>> +    *ptr++ = sizeof(struct amdgpu_vcn_decode_buffer) + 8;
->>>>>> +    *ptr++ = cpu_to_le32(AMDGPU_VCN_IB_FLAG_DECODE_BUFFER);
->>>>>> +    decode_buffer = (struct amdgpu_vcn_decode_buffer *)ptr;
->>>>>> +    ptr += sizeof(struct amdgpu_vcn_decode_buffer) / 4;
->>>>>> +    ib->length_dw = ptr - ib->ptr;
->>>>>>       memset(decode_buffer, 0, sizeof(struct 
->>>>>> amdgpu_vcn_decode_buffer));
->>>>>>       decode_buffer->valid_buf_flag |= 
->>>>>> cpu_to_le32(AMDGPU_VCN_CMD_FLAG_MSG_BUFFER);
->>>>>>       decode_buffer->msg_buffer_address_hi = cpu_to_le32(addr >> 32);
->>>>>>       decode_buffer->msg_buffer_address_lo = cpu_to_le32(addr);
->>>>>> -    for (i = ib->length_dw; i < ib_size_dw; ++i)
->>>>>> -        ib->ptr[i] = 0x0;
->>>>>> +    memset32(ptr, 0, ib_size_dw - ib->length_dw);
->>>>>>       if (adev->vcn.inst[ring->me].using_unified_queue)
->>>>>>           amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, 
->>>>>> ib_pack_in_dw);
->>>>>> @@ -934,7 +944,8 @@ static int 
->>>>>> amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
->>>>>>       struct dma_fence *f = NULL;
->>>>>>       uint32_t *ib_checksum = NULL;
->>>>>>       uint64_t addr;
->>>>>> -    int i, r;
->>>>>> +    u32 *ptr;
->>>>>> +    int r;
->>>>>>       if (adev->vcn.inst[ring->me].using_unified_queue)
->>>>>>           ib_size_dw += 8;
->>>>>> @@ -947,31 +958,33 @@ static int 
->>>>>> amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
->>>>>>           return r;
->>>>>>       ib = &job->ibs[0];
->>>>>> -    addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
->>>>>> -
->>>>>>       ib->length_dw = 0;
->>>>>> +    addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
->>>>>>       if (adev->vcn.inst[ring->me].using_unified_queue)
->>>>>>           ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, 
->>>>>> 0x11, true);
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000018;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000001; /* session info */
->>>>>> -    ib->ptr[ib->length_dw++] = handle;
->>>>>> -    ib->ptr[ib->length_dw++] = upper_32_bits(addr);
->>>>>> -    ib->ptr[ib->length_dw++] = addr;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000000;
->>>>>> +    ptr = &ib->ptr[ib->length_dw];
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000014;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000002; /* task info */
->>>>>> -    ib->ptr[ib->length_dw++] = 0x0000001c;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000000;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000000;
->>>>>> +    *ptr++ = 0x00000018;
->>>>>> +    *ptr++ = 0x00000001; /* session info */
->>>>>> +    *ptr++ = handle;
->>>>>> +    *ptr++ = upper_32_bits(addr);
->>>>>> +    *ptr++ = addr;
->>>>>> +    *ptr++ = 0x00000000;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000008;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x08000001; /* op initialize */
->>>>>> +    *ptr++ = 0x00000014;
->>>>>> +    *ptr++ = 0x00000002; /* task info */
->>>>>> +    *ptr++ = 0x0000001c;
->>>>>> +    *ptr++ = 0x00000000;
->>>>>> +    *ptr++ = 0x00000000;
->>>>>> -    for (i = ib->length_dw; i < ib_size_dw; ++i)
->>>>>> -        ib->ptr[i] = 0x0;
->>>>>> +    *ptr++ = 0x00000008;
->>>>>> +    *ptr++ = 0x08000001; /* op initialize */
->>>>>> +
->>>>>> +    ib->length_dw = ptr - ib->ptr;
->>>>>> +
->>>>>> +    memset32(ptr, 0, ib_size_dw - ib->length_dw);
->>>>>>       if (adev->vcn.inst[ring->me].using_unified_queue)
->>>>>>           amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, 0x11);
->>>>>> @@ -1002,7 +1015,8 @@ static int 
->>>>>> amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
->>>>>>       struct dma_fence *f = NULL;
->>>>>>       uint32_t *ib_checksum = NULL;
->>>>>>       uint64_t addr;
->>>>>> -    int i, r;
->>>>>> +    u32 *ptr;
->>>>>> +    int r;
->>>>>>       if (adev->vcn.inst[ring->me].using_unified_queue)
->>>>>>           ib_size_dw += 8;
->>>>>> @@ -1015,31 +1029,33 @@ static int 
->>>>>> amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
->>>>>>           return r;
->>>>>>       ib = &job->ibs[0];
->>>>>> -    addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
->>>>>> -
->>>>>>       ib->length_dw = 0;
->>>>>> +    addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
->>>>>>       if (adev->vcn.inst[ring->me].using_unified_queue)
->>>>>>           ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, 
->>>>>> 0x11, true);
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000018;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000001;
->>>>>> -    ib->ptr[ib->length_dw++] = handle;
->>>>>> -    ib->ptr[ib->length_dw++] = upper_32_bits(addr);
->>>>>> -    ib->ptr[ib->length_dw++] = addr;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000000;
->>>>>> +    ptr = &ib->ptr[ib->length_dw];
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000014;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000002;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x0000001c;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000000;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000000;
->>>>>> +    *ptr++ = 0x00000018;
->>>>>> +    *ptr++ = 0x00000001;
->>>>>> +    *ptr++ = handle;
->>>>>> +    *ptr++ = upper_32_bits(addr);
->>>>>> +    *ptr++ = addr;
->>>>>> +    *ptr++ = 0x00000000;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x00000008;
->>>>>> -    ib->ptr[ib->length_dw++] = 0x08000002; /* op close session */
->>>>>> +    *ptr++ = 0x00000014;
->>>>>> +    *ptr++ = 0x00000002;
->>>>>> +    *ptr++ = 0x0000001c;
->>>>>> +    *ptr++ = 0x00000000;
->>>>>> +    *ptr++ = 0x00000000;
->>>>>> -    for (i = ib->length_dw; i < ib_size_dw; ++i)
->>>>>> -        ib->ptr[i] = 0x0;
->>>>>> +    *ptr++ = 0x00000008;
->>>>>> +    *ptr++ = 0x08000002; /* op close session */
->>>>>> +
->>>>>> +    ib->length_dw = ptr - ib->ptr;
->>>>>> +
->>>>>> +    memset32(ptr, 0, ib_size_dw - ib->length_dw);
->>>>>>       if (adev->vcn.inst[ring->me].using_unified_queue)
->>>>>>           amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, 0x11);
->>>>>
->>>>
->>>
->>
-> 
-
+--=20
+Jani Nikula, Intel
