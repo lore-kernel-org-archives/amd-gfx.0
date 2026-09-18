@@ -4,46 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1F87C982FB
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 07:12:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E2D6C982E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 07:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F184110E46D;
-	Mon, 21 Sep 2026 07:11:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93B7310E49E;
+	Mon, 21 Sep 2026 07:11:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ruszin.hu header.i=@ruszin.hu header.b="HaxJe7Cn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TRNJXa77";
 	dkim-atps=neutral
-X-Greylist: delayed 323 seconds by postgrey-1.36 at gabe;
- Sat, 19 Sep 2026 12:51:29 UTC
-Received: from smtp02.rackhost.hu (smtp02.rackhost.hu [91.227.138.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8AA389220
- for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 12:51:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ruszin.hu;
- s=smtp0220241218; t=1789821963;
- bh=IEHaUojRDypGGnNHHU41dWz5cQroyqeLcaIzNQ3odAU=;
- h=Date:To:Cc:From:Subject:From;
- b=HaxJe7CnvvkJ+SZM2hNRA38VD972i2pZbmHOWxaGr6icvWkpWi3iLfjjc6uKchQGn
- P4wfwCtVpCVTSpbiL8aYUeGvDMgxQmQbvAj7bKWLeKVb0VjAM+LbFd2npMLX5JTk24
- MeKqgdq998j/kZkhCMmAaGaAm2oc6CSaoZjwKkKuTFPr5cM13K4gPGHSFZxUkr/qTR
- wPKC0zM54O2W2BQRLH1uDl3hkVJAbooLa1Nqkam7r7mJbJI/vbg3pgaCFJxF8HxFHg
- yQH+ePuUj4L3JOtZzmHPO3sN2GBrJ+AFAO8zDJrVGlrmkTSPK41BF2WN6Eqd06NCGK
- S0dLG4aAj7tBA==
-Received: from [192.168.31.165] (h52-147.pool185-195.dyn.tolna.net
- [185.195.52.147])
- by smtp02.rackhost.hu (Postfix) with ESMTPSA id 4053C208A8;
- Sat, 19 Sep 2026 14:46:03 +0200 (CEST)
-Content-Type: multipart/alternative;
- boundary="------------d58JeMZo5mbt8r2CwmSnrKEr"
-Message-ID: <8acee140-5842-42dc-a37a-401725de2539@ruszin.hu>
-Date: Sat, 19 Sep 2026 14:46:02 +0200
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 178E510F2A0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 10:05:16 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-482e1b30c94so63631f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 03:05:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789725914; x=1790330714; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HE0w66JucLNZLzHyaLpT5/PcJD16pRz717b2QYdWvwk=;
+ b=TRNJXa77LXH+z2+9N3wJBXPag79oCLAF6Ck01VjI1VYweGiCH4ygne2w9hah3Tqfke
+ ex+Iq9K4eTqO4LA5ETt3ZsbY2QUsIHnLuak8X6v2XEx51wvKdBQUeeCKdN7u655EghjM
+ RZ82CE7kIIiFGIZ4ZR9z2zNLtxaNNI1kf3gy1jjT0MDGCQNObAiCpuTRLBwfgm6VGSc8
+ 3fX8q8Iuh+BZ1Y1kBhH5kTpiEPO/OrOlI/VUnkILoNgYHPDgh/v4eYe2LtzmYQhmled4
+ wD491T3Z6ERTnBpQQibx3SWX8DqbNYnos0KgKFtE3R4UBnbmbBu3blfbE5suB0ey+IHb
+ xMoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789725914; x=1790330714;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=HE0w66JucLNZLzHyaLpT5/PcJD16pRz717b2QYdWvwk=;
+ b=IUCTZ7VblyTEFbVjqefTKjBETPGr40W4bW/3hyU3vFMFMxI6LmkBsFXGugjcefjMwf
+ gk0WmcKki1bA0uBMl7tkdu9DA+ITchUT1SkRtKtMN82zLC/sH0HVaVJnPNflv8OihFsz
+ J9EkoOia5anmPTQSbKoVFJVDkeMeffykjnO0u0xfRccIUJID2R/ocjymZyAoPJiCRuXj
+ feYqo3aDcsIN1YoQ9bFrRxA+uCpPLSDtvunVxGYuE+cOSGx8XURO9N9nCUzEXa5NR+vE
+ z0zdhcsOOiYrQAhZgGzPnScbMm/tkVFI57nWm4n1vbqVVt2Pnw+A2dcl8ODgFadDOJXS
+ 1M0A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzcVA2fYGf0gQMgnrbSVYePUJqO2nSAAPFQnsRMe5VxdGw5NZDl8md3pYy17q1Fr+XD//BzPntC@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kIO3Wz3/lmA4j+MqyqMjCOtMEV22IwxT1CxkIXlRxNNDttWrI9
+ WxGbauxzk8WCrzvuUE/SS0qUPPM654gQdm9lxj9qpKUupOzC+I7rJQaH
+X-Gm-Gg: AYBFou33AsXiap2OwBgQKKe3diYRsZC491Egqyq/Bd53tKVkjknpVpZ1ZvwyKGXdire
+ /2BpPTqCvRlj+gw1Ej+V07uYdAsHuSnBMAoXt3cuB0kVGOGj0FSTfq9VxDnVHQ0IN5FvAj2XYby
+ wQCmw8CCr+IvGEhiDPd8VouqMWXlO0dwpcXPS2ZF3bPuuvinnJhiKuvJB/EaOu/4OgO8e0EtPRw
+ lyooq0CxsH165tvNx7ncJyFEjR1FxOIngNJafKTpZ8LBek1sNY7Wwv04ZPFeGhzukBSoRLT9GUY
+ wIfr7RwIokBFaWblyNg1jUEMYaXgVhinEWuGM5Fz9mtkqyT1Qg4fbcjRnrMtUOenbM0CzPSnqhf
+ HPjLDgBvdCJKLklbxhkZXnjzUbW1fA4lbmHv+6O+vfyTdRVcKFqw4wEduODofwijoYyxog0AnUq
+ 56baR+R44yH974XEZEMhLHe80m+2CZB3tdJZSX/v6ltRU/QAnj/0QUOybdG9E5Lt7vc4UWVwJzW
+ wgNd3esb4+sYLWqz2A/jQfhqnmhk7ob+UXRVTjdkr+vClDh3Ml1/no/NvJhufKgIiYUklOVOQJc
+ E1k=
+X-Received: by 2002:a05:600c:a00a:b0:499:d95a:41f with SMTP id
+ 5b1f17b1804b1-49fc7b83237mr18820885e9.0.1789725914217; 
+ Fri, 18 Sep 2026 03:05:14 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B829B006E521A2A508563A3.dsl.pool.telekom.hu.
+ [2001:4c4e:1b82:9b00:6e52:1a2a:5085:63a3])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fc79bdc35sm42175125e9.0.2026.09.18.03.05.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Sep 2026 03:05:13 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Charlene Liu <Charlene.Liu@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Alex Hung <alex.hung@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Lu Yao <yaolu@kylinos.cn>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Igor Paunovic <royalnet026@gmail.com>
+Subject: [PATCH] drm/amd/display: Fix audio DTO for HDMI YCbCr 4:2:0 on DCE
+Date: Fri, 18 Sep 2026 12:04:43 +0200
+Message-ID: <20260918100443.23694-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, kenneth.feng@amd.com,
- Shyam-sundar.S-k@amd.com, mario.limonciello@amd.com
-From: Daniel Ruszin <daniel@ruszin.hu>
-Subject: [Krackan Point] ~3 W Linux/Windows panel-off power gap on ThinkPad
- T14 Gen 6 AMD (drm/amd#5863)
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:11:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,196 +98,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------d58JeMZo5mbt8r2CwmSnrKEr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On DCE 11.2, 11.22 and 12.x, audio runs at twice the sample rate while
+an HDMI sink is in YCbCr 4:2:0. DTO0 is shared, so a DisplayPort
+monitor on the same GPU is sped up as well.
 
-Hi,
+get_pixel_clock_parameters() halves requested_pix_clk_100hz for 4:2:0.
+The PHY PLL is programmed from that rate, but
+dce112_program_pixel_clk_resync() sets PIXCLK_DOUBLE_RATE_ENABLE, so the
+CRTC that feeds DTO0 keeps the full rate. build_audio_output() still
+passes the halved rate on as the DTO0 module, which gives 48 MHz
+instead of 24 MHz; its 4:2:0 branch is skipped on DCE, because the
+requested clock is halved already.
 
-I opened drm/amd#5863 because I am seeing a fairly large and very 
-reproducible power-consumption difference between Linux and Windows on 
-my Lenovo ThinkPad T14 Gen 6 AMD (21QJ0057HV, Ryzen AI 7 PRO 350 / 
-Krackan Point):
+Program the DTO0 module with twice requested_pix_clk_100hz when the HDMI
+stream's clock source doubles the pixel clock, tested through the mask
+field that enables the doubling; only the DCE 11.2, 11.22 and 12.x
+clock sources have it. ACR (N/CTS) and az_configure() use a separately
+built audio_output and do not change.
 
-https://gitlab.freedesktop.org/drm/amd/-/issues/5863
+Lu Yao's patch (Link) doubles both clocks, but only for POLARIS12, which
+also moves ACR to the 594 MHz table entry.
 
-The problem originally appeared with normal distribution kernels, 
-including the Ubuntu 24.04 OEM kernel. I only started building custom 
-kernels later, because I wanted to understand what was actually keeping 
-the machine at this higher power level.
+Tested on an RX 580 (Polaris10) with a TV at 3840x2160@60 4:2:0 and a
+monitor on DP: DP audio was audibly sped up before the patch; after it,
+a 17.63 s clip played in 17.71 s on DP and 17.70 s on HDMI.
+DCCG_AUDIO_DTO0_MODULE now reads 5940000, the CRTC frame counter gives
+60.00 Hz on a 4400x2250 raster (594 MHz), HDMI ACR status reads N=5120,
+CTS=247500, and DP audio M readback (996) is the same as with the TV at
+3840x2160@30.
 
-The short version of the measurements is:
+Fixes: 87b58768eccd ("drm/amd/display: audio bug fix part 1: Add missing audio ACR")
+Link: https://lore.kernel.org/all/20251205074344.143063-1-yaolu@kylinos.cn/
+Assisted-by: LLM sparse checkpatch
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+---
 
-|Screen on / idle Linux, clean multi-user.target: ~7.57 W Windows, 
-normal desktop: ~5.60–5.78 W Internal display off Linux, panel verified 
-powered off: ~5.27–5.45 W Windows, after natural screen-off: ~2.25–2.29 W|
+Not tested: the other DCE 11.2/11.22/12.x parts (Polaris11/12, VEGAM,
+Vega), and 4:2:0 with deep color, which this sink cannot take (300 MHz
+TMDS limit). DCN is left alone on purpose: its OTG halves the horizontal
+timing for 4:2:0 (optc1_is_two_pixels_per_container()), so the halved
+module is right there.
 
-On Linux I can now verify zero DRM streams, an inactive eDP link, 
-backlight and panel power off, all HUBPs power-gated, and actual 
-IPS1/IPS2 entries. Despite this, the machine still remains around 5.3–5.5 W.
+The host is an arm64 board (RK3588) and the RX 580 sits in an M.2
+slot as an external GPU (PCIe 8.0 GT/s x4), not an x86 desktop.
+The kernel under test was 7.3-rc3 plus local patches, one of which
+touches the same 4:2:0 path (a longer REG_WAIT in dce_opp.c, not
+submitted). The patch as posted was built and checked with sparse on
+drm-amdgpu-next and on amd-staging-drm-next (arm64, W=1 C=1, no new
+warnings for this file), but no module built from those trees was
+loaded on the card.
 
-During the investigation I also found what looks like a separate DCN35 
-zero-stream idle-policy issue. With the existing logic, a connected eDP 
-panel with zero streams does not satisfy the headless condition used to 
-reallow idle optimizations.
+An LLM assistant helped me trace the clock path, do the arithmetic and
+write the patch and this message; sparse and checkpatch were run on the
+result. The numbers above are wall-clock times and register reads taken
+on the board.
 
-An experimental change allows IPS2 to work, but the measured improvement 
-is only around 0.1–0.2 W at APU level, so it does not seem to explain 
-the main difference. Active RCG also remains at zero despite long 
-idle-admission windows and quiescent HUBP state.
+Possibly the same bug, although none of the reports mentions 4:2:0:
+https://gitlab.freedesktop.org/drm/amd/-/issues/3088 (RX 590, 60 Hz
+double speed, 30 Hz fine), and the closed #556, #1742 and #922.
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 34 +++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-I am trying to be careful with the Windows comparison because this is a 
-Modern Standby system. The PowerShell measurement process remained 
-runnable with SYSTEM_REQUIRED and EXECUTION_REQUIRED requests, but 
-Windows may still be reaching deeper runtime residency between samples. 
-I therefore do not want to claim that the Linux and Windows states are 
-internally identical.
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index bb46d72490259..45c64c473a8cc 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -51,6 +51,7 @@
+ #include "link_service.h"
+ #include "dccg.h"
+ #include "clock_source.h"
++#include "dce/dce_clock_source.h"
+ #include "clk_mgr.h"
+ #include "abm.h"
+ #include "audio.h"
+@@ -2519,6 +2520,38 @@ static void dce110_reset_hw_ctx_wrap(
+ 	}
+ }
+ 
++/*
++ * Audio wall clock DTO0 is fed by the CRTC pixel clock, so its module must be
++ * the rate the CRTC really runs at.
++ *
++ * For HDMI YCbCr 4:2:0, get_pixel_clock_parameters() halves
++ * requested_pix_clk_100hz, the PHY PLL is programmed at that rate and
++ * dce112_program_pixel_clk_resync() sets PIXCLK_DOUBLE_RATE_ENABLE, so the
++ * CRTC runs at twice requested_pix_clk_100hz. Only the DCE 11.2/12.x clock
++ * sources have that field in their mask.
++ *
++ * The audio_output used for ACR (N/CTS) is built separately and keeps the
++ * TMDS rate.
++ */
++static void dce110_audio_dto_fixup_420(const struct pipe_ctx *pipe_ctx,
++				       struct audio_crtc_info *crtc_info)
++{
++	const struct dce110_clk_src *clk_src;
++
++	if (pipe_ctx->stream->signal != SIGNAL_TYPE_HDMI_TYPE_A ||
++	    !pipe_ctx->stream_res.pix_clk_params.flags.SUPPORT_YCBCR420 ||
++	    !pipe_ctx->clock_source ||
++	    pipe_ctx->clock_source->id == CLOCK_SOURCE_ID_DP_DTO)
++		return;
++
++	clk_src = TO_DCE110_CLK_SRC(pipe_ctx->clock_source);
++	if (!clk_src->cs_mask->PHYPLLA_PIXCLK_DOUBLE_RATE_ENABLE)
++		return;
++
++	crtc_info->calculated_pixel_clock_100Hz =
++		pipe_ctx->stream_res.pix_clk_params.requested_pix_clk_100hz * 2;
++}
++
+ static void dce110_setup_audio_dto(
+ 		struct dc *dc,
+ 		struct dc_state *context)
+@@ -2559,6 +2592,7 @@ static void dce110_setup_audio_dto(
+ 			struct audio_output audio_output;
+ 
+ 			build_audio_output(context, pipe_ctx, &audio_output);
++			dce110_audio_dto_fixup_420(pipe_ctx, &audio_output.crtc_info);
+ 
+ 			if (dc->res_pool->dccg && dc->res_pool->dccg->funcs->set_audio_dtbclk_dto) {
+ 				struct dtbclk_dto_params dto_params = {0};
 
-One thing that makes me hesitant to blame the APU itself is that I have 
-found reports from other Linux users with very similar hardware showing 
-much better efficiency.
-
-A ThinkPad T14s Gen 6 AMD owner with a Ryzen AI 7 350 / Radeon 860M 
-reported roughly 2.1 W idle with the stock TuneD profiles and about 1.5 
-W after further tuning. I also found a Framework 13 owner with the Ryzen 
-AI 7 350 reporting roughly 10–12 hours of Linux battery life.
-
-I realize these are anecdotal reports from different machines and 
-configurations, so I am not treating them as controlled evidence. Still, 
-they make me think the platform itself should be capable of considerably 
-better Linux power efficiency.
-
-For some practical context, my normal workload is software development 
-and cybersecurity work: VSCodium, Signal/Discord, Spotify, a browser 
-with several tabs, SSH terminals, and usually an RDP session.
-
-With that workload, Linux tends to put the laptop around 10–11 W, while 
-Windows is closer to ~7 W. Unfortunately, Windows does not provide the 
-environment and tooling I normally need, which is why I have been trying 
-quite hard to understand what Linux might be missing here.
-
-At this point I am mostly trying to determine whether Linux is missing 
-some Krackan-specific platform-power transition or initialization 
-involving SMU/PMFW, DF/UMC, ACPI/platform coordination, or another 
-parent power domain.
-
-I may of course be looking in the wrong place, which is why guidance 
-from people familiar with the platform would be extremely useful.
-
-The GitLab issue contains the measurements and the investigation so far.
-
-I have the machine available for testing and can build and test kernels 
-quickly. If there is a diagnostic patch, additional telemetry, firmware 
-trace, or a specific experiment that could help narrow this down, I 
-would be very happy to run it.
-
-Thanks for taking a look.
-
-Regards,
-
+base-commit: e0e9c2257911b291ef5345635a9e6dfef5b2b424
 -- 
-_____________________________________
-Daniel Ruszin
-Software Engineer | Cybersecurity Practitioner | Accountant
+2.43.0
 
-Mobile:    +36 20 249-2996   (+Viber, Signal, Telegram, etc.)
-E-mail:daniel@ruszin.hu
-
---------------d58JeMZo5mbt8r2CwmSnrKEr
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Hi,</p>
-    <p>I opened drm/amd#5863 because I am seeing a fairly large and very
-      reproducible power-consumption difference between Linux and
-      Windows on my Lenovo ThinkPad T14 Gen 6 AMD (21QJ0057HV, Ryzen AI
-      7 PRO 350 / Krackan Point):</p>
-    <p><a href="https://gitlab.freedesktop.org/drm/amd/-/issues/5863"
-        class="moz-txt-link-freetext">https://gitlab.freedesktop.org/drm/amd/-/issues/5863</a></p>
-    <p>The problem originally appeared with normal distribution kernels,
-      including the Ubuntu 24.04 OEM kernel. I only started building
-      custom kernels later, because I wanted to understand what was
-      actually keeping the machine at this higher power level.</p>
-    <p>The short version of the measurements is:</p>
-    <pre><code><font size="4">Screen on / idle
-  Linux, clean multi-user.target:          ~7.57 W
-  Windows, normal desktop:                 ~5.60–5.78 W
-
-Internal display off
-  Linux, panel verified powered off:       ~5.27–5.45 W
-  Windows, after natural screen-off:       ~2.25–2.29 W</font></code></pre>
-    <p>On Linux I can now verify zero DRM streams, an inactive eDP link,
-      backlight and panel power off, all HUBPs power-gated, and actual
-      IPS1/IPS2 entries. Despite this, the machine still remains around
-      5.3–5.5 W.</p>
-    <p>During the investigation I also found what looks like a separate
-      DCN35 zero-stream idle-policy issue. With the existing logic, a
-      connected eDP panel with zero streams does not satisfy the
-      headless condition used to reallow idle optimizations.</p>
-    <p>An experimental change allows IPS2 to work, but the measured
-      improvement is only around 0.1–0.2 W at APU level, so it does not
-      seem to explain the main difference. Active RCG also remains at
-      zero despite long idle-admission windows and quiescent HUBP state.</p>
-    <p>I am trying to be careful with the Windows comparison because
-      this is a Modern Standby system. The PowerShell measurement
-      process remained runnable with SYSTEM_REQUIRED and
-      EXECUTION_REQUIRED requests, but Windows may still be reaching
-      deeper runtime residency between samples. I therefore do not want
-      to claim that the Linux and Windows states are internally
-      identical.</p>
-    <p>One thing that makes me hesitant to blame the APU itself is that
-      I have found reports from other Linux users with very similar
-      hardware showing much better efficiency.</p>
-    <p>A ThinkPad T14s Gen 6 AMD owner with a Ryzen AI 7 350 / Radeon
-      860M reported roughly 2.1 W idle with the stock TuneD profiles and
-      about 1.5 W after further tuning. I also found a Framework 13
-      owner with the Ryzen AI 7 350 reporting roughly 10–12 hours of
-      Linux battery life.</p>
-    <p>I realize these are anecdotal reports from different machines and
-      configurations, so I am not treating them as controlled evidence.
-      Still, they make me think the platform itself should be capable of
-      considerably better Linux power efficiency.</p>
-    <p>For some practical context, my normal workload is software
-      development and cybersecurity work: VSCodium, Signal/Discord,
-      Spotify, a browser with several tabs, SSH terminals, and usually
-      an RDP session.</p>
-    <p>With that workload, Linux tends to put the laptop around 10–11 W,
-      while Windows is closer to ~7 W. Unfortunately, Windows does not
-      provide the environment and tooling I normally need, which is why
-      I have been trying quite hard to understand what Linux might be
-      missing here.</p>
-    <p>At this point I am mostly trying to determine whether Linux is
-      missing some Krackan-specific platform-power transition or
-      initialization involving SMU/PMFW, DF/UMC, ACPI/platform
-      coordination, or another parent power domain.</p>
-    <p>I may of course be looking in the wrong place, which is why
-      guidance from people familiar with the platform would be extremely
-      useful.</p>
-    <p>The GitLab issue contains the measurements and the investigation
-      so far.</p>
-    <p>I have the machine available for testing and can build and test
-      kernels quickly. If there is a diagnostic patch, additional
-      telemetry, firmware trace, or a specific experiment that could
-      help narrow this down, I would be very happy to run it.</p>
-    <p>Thanks for taking a look.</p>
-    <p>Regards,</p>
-    <p></p>
-    <pre class="moz-signature" cols="72">-- 
-_____________________________________
-Daniel Ruszin
-Software Engineer | Cybersecurity Practitioner | Accountant
-
-Mobile:    +36 20 249-2996   (+Viber, Signal, Telegram, etc.)
-E-mail:    <a class="moz-txt-link-abbreviated" href="mailto:daniel@ruszin.hu">daniel@ruszin.hu</a></pre>
-  </body>
-</html>
-
---------------d58JeMZo5mbt8r2CwmSnrKEr--
