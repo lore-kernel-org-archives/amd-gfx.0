@@ -4,79 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56FC7C982D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:44:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4FADC88E75
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8686210F243;
-	Fri, 18 Sep 2026 07:44:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 261E510F240;
+	Fri, 18 Sep 2026 07:49:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nS0LDMf8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IyPjoLdD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B129210E6B6;
- Thu, 17 Sep 2026 09:43:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789638222; x=1821174222;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=hT90yr46vIWAseLBHlTX1615zlQ9HOhd6Q0hde9I/lA=;
- b=nS0LDMf8OJPmawkSChx7Ws146ydt9mNc5r+8SVH/KEQYDsSWWbqNMl2p
- FPT8hu8ATesVJg3eFHTz3tbtFpINLHb4zdVrH0T1qBYQKz8zrUJPnrUgK
- c2tlSUuKIIF1EVhAIAzGhUIWMRXAfAPQP/OpFD8M4XiqAKy56FcnkGO1/
- hBhsn95cl7KqBiylP5XuZnaT2S2MiabjVMbuxoAGX74EzxTcVdkwYY73B
- QdO7SCRcyjkQ183ucdpq/qaotZwJt3OXtkWH4dTYV7WX4MHm5mRNRluFO
- dGX6YvsT21J8f4oytVpC8VdDb44nbPDdoVqc3yLLOY3KrKELvZ1mwQtqs Q==;
-X-CSE-ConnectionGUID: KOeQiZecTemRVjC+XqOCyQ==
-X-CSE-MsgGUID: LhA8nMDOQBSsXe61G4rpag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115578462"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="115578462"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2026 02:43:41 -0700
-X-CSE-ConnectionGUID: 2bmIONC0TQ6AyF05DrV3dw==
-X-CSE-MsgGUID: jGm6IRlUSxiQTbAr72Vkrw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; d="scan'208";a="275634918"
-Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
- by fmviesa004-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 02:43:38 -0700
-Date: Thu, 17 Sep 2026 11:43:36 +0200
-From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: Re: [PATCH i-g-t v6 4/9] lib/xe: Introduce dmem driver and implement
- Xe support
-Message-ID: <20260917094336.o7fg5tcidio3tsb6@kamilkon-DESK.igk.intel.com>
-Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- igt-dev@lists.freedesktop.org, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-References: <20260903-dmem_max-v6-0-61dc62970fae@igalia.com>
- <20260903-dmem_max-v6-4-61dc62970fae@igalia.com>
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010055.outbound.protection.outlook.com [52.101.201.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D050610F240
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 07:48:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dohCl5OhUNYTapiVgz60YaEst7R06LnXzr0aGUSbXE6JzUW2nuvOIN34n1ygUt5HwHL+XBb+fcf1NVy+EK+o3P0kbRgxFhEWy+1fHIbNSzyLL3tmBCingEBYnddqyNNt848BWxcTXDH4Bqm2aHbu+vamgcDKWPRGQTGt3I0Y/O11dRej6uxdkKR25L4VkCjPhdQgRbkk18raxbqpEi0mWXWKH8dI56pLvV694NHf6QMCTyubZEx+4uW6SHnRRJVbxDBjyHwXixShfI4FOk52Qocxge8+wQdkyeL8v8TULbkbfJqJn8r4O+rWz7o8EPfop6zHwzOcT79ENO0ms+j6XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=28FK43PyXKmAcPgNRBRx+XS6q9RZYHByI2I2SjRyOUo=;
+ b=g3OLYDfbtj/0Fj0UjW1x5eg17km6GlT4CD/zrp6y1WXGL9reeSZp+EX6NXw6nxXySka2wlMjb/NbBz5YFvAB3YXDUs7yiYUycL78D1hf2VFo7aBVBMMwDLRsrF6N9h/sdwO42nxlwdfo4Awv3VnFEnxjdBqWYw1/PttRhVsZAFf0hFF5oMXjEkk1cTpwq3EDo7H+3rDX1gBhvB0qhLwsHhrQgHAywcWOmnvM5lnlA0wkYJ7oVCq1M0aartgHxBm/uDNyT6fVRkoVVsJcQHfvo4DvkgudYM/SEEByICZZ0d7tKh3p3a925BosovGgnzXN8470o77H8yyOPikhjHY2dQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=28FK43PyXKmAcPgNRBRx+XS6q9RZYHByI2I2SjRyOUo=;
+ b=IyPjoLdDwhIVdQYAtjP/7tP1GLmEzO7+3dcltgrfmpDXrWzCKIb9P4Unw5pRLe3JH4XFmsfSN389r9ZCWGSojOp4VZ2lHGXAmq7cVTwCZEP/Hh6qSOu4DSD1HzEeaLMRZse9EyQj5Brlq4g8gbC6EESveMHhlTU4WSCOCFlfQ64=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY5PR12MB6273.namprd12.prod.outlook.com (2603:10b6:930:22::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Fri, 18 Sep
+ 2026 07:48:56 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 07:48:56 +0000
+Message-ID: <935937d7-86df-490c-80bb-a88eefa4675b@amd.com>
+Date: Fri, 18 Sep 2026 09:48:52 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/8] drm/amdgpu: use pm_runtime_resume_and_get for ctx
+ ioctl
+To: Shahyan Soltani <shahyan.soltani@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ kevin.wang@amd.com
+References: <20260917195812.72917-1-shahyan.soltani@amd.com>
+ <20260917195812.72917-3-shahyan.soltani@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260917195812.72917-3-shahyan.soltani@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0436.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c6::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260903-dmem_max-v6-4-61dc62970fae@igalia.com>
-X-Mailman-Approved-At: Fri, 18 Sep 2026 07:44:40 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6273:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30c56285-a101-4b63-b1f5-08df15594abf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: +t6/E4WjdGS8WWQgk8onqffEmOdVsUs6dPpJKtnSJaoAisC/Ck/jcrBTr0n0yVMDfoUKOqGmksUOZ8ndRS4op/n+zBGzvbhXZX5grdN4vGsewv9Kaucnuj29smAbmxyxC5+jKi/DW+u/z3sImpWXcaK3mj3blHMfjjcq5uAaJbyAbHAidaWDunlN+VefAZ+4L59o2iYw63CpE5NrVZEdRcNeF1PcVxskmPl6YzGm2SZORuI6H6Pg9rANfkatcDWX9FxKl3WDvTjTRMB8xSnHaMBcl0ZIDrS5vYWrsJ8i6AuhHgUUy+VEAaP6X1MqgeCMQjLeUpKE745Y/XmJV3Riq2NRRM8jKxh7O+OzOnqZuynSZNroYw1qGv5O7xXHW6DleC32osY8qcxkcLI0J58+ANEM0KuLcyNan8nfrkLr4XODQyduwAxt9MFbLWdMn98WwLx6lV02jNYbGB23YRngYF+swM3C/VmRlLTXwTScvXLiglwfAIFqPbZyiexPXQI3fGJs8dhwmF/sL7CFqVMsik+dysztYsgxLZf8FawmAgdPZf9bpjNQPL5V3wyvULX7lP/MjM0GkSHFmVSSLhgp7GvvjNxj9bKGcN42gYv8FqpIyVpRRuakD4gYnNB2TXnW5BKcaY0n1ATNlhh7bTDvP/X8g46VQhoW2+pjpEbn/tU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2x4bTRKY3lTMm50UFVhMzl2Z055aGZiVnJZZkJiRlVkKzFLZmJhenpmMkc1?=
+ =?utf-8?B?QVFyVmd4T1I0YnN3anlDUFVUcE9QRldDOVcycEN1KzR2VVMzUUc1SWdRem9k?=
+ =?utf-8?B?TlU4V1ZOcnVpejJjaThvSHMrTzNqZDFXR0t6T2d3L1NKV2F2UDdEalIrTlZv?=
+ =?utf-8?B?RG1uUEZmeEpmb0lBWDZNbXUvMXB0eWZlUUVSQmU3NDVMYmFVSHhaTHlIdWRY?=
+ =?utf-8?B?NUk1ODJFU25MZmZHZHVIZnhoc0dXWUkrM3dYYzY1SjhBR3VQcjFXRGtPME5Z?=
+ =?utf-8?B?QnhKRVhFU2JIYWFoN28yOVRYdWIzeVoxdGEwSnAxbm93SThEU0RGdG1ZdmNU?=
+ =?utf-8?B?Q1lUUHhhZkV4b2dleVdCbUZmRWFoK242Szh2UE9wd3FjNWNmZEU4ZzBQSnM2?=
+ =?utf-8?B?aWJKOGM0NzFoQ2ZtTy9NcUdIM2VCWS8yQkVtcXVZTzVCemFtZ25PbVVtMUIv?=
+ =?utf-8?B?OWVhNFdKdFlSdnIrYVY4Y0lZM1U2UHBmL0tCc2ZaSmtpakVuUHdjSnVWMGZw?=
+ =?utf-8?B?QUJ3ZkpzRzhuLzFId25DczZ6am9CRlB1a0hpL2tuTU9KVnFOVWR5NDZET2dQ?=
+ =?utf-8?B?K1NRTS9uc2U0UVZsOVhzcVJSTklCM0NyaDNjV2hSdWxMRG9jbzBrUzRsaEIy?=
+ =?utf-8?B?b3dFN1JsbitRaFI2ZWtGc1FHeWFrbCtwK1JNTGZNbTBoTExRb3dYQWZ1S0tU?=
+ =?utf-8?B?TE4vOC9MbGxXMnY1YUUxYmI3UVRSQnF1RXVwR2czb3Q0VXlDZTFQSmtuRU1n?=
+ =?utf-8?B?dnliOStVTTYxeXZDam5IcUJYQnNFTTdtTG5CSzhqbmt4OFRhZWxOQzRzUjFW?=
+ =?utf-8?B?S1JBY1VPVXEzd0Y2c1pOMEtLODlDNXZJUHJvRHJHTWI3Yi9iUHdPdWlnRmQv?=
+ =?utf-8?B?am1UYnRMN3Vha2F2L3ZRRXdYbXI4Zm1Yc2lvL21sOG5rc2Z0MzUzbFZOMVJV?=
+ =?utf-8?B?R1dlbUFPTForcXFUNkpwdGtVWnB6VU55aGRGQ0krZ3hsWUtGek5BaGxWenJy?=
+ =?utf-8?B?Y0VnQkI0ZFRlR3VFSHJlUThPanZQOTlhcklXZEVwaXhCWEJLV1RIT2VJWFlv?=
+ =?utf-8?B?OUpwYktQT0VMb1hoKzVVOW1qTTVUNE9DRngrMmlQeWp4UjFINjdVTmxCUUp2?=
+ =?utf-8?B?bXVYNVIzQ3lnWm4yQnIwUTVpQUhIWXc0c0twSU5rVjk2Z0FUSDZMR1RRMWVq?=
+ =?utf-8?B?WWZCMENMUG5HU0J6bHpYbUM5MExUcXhCMjIyT2xnMTNkS0k0UldMV1FTSHox?=
+ =?utf-8?B?QVgzeVJoa1orbUdxR1pvd2F3RlNyMlM2R2ZMMUlyeTRWYisxNWVoa2QyMGYv?=
+ =?utf-8?B?TmsrbmlaTTBKWFBIbjIxR005UU9seEFycEd6OFV5ekd4SHliVDRVRlhhajNJ?=
+ =?utf-8?B?NkVyY21tdmJsSmFlMEx6MXM2dlZjVjUyWnhIL2hJdTJnOTZoZDFZRlhsaUZv?=
+ =?utf-8?B?aVg5WGp3aGhlSER0MW9DeldoV3BySUpLWkZ4VTJoWGlnd1NOSWFscFVpRTdD?=
+ =?utf-8?B?QWRIMnlYRFJJSGcrTUhYYTYzTG9XYnArZ3BpVFA0bzBVc1lmSm5ZRnd6SDQ5?=
+ =?utf-8?B?SE1YU01LdFA1TGhSOW9nczU2eGtVY3hsaTh6UENtV3o2NmJXeUI2NFVtQ0Fj?=
+ =?utf-8?B?anVXN3dkZVhaSENEY3FFK0ZCdHpiazFhZ3ZlZkFKcDRxb0p4UXJSUmMyK2xW?=
+ =?utf-8?B?SkxUcEVCaXRQR3p0MXJqSTlCTUdwcjcvRElDWDNScU56ZlFjeHhLYWNGdndP?=
+ =?utf-8?B?Y0ZGaUdTMGl0MkZUanlmMHdVMHdhbDg5cVZZamd3bkdwVUlGQmhObldzMDZo?=
+ =?utf-8?B?RVBKN3Q2SGhaN0xXYVFJRlA0alg1SllySjJ5UTNRZFZycGpNbGxGWHBkSk9V?=
+ =?utf-8?B?TGU5SldwU2JzTnVQS3ZSUDNWc0MzbnJvV1E5cWN3VlU0cDZBNWxjVVVmSXBP?=
+ =?utf-8?B?dys2RVp0RkdRZ1MwbFpMK0liRDlCWUdLV2xJL0R0SDRua0RIYlF2SmtkN1JJ?=
+ =?utf-8?B?Z0d6ZmI3czR0bm9qSTlWdENrNHRCMy9RY3Q0cGFaenkrS1VmMkZZSHk1Y2dy?=
+ =?utf-8?B?Q1RBNmU0WUx4MFJOQ0lRbEdjb0xvZFBlZ1FwVFVtcFBVK0dESnREd3Zocm5w?=
+ =?utf-8?B?M2s0eDFOUDFocGhMTlFOelFvTlJobFBHMUtOU0dkcHpyQWFRRGFHUUs3R1gr?=
+ =?utf-8?B?RHIxbWVuV09XeEVuL2NHV21xWkY5NDFBdGFreTM3UVFFaHppL0IwSDk3Rm9i?=
+ =?utf-8?B?eEVFWWFqR2RJYmdibkRQeWs0aWk2QTMwSmRXUXNYUWJUMU9YNnVyVU9pNnJZ?=
+ =?utf-8?Q?3eTv3Yq3nOkpvtrC6U?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30c56285-a101-4b63-b1f5-08df15594abf
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 07:48:56.1947 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 02txpnvtqE5uaui6hSV3pTVtNcG+sIuchasJkj5hWXprsrFgowH8GZjPi/4yDAaz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6273
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,187 +136,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thadeu,
-On 2026-09-03 at 19:00:26 -0300, Thadeu Lima de Souza Cascardo wrote:
-> In order to be reuse the same dmem tests with multiple drivers, we need to
-> abstract a few operations. That includes getting the region name, and
-> allocating and releasing VRAM. As there is some initialization also when
-> multiple allocations are done, also provide init and deinit functions.
+On 9/17/26 21:58, Shahyan Soltani wrote:
+> From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 > 
-> The Xe implementation was based on the original operations from
-> xe_cgroups.c written by Thomas Hellström. However, instead of doing a
-> deferred backing, followed by a bind, it does a simple non-deferred GEM
-> object creation on the VRAM region.
+> Only amdgpu_ctx_stable_pstate communicates with the hw.
+
+Nit: Typo in the commit message, the function name is amdgpu_ctx_set_stable_pstate().
+
+Christian.
+
 > 
-> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
 > ---
->  lib/igt_dmem_driver.h | 34 ++++++++++++++++++
->  lib/meson.build       |  1 +
->  lib/xe/xe_dmem.c      | 97 +++++++++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 132 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 > 
-> diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
-> new file mode 100644
-> index 000000000000..e6998387eff9
-> --- /dev/null
-> +++ b/lib/igt_dmem_driver.h
-> @@ -0,0 +1,34 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright 2026 Valve Corporation
-> + * Authors:
-> + *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> + */
-> +
-> +#ifndef __IGT_DMEM_DRIVER_H__
-> +#define __IGT_DMEM_DRIVER_H__
-> +
-> +#include <stdlib.h>
-
-Please drop this include from header, and if needed move to .c lib.
-
-Regards,
-Kamil
-
-> +
-> +/**
-> + * struct igt_dmem_driver - vendor driver to allocate and free device memory
-> + *
-> + */
-> +struct igt_dmem_driver {
-> +	/** @name: Driver name */
-> +	const char *name;
-> +	/** @init: Initialize an opaque context given a DRM device fd */
-> +	int (*init)(void **ctx, int fd);
-> +	/** @deinit: Release resources associated with context */
-> +	void (*deinit)(void *ctx);
-> +	/** @get_region_name: Return expected region name at dmem cgroup files */
-> +	char * (*get_region_name)(void *ctx);
-> +	/** @allocate_vram: Allocate @len sized vram and return an opaque @handle */
-> +	int (*allocate_vram)(void *ctx, size_t len, void **handle);
-> +	/** @free_vram: Free vram associated with @handle */
-> +	void (*free_vram)(void *ctx, void *handle);
-> +};
-> +
-> +extern const struct igt_dmem_driver xe_dmem_driver;
-> +
-> +#endif
-> diff --git a/lib/meson.build b/lib/meson.build
-> index b7e1be61d844..022408ce6864 100644
-> --- a/lib/meson.build
-> +++ b/lib/meson.build
-> @@ -130,6 +130,7 @@ lib_sources = [
->  	'igt_dsc.c',
->  	'igt_hook.c',
->  	'xe/xe_device.c',
-> +	'xe/xe_dmem.c',
->  	'xe/xe_ggtt.c',
->  	'xe/xe_gt.c',
->  	'xe/xe_ioctl.c',
-> diff --git a/lib/xe/xe_dmem.c b/lib/xe/xe_dmem.c
-> new file mode 100644
-> index 000000000000..628c905997d4
-> --- /dev/null
-> +++ b/lib/xe/xe_dmem.c
-> @@ -0,0 +1,97 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright 2026 Valve Corporation
-> + * Authors:
-> + *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> + */
-> +
-> +#include <errno.h>
-> +
-> +#include "igt.h"
-> +#include "igt_cgroup.h"
-> +#include "igt_dmem_driver.h"
-> +#include "xe_drm.h"
-> +#include "xe/xe_ioctl.h"
-> +#include "xe/xe_query.h"
-> +
-> +struct xe_dmem_ctx {
-> +	int fd;
-> +	uint64_t vram_region;
-> +};
-> +
-> +static int xe_dmem_init(void **ctx, int fd)
-> +{
-> +	struct xe_dmem_ctx *xe_ctx;
-> +	uint64_t region;
-> +
-> +	xe_ctx = malloc(sizeof(*xe_ctx));
-> +	if (!xe_ctx)
-> +		return -ENOMEM;
-> +
-> +	xe_ctx->vram_region = 0;
-> +	/* Find first VRAM region */
-> +	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
-> +		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
-> +			xe_ctx->vram_region = region;
-> +			break;
-> +		}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> index b15ed4a534f1..a87f26139496 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> @@ -28,6 +28,7 @@
+>  #include "amdgpu_sched.h"
+>  #include "amdgpu_ras.h"
+>  #include <linux/nospec.h>
+> +#include <linux/pm_runtime.h>
+>  
+>  #define to_amdgpu_ctx_entity(e)	\
+>  	container_of((e), struct amdgpu_ctx_entity, entity)
+> @@ -643,10 +644,15 @@ static int amdgpu_ctx_stable_pstate(struct amdgpu_device *adev,
+>  	 * context id.
+>  	 */
+>  
+> -	if (set)
+> +	if (set) {
+> +		r = pm_runtime_resume_and_get(adev->dev);
+> +		if (r < 0)
+> +			return r;
+>  		r = amdgpu_ctx_set_stable_pstate(ctx, *stable_pstate);
+> -	else
+> +		pm_runtime_put_autosuspend(adev->dev);
+> +	} else {
+>  		*stable_pstate = amdgpu_get_stable_pstate(adev);
 > +	}
-> +	if (!xe_ctx->vram_region)
-> +		goto out;
-> +
-> +	xe_ctx->fd = fd;
-> +
-> +	*ctx = xe_ctx;
-> +
-> +	return 0;
-> +
-> +out:
-> +	free(xe_ctx);
-> +
-> +	return -ENOMEM;
-> +}
-> +
-> +static void xe_dmem_deinit(void *ctx)
-> +{
-> +	struct xe_dmem_ctx *xe_ctx = ctx;
-> +
-> +	free(xe_ctx);
-> +}
-> +
-> +static char * xe_dmem_get_region_name(void *ctx)
-> +{
-> +	struct xe_dmem_ctx *xe_ctx = ctx;
-> +
-> +	return xe_cgroup_region_name(xe_ctx->fd, xe_ctx->vram_region);
-> +}
-> +
-> +static int xe_dmem_allocate_vram(void *ctx, size_t len, void **ret_handle)
-> +{
-> +	struct xe_dmem_ctx *xe_ctx = ctx;
-> +	uint32_t handle;
-> +	int err;
-> +
-> +	err = __xe_bo_create(xe_ctx->fd, 0, len, xe_ctx->vram_region, 0,
-> +			     NULL, &handle);
-> +	if (err)
-> +		return err;
-> +
-> +	*ret_handle = (void *)(uintptr_t) handle;
-> +	return 0;
-> +}
-> +
-> +static void xe_dmem_free_vram(void *ctx, void *handle)
-> +{
-> +	struct xe_dmem_ctx *xe_ctx = ctx;
-> +
-> +	gem_close(xe_ctx->fd, (uint32_t)(uintptr_t) handle);
-> +}
-> +
-> +const struct igt_dmem_driver xe_dmem_driver = {
-> +	.name = "xe",
-> +	.get_region_name = xe_dmem_get_region_name,
-> +	.init = xe_dmem_init,
-> +	.deinit = xe_dmem_deinit,
-> +	.allocate_vram = xe_dmem_allocate_vram,
-> +	.free_vram = xe_dmem_free_vram,
-> +};
-> 
-> -- 
-> 2.47.3
-> 
+>  
+>  	amdgpu_ctx_put(ctx);
+>  	return r;
+
