@@ -4,120 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2265C88E75
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 06:46:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE0E8C982D2
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:44:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3817010F1AB;
-	Fri, 18 Sep 2026 06:46:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 346CF10E826;
+	Fri, 18 Sep 2026 07:44:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DjFex+WA";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hMD+eMSH";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011004.outbound.protection.outlook.com [52.101.52.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1310B10F1D4
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 06:46:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QmXShWN2o2IdCmticJ9x5Eqn/PXSnJEHXDnyTkQbDpakcKBvt3Uqn4gXPWJdwcat/OO7J6LHcPt/c8R4XWZ+s/Ayd7k/I8zE0u25DfUghG8N89Pz5mMhcaG4Q8pu8NtcS2Lflfya6WzJjZSpPtzmc8BFE4Z5/r45YMNoTJPicoN/mCSJp3fkWQbWgl/geLtNju4DFBeTwBiA1uM5Ha/h16mIrW5WHvekXMMJt5OO7sMWxxfzOlPkGFuDFXwnAaaktypCsROw8qFzbRptjzvEBP8fHWgXgjBEg/V6nRC/j155wT/KiWaxdKG9/KJ0K9nnBN7JU1sUgCs79Ab+j9NPQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eOJZ853c3Vc/CmQ/XPua2t7sbS87oQGTA4exJmmvkA4=;
- b=ymET/HVwYNlCH2iQc6gziXAbbCeYVWxqvorHeRQf3yU4TyJAzdoTEEoYzgBUDfiYK1cauCa6/GLUy9Q0eWK4qv0IFIYjho7VXTrRfhfol914hUmFilGMtygFq576i6vjGJRHzNcNKTQxSpDYiMaPBCqJj/byhhINwvvdsJghynx9ivh7YMWyhMe90S3pmyFbCy/PRYAjeWl4KKnoqRMR9rLYT0JNKr6Fo70Q7lQWNOxyuPEO/cwVvZuOsb54utMSazo/sY1ujBbWqwwkFiIc/XSZBbvUlnRynIQrOc91MvG9G68sRv4NuT2eqxKS/7ZgrLoKcN5rQ+3wRdmuqwXPwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eOJZ853c3Vc/CmQ/XPua2t7sbS87oQGTA4exJmmvkA4=;
- b=DjFex+WAJkOcr4nCpPPe5JgUY5uqVkgtuoW6qCuJVrgAIIypi78kGItfV3Ku6K8pS+S62YJ/hR5ljVZcnjEAzwvLBZk89QyNbqkVfm6auyrRQu9EpBkKzD+mYqF1RQDF+nwz7KYNy941Y0eAis4brZFRA7/qCgpmyy4zpYoJ83M=
-Received: from DM4PR12MB5748.namprd12.prod.outlook.com (2603:10b6:8:5f::19) by
- CY5PR12MB6479.namprd12.prod.outlook.com (2603:10b6:930:34::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.9; Fri, 18 Sep 2026 06:46:34 +0000
-Received: from DM4PR12MB5748.namprd12.prod.outlook.com
- ([fe80::6c62:e99c:480d:2729]) by DM4PR12MB5748.namprd12.prod.outlook.com
- ([fe80::6c62:e99c:480d:2729%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 06:46:34 +0000
-From: "Kamal, Asad" <Asad.Kamal@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: Add NPM status sensor
-Thread-Topic: [PATCH] drm/amd/pm: Add NPM status sensor
-Thread-Index: AQHdRzRnog4wGiL71kSrqZSytsAiGLbT5HbA
-Date: Fri, 18 Sep 2026 06:46:34 +0000
-Message-ID: <DM4PR12MB57486DE4D5ADE9AAF47A37EC8E872@DM4PR12MB5748.namprd12.prod.outlook.com>
-References: <20260918060955.1802688-1-lijo.lazar@amd.com>
-In-Reply-To: <20260918060955.1802688-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-18T06:46:30.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5748:EE_|CY5PR12MB6479:EE_
-x-ms-office365-filtering-correlation-id: f3cf5f9f-4f9c-4c12-de33-08df1550948d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|38070700021|56012099006|11063799006|10067099003|22082099003|18002099003|6133799003;
-x-microsoft-antispam-message-info: LV4Z5fkQwUJsV8ecOf8C7qntJbLmi/ZF8gvS5gk6zQYFQy1mimedsEu39QsCUeuMk88KIF4ms3iOmrGkAc1VDTdCzq+z+NEb17Ork1miCU2TVcZ8wiujo9eaRORPFzHy9MugGw1KgI3LsY7XOH1iVYFTl5LMh+JPuwneKHhbNHaynNDjq5O7QE4fhk13B57+jpBe8aUHPjfk5oAyWUWW+cEOSiz2Hi6Sg7Met4YLM3QZdCruCH6BrvJPW9XGf8nxfJM3S/5xTjGZ3d12q+dWzJoda1jHlOYb/Zmyca0HzbT/a6K5JLGwqAgrbzFAqYIHAGre8hj4MYXkGDnprtAD8TOH1uFcFs0RMhlZpQx6NeXKY8vQmAy++3QXu1JPl3eZXp+ud9ZM6xd75ksqh054M0c4XOxvhCRErr8V5q6Zrzr2bDKNwNaqur/tI8oVAf3p7KIIEZVLnhPWRafb+9P7YB5s6lLKdyh4PS5vRb5UGS0ned6RHmmf/DaT6fQj7y7IoFGujG9gUQkoA5VjfUklwrZyv70vaaPx2FBo+gKcIjFE0l063N0uG9s6qMdF/3whWc0JpT+cOOu4Q9cUejKL5Q7mR6Wm1TpGbyzdtpvM2zL+FcSM1wboLRSLpMSylshaUaVuQ5qMoTPkTK8p0+ybfNs8kiXkRJieEJZnh8lz48flim5xg14dk8VGfRbMDUQuC/EaOAP3LBFY8MhmuxDjEM9jo/Zao8qqL36+Wmu36SI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5748.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?y0Q+7gVGQnVXatSlarAAA9VhVR56NX5wmefSUilrFYuYs3s/lbJLnIsANbDd?=
- =?us-ascii?Q?DasXMiF6MIDVfwZSeS3X235AAcuhvHdkaKaJquYo1mpqTe/piMqnSdEjuhBC?=
- =?us-ascii?Q?dPHJQa6G5a5/YJQyj3DZCDrNuqLGu2qTYzfFTrz3reEHOl/t6JqDey6k3hso?=
- =?us-ascii?Q?uiAScH1ae8ZmrcgDlPlRrvrmJb1d/8mkOrnD4F5H8n0a+Wi5bBB1TTaH7FOx?=
- =?us-ascii?Q?TK5d2ZaFJFoNdJwj39YhUZ5t/bxg+jTD61oWX4XSwh8vMxFkXGk5d6P9IqmR?=
- =?us-ascii?Q?p7ozajJhTkCOWdh1wgNB93FxVoDIX1TXgDEd2h4sYIagNSZhlcKAtvK6hRlE?=
- =?us-ascii?Q?wAvBfNYuuydAkeeMjo9cHFUwpk1mjMGmMPCAy3NE3MVZWeKinM/aDePde4Z2?=
- =?us-ascii?Q?WbV/h3zpARxZBLKki75he0Lmt5EfWvJ2rjySTLRnhEcfq5mLRvHsEKMcVLZf?=
- =?us-ascii?Q?KwOeNWiKL/FQZxBqYjhQbfkWoaqvfnfJzg6Y8JF9uAhirXMG9g/KnfyGCnbQ?=
- =?us-ascii?Q?FEsAdG45Y0LyGvwp1jQQQSUcPiojH8t/IsZSqJ9+0v35A+oimHRS8eDHnKGi?=
- =?us-ascii?Q?nbq1i2+2LWttIaHsY0+FhtpoKDxynJy2VCaCX/OEr84zQG1hCxp95kFmJb/f?=
- =?us-ascii?Q?1VXh0o8Ea7enuCc2dJT9qVnbdfQ9A3ApDRnI30w3hWnDXN5g826G7gNb0Huy?=
- =?us-ascii?Q?U3WBjGij/afasaCTWLWyIDVtOMgGl0kjs4grxNA4oz2ubqLUc5ScdJsnqyYS?=
- =?us-ascii?Q?vKKPBFf5Uzu1C8+xg//BOVT/xC/tXPUvGH/wYpOmzs/p7oZIUaAYbMVN2RAi?=
- =?us-ascii?Q?aKKzHFF3VfpWXCaWFt0aF/XQPfR9uAOftmYuk20AD6X5WAWY3moUvg65F2zq?=
- =?us-ascii?Q?JjdAi/J+w7tBRVeVcQ1kLk35mAPKd/FmsgnnKcqViPL/PIv4Q1YDB7CgClrI?=
- =?us-ascii?Q?HJEniWn1YmTrf63Eba+jfF7mWP3kib2QMdD78vjxz4/I60zqU5OqMVQ/gjMk?=
- =?us-ascii?Q?y115BKNPGCxWtiPTVsYrAeSjIpVR4z4bw4Xh5w2VwPXr8OUSSobeFxgsnyq4?=
- =?us-ascii?Q?cM7rc4/ixVdUx/k2equLFQQQbpCKpq1Fkxd29mbtD6H8kN6q5rbPDb1adsd6?=
- =?us-ascii?Q?k1ux+WpHsYq+KxFiasvzLDytyzN1AlQ/sKUc20EM6iOjqEOESeuI4ngS13EU?=
- =?us-ascii?Q?vNCtFmEZU1YN1Ojuktke04KEQeohN/OkmzoID1qFnjv4iG0gv/XUrSpi0myP?=
- =?us-ascii?Q?kyeZnXcDvTXhVaH/SHqBnjJAs4hNauoYuNMMVgfQSLJw8L+v7mX0RCoRq0Gl?=
- =?us-ascii?Q?6uV5baUUruwvTN5uP0tVqeFNZsqpMtWxURWhsExE5itKnHoQEeZK7PdM4Thj?=
- =?us-ascii?Q?h49z3qKlM96mNI/xeFeamT8g+iQE4XJQ1tiSukKcwl9xjqs4JHLwcpI/gxhp?=
- =?us-ascii?Q?HmOd1s2xZhLE4TwhYjEqysEkloe3Op103O5PaZg7ChOc4J4im9ihl7J7NHjk?=
- =?us-ascii?Q?NduaCyYnGxYnBxxwHU3DAaqDUaHXIZA2QQ36czvhqAk0dJfLp9SH+motdI1P?=
- =?us-ascii?Q?50xknUjpR6ds+1vvIFG5pGAN6kbRKeAw8oBiH9Ii/KECAgUI71rhukAZ96Ws?=
- =?us-ascii?Q?MPFh0dloOKeHu+kew8YKGvKWhJXxLplN2+kOhLUZAPtOZnLxI3CwtDIqQTfW?=
- =?us-ascii?Q?0VNMZHQYfbi6JLg+lyq/ZFvHuGmYsnaOiEHh3etfpJXLDV7k?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E872F10E826;
+ Fri, 18 Sep 2026 07:44:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=tArza7VRu+1dD/49rt5qVjiKzpXGiUtMVZ1snzdy7HY=; b=hMD+eMSHaP6B19on9/ULuunX7g
+ BUsIWzJMNkKB6I9hj6bst685Yjk24nXF7x9wYY65fCM5tInRcTOmETGE3Mz1fc/8v6qKxEuCqrIPx
+ wJZaSsdMFKVtAh0U0Q8VvPZ5fhAUXd9LV2CX281Fm8oJW7rz412iTxBuCPCoHspD4gcwSaFnkZjLm
+ laRunPKq85NYfY5LyOwVUx52ru5nmFcGyK5YCvBWoWGBeji29LHu0NwklsqOmd/M/u5/T6ZCAhEgk
+ qX5vJV86xCODiO+ASTtc2vSiF8TWxjI0DXxNP7We+XP4p+kKYmBRlG6xmHJYY4BCZwjQdiYpffwan
+ 7hbpbSFQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1x7TGX-003p1x-5T; Fri, 18 Sep 2026 09:44:12 +0200
+Message-ID: <665a3711-6864-417d-b199-f058d5525f91@igalia.com>
+Date: Fri, 18 Sep 2026 08:44:11 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5748.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3cf5f9f-4f9c-4c12-de33-08df1550948d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 06:46:34.3493 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uEotZgdhBA5+xgJFQKVZbk0Cl8A9HUsgcIwPewe9nvS0VNT89rK5RX0BRMt6qhAKQ88DHf7O2MclRDGGjMEh0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6479
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 1/2] drm: Allow drivers to report standardized memory stats
+To: Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Ludovico de Nittis <ludovico.denittis@collabora.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+References: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
+ <20260917120444.86471-2-tvrtko.ursulin@igalia.com>
+ <e6ed76bb-e95c-48c3-b51b-99a59cb524f4@suse.de>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <e6ed76bb-e95c-48c3-b51b-99a59cb524f4@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,130 +65,380 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
 
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+On 17/09/2026 13:38, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 17.09.26 um 14:04 schrieb Tvrtko Ursulin:
+>> Add a DRM driver level vfunc which allows drivers to opt-in into
+>> reporting standardized memory stats via sysfs.
+>>
+>> Via the vfunc drivers can report a list of memory regions in a stable
+>> order, with the names following the memory region names used for fdinfo
+>> memory stats. The region names become directory names under the parent
+>> 'memstat' directory.
+>>
+>> Each region reports the total size of the region and its current usage,
+>> represented respectively in the total_mb and used_mb files present under
+>> the aforementioned memory region named directories.
+>>
+>> The card level 'memstat' directory is only created for drivers who report
+>> at least one memory region.
+>>
+>> Amdgpu example:
+>>
+>> /sys/class/drm/card1/memstat/
+>> ├── gtt
+>> │   ├── total_mb
+>> │   └── used_mb
+>> └── vram
+>>      ├── total_mb
+>>      └── used_mb
+> 
+> This looks simple enough to be generally useful. A-b me.
 
-Thanks & Regards
-Asad
+Thanks!
 
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Friday, September 18, 2026 11:40 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
-Subject: [PATCH] drm/amd/pm: Add NPM status sensor
+>>
+>> Or with concrete numbers:
+>>
+>> $ grep -Hr . /sys/class/drm/card1/memstat/
+>> /sys/class/drm/card1/memstat/vram/total_mb:1024
+>> /sys/class/drm/card1/memstat/vram/used_mb:445
+>> /sys/class/drm/card1/memstat/gtt/total_mb:7394
+>> /sys/class/drm/card1/memstat/gtt/used_mb:71
+> 
+> These seem easy to track.  What about other, shared regions?
+> 
+> IIRC some systems (RasPi) use CMA areas for allocating BOs and run out 
+> of that quickly. Could this be represented here?
 
-The logic for checking whether NPM is enabled/disabled stays within the par=
-ticular IP version.
+Yes, it is upto drivers to decide which memory regions they want to 
+expose here.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/include/kgd_pp_interface.h        | 1 +
- drivers/gpu/drm/amd/pm/amdgpu_pm.c                    | 9 ++++-----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 3 +++  drivers/gpu=
-/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 1 +  drivers/gpu/drm/amd/pm/sw=
-smu/smu15/smu_v15_0_8_ppt.c  | 4 ++++
- 5 files changed, 13 insertions(+), 5 deletions(-)
+For drivers that currently expose per client memory stats via fdinfo the 
+idea is that the region names match for ABI consistency. The set does 
+not have to be 1:1 but names should match.
 
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
-rm/amd/include/kgd_pp_interface.h
-index 5e8476c4b808..4b863a2e38f1 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -172,6 +172,7 @@ enum amd_pp_sensors {
-        AMDGPU_PP_SENSOR_MAXNODEPOWERLIMIT,
-        AMDGPU_PP_SENSOR_UBB_POWER,
-        AMDGPU_PP_SENSOR_UBB_POWER_LIMIT,
-+       AMDGPU_PP_SENSOR_NPMSTATUS,
- };
+Should we go a step further and try to standardize on some region names? 
+So far fdinfo did not do it.
 
- /*
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
-dgpu_pm.c
-index 6f8252376127..c6e3748bb11b 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2266,16 +2266,15 @@ static ssize_t amdgpu_show_npm_status(struct device=
- *dev,  {
-        struct drm_device *ddev =3D dev_get_drvdata(dev);
-        struct amdgpu_device *adev =3D drm_to_adev(ddev);
--       u32 npower;
-+       u32 npm_status;
-        int r;
+> Is there a representation of 'unknown value' ?
 
--       /* get the node power */
--       r =3D amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_NODEPOWER=
-,
--                                        (void *)&npower);
-+       r =3D amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_NPMSTATUS=
-,
-+                                        (void *)&npm_status);
-        if (r)
-                return r;
+No, what use case do you have in mind? And you mean for the memory 
+region name or the numerical value?
 
--       return sysfs_emit(buf, "%s\n", str_enabled_disabled(npower));
-+       return sysfs_emit(buf, "%s\n", str_enabled_disabled(npm_status));
- }
+Regards,
 
- /**
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/driver=
-s/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-index 0ca5973391e8..1691a0be4f7d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-@@ -685,6 +685,9 @@ int smu_v13_0_12_get_npm_data(struct smu_context *smu,
-        case AMDGPU_PP_SENSOR_NODEPOWER:
-                *value =3D SMUQ10_ROUND(metrics->NodePower);
-                break;
-+       case AMDGPU_PP_SENSOR_NPMSTATUS:
-+               *value =3D !!SMUQ10_ROUND(metrics->NodePower);
-+               break;
-        case AMDGPU_PP_SENSOR_GPPTRESIDENCY:
-                *value =3D SMUQ10_ROUND(metrics->GlobalPPTResidencyAcc);
-                break;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 83a5a4614a4b..95e288327e45 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -1678,6 +1678,7 @@ static int smu_v13_0_6_read_sensor(struct smu_context=
- *smu,
-        case AMDGPU_PP_SENSOR_NODEPOWER:
-        case AMDGPU_PP_SENSOR_GPPTRESIDENCY:
-        case AMDGPU_PP_SENSOR_MAXNODEPOWERLIMIT:
-+       case AMDGPU_PP_SENSOR_NPMSTATUS:
-                ret =3D smu_v13_0_12_get_npm_data(smu, sensor, (uint32_t *)=
-data);
-                if (ret)
-                        return ret;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-index b69efaecc1bb..5c8bfe7ecaa3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-@@ -618,6 +618,9 @@ static int smu_v15_0_8_get_npm_data(struct smu_context =
-*smu,
-        case AMDGPU_PP_SENSOR_NODEPOWER:
-                *value =3D SMUQ10_ROUND(metrics->NodePower);
-                break;
-+       case AMDGPU_PP_SENSOR_NPMSTATUS:
-+               *value =3D !!SMUQ10_ROUND(metrics->NodePower);
-+               break;
-        case AMDGPU_PP_SENSOR_GPPTRESIDENCY:
-                *value =3D SMUQ10_ROUND(metrics->GlobalPPTResidencyAcc);
-                break;
-@@ -681,6 +684,7 @@ static int smu_v15_0_8_read_sensor(struct smu_context *=
-smu,
-        case AMDGPU_PP_SENSOR_NODEPOWER:
-        case AMDGPU_PP_SENSOR_GPPTRESIDENCY:
-        case AMDGPU_PP_SENSOR_MAXNODEPOWERLIMIT:
-+       case AMDGPU_PP_SENSOR_NPMSTATUS:
-                ret =3D smu_v15_0_8_get_npm_data(smu, sensor, (uint32_t *)d=
-ata);
-                if (ret)
-                        return ret;
---
-2.49.0
+Tvrtko
+
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Maíra Canal <mcanal@igalia.com>
+>> Cc: Ludovico de Nittis <ludovico.denittis@collabora.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> Cc: Maxime Ripard <mripard@kernel.org>
+>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: David Airlie <airlied@gmail.com>
+>> Cc: Simona Vetter <simona@ffwll.ch>
+>> ---
+>>   drivers/gpu/drm/drm_drv.c   |  10 +++
+>>   drivers/gpu/drm/drm_sysfs.c | 123 ++++++++++++++++++++++++++++++++++++
+>>   include/drm/drm_device.h    |  19 ++++++
+>>   include/drm/drm_drv.h       |   8 +++
+>>   include/drm/drm_file.h      |   9 +++
+>>   include/drm/drm_sysfs.h     |   4 ++
+>>   6 files changed, 173 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+>> index 0cdc606af8d1..ab26cfd73002 100644
+>> --- a/drivers/gpu/drm/drm_drv.c
+>> +++ b/drivers/gpu/drm/drm_drv.c
+>> @@ -54,6 +54,7 @@
+>>   #include <drm/drm_print.h>
+>>   #include <drm/drm_privacy_screen_machine.h>
+>>   #include <drm/drm_ras_genl_family.h>
+>> +#include <drm/drm_sysfs.h>
+>>   #include "drm_crtc_internal.h"
+>>   #include "drm_internal.h"
+>> @@ -197,10 +198,15 @@ static int drm_minor_register(struct drm_device 
+>> *dev, enum drm_minor_type type)
+>>       if (ret)
+>>           goto err_debugfs;
+>> +    ret = drm_sysfs_register_memstat(minor);
+>> +    if (ret)
+>> +        goto err_kdev;
+>> +
+>>       /* replace NULL with @minor so lookups will succeed from now on */
+>>       entry = xa_store(drm_minor_get_xa(type), minor->index, minor, 
+>> GFP_KERNEL);
+>>       if (xa_is_err(entry)) {
+>>           ret = xa_err(entry);
+>> +        drm_sysfs_unregister_memstat(minor);
+>>           goto err_debugfs;
+>>       }
+>>       WARN_ON(entry);
+>> @@ -208,6 +214,9 @@ static int drm_minor_register(struct drm_device 
+>> *dev, enum drm_minor_type type)
+>>       DRM_DEBUG("new minor registered %d\n", minor->index);
+>>       return 0;
+>> +err_kdev:
+>> +    device_del(minor->kdev);
+>> +
+>>   err_debugfs:
+>>       drm_debugfs_unregister(minor);
+>>       return ret;
+>> @@ -224,6 +233,7 @@ static void drm_minor_unregister(struct drm_device 
+>> *dev, enum drm_minor_type typ
+>>       /* replace @minor with NULL so lookups will fail from now on */
+>>       xa_store(drm_minor_get_xa(type), minor->index, NULL, GFP_KERNEL);
+>> +    drm_sysfs_unregister_memstat(minor);
+>>       device_del(minor->kdev);
+>>       dev_set_drvdata(minor->kdev, NULL); /* safety belt */
+>>       drm_debugfs_unregister(minor);
+>> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+>> index 7b16d32b6ff6..4a8c5b0b458d 100644
+>> --- a/drivers/gpu/drm/drm_sysfs.c
+>> +++ b/drivers/gpu/drm/drm_sysfs.c
+>> @@ -25,6 +25,7 @@
+>>   #include <drm/drm_accel.h>
+>>   #include <drm/drm_connector.h>
+>>   #include <drm/drm_device.h>
+>> +#include <drm/drm_drv.h>
+>>   #include <drm/drm_file.h>
+>>   #include <drm/drm_modes.h>
+>>   #include <drm/drm_print.h>
+>> @@ -589,3 +590,125 @@ struct device *drm_sysfs_minor_alloc(struct 
+>> drm_minor *minor)
+>>       put_device(kdev);
+>>       return ERR_PTR(r);
+>>   }
+>> +
+>> +static ssize_t total_mb_show(struct kobject *kobj, struct 
+>> kobj_attribute *attr,
+>> +                 char *buf)
+>> +{
+>> +    struct drm_memstat_attr *mattr = container_of(kobj, 
+>> typeof(*mattr), kobj);
+>> +    struct drm_device *drm = mattr->drm;
+>> +    const struct drm_memory_info *info;
+>> +
+>> +    if (drm->driver->get_memory_info) {
+>> +        info = drm->driver->get_memory_info(drm);
+>> +        if (info)
+>> +            return sysfs_emit(buf, "%u\n",
+>> +                      info->region[mattr->region].total_mb);
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +
+>> +static ssize_t used_mb_show(struct kobject *kobj, struct 
+>> kobj_attribute *attr,
+>> +                char *buf)
+>> +{
+>> +    struct drm_memstat_attr *mattr = container_of(kobj, 
+>> typeof(*mattr), kobj);
+>> +    struct drm_device *drm = mattr->drm;
+>> +    const struct drm_memory_info *info;
+>> +
+>> +    if (drm->driver->get_memory_info) {
+>> +        info = drm->driver->get_memory_info(drm);
+>> +        if (info)
+>> +            return sysfs_emit(buf, "%u\n",
+>> +                      info->region[mattr->region].used_mb);
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +
+>> +static struct kobj_attribute total_attr = __ATTR_RO(total_mb);
+>> +static struct kobj_attribute used_attr = __ATTR_RO(used_mb);
+>> +
+>> +static struct attribute *memstat_attrs[] = {
+>> +    &total_attr.attr,
+>> +    &used_attr.attr,
+>> +    NULL,
+>> +};
+>> +
+>> +ATTRIBUTE_GROUPS(memstat);
+>> +
+>> +static void kobj_memstat_release(struct kobject *kobj)
+>> +{
+>> +}
+>> +
+>> +static const struct kobj_type memstat_ktype = {
+>> +    .release = kobj_memstat_release,
+>> +    .sysfs_ops = &kobj_sysfs_ops,
+>> +    .default_groups = memstat_groups,
+>> +};
+>> +
+>> +int drm_sysfs_register_memstat(struct drm_minor *minor)
+>> +{
+>> +    const struct drm_memory_info *info = NULL;
+>> +    struct drm_device *drm = minor->dev;
+>> +    struct drm_memstat_attr *regions;
+>> +    struct kobject *root;
+>> +    int i, ret = -ENOMEM;
+>> +
+>> +    if (drm->driver->get_memory_info)
+>> +        info = drm->driver->get_memory_info(drm);
+>> +
+>> +    if (!info || !info->num_regions)
+>> +        return 0;
+>> +
+>> +    regions = kmalloc_objs(*regions, info->num_regions + 1);
+>> +    if (!regions)
+>> +        return -ENOMEM;
+>> +
+>> +    root = kobject_create_and_add("memstat", &minor->kdev->kobj);
+>> +    if (!root)
+>> +        goto err_root;
+>> +
+>> +    for (i = 0; i < info->num_regions; i++) {
+>> +        regions[i].region = i;
+>> +        regions[i].drm = drm;
+>> +        ret = kobject_init_and_add(&regions[i].kobj, &memstat_ktype,
+>> +                       root, "%s", info->region[i].name);
+>> +        if (ret)
+>> +            goto err_regions;
+>> +    }
+>> +
+>> +    minor->sysfs_memstat = root;
+>> +    minor->sysfs_memstat_regions = regions;
+>> +
+>> +    return 0;
+>> +
+>> +err_regions:
+>> +    while (i-- > 0) {
+>> +        kobject_del(&regions[i].kobj);
+>> +        kobject_put(&regions[i].kobj);
+>> +    }
+>> +
+>> +    kobject_del(root);
+>> +    kobject_put(root);
+>> +
+>> +err_root:
+>> +    kfree(regions);
+>> +
+>> +    return ret;
+>> +}
+>> +
+>> +void drm_sysfs_unregister_memstat(struct drm_minor *minor)
+>> +{
+>> +    struct drm_memstat_attr *region = minor->sysfs_memstat_regions;
+>> +
+>> +    while (region && region->kobj.state_initialized) {
+>> +        kobject_del(&region->kobj);
+>> +        kobject_put(&region->kobj);
+>> +        region++;
+>> +    }
+>> +
+>> +    kfree(minor->sysfs_memstat_regions);
+>> +
+>> +    kobject_del(minor->sysfs_memstat);
+>> +    kobject_put(minor->sysfs_memstat);
+>> +}
+>> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+>> index 75f030d027ee..0c9260c85b30 100644
+>> --- a/include/drm/drm_device.h
+>> +++ b/include/drm/drm_device.h
+>> @@ -67,6 +67,25 @@ enum switch_power_state {
+>>       DRM_SWITCH_POWER_DYNAMIC_OFF = 3,
+>>   };
+>> +/**
+>> + * struct drm_memory_region_info - Memory name and stats for a region
+>> + * @name: Name of the memory region
+>> + * @total_mb: Total available memory in mebibytes
+>> + * @used_mb: Used memory in mebibytes
+>> + */
+>> +struct drm_memory_region_info {
+>> +    char    name[24];
+>> +
+>> +    u32    total_mb;
+>> +    u32    used_mb;
+>> +};
+>> +
+>> +struct drm_memory_info {
+>> +    unsigned int num_regions;
+>> +
+>> +    struct drm_memory_region_info region[];
+>> +};
+>> +
+>>   /**
+>>    * struct drm_device - DRM device structure
+>>    *
+>> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+>> index b23830494ed4..a3f1906961ac 100644
+>> --- a/include/drm/drm_drv.h
+>> +++ b/include/drm/drm_drv.h
+>> @@ -45,6 +45,7 @@ struct drm_minor;
+>>   struct dma_buf;
+>>   struct dma_buf_attachment;
+>>   struct drm_display_mode;
+>> +struct drm_device_memory_info;
+>>   struct drm_mode_create_dumb;
+>>   struct drm_printer;
+>>   struct sg_table;
+>> @@ -387,6 +388,13 @@ struct drm_driver {
+>>        */
+>>       void (*show_fdinfo)(struct drm_printer *p, struct drm_file *f);
+>> +    /**
+>> +     * @get_memory_info:
+>> +     *
+>> +     * Get device specific memory info.  See Documentation/gpu/drm- 
+>> memory-info.rst.
+>> +     */
+>> +    const struct drm_memory_info * (*get_memory_info)(struct 
+>> drm_device *dev);
+>> +
+>>       /** @major: driver major number */
+>>       int major;
+>>       /** @minor: driver minor number */
+>> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+>> index 6ee70ad65e1f..ebb227a91f60 100644
+>> --- a/include/drm/drm_file.h
+>> +++ b/include/drm/drm_file.h
+>> @@ -66,6 +66,12 @@ enum drm_minor_type {
+>>       DRM_MINOR_ACCEL = 32,
+>>   };
+>> +struct drm_memstat_attr {
+>> +    struct kobject kobj;
+>> +    unsigned int region;
+>> +    struct drm_device *drm;
+>> +};
+>> +
+>>   /**
+>>    * struct drm_minor - DRM device minor structure
+>>    *
+>> @@ -82,6 +88,9 @@ struct drm_minor {
+>>       struct device *kdev;        /* Linux device */
+>>       struct drm_device *dev;
+>> +    struct kobject    *sysfs_memstat;
+>> +    struct drm_memstat_attr  *sysfs_memstat_regions;
+>> +
+>>       struct dentry *debugfs_symlink;
+>>       struct dentry *debugfs_root;
+>>   };
+>> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
+>> index 7695873a9456..10ed468965b0 100644
+>> --- a/include/drm/drm_sysfs.h
+>> +++ b/include/drm/drm_sysfs.h
+>> @@ -4,10 +4,14 @@
+>>   struct drm_device;
+>>   struct drm_connector;
+>> +struct drm_minor;
+>>   struct drm_property;
+>>   void drm_sysfs_hotplug_event(struct drm_device *dev);
+>>   void drm_sysfs_connector_hotplug_event(struct drm_connector 
+>> *connector);
+>>   void drm_sysfs_connector_property_event(struct drm_connector 
+>> *connector,
+>>                       struct drm_property *property);
+>> +
+>> +int drm_sysfs_register_memstat(struct drm_minor *minor);
+>> +void drm_sysfs_unregister_memstat(struct drm_minor *minor);
+>>   #endif
+> 
 
