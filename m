@@ -4,124 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4FADC88E75
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:49:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 056C6C982D2
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Sep 2026 07:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 261E510F240;
-	Fri, 18 Sep 2026 07:49:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77ED310F245;
+	Fri, 18 Sep 2026 07:49:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IyPjoLdD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nDRgRPlt";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010055.outbound.protection.outlook.com [52.101.201.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D050610F240
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 07:48:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dohCl5OhUNYTapiVgz60YaEst7R06LnXzr0aGUSbXE6JzUW2nuvOIN34n1ygUt5HwHL+XBb+fcf1NVy+EK+o3P0kbRgxFhEWy+1fHIbNSzyLL3tmBCingEBYnddqyNNt848BWxcTXDH4Bqm2aHbu+vamgcDKWPRGQTGt3I0Y/O11dRej6uxdkKR25L4VkCjPhdQgRbkk18raxbqpEi0mWXWKH8dI56pLvV694NHf6QMCTyubZEx+4uW6SHnRRJVbxDBjyHwXixShfI4FOk52Qocxge8+wQdkyeL8v8TULbkbfJqJn8r4O+rWz7o8EPfop6zHwzOcT79ENO0ms+j6XQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=28FK43PyXKmAcPgNRBRx+XS6q9RZYHByI2I2SjRyOUo=;
- b=g3OLYDfbtj/0Fj0UjW1x5eg17km6GlT4CD/zrp6y1WXGL9reeSZp+EX6NXw6nxXySka2wlMjb/NbBz5YFvAB3YXDUs7yiYUycL78D1hf2VFo7aBVBMMwDLRsrF6N9h/sdwO42nxlwdfo4Awv3VnFEnxjdBqWYw1/PttRhVsZAFf0hFF5oMXjEkk1cTpwq3EDo7H+3rDX1gBhvB0qhLwsHhrQgHAywcWOmnvM5lnlA0wkYJ7oVCq1M0aartgHxBm/uDNyT6fVRkoVVsJcQHfvo4DvkgudYM/SEEByICZZ0d7tKh3p3a925BosovGgnzXN8470o77H8yyOPikhjHY2dQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=28FK43PyXKmAcPgNRBRx+XS6q9RZYHByI2I2SjRyOUo=;
- b=IyPjoLdDwhIVdQYAtjP/7tP1GLmEzO7+3dcltgrfmpDXrWzCKIb9P4Unw5pRLe3JH4XFmsfSN389r9ZCWGSojOp4VZ2lHGXAmq7cVTwCZEP/Hh6qSOu4DSD1HzEeaLMRZse9EyQj5Brlq4g8gbC6EESveMHhlTU4WSCOCFlfQ64=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY5PR12MB6273.namprd12.prod.outlook.com (2603:10b6:930:22::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Fri, 18 Sep
- 2026 07:48:56 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 07:48:56 +0000
-Message-ID: <935937d7-86df-490c-80bb-a88eefa4675b@amd.com>
-Date: Fri, 18 Sep 2026 09:48:52 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] drm/amdgpu: use pm_runtime_resume_and_get for ctx
- ioctl
-To: Shahyan Soltani <shahyan.soltani@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, pierre-eric.pelloux-prayer@amd.com,
- kevin.wang@amd.com
-References: <20260917195812.72917-1-shahyan.soltani@amd.com>
- <20260917195812.72917-3-shahyan.soltani@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260917195812.72917-3-shahyan.soltani@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0436.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D5C310F245;
+ Fri, 18 Sep 2026 07:49:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2394C41318;
+ Fri, 18 Sep 2026 07:49:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E541F000FF;
+ Fri, 18 Sep 2026 07:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789717748;
+ bh=vJKvMLbmElK8KttkMQ8hkz5u79hzTkh0lL7FQh+PFqI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=nDRgRPltaEljYrKy94fX1kR91hzN+MpRB9MPYQ1+4X04V6e9jP3UfdRBCwxDx9K5k
+ HXbmXYGRYtQCwaFnLwhM994HkXABJDE1B7q288wgf2cSwxgOV0X+nst+TUVfWYtSZV
+ nbSiMiW0yIZ1cYuVI9XNOBUIv7iAr3VnyAaxvUeKTQTQH4RcNVgcALNTYovLq/EN9a
+ Q1whWRiOGgumpL4WL/RbxPaThWEKILE9Un6A3b/6x6Fho1G8BwsQfgIpsV1ilZZX+8
+ Uyt2Gb849GzU3liO1eddWwgQAd5v1SYlhj/O25klzrxqM2SI7i35i+7BFnqaob9Lhv
+ jWTT3uwM5QgwQ==
+Message-ID: <06550473-63c2-4a3e-a5ad-7e23d7b6b050@kernel.org>
+Date: Fri, 18 Sep 2026 09:49:01 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6273:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30c56285-a101-4b63-b1f5-08df15594abf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: +t6/E4WjdGS8WWQgk8onqffEmOdVsUs6dPpJKtnSJaoAisC/Ck/jcrBTr0n0yVMDfoUKOqGmksUOZ8ndRS4op/n+zBGzvbhXZX5grdN4vGsewv9Kaucnuj29smAbmxyxC5+jKi/DW+u/z3sImpWXcaK3mj3blHMfjjcq5uAaJbyAbHAidaWDunlN+VefAZ+4L59o2iYw63CpE5NrVZEdRcNeF1PcVxskmPl6YzGm2SZORuI6H6Pg9rANfkatcDWX9FxKl3WDvTjTRMB8xSnHaMBcl0ZIDrS5vYWrsJ8i6AuhHgUUy+VEAaP6X1MqgeCMQjLeUpKE745Y/XmJV3Riq2NRRM8jKxh7O+OzOnqZuynSZNroYw1qGv5O7xXHW6DleC32osY8qcxkcLI0J58+ANEM0KuLcyNan8nfrkLr4XODQyduwAxt9MFbLWdMn98WwLx6lV02jNYbGB23YRngYF+swM3C/VmRlLTXwTScvXLiglwfAIFqPbZyiexPXQI3fGJs8dhwmF/sL7CFqVMsik+dysztYsgxLZf8FawmAgdPZf9bpjNQPL5V3wyvULX7lP/MjM0GkSHFmVSSLhgp7GvvjNxj9bKGcN42gYv8FqpIyVpRRuakD4gYnNB2TXnW5BKcaY0n1ATNlhh7bTDvP/X8g46VQhoW2+pjpEbn/tU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2x4bTRKY3lTMm50UFVhMzl2Z055aGZiVnJZZkJiRlVkKzFLZmJhenpmMkc1?=
- =?utf-8?B?QVFyVmd4T1I0YnN3anlDUFVUcE9QRldDOVcycEN1KzR2VVMzUUc1SWdRem9k?=
- =?utf-8?B?TlU4V1ZOcnVpejJjaThvSHMrTzNqZDFXR0t6T2d3L1NKV2F2UDdEalIrTlZv?=
- =?utf-8?B?RG1uUEZmeEpmb0lBWDZNbXUvMXB0eWZlUUVSQmU3NDVMYmFVSHhaTHlIdWRY?=
- =?utf-8?B?NUk1ODJFU25MZmZHZHVIZnhoc0dXWUkrM3dYYzY1SjhBR3VQcjFXRGtPME5Z?=
- =?utf-8?B?QnhKRVhFU2JIYWFoN28yOVRYdWIzeVoxdGEwSnAxbm93SThEU0RGdG1ZdmNU?=
- =?utf-8?B?Q1lUUHhhZkV4b2dleVdCbUZmRWFoK242Szh2UE9wd3FjNWNmZEU4ZzBQSnM2?=
- =?utf-8?B?aWJKOGM0NzFoQ2ZtTy9NcUdIM2VCWS8yQkVtcXVZTzVCemFtZ25PbVVtMUIv?=
- =?utf-8?B?OWVhNFdKdFlSdnIrYVY4Y0lZM1U2UHBmL0tCc2ZaSmtpakVuUHdjSnVWMGZw?=
- =?utf-8?B?QUJ3ZkpzRzhuLzFId25DczZ6am9CRlB1a0hpL2tuTU9KVnFOVWR5NDZET2dQ?=
- =?utf-8?B?K1NRTS9uc2U0UVZsOVhzcVJSTklCM0NyaDNjV2hSdWxMRG9jbzBrUzRsaEIy?=
- =?utf-8?B?b3dFN1JsbitRaFI2ZWtGc1FHeWFrbCtwK1JNTGZNbTBoTExRb3dYQWZ1S0tU?=
- =?utf-8?B?TE4vOC9MbGxXMnY1YUUxYmI3UVRSQnF1RXVwR2czb3Q0VXlDZTFQSmtuRU1n?=
- =?utf-8?B?dnliOStVTTYxeXZDam5IcUJYQnNFTTdtTG5CSzhqbmt4OFRhZWxOQzRzUjFW?=
- =?utf-8?B?S1JBY1VPVXEzd0Y2c1pOMEtLODlDNXZJUHJvRHJHTWI3Yi9iUHdPdWlnRmQv?=
- =?utf-8?B?am1UYnRMN3Vha2F2L3ZRRXdYbXI4Zm1Yc2lvL21sOG5rc2Z0MzUzbFZOMVJV?=
- =?utf-8?B?R1dlbUFPTForcXFUNkpwdGtVWnB6VU55aGRGQ0krZ3hsWUtGek5BaGxWenJy?=
- =?utf-8?B?Y0VnQkI0ZFRlR3VFSHJlUThPanZQOTlhcklXZEVwaXhCWEJLV1RIT2VJWFlv?=
- =?utf-8?B?OUpwYktQT0VMb1hoKzVVOW1qTTVUNE9DRngrMmlQeWp4UjFINjdVTmxCUUp2?=
- =?utf-8?B?bXVYNVIzQ3lnWm4yQnIwUTVpQUhIWXc0c0twSU5rVjk2Z0FUSDZMR1RRMWVq?=
- =?utf-8?B?WWZCMENMUG5HU0J6bHpYbUM5MExUcXhCMjIyT2xnMTNkS0k0UldMV1FTSHox?=
- =?utf-8?B?QVgzeVJoa1orbUdxR1pvd2F3RlNyMlM2R2ZMMUlyeTRWYisxNWVoa2QyMGYv?=
- =?utf-8?B?TmsrbmlaTTBKWFBIbjIxR005UU9seEFycEd6OFV5ekd4SHliVDRVRlhhajNJ?=
- =?utf-8?B?NkVyY21tdmJsSmFlMEx6MXM2dlZjVjUyWnhIL2hJdTJnOTZoZDFZRlhsaUZv?=
- =?utf-8?B?aVg5WGp3aGhlSER0MW9DeldoV3BySUpLWkZ4VTJoWGlnd1NOSWFscFVpRTdD?=
- =?utf-8?B?QWRIMnlYRFJJSGcrTUhYYTYzTG9XYnArZ3BpVFA0bzBVc1lmSm5ZRnd6SDQ5?=
- =?utf-8?B?SE1YU01LdFA1TGhSOW9nczU2eGtVY3hsaTh6UENtV3o2NmJXeUI2NFVtQ0Fj?=
- =?utf-8?B?anVXN3dkZVhaSENEY3FFK0ZCdHpiazFhZ3ZlZkFKcDRxb0p4UXJSUmMyK2xW?=
- =?utf-8?B?SkxUcEVCaXRQR3p0MXJqSTlCTUdwcjcvRElDWDNScU56ZlFjeHhLYWNGdndP?=
- =?utf-8?B?Y0ZGaUdTMGl0MkZUanlmMHdVMHdhbDg5cVZZamd3bkdwVUlGQmhObldzMDZo?=
- =?utf-8?B?RVBKN3Q2SGhaN0xXYVFJRlA0alg1SllySjJ5UTNRZFZycGpNbGxGWHBkSk9V?=
- =?utf-8?B?TGU5SldwU2JzTnVQS3ZSUDNWc0MzbnJvV1E5cWN3VlU0cDZBNWxjVVVmSXBP?=
- =?utf-8?B?dys2RVp0RkdRZ1MwbFpMK0liRDlCWUdLV2xJL0R0SDRua0RIYlF2SmtkN1JJ?=
- =?utf-8?B?Z0d6ZmI3czR0bm9qSTlWdENrNHRCMy9RY3Q0cGFaenkrS1VmMkZZSHk1Y2dy?=
- =?utf-8?B?Q1RBNmU0WUx4MFJOQ0lRbEdjb0xvZFBlZ1FwVFVtcFBVK0dESnREd3Zocm5w?=
- =?utf-8?B?M2s0eDFOUDFocGhMTlFOelFvTlJobFBHMUtOU0dkcHpyQWFRRGFHUUs3R1gr?=
- =?utf-8?B?RHIxbWVuV09XeEVuL2NHV21xWkY5NDFBdGFreTM3UVFFaHppL0IwSDk3Rm9i?=
- =?utf-8?B?eEVFWWFqR2RJYmdibkRQeWs0aWk2QTMwSmRXUXNYUWJUMU9YNnVyVU9pNnJZ?=
- =?utf-8?Q?3eTv3Yq3nOkpvtrC6U?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30c56285-a101-4b63-b1f5-08df15594abf
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 07:48:56.1947 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 02txpnvtqE5uaui6hSV3pTVtNcG+sIuchasJkj5hWXprsrFgowH8GZjPi/4yDAaz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6273
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+ nvidia_wmi_ec_supported()
+To: Jani Nikula <jani.nikula@linux.intel.com>, Armin Wolf <W_Armin@gmx.de>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux@weissschuh.net" <linux@weissschuh.net>,
+ "rafael@kernel.org" <rafael@kernel.org>, "lenb@kernel.org"
+ <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
+ <linux-acpi@vger.kernel.org>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "tursulin@ursulin.net" <tursulin@ursulin.net>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <20260724025959.142826-3-W_Armin@gmx.de>
+ <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
+ <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
+ <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
+ <11976ed3784675ad241646287a909286a42675a8@intel.com>
+ <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
+ <62d7da838e7042df8456e76190db792093065b57@intel.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <62d7da838e7042df8456e76190db792093065b57@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,50 +87,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/17/26 21:58, Shahyan Soltani wrote:
-> From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> 
-> Only amdgpu_ctx_stable_pstate communicates with the hw.
+Hi,
 
-Nit: Typo in the commit message, the function name is amdgpu_ctx_set_stable_pstate().
-
-Christian.
-
+On 16-Sep-26 09:16, Jani Nikula wrote:
+> On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
+>> Am 15.09.26 um 14:31 schrieb Jani Nikula:
+>>
+>>> On Tue, 15 Sep 2026, Ilpo Järvinen <ilpo.jarvinen@linux.intel.com> wrote:
+>>>> GPU people heads up!!
+>>>>
+>>>> On Wed, 2 Sep 2026, Armin Wolf wrote:
+>>>>
+>>>>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> index 12e4a41bf1f0..50305630f533 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>> @@ -30,9 +30,7 @@ config DRM_AMDGPU
+>>>>>>>         # ACPI_VIDEO's dependencies must also be selected.
+>>>>>>>         select INPUT if ACPI
+>>>>>>>         select ACPI_VIDEO if ACPI
+>>>>>>> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+>>>>>>> -     select X86_PLATFORM_DEVICES if ACPI && X86
+>>>>>> The change below makes sense, but this one looks like it should remain
+>>>>>> unless X86_PLATFORM_DEVICES is handled some other way?
+>>>>>>
+>>>>>> Alex
+>>>>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary because
+>>>>> ACPI-WMI depended on it in the past.
+>>>>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 anymore.
+>>>> Hi all,
+>>>>
+>>>> Could more GPU people besides Alex take a look on this. I'd want to make
+>>>> progress with this series within this cycle but would prefer to have Acks
+>>>> from GPU side.
+>>> I share the same concern with Alex. It seems to me we could now end up
+>>> with x86 configurations without X86_PLATFORM_DEVICES, which handle
+>>> e.g. backlight on a lot of platforms.
+>>>
+>>> I think the safer option might be to go for:
+>>>
+>>> 	depends on X86_PLATFORM_DEVICES || !X86
+>>>
+>>> in all of the cases that select/depend on X86_PLATFORM_DEVICES in drm.
+>>>
+>>> The alternative is to find out, and handle the fallout, if any.
+>>>
+>>>
+>>> BR,
+>>> Jani.
+>>
+>> Alright, should i leave the original "select X86_PLATFORM_DEVICES if ..." statements
+>> as-is or should is change them to "depends on X86_PLATFORM_DEVICES || !X86" everywhere?
 > 
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> index b15ed4a534f1..a87f26139496 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> @@ -28,6 +28,7 @@
->  #include "amdgpu_sched.h"
->  #include "amdgpu_ras.h"
->  #include <linux/nospec.h>
-> +#include <linux/pm_runtime.h>
->  
->  #define to_amdgpu_ctx_entity(e)	\
->  	container_of((e), struct amdgpu_ctx_entity, entity)
-> @@ -643,10 +644,15 @@ static int amdgpu_ctx_stable_pstate(struct amdgpu_device *adev,
->  	 * context id.
->  	 */
->  
-> -	if (set)
-> +	if (set) {
-> +		r = pm_runtime_resume_and_get(adev->dev);
-> +		if (r < 0)
-> +			return r;
->  		r = amdgpu_ctx_set_stable_pstate(ctx, *stable_pstate);
-> -	else
-> +		pm_runtime_put_autosuspend(adev->dev);
-> +	} else {
->  		*stable_pstate = amdgpu_get_stable_pstate(adev);
-> +	}
->  
->  	amdgpu_ctx_put(ctx);
->  	return r;
+> There are some places that depends on X86_PLATFORM_DEVICES. I think it's
+> almost always a mistake to have some places select and some places
+> depends on, and select should anyway be used with care. I'd go for
+> depends on.
+
+I'm a bit late to the party here, sorry.
+
+Note that X86_PLATFORM_DEVICES is an option which enables / disables
+a menu and does nothing more.
+
+Enabling it or depending on it by itself does nothing.
+
+The select used to be there since it must be selected to be able
+to select ACPI_WMI (which is no longer the case after this series).
+
+To depends on in XE was probably copy pasted from the existing
+select-s and then changed to a depends and already was a completely
+no-op since depending on ACPI_WMI was enough as that itself
+dependend on ACPI_WMI.
+
+As for X86_PLATFORM_DEVICES being needed for some backlight
+interfaces, depending on it by itself does not result in those
+interfaces being there. That requires enabling the actual drivers
+providing those interfaces.
+
+And I don't think that the GPU drivers should start depending
+on those since that will become very unyielding.
+
+TL;DR: I believe Armin's original patch is fine and this is
+a welcome cleanup / simplification of the DRM drivers Kconfig
+bits.
+
+Regards,
+
+Hans
+
 
