@@ -4,74 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5632DC982FA
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 07:12:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA379C982DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 07:11:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1F0C10E3F0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96F9C10E3EC;
 	Mon, 21 Sep 2026 07:11:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=mtsistemi.it header.i=@mtsistemi.it header.b="XoJNJtZm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kz2wbrII";
 	dkim-atps=neutral
-X-Greylist: delayed 307 seconds by postgrey-1.36 at gabe;
- Sat, 19 Sep 2026 20:30:45 UTC
-Received: from avas.easytechitalia.it (avas.easytechitalia.it [213.217.29.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70E3310E212
- for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 20:30:45 +0000 (UTC)
-X-Envelope-From: <info@mtsistemi.it>
-Received: from ngmx.easytechitalia.it (unknown [185.76.140.216])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by avas.easytechitalia.it (Postfix) with ESMTPS id 4hnLbL0jJVzGnv4;
- Sat, 19 Sep 2026 22:25:34 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by ngmx.easytechitalia.it (Postfix) with ESMTP id 2CAA417DC3B;
- Sat, 19 Sep 2026 22:24:05 +0200 (CEST)
-Received: from ngmx.easytechitalia.it ([127.0.0.1])
- by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10032)
- with ESMTP id mvXQdpZtw0BS; Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by ngmx.easytechitalia.it (Postfix) with ESMTP id 9734217ABF9;
- Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 ngmx.easytechitalia.it 9734217ABF9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mtsistemi.it;
- s=AD82E3E6-03E3-11EF-83D2-AF8217D6D3C6; t=1789849444;
- bh=qh+LkBDWAWYteqY1+iA7cYyeIzXITpVVk/o5US/PUwI=;
- h=From:To:Date:Message-ID:MIME-Version;
- b=XoJNJtZmE4f2GX31b6v8ylJZ0qdr5oQw4O8txSuzGiYl57oAAED002thdF7fejWIw
- El/oT4TWgUktELSINogImyhn4Iu9LoqMxAORc5Q4NEMV1f6qs+y3301PHmEEK6Hst+
- EIrnXWImgSBRrSB5PY/XIGVMRfbTzafaDpGJgTjIZH8zgrTOdivqjqNyVfydLnx4U1
- fs8ENXEeSEhRwcxAzpS+BPUyUcJaTzyYFROXZ6UKVk7JrSH3RUHFzApbBXvZLskh+S
- UmNO8LwoZYdnysPmdMKQPLQsuiJG5WbeKyiItrrNQaD1jZk4kYfVS/6p5Au9zV9W8h
- RPo2FqMfLN/4Q==
-X-Virus-Scanned: amavis at ngmx.easytechitalia.it
-Received: from ngmx.easytechitalia.it ([127.0.0.1])
- by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10026)
- with ESMTP id IWRJJgZ4NUlv; Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
-Received: from [192.168.56.1] (93-38-124-109.ip70.fastwebnet.it
- [93.38.124.109])
- by ngmx.easytechitalia.it (Postfix) with ESMTPSA id EFEDB17C481;
- Sat, 19 Sep 2026 22:24:03 +0200 (CEST)
-From: Mattia Tadini <info@mtsistemi.it>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?q?K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: only clear the hotplug sources the ASIC has
-Date: Sat, 19 Sep 2026 22:25:30 +0200
-Message-ID: <178984953065.33228.16670066468362794046@mtsistemi.it>
-Content-Type: text/plain; charset="utf-8"
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA7CD10E1BD
+ for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 16:50:18 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ 98e67ed59e1d1-39b910bdf2eso1194941a91.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 09:50:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789836618; x=1790441418; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+4Qqo2m5lZfr3OAGZ6npJ+URqdVjHxYgzHywKwbEg8A=;
+ b=kz2wbrII9z4hQd8AqYrFSHyanA/rz2aJlRvvt2+MpiSSDUc2gDPBF5zqxAxJ8UQWRa
+ yjzTq7HCQsty/x6c4fPCV3kEHB7JnWQeGYwbfGwtQbAuGwHuMxxPIDZwdjcG64OkHQJG
+ xNQKqcJLTbErt3FYiHNchgswVQY12zWRefrBft3smzrHGroqGEdo1mQjhxk4qP1Ys7eM
+ eWkaZPS2h9UOcycwBDWYT5L7/5v7Ne+iFHPhn1QNXin8S+YZhSGdlaaBIOKEpdZ/NAie
+ RA7E32fRGhGRwe3DPJMlqo4CNOxTRAPio4CMQMxWuCdifELlgUQS5RZ52hL9XJpGS379
+ 7g7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789836618; x=1790441418;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+4Qqo2m5lZfr3OAGZ6npJ+URqdVjHxYgzHywKwbEg8A=;
+ b=vbNq5LZTdSQk/E/qT545Fim6oGikXtMAp/bucLAIRIx8XKP0SxEJvUYBPu/KiV9FIH
+ 4fbkVTZCvesxF6ADc1xm/Z5C35BkbajMF16POEfrddBaSl88yaoPXqtL+r2l8fWOF+IM
+ C+hlzyPsADYbbZyfTS4y7Nk5MmksxgZX5zDvZ5NW3cLUcp4c9Z6VLwyDocpMbCpqS6rx
+ dm1uEBzzIhZHcLxrr6KAN+2m/aKseD0CZ7pS2DfxGC52h8F/VDLLzEUW3JGRmUMtGpsj
+ vwlcEjVHP8KdGcTU+hyoEblpP1lhWmJY2XkTFi42aw7x+pKqHm4wOUIyo/3XPLOF9PO8
+ IHvw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxLTIKMHKUv7AMlDfoJ1bM7n0K+kZmeeV6Uh24RRKnToVjhUFtuS0Juu10bamQGWeLYGFsTj58M@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kz/wzQB4Z+1y5Gly8w2mU9ybWwf+IZgtBnC4Jn6FaR8sFKKuhg
+ 52K6A3So51+gGG9QuWo+YmpevX8In8VF/lezBQpjyKbt4od5CBN3TZJF
+X-Gm-Gg: AYBFou2RFReKzICr/t2gYhNijsSI7hgjmPQ84TRPOWRTDT01dfqg86IhmX/O73kH+UR
+ ZZN+Mpeg2FeQBA5TZ0T/6SCpTYT7zgcMYct/qabHcqXQWfGfWLojiyQG+e4dp6C8Rc1HeZyL/59
+ UmcixW8UGthSmWYVORPPxBZP2DKvVOin/BgaTaA2jTbYaC3NODI4ocXrG30jCT9wwl1UKPh+gUU
+ gOqKn2jyL0wB38vOnI9UGYnyG0byneWv4GL0A+CX1eU1vjPJknxcA10ImNTaEIIrbc1BULf0s3X
+ AK+ALDPI51/jSQTzDLrAUhfo6fPZDtJ10D7fVbKLtQUgjTkMT0oACdoCWRq0zRgqeRm7LjB6wlu
+ ZCDZKa/mDOaBauzIYAZf2QfJlP4YjPo8lE/Umrp0MuIWFp5zh+YtQOfl0kLgxNqFpS+shormslC
+ +/RaNaSyMBKcpdSPTjhnhZfQdnnxG/iYIQcR3ZkQEs3RqCq3sPmLVjPLlwEF36knhxOxs4hJmQ0
+ A==
+X-Received: by 2002:a17:90b:52cf:b0:398:9c39:520f with SMTP id
+ 98e67ed59e1d1-39e54bd0941mr10914911a91.15.1789836618094; 
+ Sat, 19 Sep 2026 09:50:18 -0700 (PDT)
+Received: from G15-5520 ([103.206.144.198]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-144d55cef9bsm7531914c88.10.2026.09.19.09.50.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 19 Sep 2026 09:50:17 -0700 (PDT)
+From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Subject: [PATCH] drm/amdgpu: replace deprecated function strcpy() with
+ strscpy()
+Date: Sat, 19 Sep 2026 16:49:59 +0000
+Message-ID: <20260919165000.36173-1-lalitshankarch@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Easytech-Libra-ESVA-Information: Please contact Easytech S.r.l. for more
- information
-X-Easytech-Libra-ESVA-ID: 4hnLbL0jJVzGnv4
-X-Easytech-Libra-ESVA: No virus found
-X-Easytech-Libra-ESVA-From: info@mtsistemi.it
-X-Easytech-Libra-ESVA-Watermark: 1790454334.27482@xkkN514nVSsrS/HD37UEOQ
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:11:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,99 +91,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm_hpd_init() clears every hotplug source in the enum before
-enabling the ones it needs:
+Prefer using strscpy() over the deprecated strcpy() function to
+populate ras_block.ras_comm.name.
 
-	for (i =3D DC_IRQ_SOURCE_HPD1; i <=3D DC_IRQ_SOURCE_HPD6RX; i++)
+No functional change.
 
-DC fills the unused slots of its interrupt table with dummy handlers
-that assert when touched, so on an ASIC with fewer than six HPD lines
-that sweep warns and taints the kernel. DCN 2.0.1 has two:
-mmHPD0_DC_HPD_INT_CONTROL and mmHPD1_DC_HPD_INT_CONTROL are the only
-hotplug registers in dcn_2_0_1_offset.h, against five in
-dcn_2_1_0_offset.h, and irq_service_dcn201.c defines hpd_int_entry(0)
-and (1) accordingly.
-
-On an AMD BC-250, which appears to be the only GPU using DCN 201, every
-boot produces this for sources 3 to 6:
-
-  [drm] *ERROR* dal_irq_service_dummy_ack: called for
-      non-implemented irq source, src_id=3D0, ext_id=3D0
-  [drm] dal_irq_service_set: src: 3, st: 0
-  WARNING: .../display/dc/irq/irq_service.c:129
-      at dal_irq_service_set.cold+0x2d/0x76 [amdgpu]
-   dal_irq_service_set+0x4c/0x100 [amdgpu]
-   amdgpu_dm_hpd_init.cold+0x15/0x12e [amdgpu]
-   dm_hw_init+0x4c/0x170 [amdgpu]
-   amdgpu_device_init.cold+0x1727/0x1ec0 [amdgpu]
-
-and the machine comes up tainted W, which makes every unrelated bug
-report from it harder to read.
-
-Walk the links this ASIC has instead of the whole enum, and skip a link
-with no hotplug line of its own, which is the same guard the enable loop
-further down already applies. A source owned by a real link is
-implemented by definition, so the dummy handlers are no longer reached.
-Parts with six HPD lines are unaffected.
-
-Signed-off-by: Mattia Tadini <info@mtsistemi.it>
+Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c   | 6 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c  | 2 +-
+ 10 files changed, 12 insertions(+), 12 deletions(-)
 
-Tested on an ASRock AMD BC-250 (Cyan Skillfish, DCN 2.0.1, two HPD lines)=
-,
-kernel 7.2.6, across reboots before and after the change:
-
-  before:  2 WARN splats and 8 error lines per boot, for sources 3 to 6
-           /proc/sys/kernel/tainted =3D 12864
-  after:   no dummy_ack, no irq_service warning, no call trace at all
-           /proc/sys/kernel/tainted =3D 12352
-
-The 512 that goes away is the W bit. What is left comes from an unrelated
-out-of-tree module on that machine.
-
-Nothing regressed: both DisplayPort connectors still report the right sta=
-tus,
-the driver logs no HPD failure, and amdgpu keeps servicing interrupts
-normally.
-
-I do not have an ASIC with six HPD lines to test the unchanged path on.
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 22 ++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/driv=
-ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index e49803a..b0ede5d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -903,11 +903,23 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
- 	int i;
- 	bool use_polling =3D false;
-=20
--	/* First, clear all hpd and hpdrx interrupts */
--	for (i =3D DC_IRQ_SOURCE_HPD1; i <=3D DC_IRQ_SOURCE_HPD6RX; i++) {
--		if (!dc_interrupt_set(adev->dm.dc, i, false))
--			drm_err(dev, "Failed to clear hpd(rx) source=3D%d on init\n",
--				i);
-+	/*
-+	 * First, clear all hpd and hpdrx interrupts, over the links this ASIC
-+	 * has rather than over the whole enum: the unused slots of the DC
-+	 * interrupt table hold dummy handlers that assert when touched.
-+	 */
-+	for (i =3D 0; i < adev->dm.dc->link_count; i++) {
-+		const struct dc_link *link =3D adev->dm.dc->links[i];
-+
-+		if (link->irq_source_hpd !=3D DC_IRQ_SOURCE_INVALID &&
-+		    !dc_interrupt_set(adev->dm.dc, link->irq_source_hpd, false))
-+			drm_err(dev, "Failed to clear hpd source=3D%d on init\n",
-+				link->irq_source_hpd);
-+
-+		if (link->irq_source_hpd_rx !=3D DC_IRQ_SOURCE_INVALID &&
-+		    !dc_interrupt_set(adev->dm.dc, link->irq_source_hpd_rx, false))
-+			drm_err(dev, "Failed to clear hpdrx source=3D%d on init\n",
-+				link->irq_source_hpd_rx);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index a6f95ff47d24..8bd91314d0e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1132,7 +1132,7 @@ int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
  	}
-=20
- 	drm_connector_list_iter_begin(dev, &iter);
---=20
-2.55.0
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "gfx");
++	strscpy(ras->ras_block.ras_comm.name, "gfx");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__GFX;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->gfx.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+index 5a60d69a3e1f..3fa533d5b18c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.c
+@@ -39,7 +39,7 @@ int amdgpu_hdp_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "hdp");
++	strscpy(ras->ras_block.ras_comm.name, "hdp");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__HDP;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->hdp.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+index 363b99168478..969ebc9d5a69 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+@@ -328,7 +328,7 @@ int amdgpu_jpeg_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "jpeg");
++	strscpy(ras->ras_block.ras_comm.name, "jpeg");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__JPEG;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__POISON;
+ 	adev->jpeg.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+index 9a7f7d2b2767..42a05b5a2d30 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+@@ -87,7 +87,7 @@ int amdgpu_mca_mp0_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mca.mp0");
++	strscpy(ras->ras_block.ras_comm.name, "mca.mp0");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MCA;
+ 	ras->ras_block.ras_comm.sub_block_index = AMDGPU_RAS_MCA_BLOCK__MP0;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+@@ -112,7 +112,7 @@ int amdgpu_mca_mp1_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mca.mp1");
++	strscpy(ras->ras_block.ras_comm.name, "mca.mp1");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MCA;
+ 	ras->ras_block.ras_comm.sub_block_index = AMDGPU_RAS_MCA_BLOCK__MP1;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+@@ -137,7 +137,7 @@ int amdgpu_mca_mpio_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mca.mpio");
++	strscpy(ras->ras_block.ras_comm.name, "mca.mpio");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MCA;
+ 	ras->ras_block.ras_comm.sub_block_index = AMDGPU_RAS_MCA_BLOCK__MPIO;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
+index 0f6b1021fef3..9796428e44e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
+@@ -36,7 +36,7 @@ int amdgpu_mmhub_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mmhub");
++	strscpy(ras->ras_block.ras_comm.name, "mmhub");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MMHUB;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->mmhub.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
+index e4c8e98725f0..785bf29d2c90 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
+@@ -37,7 +37,7 @@ int amdgpu_nbio_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "pcie_bif");
++	strscpy(ras->ras_block.ras_comm.name, "pcie_bif");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__PCIE_BIF;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->nbio.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index fbac732f3e01..4e520d16e550 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -327,7 +327,7 @@ int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "sdma");
++	strscpy(ras->ras_block.ras_comm.name, "sdma");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__SDMA;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->sdma.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+index 71d34fd09385..69fdd075e14a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -315,7 +315,7 @@ int amdgpu_umc_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(adev->umc.ras->ras_block.ras_comm.name, "umc");
++	strscpy(adev->umc.ras->ras_block.ras_comm.name, "umc");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__UMC;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->umc.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 17db7264269e..bc7b5733f581 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -1333,7 +1333,7 @@ int amdgpu_vcn_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "vcn");
++	strscpy(ras->ras_block.ras_comm.name, "vcn");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__VCN;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__POISON;
+ 	adev->vcn.ras_if = &ras->ras_block.ras_comm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 45e31b3daf06..5babcba1907e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -1341,7 +1341,7 @@ int amdgpu_xgmi_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "xgmi_wafl");
++	strscpy(ras->ras_block.ras_comm.name, "xgmi_wafl");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__XGMI_WAFL;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+ 	adev->gmc.xgmi.ras_if = &ras->ras_block.ras_comm;
+-- 
+2.53.0
 
