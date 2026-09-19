@@ -4,122 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6370C982D8
-	for <amd-gfx@archiver.kernel.org>; Sat, 19 Sep 2026 17:04:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED2EC982CC
+	for <amd-gfx@archiver.kernel.org>; Sat, 19 Sep 2026 20:08:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A55610E2D1;
-	Sat, 19 Sep 2026 17:04:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE9B610E15B;
+	Sat, 19 Sep 2026 20:08:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lOnPuqzD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mhtN+xj9";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011013.outbound.protection.outlook.com [52.101.52.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD91A10E2D1;
- Sat, 19 Sep 2026 17:04:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e1iLCs+k4imYrJaTxMTdLj1W/rcjgNXNo0zSmabVrwj5RCkJr37yEd/91eujwh9JMGvD0g56OWuL45kfXGmN40DvvW3TZC+kztdoSYp4ly982UgjpJ4P/JwN2f1DP0JTwAIxH54zyNzlPlYTpYXSc5HOc9mFeF/LhbSNaT4R3VxpWXaG0b0lez4BfsF19m7lqBjkVp4V0ux/iST7KVxpsixtS54kg0O8m0XsIn3QZdV0P8JcthfO5yvnTOBoAoaaRjrmAvOMxqn2k4UGeQmzdp69cdEVqGyv7zvGfv9ON5C/aJIQZjz0C68kXmgsx4CZy+Jdx7uIpatqe0fAh/YqTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7G70Bo+i1CGRX0mOu9i7R72n+hpuJi9VqfffaddyHCM=;
- b=L8kwbjOOGGHlgxxWKbgx0YBdpJWoTMcy5aMNH11dZWOhncTwRdekrUDcc6KYVjoZWVlTPGpbjoMOLImT0OQxaHSla9qkwAGT3VgNgpCIaNPCclez7IEfrQFJUAkOa5mupRd18LmJqqzmnIxPhoz3ft7R+FZMy4tXz5kUufgO+1IMgNkZfKyKrU5IUAtAdhLQ3AD0fVxoQjv4EM8ejC1bwE0UdniZe/RpiDOyvrXI1jBELpolILxMXtsmW25d5q5AbjuiMNgxoHn2niBxSnhpYhJgryHS1xYNE57fbmAuVZJYZhHxktqHbmSeGB/52RUQU90fST5ZFq59hsPixFGDmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7G70Bo+i1CGRX0mOu9i7R72n+hpuJi9VqfffaddyHCM=;
- b=lOnPuqzDP+u32BCI9GvndPeJNsNDRi1pxuD79n9XnjsNCTC26aQ8JD3uu1youCVulWuF9WB456Jg/mS4sr4aqTAFXR+QFLiHekOazEK1uDKqUjGM99xTNXyVxBIOUqECX1BdtNndb1WxInEA44+tqbZZEMUqCoWm8VQ8EQt5hwM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by IA1PR12MB8309.namprd12.prod.outlook.com (2603:10b6:208:3fe::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Sat, 19 Sep
- 2026 17:04:48 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0428.011; Sat, 19 Sep 2026
- 17:04:48 +0000
-Message-ID: <8fd336cc-6dae-4a9e-97d0-0c5eddab589c@amd.com>
-Date: Sat, 19 Sep 2026 12:04:45 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm/edid: Honor overrides when DDC is unresponsive
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20260917135949.2552704-1-mario.limonciello@amd.com>
- <1efb1842489bc50e87ab0476e3d3ad861d6ef807@intel.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <1efb1842489bc50e87ab0476e3d3ad861d6ef807@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN0PR04CA0210.namprd04.prod.outlook.com
- (2603:10b6:408:e9::35) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9BFE10E15B
+ for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 20:08:25 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49e620fa473so10535935e9.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 13:08:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789848504; x=1790453304; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4zH2coYvkCFk4ebyaBOaXh6iikHxkJzRaCpn2ESsA3w=;
+ b=mhtN+xj9lvZYzW5aWjd/Z5ehWMsUMy0bv5qnXhCM/39cmP/n7crfYzFNjGPlkqTKQV
+ 7uu2fyI4NXCxQwkiLNPBBQtXQHAm6R27MwwGTD1Gt96DHuy2tSoGPYIRrQqPpMhk0qpt
+ OFV6lAFNS7Ek+PwmVfUSEUyhwygfZzxjSl/uih2U0xYXCNtKfkG/Jm5x89sA22EUuPqa
+ wQTk0qMi/LguzTTSXjKBLgqguxjMRiw8Cc7rL2RMnOtjZEhyqXEFlEBPKAKCpiyX1SHo
+ CTcoGKa6wlpA+VWujF8NQVBKUck8ewEdqLJHOpzwPvf0UouBNxilM3o25iCplJgb/tuD
+ e2zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789848504; x=1790453304;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4zH2coYvkCFk4ebyaBOaXh6iikHxkJzRaCpn2ESsA3w=;
+ b=zFe0FIKDQSqaNHFBaDXoGUfdKykg8HaAaOMeeixyigXxP+U0rFwDE9XEN4+EiU+LXM
+ 3WZx73LXtsd2dqNiDj0dapRrW8si2ztI+eSzryJPEcAqUDF9+AufcHQw5x9x2dj92dLl
+ vyTuP1CIHdYfwHYDnXrXl692B59qX5QNq0ih4nmcuncpy7OmGILHdOSTkAP4TwFuggSm
+ Zb2yzgZyKeH+AzUVocvD+tBHBnN4p1kG3lF29fON3BB5+IX1gPO6gav7E/FZP2n2FlLs
+ YJNfl5DeLjRxXrC6Vmwhq+joi/UhXNurrWTBx7yaDL6SAIp0bkTYOnd+ZAy9xNM6HSX0
+ 3ACQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxTbY81b8mGIXFDPJuL9JO2Y0D7EzbIiCmdAgUdmjKoBKzDR/djsWWgVu8VRrGqjDbC4At/odKq@lists.freedesktop.org
+X-Gm-Message-State: AFuF++naIL5bwMBaHAj7WNRFVv4I46b2KWE2JjwlHuoxq/nawIDlkA4c
+ ojr29anWmHl6DzDkeCcsVPG5x09dZbC6V0VYXWUjT+OvUt7hFko3kqOy
+X-Gm-Gg: AYBFou1aKyC8d5BYEuSbFa3t7q2px1xUAq6+nEj9EujxR4davNDyMJcka4D8SQ+vv5i
+ Cb6CtKM8IENZdJ4JlJKPsCVOzOSpXLnYa7RKI2H7zJACg/g1qm5lox3afByIQxqGbcRsbB35a/I
+ U8/S3i/6pcCRZTDdAnEu+OwYLQei9ITYb+aFQKEnAeAxTHC7IlIoYEqMsIMEmr4C0Evd0Akqxoy
+ cH8qi0HeqgQeub9Xvxdu3aij0daAWF7ZPXO6ySND4+t9KgBDM+K4oyXzlI4DYGACxFnPhg1Umm9
+ Z2m8X5YztotgtAXXdH1aZKIQ2ZeSmoFa0qzEIA6JRpt/xZOD3BfUmwkeVCQ41FUF7IgrEIeHqWD
+ tF8tYz/56L1ptF9AKAPrrvj+4KFs+sP7ZhQlnk3P7WYlGMRAPwZd6Zvhn37fQkMmLZFfjSRnVO/
+ S7Pg/on6RmEuqfxH2cnMUTGXpMUU0+FZ4E/+7vlnHKc2A6tuZz8liN6XuaIslW0/qmYmjd1dmP7
+ lDAAq7DJXiFVjBXvRLpJQTnHs2PcE40hj6vvNaBChamhl3fJEntP7pMB1J4+l3oBrUAG70=
+X-Received: by 2002:a05:600c:1989:b0:49c:e42b:a4ac with SMTP id
+ 5b1f17b1804b1-49fc5714d14mr89393375e9.11.1789848504060; 
+ Sat, 19 Sep 2026 13:08:24 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fc56aab7csm115777395e9.1.2026.09.19.13.08.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 19 Sep 2026 13:08:23 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ George Zhang <george.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+Subject: Re: [REGRESSION 7.3] drm/amd/display: single-frame scanout corruption
+ on DCN32 at 120 Hz since a637a140ab86
+Date: Sun, 20 Sep 2026 01:08:20 +0500
+Message-ID: <20260919200820.799243-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902073222.206801-1-mikhail.v.gavrilov@gmail.com>
+References: <20260902073222.206801-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|IA1PR12MB8309:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e44a8f7-cdc3-464b-9c76-08df16701ce2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|10067099003|3023799007|11063799006|5023799004|18002099003|22082099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: rWITfpJ8ubdvsZCTvUQvVNw0imghtErHQAtzMLHyiLH3Zp5YXCSaZXQH9+REbdpdwKu+tMWJaryc+WHq2YgAFI3nNZ2ApEBur1Nx/84NlfLQTK2zUYFVbKW3Zyf+d4T0x6Aius254YZiJ0Lo5gb8zTXLm3UHLNHy4fa/dVxlah/624hj8E09XNXpmQlD+F8m1wghFuXxrZ8Q2LFMQDaooxgQROHYNiItsPkty2vvtbjlPlFekQL78yFk9r7rzLFhU1E26nRaxJ2q05ucrwX14SJ7hXeBn++a9eREiveNxSQuns9MgBZElmNogzE2veuVzMa+GiG7BbjaHhM6dhb1C3qwEsen1wyQA6+e2zCYUgw2FV02ZBxG4ygK/YFGCroDoD/oKtea2M0To/xq9GX5zfveqDFGRXqT/Y5Bv2VgSpQcpK02fn5vI7bPAj4r49AF9v8zG1ocE5XdQggPABKNjy3YicZlfAVoWg58sXSg1NQ9DtOLGiCVherYnAmZXvmLakRmVWHE08DjQ72NkVAWAmvnnjZlAdY6OFfVIPxTP4oNnBP0su6FFZCk30+nxvwqUMLgorRnIWhhI2IHMTA3DlWMrAeJMWmhifma6LItvXtIHOPOUbm51mgapHdr8y+jACONaIfV+pmG4q3yeZqg2zwDba218vitJJrYvlRI7kA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(10067099003)(3023799007)(11063799006)(5023799004)(18002099003)(22082099003)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmZBZjA1enJ0OHprVnk4bm4rZTVWZThaaXJ0WGxVMitGTWlLUE13RjVMOWt4?=
- =?utf-8?B?SVZyY1YwSjEzQ0NQWWwvTjNkN3VrL1FOMDhUZWdHUFZoL1k4NkYvR3JacjFq?=
- =?utf-8?B?OUFKVHh3eXdZTWFwcEFtUTdYWjdZOWdsRnFKSncxZE5wZzV2Q1RGNkhrQW5a?=
- =?utf-8?B?RTZTZTc4M2lNRWROTzFJZElKdU1zL1FIUVR0WUNjN1hPVW1oQkdiZW9Cemly?=
- =?utf-8?B?c3dQcmxLYVJFdkVlcS9qZUpDcTU3ckFkeHkzRkRHN0t5Y0NqT0F5Z2RNKzRj?=
- =?utf-8?B?bkswK2Z3eWtTZ1oyWm5EaDFzRnJ2eVgrVEd2MUtlenhKZUc4dDJxa2RGMnk4?=
- =?utf-8?B?aHdBNlFIaEZOSVlKUVB4U2VRdXR0aVhvNkpqak1FaW9WZWVpeTQweW9OUW9h?=
- =?utf-8?B?ZGR6TEdIS2xRMEZHTEFIc0sxOXBmOWtqZ3Fhd0JSbTlZeWx1MEJIblZUbjkx?=
- =?utf-8?B?MFRIUmxiVGpjRTVaczlQMFptVkc2a2FpbEczWUhiZlJJODEzMFFvL3Joa2w1?=
- =?utf-8?B?Vm0wN2FTa2g0NXl3Z21GaS9sbXJ0eFFTWTAyQ2liSUZRR2NJdFlXV2UrTDVi?=
- =?utf-8?B?TXlnZmY1QUQxWkl6ejE2OEhsbGRlL3hKQjU1WDNYdEdpdHE2UDFsdjgwa0t2?=
- =?utf-8?B?d1picXVGQjA2Nnd4bVRlZWlvekNWNjFramRsMzA0bytzeTlEZUtDNmk0S2Jr?=
- =?utf-8?B?aHJlYW9jTlRrd1NTdGlpVlRjVXhKRGRvV09YcmpGQ1JoNjE0NFBtdlVpb0Zr?=
- =?utf-8?B?ZGlkNkI4Wm81cUtaQ3RiR1BuQm9IU2RlTmFrWkxOVkdsaDhXTFJnM1IrSVhN?=
- =?utf-8?B?Q3EwSXgwTGhlb2FJSHdhSldhUEpmbVlRV1BObGRTUnVCeEpTc1FzclhSSDZT?=
- =?utf-8?B?S09oOUpSM08vR3F2aXBnU3NPZUJKZS9JVDg3bmpzSHBXM2Q0cm81UDljamIz?=
- =?utf-8?B?VmYvSE0zaGp2VzJMbkxYeHRYZzNZdHdjdGJVeFptNXM0cWJvWHdyRVlxQmhG?=
- =?utf-8?B?ZnZFUlk3U1BMT2tLanpqWWxlQUJBU0p2NU9nVDczdjBIL21kM0dIekgycEwz?=
- =?utf-8?B?cDhxdlRtT2NKMGpxbXhxM2hQRFVDRW9Ndmt2QnVJRjhFWE8zNDdUcHB6UlVD?=
- =?utf-8?B?NXB1eXJjSGt4ZUJwcy8vMFh3Q1NyZmI2Tk4wbG5CWisySUlFWUd1TlNvMmFi?=
- =?utf-8?B?K0ZDNVZraHA4SDBZUHlYbVVMWWlkc0FEdWs2RWxCSUl5U2xuQWFhMkpUeUJ0?=
- =?utf-8?B?bktVOWQwTzhHSnZMR0EzazlwRmZWZkFPa1VLMGU4engvZlkyZC9LSEZxZ0Jx?=
- =?utf-8?B?ajFBWHBnbUM5aFU4V1BtYW16T0xnaDhRK2xaZVA1ZW9Wd3VNYktJYjVyVXhY?=
- =?utf-8?B?OWZlOVlRS0cvZDJnWUlMalhjb2VZNEF0NW9QeC9ZUXJNczJEMWZPb1ZxNTAx?=
- =?utf-8?B?MS96R2F5UzdPb2FlbUE2ZFUvSFFsSXdaNmVsbTFxMEtjZEM5S3V0TVhhN3Iz?=
- =?utf-8?B?UUdJaThaM0NYbE5tMGEvc0pudmI4VEp3K1NXMkxUNjlpVUx6U29RQml6NGpM?=
- =?utf-8?B?dFhvbCtIajFvSHRaMGR2Q2tGRkxJRWtlOU5SSjRQMmxyYVUvazhTdmZWYkli?=
- =?utf-8?B?MjcydTN1MlQvMlhuVWszU0orcDJzWWZVczlFZ3EvZThiOWpacGlXVXAycWxh?=
- =?utf-8?B?V0pENzMyY1hPVzAwUk1ua05PWTdPM0s2S3cxaGFhZzJDb29pSHU0WklIT1Jt?=
- =?utf-8?B?WGZBMFhIOWE3dDdPVWx4UTNGaW5uU2JRSEVjTFlVdjg2NC8yZmNoV1pwVkpJ?=
- =?utf-8?B?T210ZWFSSlBuZXQ1cnZ0aVJMRksvS1N1dVBvRFppY040ZytHOHRhZnpYTjcw?=
- =?utf-8?B?RU15ZFovVWxYeGI5clFyeUV6YzY5UURlRGQ4MHFMYzRNU1BIQ2ZvNWlHa01o?=
- =?utf-8?B?UzJ1YmFoamVNakpLeFQ0SlY5UGNQQVZteHJuREJKajlUbHkxR0ZyY0w3cDAr?=
- =?utf-8?B?eW5Kak5EY001d21EQ3JCZEoxLzl3NG5lVHNwaHgzY2QzaXlKK1BRbGpScUVJ?=
- =?utf-8?B?NG1pUUkrQUhGdVY1SStGb0dtbXhuV3NoSlNjbzNaSW5xajR3cEd5ZDJuRU91?=
- =?utf-8?B?bFgrRmpGek93bGZmWk84d2FxVXhSeXJLMGJvUFBsTG9NWlhSVVdkcjNsYTk2?=
- =?utf-8?B?SkRlRDRuUUsvbE12Y3RvT1V5Z1dGUzNyS1Y1MUlSU2o4SmpRODFnN2VQeHl4?=
- =?utf-8?B?OWkxSlNLZlg2NU9UQTA2QkdhSk9sWnJwQlVsMi8wdWJKNFNOTGF2eGNkWGtU?=
- =?utf-8?B?L1VZTE1pMHlId0hsQlRNcmRzNkhyNGZCVXBaMlhCNFpmUm5MQ3F2Zz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e44a8f7-cdc3-464b-9c76-08df16701ce2
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2026 17:04:48.8179 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UNPmMFvvr2hihdI5qO/d5pxpCp3DEZBTdA963zNOA5ZMHRKrjG64VM12k8dS87HqkaEYkPtI/5RHCdiKo5gwDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8309
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,55 +94,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Following up on my own correction: the attribution to a637a140ab86 is back,
+and this time on a comparison that does not have the flaw the first one had.
+
+In my previous mail I withdrew the 90x figure because the rate turned out to
+depend on the machine's recent load and my two runs had not controlled for
+it.  I have now measured the commit against its immediate parent, in matched
+conditions, and the difference is there without that confound.
+
+  parent  1d8327353de6 ("drm/amd/display: Fix VABC Init and OLED Support")
+  commit  a637a140ab86 ("drm/amd/display: Allocate DCN32/1 dmub memory to GTT")
+
+Same machine, same display, same 3840x2160@120 mode, same .config, ordinary
+desktop use, no game in either run, about eleven hours each:
+
+                          parent            commit
+  observation             11.0 h            11.6 h
+  eligible frames       3,019,571         3,632,444
+  events                        7               293
+  per 1000 eligible        0.0023            0.0807
+  95% interval      0.0006-0.0040     0.0714-0.0899
+
+That is 35x, with the intervals more than a decade apart.
+
+"Events" counts only frames where all three CRC registers moved, which is
+what the artefact does.  The single-frame content flicker that moves only
+the luma CRC serves as a built-in control, and it did not move with the
+kernel: 0.0020 per 1000 on the parent against 0.0008 on the commit.
 
 
-On 9/18/26 04:41, Jani Nikula wrote:
-> On Thu, 17 Sep 2026, Mario Limonciello <mario.limonciello@amd.com> wrote:
->> DRM's EDID read helpers probe DDC before consulting debugfs or firmware
->> overrides. This preserves connector-detection semantics for drivers that
->> use a successful EDID read as evidence that a sink is connected, but it
->> prevents drivers with independent presence detection from using an
->> override when DDC is unresponsive.
-> 
-> IOW, your use case is that you want to use an override EDID with
-> reliable presence detection other than the DDC probe, and don't want to
-> use connector forcing.
-> 
->> This affects AMD Display Core, which establishes physical presence from
->> HPD before attempting to read the EDID. When a connected sink stops
->> responding over DDC, the configured override is ignored and AMDGPU falls
->> back to a 640x480 mode.
->>
->> Add an override-only EDID reader that does not access hardware, then use
->> it in AMD Display Core before trying ACPI, VBIOS, or DDC sources. The new
->> helper preserves DRM_FORCE_OFF handling and the existing preference for
->> debugfs overrides over firmware EDIDs.
-> 
-> It was quite a bit of work to unify the firmware/override EDID handling
-> to be the same for all drivers. I'm not exactly thrilled about exposing
-> a mechanism to *only* get the override EDID, just to allow drivers to
-> deviate from the unified mechanisms.
-> 
-> The goal was to plug in the override at the low level, hidden away from
-> drivers, to make it as close to the normal case as possible. One of the
-> follow-up ideas, which I never really got around to, was to do the exact
-> same validity checking in _drm_do_get_edid() for override EDIDs as
-> regular EDIDs.
-> 
-> I'm thinking maybe we need a way to allow drivers to define a
-> drm_probe_ddc() alternative as a connector callback? If you set it, you
-> can use another mechanism for presence detection than DDC probe,
-> otherwise fall back to DDC probe. It could be used in the regular case
-> too, if you have a reliable and quicker mechanism than DDC probe.
-> 
-Well I guess the real reason that this deviation in amdgpu exists is 
-because of the ability to read the EDID from ACPI.
+The load confound does not reach this
+-------------------------------------
 
-See dm_helpers_probe_acpi_edid() for what it does.  Should we bump that 
-up to DRM core so all drivers could use it?
+Both runs began immediately after a reboot, which resets the state, and
+neither had any load yet in its first hour:
 
-It was added to admgpu for consistency with Windows behavior - Windows 
-pulls from ACPI first.
+  parent : 0 events in 434,204 eligible frames
+  commit : 52 events in 349,718 eligible frames  (0.149 per 1000)
 
-But if there isn't appettite for this being used everywhere; yeah maybe 
-switching to a callback might work too (I haven't prototyped it yet).
+So the difference is present before anything could have excited it.
+
+The shape differs too, not only the rate.  On the parent the worst
+five-minute bucket in eleven hours contained 2 events, and no bucket
+reached 3.  On the commit the worst contained 30, and 28 of 138 buckets
+reached 3 or more: the excited state comes and goes by itself there, and
+on the parent it never appeared at all.
+
+For completeness: the commit run does contain three windows where almost no
+frame was eligible - roughly 14:30-15:25, 21:10-21:25 and 23:45-23:55 -
+which is what fullscreen content looks like in this data, and the parent run
+has no such window.  The first-hour figures above are free of that, and the
+rate is normalised per eligible frame throughout, but I would rather point
+it out than have it found.
+
+
+What this does and does not settle
+----------------------------------
+
+It restores a637a140ab86 as the point where this starts on DCN3.2.  What I
+said in the correction about the state machine still holds and is
+independent of it: heavy GPU load excites the artefact, a long spell at
+60 Hz or a reboot calms it, and DTN snapshots in the excited state are
+byte-identical to quiet-state ones.  Those were measured on kernels that
+already contain the commit; the parent simply never leaves the quiet state.
+
+I still have no mechanism.  The commit moves every DMUB FB window out of
+VRAM into GTT, and I cannot see how that produces one corrupted scanout
+frame while leaving every register in the DTN dump unchanged.
+
+The GitLab issue has been updated with the same numbers:
+
+  https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
+
+#regzbot introduced: a637a140ab86
+
+Thanks,
+Mikhail Gavrilov
