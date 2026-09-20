@@ -4,82 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED2EC982CC
-	for <amd-gfx@archiver.kernel.org>; Sat, 19 Sep 2026 20:08:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 337DBC982CC
+	for <amd-gfx@archiver.kernel.org>; Sun, 20 Sep 2026 09:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE9B610E15B;
-	Sat, 19 Sep 2026 20:08:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B242A10E1DD;
+	Sun, 20 Sep 2026 09:47:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mhtN+xj9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rtOgYYao";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9BFE10E15B
- for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 20:08:25 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49e620fa473so10535935e9.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 13:08:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789848504; x=1790453304; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=4zH2coYvkCFk4ebyaBOaXh6iikHxkJzRaCpn2ESsA3w=;
- b=mhtN+xj9lvZYzW5aWjd/Z5ehWMsUMy0bv5qnXhCM/39cmP/n7crfYzFNjGPlkqTKQV
- 7uu2fyI4NXCxQwkiLNPBBQtXQHAm6R27MwwGTD1Gt96DHuy2tSoGPYIRrQqPpMhk0qpt
- OFV6lAFNS7Ek+PwmVfUSEUyhwygfZzxjSl/uih2U0xYXCNtKfkG/Jm5x89sA22EUuPqa
- wQTk0qMi/LguzTTSXjKBLgqguxjMRiw8Cc7rL2RMnOtjZEhyqXEFlEBPKAKCpiyX1SHo
- CTcoGKa6wlpA+VWujF8NQVBKUck8ewEdqLJHOpzwPvf0UouBNxilM3o25iCplJgb/tuD
- e2zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789848504; x=1790453304;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=4zH2coYvkCFk4ebyaBOaXh6iikHxkJzRaCpn2ESsA3w=;
- b=zFe0FIKDQSqaNHFBaDXoGUfdKykg8HaAaOMeeixyigXxP+U0rFwDE9XEN4+EiU+LXM
- 3WZx73LXtsd2dqNiDj0dapRrW8si2ztI+eSzryJPEcAqUDF9+AufcHQw5x9x2dj92dLl
- vyTuP1CIHdYfwHYDnXrXl692B59qX5QNq0ih4nmcuncpy7OmGILHdOSTkAP4TwFuggSm
- Zb2yzgZyKeH+AzUVocvD+tBHBnN4p1kG3lF29fON3BB5+IX1gPO6gav7E/FZP2n2FlLs
- YJNfl5DeLjRxXrC6Vmwhq+joi/UhXNurrWTBx7yaDL6SAIp0bkTYOnd+ZAy9xNM6HSX0
- 3ACQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxTbY81b8mGIXFDPJuL9JO2Y0D7EzbIiCmdAgUdmjKoBKzDR/djsWWgVu8VRrGqjDbC4At/odKq@lists.freedesktop.org
-X-Gm-Message-State: AFuF++naIL5bwMBaHAj7WNRFVv4I46b2KWE2JjwlHuoxq/nawIDlkA4c
- ojr29anWmHl6DzDkeCcsVPG5x09dZbC6V0VYXWUjT+OvUt7hFko3kqOy
-X-Gm-Gg: AYBFou1aKyC8d5BYEuSbFa3t7q2px1xUAq6+nEj9EujxR4davNDyMJcka4D8SQ+vv5i
- Cb6CtKM8IENZdJ4JlJKPsCVOzOSpXLnYa7RKI2H7zJACg/g1qm5lox3afByIQxqGbcRsbB35a/I
- U8/S3i/6pcCRZTDdAnEu+OwYLQei9ITYb+aFQKEnAeAxTHC7IlIoYEqMsIMEmr4C0Evd0Akqxoy
- cH8qi0HeqgQeub9Xvxdu3aij0daAWF7ZPXO6ySND4+t9KgBDM+K4oyXzlI4DYGACxFnPhg1Umm9
- Z2m8X5YztotgtAXXdH1aZKIQ2ZeSmoFa0qzEIA6JRpt/xZOD3BfUmwkeVCQ41FUF7IgrEIeHqWD
- tF8tYz/56L1ptF9AKAPrrvj+4KFs+sP7ZhQlnk3P7WYlGMRAPwZd6Zvhn37fQkMmLZFfjSRnVO/
- S7Pg/on6RmEuqfxH2cnMUTGXpMUU0+FZ4E/+7vlnHKc2A6tuZz8liN6XuaIslW0/qmYmjd1dmP7
- lDAAq7DJXiFVjBXvRLpJQTnHs2PcE40hj6vvNaBChamhl3fJEntP7pMB1J4+l3oBrUAG70=
-X-Received: by 2002:a05:600c:1989:b0:49c:e42b:a4ac with SMTP id
- 5b1f17b1804b1-49fc5714d14mr89393375e9.11.1789848504060; 
- Sat, 19 Sep 2026 13:08:24 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fc56aab7csm115777395e9.1.2026.09.19.13.08.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 19 Sep 2026 13:08:23 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- George Zhang <george.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-Subject: Re: [REGRESSION 7.3] drm/amd/display: single-frame scanout corruption
- on DCN32 at 120 Hz since a637a140ab86
-Date: Sun, 20 Sep 2026 01:08:20 +0500
-Message-ID: <20260919200820.799243-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902073222.206801-1-mikhail.v.gavrilov@gmail.com>
-References: <20260902073222.206801-1-mikhail.v.gavrilov@gmail.com>
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010062.outbound.protection.outlook.com
+ [40.93.198.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7C110E1DD
+ for <amd-gfx@lists.freedesktop.org>; Sun, 20 Sep 2026 09:47:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=szlGrGFZYH+EnlASW+J2fwH5EEoDKARi1cHaCVbaEqbwno6RuL8efSti/QRrf4rcnSUqvip0QwTA7xVS9b1OCKs+Q6hO7eVSKLkkEO39PleuLiwUkFAoFK4oMTCmU9uW10SYt5B/Scb+EH390w0LBNEo4QxJoUhH2bx6sON2jryZhbiiTxibJQvOMKm6D7EkoUjyhTmZ6uEF2Q62kZxglivOJ286956L32wwYEWHyjf+RuamsmKJ5r8K+rCBswcoHch88oUActBx9JKO9/qYZAqqven3pgCFUCVUdsw0ugJcvyOANwEdFvumRNjTbntE19Brfe+iQSswtTCVZm415g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u3eXyVc0fsvJUKwTEYkiBNnTTdVmjLL5ouzVAEgZ4Z0=;
+ b=VWtwFQmZpE+8VujFSyJiRrGUDC8M8vxM3TLAJ6/XdHewmoQLosuJAasz4SXZ2ivRLcKkEXq1WdENTBkk7eV+6xDR83gjZkxhWVP/OwoDVKGByVBaTNKQ4Sic1Car4mhu7nwUEiTVxDWJMoXY6AavzuyDmk//9ufury2t9zgExOzkGmdiAYUIRUiscByGkyMxNTAGx4feNTNPXlvtK7qGc3124aPxqjsrqCy4XdXaBAagxc7OrK6aSJFmF6SPJqlX/SDMJT1/kFt6003ibl5wFYNXTC7bIxMOYakmlPsMtFp+LGyuINKSGroMn+3JJ5qcMFC7QQKhaUYLR1iHpmDjWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u3eXyVc0fsvJUKwTEYkiBNnTTdVmjLL5ouzVAEgZ4Z0=;
+ b=rtOgYYaouKm/fagIZhKxT9ZLPqmck6js9VPCzkWFfalmpSmPrU2CmJbxvYMzUQxG+fNFU9LIIiYK2KKDX3nTywqG+IqCsnPGT5eyrIutkv7d0hOU+lmk3xVrpWDClMDVfKS6Q5f/HJpwWxWs/4d/2kkjWishRbqEx4m5Q7o/OKc=
+Received: from MN0PR12MB5761.namprd12.prod.outlook.com (2603:10b6:208:374::6)
+ by CYYPR12MB8654.namprd12.prod.outlook.com (2603:10b6:930:c9::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Sun, 20 Sep
+ 2026 09:47:09 +0000
+Received: from MN0PR12MB5761.namprd12.prod.outlook.com
+ ([fe80::b0f2:27be:4ba6:3288]) by MN0PR12MB5761.namprd12.prod.outlook.com
+ ([fe80::b0f2:27be:4ba6:3288%5]) with mapi id 15.21.0406.014; Sun, 20 Sep 2026
+ 09:47:09 +0000
+From: "Zhang, Horatio" <Hongkun.Zhang@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Joshi, Mukul"
+ <Mukul.Joshi@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: skip the PASID TLB fence for the UALink NPA VM
+Thread-Topic: [PATCH] drm/amdgpu: skip the PASID TLB fence for the UALink NPA
+ VM
+Thread-Index: AQHdRov03lNMo+qPe0SC8hN/S2NlrbbXO7xQ
+Date: Sun, 20 Sep 2026 09:47:09 +0000
+Message-ID: <MN0PR12MB576143F1D159DB5DF1C1018CF7852@MN0PR12MB5761.namprd12.prod.outlook.com>
+References: <20260917100430.217954-1-hongkun.zhang@amd.com>
+In-Reply-To: <20260917100430.217954-1-hongkun.zhang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-20T09:42:56.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN0PR12MB5761:EE_|CYYPR12MB8654:EE_
+x-ms-office365-filtering-correlation-id: cdca6cd0-1b1f-44c3-a43f-08df16fc236c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: qwEBYJnlZKOrZOA7+HzJPo/3NxLZCZ4x32SZ/kPAB/kU3Ctip7aIOa8LOdzcyeaSqxxRDzZ6/Kp+AH971i4ijhuw3soFG6p85iN7S9XiwmwlaboSStRu00qknlCAqQgJPsve4ePlHGzcniSLJr6VN+eXJPPrAcuLOY5JTOcgjLPD+pSZ3nHt2VR2VHEsAkSc/PhWghd9jXxKFeFNXvD637ON3d50GFozWq+hjSAvbOZg8/mXDSYPSxJ2+5tHZ/EG0n4NQC0hPUdUNKI2YpD6v0dxoslKSj1mxTeOK7rUSDnqFuNQtd6NsMkQzYBg40nf/sb/eQJS+6yxdJD5k4lumwo9HQOmU93FGfG6ta8GIy89GLu0KrfsYmpbHIEgOOvdP0bciRkuCHprRkshJhOiQ1RLxXkWDEW3AleZsONV4Vk6d8/XFmjez+ybWFi3h96BIjS5+Jy9mZjhzVBFvgGaHEs6diZ1pvZUbumkOVn2pdbywosEVRaoBVdwlkksuXpB4PZrJrdWzzz8+eLuAEy2/+tPYB5fowIvdPC1MWw8Nm+80/0Fw5AHF4hVO2TZ3mw/rkMFspIs6O5uDgDBjeXm5pTqrO+12Vp6We1lCYrflxSWXMKQl8ZSirO+/93CcN1rsKikgeE5icu42P8v81oijVZZhHp2bjRRQAcUZU5K8ipQQQcIHStGG01yMgyF52dvn4nYLax93I8DcTI6vOT8/l55Q/lVOuQJlw1k2BfbMQY=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB5761.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YGdqM1snlhYD+FjrgGmKs7kCYNtOC4poPotvJv2Pa1lHAkllS1coFyBk1YmS?=
+ =?us-ascii?Q?cdd2tZJj8hKZbuLiamm1Rkd0+es1Bhddn2UCRofLCOM0+We1SI/Y7nD4ON2f?=
+ =?us-ascii?Q?S1RqDjmsak9KzBiSZDDHAyrvQFCs6FxiywauWe8xKqnGGeBPu3/2ZA3kGu96?=
+ =?us-ascii?Q?MwMFuy0osXh0u/xekMS/jIa0jDIfv1g7nusXNWGQMe9G7TuvD2lZJJcdLn0R?=
+ =?us-ascii?Q?J7debVQaY+zoYY4ZJe44p0QiXV6TQMXoqHG920zhNUqNZYQ8HLA0BgdJWgNr?=
+ =?us-ascii?Q?4NdaKIsXbegzRmEYOwIIN0YUZcF8i9yWH3aOFHTkTGXwAchJwa143wOnfWc5?=
+ =?us-ascii?Q?qHQRsxHaFLgf0j+khtOmmFt2M5dhAPf3hCLy4bV2OYMVTZm2eguSQSHM771r?=
+ =?us-ascii?Q?2CH/ByMTESYMkCN3wSE1Z7ZK87ANhpWIqwJZGjxHfcu+hu8Vr5AzqNIh6iDt?=
+ =?us-ascii?Q?r4tc1Hm3bMgDm7FarnRvqhJTxDas+ooM70K3XkwGppmicZY9moiR41ZKCZ3S?=
+ =?us-ascii?Q?vh7UHcfpSk+jwhUq1PdRzL97ojbaqDRzxvcsfjWTdCXsU6JaRFROZ9dPDhbD?=
+ =?us-ascii?Q?dJ6ip6mmsyCo/dfFNrEgfE9yd+Dcv6KRdf5QIERQ/wL0P/yjYQiZnSgY+tbT?=
+ =?us-ascii?Q?mbW26+tgt20xrfoGPgSdO2EXjwrTO55guhO0yCOZslkDlmsFUzqxaG8NG3tC?=
+ =?us-ascii?Q?DYw99NfYXoVf8W6i4v42K1IYEWczgB0iUE198oZoD+loTbqcoQ6abKHCmHmW?=
+ =?us-ascii?Q?Rf3uVPd6HAeEKjIQVblO5wJnhjrUjlRfEVE8/2tte85l2uTrVPhE2htXRd5M?=
+ =?us-ascii?Q?PNEg5AnMfHLIh3sDeyuESwWnh/wFceI22dPo19ZkoCHf/BFHBUGmq2JxOVYd?=
+ =?us-ascii?Q?g45eEf0COFNt35E0RYGSJULkEI4CLs4jmY9UFV+2IR/mqObzWwBiD4Wk2VSI?=
+ =?us-ascii?Q?s43/m/uRBDNkj7Vd0XxfDiOrlZhBujeF571ASQ1EzpvngkxeVLpzgq/RyaEC?=
+ =?us-ascii?Q?mZ+bvDysO7sMN2vSjlueaGyhxQLsieiUAM1WnF68bNDSFm3Ujblu0/C9+MHF?=
+ =?us-ascii?Q?N45hCIRgK9KLYpzRN7dEx+kY/WiQOnTft/WKI1c8OKL+R3Q72FosFE67IDIX?=
+ =?us-ascii?Q?/7KpNV688rwZUVAGzCFAPe7HooJfrIFni3KlZ6kkOEaoKge4a3OrCMy74P1H?=
+ =?us-ascii?Q?MAMsa9SzN6wNObWkRRMTBq8ZDv3yv6bVhiiuYQstlvX0wq1Gqx6fkJcC9BMQ?=
+ =?us-ascii?Q?cz9Tprs5YCk0wiO6MNhxNn3jkAtfpQmyCr0myc57/zmxxSJQWDCcR/h+49I9?=
+ =?us-ascii?Q?7GsRP+11SLy0hso7WbQREvwUgCtAIVKT2JYAMMvbnSE5HzashqUJMSYwiZjb?=
+ =?us-ascii?Q?dcJEq5aplVUNXF+1DckgBUhdgY4Pd00bGDO2per5u29IkCaERG6NzJARVSTL?=
+ =?us-ascii?Q?H2qiu/6bCSLGri4pzT7o+dT4xxNs7Am+Qd8OvxnI+XvlqB9vHRl7+JDYjH0Z?=
+ =?us-ascii?Q?D5Vk98aqwV/Hojl9e0VOr1VXn+DPb7BrUaaqCePF4/ovm2dtSMaHIitn9wAi?=
+ =?us-ascii?Q?gXOo6JsmcDKy8rcwn72azuAqXp6ko1pyAamibYet7vGQYcK4h/z8Dki4AJfF?=
+ =?us-ascii?Q?vFa+ld9+zpOUX/MVizpNMM5zBZM3rKVQ9g+TKUnhcDGXgOCgPQQB0EpPdrIq?=
+ =?us-ascii?Q?V5FIglW2Y/ojbc2jm+JYIvYMtOpLDN++mdOktfSbMZiEKKCg?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5761.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cdca6cd0-1b1f-44c3-a43f-08df16fc236c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Sep 2026 09:47:09.1559 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ogHVfbhA5XC6HkYVLKZHW/H3xUyJDa3iDPRpbgvkfy/fbHyWeZa1uOv9tQUUEA0gsancxPKNtrEUqfz+tSL0JQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8654
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,79 +134,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Following up on my own correction: the attribution to a637a140ab86 is back,
-and this time on a comparison that does not have the flaw the first one had.
+AMD General
 
-In my previous mail I withdrew the 90x figure because the rate turned out to
-depend on the machine's recent load and my two runs had not controlled for
-it.  I have now measured the commit against its immediate parent, in matched
-conditions, and the difference is there without that confound.
+Gentle Ping ...
 
-  parent  1d8327353de6 ("drm/amd/display: Fix VABC Init and OLED Support")
-  commit  a637a140ab86 ("drm/amd/display: Allocate DCN32/1 dmub memory to GTT")
+Best regards,
+Horatio
 
-Same machine, same display, same 3840x2160@120 mode, same .config, ordinary
-desktop use, no game in either run, about eleven hours each:
+-----Original Message-----
+From: Horatio Zhang <hongkun.zhang@amd.com>
+Sent: Thursday, September 17, 2026 6:05 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, =
+Horatio <Hongkun.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: skip the PASID TLB fence for the UALink NPA VM
 
-                          parent            commit
-  observation             11.0 h            11.6 h
-  eligible frames       3,019,571         3,632,444
-  events                        7               293
-  per 1000 eligible        0.0023            0.0807
-  95% interval      0.0006-0.0040     0.0714-0.0899
+amdgpu_vm_make_npa() builds the UALink NPA VM on top of amdgpu_vm_make_comp=
+ute(), which unconditionally sets need_tlb_fence.
+That flag makes amdgpu_vm_tlb_flush() queue an asynchronous PASID based TLB=
+ invalidation after every page table update.
 
-That is 35x, with the intervals more than a decade apart.
+The NPA VM is created by the driver itself in
+amdgpu_ualink_manager_start() and never gets a PASID assigned, so
+vm->pasid stays 0, which MES cannot resolve on the MMHUB. The
+vm->invalidation
+never completes and MES stays unresponsive for the rest of the probe:
 
-"Events" counts only frames where all three CRC registers moved, which is
-what the artefact does.  The single-frame content flicker that moves only
-the luma CRC serves as a built-in control, and it did not move with the
-kernel: 0.0020 per 1000 on the parent against 0.0008 on the commit.
+  amdgpu: MES(0, 0) failed to respond to msg=3DINVALIDATE_TLBS
 
+The invalidation is not needed in the first place. An NPA VM is bound to th=
+e reserved NPA VMID and amdgpu_ualink_flush_tlb() already invalidates that =
+VMID on the MMHUB after every mapping change. Clear need_tlb_fence for NPA =
+VMs.
 
-The load confound does not reach this
--------------------------------------
+Fixes: aac13f6eded6 ("drm/amdgpu: Pin page tables in NPA VMs")
+Signed-off-by: Horatio Zhang <hongkun.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Both runs began immediately after a reboot, which resets the state, and
-neither had any load yet in its first hour:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_vm.c
+index 68d668dfe4f8..e255b5100362 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2793,6 +2793,7 @@ int amdgpu_vm_make_npa(struct amdgpu_device *adev, st=
+ruct amdgpu_vm *vm)
+                return r;
 
-  parent : 0 events in 434,204 eligible frames
-  commit : 52 events in 349,718 eligible frames  (0.149 per 1000)
+        vm->is_npa =3D true;
++       vm->need_tlb_fence =3D false;
 
-So the difference is present before anything could have excited it.
+        return 0;
+ }
+--
+2.43.0
 
-The shape differs too, not only the rate.  On the parent the worst
-five-minute bucket in eleven hours contained 2 events, and no bucket
-reached 3.  On the commit the worst contained 30, and 28 of 138 buckets
-reached 3 or more: the excited state comes and goes by itself there, and
-on the parent it never appeared at all.
-
-For completeness: the commit run does contain three windows where almost no
-frame was eligible - roughly 14:30-15:25, 21:10-21:25 and 23:45-23:55 -
-which is what fullscreen content looks like in this data, and the parent run
-has no such window.  The first-hour figures above are free of that, and the
-rate is normalised per eligible frame throughout, but I would rather point
-it out than have it found.
-
-
-What this does and does not settle
-----------------------------------
-
-It restores a637a140ab86 as the point where this starts on DCN3.2.  What I
-said in the correction about the state machine still holds and is
-independent of it: heavy GPU load excites the artefact, a long spell at
-60 Hz or a reboot calms it, and DTN snapshots in the excited state are
-byte-identical to quiet-state ones.  Those were measured on kernels that
-already contain the commit; the parent simply never leaves the quiet state.
-
-I still have no mechanism.  The commit moves every DMUB FB window out of
-VRAM into GTT, and I cannot see how that produces one corrupted scanout
-frame while leaving every register in the DTN dump unchanged.
-
-The GitLab issue has been updated with the same numbers:
-
-  https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
-
-#regzbot introduced: a637a140ab86
-
-Thanks,
-Mikhail Gavrilov
