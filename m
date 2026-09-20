@@ -4,83 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E2D6C982E1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0177DC982F5
 	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 07:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93B7310E49E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C14B310E4A8;
 	Mon, 21 Sep 2026 07:11:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TRNJXa77";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oKQ/xK8Z";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 178E510F2A0
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 10:05:16 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-482e1b30c94so63631f8f.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Sep 2026 03:05:16 -0700 (PDT)
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com
+ [74.125.231.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E04F210E70C
+ for <amd-gfx@lists.freedesktop.org>; Sun, 20 Sep 2026 01:31:06 +0000 (UTC)
+Received: by mail-oa2-f12.google.com with SMTP id
+ 586e51a60fabf-46accbdfc20so1550953fac.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 19 Sep 2026 18:31:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789725914; x=1790330714; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789867866; x=1790472666; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=HE0w66JucLNZLzHyaLpT5/PcJD16pRz717b2QYdWvwk=;
- b=TRNJXa77LXH+z2+9N3wJBXPag79oCLAF6Ck01VjI1VYweGiCH4ygne2w9hah3Tqfke
- ex+Iq9K4eTqO4LA5ETt3ZsbY2QUsIHnLuak8X6v2XEx51wvKdBQUeeCKdN7u655EghjM
- RZ82CE7kIIiFGIZ4ZR9z2zNLtxaNNI1kf3gy1jjT0MDGCQNObAiCpuTRLBwfgm6VGSc8
- 3fX8q8Iuh+BZ1Y1kBhH5kTpiEPO/OrOlI/VUnkILoNgYHPDgh/v4eYe2LtzmYQhmled4
- wD491T3Z6ERTnBpQQibx3SWX8DqbNYnos0KgKFtE3R4UBnbmbBu3blfbE5suB0ey+IHb
- xMoQ==
+ bh=6hTqSEJnD6ZpSU2Pd3zom/nMKHhVqSJvkKONP60toIw=;
+ b=oKQ/xK8Z0PhAZz85YxTUWY2/H/W19gHzFznal+fO52eEV87Z51JG7Up+YWZUruTmsU
+ xrH4mn9hBXzc81MBmq+yjd6Gl2LSbtBvP8CfEQ0YmZvKaLVQfZ/P4FVzc3d6S7qFXpJo
+ Javrx4syJbZHYsCT2F//X50wLn1gP0F8N/TdCviyagkqXB/IyvmB5QK2xg3sdx/PsMG2
+ uJqvALIIxmgQ2UiIPRjUp+jrrrzZnHFQNGoqgnKi1Nkz+8QJZuYq2Dd607NgPot6KCpL
+ ZDvtX8IqsjEhodi3YoROs/Ti8D21XnFBQVP0OObDSyyofydG+UQLHU4fRb+IvJEPMfaH
+ CjMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789725914; x=1790330714;
+ d=1e100.net; s=20260707; t=1789867866; x=1790472666;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=HE0w66JucLNZLzHyaLpT5/PcJD16pRz717b2QYdWvwk=;
- b=IUCTZ7VblyTEFbVjqefTKjBETPGr40W4bW/3hyU3vFMFMxI6LmkBsFXGugjcefjMwf
- gk0WmcKki1bA0uBMl7tkdu9DA+ITchUT1SkRtKtMN82zLC/sH0HVaVJnPNflv8OihFsz
- J9EkoOia5anmPTQSbKoVFJVDkeMeffykjnO0u0xfRccIUJID2R/ocjymZyAoPJiCRuXj
- feYqo3aDcsIN1YoQ9bFrRxA+uCpPLSDtvunVxGYuE+cOSGx8XURO9N9nCUzEXa5NR+vE
- z0zdhcsOOiYrQAhZgGzPnScbMm/tkVFI57nWm4n1vbqVVt2Pnw+A2dcl8ODgFadDOJXS
- 1M0A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzcVA2fYGf0gQMgnrbSVYePUJqO2nSAAPFQnsRMe5VxdGw5NZDl8md3pYy17q1Fr+XD//BzPntC@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kIO3Wz3/lmA4j+MqyqMjCOtMEV22IwxT1CxkIXlRxNNDttWrI9
- WxGbauxzk8WCrzvuUE/SS0qUPPM654gQdm9lxj9qpKUupOzC+I7rJQaH
-X-Gm-Gg: AYBFou33AsXiap2OwBgQKKe3diYRsZC491Egqyq/Bd53tKVkjknpVpZ1ZvwyKGXdire
- /2BpPTqCvRlj+gw1Ej+V07uYdAsHuSnBMAoXt3cuB0kVGOGj0FSTfq9VxDnVHQ0IN5FvAj2XYby
- wQCmw8CCr+IvGEhiDPd8VouqMWXlO0dwpcXPS2ZF3bPuuvinnJhiKuvJB/EaOu/4OgO8e0EtPRw
- lyooq0CxsH165tvNx7ncJyFEjR1FxOIngNJafKTpZ8LBek1sNY7Wwv04ZPFeGhzukBSoRLT9GUY
- wIfr7RwIokBFaWblyNg1jUEMYaXgVhinEWuGM5Fz9mtkqyT1Qg4fbcjRnrMtUOenbM0CzPSnqhf
- HPjLDgBvdCJKLklbxhkZXnjzUbW1fA4lbmHv+6O+vfyTdRVcKFqw4wEduODofwijoYyxog0AnUq
- 56baR+R44yH974XEZEMhLHe80m+2CZB3tdJZSX/v6ltRU/QAnj/0QUOybdG9E5Lt7vc4UWVwJzW
- wgNd3esb4+sYLWqz2A/jQfhqnmhk7ob+UXRVTjdkr+vClDh3Ml1/no/NvJhufKgIiYUklOVOQJc
- E1k=
-X-Received: by 2002:a05:600c:a00a:b0:499:d95a:41f with SMTP id
- 5b1f17b1804b1-49fc7b83237mr18820885e9.0.1789725914217; 
- Fri, 18 Sep 2026 03:05:14 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B829B006E521A2A508563A3.dsl.pool.telekom.hu.
- [2001:4c4e:1b82:9b00:6e52:1a2a:5085:63a3])
+ bh=6hTqSEJnD6ZpSU2Pd3zom/nMKHhVqSJvkKONP60toIw=;
+ b=Rse9KmofHtw6X3eOJae40B8StjSNiBl5QOiYoyil/AtPHSiNdrkax76Ttf6lcYjqc3
+ LBLwfYDa99hhbKxD6ZV9cA1LxZ24HvbmrTrkwSPP9ZUUGKHCRC0mizA08RKicxiW33OT
+ F856Dl0odXIGs5zKm8uZ4qAgwwx4eEpe4tcMe4PedwxsCbXkxFUX9lTi2Gq4APJunkAJ
+ moEMENXkIh9c4pMQ8+LN+ubqIxIs2+RjzsoXLVsF3okvmychecBnEOn/dY6LpRGDlnhg
+ 5A/gPytYQ8lDMAc7FAXYduKR85Gxl9OzUFO4ii9Ma+8U1ncmdfi/NkjfstDr/EO0ckIX
+ Jw5Q==
+X-Gm-Message-State: AFuF++ngAREaAqGHfIz7Yk8cCzS2im9OxlIizAeYUmwPoqeNxOtPZRs4
+ gF3rgZg7cF80Tly4w5c0nKGsewHZt48Av+r/tx38dm2TQmjVU+wcJIzfxYk78lC3V3w=
+X-Gm-Gg: AYBFou3j/AwFrH5xlCKZ5adOO3QXWfLASR2NrMtdmv1MiSyF0RhUiOj1adkiH17XY0h
+ qJG7EWgvFdNA9RJ5s8a71mhHrRAVpI5qqBkbP0NMiC8ZXe2Qv/AQo2S6ROzWm8mkbhSMXTdlJ8U
+ pyMgDbYlOaFkSB+u4PFFA1NvLTbuNL9ewg0RBiPhmij/AiBRHw11DS7JSP63Po50rYF+U57uAzV
+ gZ0vBbCzMUk/lfQCRDf9SmgwwZOSBlVLTEgP0HcUh20GZT5CopLhDdFu8KIfAcU4EQxGBrJRXPe
+ BxUTrzEzMJnZjwoa/Vw4W+9KhwwnDbPGA4UXCwhZgmul/cbilEpf3PT27PSXFJRyE851S+ft0oQ
+ XUXtXV2q53vvHimjPNciv3rvIebyEJ1EYV+pKsZRvY1Kobimrya011MEMRPj06btqhdaXqb86CG
+ rPPxT0Anez4G8w0yCCgJbKOMIlCKJrhSOlejZmVCxN3kYyWzR0rXqK0+7tws1mDnubPxnNcBG8F
+ 7BJwwMluVnKXfSW+MozQJfT482Y5EqiLJ8bdB9yuO+QaniMXxnW
+X-Received: by 2002:a05:6870:31a1:b0:485:d31b:775a with SMTP id
+ 586e51a60fabf-486e6de37d1mr7187523fac.24.1789867865863; 
+ Sat, 19 Sep 2026 18:31:05 -0700 (PDT)
+Received: from cachyos-x8664.localdomain ([167.89.205.219])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fc79bdc35sm42175125e9.0.2026.09.18.03.05.12
+ 586e51a60fabf-48821db449dsm3552088fac.15.2026.09.19.18.31.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Sep 2026 03:05:13 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Charlene Liu <Charlene.Liu@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
- Alex Hung <alex.hung@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Lu Yao <yaolu@kylinos.cn>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH] drm/amd/display: Fix audio DTO for HDMI YCbCr 4:2:0 on DCE
-Date: Fri, 18 Sep 2026 12:04:43 +0200
-Message-ID: <20260918100443.23694-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Sat, 19 Sep 2026 18:31:05 -0700 (PDT)
+From: David Janice <djanice1980@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ dri-devel@lists.freedesktop.org, David Janice <djanice1980@gmail.com>
+Subject: [PATCH] drm/amd/display: Allow 300 ms for HDMI FRL link training at
+ every rate
+Date: Sat, 19 Sep 2026 20:30:50 -0500
+Message-ID: <20260920013050.21259-1-djanice1980@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:11:54 +0000
@@ -98,128 +88,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On DCE 11.2, 11.22 and 12.x, audio runs at twice the sample rate while
-an HDMI sink is in YCbCr 4:2:0. DTO0 is shared, so a DisplayPort
-monitor on the same GPU is sped up as well.
+hdmi_frl_perform_link_training() gives LTS:3 a single budget of 105 polls
+at 2 ms (~210 ms) that starts at the FRL_Rate write and is not restarted
+when the sink raises its first FLT_update with the LTP request. A sink
+that needs close to 200 ms after the LTP request to report lock therefore
+fails whenever its LTP request itself takes more than a few tens of ms.
 
-get_pixel_clock_parameters() halves requested_pix_clk_100hz for 4:2:0.
-The PHY PLL is programmed from that rate, but
-dce112_program_pixel_clk_resync() sets PIXCLK_DOUBLE_RATE_ENABLE, so the
-CRTC that feeds DTO0 keeps the full rate. build_audio_output() still
-passes the halved rate on as the DTO0 module, which gives 48 MHz
-instead of 24 MHz; its 4:2:0 branch is skipped on DCE, because the
-requested clock is halved already.
+Measured on an LG C2 (GSM 49352, 2022) driven by a Strix Halo DP-HDMI
+FRL PCON, DPMS off/on with drm.debug=0x2, kernel 7.2.6:
 
-Program the DTO0 module with twice requested_pix_clk_100hz when the HDMI
-stream's clock source doubles the pixel clock, tested through the mask
-field that enables the doubling; only the DCE 11.2, 11.22 and 12.x
-clock sources have it. ACR (N/CTS) and az_configure() use a separately
-built audio_output and do not change.
+  6G x4  (3840x2160@60 10bpc):  LTP request at poll 11 (~21 ms),
+         lock at poll 100 (~179 ms later): PASSED first try.
+  10G x4 (3840x2160@120 10bpc): LTP request at poll 22 (~44 ms),
+         no lock by poll 105: "FAILED - Timeout waiting for FLT_UPDATE".
+         Retry 200 ms later: LTP request at poll 11, lock at poll 101:
+         PASSED.
 
-Lu Yao's patch (Link) doubles both clocks, but only for POLARIS12, which
-also moves ACR to the 594 MHz table entry.
+The sink answers FLT_READY on the first poll every time and locks in a
+steady ~180 ms at both rates, so it is neither slow to wake nor
+marginal; the total just does not fit 210 ms once the LTP request is
+late, which happens far more often at 10G. On this system that is the
+difference between reliable DPMS wakes at 4K60 and mostly dark ones at
+4K120: hdmi_frl_perform_link_training_with_retries() retrains at the same
+rate up to four times 200 ms apart and the output is then left dark.
 
-Tested on an RX 580 (Polaris10) with a TV at 3840x2160@60 4:2:0 and a
-monitor on DP: DP audio was audibly sped up before the patch; after it,
-a 17.63 s clip played in 17.71 s on DP and 17.70 s on HDMI.
-DCCG_AUDIO_DTO0_MODULE now reads 5940000, the CRTC frame counter gives
-60.00 Hz on a 4400x2250 raster (594 MHz), HDMI ACR status reads N=5120,
-CTS=247500, and DP audio M readback (996) is the same as with the TV at
-3840x2160@30.
+"drm/amd/display: Update and revert FRL LT Timeout behaviour" already
+allows 155 polls (~300 ms) for 16 Gbps and above. Use that budget at
+every rate. With the change applied to 7.2.6, five consecutive DPMS
+wakes at 10G x4 trained on the first attempt; three of them locked at
+poll 104-105, i.e. inside the last 1-2 polls of the old budget.
 
-Fixes: 87b58768eccd ("drm/amd/display: audio bug fix part 1: Add missing audio ACR")
-Link: https://lore.kernel.org/all/20251205074344.143063-1-yaolu@kylinos.cn/
-Assisted-by: LLM sparse checkpatch
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Signed-off-by: David Janice <djanice1980@gmail.com>
 ---
+ .../amd/display/dc/link/protocols/link_hdmi_frl.c  | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-Not tested: the other DCE 11.2/11.22/12.x parts (Polaris11/12, VEGAM,
-Vega), and 4:2:0 with deep color, which this sink cannot take (300 MHz
-TMDS limit). DCN is left alone on purpose: its OTG halves the horizontal
-timing for 4:2:0 (optc1_is_two_pixels_per_container()), so the halved
-module is right there.
-
-The host is an arm64 board (RK3588) and the RX 580 sits in an M.2
-slot as an external GPU (PCIe 8.0 GT/s x4), not an x86 desktop.
-The kernel under test was 7.3-rc3 plus local patches, one of which
-touches the same 4:2:0 path (a longer REG_WAIT in dce_opp.c, not
-submitted). The patch as posted was built and checked with sparse on
-drm-amdgpu-next and on amd-staging-drm-next (arm64, W=1 C=1, no new
-warnings for this file), but no module built from those trees was
-loaded on the card.
-
-An LLM assistant helped me trace the clock path, do the arithmetic and
-write the patch and this message; sparse and checkpatch were run on the
-result. The numbers above are wall-clock times and register reads taken
-on the board.
-
-Possibly the same bug, although none of the reports mentions 4:2:0:
-https://gitlab.freedesktop.org/drm/amd/-/issues/3088 (RX 590, 60 Hz
-double speed, 30 Hz fine), and the closed #556, #1742 and #922.
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 34 +++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index bb46d72490259..45c64c473a8cc 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -51,6 +51,7 @@
- #include "link_service.h"
- #include "dccg.h"
- #include "clock_source.h"
-+#include "dce/dce_clock_source.h"
- #include "clk_mgr.h"
- #include "abm.h"
- #include "audio.h"
-@@ -2519,6 +2520,38 @@ static void dce110_reset_hw_ctx_wrap(
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
+index 7f93009..005feb9 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
+@@ -528,10 +528,18 @@ static enum link_result hdmi_frl_perform_link_training(struct ddc_service *ddc_s
  
-+/*
-+ * Audio wall clock DTO0 is fed by the CRTC pixel clock, so its module must be
-+ * the rate the CRTC really runs at.
-+ *
-+ * For HDMI YCbCr 4:2:0, get_pixel_clock_parameters() halves
-+ * requested_pix_clk_100hz, the PHY PLL is programmed at that rate and
-+ * dce112_program_pixel_clk_resync() sets PIXCLK_DOUBLE_RATE_ENABLE, so the
-+ * CRTC runs at twice requested_pix_clk_100hz. Only the DCE 11.2/12.x clock
-+ * sources have that field in their mask.
-+ *
-+ * The audio_output used for ACR (N/CTS) is built separately and keeps the
-+ * TMDS rate.
-+ */
-+static void dce110_audio_dto_fixup_420(const struct pipe_ctx *pipe_ctx,
-+				       struct audio_crtc_info *crtc_info)
-+{
-+	const struct dce110_clk_src *clk_src;
-+
-+	if (pipe_ctx->stream->signal != SIGNAL_TYPE_HDMI_TYPE_A ||
-+	    !pipe_ctx->stream_res.pix_clk_params.flags.SUPPORT_YCBCR420 ||
-+	    !pipe_ctx->clock_source ||
-+	    pipe_ctx->clock_source->id == CLOCK_SOURCE_ID_DP_DTO)
-+		return;
-+
-+	clk_src = TO_DCE110_CLK_SRC(pipe_ctx->clock_source);
-+	if (!clk_src->cs_mask->PHYPLLA_PIXCLK_DOUBLE_RATE_ENABLE)
-+		return;
-+
-+	crtc_info->calculated_pixel_clock_100Hz =
-+		pipe_ctx->stream_res.pix_clk_params.requested_pix_clk_100hz * 2;
-+}
-+
- static void dce110_setup_audio_dto(
- 		struct dc *dc,
- 		struct dc_state *context)
-@@ -2559,6 +2592,7 @@ static void dce110_setup_audio_dto(
- 			struct audio_output audio_output;
+ 		FRL_INFO("FRL LINK TRAINING:  Poll for FLT_UPDATE.\n");
+ 		/*LTS:3: Start Link Training*/
+-		/*Start FLT Timer = 200 ms, or 300ms if link rate >= 16Gbps*/
++		/*
++		 * Start FLT Timer = 300 ms. HDMI 2.1 specifies FLT_TIMEOUT = 200 ms,
++		 * but this budget runs from the FRL_Rate write to the final
++		 * FLT_update and some sinks need more than that in total: an LG C2
++		 * (2022) at 10G x4 raises its first FLT_update (the LTP request)
++		 * ~45 ms after the rate write and reports lock a further ~180 ms
++		 * later, ~225 ms in all, so it failed the 105-poll (~210 ms) budget on
++		 * most DPMS wakes at 4K120 while at 6G x4 (~20 ms + ~180 ms) it just
++		 * fit. Use the 300 ms already allowed for >= 16 Gbps at every rate.
++		 */
+ 		num_polls = 0;
+-		if (link_settings->frl_link_rate >= HDMI_FRL_LINK_RATE_16GBPS)
+-			max_polls = 155;
++		max_polls = 155;
  
- 			build_audio_output(context, pipe_ctx, &audio_output);
-+			dce110_audio_dto_fixup_420(pipe_ctx, &audio_output.crtc_info);
- 
- 			if (dc->res_pool->dccg && dc->res_pool->dccg->funcs->set_audio_dtbclk_dto) {
- 				struct dtbclk_dto_params dto_params = {0};
-
-base-commit: e0e9c2257911b291ef5345635a9e6dfef5b2b424
+ 		while (num_polls < max_polls) {
+ 			flt_poll_cur_time = dm_get_timestamp(ddc_service->ctx);
 -- 
-2.43.0
+2.55.0
 
