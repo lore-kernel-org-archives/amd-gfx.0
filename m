@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D90DC982ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 07:11:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 625BDC982E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 07:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84C6610E344;
-	Mon, 21 Sep 2026 07:11:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27EB710E47F;
+	Mon, 21 Sep 2026 07:11:58 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7452710E042;
- Sun, 20 Sep 2026 06:25:22 +0000 (UTC)
-X-UUID: 0a7b5e62b4bc11f19a56ed5b684f684d-20260920
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70C3C10E174;
+ Sun, 20 Sep 2026 09:18:20 +0000 (UTC)
+X-UUID: 3685ee60b4d411f19a56ed5b684f684d-20260920
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:ea75b3e9-dc40-4118-a377-ea1fee5e913b, IP:0,
+X-CID-O-INFO: VERSION:1.3.19, REQID:42612d84-1e3c-4e25-b768-c423ce21bcbc, IP:0,
  U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:7db8b62, CLOUDID:973adf967bcc4b30aa32854c9f1050fa,
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:25
+X-CID-META: VersionHash:7db8b62, CLOUDID:ecfdb6ef14b8cd681db867337ac55f37,
  BulkI
- D:nil,BulkQuantity:0,SF:102|123|136|850|865|898,TC:nil,Content:0|15|50|99,
- EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
- :0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+ D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+ 5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+ A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 0a7b5e62b4bc11f19a56ed5b684f684d-20260920
-X-User: yaolu@kylinos.cn
+X-UUID: 3685ee60b4d411f19a56ed5b684f684d-20260920
+X-User: yanglinlin@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <yaolu@kylinos.cn>)
+ (envelope-from <yanglinlin@kylinos.cn>)
  (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 1118696961; Sun, 20 Sep 2026 14:25:14 +0800
-From: yaolu@kylinos.cn
-To: lingshan.zhu@amd.com, Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Lu Yao <yaolu@kylinos.cn>
-Subject: [PATCH] drm/amdkfd: drop KFD_QUEUE_TYPE_DIQ note
-Date: Sun, 20 Sep 2026 14:25:10 +0800
-Message-Id: <20260920062510.166584-1-yaolu@kylinos.cn>
+ with ESMTP id 2144921555; Sun, 20 Sep 2026 17:18:16 +0800
+From: Linlin Yang <yanglinlin@kylinos.cn>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, harry.wentland@amd.com, austin.zheng@amd.com,
+ jun.lei@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ Linlin Yang <yanglinlin@kylinos.cn>, k2ci <kernel-bot@kylinos.cn>
+Subject: [PATCH] drm/amd/display: fix __udivdi3 link error in UTM QoS model
+Date: Sun, 20 Sep 2026 17:18:07 +0800
+Message-Id: <20260920091807.667682-1-yanglinlin@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -59,31 +60,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lu Yao <yaolu@kylinos.cn>
+When building amdgpu for 32-bit x86 (CONFIG_X86_32), modpost fails
+with:
 
-Commit e1b73b64271d ("amdkfd: remove DIQ support") removed the
-KFD_QUEUE_TYPE_DIQ enumerator from enum kfd_queue_type but left its
-description behind in the note block.
+  ERROR: modpost: drivers/gpu/drm/amd/amdgpu/amdgpu.ko: symbol
+  '__udivdi3' undefined!
 
-Fixes: e1b73b64271d ("amdkfd: remove DIQ support")
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+The UTM QoS helpers dchub_v2_get_sop_total_available_bandwidth_KBps()
+and dchub_v2_is_qos_bandwidth_supported_by_sop() divide a 64-bit
+bandwidth product by 100 using the native '/' operator. On 32-bit
+targets GCC lowers this to a __udivdi3() libgcc call, which the
+kernel does not link into modules.
+
+Replace the raw divisions with div_u64(), the kernel's standard
+64-bit division helper.
+
+Fixes: 7f7d7ea1fa51 ("drm/amd/display: Add new sources for DCN6")
+Reported-by: k2ci <kernel-bot@kylinos.cn>
+Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 2 --
- 1 file changed, 2 deletions(-)
+ .../bounding_boxes/utm_qos_model_dchub_v2.h   | 23 +++++++++++--------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index d8631847f0eb..2847a5ec5ede 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -430,8 +430,6 @@ enum kfd_unmap_queues_filter {
-  *
-  * @KFD_QUEUE_TYPE_HIQ: HIQ queue type.
-  *
-- * @KFD_QUEUE_TYPE_DIQ: DIQ queue type.
-- *
-  * @KFD_QUEUE_TYPE_SDMA_XGMI: Special SDMA queue for XGMI interface.
-  *
-  * @KFD_QUEUE_TYPE_SDMA_BY_ENG_ID:  SDMA user mode queue with target SDMA engine ID.
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
+index ebca5ddda284..39df427a9ee7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
+@@ -3,6 +3,7 @@
+ // Copyright 2025 Advanced Micro Devices, Inc.
+ #ifndef UTM_QOS_MODEL_DCHUB_V2_H
+ #define UTM_QOS_MODEL_DCHUB_V2_H
++#include <linux/math64.h>
+ #include "utm_qos_model_types.h"
+ 
+ struct utm_qos_model_dchub_memory_path_latency_v2 {
+@@ -63,22 +64,22 @@ static inline void dchub_v2_get_sop_total_available_bandwidth_KBps(
+ 	uint64_t dram_available_bandwidth_KBps_urgent;
+ 	uint64_t fabric_available_bandwidth_KBps_urgent;
+ 
+-	dram_available_bandwidth_KBps_nominal = (uint64_t) sop->uclk_khz
++	dram_available_bandwidth_KBps_nominal = div_u64((uint64_t)sop->uclk_khz
+ 			* socbb->dram_channel_count
+ 			* socbb->dram_channel_width_bytes
+ 			* socbb->dram_transactions_per_clock
+-			* socbb->dram_derate_percent_nominal / 100;
+-	dram_available_bandwidth_KBps_urgent = (uint64_t) sop->uclk_khz
++			* socbb->dram_derate_percent_nominal, 100);
++	dram_available_bandwidth_KBps_urgent = div_u64((uint64_t)sop->uclk_khz
+ 			* socbb->dram_channel_count
+ 			* socbb->dram_channel_width_bytes
+ 			* socbb->dram_transactions_per_clock
+-			* socbb->dram_derate_percent_urgent / 100;
+-	fabric_available_bandwidth_KBps_nominal = (uint64_t) sop->fclk_khz
++			* socbb->dram_derate_percent_urgent, 100);
++	fabric_available_bandwidth_KBps_nominal = div_u64((uint64_t)sop->fclk_khz
+ 			* socbb->fabric_datapath_to_dcn_data_return_bytes
+-			* socbb->fabric_derate_percent_nominal / 100;
+-	fabric_available_bandwidth_KBps_urgent = (uint64_t) sop->fclk_khz
++			* socbb->fabric_derate_percent_nominal, 100);
++	fabric_available_bandwidth_KBps_urgent = div_u64((uint64_t)sop->fclk_khz
+ 			* socbb->fabric_datapath_to_dcn_data_return_bytes
+-			* socbb->fabric_derate_percent_urgent / 100;
++			* socbb->fabric_derate_percent_urgent, 100);
+ 
+ 	total_available_bandwidth->nominal_bandwidth_KBps =
+ 			dram_available_bandwidth_KBps_nominal < fabric_available_bandwidth_KBps_nominal ?
+@@ -112,9 +113,11 @@ static inline bool dchub_v2_is_qos_bandwidth_supported_by_sop(
+ 	nominal_available_bandwidth_KBps = available_bandwidth.nominal_bandwidth_KBps;
+ 	urgent_available_bandwidth_KBps = available_bandwidth.urgent_bandwidth_KBps;
+ 
+-	if ((nominal_available_bandwidth_KBps * nominal_utm_budget_percent / 100) < qos_bandwidth->nominal_bandwidth_KBps)
++	if (div_u64(nominal_available_bandwidth_KBps * nominal_utm_budget_percent, 100) <
++			qos_bandwidth->nominal_bandwidth_KBps)
+ 		return false;
+-	else if ((urgent_available_bandwidth_KBps * urgent_utm_budget_percent / 100) < qos_bandwidth->urgent_bandwidth_KBps)
++	else if (div_u64(urgent_available_bandwidth_KBps * urgent_utm_budget_percent, 100) <
++			qos_bandwidth->urgent_bandwidth_KBps)
+ 		return false;
+ 	else
+ 		return true;
 -- 
 2.25.1
 
