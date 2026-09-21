@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5639EC982ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 19:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CEB8C982EE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 19:26:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5FCC10E47B;
-	Mon, 21 Sep 2026 19:22:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17F0D10E16A;
+	Mon, 21 Sep 2026 19:26:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5Zdv1JRd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eOnmBMoA";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012049.outbound.protection.outlook.com [40.107.209.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 213E910E228
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 19:22:57 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013023.outbound.protection.outlook.com
+ [40.93.196.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A8EE10E16A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 19:26:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i3q1fTE1j4zFpvf6fPCwYxOnFHKOxUEELodwoH7HX03hmdnjsYn6jvY/2cF0Si07djLbago1ixf/Z+FMkgnAxP4FygeulTx4PbH/q0XI1gVepAGlEhynbObuW8XVpCE9qERhM6IY840RBe8lKsb2OLEejlA7l1J/V+W3lKOa5TLao8wjqbKXftLXwi+NaL+jtyI1kZp+jMfgNylw04jcccn16VgZBpwm6tK7FAviuQLlyhbnvO/NXwowlgVlXeNGyxdwIGw0uXqdS08101tBys9epunvdZYvjQjJsZjO1VAb9FELqlv66s4vVehNpmNEfUMwMkVwx+k2YFMLb8TU9w==
+ b=qw7Kl/SduRXtsv+5EhLqoLwUNHERXeqMu/Vxraj3u+cp2qZqDQr++LrYq8mRIWZCgLSZ9FJkkrum05gbsC0cT77JO8bSlEkTgVXJlygBOI6r6/oIdKucdMeeIsz/I0qaGjSJbofGZ8Y38ctxIt7/ubIclYQQMEdoC8edGbq+tPdt1qBUvQv1mZd5S9oopXDQUM07elH62WYe+ENSwqyXK+/odLU+C1723yRXbLzKbK57y5rb9n0djSE8eZCK6qHNYh7FxRjtKSz3KiooZls5FUPRl3ys4PIoU7tlO1bSc5f6FBDxcl9tN3EWUPx0Zh3+fNklpSBpNZafnB5Q3x9UEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1KV9IodopM/C3ds4W3Y0nh0Oszn5iG+zPFvH0rQHu7s=;
- b=tEsRoOji1UEiUjqdQCKzOx0mIlMGEtguLugQ5tMyUmDp00LD9PgybEUgqNIK2+b/80vMGwrua8yzfGfO3tf8j+ChiiWk37SCwUxbatlpg1Ilppdml1I2fPdTLtiVahshyCUNxg8JV1v9HhBeaiuaggAbn9nBSZbCIkvBlXePZH8e2U2ycD6T15vkmZXV0qquACkEovp4If9Mlka/PF0zxC//SOhXsHD9Fd1a3kceog7M/zDIpZ0sxWaxpLoj4AGDVXwXEjkfNBNRR1P4eOreVrAJnEdg/3gZblDSyqV5JU3TH0Nkg3yD4y/G+3EDC5rTOUEy2g7I2YV0fEZOTmZttA==
+ bh=FgHQVCQSB+Wiqme9yZ4Fx8YUIJ8cOuSdS5e44oqeFsE=;
+ b=wZcfAmAha/QxEJNZOnJcK9nK6SPGlbRpsuHcceZruSF5cwDqMyQoEMwrFWtQz3bIw4WAelV1PFOGAPCY0gO/8QfrjtjyOL4FMoMVBYKyY5cmWelJgU9ZUbBGx0YBXlxhEh5jgzm7OuePwrAJU0t5Fo6L7VLKUHbwM5iwkm3xMa3Ym2mlfHI3RD031W4isBOgb1sCQXrJ48kBUHkd6dV3JNV7M3jrvG93cWKffrQKIDrei/nHbmS7TqoMHHbOczU+m+pbubOGBL8F8bO/2Ii43MqKqR6u3BtXvIj+7oSXDJnpjYXxTgVVDC4c0uNuxvnvSB+NtdE2qdpv2i31JEj39w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1KV9IodopM/C3ds4W3Y0nh0Oszn5iG+zPFvH0rQHu7s=;
- b=5Zdv1JRdi1g5CA7pYqJxqw2SfUlSmT+doQ52RBduYzs1jE+4ujfXXlWN0YKTgy84DTYle0T5sXLxM0WBiy/0sC8TsA5AOnP0yM+OzzF6PSt+/4NoKCikwVIsbHRoBQ6jZNT3LTrI2aqHqQ50dM6bao37o/fv4VSB4a/ITy+U0Rc=
-Received: from SJ0PR05CA0083.namprd05.prod.outlook.com (2603:10b6:a03:332::28)
- by SN7PR12MB7418.namprd12.prod.outlook.com (2603:10b6:806:2a5::13)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=FgHQVCQSB+Wiqme9yZ4Fx8YUIJ8cOuSdS5e44oqeFsE=;
+ b=eOnmBMoAyJ2ibC6CIPxBMuGRZa8sHkeNvpACK6fgAs5p7u6rvDVkChzubUbqxbE1nEK0v+FLXA81J8Cm6v/DhL6f+DO6f+yy/Xf3QtFQYK9XCPjIOA6mbls1TbSxmdBSiwM4zc8nPeiYCDR2N07OgsCcvivrNrk839hNODu2VlA=
+Received: from PH8P220CA0013.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:345::8)
+ by CYYPR12MB8654.namprd12.prod.outlook.com (2603:10b6:930:c9::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 19:22:51 +0000
-Received: from BY1PEPF0001AE1B.namprd04.prod.outlook.com
- (2603:10b6:a03:332:cafe::83) by SJ0PR05CA0083.outlook.office365.com
- (2603:10b6:a03:332::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.6 via Frontend Transport; Mon, 21
- Sep 2026 19:22:51 +0000
+ 2026 19:26:30 +0000
+Received: from BY1PEPF000264B5.namprd02.prod.outlook.com
+ (2603:10b6:510:345:cafe::85) by PH8P220CA0013.outlook.office365.com
+ (2603:10b6:510:345::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 19:26:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,54 +49,51 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE1B.mail.protection.outlook.com (10.167.242.103) with Microsoft
+ BY1PEPF000264B5.mail.protection.outlook.com (10.167.242.122) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 19:22:51 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 19:26:30 +0000
+Received: from devkfd.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 14:22:48 -0500
-From: David Francis <David.Francis@amd.com>
+ 2026 14:26:28 -0500
+From: Gang Ba <Gang.Ba@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <David.YatSin@amd.com>, David Francis
- <David.Francis@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Don't assert vm locked during svm unmap
-Date: Mon, 21 Sep 2026 15:22:32 -0400
-Message-ID: <20260921192232.665113-2-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260921192232.665113-1-David.Francis@amd.com>
-References: <20260921192232.665113-1-David.Francis@amd.com>
+CC: <Jay.Cornwall@amd.com>, <Kent.Russell@amd.com>
+Subject: [PATCH] drm/amdkfd: Fix TCP XNACK scoreboard reset race on MI300
+Date: Mon, 21 Sep 2026 15:26:23 -0400
+Message-ID: <20260921192623.437256-1-Gang.Ba@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1B:EE_|SN7PR12MB7418:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0f168fd-da4a-4ba9-5436-08df1815babf
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B5:EE_|CYYPR12MB8654:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1212e351-a31b-49c0-f475-08df18163d0f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|36860700016|376014|1800799024|10067099003|11063799006|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: vcta2zTk4/PoyqmCEni9a2Uaa4ttD2sm4oLlsb3XG/SzMxfcYFcl7F+R5oZLhu4dcjr4LQLgmhlPaOPd9VAQKDqmjdWXrQX6KSJ6W5l3cAQXCCFzujz8FKIYUshZB2lMZeaO8B/87UVsdrtxw1QJ4kEF7lzGuT/XBALa98/zZdBBh05eGV/Lfj86BfOx8BAcssRCG7pL/c+OMA5b9KA3gug6AjTEdsJ+KAuzDBFLtxvVd99B0/xgMsUU7i9TR9ZeILqNrKuyqcZg+QZzpe8YS/TNBYmleOb+oXywz/eFCHQQupOIOEC9RICeCYrGFWSILWZx0I9nksQZfpg4psebnXW5B2ghDDeqffwONknykUvjJsCzqr7lyqISMIK4v8anddzL2TaCtn92nSPzZUkSNxRb0ymFQaPKBQkjibhjFKWtZiy3yY6Ujy5xrWYzAmZvEG6PrB+TmOHC2UGp1en2BF7iEEmfukCcghrCIiq36xqgfwcrMGDJRnTQs/sxjXPsGUbrUi9OYFMfNFsaUnZ7Iecl67fgo/yJbpRvE9DnUZTt8IHwyiAPnj7elHfkxJkaaL+nIyGiMdwS4qG5TkGafmYHvA4DY/fxwnp92BgJToQ0EbZT8e/3ZdYDcAGqnoXVQ1VViDdF405J2MX534P31IK8VqGqdiOcpoXZSQf+OVFc+sLut+xm8FS6d+I0uB6oUGnq7ehUEYw+jVFu0tbJSw==
+ ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|10067099003|56012099006|11063799006|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: f4nHMMRAi/g+gPGzqAvrUFr2hOlyChMdEJ4IaWXlZ31+MnfDNqGHzyHLJnyp0pky5WEt0Vtewb74JOw1ucNyCYF+0QvFiY/gUvmTl0sj/IS/zfbVmGCki4D0WKuN3vNzFaBvgb6lCltQ3utjCsYzf1EfP+eJpAus5c4jPAETP602bONM02dzoU/AFg1FELnyWLAD5nN5b/miNWJAMIDes3g0cQ3WjdeICUxVZ63NIkDROI/9rXQX5mdc1XVOh3xOmPLnkWMK1m7fbyjDdgBwxTdAQwOeKHiS9M4RytGSoQeieOE5lpEwbTvfM6dRShunZ47XHPKfKe3meBBtDJeZlUZU9OEFoSCgYBYoTcmmmnkeT5UHCNwiyRdrLjF6OTZYFg0hzZuBDkngVzm7AMNd6s/JqIax6UH8YModoy5GHbObFgq0Iv0lzabAULrOfg4eMF9SMnVUHvk71N7Zf0YaEMAyAhtSx3G6PJASKyBSqZTxcXcqFLFsmZ1CMIg/OBbMl5v0EPoKfXjM0piAcivpNUpyx/zRUxvf3hH7OkksVB2itaUlrEBBbhPSRFnsAzKmfkbofVgUJit+xs/3WIutTYz9tXcGGzA/O0/oDKX+pgtCEsMIhpXpMdUxXOeN3FMqaa6wCdkT0VGScYf2bS9dPM17KPWtFnsEUb26WJ0FKkCRqtCw9sO4rlcUMxi3ydEqGAMiC/i6ROYW0W1zaM7A5g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(1800799024)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(10067099003)(56012099006)(11063799006)(18002099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: YkIDEe2+tyO8CkH3gIcFbJ/r7aK2/TJ+qMuix/8Tkbgow55h1mGhF7GwvIiNiIMpzSe61d9Ey+3/k35tbS8DtooGdA4LF/24m4x2rYI17FC8oEfKo9QQ2wF6mYiUi83IJbhPzSXKneXPWbVkaaCRVinEE+pKpIiSNATIUTQnktG6idXjApp/rqyXzYJllscBRl7w99I4iYUP5a52JlQBhdhjOILqvq9nWpbZERZWvChgU737oVqmYNK1TDnZvV9QMWDQgFiOymcusc5o/Yyfv89UO4Rx5G0byIgaNOuPXt24HlF5R91gWpLa8GxOq6yP7SHU7gUltl74o+WlOSt2oYnxAeFnJJsNaDD0mFltLg/vUK7l3BqX/niNQooKOsAs5qie00DAVA7IPeYBO4MYFTuoRBAXgOgJzmS4TOLSyAQPzvJMJFs+ZwChJ60RLf/+
+X-MS-Exchange-AntiSpam-MessageData-0: Be+E9lXrEBW2NOVPewu6lVlUhcxeOxiuMBJnrrtKg/AJnlW9jX7kfVOrpT+TXGybYUy2JJrI6s+b9rasIjLhcbhoE/sepNwqE+AsTTfm0opYZ4M+DFvLj2NlJiK+aoZnrJrdZvsmkghXaYy8lATurgs22EB0CAVTGamU+Gz/ZRSwUZWnHKlYwycdF9rHVbaBxmmuy1vQ83q+3AuC7oDzzpFLueB2iGEopwZNOvikBwsBT1kcZs6nw9UraX+agOCYkccZlI5TgrpGoLWg25TCOhywcqQtnVvxZMHXn7mxQHteCPZRo1uuUWmNhSADge3cvDQBzPyIlrMHy/52/wAz2sB0w2OA4OuTjR89xsU+e3ZTGzSiBrjxXVAkhx8+yCenWsJx5Z4ell0d6wwrRN8I+YJWLGlwNZR9Jrniap8mzpPTzoc0cMmtBKj1LA8OP6st
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 19:22:51.5100 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0f168fd-da4a-4ba9-5436-08df1815babf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 19:26:30.1434 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1212e351-a31b-49c0-f475-08df18163d0f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE1B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF000264B5.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7418
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8654
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,90 +108,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-During kfd_criu_resume_svm(), the driver puts in place every
-checkpointed svm range, including explicitly setting
-KFD_IOCTL_SVM_ATTR_NO_ACCESS on every range where that was previously true.
+Fix a hardware RTL bug in the TCP XNACK scoreboard reset path on MI300,
+where a wave receiving a no-retry FAULT from UTC and subsequently
+terminating may leave its scoreboard entry uncleared when reset events
+arrive back-to-back.
 
-This leads to an unmap without the vm lock held. This isn't an error
-but it does trip an assert.
+This can cause a later, unrelated wave using the same scoreboard slot
+to incorrectly inherit the XNACK error state, resulting in its VMEM
+operations being dropped even though the wave never faulted.
 
-Make an alternate amdgpu_vm_ready for svm_unmap that lacks the assert.
-
-Signed-off-by: David Francis <David.Francis@amd.com>
+Signed-off-by: Gang Ba <Gang.Ba@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 32 ++++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c   |  2 +-
- 3 files changed, 34 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c             | 11 ++++++-----
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h             |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c     | 12 +++++++-----
+ 5 files changed, 17 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index f07b7fb0c5db..ee68ffb0dc8f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -696,6 +696,38 @@ bool amdgpu_vm_ready(struct amdgpu_vm *vm)
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+index 4626e0b13909..ec291377302a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+@@ -628,5 +628,6 @@ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd = {
+ 	.hqd_reset = kgd_gfx_v9_hqd_reset,
+ 	.hqd_sdma_get_doorbell = kgd_gfx_v9_4_3_hqd_sdma_get_doorbell,
+ 	.ptl_ctrl = kgd_v9_4_3_ptl_ctrl,
+-	.hqd_sdma_get_counter = kgd_gfx_v9_4_3_hqd_sdma_get_counter
++	.hqd_sdma_get_counter = kgd_gfx_v9_4_3_hqd_sdma_get_counter,
++	.hqd_gfx_clean_fault = kgd_gfx_v9_clean_fault
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index 0d62cf475f40..0bc8d31081e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -1234,7 +1234,7 @@ uint32_t kgd_gfx_v9_hqd_sdma_get_doorbell(struct amdgpu_device *adev,
+ 
+ void kgd_gfx_v9_clean_fault(struct amdgpu_device *adev)
+ {
+-	gfx_v9_4_2_clean_fault(adev);
++	gfx_v9_fault_cleaner(adev);
  }
  
-+/**
-+ * amdgpu_vm_ready_for_unmap - check VM is ready for unmap
-+ *
-+ * @vm: VM to check
-+ *
-+ * Check if all VM PDs/PTs are ready for unmap
-+ * Doesn't require the vm be locked
-+ *
-+ * Returns:
-+ * True if VM is not evicting and all VM entities are not stopped
-+ */
-+bool amdgpu_vm_ready_for_unmap(struct amdgpu_vm *vm)
-+{
-+	bool ret;
-+
-+	amdgpu_vm_eviction_lock(vm);
-+	ret = !vm->evicting;
-+	amdgpu_vm_eviction_unlock(vm);
-+
-+	ret &= list_empty(&vm->kernel.evicted);
-+
-+	spin_lock(&vm->immediate.lock);
-+	ret &= !vm->immediate.stopped;
-+	spin_unlock(&vm->immediate.lock);
-+
-+	spin_lock(&vm->delayed.lock);
-+	ret &= !vm->delayed.stopped;
-+	spin_unlock(&vm->delayed.lock);
-+
-+	return ret;
-+}
-+
- /**
-  * amdgpu_vm_check_compute_bug - check whether asic has compute vm bug
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 0f6634b74974..8a2639be28fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -438,6 +438,7 @@ int amdgpu_vm_lock_pd(struct amdgpu_vm *vm, struct drm_exec *exec,
- int amdgpu_vm_lock_individual(struct amdgpu_vm *vm, struct drm_exec *exec,
- 			      unsigned int num_fences);
- bool amdgpu_vm_ready(struct amdgpu_vm *vm);
-+bool amdgpu_vm_ready_for_unmap(struct amdgpu_vm *vm);
- uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		       struct ww_acquire_ctx *ticket,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index c521ec07bf3c..68e51367e714 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1406,7 +1406,7 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	pr_debug("CPU[0x%llx 0x%llx] -> GPU[0x%llx 0x%llx]\n", start, last,
- 		gpu_start, gpu_end);
+ const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+index 344156bf20ca..54bcb5fdca24 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+@@ -714,7 +714,7 @@ static int gfx_v9_4_2_do_vgprs_init(struct amdgpu_device *adev)
+ 	return r;
+ }
  
--	if (!amdgpu_vm_ready(vm)) {
-+	if (!amdgpu_vm_ready_for_unmap(vm)) {
- 		pr_debug("VM not ready, canceling unmap\n");
- 		return -EINVAL;
- 	}
+-static int gfx_v9_4_2_clean_shaders(struct amdgpu_device *adev)
++static int gfx_v9_clean_shaders(struct amdgpu_device *adev)
+ {
+ 	int r;
+ 	/* CU_ID: 0~15, SIMD_ID: 0~3, WAVE_ID: 0 ~ 9 */
+@@ -763,16 +763,17 @@ static int gfx_v9_4_2_clean_shaders(struct amdgpu_device *adev)
+ 	amdgpu_ib_free(&wb_ib, NULL);
+ 
+ 	if (r)
+-		dev_dbg(adev->dev, "Clean MI200 Failed\n");
++		dev_dbg(adev->dev, "Clean GPR Failed\n");
+ 	else
+-		dev_dbg(adev->dev, "Clean MI200 Successfully\n");
++		dev_dbg(adev->dev, "Clean GPR Successfully\n");
+ 
+ 	return r;
+ }
+ 
+-void gfx_v9_4_2_clean_fault(struct amdgpu_device *adev)
++void gfx_v9_fault_cleaner(struct amdgpu_device *adev)
+ {
+-	gfx_v9_4_2_clean_shaders(adev);
++	/* to clean MI2XX and MI3XX */
++	gfx_v9_clean_shaders(adev);
+ }
+ 
+ int gfx_v9_4_2_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
+index 1cbade5ed657..c8757de669ea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
+@@ -30,8 +30,8 @@ void gfx_v9_4_2_init_golden_registers(struct amdgpu_device *adev,
+ 				      uint32_t die_id);
+ void gfx_v9_4_2_init_sq(struct amdgpu_device *adev);
+ void gfx_v9_4_2_set_power_brake_sequence(struct amdgpu_device *adev);
+-void gfx_v9_4_2_clean_fault(struct amdgpu_device *adev);
+ int gfx_v9_4_2_do_edc_gpr_workarounds(struct amdgpu_device *adev);
++void gfx_v9_fault_cleaner(struct amdgpu_device *adev);
+ 
+ extern struct amdgpu_gfx_ras gfx_v9_4_2_ras;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+index 9b48fe598597..2ae1129fea55 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+@@ -359,7 +359,7 @@ static bool event_interrupt_isr_v9(struct kfd_node *dev,
+ 		!amdgpu_no_queue_eviction_on_vm_fault);
+ }
+ 
+-static void gfx942_clean_fault(uint16_t pasid)
++static void gfx_9_clean_fault(uint16_t pasid)
+ {
+ 	struct kfd_process *p;
+ 	struct kfd_process_device *pdd = NULL;
+@@ -565,10 +565,12 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
+ 			return;
+ 		}
+ 
+-			/* GPR cleaner shader for MI2XX */
+-			if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2))
+-				gfx942_clean_fault(pasid);
+-
++		/* GPR cleaner for GFX9 MI-series GPUs */
++		if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
++		    KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 3) ||
++		    KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 4) ||
++		    KFD_GC_VERSION(dev) == IP_VERSION(9, 5, 0))
++			gfx_9_clean_fault(pasid);
+ 
+ 		info.vmid = vmid;
+ 		info.mc_id = client_id;
 -- 
-2.34.1
+2.55.0
 
