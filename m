@@ -4,94 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72682C982ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 20:52:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBE2DC982ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 21:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3E2010E345;
-	Mon, 21 Sep 2026 20:52:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2994410E114;
+	Mon, 21 Sep 2026 21:18:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a7fLput/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qMBvbYpl";
 	dkim-atps=neutral
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com
- [74.125.227.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA2AA10E345
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 20:52:50 +0000 (UTC)
-Received: by mail-pj2-f43.google.com with SMTP id
- 98e67ed59e1d1-39dfcef2896so449800a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 13:52:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790023970; cv=none;
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com
+ [74.125.227.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB24310E114
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 21:18:50 +0000 (UTC)
+Received: by mail-pj2-f42.google.com with SMTP id
+ d9443c01a7336-2ddb3aea488so4387445ad.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 14:18:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790025530; cv=none;
  d=google.com; s=arc-20260327;
- b=HNKCCGSJSHd0FehGOOt5BcgMxWjq3wcda+HSG3kDzIS/8GJArPpx98roICv9pOxVZR
- DRDIwMm8NtiLnOD1aB18RI6sHMnjJKqxTs5EJR9JVy/XzJAVa9ZSQZV/9IT1U88qc7Nf
- 7o+G0dEfIu3CRDsGQnS6/klFsjhZR4/cHAtwKjPzLRsiLk4Kdj5bVL0f1K1DZwvkUK/P
- CAGN6H/LBta3Nqdas6QkiWUdULOhJXa/JvXbI6QlrL3kqdGojZTteOA592hWdzFMZ+GU
- oXZ1hP69kL/agtQxkxHggAbLksURg/qjDRTIdzJ8Io/KYE3GK6talVRWqs2zgulJURCQ
- iFVQ==
+ b=GBjn1YXt5PsI8xZ0QHAcOSOUEINA5M8zrCSjXMa69/RqFU4TTO4bm1oMZUClNAztcI
+ RmHMvLdfnYEWB4LFxVkc8Iz/akRqeyyz1mHLc4ewCcypa8d9eKJzuTBWZRiumztoqHGe
+ 2Ni5fVPNa63d+828wXIOIuL0kGLp+brCnW68gInmzT5GmgHLlG99HHv2VUfBf+awUV0d
+ DYEo9HMoKjFJnX986BMcGwe9QpGJUnBjTNewpFlSgUh8sjQDCD1ZNajcUQYr1oLBnV9w
+ LoprIsdQ0BDKw1EoPsghzHLG4mgLbk32Mm8dNbtF6VQTofQ+HiQHwM85qG4NsKyrkzn/
+ QhIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=fE9UeThI5LasTmDMAGdf9v0RO2cGZVfo9qxRh77NQts=;
- fh=oMMMDebRp9w0CfcRt0o1NBWCB4Y+Bmun2RSL+5wk2mI=;
- b=SexGLc3HE4Fm6PVk+nCVdMC6vIsnaAK3L5I6YNMtgAZZy15s8pNCDMfMPu2yJWwson
- RAcF3PD5dMdL14I7MJHJOb8nxnsAtPtBTw7cEuNm80jr+xT7F1l7WlfOD7kX+mMGo/LH
- FlaMzORz8wGhBbglpkKdj/sc7JXZHhNwEOwwbvi3K7+evTqhvcAFOII/KyF0Cw+GMlNC
- FE/2WwNqiRTuLCI/pu/hMlD/hEKlXAw9G+62hH5OPgIJgRGnFqqIvylbNi469hQEj9sf
- Qb+bA/MLqG+qqGwyZMIc0oMdZoJlL63kEdyzpDrpFbdUluZ0szUt80i8LSph11cKcpfr
- vRQA==; darn=lists.freedesktop.org
+ bh=ngu6mGd66FhUjN5aGIuLGfjJpEsaPulVmk1hW6Q9q4Q=;
+ fh=QGorB5rmOBMZ7omrFRbw4ryTP0XS7z0IjjEFddjD9ag=;
+ b=VLxLX45507xubrCCUXkvgVRuWhn2FAcH6qjdN3OKneafVG1lAT/TyrflmdOUsE0dod
+ bMXHjgrBbyIOmH9/7AJvFI/XIT1isjdkin2qoBQameV7hpTVP1RP8BkC3L03rswEvnMg
+ Cme+WAQz6/xRi9FI12+ybR6/DIzpGVhw+9gKqqTvHxTis1asDpj5TvAfUt+6WAqKY4ef
+ OLItcZYJESwpo8+oYfdddzd1ryEa1+/7yuJqL1xuz7ePtS2wXW+g8xEx0ErQdzksVrQO
+ abLf8tVD/1a9fZDBRYJRIiOvnZhOylrINtMowqwchlYUwGDfi488qZsgxn4JD3E2u6ko
+ tVQA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790023970; x=1790628770; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790025530; x=1790630330; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=fE9UeThI5LasTmDMAGdf9v0RO2cGZVfo9qxRh77NQts=;
- b=a7fLput/u0mHDNWS7KrXsQuy0rjF8TX9NS3mh5MzzuYdZCpFVoNI2efcQSLpA1zUSi
- WiTqHm7GeLS4rzMuidcR7ZlJGSi35KST1esWXzMekDxvX0aeIT5iUWNdWqk9n8gWR1xb
- 6iRRiXZmgbNrSBF8s0IIM9GtzPJ9GxSIfIOkSLVYTGtgwrEtdwcVqkh2mhb2whw9YQsV
- sbwb3vCZj5bvFM/Qq/oUHSvzKOCCckkFoQDCzxHK2boTRmqAK0AczIEbj4k4nDwDeRH7
- pCZv7cKf5kuWabvNH1NJUOlhwryUm+QNZtdyGhH4Cf7PRyjgK6ZnR8V0UBkrm2Nhl6jG
- WHQQ==
+ bh=ngu6mGd66FhUjN5aGIuLGfjJpEsaPulVmk1hW6Q9q4Q=;
+ b=qMBvbYplMDankXlfQUhkMWzrcL7aSYtSHl8EbSNZhxBYI/9wiTyNOWU/zHsvAdmzVZ
+ UleeuOX+JcXfwcLJw36xuVICMa9SPnCZJWo4X+cV9R4ofk86INtyeuBlRowPhF8JWQBX
+ MxBZlVmlIfGDNnUPOG9I6bhDtK2eVNVwWetgwfjlWRShCQHdRiRy4Kp9cddUxOklvMqt
+ rpZMIHo+1wCjYd77TEkUajtEEYIPTpXsZa/W/lldPu+gBLGk6Fv+cZun414bOxRPd+Mj
+ qhqKCPhaJpB1Guq5QXqKPbAHfi8d8NYoBCtuS42i+Ybi5vTLJobkLSU6qxyg42w0oLLn
+ RTsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790023970; x=1790628770;
+ d=1e100.net; s=20260707; t=1790025530; x=1790630330;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=fE9UeThI5LasTmDMAGdf9v0RO2cGZVfo9qxRh77NQts=;
- b=TJ1Yq3EPaIlqZU+XfuITVJ24yCI83a1F96emKc/hs62hBicrx2nOYETg4uRmMEDWUW
- Sp5bzcAhOarfs/wQu8gzJH7d8kDmyGAUDGM2QVFqxpOTGdXPaImbIQfbrCV5GGj6l00w
- 8m2rPaO/TJA/BMYD5aMstlMZ7Fokpr32xhLQj0JFjw2m3q91fFXuqzCsDmuWksRl/f+7
- OxQhZwx4bquZDXtXzM+eibEA9RLlaguSulB1c+P5a6ouw0vxku8/AYZDoFlJvieuwgag
- UMtdbIafcCQBdxvOzoVPn3Iaj/k38znrSdgOKpX99BL2xGylv8z0ZK9JuCt4lZ9ZhIZ9
- 4ttA==
-X-Gm-Message-State: AFuF++mKF93e5MPce1rNUanwGt+UUeS2sOyemBmf/WZftGu3qdde4dwk
- ygKPUAWXNsykRKk0wv4G7Ui11K95Pbdd2QOpzkxDHHE7CiLHFE5PiMLHYFRUvLH0ZRNZT1f4CNJ
- LLjhK16CNtRQnBoqFrwWgSM4bKnsyihw=
-X-Gm-Gg: AYBFou1irQ3IwsZsuJABBNGPidwbpgEfQd7n7gomxnxF112PyQZb+CZQK34OQ/pBxq7
- 7m0K+mHYx8xW+sFkqcY6KvFqX3kxEW/50mGpsLJ7WKrP3I103wtKPXm8aGv45K21a2gbztO3LdN
- Ft0ypZA+p0PnVm6VFtbLqFO7aHN6+lW/SlvcKb7thsyHgFTB378nlFDAIShmV85cSnkD1Jdbxuu
- TdbgaIq2CHa601TtkSJrbtwR4GqalFTZ98p66MTv6PVPuahvsaTCVmppZJMhgyqGYFBWlQf1R5L
- LHXAtWz5dEDhZJYjjBoVL77Pqkf2mByQoHnr1md2z9gPZYA+nETXoEX5yIEJ7zvCpm7uBctdMBa
- l3iHjNVkhiwtHY5wWp0t2VHEiW84xpp3AsAYWdaMuiA==
+ bh=ngu6mGd66FhUjN5aGIuLGfjJpEsaPulVmk1hW6Q9q4Q=;
+ b=gExjqm2HjcWcrcLVNSPLsCYlki4gqLLdKexNUIEn4wkgrUiKC8D2/O8Gpbl1RUdEkA
+ F8aPrpsNCaSgUmyo8NpVwqyWUBVyk+/Gu7hkW6aa7ZnBjZQrxDnY+qhBx946GUhRVfZM
+ wjPS1wyu5i6AD0kVQjb/d9bXXQojM3V53z/2X3IJ0qU+dFrC3YFBtNlxfzXcHEzbckxf
+ oXRz7/1F2S6DpWrzeiQk1qwiKL1cNX2nja2JqVhz3gwunU4v13EBQnzVYW19q273rp1h
+ nxQNMBcUEh3TaCe0o56nI88XcAkbbvhybTTZyeAfwLFHilqiQGvkhJGjoW1GELfuk/P8
+ hqgA==
+X-Gm-Message-State: AFuF++m+18TI4eJvqela3acey6aOWmGuvOv0wcwnyBteLjeRcHAxfW0x
+ ZhjavLneCTreOnAx6eVEj8+x6JTWAT73RVKXBdKvvS0EOGxz9m8kHsnskDvOsgGCaWpaOQBtDcu
+ dqE+KreQgTQNcBWnGzQwA8D9LCNLbhoU=
+X-Gm-Gg: AYBFou2TnjnccDApyVzVh+opauWnx+5Ntns06KvhUmibeoezXj3lnQOTkypqXYlmjZL
+ y7ZveZSAjYYYaQarNOxkt+QAirW8lhw0XuvHDBdAyDLHr4mZj/AVhNIfrlOv0kTJoaUo8nBsKJY
+ xiL1YVKeihH/UL0KUWO5pjWSS9yTH4TVlXFaYTw69aIkcK9j+lPis2p3qYvL1feCPxApGkawBr2
+ 21Ru/+43ylH7HU0dC3maSRV+sAQUsh0fgmbP9YXCKJPFb+k+uauHIbffZJ/8Duw6smdH0BbdUyo
+ hInLKxw+VqKWiiT947tSPtx6D+P7gvqOjTQmcPE+yMraaWaust2RB6q0NYGdDECFe0r65d10TsV
+ iIwiIcqj7jOnrxPwauEM4nPjUnHcWrhwF7Fv0mUX3g92p+MdE8i9q
 X-Received: by 2002:a17:90b:1a92:b0:39e:55ce:af15 with SMTP id
- 98e67ed59e1d1-39e599fb4d1mr22238438a91.5.1790023970255; Mon, 21 Sep 2026
- 13:52:50 -0700 (PDT)
+ 98e67ed59e1d1-39e599fb4d1mr22337961a91.5.1790025530208; Mon, 21 Sep 2026
+ 14:18:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260904183409.571117-1-timur.kristof@gmail.com>
- <77bd73f2-3e33-4c78-adaa-634b381ea5b8@amd.com>
- <RY2IRd_oQXa3Lr23bQzSrw@gmail.com>
-In-Reply-To: <RY2IRd_oQXa3Lr23bQzSrw@gmail.com>
+References: <20260921075326.2409021-1-Jesse.Zhang@amd.com>
+ <20260921075326.2409021-15-Jesse.Zhang@amd.com>
+In-Reply-To: <20260921075326.2409021-15-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 21 Sep 2026 16:52:39 -0400
-X-Gm-Features: AcwNN1X8a4YV3oHmJg4Ia64DDqgpWPgamzVOiynDVvy9rZT2ycdVJ92OK22sG1Q
-Message-ID: <CADnq5_Nxt4SvOexDX2gT4DTfK0qomujhU9YDpU9uVSv_UEU9rg@mail.gmail.com>
-Subject: Re: [PATCH 1/5] drm/amdgpu: Delete SI/CIK/VI IH soft_reset() code
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Date: Mon, 21 Sep 2026 17:18:38 -0400
+X-Gm-Features: AcwNN1WHYzQEh0g9jSlIxfh0Yxrv5jWh27BQ08nILcpLtwHQLja-SHXre3oTaG4
+Message-ID: <CADnq5_MKf1nrk6ePu+GPdMNbx8xdyPqPXcuz5A7awiZQeDov-g@mail.gmail.com>
+Subject: Re: [PATCH 15/21] drm/amdgpu/gfx: add a gfx ME pipe reset capability
+ helper
+To: Jesse Zhang <Jesse.Zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Natalie Vock <natalie.vock@gmx.de>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Christian Koenig <christian.koenig@amd.com>, Lijo.Lazar@amd.com,
+ Prike.Liang@amd.com, mnovales@amd.com, Jiongyu.Zhu@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -108,40 +107,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Mon, Sep 21, 2026 at 4:11=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> w=
+rote:
+>
+> Use gfx_supported_reset's PER_PIPE bit to report GFX pipe reset support
+> through a shared helper.
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 10 ++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  1 +
+>  2 files changed, 11 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index 2da839228911..7c597dab5b2a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -2376,6 +2376,16 @@ static void amdgpu_gfx_reset_stop_compute_scheds(s=
+truct amdgpu_device *adev,
+>         }
+>  }
+>
+> +bool amdgpu_gfx_me_pipe_reset_supported(struct amdgpu_device *adev)
+> +{
+> +       if (!!(adev->gfx.gfx_supported_reset & AMDGPU_RESET_TYPE_PER_PIPE=
+))
+> +               return true;
+> +       else
+> +               dev_warn_once(adev->dev, "Please use the latest MEC versi=
+on to see whether support pipe reset\n");
+
+Should be ME rather than MEC?
 
 Alex
 
-On Mon, Sep 21, 2026 at 7:16=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
+> +
+> +       return false;
+> +}
+> +
+>  /* Caller holds reset_mutex and attempted MES suspend before HQD lookup.=
+ */
+>  void amdgpu_gfx_pipe_reset_prepare(struct amdgpu_device *adev,
+>                                    struct amdgpu_ring *guilty_ring,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.h
+> index 855651f0c930..5939e1fb3b24 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -707,6 +707,7 @@ struct amdgpu_gfx_pipe_reset_ctx {
+>         unsigned long replay_mask;
+>  };
 >
-> On Monday, September 7, 2026 9:43:55=E2=80=AFAM Central European Summer T=
-ime Christian
-> K=C3=B6nig wrote:
-> > On 9/4/26 20:34, Timur Krist=C3=B3f wrote:
-> > > The code for SI/CIK/VI IH (interrupt handler) IP blocks
-> > > has a soft_reset() function for each block.
-> > > These functions are not called from anywhere and are
-> > > dead code. It's unclear what the original intention
-> > > was or why the IH block would ever need to be reset.
-> > >
-> > > All SI/CIK/VI GPUs have been working well for
-> > > 10+ years without ever resetting the IH block
-> > > so it's time to just delete the dead code.
-> > >
-> > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> >
-> > Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com> for the entir=
-e series.
-> >
-> > @Alex do you pick them up or should I?
-> >
-> > Thanks,
-> > Christian.
->
-> Hi Alex & Christian,
->
-> Ping. Is there anything I need to do to move forward with this series?
->
->
+> +bool amdgpu_gfx_me_pipe_reset_supported(struct amdgpu_device *adev);
+>  void amdgpu_gfx_pipe_reset_prepare(struct amdgpu_device *adev,
+>                                    struct amdgpu_ring *guilty_ring,
+>                                    u32 me, u32 pipe,
+> --
+> 2.49.0
 >
