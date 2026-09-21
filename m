@@ -4,78 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48C32C982DE
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 10:37:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE3D3C982E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 10:41:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8FC889613;
-	Mon, 21 Sep 2026 10:37:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5720889B01;
+	Mon, 21 Sep 2026 10:41:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CZDTftZo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="etPPDBAx";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A17C10E087
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 10:37:47 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c294496989aso371124166b.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 03:37:47 -0700 (PDT)
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com
+ [74.125.228.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C71D89B01
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 10:41:41 +0000 (UTC)
+Received: by mail-ed2-f35.google.com with SMTP id
+ 4fb4d7f45d1cf-6a60591bb18so1884938a12.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 03:41:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789987065; x=1790591865; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=PT83wCYstVYb77BaJ6O2wnsCGDMjJZAMJK8lDtmAAac=;
- b=CZDTftZoFZUEv38VlsqfFnZqY1VnBalXrCTPiMi5x1HvTeTsee1fvkdhev6CWF/dxj
- hZc3RTkKWG4HxKIHBysAecs1P85J3+kOVnWKopJ8AFaOGtMpS0WiL9lPab+1DfhQZH00
- DPG0MpQo7kjUcKCWo7qKug8gwmk+KI/1tLV1E3E5S0E7cdneg1uK6yv6qZKOBRYafLQV
- Vr8oN8iv8O8RnE2yJ4Se8P3ftR8F3gjGjwFgNhiUmKg1VTveORMiTTUNNtg/kAJDA/01
- 9toFsHnGMuyZA1+KNuGBG0dg2wnw3h/utEcGAzFUETwiDo+nd6NRy01Q3W5QhC71NQB7
- EpTg==
+ d=gmail.com; s=20251104; t=1789987300; x=1790592100; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=77n7/qL5OD4+XuK76fVkKDFPHd6U1KVt25LeeV8um4Q=;
+ b=etPPDBAxD68GQq5qdaq3WgUZSDlR3EaCLuJOaKkyAbZWsWTkH2/3nQsqud7Zjrw2LX
+ 3gib6d3xP+sSDg1N+7Ske1ssGCtpB5iQ/1Xykgif+KgoWMmFlihzFWWJFneEI4mFd78V
+ jcwlv8v2JHd2cLGwpI+E9poZ4Rhq3WloWdwKyOUc9vx2+abDtomFX7fpPbJ99MYyxCRg
+ 0TsM8iANxLTl37NEmJvGveMmptsgnQP8id9NmYrXR9uxLnghIttraySEpX1a++F4FYXs
+ 3YpGBQvQmsQNxcCmHIv/KL31ygULBWQRMrYEcJSHA0AxBzIlkW2QSpcrsLYaiSsP3LxH
+ pXUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789987065; x=1790591865;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=PT83wCYstVYb77BaJ6O2wnsCGDMjJZAMJK8lDtmAAac=;
- b=qKH+7nWcmnJ95Et1Vv4lhHcEMaf4UFFicV/+LzvKa0AoKKJmLaQR8uFVEMOFbXODxS
- T0gDjtDRWHeK8bzEUEXKqnrh8TlxU9+6jgLw1DabzWyT8na6lQ2RlJqwkiR3rM/0iqel
- HtJGwTeM9SRysPzGiKsjV6e5yti1fK9Bu9/atwWQpqxT81DZ3uB1EUW/lodhpaJ8g0k/
- M9exA64OfiIXKMbYPlAlR2+hvVSIUFvfMzJzcfvqAxSJjEiR5t24moRxV08Ch5x+jjnk
- qfodzqkmcCR7iGF/35AYLEiT1aeXNl+Eqtnt9rDg18Lkqjr5rCw5q0ITxU74XPhQyibw
- tQ7w==
-X-Gm-Message-State: AFuF++lEMSuYngVAEy8zIV3BeYgo+zNXKZlmV8GBLGjT2VoEG5N9GGhJ
- aWebU7yoYAGmLXjGXtAGpLdSNJtXcIZk7zh8DqZUDv9wSznHHszRYZ/n/1hSsQ==
-X-Gm-Gg: AYBFou15eI2L/hC3hapCb/eKgge3k8Q6rPawAAB64zreF/4DON0nHbOOJHFWe7GaQPe
- qPRvkRrfefDCsakXgsQVDddc8UtistbxyvM4U78gPwl9rsK1ajRHEU6yMvNAJUD8XajqTgFpDNf
- RK5kIhzxh07DRjBKV7x6NRrROMOsN2fdYe0DIlQKanb5iOvTdMSh8X07XmP73qZhIXlEGkYL/Az
- jbSYuqDOWjcvx0PAmhwBqfF+vQ8+Kfc2Fm7aM3E+SVzWNy0NgSw5+qyVdEk4D/HordYmjDPXT/H
- KXO5e1+gorLpXOZ67603+y92w6EoqOdXUYMXAzDQXjtwqsPoFnPecSFQriez53P/KE0MntsXFOC
- LzHMAbRq7jhI8ZdEoZvxDggojfuP6bS139lrjPYPat9pebfMz8M5zO1CTf+wdJpOeSDGANBGHVD
- iGLy5S/xCyyLGcbmUpSQhX34s4l3ag2gpZg7S7rjDn6crmwJrmTlpgJWX2IU09mnRvLglHd7wxS
- 3kmV9Lm8mFUZEvyQDys7CrXq0bDbcin8zrnmoJs/hdKfZM=
-X-Received: by 2002:a17:907:9345:b0:c25:5a7:87f with SMTP id
- a640c23a62f3a-c2a1547f75cmr822506066b.0.1789987065302; 
- Mon, 21 Sep 2026 03:37:45 -0700 (PDT)
-Received: from timur-hyperion.localnet (5401D96A.dsl.pool.telekom.hu.
+ d=1e100.net; s=20260707; t=1789987300; x=1790592100;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=77n7/qL5OD4+XuK76fVkKDFPHd6U1KVt25LeeV8um4Q=;
+ b=ToZEjKh9G/7hv0PwKj1F7w5YHiABwj1rPCweFOBm8EVX8fWVmMA76Ii4S3BBz40AAO
+ 0E9xXgxPAPE+qbsUXv2v3BGRTKoGPC30O6ZiNZ1a5Q7GaeB90lp5SAZCkiamHc1DM0MH
+ ihJ36/GcCE5sPii0uZehzc6ag1SxJB1bql43HKYMnBMnXdFIaZbSzcUYk2OFJmmu4jhN
+ YDzHCFATBUi+dLrKLfeHeOY59nal4aDbWeaTPWczGjDsoq8crR/E4Iv+nrReBCV5nAlh
+ 88I2hF83Al1wNV35NTdE42c95My2djcPtrPMAzVgkZ89qOZtWe9eUCWODW/Dc/PlT+HH
+ wVDA==
+X-Gm-Message-State: AFuF++nYsH7zQBz10D4TZZAu/gxHooIXlm8SzhtQHQoKTM8pO7uXRKNa
+ MKguRwyvhAgXqV1KcfyvvDUDCNy5RixAYN6sUXB9TPhCCPEpLUzhfONYPpcVwQyM
+X-Gm-Gg: AYBFou2x11IcaD80M7lFJRpp3oPlkhUOa1dMnkbPWF9PO463q7J51GKwQpEJ9PacfJ1
+ Dz1BJG06HPzBYz1VI5LWkC6ZImcP1WJRa0IxKKK7rEcFsuvW9zPpahVlVN4PE0k4wFBFM7O4c9g
+ 3VnKz+GTGONNm5za67TQHIJz/+boXPmj1okpdRHbNtkmh3SlivmZ+a+6MmtNp0BBryrRMYF7cTa
+ B4r+yeX5TzpyPRgOvP2+K38Dr+bYm5wID1sxAQKuhobB7Qg9/K6uKcztvTBnYU8R5G6eIBd2P78
+ YEZlWyD+9bybHCJZuf/n0UX+zVM87nrfV1ruBEiBRg6cjXHC6S0EQGWw09Rw9yU6PHkWRHoqULJ
+ AUhTY8/hKmJWx+epdUwsIIU6JJPYQsJPvccfzy/6+qCYzIJ/iVcebodWTlYAxfnySjDe60VcfWk
+ xTHq1KgLj5sbl79r3BuI2pFfh2n07hHJty83fE72UUmWyoSE2iVaMJudghuLnfK6NBGpMq3G4W+
+ PWgahn0OGnkH5cKqwkrifuWgeX8X/Mw9nxho2GV
+X-Received: by 2002:a17:906:4fcb:b0:c29:4b57:503e with SMTP id
+ a640c23a62f3a-c2a1640592amr968006166b.1.1789987299631; 
+ Mon, 21 Sep 2026 03:41:39 -0700 (PDT)
+Received: from Timur-Hyperion.home (5401D96A.dsl.pool.telekom.hu.
  [84.1.217.106]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2a355ea970sm280707166b.20.2026.09.21.03.37.44
+ a640c23a62f3a-c2a38a10553sm267300666b.21.2026.09.21.03.41.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 03:37:44 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+ Mon, 21 Sep 2026 03:41:39 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- Natalie Vock <natalie.vock@gmx.de>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 1/5] drm/amdgpu: Delete SI/CIK/VI IH soft_reset() code
-Date: Mon, 21 Sep 2026 12:37:43 +0200
-Message-ID: <RY2IRd_oQXa3Lr23bQzSrw@gmail.com>
-In-Reply-To: <77bd73f2-3e33-4c78-adaa-634b381ea5b8@amd.com>
-References: <20260904183409.571117-1-timur.kristof@gmail.com>
- <77bd73f2-3e33-4c78-adaa-634b381ea5b8@amd.com>
+ Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Leo Li <sunpeng.li@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Dominik Kaszewski <dominik.kaszewski@amd.com>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH] drm/amd/display: Fix fast updates on DCE6
+Date: Mon, 21 Sep 2026 12:41:36 +0200
+Message-ID: <20260921104136.23990-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,33 +92,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, September 7, 2026 9:43:55=E2=80=AFAM Central European Summer Tim=
-e Christian=20
-K=C3=B6nig wrote:
-> On 9/4/26 20:34, Timur Krist=C3=B3f wrote:
-> > The code for SI/CIK/VI IH (interrupt handler) IP blocks
-> > has a soft_reset() function for each block.
-> > These functions are not called from anywhere and are
-> > dead code. It's unclear what the original intention
-> > was or why the IH block would ever need to be reset.
-> >=20
-> > All SI/CIK/VI GPUs have been working well for
-> > 10+ years without ever resetting the IH block
-> > so it's time to just delete the dead code.
-> >=20
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
->=20
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com> for the entire =
-series.
->=20
-> @Alex do you pick them up or should I?
->=20
-> Thanks,
-> Christian.
+DCE6 should use legacy fast updates, just like all DCE8 - DCN2.
 
-Hi Alex & Christian,
+Technically DCE6 should have been included when the fast update
+code was refactored, but it just happened to work until now.
 
-Ping. Is there anything I need to do to move forward with this series?
+A recent commit "Attach only plane updates that actually changed"
+has exposed this issue because with that commit, DC accidentally
+took the new fast update code path for DCE6 as well, which caused
+it to boot into a black screen with a flip done timeout.
 
+This fix should be backported to all kernel versions that
+have "Refactor fast update to use new HWSS build sequence",
+but this patch won't apply cleanly to older kernels due to
+another refactor in "Remove dc param from check_update".
 
+Fixes: 0baae6246307 ("drm/amd/display: Refactor fast update to use new HWSS build sequence")
+Fixes: 9ec11bb842b6 ("drm/amd/display: Remove dc param from check_update")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+---
+ .../drm/amd/display/dc/resource/dce60/dce60_resource.c    | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+index d2d56a1c4b8b..f4efa55952f3 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+@@ -448,6 +448,12 @@ static const struct dce_abm_mask abm_mask = {
+ 		ABM_MASK_SH_LIST_DCE110(_MASK)
+ };
+ 
++static const struct dc_debug_options debug_defaults = { 0 };
++
++static const struct dc_check_config config_defaults = {
++	.enable_legacy_fast_update = true,
++};
++
+ #define CTX  ctx
+ #define REG(reg) mm ## reg
+ 
+@@ -937,6 +943,8 @@ static bool dce60_construct(
+ 	dc->caps.max_cursor_size = 64;
+ 	dc->caps.dual_link_dvi = true;
+ 	dc->caps.extended_aux_timeout_support = false;
++	dc->debug = debug_defaults;
++	dc->check_config = config_defaults;
+ 
+ 	/*************************************************
+ 	 *  Create resources                             *
+-- 
+2.55.0
 
