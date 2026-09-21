@@ -4,125 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18099C982E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 13:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1BA4C982E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 14:15:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC2010E791;
-	Mon, 21 Sep 2026 13:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F19E10E39A;
+	Mon, 21 Sep 2026 14:15:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yuwYo8ML";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FQUF5Rqe";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012003.outbound.protection.outlook.com [52.101.48.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC6610E791
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 13:59:18 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013050.outbound.protection.outlook.com
+ [40.93.196.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42D4D10E39A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 14:15:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T9ZngzDf1iJ3bK7qb1FCWKWdM9pT/Ysa0tEiP1kbO+snI7DikX9lukxyZ7iFELA+ka/9+9kgBZ4ud397MxJBd4f9TCgJR/ZIlUwzG4Fw+4cWS5i8bvVGmWAZmfxlIMNSHznPqO2UnJHAukKsj6pl294lFgbjtAv142yb9V3L4900T5m3Ng/i2H6BaGlteKKjOFq2bHYF8XIedoYtArksCH5tSSjA8phrv9ay8+fc5N6K6hUW4zuQ8dQR8iqgGFvO9Ae//rcacSNL0jAAR6wqzsUULEuiLlDJiR9E9Xbms3wBA7kFOKBCqt602Ont5nyMAwo5gzRrB8AmJ3ivEBxsAw==
+ b=ARiKr27iBxHoOWYa6OXnRZOiCOhZC1XquxToM29TEna0TtMxwH2ByUYGSm3MZjj8V9F4KIgLP5il7mdj8sucije5Yt71JM8bAwmM8bKkx637EAE3HG6czSCjKccM9Ys9aDwYU6GTp0hurEi6RT5o4qE3h+ErAdM251cBUhrzern3slQtnMYm3elzyAvRhAOPGmQWMFT4wd/l1i+cq5wSU6pzQTd3A05HTopV9NR38pTQc4P8DbkXJcL9/BqoMAlwnhWJ/tmEnL3PBG5DdF+isIE3vpXTJ0UWdih6c29Om6DKDKVmbF7VVEVE9dq5ZSvg3+VkKKvTAHLkAyt6Iqcn4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IfE0btJKkkq8vEqJTxTz71Qadf7zpr3beCrKwPb2AbE=;
- b=yOLbqOinTA/BHqKtF8cVHTKh63Q97JTQiKgZDKFX0cgBidScsMbh/orQax8kcV33g7Qcqxk7uflKGIfatQW21i65a/yAxqKgxH2LCDVTfrUVzLT/WMBOl/FdK9xmoM6OF30T5sEggxw/T9iypH+qnWRzTL/iaD6g6SUd9fwaonD5zVVcwPePrLTl5R0iD9uIaD9RJKErkmXMzf2TlolynhRgDK2Bx+Bk0PrN81QFkV/yRNg4ijojXnQaUiUV92X0O3sySegWXpO/EMWMypgbtfEak34PpGXqm70c1jT7hydkx4W10QxhRLrZbKevIy6Ap0vXBSAK2XpNU+c5IJXypg==
+ bh=IgvwMB+0YUGyd0h5eYBpuzaMbWmo9KysghCEPIbAq8Q=;
+ b=jkKNLfPyLDX66EL+oNFMhMXfNM2jjX9gONhSD6kmimqCjqiMHtrvq/wK3W89q0ga5lf8opRwZZL8g5ma9x83kq+eirFkvB80PbKv+OEcLpGw1IBe4r96AlvAZnl7NzjTTrQCqyXb133tuXIO5RSxlRj9hwO61mI2TrUIjmKn9MHRa3zrc4twkl/amz74kuic5j+u/QH5Ef+T4ciKS1ZhqHW+jpvPbrUA8zLDd8hFTFkkgKvWDLqsWQDyhPjeEzMV+Hw9HnwqRMGu7zJ2P0dGuHGvfCf5b7cUHOVHaHFUi6Rs8Bj7FuR2VuYLP8Jp6NEc0WpS9StW7om5l40ZKBTaHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IfE0btJKkkq8vEqJTxTz71Qadf7zpr3beCrKwPb2AbE=;
- b=yuwYo8ML5UqL0p9/fFmC99bgKk6HB/CjMJcGbR2heJmM6EHPUJ+1cpxV0IvO4a2ngI3x2NgstpSxGahpne8sFrdomslVWdg7I5gUHo57eBo6XE08QofbeXt9GDkUjm0PIZSD7KsBhiE9JgzKQ/C9NtaTCCMumAy2tfb8wt9IL/M=
+ bh=IgvwMB+0YUGyd0h5eYBpuzaMbWmo9KysghCEPIbAq8Q=;
+ b=FQUF5RqeEQZRKI6MLf7CIv+puvH89dbmgXc81ITZ/RBIWO60yKkpJ3I+HlN+Ty9Pbqpf3mmCE0j80uEtvULBUCjndm6SQh5w0IVh/kHXsrlfkfe/2omPjElwMUY7Q1N3nZmIC2Xd8kdFO4SEplx3OSAB8UwiDXjsHffvKNDDStg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SA1PR12MB5657.namprd12.prod.outlook.com (2603:10b6:806:234::12)
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by CH3PR12MB7617.namprd12.prod.outlook.com (2603:10b6:610:140::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 13:59:16 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 13:59:16 +0000
-Message-ID: <f76638fa-3697-42ac-ac4b-fb3034e85bed@amd.com>
-Date: Mon, 21 Sep 2026 19:29:09 +0530
+ 2026 14:15:48 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::dbd3:cc22:a850:dc1e%4]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 14:15:46 +0000
+Content-Type: multipart/alternative;
+ boundary="------------HxZLbcoaHfwtDy9Vbri5BNMs"
+Message-ID: <d31a471f-3d50-447d-aed6-ec1d24a0ecaa@amd.com>
+Date: Mon, 21 Sep 2026 19:45:40 +0530
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] drm/amdgpu/userq: reserve the VM root BO around CWSR
  param validation
-To: James Zhu <James.Zhu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- SRINIVASAN.SHANMUGAM@amd.com
+To: "Lazar, Lijo" <lijo.lazar@amd.com>, James Zhu <James.Zhu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Cc: alexander.deucher@amd.com, Christian.Koenig@amd.com, jamesz@amd.com
 References: <20260918200444.450067-1-James.Zhu@amd.com>
  <20260921134538.3673161-1-James.Zhu@amd.com>
+ <f76638fa-3697-42ac-ac4b-fb3034e85bed@amd.com>
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260921134538.3673161-1-James.Zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0142.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b9::17) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
+In-Reply-To: <f76638fa-3697-42ac-ac4b-fb3034e85bed@amd.com>
+X-ClientProxiedBy: MA5PR01CA0103.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d1::7) To IA0PR12MB8208.namprd12.prod.outlook.com
+ (2603:10b6:208:409::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SA1PR12MB5657:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b7cfd57-6078-4eca-1302-08df17e885dc
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|CH3PR12MB7617:EE_
+X-MS-Office365-Filtering-Correlation-Id: 956d1062-4963-4723-0d59-08df17ead437
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|10067099003|56012099006|18002099003|22082099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: 2j8gVsrwnTc8wyzTEf0YnZpvsyq8FhZhnfhiCYHM0MAoiqVmMGf0c3gYqHyzTuxEKkwIzyD2UvYlkpezJZc5PvMCbIgR6hO8CJy/rIbstDdTHmNpbZqUOCGAaUFK1Fhxc+PFiBAp8Y7msQuo6cg2XO2gRQkRYBSaNqWA9K7+DIUpGBwYWb5gzAPpCyMAwf3KgRRkCHvDocDSHQy3hGkBvjbX/ex9ZeteJmWzzy2oUwmstVSKWFi685ZaT9JqWBZSeWv26Oqcl+MGNic6Iyh4OB5EzOgDbb0nAppkI+eCoqkVFp1deIuIY+cEOSyXiKeXgvsNPfDnXGNaYSHwVUlyMkENxIsZWAcUav8R4VZV/pgsPdW7+//MF41sbLCqCPkLlehcVfvFAtcJl26MJceMy5ovgzg1GrQ9RjU+WD4svWzifLTt8EvPvRbrnrCkz+tzj/BqHfClq2H4jMC4ww7Nmp+v9yST1cbLE+DKGcZWbxfD+HOOJBeAdi1M2ojY/1MrnNG9ghIKS9ddCIWiN4xiWuVL8ItFF/oWYwfwnbWgjdMf+hOPI86On7W36DlXfQRn9HFOYG1N0rk2dGdhDF0HpKz53d75+2eRNxO2KufE2B3jUqmatEWW37mYNEbpPPOD6xa1yby5ttNJqlTm9Vam1GxkP3yczmU+LauYjncWibw=
+ ARA:13230040|1800799024|366016|376014|23010399003|11063799006|56012099006|8096899003|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: InSLTvwdsdT/ROuPQtF1atM69ZuuQnikwiIhTIfmOv+sY2zRwg6MH0SFHZPqpNzw8rEsR6yxXikxeSslVIQPSROFD3ShClT/+GyuPz7KjfuAvHIBlqFyOQsCzmAZbmYvxO8GGYtUzyGfgisY2+tVdukKf1VBLPZsQ3GgnCmr3pQqqqTe4Vtnj4zqWNHWmTumjZ/VPrHpVq9IhKQMW3WvDhTp4u4Mn+T+LYh/zIUQRPmlzzeXEI8e0mPTvI52Z/0kEn/5ManPOzRS2CBv/nsChZ4fopWKCFlbO0KSQnAuG2Uivkn21K0LPZjxrwZCogsPGTOz2LTYluraD39uX5Bl/2Wc4PwBjhNym82NNgR7TWv1Z3YgavBNkeFrm4NJA44ASvd/26/8xtNO3A9pgMbs56owAKa3/jPow/Fg5MRy5VQBWNANVPdx/vmDR3j1V7PN59SrhvjiYEscO0Il2RQTBSL445oqbAoWpFgRT5NelYE0BfwqUAY6xO53wfoo+4Qp+AKgC/fwjYT2w4+oz/8K6FTXKAmMzfzBxd/9uhgGliaVhp/WIGOAeodHfcxTymoNoq1neUME3GJ+7qi5tQeJhmDIsy0KQ53EjhehCqUSXz6rfUxoCxrubt+OCpJJiEhXbc9OUAzhoS7YhjaWgMT+MoIlJe47T1izenWyy9ykatc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(11063799006)(56012099006)(8096899003)(4143699003)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnV4UUFBOVlmejl5bUZvaUJEdDE0Y2doYjNuWVo2S2tsZE9SYzNrUjVEUDFy?=
- =?utf-8?B?UngxZHZ2OTBkbE1zbFdTR1pkbldhUjFrODczcDJ6OHZkNUNIdWhBWDc3SGs1?=
- =?utf-8?B?VXMxc2toU3dnQnJyVWZCc0w5NnkyeWZrRmdGN09ZWVJuVTAxUWhZVFN1S3Nh?=
- =?utf-8?B?eXN6dThpNno2M0ZyRm4wc042Z1VaNHA2VTVucGk0dUFzbnVxOXVwZ2VEUmxY?=
- =?utf-8?B?ekIwaFQrMUx1Q1ZTaW1QbVYwQjdVaUpxOUdyZnVhK09YeUJxMDR5c25zMk5M?=
- =?utf-8?B?bGZXL2JsVnI1REJlVWs4U3JTTmVvcmkrWkVicHB1OGpRYSsvRExEK0xtWktW?=
- =?utf-8?B?dTRGNXk0Q3J2L2lCMnZFU3Rqdkh5QUtCSHpRWU9zdDM0SEk3WHRiMmhWYmla?=
- =?utf-8?B?YkJJRXdvMm5HN1FSMWNsbVFjQ205R3IrN0NmRzRMZFJpSzA2U1A2MmxHQXVS?=
- =?utf-8?B?WElvcXdGeEtDcXZXNHIrSG0zSm9mUzVTdkkvbnpMck9XeWtvb0JwMGRjanY4?=
- =?utf-8?B?bSt4NG5iZ0dBeXpXVEdRTVNvNlR1cHJ4MDdHVi9FNVd3NWtDR2NZOWR0TUJR?=
- =?utf-8?B?ckRwVTlYa3VGVWgwQnpsT1JBdDVyNGsxallmV1RQS1FhenBzWGpMa2RkVE5D?=
- =?utf-8?B?NUd3WDVQeXlFNmt3Ykpnd0FqZG5Pc0pVbTRFY0hCNHNxRVQ0Yy9SZmYwL1dT?=
- =?utf-8?B?OG1HSG9Pck9PYWdYeC9xdEpoUk5kVkpNYTkyeFEvVHNUOTIzbjRVRzg3eXh1?=
- =?utf-8?B?YXlyelJIUU5qV0xFdHBtMzVPb254Mnp4WXUyZ2ZkM3pZYjJBUWhnQzk5ME5v?=
- =?utf-8?B?RmpYdXcxYkozWnBGcW8xVFZJRjAxOWhrT2MyUjI3SnVPeFhJQ1pZci90dnVv?=
- =?utf-8?B?TCtnQnZmWlZlSEkyZUU3QjYrV3MrOFE2RDl5SGErU2VCWlZxcm5RemcrWEFD?=
- =?utf-8?B?S2pVd3Q3blFQeW1nekVKRXhUbEJVQXdXR3oveVlQSzVEVWdtekttTGJPSEt0?=
- =?utf-8?B?TWVyTWRFdDRMWmg1Ry9LUmx3bVN5N3dXbG5IM2IvaXlnbEtHWitxbkpvSTZ2?=
- =?utf-8?B?NC9naXgrNWpjbWpTejZPajAxNnBPOW9VR0lORU5zTGczYkNhdWtaRU5xTHBM?=
- =?utf-8?B?TkRob0VWbTBRTTlKcjhlNTlzRE15Mm84N1RZaEd5YnB2V0s5a2F1NWZlMklp?=
- =?utf-8?B?UnYvQy81WUJ6LzQ1TzQvUlhWNncyRjJYcmNJL1lvaXFtU0hzdkVkTjhnK2ZP?=
- =?utf-8?B?Q0JLdVNXbmFicU5oeGxxTG9KZDA3MWRIenQyVjVUeDZEc2J1MkxtMitFcW9q?=
- =?utf-8?B?cGZWcEFPcC9Xb2pVUWY4QjlOK3lBTXVYdWtvS01udWpOU2dDTTRNTTVVRzFr?=
- =?utf-8?B?U2JRaHpKUFh2Vlk3ZlEzS2ZFUStQemdJN1F4am9jSzdSWFNtdFFJZW41ZW9F?=
- =?utf-8?B?ZHE1TjBuV1NoUFZqUGJ6SDczL1AzRG03Q3o5YlFiUitCanlER1FJaW5oR3pN?=
- =?utf-8?B?YW5ENWVlUWc1QXE3VG85L1RWVzA1Z2tTL1JkZG1vb1pxTkxpekFwMW5ycFBa?=
- =?utf-8?B?ejRNYXB0SmhaNDJIb0FuOWw5SWNZNHBtSTZleldNckgya0tTNzdWK1ZYbnZs?=
- =?utf-8?B?MFhNVGpMYU5OaUtvajBRWWNwNmNTT0RQdEI4aEV3NTJ3TVhSYmpCcDJoeE1s?=
- =?utf-8?B?RW1ta05XT1J1R3phUzZTc2lxSWxEN2hCKzhtSVJMdVpTcUtpY1kzcWNTU1ZC?=
- =?utf-8?B?T1lRcm9xTVBnakZmbGxWam5ER0podlBPamVxMUFFTjVibGRlT0laQUpma25k?=
- =?utf-8?B?OXRKTUxmZVhOR0o3bCtXOTQ0SDY0dGRZQ0dUbDNUNkNXUVMvSm82WDErczV4?=
- =?utf-8?B?cXJ6QXp4ZkVBODJaVzlHS1VwVjFtYm1HMGRydUw3R2t2eUx0V0R3Sk5tMnVO?=
- =?utf-8?B?TlRkSWFxRkRKSG5WYS8yeUZRUFVPRncxeXExU2Y3SDJvQzZlaDRwWk9wem9M?=
- =?utf-8?B?b2Z4M0tEdFV3S2wxYmwyMVVwWWdMWWp6QXV1Ulp1cm9ZZEg1ZGJnNjBCWTIv?=
- =?utf-8?B?aFU1WGlRazhGQU54dnZLbVF4MXVoK1M0dDZtUlcxUWkwRnJ3UDNrUmVJWGha?=
- =?utf-8?B?ZWpyaXlNTGg0c2VwMy9qYVBjblYrYjgrektWbElUenVxeXpOWFhiU2t0ZElH?=
- =?utf-8?B?d08rUmVKTmRBN0dXOTh0MW42dllnYVFRaFI2Vkw3K1BEUmpiakFzcG9WL2tF?=
- =?utf-8?B?L2YvRGRDWmE4Qmd2d1NoVWpDb295NlJjaFlUTXZ3a1hHS0ZFMTlxUjg2Zlk0?=
- =?utf-8?Q?JSq+DYxcuxEMQn+Oqu?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZTlabDJVbElzUGRQeWpNVVNZa28zUkF6dnJzMFlUMFZYbVByajdHeUxlLzlv?=
+ =?utf-8?B?Q3R0dExsNTdFbnk4THAwQkg5cHRlWi9ySkxEcGxlbC9jakZKbjJwaFd5NG5s?=
+ =?utf-8?B?SVVxRko0VzRwblVDQXZlQnAreWJwQTBpWmRqdGZMaUgrWnZRMGZvWTZQMzhI?=
+ =?utf-8?B?RG9CdjNQSHNVM2E0ZGhvNW5tN2F4YTZzVW5sZHIyTHl4WmxDa1pNWFFnbHFD?=
+ =?utf-8?B?dDUzQ3NZd2VJVWhJU0pjeFpsNjBqblhxTDB0UFp2SlVDbHY0MHg1MWF6eWZG?=
+ =?utf-8?B?V1Ziblh6VktwZldwaGlVMFVTUDd6WVdQRVQyTGpBbmFXWG9FSW5XZ0ZINU81?=
+ =?utf-8?B?cnBxR2JGQ2JENnB3VS94OU5zV3hxVGx2NEhESm9mazVqMlQ3OFM2OGxiUEI1?=
+ =?utf-8?B?VnRLeXRtUHExemZHU2ZySW1xQzVMbjgxOVcvVUFRaE83Rnk4TmxaMTNZV3JK?=
+ =?utf-8?B?SUZEcGdVM1FaR3VVT3dRMFI2RVJGOFpDRnlaakg5eFliZmFvRDRmZWtmWXB6?=
+ =?utf-8?B?QWtLcEFmUG9Kci9uYWNUNFF0WERPSCsvMlhrKytOQXJYOG5qakFWMzV2MmFj?=
+ =?utf-8?B?ZXBVRE8zNzFaaTJTdzNlRE13U0dxT09sb3RhcEZKdndXdGRvbTJRVE9mOWFp?=
+ =?utf-8?B?N1FUM0x4dzhlQi9HN2cwOGdldTJJMzltUlEvc3BlNUJSb1dNZXF6TU82cWgx?=
+ =?utf-8?B?cXpBNCt6Vy9pN2lBSm1ZWXQzQjd0L09IMFc2ZE5rSWNBV2hXRXFrWm5UU1lz?=
+ =?utf-8?B?ZE9GdUFJbEpCOTNlSms5Vlc2b2ZoUXlndE80a0NJNTVkK2RxNHlhbEVnOTdF?=
+ =?utf-8?B?TGJyT211bUI2U0tUVXA5T1hrYzhOSWkwT0I3S2VvL0RIdExyVGJQMnVEODBl?=
+ =?utf-8?B?aVVXZUx1UUNlV216Y3VLR2FKQVM0cHBSempIZkw5Y2p1a3dHY21UOFZ4TXJM?=
+ =?utf-8?B?VzdDaUZOQjFyV29CYi85QXM5M01mNU1vdnAwdkV4V2NCK05NbGNoWkU5S1M4?=
+ =?utf-8?B?d2xuVllqenRaMzBKeFdzUUo1OEp3bjZhNjdDbk1EZVRXL1JodVZHbVRvQlVG?=
+ =?utf-8?B?TW8rZkNRUlNXcTVmT2VTWjNXenJpTys5akM5WTY1dUY1cUxYMFBwS0pXVzdp?=
+ =?utf-8?B?cDZ0MGQzRWVyV1BHUmgycmVySThacmM4UmFRMmJyQ1VVby9BRS9SN0FpSS81?=
+ =?utf-8?B?YUJMcFRBNnJadWJUb2YwY1N4SlFpeFQrTXo2dE1PRlViaDEzTGplUlFDbktD?=
+ =?utf-8?B?eGxwbTlrQVQyV1RpVUxLZ1prQnhvS2FUM0FaRjBUR2psVXp6cTRoY05aTnpQ?=
+ =?utf-8?B?bWhROGx5Q0JwUythZEFLdU5PaUpYbGhxOXBHRXdQeURxbGM5U3pEWVhjUDRq?=
+ =?utf-8?B?K05TVXNtMCtISjBBVjRkdHFvWHBrNVdlVll3NVVRNFEvZGZDdURGbm1venZt?=
+ =?utf-8?B?bXhnT3N5UlJndUxQdjhTblhTUmlnUllyaEhLSWVTMnNmeUd0ZjJVQVJoSzc4?=
+ =?utf-8?B?SHVhNmU1MGlBaExobGRiVkt5ZUp2UjdLdTUrOG9FdmJ3cjlWZEg3UkhtcFBD?=
+ =?utf-8?B?bWlDWHVLSGVYU21xaExuNWRiOTNOTkp3dTMvUWRpckdzMEh1RXAyMXQvNTJC?=
+ =?utf-8?B?UEpVc2VVeXVOZGszbVBlVDN3YTRhMVJJZlUwcHhrZ1Y2L1BUSDNiS0ZYTGMw?=
+ =?utf-8?B?QjVGUm9MbGdKRWRsTmdKQTZkdGlEeFFEK3B6SlBWY1kwUGhQQ01QYzZ2MzR4?=
+ =?utf-8?B?UVo1MGlTLzBBTU9hbFBnQXlvem5ZZ3VSb3I2RkpkNUIwN0RwQ1FrMUl6SU1Z?=
+ =?utf-8?B?TjFUYmt0RExqaWhFaWNhZFdxOE1kV1dqZFFpQVFDamRSY3ZlemNwSHFCM3Fr?=
+ =?utf-8?B?KzN2VkNIbnRXMEhVVXBCNUxPWEZaVkJKcXZ6Y2NNZ0RmMWc4NXlGL0UwOVFB?=
+ =?utf-8?B?dkJnYXdWZWFIanB5UVlqTkpySUlPaGQxUlIwdDMyRHVmbEw1WGhjYjM0RFBG?=
+ =?utf-8?B?dW9qVzFtL1g2WUdhbDJpRE9mWTU0R3pDbGZOcHpKWWhibzBxUTltUEZYWDNm?=
+ =?utf-8?B?Wlh3TE92N284ZlY4Y2JJKytGSlZLaDE1SjVzWWVIV0FIeGsyemhEcWVOWTBr?=
+ =?utf-8?B?TVY5eExmVVk5YmFCVk1rVTBSVktTcEFUSDhrcGRuRkJ3SE9FWG5CUEpqaUsz?=
+ =?utf-8?B?Tm1pZW5yK1diR2tROXYwWTZlYWREcWxINktHY2FGQ3U3cm1vaVBqeUVrc25w?=
+ =?utf-8?B?U1BYMCtsVG5lZjlkSTBGc0k0Nkx4bFA0Wmt0MS9YSVNPZGdIcFR5QzZCcjBV?=
+ =?utf-8?Q?DCEuNffZG8K6YkaN4K?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b7cfd57-6078-4eca-1302-08df17e885dc
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 956d1062-4963-4723-0d59-08df17ead437
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 13:59:15.9098 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 14:15:46.2425 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DW1BwzAEWdJSwR66oojpCVcTKW7SkXiBuZK+L3at+E2XfQntgWWdbOovJP3ikV7R
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5657
+X-MS-Exchange-CrossTenant-UserPrincipalName: hYyuet+IQRQ241PCrs21bxjV+sb/UivrxTT0VvAQSka5sQDbFC7asJVlIOoAAkz37NyzGVzkRmk81ZOSXVSZsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7617
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,62 +138,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--------------HxZLbcoaHfwtDy9Vbri5BNMs
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-On 21-Sep-26 7:15 PM, James Zhu wrote:
-> amdgpu_userq_input_trap_params_validate() ends up in
-> amdgpu_userq_input_va_validate(), which walks the VM mapping tree and
-> updates bo_va->userq_va_mapped, so it requires the caller to hold the
-> vm->root.bo reservation. The CWSR branch of mes_userq_mqd_create() called
-> it without that reservation, tripping the dma_resv_assert_held() on every
-> compute queue creation when trap handling is enabled:
-> 
->   WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c:232 at
->   amdgpu_userq_input_va_validate+0xb9/0xd0 [amdgpu]
->   Call Trace:
->    mes_userq_mqd_create+0x49c/0x9e0 [amdgpu]
->    amdgpu_userq_ioctl+0x935/0x1070 [amdgpu]
->    drm_ioctl_kernel+0xb3/0x110 [drm]
-> 
-> Bracket the call with amdgpu_bo_reserve()/amdgpu_bo_unreserve() like the
-> other input VA validations in the same function.
-> 
-> Fixes: 7ca9abf4ac38 ("drm/amdgpu: Add user save area params to mqd input")
-> 
+On 9/21/2026 7:29 PM, Lazar, Lijo wrote:
+>
+>
+> On 21-Sep-26 7:15 PM, James Zhu wrote:
+>> amdgpu_userq_input_trap_params_validate() ends up in
+>> amdgpu_userq_input_va_validate(), which walks the VM mapping tree and
+>> updates bo_va->userq_va_mapped, so it requires the caller to hold the
+>> vm->root.bo reservation. The CWSR branch of mes_userq_mqd_create() 
+>> called
+>> it without that reservation, tripping the dma_resv_assert_held() on 
+>> every
+>> compute queue creation when trap handling is enabled:
+>>
+>>   WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c:232 at
+>>   amdgpu_userq_input_va_validate+0xb9/0xd0 [amdgpu]
+>>   Call Trace:
+>>    mes_userq_mqd_create+0x49c/0x9e0 [amdgpu]
+>>    amdgpu_userq_ioctl+0x935/0x1070 [amdgpu]
+>>    drm_ioctl_kernel+0xb3/0x110 [drm]
+>>
+>> Bracket the call with amdgpu_bo_reserve()/amdgpu_bo_unreserve() like the
+>> other input VA validations in the same function.
+>>
+>> Fixes: 7ca9abf4ac38 ("drm/amdgpu: Add user save area params to mqd 
+>> input")
+>>
+>
+> Hi Alex/Srini,
+>
+> Which branch are these patches based on? I don't see any cwsr patch 
+> upstream yet, probably that makes Fixes irrelevant.
 
-Hi Alex/Srini,
+These patches are based on |<exact-branch-name>| from the 
+unified-interface tree, not upstream drm-next. The CWSR/userq changes 
+are already present in that branch.
 
-Which branch are these patches based on? I don't see any cwsr patch 
-upstream yet, probably that makes Fixes irrelevant.
+Thanks, Srini
 
-Thanks,
-Lijo
+--------------HxZLbcoaHfwtDy9Vbri5BNMs
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> -v2: add Fixes tag
-> 
-> Signed-off-by: James Zhu <James.Zhu@amd.com>
-> Reviewed-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 7 +++++++
->   1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> index 2150973b947d..16aa22b25098 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -508,7 +508,14 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
->   			trap_params.ctx_save_area_address =
->   				compute_mqd->ctx_save_area_va;
->   			trap_params.cwsr_sz = compute_mqd->ctx_save_area_size;
-> +
-> +			r = amdgpu_bo_reserve(queue->vm->root.bo, false);
-> +			if (r) {
-> +				kfree(compute_mqd);
-> +				goto free_mqd;
-> +			}
->   			r = amdgpu_userq_input_trap_params_validate(queue, &trap_params);
-> +			amdgpu_bo_unreserve(queue->vm->root.bo);
->   			if (r) {
->   				kfree(compute_mqd);
->   				goto free_mqd;
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 9/21/2026 7:29 PM, Lazar, Lijo
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:f76638fa-3697-42ac-ac4b-fb3034e85bed@amd.com">
+      <br>
+      <br>
+      On 21-Sep-26 7:15 PM, James Zhu wrote:
+      <br>
+      <blockquote type="cite">amdgpu_userq_input_trap_params_validate()
+        ends up in
+        <br>
+        amdgpu_userq_input_va_validate(), which walks the VM mapping
+        tree and
+        <br>
+        updates bo_va-&gt;userq_va_mapped, so it requires the caller to
+        hold the
+        <br>
+        vm-&gt;root.bo reservation. The CWSR branch of
+        mes_userq_mqd_create() called
+        <br>
+        it without that reservation, tripping the dma_resv_assert_held()
+        on every
+        <br>
+        compute queue creation when trap handling is enabled:
+        <br>
+        <br>
+        &nbsp; WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c:232 at
+        <br>
+        &nbsp; amdgpu_userq_input_va_validate+0xb9/0xd0 [amdgpu]
+        <br>
+        &nbsp; Call Trace:
+        <br>
+        &nbsp;&nbsp; mes_userq_mqd_create+0x49c/0x9e0 [amdgpu]
+        <br>
+        &nbsp;&nbsp; amdgpu_userq_ioctl+0x935/0x1070 [amdgpu]
+        <br>
+        &nbsp;&nbsp; drm_ioctl_kernel+0xb3/0x110 [drm]
+        <br>
+        <br>
+        Bracket the call with amdgpu_bo_reserve()/amdgpu_bo_unreserve()
+        like the
+        <br>
+        other input VA validations in the same function.
+        <br>
+        <br>
+        Fixes: 7ca9abf4ac38 (&quot;drm/amdgpu: Add user save area params to
+        mqd input&quot;)
+        <br>
+        <br>
+      </blockquote>
+      <br>
+      Hi Alex/Srini,
+      <br>
+      <br>
+      Which branch are these patches based on? I don't see any cwsr
+      patch upstream yet, probably that makes Fixes irrelevant.
+      <br>
+    </blockquote>
+    <p>
+      <style>a {
+    text-decoration: none;
+    color: #464feb;
+}tr th, tr td {
+    border: 1px solid #e6e6e6;
+}tr th {
+    background-color: #f5f5f5;
+}</style>
+      <div style="font-family:'Segoe UI';font-size:14px;font-style:normal;font-weight:400;line-height:20px">These
+        patches are based on <code>&lt;exact-branch-name&gt;</code>
+        from the unified-interface tree, not upstream drm-next. The
+        CWSR/userq changes are already present in that branch.</div>
+      <div style="font-family:'Segoe UI';font-size:14px;font-style:normal;font-weight:400;line-height:20px"><br>
+      </div>
+      <div style="font-family:'Segoe UI';font-size:14px;font-style:normal;font-weight:400;line-height:20px">Thanks,
+        Srini</div>
+      <br>
+    </p>
+  </body>
+</html>
 
+--------------HxZLbcoaHfwtDy9Vbri5BNMs--
