@@ -4,80 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98BC2C982E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 15:34:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D323DC982E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 15:34:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1545510E3EE;
-	Mon, 21 Sep 2026 15:34:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E9B510E4F5;
+	Mon, 21 Sep 2026 15:34:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="UPYlJhwY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dV+s+6sc";
 	dkim-atps=neutral
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
- [34.2.64.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B51A610E3EE
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 15:34:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1790004850; bh=p2DscuEwrTKvkyWB1oPdIp6xifZgL+9QqkpPUOoKowU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=UPYlJhwYujUUWsQfiZtGJCfKFXgxAZXOLR2tgmqGXZEySKIMoMkXrltc7tyYfYa/aCRZcGXt0wqgN/SCtuIAB0rq8y40LK4R3S2pZSvLF6kJp+WIhk/cIMeUGIbwSeCUGi8B664Uohw/Vhl+S5pe9q1pt0XVcz08gr6ayrL2SDUpcutUCXkYHA1xPMWHBy+iHmv6CEpQaXNCFYrvOqOZnReyvsF8OxTWL9r9Q00cWPyRXx4YJRvtqiRvIPHJVW7GfSzn8ak+dPyi3cf1AAWuI+UwwDOOBsVCWfLJ7PhuEsHX4wVp+Re8+C6FdF1jEJPn2LefiIJV0fZG+S/EeviWjg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1790004850; bh=OS4yj1kQUi/Oe1a57meU5bx9+vpkLCVn4TM+sXsI+k6=;
- h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=RgtxO30VemnFoNmBO0eXLvLnaSqtIW90cO4/fcnChO/IvPZm1vug0Zfm0ectOV14PR9DSc1tU8AEcz66dO0Mx14z3XqOEkydHvZJtVOWyHcOBChZry0SmqCGjYLOm7cGpvOb4Xj8oReEDErCHqaKGlRrYgl1OTOuZnEgC2YfPm3isQie6gjanha2OHUZkA67eM26ftkpHHsVwSz1hg+MP2AqMR7Vx/fwkpNPX+3kLY53vvW3G/L6elyYZZPpGngbSscFhLTKI0kH+YpIvz35K7TsVg8oaCog1wnPcf6T9/MJmpYYcX+erYB66lBhqFC/8OZr714QXPXGZ4sun+ZxJg==
-X-YMail-OSG: rdFtrsoVM1kKgYnfkEaba.sKsVq3apX0ASizRIB.lYV0I.6JtpaginG4ede1DUM
- BGW3oJ4PHs_70xuWyqoe8dVmOsmlBp_K5JlkUlpAsj70s4GAYKFzWr.ZvUNrt7h0sASZbHtctWQe
- mjvz7Ckf1VoPITr5f57ISsHh6apdhLLgMOJ9pnAhRsS_e0N81uES4ydKKyMA8NS1bjuEGcjgFJJT
- eMOY092U.FWkW_8iEJAjZRpJcdg4eh1jm8bolI_Eq9YlD57jZ5BFsDoVyJKrTt084gV1JZgPlSvo
- o.daUTtbRynPtRxAcOHNcJLqhvWIXrGOkxe.M.lJHElqrjb3_zI9qQsvsgb3yv8J68p1npyGfUIY
- bBkG229D8Pmn98UCr7isYyZdcTVRkLTvGR0cZj1vOH4XVt_RfkmbBMqAbWJ6idqzp8h1bOyPX1qk
- wCL6gWKgR6B7atb_XFEYIHskmLQ.desYtElzDktT4ATWVy9cBVP8gFDF4p0lb.I694gK.tYYyI4B
- v16OMKH5SGVZaAw6BzFr8C8YVesG8nwWdZXHz7xCb_qQOT1HHQsmtc7DX9Sbchj1u9T.PwSVUOAD
- WSLJX9NT9gz9YtL5Xwbmd8QZPLnXuU5JcyNL2Cz.BGoMBYZ0n2xO0UYbGUhHyyREGJIgDOSiPKWH
- ZVF1BnibPYt93T6hWrN7jLW6o3y1U4.FskGNQnEXKwQz7CV2EMaP_btErzunF.YYVik0w_iKDFtq
- 2hfCY0UvLu8tSOS9z3.XpITzbXr2uR8DVLOwVyeZHf_oqXQXfJ2n9coeoDKJPobLJqLitKt7EeAQ
- 3vC5qrlIOQXeI253qoysPv10NAxyz0ie1.xm8T.z3r5zie5udfhNVXdttN_mNwG6QcMgd6j_DZdW
- Hr1GypKdhUKuLv53WYxLthgUJEYeKMGUqbDw7cvBglTMVi9OB8rSiFUVe1NtQC1lvmFeqy_jKWnG
- 0B8ywCg0wqACk1hQ015HrEtoDC8udTNAjrxr34B_H4Wmx7MuQs0Yfl.9nH1MIuJAvXnBe4xWM08f
- hQxmpEGnxcfAK565KikHj_sbLkUYsornbyzkPN01CM.fnUW.G6FvLcVoRz7GvegA6TBpWOnJOspa
- b8xRLwTRP4Q4_wIouN9gKydclSxYHSYljrNJXhf0uSgyVcqFZ7Ys6lR9V2jZoSOBmjwXGf2pLgTe
- fxfVzdA0HZ3c8Rw5ERnLNdjwclj09nPPHSTgzLOV5jCwkUwJBh5lUlCyuxutlyNhZILexOZoNabf
- htaETRaVX49cN8nUVNxiJkRd808CapoRmPQMYIFb7ku8k1_BtESkTmoQCRzmC59eFw6H5fVxsYv6
- sqSMzTLywAmF3Xr0u3Q1DRH3k2odEtHqgOVYyHZ0izHrfiz10ieBv_Hx9qIY0kSTFxDp4wKTcOhE
- 9rhz6XQjogjbcmutIyrcY3SyIP1Wmj5IhXkTuMPuikh9A4fJolqRuyuKLETGxH9DmM1kME_akYvN
- .ZX7Eq4.MxeRu.xLzxQA3rmzqsD3YwZuHWwAT6HdmQ1Wq5fLBfbgOKwu2RICJfZu8ijpKJLb1Xs8
- 6F5vhS2opip.cJ5Mj29XP1d2D7aRoL1wYnI5.xvyQX7ug7X2bBToIRtC6Mo5PA9Gayqf2xIFxJdj
- XmEbnO.VSQdgRJ43IUiYdUrREhnX8zXpct7ghrpWuTSEMQZpBQxKBz7K9cntbcduez0QrvXS4aHV
- VIwQFSNxhklnhflglHlt2utqDUK3ZoEK8E9WxwMmVGcaUSpOBrobNlJZgCKTEcsejwvnevbjTKWi
- d9.UgkQWLb.BkHn4ea.c5zq53bBM8founBI0Cm0u2vKjyo0MebGRlOgFrPdu2ft19GM5mI0CqeYc
- MfzhVpE797iMRbUaZM8qYPTmg5y2GOoTFfE5eepQSIb8kJ0vW3G5NgrEb71ZXL.Q4LwPlyNmHqx_
- Of5XrfTclTBAWL48X1Y99eLnSkyIMAgfbW6708heCkVRjaYDho5CbOX6bGRkwVotVKS3zjC.xnno
- bBpO2fLdPEOx2BoeJbUh7gg--
-X-Sonic-MF: <capitain_jack@yahoo.com>
-X-Sonic-ID: 0c33275f-9531-4585-8e8a-886a56219ffa
-Received: from sonic.gate.mail.ne1.yahoo.com by
- mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP;
- Mon, 21 Sep 2026 15:34:10 +0000
-Received: from dip69.lsn.bf1.yahoo.com ([67.195.177.78])
- by hello (SMTP) with SMTP ID 9780d4958fcfd6726744335047757fef;
- Mon, 21 Sep 2026 15:34:05 +0000 (UTC)
-From: Daniel Ramos <capitain_jack@yahoo.com>
-To: Adrian Betschart <adrian.betschart@cinemaone.ch>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Daniel Ramos <capitain_jack@yahoo.com>
-Subject: Re: [PATCH v3 0/3] drm/amd/display: HDMI 1.4 3D output (frame packing,
- top-and-bottom, side-by-side)
-Date: Mon, 21 Sep 2026 12:34:00 -0300
-Message-ID: <20260921153400.53321-1-capitain_jack@yahoo.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260921080126.98936-1-adrian.betschart@cinemaone.ch>
-References: <20260921080126.98936-1-adrian.betschart@cinemaone.ch>
-MIME-Version: 1.0
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012046.outbound.protection.outlook.com
+ [40.107.200.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 156BE10E4F5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 15:34:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kUaUMAwVsILHEMfGOQpgJGj4wkNRKD3FZbvsc124KaJaFfJNLAEgKyANaLFoP8dHCzKl/96Iq7bR0R1UP3+GGw//lAcTZV2y9e9/W56VscceqqwXcgWv+5Vk0m58o3lih9HUqA7B+UsVxAUQ+Xvj8AZABQ6PzTZ3CwAlFjhZHFvwuKaqN3b7ieiQS9DfWEzTcykjFQsmEAaHbPCsf0Q2fdXFPogrMMC7Pm5ceD/BRzQTdfwIAc7PSvuO2GqPvANxLl3EBFwGz2oFKHM0+nuq/lJj4XhtAnz8187VNCtnxWooz8Sw8YPUjw1rUMG4caNja0bdMSVUbzncxT40kHhDWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5v+P+WeuYhYnGleCJYZBM9TRnopVmtyLwXELWZVXCTI=;
+ b=HxUH7FGF15ni/8czM40Yu/X9itcrM1jwkQZto1GTt+0GaO/g5LuSYnWWyatd4R0oOFRyXhc9M1ETSeFtyGouJfljaJtYX0l8F9xg57ft+bbK57Qu5j3i/rqDOnp3DoAue6yYw8MfZwLOK6y24b5wnvEBjEvmN+A+QBV6gkgOInFpqpucxRCcSJhGrlfWGJG9UgAcCdaULLl9EjrilmFZuiFV5OPRX4EDXqRRkhDXLCO/18L1gy+a8mjNGXO+jMKn7A1LDsQZfJNNJ4gngZS5WTI5OcXgXlRuz2mrscPSDrV7pZjTPFcE3xMZ1yGvZmkeqEACzhxrG3ZuWZbUhbdhug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5v+P+WeuYhYnGleCJYZBM9TRnopVmtyLwXELWZVXCTI=;
+ b=dV+s+6scZXj6KsvdgR4tcCC6N2wS4gudc+2unEt9PISqmMV6Eftfz5Ajl6nLnd4wjjqBKD/tf6xToLgqBuNeIvgpok+Lr8a4dnp8+kPvyfWs4u95BD3Bcz3k5cQ9CvIMYxk0qrXTK0r8goCtoGOG7O9ifc6HdBbj9Wuk6pma0Gw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by SA1PR12MB6702.namprd12.prod.outlook.com (2603:10b6:806:252::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Mon, 21 Sep
+ 2026 15:33:12 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 15:33:12 +0000
+Message-ID: <bf98fdda-fc0b-45d5-830a-df65bef804e6@amd.com>
+Date: Mon, 21 Sep 2026 10:33:09 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix fast updates on DCE6
+Content-Language: en-US
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Leo Li <sunpeng.li@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Dominik Kaszewski <dominik.kaszewski@amd.com>
+References: <20260921104136.23990-1-timur.kristof@gmail.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260921104136.23990-1-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DS7P222CA0025.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::31)
+ To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SA1PR12MB6702:EE_
+X-MS-Office365-Filtering-Correlation-Id: e96c0b7b-bf3b-419c-6b2c-08df17f5a5a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|10067099003|921020|6133799003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: dfreoAL2yrjPaLdQX2wmfJlTnAR5DAOLpheltCjccEiolw2eLpTtZ3O9+BnILd8JXbVvYahySD9TenyVnKL3QWt0KEpsH5BlVEkfBdcbKWGaSe/k97V2WmJFy+8M1gDoId0Sx+4R7we0/JfbuUlkZQEkTsz6BM7A14j+BVuXrIeW4JR9J8ET8m2bZSv0xJUJh8T9WsTvAjmO1e5lqjCnhsf5gLFmLmowjESGU13K2tByUu7YM9try9c5zJagHO33C4swQ23tZBhklFv2ryUPY8BDdU00RhBDvVdg+6TyLoev6qSBBTYQ79S5E1YwoEwn9AUBH4P9ZKKM6fXfaC3nf4LgUgqz8XDUYWIfqQwdjn0DmTCIi+lri0gGdWu6XYTdOD4PSnP9nECL4c5SClWnzWg9aAktUjexkcU0r4S/08uO7DHve9m6RzD27gwB1A/Adw9F61Vu8QQcoZARJuHLzb0g3fM9RrWgkZzOxAVBzuyG9TDyrfHuaLU51egQzBcjjEUqYngOFJ1DOyRVMmFWLI7W4WL2Jdol5yjwA9BVZd73/8lqYcRZz8nOqflKr+DWBanN/kyFzZtp4jOYLfgsB/LAesLRYBSlVA8ifbJTGLgFtqzTJgCO/FfRLix+/Sf5EKuDTQ5y2EdrmuM/UALTX8xAxmsklEWNPsFMEXHYJXknntEtewPOuJeWzxJRnzt8IsOHBTBIo2Wo3CFEPEkV+g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(921020)(6133799003)(11063799006)(22082099003)(18002099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHpBbStNcG00KzUvdUUyaEVPeHBUeklXSC9rNnlXMndkMmYrRlhyN1JyejNO?=
+ =?utf-8?B?OUlWRXdFTmRUSUptSXRGc1VTQnBVZ2g4dCthc0Z6WTZDemw1Z215UURTMFlk?=
+ =?utf-8?B?cjBOSlpNejZtR2lJd1praXdHZkZNWW1IMVU0MEZwb0YyM0lWTGkyMlpjWnND?=
+ =?utf-8?B?MnMzRW1tSFl6WmRSQmVKOWRwWmc3QWJ6bi9NSjNNYUlyTmo3MTJpK2QwRXBB?=
+ =?utf-8?B?Y3l3MnJrbVVyLzlyVGhCdXd5NjQ2ZTBKVzk1SVVrQk13UFdobjZIcW9NUWNs?=
+ =?utf-8?B?TkRJQldEZE9EYWplNFdIdkxCNy91ZGdNa2J3NkE4eEc2dXpUVGRQZlN1aVhJ?=
+ =?utf-8?B?ZWpUTk03RUJkR3NZZUNVQnJHUVEwVUFTS2padEtCWGdEd0NTSnlRWml4NXdH?=
+ =?utf-8?B?OEZVWmloZ1MxWHR4cmtBVmlHaGptaDhQS01kZ0FDWDdQWnRjYXgxVkFZaHNX?=
+ =?utf-8?B?WkcwOTFwRnR0VlBqdjllTldsM1dKVGVYbWJrYzM0bzZRWkhkbjdwVWorYzM5?=
+ =?utf-8?B?dUxjMjVSYUQ1TFFIK3JvTlgxZkpqZVFsYXNySXRPaGxxcWp6dDB1dzdvTnFV?=
+ =?utf-8?B?Z1ExdmFWejJaRU5jQmJ1QkJQUmRYalVCTDY0Wk80eUZMbWEzMEJKckVIRHFj?=
+ =?utf-8?B?UUlERStadFBlQWVwZFptUHdvbmxxQStnZEFndDRRTFJRRUpsS3JIOW9icndS?=
+ =?utf-8?B?d2pqNHNoRUVoM3dScytpRHc4R1VnYm1pdCttcGNwc3FRL3gzbGU2SnFaVThG?=
+ =?utf-8?B?dFcwWEhWNVRKZlBIcTBpYVJnSnl6SHdST3lVRk05Z3E1WEJPK1laVjBMNmRY?=
+ =?utf-8?B?UzdXQmJqSmVzV2NzU2VZc2JrcW1kQlRKMXRDVXlPOHlaQ3Y4eXFTNUpQaldE?=
+ =?utf-8?B?V1h5clhCWE4ya2VMWGFUYXdSUXRUdzhwOHVnQmUvYmYvdG9LRjBUbWJDUjdR?=
+ =?utf-8?B?cWpiLzcvOGtSR1BqVThlUmJoVzdzQUt1UnF4TG1abEM5aWNMSVYxekdteGth?=
+ =?utf-8?B?bVpETGRjYUI0Ui95VEUraFpneldiR2wwYjc0VkJGbFNmUlRjVXVxOWdBK3pK?=
+ =?utf-8?B?dlJBcTU2RVBCV2VsUmNESzZOR01TK3JBSk1OTkM5ckF1Um1tSWtPZW1vUFRN?=
+ =?utf-8?B?ZklZZXkxQ2xFejFwU096OVRvbGtXOURyaGRJNG80dlBTWTVLSzZDL0tKYnlG?=
+ =?utf-8?B?U0VWSUwvbjN1cjRCMjdYQ0RETnB3STFpSFJSWDhhTDhnY0ZKMk1HaU5IeWlp?=
+ =?utf-8?B?VUUxNUNlUHhJNnNYZWFyTnhUa2xySTRrNlRnMm1mRGV6RWxPQmViR0h1RmN2?=
+ =?utf-8?B?NDJWMGtlUERzU3ZVRjNnYlJ3a3pnNU5FUXNranJSTWZQVWpTOEFWeFlQRDBH?=
+ =?utf-8?B?VUVISVhVL3ZXbldxT01rSnBZcmNoRW5oUEJlT3ZCeGNTZ0ppVWtXSmZVTWND?=
+ =?utf-8?B?VTF5MzRNcVIzMXp0RUhFTDJ3MDFYak1TcFg4amdYRzI3bjhLVU1tVzZFRjNL?=
+ =?utf-8?B?WE1uN1hkVHJuU1VwL3crSVlzNEZIbndSeXQ0Zk9yL1U1NncvL2pPUDdCU0ky?=
+ =?utf-8?B?YjN6Z28yNjBXK2FBMVRBaWxBbUovVjRIVng3eGpZazRDeTFLYlRHT1lNeEpD?=
+ =?utf-8?B?amNDTGNqVVcyYjlXcGV0L29DeTk1aDFaZDAxYzR5a1NFaXVXdldydUtnOVJS?=
+ =?utf-8?B?OHRES1I3VUcrc0N0WUdJN055Z091UnExbUw4VzU1UW9VTGFxVndGTTd3cEht?=
+ =?utf-8?B?bTBKczVtVlZBTnpiMmhGazdnYzd0YVBkVk5OZHJMLythQU9lYVE3ZG1uMEVo?=
+ =?utf-8?B?WmoxSFZOL1NiM1dJY1ZCK0pUdENvdFNDdUxlaE93b2FzOTl4a0xWWEg5TFYv?=
+ =?utf-8?B?WW9MMDdla040VHlmSXFOOEZpNDRzNWZRM0FRcDNodkhPV01ldDdCY3VHS08v?=
+ =?utf-8?B?dnBtWHRFSVQxVXhlc01oMWNkeEU3eDZnNFBBeFBhRkNsaEtIa0Y3bUNRSzQ4?=
+ =?utf-8?B?WG41eUZZQmNZZjlPbFZMdFpwL0E1VTRqRmtWVHNHcGpZTmNRaW9PRTg0S3Z2?=
+ =?utf-8?B?Qmw4Vjl4VDBJOTN1YmkzR0d5Q1JFclZibHViUDNleUo5ZkRicVFyd3ZyVy92?=
+ =?utf-8?B?QUJiQU1WbGMvbi8rRGc3bjVacjcxMlNxTlZnenZ6ZEluVitTTm0xWEpNYTBV?=
+ =?utf-8?B?SGhWeVZ0Y2VxazlWamNHa2ZFZ3JBSU03NkNMOGZWN0lrUlNRc3hqd0phcGow?=
+ =?utf-8?B?TmlpWlFmbG1objdhc2ZyVGhKYVJUd3NQcXQyQnk4cHpxMlVaU2RFQ09rTDFj?=
+ =?utf-8?Q?rBtqCKFMRBmjZl90Fr?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e96c0b7b-bf3b-419c-6b2c-08df17f5a5a0
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 15:33:12.5651 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W/8DsGJHuHHUIf4G1zwNnHfz/MWPDmkNkbNnYUCYll9ycr24Q9mhEw/bzDE6Mo19qEkomVKz6qv/1F6vHx/ipA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6702
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,24 +141,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Adrian, Harry, Leo, others,
 
-Following your request, the testing is done, and it is a pass across the board: v3 as posted built into a 7.3-rc4 kernel and run today on the Renoir APU (DCN 2.1, Display Core 3.2.369) driving the Sony KDL-46HX855, all three layouts were tested in sequence (no restart) in one desktop-down window of about five minutes, so this Tested-by now covers the series exactly as it sits on the list.
 
-Top-and-bottom first, as you suggested: the TV switched itself into 3D on 1920x1080@60 TaB and the disparity picture read in depth through its glasses, so the sink is happy with the 3D_Ext_Data byte patch 2 sends for that layout. Side-by-side half at 1920x1080@60 followed with the same self-switch and picture. Frame packing closed the window at 1920x1080@24: the tool presented one 1920x2205 packed buffer, the expanded timing from patch 3 scanned it, and the full two-eye picture showed where my earlier unfinished 7.0 experiment without the expansion had signal and black picture (fixed as well now the same way).
+On 9/21/26 05:41, Timur Kristóf wrote:
+> DCE6 should use legacy fast updates, just like all DCE8 - DCN2.
+> 
+> Technically DCE6 should have been included when the fast update
+> code was refactored, but it just happened to work until now.
+> 
+> A recent commit "Attach only plane updates that actually changed"
+> has exposed this issue because with that commit, DC accidentally
+> took the new fast update code path for DCE6 as well, which caused
+> it to boot into a black screen with a flip done timeout.
+> 
+> This fix should be backported to all kernel versions that
+> have "Refactor fast update to use new HWSS build sequence",
+> but this patch won't apply cleanly to older kernels due to
+> another refactor in "Remove dc param from check_update".
+> 
+> Fixes: 0baae6246307 ("drm/amd/display: Refactor fast update to use new HWSS build sequence")
+> Fixes: 9ec11bb842b6 ("drm/amd/display: Remove dc param from check_update")
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>> ---
+>   .../drm/amd/display/dc/resource/dce60/dce60_resource.c    | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+> index d2d56a1c4b8b..f4efa55952f3 100644
+> --- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+> @@ -448,6 +448,12 @@ static const struct dce_abm_mask abm_mask = {
+>   		ABM_MASK_SH_LIST_DCE110(_MASK)
+>   };
+>   
+> +static const struct dc_debug_options debug_defaults = { 0 };
+> +
+> +static const struct dc_check_config config_defaults = {
+> +	.enable_legacy_fast_update = true,
+> +};
+> +
+>   #define CTX  ctx
+>   #define REG(reg) mm ## reg
+>   
+> @@ -937,6 +943,8 @@ static bool dce60_construct(
+>   	dc->caps.max_cursor_size = 64;
+>   	dc->caps.dual_link_dvi = true;
+>   	dc->caps.extended_aux_timeout_support = false;
+> +	dc->debug = debug_defaults;
+> +	dc->check_config = config_defaults;
+>   
+>   	/*************************************************
+>   	 *  Create resources                             *
 
-The probe numbers on 7.3-rc4 + v3 are identical to what our 7.0 port produced here: 22 modes and 0 stereo without the client cap, 51 modes and 29 stereo with it, no regressions on the aspect-ratio pass.
-
-The run record is in the repo at the run11-betschart-v3-7.3rc4-all-pass-2026-09-21.log (https://github.com/danielcamposramos/sony-bravia-linux/blob/main/tools/stereo-modeset/run11-betschart-v3-7.3rc4-all-pass-2026-09-21.log), probe output and per-layout modeset lines included.
-
-One more thing I would like to put on the table while the series is in review.
-
-Since our first exchange I have kept the equivalent two changes prepared as a backport for the 7.0-era tree, where the connector code still lives in amdgpu_dm.c: same stereo_allowed plus VSIF wiring, same CRTC_STEREO_DOUBLE expansion for frame packing, forward-verified to apply cleanly against the pristine v7.0 source, sitting as format-patch mboxes in docs/upstream of the same repository.
-
-They are an offer, not a request, and there is no competing series coming: if this v3 lands and a stable backport or an older-generation follow-up ever becomes wanted, they are ready to go as-is, and I am equally happy to reshape them or to let them retire unused once v3 ships downstream on its own.
-
-Happy to run anything further on this APU and television if the review wants it.
-
-Tested-by: Daniel Ramos <capitain_jack@yahoo.com>
-
-Disclosure per Documentation/process/coding-assistants.html (https://docs.kernel.org/process/coding-assistants.html): prepared with AI assistance, directed and hardware-verified by me end to end; the assisting models were LLM Kimi K3 (Codex CLI), LLM GPT 5.6 Sol (Codex CLI) and LLM Claude Opus 5 (Claude Code CLI).
