@@ -4,132 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06D60C982F1
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 08:39:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C20BC982FF
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A33A10EA80;
-	Tue, 22 Sep 2026 08:39:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1252710EB0C;
+	Tue, 22 Sep 2026 08:41:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="W8oGzyFQ";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="c8w06/4b";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012031.outbound.protection.outlook.com [52.101.43.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB82E10EAFB
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 08:39:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v3HuH8qLClWe5A0I4Jo7qOQ4MppMJ8/0ZNec3efeqKuY3CTWWu6BX9Btlc7FvCDxCANz7JvG7Q8z1qAMQYzfVIFImRtv5tJgaBUepZYcd5AzQO3cLJvLxJd+yyIpOlmY7fh1+rbca88mCqQgvxV9uxE/U/5HB05NBetQXcl0Nu5zGUU6sB0UpSCQKAb5e0JAaZlkPi3GUqaRUhfwcoqfBzjIV8J63IIge2u6hl/LE7B6MUBO6IB7xeNftlESUjYQnqrEEQAnLG1sBeni19nMJzq7RKwwfLk8a84bpifj152sgzdqjtrwb4VjGJ2UAlove9ovSqJJost11MT3oH5nuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n0NCIUEsnzv1gLua/Gpi24NZzJrbnx6veplH0waQPjM=;
- b=QEbPbxumtzZP9oGXuLXvgWrEaSkbJId57xZH4nVZafvlQCwCiJVdWZoMbXXYJe7P+uNzndUEyPmJA3tRrYYPpW3UwxI88Evmb95Dc541BBU0C/SDtLdPQ+DE914uElBMr6fqcqhU81Gxn6wlnu+aD3KOFazAX/WaTt4j+i7bA45+Jbe7wQzdPL6PaXVXYCHQcLhq3bnQAyJ0juJ6F8Jx0+JT0f3dZK7bjTdVMU2uCXTXt/YYjGOiK2Cnt2SdWjuttyfy1apYkA3kXILgu4KPtjGx8Uqaub6bayAfWfpH7WGzoWiVY09He4w5DkUpPo+mELwghJQOwAMKwewBercXWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n0NCIUEsnzv1gLua/Gpi24NZzJrbnx6veplH0waQPjM=;
- b=W8oGzyFQjo+9JuT6HMLjze20eAKdg0VUN+jo3NVZ6HVW7+4SAU9xZebgtNCclMoNDZHP5bnglPMI1OOOvbG+N/qwJnqLP/TuYZ8pZCqQ81vJR8ItOqPBDJRiCMxlJQuowBUcwyB+IxTXO7QunqPRULe1n8+gsXyJzDrnbomtlxI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
- by CH8PR12MB820196.namprd12.prod.outlook.com (2603:10b6:610:32c::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 08:39:36 +0000
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 08:39:36 +0000
-Content-Type: multipart/alternative;
- boundary="------------kdHbJb1xKWcsr40gbRM7lio6"
-Message-ID: <cbf15177-c94a-4bee-9ba2-f14b7860c4c4@amd.com>
-Date: Tue, 22 Sep 2026 16:39:30 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] drm/amdgpu: introduce
- amdgpu_lookup_queue_by_doorbell
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>
-Cc: Alexander.Deucher@amd.com, felix.kuehling@amd.com,
- amd-gfx@lists.freedesktop.org, "Khatri, Sunil" <Sunil.Khatri@amd.com>
-References: <20260828095349.9797-1-lingshan.zhu@amd.com>
- <20260828095349.9797-2-lingshan.zhu@amd.com>
- <bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com>
- <2687ad99-61da-457f-9705-766bf48b2d04@amd.com>
- <a46a12b8-d9df-4995-beaf-6d41150196bc@amd.com>
- <a34a1541-7f3a-4e0f-a225-f58b1292d6d2@amd.com>
- <5f576123-9f57-4da0-a6d5-fd0390e39f1b@amd.com>
- <f0d163a6-49cb-47d2-a042-d0e37bb7cdce@amd.com> <arI0hEYQbrsWVlV1@amd.com>
- <580d3ecd-57f0-4b4e-8631-5c27f69ddd54@amd.com>
-Content-Language: en-US
-From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <580d3ecd-57f0-4b4e-8631-5c27f69ddd54@amd.com>
-X-ClientProxiedBy: SEWP216CA0103.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2bb::15) To CH2PR12MB9457.namprd12.prod.outlook.com
- (2603:10b6:610:27c::7)
+Received: from mta1.migadu.com (out-105.mta1.migadu.com [95.215.58.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F251110E1B4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 19:47:52 +0000 (UTC)
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=TCir0iQHiPlU9pzDSp+GzxyAhUeyUsYKLSO1iyqZ+jo=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790020070; v=1; x=1790624870;
+ b=c8w06/4boYyKkEH2U+sIbfpKWpTdYFPGR3ifH1+OC9gsXaZeyIUfjEhKhYhgNgbZq55DXLtk
+ tq9iu64LpahumzTsjDNPCNf8k94fIPPcVe4tMZNTM36hiS11fFgnPQ8SyDZGP9gq2iAWXSrAiol
+ gEXdS5UG4UBMChIsJBkHA+OE=
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 493c29b0b5e18c53;
+ Mon, 21 Sep 2026 19:47:50 +0000
+X-Mizu-Trace-ID: 493c29b0b5e18c53
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6e07ec9f-9423-475c-8751-289ff11a40cb@linux.dev>
+Date: Mon, 21 Sep 2026 12:47:47 -0700
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|CH8PR12MB820196:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64146908-660c-450d-179b-08df188508b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|10067099003|11063799006|4143699003|56012099006|8096899003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: tW0WiZ6af2DpaUUd5YObbKybvPpI1ZEWc7E7agnsxOpUqJ2wjm81H/b0ol4gcUCITDNnfm11KH8nS3j58Zu+sGuJGzSl7tpDZJzMKBM7FxPnh0m+jADIDi0M/BALfwjvqwetksmWgscMp5HTmywAh1ufCBIi4gqwl1iql1yPZdN8Nlo4YtfMy1MF8JqCxaF+URGz0kyiOSMAp4BA6kRqYLATjWnIvWKzwiQ/Iu1E/ZxbLS24l85Jjy9NxPwDxftxUA8VqH4AdG7rDCtZe1tIFzDDCVRaLx7XZHo5Oamh/bCNjWXUuj1Z5yuXQULfUT1hdnlXpzNuCXVxiBPSkXaHszdk53eNhPK46uygq3f+hnVyKIbojTzjfHOFafsAQKhNn0bcHFrbFnRI1YskPdXrKK5Sv4uDW9CPnhyWL0vGhNkU7bmHWV7H6C8SOkpUYIymdqy09XENSg4iL/VZQOgsRnNcIdUifj7nWE52+0Exa2LepX4Ri7eFM/U88VzuzOzIHmrGlfMBzDpHtrn8S/qpPbdwMEdUpPv3DNBUdJo8Xz2BlN0CpvkQvMDwXlxPid4Uk8mfzlIBySLV0WPrnW/G3RzD6+NtyJqlGp5sMi44utEJ6HAKKskHxuIIqor9kzNNAfVexqp+O9hTYdkQ7UrT+WU7XDakQhLF73As8tsg0zE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(10067099003)(11063799006)(4143699003)(56012099006)(8096899003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UTlqVkJMNFREUVZRbHBhSG5mcWRrbGptZks4a29ndCtTL29XWHpQZUVSQUZS?=
- =?utf-8?B?bjYrV0cyekVnd2FQbGVnSkdabi9Tc1BqOCt5dEVPTEpLN2s2ZHJZb2NqTzV6?=
- =?utf-8?B?KzhBUEhJQmdXUWlhNVE5azhqLzRQTVkwR3BweUdlaVAxZGdSWStCVEcvQzBp?=
- =?utf-8?B?Y3hzOG9KU2t2cTZXeG1xWjJXUVZLbkxsMkdFajExMG1wTHI1empvTlMvL1B4?=
- =?utf-8?B?MDUwQTk2RzF5bEV4YWtQQlhiWFU1cVZ0S3FnL2pGMkthQlhvaytPR1J2RWFG?=
- =?utf-8?B?T01ON2lERUZuMzhCMmpCUG5iMnpqOGwyc1BQS1FkeU1RMllESmI5aXNnUDR2?=
- =?utf-8?B?alN2dXdSTFZMUnRtVUMvSUNtR1V6WFpRZEsrUFVLZXFGUUpmck02Y0RCRCs4?=
- =?utf-8?B?WGFZLzlaMHM1cllPY2ptZzhZRWp4bEJySGVNVXpPZUFLck9jUXJOYmtacXZr?=
- =?utf-8?B?ZlErYlUySFYySlF2eW1qVktPK3diMW5rTHNOOFRNUEZSUmVlcFRMSWt2SEdL?=
- =?utf-8?B?RjZPVG1Bd1J0U3A3S2RvNjRLTGlhMzJvUk5mNnkyMmZtMU5kNXExOVdqN2hx?=
- =?utf-8?B?cHkvQ2NjRXRqdXByUnZLSnJyY003Mm0ycWNPbHB4SGRQTE5CTEdUaGpsL1o5?=
- =?utf-8?B?QndzZWZVemlmWkdqcjU2VDlCVWhRTk1SNGlacnZ5dmdGWmpQSC9ybzZYR012?=
- =?utf-8?B?cy9wSVV2ejl3aThCNjF3V1ZFYWIwUnZFOENyTkQvQmdETVl6QUF2ZS9hZkRF?=
- =?utf-8?B?Mm1vK3BicjBoMCtBb2MvOURRbEl3K1JVSTF4VVFXWEh3RUFTTnA0dTcrZnZl?=
- =?utf-8?B?d3FCU3NnaGdhaFkxR2ZEV1JNVERWZWt0Z0x4WGhiMGR4MzVtV3J4eDdTSERC?=
- =?utf-8?B?d1dTZVYxcVZYWlVIeTJiMXc3R3BSSlZZaUFUTkxFSnN1YTRQQnFIdEp6RWda?=
- =?utf-8?B?eFhxMVhkNkUyRHF6ZTVSUEVVMXh0cEFwb3NsMzRtTWN1aG9lZzI3ME9qaHNX?=
- =?utf-8?B?dzV5dXIrMzIzSG52TU5oOXl0RG94WVN3ZUZ0M3c3NHljaVZLSURtVU42L0dj?=
- =?utf-8?B?a1ZHOVUwUlFyN1c1OEc0a0d1TkFHNFRoTzFscGNJUk9MdWZ3WDVIT1Zhc3V0?=
- =?utf-8?B?TVJxTjhIeTJreHFjcUk0WitxMnVBMXpNZTk2SnZISXdLb0p3ZmVQaXhHeFhF?=
- =?utf-8?B?Z3VuVzNGdjl5b1dtRkdyUWVXQXNkOTVxWEc2L25ITmk4TmErTEFOemtMWCsr?=
- =?utf-8?B?eEplTWhhcGFwYXlmbHJaQno5ZUVVVUQ0endpdXJBbzl2ZXFFMHMwL3kzVm16?=
- =?utf-8?B?dkM1YnR0N1JrOUozY0JWc0NXRm1pbWtCMmRRM2dBRGxnNlZYdEpGV1NENUd2?=
- =?utf-8?B?UGg1R0pjMmtFc3BhSEdRRmY4UkNHc3UrTGJrVCtEdkxIVUsvdzFxZ21vaUsy?=
- =?utf-8?B?NjhyMUd1dmVwWDQwWXpGTXpkcWw0VkNHODMyemFRT0EzS3h0bTJtSmx4WTZR?=
- =?utf-8?B?dTZIRDF1TlJ3dEZkWU45OXpmUm9OSzdnRmZEbHJNMWZlM1UyNHhwdG80QitQ?=
- =?utf-8?B?K3JCajFhdFN0TXVqVi9TbnRxSlJ1c2dBTHRWSWhPd3grc2pwYU1ETmJoOTkr?=
- =?utf-8?B?STUreGFYbjk5NkNBN3Z2bWFuK2d4MGxBZjh5WjJBV1RCZmEwYmRLUlQ4UlFj?=
- =?utf-8?B?NDk5dmhCdTNSOFppOG5jZThZMWZXMG5FVW5Dclk3R0wwcnpJWHVDZkdFZVFr?=
- =?utf-8?B?eFBoV2pJMUdhdE9TUVI4cWVkaHc3aC83RklRWjRkeHE2VHhiZnlVcCt1NXpN?=
- =?utf-8?B?aDB0RDJ1T2ROdDBTeW1DWG9nV3NTY1FFTHRId1dFemt6QlpFc0ZvNXZDU00w?=
- =?utf-8?B?TVZxVG1JMkY2MnRjMzVLT0tuTGNkcUV0ZDZLTERzZjJpK21TSTh2T3BFd2My?=
- =?utf-8?B?a3cwTkJNTGhYWnFva3JZZW02VDBFSnNjT2NtNXE1MHBQQXBITjE1YXNENEI0?=
- =?utf-8?B?ZzJUanBUa2tFVVl2VGMyRG5haWtnZHlrQlVFWExWaSsvME8yL1NMMFNXMEVW?=
- =?utf-8?B?WGZPMGpyMWdNcWFpMkRkTGxKS05BZXlrckl0NWcva21QUnRGYWZKbXV4cy9a?=
- =?utf-8?B?MHdud0tMRHkreFZQL0Rva05SanduNkxENzdna2JTVW5mcUNzUFo5VUlETlgy?=
- =?utf-8?B?R2FoTk5nYmd3Z1ZkMk5OeHAxZDBJVjJRMkgzSG80dXpPUS9ZY1lSOWIwWEs5?=
- =?utf-8?B?ZldsRW51TFJxWlcxeGRNOENBMzlxZFhWSXg4MG9iTzRTYVJyUVl4L1BNWnVP?=
- =?utf-8?Q?Ucs4FLRWu43WL3zAm0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64146908-660c-450d-179b-08df188508b3
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 08:39:36.6802 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6j+6vqQzOyBseSp8VQ5uPsAeLuVKJGbo5vsvvkr+Fr/xZrtnkExag6FOXpca/BC7y8Wc0iljFweRhDGDYZMgfg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB820196
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: only allow freesync on a VRR_ENABLED crtc
+To: George Zhang <george.zhang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Fangzhi Zuo <jerry.zuo@amd.com>, Leo Li <sunpeng.li@amd.com>
+References: <20260909195906.3584191-1-matthew.schwartz@linux.dev>
+ <2dff79db-bfa9-48ce-94c6-c467a85c8b8e@amd.com>
+Content-Language: en-US
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+In-Reply-To: <2dff79db-bfa9-48ce-94c6-c467a85c8b8e@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 22 Sep 2026 08:41:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,110 +57,322 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------kdHbJb1xKWcsr40gbRM7lio6
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+On 9/21/26 12:42 PM, George Zhang wrote:
+> Hi Matthew,
+> 
+> A bit curious on what this patch is fixing. Do you have any more context behind the motivation for this patch?
 
-On 9/22/2026 4:04 PM, Christian König wrote:
+Hi George,
 
-> On 9/22/26 09:55, Huang Rui wrote:
-> ...
->>> As far as I can see we have solved the problems at hand and the rules how to handle the user queues should be pretty clear by now.
->>>
->> Assuming every kref_get() has a matching kref_put(), and the queue object
->> itself does not participate in a circular ownership chain, I don't
->> immediately see how taking a temporary queue reference would cause
->> correctness issues.
-> The reference on the user queue object is meant to keep it alive for the duration of IOCTLs, e.g. prevent concurrent destruction from the close IOCTL.
+After updating to Linux 7.2.x, I noticed gamescope's frame limiter falling
+below the requested rate. The reproducer was a Navi 33 driving 4K120
+through a DP-HDMI PCON, with VRR disabled. A 40fps limit was producing
+roughly 37fps.
 
-why only IOCTL???? Since the kref has been embedded in the struct user queue, it should keep the queue alive during ANY OPERATIONS, Not only IOCTL.
-Or it will race with the destruction callback in kref_put, and causing UAF problems.
+Gamescope was pacing against the fixed 120Hz refresh interval, but we
+observed frame intervals stretching to around 9.34ms instead of 8.33ms.
+The OTG vtotal also increased from 2249 to 2521. This was enough to
+disrupt the limiter's pacing despite userspace leaving VRR_ENABLED=0.
 
-Do you see any kernel documents says that kref should only be used in ioctl contexts? 
+Tracing this led to allow_freesync remaining true for a VRR-capable
+sink even when the FreeSync state was inactive. That allowed FPO to
+stretch vblank around UCLK switches. The PCON whitelist change exposed
+this on our setup by making the sink eligible for that path.
 
->
-> It CAN'T be used to grab references from either atomic, interrupt or worker context since then you can't drop the reference any more without risking destruction from non IOCTL context which in turn causes tons of lifetime problems.
->
-> This is just standard refcounting rules to keep objects alive during an IOCTL.
-Where do you see such standard? It is just a atomic number, not a lock. 
->> Could you please point us to the historical issue or the corresponding
->> commits that led to removing this approach previously?
-> See Sunils original approach, he made exactly the same mistake and I already had to fix that back then.
->
-> I don't remember if it was actually committed or if we only discussed that on the mailing list.
->
-> Regards,
-> Christian.
->
->> Thanks,
->> Ray
---------------kdHbJb1xKWcsr40gbRM7lio6
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+The intent is to keep the frame period fixed when userspace has
+disabled VRR, while retaining FPO eligibility when variable refresh is
+actually requested. With the patch, the original setup holds the
+requested 40fps again. I also tested VRR toggling on a Legion Go 2's
+internal eDP OLED panel and did not observe a regression.
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <pre>On 9/22/2026 4:04 PM, Christian König wrote:</pre>
-    <blockquote type="cite" cite="mid:580d3ecd-57f0-4b4e-8631-5c27f69ddd54@amd.com">
-      <pre wrap="" class="moz-quote-pre">On 9/22/26 09:55, Huang Rui wrote:
-...
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">As far as I can see we have solved the problems at hand and the rules how to handle the user queues should be pretty clear by now.
-
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Assuming every kref_get() has a matching kref_put(), and the queue object
-itself does not participate in a circular ownership chain, I don't
-immediately see how taking a temporary queue reference would cause
-correctness issues.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-The reference on the user queue object is meant to keep it alive for the duration of IOCTLs, e.g. prevent concurrent destruction from the close IOCTL.</pre>
-    </blockquote>
-    <pre>why only IOCTL???? Since the kref has been embedded in the struct user queue, it should keep the queue alive during ANY OPERATIONS, Not only IOCTL.
-Or it will race with the destruction callback in kref_put, and causing UAF problems.
-
-Do you see any kernel documents says that kref should only be used in ioctl contexts? </pre>
-    <blockquote type="cite" cite="mid:580d3ecd-57f0-4b4e-8631-5c27f69ddd54@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-
-It CAN'T be used to grab references from either atomic, interrupt or worker context since then you can't drop the reference any more without risking destruction from non IOCTL context which in turn causes tons of lifetime problems.
-
-This is just standard refcounting rules to keep objects alive during an IOCTL.</pre>
-    </blockquote>
-    Where do you see such standard? It is just a atomic number, not a
-    lock.&nbsp;
-    <blockquote type="cite" cite="mid:580d3ecd-57f0-4b4e-8631-5c27f69ddd54@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Could you please point us to the historical issue or the corresponding
-commits that led to removing this approach previously?
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-See Sunils original approach, he made exactly the same mistake and I already had to fix that back then.
-
-I don't remember if it was actually committed or if we only discussed that on the mailing list.
-
-Regards,
-Christian.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
 Thanks,
-Ray
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
+Matt
 
---------------kdHbJb1xKWcsr40gbRM7lio6--
+> 
+> Thanks,
+> George
+> 
+> On 9/9/26 15:59, Matthew Schwartz wrote:
+>> VRR-capable sinks set allow_freesync even with VRR_ENABLED=0, letting
+>> FPO stretch frames during UCLK switches. On a Navi 33 driving 4K120
+>> through a DP-HDMI PCON, a 40fps compositor limiter then runs at 37fps.
+>> This surfaced after commit d49086491bcb ("drm/amd/display: Adjust
+>> freesync pcon whitelist").
+>>
+>> Allow frame stretching only for VRR_STATE_ACTIVE_VARIABLE. Store the
+>> proposed permission in the private DC state so TEST_ONLY and failed
+>> checks cannot change the shared stream. Apply changed permissions at
+>> commit and force full DC validation, including native DP and eDP.
+>>
+>> Fixes: 7eaef1163b82 ("drm/amd/display: set allow_freesync parameter in DM")
+>> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+>> ---
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 ++++++++++++++++
+>>   .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  1 -
+>>   drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 +++
+>>   .../gpu/drm/amd/display/dc/core/dc_state.c    | 31 +++++++++++++++++++
+>>   drivers/gpu/drm/amd/display/dc/dc_state.h     |  6 ++++
+>>   drivers/gpu/drm/amd/display/dc/dc_stream.h    |  3 ++
+>>   .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  9 ++++--
+>>   .../dml21_wrapper/dml21_translation_helper.c  |  9 ++++--
+>>   .../dc/resource/dcn30/dcn30_resource.c        |  2 +-
+>>   .../resource/dcn32/dcn32_resource_helpers.c   | 10 ++++--
+>>   10 files changed, 92 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index f49cc198fb0d..09c088b878bb 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -3835,6 +3835,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+>>       unsigned long flags;
+>>       u32 target_vblank, last_flip_vblank;
+>>       bool vrr_active = amdgpu_dm_crtc_vrr_active(acrtc_state);
+>> +    bool allow_freesync = acrtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
+>>       bool cursor_update = false;
+>>       bool pflip_present = false;
+>>       bool immediate_flip = false;
+>> @@ -4146,6 +4147,9 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+>>               spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+>>           }
+>>           mutex_lock(&dm->dc_lock);
+>> +        if (acrtc_state->update_type == UPDATE_TYPE_FULL &&
+>> +            allow_freesync != acrtc_state->stream->allow_freesync)
+>> +            bundle->stream_update.allow_freesync = &allow_freesync;
+>>           update_planes_and_stream_adapter(dm->dc,
+>>                        acrtc_state->update_type,
+>>                        planes_count,
+>> @@ -5413,6 +5417,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>>       struct dc_stream_state *new_stream;
+>>       struct amdgpu_device *adev = dm->adev;
+>>       int ret = 0;
+>> +    bool allow_freesync, old_allow_freesync;
+>>         /*
+>>        * TODO Move this code into dm_crtc_atomic_check once we get rid of dc_validation_set
+>> @@ -5668,6 +5673,27 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>>       amdgpu_dm_get_freesync_config_for_crtc(dm_new_crtc_state,
+>>                        dm_new_conn_state);
+>>   +    allow_freesync = dm_new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
+>> +    old_allow_freesync = dm_old_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
+>> +
+>> +    /* Keep the proposed FreeSync permission in the private DC state. */
+>> +    if (dm_new_crtc_state->stream != dm_old_crtc_state->stream ||
+>> +        old_allow_freesync != allow_freesync) {
+>> +        ret = dm_atomic_get_state(state, &dm_state);
+>> +        if (ret)
+>> +            goto fail;
+>> +
+>> +        if (!dc_state_set_stream_allow_freesync(dm_state->context,
+>> +                            dm_new_crtc_state->stream,
+>> +                            allow_freesync)) {
+>> +            ret = -EINVAL;
+>> +            goto fail;
+>> +        }
+>> +
+>> +        /* DML must re-evaluate FPO when the permission changes. */
+>> +        *lock_and_validation_needed = true;
+>> +    }
+>> +
+>>       return ret;
+>>     fail:
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+>> index 281c6cec9f4b..9f40064d13c5 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+>> @@ -253,7 +253,6 @@ void amdgpu_dm_update_freesync_state_on_stream(
+>>       new_crtc_state->vrr_infopacket = vrr_infopacket;
+>>         new_stream->vrr_infopacket = vrr_infopacket;
+>> -    new_stream->allow_freesync = mod_freesync_get_freesync_enabled(&vrr_params);
+>>         /*
+>>        * HDMI ALLM: when Gaming-VRR is active (VRR_EN=1) and the sink
+>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> index ebbd81995c38..6064cc992d91 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> @@ -3175,6 +3175,10 @@ static struct dc_update_descriptor check_update_surfaces_for_stream(
+>>           if (stream_update->mst_bw_update)
+>>               su_flags->bits.mst_bw = 1;
+>>   +        if (stream_update->allow_freesync &&
+>> +            *stream_update->allow_freesync != stream_update->stream->allow_freesync)
+>> +            su_flags->bits.fams_changed = 1;
+>> +
+>>           if (stream_update->stream->freesync_on_desktop &&
+>>               (stream_update->vrr_infopacket || stream_update->allow_freesync ||
+>>                   stream_update->vrr_active_variable || stream_update->vrr_active_fixed))
+>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+>> index 1e4fe2f941ca..382858b6c1da 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+>> @@ -425,6 +425,7 @@ enum dc_status dc_state_add_stream(
+>>       }
+>>         state->streams[state->stream_count] = stream;
+>> +    state->stream_status[state->stream_count].allow_freesync_valid = false;
+>>       dc_stream_retain(stream);
+>>       state->stream_count++;
+>>   @@ -746,6 +747,36 @@ struct dc_stream_status *dc_state_get_stream_status(
+>>       return status.stream_count > 0 ? status.stream_status[0] : NULL;
+>>   }
+>>   +bool dc_state_get_stream_allow_freesync(const struct dc_state *state,
+>> +                    const struct dc_stream_state *stream)
+>> +{
+>> +    unsigned int i;
+>> +
+>> +    for (i = 0; i < state->stream_count; i++) {
+>> +        if (state->streams[i] == stream &&
+>> +            state->stream_status[i].allow_freesync_valid)
+>> +            return state->stream_status[i].allow_freesync;
+>> +    }
+>> +
+>> +    return stream->allow_freesync;
+>> +}
+>> +
+>> +bool dc_state_set_stream_allow_freesync(struct dc_state *state,
+>> +                    const struct dc_stream_state *stream, bool allow_freesync)
+>> +{
+>> +    unsigned int i;
+>> +
+>> +    for (i = 0; i < state->stream_count; i++) {
+>> +        if (state->streams[i] == stream) {
+>> +            state->stream_status[i].allow_freesync = allow_freesync;
+>> +            state->stream_status[i].allow_freesync_valid = true;
+>> +            return true;
+>> +        }
+>> +    }
+>> +
+>> +    return false;
+>> +}
+>> +
+>>   enum mall_stream_type dc_state_get_pipe_subvp_type(const struct dc_state *state,
+>>           const struct pipe_ctx *pipe_ctx)
+>>   {
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_state.h b/drivers/gpu/drm/amd/display/dc/dc_state.h
+>> index acf461225e9d..40ad063cec09 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dc_state.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dc_state.h
+>> @@ -81,4 +81,10 @@ struct dc_get_status_options;
+>>   enum dc_status dc_state_get_status(struct dc_state_status *status,
+>>       const struct dc_get_status_options *options);
+>>   +bool dc_state_get_stream_allow_freesync(const struct dc_state *state,
+>> +                    const struct dc_stream_state *stream);
+>> +
+>> +bool dc_state_set_stream_allow_freesync(struct dc_state *state,
+>> +                    const struct dc_stream_state *stream, bool allow_freesync);
+>> +
+>>   #endif /* _DC_STATE_H_ */
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+>> index 934ae381e730..14d8da9f15e5 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+>> @@ -62,6 +62,9 @@ struct dc_stream_status {
+>>       bool is_abm_supported;
+>>       struct mall_stream_config mall_stream_config;
+>>       bool fpo_in_use;
+>> +    /* Proposed permission for validation, without modifying the stream. */
+>> +    bool allow_freesync;
+>> +    bool allow_freesync_valid;
+>>   };
+>>     diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+>> index b5bd1358fdfd..a816e47153ad 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+>> @@ -844,7 +844,9 @@ static bool subvp_drr_schedulable(struct dc *dc, struct dc_state *context)
+>>               continue;
+>>             if (dc_state_get_pipe_subvp_type(context, drr_pipe) == SUBVP_NONE && drr_pipe->stream->ignore_msa_timing_param &&
+>> -                (drr_pipe->stream->allow_freesync || drr_pipe->stream->vrr_active_variable || drr_pipe->stream->vrr_active_fixed)) {
+>> +                (dc_state_get_stream_allow_freesync(context, drr_pipe->stream) ||
+>> +                 drr_pipe->stream->vrr_active_variable ||
+>> +                 drr_pipe->stream->vrr_active_fixed)) {
+>>               drr_found = true;
+>>               break;
+>>           }
+>> @@ -3444,7 +3446,10 @@ bool dcn32_allow_subvp_high_refresh_rate(struct dc *dc, struct dc_state *context
+>>                   uint32_t height = subvp_high_refresh_list.res[i].height;
+>>                     if (dcn32_check_native_scaling_for_res(pipe, width, height)) {
+>> -                    if ((context->stream_count == 1 && !pipe->stream->allow_freesync) || context->stream_count > 1) {
+>> +                    if ((context->stream_count == 1 &&
+>> +                         !dc_state_get_stream_allow_freesync(context,
+>> +                                         pipe->stream)) ||
+>> +                        context->stream_count > 1) {
+>>                           allow = true;
+>>                           break;
+>>                       }
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+>> index 3c25de54d55b..031f90955b95 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+>> @@ -125,6 +125,7 @@ static unsigned int calc_vblank_nom_lines(const struct dc_stream_state *stream,
+>>   }
+>>     static void populate_dml21_timing_config_from_stream_state(struct dml2_timing_cfg *timing,
+>> +        const struct dc_state *context,
+>>           struct dc_stream_state *stream,
+>>           struct pipe_ctx *otg_master_pipe,
+>>           struct dml2_context *dml_ctx)
+>> @@ -166,7 +167,7 @@ static void populate_dml21_timing_config_from_stream_state(struct dml2_timing_cf
+>>       timing->drr_config.enabled = stream->ignore_msa_timing_param;
+>>       timing->drr_config.drr_active_variable = stream->vrr_active_variable;
+>>       timing->drr_config.drr_active_fixed = stream->vrr_active_fixed;
+>> -    timing->drr_config.disallowed = !stream->allow_freesync;
+>> +    timing->drr_config.disallowed = !dc_state_get_stream_allow_freesync(context, stream);
+>>         /* limit min refresh rate to DC cap */
+>>       min_hardware_refresh_in_uhz = stream->timing.min_refresh_in_uhz;
+>> @@ -923,6 +924,7 @@ bool dml21_map_dc_state_into_dml_display_cfg(const struct dc *in_dc, struct dc_s
+>>       struct dml2_display_cfg *dml_dispcfg = &dml_ctx->v21.display_config;
+>>       unsigned int plane_count = 0;
+>>       struct pipe_ctx *otg_master_pipe;
+>> +    struct dml2_timing_cfg *timing;
+>>         memset(&dml_ctx->v21.dml_to_dc_pipe_mapping, 0, sizeof(struct dml2_dml_to_dc_pipe_mapping));
+>>   @@ -952,7 +954,10 @@ bool dml21_map_dc_state_into_dml_display_cfg(const struct dc *in_dc, struct dc_s
+>>             ASSERT(disp_cfg_stream_location >= 0 && disp_cfg_stream_location < __DML2_WRAPPER_MAX_STREAMS_PLANES__);
+>>   -        populate_dml21_timing_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].timing, context->streams[stream_index], otg_master_pipe, dml_ctx);
+>> +        timing = &dml_dispcfg->stream_descriptors[disp_cfg_stream_location].timing;
+>> +        populate_dml21_timing_config_from_stream_state(timing, context,
+>> +                                   context->streams[stream_index],
+>> +                                   otg_master_pipe, dml_ctx);
+>>           populate_dml21_output_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].output, context->streams[stream_index], otg_master_pipe);
+>>           populate_dml21_writeback_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].writeback, context->streams[stream_index]);
+>>           populate_dml21_stream_overrides_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location], context->streams[stream_index], &context->stream_status[stream_index]);
+>> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+>> index dbb8bb7fc20d..5333c4cc9eba 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+>> @@ -2152,7 +2152,7 @@ bool dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch(struct dc *dc,
+>>       if (!is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(context))
+>>           return false;
+>>   -    if (!context->streams[0]->allow_freesync)
+>> +    if (!dc_state_get_stream_allow_freesync(context, context->streams[0]))
+>>           return false;
+>>         if (context->streams[0]->vrr_active_variable && (dc->debug.disable_fams_gaming == INGAME_FAMS_DISABLE))
+>> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
+>> index 602a0e4e5dc0..a86d3111703f 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
+>> @@ -579,7 +579,7 @@ struct dc_stream_state *dcn32_can_support_mclk_switch_using_fw_based_vblank_stre
+>>       if (!is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(fpo_candidate_stream, fpo_vactive_margin_us, refresh_rate))
+>>           return NULL;
+>>   -    if (!fpo_candidate_stream->allow_freesync)
+>> +    if (!dc_state_get_stream_allow_freesync(context, fpo_candidate_stream))
+>>           return NULL;
+>>         if (fpo_candidate_stream->vrr_active_variable &&
+>> @@ -673,7 +673,9 @@ bool dcn32_subvp_drr_admissable(struct dc *dc, struct dc_state *context)
+>>                   non_subvp_pipes++;
+>>                   drr_psr_capable = (drr_psr_capable || dcn32_is_psr_capable(pipe));
+>>                   if (pipe->stream->ignore_msa_timing_param &&
+>> -                        (pipe->stream->allow_freesync || pipe->stream->vrr_active_variable || pipe->stream->vrr_active_fixed)) {
+>> +                    (dc_state_get_stream_allow_freesync(context, pipe->stream) ||
+>> +                     pipe->stream->vrr_active_variable ||
+>> +                     pipe->stream->vrr_active_fixed)) {
+>>                       drr_pipe_found = true;
+>>                   }
+>>               }
+>> @@ -734,7 +736,9 @@ bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context, int
+>>                   non_subvp_pipes++;
+>>                   vblank_psr_capable = (vblank_psr_capable || dcn32_is_psr_capable(pipe));
+>>                   if (pipe->stream->ignore_msa_timing_param &&
+>> -                        (pipe->stream->allow_freesync || pipe->stream->vrr_active_variable || pipe->stream->vrr_active_fixed)) {
+>> +                    (dc_state_get_stream_allow_freesync(context, pipe->stream) ||
+>> +                     pipe->stream->vrr_active_variable ||
+>> +                     pipe->stream->vrr_active_fixed)) {
+>>                       drr_pipe_found = true;
+>>                   }
+>>               }
+> 
+
