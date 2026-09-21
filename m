@@ -4,95 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD3A9C982E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 14:39:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD30C982E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 14:41:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6976610E851;
-	Mon, 21 Sep 2026 14:39:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7F2010E32D;
+	Mon, 21 Sep 2026 14:41:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CDQW3QAA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TLVxxHaQ";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010048.outbound.protection.outlook.com [52.101.61.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BBFD10E32D
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 14:39:37 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011002.outbound.protection.outlook.com [52.101.62.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E2A810E32D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 14:41:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gXk9l5DcixkaVkyUMX0E0KBsHbUl9j9P0mBHpfRQL1yjaFRQmxrEELu/VuYLS15uEZJnfiodcqfOrjzec2wO3wbE6e4AcVqEmG+Yi6260hJg5QJbOLQSzS+gZXyfP7C9d07HlcyxAB3Cyd2ewWQqJn2UiJNqIla4XOOtdeh8jVWnX5E7ienk8+EMjDRxk9Ig3qnXX7lrTFfnljVrWIGRvn8f+R1xl0IGXV1PusZES/7YC9qBiuZu3PBe14MbIvX8TpLIPNrMCOnbAFaHYmWHMJiPlOuJeIu/PxTAlSfXWNkXm4GnkcFBKFUCdEKpWIvup5NgQ559rSiUioXnOyew+Q==
+ b=jDIew8xtCCxONUUkw3LTgfdWjltdtffzeEbae0WEMvqY4HfUR2TxvqkdFqsgEhpGBUtRwEgeGvedfaqBT720Gs3PcXcICwISwOrLlx876tU/5jNMcLet4Wbbsd/w3G5LB/0PdKrYLFXfLNBNyhY25qm61ZOE8IFuO5IX9ehWRD8S62c/zB+vsnwf7Di7058PoASyvCORWvJBFYPKNT7hrA2+PFEME7robP8D3fJCg2k/y7LAMzFRKZn1a3TGDknCPbQDxiahK8tVASrdbRUI6EulB2l2XGL0hB/kHy8Di271SD9j36aSLmxwLr5xgRO+xmz3KsmS2gfSmrOluByQ1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ONZknGrvAsGKTWsc0e19QN4LE/3cUjfGCw4SAYBeoVk=;
- b=thTRr5ATikAbBFy1cKtjvMJTFULF6swo1ZUPLwtFLOjvwLuRU7NVeRWh1H+pq4DO1rDDYAj73PBepwH4CJHzIcdCc8tN4MKht95COQJa44VgsIkxf1kuEbt8CuMzU4bjtKMRGPHy+N89PiqYr+G21g2BiblHwz8fLwGQY7Ussn8md59GQikGkENIJl8Vg4NIRSJApmSnaSc8KVuFutC3crbs+NARxejPARoiBBMbwOjDYdrcrrhwGK559Ack3XutjPyhYzyqxFrmSwUa4eE7GwboSyljRJokaWYbr5Nun5GoR0SqAS6FNat3ZOOHGtffw+Nc0QBrCUY03uxIOmBYkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=LGdDnm5myNnsSDuxLp43jnwRe5ganUTs0GHsXXx1ZDs=;
+ b=mu01JbU21CnX5cMRNeGGm4pLzJXldJNRzPPar1o4CkuJn7ESB9w1avB1oFuECdZhkJqqwVd6uhHOMns0C8UVCsR3Lbnm/xurZbRiUpBzNQUTbrm3pVrWP+a1+iyfNLhaKv5gwXS4KYbtXjD8t6XwYAl10O+MUjqMYZjS/WQoy8hI8vEIMKuC3hoY+bJ8n91t1G2mHx3pOm5WVtlRK/tPeVPWcdZsoPiNSDup5JYgjivRUsgXQp0illC4bqVHngZi4S2JdbNazig8VpbGIuzC8qLzg5ABgTQhH4XV2m3olqYhNrm5wnPrn53MV4Y0Xp5UoyDdlHzsWXPomPFEdn3HaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ONZknGrvAsGKTWsc0e19QN4LE/3cUjfGCw4SAYBeoVk=;
- b=CDQW3QAAbNg3PS2qReHk049fy7IkIMOqpCdr9rfa64fqCBnyg7zXVyp+dhSPXfJ6wjdam6BZtOhT9rdXwDhLsvifB4BWHXEU8LEE1nimY28bQ+u5cfb6fW1jmOz+t7A//BgVdjiPOpA8ZWREjyu3yhwS/LPyUfQLJTZhjkT1bkc=
-Received: from DS7PR03CA0253.namprd03.prod.outlook.com (2603:10b6:5:3b3::18)
- by DS0PR12MB6653.namprd12.prod.outlook.com (2603:10b6:8:cf::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=LGdDnm5myNnsSDuxLp43jnwRe5ganUTs0GHsXXx1ZDs=;
+ b=TLVxxHaQ0cM908Waq8Y494WTKdXNJcwAPvd0a0U4frJvACd/TxlVqenwvo4K1+147Vw/UuwV9PtfDJt7YrLkDuRK7vCBXAMjRS1S9CrEh86Fh/1vHfFBrUIDhBpLNI6caKy+9p255nkHOM7u5afx4VhwvRevF8T40hPHQciyNqo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB2863.namprd12.prod.outlook.com (2603:10b6:208:103::12)
+ by SN7PR12MB7129.namprd12.prod.outlook.com (2603:10b6:806:2a1::16)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 14:38:25 +0000
-Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
- (2603:10b6:5:3b3:cafe::a1) by DS7PR03CA0253.outlook.office365.com
- (2603:10b6:5:3b3::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 14:38:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 14:38:24 +0000
-Received: from 0yonsun-linux-dev.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 21 Sep 2026 09:38:23 -0500
-From: Yongqiang Sun <Yongqiang.Sun@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <shaoyun.liu@amd.com>, Yongqiang Sun <Yongqiang.Sun@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: wire mes_dbgext on gfx11 and gfx12
-Date: Mon, 21 Sep 2026 10:38:04 -0400
-Message-ID: <20260921143804.3698840-1-Yongqiang.Sun@amd.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
+ 2026 14:40:52 +0000
+Received: from MN2PR12MB2863.namprd12.prod.outlook.com
+ ([fe80::f402:b1b8:c6bd:24b2]) by MN2PR12MB2863.namprd12.prod.outlook.com
+ ([fe80::f402:b1b8:c6bd:24b2%4]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 14:40:52 +0000
+Message-ID: <e77dc3d3-eec6-4b54-8bd3-d2b51591bca4@amd.com>
+Date: Mon, 21 Sep 2026 10:40:50 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/8] drm/amdgpu: push down runtime pm handling in
+ amdgpu_gem_create_ioctl
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ kevin.wang@amd.com
+References: <20260917195812.72917-1-shahyan.soltani@amd.com>
+ <20260917195812.72917-5-shahyan.soltani@amd.com>
+ <2d2520d8-6477-44d0-a298-37bd078da24a@amd.com>
+Content-Language: en-US
+From: Shahyan Soltani <shahyan.soltani@amd.com>
+In-Reply-To: <2d2520d8-6477-44d0-a298-37bd078da24a@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YQBPR0101CA0288.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6d::8) To MN2PR12MB2863.namprd12.prod.outlook.com
+ (2603:10b6:208:103::12)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|DS0PR12MB6653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94bd1e66-432c-4431-e691-08df17edfdeb
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2863:EE_|SN7PR12MB7129:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba22256e-f466-4266-5fb9-08df17ee55f3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|6133799003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: Rp8ktg/SVzQjSsuElN6CS57Hlwedayn0GntT8Dm5cG+7tG9VcBvUvHCZeCjzBVLFIMWd2yfiCFoul2y0QdqRomIsDtK+l9FmoXbse2JKYCg38OQATFNGYTrg1pwo8TpUogPUzws3TpgiPweZDIr4n36WqS63a/y5Wi741g93nUJ5PmcEeJKUCWEhcBp1K/2zOXNySW/AyuPNOFn/CAppHtQPfVixylIHloiQEq+u8flPvj5dK1uVyddI4Xgny37R2/jbfZWxwiNCc1NL3QZvW5TzJgS70HGpYLJggYq1r/Rk/VtKvNFW4xTy+buw11D5cRtPetWg37Yd/gxf/GEwyse3hhokgBEX4RSz45xAEUSUX27zmscZpe8qoOmoc/TJcqMQqIxTkvtPVVbOVFPhxT8S11rBob7SDphE+iCNrpFxjBDURSLotpCjJaO8nN3UQ8AQOLWdy40rPddhbEWEJPznXWY+kNeC0qLIis3qCzNC4XeFZ94xt3DhXkThQ8SvPKmNvXKTZNj94PaZzfsyP8JfGEz/8fjXEYuUUVYuLWcL0C2tK1PC9rQVDFSuQ54sOuzj9Vxilkj0VNsSxup1IvtsleEJpoJ41bxqNe5+oENSwHEEtOsZWtV3PPQkQ88PyRRoVPlTtoQ7KZ5RL2Gk6TYlr/puI95BkKlIBU7i9j2UuxB8XD7euqnfVTf6ajcCFUGkq63l5fTtaZ137KfhZw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);
+ ARA:13230040|376014|1800799024|366016|23010399003|11063799006|6133799003|10067099003|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: onfL4Kj2TcSHqOcrD3eb9s72OzeW8xyZyZAioZSUyDRMueL3e7HHNlzd4NnESxYvHm+GwPkMgAClH0d/iKJ/fO6uEZ2J0OFbyOPmjONzK1hwQdmwo43Z+qbYOmuUWaxwGiE6cSQidstrTMElEs9qxBDFBLJcNGuC8RFYKg0U64hqz5aTq5q9sn1FduvJcMZ3j7cBtYVON+fGBFXNBWWSr3mjnQjCq+tMVz+4pXkiwqJZt56peXmhm1Hpb0PlLz6HdVTe3e9rBzBHfta3v2W7oEjgwk+eZLnj4oqBpUM0dfkMrYtrOzPhunVbNWEBYuU6Q2mwDB4e36i0ymE8NL535X7JAW0ES/rKCR/j8KqW0Qjij2AgM3YAPDk7wSFpo5J941TLw7w1ffw8ykC+da0JhOoYWyADtNoZ4ryzVyKNRrwKJ8lTxcwTZvD0862r1VY2hER2t1Xk6rM/qYYW6KQ6bgDwnFJxo7/Nxw8IK7zLQbzKdsbEMSkvHQ9a6nFKDHeHH+TU8jxTkNEnkzphnbUaXPIXVKaOzcNCXgOPThhyCVNB0mqh9v/JFPKH45A7hcQJ1ePvnFpvPDS1tLcFqUDQHF1ZA4NLmdmfBMpcFzsvIJvUbUnoqu0N5+pjTIhBoX6r+ukYM7+qp6lgZMLqy2yROB3Mt7EyVm9t/PurLozEu6s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB2863.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(11063799006)(6133799003)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: YjbhRamRIy7zGABocGifAehZz+OMbI05RP/5VE+Bqz5fi1uTYl8UOu6x/Juv/VPiRTXSMN0Dsd5DM5SMIAbkgwTEgu86AX6sgqU0bC4E4OGwNsdwcHIsmpmXX4k6+QGyiybYJVPfXE3//f6IWqpaue8b0s8wdkx9yLZiCseQzQbpb7FE3Ou4UaTlgR/PrO1QVazE2IH+ZuT0iBNi/obYidWuiszzngw5lxt0D3D2rqzZggrSZLReKimJsWlL+syqvJR2R4B9Wjt3oTUJY3JiwFq+mTVLJ0Om8NuPd+w3EKLbQUfLDyAzA0mRXEgooWeTPpe7LC7dGC/cAPHytt7thKTz3vL3YE0r3hWCAfy5LGoXdHI4x1C5GhOhe2mwxD1sfObMmoFWq2sg96GpqgentH1haC8ChVzJToNJlOMe/gwAYS0dN/dSB4z+glXhShk5
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aS91RnJxaDh3TGdsMDhYQ0tnSHNaODgydkk1R1IwamViYWhzRVdweWY3b2dx?=
+ =?utf-8?B?QTI0eUg2MDIwQnptSGVEanNueVdOcjFLWU1vZEwvcVpzNmd4UVV3YXVHdnJH?=
+ =?utf-8?B?cm95WUlCTWF6SldlN2pwQm1VM05JVzh5L205dXpDZGNJZFNWNFZwbzVUaDkw?=
+ =?utf-8?B?eXB1OU8vaktsVWozSEZ4MzNRK21TMEl5NjM4dlJqeFdUamlaelJNNE9sdHpK?=
+ =?utf-8?B?cHYrVVN3U1J4TGhIZllhdVRsTU1KSnR0eWxLOGtJUlgxOEp6a3RrSWlYZkFQ?=
+ =?utf-8?B?eWNtMm1yRThLaUxSUlZxaE44Ykp6RUhJU3AxNFVmM1NPV0RjQ3UzZC9tTlZU?=
+ =?utf-8?B?WXh4aTgxck5vVkhOeVhobzdBbkNQSzEzY0NtZWdzL2RXNkU5UmR0WXR6Nkh6?=
+ =?utf-8?B?Nyt6RForZ1lnWjdPcFJjcEJsaEh3TEp2eFQzeUhPSmp2SHdRK0xFQURXNXdx?=
+ =?utf-8?B?REJaMEtaK2kydTNKakdQVmhOSjRoN2tWbjVhbStsYkl1T2kxUVkvNDFLMCt5?=
+ =?utf-8?B?QTVNaTkxYUNlUTJHc084dHR4Z1NGR0taL1VXUTlRVllEdjVtT2UyUldDbnpJ?=
+ =?utf-8?B?Qk1KZk1KTE5pa2dya2g4WHhITktabTNvOHNlQ05HWkthSEJYS2VBeE9oaDVp?=
+ =?utf-8?B?VmtaOTFFa2E0K3pLK01ZaUc2R0d0WTZlNHBNdHNjSjBMd0k0Y0Ivc3c1RG44?=
+ =?utf-8?B?RlFvdHZ1eXZZMUMrNHlBV3c0OHpmaU9oRTVIMVliMk1hQVZSMjZFNitXRzJi?=
+ =?utf-8?B?QzlaUDc4alRQb0lXcHpZaTdNRndyU2kyRmh2KzRmUTBjWmg0c2FaQ3Q4V2Zq?=
+ =?utf-8?B?aTdvT1lteDZLNWlUcStIMVYxY01pVHJhY2tmMzlYS0hPcjdyV1QvWHFETHFl?=
+ =?utf-8?B?aUsxN1dmQ2JVWUhZYTA5Q0VtaWZTT3llNmtUTTN2dnF6QlhEZmZYY2ovWlhl?=
+ =?utf-8?B?V1VZZVRzZUdHZzMxT3M3UE1HR3plMUgwWFFQNGUxbWtQbndZeG1ITW5rL0h3?=
+ =?utf-8?B?cXA4cHdUMTZsdWhWaUl1ZnNxeUp0aFM5bCtjRmcvblNnek1EQmxSQWs5Nnpi?=
+ =?utf-8?B?ZEpSdkF2Ym52MFY0eGErbWg0b2Z3Y3lMODVmN0NUbHdrSFBhaGFGZGpWRSsz?=
+ =?utf-8?B?Z1NzUkJjbm0vdlAvSms2MHhMZGJ4THZJQ3RyMEZhbGlYVnBrVzBiSkoyV2NW?=
+ =?utf-8?B?WTBXcXdVVWdwY3BWT2JPcHk4cVNTM21OQW9WWG9sbWRlYnRxOGEyQ3FHc0FN?=
+ =?utf-8?B?dXNScXYyaFVVa2lSZ1laSnpnZW93U0t4OWtoUnVDL0JnRnRIcUdyK3NlbFVE?=
+ =?utf-8?B?RCtESlJha2ZOTml0V1BZeXFPUkY3T1Y0WkdRaDQ4eEozUjZFeFAzdHRvdVFz?=
+ =?utf-8?B?VWdzMTF6RXZlUFJ6NlJuUDljMXJLdTRYQ0VpaFgwQ1BuK3FsazJFZjljWDBD?=
+ =?utf-8?B?VXAxcjdlYjRNMTI5NmZTdHRpaTA4bEt2T0hWKzgzK3FCQWVMeVpPa1NiU1Vl?=
+ =?utf-8?B?aXhiT3dHTStXbXBSYUc3Wiszd205Vm55dEV6di96MXJ5d1pDdXErTUJ3Q1dx?=
+ =?utf-8?B?cFZXUjlmM1dhQTVMUnBHbWRWM0wxUU5sNHVYK2w0akdDdWhMOU1JenZYR3FZ?=
+ =?utf-8?B?c3dwM01GZnpzSVBLUU95enhRN2FtaElPYjB4MTk0SVlNYkJiSmFtMlJKN1JX?=
+ =?utf-8?B?TjA2b1lHYW5MSzZlVnl2WFF4a2xRWS9kRkg3MVV3cjdzWGZ1cjNZeFc1YWdn?=
+ =?utf-8?B?WUhBbGpCaFllcCsxNDdyNmlWQm80YkFEd2g5T3owazhUTjJuWWNLNkNyQ0pw?=
+ =?utf-8?B?N3ZiTGE0aWpiMUlkbmpsTGtqWGgvRyttcDZST3FTb29Va0hnMHkwZFI2czZq?=
+ =?utf-8?B?c01BVjNCSFlaR3lqVEYydDIrU1Y3bUU3bExpcTFPNGlSa29EdkZBQ2puNml4?=
+ =?utf-8?B?cFNDQUpqS3J0MS9xR2xzYkN3U3VST2FVMFhBSUY1bEhIZ2xIK1JMY1pPZmJr?=
+ =?utf-8?B?czRvYUNkQW1jc0w0dFAyREJ2OWtrU09ydmV2bUJzZUE5UTR2T3Z5UzdJVlNT?=
+ =?utf-8?B?dE1JYkNlNXJONlYydk93K2lSamNwOEFrU2Z4QTluUE1IQWQxNWZhekNZTGp5?=
+ =?utf-8?B?U201N3dHQ0ZXWE4reEZMU3BENWVDam9uY25pdkVQUVlveEIvNS91M0dvaTJq?=
+ =?utf-8?B?Wk12MUxRWEkyWmZSZkFSRlpTSUQxZ09PZVJMZnJkRmVRMFpROEtFaExONTZj?=
+ =?utf-8?B?b25pUnU3WXlNK21rLzRJV1FaY3JIMForR2lPRXJOaWtuenVqQW40QUpYS2ln?=
+ =?utf-8?B?TXovQzQrRFJOL2xNT3hSQjM2ZFNJMWRRNUlCNU1mbTg3UURTRDRGdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 14:38:24.4143 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94bd1e66-432c-4431-e691-08df17edfdeb
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba22256e-f466-4266-5fb9-08df17ee55f3
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2863.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 14:40:52.3270 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6653
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WxXFHmr9ZuTzWU3W9d1UfrQVcwwnrK1+fa2cAiee9/EXhsa7Xx7UnxL4CEzLKhi7qGivG2RCNq9YPHpONSJUEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7129
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,243 +138,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the per-IP hardware wiring that drives the mes_dbgext core on gfx11
-(mes_v11_0 / gfx_v11_0) and gfx12 (mes_v12_0 / gfx_v12_0): handle
-MES_MISC_OP_SETUP_MES_DBGEXT in the misc-op path, unmask the MES debug
-interrupt, select the flat (gfx11) or zoned (gfx12) buffer format in
-sw_init(), start/stop the feature from hw_init()/hw_fini(), and drain
-the log from the EOP interrupt handler while the feature is active.
+On 9/18/26 3:57 AM, Christian König wrote:
 
-Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 12 ++++++
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 18 +++++++++
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 40 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 52 ++++++++++++++++++++++++++
- 4 files changed, 122 insertions(+)
+>
+> On 9/17/26 21:58, Shahyan Soltani wrote:
+>> From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>>
+>> For now use the same logic as the existing one, but it's not 100%
+>> correct since:
+>> 1) most operations don't need the GPUs
+>> 2) some operations that need it are actually deferred
+>>
+>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 10 ++++++++++
+>>   1 file changed, 10 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> index 4e4814caf61a..6edd03647c2d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> @@ -978,6 +978,14 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>>   	if (r)
+>>   		goto error;
+>>   
+>> +	/* FIXME: only PRT operations use the GPU to update mapping, but
+>> +	 * some operations are deferred to fences callbacks so it's not
+>> +	 * trivial to fix.
+>> +	 */
+> That comment is not correct, just drop it.
+>
+>> +	r = pm_runtime_resume_and_get(adev->dev);
+>> +	if (r < 0)
+>> +		return r;
+>> +
+>>   	switch (args->operation) {
+>>   	case AMDGPU_VA_OP_MAP:
+>>   		r = amdgpu_vm_bo_map(adev, bo_va, args->va_address,
+>> @@ -1031,6 +1039,8 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>>   
+>>   	}
+>>   
+>> +	pm_runtime_put_autosuspend(adev->dev);
+> That error handling is not correct, after the switch there are a bunch of returns and gotos for cleanup.
+>
+> I strongly suggest to use the guard approach here as well.
+>
+> Regards,
+> Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index a7ed4923857b..c14e2e0890ce 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -6534,6 +6534,18 @@ static int gfx_v11_0_eop_irq(struct amdgpu_device *adev,
- 
- 	DRM_DEBUG("IH: CP EOP\n");
- 
-+	/*
-+	 * MES firmware debug-extension ("mes_dbgext") messages are delivered as
-+	 * an EOP interrupt from the MES pipe (me 3), carrying MES_DBGMSG (type 7)
-+	 * in the top 6 bits of the context word.  Route them to the mes_dbgext
-+	 * drain instead of the (gfx/compute) EOP fence handling below.
-+	 */
-+	if (((entry->ring_id & 0x0c) >> 2) == 3 &&
-+	    (entry->src_data[0] >> 26) == 7) {
-+		amdgpu_mes_dbgext_notify(adev, entry->src_data[0]);
-+		return 0;
-+	}
-+
- 	if (!adev->gfx.disable_kq) {
- 		u8 me_id = (entry->ring_id & 0x0c) >> 2;
- 		u8 pipe_id = (entry->ring_id & 0x03) >> 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index ec1e142549c5..9ba2846e48fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -4871,6 +4871,24 @@ static int gfx_v12_0_eop_irq(struct amdgpu_device *adev,
- 
- 	DRM_DEBUG("IH: CP EOP\n");
- 
-+	/*
-+	 * MES firmware host interrupts - including the mes_dbgext debug-message
-+	 * notification - are raised via the RS64 host-interrupt path (the
-+	 * firmware triggers the CPC TIME_STAMP assertion).  Although the firmware
-+	 * tags the cookie with src_id CP_GENERIC_INT (177), the CP actually
-+	 * delivers this to the host IH as a CP EOP (src_id 181) on the MES
-+	 * scheduler pipe (me 3) - so it arrives through the normal CP_EOP
-+	 * registration, not a CP_GENERIC_INT one.  The gfx12 IH cookie does not
-+	 * preserve the MES interrupt type, so when dbgext is active, drain on any
-+	 * me3 EOP; draining is a no-op when the log buffer has no new data, and
-+	 * returning early keeps it out of the (gfx/compute/userq) fence paths.
-+	 */
-+	if (adev->mes.dbgext_active &&
-+	    ((entry->ring_id & 0x0c) >> 2) == 3) {
-+		amdgpu_mes_dbgext_notify(adev, entry->src_data[0]);
-+		return 0;
-+	}
-+
- 	if (!adev->gfx.disable_kq) {
- 		u8 me_id = (entry->ring_id & 0x0c) >> 2;
- 		u8 pipe_id = (entry->ring_id & 0x03) >> 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 51bfb672bed7..4a5ed502cedc 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -969,6 +969,13 @@ static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
- 		misc_pkt.opcode = MESAPI_MISC__NOTIFY_WORK_ON_UNMAPPED_QUEUE;
- 		misc_pkt.queue_sch_level = AMD_PRIORITY_LEVEL_NORMAL;
- 		break;
-+	case MES_MISC_OP_SETUP_MES_DBGEXT:
-+		misc_pkt.opcode = MESAPI_MISC__SETUP_MES_DBGEXT;
-+		misc_pkt.dbgext_init_data.dbg_ext_mc_addr =
-+				input->setup_mes_dbgext.log_buffer_mc_addr;
-+		misc_pkt.dbgext_init_data.u64_all =
-+				input->setup_mes_dbgext.log_options;
-+		break;
- 	default:
- 		drm_err(adev_to_drm(mes->adev), "unsupported misc op (%d)\n", input->op);
- 		return -EINVAL;
-@@ -1144,6 +1151,32 @@ static int mes_v11_0_detect_and_reset_hung_queues(struct amdgpu_mes *mes,
- 			offsetof(union MESAPI__RESET, api_status));
- }
- 
-+/*
-+ * Enable/disable delivery of the MES firmware host interrupts at the CP.  The
-+ * MES firmware debug-message interrupt is delivered as a CP EOP from the MES
-+ * pipe (me 3) and handled in gfx_v11_0_eop_irq(); it is gated by CPC_INT_CNTL
-+ * in that ME/pipe context, selected via GRBM_GFX_CNTL.  Mirrors the Windows KMD
-+ * MES interrupt-enable path.  Must run in process context (takes srbm_mutex).
-+ */
-+static int mes_v11_0_enable_dbgext_irq(struct amdgpu_mes *mes, bool enable)
-+{
-+	struct amdgpu_device *adev = mes->adev;
-+	u32 cp_int_cntl;
-+
-+	mutex_lock(&adev->srbm_mutex);
-+	soc21_grbm_select(adev, 3, AMDGPU_MES_SCHED_PIPE, 0, 0);
-+
-+	cp_int_cntl = RREG32_SOC15(GC, 0, regCPC_INT_CNTL);
-+	cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CPC_INT_CNTL,
-+					TIME_STAMP_INT_ENABLE, enable ? 1 : 0);
-+	WREG32_SOC15(GC, 0, regCPC_INT_CNTL, cp_int_cntl);
-+
-+	soc21_grbm_select(adev, 0, 0, 0, 0);
-+	mutex_unlock(&adev->srbm_mutex);
-+
-+	return 0;
-+}
-+
- static const struct amdgpu_mes_funcs mes_v11_0_funcs = {
- 	.add_hw_queue = mes_v11_0_add_hw_queue,
- 	.remove_hw_queue = mes_v11_0_remove_hw_queue,
-@@ -1152,6 +1185,7 @@ static const struct amdgpu_mes_funcs mes_v11_0_funcs = {
- 	.suspend_gang = mes_v11_0_suspend_gang,
- 	.resume_gang = mes_v11_0_resume_gang,
- 	.misc_op = mes_v11_0_misc_op,
-+	.enable_dbgext_irq = mes_v11_0_enable_dbgext_irq,
- 	.reset_hw_queue = mes_v11_0_reset_hw_queue,
- 	.detect_and_reset_hung_queues = mes_v11_0_detect_and_reset_hung_queues,
- };
-@@ -2049,6 +2083,8 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	adev->gfx.kiq[0].ring.sched.ready = false;
- 	adev->mes.ring[0].sched.ready = true;
- 
-+	amdgpu_mes_dbgext_start(adev);
-+
- 	return 0;
- 
- failure:
-@@ -2058,6 +2094,10 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- static int mes_v11_0_hw_fini(struct amdgpu_ip_block *ip_block)
- {
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	amdgpu_mes_dbgext_stop(adev);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index 9d220bff0f6f..363e1d6d3c2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -910,6 +910,13 @@ static int mes_v12_0_misc_op(struct amdgpu_mes *mes,
- 		misc_pkt.change_config.option.bits.limit_single_process =
- 				input->change_config.option.limit_single_process;
- 		break;
-+	case MES_MISC_OP_SETUP_MES_DBGEXT:
-+		misc_pkt.opcode = MESAPI_MISC__SETUP_MES_DBGEXT;
-+		misc_pkt.dbgext_init_data.dbg_ext_mc_addr =
-+				input->setup_mes_dbgext.log_buffer_mc_addr;
-+		misc_pkt.dbgext_init_data.u64_all =
-+				input->setup_mes_dbgext.log_options;
-+		break;
- 
- 	default:
- 		DRM_ERROR("unsupported misc op (%d)\n", input->op);
-@@ -1213,6 +1220,45 @@ static int mes_v12_0_inv_tlbs_pasid(struct amdgpu_mes *mes,
- 
- }
- 
-+/*
-+ * Enable/disable delivery of the MES firmware host interrupts at the CP.  The
-+ * MES firmware debug-message ("mes_dbgext") interrupt is delivered to the IH
-+ * as a CP EOP (src_id 181) on the MES scheduler pipe (me 3) and handled in
-+ * gfx_v12_0_eop_irq(); it is gated by CPC_INT_CNTL in the me3/MES pipe context,
-+ * selected via GRBM_GFX_CNTL.  Must run in process context (takes srbm_mutex).
-+ *
-+ * Although the firmware C code passes Rs64HostIntrGeneric1IntEnable, the RS64
-+ * library routine that actually raises the interrupt (AsmRs64SetHostIntr)
-+ * hardcodes the TIME_STAMP assertion bit (CP_INT_STAT_DEBUG bit 26).  So
-+ * TIME_STAMP_INT_ENABLE - not GENERIC1_INT_ENABLE - is the CPC_INT_CNTL bit
-+ * that lets the CP forward the assertion to the host IH.  CPC_INT_CNTL is
-+ * per-(me,pipe); the enable must be set on both me3 pipes (0 and 1), matching
-+ * the Windows/SR-IOV KMD path - setting it only on the scheduler pipe is not
-+ * sufficient.
-+ */
-+static int mes_v12_0_enable_dbgext_irq(struct amdgpu_mes *mes, bool enable)
-+{
-+	struct amdgpu_device *adev = mes->adev;
-+	u32 cp_int_cntl;
-+	int pipe;
-+
-+	mutex_lock(&adev->srbm_mutex);
-+
-+	for (pipe = 0; pipe < 2; pipe++) {
-+		soc24_grbm_select(adev, 3, pipe, 0, 0);
-+
-+		cp_int_cntl = RREG32_SOC15(GC, 0, regCPC_INT_CNTL);
-+		cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CPC_INT_CNTL,
-+					    TIME_STAMP_INT_ENABLE, enable ? 1 : 0);
-+		WREG32_SOC15(GC, 0, regCPC_INT_CNTL, cp_int_cntl);
-+	}
-+
-+	soc24_grbm_select(adev, 0, 0, 0, 0);
-+	mutex_unlock(&adev->srbm_mutex);
-+
-+	return 0;
-+}
-+
- static const struct amdgpu_mes_funcs mes_v12_0_funcs = {
- 	.add_hw_queue = mes_v12_0_add_hw_queue,
- 	.remove_hw_queue = mes_v12_0_remove_hw_queue,
-@@ -1224,6 +1270,7 @@ static const struct amdgpu_mes_funcs mes_v12_0_funcs = {
- 	.reset_hw_queue = mes_v12_0_reset_hw_queue,
- 	.invalidate_tlbs_pasid = mes_v12_0_inv_tlbs_pasid,
- 	.detect_and_reset_hung_queues = mes_v12_0_detect_and_reset_hung_queues,
-+	.enable_dbgext_irq = mes_v12_0_enable_dbgext_irq,
- };
- 
- static int mes_v12_0_allocate_ucode_buffer(struct amdgpu_device *adev,
-@@ -2114,6 +2161,8 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	adev->gfx.kiq[0].ring.sched.ready = false;
- 	adev->mes.ring[0].sched.ready = true;
- 
-+	amdgpu_mes_dbgext_start(adev);
-+
- 	return 0;
- 
- failure:
-@@ -2123,6 +2172,9 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- static int mes_v12_0_hw_fini(struct amdgpu_ip_block *ip_block)
- {
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	amdgpu_mes_dbgext_stop(adev);
- 	return 0;
- }
- 
--- 
-2.43.0
+Thanks for the feedback, you caught something I completely missed. 
+However I have a few concerns
+on what approaches I could take.
 
+Attempting to use a guard in this situation would require the guard to 
+be moved to the top of the function,
+resuming the system much early in the stack.
+
+As far as I understand this is due to the guard not being able to 
+succeed any gotos as the "lock" variable
+in the guard must be initialized before any subsequent goto.
+
+For example:
+
+goto error;
+PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+
+Is invalid as "lock" is initialized after the goto.
+Trying to initialize lock beforehand doesn't work as it would count as a 
+redefinition of lock instead.
+
+Would that still be preferred over creating a new label and trying 
+something like this instead?
+
+replace
+
++	r = pm_runtime_resume_and_get(adev->dev);
++	if (r < 0)
++		return r;
+
+with
+
++	r = pm_runtime_resume_and_get(adev->dev);
++	if (r < 0)
++		goto newlabel;
+
+	}
+
+...
+
++ newlabel:
++	pm_runtime_put_autosuspend(adev->dev);
+error:
+	dma_fence_chain_free(timeline_chain);
+	if (timeline_syncobj)
+		drm_syncobj_put(timeline_syncobj);
+	drm_exec_fini(&exec);
+error_put_gobj:
+	drm_gem_object_put(gobj);
+	return r;
+}
+
+Another approach I could try is wrap the entirePM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock); and the 
+subsequent switch cases before the error handling into its own scope 
+with {} However, I feel this method is a lot more hacky then necessary. 
+int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data, struct 
+drm_file *filp) { ... + { + 
+PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock); + + r = 
+PM_RUNTIME_ACQUIRE_ERR(&lock); + if (r) + goto error; switch 
+(args->operation) { case AMDGPU_VA_OP_MAP: ... case AMDGPU_VA_OP_UNMAP: 
+.. case AMDGPU_VA_OP_CLEAR: ... case AMDGPU_VA_OP_REPLACE: ... default: 
+... } if (!r && !(args->flags & AMDGPU_VM_DELAY_UPDATE) && 
+(!adev->debug_vm || timeline_syncobj)) { ... } + } error: ... 
+error_put_gobj: ... } If you have any ideas on what approach I 
+should/could take it would be very much appreciated. Thanks, Shahyan
+
+>> +
+>>   error:
+>>   	dma_fence_chain_free(timeline_chain);
+>>   	if (timeline_syncobj)
