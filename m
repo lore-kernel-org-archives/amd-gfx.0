@@ -4,127 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AF0BC982ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 15:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98BC2C982E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 15:34:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D57E10E8A4;
-	Mon, 21 Sep 2026 15:07:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1545510E3EE;
+	Mon, 21 Sep 2026 15:34:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ur5ZU8aK";
+	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="UPYlJhwY";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011020.outbound.protection.outlook.com [52.101.57.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86D8E10E436
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 15:07:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aDvPsh9BzKLva3x7Enfy8RMHk3NdjiEqSKqUP4tFw2xlnyG4N30xl789vgONYDZequFcDkuX1hpTQLF/eXJYhR6KlUBnr0KHuVewzMp9Bdr2j/9s9YoR0Gk/8Jo0iIMqAUonR0l84KsoZi6WC3eRPoxJbFtX14nl/R7ElfozuT1Lr4rfh7kxIPXB3et6sUxmpOZWbXlKfK5ScAR11H6gCwlzSNx6z/3Dvik+g9R0uIJnLwmpRElbvEdkAE+ncqbQjrmOTNlqFVT/aZVUGE+cz4jh/jn4IAkVCV2zOdBlM42bY+khrwmr1YTFGTe1ssgCGRHDK24otZeyCCTyeVPOnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RKmURSMj8Ck3JnULi285wtQFuRlLj76LXQQLBgW0FQg=;
- b=JDxPr3PuULWrPpKcTk3wA3hhtXve4RY05ek8Dz7Bq2QdSyPGYbj7ToAZqwJmApX8pSKJczjUBi3CVmV66DuYhqLad35p/sE8K9Phe++B8Zc2UAMuwgdbF2IIXTHdiYh8A1PwSLYdsREWnIdxzqb8MsOYzq3Ch0MGxeOr0rsuLBeC5YOfYm+RS6YPWuoiow9a9mGegNFPsXVaS1zrqA6swYZmeerLj65SoETZZK58X8EE3BjP7nshpVgppedNxlibmIbi/LAaejNm1LkGJvEW6GGglWt/rgzlXYlSBzPW+iCs7tQAAqf8seZSJmXEwgxeF/hC8oVQCmlJimUu2pCqxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RKmURSMj8Ck3JnULi285wtQFuRlLj76LXQQLBgW0FQg=;
- b=ur5ZU8aKpp/u8rvZxRd1ad1nLLGtmi5/s9DfG/b2U0hh1xzwSi3P8kZsh2og5n3NSycPyDxNLbe76QqD0evBVJ9pNlZ21L369EopTvnNVaRinVvQ/pLYbCGyzFXA55nNa3I1S/vHZ/dcmoZlkZfrM+JmbgSVbyauSVtsjjv7dCM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH8PR12MB7181.namprd12.prod.outlook.com (2603:10b6:510:22a::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 15:07:00 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 15:06:59 +0000
-Message-ID: <0cefdcf8-8afc-466e-8f5c-18d681be47a7@amd.com>
-Date: Mon, 21 Sep 2026 17:06:56 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/8] drm/amdgpu: push down runtime pm handling in
- amdgpu_gem_create_ioctl
-To: Shahyan Soltani <shahyan.soltani@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, pierre-eric.pelloux-prayer@amd.com,
- kevin.wang@amd.com
-References: <20260917195812.72917-1-shahyan.soltani@amd.com>
- <20260917195812.72917-5-shahyan.soltani@amd.com>
- <2d2520d8-6477-44d0-a298-37bd078da24a@amd.com>
- <e77dc3d3-eec6-4b54-8bd3-d2b51591bca4@amd.com>
- <b4c6676f-9333-4bb0-9861-3ecc3c72f350@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <b4c6676f-9333-4bb0-9861-3ecc3c72f350@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0240.namprd13.prod.outlook.com
- (2603:10b6:208:2bf::35) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
+ [34.2.64.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B51A610E3EE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 15:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1790004850; bh=p2DscuEwrTKvkyWB1oPdIp6xifZgL+9QqkpPUOoKowU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
+ b=UPYlJhwYujUUWsQfiZtGJCfKFXgxAZXOLR2tgmqGXZEySKIMoMkXrltc7tyYfYa/aCRZcGXt0wqgN/SCtuIAB0rq8y40LK4R3S2pZSvLF6kJp+WIhk/cIMeUGIbwSeCUGi8B664Uohw/Vhl+S5pe9q1pt0XVcz08gr6ayrL2SDUpcutUCXkYHA1xPMWHBy+iHmv6CEpQaXNCFYrvOqOZnReyvsF8OxTWL9r9Q00cWPyRXx4YJRvtqiRvIPHJVW7GfSzn8ak+dPyi3cf1AAWuI+UwwDOOBsVCWfLJ7PhuEsHX4wVp+Re8+C6FdF1jEJPn2LefiIJV0fZG+S/EeviWjg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1790004850; bh=OS4yj1kQUi/Oe1a57meU5bx9+vpkLCVn4TM+sXsI+k6=;
+ h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
+ b=RgtxO30VemnFoNmBO0eXLvLnaSqtIW90cO4/fcnChO/IvPZm1vug0Zfm0ectOV14PR9DSc1tU8AEcz66dO0Mx14z3XqOEkydHvZJtVOWyHcOBChZry0SmqCGjYLOm7cGpvOb4Xj8oReEDErCHqaKGlRrYgl1OTOuZnEgC2YfPm3isQie6gjanha2OHUZkA67eM26ftkpHHsVwSz1hg+MP2AqMR7Vx/fwkpNPX+3kLY53vvW3G/L6elyYZZPpGngbSscFhLTKI0kH+YpIvz35K7TsVg8oaCog1wnPcf6T9/MJmpYYcX+erYB66lBhqFC/8OZr714QXPXGZ4sun+ZxJg==
+X-YMail-OSG: rdFtrsoVM1kKgYnfkEaba.sKsVq3apX0ASizRIB.lYV0I.6JtpaginG4ede1DUM
+ BGW3oJ4PHs_70xuWyqoe8dVmOsmlBp_K5JlkUlpAsj70s4GAYKFzWr.ZvUNrt7h0sASZbHtctWQe
+ mjvz7Ckf1VoPITr5f57ISsHh6apdhLLgMOJ9pnAhRsS_e0N81uES4ydKKyMA8NS1bjuEGcjgFJJT
+ eMOY092U.FWkW_8iEJAjZRpJcdg4eh1jm8bolI_Eq9YlD57jZ5BFsDoVyJKrTt084gV1JZgPlSvo
+ o.daUTtbRynPtRxAcOHNcJLqhvWIXrGOkxe.M.lJHElqrjb3_zI9qQsvsgb3yv8J68p1npyGfUIY
+ bBkG229D8Pmn98UCr7isYyZdcTVRkLTvGR0cZj1vOH4XVt_RfkmbBMqAbWJ6idqzp8h1bOyPX1qk
+ wCL6gWKgR6B7atb_XFEYIHskmLQ.desYtElzDktT4ATWVy9cBVP8gFDF4p0lb.I694gK.tYYyI4B
+ v16OMKH5SGVZaAw6BzFr8C8YVesG8nwWdZXHz7xCb_qQOT1HHQsmtc7DX9Sbchj1u9T.PwSVUOAD
+ WSLJX9NT9gz9YtL5Xwbmd8QZPLnXuU5JcyNL2Cz.BGoMBYZ0n2xO0UYbGUhHyyREGJIgDOSiPKWH
+ ZVF1BnibPYt93T6hWrN7jLW6o3y1U4.FskGNQnEXKwQz7CV2EMaP_btErzunF.YYVik0w_iKDFtq
+ 2hfCY0UvLu8tSOS9z3.XpITzbXr2uR8DVLOwVyeZHf_oqXQXfJ2n9coeoDKJPobLJqLitKt7EeAQ
+ 3vC5qrlIOQXeI253qoysPv10NAxyz0ie1.xm8T.z3r5zie5udfhNVXdttN_mNwG6QcMgd6j_DZdW
+ Hr1GypKdhUKuLv53WYxLthgUJEYeKMGUqbDw7cvBglTMVi9OB8rSiFUVe1NtQC1lvmFeqy_jKWnG
+ 0B8ywCg0wqACk1hQ015HrEtoDC8udTNAjrxr34B_H4Wmx7MuQs0Yfl.9nH1MIuJAvXnBe4xWM08f
+ hQxmpEGnxcfAK565KikHj_sbLkUYsornbyzkPN01CM.fnUW.G6FvLcVoRz7GvegA6TBpWOnJOspa
+ b8xRLwTRP4Q4_wIouN9gKydclSxYHSYljrNJXhf0uSgyVcqFZ7Ys6lR9V2jZoSOBmjwXGf2pLgTe
+ fxfVzdA0HZ3c8Rw5ERnLNdjwclj09nPPHSTgzLOV5jCwkUwJBh5lUlCyuxutlyNhZILexOZoNabf
+ htaETRaVX49cN8nUVNxiJkRd808CapoRmPQMYIFb7ku8k1_BtESkTmoQCRzmC59eFw6H5fVxsYv6
+ sqSMzTLywAmF3Xr0u3Q1DRH3k2odEtHqgOVYyHZ0izHrfiz10ieBv_Hx9qIY0kSTFxDp4wKTcOhE
+ 9rhz6XQjogjbcmutIyrcY3SyIP1Wmj5IhXkTuMPuikh9A4fJolqRuyuKLETGxH9DmM1kME_akYvN
+ .ZX7Eq4.MxeRu.xLzxQA3rmzqsD3YwZuHWwAT6HdmQ1Wq5fLBfbgOKwu2RICJfZu8ijpKJLb1Xs8
+ 6F5vhS2opip.cJ5Mj29XP1d2D7aRoL1wYnI5.xvyQX7ug7X2bBToIRtC6Mo5PA9Gayqf2xIFxJdj
+ XmEbnO.VSQdgRJ43IUiYdUrREhnX8zXpct7ghrpWuTSEMQZpBQxKBz7K9cntbcduez0QrvXS4aHV
+ VIwQFSNxhklnhflglHlt2utqDUK3ZoEK8E9WxwMmVGcaUSpOBrobNlJZgCKTEcsejwvnevbjTKWi
+ d9.UgkQWLb.BkHn4ea.c5zq53bBM8founBI0Cm0u2vKjyo0MebGRlOgFrPdu2ft19GM5mI0CqeYc
+ MfzhVpE797iMRbUaZM8qYPTmg5y2GOoTFfE5eepQSIb8kJ0vW3G5NgrEb71ZXL.Q4LwPlyNmHqx_
+ Of5XrfTclTBAWL48X1Y99eLnSkyIMAgfbW6708heCkVRjaYDho5CbOX6bGRkwVotVKS3zjC.xnno
+ bBpO2fLdPEOx2BoeJbUh7gg--
+X-Sonic-MF: <capitain_jack@yahoo.com>
+X-Sonic-ID: 0c33275f-9531-4585-8e8a-886a56219ffa
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP;
+ Mon, 21 Sep 2026 15:34:10 +0000
+Received: from dip69.lsn.bf1.yahoo.com ([67.195.177.78])
+ by hello (SMTP) with SMTP ID 9780d4958fcfd6726744335047757fef;
+ Mon, 21 Sep 2026 15:34:05 +0000 (UTC)
+From: Daniel Ramos <capitain_jack@yahoo.com>
+To: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Daniel Ramos <capitain_jack@yahoo.com>
+Subject: Re: [PATCH v3 0/3] drm/amd/display: HDMI 1.4 3D output (frame packing,
+ top-and-bottom, side-by-side)
+Date: Mon, 21 Sep 2026 12:34:00 -0300
+Message-ID: <20260921153400.53321-1-capitain_jack@yahoo.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260921080126.98936-1-adrian.betschart@cinemaone.ch>
+References: <20260921080126.98936-1-adrian.betschart@cinemaone.ch>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB7181:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58ba0476-c96a-41b1-e2f2-08df17f1fc46
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|10067099003|6133799003|11063799006|18002099003|22082099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: SVaTHQTtQX2CI+wb7+W2BFFenLlG/2RqQPY12amc9LU49kOn794jVBaoZMsbfmQPzyPFhfdSmmEZdt3TDiMG8UNv6oVp70tpo21Xa0kkyehQzj3k8xXXsHXITiea/070DqjYw5fRxzXaFO8jUhNdbzVom/j9RiLuBn54vjAGCu7V5OF2DF4S7LAcRdG4XtO/Cb669pt2aYoAg+bh1DQtOsT+LrErcOWuNx8/VbvhvB6neKubnlshYexq34m5XUFkzx+Uo8eezUSnVoOXzRIhEVm+//FdusXCOkddu3RI0oBIz6SS3tOnPFf+4TcFpJUsSgQflP01hME3wGjAa7YdRSTp7bjIBsZMHZ8Dyy6RkNT/LlHWlYzaOI6BiRT1RXSSJFOgt9OGzR0EAhph/QrEO2fNEOOlFV8lmiFdwGPDXwSoKZLBy12BYPW+J1HTG8Fyt1HmEc1t+Sp8181jYOjnzwfqox+Fbs3n8iQ2R0sXwYNktLBR/AJHJtTmAwMhiH8uLGo3uLENSy/TNYP1NfRED6V9JsBNi+4ZLw3AQgzjDstT2erMx76RhuGkgBDgisegTCyA+mBSbZbQYGKxmn6f/YRRSJhNM9hQmJyYhU01RCxqBPIxYb5/XaUKdLdpPYQC1PaQa3swyOCJcLIuaKgl4p52iOwliUBqgMYBnm5vjH4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(6133799003)(11063799006)(18002099003)(22082099003)(56012099006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2NObExsZGgzSm8rRjhoTDdLb0RJeHp6L0UxRGpjbGlYQThvYk1ONEtGRlFi?=
- =?utf-8?B?MU5IeWkvZnJqdHFudXd0dkxRd0NCY2VqSm1aMHBDQU5tMnh6N3lSaUFaUEho?=
- =?utf-8?B?dnovRnVRdFJnY01mdmdBSjU2WFB5dUZlRXNXTVk1dVJ4UkhNcUZLeDdHZGFX?=
- =?utf-8?B?VzRqbWNVSFhnZW1VVFJUemxKWko1THMxMFNXNmZIZmRDYWJ1YUhPZ0tZS1Fk?=
- =?utf-8?B?bVo0L0pLTDF5Qlh2VEdYVm5wMmFZanV2WEViellpMWUrcmx0eGJRcGZLbndD?=
- =?utf-8?B?bnF0QXRPV3VlUnEzWnh0VFF0a1hSY3dFUkhEWitUNFppUDl0aUwveVp2alNs?=
- =?utf-8?B?cGkrd1hWdm51c1ZMc1FQd0xiNk11UmJxM2gyWXNQZGNPTnd0c2VEamdYTVh3?=
- =?utf-8?B?TjA4eS9ZRGkyWWhKVUtvTENMdFFLdEJJb2wvNEp6Ti9sMGpaeVBuZjJNY1RE?=
- =?utf-8?B?UWNwOW5pcW9LaW9Ebjd3U0xGUjF2Z2lVa21Pc3dzNjA5RTF1a0R5ODlMR1k1?=
- =?utf-8?B?MkQ4U1cyeUhSUnRmSmN0V3h6NjRnZGdEaUV0KzMxOEtCOENqMlB3VTFpVDVu?=
- =?utf-8?B?S21LSWFLbHF2enVHbUlEcklhazhFM0lhRi9HOWtiZ1kyM3BRek9DRmNrczhK?=
- =?utf-8?B?OXlISFNNdXQxZDhSQWlZZjJvSGswbUdjSUtrUWdudm1NRTVPUjF3SUhZNnp3?=
- =?utf-8?B?MldRVFFnZUFkc0x0Zi9NMFB6bzdHOVNDdFp3QTE3NHp2TVNtMGhLeGJ2bkkw?=
- =?utf-8?B?dHdGUE8rSTBXM1p3aXk4U05UZUJ1a2cycWg3SGV0RC9ta0VHUXZ6cWFZTEhN?=
- =?utf-8?B?bHEzOEdiWUVrRGVLYk9iYVVZY1c3U3BTb2M5YWM4elBUM2djbWF2NHNTUWJS?=
- =?utf-8?B?SXl6WEhDNXZyaEFyaVJaQTAyMWk2NVQ4SHZNblB0U0dmV0YyYXJBb3pDdllt?=
- =?utf-8?B?Y1BBbEdqczNCY1VtMXA2K1did29VODNaMUdUOThDUUcyZ0krdnNGZkFxRTdW?=
- =?utf-8?B?QUw1VU9tUktzd1ZwQ0xtamhHWVRJMUtxRkZhbE8yeVJXQXEwRUcyemVEcVNt?=
- =?utf-8?B?bFJWMHZoOXI1ZEhFeCtjSTBuMGpWK2wyL1VVM0ptRXFQZ1VaOFFkNDBpd1dS?=
- =?utf-8?B?cCtaRCtBbDU5UkEveldUM1lRcW4xY3A2VmYyUitHUmpEMUdRaVBZRXA4Q0VT?=
- =?utf-8?B?WWQyb3kyblExNzM4YVAxbnZLTHl6b05HblA3NTZncklwSnZBa0tIRXVGQTh1?=
- =?utf-8?B?TjhWcit3UVM4L0oxcHZncnVnWkFjVlNYd3gvNlVqQW4rWURNZ2ZkcGwzRldU?=
- =?utf-8?B?NjJNbFRhOXBWeTNnM2FLUlhHKzNjdXR4M2RQd2srS2U0cVhGZzU1YnRGRjNP?=
- =?utf-8?B?OGxtMW0rVlhabUJFd2NHVzNad2JtZ0ZRdEpPTkcvMCsvWmx2b29qV3ZmWjdi?=
- =?utf-8?B?bFZraFNJck1KVHVKRWJoZDAraGtUcUNGeDIyQUU2ei9BeUYrNzlSbWlTN2pX?=
- =?utf-8?B?d0xwOGZVaGtYVGF6b2liVEVxblVienA3VWMwVSt3S0xFTWIrY2lCdW1LKzR4?=
- =?utf-8?B?bkxHV2Z2NkJaSzQ4NlNQb0hVRWxlcjVZNkt5aXJBTURwVmFKSVdCcitGV3dC?=
- =?utf-8?B?WUFWTzNHbkhSSGRrQ1Ewc1p6OTdmZmVlazhDYlpNQmtXaThwWGtUSVVtSk0w?=
- =?utf-8?B?QnZlTmRaei83SUhPeTM4VTRZR2VtbERGNTlJRHE3a0xpQkNpOCtybFhabnNv?=
- =?utf-8?B?N1Y2V0Uycjg0cTRkUFM1aS8zNVlpOW5vam1tWUwwYVZNWVRUZjhMdVdoVFEy?=
- =?utf-8?B?UHpILzdBazB5a2NqbGlKeXNORzlNWFJWK3lZTGM1Yk5nSkcwY0hnSWpTby9C?=
- =?utf-8?B?eFFvaEpEbklYV081c0diZmExWWlsYStRSTNrMGNwSGxGdjRMa1FaRk9TbUJE?=
- =?utf-8?B?ZkJ2cnlKYTlwWld3Yk41SzlMRXlnLzZyc1FoK0xLaEswSXpOdnJkbFFPVkZl?=
- =?utf-8?B?eTYwNWFVeWZTZysrSFVRT1QvVHFReHZZOVYrT0hmcjgvQkdYWHRBdUc1TStY?=
- =?utf-8?B?UC9GaHpvRHdxd0wxL1BCVnVPWW1jNlhXUUswOW5UbnlHbkNBQjRTckZYSllT?=
- =?utf-8?B?STZISkpMeDVLOENFeEUzOWhYWVpEMmhuU3BrclpnZUpFbEp6UXZIdXBRTllw?=
- =?utf-8?B?K2cxaFUwOThTNWNjaDVxQVlXcm5XK2hwT1N2bTZpMUlkU01lU3piMVJVOUJM?=
- =?utf-8?B?aHAySUJsWE1QQ2hzQ2U5TmVPY0drU1d5YWZPcXlTNTJFVi9xUDFjeXl6eWNt?=
- =?utf-8?Q?o2uupexRXRTJdM9bUU?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58ba0476-c96a-41b1-e2f2-08df17f1fc46
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 15:06:59.8384 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wa6cucgQJ9Lgna6Li6U77mmnTvyPP9kW7PD00I3wWxRhWS/iotkIkU4zIzKeuWhI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7181
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,161 +92,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/21/26 16:50, Shahyan Soltani wrote:
-> 
-> On 9/21/26 10:40 AM, Shahyan Soltani wrote:
->> On 9/18/26 3:57 AM, Christian König wrote:
->>
->>>
->>> On 9/17/26 21:58, Shahyan Soltani wrote:
->>>> From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->>>>
->>>> For now use the same logic as the existing one, but it's not 100%
->>>> correct since:
->>>> 1) most operations don't need the GPUs
->>>> 2) some operations that need it are actually deferred
->>>>
->>>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->>>> Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 10 ++++++++++
->>>>   1 file changed, 10 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>> index 4e4814caf61a..6edd03647c2d 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>>> @@ -978,6 +978,14 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->>>>       if (r)
->>>>           goto error;
->>>>   +    /* FIXME: only PRT operations use the GPU to update mapping, but
->>>> +     * some operations are deferred to fences callbacks so it's not
->>>> +     * trivial to fix.
->>>> +     */
->>> That comment is not correct, just drop it.
->>>
->>>> +    r = pm_runtime_resume_and_get(adev->dev);
->>>> +    if (r < 0)
->>>> +        return r;
->>>> +
->>>>       switch (args->operation) {
->>>>       case AMDGPU_VA_OP_MAP:
->>>>           r = amdgpu_vm_bo_map(adev, bo_va, args->va_address,
->>>> @@ -1031,6 +1039,8 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->>>>         }
->>>>   +    pm_runtime_put_autosuspend(adev->dev);
->>> That error handling is not correct, after the switch there are a bunch of returns and gotos for cleanup.
->>>
->>> I strongly suggest to use the guard approach here as well.
->>>
->>> Regards,
->>> Christian.
->>
->> Thanks for the feedback, you caught something I completely missed. However I have a few concerns
->> on what approaches I could take.
->>
->> Attempting to use a guard in this situation would require the guard to be moved to the top of the function,
->> resuming the system much early in the stack.
->>
->> As far as I understand this is due to the guard not being able to succeed any gotos as the "lock" variable
->> in the guard must be initialized before any subsequent goto.
->>
->> For example:
->>
->> goto error;
->> PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+Hi Adrian, Harry, Leo, others,
 
-Oh, that is a very good point.
+Following your request, the testing is done, and it is a pass across the board: v3 as posted built into a 7.3-rc4 kernel and run today on the Renoir APU (DCN 2.1, Display Core 3.2.369) driving the Sony KDL-46HX855, all three layouts were tested in sequence (no restart) in one desktop-down window of about five minutes, so this Tested-by now covers the series exactly as it sits on the list.
 
->>
->> Is invalid as "lock" is initialized after the goto.
->> Trying to initialize lock beforehand doesn't work as it would count as a redefinition of lock instead.
->>
->> Would that still be preferred over creating a new label and trying something like this instead?
+Top-and-bottom first, as you suggested: the TV switched itself into 3D on 1920x1080@60 TaB and the disparity picture read in depth through its glasses, so the sink is happy with the 3D_Ext_Data byte patch 2 sends for that layout. Side-by-side half at 1920x1080@60 followed with the same self-switch and picture. Frame packing closed the window at 1920x1080@24: the tool presented one 1920x2205 packed buffer, the expanded timing from patch 3 scanned it, and the full two-eye picture showed where my earlier unfinished 7.0 experiment without the expansion had signal and black picture (fixed as well now the same way).
 
-Yes, as far as I can see the PM reference just needs to be moved before the first goto, right?
+The probe numbers on 7.3-rc4 + v3 are identical to what our 7.0 port produced here: 22 modes and 0 stereo without the client cap, 51 modes and 29 stereo with it, no regressions on the aspect-ratio pass.
 
-When I now check the code, the first goto in function amdgpu_gem_va_ioctl() is that here:
+The run record is in the repo at the run11-betschart-v3-7.3rc4-all-pass-2026-09-21.log (https://github.com/danielcamposramos/sony-bravia-linux/blob/main/tools/stereo-modeset/run11-betschart-v3-7.3rc4-all-pass-2026-09-21.log), probe output and per-layout modeset lines included.
 
-        /* Add input syncobj fences (if any) for synchronization. */
-        r = amdgpu_gem_add_input_fence(filp,
-                                       args->input_fence_syncobj_handles,
-                                       args->num_syncobj_handles);
-        if (r)
-                goto error_put_gobj;
+One more thing I would like to put on the table while the series is in review.
 
-        drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
-                      DRM_EXEC_IGNORE_DUPLICATES, 0);
+Since our first exchange I have kept the equivalent two changes prepared as a backport for the 7.0-era tree, where the connector code still lives in amdgpu_dm.c: same stereo_allowed plus VSIF wiring, same CRTC_STEREO_DOUBLE expansion for frame packing, forward-verified to apply cleanly against the pristine v7.0 source, sitting as format-patch mboxes in docs/upstream of the same repository.
 
+They are an offer, not a request, and there is no competing series coming: if this v3 lands and a stable backport or an older-generation follow-up ever becomes wanted, they are ready to go as-is, and I am equally happy to reshape them or to let them retire unused once v3 ships downstream on its own.
 
-We can't grab the PM reference after drm_exec_init() anyway because that could deadlock.
+Happy to run anything further on this APU and television if the review wants it.
 
-So that should still work as far as I can see, or do I miss anything?
+Tested-by: Daniel Ramos <capitain_jack@yahoo.com>
 
-Regards,
-Christian.
-
-
->>
->> replace
->>
->> +    r = pm_runtime_resume_and_get(adev->dev);
->> +    if (r < 0)
->> +        return r;
->>
->> with
->>
->> +    r = pm_runtime_resume_and_get(adev->dev);
->> +    if (r < 0)
->> +        goto newlabel;
->>
->>     }
->>
->> ...
->>
->> + newlabel:
->> +    pm_runtime_put_autosuspend(adev->dev);
->> error:
->>     dma_fence_chain_free(timeline_chain);
->>     if (timeline_syncobj)
->>         drm_syncobj_put(timeline_syncobj);
->>     drm_exec_fini(&exec);
->> error_put_gobj:
->>     drm_gem_object_put(gobj);
->>     return r;
->> }
->>
->> Another approach I could try is wrap the entirePM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock); and the subsequent switch cases before the error handling into its own scope with {} However, I feel this method is a lot more hacky then necessary. int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data, struct drm_file *filp) { ... + { + PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock); + + r = PM_RUNTIME_ACQUIRE_ERR(&lock); + if (r) + goto error; switch (args->operation) { case AMDGPU_VA_OP_MAP: ... case AMDGPU_VA_OP_UNMAP: .. case AMDGPU_VA_OP_CLEAR: ... case AMDGPU_VA_OP_REPLACE: ... default: ... } if (!r && !(args->flags & AMDGPU_VM_DELAY_UPDATE) && (!adev->debug_vm || timeline_syncobj)) { ... } + } error: ... error_put_gobj: ... } If you have any ideas on what approach I should/could take it would be very much appreciated. Thanks, Shahyan
->>
-> I'm not entirely sure what happened here...
-> 
-> But I meant to say wrapping the guard and the subsequent case handling into its own scope.
-> 
-> For example:
-> 
-> int amdgpu_gem_va_ioctl() {
-> ...
->     goto error;
-> 
-> +    {
-> +        PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
-> +        r = PM_RUNTIME_ACQUIRE_ERR(&lock);
-> +        if (r)
-> +            goto error;
-> 
-> ...
-> +    }
-> error:
-> ...
-> error_put_gobj:
-> ...
-> }
-> 
-> Thanks,
-> Shahyan
-> 
->>>> +
->>>>   error:
->>>>       dma_fence_chain_free(timeline_chain);
->>>>       if (timeline_syncobj)
-
+Disclosure per Documentation/process/coding-assistants.html (https://docs.kernel.org/process/coding-assistants.html): prepared with AI assistance, directed and hardware-verified by me end to end; the assisting models were LLM Kimi K3 (Codex CLI), LLM GPT 5.6 Sol (Codex CLI) and LLM Claude Opus 5 (Claude Code CLI).
