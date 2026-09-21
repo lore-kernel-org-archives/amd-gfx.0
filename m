@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C036BC982EE
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 20:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B939C982ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 20:10:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 123F210E4CA;
-	Mon, 21 Sep 2026 20:08:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0BAD10EA9C;
+	Mon, 21 Sep 2026 20:10:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GY4SmfSi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ROdsfn5f";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010034.outbound.protection.outlook.com [52.101.85.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 650D510E4CA
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 20:08:39 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010058.outbound.protection.outlook.com [52.101.201.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFC5010E63D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 20:10:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aU3qP7QB6GXrtNhqSK17GEwQZczgEsit/lE759uWer4jn2Hn7AVDRJcmrl8UERtMxEdp84UiiX2vb8STiDOtfq16TleJXM/ZeYY1amzl/Ld9fyytuUzzMi+jRkyCHZVehrhKESoJN6RlgQNfwKEDm/UmHjpCBl//0xC41+e/kmd4jFB1qoFgPpZkkhQaqo0yvnNWYn8PJ+b2odkUSsUlQ3CpQbZmR2NlhKys739Wn1GPovrN3XtQ/bNCHjfXYRt8cFsBDtpwEmtsoqx090jMIGk8WzrZQObh3OH++pui6eI3FMX5URwspwJ2WWvRTR0EaVq1hLecrtXugHR9+p8B+g==
+ b=dnJhwyDtJMKCS3r9718A7n6HoyZK0kD8LSt6xup8PLBCwbDsspm8v5KFvqYLzWkd6MdWzAIrBmbgaD9D/KyIFnGqpKmPbK/TOx2JUIqtBZ0iqCh2i1RE5SMTEIurvSc5VwwpcL89cDzlJY7bzCLGp9zaVtKRz3+JE5D6xvpI2njqXAWSlrZIqHzPVt2nSSLBKIJIf7HWnLlnzUDkYTy2UyjqkfZFXu8cPMEI3Xye2TrYlyYCNg28gwtQ3OL1I1f4I8CMhdk6kxpLYELPJtYfg18RDFo+S6WouLBMmOWLse99G3ZDQO+/KQBupfpmIRKTH6ss+pIUHtEj4y73rNfAAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q+9hA2hfKo7Icd8fgiy56Shmy3Th/KFDnqvJ4ZwwvVo=;
- b=KmfLq2B9Z9iT5or9JBSLIZg+3Dpk6xq5AUzGX7qbgYg8ohxDLjyDrsqxuOz+x2xIj3OTW0tzRxQbQo+ovhN18JObfexqW5+CmXts96nFqoMrI44yORDvrv2hy3B1z5DOHUuK+whhrcWasBtz0DKJUP6f0OEnfZVw5Nmys36wj7c1dK0BTEIte+ZGhIEfRsFZ48u1eH8IpkkyF++d7cO6HxYr56Ze7eu+G4z5wYYp6tw7WhGJM0rQvkog1PzctXLQApSlK6kT1x8rgsQqDLt2kvX3BEA82YRTZNcGIhLXO03u9rFCgRBmrP6b8q1ayG3WpQEZPsbRfv0utdXLBc1evg==
+ bh=3EHu/GP7GTcZxoskzwHqkjyPis1g9mR5FxRZ+avPPeE=;
+ b=YiEC5lajM3dxIaFsged31vbngDt+p5OP0gFlWX+Hcx06jkU/LsLX7t2FvKEVZn7NUgeVCynNVGRcAy6shXHDzuk1vaRHIaLXu9ipfL5zPEKA6y5jqPrG0ThcdiTidRYoMKWBNXQ3PgtOwrnyOgpNxagx0NgQPKT31qjzSp2JNW49/VdYC1PSyW27tvD5Zax1vY7GJzlL1/yNnTLF2Ij9g4oDdL8592FfyQXOqscqoZ36lv2X2PfYbmHkKp7zYXjPnqzmaWQsjmuhqWvGKuCdM0eKcwn4+ZZJwVgTqtpu3mkSbQgsK3fwo5zPT58+sNiRMckoGBXnr6q8dfaEhDhPMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q+9hA2hfKo7Icd8fgiy56Shmy3Th/KFDnqvJ4ZwwvVo=;
- b=GY4SmfSigewue70wW7mzNHCiKqfzoJySrl4uQ0vwNTBK1bHC1T12Y6mS7Mq0nwYo3EpkB3KhvGwV/9WC3dnLBeJ1fnfkeICEL4hx7QwccjAJKYoxUs7bkmCyfHvh6xd46agCtyHQwxiwQErhB5Xt1goG2qwfpeXNpr9AuyJnFXs=
-Received: from BN9PR03CA0098.namprd03.prod.outlook.com (2603:10b6:408:fd::13)
- by DS0PR12MB9400.namprd12.prod.outlook.com (2603:10b6:8:1b6::9) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=3EHu/GP7GTcZxoskzwHqkjyPis1g9mR5FxRZ+avPPeE=;
+ b=ROdsfn5fR9qan6zvRNPQnclFnChh0LX32X+fwFbqmPL/NoCY6lYPJK6rV6bpIaDwBW1K9Dz2R4xoiKduSy6xNCm4WzVlYWKcWU427jPZkb6T5EMQTixjS5O0Ad+J5SfOqJsYve04/wmneZOequb55dF0EuIMCPqw7xKBz7TfKJ0=
+Received: from BN9PR03CA0203.namprd03.prod.outlook.com (2603:10b6:408:f9::28)
+ by SAVPR12MB999143.namprd12.prod.outlook.com (2603:10b6:806:4e5::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 20:08:30 +0000
-Received: from BN3PEPF00022BD4.namprd03.prod.outlook.com
- (2603:10b6:408:fd:cafe::e) by BN9PR03CA0098.outlook.office365.com
- (2603:10b6:408:fd::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.14 via Frontend Transport; Mon,
- 21 Sep 2026 20:08:30 +0000
+ 2026 20:10:43 +0000
+Received: from BN3PEPF00022BD8.namprd03.prod.outlook.com
+ (2603:10b6:408:f9:cafe::e) by BN9PR03CA0203.outlook.office365.com
+ (2603:10b6:408:f9::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 20:10:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,52 +48,59 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BD4.mail.protection.outlook.com (10.167.248.102) with Microsoft
+ BN3PEPF00022BD8.mail.protection.outlook.com (10.167.248.104) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 20:08:30 +0000
-Received: from work-495456.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 20:10:43 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 15:01:06 -0500
-From: James Zhu <James.Zhu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
- <Bing.Ma@amd.com>
-CC: <jamesz@amd.com>, Bing Ma <bing.ma@amd.com>
-Subject: [PATCH 01/12] drm/amdgpu: add profiler UAPI definitions
-Date: Mon, 21 Sep 2026 16:00:50 -0400
-Message-ID: <20260921200101.859141-1-James.Zhu@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 2026 15:10:42 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
+ 2026 15:10:42 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 21 Sep 2026 15:10:41 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Lin Cao <lincao12@amd.com>, Danijel Slivka <danijel.slivka@amd.com>,
+ ZhenGuo Yin <zhenguo.yin@amd.com>, Frank Min <Frank.Min@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: fix ip discovery table validation
+Date: Mon, 21 Sep 2026 16:10:25 -0400
+Message-ID: <20260921201026.2019083-6-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921201026.2019083-1-alexander.deucher@amd.com>
+References: <20260921201026.2019083-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD4:EE_|DS0PR12MB9400:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9cdee69-394b-4f47-1144-08df181c1b4d
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD8:EE_|SAVPR12MB999143:EE_
+X-MS-Office365-Filtering-Correlation-Id: 799529f5-9eec-4b12-59e4-08df181c6a62
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|10067099003|3023799007|6133799003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: IXlHjgBt3jCeticPvGolijcYyxZwoVd63WXWDHNe75wrVoT6OsQwq2Wpr9rmcS/BNiYSkEwsODtK5dlUShKfIWoCMGFfJZyBJ0c3W06i1G3GWeizvC7xY/rt+EL5UemuCqkab2phYCs7SPWvJWCGeNKnLZe+BkYNESiOj6cmPr+rBDVhUO8mQS2IvWWWlLG4rWeLC8fIYHfcWFxxc5sERMsVWtSdg8CKLwT1a6eCCLJz6Wsll/WiIIUsA2TfFmT/IJMyOejxBkQrfZTdsipGivscoFuzBf3KPtyZY+5L7YtD+Y5DPyRK9WSimf04EXIPkSJ2N/JNwnPhkm4DsdeHb8Rr9Tw63MZJ91lr+ISOE6/dP9dyiZbQEWituBK/QJzKMUlNW4J9+Zd9LwLKlxxh0p7zntUXWph+Yy+kJj56mX+YJJGTVRvfQ7fd0dj1BXZ6uE4sZxPGFr2by9Gyfgs3a2o4D6jDrAf2N4P6iOBnrYXjsFLadzDtvBoYll++b5KXJz02YCl/oPcEpAEPsUX7LoFXpikHWmB4iHfD307z7tJ/DaOyb937nBAngWAdO7RUK+fmVKToj5RCJWiFfsttSyQIOb3BXiqHw+5KTaitT2LhvG0gfW3X1+9ROMaDrxrkwtDlWRneRKwu51Mh/BuLpKwMzjZ0jdPl9WXm2WBP8AZIoEtvq7hLQMo62krsrtnbDpLMCmm+8OBREYGkHf1iCg==
+ ARA:13230040|23010399003|82310400026|1800799024|376014|36860700016|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: kHmh2pFn4/WfhmLOwUpOK8wrbmZvCyi69SjzTTN7O+1AcONk0iqGY3NUkh62hnHa2dstN3ffz0482jVtbCuB4ypv5Au7WUaHpLzmMtwDHfBnANp4ybfCkWn986ShWfesQgZb47cVJwY9i5lFHEaTYOLyjrYIyANAV7R3SezT/5ZgCyMOln4U8MkOH1dAimjUE/lJoSm2viqTomqnQVvL7+Iii4dBBvFmepdqDjq+pVSJpXeh+qcPq3+9Z/n5pIWjS+RsGk1FmpG77pFUwp5RuxMaz4falGweEBXELKOhx2UscDcKsI5x6jCH99UbkwPQYfey24wBsN7NpMJC9zP8IxOuj8aapxoyTAtZ/JpSQTOUiyYOZ0hnv6mArBo6CdJ0WWNLneP6wOWTDzuHfyMcBlLVm50vs6pKzvJRRHeoune7rLKqRl6uiGvt1uA3FXz92zFj6X7bMPeiuS6LLrGBcIlR5AKWIqB64gpP+XHm+7EIaNvv9GTHp+BpCAhN5z+iAqPS35dajrVNFfzjoriaOT65xZeUquIxITO5DnnLRGth3TXsJ+9eIp6iBTHOsM0JC7+L214PAaWTyvEo5hqc20eyu52J8wLyqIvmd9SUH1/YLF8EZFBi46b44G0uDVd1Y342ehp7s7ERUjo6Wa1fOJHHq3FcFw8E08aIdVqS/RtSNS54JV1wkzxt8jPOWNtinfBQifwYU4momwSWbi6zZw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(10067099003)(3023799007)(6133799003)(18002099003)(56012099006)(11063799006);
+ SFS:(13230040)(23010399003)(82310400026)(1800799024)(376014)(36860700016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ccgSZmhDRwCDT3YDl70nZe+4wxG4B59yJpcltT4v1wwjaa5GnbNmRzSgnVOc3BruODfZVLEBq/KO/PEx4BtXnvTWcmec0hq45xi4W037QlsRq2mXXHitBGHs1O0oABcox7NFlWkO+0zloFi7NwEC2g/fzNfOkPb1cNn044LDHFgHTludjkU8XSukzonUsz8xsVLUpd/n+oC4tuQDbxl3vLXuqujIqjMvp2QVhaBqtfDJe3TTPAS4M/cyShOEaNdODuBxINcHLVZ7zCpko/7/q2FRre4cTo8/1xk0fgJvTgSeHKBLF+HOeLRdsJXKL3pkIbjrR0C6vMeKMMWK/fBrX28jekfwhiaYsP9R9YBtocOBbE5772C/yCb87QIvYNu66pw0AeZr5D+KcxN1kG9m1NPgIg1OBRzsXSzz/nrr6jr83oaAOPt7b5ZfLKiPmvaq
+X-MS-Exchange-AntiSpam-MessageData-0: eYPTENFQ4P0UJ28S9QyYsm0Ko4s/mV2RGtrtYvOm4sNOofQxZDQyntsd9td01O97tezr07fhVfU/K8VHooUZOZpsOOGj9HVgNtIH//hLtEPtJHJFevHgN/EIYPSq1f5QE/Tn6+jwXcscww6a+PXKc6wSVFPbylGCB3kLsHR8ReL7zGSat2bBHG94AEGVLlH97rMTAkFTHpt6iR66eh+AUEPDFwQJcE5JD9ugzDWk/6sWn9SQ54yjWA0r/PwnvR80wgDlna3Pi5Gnn1Uol1he5I9u7GkveAgaiuq2FuTaplNtThnZ8ZdSCYlCZ5xgZan5dvoiVVWrocJ+DQFhTv4bOEfL/g3atCF7y/T1J/lTBTJgzGzcRfobvGsCtEvn/sCs0WseCEAUIUBTjy9hV6g6c7g8hRAN4VLW85Nsk4eWAyidhiG27aUC7tamAk7myzZH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 20:08:30.5686 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9cdee69-394b-4f47-1144-08df181c1b4d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 20:10:43.2407 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 799529f5-9eec-4b12-59e4-08df181c6a62
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BD4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BD8.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9400
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999143
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,176 +115,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the DRM_AMDGPU_PROFILER ioctl number and its argument structures, the
-UAPI for GPU performance monitoring features such as SPM (Stream
-Performance Monitor).
+From: Lin Cao <lincao12@amd.com>
 
-struct drm_amdgpu_profiler_args carries an operation selector and a union
-of per-operation parameters, currently AMDGPU_PROFILER_OP_GET_VER and
-AMDGPU_PROFILER_OP_SPM. The SPM operations and the layout of the
-destination buffer are described by struct drm_amdgpu_spm_args and
-struct drm_amdgpu_spm_buffer_header.
+Fix ip discovery table_check, get_mall_info, and get_vcn_info to guard
+on both offset and size being non-zero before parsing.
 
-The ioctl number and struct layout are frozen here. The implementation
-lands in the rest of this series and the ioctl is not registered in
-amdgpu_ioctls_kms[] until then, so this header change alone does not make
-the interface reachable.
-
-Signed-off-by: James Zhu <James.Zhu@amd.com>
-Reviewed-by: Bing Ma <bing.ma@amd.com>
+Signed-off-by: Danijel Slivka <danijel.slivka@amd.com>
+Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
+Signed-off-by: Lin Cao <lincao12@amd.com>
+Reviewed-by: Frank Min<Frank.Min@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- include/uapi/drm/amdgpu_drm.h | 124 ++++++++++++++++++++++++++++++++++
- 1 file changed, 124 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 9e5fa6f53e59..285949d63eb6 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -60,6 +60,7 @@ extern "C" {
- #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
- #define DRM_AMDGPU_PROC_OPTIONS		0x1A
- #define DRM_AMDGPU_TRAP			0x1B
-+#define DRM_AMDGPU_PROFILER		0x1C
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 965063696308e..366588c2642d1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -697,7 +697,7 @@ static int amdgpu_discovery_table_check(struct amdgpu_device *adev,
+ 		break;
+ 	}
  
- #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
- #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-@@ -83,6 +84,7 @@ extern "C" {
- #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
- #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
- #define DRM_IOCTL_AMDGPU_TRAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_TRAP, union drm_amdgpu_trap)
-+#define DRM_IOCTL_AMDGPU_PROFILER	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROFILER, struct drm_amdgpu_profiler_args)
+-	if (check_table && offset) {
++	if (check_table && offset && table_size) {
+ 		if (act_val != exp_val) {
+ 			dev_err(adev->dev, "invalid ip discovery %s signature\n", table_name);
+ 			return -EINVAL;
+@@ -2203,7 +2203,7 @@ static int amdgpu_discovery_get_mall_info(struct amdgpu_device *adev)
+ 	union mall_info *mall_info;
+ 	u32 u, mall_size_per_umc, m_s_present, half_use;
+ 	u64 mall_size;
+-	u16 offset;
++	u16 offset, size;
  
- /**
-  * DOC: memory domains
-@@ -1821,6 +1823,128 @@ struct drm_amdgpu_proc_options {
- 	} kfd_sigbus_delay;
- };
+ 	if (!discovery_bin) {
+ 		DRM_ERROR("ip discovery uninitialized\n");
+@@ -2213,8 +2213,9 @@ static int amdgpu_discovery_get_mall_info(struct amdgpu_device *adev)
+ 	if (amdgpu_discovery_get_table_info(adev, &info, MALL_INFO))
+ 		return -EINVAL;
+ 	offset = le16_to_cpu(info->offset);
++	size = le16_to_cpu(info->size);
  
-+/*
-+ * Supported SPM (Stream Performance Monitor) Operations
-+ */
-+/**
-+ * drm_amdgpu_spm_op - SPM ioctl operations
-+ */
-+enum drm_amdgpu_spm_op {
-+	AMDGPU_SPM_OP_ACQUIRE = 1,
-+	AMDGPU_SPM_OP_RELEASE,
-+	AMDGPU_SPM_OP_SET_DEST_BUF
-+};
-+
-+/**
-+ * drm_amdgpu_spm_args - Arguments for SPM ioctl
-+ *
-+ * @dest_buf: [in] used for the address of the destination buffer
-+ *            in @AMDGPU_SPM_OP_SET_DEST_BUF
-+ * @buf_size: [in] size of the destination buffer
-+ * @op: [in] specifies the operation to perform
-+ * @timeout: [in/out] timeout in milliseconds (in), amount of time left
-+ *           in the timeout window (out)
-+ * @bytes_copied: [out] total amount of data that was copied to the previous dest_buf
-+ * @has_data_loss: [out] non-zero if data was lost (e.g. due to ring buffer overflow),
-+ *                 zero otherwise
-+ * @reserved: must be zero for forward compatibility
-+ *
-+ * This ioctl performs different functions depending on the @op parameter.
-+ *
-+ * AMDGPU_SPM_OP_ACQUIRE
-+ * ------------------------
-+ *
-+ * Acquires exclusive access of SPM on the specified XCP for the calling process.
-+ * This must be called before using AMDGPU_SPM_OP_SET_DEST_BUF.
-+ *
-+ * AMDGPU_SPM_OP_RELEASE
-+ * ------------------------
-+ *
-+ * Releases exclusive access of SPM on the specified XCP for the calling process,
-+ * which allows another process to acquire it in the future.
-+ *
-+ * AMDGPU_SPM_OP_SET_DEST_BUF
-+ * -----------------------------
-+ *
-+ * If @dest_buf is NULL, the destination buffer address is unset and copying of counters
-+ * is stopped.
-+ *
-+ * If @dest_buf is not NULL, it specifies the pointer to a new destination buffer.
-+ * @buf_size specifies the size of the buffer.
-+ *
-+ * If @timeout is non-0, the call will wait for up to @timeout ms for the previous
-+ * buffer to be filled. If the previous buffer is filled before the timeout, @timeout
-+ * is updated with the time remaining. If the timeout is exceeded, the function
-+ * copies any partial data available into the previous user buffer and returns success.
-+ * The amount of valid data in the previous user buffer is indicated by @bytes_copied.
-+ *
-+ * If @timeout is 0, the function immediately replaces the previous destination buffer
-+ * without waiting for the previous buffer to be filled. That means the previous buffer
-+ * may only be partially filled, and @bytes_copied will indicate how much data has been
-+ * copied to it.
-+ *
-+ * If data was lost, e.g. due to a ring buffer overflow, @has_data_loss will be non-0.
-+ *
-+ * Returns negative error code on failure, 0 on success.
-+ */
-+struct drm_amdgpu_spm_args {
-+	__u64 dest_buf;
-+	__u32 buf_size;
-+	__u32 op;
-+	__u32 timeout;
-+	__u32 bytes_copied;
-+	__u32 has_data_loss;
-+	__u32 reserved[9];	/* must be zero; pads this struct to 64 bytes */
-+};
-+
-+/**
-+ * drm_amdgpu_spm_buffer_header - SPM Buffer header for drm_amdgpu_spm_args->dest_buf
-+ *
-+ * @version:       [out] SPM version (0-23: minor, 24-31: major)
-+ * @bytes_copied:  [out] Amount of data copied for this sub-block
-+ * @has_data_loss: [out] Boolean indicating whether data was lost for this sub-block
-+ *                       (e.g. due to a ring-buffer overflow)
-+ * @reserved:      Reserved for future use, must be zero
-+ *
-+ * This header precedes the SPM data in the destination buffer. The reserved
-+ * field maintains 64-byte cache line alignment (32 bytes total).
-+ */
-+struct drm_amdgpu_spm_buffer_header {
-+	__u32 version; /* 0-23: minor, 24-31: major */
-+	__u32 bytes_copied;
-+	__u32 has_data_loss;
-+	__u32 reserved[5]; /* pad to 32 bytes (64-byte cache line / 2) */
-+};
-+
-+/* Supported Profiler Operation */
-+#define AMDGPU_PROFILER_OP_GET_VER		1 /* get profiler UAPI version */
-+#define AMDGPU_PROFILER_OP_SPM			2
-+
-+/*
-+ * Profiler IOCTL
-+ */
-+/**
-+ * struct drm_amdgpu_profiler_args - Profiler IOCTL arguments
-+ * @op: Operation to perform (AMDGPU_PROFILER_OP_*)
-+ * @pad: Must be zero for input validation
-+ * @data: Operation-specific parameters (union)
-+ *
-+ * GET_VER operation:
-+ * Returns the profiler UAPI version in @data.version as (MAJOR<<24) | MINOR.
-+ * Input: @data must be zero (reserved for forward compatibility).
-+ *
-+ * Design note: GET_VER is intentionally a parameter-free query returning
-+ * the global profiler UAPI version.
-+ */
-+struct drm_amdgpu_profiler_args {
-+	__u32 op;				/* AMDGPU_PROFILER_OP_* */
-+	__u32 pad;				/* must be zero */
-+	union {
-+		__u32 version;		/* GET_VER: out (MAJOR<<24) | MINOR */
-+		struct drm_amdgpu_spm_args spm;
-+	} data;
-+};
-+
- #if defined(__cplusplus)
- }
- #endif
+-	if (!offset)
++	if (!offset || !size)
+ 		return 0;
+ 
+ 	mall_info = (union mall_info *)(discovery_bin + offset);
+@@ -2259,7 +2260,7 @@ static int amdgpu_discovery_get_vcn_info(struct amdgpu_device *adev)
+ 	uint8_t *discovery_bin = adev->discovery.bin;
+ 	struct table_info *info;
+ 	union vcn_info *vcn_info;
+-	u16 offset;
++	u16 offset, size;
+ 	int v;
+ 
+ 	if (!discovery_bin) {
+@@ -2280,8 +2281,9 @@ static int amdgpu_discovery_get_vcn_info(struct amdgpu_device *adev)
+ 	if (amdgpu_discovery_get_table_info(adev, &info, VCN_INFO))
+ 		return -EINVAL;
+ 	offset = le16_to_cpu(info->offset);
++	size = le16_to_cpu(info->size);
+ 
+-	if (!offset)
++	if (!offset || !size)
+ 		return 0;
+ 
+ 	vcn_info = (union vcn_info *)(discovery_bin + offset);
 -- 
-2.34.1
+2.55.0
 
