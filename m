@@ -4,127 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B3D5C982D8
-	for <amd-gfx@archiver.kernel.org>; Sun, 20 Sep 2026 19:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BEF3C982DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 03:41:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E7CA10E08E;
-	Sun, 20 Sep 2026 19:26:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62B5210E138;
+	Mon, 21 Sep 2026 03:41:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pBgFb0tZ";
+	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="H0ECfCTQ";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013003.outbound.protection.outlook.com
- [40.107.201.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7515F10E295
- for <amd-gfx@lists.freedesktop.org>; Sun, 20 Sep 2026 19:26:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=quDtNSe63T1qXwOikGFoCL83U17gCsdmDP5bmsSMcpBJM/JM4D4Tc9hLCv4BF3sReW8pGSd+dp6CQLC8WxAqj+IgpVhNzRHxX2apMQ0Q3HFbwbFZQKKbKXkMmX59LrItiIiVffq8bUTwQH/2W8IHXkylCVqCTogq+N3RbtRKnf+3aPP+vyWEB58+4kwcElaI7H5DQHLU+lLLtAAqEg3hwe7aALGWMEXochYaOae6dMsIfAF/vwA7IVR2CWBzE2Kc38KQ76IcBhz41AYnmLlYKHrSHpBBIwnQlpniT+7BpU81C1K7ghed5kUJoWGNxd/jW0aWGmUPwHZ7pr2+9Di0kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4ZohFzozRhhQpB1abzqVxAQL8wA7UjEARA8XyFfa91M=;
- b=b4vAhN/vaziehstBzk/9dNhIiq/c+UK1E8YhLhx7fr4zs3RG6dQhh00vDLSruBvUvG1dWvbJVczVgWk06ga1JtJxiBpMZZz+NCy1wfqVxcHL/9axAPdR8WN0IeB7ujNIZ9pGRbTuPBJgfRz1DhDdelVP9t6S5eKrd/gzfMlzKFd9kwDtQrplms+IpurGJ0WS2o0GXjR0Ufd5skcOhtjQNsVQ9bFlKmRC1CZWKxLqWzMMxv3j13tBNsIVPMNmJ11gPyfaixT102JHF2iD4J0otYBfoqHNOXc918HtvUic8JVx3uNp5tHQV2kvTq9XcR0GptFX5I0Yhwt3hBdlCYtBSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ZohFzozRhhQpB1abzqVxAQL8wA7UjEARA8XyFfa91M=;
- b=pBgFb0tZU3KE0muSa+7R6gZA/F9D2/x7tBhPL/a0xGBPHjhBkicO5u07On17QqUf/VAnGvq4kp4bqQySsENyXzJLCYzXVh5Oqh0zHrqmNWuNeX14KTgQ8AY4qcE+QVevD479TgC8ro6jRe3CopHhsM7ue2/piZP3wPJJTXMkSVI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by MN6PR12MB8566.namprd12.prod.outlook.com
- (2603:10b6:208:47c::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Sun, 20 Sep
- 2026 19:26:08 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0428.015; Sun, 20 Sep 2026
- 19:26:08 +0000
-Content-Type: multipart/alternative;
- boundary="------------J10Mw9JKkZhPPtHAbiVcz0pm"
-Message-ID: <c53c20a7-9d4b-44e1-8e38-4b4b32d539c6@amd.com>
-Date: Sun, 20 Sep 2026 15:26:06 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: skip the PASID TLB fence for the UALink NPA VM
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Zhang, Horatio" <Hongkun.Zhang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Ma, Le" <Le.Ma@amd.com>, "Joshi, Mukul" <Mukul.Joshi@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20260917100430.217954-1-hongkun.zhang@amd.com>
- <MN0PR12MB576143F1D159DB5DF1C1018CF7852@MN0PR12MB5761.namprd12.prod.outlook.com>
- <BN7PPFFF39339DDA5A38FD4F0358D122C45FC852@BN7PPFFF39339DD.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <BN7PPFFF39339DDA5A38FD4F0358D122C45FC852@BN7PPFFF39339DD.namprd12.prod.outlook.com>
-X-ClientProxiedBy: YT4PR01CA0391.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:108::9) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
+ [34.2.64.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 442C110E091
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 03:41:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1789962072; bh=0ctTpDh6nncQDElIa4hbocs1J5cFYwpao8cQucIrK5M=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
+ b=H0ECfCTQkQML6l+axoKMv/h/+P7KEPmwqkRYgAzJH/mXZIqAt1wor+xDMMkDyjiJ0gs4/wzNy8Uohgm2IXaL6npbEVeFn8/nTyrCg01Q7JPtldxnKbL1vf34av9nlmWVViuL0/jdtMm0auS8c/NSdEEoajg0gusjYJfVMvOj94IU9rn0BD+e1utrcWFR62+4yVkTImk83awP/ZedSLIyy8Axdr3R0epfUZH6ec9nUWxwg+zmK4txdJ6crAtxyq6LLbngBiW38gMukaX/CAzMzNYSughbHBTRCHHWhIwQeiBSKHdccQt0JohJiGFqDx1Z9XNLnxrPZoY1DEsCTSWT7g==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1789962072; bh=6vOSpQCOIQyeSVx+3YyqV1XhnerZ40bVup5cXIcXlYA=;
+ h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
+ b=kZpJo44YxXjmHVFe8DA40Xb2K9mRVLQJ1+60jAk9ECbrpSaXh6BUAuCz8nYyHnNNqhdKpcxDHU3ZVuSS7+dcZJGqusx3hgfUIeAxzC2opolydlBqsiqV8krRniv5nD/6wkA47JP6e1R9x3R38R8VZPY8JY/srJpx+kqpcnjtR6uUUc1MFJmCQtjuK/MrSEefGQK918St7lRRlBUqJD6aeTvKKDHtmyOEZqUeEkdV5TCzzl+8e4FeHcu/5Jqj/s1UnPPtuHc9681J+Sw5oYMp3ZWpRTnfuLN5RfQgRgM6aPR3hC4rJ6zKL7oEkTp/IzylT4jr2/1VQt1BaTteV3Bp1w==
+X-YMail-OSG: iLdJ.Y0VM1kHPbyDvjyeYZ5lEi4zmDt__x4XBG3iKk1AZb_Np3liUuhylSIYkCY
+ RncPyJdsUSHvFan2HzLpL0As4HqsB5ijCrhZ_E6iYHgP20pkIhFpok7OVTZStrIH.4FmyWCdDgPZ
+ Ua7rybD.OP2_TECSt6RptJSvCQRcSMc8nkXu3SDP8.FnN2qRyVjmu1QxgC9krnE7Sw4e67ujCWL1
+ DY3movmt3OHeZY97z5gy0msmWl3rD41vd.HBp.Qd86F0.t1rRxhwKKtQAxY9isZvED6zeEuUCrux
+ ku3b7mt3LjB4ECJmJCTGl0skHo_HlCJ2kuJmx7QVZ565ZNmLipxsclUQFiuNCUNEFEvnVSeWKjU3
+ VOZE8tXcitpFbMP_ZbjwrgP3_6jmF90w6_nM1_ODSznY7kgZeg5qyEnDMorHIdA.KdJQ998pPnl8
+ ikSA6RPXkfANI3Vsgs59xcKUqxgIdAnefyR7SKxr4xUv9EN4qDEhg4lJxs986ArJelsS7EO5f6zR
+ ZV7oxdi6m3kg7bqZprnbSvO74R9jX7Ak2oMudeVLDYkxQMNF3qIL1M_GPksBmRPh.JEZrGvoASdO
+ Muq.heY0H25LppsSZgqTehxSTwL1T08BanLLJVLQYHZxDZY9LGu6Xwv2rlNpyhJcjP3rMGBFyaOz
+ EH6oaK19F6WAoBILv9WwCyNCttyLvUI698L_pgRWmFagXqJel.ugqkIKc9ILfYpKc7uw08u0DeHh
+ 8TwiDOYRO7DNkwFfglwhffKyGxbcwsbTlVcY8FU5cKFqO0mEaXbqhYjJb4UZWS.XsPBYwrwzWFb6
+ v57_NWwuKtV8AveTNyZjNEkLQx9i58UQ8YmbztoYc7GzRDgIcU9C5O17SwvKTHDnzsokfCilugbh
+ kYm7OX3Fa3UOo1bFROfv6DQfHi_9NcU6eMenWCqpwz3CYWqweEibtc5QAifGnjzikh5anYLnLJ6Z
+ Oj4a3iT0x2kQIiR15phW1tmHIMf_a167dbZykIqGaIbiAaJeNAhH_UBRYUNxJHbxUlk_NpYfNc._
+ BeTGA_nuy5aBec4M0e7KqsiscVrDAGoZl_CoVT1ckm8S3WO.5DsjzscnV2KGyJ1U.KPI5Ty5VOum
+ XLwmD2d8AT_kzgYM4VVTYwRRmaHAMXL2_9DCDeF8Sj8sJn9KanBs7tJbnogaNJ_V2fIXI5xGNkop
+ sxqn7kt_jCpt3wo5pTR6C5CAKZ2YmmqXZt.5rV3Ad.iAv9whxx2bA7P4HQVYABQgkszAS.2dPru7
+ IcaJHJWB1aDFjA2n8FJQIZfBX_qolPoKzY9PIBzWTaeYg2pUU8L5Yh4a4DTlx2mQKtpITba8WnjX
+ nPLO5F6zC1U6Dbea9n_e7.G_Uj_RkU_sNit2K.r0L1ymb_lZziZiuwaLR1ryUnhH7yBOGoLlQ_C8
+ gHFsPWjL5Uru7GPYPtCWScz24s2LDyMQi99ZPQxTnY5ty2YZo497nvbyCbTDyyHIHLJ015iSdW89
+ eJaNYPuRYji3CgQ0TNFpR6Bl1ebTZ_m8St7Uxf3xUzbVGJCDiSEHsolOGly6hktRCya_RXxrhMPH
+ mXneug5AnGhcS99IFBLQHod3nHaYJi4v8wxRQH995hFEH1SGFuOCfHC1O1ZzY35vCCr05eZMOktT
+ sIKsROtka6wVKR29pTXJRzl2anFFNhsGL99No_tq6XpdGszNcgPJjU_Z74HpxQSOzyVOSgvncCK4
+ SkAgOmBLTxXiBe9L3oFgZq5c7eBBTyuXyUJQUTAOqZvOCQ3MiZO_aX0Sd9jPegN3GIffFulkQXsu
+ MQplqzc9083u2sB4vw9R9fh8H58fX3crpe4z6XUkdJ6IRP5MaLWBPdW72A5yj4OpzTmkKjiR1QOR
+ DcejCTB73.o2m_PU3Kbitt_Dz1RryUBMMrbulD8HkQ41m2WOC69OgfCgJz4CGmu2i_wVxWQB.L85
+ SCbkamlLny2sLROjbLr7MKdsZh7mK8H_cTHTEaDvqGuldShxFS0Vbvz3twrc8YTSLkDtwRLZUxzg
+ z9GYh01qX
+X-Sonic-MF: <capitain_jack@yahoo.com>
+X-Sonic-ID: 438b5e4a-0fd5-4f06-a5e6-068f31fad115
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP;
+ Mon, 21 Sep 2026 03:41:12 +0000
+Received: from dip36.lsn.bf1.yahoo.com ([67.195.177.45])
+ by hello (SMTP) with SMTP ID 020c9b03da3867fb74b31d320d5549f2;
+ Mon, 21 Sep 2026 03:41:08 +0000 (UTC)
+From: Daniel Ramos <capitain_jack@yahoo.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	Daniel Ramos <capitain_jack@yahoo.com>
+Subject: Re: [PATCH v3 0/3] drm/amd/display: HDMI 1.4 3D output (frame packing,
+ top-and-bottom, side-by-side)
+Date: Mon, 21 Sep 2026 00:41:04 -0300
+Message-ID: <20260921034104.1021664-1-capitain_jack@yahoo.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
+References: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|MN6PR12MB8566:EE_
-X-MS-Office365-Filtering-Correlation-Id: cfe1024b-1772-44bd-677a-08df174d0552
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|8096899003;
-X-Microsoft-Antispam-Message-Info: /L/yFCTDWwFsBZRq3BBT3VsnzJG+JfsL4VkJI0VIkySToLZgf+cgsHJ4ITzYeN+8nS33CL3vgKkGFeemxho1+6u90FuzGC0LtRK8M1fj3+rz8UUpi6ZFF8Pr23+gNjRTBE5OOfRHXZNDC42NNfCw7VGdxIeXOIGi/pRrMGMDadKUENTyss+i8DQgkw/x1IPVxGCD2Lw3F0eXBgB+d/W7GqCzcs5WK1McV0S0jyt2s4yOV8DMdgdgJ6AocoDM82XuogdmUbEAqwiBKhi5E3lKV68Vyp/phKzCQCh5G8wypQMWZtWdPnkBk2Z47PUCYYWQdqpKt64CR5KNoIapfnJf83UPE+pO2bnsUCzVCBrdfPw1+34/eBLpCFKVBGPQdZSyb9rtjTqrE3u1U68Xk9DSrecmWtnB02sM0+rIJQCu/8VWKe7xLEdqL+a14VavcwwSUHwhd27zhE8KHMhjIStIx4/wJSioDXVFACj5Cf0zJUiEKgNowC+JGqyEG4unCecmgWyItI7iQ71aKhQAT9kppp6vVkyHelzliVi8wXnch2Xomf6MWybWf6EYCfAoiU38zJlvt6Lb4tbcJa3Bs6a9PzB88oL8sR918JXz/fNkcWTjrRQGrU2dfgAd0z6w0kTLlwHyZFxJmafWS4grQ2tYYjwxHoSpXYdiQI4F8lzOFgU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(8096899003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VHZ0WS9UMEtlZ1Z0L0ZoWHNXcS8zNTVwc0VvUTFiRTIwOWt3WGZQTkt1djRM?=
- =?utf-8?B?Mjd0M2ljeC9qTWRhKzR6K3J3NXI3M1JWYVMxbnVhQW96dWpxR05id3BLOGI5?=
- =?utf-8?B?eVhBbzdhK0E2R2pLTUFUcHA2YVRzVFNVS29yRkVOOGM5WXhsUFVMZUdwUVZ3?=
- =?utf-8?B?ZGFJTDh2L1B3ZkRxMnJnUlpJdFRTV1lDSmltS3VXeDZISU02YWM5c0NyWmVE?=
- =?utf-8?B?bmE0c3ZFTXJrZzVzek5nNDE2Sk5ITVBvbEcyWldmVW8zbHhNQklJdVJQL2gx?=
- =?utf-8?B?Z1VKdk1UM3FrZWRWNGd1K2ZXcWtiTHNxMXR3dStjNjNpSndVRnByaHJnSVZY?=
- =?utf-8?B?UWRSemZxUGtnTC9BcHFGTUtvbjBNZkVVR25yaThNZVNYbzBUQk9DZWlLbmNq?=
- =?utf-8?B?UnFpM3RPeWN6bmpadFBPTis3dE96QUJseG4xL20vWmRraG5JcEQ4eHdkY2li?=
- =?utf-8?B?M2IwU0R5UHRuY0htQVRnOGROSkNjcFhYRGR1eGhxYnFzelRoNnNad3hMYzN3?=
- =?utf-8?B?UUs2aXBYS0Q4MUE0Q29NRzlPNlVqWXUxeTJ2b2VScXBMU1oyOU1ldnVTNVph?=
- =?utf-8?B?Nm1OdXlhVzVQbk1PRzVXSGgvZzYzTWVxWU1ZMDRyNHp3K1Q5K2FYdW4reWZQ?=
- =?utf-8?B?VmpFdkpWcit6UFRibE9wOHhpU053NlZLd25XWEIvUnowMm9SaHphOVh1S1lk?=
- =?utf-8?B?a05YSnpDd3BzbFVKdGY2TWQ3YlVaV21ZU0FYMThqR0V6NGRDRlM3RWE2K1Y0?=
- =?utf-8?B?MVJ5VzBDeFdyOGlac3d0TVJwMVNhcGkvYlBybEJIdHFIQlZYZGdJejRHalJW?=
- =?utf-8?B?cC9VNTUrNlZraEdPWWlkclpnVXpqSDRva0U3VWRaVWxDZk1QeW0xS2UzWHVN?=
- =?utf-8?B?QjJUdUxsOVF2alJGR3ZvenhrZ0haT3dNdTIwRHpUdFBSbmhycDJTelBJTUNh?=
- =?utf-8?B?OFhHeldicmRNRUpLVUVpOHpWYmZWK1p5a0hPS0t0WEpZRmF3K0IxTDdWOHJ3?=
- =?utf-8?B?b3lWN3p2dU1lS25aOFQ2aWpQYnJ4Q1JLT3R1VkdrM2ViMWlzZCtmVGFsbjJP?=
- =?utf-8?B?SUh0cWtnSWUrYkhPNDM4dEcya291a1ozRFZJR1JMemZCN1dEaHlXZlc0dUEw?=
- =?utf-8?B?czZDaW5lc2JqWUtJdHNDaUdzS25tUHQ5NUMvblEvQjBFSTVyYk1hdjMzNXJK?=
- =?utf-8?B?cWlJSGZZRkdXKy9oTU4wdTNEdlM0dHVuVVltc1NBeUVVeWxReUdRbDYxYlQw?=
- =?utf-8?B?YWVMSkVPMXFsUDF4Q21OSzVKbkNxSHNwNWpBOThvVkRwckJoUFZ1RWJPeW5s?=
- =?utf-8?B?N2ZIU01vck9KRUtWRGh6RWEwUHF3aEJLU0VnbE5saGdtam1nQU03em83SktH?=
- =?utf-8?B?T29tTXZCdHZvaWtRSzBQQVB3Ym4zYnJXdlBFN2pmY0hvQ1puU3lDWFN5L1Zy?=
- =?utf-8?B?RnBWZ2M1bjl1WXBEa2MwZUlsTG1uZDlKaEhVNTllNTltSFBXckVKM1BZZXJw?=
- =?utf-8?B?TS9yK2kwVkR2TEdwVmxvaWZrRWZ6RlBUYnJaOVZDUDV2NHczbktVNnlCYUUz?=
- =?utf-8?B?ZFZwSmR1Nm9xaWNRaEczeC8zUHhPR3psaFZjK0RLR3JZNWRydmUxZ3RIWGhR?=
- =?utf-8?B?NlhtSVJvWld6VW0waVNQVWIwRlJGeHBrNmxTQXRiUUtwZFR1bXo1TEVlT3oy?=
- =?utf-8?B?VUZmanczQWNlaHZFSWdzbXhhd3NaQmVqZHhWb01WWjVLd3pETVFzbmRvOVlR?=
- =?utf-8?B?UUgxdzNwcUhNdE9ZRmR3QkpBeGlZWFVucFBaaWRBZ01RWXBXT2dUTWVJZzh5?=
- =?utf-8?B?dHcyYzhmbUdVZ014UXJjNFhjdzV3YUZWUkU3M1lZQ3o0WGtMcjhxUWxqOWph?=
- =?utf-8?B?V3BuM1FCL0NkL0hjTmlsdnYxaXZKL01xYmNmK0RFaWk2MXZpSkwyYzhxRS9o?=
- =?utf-8?B?NU11MGVmYTFlTmUwdm5KMXRmMzBNeDU5YmN5bXBaZGhkemk1c0kxUC93bGpV?=
- =?utf-8?B?aWxiODB2aDBOMldBK0hsYzFCcDlUanlYT2x3VWY1T1dkOHdJRFNna0xNY0dy?=
- =?utf-8?B?NHVVdHh2RzI3emM1SDFGWktTTlBldVIvOUhYZGYvYk1NbWxSdHAzWVNBRWlV?=
- =?utf-8?B?c0J0YTgxa1FqMmplUlVTVURVOTlvMzFzWW80YWdJWUVpQXpmaGhrSGdJbStZ?=
- =?utf-8?B?OHNITnBWYmhFQ2VoQjRGRGxGay9ZYjlWcmtpVzcwYnQ1YkdNVG1NSTdVU0RV?=
- =?utf-8?B?enFMUVJTVHo3WkZ3YTkrdnZoanpyR1FtMG9yMzVKangwYTFQa1UrSUplK1JQ?=
- =?utf-8?Q?X2pqXHfdIO+RKNyAiD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfe1024b-1772-44bd-677a-08df174d0552
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 19:26:08.1219 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WXO4PsXbhb+miR3OYZLA2J6mNd4Kmo8zH7o+CpBVWTNtvhPnrcS+fX+6s/rOyY09BihhN0RxibatFwJQMucokA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8566
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,238 +87,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------J10Mw9JKkZhPPtHAbiVcz0pm
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hi Adrian, Harry, Alex, others,
 
-Regardless of SDMA userq support, this patch still looks reasonable to 
-me. The TLB fence doesn't make sense for NPA VMs. We handle TLB flushes 
-for NPA page table updates explicitly in the amdgpu_ualink code.
+A word of introduction, since this is my first mail to this list: I am Dani=
+el Ramos, and I come from the consumer side of this hardware rather than fr=
+om driver development. I keep a pair of Sony BRAVIA 3D televisions from 201=
+1/2012 fully alive (KDL-46EX725 and KDL-46HX855, the sony-bravia-linux proj=
+ect, https://github.com/danielcamposramos/sony-bravia-linux), including the=
+ 3D panels Sony no longer ships software for, and that generation's end-of-=
+service is documented for the right-to-repair movement on its own consumer-=
+rights wiki page (https://consumerrights.wiki/w/Sony_BRAVIA_pre-Android_Lin=
+ux_TVs_(2011-2012)). That work goes upstream first: frame-packing SEI suppo=
+rt I pushed is merged in HandBrake (#8100, https://github.com/HandBrake/Han=
+dBrake/pull/8100), my stereo serving profiles are merged in Universal Media=
+ Server (#6330, https://github.com/UniversalMediaServer/UniversalMediaServe=
+r/pull/6330), and open threads are running at FFmpeg (https://code.ffmpeg.o=
+rg/FFmpeg/FFmpeg/issues/24530), mpv (https://github.com/mpv-player/mpv/issu=
+es/18489) and MKVToolNix (https://codeberg.org/mbunkus/mkvtoolnix/issues/63=
+09). I also maintain the CC0 awesome-stereoscopy index (https://github.com/=
+danielcamposramos/awesome-stereoscopy), created because the field had no cu=
+rated list.
 
-Feel free to submit this patch with
+On the gap this series closes: the DRM core has carried HDMI 1.4 stereo mod=
+es and the vendor-infoframe helpers for years, i915, vc4 and nouveau all al=
+low stereo (nouveau wired frame packing in 2017), and amdgpu DC has been th=
+e one major driver refusing it ever since DC landed, with nobody closing it=
+ in nearly a decade. It still justifies closing. The televisions these mode=
+s exist for were sold by the millions between 2010 and 2016, they are the s=
+ame hardware class Adrian tests against (his JVC is a 3D projector where mi=
+ne are 3D TVs), and every one of them works today as a full 3D monitor the =
+moment it receives the standard signal, as the runs below show. With Valve'=
+s upcoming Steam Frame (https://store.steampowered.com/hardware/steamframe)=
+ putting stereo displays back into a mainstream gaming stack, wiring a mode=
+rn open driver to the HDMI 1.4 3D signal is as much a longevity fix for tha=
+t installed base as a new feature.
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Independent confirmation of this approach on older DCN hardware and a consu=
+mer-TV sink, plus a boundary record that matches your patch 3's diagnosis.
 
+Hardware here is a Renoir APU (0000:0b:00.0, DCN 2.1, Display Core 3.2.369,=
+ Debian 7.0 kernel) driving a Sony KDL-46HX855 from 2012, whose HDMI 1.4b-c=
+lass EDID advertises side-by-side half and top-and-bottom over a 7-VIC mask=
+ and frame packing on five VICs. The coverage is complementary to yours: yo=
+urs runs DCN 3.2.1 into a JVC projector behind an HDFury, mine runs DCN 2.1=
+ straight into a living-room television.
 
-On 2026-09-20 10:41, Zhang, Hawking wrote:
-> AMD General
->
-> Hi @Zhang, Horatio <mailto:Hongkun.Zhang@amd.com>,
-> I think the issue is caused by the following code in 
-> sdma_v7_1_sw_init, which incorrectly marks amdgpu user queues as 
-> enabled for SDMA 7.1 as long as the CONFIG_DRM_AMDGPU_NAVI3X_USERQ is 
-> enabled.
-> Since SDMA 7.1 does not amdgpu user queues (it only supports rocm user 
-> queues), could you please remove this code and check whether the issue 
-> still occurs?
-> #ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-> adev->userq_funcs[AMDGPU_HW_IP_DMA] = &userq_mes_funcs;
-> #endif
-> Regards,
-> Hawking
-> -----Original Message-----
-> From: Zhang, Horatio <Hongkun.Zhang@amd.com>
-> Sent: Sunday, September 20, 2026 5:47 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; 
-> Kuehling, Felix <Felix.Kuehling@amd.com>; Joshi, Mukul 
-> <Mukul.Joshi@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: RE: [PATCH] drm/amdgpu: skip the PASID TLB fence for the 
-> UALink NPA VM
-> AMD General
-> Gentle Ping ...
-> Best regards,
-> Horatio
-> -----Original Message-----
-> From: Horatio Zhang <hongkun.zhang@amd.com>
-> Sent: Thursday, September 17, 2026 6:05 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; 
-> Zhang, Horatio <Hongkun.Zhang@amd.com>
-> Subject: [PATCH] drm/amdgpu: skip the PASID TLB fence for the UALink 
-> NPA VM
-> amdgpu_vm_make_npa() builds the UALink NPA VM on top of 
-> amdgpu_vm_make_compute(), which unconditionally sets need_tlb_fence.
-> That flag makes amdgpu_vm_tlb_flush() queue an asynchronous PASID 
-> based TLB invalidation after every page table update.
-> The NPA VM is created by the driver itself in
-> amdgpu_ualink_manager_start() and never gets a PASID assigned, so
-> vm->pasid stays 0, which MES cannot resolve on the MMHUB. The
-> vm->invalidation
-> never completes and MES stays unresponsive for the rest of the probe:
->   amdgpu: MES(0, 0) failed to respond to msg=INVALIDATE_TLBS
-> The invalidation is not needed in the first place. An NPA VM is bound 
-> to the reserved NPA VMID and amdgpu_ualink_flush_tlb() already 
-> invalidates that VMID on the MMHUB after every mapping change. Clear 
-> need_tlb_fence for NPA VMs.
-> Fixes: aac13f6eded6 ("drm/amdgpu: Pin page tables in NPA VMs")
-> Signed-off-by: Horatio Zhang <hongkun.zhang@amd.com>
-> ---
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
-> 1 file changed, 1 insertion(+)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 68d668dfe4f8..e255b5100362 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2793,6 +2793,7 @@ int amdgpu_vm_make_npa(struct amdgpu_device 
-> *adev, struct amdgpu_vm *vm)
->                 return r;
->         vm->is_npa = true;
-> +       vm->need_tlb_fence = false;
->         return 0;
-> }
-> --
-> 2.43.0
---------------J10Mw9JKkZhPPtHAbiVcz0pm
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+With the equivalent wiring here (stereo_allowed allowed on HDMI connectors,=
+ the vendor infoframe attached to the stream's hfvsif packet when the mode =
+carries DRM_MODE_FLAG_3D_*, timing_3d_format deliberately left at NONE), si=
+de-by-side half 1920x1080@60 makes the set switch itself into 3D with no re=
+mote input, and a software-rendered disparity pattern reads in depth throug=
+h the TV's own glasses. The mode probe goes from 22 modes with zero stereo =
+to 51 modes with 29 stereo-flagged.
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>Regardless of SDMA userq support, this patch still looks
-      reasonable to me. The TLB fence doesn't make sense for NPA VMs. We
-      handle TLB flushes for NPA page table updates explicitly in the
-      amdgpu_ualink code.</p>
-    <p>Feel free to submit this patch with</p>
-    <p>Reviewed-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a></p>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2026-09-20 10:41, Zhang, Hawking
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:BN7PPFFF39339DDA5A38FD4F0358D122C45FC852@BN7PPFFF39339DD.namprd12.prod.outlook.com">
-      
-      <meta name="Generator" content="Microsoft Exchange Server">
-      <!-- converted from rtf -->
-      <style>@scope { .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } }</style>
-      <font face="Calibri" size="2"><span style="font-size:10pt;">
-          <div style="padding-right:5pt;padding-left:5pt;"><font>AMD
-              General<br>
-            </font></div>
-          <div style="margin-top:5pt;"><font face="Times New Roman" size="3"><span style="font-size:12pt;"><br>
-              </span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Hi <a href="mailto:Hongkun.Zhang@amd.com" moz-do-not-send="true"><font><span style="">@Zhang,
-                      Horatio</span></font></a>,</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">I think the issue is caused by
-                the following code in sdma_v7_1_sw_init, which
-                incorrectly marks amdgpu user queues as enabled for SDMA
-                7.1 as long as the CONFIG_DRM_AMDGPU_NAVI3X_USERQ is
-                enabled.
-              </span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Since SDMA 7.1 does not amdgpu
-                user queues (it only supports rocm user queues), could
-                you please remove this code and check whether the issue
-                still occurs?</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">#ifdef
-                CONFIG_DRM_AMDGPU_NAVI3X_USERQ</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                adev-&gt;userq_funcs[AMDGPU_HW_IP_DMA] =
-                &amp;userq_mes_funcs;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">#endif</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Regards,</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Hawking</span></font></div>
-          <a name="_MailEndCompose" moz-do-not-send="true"></a>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">-----Original Message-----<br>
-                From: Zhang, Horatio <a class="moz-txt-link-rfc2396E" href="mailto:Hongkun.Zhang@amd.com">&lt;Hongkun.Zhang@amd.com&gt;</a> <br>
-                Sent: Sunday, September 20, 2026 5:47 AM<br>
-                To: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-                Cc: Zhang, Hawking <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang@amd.com">&lt;Hawking.Zhang@amd.com&gt;</a>; Ma, Le
-                <a class="moz-txt-link-rfc2396E" href="mailto:Le.Ma@amd.com">&lt;Le.Ma@amd.com&gt;</a>; Kuehling, Felix
-                <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>; Joshi, Mukul
-                <a class="moz-txt-link-rfc2396E" href="mailto:Mukul.Joshi@amd.com">&lt;Mukul.Joshi@amd.com&gt;</a>; Deucher, Alexander
-                <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a><br>
-                Subject: RE: [PATCH] drm/amdgpu: skip the PASID TLB
-                fence for the UALink NPA VM</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">AMD General</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Gentle Ping ...</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Best regards,</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Horatio</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">-----Original Message-----</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">From: Horatio Zhang &lt;<a href="mailto:hongkun.zhang@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">hongkun.zhang@amd.com</a>&gt;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Sent: Thursday, September 17,
-                2026 6:05 PM</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">To: <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true" class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a></span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Cc: Zhang, Hawking &lt;<a href="mailto:Hawking.Zhang@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">Hawking.Zhang@amd.com</a>&gt;;
-                Ma, Le &lt;<a href="mailto:Le.Ma@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">Le.Ma@amd.com</a>&gt;;
-                Zhang, Horatio &lt;<a href="mailto:Hongkun.Zhang@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">Hongkun.Zhang@amd.com</a>&gt;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Subject: [PATCH] drm/amdgpu:
-                skip the PASID TLB fence for the UALink NPA VM</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">amdgpu_vm_make_npa() builds the
-                UALink NPA VM on top of amdgpu_vm_make_compute(), which
-                unconditionally sets need_tlb_fence.</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">That flag makes
-                amdgpu_vm_tlb_flush() queue an asynchronous PASID based
-                TLB invalidation after every page table update.</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">The NPA VM is created by the
-                driver itself in</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">amdgpu_ualink_manager_start()
-                and never gets a PASID assigned, so</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">vm-&gt;pasid stays 0, which MES
-                cannot resolve on the MMHUB. The </span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">vm-&gt;invalidation</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">never completes and MES stays
-                unresponsive for the rest of the probe:</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp; amdgpu: MES(0, 0) failed to
-                respond to msg=INVALIDATE_TLBS</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">The invalidation is not needed
-                in the first place. An NPA VM is bound to the reserved
-                NPA VMID and amdgpu_ualink_flush_tlb() already
-                invalidates that VMID on the MMHUB after every mapping
-                change.
-                Clear need_tlb_fence for NPA VMs.</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Fixes: aac13f6eded6
-                (&quot;drm/amdgpu: Pin page tables in NPA VMs&quot;)</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">Signed-off-by: Horatio Zhang
-                &lt;<a href="mailto:hongkun.zhang@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">hongkun.zhang@amd.com</a>&gt;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">---</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">
-                drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;"> 1 file changed, 1 insertion(+)</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">index 68d668dfe4f8..e255b5100362
-                100644</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">---
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">+++
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">@@ -2793,6 +2793,7 @@ int
-                amdgpu_vm_make_npa(struct amdgpu_device *adev, struct
-                amdgpu_vm *vm)</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;is_npa = true;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;need_tlb_fence =
-                false;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;"> }</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">--</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">2.43.0</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-          <div><font face="Calibri" size="2"><span style="font-size:11pt;">&nbsp;</span></font></div>
-        </span></font>
-    </blockquote>
-  </body>
-</html>
+Frame packing shows the boundary your patch 3 fixes, observed independently=
+: without the CRTC_STEREO_DOUBLE expansion the sink entered 3D on a valid F=
+P VSIF while DC scanned the un-doubled 1080-line 74.25 MHz timing against t=
+he 2205-line plane, which is signal pass and picture black. With the stream=
+ mode expanded (1920/2750 horizontal active and total, 2205/2250 vertical, =
+148.5 MHz for 1080p24 FP) the same television both switched itself into 3D =
+and displayed the full two-eye picture through the AMD link.
 
---------------J10Mw9JKkZhPPtHAbiVcz0pm--
+A cross-vendor control on the same sink: stock nouveau on a GA106 drives th=
+is television into 3D in the same 1920x1080@24 frame-packing mode, so the E=
+DID and the sink behavior are proven independently of the AMD path.
+
+On your DCC note: our test buffers are dumb buffers without DCC, so I canno=
+t speak to that wedge; every flip with a plain buffer completed, which is a=
+t least consistent with the failure being DCC-specific.
+
+Logs, the DRM test tool, and the two reference deltas (built for the 7.0 tr=
+ee, kept as a DCN 2.1 port in case an older-generation follow-up is wanted)=
+ are public at https://github.com/danielcamposramos/sony-bravia-linux: run =
+records and verdicts are in tools/stereo-modeset/ and the patches are in do=
+cs/upstream/.
+
+Happy to run anything specific on this APU and television combination if it=
+ helps the review.
+
+Tested-by: Daniel Ramos <capitain_jack@yahoo.com>
+
+Disclosure per Documentation/process/coding-assistants.html (https://docs.k=
+ernel.org/process/coding-assistants.html): prepared with AI assistance, dir=
+ected and hardware-verified by me end to end; the assisting models were LLM=
+ Kimi K3 (Codex CLI), LLM GPT 5.6 Sol (Codex CLI) and LLM Claude Opus 5 (Cl=
+aude Code CLI).
