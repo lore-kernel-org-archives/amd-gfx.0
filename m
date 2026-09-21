@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32CE6C982ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 20:03:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26D40C982ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 20:03:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83F7810E3FE;
-	Mon, 21 Sep 2026 20:03:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E3DB10E1FF;
+	Mon, 21 Sep 2026 20:03:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5Qtacgvw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Iz02riJd";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012018.outbound.protection.outlook.com [52.101.53.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05C1910E1FF
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013009.outbound.protection.outlook.com
+ [40.107.201.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 741DA10E1FF
  for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 20:03:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h4oN0gHoMBIiWVv/Fd3j23FiREmY7zVk9nIcjhhRPTMBIpI3xKZPy6hY0lBfmh066YfOhjQrJFLzqXmyOEQibmf90hGyRGa7sm2NNr2OuvI5Dkw2vIgTdsuvkWmZ4sF4Nm21nW1UE1zcLRr8S9VJWAstzv3w2UGaUjmrCvH5i6tF7lFZMo+Zmfp8GUdpByI3yYBpfglglV95Pxd03nanntA5VsrbeNbarXPHcSIlCNKKBuMjZ0bPPdiD5HaIAnj+hTWa2YjtWvO1431sR579FCUc4NfyRJ2t0mvGDuhu7QfxW/omzFjhAygSm9KFWukMIy2rOVwlYT6hz8kM1G19Qw==
+ b=kv4XB0bvS/lW0swFbGINVeb4gNLaVhCKEY6hdoWjYA2Q5f8FoJyxjr6JbYFYApvq+UAA/AKZU8GPmFSX64AVv1w1j5m3xCK+YmKHkkSSz26SmNjZyNIZRgKyRGgU5XRdM6MSIhdeTRSxaXzxdooghGDMmrrF5Kp+r6YyinBw9VbsaD/lNnXdY+QA8Bx1RMDRnIBu20D56HYa+mm55NtEdTK5DdMmTCYMkM/AzqwfSalV0xXmIBKBgH+0jf0LT6Idcg3vtHhFzv9LVdjprJGLC08G7irmqXS05VzncvL2iYT3xK4dRUI5qkOwlkv7olKwiCSrNqU3OZN9C03P9RKJNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q+9hA2hfKo7Icd8fgiy56Shmy3Th/KFDnqvJ4ZwwvVo=;
- b=uZYbG0dhYcI6IukVUwVFQwdQqesgG7Qwdtuluh9KKX1I9q0vcjrBZfhLunCKMjTdqYBfEWuCLKkeKTMejhdT4JFKqgewjKxS/8dIrYP50pq4Eg9anIlvVE2uDf/WGgZVro/AeS9VdrCck9ZchZtHiAHgFaOUyxh0ZQ3Tgy6/dgL+tH4C0OY/iPtpGhjR0QoQBDiVkjKljvAkE1N7he+CZAyicG9OjneKSLZKVtSaaN7jQ2pKTeW2oz4aPQmNt0TQMYxQ89hFsDSh7ZHINRZ504+7qaccSq8O0Gk2s1yqin2+7bDRzU+p7P32+IoV0lfWL5zNvh/gZq4H3ZW6CFxkEw==
+ bh=jH6vBiQxeaS8I1jUQzl5gsPmaR9qGiGGVXWHSpq/GLc=;
+ b=OzsbwXXwSxeYGLD5EX0pS613YBK6i3esstiCZenmLGnSB2Zia/mODWeQvc85VuJIF8dBERI1+tkYSVFp3vCdZLZ3KaC+bgxYWKRkZopfINg0ir8jlgWdNKNWyJ8t17gmgG3f5xCepLs/64sYD/r26/vcwyvRw2kGf0R1H/lulzlv9Y2C7F2VQGpYzkXYS5gZvl5bQ0FlaYu/yFsO7ZOjhhSM4j7ogb279yJT9oeRHbzLqj93DfAVrBxELdIOC8ExkAPn3jOCYo1ieCgfDRIq/wuUJuY7+QR/DF8vmoQInMLOzqgLJtu0A1pK1c3Sl1rwEJrb2iLUXIzLXL0cEHgC6A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q+9hA2hfKo7Icd8fgiy56Shmy3Th/KFDnqvJ4ZwwvVo=;
- b=5QtacgvwyvLh8gaKBdOWNiodgkOBrz0pgV/Ouw40FlPXDWqRARyQwA7KC/V4b2tTLSiQYm20wQxPPgccZ6PojWcejXdTzmbXwnRtsjtV2v9o4gbDuEmquYZuKEv7wJVsRbkEQj+MH77CtmD/NCQO49q9KQsEv4NSTrl1lG2d5eE=
-Received: from CP5P284CA0032.BRAP284.PROD.OUTLOOK.COM (2603:10d6:103:94::19)
- by DS5PPF266051432.namprd12.prod.outlook.com (2603:10b6:f:fc00::648) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=jH6vBiQxeaS8I1jUQzl5gsPmaR9qGiGGVXWHSpq/GLc=;
+ b=Iz02riJdlqw4KrkbEVtw/3rA5k7whMZOx/TTLPct9PzkFPbM6j/2/vOjjfFLuskrjWLJ4sl4ahK8SJJoz9Md475E8Kh7ZWsf1C3mUcWiFsA01Hk5ZoxuQ8sM5hiMsqMIgwsoKo07Wubso4D9zyXigdRFB43t0fNa5RwGwp7Z/Z4=
+Received: from BN9PR03CA0426.namprd03.prod.outlook.com (2603:10b6:408:113::11)
+ by EAYPR12MB964616.namprd12.prod.outlook.com (2603:10b6:303:2ff::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 20:03:21 +0000
-Received: from BN3PEPF0000B371.namprd21.prod.outlook.com
- (2603:10d6:103:94:cafe::61) by CP5P284CA0032.outlook.office365.com
- (2603:10d6:103:94::19) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 20:03:22 +0000
+Received: from BN3PEPF0000B36E.namprd21.prod.outlook.com
+ (2603:10b6:408:113:cafe::5) by BN9PR03CA0426.outlook.office365.com
+ (2603:10b6:408:113::11) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 20:03:20 +0000
+ 21 Sep 2026 20:03:22 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,25 +50,27 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF0000B371.mail.protection.outlook.com (10.167.243.168) with Microsoft
+ BN3PEPF0000B36E.mail.protection.outlook.com (10.167.243.165) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.0 via Frontend Transport; Mon, 21 Sep 2026 20:03:19 +0000
+ 15.21.451.0 via Frontend Transport; Mon, 21 Sep 2026 20:03:21 +0000
 Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 15:03:19 -0500
+ 2026 15:03:20 -0500
 Received: from work-495456.amd.com (10.180.168.240) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 15:03:19 -0500
+ 2026 15:03:20 -0500
 From: James Zhu <James.Zhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
  <Bing.Ma@amd.com>
 CC: <jamesz@amd.com>, Bing Ma <bing.ma@amd.com>
-Subject: [PATCH 01/12] drm/amdgpu: add profiler UAPI definitions
-Date: Mon, 21 Sep 2026 16:03:02 -0400
-Message-ID: <20260921200313.865829-1-James.Zhu@amd.com>
+Subject: [PATCH 03/12] drm/amdgpu: add generic RLC SPM interface layer
+Date: Mon, 21 Sep 2026 16:03:04 -0400
+Message-ID: <20260921200313.865829-3-James.Zhu@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260921200313.865829-1-James.Zhu@amd.com>
+References: <20260921200313.865829-1-James.Zhu@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -76,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb09.amd.com
  (10.181.42.218)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B371:EE_|DS5PPF266051432:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8e00533-ac86-4a29-7e27-08df181b6223
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|EAYPR12MB964616:EE_
+X-MS-Office365-Filtering-Correlation-Id: 264ba776-92aa-41a3-065c-08df181b62fa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|6133799003|18002099003|56012099006|11063799006|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info: L8ezxyB0jvmAg3ah0JyvKa+T7ziS6joz1kN22Ufbw6GyOcOZkaYA6vij5R4DVmzWdnIoJ4HGolh5hdBeeHVWo1P4B8IHdVk9JMP9O5XV9MwKAHCyfMmQ1sycGIwA6z0vMIT+A2XShoa1WliMOF0Hsl2669OUGl3VJlQ9Mh0i8r8Em4a1hQgTd0cvqPWgw65ddIgBibmDVHLhfoDGe+fKbt6A77Q+dYrwZY32UAEB0TOKEyrDQWyfHMf/PkeBPxhVfYgG2226zGf25R0km+aVqPXxVkPTFrKjkir+b/V2lGUhv9IHM+jaLRkpFJCJemTiaci38IHSxwmUzyDbxI/LOVtuHHtMLex9AE/vW759HH8EjyFiq7pvshJOk4/8izfKa8L1scfX934EMdtanUHmtaZ6yP3p4rjt2ASu3ZyBR3WAdEziip8iixHooBwbz52PH18Zc4JG0NzNIRvzxmvQ3sKfYuP/Zm4MmYqWULbG+1QGqWqnx3Hgaq+1kYN2jav+eCydadpNXjdMfPbWC4O4j0ppBN0PDBKtS42D6emVWS6kTcagJqqNCOVIM0fV6BN4DW8M8tsXYS7iurxDiOekc5L9gA4mJaFTvDd0ThFF27AIkizO8xv5ZGZfvsMfHJceBe7xQmnrbzyavBpt5+pbw4+mMvOmBEisw4ulZjSTkuyLyazjbVBAVVEOIhR/IRHQGquiJ858SU/umk6ITDxGOg==
+ ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|3023799007|6133799003|10067099003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: Lvhh3tmA4g/L+Cp0wTgl97cSmXmIh1AOmwciAccfhC9Vqm2e+bGr3uxVNTZFg1TaTWCN90O4vl/t8jDCGawKRYw4B1P3NhR/uytV/18rbCfBM3B+dOI6uzBE1td1WBKgRqK2imcX8lLERcpPzDmLed3PxYdSv5z8hN4yFXzj0RrqeZeZE0FkKU2AV/4VZ5K03u9IPKQxM/XNgV0SzVG331Jr23LYeTK6O9r8gWpCIJioblhe3wBqStG6+xYpvc1zvIx3AQKGetqJ9UJSo9Y6ZQYbDeojPro6cD5cLNRW8BqOuKpmuwTaUXb3KB9P2YUCdkbBPbXB/Sfvku1s9W5q0xKUMk2eYoQUqiuCHMrw+evXcHfsNAebXZpdkicudPUXkY2k30zJ7aEj/VYTE1/p/T6GSPxdLwHix0ZyCuswSu+ECHcWbharQPvqHbmM3ZGZrlAgup+aImG/jPGrh+HLzEp/Y+df712zGnC/3VYRMF+SFhsco4go2Lodps+se1utyX6S7q1+yeU7EASJAkYpH6juVWP9mBRfdeQzJ/S7JEWMgrHHC05m9/omrpAh9Hix/x4qmAL2GYHs5AEorMSYQRu0m2n9qNZpi/CR5mqXWWVSbXqM1jhrvm2/72KCmmL1oNU21tup9tYE2qVjQ9xL9chhXrBnvlalSq0muCh1z3MnNvXuTPtZo6Nf5wbOVzmV2eomS0vria2YeeqBIM18kg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(6133799003)(18002099003)(56012099006)(11063799006)(10067099003)(3023799007);
+ SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(3023799007)(6133799003)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: fHpW3HA/4bc5OLMQ2Ozfh9ljq5c5JilXhVMVHMrndqt6sklMcrqjYtbqfJkZbzk8VSEKuWvooFfkyJLjwEpZqLSwf5Em5fwpOJuaAN2xT3S1sptj78mJ2YHHyQ90UZ7dv/iCFjHlWSAIZ4TUtSHTG8VZkZqB8iakl1QE9A/WWLBqwAt77HFAs4vc+7fH/vNrU9U22r/qAN7o0PJ5/TOuTJLj0H9S99xtz6RFVnyW5GB0IWcaN3iOP29O9VY+gUvSWRbAQFwtlxK3V2y+bZ6+UrK17b/KqmbNttNKGj+dChN7Ux51SDol5v5cZPxw0Z4SsaEIDhkZGKdIw+FaOR8QLDncm6S7Y5LQQunzQPR+PNm2Dga/I9aTodmLiFKN9LI36/2KxgaXjlMKi+fEbJIcHkooCd+t+bEshLVbYXPorUlsFB2m9+kY/AouOIRoJQ1o
+X-MS-Exchange-AntiSpam-MessageData-0: 2bo9iCUYTECZ97EvPT96ffZy4izpKDwgn+UnQ3jjr+mQ+bFOgzqKxo7zw2cGVKdGrDJ+RIzSkI30St7+OPKsumlaYdn1wCUrI/LGCw/qPRfkvpSmJhj+HOTMR9WYpylP9yDFRYZEz5hezPh7uZTC8lQpbQekIcta2Tb0E/lFfcxLGhbCIy8S0VTRJIwL0pvM3GMzQ0/R+Tf4iL4ax0QLXFv/QAx4wspZJ7kiiVSoa8mhK9R5n47eh+RA89z2jBsVsW/RB7yAS7Bm8s8D5SSFPhAHpmm5HHzhZrBCSVEUOej22NHersUlFX37LNqdxbWfkISIcRGvIXRaI3ZUu+YSWRW5ECI9FpHGCeRMH6tchNQR5OAdToPW27YGE1T8x9HogiTStFaAnvvcy7YvbryFTjHJ4SB1XFuLLHD4CD4eaPNdThRNxEaaQ1bFjCq+FWHs
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 20:03:19.9187 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8e00533-ac86-4a29-7e27-08df181b6223
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 20:03:21.3195 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 264ba776-92aa-41a3-065c-08df181b62fa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B371.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36E.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF266051432
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB964616
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,175 +116,325 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the DRM_AMDGPU_PROFILER ioctl number and its argument structures, the
-UAPI for GPU performance monitoring features such as SPM (Stream
-Performance Monitor).
+Every GFX IP programs the RLC SPM (Streaming Performance Monitor) block
+through its own registers, so without a common layer the SPM manager
+would have to open-code that per-IP sequencing at each call site. Add a
+hardware-agnostic layer: the manager drives SPM through a few generic
+entry points and each IP only supplies register programming via an
+amdgpu_spm_funcs table in adev->gfx.spmfuncs.
 
-struct drm_amdgpu_profiler_args carries an operation selector and a union
-of per-operation parameters, currently AMDGPU_PROFILER_OP_GET_VER and
-AMDGPU_PROFILER_OP_SPM. The SPM operations and the layout of the
-destination buffer are described by struct drm_amdgpu_spm_args and
-struct drm_amdgpu_spm_buffer_header.
+All SPM programming is issued through the KIQ ring so it is serialised
+against other KIQ users and the RLC firmware; each op emits a polling
+fence and waits so the firmware has consumed the packet before the call
+returns. The per-IP callbacks run under the KIQ ring_lock and may only
+emit packets, and set_spm_config_size tells the generic layer how much
+ring space one op needs.
 
-The ioctl number and struct layout are frozen here. The implementation
-lands in the rest of this series and the ioctl is not registered in
-amdgpu_ioctls_kms[] until then, so this header change alone does not make
-the interface reachable.
+acquire reserves a VMID on the GFX hub for the SPM stream; release stops
+the stream and waits for that stop to complete before freeing the VMID,
+so the RLC can never keep streaming into a VMID that has been reused.
 
 Signed-off-by: James Zhu <James.Zhu@amd.com>
 Reviewed-by: Bing Ma <bing.ma@amd.com>
 ---
- include/uapi/drm/amdgpu_drm.h | 124 ++++++++++++++++++++++++++++++++++
- 1 file changed, 124 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  15 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c | 230 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h |   7 +
+ 3 files changed, 252 insertions(+)
 
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 9e5fa6f53e59..285949d63eb6 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -60,6 +60,7 @@ extern "C" {
- #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
- #define DRM_AMDGPU_PROC_OPTIONS		0x1A
- #define DRM_AMDGPU_TRAP			0x1B
-+#define DRM_AMDGPU_PROFILER		0x1C
- 
- #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
- #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-@@ -83,6 +84,7 @@ extern "C" {
- #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
- #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
- #define DRM_IOCTL_AMDGPU_TRAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_TRAP, union drm_amdgpu_trap)
-+#define DRM_IOCTL_AMDGPU_PROFILER	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROFILER, struct drm_amdgpu_profiler_args)
- 
- /**
-  * DOC: memory domains
-@@ -1821,6 +1823,128 @@ struct drm_amdgpu_proc_options {
- 	} kfd_sigbus_delay;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index aefd4f03b443..fd87075962f9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -174,6 +174,20 @@ struct amdgpu_kiq {
+ 	void			*mqd_backup;
  };
  
-+/*
-+ * Supported SPM (Stream Performance Monitor) Operations
-+ */
-+/**
-+ * drm_amdgpu_spm_op - SPM ioctl operations
-+ */
-+enum drm_amdgpu_spm_op {
-+	AMDGPU_SPM_OP_ACQUIRE = 1,
-+	AMDGPU_SPM_OP_RELEASE,
-+	AMDGPU_SPM_OP_SET_DEST_BUF
++struct amdgpu_spm_funcs {
++	void (*start)(struct amdgpu_device *adev, int xcc_id);
++	void (*stop)(struct amdgpu_device *adev, int xcc_id);
++	void (*set_rdptr)(struct amdgpu_device *adev, int xcc_id, u32 rptr);
++	void (*set_spm_perfmon_ring_buf)(struct amdgpu_device *adev, int xcc_id,
++					 u64 gpu_addr, u32 size);
++	/* Dwords amdgpu_rlc_spm_kiq_submit() reserves on the KIQ ring for one
++	 * submission. Must cover the largest of the callbacks above plus the
++	 * polling fence emitted after them; amdgpu_ring_write() has no bounds
++	 * check, so a short value silently corrupts the ring.
++	 */
++	u32 set_spm_config_size;
 +};
 +
-+/**
-+ * drm_amdgpu_spm_args - Arguments for SPM ioctl
-+ *
-+ * @dest_buf: [in] used for the address of the destination buffer
-+ *            in @AMDGPU_SPM_OP_SET_DEST_BUF
-+ * @buf_size: [in] size of the destination buffer
-+ * @op: [in] specifies the operation to perform
-+ * @timeout: [in/out] timeout in milliseconds (in), amount of time left
-+ *           in the timeout window (out)
-+ * @bytes_copied: [out] total amount of data that was copied to the previous dest_buf
-+ * @has_data_loss: [out] non-zero if data was lost (e.g. due to ring buffer overflow),
-+ *                 zero otherwise
-+ * @reserved: must be zero for forward compatibility
-+ *
-+ * This ioctl performs different functions depending on the @op parameter.
-+ *
-+ * AMDGPU_SPM_OP_ACQUIRE
-+ * ------------------------
-+ *
-+ * Acquires exclusive access of SPM on the specified XCP for the calling process.
-+ * This must be called before using AMDGPU_SPM_OP_SET_DEST_BUF.
-+ *
-+ * AMDGPU_SPM_OP_RELEASE
-+ * ------------------------
-+ *
-+ * Releases exclusive access of SPM on the specified XCP for the calling process,
-+ * which allows another process to acquire it in the future.
-+ *
-+ * AMDGPU_SPM_OP_SET_DEST_BUF
-+ * -----------------------------
-+ *
-+ * If @dest_buf is NULL, the destination buffer address is unset and copying of counters
-+ * is stopped.
-+ *
-+ * If @dest_buf is not NULL, it specifies the pointer to a new destination buffer.
-+ * @buf_size specifies the size of the buffer.
-+ *
-+ * If @timeout is non-0, the call will wait for up to @timeout ms for the previous
-+ * buffer to be filled. If the previous buffer is filled before the timeout, @timeout
-+ * is updated with the time remaining. If the timeout is exceeded, the function
-+ * copies any partial data available into the previous user buffer and returns success.
-+ * The amount of valid data in the previous user buffer is indicated by @bytes_copied.
-+ *
-+ * If @timeout is 0, the function immediately replaces the previous destination buffer
-+ * without waiting for the previous buffer to be filled. That means the previous buffer
-+ * may only be partially filled, and @bytes_copied will indicate how much data has been
-+ * copied to it.
-+ *
-+ * If data was lost, e.g. due to a ring buffer overflow, @has_data_loss will be non-0.
-+ *
-+ * Returns negative error code on failure, 0 on success.
-+ */
-+struct drm_amdgpu_spm_args {
-+	__u64 dest_buf;
-+	__u32 buf_size;
-+	__u32 op;
-+	__u32 timeout;
-+	__u32 bytes_copied;
-+	__u32 has_data_loss;
-+	__u32 reserved[9];	/* must be zero; pads this struct to 64 bytes */
-+};
-+
-+/**
-+ * drm_amdgpu_spm_buffer_header - SPM Buffer header for drm_amdgpu_spm_args->dest_buf
-+ *
-+ * @version:       [out] SPM version (0-23: minor, 24-31: major)
-+ * @bytes_copied:  [out] Amount of data copied for this sub-block
-+ * @has_data_loss: [out] Boolean indicating whether data was lost for this sub-block
-+ *                       (e.g. due to a ring-buffer overflow)
-+ * @reserved:      Reserved for future use, must be zero
-+ *
-+ * This header precedes the SPM data in the destination buffer. The reserved
-+ * field maintains 64-byte cache line alignment (32 bytes total).
-+ */
-+struct drm_amdgpu_spm_buffer_header {
-+	__u32 version; /* 0-23: minor, 24-31: major */
-+	__u32 bytes_copied;
-+	__u32 has_data_loss;
-+	__u32 reserved[5]; /* pad to 32 bytes (64-byte cache line / 2) */
-+};
-+
-+/* Supported Profiler Operation */
-+#define AMDGPU_PROFILER_OP_GET_VER		1 /* get profiler UAPI version */
-+#define AMDGPU_PROFILER_OP_SPM			2
-+
-+/*
-+ * Profiler IOCTL
-+ */
-+/**
-+ * struct drm_amdgpu_profiler_args - Profiler IOCTL arguments
-+ * @op: Operation to perform (AMDGPU_PROFILER_OP_*)
-+ * @pad: Must be zero for input validation
-+ * @data: Operation-specific parameters (union)
-+ *
-+ * GET_VER operation:
-+ * Returns the profiler UAPI version in @data.version as (MAJOR<<24) | MINOR.
-+ * Input: @data must be zero (reserved for forward compatibility).
-+ *
-+ * Design note: GET_VER is intentionally a parameter-free query returning
-+ * the global profiler UAPI version.
-+ */
-+struct drm_amdgpu_profiler_args {
-+	__u32 op;				/* AMDGPU_PROFILER_OP_* */
-+	__u32 pad;				/* must be zero */
-+	union {
-+		__u32 version;		/* GET_VER: out (MAJOR<<24) | MINOR */
-+		struct drm_amdgpu_spm_args spm;
-+	} data;
-+};
-+
- #if defined(__cplusplus)
+ /*
+  * GFX configurations
+  */
+@@ -429,6 +443,7 @@ struct amdgpu_gfx {
+ 	struct amdgpu_mec_bitmap	mec_bitmap[AMDGPU_MAX_GC_INSTANCES];
+ 	struct amdgpu_kiq		kiq[AMDGPU_MAX_GC_INSTANCES];
+ 	struct amdgpu_imu		imu;
++	const struct amdgpu_spm_funcs		*spmfuncs;
+ 	bool				rs64_enable; /* firmware format */
+ 	const struct firmware		*me_fw;	/* ME firmware */
+ 	uint32_t			me_fw_version;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
+index 002fae3c380e..79641e537fbb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
+@@ -622,3 +622,233 @@ void amdgpu_init_rlc_reg_funcs(struct amdgpu_device *adev)
+ 	else
+ 		adev->gfx.rlc.reg_funcs = &amdgpu_rlc_reg_funcs;
  }
++
++/**
++ * amdgpu_rlc_spm_kiq_submit - helper for SPM KIQ command submission
++ * @adev: amdgpu device pointer
++ * @xcc_id: XCC instance ID
++ * @emit_fn: callback to emit commands into the ring
++ * @emit_ctx: context pointer passed to emit_fn
++ *
++ * Common pattern for SPM KIQ operations: lock, alloc, emit, fence, commit,
++ * unlock, wait. Centralizes error/undo paths.
++ *
++ * Callers guarantee spmfuncs is non-NULL.
++ *
++ * Return: 0 on success, negative error code on failure.
++ */
++static int amdgpu_rlc_spm_kiq_submit(struct amdgpu_device *adev, int xcc_id,
++				     void (*emit_fn)(struct amdgpu_device *, int, void *),
++				     void *emit_ctx)
++{
++	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[xcc_id].ring;
++	unsigned long flags;
++	signed long r;
++	u32 seq;
++	int ret;
++
++	spin_lock_irqsave(&adev->gfx.kiq[xcc_id].ring_lock, flags);
++	ret = amdgpu_ring_alloc(kiq_ring, adev->gfx.spmfuncs->set_spm_config_size);
++	if (ret) {
++		spin_unlock_irqrestore(&adev->gfx.kiq[xcc_id].ring_lock, flags);
++		return ret;
++	}
++
++	emit_fn(adev, xcc_id, emit_ctx);
++
++	ret = amdgpu_fence_emit_polling(kiq_ring, &seq, MAX_KIQ_REG_WAIT);
++	if (ret) {
++		amdgpu_ring_undo(kiq_ring);
++		spin_unlock_irqrestore(&adev->gfx.kiq[xcc_id].ring_lock, flags);
++		dev_warn(adev->dev, "%s SPM KIQ fence emit failed (%d)\n", __func__, ret);
++		return ret;
++	}
++
++	amdgpu_ring_commit(kiq_ring);
++	spin_unlock_irqrestore(&adev->gfx.kiq[xcc_id].ring_lock, flags);
++
++	r = amdgpu_fence_wait_polling(kiq_ring, seq, MAX_KIQ_REG_WAIT);
++	if (r < 1) {
++		dev_warn(adev->dev, "%s SPM KIQ fence timeout (seq=%u)\n", __func__, seq);
++		return -ETIMEDOUT;
++	}
++
++	return 0;
++}
++
++static void amdgpu_rlc_spm_emit_start(struct amdgpu_device *adev, int xcc_id,
++			   void *ctx)
++{
++	adev->gfx.spmfuncs->start(adev, xcc_id);
++}
++
++static void amdgpu_rlc_spm_emit_stop(struct amdgpu_device *adev, int xcc_id,
++			  void *ctx)
++{
++	adev->gfx.spmfuncs->stop(adev, xcc_id);
++}
++
++/**
++ * amdgpu_rlc_spm_cntl - start or stop SPM hardware stream
++ * @adev: amdgpu device pointer
++ * @xcc_id: XCC instance ID (must be < adev->gfx.xcc_mask bit count)
++ * @cntl: true to start, false to stop
++ *
++ * Caller must ensure xcc_id is valid - no bounds checking is performed.
++ *
++ * Return: 0 on success, negative error code on failure.
++ */
++int amdgpu_rlc_spm_cntl(struct amdgpu_device *adev, int xcc_id, bool cntl)
++{
++	if (!adev->gfx.spmfuncs)
++		return -EINVAL;
++
++	if (!(cntl ? adev->gfx.spmfuncs->start : adev->gfx.spmfuncs->stop))
++		return -EINVAL;
++
++	if (!adev->gfx.spmfuncs->set_spm_config_size) {
++		if (cntl)
++			adev->gfx.spmfuncs->start(adev, xcc_id);
++		else
++			adev->gfx.spmfuncs->stop(adev, xcc_id);
++		return 0;
++	}
++
++	return amdgpu_rlc_spm_kiq_submit(adev, xcc_id,
++					 cntl ? amdgpu_rlc_spm_emit_start : amdgpu_rlc_spm_emit_stop, NULL);
++}
++
++struct amdgpu_rlc_spm_rdptr_ctx {
++	u32 rptr;
++};
++
++static void amdgpu_rlc_spm_emit_set_rdptr(struct amdgpu_device *adev, int xcc_id, void *ctx)
++{
++	struct amdgpu_rlc_spm_rdptr_ctx *rdptr_ctx = ctx;
++
++	adev->gfx.spmfuncs->set_rdptr(adev, xcc_id, rdptr_ctx->rptr);
++}
++
++/**
++ * amdgpu_rlc_spm_set_rdptr - update SPM ring read pointer
++ * @adev: amdgpu device pointer
++ * @xcc_id: XCC instance ID (must be < adev->gfx.xcc_mask bit count)
++ * @rptr: new read pointer offset
++ *
++ * Caller must ensure xcc_id is valid - no bounds checking is performed.
++ */
++void amdgpu_rlc_spm_set_rdptr(struct amdgpu_device *adev, int xcc_id, u32 rptr)
++{
++	struct amdgpu_rlc_spm_rdptr_ctx rdptr_ctx = { .rptr = rptr };
++	int ret;
++
++	if (!adev->gfx.spmfuncs || !adev->gfx.spmfuncs->set_rdptr)
++		return;
++
++	if (!adev->gfx.spmfuncs->set_spm_config_size) {
++		adev->gfx.spmfuncs->set_rdptr(adev, xcc_id, rptr);
++		return;
++	}
++
++	ret = amdgpu_rlc_spm_kiq_submit(adev, xcc_id, amdgpu_rlc_spm_emit_set_rdptr, &rdptr_ctx);
++	if (ret)
++		dev_warn(adev->dev, "Failed to update SPM rdptr to 0x%x on XCC %d (%d)\n",
++			 rptr, xcc_id, ret);
++}
++
++struct amdgpu_rlc_spm_perfmon_ring_ctx {
++	u64 gpu_addr;
++	u32 size;
++};
++
++static void amdgpu_rlc_spm_emit_perfmon_ring_buf(struct amdgpu_device *adev, int xcc_id, void *ctx)
++{
++	struct amdgpu_rlc_spm_perfmon_ring_ctx *ring_ctx = ctx;
++
++	adev->gfx.spmfuncs->set_spm_perfmon_ring_buf(adev, xcc_id,
++						     ring_ctx->gpu_addr,
++						     ring_ctx->size);
++}
++
++/**
++ * amdgpu_rlc_spm_acquire - set up SPM for a specific XCC instance
++ * @adev: amdgpu device pointer
++ * @xcc_id: XCC instance ID (must be < adev->gfx.xcc_mask bit count)
++ * @vm: virtual memory context for VMID allocation
++ * @gpu_addr: GPU address of SPM ring buffer
++ * @size: size of SPM ring buffer in bytes
++ *
++ * Allocates a reserved VMID, initializes SPM VMID to 0, and programs the
++ * ring buffer address and size. On failure, reverts VMID to 0xf and frees
++ * the reserved VMID.
++ *
++ * Caller must ensure xcc_id is valid - no bounds checking is performed.
++ *
++ * Return: 0 on success, negative error code on failure.
++ */
++int amdgpu_rlc_spm_acquire(struct amdgpu_device *adev, int xcc_id,
++			   struct amdgpu_vm *vm, u64 gpu_addr, u32 size)
++{
++	struct amdgpu_rlc_spm_perfmon_ring_ctx ring_ctx = { .gpu_addr = gpu_addr, .size = size };
++	int r;
++
++	if (!adev->gfx.spmfuncs ||
++	    !adev->gfx.spmfuncs->set_spm_perfmon_ring_buf ||
++	    !adev->gfx.rlc.funcs ||
++	    !adev->gfx.rlc.funcs->update_spm_vmid)
++		return -EINVAL;
++
++	r = amdgpu_vmid_alloc_reserved(adev, vm, AMDGPU_GFXHUB(xcc_id));
++	if (r)
++		return r;
++
++	/* init spm vmid with 0x0 (outside ring_lock to avoid sleep-in-atomic) */
++	adev->gfx.rlc.funcs->update_spm_vmid(adev, xcc_id, NULL, 0);
++
++	if (!adev->gfx.spmfuncs->set_spm_config_size) {
++		adev->gfx.spmfuncs->set_spm_perfmon_ring_buf(adev, xcc_id, gpu_addr, size);
++		return 0;
++	}
++
++	/* set spm ring registers */
++	r = amdgpu_rlc_spm_kiq_submit(adev, xcc_id, amdgpu_rlc_spm_emit_perfmon_ring_buf, &ring_ctx);
++	if (r)
++		goto err_revert;
++
++	return 0;
++
++err_revert:
++	adev->gfx.rlc.funcs->update_spm_vmid(adev, xcc_id, NULL, 0xf);
++	amdgpu_vmid_free_reserved(adev, vm, AMDGPU_GFXHUB(xcc_id));
++	return r;
++}
++
++/**
++ * amdgpu_rlc_spm_release - tear down SPM for a specific XCC instance
++ * @adev: amdgpu device pointer
++ * @xcc_id: XCC instance ID (must be < adev->gfx.xcc_mask bit count)
++ * @vm: virtual memory context for VMID release
++ *
++ * Stops the SPM stream via KIQ, waits for completion, then reverts SPM VMID
++ * to 0xf and frees the reserved VMID. Waiting ensures the firmware has stopped
++ * SPM before the VMID is reclaimed, preventing VMID reuse while hardware is
++ * still active. On stop failure, still reverts VMID and frees reservation
++ * (best-effort cleanup) to prevent resource leaks.
++ *
++ * Caller must ensure xcc_id is valid - no bounds checking is performed.
++ */
++void amdgpu_rlc_spm_release(struct amdgpu_device *adev, int xcc_id, struct amdgpu_vm *vm)
++{
++	int r;
++
++	r = amdgpu_rlc_spm_cntl(adev, xcc_id, false);
++	if (r)
++		dev_warn(adev->dev, "SPM stop failed on XCC %d (error %d), proceeding with VMID cleanup\n",
++			 xcc_id, r);
++
++	/* revert spm vmid with 0xf */
++	if (adev->gfx.rlc.funcs && adev->gfx.rlc.funcs->update_spm_vmid)
++		adev->gfx.rlc.funcs->update_spm_vmid(adev, xcc_id, NULL, 0xf);
++
++	amdgpu_vmid_free_reserved(adev, vm, AMDGPU_GFXHUB(xcc_id));
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+index 959d60c90dcd..18b925a0d164 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+@@ -26,6 +26,8 @@
+ 
+ #include "clearstate_defs.h"
+ 
++struct amdgpu_vm;
++
+ #define AMDGPU_MAX_RLC_INSTANCES	8
+ 
+ /* firmware ID used in rlc toc */
+@@ -384,4 +386,9 @@ int amdgpu_gfx_rlc_init_microcode(struct amdgpu_device *adev,
+ void amdgpu_early_init_rlc_reg_funcs(struct amdgpu_device *adev);
+ void amdgpu_init_rlc_reg_funcs(struct amdgpu_device *adev);
+ 
++int amdgpu_rlc_spm_cntl(struct amdgpu_device *adev, int xcc_id, bool cntl);
++int amdgpu_rlc_spm_acquire(struct amdgpu_device *adev, int xcc_id,
++			   struct amdgpu_vm *vm, u64 gpu_addr, u32 size);
++void amdgpu_rlc_spm_release(struct amdgpu_device *adev, int xcc_id, struct amdgpu_vm *vm);
++void amdgpu_rlc_spm_set_rdptr(struct amdgpu_device *adev, int xcc_id, u32 rptr);
  #endif
 -- 
 2.34.1
