@@ -4,96 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CEB8C982EE
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 19:26:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32695C982ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 19:41:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17F0D10E16A;
-	Mon, 21 Sep 2026 19:26:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC1F110E8CF;
+	Mon, 21 Sep 2026 19:41:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eOnmBMoA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UNQJjY61";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013023.outbound.protection.outlook.com
- [40.93.196.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A8EE10E16A
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 19:26:34 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010069.outbound.protection.outlook.com [52.101.56.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7513310E806
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 19:41:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qw7Kl/SduRXtsv+5EhLqoLwUNHERXeqMu/Vxraj3u+cp2qZqDQr++LrYq8mRIWZCgLSZ9FJkkrum05gbsC0cT77JO8bSlEkTgVXJlygBOI6r6/oIdKucdMeeIsz/I0qaGjSJbofGZ8Y38ctxIt7/ubIclYQQMEdoC8edGbq+tPdt1qBUvQv1mZd5S9oopXDQUM07elH62WYe+ENSwqyXK+/odLU+C1723yRXbLzKbK57y5rb9n0djSE8eZCK6qHNYh7FxRjtKSz3KiooZls5FUPRl3ys4PIoU7tlO1bSc5f6FBDxcl9tN3EWUPx0Zh3+fNklpSBpNZafnB5Q3x9UEw==
+ b=kdYq25pKWZWg+9gUXdiU1rmim6jP3KT/8wLOXx1M6jwbNgdTiM5za45y1m0s8LHuWy6TR4vN8w4fsEbukm1+3NdpwG/cO7kuZZeQ+Wfz1PikhujzRfM9A8ZSRBrw2JLEIAQzQhuiC9KN7TIbHDMf3JzDNxfvvgj58qTT8BNH+CURyRAqUFc1v9QoL33NT9fUHavH+Yhj7k8F1KdIBPwNuwstvKcUlNj3bJl9DFcmx7g8OOaMmwEyQ4lgj8G2a8i5J8NSEUsteAZHxUGMCc18JCDiS5e6snuTKjB2ja2uzt4Ojgx1Aw8ft+nAdL6cRoZTkuaOFwiqu5pJIwqFMxhHwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FgHQVCQSB+Wiqme9yZ4Fx8YUIJ8cOuSdS5e44oqeFsE=;
- b=wZcfAmAha/QxEJNZOnJcK9nK6SPGlbRpsuHcceZruSF5cwDqMyQoEMwrFWtQz3bIw4WAelV1PFOGAPCY0gO/8QfrjtjyOL4FMoMVBYKyY5cmWelJgU9ZUbBGx0YBXlxhEh5jgzm7OuePwrAJU0t5Fo6L7VLKUHbwM5iwkm3xMa3Ym2mlfHI3RD031W4isBOgb1sCQXrJ48kBUHkd6dV3JNV7M3jrvG93cWKffrQKIDrei/nHbmS7TqoMHHbOczU+m+pbubOGBL8F8bO/2Ii43MqKqR6u3BtXvIj+7oSXDJnpjYXxTgVVDC4c0uNuxvnvSB+NtdE2qdpv2i31JEj39w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=kA49qgPppURuj92T8ZfTs4I8Lpqt06xKljTZnHg2YwA=;
+ b=ZdrhxSQGZ65bNIJiiHbOY/Af4blC8SQGGxXeJ39TMTut9KCVRqOK2zhPR8hATTyxUHUfUpde12rjF8nwbbFDpGbn9nPJFEkFsRAQ7aemEP5Txj0luTe/9wVk7pQxpC2UpEGWbD6rVNqBjhYfnJjyZW/gl2xwdxTLYzq13bMkltpjsh5endRC1N4sWp/AhR6iGoS01j9ry6nHKNbHZc8v6NpXZEot0UzOdt8NVcUBIJsx7Fr2iQYv3VyH2skCQZX40X/HqtMBrNcdy6MHqCJyrkM3F34HfuZ3SEGYeaUdkSWINaGif8PwlyaQWfeplLbCssqIDzFMQPc+Z3fo/kvhOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FgHQVCQSB+Wiqme9yZ4Fx8YUIJ8cOuSdS5e44oqeFsE=;
- b=eOnmBMoAyJ2ibC6CIPxBMuGRZa8sHkeNvpACK6fgAs5p7u6rvDVkChzubUbqxbE1nEK0v+FLXA81J8Cm6v/DhL6f+DO6f+yy/Xf3QtFQYK9XCPjIOA6mbls1TbSxmdBSiwM4zc8nPeiYCDR2N07OgsCcvivrNrk839hNODu2VlA=
-Received: from PH8P220CA0013.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:345::8)
- by CYYPR12MB8654.namprd12.prod.outlook.com (2603:10b6:930:c9::16) with
+ bh=kA49qgPppURuj92T8ZfTs4I8Lpqt06xKljTZnHg2YwA=;
+ b=UNQJjY61mxXrDkDL97D7BMu7Ky/3k0Df08wfgyxB++pvv1LqOTzvkXRFZrRX+g6ttnet4MFhzap59Qzb99ru0M3gmEP+v/f+pw+kjbmR5C39/92I/Zw7oTU52do0gdV9cD/bMuDA5GafwJt0Ya5hwt0Yg4pPRRuCV708Nji4hsM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA1PR12MB6970.namprd12.prod.outlook.com (2603:10b6:806:24d::5)
+ by CY8PR12MB7635.namprd12.prod.outlook.com (2603:10b6:930:9e::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 19:26:30 +0000
-Received: from BY1PEPF000264B5.namprd02.prod.outlook.com
- (2603:10b6:510:345:cafe::85) by PH8P220CA0013.outlook.office365.com
- (2603:10b6:510:345::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 19:26:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF000264B5.mail.protection.outlook.com (10.167.242.122) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 19:26:30 +0000
-Received: from devkfd.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 14:26:28 -0500
-From: Gang Ba <Gang.Ba@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Jay.Cornwall@amd.com>, <Kent.Russell@amd.com>
-Subject: [PATCH] drm/amdkfd: Fix TCP XNACK scoreboard reset race on MI300
-Date: Mon, 21 Sep 2026 15:26:23 -0400
-Message-ID: <20260921192623.437256-1-Gang.Ba@amd.com>
-X-Mailer: git-send-email 2.55.0
+ 2026 19:41:00 +0000
+Received: from SA1PR12MB6970.namprd12.prod.outlook.com
+ ([fe80::a65f:48fc:86fb:e958]) by SA1PR12MB6970.namprd12.prod.outlook.com
+ ([fe80::a65f:48fc:86fb:e958%4]) with mapi id 15.21.0428.014; Mon, 21 Sep 2026
+ 19:40:59 +0000
+Message-ID: <5cd4f35d-81c1-47a4-8fb5-93b0748907ea@amd.com>
+Date: Mon, 21 Sep 2026 15:41:58 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: only allow freesync on a VRR_ENABLED crtc
+To: amd-gfx@lists.freedesktop.org
+References: <20260909195906.3584191-1-matthew.schwartz@linux.dev>
+Content-Language: en-US
+Cc: matthew.schwartz@linux.dev, Fangzhi Zuo <jerry.zuo@amd.com>,
+ Leo Li <sunpeng.li@amd.com>
+From: George Zhang <george.zhang@amd.com>
+In-Reply-To: <20260909195906.3584191-1-matthew.schwartz@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0150.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ac::17) To SA1PR12MB6970.namprd12.prod.outlook.com
+ (2603:10b6:806:24d::5)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B5:EE_|CYYPR12MB8654:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1212e351-a31b-49c0-f475-08df18163d0f
+X-MS-TrafficTypeDiagnostic: SA1PR12MB6970:EE_|CY8PR12MB7635:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3461f0c5-e896-4257-c421-08df18184329
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|10067099003|56012099006|11063799006|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: f4nHMMRAi/g+gPGzqAvrUFr2hOlyChMdEJ4IaWXlZ31+MnfDNqGHzyHLJnyp0pky5WEt0Vtewb74JOw1ucNyCYF+0QvFiY/gUvmTl0sj/IS/zfbVmGCki4D0WKuN3vNzFaBvgb6lCltQ3utjCsYzf1EfP+eJpAus5c4jPAETP602bONM02dzoU/AFg1FELnyWLAD5nN5b/miNWJAMIDes3g0cQ3WjdeICUxVZ63NIkDROI/9rXQX5mdc1XVOh3xOmPLnkWMK1m7fbyjDdgBwxTdAQwOeKHiS9M4RytGSoQeieOE5lpEwbTvfM6dRShunZ47XHPKfKe3meBBtDJeZlUZU9OEFoSCgYBYoTcmmmnkeT5UHCNwiyRdrLjF6OTZYFg0hzZuBDkngVzm7AMNd6s/JqIax6UH8YModoy5GHbObFgq0Iv0lzabAULrOfg4eMF9SMnVUHvk71N7Zf0YaEMAyAhtSx3G6PJASKyBSqZTxcXcqFLFsmZ1CMIg/OBbMl5v0EPoKfXjM0piAcivpNUpyx/zRUxvf3hH7OkksVB2itaUlrEBBbhPSRFnsAzKmfkbofVgUJit+xs/3WIutTYz9tXcGGzA/O0/oDKX+pgtCEsMIhpXpMdUxXOeN3FMqaa6wCdkT0VGScYf2bS9dPM17KPWtFnsEUb26WJ0FKkCRqtCw9sO4rlcUMxi3ydEqGAMiC/i6ROYW0W1zaM7A5g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(10067099003)(56012099006)(11063799006)(18002099003)(3023799007);
+ ARA:13230040|366016|376014|1800799024|23010399003|10067099003|56012099006|3023799007|11063799006|18002099003|22082099003|5023799004;
+X-Microsoft-Antispam-Message-Info: fwnEfi+YOBCfMgkVgwMJx8pw7CBagUWXxWjmlYkwVMmmq1w+PkNGxS9I4AtfnSWxkvrFpvTpMnKmT48Nd1SsSLzUqx9TRxQPkxBe/O+ZGKqBb345Y7lE1dd5QJ9piMefQ+yWxtW8Q+KAecafl9KEU1ceKdm+0VLhauKWEOuij+mbK62X1wFWHv4CY6JjjDk4DRfH9U0+Ot07WiBVT5x8bMdR1aoudIeNqdiaVSF0ExW0RkyZ2X/hShlFcrmYt0jg1u+oJWKpNlRj7I8cTsqJVNlJisXU55gOr4XDwXflrmrxY1k2HeuebhC1md45urTOae5sIKUfHGGcyk4YiGo//z8RezNhplKGPiWVc4W9Wv2aNgP6LCT6j/Vc5nJv2O8kXDtrS1QZipm0bvhl1iqNlizoNY1BPK7+szVfNXqq3SO67359GGFeTXYu1SavoSyL9Mdiubazhkg9pkNpC4uE6uHlsKsKxMeeV+4ABzgsRlEROuo9JjP6w0TQlRHQJGnrpsnnRCULcNTLEMZuvGYxZ9l8w7vaEMlsm/DzlClbyZVrfSv92XaROhOUk++GWtfDE2ZibmF/cdh/HpN7CnpDpL4xHBEZtBUSP3JIOKsMhan+6/+yuCm8vm5X8cJi5w3cDM9cwEANvanGDu2K9pxsbm9RQzlCZSWTal8fA3I1L4w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR12MB6970.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(10067099003)(56012099006)(3023799007)(11063799006)(18002099003)(22082099003)(5023799004);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Be+E9lXrEBW2NOVPewu6lVlUhcxeOxiuMBJnrrtKg/AJnlW9jX7kfVOrpT+TXGybYUy2JJrI6s+b9rasIjLhcbhoE/sepNwqE+AsTTfm0opYZ4M+DFvLj2NlJiK+aoZnrJrdZvsmkghXaYy8lATurgs22EB0CAVTGamU+Gz/ZRSwUZWnHKlYwycdF9rHVbaBxmmuy1vQ83q+3AuC7oDzzpFLueB2iGEopwZNOvikBwsBT1kcZs6nw9UraX+agOCYkccZlI5TgrpGoLWg25TCOhywcqQtnVvxZMHXn7mxQHteCPZRo1uuUWmNhSADge3cvDQBzPyIlrMHy/52/wAz2sB0w2OA4OuTjR89xsU+e3ZTGzSiBrjxXVAkhx8+yCenWsJx5Z4ell0d6wwrRN8I+YJWLGlwNZR9Jrniap8mzpPTzoc0cMmtBKj1LA8OP6st
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aEgrc2F5cjBEcm1NdlZER3Qvc1hNTWJNeW5HWTN6N24zWkhnay9nNHhrNCt0?=
+ =?utf-8?B?a0F3REJlbkc0L3I1WmIwa1kzM0tJU2gyRWxwN3F0bU8xaDIwMm94Ymh4Znh3?=
+ =?utf-8?B?UGVIZ2VydFkrR1o3ZmFjMUI1SHVpTmduUGVaM2lPNUVETTVPaUhoVnExWkY3?=
+ =?utf-8?B?M1FkS2J3ZGhYSEFBem1KeE5Sd2lhRzR6U0YrRWNPWTNzNloySlVTNHFmbkZx?=
+ =?utf-8?B?MTdodEZhUjJvYnJyeitnejJ4YWJvMzZteXdWT2RpRTBuWHV3ZnV4RGhNSlFt?=
+ =?utf-8?B?cFkyNU5RaktNZ3FIR2ZBRGhxNWcvUTZqUnltWmJ6U3dqaUEwbFUrbitueHVE?=
+ =?utf-8?B?U1lsRFRyeGtua0NQMnczUzhHQW5uLy95Mm9xamxwQTNOV1RtWUZEZTh6elpN?=
+ =?utf-8?B?S0RVWitnQ3J2VHRXS0dTUmJZVFBEdm0zVUkzTDlheitsYWUvblYzYTVmWldY?=
+ =?utf-8?B?MWNmOXk5cEZVN2ErekxsNyszaTBqUTdkNTcyQjAySzIycTE1QWwzUk8vU0Qz?=
+ =?utf-8?B?L08vazA4OGlBYnZHTWlMRXVnMWt4M0QwcUNPbFZkdE0wamwzVjkzWSt4eVRp?=
+ =?utf-8?B?SGdsVk5pdVBrenNkMzUxSU04OHZWWCtmWkZWNk5tYmxOTWRVYmp1TTVCVnl2?=
+ =?utf-8?B?V3hHWDdMTnhtajNxWFdneGRGL2RCTGd1WTg1bHMxWlVpcGpMcVh5aGlsWHNm?=
+ =?utf-8?B?alFxelJEdUJ4TG14MHp0c1kzZGxUUEdMd3J1eXZzeVBmaWNiU3pDSnJsMWto?=
+ =?utf-8?B?bndtQUl1YmNLTjd2SXNvTThVOU0yNmZpMVJEMUlzaU5uN1JONFRmY2Jab0gw?=
+ =?utf-8?B?c01IYzAwQ29HWG1lTVlUK3lhN3BFS0hxV25mOGVhV2wrSWYxZjdFTHR2K1l6?=
+ =?utf-8?B?enJLcy9CeklxaGV0QnNWZER0UjNIbUd5ajdRb3VHS1FSeEk1QmtVbUNRWlI4?=
+ =?utf-8?B?VWlyS0F1cFRxcmhwUS9XWDIrSmZ2dWk1WVVVdy9qZWJSRlhiOUdvWTJQckZQ?=
+ =?utf-8?B?d3pPZjZRRUV6VlVPRllVZ05yZFVCNS9GZitsemhVeCtWQ204d3B5STVDYzh2?=
+ =?utf-8?B?UUtGS0Z6SmtMYnJQUThBRFRLNzRWWFVCVFRaU3E0cTRqZU9obkd3Yk5NVEh4?=
+ =?utf-8?B?YkpSUmVRTjVRVzRoVlk2NFNjbGNlNzNmVFN1UDhHK0JnaWR2V0YyQUZ6VHla?=
+ =?utf-8?B?VEtDQ3hGVEg3MnZ0dGNDWjR2QXRiZlI3WWtVUFVRMk9oSi80SzkyM2Y0T241?=
+ =?utf-8?B?L2c0Uy9sNEgrZ0JMNHp5bENYc20yT0VjT0ViVFQwS3d1MUllR1Exek5Jckla?=
+ =?utf-8?B?cG02TnN6cTR4cTVlVlJjUXlkeWxwY1d4VVlNb1ZyMGlLd0FlWWJyNis3VWM5?=
+ =?utf-8?B?Y3BTcnFNOTdsTjF4Yis3am1uaEZvRzhIVEV5QXpYekRMTjZJc2lVTDJKeHB1?=
+ =?utf-8?B?QUNnRjBWZ3dNQUs0N2l2QURzK2kvQmRyNDBabFh5aG9waG10WHFHZHhBZCsr?=
+ =?utf-8?B?Z09oSGQ1TkhkMzN4TUVvcTFzclkxZmpJeVU1TXhZOHBET2JNc0JYRHYwYXhU?=
+ =?utf-8?B?Q0gwWjNvR0M5bGlMM3VZamFIRlFjb0ZRckYvMUFrQVR6bFhqRG1JcDFPRjF6?=
+ =?utf-8?B?bUN3S254REc0V3RtMkI3Nk9IZm4wMmxDTWJrazlGcmZUQStqc0hnWlc3TURB?=
+ =?utf-8?B?SHprdmlyK2RDVVh2TGE4NlhEOE1BZ2VtME5SM1ZXZkdXVTJHclc2UGZiLzdt?=
+ =?utf-8?B?SVpmZUhQVDhKVDFsQnpJNklHZ1lZNCsyNlExZlpmRDNmQmYycStCUG9oSGFK?=
+ =?utf-8?B?T01TR1M4QUxjSStWQjF5WFlBZHliZlJXR2YxOFJzb0ZBSUUxYWtyL3AvajE3?=
+ =?utf-8?B?SEFsMFBVNHgrbGN5R2V3NTVPcnhvZlBiSWpJUVNMVTB6Rk1EY2t6N0dWM09r?=
+ =?utf-8?B?bGhhWnFjcFdyOW5reEc3RkNBSTFZUVRFSUtOaGZFYk0ybUVYTWN3V2N3K0Uy?=
+ =?utf-8?B?OXlJMW1XMml4L0xLbU8yOFVQVThkY0RUR3RZYXVuMUlWTFdiNUQ1QTAvUzhi?=
+ =?utf-8?B?UFcrVzNmNVMwQVNLVzBud1BuTHV2eExyMXQweEtJZHJBUklOcGM0VTlZaGVW?=
+ =?utf-8?B?ejBvRGhKcFk1bkhaZGd1eWQ3MUhySVJyMnhrZVk0b0FkeEdVQXk1Q0dLSDlP?=
+ =?utf-8?B?VS9iUzZJU1FhNkZWU1ZPTXlyOWJxbVdXTkNNSWRTV1Yxd1BYSy9UZG0xelJG?=
+ =?utf-8?B?VkZjd3BMSzc3aldHKzJzTDNrMER2d09VSndLdThTMzRKRFlYdXR4SVNxWXRa?=
+ =?utf-8?B?MmZBUi8vMi94UkdOK29SUHlIczNXZHkxNHY3WlZnTk5VUk11V0JaUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 19:26:30.1434 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1212e351-a31b-49c0-f475-08df18163d0f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3461f0c5-e896-4257-c421-08df18184329
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB6970.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 19:40:59.7599 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF000264B5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8654
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AKaHll52HtdbE7v0P5el9BJYZqHoEpv+lCYwpdChM/FvgTm0xDBIOsM7VWo040FW5zunUIaQkA7/wArZ0/grBg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7635
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,128 +134,318 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix a hardware RTL bug in the TCP XNACK scoreboard reset path on MI300,
-where a wave receiving a no-retry FAULT from UTC and subsequently
-terminating may leave its scoreboard entry uncleared when reset events
-arrive back-to-back.
+Hi Matthew,
 
-This can cause a later, unrelated wave using the same scoreboard slot
-to incorrectly inherit the XNACK error state, resulting in its VMEM
-operations being dropped even though the wave never faulted.
+A bit curious on what this patch is fixing. Do you have any more context 
+behind the motivation for this patch?
 
-Signed-off-by: Gang Ba <Gang.Ba@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c             | 11 ++++++-----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h             |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c     | 12 +++++++-----
- 5 files changed, 17 insertions(+), 13 deletions(-)
+Thanks,
+George
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-index 4626e0b13909..ec291377302a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-@@ -628,5 +628,6 @@ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd = {
- 	.hqd_reset = kgd_gfx_v9_hqd_reset,
- 	.hqd_sdma_get_doorbell = kgd_gfx_v9_4_3_hqd_sdma_get_doorbell,
- 	.ptl_ctrl = kgd_v9_4_3_ptl_ctrl,
--	.hqd_sdma_get_counter = kgd_gfx_v9_4_3_hqd_sdma_get_counter
-+	.hqd_sdma_get_counter = kgd_gfx_v9_4_3_hqd_sdma_get_counter,
-+	.hqd_gfx_clean_fault = kgd_gfx_v9_clean_fault
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 0d62cf475f40..0bc8d31081e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -1234,7 +1234,7 @@ uint32_t kgd_gfx_v9_hqd_sdma_get_doorbell(struct amdgpu_device *adev,
- 
- void kgd_gfx_v9_clean_fault(struct amdgpu_device *adev)
- {
--	gfx_v9_4_2_clean_fault(adev);
-+	gfx_v9_fault_cleaner(adev);
- }
- 
- const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-index 344156bf20ca..54bcb5fdca24 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-@@ -714,7 +714,7 @@ static int gfx_v9_4_2_do_vgprs_init(struct amdgpu_device *adev)
- 	return r;
- }
- 
--static int gfx_v9_4_2_clean_shaders(struct amdgpu_device *adev)
-+static int gfx_v9_clean_shaders(struct amdgpu_device *adev)
- {
- 	int r;
- 	/* CU_ID: 0~15, SIMD_ID: 0~3, WAVE_ID: 0 ~ 9 */
-@@ -763,16 +763,17 @@ static int gfx_v9_4_2_clean_shaders(struct amdgpu_device *adev)
- 	amdgpu_ib_free(&wb_ib, NULL);
- 
- 	if (r)
--		dev_dbg(adev->dev, "Clean MI200 Failed\n");
-+		dev_dbg(adev->dev, "Clean GPR Failed\n");
- 	else
--		dev_dbg(adev->dev, "Clean MI200 Successfully\n");
-+		dev_dbg(adev->dev, "Clean GPR Successfully\n");
- 
- 	return r;
- }
- 
--void gfx_v9_4_2_clean_fault(struct amdgpu_device *adev)
-+void gfx_v9_fault_cleaner(struct amdgpu_device *adev)
- {
--	gfx_v9_4_2_clean_shaders(adev);
-+	/* to clean MI2XX and MI3XX */
-+	gfx_v9_clean_shaders(adev);
- }
- 
- int gfx_v9_4_2_do_edc_gpr_workarounds(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-index 1cbade5ed657..c8757de669ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-@@ -30,8 +30,8 @@ void gfx_v9_4_2_init_golden_registers(struct amdgpu_device *adev,
- 				      uint32_t die_id);
- void gfx_v9_4_2_init_sq(struct amdgpu_device *adev);
- void gfx_v9_4_2_set_power_brake_sequence(struct amdgpu_device *adev);
--void gfx_v9_4_2_clean_fault(struct amdgpu_device *adev);
- int gfx_v9_4_2_do_edc_gpr_workarounds(struct amdgpu_device *adev);
-+void gfx_v9_fault_cleaner(struct amdgpu_device *adev);
- 
- extern struct amdgpu_gfx_ras gfx_v9_4_2_ras;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index 9b48fe598597..2ae1129fea55 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -359,7 +359,7 @@ static bool event_interrupt_isr_v9(struct kfd_node *dev,
- 		!amdgpu_no_queue_eviction_on_vm_fault);
- }
- 
--static void gfx942_clean_fault(uint16_t pasid)
-+static void gfx_9_clean_fault(uint16_t pasid)
- {
- 	struct kfd_process *p;
- 	struct kfd_process_device *pdd = NULL;
-@@ -565,10 +565,12 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
- 			return;
- 		}
- 
--			/* GPR cleaner shader for MI2XX */
--			if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2))
--				gfx942_clean_fault(pasid);
--
-+		/* GPR cleaner for GFX9 MI-series GPUs */
-+		if (KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-+		    KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 3) ||
-+		    KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 4) ||
-+		    KFD_GC_VERSION(dev) == IP_VERSION(9, 5, 0))
-+			gfx_9_clean_fault(pasid);
- 
- 		info.vmid = vmid;
- 		info.mc_id = client_id;
--- 
-2.55.0
+On 9/9/26 15:59, Matthew Schwartz wrote:
+> VRR-capable sinks set allow_freesync even with VRR_ENABLED=0, letting
+> FPO stretch frames during UCLK switches. On a Navi 33 driving 4K120
+> through a DP-HDMI PCON, a 40fps compositor limiter then runs at 37fps.
+> This surfaced after commit d49086491bcb ("drm/amd/display: Adjust
+> freesync pcon whitelist").
+> 
+> Allow frame stretching only for VRR_STATE_ACTIVE_VARIABLE. Store the
+> proposed permission in the private DC state so TEST_ONLY and failed
+> checks cannot change the shared stream. Apply changed permissions at
+> commit and force full DC validation, including native DP and eDP.
+> 
+> Fixes: 7eaef1163b82 ("drm/amd/display: set allow_freesync parameter in DM")
+> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+> ---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 ++++++++++++++++
+>   .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  1 -
+>   drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 +++
+>   .../gpu/drm/amd/display/dc/core/dc_state.c    | 31 +++++++++++++++++++
+>   drivers/gpu/drm/amd/display/dc/dc_state.h     |  6 ++++
+>   drivers/gpu/drm/amd/display/dc/dc_stream.h    |  3 ++
+>   .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  9 ++++--
+>   .../dml21_wrapper/dml21_translation_helper.c  |  9 ++++--
+>   .../dc/resource/dcn30/dcn30_resource.c        |  2 +-
+>   .../resource/dcn32/dcn32_resource_helpers.c   | 10 ++++--
+>   10 files changed, 92 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index f49cc198fb0d..09c088b878bb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3835,6 +3835,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+>   	unsigned long flags;
+>   	u32 target_vblank, last_flip_vblank;
+>   	bool vrr_active = amdgpu_dm_crtc_vrr_active(acrtc_state);
+> +	bool allow_freesync = acrtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
+>   	bool cursor_update = false;
+>   	bool pflip_present = false;
+>   	bool immediate_flip = false;
+> @@ -4146,6 +4147,9 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+>   			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+>   		}
+>   		mutex_lock(&dm->dc_lock);
+> +		if (acrtc_state->update_type == UPDATE_TYPE_FULL &&
+> +		    allow_freesync != acrtc_state->stream->allow_freesync)
+> +			bundle->stream_update.allow_freesync = &allow_freesync;
+>   		update_planes_and_stream_adapter(dm->dc,
+>   					 acrtc_state->update_type,
+>   					 planes_count,
+> @@ -5413,6 +5417,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>   	struct dc_stream_state *new_stream;
+>   	struct amdgpu_device *adev = dm->adev;
+>   	int ret = 0;
+> +	bool allow_freesync, old_allow_freesync;
+>   
+>   	/*
+>   	 * TODO Move this code into dm_crtc_atomic_check once we get rid of dc_validation_set
+> @@ -5668,6 +5673,27 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>   	amdgpu_dm_get_freesync_config_for_crtc(dm_new_crtc_state,
+>   				     dm_new_conn_state);
+>   
+> +	allow_freesync = dm_new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
+> +	old_allow_freesync = dm_old_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE;
+> +
+> +	/* Keep the proposed FreeSync permission in the private DC state. */
+> +	if (dm_new_crtc_state->stream != dm_old_crtc_state->stream ||
+> +	    old_allow_freesync != allow_freesync) {
+> +		ret = dm_atomic_get_state(state, &dm_state);
+> +		if (ret)
+> +			goto fail;
+> +
+> +		if (!dc_state_set_stream_allow_freesync(dm_state->context,
+> +							dm_new_crtc_state->stream,
+> +							allow_freesync)) {
+> +			ret = -EINVAL;
+> +			goto fail;
+> +		}
+> +
+> +		/* DML must re-evaluate FPO when the permission changes. */
+> +		*lock_and_validation_needed = true;
+> +	}
+> +
+>   	return ret;
+>   
+>   fail:
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> index 281c6cec9f4b..9f40064d13c5 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> @@ -253,7 +253,6 @@ void amdgpu_dm_update_freesync_state_on_stream(
+>   	new_crtc_state->vrr_infopacket = vrr_infopacket;
+>   
+>   	new_stream->vrr_infopacket = vrr_infopacket;
+> -	new_stream->allow_freesync = mod_freesync_get_freesync_enabled(&vrr_params);
+>   
+>   	/*
+>   	 * HDMI ALLM: when Gaming-VRR is active (VRR_EN=1) and the sink
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index ebbd81995c38..6064cc992d91 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -3175,6 +3175,10 @@ static struct dc_update_descriptor check_update_surfaces_for_stream(
+>   		if (stream_update->mst_bw_update)
+>   			su_flags->bits.mst_bw = 1;
+>   
+> +		if (stream_update->allow_freesync &&
+> +		    *stream_update->allow_freesync != stream_update->stream->allow_freesync)
+> +			su_flags->bits.fams_changed = 1;
+> +
+>   		if (stream_update->stream->freesync_on_desktop &&
+>   			(stream_update->vrr_infopacket || stream_update->allow_freesync ||
+>   				stream_update->vrr_active_variable || stream_update->vrr_active_fixed))
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+> index 1e4fe2f941ca..382858b6c1da 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+> @@ -425,6 +425,7 @@ enum dc_status dc_state_add_stream(
+>   	}
+>   
+>   	state->streams[state->stream_count] = stream;
+> +	state->stream_status[state->stream_count].allow_freesync_valid = false;
+>   	dc_stream_retain(stream);
+>   	state->stream_count++;
+>   
+> @@ -746,6 +747,36 @@ struct dc_stream_status *dc_state_get_stream_status(
+>   	return status.stream_count > 0 ? status.stream_status[0] : NULL;
+>   }
+>   
+> +bool dc_state_get_stream_allow_freesync(const struct dc_state *state,
+> +					const struct dc_stream_state *stream)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < state->stream_count; i++) {
+> +		if (state->streams[i] == stream &&
+> +		    state->stream_status[i].allow_freesync_valid)
+> +			return state->stream_status[i].allow_freesync;
+> +	}
+> +
+> +	return stream->allow_freesync;
+> +}
+> +
+> +bool dc_state_set_stream_allow_freesync(struct dc_state *state,
+> +					const struct dc_stream_state *stream, bool allow_freesync)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < state->stream_count; i++) {
+> +		if (state->streams[i] == stream) {
+> +			state->stream_status[i].allow_freesync = allow_freesync;
+> +			state->stream_status[i].allow_freesync_valid = true;
+> +			return true;
+> +		}
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>   enum mall_stream_type dc_state_get_pipe_subvp_type(const struct dc_state *state,
+>   		const struct pipe_ctx *pipe_ctx)
+>   {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc_state.h b/drivers/gpu/drm/amd/display/dc/dc_state.h
+> index acf461225e9d..40ad063cec09 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc_state.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc_state.h
+> @@ -81,4 +81,10 @@ struct dc_get_status_options;
+>   enum dc_status dc_state_get_status(struct dc_state_status *status,
+>   	const struct dc_get_status_options *options);
+>   
+> +bool dc_state_get_stream_allow_freesync(const struct dc_state *state,
+> +					const struct dc_stream_state *stream);
+> +
+> +bool dc_state_set_stream_allow_freesync(struct dc_state *state,
+> +					const struct dc_stream_state *stream, bool allow_freesync);
+> +
+>   #endif /* _DC_STATE_H_ */
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+> index 934ae381e730..14d8da9f15e5 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+> @@ -62,6 +62,9 @@ struct dc_stream_status {
+>   	bool is_abm_supported;
+>   	struct mall_stream_config mall_stream_config;
+>   	bool fpo_in_use;
+> +	/* Proposed permission for validation, without modifying the stream. */
+> +	bool allow_freesync;
+> +	bool allow_freesync_valid;
+>   };
+>   
+>   
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+> index b5bd1358fdfd..a816e47153ad 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+> @@ -844,7 +844,9 @@ static bool subvp_drr_schedulable(struct dc *dc, struct dc_state *context)
+>   			continue;
+>   
+>   		if (dc_state_get_pipe_subvp_type(context, drr_pipe) == SUBVP_NONE && drr_pipe->stream->ignore_msa_timing_param &&
+> -				(drr_pipe->stream->allow_freesync || drr_pipe->stream->vrr_active_variable || drr_pipe->stream->vrr_active_fixed)) {
+> +				(dc_state_get_stream_allow_freesync(context, drr_pipe->stream) ||
+> +				 drr_pipe->stream->vrr_active_variable ||
+> +				 drr_pipe->stream->vrr_active_fixed)) {
+>   			drr_found = true;
+>   			break;
+>   		}
+> @@ -3444,7 +3446,10 @@ bool dcn32_allow_subvp_high_refresh_rate(struct dc *dc, struct dc_state *context
+>   				uint32_t height = subvp_high_refresh_list.res[i].height;
+>   
+>   				if (dcn32_check_native_scaling_for_res(pipe, width, height)) {
+> -					if ((context->stream_count == 1 && !pipe->stream->allow_freesync) || context->stream_count > 1) {
+> +					if ((context->stream_count == 1 &&
+> +					     !dc_state_get_stream_allow_freesync(context,
+> +										 pipe->stream)) ||
+> +					    context->stream_count > 1) {
+>   						allow = true;
+>   						break;
+>   					}
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+> index 3c25de54d55b..031f90955b95 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+> @@ -125,6 +125,7 @@ static unsigned int calc_vblank_nom_lines(const struct dc_stream_state *stream,
+>   }
+>   
+>   static void populate_dml21_timing_config_from_stream_state(struct dml2_timing_cfg *timing,
+> +		const struct dc_state *context,
+>   		struct dc_stream_state *stream,
+>   		struct pipe_ctx *otg_master_pipe,
+>   		struct dml2_context *dml_ctx)
+> @@ -166,7 +167,7 @@ static void populate_dml21_timing_config_from_stream_state(struct dml2_timing_cf
+>   	timing->drr_config.enabled = stream->ignore_msa_timing_param;
+>   	timing->drr_config.drr_active_variable = stream->vrr_active_variable;
+>   	timing->drr_config.drr_active_fixed = stream->vrr_active_fixed;
+> -	timing->drr_config.disallowed = !stream->allow_freesync;
+> +	timing->drr_config.disallowed = !dc_state_get_stream_allow_freesync(context, stream);
+>   
+>   	/* limit min refresh rate to DC cap */
+>   	min_hardware_refresh_in_uhz = stream->timing.min_refresh_in_uhz;
+> @@ -923,6 +924,7 @@ bool dml21_map_dc_state_into_dml_display_cfg(const struct dc *in_dc, struct dc_s
+>   	struct dml2_display_cfg *dml_dispcfg = &dml_ctx->v21.display_config;
+>   	unsigned int plane_count = 0;
+>   	struct pipe_ctx *otg_master_pipe;
+> +	struct dml2_timing_cfg *timing;
+>   
+>   	memset(&dml_ctx->v21.dml_to_dc_pipe_mapping, 0, sizeof(struct dml2_dml_to_dc_pipe_mapping));
+>   
+> @@ -952,7 +954,10 @@ bool dml21_map_dc_state_into_dml_display_cfg(const struct dc *in_dc, struct dc_s
+>   
+>   		ASSERT(disp_cfg_stream_location >= 0 && disp_cfg_stream_location < __DML2_WRAPPER_MAX_STREAMS_PLANES__);
+>   
+> -		populate_dml21_timing_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].timing, context->streams[stream_index], otg_master_pipe, dml_ctx);
+> +		timing = &dml_dispcfg->stream_descriptors[disp_cfg_stream_location].timing;
+> +		populate_dml21_timing_config_from_stream_state(timing, context,
+> +							       context->streams[stream_index],
+> +							       otg_master_pipe, dml_ctx);
+>   		populate_dml21_output_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].output, context->streams[stream_index], otg_master_pipe);
+>   		populate_dml21_writeback_config_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location].writeback, context->streams[stream_index]);
+>   		populate_dml21_stream_overrides_from_stream_state(&dml_dispcfg->stream_descriptors[disp_cfg_stream_location], context->streams[stream_index], &context->stream_status[stream_index]);
+> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+> index dbb8bb7fc20d..5333c4cc9eba 100644
+> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+> @@ -2152,7 +2152,7 @@ bool dcn30_can_support_mclk_switch_using_fw_based_vblank_stretch(struct dc *dc,
+>   	if (!is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(context))
+>   		return false;
+>   
+> -	if (!context->streams[0]->allow_freesync)
+> +	if (!dc_state_get_stream_allow_freesync(context, context->streams[0]))
+>   		return false;
+>   
+>   	if (context->streams[0]->vrr_active_variable && (dc->debug.disable_fams_gaming == INGAME_FAMS_DISABLE))
+> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
+> index 602a0e4e5dc0..a86d3111703f 100644
+> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
+> @@ -579,7 +579,7 @@ struct dc_stream_state *dcn32_can_support_mclk_switch_using_fw_based_vblank_stre
+>   	if (!is_refresh_rate_support_mclk_switch_using_fw_based_vblank_stretch(fpo_candidate_stream, fpo_vactive_margin_us, refresh_rate))
+>   		return NULL;
+>   
+> -	if (!fpo_candidate_stream->allow_freesync)
+> +	if (!dc_state_get_stream_allow_freesync(context, fpo_candidate_stream))
+>   		return NULL;
+>   
+>   	if (fpo_candidate_stream->vrr_active_variable &&
+> @@ -673,7 +673,9 @@ bool dcn32_subvp_drr_admissable(struct dc *dc, struct dc_state *context)
+>   				non_subvp_pipes++;
+>   				drr_psr_capable = (drr_psr_capable || dcn32_is_psr_capable(pipe));
+>   				if (pipe->stream->ignore_msa_timing_param &&
+> -						(pipe->stream->allow_freesync || pipe->stream->vrr_active_variable || pipe->stream->vrr_active_fixed)) {
+> +				    (dc_state_get_stream_allow_freesync(context, pipe->stream) ||
+> +				     pipe->stream->vrr_active_variable ||
+> +				     pipe->stream->vrr_active_fixed)) {
+>   					drr_pipe_found = true;
+>   				}
+>   			}
+> @@ -734,7 +736,9 @@ bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context, int
+>   				non_subvp_pipes++;
+>   				vblank_psr_capable = (vblank_psr_capable || dcn32_is_psr_capable(pipe));
+>   				if (pipe->stream->ignore_msa_timing_param &&
+> -						(pipe->stream->allow_freesync || pipe->stream->vrr_active_variable || pipe->stream->vrr_active_fixed)) {
+> +				    (dc_state_get_stream_allow_freesync(context, pipe->stream) ||
+> +				     pipe->stream->vrr_active_variable ||
+> +				     pipe->stream->vrr_active_fixed)) {
+>   					drr_pipe_found = true;
+>   				}
+>   			}
 
