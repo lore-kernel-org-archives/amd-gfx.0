@@ -4,95 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD866C982FA
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 20:32:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 597A5C982EE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 20:32:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 471E110EAC0;
-	Mon, 21 Sep 2026 20:32:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCCF610E549;
+	Mon, 21 Sep 2026 20:32:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bu0OIxdM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mSABVWZ/";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011023.outbound.protection.outlook.com [40.107.208.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A90910E777
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 20:32:31 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011053.outbound.protection.outlook.com [52.101.62.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CA8610E549
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 20:32:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TSvHhlUyDkfAMFWHQdr2utiNRwFVQ1jfphVd+L5OQc83iLq1+Rale/9hh+NvXRVwqrE55Bi33/vzDtKCrFcyvPho0QBHL77hpeA0xjqmCOMFRbT3NIZZdV2uTSndFyn+9Df4YhtBngf0wx22KsoDev2i5tu5VIxYYAxQKBRVnKzeukgrdgrJlkH97KxOjk03TRJ+7Y5Z4zFPslPHCt2hL0jGDgvYcm52Y5zcjeoQOj16jD7F54s/LhhQi3b+NRTfXiqorCgdXTVwMYV8C8s02eamV9I7onr7BqlDqfYVzc97esK5nDHeoHHfney9GPbz1Rivl+7oAUVKSw/BCPKqqw==
+ b=J4T8xlNgCg7HxcqO5KWiOoGOSHbz6w4PWmZ1Z40zptJoEDQwRIHsMkpmyOnSusaTECeRYsXr1hNM5sQF/46KcXHwY0b1DUj9INXX3eNmMYrMbQbWoaeR6378jNttBdCbYAuYkKI1Bb0TOIPu4X56BRc4eMSuARNm1qs1RCNvqyZaQqpMba4+kxPbC+AuKqzmkcJgjZWslPeaPGidm3Ay4+QEuF9YPsEUyl+vS8z0WlN5HBSmLY4F0LpNL8KNLiQTqLBrilw4/08XM8pvtUo4Yi8m4tN7qmoOqEvSCUJWCZs43E4BfZ4zmR172/FsMo3uberbKj4irLxgnY7faVMO1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=059RSIAdyJPnHZQXfiRDLleX7Er4Ab2BsD6kZtFy7iE=;
- b=yr0qflTzBylMIc5FxVjBTky9Qs5UPZ0c2+WdmkNlfIFX6hviqpDaO1j5VJAd12TbqynJfKSBWNbYoujdX+OpoHgY1XFH3dWJb+/laCqLN4u+oqGVU2r3fih9WRRiQDyrp7NNNTRRuhUzqR1TAcu0EPJIAlPKtSfXN6sjBCWVx+L+p0qWYrQgKZeng88L1LzOIoOeIyr3Ji0vl/z4UbC/Aluc+JSRfZvO59XYkPMqFsHkHaKMP4EmMUZ1RxyTB42oD3ALVHSnGrLcQIcFKWuPywrqEciw7QOGvJYUsP400kDIxqTjYH9e8sBxNGeO3Rd8yE7Lz3mOAewUMpbTEFQyuw==
+ bh=mx7FeLvHdgjvaRHh+jSkMUuNiUBeOWw/hoPAG7L8+iI=;
+ b=WrGBtGhp3TA0KLguaErYUxUx+JI9xyeYUN8vfNzXUUVGKZyfuEsL5cXCFdcHzEzfUFjw8pUHe+7ORPa6Xe+uefrYuR3Bhj8qqTAwQEUlH59IUU30zDmjzfCDp6Mxf8awCm9KVLPQ4d1oIT9nGlcj1Je3sFaWDypfijcBUORBxmPsD2srHjzLniNFuYA92CaPJZEfEUvKMupVpBJzSP2ECIcxp9yeIAQQBHgGtjEIRkeQTOmHpKJVqZoXmtzFwBegmotPmWCLT4WJOH7iMz05baoFyEI6ajCaQ9GkMOIwZ9IHiWKl04fd3BuJqr8WMOYCE1RsOMFQp+b3wyhUDWjaew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=059RSIAdyJPnHZQXfiRDLleX7Er4Ab2BsD6kZtFy7iE=;
- b=bu0OIxdMQA+kMwRGsdliYw6XuYxLf2/kBwsReRozSFL8jwNNV5Wby47rNfX4xqwcRnpGB891//eQ7gv/WJK/pzI0JYA6Bf09UK7sHFqNSf0ORQCZ5xf5aEazCzN9XC5Owld7GXJq9VzBuN2ucZey22C1BsFc0n288Ig+pXTVjMg=
-Received: from CH2PR19CA0018.namprd19.prod.outlook.com (2603:10b6:610:4d::28)
- by MW6PR12MB9000.namprd12.prod.outlook.com (2603:10b6:303:24b::11)
+ bh=mx7FeLvHdgjvaRHh+jSkMUuNiUBeOWw/hoPAG7L8+iI=;
+ b=mSABVWZ/X/K+vSQy7W+52rhE3I7+hGdaGmf+9pNYHP162jGaHr3/H03kdwv/+N0/W8T5DVKPk/4W1KR0XAoA6kGFhVhGAa1wb2tgFiUJG0WYgrpnzmRz4+eSt3QLIGdhssX3o5xHQNtdEuy5bkRGTPpkKBx3tmBtu355TQW1F5M=
+Received: from SJ0PR13CA0109.namprd13.prod.outlook.com (2603:10b6:a03:2c5::24)
+ by CH8PR12MB9815.namprd12.prod.outlook.com (2603:10b6:610:277::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 20:32:18 +0000
-Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
- (2603:10b6:610:4d:cafe::18) by CH2PR19CA0018.outlook.office365.com
- (2603:10b6:610:4d::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 20:32:18 +0000
+ 2026 20:32:22 +0000
+Received: from SJ1PEPF000026C3.namprd04.prod.outlook.com
+ (2603:10b6:a03:2c5:cafe::61) by SJ0PR13CA0109.outlook.office365.com
+ (2603:10b6:a03:2c5::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.13 via Frontend Transport; Mon,
+ 21 Sep 2026 20:32:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000026C3.mail.protection.outlook.com (10.167.244.100) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 20:32:18 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 20:32:21 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 15:32:18 -0500
+ 2026 15:32:19 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Mon, 21 Sep 2026 15:32:17 -0500
+ Transport; Mon, 21 Sep 2026 15:32:19 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 0/4] Add NBIF v7.10 Support
-Date: Mon, 21 Sep 2026 16:32:04 -0400
-Message-ID: <20260921203206.2038708-1-alexander.deucher@amd.com>
+CC: ZhenGuo Yin <zhenguo.yin@amd.com>, Frank Min <frank.min@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: fall back to RCC_HW_DEBUG for VF frame buffer
+ size
+Date: Mon, 21 Sep 2026 16:32:06 -0400
+Message-ID: <20260921203206.2038708-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921203206.2038708-1-alexander.deucher@amd.com>
+References: <20260921203206.2038708-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|MW6PR12MB9000:EE_
-X-MS-Office365-Filtering-Correlation-Id: 155df3ad-d723-4b79-0f1f-08df181f6e6b
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C3:EE_|CH8PR12MB9815:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a6d949f-d81f-4056-e368-08df181f6ff2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|11063799006|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: GDmvx95BTnc5IfrQWaScuHwUWvKfOYo+lv3EhfkDnUHGRpLqRuzZk/i0CQ8SmwolZwS1ig4/9jSn1YUSDQo4kE7y9DlwxHPz0WDmqlcccQBZxdNpODNoMHZh94UkRHdbi7NFok4qQ8kdah989WavT/ulG3vCFMd4jZTY/enS+9JRi02yDD6bPc6NXMmrWuIWiFx3Zlii0OLSYrj6bJIeqg0mcoXkshcspVKRi48LeJKQJJI1TUDGg/IadCuUU0jwWLJnmJ4dbRRQA/z4BshVKkOKaJNC3pBXcbI330tVuMjcJ2V50/1K7qtybv8LgAeFzCPkrpJiTg9bKlRYHTixtRej7dZc2+dfqb+kD54oRmALAbrlhyZMtu9K/GkVFK7U2Y+kiW8QCKKOaAjB0B7Nshiw77XNmWFyujlT9jZ7KoHJl69HmMDq94UqFIPBH99Ukal+hZOW6i223H4MqPmBQWbTFsbORsuvfi+kJ53LE7a1OGr5mFwiWJFW0uerz5l6BlEqcMWIWh34EF2SZCkK1dJeXGxPy2T9A+7baK4SB2u+JgSX1U9vYzFXRGZzAS3adNljfURYMzguB2UbXQfVqPPU2qg2CEFJNbFMTQnCXYdMtLx8YpH9a0m747edi3SmAUpdPozGdLAlPJ6pztBRg2w0DM5rvSiYi0PnfE64vJoabpelXQu87G9EnBEzpynZuVr6WgA2dsmdrTUvYP2hEA==
+ ARA:13230040|376014|23010399003|82310400026|1800799024|36860700016|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: /7lJ36Qawyj6oohjg93l0mFCcDzAruU2XLnrx5eH6StREXtTKD/y3+PMSLYvrJ8bpM73oA1Pdrs9v38QY4eWhQtW8HOAL/FVqWL5qAB6Vb7YI7ZrZeYD4aEZUJKXDyfimZLqYh9ojkxb9rCpuhL7J8VI60R25hVz8DcBvs4Y9jos9QMqsLkaJHaDGXvIlibi4L0NqRbOgnWqcXb9K8QpH8bLyaCdny5g5jJFw5jQX19jQeZ6WXuwQYAr5nFPFG6c8DiYMr32U2wI4xc6ubOhdVnvNU2qv2u5vquzDkjNWp7gUB4B/6LV3yCsXiFy7kBuRPJbz0jHCU6BD+Dqez++d9ri1ML8wVZTFc5IOaaP525hWWpZze6QCbQx7b5uOqrCILLeBXhIoGWwF+6qCFYQVmrdIiBoTLxVPOhS7MeE34I6Ke6kgvMj/TtTN1MfIayPRRmzg+al2+zMSkNokvrGAKk2cXI1b/fs0T9NqsvzZNv6uSRR56SINmWVyAvUyPdooLGDr1hyD+2Y/6Iake6Xofl4gCrcodWf6Yv21nuECvIoX45zgUv5pD5OorcfXlK1eAZ3xIl/uHTDCI/cl/XCRcK9qsdx9SrwLgjKGgiyIq+g8SRLaE1Ma3tPVCqmiP3TFAZgCVxCdhUkZHPVs4QYvbhkt/KNc5mqMHihgzXsByPc6DFeKQmaa7lk6qNxEPC8MmVV9WrqaBZRMNRaaj2+WQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(11063799006)(56012099006)(10067099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(82310400026)(1800799024)(36860700016)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Y3ljNXXO9JgltOU0YsY5whSX3My8EUOiRgfYke76Dko6rpQRo/Y86aEw76k5FKFPxUvdyErwJ0NXB+SleLycDaeDQ0pUwdHLMK1zqyoI+BFwp7+tDBQXPDV3wKrcQLnEQuiaRtut9Fhx2uhFOtliOFUK96H+3+tMj802zSd8xri8CH8l+q3ZfKsbtr+wxJzyZgoNnZaSg0UsJzITPn+Cmt4dbmRNOqENTqxTFXiZfQOINewDftIYlKIEYfNT5knfLZvWiQ2RupHQnbMYhQyD1SMCDOBWiPRwD2AqJTcIb/AnBWEMGsdZRqxrO5zcjJaVBHvgf2ep4Q8oo+Rk0UBsdU2WRMii54bsWknXu9Dymf+XP7wwUJ66QEuDhckzb+Xtxf080h0++cDVF2bMfROVdrWHXVB5fUuPV9/qWz6wOz3Mj0LzETrH/E2tPDJit0x2
+X-MS-Exchange-AntiSpam-MessageData-0: itFhwYA3nFrkm2CDx2NUQOFrSA+OqQeUFiGCw5vxsg+O/JL+YM/555aml7kmRQnCpv45x0CiQQ72P8t4BQidttXnNdZ2hjojA6UKmNnReitrPpjl1Q5xVelMajm+UBwEAhuhX00CDm3Jd7wquGOlOpHWxtEZkSnAonT3Imqz/QSnViB4AS+At8gPN81+32fDaa+D/rqYt7dj8QUamlS9vL6VBvsem1x33iDnQ3AAuIG9+qeAAApBlkYZjc23st2RW177FxpH4fJIEyrnMu6Hn6iAqv6sJjFmgQ044xjPnuee+bCl8P1LPrMcvNQuAxCn//gVEF61OVaX+Rh+I2gNvaQp1HTRmcnvgbK37QUoJYx2pwu3H4aMrPYeh3HoBkzN7q48y2OWABJgvQnpE2D8Ky0qG0zm3TsCbT/HugSls2aIuy8LrsCcNCSrGv/FLaNJ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 20:32:18.5145 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 155df3ad-d723-4b79-0f1f-08df181f6e6b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 20:32:21.0458 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a6d949f-d81f-4056-e368-08df181f6ff2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7F.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C3.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9815
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,35 +111,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series adds NBIF (New Bus InterFace) v7.10 support.
-The first two patches add large new register headers.  Skip
-sending them to avoid spamming the list.
+From: ZhenGuo Yin <zhenguo.yin@amd.com>
 
-Hawking Zhang (3):
-  drm/amdgpu: Add nbif v7_10_0 ip headers v4
-  drm/amdgpu: Add pcie v6_1_3 ip headers v4
-  drm/amdgpu: Add nbif v7_10 support
+On some SR-IOV VFs RCC_CONFIG_MEMSIZE reads back 0. Fall back to
+RCC_HW_DEBUG for the frame buffer size in the nbif get_memsize()
+callback and in the early-init paths that read the register directly.
+Only VFs that read back 0 are affected.
 
-ZhenGuo Yin (1):
-  drm/amdgpu: fall back to RCC_HW_DEBUG for VF frame buffer size
+Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
+Reviewed-by: Frank Min <frank.min@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 16 ++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/nbif_v7_10.c       |  8 +++++++-
+ 3 files changed, 25 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/Makefile           |     3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |    21 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |     4 +
- drivers/gpu/drm/amd/amdgpu/nbif_v7_10.c       |   350 +
- drivers/gpu/drm/amd/amdgpu/nbif_v7_10.h       |    32 +
- .../asic_reg/nbif/nbif_7_10_0_offset.h        | 15938 ++++
- .../asic_reg/nbif/nbif_7_10_0_sh_mask.h       | 60316 ++++++++++++++++
- .../include/asic_reg/pcie/pcie_6_1_3_offset.h |  1755 +
- .../asic_reg/pcie/pcie_6_1_3_sh_mask.h        | 10821 +++
- 9 files changed, 89237 insertions(+), 3 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/nbif_v7_10.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/nbif_v7_10.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_7_10_0_offset.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_7_10_0_sh_mask.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/pcie/pcie_6_1_3_offset.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/pcie/pcie_6_1_3_sh_mask.h
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 2034754d6af74..59294028f0690 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -144,6 +144,7 @@ MODULE_FIRMWARE("amdgpu/aldebaran_ip_discovery.bin");
+ /* Note: These registers are consistent across all the SOCs */
+ #define mmIP_DISCOVERY_VERSION  0x16A00
+ #define mmRCC_CONFIG_MEMSIZE	0xde3
++#define mmRCC_HW_DEBUG		0x10c01
+ #define mmMP0_SMN_C2PMSG_33	0x16061
+ #define mmMM_INDEX		0x0
+ #define mmMM_INDEX_HI		0x6
+@@ -289,6 +290,17 @@ static int hw_id_map[MAX_HWIP] = {
+ 	[ATU_HWIP]	= ATU_HWID,
+ };
+ 
++static u32 amdgpu_discovery_get_config_memsize(struct amdgpu_device *adev)
++{
++	u32 memsize = RREG32(mmRCC_CONFIG_MEMSIZE);
++
++	/* Fall back to RCC_HW_DEBUG when RCC_CONFIG_MEMSIZE reads 0 on a VF. */
++	if (!memsize && amdgpu_sriov_vf(adev))
++		memsize = RREG32(mmRCC_HW_DEBUG);
++
++	return memsize;
++}
++
+ static int amdgpu_discovery_get_tmr_info(struct amdgpu_device *adev,
+ 					 bool *is_tmr_in_sysmem)
+ {
+@@ -313,7 +325,7 @@ static int amdgpu_discovery_get_tmr_info(struct amdgpu_device *adev,
+ 		}
+ 	}
+ 
+-	vram_size = RREG32(mmRCC_CONFIG_MEMSIZE);
++	vram_size = amdgpu_discovery_get_config_memsize(adev);
+ 	if (vram_size == U32_MAX)
+ 		return -ENXIO;
+ 	else if (!vram_size)
+@@ -2323,7 +2335,7 @@ static int amdgpu_discovery_refresh_nps_info(struct amdgpu_device *adev,
+ 	struct binary_header_v2 bhdrv2;
+ 	uint16_t checksum;
+ 
+-	vram_size = (uint64_t)RREG32(mmRCC_CONFIG_MEMSIZE) << 20;
++	vram_size = (uint64_t)amdgpu_discovery_get_config_memsize(adev) << 20;
+ 	pos = vram_size - DISCOVERY_TMR_OFFSET;
+ 	amdgpu_device_vram_access(adev, pos, &bhdr, sizeof(bhdr), false);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index a454c6f12d38d..681a9904a79e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -47,6 +47,7 @@
+ 	} while (0)
+ 
+ #define mmRCC_CONFIG_MEMSIZE    0xde3
++#define mmRCC_HW_DEBUG          0x10c01
+ 
+ const char *amdgpu_virt_dynamic_crit_table_name[] = {
+ 	"IP DISCOVERY",
+@@ -1068,6 +1069,9 @@ int amdgpu_virt_init_critical_region(struct amdgpu_device *adev)
+ 		return 0;
+ 
+ 	vram_size = RREG32(mmRCC_CONFIG_MEMSIZE);
++	/* Fall back to RCC_HW_DEBUG when RCC_CONFIG_MEMSIZE reads 0 on a VF. */
++	if (!vram_size)
++		vram_size = RREG32(mmRCC_HW_DEBUG);
+ 	if (!vram_size || vram_size == U32_MAX)
+ 		return -EINVAL;
+ 	vram_size <<= 20;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v7_10.c b/drivers/gpu/drm/amd/amdgpu/nbif_v7_10.c
+index 9022454aa74ec..3cdbb79906470 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbif_v7_10.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbif_v7_10.c
+@@ -60,7 +60,13 @@ static void nbif_v7_10_mc_access_enable(struct amdgpu_device *adev, bool enable)
+ 
+ static u32 nbif_v7_10_get_memsize(struct amdgpu_device *adev)
+ {
+-	return RREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF0_RCC_CONFIG_MEMSIZE);
++	u32 vram_size = RREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF0_RCC_CONFIG_MEMSIZE);
++
++	/* Fall back to RCC_HW_DEBUG when RCC_CONFIG_MEMSIZE reads 0 on a VF. */
++	if (!vram_size && amdgpu_sriov_vf(adev))
++		vram_size = RREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF0_RCC_HW_DEBUG);
++
++	return vram_size;
+ }
+ 
+ static void nbif_v7_10_sdma_doorbell_range(struct amdgpu_device *adev,
 -- 
 2.55.0
 
