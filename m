@@ -4,135 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8FE5C982FA
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 08:32:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE934C982FF
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 08:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D56810E482;
-	Tue, 22 Sep 2026 08:32:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B9BA10EB2F;
+	Tue, 22 Sep 2026 08:33:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Wjdbsj9y";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WurPH2HW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rb465DtN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MAdCAy3j";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Rnwu28PA";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2975C10E482;
- Tue, 22 Sep 2026 08:32:36 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6AA2E1F88D;
- Tue, 22 Sep 2026 08:32:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790065950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D48D410EBEC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 08:33:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1790065995;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sHbSf4v+vhhuk6yqd7WiuQTxni1rgrKGmcyDpeuO+9k=;
- b=Wjdbsj9yPNmqxug6z855hQt6NItN6DHcASEs3SANqUTmivqQlMviGbyzmujJUi3zWn3o+C
- qbUxfR8drJ6o0uDjoL2Y0YUKPCBRR9UKTT4xouWC8PBo9bvlXRbqd8HOtKWFuoNu1PSynh
- LeLpchC84PMiaZeYnECOtMSh+NAZw2Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790065950;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sHbSf4v+vhhuk6yqd7WiuQTxni1rgrKGmcyDpeuO+9k=;
- b=WurPH2HW6Em8Zo6NgKeEhwnIyC4PG3kLV3dJtvepZ18sb2bQccQtFsZE9Nx5O/CMLAK3qv
- zp7/cGMJjhIFOEDg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790065946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sHbSf4v+vhhuk6yqd7WiuQTxni1rgrKGmcyDpeuO+9k=;
- b=rb465DtNT+xMq7zIhO+RRc5AuWF/RopuW7LhD5iBxyAQg6/B0YSr6vLmmPvz6Cip4pri6g
- VciC9DY7O01a/vZu63svpuv6qUxZ9udziDv32V+IpoIeWwcIdNPJizvwn9/vkPhWqWVQMc
- 34hmi5d5rUoyQETlgVOwTpbD2kqknjA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790065946;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sHbSf4v+vhhuk6yqd7WiuQTxni1rgrKGmcyDpeuO+9k=;
- b=MAdCAy3jfPW0pbYTq53ob/xGO+6lmES8/dh5W0aD8eNd4sh37SQ2CyCXbH1uzfGzjGqKAF
- pvzT1hEDzWd8vNBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E7E33132D3;
- Tue, 22 Sep 2026 08:32:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id /nhgLRk9smqXJQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 22 Sep 2026 08:32:25 +0000
-Message-ID: <b436e947-198d-40f6-a14e-de26cceb56f4@suse.de>
-Date: Tue, 22 Sep 2026 10:32:25 +0200
+ in-reply-to:in-reply-to:references:references;
+ bh=F96J7DJJAKJfcMZddwK3W30eQH37p3jCY4JYz68S9D4=;
+ b=Rnwu28PAT+G/CsoTmR+bmrSn7GdiJ4foUn865h6RlOgI8LeH/veVmObF2MEDStafE3A+ot
+ 2D6HPr3l+KbJt31vZtoQ+4puR0zXlNgKALioGXW/iPQvZWf4AEC/JofsC93KGgfojJBEbA
+ dm3PO/KrRhyJk1YdQ0g5kJXtY1DbhHM=
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-299-Kfhwl8HWPYeY-qmTnHS-dg-1; Tue, 22 Sep 2026 04:33:13 -0400
+X-MC-Unique: Kfhwl8HWPYeY-qmTnHS-dg-1
+X-Mimecast-MFC-AGG-ID: Kfhwl8HWPYeY-qmTnHS-dg_1790065992
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-cc73ab90ae7so3360513a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 01:33:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790065992; x=1790670792;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=F96J7DJJAKJfcMZddwK3W30eQH37p3jCY4JYz68S9D4=;
+ b=fC9Be1hwSbMQWakhiyVySPcXnRecFaT9fWMB8DbOW0Y34Y5ThUbvZPvQqlL+qiEHkc
+ TA5BOBiOMaxqj4af2wBVpr2HNTgZztKIWh2cD4Oh+64Uwj2apZhoWIA7ss/Et4BfSZI3
+ bHwsUkWWbUX1mPhZCiImzy6gJHvHN5SEogDAOG7S3szpHcTIvjsNFldSwZUlF12CmSJs
+ sE+PJm8kRrNyilk0g4t6uMFTyheOrm2gBk6woPNHBZ1htL6PRbZeootzVBiH/SUFzCnq
+ yno0yqF584NL8op7zQNB6Eh2SxsABVuuVDwDfdyZapHCsJIxa8XPyRoxh5vHUSjhOpVb
+ IADw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByfBKDReUCZFvepsTfdSWDn4V2BDkCdLoxhLIgoSzIMdnYkBm3+rXqquzhfLzE6JWfyPNusXpLV@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lN78y/QeN6Q6eLHKgAlD/eE2kmk+QZhoHvHZMlD95Q//uerzzb
+ 467YBjy7m8zqclcCOSaeDQUtPLy7YviKNUVlRf/BAh+kTi2fBx0b2MaDylLuK4BlBFLTsWCdeKH
+ 9uYgr92zprvsGBhC4N15f72Ws5T/1+w9vg/Xc6YYc4BNaaBB0i/KXhf8sdR4aX5tjxoAbSDiAV2
+ U814vHd6mjpsRwXS44Kt9tW3WjRNaC4fCpczbEjdR/Ig==
+X-Gm-Gg: AYBFou3FzXAPql3RNy2jINl4ne94vhKZxhV4UdqGJX/WBudcsI6J+9z7OJOPZIu1zC9
+ gpzj7l+V3nfI7rBaYjLAXE2NwTtFC5u+K39dX08l6UlnjjCwDVjRRKHXfaLHu96B8KOSwrrJX1M
+ HXp/6wNf5D6kVfj61rBvI3/We/jZvKc7uxOzNXldV4bPrKj5fMIqIR+Dr4
+X-Received: by 2002:a05:6a21:3997:b0:3da:1e7b:ea27 with SMTP id
+ adf61e73a8af0-3ddec64510dmr599374637.21.1790065992344; 
+ Tue, 22 Sep 2026 01:33:12 -0700 (PDT)
+X-Received: by 2002:a05:6a21:3997:b0:3da:1e7b:ea27 with SMTP id
+ adf61e73a8af0-3ddec64510dmr599341637.21.1790065991877; Tue, 22 Sep 2026
+ 01:33:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 03/14] drm/property: add a per-connector luminance flag
-To: Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>,
- Mario Limonciello <superm1@kernel.org>
 References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-4-mario.limonciello@amd.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908044035.62093-4-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[]; RCVD_TLS_ALL(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[14];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[amd.com,lists.freedesktop.org,ffwll.ch,linux.intel.com,kernel.org,gmail.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,lists.freedesktop.org,kernel.org];
- MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
- suse.com:url]
+In-Reply-To: <20260908044035.62093-1-mario.limonciello@amd.com>
+From: Javier Martinez Canillas <javierm@redhat.com>
+Date: Tue, 22 Sep 2026 10:33:00 +0200
+X-Gm-Features: AcwNN1VtA49KGh0oWUGKjHEN55TPH-cQU1mit2FWLOruyptSR0tnv5cErAS2kZM
+Message-ID: <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
+Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com, 
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: wrJgCa-Wa6UiIfKus7ZvirYJsGeimAq5TcXMa47o_Z8_1790065992
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,79 +101,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+Hello Mario,
 
-Am 08.09.26 um 06:40 schrieb Mario Limonciello:
-> The upcoming per-connector LUMINANCE range property needs to accept the
-> value 0 (to turn the display off on DPMS-off) even when its advertised
-> minimum is 1. The existing check special-cased a single device-wide
-> property object, which does not work once every connector owns its own
-> LUMINANCE property.
+On Tue, Sep 8, 2026 at 6:41=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
 >
-> Add a kernel-internal is_luminance flag on struct drm_property and key
-> the value-0 exception off it instead of a pointer comparison. The flag
-> is not exposed to userspace.
-
-I don't think this is a good idea. Let userspace control display status 
-and luminance independently.  To my understanding, both are independent 
-devices. Just because the backlight is off doesn't mean that the display 
-is off as well, (right ?)
-
-Best regards
-Thomas
-
+> At Display Next Hackfest 2026 we reviewed progress moving brightness
+> control into the DRM connector properties.
 >
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->   drivers/gpu/drm/drm_property.c |  6 ++++++
->   include/drm/drm_property.h     | 10 ++++++++++
->   2 files changed, 16 insertions(+)
+> There is a range LUMINANCE property that will default to 0->0.
+> Once a driver attaches a backlight it will be updated to 1->max.
+> If the panel supports the minimum backlight turning off the display
+> the range can later be updated to 0->max instead of 1->max.
 >
-> diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
-> index f38f2c5437e68..adccee10cfde4 100644
-> --- a/drivers/gpu/drm/drm_property.c
-> +++ b/drivers/gpu/drm/drm_property.c
-> @@ -952,6 +952,12 @@ bool drm_property_change_valid_get(struct drm_property *property,
->   	*ref = NULL;
->   
->   	if (drm_property_type_is(property, DRM_MODE_PROP_RANGE)) {
-> +		/*
-> +		 * Special case for the luminance property: allow 0 to turn the
-> +		 * display off even when the normal range starts at 1.
-> +		 */
-> +		if (property->is_luminance && value == 0 && property->values[1] > 0)
-> +			return true;
->   		if (value < property->values[0] || value > property->values[1])
->   			return false;
->   		return true;
-> diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
-> index aa49b5a42bb56..8bb568a4cd485 100644
-> --- a/include/drm/drm_property.h
-> +++ b/include/drm/drm_property.h
-> @@ -188,6 +188,16 @@ struct drm_property {
->   	 */
->   	struct drm_device *dev;
->   
-> +	/**
-> +	 * @is_luminance:
-> +	 *
-> +	 * True for the per-connector LUMINANCE range property. Such a property
-> +	 * additionally accepts the value 0 (to turn the display off) even when
-> +	 * its minimum is 1. This is a kernel-internal flag and is not exposed
-> +	 * to userspace.
-> +	 */
-> +	bool is_luminance;
-> +
->   	/**
->   	 * @enum_list:
->   	 *
+> The legacy sysfs interface is synchronized with the DRM connector.
+> When a compositor using this feature is loaded, sysfs writes are disabled
+> to prevent legacy tools from going out of sync with the compositor.
+>
 
--- 
+I don't think I agree with the direction of this series. The main
+issue for me is that if the sysfs interface is disabled, then I don't
+understand the value of doing all the hops between the DRM and
+backlight subsystems...
+
+IMO when a driver sets the DRIVER_CONNECTOR_LUMINANCE feature and the
+client advertise the DRM_CLIENT_CAP_LUMINANCE capability, then the DRM
+driver should be in full control of the brightness control and not go
+through the backlight subsystem at all.
+
+It would be better if the hardware specific logic to do the brightness
+control is factored out and used by both the struct
+backlight_ops.update_status and the atomic modesetting state check /
+commit.
+
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+Best regards,
 
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
