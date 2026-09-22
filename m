@@ -4,135 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4350C982FF
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 11:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A954FC98305
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 11:41:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0A710E6E8;
-	Tue, 22 Sep 2026 11:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 111BE10EC7C;
+	Tue, 22 Sep 2026 11:41:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fydob3bt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="La+kn83r";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013027.outbound.protection.outlook.com
- [40.107.201.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B28C510E6E7;
- Tue, 22 Sep 2026 11:37:15 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012002.outbound.protection.outlook.com
+ [40.93.195.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45BBF10E38E;
+ Tue, 22 Sep 2026 11:41:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hNzf/6BODwZ11GvwSaGhllTdvGdtNnahFP2Gki+pDz1PEx2hcsbqlzIet9TlVM7P+oPDrO0uByCraHmNHqlQOtp+eM8AIKIChkMtdmUzpxn9AOW9iFuwPczcDulBh4dJVQy6/eZQtqNT2oLfL2LTrUriUNdnWHSImsWHapiVkAYAdUB8jqifKoK9hbeC46IOAKKret2nTWXxPl1UiO7mLOxR0eT1+Soq0q4eurz3YBiI3+oN3ZZl+16plgCzQnX0/9aTHm9BTK9BA7eTJ73H1aOW/CUN5TLeVMFApzrNtok9pfoo6OD4CcsL34JW2WdaCiHFQ7jU5XhxvlHleUwa4A==
+ b=gG8jQQZZ9nUMapxqUStIWcH3Z3fV+R4DWxE96H1UcjptP6PRsSG9rhgVDMpXGfo4byGCRYYzJ5ix5LApCd7dy8zF8yaerCk3lRS1MUwIEpnFspH/ss3IaXBadq+pCG7j+iJuYNidBQ+SB1Tinukj8FQhGtcR1TruQboDjF8gtxSG5UmOMwJC9q5rLG3NertTer5sgHAc65g/nvh1tO9+XJpNsQ2MgtTxy7+BgFpiWP+ayDEXbrnOFu1Vy/Us5kPiQ2Xx8RIEGqog46PLg4HpUegT2Bn/XTTJIXTD84Mo20+eDKHvSLv258h5BOEEqRVEieExbLWQOHdm3d9MQREfQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UPqTKPYVtExTSLWj00dkPkvkmf3AE/euQD30dMHJtNM=;
- b=avK26R5mZtUufGTcpQvkTzYDPAYbdT5RLTFiGMrP+tGa5BlsJdkIqN0p6c+w7d+I8+OqF+N/XF6wdMyt6CxN7Bu1b3Qn9JRJTUHfdzB6Ud4D1aE6kaA6hORsfbC3X8jrVDyWAbl9r5L9zba38/3Ld9g3M6WWnvFYw13fpYVLIE2A2U4zEoXqu51oOymzmpGjuRILVCqEVzYwFsqqN1Cczq+Y1AVjF/eP3FFNK3IWzH51MbMFtLNPQCggfYmC7Usvz+iaS6H2sK7JaFb9DsW/8/S3XQ/0PEwSyK3Pq93LtiJFmSFD8Bvh45B38K5osccrYxmfRwBNJ/3JVZOR9EqZUg==
+ bh=HtmWi4qHddIEHVBVk+dQP05cctTm80zUuXTO0VSRFBU=;
+ b=YhP7wurT6F5u3RWvjVyn+eWu3J52WPxwwOZK4lfOd/TfeWv5pWg+fUo5IGITA8BbJMvDxB9+wADGqMR6jNNwTyMkzjTI8mCkeRAeDraFOLd8NbABCOAgair4bgHxS3juw5enPQYYEH0JZnWjbXjZeSJ6Vkf9BQYGdUbn73M94G+11Lo3ZE5+E8cEPB/VtYGwt7p58WCQwF5MIEzP9kEEw9g0wIy2wYIjVgd4er58VwdZDk1iM9S0/wUBFfGnB8GunFzoJRi72GZ2rdDCNhwsLyrEg02TXUSChVgTA538qKe9bZY0hneRfcgZKnyIlucynskfiy9RFBEECgACz0x8UQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UPqTKPYVtExTSLWj00dkPkvkmf3AE/euQD30dMHJtNM=;
- b=fydob3btf0bT5oKqX6V8TEvf61EH8LelaNTL/aOLlFVGLUM8SL+bizAEJcMqtCkvlcw8acrJgV2s9oizQDKYi02O8xKjVjTLDI27w6UMeBqwHktHDFrjZcQX+uAh4oTOhzZirJId5zmjWE3a9tIAPIHc+BDJMfItZKV1OCOTfyQ=
+ bh=HtmWi4qHddIEHVBVk+dQP05cctTm80zUuXTO0VSRFBU=;
+ b=La+kn83rNLmR3Xlk2E+PGRb836GQb2kDP3SXtDR3jJZ2b6wmdi+K9C9uPSkSY7cSeL7anYZL1SrhuR6CT/1vOwK86R3VDOD/9tRHxPcu35odUnHYb4fzblN9K+ZVIK8fLs0pBgy0+o2Io1Ow9CNRErwz9unpYwbrIPoxLR58Df4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by DS4PR12MB634945.namprd12.prod.outlook.com (2603:10b6:8:514::7)
+ by SA3PR12MB9130.namprd12.prod.outlook.com (2603:10b6:806:37f::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 11:37:11 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 11:41:35 +0000
 Received: from PH8PR12MB6914.namprd12.prod.outlook.com
  ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
  ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 11:37:11 +0000
-Message-ID: <15b6893f-6f9b-41d5-af19-c900d34d3890@amd.com>
-Date: Tue, 22 Sep 2026 06:37:07 -0500
+ 11:41:34 +0000
+Message-ID: <32f96551-358b-4874-8fd1-a685b02853e1@amd.com>
+Date: Tue, 22 Sep 2026 06:41:32 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
+Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
 Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
- harry.wentland@amd.com, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
+To: Javier Martinez Canillas <javierm@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Xaver Hugl <xaver.hugl@gmail.com>,
+ amd-gfx@lists.freedesktop.org,
  "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
  <intel-gfx@lists.freedesktop.org>,
  "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>,
- David Herrmann <dh.herrmann@gmail.com>,
- Marta Lofstedt <marta.lofstedt@intel.com>,
- Mario Limonciello <superm1@kernel.org>
+ <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>
 References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-3-mario.limonciello@amd.com>
- <0fb724cc-ac12-4502-b338-1c4f310f043a@suse.de>
+ <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <0fb724cc-ac12-4502-b338-1c4f310f043a@suse.de>
+In-Reply-To: <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DM6PR01CA0002.prod.exchangelabs.com (2603:10b6:5:296::7) To
- PH8PR12MB6914.namprd12.prod.outlook.com
+X-ClientProxiedBy: SN7PR18CA0013.namprd18.prod.outlook.com
+ (2603:10b6:806:f3::31) To PH8PR12MB6914.namprd12.prod.outlook.com
  (2603:10b6:510:1cb::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DS4PR12MB634945:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6e798d9-7099-4db1-4d2a-08df189dd744
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SA3PR12MB9130:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1013d3a1-1eb8-4581-1d26-08df189e7466
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|7416014|366016|6133799003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: VgDkknxe7P+R2CK8Hhbr4NboF9ailC5A9VOP3N0OLEk3EkYRcYu9MAVeaO9cpRXyQyxxWczQP8GNX/dCKsSKnT7epSJXG8F6V6HvlVUj3zDgM/gYDh9+cEjRaCR8EcEBgcU6js/gafRckNH7+gXMyFpAtQb8QPeSEaRDW08eMVQ4RZ3xGWvn8LCAMNFGqttlkgDHxNQflB6tQr2x42JBymir9THUHllzvCTrucn8laBLPOdpiEwTkvDXaNR7+QZZOgjpVMJp8m9YNbk8d8zK0tc62dry9ZKAvkbhn2W1VgHhmRhpiG0tinJyi7oNs2Cv/lIP0OtlHsNMxqP9GN9UVL06dgLEUsznlSjdRrJy7doHUYSsWf+bCZZSSweqJp+cC3i8zHGGdmf3yeNBBbzz3pGkLkuCVeteSkcoUzTo0mVuVgJU9pzk0siNu8VsDmwA+qes6l9tye0f544BJp8thNAlg2aobAzDNfeqW0rc1//mF3JecuIHXAMaHWA9Fn0vCrEq2l4MRfmxod4biJoS3wSoZ/YDvk7BmUv7LqSaPSW5gHZtuB87rryGrfpW41C1/N+ETp2wAhZBTWUrcp8VaGqUsLBulZh2saCxDRsrTaJ3rlqSXTdyey3al08DjBSs1pAPVPFVvcuo/XOp0y+uMVvLN3ZaYONMqFeg5qM7RK8=
+ ARA:13230040|7416014|376014|366016|23010399003|1800799024|4143699003|22082099003|18002099003|6133799003|5023799004|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: u0eXfKTgGAOiVnIFrGLa5qes6wywAoxtcbGmSW6zEKElAJJyjGtssq0Oo2bM905xHRow/n4sji1CuO6jJ2/oNGtC1VZThWQOH2uqlKEKg5Jz33NKJRsulTK8jM6HlZqK4a8zhAdVxsmADcyjFpw/wBZH2ElI6KRJMUrXC832tsqGz1OSO/B5uBYUpAlyv2fYTD3QPEAtaWUEKLONo/9KHOWyaykF7f7YY1BYwJN0qq3tcPOrWaziTmICGJx+uuYXHuJhcAtbnYgC8BeJs08uO3til3a6LbUnuw5aJE3lUlavNuFO+p/ALi1LWCI+EUeK61DdC5V79Roe6uKvOhmPwBZSsfg8qO8zkGftMJPE1JJbOkPMpzKGXm5cO4k15dyTyGTHhWk3AlxUqwfG+7b0JuZVDvNNb0dUNQF2U0kw9WOnvKd0grdwLAZtC9EoYRMcSXxxUhpt/Ex7vCygjLWaEmphtDlS7+krJnHDw2wltTOUTKbcI3qLt5V6VtruIrcGRyoJS0yhNZJGISyyuNGqAHhjT7jWbKp9+AEyaoUwXC53l2sztAONrjYDnRuENuWDEYnEiRePgYrgOymXiLjEZIt1+POIM8fAf3oSiAfIdZoWOK3Zp8ERNaMiHfmQo6L7G0lOFnTa4jMr9UyebU+cI2sbfyCRxT10xjzpfACym7M=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);
+ SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(4143699003)(22082099003)(18002099003)(6133799003)(5023799004)(11063799006)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2Y0ZG9LNFdmZGF3OThCVXhxYmIyWERJaDZOYnM5ZE5Ec0dScmE2R2lETFRU?=
- =?utf-8?B?ZkFxKzBWdGJ2RXhNenFiM1VGblpndUxBdmNnVG8yS3BkZCtWakNwOXBieHln?=
- =?utf-8?B?WHE0NkUyeTZzODVYRzJDeVpoZG1STXg3QVo2YUlEVitqZGgrc1U5ZXdTN0pV?=
- =?utf-8?B?WGU4aFpSN1pvZzQ1N29WcWxDUUZEaHJJUEVWM0JxODRKYlJsaDlGRU9oZDQ1?=
- =?utf-8?B?Z0QzL1BIRzA5dVNaUFBFR3ZMRFdPV29sOWVOdklnbklINjBrenBXQWxqRndV?=
- =?utf-8?B?VjN5UXdrK0xTckFFT1dkT01VK2RTU2hheGw3VGpqQzR4RzVJcmdyVC9hYUUz?=
- =?utf-8?B?RmdSNExFbWJQV1dacUpEdGZKS1dGamlJTlBQZVRPYlFMVlh6bllYcWoxYS8v?=
- =?utf-8?B?bXVYSVlUbG1DRmE2clVEV2gxSFBVSzdPaldGelFIVmJINzBoYmc4SGUxazZY?=
- =?utf-8?B?SXUwYStEREQ5akRzTnQrcE01M2RRQW93bktwM3VvZ3JUdGlreEFWMjd3NC82?=
- =?utf-8?B?djZNNHJOZjVBZXd6cEd6UzF0VkJPMUZOMlVrREFlQmF1T09TVW1QQ0N3Vmp0?=
- =?utf-8?B?VU8zOWFkUmU3UFVYL2U2VHQ2S2s0bkNlOHlYVUpSMElxMVVCcjRKa29jS2dJ?=
- =?utf-8?B?MzQ2bVdNdEtPV0NSVDRSdWZTOEJNTTVlNkJZWUprOE5rQzZNOFUzT1M4MDdj?=
- =?utf-8?B?d0NoSGI0QUJreE1WWjNPeG16OUV3V3g2U1E2QnFwL09zK2VHRk1YNW9YSDU5?=
- =?utf-8?B?blJXNlRwU0hQWTZtWlZhNzJidGxONDhqNlp0V3ZHcmFSYmx3b1grM2RlaG9m?=
- =?utf-8?B?YTNiUzFqUUsyempaTG9ueERvTHNyMkQ2YlJOYnBZbnhKaXo2Tjg1ZDVPT04y?=
- =?utf-8?B?NVNNNVV3Uk1ya3pZNjNBR1lnQng4dHBzT0xWS1RaMnNQdm44T05vU205RFFW?=
- =?utf-8?B?aDlDT3NNSlFHaUlXaFdrdDVLMTRQYnluT05HaFhkQXpveFpKRGFVUUJXWGlo?=
- =?utf-8?B?Q3MwYmNLNHlGYVViaHBERlJic0VaWlhDNDU2VzdvMzVnRDg0dlM1MGtnSTJR?=
- =?utf-8?B?WUIwem5ydE5ENUFXaCtxRFRsK2hlZ1AwZVlSOUdVWWE4YkJ4UHoreEN1ZSt6?=
- =?utf-8?B?ZnZXWERXVXRPWVZkdklhRXRCOU1Rc3JVVzRSL3d4dXVrQ0pId2JiTU9YcjRM?=
- =?utf-8?B?am1NZEpjd0ZBVjhqUUJJa2JkMWg0M00rVnNNZUdQcENvalo5aWE5SStUNXBr?=
- =?utf-8?B?eDB2YlU5dEVVYWJkVmtISXF0Z0k5cjBDZldpS1ByK2szaGV1eFcvTjVLOUNL?=
- =?utf-8?B?ZFNXZzFvVWpEeEozM1dVT2Fpak5odHV4SkJaT0ZUb0phbGwvZHdJYXZOQ21C?=
- =?utf-8?B?OElLaUQ5TysyR0JWRGVoN1BSeWhtVFZmSnVLVW1XSDVEUG1wKzY0K2V6aWFH?=
- =?utf-8?B?b3VnWlNJMzZHMHVNUC9oS3pyMzIvd2tmTmFzUTBseHIyclpyNzVYKy9NNFlP?=
- =?utf-8?B?TTNSakY1NzN2cHpuNXhVTlpiaUVleGI2NmZPdExhNWRUYnZjYW83dVZwTld6?=
- =?utf-8?B?U3J6ZDcyU3lNR1ArMWFrdVM4SS9mVVJIdmtuby9JWldWSmQvU1pIZ3B3S0Nn?=
- =?utf-8?B?NTV1MCtZbWlWZ3B6Ym9WZVUvT3RkVGJFTFd4eThtZnVFY1FBWlJSWHRRTzBM?=
- =?utf-8?B?cjVNOWxsSU5wTTNNSml2K2w0RHNpUnowRkhnU3RTL0UwQld4MXFlSDZLaGMr?=
- =?utf-8?B?cUhMUTVjRmRMdTNGK3BUbDlET2V6N1BPa0s4d1BLV2xCY1NFbmM4OXdaRU40?=
- =?utf-8?B?bFRJR1BtVnA4Tjd0NGlET0RnbXl0QThWZ0VyTXRnRVFXNnNUSU1aaDYrL244?=
- =?utf-8?B?RTJSSXhQcXd0bnh3R0xSRDFVaGlpbForL0Q3REtpRUhVc2RHaS9YTE9WZU9l?=
- =?utf-8?B?eFVEWW9QT3BxSyt3WHMzK2ZCZEI2UmtXYmQwN084SXFaZytGTUdMRkdiTk5B?=
- =?utf-8?B?OWhVL3NJSDhiNHRCL2EvZkdLNWNLQnY1VThjcG1rZXAyTkVuZWtOZ3Z2VEhk?=
- =?utf-8?B?K2UrN1REV1lBQVpSVnJPQ2dtQVNwMlFGU3dUdVA3UmkvN1RyWHNvY2NnR2RM?=
- =?utf-8?B?b0M2US9PVWdjZjRsODEwSjUwL0pndU1CREFEL2lrZ1JCL1NjVjdqaWkwdGpD?=
- =?utf-8?B?TXh4NzZPczUzMDgyV2FPU0xSR0pmb1Q4YXpFRXVtVmRTWCtkK0hUeHJaZTBE?=
- =?utf-8?B?ZVlwTVN0OU5LZGlvSVM2a09ORTJNRFdPdnJscDZabzFMRmhmcy9aTytTWThG?=
- =?utf-8?B?M0hVMDd2c280dElsNzFQUmRSOEZRVHd2OTM1dWxxc0EvL2dEYi9SZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L1UyQ2dib25uaWhpdjYvSjR4MzF0MXY2dE0yRUhSUm4ra3lvNFFXd2NNOU5S?=
+ =?utf-8?B?RHBhSkhvQm9tK0M3eVdNTHIwbk83MlJsV00rWEJBcnRaV29tcTg0YngxSUwr?=
+ =?utf-8?B?eXBhR2hmZzgwWHB6SDNqSVFIbTVHUkpISjFDek9qZGJJTWExM1RHTlNXazlE?=
+ =?utf-8?B?aE85TkpLM3RhbFI0VjVaM3ZFUU9oUWtJMFF2emN6NmErbHV3SEpjNktseExL?=
+ =?utf-8?B?LzFsU0tRcksrSnVmOUV5QU9GWHFFczRZT2JXb3ZleStVSW55THRPbGl6TGdC?=
+ =?utf-8?B?c1dEemc1WlRSRjFkZjlRTDZVelorYzVJWTN2WVl3NXAyaFdRamZKVUROWVdI?=
+ =?utf-8?B?WVlvQlNMcGMzMUhMQkMxR2gxd0MvcVFxMkREeUllb2ZjbldDU0VBbTBsSlRl?=
+ =?utf-8?B?a0F4cmwwR25URWlQWUxGZ1NXYjVqcXhGRXdncjFtUFNvVlk0K2t2Wlc1Q3E4?=
+ =?utf-8?B?SG5oYzZUZDBKejJhNGZCV0x4THMyd3NtSjBFSzdVZUJkU2kxLy9ZYi9yM1FH?=
+ =?utf-8?B?T1RpRDl3VXEzM0lhZk5ob2dJcnRmTlpVMEs4a3plaU8rMmtnd3FSUGVUaGVm?=
+ =?utf-8?B?UHB6SGFNTFVBaCtpQ3B4dlViVVJiOUs4dG90cUdyUjVrNWQ4SDQ3MW5HQURk?=
+ =?utf-8?B?MTdBNUhjamMyVnVwanlDYnR4SmFuTnZHazFYK25iZW00OEZlNHRubi9JbmdJ?=
+ =?utf-8?B?ZE5nQ2Roa0FzL0Q3U0MrWS9SZmYvQi9UYTBFdWZOcWtGa2RnYXJLcFd1d0VC?=
+ =?utf-8?B?ei9uZEVGazI2VDVwcDJRa3lHR2dJOGtyU29UeDFnZTJFTHcxaStLdWI3NEt3?=
+ =?utf-8?B?cGprZ05uaXAwY2ZJYTNRYzJONVU3RVR4aEpiYisrTWVkQ0tSS2NGa2FVVXFr?=
+ =?utf-8?B?RXZWNDZKOTZ6NjhnVzFwdkx0SzVjcmFqWXVORkdhbHhIUTZScUhXQ3JPNy8y?=
+ =?utf-8?B?cHZjR3VaaDBsUjVwUHRYeER4cUZ0YmlNYzdlR2V3YXFsbU8wRXQ4dHhwRktO?=
+ =?utf-8?B?cXVSd2NnYWdoUnRvN3VYSlNjUnJOUmJjZUlMZVdGYStFemk5eFdnSVpKb2pX?=
+ =?utf-8?B?VjVBdGFvd0VNcnRuaVZMUkE5blZpbnN4dDNIUFpmclF1WjdPbG83bVoyN2d5?=
+ =?utf-8?B?YStjY1VnUlJQYXhqSzVleFZxUm1LOXNRRjNnVCtHRWFMc2poTTcvT1A2eDRi?=
+ =?utf-8?B?aSt4dzM3b0RkbjRhVGFwT01uWnRpUWNKYStKbEU1RmZoa2RPUFZQWDVYRTFZ?=
+ =?utf-8?B?UUxlNzAxaSsvZ1FNZWNvTVRHRjBKVHpJM0RjNzhUQkx5RnRGQmdscmtkWVVF?=
+ =?utf-8?B?UGZOY1dkaHZuQ2ZYUnJmRmdITXFTN3E0UjRGb2tsK0xhVmlXK2hWR0Y0ZWZy?=
+ =?utf-8?B?RXIzRmcvZmV6ZDMzVXpWczYrS0tXTTNoZkVEdFJEZnFtQ0xFWGVBT2lzWm9Y?=
+ =?utf-8?B?Ti9wcjYrNURrV1ZwYmM0SEJQYTR1aHhDZFgyVCtYSnhHT2VyUUgyTWNTdnhP?=
+ =?utf-8?B?R2RSQ0F4YlZ2QmxLMUhEb0lSYUw0TTdxN3A2b2wyNEpDbUNaTHltWnNEeEtt?=
+ =?utf-8?B?R2dMeDhRSjJ2dG5vRUR3WmtjYUJMWTdDeFRtUUM5Ukt0ekVBamU5dG83RDZ2?=
+ =?utf-8?B?eVV3VkVWSmFmVTZXTzdUUGtielkyWlQzNWMvM0JzaCtidm00ZlowTUJsRWto?=
+ =?utf-8?B?eHF5YTV2YWZpbEhzdURrZTYvRUo2cDlOWFFGRitKSHNzTWJXOG93bXJLRW1S?=
+ =?utf-8?B?U2FtUW8vVXpmcWRoMSt2Q1N1MW1uMGgvUUFZRmlVSm9lbGU1THZUU2lCN1F5?=
+ =?utf-8?B?cmJsUWp5M3IyZjQ1ZGI5NmZ6YnJ0VXBDTkRIcFRvcUJCczJYM0xKKytobHA4?=
+ =?utf-8?B?R3YzaW9BWlZZMUsvcnBndmlPTDJUaXIrbkk1d1JnOHMrajJNS01VeTlPNXlE?=
+ =?utf-8?B?Ukphc05RNW9wR0dvY1QxMUNLaXFwUUVZQmZtY3NQeU96Rm5lc2EzR092ekFh?=
+ =?utf-8?B?MUNjM3lXaC9GNDJ2L2JyNFpyblRRQnczNDJFaTc5YkpiVzRqWFNIWDhLYi96?=
+ =?utf-8?B?dkhNRmJqKzRZdysxTmlPQllRRVlOSjBEbnZRVDZUUGVyYlJaeGRWRnhnM2F0?=
+ =?utf-8?B?SHdXRVdQZFBEaVpRSHlheHFybDQrQldteVNLblNZYTZSSVRxdFh0WmZ1ME4x?=
+ =?utf-8?B?Zm40UmpaZHJMa2tSSXpIc3lCaGpoWEJjUHBEci9tOTVVYVR5RVgyN3dORXVo?=
+ =?utf-8?B?NnZzSklVcE9MRWNrSEV1RkdrUENjN3ZvbDNqOTU5emJ0WFg1NVdIRTVxcFdF?=
+ =?utf-8?B?SlA0bksvTStRYXkrZnk3aGQ5RlRjR2QrYVYyQ2NXL216Q0VnaFc2QT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6e798d9-7099-4db1-4d2a-08df189dd744
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1013d3a1-1eb8-4581-1d26-08df189e7466
 X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 11:37:11.2437 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 11:41:34.8562 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eaOpcbD1KE9R9IsNVmAnhc/ffKu6qadqwSQjZAHCpcgza8rA4Tq33BxR1z+6uHmVBJRKr28iEBny4wzRDxrrKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB634945
+X-MS-Exchange-CrossTenant-UserPrincipalName: DwusvC3Waaay9v+tNQQYb93KJ876ldXq0GkEvD9g3syrsS3lYBOzMr5Sn946Jg6ayRHdnaGTQC1SqyWF+NuuMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9130
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,22 +145,66 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-> 
-> Can you really do that?  AFAIU sysfs is now a de-facto uapi for backlights.
-> 
-> 
 
-(answered to Javier's reply on this one)
+On 9/22/26 03:33, Javier Martinez Canillas wrote:
+> Hello Mario,
+> 
+> On Tue, Sep 8, 2026 at 6:41 AM Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+>>
+>> At Display Next Hackfest 2026 we reviewed progress moving brightness
+>> control into the DRM connector properties.
+>>
+>> There is a range LUMINANCE property that will default to 0->0.
+>> Once a driver attaches a backlight it will be updated to 1->max.
+>> If the panel supports the minimum backlight turning off the display
+>> the range can later be updated to 0->max instead of 1->max.
+>>
+>> The legacy sysfs interface is synchronized with the DRM connector.
+>> When a compositor using this feature is loaded, sysfs writes are disabled
+>> to prevent legacy tools from going out of sync with the compositor.
+>>
+> 
+> I don't think I agree with the direction of this series. The main
+> issue for me is that if the sysfs interface is disabled, then I don't
+> understand the value of doing all the hops between the DRM and
+> backlight subsystems...
+
+The reason for all the hops is that users can switch between compositors 
+that support this and don't.  If you're in a compositor that supports it 
+that compositor will want to affirm it's in control.  If you're in a 
+compositor without support then you should still have a way to change 
+things, and that's what the sysfs interface exists for.
 
 > 
-> With the sysfs interfaces disabled, who is going to trigger this code 
-> except DRM?
-> 
-> AFAICT when the DRM connector updates the backlight status, backlight 
-> runs this notifier only to call back into DRM to read back the value. 
-> But the luminance property should already store that same value.
-The systemd tools that read brightness could look at it (IE 
-brightnessctl).  They wouldn't be able to write brightness but they can 
-look.
+> IMO when a driver sets the DRIVER_CONNECTOR_LUMINANCE feature and the
+> client advertise the DRM_CLIENT_CAP_LUMINANCE capability, then the DRM
+> driver should be in full control of the brightness control and not go
+> through the backlight subsystem at all.
 
-But yes you're right luminance property would store the same value.
+OK but so let's say I start at 100% brightness.  I open up Kwin, I 
+change the luminance property to 0%.  Let's pretend that backlight 
+subsystem doesn't get updated.
+
+Then I log into Xorg + Xfce.  The luminance property should be left at 
+0%, the brightness subsystem is 100%.
+
+The hardware would be left at 0%.  I press the brightness up key (or 
+call brightnessctl) and I can't change it because backlight subsystem is 
+100% already.
+
+So it can't be a clean rip and replace; you need to keep both active at 
+least for a while.
+> 
+> It would be better if the hardware specific logic to do the brightness
+> control is factored out and used by both the struct
+> backlight_ops.update_status and the atomic modesetting state check /
+> commit.
+> 
+> --
+> Best regards,
+> 
+> Javier Martinez Canillas
+> Core Platforms
+> Red Hat
+
