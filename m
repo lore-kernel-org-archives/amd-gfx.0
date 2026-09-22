@@ -4,128 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAECAC982FE
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 15:44:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F22ABC982FA
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 15:51:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2119F10E725;
-	Tue, 22 Sep 2026 15:44:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B85B10E6F8;
+	Tue, 22 Sep 2026 15:51:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qTXdfcaw";
+	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="EPoE6bBT";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010058.outbound.protection.outlook.com [52.101.56.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A890310ED7B
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 15:44:06 +0000 (UTC)
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazolkn19011075.outbound.protection.outlook.com
+ [52.103.32.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F39010ED93;
+ Tue, 22 Sep 2026 15:51:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d6Zfn9MeUHUWVJmZPhD+pool7TVqiNFQumCvciTrQfOk7LY1OkXjmGQ/Gs1M42jVacelOgog/8NXZg19Rx05npo5zNg60AO++8kokoHxz9d24KfybeaWg4ZqNfeq7bhIhmkhtE/AchLOGE9MZ8ifS9DItBiYtGrsjo8Cs4udVHihISlPnzxQwJHqRpphQiDQRCkRfATa4MhgZJI87wJabBVnCQIeq16pHYS4Xfg/nncixqp9zEiRWxIqA2ExbHuDvSAtynbWeTDqybfHpqDl4viuLDt6xLGsrCYyN7Ns7/5FcsPrDc3Mru7+tZq50gXBw5JxcUtEump52nb7F+lQDQ==
+ b=AC5bW1k9hrrv2ms73LNfPpJnTeZOdKPzjYEgnnCEnxsBjxNwvHjGudg60Y0tX0StZS5plpHlwXv2BtVPI2KSBIFBBXLZ6PGIgJqxaarykcyVzJ1c/PuknQdOfu5vzKw7RWm3SYFZ6aT5ByR6dfthto1Hyz+yuk/2YwFviJSZTyAYsq6hFWN0Q3QVOjpCj3yd60ll8BjdrHtAI7iRHKh+R/DWTOQTQWyvmcvb5GGQ2kAqSFw3z/v/QOs9SNMhWJuCfaicZ3EzA06V3m5ve8vwFmfMXSI+YZmp6RaDLtOhNAJ5kd1L5qrjBhExt4hxqMrLGkO0A4ia8I191tkE3rs6DQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gDdViEjVhUsWE03qRF5czvT1tgWl3qaN4uewlvN1w/U=;
- b=GfsQ119mSmQgXeZpsmuuk5tHiJ+GLov+N8NvYHeoirt+lG/Za9GBKPzlS3K5p0s0VYUA0FfOI5I+zW0HE3YconY7J3jBhbQXDNSuTq8at/vRXKeI3BL5qWyB2pG+a1MnP+zFdaYEgu375HaUt7hRpJz6QCamULPEesjdVDz9I/R9dvswfalKegGegPHNCHr4pA2yBFMBrTJD+U+YERfeiSBptBkraEf7YUFFZx8ypeQ5LiGfVEwic+E/qXwnzd0B+JUx3yRnbtZkXvlaVl4FdHxDihr0vTiA+ifNn6OEjyPz0HAiosyUSBr9zatF4sxwoY05GWhgMCABe5x/Cc7DBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=9ryIpeCzRKDPi20cE+9xKyP+yK0a+xKJIGvs0Vv8WiA=;
+ b=RJ5REJEMOv3UMx/PphXperHPs57bXh6LFn7c5vHdxVkhc+vpo7Yfwj6rMnjQOCeAhvuYYI08qPplUS51iXdThs6ZQiihshBl2HqrzptVnVOXiZHAt6IqLQf1wFhXGlacHUdtuQOmcdIjaaFaYFgbYm3k+u79OI+zT1+ENnV8WL6yvzkBXs1mk6uOP3EdYBv3ScXonv5oP7PEKqT9F5Q2KmMiYcj224z0UmI6PIDGLd5tYDILcsXIsm0j5wTSnro6Z6nGKZlnyOeccu417RLzTWIIJ/eOx3dkGbk29dxz1PI74AwZ7PWsfDzJJrbxiBjGoqHh6Pz8nRBM8XsqFoEyfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gDdViEjVhUsWE03qRF5czvT1tgWl3qaN4uewlvN1w/U=;
- b=qTXdfcawmrq7vTwm+NAvaL4+F8lBmqLTQWft5WKhubFh+FEsTJTE9nd+okZRNmyG1225WScl+Rw5uAN40QvDXsfyY8/r+hyR1DLl+qdeXDvTnVqz0560wuazeQXkpBcnfKziDphnjS/CYSwf1RW5Ype3l7P9r0CdebkarFT9K3g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY3PR12MB9554.namprd12.prod.outlook.com (2603:10b6:930:109::19)
+ bh=9ryIpeCzRKDPi20cE+9xKyP+yK0a+xKJIGvs0Vv8WiA=;
+ b=EPoE6bBTiC1loRv1p8hFU6QSXXbq+B/tE1Ceo1GlCKzEzyPYWZUsT0PN9C3YOGTc3LP8tzcavH4csEuvMM2i5z+NlM1GuAnATr5TEXr6p6W9YR89Ck61ARXUMB+RSo8qVvd3dNMwBejMBWiJEWXyCvRo4YavtpgbXuKziLnBuerX7be22K7PumVzzMgGfd4sy9nHuZjif6h8+xiLM84WDcMfSGQJXF1TZvkwa9ruFpEMDJabIgf964jc4nA0uFQwgbHjlM0M71TNkgiTQbSJzzqYzmMU+vBzYlBTiKVfZ2R/ErLgXXLDP7SEaWltvazxiEwKsOfccfwDA7o7GQVIKg==
+Received: from DB9PR03MB7388.eurprd03.prod.outlook.com (2603:10a6:10:223::18)
+ by DU0PR03MB8743.eurprd03.prod.outlook.com (2603:10a6:10:3ca::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 15:43:59 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 15:43:59 +0000
-Message-ID: <678a85fe-e544-4ce9-a19e-b9d71f250750@amd.com>
-Date: Tue, 22 Sep 2026 17:43:54 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/12] drm/amdgpu: add profiler UAPI definitions
-To: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- Bing.Ma@amd.com, James Zhu <jamesz@amd.com>, James Zhu <James.Zhu@amd.com>,
- Natalie Vock <nat@pixelcluster.dev>
-References: <20260921200313.865829-1-James.Zhu@amd.com>
- <_Vw-t4UsQJK0Ic5kimqXtw@gmail.com>
- <d955f3a3-2f90-4e6a-bc9f-579df06e6402@amd.com>
- <E26TqGhRRCmT_3vybr_f2w@gmail.com>
- <CADnq5_MhUmRZeDKCVHPvq8z=UbJv3MEJZAOzBXjz5cFm46v_Zw@mail.gmail.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 15:51:24 +0000
+Received: from DB9PR03MB7388.eurprd03.prod.outlook.com
+ ([fe80::2ce4:f394:cc5e:6d48]) by DB9PR03MB7388.eurprd03.prod.outlook.com
+ ([fe80::2ce4:f394:cc5e:6d48%3]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 15:51:24 +0000
+From: Arthur Liberman <arthur_liberman@hotmail.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+ <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
+Subject: [PATCH 0/3] drm/amd/display: fix NULL derefs on MST HPD and teardown
+Thread-Topic: [PATCH 0/3] drm/amd/display: fix NULL derefs on MST HPD and
+ teardown
+Thread-Index: AQHdSqoZls0hw0TPkUyfm1fNCkwksw==
+Date: Tue, 22 Sep 2026 15:51:24 +0000
+Message-ID: <DB9PR03MB73884B0D604BA858636247CF8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CADnq5_MhUmRZeDKCVHPvq8z=UbJv3MEJZAOzBXjz5cFm46v_Zw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0221.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e4::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB9PR03MB7388:EE_|DU0PR03MB8743:EE_
+x-ms-office365-filtering-correlation-id: c160fd11-5842-4b75-1a34-08df18c15b18
+x-ms-exchange-slblob-mailprops: znQPCv1HvwUXBahuwteIkQeW30lJPuxOOlXpeUFOkZLvojDHFIqO84JObT9U8fiUwPijj2preClOD/cGIjUhYn9u7ckpSbrG7wk1gwngSPBGDoh6AuJpIF4CUlKMCYWWcAUiNQrGiAn97dvfkBh9rj9tfde9gTdIpLTV8TAlgcmOSpXtYYBVRMpiLUEFZ7per8dJFMUW7L0FGWJm52oq9Mt+KqrGGk4edWNE9dUF1kQzXFPCj2Gnk8T9pMaR6dkWMtyToDpdp/LbZic8tOuGKZ5982ffOITPU9hDPHFKqZo4rJtix0RCgs8v+LZI1DmckYOx+qpgVCbI/WiUD1wsL0mBh+E7vgN6LkaNHSOtDbnvn802GB1l2RixWhmQdNyMm0xerBVC0nXPpAvBW106cwMtcRa05NFz2woybiyZ6fMJgCKQVJJeVXStXmwYRQdXsACoKyCLWF5M4ELcszGB8B9w1wj82cVjf+uAIYpI6DLKOgY7w0jC6YaANzrY5e0dmEW+iPjcgkhJ+jFO+VfAe8wLeUFAELmK1zkCAD3BPu7P4qb8iIw/FQe6mKVFhmPsgThzm10nE9jr8eOtnkyZ3PxbLiPfVflGg+UlbDcyGhBOfoB6vxw6CqMUgQ42FN9UtRd43FuBXSMNKtqDcaFzLM12AIoRBnaX7V3ymMLhq2E5shy4rtK051w+uYiSsbyP3uy0Hr8fAYXp0Cxh2R1XQbqvEr4PXe4I5uWEnDqbMpLgRFMMtW8tSjASlCY80FHp/uIq63pK8T8=
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|8062599012|19110799012|4140399003|8060799015|25010399006|16041099003|15080799012|37011999003|31061999003|15030799006|24021099003|40105399003|53005399003|2607281247196008|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?fk5ERDpuy6Gbp+GXC9O4W3aO64DrnMpmvDPBtTSXqxk/EskoJt//W6v0Un?=
+ =?iso-8859-1?Q?UJDaAwJB/3MR56Fz+HZMp31WAlg14F7CG6vLrIwsmOqF4SQ3PJ50S3S89f?=
+ =?iso-8859-1?Q?FliPNXtC6bimKr1BnLIwvpCi+sXBQP7VREXGZQu+qQghAVUVY6hdMelPeR?=
+ =?iso-8859-1?Q?YXMEJ9auoocyKLeUpXq2brI0yBiejq7eilctISZkBLM+WFyfqh8I06vEjK?=
+ =?iso-8859-1?Q?WfBkRGASUu+xIlpQ6ga74nfz0nEjy1lgSfeZyiKwIUcetgzONA6LFE2DZy?=
+ =?iso-8859-1?Q?K4Lr7nBde2O55sIn18Jjw6SP9rUcgrr35bxmtlb9HufaT8NbxiclZ0DTeB?=
+ =?iso-8859-1?Q?aDjapIbTBnE/tGcoVu7j83OTYAd+6HRFA2ATPNWsdlLmTKWovnoFnuTEkk?=
+ =?iso-8859-1?Q?L4J6AXB30P1GhZwhhUCPT1ovKNse+RLl1amnn3fDo0amMAXx8351StfMS0?=
+ =?iso-8859-1?Q?YXEpU/Gm5Mtyyh0BBa6KEmKAHTAyHg6V1OnRkoibRB1KtUoNC+WxV4YN7j?=
+ =?iso-8859-1?Q?phT2Dg1NGANfnZIdzwLC+3NLoIOYYgZEbLEALYFGcrL4DAKA9uV2ap13Ba?=
+ =?iso-8859-1?Q?M6AClmM4VOpBzk/7lcdjLgstxOu/VaHrcsJIjB0UGtGWILty15Wyqu7PLv?=
+ =?iso-8859-1?Q?+pe5P4NJlnt5xbzxbD7jhiJ3tSqQ201ITOJdALR8baQt/NqlmGkS51lmaB?=
+ =?iso-8859-1?Q?QOebnSROhtHk7lAO5vjcN/XEdRm9RLrUpzcC5sNZVSERHBlTvxm8ZBq5/s?=
+ =?iso-8859-1?Q?S2zFMZWGuE1Kz6g/ya/6LYmjQS1CuAwRXzEAWoWAsu5IlSOFBaMFfLXkz9?=
+ =?iso-8859-1?Q?OyvI+nITqtDPSBMxjw8UxV33Dn35LmSfEq0clzIUzWOKUnYpIrBLiS1jQ1?=
+ =?iso-8859-1?Q?RtddQkXnkIyq9BvTFfla0RdcfhipFJyomHZ9HKVLBeAOeBWSpjrtnpZKlo?=
+ =?iso-8859-1?Q?3eHj+wcJP0c4ynvP9EOya/x02Y3QTqmzSNGYMgUdJuYWSePg2fB6kBc8to?=
+ =?iso-8859-1?Q?es3V1wsVZ3I/b6XRgOUpqYrINOrmY7D2LLs8bkGRFanzoSCJi5FnZiYqft?=
+ =?iso-8859-1?Q?6n/20buXmCH1xXwr66xjDzU=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?lC3/yx+hBZI1QK5/dRs0GhS3C6MIykbZ7IzBUxHIs5sxXUY4DINUoIuZZC?=
+ =?iso-8859-1?Q?YQbc0r1d/OVrextVgBiXaUh1fVpDp+yJMne6dRl4m+H8oBJQ+RXuM9LZ90?=
+ =?iso-8859-1?Q?gPoPXC9RuQAPduFd8Esg7O/9JNYewHvfV1pHxdnWoHnDUwakTCP6KWRAok?=
+ =?iso-8859-1?Q?LnjSXuHb2czYmKF9VyO8JSFunefD2TFYZEnOFZIsY/TxUsOVC9o/ntyY0U?=
+ =?iso-8859-1?Q?twnd/gBe8qYG9PtS5S916XIdrPjnKF+BpRpP9ZIqYsQDVidUGm21gLJZH7?=
+ =?iso-8859-1?Q?LiX5nRuiJeEsCbA2Jni0Lh9xKN9jCVzuOK5QY88QpkVfAnM7K2abYn0X4d?=
+ =?iso-8859-1?Q?5SMc7wInARawip0Z1OYaXcF7UmIuCeAsAUVx41SaNdHCHrvFoH+MhMjzV7?=
+ =?iso-8859-1?Q?yw6rqJPavztipOhvygl5/yGYc42o4rBaXXQ5wqww8KaDceUmkKf8AUjzoh?=
+ =?iso-8859-1?Q?bfFsF3Sf25hX2oTaonXj8TXW+hwrvjA+/QZXGUPKGYgn1LkipCobBi5BUt?=
+ =?iso-8859-1?Q?YHPn38cma3GOZ42aQWgae2UTfttC9H3bR2pZ+AvlbbzLznb9Q+GVJAns80?=
+ =?iso-8859-1?Q?7lVH0+HGRipfk9KOFQPorlczGhv0hK4uMvdVTVaYCYcfHnYr1xgI8QLrr2?=
+ =?iso-8859-1?Q?eawDMEtMtb07lcHyngzkxz6t2KCkQyV8oEmm2Mtfa5ouJXirYg57EPQknD?=
+ =?iso-8859-1?Q?vnh6QmD7wmof23zayWnnU48Akv+nLGkzwB5SdlzFKYwvJb6WBsQ+3cAY8Y?=
+ =?iso-8859-1?Q?i0J7tT3eoqI+Zc+mB4bVY8maMS0GM7NyIG6vMoiKwWZQIt7gDJOP93hQDG?=
+ =?iso-8859-1?Q?GKDNaMQ3LGTbydOvps5wgqfKxp0Lx6M7pYqvgq+NLjlNp52SkaLGGr6VTF?=
+ =?iso-8859-1?Q?uKQnatEKd2e2KOdZQ5vTDWhO3WTYrIeyQwaH0/KyshhX3uzJ0x1tQys8Sx?=
+ =?iso-8859-1?Q?98hbnNHwBj1kQJiNf92u9bt31qBqx05+RJJhTXtCbzTbj3qPG/hpC/gzjo?=
+ =?iso-8859-1?Q?sMr+s2fzic9ZVEk86ocXv0yl9sLB/lWg0/8IwIZ2lObSR/JwOLZksASdsH?=
+ =?iso-8859-1?Q?WI8u0ztsJG3VaSMGBqzRPYQyDxohrybaAJ/bZ5nTBWzvUKbABNA9s27SPT?=
+ =?iso-8859-1?Q?6k8rlV66WZby2+uAMNxzKhgt0LEXBkVwdR5IIqStQJOKt611BDQlFu0P4I?=
+ =?iso-8859-1?Q?C1o0QnOBbfID8qpZyKEUmY7Y28E28ZoEKsN7gQ/rv7oSMB9faj4QgqZFvc?=
+ =?iso-8859-1?Q?fCaN5Aps0cjJ53yaodRH5g3Z8oa/3/K44tFBGx01+QRU2JdBON6sqLZYJK?=
+ =?iso-8859-1?Q?3+t9xjFvDaW12zFjHqHPDSOfCW/IlVB+kX0C2hmmOWlrrhUhzOezDehI9j?=
+ =?iso-8859-1?Q?kz8EKO4cgbX7/nlW750xB6eeVpxUW92apKBUVEETOG/y9vC+k1xjLNDTo0?=
+ =?iso-8859-1?Q?W9Gr5UtPyrCx1uJt?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY3PR12MB9554:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc57ff31-d656-4134-3cdc-08df18c05131
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|4143699003|56012099006|11063799006|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: ImFaQuP0DgxJB5h9jDB5xNKZQ4OwFufmjbDF5+zEXFS73zsXK+GuvGN/m01aeh7j+7tyWKHo51SKa7oo76h1o3PaIwraDl2m1ywGEKzr4wdum8wxxYQevv+F9pz5TuUUHA6gj+vM2g/qbgtJ/WtuNarH0vgVVEnIj5nLFzmSIH8z2t9yY2dFEYbKO7hreiOQuATIHfBPlluscMZJy6KW8xEXRKau24OqG4Z+WFf+5rjvjrEhJHgo6DmeMu+J8WoGowqs2wuFNWKYIKS575VROviK7Ox1u+zyQbd7ByFkGVYfwV33RYIEgFDxuDn8MfE3VpFF+bhBMugLX8cT4oVqk3PXmxL72Wa4g9/0Z8gm48xt5enkP/ArDCMsWMEtnrItqgacol9z/lRN9OBIWrpX2G60dHhiLtF9zmXXD4NY0I0K5hODx/CurB3FCJJeO4EJwJg16+6sXSEGeMfr0f4wShHOKEkAmImjSSCFIhaYeOe2o0qocJ7nRTPSn/G36jtVA419V/rN8xsTfUoYISIx+GELiOkNlHnlpvpDlqDK3cUqf7R+LOuVH9mntVxIJ7SUDWqaxvzM+Ht2E89qEUVRjXZoCBwiesvApdvnZ0WD6DG1NWOjdZVcP8eGaSXoISgZpaXF+Q1X6NqADTI9GFXNM+risz8X5xDd38/WGbDnY4E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(4143699003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXhGR3pDYmpodEVYQTExcHNRQVg5N2t1Q1BjWlF1bmpwSC8vSTBkSHplb3JH?=
- =?utf-8?B?MFE2RGJVSW5zdWxyd2pzWlRJc0F1TWVGWTc0RzdobXFCVkt2a1pSeVFTY1Jm?=
- =?utf-8?B?OGpzNTB0ejdpVng1QWJ3c090WXJ3ZU1JR1lzWFZEaWZPTUJaNFp6dzBrVDNI?=
- =?utf-8?B?d3gyVDA3cFhrL0ZVTFdPaDFxNUIyUHdCYnF0ZFE0ZG1TbU9WQVB6ZHRLR0Fk?=
- =?utf-8?B?bm0xODdZWTR3MnIyNHYyS3hHV1dRalhOQXA1ck03anhKSm1qWU9wVmFCd0h2?=
- =?utf-8?B?Wis4dml5bDJFR2NzNmM3N0RXR3FQNmhZOTJ1MHpZVzRqMnROUmFLQm80d0V3?=
- =?utf-8?B?NFA2dkgzVXJUV2NBbVpPbUdJYms5Z2FBa25XWGFER042UEZOR0VqZHBvKzhN?=
- =?utf-8?B?V1FRYnE1djY2MHV5T1loTWw3SWdUdmUwaWlUUEJXQkRRaGRWUk42dmIyb0hG?=
- =?utf-8?B?dkZTQW8rTTEwVE5KcHQ2SkhjZjZHRE4wWjhka3NYdFlXK0JvcThuS0ZNY0p2?=
- =?utf-8?B?WUg1Z0tnVzQ4dldvOTFIaHBtbmtQR2tuMFNlU1NVYmYrMWdRckF5NGp6ZFlE?=
- =?utf-8?B?L0pkRHZ5TmE3SXd1QlhTeXZUdzl3Y0RmM25jcTkvYWxrdVA0TGNGcHZXaHVh?=
- =?utf-8?B?RTc3dVRvZERYdHM2dSswYVo0cGlWVXdMNjkrOVhNVkRsaUxncDdYVHQ2QmxU?=
- =?utf-8?B?ZUdOM0M4ajhXK2tkeVlpeVI2VlMyUXBjQTc1TXYzUmtkYnQ2bjFYWUYzWDdZ?=
- =?utf-8?B?VStsZzNXbTNFWFRvM2tVTEY0U3U3eVFvNGJ2cjVuTEVlTnpZeHdReDVRZ1ky?=
- =?utf-8?B?WnJYTkQ0Z05yaHczbkpmM2pBVWZ6R2YxazhLQmVuK3BTZzl4NnpKUTVqRlRH?=
- =?utf-8?B?UkpJNnR4bDhKRktkY1lnZk1KNTRhRElOY1VoRXdhbnNPb3ZodDdPSzNsNWJy?=
- =?utf-8?B?emRaa2ZoaVMvRHJ4NWhtUHl0WDAxb2lBcmRtRWFMZ2ZqZGp0dVM3RVhNQWVC?=
- =?utf-8?B?UVpoUVh1VDRSL2pXYzRkZkdlL2tHOWFiYVNkUUlKcXFaY0ZZNGRFWE5TWUth?=
- =?utf-8?B?NnFMWFQ1dzhQSWZDTFQ3N0FXNTFzcWtVTFpyYUJ3YU9mM0Rjc0Frd21tTnZ4?=
- =?utf-8?B?a2NIYTNudEI1dFNKbWtUMTM4T3RLM2ErQ1Fsc29rTzlhWVVLanJjYUdzb0dG?=
- =?utf-8?B?WjdlNmtDT1pTTkhDZVFrU1ZxbGZvZ3dhSitsR1ViMlhKR1pBcEVYMndNcGtQ?=
- =?utf-8?B?NmZiMmJpS01vR1pTSjN3aFBoNCtaUEljVlhSRUJNTVJVMEUxUGRzbWJpUmxq?=
- =?utf-8?B?RksrYndOeEN5eFRJb1RQaDhCcWIrd2E4bW5RNFhtMVFQZ2VmckpraGhhS0NK?=
- =?utf-8?B?U2FTcVB3MDZoalI0eENtbmxZbVhZR1NVNXpKTmJPc2FVa2VUMjN3YjJYOThx?=
- =?utf-8?B?NE9WRXBGRjRYMFBVNDJzOHhHUjBIZWlXR2ViUmJYT3ZBVUROUHZ2aTQxbnpk?=
- =?utf-8?B?RCsyeVo4VjZXbFczU3JsLzEydkoyTkdUazlVbDg5Qkh3UWFLNTBkQ2x2c0s3?=
- =?utf-8?B?alR3TWp2MHpCU0RLQm1hN1BRbU9sbnoraHV5RlFaelh6dWNtOEdYMDczNmR4?=
- =?utf-8?B?RjhYc2p5bE1QU080M1FmcUx4N25CUGtLUVNNU3MwRmpGaFphZDg0K2UyR1Vw?=
- =?utf-8?B?L3p0QkVqckw1Snh2UlVuY3ZtQ3FOQUNybFd5a3Y0YlgvVHorSzA0ZmNNK1J5?=
- =?utf-8?B?am1EZDVwNEZmenpzZTE0NHp5N2ZNQ2UrUEN5WExTb2d6ZER1cm5FUm5IZDdo?=
- =?utf-8?B?RE5RNmpnYS9Sa2RtMnM3K2VZNEtXL1htVlVBcTRUVGNzMlN5N05qU1RscmhZ?=
- =?utf-8?B?cmVzem9sdXpuRFlIbmVpV3NMamlTUTZ1YmtIRHZWbWUrK3ZGbGVha3ZzNGNh?=
- =?utf-8?B?THJUN0YvL3Jzc1dhOWhFNkxqcVNSQkRObHF3TDVzSklNRmVVb0sralRKaU9v?=
- =?utf-8?B?bERkMGdNZGFBbFgwRjJZUlRsekMyVjl0STVFQUtUMDJoRzdUOTRQOEs3bEhR?=
- =?utf-8?B?Q1hpZU1BV1ZmWHFYUXhIQVp1dlJPQjUwWWFRTmRWOVM3VkkremVMMWgwRkFL?=
- =?utf-8?B?Y25TT01PRHZHek5SYTZHaDNENTE5OUZwRTBFb1dYZHFQUEhkTlAzaE1lbGN5?=
- =?utf-8?B?WHhuMXRvRDh5NExxVlVvVCtzREdNZ2lwTzdLOFBYVkR2Q0xNczQvNEJMR29m?=
- =?utf-8?B?Z3RscFFWNDNNUkJmdHAzaDJtVWRKbnNvSDhJWjNpQ292T0lmNkdyTlhubmY1?=
- =?utf-8?Q?6JUdOugWzSctpXytJT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc57ff31-d656-4134-3cdc-08df18c05131
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-OriginatorOrg: sct-15-20-9412-6-msonline-outlook-24844.templateTenant
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 15:43:58.8022 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IEEVdYNLvjL1tcZb2b3twYd6dFHOJC3w8Osy1SupsQIZA/KZAsGAK8MyXf+GfzkV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9554
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7388.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: c160fd11-5842-4b75-1a34-08df18c15b18
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 15:51:24.5603 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB8743
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,270 +138,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 9/22/26 17:40, Alex Deucher wrote:
-> On Tue, Sep 22, 2026 at 11:22 AM Timur Kristóf <timur.kristof@gmail.com> wrote:
->>
->> On Tuesday, September 22, 2026 5:20:41 PM Central European Summer Time James
->> Zhu wrote:
->>> On 2026-09-22 11:09, Timur Kristóf wrote:
->>>> On Monday, September 21, 2026 10:03:02 PM Central European Summer Time
->>>> James>
->>>> Zhu wrote:
->>>>> Add the DRM_AMDGPU_PROFILER ioctl number and its argument structures, the
->>>>> UAPI for GPU performance monitoring features such as SPM (Stream
->>>>> Performance Monitor).
->>>>>
->>>>> struct drm_amdgpu_profiler_args carries an operation selector and a union
->>>>> of per-operation parameters, currently AMDGPU_PROFILER_OP_GET_VER and
->>>>> AMDGPU_PROFILER_OP_SPM. The SPM operations and the layout of the
->>>>> destination buffer are described by struct drm_amdgpu_spm_args and
->>>>> struct drm_amdgpu_spm_buffer_header.
->>>>>
->>>>> The ioctl number and struct layout are frozen here. The implementation
->>>>> lands in the rest of this series and the ioctl is not registered in
->>>>> amdgpu_ioctls_kms[] until then, so this header change alone does not make
->>>>> the interface reachable.
->>>>>
->>>>> Signed-off-by: James Zhu<James.Zhu@amd.com>
->>>>> Reviewed-by: Bing Ma<bing.ma@amd.com>
->>>>
->>>> Hi,
->>>>
->>>> Can you guys please clarify why this is necessary and what the use case
->>>> is?
->>>>
->>>> Are we sure we want a uAPI for this? RADV has been using SPM from
->>>> userspace
->>>> for many years now.
->>>
->>> [JZ] current RADV SPM is for graphic engine. These patches are for
->>> compute engine SPM.
->>>
->>> Thanks!
->>
->> Is there any reason why it can't be done in userspace for compute too?
-> 
-> There's only one SPM so there needs to be arbitration to avoid
-> multiple applications trying to use it at the same time.  It also only
-> works on a single vmid at a time so the application using it has to
-> request a fixed vmid.
-
-Yeah, we already have an API for reserving a VMID for SPM.
-
-We also have a TODO item to make that available for user queues which then both ROCm and gfx can use.
-
-So as far as I can see that work here is completely unnecessary.
-
-Christian.
-
-> 
-> Alex
-> 
->>
->>
->>>>
->>>>> ---
->>>>>
->>>>>   include/uapi/drm/amdgpu_drm.h | 124 ++++++++++++++++++++++++++++++++++
->>>>>   1 file changed, 124 insertions(+)
->>>>>
->>>>> diff --git a/include/uapi/drm/amdgpu_drm.h
->>>>> b/include/uapi/drm/amdgpu_drm.h
->>>>> index 9e5fa6f53e59..285949d63eb6 100644
->>>>> --- a/include/uapi/drm/amdgpu_drm.h
->>>>> +++ b/include/uapi/drm/amdgpu_drm.h
->>>>> @@ -60,6 +60,7 @@ extern "C" {
->>>>>
->>>>>   #define DRM_AMDGPU_GEM_LIST_HANDLES      0x19
->>>>>   #define DRM_AMDGPU_PROC_OPTIONS          0x1A
->>>>>   #define DRM_AMDGPU_TRAP                  0x1B
->>>>>
->>>>> +#define DRM_AMDGPU_PROFILER               0x1C
->>>>>
->>>>>   #define DRM_IOCTL_AMDGPU_GEM_CREATE      DRM_IOWR(DRM_COMMAND_BASE +
->>>>>
->>>>> DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create) #define
->>>>> DRM_IOCTL_AMDGPU_GEM_MMAP  DRM_IOWR(DRM_COMMAND_BASE +
->>>>> DRM_AMDGPU_GEM_MMAP,
->>>>> union drm_amdgpu_gem_mmap) @@ -83,6 +84,7 @@ extern "C" {
->>>>>
->>>>>   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE +
->>>>>
->>>>> DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles) #define
->>>>> DRM_IOCTL_AMDGPU_PROC_OPTIONS      DRM_IOWR(DRM_COMMAND_BASE +
->>>>> DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options) #define
->>>>> DRM_IOCTL_AMDGPU_TRAP      DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_TRAP,
->>>>
->>>> union
->>>>
->>>>> drm_amdgpu_trap) +#define
->>>>> DRM_IOCTL_AMDGPU_PROFILER  DRM_IOWR(DRM_COMMAND_BASE +
->>>>
->>>> DRM_AMDGPU_PROFILER,
->>>>
->>>>> struct drm_amdgpu_profiler_args)
->>>>>
->>>>>   /**
->>>>>
->>>>>    * DOC: memory domains
->>>>>
->>>>> @@ -1821,6 +1823,128 @@ struct drm_amdgpu_proc_options {
->>>>>
->>>>>    } kfd_sigbus_delay;
->>>>>
->>>>>   };
->>>>>
->>>>> +/*
->>>>> + * Supported SPM (Stream Performance Monitor) Operations
->>>>> + */
->>>>> +/**
->>>>> + * drm_amdgpu_spm_op - SPM ioctl operations
->>>>> + */
->>>>> +enum drm_amdgpu_spm_op {
->>>>> +  AMDGPU_SPM_OP_ACQUIRE = 1,
->>>>> +  AMDGPU_SPM_OP_RELEASE,
->>>>> +  AMDGPU_SPM_OP_SET_DEST_BUF
->>>>> +};
->>>>> +
->>>>> +/**
->>>>> + * drm_amdgpu_spm_args - Arguments for SPM ioctl
->>>>> + *
->>>>> + * @dest_buf: [in] used for the address of the destination buffer
->>>>> + *            in @AMDGPU_SPM_OP_SET_DEST_BUF
->>>>> + * @buf_size: [in] size of the destination buffer
->>>>> + * @op: [in] specifies the operation to perform
->>>>> + * @timeout: [in/out] timeout in milliseconds (in), amount of time left
->>>>> + *           in the timeout window (out)
->>>>> + * @bytes_copied: [out] total amount of data that was copied to the
->>>>> previous dest_buf + * @has_data_loss: [out] non-zero if data was lost
->>>>> (e.g.
->>>>> due to ring buffer overflow), + *                 zero otherwise
->>>>> + * @reserved: must be zero for forward compatibility
->>>>> + *
->>>>> + * This ioctl performs different functions depending on the @op
->>>>> parameter.
->>>>> + *
->>>>> + * AMDGPU_SPM_OP_ACQUIRE
->>>>> + * ------------------------
->>>>> + *
->>>>> + * Acquires exclusive access of SPM on the specified XCP for the calling
->>>>> process. + * This must be called before using AMDGPU_SPM_OP_SET_DEST_BUF.
->>>>> + *
->>>>> + * AMDGPU_SPM_OP_RELEASE
->>>>> + * ------------------------
->>>>> + *
->>>>> + * Releases exclusive access of SPM on the specified XCP for the calling
->>>>> process, + * which allows another process to acquire it in the future.
->>>>> + *
->>>>> + * AMDGPU_SPM_OP_SET_DEST_BUF
->>>>> + * -----------------------------
->>>>> + *
->>>>> + * If @dest_buf is NULL, the destination buffer address is unset and
->>>>> copying of counters + * is stopped.
->>>>> + *
->>>>> + * If @dest_buf is not NULL, it specifies the pointer to a new
->>>>> destination
->>>>> buffer. + * @buf_size specifies the size of the buffer.
->>>>> + *
->>>>> + * If @timeout is non-0, the call will wait for up to @timeout ms for
->>>>> the
->>>>> previous + * buffer to be filled. If the previous buffer is filled before
->>>>> the timeout, @timeout + * is updated with the time remaining. If the
->>>>> timeout is exceeded, the function + * copies any partial data available
->>>>> into the previous user buffer and returns success. + * The amount of
->>>>> valid
->>>>> data in the previous user buffer is indicated by @bytes_copied. + *
->>>>> + * If @timeout is 0, the function immediately replaces the previous
->>>>> destination buffer + * without waiting for the previous buffer to be
->>>>> filled. That means the previous buffer + * may only be partially filled,
->>>>> and @bytes_copied will indicate how much data has been + * copied to it.
->>>>> + *
->>>>> + * If data was lost, e.g. due to a ring buffer overflow, @has_data_loss
->>>>> will be non-0. + *
->>>>> + * Returns negative error code on failure, 0 on success.
->>>>> + */
->>>>> +struct drm_amdgpu_spm_args {
->>>>> +  __u64 dest_buf;
->>>>> +  __u32 buf_size;
->>>>> +  __u32 op;
->>>>> +  __u32 timeout;
->>>>> +  __u32 bytes_copied;
->>>>> +  __u32 has_data_loss;
->>>>> +  __u32 reserved[9];      /* must be zero; pads this struct to 64
->>>>
->>>> bytes */
->>>>
->>>>> +};
->>>>> +
->>>>> +/**
->>>>> + * drm_amdgpu_spm_buffer_header - SPM Buffer header for
->>>>> drm_amdgpu_spm_args->dest_buf + *
->>>>> + * @version:       [out] SPM version (0-23: minor, 24-31: major)
->>>>> + * @bytes_copied:  [out] Amount of data copied for this sub-block
->>>>> + * @has_data_loss: [out] Boolean indicating whether data was lost for
->>>>> this
->>>>> sub-block + *                       (e.g. due to a ring-buffer overflow)
->>>>> + * @reserved:      Reserved for future use, must be zero
->>>>> + *
->>>>> + * This header precedes the SPM data in the destination buffer. The
->>>>> reserved + * field maintains 64-byte cache line alignment (32 bytes
->>>>> total).
->>>>> + */
->>>>> +struct drm_amdgpu_spm_buffer_header {
->>>>> +  __u32 version; /* 0-23: minor, 24-31: major */
->>>>> +  __u32 bytes_copied;
->>>>> +  __u32 has_data_loss;
->>>>> +  __u32 reserved[5]; /* pad to 32 bytes (64-byte cache line / 2) */
->>>>> +};
->>>>> +
->>>>> +/* Supported Profiler Operation */
->>>>> +#define AMDGPU_PROFILER_OP_GET_VER                1 /* get profiler UAPI
->>>>
->>>> version */
->>>>
->>>>> +#define AMDGPU_PROFILER_OP_SPM                    2
->>>>> +
->>>>> +/*
->>>>> + * Profiler IOCTL
->>>>> + */
->>>>> +/**
->>>>> + * struct drm_amdgpu_profiler_args - Profiler IOCTL arguments
->>>>> + * @op: Operation to perform (AMDGPU_PROFILER_OP_*)
->>>>> + * @pad: Must be zero for input validation
->>>>> + * @data: Operation-specific parameters (union)
->>>>> + *
->>>>> + * GET_VER operation:
->>>>> + * Returns the profiler UAPI version in @data.version as (MAJOR<<24) |
->>>>> MINOR. + * Input: @data must be zero (reserved for forward
->>>>> compatibility).
->>>>> + *
->>>>> + * Design note: GET_VER is intentionally a parameter-free query
->>>>> returning
->>>>> + * the global profiler UAPI version.
->>>>> + */
->>>>> +struct drm_amdgpu_profiler_args {
->>>>> +  __u32 op;                               /*
->>>>
->>>> AMDGPU_PROFILER_OP_* */
->>>>
->>>>> +  __u32 pad;                              /* must be zero */
->>>>> +  union {
->>>>> +          __u32 version;          /* GET_VER: out
->>>>
->>>> (MAJOR<<24) | MINOR */
->>>>
->>>>> +          struct drm_amdgpu_spm_args spm;
->>>>> +  } data;
->>>>> +};
->>>>> +
->>>>>
->>>>>   #if defined(__cplusplus)
->>>>>   }
->>>>>   #endif
->>
->>
->>
->>
-
+From b554858dc4f2c48be0d44e3c66ed781842365bd1 Mon Sep 17 00:00:00 2001=0A=
+Message-ID: <cover.1790083445.git.arthur_liberman@hotmail.com>=0A=
+From: Arthur Liberman <arthur_liberman@hotmail.com>=0A=
+Date: Tue, 22 Sep 2026 16:24:05 +0300=0A=
+Subject: [PATCH 0/3] drm/amd/display: fix NULL derefs on MST HPD and teardo=
+wn=0A=
+=0A=
+*** BLURB HERE ***=0A=
+=0A=
+Arthur Liberman (3):=0A=
+  drm/amd/display: fix NULL stream deref on MST DPMS-off=0A=
+  drm/amd/display: skip destructive HPD verify on live links=0A=
+  drm/amd/display: skip MST slot release if port is gone=0A=
+=0A=
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c |  6 +++++-=0A=
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 14 ++++++++++++--=0A=
+ .../drm/amd/display/dc/link/link_detection.c    | 17 ++++++++++++++++-=0A=
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c |  7 +++++++=0A=
+ 4 files changed, 40 insertions(+), 4 deletions(-)=0A=
+=0A=
+=0A=
+base-commit: cf48bd0a46279f4607956cb17c71bda96ee802e3=0A=
+-- =0A=
+2.55.0=0A=
+=0A=
