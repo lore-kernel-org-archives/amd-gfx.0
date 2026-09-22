@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03830C982FF
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:34:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC9A8C982FF
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:34:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A47F10EBD5;
-	Tue, 22 Sep 2026 09:34:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4140710EC12;
+	Tue, 22 Sep 2026 09:34:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L/RMJOCU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VsWYpQmA";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010024.outbound.protection.outlook.com [52.101.56.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F026E10E6AF
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 09:34:20 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012020.outbound.protection.outlook.com
+ [40.107.200.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B196610EC12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 09:34:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kk5rv4r9F2thmuw2zbcVR7jj4LRPbvFztc1UdfKolpSVJxFludT+Oy6qFI0Z41H/neJ7hz1aGgrdEwE80q+DkvJyDAOdV/NsqE/nlFOxTTu5W5g1ctIdFvd88si/INhgBkeHn/b3wDLCs5UTVpJIhTjCqbSoDEDdKlVfGonFUkwI5hFpsyEND+JYcqp6qZf3Jcx2xcsWRTH0L3LhXq4OFkMr9IL2YAc+71a8nDUq8ytOYfF7eiyO0+p1VPBGWlzfgo9H82FFWfoDdC100rtQqwAUCXRiO0oNtCM/OMNst7USG7jPnrE5TP3RivRdTkR+3mkxGsMurR27exIZppjcHw==
+ b=gR1omptIuxxl3bqITjMyKzS63D7OFufgcC9a9uQkD4pMsGGcFQezP4SYuEmAR/5F0NZIRu8dXIx9QZ3Q1gHErwnTE2B/HSHpJhHdMB+gG6ar5UeKfPrzuRfZBY94xnGPPz9TC1yFJbArAifboNjvJYjKqyn0S2kixGdTGCrrt+lh8YNPV+oqgAQ7imLblGhsKz0VB85IjP4Bj00kXZQX1kG4+7FEhdn/glX6FwOY+13BpSUPFLeIJSB39twb6SztKeGJMdVaULXlisKZkEmmo8CYjRpoqWvqmumjsdYbfkdJ1qZOPCZ1wTPTHx7osOL3hHYf9OqmveQFnzzkoq99jg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5gD6Sn75pi8rcUCzTj+DOfnqjr+4oSl/nePLuFOJTuY=;
- b=oT7/Doc38QZIWfVozP3+9kjVhPpRywt6QU6+4jghsKQNi4mcKD8ecgZm5WRSmsUwxi9dOzvGk0bkmUgKf7lkVD7dd1974cl2W6yI4tTF46UeTw0z0T1yZQn/k9ofgK0gdlmb8mcD0UXfhZcJS3kLynN/q/loeovXDtDLP0cCS7GJbbpF04lm4BS2asvQVk0meIT8b4UnoT8sI0/khlzHfq/51K8QgTVh4AkBwIMq+fFsHB6yk3sZ5e8OuDF/bl2JvAWODxOy63u67qaLSpZlFlIPmdxMus/vWM764Ycw7T+rGRWEvIok0PtKqrqv3KyOC1kxMoUODAHFGCy3n9Iwvw==
+ bh=URX1P1joXgz8jrA4sLbMu/r+/1h5xbRrYo0tLw8cKU0=;
+ b=KUxGtNCAtzEu6wzvKsNBN3lGREogJmAmXCFBKdAVv4Ua4+fYlWxjA062S+8PXIyWCuiJjcDKBTeczJ27VWkU/XlIebl+EzHBLKMzhg+O0N+KJtdpNnaPXLrjM7u/H3LMxTgvp0ZK0is24vRnde1wyklQv4Hk2VEma6U+CT95Xby6pit+W4f2rQrzZh7ArD2V8/3M6qWsx12edjREVDxM+Y+1zCJQg5yprnQZS68zQHUnXf/TPgOPv42jPxZFDBqeU3RoN2RRlOaKbbkpS1CevUqM0Ee5YKaqu7fCKFDBCfOI+J68Cis6pwpX7x2bJKdYPs7ncor+U2Grz/tyWlBVaQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5gD6Sn75pi8rcUCzTj+DOfnqjr+4oSl/nePLuFOJTuY=;
- b=L/RMJOCUWqtXLHX1ahDJky+LnS0G0WDDa6f8sm+jBIiE6spZvU+d9eTfDMEzXlR+cpMS79iHCqI0cFg7ocDxLxIyksKZcYNvCG2x2lSyOKHDHU/O5dnu0oxYe64JzcZ+/9FDlX1sv1FgpMQr/XsaThyUz7JZ/aD21cfsChzLG+8=
-Received: from BN0PR10CA0019.namprd10.prod.outlook.com (2603:10b6:408:143::8)
- by CH2PR12MB4325.namprd12.prod.outlook.com (2603:10b6:610:a9::14)
+ bh=URX1P1joXgz8jrA4sLbMu/r+/1h5xbRrYo0tLw8cKU0=;
+ b=VsWYpQmAaUDTVBjWkmzG5C6J3RLJCVuDO5PuPPVJ3Je+wZxs5+Po83AiS7W8ZZ1yErjFvYKWxRAXsSnzOmhU70/FuX3/aZUXZYLbTyqLxbq2ogN+nCvyNGYKRKjgt4/HUFnxzusd+1jxq/fhn2wfsKd/jKFb/8Hk88a27bDkBh8=
+Received: from BN0PR10CA0010.namprd10.prod.outlook.com (2603:10b6:408:143::14)
+ by CH4PR12MB720178.namprd12.prod.outlook.com (2603:10b6:610:50e::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 09:34:16 +0000
+ 2026 09:34:20 +0000
 Received: from BN7PEPF00000090.namprd03.prod.outlook.com
- (2603:10b6:408:143:cafe::6f) by BN0PR10CA0019.outlook.office365.com
- (2603:10b6:408:143::8) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:143:cafe::7) by BN0PR10CA0010.outlook.office365.com
+ (2603:10b6:408:143::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
- 22 Sep 2026 09:34:16 +0000
+ 22 Sep 2026 09:34:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +51,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN7PEPF00000090.mail.protection.outlook.com (10.167.245.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 09:34:16 +0000
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 09:34:20 +0000
 Received: from ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 04:34:14 -0500
+ 2026 04:34:18 -0500
 From: Zhu Lingshan <lingshan.zhu@amd.com>
 To: <Alexander.Deucher@amd.com>, <felix.kuehling@amd.com>
 CC: <Ray.Huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
  <lingshan.zhu@amd.com>
-Subject: [RFC 04/10] drm/amdgpu: implement reservation mechanism for PMC
-Date: Tue, 22 Sep 2026 17:34:30 +0800
-Message-ID: <20260922093436.596947-5-lingshan.zhu@amd.com>
+Subject: [RFC 06/10] drm/amdgpu: GFX11: set mqd->perfcount from mqd_prop
+Date: Tue, 22 Sep 2026 17:34:32 +0800
+Message-ID: <20260922093436.596947-7-lingshan.zhu@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922093436.596947-1-lingshan.zhu@amd.com>
 References: <20260922093436.596947-1-lingshan.zhu@amd.com>
@@ -73,29 +74,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000090:EE_|CH2PR12MB4325:EE_
-X-MS-Office365-Filtering-Correlation-Id: 14feb2d0-c4b9-4e78-7997-08df188cabac
+X-MS-TrafficTypeDiagnostic: BN7PEPF00000090:EE_|CH4PR12MB720178:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d21499c-5b23-4170-a716-08df188cadd2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|11063799006|5023799004|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 7hW7OzzjiRKV++pmsI21jHUSxYU9e2XNrukr3KGiRaUO8w5VUtduutX+5HeVnR+9RWUK+k5KsjMX5T98GZwuh8XFQCoffdX4DFQxCWr5EpG/seoBD6eS1DqvOBz+4C81+aLlTbH0tYBu0Md3g4F7gYgQ3yLxCxEAGSYPfCB+XqRMl4rpO7daSXdPNOaSzwBcuoh4UUqj50POGFLKYOsvMkNLo7bdj0nv859naFz1zoN48gIpqVtdgOGSzz3SzpKFiBsuuc/5mmDrxWdf9oZImy3o8su6X5xZW11SuoXQ3iBm7fGmzTS5x2fTak08snRRX3n/2gph0mWUGGEBcQ1iHJA6luL1vPrxLi9b54yBlE9IeC/4uOefJ3sh84XP9SEWWQfcN5W46Jinlh94W3zO8QheJPjqxfIvreGTSuDmxdRPrFlMQPm2wRibGR9NZl2iZGasQ0HJKusG+P56uO6s5ozYWBYe+zYRd4R54d/FPdVUNaSqbM5aR/0V0egCwdEM6NauhHZMxD1PfW3axkyYHkvusEImwLMCTW5hq49v+ugyawo+SN0Mw1CTQVMCKsFUSdpeVyUY+eiI/nYV8SH/MBy1gBYEcFhlxSY0G5nJ1QytZc60d4g61VvJORO/AS+pBCaEeMEcEqTxuikPV2qLX8ZJIzjO4FY1MfXV6ZRypTfkJq5u0pxGNeTD0VNG4oBF/i2RSIGTkQJe9YNlGwlRPg==
+ ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: rYdE/lrAFb5HjiStxOyMseIZV23oBF2P46MF5LX+txWgiloSO9ri9RO4351piWTMnDTRyCj/Ce2ffJEkrAVBuZxU9WGzRFaJGj2pgvymeME06CGV7wy7zSdTPwnxTNyNL9xDcTeJXaDLNf+g4+7Pn8nTOw3MJmCoK/DfseNRQQAQGN8Hz6Na9JKoKblEL3B1QeQQCsX/vfYuAl2b1wEZCIcOAS6IjeCJyvhrhroSPyqGeYrgQy2wnoO0gNwXX7ZgtA39emFdC4egswOs4I7UzVrm2JaMqgnMvMueGxBvs5ikljkARPJDi6g4vq4yEpZyoXNQv8DrcsvU2tufJ6gnlkGLosh8iSAaRUnQDg8Aby9JpQXUKhKxOyRS2n89yVYk1ZPlvo2J3tSzblB4OoktF1gFbfYGGz02fwaOhghR2fbFw5lxvqKrkrainzUhMcDro9WoL8MChLIufcEA1FSoBoAWkyApvsfHodRQxJey+raQ/mTkDY6iTg3ApOkuDHJdsATpr4kUVTJxxxpZ9D41WRqz4kfgE+5iIDKGqmqCFTCZCM6Ha90kzjVhGLPZXscEaketRDq0wY93aWSFgXp5CuqCTfqX9AjgRb8eYnbLdR3hGJ5hCMmrwqjpfHQHI0NXsXojBYqzDUQRD2F3f1MzekivulODTN11sQwBAGD3txP+gLLkVIHxQDUU16qM+5ji
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(11063799006)(5023799004)(56012099006)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5voPlfwU+EuxvrVvUn2+7hrsIr9XwA7kbXKmwDNOfrXId8QGWflUpBdPHsfv9kFl9lZxoLRbu4r7s5OHf4QojEoxVX8mpiwboc+f/apToaJErFv6cwIuPPu2gPZE4DPDmmPNVR9jO3docciSvqA7siYaO9MkHt//lvtrFw1ib1M04IHfSz9lAdwDwgj7Sxbl3IUSAckYLBrKwJP31WPhZPCwux4HRrL8O9+QTSg3joezH7gdfmazOch4GwlcTBiqd+mAZtxmLrZzzyQlS9tHQ8mQiUh0U3CVEkneJARaoc5N3kc0W++73/GtJKn4C2xTGGiYUq4WCwUnP5nRQ/oHTtKRFEbxdKHP7IEUgdTj6RMt9+CK1Ra3R29ucm2ok3E6rEItt/vTeFYcGb76b+k6Zr+H5AoOMGBakl/Ip7xIFYYruOaO/3d6CxrEZ2vtvHoh
+X-MS-Exchange-AntiSpam-MessageData-0: kArsVUB+3lzPPF28MYD4J7nhjhHWSwDK0T/TkWcDKglfLAgkBIgg6i+A3nYXQkctMQWU7HZ2gBWcq1XPqEYTglPUSJXT6nONQh8g8s3IeoCkR/5gcvqbj7PDG67ax/IJLnaxWFIcqg3HfCRmMY28suQjL7jv1DRk1RPQEum6Vq7CLrBs3s3euLGVh630UiRso3cpfPQ91IFIfCw9VQu+bM5WHPN/525/yWT2+bXIplA6EWjP3xoKwEKeJO+rIbrQxTABxyl2B06bL4qYekYhaaNzvnN+Bxv/Q8dZETKSGj8y3xL5ulY43aeRTt/kJ+zO0+oGcwSma1vGwUKhcXzbTD7XE8lc5fY0Nn4yY7KIL/ajxySIAoXVJRb6V3+5+Nfu3ecrkFtcnJcmsxfbusbudRG7Vy+c3r4w6JSWQgsR94tJ4bWmzHECs7EtFbpyCNRo
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 09:34:16.4192 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14feb2d0-c4b9-4e78-7997-08df188cabac
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 09:34:20.0271 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d21499c-5b23-4170-a716-08df188cadd2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF00000090.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4325
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB720178
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,147 +111,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit implements reserving (take the profiling ownership)
-and releasing (release the profiling ownership) of PMC.
+This commit implements a new callback set_mqd_perfcount
+in struct amdgpu_mqd. This callback helps setting
+mqd->compute_perfcount_enable from amdgpu_mqd_prop->perfcount_enable.
 
-A reservation can also be cleared by AMDGPU_PROFILER_CLEAR_RESERVATION
-in case the owner can no longer release it, e.g., it crashes.
+This is a per-IP callback and it is NULL if an IP does not
+support PMC.
 
-Releasing is separated from reserving path by design,
-because the ownership needs to be kept during set_perfcount
-to avoid racings.
+This commit also implements set_mqd_perfcount for GFX11.
 
 Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c | 73 +++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h |  3 +
- 3 files changed, 76 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  6 ++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 11 +++++++++++
+ 2 files changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index a98c4a47e196..3dc563a64639 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2988,6 +2988,7 @@ static int amdgpu_drm_release(struct inode *inode, struct file *filp)
- 		amdgpu_evf_mgr_flush_suspend(&fpriv->evf_mgr);
- 		amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
- 		amdgpu_evf_mgr_fini(&fpriv->evf_mgr);
-+		amdgpu_profiler_release_device(drm_to_adev(dev), file_priv);
- 		drm_dev_exit(idx);
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index 7a5499ec1171..f7ae3d5484da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -479,12 +479,18 @@ struct amdgpu_mqd_prop {
+ 	uint64_t ctx_save_area_addr;
+ 	uint32_t ctx_save_area_size;
+ 	uint32_t ctl_stack_size;
++	/* PMC compute_perfcount_enable that programmed into this queue's MQD */
++	bool perfcount_enable;
+ };
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
-index feff37279575..6464af0d1b10 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
-@@ -29,6 +29,54 @@
- #include "amdgpu_userq.h"
- #include "amdgpu_profiler.h"
+ struct amdgpu_mqd {
+ 	unsigned mqd_size;
+ 	int (*init_mqd)(struct amdgpu_device *adev, void *mqd,
+ 			struct amdgpu_mqd_prop *p);
++	/* Per-IP callback to set compute_perfcount_enable,
++	 * NULL when this IP's MQD has no perfcount_enable field.
++	 */
++	void (*set_mqd_perfcount)(void *mqd, struct amdgpu_mqd_prop *p);
+ };
  
-+static int amdgpu_profiler_reserve_device(struct amdgpu_device *adev,
-+					  struct drm_file *filp)
-+{
-+	int ret;
-+
-+	mutex_lock(&adev->pmc_profiler.lock);
-+
-+	if (!adev->pmc_profiler.owner) {
-+		adev->pmc_profiler.owner = filp;
-+		ret = 0;
-+	} else if (adev->pmc_profiler.owner == filp)
-+		ret = -EALREADY;
-+	else
-+		ret = -EPERM;
-+
-+	mutex_unlock(&adev->pmc_profiler.lock);
-+
-+	return ret;
-+}
-+
-+int amdgpu_profiler_release_device(struct amdgpu_device *adev,
-+				   struct drm_file *filp)
-+{
-+	int ret;
-+
-+	mutex_lock(&adev->pmc_profiler.lock);
-+
-+	if (adev->pmc_profiler.owner == filp) {
-+		adev->pmc_profiler.owner = NULL;
-+		ret = 0;
-+	} else
-+		ret = -EPERM;
-+
-+	mutex_unlock(&adev->pmc_profiler.lock);
-+
-+	return ret;
-+}
-+
-+/* Clear the reservation in case the owner that can no longer release
-+ * the device, this function does not take the reserveion, nor touch the PMC state.
-+ */
-+static void amdgpu_profiler_clear_reservation(struct amdgpu_device *adev)
-+{
-+	mutex_lock(&adev->pmc_profiler.lock);
-+	adev->pmc_profiler.owner = NULL;
-+	mutex_unlock(&adev->pmc_profiler.lock);
-+}
-+
- static int amdgpu_profiler_check_access(struct drm_device *dev)
- {
- 	if (!perfmon_capable())
-@@ -40,6 +88,29 @@ static int amdgpu_profiler_check_access(struct drm_device *dev)
+ /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 254a72f26ec5..252a1096b4a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -4323,6 +4323,7 @@ static int gfx_v11_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
+ 
+ 	mqd->header = 0xC0310800;
+ 	mqd->compute_pipelinestat_enable = 0x00000001;
++	mqd->compute_perfcount_enable = prop->perfcount_enable;
+ 	mqd->compute_static_thread_mgmt_se0 = 0xffffffff;
+ 	mqd->compute_static_thread_mgmt_se1 = 0xffffffff;
+ 	mqd->compute_static_thread_mgmt_se2 = 0xffffffff;
+@@ -4459,6 +4460,14 @@ static int gfx_v11_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
  	return 0;
  }
  
-+static int amdgpu_profiler_reserve(struct drm_device *dev, struct drm_file *filp,
-+				   u8 reserve)
++static void gfx_v11_0_compute_mqd_set_perfcount(void *m,
++						struct amdgpu_mqd_prop *prop)
 +{
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	int ret;
++	struct v11_compute_mqd *mqd = m;
 +
-+	ret = amdgpu_profiler_check_access(dev);
-+	if (ret)
-+		return ret;
-+
-+	switch (reserve) {
-+	case AMDGPU_PROFILER_RELEASE:
-+		return amdgpu_profiler_release_device(adev, filp);
-+	case AMDGPU_PROFILER_RESERVE:
-+		return amdgpu_profiler_reserve_device(adev, filp);
-+	case AMDGPU_PROFILER_CLEAR_RESERVATION:
-+		amdgpu_profiler_clear_reservation(adev);
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
++	mqd->compute_perfcount_enable = prop->perfcount_enable;
 +}
 +
- static int amdgpu_profiler_pmc(struct drm_device *dev, struct drm_file *filp,
- 			       bool enable)
+ static int gfx_v11_0_kiq_init_register(struct amdgpu_ring *ring)
  {
-@@ -61,7 +132,7 @@ int amdgpu_profiler_ioctl(struct drm_device *dev, void *data, struct drm_file *f
- 		args->version = AMDGPU_PROFILER_VERSION_NUM;
- 		return 0;
- 	case AMDGPU_PROFILER_OP_RESERVE:
--		return -EOPNOTSUPP;
-+		return amdgpu_profiler_reserve(dev, filp, args->reserve);
- 	case AMDGPU_PROFILER_OP_PMC:
- 		return amdgpu_profiler_pmc(dev, filp, args->perfcount_enable);
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-index c27b5f9b3ff0..048ce84f0ef2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-@@ -28,6 +28,9 @@
- #include <drm/drm_device.h>
- #include <drm/drm_file.h>
+ 	struct amdgpu_device *adev = ring->adev;
+@@ -7263,6 +7272,8 @@ static void gfx_v11_0_set_mqd_funcs(struct amdgpu_device *adev)
+ 		sizeof(struct v11_compute_mqd);
+ 	adev->mqds[AMDGPU_HW_IP_COMPUTE].init_mqd =
+ 		gfx_v11_0_compute_mqd_init;
++	adev->mqds[AMDGPU_HW_IP_COMPUTE].set_mqd_perfcount =
++		gfx_v11_0_compute_mqd_set_perfcount;
+ }
  
-+struct amdgpu_device;
-+
-+int amdgpu_profiler_release_device(struct amdgpu_device *adev, struct drm_file *filp);
- int amdgpu_profiler_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
- 
- #endif /* __AMDGPU_PROFILER_H__ */
+ static void gfx_v11_0_set_user_wgp_inactive_bitmap_per_sh(struct amdgpu_device *adev,
 -- 
 2.55.0
 
