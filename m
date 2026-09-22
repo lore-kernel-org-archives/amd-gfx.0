@@ -4,99 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D004DC982FA
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 13:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34027C982FA
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 13:46:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0D510ECD9;
-	Tue, 22 Sep 2026 13:44:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB3A10ED01;
+	Tue, 22 Sep 2026 13:46:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zndBrKkU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bXB9qYOi";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013017.outbound.protection.outlook.com
- [40.93.196.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 299A410ECD9
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 13:44:27 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010050.outbound.protection.outlook.com [52.101.46.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4651310ECFF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 13:46:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HGN4ZADVLWDY4hUd6jX6WG8whri0/0aXCPxLrO42sOoRrK4FbOOJ9k7OC1MARGJ87YldOp8ZkwZso6NhjjZGVoZM0HPYrbCavoOW2IT7qU6Sia58kOLK1LiRxxsPi7llkr3/GJR+5qwWK50tRKLl74qIN5RZ8g+3z8KrFAmdmcVKzfyOQ/rKmdKY3obyp5WAOw9uHFFzyhUjgYIN3vaD4wLaRH5H+Y8OlkJ54vtmLQg8M+fJ56MwQP58khqXIqC5zZl04+DFNR6TZlG0HM5vMXh/vwoI/vrXKRMAABcwfyoSfzWJrW+Q7GUT0vklhZGDY9YhxDHwzrJY9K6vpyqF4g==
+ b=dYbaVK+unTED8UqnCyWPbDU2hL1C34oeDVYV4kjPKc0e6EzkLmo69Lyz2i5q55dZwDV6w9TeSNkbDr8zl85zMX1fSLfuoTpFsXe6mpoq3Xybsab51YzHqSR2cXcqM5ZYOFPJUFEWGQ5KqJcQmJ4NXuxYjGGgeZ1i27TvzxaK7Rqjqe3A6zL/3ZQQrgK4Jq9xyk+kssEyrOQNJggbiuNcBErCyiYPzgkt2JD/9HBklGmyFdYWNwINMtohgCYHReN6sC93iHx8TwMPf0AtPZHsJoAz1Gh+dIi9NHFY3jRcnuCiGbboOLyJNfKbxU93AsI0Fe76KzCiX+ZLokr+1nqx6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SAH6vbSKPBV7fbzEkI+vdElO8v+yd9DN3W7cox7iEnw=;
- b=cpUaUI2VsrlaTWy18Be3hXE4e1vVnlZ6kvdffcyx4BwLXGBC918+bB5zPJZpqvNFHTB9l6cn5qKoeSqO99iX8suinAgJvfs/9JIvU98S/KTVY2XCeI2D7xI8nGnMh+ZsEMp3xQsakX/MPIekbrrIgxReqvFdmiIC/AD+VEJhgyYLQ7msQWnE2NQkZvhjBYkobhOyK0ERV+xDYOf1ay5lwxFulVKG0ZlyIkkMOoDHVNskJmf2xhb9909DctPeoSJdsnik1c4KBuLHIMRTtVfUL+L9SlF0Ostefb0bfeg1x9YtJXbwGaNFoju56BPL27IJG+zkS3skEUMFVdUg8XxY9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=ITha9AfjrtSOut96pVlaA5g0abdeZwOkO8oEQZAe7Xw=;
+ b=wrKvcXhecEmTmL1K+XKxewgvo9Q/QX3JA5CNbZcBI8Nk48YAYaB4pBc+EzrZNtPjEjMWq9WhfFmW2zNbhXsBkq0HazWh57SmeT1xRWO2R9nuYpFs/IzpZ2xro12qhiReM84K1NutX3mARjlb1IP6OrJdUy4sgBKVe4lDJgIp4m13YxQoTz8VCYvoy5vhsSjnISbwe21SOBKrkDU3Uyemyo+HubbaS7pWG3FmrvPoRYrMhvIXo/ckgdl+40PgX3NlXwwid8bttzB4t89ohVrXSg3hxK97fkXvwU0UDu54IU1PQMVRCe+6tE5zwIM11+NB0s4exHsUYhJtsJ+o5Yt6fw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SAH6vbSKPBV7fbzEkI+vdElO8v+yd9DN3W7cox7iEnw=;
- b=zndBrKkUZ10jT8DDRWHxg4kFCyTRHgECxqWVHZA3AstWCs7GI2bl/tKxojNHhcu3d8gJnDoR+3LzogGgGgKo2alLb0kWuXZ9kjJNcIiHeSitSJUanoUNndcm2+Fi7zcUOA8p9CUJtjMz7woI8ntEHFqjk5O4/agLq2sQHj/bEKc=
-Received: from BN0PR07CA0015.namprd07.prod.outlook.com (2603:10b6:408:141::30)
- by BL1PR12MB5924.namprd12.prod.outlook.com (2603:10b6:208:39b::15)
+ bh=ITha9AfjrtSOut96pVlaA5g0abdeZwOkO8oEQZAe7Xw=;
+ b=bXB9qYOiCybvB28wqVXQfz2VIY37WSeiYSDdoU84j269c/3dRdlZZJNezhJKGpNfUlw0k99d/cfA+YTPn6QcYFbyE5KmWmdDckULy1qC9CtC8fFbRcF+kfboim2tMYgBY41LdoG66+oy0l7zxUtmyw1zZ8mFZFGPkwQoMBLybqM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
+ by SA0PR12MB4494.namprd12.prod.outlook.com (2603:10b6:806:94::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.15; Tue, 22 Sep
- 2026 13:44:22 +0000
-Received: from BN1PEPF00018548.namprd05.prod.outlook.com
- (2603:10b6:408:141:cafe::70) by BN0PR07CA0015.outlook.office365.com
- (2603:10b6:408:141::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
- 22 Sep 2026 13:44:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00018548.mail.protection.outlook.com (10.167.248.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 13:44:19 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 08:44:19 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Tue, 22 Sep 2026 08:44:18 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Hawking Zhang <Hawking.Zhang@amd.com>, Frank Min <Frank.Min@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: Add smuio v15_0_3 ip headers v4
-Date: Tue, 22 Sep 2026 09:43:59 -0400
-Message-ID: <20260922134400.2145341-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922134400.2145341-1-alexander.deucher@amd.com>
-References: <20260922134400.2145341-1-alexander.deucher@amd.com>
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 13:46:05 +0000
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819%6]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 13:46:05 +0000
+Message-ID: <0e573608-7f9e-4f3e-ac58-cf375962ae2b@amd.com>
+Date: Tue, 22 Sep 2026 19:15:58 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/12] drm/amdgpu: add amdgpu_xcp_get_xcc_mask helper
+To: James Zhu <jamesz@amd.com>, James Zhu <James.Zhu@amd.com>,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, Bing.Ma@amd.com
+References: <20260921200313.865829-1-James.Zhu@amd.com>
+ <20260921200313.865829-4-James.Zhu@amd.com>
+ <8f06398f-e207-45b0-ab85-931ccac35b65@amd.com>
+ <ce3dbd30-31e6-4680-8618-2144fe44a928@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <ce3dbd30-31e6-4680-8618-2144fe44a928@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: MA5P287CA0324.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:222::19) To SJ0PR12MB7082.namprd12.prod.outlook.com
+ (2603:10b6:a03:4ae::12)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018548:EE_|BL1PR12MB5924:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61f763ef-a3b6-4cbf-f176-08df18af9a4a
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7082:EE_|SA0PR12MB4494:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3279f68-0e02-4978-19be-08df18afd888
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|6133799003|18002099003|22082099003|10067099003|3023799007|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: 3jpjnqSM6E5KyM99pxJBikZm8b76Q+9qKTjKyN5INqJ+PXYTMNYNpINKMc96fMj/9fBqjICwQe5KchsfW6kcq9iyexeG0mfPPWeZ/0KY6Wbj9qGKqkiwRNJeKs5KoBRCZq3yPCvHigq4FSLg/ywgJfiQeVmL04SMljT0EL2VHYPFdguS9KpWyfT+jCZoJRWWpKUCHd0X72HAUeLLv6trgzqipNHGf9Za8T6wbaZzHjxdOGXsKZ8Q0iq0OUOPXy91vDLEB46p9lPVJRmX99jygwqi9LOPnxHtjykPNSod4M/mMc0xXYzECoVlJMOq7VTZ8G8ZBiC2Cm7z4/VXv+kRrAHbkdr6Yi9uIcezwsJZcseUH9hMXgswqWe4ouiQm58hmyfTPZkwD4t+l1HmABkFmOwqJXnXUiBVJy5uk6uXBSzBB1uxuW3ylIY+29dxGE/bXMsjFHFnBfIJuZOhp3X5LqRth9dqO1masRo3pODxsoZWMWV+SOn9x6DpJtZj+Njz5hByDxQOOZ6KgFxsRQRKzuWGfAMUjJAvKrCBZa/UBCGfMT8vbabfV+6LP4l7y+U6HYBB+ZbpwyvUTis/3/n40zZbMeK3YATD8PpQeZJbQvxb21HuyZFMyqKoIbJ+A/ZUXWZQfB38QFZDMmDfwN4TpJtGj5jDh8SDY35PKWtlz9mSZ2o8GRGxQY5MgA8qPwFYscEeFqvmXMIdo66aD8SHLw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(6133799003)(18002099003)(22082099003)(10067099003)(3023799007)(56012099006)(11063799006);
+ ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|3023799007|11063799006|10067099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: SrI/IBHOAb6cVpXFFu0ixDHQ1G0GwbBCSHZtLnr1H5BnHqyXX423PiyYjcer58fvnxUSjqvXZjVCGeMJmBWWIk9m7+66r70yAh8+wUgS1emBiODTQ6u6JVk5qlNaYPtBHiS3KqXfiCAaYJVKFkmNijeafYrT72AbJ8HB4uw+Y94c3jMDPegbrtTjhmLR/9ANk0z74xGU+xT8WRaxGYgX3u4ryQILV9LDUyaKFEX0ESUPUBh5MRNBRHdgPvrhX+JmIQoHdtcrsWdjoh5RnOEoozvN9cq54+rQX+xOp934+bGvWBjzEn1ogd98AXFYWWKQnplnTE7OWm4K5j/aMP5vcXcC9I8vyU45svLbX8hTQZ09pp8loon/E4eeFsQMOVOe9Rn2Wh2h9DAy2mNLZ+SWGousj9grYMKZrDGOroyx+OoubaEY8Ikd5t0Dmq0Z9yR3fgmIZAL5ESwxYg3qyJ5IsQNjnSTIZNK70Z3WRUa8IVl9wUFAEXI9jfFnCPskTpcn2/+Sei2dapozkXmA094TErAo3Jdnvz4w+dxD5H0AWbAAbefi/aUUwV4I1HDHkUtueGTyKqSgeVJ326Xwx79b/8TXXsrrHr9IwEo8RS+PrWBIrjoRgNjevZ4WTxgo4W0pXtkQL38DxSCpuyyLoSzccWr/4ahPTBWi2s5LvqPgO2U=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(3023799007)(11063799006)(10067099003)(4143699003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 7kP/+0u/KI3tsBtWNrSmhVI60Dvg8R6GaDK2tK++d0i8TQOi00yqRP/ln00KLL+kyUbaBxHzpaVmy4aYLeyxKpKaCIagMsG6uBnLtaZDiQafaaG1BWHz/Xa/kgHkhGnDWqXLfTJbtb0f8ZUHvZ11QXjHm7BDKOwwKKLuHnJxc16cVrtg8IWHa5pmeJSefkWhtmJqblApFRyFPXShxeUN0JdyMSdwmLWf/Av+5oWiO3Df3ELd3kQTE0l0O/c5ljRjQ42AXm0WqUDR1RN9esEVrRRhAAQGAV9860iE4pE+J80i2jMvYTUvgtTAfB0fEqaCdvG5IJv3NPu5LkTnpokh0uQODY42zgjHIOWAvyPgyvSsbVV3EIRFfO/CD9E2S1bBJQ5z7xctf5PUMhQ1I/v+RTm4TZbiVuVoUN5ktlED63zYDKErgBH99V5l5ALdufFr
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2xMKy9NSXYzaHJlSGZjYitwSWZpVUtmUkdKYStPMFJjUndBK0Q4WThkNk4x?=
+ =?utf-8?B?aDhHdDhEaGVGNFcxSUNEUjF0V3Y5WC9mWFIwVFBvK1dDK3VUSzFEL2lWM0xx?=
+ =?utf-8?B?Tjg5RDVMNURNYWZnc3JQTXRKYWFReG1kampLeGk0NDF6V3Y5U0ZMdElZQVND?=
+ =?utf-8?B?QWRuVWtmclBFZW9taXZENHNTRVBDeGM4UDg2TnFIbFU2L1YzeForaTNZUEQ5?=
+ =?utf-8?B?NVg4ZTJVdFQvbGlTK3IraWRzK3Q4eFYrOWxQcnBuSENHSnZyY1hnQTRYaUVT?=
+ =?utf-8?B?c0JaR1lWNUR1Y21xOE5ycWlhdmVvaEE4QWVzbjBuNXVTQWlyc1ZQWlVrWkt1?=
+ =?utf-8?B?emxuMjNaSWVRYlVaRUd6MnkwK0JNNVJ1TDRtckNXQ0pYenRVVnNsTlYvS28x?=
+ =?utf-8?B?TjVjL0ZwQlBtaEs5L29tN1VkUXhNbUFCMFFHS2E0YS92b2hDOG4ydW1VUFFY?=
+ =?utf-8?B?NDlpVU8wb0owTUF5ek5NOXcrQkhLQ0NIK0lOU1ZWaXB6Zm90WFBsa0ZwWXQr?=
+ =?utf-8?B?b0F6WWhUM01VdnMwN2cwV0VoMzdMM0JHNXAyVHlNa1VzdmpkQ0NHNmZETWVS?=
+ =?utf-8?B?TEhCTnA4VmtQYWlSUWNRNEFQazZlS0NVdG1mMHRJRmFZT0pTSXZlaXpCVDRK?=
+ =?utf-8?B?bTNsVy9xNmdQcjI2UHNZbkJHMzBiV245RzA3Vk9UcXg1V0I5YmQ2RERDZ1lp?=
+ =?utf-8?B?Vy9TMUdTMWdXYTBlSjczUHR4OWN2TEcydGx2d1dPcGVzUUJPTnN3ZVRQd1NS?=
+ =?utf-8?B?WVVsT3RhZ3AxclUwSzNtZkd0RHExQSs0STZ4aUJhRG5yRUFXQ0Q4TWZ1bzRk?=
+ =?utf-8?B?WXBhZThiYTIrcU5pcFRsVmkxamQ5U2VNU1UvQytBclhzUFBwZWZ0ckUyRWFa?=
+ =?utf-8?B?c25kbEtWOXlrckxDZnBCdHlSZHF0YlRsM2xYQTY5L1Z6dTBtTE82Nko4cDB0?=
+ =?utf-8?B?ekxxZnNLTFMxRVpBeVV4ZzN2dGdvcXBTaTJEWk5FN2dRM0plL05vSkY0cU1I?=
+ =?utf-8?B?a3N6MFZQWkNaNWplcHhsdEZ5UWdDT2tlR1F2aVh1T25Icms3NFUySmlSRjNO?=
+ =?utf-8?B?VWI4TGFUeGJhTUdvUUNYYzRXclNDbGdBU3FGYS9JZVlQVG1ZNlJobUZ3VjFK?=
+ =?utf-8?B?NXBBcDErSi8wazJ4VFFkU0QydEVxdjFqR3YxL2JhTzZndGg3RzYzTWZadllv?=
+ =?utf-8?B?T2NqbXN6dFJLMkxwOWdSbTB6bytFM096Qjc1bHAyaHA3TjBFNkJicjhpL3BI?=
+ =?utf-8?B?OHhCVXBCWk5XSHFBTmQ2UHU1THJGekhSbzhjODczekFXQ0lGTk5vTXBXd3JK?=
+ =?utf-8?B?RDgvTUtqRWFtMW45ZnRFRXp0by9ORC9rWGlmYkJCV095WEpFdlR3OGYxY3pn?=
+ =?utf-8?B?V2xRaTZmRXFDTmVOWm5xRnRkdy9IN09VTjd4SW1PYWd6bEFqK0s1V0c1VW1p?=
+ =?utf-8?B?UG9aMEt2U3FmVFJBTm5aTjlSOWp5YW5oL2ZnODlOVExRaTFwY0k4K0tQVXZI?=
+ =?utf-8?B?dVJFMDY5WWhtSnpRNDRkcVh6WlpZNSsrQ1BLM2FkL2pNN3cwc05xcS9DWGdW?=
+ =?utf-8?B?Wmp1ekR4UXIrSTY2UWFzcHRPNnUxSFo2ZGw3OC8vOEIzMy9uRFZTNzZ2anVu?=
+ =?utf-8?B?YTIxbElMS1VTV0xWbVRMb28yd3U5OE9TRVB0VU96eTVldThTY3F4M0VOTGUx?=
+ =?utf-8?B?ajlSM2lhZVp3L1diUVlOVVNJdjBWdjdBWFBCWnFNVGFlbUlTdExLMHlvNmtD?=
+ =?utf-8?B?ZlAvY3JqcnVGRkdmZ1BFTmlDa3V5L2RFa21jaTNaTjJlbTdBWFRmZmdMVkNy?=
+ =?utf-8?B?TjIvbDNuWm51ZFdlOTRreWFBL0RkbzlzRWtrZ3puaTUwR2tVYmN3OE5nbXhW?=
+ =?utf-8?B?bzdQanRoRWE3REp6alZaUE9Gdm51WU9LenRxQWtLNitnSXpiU2dDeUJZUEFy?=
+ =?utf-8?B?MUJ3bjFqK0VHYzR5ZVUwTTVPcGg5M1dobFNYZzRXRytOUUFtQ2pEM3V4eHdL?=
+ =?utf-8?B?UktTU05YcFlBaFJPU2pocWdsZFhYaE8vVVJidndybE1IdHVVWEhVaFlhdVZH?=
+ =?utf-8?B?VVhPa3FRZlVRUnd4YmFuQmx1Q3YybytoOUlRaWhCSUlBeTVhRWF0cWxHSi9X?=
+ =?utf-8?B?SXBUWWk0TzBsUGhieTVrVnJySm0yZEJRZVd1ZGZEc0ZDcHE2ZE9FWFBzL01k?=
+ =?utf-8?B?aUE3azF6QmVyV3FSQnZ3R2NpZHhTVkt6TGJxT2tDd1haZ2JKN0c1bWxxTk1N?=
+ =?utf-8?B?cGlwSEMxTkFQUE5URnBvQ2MxSUR4b09YREJhdHNRVkpCYlh0M3FrV25QclVZ?=
+ =?utf-8?Q?dVcgOJAejhx+Odq6cn?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 13:44:19.6422 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61f763ef-a3b6-4cbf-f176-08df18af9a4a
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3279f68-0e02-4978-19be-08df18afd888
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 13:46:04.7753 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018548.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5924
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Bjs3N67gLigAK9++ddQadky6slVGt4SrPY7Qjvjv0lCkbDLP6Wvu3MxSf8auMFzV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4494
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,280 +136,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Add header files for smuio v15_0_3 register offsets
-and shift masks
 
-v2: Update smuio ip headers to LSC version
-v3: Update smuio ip headers to BTO version
-v4: Update registers (Alex)
+On 22-Sep-26 7:05 PM, James Zhu wrote:
+> 
+> On 2026-09-22 01:22, Lazar, Lijo wrote:
+>>
+>>
+>> On 22-Sep-26 1:33 AM, James Zhu wrote:
+>>> Add amdgpu_xcp_get_xcc_mask() to return the XCC instance mask for a 
+>>> given
+>>> XCP partition. This is needed by upcoming SPM (Stream Performance 
+>>> Monitor)
+>>> support, which programs hardware per partition and must operate only on
+>>> the XCCs that belong to a given XCP.
+>>>
+>>> For partitioned systems the helper returns only the XCCs belonging to 
+>>> the
+>>> specified XCP. When @xcp_id is AMDGPU_XCP_NO_PARTITION (or the device is
+>>> not partitioned) it returns the device's full XCC mask (e.g. 0xFF for an
+>>> 8-XCC device). Note that the full device mask is returned even on a
+>>> partitioned device; callers that require partition isolation (e.g. SPM)
+>>> must reject AMDGPU_XCP_NO_PARTITION on a partitioned device themselves.
+>>>
+>>
+>> Could you clarifiy on this part - xcp_id = AMDGPU_XCP_NO_PARTITION 
+>> usage on 8-XCC device?
+>>
+>> The default state on a multi-XCC device after driver load is all XCCs 
+>> in a single partition called SPX. It should have at least one 
+>> partition valid.
+> 
+> [JZ] Yes, 8-XCC device should not reach AMDGPU_XCP_NO_PARTITION case.
+> 
+> the if(!xcp_mgr ||xcp_id ==AMDGPU_XCP_NO_PARTITION) mainly covers non 
+> partition device, I can remove the above comments which don't reflect 
+> the source accurately.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Frank Min <Frank.Min@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../asic_reg/smuio/smuio_15_0_3_offset.h      |  79 +++++++++
- .../asic_reg/smuio/smuio_15_0_3_sh_mask.h     | 164 ++++++++++++++++++
- 2 files changed, 243 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_15_0_3_offset.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_15_0_3_sh_mask.h
+Then I'm not sure what issue this is fixing.
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_15_0_3_offset.h b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_15_0_3_offset.h
-new file mode 100644
-index 0000000000000..e4fcfc05ddbe0
---- /dev/null
-+++ b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_15_0_3_offset.h
-@@ -0,0 +1,79 @@
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#ifndef _smuio_15_0_3_OFFSET_HEADER
-+#define _smuio_15_0_3_OFFSET_HEADER
-+
-+
-+// addressBlock: smuio_smuio_swtimer_SmuSmuioDec
-+// base address: 0x5aca8
-+#define regPWR_VIRT_RESET_REQ                                                                           0x012a
-+#define regPWR_VIRT_RESET_REQ_BASE_IDX                                                                  1
-+#define regPWR_DISP_TIMER_CONTROL                                                                       0x012b
-+#define regPWR_DISP_TIMER_CONTROL_BASE_IDX                                                              1
-+#define regPWR_DISP_TIMER_DEBUG                                                                         0x012c
-+#define regPWR_DISP_TIMER_DEBUG_BASE_IDX                                                                1
-+#define regPWR_DISP_TIMER2_CONTROL                                                                      0x012d
-+#define regPWR_DISP_TIMER2_CONTROL_BASE_IDX                                                             1
-+#define regPWR_DISP_TIMER2_DEBUG                                                                        0x012e
-+#define regPWR_DISP_TIMER2_DEBUG_BASE_IDX                                                               1
-+#define regPWR_DISP_TIMER_GLOBAL_CONTROL                                                                0x012f
-+#define regPWR_DISP_TIMER_GLOBAL_CONTROL_BASE_IDX                                                       1
-+#define regPWR_IH_CONTROL                                                                               0x0130
-+#define regPWR_IH_CONTROL_BASE_IDX                                                                      1
-+
-+
-+// addressBlock: smuio_smuio_misc_SmuSmuioDec
-+// base address: 0x5a000
-+#define regSMUIO_MCM_CONFIG                                                                             0x0023
-+#define regSMUIO_MCM_CONFIG_BASE_IDX                                                                    0
-+#define regIP_DISCOVERY_VERSION                                                                         0x0000
-+#define regIP_DISCOVERY_VERSION_BASE_IDX                                                                1
-+#define regSMUIO_PCC_CONTROL                                                                            0x01bd
-+#define regSMUIO_PCC_CONTROL_BASE_IDX                                                                   1
-+#define regSCRATCH_REGISTER0                                                                            0x01c3
-+#define regSCRATCH_REGISTER0_BASE_IDX                                                                   1
-+#define regSCRATCH_REGISTER1                                                                            0x01c4
-+#define regSCRATCH_REGISTER1_BASE_IDX                                                                   1
-+#define regSCRATCH_REGISTER2                                                                            0x01c5
-+#define regSCRATCH_REGISTER2_BASE_IDX                                                                   1
-+#define regSCRATCH_REGISTER3                                                                            0x01c6
-+#define regSCRATCH_REGISTER3_BASE_IDX                                                                   1
-+#define regSCRATCH_REGISTER4                                                                            0x01c7
-+#define regSCRATCH_REGISTER4_BASE_IDX                                                                   1
-+#define regSCRATCH_REGISTER5                                                                            0x01c8
-+#define regSCRATCH_REGISTER5_BASE_IDX                                                                   1
-+#define regSCRATCH_REGISTER6                                                                            0x01c9
-+#define regSCRATCH_REGISTER6_BASE_IDX                                                                   1
-+#define regSCRATCH_REGISTER7                                                                            0x01ca
-+#define regSCRATCH_REGISTER7_BASE_IDX                                                                   1
-+#define regIO_SMUIO_PINSTRAP                                                                            0x01cb
-+#define regIO_SMUIO_PINSTRAP_BASE_IDX                                                                   1
-+
-+
-+#define regCCD_GOLDEN_TSC_COUNT_UPPER                                                                   0x9C1F411
-+#define regCCD_GOLDEN_TSC_COUNT_UPPER_BASE_IDX                                                          2
-+#define regCCD_GOLDEN_TSC_COUNT_LOWER                                                                   0x9C1F412
-+#define regCCD_GOLDEN_TSC_COUNT_LOWER_BASE_IDX                                                          2
-+
-+
-+#endif
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_15_0_3_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_15_0_3_sh_mask.h
-new file mode 100644
-index 0000000000000..39a46750aaeb9
---- /dev/null
-+++ b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_15_0_3_sh_mask.h
-@@ -0,0 +1,164 @@
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#ifndef _smuio_15_0_3_SH_MASK_HEADER
-+#define _smuio_15_0_3_SH_MASK_HEADER
-+
-+
-+// addressBlock: smuio_smuio_swtimer_SmuSmuioDec
-+//PWR_VIRT_RESET_REQ
-+#define PWR_VIRT_RESET_REQ__VF_FLR__SHIFT                                                                     0x0
-+#define PWR_VIRT_RESET_REQ__PF_FLR__SHIFT                                                                     0x1f
-+#define PWR_VIRT_RESET_REQ__VF_FLR_MASK                                                                       0x7FFFFFFFL
-+#define PWR_VIRT_RESET_REQ__PF_FLR_MASK                                                                       0x80000000L
-+//PWR_DISP_TIMER_CONTROL
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_COUNT__SHIFT                                                   0x0
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_ENABLE__SHIFT                                                  0x19
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_DISABLE__SHIFT                                                 0x1a
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MASK__SHIFT                                                    0x1b
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_STAT_AK__SHIFT                                                 0x1c
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_TYPE__SHIFT                                                    0x1d
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MODE__SHIFT                                                    0x1e
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_COUNT_MASK                                                     0x01FFFFFFL
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_ENABLE_MASK                                                    0x02000000L
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_DISABLE_MASK                                                   0x04000000L
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MASK_MASK                                                      0x08000000L
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_STAT_AK_MASK                                                   0x10000000L
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_TYPE_MASK                                                      0x20000000L
-+#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MODE_MASK                                                      0x40000000L
-+//PWR_DISP_TIMER_DEBUG
-+#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT_RUNNING__SHIFT                                                   0x0
-+#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT_STAT__SHIFT                                                      0x1
-+#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT__SHIFT                                                           0x2
-+#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_RUN_VAL__SHIFT                                                       0x7
-+#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT_RUNNING_MASK                                                     0x00000001L
-+#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT_STAT_MASK                                                        0x00000002L
-+#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT_MASK                                                             0x00000004L
-+#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_RUN_VAL_MASK                                                         0xFFFFFF80L
-+//PWR_DISP_TIMER2_CONTROL
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_COUNT__SHIFT                                                  0x0
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_ENABLE__SHIFT                                                 0x19
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_DISABLE__SHIFT                                                0x1a
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MASK__SHIFT                                                   0x1b
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_STAT_AK__SHIFT                                                0x1c
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_TYPE__SHIFT                                                   0x1d
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MODE__SHIFT                                                   0x1e
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_COUNT_MASK                                                    0x01FFFFFFL
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_ENABLE_MASK                                                   0x02000000L
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_DISABLE_MASK                                                  0x04000000L
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MASK_MASK                                                     0x08000000L
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_STAT_AK_MASK                                                  0x10000000L
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_TYPE_MASK                                                     0x20000000L
-+#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MODE_MASK                                                     0x40000000L
-+//PWR_DISP_TIMER2_DEBUG
-+#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT_RUNNING__SHIFT                                                  0x0
-+#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT_STAT__SHIFT                                                     0x1
-+#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT__SHIFT                                                          0x2
-+#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_RUN_VAL__SHIFT                                                      0x7
-+#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT_RUNNING_MASK                                                    0x00000001L
-+#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT_STAT_MASK                                                       0x00000002L
-+#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT_MASK                                                            0x00000004L
-+#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_RUN_VAL_MASK                                                        0xFFFFFF80L
-+//PWR_DISP_TIMER_GLOBAL_CONTROL
-+#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_WIDTH__SHIFT                                          0x0
-+#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_EN__SHIFT                                             0xa
-+#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_WIDTH_MASK                                            0x000003FFL
-+#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_EN_MASK                                               0x00000400L
-+//PWR_IH_CONTROL
-+#define PWR_IH_CONTROL__MAX_CREDIT__SHIFT                                                                     0x0
-+#define PWR_IH_CONTROL__DISP_TIMER_TRIGGER_MASK__SHIFT                                                        0x5
-+#define PWR_IH_CONTROL__DISP_TIMER2_TRIGGER_MASK__SHIFT                                                       0x6
-+#define PWR_IH_CONTROL__PWR_IH_CLK_GATE_EN__SHIFT                                                             0x1f
-+#define PWR_IH_CONTROL__MAX_CREDIT_MASK                                                                       0x0000001FL
-+#define PWR_IH_CONTROL__DISP_TIMER_TRIGGER_MASK_MASK                                                          0x00000020L
-+#define PWR_IH_CONTROL__DISP_TIMER2_TRIGGER_MASK_MASK                                                         0x00000040L
-+#define PWR_IH_CONTROL__PWR_IH_CLK_GATE_EN_MASK                                                               0x80000000L
-+
-+
-+// addressBlock: smuio_smuio_misc_SmuSmuioDec
-+//SMUIO_MCM_CONFIG
-+#define SMUIO_MCM_CONFIG__DIE_ID__SHIFT                                                                       0x0
-+#define SMUIO_MCM_CONFIG__PKG_TYPE__SHIFT                                                                     0x2
-+#define SMUIO_MCM_CONFIG__SOCKET_ID__SHIFT                                                                    0x8
-+#define SMUIO_MCM_CONFIG__DIE_CONFIG__SHIFT                                                                   0xd
-+#define SMUIO_MCM_CONFIG__PKG_SUBTYPE__SHIFT                                                                  0x12
-+#define SMUIO_MCM_CONFIG__DIE_ID_MASK                                                                         0x00000003L
-+#define SMUIO_MCM_CONFIG__PKG_TYPE_MASK                                                                       0x0000003CL
-+#define SMUIO_MCM_CONFIG__SOCKET_ID_MASK                                                                      0x00000100L
-+#define SMUIO_MCM_CONFIG__DIE_CONFIG_MASK                                                                     0x0000E000L
-+#define SMUIO_MCM_CONFIG__PKG_SUBTYPE_MASK                                                                    0x00040000L
-+//IP_DISCOVERY_VERSION
-+#define IP_DISCOVERY_VERSION__IP_DISCOVERY_VERSION__SHIFT                                                     0x0
-+#define IP_DISCOVERY_VERSION__IP_DISCOVERY_VERSION_MASK                                                       0xFFFFFFFFL
-+//SMUIO_PCC_CONTROL
-+#define SMUIO_PCC_CONTROL__PCC_ENABLE__SHIFT                                                                  0x0
-+#define SMUIO_PCC_CONTROL__PCC_POLARITY__SHIFT                                                                0x1
-+#define SMUIO_PCC_CONTROL__PCC_A__SHIFT                                                                       0x2
-+#define SMUIO_PCC_CONTROL__PCC_OE__SHIFT                                                                      0x3
-+#define SMUIO_PCC_CONTROL__PCC_PU__SHIFT                                                                      0x4
-+#define SMUIO_PCC_CONTROL__PCC_PD__SHIFT                                                                      0x5
-+#define SMUIO_PCC_CONTROL__PCC_S0__SHIFT                                                                      0x6
-+#define SMUIO_PCC_CONTROL__PCC_S1__SHIFT                                                                      0x7
-+#define SMUIO_PCC_CONTROL__PCC_SCHMEN__SHIFT                                                                  0x8
-+#define SMUIO_PCC_CONTROL__PCC_DFTRXEN__SHIFT                                                                 0x9
-+#define SMUIO_PCC_CONTROL__PCC_ENABLE_MASK                                                                    0x00000001L
-+#define SMUIO_PCC_CONTROL__PCC_POLARITY_MASK                                                                  0x00000002L
-+#define SMUIO_PCC_CONTROL__PCC_A_MASK                                                                         0x00000004L
-+#define SMUIO_PCC_CONTROL__PCC_OE_MASK                                                                        0x00000008L
-+#define SMUIO_PCC_CONTROL__PCC_PU_MASK                                                                        0x00000010L
-+#define SMUIO_PCC_CONTROL__PCC_PD_MASK                                                                        0x00000020L
-+#define SMUIO_PCC_CONTROL__PCC_S0_MASK                                                                        0x00000040L
-+#define SMUIO_PCC_CONTROL__PCC_S1_MASK                                                                        0x00000080L
-+#define SMUIO_PCC_CONTROL__PCC_SCHMEN_MASK                                                                    0x00000100L
-+#define SMUIO_PCC_CONTROL__PCC_DFTRXEN_MASK                                                                   0x00000200L
-+//SCRATCH_REGISTER0
-+#define SCRATCH_REGISTER0__ScratchPad0__SHIFT                                                                 0x0
-+#define SCRATCH_REGISTER0__ScratchPad0_MASK                                                                   0xFFFFFFFFL
-+//SCRATCH_REGISTER1
-+#define SCRATCH_REGISTER1__ScratchPad1__SHIFT                                                                 0x0
-+#define SCRATCH_REGISTER1__ScratchPad1_MASK                                                                   0xFFFFFFFFL
-+//SCRATCH_REGISTER2
-+#define SCRATCH_REGISTER2__ScratchPad2__SHIFT                                                                 0x0
-+#define SCRATCH_REGISTER2__ScratchPad2_MASK                                                                   0xFFFFFFFFL
-+//SCRATCH_REGISTER3
-+#define SCRATCH_REGISTER3__ScratchPad3__SHIFT                                                                 0x0
-+#define SCRATCH_REGISTER3__ScratchPad3_MASK                                                                   0xFFFFFFFFL
-+//SCRATCH_REGISTER4
-+#define SCRATCH_REGISTER4__ScratchPad4__SHIFT                                                                 0x0
-+#define SCRATCH_REGISTER4__ScratchPad4_MASK                                                                   0xFFFFFFFFL
-+//SCRATCH_REGISTER5
-+#define SCRATCH_REGISTER5__ScratchPad5__SHIFT                                                                 0x0
-+#define SCRATCH_REGISTER5__ScratchPad5_MASK                                                                   0xFFFFFFFFL
-+//SCRATCH_REGISTER6
-+#define SCRATCH_REGISTER6__ScratchPad6__SHIFT                                                                 0x0
-+#define SCRATCH_REGISTER6__ScratchPad6_MASK                                                                   0xFFFFFFFFL
-+//SCRATCH_REGISTER7
-+#define SCRATCH_REGISTER7__ScratchPad7__SHIFT                                                                 0x0
-+#define SCRATCH_REGISTER7__ScratchPad7_MASK                                                                   0xFFFFFFFFL
-+//IO_SMUIO_PINSTRAP
-+#define IO_SMUIO_PINSTRAP__AUD_PORT_CONN__SHIFT                                                               0x0
-+#define IO_SMUIO_PINSTRAP__AUD__SHIFT                                                                         0x3
-+#define IO_SMUIO_PINSTRAP__AUD_PORT_CONN_MASK                                                                 0x00000007L
-+#define IO_SMUIO_PINSTRAP__AUD_MASK                                                                           0x00000018L
-+
-+
-+#endif
--- 
-2.55.0
+Multi-xcc devices will be in SPX mode and will return a mask with all 
+the XCCs. Non-multi xcc devices are expected to have this set to 1 
+anyway to reflect that a single GC is present always.
+
+Thanks,
+Lijo
+
+>> Thanks,
+>> Lioj
+>>
+>>> amdgpu_xcp_get_num_xcc() is reworked to take (adev, xcp_id) and 
+>>> derive the
+>>> count from this helper via hweight32(). The helper is defined out of 
+>>> line
+>>> in amdgpu_xcp.c so that the static inline in amdgpu_xcp.h never has to
+>>> dereference the (incomplete) struct amdgpu_device; it only passes the
+>>> pointer through.
+>>>
+>>> This is a user-visible change: amdgpu_xcp_get_num_xcc() previously
+>>> returned 1 for non-partitioned systems (and for 
+>>> AMDGPU_XCP_NO_PARTITION),
+>>> and now returns the actual XCC count (e.g. 8 for an 8-XCC device). CWSR
+>>> callers (amdgpu_kms.c, amdgpu_userq.c, mes_userqueue.c) scale the 
+>>> per-XCC
+>>> control-stack and debug-memory sizes by num_xcc, so the uAPI-visible
+>>> ctl_stack_size and dbg_mem_size values grow accordingly to match the
+>>> actual hardware resource requirements, which were previously undersized.
+>>>
+>>> Fixes: 4cd417bfec49 ("drm/amdgpu: Add helper function to get xcc count")
+>>> Signed-off-by: James Zhu <James.Zhu@amd.com>
+>>> Reviewed-by: Bing Ma <bing.ma@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  2 +-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  2 +-
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    | 48 ++++++++++++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    | 32 +++++++--------
+>>>   drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |  3 +-
+>>>   5 files changed, 66 insertions(+), 21 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/ 
+>>> drm/amd/amdgpu/amdgpu_kms.c
+>>> index 57fa69c0382d..7782ccd4d28f 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>>> @@ -1501,7 +1501,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, 
+>>> void *data, struct drm_file *filp)
+>>>           fpriv = (struct amdgpu_fpriv *)filp->driver_priv;
+>>>           if (!amdgpu_trap_is_enabled(adev) || !fpriv->trap_obj)
+>>>               return -EOPNOTSUPP;
+>>> -        num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
+>>> +        num_xcc = amdgpu_xcp_get_num_xcc(adev, fpriv->xcp_id);
+>>>           cwsr_info.ctl_stack_size =
+>>>               adev->trap_info->cwsr.xcc_ctl_stack_sz * num_xcc;
+>>>           cwsr_info.dbg_mem_size =
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/ 
+>>> drm/amd/amdgpu/amdgpu_userq.c
+>>> index db09e879b85e..d19af9cb6ee1 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>> @@ -258,7 +258,7 @@ int 
+>>> amdgpu_userq_input_trap_params_validate(struct amdgpu_usermode_queue 
+>>> *queue,
+>>>       int num_xcc;
+>>>       int r;
+>>>   -    num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
+>>> +    num_xcc = amdgpu_xcp_get_num_xcc(adev, fpriv->xcp_id);
+>>>       r = amdgpu_trap_validate_params(queue->userq_mgr->adev, 
+>>> trap_params,
+>>>                       num_xcc);
+>>>       if (r)
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/ 
+>>> drm/amd/amdgpu/amdgpu_xcp.c
+>>> index 2a56f5ec9c76..90846d55292b 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+>>> @@ -390,6 +390,54 @@ int amdgpu_xcp_get_inst_details(struct 
+>>> amdgpu_xcp *xcp,
+>>>       return 0;
+>>>   }
+>>>   +/**
+>>> + * amdgpu_xcp_get_xcc_mask - Get XCC instance mask for a partition
+>>> + * @adev: amdgpu device pointer
+>>> + * @xcp_id: XCP partition ID
+>>> + * @xcc_mask: output parameter for XCC instance mask
+>>> + *
+>>> + * Returns the XCC instance mask for the specified XCP partition.
+>>> + * For partitioned systems, returns only the XCCs belonging to this 
+>>> XCP.
+>>> + *
+>>> + * When @xcp_id is AMDGPU_XCP_NO_PARTITION (or the device is not
+>>> + * partitioned), the device's full XCC mask is returned (e.g. 0xFF 
+>>> for an
+>>> + * 8-XCC device). Note that the full device mask is returned even on a
+>>> + * partitioned device: callers that require partition isolation 
+>>> (e.g. SPM)
+>>> + * must reject AMDGPU_XCP_NO_PARTITION on a partitioned device 
+>>> themselves.
+>>> + *
+>>> + * Note: On error, xcc_mask is undefined. Callers must check return 
+>>> code
+>>> + * and only read xcc_mask when return == 0.
+>>> + *
+>>> + * Return: 0 on success (non-partitioned systems or valid XCP found),
+>>> + *         -EINVAL if xcc_mask is NULL, no matching XCP id is found, 
+>>> or the
+>>> + *         partition's GFX IP details are unavailable
+>>> + */
+>>> +int amdgpu_xcp_get_xcc_mask(struct amdgpu_device *adev, int xcp_id,
+>>> +                uint32_t *xcc_mask)
+>>> +{
+>>> +    struct amdgpu_xcp_mgr *xcp_mgr = adev->xcp_mgr;
+>>> +    struct amdgpu_xcp *xcp;
+>>> +    int i;
+>>> +
+>>> +    if (!xcc_mask)
+>>> +        return -EINVAL;
+>>> +
+>>> +    if (!xcp_mgr || xcp_id == AMDGPU_XCP_NO_PARTITION) {
+>>> +        /* Non-partitioned: return the device's full XCC mask. */
+>>> +        *xcc_mask = adev->gfx.xcc_mask;
+>>> +        return 0;
+>>> +    }
+>>> +
+>>> +    /* Partitioned system: get this XCP's XCCs */
+>>> +    for_each_xcp(xcp_mgr, xcp, i) {
+>>> +        if (xcp->id == xcp_id)
+>>> +            return amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX,
+>>> +                               xcc_mask);
+>>> +    }
+>>> +
+>>> +    return -EINVAL;
+>>> +}
+>>> +
+>>>   int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
+>>>               const struct pci_device_id *ent)
+>>>   {
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/ 
+>>> drm/amd/amdgpu/amdgpu_xcp.h
+>>> index 692508be23fb..6eed82ad49b1 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+>>> @@ -44,6 +44,7 @@
+>>>   #define XCP_INST_MASK(num_inst, xcp_id)        \
+>>>       (num_inst ? GENMASK(num_inst - 1, 0) << (xcp_id * num_inst) : 0)
+>>>   +struct amdgpu_device;
+>>>   struct amdgpu_fpriv;
+>>>     enum AMDGPU_XCP_IP_BLOCK {
+>>> @@ -219,26 +220,23 @@ amdgpu_get_next_xcp(struct amdgpu_xcp_mgr 
+>>> *xcp_mgr, int *from)
+>>>       for (i = 0, xcp = amdgpu_get_next_xcp(xcp_mgr, &i); xcp; \
+>>>            ++i, xcp = amdgpu_get_next_xcp(xcp_mgr, &i))
+>>>   -static inline int amdgpu_xcp_get_num_xcc(struct amdgpu_xcp_mgr 
+>>> *xcp_mgr,
+>>> -                     int xcp_id)
+>>> +int amdgpu_xcp_get_xcc_mask(struct amdgpu_device *adev, int xcp_id,
+>>> +                uint32_t *xcc_mask);
+>>> +
+>>> +static inline int amdgpu_xcp_get_num_xcc(struct amdgpu_device *adev, 
+>>> int xcp_id)
+>>>   {
+>>> -    struct amdgpu_xcp *xcp;
+>>>       uint32_t xcc_mask;
+>>> -    int i, r;
+>>> -
+>>> -    if (!xcp_mgr || xcp_id == AMDGPU_XCP_NO_PARTITION)
+>>> +    int r, count;
+>>> +
+>>> +    /* Derive the XCC count from the partition's XCC mask (or the full
+>>> +     * device mask when not partitioned). amdgpu_xcp_get_xcc_mask()
+>>> +     * handles both partitioned and non-partitioned cases.
+>>> +     */
+>>> +    r = amdgpu_xcp_get_xcc_mask(adev, xcp_id, &xcc_mask);
+>>> +    if (unlikely(r))
+>>>           return 1;
+>>> -    for_each_xcp(xcp_mgr, xcp, i) {
+>>> -        if (xcp->id == xcp_id) {
+>>> -            r = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX,
+>>> -                            &xcc_mask);
+>>> -            if (unlikely(r))
+>>> -                return 1;
+>>> -            else
+>>> -                return hweight32(xcc_mask);
+>>> -        }
+>>> -    }
+>>>   -    return 1;
+>>> +    count = hweight32(xcc_mask);
+>>> +    return count ? count : 1;
+>>>   }
+>>>   #endif
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/ 
+>>> gpu/drm/amd/amdgpu/mes_userqueue.c
+>>> index 16aa22b25098..1c7b2f3227e5 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>>> @@ -503,8 +503,7 @@ static int mes_userq_mqd_create(struct 
+>>> amdgpu_usermode_queue *queue,
+>>>                   uq_mgr_to_fpriv(queue->userq_mgr);
+>>>               int num_xcc;
+>>>   -            num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr,
+>>> -                             fpriv->xcp_id);
+>>> +            num_xcc = amdgpu_xcp_get_num_xcc(adev, fpriv->xcp_id);
+>>>               trap_params.ctx_save_area_address =
+>>>                   compute_mqd->ctx_save_area_va;
+>>>               trap_params.cwsr_sz = compute_mqd->ctx_save_area_size;
+>>
 
