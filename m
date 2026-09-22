@@ -4,131 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4B7EC982FA
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 08:05:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAC16C982FA
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 08:23:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FD5610E62E;
-	Tue, 22 Sep 2026 08:05:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E2B110E5AB;
+	Tue, 22 Sep 2026 08:23:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NaL3vuHp";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xK5NoVzk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QA1GXq2p";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QFNfSnfv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="53hBZT3V";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010053.outbound.protection.outlook.com [52.101.61.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5F3D10E62E
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 08:05:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nRrzpK/d97ZRyqacIQIjFERfjuTwYRWUEYhKM/kRnzdp16wctC0QEbFW3SFJrI51tcQLop5g3gA1dUwsDJFoyPyCTA3pTkui1CZyyXoT/SxCZaf3NTOJtqcW6SGqfFyhnMGQb9Za4JOW3NUleX+t+6ELmOwcxBOlz075oGvXWxFlW6UaCJlqqnnlZ8BEt0w36+0Qyy+7MVcTvzYvuAz1YEW23tuTZWtrP2X7rXKflmmRkqqWrNiFB4cHV5FObT7DC8uq1s9z0c1/lwkbis1XRpf62Q7nFwCE96bD4OOKgEUHLfuueRO1Mc5II8FVgGBGTw9mroR5SqjcDidAQvXVIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eV9zfe951Rf4y+3sb1NP0nt55cdg6VchtU5wvEcEPTk=;
- b=R41/RQXaKZzcSPIIIqx3pcoXPkYdCCLleTvDCoP50bkNFy1b90StNONJdHr7eLVjWtF84ZedcVZf54Mu4FgxA+/VTMcJUHmqNnYgz9oGUTJGbbhClu7cPg8d/jZlB3W7JPbxdLFcJ8Y0SbVZuaXegxfC633J6yMW8cWl5hSreE+Y6YoBiVWHCqYUWgVaFtzVvUllARPN4yjUYOSYnA3fhzW16hpfX5MRc7wnPB+nxs400Xvo7MiUWBJUp/z4W5XoxG56qrU9IYJoJAz3mcUj4Wr9Q4irWiyv8f9zNxCLU8tPSQant0jqLjky4+hciRiXiSUkKQPwTr9tXKCA10Dtxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eV9zfe951Rf4y+3sb1NP0nt55cdg6VchtU5wvEcEPTk=;
- b=NaL3vuHpFf3LcUX9Rfy7JwAiShZGiSoOxByKMWZyOixhPDiPaR7MdhGYlhe84O74lKXGSKDhJSgmNnDjkxIoT4IrNh2d99o2YTt24BmIKM8NH2deb1r3M43DTEr6Tc43IAGoA+164joDauv9oPDwzYc3pt6nK5e0S3mAebHFyRc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB5647.namprd12.prod.outlook.com (2603:10b6:510:144::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 08:04:39 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 08:04:39 +0000
-Message-ID: <580d3ecd-57f0-4b4e-8631-5c27f69ddd54@amd.com>
-Date: Tue, 22 Sep 2026 10:04:35 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] drm/amdgpu: introduce
- amdgpu_lookup_queue_by_doorbell
-To: Huang Rui <ray.huang@amd.com>
-Cc: "Zhu, Lingshan" <lingshan.zhu@amd.com>, Alexander.Deucher@amd.com,
- felix.kuehling@amd.com, amd-gfx@lists.freedesktop.org,
- "Khatri, Sunil" <Sunil.Khatri@amd.com>
-References: <20260828095349.9797-1-lingshan.zhu@amd.com>
- <20260828095349.9797-2-lingshan.zhu@amd.com>
- <bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com>
- <2687ad99-61da-457f-9705-766bf48b2d04@amd.com>
- <a46a12b8-d9df-4995-beaf-6d41150196bc@amd.com>
- <a34a1541-7f3a-4e0f-a225-f58b1292d6d2@amd.com>
- <5f576123-9f57-4da0-a6d5-fd0390e39f1b@amd.com>
- <f0d163a6-49cb-47d2-a042-d0e37bb7cdce@amd.com> <arI0hEYQbrsWVlV1@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <arI0hEYQbrsWVlV1@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1P223CA0043.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:208:5b6::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 177B010E5AB;
+ Tue, 22 Sep 2026 08:23:51 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5C7331F769;
+ Tue, 22 Sep 2026 08:23:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790065425; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W3ND6DVrzWx/s1g+qbrdwBJ3l+UBU2v/2dJ3/tEVJYM=;
+ b=xK5NoVzkOA8RfHUWyIjLPrSa+YoakJWuV+lsrVi80WWlaAGEKZBP+YptjBml7hRDkh4BgI
+ PaTZXADl/5rdHbPPCwY7EglFpdqztmNFYjlTgzRuZiG9Ktn/okU2gQza0YONEmUoW8w6zD
+ cKMdQw+FqwuviOJ8/Hn483QUxjl0VnY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790065425;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W3ND6DVrzWx/s1g+qbrdwBJ3l+UBU2v/2dJ3/tEVJYM=;
+ b=QA1GXq2pXotS9o/4FmsK1dWzuRVtv8ftma8DkiKMp0SCoqkyYNlQsmML/wMtgrMB412Jgk
+ DK4rHtIC9HMELGCA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QFNfSnfv;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=53hBZT3V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790065421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W3ND6DVrzWx/s1g+qbrdwBJ3l+UBU2v/2dJ3/tEVJYM=;
+ b=QFNfSnfvjZ2RtJUUQpA58DazcdY6xKEyeVNxyraXBRMoQSTCu1Q+i7fax7Uf3sKoywACjt
+ 39htyB3wvs+P4oWbAf0yggq8OVKmC/KHfVUlO6MIavfmzW9Va8ZO3Nf4U/Cjt1iT7ck/WW
+ OSZQyVdjN4RlNrVIkVF9w4VeM3v0Ihg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790065421;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=W3ND6DVrzWx/s1g+qbrdwBJ3l+UBU2v/2dJ3/tEVJYM=;
+ b=53hBZT3Vx5mtfi21vt6KRoLckPXA9pqu7RJhKj/AFMIZPy1aWik97uB/RC45cM9jt4Ihdh
+ BrbaPAubMjg+kBAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CAE81132D3;
+ Tue, 22 Sep 2026 08:23:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id GFg9HAw7smrFGwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 22 Sep 2026 08:23:40 +0000
+Message-ID: <0fb724cc-ac12-4502-b338-1c4f310f043a@suse.de>
+Date: Tue, 22 Sep 2026 10:23:40 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB5647:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7fff25d-71a2-4242-5093-08df188026ad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: fU4oBIemBrxNYMfhj+hLP2AQB/LopchhpxkYm+u/1DU2onBBVeOhsS3ojWabNffH5n9Y49pbEGwXHaYlar9uxuLBnpA8ZEmSn+Rq8tBTRWRjCbtO32BiqXnhj/xeIRRngkp0g3eYQO/pPeenJwFWeZ6t4155flm5OiX0Is5Yu6UcmF48QmA778VLW5bELjvwNLb+4zojy6H2BPK4mAqSQ43nHj3bYh1QgpqwnPNMOphOPelZTcJ0975kgWwI0yFmJ85C5YA3SdnX+ZzH1LS6Xj5TYq7zqxmbDRuW4JIiRDtRbdauQon1p77hplKB/O5uhIYOI+cXUPnw2U84/zHzlIplffD43amzn4cRaj7CgaUxkGvKdWyTzuPsPa3SZH7+OO/1JKbyd7NLx6oIWClWm6VBKPXbfdIFX5BN+Q6PpMpTKMh6OlzSVGZJlOnjWO55u7hw3pzDxuWA5LD1y7ddFAx4ajIXvcw5JaXLT8xVCDGFBihxo1QPfoOBrBv6+oF+dcvP78483w8bI1oRjFubZWG5/COlL6MB2d7NidlHpEVO2twmMuCSyn/u0FSO3iw7ESJ7DLr9tndgPJ7tX6wqoP0R6Aj/IOhV02nxcKfmILr9UCId7EZaPZXNlPeVKF27XXaqumVRMrZC/jtKl3g0Z/irmPJsOC+hUMM76Hlsm8U=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QllueSt6TFlKZ3dpMnRIc2ltVGdTRUdDKy85Z3RCNkFtL2kzUWdOVXpNN3F4?=
- =?utf-8?B?bDZzbktTdERXdFErTm55TlZZc1J3NDFRQUE4UnBGaGUvaVlGVzFITk1HNU9H?=
- =?utf-8?B?SUVsWW9EbUM2amVkQXJyditxdGREbEd3VGdkSUV4UEw3Q0FnbDlseWs2N2pD?=
- =?utf-8?B?aHk1dWpGeXVIVVlSNFpsRTV2LzVZclBXS3d4TzJDbGhySXdZcDlrOHlvMGFk?=
- =?utf-8?B?TkhBZ3BEYnc3T0k2UFVGOForYnFqMEtXeDVzM1JGTmZLQXJFUFZhUTQvQ1k0?=
- =?utf-8?B?czJiQnM4QzJwTTh1SmgwRVpTNXgxbGF5cTNtQ0I5aUl6SE1RekZKbm5YdDEz?=
- =?utf-8?B?eXUxQ2RDL1VXNVR1ZFhDanpmbHBlRlM4RDRubHFlQ3MyMTRqNzJ0cURaLzFJ?=
- =?utf-8?B?Q2l1RnpkSXVoSUdVQlZxL0g0UHpOdXhaS3JhelE5bFhraXB4YVYxVjQwZ1JX?=
- =?utf-8?B?MTdscFJOSDZFK3FEbjkyQ2Y1K2s3dnlaSXJwV1BBbld5NmsrS0R3OHdoMXhB?=
- =?utf-8?B?QjM2NjdmT05KbkRxb0dwQUdCdG8xb0lldC9kMXkxdFJPNHNPQi8zNm5DN0VI?=
- =?utf-8?B?dmVOWHFUSXlyREJ2Z2FYelJaNDBsUk5VWGt0b2IxcHAraGFtd2VYbG5SMTZv?=
- =?utf-8?B?R2pyeXFxM1NhZHpleldNY21pamRzOVBmcmxlSEJOc1VENzFNanhiT1FHVG9w?=
- =?utf-8?B?M2lLWSs1cis2OUNybE5yV3BmTm91NFA1RndTQlFybDFqMXZnbk9lUTNVemV1?=
- =?utf-8?B?SGR1R2IyVy9CS05mTTNWcUZSWFoyNjE5Rnd1clROUlJpQ1RhU0FwLzNOYlB6?=
- =?utf-8?B?RWNITUU0aEZzRnhCd2tucVBYTXhraWUyQ3FOTjVxR0F1eTlNNDVPb2pGaWF3?=
- =?utf-8?B?KytILzdkek8xT0FXT0tYMm5ZUytscTNiNUswOWxZYVh0OEFsZXg0cWJyNyt5?=
- =?utf-8?B?NU5xdjVCRHQ3Tys0ejdkeGdaSGpmcXpUZVBDS1JhTklXeTVoOXBYbXp6QUda?=
- =?utf-8?B?Q1E4TVFEOWJ2ekg2ZmhPVGZrZ2Q0NFBUaC90NzJKWDBpOTFyNFdUYTVHOFF2?=
- =?utf-8?B?ODRuOUpmY0NtaGhQWEdSZU9IUXlaeUptRG14YVJQR2ZBWXRLN2lFaWVFdkI3?=
- =?utf-8?B?bnY4YXUwSGZRUHF1MUxQVHN4NW9mODN4UExrMzhiUUhzait1NTUyQzJqY3M4?=
- =?utf-8?B?L1hITEFBWXZFc3UxV2VWZmRSRlc4UGg5VUROZlhBcXgzL2tGcTJxNFdTM2pR?=
- =?utf-8?B?VnFMTng0S2RzTURta1pzLzkzR0NBU1lrMVRVV3Bhc1FpdHpGeFR2SkwwRmhP?=
- =?utf-8?B?VnB4WlE5a0dMQTdTWUowYm5kenZQYlNrbFdWMG9KaTFmcDVvMlZFSko1ZENX?=
- =?utf-8?B?WFc5WXhWRTh0ekttcnd6V1V4U2tqOU5ab2JMa3Zwa3NRMFgrRTJqbWZoR1RG?=
- =?utf-8?B?Zzk1NHltL0VvelBVUnB4Tms4MFJKbDJXQjRZMTBXbG9RU1gyWmYzbGpUaDhh?=
- =?utf-8?B?bGNDL3Q3U3NnNTRXRm5oTUFBblNXeW53cjdNS25Nck9GZFNyWkNjdmVDNVVL?=
- =?utf-8?B?S1JyVXVPa0l3U3ZhYUlKeXN6U2RJRW9DSTBVQTZveDRxckNVRUQ4SVhPMHlJ?=
- =?utf-8?B?VTdDVlVDMXdxWjlORnU3MUpSQ3MxNS80YmNodWZXd2MzTXRHY1FGbHhBRkcv?=
- =?utf-8?B?UGVXeTZsemNGcFpZeUtjSFZ2azFlS0ZLZ0huUDdIWEkvVWExQXMyNVZRQUIz?=
- =?utf-8?B?OGtJaVlCTHFyZkNFMloyYTEzU2F6a1FGNi9weitJcDdYWlRleDF5WTA3R3N4?=
- =?utf-8?B?Y291UHZEamY1N1RRbGNPdGRrVkxrb3hpU0dTNS9uN2ZNcDZ1d0hsR096NHho?=
- =?utf-8?B?ajMyZmtIWUtGOTRpbGFlZnRnTlFocSttUkRDWGljZXBnalNqdjVZc3NOc0dB?=
- =?utf-8?B?Sk9qUFRPejBZYzdOZmQwdG1tQkFjZllqMnV5M0JqN0ZSWU54N3ZleXh2dnJs?=
- =?utf-8?B?OFJsbi9qR1dkN1F5ODNXT3RGTFJMMUg1U1hwaElnS1lPclJ6YUt6cnQvbGg3?=
- =?utf-8?B?YmFNbE5ILzVVRGdKNkxEMnN5cEk3ODBXd1FrYXd5YmI4QWlIUU1rU2xlQVVT?=
- =?utf-8?B?NUszSHI4dGQ0VGxQYXlYVm1HaWUxL3BycSs1QWZJMEh6V2tjMDFyK2VqZllw?=
- =?utf-8?B?dy9id3VlZXZQQjhqYk9rTWJGTm84RmoybWxxYndtRmpCcWxYZERqaTk4Tnda?=
- =?utf-8?B?NThiV2c4dzk0cVEyV3VGNTdOdUp6NitaOWtMK1FtM1BlM2tLSmVJbGFHNFNU?=
- =?utf-8?Q?n3iE7dYoVBUaBcMJyF?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7fff25d-71a2-4242-5093-08df188026ad
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 08:04:39.5594 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lmQmRcbtOMazooKfye+dQPB8lmyJ9gEGLHNgzCGCC2Obi5u4zLdcB+3LBKscVZ0T
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5647
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>,
+ David Herrmann <dh.herrmann@gmail.com>,
+ Marta Lofstedt <marta.lofstedt@intel.com>,
+ Mario Limonciello <superm1@kernel.org>
+References: <20260908044035.62093-1-mario.limonciello@amd.com>
+ <20260908044035.62093-3-mario.limonciello@amd.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260908044035.62093-3-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 5C7331F769
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FREEMAIL_TO(0.00)[amd.com,lists.freedesktop.org,ffwll.ch,linux.intel.com,kernel.org,gmail.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[16];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_CC(0.00)[gmail.com,lists.freedesktop.org,kernel.org,intel.com];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url, intel.com:email, suse.de:dkim,
+ suse.de:mid]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,31 +162,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/22/26 09:55, Huang Rui wrote:
-...
->> As far as I can see we have solved the problems at hand and the rules how to handle the user queues should be pretty clear by now.
->>
-> 
-> Assuming every kref_get() has a matching kref_put(), and the queue object
-> itself does not participate in a circular ownership chain, I don't
-> immediately see how taking a temporary queue reference would cause
-> correctness issues.
+Hi Mario
 
-The reference on the user queue object is meant to keep it alive for the duration of IOCTLs, e.g. prevent concurrent destruction from the close IOCTL.
+Am 08.09.26 um 06:40 schrieb Mario Limonciello:
+> So far backlights have only been controlled via sysfs. However, sysfs is
+> not a proper user-space API for runtime modifications, and never was
+> intended to provide such. The DRM drivers are now prepared to provide
+> such a backlight link so user-space can control backlight via DRM
+> connector properties. This allows us to employ the same access-management
+> we use for mode-setting.
+>
+> This patch adds a few kernel-internal backlight helpers so we can modify
+> backlights from within DRM, a brightness-changed notification, and a
+> per-device takeover count so that legacy sysfs writes can be inhibited
+> (-EBUSY) while a luminance-aware DRM client is in control.
+>
+> Signed-off-by: David Herrmann <dh.herrmann@gmail.com>
+>
+> V2: Marta Lofstedt <marta.lofstedt@intel.com>
+> - rebase
+> - minor edit for checkpatch warning
+>
+> Signed-off-by: Marta Lofstedt <marta.lofstedt@intel.com>
+>
+> V3: Mario Limonciello (AMD) <superm1@kernel.org>
+>   - rebase
+>   - Use guard(mutex)
+>
+> V4: Mario Limonciello (AMD) <superm1@kernel.org>
+>   - Adjust return type for backlight_set_brightness() to return errors
+>   - Stop clamping in backlight_set_brightness()
+>   - Drop backlight_device_lookup()
+>
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+>   drivers/video/backlight/backlight.c | 66 +++++++++++++++++++++++++++++
+>   include/linux/backlight.h           | 45 ++++++++++++++++++++
+>   2 files changed, 111 insertions(+)
+>
+> diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
+> index 4401f6294ccc8..1c700c1e77c3f 100644
+> --- a/drivers/video/backlight/backlight.c
+> +++ b/drivers/video/backlight/backlight.c
+> @@ -126,6 +126,9 @@ static void backlight_generate_event(struct backlight_device *bd,
+>   	case BACKLIGHT_UPDATE_HOTKEY:
+>   		envp[0] = "SOURCE=hotkey";
+>   		break;
+> +	case BACKLIGHT_UPDATE_DRM:
+> +		envp[0] = "SOURCE=drm";
+> +		break;
+>   	default:
+>   		envp[0] = "SOURCE=unknown";
+>   		break;
+> @@ -150,6 +153,13 @@ static ssize_t bl_power_store(struct device *dev, struct device_attribute *attr,
+>   	struct backlight_device *bd = to_backlight_device(dev);
+>   	unsigned long power, old_power;
+>   
+> +	/* A luminance-aware DRM client has taken over this backlight; the
+> +	 * legacy sysfs interface is disabled until the last such client
+> +	 * goes away.
+> +	 */
+> +	if (atomic_read(&bd->drm_takeover) > 0)
+> +		return -EBUSY;
+> +
+>   	rc = kstrtoul(buf, 0, &power);
+>   	if (rc)
+>   		return rc;
+> @@ -214,6 +224,13 @@ static ssize_t brightness_store(struct device *dev,
+>   	struct backlight_device *bd = to_backlight_device(dev);
+>   	unsigned long brightness;
+>   
+> +	/* A luminance-aware DRM client has taken over this backlight; the
+> +	 * legacy sysfs interface is disabled until the last such client
+> +	 * goes away.
+> +	 */
+> +	if (atomic_read(&bd->drm_takeover) > 0)
+> +		return -EBUSY;
 
-It CAN'T be used to grab references from either atomic, interrupt or worker context since then you can't drop the reference any more without risking destruction from non IOCTL context which in turn causes tons of lifetime problems.
+Can you really do that?  AFAIU sysfs is now a de-facto uapi for backlights.
 
-This is just standard refcounting rules to keep objects alive during an IOCTL.
-> Could you please point us to the historical issue or the corresponding
-> commits that led to removing this approach previously?
 
-See Sunils original approach, he made exactly the same mistake and I already had to fix that back then.
+> +
+>   	rc = kstrtoul(buf, 0, &brightness);
+>   	if (rc)
+>   		return rc;
+> @@ -514,6 +531,41 @@ static int devm_backlight_device_match(struct device *dev, void *res,
+>   	return *r == data;
+>   }
+>   
+> +/**
+> + * backlight_set_brightness - set brightness on a backlight device
+> + * @bd: backlight device to operate on
+> + * @value: brightness value to set on the device
+> + * @reason: backlight-change reason to use for notifications
+> + *
+> + * This is the in-kernel API equivalent of writing into the 'brightness' sysfs
+> + * file. It calls into the underlying backlight driver to change the brightness
+> + * value.
+> + * A uevent notification is sent with the reason set to @reason.
+> + * Return: 0 if successfully notified, -EINVAL for invalid values, -ENXIO if the
+> + * device has no ops (e.g. it is being unregistered)
+> + */
+> +int backlight_set_brightness(struct backlight_device *bd, unsigned int value,
+> +			      enum backlight_update_reason reason)
+> +{
+> +	int rc = -ENXIO;
+> +
+> +	scoped_guard(mutex, &bd->ops_lock) {
+> +		if (bd->ops) {
+> +			if (value > bd->props.max_brightness)
+> +				return -EINVAL;
+> +
+> +			dev_dbg(&bd->dev, "set brightness to %u\n", value);
+> +			bd->props.brightness = value;
+> +			rc = backlight_update_status(bd);
+> +		}
+> +	}
+> +	if (rc == 0)
+> +		backlight_generate_event(bd, reason);
+> +
+> +	return rc;
+> +}
+> +EXPORT_SYMBOL_GPL(backlight_set_brightness);
+> +
+>   /**
+>    * backlight_register_notifier - get notified of backlight (un)registration
+>    * @nb: notifier block with the notifier to call on backlight (un)registration
+> @@ -548,6 +600,20 @@ int backlight_unregister_notifier(struct notifier_block *nb)
+>   }
+>   EXPORT_SYMBOL(backlight_unregister_notifier);
+>   
+> +/**
+> + * backlight_notify_brightness - notify brightness change to listeners
+> + * @bd: backlight device that changed
+> + *
+> + * Notify registered listeners that the backlight brightness has changed.
+> + * This is called automatically after successful brightness updates.
+> + */
+> +void backlight_notify_brightness(struct backlight_device *bd)
+> +{
+> +	blocking_notifier_call_chain(&backlight_notifier,
+> +				     BACKLIGHT_BRIGHTNESS_CHANGED, bd);
+> +}
+> +EXPORT_SYMBOL(backlight_notify_brightness);
 
-I don't remember if it was actually committed or if we only discussed that on the mailing list.
+With the sysfs interfaces disabled, who is going to trigger this code 
+except DRM?
 
-Regards,
-Christian.
+AFAICT when the DRM connector updates the backlight status, backlight 
+runs this notifier only to call back into DRM to read back the value. 
+But the luminance property should already store that same value.
 
-> 
-> Thanks,
-> Ray
+Best regards
+Thomas
+
+> +
+>   /**
+>    * devm_backlight_device_register - register a new backlight device
+>    * @dev: the device to register
+> diff --git a/include/linux/backlight.h b/include/linux/backlight.h
+> index 015183d129f96..fac1acbc698a1 100644
+> --- a/include/linux/backlight.h
+> +++ b/include/linux/backlight.h
+> @@ -31,6 +31,12 @@ enum backlight_update_reason {
+>   	 * @BACKLIGHT_UPDATE_SYSFS: The backlight was updated using sysfs.
+>   	 */
+>   	BACKLIGHT_UPDATE_SYSFS,
+> +
+> +	/**
+> +	 * @BACKLIGHT_UPDATE_DRM: The backlight was updated from DRM, i.e. through
+> +	 * a connector LUMINANCE property rather than the legacy sysfs interface.
+> +	 */
+> +	BACKLIGHT_UPDATE_DRM,
+>   };
+>   
+>   /**
+> @@ -82,6 +88,11 @@ enum backlight_notification {
+>   	 * @BACKLIGHT_UNREGISTERED: The backlight revice is unregistered.
+>   	 */
+>   	BACKLIGHT_UNREGISTERED,
+> +
+> +	/**
+> +	 * @BACKLIGHT_BRIGHTNESS_CHANGED: The backlight brightness has changed.
+> +	 */
+> +	BACKLIGHT_BRIGHTNESS_CHANGED,
+>   };
+>   
+>   /** enum backlight_scale - the type of scale used for brightness values
+> @@ -310,8 +321,23 @@ struct backlight_device {
+>   	 * @use_count: The number of unblanked displays.
+>   	 */
+>   	int use_count;
+> +
+> +	/**
+> +	 * @drm_takeover: Number of luminance-aware DRM clients that have
+> +	 * taken over brightness control of this device. When non-zero,
+> +	 * writes to the legacy sysfs ``brightness`` attribute return
+> +	 * ``-EBUSY``. Managed by the DRM backlight helpers.
+> +	 */
+> +	atomic_t drm_takeover;
+>   };
+>   
+> +/* Forward declaration for backlight_update_status */
+> +#if IS_REACHABLE(CONFIG_BACKLIGHT_CLASS_DEVICE)
+> +void backlight_notify_brightness(struct backlight_device *bd);
+> +#else
+> +static inline void backlight_notify_brightness(struct backlight_device *bd) {}
+> +#endif
+> +
+>   /**
+>    * backlight_update_status - force an update of the backlight device status
+>    * @bd: the backlight device
+> @@ -325,6 +351,10 @@ static inline int backlight_update_status(struct backlight_device *bd)
+>   		ret = bd->ops->update_status(bd);
+>   	mutex_unlock(&bd->update_lock);
+>   
+> +	/* Notify DRM and other listeners that brightness changed */
+> +	if (ret == 0)
+> +		backlight_notify_brightness(bd);
+> +
+>   	return ret;
+>   }
+>   
+> @@ -431,6 +461,21 @@ static inline void backlight_notify_blank_all(struct device *display_dev,
+>   { }
+>   #endif
+>   
+> +int backlight_set_brightness(struct backlight_device *bd, unsigned int value,
+> +			      enum backlight_update_reason reason);
+> +
+> +static inline void backlight_device_ref(struct backlight_device *bd)
+> +{
+> +	if (bd)
+> +		get_device(&bd->dev);
+> +}
+> +
+> +static inline void backlight_device_unref(struct backlight_device *bd)
+> +{
+> +	if (bd)
+> +		put_device(&bd->dev);
+> +}
+> +
+>   #define to_backlight_device(obj) container_of(obj, struct backlight_device, dev)
+>   
+>   /**
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
