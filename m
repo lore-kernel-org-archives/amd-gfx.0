@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A36AC98304
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 20:56:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48ECFC98302
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 20:58:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F142810EE6B;
-	Tue, 22 Sep 2026 20:56:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFC0710EE72;
+	Tue, 22 Sep 2026 20:58:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w/oVRrei";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wbBhaS9F";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010041.outbound.protection.outlook.com
- [40.93.198.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99C4F10EE6B
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 20:56:16 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013066.outbound.protection.outlook.com
+ [40.93.196.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2133A10EE72
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 20:58:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DQejfKh3UyQgwEFOLIAvuhgqU05RorGgLpOFp7AixwOrykCKuqCyTj7eaCddzN9GWDmraXAKg6nrl6LvTCGY/rpph3qkRwDPTh8RfehJQ9aLHVqTJA2fqUbQtLgdUzuN0W10fyFUCnm4YH26+lzMiKd9wCdnnmkoOIxm7dW00WuW4a+UQDSo5Cz1DGyufLikJlBI+SiGhoW936nc1PBbTIEFRCtOlPKepPj97vDUIkwe2VZE5/QBz5UU4AaGOZA6fXbMD2EYsV1iHZkCqV1KxKx1wd0qqTuMhc1t3eB/uPnS06cbZ/n3zVXCSvskWi5MZ31UX7ph+6vd4CCARq35Tw==
+ b=ra4WIVnyqqTMDUxwxFmEoh7MqWfbISSmYeFx/+30NPaUTbb1aYdKaRoVoh89vvwk03h3MdSQXSXn04D083eBy8QJ76veVTC8f/+KnPHWYbh0+xH7JeQYBYPJnOkn1EDw1kImDNtOTPfIbHKRbKZ7HQyx0JC7+FnD9kOLqYZAZU+5uBPdDzldSG1AF9hFzo5UP10lb10aG/7sHUTDIirLfH3A/kzoHattg9fgt2YWierW3sOZbAo+78qenOPYgJEevoygPTKAaRe7kyn3AoF4gGUqeNXBir63h0pc5O5TuP/wTuDxbbNEdiqQgQZITSoc803YI949+rKfgqhO10e1HA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3X2RPzvrcckVVHnldwJFGYLAjlLAgSGwjsTb4wo+HGY=;
- b=EYnYVoY+tc1elK+0/PjCrDrEeQDYQ7sVhhKJ3COzlPWCCi3d28yzhrc3rnKbeRKa9AGg6MryyGS2lE/cy9qGZlqosjAUXEJV5WTmLXTGwGTmf+u072DjYKUaoQQUwl5jnmmDLFWLcz9//GTLd2tBnNPiV87SP729OwCUnfFUi1LzMNEMcm7PA+SNf42zk6c/mKGNC5Np2Nw48iECT/KIQ8OSvkxjoYHUDfUVqsnJuU1qicH3B3NA4ZYwWvc+XU4W92OLxutdzyIylz/x7lkixOzwgz18O4KVovRDSJNtaDo6yL1ybYcI9vU3UneBB32MRDlWJlfXRE10HvbpOnPQuw==
+ bh=ohodcC45cSjoNVEeELgxxqpJS4UmNBXVxT6qij2gAfs=;
+ b=NV7F4Gr/BF6j9IOKlEkgJ7jBW9TBc6XhfLenc1iscWUIHKtB89dIQKF8obOCg8hJfcwwvd0hioEob/daQTMK59EZQscgMdLVWIb15eAtFjgdw3nCWbm4zyPpTjslATf9zL/RZE2q5Khjv0bhfxBRxVWmEc4O3Ggvtf3n517DjtHUDwJrhRz41GXKiVmJ1m4N/CcVww3rUVPL/PLzS2ac7EUVTzX2ZQSUbO/K56yVyfILa4jDP8YDgGc+lx/CEdAa80SH5hfxHb4HwRftUT/7ODxbPUwqeb4W1RX0O8hGVOdrRX9Svo+qWDT3If97QnzKCoBdejg6CbkIlYj0erH8GA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3X2RPzvrcckVVHnldwJFGYLAjlLAgSGwjsTb4wo+HGY=;
- b=w/oVRrei0gBZGtwE6EYDyiWIpJ40MdGrUjrSnM8LqxsN97pOLg3ffbJB1/255Qwt9779gXe3W/Ob73HfMPR5mIefFBHNF9PeBD986MUBJw8n+oRxp7yXpYz1pFWZWjKqrnHcufxgTlBOkx5qfY6s2ZJMjhgDVKJQETx5KklfeYw=
-Received: from BN9PR03CA0397.namprd03.prod.outlook.com (2603:10b6:408:111::12)
- by LV8PR12MB9406.namprd12.prod.outlook.com (2603:10b6:408:20b::20)
+ bh=ohodcC45cSjoNVEeELgxxqpJS4UmNBXVxT6qij2gAfs=;
+ b=wbBhaS9FlsNTXjkkR4asZNI449KCpE9u2JRRGQL50RpzfQ3NXgBguYB4nGGFyaZmcfYzoC/e+xaROB13s3/M/8kT1xjgOIpS3MDBt6IMgIyRWNvCAbdLTKXCJ5E6rHwdbNrtJGFLjw7xwqwQCZAGrHATpAUtv5mFMEuC/YFIgYs=
+Received: from MN0PR03CA0020.namprd03.prod.outlook.com (2603:10b6:208:52f::27)
+ by MN2PR12MB4319.namprd12.prod.outlook.com (2603:10b6:208:1dc::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 20:56:07 +0000
-Received: from BN1PEPF00006003.namprd05.prod.outlook.com
- (2603:10b6:408:111:cafe::9d) by BN9PR03CA0397.outlook.office365.com
- (2603:10b6:408:111::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.13 via Frontend Transport; Tue,
- 22 Sep 2026 20:56:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 20:58:32 +0000
+Received: from BN3PEPF0000B06F.namprd21.prod.outlook.com
+ (2603:10b6:208:52f:cafe::90) by MN0PR03CA0020.outlook.office365.com
+ (2603:10b6:208:52f::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
+ 22 Sep 2026 20:58:32 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00006003.mail.protection.outlook.com (10.167.243.235) with Microsoft
+ BN3PEPF0000B06F.mail.protection.outlook.com (10.167.243.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 20:56:07 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.451.0 via Frontend Transport; Tue, 22 Sep 2026 20:58:32 +0000
+Received: from MKMLUIRSHAD03.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 15:56:06 -0500
-From: Mukul Joshi <mukul.joshi@amd.com>
+ 2026 15:58:31 -0500
+From: Luqmaan Irshad <luqmaan.irshad@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <Harish.Kasiviswanathan@amd.com>,
- <philip.yang@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
-Subject: [PATCH] drm/amdgpu: re-check connection state before sending
- NPA-REVOKE
-Date: Tue, 22 Sep 2026 16:55:24 -0400
-Message-ID: <20260922205524.1269092-1-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.55.0
+CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <yunxiang.li@amd.com>, <luqmaan.irshad@amd.com>
+Subject: [PATCH] drm/amdgpu: defer XCP DRM device free until primary release
+Date: Tue, 22 Sep 2026 16:57:31 -0400
+Message-ID: <20260922205731.254264-1-luqmaan.irshad@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -73,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006003:EE_|LV8PR12MB9406:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7bdb53be-ccff-4724-160f-08df18ebec66
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06F:EE_|MN2PR12MB4319:EE_
+X-MS-Office365-Filtering-Correlation-Id: 313ad711-3aec-423e-6f32-08df18ec42c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|56012099006|11063799006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 62hzJMtdGDCgV/AwwXcfA0xzlBc4MBS+eO72Y2tM5pBZpLY4zDP7F4DiDDaEMGH/qcLCyGpbjId1t8AyzcUJWnal64QuG99Vw38SY9IOaFFkSqVgeJdEsctN+brFVe+fRHDgaQY7znxDQTgi0ERRxzngH13UqbdtZ6Ow5g43mU8sly9FnAOpmFoNBWdqrEAMzCRz6wHIpSjAu0L+PNCpzbL0qa/m51cSJ8q3Q97jXe+Zn7+AlyHgraL0GrgHrUcGzms53sk1DKOac9+7ugqAoMbReqsgaHOhY1lmRHRDqLBPBGU6bCCd+rUzPGKEy+a+StE27oC2EGOn6CSXSc2Bir6EVyz2iSJDDuDmSCKkuNYaxcaOITE0wCqbbDTM/g416pV3SZ0+UnpYRMZbLV6Vx50cLvGrnaVkdA4OLN5muF6A2JGwvn3+g14CshRWpdPUL5LiKKZGA6cH3wnDPtm3ZBlJEsV6fkWi9a7FIaqmnDqvKPUWTK1WaNhf8TvdwF/qf5T16zcSPtRJqZInlO+FNVziOPIcqzcYlEWDWzK1zkHMeJv4K5hBwpZMqY5dr65VcORNsaH3Q+d86Rz4MAIjFv9lz6Kn2z4tX/TZAQEbemmoe25cOWmdigHM3VoUBXGlGK0WNo6r8Htj1YElgXQvNYFyUBji59HuXgLE3HQDXBFad60VAixRWmA/diCy+7NGUr2RtLGmWKHT1W6TbpptUw==
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|6133799003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: mtEUPAILdDRT17ogrbQ07c9G73Jc9PDrz9hAAxQXwFcDeqJXB3EFy/JzcX5DVLQWtJuxANHwpAnU0Chp4BKHhRPJEX1RbzZDNcXhk70xXrXipqFuBMniq7QSlqFv3kOhcfrHWjmEutLVq5cI9m4pQdM0bkQ1PKzBAszrWm1SMmcwAMtrtDCJG8QUXZy7j0b1NYX7ZUtxVTCYGlplC03/0PSE/SphFUiIVYlFF9nx+PDjT5TGVIdhnifv6H46qSD3wDfycp7dUf5OqRidsxAwqX7Y1DxuuqOPqBij/LSqXkuZMCstdP09RoWaMb20sdmSiRrwtAJSuPWRdReWWJIN9O/RwCN+TJUFf8SVlAmqf3n6OgXiRzIHgh2eGyH17kJM+MRD8/4poUOkrIN75aMJZtavsECCSN/AHnUKIPoe5wXiMQeBGunrB9WymV018qBmGeog+5+016DahjS7jJ0yD9OEbaeYNK5Y2qIjhLKYDsYC/uGzl+ufJeH2Zygx1y54LGUCA1amMmp+LzpMEZPsaOT9hM1Z/ykwYBV1Oo8WzFyQVHzVfgtTeZmPHIrrg0vMj277JUCCaD98iHnluzEGy+3LyqJptpymeQxI5SAvxBZU4+Jn5TNboU7C4GXHVtI5bkf3gisvtt7szX/Rb/UzqtUzT6ic1GGovbJlrwRu8RgNESE0UUBTQq52lxXN3LlabizqvUBXY00aF9przWuSZw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(56012099006)(11063799006)(10067099003)(18002099003);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: YGCSLTHcy24TVlYG8BzPoCkxrMnyqu6a3xBvUgmlk/HCaut0aQ1x3lm6CDKq2eAuDN8YmMSMBbxUzyOMvJmehWu6V6AZBg6y+oc3oNeOVTWt4pKESscPpV9+CDuQjyxVXADEZlxcsVSldjg2In4ZeatVKevOxYhBWtx0QZ+Mb3M7nuG7KCQ0K6wpILHuVYqi9HN6dmHUo0gfD+Tkx7gVvcEWArdgZ176zDZ2YZWvad48iNDJb+BQUNZg1JypavIKVYyf7cAe7bJZ1Y5uYse/D5n4+UQHcHXQcMLBUqmWs7UgYGQ1uHY3voQESH1e/WKXQliRmJNlYYAuZnr5CdeKjiH0uCy3rpoVdgP+Y6niuWUCWjFxLdpN7y1OyN2hMwqQS3LZVidAlYi0lPBa/j29HwQT9WVTwPq4nd8o6uA85IL3FEJ3kfpL64RoeB+S+uBd
+X-MS-Exchange-AntiSpam-MessageData-0: qzoW+O7zj7LKPwN3BRaXo+Ybu/xTZEYHFSaHe9Av/Ov2xR2YuxySpDGvpgSLkiDGHK1uUaeb3uaKCnPN7wFvGJYsHyydCimFdENC0S3C2aqOyN39g6PO4xVMTwb5+XP92W0WYCHH8SGq3F64mPGdmDtXv85JOYWyK5EcXQ+VVQRH/Bb4fankZ+OpQp7BP717gZgwv7d2CLAUeRl0sL4ZE4h/zXNq6gweuCKNiZ71SVC5HPDYIJbPA84JqR4iY1rZND45NAHBBmt7RGVaYcofRja+2jVR33F3cyzaiNazmvfba8TuMW7w6Xe0WtsUaijBNZQ0RdZgnVMd3PxK9Uszp6QuSIVO5GQuzlO6gvtSaqprdmUFqqxUWUxbbZAQpVodWlBt6Ec6r6vbtZPlE5EVz/KplqL2nl7WZ58atT5QdXAclpaNw181RWA/dxRNOVEK
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 20:56:07.1925 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bdb53be-ccff-4724-160f-08df18ebec66
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 20:58:32.1284 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 313ad711-3aec-423e-6f32-08df18ec42c9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006003.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06F.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9406
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4319
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,59 +110,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The export cleanup worker checks amdgpu_ualink_check_conn_ready() once
-when building npa_release_bitmap, but not again in the send loop. Cleanup
-workers run concurrently on the unbounded NPA WQ (one per exported
-handle), so when a peer's egress dies many workers have already snapshot
-the connection as ESTABLISHED and all issue an LSDMA copy to the dead
-peer, flooding the log with repeated NPA-REVOKE send failures.
+XCP unplug currently restores partition minors onto the synthetic
+p_ddev and frees that device while files opened through those
+minors may still be active. Those files took drm_device references
+on the primary ddev because the minors were redirected at XCP
+alloc time. After unplug reverses the redirection, close paths
+operate on the already-freed p_ddev, causing a use-after-free
+and p_ddev refcount underflow while leaking the matching
+primary-device references.
 
-Re-check the connection immediately before each send, as the tlb
-shootdown, force_retry_rpcs and unmap_all_npa_addr loops already do, so
-once the first worker marks a peer NOT_READY the rest skip it.
+Split teardown into two phases. amdgpu_xcp_dev_unplug() only
+calls drm_dev_unplug() so new opens fail, and leaves minor->dev
+pointing at the primary device. amdgpu_xcp_dev_fini() restores
+the partition device pointers and frees p_ddev from
+amdgpu_driver_release_kms(), after the primary drm_device's last
+reference is dropped and every redirected drm_file has completed
+drm_minor_release().
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+Signed-off-by: Luqmaan Irshad <luqmaan.irshad@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  6 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 51 +++++++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h |  1 +
+ 3 files changed, 51 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 453315377f80..afb47a6f7c30 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -2956,6 +2956,24 @@ static void amdgpu_ualink_exp_cleanup_worker(struct work_struct *work)
- 	 */
- 	for_each_set_bit(remote_acc_id, exp_xa_node->importers_bitmap,
- 				 AMDGPU_UALINK_ACCEL_MAX) {
-+		imp_entry = &exp_xa_node->importer_entries[remote_acc_id];
-+
-+		/* Re-check the connection right before the send. Many cleanup
-+		 * workers run concurrently on the unbounded NPA WQ (one per
-+		 * exported handle), and they all snapshot the connection as
-+		 * ESTABLISHED in the build loop above before any of them fails.
-+		 * Once a peer's egress dies, the first failing worker flips it
-+		 * to NOT_READY; without this re-check every other in-flight
-+		 * worker would still issue an LSDMA PIO copy to the same dead
-+		 * peer and log a fresh "NPA-REVOKE send failed" storm.
-+		 */
-+		if (!amdgpu_ualink_check_conn_ready(adev, remote_acc_id,
-+					imp_entry->generation_count)) {
-+			clear_bit(remote_acc_id,
-+				  exp_xa_node->npa_release_bitmap);
-+			continue;
-+		}
-+
- 		dev_dbg(adev->dev,
- 			"EXP-CLEANUP: Sending NPA-REVOKE to remote:%u\n",
- 			remote_acc_id);
-@@ -2966,7 +2984,6 @@ static void amdgpu_ualink_exp_cleanup_worker(struct work_struct *work)
- 				remote_acc_id);
- 			clear_bit(remote_acc_id, exp_xa_node->npa_release_bitmap);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index f2f179421c4d..403ca8fb1bc9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1638,6 +1638,12 @@ void amdgpu_driver_release_kms(struct drm_device *dev)
+ {
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
  
--			imp_entry = &exp_xa_node->importer_entries[remote_acc_id];
- 			amdgpu_ualink_handle_connection_reset(adev, remote_acc_id,
- 						AMDGPU_UALINK_CONN_NOT_READY,
- 						imp_entry->generation_count);
++	/*
++	 * XCP minors redirect their device reference to this DRM device.
++	 * Reaching its final release guarantees that no open files still
++	 * reference those minors, so the backing XCP devices can now be freed.
++	 */
++	amdgpu_xcp_dev_fini(adev);
+ 	amdgpu_device_fini_sw(adev);
+ 	pci_set_drvdata(adev->pdev, NULL);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+index a8c79a66df1d..295cd9567512 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+@@ -412,7 +412,6 @@ int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
+ 
+ void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev)
+ {
+-	struct drm_device *p_ddev;
+ 	int i;
+ 
+ 	if (!adev->xcp_mgr)
+@@ -422,12 +421,50 @@ void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev)
+ 		if (!adev->xcp_mgr->xcp[i].ddev)
+ 			break;
+ 
+-		p_ddev = adev->xcp_mgr->xcp[i].ddev;
+-		drm_dev_unplug(p_ddev);
+-		p_ddev->render->dev = adev->xcp_mgr->xcp[i].rdev;
+-		p_ddev->primary->dev = adev->xcp_mgr->xcp[i].pdev;
+-		p_ddev->driver =  adev->xcp_mgr->xcp[i].driver;
+-		p_ddev->vma_offset_manager = adev->xcp_mgr->xcp[i].vma_offset_manager;
++		/*
++		 * Stop new opens, but keep the partition DRM device and its
++		 * minors alive. Existing drm_file objects still point at these
++		 * minors, whose ->dev was redirected to the primary DRM device
++		 * when the XCP device was allocated.
++		 */
++		drm_dev_unplug(adev->xcp_mgr->xcp[i].ddev);
++	}
++}
++
++void amdgpu_xcp_dev_fini(struct amdgpu_device *adev)
++{
++	struct amdgpu_xcp *xcp;
++	struct drm_device *p_ddev;
++	int i;
++
++	if (!adev->xcp_mgr)
++		return;
++
++	for (i = 1; i < MAX_XCP; i++) {
++		xcp = &adev->xcp_mgr->xcp[i];
++		if (!xcp->ddev)
++			break;
++
++		p_ddev = xcp->ddev;
++
++		/*
++		 * Normally this was done by amdgpu_xcp_dev_unplug(). Also
++		 * cover initialization unwind and other release paths.
++		 */
++		if (p_ddev->registered)
++			drm_dev_unplug(p_ddev);
++
++		/*
++		 * The primary DRM device is in its final release callback, so
++		 * every file that acquired a reference through these redirected
++		 * minors has completed drm_minor_release(). It is now safe to
++		 * restore the partition device and free it.
++		 */
++		p_ddev->render->dev = xcp->rdev;
++		p_ddev->primary->dev = xcp->pdev;
++		p_ddev->driver = xcp->driver;
++		p_ddev->vma_offset_manager = xcp->vma_offset_manager;
++		xcp->ddev = NULL;
+ 		amdgpu_xcp_drm_dev_free(p_ddev);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+index 33157409eda0..e2fd32af9932 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+@@ -181,6 +181,7 @@ int amdgpu_xcp_get_inst_details(struct amdgpu_xcp *xcp,
+ int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
+ 				const struct pci_device_id *ent);
+ void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev);
++void amdgpu_xcp_dev_fini(struct amdgpu_device *adev);
+ int amdgpu_xcp_open_device(struct amdgpu_device *adev,
+ 			   struct amdgpu_fpriv *fpriv,
+ 			   struct drm_file *file_priv);
 -- 
-2.55.0
+2.53.0
 
