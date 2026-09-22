@@ -4,120 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74631C98302
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 16:21:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9753C98302
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 17:31:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1548E10E64E;
-	Tue, 22 Sep 2026 16:21:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EC7D10EE15;
+	Tue, 22 Sep 2026 17:31:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gJWQlln7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ijp2kUDi";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010016.outbound.protection.outlook.com [52.101.85.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 004C710E64E
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 16:21:01 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010058.outbound.protection.outlook.com [52.101.46.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8412510EE17
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 17:31:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Om0a88WruB4m39uAdRO1R+WBmEwwUml8unOKBXLg0JgUOjNY9FJpEQhOelMsbMupmGaKwGvfevmqjZEDJd405XqBIcQ3q+LlYfO+8TkbbRvpYjg46nrwVCIeyLcB+eo0TH0p3DF837QrNEY514qN6J6MB5sNcRbqA6+9iwPbKWma2pco1Yyh2EGDDEB+VsJ8K9ZQv26T4M4pRWPzfT/OvA1N/Xlwul1+OCjMXmA0AXUdGfG280TgaU+Kjs0fE3pTDq70A2CEaxNQCtbgestjqeUQaurpv0K7ipZHp0DQKuw6CmWKe5kdUsmQ8QcswI2UNYgoUcMNSpS+OctoR3zo4g==
+ b=V90aoaj3yFyWZI6qWTG+A8Y5YFFQItXHWerW9BNsoDgCzdaM8hbPYZ0/wpYqfdUvmu67ahWqpWPv85Ki7kIB5CzhRALrs8pSr2PRpCvBqZzptU71ntfKfxshZn32YyYb2LOgwOkenMhGndtDf1c87fA4v+wiMpYYGQty5eFg2G3jjBFeU2SjGQKIsGrO09GaO6K+gaYHeHJ0xlvx2Pn2gcCfWwwKQTrUOEFk22l8LMy8Q63viVWqv+M9M6zuISUE6yyiisPZ7kFD8BHNulp3a5upJ7fkxYy1/0Hgq5b1w9jsU2UnzH2a/E/HQtuOuL5ulVaxnJnJ18nWivpgjGy7UA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hg7lIu46lPYSTb4w5gbeHheFjzLVUqwu+SGp+J20uRc=;
- b=oPd2XATCHiihqoJeBzpwckSFofBw6rNuSRVLgcE5znhS0ciBl1IBTd/jb7PAlNt/5h/O8MleWhRsId83wyXfuXtXQjdF5UqEIMuB+bOubOqTHFR/8XBZndWJS5qcux7+34W23MLMmFiUM3d3oEA5cPBpfXnuK+RFA0mrFk4qETsot+ou+0coXgtI7PbgWyDXmlsac0jHM5Vl1xhsAVXMCzzvVGzh86+R2tBdxdCU8CRXYJ8xpvk0mpm/wlHM8PNkXrQyz2UuJEgdVC79v/JQK/Fb3lXgTJtf6RdNyxbrCv71qby9sZv6SDPGvbnxIqiNMgpihGvpJB3OvlBgDUvvZQ==
+ bh=KCdSNkarTUqswwLS1jkosLNZ+bERC42EUnSHCngE9hs=;
+ b=msJw+Qh5wx6gihiMYhXIs2DeQ5MfdQ+5OcgXAGKi7c8+FrRCBytZr5kCtv+jCq9QX9d0YlQbiCqGoUE8IpUbkQdj+QEuKotVxhqjnRYyn8XHpGORjGa3ezPS+o735G2vOi1ga7PZJakwAGY2owQBVCg69IxfP5ePAqUhSW4hiTug4EfdN7dZbJZbXGzezasF7kIS+3JTYwF4xWop9npI9+wAssMoNuzHDpSLH1nI7hZEI2wfszv99h1GsjOBRIB6AgVKYA/r3BBFWSF8Z0WZVekSoJi0fttwp3NNZ33HsykClFORuz+woyX0+fVzJSE1fBVDhSDkwW427KXzSMXpXg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hg7lIu46lPYSTb4w5gbeHheFjzLVUqwu+SGp+J20uRc=;
- b=gJWQlln7lgxhhjYNX2xv5sW79wqVqUR69y07c0G67YMo34eQEVbsneuCV8kj3c58A9Xka/B7gErGjb3940mf9S5iMVLP2cTl5qBofRPikSZnO0vuOXCb+5c00hSavaWXyu75iZSO5rb76/4QQcVQp76lrWzYdWF7WB4lnWSMxgA=
-Received: from BN7PPFFF39339DD.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6eb) by DSAPR12MB024644.namprd12.prod.outlook.com
- (2603:10b6:8:51b::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 16:20:59 +0000
-Received: from BN7PPFFF39339DD.namprd12.prod.outlook.com
- ([fe80::9e62:eec6:fa38:a6a6]) by BN7PPFFF39339DD.namprd12.prod.outlook.com
- ([fe80::9e62:eec6:fa38:a6a6%4]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 16:20:59 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Horatio"
- <Hongkun.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: drop userq callback assignment for sdma 7.1
-Thread-Topic: [PATCH] drm/amdgpu: drop userq callback assignment for sdma 7.1
-Thread-Index: AQHdSq2mYpEWsH03YE+4yjcWqUN01bbaxz/A
-Date: Tue, 22 Sep 2026 16:20:59 +0000
-Message-ID: <BN7PPFFF39339DDE55A619EF4BF106D952BFC832@BN7PPFFF39339DD.namprd12.prod.outlook.com>
-References: <20260922161529.2179060-1-alexander.deucher@amd.com>
-In-Reply-To: <20260922161529.2179060-1-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-22T16:20:37.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=KCdSNkarTUqswwLS1jkosLNZ+bERC42EUnSHCngE9hs=;
+ b=ijp2kUDiTCrYxO/vTgxbFQtQyhYuys/w8ue1heTdlDpzfGo0h1HemXNFyxbBwebT9PszuBd4hXJHRhqfbjdzWXda2DKXgWnnb98eCp7ZzJmDdMN3vU0/8bCzRZxPnscmZwhgt2LPjSPFX0XeDQFKDVCpwS2s8fjaB7W5GI3R2E0=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN7PPFFF39339DD:EE_|DSAPR12MB024644:EE_
-x-ms-office365-filtering-correlation-id: ce5dae6d-63e9-4b4f-4d4d-08df18c57cfa
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|6133799003|7136999003|11062099010|22082099003|18002099003|38070700021|56012099006|11063799006|10067099003;
-x-microsoft-antispam-message-info: r1xkpkuTxVZi+aCovgw91ZCVUsKTiJttJGn4KLVCfO5FW/EQrPV5/LNZyuwyGB7ePdOSalr+LeT6WZzg5/L2UhHBY12kRz3Y5vXzfy4Bgzh5/lv0Qs2vaGayyRdXZJZtv4/d2Jw0SfB+95U71Y5wyy1mgtnEiJxCy6PVKo8vrI5ZXMFakJXUk3RvHnI3RSR13IPx5vZt8/8kgpCpxY2nt498NJ6/zucUnFx4DtT93DXElFzJjq8UE19+Y2ENm39N1dNz9+HJ0TdmtTjbxkMDJ0Pt/r5gFvr8gAmp906qiYZRGgBe49zK58CiR71Sbn2e0yjmhmno10zKoQ4iqL3kn+uA7E5G73IWRn+Ngq5a3vKi2MolEcsFhIXLeT0nM8oApXYJxNVkHuxyX0nQBnp3KPK0tcQx7ZWYu0fmNqnEtrzHSwnMxQl/d66rR0Egc5CkbBexIy2sCNkAITAyqc2LH+OIAwtsm2u8ZCKTRnoPEzwApYnG2CVHI7odj4Eh49ncIujTHBsByCQBktEmYUm5x+dvsCTDg8X03jzKpBjiP77s8E8siHkIdc8ysAzx0R206EH+QL8d7/wil09eZeXfapWXvOL0l7HmgVTjS9C6G8+5/Y6VOrtDywBWIXXEwkrLuHMWHcNTGCMqVFfWaa/id6pzNB1j8bs3QQIXIg2REPO7Nvzqwm9dMWf5HvUlZEPuOd84lFBFLQDU5kMoUKsUoP1tXEfrRHJ4dd233kjnMP4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPFFF39339DD.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(7136999003)(11062099010)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(10067099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6hWJ0+BaBiQI4vNL6f6ES3whwfoUr89nFIyRr2eTKsjtdYth5QHc4WZg2TRB?=
- =?us-ascii?Q?qsy0sh4kNfygE1CdBTAbIyoF2sfMvHVXtYW9xqgwZlDPsKIfTr45MI7PcsD9?=
- =?us-ascii?Q?72lfSvRN+zi33bJhWxy3LIWVhjozhR4bypFJywMVcmqiUqPfHr/wzJ2lzh0A?=
- =?us-ascii?Q?urdXu0YpksYM7mdEQJdNmkHss99sdF92s6pwwZ2tntS+Ngy640ZJVkMf+cn9?=
- =?us-ascii?Q?/qulXIdUpMJiU8MW7BmZfcSSnsAYzzPhkZhIPanJqjQLdCQv/FI6lcZkOQTo?=
- =?us-ascii?Q?83fd9dSInl8LucfMaOMe/JveHPcU41/MsyGE6QgIfN+7TPPlyOfqzLepSyLS?=
- =?us-ascii?Q?YUUlrXaJS6hsdmtkXWWtOX/tEWXuyQfy0xmy/vmGFTaOZDQkPboXf7LVr69x?=
- =?us-ascii?Q?BtfXQ266RRQRSqKfF4AJsHhcYppaRhRIxAZxHQnx8A78bEm2JSwfRaRGnIqo?=
- =?us-ascii?Q?/nkiGTHz5FhekDf0/5LwwG3W+ttimb+orM6evG/qeb9SQ9zm17cOdBo3Tz5b?=
- =?us-ascii?Q?mkAZ3h+dLF+6hUuVJsUrK54nwWRL5EHVsa1S3YVpQq79utDBF8GHPEbDzU+l?=
- =?us-ascii?Q?MkvU/bAqH84huGaCtDncQM8skYf/WcGho5tecvjov24z2gxKWCP0Bp8BEXr4?=
- =?us-ascii?Q?01mvuUP55CxxYngBdOb8BcZYK+8CZr3qAHd5zekDa/HhCdL/NQX4O6gKnlrd?=
- =?us-ascii?Q?efMe1tyG5pZKL1F1XABROh4TXXSjewBk+MASYJUTw6+IJdmBD819dVCt69DL?=
- =?us-ascii?Q?3tA0Ty1G9QsiBL2lEz6ALMf3nkwG2UluKgeEz7VUh7m342HE3kh7lVdO2olR?=
- =?us-ascii?Q?n3PCugL0ojSI+fMUA2F1wpH2xmJylBwbZgGuNWrX/n9AkrXZ0Ql3j95M6p6x?=
- =?us-ascii?Q?AAWS9mdZNS13ZykTRyq+M4n565TNgKkaMkX4BcH/Q8VXTHkVYG6DgsgMeShY?=
- =?us-ascii?Q?cUQPU6MbJKcgQ0hlhyI3Ssp80y6VxMSeaI1bCq6OYIUXcN2UWyYPOEE9nf0r?=
- =?us-ascii?Q?GZfkoBpEbv5P2lxJrV+phc797+6wfic3fsy6bwLJx/kC8dsjWYsXre4DUzlD?=
- =?us-ascii?Q?5sPuB5H2U4IU154eo6lVJwBs6YFG8KC53fJUxEYeav50p8TaPBbyhN3Xq/qQ?=
- =?us-ascii?Q?hF8QPMF/Qpa9CwkwZQPJglb1uYd7IHL1y36bXTJnlNvyk+ouqym0IYQh/EHc?=
- =?us-ascii?Q?Pn8M7O/pToXJrM9KRPYDzWdxDO3iuDcjYmq+kl3f/B4mjJ0naIXrY/LSC+N1?=
- =?us-ascii?Q?11+qYqoseNVzfrfMXMq2rYdliIZKrDw75VqIXUdf+1eeGxuT9RYvwbpQsLJd?=
- =?us-ascii?Q?m9BWArjcUdD8rSQS5o6Xxk0+sSvl/sKGUrkOQaXEMUzNbcOj87AurYFMdL15?=
- =?us-ascii?Q?WI8tburuMmxvYMH01+OEzBJ5c0qcH5CBlEvqPm4mHuZOGbO8s9OiUpbjOaqU?=
- =?us-ascii?Q?dTFwYcGB6ap9vDHN8AGpeAxU9WXs5A47Zg8dLwVJpPQeG1TmBufZ9iVrGWIP?=
- =?us-ascii?Q?vRU473StdBABymyTIW4+jmxdtQeRyHo8uWpLw4jWPbYmu25954xog5h8088j?=
- =?us-ascii?Q?HdRWHXv0AVowtJZJIKH4xoZ480tJKBmQyDFmDdDluNVTDN3VjLEYs0Ag3jKh?=
- =?us-ascii?Q?pGleIaAfKKSOr/ZeFQ2E25FK1M1MRCl5kQlkTsxDiFAT9BlFHvzdKT+5rrSB?=
- =?us-ascii?Q?JEJJpoqts73kA0+YM1InbJ8hc4ONBSwCGqxj+TYtFfXhCb82?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DM4PR12MB5167.namprd12.prod.outlook.com (2603:10b6:5:396::10)
+ by PH8PR12MB7207.namprd12.prod.outlook.com (2603:10b6:510:225::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 17:31:04 +0000
+Received: from DM4PR12MB5167.namprd12.prod.outlook.com
+ ([fe80::4588:54c1:bc29:2c7c]) by DM4PR12MB5167.namprd12.prod.outlook.com
+ ([fe80::4588:54c1:bc29:2c7c%3]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
+ 17:31:04 +0000
+Content-Type: multipart/alternative;
+ boundary="------------Q5xy6rimZCdPOhFCCNZXlgMZ"
+Message-ID: <7fe6058d-a772-44b8-bd0d-e63fc7ea9632@amd.com>
+Date: Tue, 22 Sep 2026 13:31:02 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: don't widen the validate GPU set past one
+ page owner
+To: Andrew Martin <andrew.martin@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: philip.yang@amd.com
+References: <20260915145833.601947-1-andrew.martin@amd.com>
+Content-Language: en-US
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <20260915145833.601947-1-andrew.martin@amd.com>
+X-ClientProxiedBy: YT3PR01CA0107.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::20) To DM4PR12MB5167.namprd12.prod.outlook.com
+ (2603:10b6:5:396::10)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5167:EE_|PH8PR12MB7207:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fb5718c-847b-4dd1-27a5-08df18cf46e3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|1800799024|10067099003|11063799006|5023799004|56012099006|8096899003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Ij8g8C2jtiw+6bfcDU65i+V/hhp2qgwlN4jEVOi1PM7oy6puKveUI0EVhoi/oU/tlT7a0aVpyT5sKnHyV0GjhWmggeRNAitdBMwVmdcb+aMVJFvSqM9GZdE8LwVGY/mqfY8ydKhojiVA3/6qoE/lEQ+1gvPe6CVB9dbmaNGlYS7nrDnge5n4ccf5CORiOJkEZUU96pbNaXlKWh5+CYqWNM0lx4OA0RThI6N6FP16U4zSL5oYE6SKZEkQgf6pukhNrCG2dzvMw3q8qTkEtwftMnjzZDa8cLJrcY5TRgHcy1Ny1aAOPqOepcClhu5OttqBlgKtfbZCV+vDdvRiplG7GscEKELOj0uUQG0SWLYyrQ/a8w63/84o0E6syvT1d/LCPS7cprxRfBCIUKKjxKGy9V38+fbEoeH/9UQQgn08+Yv8As9YsNIk5djsX2jOpYSFZS9K9sTy5UqzM0BqEewEou5wuUPClRwFKrj6NE05kCrK1DNzOXqN6W2/lfIUjWXNuQ3wUn/rlLbBHHgUkSoTryG5ZfxbV+DYSqbSLoIBS/iaW0/4T6yMPfbtsifkGgX9BOyLK0bRL4F/AubU7XT102u2rZAIZ00yH1S8b4XYxdNtzJgTrYItydlBkRMK+q65/kk4pUiAyW0RHFWT25vVLqUmMKhLa4HXVsv+wDcl+Eg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5167.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(11063799006)(5023799004)(56012099006)(8096899003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2REbUNFUDUrU1Z6QmdCQ0lMM1dGQ3dXRkpYeDhRZm55SmxCOWlFa3N5bmxG?=
+ =?utf-8?B?RFlkNFAvcVJhZUl1ZFA5M05URTZaRVNqM2FqL0t6Tjg4aVVseVRRS3dqeWlO?=
+ =?utf-8?B?SVBESTdjYlZaUElYZ3Q0dFE4cFpkYWVhUTdJd2dsbklwTm5DUTRFTVBTYy9J?=
+ =?utf-8?B?dVRuWHRCY1VoQmFEYmVuai9mVy9nK1daQzlXYTZuc0M3dWQvelpqRTI2MExh?=
+ =?utf-8?B?d2JlZFNTc2RleS90OUFHSkhoTk5ZWGRhKzJiekNCU2RsSkw0eUJEL0YvdWJP?=
+ =?utf-8?B?cWZmc0lhSEhVb0tka2hxdW9pNzJOOUc0YWNOODR2Y3QrNXdudXY4S2libmVr?=
+ =?utf-8?B?MTFxQ1Bnd2lSQjRvZ0xOTE1CZzBIWTlpTlg1bHdJanl0THV0dGpnb1ZYK0Vp?=
+ =?utf-8?B?M1BIOFFUK3o3YXZDeXlWVWVCOHQ1T2NqRkI0TE4xUHJwZkxwNkEzODhkYmpU?=
+ =?utf-8?B?aGJZMlhVcXpRYk1zTkZOREUrSWNXSGFyVmovRmN1djl4a0pjczdDRnlqdjRB?=
+ =?utf-8?B?TVZxQytEZnNPQ1hJM2xlblRvL0lTZlkyS01oVmU5WmNvTm1tRExSalpER2Ft?=
+ =?utf-8?B?OXQ5N2lsUTcySHlPRWVWTjVXVFFRQ1Bsa3BJNU9TMTVXQ1BzSUJTUi9Famow?=
+ =?utf-8?B?VnE2ZzFRMGR0ZkhQa1BNeHJScFNwaUhDRklrQzIzOVl4ZnBYcDRjSGJjNVU1?=
+ =?utf-8?B?YUhSSnR5QjNoWTEyYjZXYWFEdmVCaWR3a3RTS2VxZTFGMDF5emIvSzIrTFpV?=
+ =?utf-8?B?ZWlkdXkyUGpXNXNvdVk2aEttQWxXY01WbzdBaXhWNUxSMTJvanZQTWFFUXpu?=
+ =?utf-8?B?UG1xMzVSZTFwbVZpTzVzNVhuWHFDaHZvZ0YvMFdZT2xrNHVXcUdrMkIwSkMr?=
+ =?utf-8?B?TFNEZEdyMzNGaThMQkFtQUJsU2VzUTlIYlZwTE13eXdXN21GTkRCN0RlbTk2?=
+ =?utf-8?B?b3JzNllsRHUrZ3QxdjhYaVNWMHA3dFMzeE1OYzljekdKbFpiNnpLcmF3UHNC?=
+ =?utf-8?B?djdQc0cxS283N3dnLzhtYmNQVDE2bDhaM0g5RnlDYzV3ZjZZMm1zci9iRlgy?=
+ =?utf-8?B?b3QyYk5weVJ6SkludEVaQXhjTDB3NDFaVGlLUnhFT1g1aDcxVTVVd214Mjlp?=
+ =?utf-8?B?bzNrUFYvZmVUamFwSXhjOWlkWmNMTGViUlRycklGYzFhb3BudzZQQ1pROEZP?=
+ =?utf-8?B?OUhHWEEvT2hhL05UUjRTN25xb1pYRmM4dzVLa1Z0UGhjZlY4cG1LNjM2L0M3?=
+ =?utf-8?B?WGo1RHRiWkd6elpCUGhKSDZFdWVoOENJUkFxQ3N6SlBkTzVLdWRGSEFMaDN5?=
+ =?utf-8?B?azgzQVlxR2pUeDZQYkMrSmtsblF0YmwwbllOM281SWVSeHJjQUtSOC9WcEpX?=
+ =?utf-8?B?K0R1Q1pvVkVndkUzaVpLRDZ0TWxJYTdZY3RWOXJkUDU2eHdiNXQvQmFCc3E5?=
+ =?utf-8?B?VWJ6cDdySEFzVEJFSGpqcWpPQUJmNEtUa09YT2NYLzR0TkR3Z2xpWTRrQlUz?=
+ =?utf-8?B?bXI3OTNucHVEczlwZzJRVVhneTBBTGNoU0hCeEhISTZLM3NjMGtXN2tyUkdI?=
+ =?utf-8?B?bU4rNWpZcUxoaXgzMjZ4Qks4VzZiaUdUNmVMZjZyT0dxdlFlS2xNdUlUWFI5?=
+ =?utf-8?B?QkpUd0lvbm9DK2Z3SmJURHdMWVpXemd5cFFFV3NRaTcwYWJxdFBzZUhQVGUr?=
+ =?utf-8?B?Y1doK1pEdlVmMWlwanNNU0VSc01RQmhEOTE2WHpObXpvajZ2UHZRd1Y3eVIx?=
+ =?utf-8?B?NDFrY2wyc1lKRE9kN1FCb0tPaGlGang3WTZzRlpMN0dVMTJjM3BjaElWSVhJ?=
+ =?utf-8?B?T1VtMTA0elhlL1BoOWZ0REQzTXh2L0RBU0t0K0dQaWlKQ0R5K3VlVmJRREhk?=
+ =?utf-8?B?TG00UTFsWk5HekJNcXR0eXh2Rk5SbzNEOWRJMGZmNExwV2JmVlN3c3dQL09w?=
+ =?utf-8?B?cmpUalJXbUVWelFKaTZPTDdESzUyQXcwc1JGTjhtRmJpQTNwZ2dnL0lIMjNE?=
+ =?utf-8?B?UTNOZkZpWmR4bnBhMGp6aTBZWHhYNDZlVmdWYXcxOG1DQUhTV3l1SDIwYXk5?=
+ =?utf-8?B?K1NacCtJQzJBMmxqT2tjeEI3Q0FhSVJEMUtlYUZtMHlRc00rRUU4UFNQMndn?=
+ =?utf-8?B?SDg2WFlmcWhYVUZPdTM1dk5lbHlXZW1UajBOM25ES1BXM0FONEIreXN1Z2JM?=
+ =?utf-8?B?SFk1dFc5Z3lkb25QcHdGRjZlbDRPNTAxdmFjTXl4eklDaHBRNXVTeGNxemVj?=
+ =?utf-8?B?ZHdxUTZmc3FlWkxhNkRaSXZSQkNHVTlIUkZqVndmUCtxUVgwVWZ1QmhjbDVU?=
+ =?utf-8?Q?nevtnRJzjAoavzQeY8?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fb5718c-847b-4dd1-27a5-08df18cf46e3
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5167.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPFFF39339DD.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce5dae6d-63e9-4b4f-4d4d-08df18c57cfa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 16:20:59.4142 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1dCptTcdGmtdVqv8saamb9SLUYPrGp1luY9/w8A9XechT32wfc3+EfXMcdm+i9TNtXj3GiGACdWDptBHkx+UGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSAPR12MB024644
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 17:31:03.9274 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PTLMRSKZ5SFkK8OApMjakjlw9RB0KD9ZG8Uq0RmftBZshva8b/zbn5zmL2DpmTLi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7207
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,47 +134,283 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+--------------Q5xy6rimZCdPOhFCCNZXlgMZ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+
+On 2026-09-15 10:58, Andrew Martin wrote:
+> Commit 6b2969831f7e ("drm/amdkfd: Unmap svm range from GPU set to
+> no-access") made svm_range_validate_and_map() OR bitmap_access into
+> ctx->bitmap unconditionally for a range carrying
+> KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED.  Previously that only happened when
+> ctx->bitmap was still empty:
+>
+> 	if (bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE)) {
+> 		if (prange->mapped_to_gpu ||
+> 		    prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
+> 			bitmap_copy(ctx->bitmap, prange->bitmap_access,
+> 				    MAX_GPU_INSTANCE);
+> 	}
+>
+> The block just above already sets the bit for prange->actual_loc when the
+> range has been migrated to VRAM, so under the old code ctx->bitmap was
+> left holding that single GPU and the OR was skipped.  Without the guard
+> it now also picks up every other GPU with the ACCESS attribute.
+>
+> That matters because ctx->bitmap is not only the set of GPUs to map.  It
+> also selects the HMM owner: owner is taken from the first set bit and
+> reset to NULL as soon as two set bits disagree.  On a two GPU system with
+> ACCESS on both, owner becomes NULL, and amdgpu_hmm_range_get_pages() then
+> no longer recognises the process's own device-private pages.  HMM calls
+> migrate_to_ram on each of them, svm_migrate_to_ram() sees
+> p->svms.faulting_task == current and returns 0 without migrating, and
+> hmm_range_fault() retries the same page forever.
+>
+> Which GPUs disagree depends on the interconnect.  SVM_ADEV_PGMAP_OWNER()
+> is the XGMI hive when the device has one and the adev otherwise, so GPUs
+> sharing a hive also share an owner and never trip this.  It takes two or
+> more GPUs with ACCESS that are not in a common hive, which is why this
+> only shows up on multi-GPU machines with no XGMI link between the cards.
+>
+> On a 2x Instinct MI350P (gfx950) this hangs
+>
+>    HSA_XNACK=1 hipblaslt-test \
+>      --gtest_filter=aux_handle_test.set_sm_count_target_default_is_zero
+>
+> The application never completes and burns 100% of a CPU in the kernel.
+> /proc/<pid>/stat shows utime frozen while stime climbs and minflt advances
+> at roughly 12 million faults per second, reaching billions; majflt stays
+> at 0 and the GPU sits at 0% busy.  perf on the stuck task is 24%
+> svm_migrate_to_ram, 23% __handle_mm_fault, 5% do_swap_page.  The process
+> cannot be killed and the machine has to be rebooted.
+>
+> Restore the bitmap_empty() guard.  The rest of that commit is kept: the
+> bitmap_mapped tracking, bitmap_needs_unmap, mapping_done and the unmap of
+> ranges set to no-access are all unaffected, and bitmap_mapped is still
+> ORed in at the top of the branch, so a range already mapped on a GPU
+> still has its mapping updated there.
+>
+> The instrumentation, the hardware testing and this changelog were done
+> with the assistance of an AI coding agent; the resulting change has been
+> reviewed by hand.
+>
+> Fixes: 6b2969831f7e ("drm/amdkfd: Unmap svm range from GPU set to no-access")
+The fix tag is correct, suggest to change patch title and commit message
+
+drm/amdkfd: Fix always mapped range mapping to all ACCESS GPUs
+
+     CWSR ranges use the always mapped flag and only need a mapping on the
+     GPU running the queue. However, svm_range_validate_and_map now updates
+     the mapping on every GPU with the ACCESS attribute, which is all
+     supported GPUs when XNACK is on. After the range is prefetched to VRAM,
+     those GPUs may span different XGMI hives, so the page owner mismatches
+     and is set to NULL. hmm_range_fault then tries to migrate the VRAM
+     and is set to NULL. hmm_range_fault then tries to migrate the VRAM
+     pages back to system memory, but svm_migrate_to_ram skips it because
+     migrating pages back to system memory is not allowed while the GPU
+     mapping is being updated, so the CPU page fault is never resolved.
+
+     Only map to the ACCESS GPUs if the range is not mapped to any GPU and
+     is not in VRAM.
+
+> Signed-off-by: Andrew Martin<andrew.martin@amd.com>
+> Assisted-by: Claude:claude-opus-5
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index c521ec07bf3c..75e25f075da3 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1758,9 +1758,14 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+>   
+>   		/*
+>   		 * If prange with always mapped flag, update mapping on GPUs with
+> -		 * ACCESS attribute
+> +		 * ACCESS attribute.  Only widen the set when nothing else has
+> +		 * selected a GPU: ctx->bitmap also picks the owner passed to
+> +		 * amdgpu_hmm_range_get_pages() below, and spanning GPUs with
+> +		 * different page owners forces that owner to NULL, which makes
+> +		 * HMM fault on the process's own migrated pages.
+>   		 */
+> -		if (prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
+> +		if (bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE) &&
+> +		    prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
+>   			bitmap_or(ctx->bitmap, ctx->bitmap, prange->bitmap_access,
+>   				  MAX_GPU_INSTANCE);
+         /*
+          * If prange with always mapped flag is not mapped or migrated
+          * yet, update mapping on GPUs with ACCESS attribute. Don't add
+          * them otherwise, ACCESS GPUs may be on different XGMI hives,
+          * that would force hmm_range_fault to migrate VRAM back to ram.
+          */
+         if (bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE) &&
+             prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
+             bitmap_copy(ctx->bitmap, prange->bitmap_access,
+                     MAX_GPU_INSTANCE);
 
 Regards,
-Hawking
------Original Message-----
-From: Alex Deucher <alexander.deucher@amd.com>
-Sent: Tuesday, September 22, 2026 12:15 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Horatio <Hongkun=
-.Zhang@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: drop userq callback assignment for sdma 7.1
+Philip
+>   	} else {
 
-Not enabled in 7.1 so drop the assignment.
+--------------Q5xy6rimZCdPOhFCCNZXlgMZ
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Cc: Horatio Zhang <hongkun.zhang@amd.com>
-Cc: Hawking.Zhang@amd.com
-Fixes: 4ed5116aacf6 ("drm/amdgpu: Add sdma v7_1_0 support")
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 2026-09-15 10:58, Andrew Martin
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20260915145833.601947-1-andrew.martin@amd.com">
+      <pre wrap="" class="moz-quote-pre">Commit 6b2969831f7e (&quot;drm/amdkfd: Unmap svm range from GPU set to
+no-access&quot;) made svm_range_validate_and_map() OR bitmap_access into
+ctx-&gt;bitmap unconditionally for a range carrying
+KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED.  Previously that only happened when
+ctx-&gt;bitmap was still empty:
+
+	if (bitmap_empty(ctx-&gt;bitmap, MAX_GPU_INSTANCE)) {
+		if (prange-&gt;mapped_to_gpu ||
+		    prange-&gt;flags &amp; KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
+			bitmap_copy(ctx-&gt;bitmap, prange-&gt;bitmap_access,
+				    MAX_GPU_INSTANCE);
+	}
+
+The block just above already sets the bit for prange-&gt;actual_loc when the
+range has been migrated to VRAM, so under the old code ctx-&gt;bitmap was
+left holding that single GPU and the OR was skipped.  Without the guard
+it now also picks up every other GPU with the ACCESS attribute.
+
+That matters because ctx-&gt;bitmap is not only the set of GPUs to map.  It
+also selects the HMM owner: owner is taken from the first set bit and
+reset to NULL as soon as two set bits disagree.  On a two GPU system with
+ACCESS on both, owner becomes NULL, and amdgpu_hmm_range_get_pages() then
+no longer recognises the process's own device-private pages.  HMM calls
+migrate_to_ram on each of them, svm_migrate_to_ram() sees
+p-&gt;svms.faulting_task == current and returns 0 without migrating, and
+hmm_range_fault() retries the same page forever.
+
+Which GPUs disagree depends on the interconnect.  SVM_ADEV_PGMAP_OWNER()
+is the XGMI hive when the device has one and the adev otherwise, so GPUs
+sharing a hive also share an owner and never trip this.  It takes two or
+more GPUs with ACCESS that are not in a common hive, which is why this
+only shows up on multi-GPU machines with no XGMI link between the cards.
+
+On a 2x Instinct MI350P (gfx950) this hangs
+
+  HSA_XNACK=1 hipblaslt-test \
+    --gtest_filter=aux_handle_test.set_sm_count_target_default_is_zero
+
+The application never completes and burns 100% of a CPU in the kernel.
+/proc/&lt;pid&gt;/stat shows utime frozen while stime climbs and minflt advances
+at roughly 12 million faults per second, reaching billions; majflt stays
+at 0 and the GPU sits at 0% busy.  perf on the stuck task is 24%
+svm_migrate_to_ram, 23% __handle_mm_fault, 5% do_swap_page.  The process
+cannot be killed and the machine has to be rebooted.
+
+Restore the bitmap_empty() guard.  The rest of that commit is kept: the
+bitmap_mapped tracking, bitmap_needs_unmap, mapping_done and the unmap of
+ranges set to no-access are all unaffected, and bitmap_mapped is still
+ORed in at the top of the branch, so a range already mapped on a GPU
+still has its mapping updated there.
+
+The instrumentation, the hardware testing and this changelog were done
+with the assistance of an AI coding agent; the resulting change has been
+reviewed by hand.
+
+Fixes: 6b2969831f7e (&quot;drm/amdkfd: Unmap svm range from GPU set to no-access&quot;)</pre>
+    </blockquote>
+    The fix tag is correct, suggest to change patch title and commit
+    message<br>
+    <br>
+    drm/amdkfd: Fix always mapped range mapping to all ACCESS GPUs<br>
+    &nbsp; &nbsp;<br>
+    &nbsp; &nbsp; CWSR ranges use the always mapped flag and only need a mapping
+    on the<br>
+    &nbsp; &nbsp; GPU running the queue. However, svm_range_validate_and_map now
+    updates<br>
+    &nbsp; &nbsp; the mapping on every GPU with the ACCESS attribute, which is all<br>
+    &nbsp; &nbsp; supported GPUs when XNACK is on. After the range is prefetched
+    to VRAM,<br>
+    &nbsp; &nbsp; those GPUs may span different XGMI hives, so the page owner
+    mismatches<br>
+    &nbsp; &nbsp; and is set to NULL. hmm_range_fault then tries to migrate the
+    VRAM<br>
+    &nbsp; &nbsp; and is set to NULL. hmm_range_fault then tries to migrate the
+    VRAM<br>
+    &nbsp; &nbsp; pages back to system memory, but svm_migrate_to_ram skips it
+    because<br>
+    &nbsp; &nbsp; migrating pages back to system memory is not allowed while the
+    GPU<br>
+    &nbsp; &nbsp; mapping is being updated, so the CPU page fault is never
+    resolved.<br>
+    &nbsp; &nbsp;&nbsp;<br>
+    &nbsp; &nbsp; Only map to the ACCESS GPUs if the range is not mapped to any
+    GPU and<br>
+    &nbsp; &nbsp; is not in VRAM.<br>
+    <br>
+    <blockquote type="cite" cite="mid:20260915145833.601947-1-andrew.martin@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+Signed-off-by: Andrew Martin <a class="moz-txt-link-rfc2396E" href="mailto:andrew.martin@amd.com">&lt;andrew.martin@amd.com&gt;</a>
+Assisted-by: Claude:claude-opus-5
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v7_1.c
-index fcbab7f05d08c..4a4382f2b7562 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-@@ -1347,10 +1347,6 @@ static int sdma_v7_1_sw_init(struct amdgpu_ip_block =
-*ip_block)
-        else
-                DRM_ERROR("Failed to allocated memory for SDMA IP Dump\n");
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index c521ec07bf3c..75e25f075da3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1758,9 +1758,14 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 
+ 		/*
+ 		 * If prange with always mapped flag, update mapping on GPUs with
+-		 * ACCESS attribute
++		 * ACCESS attribute.  Only widen the set when nothing else has
++		 * selected a GPU: ctx-&gt;bitmap also picks the owner passed to
++		 * amdgpu_hmm_range_get_pages() below, and spanning GPUs with
++		 * different page owners forces that owner to NULL, which makes
++		 * HMM fault on the process's own migrated pages.
+ 		 */
+-		if (prange-&gt;flags &amp; KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
++		if (bitmap_empty(ctx-&gt;bitmap, MAX_GPU_INSTANCE) &amp;&amp;
++		    prange-&gt;flags &amp; KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
+ 			bitmap_or(ctx-&gt;bitmap, ctx-&gt;bitmap, prange-&gt;bitmap_access,
+ 				  MAX_GPU_INSTANCE);</pre>
+    </blockquote>
+    &nbsp; &nbsp; &nbsp; &nbsp; /*<br>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* If prange with always mapped flag is not mapped or
+    migrated<br>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* yet, update mapping on GPUs with ACCESS attribute. Don't
+    add<br>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* them otherwise, ACCESS GPUs may be on different XGMI
+    hives,<br>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* that would force hmm_range_fault to migrate VRAM back to
+    ram.<br>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/<br>
+    &nbsp; &nbsp; &nbsp; &nbsp; if (bitmap_empty(ctx-&gt;bitmap, MAX_GPU_INSTANCE)
+    &amp;&amp;<br>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; prange-&gt;flags &amp;
+    KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)<br>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bitmap_copy(ctx-&gt;bitmap, prange-&gt;bitmap_access,<br>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MAX_GPU_INSTANCE);<br>
+    <br>
+    Regards,<br>
+    Philip
+    <blockquote type="cite" cite="mid:20260915145833.601947-1-andrew.martin@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+ 	} else {
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
--#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
--       adev->userq_funcs[AMDGPU_HW_IP_DMA] =3D &userq_mes_funcs;
--#endif
--
-        return r;
- }
-
---
-2.55.0
-
+--------------Q5xy6rimZCdPOhFCCNZXlgMZ--
