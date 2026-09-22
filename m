@@ -4,124 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73D56C982F1
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 05:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C75B5C982F1
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 06:09:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCAA210E408;
-	Tue, 22 Sep 2026 05:22:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4264F10E6C3;
+	Tue, 22 Sep 2026 06:09:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1GIkO9ip";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yGgYXstR";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010024.outbound.protection.outlook.com
- [40.93.198.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE11610E2E7
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 05:22:09 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012017.outbound.protection.outlook.com [52.101.53.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4C4110E6C3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 06:09:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zn+tRA/gVxsK8b2DD+uAKXc3dvdFkvBPLHu9ZTabI7fGFb3ru9kvV1n0f8tsTwwis1SXNDRjvuPBlmOorlFWiBOrhKA2sJxKiQHlADqV0Akj32IxrP2tx12Fg0G/QRVzP9tjDRVcColPaNN8slxS+/+Urt1IDx1hZG07E8aEqxVmi/Pa0wKElRlXHjuR5qA/QH3zN6CIcIiJY1zUD2VnZc8v/p6GLMBIdHA4DIiAIqwPVYBmxT08tbkiZHuEaZYJIZERyy/7pI3tQkZ0hbwd+SifsaKvnZUqUh/ER2mHqgj+pz0NbPHI06d63X8xCYcL775qdHXNkVTGhFQd5AbE4Q==
+ b=aePgxe9H2NzavwCnBwuHEyfaoJQBnCOJrYuRYzNmWTJagxO7ME/IsW0ag/wjmqQlwFE3bQUaQTf5IwHx3iU34xGV8A4E9SLtAHu8Q9q/tKRZ6koXReUFN3rU9aTJdrcWZFW21gkmyb7CVPY4JpIcKppWg8kSJkMLb6Paz5n1qg5vq2FX4v4Xsu05AvvRXINcbki8nRIXa2DO+84asqJR7ZAWiO+DhkX+TdgbHCtj6o1fRJnfZeFeDhJne+FQtBX0++2Wkxi8Z56hO4oBtAuyFbERDMa0kTTjWZbhwKhA/ghnQh7ECRQq6Qi43HZj6zCl5jJNaYXIAVWt0p0X/9c+oQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iM4VGGTcCpWfXSBAe2nXO9Ea7MHlXNR9GxoSvOebkfk=;
- b=dadrH172XWkmA2FpXsHp41l6tSNPm03qezplITdCPGTD2j+n2Yy2LpY85o7uBh/09vWHYKl2d8BY1taBYurOrCsYzqf24rpAv7cei07AgmTHaDy7v4Ci8RAB4X2f13ahP/7a1YCirYpeZHG7cs5pc7ZOszUh6AgO3CQfb/BUTn2wkHmXhza0PiEjIEWfR+u/WoU/DIzsiAHOS74nV20AF7zLk2KFndzoFPrkTKvj5EW1jA8RJD2M29XOlMa/Q99L3Hqi/4Q00fvkl6WvEQeRXc4v+YOYmmlwIVhEbOtr6vUnWbY9dE7e0Q0lJU/fKVtbv26oyj7YR/K00GYWcSkGQw==
+ bh=ZY6gcoJLg2Zx0arpkQuFRIZM820Cepg0jXeepXqDfL8=;
+ b=F+sF33mdfwxZIgxAlqQcaSlS245GNWTcuIKrEVpP7iPXA+RF0+ajvNYkM2oifKeOJW7woe/ESWn619O4f1sSZvTaJfylBD6ZT4FcdTivY/0txq06RGL93DB0jGQ4Tis7cRvZCylEzpvOC1p/L7WoxvmIYMUtVQ5km1K7GamOcORiU5Dk7UVPapC5CZgOMpjn3U+qO8OKEcefdu/MBe8LLn6TNclDyy7zRu1ajcOg+r2nSw6vA8RYSPVghIWyhM5AL223q+Rx67FWQNhXl2EuKDnqCLZWh3+LNXhR5WIo6q2twueLWGt5abbjLlJ02B7fD+Atejtj/kuCZuUqgoVJHQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iM4VGGTcCpWfXSBAe2nXO9Ea7MHlXNR9GxoSvOebkfk=;
- b=1GIkO9ipJa2p96Ksfud+5FVRmxukGtPSIoze/z8cXCCcTqRZqcy74W365AWEMUmKkCfEsEHW2Cke2iZAyqSVkU7nAmsdSPyRn9ujxgNYWTu6ixAbY7J+DEYXemYkpIy+N2kAWX/3+t85kY2CMiggec+niaeMALIxt00rfv+JRXg=
+ bh=ZY6gcoJLg2Zx0arpkQuFRIZM820Cepg0jXeepXqDfL8=;
+ b=yGgYXstRLfwERMTuxRAO5tV2VlqGkHtNUcvLsJav7cUANolLzmmWUiIcfZVFuEUZ/V6PfYTVFJvSVj0UGhHK/OzhskN8B0Lb3CMTTJ8hWqot/f3d8fe7pf2OsxJh5xCS7yCnz23Ryy8klTAg01Pmby/eN7WtaR4lvm5espDiBf4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by MN0PR12MB6003.namprd12.prod.outlook.com (2603:10b6:208:37f::17)
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
+ by SJ0PR12MB5610.namprd12.prod.outlook.com (2603:10b6:a03:423::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 05:22:07 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 05:22:07 +0000
-Message-ID: <8f06398f-e207-45b0-ab85-931ccac35b65@amd.com>
-Date: Tue, 22 Sep 2026 10:52:00 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
+ 2026 06:08:57 +0000
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 06:08:56 +0000
+Content-Type: multipart/alternative;
+ boundary="------------TQDtp18W3NhM1NcDqVDD4GSk"
+Message-ID: <5f576123-9f57-4da0-a6d5-fd0390e39f1b@amd.com>
+Date: Tue, 22 Sep 2026 14:08:50 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/12] drm/amdgpu: add amdgpu_xcp_get_xcc_mask helper
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com, Bing.Ma@amd.com
-Cc: jamesz@amd.com
-References: <20260921200313.865829-1-James.Zhu@amd.com>
- <20260921200313.865829-4-James.Zhu@amd.com>
+Subject: Re: [PATCH 01/10] drm/amdgpu: introduce
+ amdgpu_lookup_queue_by_doorbell
+From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alexander.Deucher@amd.com, felix.kuehling@amd.com
+Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20260828095349.9797-1-lingshan.zhu@amd.com>
+ <20260828095349.9797-2-lingshan.zhu@amd.com>
+ <bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com>
+ <2687ad99-61da-457f-9705-766bf48b2d04@amd.com>
+ <a46a12b8-d9df-4995-beaf-6d41150196bc@amd.com>
+ <a34a1541-7f3a-4e0f-a225-f58b1292d6d2@amd.com>
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260921200313.865829-4-James.Zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0030.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:17a::14) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+In-Reply-To: <a34a1541-7f3a-4e0f-a225-f58b1292d6d2@amd.com>
+X-ClientProxiedBy: SEWP216CA0120.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2b9::13) To CH2PR12MB9457.namprd12.prod.outlook.com
+ (2603:10b6:610:27c::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|MN0PR12MB6003:EE_
-X-MS-Office365-Filtering-Correlation-Id: c622bbc7-833e-42ff-1d75-08df186971ae
+X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|SJ0PR12MB5610:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6733e5a-3086-4039-518b-08df186ffc57
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|10067099003|56012099006|3023799007|22082099003|18002099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: Gym5rHUV1pZGrLdYgbMeHeKB/ScmbSgo6Kj0XTtcbjwRSSn8PjDlbbQSQzhsudHZIyt196+HhcIaNhOhxXUI5cnOdh378uWeYSHjWj6E5YrBEJodGeNn3JNNf3NAhg4kDQ+VoDhDaQz0VR5OtQZotPb7I8QU1sYC7x+EIfVdCogPiFszwHbKzo+CsO3y7pfAr13RxThRfY0M05LUC/O1VnovFTcrvnLV3eNNjnlHgNtWCGbIQ8kDLRaNXTJWNY7NNwL8bb2z5dbhExUjSoJQK6m+yIupR2RWykvWMTNbCbfJnMCk1xRa89Ys2szwGaNTMUPn6CdsINJvLWn4BTD/4/oTKjsPhtqvXHaMHoEZt5BFK1YF9Z7eMjzsBdN4Wn2JMiVx7oJ4GV0qfd1EtSNVj+u3dqE3ve9zk09NR/KcfkbF0tEZftzfkOqT0nzW8TF3Ca1Kg3fdM0JDyhKAM0AZCdPv7CgEPt7ou83yI3ch9oMRcJwZqHrSXjF+RTNtOm24/wbInjd9THVG1lD92HScXDfxlor+SGS+kpeOfkF+55U+EJYdU7l67EG1/hs1QOmFgDZRL7V81bQq5cTkYn6caivIXdZ1hAGwqa67NW8R8OGWVQtzXPNNWHrXK+5ti3c6LnvBAYxsgbVVOel8FNxljMxTY58TpsO+69fRUtehQwk=
+ ARA:13230040|376014|366016|1800799024|23010399003|4143699003|10067099003|56012099006|11063799006|8096899003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: VdmQK+N3oUt3sDD4g5ylnW84zlhSnh8OB/T6rhPpDzlYCxzucbQqq8xD/SIKwOx8yEsvHtFSCUuYKkz7Q5Y9k2HJXQnlyMvMGVw0yPYvjvwRXGHT29SrgCXOSyEYWISzbarnVSMqh20Md3eXFBJtg+dA0s8/VYwFHzUrzVYTjr48FKD7UARrCVNKnbDvJtoyPkuLjBtETg9xkbn6PT/QRG4nTdD4hh4wQZB3HWggU3oNtHZ2Uf59Rz+bClTXc7GsKYoXsVOprjFqZuDfeg1yuRhb1SEThBa4g7NAkaFaMGfqsdW0HDytE+dFcTGVBbWQjt8pfwu/PWqn255omOGewE6PzVgiNvl8oXx7o2Eh8QeIh+bHhuHBfr3k+QcVLDva4TB4C40RV0qS/mrvJDotZdEVjA4sIcoHMp0D/5V7obHDXnyoE/yvM+X8MZGrXTUxFi7g4QzVxu/u8WkYm25dAG2+9wsRdYfPQo7zTnRvKPx6qjuctmmo5V4woX6Qtr2L3Q/oGK8cVIGJ1UmLFtFwBdDOxsK4MLvp9F/dS3lF129J0rwnwiGU1+SuPLX6KmdRiQIozvsqXzVYT+ImSkxYIrZ/IEqEun22+wrwIja7MuhIe4G9kEStCp2gMuwKoLZ/D8k13HM1gTsqUD1+fmptkXcay9LNugozlM3VGiHB+do=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(56012099006)(3023799007)(22082099003)(18002099003)(11063799006)(4143699003);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(10067099003)(56012099006)(11063799006)(8096899003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlV5bmtTWXlSWlE1ZkdNWGkzTXhtalFIQ1NydUt6aG94Wm93eDd0akdyc215?=
- =?utf-8?B?Um1RdGh6dE1Wb0dzVnRpeEVaS3dKMHVFWTU0Mkk2ekhScHJxZ0k1QU54VXMy?=
- =?utf-8?B?aHArMHgxZlVIMjE2N0NYQlVpWVc1aEZBMTlhOGNMd1NsdFgvM24rdUFCSDNs?=
- =?utf-8?B?Wkc1clVGMGVhVlNCdjRYMG5JZTdKU1pTdXNrY0dBYU5RdU9zdFI5MU9KYWFK?=
- =?utf-8?B?VHRKR3N6akRoY0tTMlE4dXBWcE93azBZdWx4alI2S0JwbmVMYVZ2VDRVTW5o?=
- =?utf-8?B?b3dqem1iTzEvWHd4MWpFWXNvbzdsQ0dtNDBsZkhPY0pBenR0R1NUR3pQRHlJ?=
- =?utf-8?B?WmZXWHVHYWJQUVNjMGJMZlBQL0VpZ2g4OFVjTkpzZFg4cHpOUEgxUSs0Qnov?=
- =?utf-8?B?NnNkSzRhcEpvVDIxNUpxeDVhR3UrWUVSNE5yNHZzWVJRb241MnU3SEVlMEZi?=
- =?utf-8?B?cVFQRXhYQlRDTmpSckN4KytYRC9pZ3d3eEdKdnNLREE3M0ZwK25LaFZjbDd6?=
- =?utf-8?B?dzRVWW03RW9QNUNpVlZCa1RlUFZzcUh4NEIzTnlHN3dxUlFvNzIzR2xOQXl5?=
- =?utf-8?B?d2E2dUJ6YzhObS9lL1ozOGcxeEFVbklCVCtmbEJHME9wQXA5c0dWSSsvYzB6?=
- =?utf-8?B?ZEI0SGcxM1VWVkJwdld0NHl5ekJYcHBRTFRaNy9zd2ZwckZpMCsrdHBEb015?=
- =?utf-8?B?RERnU0RORDh1cDVKZWs2QzRid012TlpNZGdjMzArSjVaNlVLQ2FST0FWZ2V6?=
- =?utf-8?B?eldXWDlSZDhmajUvUDNienlpN3ZLY0pHaGVrRHlHYTFrQWFRMm5Pc2RQZ1k3?=
- =?utf-8?B?czI1cTF2eHJ6NkdqeFNFRXBLczVZTHQwK0lha2VKbFVBRGFvTWlGOGtkMmxo?=
- =?utf-8?B?NVpsTGhuMEpFYTFmbTB0cG1CN0lSeFRNSis2NW5JVjBVM1JoMXUxVVplMy9B?=
- =?utf-8?B?SHd1ODJad0Fnd05vdTNEb2JMdENJWUZzK0czdWNYcXVzaWZpY01FOVFlR2d3?=
- =?utf-8?B?alNJMUVmYmNYV1Uyd3RSd2ZDbXh6VGh5b1k4WktFc2lWZkhmZU1lUExxREJY?=
- =?utf-8?B?RE0rSkc3ZmJSR0h4WkR4ZlNkMFdmM0xlYVQyamwzNTBOMFlvV0dscHFULzQw?=
- =?utf-8?B?ak9ldU5qRVZMR215dU5Ea2phYlhRc3BYMWVnU2JSUlpIUE0yZFFvRytUR09K?=
- =?utf-8?B?NCtkcC8rUFZSQ0U5U0hMWEZxZFl2WjcvdjZObkVDZWxYYmdkU1g5MFBxOTRv?=
- =?utf-8?B?dVQyQStsaTZYRjYvTjQyZThMVElRQ09ZNk5teDJndGFqUUYxaWZBeXo0Y25D?=
- =?utf-8?B?bmJKRGpVenRFelFudlJ6R3ZtRzY3L2hLcllWdkt4ZlhFNWp6KzRidWcwUnRF?=
- =?utf-8?B?eURzUkZWamkxOWdGREEvRE5zR0Z1b1VlbUE3amE2Wm5mK09BVDdZMFVOdzVa?=
- =?utf-8?B?Q294WER2WU84cmQreUpRTm5Idnl1ek5pQithSm1oK0xjQWdraHNwUDhUSHJL?=
- =?utf-8?B?dUdFNXdjK3hFSTFuTkZXdWZpZE1IZE9vSEhvM3pLcGQ5eEdnV2VDMTA1RUNz?=
- =?utf-8?B?Ulc4U2RvcExwNlhmOEkwV0ltYkJtN2dLMUJDN2s4ajZ1cWhsNWtOT0VzM3Vv?=
- =?utf-8?B?L1IrT0dkQWRDS1AvK0pURUdVVE05QWpLWHJkNVNObWVGM1FyYkNSNjRRM0gv?=
- =?utf-8?B?b0ppdkFqL1Rmb2NoTlViUFRpTlA1Ymw5dS95WU9hZTBieThkZnpzVGZEM2N0?=
- =?utf-8?B?dWk5bDRmeXQ4cGNUc1h3NGFTUTNaU0tGRk9zMXBodTR1bUpDeTBFeXFPTVhJ?=
- =?utf-8?B?b1FBeWZkenN3aXhDOGlTem5aelZSVEFQUnhIemxmeVJwMHo2TkdKUG5vVFEw?=
- =?utf-8?B?QlFId0ZjMHdEdHpFK2djVjJLZzViRVl2ZmxyYkhvUHloOHBwbVlxQmg1aGNO?=
- =?utf-8?B?d1piSEpYb0JaL0xCZ3lsdnFYcFZ6OFUyZXkwWm03SjREckJBV0lJaG0yeXRp?=
- =?utf-8?B?cmc5VG1TK0dmYUdqVjExVXZiZmRUdFV6MVAycldnM1JtcHp5QVlwMWN3eHYv?=
- =?utf-8?B?b0lPOHNkUDR6SFVidDFycXU3SUovTjVqYWFuTWJaZHByUmpxTStLanJ4NElw?=
- =?utf-8?B?eHhXRS8rR3VITUR4UTVhY2ZaUDJ0TVJjOFVZaFh1NFEwYW1vVk1JN1hISU8v?=
- =?utf-8?B?VC9SMEluN0ZtdkxNK1dudHZPQytoRS84OEJFWlFUQ0gvejYwZ2taaXo2QWQy?=
- =?utf-8?B?dnk2Vk0zN3pQUlNMZURTTU5lR0RxUENSZmlETEhzQUZ0elhwUVlCM0VIWlFz?=
- =?utf-8?Q?o4UbhwzFB1ZSg/WYZj?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RFFRTXNxcHRTOUQ5eFJDS0JZSklGc3VQTTZJN3VySmJZT1V3SUtMMjg4U2ZL?=
+ =?utf-8?B?UmNtdDQ0VkRCa1Nncyt2cFFNWFFGOExkdWxDOTZlSXNvd0dONDZjZkF4Uzh5?=
+ =?utf-8?B?Q21DVTZDUWd5cjBGL2NHWCtCeXhtbWkwNE8zQnVHK0Y3cWxDR0FnNDlCQlow?=
+ =?utf-8?B?WmZmNkhzM0RmaHNHaHlJSUoxRStVcERuOEVXZ2J3OFJ0eThESVJKS2pyNTlD?=
+ =?utf-8?B?N0VSdWhNYUJ5d2JNMy9LYTZGTUwzYk0wRnp4UUFRcW5sRk8xU0RzaS9IamZB?=
+ =?utf-8?B?eW0yMjUvWEhqTmRMd2VxbGRtWGR1bG9TcEFjMC84NGZ2MnlFVGcyZnlLMnpS?=
+ =?utf-8?B?b2lOVHZQL09HRFJ5cVlobS85dWRwTks1OGRjb0xJNnVxS0NlVzIrUm1PRC9j?=
+ =?utf-8?B?dkQyZ3NRRklkOVpGNktZcVdTVXh6ZE9JUEdFYUhFL2NrUExPZDd4L1RwTjhk?=
+ =?utf-8?B?Q1lnVkVsMGFDMk5Edit0RG1LQmJhdUUwV3p5TzRoN0tCQjA3bjFLQ3NCY3c1?=
+ =?utf-8?B?bmpDaTNnQ0wxQ3JuS2VSeERrTWhBVTBtQlBDbUJzMnhzdCszSmZmVm1DVlVO?=
+ =?utf-8?B?cTRMQlBzQXk3Q0RrOCtISDJPdjgvaXNndHh1NjljL0huUkdhVmJ2cHlsdWFS?=
+ =?utf-8?B?OEx6Wm5DaFVMNXV0MDhHRllUUEw0eHFEeDhnMGRVbmFKbFBLL0lwQmZsN25Z?=
+ =?utf-8?B?eWRWU2tVRGlnR3orOE44UmJlT1NJS2l0NXljTjM1Y2VtYTNSRSt6TlAxNlJj?=
+ =?utf-8?B?TWdtaC9UVTZnTk5vcGkvNTlOTit4Q0lWd1I3OGFHRDVVcnFHbmQ2Z3NFR3lR?=
+ =?utf-8?B?K0wwTmxPTUd3UUN2OVlKTlpsQTd4TjQrUnFVdzl5VWhXK0NFaXF6TU5MUllq?=
+ =?utf-8?B?SEVoT2hNQ3hiNm94SHpPOW5LT2RSaE8xdDhENW9qZ0tncmt3M2JjTXphdTd6?=
+ =?utf-8?B?THNDVExiU2ZNd3NweERmbTlMVjVFWEJVaEhvWlJub0Q5RFgwQjN2eUFoQStJ?=
+ =?utf-8?B?eUwwYnRVSlZyeVFkR2lkT3UvUzZCWklsd3BpaVZYcnA0VXlsd2xqcEpMS1Rz?=
+ =?utf-8?B?ZUg2L0EzSnV6dGVQNjNPR0NsUkZ0RlV3UG92RUdyOElQKysvVTk0SVN2YUJR?=
+ =?utf-8?B?Z2syenZ1S1hnUm8wVGM1Y2d0TmpCY0RrOG1HK21uWFJBM1hzM3V2YU5WOEtM?=
+ =?utf-8?B?ZzJqUkR5RlVuS0tucjhyejIxaTV4TnVLZjhubXdkYWJVNkt2OU81dGtlcEo2?=
+ =?utf-8?B?Z2YxeVVQMUhsUCtFbmF6QmNtbnhTWVQrVU1FdlYwN2hlOTlzZUFZeGhVTnVL?=
+ =?utf-8?B?WVBodGdRaWNwQmQ0ZFdjMWQzZVUwQjNaQklyU1BaWi9FY1NuVkI3TElrMUtj?=
+ =?utf-8?B?WUVTdHJ1Mkk2b0dZR1YyblUxbFNzdFQrWjRXUUtwck85eWlsZTI0Mk5UU09X?=
+ =?utf-8?B?UXFFVUxXend4UldqdWJublhKNDl1emhNNEFjWm41cmdsQjQyemFBbVl4ZDhx?=
+ =?utf-8?B?blllN090bW1wdHIwaDBIc1N1TkM3RHZoRDRISUh0eGlWR2FXc3pOM2g0SFdo?=
+ =?utf-8?B?Wk5pdk9nZlRLRWNrSlo2Vk5lY3c0N3AwclhIaUtuWU9FVUhLMXo5ekVwY0NO?=
+ =?utf-8?B?WC9LbkpweW5GSnRuZ0hLUDdVajZ2UlRrSUs0Q2NldHdyT0VtVGs0eHNvbzMx?=
+ =?utf-8?B?OHJMWVhpbXVvTTlxNDAxdllGMmMrTDhVWC9aaXkzV0QxbTduN1MyWW9JVG1C?=
+ =?utf-8?B?d3hmTk8wRFlXZ3ViRUdPZVpXZkFXSzZ3RUZrZGg3OU9teUtPdWF4YUhuT1NR?=
+ =?utf-8?B?Mkl6a0tidXNxSElKTjBHdU95VFFOODBuMlI1cmdYTk1RaEpoQ09qT28rTHJn?=
+ =?utf-8?B?bktjdG5FRDZvY05rbmRQVDRXbWdlUjcvT2JEQnN3WUJrVkNWRWY3RTZJTUVC?=
+ =?utf-8?B?UmF5b0J4Ti82U2VJWjhCNXRhVTBwUlJtd29abS9qaFo1SmpjMlRuZUE5cmtI?=
+ =?utf-8?B?Q0pHOVVpUnI4ZURDNEVXQXZIQ3lld2pjR05oQmFsSjdHem1rTHpFVVo5K3JP?=
+ =?utf-8?B?ZTBJdW5EZGlRR1dIeTFvREZ6aG1VNDk0ekpiblJWTmJGNUxCemUwZ1hkejBs?=
+ =?utf-8?B?a3EyaXVYcmRWL3VRNkU5ZVFZdzhUTUpaOFRvUy9pMHVFQmM3YitnNnZmTyt0?=
+ =?utf-8?B?UUVlVWdtVlhIMWx4SkQrRDlrL2UwdkdmWHpWb2V2TkhacVZab1JKWm1lTEhU?=
+ =?utf-8?B?a2s0M0tkVGxUNmxiS3NEVWdCVHpJdlJtOXFBSFZpcTNBQ3ovai9VSDNabERp?=
+ =?utf-8?B?TklvZ04yT0hGNUhDWSt5cjFucXduL3haR0VTRWwzM1dnK3RBZzJuQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c622bbc7-833e-42ff-1d75-08df186971ae
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6733e5a-3086-4039-518b-08df186ffc57
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 05:22:06.9313 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 06:08:56.5454 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fgGu4/3po1nhPjpQw3FN0OUL4gBb7iJ6uzD6SLGNJmzXZT4r2z56zloeaJViAW+b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6003
+X-MS-Exchange-CrossTenant-UserPrincipalName: siV7rPBWo9Ng3EZAn7PUc5VggMBJxeLN15gR0IKg7u5DrChbwf9H0haqTVbz5NJFxn+cjAe+eUu/L+RaoVEr3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5610
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,206 +140,323 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--------------TQDtp18W3NhM1NcDqVDD4GSk
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 9/1/2026 4:50 PM, Zhu, Lingshan wrote:
 
-On 22-Sep-26 1:33 AM, James Zhu wrote:
-> Add amdgpu_xcp_get_xcc_mask() to return the XCC instance mask for a given
-> XCP partition. This is needed by upcoming SPM (Stream Performance Monitor)
-> support, which programs hardware per partition and must operate only on
-> the XCCs that belong to a given XCP.
-> 
-> For partitioned systems the helper returns only the XCCs belonging to the
-> specified XCP. When @xcp_id is AMDGPU_XCP_NO_PARTITION (or the device is
-> not partitioned) it returns the device's full XCC mask (e.g. 0xFF for an
-> 8-XCC device). Note that the full device mask is returned even on a
-> partitioned device; callers that require partition isolation (e.g. SPM)
-> must reject AMDGPU_XCP_NO_PARTITION on a partitioned device themselves.
-> 
+> On 8/31/2026 4:21 PM, Christian König wrote:
+>
+>> On 8/28/26 17:59, Zhu, Lingshan wrote:
+>>> On 8/28/2026 9:08 PM, Christian König wrote:
+>>>
+>>>> On 8/28/26 11:53, Zhu Lingshan wrote:
+>>>>> This commit introduces a new helper
+>>>>> amdgpu_lookup_queue_by_doorbell which helps
+>>>>> look up a user queue with the given doorbell id
+>>>>> in a xarray.
+>>>>>
+>>>>> This function takes a kref of the user space queue.
+>>> Hello Christian
+>>>
+>>> Thanks for your comments.
+>>>
+>>>> Well absolutely clear NAK to the whole approach.
+>>>>
+>>>> This is the nonsense Sunil and I have worked quite hard to remove and we certainly shouldn't repeat such mistakes.
+>>>>
+>>>> When the userq needs to be used from interrupt context we need to hold the xa_lock_irqsave() or otherwise we don't have any guarantee that the userq, userq_mgr or associated fpriv went out of scope.
+>>> Holding the spin lock by xa_lock_irqsave() can surely avoid racing with the destruction process, however, it does not apply to all scenarios, for example, you can not hold spin lock in mes_userq_reset_queue(),
+>>> because it calls either amdgpu_mes_reset_queue_mmio or amdgpu_mes_reset_queue_mmio, both of them acquire the MES mutex through amdgpu_mes_lock.
+>> Yeah which is exactly the reason why mes_userq_reset_queue() should *NOT* be called from non IOCTL context.
+> I think it is not about whether called from IOCTL, it is a common racing we should fix, and holding a kref is a low haning fruit.
+>
+>>> Another thing, out of the topic is, holding xa_lock does not guarantee fpriv/userq_mgr alive, for example, when drm_device->unplugged is true, all amdgpu teardown paths in amdgpu_drm_release are skipped,
+>>> and the fpriv/userq_mgr is freed, no matter whether holding the xa spin lock.
+>> That would clearly be a massive bug. Those objects still need to be cleaned up independent of device hot plug.
+> I agree, when unplugged == true, means can not access any HW registers, so this bug deserve another series to fix.
+>
+>>> So IMHO since we have userq->kref, lets use it to maintain the lifecycle of the queues. 
+>>>
+>>>> Grabbing references from this side would obviously result in circle dependencies.
+>>> I am not sure, we should use the lock/unlock and kref_put/get in pairs in sequence, can you name some circle dependencies or AB-BA lockings as examples?
+>> That is not AB-BA locking, but circle dependencies. E.g. A reference B, B referencing C, C referencing A again.
+> A kref is an atomic counter, not a lock, that means we can try hold more than one kref in a thread, and a kref not
+> depend on another. As far as I can see, current amdgpu driver does not have such problems, do you see any occurrences?
 
-Could you clarifiy on this part - xcp_id = AMDGPU_XCP_NO_PARTITION usage 
-on 8-XCC device?
+Hello Christian,
 
-The default state on a multi-XCC device after driver load is all XCCs in 
-a single partition called SPX. It should have at least one partition valid.
+I have not heard back from you for three weeks, I wonder whether you have any further comments for this series,
+or shall I make any improvements?
 
-Thanks,
-Lioj
+Thanks
+Lingshan 
 
-> amdgpu_xcp_get_num_xcc() is reworked to take (adev, xcp_id) and derive the
-> count from this helper via hweight32(). The helper is defined out of line
-> in amdgpu_xcp.c so that the static inline in amdgpu_xcp.h never has to
-> dereference the (incomplete) struct amdgpu_device; it only passes the
-> pointer through.
-> 
-> This is a user-visible change: amdgpu_xcp_get_num_xcc() previously
-> returned 1 for non-partitioned systems (and for AMDGPU_XCP_NO_PARTITION),
-> and now returns the actual XCC count (e.g. 8 for an 8-XCC device). CWSR
-> callers (amdgpu_kms.c, amdgpu_userq.c, mes_userqueue.c) scale the per-XCC
-> control-stack and debug-memory sizes by num_xcc, so the uAPI-visible
-> ctl_stack_size and dbg_mem_size values grow accordingly to match the
-> actual hardware resource requirements, which were previously undersized.
-> 
-> Fixes: 4cd417bfec49 ("drm/amdgpu: Add helper function to get xcc count")
-> Signed-off-by: James Zhu <James.Zhu@amd.com>
-> Reviewed-by: Bing Ma <bing.ma@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    | 48 ++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    | 32 +++++++--------
->   drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |  3 +-
->   5 files changed, 66 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 57fa69c0382d..7782ccd4d28f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -1501,7 +1501,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   		fpriv = (struct amdgpu_fpriv *)filp->driver_priv;
->   		if (!amdgpu_trap_is_enabled(adev) || !fpriv->trap_obj)
->   			return -EOPNOTSUPP;
-> -		num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
-> +		num_xcc = amdgpu_xcp_get_num_xcc(adev, fpriv->xcp_id);
->   		cwsr_info.ctl_stack_size =
->   			adev->trap_info->cwsr.xcc_ctl_stack_sz * num_xcc;
->   		cwsr_info.dbg_mem_size =
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index db09e879b85e..d19af9cb6ee1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -258,7 +258,7 @@ int amdgpu_userq_input_trap_params_validate(struct amdgpu_usermode_queue *queue,
->   	int num_xcc;
->   	int r;
->   
-> -	num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
-> +	num_xcc = amdgpu_xcp_get_num_xcc(adev, fpriv->xcp_id);
->   	r = amdgpu_trap_validate_params(queue->userq_mgr->adev, trap_params,
->   					num_xcc);
->   	if (r)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-> index 2a56f5ec9c76..90846d55292b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-> @@ -390,6 +390,54 @@ int amdgpu_xcp_get_inst_details(struct amdgpu_xcp *xcp,
->   	return 0;
->   }
->   
-> +/**
-> + * amdgpu_xcp_get_xcc_mask - Get XCC instance mask for a partition
-> + * @adev: amdgpu device pointer
-> + * @xcp_id: XCP partition ID
-> + * @xcc_mask: output parameter for XCC instance mask
-> + *
-> + * Returns the XCC instance mask for the specified XCP partition.
-> + * For partitioned systems, returns only the XCCs belonging to this XCP.
-> + *
-> + * When @xcp_id is AMDGPU_XCP_NO_PARTITION (or the device is not
-> + * partitioned), the device's full XCC mask is returned (e.g. 0xFF for an
-> + * 8-XCC device). Note that the full device mask is returned even on a
-> + * partitioned device: callers that require partition isolation (e.g. SPM)
-> + * must reject AMDGPU_XCP_NO_PARTITION on a partitioned device themselves.
-> + *
-> + * Note: On error, xcc_mask is undefined. Callers must check return code
-> + * and only read xcc_mask when return == 0.
-> + *
-> + * Return: 0 on success (non-partitioned systems or valid XCP found),
-> + *         -EINVAL if xcc_mask is NULL, no matching XCP id is found, or the
-> + *         partition's GFX IP details are unavailable
-> + */
-> +int amdgpu_xcp_get_xcc_mask(struct amdgpu_device *adev, int xcp_id,
-> +			    uint32_t *xcc_mask)
-> +{
-> +	struct amdgpu_xcp_mgr *xcp_mgr = adev->xcp_mgr;
-> +	struct amdgpu_xcp *xcp;
-> +	int i;
-> +
-> +	if (!xcc_mask)
-> +		return -EINVAL;
-> +
-> +	if (!xcp_mgr || xcp_id == AMDGPU_XCP_NO_PARTITION) {
-> +		/* Non-partitioned: return the device's full XCC mask. */
-> +		*xcc_mask = adev->gfx.xcc_mask;
-> +		return 0;
-> +	}
-> +
-> +	/* Partitioned system: get this XCP's XCCs */
-> +	for_each_xcp(xcp_mgr, xcp, i) {
-> +		if (xcp->id == xcp_id)
-> +			return amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX,
-> +							   xcc_mask);
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
->   int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
->   			const struct pci_device_id *ent)
->   {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-> index 692508be23fb..6eed82ad49b1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-> @@ -44,6 +44,7 @@
->   #define XCP_INST_MASK(num_inst, xcp_id)		\
->   	(num_inst ? GENMASK(num_inst - 1, 0) << (xcp_id * num_inst) : 0)
->   
-> +struct amdgpu_device;
->   struct amdgpu_fpriv;
->   
->   enum AMDGPU_XCP_IP_BLOCK {
-> @@ -219,26 +220,23 @@ amdgpu_get_next_xcp(struct amdgpu_xcp_mgr *xcp_mgr, int *from)
->   	for (i = 0, xcp = amdgpu_get_next_xcp(xcp_mgr, &i); xcp; \
->   	     ++i, xcp = amdgpu_get_next_xcp(xcp_mgr, &i))
->   
-> -static inline int amdgpu_xcp_get_num_xcc(struct amdgpu_xcp_mgr *xcp_mgr,
-> -					 int xcp_id)
-> +int amdgpu_xcp_get_xcc_mask(struct amdgpu_device *adev, int xcp_id,
-> +			    uint32_t *xcc_mask);
-> +
-> +static inline int amdgpu_xcp_get_num_xcc(struct amdgpu_device *adev, int xcp_id)
->   {
-> -	struct amdgpu_xcp *xcp;
->   	uint32_t xcc_mask;
-> -	int i, r;
-> -
-> -	if (!xcp_mgr || xcp_id == AMDGPU_XCP_NO_PARTITION)
-> +	int r, count;
-> +
-> +	/* Derive the XCC count from the partition's XCC mask (or the full
-> +	 * device mask when not partitioned). amdgpu_xcp_get_xcc_mask()
-> +	 * handles both partitioned and non-partitioned cases.
-> +	 */
-> +	r = amdgpu_xcp_get_xcc_mask(adev, xcp_id, &xcc_mask);
-> +	if (unlikely(r))
->   		return 1;
-> -	for_each_xcp(xcp_mgr, xcp, i) {
-> -		if (xcp->id == xcp_id) {
-> -			r = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX,
-> -							&xcc_mask);
-> -			if (unlikely(r))
-> -				return 1;
-> -			else
-> -				return hweight32(xcc_mask);
-> -		}
-> -	}
->   
-> -	return 1;
-> +	count = hweight32(xcc_mask);
-> +	return count ? count : 1;
->   }
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> index 16aa22b25098..1c7b2f3227e5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -503,8 +503,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
->   				uq_mgr_to_fpriv(queue->userq_mgr);
->   			int num_xcc;
->   
-> -			num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr,
-> -							 fpriv->xcp_id);
-> +			num_xcc = amdgpu_xcp_get_num_xcc(adev, fpriv->xcp_id);
->   			trap_params.ctx_save_area_address =
->   				compute_mqd->ctx_save_area_va;
->   			trap_params.cwsr_sz = compute_mqd->ctx_save_area_size;
+>
+> Thanks
+> Lingshan
+>
+>> Regards,
+>> Christian.
+>>
+>>> Thanks
+>>> Lingshan
+>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>>>>> ---
+>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 30 +++++++++++++++++++++++
+>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  2 ++
+>>>>>  2 files changed, 32 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>>>> index 0a816b3c5ff9..e0639f844a8e 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>>>> @@ -609,6 +609,36 @@ struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr,
+>>>>>  	return queue;
+>>>>>  }
+>>>>>  
+>>>>> +/**
+>>>>> + * amdgpu_lookup_queue_by_doorbell - look up a user queue by doorbell
+>>>>> + * @xa: user queue XArray indexed by doorbell
+>>>>> + * @doorbell: doorbell index
+>>>>> + *
+>>>>> + * Return: A queue with the doorbell indexed, or NULL if no such a queue found.
+>>>>> + *
+>>>>> + * This function increases kref of the queue, the caller
+>>>>> + * must release the reference with amdgpu_userq_put().
+>>>>> + */
+>>>>> +struct amdgpu_usermode_queue *
+>>>>> +amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell)
+>>>>> +{
+>>>>> +	struct amdgpu_usermode_queue *queue;
+>>>>> +	unsigned long flags;
+>>>>> +
+>>>>> +	xa_lock_irqsave(xa, flags);
+>>>>> +	queue = xa_load(xa, doorbell);
+>>>>> +	if (!queue)
+>>>>> +		goto out_unlock;
+>>>>> +
+>>>>> +	if (!kref_get_unless_zero(&queue->refcount))
+>>>>> +		queue = NULL;
+>>>>> +
+>>>>> +out_unlock:
+>>>>> +	xa_unlock_irqrestore(xa, flags);
+>>>>> +
+>>>>> +	return queue;
+>>>>> +}
+>>>>> +
+>>>>>  void amdgpu_userq_put(struct amdgpu_usermode_queue *queue)
+>>>>>  {
+>>>>>  	if (queue)
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+>>>>> index 6412a7f7b6ef..8fc73862f64e 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+>>>>> @@ -151,6 +151,8 @@ struct amdgpu_db_info {
+>>>>>  };
+>>>>>  
+>>>>>  struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr, u32 qid);
+>>>>> +struct amdgpu_usermode_queue *
+>>>>> +amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell);
+>>>>>  void amdgpu_userq_put(struct amdgpu_usermode_queue *queue);
+>>>>>  
+>>>>>  int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
+--------------TQDtp18W3NhM1NcDqVDD4GSk
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <pre>On 9/1/2026 4:50 PM, Zhu, Lingshan wrote:</pre>
+    <blockquote type="cite" cite="mid:a34a1541-7f3a-4e0f-a225-f58b1292d6d2@amd.com">
+      <pre wrap="" class="moz-quote-pre">On 8/31/2026 4:21 PM, Christian König wrote:
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 8/28/26 17:59, Zhu, Lingshan wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 8/28/2026 9:08 PM, Christian König wrote:
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 8/28/26 11:53, Zhu Lingshan wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">This commit introduces a new helper
+amdgpu_lookup_queue_by_doorbell which helps
+look up a user queue with the given doorbell id
+in a xarray.
+
+This function takes a kref of the user space queue.
+</pre>
+            </blockquote>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Hello Christian
+
+Thanks for your comments.
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">Well absolutely clear NAK to the whole approach.
+
+This is the nonsense Sunil and I have worked quite hard to remove and we certainly shouldn't repeat such mistakes.
+
+When the userq needs to be used from interrupt context we need to hold the xa_lock_irqsave() or otherwise we don't have any guarantee that the userq, userq_mgr or associated fpriv went out of scope.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Holding the spin lock by xa_lock_irqsave() can surely avoid racing with the destruction process, however, it does not apply to all scenarios, for example, you can not hold spin lock in mes_userq_reset_queue(),
+because it calls either amdgpu_mes_reset_queue_mmio or amdgpu_mes_reset_queue_mmio, both of them acquire the MES mutex through amdgpu_mes_lock.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">Yeah which is exactly the reason why mes_userq_reset_queue() should *NOT* be called from non IOCTL context.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I think it is not about whether called from IOCTL, it is a common racing we should fix, and holding a kref is a low haning fruit.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">Another thing, out of the topic is, holding xa_lock does not guarantee fpriv/userq_mgr alive, for example, when drm_device-&gt;unplugged is true, all amdgpu teardown paths in amdgpu_drm_release are skipped,
+and the fpriv/userq_mgr is freed, no matter whether holding the xa spin lock.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">That would clearly be a massive bug. Those objects still need to be cleaned up independent of device hot plug.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I agree, when unplugged == true, means can not access any HW registers, so this bug deserve another series to fix.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">So IMHO since we have userq-&gt;kref, lets use it to maintain the lifecycle of the queues. 
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">Grabbing references from this side would obviously result in circle dependencies.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">I am not sure, we should use the lock/unlock and kref_put/get in pairs in sequence, can you name some circle dependencies or AB-BA lockings as examples?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">That is not AB-BA locking, but circle dependencies. E.g. A reference B, B referencing C, C referencing A again.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+A kref is an atomic counter, not a lock, that means we can try hold more than one kref in a thread, and a kref not
+depend on another. As far as I can see, current amdgpu driver does not have such problems, do you see any occurrences?</pre>
+    </blockquote>
+    <pre>Hello Christian,
+
+I have not heard back from you for three weeks, I wonder whether you have any further comments for this series,
+or shall I make any improvements?
+
+Thanks
+Lingshan </pre>
+    <blockquote type="cite" cite="mid:a34a1541-7f3a-4e0f-a225-f58b1292d6d2@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Thanks
+Lingshan
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+Regards,
+Christian.
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">Thanks
+Lingshan
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">Regards,
+Christian.
+
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 30 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  2 ++
+ 2 files changed, 32 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 0a816b3c5ff9..e0639f844a8e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -609,6 +609,36 @@ struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr,
+ 	return queue;
+ }
+ 
++/**
++ * amdgpu_lookup_queue_by_doorbell - look up a user queue by doorbell
++ * @xa: user queue XArray indexed by doorbell
++ * @doorbell: doorbell index
++ *
++ * Return: A queue with the doorbell indexed, or NULL if no such a queue found.
++ *
++ * This function increases kref of the queue, the caller
++ * must release the reference with amdgpu_userq_put().
++ */
++struct amdgpu_usermode_queue *
++amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell)
++{
++	struct amdgpu_usermode_queue *queue;
++	unsigned long flags;
++
++	xa_lock_irqsave(xa, flags);
++	queue = xa_load(xa, doorbell);
++	if (!queue)
++		goto out_unlock;
++
++	if (!kref_get_unless_zero(&amp;queue-&gt;refcount))
++		queue = NULL;
++
++out_unlock:
++	xa_unlock_irqrestore(xa, flags);
++
++	return queue;
++}
++
+ void amdgpu_userq_put(struct amdgpu_usermode_queue *queue)
+ {
+ 	if (queue)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 6412a7f7b6ef..8fc73862f64e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -151,6 +151,8 @@ struct amdgpu_db_info {
+ };
+ 
+ struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr, u32 qid);
++struct amdgpu_usermode_queue *
++amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell);
+ void amdgpu_userq_put(struct amdgpu_usermode_queue *queue);
+ 
+ int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
+</pre>
+            </blockquote>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
+
+--------------TQDtp18W3NhM1NcDqVDD4GSk--
