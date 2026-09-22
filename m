@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15DDFC982FA
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:34:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D6D8C982FA
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:34:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A639610E68D;
-	Tue, 22 Sep 2026 09:34:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6EB310E6AF;
+	Tue, 22 Sep 2026 09:34:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xMK+ZTBS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NYDLVPgv";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010017.outbound.protection.outlook.com
- [40.93.198.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2E7610E68D
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 09:34:17 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011052.outbound.protection.outlook.com [52.101.57.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED84810E6AF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 09:34:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r+QnSVnqi9sXqS+cUxM+fy0BzUhKVCrxwiIaKRyjEjNieUptdmi13oQMr1Fw9t1EqBayjtx3VamkwOsui0aIjRt/1TWDzbtrDmP/qkcBV1GeDPft0XNB20NIh6UmMQqAUjQzL/A/y3yN/WlBd7yHdkEoE5mFK0EvI1ZnVUIVDgekM56WbX976BaXX+JfmPtEkYVrQMpFkNN361ks46kX5/LHhY27BPMBLjIKHvnlkX11GGo7N+qB/slz+mFShiKNwugxiGCSaME+twd8oEhDAns16+6/p9z/4skeEl8JMWlyfrp4ejuwNEsxm1ybGu+k+97dr1KhbUtZUvu4D/z//A==
+ b=p22djBP0MOUEiVKFiajb1mY6s7G6LTqbUw5hFjQR9KHJSWBkNdXZBPdIJRfvVQgQ5aXWMl9bgPBcG3V8Z3zuiGFrJL03HWFu/bVGk5BL+mq8fDbIVghYuS3rPPXOtkNn7mtkBQ6sklIQ9l9UCcp0xFUBQQCKtj6X97Fc9NQGBqou+iRPdTx3OwNiASM+XF910Yy+le670SoeKDsAuPmcq4X6mScxeW8hx0rauGuRNg/aVpsPf4E01CixR42+VTBD6eyMARrrjx4ez+2GZJl/xej1O/MGMQT5RIM7QHFHsl/qWc37/nZZa4YRBTpWLXK2vrpcM7U72PalnvvXhIDQ5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2L0aZFanjSVmy4GHCfn9xjrAIQ1cqfKx6wsH1w/s3RE=;
- b=eg/vVjNIq/z80dpSLTFmUYhNVU6ZHUrOhTHoIoyt0DBjszdqom6xqg7M0Vsnsd3Mlyxjy016vaojNfn1zWpjKGvHolT7KGAGibAFsvTuzTvwmFA7uSiS2gckEwZfTuaBqwkdbrDvfUgy1JsUY3S7Mkm8xsBPn8QpukFjexHCZYQX/RzMB9X5vzvC1rJeVuufaMS9N+GJuT0W+Z2W4bB8hJqRcRRYndjDNGWtR0K8EkzME6mtXOvUEhwywk5o30HFh3xpJ57UynDA6ICSaZMiHEVm1n6c2FVl1G09N+7bpHBkDKTum1OcvD5Hlg5qb//LC9qj+qNNW3Vtfta+7qGlEA==
+ bh=utmGcP0jb0s6aRPUavMguM9+9RFYJR9NAdF/i7FP+Uw=;
+ b=SWhgV/eNyZD35tydZN0zTPZkorAxoWgneZM4O2SuEqC3y1EUR5iOt75DzQdY1oewJTzm8NneqIuaeo9VUPdlkb8KXNfGfY5XtD2QzRXGhsJLMjc67o8/Ne7KYNrd9G8D/E1844qMCPHvNvTQEs/q8ciczRQUDTDrPykAqqyJLXmUvIc8zEVG0H1PLFB/aZnny5NlMWHieadHVzHUX9Lom+6GfyGVCPW4pXK5yBpiBBLTrAnEcTwsBISuznXYhlQXN0XA8AAHnTNiP74w2fFca2XrDZJXTg6C+F8joMcFasPNyCI/qvn8kSAEaliMUccvXYqlvHk2Yz/LgwL4eqZG+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2L0aZFanjSVmy4GHCfn9xjrAIQ1cqfKx6wsH1w/s3RE=;
- b=xMK+ZTBSN+Ezs1C+CawJFwHOGlzdySK+aADhbUsbWwJvLNBgDMkaC5KvaeL0nL/mdQBJ4WKVh3T5CurS4rISGedWgIqSJtNc2X1JgK0RxuLt0Qla1rlH70CGHUxtogikh/HwdSQT1wBBYX4RQ8a0KeMKduGDNxGSIiFOpT3KWmk=
-Received: from BN9PR03CA0548.namprd03.prod.outlook.com (2603:10b6:408:138::13)
- by BL1PR12MB5922.namprd12.prod.outlook.com (2603:10b6:208:399::5)
+ bh=utmGcP0jb0s6aRPUavMguM9+9RFYJR9NAdF/i7FP+Uw=;
+ b=NYDLVPgv8NfRMnsxXUhu6wy78e8jGdrW04s+u4/ssHeWrwW+JnXDW1VZuAvFUxGWE6OGHbVDbn21kwI9NUQPmPGyYldXAXiSjw/Q7l29AGSDifzuQaxfEo8gUYteeqeTqy1jgHPpsgdkithGxjhO01djvhJuNmP4i2Xz5Djpz/E=
+Received: from BN9PR03CA0546.namprd03.prod.outlook.com (2603:10b6:408:138::11)
+ by IA0PR12MB8087.namprd12.prod.outlook.com (2603:10b6:208:401::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 09:34:14 +0000
+ 2026 09:34:11 +0000
 Received: from BN7PEPF00000094.namprd03.prod.outlook.com
- (2603:10b6:408:138:cafe::18) by BN9PR03CA0548.outlook.office365.com
- (2603:10b6:408:138::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Tue, 22
- Sep 2026 09:34:14 +0000
+ (2603:10b6:408:138:cafe::85) by BN9PR03CA0546.outlook.office365.com
+ (2603:10b6:408:138::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Tue,
+ 22 Sep 2026 09:34:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN7PEPF00000094.mail.protection.outlook.com (10.167.245.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 09:34:14 +0000
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 09:34:10 +0000
 Received: from ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 04:34:10 -0500
+ 2026 04:34:08 -0500
 From: Zhu Lingshan <lingshan.zhu@amd.com>
 To: <Alexander.Deucher@amd.com>, <felix.kuehling@amd.com>
 CC: <Ray.Huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
  <lingshan.zhu@amd.com>
-Subject: [RFC 02/10] drm/amdgpu: add device-wide PMC config
-Date: Tue, 22 Sep 2026 17:34:28 +0800
-Message-ID: <20260922093436.596947-3-lingshan.zhu@amd.com>
+Subject: [RFC 01/10] drm/amdgpu: implement PMC ioctl framework
+Date: Tue, 22 Sep 2026 17:34:27 +0800
+Message-ID: <20260922093436.596947-2-lingshan.zhu@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922093436.596947-1-lingshan.zhu@amd.com>
 References: <20260922093436.596947-1-lingshan.zhu@amd.com>
@@ -74,29 +73,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000094:EE_|BL1PR12MB5922:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d7a9439-50ff-43f3-d155-08df188caa90
+X-MS-TrafficTypeDiagnostic: BN7PEPF00000094:EE_|IA0PR12MB8087:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36ef01b4-5ef6-4267-be65-08df188ca85c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: CW4JWC6dH6TjEbaPyb/zSt4/7bKaBz0H2oRrJgoeDNYUsCKsWeCJUTVOSOBfD2reECztPmJeB7WohsFZO0UqMdZKlWxGdFGVZGPQBotACfByhUNbaTZ/wVTIIQFbhj8WAyhop8r5UuDzbqWayNglgiJb+OFFA7oWVAwOK+3u5kj9kJDg9VG0hsexbyMPKzjizzkyhhGR/wIj2mnr/rfrdH8+XIOG1Lcpvru14U7MHKiW4Cg8MZhcp2u1s38bOIu5J6ICRUmgiu3uT/1ytpB1AoZcfOpgi9e30I2P91nW4VB6OdkilOIZnyLqbZg7vUSwAuYNUPRO7hp51FOdoSsEtTQT/ThttM5co20vlx7ImIvfcma/xH205wOWEEwL7kKWJH2b3tuMu4euEJf1Y3pbG6qePjkE2T0c9FbcyWaG/pDl0yoL26/GhEcWql1feBM2ZI7uX8lcX50pgVkfUzA59vnRgfXEZ47IeBJU9ulnewOh1XO5/WT45QiplD4OaZLCKx7uMjPG3LCXjiEEuzUKWGcWnXmZBrCrsW8EtYCbSig9pin1o6NlLBCDcdimcnsw0USUV8eF3LJXUBiVhWhcQl58Att+rW6E7ML6MqnrnPjubdCMktyKGGwD0aqInA/PP3J/vhFKH0In8dkE9DRWxUJbRhZpHcOfHDDtgmWCCXunJK7CqeI5YEobiCbLJ5xpI+VXTWrawCdNeLgz+bLJuQ==
+ ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|6133799003|18002099003|22082099003|11063799006|56012099006|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info: i7XPNMAHFUqvWcdgEC+1HvwkJXRKoyZYWUmnKCAGnLJJeyzbG1/zPTLmiYXunRY1RdkPjCNGmh0Zt8NEN3+s2BnXGqpHIfb+DPp1ixImbww70ImsmRz8FJHC7ARyPKnC1Ro+USZJ0yQEha5+NZBS2XXorih/cOkNln8Av6CopUI/tODfZ/2lBc2Dg7TrQxVNnnQ7BUQP/8TxeHqNm8+/Me6lBCWf6e/lEyPhVJV9RNsdCHmsYEvK0N9zcLRvA0aDfbJr3HuIcoEfYCezXbdcSQtAE15+dN3p2yp69Ysic+MFMd428ZI5ZnjQVKQhIdt1WFHnpYnMQEYh9v/S2h/kkykP0fMy5t3uypj39bEi/kjbjnBZk3lIiRV3SyYyQmcIFCQCDb4e8VmU0ZVCiMn52ty0+VizW820bC51YUWIJjKitw9FJ9j/TLrtxTryUXOhXxXc1gq4fNAP5XYzda5YcCst0xefeDVxRfI9nKvfYHyZKpGwHS9NbyLcqPBvsD2G/7mpwtLxLE4+Akw6L+cYWcbcLkeQh9DXsUyOBMdIeyZF/SVSVDVdrfe+fv/fBBW15FRLeCIgrHlcK+rb4IKdQwXAZO+NmLsAtAwvrqOeKTNR/iB/AFOG5e9UnbdRVo3jWWlVOpvctCgwQGNe6DwcgvXJPJRtMsRpI6NZDiglRWqoFLigG9Phyw7MNqT5hK1HCg2/jzEvj09ueU3LVhiKUw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(6133799003)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: tbvr7Y31TZ8T7ae+lCwkDDxrin6pmokWQnGEM0y951fNFU+nAEXC6jxyWxqdAKc2I1Yjyy4gV1WFVAAJikLm7nNlTdlWagYflf3VZrHDwE7PSyw7WhTIaWjCLLmqoYgIgtuikqNjBEX0VusWDRffXsJUy1orTVVnziYp634Vecf7hoo8A/HW7lv7m5KzAKSwrsIlcQUZibGrUegX192KzYneqOzRXVoP6CdHmwOphI+Gd7HJxQ7mTJFy+mRctvfm6rrAQlb3Jw3ouWm6S9d+/5zgsDY/SH96SsWhS2UI+ohzjmqHSWRznWoFDbBLgUvDf6v0ldYqkbg5XCEk3DxPR7wuJzZYVLG8okyQuBbXVvAAoQvD17GlvrXuIR6MGAyjQwhSEd/We1zk0ukNoGPIbAhQoIAJ+pbXfy/+n7CbHT6oYeFXGUMRyXzgUxWpUF3q
+X-MS-Exchange-AntiSpam-MessageData-0: BsYQbtbscCV/Ltp/mb2IkoC8bQwZl4s/PjH4XkLShKHF66AyvEbuNV00hFtkjC0h1hGO1zB2OijuIF0c+4kYnoOu/86ExF+/pgvKTJqkpR6ajsZsy7kpwyn2ckIO/XaLUxmGu8PhOSdCkU6xicbgPQhzlallnOaRGwj9vmMJoMi2l6654pcF1T0PrH+8kCni5BgxaVjt221RtnbqWeJFt2EbWo87HcbW5JsLN5WUTjOmhSvIa6N/AAnaAMwDQC3OII/vSz664BwSwd4WlPdMOl3kJplZ1VGCK0dOV0qY+3boQC4k6OCb0dRAs/QPXCNHtF4M6E6/rqdDUUYqpSD1+4LDISTIRz9jQBvCMfsvzWy5KayXiSzZWJ/wVcTyXX+ECW5r79EgsXXNuP7y3e3mwWv/UfSjvTgGyfLTZS1FVJbyprcax/hjnickEhU3izRh
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 09:34:14.5571 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d7a9439-50ff-43f3-d155-08df188caa90
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 09:34:10.8646 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36ef01b4-5ef6-4267-be65-08df188ca85c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF00000094.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5922
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,63 +110,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit implements a device-wide PMC config
-for amdgpu, which including the profiling owner,
-and the profiling enablement indicator.
+This commit implements basic ioctl framework for PMC,
+including basic operations.
+
+This commit also implements AMDGPU_PROFILER_OP_VERSION
+which report profiler version to the user space.
 
 Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 8 ++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
- 2 files changed, 11 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/Makefile          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c | 44 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h | 33 +++++++++++++++
+ include/uapi/drm/amdgpu_drm.h                | 36 ++++++++++++++++
+ 5 files changed, 116 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 8eff6b9ebe81..45897dca802f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -620,6 +620,12 @@ enum amdgpu_enforce_isolation_mode {
- 	AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER = 3,
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 6fb0a913e33b..d7db69e9d6a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -72,7 +72,7 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
+ 	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu_lockdep.o \
+ 	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_dev_coredump.o \
+ 	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o \
+-	amdgpu_wb.o amdgpu_cwsr.o amdgpu_events.o
++	amdgpu_wb.o amdgpu_cwsr.o amdgpu_events.o amdgpu_profiler.o
+ 
+ amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 7c473f60bd28..a98c4a47e196 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -55,6 +55,7 @@
+ #include "amdgpu_cwsr.h"
+ #include "amdgpu_userq_fence.h"
+ #include "../amdxcp/amdgpu_xcp_drv.h"
++#include "amdgpu_profiler.h"
+ 
+ /*
+  * KMS wrapper.
+@@ -3096,6 +3097,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(AMDGPU_PROFILER, amdgpu_profiler_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
  };
  
-+struct amdgpu_pmc_profiler {
-+	struct mutex		lock;
-+	struct drm_file		*owner;
-+	bool			enable;
-+};
+ static const struct drm_driver amdgpu_kms_driver = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
+new file mode 100644
+index 000000000000..04902696adab
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
 +
- struct amdgpu_device {
- 	struct device			*dev;
- 	struct pci_dev			*pdev;
-@@ -818,6 +824,8 @@ struct amdgpu_device {
- 	 */
- 	struct xarray userq_doorbell_xa;
- 
-+	struct amdgpu_pmc_profiler	pmc_profiler;
++#include <linux/errno.h>
++#include <drm/amdgpu_drm.h>
++#include "amdgpu_profiler.h"
 +
- 	/* df */
- 	struct amdgpu_df                df;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c924a55fd16f..74ed42e53264 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3673,6 +3673,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	mutex_init(&adev->pm.stable_pstate_ctx_lock);
- 	mutex_init(&adev->benchmark_mutex);
- 	mutex_init(&adev->gfx.reset_sem_mutex);
-+	mutex_init(&adev->pmc_profiler.lock);
- 
- 	/* Associate locks with lockdep classes for ordering validation */
- 	amdgpu_lockdep_set_class(adev);
-@@ -4244,6 +4245,8 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 	kfree(adev->pci_state);
- 	kfree(adev->pcie_reset_ctx.swds_pcistate);
- 	kfree(adev->pcie_reset_ctx.swus_pcistate);
++int amdgpu_profiler_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
++{
++	struct drm_amdgpu_profiler_args *args = data;
 +
-+	mutex_destroy(&adev->pmc_profiler.lock);
- }
++	switch (args->op) {
++	case AMDGPU_PROFILER_OP_VERSION:
++		args->version = AMDGPU_PROFILER_VERSION_NUM;
++		return 0;
++	case AMDGPU_PROFILER_OP_RESERVE:
++		return -EOPNOTSUPP;
++	case AMDGPU_PROFILER_OP_PMC:
++		return -EOPNOTSUPP;
++	default:
++		return -EINVAL;
++	}
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
+new file mode 100644
+index 000000000000..c27b5f9b3ff0
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
+@@ -0,0 +1,33 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __AMDGPU_PROFILER_H__
++#define __AMDGPU_PROFILER_H__
++
++#include <drm/drm_device.h>
++#include <drm/drm_file.h>
++
++int amdgpu_profiler_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
++
++#endif /* __AMDGPU_PROFILER_H__ */
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 9222be9a6d2a..acc63804ba8c 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -60,6 +60,7 @@ extern "C" {
+ #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
+ #define DRM_AMDGPU_PROC_OPTIONS		0x1A
+ #define DRM_AMDGPU_CWSR			0x1B
++#define DRM_AMDGPU_PROFILER		0x1C
+ 
+ #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+ #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+@@ -83,6 +84,7 @@ extern "C" {
+ #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+ #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
+ #define DRM_IOCTL_AMDGPU_CWSR	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_CWSR, union drm_amdgpu_cwsr)
++#define DRM_IOCTL_AMDGPU_PROFILER	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROFILER, struct drm_amdgpu_profiler_args)
  
  /**
+  * DOC: memory domains
+@@ -1809,6 +1811,40 @@ struct drm_amdgpu_proc_options {
+ 	} kfd_sigbus_delay;
+ };
+ 
++#define AMDGPU_PROFILER_VERSION_NUM	1
++
++enum amdgpu_profiler_ops {
++	AMDGPU_PROFILER_OP_VERSION = 1,
++	AMDGPU_PROFILER_OP_RESERVE = 2,
++	AMDGPU_PROFILER_OP_PMC = 3,
++};
++
++enum amdgpu_profiler_reserve_ops {
++	/* release the device resertaion, only the reservation owner do this */
++	AMDGPU_PROFILER_RELEASE = 0,
++	/* reserve the device profiler */
++	AMDGPU_PROFILER_RESERVE = 1,
++	/* Clear the device profiler reservation, in case the reservation
++	 * owner can no longer release the reservation(e.g., it crashes),
++	 * This operation does not take the reseration nor touch profielr state
++	 */
++	AMDGPU_PROFILER_CLEAR_RESERVATION = 2,
++};
++
++struct drm_amdgpu_profiler_args {
++	/* enum amdgpu_profiler_ops */
++	__u8 op;
++	__u8 pad[3];
++	union {
++		/* AMDGPU_PROFILER_OP_RESERVE: enum amdgpu_profiler_reserve_ops */
++		__u8 reserve;
++		/* AMDGPU_PROFILER_OP_PMC: 1 enable PMC, 0 disable PMC */
++		__u8 perfcount_enable;
++		/* AMDGPU_PROFILER_OP_VERSION: AMDGPU_PROFILER_VERSION_NUM */
++		__u32 version;
++	};
++};
++
+ #if defined(__cplusplus)
+ }
+ #endif
 -- 
 2.55.0
 
