@@ -4,102 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 506A1C982ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Sep 2026 22:01:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9156C982FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 01:54:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C52EA10E0B6;
-	Mon, 21 Sep 2026 22:01:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7A610E117;
+	Tue, 22 Sep 2026 01:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hQIYF63d";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZxWRQpYH";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86BFD10E0B6
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 22:01:43 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d6ff2f2c4eso7203525ad.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 15:01:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790028103; cv=none;
- d=google.com; s=arc-20260327;
- b=UC1vTUjYgl8l35rU3I3bK/TBUowhkLsHfT9PugR3wqUHiIKsHQyaHa9d6nj/1KhkdI
- vZ14VFZTjznCoekTaY8VleEVcxZuCQ3h6QiYnMAdluYxwqsPy9gSdtYpgq5AicQcZ267
- 1u5laGfHD1caJ4fajj0cBbOwDgDhsqdnlCia4JiQi1JVEIW2Kfqcdj83Qi77SfJ1Pw0h
- 8+MCPeDNA9izJ/1KD3ApCR5cLzWXvS7xXgRPn5+p9//XN9jmED1llWjydGF2eHysTCEt
- 0EmTa+0HJrttOJ0DBNc7qzA1MZtacCFB78lx3+rmCIP3LW8ScrC6/zSLb3d1XNcECFyU
- 7AyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=1J+saQss82xL8Ce5qI/Gv+3joKI+8Uu+v3gbZJZO9EQ=;
- fh=0vIpwgZZO5cx782/8C0k7LcuRov6IWdRo1Vb/GdfI9M=;
- b=PUM9a+QucxQqHL08KLJZRSn/OW2TzuUgrCY0KnR6kc1/AVKKbwS7n7Iu6wOWzalJro
- cBwbgM0Tz13tjtwseRtmJc7B6n6dPxPTg8PdLtCbmWrubXivAHervGon8hL0pYwtH3eo
- NZB+xtsVzXkDjOvH93r9pBj4hI0vhYBAgwMuV/WI9NDpOQM7OckN7ZyuJKXObVbC1rrx
- GbdJmT/DU++BksdNiBRHylCWounnB2RlzHeCLjDRz4DkEA0RcOqST2TlMVyhtF4riBqm
- WKa/twTPzGQ8RGQBJlznyRnFmbIfMEE7j49OJmdSDCMXq/O3KUvSq+t03PA32nQ98XWO
- TkyQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com
+ [74.125.227.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5BDE10E03A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 01:54:30 +0000 (UTC)
+Received: by mail-vs2-f41.google.com with SMTP id
+ 71dfb90a1353d-5c67e5292faso1588546e0c.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Sep 2026 18:54:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790028103; x=1790632903; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=1J+saQss82xL8Ce5qI/Gv+3joKI+8Uu+v3gbZJZO9EQ=;
- b=hQIYF63dSbEd2QPj1xyEcTl+DcqZnonuEzjl/01p1hpYHeT73CPQkRhcxzTAh+pOjC
- XL7gOlIV4u8FEsPAMxNzpWLWYLIGCm2DjLidlujtSsRZYQu8WQSAZIAIVqAYuc3e4ZGT
- 2Ke2BKAx/2alzx8wxGvVquYZNlASmifvCHWG6p0N7EZ99V4DJNaoPvmH4MjfIKtcRy6c
- e9JFRKHHJhQXt/RDbUIQFDcY+QbrMug1ZAIKNSb1F7Han1V/K4AhSUiahPlCiItaLBzk
- VtwHha6xFo/BpHhZK9h+k3iGbBkdcza1aIFvFAnF41+/xRO+6kTt1VisDHnqz6Xr+YZe
- /OZg==
+ d=gmail.com; s=20251104; t=1790042069; x=1790646869; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8cyk+VZJdV3suIAqf0J24P3aiMZPO/cLIo47aUCTTlQ=;
+ b=ZxWRQpYHXv7D8mmt5aMooyFMBDyDm96y2X3ZjqM3kFAg6OVPVmoFRblFg4Ze18AIYj
+ JIWjfN7DXMBbdQ3yuAx2qu1Uz7G+7NzuNXMSxlHQFeOfkFsauhI4w268jZqk4Ezia7wP
+ cw7tKKUYYkC9gjtI7kzttut7pFiAAP3GjY5gdNsPF30WAFaPSW/XYA+U5rnxdkqJyiYw
+ wBNqoH0SwR53V0Eb4RDoYBpcmn4AV7P7MZLcvkeJ85fgpH2Wc7b8MBPtl0M2CFmFDI6C
+ fgVDpd1CnlgNjazkFnSsg8vobzBHeOnUgOc2Znlgi/iPmmBkq+/KBzMTp2QWN3Hjrsuc
+ ebYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790028103; x=1790632903;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=1J+saQss82xL8Ce5qI/Gv+3joKI+8Uu+v3gbZJZO9EQ=;
- b=O6ZTilPdiRqVi+Pe7J6a3MieA9ZNX2RmjKkjtQ1YkcpNeTBErFQSwNoj3K1aLIpZSa
- VJigN2ouG5eAiRKXopeHHTB9IDCK/2TM+JAp9+17qk92iaa8gPwa0xrEQqS2Ei3sw+FN
- HXIUAEiJY3cQaWxUpOOQTK1+SP56AeDagG5y+Xat3x9/+sqHv1eBQUBPSsUPweT9A133
- 4SI9bj6iPdTkIMIOCiETdmr7GvJ8P3DSjN6qTq6EzeknEX/lzdUVRG0ZU4C1CKeAj/0k
- KuQwKnRjs0dgy7SvQBy4P1WbM96ggCnkIgxM1wUCKexONHBwMZeqkwCPc2DltwnB8XKB
- kdfw==
+ d=1e100.net; s=20260707; t=1790042069; x=1790646869;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8cyk+VZJdV3suIAqf0J24P3aiMZPO/cLIo47aUCTTlQ=;
+ b=N66C4AfdL0fOvHg5qJEIxpsJhu7GbswUEzKkDdw+Ph000RBcSLEMlh2O6QXy0u+gbJ
+ 1/2e3BjJ1kZpG0JQBxor+atD0n2j+9AksFQ2xO0Epp80cSqM0FYhNkJbUVo2dFU8Kds3
+ KagyPJ7MSE/bD0AWCv3jllwkacYfEkUu7ScMU2HMoj4YG/0uQkiAlfyTLjmmfgBEiUtL
+ 2uCOET/MWTgHIeajtdG6QXLE1fRtXHGNOBR+XnxuCPd6f90YWDQlP1Vyqftin98u6gH2
+ PvXyBbNpHKR1OudonE72ro9Si8sW7jdXS42kWdzs71oPXs6wqM4hHKaGlaIUq6dhiSbd
+ yufQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwefsHQOf1yqKvtRaxZX2hrkHF6JxT8sCSMVU52T0/WIdw+RG+HmCpmxnjoIAMbAuRurp5WEgA/@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mop10VcjG8L51HZNYaF5KyGOLflPRP1iK90nxjiSewqErulhrE
- WfnTnUyuj6l30EEF1NjEWvQAnAfShrfnktuWcnVR4Wr0x9ZviEIGhQsF03KteYrYgtyTG3mGR0k
- v4svFj7JRfmdD1SAdw3p6mR3xEgu3L7o=
-X-Gm-Gg: AYBFou20FoxzWBxBanDF+m33ozxKKYEONzJm2cjU1O2mX9oAiJzFUP06AxoJ46u8iEL
- f+uK7A/BtpQRmESwTvqNmtpNEiv9uuQc/WZYVL36p+VGcbCi3FU/1sPqPViln8a2ooce/6zUmkZ
- frdzqi6DHZX2i1IcQTmQVQ6ghKgXxXY4hfnZ0S4npGFGI/8O5wDCtDKpQqDXdpSzWR39/e9oTfz
- BgTkP8dKM/0ph9eCq1eqYajgPzAckq7v3iQ23HQ/NoDCWCxDL3LQoaszWSpEAKqJpzM68RgoJ24
- Y9g87Jt9olWjsQUgMrx0xh/ZFz+ZnHWk5Ng/C1TwZpSIfquO8v0IMmaWdgf1OG2458WthDRY04f
- Ht3F8PagDoXitCL5RN4sKKLmDeKlKk/uAkdyS2SA0wQ==
-X-Received: by 2002:a17:90b:50cf:b0:39e:2f57:67c0 with SMTP id
- 98e67ed59e1d1-39e591e3bd8mr22753640a91.0.1790028103022; Mon, 21 Sep 2026
- 15:01:43 -0700 (PDT)
+ AKwUvBxKEdlJVVReQFz56QJ5rnFw9DXGe9VfeACCCkBItZC3m2Hm84s9o+L1l/Itfz+Vaeto7cFSq4l6@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l8ZibqGb18BisNd4Ln84klJ0rIt025Gak7OsQalDgKLuPy1TIS
+ LUTmDWuST7juywJUCXMgNrXCI9/Np6Nzxks8pQrVsSx3EaNIvAOk0zZg
+X-Gm-Gg: AYBFou17eq9iqBpRm0scGuYT7NZfGv9zuPzARrVDYKgpH/qSvtp7//erH1WygIz4kVs
+ wvQb2aMWiXnW9tLv2rjhuKFMG1NSNXU1+Sz5lu6UDZdg1aTJufz0yiElbEbvHj9yPVBf4PJPUbo
+ rGCXB/5IRqRL++M9H1xlW1LMgD1dQaDttdCScjqT8EzZyGySOUXtfUirOEzugnx6ssIsvDpUfe/
+ 8J0l0gq7rGyFSSVtaBQOKbDNfS0WpLCWyN/Ux0TMz+01R+TGYXPb/1dZhWuDojZj/0++qn5at3W
+ aRb4nNC8h5TZKVAPj5a+1WRvFdfg2TpF2CKFGrIAyTFcNCs0j4ZxJTQ/49rbL17FKOAd5MfHFM/
+ WGqsUsdU2NqT2P1M/l7vK9rRvz4OXAXhCYscxE9uGB/oy1lLc/ebKHxu1pTAObf45e1TeA7VXC9
+ pUiN3+BT5bv4a0EjnCvMZYIa2Ry62/J5qUyWdd/5WbtPcszM8IJ9A7gib3+z9og4uDfYcqKMnQ9
+ s10OGZr0A4K/1N5LFA/yc43CG0g1mViilRgKE7+
+X-Received: by 2002:a05:6122:3281:b0:5bf:8955:a8ce with SMTP id
+ 71dfb90a1353d-5c9b58fa150mr7030545e0c.1.1790042069444; 
+ Mon, 21 Sep 2026 18:54:29 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2804:5698:1029:f600:548c:a202:2a24:b2c2])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c9e7d09aa0sm314462e0c.10.2026.09.21.18.54.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Sep 2026 18:54:29 -0700 (PDT)
+From: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mario Limonciello <superm1@kernel.org>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+Subject: [PATCH] drm/amdgpu/gfx6: fix firmware leak on teardown
+Date: Mon, 21 Sep 2026 22:54:10 -0300
+Message-ID: <20260922015411.116292-1-williandossantosdeoliveira287@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-References: <20260921103318.353216-1-lgs201920130244@gmail.com>
-In-Reply-To: <20260921103318.353216-1-lgs201920130244@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 21 Sep 2026 18:01:31 -0400
-X-Gm-Features: AcwNN1WqVwSStsMay_gri4_rw5IDdLWdJymJyP5EtqkVYtYOv-9on_0dL0POVzk
-Message-ID: <CADnq5_M39zRZW57prCham1JSmUEo1dZOaaannkAsTA=LeLz8Rg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix ACP MFD device leak on init failure
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Ce Sun <cesun102@amd.com>, 
- Tao Zhou <tao.zhou1@amd.com>, Brady Norander <bradynorander@gmail.com>,
- Kees Cook <kees@kernel.org>, 
- Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,97 +92,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+The firmware requested in gfx_v6_0_init_microcode() is not released
+when the GFX block is torn down, leaking the firmware resources.
 
-On Mon, Sep 21, 2026 at 6:51=E2=80=AFAM Guangshuo Li <lgs201920130244@gmail=
-.com> wrote:
->
-> acp_hw_init() registers ACP child devices with mfd_add_devices() before
-> attaching them to the ACP power domain and initializing the hardware.
->
-> If attaching a child to the power domain fails, or if the ACP reset or
-> clock enable operation times out, the failure path frees only the
-> source cell, resource, and platform-data allocations. The child
-> platform devices already registered by mfd_add_devices() remain
-> registered and are never released.
->
-> Remove the children from the power domain and unregister the MFD
-> devices on failures that occur after mfd_add_devices() succeeds. Keep
-> mfd_add_devices() failures on the existing cleanup path since the MFD
-> core already rolls back partially registered children itself.
->
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
->
-> Fixes: 25030321ba28 ("drm/amd: add pm domain for ACP IP sub blocks")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_acp.c
-> index 9014678d75ab..be4d00ac96b3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> @@ -318,7 +318,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_blo=
-ck)
->                 r =3D device_for_each_child(adev->acp.parent, &adev->acp.=
-acp_genpd->gpd,
->                                           acp_genpd_add_device);
->                 if (r)
-> -                       goto failure;
-> +                       goto failure_remove_mfd;
->                 break;
->         }
->         default:
-> @@ -443,7 +443,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_blo=
-ck)
->                 r =3D device_for_each_child(adev->acp.parent, &adev->acp.=
-acp_genpd->gpd,
->                                           acp_genpd_add_device);
->                 if (r)
-> -                       goto failure;
-> +                       goto failure_remove_mfd;
->         }
->
->         /* Assert Soft reset of ACP */
-> @@ -461,7 +461,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_blo=
-ck)
->                 if (--count =3D=3D 0) {
->                         dev_err(&adev->pdev->dev, "Failed to reset ACP\n"=
-);
->                         r =3D -ETIMEDOUT;
-> -                       goto failure;
-> +                       goto failure_remove_mfd;
->                 }
->                 udelay(100);
->         }
-> @@ -479,7 +479,7 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_blo=
-ck)
->                 if (--count =3D=3D 0) {
->                         dev_err(&adev->pdev->dev, "Failed to reset ACP\n"=
-);
->                         r =3D -ETIMEDOUT;
-> -                       goto failure;
-> +                       goto failure_remove_mfd;
->                 }
->                 udelay(100);
->         }
-> @@ -489,6 +489,11 @@ static int acp_hw_init(struct amdgpu_ip_block *ip_bl=
-ock)
->         cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
->         return 0;
->
-> +failure_remove_mfd:
-> +       device_for_each_child(adev->acp.parent, NULL,
-> +                             acp_genpd_remove_device);
-> +       mfd_remove_devices(adev->acp.parent);
-> +
->  failure:
->         kfree(adev->acp.i2s_pdata);
->         kfree(adev->acp.acp_res);
-> --
-> 2.43.0
->
+Add gfx_v6_0_free_microcode() and call it from gfx_v6_0_sw_fini()
+to release the PFP, ME, CE and RLC firmware.
+
+Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+index 95e939363db6..a5553d181d97 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+@@ -322,6 +322,14 @@ static const u32 verde_rlc_save_restore_register_list[] =
+ 	0x00000000
+ };
+ 
++static void gfx_v6_0_free_microcode(struct amdgpu_device *adev)
++{
++	amdgpu_ucode_release(&adev->gfx.pfp_fw);
++	amdgpu_ucode_release(&adev->gfx.me_fw);
++	amdgpu_ucode_release(&adev->gfx.ce_fw);
++	amdgpu_ucode_release(&adev->gfx.rlc_fw);
++}
++
+ static int gfx_v6_0_init_microcode(struct amdgpu_device *adev)
+ {
+ 	const char *chip_name;
+@@ -3254,6 +3262,7 @@ static int gfx_v6_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ 		amdgpu_ring_fini(&adev->gfx.compute_ring[i]);
+ 
+ 	amdgpu_gfx_rlc_fini(adev);
++	gfx_v6_0_free_microcode(adev);
+ 
+ 	return 0;
+ }
+-- 
+2.47.3
+
