@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90995C982FF
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:34:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12812C98302
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:34:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2284410EC1D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B93C10EC20;
 	Tue, 22 Sep 2026 09:34:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2D+x3Jrt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wD90u697";
 	dkim-atps=neutral
 Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010058.outbound.protection.outlook.com [52.101.85.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 980B610EC1D
+ (mail-westusazon11010003.outbound.protection.outlook.com [52.101.85.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EFFA10EC1C
  for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 09:34:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V2AsO49fd2+lOujm0ZlLfqEiOj2qCvoxI5gLEurMUIyXgl1WYjjo5G6No5MnrixVtsyC6IdFv1z7AggJDfzXJ+AgEQlaca4/e+HjlwUGByfLzkLpW8VjVcQRG1PnbpnS+WuDgt/pbTi22KfjfzJnc/KTk+anuWl/E8j5VxsgsEJrKyQiH2Lx1ZK2BhWrUgRXS8SSflnQbfoE02PjBhPXowmZWvx+DQXFlFM+hu/Xlq+L8DF4xkNjw3ZHTMYav/Pjw74L66yI3pAaJyOxOscfyPuDvxlL1wX7mQZb7jgja/FC66tw5wqH6yWSbNSip+9fl6XYGRDyqybz1TKdH/qXiw==
+ b=K0oUjHNfFfHehzatdIimZ5rwuKLP6TZtxGD7PQnGck9OmTqdKfv4c1oJ/oGaKGl6429RZI6WICZiSkoCkHKB51FX5GXWXRaA5UwczFRVTL/Us4gNaRixyA+fLKV3beL5MrTrq4abhwdq85L7+4McV76e02FPZcJknxqNscSXkx18a7Wf1LIdfexhCRvKEPk/cTqqpULwa9CFTI+2M2F9d8jloL1TErswbJzFW075ZZcS1XyXuI6EWBjrmZKvVY42ijHGBCS+gbYxC6jhiW/sveaokOhmEulc3644mR6AQFOK4f9YHmLn7D+PRQK/z/Qto5woR0Vk5U7Rc4+GqX5lOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M8i4s87OGahbWZ8Oau3BEV5wSQXchJgHyQnwVlnhYig=;
- b=nefEv41kaXY4KhJMYg/Kr3W0L3aU7Q1U2zM30j2VNRBF/stJqxo0oDDjjK5y7RvR5/aADgdpzzeWdEWHd2OoKfz3G1Jd9Dsx5Nwxo3PatzgmQVrU8447S00UVj03txys7lSinS4IbNK7CehTyifgcd6QTgCIC2yAhPo7uL22rtFXttRL3gOue8xHT22LWYeLhcPUdTM7vWzU+iv7JnTpHmkmfSLCfWqn5ROcWs1cWkLEozw2T62VbgX/JcKSa22abeXKM0WsN7B8VsN80OOS0Tzk0lYGhdQ5aqPAe8we2GdUjTgZqE6A8yYCVlnXSPlGqIIOPFjBsGHYGZw1C+YPnw==
+ bh=j3SiTno9Milot8YRQrFlkU8dwdfuvHLnGdC1JHzTJ/o=;
+ b=r+tlgmxER8vMDCBXqBTbKIR1CWR7YuBhhXeeMHMkD01NYp7y04myfoYKOxXQ7uZ/LN46t0AoxGEFdqrMF/jw+SvVKbSguYcZKfW2063KFuIa2zbAiQdZqgM2DsiIBrI4RlDBaC47rkeNR+YBlXh4Jrs6Vd0SJdXsPi1dBCUbJO67/Rzh6nycPolwbNx0gvoqAtfxYiLIo+jXTyhN91jnM2yRkD8UnIcZHycs50pf718CF14RpvvmCLJPI7VP59kYwbpS4zsIKfe2yj6UCFicYa3RzQfvcBoS7vhsu/arX+QJokk7sRDf/NneBTSw6DOvgrMp3SHRoLNWjZKgSWVVsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M8i4s87OGahbWZ8Oau3BEV5wSQXchJgHyQnwVlnhYig=;
- b=2D+x3JrtqWPFog/Z790bLefqS2UKtqgrYXgsIDqYasJ4uUBFOVyE/ked6ONZ0AnwbYo53xTRoZ6QSKkA1SYUw7H6tOqi2ebmkknb7TtB3xsLHJDsKRpv4+p4j6ZoY2NCDKKF4Mw6j51pww0kLLwvInkJhurYaigM8RrTKJbMjuI=
-Received: from BN0PR02CA0020.namprd02.prod.outlook.com (2603:10b6:408:e4::25)
- by MW3PR12MB4364.namprd12.prod.outlook.com (2603:10b6:303:5c::14)
+ bh=j3SiTno9Milot8YRQrFlkU8dwdfuvHLnGdC1JHzTJ/o=;
+ b=wD90u697RBCgP3h/OFJSX9X8Tg4vITh2f5vy020TTa5DguGZssRAtgdwcuhPyZ+oLVwL28os83qbu8nu9F5eQ8dxvbP2Sqo1einrUy14BwV5e1UoOKPIUfz+6iE67I/16i+EFzvh0DFoobTD+Qrh6vy64gPoOCYaF3/e7Uqf0DA=
+Received: from BN0PR02CA0021.namprd02.prod.outlook.com (2603:10b6:408:e4::26)
+ by MN0PR12MB5762.namprd12.prod.outlook.com (2603:10b6:208:375::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 09:34:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Tue, 22 Sep
+ 2026 09:34:25 +0000
 Received: from BN7PEPF00000096.namprd03.prod.outlook.com
- (2603:10b6:408:e4:cafe::53) by BN0PR02CA0020.outlook.office365.com
- (2603:10b6:408:e4::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Tue,
- 22 Sep 2026 09:34:23 +0000
+ (2603:10b6:408:e4:cafe::81) by BN0PR02CA0021.outlook.office365.com
+ (2603:10b6:408:e4::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
+ 22 Sep 2026 09:34:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN7PEPF00000096.mail.protection.outlook.com (10.167.245.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 09:34:23 +0000
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 09:34:25 +0000
 Received: from ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 04:34:21 -0500
+ 2026 04:34:23 -0500
 From: Zhu Lingshan <lingshan.zhu@amd.com>
 To: <Alexander.Deucher@amd.com>, <felix.kuehling@amd.com>
 CC: <Ray.Huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
  <lingshan.zhu@amd.com>
-Subject: [RFC 08/10] drm/amdgpu: GFX12.1: set mqd->perfcount from mqd_prop
-Date: Tue, 22 Sep 2026 17:34:34 +0800
-Message-ID: <20260922093436.596947-9-lingshan.zhu@amd.com>
+Subject: [RFC 09/10] drm/amdgpu: implement device PMC handler
+Date: Tue, 22 Sep 2026 17:34:35 +0800
+Message-ID: <20260922093436.596947-10-lingshan.zhu@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922093436.596947-1-lingshan.zhu@amd.com>
 References: <20260922093436.596947-1-lingshan.zhu@amd.com>
@@ -73,29 +73,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000096:EE_|MW3PR12MB4364:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42d7fcd7-812f-43ae-2183-08df188cb01a
+X-MS-TrafficTypeDiagnostic: BN7PEPF00000096:EE_|MN0PR12MB5762:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8dc6ef0e-806e-4814-8383-08df188cb126
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|376014|23010399003|22082099003|18002099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: H4QPpc3xwGFY25TaVE+3YLTBcmZzB65WkZ2AHg7B/w/TSvkFtpb8pe04EXC5cB9vXy6IPDru3ZxXdtgzVUGmFzAPkV0CWq/4KYjTdcn0+vGYjDce0s/17cEMW0I5sQnciQONVOCoHLBzKpEdYN0DqtP1LOgRO0/inGkw01TtXQUldc+lMmqITa56B/bq1/3RxN4FPwLo7YIT6UbeyR3NjTHOCxp1zO7isgf8pmQgATRw8L9ZFSrQPPkmqw5aNK3WC7dg042QNYJ18Ar//x/2Ld7X2azQNL2eQzMZ1QmVHDpURcyeZ2msQIPdnv/+MSX0URDHOxIA4bNdI+tnulpIWPpddoP57G/wtPabOq4Fa5BVfAMbA/bbd9mdcikI7a4/ReMkbpayH/BMQiLb/dMQR4P0cdiXw9N8ZBhVB8nDptoQRZ4dtNF60RplUJQFo4Xmtb1909iKg/n8AYz4+EMvnSrrvdfoJDVORuwefOWk78d5yGM8RMcrRiB/IvafkNs+9x9I+TEuzwfK4bH1FKWXLWTZDZbacRrF5AHBnTXpBcsBwNeLSSeApP3C9Gx4htaIdJLFPSmp48D+gGdswUcSvJFCr+BJLUxeuhhxNI260xt1f3ayBtoGkixz5bi7FiXbKJ9Ba9b8TiCbcUKW4yuWpUgzHe963GG2UojIUXQe+9HNBFMXT+xv8wsN+9vZypgu4zLA+JLNyYpoQxG/xMQ+Jw==
+ ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|56012099006|10067099003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 0kiczE4KYYT76YwwtLAYoEYIjRJXbJKmGGoTQHUT0mlYb/8zItMvFQCPnf+iaCVjYw6GudkhPCGrUsnfqDsnR0/jmuKJ/NICammCVT5Zfv/IVAQCm1UMKZ8ONgUb/yneVxIJa3PVfwQ1D9uzF2FJdwTJO8JQRVhoLU2OuNFMBxOgQMJjRALt/FZYuXoMe8n2fEwa+muIlM1hIroBvHdtbVUyQyctA3d/+Vk/FZlDERi1657+SMUE6pWYX21Gj+e2nXRG6kV5APraZ0M0mtxJF5Jrd+ja8fE1QJSj7gTt9is8PdJIc1ADQAMswmOEvit5kF1U8tSgXyXfuUgZMVr558ctb8ZHbMk+SwcaYe+gCpJU9qRyee+CMpPyC6YxlkWxfkunyOlLD+8f+SraGzdprYLNNcbQd237PSn4mwVrLhNU4shVe3McKHcNDg3IHeWCycfS8hxSkXxdw2+M6LcJulusoeyNmaGi/fqjMiWevnowFLghZz57ZtZoZhwcJE4dsVNwCjl1KkEbXuF830QUGasOqZ+Fz4OMEqQwKZSrMeOmSSle680hXSGg0iqk2lKuJZtqvtrNZ70RlexVVnALYiy0VDv2hVWaUAvioUlLh49DfH/0OuxDfTOFa50DFSBTjd0JBsliBMfAgv06Ts1L0hzx5aKvYx0j3BIzyvsxGXJ2niyqFsmf4oor160OD2ioso0g/Y7MWR5Dmne8Vm8r3Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(23010399003)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006);
+ SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: o08GRXk/S9WHRt17FwbxWNu/2uPPkMZFB0tmhD8AJpGBYhznZ5Cs2R45XBV4K87hzHYyTk4hkrV2W3MUx0e5mg7PlIGNo4GVzI3a9pPEv7Dw5Qj4WUo8IQy1tx7C9zxBBdlSv5Sq/MnI4DgiEEpCDxcTigbaEbTtATJFSmTFfnuJOE0FbtOmMJeVv7lH9rlkP3rOSXBHS5E2sj/lioABrlEwsdkn48264TJPanQAdJNVWnTlygSRpErSC+E/CDL1JWUk2i8Lk7w0GO2iRZKvniiRShwsUbmlWPhLTv3nKDH0ZNW3pMSVBPPo27/rWokoE9h3Cj6UuZPBCVlKRkXVV2u/JmJ061pdwlTnZs4Th4650249xtXhSejkl8Fb+TLjk1wlt+lhqfsFNZedpNQCUTMmnIi3lXmZb0IZQe49EqO5L8b1nu/QespXZUo6vmAj
+X-MS-Exchange-AntiSpam-MessageData-0: XmWybgIohvM8dlYZGAeVY7K0LYB1S4y0gOuyJsFelOUWB3HFDpkOu3q7RjA7BIWz2I8cvf5x2Obz+vzA/Zi70AJ0HE4RjzUM/iukA0wai4dt8rv9rrg3C4ZrqJ6zF2Xt1DZnT4D6QlEWcTexMPdREdVk9CVGNzOqiDiPYUZX1miSKmnVYUHq9lp4X+NT/72lpwbFQ6JDoTZMhhOSyuKdEmqxxDVtEzhmE2rbEoIQiFYQQfItXoqys1sR25p9/8lg1nbFoQ/GpPf3kn5lZYj45Z0AECKRoIYBsCgs/5jorg1zpFw1PICaI8DzuyiQF5MXHAq0QH+pdkR7dwHmyTdfR5dmOWlvBkH7Cc6oAdUICIBQUEqHgW4F3w8TiEMSRFDvm9CR8lcCYOJc6njI/HkpWcYGK50iXviAO+yYkPmYhRmA41wPTe7tpDruvEhRowDR
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 09:34:23.8500 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42d7fcd7-812f-43ae-2183-08df188cb01a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 09:34:25.6088 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8dc6ef0e-806e-4814-8383-08df188cb126
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF00000096.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4364
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5762
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,51 +110,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit implements amdgpu_mqd->set_mqd_perfcount
-for GFX12.1, which helps setting mqd->compute_perfcount_enable
-from amdgpu_mqd_prop->perfcount_enable.
+This commit implements device PMC handler
 
 Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c |  6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c    | 68 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h    |  2 +
+ 3 files changed, 75 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index b19a4956c222..ab70a77cfffb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -2170,6 +2170,7 @@ static int gfx_v12_1_compute_mqd_init(struct amdgpu_device *adev, void *m,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
+index 254fb8d77d80..f40c848331a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
+@@ -95,7 +95,11 @@ int amdgpu_profiler_set_perfcount(struct amdgpu_device *adev,
  
- 	mqd->header = 0xC0310800;
- 	mqd->compute_pipelinestat_enable = 0x00000001;
-+	mqd->compute_perfcount_enable = prop->perfcount_enable;
- 	mqd->compute_static_thread_mgmt_se0 = 0xffffffff;
- 	mqd->compute_static_thread_mgmt_se1 = 0xffffffff;
- 	mqd->compute_static_thread_mgmt_se2 = 0xffffffff;
-@@ -2298,6 +2299,14 @@ static int gfx_v12_1_compute_mqd_init(struct amdgpu_device *adev, void *m,
+ 	mutex_unlock(&adev->pmc_profiler.lock);
+ 
+-	return ret;
++	if (ret)
++		return ret;
++
++	/* no racings because the device was reserved by pmc_profiler.owner */
++	return amdgpu_set_perfcount(adev, enable);
+ }
+ 
+ static int amdgpu_profiler_check_access(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 45e4225c0201..8a1f0841e8e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -1541,6 +1541,74 @@ int amdgpu_userq_resume(struct amdgpu_device *adev)
  	return 0;
  }
  
-+static void gfx_v12_1_compute_mqd_set_perfcount(void *m,
-+						struct amdgpu_mqd_prop *prop)
++static void amdgpu_userq_set_perfcount(struct amdgpu_usermode_queue *queue,
++				       bool enable)
 +{
-+	struct v12_1_compute_mqd *mqd = m;
++	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
++	struct amdgpu_device *adev = uq_mgr->adev;
++	struct amdgpu_mqd *mqd_funcs = &adev->mqds[queue->queue_type];
++	int r;
 +
-+	mqd->compute_perfcount_enable = prop->perfcount_enable;
++	/* IP does not support PMC */
++	if (!mqd_funcs->set_mqd_perfcount)
++		return;
++
++	mutex_lock(&uq_mgr->userq_mutex);
++	queue->userq_prop->perfcount_enable = enable;
++
++	if (queue->state == AMDGPU_USERQ_STATE_MAPPED) {
++		r = amdgpu_userq_unmap_helper(queue);
++		if (r) {
++			drm_file_err(uq_mgr->file,
++				     "Failed to unmap user queue %llu when updating PMC\n",
++				     queue->doorbell_index);
++		} else {
++			mqd_funcs->set_mqd_perfcount(queue->mqd.cpu_ptr,
++						     queue->userq_prop);
++			r = amdgpu_userq_map_helper(queue);
++			if (r)
++				drm_file_err(uq_mgr->file,
++					     "Failed to map user queue %llu when updating PMC\n",
++					     queue->doorbell_index);
++		}
++	} else {
++		drm_dbg_driver(adev_to_drm(adev),
++			       "user queue  %llu is in state %d, skip it when updating PMC\n",
++			       queue->doorbell_index, queue->state);
++	}
++
++	mutex_unlock(&uq_mgr->userq_mutex);
 +}
 +
- static int gfx_v12_1_xcc_kiq_init_register(struct amdgpu_ring *ring,
- 					   int xcc_id)
++/* set perfcount for every queue on the device. */
++int amdgpu_set_perfcount(struct amdgpu_device *adev, bool enable)
++{
++	struct amdgpu_usermode_queue *queue;
++	unsigned long queue_id = 0;
++
++	if (amdgpu_in_reset(adev))
++		return -EIO;
++
++	if (adev->userq_halt_for_enforce_isolation)
++		return -EAGAIN;
++
++	queue = amdgpu_userq_xa_find(&adev->userq_doorbell_xa, &queue_id);
++	while (queue) {
++		amdgpu_userq_set_perfcount(queue, enable);
++		amdgpu_userq_put(queue);
++
++		if (queue_id == ULONG_MAX)
++			break;
++
++		/* find next queue */
++		queue_id++;
++		queue = amdgpu_userq_xa_find(&adev->userq_doorbell_xa,
++					     &queue_id);
++	}
++
++	return 0;
++}
++
+ int amdgpu_userq_stop_sched_for_enforce_isolation(struct amdgpu_device *adev,
+ 						  u32 idx)
  {
-@@ -4041,6 +4050,8 @@ static void gfx_v12_1_set_mqd_funcs(struct amdgpu_device *adev)
- 		sizeof(struct v12_1_compute_mqd);
- 	adev->mqds[AMDGPU_HW_IP_COMPUTE].init_mqd =
- 		gfx_v12_1_compute_mqd_init;
-+	adev->mqds[AMDGPU_HW_IP_COMPUTE].set_mqd_perfcount =
-+		gfx_v12_1_compute_mqd_set_perfcount;
- }
- 
- static void gfx_v12_1_set_user_cu_inactive_bitmap_per_sh(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 4c9a71b56792..2fcde5955d4d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -189,6 +189,8 @@ int amdgpu_userq_stop_sched_for_enforce_isolation(struct amdgpu_device *adev,
+ 						  u32 idx);
+ int amdgpu_userq_start_sched_for_enforce_isolation(struct amdgpu_device *adev,
+ 						   u32 idx);
++
++int amdgpu_set_perfcount(struct amdgpu_device *adev, bool enable);
+ void amdgpu_userq_reset_work(struct work_struct *work);
+ void amdgpu_userq_pre_reset(struct amdgpu_device *adev);
+ int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool vram_lost);
 -- 
 2.55.0
 
