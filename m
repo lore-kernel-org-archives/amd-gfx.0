@@ -4,121 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1495C982FA
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:55:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4DAAC982FA
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 11:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39EDA10E46A;
-	Tue, 22 Sep 2026 09:55:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3A2310E6B9;
+	Tue, 22 Sep 2026 11:30:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mSciycFU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZQoM4CmV";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011056.outbound.protection.outlook.com [40.107.208.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D5A210E46A
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 09:55:34 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012022.outbound.protection.outlook.com [40.107.209.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77D8610E6B9;
+ Tue, 22 Sep 2026 11:30:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c8CKUWACIo0ala5OYBnKHF1gb8RHp35GxW4Ta+FRbFaBYMKA1GPF4VnC19lrit788ODD6wc2MqspAqwVJeQc2RNw8dDBoqbfSzAj9CYi+S7C781jOZsCZ3jRUXsLqgg3ccb9kVI+jXOkAcnWK2rBhyUFmhjreSh5typbUj6p6fs8DQ9cg7uMQRfTe7HjwGYbmo1ixiEW2h0qLM7a/KT+8QHMbjvtjOQ9DgqYYVRY6Lcf9EXEFvvdiWadJvAHMvxLvPGvLHW5WMjhcoZZ0NbPtDDw/RLr52ne2EW73Z6XYwljLLOA7jW4kr3+M6mCLRgb8d1qYDjIIzTZHKvuS08nfQ==
+ b=NXkRIlmJGpslygCd3SNiwYA0CAZNj7NJLj08JzPBOlMiWgjmOm11q3j7uAjiF4RrnwcOj7lK2cjhXQnk9gU0PwS4uQsMgIJv8wcba0sp9S7Ju7l/3kozBvDRqKoDwuI3xIJQQtVFY2JuwbjA0wJ1/NzZwo+ebJOnB2hdpfiR/Fs8tdRLQvninHR+o79sjxbMA9y6izAPfME7LQLWmXmD3OL+ceVYTCoHr7y97UIO/qh0heYvgPo6BiEaQzbKcXIAJOY70jnLQV3i1nGZ/ki7D+L/Gs2tmXIG0mZ/sUkIHWiLDCKRVQkVw3EgtWOxfKJHmkBmrQlnoYCK5O/C4y2Vzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0mXmbyYwTTWfHh8FKp+Fv4SVehztRAaOT329oYB48gs=;
- b=FDgDBa2VxguVeRiMF/SKKS9BOWNIwHwMidmOHe0hMgLLU9OYcMYlwYeaZt863EXY+uxjMsLRoe8fznB0dKzzzYLZBubMpU2u7OfdcHF5uKW3fKBRcKm15kx+VUXOZG8WDOA+e8DIOqcFDO/ujmWjm4nrq8A1tCCvYDACli9IRaU7SeGadzghHf5o76bn0bUrdwlzLgQDzYfzyzQwP/rYYYbzhgUNLi4NGO982s83+AW2zdyBhRigDOkPbfeN5pGl3Z05OH/ydcanp7PjvvbJFy45ZdKFld10DrlSgWMbL3mEpSkQlhavSOSbJfM37KK04CVT8X0Qn24qjZ3NA8eVOg==
+ bh=Zz1jG3sHEh6av/qBmYmCi349+lDoI/zKj2XJKpAR6AI=;
+ b=KAk5hUKCA9KF3HeJgEDrdqzjX5mBge6PxB74M0nsGupB3+K6Hjr8VXhcutwiJ8U75Ttby1XhVzz9i+Z6vhigYGpvN48qK3wbLzzwRTrQAD5Rkj2AGUzKGQk0il0KLCyXWN0Rq7Zgw/PrMwvoqT1b0Y6DFRHknwKCOPQSlIPW9QmE8IRmxRbMOTy+iH2rfcsxTUoCpnjprkMVeq3WxkcpmEy03Bpf5f8Z3qkWfjZFqZghgP/6eM8O+WPhPj2pmJT227S1zoxVURshzBXZ9IuWflXXeSWAfgG2Kioc6WF7BxJkYVlpmwH2EjMSiCo1n1vhG4FV/o+zIxYh8y8NTKjOxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0mXmbyYwTTWfHh8FKp+Fv4SVehztRAaOT329oYB48gs=;
- b=mSciycFU6oLF5uUqkGmmE2X3J5ESwncD7qYowrgjSk6jegKE8GYz55NoNV+p5F371p8yMU2hgbGBzq8cVD1Gm6zesVLPTcJSfeoTw13l12X1jysygE1u1ziBDOqelg/jkavI/OhDooWk+vfiUxgo8fBIMIW3srNBTXNOJ/y4AMQ=
-Received: from DM4PR12MB5748.namprd12.prod.outlook.com (2603:10b6:8:5f::19) by
- DS7PR12MB8081.namprd12.prod.outlook.com (2603:10b6:8:e6::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.16; Tue, 22 Sep 2026 09:55:29 +0000
-Received: from DM4PR12MB5748.namprd12.prod.outlook.com
- ([fe80::6c62:e99c:480d:2729]) by DM4PR12MB5748.namprd12.prod.outlook.com
- ([fe80::6c62:e99c:480d:2729%3]) with mapi id 15.21.0428.011; Tue, 22 Sep 2026
- 09:55:28 +0000
-From: "Kamal, Asad" <Asad.Kamal@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Wang, YuBiao (Ethan)"
- <YuBiao.Wang@amd.com>
-Subject: RE: [PATCH v2] drm/amdgpu: Use offset macros for sdma v7.1
-Thread-Topic: [PATCH v2] drm/amdgpu: Use offset macros for sdma v7.1
-Thread-Index: AQHdSnQBe0yI/y/2202GI7UilwmgK7baXAQg
-Date: Tue, 22 Sep 2026 09:55:28 +0000
-Message-ID: <DM4PR12MB5748E7CC0F5B4EEAD0940A028E832@DM4PR12MB5748.namprd12.prod.outlook.com>
-References: <20260922092253.2320788-1-lijo.lazar@amd.com>
-In-Reply-To: <20260922092253.2320788-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-22T09:55:13.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=Zz1jG3sHEh6av/qBmYmCi349+lDoI/zKj2XJKpAR6AI=;
+ b=ZQoM4CmVJ+GzJCUPPXqaZPnL6hQExjGBTg5oOoLzlkKaPPXymiY6yBpTg/wwodZGwL19+jVcdOjrTLJwPm/7NTh8S1/RGQCOzuMGltemXyBrm4Q7iG6NGEbQuNBhNjPzBMQiV4/fJ/fZDooP9XLfowkaAB8ml2FnSejgo9SIK6M=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5748:EE_|DS7PR12MB8081:EE_
-x-ms-office365-filtering-correlation-id: 45dd3265-c5a4-41d0-d0c6-08df188fa200
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|6133799003|22082099003|18002099003|11063799006|56012099006|10067099003|38070700021;
-x-microsoft-antispam-message-info: ad5M7t758qaBHe2h3C6+IeGZwD04qLhD8bJPjVhAiMIaSXuG23A5bGNmaXpWqHJ+eyY1B8/w4j1ZdgCqSjeibmu/0DcVCNB7VMaVEzkBXX+v+QrmrGKewJfUTaCxFEQfpY3j2DPzUxmGAO1Y0YbHnvZg/s/7P4oFEniSSn2HfpUSH/PrMD7x8vr9I4fUdCFqhiWBS+y7q7E0xf6BnK746k5dxbtkxqokP9lxsu4iwTaz+axF4uAONOG10OJ8lJ2Z9MKSy+LeU1hhKRs+kQZNxUL+KpcON+YqrvrwFdKhBINT2rzjG0uP2gBKKOWN1gBn+DezL2j2iKgZ4PtMWoxz8ASnySOlRkI5HUZnfmUW9Ftq5o+bOXF6EpKWuIIiNEfhZb+2Y1drfu57trmYWhLsXjRo7chidnWNKRil+ciQOJl2rC6dSiZOF0QbMHL7xcZdeYPDNP+Ta8KMEic7vbenYt5k6NZeKfyNVgSl3w6qVDc3eXHcx02fuhaLknt1yWXmRJP2GNbk2+VxvhYffyM979IE+z/ajEMwQGzLlz3on2qSnsCmDDQLHFqrHuqKjvd0uBa/qaJgep+c8hkZJ4eBHVgUmGumb53KBDIYEQDpMCownslq5yRYl6d/BG9Z1HRTZ/z0VDzBjHInPIx2tUFQQpjgjmT3R5r1YSlnkRQBvQF7iosEPAx+K4jmAbi02/7qYNcx2jPxzL/iy/erl38AwFUA2HjK8hfTfUoKKGRrO6Y=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5748.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0ZyAot0eQYtB4BYNkJ+09D0Wgn5UBh+MqJFqc1OLG+yuCXuRbRxpkCNW1HPV?=
- =?us-ascii?Q?Ufv78mvI1GgcEVStcEzTevY58ER0joBm0opkmIIM2CkocB7z492kV94q4PXn?=
- =?us-ascii?Q?rA4dFsQT0gW12R5UvUhU0sx5c48WXpBT/ZkpcKmqcum0GCbgXiZpcOHc5J4Z?=
- =?us-ascii?Q?izWFIBOpc8yvfdKEJjuAvq/zjFjWttTLAMUlBBOOjGz0t+0a/e+G2oK9btUK?=
- =?us-ascii?Q?HzeVwY+4F1I473ItVa5fGBY0+PgNUnvXgLICN7N4x5CdaqYgC/QGtgWaARAv?=
- =?us-ascii?Q?uD0vVfXf+Fb2q8+wWgaUQnXrwrCDTOJFhseecaA0TBokA5pciaJP8OwD1bgl?=
- =?us-ascii?Q?e9GpQjWrkB+A7VSsG7/3OlGAuSxPqVkewqpUIdTTSWLm9rz0lZ5fBAZZDjeT?=
- =?us-ascii?Q?CL3igyfWZ7gLLQlIxV9AcXXs3FJ9Wida+xXnmwcQJB+VzBz/aY0wq+QOm7s/?=
- =?us-ascii?Q?O2suY/4+byhbt2zWYBiXsu4mb/Eh+5YxWv6A7f/iu0q6TBROp2aYjIiuNAIu?=
- =?us-ascii?Q?BNeWvjzc04F5fBmeup4Jv1hv3f1vEJD25InEPszr/nSJ/RnPIop238BVCKh0?=
- =?us-ascii?Q?5yXXYLobsxQMXtN3bmKgLGrfM+VFdJFmc3rliLEyTgPYR5oJ1wVdNm/bNoTV?=
- =?us-ascii?Q?en3uMat1LDfpM3/pfImvZqXWEHbESV/kH7QdISD9OutaXsQ8tn6gzQofr1Yf?=
- =?us-ascii?Q?BQwRhZnSCdlcWZa6CSHFL7+zWHoYv6FEse+P06hB7uYkp5p9ZIm5fad7X2Yl?=
- =?us-ascii?Q?m64wKsNkW7qU4QXA2NjE5iNJMHx9MUwT867wbLOWJOl1WQfQAvgX2ZnBPMR8?=
- =?us-ascii?Q?ovPcii6xGTZPL7cuMt+LIa8BF8terOLXPjLsfEjEWIuKM6jtrOPhK1mwJlyc?=
- =?us-ascii?Q?iQchoIhFgZuST9BlgFuv85GD2onOn6JdXC3NpIY//wGPiXN8nLE6BovSjzNn?=
- =?us-ascii?Q?hJ6QehW6hCkioHK/5nDUREaSrIFaaPQfAXYNMDAVc8FlqwF0xkHlg0mstJHa?=
- =?us-ascii?Q?T4LS3nHC7Wq+8wvnNRJekXWu8lDSzIPvEtAmrcKs0il0zPHdw1pOpFpdjcMi?=
- =?us-ascii?Q?4AamOcmbZS/mADSprAMXnE7ZSaf8BZSHR1dBPqECynCba7X96L3s8znUGdwu?=
- =?us-ascii?Q?Kj98g76cWyfGYTf6pCeBa/VSIbyddRCRXcareh+56NZusgL/cVt46LSlMRpm?=
- =?us-ascii?Q?rnZM/Ze4xvcZ4WjNcfUlYyIM7YxSFFuQnmkFseOlDqmsU6ayujUGEuyjdZME?=
- =?us-ascii?Q?f9eaK0sRUaCwzz7MZmDixS//znJPXhznzT7fTs73nf7/g/bQ/RowlbPji+sM?=
- =?us-ascii?Q?2Lj8xNTHvfPK25qBbat61blczAATvFKpA1lk97xABsEV6VdLe0ErEcIFq5QZ?=
- =?us-ascii?Q?G/mAfZcnunuJAYxcbawAp33evL7wLUBtb+mVI8dMrstSlt9vYEsJesf1Ac0Q?=
- =?us-ascii?Q?YNgR8etivNAUxQpa46f4N5EgMmpsVDguoEsfr0uwiQd9A5Meti4hW2UZ6uSs?=
- =?us-ascii?Q?kLCZIyN6Fgi2sEs9ck+T+CgTA5zKxKz2ylWrRmpiJ/4ssDoGBeqeH4ZWUJEq?=
- =?us-ascii?Q?3XCHqPKH674sbIGLRRWeaaiy553Zfou3+0VMHJ5rc9h22+0T1Ib92NIB46GL?=
- =?us-ascii?Q?w0M2XtXoMMnC7C2cGOr3+2VhDFiEBa91bfISD9BEO79JVOx7T28BF3tfnCVc?=
- =?us-ascii?Q?dDdvYitdt3WAC//NrX7p3xtaq2eMuFV8Qed1GifinINpwUV/?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by CH1PR12MB9623.namprd12.prod.outlook.com (2603:10b6:610:2b3::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 11:30:25 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::dbd3:cc22:a850:dc1e%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 11:30:25 +0000
+Content-Type: multipart/alternative;
+ boundary="------------j0BbIAOcPeDN2RXitraUf0Rz"
+Message-ID: <6c4f5c4b-8866-49e9-b693-678236233e8e@amd.com>
+Date: Tue, 22 Sep 2026 17:00:19 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/3] drm: Extract dma-fence-to-workqueue pattern into
+ common helpers
+To: matthew.brost@intel.com
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+References: <20260909044454.399340-1-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260909044454.399340-1-srinivasan.shanmugam@amd.com>
+X-ClientProxiedBy: MA5P287CA0344.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:21f::10) To IA0PR12MB8208.namprd12.prod.outlook.com
+ (2603:10b6:208:409::17)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|CH1PR12MB9623:EE_
+X-MS-Office365-Filtering-Correlation-Id: 730cddc6-92f1-4569-953f-08df189ce4f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|23010399003|13003099007|10067099003|11063799006|56012099006|8096899003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: RSiW+hiI73dIFIWGaqBUOZfarV5OiMFT7CHa+mdSjo1iW3F/kDYIAUmXTzfTmCJ26frsRAJOEGQwLNBtgjlL4KcZxEVa+8tamgzygPw6bcCy0WxH9TYdwewWHlzdN05onkoQ5srr2EFHEj2p8v0dis9/oh341HC695cNwcNh7aPTm3nEWeDLmBDAyRxtGTAW0EMMabtlb8GXpCsmoRHR1sICSGtQgHJqqfpNKqx125WYb8sOpd+qiznNynGheS1R+xa5thjzCr/TJJ0WelG/lmRdvVFUb9T6mggUgnl/AJyI+vvzhIPCVhZPu64+DTP4oDJOeVjZaBsdoafcHVjnfUwpovcPIYbCnFQrjMTzVzuzq3watgcLREu4D9joMU1KrM7UVk/drPdqmh/00uNHytQTBVucJvnLWDHW/LSSZ1cCrW3o4kMrW0QITlOaisSAIyDEceHvH1cVc3+fMv/MiFhg+V9cUuJTAzB50QSDm9AFO3mpzGlUK6DJlodLeq5m5K8bmWSy3tNW5tfT67uJsmLus+7qTdLbySUv8TmENx1oj12sn6VfKRS269Fd+oIsQL8LA5cO3CYDHvz0AfWiXLem3YmjXaE63kbpQEQILzI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(13003099007)(10067099003)(11063799006)(56012099006)(8096899003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U1JQRFJQdEZwNFNCQXVTdEI0VW93dENybVY2bi9hSFZIWHlrWkkzbnp5bFNF?=
+ =?utf-8?B?WVJjWElTWUJyQ1FFZCtJajJKZmpQM0ZsSmpLdERNS2I2Y08vK0d3Rk9FMUNh?=
+ =?utf-8?B?ME4xL2JRT0VEZGdWdGg4OUEzaTZVSmxCbW55ZXE3SzE4eGpsWS92Z3BhNGNo?=
+ =?utf-8?B?RVdmVllPTDJybDZtRXVNemhmbDRmSlBZQ2NiVFZHMDlQYysxT2VkekhmUTds?=
+ =?utf-8?B?UWxDOHhhbk9aODZGbE53TU1kRlNNdmhsOWtFbzZQUVJQaS8xWkhnWnREcWhC?=
+ =?utf-8?B?UFplVnBhMkUweGpGZ0h6di9IYm1sUHpDNXRlQ25lZmxFSElTclo0dHJ5eWFG?=
+ =?utf-8?B?VDY3ZGppUTVXSVlFQnFPcWVVYnluOXh2Y0xNTTBoS1I3T3dqakpKZFNXc0c1?=
+ =?utf-8?B?T2hHRlpnaXNidlhOUWFBVlpBM2xNd2o4a1hDRlYzOWhBU3R0RkYrNWloTE95?=
+ =?utf-8?B?MHlzVFZPbkpJbVBtNWNZcjc3dlM0Z3ZwV0VxNFh5dlB4dVVGRFJjSm80U05p?=
+ =?utf-8?B?MFRRL21zTzY1OUtwc0RrdUZpQTRnTmllN09KdGUzYW1kTURrMzVlSVR5RFFF?=
+ =?utf-8?B?dVRCMWFiQ1RmVFJEejUvaXY2cUN6R1pxeU5qUjkrWEVFS1hpdjJKa2lsRGQ2?=
+ =?utf-8?B?dnZ0bXRDT2pRRiswNHZEekg1STRDNU1hY0F6Ymx1RG9XL0g1eFBJOUJ4Mjg2?=
+ =?utf-8?B?MmxCNnBXRy9IV0FHb0RFdXdlaVBReW1VQVIydy9KWVVDcGo4aGV5UFFiWHJo?=
+ =?utf-8?B?Q2ZVS2JTM0VwY2dMSUR2VzBDNzZkYTRrV2E3YVpYU0k5OG9RMSt2Z3ppUUFH?=
+ =?utf-8?B?N3RpdlY5ci9rRFBJa2V1WkcxZWdTa3E5alVvZGtPK25SV2huOHhld1dCMlJL?=
+ =?utf-8?B?WGtpMUh6L1VkSlpYT3FBeTlERzRybVhuSUpWNHAwYzZNckphOGFwUGs0ZTBs?=
+ =?utf-8?B?UUJoWXhpcEhNUVdJWlpiR3RLTGV2bXl3eGQ3ZUFOL015dG9aMHhBZkxVVGRN?=
+ =?utf-8?B?YXI0VFFIc1d3dWd2ZUI5N3VZdWg1TFd4VkYzRHVDN3lVVE11THN5dWxyQnlL?=
+ =?utf-8?B?dm9TNjNVVndLRkM5TXdlWCtKdkZWYkpDS3dndExjQWZ5L1UzSnF5NWhCOFAw?=
+ =?utf-8?B?RWRYSVNmWUxOLzAwSnlVTVZSRnBmVHVrS1ViN0NTelQ2dU96MVdtV0tzT3Nw?=
+ =?utf-8?B?c3V6Q01KM3Z2THBLY0lpN0hoUzhsbDQ3RnQzb0sybUxtRGpkeFJTRjdoUkxu?=
+ =?utf-8?B?cU1XY01Jc21FY0dYYVltN3pFdks0bjBXR2lsTTRyeHMydzVsYUhMbEZ6UWE0?=
+ =?utf-8?B?L1h6R1B5WVk5SkJDbXcyNk9aVDVxRXE2QmI2NVZ6OWF1Q04vN2J6SDU5Q3d2?=
+ =?utf-8?B?OFNydENLZ0VuRlVVeWEydUlJSWFvMHlpUnpKOUY5Y0xRaUw3WTU1dUg3a2dV?=
+ =?utf-8?B?b2lTWnhPZzZRNzRSUC9XUlBwWUZla1Nqc0ZnMUJtUHlSbnlaVys1Z2hEbzA4?=
+ =?utf-8?B?bmhmM1hBOUY5dThNQTFtWmNDRy9heUNCTmtrYXFqYmc3dnZMZ2VSMnY2ZEZG?=
+ =?utf-8?B?TmVPcEUxZTJlTkJFWVJDN1VXWlF0dUswbHVQM2N2RVpPc1FlL0ZSNjZwL3pr?=
+ =?utf-8?B?elBWTG5IY0dISGtDdHk4RDFKQWpTUU42V1RYQTZIMDJadVQ0dGRXbGhDWml3?=
+ =?utf-8?B?S1hIUTdLUjA0MzdGTXBKdEIvYmpmSFB6UjBoSEZqSzVLZllicXB3enl1TXhs?=
+ =?utf-8?B?VllGSWRzMjVCcHF4aXJOK1RweWl5YUhmTS9FUGp3R3lDM0M2L1BYWUxYM1hT?=
+ =?utf-8?B?TlRsUkJXV1B2QW1QbW1kSk5MS2pHL1JyTW5YanVTYUFadFFaUnk3R01GeUcv?=
+ =?utf-8?B?T201YzBOSE9WR0YzaVBxTmhqSEJEcDh0cGVQck9vY1hYbmYzUzhVNEZQR0Ri?=
+ =?utf-8?B?d1kxb29RbmU5andDZGhlWGZuTUUyUnp1RVFPOFlRRzZmWUVPNmdtZ1lQMDQz?=
+ =?utf-8?B?djZvbjBhZy85YWJ1VWRvNFhuN1RhbS9PZG9hUkhENjlLbWRWRFRObHlnK2Jk?=
+ =?utf-8?B?dXQ5OXhzYjBGMTZpL2hHM0NLaEtQSW1FSjltOTBsSS9wODA5dkNEVFFuMDhR?=
+ =?utf-8?B?aGlyR1dNUytOMUZGN05qa3JSVzNxa1JNZ25OQUcxNHA1Y0JsZFQ5ZVpOOHNj?=
+ =?utf-8?B?cnFTK29hVnE2Q1FTV25VbHNHamtMUTZIZWVsaGt3K3R0all3Zk9WYWxzKzkv?=
+ =?utf-8?B?Mzdlc0RZY3V2cStZZFVTSlRCV3lrTGU3VFRGSkZjcWRObm1EK0MrVXIyUGVp?=
+ =?utf-8?Q?r/l75uiCRs7uSP1cVh?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 730cddc6-92f1-4569-953f-08df189ce4f6
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5748.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45dd3265-c5a4-41d0-d0c6-08df188fa200
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 09:55:28.6707 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MUc6gdEezpTfD9QGP9BI2CC6jqz3FP39KakNULxHIk454yd+LmIiF8Fx83WNmiyUjwNyFWDqj555qDouQ0RTiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8081
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 11:30:24.9924 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xjkjp8vpLiMB6W+vdRABitcu5l8ja+NAWwfKxCLAYBeHbN11zVMAgb/H6UATYBoe86wz+rR2q5cnyCEW1fGjHw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9623
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,881 +137,849 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
-
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
-
-Thanks & Regards
-Asad
-
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Tuesday, September 22, 2026 2:52 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Ma, Le <Le.Ma@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; =
-Wang, YuBiao (Ethan) <YuBiao.Wang@amd.com>
-Subject: [PATCH v2] drm/amdgpu: Use offset macros for sdma v7.1
-
-Use WREG32_SOC15_OFFSET/RREG32_SOC15_OFFSET macros for register accesses of=
- SDMA instances within a XCD. Those macros take instance arg which is helpf=
-ul in SRIOV accesses to identify the XCC through which access can be routed=
-. Use build time assert to make sure only register offsets from the mapped =
-segments are accessed.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
-
-v2: Read GRBM_STATUS2 separately for IP dump. That doesn't need offset calc=
-ulation.
-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c | 321 ++++++++++++++++---------
- 1 file changed, 207 insertions(+), 114 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v7_1.c
-index 50058118235f..f02092939d3b 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-@@ -46,9 +46,9 @@
-
- MODULE_FIRMWARE("amdgpu/sdma_7_1_0.bin");
-
--#define SDMA1_REG_OFFSET 0x600
--#define SDMA0_SDMA_IDX_0_END 0x450
--#define SDMA1_HYP_DEC_REG_OFFSET 0x30
-+/* per-instance stride is the SDMA0 to SDMA1 delta of the owning
-+address block */ #define SDMA1_DEC_REG_OFFSET (regSDMA1_SDMA_DEC_START
-+- regSDMA0_SDMA_DEC_START) #define SDMA1_HYP_DEC_REG_OFFSET
-+(regSDMA1_SDMA_VM_CTX_LO - regSDMA0_SDMA_VM_CTX_LO)
-
- static const struct amdgpu_hwip_reg_entry sdma_reg_list_7_1[] =3D {
-        SOC15_REG_ENTRY_STR(GC, 0, regSDMA0_SDMA_STATUS_REG), @@ -104,8 +10=
-4,8 @@ static const struct amdgpu_hwip_reg_entry sdma_reg_list_7_1[] =3D {
-        SOC15_REG_ENTRY_STR(GC, 0, regSDMA0_SDMA_QUEUE2_DUMMY_REG),
-        SOC15_REG_ENTRY_STR(GC, 0, regSDMA0_SDMA_INT_STATUS),
-        SOC15_REG_ENTRY_STR(GC, 0, regSDMA0_SDMA_VM_CNTL),
--       SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS2),
-        SOC15_REG_ENTRY_STR(GC, 0, regSDMA0_SDMA_CHICKEN_BITS),
-+       SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS2),
- };
-
- static void sdma_v7_1_set_ring_funcs(struct amdgpu_device *adev); @@ -114,=
-26 +114,27 @@ static void sdma_v7_1_set_irq_funcs(struct amdgpu_device *ade=
-v);  static int sdma_v7_1_inst_start(struct amdgpu_device *adev,
-                                uint32_t inst_mask);
-
--static u32 sdma_v7_1_get_reg_offset(struct amdgpu_device *adev, u32 instan=
-ce, u32 internal_offset)
-+/* per-instance stride of each SDMA address block, indexed by register
-+BASE_IDX */ static const u32 sdma_v7_1_inst_stride[] =3D {
-+       SDMA1_DEC_REG_OFFSET,
-+       SDMA1_HYP_DEC_REG_OFFSET,
-+};
-+
-+/*
-+ * Offset from an SDMA0 register to the same register of SDMA instance
-+ * within its own XCC, i.e. SDMA0 to SDMA1 register address delta.
-+ */
-+static u32 sdma_v7_1_inst_offset(struct amdgpu_device *adev, u32 instance,
-+                                u32 base_idx)
- {
--       u32 base;
--       u32 dev_inst =3D GET_INST(SDMA0, instance);
--       int xcc_id =3D adev->sdma.instance[instance].xcc_id;
--       int xcc_inst =3D dev_inst % adev->sdma.num_inst_per_xcc;
--
--       if (internal_offset >=3D SDMA0_SDMA_IDX_0_END) {
--               base =3D adev->reg_offset[GC_HWIP][xcc_id][1];
--               if (xcc_inst !=3D 0)
--                       internal_offset +=3D SDMA1_HYP_DEC_REG_OFFSET * xcc=
-_inst;
--       } else {
--               base =3D adev->reg_offset[GC_HWIP][xcc_id][0];
--               if (xcc_inst !=3D 0)
--                       internal_offset +=3D SDMA1_REG_OFFSET * xcc_inst;
--       }
-+       u32 xcc_inst =3D GET_INST(SDMA0, instance) %
-+adev->sdma.num_inst_per_xcc;
-
--       return base + internal_offset;
-+       return xcc_inst * sdma_v7_1_inst_stride[base_idx];
- }
-
-+#define SDMA_INST_OFFSET(i, reg) \
-+       (BUILD_BUG_ON_ZERO(ARRAY_SIZE(sdma_v7_1_inst_stride) <=3D reg##_BAS=
-E_IDX) + \
-+        sdma_v7_1_inst_offset(adev, (i), reg##_BASE_IDX))
- static unsigned sdma_v7_1_ring_init_cond_exec(struct amdgpu_ring *ring,
-                                              uint64_t addr)
- {
-@@ -199,6 +200,7 @@ static uint64_t sdma_v7_1_ring_get_wptr(struct amdgpu_r=
-ing *ring)  static void sdma_v7_1_ring_set_wptr(struct amdgpu_ring *ring)  =
-{
-        struct amdgpu_device *adev =3D ring->adev;
-+       u32 xcc_id =3D adev->sdma.instance[ring->me].xcc_id;
-
-        DRM_DEBUG("Setting write pointer\n");
-
-@@ -224,14 +226,12 @@ static void sdma_v7_1_ring_set_wptr(struct amdgpu_rin=
-g *ring)
-                          lower_32_bits(ring->wptr << 2),
-                          ring->me,
-                          upper_32_bits(ring->wptr << 2));
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev,
--                                                            ring->me,
--                                                            regSDMA0_SDMA_=
-QUEUE0_RB_WPTR),
--                               lower_32_bits(ring->wptr << 2));
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev,
--                                                            ring->me,
--                                                            regSDMA0_SDMA_=
-QUEUE0_RB_WPTR_HI),
--                               upper_32_bits(ring->wptr << 2));
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPT=
-R,
-+                                   SDMA_INST_OFFSET(ring->me, regSDMA0_SDM=
-A_QUEUE0_RB_WPTR),
-+                                   lower_32_bits(ring->wptr << 2));
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPT=
-R_HI,
-+                                   SDMA_INST_OFFSET(ring->me, regSDMA0_SDM=
-A_QUEUE0_RB_WPTR_HI),
-+                                   upper_32_bits(ring->wptr << 2));
-        }
- }
-
-@@ -367,15 +367,22 @@ static void sdma_v7_1_inst_gfx_stop(struct amdgpu_dev=
-ice *adev,
-                                    uint32_t inst_mask)
- {
-        u32 rb_cntl, ib_cntl;
-+       u32 xcc_id;
-        int i;
-
-        for_each_inst(i, inst_mask) {
--               rb_cntl =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(ad=
-ev, i, regSDMA0_SDMA_QUEUE0_RB_CNTL));
-+               xcc_id =3D adev->sdma.instance[i].xcc_id;
-+
-+               rb_cntl =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_Q=
-UEUE0_RB_CNTL,
-+                                             SDMA_INST_OFFSET(i, regSDMA0_=
-SDMA_QUEUE0_RB_CNTL));
-                rb_cntl =3D REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNT=
-L, RB_ENABLE, 0);
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_CNTL), rb_cntl);
--               ib_cntl =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(ad=
-ev, i, regSDMA0_SDMA_QUEUE0_IB_CNTL));
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_CNT=
-L,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_CNTL), rb_cntl);
-+               ib_cntl =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_Q=
-UEUE0_IB_CNTL,
-+                                             SDMA_INST_OFFSET(i, regSDMA0_=
-SDMA_QUEUE0_IB_CNTL));
-                ib_cntl =3D REG_SET_FIELD(ib_cntl, SDMA0_SDMA_QUEUE0_IB_CNT=
-L, IB_ENABLE, 0);
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_IB_CNTL), ib_cntl);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_IB_CNT=
-L,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_IB_CNTL), ib_cntl);
-        }
- }
-
-@@ -405,11 +412,14 @@ static void sdma_v7_1_inst_rlc_stop(struct amdgpu_dev=
-ice *adev,  static void sdma_v7_1_inst_ctx_switch_enable(struct amdgpu_devi=
-ce *adev,
-                                             bool enable, uint32_t inst_mas=
-k)  {
-+       u32 xcc_id;
-        int i;
-
-        for_each_inst(i, inst_mask) {
--               WREG32_SOC15_IP(GC,
--                       sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_UTC=
-L1_TIMEOUT), 0x80);
-+               xcc_id =3D adev->sdma.instance[i].xcc_id;
-+
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_UTCL1_TIMEOUT=
-,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_UTCL1=
-_TIMEOUT), 0x80);
-        }
- }
-
-@@ -426,6 +436,7 @@ static void sdma_v7_1_inst_enable(struct amdgpu_device =
-*adev,
-                                  bool enable, uint32_t inst_mask)
- {
-        u32 mcu_cntl;
-+       u32 xcc_id;
-        int i;
-
-        if (!enable) {
-@@ -437,9 +448,13 @@ static void sdma_v7_1_inst_enable(struct amdgpu_device=
- *adev,
-                return;
-
-        for_each_inst(i, inst_mask) {
--               mcu_cntl =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(a=
-dev, i, regSDMA0_SDMA_MCU_CNTL));
-+               xcc_id =3D adev->sdma.instance[i].xcc_id;
-+
-+               mcu_cntl =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_=
-MCU_CNTL,
-+                                              SDMA_INST_OFFSET(i, regSDMA0=
-_SDMA_MCU_CNTL));
-                mcu_cntl =3D REG_SET_FIELD(mcu_cntl, SDMA0_SDMA_MCU_CNTL, H=
-ALT, enable ? 0 : 1);
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_MCU_CNTL), mcu_cntl);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_CNTL,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_MCU_C=
-NTL), mcu_cntl);
-        }
- }
-
-@@ -462,13 +477,15 @@ static int sdma_v7_1_gfx_resume_instance(struct amdgp=
-u_device *adev, int i, bool
-        u32 doorbell_offset;
-        u32 temp;
-        u64 wptr_gpu_addr;
-+       u32 xcc_id =3D adev->sdma.instance[i].xcc_id;
-        int r;
-
-        ring =3D &adev->sdma.instance[i].ring;
-
-        /* Set ring buffer size in dwords */
-        rb_bufsz =3D order_base_2(ring->ring_size / 4);
--       rb_cntl =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, r=
-egSDMA0_SDMA_QUEUE0_RB_CNTL));
-+       rb_cntl =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB=
-_CNTL,
-+                                     SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUE=
-UE0_RB_CNTL));
-        rb_cntl =3D REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RB_SI=
-ZE, rb_bufsz);  #ifdef __BIG_ENDIAN
-        rb_cntl =3D REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RB_SW=
-AP_ENABLE, 1); @@ -476,32 +493,49 @@ static int sdma_v7_1_gfx_resume_instan=
-ce(struct amdgpu_device *adev, int i, bool
-                                RPTR_WRITEBACK_SWAP_ENABLE, 1);
- #endif
-        rb_cntl =3D REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RB_PR=
-IV, 1);
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_RB_CNTL), rb_cntl);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_CNTL,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_CNT=
-L), rb_cntl);
-
-        /* Initialize the ring buffer's read and write pointers */
-        if (restore) {
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_RPTR), lower_32_bits(ring->wptr << 2));
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_RPTR_HI), upper_32_bits(ring->wptr << 2));
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_WPTR), lower_32_bits(ring->wptr << 2));
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_WPTR_HI), upper_32_bits(ring->wptr << 2));
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPT=
-R,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_RPTR),
-+                                   lower_32_bits(ring->wptr << 2));
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPT=
-R_HI,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_RPTR_HI),
-+                                   upper_32_bits(ring->wptr << 2));
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPT=
-R,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_WPTR),
-+                                   lower_32_bits(ring->wptr << 2));
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPT=
-R_HI,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_WPTR_HI),
-+                                   upper_32_bits(ring->wptr << 2));
-        } else {
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_RPTR), 0);
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_RPTR_HI), 0);
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_WPTR), 0);
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_WPTR_HI), 0);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPT=
-R,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_RPTR), 0);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPT=
-R_HI,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_RPTR_HI), 0);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPT=
-R,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_WPTR), 0);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPT=
-R_HI,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_WPTR_HI), 0);
-        }
-        /* setup the wptr shadow polling */
-        wptr_gpu_addr =3D ring->wptr_gpu_addr;
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_RB_WPTR_POLL_ADDR_LO),
--              lower_32_bits(wptr_gpu_addr));
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_RB_WPTR_POLL_ADDR_HI),
--              upper_32_bits(wptr_gpu_addr));
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR_POLL_A=
-DDR_LO,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_WPT=
-R_POLL_ADDR_LO),
-+                           lower_32_bits(wptr_gpu_addr));
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPTR_POLL_A=
-DDR_HI,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_WPT=
-R_POLL_ADDR_HI),
-+                           upper_32_bits(wptr_gpu_addr));
-
-        /* set the wb address whether it's enabled or not */
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_RB_RPTR_ADDR_HI),
--              upper_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFF);
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_RB_RPTR_ADDR_LO),
--              lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPTR_ADDR_H=
-I,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_RPT=
-R_ADDR_HI),
-+                           upper_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFF=
-);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_RPTR_ADDR_L=
-O,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_RPT=
-R_ADDR_LO),
-+                           lower_32_bits(ring->rptr_gpu_addr) & 0xFFFFFFFC=
-);
-
-        rb_cntl =3D REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RPTR_=
-WRITEBACK_ENABLE, 1);
-        if (amdgpu_sriov_vf(adev))
-@@ -511,22 +545,32 @@ static int sdma_v7_1_gfx_resume_instance(struct amdgp=
-u_device *adev, int i, bool
-
-        rb_cntl =3D REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, MCU_W=
-PTR_POLL_ENABLE, 1);
-
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_RB_BASE), ring->gpu_addr >> 8);
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_RB_BASE_HI), ring->gpu_addr >> 40);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_BASE,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_BAS=
-E), ring->gpu_addr >> 8);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_BASE_HI,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_BAS=
-E_HI),
-+                           ring->gpu_addr >> 40);
-
-        if (!restore)
-                ring->wptr =3D 0;
-
-        /* before programing wptr to a less value, need set minor_ptr_updat=
-e first */
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_MINOR_PTR_UPDATE), 1);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_MINOR_PTR_UPDA=
-TE,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_MINOR_=
-PTR_UPDATE), 1);
-
-        if (!amdgpu_sriov_vf(adev)) { /* only bare-metal use register write=
- for wptr */
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_WPTR), lower_32_bits(ring->wptr) << 2);
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_RB_WPTR_HI), upper_32_bits(ring->wptr) << 2);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPT=
-R,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_WPTR),
-+                                   lower_32_bits(ring->wptr) << 2);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_WPT=
-R_HI,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_RB_WPTR_HI),
-+                                   upper_32_bits(ring->wptr) << 2);
-        }
-
--       doorbell =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, =
-regSDMA0_SDMA_QUEUE0_DOORBELL));
--       doorbell_offset =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(ad=
-ev, i, regSDMA0_SDMA_QUEUE0_DOORBELL_OFFSET));
-+       doorbell =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_D=
-OORBELL,
-+                                      SDMA_INST_OFFSET(i, regSDMA0_SDMA_QU=
-EUE0_DOORBELL));
-+       doorbell_offset =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_Q=
-UEUE0_DOORBELL_OFFSET,
-+                                             SDMA_INST_OFFSET(i, regSDMA0_=
-SDMA_QUEUE0_DOORBELL_OFFSET));
-
-        if (ring->use_doorbell) {
-                doorbell =3D REG_SET_FIELD(doorbell, SDMA0_SDMA_QUEUE0_DOOR=
-BELL, ENABLE, 1); @@ -535,8 +579,11 @@ static int sdma_v7_1_gfx_resume_inst=
-ance(struct amdgpu_device *adev, int i, bool
-        } else {
-                doorbell =3D REG_SET_FIELD(doorbell, SDMA0_SDMA_QUEUE0_DOOR=
-BELL, ENABLE, 0);
-        }
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_DOORBELL), doorbell);
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_DOORBELL_OFFSET), doorbell_offset);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_DOORBELL,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_DOORBE=
-LL), doorbell);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_DOORBELL_OFFSE=
-T,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_DOORBE=
-LL_OFFSET),
-+                           doorbell_offset);
-
-        if (i =3D=3D 0)
-                adev->nbio.funcs->sdma_doorbell_range(adev, i, ring->use_do=
-orbell, @@ -547,53 +594,66 @@ static int sdma_v7_1_gfx_resume_instance(stru=
-ct amdgpu_device *adev, int i, bool
-                sdma_v7_1_ring_set_wptr(ring);
-
-        /* set minor_ptr_update to 0 after wptr programed */
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_MINOR_PTR_UPDATE), 0);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_MINOR_PTR_UPDA=
-TE,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_MINOR_=
-PTR_UPDATE), 0);
-
-        /* Set up sdma hang watchdog */
--       temp =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regS=
-DMA0_SDMA_WATCHDOG_CNTL));
-+       temp =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_WATCHDOG_CNT=
-L,
-+                                  SDMA_INST_OFFSET(i, regSDMA0_SDMA_WATCHD=
-OG_CNTL));
-        /* Disable sdma hang watchdog, need revist this when issue resolved=
-.
-        Once issue resoved, the QUEUE_HANG_COUNT should be set to max(adev-=
->usec_timeout/100000,1)
-        */
-        temp =3D REG_SET_FIELD(temp, SDMA0_SDMA_WATCHDOG_CNTL, QUEUE_HANG_C=
-OUNT, 0);
-        temp =3D REG_SET_FIELD(temp, SDMA0_SDMA_WATCHDOG_CNTL, CMD_TIMEOUT_=
-COUNT, 0);
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_WATCHDOG_CNTL), temp);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_WATCHDOG_CNTL,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_WATCHDOG_CNTL=
-), temp);
-
-        dev_dbg(adev->dev, "Disable SDMA Hang WatchDog, regSDMA0_SDMA_WATCH=
-DOG_CNTL =3D %d\n",
--               RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_WATCHDOG_CNTL)));
-+               RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_WATCHDOG_CNTL=
-,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_WATCH=
-DOG_CNTL)));
-
-        /* Set up RESP_MODE to non-copy addresses */
--       temp =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regS=
-DMA0_SDMA_UTCL1_CNTL));
-+       temp =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_UTCL1_CNTL,
-+                                  SDMA_INST_OFFSET(i, regSDMA0_SDMA_UTCL1_=
-CNTL));
-        temp =3D REG_SET_FIELD(temp, SDMA0_SDMA_UTCL1_CNTL, RESP_MODE, 3);
-        temp =3D REG_SET_FIELD(temp, SDMA0_SDMA_UTCL1_CNTL, REDO_DELAY, 9);
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_UTCL1_CNTL), temp);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_UTCL1_CNTL,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_UTCL1_CNTL), =
-temp);
-
-        /* program default cache read and write policy */
--       temp =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regS=
-DMA0_SDMA_UTCL1_PAGE));
-+       temp =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_UTCL1_PAGE,
-+                                  SDMA_INST_OFFSET(i, regSDMA0_SDMA_UTCL1_=
-PAGE));
-        /* clean read policy and write policy bits */
-        temp &=3D 0xFF0FFF;
-        temp |=3D ((CACHE_READ_POLICY_L2__DEFAULT << 12) |
-                 (CACHE_WRITE_POLICY_L2__DEFAULT << 14));
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_UTCL1_PAGE), temp);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_UTCL1_PAGE,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_UTCL1_PAGE), =
-temp);
-
-        if (!amdgpu_sriov_vf(adev)) {
-                /* unhalt engine */
--               temp =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev,=
- i, regSDMA0_SDMA_MCU_CNTL));
-+               temp =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_=
-CNTL,
-+                                          SDMA_INST_OFFSET(i, regSDMA0_SDM=
-A_MCU_CNTL));
-                temp =3D REG_SET_FIELD(temp, SDMA0_SDMA_MCU_CNTL, HALT, 0);
-                temp =3D REG_SET_FIELD(temp, SDMA0_SDMA_MCU_CNTL, RESET, 0)=
-;
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_MCU_CNTL), temp);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_CNTL,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_MCU_C=
-NTL), temp);
-        }
-
-        /* enable DMA RB */
-        rb_cntl =3D REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RB_EN=
-ABLE, 1);
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_RB_CNTL), rb_cntl);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_RB_CNTL,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_RB_CNT=
-L), rb_cntl);
-
--       ib_cntl =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, r=
-egSDMA0_SDMA_QUEUE0_IB_CNTL));
-+       ib_cntl =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_IB=
-_CNTL,
-+                                     SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUE=
-UE0_IB_CNTL));
-        ib_cntl =3D REG_SET_FIELD(ib_cntl, SDMA0_SDMA_QUEUE0_IB_CNTL, IB_EN=
-ABLE, 1);  #ifdef __BIG_ENDIAN
-        ib_cntl =3D REG_SET_FIELD(ib_cntl, SDMA0_SDMA_QUEUE0_IB_CNTL, IB_SW=
-AP_ENABLE, 1);  #endif
-        /* enable DMA IBs */
--       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA=
-_QUEUE0_IB_CNTL), ib_cntl);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_IB_CNTL,
-+                           SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE0_IB_CNT=
-L), ib_cntl);
-        ring->sched.ready =3D true;
-
-        if (amdgpu_sriov_vf(adev)) { /* bare-metal sequence doesn't need be=
-low to lines */ @@ -675,6 +735,7 @@ static int sdma_v7_1_inst_load_microcod=
-e(struct amdgpu_device *adev,
-        const __le32 *fw_data;
-        u32 fw_size;
-        uint32_t tmp, sdma_status, ic_op_cntl;
-+       u32 xcc_id;
-        int i, r, j;
-
-        /* halt the MEs */
-@@ -692,6 +753,8 @@ static int sdma_v7_1_inst_load_microcode(struct amdgpu_=
-device *adev,
-        fw_size =3D le32_to_cpu(hdr->ucode_size_bytes);
-
-        for_each_inst(i, inst_mask) {
-+               xcc_id =3D adev->sdma.instance[i].xcc_id;
-+
-                r =3D amdgpu_bo_create_reserved(adev, fw_size,
-                                              PAGE_SIZE,
-                                              AMDGPU_GEM_DOMAIN_VRAM,
-@@ -708,25 +771,31 @@ static int sdma_v7_1_inst_load_microcode(struct amdgp=
-u_device *adev,
-                amdgpu_bo_kunmap(adev->sdma.instance[i].sdma_fw_obj);
-                amdgpu_bo_unreserve(adev->sdma.instance[i].sdma_fw_obj);
-
--               tmp =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, =
-i, regSDMA0_SDMA_IC_CNTL));
-+               tmp =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_CN=
-TL,
-+                                         SDMA_INST_OFFSET(i, regSDMA0_SDMA=
-_IC_CNTL));
-                tmp =3D REG_SET_FIELD(tmp, SDMA0_SDMA_IC_CNTL, GPA, 0);
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_IC_CNTL), tmp);
--
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_IC_BASE_LO),
--                       lower_32_bits(adev->sdma.instance[i].sdma_fw_gpu_ad=
-dr));
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_IC_BASE_HI),
--                       upper_32_bits(adev->sdma.instance[i].sdma_fw_gpu_ad=
-dr));
--
--               tmp =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, =
-i, regSDMA0_SDMA_IC_OP_CNTL));
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_CNTL,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_CN=
-TL), tmp);
-+
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_BASE_LO,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_BA=
-SE_LO),
-+                                   lower_32_bits(adev->sdma.instance[i].sd=
-ma_fw_gpu_addr));
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_BASE_HI,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_BA=
-SE_HI),
-+                                   upper_32_bits(adev->sdma.instance[i].sd=
-ma_fw_gpu_addr));
-+
-+               tmp =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_OP=
-_CNTL,
-+                                         SDMA_INST_OFFSET(i, regSDMA0_SDMA=
-_IC_OP_CNTL));
-                tmp =3D REG_SET_FIELD(tmp, SDMA0_SDMA_IC_OP_CNTL, PRIME_ICA=
-CHE, 1);
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_IC_OP_CNTL), tmp);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_IC_OP_CNTL,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_IC_OP=
-_CNTL), tmp);
-
-                /* Wait for sdma ucode init complete */
-                for (j =3D 0; j < adev->usec_timeout; j++) {
--                       ic_op_cntl =3D RREG32_SOC15_IP(GC,
--                                       sdma_v7_1_get_reg_offset(adev, i, r=
-egSDMA0_SDMA_IC_OP_CNTL));
--                       sdma_status =3D RREG32_SOC15_IP(GC,
--                                       sdma_v7_1_get_reg_offset(adev, i, r=
-egSDMA0_SDMA_STATUS_REG));
-+                       ic_op_cntl =3D RREG32_SOC15_OFFSET(GC, xcc_id, regS=
-DMA0_SDMA_IC_OP_CNTL,
-+                                                        SDMA_INST_OFFSET(i=
-, regSDMA0_SDMA_IC_OP_CNTL));
-+                       sdma_status =3D RREG32_SOC15_OFFSET(GC, xcc_id, reg=
-SDMA0_SDMA_STATUS_REG,
-+                                                         SDMA_INST_OFFSET(=
-i, regSDMA0_SDMA_STATUS_REG));
-                        if ((REG_GET_FIELD(ic_op_cntl, SDMA0_SDMA_IC_OP_CNT=
-L, ICACHE_PRIMED) =3D=3D 1) &&
-                            (REG_GET_FIELD(sdma_status, SDMA0_SDMA_STATUS_R=
-EG, UCODE_INIT_DONE) =3D=3D 1))
-                                break;
-@@ -746,6 +815,7 @@ static int sdma_v7_1_soft_reset(struct amdgpu_ip_block =
-*ip_block)  {
-        struct amdgpu_device *adev =3D ip_block->adev;
-        uint32_t inst_mask;
-+       u32 xcc_id;
-        u32 tmp;
-        int i;
-
-@@ -753,15 +823,22 @@ static int sdma_v7_1_soft_reset(struct amdgpu_ip_bloc=
-k *ip_block)
-        sdma_v7_1_inst_gfx_stop(adev, inst_mask);
-
-        for_each_inst(i, inst_mask) {
--               //tmp =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev=
-, i, regSDMA0_SDMA_FREEZE));
-+               xcc_id =3D adev->sdma.instance[i].xcc_id;
-+
-+               //tmp =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_FRE=
-EZE,
-+               //                          SDMA_INST_OFFSET(i, regSDMA0_SD=
-MA_FREEZE));
-                //tmp |=3D SDMA0_SDMA_FREEZE__FREEZE_MASK;
--               //WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, reg=
-SDMA0_SDMA_FREEZE), tmp);
--               tmp =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, =
-i, regSDMA0_SDMA_MCU_CNTL));
-+               //WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_FREEZE,
-+               //                    SDMA_INST_OFFSET(i, regSDMA0_SDMA_FRE=
-EZE), tmp);
-+               tmp =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_C=
-NTL,
-+                                         SDMA_INST_OFFSET(i, regSDMA0_SDMA=
-_MCU_CNTL));
-                tmp |=3D SDMA0_SDMA_MCU_CNTL__HALT_MASK;
-                tmp |=3D SDMA0_SDMA_MCU_CNTL__RESET_MASK;
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_MCU_CNTL), tmp);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_MCU_CNTL,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_MCU_C=
-NTL), tmp);
-
--               WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSD=
-MA0_SDMA_QUEUE0_PREEMPT), 0);
-+               WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_PREEMP=
-T,
-+                                   SDMA_INST_OFFSET(i, regSDMA0_SDMA_QUEUE=
-0_PREEMPT), 0);
-
-                udelay(100);
-
-@@ -857,6 +934,7 @@ static int sdma_v7_1_mqd_init(struct amdgpu_device *ade=
-v, void *mqd,
-                              struct amdgpu_mqd_prop *prop)
- {
-        struct v12_1_sdma_mqd *m =3D mqd;
-+       u32 xcc_id =3D adev->sdma.instance[0].xcc_id;
-        uint64_t wb_gpu_addr;
-
-        m->sdmax_queuen_rb_cntl =3D
-@@ -876,8 +954,8 @@ static int sdma_v7_1_mqd_init(struct amdgpu_device *ade=
-v, void *mqd,
-        m->sdmax_queuen_rb_rptr_addr_lo =3D lower_32_bits(wb_gpu_addr);
-        m->sdmax_queuen_rb_rptr_addr_hi =3D upper_32_bits(wb_gpu_addr);
-
--       m->sdmax_queuen_ib_cntl =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_o=
-ffset(adev, 0,
--                                                       regSDMA0_SDMA_QUEUE=
-0_IB_CNTL));
-+       m->sdmax_queuen_ib_cntl =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA=
-0_SDMA_QUEUE0_IB_CNTL,
-+                                                   SDMA_INST_OFFSET(0, reg=
-SDMA0_SDMA_QUEUE0_IB_CNTL));
-
-        m->sdmax_queuen_doorbell_offset =3D
-                prop->doorbell_index << SDMA0_SDMA_QUEUE0_DOORBELL_OFFSET__=
-OFFSET__SHIFT;
-@@ -1380,13 +1458,18 @@ static int sdma_v7_1_sw_fini(struct amdgpu_ip_block=
- *ip_block)  static void sdma_v7_1_rb_cmd_switch(struct amdgpu_device *adev=
-,
-                                    uint32_t inst_mask)
- {
-+       u32 xcc_id;
-        int i, fe_cntl;
--
-+
-        if (adev->sdma.sdma_debug) {
-                for_each_inst(i, inst_mask) {
--                       fe_cntl =3D RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_o=
-ffset(adev, i, regSDMA0_SDMA_FE_CNTL0));
-+                       xcc_id =3D adev->sdma.instance[i].xcc_id;
-+
-+                       fe_cntl =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA=
-0_SDMA_FE_CNTL0,
-+                                                     SDMA_INST_OFFSET(i, r=
-egSDMA0_SDMA_FE_CNTL0));
-                        fe_cntl &=3D 0x7fffffff;
--                       WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, =
-i, regSDMA0_SDMA_FE_CNTL0), fe_cntl);
-+                       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_FE_CN=
-TL0,
-+                                           SDMA_INST_OFFSET(i, regSDMA0_SD=
-MA_FE_CNTL0), fe_cntl);
-                }
-        }
- }
-@@ -1442,8 +1525,10 @@ static int sdma_v7_1_wait_for_idle(struct amdgpu_ip_=
-block *ip_block)
-
-        for (i =3D 0; i < adev->usec_timeout; i++) {
-                for (j =3D 0; j < adev->sdma.num_instances; j++) {
--                       sdma[j] =3D RREG32(sdma_v7_1_get_reg_offset(adev,
--                                               j, regSDMA0_SDMA_STATUS_REG=
-));
-+                       u32 xcc_id =3D adev->sdma.instance[j].xcc_id;
-+
-+                       sdma[j] =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA=
-0_SDMA_STATUS_REG,
-+                                       SDMA_INST_OFFSET(j, regSDMA0_SDMA_S=
-TATUS_REG));
-                        if (!(sdma[j] & SDMA0_SDMA_STATUS_REG__IDLE_MASK))
-                                break;
-                }
-@@ -1459,11 +1544,10 @@ static int sdma_v7_1_ring_preempt_ib(struct amdgpu_=
-ring *ring)
-        int i, r =3D 0;
-        struct amdgpu_device *adev =3D ring->adev;
-        u32 index =3D 0;
--       u64 sdma_gfx_preempt;
-+       u32 xcc_id;
-
-        amdgpu_sdma_get_index_from_ring(ring, &index);
--       sdma_gfx_preempt =3D
--               sdma_v7_1_get_reg_offset(adev, index, regSDMA0_SDMA_QUEUE0_=
-PREEMPT);
-+       xcc_id =3D adev->sdma.instance[index].xcc_id;
-
-        /* assert preemption condition */
-        amdgpu_ring_set_preempt_cond_exec(ring, false); @@ -1480,7 +1564,8 =
-@@ static int sdma_v7_1_ring_preempt_ib(struct amdgpu_ring *ring)
-        amdgpu_ring_commit(ring);
-
-        /* assert IB preemption */
--       WREG32(sdma_gfx_preempt, 1);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_PREEMPT,
-+                           SDMA_INST_OFFSET(index, regSDMA0_SDMA_QUEUE0_PR=
-EEMPT), 1);
-
-        /* poll the trailing fence */
-        for (i =3D 0; i < adev->usec_timeout; i++) { @@ -1496,7 +1581,8 @@ =
-static int sdma_v7_1_ring_preempt_ib(struct amdgpu_ring *ring)
-        }
-
-        /* deassert IB preemption */
--       WREG32(sdma_gfx_preempt, 0);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_QUEUE0_PREEMPT,
-+                           SDMA_INST_OFFSET(index, regSDMA0_SDMA_QUEUE0_PR=
-EEMPT), 0);
-
-        /* deassert the preemption condition */
-        amdgpu_ring_set_preempt_cond_exec(ring, true); @@ -1508,14 +1594,15=
- @@ static int sdma_v7_1_set_trap_irq_state(struct amdgpu_device *adev,
-                                        unsigned type,
-                                        enum amdgpu_interrupt_state state) =
- {
-+       u32 xcc_id =3D adev->sdma.instance[type].xcc_id;
-        u32 sdma_cntl;
-
--       u32 reg_offset =3D sdma_v7_1_get_reg_offset(adev, type, regSDMA0_SD=
-MA_CNTL);
--
--       sdma_cntl =3D RREG32(reg_offset);
-+       sdma_cntl =3D RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_CNTL,
-+                                       SDMA_INST_OFFSET(type, regSDMA0_SDM=
-A_CNTL));
-        sdma_cntl =3D REG_SET_FIELD(sdma_cntl, SDMA0_SDMA_CNTL, TRAP_ENABLE=
-,
-                       state =3D=3D AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
--       WREG32(reg_offset, sdma_cntl);
-+       WREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_CNTL,
-+                           SDMA_INST_OFFSET(type, regSDMA0_SDMA_CNTL), sdm=
-a_cntl);
-
-        return 0;
- }
-@@ -1620,11 +1707,17 @@ static void sdma_v7_1_dump_ip_state(struct amdgpu_i=
-p_block *ip_block)
-
-        amdgpu_gfx_off_ctrl(adev, false);
-        for (i =3D 0; i < adev->sdma.num_instances; i++) {
-+               u32 xcc_id =3D adev->sdma.instance[i].xcc_id;
-+
-                instance_offset =3D i * reg_count;
--               for (j =3D 0; j < reg_count; j++)
-+               for (j =3D 0; j < reg_count - 1; j++)
-                        adev->sdma.ip_dump[instance_offset + j] =3D
--                               RREG32(sdma_v7_1_get_reg_offset(adev, i,
--                                      sdma_reg_list_7_1[j].reg_offset));
-+                               RREG32(SOC15_REG_ENTRY_OFFSET_INST(sdma_reg=
-_list_7_1[j], xcc_id) +
-+                                      sdma_v7_1_inst_offset(adev, i, sdma_=
-reg_list_7_1[j].seg));
-+               /* last register is GRBM_STATUS2, read it separately*/
-+               adev->sdma.ip_dump[instance_offset + j] =3D
-+                       RREG32(SOC15_REG_ENTRY_OFFSET_INST(sdma_reg_list_7_=
-1[j],
-+                                                          xcc_id));
-        }
-        amdgpu_gfx_off_ctrl(adev, true);
- }
---
-2.49.0
-
+--------------j0BbIAOcPeDN2RXitraUf0Rz
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Matt,
+
+Good morning!
+
+Just a gentle follow-up on the remaining race issues in the |drm: Add 
+drm_work_fence helper| patch.
+
+After applying the previous fixes in v9 [1], Sashiko found two remaining 
+race cases [2].
+
+We are considering |schedule_work()| for the IRQ-context issue and an 
+atomic flag for the timing gap around |disable_work_sync()|.
+
+Could you please let us know if these approaches look reasonable before 
+we prepare v10?
+
+[1] v9 patch:
+https://patchwork.freedesktop.org/patch/751979/?series=173582&rev=2
+
+[2] Sashiko v9 review:
+https://sashiko.dev/#/patchset/20260909044454.399340-1-srinivasan.shanmugam%40amd.com
+
+We really appreciate all the time and effort you have put into reviewing 
+this serie.
+
+Thanks again,
+Srini
+
+On 9/9/2026 10:14 AM, Srinivasan Shanmugam wrote:
+
+> This series extracts the dma-fence-callback-to-workqueue pattern shared
+> between XE and AMDGPU into common DRM helpers.
+>
+> Patch 1 introduces drm_work_fence — a generic helper that queues a work
+> item when a dma-fence signals, for work that cannot run in IRQ context.
+>
+> Patch 2 introduces drm_user_fence — extends drm_work_fence with
+> kthread_use_mm() support for drivers that need to write completion
+> status to userspace memory.
+>
+> Patch 3 converts XE's open-coded xe_user_fence to use drm_user_fence.
+>
+> Note: Patch 4 (per-signal compare functionality for AMDGPU's EOP
+> eventfd path) is deferred pending resolution of the compare address
+> read method (get_user() vs page-pinning), raised by Matthew Brost.
+>
+> v9:
+> - Fix drm_work_fence_queue: drop ref if queue_work returns false,
+>    closing the race between callback firing and queue_work() (Matt)
+> - Fix drm_work_fence_cancel_sync: use disable_work_sync() to close
+>    the UAF race window between callback and queue_work() (Matt)
+> - Remove xe_sync_ufence_cancel_sync — no caller in this patch (Matt)
+> - Remove xe_sync_ufence_cancel from xe_vma_destroy_late — unnecessary
+>    behaviour change; xe_ufence_worker only accesses device-level
+>    resources, safe to run after VMA teardown (Matt)
+>
+> v8:
+> - Fix copyright: The Linux Foundation → Advanced Micro Devices, Inc.
+> - Switch EXPORT_SYMBOL_GPL → EXPORT_SYMBOL for MIT-licensed code (Matt)
+> - Rename drm_work_fence_ops callback: writeback → worker (Matt)
+> - Rename drm_user_fence_ops callback: worker → writeback (Matt)
+> - Fix xe_ufence_worker ordering: WRITE_ONCE before copy_to_user,
+>    add smp_wmb() before wake_up_all (Matt, confirmed via 8ae04fe9ffc93)
+> - Rename .worker → .writeback in xe_ufence_ops (Matt)
+> - Drop Patch 4 pending design decision on compare address read method
+>
+> Suggested-by: Matthew Brost<matthew.brost@intel.com>
+> Suggested-by: Christian König<christian.koenig@amd.com>
+>
+> Srinivasan Shanmugam (3):
+>    drm: Add drm_work_fence helper
+>    drm: Add drm_user_fence helper
+>    drm/xe: Convert xe_user_fence to drm_user_fence
+>
+>   drivers/gpu/drm/Makefile           |   2 +
+>   drivers/gpu/drm/drm_user_fence.c   |  70 +++++++++++
+>   drivers/gpu/drm/drm_work_fence.c   | 186 +++++++++++++++++++++++++++++
+>   drivers/gpu/drm/xe/xe_sync.c       | 141 +++++++++++-----------
+>   drivers/gpu/drm/xe/xe_sync.h       |   1 +
+>   drivers/gpu/drm/xe/xe_sync_types.h |   1 -
+>   include/drm/drm_user_fence.h       | 123 +++++++++++++++++++
+>   include/drm/drm_work_fence.h       |  69 +++++++++++
+>   8 files changed, 524 insertions(+), 69 deletions(-)
+>   create mode 100644 drivers/gpu/drm/drm_user_fence.c
+>   create mode 100644 drivers/gpu/drm/drm_work_fence.c
+>   create mode 100644 include/drm/drm_user_fence.h
+>   create mode 100644 include/drm/drm_work_fence.h
+>
+--------------j0BbIAOcPeDN2RXitraUf0Rz
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p>
+      <style>a {
+    text-decoration: none;
+    color: #464feb;
+}tr th, tr td {
+    border: 1px solid #e6e6e6;
+}tr th {
+    background-color: #f5f5f5;
+}</style>
+      <div style="font-family:'Segoe UI';font-size:14px;font-style:normal;font-weight:400;line-height:20px">
+        <p>Hi Matt,</p>
+        <p>Good morning!</p>
+        <p>Just a gentle follow-up on the remaining race issues in the <code>drm:
+            Add drm_work_fence helper</code> patch.</p>
+        <p>After applying the previous fixes in v9 [1], Sashiko found
+          two remaining race cases [2].</p>
+        <p>We are considering <code>schedule_work()</code> for the
+          IRQ-context issue and an atomic flag for the timing gap around
+          <code>disable_work_sync()</code>.</p>
+        <p>Could you please let us know if these approaches look
+          reasonable before we prepare v10?</p>
+        <p>[1] v9 patch:<br>
+<a class="moz-txt-link-freetext" href="https://patchwork.freedesktop.org/patch/751979/?series=173582&amp;rev=2">https://patchwork.freedesktop.org/patch/751979/?series=173582&amp;rev=2</a></p>
+        <p>[2] Sashiko v9 review:<br>
+<a class="moz-txt-link-freetext" href="https://sashiko.dev/#/patchset/20260909044454.399340-1-srinivasan.shanmugam%40amd.com">https://sashiko.dev/#/patchset/20260909044454.399340-1-srinivasan.shanmugam%40amd.com</a></p>
+        <p><!--[if gte mso 9]><xml>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+ </o:OfficeDocumentSettings>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Normal</w:View>
+  <w:Zoom>0</w:Zoom>
+  <w:TrackMoves/>
+  <w:TrackFormatting/>
+  <w:PunctuationKerning/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:SplitPgBreakAndParaMark/>
+   <w:EnableOpenTypeKerning/>
+   <w:DontFlipMirrorIndents/>
+   <w:OverrideTableStyleHps/>
+  </w:Compatibility>
+  <w:DoNotOptimizeForBrowser/>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" DefPriority="99"
+  LatentStyleCount="376">
+  <w:LsdException Locked="false" Priority="0" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 9"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 1"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 2"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 3"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 4"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 5"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 6"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 7"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 8"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footnote text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="header"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footer"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index heading"/>
+  <w:LsdException Locked="false" Priority="35" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="table of figures"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="envelope address"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="envelope return"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footnote reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="line number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="page number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="endnote reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="endnote text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="table of authorities"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="macro"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="toa heading"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 5"/>
+  <w:LsdException Locked="false" Priority="10" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Closing"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Signature"/>
+  <w:LsdException Locked="false" Priority="1" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Message Header"/>
+  <w:LsdException Locked="false" Priority="11" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Salutation"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Date"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text First Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text First Indent 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Note Heading"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Block Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Hyperlink"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="FollowedHyperlink"/>
+  <w:LsdException Locked="false" Priority="22" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" Priority="20" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Document Map"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Plain Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="E-mail Signature"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Top of Form"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Bottom of Form"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal (Web)"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Acronym"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Address"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Cite"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Code"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Definition"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Keyboard"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Preformatted"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Sample"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Typewriter"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Variable"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal Table"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation subject"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="No List"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Contemporary"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Elegant"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Professional"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Balloon Text"/>
+  <w:LsdException Locked="false" Priority="39" Name="Table Grid"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Theme"/>
+  <w:LsdException Locked="false" SemiHidden="true" Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" QFormat="true"
+   Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" QFormat="true"
+   Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+  <w:LsdException Locked="false" Priority="41" Name="Plain Table 1"/>
+  <w:LsdException Locked="false" Priority="42" Name="Plain Table 2"/>
+  <w:LsdException Locked="false" Priority="43" Name="Plain Table 3"/>
+  <w:LsdException Locked="false" Priority="44" Name="Plain Table 4"/>
+  <w:LsdException Locked="false" Priority="45" Name="Plain Table 5"/>
+  <w:LsdException Locked="false" Priority="40" Name="Grid Table Light"/>
+  <w:LsdException Locked="false" Priority="46" Name="Grid Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="Grid Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="Grid Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="46" Name="List Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="List Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="List Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Mention"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Smart Hyperlink"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Hashtag"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Unresolved Mention"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Smart Link"/>
+ </w:LatentStyles>
+</xml><![endif]--><!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;
+	mso-ascii-font-family:Aptos;
+	mso-ascii-theme-font:minor-latin;
+	mso-hansi-font-family:Aptos;
+	mso-hansi-theme-font:minor-latin;
+	mso-font-kerning:1.0pt;
+	mso-ligatures:standardcontextual;}
+</style>
+<![endif]--><span style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Aptos;mso-fareast-theme-font:
+minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;
+mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">We really appreciate all the time and
+            effort you
+            have put into reviewing this serie.</span></p>
+        <p>Thanks again,<br>
+          Srini</p>
+      </div>
+      On 9/9/2026 10:14 AM, Srinivasan Shanmugam wrote:</p>
+    <blockquote type="cite" cite="mid:20260909044454.399340-1-srinivasan.shanmugam@amd.com">
+      <pre wrap="" class="moz-quote-pre">This series extracts the dma-fence-callback-to-workqueue pattern shared
+between XE and AMDGPU into common DRM helpers.
+
+Patch 1 introduces drm_work_fence — a generic helper that queues a work
+item when a dma-fence signals, for work that cannot run in IRQ context.
+
+Patch 2 introduces drm_user_fence — extends drm_work_fence with
+kthread_use_mm() support for drivers that need to write completion
+status to userspace memory.
+
+Patch 3 converts XE's open-coded xe_user_fence to use drm_user_fence.
+
+Note: Patch 4 (per-signal compare functionality for AMDGPU's EOP
+eventfd path) is deferred pending resolution of the compare address
+read method (get_user() vs page-pinning), raised by Matthew Brost.
+
+v9:
+- Fix drm_work_fence_queue: drop ref if queue_work returns false,
+  closing the race between callback firing and queue_work() (Matt)
+- Fix drm_work_fence_cancel_sync: use disable_work_sync() to close
+  the UAF race window between callback and queue_work() (Matt)
+- Remove xe_sync_ufence_cancel_sync — no caller in this patch (Matt)
+- Remove xe_sync_ufence_cancel from xe_vma_destroy_late — unnecessary
+  behaviour change; xe_ufence_worker only accesses device-level
+  resources, safe to run after VMA teardown (Matt)
+
+v8:
+- Fix copyright: The Linux Foundation → Advanced Micro Devices, Inc.
+- Switch EXPORT_SYMBOL_GPL → EXPORT_SYMBOL for MIT-licensed code (Matt)
+- Rename drm_work_fence_ops callback: writeback → worker (Matt)
+- Rename drm_user_fence_ops callback: worker → writeback (Matt)
+- Fix xe_ufence_worker ordering: WRITE_ONCE before copy_to_user,
+  add smp_wmb() before wake_up_all (Matt, confirmed via 8ae04fe9ffc93)
+- Rename .worker → .writeback in xe_ufence_ops (Matt)
+- Drop Patch 4 pending design decision on compare address read method
+
+Suggested-by: Matthew Brost <a class="moz-txt-link-rfc2396E" href="mailto:matthew.brost@intel.com">&lt;matthew.brost@intel.com&gt;</a>
+Suggested-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+
+Srinivasan Shanmugam (3):
+  drm: Add drm_work_fence helper
+  drm: Add drm_user_fence helper
+  drm/xe: Convert xe_user_fence to drm_user_fence
+
+ drivers/gpu/drm/Makefile           |   2 +
+ drivers/gpu/drm/drm_user_fence.c   |  70 +++++++++++
+ drivers/gpu/drm/drm_work_fence.c   | 186 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_sync.c       | 141 +++++++++++-----------
+ drivers/gpu/drm/xe/xe_sync.h       |   1 +
+ drivers/gpu/drm/xe/xe_sync_types.h |   1 -
+ include/drm/drm_user_fence.h       | 123 +++++++++++++++++++
+ include/drm/drm_work_fence.h       |  69 +++++++++++
+ 8 files changed, 524 insertions(+), 69 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_user_fence.c
+ create mode 100644 drivers/gpu/drm/drm_work_fence.c
+ create mode 100644 include/drm/drm_user_fence.h
+ create mode 100644 include/drm/drm_work_fence.h
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------j0BbIAOcPeDN2RXitraUf0Rz--
