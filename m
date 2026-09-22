@@ -4,61 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E1AC982FA
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 12:26:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BFB9C98302
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 12:28:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 906C510EC9F;
-	Tue, 22 Sep 2026 12:26:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FE3610ECA1;
+	Tue, 22 Sep 2026 12:28:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oOP4PATQ";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="EfqTjNB5";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08C3910EC9E;
- Tue, 22 Sep 2026 12:26:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3A63960E01;
- Tue, 22 Sep 2026 12:26:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D5FF1F00893;
- Tue, 22 Sep 2026 12:26:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790079989;
- bh=w4aB76axzrssB4npu/BeQaYm/BiVjUcaP5/wHU05wIU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=oOP4PATQtOWLwfCRcNrV+ErBdPhCe0qOiUsaZ74yWQ5QyQirZR3g1WaQVlOsVKub3
- 87fdI3cbBIr5jTuTOgNgYI6PU15TyWiZxB6fS67QJQxIQzP88UAoZKb34cVxlFt2sh
- rynm1VjwmLyJXKSjzxQQuQiiYHJ18DPjYJFAeWZYklsh9879Vp+LUE2a8Fi5mhCh9I
- 3yFkTGLvdtRs8havX9NUbr3sq78a3GQKfq+Xlhd+jv9Eh4PPg1FR/gptquI4Y6bZUj
- EEOSIhRudxNGZ3zwZfOzyaIquxdkYsAyjyzwj+UDCmQIsBQBAzAtaJOv81YalH9V2C
- SF6e0tiUjLXVQ==
-Date: Tue, 22 Sep 2026 14:26:26 +0200
-From: Maxime Ripard <mripard@kernel.org>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BEF410EC9D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 12:28:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1790080106;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=0B9Gq/5m/Sv5U+otsJhRfKNw9njULQyo6d+3n/j0FQw=;
+ b=EfqTjNB534yHYpnRrckwbHw06ugqWwUSf5rqNIGQylA/NMCi+CLiCijgkphXzpq2S9wn86
+ 7MUoX1flCGVYtz1iKHYxGT/pJlosa+1bqGZI23FNVViRNKyCeKRKR4agqOa2oDG0W+VCRq
+ 0QzjyuR5NZ484OBtlT6l9mjmJhTXwT0=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-628-94K0gqtoP7Sne85FD4YDCQ-1; Tue, 22 Sep 2026 08:28:24 -0400
+X-MC-Unique: 94K0gqtoP7Sne85FD4YDCQ-1
+X-Mimecast-MFC-AGG-ID: 94K0gqtoP7Sne85FD4YDCQ_1790080104
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-490a767b782so32361515e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 05:28:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790080103; x=1790684903;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :references:in-reply-to:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=0B9Gq/5m/Sv5U+otsJhRfKNw9njULQyo6d+3n/j0FQw=;
+ b=GYeZ++fwl8rCLxndSGREJVnT8nnOlSclNuhXH0DjIfJM73giJ7NTFSaP1/fuFFWRLU
+ WgqS7+q6PP43t7p+0muVLoEmfUK/0UynveFhlgZObLeVTRZDB9s/WA7lJlMog4e7DJDK
+ SphxHE5ZuTGBKqACLakm0ozJLeDJjV7zJqja1fVO4Ga9rYcW3fzNQyn4GIQeRNh0vyEM
+ xSHbSka2BlXSEad1nkB4WXGHzB9pWB6SHuQjczkUFVGHxx11Z5TctKQeiamHsfKig/jg
+ SlURLjgecstqC/K/DNaaU4ue62J0E0gVSKBd2obWdau/BqsHm26NBVuZnme6VH8Hhs2o
+ 04oQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzmx8StemqASrUs3pfX8NJIjsyiP9Pund91RM466SmpkAJC3XYYPevqFj1gdPqsFJOg/GmQETXd@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lX71949GcXJNkWP0yyH9+IXkhS83jSsg5fkUma2bIOyL9B7Rjt
+ Dhe9TQx+QUeJcFAKkmXg0CJFmjuX7qIyogt8LU2meS0ZHzqv4MJ8dHsLhdI+zdjnZmTJyKJllrS
+ reZ4SVeU8VmTVqVRP+YEbeIYrLqbTxauQNfxNpb+P5ZLrW7lWVt/nMEE5s/Us2p4L+H0=
+X-Gm-Gg: AYBFou0iaOJ5r19chSXguScmUmdBBCRa/NhBPl21flo0AWbJ5+mDl+X8bYtricZiVAi
+ +BZEWD4r9EdUv5fl6GJte6Ozu1yebJXrLfkAJKxO0+vmseVbKybF78hVOEG+oPsxOjVfck3Mns8
+ QrsqbTXwBX7X6ZY7VICqXO3lqMzHnAMv7HxHnKi/GUktxgkGVWMO3WXO1FM6zWhowNNKP6Sszir
+ Zy/LyyepP9Fv3Nry5lQ7UVUotI822Ictp8/roOE9j8whMSchalBztCocssUAnWhTZI5XBpRULSs
+ cphK/L9+p/jXi5Zosr7N9tNzJYR+ZzDo5cQrW30r6I7+BbNqnpq84YtUHqL0pKxxR+9DRQ1E+Dc
+ K2lQXPgOoRJuxS/pqma7sLnebfzOiM0mFSOhigVhp5uzyNzoIvISn/NfV59dnHvtrpA==
+X-Received: by 2002:a05:600c:8b8b:b0:49c:fc6e:a3dc with SMTP id
+ 5b1f17b1804b1-49fc584fd80mr177177965e9.27.1790080103645; 
+ Tue, 22 Sep 2026 05:28:23 -0700 (PDT)
+X-Received: by 2002:a05:600c:8b8b:b0:49c:fc6e:a3dc with SMTP id
+ 5b1f17b1804b1-49fc584fd80mr177177655e9.27.1790080103320; 
+ Tue, 22 Sep 2026 05:28:23 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fdab3070asm23839485e9.4.2026.09.22.05.28.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Sep 2026 05:28:22 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
 To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, 
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, 
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>, 
- David Herrmann <dh.herrmann@gmail.com>,
- Marta Lofstedt <marta.lofstedt@intel.com>, 
- Mario Limonciello <superm1@kernel.org>
-Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
-Message-ID: <arJzqMwgppZBSUNY@houat>
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com, Simona Vetter
+ <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Xaver Hugl <xaver.hugl@gmail.com>,
+ amd-gfx@lists.freedesktop.org, "open list:INTEL DRM DISPLAY FOR XE AND
+ I915 DRIVERS" <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM
+ DISPLAY FOR XE AND I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Hans de
+ Goede <hansg@kernel.org>
+Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
+In-Reply-To: <32f96551-358b-4874-8fd1-a685b02853e1@amd.com>
 References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-3-mario.limonciello@amd.com>
- <0fb724cc-ac12-4502-b338-1c4f310f043a@suse.de>
- <CAFOAJEdFPrwHZV5y1E_u_Wd6oE_viPsPztxYW6PRZHJ-zdPFMQ@mail.gmail.com>
- <ff86caeb-4388-4660-b3c0-ddc42bc274e3@amd.com>
+ <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
+ <32f96551-358b-4874-8fd1-a685b02853e1@amd.com>
+Date: Tue, 22 Sep 2026 14:28:21 +0200
+Message-ID: <xlv1bj9peahm.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="bdt3dgaj2va4yx7w"
-Content-Disposition: inline
-In-Reply-To: <ff86caeb-4388-4660-b3c0-ddc42bc274e3@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: WRdr34juKRymNCpYlR8KttfrTYhOXTLgKUhVSV00LdQ_1790080104
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,113 +108,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Mario Limonciello <mario.limonciello@amd.com> writes:
 
---bdt3dgaj2va4yx7w
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
-MIME-Version: 1.0
+Hello Mario,
 
-On Tue, Sep 22, 2026 at 06:34:51AM -0500, Mario Limonciello wrote:
->=20
->=20
-> On 9/22/26 03:49, Javier Martinez Canillas wrote:
-> > On Tue, Sep 22, 2026 at 10:24=E2=80=AFAM Thomas Zimmermann <tzimmermann=
-@suse.de> wrote:
-> > >=20
-> > > Hi Mario
-> > >=20
-> > > Am 08.09.26 um 06:40 schrieb Mario Limonciello:
-> > > > So far backlights have only been controlled via sysfs. However, sys=
-fs is
-> > > > not a proper user-space API for runtime modifications, and never was
-> > > > intended to provide such. The DRM drivers are now prepared to provi=
-de
-> > > > such a backlight link so user-space can control backlight via DRM
-> > > > connector properties. This allows us to employ the same access-mana=
-gement
-> > > > we use for mode-setting.
-> > > >=20
-> > > > This patch adds a few kernel-internal backlight helpers so we can m=
-odify
-> > > > backlights from within DRM, a brightness-changed notification, and a
-> > > > per-device takeover count so that legacy sysfs writes can be inhibi=
-ted
-> > > > (-EBUSY) while a luminance-aware DRM client is in control.
-> > > >=20
-> > > > Signed-off-by: David Herrmann <dh.herrmann@gmail.com>
-> > > >=20
-> >=20
-> > [...]
-> >=20
-> > > > @@ -150,6 +153,13 @@ static ssize_t bl_power_store(struct device *d=
-ev, struct device_attribute *attr,
-> > > >        struct backlight_device *bd =3D to_backlight_device(dev);
-> > > >        unsigned long power, old_power;
-> > > >=20
-> > > > +     /* A luminance-aware DRM client has taken over this backlight=
-; the
-> > > > +      * legacy sysfs interface is disabled until the last such cli=
-ent
-> > > > +      * goes away.
-> > > > +      */
-> > > > +     if (atomic_read(&bd->drm_takeover) > 0)
-> > > > +             return -EBUSY;
-> > > > +
-> > > >        rc =3D kstrtoul(buf, 0, &power);
-> > > >        if (rc)
-> > > >                return rc;
-> > > > @@ -214,6 +224,13 @@ static ssize_t brightness_store(struct device =
-*dev,
-> > > >        struct backlight_device *bd =3D to_backlight_device(dev);
-> > > >        unsigned long brightness;
-> > > >=20
-> > > > +     /* A luminance-aware DRM client has taken over this backlight=
-; the
-> > > > +      * legacy sysfs interface is disabled until the last such cli=
-ent
-> > > > +      * goes away.
-> > > > +      */
-> > > > +     if (atomic_read(&bd->drm_takeover) > 0)
-> > > > +             return -EBUSY;
-> > >=20
-> > > Can you really do that?  AFAIU sysfs is now a de-facto uapi for backl=
-ights.
-> >=20
-> > And regardless if this can be done or not, I belive that would be
-> > better if this is something that drivers decide to do and just return
-> > -EBUSY from their struct backlight_ops..update_status.
-> >=20
-> > Ideally the sysfs interface should continue to be work as Thomas said
-> > and a write could trigger a mode set for example, but I don't know if
-> > that is feasible to do due locking.
-> >=20
->=20
-> Well the problem ends up being that something can change brightness behind
-> the compositor's back if you leave sysfs available.
->=20
-> The whole design here is to put the compositor in control.  For example if
-> compositor wants to enforce brightness to be a certain value when certain
-> content is being displayed.
+> On 9/22/26 03:33, Javier Martinez Canillas wrote:
+>> Hello Mario,
+>>=20
+>> On Tue, Sep 8, 2026 at 6:41=E2=80=AFAM Mario Limonciello
+>> <mario.limonciello@amd.com> wrote:
+>>>
+>>> At Display Next Hackfest 2026 we reviewed progress moving brightness
+>>> control into the DRM connector properties.
+>>>
+>>> There is a range LUMINANCE property that will default to 0->0.
+>>> Once a driver attaches a backlight it will be updated to 1->max.
+>>> If the panel supports the minimum backlight turning off the display
+>>> the range can later be updated to 0->max instead of 1->max.
+>>>
+>>> The legacy sysfs interface is synchronized with the DRM connector.
+>>> When a compositor using this feature is loaded, sysfs writes are disabl=
+ed
+>>> to prevent legacy tools from going out of sync with the compositor.
+>>>
+>>=20
+>> I don't think I agree with the direction of this series. The main
+>> issue for me is that if the sysfs interface is disabled, then I don't
+>> understand the value of doing all the hops between the DRM and
+>> backlight subsystems...
+>
+> The reason for all the hops is that users can switch between compositors=
+=20
+> that support this and don't.  If you're in a compositor that supports it=
+=20
+> that compositor will want to affirm it's in control.  If you're in a=20
+> compositor without support then you should still have a way to change=20
+> things, and that's what the sysfs interface exists for.
+>
 
-I don't see how you can solve this. The sysfs interface already shows
-this behaviour, so it's not a regression or anything. That being said,
-one way to mitigate this would be to consider the sysfs backlight
-interface as legacy and disable it by default.
+That's Ok but still doesn't explain why it must go through the backlight
+subsystem. Both the struct drm_backlight .{s,g}et_luminance() callbacks
+and the struct backlight_ops .update_status() can call to the same code
+to manage the brightness.
 
-Maxime
+For example, in amdgput this could be amdgpu_dm_backlight_get_level()
+and amdgpu_dm_backlight_set_level().
 
---bdt3dgaj2va4yx7w
-Content-Type: application/pgp-signature; name="signature.asc"
+>>=20
+>> IMO when a driver sets the DRIVER_CONNECTOR_LUMINANCE feature and the
+>> client advertise the DRM_CLIENT_CAP_LUMINANCE capability, then the DRM
+>> driver should be in full control of the brightness control and not go
+>> through the backlight subsystem at all.
+>
+> OK but so let's say I start at 100% brightness.  I open up Kwin, I=20
+> change the luminance property to 0%.  Let's pretend that backlight=20
+> subsystem doesn't get updated.
+>
+> Then I log into Xorg + Xfce.  The luminance property should be left at=20
+> 0%, the brightness subsystem is 100%.
+>
+> The hardware would be left at 0%.  I press the brightness up key (or=20
+> call brightnessctl) and I can't change it because backlight subsystem is=
+=20
+> 100% already.
+>
 
------BEGIN PGP SIGNATURE-----
+Not really because struct backlight_ops .get_brightness() will be called
+and this will query the HW state (in the case of amdgput this will be a
+call to amdgpu_dm_backlight_get_level() as mentioned above).
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCarJz8QAKCRAnX84Zoj2+
-dkofAX4jmz48Pf2VeV3XBte3Y5RIW41vw7fQ5QCOGbuxcy7REtrl9RTPaghzVMPI
-/hzLeKsBfjjWyB3buiex+nTYyGhTk3eQPnlKaHo96IMb38tNqHa0QE65EB0dH+g7
-3l2ltyf1uA==
-=i0A9
------END PGP SIGNATURE-----
+So the HW state will be changed and both subsystems are going to query
+the same information.
 
---bdt3dgaj2va4yx7w--
+--=20
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
