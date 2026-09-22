@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6D60C98308
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 07:56:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F9FEC9830D
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 07:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3F5110EF5B;
-	Wed, 23 Sep 2026 07:56:00 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B304A10EEA9;
- Wed, 23 Sep 2026 05:41:22 +0000 (UTC)
-X-UUID: 65a597ceb71111f19a56ed5b684f684d-20260923
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:3f46ac60-9fdc-45d0-8356-3c8e26f16035, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:7db8b62, CLOUDID:84aacf2d787561eb15f7a6b4d03d5c08,
- BulkI
- D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
- -3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
- AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 65a597ceb71111f19a56ed5b684f684d-20260923
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <yaolu@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 2037494426; Wed, 23 Sep 2026 13:41:17 +0800
-From: yaolu@kylinos.cn
-To: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com
-Cc: asad.kamal@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Lu Yao <yaolu@kylinos.cn>
-Subject: [PATCH] drm/amdgpu/pm/powerplay: factor voltage index bounds check
- into a macro
-Date: Wed, 23 Sep 2026 13:41:11 +0800
-Message-Id: <20260923054111.209370-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 676CB10EF6C;
+	Wed, 23 Sep 2026 07:56:01 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="GOWWqg9n";
+	dkim-atps=neutral
+Received: from mta0.migadu.com (out-7.mta0.migadu.com [91.218.175.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0159410E00A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 18:24:00 +0000 (UTC)
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=X/vNahGUArJfZhvXpLpBMW2RgUj7UxIcKkt/yTYLyeQ=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790101439; v=1; x=1790706239;
+ b=GOWWqg9n8KdrX3YJbg9ulzCcaNTNVrYKy4N2CCyS3tHTQ82QG91Nw8StKYanSnQICCDOwYDq
+ 0dK/y4bD5EXPQzvWnJWynskQ+YPgHEZxc3w7yakr0NSDDUlZpMYuzDCAdGOyGv3/hl5QqH1L7zm
+ AETTQV8Wedkl+/PvnQrP+4Bk=
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 873355670fe33e6d;
+ Tue, 22 Sep 2026 18:23:59 +0000
+X-Mizu-Trace-ID: 873355670fe33e6d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4ca9a213-404b-4569-8d99-6a153ec1155d@linux.dev>
+Date: Tue, 22 Sep 2026 11:23:56 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: only allow freesync on a VRR_ENABLED crtc
+To: Leo Li <sunpeng.li@amd.com>, George Zhang <george.zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: Fangzhi Zuo <jerry.zuo@amd.com>
+References: <20260909195906.3584191-1-matthew.schwartz@linux.dev>
+ <2dff79db-bfa9-48ce-94c6-c467a85c8b8e@amd.com>
+ <6e07ec9f-9423-475c-8751-289ff11a40cb@linux.dev>
+ <c50780fe-70dc-4ecd-81df-90a6f7fa37d9@amd.com>
+ <a2a345da-a199-48f8-8461-ebd298aa252a@linux.dev>
+ <bbb92d7b-8986-4765-b9ae-fb7595cd7410@amd.com>
+Content-Language: en-US
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+In-Reply-To: <bbb92d7b-8986-4765-b9ae-fb7595cd7410@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 23 Sep 2026 07:55:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,178 +62,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lu Yao <yaolu@kylinos.cn>
+On 9/22/26 11:10 AM, Leo Li wrote:
+> 
+> 
+> On 2026-09-22 14:04, Matthew Schwartz wrote:
+>> On 9/22/26 10:50 AM, Leo Li wrote:
+>>>
+>>>
+>>> On 2026-09-21 15:47, Matthew Schwartz wrote:
+>>>> Hi George,
+>>>>
+>>>> After updating to Linux 7.2.x, I noticed gamescope's frame limiter falling
+>>>> below the requested rate. The reproducer was a Navi 33 driving 4K120
+>>>> through a DP-HDMI PCON, with VRR disabled. A 40fps limit was producing
+>>>> roughly 37fps.
+>>>>
+>>>> Gamescope was pacing against the fixed 120Hz refresh interval, but we
+>>>> observed frame intervals stretching to around 9.34ms instead of 8.33ms.
+>>>> The OTG vtotal also increased from 2249 to 2521. This was enough to
+>>>> disrupt the limiter's pacing despite userspace leaving VRR_ENABLED=0.
+>>>
+>>> Hi Matt,
+>>>
+>>> I wonder if this has to do with re-introducing 2-frame vblank off for NV3+
+>>> DGPUs, which made it into 7.2:
+>>>
+>>> fba211b078d6 ("Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs"")
+>>>
+>>> Since gamescope is only updating every 3rd frame, it's possible vblanks were
+>>> turned off during those two frames, signaling driver to enable idle optimizations.
+>>>
+>>> To test this idea, does bumping this line to something like 5 frames ((u64)50 *) help?
+>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L3377
+>>
+>> Tested this by reverting my own patch in the kernel and replacing it with this, and unfortunately the issue
+>> still reproduces here. In Hades 2, a 40FPS limit is locking to 37FPS erroneously.
+> 
+> Interesting... Maybe try reverting fba211b078d6 completely as well.
 
-commit 3a8a05477cda ("drm/amdgpu/pm/powerplay: bounds-check voltage index in SMU7 lookup") and
-commit 6fa33f594e46 ("drm/amdgpu/pm/powerplay: bounds-check voltage index in Vega10 lookup")
-added the same block.
+No change, still locks to 37FPS.
 
-Move the pattern into PP_CHECK_VOLTAGE_INDEX().
+> 
+> If that doesn't help, could you try isolating FPO by force disabling it (without applying this fix, of course)?
+> Set `disable_fpo_optimizations = true` in both dcn32_resource.c and dcn321_resource.c
 
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
----
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 28 +++++----------
- .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 35 ++++++-------------
- .../gpu/drm/amd/pm/powerplay/inc/pp_debug.h   | 12 +++++++
- 3 files changed, 30 insertions(+), 45 deletions(-)
+Added this change in addition to reverting fba211b078d6, and it now locks to 40FPS rather than 37FPS.
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index bdf1e489369e..aafb52bf94ff 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -2216,24 +2216,18 @@ static int smu7_patch_voltage_dependency_tables_with_lookup_table(
- 	if (data->vdd_gfx_control == SMU7_VOLTAGE_CONTROL_BY_SVID2) {
- 		for (entry_id = 0; entry_id < sclk_table->count; ++entry_id) {
- 			voltage_id = sclk_table->entries[entry_id].vddInd;
--			if (voltage_id >= table_info->vddgfx_lookup_table->count) {
--				pr_err("amdgpu: sclk[%u] vddgfx index %u out of bounds (%u)\n",
--				       entry_id, voltage_id,
--				       table_info->vddgfx_lookup_table->count);
-+			if (PP_VOLTAGE_INDEX_OOB(table_info->vddgfx_lookup_table, voltage_id,
-+						 "sclk[%u] vddgfx", entry_id))
- 				return -EINVAL;
--			}
- 			sclk_table->entries[entry_id].vddgfx =
- 				table_info->vddgfx_lookup_table->entries[voltage_id].us_vdd;
- 		}
- 	} else {
- 		for (entry_id = 0; entry_id < sclk_table->count; ++entry_id) {
- 			voltage_id = sclk_table->entries[entry_id].vddInd;
--			if (voltage_id >= table_info->vddc_lookup_table->count) {
--				pr_err("amdgpu: sclk[%u] vddc index %u out of bounds (%u)\n",
--				       entry_id, voltage_id,
--				       table_info->vddc_lookup_table->count);
-+			if (PP_VOLTAGE_INDEX_OOB(table_info->vddc_lookup_table, voltage_id,
-+						 "sclk[%u] vddc", entry_id))
- 				return -EINVAL;
--			}
- 			sclk_table->entries[entry_id].vddc =
- 				table_info->vddc_lookup_table->entries[voltage_id].us_vdd;
- 		}
-@@ -2241,24 +2235,18 @@ static int smu7_patch_voltage_dependency_tables_with_lookup_table(
- 
- 	for (entry_id = 0; entry_id < mclk_table->count; ++entry_id) {
- 		voltage_id = mclk_table->entries[entry_id].vddInd;
--		if (voltage_id >= table_info->vddc_lookup_table->count) {
--			pr_err("amdgpu: mclk[%u] vddc index %u out of bounds (%u)\n",
--			       entry_id, voltage_id,
--			       table_info->vddc_lookup_table->count);
-+		if (PP_VOLTAGE_INDEX_OOB(table_info->vddc_lookup_table, voltage_id,
-+					 "mclk[%u] vddc", entry_id))
- 			return -EINVAL;
--		}
- 		mclk_table->entries[entry_id].vddc =
- 			table_info->vddc_lookup_table->entries[voltage_id].us_vdd;
- 	}
- 
- 	for (entry_id = 0; entry_id < mm_table->count; ++entry_id) {
- 		voltage_id = mm_table->entries[entry_id].vddcInd;
--		if (voltage_id >= table_info->vddc_lookup_table->count) {
--			pr_err("amdgpu: mm[%u] vddc index %u out of bounds (%u)\n",
--			       entry_id, voltage_id,
--			       table_info->vddc_lookup_table->count);
-+		if (PP_VOLTAGE_INDEX_OOB(table_info->vddc_lookup_table, voltage_id,
-+					 "mm[%u] vddc", entry_id))
- 			return -EINVAL;
--		}
- 		mm_table->entries[entry_id].vddc =
- 			table_info->vddc_lookup_table->entries[voltage_id].us_vdd;
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 05b1e69116fd..96783710afe3 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -691,12 +691,9 @@ static int vega10_patch_voltage_dependency_tables_with_lookup_table(
- 
- 		for (entry_id = 0; entry_id < vdt->count; entry_id++) {
- 			voltage_id = vdt->entries[entry_id].vddInd;
--			if (voltage_id >= table_info->vddc_lookup_table->count) {
--				pr_err("amdgpu: clk_dep[%u][%u] vddc index %u out of bounds (%u)\n",
--				       i, entry_id, voltage_id,
--				       table_info->vddc_lookup_table->count);
-+			if (PP_VOLTAGE_INDEX_OOB(table_info->vddc_lookup_table, voltage_id,
-+						 "clk_dep[%u][%u] vddc", i, entry_id))
- 				return -EINVAL;
--			}
- 			vdt->entries[entry_id].vddc =
- 					table_info->vddc_lookup_table->entries[voltage_id].us_vdd;
- 		}
-@@ -704,44 +701,32 @@ static int vega10_patch_voltage_dependency_tables_with_lookup_table(
- 
- 	for (entry_id = 0; entry_id < mm_table->count; ++entry_id) {
- 		voltage_id = mm_table->entries[entry_id].vddcInd;
--		if (voltage_id >= table_info->vddc_lookup_table->count) {
--			pr_err("amdgpu: mm[%u] vddc index %u out of bounds (%u)\n",
--			       entry_id, voltage_id,
--			       table_info->vddc_lookup_table->count);
-+		if (PP_VOLTAGE_INDEX_OOB(table_info->vddc_lookup_table, voltage_id,
-+					 "mm[%u] vddc", entry_id))
- 			return -EINVAL;
--		}
- 		mm_table->entries[entry_id].vddc =
- 			table_info->vddc_lookup_table->entries[voltage_id].us_vdd;
- 	}
- 
- 	for (entry_id = 0; entry_id < mclk_table->count; ++entry_id) {
- 		voltage_id = mclk_table->entries[entry_id].vddInd;
--		if (voltage_id >= table_info->vddc_lookup_table->count) {
--			pr_err("amdgpu: mclk[%u] vddc index %u out of bounds (%u)\n",
--			       entry_id, voltage_id,
--			       table_info->vddc_lookup_table->count);
-+		if (PP_VOLTAGE_INDEX_OOB(table_info->vddc_lookup_table, voltage_id,
-+					 "mclk[%u] vddc", entry_id))
- 			return -EINVAL;
--		}
- 		mclk_table->entries[entry_id].vddc =
- 				table_info->vddc_lookup_table->entries[voltage_id].us_vdd;
- 
- 		voltage_id = mclk_table->entries[entry_id].vddciInd;
--		if (voltage_id >= table_info->vddci_lookup_table->count) {
--			pr_err("amdgpu: mclk[%u] vddci index %u out of bounds (%u)\n",
--			       entry_id, voltage_id,
--			       table_info->vddci_lookup_table->count);
-+		if (PP_VOLTAGE_INDEX_OOB(table_info->vddci_lookup_table, voltage_id,
-+					 "mclk[%u] vddci", entry_id))
- 			return -EINVAL;
--		}
- 		mclk_table->entries[entry_id].vddci =
- 				table_info->vddci_lookup_table->entries[voltage_id].us_vdd;
- 
- 		voltage_id = mclk_table->entries[entry_id].mvddInd;
--		if (voltage_id >= table_info->vddmem_lookup_table->count) {
--			pr_err("amdgpu: mclk[%u] vddmem index %u out of bounds (%u)\n",
--			       entry_id, voltage_id,
--			       table_info->vddmem_lookup_table->count);
-+		if (PP_VOLTAGE_INDEX_OOB(table_info->vddmem_lookup_table, voltage_id,
-+					 "mclk[%u] vddmem", entry_id))
- 			return -EINVAL;
--		}
- 		mclk_table->entries[entry_id].mvdd =
- 				table_info->vddmem_lookup_table->entries[voltage_id].us_vdd;
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h
-index cea65093b6ad..efe5f6df8c9b 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h
-@@ -54,6 +54,18 @@
- 		pr_debug(fmt, ##__VA_ARGS__); \
- 	} while (0)
- 
-+/* Reports and returns true when index does not fit into the lookup table. */
-+#define PP_VOLTAGE_INDEX_OOB(lookup_table, index, fmt, ...)		\
-+({									\
-+	typeof(lookup_table) __lookup = (lookup_table);			\
-+	typeof(index) __idx = (index);					\
-+	bool __oob = __idx >= __lookup->count;				\
-+									\
-+	if (__oob)							\
-+		pr_err(fmt " index %u out of bounds (%u)\n",		\
-+		       ##__VA_ARGS__, __idx, __lookup->count);		\
-+	__oob;								\
-+})
- 
- #define GET_FLEXIBLE_ARRAY_MEMBER_ADDR(type, member, ptr, n)	\
- 	(type *)((char *)&(ptr)->member + (sizeof(type) * (n)))
--- 
-2.25.1
+> 
+> - Leo
+> 
+>>
+>> Matt
+>>
+>>>
+>>> Thanks,
+>>> Leo 
+>>>>
+>>>> Tracing this led to allow_freesync remaining true for a VRR-capable
+>>>> sink even when the FreeSync state was inactive. That allowed FPO to
+>>>> stretch vblank around UCLK switches. The PCON whitelist change exposed
+>>>> this on our setup by making the sink eligible for that path.
+>>>>
+>>>> The intent is to keep the frame period fixed when userspace has
+>>>> disabled VRR, while retaining FPO eligibility when variable refresh is
+>>>> actually requested. With the patch, the original setup holds the
+>>>> requested 40fps again. I also tested VRR toggling on a Legion Go 2's
+>>>> internal eDP OLED panel and did not observe a regression.
+>>>>
+>>>> Thanks,
+>>>> Matt
+>>>
+>>
+> 
 
