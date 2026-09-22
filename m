@@ -4,144 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544E2C982FF
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 08:53:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD20AC982F1
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 09:00:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EE5610E456;
-	Tue, 22 Sep 2026 08:53:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78C2510EC0E;
+	Tue, 22 Sep 2026 09:00:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="U7tEHRe8";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bsNbjZX+";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KE7WFAYw";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="P/VQOwLL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uEq8/2/O";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15B7510E444;
- Tue, 22 Sep 2026 08:53:37 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 507E91FF42;
- Tue, 22 Sep 2026 08:53:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790067211; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=q13J3SI41LikCXQjm8+5YiVz8sYE7vpctD+mi8Ge5LE=;
- b=U7tEHRe8Fegr7aRtapRRQvRl6JBRORsjsmLhaE5Zd4fchdO31sCkzluBA5Yhn4voRG145A
- a43Lkux5Kcp3rdnCYE0tf+bGAOXsUCILKW4802d6KxCCEULKL0etz8PyzORdvaEKDjmCLu
- AtwuIO7h1/X/cs8ZU7jtmlBeY5KWI2A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790067211;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=q13J3SI41LikCXQjm8+5YiVz8sYE7vpctD+mi8Ge5LE=;
- b=bsNbjZX+ysF+aJb1UMOP3G4xQmayfxoPY3Ma7TiYTvYG1YhKeokkFDtzkn9yrVpgXbIxV/
- q8PG40hkDzR3TjCg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KE7WFAYw;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="P/VQOwLL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790067207; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=q13J3SI41LikCXQjm8+5YiVz8sYE7vpctD+mi8Ge5LE=;
- b=KE7WFAYwuXg2BabMg70iyKh6f8x5hNVW1oWNw6Edz8nYWjRC0kdMphK5wNFWobEsm7njg7
- DiO66MxZggLKP/J3/ajFFeJIH0wJ9KrANzCu+kBIapw+14ruVidMPeho2rGEhAffgtmkzG
- 9GF3YwIrZrHCMAZqBKmwrXNflZ5Yl+8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790067207;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=q13J3SI41LikCXQjm8+5YiVz8sYE7vpctD+mi8Ge5LE=;
- b=P/VQOwLLuyDWS3spgqzLB/7tR/XELicST01Dg5RKHsdeF0W73IkUyZoyfQgzumaWzhIGuo
- Fpgz4piocE3ZcDCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C8BB9132D3;
- Tue, 22 Sep 2026 08:53:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id eUIBGgZCsmqjPQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 22 Sep 2026 08:53:26 +0000
-Message-ID: <11b1f472-6afe-4110-bfaf-912ecdbd7eb4@suse.de>
-Date: Tue, 22 Sep 2026 10:53:25 +0200
-MIME-Version: 1.0
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012024.outbound.protection.outlook.com [40.107.209.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 588A010EC12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 09:00:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GchghgOmNIX5CV4IXE+pTESj8eHfNwCDf2/yzFXQD4oWaJ5C3ITVJTdDJkTMHhf63kReHy+TBorroDQ/ib7VWwgTwh7VeRgGpxfps0SoUl51I1g3t8Tiy5WFW2iN1lzk9MR5tGVeAoGae8IeApkG0mD4v+nCLNklI2r3wiiwq843ncvgI+7qUgdS91hkCw3cBlS7UV8C+SROF59gl9zK2BsTvV1J9No1YjfiwOONagNCb8LdtSWKg3TLXBP4cNhjLPDnkzagLJ39A2zeCiAkI5eVo42gGGHDkDGb92Yn7pkpi5xsfDp21xS898qaUxBxWftivTtIFl548skHQIMYEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5I0GYrr8RxVPTMI0KKsE20I6c/WXqcImHIFbJVgXOVA=;
+ b=sD0DTJ6yyZW+LFADfUCPmWJheu2O8SMi9McrUU9CiT1V0FAt2tbDoO5YqAoBTitXLXkmhs4t7+6cYr6uXSIE0iUIkR//9jZsbzllm7NDnTW+eWMr3F+qNNUUVbnmWwmeEvPcdG4HaMDsRyX2sJ0UeU0O6N6ypfIZrqr7O9tc4upiQlyKza4bY2CgPfv4tGLtRZXwy+tvyswHmIKsMZX9BkJebw3Haa51j5Gh3NtLEH0p2PpKigbg7XmFEyXB8qENjpsdoOqCKsO37YQmGiive9ROcJbk9eCUI18/F+g/kVNZ/EtGfQCBrKMjzzt89Sjv8r8t4yz4w+nsDfCW3vwBBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5I0GYrr8RxVPTMI0KKsE20I6c/WXqcImHIFbJVgXOVA=;
+ b=uEq8/2/O5ylw/c0JXvXey5Suz+vN1f60t9HSwMaGw+6+BoJ02aHasGlgktGm4vBBYMLI7uAXsFSepq56gGXfJxlUiMobBW3dz67HzMX7NnM914bab8l+FqUWMvJGxZfcXiDTRO+Mr9GN4rwsYn1JwIRDilsQaiJ9k/QlYOJeSNE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
+ by LV5PR12MB9802.namprd12.prod.outlook.com (2603:10b6:408:2f8::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
+ 2026 09:00:11 +0000
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 09:00:11 +0000
+Content-Type: multipart/alternative;
+ boundary="------------AgA6RZk3jDyLLx7wNQzh0u6r"
+Message-ID: <02168e96-1c44-4aaa-bde4-474c8264a3c7@amd.com>
+Date: Tue, 22 Sep 2026 17:00:05 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 07/14] drm/amd: Indicate driver supports luminance
-To: Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>,
- Mario Limonciello <superm1@kernel.org>
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-8-mario.limonciello@amd.com>
+Subject: Re: [PATCH 01/10] drm/amdgpu: introduce
+ amdgpu_lookup_queue_by_doorbell
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>
+Cc: Alexander.Deucher@amd.com, felix.kuehling@amd.com,
+ amd-gfx@lists.freedesktop.org, "Khatri, Sunil" <Sunil.Khatri@amd.com>
+References: <20260828095349.9797-1-lingshan.zhu@amd.com>
+ <20260828095349.9797-2-lingshan.zhu@amd.com>
+ <bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com>
+ <2687ad99-61da-457f-9705-766bf48b2d04@amd.com>
+ <a46a12b8-d9df-4995-beaf-6d41150196bc@amd.com>
+ <a34a1541-7f3a-4e0f-a225-f58b1292d6d2@amd.com>
+ <5f576123-9f57-4da0-a6d5-fd0390e39f1b@amd.com>
+ <f0d163a6-49cb-47d2-a042-d0e37bb7cdce@amd.com> <arI0hEYQbrsWVlV1@amd.com>
+ <580d3ecd-57f0-4b4e-8631-5c27f69ddd54@amd.com>
+ <cbf15177-c94a-4bee-9ba2-f14b7860c4c4@amd.com>
+ <b277046c-a13b-4d47-a7fe-55e18a720e20@amd.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908044035.62093-8-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 507E91FF42
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[amd.com,lists.freedesktop.org,ffwll.ch,linux.intel.com,kernel.org,gmail.com];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
- MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FREEMAIL_CC(0.00)[gmail.com,lists.freedesktop.org,kernel.org];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- TAGGED_RCPT(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:mid, suse.com:url,
- imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
+From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+In-Reply-To: <b277046c-a13b-4d47-a7fe-55e18a720e20@amd.com>
+X-ClientProxiedBy: SEWP216CA0013.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2b4::14) To CH2PR12MB9457.namprd12.prod.outlook.com
+ (2603:10b6:610:27c::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|LV5PR12MB9802:EE_
+X-MS-Office365-Filtering-Correlation-Id: b04315ce-cc76-4165-9531-08df1887e8ad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|10067099003|11063799006|4143699003|56012099006|8096899003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: MYoKMXzpSR5xJkQEM6UUqhMkaSKUTtbF4Z6Betv0481cnHzCgjXN6G+Q89J26PymDrOjOQ/AOvp7B/FZ/Z81byeUt3N2HgpNSmu67qDoljzUeSvytNLWmmV/KCssJz7EJtlP6VIRKjSpk3cyZ97W2I2yRKWf8Onu+1uihudJcKc2vcKSivnHV82bKkhfpJSOPMY6+Zlys0+OhpPl6IqAF4Goq8s4VCMuHj/FibcNW5iFJflsO6K1NbeitHkW+1O8qUeKkKX+j5jTfhvisHuh1iKLqBPYiFe80op3Mus9gwDer2ygzDTabqWsj5CS15AnMprdUJ+ThRZO698fphbNnQeVBv1It/Ya856ZGCQ3FHTtAHhhAHP414joLTArSnck0wRyzKHanaQPj5hS6/42THKgOaw/2kKyAC25srh3HI31waRmiSDN0eVbf/Gq+vUpiAPo0ku3BzrHZmXlRU56iiuXhcQgAQK06czlTCkrvkz3NNPWBfaE6Q8gin8jPaeQhwLg8oNuLheHE5cpqz6FTkbEV35md8VvdCtzW+ZHcGMFWiZ2UxEUwO28ek6dOlQhRBC1sKmbn3zvfyex14ThQAbIVb8F6pO/dTfQJTZqosT++nsyVzzNdlu38+FvT9lOkz7DKO9gxOn2P3UFhZI+RwiOAmNDLOVQ6K9ZMFzwBLY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(8096899003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emdiajZjNk9tUW5ucTA4RlE3OEdzblpwVEZJTXhyQU1FajlVOVhoSWJ5WXJ0?=
+ =?utf-8?B?WGU1VDFmUndJbS9jRmRVNGRvSktyN0Y4eUt4MVhvOFpUWitiakl4UGswc2tm?=
+ =?utf-8?B?ZnM2dGdrUnBOU3FQRkVwUTBDTkJjeWNlWTJVZHRTaTlMSEIvckFFV3FRRjNH?=
+ =?utf-8?B?TFFLY3M1bTRPNHBBMkt0Z29YNXZBaHNkSnRIZkZ2a0VMOW1WOWZCeDJ4RDl2?=
+ =?utf-8?B?aysxakIwbENJZ2lrVDFZeW0zWlhhc3BaK3REOWFINmNmT0tZZ0dwR2oyaC9W?=
+ =?utf-8?B?ZXJQWjk4NERITEorOUUxRUQ3bEdVYW05aXIxUXhrdE8zS1FMdHp5UkxNcXNW?=
+ =?utf-8?B?WHRTbWt4M3BXellOdmhPTVFSN3dldXpvOGxFN1dKbzNzMTA0M3FoZW1jMzhH?=
+ =?utf-8?B?dHVUVjJaZTNOT2NRNmxid3B5dEhTTkR0dHVhNEZFbk9oRWpyUERzdFIwTEJ1?=
+ =?utf-8?B?WHJHaDhTaFZZb0szZmVuSUZMOVFiY2tPYjNZTFJOSEduMVNOV0NzQkVxcll5?=
+ =?utf-8?B?bjM1VGVqbVdXZVZEZHRpa0pZekJGLzVzcXFGbjhyTlREQmxvMGZCYXk5b0Zl?=
+ =?utf-8?B?NTJnQ25Fb21hNDBWTDE5MTlYek0yM2RkV09yTmUvUldjY1J0ZEQ4R3JFeG5j?=
+ =?utf-8?B?OWdRc1hidWtubmdNd21pczJ6NWUxQ2lZR3h1Qjl4MlhHYlRzVEJkUmkvVHhR?=
+ =?utf-8?B?RWhYc2MvTnloWWdDWXN1dlZLM3M1RUlBTXRDZG5JZXA1eUxsRTVSVXlmejNM?=
+ =?utf-8?B?c1BLZzVjLys1dXhLdlpwWFRiaU1DS2h1WmxGblZmM3hjNG04WUVmTjk2ODkr?=
+ =?utf-8?B?ZTd5L2crOXBGWktJV25LaGY3dEFVRFBOWFBQb0FMbjkzS3R1Y0ZCSFZGRjJn?=
+ =?utf-8?B?NVVmMVJnbXNFMUFESFRZS1Npbm5yN05raCtpYS9wajc2V25YM3Nhd2dpUjcv?=
+ =?utf-8?B?ZDF2Q3duemlMeCtENnl5eW4wczhteTFPSWRnV1NwMkFmVHNnWVJQdmlqNFJ2?=
+ =?utf-8?B?cnViYnNSVHB1VStPT3cwejBZTkpuU1FaNUp6T0pRc1hBT1dJdHp1YkpJQzQ2?=
+ =?utf-8?B?MlBDQmVnRXFIdlZXQ0Y3VWtqbkF6RmhiRFFMSHBjQ3EyMko4a3JnREJIZys1?=
+ =?utf-8?B?dlZLMDJTOWhDb3hxcEtWa0RBNFM1cHh3bFB2cEpiMlp0UjN6WFdFUmF5TEtL?=
+ =?utf-8?B?d2EyU09uQ09YNldTb2c3R1ppZ3g4Q2FCZjhFcDRQbGpUbVZNRWtMeVQ2Qi9E?=
+ =?utf-8?B?NGZkQUlUTkJHSFZXU054T0Z1bk96NmRyMHVjaTRKUk1kQkN6dnJmWXplS1Zo?=
+ =?utf-8?B?dlJZOXZLaVhIbG04QTFzUlFOQUVPcVY1YXdSNzlxY1NvRHdZZkVtZUIvbGQ5?=
+ =?utf-8?B?aElXbnI0NDJjVlZxeDgyZy9iZW9mNzdZVnZ2elBqL0hob0EzeEpoOFlTaUIw?=
+ =?utf-8?B?b2xzR1pkT0hLUVR6d1A5am9nbFVRd3pOZ2I4ekozTUxtdTVORHo0U1FMRHhY?=
+ =?utf-8?B?aks0N1BCL09tWUJTejVKV2M2RDBkMmg3aThWR0dQOFYxT1JxYWpYNGIzNXhQ?=
+ =?utf-8?B?YkJtc28xeVp0YVJrUVFDL1UycEdyYVRySm5KdUVpUkxPd0JnWXE0bFpIbytv?=
+ =?utf-8?B?RHpOZm1ZKzNqVkFDQUV2eDJDdGxGbmZPU3RBNmdtV0lDVXc4bGtFelc0TDdi?=
+ =?utf-8?B?amNsc2lVZXQ2cUE3Zm1yYTFLWjRFM3hHRURQd2xoTkxHanIzTjhWcCt6YzZY?=
+ =?utf-8?B?cTBRTE5hcmNaVlNsMDBIdEcwaFB1T3pjZTFhMk8wVGZTYjRueUZia2dYREtZ?=
+ =?utf-8?B?VXVxMlFJUTYwMU1OcjFmWWVzcVZ1TzNCVFNDR29vYnpJaEFtMXZOMDU5K0Jl?=
+ =?utf-8?B?RWJmSXVSVnc0cWJ5b3psdG5ZTXZicnJBM1YvdVFtb05YZzRub3orY09zTTJT?=
+ =?utf-8?B?RTNrZkg4ZklJckhKalVZN2lxd1pKdXh2U3Q2NmVqN0ZjVHVPT1ZNQTFMazdI?=
+ =?utf-8?B?UWJHbHc0bjhUcy9tbzBTMXNxZ2VpQWJhZmJrNk92VmVwVzVVZkV1ZjN1bGdx?=
+ =?utf-8?B?L1U4d0kxeUZMZmhqMFJxRmZYMlVxTy9waS9WVG5HbGVYbEdaTTFFNU5WRGF0?=
+ =?utf-8?B?M2xIS0lIeWlrQnA1ZEMyaE0xNTZyVHRKZDFIWGJOWkpwQVdHTGRLK09iUkNt?=
+ =?utf-8?B?enN4TGlVSlh0eHh0b2VESkJrc1UxdVRMdWgyQ0JZYTlTWjZsU2REY3ZleEEz?=
+ =?utf-8?B?ZG9sWWlYVnh1NXUyK1F4a2pyNDl3RktyYklUd0xzbnVvZEdvT1ZqVGVNbWV0?=
+ =?utf-8?B?Zi95aHozYUdHRmZ1SEpQN3g4bk45bnZBb2JpV2prR1lPUkRhcDZKQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b04315ce-cc76-4165-9531-08df1887e8ad
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 09:00:11.4503 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UJk2iF5yC4N+IqiWdHtxYsVgB8ZfZPdNkicqfrxNOCRAjBkOA9S9IEjsVU/P2SH7y1OK816OsmCCCG6s5EIYLg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9802
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,43 +146,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+--------------AgA6RZk3jDyLLx7wNQzh0u6r
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Am 08.09.26 um 06:40 schrieb Mario Limonciello:
-> This will allow the connector to show luminance information for
-> eDP panels.
+
+On 9/22/2026 4:45 PM, Christian König wrote:
+> On 9/22/26 10:39, Zhu, Lingshan wrote:
+>> On 9/22/2026 4:04 PM, Christian König wrote:
+>>
+>>> On 9/22/26 09:55, Huang Rui wrote:
+>>> ...
+>>>>> As far as I can see we have solved the problems at hand and the rules how to handle the user queues should be pretty clear by now.
+>>>>>
+>>>> Assuming every kref_get() has a matching kref_put(), and the queue object
+>>>> itself does not participate in a circular ownership chain, I don't
+>>>> immediately see how taking a temporary queue reference would cause
+>>>> correctness issues.
+>>> The reference on the user queue object is meant to keep it alive for the duration of IOCTLs, e.g. prevent concurrent destruction from the close IOCTL.
+>> why only IOCTL???? Since the kref has been embedded in the struct user queue, it should keep the queue alive during ANY OPERATIONS, Not only IOCTL.
+>> Or it will race with the destruction callback in kref_put, and causing UAF problems.
+>>
+>> Do you see any kernel documents says that kref should only be used in ioctl contexts? 
+>> We just cycle over the same questions multiple times now. To limit the reference count to the IOCTL is a design decision I made.
+> We just cycle over the same questions multiple times now. To limit the reference count to the IOCTL is a design decision I made.
 >
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
->   1 file changed, 1 insertion(+)
+> I tried to explain the rational behind that design decision multiple times now but it obviously doesn't seem to be understood.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 3ca98091ce487..7b54ca8beeb4c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -3124,6 +3124,7 @@ static const struct drm_driver amdgpu_kms_driver = {
->   	    DRIVER_ATOMIC |
->   	    DRIVER_GEM |
->   	    DRIVER_RENDER | DRIVER_MODESET | DRIVER_SYNCOBJ |
-> +	    DRIVER_CONNECTOR_LUMINANCE |
+> So to stop wasting my time I'm stopping to reply to this any further.
+>
+> This patch set is rejected.
 
-Can't user space just try to read the connector property. If it get's 
--EINVAL, luminance is not supported.
+This design is wrong, see kernel documents core-api/kref.rst:
 
-Best regards
-Thomas
-
->   	    DRIVER_SYNCOBJ_TIMELINE,
->   	.open = amdgpu_driver_open_kms,
->   	.postclose = amdgpu_driver_postclose_kms,
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+krefs allow you to add reference counters to your objects.  If you
+have objects that are used in multiple places and passed around, and
+you don't have refcounts, your code is almost certainly broken.  If
+you want refcounts, krefs are the way to go.
 
 
+>
+> Regards,
+> Christian.
+>
+>>> It CAN'T be used to grab references from either atomic, interrupt or worker context since then you can't drop the reference any more without risking destruction from non IOCTL context which in turn causes tons of lifetime problems.
+>>>
+>>> This is just standard refcounting rules to keep objects alive during an IOCTL.
+>> Where do you see such standard? It is just a atomic number, not a lock. 
+>>>> Could you please point us to the historical issue or the corresponding
+>>>> commits that led to removing this approach previously?
+>>> See Sunils original approach, he made exactly the same mistake and I already had to fix that back then.
+>>>
+>>> I don't remember if it was actually committed or if we only discussed that on the mailing list.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> Thanks,
+>>>> Ray
+--------------AgA6RZk3jDyLLx7wNQzh0u6r
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 9/22/2026 4:45 PM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:b277046c-a13b-4d47-a7fe-55e18a720e20@amd.com">
+      <pre wrap="" class="moz-quote-pre">On 9/22/26 10:39, Zhu, Lingshan wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 9/22/2026 4:04 PM, Christian König wrote:
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 9/22/26 09:55, Huang Rui wrote:
+...
+</pre>
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">As far as I can see we have solved the problems at hand and the rules how to handle the user queues should be pretty clear by now.
+
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">Assuming every kref_get() has a matching kref_put(), and the queue object
+itself does not participate in a circular ownership chain, I don't
+immediately see how taking a temporary queue reference would cause
+correctness issues.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">The reference on the user queue object is meant to keep it alive for the duration of IOCTLs, e.g. prevent concurrent destruction from the close IOCTL.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+why only IOCTL???? Since the kref has been embedded in the struct user queue, it should keep the queue alive during ANY OPERATIONS, Not only IOCTL.
+Or it will race with the destruction callback in kref_put, and causing UAF problems.
+
+Do you see any kernel documents says that kref should only be used in ioctl contexts? 
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+We just cycle over the same questions multiple times now. To limit the reference count to the IOCTL is a design decision I made.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+We just cycle over the same questions multiple times now. To limit the reference count to the IOCTL is a design decision I made.
+
+I tried to explain the rational behind that design decision multiple times now but it obviously doesn't seem to be understood.
+
+So to stop wasting my time I'm stopping to reply to this any further.
+
+This patch set is rejected.</pre>
+    </blockquote>
+    <pre>This design is wrong, see kernel documents core-api/kref.rst:
+
+krefs allow you to add reference counters to your objects.  If you
+have objects that are used in multiple places and passed around, and
+you don't have refcounts, your code is almost certainly broken.  If
+you want refcounts, krefs are the way to go.
+
+
+</pre>
+    <blockquote type="cite" cite="mid:b277046c-a13b-4d47-a7fe-55e18a720e20@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Regards,
+Christian.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">It CAN'T be used to grab references from either atomic, interrupt or worker context since then you can't drop the reference any more without risking destruction from non IOCTL context which in turn causes tons of lifetime problems.
+
+This is just standard refcounting rules to keep objects alive during an IOCTL.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">Where do you see such standard? It is just a atomic number, not a lock.&nbsp;
+</pre>
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">Could you please point us to the historical issue or the corresponding
+commits that led to removing this approach previously?
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">See Sunils original approach, he made exactly the same mistake and I already had to fix that back then.
+
+I don't remember if it was actually committed or if we only discussed that on the mailing list.
+
+Regards,
+Christian.
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">Thanks,
+Ray
+</pre>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------AgA6RZk3jDyLLx7wNQzh0u6r--
