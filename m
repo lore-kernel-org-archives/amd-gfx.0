@@ -4,128 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C91F8C982F1
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 02:04:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A612AC982FE
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 05:20:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3972810E417;
-	Tue, 22 Sep 2026 02:04:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E7F10EB61;
+	Tue, 22 Sep 2026 05:20:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mwh/2Hk0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kbRQL3W5";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012039.outbound.protection.outlook.com
- [40.107.200.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A16D210E417
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 02:04:48 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010067.outbound.protection.outlook.com
+ [40.93.198.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF1CD10E73E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 05:20:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EqcZqezo1E7V9aSJJJVVjqbRliNEG5VDvbn9X8zAFTxNTyDBBzS3qVHiZEgLyIPC7juK++b3bh4D5J5fV0PWyu+y7ISN+8n/FQ0LqKJ3sKmTbbrvkd1qayzdOuG6qTAgstnLJ1A7ad2GWGtuGPRUSstw/NuLdk1V5+bHai6Vzgwo2bbjhPjw6Mf4qfnkRb2iH7doTsOSNrWzypmU9jPXtEaTLPjrzmhzoQoyeSgXjSYTMm0iuDRVjf8+XqW1uvhDVEkhx37FrEYnzSCd+i7cT0VmPJWe2se8gNVbpFDE0JIlr/5rEzizq5AEJJTGhOY0aJDwy7HmI4m5QONjfqOGlQ==
+ b=Bat5KM9jON1lQlkUd2pO4Ho/VNeB7fnm+KaVVOrG7GC3tNkMYNftTfeXstAWV2UcYE3Um7hh8c8qA6x9eG44l3CzAUcytGAm/U2fXabyDfKE20zTzBPdbZj1EeteQPzI7EpLZwXywgStENC4WOZgeK+3Uz+cdxvavHRfHxJJKkxaUCKtaDhtEFeYmsD/O/4CEjkafRwpr5AzT0PBbzdEwsGTugzb8XO0OlEYowJRUy0+WnzCT8nZdGQ7b9comKKI+fHJyed6cYM30j+QuCipZAk9PtjLUvINKJrkv0gjuKQWC0jqs2aG63Eh4YqBh9URY2L6/tWRYLEbVC8orYQJzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RsG1BknS3D7xEIfv618t5I9i7+QI3+i2nNRSXhm6w6Q=;
- b=uQhaqaNBGN8/XO/ECREigNvnrHcn69VgD52ZGdLpZugeAPUPtvYE7HMHpBCnKZWDe0ZET0MG4trj5cbvit+kWl/eE6H/cDUY0bij9ReUY9NlRsdy+v5WXtS0RIxyo4nQuP9BzvuoOUqlW/ha9pxu5rHAgMirxusMTPDXhwpGQv77lIXUDdRJSYaIVUC+oxNM+utmRhyUXQT9xYrHnOa+ZSzJJfca0yTa77dllRGpHDzTIiyFb9VC7x3c5LMxGP3jcybsJTIgIOvoVhwhJyOLgaj7B0Cex6PwsAnKJgicDqOVi1KAR0dri0+Y555zGiaf9E7NbxENNyQWx3nzRzDafA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=s6x7vfNBQnJdMyExiE7JGf2MUhy3PFf98wogO+Uftgs=;
+ b=lxH+jOLIVMfQfpGaR4xW8i1Nsj2CcnTvMSQhsKS0QO0xRyqxJSOf4yE5w77VmiQlAhzIIDXM7nAunuFLxkVvLUwgPfFDbGqchPVPtwkgbcZhytb8rHMiRL7Ob2ruFHYeca0+c69Tt5Tynx3WiNWrpa/033bKOYmQb660vBAz429+CWP78rOJjnv4vx25N84rniFKnxAJ7bHuz7lsNJ8goKNoDSsLaOW15P6jAA2jTzCdID7EiHDw7+tbI4MSgTzOK2XXMWaCvXxBFQ6pDZh3IMIcwQk5SxENRcvZ5S93q3Saek2wtDWnzAXz4OGC1MmVCd3mccKeM9MWlMw6WsOu5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RsG1BknS3D7xEIfv618t5I9i7+QI3+i2nNRSXhm6w6Q=;
- b=mwh/2Hk0hjQG5yB0FN/hke6PLQpk2ZVLPvzX/zWLzUG/5bWMyNg80QEdzjI49yTXfZ4vuOUrjsD4OYpcrkiqTjgIZWGVSqn8t7K8gL6wbKB7KiHS8v3VNObiuvP+l2XBNWmR2/1K9LXP+X6L0xF+1+XiXatN//3ojI3P8uf7ee0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
- by DM3PR12MB9389.namprd12.prod.outlook.com (2603:10b6:0:46::9) with
- Microsoft
+ bh=s6x7vfNBQnJdMyExiE7JGf2MUhy3PFf98wogO+Uftgs=;
+ b=kbRQL3W5Qv272s2Q5PiZN9jueb3INOamtR6z5WyYcg2OGWmWqKCqiHzE8lKxjnjYoAsq8SgZli8F/avAyDLxByfqSZjdjDBOxN04KyIpJ78mzz+LzE/YX0zD3+crDjSF3N/0X2e56ninkgkq9xXdf2SQg1Je5tX70DuaVLmiOBU=
+Received: from SA9P221CA0015.NAMP221.PROD.OUTLOOK.COM (2603:10b6:806:25::20)
+ by PH0PR12MB7469.namprd12.prod.outlook.com (2603:10b6:510:1e9::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 05:20:03 +0000
+Received: from SA2PEPF00003AE6.namprd02.prod.outlook.com
+ (2603:10b6:806:25:cafe::22) by SA9P221CA0015.outlook.office365.com
+ (2603:10b6:806:25::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.15 via Frontend Transport; Tue,
+ 22 Sep 2026 05:20:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003AE6.mail.protection.outlook.com (10.167.248.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.16; Tue, 22 Sep 2026 02:04:42 +0000
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 02:04:42 +0000
-Content-Type: multipart/alternative;
- boundary="------------p6gm3Jplpm5e21voQYOW4LZ4"
-Message-ID: <ae9377aa-d381-4f21-97f6-03f6ed09d4fc@amd.com>
-Date: Tue, 22 Sep 2026 10:04:36 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND 00/10] drm/amdgpu: secure userq lifecycle by its
- kref
-From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260914130724.130794-1-lingshan.zhu@amd.com>
- <CH2PR12MB945710EE0E52DC2498C528C28CBA2@CH2PR12MB9457.namprd12.prod.outlook.com>
- <BN9PR12MB51464E162658C6DC2425638AF7BA2@BN9PR12MB5146.namprd12.prod.outlook.com>
- <443c6d8c-107e-4eaf-b81d-d6df2733b5a2@amd.com>
-Content-Language: en-US
-In-Reply-To: <443c6d8c-107e-4eaf-b81d-d6df2733b5a2@amd.com>
-X-ClientProxiedBy: SEWP216CA0009.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2b4::19) To CH2PR12MB9457.namprd12.prod.outlook.com
- (2603:10b6:610:27c::7)
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 05:20:03 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 22 Sep 2026 00:19:59 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, Jenny Liu <Jenny-Jing.Liu@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, Samuel Pitoiset <hakzsam@gmail.com>, Natalie Vock
+ <natalie.vock@gmx.de>, Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, Lancelot Six <lancelot.six@amd.com>, 
+ James Zhu <james.zhu@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, "Pierre-Eric
+ Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH v2 2/4] drm/amdgpu: Make first-level trap state GPUVM-owned
+Date: Tue, 22 Sep 2026 10:49:31 +0530
+Message-ID: <20260922051933.772319-3-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260922051933.772319-1-srinivasan.shanmugam@amd.com>
+References: <20260922051933.772319-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|DM3PR12MB9389:EE_
-X-MS-Office365-Filtering-Correlation-Id: b308e924-003e-45af-6fe0-08df184ddd93
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE6:EE_|PH0PR12MB7469:EE_
+X-MS-Office365-Filtering-Correlation-Id: b47046b5-3c54-44fa-950e-08df1869284f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|13003099007|5023799004|6133799003|10067099003|4143699003|56012099006|8096899003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: x1bEeM8Dvfl3XPNGGyYbTO4GkelSavjE1E8Kifx3bjyYTKTqUb3/+gk8mhPrnLx4n9N7/dXk8SmNGpdaq7ragIMeGH0OsrO21CTXxGakxLsys7WAPL/26NjYFM1qISMIeAkDSYG7ZEKQSr5eZWovXZw0NaOorz/GYKQ+A2JW8Y6Ta8SltFy6jO1l13Tf4ksDXFVZh8imMG1q2vlNF8T1Hx2sBj+pWBydEekx2S+EMqbIAAURZvzrzeaG3OsrCwIEzCcXBXjE2uIdeerJxOJD/IJL5AZ1Q2DLjuoO6lY3HF/U5N/9hrHrXg3u8wYk1XPBQ95ffKGceGTCe5zqezhr7mYraLJP1CNnTkI6Pi1vKLw82AkVr1fB4ry/G4OlKPJGK5ykHGlUiY3Tit9P5m80zl8Y1xRIjNRhzkB8nu7mjkf6I1ta+5gaatIMBCXZ15Ej0Rwp0TyPHKWPTxWHj+dHUXUsOI4k2S0WoQjxeYnDIqCsyvTbBuRItqR7nycdR8mDC1Td10OLOki+F6U4KpzFIuOA7gkqnSeBhTLr2URIFO6F7NQdwn0RWzYkq+2/2iK5F/FUvMZQb/Q4hyjGMkeZLTjo5lzXqmuR9TpKZFFP1qtV1hNRJw5MAqBvct9lE/S8
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(13003099007)(5023799004)(6133799003)(10067099003)(4143699003)(56012099006)(8096899003)(11063799006)(22082099003)(18002099003);
+ ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|56012099006|11063799006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: NBR5+g8aVNWoKS7udJknFuPNy2sDD2mLpNVsCcE9j9gyQRyrx0oIQvnCI938qJtdTOYaqn1VPsy4WBsV1fM5tWU55PYHHdtu42DCwdOe87khLaCaEpzmncFTV9eECgkJTnbrTnFRbmOiwenZWQj2u/WcpJvQT7avMAreU5YOk4oYm9JjGSI/b0GlHkmkYAfeZOHfYaSEEBCmPZ1kTiJz9IYrIpKm0cs+KybvOX+Ym60hKJIjbmWa3+T3X5e15FompZN4LKfEjndcx9A6DcVkTgz4LLFjAxzo6jgnNzIf2riHz8xkqx7Hlotfs0n59Pt0KZwGPv8A+mcbbRCY12VB7kZq4RY1OXuT3EH9KsExoFNv7gDockfgqNBbu+kFl7vTGHYxpfaNvOtz8alKXjcoGTAkEgCVJJDmQW0T1QM0b4kXVGnqUmgkRav48ecDiF8BzrHmfBihHbI8dmsBfdCDncKjGVHiQ8xkKjPsaWMLR7/bZRHsBVWNzdCFe1S/cirIEsVwjvS7ca5yU/LCIjIbyJptjUWYjAFOMffjFVsQaiGojmcUKJKxAw5Fn3C0+FVYAK8leLsFuesR+H4rrwO9bqcp2OlAyFULa2fhaIITGdRODgFReDHtLQBo3Hl1MvRLZbMPeVY0ohKkzpdfEWJmPmJdTboRKmdXQ5MuakZ+BI9dhdcHGaiOysO7ZHs2oQ7x/eO9DrVN0atYlI2Iv07DXw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emVkcnBpYjdreDNWK1ZUK05Tc0lmUlRtTm9aVXBtdFlpV0V6UXhkWDF4WXpa?=
- =?utf-8?B?UXpjeVFNdVZPWm1MTmZ5TC8yNjdyNTdRNndMUmNMMVFrdzFiSG1LaEZxRk1N?=
- =?utf-8?B?K2RzTTZqSE5mZ1JYeFNzSVFmNkdRN3B2Y3BHNTRGWFc5T2pRVk1xdHduWWVT?=
- =?utf-8?B?L2ZJZHRmZ2x6MFRtQWFWOWZTaVJwN3dTdC9nQ25hME9pMm0zNzZ6dlVtOEtC?=
- =?utf-8?B?eThTaXNZTEZtUUlEVExzTXFjY0g5VUI2UlgvdjhkSUdrbVZnYkJ2SEN1N29T?=
- =?utf-8?B?TFlSaXVSeVd5Mk9kYVkvWGJLR3lhZS9VcllTdldLS1YyZ0pzUU50NDN6YTl6?=
- =?utf-8?B?Z2FnOXlXcGxYUTFudHlXTy9sSTdEcG0xdlgrNWhVbExlQmZ5M0RzNnl5VTh5?=
- =?utf-8?B?WUxXc1ZQR3JITFNNd25aczFtTHhJODduSllOdVBkd1BRSVJNWWNJd0NiNjlM?=
- =?utf-8?B?Z0hzU1NRSlByVUs3NlRrQWtaK2I3b3hKT28vcHQ3QTNsc0RsdDgzUzVLNVh6?=
- =?utf-8?B?UFdIcVdESThGRE1ZRlcvb0gyTFBsVjZEeXlpUjZpVEFPaWVhbCswZmNUQlBT?=
- =?utf-8?B?OEg3MHYwcG44Wkt5Nk9ZLzdGaW44QzZrSW9CYUYyWld3VDVOaXJZSFlsYUQ1?=
- =?utf-8?B?cGgrTWNFTllMRWpVem85MDFWSDJ5Wk9KeERoTG1GZU1RQ1U3WmRtRFgzUkRy?=
- =?utf-8?B?MUZFNHc4UVh1bWZjVmhHNld1V3BsaFF0eVVzWWhseVA1dlo4NFBEY0FwWXhp?=
- =?utf-8?B?NHEzUzFmblFiYUFObGFLSnB1TC9iL1ZaajQ0SFo4b25QOGhEa3pvWmp0WnJw?=
- =?utf-8?B?bjRWOWdOdlVXdUdaeENCZ0N2Y0ppY2I3a3FLSEVPK0N2L0p3QmlqOS9TSGpo?=
- =?utf-8?B?a1VGblQyUTBMdlZ0VXg5Q2dDSk1TZkJJbUhoRWFwMlVDd3FzVGJPYjQ3VVFF?=
- =?utf-8?B?U25rTEo2ZE50N1ZWUVdCdkZHREczT0lUdFFzU3VZc3NlZzZKc2p1c3JDZUUz?=
- =?utf-8?B?aGhCN01wdGhGM3FyQXI3c2ZjRzQwL0VHYzAwK3c1SjJGQjVJNndTWTgxU1lB?=
- =?utf-8?B?NVVDTEhhMm1PWHRmZ0djaXZKUkFyaHNFZFpmMUF6NmlNNTBISUViTk9wejVJ?=
- =?utf-8?B?L0YwQnZWQTNMWlI3OFBPTUw2SG13L0hHYVZjWlJnQnZMeVUzSWwyRk1XSXZ4?=
- =?utf-8?B?bGdWMXdwZEkxaklTMXo0QjhNeHNZRUVDbTlGYWlHSlo1VHA4SXo3eE5pNmpL?=
- =?utf-8?B?ay94RGE0aVhzSCtKOTV0NG5wVUxGLzJaNi9YbmJEcWIxdFZQaEovWFZCSWds?=
- =?utf-8?B?MTF0Ukk2UVBvblBrYXBzUUtkN1ozRzZ4MHVpVURJM3NIOVhuVUhHTXhmNGpj?=
- =?utf-8?B?VDlCQjBEdHdINzN6NjhYUXY1T0JTZGt1MG92VysyY3pPSmRybldkWTI3TGdY?=
- =?utf-8?B?R3d0SlZreVJYdzJ3dTh4VGhMWS9JRTJSamFkcHFidDRyOVNUek5IRVpPakVy?=
- =?utf-8?B?NkQwUUt0NEtSL25DZ0FiWkxhdFROcnRNZTlabjlxSTBXSlRUaHpsQytBUGJG?=
- =?utf-8?B?ZHREelNMb01FUmQ3UnFGdUI3cExhemlTeXZodlgyaWxFTVZvSE9IRkppYXZK?=
- =?utf-8?B?QnN4WnlBMFkza1hld2dsandraklkdVI2bWRvdkpQU2JsZGxLSWlMTFdCYlcy?=
- =?utf-8?B?aWM5WDVaS1k2Q1JrQTYxOGs2bzZLTTcxTDlZZ2IrVlRLbDMyTW5BaERXbXNx?=
- =?utf-8?B?QXE2dkJERUYvN2ZDZzh2WGJ4Q3dEYXFlYU9sZ3ZsMkRGT0dIOEZKVTQ4L2Qx?=
- =?utf-8?B?OTBTclZnYUZNNng5V28rZDV6dVBQV21LTmdmNWFzWXhVV0ZlZ0pXbEFFOXVN?=
- =?utf-8?B?K1g5NDNmUTY3QTc0S1pZQmJ6MVZoTEZSWE5YWExjTjNUT0psY3JvNTY0akdr?=
- =?utf-8?B?MGJ2dk5VTXZVRlZodkJyVms5cW9zOForVHVtOG1LdndHclZGdWY3alJlN2hK?=
- =?utf-8?B?Y1E5dFpLRDZ2cUxXbTdEdjlOWEZQR3V1ZjhLM2Noa1ZDSk1lSDR3NzBZd3ZF?=
- =?utf-8?B?NFZZMUsxdVE0SEpZbFhUNm1IMHNuY1pLVDdSYnh0OWtnZE5MV0VpTGwvYTdn?=
- =?utf-8?B?S3ZPUml3VEpuYk1ROFdONnREMFdacm90THdBSUJRZmFRNmxGNjlvaytrR1RV?=
- =?utf-8?B?cERlWC9pSDFucjZMV1JCMEtZRDcwV1hPTkhLdzdVb0g2QS8yZUdFUmo2ZjJK?=
- =?utf-8?B?U1FWQ3J5MDBHNVhPdFFsWHBYL3ZyS0lQTXFXZmhWazlpTUpBM0hjdS9rQW1Y?=
- =?utf-8?B?YUlwWk1Vb1dBeVJYeWxPdXp6Z1dibE1YYXZ5c0VQSzczMVBuRW5XZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: t+yl3ptJmmpoUTm4q3XgC/FyGzDrYRqmLNtO8M5ogW/047pctPG/wrU/rO0inH20JeGUn0l4Sh4eQVtCxx8r0XefSFA4Vqg4mI6WerGqJnUgqWrz6lI7ozO4/Edw2Eypd52dh/igoO+U2dAQmXqPjhYL9UL83hCyuERB5PtKYIt25AsdVSDZU/d7UL0cD9i8bXlJd5LQNEc+uWUZvR0JlP4+EDmNpbz+C43UzoBBgV+OxTGf5640JhK65XtTA1W8xMKImLEj2gtbo4fHLlGm8sorEQAZKSodvi6bDN6Ew4TST/cjPoLZpf+3APlLzAio+2sRhye137Gyie3M/iKEBi+wDD/vM4cOjZZDwZdH4u20K/5xbDK8XaKzd/BOTuv2BiwnwSxjWkPEL6qW8xkBo4YmFvkcDcE+NXvkBJn0MiIzFoRXJIKXy5GMnrMMUKXe
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b308e924-003e-45af-6fe0-08df184ddd93
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 02:04:42.1330 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 05:20:03.6471 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b47046b5-3c54-44fa-950e-08df1869284f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bWtTB8f2ekTnXcC+IWRSUI/OJf7Xa4GZYCKbZf9CcHyxjikQDBMs/FG+wRPAGiizHmkizwmFY03+Oe8Ewh0KLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9389
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7469
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,251 +116,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------p6gm3Jplpm5e21voQYOW4LZ4
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+The first-level trap mapping is a property of a GPU virtual address
+space, not of a queue type. User queues and kernel queues executing in
+the same GPUVM read the same TMA, so both paths must not carry separate
+trap allocations.
 
-Gentle Ping Alex
+Move ownership of the trap object to struct amdgpu_vm and create it
+during VM initialization. Access the trap object directly through the
+GPUVM instead of keeping a duplicate fpriv alias. This also establishes
+the trap mapping before a GPUVM can be used by any queue type, which
+allows the gfxhub setup code in the following patch to enable TRAP_EN
+without a deferred allocation.
 
-On 9/18/2026 6:01 PM, Zhu, Lingshan wrote:
+The first-level ISA binary is identical across VMs for the same hardware
+generation. It is copied once into adev->trap_info->isa_bo at device
+init and mapped into each GPUVM at vm_init rather than duplicated
+per-VM.
 
-> On 9/16/2026 6:18 AM, Deucher, Alexander wrote:
->
->> AMD General
->>
->>> -----Original Message-----
->>> From: Zhu, Lingshan <Lingshan.Zhu@amd.com>
->>> Sent: Monday, September 14, 2026 9:55 PM
->>> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix
->>> <Felix.Kuehling@amd.com>
->>> Cc: Huang, Ray <Ray.Huang@amd.com>; amd-gfx@lists.freedesktop.org
->>> Subject: RE: [PATCH RESEND 00/10] drm/amdgpu: secure userq lifecycle by its
->>> kref
->>>
->>> AMD General
->>>
->>> Gentle Ping Alex
->> It doesn't look like Christian's concerns were addressed.
-> Hello Alex,
->
-> I didn't hear back from Christian for almost two weeks, hope I did not miss any emails
->
-> This series tries to fix a common use-after-free issues for user queue.
->
-> The user queues are destroyed when its kref get to zero. So any code paths that work on a user queue has to
-> take a kref of the queue to make sure the queue is alive during its operation.
->
-> However there are several critical functions does not take a kref of a queue when operate on it,
-> for example mes_userq_reset_queue(patch 6) and gfx_v11_0_userq_priv_fault_work(patch 3).
->
-> There could be use-after-free bugs if the user space invokes AMDGPU_USERQ_OP_FREE, or close the drm file,
-> or the user space program unexpectedly crashes/exits when kernel processing the user queue without holding a kref.
->
-> This series tries to fix these problems, and this series is a dependency of the PMC work.
->
-> Please help Review
->
-> Thanks
-> Lingshan
->
->> Alex
->>
->>> -----Original Message-----
->>> From: Zhu, Lingshan <Lingshan.Zhu@amd.com>
->>> Sent: Monday, September 14, 2026 9:07 PM
->>> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix
->>> <Felix.Kuehling@amd.com>
->>> Cc: Huang, Ray <Ray.Huang@amd.com>; amd-gfx@lists.freedesktop.org; Zhu,
->>> Lingshan <Lingshan.Zhu@amd.com>
->>> Subject: [PATCH RESEND 00/10] drm/amdgpu: secure userq lifecycle by its
->>> kref
->>>
->>> A struct kref is embedded in user queue, which manages the lifecycle of a user
->>> queue. However, several code paths access user queues without hoding the
->>> kref of a user queue, especially from the doorbell XArray.
->>>
->>> These accesses can race with the queue destruction process and result in use-
->>> after-free bugs.
->>>
->>> To fix this issue, this commit:
->>> 1) Introduces a new helper amdgpu_lookup_queue_by_doorbell, which looks
->>> up a user queue with locking and hold its kref during access.
->>>
->>> 2) Implement asynchronous userq destruction routine, because the last put of
->>> a queue kref may be placed in a code path where can not sleep or conflict
->>> locking with the destruction process.
->>>
->>> 3) Hold kref during access the user queues
->>>
->>> 4) Keep the userq manager alive as long as its queues, to avoid UAF issues.
->>>
->>> This seires passed amd_basic tests in igt tests
->>>
->>> Link to previus discussions: https://lists.freedesktop.org/archives/amd-
->>> gfx/2026-August/151692.html
->>>
->>> Please help review
->>>
->>> Thanks
->>> Lingshan
->>>
->>> Zhu Lingshan (10):
->>>   drm/amdgpu: introduce amdgpu_lookup_queue_by_doorbell
->>>   drm/amdgpu: keep the userq manager alive as long as its queues
->>>   drm/amdgpu/gfx11: hold userq refs in private fault worker
->>>   drm/amdgpu/gfx12: hold userq refs in private fault worker
->>>   drm/amdgpu: implement asynchronous userq destruction routine
->>>   drm/amdgpu: hold userq kref in MES reset
->>>   drm/amdgpu: hold userq kref during isolation scheduling
->>>   drm/amdgpu: hold userq kref during suspend and resume
->>>   drm/amdgpu: free userq by kref_put when fails to create
->>>   drm/amdgpu: take queue kref in userq_create to avoid UAF
->>>
->>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 214
->>> +++++++++++++++++++--  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
->>> |  18 ++
->>>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     |   7 +-
->>>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     |   7 +-
->>>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |  46 ++---
->>>  5 files changed, 246 insertions(+), 46 deletions(-)
->>>
->>> --
->>> 2.53.0
->>>
---------------p6gm3Jplpm5e21voQYOW4LZ4
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Suggested-by: Christian König <christian.koenig@amd.com>
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Lancelot Six <lancelot.six@amd.com>
+Cc: James Zhu <james.zhu@amd.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>
+Cc: Samuel Pitoiset <hakzsam@gmail.com>
+Cc: Natalie Vock <natalie.vock@gmx.de>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  9 +--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 20 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |  7 +++----
+ 5 files changed, 28 insertions(+), 13 deletions(-)
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <pre>Gentle Ping Alex</pre>
-    <pre class="moz-cite-prefix">On 9/18/2026 6:01 PM, Zhu, Lingshan wrote:
-</pre>
-    <blockquote type="cite" cite="mid:443c6d8c-107e-4eaf-b81d-d6df2733b5a2@amd.com">
-      <pre wrap="" class="moz-quote-pre">On 9/16/2026 6:18 AM, Deucher, Alexander wrote:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index e3763c197138..c228f3c7ac4d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -417,7 +417,6 @@ struct amdgpu_fpriv {
+ 	struct xarray		bo_list_handles;
+ 	struct amdgpu_ctx_mgr	ctx_mgr;
+ 	struct amdgpu_userq_mgr	userq_mgr;
+-	struct amdgpu_trap_obj *trap_obj;
+ 
+ 	/* Eviction fence infra */
+ 	struct amdgpu_eviction_fence_mgr evf_mgr;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 559c9222fc48..1e23a68b5c5b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1499,7 +1499,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		int num_xcc, r;
+ 
+ 		fpriv = (struct amdgpu_fpriv *)filp->driver_priv;
+-		if (!amdgpu_trap_is_enabled(adev) || !fpriv->trap_obj)
++		if (!amdgpu_trap_is_enabled(adev) || !fpriv->vm.trap_obj)
+ 			return -EOPNOTSUPP;
+ 		num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
+ 		cwsr_info.ctl_stack_size =
+@@ -1641,12 +1641,6 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ 
+ 	amdgpu_evf_mgr_init(&fpriv->evf_mgr);
+ 
+-	if (amdgpu_trap_is_enabled(adev)) {
+-		r = amdgpu_trap_alloc(adev, &fpriv->vm, &fpriv->trap_obj);
+-		if (r)
+-			dev_dbg(adev->dev, "trap handler not enabled");
+-	}
+-
+ 	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
+ 
+ 	file_priv->driver_priv = fpriv;
+@@ -1716,7 +1710,6 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+ 	}
+ 
+ 	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
+-	amdgpu_trap_free(adev, &fpriv->vm, &fpriv->userq_mgr, &fpriv->trap_obj);
+ 
+ 	if (pasid)
+ 		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 930b744c5f5f..99a9605f8e15 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -44,6 +44,7 @@
+ #include "amdgpu_dma_buf.h"
+ #include "amdgpu_res_cursor.h"
+ #include "kfd_svm.h"
++#include "amdgpu_trap.h"
+ 
+ /**
+  * DOC: GPUVM
+@@ -2646,8 +2647,18 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 	amdgpu_bo_unref(&root_bo);
+ 
++	if (amdgpu_trap_is_enabled(adev)) {
++		r = amdgpu_trap_alloc(adev, vm, &vm->trap_obj);
++		if (r)
++			goto error_fini_vm;
++	}
++
+ 	return 0;
+ 
++error_fini_vm:
++	amdgpu_vm_fini(adev, vm);
++	return r;
++
+ error_free_root:
+ 	amdgpu_vm_pt_free_root(adev, vm);
+ 	amdgpu_bo_unreserve(vm->root.bo);
+@@ -2753,6 +2764,15 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 
+ 	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
+ 
++	/*
++	 * Free trap state before reserving root. amdgpu_trap_free()
++	 * uses drm_exec to lock the page directory internally; calling
++	 * it after amdgpu_bo_reserve(root) would deadlock on the same
++	 * ww_mutex.
++	 */
++	if (vm->trap_obj)
++		amdgpu_trap_free(adev, vm, NULL, &vm->trap_obj);
++
+ 	root = amdgpu_bo_ref(vm->root.bo);
+ 	amdgpu_bo_reserve(root, true);
+ 	dma_fence_wait(vm->last_unlocked, false);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index dd825e179979..bbf4aa96e15a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -43,6 +43,7 @@ struct amdgpu_bo_va;
+ struct amdgpu_job;
+ struct amdgpu_bo_list_entry;
+ struct amdgpu_bo_vm;
++struct amdgpu_trap_obj;
+ 
+ /*
+  * GPUVM handling
+@@ -488,6 +489,9 @@ struct amdgpu_vm {
+ 
+ 	/* cached fault info */
+ 	struct amdgpu_vm_fault_info fault_info;
++
++	/* First-level trap state shared by all queue paths using this GPUVM. */
++	struct amdgpu_trap_obj *trap_obj;
+ };
+ 
+ struct amdgpu_vm_manager {
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index 2150973b947d..1cce81914be9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -138,7 +138,6 @@ static int convert_to_mes_priority(int priority)
+ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
+ {
+ 	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
+-	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
+ 	struct amdgpu_device *adev = uq_mgr->adev;
+ 	struct amdgpu_userq_obj *ctx = &queue->fw_obj;
+ 	struct amdgpu_mqd_prop *userq_props = queue->userq_prop;
+@@ -172,9 +171,9 @@ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
+ 		queue_input.is_kfd_process = 1;
+ 		queue_input.is_aql_queue = 1;
+ 	}
+-	if (fpriv->trap_obj) {
+-		queue_input.tba_addr = fpriv->trap_obj->tba_gpu_va_addr;
+-		queue_input.tma_addr = fpriv->trap_obj->tma_gpu_va_addr;
++	if (queue->vm->trap_obj) {
++		queue_input.tba_addr = queue->vm->trap_obj->tba_gpu_va_addr;
++		queue_input.tma_addr = queue->vm->trap_obj->tma_gpu_va_addr;
+ 		queue_input.trap_en = !amdgpu_trap_has_dbg_wa(adev);
+ 	}
+ 
+-- 
+2.34.1
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">AMD General
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">-----Original Message-----
-From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:Lingshan.Zhu@amd.com">&lt;Lingshan.Zhu@amd.com&gt;</a>
-Sent: Monday, September 14, 2026 9:55 PM
-To: Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Kuehling, Felix
-<a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
-Cc: Huang, Ray <a class="moz-txt-link-rfc2396E" href="mailto:Ray.Huang@amd.com">&lt;Ray.Huang@amd.com&gt;</a>; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-Subject: RE: [PATCH RESEND 00/10] drm/amdgpu: secure userq lifecycle by its
-kref
-
-AMD General
-
-Gentle Ping Alex
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">It doesn't look like Christian's concerns were addressed.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Hello Alex,
-
-I didn't hear back from Christian for almost two weeks, hope I did not miss any emails
-
-This series tries to fix a common use-after-free issues for user queue.
-
-The user queues are destroyed when its kref get to zero. So any code paths that work on a user queue has to
-take a kref of the queue to make sure the queue is alive during its operation.
-
-However there are several critical functions does not take a kref of a queue when operate on it,
-for example mes_userq_reset_queue(patch 6) and gfx_v11_0_userq_priv_fault_work(patch 3).
-
-There could be use-after-free bugs if the user space invokes AMDGPU_USERQ_OP_FREE, or close the drm file,
-or the user space program unexpectedly crashes/exits when kernel processing the user queue without holding a kref.
-
-This series tries to fix these problems, and this series is a dependency of the PMC work.
-
-Please help Review
-
-Thanks
-Lingshan
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-Alex
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">-----Original Message-----
-From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:Lingshan.Zhu@amd.com">&lt;Lingshan.Zhu@amd.com&gt;</a>
-Sent: Monday, September 14, 2026 9:07 PM
-To: Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Kuehling, Felix
-<a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
-Cc: Huang, Ray <a class="moz-txt-link-rfc2396E" href="mailto:Ray.Huang@amd.com">&lt;Ray.Huang@amd.com&gt;</a>; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Zhu,
-Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:Lingshan.Zhu@amd.com">&lt;Lingshan.Zhu@amd.com&gt;</a>
-Subject: [PATCH RESEND 00/10] drm/amdgpu: secure userq lifecycle by its
-kref
-
-A struct kref is embedded in user queue, which manages the lifecycle of a user
-queue. However, several code paths access user queues without hoding the
-kref of a user queue, especially from the doorbell XArray.
-
-These accesses can race with the queue destruction process and result in use-
-after-free bugs.
-
-To fix this issue, this commit:
-1) Introduces a new helper amdgpu_lookup_queue_by_doorbell, which looks
-up a user queue with locking and hold its kref during access.
-
-2) Implement asynchronous userq destruction routine, because the last put of
-a queue kref may be placed in a code path where can not sleep or conflict
-locking with the destruction process.
-
-3) Hold kref during access the user queues
-
-4) Keep the userq manager alive as long as its queues, to avoid UAF issues.
-
-This seires passed amd_basic tests in igt tests
-
-Link to previus discussions: <a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/archives/amd">https://lists.freedesktop.org/archives/amd</a>-
-gfx/2026-August/151692.html
-
-Please help review
-
-Thanks
-Lingshan
-
-Zhu Lingshan (10):
-  drm/amdgpu: introduce amdgpu_lookup_queue_by_doorbell
-  drm/amdgpu: keep the userq manager alive as long as its queues
-  drm/amdgpu/gfx11: hold userq refs in private fault worker
-  drm/amdgpu/gfx12: hold userq refs in private fault worker
-  drm/amdgpu: implement asynchronous userq destruction routine
-  drm/amdgpu: hold userq kref in MES reset
-  drm/amdgpu: hold userq kref during isolation scheduling
-  drm/amdgpu: hold userq kref during suspend and resume
-  drm/amdgpu: free userq by kref_put when fails to create
-  drm/amdgpu: take queue kref in userq_create to avoid UAF
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 214
-+++++++++++++++++++--  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-|  18 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     |   7 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     |   7 +-
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |  46 ++---
- 5 files changed, 246 insertions(+), 46 deletions(-)
-
---
-2.53.0
-
-</pre>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------p6gm3Jplpm5e21voQYOW4LZ4--
