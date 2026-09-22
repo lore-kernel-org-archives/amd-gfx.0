@@ -4,80 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 526A6C982EA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE7A3C982FA
 	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 07:56:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD78410E837;
-	Wed, 23 Sep 2026 07:55:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB7510EF59;
+	Wed, 23 Sep 2026 07:56:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s6ImteZH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L87tZLu3";
 	dkim-atps=neutral
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
- [74.125.228.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53EF210E7A3
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 02:25:40 +0000 (UTC)
-Received: by mail-pz2-f42.google.com with SMTP id
- 41be03b00d2f7-cc4d04d740cso286350a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 19:25:40 -0700 (PDT)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2DC10E6D0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 15:38:56 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49d1ca5b0d6so32182695e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 08:38:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790130340; x=1790735140; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=YgscQk7Ar8r9xNVFdDi2QgmLohb1qk8AI+LPa8A9QYM=;
- b=s6ImteZH/chSRpWVM/ZxnB0/3J362Vwzx7MKrbofMV2UPpuZp0YMiOCGLj/UqCsXd9
- U4JJ/UYqL5hMyIQEm5zUwFyVgbuXdrfxlT276E/aole3R82aFIguXUVUHX6q+i3Jez17
- P0fzTNK9REat8dcX9vwGKnQ/0AeRVXEZ92GlhE+fheG+5IOzb01rG7J16tbHn1Bulatg
- PKXck/jev6pjAL/XcUJy0D/O0JhjTbQZBiuhmBXFFa1DkT2XfBIw4c9bpEJzD+SfKE99
- WVbGt9r29IzaaOQjsycMBUU+B3tgTjz3pUHZdvIktRqYqpgRUJZlrmbJ3WreP5Um6saV
- ZfbQ==
+ d=gmail.com; s=20251104; t=1790091535; x=1790696335; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=F5jxz2R7aklALF1c07VlaANJo82uSjv4mznBGg6lztU=;
+ b=L87tZLu3ZYlqt4tEAkAXNgnaM4AUUqvzjfnJSHnw+84IzWskxIm10bzJxsGnuuAXbD
+ AoDFGDGaB5eX603sNycEvZ0vJKekCfHt15TspRnHo39r99dy6brc6ab9dchmiehO7nkf
+ JI1ud3iU50XGVQV3fjlE1Eh6aDdXx6HIUa8QBssAlY7pT1TTeJ2YikQ3oD3Go84q27iq
+ CB/JR+LkPSQUIRwIf5OpuXL23a/j4auZ3AZuACNkQ8nLCoqHh/oIBy2KYa8P32Mm1lCF
+ 23mXPXikyLzg7CE78QzOPm5gZOPwMOL+C7Tt59XyP40L48bXzZfo7bNdVi+rNRiEvzdu
+ vUgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790130340; x=1790735140;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1790091535; x=1790696335;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=YgscQk7Ar8r9xNVFdDi2QgmLohb1qk8AI+LPa8A9QYM=;
- b=WYcSiEh8pTJzRSIX5tcqgpu6QYOo/NrzoeTiKDTQE6MZP9QkxBtIGME9kLZUQuhli0
- aUrDUtpY0XG7nVY1SbayLAwd/zSEcq3RQHdVuFutH1+V/1dxUy7PS5HqEy4IUVy8C/EU
- kKd+88ctyia0qsioPZAKuJlfIPKjeeUEyL5Yj4qtIZ/Ye+xwn/8AG833pdIRjoNkEE1E
- 1/rH40VY8j4rVRRzO3tslaqwtgfBCtrgAwXmfwkLYmQUInFqPBQARElzdq1cf/9Q51/w
- XI8l65ELZyUWQaO1/BWviyCravTeyUN5STdtmOhchqooE9mzOeagjC3kAMKr9rnubgWX
- zThw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzt6b4fSyPAUOCuPdP+rJQMor0xbfYbMRazBZo14/9RgbfFQeMGmad/2E6rGLstxfTsPu7/Q4TQ@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lOkDEIhCtPK7fKPXY439gi40o4t/EIKq2eg0nTOtFuuYiVMsr+
- orcblN+o/Ib7L4Z3UaSfM2eECgV23aQKZr5hKZzEEbwbD9PBszLYnfrU
-X-Gm-Gg: AYBFou323Z2N8jOHRFSH+TC9lOYbCkxsiV/+BliFKzE9hvunqr+ZtNJedddRgSKPLKR
- Xz3nMqN31eHS63GMZs0OhJkspBtIyKGnLJWJjlPjEdXklPI5zI/is73wXLCY8QJQ16bgdsju+Sq
- qIEjokvRI/EZct4ky7ZjLZ052aEoWnQW4TWZezXTBElxu8szoWOu1TaSfGs+CP3ELYBf5GO1+9T
- Z/7Uw6nzEFjNDK/Z3HGVg7kQJBgZ2sBGx05aHm9RjZ/B8DxZDJm7+SKQNTTlQoScaNTsDnxojX6
- pHYm+MdhLCIgJOqL5kcLPiNrvMpvd7QemT37whHaFkok3dN59t60IINaM/YsFr2USDBH61OcBAB
- UaJ3EdTDMj2DUFbf7++BolHeXRH7Qgyy71HLUbK1+Rrb0mbFYXw/NoWxOhYLCZgLqvWNaUTp1Tn
- rdGZ2LNUN/bLnDJPf5fYTR9x8iYBChRSTchB37YRZVLPgI1k7O2ENfdVd+O7MiRN7eIhLSpzSqR
- YmONYlD6u+dQA5XraT7Y0mopRCxD9EqUG9hgZxUeLYfkCy2Y0pmxYQ0daiifJVt
-X-Received: by 2002:a05:6a21:730b:b0:3dd:a195:fa16 with SMTP id
- adf61e73a8af0-3ddf82fd6d6mr1278376637.59.1790130339718; 
- Tue, 22 Sep 2026 19:25:39 -0700 (PDT)
-Received: from k1832-XPC7A-R57-GD.tailc99621.ts.net
- ([2407:c800:5a41:af7:fd99:3ec2:4e58:1374])
+ bh=F5jxz2R7aklALF1c07VlaANJo82uSjv4mznBGg6lztU=;
+ b=qW30hfLj7q+QwkO75qkwAyN5vKqiNVZuSmc9pymx628en7TKetdW4hOl//owbdx+67
+ SBetcdpgvMyxir8GB9tXKZIyBpXUCwge7CUvDJ5vTMTqMJQvwW3zGGFOnkRSxTuwTo3R
+ sWwaaheZYoBmgzwtzr0O7unZrNWlvjP9Cf3GV6jWVhzsmew9g9ryyrVM1wh/K89HnBr0
+ Hv3rzknQEIOGJAsBx++a0723WWTHVW8lUentRXSt1TdBBw2ejVjhQqVO7QqxHWaHW3qT
+ 23MlMVidipBsiabUt1yg/8J1F1s/46GJs/G8OV2raac9sI9VGj3A7uHMRK6BBY0iWLxQ
+ Cwmg==
+X-Gm-Message-State: AFuF++lsJo/DfBv8SfMGsV8epsGqKIBqH+lLDuQZn7sgp6qLzT/aSsY+
+ 6JUGZlQJMn7GXP2Lxs8b3kfj+7c3wMLH/qS2KndNIuodSkd9yeetQUO1
+X-Gm-Gg: AYBFou1rWqG+R9boA105XTqZ58Sb/e8OXc0aamwoGTqfOFjH3E8ZO4l0S4neaECKk2W
+ jLJg0p3Rd3kYsNQdKplsmt7/2TlEewh9ImcSiaOrtUG/705vWWKobKuaDQNDvsPzVg9bXwah4ls
+ +2gZVu3024coi+IXwrAK8L+NGMtZ6jiZIB7ulz/a6cqIyX2xNfTq4sBQtgKbYmAwBxhBgq1R492
+ C9CppbAsSpyziBMsaHRrwyxIEFhlojIPP9eB7DOsPtdL8zk0315tpASAflsgTohe3XjBKrBCpIr
+ IYcNJR1rQr4xsMgY/R/JkZ8WR3anBIzQ2wbalfWNOOh9x3XTeVQiIreD3j/VCNQSnXtVs1NdOK5
+ ILnPlULNsN145ib65vs4jjWcEtc+HhUu1v05ygcjgvVgVbK+Rgmx448gUHM7s2NNSRPbyk5Vl8+
+ bNEvx5yde5y9LynCQOVm4fXIWDs4pKiYWwE27KW16kerl1+mRdBp8a+4GpLZ/FvFek2wy2uwvPw
+ zH2lZEpN1U1axDWy9Njl/nlM5js1PMteeH37gK5bgkRp/M=
+X-Received: by 2002:a05:600c:468c:b0:49d:16df:8521 with SMTP id
+ 5b1f17b1804b1-49fc56811dcmr212862655e9.4.1790091534593; 
+ Tue, 22 Sep 2026 08:38:54 -0700 (PDT)
+Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cc75f40839csm309403a12.30.2026.09.22.19.25.37
+ ffacd0b85a97d-48862786f40sm5410966f8f.27.2026.09.22.08.38.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 19:25:39 -0700 (PDT)
-From: Keita Morisaki <kmta1236@gmail.com>
-To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Keita Morisaki <kmta1236@gmail.com>
-Subject: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate control
-Date: Wed, 23 Sep 2026 11:24:51 +0900
-Message-ID: <20260923022451.3346675-1-kmta1236@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Tue, 22 Sep 2026 08:38:53 -0700 (PDT)
+Date: Tue, 22 Sep 2026 18:38:52 +0300
+From: Michail Tatas <michail.tatas@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: unmap GART dma pages before free
+Message-ID: <arKhDFCSoPDNYaxX@michalis-linux>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Wed, 23 Sep 2026 07:55:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,49 +86,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-median3() is meant to return the median of three values, but its last
-compare-and-swap step swaps b and c instead of a and b. When c is
-smaller than both a and b, it returns max(a, b) instead of min(a, b).
-For example, median3(2, 3, 1) returns 3 instead of 2.
+amdgpu_gart_table_ram_alloc() maps the GART dma pages
+and neither the error path nor amdgpu_gart_table_ram_free()
+unmaps those pages before freeing them, which could leave
+the device writing to freed memory.
 
-_do_calc_rc_params() always passes 0 as the first argument, and the
-second argument is never below 12. So whenever the third argument is
-negative, first_line_bpg_offset (and second_line_bpg_offset for 4:2:0)
-is set to the second argument instead of 0.
+Fix by unmapping the GART dma pages before freeing them.
 
-Fix this by swapping a and b in the last step, as intended.
-
-Note that this change does not affect valid DSC configurations. The
-third argument is negative only when bits per pixel exceeds the
-uncompressed rate of the colour format:
-
- - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
-
- - 2 * bpc for 4:2:2
-
- - 1.5 * bpc for 4:2:0
-
-Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
-Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
+Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-index b8fc27a5361e..657173d8081c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-@@ -46,7 +46,7 @@ static int median3(int a, int b, int c)
- 	if (b > c)
- 		swap(b, c);
- 	if (a > b)
--		swap(b, c);
-+		swap(a, b);
- 
- 	return b;
- }
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index c4c21dbbbdbf..780fb01530e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -209,6 +209,8 @@ int amdgpu_gart_table_ram_alloc(struct amdgpu_device *adev)
+ error_resv:
+ 	amdgpu_bo_unreserve(bo);
+ error:
++	dma_unmap_page(&adev->pdev->dev, sg_dma_address(sg->sgl), adev->gart.table_size,
++		       DMA_BIDIRECTIONAL);
+ 	amdgpu_bo_unref(&bo);
+ 	if (sg) {
+ 		sg_free_table(sg);
+@@ -240,6 +242,8 @@ void amdgpu_gart_table_ram_free(struct amdgpu_device *adev)
+ 		amdgpu_bo_unreserve(adev->gart.bo);
+ 	}
+ 	amdgpu_bo_unref(&adev->gart.bo);
++	dma_unmap_page(&adev->pdev->dev, sg_dma_address(sg->sgl), adev->gart.table_size,
++		       DMA_BIDIRECTIONAL);
+ 	sg_free_table(sg);
+ 	kfree(sg);
+ 	p = virt_to_page(adev->gart.ptr);
 -- 
 2.43.0
 
