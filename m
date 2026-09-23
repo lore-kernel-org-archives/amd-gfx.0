@@ -4,87 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAA8CC98314
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E4B9C98317
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5760810F511;
-	Thu, 24 Sep 2026 12:46:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1961F10E92E;
+	Thu, 24 Sep 2026 12:46:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bIvcWWZW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RvJuHdxS";
 	dkim-atps=neutral
-Received: from mail-lr2-f5.google.com (mail-lr2-f5.google.com [74.125.230.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E04BD10F0B8
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 14:55:09 +0000 (UTC)
-Received: by mail-lr2-f5.google.com with SMTP id
- 38308e7fff4ca-3a20b70da4cso6239961fa.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 07:55:09 -0700 (PDT)
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com
+ [74.125.230.234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A45B68961D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 08:07:30 +0000 (UTC)
+Received: by mail-qk2-f42.google.com with SMTP id
+ d75a77b69052e-530c602630bso9133611cf.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 01:07:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790150849; cv=none;
+ d=google.com; s=arc-20260327;
+ b=VpCmg9Ux12xORFFavwi3GgkSgn8I9ZxDh83jpvcFcifENNsgvw80w5xx4VWfUq38rm
+ m7eb8Yp4KO4ScL6Wqmgg80BUjm5ra3kE0QEBNFaAc42lHIVXyXsetyEd0APCYIa5wIVJ
+ NQdkExLilym1AxX2Osqf771cCcmvXeT1PVBZOGN9nXhpWkGeSK1iVVsYCzxCs1uPULWC
+ JKD7MY/TYSgcIkwQimJudBS3vHZJYXu258n4OOh8kVwQQE+bTFI4gXTG7BkmkVepYwJb
+ rnZiYUVpYFT8pRbiF/CMm9BoyLu+dwEo15XsWz9JgC0QHJe5E9ZhIeNBipG9da1oxaUJ
+ lr7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=X6tfoxJ5bpmB6e0WP97I+GLmoZutAadx7RSvw4hqVZ0=;
+ fh=7O9Qq7Y34uDIC4klfWfz2LwXtL4VQYU5NXj3woMcNco=;
+ b=N9IV/N0KemdpYuVzHtKqfRS3K+M5jbyTEshQNPqMDSWdUhDju8grhnLwYOXv/P1/+8
+ w5udlI9aaivKfxf6RLRnYqIxbfC4pt6EAGDoXM4YDIAQ2X5l6xAdnkd6B4S7FRkO+on9
+ hzW7w7WbWI/5Pnokheryzf+A9Ik33JNQpzeP+IRknhCpGp+wzQQlgtPiYrhGQ41Bg/Ut
+ iFVRdJJsMNmHdfvXXtA1xVkI9n4tXSKRgnVgy8QJQyePyN0MaZL02AlgGK/niC4XtIql
+ LQb7meKGNb49XWIleShUeOvi5XiYDChMLKdSYnQBjL9VraAQsDJc6urcRy0hzsu7RMQW
+ QgNQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790175308; x=1790780108; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=KLyY5MHaKq4xCUtb5Tr0mqR1G0KiRq9dtEBuRM3TfU0=;
- b=bIvcWWZWDpwJpV/5hjyIZIN9rK+4FyXrGVI1Qn7I0/vxv14KcjEWbG3HEJqG5CwQcI
- daT6BOKs93LiGCACn8XFajj6pYrjqWRANgdMlU1+Yw5T3lUFX+ooawfEPJ4DhUmocFC6
- eAPjfpAKR3ZNGHIBz4771YGp1lhWD99Glpy1J4wk+Lbr4imTEQ5ni09pc8XKPb0GfTby
- HuLhxI1G2yPuZriQooZOR18vTVepVjogrnmwg8T4Tkpu6m23LcX5POFqiYszY/3Wu3kh
- RQSz5bp1j5IerHW+VNEaGDIKW9/EXIu+ISVWtfCXrHB0Vp/6PaSoiI73svx0+s+X9nAu
- HhSw==
+ d=gmail.com; s=20251104; t=1790150849; x=1790755649; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=X6tfoxJ5bpmB6e0WP97I+GLmoZutAadx7RSvw4hqVZ0=;
+ b=RvJuHdxS4DzPLW74CvaE3ZUuO+Mi05YFW5wrE0Di1VXmFX3yKiAIaluwbrDcBqNJLk
+ qdfeVaeqLw60CLx5XiI1x/+3Bj/Rjs2FIIet/tNKq4PBs4Z4rX7YBRRMIC7isk/YYfv3
+ YsBt1dTi1pMthGIHjpYezy0TYnYzzypg7gNm+ZYMTCPRVXpfUXWDaRX4bDjRtu2SHP1u
+ Ea9YL/y6pyMNU4yDovDtDPYfBBUfehja6cfUpfaAIoNRR0PNIq8PvVX00zxC1bkYagtq
+ VOOckLOoiU8XuL6n514ZmJoJBKcBj+orG2QSSdd6AjRWMK+7zAtYvGc2J3B7lirxjoyi
+ c6cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790175308; x=1790780108;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=KLyY5MHaKq4xCUtb5Tr0mqR1G0KiRq9dtEBuRM3TfU0=;
- b=MGqIxdYF2Vuvf4Rc6na01jiJ2Epc8ECU144/EcUwMgYr4QF3NBuHBDXyf0EF+a2lYa
- 7B/5aMtyICI/Kewl4YyRgOKstVX9q4lazi77B9UggXayVWpIPGHqD7/q+n4glLPx3U0U
- /buV9/Cz1Yvu3VwTZUhD/PwNXocohbOxPBpli2DRF3ToU8JIymcQ60vafyJLGYq6aOw5
- m3pDrYFukUjiDWevjILvFOJbBY4v0RAbG+b1eRQQEs0dt6uY6nbUlY4P6v5cPrX4xvT1
- ifXqfHkNC5J4KkTR+XFTMKiAryUf0g57k6JMV6suGDfcY0YMG/+LU+lc0Lk15NszHUrx
- pXLA==
+ d=1e100.net; s=20260707; t=1790150849; x=1790755649;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=X6tfoxJ5bpmB6e0WP97I+GLmoZutAadx7RSvw4hqVZ0=;
+ b=E9IB9bApf5cgmE6GCbZ8UCGqMaVloSdPPhmk56FhCmtbkHOKufwb1kYDRHnyYJplAG
+ 2VGMsYm6KERo6gIT7NCEfh8DF6rU5H53ckin37amXgn2gVFzfltAHUDwR+5shlRHGO0c
+ xqjuftOazRQzxzKuXzqP/6NeWrQALfowEScQaIU7rd5pzgpVuE+8bdKtowjFd7pEHQp2
+ HerJZZZIITKWMGVUjfpr4g3D8x5h1A+wolHvHmzKqBK0svEc4ryqVNOI/47quHtl1ZnR
+ xuegxmjKkZPROlW4wk3NyaH2Ze++fVzIrukpw216dOrljKloJFAdqLeuMfqjZ6GyXBc8
+ W8Cg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwvamy4Q9i8hYnRYPBak9BmkSiaDuZDSq1Nqizj5ztXkhogqbzIVyJsKcvZI0YcNySRS0DBgawn@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m8NdTGhOZyRVKthxN9DTY2c4WmhGmcUc1y9EtN4IvjaCqPMmaV
- Fiy5Y1JozTf15wTSWuY5ioFlNoPH+2GM+wI/qhVHF1YvK0quqBzluzzd
-X-Gm-Gg: AYBFou0d5JW0y1cywVczBlavNBbIruJMyc8lMstiz64buRtyS4mYgEU18ofEDS3pIrX
- 73IqU4H9AbmKfNPay+y7PHzF2ezkl1YUUYPjk4ITjkShN2sRjSyT1jmLofdbTe8hVmIxsF3SEmP
- wctVoxt2KOtsHLTgmVJXsMzfU1Oovdv/4BNIKKkO3FizMNiHOLP9ACDlmVr5QaVmTutLb4EqUuz
- xNs3jNBGQwMq9Youprg/7SqPVCEjF/tGhV3ZE+es//NoGeHnc2o6+KYO2UC+iyb0vSfWMOIOfvm
- OsJSqgh0uSLxQMF/h6SaHnfB75kYcXLVtpp52Kf+/iDsnc8jpG0UebEVjVzmwrx/m0mjr9iNDAp
- M3NSKcze5Jmw8JEJCp0DDG37i+qzzowi1M6ND4g/xH+J03euMNr3oLqTBkPImgw6OhdlKqV80OQ
- fEr9G17ht4wK3oF+bkSpY3bUBpBplWabcgWGwEDAfW2jAnfGfq4izE8tTka+czsIJP6qXEFaYoS
- wCRBag5NoxMr52W3w==
-X-Received: by 2002:a2e:bc16:0:b0:3a4:8510:f45b with SMTP id
- 38308e7fff4ca-3a630587d23mr6394071fa.8.1790175307836; 
- Wed, 23 Sep 2026 07:55:07 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a62f527d51sm7824951fa.33.2026.09.23.07.55.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 07:55:07 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- Sasha Levin <sashal@kernel.org>, Jani Nikula <jani.nikula@intel.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- Jesse Zhang <jesse.zhang@amd.com>, Fang Wang <32840572@qq.com>
-Subject: [PATCH 5.15 2/2] drm/amdgpu: Limit BO list entry count to prevent
- resource exhaustion
-Date: Wed, 23 Sep 2026 17:54:49 +0300
-Message-ID: <20260923145453.76114-2-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923145453.76114-1-roman.demidov.nn@gmail.com>
-References: <20260923145453.76114-1-roman.demidov.nn@gmail.com>
+ AKwUvBzwHb2onqahyPjHcWeOrm6+h8ok2AQecBFi/amgqBpE4o5wecoana6F8gqBAOQFFncGDlQ1bHum@lists.freedesktop.org
+X-Gm-Message-State: AFuF++moC8xP7knefTwdhFsWIPsGYrK2ny6/GgVx1cUTHyrg2lu1eM02
+ 4IgZ3r9cQRk2CSPb/qBTtH0g94xh4akNdZUgrqYGM3heTsRMCuT+//EP448Bau3PENpzxpDlx+n
+ Yg6hYX4GRvppgVSbsPtQgour1/wxNzlE=
+X-Gm-Gg: AYBFou0pmQt+XQFfr9sDwV5dsrdmdG10+ZV4/r/2U/SiLIa8EJ3pFEPs0RMzpytuwra
+ dCgyuV+jsCDj6RygWbwKxYGA/ZvMLppeXiAQ1o6i9dvPalYa5Jht7JgwGjCqywUFbAuLQXVzfMk
+ IXOUgV5mzrZWwFaweJ4Iz4K3MCAlswq/S7w4d/UIDV1OcmkIhxSpKIHpyzlt+NhzMQXFNo9HXjZ
+ Ex4A/Rt+ThoUrhHC4iTJ5g58rI3lUrup8fcZbqShQulOcO2k7XjbUgUGVR0LZo+GBXLIsAubFnS
+ 4wnCJllFCA0uX5MhlsoLfYxwTC3wv1801zJdVBq0XfGwjKXDNw3LZLfIY7Vw53LRAFEbT+CyP8C
+ 8zBeTDn1jcA==
+X-Received: by 2002:a05:6214:4886:b0:90e:8be9:c384 with SMTP id
+ 6a1803df08f44-9140c4244d5mr29354756d6.27.1790150849428; Wed, 23 Sep 2026
+ 01:07:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260908044035.62093-1-mario.limonciello@amd.com>
+ <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
+ <32f96551-358b-4874-8fd1-a685b02853e1@amd.com> <arJwOSq6-oSywTK6@houat>
+ <08e47991-0d72-471f-9955-0b4ebbcffcdf@suse.de> <arJ0huW356NjqpGR@houat>
+In-Reply-To: <arJ0huW356NjqpGR@houat>
+From: Xaver Hugl <xaver.hugl@gmail.com>
+Date: Wed, 23 Sep 2026 10:07:16 +0200
+X-Gm-Features: AclHuK8xgDnVa7N6ARRpfcYEwFozCo04IqFUVuiW8m2XtM8bq-AsJWi-i2VQJfk
+Message-ID: <CAFZQkGz9O8dZfmxEC5Fcpa2mRHXde+FFwu4JVz3fvKTzHT49LQ@mail.gmail.com>
+Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, Simona Vetter <simona@ffwll.ch>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, amd-gfx@lists.freedesktop.org, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,60 +116,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Jesse.Zhang" <Jesse.Zhang@amd.com>
+> Couldn't we make a sysfs write trigger an atomic commit then? That way,
+it would always go through the atomic commit path, no matter whether
+you're on a "legacy" compositor or not.
+That could cause stutter.
 
-commit 6270b1a5dab94665d7adce3dc78bc9066ed28bdd upstream.
+> It probably would, but it would create a precedent I'm not really
+> familiar with. Hotplug events are kind of separate because it really is
+> a hardware event most of the time: you get an interrupt, and report it
+> to userspace. And it's largely outside of the properties space (except
+> maybe for things like edid).
+If there's any property changes, userspace does need to be notified
+about it. Whether the change is caused by hardware or software doesn't
+matter.
 
-Userspace can pass an arbitrary number of BO list entries via the
-bo_number field. Although the previous multiplication overflow check
-prevents out-of-bounds allocation, a large number of entries could still
-cause excessive memory allocation (up to potentially gigabytes) and
-unnecessarily long list processing times.
+> If we start having the argument that a property changing must trigger a
+> uevent, then it means that we can expect *any* property to do so
+For anything modified outside of the compositor's control, yes.
+The client cap avoids needing uevents for the luminance property
+though, since backlight control is exclusive to DRM if the compositor
+supports it.
 
-Introduce a hard limit of 128k entries per BO list, which is more than
-sufficient for any realistic use case (e.g., a single list containing all
-buffers in a large scene). This prevents memory exhaustion attacks and
-ensures predictable performance.
+> "the compositor needs to be in control of it" can apply to many, like
+> color formats, positions, tiling, etc.
+If there were other APIs that desktops relied on for controlling color
+formats and similar, we would indeed also need a client cap for those
+things, until definitely all software is ported away from the old API.
 
-Return -EINVAL if the requested entry count exceeds the limit
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 688b87d39e0aa8135105b40dc167d74b5ada5332)
-Cc: stable@vger.kernel.org
-Signed-off-by: Fang Wang <32840572@qq.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for CVE-2026-23468
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index 22d7b7c504db..ca0d82be5c9c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -35,6 +35,7 @@
- 
- #define AMDGPU_BO_LIST_MAX_PRIORITY	32u
- #define AMDGPU_BO_LIST_NUM_BUCKETS	(AMDGPU_BO_LIST_MAX_PRIORITY + 1)
-+#define AMDGPU_BO_LIST_MAX_ENTRIES	(128 * 1024)
- 
- static void amdgpu_bo_list_free_rcu(struct rcu_head *rcu)
- {
-@@ -230,6 +231,9 @@ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
- 	const uint32_t bo_number = in->bo_number;
- 	struct drm_amdgpu_bo_list_entry *info;
- 
-+	if (bo_number > AMDGPU_BO_LIST_MAX_ENTRIES)
-+		return -EINVAL;
-+
- 	/* copy the handle array from userspace to a kernel buffer */
- 	if (likely(info_size == bo_info_size)) {
- 		info = vmemdup_array_user(uptr, bo_number, info_size);
--- 
-2.53.0
-
+- Xaver
