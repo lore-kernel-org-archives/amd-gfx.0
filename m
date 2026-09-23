@@ -4,73 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34DDDC9830E
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 15:12:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE353C9830B
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 15:12:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9693410E5E6;
-	Wed, 23 Sep 2026 15:12:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F3AD10E415;
+	Wed, 23 Sep 2026 15:12:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oORbs0SG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aNVFzANm";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010000.outbound.protection.outlook.com [52.101.46.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96BD910E4EB
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 15:12:45 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012066.outbound.protection.outlook.com [52.101.48.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4482F10E415
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 15:12:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L3i7Fq7udQVnaRC0SGPW5JjeBoE/ChfyJDx1j7TBalvUN8Q3YPY7A993mLXqxG1H2HWBS12LyT5FQMJwoBpQaVQzl5KN+YVjwPrlLXO4P8knJldKM+6ziD7bHTQowi8wLJD7QudTHTZA5QX5C1XXpDCIxOobvwQMGucYw/OlNRVUO6BkQAH9JGDgW9Pie1GQuQEGQDOXtaj+aPhD6qjA2ZytJRJrMIh2ueLYAJ4Sh6qPfGgGOGSCeZB2D885+xLTzJQAdxoK+kivuMeId505aEkWyGAGKjG2vPmc10IxzZWOEljhc0KNh0rslXb0r1M3vfqeZU17aKceh0tyawKFNg==
+ b=FSJa5D/FuAtJPLzIHcsRVamCXj4JmImDtdMo9HS+ntwDOnKUD267he17wmiQvHMJW4I5OAY2FIiE88j42wvd6bIbV0fGSHO3r/NCeWEembbiPqDE++qcApwVSq3Z0o7BBrTIcSmbg0rVDgZVfMbT9J0COfc+0CyV9L4hT50EkVaIt+ostlFcpIr/LZj47ZQdWZXhgRM9SYgDTt2m3QG0cnbza0ovs6wMrCrdrdexhfECpfGW0C+BLkW8XjFB/rqQtWtvlnD0Tvx+ejTtYNVj4QwX3cBV1hZulXxq+jEYpoO5Ie1shMYkjlB5xSI0Ywb8ZDqq7Ke1qiBdmwbM3hk/Hw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n2DR3AhdfevGzdH2snmRCrWSF/YulW0/+A0troRpocs=;
- b=ydwvgnpNeH3Hdmdoe+nS+fWGZnWpxYtmzwwZKBjo2aoRbp6jGIIPgIFl6bAwqvenknqZoGkbJqU09ZpIaKol1hN4AXZxTob6GY1wdjVnla2uas6CCEqbO5MtdoWEx2sioYWx7LJx+XnNBK6vavx+f2Y/6x6i0EFR70t0qaphdkJbY7W6qtg75HC7J1g/KRIRtCde5NOUICqN5TKAPUz+CWP4WAsW1XwzYFbxpk2uMXhfjxsJ8uDNDyiPcJ0+IFfLfELttW8OtndRcm1ADt2TiAIQslIHv3L4fpPPYz+6pIGT3y/oje1CUpwfiDrTHBzf55g39/WUXIDHEbg+/OHzGg==
+ bh=yD9Za6sZDE8A6n/L8kg0PlPGSDXlpdhHHHrKgnBreC4=;
+ b=mlVJbqV69aeukUXWwViJvpzEkUxNQd9vL1ZOr0rTZeFHsgbNTIfPn4ZA7EvsJdHrcGb6pfjXbC4HKs427GXe2VsIQl01MEgo3OuA4+skVhf6XI64ZkDHUn3koYJvY5DaPcZfDzjRZH44yySyJiYWOG/yCRWMm3Vvaos1uGcDnWD2qECJ8eswTmxhBYXIM7dTwNbjDOZPWCeyJm4qd+Quyvtxum9aXJXLAJnQZjX8dYTWBbd42f/fTYJZagYQk/+OAK3HmFM/3bKApYgpZLWUG7/iiRO801fEmfyhDtmKEeTJ1rC21n9fyXjHGnMaiggkqkt+c9rmRFsNt0YEIWnSxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n2DR3AhdfevGzdH2snmRCrWSF/YulW0/+A0troRpocs=;
- b=oORbs0SGI4g92X7O2v1V+2Bfxh4AYyGUf/oP85O6xJ6YeT7Ca9Ymbqy5/7IwiPxZoEfB4bmgn0ueOaw8d+5kkkTYCrsF3ux2cZLuegQ1yi6HYIjhFHFzjYoPs88rx7OS5Hi4rOko1lfdJq5Npx6DPg5Kg5CDyhADKy2btV1AC8U=
-Received: from SJ0PR05CA0159.namprd05.prod.outlook.com (2603:10b6:a03:339::14)
- by CH3PR12MB473303.namprd12.prod.outlook.com (2603:10b6:610:34c::24)
+ bh=yD9Za6sZDE8A6n/L8kg0PlPGSDXlpdhHHHrKgnBreC4=;
+ b=aNVFzANmMueJySoyTJ4Gm3k5sKbhv0y/OoYiEzRdndFVYppGneKtxSqOaHZVmWoXfjWMQVOODimxLsiNkJ9Bm4qTj6u+9Yz6iF19cvL7tb3YomWefdNMQ/uXk1i0dGrp4mzHrtQZ4pjtxwpGoh/fxg6aOC5dw0QB1kueyYq4108=
+Received: from PH8PR02CA0008.namprd02.prod.outlook.com (2603:10b6:510:2d0::17)
+ by LV0PR12MB507217.namprd12.prod.outlook.com (2603:10b6:408:3b7::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 15:12:41 +0000
-Received: from CO1PEPF000066E6.namprd05.prod.outlook.com
- (2603:10b6:a03:339:cafe::3) by SJ0PR05CA0159.outlook.office365.com
- (2603:10b6:a03:339::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 23
- Sep 2026 15:12:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
+ 2026 15:12:48 +0000
+Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
+ (2603:10b6:510:2d0:cafe::45) by PH8PR02CA0008.outlook.office365.com
+ (2603:10b6:510:2d0::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.16 via Frontend Transport; Wed,
+ 23 Sep 2026 15:12:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000066E6.mail.protection.outlook.com (10.167.249.4) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 15:12:40 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 15:12:47 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 10:12:38 -0500
+ 2026 10:12:40 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 10:12:38 -0500
+ 2026 10:12:40 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 23 Sep 2026 10:12:37 -0500
+ Transport; Wed, 23 Sep 2026 10:12:39 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Frank Min <Frank.Min@amd.com>, Likun Gao <Likun.Gao@amd.com>, "Hawking
- Zhang" <Hawking.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 06/12] drm/amdgpu: add infrastructrure for handling mp5
- firmware
-Date: Wed, 23 Sep 2026 11:12:20 -0400
-Message-ID: <20260923151226.2778589-6-alexander.deucher@amd.com>
+CC: Lin Cao <lincao12@amd.com>, Yifan Zha <Yifan.Zha@amd.com>, Yiqing Yao
+ <yiqing.yao@amd.com>, Frank Min <Frank.Min@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH 09/12] drm/amdgpu: add new MEC2 firmware loading framework
+Date: Wed, 23 Sep 2026 11:12:23 -0400
+Message-ID: <20260923151226.2778589-9-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923151226.2778589-1-alexander.deucher@amd.com>
 References: <20260923151226.2778589-1-alexander.deucher@amd.com>
@@ -79,29 +78,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E6:EE_|CH3PR12MB473303:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec05fb92-f6ec-4a77-f748-08df19851c87
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|LV0PR12MB507217:EE_
+X-MS-Office365-Filtering-Correlation-Id: 005fe9b2-796c-4229-5a52-08df19852076
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|10067099003|56012099006|6133799003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: MfAanX78hEYB0KTnmm6RGL8oxXtlg4TqsuEDsfKG5LrJJNnvmDf6unDSHO5aVSAcQd+97U6ZutJrej7PMQDdKUHzwwhAAdQrtBdq6TocT28xsa6d+ChlBq68Rt1pWrUcD3J6QX0Ch5eTEIJXBXqgPg/VvNbWnPdZci3Vmw0jWRzYGhAdAjLV3noGaLmPuwRl6Rw2qqvOmbMZ+mKC0VwqxcO1Jeb/bcks3hfC2eBIWWYehLCmwjnOPb5gPEWKSuyNM+GoWP+nXIFEvKPpLVir1WVCDBKzEfVGZ/7PWqpqU9GZANPi0zFQN326gVgIqYf10/7c5pFScHynS+7YaZMfjp3M21QtCYemAZEUsYMp8wQxcYmkHShba08GA9fONMleuJkZoi+7SVi5NDOHcfBa2/tuby9+6PX68eVrvbEWGz8o8XAtnAAvM2W8hbwr/q93NKN6giilsKz+vpWXFrYYFdBpkwa55x696Ffm6TdPYX3dvt8+p8oshua1idl9HuhBTVk54qCwFlaz8R2RRwSkTZnLC+Jt8Avz63FUF7dAsPYklAeTqvUXb9fIEnHl950eHjwo7wcePybuflMs40GHi2mMVndFL2Q8R1HgPifQE12t66Iz1AA92eybeCQmXpucsI8usbGPGuR1bVqw6BEwBDyI5ry5kFnEbtDarOMJMNTvwg9nzkxTm7krjcd3jTeFx0rsh+9XGe0dZUI2n7DR3A==
+ ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|22082099003|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: /H6BhZRwJ5h4vj2XaOYBhDacooEuYq89YkgEYulchMYq/M7BF6a6Wfv0vFXaVWjCYVYFe/Ab8ND66m9a/P2FOcSmUc9QC/q4Mk7jEGPCQQAywoi8Al1hz/MCOG1X5Tpx7KXz0EjLTSVGv6igIpeLhH6ji8kukEGaCwMHB+w1xYfwAhI8X8D9wyzu4YzsLCahiGAJkFfac8/ylWQxLbo59qNyWAw0v6b5hFUuRqNHNccJJl+HsCrzpNlIvzILOFA3MnTFqKgeKt5T9wl5hKiOKYKE22bjb0fZzKTlFrCaSpgetlyTlahfNVBWUPmmAdk9bgAsCL3Zh3LiOduteakma0o1SVDOnT898kG5+Tc7Pft9iZgxGwAIUQfKFAUmAMqWFW9LnSAs4PeQHtqh5mmVYHl79zz5RJyNdNaYwBIt6E2/VOp/72gPmB8/1fme8khOxY/jfviSYouUEcacrcHZRuTWVzA10YcCUZh7OLf+iDI2VWC3m9yc+wa8wX4fpJmIT3U+fpgi47vSnIr3kjkc5w3uDL3k/JRhvfzSyAzN1w5YVfz29KJF8hlf3sII84+bEVnXF1RUJnRzcdw5zmmRbEIPaOv8r1E+lS/kyp9m2pvp0mQnTzI47S8UT7LJLCawNnVwLMfKyd7gZWnVn4BhNuNlbQSUURLaCdWt+LQzXoVmvTv97pTidkc+SUX84n2ie9rf1h4KggGyfq5VAZK/Ug==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(6133799003)(11063799006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6C4hVneyHnXRBNPJO9RcNWVpxD23nHJKlBLBbAVz25BRP0f6l5FGsXPQyxoEETzTYadMF7ZPTv008R+QVRET8o2RFw5tb2XB8gJ2ER+hxMmO64KnyIX5VUrAVTZ+cfNtCdFyzTnDDM876nGsbFQmhoBDkR/c3mHGs5PROkp5PPAG7N+6/9u02P1JuJSCrP94QkihPUaQB1QAVs3x0/BQapFnDKzO3ZRi+rMiYkDla/mlyFizM1X2TnYG0ETkI+PB/EmUbwSAbuOl+Y9DalFX8hu3na3foSWTN4lMVt173sfPqIfoHUGFxtf1yO5wyMcmvOPQCUt6zSoSyWFLnNfSODY38RLnCrVFHC0DjYnBUy/dVzyFwwsmRYRUISWr0cFx4k7PSA+pfPFWjSHl9lLCBFnp5ssx2ZHuxsVv1BthulpuwG8lmo84QbmaQsFeMYER
+X-MS-Exchange-AntiSpam-MessageData-0: GkAEMDfy04oq1JFvXwjH9kONW9oeFUr56tKmKgEA6xjrzlm2Xa7Vq/UShlXszaznJ3BmLWBZxSPHg+GjPvaIqOO95bkOAb/xtamTzOGEXePOGzkiD6NosikfsrLzKRIlH+uKbDwTxcOzW96G/mk7TRoKycEnJnrojhuAJE2RpvUP5idMEtQwIiSTpkK+iMvkAl5aP3uIi2Ykcmzq1Z5HAWQUFTfQ/E7BiQ5ierhK0OCihe9bcz6cqXjuJSj+VDhznORaaCeNKdhkk7BoArkaku3OG85VR4JZGg2v813yUDXwnVGVfRqmuAUt9ugM6+ckBbE0dRrDmpa46J05PaphNEr/qNNQ4q+H0Jq+rWQ3AEwn/LsFxZyxlw+XyH5z0pHEIf5I+cUfCB/ytcKoMoMd1XlwcgsnrjL/wzQTkXrtF18Ik/Kpu6Dp78jpSbEZSuul
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:12:40.8574 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec05fb92-f6ec-4a77-f748-08df19851c87
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:12:47.5211 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 005fe9b2-796c-4229-5a52-08df19852076
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E6.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D6.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB473303
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB507217
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,98 +115,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Frank Min <Frank.Min@amd.com>
+From: Lin Cao <lincao12@amd.com>
 
-Add framework for MP5 firmware.
+Add ucode loading support for MEC pipe stacks P4-P7:
+ - add GFX_FW_TYPE_RS64_MEC_P4..P7 firmware types
+ - add AMDGPU_UCODE_ID_CP_RS64_MEC_P4..P7 ucode ids
+ - handle P4-P7 in ucode name/init, psp fw type
 
-Signed-off-by: Frank Min <Frank.Min@amd.com>
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
+Signed-off-by: Yiqing Yao <yiqing.yao@amd.com>
+Signed-off-by: Lin Cao <lincao12@amd.com>
+Reviewed-by: Frank Min<Frank.Min@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 7 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h | 1 +
- drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h   | 1 +
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h   | 2 ++
- 5 files changed, 13 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c   |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 12 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 28 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h   |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/psp_v15_0_3.c  | 12 ++++++++++
+ 6 files changed, 64 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 7a132e6d7e429..4e38285e90676 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1599,6 +1599,10 @@ void amdgpu_gfx_cp_init_microcode(struct amdgpu_device *adev,
+ 	case AMDGPU_UCODE_ID_CP_RS64_MEC_P1_STACK:
+ 	case AMDGPU_UCODE_ID_CP_RS64_MEC_P2_STACK:
+ 	case AMDGPU_UCODE_ID_CP_RS64_MEC_P3_STACK:
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P4_STACK:
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P5_STACK:
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P6_STACK:
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P7_STACK:
+ 		cp_hdr_v2_0 = (const struct gfx_firmware_header_v2_0 *)
+ 			adev->gfx.mec_fw->data;
+ 		ucode_fw = adev->gfx.mec_fw;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 0b5e8373855aa..5db568fc24218 100644
+index 5db568fc24218..56116bcd0a3a8 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -3753,6 +3753,9 @@ int amdgpu_psp_get_fw_type(struct amdgpu_firmware_info *ucode,
- 	case AMDGPU_UCODE_ID_ISP:
- 		*type = GFX_FW_TYPE_ISP;
+@@ -3726,6 +3726,18 @@ int amdgpu_psp_get_fw_type(struct amdgpu_firmware_info *ucode,
+ 	case AMDGPU_UCODE_ID_CP_RS64_MEC_P3_STACK:
+ 		*type = GFX_FW_TYPE_RS64_MEC_P3_STACK;
  		break;
-+	case AMDGPU_UCODE_ID_MP5:
-+		*type = GFX_FW_TYPE_MP5;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P4_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P4_STACK;
 +		break;
- 	case AMDGPU_UCODE_ID_MAXIMUM:
- 	default:
- 		return -EINVAL;
-@@ -3806,6 +3809,10 @@ static void psp_print_fw_hdr(struct psp_context *psp,
- 		hdr = (struct common_firmware_header *)adev->pm.fw->data;
- 		amdgpu_ucode_print_smc_hdr(hdr);
- 		break;
-+	case AMDGPU_UCODE_ID_MP5:
-+		hdr = (struct common_firmware_header *)adev->pm.mp5_fw->data;
-+		amdgpu_ucode_print_smc_hdr(hdr);
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P5_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P5_STACK;
 +		break;
- 	default:
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P6_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P6_STACK;
++		break;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P7_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P7_STACK;
++		break;
+ 	case AMDGPU_UCODE_ID_VPE_CTX:
+ 		*type = GFX_FW_TYPE_VPEC_FW1;
  		break;
- 	}
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index c07f6d8d36bbd..31c10e3046b37 100644
+index e5d47f08715f3..d2ce526dd95cc 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -753,6 +753,8 @@ const char *amdgpu_ucode_name(enum AMDGPU_UCODE_ID ucode_id)
+@@ -751,6 +751,14 @@ const char *amdgpu_ucode_name(enum AMDGPU_UCODE_ID ucode_id)
+ 		return "RS64_MEC_P2_STACK";
+ 	case AMDGPU_UCODE_ID_CP_RS64_MEC_P3_STACK:
  		return "RS64_MEC_P3_STACK";
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P4_STACK:
++		return "RS64_MEC_P4_STACK";
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P5_STACK:
++		return "RS64_MEC_P5_STACK";
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P6_STACK:
++		return "RS64_MEC_P6_STACK";
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P7_STACK:
++		return "RS64_MEC_P7_STACK";
  	case AMDGPU_UCODE_ID_ISP:
  		return "ISP";
-+	case AMDGPU_UCODE_ID_MP5:
-+		return "MP5";
- 	default:
- 		return "UNKNOWN UCODE";
- 	}
+ 	case AMDGPU_UCODE_ID_MP5:
+@@ -1094,6 +1102,26 @@ static int amdgpu_ucode_init_single_fw(struct amdgpu_device *adev,
+ 			ucode_addr = (u8 *)ucode->fw->data +
+ 				le32_to_cpu(cpv2_hdr->data_offset_bytes);
+ 			break;
++		case AMDGPU_UCODE_ID_CP_RS64_MEC_P4_STACK:
++			ucode->ucode_size = le32_to_cpu(cpv2_hdr->data_size_bytes);
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(cpv2_hdr->data_offset_bytes);
++			break;
++		case AMDGPU_UCODE_ID_CP_RS64_MEC_P5_STACK:
++			ucode->ucode_size = le32_to_cpu(cpv2_hdr->data_size_bytes);
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(cpv2_hdr->data_offset_bytes);
++			break;
++		case AMDGPU_UCODE_ID_CP_RS64_MEC_P6_STACK:
++			ucode->ucode_size = le32_to_cpu(cpv2_hdr->data_size_bytes);
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(cpv2_hdr->data_offset_bytes);
++			break;
++		case AMDGPU_UCODE_ID_CP_RS64_MEC_P7_STACK:
++			ucode->ucode_size = le32_to_cpu(cpv2_hdr->data_size_bytes);
++			ucode_addr = (u8 *)ucode->fw->data +
++				le32_to_cpu(cpv2_hdr->data_offset_bytes);
++			break;
+ 		case AMDGPU_UCODE_ID_VPE_CTX:
+ 			ucode->ucode_size = le32_to_cpu(vpe_hdr->ctx_ucode_size_bytes);
+ 			ucode_addr = (u8 *)ucode->fw->data +
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-index f316776fe950a..83e5f0627369d 100644
+index 83e5f0627369d..35277b240f25a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-@@ -477,6 +477,7 @@ union amdgpu_firmware_header {
-  */
- enum AMDGPU_UCODE_ID {
- 	AMDGPU_UCODE_ID_CAP = 0,
-+	AMDGPU_UCODE_ID_MP5,
- 	AMDGPU_UCODE_ID_SDMA0,
- 	AMDGPU_UCODE_ID_SDMA1,
- 	AMDGPU_UCODE_ID_SDMA2,
+@@ -503,6 +503,10 @@ enum AMDGPU_UCODE_ID {
+ 	AMDGPU_UCODE_ID_CP_RS64_MEC_P1_STACK,
+ 	AMDGPU_UCODE_ID_CP_RS64_MEC_P2_STACK,
+ 	AMDGPU_UCODE_ID_CP_RS64_MEC_P3_STACK,
++	AMDGPU_UCODE_ID_CP_RS64_MEC_P4_STACK,
++	AMDGPU_UCODE_ID_CP_RS64_MEC_P5_STACK,
++	AMDGPU_UCODE_ID_CP_RS64_MEC_P6_STACK,
++	AMDGPU_UCODE_ID_CP_RS64_MEC_P7_STACK,
+ 	AMDGPU_UCODE_ID_CP_MEC1,
+ 	AMDGPU_UCODE_ID_CP_MEC1_JT,
+ 	AMDGPU_UCODE_ID_CP_MEC2,
 diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-index 0803cfc445dc7..d54b9edcd5394 100644
+index d54b9edcd5394..612d532494764 100644
 --- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
 +++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-@@ -322,6 +322,7 @@ enum psp_gfx_fw_type {
+@@ -322,6 +322,10 @@ enum psp_gfx_fw_type {
  	GFX_FW_TYPE_VPE                             = 102,
  	GFX_FW_TYPE_JPEG_RAM                        = 128,  /**< JPEG Command buffer */
  	GFX_FW_TYPE_P2S_TABLE                       = 129,
-+	GFX_FW_TYPE_MP5                             = 158,  /* MP5 ucode    */
++    GFX_FW_TYPE_RS64_MEC_P4_STACK               = 133,  /* RS64 MEC stack P4        ATx     */
++    GFX_FW_TYPE_RS64_MEC_P5_STACK               = 134,  /* RS64 MEC stack P5        ATx     */
++    GFX_FW_TYPE_RS64_MEC_P6_STACK               = 135,  /* RS64 MEC stack P6        ATx     */
++    GFX_FW_TYPE_RS64_MEC_P7_STACK               = 136,  /* RS64 MEC stack P7        ATx     */
+ 	GFX_FW_TYPE_MP5                             = 158,  /* MP5 ucode    */
  	GFX_FW_TYPE_MAX
  };
- 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index ed1e7385243db..64d68a905f86b 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -351,7 +351,9 @@ struct amdgpu_pm {
- 	bool                    sysfs_initialized;
- 	struct amdgpu_dpm       dpm;
- 	const struct firmware	*fw;	/* SMC firmware */
-+	const struct firmware	*mp5_fw;	/* MP5 firmware */
- 	uint32_t                fw_version;
-+	uint32_t                mp5_fw_version;
- 	uint32_t                pcie_gen_mask;
- 	uint32_t                pcie_mlw_mask;
- 	struct amd_pp_display_configuration pm_display_cfg;/* set by dc */
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0_3.c b/drivers/gpu/drm/amd/amdgpu/psp_v15_0_3.c
+index cab3bec1e5127..33662a1aad16c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0_3.c
+@@ -746,6 +746,18 @@ static int psp_v15_0_3_get_fw_type(struct amdgpu_firmware_info *ucode,
+ 	case AMDGPU_UCODE_ID_CP_RS64_MEC_P3_STACK:
+ 		*type = GFX_FW_TYPE_RS64_MEC_P3_STACK;
+ 		break;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P4_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P4_STACK;
++		break;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P5_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P5_STACK;
++		break;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P6_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P6_STACK;
++		break;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P7_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P7_STACK;
++		break;
+ 	case AMDGPU_UCODE_ID_VPE_CTX:
+ 		*type = GFX_FW_TYPE_VPEC_FW1;
+ 		break;
 -- 
 2.55.0
 
