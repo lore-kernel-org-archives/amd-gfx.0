@@ -4,179 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B66B0C9830E
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 07:56:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB2BC98304
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 07:56:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F23110EF6D;
-	Wed, 23 Sep 2026 07:56:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63DE810EF5D;
+	Wed, 23 Sep 2026 07:56:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="Q3nH38P7";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="FKBkWxZH";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87CFB10EE51;
- Tue, 22 Sep 2026 19:57:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1790107042; x=1790711842; i=w_armin@gmx.de;
- bh=lUdjrgZaJzfqhGj+CZN4gVxm1gbrnsp7WHgXh1rIN7c=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=Q3nH38P7FiqPSIwijIqpJl4qV/w8EGNAi7QaGskWYTaZ/95LruwLqxCd78yBTMKQ
- moghfXNreGJiicMMCIeYg2qMpKg3GdbTA4mNes9B1RKHZ7ktZMke3y1Flt+OKAhSH
- ItVQCa1txDmEAiUjQZYL4NBOzezgzfbms79zkIyC6z40o0yYbACeCI1xIdkZ7vXOR
- 478n9IGSWR54cHZ3iGQY3Oik+9+fJ8LWknH8f3SHvtGjIet4EySSJOQdjOXn+ZLqw
- wJKHpYci6wXMFj3I1GFrsx5XsouSiO+V1UG+qbv7Ysy4yU3DPPaHRb4MNnjg2Il3k
- pMJQqt3QE3ia+ooZkQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N0G1d-1wnhmo2wGV-00vygm; Tue, 22
- Sep 2026 21:57:21 +0200
-Message-ID: <154fc984-5c29-4a23-ab8b-736471f419a1@gmx.de>
-Date: Tue, 22 Sep 2026 21:57:19 +0200
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60FC610E7F9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 05:58:41 +0000 (UTC)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68N45g8p2355775; Wed, 23 Sep 2026 05:58:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=mSOKTK
+ e11lmb5LfrFhPVKYQnYO5QcGtdNHDvDyaFseY=; b=FKBkWxZHOMKy+qHGhYw0gR
+ rrW0FgmsDG8f/jXVodjoVzJ2vHCDpNlxegMZUN1dyFS9nQ2x3SqweQ3MrmN7kbrp
+ vJOuG4nkx7EvjV82DumtBjXfTUSlhP5uxYoCSIxUzjXw6RoRHuldFBxJlQtNFWC8
+ GNk3Uo/sL7N7n5PcQSYV8eNlWXnlpHh46uy76pawDgawaZxxfzrDZ45YgRoo3RE5
+ SzMK0aWKzm2e6r1KGVM193+gsXmBVoGcgnFZb8bdn/913VgHBM4PMw4iFNzZoUkQ
+ r/uWqzxLTPabr0/rip+qbHxS1n3b9aLvFm9sgyBcUZ4hfk2r3bTtTUBpLNUrAX5g
+ ==
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskg2hgur-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 23 Sep 2026 05:58:36 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68N3lYDg3837513; Wed, 23 Sep 2026 05:58:35 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt53vn1f0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Sep 2026 05:58:35 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com
+ [10.241.53.105])
+ by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 68N5wYga28181160
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 23 Sep 2026 05:58:34 GMT
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6AE8658043;
+ Wed, 23 Sep 2026 05:58:34 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 98C1458055;
+ Wed, 23 Sep 2026 05:58:29 +0000 (GMT)
+Received: from [9.123.4.213] (unknown [9.123.4.213])
+ by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
+ Wed, 23 Sep 2026 05:58:29 +0000 (GMT)
+Message-ID: <cafaaba4-7d45-46ef-b0bf-67fe8cfa70ac@linux.ibm.com>
+Date: Wed, 23 Sep 2026 11:28:28 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
- nvidia_wmi_ec_supported()
-To: Alex Deucher <alexdeucher@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux@weissschuh.net" <linux@weissschuh.net>,
- "rafael@kernel.org" <rafael@kernel.org>, "lenb@kernel.org"
- <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
- <linux-acpi@vger.kernel.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "tursulin@ursulin.net" <tursulin@ursulin.net>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-References: <20260724025959.142826-1-W_Armin@gmx.de>
- <20260724025959.142826-3-W_Armin@gmx.de>
- <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
- <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
- <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
- <11976ed3784675ad241646287a909286a42675a8@intel.com>
- <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
- <62d7da838e7042df8456e76190db792093065b57@intel.com>
- <06550473-63c2-4a3e-a5ad-7e23d7b6b050@kernel.org>
- <d696d85c44930d2124054ce11a06d3096c0db04a@intel.com>
- <CADnq5_PT7s6ixTqDSwe9ai9tUQa04z7UnwhMn7bo7CcsH5Qf0w@mail.gmail.com>
+Subject: Re: [PATCH 0/7] drm/amdgpu: Fix topology device creation and
+ proximity domain mappings for sparse and CPU-less NUMA systems
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ Donet Tom <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <cover.1785833981.git.donettom@linux.ibm.com>
+ <16887553-76eb-4af9-8769-f77f4fb9fb68@amd.com>
+ <b492ee69-86fa-47a2-aecc-e470568d7204@linux.ibm.com>
+ <2bde809f-d2d9-4b94-88e3-f8e2ae2cc7b0@amd.com>
+ <6b7e68a3-8308-496d-a183-f23be992448e@linux.ibm.com>
+ <a7404568-5d4b-4588-950c-28a5225f77d3@amd.com>
+ <8e5fccd6-6907-498c-b1a9-39fe15525ee2@linux.ibm.com>
+ <00a10239-1e09-470b-8970-db00814af486@amd.com>
 Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <CADnq5_PT7s6ixTqDSwe9ai9tUQa04z7UnwhMn7bo7CcsH5Qf0w@mail.gmail.com>
+From: Dhruv Bhogaonkar <dhruv.b@linux.ibm.com>
+In-Reply-To: <00a10239-1e09-470b-8970-db00814af486@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:DJjjhzJDv8/qqyn2q0PQQ9fzXlULLkpabRwG4Kn6xVvc3cn4W3q
- hmebeIApgD0nPHvWojpnL7UFoLBMPvZH9ZiOecw3l02nvRrbaumPLA1OvGcQ6HYytx7gWUj
- DCQbHO7maI36AgrTuWNqOy9O1xPBGF8EMdN1c2eYkELsibI1tl1xTZ1+DNPSyxWxUBE9HUA
- gf95mrxJ41oQmG5m1a4Og==
-UI-OutboundReport: notjunk:1;M01:P0:fy0f+RFzDeo=;9Ghb8np9aCDwxhlLmFb+4wWbpFS
- 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
- zrU+bcacErcutgVuQ==
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 9tz-cM0mNVw2RHZ788RTttRmxhK1krcb
+X-Authority-Analysis: v=2.4 cv=I43w19gg c=1 sm=1 tr=0 ts=6ab36a8d cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=2SrNnTgdAAAA:20
+ a=P-IC7800AAAA:8 a=Wksra6ATrmUhThZyz4EA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=d3PnA9EDa4IxuAV0gXij:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAyMiBTYWx0ZWRfX9d4q1M2JMkgI
+ hCaE/HWYpxLCcletCh96eZqp8Rvgz+cN+xWG9MxpAOGiK5a8xFppI230zC/4o+CmfP6C1KSc8kQ
+ ckRSik9zb7kA4OK6jUq0ELpayI+2SeSWUpMReOjWDd2Vzyj5GhErZ7CSQpqyETEtXuC5fMFsHiY
+ B24uGsgpQPXY2y3yi8z9r4csgp7QuuXbmM26o8+kJU8+uxbf0AXUUXP8oIClBHWJLfMjvlJvEcf
+ dzEmQAEcEVQCn1+ONG0W1fj6KMRdmFuOWr1OCvU6vHxsz80ZrdNOv18mKwaoZ4+vEFcr986IZEb
+ S55wRQQEWGaFo5XARP4YL74atbO3y8+V/ow9aSmqSwDrZvbKLTC4uuyvR9tlC3SVzHdXfI0PPML
+ FNECQWAhv72sd538O97Qa9p8R2QknvB88TLFrq5GraPDPfefACyl9xBLDbp+zbM8hbDGNHbQ7Ln
+ tLESxTmZXW5MurSXXTA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAyMiBTYWx0ZWRfX5rcgrs21FF3c
+ q0/KaORb7iFVLus2ps+TIdbEAJ0oqr6BpHpWgU1E/Y8Gz38HzEhVdDsKtvHgr69lkweZ7Z3RPOk
+ XqIi85duMoauPXyW/AfEZjxecTn5RJI=
+X-Proofpoint-GUID: ojIfrW5YLqmSRJRyvkc40PZRYFwyuLNz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230022
 X-Mailman-Approved-At: Wed, 23 Sep 2026 07:55:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -192,117 +128,454 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.09.26 um 15:03 schrieb Alex Deucher:
 
-> On Fri, Sep 18, 2026 at 7:01=E2=80=AFAM Jani Nikula <jani.nikula@linux.i=
-ntel.com> wrote:
->> On Fri, 18 Sep 2026, Hans de Goede <hansg@kernel.org> wrote:
->>> Hi,
->>>
->>> On 16-Sep-26 09:16, Jani Nikula wrote:
->>>> On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
->>>>> Am 15.09.26 um 14:31 schrieb Jani Nikula:
+On 23/09/26 04:19, Felix Kuehling wrote:
+> On 2026-09-22 12:59, Dhruv Bhogaonkar wrote:
+>>
+>> On 21/09/26 22:35, Kuehling, Felix wrote:
+>>> On 2026-09-21 00:56, Dhruv Bhogaonkar wrote:
+>>>> On 05/08/26 21:46, Kuehling, Felix wrote:
 >>>>>
->>>>>> On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.=
-com> wrote:
->>>>>>> GPU people heads up!!
+>>>>> On 2026-08-05 03:09, Donet Tom wrote:
+>>>>>>
+>>>>>> On 8/5/26 3:57 AM, Felix Kuehling wrote:
 >>>>>>>
->>>>>>> On Wed, 2 Sep 2026, Armin Wolf wrote:
+>>>>>>> On 2026-08-04 05:52, Donet Tom wrote:
+>>>>>>>> This series fixes topology device creation and proximity domain
+>>>>>>>> mappings in
+>>>>>>>> AMDKFD when a system does not provide a CRAT table and the driver
+>>>>>>>> generates a
+>>>>>>>> Virtual CRAT (VCRAT).
+>>>>>>>>
+>>>>>>>> The current implementation assumes that CPU NUMA node IDs are
+>>>>>>>> contiguous and
+>>>>>>>> that every NUMA node contains CPUs. During VCRAT generation, CPU
+>>>>>>>> topology
+>>>>>>>> entries and proximity domains are created only for NUMA nodes that
+>>>>>>>> have CPUs.
+>>>>>>>> GPU proximity domains are then allocated immediately after the CPU
+>>>>>>>> proximity
+>>>>>>>> domains, and the GPU I/O link (proximity_domain_to) is initialized
+>>>>>>>> using the
+>>>>>>>> NUMA node ID to which the GPU is attached, implicitly assuming 
+>>>>>>>> that
+>>>>>>>> NUMA node
+>>>>>>>> IDs and proximity domains have a one-to-one mapping.
+>>>>>>>>
+>>>>>>>> These assumptions break on systems with:
+>>>>>>>>
+>>>>>>>> Sparse (non-contiguous) NUMA node IDs
+>>>>>>>> CPU-less NUMA nodes
+>>>>>>>> CPU-less and memory-less NUMA nodes
+>>>>>>>>
+>>>>>>>> For example:
+>>>>>>>>
+>>>>>>>> available: 3 nodes (0,2-3)
+>>>>>>>>
+>>>>>>>> node 0: CPUs present
+>>>>>>>> node 2: CPU-less
+>>>>>>>> node 3: CPU-less
+>>>>>>>>
+>>>>>>>> In this case, the driver creates a CPU topology device only for
+>>>>>>>> node 0 and
+>>>>>>>> assigns a single CPU proximity domain (0). However, the GPU VCRAT
+>>>>>>>> still
+>>>>>>>> references the NUMA node ID to which the GPU is attached (for
+>>>>>>>> example, node 3)
+>>>>>>>> in the proximity_domain_to field. Since no corresponding CPU
+>>>>>>>> proximity domain
+>>>>>>>> exists for node 3, the parser cannot find a matching proximity
+>>>>>>>> domain during
+>>>>>>>> VCRAT parsing, causing topology initialization to fail.
 >>>>>>>
->>>>>>>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
->>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>>>>>> index 12e4a41bf1f0..50305630f533 100644
->>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
->>>>>>>>>> @@ -30,9 +30,7 @@ config DRM_AMDGPU
->>>>>>>>>>          # ACPI_VIDEO's dependencies must also be selected.
->>>>>>>>>>          select INPUT if ACPI
->>>>>>>>>>          select ACPI_VIDEO if ACPI
->>>>>>>>>> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
->>>>>>>>>> -     select X86_PLATFORM_DEVICES if ACPI && X86
->>>>>>>>> The change below makes sense, but this one looks like it should =
-remain
->>>>>>>>> unless X86_PLATFORM_DEVICES is handled some other way?
->>>>>>>>>
->>>>>>>>> Alex
->>>>>>>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary b=
-ecause
->>>>>>>> ACPI-WMI depended on it in the past.
->>>>>>>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 an=
-ymore.
->>>>>>> Hi all,
+>>>>>>> Hi Tom,
+>>>>>>
+>>>>>>
+>>>>>> Hi Felix,
+>>>>>>
+>>>>>>
 >>>>>>>
->>>>>>> Could more GPU people besides Alex take a look on this. I'd want t=
-o make
->>>>>>> progress with this series within this cycle but would prefer to ha=
-ve Acks
->>>>>>> from GPU side.
->>>>>> I share the same concern with Alex. It seems to me we could now end=
- up
->>>>>> with x86 configurations without X86_PLATFORM_DEVICES, which handle
->>>>>> e.g. backlight on a lot of platforms.
->>>>>>
->>>>>> I think the safer option might be to go for:
->>>>>>
->>>>>>     depends on X86_PLATFORM_DEVICES || !X86
->>>>>>
->>>>>> in all of the cases that select/depend on X86_PLATFORM_DEVICES in d=
-rm.
->>>>>>
->>>>>> The alternative is to find out, and handle the fallout, if any.
+>>>>>>> Thank you for the explanation and the patch series. I may have some
+>>>>>>> gaps in my understanding that I would like to clarify. In my 
+>>>>>>> mind, I
+>>>>>>> was using "proximity domain" and "NUMA node" interchangeably. 
+>>>>>>> You're
+>>>>>>> demonstrating that they are not the same thing. Is that just a
+>>>>>>> different way of labeling the same thing, or are NUMA nodes and
+>>>>>>> proximity domains fundamentally different concepts.
+>>>>>>>
+>>>>>>> Your code in patch 5 (kfd_proximity_domain_to_numa_node and
+>>>>>>> kfd_numa_node_to_proximity_domain) seems to imply that there is, in
+>>>>>>> fact, a 1:1 mapping, as it assumes that there is a unique
+>>>>>>> translation in both directions. Am I missing something?
 >>>>>>
 >>>>>>
->>>>>> BR,
->>>>>> Jani.
->>>>> Alright, should i leave the original "select X86_PLATFORM_DEVICES if=
- ..." statements
->>>>> as-is or should is change them to "depends on X86_PLATFORM_DEVICES |=
-| !X86" everywhere?
->>>> There are some places that depends on X86_PLATFORM_DEVICES. I think i=
-t's
->>>> almost always a mistake to have some places select and some places
->>>> depends on, and select should anyway be used with care. I'd go for
->>>> depends on.
->>> I'm a bit late to the party here, sorry.
+>>>>>>
+>>>>>> Thanks for the comment.
+>>>>>>
+>>>>>> IIUC, NUMA node IDs and proximity domains are different numbering
+>>>>>> schemes. We have proximity domains for both CPU and GPU devices. CPU
+>>>>>> proximity domains start from 0, and GPU proximity domains start 
+>>>>>> after
+>>>>>> the last CPU proximity domain.
+>>>>>>
+>>>>>> If the NUMA node IDs are contiguous, the CPU proximity domains 
+>>>>>> happen
+>>>>>> to match the NUMA node IDs. However, if the NUMA node IDs are
+>>>>>> discontiguous, the CPU proximity domains and NUMA node IDs no longer
+>>>>>> have a one-to-one mapping.
+>>>>>>
+>>>>>>>
+>>>>>>> If they are just different numbering systems, do we really need to
+>>>>>>> keep track of both proximity domains and NUMA nodes in the KFD
+>>>>>>> topology? Or would it be sufficient to only track NUMA nodes, if
+>>>>>>> that's what we really care about in the uAPI (KFD sysfs)?
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>> Thanks for the suggestion. I also think we don't need to keep track
+>>>>>> of both the proximity domains and the NUMA node IDs in KFD. Do you
+>>>>>> think the approach below would be reasonable?
+>>>>>>
+>>>>>> Just to make sure I understand correctly, for CPU devices the
+>>>>>> proximity domain will be the same as the NUMA node ID, and the GPU
+>>>>>> proximity domains will start after the last CPU proximity domain.
+>>>>>>
+>>>>>> In that case, the CPU proximity domains and NUMA node IDs will 
+>>>>>> always
+>>>>>> have a one-to-one mapping, and the GPU proximity domains will follow
+>>>>>> after them.
+>>>>>>
+>>>>>> For example, if a system has three NUMA nodes and two GPUs:
+>>>>>>
+>>>>>> NUMA node IDs:            0   2   3
+>>>>>> CPU proximity domains:    0   2   3
+>>>>>> GPU proximity domains:    4   5
+>>>>>>
+>>>>>> Would it be okay to proceed with this approach?
+>>>>>
+>>>>> Yes, this looks good to me.
+>>>>
+>>>>
+>>>> Hi Felix,
+>>>>
+>>>> I have been looking into this issue along with Donet.
+>>>>
+>>>> From my understanding, there are three related but distinct concepts
+>>>> involved here:
+>>>>
+>>>> * NUMA node: A system can have sparse NUMA node IDs. For example,
+>>>>   online nodes can be 0, 2, and 3, with node 1 absent.
+>>>>
+>>>> * Proximity domain: The proximity domain is the identifier
+>>>>   associated with a KFD topology device. In the current 
+>>>> implementation,
+>>>>   proximity domains for CPU topology devices are assigned using a
+>>>>   sequential counter, and GPU proximity domains are allocated after 
+>>>> the
+>>>>   CPU proximity domains.
+>>>>
+>>>> * KFD sysfs topology node: KFD exposes each topology device through
+>>>>   a node under its sysfs topology interface. Userspace reads these 
+>>>> sysfs
+>>>>   nodes to discover the CPU/GPU topology and their relationships. 
+>>>> In the
+>>>>   current implementation, the sysfs node numbering corresponds to the
+>>>>   proximity domain numbering.
+>>>>
+>>>> IIUC, the proximity-domain numbering and KFD sysfs topology-node
+>>>> numbering are expected to correspond, while the Linux NUMA node ID can
+>>>> be a separate identifier that is mapped to the corresponding topology
+>>>> or proximity domain.
+>>>>
+>>>> As discussed in the thread, we implemented the
+>>>> 'NUMA node ==Proximity Domain' approach. However, after implementing
+>>>> this for sparse nodes, we found that the userspace libraries using the
+>>>> KFD sysfs nodes have an assumption that the topology devices are
+>>>> contiguous.
+>>>>
+>>>> With this approach, discontiguous NUMA nodes result in discontiguous
+>>>> proximity-domain and sysfs node numbers. This would break userspace
+>>>> libraries that assume the topology devices are contiguous.
+>>>>
+>>>> To support this approach, we would need to make corresponding changes
+>>>> in the userspace libraries, which would break applications using the
+>>>> existing userspace and introduce backward-compatibility concerns.
+>>>>
+>>>> With this in mind, we think the current RFC v1 approach would be the
+>>>> better way to proceed, keeping the NUMA node IDs separate from the
+>>>> proximity-domain/sysfs numbering.
 >>>
->>> Note that X86_PLATFORM_DEVICES is an option which enables / disables
->>> a menu and does nothing more.
+>>> I'm not sure about this. We have code in user mode that uses the KFD
+>>> proximity domains as CPU NUMA nodes, e.g. in calls to mbind. E.g.
+>>> https://github.com/ROCm/rocm-systems/blob/f437a7135fa67b96b48da4baeb72d5f75c406052/projects/rocr-runtime/libhsakmt/src/fmm.c#L2058 
 >>>
->>> Enabling it or depending on it by itself does nothing.
 >>>
->>> The select used to be there since it must be selected to be able
->>> to select ACPI_WMI (which is no longer the case after this series).
->>>
->>> To depends on in XE was probably copy pasted from the existing
->>> select-s and then changed to a depends and already was a completely
->>> no-op since depending on ACPI_WMI was enough as that itself
->>> dependend on ACPI_WMI.
->>>
->>> As for X86_PLATFORM_DEVICES being needed for some backlight
->>> interfaces, depending on it by itself does not result in those
->>> interfaces being there. That requires enabling the actual drivers
->>> providing those interfaces.
->>>
->>> And I don't think that the GPU drivers should start depending
->>> on those since that will become very unyielding.
->>>
->>> TL;DR: I believe Armin's original patch is fine and this is
->>> a welcome cleanup / simplification of the DRM drivers Kconfig
->>> bits.
->> Your explanation makes sense, thanks.
-> Yeah, sounds good.  Thanks!
+>>> So if you change the KFD CPU proximity domain numbers to something
+>>> contiguous, you're probably breaking user mode either way.
+>>
+>>
+>> Hi Felix,
+>>
+>> Thanks for pointing this out.
+>>
+>> I think the approach you originally suggested seems to be the better 
+>> one:
+>> keeping the CPU proximity domain numbers aligned with the NUMA node IDs,
+>> including sparse NUMA node IDs.
+>>
+>> This will require corresponding userspace changes to support
+>> non-contiguous NUMA node IDs, but I don't expect this to break any
+>> existing applications or introduce backward compatibility issues. For
+>> systems with contiguous NUMA node IDs, the existing behavior will work
+>> as is, while systems with non-contiguous NUMA node IDs will work after
+>> the userspace changes.
+>>
+>> For example, one of the areas that will need to be updated is here:
+>>
+>> https://github.com/ROCm/rocm-systems/blob/2d743306cb341b5973cb0d6af7b549569d127724/ 
+>>
+>> projects/rocr-runtime/libhsakmt/src/topology.c#L831
 >
-> Alex
+> The code here is already designed to handle sysfs nodes that are not 
+> accessible because GPUs are not available in the process' cgroup. 
+> Maybe we need additional fixes here to handle the case where a 
+> directory is completely missing in sysfs. The biggest problem is 
+> probably, that user mode tries to remap the node-IDs into a contiguous 
+> range here: 
+> https://github.com/ROCm/rocm-systems/blob/2d743306cb341b5973cb0d6af7b549569d127724/projects/rocr-runtime/libhsakmt/src/topology.c#L836. 
+> We'd need to avoid that for CPU nodes so that we preserve the identity 
+> mapping from node IDs to NUMA node IDs. Maybe we can create dummy 
+> nodes with no CPU cores and no memory as place-holders.
+>
+>
+>>
+>>
+>> If you have any pointers or suggestions regarding this approach,
+>> especially for the userspace changes, I would really appreciate your
+>> feedback.
+>>
+>>
+>>
+>>>
+>>>
+>>>
+>>>
+>>> Can you point out what specific problems you run into with
+>>> non-contiguous NUMA nodes topologies?
+>>
+>>
+>> The issue we see on a system with discontiguous NUMA nodes is that the
+>> GPU VCRAT parsing fails when we load the GPU driver, resulting in the
+>> following errors in dmesg:
+>>
+>>     amdgpu: Virtual CRAT table created for GPU
+>>     amdgpu: Error parsing VCRAT
+>>     kfd: amdgpu: Error adding device to topology
+>>     kfd: amdgpu: Error initializing KFD node
+>>
+>> On our system, we have 3 NUMA nodes: 0, 2, and 3, with 2 GPUs attached
+>> to NUMA node 3.
+>
+> OK, that's all stuff that would need to be addressed with kernel mode 
+> driver patches. I'm hoping it would be a simplified version of the 
+> patches that Donet already proposed.
+>
+> Regards,
+>   Felix
 
-Nice, i suppose we can apply this series as-is then?
+
+Hi Felix,
+
+Thanks for your suggestions.
+
+I'll start working in this direction and post a patch once
+it's ready.
 
 Thanks,
-Armin Wolf
-
->> BR,
->> Jani.
+Dhruv B
+>
+>
+>>
+>> With the current upstream implementation, CPU proximity domains are
+>> assigned sequentially. Thus, NUMA nodes 0, 2, and 3 get CPU proximity
+>> domains 0, 1, and 2 respectively. The two GPUs then get proximity
+>> domains 3 and 4.
+>>
+>> However, when generating the GPU VCRAT, `proximity_domain_to` is
+>> populated directly with the NUMA node ID. Since both GPUs are attached
+>> to NUMA node 3, the VCRAT contains:
+>>
+>>     GPU0 -> proximity_domain_to = 3
+>>     GPU1 -> proximity_domain_to = 3
+>>
+>> https://elixir.bootlin.com/linux/v7.1/source/drivers/gpu/drm/amd/amdkfd/kfd_crat.c#L2175 
 >>
 >>
->> --
->> Jani Nikula, Intel
+>> Here, the CPU proximity domain corresponding to NUMA node 3 is actually
+>> 2, while proximity domain 3 belongs to GPU0.
+>>
+>> During VCRAT parsing, the I/O link parser looks up this `id_to`
+>> proximity domain, which is 3, and returns `-ENODEV` because there is no
+>> CPU topology device with proximity domain 3:
+>>
+>> https://elixir.bootlin.com/linux/v7.1/source/drivers/gpu/drm/amd/amdkfd/kfd_crat.c#L1284 
+>>
+>>
+>> Thus, the GPU I/O link is referencing the NUMA node ID as if it were
+>> the CPU proximity domain, which causes the VCRAT parsing to fail.
+>>
+>> Since the parsing fails, the driver does not get loaded.
+>>
+>> Thanks,
+>> Dhruv B
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>> Regards,
+>>>   Felix
+>>>
+>>>
+>>>>
+>>>> Would you agree with this approach? If so, I can rebase the RFC v1
+>>>> series onto the latest kernel and post a new version for review.
+>>>>
+>>>> Thanks,
+>>>> Dhruv B
+>>>>>
+>>>>> Regards,
+>>>>>   Felix
+>>>>>
+>>>>>
+>>>>>>
+>>>>>> I think this approach should also resolve the driver loading issue.
+>>>>>>
+>>>>>>
+>>>>>> Thanks
+>>>>>> Donet Tom
+>>>>>>
+>>>>>>
+>>>>>>>
+>>>>>>> Thanks,
+>>>>>>>   Felix
+>>>>>>>
+>>>>>>>
+>>>>>>>>
+>>>>>>>> The failure is observed as:
+>>>>>>>>
+>>>>>>>> amdgpu: Virtual CRAT table created for GPU
+>>>>>>>> amdgpu: Error parsing VCRAT
+>>>>>>>> kfd: amdgpu: Error adding device to topology
+>>>>>>>> kfd: amdgpu: Error initializing KFD node
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> Since every online NUMA node is a valid topology object and can
+>>>>>>>> contain
+>>>>>>>> CPUs, memory, I/O links, or any combination of these, topology
+>>>>>>>> devices
+>>>>>>>> and proximity domains should be created for every online NUMA node
+>>>>>>>> rather than only for NUMA nodes that contain CPUs.
+>>>>>>>>
+>>>>>>>> To address this, this series introduces a new VCRAT subtype that
+>>>>>>>> records the mapping between the NUMA node ID and the generated 
+>>>>>>>> VCRAT
+>>>>>>>> proximity domain. When topology devices are created, this
+>>>>>>>> information
+>>>>>>>> is stored in the corresponding topology device, allowing the
+>>>>>>>> driver to
+>>>>>>>> translate a NUMA node ID into its associated proximity domain
+>>>>>>>> whenever
+>>>>>>>> required.
+>>>>>>>>
+>>>>>>>> Returning to the previous example, the system contains three 
+>>>>>>>> online
+>>>>>>>> NUMA nodes, so three CPU topology devices and three proximity
+>>>>>>>> domains
+>>>>>>>> are created, even though only one NUMA node contains CPUs. The 
+>>>>>>>> NUMA
+>>>>>>>> node ID is stored in each topology device together with its
+>>>>>>>> generated
+>>>>>>>> proximity domain.
+>>>>>>>>
+>>>>>>>> Later, when the GPU VCRAT is generated, the driver only knows the
+>>>>>>>> NUMA
+>>>>>>>> node ID to which the GPU is attached (for example, node 3).
+>>>>>>>> Instead of
+>>>>>>>> assuming that the NUMA node ID is equal to the proximity 
+>>>>>>>> domain, the
+>>>>>>>> driver walks the existing topology devices to locate the
+>>>>>>>> corresponding
+>>>>>>>> NUMA node and retrieves its generated proximity domain. In this
+>>>>>>>> example, NUMA node 3 maps to proximity domain 2, so
+>>>>>>>> proximity_domain_to is populated with the correct value.
+>>>>>>>>
+>>>>>>>> Since the GPU I/O link now references a valid proximity domain,
+>>>>>>>> VCRAT
+>>>>>>>> parsing completes successfully and topology initialization 
+>>>>>>>> proceeds
+>>>>>>>> without errors on systems with sparse NUMA node IDs, CPU-less NUMA
+>>>>>>>> nodes, and CPU-less/memory-less NUMA nodes.
+>>>>>>>>
+>>>>>>>> This series consists of the following patches:
+>>>>>>>>
+>>>>>>>> Patch 1 removes an unused argument from
+>>>>>>>> kfd_create_crat_image_virtual() as a preparatory cleanup.
+>>>>>>>>
+>>>>>>>> Patch 2 introduces a new VCRAT NUMA affinity subtype that 
+>>>>>>>> stores the
+>>>>>>>> NUMA node ID and its corresponding proximity domain.
+>>>>>>>>
+>>>>>>>> Patch 3 populates the NUMA affinity entries during VCRAT 
+>>>>>>>> generation
+>>>>>>>> for every online NUMA node.
+>>>>>>>>
+>>>>>>>> Patch 4 parses the NUMA affinity entries from the VCRAT and
+>>>>>>>> stores the
+>>>>>>>> NUMA node ID and proximity domain in the corresponding topology
+>>>>>>>> device.
+>>>>>>>>
+>>>>>>>> Patch 5 fixes GPU VCRAT proximity domain mappings by 
+>>>>>>>> translating the
+>>>>>>>> GPU's NUMA node ID to the corresponding CPU proximity domain 
+>>>>>>>> before
+>>>>>>>> programming proximity_domain_to.
+>>>>>>>>
+>>>>>>>> Patch 6 creates proximity domains and VCRAT entries for all online
+>>>>>>>> NUMA nodes, including CPU-less and memory-less nodes.
+>>>>>>>>
+>>>>>>>> Patch 7 adds a numa_node sysfs attribute for CPU and GPU topology
+>>>>>>>> devices, exposing the associated NUMA node through the topology
+>>>>>>>> sysfs
+>>>>>>>> interface.
+>>>>>>>>
+>>>>>>>> Please note that the changes in this series are on a best effort
+>>>>>>>> basis from our
+>>>>>>>> end. Therefore, requesting the amd-gfx community (who have deeper
+>>>>>>>> knowledge of the
+>>>>>>>> HW & SW stack) to kindly help with the review and provide feedback
+>>>>>>>> / comments on
+>>>>>>>> these patches
+>>>>>>>>
+>>>>>>>> Donet Tom (7):
+>>>>>>>>    drm/amdgpu: Remove unused argument from
+>>>>>>>> kfd_create_crat_image_virtual
+>>>>>>>>    drm/amdgpu: Add VCRAT NUMA affinity entry
+>>>>>>>>    drm/amdgpu: Populate NUMA affinity entries in VCRAT
+>>>>>>>>    drm/amdgpu: Parse NUMA affinity entries from VCRAT
+>>>>>>>>    drm/amdgpu: Fix VCRAT proximity domain mappings for GPU nodes
+>>>>>>>>    drm/amdgpu: Create proximity domains and VCRAT entries for
+>>>>>>>> CPU-less
+>>>>>>>>      and memory-less NUMA nodes
+>>>>>>>>    drm/amdgpu: Add numa_node in cpu/gpu topology device sysfs 
+>>>>>>>> entry
+>>>>>>>>
+>>>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 152
+>>>>>>>> +++++++++++++++-------
+>>>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  19 ++-
+>>>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  49 +++++--
+>>>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |   4 +
+>>>>>>>>   4 files changed, 168 insertions(+), 56 deletions(-)
+>>>>>>>>
