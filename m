@@ -4,101 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8321C9830B
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 21:29:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9084AC98304
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 21:44:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42EE910F1D6;
-	Wed, 23 Sep 2026 21:29:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14A8D10F1EE;
+	Wed, 23 Sep 2026 21:44:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="owT39bT2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n2+PDvHW";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012021.outbound.protection.outlook.com
- [40.107.200.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E96C10F1D6
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 21:29:09 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013048.outbound.protection.outlook.com
+ [40.107.201.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C080010F1E2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 21:44:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fx1Qzb5GMK6+WA0fVFF4wp2Nn2ss7mPT4lOqC82xhfuIJ958HtC6ZVJmAe7COCRNLhL1arcH7sKiFIdNY18PjCwB7oOFFnE4pAzUuJQ1lDsw1FCEH1jPaV2K9KnGqD6aQZBDO5cUZhY3vm20lVmt/zrZgK8q7CpUo5qyRCkmwZj6QZTRn23c1XIM2VhWsj8h8J+In9TmTdz3nBV/yOA7HyIPu+W6pBLw46aQh3Sbad06dKQPnHTSvSYEjCqA20FNYM2rWggsD7xVI5ostwD+imGFa3MMGBppJ+HBuMR0iR4d1BP60PVUvv7yXOpZE02A2ZG42fKxntybtPhdZgoeMA==
+ b=TIvhDH7mYEQeqSYBOIi6uLwySCQm59XDzr3zIhmTHQ5pq6GnO2yGxBpYLcWIGH1gIO9JV2JFEFg8ljfBNuD/vjHA215S2S0SuajPryUNg5Ky0H8Wn2HT9P7xWKQzdhnusaVptAaa733CxOatVUbDsHQg1H/jvDnHQc8F01Hq08htMtSsY8KjuQ0CSMhtsGKHcjuwzkad85r+Gf+MpkxRtHcYaZpwsRveUYM2mt+m9OKeBqbm/ObfzrbPHn8TfBcI57i0/hsdZPbwjPFeHBhmf5DbMz/9gy4SnyOVqFWqPI7YzptqrgcU2LxMWv3DmWY7a67zn+WEPIG0Wte+/MiYwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kJsuZIDZEAUDYTzM0gDjyvRFk0MIGYhUF2/71w+3/GM=;
- b=uu/+nM1mXvi3ALcYd8VmXEqRqc9GVPWTZWqx8XDa1BhCpN/bwa/TieHyBbuqSjc6uDZlH+QFmJSZCXs1naWoZi7AgWtLFBZDz510RD85+MxBXfiLP0t+iNFUAvNvJEctC5l0LhlUGnMP6mR9MnqVbsS8qnOcx0JIOepw0ApXyEavW4ZzmAx5uPM6vgB4Gb1K2RdwSGY1mHiOsbzDoAaRF6ZKLa6Cro2UXbpkmZ9QOVbhFgpaWDHU7eCIEtF6gn+W0NWGLULn2GQgtF/7pOUSUXfzWgPfO0ddJ6z/nwQCQ7OaVk5c2WhjpBej+SzliWX/P59YC7MYD3qV6uJY5vBqTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=UF9AQHlhPFOd3g+vjptqZ3DHJgj7jGVWPcfj/jJ1pTA=;
+ b=t6xi5bPaQz+MAvYDzPHBQTu60StNmAnYbaLiMv2SRwtazy9FfffP/b7wcswUC9IYtqMKd5CddphKXby9e4TejF7fZRMuitiHSxgws3Xi8WaDEnJIbsZLvELnJdj0EujIAsJle/RPXjwO5fwAFdlyQeLiDi34s5wfNMUnniomzpUGxUJT5/BEvG+fjxNOPxitG4pBwaB9tk8yeO040DSx1sChILGTyVnJKFD+YnQJHE9SE0IwVo6uxpNaQLf/6w+z0K9My8bp4Xfewc1TgXQV16TKgg8an9dm4WtMsKCyHK8O5+eFp5kWB+rA2R+XMrbAqO6HtY7vZoYUbs51bEEDOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kJsuZIDZEAUDYTzM0gDjyvRFk0MIGYhUF2/71w+3/GM=;
- b=owT39bT2v3dbT2AXaMYpHmOKssuUT5yB6LXO8R+iZ/PQ69yEw5b7l7c+q72VqAb4iU9h9i3NPDFhiVEc0guGw+ADDV7VY1sE5KT6OeU0oIFfGcRKUAoQ9kLG5ykK+cADiRWRSJ22aEknpJRhOjEYtPEs8PDnW2th/hjJC6bpKTw=
-Received: from SJ0PR05CA0175.namprd05.prod.outlook.com (2603:10b6:a03:339::30)
- by PH7PR12MB7259.namprd12.prod.outlook.com (2603:10b6:510:207::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 21:29:02 +0000
-Received: from SJ1PEPF00001CE1.namprd05.prod.outlook.com
- (2603:10b6:a03:339:cafe::5e) by SJ0PR05CA0175.outlook.office365.com
- (2603:10b6:a03:339::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed,
- 23 Sep 2026 21:29:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE1.mail.protection.outlook.com (10.167.242.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 21:29:02 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 16:28:59 -0500
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <Harish.Kasiviswanathan@amd.com>,
- <philip.yang@amd.com>, <Christian.Koenig@amd.com>, Mukul Joshi
- <mukul.joshi@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: fix bo_va leak / WARN_ON in gem_object_open
- error path
-Date: Wed, 23 Sep 2026 17:28:38 -0400
-Message-ID: <20260923212838.1421843-2-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923212838.1421843-1-mukul.joshi@amd.com>
-References: <20260923212838.1421843-1-mukul.joshi@amd.com>
+ bh=UF9AQHlhPFOd3g+vjptqZ3DHJgj7jGVWPcfj/jJ1pTA=;
+ b=n2+PDvHW6ml8vMOar52z4T2sevN0Oj7jjMsp1lGhPiVQX5wAjt/HCZ7eghqdA8cGt85tdwn6vajhFFe1FYDop5CtCZ5aEOo8ca8FBjNd6XT8Nra2VrJuDhUni70ChFEfd5EXDiy0v7IeLXyH07RhsM+qnQph/WHwbQermgT6EOE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by DS0PR12MB7972.namprd12.prod.outlook.com
+ (2603:10b6:8:14f::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 21:44:27 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 21:44:27 +0000
+Message-ID: <757e97f5-0836-4cf0-925e-0b0387572f74@amd.com>
+Date: Wed, 23 Sep 2026 17:44:25 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCHv2 4/5] drm/amdgpu: re-check connection state before
+ sending NPA-REVOKE
+To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
+References: <20260923212515.1420047-1-mukul.joshi@amd.com>
+ <20260923212515.1420047-4-mukul.joshi@amd.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20260923212515.1420047-4-mukul.joshi@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT1PR01CA0074.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::13) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE1:EE_|PH7PR12MB7259:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2811e500-14fa-4c95-10f6-08df19b9b035
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DS0PR12MB7972:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b638885-176d-472b-a0aa-08df19bbd79f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: JC4hsjPFlZkYQ2typgkNpId0AOkC89AsQrmKujzUCWLEit2FkAzub37i2w8IaUzknRI+Q8fTHDvowkP86Z/5Ubp4Ab54OlLiWpam0ZLTGzA75hZnHYmH7jL7Qg9408ACZMynS8bLcU10T76Yn1BZhzcdUJKQKwubEtJ0Ra+inZqnpSiNpMTtINj7j8fL0zrNZ1h1cTnGCtXrjeMlyxHb88mNbgQ6pi0gLUyYT8Ro0iJBskvEvABDLeQVmjEmsZLcJbQXrtmzjIFdo4LO4gMS29AzS1wJw609JBDUjOeYNO8OfXJpB9c27zmLmf0kaywmL92XvtHYddsMEbsKPWeMgBpABPMP3Q3eQkDHGROUtlMAaX5VH/d+cwgOy3/nu7xulz73OM9npJ5q/O2jXo+8OKzBzGG3wERqC/hE5b5OOND9Gn5l2zO2tIHgUDjoHalD9f/2osHezMMpy4D5wZSb5FtcxfsXSA0iyUI+ssmt/Ochw1tEiLtXAtUIhzN+AfR+WJxLmO75alc0nC1xWPskiAjSZvyoxrtBZn7fPWrRneHaLOdKZLZ/uXSw+U7gELYGnkBry83zk7bHrVcZ3nEW1Zcl/6KqJU/2EtQxguHl1Pz9ZIt3kBV3OFa4wv0ZMoQKP4RP9NnAKA2R5+Hu+Yb5RWHs40V84jAekBtLTHw0dr6VWzhhiJrUNlHstaW86QlyQcLN730hAfj0JsXS8sWVcg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ ARA:13230040|23010399003|1800799024|366016|376014|10067099003|56012099006|5023799004|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 3bDjqMamA/gQQPH+TYQgFQzztKpi8iQzz0wy3NTLEkcR6oxR0Pd+ptZ+J+63pf0vyPcW7bnC4aAsuAQB9F5awJl1V53/uXliWjQOe8rat7Zyyx708Bl9UEskMXl7pWfCOex43HivjHsm9H+HJywytYY5Gr6ctNMIDbSGnmSWxC6Q3c5vN1t2kEhwKscGImhdw1z8pcscJLbJgH2G/mj82NMnJPGZ8MUz2r4NS7mZDvNK1D/VNDIZ6oMkUL1yLJXJLdY5+TpoDjLFGphplQJYFuGaMElodzbEZ1AsuLwLQMdHMkEose+iho2TgrfgnriKlZuZw2nr2L6mX494weEzl0Yqcf3zwEU7cH+TlLdDMb2VnJALTV5buWiQ5z62uopaxthb8WCLz8szOW+zZKlR8koQ21SLjyuMWc/UbLNXXFohEADj2y1maiKMwG3v6LSmpdnNRXctLx5YrJ7DVkAWzSZBhQ4QLwzzlSESVyge+k0waO82aEcYFjKlAm/8agRizw9HLVEn/InvsUpLx/H0S9FTKBcJdYIEMjptvcJbWigCc0CYJrpMvrE6yiQU0UtUOsr8D1EdR2tcwazeBTmEOGMJKOI5n8qGLMZ42ZmlTNvcdbdIC4qpbWNBwXjKAZxmMZprpsUbeXyTjruz262gRQkn4L2XmGnw5AlpHKIJn8c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: y4OMHF2Euq/DPZStGvfXIFTPkAsisL/UyoqyGI9J00FMSyGEHxTLNevQ9U2jRed5UIotX2Dn5dw9UUd7v3DJhLJS+156ggWZHCfjrjNx0XxVB5Hn8X+lV/9cnJZJy3AAhviJmIdyZ/gN73BOV22DX1NB7u4uXmwU/tehjgGQyGy3Wc6XUKDR/cFBw7vDlxRZ+AQ1DFF7b1+LWqAcI/efJg2YjA+kLd8fTtLchdEWgJpWxZhEepQzpgIFzmgy6O9Eiz6oe+vtawePkvzpSRwa+6J6B2WQfmYdK6shfxL05z6ZgHzLoLUI6YPGxqKRJswlytTfJYGK24HxzaE2E7xefbHwcxUxFvA7Yalyu2MB0cSRHjFqkADbyjiPDAtwapoJuBrVilVAUlcEB3LetRe/vaPUPpLkudvN3p6tKYm11D9D9XjTHrJI+7dlTerzr40T
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZDZFMEd5am5Nd2x6UHdRMk9FVWsvS0x2TmZUUjcvbUVLQTdOZDBqN1ZaSnVF?=
+ =?utf-8?B?ZWN3SUNmQmdVbDlHYlhOdVltV3VHWTN6akZLNVJTcURmL1pPT0U5RXhxNVNW?=
+ =?utf-8?B?UjEwcFdjd3RzTmVqaHl2TENydUtxODJGdlV2TG5BNUNTUHJzOUV3bTFQZDZv?=
+ =?utf-8?B?YmhKUUhkaWNCVmJZTjFCdmdWQ1hZcWFabzJJdUh2QW9IaW5PdXhlMEY5dDFa?=
+ =?utf-8?B?T0l5Q1l4eTBuTk9UbkZHR21ob3J0dDB2NEdqa3pIZ3c4TzVudXZYaWxNenE3?=
+ =?utf-8?B?OHRwd0dFclI2SnpFeGJqdXNESGxrQ0dOUzhLUmxxYmNZaS9hQTUxSEdvYndW?=
+ =?utf-8?B?Y2dHMUY4V2toYjdoeHlzeFFSQWpvU3NVVkpmVW9LVG5pT1NpTDJpQ29vRDJT?=
+ =?utf-8?B?UDNTYmJVYnJDeGN6THJzU2dLM2J1WVpPM25NeTBJK2lTaEU0MjM3cUVRYVln?=
+ =?utf-8?B?OTFuaFFvSlFnVDRZY1pOd1NCUlg1MFFwQUdEaWtGZlN1eWxzY082NWc1UFFN?=
+ =?utf-8?B?VElPNjU4UU1weXF6UDNvU1RpRTBoTjJmMEhNd0JCaEJOcXkybGRzQmtNQ2pD?=
+ =?utf-8?B?aDdpWmtJc3MvdWpyMDBQN2FBaEpOOGtyakxaNnZmbVluY1owTDJaRHAyV2tC?=
+ =?utf-8?B?VmtkRnZ1TUZ3Uk16Z3c4TTRadGs2SVZXcnRrdW1NTVNoMEhtVllpKys5cXhj?=
+ =?utf-8?B?WjNsUVZ3cUlGUlY4OW5GOENEd2ZvSXdrZW5rVTFFc1pxcVJCVjFXOW15cHBW?=
+ =?utf-8?B?Uk9uRm1vZFNOOG1uVFVtVWhEbmRMV2FHWnAvODlUR3FwelkyL1pKZ1NPdk5u?=
+ =?utf-8?B?czRlRExuUXR2V2ZwSDFXSVljNW1wQjdRYTZ1dWpxNGFhVVRxNjE3TzU4SmRP?=
+ =?utf-8?B?U2JDUzFHQnNFZlpnY0VwWHJPVTk5TzVhNVZLblliTHVsVi9WWUY5Y0RnaXFj?=
+ =?utf-8?B?MzhlTmhUY3UydXNQUXhkQ0FrM0NYRUpmV3pobHFTVjlOWEVWS2NnTjVJRDFB?=
+ =?utf-8?B?Q0U2QWN2NXFvNkdZdjBnNHl6OHFxdDdRYWJSMzJjY0F0N2x6ajNXckg3aTNk?=
+ =?utf-8?B?bWdBMnJMWm1SbTQ1OXhtTHVzV2ZSTURBdDJHOUgySUNkZ3dGc0JJRmNCS3g5?=
+ =?utf-8?B?ajJCZGJOWHRCL3Z2ZVF2dm5ZSzBDbmFDK1hTckxoVGZPRDcraHllUWVEdmEz?=
+ =?utf-8?B?MWpiZWZDOTVJZmR2UXRzMlMrbDBRcFlHbmlPM3hDUWV1TCtYTjNURysyRlo0?=
+ =?utf-8?B?M2NlUEFDZE92Wk0yQWh2UHlOVlIyMEtWNEdZeGpXNVVqMkxlV082TUF0RkN0?=
+ =?utf-8?B?UWRzQ0E1S1hWQ3U5bnphbFFOdktnMlo4QW02Snd6eU1qQ1N4NG5XZ3RtbVpx?=
+ =?utf-8?B?TDBxRXNzKzJnRUtlYXQ3TXI4VzJaMndEaWdLKzhhMldKdGFOa2tvM3BVNnRN?=
+ =?utf-8?B?ekRROHJuNzJZM01OWXMvWFVmZGJRU0pxTEljVWErRVZ0MlUrbCtpV0oxb1Yz?=
+ =?utf-8?B?dHd0OHJTQzBERTJFK1pKS1RGZi9jd2N4cUxxZzB4cEgvVVRYeVI4VzcwWFNm?=
+ =?utf-8?B?QUZyYmFEVkpueUpxN3hjamVvdFIvVk5EOVRPZ3I3dXB1djlGbXlrZUxncEdB?=
+ =?utf-8?B?MDJ6SjZ1M0FhbjVtK0xWTVBON1ZHOW5RTDYzQ2hsVDJZOVRqYkE4T1JTS0l1?=
+ =?utf-8?B?bXQzWitZV29naDVkZUlRT0M3cVhaSjFJOWlUYjRTUG45SVBlWEhUNkVkTElC?=
+ =?utf-8?B?NHBUYUVCZ0ovRjBUTHFRNmVQMGtUdTlFMWNnRWZsaDRxdXg5eXRSbjhQNHd5?=
+ =?utf-8?B?cTNVajZJTU53SlFTTnFOTGdzQnpvdWxhMGdrQ1ZTQi9Ba0ZVaFlIeWRoOG9B?=
+ =?utf-8?B?SmVwcEZUY2NuTi96QjRoWmJMZm1ZT2J3eHNWc2pxRnp4K0MyNExBSE5ScjZB?=
+ =?utf-8?B?dzRvaFA4WkI5Z29lTUttVFp1UzNoOTJnMGUyRlEvdXVMbGx6R1ZWUU8xRERX?=
+ =?utf-8?B?cjNWNkpUcXRUNXlGQ3hQMFNtTHlTK3RxYjJmZjA4VG04R1dpRDVNWW9YbkJR?=
+ =?utf-8?B?cG5wME45blppbnZ4UjdTUThqbkllT1doYjN6Zm85RU81Q1psb0F2UXVkS1Bl?=
+ =?utf-8?B?M0FENjhMNFJvSW5VWWoxK1pLVWJ4algxU1NsVkpMM25qZTF5UjljRXl4YzZV?=
+ =?utf-8?B?V01US3Fqd24va1FLQ1h5aEFGRVZjZnZEQWtZS3JsU2VjbmR6Qk16MGdYME05?=
+ =?utf-8?B?eWxsMVR1R0JuUE11QkhQeDhBbmZwVEFKTHpvcURNV2VpUTNoVm9EMjFsekNY?=
+ =?utf-8?Q?uK4ZwG3xBdlnuzSr56?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 21:29:02.4500 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2811e500-14fa-4c95-10f6-08df19b9b035
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b638885-176d-472b-a0aa-08df19bbd79f
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 21:44:27.8199 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7259
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LIHH9EMP+aFMt0+czFkIH05UwErDOWdUsLBXWcNVrETgbihwjz8fcy/MBN6yIZHQJ6N+FOzwLjoe5T0HIrbX9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7972
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,116 +136,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_gem_object_open() maps the BO into the caller's VM early
-(amdgpu_vm_bo_add(), which sets abo->vm_bo) and only later validates and
-attaches an eviction fence for dynamic dma-buf imports in compute VMs via
-amdgpu_amdkfd_bo_validate_and_fence().
+On 2026-09-23 17:20, Mukul Joshi wrote:
+> The export cleanup worker checks amdgpu_ualink_check_conn_ready() once
+> when building npa_release_bitmap, but not again in the send loop. Cleanup
+> workers run concurrently on the unbounded NPA WQ (one per exported
+> handle), so when a peer's egress dies many workers have already seeded
+> npa_release_bitmap from a connection that was still ESTABLISHED and all
+> issue an LSDMA copy to the dead peer, flooding the log with repeated
+> NPA-REVOKE send failures.
+>
+> Re-check the connection immediately before each send, as the tlb
+> shootdown, force_retry_rpcs and unmap_all_npa_addr loops already do, so
+> once the first worker marks a peer NOT_READY the rest skip it. With the
+> re-check in place, seed npa_release_bitmap with a single bitmap_copy() of
+> importers_bitmap instead of a separate build loop; peers that fail the
+> re-check or the send are dropped from the bitmap in the send loop.
+>
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+> ---
+> v1->v2:
+> - We were using 2 for loops, once for building the npa_release_bitmap,
+>    and another for sending the NPA-REVOKEs.
+> - Replace it by using a single loop instead.
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 31 +++++++++++++---------
+>   1 file changed, 19 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index 39b7cc8bc1c5..f6ad64be4349 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -2936,26 +2936,34 @@ static void amdgpu_ualink_exp_cleanup_worker(struct work_struct *work)
+>   	amdgpu_bo_unref(&bo);
+>   	exp_xa_node->bo = NULL;
+>   
+> -	/* Build the full npa_release_bitmap before sending any NPA-REVOKE. */
+> +	/* Seed npa_release_bitmap with all importers before any NPA-REVOKE, so
+> +	 * the release IRQ only sees it empty once every responder has replied.
+> +	 * Dead peers are dropped from it in the send loop below.
+> +	 */
+> +	bitmap_copy(exp_xa_node->npa_release_bitmap,
+> +		    exp_xa_node->importers_bitmap, AMDGPU_UALINK_ACCEL_MAX);
+> +
+> +	/* Send NPA-REVOKE to all importers which have imported this memory.
+> +	 * On send failure clear the bit (no response will arrive) and mark the
+> +	 * connection NOT_READY so other cleanups skip this unreachable peer.
+> +	 */
+>   	for_each_set_bit(remote_acc_id, exp_xa_node->importers_bitmap,
+>   				 AMDGPU_UALINK_ACCEL_MAX) {
+>   		imp_entry = &exp_xa_node->importer_entries[remote_acc_id];
+> +
+> +		/* Re-check the connection right before the send: concurrent
+> +		 * cleanup workers all seed the bitmap while the peer is still
+> +		 * ESTABLISHED, so once its egress dies and the first worker
+> +		 * marks it NOT_READY, this skips the rest instead of flooding
+> +		 * the log with failed LSDMA sends to the same dead peer.
+> +		 */
+>   		if (!amdgpu_ualink_check_conn_ready(adev, remote_acc_id,
+>   					imp_entry->generation_count)) {
+>   			clear_bit(remote_acc_id,
+> -				  exp_xa_node->importers_bitmap);
+> +				  exp_xa_node->npa_release_bitmap);
 
-When that validate/fence step fails, the function returned the error
-without undoing the VM mapping. Since .open() failed,
-drm_gem_handle_create_tail() aborts the import and drops the last
-reference, freeing the BO while it still has a bo_va attached. This trips
-WARN_ON(abo->vm_bo) in amdgpu_bo_release_notify() and leaks the bo_va:
+It look like you never clear bits in importers_bitmap now. So maybe you 
+could get rid of orig_importers_bitmap now as well. But that could be a 
+separate cleanup patch if this one is urgent.
 
-  amdgpu 0004:04:00.0: validate_and_fence failed: -12
-  WARNING: CPU: 96 PID: 2868883 at amd/amdgpu/amdgpu_object.c:1343
-           amdgpu_bo_release_notify+0x15d/0x180 [amdgpu]
-   ttm_bo_put+0x149/0x350 [amdttm]
-   drm_gem_prime_fd_to_handle+0x132/0x1c0 [drm]
-   drm_ioctl+0x251/0x3d0 [drm]
+Either way, this patch is
 
-Roll back the VM mapping on the error path: re-reserve the BO and PD, then
-either delete the freshly added bo_va (also detaching the eviction fence)
-or drop the extra ref_count taken for a pre-existing bo_va. Also clean up
-the bo_va in the out_unlock path when the eviction fence attach itself
-fails right after amdgpu_vm_bo_add(), which had the same leak.
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 53 +++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 0d579517c03c..d52bbdc42b31 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -237,6 +237,7 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
- 	struct amdgpu_bo_va *bo_va;
- 	struct mm_struct *mm;
- 	struct drm_exec exec;
-+	bool bo_va_added = false;
- 	int r;
- 
- 	mm = amdgpu_ttm_tt_get_usermm(abo->tbo.ttm);
-@@ -264,6 +265,7 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
- 	bo_va = amdgpu_vm_bo_find(vm, abo);
- 	if (!bo_va) {
- 		bo_va = amdgpu_vm_bo_add(adev, vm, abo);
-+		bo_va_added = true;
- 		r = amdgpu_evf_mgr_attach_fence(&fpriv->evf_mgr, abo);
- 		if (r)
- 			goto out_unlock;
-@@ -304,9 +306,60 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
- 		}
- 	}
- 	mutex_unlock(&vm->process_info->lock);
-+	if (r)
-+		goto out_vm_bo_rollback;
-+	return 0;
-+
-+out_vm_bo_rollback:
-+	/*
-+	 * The open failed after we already mapped the BO into this VM. Undo
-+	 * that mapping, otherwise drm_gem_handle_create_tail() aborts the
-+	 * import and frees the BO while it still has a bo_va attached
-+	 * (abo->vm_bo != NULL), tripping WARN_ON(abo->vm_bo) in
-+	 * amdgpu_bo_release_notify() and leaking the bo_va.
-+	 */
-+	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
-+	drm_exec_until_all_locked(&exec) {
-+		int r2 = drm_exec_prepare_obj(&exec, &abo->tbo.base, 1);
-+
-+		drm_exec_retry_on_contention(&exec);
-+		if (unlikely(r2))
-+			goto out_rollback_unlock;
-+
-+		r2 = amdgpu_vm_lock_pd(vm, &exec, 0);
-+		drm_exec_retry_on_contention(&exec);
-+		if (unlikely(r2))
-+			goto out_rollback_unlock;
-+	}
-+
-+	bo_va = amdgpu_vm_bo_find(vm, abo);
-+	if (bo_va) {
-+		if (bo_va_added) {
-+			if (!amdgpu_vm_is_bo_always_valid(vm, abo))
-+				amdgpu_evf_mgr_detach_fence(&fpriv->evf_mgr, abo);
-+			amdgpu_vm_bo_del(adev, bo_va);
-+			amdgpu_vm_bo_update_shared(abo);
-+		} else {
-+			--bo_va->ref_count;
-+		}
-+	}
-+
-+out_rollback_unlock:
-+	drm_exec_fini(&exec);
- 	return r;
- 
- out_unlock:
-+	/*
-+	 * If we already added a bo_va (e.g. the eviction fence attach below
-+	 * failed), remove it while still holding the reservations so the BO is
-+	 * not freed with a dangling abo->vm_bo.
-+	 */
-+	if (bo_va_added) {
-+		bo_va = amdgpu_vm_bo_find(vm, abo);
-+		if (bo_va)
-+			amdgpu_vm_bo_del(adev, bo_va);
-+		amdgpu_vm_bo_update_shared(abo);
-+	}
- 	drm_exec_fini(&exec);
- 	return r;
- }
--- 
-2.55.0
-
+>   			continue;
+>   		}
+>   
+> -		set_bit(remote_acc_id, exp_xa_node->npa_release_bitmap);
+> -	}
+> -
+> -	/* Send NPA-REVOKE to all importers which have imported this memory.
+> -	 * On send failure clear the bit (no response will arrive) and mark the
+> -	 * connection NOT_READY so other cleanups skip this unreachable peer.
+> -	 */
+> -	for_each_set_bit(remote_acc_id, exp_xa_node->importers_bitmap,
+> -				 AMDGPU_UALINK_ACCEL_MAX) {
+>   		dev_dbg(adev->dev,
+>   			"EXP-CLEANUP: Sending NPA-REVOKE to remote:%u\n",
+>   			remote_acc_id);
+> @@ -2966,7 +2974,6 @@ static void amdgpu_ualink_exp_cleanup_worker(struct work_struct *work)
+>   				remote_acc_id);
+>   			clear_bit(remote_acc_id, exp_xa_node->npa_release_bitmap);
+>   
+> -			imp_entry = &exp_xa_node->importer_entries[remote_acc_id];
+>   			amdgpu_ualink_handle_connection_reset(adev, remote_acc_id,
+>   						AMDGPU_UALINK_CONN_NOT_READY,
+>   						imp_entry->generation_count);
