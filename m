@@ -4,88 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CAD1C98317
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D7F3C98317
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA90C10F500;
-	Thu, 24 Sep 2026 12:46:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E80E10F506;
+	Thu, 24 Sep 2026 12:46:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lUSJ2efq";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Lk4YdGJ0";
 	dkim-atps=neutral
-Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com
- [74.125.230.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86F2310E8D2
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 14:56:39 +0000 (UTC)
-Received: by mail-lr2-f10.google.com with SMTP id
- 38308e7fff4ca-3a46d5c5bd7so6031791fa.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 07:56:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790175398; x=1790780198; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=KLyY5MHaKq4xCUtb5Tr0mqR1G0KiRq9dtEBuRM3TfU0=;
- b=lUSJ2efqQ6/ceBWzoFqXs6T5Faaj17w2DNwF9tZ5sNPJ8QuXeUH+kfwARbcHupO0gB
- HO3ye83vJX2ZVR4Pe7A+XXHGQercQXnG6F4yZ85X0eA1BtwPGSMYl4huwocZuepno0Hk
- tYx6c3S89a6N6dGjQbYcjeNT3Y3b+ebrZf4lfnzQDzv+0us4R0IBtyAV96f5o32DUaah
- EGRbPjuOKLVFrnDaYCFgRo3q44B6BZPYDhs+JWBblAsb3nqj57P8S/vsz7uOEC2mAs4N
- dYPkvKpoAAB5liYA//yix7uey9qkZ5UAao9ucnz6VyHyUUkvbAIwL/MUG1R7yYSMLqol
- KONw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790175398; x=1790780198;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=KLyY5MHaKq4xCUtb5Tr0mqR1G0KiRq9dtEBuRM3TfU0=;
- b=pDn3zLGTDOe/WXgGTE9HnBo282deXbcX4HDKs0FpOw31okOkT32AOGTAJrvReGl4T6
- sjw06vW1MrWKMw9UqlbKbaxQ/gzMGus+W4lr8FoSQLQ7wKDj/PV21ZOZEj+MkstP3wwz
- M1/a9xllyTUvEQUah6ybjnhZnI/qAXQUW22rykNM5fe443wn6cU+0HMnkCZrhyljCogi
- /pEstmDFPJlUjM5mVG1tyMTyqgreJc1ijF/TSd8kFodJacoMQhFYXPWH63k1kCbPjDpw
- Lras8z8li5r9riu7Joe2ZqiRnp62RBfLdhUs4qMKHSQEG2C5bzFP0BZGJW5/R0+QPfAd
- pcTA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxqTRIQ4shd3P9yuQ+c96z1eUFSBHd9ob/4TTes5DvcgVDU+S5uSbNJPvAteoXz82yfZjqLpaxi@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n07ZHwi72k5EZVBPnaUFLRnj/tulwcHV/7G4NhOpKy7SaA4jAe
- klwO+TAxkuMSOSAA6pRhyWxs+BqS+PO/Cz2wdBpqdDZMqfL7KzaiGIfF
-X-Gm-Gg: AYBFou3ra43+C0gQ3MdCh8S525i7OHJWdNyUQTLIL/XatzW3BIpu3zAn73TnZ8zUS10
- 72pARdEKIOhovq9t/rJkcRBNjC/Kdvz8xSeBQUP6xhgRtPL1M3b+T86URRV0qPFSqX9A7591a0F
- P9QtOATeiVapRV3yhDzmrfSAw0zWir57YnQQ1LQ7wJKx5XazaFBPzjBEPTgBN/fB6UVm/o99Fl6
- vK2BKa6TiE3IOiaugBGUNgvqdZ251uv8bMz40TFA4P4DsEVWh6eBk9ss5glltojN/xiSlu5CM44
- 2bTbuToJmEj5zV7Cuna1/e/A7Mf7V84bcoBJPLHAsqSOYY4bktJ3HDlk4fOkSNw8lBpzCoqfkhG
- eAlprdKeOTw2uwZx2XB1am5rhXywPhw1XbOb++KocE9uiWAS3JTOFo7vJYR+m99nErwI61lslIp
- 1eeXGenqrtCVI+HglcLwSLP9BxdRJQoxzX5iWXZFAZRUY7e7F1fsMMYsLXcOxtggnbgqEXOtGjE
- E5ZgZaqujtSOwE8
-X-Received: by 2002:a05:651c:551:b0:3a5:3b80:8f58 with SMTP id
- 38308e7fff4ca-3a63056a748mr6382501fa.6.1790175397496; 
- Wed, 23 Sep 2026 07:56:37 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a62f53b4efsm7512171fa.39.2026.09.23.07.56.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 07:56:36 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- Sasha Levin <sashal@kernel.org>, Jani Nikula <jani.nikula@intel.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- Jesse Zhang <jesse.zhang@amd.com>, Fang Wang <32840572@qq.com>
-Subject: [PATCH 5.10 3/3] drm/amdgpu: Limit BO list entry count to prevent
- resource exhaustion
-Date: Wed, 23 Sep 2026 17:56:20 +0300
-Message-ID: <20260923145622.76242-3-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923145622.76242-1-roman.demidov.nn@gmail.com>
-References: <20260923145622.76242-1-roman.demidov.nn@gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0DC410F1A2;
+ Wed, 23 Sep 2026 20:44:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:From:Reply-To;
+ bh=HdUz0zne8odeFw2HiyHUB4/tMjq35wYkxHxy0r1qMXk=; b=Lk4YdGJ0KOgSPLSJoBHzLWxw4F
+ tpaW8ImF0gYg/yjuYmLIfJAHk7+4HEnKYzAgNShcR55V6BwoYkj07OdmKVed3eErUhN5vXc/KKe24
+ NX/xUMX6DlurM1x3AOW8CAmnzFcnp5nAAoDdxuN0uxkanmZ1oRfTOsORurBSx6dvMtlkmJmruLrXI
+ urTCevHaTOo7BzqwTDinmws35ysRvSG2xv6eBN7V+oekf2Gwbi+Xa9mENcVhscEqgLA3F6gRP+iIN
+ kFmU6MpSQ/5/DF+0ucA9JWevboI+MeqHdQWxXYhwNHy3/BMJqzRKbQkaKRuXqTmN0/UAZ2qvn/Z9Y
+ yaH3kMqg==;
+Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
+ helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x9Tpg-006KVk-UI; Wed, 23 Sep 2026 22:44:48 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Subject: [PATCH i-g-t v7 0/9] add cgroup_dmem test
+Date: Wed, 23 Sep 2026 17:44:35 -0300
+Message-Id: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIADM6tGoC/02Oyw6CMBREf4V0bUkf2IIr/8MQcy0XqLHUtEgwh
+ H8XMAaXJ5k5MxOJGCxGckomEnCw0fpuAX1IiGmha5DaamEimFCsYIJWDt3VwUg5HDGXWmYacrL
+ EnwFrO26qS/nl+Lrd0fRrf03UwTvatwFhV2oheZFJLlOhs5xnknJqIBoIlT/bBh4WUuPdWm9t7
+ H14b1cHtc78Xsn91aAoo4pXRolCsxrwX1LO8/wBYW96VvIAAAA=
+X-Change-ID: 20260902-dmem_max-1a5e837347a8
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, 
+ maarten.lankhorst@linux.intel.com, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+X-Mailer: b4 0.16-dev-62088
 X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,60 +67,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Jesse.Zhang" <Jesse.Zhang@amd.com>
+v6 TLDR:
+Change igt_dmem_driver API by moving handle array allocation out of it and
+into the test itself and including dmem.max new behavior test.
 
-commit 6270b1a5dab94665d7adce3dc78bc9066ed28bdd upstream.
+This patchset is based on the work of Thomas Hellström at [1] and a
+followup I have submitted at [2].
 
-Userspace can pass an arbitrary number of BO list entries via the
-bo_number field. Although the previous multiplication overflow check
-prevents out-of-bounds allocation, a large number of entries could still
-cause excessive memory allocation (up to potentially gigabytes) and
-unnecessarily long list processing times.
+With this version, I reverted the order in which to apply the patchsets, as
+this one adds the infrastructure and the drivers mechanisms, and a test for
+dmem.current and its behavior around dmem.max that is currently supported
+in the kernel.
 
-Introduce a hard limit of 128k entries per BO list, which is more than
-sufficient for any realistic use case (e.g., a single list containing all
-buffers in a large scene). This prevents memory exhaustion attacks and
-ensures predictable performance.
+As for the new dmem.max eviction behavior, introduced by [3], it has been
+now included since it has been merged to Linux v7.3-rc1.
 
-Return -EINVAL if the requested entry count exceeds the limit
+I have run the tests, including the ones that test dmem.max eviction
+behavior on a system with a 1GiB VRAM amdgpu card. Rodrigo Siqueira helped
+me run it on a Xe system. We have had applied the patchset at [3] on top of
+then current linux origin/master [5], with a fixup for the amdgpu driver.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 688b87d39e0aa8135105b40dc167d74b5ada5332)
-Cc: stable@vger.kernel.org
-Signed-off-by: Fang Wang <32840572@qq.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+This latest version has not been tested on Xe, except for the dmem.current
+behavior, which was tested with a 7.0 kernel.
+
+Latest tests for amdgpu used v7.3-rc1.
+
+Now, for the changes since v1 [2]:
+- Changed the test name from drv_dmem_cgroups to dmem_cgroups.
+- Have system includes before igt ones.
+- Documented the current SUBTEST.
+- Changed free_vram driver hook to only release a given BO. This allows for
+  the eviction trigger by a new allocation added by write_eviction_nonblock
+  subtest.
+- Changed allocate_vram to keep more state necessary for releasing a single BO.
+- Added a global free_vram helper to free all allocated VRAM.
+
+Compared to v3 of [1]:
+- I have kept wait_for_usage_drop as release can be lazy and we test for it
+  on test_current SUBTEST, but had USAGE_DROP_TIMEOUT_MS be a little
+  longer.
+- Changed BO_SIZE and EVICT_STEP to allow for more than two eviction steps
+  on a 1GiB VRAM system.
+- Reduced USAGE_SLACK to avoid false positives, but still allow for some
+  page table accounting.
+
+Compared to v2 of this one [6]:
+
+- Ignore -ENOMEM and -ENOSPC when trying to fill VRAM.
+- When limiting max memory, allow for some slack, as there might be some
+  overhead.
+- On Xe, allocate GEM object with no deferred backing, and skip binding.
+
+Compared to v3 of this one [7]:
+
+- Merge dmem_cgroups tests into cgroup_dmem and making cgroup_dmem original
+  test a subtest.
+- Remove assertion when trying to verify allocations have failed as amdgpu
+  will fallback to GTT.
+
+Compared to v4 of this one [8]:
+- Removed the creation of vm in Xe, that was leading to extra bytes being
+  used and was no longer necessary.
+- Removed the USAGE_SLACK that was necessary due to the extra bytes
+  allocated due to the use of vm in Xe.
+
+Compared to v5 of this one [10]:
+- Documented igt_dmem_driver structure.
+- Simplified igt_dmem_driver API, such that handle array allocation is not
+  done, and handles are returned as part of allocation.
+- Make get_region_name callback use the context, instead of fd, which
+  avoids repeating the vram region lookup for Xe.
+- Moved handle array allocation into the test.
+- init/deinit the igt_dmem_driver per driver, not per subtest.
+
+[1] https://patchwork.freedesktop.org/series/163935/#rev3
+[2] https://patchwork.freedesktop.org/series/166496/
+[3] https://lore.kernel.org/dri-devel/20260611173301.17473-1-thomas.hellstrom@linux.intel.com/
+[4] https://gitlab.freedesktop.org/cascardo/igt-gpu-tools/-/commits/dmem_max?ref_type=heads
+[5] 502d801f0ab0 ("Merge tag 'erofs-for-7.2-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs")
+[6] https://lore.kernel.org/dri-devel/20260623174319.4138648-1-cascardo@igalia.com/
+[7] https://lore.kernel.org/dri-devel/20260702130108.1397444-1-cascardo@igalia.com/
+[8] https://lore.kernel.org/dri-devel/20260717120447.1837818-1-cascardo@igalia.com/
+[9] https://lore.kernel.org/dri-devel/20260703130541.2686-1-thomas.hellstrom@linux.intel.com/
+[10] https://lore.kernel.org/dri-devel/20260723194313.2748143-1-cascardo@igalia.com/
+
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com
+Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: maarten.lankhorst@linux.intel.com
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Cc: Natalie Vock <natalie.vock@gmx.de>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: kernel-dev@igalia.com
+
+--
+2.47.3
+
 ---
-Backport fix for CVE-2026-23468
+Changes in v7:
+- igt_cgroup_free is now called by an exit handler and cannot be called
+  directly.
+- cgroup names are namespaced by subtest name so they do not conflict,
+  both changes allow cgroups to be removed in case of test failures.
+- igt_cgroup_exit_current is introduced to allow process to exit cgroup
+  and go back to root cgroup.
+- Driver is closed and reopened between tests, dropping any leftover
+  usage in case of failures.
+- Call igt_stop_signal_helper at test fixture to prevet child leak in
+  case of failures.
+- Update/fix copyright, comments and documentation as requested in
+  reviews.
+- Link to v6: https://patch.msgid.link/20260903-dmem_max-v6-0-61dc62970fae@igalia.com
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 4 ++++
- 1 file changed, 4 insertions(+)
+---
+Thadeu Lima de Souza Cascardo (4):
+      lib/xe: Introduce dmem driver and implement Xe support
+      lib/amdgpu: add amdgpu_cgroup_region_name
+      lib/amdgpu: add amdgpu support to igt_dmem_driver
+      tests/cgroup_dmem: add test for dmem.current
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index 22d7b7c504db..ca0d82be5c9c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -35,6 +35,7 @@
- 
- #define AMDGPU_BO_LIST_MAX_PRIORITY	32u
- #define AMDGPU_BO_LIST_NUM_BUCKETS	(AMDGPU_BO_LIST_MAX_PRIORITY + 1)
-+#define AMDGPU_BO_LIST_MAX_ENTRIES	(128 * 1024)
- 
- static void amdgpu_bo_list_free_rcu(struct rcu_head *rcu)
- {
-@@ -230,6 +231,9 @@ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
- 	const uint32_t bo_number = in->bo_number;
- 	struct drm_amdgpu_bo_list_entry *info;
- 
-+	if (bo_number > AMDGPU_BO_LIST_MAX_ENTRIES)
-+		return -EINVAL;
-+
- 	/* copy the handle array from userspace to a kernel buffer */
- 	if (likely(info_size == bo_info_size)) {
- 		info = vmemdup_array_user(uptr, bo_number, info_size);
--- 
-2.53.0
+Thomas Hellström (5):
+      lib/igt_cgroup: add cgroup v2 and dmem controller helpers
+      tests/cgroup_dmem: add dmem cgroup controller test
+      lib/xe: add xe_cgroup_region_name() helper
+      tests/cgroup_dmem: add dmem cgroup eviction test
+      tests/cgroup_dmem: add write_eviction_nonblock subtest
+
+ lib/amdgpu/amd_dmem.c   |  90 +++++++
+ lib/amdgpu/amd_memory.c |  25 ++
+ lib/amdgpu/amd_memory.h |   2 +
+ lib/igt.h               |   1 +
+ lib/igt_cgroup.c        | 685 ++++++++++++++++++++++++++++++++++++++++++++++++
+ lib/igt_cgroup.h        |  56 ++++
+ lib/igt_dmem_driver.h   |  36 +++
+ lib/meson.build         |   3 +
+ lib/xe/xe_dmem.c        |  98 +++++++
+ lib/xe/xe_query.c       |  32 +++
+ lib/xe/xe_query.h       |   2 +
+ tests/cgroup_dmem.c     | 542 ++++++++++++++++++++++++++++++++++++++
+ tests/meson.build       |   1 +
+ 13 files changed, 1573 insertions(+)
+---
+base-commit: 4aeabf104b136437d0ccc57caf32a752587d595c
+change-id: 20260902-dmem_max-1a5e837347a8
+
+Best regards,
+--  
+Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
