@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB25FC9831C
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BDB9C9831D
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3648E10F516;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6199E10F518;
 	Thu, 24 Sep 2026 12:46:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nY/JaYBc";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="o2pp9ZWk";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBB1810F1B1;
- Wed, 23 Sep 2026 20:45:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB3D310F1B6;
+ Wed, 23 Sep 2026 20:45:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=rjsfF1fEBJ1GVJyZ8uFAH8nL4bHJqwnmPL1J2vr0sxw=; b=nY/JaYBcZhdiU8rvVG7xT7knDv
- saKW8Z7wKvVAkUxhg/sqtIKBEfZAcF5cLSgzl5PAKpW9OoVU2HX8VM0ZJPOFAJs794rX77ou17ub0
- 5gE6IVA2OTQa+i8xZFR/LcJLKluGJ8PH5zt/eEpweEHub9xTa5+GRAq6nuFaaUmDXoU9wllPjdLnY
- JYUioOI1Tf5RTQEspcVDGtMkDFiR0mjvkSfKn7E1nRWa6YJDgT9InkpWd7jcsKJTcU0iaQSG7gsZa
- GP87Pyvz87vg3oj51ZXgGLJvPRPtD6f5kT541H3nuBI+kfG6fe8C1zcwk14gVRbTe83xng4T7LjTr
- ArrFIBFw==;
+ bh=6RaR8Ak6fhnkigyhckXFzn9UEcwJPJyEpCbGfAWqo9A=; b=o2pp9ZWkWQ6mBoCymg09U3brRQ
+ trlPTtrhtnduzHh3T9PJIYLNlwdYMbSx8jmftF4r1rtzVzhjY49/VfrhNmhJKPN2067xSCBj0yR8X
+ ifnXqAb/bgn3dl57pQy0EFMvEBCKSt3psLW3nrFVFysy9vYJe/EJi+dAChKHaPXfLsu/wzxvvUbPk
+ 42r9UDj7ZmOW22SCJXmmd4RMVVOxBzwePi8Wkt4l8Y/3G49pCAchzOEZ9t+25RQqfLfKBJpmmDtLC
+ oIa2FU+SU+EDtj7fdxe3eBDfKz9jtvSMJ8zWcKoiR7hVAmMkjyhZ81XQzsUxvmiwvjDRFwfqUN/j+
+ TggRImPg==;
 Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
  helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x9Tpr-006KVk-Fu; Wed, 23 Sep 2026 22:44:59 +0200
+ id 1x9TqK-006KVk-Ln; Wed, 23 Sep 2026 22:45:28 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Wed, 23 Sep 2026 17:44:37 -0300
-Subject: [PATCH i-g-t v7 2/9] tests/cgroup_dmem: add dmem cgroup controller
- test
+Date: Wed, 23 Sep 2026 17:44:43 -0300
+Subject: [PATCH i-g-t v7 8/9] tests/cgroup_dmem: add
+ write_eviction_nonblock subtest
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260923-dmem_max-v7-2-194ea47bbb4d@igalia.com>
+Message-Id: <20260923-dmem_max-v7-8-194ea47bbb4d@igalia.com>
 References: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
 In-Reply-To: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
 To: igt-dev@lists.freedesktop.org
@@ -50,7 +50,7 @@ Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
  Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>, 
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
 X-Mailer: b4 0.16-dev-62088
-X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:10 +0000
+X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,132 +67,102 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Add a test that exercises the cgroup v2 dmem controller interface using
-the new igt_cgroup library.
-
-The test uses igt_simple_main and:
-  - Skips if no dmem regions are registered (no cgroup v2 or no
-   dmem-capable device).
-  - Creates a sub-cgroup and moves the test process into it.
-  - Enumerates all registered device memory regions and prints their
-   capacity, system-wide current usage, per-cgroup current usage, and
-   configured min, low and max limits.
+Add write_eviction_nonblock to exercise the O_NONBLOCK path of the dmem
+cgroup max interface.  After filling VRAM to the cgroup limit, each
+limit-lowering step writes dmem.max with O_NONBLOCK so that synchronous
+eviction is skipped.  The test then verifies that usage has not yet
+dropped below the new limit, allocates a small BO to trigger eviction
+explicitly, and finally confirms that usage falls within bounds.
 
 Assisted-by: GitHub Copilot:claude-sonnet-4.6
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- tests/cgroup_dmem.c | 91 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- tests/meson.build   |  1 +
- 2 files changed, 92 insertions(+)
+ tests/cgroup_dmem.c | 37 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 34 insertions(+), 3 deletions(-)
 
 diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-new file mode 100644
-index 000000000000..2ccd8bdb00ae
---- /dev/null
+index 5cdb2f8830c8..7f3cfe22db2c 100644
+--- a/tests/cgroup_dmem.c
 +++ b/tests/cgroup_dmem.c
-@@ -0,0 +1,91 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2025 Intel Corporation
-+ */
-+
+@@ -38,6 +38,7 @@
+ #define EVICT_STEP		SZ_128M
+ 
+ #define TEST_INTERRUPTIBLE	(1 << 0)
++#define TEST_NONBLOCK		(1 << 1)
+ 
+ /**
+  * SUBTEST: simple
+@@ -73,6 +74,18 @@
+  *   This subtest requires GPU device with at least one VRAM region.
+  */
+ 
 +/**
-+ * TEST: cgroup dmem
-+ * Description: Exercises the cgroup v2 dmem controller interface.  Creates a
-+ *              cgroup, moves the process into it, enumerates all dmem regions,
-+ *              prints their capacity, system-wide current usage, per-cgroup
-+ *              current usage and configured limits, then destroys the cgroup.
-+ * Category: Core
-+ * Mega feature: General Core features
-+ * Sub-category: uapi
-+ * Functionality: cgroup
-+ * Feature: dmem
-+ * Test category: uapi
++ * SUBTEST: write_eviction_nonblock
++ * DESCRIPTION:
++ *   Same fill phase as write_eviction.  In the limit-lowering phase dmem.max
++ *   is written with O_NONBLOCK, which causes the kernel to skip synchronous
++ *   eviction.  After each nonblock write the test verifies that usage has not
++ *   yet dropped below the new limit, then triggers eviction explicitly by
++ *   allocating a small BO.  Finally verifies that usage falls within bounds
++ *   after the forced eviction.
++ *   This subtest requires GPU device with at least one VRAM region.
 + */
 +
-+#include <inttypes.h>
+ static atomic_int signal_count;
+ static struct sigaction sigcont_oldact;
+ 
+@@ -129,7 +142,7 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
+ 	struct igt_cgroup *cg;
+ 	void **handles;
+ 	int max_bo;
+-	uint64_t current, capacity, cg_max, limit, after;
++	uint64_t current, capacity, cg_max, limit, after, before;
+ 	int err;
+ 
+ 	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+@@ -174,14 +187,31 @@ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, con
+ 	while (limit >= EVICT_STEP) {
+ 
+ 		limit -= EVICT_STEP;
+-		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
 +
-+#include "igt.h"
-+#include "igt_cgroup.h"
++		if (flags & TEST_NONBLOCK)
++			igt_cgroup_dmem_get_current(cg, cg_region, &before);
 +
-+IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
++		igt_cgroup_dmem_set_max(cg, cg_region, limit,
++					!!(flags & TEST_NONBLOCK));
+ 
+ 		igt_cgroup_dmem_get_current(cg, cg_region, &after);
+ 		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
+ 			  limit / SZ_1M, after / SZ_1M);
+ 
++		if (flags & TEST_NONBLOCK) {
++			/*
++			 * O_NONBLOCK skips eviction: verify usage has not
++			 * dropped below the new limit yet.
++			 */
++			igt_assert_f(after == before,
++				     "Expected no eviction with O_NONBLOCK, but "
++				     "usage dropped from %"PRIu64" MiB to %"PRIu64" MiB "
++				     "(limit %"PRIu64" MiB)\n",
++				     before / SZ_1M, after / SZ_1M, limit / SZ_1M);
++		}
 +
-+static void fmt_bytes(uint64_t v, char *buf, size_t len)
-+{
-+	if (v == IGT_CGROUP_DMEM_MAX)
-+		snprintf(buf, len, "max");
-+	else
-+		snprintf(buf, len, "%" PRIu64, v);
-+}
-+
-+int igt_simple_main()
-+{
-+	struct igt_cgroup *cg;
-+	const char *region;
-+	char **regions;
-+	uint64_t capacity, sys_current, cg_current, min, low, max;
-+	char cap_s[32], sys_s[32], cg_s[32];
-+	char min_s[32], low_s[32], max_s[32];
-+	int i;
-+
-+	igt_require_f(igt_cgroup_dmem_available(),
-+		      "No dmem regions found; is cgroup v2 with the "
-+		      "dmem controller available?\n");
-+
-+	cg = igt_cgroup_new("igt-cgroup-dmem-test");
-+	igt_assert_f(cg, "Failed to create cgroup\n");
-+
-+	igt_cgroup_move_current(cg);
-+
-+	regions = igt_cgroup_dmem_regions();
-+	igt_assert_f(regions, "Failed to enumerate dmem regions\n");
-+
-+	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
-+		 "region", "capacity", "system-current",
-+		 "cgroup-current", "min", "low", "max");
-+	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
-+		 "------", "--------", "--------------",
-+		 "--------------", "---", "---", "---");
-+
-+	for (i = 0; regions[i]; i++) {
-+		region = regions[i];
-+
-+		igt_cgroup_dmem_get_capacity(region, &capacity);
-+		fmt_bytes(capacity, cap_s, sizeof(cap_s));
-+
-+		igt_cgroup_dmem_get_system_current(region, &sys_current);
-+		fmt_bytes(sys_current, sys_s, sizeof(sys_s));
-+
-+		igt_cgroup_dmem_get_current(cg, region, &cg_current);
-+		fmt_bytes(cg_current, cg_s, sizeof(cg_s));
-+
-+		igt_cgroup_dmem_get_min(cg, region, &min);
-+		fmt_bytes(min, min_s, sizeof(min_s));
-+
-+		igt_cgroup_dmem_get_low(cg, region, &low);
-+		fmt_bytes(low, low_s, sizeof(low_s));
-+
-+		igt_cgroup_dmem_get_max(cg, region, &max);
-+		fmt_bytes(max, max_s, sizeof(max_s));
-+
-+		igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
-+			 region, cap_s, sys_s, cg_s,
-+			 min_s, low_s, max_s);
-+	}
-+
-+	igt_cgroup_dmem_regions_free(regions);
-+}
-diff --git a/tests/meson.build b/tests/meson.build
-index 4f5c9be7b458..65b9a230f935 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -1,4 +1,5 @@
- test_progs = [
-+	'cgroup_dmem',
- 	'core_auth',
- 	'core_debugfs',
- 	'core_getclient',
+ 		if (limit > EVICT_STEP) {
+-			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
++			if ((flags & (TEST_INTERRUPTIBLE | TEST_NONBLOCK)) && after > limit) {
+ 				/* Let a new bo creation trigger eviction. */
+ 				void *handle;
+ 				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
+@@ -218,6 +248,7 @@ static const struct {
+ } subtests[] = {
+ 	{ "write_eviction", test_write_eviction, 0 },
+ 	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
++	{ "write_eviction_nonblock", test_write_eviction, TEST_NONBLOCK },
+ 	{ }
+ };
+ 
 
 -- 
 2.47.3
