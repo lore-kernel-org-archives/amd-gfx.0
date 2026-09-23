@@ -4,52 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6BD8C9831D
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52B7DC98317
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA2A410F4EA;
-	Thu, 24 Sep 2026 12:46:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D957810F510;
+	Thu, 24 Sep 2026 12:46:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Pf7AFpd3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TjqqsjcK";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A762D10F1B0;
- Wed, 23 Sep 2026 20:44:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=A5aQzp9svqsZMvEs2KdeQp+MnVcxxb1OGWS8efCcE74=; b=Pf7AFpd3KjkJt9hCXzD+VGHHmk
- CzS+Q9z7ewhEz/mSy4tl+iRn4xfNM2AzcE84RJ8jBw0cRl0eoteOggCceCXLtX8Y8LG3RCJhz73cX
- 0wUMlXlkIN4HQnxKcWvOM/bFjQnrxhr3szWSKMTpgJLgicRef8mmt2/z38ku4D0gPNoMkxzoeQ/vN
- SdsfCQUO0F2HEcmqfXYmmN6o7gH4rsOyvKYgQHVg582zqyeZP+XWahsKqtyGNNhHAeKtKW44hlrfd
- zt4SYUBmKgedCR6cUrDEppNmUSJk6YWPfXSMhkZz/6K+MOnKa1YdEVgnDepTLOvbNvOCWmRwVvPPe
- oG+Q93MQ==;
-Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x9Tpm-006KVk-4r; Wed, 23 Sep 2026 22:44:54 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Wed, 23 Sep 2026 17:44:36 -0300
-Subject: [PATCH i-g-t v7 1/9] lib/igt_cgroup: add cgroup v2 and dmem
- controller helpers
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com
+ [74.125.227.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04EAD10E713
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 15:44:11 +0000 (UTC)
+Received: by mail-vs2-f42.google.com with SMTP id
+ 71dfb90a1353d-5c67e4d8d8aso766491e0c.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 08:44:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790178250; x=1790783050; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=9HtKgKYLrxm3x6UJBU1QmDCl4UFfcngUzG8by9J5Mp4=;
+ b=TjqqsjcK05Q8sX4rHdSXhG0vUeyYVyIJGEGVdnSR4rrEj/s2Lrq7r9VYN8KMIH67L5
+ eeWbCinaidHXjyVgCM4cI5hPEMy3hvqgbhuoVpnncHXD1152wg5qOFAI93E2DrYhvJxg
+ YZDPbh2T6YxJwSL6HlsPYNASGIN2y+g9N09/2rTGqRMpu3p3izSNi7Hebdf8E/awooAt
+ INQBmzlqaRAbYOMfQkOS3yIwdmaD5EEH/dMcM3zrBZHpfhtfssrE/0HPgwbLsKs5Co+N
+ fNSeF0G7OjtUy/PuacMv51BK/uLB5yZpXr8JfdN/NRIcQwaAG6V75TbA2w88XYKRzxve
+ HD7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790178250; x=1790783050;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=9HtKgKYLrxm3x6UJBU1QmDCl4UFfcngUzG8by9J5Mp4=;
+ b=d8OIsQf8R+IPUCyyOXzYeTU1gfImvWCNExeWqSMe8r9B22Jmr3ckgv5dK6QY6/IdZf
+ 6xMdhR4p6eklas1a1bZeAXnmcyL95/oiktC9crgaVEd8v8t6wDZHIs3p1mLIkOjjdTj1
+ pHeleloqzGtX30zV3RzbwMn6BLCmW1x8vxRhaiuLjqC7mB8+4711/HnXO/SwAhAv6KBE
+ M3jzbZh1U5QsuqQCLJZ4XJCvyDqEclXy0YHCmMrd/Qu9Zje+/Sztq1JCb/ga3XEZfaEv
+ 1yc8q5kg2J6+JeDt247ZYawjFhHfcwbZxfRQ6YHD1LLcb2zKOdwFFwAB6M5wDFn1kfBq
+ 7pOw==
+X-Gm-Message-State: AFuF++ltURGnYNqQ2SsNswpPJqlcFD+hFpR+rl0A5FPsAP+ghrsK8oUQ
+ 3w3a9noJ9KpYZ1Lp3nqDEGRM0vt5Y/LdvkZeY0zP9gQWXyt1qfrQJeI1
+X-Gm-Gg: AYBFou04DNw+08lHD7iI6FrqZ+zoTOLD9iltmb1YFvBBUjpUhljvj+y1K9PPoLWw00/
+ FIc5upaLasrVzF8vBf/NwwJ5jx13ZnGZTb1XFOL87C5b/R9cEbZvfTwLDduBVETbexAqsVLy7KC
+ MjhqPdHcdqdKTAjBRPVDv/doeCP43StxB7sk0K2JKWWd9VGmnJm7A2zZorkk5m3M2Hun0mGLtJc
+ MQCNAyk9OBaLZryYIrCVY42htiTzhKyS/YS48W0vxdMZ8GSi6HJtlDPEkQFSsz6MARx70eF7kg/
+ qQ/4ru4/dgo5F16wo4ss/jgojdMfElhkClTACvWUTa5dZREVXzo7W7cUYEYw9ynlkjywRYmM62K
+ NEAMjKoZxJyG4xH2CDUYuPD4NXVgtaOLA04JJfTQmwptyuhkNTCW3SFqDhkeZC/f6QP44wGcuhN
+ 0Xh4ubYgkXCX3LNzUtybB6EowHlNXS4+yJYqCbiS74aP4miENtFEmXGViEp1aRgwXgup/cP368L
+ JSuNXsyVuo1
+X-Received: by 2002:a05:6122:400c:b0:5c9:a60c:273f with SMTP id
+ 71dfb90a1353d-5c9f16b901cmr3577780e0c.23.1790178249808; 
+ Wed, 23 Sep 2026 08:44:09 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c9f04f02bfsm3437129e0c.7.2026.09.23.08.44.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 08:44:09 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v3] drm/amdgpu: prevent parameter-space underflow in nested
+ ATOM table calls
+Date: Wed, 23 Sep 2026 12:43:57 -0300
+Message-ID: <20260923154357.1319689-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923152912.1296884-1-qwe.aldo@gmail.com>
+References: <20260923152912.1296884-1-qwe.aldo@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260923-dmem_max-v7-1-194ea47bbb4d@igalia.com>
-References: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
-In-Reply-To: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, 
- maarten.lankhorst@linux.intel.com, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-X-Mailer: b4 0.16-dev-62088
 X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,822 +90,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+atom_op_calltable() invokes a child ATOM table, forwarding the
+parent's parameter space with an offset:
 
-Add igt_cgroup, a library module providing helpers to create and manage
-cgroup v2 sub-cgroups from IGT tests, with support for the dmem
-controller that governs device memory (e.g. GPU VRAM) limits.
+    amdgpu_atom_execute_table_locked(ctx->ctx, idx,
+        ctx->ps + ctx->ps_shift,
+        ctx->ps_size - ctx->ps_shift);
 
-The API covers:
- - igt_cgroup_new() / igt_cgroup_free(): create and destroy a named
-   sub-cgroup under the unified cgroupv2 hierarchy, enabling the dmem
-   controller automatically.
- - igt_cgroup_move_current(): move the calling process into a cgroup.
- - igt_cgroup_dmem_set/get_max/min/low(): write and read dmem.max,
-   dmem.min and dmem.low for a named device memory region.
- - igt_cgroup_dmem_get_current(): read current per-cgroup device memory
-   usage.
- - igt_cgroup_dmem_get_system_current(): read system-wide device memory
-   usage from the root cgroup.
- - igt_cgroup_dmem_get_capacity(): read total region capacity from the
-   root cgroup's dmem.capacity file.
- - igt_cgroup_dmem_regions() / igt_cgroup_dmem_regions_free(): enumerate
-   all registered device memory regions.
+ctx->ps_shift is in dwords (set to ps / 4 in
+amdgpu_atom_execute_table_locked()), while ctx->ps_size is the
+remaining capacity in bytes. The subtraction therefore mixes units:
+a child table requesting 60 bytes (ps_shift = 15 dwords) with only
+16 bytes remaining would compute 16 - 15 = 1 instead of the correct
+16 - 60 = underflow.
 
-All public API functions that can fail use igt_assert internally rather
-than returning error codes, following the IGT convention.
+Convert ps_shift to bytes (ps_shift * 4) in both the guard and the
+subtraction so the units are consistent. Abort the interpreter when
+the request exceeds the available space so the parent table does not
+continue with stale or uninitialized data.
 
-cgroup names embed the subtest name, allowing an exit handler to be used
-to remove them all at the end of the test.
-
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- lib/igt.h        |   1 +
- lib/igt_cgroup.c | 685 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
- lib/igt_cgroup.h |  56 +++++
- lib/meson.build  |   1 +
- 4 files changed, 743 insertions(+)
+v3: abort the interpreter (ctx->abort = true + return) when the
+    child table's parameter space exceeds the parent's remaining
+    capacity, instead of silently skipping execution (found by
+    Sashiko AI review on v2).
+v2: convert ps_shift to bytes (ps_shift * 4) before comparing with
+    ps_size, fixing the unit mismatch (found by Sashiko AI review).
 
-diff --git a/lib/igt.h b/lib/igt.h
-index 173ca70bff28..d8e5de7dcd2f 100644
---- a/lib/igt.h
-+++ b/lib/igt.h
-@@ -27,6 +27,7 @@
- #include "drmtest.h"
- #include "i915_3d.h"
- #include "igt_aux.h"
-+#include "igt_cgroup.h"
- #include "igt_configfs.h"
- #include "igt_core.h"
- #include "igt_debugfs.h"
-diff --git a/lib/igt_cgroup.c b/lib/igt_cgroup.c
-new file mode 100644
-index 000000000000..7ada1e2efed5
---- /dev/null
-+++ b/lib/igt_cgroup.c
-@@ -0,0 +1,685 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2025 Intel Corporation
-+ * Copyright © 2026 Valve Corporation
-+ */
-+
-+/**
-+ * SECTION:igt_cgroup
-+ * @short_description: cgroup v2 helpers for IGT tests
-+ * @title: cgroup
-+ * @include: igt_cgroup.h
-+ *
-+ * This library provides helpers for creating and managing cgroup v2
-+ * sub-cgroups from IGT tests, including support for the dmem controller
-+ * which governs device memory (e.g. GPU VRAM) limits.
-+ */
-+
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <inttypes.h>
-+#include <limits.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/stat.h>
-+#include <sys/statfs.h>
-+#include <sys/types.h>
-+#include <unistd.h>
-+
-+#include "igt_cgroup.h"
-+#include "igt_core.h"
-+#include "igt_fs.h"
-+
-+#ifndef CGROUP2_SUPER_MAGIC
-+#define CGROUP2_SUPER_MAGIC 0x63677270
-+#endif
-+
-+/**
-+ * struct igt_cgroup - Opaque handle to a cgroup v2 sub-cgroup.
-+ * @dirfd: File descriptor for the cgroup directory.
-+ * @path: Absolute path to the cgroup directory.
-+ * @parent_path: Absolute path to the parent cgroup directory.
-+ *
-+ * Allocated by igt_cgroup_new() and freed by igt_cgroup_free().
-+ */
-+struct igt_cgroup {
-+	int dirfd;
-+	char *path;
-+	char *parent_path;
-+};
-+
-+static const char *cgroupv2_mount(void)
-+{
-+	static const char *path;
-+	static const char * const candidates[] = {
-+		"/sys/fs/cgroup",
-+		"/sys/fs/cgroup/unified",
-+		NULL,
-+	};
-+	struct statfs st;
-+	int i;
-+
-+	if (path)
-+		return path;
-+
-+	for (i = 0; candidates[i]; i++) {
-+		if (statfs(candidates[i], &st) == 0 &&
-+		    (unsigned long)st.f_type == CGROUP2_SUPER_MAGIC) {
-+			path = candidates[i];
-+			return path;
-+		}
-+	}
-+
-+	return NULL;
-+}
-+
-+/*
-+ * Move every PID listed in @cgroup_path/cgroup.procs to
-+ * @parent_path/cgroup.procs.  Silently ignores individual failures
-+ * (a PID may have exited between reading and writing).
-+ */
-+static void drain_procs_to_parent(const char *cgroup_path,
-+				  const char *parent_path)
-+{
-+	char proc_path[PATH_MAX];
-+	char parent_procs[PATH_MAX];
-+	int parent_fd;
-+	FILE *f;
-+	int pid;
-+
-+	snprintf(proc_path, sizeof(proc_path), "%s/cgroup.procs", cgroup_path);
-+	snprintf(parent_procs, sizeof(parent_procs), "%s/cgroup.procs", parent_path);
-+
-+	parent_fd = open(parent_procs, O_WRONLY);
-+	if (parent_fd < 0)
-+		return;
-+
-+	f = fopen(proc_path, "r");
-+	if (f) {
-+		while (fscanf(f, "%d", &pid) == 1) {
-+			char pidbuf[32];
-+			ssize_t len = snprintf(pidbuf, sizeof(pidbuf), "%d", pid);
-+
-+			write(parent_fd, pidbuf, len);
-+		}
-+		fclose(f);
-+	}
-+
-+	close(parent_fd);
-+}
-+
-+/**
-+ * igt_cgroup_free() - Destroy a cgroup and release its resources.
-+ * @cg: The cgroup to destroy.
-+ *
-+ * Moves any processes still running inside @cg back to the parent cgroup,
-+ * removes the cgroup directory, and frees all associated memory.
-+ * After this call @cg must not be used.
-+ * Called at exit time by an exit handler installed by igt_cgroup_new.
-+ * Should not be called by a subtest, otherwise, might lead to a double
-+ * free.
-+ */
-+static void igt_cgroup_free(struct igt_cgroup *cg)
-+{
-+	if (!cg)
-+		return;
-+
-+	drain_procs_to_parent(cg->path, cg->parent_path);
-+
-+	close(cg->dirfd);
-+
-+	if (rmdir(cg->path) < 0)
-+		igt_debug("Failed to remove cgroup %s: %m\n", cg->path);
-+
-+	free(cg->path);
-+	free(cg->parent_path);
-+	free(cg);
-+}
-+
-+#define MAX_CGROUPS 32
-+static unsigned int cgroup_cleanup_count;
-+static struct igt_cgroup *cgroup_cleanup[MAX_CGROUPS];
-+
-+static void igt_cgroup_exit_handler(int sig)
-+{
-+	int i;
-+
-+	for (i = 0; i < cgroup_cleanup_count; i++)
-+		igt_cgroup_free(cgroup_cleanup[i]);
-+}
-+
-+static void igt_cgroup_install_exit_handler(struct igt_cgroup *cg)
-+{
-+	igt_assert(cgroup_cleanup_count < MAX_CGROUPS);
-+	cgroup_cleanup[cgroup_cleanup_count++] = cg;
-+	igt_install_exit_handler(igt_cgroup_exit_handler);
-+}
-+
-+/*
-+ * Write "+controller" to @cgroup_path/cgroup.subtree_control to enable
-+ * the named controller for children of that cgroup.
-+ */
-+static int enable_controller(const char *cgroup_path, const char *controller)
-+{
-+	char path[PATH_MAX];
-+	char cmd[64];
-+	ssize_t ret;
-+	int fd;
-+
-+	snprintf(path, sizeof(path), "%s/cgroup.subtree_control", cgroup_path);
-+	snprintf(cmd, sizeof(cmd), "+%s", controller);
-+
-+	fd = open(path, O_WRONLY);
-+	if (fd < 0)
-+		return -errno;
-+
-+	ret = write(fd, cmd, strlen(cmd));
-+	close(fd);
-+
-+	return (ret < 0) ? -errno : 0;
-+}
-+
-+/**
-+ * igt_cgroup_new() - Create a new cgroup v2 sub-cgroup.
-+ * @name: Name for the new cgroup directory.
-+ *
-+ * Creates a sub-cgroup named @name under the system's unified cgroupv2
-+ * hierarchy.  The dmem controller is enabled in the parent's
-+ * subtree_control so that igt_cgroup_dmem_set_max() and friends take effect
-+ * immediately.
-+ *
-+ * Return: Pointer to an &struct igt_cgroup on success, %NULL on failure.
-+ */
-+struct igt_cgroup *igt_cgroup_new(const char *name)
-+{
-+	struct igt_cgroup *cg;
-+	const char *mount;
-+	int ret;
-+
-+	mount = cgroupv2_mount();
-+	if (!mount) {
-+		igt_debug("cgroup v2 not found\n");
-+		return NULL;
-+	}
-+
-+	cg = calloc(1, sizeof(*cg));
-+	if (!cg)
-+		return NULL;
-+
-+	cg->parent_path = strdup(mount);
-+	if (!cg->parent_path)
-+		goto err_free;
-+
-+	if (asprintf(&cg->path, "%s/%s-%s", mount, igt_subtest_name(), name) < 0) {
-+		cg->path = NULL;
-+		goto err_parent;
-+	}
-+
-+	/*
-+	 * Try to enable the dmem controller in the parent's subtree_control.
-+	 * Ignore EINVAL which the kernel returns when the controller is already
-+	 * listed (i.e. already enabled).
-+	 */
-+	ret = enable_controller(mount, "dmem");
-+	if (ret < 0 && ret != -EINVAL)
-+		igt_debug("Failed to enable dmem controller in %s: %d\n",
-+			  mount, ret);
-+
-+	if (mkdir(cg->path, 0755) < 0 && errno != EEXIST) {
-+		igt_debug("Failed to create cgroup %s: %m\n", cg->path);
-+		goto err_path;
-+	}
-+
-+	cg->dirfd = open(cg->path, O_RDONLY | O_DIRECTORY);
-+	if (cg->dirfd < 0) {
-+		igt_debug("Failed to open cgroup dir %s: %m\n", cg->path);
-+		goto err_rmdir;
-+	}
-+
-+	igt_cgroup_install_exit_handler(cg);
-+
-+	return cg;
-+
-+err_rmdir:
-+	rmdir(cg->path);
-+err_path:
-+	free(cg->path);
-+err_parent:
-+	free(cg->parent_path);
-+err_free:
-+	free(cg);
-+	return NULL;
-+}
-+
-+static void igt_cgroup_move_current_to_fd(int fd)
-+{
-+	char pidbuf[32];
-+	ssize_t len;
-+	int ret;
-+
-+	len = snprintf(pidbuf, sizeof(pidbuf), "%d", (int)getpid());
-+
-+	ret = write(fd, pidbuf, len);
-+	close(fd);
-+
-+	igt_assert_f(ret == len, "Failed to write PID to cgroup.procs: %m\n");
-+}
-+
-+
-+/**
-+ * igt_cgroup_move_current() - Move the calling process into a cgroup.
-+ * @cg: Target cgroup.
-+ *
-+ * Writes the calling process's PID to @cg's cgroup.procs file, transferring
-+ * it into the cgroup.  All threads of the process move together.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_move_current(struct igt_cgroup *cg)
-+{
-+	int fd;
-+
-+	fd = openat(cg->dirfd, "cgroup.procs", O_WRONLY);
-+	igt_assert_f(fd >= 0, "Failed to open cgroup.procs: %m\n");
-+	igt_cgroup_move_current_to_fd(fd);
-+}
-+
-+/**
-+ * igt_cgroup_exit_current() - Move the calling process out of cgroup.
-+ */
-+void igt_cgroup_exit_current(void)
-+{
-+	int fd;
-+	char parent_procs[PATH_MAX];
-+
-+	snprintf(parent_procs, sizeof(parent_procs), "%s/cgroup.procs", cgroupv2_mount());
-+
-+	fd = open(parent_procs, O_WRONLY);
-+	igt_assert_f(fd >= 0, "Failed to open cgroup.procs: %m\n");
-+	igt_cgroup_move_current_to_fd(fd);
-+}
-+
-+/*
-+ * Parse a single dmem interface file line of the form "region_name value\n"
-+ * where value is either a decimal byte count or the string "max".
-+ * Returns 0 and writes to *out on success, -EINVAL on parse error.
-+ */
-+static int dmem_parse_line(char *line, const char *region, uint64_t *out)
-+{
-+	char *space = strchr(line, ' ');
-+
-+	if (!space)
-+		return -EINVAL;
-+
-+	*space = '\0';
-+	if (strcmp(line, region) != 0)
-+		return -ENOENT;
-+
-+	if (strcmp(space + 1, "max") == 0) {
-+		*out = IGT_CGROUP_DMEM_MAX;
-+		return 0;
-+	}
-+
-+	errno = 0;
-+	*out = strtoull(space + 1, &space, 10);
-+	if (errno || *space != '\0')
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Read a dmem interface file opened relative to @dirfd, searching for
-+ * @region.  On success writes the region's value to @out and returns 0.
-+ * Returns -ENOENT when @region is absent, or a negative errno otherwise.
-+ */
-+static int dmem_read_region(int dirfd, const char *file,
-+			    const char *region, uint64_t *out)
-+{
-+	char buf[4096];
-+	char *line, *saveptr;
-+	ssize_t n;
-+	int fd;
-+
-+	fd = openat(dirfd, file, O_RDONLY);
-+	if (fd < 0)
-+		return -errno;
-+
-+	n = igt_readn(fd, buf, sizeof(buf) - 1);
-+	close(fd);
-+	if (n < 0)
-+		return (int)n;
-+	buf[n] = '\0';
-+
-+	for (line = strtok_r(buf, "\n", &saveptr); line;
-+	     line = strtok_r(NULL, "\n", &saveptr)) {
-+		int ret = dmem_parse_line(line, region, out);
-+
-+		if (ret != -ENOENT)
-+			return ret;
-+	}
-+
-+	return -ENOENT;
-+}
-+
-+/*
-+ * Write "region_name value" (or "region_name max") to the dmem interface
-+ * file @file opened relative to @dirfd.
-+ * If @nonblock is true the file is opened with O_NONBLOCK, causing any
-+ * eviction triggered by the limit change to be skipped rather than waited
-+ * for; the write still succeeds (returns 0).
-+ * Returns 0 on success, negative errno on failure.
-+ */
-+static int dmem_write_region(int dirfd, const char *file,
-+			     const char *region, uint64_t bytes, bool nonblock)
-+{
-+	char buf[PATH_MAX + 64];
-+	ssize_t len;
-+	int fd, ret;
-+	int flags = O_WRONLY;
-+
-+	if (bytes == IGT_CGROUP_DMEM_MAX)
-+		len = snprintf(buf, sizeof(buf), "%s max", region);
-+	else
-+		len = snprintf(buf, sizeof(buf), "%s %" PRIu64, region, bytes);
-+
-+	if (nonblock)
-+		flags |= O_NONBLOCK;
-+
-+	fd = openat(dirfd, file, flags);
-+	if (fd < 0)
-+		return -errno;
-+
-+	do {
-+		ret = write(fd, buf, len);
-+		if (ret < 0 && errno == EINTR)
-+			igt_debug("dmem cgroup write interrupted by signal, retrying\n");
-+	} while (ret < 0 && errno == EINTR);
-+	close(fd);
-+
-+	return (ret < 0) ? -errno : 0;
-+}
-+
-+/**
-+ * igt_cgroup_dmem_set_max() - Set the hard device memory limit for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name (e.g. "drm/0000:03:00.0/vram0").
-+ * @bytes: Hard limit in bytes.  Use %IGT_CGROUP_DMEM_MAX for no limit.
-+ * @nonblock: If true, open the file with O_NONBLOCK so that eviction
-+ *            triggered by the limit change is skipped rather than awaited.
-+ *
-+ * Writes @bytes to dmem.max for @region inside @cg.  Allocation attempts
-+ * that would push usage past this limit fail with -EAGAIN in the kernel.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_set_max(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes, bool nonblock)
-+{
-+	igt_assert_f(dmem_write_region(cg->dirfd, "dmem.max", region, bytes,
-+				       nonblock) == 0,
-+		     "Failed to set dmem.max for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_set_min() - Set the hard protection threshold for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @bytes: Hard protection threshold in bytes.  Pass 0 to disable.
-+ *
-+ * Writes @bytes to dmem.min for @region inside @cg.  Device memory below
-+ * this threshold is never reclaimed regardless of system pressure.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_set_min(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes)
-+{
-+	igt_assert_f(dmem_write_region(cg->dirfd, "dmem.min", region, bytes,
-+				       false) == 0,
-+		     "Failed to set dmem.min for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_set_low() - Set the soft protection threshold for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @bytes: Soft protection threshold in bytes.  Pass 0 to disable.
-+ *
-+ * Writes @bytes to dmem.low for @region inside @cg.  Device memory below
-+ * this threshold is only reclaimed when no unprotected memory remains.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_set_low(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes)
-+{
-+	igt_assert_f(dmem_write_region(cg->dirfd, "dmem.low", region, bytes,
-+				       false) == 0,
-+		     "Failed to set dmem.low for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_current() - Read current device memory usage for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @out: Receives the current usage in bytes.
-+ *
-+ * Reads dmem.current from @cg and returns the usage for @region.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_current(struct igt_cgroup *cg, const char *region,
-+				 uint64_t *out)
-+{
-+	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.current", region, out) == 0,
-+		     "Failed to read dmem.current for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_max() - Read the configured hard limit for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @out: Receives the limit in bytes, or %IGT_CGROUP_DMEM_MAX if unset.
-+ *
-+ * Reads dmem.max from @cg for @region.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_max(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out)
-+{
-+	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.max", region, out) == 0,
-+		     "Failed to read dmem.max for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_min() - Read the configured hard protection threshold for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @out: Receives the threshold in bytes.
-+ *
-+ * Reads dmem.min from @cg for @region.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_min(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out)
-+{
-+	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.min", region, out) == 0,
-+		     "Failed to read dmem.min for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_low() - Read the configured soft protection threshold for a region.
-+ * @cg: Target cgroup.
-+ * @region: Device memory region name.
-+ * @out: Receives the threshold in bytes.
-+ *
-+ * Reads dmem.low from @cg for @region.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_low(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out)
-+{
-+	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.low", region, out) == 0,
-+		     "Failed to read dmem.low for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_available() - Check if the dmem cgroup controller is available.
-+ *
-+ * Probes the cgroup v2 hierarchy for the presence of a dmem.capacity file at
-+ * the root, indicating that the kernel dmem controller is compiled in and at
-+ * least one device memory region has been registered.
-+ *
-+ * Return: %true if the dmem controller is available, %false otherwise.
-+ */
-+bool igt_cgroup_dmem_available(void)
-+{
-+	char **regions = igt_cgroup_dmem_regions();
-+
-+	if (!regions)
-+		return false;
-+
-+	igt_cgroup_dmem_regions_free(regions);
-+	return true;
-+}
-+
-+/**
-+ * igt_cgroup_dmem_regions() - Enumerate all registered device memory regions.
-+ *
-+ * Reads the root cgroup's dmem.capacity file and returns a NULL-terminated
-+ * array of region name strings.  Each name can be passed directly to
-+ * igt_cgroup_dmem_get_capacity(), igt_cgroup_dmem_get_current(), and the
-+ * igt_cgroup_dmem_set_*() / igt_cgroup_dmem_get_*() family.
-+ *
-+ * Free the returned array with igt_cgroup_dmem_regions_free().
-+ *
-+ * Return: A NULL-terminated array of strings on success, %NULL if cgroupv2
-+ * is unavailable or no regions are registered.
-+ */
-+char **igt_cgroup_dmem_regions(void)
-+{
-+	char buf[4096];
-+	char *line, *saveptr, *space, *name;
-+	char **regions = NULL, **tmp;
-+	int count = 0;
-+	const char *mount;
-+	ssize_t n;
-+	int dirfd, fd;
-+
-+	mount = cgroupv2_mount();
-+	if (!mount)
-+		return NULL;
-+
-+	dirfd = open(mount, O_RDONLY | O_DIRECTORY);
-+	if (dirfd < 0)
-+		return NULL;
-+
-+	fd = openat(dirfd, "dmem.capacity", O_RDONLY);
-+	close(dirfd);
-+	if (fd < 0)
-+		return NULL;
-+
-+	n = igt_readn(fd, buf, sizeof(buf) - 1);
-+	close(fd);
-+	if (n <= 0)
-+		return NULL;
-+	buf[n] = '\0';
-+
-+	for (line = strtok_r(buf, "\n", &saveptr); line;
-+	     line = strtok_r(NULL, "\n", &saveptr)) {
-+		space = strchr(line, ' ');
-+
-+		if (!space)
-+			continue;
-+		*space = '\0';
-+
-+		name = strdup(line);
-+		if (!name)
-+			goto err;
-+
-+		tmp = realloc(regions, (count + 2) * sizeof(*regions));
-+		if (!tmp) {
-+			free(name);
-+			goto err;
-+		}
-+		regions = tmp;
-+		regions[count++] = name;
-+		regions[count] = NULL;
-+	}
-+
-+	return regions;
-+
-+err:
-+	igt_cgroup_dmem_regions_free(regions);
-+	return NULL;
-+}
-+
-+/**
-+ * igt_cgroup_dmem_regions_free() - Free a region list returned by igt_cgroup_dmem_regions().
-+ * @regions: NULL-terminated array returned by igt_cgroup_dmem_regions().
-+ *
-+ * Frees each string in @regions and the array itself.  Safe to call with
-+ * %NULL.
-+ */
-+void igt_cgroup_dmem_regions_free(char **regions)
-+{
-+	int i;
-+
-+	if (!regions)
-+		return;
-+
-+	for (i = 0; regions[i]; i++)
-+		free(regions[i]);
-+
-+	free(regions);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_capacity() - Read total device memory capacity for a region.
-+ * @region: Device memory region name.
-+ * @out: Receives the total capacity in bytes.
-+ *
-+ * Reads dmem.capacity from the root cgroup and returns the capacity for
-+ * @region.  This reflects the maximum allocatable bytes, excluding memory
-+ * reserved by the kernel for internal use.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_capacity(const char *region, uint64_t *out)
-+{
-+	const char *mount;
-+	int dirfd, ret;
-+
-+	mount = cgroupv2_mount();
-+	igt_assert_f(mount, "cgroup v2 not available\n");
-+
-+	dirfd = open(mount, O_RDONLY | O_DIRECTORY);
-+	igt_assert_f(dirfd >= 0, "Failed to open cgroup root: %m\n");
-+
-+	ret = dmem_read_region(dirfd, "dmem.capacity", region, out);
-+	close(dirfd);
-+
-+	igt_assert_f(ret == 0, "Failed to read dmem.capacity for region %s\n", region);
-+}
-+
-+/**
-+ * igt_cgroup_dmem_get_system_current() - Read system-wide device memory usage for a region.
-+ * @region: Device memory region name.
-+ * @out: Receives the total system-wide usage in bytes.
-+ *
-+ * Reads dmem.current from the root cgroup for @region.  This reflects the
-+ * aggregate device memory usage across all cgroups on the system.
-+ * Fails the test via igt_assert on error.
-+ */
-+void igt_cgroup_dmem_get_system_current(const char *region, uint64_t *out)
-+{
-+	const char *mount;
-+	int dirfd, ret;
-+
-+	mount = cgroupv2_mount();
-+	igt_assert_f(mount, "cgroup v2 not available\n");
-+
-+	dirfd = open(mount, O_RDONLY | O_DIRECTORY);
-+	igt_assert_f(dirfd >= 0, "Failed to open cgroup root: %m\n");
-+
-+	ret = dmem_read_region(dirfd, "dmem.current", region, out);
-+	close(dirfd);
-+
-+	igt_assert_f(ret == 0, "Failed to read root dmem.current for region %s\n", region);
-+}
-diff --git a/lib/igt_cgroup.h b/lib/igt_cgroup.h
-new file mode 100644
-index 000000000000..5115c60427da
---- /dev/null
-+++ b/lib/igt_cgroup.h
-@@ -0,0 +1,56 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2025 Intel Corporation
-+ */
-+
-+#ifndef __IGT_CGROUP_H__
-+#define __IGT_CGROUP_H__
-+
-+#include <stdbool.h>
-+#include <stdint.h>
-+
-+/**
-+ * IGT_CGROUP_DMEM_MAX - Sentinel value meaning "no device memory limit".
-+ *
-+ * Pass this to igt_cgroup_dmem_set_max() to remove a previously set limit,
-+ * equivalent to writing "max" to the dmem.max interface file.
-+ */
-+#define IGT_CGROUP_DMEM_MAX UINT64_MAX
-+
-+/**
-+ * struct igt_cgroup - Opaque handle to a cgroup v2 sub-cgroup.
-+ *
-+ * Allocated by igt_cgroup_new() and freed at exit time.
-+ * All other functions in this module take a pointer to this type.
-+ */
-+struct igt_cgroup;
-+
-+struct igt_cgroup *igt_cgroup_new(const char *name);
-+
-+void igt_cgroup_move_current(struct igt_cgroup *cg);
-+void igt_cgroup_exit_current(void);
-+
-+void igt_cgroup_dmem_set_max(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes, bool nonblock);
-+void igt_cgroup_dmem_set_min(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes);
-+void igt_cgroup_dmem_set_low(struct igt_cgroup *cg, const char *region,
-+			     uint64_t bytes);
-+
-+void igt_cgroup_dmem_get_max(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out);
-+void igt_cgroup_dmem_get_min(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out);
-+void igt_cgroup_dmem_get_low(struct igt_cgroup *cg, const char *region,
-+			     uint64_t *out);
-+
-+void igt_cgroup_dmem_get_current(struct igt_cgroup *cg, const char *region,
-+				 uint64_t *out);
-+void igt_cgroup_dmem_get_capacity(const char *region, uint64_t *out);
-+void igt_cgroup_dmem_get_system_current(const char *region, uint64_t *out);
-+
-+bool igt_cgroup_dmem_available(void);
-+char **igt_cgroup_dmem_regions(void);
-+void igt_cgroup_dmem_regions_free(char **regions);
-+
-+#endif /* __IGT_CGROUP_H__ */
-diff --git a/lib/meson.build b/lib/meson.build
-index f3e6d96693a1..df5f13efac56 100644
---- a/lib/meson.build
-+++ b/lib/meson.build
-@@ -19,6 +19,7 @@ lib_sources = [
- 	'i915/i915_dp.c',
- 	'igt_collection.c',
- 	'igt_color_encoding.c',
-+	'igt_cgroup.c',
- 	'igt_configfs.c',
- 	'igt_facts.c',
- 	'igt_crc.c',
+ drivers/gpu/drm/amd/amdgpu/atom.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index e0e585f..af283cd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_context *ctx, int *ptr, int arg)
+ 		SDEBUG("   table: %d (%s)\n", idx, atom_table_names[idx]);
+ 	else
+ 		SDEBUG("   table: %d\n", idx);
+-	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
+-		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift);
++	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx)) {
++		if (ctx->ps_shift * 4 > ctx->ps_size) {
++			ctx->abort = true;
++			return;
++		}
++		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift * 4);
++	}
+ 	if (r) {
+ 		ctx->abort = true;
+ 	}
 -- 
-2.47.3
-
+2.43.0
