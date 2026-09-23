@@ -4,123 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF6F7C98302
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:27:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E15DC9830B
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:52:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B50910F0E3;
-	Wed, 23 Sep 2026 14:27:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 405E510E8FD;
+	Wed, 23 Sep 2026 14:52:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LAmyx0X5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dIpJtubC";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012056.outbound.protection.outlook.com
- [40.107.200.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80FB010F0E2
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 14:27:47 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012044.outbound.protection.outlook.com [40.107.209.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BE1510E8FD;
+ Wed, 23 Sep 2026 14:52:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hnNsP4SG9PzN7IqpTl2FE06IGznTTl3s6YKa7BdNCW1Mcz2Un76aOPMEEki8MPnMC4iwzrRvvYLSi9gFI1/XRTH5WNH+JUwbSJkw6eU/PjOZtCTJb2Iao4X8iemMJhHh8gdU4HS0pnAvx5qNulG6X4Zhot3oouFV/FopgxFfobQ6XhxXybq0ENQpj073dHx4LvKktBWpaZXi++NtHwmZTktRCkKXROe+dxB+KmdcS87oe1JU3n7OCq5hq31CJIsnK9BjmW3kqsp9WtI0V6sWGi4tSlUrsXBwv6/Ei2D9OTLAU4pmAsbC5Bkhe4lEjeG9aEk26ZoyjfHY/t+qFiPq0g==
+ b=jZW6PtCYvGsd35yY6mX2kCyvbw6pSPHsc/Qk/p/pNFeJVnjvFqVOJlYRTkfTUMTZk0Viil/uQZIVv1f2QHO9AQvBRJgdoBvxA6PlNXs8X4Vqu48uvAN9rZCQ1KCEEMbtoTaOG4PKVKRUYuRC5EkQMNPtPFiI4Ht+P0wFMHEwdR++AoRB/LqeSuiTJsn5DnKsski4h24aQYX993BIaU7YhDJIFOesJ0lbzl+rN5B3l5QprHm7tinc/YoLQX1alj0BesVMjngoTyNh0oG4kkFGjvQPH+VKOHKOuTgDHmRro/ZRjjo55ROzAh4ngQAcpXCVcg5ERc3eMofkG+dg6OKerQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Um0oMwg3V9Lv5AqL+o4bXzdhDUGuexpxswwQAJInCXk=;
- b=QwbKu/gZMgCYtuBSVk+WSRvgahEkMrcnr+wc7VizobBESuxebS6VIvBGFBOHnrkSvvErNQVgAZYRIucjpF3PZEgybEls1e+904uYHjbGO5rlABZXh5nrUQns0ASn8dGq1xUBHQgSH0TR0+20bHYKruEK/IszIu3p8RC7qOYnssD/xLSqD6KBW+KbbRjm/j4K80GM1I8vij20T3FeUU3F+zkForOPfbZZopLHZbqQgbI++bibtBLazLfsCOJ8PlYUBq50WgFEfioUXsRmSdI96Ob5A1fbGAduHPzzJa7nQZWlwKQ6J+7GxXLwHKx3eXiMnLCJNjcjlTAtyZNZMUrW9w==
+ bh=hmGy7ip0/alvIQtD509sdDQW28Zdc5u8ftmiEMs73/Q=;
+ b=mx0SZEy9GQk54DitYCP2pK4oAigMIgUQa1RBmDyvceZkBcxa/aWJP8Ra+iFKuwYGYN0lWX0oOqcXmpsB9h1nRYUwNGeZCGMKe4w6Tqjjro0Hs9ZZZ7zlaAJlg7QDX3J/rB7Wn9ZDLVezR3kNuqaeDRRzp9waK2CG7e18XNHPqw0UNQm8xfFlzzZgI6cEmdhvKMgfcn0CeSORENN+blt/fKZ6G/2lVOT5mn3Nq7m6av7YEvzwyqXOQwEttKpzGr4bNs9zkeObkuFjzaKx8Kq249DqASy/X/63Bu8jEjX7CY4Iil7wtGplFW1+btxCAR8fwq1ffB+t5ALQdM46ljRzcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Um0oMwg3V9Lv5AqL+o4bXzdhDUGuexpxswwQAJInCXk=;
- b=LAmyx0X5weK5CdYh4GMIGxQ8YessXwkngBE3luyc3zvJ5uVqpk9wzwjFlqqpzP53I8+xmJDIAH+97gTqN1QP1CghlncwtPM98oAw8zHdSkJOyd/5YZOP0ZYJEi6bjXMtVqW+LTKbfwIn/AcS8RQdmhNxskoc/lLSpxTVdn5q6wc=
+ bh=hmGy7ip0/alvIQtD509sdDQW28Zdc5u8ftmiEMs73/Q=;
+ b=dIpJtubCVsV9/+F34WArWCFyxgJb/k/Fq4KNRtPEipvaeJQ/CmU8bxcT9292YFeK0QJN3MA/K6ogT3EyJTx7wrXkoSQWBNMqbUkkc0FiggTMgg/CLcDG6a1krPtFyg5+2GGkPP0/eK1Fe8C1wZf65+cNyDIJFrbJdhWYmMEwJfI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5167.namprd12.prod.outlook.com (2603:10b6:5:396::10)
- by SA3PR12MB7857.namprd12.prod.outlook.com (2603:10b6:806:31e::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 14:27:43 +0000
-Received: from DM4PR12MB5167.namprd12.prod.outlook.com
- ([fe80::4588:54c1:bc29:2c7c]) by DM4PR12MB5167.namprd12.prod.outlook.com
- ([fe80::4588:54c1:bc29:2c7c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 14:27:43 +0000
-Content-Type: multipart/alternative;
- boundary="------------7JjL3v4VvkczSJs20kQtS0eF"
-Message-ID: <b6d44d11-0c54-40de-bb79-85a4e00979eb@amd.com>
-Date: Wed, 23 Sep 2026 10:27:40 -0400
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW4PR12MB7481.namprd12.prod.outlook.com (2603:10b6:303:212::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.16; Wed, 23 Sep
+ 2026 14:52:00 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 14:52:00 +0000
+Message-ID: <911fab90-0e42-4dbd-972b-f0e5afbec2e3@amd.com>
+Date: Wed, 23 Sep 2026 16:51:55 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: add support for lsdma v8
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Likun Gao <Likun.Gao@amd.com>, Frank Min <Frank.Min@amd.com>
-References: <20260922135419.2145987-1-alexander.deucher@amd.com>
- <20260922135419.2145987-2-alexander.deucher@amd.com>
+Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
+ amdgpu_vm_update_range fails
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: Natalie Vock <nat@pixelcluster.dev>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ kernel-dev@igalia.com
+References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
+ <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
+ <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
+ <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
+ <aqkf0LE51mObdEJc@quatroqueijos.cascardo.eti.br>
+ <fb733813-9e4d-494a-ba60-469261340e74@amd.com>
+ <aqktL4Ui1MaIvs_j@quatroqueijos.cascardo.eti.br>
+ <a59d3421-a241-4497-9890-0b94329b94da@amd.com>
+ <arPakAXXW1TdfF0Z@quatroqueijos.cascardo.eti.br>
+ <f4c3bdb7-3b6e-49f1-9baf-36ab069faac0@amd.com>
+ <arPfyosqiB-uzL-e@quatroqueijos.cascardo.eti.br>
 Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20260922135419.2145987-2-alexander.deucher@amd.com>
-X-ClientProxiedBy: YT4PR01CA0072.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:111::26) To DM4PR12MB5167.namprd12.prod.outlook.com
- (2603:10b6:5:396::10)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <arPfyosqiB-uzL-e@quatroqueijos.cascardo.eti.br>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0050.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cc::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5167:EE_|SA3PR12MB7857:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ef25c33-c914-4fe2-56f6-08df197ed48e
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB7481:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7af7064a-a261-49bb-3cc4-08df198238ff
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|3023799007|4143699003|10067099003|18002099003|22082099003|11063799006|56012099006|8096899003;
-X-Microsoft-Antispam-Message-Info: BfCwXGcCPuNJd5qersya2Rmoka57msGB3hwer4GNzZhjECQwa9iH9XD6nR1wbewfk/8wI1HaBdeWZgttBg2yLa3UDzNQ/Zv+e2cqlQzz6jDk4V4Jc0vHMyyOrdzGkt33GM/tdRvZuOgH2LXYuwS+lNmSQJ7gS4kyYDy4cTXgZDmGx9bHHuSUDvs11JoLaHK4yJTJ5ZRQektZTuuBwjqyvrYaz+L76hjxl6XOsU2EuNyXCVYsdHS7dMUaApCySsVCsq89DRoNANPF/gXh6FlzKGNt5BcmuTcdoodtmcGmGFa1XWLV/EiD3VPfUJXNQDkBu6TNBLxkXWhw1TVA8Xpeo+YcjiH/5StEkDy5sQW1T+WkBwvbFyzmo4+Ivn6iGXLDsOZCI5nYTGH0akyfqe0C+5yFuslsZ7lberFqWb5yuDuJ5dbcTrqVU0shzUyW+LF6dGUfZM326HKZV/E7dtO4d/JbP1Y3Nc8JA8bauqKRAbCxr03f4VhMCVmfqNQF2zwadZ8/pcVDxBAqx2aV/TpGjH8LazMZFSszLpcOJYdW7KPMESq6XohU/Hd9p64tMp1Ar+T/tXJh8RGwvQukKJaB4qJvz35uM/j/kgjWddRlIgBL9XsnTYmsNAEk4Ys8OFzAMjMQ9PjXPr2RUIR4dyRKQ5hu8CvxsCXIxP9uEQ3tG5Q=
+ ARA:13230040|1800799024|366016|376014|23010399003|6133799003|22082099003|18002099003|11063799006|56012099006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info: KSNlrIzsPKNbunUER+al2FFrCPOrllcVMMWXytLiwGCGUZASTvYI8JbvCgjlQBA2lm+h+pCUx7wu2cTxfhBfVBGaCUrzZE1xZJWUCVQempJxUB20mtvOFwGi5nMVydXmnaBVcTo946KjQXSJyg06HIO7sdQFgDGscIirSWmkQVYY48Pt/8xAuCSolvBGT7D84xPiGaXqTzn+Vet5kT96e9/+xGyr7ihC794PsQIYJ7xHotUKtwQTsaErExDtg2L4TJUCUm7QCX/oVFWoiTzzjWIiMakiGrH09BnrFuXUa6QVeqw9lK9eJhEb+ix5QKRT/T5NIzrY9CU3yavjhaOGxaNLBZzo3sBpvG4sQtwh54IYIqUO6z0xd2X/jJR94hs+oB3ivWa3E1NwiE4YsnlZzLQF0GF9ojmLdVxaE1vSHB4Ihr8B97nj8kNaCI6YE6E7tJ7dQp1tjU/r+zIMTizsIYfzK5D2Z7lys9qGqQGJ8HPHAMEV+9xX2T+jdhyXbVZa6mibV3DmrqdkuZ2aS3bKWCw+DXorxYEVFToOOcz71gEPFxSEKa1TGHtI7rFgVvwnL72lOuh+/IuUOPzfqTCbd1OSle18soZ8Qzg2lpwtkpfifN27r0Gqm1xzK4bC8s2xA8yJQgwWOeMhl5v1YuMBoAbgvQiVNC4Ad8dfNzLedGM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5167.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(3023799007)(4143699003)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006)(8096899003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qmg1ZW1yRnZXdXlMSTcyYUxWMzdJQmI4M01wODVwMUxsZTRZR3RMZXN1Uy9P?=
- =?utf-8?B?V2xCczF0c3pCbTVjTjJpb2tPbWZJbkFCekZVNVJyWDAvMTZNeXc3OWswQUp3?=
- =?utf-8?B?OFFYN0lMQ1ZVUndkT1NXL3FGdW1oUThTbHJVMElORW9ReGZkaU9XNzM3R0Y3?=
- =?utf-8?B?WlVUZGdRTlpzUWJLZ2JWMlcyTFJoYkxvMGM3YnArMTExSjhlcytDZDVGVjh0?=
- =?utf-8?B?NG1yVmNtbFZzMzhVL3FiYjdZQkNaMkVxbmFRekZqOUVSRnJHaSt0bkJySHEz?=
- =?utf-8?B?Y01MajJhR2pMdzgzSUtQNVhUdmF3UnhwdVdjRDE4MThBT0JJVlNnTEVmSFM4?=
- =?utf-8?B?TTdYbHRVQkxOWmpsSkJ6RWllUjRlWExJQklkaElrV3NYSkNWRkpYc1BqNlNQ?=
- =?utf-8?B?TXVOTXZVUWlWdHpEaUw1OVVLZ3B3a3ZnSzA5dTIvS244dnJ0T2hlK0VPVk9q?=
- =?utf-8?B?UklsSXluL0NsRzMvTGczZEtCRlZYQ29uVEYzYWd4WTFpd0xPSnpTdldwTm5z?=
- =?utf-8?B?b0Zzc0lCRWZvdUZrb1dVNFQ2MDltblBiUnQzNHdHbnMyc2M2RWhZR0V2Tjlr?=
- =?utf-8?B?ajJtVCtjbEVVWnNsV2p2L1dXTVptWTJsYytQRWdJQWdKbkQxdXdrMTN1K0xh?=
- =?utf-8?B?MXU0OEVvYjEra3p4SnBjbk1neWdybUxXeG1xK29sRVJVN2txMm9wYUNJOHV3?=
- =?utf-8?B?MFZzZkx4M25kc010V0hMc3pUVW02VUtSQUhEaTJzY25TZHhmYmFnRHdrWFlZ?=
- =?utf-8?B?ZTlkakd3NWVSanMremE3bHM5YU83S3FGeWxpM2REVUd3a2pyN2NGNnRjUFVh?=
- =?utf-8?B?azZISXI5clhxMld5OUp2dGc0SUE0QUV5TVNUMG1rS1lTb2U4VFpmZDBDZ09i?=
- =?utf-8?B?aU9zVzNnOUx4dWlSczdyRlRoNm1NM1lDRzNmMEkwNlJHZ3Q4K1pZTWJMYUt0?=
- =?utf-8?B?UzEwMXJKM0ZsRHkvTnZQbThhakY0ZFBXT3NTVmFaWW9lakM0bzlGVkhqQnRq?=
- =?utf-8?B?T1pCandmcWZCcUt2WWxOQjd5bUpuUG5obUlTVVc1ZlE5eVd6WE8vS3hIK3h2?=
- =?utf-8?B?NG02MkRXbzZmS21zNHc1dzZTTkEwZ3pmZCtOUkNkZVZYMlZKVlBHVW5tUHlC?=
- =?utf-8?B?dkVCaWJqN2dWeXNxVUxyRHRkQitCVkJkck9EUzdTZmQzeUQwTzExblRkdldj?=
- =?utf-8?B?OE5XTUZwVVdqeksrSVNYSTlja2F3YnNLcFQzbEU0LzZEVTkydGZhOFV2TTgy?=
- =?utf-8?B?S0o0MENSNnREVUNmdStxYW1LZnRHczlQSHNlYjhYYzRvNVBNbCt5NVVvTFJZ?=
- =?utf-8?B?dkZWV0RodXExajlDdG9meXEzVGFrSzRjRytueXJDUWRMeHExTUtsSFBMN3Bi?=
- =?utf-8?B?NnJDT0tWNjZmWXNjYVEwNFMzZm9FYnA0MW0vS1VhOEhEeDl4UEIya2ZOM3oz?=
- =?utf-8?B?UVUwemJPbzlodzNTdnpFUFh0Q25BUFRtcUNVWjB5ZjZCUDFITERidkVZNjlH?=
- =?utf-8?B?UG1jM20xcHBYNnZGUG1RUUFtUDA0bkMyaGd6TVRYVXZzelE4dzBBTVExVk94?=
- =?utf-8?B?T1ZpSStLMzVnaXJuaWFEdk8xT2hwbU1mSit1MzZjNTZtblVLVFZmMWxGb3Zn?=
- =?utf-8?B?TnJJaVBXZDc2blFnRUtTRFhZL2NmWFFQWGtUbWVQU05na0VBQkJHS1JyV1hs?=
- =?utf-8?B?R0JOYW92U0FLODIya1FDZmloZk1IZ2ZDbDFqYzk0WWJYTGswL2lKbTVnNG1V?=
- =?utf-8?B?TWxJd2hVN1BwaEZCWlJMY3ZYY3JYVVBjRGhERmtrdFl0cWxodWtBTHpDU2pr?=
- =?utf-8?B?VzI4bGlBdG9ZNmd4bDA4djJiYkVDcWJWdVZOUDg1aC93aXFIaFhHS2JEUnVi?=
- =?utf-8?B?YVdEM0xBUkRRSkF3MytHbmtKeHJ0YjkrWmp1eFNqNklGYlFYVVhqd2c5c3pq?=
- =?utf-8?B?QnVuWjkyRnlOQ3VIWnEyaHpkVjdWejMxQndJRE5UOHRSZDY4bHJCSXhNaGdT?=
- =?utf-8?B?Skx0RlRUZW9lU3BhT3lET0tDS1Q1ZXNlQXBOYVZQcDdrTUtWWUZ1M3lhWGo4?=
- =?utf-8?B?RmpicTFENW5DMDU0NHdiNlJXZzJyUXhVeUttOVc4ejF3Q2VtTmw2M00xQVc4?=
- =?utf-8?B?S1E2OEcvUHFxNDVGR1RSM2dpMXVTTnp2V29vdzE4cGVBNlFiMzdrSjFUV21D?=
- =?utf-8?B?U09CVEZiSlFvMVR3VjYzL0hKNkJ3WjBSTXI5U1FycVgrMzRFYlNibDdMeFFC?=
- =?utf-8?B?REkzRC9UeHJNM0lVRmZhdVp2aHlsakR6OGZkQUdIWFN6S3F3c1FoTjR0QjdJ?=
- =?utf-8?Q?SjvhndLB1VOL3AbmZG?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VUdPRkNGM3E4L29kaktRbWVjWlNTb21JTzdLT3hrdnUwNkVWaXdNS1hqL1Uv?=
+ =?utf-8?B?dkJKQzZMUnNCdGJrSmh4ZDVrajBJdDRmZE9FOVg0M2V6dXdETXB3elFpa2Vx?=
+ =?utf-8?B?eXo1RmZRQWVsaHhUVjRWdkttbFlLZmNOc1pyK0RjQ2tRT0IySTRCK0I2b08y?=
+ =?utf-8?B?M1pOcUlxaDgwUVhZMHl0Tm44RkJ2MlBTYmhhUitQQjE4QmJGa3FFYXpWQ2dt?=
+ =?utf-8?B?NWpNaEhDMlBmc2RKbkllOXZjT3R0N05iL1h2NUs2RHkvQUlWcmlTSm1Rd2oy?=
+ =?utf-8?B?TVY0UkN1dkkzWFdYd2hrNjIxTVlRblJNYzFQTk83aEljVmJDdzBERlhnOWVJ?=
+ =?utf-8?B?ajRjNWZoakdvLy9EaEdjMDhubjluR25uVFh3cDZsaDdaUCtyZFZKcVF4dEYz?=
+ =?utf-8?B?VXE4T0o4MlE3NnA3Z1NrZ0xscS95aW9JVVJkUmxHOS9WcnRyOVk2d0xjZ1pu?=
+ =?utf-8?B?WXJIeTEzaDFQenBTdmQwK2J1RTNPelFMTmluK2pNbnJxVUdpNklHdFJMOStI?=
+ =?utf-8?B?VmdIU1NWV0owUFlzUjBZbCs3Ym0zZGNvY2pQYkpsUm50b0RTTmc1NDZkeGlq?=
+ =?utf-8?B?UU5kU3IvbDRyQVJwMU8xRGZIYXkxWjUyRGdUMUpFblpFOW9VTzJQVWIvSWpp?=
+ =?utf-8?B?dUM1ek1VZm0reXVpaENTalRXTjBvTVgyenVrVWRiOTFHSnYzQVVOd3hXRXdP?=
+ =?utf-8?B?SE9hY2pHcXZvUzJKdXdVbmVQOGpJakJPTGJsWGI1cGs4alpXakR6ZC8wR04y?=
+ =?utf-8?B?b0I5M0tGSEVCWllmWkVia21oYlp3RFdWdnU3VFJzdEhKamR6WWpTSWx3ZUtL?=
+ =?utf-8?B?VUhlZVVSeml3R3ZFTDh3UXR0dHVHVjJYZE94WmFDS2ZMeGVPcmpTSGQ4MEVr?=
+ =?utf-8?B?Z214a3lSeE52OXBrUGR5eG42RWgxdFpFeU8yYVFZSmxVVjNVYU1jZ1lheVI5?=
+ =?utf-8?B?OEg5T1ZZT2p4VmdoSDdhT0ZiREtJVnZLeHJ2dXFFcnBwTjFkS01kQWx0NUli?=
+ =?utf-8?B?UDM0bHB1bThIb1Jya0JIRHFhNFJaRmU3OS9abFVqREhkbURRaFdxdWhTcE9y?=
+ =?utf-8?B?NHhpWElDZUIzTFh5QUhmY1lTREdGL0tTTkNUMGtQY3BkdWdjZ1JFZllRLzBk?=
+ =?utf-8?B?UzY4cnBDR1plMUwyT0hjQnRGNDVZTHZQTW42STE5V3RZM2x3TEZGN3ZNZWJV?=
+ =?utf-8?B?YWJ2OTJGRk14NnBoT3cvbjhsdnJCOG5sZk8rVml4dXBBQ0F1OEE0aDVrTWFJ?=
+ =?utf-8?B?NVptN1BXbGxNdmI3Zmx6cFYyTzlTZW10OFliZ1BEY0hBdjcxQkt0SUZNYlZC?=
+ =?utf-8?B?ZXhTdzY0QjVBL2VPb05qVVMvU2hjTnNMeWtiSk9vUFpMYUNuazQzZlFGeFc2?=
+ =?utf-8?B?RVJ5T0EzR2hwME1QUEwrZzhuQVBqc1FtTjV2dW9SbzVhK3Q0RXd3dGQ0ZVZm?=
+ =?utf-8?B?UFFZOEJkNHVrWkg5eW5DQTdHZmVYbkxwSjNkRHFBWDlVMjVtZTI0cjB6dFdI?=
+ =?utf-8?B?cHhCVkR2cWdVS2Y5WFFFeUJRUlQzd2UvRkE1R3NzYnRLQldubGZCOFhFWEtO?=
+ =?utf-8?B?SFFaVWFoalc0eDgyNjFGcTBZdkxwR0xjVTRYWmc0d0ZPeVBiWUMxZ1lPZ0pP?=
+ =?utf-8?B?cVBNUVNxZ213MG9lL2hTUUxQTDJWVlpOT28yY0tuQkJuV0dONkFMY2IxNXhG?=
+ =?utf-8?B?MFowQW9TZ1dNWHAzWUpGQk9iWlJqOTNXbzh6YUhpa0pQVWY4NkFFbTIzWFJq?=
+ =?utf-8?B?N0h5RE90b08wUS9Vb1FGZFVHUm9wbGQ2aEZ6S3NNSDVPN21jNDczdEVZYVNC?=
+ =?utf-8?B?YUNsUjZDTnhrQkJ3S1ZKckxzdTRvMUw1eStoUTZzaXhnTkJ6SWlwQy9wbGpC?=
+ =?utf-8?B?cEZteXZSYmRuWHcwU1ZUOXU1YXEzbWtQQStiRXFoZnJNZW8vWDFyTlhUVGxD?=
+ =?utf-8?B?eHpSZEQ3bWJlQ0dVR2FiQ05VNllGL1NvN29LYVUvZFlWaUJDT1VRRmRrV2kw?=
+ =?utf-8?B?ZXNLQ1JoYi9tRzg5eDdWRlZwekorblFac0d0SDVQbHRBdklKalB6bGRoYUI3?=
+ =?utf-8?B?VmZjNWpzb0RRUDZWQzc1bkROM1EyVVdENGZpTUtJcHpMQ3NXVkRUNzFMOWdG?=
+ =?utf-8?B?cDY1REFUdWIxTWlTWE1XeEV1ZW9xMWZJaEI5Szk4ZXFyY2VxMTV0VE5PVGdO?=
+ =?utf-8?B?MkVIYmMwK0RZZW91a3NZWFFFNEkybmRCMG45YkJRZ0RtK05BRnA1WnpSWEpm?=
+ =?utf-8?B?MFVzOVVUVVBoRmdQZUxNdnZ5OXN2Q0tNUTNmY1FvNXBGTFVpUG9rd3RvZGMw?=
+ =?utf-8?Q?NlolpIWzQUPuyC2wl5?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ef25c33-c914-4fe2-56f6-08df197ed48e
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5167.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7af7064a-a261-49bb-3cc4-08df198238ff
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 14:27:43.4636 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 14:52:00.5156 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3aIEzqsti/RS/UJyQOs1gqgoXHKfqdFWTwwanLyy6aUJsTLFWr6Tnl0705r0kRZf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7857
+X-MS-Exchange-CrossTenant-UserPrincipalName: zego6OQiqTW/CS0qvXtY0ZFh03fcH3U1fGPmstdkUlyF7BbhPyrULEBoVFDbRM60
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7481
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,463 +150,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------7JjL3v4VvkczSJs20kQtS0eF
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On 9/23/26 16:18, Thadeu Lima de Souza Cascardo wrote:
+...
+>>
+> 
+> What about the other 3 patches? If there is less controversy around them, I
+> can submit them as a new patchset version.
 
+Patch #1 is simply not the right direction we need, but see comments on patch #4 as well.
 
+Patch #2 is a good cleanup, that could potentially be applied immediately.
 
-On 2026-09-22 09:54, Alex Deucher wrote:
-> From: Likun Gao<Likun.Gao@amd.com>
->
-> Add support for LSDMA v8
->
-> Signed-off-by: Likun Gao<Likun.Gao@amd.com>
-> Reviewed-by: Frank Min<Frank.Min@amd.com>
-> Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   4 +
->   drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c       | 113 ++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h       |  31 +++++
->   4 files changed, 149 insertions(+), 1 deletion(-)
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index 2ea1924571039..83e40f26ddf5f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -92,7 +92,7 @@ amdgpu-y += \
->   	sienna_cichlid.o smu_v13_0_10.o nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o lsdma_v6_0.o \
->   	nbio_v7_9.o aqua_vanjaram.o nbio_v7_11.o lsdma_v7_0.o hdp_v7_0.o nbif_v6_3_1.o \
->   	cyan_skillfish_reg_init.o soc_v1_0.o lsdma_v7_1.o nbio_v6_3_2.o nbio_v7_11_5.o \
-> -	nbif_v7_10.o hdp_v8_0.o
-> +	nbif_v7_10.o hdp_v8_0.o lsdma_v8_0.o
->   
->   # add DF block
->   amdgpu-y += \
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 564f09c308816..202e0b80e5225 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -95,6 +95,7 @@
->   #include "lsdma_v6_0.h"
->   #include "lsdma_v7_0.h"
->   #include "lsdma_v7_1.h"
-> +#include "lsdma_v8_0.h"
->   #include "vcn_v2_0.h"
->   #include "jpeg_v2_0.h"
->   #include "vcn_v3_0.h"
-> @@ -3979,6 +3980,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
->   	case IP_VERSION(7, 1, 0):
->   		adev->lsdma.funcs = &lsdma_v7_1_funcs;
->   		break;
-> +	case IP_VERSION(8, 0, 0):
-> +		adev->lsdma.funcs = &lsdma_v8_0_funcs;
-> +		break;
->   	default:
->   		break;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
-> new file mode 100644
-> index 0000000000000..f1dd02a56810b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
-> @@ -0,0 +1,113 @@
-> +/*
-> + * Copyright 2026 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include "amdgpu.h"
-> +#include "lsdma_v8_0.h"
-> +#include "amdgpu_lsdma.h"
-> +
-> +#include "lsdma/lsdma_8_0_1_offset.h"
-> +#include "lsdma/lsdma_8_0_1_sh_mask.h"
-> +
-> +static int lsdma_v8_0_wait_pio_status(struct amdgpu_device *adev)
-> +{
-> +	return amdgpu_lsdma_wait_for(adev, SOC15_REG_OFFSET(LSDMA, 0, regLSDMA_PIO_STATUS),
-> +			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK,
-> +			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK);
-See lsdma_v7_1_wait_pio_status() as a reference: please check the LSDMA 
-command error status instead of returning success with a silent error, 
-and write 1 to clear the error status bit so LSDMA recovers for the next 
-command.
+Patch #3 is what I'm already working on. We actually need to change the code so that failures simply can't occur (except for device hot plug).
+
+If any failure occurs here the only real doable recovery is to kill all ongoing work and disconnect the device.
+
+Patch #4 is an absolute no-go, committing partial page table update can cause tons of problems.
+
+Essentially we need to rework the code so that page table allocation happens before we kick of any HW update.
+
+I already discussed that with Natalie quite a while ago on our weekly meeting, you are basically the third or forth person to stumble over that problem already.
 
 Regards,
-Philip
-> +}
-> +
-> +static int lsdma_v8_0_copy_mem(struct amdgpu_device *adev,
-> +			       uint64_t src_addr,
-> +			       uint64_t dst_addr,
-> +			       uint64_t size)
-> +{
-> +	int ret;
-> +	uint32_t tmp;
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_LO, lower_32_bits(src_addr));
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_HI, upper_32_bits(src_addr));
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
-> +
-> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 0);
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
-> +
-> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
-> +
-> +	ret = lsdma_v8_0_wait_pio_status(adev);
-> +	if (ret)
-> +		dev_err(adev->dev, "LSDMA PIO failed to copy memory!\n");
-> +
-> +	return ret;
-> +}
-> +
-> +static int lsdma_v8_0_fill_mem(struct amdgpu_device *adev,
-> +			       uint64_t dst_addr,
-> +			       uint32_t data,
-> +			       uint64_t size)
-> +{
-> +	int ret;
-> +	uint32_t tmp;
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONSTFILL_DATA, data);
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
-> +
-> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 1);
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
-> +
-> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
-> +
-> +	ret = lsdma_v8_0_wait_pio_status(adev);
-> +	if (ret)
-> +		dev_err(adev->dev, "LSDMA PIO failed to fill memory!\n");
-> +
-> +	return ret;
-> +}
-> +
-> +const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs = {
-> +	.copy_mem = lsdma_v8_0_copy_mem,
-> +	.fill_mem = lsdma_v8_0_fill_mem,
-> +};
-> diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
-> new file mode 100644
-> index 0000000000000..648d5cc85c48e
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
-> @@ -0,0 +1,31 @@
-> +/*
-> + * Copyright 2026 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef __LSDMA_V8_0_H__
-> +#define __LSDMA_V8_0_H__
-> +
-> +#include "soc15_common.h"
-> +
-> +extern const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs;
-> +
-> +#endif /* __LSDMA_V8_0_H__ */
+Christian.
 
---------------7JjL3v4VvkczSJs20kQtS0eF
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+> 
+> Thanks.
+> Cascardo.
+> 
+>>>
+>>>> Re-mapping the two fragments before and after the unmapped area is supposed to allocate the new PDs.
+>>>>
+>>>> Without that we run into tons of problems with userptrs and MMU notifiers.
+>>>>
+>>>> I will CC you on the patches I have so far.
+>>>>
+>>>
+>>> Please, do. I will be happy to test it and review it.
+>>>
+>>> Thanks.
+>>> Cascardo.
+>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>> The other reproducer that I have required that I used REPLACE instead of
+>>>>> MAP in order to trigger the tlb_flush_waitlist issue. REPLACE does call
+>>>>> amdgpu_vm_clear_mappings too. Notice that RADV Mesa driver uses REPLACE,
+>>>>> instead of MAP, so that explains that we can see this in production.
+>>>>>
+>>>>> Regards.
+>>>>> Cascardo.
+>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>>>
+>>>>>>> Regards.
+>>>>>>> Cascardo.
+>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Regards,
+>>>>>>>>> Christian.
+>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+>>>>>>>>>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>>>>>>>>>> ---
+>>>>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+>>>>>>>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>>>>>>>
+>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>>>>>> index 09037df76400..5bde36754607 100644
+>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>>>>>> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>>>>>>>>>>   	while (!list_empty(&vm->freed)) {
+>>>>>>>>>>   		mapping = list_first_entry(&vm->freed,
+>>>>>>>>>>   			struct amdgpu_bo_va_mapping, list);
+>>>>>>>>>> -		list_del(&mapping->list);
+>>>>>>>>>>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
+>>>>>>>>>>   					   &sync, mapping->start, mapping->last,
+>>>>>>>>>>   					   0, 0, 0, NULL, NULL, &f);
+>>>>>>>>>> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>>>>>>>>>>   		if (r) {
+>>>>>>>>>>   			dma_fence_put(f);
+>>>>>>>>>>   			goto error_free;
+>>>>>>>>>>   		}
+>>>>>>>>>> +		list_del(&mapping->list);
+>>>>>>>>>> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>>>>>>>>>>   	}
+>>>>>>>>>>   	if (fence && f) {
+>>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>
+>>>>>>
+>>>>
+>>
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-09-22 09:54, Alex Deucher
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260922135419.2145987-2-alexander.deucher@amd.com">
-      <pre wrap="" class="moz-quote-pre">From: Likun Gao <a class="moz-txt-link-rfc2396E" href="mailto:Likun.Gao@amd.com">&lt;Likun.Gao@amd.com&gt;</a>
-
-Add support for LSDMA v8
-
-Signed-off-by: Likun Gao <a class="moz-txt-link-rfc2396E" href="mailto:Likun.Gao@amd.com">&lt;Likun.Gao@amd.com&gt;</a>
-Reviewed-by: Frank Min<a class="moz-txt-link-rfc2396E" href="mailto:Frank.Min@amd.com">&lt;Frank.Min@amd.com&gt;</a>
-Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   4 +
- drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c       | 113 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h       |  31 +++++
- 4 files changed, 149 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 2ea1924571039..83e40f26ddf5f 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -92,7 +92,7 @@ amdgpu-y += \
- 	sienna_cichlid.o smu_v13_0_10.o nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o lsdma_v6_0.o \
- 	nbio_v7_9.o aqua_vanjaram.o nbio_v7_11.o lsdma_v7_0.o hdp_v7_0.o nbif_v6_3_1.o \
- 	cyan_skillfish_reg_init.o soc_v1_0.o lsdma_v7_1.o nbio_v6_3_2.o nbio_v7_11_5.o \
--	nbif_v7_10.o hdp_v8_0.o
-+	nbif_v7_10.o hdp_v8_0.o lsdma_v8_0.o
- 
- # add DF block
- amdgpu-y += \
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 564f09c308816..202e0b80e5225 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -95,6 +95,7 @@
- #include &quot;lsdma_v6_0.h&quot;
- #include &quot;lsdma_v7_0.h&quot;
- #include &quot;lsdma_v7_1.h&quot;
-+#include &quot;lsdma_v8_0.h&quot;
- #include &quot;vcn_v2_0.h&quot;
- #include &quot;jpeg_v2_0.h&quot;
- #include &quot;vcn_v3_0.h&quot;
-@@ -3979,6 +3980,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(7, 1, 0):
- 		adev-&gt;lsdma.funcs = &amp;lsdma_v7_1_funcs;
- 		break;
-+	case IP_VERSION(8, 0, 0):
-+		adev-&gt;lsdma.funcs = &amp;lsdma_v8_0_funcs;
-+		break;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
-new file mode 100644
-index 0000000000000..f1dd02a56810b
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
-@@ -0,0 +1,113 @@
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the &quot;Software&quot;),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include &lt;linux/delay.h&gt;
-+#include &quot;amdgpu.h&quot;
-+#include &quot;lsdma_v8_0.h&quot;
-+#include &quot;amdgpu_lsdma.h&quot;
-+
-+#include &quot;lsdma/lsdma_8_0_1_offset.h&quot;
-+#include &quot;lsdma/lsdma_8_0_1_sh_mask.h&quot;
-+
-+static int lsdma_v8_0_wait_pio_status(struct amdgpu_device *adev)
-+{
-+	return amdgpu_lsdma_wait_for(adev, SOC15_REG_OFFSET(LSDMA, 0, regLSDMA_PIO_STATUS),
-+			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK,
-+			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK);</pre>
-    </blockquote>
-    See lsdma_v7_1_wait_pio_status() as a reference: please check the
-    LSDMA command error status instead of returning success with a
-    silent error, and write 1 to clear the error status bit so LSDMA
-    recovers for the next command.<br>
-    <br>
-    Regards,<br>
-    Philip
-    <blockquote type="cite" cite="mid:20260922135419.2145987-2-alexander.deucher@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+}
-+
-+static int lsdma_v8_0_copy_mem(struct amdgpu_device *adev,
-+			       uint64_t src_addr,
-+			       uint64_t dst_addr,
-+			       uint64_t size)
-+{
-+	int ret;
-+	uint32_t tmp;
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_LO, lower_32_bits(src_addr));
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_HI, upper_32_bits(src_addr));
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
-+
-+	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 0);
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
-+
-+	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
-+
-+	ret = lsdma_v8_0_wait_pio_status(adev);
-+	if (ret)
-+		dev_err(adev-&gt;dev, &quot;LSDMA PIO failed to copy memory!\n&quot;);
-+
-+	return ret;
-+}
-+
-+static int lsdma_v8_0_fill_mem(struct amdgpu_device *adev,
-+			       uint64_t dst_addr,
-+			       uint32_t data,
-+			       uint64_t size)
-+{
-+	int ret;
-+	uint32_t tmp;
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONSTFILL_DATA, data);
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
-+
-+	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 1);
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
-+
-+	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
-+
-+	ret = lsdma_v8_0_wait_pio_status(adev);
-+	if (ret)
-+		dev_err(adev-&gt;dev, &quot;LSDMA PIO failed to fill memory!\n&quot;);
-+
-+	return ret;
-+}
-+
-+const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs = {
-+	.copy_mem = lsdma_v8_0_copy_mem,
-+	.fill_mem = lsdma_v8_0_fill_mem,
-+};
-diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
-new file mode 100644
-index 0000000000000..648d5cc85c48e
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
-@@ -0,0 +1,31 @@
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the &quot;Software&quot;),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __LSDMA_V8_0_H__
-+#define __LSDMA_V8_0_H__
-+
-+#include &quot;soc15_common.h&quot;
-+
-+extern const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs;
-+
-+#endif /* __LSDMA_V8_0_H__ */
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------7JjL3v4VvkczSJs20kQtS0eF--
