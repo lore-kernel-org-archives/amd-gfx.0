@@ -4,124 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69ACCC98302
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF6F7C98302
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:27:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD65510F0BF;
-	Wed, 23 Sep 2026 14:18:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B50910F0E3;
+	Wed, 23 Sep 2026 14:27:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RLGK+fnW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LAmyx0X5";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010066.outbound.protection.outlook.com [52.101.61.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FAFE10F0B9
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 14:18:06 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012056.outbound.protection.outlook.com
+ [40.107.200.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80FB010F0E2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 14:27:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JZC1OFZT275Srwn5Y7nXQvxgNk1X0hwPweT53NHNZa65y1UR3cb8v9va5+DHMqGy/zYpD7DnmEEngLVAcjKxTL7ASabugjTQWx1ce7+x011ORk2mB55YFeBVIBa0Me4DSGfcNJYNsFpln0rUJ9K95rqCdPxHvuKMAsnM/To5/hd4VaLbea7CgPDTRncuikCEvXU3AdWihxpkg24UBgZohfHU6NAOp5E3YPI20eHPApNDede/H4ecMzoiB88M3Pi6XYJIOJmI22j9LbK4QzidH9rTkzucgStbq/n7Bo1VyQBucf5l0JcKIiQPIaYeFFZegPf7hj6BNZez4+Crc4hyEw==
+ b=hnNsP4SG9PzN7IqpTl2FE06IGznTTl3s6YKa7BdNCW1Mcz2Un76aOPMEEki8MPnMC4iwzrRvvYLSi9gFI1/XRTH5WNH+JUwbSJkw6eU/PjOZtCTJb2Iao4X8iemMJhHh8gdU4HS0pnAvx5qNulG6X4Zhot3oouFV/FopgxFfobQ6XhxXybq0ENQpj073dHx4LvKktBWpaZXi++NtHwmZTktRCkKXROe+dxB+KmdcS87oe1JU3n7OCq5hq31CJIsnK9BjmW3kqsp9WtI0V6sWGi4tSlUrsXBwv6/Ei2D9OTLAU4pmAsbC5Bkhe4lEjeG9aEk26ZoyjfHY/t+qFiPq0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FuDIV6Rq/I/w8He8WIPaBJR5N47aw/YIix2P4pU4W5k=;
- b=UKlcbSQbTyCaXNkKmU++ef8dzYEwhjDTsTKF8YBahPhNZJDsCL3HvD4GtZJqJb25mmxPX5iRolgvwmXDpSgqS51rxjiih3vdYTAqIvkVeD9pEzSJqd4M2exYfq27jMobxGRPuUsprScAHGN0Qi5IxYuf7X5hh9Wxf5xlRzJG5OXSPzQ4/BxeHo3+FIJ3n3NZ9VCAlTPPWXSWhCEtBsCButq/Zh64vg+CtI2jjmKIDjl7R9ZdKYto5GmrNtcDCBQ3TB1Zi56sNAp9wRzcyl/+yfmGtphMeo+A0/NaLu1mkNu4tToOzPrfAxduOagceVrx6iHSVFQwn+88Y1TSDTw3HQ==
+ bh=Um0oMwg3V9Lv5AqL+o4bXzdhDUGuexpxswwQAJInCXk=;
+ b=QwbKu/gZMgCYtuBSVk+WSRvgahEkMrcnr+wc7VizobBESuxebS6VIvBGFBOHnrkSvvErNQVgAZYRIucjpF3PZEgybEls1e+904uYHjbGO5rlABZXh5nrUQns0ASn8dGq1xUBHQgSH0TR0+20bHYKruEK/IszIu3p8RC7qOYnssD/xLSqD6KBW+KbbRjm/j4K80GM1I8vij20T3FeUU3F+zkForOPfbZZopLHZbqQgbI++bibtBLazLfsCOJ8PlYUBq50WgFEfioUXsRmSdI96Ob5A1fbGAduHPzzJa7nQZWlwKQ6J+7GxXLwHKx3eXiMnLCJNjcjlTAtyZNZMUrW9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FuDIV6Rq/I/w8He8WIPaBJR5N47aw/YIix2P4pU4W5k=;
- b=RLGK+fnWnYBkG3q9Tf7TDZgnqlgVHEIShtza6bjQvl44v9C+XyTrtJDthThZfxwJof0HvucZFUubkMZq0rZKXg+VYRvmzzsm2AO8kZiOyG3RXr7UEAizyZFPOGjFzLTPyA8DbSgsnWIMddC2JDghCfEeM0H/39ShIsikWosT2zk=
+ bh=Um0oMwg3V9Lv5AqL+o4bXzdhDUGuexpxswwQAJInCXk=;
+ b=LAmyx0X5weK5CdYh4GMIGxQ8YessXwkngBE3luyc3zvJ5uVqpk9wzwjFlqqpzP53I8+xmJDIAH+97gTqN1QP1CghlncwtPM98oAw8zHdSkJOyd/5YZOP0ZYJEi6bjXMtVqW+LTKbfwIn/AcS8RQdmhNxskoc/lLSpxTVdn5q6wc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8558.namprd12.prod.outlook.com (2603:10b6:8:187::22)
- by LV8PR12MB9715.namprd12.prod.outlook.com (2603:10b6:408:2a0::7) with
+Received: from DM4PR12MB5167.namprd12.prod.outlook.com (2603:10b6:5:396::10)
+ by SA3PR12MB7857.namprd12.prod.outlook.com (2603:10b6:806:31e::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.16; Wed, 23 Sep
- 2026 14:17:04 +0000
-Received: from DM4PR12MB8558.namprd12.prod.outlook.com
- ([fe80::1b2b:b6fc:16eb:2422]) by DM4PR12MB8558.namprd12.prod.outlook.com
- ([fe80::1b2b:b6fc:16eb:2422%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 14:17:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 14:27:43 +0000
+Received: from DM4PR12MB5167.namprd12.prod.outlook.com
+ ([fe80::4588:54c1:bc29:2c7c]) by DM4PR12MB5167.namprd12.prod.outlook.com
+ ([fe80::4588:54c1:bc29:2c7c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 14:27:43 +0000
 Content-Type: multipart/alternative;
- boundary="------------dBC9CJwVgUmJw6UYh0xR6721"
-Message-ID: <a8011684-b04b-4483-b05c-d547c1f4f86b@amd.com>
-Date: Wed, 23 Sep 2026 10:17:02 -0400
+ boundary="------------7JjL3v4VvkczSJs20kQtS0eF"
+Message-ID: <b6d44d11-0c54-40de-bb79-85a4e00979eb@amd.com>
+Date: Wed, 23 Sep 2026 10:27:40 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 01/10] drm/amdgpu: implement PMC ioctl framework
-To: Zhu Lingshan <lingshan.zhu@amd.com>, Alexander.Deucher@amd.com,
- felix.kuehling@amd.com
-Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260922093436.596947-1-lingshan.zhu@amd.com>
- <20260922093436.596947-2-lingshan.zhu@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: add support for lsdma v8
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Likun Gao <Likun.Gao@amd.com>, Frank Min <Frank.Min@amd.com>
+References: <20260922135419.2145987-1-alexander.deucher@amd.com>
+ <20260922135419.2145987-2-alexander.deucher@amd.com>
 Content-Language: en-US
-From: James Zhu <jamesz@amd.com>
-Organization: AMD RTG
-In-Reply-To: <20260922093436.596947-2-lingshan.zhu@amd.com>
-X-ClientProxiedBy: YQZPR01CA0093.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:84::23) To DM4PR12MB8558.namprd12.prod.outlook.com
- (2603:10b6:8:187::22)
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <20260922135419.2145987-2-alexander.deucher@amd.com>
+X-ClientProxiedBy: YT4PR01CA0072.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:111::26) To DM4PR12MB5167.namprd12.prod.outlook.com
+ (2603:10b6:5:396::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8558:EE_|LV8PR12MB9715:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11c65e8f-1a72-45f2-f015-08df197d5757
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5167:EE_|SA3PR12MB7857:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ef25c33-c914-4fe2-56f6-08df197ed48e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|4143699003|6133799003|3023799007|10067099003|11063799006|56012099006|8096899003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 58mdPxGqX30BM73gNvreZpSha1AkCeznrdMDNewynnTL3eTz2SCl6s4GUSfKXFojsEaDPhcg3dP6TbzqgkXRePQYHzvmz8Qind9V0Ig+2jp3+lakfX5r0vxy161FLA6OgtTwKh+AsWTSUVAA8EJq7SzvSjD1l1Ke26Q3EbHZeFomhFYQstOreQajGqetSXVagsz4AxN+rV1HZYqSgnMt07j8vag3+HmWurHa8UyVd0SPfBn7K/LfV9tmtcOc4sFoN/8VBzu+cA717gIGIoRL7BnOawu/aDD3iLV/mFp3llo5IJjNFvvVR1a1E+97D2pmHz3Xb19a/aIYIPiE0r4hBkPjyr8e16fkTeDf7cmUzW4Q17w1+Z1E+j9+9l0mpzrlYIEL9EDHG1E13IzLotF1/0sZofkvErXVe63lJTFfSyDSCLv29cxnVwPZHkXQNuVdGxo3Hvhdp9Y/nl7Ky93yIr/9+CYOIlU7yI80g6aWYhBGKYc8enCgW1QwwSJrcZbz73RSdB7Xpqo6QKVyVkAqZa9/3m8R/oZOzPXJnkVsTvVeNY/s2lXSg1HAjaNzWYgK6YfCJIaMqC67I/Yj6ZWbRNVZYYaEPhyTw1sXHzZi6XYgocAHBOh+6CvY/KPgEL6OGU51G8uOdMhWtXZuNMrzSFareluC0UG3tBqW8pZsSjs=
+ ARA:13230040|376014|366016|1800799024|23010399003|3023799007|4143699003|10067099003|18002099003|22082099003|11063799006|56012099006|8096899003;
+X-Microsoft-Antispam-Message-Info: BfCwXGcCPuNJd5qersya2Rmoka57msGB3hwer4GNzZhjECQwa9iH9XD6nR1wbewfk/8wI1HaBdeWZgttBg2yLa3UDzNQ/Zv+e2cqlQzz6jDk4V4Jc0vHMyyOrdzGkt33GM/tdRvZuOgH2LXYuwS+lNmSQJ7gS4kyYDy4cTXgZDmGx9bHHuSUDvs11JoLaHK4yJTJ5ZRQektZTuuBwjqyvrYaz+L76hjxl6XOsU2EuNyXCVYsdHS7dMUaApCySsVCsq89DRoNANPF/gXh6FlzKGNt5BcmuTcdoodtmcGmGFa1XWLV/EiD3VPfUJXNQDkBu6TNBLxkXWhw1TVA8Xpeo+YcjiH/5StEkDy5sQW1T+WkBwvbFyzmo4+Ivn6iGXLDsOZCI5nYTGH0akyfqe0C+5yFuslsZ7lberFqWb5yuDuJ5dbcTrqVU0shzUyW+LF6dGUfZM326HKZV/E7dtO4d/JbP1Y3Nc8JA8bauqKRAbCxr03f4VhMCVmfqNQF2zwadZ8/pcVDxBAqx2aV/TpGjH8LazMZFSszLpcOJYdW7KPMESq6XohU/Hd9p64tMp1Ar+T/tXJh8RGwvQukKJaB4qJvz35uM/j/kgjWddRlIgBL9XsnTYmsNAEk4Ys8OFzAMjMQ9PjXPr2RUIR4dyRKQ5hu8CvxsCXIxP9uEQ3tG5Q=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8558.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(6133799003)(3023799007)(10067099003)(11063799006)(56012099006)(8096899003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5167.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(3023799007)(4143699003)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006)(8096899003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmNQVU12SURFNjlhNTY2eTVDa0RHZVp5WlZRUEFlMnBVNjhET1ovck04Nk96?=
- =?utf-8?B?Yk1FclBGYUIrVHhDa0JmeE9kWU5FU0RMQW9BNHVpRm44MVcrdElaVkRZcEcy?=
- =?utf-8?B?NXRYeUJGV0xMRHYrdzlhdjB3RlN4RHBIcFRIa1VWNjNtQlhKR0xlUlhXZU1Y?=
- =?utf-8?B?SlVZYU03WmRqblNaamppeTFBRXNoNTA0UlI3VmlRRmZaVzE4WngrY3RZT2wv?=
- =?utf-8?B?ZVI1V3RtZFZCQm5IRnp1dUlNamVyR0ZOb2tPazNsMGNsZlNqQU1ndEZVK2Er?=
- =?utf-8?B?cEVxSmdSZVVveTlOdmJsTGtyQVRWMHB2WC9xeURrVFl2RjBOeXgxZU50T0FW?=
- =?utf-8?B?bjZTbm9rZzd0d0RlNVZzT0pVdGVVbUNoR0hBeVRqeE5tWjB3THRKcXlpZnpH?=
- =?utf-8?B?ZkhlS1Rpano4cHI3UGNTa244bDN2QmFCR2RUV1JpRzhTNHRKT1RkWW9tYW5Y?=
- =?utf-8?B?emNkZ0xvUStCTkhsUElDbVA3bmFzbTV3T1RrTjV0b2dnZHRtVldoWVM0UWta?=
- =?utf-8?B?L1lNbG54TFgxSXc4V2l5RjE1VUF6SE5xTnE2d1BwNTJnV01DZUN0QmcrTUYx?=
- =?utf-8?B?Z1lZcno3RTgrb1FaeHhZMTY4SmlsY2pKNzhiemZpMURQd09CQ1g5eUR6T3Jz?=
- =?utf-8?B?U2dkR0VqYWh1UTJlWDBMTzFWMnZnMmJvL2RTcU1tMmd2NUFQQzRtN1JkbExW?=
- =?utf-8?B?TDNYWTdCWkIrS1RQeW41K05nQ3B4Rjh3R21idm8rTHZPU2kyZkNnZVAvcm5E?=
- =?utf-8?B?U3V4cHUreVpYV3pHWUlzSmRvSlk1VmZGWG8vdEdrOWZUN3RZL29vRmZrUDZr?=
- =?utf-8?B?NFltN0JMenBLQndNYUdZMjJac05zbXVYRWVPcnVwYUN6d2FKOFYzYXlDbmtG?=
- =?utf-8?B?ZXNzZUZZTFlTTzBmdkRKMFpSZHZMMmJvcXc4eG9abXBQRGhFYkwvV0thWFpO?=
- =?utf-8?B?LzlKV0pBK0xyaHo4NEpldVkwWC9hTDhReU5nMC9zUnVvaTRjWkhaOGE3UEZQ?=
- =?utf-8?B?T2NrUFRBUmZYRGVQaFhIYU1ILzZoWE4vdlNCOGlQaTEyNHFqbktBV2hnS3Jx?=
- =?utf-8?B?cUVQVVFtRFZzRStDUnRxRkxvRTVHSW1oaDRhVklGUTdhc0k5SlVhc3I1KzY0?=
- =?utf-8?B?ZzErOG8vMnBlTk4rYkluZFpYUVBWU0JycUlxOWVOTUgwNVNCWXhZV0w3ZmIw?=
- =?utf-8?B?ZU9VK284Y3RvWStYSStTQzNSUzFlVjdWcnU1bDh2M3d3cEVSM2xOdUtPeDR4?=
- =?utf-8?B?NGdPUEY4NlhocHYzaXlWTUhwcnNXY25Bd0c2Y3BUTDVmQ1NTVi9GU2tvM0NS?=
- =?utf-8?B?YldIckZ1aU5RMjhsNkJDRXZHRStDU1F2cVpGYjVLZlJkb2Vrb3VoVEQ0empt?=
- =?utf-8?B?WlFiTEZmRFJYQUtYWFhEZ1ZQc1dJcDhnNHBPbDJPaVhVd1JYa1Ruc0xFTlpO?=
- =?utf-8?B?VWxTS3FoSDV4RjJTOEtjUXdLVXNaaU8zRDlRczMwdU9XQkphbGNmUkpsbTkw?=
- =?utf-8?B?c2syajU1VEdDSHZrTFZsUi91RkVkTjVmUFQ2Mk1ENVlGbzhKaUhkZ1VmcmRI?=
- =?utf-8?B?OVo2RHhUV0pZUHExaEt5OTBYYW1qUlpaYmp2MzNkSVpub0pNZ0dla1RaMkN1?=
- =?utf-8?B?YTdkaHlsc1JjbXk4bkwrYlNOM1R1YXF0T2tBSDRMV0g4UWFvaGg5YVdHNHRW?=
- =?utf-8?B?bGtuSTJyWDhpUXowdzE0S2JucUFxVVZ3VUswSUxYRUZaS2NHbnh1bVlKdXJv?=
- =?utf-8?B?OGh1YmZRNkFiQ2hSd2QzSTRyeDh1eWtYci82aVMvamZ4d0VUT0owcDVMYmVB?=
- =?utf-8?B?RWtBOFZ6Y01FWnlIaXFMOVlDNVpqMnhUbEc5M2xPSE12T3BlakptTU5ITVkz?=
- =?utf-8?B?NEhhcWtoMk13ZG91ZmpJd1NRUytyQ0phWkE0dGNkOHBsNWRaMnhOdFRkdmk4?=
- =?utf-8?B?ZkEyOEZYMS84cXU3QjB6a1lacVU0VHNtZDk2M3M0c2lkWXdxMmRaRVhRcFls?=
- =?utf-8?B?NC9ISzRNVVRWa2t3eTVrS0ZaaFhCeC95bU9RSit4ckpBM2dQY2lnUU5FUytJ?=
- =?utf-8?B?ay8ydkR1RmQ0Z3VDbXpVZCtJekVITVpyTEpDVjl4c0hRdzVMV1BnelFjVGVk?=
- =?utf-8?B?ZmlkRWVUaG8zTjh5WndZZWQ0UzlIL2p6ejhRamsxanFCb2xNN2t3eDRlYUFD?=
- =?utf-8?B?YUlvL2FoblV1aVQvY3VRRnRSWVBScjVZWFEwa1JjaDlHeFZnWGVXQzVsTUd3?=
- =?utf-8?B?Q1V6N24rZzBTLzdSS1dDZmdtWXYzTmlLbFBiVkdscGU4dVdoTjEvM2JHMkFw?=
- =?utf-8?Q?O7n0T7qJP1hzwoKBYc?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qmg1ZW1yRnZXdXlMSTcyYUxWMzdJQmI4M01wODVwMUxsZTRZR3RMZXN1Uy9P?=
+ =?utf-8?B?V2xCczF0c3pCbTVjTjJpb2tPbWZJbkFCekZVNVJyWDAvMTZNeXc3OWswQUp3?=
+ =?utf-8?B?OFFYN0lMQ1ZVUndkT1NXL3FGdW1oUThTbHJVMElORW9ReGZkaU9XNzM3R0Y3?=
+ =?utf-8?B?WlVUZGdRTlpzUWJLZ2JWMlcyTFJoYkxvMGM3YnArMTExSjhlcytDZDVGVjh0?=
+ =?utf-8?B?NG1yVmNtbFZzMzhVL3FiYjdZQkNaMkVxbmFRekZqOUVSRnJHaSt0bkJySHEz?=
+ =?utf-8?B?Y01MajJhR2pMdzgzSUtQNVhUdmF3UnhwdVdjRDE4MThBT0JJVlNnTEVmSFM4?=
+ =?utf-8?B?TTdYbHRVQkxOWmpsSkJ6RWllUjRlWExJQklkaElrV3NYSkNWRkpYc1BqNlNQ?=
+ =?utf-8?B?TXVOTXZVUWlWdHpEaUw1OVVLZ3B3a3ZnSzA5dTIvS244dnJ0T2hlK0VPVk9q?=
+ =?utf-8?B?UklsSXluL0NsRzMvTGczZEtCRlZYQ29uVEYzYWd4WTFpd0xPSnpTdldwTm5z?=
+ =?utf-8?B?b0Zzc0lCRWZvdUZrb1dVNFQ2MDltblBiUnQzNHdHbnMyc2M2RWhZR0V2Tjlr?=
+ =?utf-8?B?ajJtVCtjbEVVWnNsV2p2L1dXTVptWTJsYytQRWdJQWdKbkQxdXdrMTN1K0xh?=
+ =?utf-8?B?MXU0OEVvYjEra3p4SnBjbk1neWdybUxXeG1xK29sRVJVN2txMm9wYUNJOHV3?=
+ =?utf-8?B?MFZzZkx4M25kc010V0hMc3pUVW02VUtSQUhEaTJzY25TZHhmYmFnRHdrWFlZ?=
+ =?utf-8?B?ZTlkakd3NWVSanMremE3bHM5YU83S3FGeWxpM2REVUd3a2pyN2NGNnRjUFVh?=
+ =?utf-8?B?azZISXI5clhxMld5OUp2dGc0SUE0QUV5TVNUMG1rS1lTb2U4VFpmZDBDZ09i?=
+ =?utf-8?B?aU9zVzNnOUx4dWlSczdyRlRoNm1NM1lDRzNmMEkwNlJHZ3Q4K1pZTWJMYUt0?=
+ =?utf-8?B?UzEwMXJKM0ZsRHkvTnZQbThhakY0ZFBXT3NTVmFaWW9lakM0bzlGVkhqQnRq?=
+ =?utf-8?B?T1pCandmcWZCcUt2WWxOQjd5bUpuUG5obUlTVVc1ZlE5eVd6WE8vS3hIK3h2?=
+ =?utf-8?B?NG02MkRXbzZmS21zNHc1dzZTTkEwZ3pmZCtOUkNkZVZYMlZKVlBHVW5tUHlC?=
+ =?utf-8?B?dkVCaWJqN2dWeXNxVUxyRHRkQitCVkJkck9EUzdTZmQzeUQwTzExblRkdldj?=
+ =?utf-8?B?OE5XTUZwVVdqeksrSVNYSTlja2F3YnNLcFQzbEU0LzZEVTkydGZhOFV2TTgy?=
+ =?utf-8?B?S0o0MENSNnREVUNmdStxYW1LZnRHczlQSHNlYjhYYzRvNVBNbCt5NVVvTFJZ?=
+ =?utf-8?B?dkZWV0RodXExajlDdG9meXEzVGFrSzRjRytueXJDUWRMeHExTUtsSFBMN3Bi?=
+ =?utf-8?B?NnJDT0tWNjZmWXNjYVEwNFMzZm9FYnA0MW0vS1VhOEhEeDl4UEIya2ZOM3oz?=
+ =?utf-8?B?UVUwemJPbzlodzNTdnpFUFh0Q25BUFRtcUNVWjB5ZjZCUDFITERidkVZNjlH?=
+ =?utf-8?B?UG1jM20xcHBYNnZGUG1RUUFtUDA0bkMyaGd6TVRYVXZzelE4dzBBTVExVk94?=
+ =?utf-8?B?T1ZpSStLMzVnaXJuaWFEdk8xT2hwbU1mSit1MzZjNTZtblVLVFZmMWxGb3Zn?=
+ =?utf-8?B?TnJJaVBXZDc2blFnRUtTRFhZL2NmWFFQWGtUbWVQU05na0VBQkJHS1JyV1hs?=
+ =?utf-8?B?R0JOYW92U0FLODIya1FDZmloZk1IZ2ZDbDFqYzk0WWJYTGswL2lKbTVnNG1V?=
+ =?utf-8?B?TWxJd2hVN1BwaEZCWlJMY3ZYY3JYVVBjRGhERmtrdFl0cWxodWtBTHpDU2pr?=
+ =?utf-8?B?VzI4bGlBdG9ZNmd4bDA4djJiYkVDcWJWdVZOUDg1aC93aXFIaFhHS2JEUnVi?=
+ =?utf-8?B?YVdEM0xBUkRRSkF3MytHbmtKeHJ0YjkrWmp1eFNqNklGYlFYVVhqd2c5c3pq?=
+ =?utf-8?B?QnVuWjkyRnlOQ3VIWnEyaHpkVjdWejMxQndJRE5UOHRSZDY4bHJCSXhNaGdT?=
+ =?utf-8?B?Skx0RlRUZW9lU3BhT3lET0tDS1Q1ZXNlQXBOYVZQcDdrTUtWWUZ1M3lhWGo4?=
+ =?utf-8?B?RmpicTFENW5DMDU0NHdiNlJXZzJyUXhVeUttOVc4ejF3Q2VtTmw2M00xQVc4?=
+ =?utf-8?B?S1E2OEcvUHFxNDVGR1RSM2dpMXVTTnp2V29vdzE4cGVBNlFiMzdrSjFUV21D?=
+ =?utf-8?B?U09CVEZiSlFvMVR3VjYzL0hKNkJ3WjBSTXI5U1FycVgrMzRFYlNibDdMeFFC?=
+ =?utf-8?B?REkzRC9UeHJNM0lVRmZhdVp2aHlsakR6OGZkQUdIWFN6S3F3c1FoTjR0QjdJ?=
+ =?utf-8?Q?SjvhndLB1VOL3AbmZG?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11c65e8f-1a72-45f2-f015-08df197d5757
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8558.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ef25c33-c914-4fe2-56f6-08df197ed48e
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5167.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 14:17:03.8999 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 14:27:43.4636 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zEbAHTmby5TZu93KGoS5sLP3mHqCXX2KtGVbB5SFPDM11PD4C52J0qHw1yOyPeXb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9715
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3aIEzqsti/RS/UJyQOs1gqgoXHKfqdFWTwwanLyy6aUJsTLFWr6Tnl0705r0kRZf
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7857
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,69 +135,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------dBC9CJwVgUmJw6UYh0xR6721
+--------------7JjL3v4VvkczSJs20kQtS0eF
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 2026-09-22 05:34, Zhu Lingshan wrote:
-> This commit implements basic ioctl framework for PMC,
-> including basic operations.
+
+On 2026-09-22 09:54, Alex Deucher wrote:
+> From: Likun Gao<Likun.Gao@amd.com>
 >
-> This commit also implements AMDGPU_PROFILER_OP_VERSION
-> which report profiler version to the user space.
+> Add support for LSDMA v8
 >
-> Signed-off-by: Zhu Lingshan<lingshan.zhu@amd.com>
+> Signed-off-by: Likun Gao<Likun.Gao@amd.com>
+> Reviewed-by: Frank Min<Frank.Min@amd.com>
+> Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/Makefile          |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |  2 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c | 44 ++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h | 33 +++++++++++++++
->   include/uapi/drm/amdgpu_drm.h                | 36 ++++++++++++++++
->   5 files changed, 116 insertions(+), 1 deletion(-)
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
+>   drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   4 +
+>   drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c       | 113 ++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h       |  31 +++++
+>   4 files changed, 149 insertions(+), 1 deletion(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index 6fb0a913e33b..d7db69e9d6a0 100644
+> index 2ea1924571039..83e40f26ddf5f 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/Makefile
 > +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -72,7 +72,7 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
->   	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu_lockdep.o \
->   	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_dev_coredump.o \
->   	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o \
-> -	amdgpu_wb.o amdgpu_cwsr.o amdgpu_events.o
-> +	amdgpu_wb.o amdgpu_cwsr.o amdgpu_events.o amdgpu_profiler.o
+> @@ -92,7 +92,7 @@ amdgpu-y += \
+>   	sienna_cichlid.o smu_v13_0_10.o nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o lsdma_v6_0.o \
+>   	nbio_v7_9.o aqua_vanjaram.o nbio_v7_11.o lsdma_v7_0.o hdp_v7_0.o nbif_v6_3_1.o \
+>   	cyan_skillfish_reg_init.o soc_v1_0.o lsdma_v7_1.o nbio_v6_3_2.o nbio_v7_11_5.o \
+> -	nbif_v7_10.o hdp_v8_0.o
+> +	nbif_v7_10.o hdp_v8_0.o lsdma_v8_0.o
 >   
->   amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 7c473f60bd28..a98c4a47e196 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -55,6 +55,7 @@
->   #include "amdgpu_cwsr.h"
->   #include "amdgpu_userq_fence.h"
->   #include "../amdxcp/amdgpu_xcp_drv.h"
-> +#include "amdgpu_profiler.h"
->   
->   /*
->    * KMS wrapper.
-> @@ -3096,6 +3097,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
->   	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->   	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->   	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-> +	DRM_IOCTL_DEF_DRV(AMDGPU_PROFILER, amdgpu_profiler_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->   };
->   
->   static const struct drm_driver amdgpu_kms_driver = {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
+>   # add DF block
+>   amdgpu-y += \
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 564f09c308816..202e0b80e5225 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -95,6 +95,7 @@
+>   #include "lsdma_v6_0.h"
+>   #include "lsdma_v7_0.h"
+>   #include "lsdma_v7_1.h"
+> +#include "lsdma_v8_0.h"
+>   #include "vcn_v2_0.h"
+>   #include "jpeg_v2_0.h"
+>   #include "vcn_v3_0.h"
+> @@ -3979,6 +3980,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>   	case IP_VERSION(7, 1, 0):
+>   		adev->lsdma.funcs = &lsdma_v7_1_funcs;
+>   		break;
+> +	case IP_VERSION(8, 0, 0):
+> +		adev->lsdma.funcs = &lsdma_v8_0_funcs;
+> +		break;
+>   	default:
+>   		break;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
 > new file mode 100644
-> index 000000000000..04902696adab
+> index 0000000000000..f1dd02a56810b
 > --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
-> @@ -0,0 +1,44 @@
-> +// SPDX-License-Identifier: MIT
+> +++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
+> @@ -0,0 +1,113 @@
 > +/*
 > + * Copyright 2026 Advanced Micro Devices, Inc.
 > + *
@@ -222,33 +222,109 @@ On 2026-09-22 05:34, Zhu Lingshan wrote:
 > + *
 > + */
 > +
-> +#include <linux/errno.h>
-> +#include <drm/amdgpu_drm.h>
-> +#include "amdgpu_profiler.h"
+> +#include <linux/delay.h>
+> +#include "amdgpu.h"
+> +#include "lsdma_v8_0.h"
+> +#include "amdgpu_lsdma.h"
 > +
-> +int amdgpu_profiler_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+> +#include "lsdma/lsdma_8_0_1_offset.h"
+> +#include "lsdma/lsdma_8_0_1_sh_mask.h"
+> +
+> +static int lsdma_v8_0_wait_pio_status(struct amdgpu_device *adev)
 > +{
-> +	struct drm_amdgpu_profiler_args *args = data;
-> +
-> +	switch (args->op) {
-> +	case AMDGPU_PROFILER_OP_VERSION:
-> +		args->version = AMDGPU_PROFILER_VERSION_NUM;
-> +		return 0;
-> +	case AMDGPU_PROFILER_OP_RESERVE:
-> +		return -EOPNOTSUPP;
-> +	case AMDGPU_PROFILER_OP_PMC:
-> +		return -EOPNOTSUPP;
-> +	default:
-> +		return -EINVAL;
-> +	}
+> +	return amdgpu_lsdma_wait_for(adev, SOC15_REG_OFFSET(LSDMA, 0, regLSDMA_PIO_STATUS),
+> +			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK,
+> +			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK);
+See lsdma_v7_1_wait_pio_status() as a reference: please check the LSDMA 
+command error status instead of returning success with a silent error, 
+and write 1 to clear the error status bit so LSDMA recovers for the next 
+command.
+
+Regards,
+Philip
 > +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
+> +
+> +static int lsdma_v8_0_copy_mem(struct amdgpu_device *adev,
+> +			       uint64_t src_addr,
+> +			       uint64_t dst_addr,
+> +			       uint64_t size)
+> +{
+> +	int ret;
+> +	uint32_t tmp;
+> +
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_LO, lower_32_bits(src_addr));
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_HI, upper_32_bits(src_addr));
+> +
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
+> +
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
+> +
+> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 0);
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
+> +
+> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
+> +
+> +	ret = lsdma_v8_0_wait_pio_status(adev);
+> +	if (ret)
+> +		dev_err(adev->dev, "LSDMA PIO failed to copy memory!\n");
+> +
+> +	return ret;
+> +}
+> +
+> +static int lsdma_v8_0_fill_mem(struct amdgpu_device *adev,
+> +			       uint64_t dst_addr,
+> +			       uint32_t data,
+> +			       uint64_t size)
+> +{
+> +	int ret;
+> +	uint32_t tmp;
+> +
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONSTFILL_DATA, data);
+> +
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
+> +
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
+> +
+> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 1);
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
+> +
+> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
+> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
+> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
+> +
+> +	ret = lsdma_v8_0_wait_pio_status(adev);
+> +	if (ret)
+> +		dev_err(adev->dev, "LSDMA PIO failed to fill memory!\n");
+> +
+> +	return ret;
+> +}
+> +
+> +const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs = {
+> +	.copy_mem = lsdma_v8_0_copy_mem,
+> +	.fill_mem = lsdma_v8_0_fill_mem,
+> +};
+> diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
 > new file mode 100644
-> index 000000000000..c27b5f9b3ff0
+> index 0000000000000..648d5cc85c48e
 > --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-> @@ -0,0 +1,33 @@
-> +/* SPDX-License-Identifier: MIT */
+> +++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
+> @@ -0,0 +1,31 @@
 > +/*
 > + * Copyright 2026 Advanced Micro Devices, Inc.
 > + *
@@ -272,149 +348,86 @@ On 2026-09-22 05:34, Zhu Lingshan wrote:
 > + *
 > + */
 > +
-> +#ifndef __AMDGPU_PROFILER_H__
-> +#define __AMDGPU_PROFILER_H__
+> +#ifndef __LSDMA_V8_0_H__
+> +#define __LSDMA_V8_0_H__
 > +
-> +#include <drm/drm_device.h>
-> +#include <drm/drm_file.h>
+> +#include "soc15_common.h"
 > +
-> +int amdgpu_profiler_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
+> +extern const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs;
 > +
-> +#endif /* __AMDGPU_PROFILER_H__ */
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 9222be9a6d2a..acc63804ba8c 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -60,6 +60,7 @@ extern "C" {
->   #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
->   #define DRM_AMDGPU_PROC_OPTIONS		0x1A
->   #define DRM_AMDGPU_CWSR			0x1B
-> +#define DRM_AMDGPU_PROFILER		0x1C
->   
->   #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
->   #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-> @@ -83,6 +84,7 @@ extern "C" {
->   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
->   #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
->   #define DRM_IOCTL_AMDGPU_CWSR	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_CWSR, union drm_amdgpu_cwsr)
-> +#define DRM_IOCTL_AMDGPU_PROFILER	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROFILER, struct drm_amdgpu_profiler_args)
->   
->   /**
->    * DOC: memory domains
-> @@ -1809,6 +1811,40 @@ struct drm_amdgpu_proc_options {
->   	} kfd_sigbus_delay;
->   };
->   
-> +#define AMDGPU_PROFILER_VERSION_NUM	1
-> +
-> +enum amdgpu_profiler_ops {
-> +	AMDGPU_PROFILER_OP_VERSION = 1,
-> +	AMDGPU_PROFILER_OP_RESERVE = 2,
-[JZ] the implementation tells that it is AMDGPU_PROFILER_OP_PMC_RESERVE, 
-it is better to put it under new PMC sub-ioctl op
-> +	AMDGPU_PROFILER_OP_PMC = 3,
-> +};
-> +
-> +enum amdgpu_profiler_reserve_ops {
-> +	/* release the device resertaion, only the reservation owner do this */
-> +	AMDGPU_PROFILER_RELEASE = 0,
-> +	/* reserve the device profiler */
-> +	AMDGPU_PROFILER_RESERVE = 1,
-> +	/* Clear the device profiler reservation, in case the reservation
-> +	 * owner can no longer release the reservation(e.g., it crashes),
-> +	 * This operation does not take the reseration nor touch profielr state
-> +	 */
-> +	AMDGPU_PROFILER_CLEAR_RESERVATION = 2,
-> +};
-> +
-> +struct drm_amdgpu_profiler_args {
-> +	/* enum amdgpu_profiler_ops */
-> +	__u8 op;
-> +	__u8 pad[3];
-> +	union {
-> +		/* AMDGPU_PROFILER_OP_RESERVE: enum amdgpu_profiler_reserve_ops */
-> +		__u8 reserve;
-> +		/* AMDGPU_PROFILER_OP_PMC: 1 enable PMC, 0 disable PMC */
-> +		__u8 perfcount_enable;
-> +		/* AMDGPU_PROFILER_OP_VERSION: AMDGPU_PROFILER_VERSION_NUM */
-> +		__u32 version;
-> +	};
-> +};
-> +
->   #if defined(__cplusplus)
->   }
->   #endif
---------------dBC9CJwVgUmJw6UYh0xR6721
+> +#endif /* __LSDMA_V8_0_H__ */
+
+--------------7JjL3v4VvkczSJs20kQtS0eF
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 <!DOCTYPE html><html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2026-09-22 05:34, Zhu Lingshan
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 2026-09-22 09:54, Alex Deucher
       wrote:<br>
     </div>
-    <blockquote type="cite" cite="mid:20260922093436.596947-2-lingshan.zhu@amd.com">
-      <pre wrap="" class="moz-quote-pre">This commit implements basic ioctl framework for PMC,
-including basic operations.
+    <blockquote type="cite" cite="mid:20260922135419.2145987-2-alexander.deucher@amd.com">
+      <pre wrap="" class="moz-quote-pre">From: Likun Gao <a class="moz-txt-link-rfc2396E" href="mailto:Likun.Gao@amd.com">&lt;Likun.Gao@amd.com&gt;</a>
 
-This commit also implements AMDGPU_PROFILER_OP_VERSION
-which report profiler version to the user space.
+Add support for LSDMA v8
 
-Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+Signed-off-by: Likun Gao <a class="moz-txt-link-rfc2396E" href="mailto:Likun.Gao@amd.com">&lt;Likun.Gao@amd.com&gt;</a>
+Reviewed-by: Frank Min<a class="moz-txt-link-rfc2396E" href="mailto:Frank.Min@amd.com">&lt;Frank.Min@amd.com&gt;</a>
+Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile          |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c | 44 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h | 33 +++++++++++++++
- include/uapi/drm/amdgpu_drm.h                | 36 ++++++++++++++++
- 5 files changed, 116 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   4 +
+ drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c       | 113 ++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h       |  31 +++++
+ 4 files changed, 149 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 6fb0a913e33b..d7db69e9d6a0 100644
+index 2ea1924571039..83e40f26ddf5f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/Makefile
 +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -72,7 +72,7 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
- 	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu_lockdep.o \
- 	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_dev_coredump.o \
- 	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o \
--	amdgpu_wb.o amdgpu_cwsr.o amdgpu_events.o
-+	amdgpu_wb.o amdgpu_cwsr.o amdgpu_events.o amdgpu_profiler.o
+@@ -92,7 +92,7 @@ amdgpu-y += \
+ 	sienna_cichlid.o smu_v13_0_10.o nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o lsdma_v6_0.o \
+ 	nbio_v7_9.o aqua_vanjaram.o nbio_v7_11.o lsdma_v7_0.o hdp_v7_0.o nbif_v6_3_1.o \
+ 	cyan_skillfish_reg_init.o soc_v1_0.o lsdma_v7_1.o nbio_v6_3_2.o nbio_v7_11_5.o \
+-	nbif_v7_10.o hdp_v8_0.o
++	nbif_v7_10.o hdp_v8_0.o lsdma_v8_0.o
  
- amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 7c473f60bd28..a98c4a47e196 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -55,6 +55,7 @@
- #include &quot;amdgpu_cwsr.h&quot;
- #include &quot;amdgpu_userq_fence.h&quot;
- #include &quot;../amdxcp/amdgpu_xcp_drv.h&quot;
-+#include &quot;amdgpu_profiler.h&quot;
- 
- /*
-  * KMS wrapper.
-@@ -3096,6 +3097,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_PROFILER, amdgpu_profiler_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- };
- 
- static const struct drm_driver amdgpu_kms_driver = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
+ # add DF block
+ amdgpu-y += \
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 564f09c308816..202e0b80e5225 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -95,6 +95,7 @@
+ #include &quot;lsdma_v6_0.h&quot;
+ #include &quot;lsdma_v7_0.h&quot;
+ #include &quot;lsdma_v7_1.h&quot;
++#include &quot;lsdma_v8_0.h&quot;
+ #include &quot;vcn_v2_0.h&quot;
+ #include &quot;jpeg_v2_0.h&quot;
+ #include &quot;vcn_v3_0.h&quot;
+@@ -3979,6 +3980,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ 	case IP_VERSION(7, 1, 0):
+ 		adev-&gt;lsdma.funcs = &amp;lsdma_v7_1_funcs;
+ 		break;
++	case IP_VERSION(8, 0, 0):
++		adev-&gt;lsdma.funcs = &amp;lsdma_v8_0_funcs;
++		break;
+ 	default:
+ 		break;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
 new file mode 100644
-index 000000000000..04902696adab
+index 0000000000000..f1dd02a56810b
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
-@@ -0,0 +1,44 @@
-+// SPDX-License-Identifier: MIT
++++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
+@@ -0,0 +1,113 @@
 +/*
 + * Copyright 2026 Advanced Micro Devices, Inc.
 + *
@@ -438,33 +451,112 @@ index 000000000000..04902696adab
 + *
 + */
 +
-+#include &lt;linux/errno.h&gt;
-+#include &lt;drm/amdgpu_drm.h&gt;
-+#include &quot;amdgpu_profiler.h&quot;
++#include &lt;linux/delay.h&gt;
++#include &quot;amdgpu.h&quot;
++#include &quot;lsdma_v8_0.h&quot;
++#include &quot;amdgpu_lsdma.h&quot;
 +
-+int amdgpu_profiler_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
++#include &quot;lsdma/lsdma_8_0_1_offset.h&quot;
++#include &quot;lsdma/lsdma_8_0_1_sh_mask.h&quot;
++
++static int lsdma_v8_0_wait_pio_status(struct amdgpu_device *adev)
 +{
-+	struct drm_amdgpu_profiler_args *args = data;
-+
-+	switch (args-&gt;op) {
-+	case AMDGPU_PROFILER_OP_VERSION:
-+		args-&gt;version = AMDGPU_PROFILER_VERSION_NUM;
-+		return 0;
-+	case AMDGPU_PROFILER_OP_RESERVE:
-+		return -EOPNOTSUPP;
-+	case AMDGPU_PROFILER_OP_PMC:
-+		return -EOPNOTSUPP;
-+	default:
-+		return -EINVAL;
-+	}
++	return amdgpu_lsdma_wait_for(adev, SOC15_REG_OFFSET(LSDMA, 0, regLSDMA_PIO_STATUS),
++			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK,
++			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK);</pre>
+    </blockquote>
+    See lsdma_v7_1_wait_pio_status() as a reference: please check the
+    LSDMA command error status instead of returning success with a
+    silent error, and write 1 to clear the error status bit so LSDMA
+    recovers for the next command.<br>
+    <br>
+    Regards,<br>
+    Philip
+    <blockquote type="cite" cite="mid:20260922135419.2145987-2-alexander.deucher@amd.com">
+      <pre wrap="" class="moz-quote-pre">
 +}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
++
++static int lsdma_v8_0_copy_mem(struct amdgpu_device *adev,
++			       uint64_t src_addr,
++			       uint64_t dst_addr,
++			       uint64_t size)
++{
++	int ret;
++	uint32_t tmp;
++
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_LO, lower_32_bits(src_addr));
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_HI, upper_32_bits(src_addr));
++
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
++
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
++
++	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 0);
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
++
++	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
++
++	ret = lsdma_v8_0_wait_pio_status(adev);
++	if (ret)
++		dev_err(adev-&gt;dev, &quot;LSDMA PIO failed to copy memory!\n&quot;);
++
++	return ret;
++}
++
++static int lsdma_v8_0_fill_mem(struct amdgpu_device *adev,
++			       uint64_t dst_addr,
++			       uint32_t data,
++			       uint64_t size)
++{
++	int ret;
++	uint32_t tmp;
++
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONSTFILL_DATA, data);
++
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
++
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
++
++	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 1);
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
++
++	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
++	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
++	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
++
++	ret = lsdma_v8_0_wait_pio_status(adev);
++	if (ret)
++		dev_err(adev-&gt;dev, &quot;LSDMA PIO failed to fill memory!\n&quot;);
++
++	return ret;
++}
++
++const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs = {
++	.copy_mem = lsdma_v8_0_copy_mem,
++	.fill_mem = lsdma_v8_0_fill_mem,
++};
+diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
 new file mode 100644
-index 000000000000..c27b5f9b3ff0
+index 0000000000000..648d5cc85c48e
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-@@ -0,0 +1,33 @@
-+/* SPDX-License-Identifier: MIT */
++++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
+@@ -0,0 +1,31 @@
 +/*
 + * Copyright 2026 Advanced Micro Devices, Inc.
 + *
@@ -488,84 +580,18 @@ index 000000000000..c27b5f9b3ff0
 + *
 + */
 +
-+#ifndef __AMDGPU_PROFILER_H__
-+#define __AMDGPU_PROFILER_H__
++#ifndef __LSDMA_V8_0_H__
++#define __LSDMA_V8_0_H__
 +
-+#include &lt;drm/drm_device.h&gt;
-+#include &lt;drm/drm_file.h&gt;
++#include &quot;soc15_common.h&quot;
 +
-+int amdgpu_profiler_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
++extern const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs;
 +
-+#endif /* __AMDGPU_PROFILER_H__ */
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 9222be9a6d2a..acc63804ba8c 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -60,6 +60,7 @@ extern &quot;C&quot; {
- #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
- #define DRM_AMDGPU_PROC_OPTIONS		0x1A
- #define DRM_AMDGPU_CWSR			0x1B
-+#define DRM_AMDGPU_PROFILER		0x1C
- 
- #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
- #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-@@ -83,6 +84,7 @@ extern &quot;C&quot; {
- #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
- #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
- #define DRM_IOCTL_AMDGPU_CWSR	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_CWSR, union drm_amdgpu_cwsr)
-+#define DRM_IOCTL_AMDGPU_PROFILER	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROFILER, struct drm_amdgpu_profiler_args)
- 
- /**
-  * DOC: memory domains
-@@ -1809,6 +1811,40 @@ struct drm_amdgpu_proc_options {
- 	} kfd_sigbus_delay;
- };
- 
-+#define AMDGPU_PROFILER_VERSION_NUM	1
-+
-+enum amdgpu_profiler_ops {
-+	AMDGPU_PROFILER_OP_VERSION = 1,
-+	AMDGPU_PROFILER_OP_RESERVE = 2,</pre>
-    </blockquote>
-    [JZ] the implementation tells that it is&nbsp;<span style="white-space: pre-wrap">AMDGPU_PROFILER_OP_PMC_RESERVE</span>,
-    it is better to put it under new PMC sub-ioctl op
-    <blockquote type="cite" cite="mid:20260922093436.596947-2-lingshan.zhu@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+	AMDGPU_PROFILER_OP_PMC = 3,
-+};
-+
-+enum amdgpu_profiler_reserve_ops {
-+	/* release the device resertaion, only the reservation owner do this */
-+	AMDGPU_PROFILER_RELEASE = 0,
-+	/* reserve the device profiler */
-+	AMDGPU_PROFILER_RESERVE = 1,
-+	/* Clear the device profiler reservation, in case the reservation
-+	 * owner can no longer release the reservation(e.g., it crashes),
-+	 * This operation does not take the reseration nor touch profielr state
-+	 */
-+	AMDGPU_PROFILER_CLEAR_RESERVATION = 2,
-+};
-+
-+struct drm_amdgpu_profiler_args {
-+	/* enum amdgpu_profiler_ops */
-+	__u8 op;
-+	__u8 pad[3];
-+	union {
-+		/* AMDGPU_PROFILER_OP_RESERVE: enum amdgpu_profiler_reserve_ops */
-+		__u8 reserve;
-+		/* AMDGPU_PROFILER_OP_PMC: 1 enable PMC, 0 disable PMC */
-+		__u8 perfcount_enable;
-+		/* AMDGPU_PROFILER_OP_VERSION: AMDGPU_PROFILER_VERSION_NUM */
-+		__u32 version;
-+	};
-+};
-+
- #if defined(__cplusplus)
- }
- #endif
++#endif /* __LSDMA_V8_0_H__ */
 </pre>
     </blockquote>
+    <br>
   </body>
 </html>
 
---------------dBC9CJwVgUmJw6UYh0xR6721--
+--------------7JjL3v4VvkczSJs20kQtS0eF--
