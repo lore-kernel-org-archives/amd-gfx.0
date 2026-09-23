@@ -4,76 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51129C98309
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 12:04:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4339C9830B
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 12:20:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C358B10F00F;
-	Wed, 23 Sep 2026 12:04:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D8AA10E874;
+	Wed, 23 Sep 2026 12:20:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FXfG90HF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iB6FUfWD";
 	dkim-atps=neutral
 Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
  [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1B1810F00F
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 12:04:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 098FD10E874
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 12:20:38 +0000 (UTC)
 Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c293c683202so122003866b.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 05:04:00 -0700 (PDT)
+ a640c23a62f3a-c254f9f7db0so92776866b.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 05:20:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790165039; x=1790769839; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=umdpyzJHv0azgYb8oWdtgKowUVC/7OEHQcqT6d3f9KU=;
- b=FXfG90HF1hC4uWwkan7JPFROVoh78N68ejbVFOpX/P2IXYFP3Xx81sD7BFaXNRynEA
- 0bRduKw4Tgeb/Pz2V+bAIlJuZNf+LT7xp07UYL9zuUPuB4xQWkpqWgdcdIdVstIqPYaL
- 7uXgP0eXL/0pmKyJ6YMbvasCFpCwAYJxNTq6ffDEbLjkGJX5ghdDwIpAp5sOLr5JKwPj
- L2xUGXifDMtBD0T43hIglwoSPFMz3XaWIBiu6ZVvTpXMiNYVyDnXiNvL0ZcX6apmyNA4
- 4Lxn2wJHSr0Ij8DDmooodzpBfaI0RUCHU69IcmfCaM6r4Vc0nq+8o0/vY6nTRXiamTdG
- y/GQ==
+ d=gmail.com; s=20251104; t=1790166036; x=1790770836; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=fpAgRUPMm10wfqdAzp4L3YAQ7shq257O7hQP1lPE4Is=;
+ b=iB6FUfWD634E2tzVJO3tE7jByAHEsU+n1ODdHoBjfXBopMh3Svb7k2QRXZaafNKKke
+ 9rsQK1XvJsLPjeIdDvvPKcQ8OWGNU6Q0475C+awEvYgg0WYxDMOgsCfyF6yDDga7mjC8
+ BxvU0CYj3Xk9jvftGEZU0DC2evRvjwfCAKRDVLVtFpuMhtocxSNKeyb9CMIFDOAjsIaN
+ myKm8+TdX7OaUiCMFA9IT8rcvSKRSjyaFxTGAkhOkqADfPGkAfswYfApCKhi5I1q7Kbz
+ gwiP8m1P7Ra2EBQ1c7w+Xm3mUzMOqU/bDKePG4T9AAZNLv8UFQC8SGR4Lfx+77L6EFzM
+ 5n+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790165039; x=1790769839;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=umdpyzJHv0azgYb8oWdtgKowUVC/7OEHQcqT6d3f9KU=;
- b=uI5gyGUVtCn4jbe/TQb6LRoHDtfySv9RLHOIQRCrSC2wLWJsD7mO4Kke/1WarKS3Qq
- oYNxyGndJ0roiTg5ltF+kN3XWD93MgLxBPrXZF5RnencH9m6PJqb/A3nKCpJPXKye3Rq
- qzVwAMCkg6+JURNS9PIOs7FSsgaFP+TenVb4NPirWh0Vpd1GDTTRI0ZAyipG3ZP+Gdhj
- mP+s4aAJ29l3tTWUDlVsADI/xXrFxCMj4LLIdo3hk2gEhHXc1R6CMgtgIbvLiA1wTMo6
- PwXICm+JMUYMycNtCNsaDHKaU0f4vkPrxQadz4EZtSY61HkSaDOpUN3OQoDBm/ziUwOQ
- /0NQ==
-X-Gm-Message-State: AFuF++kz2STa3c6EOw2bTYWhrYlG6vmw9xa06x9eBQfH/Jnl95NyTCT0
- SXMQdyDT8j4b/ysmHmJLT8afbE6CA3kpRkPglbanJsJSEUkD7nphsdO2jJnNIg==
-X-Gm-Gg: AYBFou0jhFe5tnRg242SOByKcprnfVPlmz10XUsCdnod03QTkTNLKCxp30DKrD03t1O
- vfJ7+LY6JvV4FzQKz9zLRm4UYmIsZD5VGCRh3vx2rekPbo/cljRkRpA5ZNgwrVcChDcYD87Ohor
- T4s03qVOjevVcWXRkGyhqhqbN9Tq+aDXbz+8Hg1jdHlvwaMfKC8OfP5OYWwfwrcuUs1nggnp6QG
- CyU7FpHpyjGlpCIYQ5Lo+We+fZ5uVDzlvrscfB/6MkjSuJ8PM0AkHDwO6gsDUvvZ5N810VYQVXs
- QbX0gJo8jLRn1IfDxhWVIIZc4DG0D3Tz1YQ/Kw/npsaD92Hjq/Z2bPA5cx98W9SZBhyVwoW4Jk+
- hWcET/Ccv36dXcXxw3q/s2Shsof7rDr5MfiEc7zPJSE5icsWow+NfbkCSipUgu2NnaekEIPuG5g
- nvhnSnL5Rcnt5anF1vml7K2pu+UFdI620UY63nny5tZUf42TlY3hfLLW5dN5wqZ/cLGYFOjyeR2
- B/8oWkZva3TrlSwWwEy03wttgw5ik+PAoC0rZVWD4/jG9M=
-X-Received: by 2002:a17:907:9689:b0:c29:5712:a420 with SMTP id
- a640c23a62f3a-c2aadcf014fmr202291766b.5.1790165038742; 
- Wed, 23 Sep 2026 05:03:58 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1790166036; x=1790770836;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=fpAgRUPMm10wfqdAzp4L3YAQ7shq257O7hQP1lPE4Is=;
+ b=HIsHYSHB7PRCmJeJpGRj8zOJDk+a+5ZR/GXIPcXcyMxQxLRmoyna8J8+YE9pmx9VO9
+ KPew8txQ1IG5qGyRE3BM8nxIDXBycWM95x4d5HNXbbOh/zuD2Q12KK23LLTz/J+6dVWp
+ bw02Z11LgDayxvTyU/dtDy0+naAXSCcl0DJU3sqzGx1/9p89P5fTIrzfYFAUfwZev5YG
+ g2zbqIJijlXoDJcJI184HKxy6Er4sXODwtNR8OTllEQHuynhUZvshif7lnU+BTuMdKgI
+ AWNiOrVQO5Z9NSr/kb07cZrb7E+vWDQFalkpuGeewtgDIRauLNjGSt4wv4vdd/SLM2+S
+ X+Jw==
+X-Gm-Message-State: AFuF++nR70T0Ju5In8aOog6wFxuHA2aHbFe2v8fpwRU1F3ScwXGfQaAj
+ QbrCF0DuOLeiBGRzWn7+saplose8WF2yfe7brnNP2ePyRgDItvE3h8QNClYtdfbokiI=
+X-Gm-Gg: AYBFou1gJLYQUgKtS6RJ+jYwuvhseofylTY+fNaYYUAqrcltCQ2d30Hx7nrRGYt1KED
+ 3THOosGsuCl9p29usGF2aRbJSfTCHA0k6bv/nGmWrDLWeXayi2UF8dpbz4sJJaHQl5R1f0Gb0VE
+ cK/fMiNJ/gUVyApSERGqQ8j2+2QvxLYjYWrljPrtRSJ4dQbE5YlBsN+wejx1mIINDc5+tMz3ipO
+ J4o7wrwTqYxCo0q27BVQ9Rv6Guyh3AgpioPqj4DnyY/yVV3DtpdWEDmgeJ31EC6AG+fkO2TtNdq
+ cX06MVyvS2pKbMf+1ku5+XWnAuQfgBndEvIDjz1lharwVvNJvuL0ON7QfdJZvrAj+UvwDBdpujp
+ SVpm4vm/UqzO93rJb9ORxNuOS9DVfqsS3RKA4WFwMYrCkZxHGCA+fa85ki1lyftBkGCvfB0DzoD
+ /hrAOEpD/AJZ9h84SPmzJXgjrhNR+x9vWcBpS4TdUV1fED2GtXLmTwf2p/4c1/EKXd++QxFqhyq
+ l38Quq8B9MPNgJirO5mXndp5ngVid7136k=
+X-Received: by 2002:a17:907:e84b:b0:c25:cb7e:1cc9 with SMTP id
+ a640c23a62f3a-c2aade3f821mr206336066b.7.1790166036021; 
+ Wed, 23 Sep 2026 05:20:36 -0700 (PDT)
 Received: from Timur-Hyperion (86FF5B49.dsl.pool.telekom.hu. [134.255.91.73])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2aae658569sm107210366b.37.2026.09.23.05.03.57
+ a640c23a62f3a-c2aae5c604fsm108284966b.13.2026.09.23.05.20.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 05:03:58 -0700 (PDT)
+ Wed, 23 Sep 2026 05:20:35 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>,
  Mario Limonciello <mario.limonciello@amd.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Leo Li <sunpeng.li@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Dominik Kaszewski <dominik.kaszewski@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 2/2] drm/amd/pm/si: Fix updating clock limits on AC/DC
-Date: Wed, 23 Sep 2026 14:03:54 +0200
-Message-ID: <20260923120354.1027996-2-timur.kristof@gmail.com>
+Subject: [PATCH 1/3] drm/amd/display: Fix fast updates on DCE 6.x
+Date: Wed, 23 Sep 2026 14:20:31 +0200
+Message-ID: <20260923122033.1046651-1-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923120354.1027996-1-timur.kristof@gmail.com>
-References: <20260923120354.1027996-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -91,81 +92,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Assume that the AC limits are the maximum of all power states,
-and the DC limits are the maximum of battery power states.
-This shouldn't make any difference in practice, but is
-cleaner and more robust against bogus information in the VBIOS.
+DCE6 should use legacy fast updates, just like all DCE8 - DCN2.
+Set that flag for DCE 6.0, 6.1 and 6.4 (all DCE6 versions).
 
-Fixes: e6c5d36756e7 ("drm/amd/pm/si: Fix updating clock limits from power states")
+Technically DCE6 should have been included when the fast update
+code was refactored, but it just happened to work until now.
+
+A recent commit "Attach only plane updates that actually changed"
+has exposed this issue because with that commit, DC accidentally
+took the new fast update code path for DCE6 as well, which caused
+it to boot into a black screen with a flip done timeout.
+
+This fix should be backported to all kernel versions that
+have "Refactor fast update to use new HWSS build sequence",
+but this patch won't apply cleanly to older kernels due to
+another refactor in "Remove dc param from check_update".
+
+Fixes: 0baae6246307 ("drm/amd/display: Refactor fast update to use new HWSS build sequence")
+Fixes: 9ec11bb842b6 ("drm/amd/display: Remove dc param from check_update")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 36 +++++++++++-----------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ .../amd/display/dc/resource/dce60/dce60_resource.c   | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-index d090dcada1b4..f186aae9984d 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-@@ -7238,6 +7238,19 @@ static void si_parse_pplib_non_clock_info(struct amdgpu_device *adev,
- 		adev->pm.dpm.uvd_ps = rps;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+index d2d56a1c4b8b..8612cc66a6ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce60/dce60_resource.c
+@@ -448,6 +448,12 @@ static const struct dce_abm_mask abm_mask = {
+ 		ABM_MASK_SH_LIST_DCE110(_MASK)
+ };
  
-+static void si_update_limits(struct amdgpu_clock_and_voltage_limits *limits,
-+			     struct rv7xx_pl *pl)
-+{
-+	if (pl->sclk > limits->sclk)
-+		limits->sclk = pl->sclk;
-+	if (pl->mclk > limits->mclk)
-+		limits->mclk = pl->mclk;
-+	if (pl->vddc > limits->vddc)
-+		limits->vddc = pl->vddc;
-+	if (pl->vddci > limits->vddci)
-+		limits->vddci = pl->vddci;
-+}
++static const struct dc_debug_options debug_defaults = { 0 };
 +
- static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
- 				      struct amdgpu_ps *rps, int index,
- 				      union pplib_clock_info *clock_info)
-@@ -7246,7 +7259,6 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
- 	struct evergreen_power_info *eg_pi = evergreen_get_pi(adev);
- 	struct si_power_info *si_pi = si_get_pi(adev);
- 	struct  si_ps *ps = si_get_ps(rps);
--	struct amdgpu_clock_and_voltage_limits *limits;
- 	u16 leakage_voltage;
- 	struct rv7xx_pl *pl = &ps->performance_levels[index];
- 	int ret;
-@@ -7311,26 +7323,14 @@ static void si_parse_pplib_clock_info(struct amdgpu_device *adev,
- 	 * VBIOS can contain conflicting values between:
- 	 * - the maximum allowed clocks and voltages on AC or DC
- 	 * - the clocks and voltages in power states on AC or DC
-+	 *
-+	 * Assume that the AC limits are the maximum of all power states,
-+	 * and the DC limits are the maximum of battery power states.
- 	 */
-+	si_update_limits(&adev->pm.dpm.dyn_state.max_clock_voltage_on_ac, pl);
- 	if ((rps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) ==
--	    ATOM_PPLIB_CLASSIFICATION_UI_PERFORMANCE)
--		limits = &adev->pm.dpm.dyn_state.max_clock_voltage_on_ac;
--	else if ((rps->class & ATOM_PPLIB_CLASSIFICATION_UI_MASK) ==
- 		 ATOM_PPLIB_CLASSIFICATION_UI_BATTERY)
--		limits = &adev->pm.dpm.dyn_state.max_clock_voltage_on_dc;
--	else
--		limits = NULL;
--
--	if (limits) {
--		if (pl->sclk > limits->sclk)
--			limits->sclk = pl->sclk;
--		if (pl->mclk > limits->mclk)
--			limits->mclk = pl->mclk;
--		if (pl->vddc > limits->vddc)
--			limits->vddc = pl->vddc;
--		if (pl->vddci > limits->vddci)
--			limits->vddci = pl->vddci;
--	}
-+		si_update_limits(&adev->pm.dpm.dyn_state.max_clock_voltage_on_dc, pl);
- }
++static const struct dc_check_config config_defaults = {
++	.enable_legacy_fast_update = true,
++};
++
+ #define CTX  ctx
+ #define REG(reg) mm ## reg
  
- union pplib_power_state {
+@@ -937,6 +943,8 @@ static bool dce60_construct(
+ 	dc->caps.max_cursor_size = 64;
+ 	dc->caps.dual_link_dvi = true;
+ 	dc->caps.extended_aux_timeout_support = false;
++	dc->debug = debug_defaults;
++	dc->check_config = config_defaults;
+ 
+ 	/*************************************************
+ 	 *  Create resources                             *
+@@ -1134,6 +1142,8 @@ static bool dce61_construct(
+ 	dc->caps.i2c_speed_in_khz = 40;
+ 	dc->caps.max_cursor_size = 64;
+ 	dc->caps.is_apu = true;
++	dc->debug = debug_defaults;
++	dc->check_config = config_defaults;
+ 
+ 	/*************************************************
+ 	 *  Create resources                             *
+@@ -1332,6 +1342,8 @@ static bool dce64_construct(
+ 	dc->caps.i2c_speed_in_khz = 40;
+ 	dc->caps.max_cursor_size = 64;
+ 	dc->caps.is_apu = true;
++	dc->debug = debug_defaults;
++	dc->check_config = config_defaults;
+ 
+ 	/*************************************************
+ 	 *  Create resources                             *
 -- 
 2.55.0
 
