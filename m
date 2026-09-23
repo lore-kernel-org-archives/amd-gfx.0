@@ -4,130 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F13ADC9830B
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 14:56:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49B1FC9830B
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 15:02:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B3FA10F0D6;
-	Wed, 23 Sep 2026 14:56:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7F7810F0FE;
+	Wed, 23 Sep 2026 15:02:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Xk/34bbd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NJ7shOEZ";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010042.outbound.protection.outlook.com [52.101.201.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B82B10F0DB
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 14:56:03 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010010.outbound.protection.outlook.com [52.101.85.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61EF210F0FE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 15:02:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v6/KReimukBC3ABX0CneCliXEizhNWZoOxV4fUg6QucwO+T1BAiPrfs8OBL/F1DmkqhfBBdzJhzmBzGl4Pn7hcXNRvTDmpiVd0eKL2oGfC+9Nwmo8OYbSEpFYbT1nhvcuP0WiQ+KCqw5OQkj4jPrS/zGunVnY3qw5KU78+mQPZxbHDG9bPneg1j299l4XhZ8ojVeACdVJe+39CBlDhbfMDZDu1xFMCPdTmpQnHZ8z0+jt4bo4LW8nzVX/Tn3DcQtxZeR1+zfC76O8DiThuPPwu2wrRIFDu2w62cASvFsaZunqINB4+shaLmI3jNcT4BWzp8qrWWIERHLoCkZlf/Ypg==
+ b=iMiCvFWh/gBuwdF95OnFm3KEnnX3grGiBbGZnGh+4Uiae8nr+0kLlhcE5nGflur4LFLz3rSR+owwy0356j6lHi55AA43m0E6jHxlwDBCIdK5GAJ4c2Wn0lVHqH+j47YqqATMFmRk5kUuA7FrpNsZJp8uk898X8HInuvZ+/9l7l11SdvcY8dQIzI0hUWf0mqXOoVILQhpfv9ClNpj2i4TbfEfF8Jh2BJxIMlCGNqVoPcBTkyjUFz1qqyMDUdRG3za17jxU/u/FzDPAd2SjHGys5qUVYFtW9HiAgpQj0m9d9PiQq4jGXg/gqGx55x7mXlyIMYYkcHsHkoASepV3RZ8kg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DgM2CTYXpWu8biTDMVQwa9Gf9MIU+1OJX2ty36LpqEM=;
- b=QLfc3aQmDp9mBvhPxZYeFgwrQBM6eZQFXeAKh9OMYJd2yJ7nxUVIw46e2Q9GfB3Mnfxn+qGazHr/p4GVKaamUvbMtdrhxYNBDi1qiaSn0wOLY0cat90cUuGaRUMwh++2yjqFA/B9Zo5X9W1sfXbVFe0S3YBzOPOvLfXzP70RQLkrWS9ezkWxaDynQyQl//TTerKvB5wpPEBtK7V2JLlMG01PlawYORGwPr+hyk1cWxMweE8c6kPHLyLAwNtQnX3kBd2TMTPNz62eIivxXxd1yUfy38rGjk7a4+e0SWk/ECks9fAkv4kFvXK3yGZekx1/TfRCWtoWTknlH4+uPLmdew==
+ bh=9quRJxMuLczZbeREYQNCP9xy2BS3wm3jPXZTVQH6OKs=;
+ b=uIbPVO94v4G8GbW4QWKUye3etFoggguWMhmM1W/+gVwtHpl+Bz847Oa7eEYSnbvw701NQ0JrtYEPE8wVWzarH2FQhA+E3TN4ToIS/Fa1ZYRu6+ixadV7WlRH9lQ/6kU6ELwVfBD1mo+JyMcWTmEcmOId0U18LtY3vv2IfjlpM9cuf2KVsC94Agc6VJkyVOLcB9dLzikSSWrfDyrlbgJ+Q8sM7cUz2w1O3cWjv4XSjSalwfRFdkxgag/OvWJFjqt22aMBEziicKEBmGMcRjgb1cxLCa7jGkCMpQvFM7Wr68vlPgcAQECG3Ue6sLho9gvRwMxOrltHKgXPd3ZJJjXOFw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DgM2CTYXpWu8biTDMVQwa9Gf9MIU+1OJX2ty36LpqEM=;
- b=Xk/34bbdXlj7sNoFZuImQsyyqox38w4/A1r6YNSoeTQs6ktPKo42G4Nc3D+ew0yrrpvwXbWbsTmnIYNrB30PiMTQ5Z2NGTaz4oB/g5YOZiRMX7zjOKal8eHuYKMfkRIKw4x8SGhCcwPZfnfmcdXMAk4p68UmWeuEJmn2dD3p+dY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by LV8PR12MB9417.namprd12.prod.outlook.com (2603:10b6:408:204::18)
+ bh=9quRJxMuLczZbeREYQNCP9xy2BS3wm3jPXZTVQH6OKs=;
+ b=NJ7shOEZc87aakh/y9PhKzT2fx7/d3Jp0PGDvwNGgHrEMHJ6AL13nEBlXuVXT2DYdCOfSUaG+mtbLlIQCU8iQ9QwEGYSWk067ytyffPw8QTlJ8JhIOSohhWJvjkYxFjS8Kmuef4/g+05PA5rwVF9BWzUskaryeyq3av8yT+y3ms=
+Received: from LV9PR12MB9831.namprd12.prod.outlook.com (2603:10b6:408:2e7::8)
+ by DS5PPF5C0B6C3B6.namprd12.prod.outlook.com (2603:10b6:f:fc00::64e)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
- 2026 14:55:57 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 14:55:57 +0000
-Message-ID: <7e3e84e5-7203-4871-b5be-a99d16071afd@amd.com>
-Date: Wed, 23 Sep 2026 20:25:50 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/12] drm/amdgpu: add amdgpu_xcp_get_xcc_mask helper
-To: James Zhu <jamesz@amd.com>, James Zhu <James.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, Bing.Ma@amd.com
-References: <20260921200313.865829-1-James.Zhu@amd.com>
- <20260921200313.865829-4-James.Zhu@amd.com>
- <8f06398f-e207-45b0-ab85-931ccac35b65@amd.com>
- <ce3dbd30-31e6-4680-8618-2144fe44a928@amd.com>
- <0e573608-7f9e-4f3e-ac58-cf375962ae2b@amd.com>
- <c9cd0934-25ca-4d14-99c1-cc7aa3d566c8@amd.com>
- <8fc9ee70-d284-4ef3-9e66-08d809fac293@amd.com>
- <526f559b-cb01-425d-9ae6-831d8bd2c229@amd.com>
- <7633a664-dfeb-4796-8b84-c5f2bc5df0d5@amd.com>
- <8a01cbe9-edad-4bf6-8519-569375fd93bf@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 15:02:09 +0000
+Received: from LV9PR12MB9831.namprd12.prod.outlook.com
+ ([fe80::4443:20b2:9c80:56c8]) by LV9PR12MB9831.namprd12.prod.outlook.com
+ ([fe80::4443:20b2:9c80:56c8%4]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 15:02:09 +0000
+From: "Welton, Benjamin" <Benjamin.Welton@amd.com>
+To: "Zhu, James" <James.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [RFC 00/10] amdgpu: implement Performance Monitor Counter support
+Thread-Topic: [RFC 00/10] amdgpu: implement Performance Monitor Counter support
+Thread-Index: AQHdS2Qr80mAaEspy025vnk1bYPg6bbcP3HA
+Date: Wed, 23 Sep 2026 15:02:08 +0000
+Message-ID: <LV9PR12MB9831867DA9EAA980EA12DFFFF0822@LV9PR12MB9831.namprd12.prod.outlook.com>
+References: <20260922093436.596947-1-lingshan.zhu@amd.com>
+ <a97514f5-8a01-48bb-b1f0-645ac657bb0f@amd.com>
+In-Reply-To: <a97514f5-8a01-48bb-b1f0-645ac657bb0f@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <8a01cbe9-edad-4bf6-8519-569375fd93bf@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA0PR01CA0032.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:b8::19) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|LV8PR12MB9417:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01ef2b39-67eb-4d0e-7a6d-08df1982c60e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|11063799006|56012099006|4143699003|10067099003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 4ULZUmvDeHAXOvpJposPFp27l3wZQGf5Ulv94XZb8914z2ubAiIcfjJnkDbO1VMR11szPk6lcRNPTlqRjZ22A0mOwk7jhxkpsWEKFX3YQkXr7SFIa5XLUrUlZvixa3SeNPI1R/sI7o3IF50gLTYOwudK+OQhUUCUb2LtHwW5pqApGdOBSBcrEzHCPqRTzd8Dgfo+UdAZh/Mu/dcgJFxr+J04meXO4KO2m53g+IV25CT+9g0s91eYpW9J34IwJLd3gCudMGnkjqupA/4wQ7ODQWurLqF8Gi6iO9pTEa4X/mmA8bASKQmO8Sb+nEZd+I0h7H6xa2m0ECQCgKH/hSLCpWM4tP38Ow6Blh3OdEOpdUjjkijsYlFJ/jkylYRiYn7saSwx60MayVjXR5vI+qRhQpuT1U0y4iDoRUmMd6145eY88IfJcHqJidQFzmppb1aQD6fWICfJXQomFud35ohev/lHVT3BSccx6ThAT0pcb9LYg3s+crYspcE4FaAHp59dYXmabn/wKewWrtH8LVkdZytoubnCnWf+DnmirhSrhi2OZ4b6Fw6LWZzInwOeKxUHzjcpomJg18WBXc8pMZ1rXqrd5kwAyWn+Tk95rOPpTW1hbvORuxhhUA7/ox+dU81gS0SJzgITn9tOqa1Eh6rHkGUgJFGuvedJScw8XEtZT20=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(3023799007)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-23T14:52:11.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV9PR12MB9831:EE_|DS5PPF5C0B6C3B6:EE_
+x-ms-office365-filtering-correlation-id: 8ac51ebb-ab3f-4e60-3d2c-08df1983a3d6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|11063799006|56012099006|10067099003|22082099003|18002099003|4143699003|38070700021;
+x-microsoft-antispam-message-info: p++yu3xI5PaUCyrLzZ7XSnp4S3bxaBtuw/vusjHg4n9Gjs39O8v8CP9bRYel9EkaT2Lq8Mj1+eCTcCOKMOqS+v0EthQn1z4jQbD5BSbxOCxrJItfJnJRI9rPwn0vplqHuacOtMv0n4T5+BpSwpaVVRQsEvh2Snb0AMZYw04/cv0V5+qj8yajnXCEQ26yJhAvfF/trxc1WxyKf57bRXlMmXxMbXcFMfNIGWYjdfATZfjm1e8myi3AU1kRLhTozsuKvZd+D45bbbCLJvXeFhIdPIU8errdgjowM9w8+QLHF70dy2mg4vH59N1RCAxqe9QYblcxFZyStZcPukWOzW7pd+z4w8mH24yWKh0f5GK5GzHTBtdXcrVJlMm22NlfZjYDBKFWa5O6OSRF3aKYfD2no1ARBLR4QGpAQFBirtxkvtj2zVOqwXGX1e/DcgP+BBsByuyUXvo52lfeGC3m3s9uyXjY5uvg/2TWafwBAorMEst5pwJ8uaZh3neiT4fBToK3nJzwgaUZ/3IwO/PRAcsyomIyE9iizFPHY7+AzWjlgK4XsW0gHqNV3t707+riL0FkWhy3CXXGm91ROUcbTd8IjArQY+iBY7pOIK6MH1Sk+Wj89Br/IfgyECjCUD3OEGTrItMgHN6tYilOKH8u2E4/7AuHJoeOmf6fFFEOGl+Edto=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV9PR12MB9831.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(4143699003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VEw4V0VSaXFIcFE3eHpzSC9KRG9ORjJpeEVZNEJJM0lPVzlmS0xDNWwycHh5?=
- =?utf-8?B?NWZMQ2ZUa3RXTWRtRmkvb3pNMytHWWpCMnV1SVZKdStVUGkyS0NBdm0rTmp2?=
- =?utf-8?B?U1dOZURQWkh5TS80ajJmOHdDanZmRWFMQ0cxTWk4Sy9MUlIrK0xJWUJITmZh?=
- =?utf-8?B?ODRFYW1TZmRuTzYvaFVtMDJHTTh2NGtWWWkyOVcyZ1UxNmpUYThaVWp0bWNQ?=
- =?utf-8?B?VTJFSXZmQmE0Y3l6NGtMRWttZjdZbGJxalpZUEo1OWxFMjA5c2N3KzB5UjY3?=
- =?utf-8?B?V3NjTXJ1a0xRSHY1WHh1akVEU1QwSktTMVlINlZjd0pUQXdOSVRsMFM0Rmo3?=
- =?utf-8?B?UldXUE53QmJFblZTUmdJMkNWTmZucWdoOFlDem8rVWQvamVZYkVTZDFXQTJF?=
- =?utf-8?B?dWNZT2tKQXp6eWxHdkVZYWU1TVkxc0t2TThOVkkzUUZERjJ5Ry93QVBjemVL?=
- =?utf-8?B?TExVeGJ0TEc2WmxqckZkU2UvSlAyMFdiV0xqTE0rMjZpYUw2SmV2RjFBMmth?=
- =?utf-8?B?bXhPU3dRM29tZWt1anliQmZUS2dKRGFqMmt5Z3lzQjc0M2ltME9pVEp4Smp4?=
- =?utf-8?B?anN1ODR6cVJuenF6RnFpd0kxV1dTcWdPeGMyU21Dc1VFeTNlYjljVWtLU0F6?=
- =?utf-8?B?bjZGSkdlbzMvRkNrTjVBWSsrUVlCQ0FUMkgrbnFMYlBiOTJLQU54U3dkN1BK?=
- =?utf-8?B?NWZYbTNUM3VSbXN2dlVOVUVJSmQvRnZkMmFjMkVSdzZ0ZEowOU9DMUhFdUtI?=
- =?utf-8?B?Qk9hYnBHdi9wSEw0dVBhajJpWTdEbVNua3o5RzBQQ1Z4T01hN3RadXJSN3lJ?=
- =?utf-8?B?QlV6a2xHREFsMjFqQ3NmVHdYUzkzY2pmNXZkYWM0Y2NxazRMYjY1NXltZWd4?=
- =?utf-8?B?Ui8yUFhzU3VQdnFMSWdxd3JkamxyMWZReHhLQjliWDhtTmxqcGdaOVdoNTlv?=
- =?utf-8?B?MW12TEcyenU1eDZUbmZaelBXcFNQRVU1QUx1WlRmb1dFbUtORnozbFJuaHpt?=
- =?utf-8?B?RzJpT1AvdVNEbmFRaU91NzQ4RXFaL29ZNVNNVDZxYTVGdlljdUFXQUpuOGZH?=
- =?utf-8?B?N0dqUUlRUmJiOXNKWjAyWWpLekU1d2ZFM0RLQnBwbDBudVJKUmNFSkhhRGIx?=
- =?utf-8?B?RVZmYkI2Y3VycitjZmdGQVFEeVFzSVBGK0JYMmQ1ZkJ0dVlkZ0hiRDUvODUv?=
- =?utf-8?B?eUF1N3dJNzBLUTRLaWYxcXJHZFNGc0ZJdlZweEg3c0VkSlNIOVdqQmJ1aFk0?=
- =?utf-8?B?cVAvRW8wTjNsZXpkYnZsMDFyVSsrU0NQSllhMmNSY0hiZk9EUG1YclEzTk1h?=
- =?utf-8?B?VXhBbXQyNFZ3bitDbFlyUkFJS2oxOUk3V0oyb1ZXRzVqNzRPTmh1bXFrVEdP?=
- =?utf-8?B?SlJrQnlDeXNMMGZJeHkxSWp2em85RyswRzU1TkVZVWorcjBRa1Nma0djTkVK?=
- =?utf-8?B?ZmhXcitxZlFab21NS0NHSTBvUDRBU0FFTXY3bTNXc1g5MS9lL2lGQ1lUV1E5?=
- =?utf-8?B?MDhVUGc1bktzSjdjMXpmQUloekdvQ3llcWk1aWxYUUl2dDdNN2o2VHQ3SEVP?=
- =?utf-8?B?amp0amxDSnd6QWRmQ2NhdU5uZkkzd0FDNzZVa0VqVWtSYW0wOFE3ZVpsa0x5?=
- =?utf-8?B?OHY0QzhXZVdwVTZXL0lIb3FLOWJMaCtjNkltMFIxczNDeHBvdk5neWNEQnJ2?=
- =?utf-8?B?a0t5c1FYVjVxR003UDZ4anRNQUdaNndpa3U4V1N1YlE1UW96UU1OemdjMkts?=
- =?utf-8?B?cFM0YldVaFZldGc3WFo5RHBDSktsc3phTEVrdHhTeXRRNjkyWFU5U0FkUngy?=
- =?utf-8?B?dWQ4YW5zWTBycXJWd2x2Y0xTNVVrd0hpWktHQmRtbnE2Y01BeXZRVTRRUFpp?=
- =?utf-8?B?SHFRMHdocGUyckVhMnBqNmNOUEtpM1RIOTVuVDlrUWJhNlI0YXhKemRxaTd3?=
- =?utf-8?B?R3d0UVJaWFlsaVNpTkxGdnpZL3NVVlhISlF5aUF0NDFiZ1dwNzgwMDlQKzZR?=
- =?utf-8?B?cXVsQ2N0MkMxQVNBU1dXSmZ2UUlQQm9JajR3QXUzbWVGNDhvTXlwOThnZm9w?=
- =?utf-8?B?RWQ1YVAzWTBESlVVb2h2ZUtCUGJ1YU16NW82WTM5L2hzenBBNnVhT01FNmha?=
- =?utf-8?B?N3I0QU8vaHVJNTRLbUZWM2lFeU95OGs1bHhNYzIyZlFJRmFzb2k3OEQ4Z1Ja?=
- =?utf-8?B?WFZuV2Z2T1ZRRDVlQUQwVFJ0K29aWU5BS3VjK1prL3lIWmtXV3BzLzY1R24w?=
- =?utf-8?B?ekZvSUhUU3phRWFmZk9yUWs3NmRFVmJPcHcxTWlxU1FrRmpqMkhKRWtxSzZ3?=
- =?utf-8?Q?pC8VOXvrw493ZFIGXd?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aVNUOEtOZS9zU05sQ2Q1czg5QjFQck1GYTdaOVFJTDZnMUE1Nm16NXBPMHdX?=
+ =?utf-8?B?enpGcXN4L1FuRS8wQ05OMlpmSHVzTjEvTDBwektiWWJBNTdQYTJzNXh0b2s4?=
+ =?utf-8?B?WlpuZEwvT25MZ3p4Rks3d1B2OW5uRjlOSXR6MWY0QVZRV01KaEREd3J3bTQw?=
+ =?utf-8?B?blBNajQ3cEE3TzI1UTg1RVhpQ1AvU1M4bDd0dGNyTGZKWUQ3SW5XY3BHdUlT?=
+ =?utf-8?B?TE44b2xUVFdRU3c0dk1CMUxZa2Y5STVYRVRFSWtFaFVkQ3Vxa0tnb0NscjZm?=
+ =?utf-8?B?b2dNQTF2TkQ4VVFMRG9MTHVwNVNTcUQxTG9EVm9XVDJjVWMzelczeWduK0hs?=
+ =?utf-8?B?M3hFSURiemRWNVN0MW4rRGtiQm52aUxlQnYzam00c3g4bldPU0N4Q3FEK2k0?=
+ =?utf-8?B?UjF4REloa3FsUDE0ak84U2ZZclp1Q2lNdkJwS3Z2UHRjcjNKT1pxUy9oajUr?=
+ =?utf-8?B?V3BMKzh2U3NsNnZLemdLTWp1QUNDU3JBUVAzbEZmSFEveU5HbDE3cnpOajk2?=
+ =?utf-8?B?L0R4QzlqR2pjVmtNdTg5bUw0TUwrZGxtTUVWVDZxYy9SQWlrMWVCdWtCM21L?=
+ =?utf-8?B?dE5rSVZ5VzlhRFBYV1JPaFpzRjBYSEZzaHBHYmQ4alZxTjI1Q3V1bEJnWG5R?=
+ =?utf-8?B?NjNEQThsZXZrSUZYTUZHVU1DRnVXTVYxN2dFYkQwbjlCdkdHdEVBZ25iZzlu?=
+ =?utf-8?B?OHcxRDE5dmRYSFduYjlUT3V0UmMrTXMzamZ3bmJ0bnQ2VkllcWNLcjkvcjZS?=
+ =?utf-8?B?K2dZQUJjVFlyRXp0M1Z4U29vaWJzcDhZeDhHakFDRlhUUXR1K0NZTkJLRHNo?=
+ =?utf-8?B?RlVyajFraWVyZ0d3TkJkbGNNZ1diNVNIZm94ejQ0S3pVMGxMVnl1MmlIK1Nr?=
+ =?utf-8?B?TU1FdHBiYXIyL3JGSUhuUUp2bWovRzQ2WlBCV3Q5K29pWitMZVlrOVEvcDBL?=
+ =?utf-8?B?WEdGTGROWW9EVEpnUXR3T0dRWmdMaDYrUVdLb1BETzlTQ084cnZvZVlrOWhq?=
+ =?utf-8?B?anRvUUwyNEhCS1BXMDRjTFE1OWM2WHZlVFhreUVnTGllVVhTLzlwODZZQkFQ?=
+ =?utf-8?B?MTEzYzVvbGVxdVFNdkRMdHMyQTliM2R4MHBTRGx3c0ErNmRmUjZVNEcwbEdq?=
+ =?utf-8?B?SG40YjQvUmc1MGpweU0vQUNPR2tmODFKOTNhTjhaNmpSaVNXeDNOa29FU0lN?=
+ =?utf-8?B?ZW9sR3JnZmlDR1A0K21TZnd1aU5RamdOc2wybDN6bExXdFNEbC9lejg3Rm9J?=
+ =?utf-8?B?Q1pGQ3R0WjAxWEVsbDF2eE9OK1EzL0RCQ1ltZlNVUmRJN0N4c2ljU050WkJ6?=
+ =?utf-8?B?WGUyMkZFeDIrOWlPS0NuU0FBVGRjR2xzZlZ1bWpsQXEwcjNTWGswM1MxU28z?=
+ =?utf-8?B?bDNjUXRnckxDYnFROG92Y1hLZmNaRVhMYXdqK0xPVDdtd1FIQXhlaEZqWkwy?=
+ =?utf-8?B?N1dmQWJ0dUdMU1RWeHEyeFlnTkR5SitIbjNlRzJtQ0crYUR0T3NMVHpoVEYy?=
+ =?utf-8?B?SEE2cFhzbTY2RHdQRDYxSVNQbEswWGorOXc2S1NZOEZQMmd2azNMYmlCTTda?=
+ =?utf-8?B?VVpUaGF1VldFMEw0TmNoVGR6ZWV1cGlIL3lYQktSZ0lsRlpQQWNwZE9Zd3g3?=
+ =?utf-8?B?di95N1c0U0ZlYXRtZXFJckxNdGhlc1llSjMxMkp0SDN0cjBvRUhXQ2VtdXZm?=
+ =?utf-8?B?TVNObXVzWmYvMmNqc2JoY0xodEdHWmtkekFGeFNQM25jWTVPQ2NYbUdzTG44?=
+ =?utf-8?B?YWtkSnorWTJHdW1FN3EyWHQySThKYVo4OWpITGJqZ2JydnR3ZWlGLzdSNHN4?=
+ =?utf-8?B?OVFpTmw3TXVtSHBnWDNLbk8zV09DTDY1T0FXb3dyd0F4NkRpcXZCUS9lanNq?=
+ =?utf-8?B?dXJuRGVvbVRYK256N0RDU29TbG5OcE5haU5rOWRLYVFpaGVhajgxTkhmc3g3?=
+ =?utf-8?B?QW9Edy96bVZtT2Z3T1doT1AyUXVRWTZhV2JyNTNWTCttN2xldUYyVFI3ZVhJ?=
+ =?utf-8?B?UG1IOERZNXZWUzBEaHdNeEV4SnJnVEJ2K1RwcGh5cGpJSTRqYk4zbHpFYktE?=
+ =?utf-8?B?QkEwS01PQmZTWXVZb2U1dzBVVk5sQ29SYlZ5ZG5RMzd3M2NDR21CdndZUThS?=
+ =?utf-8?B?bFVCdEViNE1PMlE1d0wySUI3bXlTc2Z0NjVDcnFWQTZoeWNtMGRRRmxIS25j?=
+ =?utf-8?B?Z3J1dGJzU0xSRmNramhCclUyQ2RYTGNINHBvT1ltaVpVWit0U2o5bit2SW4r?=
+ =?utf-8?B?SjZ6OHFiZk15VWZQUnQrNFRmNkloYUFhVUtudHJ4MGdnZ0h1K0phTkljTlBF?=
+ =?utf-8?Q?cIz/x6mcCWJED1YiMA?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01ef2b39-67eb-4d0e-7a6d-08df1982c60e
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 14:55:57.1131 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pj+eMYSkFQ4jE7U7lwaXk7YodeXw7VnuWJrbKsEajXE8H2XPpdUmrTcDv4NIlQDz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9417
+X-MS-Exchange-CrossTenant-AuthSource: LV9PR12MB9831.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ac51ebb-ab3f-4e60-3d2c-08df1983a3d6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 15:02:08.9687 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +o8PR2ZbVhJ2lNybDxG9oGXkolxcwwp3UX9/2dFX7jZJ9CaDgJ+VSNGKxkbR5kc+MaAqvn/mCqOc6cEigIO/Tw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF5C0B6C3B6
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,351 +141,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 23-Sep-26 6:06 PM, James Zhu wrote:
-> 
-> On 2026-09-22 23:39, Lazar, Lijo wrote:
->>
->>
->> On 22-Sep-26 8:40 PM, James Zhu wrote:
->>>
->>> On 2026-09-22 10:26, Lazar, Lijo wrote:
->>>>
->>>>
->>>> On 22-Sep-26 7:41 PM, James Zhu wrote:
->>>>>
->>>>> On 2026-09-22 09:45, Lazar, Lijo wrote:
->>>>>>
->>>>>>
->>>>>> On 22-Sep-26 7:05 PM, James Zhu wrote:
->>>>>>>
->>>>>>> On 2026-09-22 01:22, Lazar, Lijo wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>> On 22-Sep-26 1:33 AM, James Zhu wrote:
->>>>>>>>> Add amdgpu_xcp_get_xcc_mask() to return the XCC instance mask 
->>>>>>>>> for a given
->>>>>>>>> XCP partition. This is needed by upcoming SPM (Stream 
->>>>>>>>> Performance Monitor)
->>>>>>>>> support, which programs hardware per partition and must operate 
->>>>>>>>> only on
->>>>>>>>> the XCCs that belong to a given XCP.
->>>>>>>>>
->>>>>>>>> For partitioned systems the helper returns only the XCCs 
->>>>>>>>> belonging to the
->>>>>>>>> specified XCP. When @xcp_id is AMDGPU_XCP_NO_PARTITION (or the 
->>>>>>>>> device is
->>>>>>>>> not partitioned) it returns the device's full XCC mask (e.g. 
->>>>>>>>> 0xFF for an
->>>>>>>>> 8-XCC device). Note that the full device mask is returned even 
->>>>>>>>> on a
->>>>>>>>> partitioned device; callers that require partition isolation 
->>>>>>>>> (e.g. SPM)
->>>>>>>>> must reject AMDGPU_XCP_NO_PARTITION on a partitioned device 
->>>>>>>>> themselves.
->>>>>>>>>
->>>>>>>>
->>>>>>>> Could you clarifiy on this part - xcp_id = 
->>>>>>>> AMDGPU_XCP_NO_PARTITION usage on 8-XCC device?
->>>>>>>>
->>>>>>>> The default state on a multi-XCC device after driver load is all 
->>>>>>>> XCCs in a single partition called SPX. It should have at least 
->>>>>>>> one partition valid.
->>>>>>>
->>>>>>> [JZ] Yes, 8-XCC device should not reach AMDGPU_XCP_NO_PARTITION 
->>>>>>> case.
->>>>>>>
->>>>>>> the if(!xcp_mgr ||xcp_id ==AMDGPU_XCP_NO_PARTITION) mainly covers 
->>>>>>> non partition device, I can remove the above comments which don't 
->>>>>>> reflect the source accurately.
->>>>>>
->>>>>> Then I'm not sure what issue this is fixing.
->>>>>>
->>>>>> Multi-xcc devices will be in SPX mode and will return a mask with 
->>>>>> all the XCCs. Non-multi xcc devices are expected to have this set 
->>>>>> to 1 anyway to reflect that a single GC is present always.
->>>>> [JZ] Just realized a Fixes tag is added. I think somehow AI review 
->>>>> added it, and I did not check properly, is should be removed also. 
->>>>> Sorry for this confusing!
->>>>
->>>> I see that it also added an external function like this -
->>>>
->>>> amdgpu_xcp_get_xcc_mask
->>>>
->>>> The expectation is any IP instance mask within a partition needs to 
->>>> obtained through - amdgpu_xcp_get_inst_details
->>>>
->>>> Also, amdgpu_xcp_get_xcc_mask provides this which is not correct -
->>>>
->>>> *xcc_mask = adev->gfx.xcc_mask
->>>>
->>>> xcp instance mask operates only return logical mask of instances 
->>>> present (xcc_mask could include disabled ones also).
->>> [JZ] Here is only for non-partition device. I think adev- 
->>> >gfx.xcc_mask=0x1.
->>> I can change it to below code to clear the confusing
->>>
->>> *xcc_mask = BIT(0);
->>>
->>> How Do you think?
->>> Thanks!
->>>
->>
->> Once that is done, it's the same as what exists now (without the extra 
->> function).
->>
->> Also, why do you need get_xcc_mask function? If the difficulty is in 
->> getting amdgpu_xcp* pointer from xcp_id, then a wrapper could be added 
->> and used like
->>
->> xcp = amdgpu_xcp_get_obj(adev, xcp_id);
->> amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX, &xcc_mask);
-> [JZ] Basically, amdgpu_xcp_get_xcc_mask is the above two's combination.
-
-Ok, then suggest to use the two-step route instead of adding specific 
-wrapper per IP.
-
-Adding the first one (get xcp from xcp_id) could be helpful for other 
-scenarios also.
-
-Thanks,
-Lijo
-
->>
->> Thanks,
->> Lijo
->>
->>> James
->>>
->>>>
->>>> Thanks,
->>>> Lijo
->>>>
->>>>>>
->>>>>> Thanks,
->>>>>> Lijo
->>>>>>
->>>>>>>> Thanks,
->>>>>>>> Lioj
->>>>>>>>
->>>>>>>>> amdgpu_xcp_get_num_xcc() is reworked to take (adev, xcp_id) and 
->>>>>>>>> derive the
->>>>>>>>> count from this helper via hweight32(). The helper is defined 
->>>>>>>>> out of line
->>>>>>>>> in amdgpu_xcp.c so that the static inline in amdgpu_xcp.h never 
->>>>>>>>> has to
->>>>>>>>> dereference the (incomplete) struct amdgpu_device; it only 
->>>>>>>>> passes the
->>>>>>>>> pointer through.
->>>>>>>>>
->>>>>>>>> This is a user-visible change: amdgpu_xcp_get_num_xcc() previously
->>>>>>>>> returned 1 for non-partitioned systems (and for 
->>>>>>>>> AMDGPU_XCP_NO_PARTITION),
->>>>>>>>> and now returns the actual XCC count (e.g. 8 for an 8-XCC 
->>>>>>>>> device). CWSR
->>>>>>>>> callers (amdgpu_kms.c, amdgpu_userq.c, mes_userqueue.c) scale 
->>>>>>>>> the per-XCC
->>>>>>>>> control-stack and debug-memory sizes by num_xcc, so the uAPI- 
->>>>>>>>> visible
->>>>>>>>> ctl_stack_size and dbg_mem_size values grow accordingly to 
->>>>>>>>> match the
->>>>>>>>> actual hardware resource requirements, which were previously 
->>>>>>>>> undersized.
->>>>>>>>>
->>>>>>>>> Fixes: 4cd417bfec49 ("drm/amdgpu: Add helper function to get 
->>>>>>>>> xcc count")
->>>>>>>>> Signed-off-by: James Zhu <James.Zhu@amd.com>
->>>>>>>>> Reviewed-by: Bing Ma <bing.ma@amd.com>
->>>>>>>>> ---
->>>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  2 +-
->>>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  2 +-
->>>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    | 48 +++++++++++++ 
->>>>>>>>> ++ ++ +++++
->>>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    | 32 +++++++--------
->>>>>>>>>   drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |  3 +-
->>>>>>>>>   5 files changed, 66 insertions(+), 21 deletions(-)
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/ 
->>>>>>>>> gpu/ drm/amd/amdgpu/amdgpu_kms.c
->>>>>>>>> index 57fa69c0382d..7782ccd4d28f 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>>>>>>>> @@ -1501,7 +1501,7 @@ int amdgpu_info_ioctl(struct drm_device 
->>>>>>>>> *dev, void *data, struct drm_file *filp)
->>>>>>>>>           fpriv = (struct amdgpu_fpriv *)filp->driver_priv;
->>>>>>>>>           if (!amdgpu_trap_is_enabled(adev) || !fpriv->trap_obj)
->>>>>>>>>               return -EOPNOTSUPP;
->>>>>>>>> -        num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv- 
->>>>>>>>> >xcp_id);
->>>>>>>>> +        num_xcc = amdgpu_xcp_get_num_xcc(adev, fpriv->xcp_id);
->>>>>>>>>           cwsr_info.ctl_stack_size =
->>>>>>>>> adev->trap_info->cwsr.xcc_ctl_stack_sz * num_xcc;
->>>>>>>>>           cwsr_info.dbg_mem_size =
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/ 
->>>>>>>>> drivers/ gpu/ drm/amd/amdgpu/amdgpu_userq.c
->>>>>>>>> index db09e879b85e..d19af9cb6ee1 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>>>>>>>> @@ -258,7 +258,7 @@ int 
->>>>>>>>> amdgpu_userq_input_trap_params_validate(struct 
->>>>>>>>> amdgpu_usermode_queue *queue,
->>>>>>>>>       int num_xcc;
->>>>>>>>>       int r;
->>>>>>>>>   -    num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv- 
->>>>>>>>> >xcp_id);
->>>>>>>>> +    num_xcc = amdgpu_xcp_get_num_xcc(adev, fpriv->xcp_id);
->>>>>>>>>       r = amdgpu_trap_validate_params(queue->userq_mgr->adev, 
->>>>>>>>> trap_params,
->>>>>>>>>                       num_xcc);
->>>>>>>>>       if (r)
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/ 
->>>>>>>>> gpu/ drm/amd/amdgpu/amdgpu_xcp.c
->>>>>>>>> index 2a56f5ec9c76..90846d55292b 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
->>>>>>>>> @@ -390,6 +390,54 @@ int amdgpu_xcp_get_inst_details(struct 
->>>>>>>>> amdgpu_xcp *xcp,
->>>>>>>>>       return 0;
->>>>>>>>>   }
->>>>>>>>>   +/**
->>>>>>>>> + * amdgpu_xcp_get_xcc_mask - Get XCC instance mask for a 
->>>>>>>>> partition
->>>>>>>>> + * @adev: amdgpu device pointer
->>>>>>>>> + * @xcp_id: XCP partition ID
->>>>>>>>> + * @xcc_mask: output parameter for XCC instance mask
->>>>>>>>> + *
->>>>>>>>> + * Returns the XCC instance mask for the specified XCP partition.
->>>>>>>>> + * For partitioned systems, returns only the XCCs belonging to 
->>>>>>>>> this XCP.
->>>>>>>>> + *
->>>>>>>>> + * When @xcp_id is AMDGPU_XCP_NO_PARTITION (or the device is not
->>>>>>>>> + * partitioned), the device's full XCC mask is returned (e.g. 
->>>>>>>>> 0xFF for an
->>>>>>>>> + * 8-XCC device). Note that the full device mask is returned 
->>>>>>>>> even on a
->>>>>>>>> + * partitioned device: callers that require partition 
->>>>>>>>> isolation (e.g. SPM)
->>>>>>>>> + * must reject AMDGPU_XCP_NO_PARTITION on a partitioned device 
->>>>>>>>> themselves.
->>>>>>>>> + *
->>>>>>>>> + * Note: On error, xcc_mask is undefined. Callers must check 
->>>>>>>>> return code
->>>>>>>>> + * and only read xcc_mask when return == 0.
->>>>>>>>> + *
->>>>>>>>> + * Return: 0 on success (non-partitioned systems or valid XCP 
->>>>>>>>> found),
->>>>>>>>> + *         -EINVAL if xcc_mask is NULL, no matching XCP id is 
->>>>>>>>> found, or the
->>>>>>>>> + *         partition's GFX IP details are unavailable
->>>>>>>>> + */
->>>>>>>>> +int amdgpu_xcp_get_xcc_mask(struct amdgpu_device *adev, int 
->>>>>>>>> xcp_id,
->>>>>>>>> +                uint32_t *xcc_mask)
->>>>>>>>> +{
->>>>>>>>> +    struct amdgpu_xcp_mgr *xcp_mgr = adev->xcp_mgr;
->>>>>>>>> +    struct amdgpu_xcp *xcp;
->>>>>>>>> +    int i;
->>>>>>>>> +
->>>>>>>>> +    if (!xcc_mask)
->>>>>>>>> +        return -EINVAL;
->>>>>>>>> +
->>>>>>>>> +    if (!xcp_mgr || xcp_id == AMDGPU_XCP_NO_PARTITION) {
->>>>>>>>> +        /* Non-partitioned: return the device's full XCC mask. */
->>>>>>>>> +        *xcc_mask = adev->gfx.xcc_mask;
->>>>>>>>> +        return 0;
->>>>>>>>> +    }
->>>>>>>>> +
->>>>>>>>> +    /* Partitioned system: get this XCP's XCCs */
->>>>>>>>> +    for_each_xcp(xcp_mgr, xcp, i) {
->>>>>>>>> +        if (xcp->id == xcp_id)
->>>>>>>>> +            return amdgpu_xcp_get_inst_details(xcp, 
->>>>>>>>> AMDGPU_XCP_GFX,
->>>>>>>>> +                               xcc_mask);
->>>>>>>>> +    }
->>>>>>>>> +
->>>>>>>>> +    return -EINVAL;
->>>>>>>>> +}
->>>>>>>>> +
->>>>>>>>>   int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
->>>>>>>>>               const struct pci_device_id *ent)
->>>>>>>>>   {
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/ 
->>>>>>>>> gpu/ drm/amd/amdgpu/amdgpu_xcp.h
->>>>>>>>> index 692508be23fb..6eed82ad49b1 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
->>>>>>>>> @@ -44,6 +44,7 @@
->>>>>>>>>   #define XCP_INST_MASK(num_inst, xcp_id)        \
->>>>>>>>>       (num_inst ? GENMASK(num_inst - 1, 0) << (xcp_id * 
->>>>>>>>> num_inst) : 0)
->>>>>>>>>   +struct amdgpu_device;
->>>>>>>>>   struct amdgpu_fpriv;
->>>>>>>>>     enum AMDGPU_XCP_IP_BLOCK {
->>>>>>>>> @@ -219,26 +220,23 @@ amdgpu_get_next_xcp(struct amdgpu_xcp_mgr 
->>>>>>>>> *xcp_mgr, int *from)
->>>>>>>>>       for (i = 0, xcp = amdgpu_get_next_xcp(xcp_mgr, &i); xcp; \
->>>>>>>>>            ++i, xcp = amdgpu_get_next_xcp(xcp_mgr, &i))
->>>>>>>>>   -static inline int amdgpu_xcp_get_num_xcc(struct 
->>>>>>>>> amdgpu_xcp_mgr *xcp_mgr,
->>>>>>>>> -                     int xcp_id)
->>>>>>>>> +int amdgpu_xcp_get_xcc_mask(struct amdgpu_device *adev, int 
->>>>>>>>> xcp_id,
->>>>>>>>> +                uint32_t *xcc_mask);
->>>>>>>>> +
->>>>>>>>> +static inline int amdgpu_xcp_get_num_xcc(struct amdgpu_device 
->>>>>>>>> *adev, int xcp_id)
->>>>>>>>>   {
->>>>>>>>> -    struct amdgpu_xcp *xcp;
->>>>>>>>>       uint32_t xcc_mask;
->>>>>>>>> -    int i, r;
->>>>>>>>> -
->>>>>>>>> -    if (!xcp_mgr || xcp_id == AMDGPU_XCP_NO_PARTITION)
->>>>>>>>> +    int r, count;
->>>>>>>>> +
->>>>>>>>> +    /* Derive the XCC count from the partition's XCC mask (or 
->>>>>>>>> the full
->>>>>>>>> +     * device mask when not partitioned). 
->>>>>>>>> amdgpu_xcp_get_xcc_mask()
->>>>>>>>> +     * handles both partitioned and non-partitioned cases.
->>>>>>>>> +     */
->>>>>>>>> +    r = amdgpu_xcp_get_xcc_mask(adev, xcp_id, &xcc_mask);
->>>>>>>>> +    if (unlikely(r))
->>>>>>>>>           return 1;
->>>>>>>>> -    for_each_xcp(xcp_mgr, xcp, i) {
->>>>>>>>> -        if (xcp->id == xcp_id) {
->>>>>>>>> -            r = amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_GFX,
->>>>>>>>> -                            &xcc_mask);
->>>>>>>>> -            if (unlikely(r))
->>>>>>>>> -                return 1;
->>>>>>>>> -            else
->>>>>>>>> -                return hweight32(xcc_mask);
->>>>>>>>> -        }
->>>>>>>>> -    }
->>>>>>>>>   -    return 1;
->>>>>>>>> +    count = hweight32(xcc_mask);
->>>>>>>>> +    return count ? count : 1;
->>>>>>>>>   }
->>>>>>>>>   #endif
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/ 
->>>>>>>>> drivers/ gpu/drm/amd/amdgpu/mes_userqueue.c
->>>>>>>>> index 16aa22b25098..1c7b2f3227e5 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
->>>>>>>>> @@ -503,8 +503,7 @@ static int mes_userq_mqd_create(struct 
->>>>>>>>> amdgpu_usermode_queue *queue,
->>>>>>>>> uq_mgr_to_fpriv(queue->userq_mgr);
->>>>>>>>>               int num_xcc;
->>>>>>>>>   -            num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr,
->>>>>>>>> -                             fpriv->xcp_id);
->>>>>>>>> +            num_xcc = amdgpu_xcp_get_num_xcc(adev, fpriv- 
->>>>>>>>> >xcp_id);
->>>>>>>>>               trap_params.ctx_save_area_address =
->>>>>>>>>                   compute_mqd->ctx_save_area_va;
->>>>>>>>>               trap_params.cwsr_sz = compute_mqd- 
->>>>>>>>> >ctx_save_area_size;
->>>>>>>>
->>>>>>
->>>>
->>
-
+QU1EIEdlbmVyYWwNCg0KRm9yIHNvbWUgYmFja2dyb3VuZCBvbiBteSBlbmQsIGlzIHRoaXMgdGhl
+IHBvcnRpbmcgb3ZlciBvZiB0aGUgZXhpc3RpbmcgcHJvZmlsZXIgd29yayB0byBLR0Q/DQoNCkJl
+bg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogWmh1LCBKYW1lcyA8SmFtZXMu
+Wmh1QGFtZC5jb20+DQpTZW50OiBXZWRuZXNkYXksIFNlcHRlbWJlciAyMywgMjAyNiA3OjAyIEFN
+DQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFdlbHRvbiwgQmVuamFtaW4gPEJl
+bmphbWluLldlbHRvbkBhbWQuY29tPg0KU3ViamVjdDogUmU6IFtSRkMgMDAvMTBdIGFtZGdwdTog
+aW1wbGVtZW50IFBlcmZvcm1hbmNlIE1vbml0b3IgQ291bnRlciBzdXBwb3J0DQoNCkhpIEJlbiwN
+Cg0KUGxlYXNlIHJldmlldyB0aGVzZSBQTUMgcGF0Y2hlcyBmb3IgdW5pZmllZCBLZXJuZWwgaW50
+ZXJmYWNlLg0KDQpUaGFua3MgYW5kIEJlc3QgUmVnYXJkcyENCg0KSmFtZXMgWmh1DQoNCk9uIDIw
+MjYtMDktMjIgMDU6MzQsIFpodSBMaW5nc2hhbiB3cm90ZToNCj4gVGhpcyBzZXJpZXMgaW1wbGVt
+ZW50cyBQTUMgc3VwcG9ydCBmb3IgYW1kZ3B1LiBJbmNsdWRpbmcgdHdvIHBhcnRzOg0KPiAxKSBQ
+TUMgRW5hYmxlbWVudA0KPiAyKSBQcm9maWxlciBSZXNlcnZhdGlvbg0KPg0KPiBUaGUgdXNlciBz
+cGFjZSBzaG91bGQgdGFrZSB0aGUgcmVzZXJ2YXRpb24sIHRoZW4gc2V0IFBNQy4NCj4NCj4gVGhp
+cyBzZXJpZXMgZGVwZW5kcyBvbiBhbmQgdXNlZCBuZXcgaGVscGVyIGludHJvZHVjZWQgaW4gYW5v
+dGhlcg0KPiBzZXJpZXM6DQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVz
+L2FtZC1nZngvMjAyNi1BdWd1c3QvMTUxNjkyLmh0bWwNCj4NCj4gUGxlYXNlIGhlbHAgUmV2aWV3
+DQo+DQo+IFRoYW5rcyENCj4NCj4gWmh1IExpbmdzaGFuICgxMCk6DQo+ICAgIGRybS9hbWRncHU6
+IGltcGxlbWVudCBQTUMgaW9jdGwgZnJhbWV3b3JrDQo+ICAgIGRybS9hbWRncHU6IGFkZCBkZXZp
+Y2Utd2lkZSBQTUMgY29uZmlnDQo+ICAgIGRybS9hbWRncHU6IGludHJvZHVjZSBQTUMgaW9jdGwg
+aGFuZGxlcg0KPiAgICBkcm0vYW1kZ3B1OiBpbXBsZW1lbnQgcmVzZXJ2YXRpb24gbWVjaGFuaXNt
+IGZvciBQTUMNCj4gICAgZHJtL2FtZGdwdTogc2V0IGRldmljZS13aWRlIFBNQyBlbmFibGVtZW50
+IGluZGljYXRvcg0KPiAgICBkcm0vYW1kZ3B1OiBHRlgxMTogc2V0IG1xZC0+cGVyZmNvdW50IGZy
+b20gbXFkX3Byb3ANCj4gICAgZHJtL2FtZGdwdTogR0ZYMTI6IHNldCBtcWQtPnBlcmZjb3VudCBm
+cm9tIG1xZF9wcm9wDQo+ICAgIGRybS9hbWRncHU6IEdGWDEyLjE6IHNldCBtcWQtPnBlcmZjb3Vu
+dCBmcm9tIG1xZF9wcm9wDQo+ICAgIGRybS9hbWRncHU6IGltcGxlbWVudCBkZXZpY2UgUE1DIGhh
+bmRsZXINCj4gICAgZHJtL2FtZGdwdTogc2V0IHVzZXJxIHBlcmYgc3RhdGUgYmVmb3JlIHB1Ymxp
+c2ggaXQNCj4NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZSAgICAgICAg
+ICB8ICAgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAg
+ICAgIHwgICA4ICsNCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNl
+LmMgICB8ICAgMyArDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5j
+ICAgICAgfCAgIDQgKw0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tZXMu
+aCAgICAgIHwgICA2ICsNCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHJv
+ZmlsZXIuYyB8IDE2NiArKysrKysrKysrKysrKysrKysrDQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3Byb2ZpbGVyLmggfCAgMzggKysrKysNCj4gICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdXNlcnEuYyAgICB8ICA5NSArKysrKysrKysrLQ0KPiAgIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91c2VycS5oICAgIHwgICAyICsNCj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjExXzAuYyAgICAgICB8ICAxMSArKw0KPiAg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTJfMC5jICAgICAgIHwgIDExICsrDQo+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMl8xLmMgICAgICAgfCAgMTEgKysN
+Cj4gICBpbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCAgICAgICAgICAgICAgICB8ICAzNiAr
+KysrDQo+ICAgMTMgZmlsZXMgY2hhbmdlZCwgMzkwIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25z
+KC0pDQo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9wcm9maWxlci5jDQo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9wcm9maWxlci5oDQo+DQo=
