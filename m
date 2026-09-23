@@ -4,122 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6BDAC98304
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 18:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F197C9830B
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 19:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59AF910E13F;
-	Wed, 23 Sep 2026 18:31:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 934CD10E15D;
+	Wed, 23 Sep 2026 19:15:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Y8wOJtEk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Cy4WlYHq";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011031.outbound.protection.outlook.com [52.101.57.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66C5110E13F
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 18:31:00 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012038.outbound.protection.outlook.com [52.101.43.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B43210E15D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 19:15:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KhjZbQRJ5QqpoHr4RQ1O/dF1Xwwh3OZwOj8nZTCMe3nJHokWuHrajoHkOagu4bVmRNmEO8fgMCJFOF7ZIg6zTB0ps8Tdz/4opbUru4fxUr1rUhZSg3K/aw5DKsoQtfJ8gAKjed5/ta5EvAE0JiYn27bJ0GO8Id/j3QALpQcX0/+CL10ouiIeiH/pG62xu05zpnvFyAmyVSDfzluYV5KJB1uWLz3niS8mC1wabw/uPyI7yo2+0NFpY2bT8yPEBkaAxHUw8CpVerw9ErDmMVZvSsEw1iLg1gxe6jnNTBhYiaxs42MXXbp+A0Jr4xvr3MCHSnPVJ+XmXwzj3dR3MpMrzw==
+ b=awHw91W192F9IuIq0kRULtH3kXTn3keR6ZpqARIg/tXSCKuJngJp14E5bHV55lBDl5jM5UtHlT+RmMOYz3nZ6QJc95hBtomYGQnx5jrx05LjCE0H8wHUuujVc+PbURJvGua6EeH83sGpyiPNqwNdtIcmP2pf9iLNLWfzJOTFTAbri1MRT+b+3UYuILIil7P21TIVP3mQ2q7R3oFez9UjvXe6EHukmGjv8A7DlYmYuy0nw/M+rcd7hmjZb4lraioQjS+++Yufj3eS0R7keSZ08/fLuZhlCGqcpXAbP+3dXdajH2fWs3zOGYjW0OZD+nNxvRIdnG+apJIQt7KnDAVcNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1YbkagNmnbH+yDfnOiwFAgguzwJxS36L4VqvZ2rA2Q4=;
- b=YwEendOdSB9RhMsYUb14r/IZszRZ7XurQGS+0bSfiQgAI/yrVPgRpVbIoWgx+8a3WszCVX2msNPkeJL8tHsehgT4b4jIjID3zs1wFwPpaY/1qlFF6xQYLMkOEVAnMqjR5dGfdpCKd2m28wcVlJHqVYThj6zR6Y51WgOcfltfaRawHwFOFPatQEXions4z64Jl1telpQewowwlcU5E5OqL7DJtP+tiRLoO+q8Nfdil+5BNdvjjoDzIjTBSm+LgT+hxwmLosd48aqNHUBpnqE+pA81zIGKYZaGqmIpFTcn11Q6SbbutX6pflNKv+WlJ316G2qaSSOt+CT0KsCJe9KJ0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=nDAd9pt+NpEel3Jrk2902BVn9Ee6PwdvSod1NrW4nDo=;
+ b=Z6Cpr5vcs81j2KVEEm+r/yDvoWMaF0ZX3tvOrFhsDrbefomexshulgVHgyOmKXyEfARscTgLxoOTQLvYuytN+fmug49VdLQCGeo4wpv56f4bXZ4Ioi7dJplE0USCKTNnYBVm2WSfmNhseIGNds6QnVTdqWTz89o1U6fnZRFPugkgzPzw3VN/IidK8mBK/nT7kuBOb+QFLRyBuRRblTj9TApINuDJlAaFWAo2/ExhEOfE3wN0NdQBMqcjrQQwb1ghp6ZE4Z55vuCujCOVeoR/J/9z6qj2d4QgOr/s9uRMawq5spdvZJ4cqYSwVJi0s0XFYviVyGcISx3FNmDMf7QuSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1YbkagNmnbH+yDfnOiwFAgguzwJxS36L4VqvZ2rA2Q4=;
- b=Y8wOJtEknvxNEKzfrYeM0hmREmRnrjM+VkJmo4yxkAw7dE50CsXlKAtJ2pWCVanBLVAniu5nFYK3K2BhkOJG2c5URQLsUvBXug5jLIK+uidj36cfV3zT0pg7Vl8UGx/YRZEnDNj1nl+Sbt2hVM9WWjtyMsIRAT5wD8iqRNc3tC0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5167.namprd12.prod.outlook.com (2603:10b6:5:396::10)
- by CH2PR12MB4280.namprd12.prod.outlook.com (2603:10b6:610:ac::11) with
+ bh=nDAd9pt+NpEel3Jrk2902BVn9Ee6PwdvSod1NrW4nDo=;
+ b=Cy4WlYHqCXB/8womz+5Ca0Q+wo/JTVXxP2rpuZD+aU31zNPNKaPBdIS4Q/JDjHEyI8UTrMDkXqgcFDF0ir4ob32NvyJQEKwJkJzbYhJZimr/zIuexQfPotsWeqhNU9J77hBe+tWZIZSEvOIIsOG0rVINAssKrskbju8wMr9pe8U=
+Received: from SJ0PR05CA0183.namprd05.prod.outlook.com (2603:10b6:a03:330::8)
+ by DM4PR12MB6088.namprd12.prod.outlook.com (2603:10b6:8:af::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Wed, 23 Sep
- 2026 18:30:55 +0000
-Received: from DM4PR12MB5167.namprd12.prod.outlook.com
- ([fe80::4588:54c1:bc29:2c7c]) by DM4PR12MB5167.namprd12.prod.outlook.com
- ([fe80::4588:54c1:bc29:2c7c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 18:30:54 +0000
-Content-Type: multipart/alternative;
- boundary="------------PA3xU9vSu30IsrgJNPdScb0k"
-Message-ID: <b67c667c-519a-48a5-a1ac-df9363eefab9@amd.com>
-Date: Wed, 23 Sep 2026 14:30:44 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: add support for lsdma v8
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Likun Gao <Likun.Gao@amd.com>, Frank Min <Frank.Min@amd.com>
-References: <20260923153303.2807340-1-alexander.deucher@amd.com>
- <20260923153303.2807340-2-alexander.deucher@amd.com>
-Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20260923153303.2807340-2-alexander.deucher@amd.com>
-X-ClientProxiedBy: YT4PR01CA0429.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10b::19) To DM4PR12MB5167.namprd12.prod.outlook.com
- (2603:10b6:5:396::10)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 19:15:49 +0000
+Received: from SJ1PEPF000037AB.namprd03.prod.outlook.com
+ (2603:10b6:a03:330:cafe::1a) by SJ0PR05CA0183.outlook.office365.com
+ (2603:10b6:a03:330::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 23
+ Sep 2026 19:15:49 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000037AB.mail.protection.outlook.com (10.167.244.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 19:15:49 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
+ 2026 14:15:48 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
+ 2026 14:15:48 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 23 Sep 2026 14:15:47 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: use new reset-affected accessors for userspace
+ interfaces
+Date: Wed, 23 Sep 2026 15:15:39 -0400
+Message-ID: <20260923191539.191909-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5167:EE_|CH2PR12MB4280:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9460360e-8066-4ba4-b93e-08df19a0cca3
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AB:EE_|DM4PR12MB6088:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ab7cbae-92f7-4d4c-a666-08df19a713d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|3023799007|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003|8096899003;
-X-Microsoft-Antispam-Message-Info: +jFIquOYhxkN0me07n/2vbGVZWDSvUtq0lj2sAreS5Z4yQeUdScjw2/W9BF/8Q5muagCncScJz5UEnYVjWJzDLIfXaWyRGluFDY2yt/lvj42rF+WMVNzjEpkDNcXoZQAII8WdCYqRLhf+sVF67MkhBMFfIKADYvfyIMkGbGzth48kayGq3C6nQHdUCmDSfDHThOX7UXQT+12uJMCiatEF/mp2r5/QI05QtLoFxF/5m8ra6R4OG/iV6V+a0K8z5j1m0HU8oW4BffDyxDCswC8cKhhNrmHWFpLr+22o87F8W9i7pIgCZghuKwPYTu0efYK24dai/O2dnp1RiJSxBxHyKi7bt/bYMZSfQUZ2TKlOgajhNwmPOtvONnjx+ABk9vSjCQ8t85rCJh/SEiW+t2lSUgNOOiu6lncoI5z9H6SbUIeiHS7xOdIM8jZyn6ASyvRX7sY68nA9s0gV7HQfRPFhs50ppILhedBLi7pA/j7ciHgNHnddUUD2Q9rAXlh2AVznL9elEMHnkJ69ilbJObKwQo1oKjZV9oFFQP37FHvDNrq6yf8YYN+w4ztm5SsqNJGIurHIfczcjuLt5YvmH1W+tjbwkFnjicRLn9Ce0UN/g2d8VFFXzESpcO4wj/Gz8QuF11kvN0EYcduKHSdrBtBImh5SLU/nv7srd3TcRtjVz8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5167.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(3023799007)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(8096899003);
+ ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|6133799003|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: jpV8shqDXHO4p9qlP0JMcrPbOkk8CCfBJTdWifF0TgnInet7kBiQfLATAnuYKuXHvopi/jQHdqA9AMTwbnRJzkp3hpOPGCpuEjUglsD611dYPlbo43/BfQV2WhPQFXgEPyMU7Au7BI1jVWaQEIL+QRaRK5qjCBxUJpjLOSKUpBlt78xaw+d1BfWV7v8xpK3mz3/iCqd50x9zHQtHztq/7iVjOBmr78i80HqXtR2xavZtD1VA/JoHzj19WZ89wvWftx8HoI+9tZzRong8v3D1NZ6H/jkL+h469iQAYzIBwH0cBxMNrcbfUjXO3OxcKfn0v3txI6Nl272Migur5jNiauqdzH7EfRxregF8d5+jf19xpCt/VmqTBKKQRo9qPZ18EjirQclCfopcLy6Q0EzOufjkfJQwlaDVWjHWmUxS7TzELhsGssRqCAcUVeRmIsqee6vjDmnKeMgYXoQxO+Zarb6WN0ePPhCeJbEGXalkjVIzH/JGigRUQrzxQx0V3MnOa0gp0NUbwY6ftOM71bVhywyrdc1KRfr1f3cAkRmoRz4T0FshKaZy0acqub1F89qpZDbsnDzACNOtKx3e8y5B3/IDoLQBUsMeket81cBc6i3Lk3fDwGbQCJAD3eZpbRxFeIQkWhyJn/PR8O3/OUFiLRupQcAzcmcWxXkcKGGu85Z7meytBX9oqXSOo+2h748hZlHGbhApA3y5cqsCWfBKgg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bTczUnR1U3FNNnVLUmQ0VnBqWFBTYjg5V1FlWFR0M0d1U0RFRjd4VTFVL0g1?=
- =?utf-8?B?blJTNWI1aVNNcitQaWVoVTRZWGRMcVg4eWtIb1FQZURFbWVNdlIyODZVdVFn?=
- =?utf-8?B?eUZhaFRrRzZ1YnpSMUUwRUJ0bkQ1ZVV4VmpoOVg4UjIreHVEYndyZ3FsMER3?=
- =?utf-8?B?NFJTTmxxaWNVd3NwbUJmcGVDK3NJc2F3YTlhNjVxWEJhSmdPTEdsdU5CTXAv?=
- =?utf-8?B?cmtQMTdCTDR4MlRMeHhYOThINkJQWDRIVE5iOFRvbEEyUTlPNTZhYnNLclhn?=
- =?utf-8?B?bHB3a1RNbFl4Nm5ldytYNVQzR01pQVpNNldQdUs4T0dwZmxhS2JSTEg1amVG?=
- =?utf-8?B?MndyTUYxbVpDU0hGVkd0b2ZjMFk3cXdDamprZElNb1lYMEVvcE9ybjExaUp1?=
- =?utf-8?B?dlR5WjgrQnlpdnJMWkRTS2JwZXk1bGtKRzFDY0lXaHVLUGYwTlQ4MHlMRHpK?=
- =?utf-8?B?S1l2SWgvYjJ4TlZ1bDBDNzRkSFVCV3hRTFdGUnJpa0N6REVDY1hnbTBkM24v?=
- =?utf-8?B?RGpYOGllWjZzQkxXWVEzRyswY2ZSVHJKMERkWllHZlg4SFhtN0U3MkpiVjI5?=
- =?utf-8?B?dDIxYXN4TExmYTJzSE5LWVVxZVFLeXlpRXQxU0owdkJSaVBLdlRLZ1BHeU1u?=
- =?utf-8?B?WCtQVGd0L1NBc2pETWRyUUh3cS9xbUYxTVErSlFBUGVlaXZMMzFlSDJTcy9U?=
- =?utf-8?B?Lzc5S1AxWTllWERqbVUyVEtoQWl0RG9XM0Rmd2YrcEVIdlNESGpwc3VkNXFh?=
- =?utf-8?B?QnVCbFhidzZRRFYxZ3pNWWRZV0QvTXkxeTU2NzlGV1FSWW9iUXc5cWhhbWtI?=
- =?utf-8?B?U2NtNmhaTkx6NDNDS0pVSXBZRFNrTEMxcUlWZllzTCtMWitvOHlpMzJoN205?=
- =?utf-8?B?QVVNQnpEd0REcFBjWVJBOXQwelZJdG9mZ1JvZjBpVUltQmp4R1FKRVBBRHdK?=
- =?utf-8?B?Y0FyYlJBUVZubXhYUDU5Z1Q5RVprUi9jcWVFWlQxaXFmc2g5VEVjRmtMMnhL?=
- =?utf-8?B?VnBOWGh1b2Jwakx0SW1IZmszQ0JPaE1XaTh3SGxBM2ZLQzdaa3VuL1JqMWRY?=
- =?utf-8?B?Y2o5ZCthQ1ZkV2pjZm9RNzBKVmowRDZhZ3JMTnl3c2xpdC83UEpSVHJJV09T?=
- =?utf-8?B?dFlQWTRDaHgzck9mQlpTT25nNlJFVFNvZDZzb2QrRnBmM01uQXJqbHpLWkNq?=
- =?utf-8?B?cms1bk5Wc2thVy91cDF3VXRHbHdDM3ZmWG5OQlNkNVhFRks3U3hUMnNsZmRC?=
- =?utf-8?B?OFpGTkZnUHdiNTdQczR4VytreFNqMVJkbzBoaGZVWVJiWUl2U0xFSVd6ajht?=
- =?utf-8?B?V3FNUTRUbFE5NGpDdlRqRWNoOUZCbEpadEpQM0lZNm5ORjg1TVg0QmYycDVB?=
- =?utf-8?B?WWVCcWRDNmduVWwrWityc2RLMmVaTGVMVzNNa1ZNZHZBdEFETkJUMFNGZU1r?=
- =?utf-8?B?Nytxd09HelljM1MxSFYwWk5GZzNONzB1SHJ5ZWZXVGNpTXRkV3QxMXVRaElC?=
- =?utf-8?B?bmp3OFBvZUN0Uk85a3plV3BmbEo2TTBEczdoQWtWQTJ6L2hkYUlhZDhzU0xI?=
- =?utf-8?B?UDd2ekxwT0I0ajNLWlF2RWltZ2VsdGhnV2VxK2hsd0JZQjFJcGpFZ2x5WHZT?=
- =?utf-8?B?VEdDWUk3aVIzNFdPWFJuSUFrTTVDM2xOUFk3dFFaOW9WK3FLS3VkNVZnSk1m?=
- =?utf-8?B?Uk9EeVZtU0xFcjdkRnlZK1dsSnBweTJPT3UvNFZqZ1Y1U283N05Ed3lVR3ZL?=
- =?utf-8?B?QUV6UUwxa1l1OW9kRDNEWmc1MDVKWlRiS3NrbFZvRW81TTF2Uk9VZTRVbUVT?=
- =?utf-8?B?QUtFZjgxZi84U1cxSjF4OUdTQjQzR2llM1J5NFpZNnhKMGo2RGRLczR1OHlp?=
- =?utf-8?B?U2hvMktkenFHSUhSQVhqYUtQZU56SDhZRkVXNVhjZnBsRGxPMGN0Nkxub0JM?=
- =?utf-8?B?YTMzRGJuMGpjSkpYck5EbTQ1ZEVXZitjR1d3WFdVUG84ZlF3Y0hGZzBhR1M1?=
- =?utf-8?B?S3o3MGN0bVpib2N5b0pOQ2gwQkt4NXlpS1NLSWdZYyt1VC9veVpNdXlUbm5Y?=
- =?utf-8?B?Y0JHWHNkQ3pTSG1tVFJOcmFQN2E3MXlBcGQ5VVZCd0dTcHc4cjRNUzB4WlFX?=
- =?utf-8?B?TkswTzJPSlN6OEQrRTM2VGNPdG5aRGdlOTZWaFdObGFXOVhyK28wUVpWTHFt?=
- =?utf-8?B?UXVxUDZXcUJsem5XTmYxUUZma2ovZEExWUVKV09iQ0hIbUZpZk9vRUVITkN6?=
- =?utf-8?B?cmY4VFdPWjRuNkJ0L2tNd1JEaE00d1I1N1B3UEN6bTFScHJjeTlWcUc3VWY5?=
- =?utf-8?Q?SZC9RFEFbpZABO5dJq?=
+X-MS-Exchange-AntiSpam-MessageData-0: QpnZ905+recBsh8VNPXQseHXGLLYY74gvx9qrz2PdpGJ3Lr/E2fU8jNXd1x28pYLfBTs3kbjGyRrVUaHDshG2cUbE1uUoos61rSnY63W3pWKcWFIjLrnVkaL45Qh5UkTSKOoUBImmMk2a3Y9uqoC3hZbzcbDA5WAXoEOcqp4DPYut01yT+wExPHqbmkIBc6Ogj64aWo3pnzwVTr/U/5COnzO8cCaUP+rlGLZmFWGdgwmnAlvqlnQri6BLeTdG32Kyoz9NO4rM7saeOw75+Brai/BDtXzy6wYgdV2WtTN8RROJ8nXlkDneiv6N9yscZasogvQ4Zln9z7YB4zJaHoVJEYzpcom0vaiMb50dZaXq8kcoAwoceypmGYrR8bYyUxYzWb+7BA7fbYkIjgmpV5QRFSP2sfvgOyta2cjpB+ZZbjMmFoX4ChcJ9TmdtoVomMm
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9460360e-8066-4ba4-b93e-08df19a0cca3
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5167.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 18:30:54.4165 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 19:15:49.1612 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ab7cbae-92f7-4d4c-a666-08df19a713d5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LSwDiP6KYpu5lDk+ouV39I7SVSWk1j06GDKZsMut9ti+ZptZUWrDUZQFxi8Anf7G
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4280
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037AB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6088
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,505 +113,941 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------PA3xU9vSu30IsrgJNPdScb0k
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Use the new reset critical section accessors for debugfs, sysfs,
+and the INFO IOCTL to provide proper mutual exclusivity
+to hardware with respect the GPU resets.
 
-
-
-On 2026-09-23 11:33, Alex Deucher wrote:
-> From: Likun Gao<Likun.Gao@amd.com>
->
-> Add support for LSDMA v8
->
-> v2: fix wait_pio_status() per Philip's comments.
->
-> Signed-off-by: Likun Gao<Likun.Gao@amd.com>
-> Reviewed-by: Frank Min<Frank.Min@amd.com>
-> Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
-Reviewed-by: Philip Yang <philip.yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   4 +
->   drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c       | 138 ++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h       |  31 ++++
->   4 files changed, 174 insertions(+), 1 deletion(-)
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index 2ea1924571039..83e40f26ddf5f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -92,7 +92,7 @@ amdgpu-y += \
->   	sienna_cichlid.o smu_v13_0_10.o nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o lsdma_v6_0.o \
->   	nbio_v7_9.o aqua_vanjaram.o nbio_v7_11.o lsdma_v7_0.o hdp_v7_0.o nbif_v6_3_1.o \
->   	cyan_skillfish_reg_init.o soc_v1_0.o lsdma_v7_1.o nbio_v6_3_2.o nbio_v7_11_5.o \
-> -	nbif_v7_10.o hdp_v8_0.o
-> +	nbif_v7_10.o hdp_v8_0.o lsdma_v8_0.o
->   
->   # add DF block
->   amdgpu-y += \
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 564f09c308816..202e0b80e5225 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -95,6 +95,7 @@
->   #include "lsdma_v6_0.h"
->   #include "lsdma_v7_0.h"
->   #include "lsdma_v7_1.h"
-> +#include "lsdma_v8_0.h"
->   #include "vcn_v2_0.h"
->   #include "jpeg_v2_0.h"
->   #include "vcn_v3_0.h"
-> @@ -3979,6 +3980,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
->   	case IP_VERSION(7, 1, 0):
->   		adev->lsdma.funcs = &lsdma_v7_1_funcs;
->   		break;
-> +	case IP_VERSION(8, 0, 0):
-> +		adev->lsdma.funcs = &lsdma_v8_0_funcs;
-> +		break;
->   	default:
->   		break;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
-> new file mode 100644
-> index 0000000000000..d19d7f8add50e
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
-> @@ -0,0 +1,138 @@
-> +/*
-> + * Copyright 2026 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include "amdgpu.h"
-> +#include "lsdma_v8_0.h"
-> +#include "amdgpu_lsdma.h"
-> +
-> +#include "lsdma/lsdma_8_0_1_offset.h"
-> +#include "lsdma/lsdma_8_0_1_sh_mask.h"
-> +
-> +static int lsdma_v8_0_wait_pio_status(struct amdgpu_device *adev)
-> +{
-> +	u32 error_mask;
-> +	u32 reg;
-> +	int r;
-> +
-> +	r = amdgpu_lsdma_wait_for(adev, SOC15_REG_OFFSET(LSDMA, 0, regLSDMA_PIO_STATUS),
-> +			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK,
-> +			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK);
-> +	if (r)
-> +		return r;
-> +
-> +	error_mask = LSDMA_PIO_STATUS__ERROR_WRRET_NACK_GEN_ERR_MASK |
-> +		     LSDMA_PIO_STATUS__ERROR_RDRET_NACK_GEN_ERR_MASK |
-> +		     LSDMA_PIO_STATUS__ERROR_INVALID_ADDR_MASK |
-> +		     LSDMA_PIO_STATUS__ERROR_ZERO_COUNT_MASK |
-> +		     LSDMA_PIO_STATUS__ERROR_DRAM_ECC_MASK;
-> +
-> +	reg = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_STATUS);
-> +	if (reg & error_mask) {
-> +		dev_warn(adev->dev, "LSDMA PIO error status bits 0x%x\n", reg & error_mask);
-> +
-> +		/*
-> +		 * write 1 to clear only the set lsdma error status bits
-> +		 */
-> +		WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_STATUS, reg & error_mask);
-> +		return -EIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int lsdma_v8_0_copy_mem(struct amdgpu_device *adev,
-> +			       uint64_t src_addr,
-> +			       uint64_t dst_addr,
-> +			       uint64_t size)
-> +{
-> +	int ret;
-> +	uint32_t tmp;
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_LO, lower_32_bits(src_addr));
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_HI, upper_32_bits(src_addr));
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
-> +
-> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 0);
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
-> +
-> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
-> +
-> +	ret = lsdma_v8_0_wait_pio_status(adev);
-> +	if (ret)
-> +		dev_err(adev->dev, "LSDMA PIO failed to copy memory!\n");
-> +
-> +	return ret;
-> +}
-> +
-> +static int lsdma_v8_0_fill_mem(struct amdgpu_device *adev,
-> +			       uint64_t dst_addr,
-> +			       uint32_t data,
-> +			       uint64_t size)
-> +{
-> +	int ret;
-> +	uint32_t tmp;
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONSTFILL_DATA, data);
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
-> +
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
-> +
-> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 1);
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
-> +
-> +	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
-> +	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
-> +	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
-> +
-> +	ret = lsdma_v8_0_wait_pio_status(adev);
-> +	if (ret)
-> +		dev_err(adev->dev, "LSDMA PIO failed to fill memory!\n");
-> +
-> +	return ret;
-> +}
-> +
-> +const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs = {
-> +	.copy_mem = lsdma_v8_0_copy_mem,
-> +	.fill_mem = lsdma_v8_0_fill_mem,
-> +};
-> diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
-> new file mode 100644
-> index 0000000000000..648d5cc85c48e
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
-> @@ -0,0 +1,31 @@
-> +/*
-> + * Copyright 2026 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef __LSDMA_V8_0_H__
-> +#define __LSDMA_V8_0_H__
-> +
-> +#include "soc15_common.h"
-> +
-> +extern const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs;
-> +
-> +#endif /* __LSDMA_V8_0_H__ */
-
---------------PA3xU9vSu30IsrgJNPdScb0k
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-09-23 11:33, Alex Deucher
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260923153303.2807340-2-alexander.deucher@amd.com">
-      <pre wrap="" class="moz-quote-pre">From: Likun Gao <a class="moz-txt-link-rfc2396E" href="mailto:Likun.Gao@amd.com">&lt;Likun.Gao@amd.com&gt;</a>
-
-Add support for LSDMA v8
-
-v2: fix wait_pio_status() per Philip's comments.
-
-Signed-off-by: Likun Gao <a class="moz-txt-link-rfc2396E" href="mailto:Likun.Gao@amd.com">&lt;Likun.Gao@amd.com&gt;</a>
-Reviewed-by: Frank Min<a class="moz-txt-link-rfc2396E" href="mailto:Frank.Min@amd.com">&lt;Frank.Min@amd.com&gt;</a>
-Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a></pre>
-    </blockquote>
-    Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:philip.yang@amd.com">&lt;philip.yang@amd.com&gt;</a>
-    <blockquote type="cite" cite="mid:20260923153303.2807340-2-alexander.deucher@amd.com">
-      <pre wrap="" class="moz-quote-pre">
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   4 +
- drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c       | 138 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h       |  31 ++++
- 4 files changed, 174 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |   4 +
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c         | 212 ++++++++++++++++++++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c          |   3 +-
+ 4 files changed, 221 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 2ea1924571039..83e40f26ddf5f 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -92,7 +92,7 @@ amdgpu-y += \
- 	sienna_cichlid.o smu_v13_0_10.o nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o lsdma_v6_0.o \
- 	nbio_v7_9.o aqua_vanjaram.o nbio_v7_11.o lsdma_v7_0.o hdp_v7_0.o nbif_v6_3_1.o \
- 	cyan_skillfish_reg_init.o soc_v1_0.o lsdma_v7_1.o nbio_v6_3_2.o nbio_v7_11_5.o \
--	nbif_v7_10.o hdp_v8_0.o
-+	nbif_v7_10.o hdp_v8_0.o lsdma_v8_0.o
- 
- # add DF block
- amdgpu-y += \
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 564f09c308816..202e0b80e5225 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -95,6 +95,7 @@
- #include &quot;lsdma_v6_0.h&quot;
- #include &quot;lsdma_v7_0.h&quot;
- #include &quot;lsdma_v7_1.h&quot;
-+#include &quot;lsdma_v8_0.h&quot;
- #include &quot;vcn_v2_0.h&quot;
- #include &quot;jpeg_v2_0.h&quot;
- #include &quot;vcn_v3_0.h&quot;
-@@ -3979,6 +3980,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(7, 1, 0):
- 		adev-&gt;lsdma.funcs = &amp;lsdma_v7_1_funcs;
- 		break;
-+	case IP_VERSION(8, 0, 0):
-+		adev-&gt;lsdma.funcs = &amp;lsdma_v8_0_funcs;
-+		break;
- 	default:
- 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 1b7673d239dbb..ba1f224fb99aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1780,7 +1780,7 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
  	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
-new file mode 100644
-index 0000000000000..d19d7f8add50e
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.c
-@@ -0,0 +1,138 @@
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the &quot;Software&quot;),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include &lt;linux/delay.h&gt;
-+#include &quot;amdgpu.h&quot;
-+#include &quot;lsdma_v8_0.h&quot;
-+#include &quot;amdgpu_lsdma.h&quot;
-+
-+#include &quot;lsdma/lsdma_8_0_1_offset.h&quot;
-+#include &quot;lsdma/lsdma_8_0_1_sh_mask.h&quot;
-+
-+static int lsdma_v8_0_wait_pio_status(struct amdgpu_device *adev)
-+{
-+	u32 error_mask;
-+	u32 reg;
-+	int r;
-+
-+	r = amdgpu_lsdma_wait_for(adev, SOC15_REG_OFFSET(LSDMA, 0, regLSDMA_PIO_STATUS),
-+			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK,
-+			LSDMA_PIO_STATUS__PIO_IDLE_MASK | LSDMA_PIO_STATUS__PIO_FIFO_EMPTY_MASK);
-+	if (r)
-+		return r;
-+
-+	error_mask = LSDMA_PIO_STATUS__ERROR_WRRET_NACK_GEN_ERR_MASK |
-+		     LSDMA_PIO_STATUS__ERROR_RDRET_NACK_GEN_ERR_MASK |
-+		     LSDMA_PIO_STATUS__ERROR_INVALID_ADDR_MASK |
-+		     LSDMA_PIO_STATUS__ERROR_ZERO_COUNT_MASK |
-+		     LSDMA_PIO_STATUS__ERROR_DRAM_ECC_MASK;
-+
-+	reg = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_STATUS);
-+	if (reg &amp; error_mask) {
-+		dev_warn(adev-&gt;dev, &quot;LSDMA PIO error status bits 0x%x\n&quot;, reg &amp; error_mask);
-+
-+		/*
-+		 * write 1 to clear only the set lsdma error status bits
-+		 */
-+		WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_STATUS, reg &amp; error_mask);
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lsdma_v8_0_copy_mem(struct amdgpu_device *adev,
-+			       uint64_t src_addr,
-+			       uint64_t dst_addr,
-+			       uint64_t size)
-+{
-+	int ret;
-+	uint32_t tmp;
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_LO, lower_32_bits(src_addr));
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_SRC_ADDR_HI, upper_32_bits(src_addr));
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
-+
-+	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 0);
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
-+
-+	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
-+
-+	ret = lsdma_v8_0_wait_pio_status(adev);
+ 
+ 	/* Avoid accidently unparking the sched thread during GPU reset */
+-	r = down_write_killable(&adev->reset_domain->sem);
++	r = amdgpu_reset_domain_access_write_start(adev);
+ 	if (r) {
+ 		pm_runtime_put_autosuspend(dev->dev);
+ 		return r;
+@@ -1811,7 +1811,7 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
+ 		drm_sched_wqueue_start(&ring->sched);
+ 	}
+ 
+-	up_write(&adev->reset_domain->sem);
++	amdgpu_reset_domain_access_write_end(adev);
+ 
+ 	pm_runtime_put_autosuspend(dev->dev);
+ 
+@@ -2043,7 +2043,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
+ 		return -ENOMEM;
+ 
+ 	/* Avoid accidently unparking the sched thread during GPU reset */
+-	r = down_read_killable(&adev->reset_domain->sem);
++	r = amdgpu_reset_domain_access_read_start(adev);
+ 	if (r)
+ 		goto pro_end;
+ 
+@@ -2084,7 +2084,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
+ 	/* restart the scheduler */
+ 	drm_sched_wqueue_start(&ring->sched);
+ 
+-	up_read(&adev->reset_domain->sem);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ pro_end:
+ 	kfree(fences);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index f2f179421c4da..a4ed540409ba7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -776,7 +776,11 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
+ 	}
+ 	case AMDGPU_INFO_TIMESTAMP:
++		ret = amdgpu_reset_domain_access_read_start(adev);
++		if (ret)
++			return -EFAULT;
+ 		ui64 = amdgpu_gfx_get_gpu_clock_counter(adev);
++		amdgpu_reset_domain_access_read_end(adev);
+ 		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
+ 	case AMDGPU_INFO_FW_VERSION: {
+ 		struct drm_amdgpu_info_firmware fw_info;
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index df5bbdab1ea39..88f6afc9c72fa 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -31,6 +31,7 @@
+ #include "amdgpu_display.h"
+ #include "hwmgr.h"
+ #include <linux/power_supply.h>
++#include "amdgpu_reset.h"
+ #include "amdgpu_smu.h"
+ 
+ #define amdgpu_dpm_notify_ac_dc(adev) \
+@@ -46,10 +47,14 @@ int amdgpu_dpm_get_sclk(struct amdgpu_device *adev, bool low)
+ 	if (!pp_funcs->get_sclk)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
 +	if (ret)
-+		dev_err(adev-&gt;dev, &quot;LSDMA PIO failed to copy memory!\n&quot;);
-+
-+	return ret;
-+}
-+
-+static int lsdma_v8_0_fill_mem(struct amdgpu_device *adev,
-+			       uint64_t dst_addr,
-+			       uint32_t data,
-+			       uint64_t size)
-+{
-+	int ret;
-+	uint32_t tmp;
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONSTFILL_DATA, data);
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_LO, lower_32_bits(dst_addr));
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_DST_ADDR_HI, upper_32_bits(dst_addr));
-+
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CONTROL, 0x0);
-+
-+	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_CMDPARAM, CMD_TYPE, 1);
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_CMDPARAM, tmp);
-+
-+	tmp = RREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, BYTE_COUNT, size);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_LOCATION, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_LOCATION, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, SRC_ADDR_INC, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, DST_ADDR_INC, 0);
-+	tmp = REG_SET_FIELD(tmp, LSDMA_PIO_COMMAND, OVERLAP_DISABLE, 0);
-+	WREG32_SOC15(LSDMA, 0, regLSDMA_PIO_COMMAND, tmp);
-+
-+	ret = lsdma_v8_0_wait_pio_status(adev);
++		return 0;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_sclk((adev)->powerplay.pp_handle,
+ 				 low);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -62,10 +67,14 @@ int amdgpu_dpm_get_mclk(struct amdgpu_device *adev, bool low)
+ 	if (!pp_funcs->get_mclk)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
 +	if (ret)
-+		dev_err(adev-&gt;dev, &quot;LSDMA PIO failed to fill memory!\n&quot;);
++		return 0;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_mclk((adev)->powerplay.pp_handle,
+ 				 low);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -523,12 +532,16 @@ int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors senso
+ 		return -EINVAL;
+ 
+ 	if (pp_funcs && pp_funcs->read_sensor) {
++		ret = amdgpu_reset_domain_access_read_start(adev);
++		if (ret)
++			return ret;
+ 		mutex_lock(&adev->pm.mutex);
+ 		ret = pp_funcs->read_sensor(adev->powerplay.pp_handle,
+ 					    sensor,
+ 					    data,
+ 					    size);
+ 		mutex_unlock(&adev->pm.mutex);
++		amdgpu_reset_domain_access_read_end(adev);
+ 	}
+ 
+ 	return ret;
+@@ -1021,7 +1034,10 @@ void amdgpu_dpm_get_current_power_state(struct amdgpu_device *adev,
+ 		goto out;
+ 	}
+ 
++	if (amdgpu_reset_domain_access_read_start(adev))
++		goto out;
+ 	*state = pp_funcs->get_current_power_state(adev->powerplay.pp_handle);
++	amdgpu_reset_domain_access_read_end(adev);
+ 	if (*state < POWER_STATE_TYPE_DEFAULT ||
+ 	    *state > POWER_STATE_TYPE_INTERNAL_3DPERF)
+ 		*state = adev->pm.dpm.user_state;
+@@ -1054,12 +1070,15 @@ enum amd_dpm_forced_level amdgpu_dpm_get_performance_level(struct amdgpu_device
+ 	if (!pp_funcs)
+ 		return AMD_DPM_FORCED_LEVEL_AUTO;
+ 
++	if (amdgpu_reset_domain_access_read_start(adev))
++		return AMD_DPM_FORCED_LEVEL_AUTO;
+ 	mutex_lock(&adev->pm.mutex);
+ 	if (pp_funcs->get_performance_level)
+ 		level = pp_funcs->get_performance_level(adev->powerplay.pp_handle);
+ 	else
+ 		level = adev->pm.dpm.forced_level;
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return level;
+ }
+@@ -1091,6 +1110,7 @@ int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
+ 					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
+ 					AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
+ 					AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
++	int ret;
+ 
+ 	if (!pp_funcs || !pp_funcs->force_performance_level)
+ 		return 0;
+@@ -1108,15 +1128,23 @@ int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
+ 
+ 	if (adev->asic_type == CHIP_RAVEN) {
+ 		if (!(adev->apu_flags & AMD_APU_IS_RAVEN2)) {
++			ret = amdgpu_reset_domain_access_read_start(adev);
++			if (ret)
++				return ret;
+ 			if (current_level != AMD_DPM_FORCED_LEVEL_MANUAL &&
+ 			    level == AMD_DPM_FORCED_LEVEL_MANUAL)
+ 				amdgpu_gfx_off_ctrl(adev, false);
+ 			else if (current_level == AMD_DPM_FORCED_LEVEL_MANUAL &&
+ 				 level != AMD_DPM_FORCED_LEVEL_MANUAL)
+ 				amdgpu_gfx_off_ctrl(adev, true);
++			amdgpu_reset_domain_access_read_end(adev);
+ 		}
+ 	}
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
 +
-+	return ret;
-+}
-+
-+const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs = {
-+	.copy_mem = lsdma_v8_0_copy_mem,
-+	.fill_mem = lsdma_v8_0_fill_mem,
-+};
-diff --git a/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
-new file mode 100644
-index 0000000000000..648d5cc85c48e
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/lsdma_v8_0.h
-@@ -0,0 +1,31 @@
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the &quot;Software&quot;),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __LSDMA_V8_0_H__
-+#define __LSDMA_V8_0_H__
-+
-+#include &quot;soc15_common.h&quot;
-+
-+extern const struct amdgpu_lsdma_funcs lsdma_v8_0_funcs;
-+
-+#endif /* __LSDMA_V8_0_H__ */
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
+ 	if (!(current_level & profile_mode_mask) && (level & profile_mode_mask))
+ 		amdgpu_dpm_enter_umd_state(adev);
+ 	else if ((current_level & profile_mode_mask) &&
+@@ -1142,6 +1170,7 @@ int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
+ 	adev->pm.dpm.forced_level = level;
+ 
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return 0;
+ }
+@@ -1155,10 +1184,14 @@ int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_pp_num_states)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_pp_num_states(adev->powerplay.pp_handle,
+ 					  states);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1173,11 +1206,15 @@ int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
+ 	if (!pp_funcs->dispatch_tasks)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->dispatch_tasks(adev->powerplay.pp_handle,
+ 				       task_id,
+ 				       user_state);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1203,6 +1240,9 @@ int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char *table,
+ 	    !pp_funcs->get_pp_table)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_pp_table(adev->powerplay.pp_handle,
+ 				     &pptable);
+@@ -1213,6 +1253,7 @@ int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char *table,
+ 		memcpy(table, pptable, ret);
+ 	}
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1228,12 +1269,16 @@ int amdgpu_dpm_set_fine_grain_clk_vol(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_fine_grain_clk_vol)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_fine_grain_clk_vol(adev->powerplay.pp_handle,
+ 					       type,
+ 					       input,
+ 					       size);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1249,12 +1294,16 @@ int amdgpu_dpm_odn_edit_dpm_table(struct amdgpu_device *adev,
+ 	if (!pp_funcs->odn_edit_dpm_table)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->odn_edit_dpm_table(adev->powerplay.pp_handle,
+ 					   type,
+ 					   input,
+ 					   size);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1270,12 +1319,16 @@ int amdgpu_dpm_emit_clock_levels(struct amdgpu_device *adev,
+ 	if (!pp_funcs->emit_clock_levels)
+ 		return -ENOENT;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->emit_clock_levels(adev->powerplay.pp_handle,
+ 					   type,
+ 					   buf,
+ 					   offset);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1289,10 +1342,14 @@ int amdgpu_dpm_set_ppfeature_status(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_ppfeature_status)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_ppfeature_status(adev->powerplay.pp_handle,
+ 					     ppfeature_masks);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1305,10 +1362,14 @@ int amdgpu_dpm_get_ppfeature_status(struct amdgpu_device *adev, char *buf)
+ 	if (!pp_funcs->get_ppfeature_status)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_ppfeature_status(adev->powerplay.pp_handle,
+ 					     buf);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1323,11 +1384,15 @@ int amdgpu_dpm_force_clock_level(struct amdgpu_device *adev,
+ 	if (!pp_funcs->force_clock_level)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->force_clock_level(adev->powerplay.pp_handle,
+ 					  type,
+ 					  mask);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1340,9 +1405,13 @@ int amdgpu_dpm_get_sclk_od(struct amdgpu_device *adev)
+ 	if (!pp_funcs->get_sclk_od)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_sclk_od(adev->powerplay.pp_handle);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1350,14 +1419,19 @@ int amdgpu_dpm_get_sclk_od(struct amdgpu_device *adev)
+ int amdgpu_dpm_set_sclk_od(struct amdgpu_device *adev, uint32_t value)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
++	int ret;
+ 
+ 	if (is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	if (pp_funcs->set_sclk_od)
+ 		pp_funcs->set_sclk_od(adev->powerplay.pp_handle, value);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	if (amdgpu_dpm_dispatch_task(adev,
+ 				     AMD_PP_TASK_READJUST_POWER_STATE,
+@@ -1377,9 +1451,13 @@ int amdgpu_dpm_get_mclk_od(struct amdgpu_device *adev)
+ 	if (!pp_funcs->get_mclk_od)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_mclk_od(adev->powerplay.pp_handle);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1387,14 +1465,19 @@ int amdgpu_dpm_get_mclk_od(struct amdgpu_device *adev)
+ int amdgpu_dpm_set_mclk_od(struct amdgpu_device *adev, uint32_t value)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
++	int ret;
+ 
+ 	if (is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	if (pp_funcs->set_mclk_od)
+ 		pp_funcs->set_mclk_od(adev->powerplay.pp_handle, value);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	if (amdgpu_dpm_dispatch_task(adev,
+ 				     AMD_PP_TASK_READJUST_POWER_STATE,
+@@ -1415,10 +1498,14 @@ int amdgpu_dpm_get_power_profile_mode(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_power_profile_mode)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_power_profile_mode(adev->powerplay.pp_handle,
+ 					       buf);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1432,11 +1519,15 @@ int amdgpu_dpm_set_power_profile_mode(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_power_profile_mode)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_power_profile_mode(adev->powerplay.pp_handle,
+ 					       input,
+ 					       size);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1451,6 +1542,9 @@ ssize_t amdgpu_dpm_get_gpu_metrics(struct amdgpu_device *adev, void *buf,
+ 	if (!pp_funcs->get_gpu_metrics)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_gpu_metrics(adev->powerplay.pp_handle,
+ 					&table);
+@@ -1459,6 +1553,7 @@ ssize_t amdgpu_dpm_get_gpu_metrics(struct amdgpu_device *adev, void *buf,
+ 		memcpy(buf, table, ret);
+ 	}
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1472,10 +1567,14 @@ ssize_t amdgpu_dpm_get_pm_metrics(struct amdgpu_device *adev, void *pm_metrics,
+ 	if (!pp_funcs->get_pm_metrics)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_pm_metrics(adev->powerplay.pp_handle, pm_metrics,
+ 				       size);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1489,10 +1588,14 @@ int amdgpu_dpm_get_fan_control_mode(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_fan_control_mode)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_fan_control_mode(adev->powerplay.pp_handle,
+ 					     fan_mode);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1506,10 +1609,14 @@ int amdgpu_dpm_set_fan_speed_pwm(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_fan_speed_pwm)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_fan_speed_pwm(adev->powerplay.pp_handle,
+ 					  speed);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1523,10 +1630,14 @@ int amdgpu_dpm_get_fan_speed_pwm(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_fan_speed_pwm)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_fan_speed_pwm(adev->powerplay.pp_handle,
+ 					  speed);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1540,10 +1651,14 @@ int amdgpu_dpm_get_fan_speed_rpm(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_fan_speed_rpm)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_fan_speed_rpm(adev->powerplay.pp_handle,
+ 					  speed);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1557,10 +1672,14 @@ int amdgpu_dpm_set_fan_speed_rpm(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_fan_speed_rpm)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_fan_speed_rpm(adev->powerplay.pp_handle,
+ 					  speed);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1574,10 +1693,14 @@ int amdgpu_dpm_set_fan_control_mode(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_fan_control_mode)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_fan_control_mode(adev->powerplay.pp_handle,
+ 					     mode);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1593,12 +1716,16 @@ int amdgpu_dpm_get_power_limit(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_power_limit)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_power_limit(adev->powerplay.pp_handle,
+ 					limit,
+ 					pp_limit_level,
+ 					power_type);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1613,10 +1740,14 @@ int amdgpu_dpm_set_power_limit(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_power_limit)
+ 		return -EINVAL;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_power_limit(adev->powerplay.pp_handle,
+ 					limit_type, limit);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1628,9 +1759,12 @@ int amdgpu_dpm_is_cclk_dpm_supported(struct amdgpu_device *adev)
+ 	if (!is_support_sw_smu(adev))
+ 		return false;
+ 
++	if (amdgpu_reset_domain_access_read_start(adev))
++		return false;
+ 	mutex_lock(&adev->pm.mutex);
+ 	cclk_dpm_supported = is_support_cclk_dpm(adev);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return (int)cclk_dpm_supported;
+ }
+@@ -1639,14 +1773,19 @@ int amdgpu_dpm_debugfs_print_current_performance_level(struct amdgpu_device *ade
+ 						       struct seq_file *m)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
++	int ret;
+ 
+ 	if (!pp_funcs->debugfs_print_current_performance_level)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	pp_funcs->debugfs_print_current_performance_level(adev->powerplay.pp_handle,
+ 							  m);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return 0;
+ }
+@@ -1661,11 +1800,15 @@ int amdgpu_dpm_get_smu_prv_buf_details(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_smu_prv_buf_details)
+ 		return -ENOSYS;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_smu_prv_buf_details(adev->powerplay.pp_handle,
+ 						addr,
+ 						size);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1728,11 +1871,15 @@ int amdgpu_dpm_set_pp_table(struct amdgpu_device *adev,
+ 	    !pp_funcs->set_pp_table)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_pp_table(adev->powerplay.pp_handle,
+ 				     buf,
+ 				     size);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1764,10 +1911,14 @@ int amdgpu_dpm_display_configuration_change(struct amdgpu_device *adev,
+ 	if (!pp_funcs->display_configuration_change)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->display_configuration_change(adev->powerplay.pp_handle,
+ 						     input);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1782,11 +1933,15 @@ int amdgpu_dpm_get_clock_by_type(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_clock_by_type)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_clock_by_type(adev->powerplay.pp_handle,
+ 					  type,
+ 					  clocks);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1800,10 +1955,14 @@ int amdgpu_dpm_get_display_mode_validation_clks(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_display_mode_validation_clocks)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_display_mode_validation_clocks(adev->powerplay.pp_handle,
+ 							   clocks);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1818,11 +1977,15 @@ int amdgpu_dpm_get_clock_by_type_with_latency(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_clock_by_type_with_latency)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_clock_by_type_with_latency(adev->powerplay.pp_handle,
+ 						       type,
+ 						       clocks);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1837,11 +2000,15 @@ int amdgpu_dpm_get_clock_by_type_with_voltage(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_clock_by_type_with_voltage)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_clock_by_type_with_voltage(adev->powerplay.pp_handle,
+ 						       type,
+ 						       clocks);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1855,10 +2022,14 @@ int amdgpu_dpm_set_watermarks_for_clocks_ranges(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_watermarks_for_clocks_ranges)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_watermarks_for_clocks_ranges(adev->powerplay.pp_handle,
+ 							 clock_ranges);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1872,10 +2043,14 @@ int amdgpu_dpm_display_clock_voltage_request(struct amdgpu_device *adev,
+ 	if (!pp_funcs->display_clock_voltage_request)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->display_clock_voltage_request(adev->powerplay.pp_handle,
+ 						      clock);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1889,10 +2064,14 @@ int amdgpu_dpm_get_current_clocks(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_current_clocks)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_current_clocks(adev->powerplay.pp_handle,
+ 					   clocks);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1904,9 +2083,12 @@ void amdgpu_dpm_notify_smu_enable_pwe(struct amdgpu_device *adev)
+ 	if (!pp_funcs->notify_smu_enable_pwe)
+ 		return;
+ 
++	if (amdgpu_reset_domain_access_read_start(adev))
++		return;
+ 	mutex_lock(&adev->pm.mutex);
+ 	pp_funcs->notify_smu_enable_pwe(adev->powerplay.pp_handle);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ }
+ 
+ int amdgpu_dpm_set_active_display_count(struct amdgpu_device *adev,
+@@ -1918,10 +2100,14 @@ int amdgpu_dpm_set_active_display_count(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_active_display_count)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_active_display_count(adev->powerplay.pp_handle,
+ 						 count);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1935,10 +2121,14 @@ int amdgpu_dpm_set_min_deep_sleep_dcefclk(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_min_deep_sleep_dcefclk)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return ret;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->set_min_deep_sleep_dcefclk(adev->powerplay.pp_handle,
+ 						   clock);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1951,10 +2141,13 @@ void amdgpu_dpm_set_hard_min_dcefclk_by_freq(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_hard_min_dcefclk_by_freq)
+ 		return;
+ 
++	if (amdgpu_reset_domain_access_read_start(adev))
++		return;
+ 	mutex_lock(&adev->pm.mutex);
+ 	pp_funcs->set_hard_min_dcefclk_by_freq(adev->powerplay.pp_handle,
+ 					       clock);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ }
+ 
+ void amdgpu_dpm_set_hard_min_fclk_by_freq(struct amdgpu_device *adev,
+@@ -1965,10 +2158,13 @@ void amdgpu_dpm_set_hard_min_fclk_by_freq(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_hard_min_fclk_by_freq)
+ 		return;
+ 
++	if (amdgpu_reset_domain_access_read_start(adev))
++		return;
+ 	mutex_lock(&adev->pm.mutex);
+ 	pp_funcs->set_hard_min_fclk_by_freq(adev->powerplay.pp_handle,
+ 					    clock);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ }
+ 
+ int amdgpu_dpm_display_disable_memory_clock_switch(struct amdgpu_device *adev,
+@@ -1980,10 +2176,14 @@ int amdgpu_dpm_display_disable_memory_clock_switch(struct amdgpu_device *adev,
+ 	if (!pp_funcs->display_disable_memory_clock_switch)
+ 		return 0;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return 0;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->display_disable_memory_clock_switch(adev->powerplay.pp_handle,
+ 							    disable_memory_clock_switch);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -1997,10 +2197,14 @@ int amdgpu_dpm_get_max_sustainable_clocks_by_dc(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_max_sustainable_clocks_by_dc)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return 0;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_max_sustainable_clocks_by_dc(adev->powerplay.pp_handle,
+ 							 max_clocks);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -2015,11 +2219,15 @@ enum pp_smu_status amdgpu_dpm_get_uclk_dpm_states(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_uclk_dpm_states)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return 0;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_uclk_dpm_states(adev->powerplay.pp_handle,
+ 					    clock_values_in_khz,
+ 					    num_states);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+@@ -2033,10 +2241,14 @@ int amdgpu_dpm_get_dpm_clock_table(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_dpm_clock_table)
+ 		return -EOPNOTSUPP;
+ 
++	ret = amdgpu_reset_domain_access_read_start(adev);
++	if (ret)
++		return 0;
+ 	mutex_lock(&adev->pm.mutex);
+ 	ret = pp_funcs->get_dpm_clock_table(adev->powerplay.pp_handle,
+ 					    clock_table);
+ 	mutex_unlock(&adev->pm.mutex);
++	amdgpu_reset_domain_access_read_end(adev);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 7fee5c88b6736..f16e512e23de3 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -27,7 +27,6 @@
+ #include "amdgpu_drv.h"
+ #include "amdgpu_pm.h"
+ #include "amdgpu_dpm.h"
+-#include "amdgpu_reset.h"
+ #include "atom.h"
+ #include <linux/pci.h>
+ #include <linux/hwmon.h>
+@@ -144,7 +143,7 @@ static int amdgpu_pm_dev_state_check(struct amdgpu_device *adev, bool runpm)
+ 	bool runpm_check = runpm ? adev->in_runpm : false;
+ 	bool full_init = (adev->init_lvl->level == AMDGPU_INIT_LEVEL_DEFAULT);
+ 
+-	if (amdgpu_in_reset(adev) || !full_init)
++	if (!full_init)
+ 		return -EBUSY;
+ 
+ 	if (adev->in_suspend && !runpm_check)
+-- 
+2.55.0
 
---------------PA3xU9vSu30IsrgJNPdScb0k--
