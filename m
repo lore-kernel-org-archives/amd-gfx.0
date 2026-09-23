@@ -4,52 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B451C98317
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A33D4C9831F
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6113110F50B;
-	Thu, 24 Sep 2026 12:46:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5E6710F51B;
+	Thu, 24 Sep 2026 12:46:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qNd/Ktpd";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="eE85QjJd";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C71E310F1B6;
- Wed, 23 Sep 2026 20:45:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2267A10E8D2;
+ Wed, 23 Sep 2026 14:19:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=IrmfyULebZBPzoJSufltClhMtshZzIp0+hcOBmBFC+k=; b=qNd/Ktpd14fw/fSPiGChudytRi
- JSmYp0XkPdaThkKLo+kViT6OMsCwsCiEsusBJp063rZFU9/gCHlV8OLjHZ4lhhS6Gz6daF/K+6+0v
- RT9wpsmYgMj/QUWE9PKsSsRitMG/inmJ51RNmdV2099JISz4D//GQ95B8yNmZDmSovSrZ3ykvo1jZ
- lId5vFYmI6NlNfCfTe8fhnBb82gsAzRjAiQccrtc/ZmRti01tXxu4XQa8U/+6Dwe9OA+0IimP7iSO
- SX+m5X1M9UsMPYZLGHc/QrZJkUTYezhyq9eqxVsrmJEgFMXQp67Pw5vb6Vw59eTZPqSt+e9un92WI
- u1q1g0eQ==;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:From:Reply-To;
+ bh=HqAmVeDq0Xmp4284QMBTCuecYpj+XiDlnoBOqc1mOIs=; b=eE85QjJdIrahN6yNF6+V1tMCgW
+ R0pLsiZXSh/EjcaNLKhZq2v+SVMTXxHer31bvj+lgHYzJWROqjj2THzflNz9DAqK3BesfTeRGbbdW
+ WiCdWBLQBW8urbBP79bm6GgYjjc4gOiHoBW4C0sWS6u2C/gz1q1L4q2eZoniMXAa0LG3czxMUQHsW
+ Y6hCLsWqRDUkM8JiAlruYmhljU5iOZQEfoe2mnmhmeef1894HWskKEY3y8znWAVx0H52obRGzTOMi
+ EkK4Zm5aaiq4dN9VCbRooAlgHRWKqROIBw8Mql2hjTYnHEiFYaAzfBSkAuDVMsOw+842ZdSez1xSn
+ OSgf8e4w==;
 Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x9TqP-006KVk-9N; Wed, 23 Sep 2026 22:45:33 +0200
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x9NoH-006B6q-03; Wed, 23 Sep 2026 16:18:57 +0200
+Date: Wed, 23 Sep 2026 11:18:50 -0300
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Wed, 23 Sep 2026 17:44:44 -0300
-Subject: [PATCH i-g-t v7 9/9] tests/cgroup_dmem: add test for dmem.current
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260923-dmem_max-v7-9-194ea47bbb4d@igalia.com>
-References: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
-In-Reply-To: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, 
- maarten.lankhorst@linux.intel.com, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>, 
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Natalie Vock <nat@pixelcluster.dev>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-X-Mailer: b4 0.16-dev-62088
-X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:11 +0000
+Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
+ amdgpu_vm_update_range fails
+Message-ID: <arPfyosqiB-uzL-e@quatroqueijos.cascardo.eti.br>
+References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
+ <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
+ <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
+ <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
+ <aqkf0LE51mObdEJc@quatroqueijos.cascardo.eti.br>
+ <fb733813-9e4d-494a-ba60-469261340e74@amd.com>
+ <aqktL4Ui1MaIvs_j@quatroqueijos.cascardo.eti.br>
+ <a59d3421-a241-4497-9890-0b94329b94da@amd.com>
+ <arPakAXXW1TdfF0Z@quatroqueijos.cascardo.eti.br>
+ <f4c3bdb7-3b6e-49f1-9baf-36ab069faac0@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f4c3bdb7-3b6e-49f1-9baf-36ab069faac0@amd.com>
+X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,209 +74,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Based on the work of Thomas HellstrÃ¶m to test dmem.max eviction, add a
-test for dmem.current usage after allocations and setting dmem.max.
+On Wed, Sep 23, 2026 at 03:58:27PM +0200, Christian König wrote:
+> On 9/23/26 15:56, Thadeu Lima de Souza Cascardo wrote:
+> > On Tue, Sep 15, 2026 at 03:56:00PM +0200, Christian König wrote:
+> >> On 9/15/26 13:34, Thadeu Lima de Souza Cascardo wrote:
+> >>> On Tue, Sep 15, 2026 at 01:22:48PM +0200, Christian König wrote:
+> >>>> On 9/15/26 12:37, Thadeu Lima de Souza Cascardo wrote:
+> >>>>> On Tue, Sep 15, 2026 at 10:53:43AM +0200, Natalie Vock wrote:
+> >>>>>> On 9/15/26 10:33, Christian König wrote:
+> >>>>>>> On 9/14/26 22:25, Thadeu Lima de Souza Cascardo wrote:
+> >>>>>>>> If amdgpu_vm_update_range fails when called by amdgpu_vm_clear_freed,
+> >>>>>>>> the clearing of that mapping will not be attempted again. Later on, when
+> >>>>>>>> an IB tries to read that mapping, the read succeeds, leading to a
+> >>>>>>>> potential info leak, or even data corruption, if it attempts to write to
+> >>>>>>>> it.
+> >>>>>>>>
+> >>>>>>>> If the mapping is left in the freed list, then clearing will be
+> >>>>>>>> attempted again during amdgpu_cs_ioctl, which will either fail and not
+> >>>>>>>> submit the job or will succeed in clearing the mapping, preventing the
+> >>>>>>>> invalid access.
+> >>>>>>>
+> >>>>>>> Same as I replied to oushinnyo <oushinnyo@163.com>, absolutely clear NAK to that.
+> >>>>>>>
+> >>>>>>> amdgpu_vm_update_range() can only fail when the device is hot removed and we don't care about clearing page tables in that case.
+> >>>>>>
+> >>>>>> Actually, how so? The SDMA update path has lots of allocations that happen
+> >>>>>> at random points throughout the update process (think the SDMA IB being
+> >>>>>> exhausted, then vm_funcs->update() will allocate a new one and can fail on
+> >>>>>> that, or various fence allocations. Some paths allocate from the delayed IB
+> >>>>>> pool which is just regular GFP_KERNEL, why couldn't these allocations fail?
+> >>>>>>
+> >>>>>> Aside from that, the more trivial failure path that I think Thadeu is also
+> >>>>>> talking about here is that amdgpu_vm_ptes_update will call
+> >>>>>> amdgpu_vm_pt_alloc (so that happens in the middle of VM updates) and these
+> >>>>>> allocations can fail. I'm not even sure if drm_exec can save this one
+> >>>>>> because we need to be ready to drop locks and retry.
+> >>>>>>
+> >>>>>> I get that failing is unacceptable for the cases inside a pagefault handler
+> >>>>>> (though I'm not sure if anything of what I mentioned applies here, pagefault
+> >>>>>> VM updates are immediate so they get GFP_ATOMIC, but maybe the pagefault
+> >>>>>> handler could still allocate PTs?) but for anything else, failure seems like
+> >>>>>> a possibility and maybe we should think about handling it in some way.
+> >>>>>>
+> >>>>>> I'm not sure I see a problem in keeping BOs invalidated and backing off
+> >>>>>> later, since new submissions should be rejected unless the VM manages to
+> >>>>>> complete all updates successfully.
+> >>>>>>
+> >>>>>> Best,
+> >>>>>> Natalie
+> >>>>>>
+> >>>>>
+> >>>>> Thanks, Natalie, those are exactly the possible scenarios here:
+> >>>>> amdgpu_job_alloc and amdgpu_vm_pt_alloc might fail.
+> >>>>>
+> >>>>> Christian,
+> >>>>>
+> >>>>> I have started this investigation once I observed the kmemleak that is
+> >>>>> fixed by the other 3 patches. Natalie brings up the exact case where this
+> >>>>> might happen: amdgpu_vm_pt_alloc fails as all other VRAM BOs are locked as
+> >>>>> they are either ALWAYS_VALID BOs or PT BOs, thus sharing the same dma_resv.
+> >>>>
+> >>>> Yeah and on a clear there is never a single page table allocated. What could be is that temporary memory allocations fail, but we need to make sure that never happens by using the emergency reserves and/or pools.
+> >>>>> Here is a log showing up that something failed during the update:
+> >>>>> [ 3839.556311] [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-12)
+> >>>>
+> >>>> That is failed memory allocation while trying to map something which we also ignore and delegate to the next CS.
+> >>>>
+> >>>
+> >>> Yep, that is a possibility as well and amdgpu_vm_bo_update is not ignoring
+> >>> the failure here and leaves the mappings in the invalids list, which the
+> >>> next CS will try to map.
+> >>>
+> >>>>>
+> >>>>> The investigation then led to a reproducer, which is able to trigger the
+> >>>>> list corruption that is mentioned in patch 4.
+> >>>>>
+> >>>>> And given the kmemleak stack trace shows amdgpu_vm_clear_freed in the stack
+> >>>>> trace, that should clearly be where the failure has happened. Looking at
+> >>>>> the function, then I noticed it ignores the return code and still removes
+> >>>>> the mappings from the list. I was able to write a second reproducer that
+> >>>>> triggers the failure, then releases some memory and demonstrate that
+> >>>>> amdgpu_cs_ioctl does not clear the freed page tables as the freed list is
+> >>>>> empty.
+> >>>>
+> >>>> Unmap/clear operations are also used in MMU notifiers who can't give an error back to higher levels but rather need to unmap the area no matter what.
+> >>>>
+> >>>> So basically that is an operation which can never fail in the first place (except for device is completely gone and then we don't care any more).
+> >>>>
+> >>>> I'm about to split the map/unmap into separate functions to make it clear that unmap operations can't fail.
+> >>>>
+> >>>> When you have a reproducer and can pinpoint where exactly the memory allocation fails that would be rather helpful here.
+> >>>>
+> >>>
+> >>> What I understand that happens in the case of clear_freed is that we are
+> >>> breaking a PDB/hugepage and descending, as the clear happened in the middle
+> >>> of the hugepage. With the specific reproducer I had to go through lengths
+> >>> of making sure that the original mapping landed on a hugepage-aligned
+> >>> address, then used CLEAR/amdgpu_vm_clear_mappings to unmap a single page in
+> >>> the middle of it.
+> >>
+> >> Yeah that is exactly the broken case I'm already working on.
+> >>
+> >> In that case the clear should just unmap the whole hugepage and not allocate new PDs.
+> >>
+> > 
+> > Agreed that we should also do this. Because my patchset does not prevent
+> > the issue and if there is no relief on memory pressure, the failure will
+> > end up in amdgpu_cs_ioctl, resulting in a submission failure.
+> > 
+> > In any case, given that other causes could still result in the similar
+> > symptoms (memory leak, list corruption), would you consider applying this
+> > patchset?
+> 
+> No, the code changed by this patch here at least is actually fully correct.
+> 
+> Regards,
+> Christian.
+> 
 
-Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-check current usage is within a small slack of the expected allocation.
-Then, set max to a small value and check allocations and current usage
-are limited to the max set.  Set max to less than a single BO size, then
-check no allocations are allowed and current usage is also within the
-slack. After each allocation, release memory and check current usage
-has gone down.
+What about the other 3 patches? If there is less controversy around them, I
+can submit them as a new patchset version.
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- tests/cgroup_dmem.c | 147 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 147 insertions(+)
+Thanks.
+Cascardo.
 
-diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-index 7f3cfe22db2c..1f01037e1cf2 100644
---- a/tests/cgroup_dmem.c
-+++ b/tests/cgroup_dmem.c
-@@ -36,6 +36,8 @@
- #define BO_SIZE			SZ_64M
- #define MAX_LIMIT		((uint64_t)4 * SZ_1G)
- #define EVICT_STEP		SZ_128M
-+#define USAGE_POLL_MS		10
-+#define USAGE_DROP_TIMEOUT_MS	1000
- 
- #define TEST_INTERRUPTIBLE	(1 << 0)
- #define TEST_NONBLOCK		(1 << 1)
-@@ -48,6 +50,20 @@
-  *  and configured limits, then destroys the cgroup.
-  */
- 
-+/**
-+ * SUBTEST: current
-+ * DESCRIPTION:
-+ *  Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-+ *  check current usage is within a small slack of the expected allocation.
-+ *  Then, set max to a small value and check allocations and current usage
-+ *  are limited to the max set.
-+ *  Set max to less than a single BO size, then check no allocations are allowed
-+ *  and current usage is also within the slack.
-+ *  After each allocation, release memory and check current usage has gone
-+ *  down.
-+ *  This subtest requires GPU device with at least one VRAM region.
-+ */
-+
- /**
-  * SUBTEST: write_eviction
-  * DESCRIPTION:
-@@ -116,6 +132,23 @@ static void install_sigcont_counter(void)
- 	sigaction(SIGCONT, &sa, &sigcont_oldact);
- }
- 
-+static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
-+				    uint64_t limit)
-+{
-+	uint64_t current;
-+	unsigned int elapsed = 0;
-+
-+	do {
-+		igt_cgroup_dmem_get_current(cg, region, &current);
-+		if (current <= limit)
-+			return current;
-+		usleep(USAGE_POLL_MS * 1000);
-+		elapsed += USAGE_POLL_MS;
-+	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
-+
-+	return current;
-+}
-+
- static int allocate_vram(void **handles, const struct igt_dmem_driver *drv,
- 			 void *ctx, int max_bo, size_t len)
- {
-@@ -137,6 +170,119 @@ static int allocate_vram(void **handles, const struct igt_dmem_driver *drv,
- 	return err;
- }
- 
-+static void free_vram(void **handles, const struct igt_dmem_driver *drv,
-+		      void *ctx, int max_bo)
-+{
-+	int i;
-+	for (i = 0; i < max_bo; i++)
-+		drv->free_vram(ctx, handles[i]);
-+}
-+
-+static void test_current(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
-+{
-+	struct igt_cgroup *cg;
-+	void **handles;
-+	uint64_t current, capacity, cg_max;
-+	int n_bo = 0, max_bo;
-+
-+	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-+	igt_require_f(capacity >= 4 * BO_SIZE,
-+		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
-+		      capacity / SZ_1M);
-+
-+	/*
-+	 * Use up to 4 GiB, or the full capacity if the device has less.
-+	 * Leave one BO_SIZE worth of headroom so the device isn't completely
-+	 * exhausted before the cgroup limit is hit.
-+	 */
-+	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
-+	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
-+
-+	/* Create cgroup and move into it */
-+	cg = igt_cgroup_new("igt_cgroups_test");
-+	igt_cgroup_move_current(cg);
-+
-+	max_bo = cg_max / BO_SIZE;
-+
-+	handles = calloc(max_bo, sizeof(handles[0]));
-+	igt_assert_f(handles, "failed to allocate handles array");
-+
-+	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == cg_max,
-+		     "current usage (%"PRIu64" MiB) is not requested allocation (%"PRIu64" MiB)\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	free_vram(handles, drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE, false);
-+
-+	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 2 * BO_SIZE,
-+		     "current usage (%"PRIu64" MiB) is not requested max allocation (%"PRIu64" MiB)\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	free_vram(handles, drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	igt_cgroup_dmem_set_max(cg, cg_region, 0, false);
-+
-+	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
-+
-+	/*
-+	 * amdgpu may succeed the allocation, by falling back to GTT, so no assertion here.
-+	 * Verify by reading current usage.
-+	 */
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	if (n_bo > 0)
-+		free_vram(handles, drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+}
-+
- static void test_write_eviction(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
- {
- 	struct igt_cgroup *cg;
-@@ -246,6 +392,7 @@ static const struct {
- 	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx);
- 	unsigned int flags;
- } subtests[] = {
-+	{ "current", test_current, 0 },
- 	{ "write_eviction", test_write_eviction, 0 },
- 	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
- 	{ "write_eviction_nonblock", test_write_eviction, TEST_NONBLOCK },
-
--- 
-2.47.3
-
+> > 
+> >> Re-mapping the two fragments before and after the unmapped area is supposed to allocate the new PDs.
+> >>
+> >> Without that we run into tons of problems with userptrs and MMU notifiers.
+> >>
+> >> I will CC you on the patches I have so far.
+> >>
+> > 
+> > Please, do. I will be happy to test it and review it.
+> > 
+> > Thanks.
+> > Cascardo.
+> > 
+> >> Regards,
+> >> Christian.
+> >>
+> >>>
+> >>> The other reproducer that I have required that I used REPLACE instead of
+> >>> MAP in order to trigger the tlb_flush_waitlist issue. REPLACE does call
+> >>> amdgpu_vm_clear_mappings too. Notice that RADV Mesa driver uses REPLACE,
+> >>> instead of MAP, so that explains that we can see this in production.
+> >>>
+> >>> Regards.
+> >>> Cascardo.
+> >>>
+> >>>> Regards,
+> >>>> Christian.
+> >>>>
+> >>>>>
+> >>>>> Regards.
+> >>>>> Cascardo.
+> >>>>>
+> >>>>>>>
+> >>>>>>> Regards,
+> >>>>>>> Christian.
+> >>>>>>>
+> >>>>>>>>
+> >>>>>>>> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+> >>>>>>>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> >>>>>>>> ---
+> >>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+> >>>>>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
+> >>>>>>>>
+> >>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> >>>>>>>> index 09037df76400..5bde36754607 100644
+> >>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> >>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> >>>>>>>> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+> >>>>>>>>   	while (!list_empty(&vm->freed)) {
+> >>>>>>>>   		mapping = list_first_entry(&vm->freed,
+> >>>>>>>>   			struct amdgpu_bo_va_mapping, list);
+> >>>>>>>> -		list_del(&mapping->list);
+> >>>>>>>>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
+> >>>>>>>>   					   &sync, mapping->start, mapping->last,
+> >>>>>>>>   					   0, 0, 0, NULL, NULL, &f);
+> >>>>>>>> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+> >>>>>>>>   		if (r) {
+> >>>>>>>>   			dma_fence_put(f);
+> >>>>>>>>   			goto error_free;
+> >>>>>>>>   		}
+> >>>>>>>> +		list_del(&mapping->list);
+> >>>>>>>> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+> >>>>>>>>   	}
+> >>>>>>>>   	if (fence && f) {
+> >>>>>>>>
+> >>>>>>>
+> >>>>>>
+> >>>>
+> >>
+> 
