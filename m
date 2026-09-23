@@ -4,76 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E51CC9831E
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B451C98317
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BF5210F519;
-	Thu, 24 Sep 2026 12:46:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6113110F50B;
+	Thu, 24 Sep 2026 12:46:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bRpWzDA7";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qNd/Ktpd";
 	dkim-atps=neutral
-Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com
- [74.125.229.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B58AC10E941
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 16:28:54 +0000 (UTC)
-Received: by mail-dl2-f39.google.com with SMTP id
- a92af1059eb24-1438cb9b3a3so1179932c88.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 09:28:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790180934; x=1790785734; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=iB3sCFIdT441Ve5Xr6bVNZSuT6o8nHC9HcOE4t6cLwY=;
- b=bRpWzDA7n12g0D4rLy7fGRxlA5wUrNs8OOxrH41hOplYyZAY/HFpvk9Tc61DYwBNRf
- vOq7BzuWY0Om+apv2reB6QS7OIbPMCI3V5PR1GZxuZfrjyo/MqI0jCsEFjSwtR+g6srG
- wJyluzqzJEDuvBwGIOOw9KBv/lcB+X54rK9d7+kXdtyC67YDdo9BvkuxaAKCbGRLFfUp
- Xa0mLZDASkZumAeDwK9oqFxIjunW8sey9hIrMx9vWEQpTQwEVZlUpC9VOo/yUoNYiO1n
- cZ6tduMxPA2Iwi2PsCYM5jLCm/gXhbd0sKApYRZvWDuSg3ipyXUb8BqPKXJS4wWMNVIU
- 4fDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790180934; x=1790785734;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=iB3sCFIdT441Ve5Xr6bVNZSuT6o8nHC9HcOE4t6cLwY=;
- b=sEDbE0PTktgFkQQ6QVdEdBpnr2QaOdsbyTgDBkjrWwcZawhnKCMmDE+qi3ZAnJSxtE
- LVRrCFqI90763dcU6w5RU/CTZs/ud1LxlPHkhGswrBcj5GlzgbQIMe2n4PTaz93sbfc5
- VGh3SUlt8nLbU1DL/qopuP2DYf7kExA/ud3r1i5tMVkcKVhHoohoSNGspbzwi5ibqJRc
- aWMC5+sgx62zSTUpF+dv1XYkUUNqt4SKooViVS3U32xN8e0ZoQeQNszWFPGTz1GW3Mdp
- 2XFzhm9ni7SVsvhmiAb1ucOXRrec2cgW3Y1TrmiDIjdCWaaFQ7oXwetXN3FF7lnkp6ag
- C/RA==
-X-Gm-Message-State: AFuF++neod+YyJL/Va4VlCWqdO6HOKk0HJfGT+fLKm1QXKS/O/63RotG
- tOJrLg2fkpzPD3T5m1pUwBNccZn8TUZvz6rtLKTbUGWhgjoi0kONDnU3
-X-Gm-Gg: AYBFou32nVkWqL4fMTqQ4O2gzrUJNVwSgOGElzOKd6oWFZdS9ba/vIcaemMPJ/wToz2
- DiJZ6WrTnelaS7LUhST9XonL5El7i7IIsYbsodCSoWsmZHnwkBzU/XL5aHiO3cRmKfKkXWMM/eW
- p4JAMEEkxJj1YDnhmTSaqV0ekAZ7/piJReHlOeXBDaRpGCbLCK9MESMFG2LOht7Y4PKSD4PmTx9
- NCXJXGiQgJCOwGQq2n8cQ9epmdJP4QPoNJMqCq9wfOEeZQf8YrjYrv9lWw+vOauETSKYhahLcEu
- 2NoXtAPM5X1epnLBSGsMDGuVVQJKKnyD5KpLiqyam3G9yRaLI+aU8hXzPUqDF9HJUjkm2o3CTz0
- DsLti/lu2sBxQrowyAtEg12XIRGNWxn4uyiKbFbfkAuhJsitQlSj6djdUMC/QJ+324FssmhqL0f
- bTauhe978LHTyb0NsJwtkDX3aESBsy3r8HS62Z7oCAlNiTqeU+h6MDrFzHW/YTpE4R
-X-Received: by 2002:a05:693c:2518:b0:33c:e61:e1e5 with SMTP id
- 5a478bee46e88-33e8d9c95bcmr3116205eec.21.1790180932368; 
- Wed, 23 Sep 2026 09:28:52 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-33e939fd955sm7844052eec.1.2026.09.23.09.28.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 09:28:52 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2] drm/amdgpu: fix ATOM parameter space index bounds check
-Date: Wed, 23 Sep 2026 13:28:39 -0300
-Message-ID: <20260923162839.1379927-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923163157.1354872-1-qwe.aldo@gmail.com>
-References: <20260923163157.1354872-1-qwe.aldo@gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C71E310F1B6;
+ Wed, 23 Sep 2026 20:45:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=IrmfyULebZBPzoJSufltClhMtshZzIp0+hcOBmBFC+k=; b=qNd/Ktpd14fw/fSPiGChudytRi
+ JSmYp0XkPdaThkKLo+kViT6OMsCwsCiEsusBJp063rZFU9/gCHlV8OLjHZ4lhhS6Gz6daF/K+6+0v
+ RT9wpsmYgMj/QUWE9PKsSsRitMG/inmJ51RNmdV2099JISz4D//GQ95B8yNmZDmSovSrZ3ykvo1jZ
+ lId5vFYmI6NlNfCfTe8fhnBb82gsAzRjAiQccrtc/ZmRti01tXxu4XQa8U/+6Dwe9OA+0IimP7iSO
+ SX+m5X1M9UsMPYZLGHc/QrZJkUTYezhyq9eqxVsrmJEgFMXQp67Pw5vb6Vw59eTZPqSt+e9un92WI
+ u1q1g0eQ==;
+Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
+ helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x9TqP-006KVk-9N; Wed, 23 Sep 2026 22:45:33 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Wed, 23 Sep 2026 17:44:44 -0300
+Subject: [PATCH i-g-t v7 9/9] tests/cgroup_dmem: add test for dmem.current
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:10 +0000
+Message-Id: <20260923-dmem_max-v7-9-194ea47bbb4d@igalia.com>
+References: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
+In-Reply-To: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, 
+ maarten.lankhorst@linux.intel.com, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+X-Mailer: b4 0.16-dev-62088
+X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,59 +64,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-atom_get_src_int() and atom_put_dst() use idx as a dword index into
-the uint32_t *ps array (ctx->ps[idx]), but compare it against
-ctx->ps_size which is in bytes. A malformed ATOM table operand with
-idx between ps_size/4 and ps_size-1 passes the bounds check but
-accesses up to 3 dwords (12 bytes) beyond the stack-allocated
-parameter buffer.
+Based on the work of Thomas Hellström to test dmem.max eviction, add a
+test for dmem.current usage after allocations and setting dmem.max.
 
-For example with ps_size = 16 bytes (4 dwords), idx = 5 passes
-the check (5 < 16) but ctx->ps[5] reads/writes the 6th dword at
-byte offset 20, 4 bytes past the allocation.
+Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
+check current usage is within a small slack of the expected allocation.
+Then, set max to a small value and check allocations and current usage
+are limited to the max set.  Set max to less than a single BO size, then
+check no allocations are allowed and current usage is also within the
+slack. After each allocation, release memory and check current usage
+has gone down.
 
-Divide ps_size by 4 in both comparisons and in the diagnostic
-messages to match the dword indexing.
-
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
-v2: also fix the pr_info() messages to print ps_size/4 (dwords)
-    instead of ps_size (bytes), so the logged limit matches the
-    actual check (found by Sashiko AI review).
+ tests/cgroup_dmem.c | 147 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 147 insertions(+)
 
- drivers/gpu/drm/amd/amdgpu/atom.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+index 7f3cfe22db2c..1f01037e1cf2 100644
+--- a/tests/cgroup_dmem.c
++++ b/tests/cgroup_dmem.c
+@@ -36,6 +36,8 @@
+ #define BO_SIZE			SZ_64M
+ #define MAX_LIMIT		((uint64_t)4 * SZ_1G)
+ #define EVICT_STEP		SZ_128M
++#define USAGE_POLL_MS		10
++#define USAGE_DROP_TIMEOUT_MS	1000
+ 
+ #define TEST_INTERRUPTIBLE	(1 << 0)
+ #define TEST_NONBLOCK		(1 << 1)
+@@ -48,6 +50,20 @@
+  *  and configured limits, then destroys the cgroup.
+  */
+ 
++/**
++ * SUBTEST: current
++ * DESCRIPTION:
++ *  Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
++ *  check current usage is within a small slack of the expected allocation.
++ *  Then, set max to a small value and check allocations and current usage
++ *  are limited to the max set.
++ *  Set max to less than a single BO size, then check no allocations are allowed
++ *  and current usage is also within the slack.
++ *  After each allocation, release memory and check current usage has gone
++ *  down.
++ *  This subtest requires GPU device with at least one VRAM region.
++ */
++
+ /**
+  * SUBTEST: write_eviction
+  * DESCRIPTION:
+@@ -116,6 +132,23 @@ static void install_sigcont_counter(void)
+ 	sigaction(SIGCONT, &sa, &sigcont_oldact);
+ }
+ 
++static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
++				    uint64_t limit)
++{
++	uint64_t current;
++	unsigned int elapsed = 0;
++
++	do {
++		igt_cgroup_dmem_get_current(cg, region, &current);
++		if (current <= limit)
++			return current;
++		usleep(USAGE_POLL_MS * 1000);
++		elapsed += USAGE_POLL_MS;
++	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
++
++	return current;
++}
++
+ static int allocate_vram(void **handles, const struct igt_dmem_driver *drv,
+ 			 void *ctx, int max_bo, size_t len)
+ {
+@@ -137,6 +170,119 @@ static int allocate_vram(void **handles, const struct igt_dmem_driver *drv,
+ 	return err;
+ }
+ 
++static void free_vram(void **handles, const struct igt_dmem_driver *drv,
++		      void *ctx, int max_bo)
++{
++	int i;
++	for (i = 0; i < max_bo; i++)
++		drv->free_vram(ctx, handles[i]);
++}
++
++static void test_current(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
++{
++	struct igt_cgroup *cg;
++	void **handles;
++	uint64_t current, capacity, cg_max;
++	int n_bo = 0, max_bo;
++
++	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
++	igt_require_f(capacity >= 4 * BO_SIZE,
++		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
++		      capacity / SZ_1M);
++
++	/*
++	 * Use up to 4 GiB, or the full capacity if the device has less.
++	 * Leave one BO_SIZE worth of headroom so the device isn't completely
++	 * exhausted before the cgroup limit is hit.
++	 */
++	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
++	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
++
++	/* Create cgroup and move into it */
++	cg = igt_cgroup_new("igt_cgroups_test");
++	igt_cgroup_move_current(cg);
++
++	max_bo = cg_max / BO_SIZE;
++
++	handles = calloc(max_bo, sizeof(handles[0]));
++	igt_assert_f(handles, "failed to allocate handles array");
++
++	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
++	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current == cg_max,
++		     "current usage (%"PRIu64" MiB) is not requested allocation (%"PRIu64" MiB)\n",
++		     current / SZ_1M, cg_max / SZ_1M);
++
++	free_vram(handles, drv, ctx, n_bo);
++	wait_for_usage_drop(cg, cg_region, 0);
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current == 0,
++		     "current usage (%"PRIu64" MiB) is not zero\n",
++		     current / SZ_1M);
++
++	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE, false);
++
++	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
++	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current == 2 * BO_SIZE,
++		     "current usage (%"PRIu64" MiB) is not requested max allocation (%"PRIu64" MiB)\n",
++		     current / SZ_1M, cg_max / SZ_1M);
++
++	free_vram(handles, drv, ctx, n_bo);
++	wait_for_usage_drop(cg, cg_region, 0);
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current == 0,
++		     "current usage (%"PRIu64" MiB) is not zero\n",
++		     current / SZ_1M);
++
++	igt_cgroup_dmem_set_max(cg, cg_region, 0, false);
++
++	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
++
++	/*
++	 * amdgpu may succeed the allocation, by falling back to GTT, so no assertion here.
++	 * Verify by reading current usage.
++	 */
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current == 0,
++		     "current usage (%"PRIu64" MiB) is not zero\n",
++		     current / SZ_1M);
++
++	if (n_bo > 0)
++		free_vram(handles, drv, ctx, n_bo);
++	wait_for_usage_drop(cg, cg_region, 0);
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current == 0,
++		     "current usage (%"PRIu64" MiB) is not zero\n",
++		     current / SZ_1M);
++}
++
+ static void test_write_eviction(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
+ {
+ 	struct igt_cgroup *cg;
+@@ -246,6 +392,7 @@ static const struct {
+ 	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx);
+ 	unsigned int flags;
+ } subtests[] = {
++	{ "current", test_current, 0 },
+ 	{ "write_eviction", test_write_eviction, 0 },
+ 	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
+ 	{ "write_eviction_nonblock", test_write_eviction, TEST_NONBLOCK },
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index e0e585f..dd6c22a 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -232,10 +232,10 @@ static uint32_t atom_get_src_int(atom_exec_context *ctx, uint8_t attr,
- 		(*ptr)++;
- 		/* get_unaligned_le32 avoids unaligned accesses from atombios
- 		 * tables, noticed on a DEC Alpha. */
--		if (idx < ctx->ps_size)
-+		if (idx < ctx->ps_size / 4)
- 			val = get_unaligned_le32((u32 *)&ctx->ps[idx]);
- 		else
--			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
-+			pr_info("PS index out of range: %i >= %i\n", idx, ctx->ps_size / 4);
- 		if (print)
- 			DEBUG("PS[0x%02X,0x%04X]", idx, val);
- 		break;
-@@ -510,8 +510,8 @@ static void atom_put_dst(atom_exec_context *ctx, int arg, uint8_t attr,
- 		idx = U8(*ptr);
- 		(*ptr)++;
- 		DEBUG("PS[0x%02X]", idx);
--		if (idx >= ctx->ps_size) {
--			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
-+		if (idx >= ctx->ps_size / 4) {
-+			pr_info("PS index out of range: %i >= %i\n", idx, ctx->ps_size / 4);
- 			return;
- 		}
- 		ctx->ps[idx] = cpu_to_le32(val);
 -- 
-2.43.0
+2.47.3
+
