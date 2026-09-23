@@ -4,104 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8374C98304
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 15:51:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E986C98304
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 16:02:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47A0C10E103;
-	Wed, 23 Sep 2026 15:51:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1051F10ED3C;
+	Wed, 23 Sep 2026 16:02:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="a/AJFiCJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l9lNOnLb";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010057.outbound.protection.outlook.com [52.101.201.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB1389067
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 15:51:30 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010063.outbound.protection.outlook.com
+ [52.101.193.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3D2F10ED3C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 16:02:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nVf65/TkGpcW/EII7krKx9rJzEfOpSdcHHEbuW8igLtmFnNJ+JA9gSn+U2vfjxsM/j2RQL8PsXznBPSGDPyd0HkQgSa7z4yguDJp25RpmmS+AHV57u/V3z3HIINIguJ45psHVEC8PGXlqb3JDprIRDKUynSv2aXV8ewFXexbXInrwbSaReQzch94GB7nghzktFKhq+jYhxlFFvgqtdRrxflztI+u5goIYyA/AFhxU24k6NetDHMmN3FBxeld0VtCixL5PkFc+k2tDKN3MYUmupkuxvMXCWTbHZEhlyu5KrpWaAbwwC6OB8GoGIJRsMNrKJP6bQ4EVLmkrw8q0vqitw==
+ b=kad4LRvSM/z6sZ3PFSfCyiaX9l+dWsdaRNBkhC+WbIr687Vwx/qAZCAkpRA05qUBOLGgcmF/507IEjFV/sORDIuqf+DrWgR0i3xGJUbrq7P9XIcJGnI7Nx3wp8fy/rNRBwKbm25Pg6f+oVOLfsciISTJgxHHoc5/CQdUI+fH2HIwFR5A5ZZWafIf+WfP002YNJzzUW+Dk/+yxAAGjsfrUF1cMtJRAH17FLHU/765YXO4Q+wfn7lqtQQenBjdAoZNwL39Y6dfVaNHrqJZghOyuW3I4uWIZwsb3qMZjA+casOSySFPK2AYidoa3aNSPup8jYyZaoYyy2KbLNSWvCHLrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sWTiAdJtZQGztNjTL+mFGMLaEToATiYxOGNXCbC33Jk=;
- b=xtC89XuChh/jFIDlWXgh4a/AVvkt1w07hmCklwTAqvRGjvFOO359ans5INzQpUZmTi8forKWgFSXnV6acuVI3OiCl5z72UX6JpLmbIIpPhuig6J6XKqUnn/fXuGgPG/Sj/iJjy2aiOvsL9EVCst6JYtZESHwDo3PJB0JyZKHb2VT/5Jd9mA63WODZ2XrR8VK+1bsTjaqNgOERA4An3LmUWPsr0T8oDq3APU6ZhdTDplxTW/z4wpwDSIqrX24OiFA4x28UPLbXBkyE7n4Ze2s8aKObduMSRFTLeHyb+d05NhK0QxzyWemUoXi9gMYXIgMEA36M12SD7kp/UImaMJsaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=6xSEeF8xcAeTSc5hJy/QnPtvjq88yDOcq2p1WjeJVB4=;
+ b=bc5OAvH4gsxDDGzYRhnoAYpFC4og51bc19RvuangV/3QKFc+GyvOx93VayIMMkPayNR/RHLL/Wms0R0/05k07gHAXuykcsvXouqHM1gACkdTOEwPVtTglFW9N7WVz+quOGDtSv+9oXTyk9vjNOmSLwAO2zCBrhcM7b8pVQaNHMyOPQp70aMFM9pWF7c8w/P5Rb2qp58q7WwW9gkNwyi1dVIdjBfQ4uhVdpu86B8f1Fgl6lfoeQwEXNW4bD+/2Oy13c6nhP6pVaLEX0YSJijaJOP6B1SxzL9htejDZZVIeLjS3tbg3eiysiaBmg59cNIxUrZ+q39ut3G6EBncVTmBvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sWTiAdJtZQGztNjTL+mFGMLaEToATiYxOGNXCbC33Jk=;
- b=a/AJFiCJMgbmS//Y56K4Bs47KuvbBxWz/RRgy71WrIPeZgjVevhHjg7gLofKRWrQb94Q/5QZRr5NRmSVU1yHLBjdh9/0+gXJX+pUh+4iFCh1+lgnh+0SjtaHQmaUnvq5QasNyMgjWaKd2sz3u/gpXUjx91Xr2rSRL2wMxM13/h4=
-Received: from BL1PR13CA0266.namprd13.prod.outlook.com (2603:10b6:208:2ba::31)
- by SN7PR12MB7228.namprd12.prod.outlook.com (2603:10b6:806:2ab::6)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=6xSEeF8xcAeTSc5hJy/QnPtvjq88yDOcq2p1WjeJVB4=;
+ b=l9lNOnLbTsX1i8GAZxhPnWRyhRJcffhEPiIjZl0neNJdXpqPPjL68Fr9rv5jPJWAucBKvGZCtyt1jDwoc0lt3TAKMh/RV1O66S8wp7pC/CcCCLoMat7By8q02XpMRhY9mIbDQS2N9OKAR7kd5qLtx3Z+kkW/B1SIHsAH6SpKUHc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5167.namprd12.prod.outlook.com (2603:10b6:5:396::10)
+ by SJ0PR12MB6991.namprd12.prod.outlook.com (2603:10b6:a03:47c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 15:51:16 +0000
-Received: from BN7PEPF00000092.namprd03.prod.outlook.com
- (2603:10b6:208:2ba:cafe::92) by BL1PR13CA0266.outlook.office365.com
- (2603:10b6:208:2ba::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.13 via Frontend Transport; Wed,
- 23 Sep 2026 15:51:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF00000092.mail.protection.outlook.com (10.167.245.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 15:51:15 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 10:51:09 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 10:51:09 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 23 Sep 2026 10:51:08 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Lin Cao <lincao12@amd.com>, Frank Min <Frank.Min@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH 5/5] drm/amdgpu: skip vpe dpm enable if dpm_enabled flag is
- false
-Date: Wed, 23 Sep 2026 11:50:56 -0400
-Message-ID: <20260923155056.2816021-5-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923155056.2816021-1-alexander.deucher@amd.com>
-References: <20260923155056.2816021-1-alexander.deucher@amd.com>
+ 2026 16:02:27 +0000
+Received: from DM4PR12MB5167.namprd12.prod.outlook.com
+ ([fe80::4588:54c1:bc29:2c7c]) by DM4PR12MB5167.namprd12.prod.outlook.com
+ ([fe80::4588:54c1:bc29:2c7c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 16:02:26 +0000
+Content-Type: multipart/alternative;
+ boundary="------------Ai0ahwQh77BKmP8adzAbRLci"
+Message-ID: <9b3636a8-3748-4000-a18a-9609115e65a0@amd.com>
+Date: Wed, 23 Sep 2026 12:02:22 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] drm/amdgpu: Fix race on ualink_handle_lo in UALink
+ handle export
+To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com,
+ philip.yang@amd.com, Sashiko-bot <sashiko-bot@kernel.org>
+References: <20260922145653.1207241-1-mukul.joshi@amd.com>
+ <20260922145653.1207241-3-mukul.joshi@amd.com>
+Content-Language: en-US
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <20260922145653.1207241-3-mukul.joshi@amd.com>
+X-ClientProxiedBy: YT4PR01CA0187.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:110::27) To DM4PR12MB5167.namprd12.prod.outlook.com
+ (2603:10b6:5:396::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000092:EE_|SN7PR12MB7228:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1e09f01-aa93-4d7a-a4a7-08df198a802a
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5167:EE_|SJ0PR12MB6991:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3ef3ce5-43b9-488a-9b18-08df198c0f79
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: qP+812tHim84AQUt/PcNa8Y/cVkUjrrRpWy2Kfyz4ggNP3kIW5emqNvTAQ4vkfQLiY+PJyphqoiIei79p9L0ImULnZkU+mkTudoB1nDT7kOU4udT1el+h8Qa5ZB1fwcPYykPf83WCxToXv4ddq2GxXqDc6Fo1hM0lewI9GjOoywR253cKhwih/fEyHCBcrPP8qeeTLa15YwJ7J49AoCtGpuJ7liq2uWmo82Z9akoWbwn2u+G15ozlUNKk9FwCmeIqr8aIaRuB09hgw0aMJi4ZtyFBcleLeZjRYOpzqIDfExJy2S49YoONOaEeOCvmJ/5nZ9IxZD2pvs3f0e+IfatDzTVD3QY+wksV+C09uzzjyJaa5cylMmbKjKC52uBSv2zf55Glf7EkEg5MHfVcLlUCjrG1ORJwVAIdZkUGA7EF0tgAVcgFxYz5hXVIrOhqc931l+DYHIjODWTQ8nCElEtNZrVekxXvBFR6z0utub9i3wLdppkuzHu4Ra0P4IzP/Cs/diDOHS/4VW1ig0Q0oz6q9qc2UzuoJuAGGCCfuC3W+cR2OQ0diTpRiVdHJizg6pb2BjW4d47dYmum5eme0ZpZkEbhF025T1Y2DDwtGAsaRljhplMOpld5nDosGivjCqDS8sVGrnwuQK1QYYpE62XAj/7OpZLl+sY0gzW87fG+AlLL9bg3JX9xV8y0cqk3vKcwtU/Fh1g6MHdnd/p6v26jQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ ARA:13230040|366016|23010399003|376014|1800799024|10067099003|56012099006|5023799004|11063799006|4143699003|8096899003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: QaQyWUBhj7OEkiaoR5EU1K83x7kcCFuN5hGnLj3dXx6r3YLuAs4+p/CGD40W0C+X+Z8WuomHl+yVERUJhJ1m3Qu8Y44l14ms0XEX8YdqwO9XP5lV5HLrdYDfHwdPiYyLJt8hboQ19p9Lcr5cz0Vu0Y42QU0aMkl0B+uTEkjcQd1MuLsQZj85SEtFFgP+MbhdRB4Y1bkUm65QmmGlMZEeVi2ksuvoG8q5YgDpkmjgeZIvMaec4lHUynq/8OO7QkkldwgBfr4geRl5rv16iuHwRdwrjHjRqlkvTjPMVghu7fYzOH9+/Dg7xUAZBA4bcbvLBNY7JQgfSjfZBhwgjvJgdwtuR8fzaA+InfBnQRVSNU3uHibhiBVVBBUzpc5XVeIebmJ0fQt00a4WZ+im5zpwEpwhmJjlssBLn8z5j3rtUeub6QksD10vvrMzZ8yolw8XScqmzYbwdUFs4NJ0rktLnOutlshFR00+cWa+fCjUU6W8edz1yh1DMo/wPdpgiSMjawpn4yoCQkWucQGXkbvE5ZtybWY7B6F+7B8jNa9Zj/a6TUE5qGzOfz48AP2m9wHvyrzqahdlveXetRGTo/c1leRmjYuys6oK9ui2tUy4ydFl6o1FySz2ZIF6yP44WUftxfc6nbfMbMc/LEDy7CJBQvqn1FBH4qStN6tDGsN4/Bs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5167.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(8096899003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2QPh8C0eSqUWJTmqG+V5pb6OZ1FwMuu8LYFLtDRIo+KcIBw8FFiuOC6iYe3/ZrvrkonYYBwTBtcx4qdbTXsYCdllY6NodfiQu2M3bi2LjL/FkKuB2RTY7dQRGm+zXzSt/uR+FmuYMXE3XGLH7sa7wXVavpmPkrTNE8vrWxYSf2VFLly+tJnx0qd9Wxd06Lg5c2c9mu+A2XVUWIcFKwhCqypBZDSHPMoCfM8SBKf3f0am2/yvnnWQYSj0ZC9iJBUXzeKOG2irSeQMEgeZkKfsL8cPAv+UZxpwYAAsRTOSQxlJpUgXqB7t9tU8VC12gM2ClK0f1TjhAkxxRLKsLPnpp0mJkFmdECcXlpYlifF1oYtXqwMxm/flpsMsXO6rUcZBRbAEpo7SV4E5gnjz/UXVAVlpbvxfa5SLckU3GLE4F/5yG7NHIpCoNr7eYnnDXW8C
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RTBRVjhkS2hCdHNmSGZTekoxRWZrVGJlb0VJS0NKYTBYYyt2SDNNUDQ0aStO?=
+ =?utf-8?B?YlMwTDNqMGYyK3FmVndjWDMwQkJTRnlnTnNLZFRXOHlEU1oxUjl0MTlOZkFi?=
+ =?utf-8?B?c3RLd1VDNlRqZHJ5OUdsT3ZETUg3ZmJJMmh1aER3VEl0VUQybFUrZ0t5dDVZ?=
+ =?utf-8?B?cGpYS3R6ZHllZytnN1VYWmhCUFVMaHJWWkZ1MGQ1RC9ZVVVWOW1iVURWM25l?=
+ =?utf-8?B?VUNGTUxrZnNPVnVqbm5yVlVKMjdmUU9BaFdoZjRIeG54RUtMeUlNU0RVMjNi?=
+ =?utf-8?B?M2dmZFpMM3ZlczRiZU51b3BvdlFWNVRwSDh0dGpmMGpaelhpR1orM3czTWpT?=
+ =?utf-8?B?UFhZN0V6eTJrblhzQ0IrQWRyUWxOZEh0TjN3cXpOY3U2WGpuOG1qdTNYQVVv?=
+ =?utf-8?B?eTFnZlVlS0Z3WEhGNjE0ai9WaHRYR0tXNkxReVBzUXd4NnpCR0ZNNGZwUDhJ?=
+ =?utf-8?B?UjhHSEZCTTlEYW1uQjFBQm42SWRqTzA4L0dKYUcyLzNJVDFMeWZGTURtQlY2?=
+ =?utf-8?B?dEl3YmdpUDZCOE5PSk00dzhPSlVjcm1zZEtTWDRNUWFqNDZyNUc3YlptdUJv?=
+ =?utf-8?B?QnJvU3ZHYVlvdlE4MkFjdHowcUZKMk01MlI5T1g5QmF6b3ptcUs1SXljZ2tF?=
+ =?utf-8?B?MjE2UUxlajBReU9nUU5BSWxWS3QrWmMyUWJIa1dSbnFFSnB1alNqSEhLRFBP?=
+ =?utf-8?B?R21Yb3d2c08rK1hyckNSdjU4YUxwVVVDYkR1b0RIWmU1VktieWpyQjFBV1RG?=
+ =?utf-8?B?UWVWaThKdTBod1hKZFlJbE1SRmdqODNpRGxMMVZBVFN4NEM5WUw1Wkt1Vm5N?=
+ =?utf-8?B?Z0RPNXFVVkhlVlVOcHRqbUUzYXV2Y2doTE1xQzZac3BNY2NDd2dqVkVGN21O?=
+ =?utf-8?B?em5DWXk5eHlXVXNDbDJDOENqRXgzRVdSb2hDSEhQS0l0WC9OeGZCRWxFdFVC?=
+ =?utf-8?B?Mjgrb1VHdG5Majl2ckRMTm82OXJxSUNWK0hWOVhkbk4xZFkxcjhmbVcyUWx0?=
+ =?utf-8?B?MExlU0xpa09FYWZUWkNOR3ZDT3dPVktlcDcxUEZuUjBWSTduOVJQSmFJRDFq?=
+ =?utf-8?B?YlFNblRvaEYwbzdLTDRNUXE3WlBZN2tRalozM2x4VTMwUlpwOGxVRkY5eHlP?=
+ =?utf-8?B?cmpJWFdhSFBOVndhL25mWmkrVFUwWmhFUXpRS3puLzU5NGlhR25Nb2hUUjE2?=
+ =?utf-8?B?WDJIc1ZFZEVGV1B1djdMUGluZGJuZVVJQmZkV0VFY0dDZjhWQTVsVFUxVHZs?=
+ =?utf-8?B?UjNSRFNESmdjTW5yTGdoZTdhUVJSU1lGaXVxSERnSlZ2VWNjSm16QU15dkgv?=
+ =?utf-8?B?S0J2eFJRcEVJbTdicmY3TGtPM1lqR3BWUTVrWk81bC9nOUc3dFM0eEN6V0xD?=
+ =?utf-8?B?eXVIZHA5NUZaTGdkNGJxQXNUUFVFUDJXamdHV21QTGlLTkt6eks3eXE2Mjlr?=
+ =?utf-8?B?V2ozeCtBcnFMN25kaHE4MDFJazZaa0V6VTNQSXJDUVhUK2c4eC9PdEhtbjhC?=
+ =?utf-8?B?MjhGQTRLVXpOZ3E4UHduNWdUTVRzSmFRaUhob0pCQmhya05Ca0dTcVZ6T3Az?=
+ =?utf-8?B?dWJwZmh4SGNRWUE2VjEvT3Urejl1QWovbTVZb0FmQmIvbFVDQWNiODF6cUxl?=
+ =?utf-8?B?TWhpRTNUZXBFc0NFMTUwV2JBV0xzNlZnejNicVR6QWJvVnIvd3NObHpGM2Ni?=
+ =?utf-8?B?S0QrY0lCNnZSbUx0c2ljNEhkZFA2ZjMwZXNnT1lBeWc2OGRRQjFOaHdwMHJF?=
+ =?utf-8?B?NnlXcmQ3UkRCMjNkaG0xQmpoRTZpclc2Q2tkMDR3Vkc3dkFZRkV4Ykp4dWYr?=
+ =?utf-8?B?c21JOEUzT0QvWlhmVWJsb3pWSEdvZ3NtT2paVUVDWFZuL3pLYkJURkh5ZGZ2?=
+ =?utf-8?B?dWU2Mlh5dU0xa293alpsdTJnVzJGdGJiYTBMaDZtcW1QVzgzNDdud2UvanFs?=
+ =?utf-8?B?eFFINCs3MmsyOTc0REtybUE4eDFIV2p4eTdUMGdFQmY1RGs3MFV5UkxzTnla?=
+ =?utf-8?B?UlpYMmd1UTlPRWU3KzdlNzRGelhmTU1KbmkwUFlZTDZrNHlOZm8vSEhIVGFx?=
+ =?utf-8?B?R0J2ZTh4M3Y0ckdJck1CaHNGbHhxbTZiVXlyanZVZE5jQ0drYVhXSzJXWFVl?=
+ =?utf-8?B?bjZ2WXhiMCtvM2dha2lic2d1bTRocW03R0orRUV5Wk5COTFXK2ZZWkphbVNM?=
+ =?utf-8?B?NEZMS0UrNjYwMHlSVjAwNGNtc09kRitQWFdZNEhrb0RzSWQySXlOREkwb3lX?=
+ =?utf-8?B?cVpPK3BHVTUwVzZjT3p6RUFXZDIwVG9TTkF6SDR6NUwwK2MrY0c3S2pITzB2?=
+ =?utf-8?Q?kdthRAbyuO4zrOaalb?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:51:15.5920 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1e09f01-aa93-4d7a-a4a7-08df198a802a
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3ef3ce5-43b9-488a-9b18-08df198c0f79
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5167.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 16:02:26.0653 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF00000092.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7228
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4LRxnp39OlBag5CZmNYjTpDvlu5tUPRWaxo2Q81bqG2mLQXeWyrrh4veLAyvJdE+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6991
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,33 +137,264 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lin Cao <lincao12@amd.com>
+--------------Ai0ahwQh77BKmP8adzAbRLci
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-amdgpu_dpm_enable_vpe() should be skipped if dpm_enabled is false
 
-Signed-off-by: Lin Cao <lincao12@amd.com>
-Reviewed-by: Frank Min <Frank.Min@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+On 2026-09-22 10:56, Mukul Joshi wrote:
+> amdgpu_ualink_export_handle() tests robj->ualink_handle_lo and stores
+> the generated handle into it without any lock; xa_lock only covers
+> handle generation and the xarray insert.
+>
+> Two threads can therefore both observe a zero handle for the same BO and
+> both allocate an exporter node, take an amdgpu_bo_ref() and insert into
+> exp_xa, with the last store to ualink_handle_lo winning. Teardown only
+> erases the handle recorded in the BO, so the losing node keeps its BO
+> reference and pinned VRAM until device teardown.
+>
+> Serialize the check-generate-store sequence on a new per-device mutex.
+> The BO reservation lock cannot be used, since
+> drm_gem_prime_handle_to_dmabuf() reserves the BO itself via
+> ttm_bo_setup_export().
+>
+> Fixes: 6b1a5ad90778 ("drm/amdgpu: Implement UALink handle export")
+> Reported-by: Sashiko-bot<sashiko-bot@kernel.org>
+> Signed-off-by: Mukul Joshi<mukul.joshi@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 12 +++++++++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  5 +++++
+>   2 files changed, 14 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index a7ae9ffde1b5..32443bdfc594 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -3991,6 +3991,8 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
+>   		goto out;
+>   	}
+>   
+> +	mutex_lock(&adev->ualink.exp_lock);
+> +
+The import path solves the same multi-thread race using xa_lock plus 
+node_state. Export could follow the same approach by adding a node_state 
+to the exp_xa node, but that requires refactoring 
+amdgpu_ualink_export_handle(). Adding a per-adev mutex, 
+adev->ualink.exp_lock, is simpler, at the cost of serializing all export 
+ioctls.
+
+Regards,
+Philip
+
+
+>   	if (!robj->ualink_handle_lo) {
+>   		/* If no ualink handle generated for BO, then generate one and
+>   		 * add it to the exporter Xarray.
+> @@ -3999,7 +4001,7 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
+>   		if (!exp_xa_node) {
+>   			dev_err(adev->dev, "Failed to allocate exp_xa_node\n");
+>   			r = -ENOMEM;
+> -			goto out;
+> +			goto unlock;
+>   		}
+>   
+>   		amdgpu_bo_ref(robj);
+> @@ -4025,7 +4027,7 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
+>   			dev_err(adev->dev, "Failed to generate DMABuf for the BO\n");
+>   			amdgpu_bo_unref(&robj);
+>   			kfree(exp_xa_node);
+> -			goto out;
+> +			goto unlock;
+>   		}
+>   
+>   		xa_lock(&adev->ualink.exp_xa);
+> @@ -4039,7 +4041,7 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
+>   			dma_buf_put(exp_xa_node->dmabuf);
+>   			amdgpu_bo_unref(&robj);
+>   			kfree(exp_xa_node);
+> -			goto out;
+> +			goto unlock;
+>   		}
+>   
+>   		robj->ualink_handle_lo = handle.handle_lo;
+> @@ -4059,6 +4061,8 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
+>   			handle_out->handle_hi = exp_xa_node->handle.handle_hi;
+>   	}
+>   
+> +unlock:
+> +	mutex_unlock(&adev->ualink.exp_lock);
+>   out:
+>   	drm_gem_object_put(gobj);
+>   	return r;
+> @@ -4139,6 +4143,7 @@ int amdgpu_ualink_manager_start(struct amdgpu_device *adev)
+>   	adev->mmhub.funcs->setup_vm_pt_regs(adev, adev->vm_manager.npa_vmid,
+>   			amdgpu_gmc_pd_addr(adev->ualink.npa_vm.root.bo));
+>   
+> +	mutex_init(&adev->ualink.exp_lock);
+>   	xa_init(&adev->ualink.exp_xa);
+>   	xa_init(&adev->ualink.imp_xa);
+>   	xa_init(&adev->ualink.handle_invalid_xa);
+> @@ -4272,6 +4277,7 @@ void amdgpu_ualink_manager_stop(struct amdgpu_device *adev)
+>   	xa_destroy(&adev->ualink.exp_xa);
+>   	xa_destroy(&adev->ualink.imp_xa);
+>   	xa_destroy(&adev->ualink.handle_invalid_xa);
+> +	mutex_destroy(&adev->ualink.exp_lock);
+>   
+>   	for (i = 0; i < AMDGPU_UALINK_ACCEL_MAX; i++)
+>   		mutex_destroy(&adev->ualink.conn_state[i].lock);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> index 85c9a9634a4b..2a6be8b9d5b2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> @@ -336,6 +336,11 @@ struct amdgpu_ualink_mgr {
+>   	/* handle irq from ualink client of remote GPUs */
+>   	struct amdgpu_irq_src irq;
+>   
+> +	/* Serializes handle allocation in amdgpu_ualink_export_handle() so
+> +	 * that a BO gets at most one exporter xarray node.
+> +	 */
+> +	struct mutex	exp_lock;
+> +
+>   	/* Xarray to store info about exported BOs */
+>   	struct xarray	exp_xa;
+>   
+
+--------------Ai0ahwQh77BKmP8adzAbRLci
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 2026-09-22 10:56, Mukul Joshi wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20260922145653.1207241-3-mukul.joshi@amd.com">
+      <pre wrap="" class="moz-quote-pre">amdgpu_ualink_export_handle() tests robj-&gt;ualink_handle_lo and stores
+the generated handle into it without any lock; xa_lock only covers
+handle generation and the xarray insert.
+
+Two threads can therefore both observe a zero handle for the same BO and
+both allocate an exporter node, take an amdgpu_bo_ref() and insert into
+exp_xa, with the last store to ualink_handle_lo winning. Teardown only
+erases the handle recorded in the BO, so the losing node keeps its BO
+reference and pinned VRAM until device teardown.
+
+Serialize the check-generate-store sequence on a new per-device mutex.
+The BO reservation lock cannot be used, since
+drm_gem_prime_handle_to_dmabuf() reserves the BO itself via
+ttm_bo_setup_export().
+
+Fixes: 6b1a5ad90778 (&quot;drm/amdgpu: Implement UALink handle export&quot;)
+Reported-by: Sashiko-bot <a class="moz-txt-link-rfc2396E" href="mailto:sashiko-bot@kernel.org">&lt;sashiko-bot@kernel.org&gt;</a>
+Signed-off-by: Mukul Joshi <a class="moz-txt-link-rfc2396E" href="mailto:mukul.joshi@amd.com">&lt;mukul.joshi@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 12 +++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  5 +++++
+ 2 files changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-index 1f1e1a4343d82..f6adbc1906fde 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-@@ -699,8 +699,10 @@ static int vpe_set_powergating_state(struct amdgpu_ip_block *ip_block,
- 	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_vpe *vpe = &adev->vpe;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index a7ae9ffde1b5..32443bdfc594 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -3991,6 +3991,8 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
+ 		goto out;
+ 	}
  
--	if (!adev->pm.dpm_enabled)
-+	if (!adev->pm.dpm_enabled) {
- 		dev_err(adev->dev, "Without PM, cannot support powergating\n");
-+		return 0;
-+	}
++	mutex_lock(&amp;adev-&gt;ualink.exp_lock);
++</pre>
+    </blockquote>
+    The import path solves the same multi-thread race using xa_lock plus
+    node_state. Export could follow the same approach by adding a
+    node_state to the exp_xa node, but that requires refactoring
+    amdgpu_ualink_export_handle(). Adding a per-adev mutex,
+    adev-&gt;ualink.exp_lock, is simpler, at the cost of serializing all
+    export ioctls.<br>
+    <br>
+    Regards,<br>
+    Philip<br>
+    <br>
+    <br>
+    <blockquote type="cite" cite="mid:20260922145653.1207241-3-mukul.joshi@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+ 	if (!robj-&gt;ualink_handle_lo) {
+ 		/* If no ualink handle generated for BO, then generate one and
+ 		 * add it to the exporter Xarray.
+@@ -3999,7 +4001,7 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
+ 		if (!exp_xa_node) {
+ 			dev_err(adev-&gt;dev, &quot;Failed to allocate exp_xa_node\n&quot;);
+ 			r = -ENOMEM;
+-			goto out;
++			goto unlock;
+ 		}
  
- 	dev_dbg(adev->dev, "%s: %s!\n", __func__, (state == AMD_PG_STATE_GATE) ? "GATE":"UNGATE");
+ 		amdgpu_bo_ref(robj);
+@@ -4025,7 +4027,7 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
+ 			dev_err(adev-&gt;dev, &quot;Failed to generate DMABuf for the BO\n&quot;);
+ 			amdgpu_bo_unref(&amp;robj);
+ 			kfree(exp_xa_node);
+-			goto out;
++			goto unlock;
+ 		}
  
--- 
-2.55.0
+ 		xa_lock(&amp;adev-&gt;ualink.exp_xa);
+@@ -4039,7 +4041,7 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
+ 			dma_buf_put(exp_xa_node-&gt;dmabuf);
+ 			amdgpu_bo_unref(&amp;robj);
+ 			kfree(exp_xa_node);
+-			goto out;
++			goto unlock;
+ 		}
+ 
+ 		robj-&gt;ualink_handle_lo = handle.handle_lo;
+@@ -4059,6 +4061,8 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
+ 			handle_out-&gt;handle_hi = exp_xa_node-&gt;handle.handle_hi;
+ 	}
+ 
++unlock:
++	mutex_unlock(&amp;adev-&gt;ualink.exp_lock);
+ out:
+ 	drm_gem_object_put(gobj);
+ 	return r;
+@@ -4139,6 +4143,7 @@ int amdgpu_ualink_manager_start(struct amdgpu_device *adev)
+ 	adev-&gt;mmhub.funcs-&gt;setup_vm_pt_regs(adev, adev-&gt;vm_manager.npa_vmid,
+ 			amdgpu_gmc_pd_addr(adev-&gt;ualink.npa_vm.root.bo));
+ 
++	mutex_init(&amp;adev-&gt;ualink.exp_lock);
+ 	xa_init(&amp;adev-&gt;ualink.exp_xa);
+ 	xa_init(&amp;adev-&gt;ualink.imp_xa);
+ 	xa_init(&amp;adev-&gt;ualink.handle_invalid_xa);
+@@ -4272,6 +4277,7 @@ void amdgpu_ualink_manager_stop(struct amdgpu_device *adev)
+ 	xa_destroy(&amp;adev-&gt;ualink.exp_xa);
+ 	xa_destroy(&amp;adev-&gt;ualink.imp_xa);
+ 	xa_destroy(&amp;adev-&gt;ualink.handle_invalid_xa);
++	mutex_destroy(&amp;adev-&gt;ualink.exp_lock);
+ 
+ 	for (i = 0; i &lt; AMDGPU_UALINK_ACCEL_MAX; i++)
+ 		mutex_destroy(&amp;adev-&gt;ualink.conn_state[i].lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+index 85c9a9634a4b..2a6be8b9d5b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+@@ -336,6 +336,11 @@ struct amdgpu_ualink_mgr {
+ 	/* handle irq from ualink client of remote GPUs */
+ 	struct amdgpu_irq_src irq;
+ 
++	/* Serializes handle allocation in amdgpu_ualink_export_handle() so
++	 * that a BO gets at most one exporter xarray node.
++	 */
++	struct mutex	exp_lock;
++
+ 	/* Xarray to store info about exported BOs */
+ 	struct xarray	exp_xa;
+ 
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
+--------------Ai0ahwQh77BKmP8adzAbRLci--
