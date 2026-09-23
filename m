@@ -4,73 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE94CC9831A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB25FC9831C
 	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27FB210F513;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3648E10F516;
 	Thu, 24 Sep 2026 12:46:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sim9s0JP";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nY/JaYBc";
 	dkim-atps=neutral
-Received: from mail-dl2-f36.google.com (mail-dl2-f36.google.com
- [74.125.229.164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50D2010E92C
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 16:13:08 +0000 (UTC)
-Received: by mail-dl2-f36.google.com with SMTP id
- a92af1059eb24-14373bcc010so1283679c88.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 09:13:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790179987; x=1790784787; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=sUIXWjLbTey+d3P92W9cG28EMxJiRiFjR+QNnEvmF1I=;
- b=Sim9s0JP0QGBbDzDuaYtguK9ucojea/O2rmpP/XVq1lQOrRmgIik4LQY3zipfEynDH
- WzwaTwE0V9xOr2w0ecbp6bxbA0W2xflkgU/roitgQbO9KvFely2X7HuyO+Xua5fB2+Mj
- 9LtaEMU6UnTw+wNgDhXluValX19TLf3SqnsFsD8LMgmN/6ZLzREklgYR1LsyL3DasMsW
- RrCrYqiwnmoR6oZkPcag0gfKRCVdy6PM9eX9UXMy+DJFMD8nfB/Cu9/ENWv1oYEA5Jom
- oVFngFtVWsTjJBX0ywS/qlUXvNb5zZ7mt/9arM2ZbetCWda5sWzI7w1gLP0XaZ/mkfGn
- QSzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790179987; x=1790784787;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=sUIXWjLbTey+d3P92W9cG28EMxJiRiFjR+QNnEvmF1I=;
- b=EkRCAfxeDsEpvS5fPwDS8hFO/ruucHsi3vR8h958NBiXhDyBSCJbQiGmsQy+kGHT3S
- Dg/d5dRbzNmV1AunjYGHT+C3xw1qEUXf4TFNtk4q5qqmHd8ENGMUb2clH5KfPkeGnRC7
- gr9DM1ycwuC+3mPyahOj8fkN+YRXhnJ8fcji95netwxyhyaxHbILXLbTUbSwuKaniDBb
- 5HvqwYWt/hrJ4eQtzrPloG74B8XhrxDtMNAX/tlFwtHp6cp/CEF0LWfeaTMtrTOYd0rl
- qxQfQFZI7HUBnE1M3b1zKhd896ae0AKWUBAAsg7aPB+nWJr//hp7rQbsUEtahbSiiU4/
- 7N1w==
-X-Gm-Message-State: AFuF++m1WFHJMXZNibrYqauR+w/TZenZGR2JbKGVfuP64uOSnFMAufaf
- 9sm5qMglnCbG+TtcJbMwEW61ET0Y9AsbxBHuMZl5e0XkiI6MPGfbKh82
-X-Gm-Gg: AYBFou1lX1HyCHwVmjw9l4oNneiEjHM5OOR28Q36WsPO3RA0Bxe5729E2ZtswPWlkL9
- +wF3G0xFy/QZVVCpx2TW/FXBKfrlOhBiW7ZGDK821NXij8mWbxqYSF3y/L62wFVUg5T3g8X5hPA
- mzyMud1GtruGz4iEnvzaC81GbBX28pTGtLUW81ZviMCfhoRx46lGuQqslTDpHnB4odBXFnP8CKt
- YNwRRvvNAtsGPsVMJsVdfuEeLn46R+ks3xDnUnldmBuHR9SKGPKj1NxvHp0KMEb/mhQm6sKQNuK
- ByiFkJ0fK2cZtzH1H74Nksra/hWhF2eIIOAqkTcMFyo5tpf8SXhsGSe7WENdQd+eL2G+oIXCVVi
- ZJ11rUhl62dyfTIhVzjxNPPrHuSJ0nq2qDATpzbt2Yhwszxd8wLApsiT/sSwiXlhh9+SGTCc15e
- nPE25M3WDGVKBi4hPccM8xe8IEm91bYLt66weQWPhgUnSlMnIeJV17yky89DDK8ARjU/Sah9qFG
- g==
-X-Received: by 2002:a05:701b:20de:20b0:145:152:b54c with SMTP id
- a92af1059eb24-1450152b7ecmr819023c88.23.1790179987346; 
- Wed, 23 Sep 2026 09:13:07 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14501794269sm992777c88.8.2026.09.23.09.13.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 09:13:06 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] drm/amdgpu: fix ATOM parameter space index bounds check
-Date: Wed, 23 Sep 2026 13:12:52 -0300
-Message-ID: <20260923161252.1363895-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBB1810F1B1;
+ Wed, 23 Sep 2026 20:45:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=rjsfF1fEBJ1GVJyZ8uFAH8nL4bHJqwnmPL1J2vr0sxw=; b=nY/JaYBcZhdiU8rvVG7xT7knDv
+ saKW8Z7wKvVAkUxhg/sqtIKBEfZAcF5cLSgzl5PAKpW9OoVU2HX8VM0ZJPOFAJs794rX77ou17ub0
+ 5gE6IVA2OTQa+i8xZFR/LcJLKluGJ8PH5zt/eEpweEHub9xTa5+GRAq6nuFaaUmDXoU9wllPjdLnY
+ JYUioOI1Tf5RTQEspcVDGtMkDFiR0mjvkSfKn7E1nRWa6YJDgT9InkpWd7jcsKJTcU0iaQSG7gsZa
+ GP87Pyvz87vg3oj51ZXgGLJvPRPtD6f5kT541H3nuBI+kfG6fe8C1zcwk14gVRbTe83xng4T7LjTr
+ ArrFIBFw==;
+Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
+ helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x9Tpr-006KVk-Fu; Wed, 23 Sep 2026 22:44:59 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Wed, 23 Sep 2026 17:44:37 -0300
+Subject: [PATCH i-g-t v7 2/9] tests/cgroup_dmem: add dmem cgroup controller
+ test
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260923-dmem_max-v7-2-194ea47bbb4d@igalia.com>
+References: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
+In-Reply-To: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, 
+ maarten.lankhorst@linux.intel.com, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+X-Mailer: b4 0.16-dev-62088
 X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,49 +65,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-atom_get_src_int() and atom_put_dst() use idx as a dword index into
-the uint32_t *ps array (ctx->ps[idx]), but compare it against
-ctx->ps_size which is in bytes. A malformed ATOM table operand with
-idx between ps_size/4 and ps_size-1 passes the bounds check but
-accesses up to 3 dwords (12 bytes) beyond the stack-allocated
-parameter buffer.
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-For example with ps_size = 16 bytes (4 dwords), idx = 5 passes
-the check (5 < 16) but ctx->ps[5] reads/writes the 6th dword at
-byte offset 20, 4 bytes past the allocation.
+Add a test that exercises the cgroup v2 dmem controller interface using
+the new igt_cgroup library.
 
-Divide ps_size by 4 in both comparisons to match the dword indexing.
+The test uses igt_simple_main and:
+  - Skips if no dmem regions are registered (no cgroup v2 or no
+   dmem-capable device).
+  - Creates a sub-cgroup and moves the test process into it.
+  - Enumerates all registered device memory regions and prints their
+   capacity, system-wide current usage, per-cgroup current usage, and
+   configured min, low and max limits.
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260923163157.1354872-1-qwe.aldo@gmail.com?part=1
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/atom.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tests/cgroup_dmem.c | 91 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ tests/meson.build   |  1 +
+ 2 files changed, 92 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index e0e585f..d0a45f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -232,7 +232,7 @@ static uint32_t atom_get_src_int(atom_exec_context *ctx, uint8_t attr,
- 		(*ptr)++;
- 		/* get_unaligned_le32 avoids unaligned accesses from atombios
- 		 * tables, noticed on a DEC Alpha. */
--		if (idx < ctx->ps_size)
-+		if (idx < ctx->ps_size / 4)
- 			val = get_unaligned_le32((u32 *)&ctx->ps[idx]);
- 		else
- 			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
-@@ -510,7 +510,7 @@ static void atom_put_dst(atom_exec_context *ctx, int arg, uint8_t attr,
- 		idx = U8(*ptr);
- 		(*ptr)++;
- 		DEBUG("PS[0x%02X]", idx);
--		if (idx >= ctx->ps_size) {
-+		if (idx >= ctx->ps_size / 4) {
- 			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
- 			return;
- 		}
+diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+new file mode 100644
+index 000000000000..2ccd8bdb00ae
+--- /dev/null
++++ b/tests/cgroup_dmem.c
+@@ -0,0 +1,91 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2025 Intel Corporation
++ */
++
++/**
++ * TEST: cgroup dmem
++ * Description: Exercises the cgroup v2 dmem controller interface.  Creates a
++ *              cgroup, moves the process into it, enumerates all dmem regions,
++ *              prints their capacity, system-wide current usage, per-cgroup
++ *              current usage and configured limits, then destroys the cgroup.
++ * Category: Core
++ * Mega feature: General Core features
++ * Sub-category: uapi
++ * Functionality: cgroup
++ * Feature: dmem
++ * Test category: uapi
++ */
++
++#include <inttypes.h>
++
++#include "igt.h"
++#include "igt_cgroup.h"
++
++IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
++
++static void fmt_bytes(uint64_t v, char *buf, size_t len)
++{
++	if (v == IGT_CGROUP_DMEM_MAX)
++		snprintf(buf, len, "max");
++	else
++		snprintf(buf, len, "%" PRIu64, v);
++}
++
++int igt_simple_main()
++{
++	struct igt_cgroup *cg;
++	const char *region;
++	char **regions;
++	uint64_t capacity, sys_current, cg_current, min, low, max;
++	char cap_s[32], sys_s[32], cg_s[32];
++	char min_s[32], low_s[32], max_s[32];
++	int i;
++
++	igt_require_f(igt_cgroup_dmem_available(),
++		      "No dmem regions found; is cgroup v2 with the "
++		      "dmem controller available?\n");
++
++	cg = igt_cgroup_new("igt-cgroup-dmem-test");
++	igt_assert_f(cg, "Failed to create cgroup\n");
++
++	igt_cgroup_move_current(cg);
++
++	regions = igt_cgroup_dmem_regions();
++	igt_assert_f(regions, "Failed to enumerate dmem regions\n");
++
++	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
++		 "region", "capacity", "system-current",
++		 "cgroup-current", "min", "low", "max");
++	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
++		 "------", "--------", "--------------",
++		 "--------------", "---", "---", "---");
++
++	for (i = 0; regions[i]; i++) {
++		region = regions[i];
++
++		igt_cgroup_dmem_get_capacity(region, &capacity);
++		fmt_bytes(capacity, cap_s, sizeof(cap_s));
++
++		igt_cgroup_dmem_get_system_current(region, &sys_current);
++		fmt_bytes(sys_current, sys_s, sizeof(sys_s));
++
++		igt_cgroup_dmem_get_current(cg, region, &cg_current);
++		fmt_bytes(cg_current, cg_s, sizeof(cg_s));
++
++		igt_cgroup_dmem_get_min(cg, region, &min);
++		fmt_bytes(min, min_s, sizeof(min_s));
++
++		igt_cgroup_dmem_get_low(cg, region, &low);
++		fmt_bytes(low, low_s, sizeof(low_s));
++
++		igt_cgroup_dmem_get_max(cg, region, &max);
++		fmt_bytes(max, max_s, sizeof(max_s));
++
++		igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
++			 region, cap_s, sys_s, cg_s,
++			 min_s, low_s, max_s);
++	}
++
++	igt_cgroup_dmem_regions_free(regions);
++}
+diff --git a/tests/meson.build b/tests/meson.build
+index 4f5c9be7b458..65b9a230f935 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -1,4 +1,5 @@
+ test_progs = [
++	'cgroup_dmem',
+ 	'core_auth',
+ 	'core_debugfs',
+ 	'core_getclient',
+
 -- 
-2.43.0
+2.47.3
+
