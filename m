@@ -4,137 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95502C982FA
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Sep 2026 22:49:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 557E3C98302
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 01:22:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D012410E4C7;
-	Tue, 22 Sep 2026 22:49:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEA2B10E6DC;
+	Wed, 23 Sep 2026 01:22:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FMjQkJyc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5aRpXJHF";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012068.outbound.protection.outlook.com
- [40.93.195.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B3CF10E4C7
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Sep 2026 22:49:27 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012039.outbound.protection.outlook.com [40.107.209.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F194510E6DC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 01:22:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yvh+efgVzNqjmAS2YfKVUbjZV01lFoUUTT0dkXc3qndQkfxuy31QvHKfLdbnwSCN5Wf7to97AJtSjIQrDp70yqbgZhM9oML259iznUfeTaQiR9v/57qmw1RB4VHiN34a0PFcHrWfIrSYgZ8keeCiMBj2gcrjkolpRFoI9c1EwGniwADYS4sEMryJmgD8No0fxTWup0c9S4iq3i99xDISP3i13jJsFn/OZMjIUMVZXiCwSJiBtMhHcx7DW5wAgh3K8sbHYnYR+PD97tYHcRsHx0XQ+Iz+QR7m2cKhygqvby8KQ9VBUeV64xvv44ZwAkvlk47nGZcCxU64Gfb2xUK0uw==
+ b=ran7TEa72uyHuqwY4tgAURxGeo7Wtud6Ae/snt2S/ixzp7VS8UO+b6Tco9EVq+7WixCsYzvo4X6RmjKlxZ4sgAJmLfNmpn1FRu/VB4Y7VwKArR/FT7oxPlmyt/bj9/OG1bnPB0LRe4fPhEeSwpbeHz/tHfNj3qhU0HhlURP2QdXxwpHvECA2fzdSNqCF9J+FSWbGCnm/2ZIr57Tu7e300H0WL13PCi4b1ZhDH6BNAqKyHEIdQ+7UtHw3tm4s1eNVmmUcjrKwG7TWJ/h8Oq6Va2lXPfLwb77AuWUsX4KFZ9Ev/s5nwKFBgd7ljnIEcPj4dTlRc8Cz5I5BF7GiLJNdDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aaj852rp5g+lLWx1Ne+x/sVPTdKGTZ2gDPrSraOmLaQ=;
- b=putB88ZNk6l+cXZCtWIFmQztry4VzvgQMtT6da9xTKOSyv8Xbo9uxrm8Bq6hCp0o4DmC9lQT4BcII+JXwEpuQrno87eD/quIonvTIblACKMHSfXk8Q9o1twfJZHmTHzpn6SXOcQHMpgRc1QDtFEgksE4fLeJpH5+W+QUI12GgpuC/myAXNRgzBx7K2LAWpSjxQ0Se/gaoaf7g4YJaaRTKk/N1QWuBpIVJlqIeRdqlHrYJptu3LMx0dzAVvcWEBb3Pa6Ikei0rz8EEYg92oYJl9gQVLEZD+YbWLkiVv9CQxeGvhBblDVsHt4qlHv2y5Wy4I9AhqAkNkXFP9pylkOj0A==
+ bh=k776gWOS9JE039CCh4hDB8I3JcvBV3kaec16eiWdw2E=;
+ b=I+fvbDhG4RBHZdYsVThUEtXTTjFRGhlyEqi29g6xUvdDJtrs4D3aSCQ41qi4NAxBf5s0FL2UZSz0o/cHjLiB3WMA8GFSN3TVLk1xx6EETJBlu56gEPNZ7i9JNB6819McL1yK/NGyjYG/3/sL3VcNQJCKXqTFqINVRFDPHkXyZ0o14QsoQIOq4vuL7zO5HZ/5JSBQ/+eExSnEsd0ZvvpyirVBS2rnMgKyQcvZmkoIVFGp5oevUvCCz9cKLrWq1tz9hv42NKPwAkE6oH7lCcgU4yH6+nZy6uYuM8h6YO3xqr9f1t5cOaHIMbiGX59z2VDUi1bivZp7BRPW7OL0+YAxhg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aaj852rp5g+lLWx1Ne+x/sVPTdKGTZ2gDPrSraOmLaQ=;
- b=FMjQkJycnamTO8srb+iZENRq+IDNJsFEfbK8kpNmfFIEHG7Xb2nNREUMlZV/VbeShG5St6GY+E/JkQ8dlnfR1rxC2OdhnlEzF/bHwhghZX0YxL69O51rZhEEs+0sj7u8aICJ29VDrFoq5aghhqd5Y25f9v25zfH9yRHp9T9W57U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by DM4PR12MB6613.namprd12.prod.outlook.com
- (2603:10b6:8:b8::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 22:49:22 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 22:49:22 +0000
-Message-ID: <00a10239-1e09-470b-8970-db00814af486@amd.com>
-Date: Tue, 22 Sep 2026 18:49:19 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] drm/amdgpu: Fix topology device creation and
- proximity domain mappings for sparse and CPU-less NUMA systems
-To: Dhruv Bhogaonkar <dhruv.b@linux.ibm.com>,
- Donet Tom <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <cover.1785833981.git.donettom@linux.ibm.com>
- <16887553-76eb-4af9-8769-f77f4fb9fb68@amd.com>
- <b492ee69-86fa-47a2-aecc-e470568d7204@linux.ibm.com>
- <2bde809f-d2d9-4b94-88e3-f8e2ae2cc7b0@amd.com>
- <6b7e68a3-8308-496d-a183-f23be992448e@linux.ibm.com>
- <a7404568-5d4b-4588-950c-28a5225f77d3@amd.com>
- <8e5fccd6-6907-498c-b1a9-39fe15525ee2@linux.ibm.com>
+ bh=k776gWOS9JE039CCh4hDB8I3JcvBV3kaec16eiWdw2E=;
+ b=5aRpXJHFidTnxuf4hJlK113RsGsbwWPBCSANwx0jrbasCdwBmoW9NOrUpOGnLgXNjVi5J1rmb8ftPP4T/TWl8gChHXMc07kLX0PoA/qwI2n5aVayUiGdj8tvGBaLFLGspftxC8WzbG9eX5BBcsQuowSWleWfXBJP6bMQm4ho6A0=
+Received: from BY5PR12MB4179.namprd12.prod.outlook.com (2603:10b6:a03:211::8)
+ by DS7PR12MB5789.namprd12.prod.outlook.com (2603:10b6:8:74::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
+ 2026 01:20:19 +0000
+Received: from BY5PR12MB4179.namprd12.prod.outlook.com
+ ([fe80::2036:e8b:9b3:f325]) by BY5PR12MB4179.namprd12.prod.outlook.com
+ ([fe80::2036:e8b:9b3:f325%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 01:20:18 +0000
+From: "Ma, Bing" <Bing.Ma@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, Alex Deucher
+ <alexdeucher@gmail.com>, =?utf-8?B?VGltdXIgS3Jpc3TDs2Y=?=
+ <timur.kristof@gmail.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
+ Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, 
+ "Zhu, James" <James.Zhu@amd.com>, Natalie Vock <nat@pixelcluster.dev>
+Subject: RE: [PATCH 01/12] drm/amdgpu: add profiler UAPI definitions
+Thread-Topic: [PATCH 01/12] drm/amdgpu: add profiler UAPI definitions
+Thread-Index: AQHdSgRBxWDDDp4iM0mpNhY8ii6d37batJYAgAADPYCAAACWgIAABPaAgAAA8ACAAJ0VMA==
+Date: Wed, 23 Sep 2026 01:20:18 +0000
+Message-ID: <BY5PR12MB4179CBF382C5DA57975FB8BFFD822@BY5PR12MB4179.namprd12.prod.outlook.com>
+References: <20260921200313.865829-1-James.Zhu@amd.com>
+ <_Vw-t4UsQJK0Ic5kimqXtw@gmail.com>
+ <d955f3a3-2f90-4e6a-bc9f-579df06e6402@amd.com>
+ <E26TqGhRRCmT_3vybr_f2w@gmail.com>
+ <CADnq5_MhUmRZeDKCVHPvq8z=UbJv3MEJZAOzBXjz5cFm46v_Zw@mail.gmail.com>
+ <678a85fe-e544-4ce9-a19e-b9d71f250750@amd.com>
+In-Reply-To: <678a85fe-e544-4ce9-a19e-b9d71f250750@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <8e5fccd6-6907-498c-b1a9-39fe15525ee2@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0194.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ad::19) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DM4PR12MB6613:EE_
-X-MS-Office365-Filtering-Correlation-Id: e96a677f-4c19-4343-4586-08df18fbbe44
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|10067099003|6133799003|56012099006|22082099003|18002099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: xEZBRYHcnXi9Un+Ecg7FuhSYbRylPPlXVqYSVps+ZqBgKhsSzuYc7lXG3ixUI8xGcP+ITy7nylSv5Mb/QN3R89w+cLm6KYwnWDIpi3Js6vXG4l8vIDwwVptvYmeUlt70jM5ZfXL6QntO9X00Rw/gZrkmPBOwT2Vt+Q8p2F0iaa1QrzlfvMzwMDHEYKBYCpSpjFRm6Jw8c6lOZx2XmiXx2RuTh3grlKFPkM0kg3oNcAuZMLzeO7cYK9F6jMCzYrYZqIBkizS+QtzJWs3Qz1Yp2RvAsL/R4TZoD67H8mF99of2yA2P/2V3RRmRnd+ywf/d/qs8MYCLfwOjZk/zW46dS/UMivZZ+na31b4/BzkR4Hj5wPIsBzUQ05iVlUCjehFqB0MKXQfloWdJN0IZs9OAJcL7VGsmjnPGNLGqJ8qpL/LXalTSBi95vCcCWp07erVCa3cNs4iZB4wXluLG4RTkwmjLX32S7HcaGHxqkzjC1UVu9p4aWFNbkq+uteL4VsZ1nOVniYEgwDV0WyfQGu0KHRYRtl4S0e10lBiAfjBMgeRe9iZcOoUw/fgoB1DgNAgfMsPY2RnBB6isPR3Euafq9zdsAs8KFG0jdR3S7IoZgVGY3FIMIfrCUAFkuDUq9Opm
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(6133799003)(56012099006)(22082099003)(18002099003)(11063799006)(4143699003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-23T01:06:06.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY5PR12MB4179:EE_|DS7PR12MB5789:EE_
+x-ms-office365-filtering-correlation-id: b5408176-2b11-4e76-df63-08df1910d473
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|10067099003|11063799006|4143699003|6133799003|56012099006|3023799007|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: Yr0pFnrKZ5+uI7CEcwDvv+RtsswJ1VLeOtGcfKb5fonWnr0qiW6q8lkYsNJGDj4VZQ4fnWnqg70VY173GIiO/KeDOd47HP5p0Q4nDo3yLDQwAgeZ5DdkOQz/Ey8kdCIpG5ES0/NlMMnxME6iIOWlj3g4zo5rrD8qGI7s1Epm0vDDEMPXDTeOtI1eyVsDeLJ/4b6cTSyb5lFGzaH6HAYXWYbybLainzUiOQWuWWpUsVxIH/QAcQ6D8E43OY0J+wFa84QxXdJBiumx4J4HzHM1DppAfd2nRHCYdHeuthzq4fLCrSPQeAotRIxXH27K6XZr24CnykQ/vbQfvdGTmbyfrqlk9LTH9b/lx/5hrsMFiFMpYrSSKOUMAvdKIRRH21483wXDoGZCyupSuiljfkTfW7uSb/5YtMzfKB659HjfH+2zAbsoD9AJ83CfG3GTHw1V4D0lLXqnRh+GEV9gcAHntOv7XihBjuBf8/gW1AnW8ILIvQumI5KOSQ7ePP8o2hBmyrIKsUIEzIl7uHo/2vMtzBWqEFxlPRSS6EsgdSeGz6rekErqe1sj+8vwGNnAfJQVvyCfKlGFVBN61h/6pugqHEB7o91eFuKsaLk1iKVMknCIm+XXf5kzxlgpUfZvv84CniM86on0LtRhgcjZT0qL+9BCuxszsANVAZ5MstIO7uvM2AdzV6bsHdZCKWA1ytpJp+xSpom5yj5UvXF6xhn+5acTzIetnZB/IgV+Z0ca9PM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY5PR12MB4179.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(11063799006)(4143699003)(6133799003)(56012099006)(3023799007)(18002099003)(22082099003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TjZxY3k5L3Uwd2FCZk94YTNjNDFaYVNWUHM5dGhxTTIvUGZxakxCMjB4ZXJt?=
- =?utf-8?B?M2tqbmFmT2lUQWh5eTJwdzhXQ2NhNURqWW5BWGxMOVlpU3ZIeWNwY2FNU0lo?=
- =?utf-8?B?SnFOamZnTWtNMDFPVzBPNitrSGIyc2RhN3Y4aytoTjVJU1J3anBLd1YzNFJ0?=
- =?utf-8?B?ZnNzbDFVZjNDUG03SGgwZHRDYzh4bmlvYUYyTzllZDlLZFdTYUlhZjVYZzJ3?=
- =?utf-8?B?VjNuZGErM0thZFZOZFBqTzZXTnhMeUVpaGpBT0RCRTdVWHQ1TjhUeWFzb2Yw?=
- =?utf-8?B?R0FMZ3M5UE5TMHJNUUZLL2p2UVZUT1kxeVM5Z2NOVTNjRzJxbkd2R3hrZ3Y3?=
- =?utf-8?B?THhOTFY2Rk90dkVrVllpOVh3YUNsbFJnWTd1eElxUndZajlJOXdmcTJ6Yis4?=
- =?utf-8?B?dXdrdlMrZFZKOE93YS83VWFVM1NGZmtMSUpyOFE0TE1uYm8xRGhqWVJXdnRi?=
- =?utf-8?B?OUJJaTFBZnVEb09UTmJkTzdQNitpeU85dHExamlMNjJzdWovaE1OSlFrMXRG?=
- =?utf-8?B?K3JlSXJuR0trMzNZRm1rQkxtSVdTN0JNRU5LWG9mMlhyRHQ3SVdHN3dPMlcv?=
- =?utf-8?B?NjJTSUo3dGxzekpablZFU0ZvWkRzWmxhWXV6a3I0bWtDNUhyWG9nYUgyZWpz?=
- =?utf-8?B?cVkzYUwzQmU1UytUVjFpSWRrUGFScm9nV2N2dkJYeWgwSlhBaTVOWHI0K3Vw?=
- =?utf-8?B?YVZhVmtFQkYrMzNtczB1WUthVlMzSHhxWHNzOXNrM3h6K3doU3VUZURYRC9y?=
- =?utf-8?B?bnBzdEN5NngrQy9YWXYrWXVrVEY5QXFueVZqNzVkYTNWRTNhWURyQ2JSYU8z?=
- =?utf-8?B?dWEyamphV1B2SnpTUEZpeGdYZTRRODZVUUVsa1IxczNhVzhqRUYvcDU4cmFK?=
- =?utf-8?B?Z0U3cW1hemlZR05aRnc2bkF1REVTSi9GVFpVbUVtTjdXQ1p6Q2JwU3BuckMz?=
- =?utf-8?B?UHQ4NXFVMDNGVHU5VUtnWi9QVjE5cmRVTzRSdkF1ZkV4NXhQeE1TUk1ISXVT?=
- =?utf-8?B?STRGbFZ4MXJ2cmtHUDZEN3VEamZUTGxONlprRkpIWWVUbWdxZ0dkSzR3Y1kx?=
- =?utf-8?B?Zk9tb2FIQmhTcXBoNnROY0EvbkNoTEV6QlNkdytvbnNrL3FrMWpTQkc3YVh1?=
- =?utf-8?B?cVcwdzkzV0gyTW91Q01JQUNISTQrVS9zd250QUR1eTNQT3RXYWR1VzJSZVVD?=
- =?utf-8?B?QjYyTGVXYnpKUEpKVk5NTXJJM01vKzRDTHFOYzNkeTBJMFdwajZtZXZwV2J6?=
- =?utf-8?B?K0VVSFUvN0dJbFVnbVMyUFordTZaaFNKRGJ0dzM1Z09RZ1laZG83OTZIZzZ1?=
- =?utf-8?B?SmlnRnRuS3d6eE4xeWpDNVBWMm9IcFpyRnhETklTbk5uMXk2c1llRG90M2l2?=
- =?utf-8?B?SGw4bjcyWDZVRUIveStSM1hmcFFmTVVjbytJc1MrNERwOEZXK0hVZ0xrT2gr?=
- =?utf-8?B?YVJWbnJYcFlHL3VtKzh0UnZFVHkvc1BVMXUrUmgrMXNaWDVPWE1pc1dpNUZo?=
- =?utf-8?B?S0ZWOGd4UCtMdllGd0N6UUtUVnRLRHgvai94YnlxRDBUSkorbGNEUDNQV0tN?=
- =?utf-8?B?QjBjNS8yT05HcXZHUnY5WnRZMGdGOWRlTThaZ0ZFZnZTZU1FaERoNzVuQnpm?=
- =?utf-8?B?VXhaak5yeVB5NUZYUDVNY1pRQ1pRWnhlekphU21nZks0b0h1bE91bDEzUHk1?=
- =?utf-8?B?SFBpV3phN1VlUkVDWTNKREFxbGdmdzYrNWw2cHdYeS9pTFFsYUc0Vk5sS1gw?=
- =?utf-8?B?WVFUTXR5RURnMnFxellwUjJ3NGJhSGs5RjVncXNhT01nMGs2ckpwQ01zbkpt?=
- =?utf-8?B?VFNLQnczakt1TU5lTFZKN3lJWmZueUhaNnZueDdKZGNuSWZLUEF6SXZqSTB6?=
- =?utf-8?B?cVk4NU9Fczl2Tml2SnpQbVZhK05DNkhxYkxvM0R6WWlBVE1xYWwzc0VpczF1?=
- =?utf-8?B?MFp6M0tyR3YxZDlScWVsUm5FVUlzSUEybHl5b0tFYWR4Q1Vob09UQ2R3dzJJ?=
- =?utf-8?B?NnhGOVM3RlROaEtwVlN5T3dCWEM5V3JjUEZNRGpFcDJ6aEZRdk1neERha1RY?=
- =?utf-8?B?UjFEbFI2d3BPNFk1K3lrSWxOQzR3NDVTaUlsYmtVbkowbDZraTM1dzMzVlRz?=
- =?utf-8?B?SEp4dEYzNld4ang2RkpRNjZJU3NndWk3M3JHdDFQVzl6dFRRV0dJTDV3SHpu?=
- =?utf-8?B?dk02NU9hOE9mVnVyVVl3OFFLOFo3cVErdzQyK3MvaEszQkM2aGltNEtYZTlF?=
- =?utf-8?B?WEFCNWJva3dYbDZUeEV4a21URUlGL1ViZ1EwM1ZUakV6SlV6R0k5WkNHSmwv?=
- =?utf-8?B?VElKQ3NucHlIZ05iTTZIc1pxMi9SNEpRZXZxcUtvUmdPMG5tSVRtUT09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dFEvWFRmSTdBRU9HamV0ZU4xZUVucXVqZ3NNTjJ0WStETU1FMDMzOXM1QUJl?=
+ =?utf-8?B?aFc2U1dzQ0pCSUhSRkhIUXNTd1Rqa2VKWWJEREtyeWFIUHhJUnByNjk0c2lM?=
+ =?utf-8?B?blE3cGIzUU5LK1FEUVltQnphMkNjM09SVlJ3OU5JUTc3a1dRazFhaGY5Q3I4?=
+ =?utf-8?B?QjNucXdSTXR3UkQ2dFJManY4VlJaUllWbWpkRnJuSW90L2N5K0Yrb2ZVY2VO?=
+ =?utf-8?B?WDMrWFZ3ZGNnbGR4SEhTeUprVkJhUDdVTjlLRmFzQzJ5MHY3MFFZRVNDYy9I?=
+ =?utf-8?B?cHNmZmVlV0ZHZ1RGRlZDVDZXMC9rZ285TG1uSmxqbnB0RFRrUys0dHQwSlZM?=
+ =?utf-8?B?TmplNkYwc3A4WDZldCs3OUhmRGtvdW04eUJWN3UrTVBXcUs0YzBLb25lZnF6?=
+ =?utf-8?B?L1Z2UkRTUGkwK1lRRzVxL2pNZW5xQ25XZnpqU2ZFSGdod0JOdmQxU00zUWZE?=
+ =?utf-8?B?NXJxRlNMajMwOHc0THl2U0UxdThFQmpKZWN2RmIvNVZjZFVNSTI2dHlPZDV2?=
+ =?utf-8?B?ajVOcXhOYThqTS9Tb24rQ2Y0VC9sZVhvZUpWcVptbnNzQkQyZkZLMEswazhY?=
+ =?utf-8?B?Q05qWTdxTWw2YUdpVG05bW11UEdvTThXWTc5OE93eTNzTzRtSjFUcHZhMTYr?=
+ =?utf-8?B?citOOVh3UzhnR3hoa0xjM2xmblRtcVpjMjJqRTA5ZmdHaHBGYTBMNVBYekNj?=
+ =?utf-8?B?TVd5bjd4L2xsdndBVXFUTktVdUpqemNFeUdvaDl2QXZCZjVrbGpibEMrVlFQ?=
+ =?utf-8?B?YUI0QUkrYkFjeWVIRUdCRHJVeFp5ZFVENk9YdTJ6R0pBVndlT2RRUWRCcFY0?=
+ =?utf-8?B?UFNsaFcydDZpbml4Qk1xRDhPa2NqZ1RWei9YL2NpdWlDd1VJNTJ1YTRwOGVr?=
+ =?utf-8?B?cjZUWTZoYVFKMDRTUnNOZ3lOSnRWcHJ5TW05TFh4bzlGWXM5WGU0alo4SUhS?=
+ =?utf-8?B?NHVzQkg3YncwNWhoZmJyMDJ0TzFUN0pFV3AvSzVEMTg2aExOTW4yTU01bmFV?=
+ =?utf-8?B?TzJRZkFSakVkRHNiWGdSeVBnTWplZk4zNEZTZmk1YTRZdGxIMzN3eXBGWG9H?=
+ =?utf-8?B?eExBTXlBWXFaQVB3Ly9QSnlWRTA4RTVabGRtUzdIdVErVGNTdjlxSHFCVnQ5?=
+ =?utf-8?B?SnBxWDI3UnN3c0lnTW9TdW9IN1pENnl3cXlkaVlBR1ovbGJrMVVHTWdJeXYx?=
+ =?utf-8?B?SDRyY2x6aU1lQllnZ25HMXdER2dvNUo2RVdxd2FwcFczRTBodXVMdDlRUmYx?=
+ =?utf-8?B?REozeWpBZXNEZjgwanR6TFBQT2szR1F4Z2M4RERRaFhiL3AxK1pqejF3dmJZ?=
+ =?utf-8?B?eWhJaEEyVmxlZVVZdExTaURSRE02UGhNOG1XT2E4TWp2ZGVUK2pFbUxrL3Mv?=
+ =?utf-8?B?UUh0THhGbmk0K2w0RnJKNjU2bWhZVmNsZGYwSE5tS1B5NFIwYWx5YUUxZ1V5?=
+ =?utf-8?B?cmxhbnlFR2pUeE9tWVNGbG1MZUF2ZEVWbkJxbXdFc3dEeVJqSjNGdUl1UTJN?=
+ =?utf-8?B?d3JYeHVoSU5NUS81OXFwQTdCc1JxTEM3Z2paOGsyY21qVmpRa0Q4YkhXekRG?=
+ =?utf-8?B?RzkwZW8xb2QwMExwWUdlRFNyRGZVdmZUNW11b3c3bzZIZGk0ZFNGQUlWekpW?=
+ =?utf-8?B?dUpYelA4NklRTCtJQUsxV3lXZHk1VWtseSthb3Q0cTg1Vk5rQkE3bit0V1pD?=
+ =?utf-8?B?emdobnduUGRLaUt6MmFhUGRJTGk2R1ZkVDZDbjVZd2MxMjBnQzE2RUtlbklk?=
+ =?utf-8?B?S044bVQ4TmF1dmJtZUpIV2Y3Q0FnSm9xMmI5NGpNTjJSQks0azQ0bXEzdnpk?=
+ =?utf-8?B?MjhkRG53RlBkYkFCMHdNUUh0YVNONktYTlh5bExlNlh4Sm5tdFFERlMzcDdy?=
+ =?utf-8?B?ckpUeGpwRVg5bWp4SmJFeWRvUy93NXdqSHlrYmh5UHAxTlRDWlpTM3F5STlW?=
+ =?utf-8?B?R2dpY1hMVjZ1WWZXYWNWL3NHSVZCbFhjY093eUhaRDQ1Y0NNb1BPVGFQRWYw?=
+ =?utf-8?B?S2FPUHRDdGN0SkExdzM2Z3Yzb0d6dDhjSUJzOSt5ZkovcHYzZnVsekI2Q2xh?=
+ =?utf-8?B?ZVNuVEYxS0k3eGtxcG44Y0FwaFJSSWlXRi9URWluYnh3NHNxVTRXbjdvZVFC?=
+ =?utf-8?B?VEtjT21MaDQzQzVuN2s3TkV6dTlXNkJ1RmZrRU5wcXBYYStvRnhTMTVHNC9L?=
+ =?utf-8?B?YXFuLzZ4VkYyay92cWxITEI2a2JlbHJtSkFBZkM1L3lsYXVmZ3B6eXRGSVdh?=
+ =?utf-8?B?alArOUJGdXJQUGFSVmZkaHhZSkNSVlRWOVpwdnRldXZjMkxkUmc4eU1HbWhx?=
+ =?utf-8?Q?DroiyhSxpLZ2e7REyf?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e96a677f-4c19-4343-4586-08df18fbbe44
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 22:49:22.1745 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9PE6l40yb/LSO4HUMFiYMV/e4PND7KGZnEswr2Z/szEdkI4SyucEfyknC3ftjBhdxCgLRehyMlFZTvMsAx8iPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6613
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB4179.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5408176-2b11-4e76-df63-08df1910d473
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 01:20:18.3952 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: znFYUuNdi7VA51WGt8SA6nXnsTjQWUK+AaSHb3/9Q8XYjqz8JYDFIxfWMvMCetY2/EIiKejbNkiOiGT6MIQuew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5789
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,425 +149,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-09-22 12:59, Dhruv Bhogaonkar wrote:
->
-> On 21/09/26 22:35, Kuehling, Felix wrote:
->> On 2026-09-21 00:56, Dhruv Bhogaonkar wrote:
->>> On 05/08/26 21:46, Kuehling, Felix wrote:
->>>>
->>>> On 2026-08-05 03:09, Donet Tom wrote:
->>>>>
->>>>> On 8/5/26 3:57 AM, Felix Kuehling wrote:
->>>>>>
->>>>>> On 2026-08-04 05:52, Donet Tom wrote:
->>>>>>> This series fixes topology device creation and proximity domain
->>>>>>> mappings in
->>>>>>> AMDKFD when a system does not provide a CRAT table and the driver
->>>>>>> generates a
->>>>>>> Virtual CRAT (VCRAT).
->>>>>>>
->>>>>>> The current implementation assumes that CPU NUMA node IDs are
->>>>>>> contiguous and
->>>>>>> that every NUMA node contains CPUs. During VCRAT generation, CPU
->>>>>>> topology
->>>>>>> entries and proximity domains are created only for NUMA nodes that
->>>>>>> have CPUs.
->>>>>>> GPU proximity domains are then allocated immediately after the CPU
->>>>>>> proximity
->>>>>>> domains, and the GPU I/O link (proximity_domain_to) is initialized
->>>>>>> using the
->>>>>>> NUMA node ID to which the GPU is attached, implicitly assuming that
->>>>>>> NUMA node
->>>>>>> IDs and proximity domains have a one-to-one mapping.
->>>>>>>
->>>>>>> These assumptions break on systems with:
->>>>>>>
->>>>>>> Sparse (non-contiguous) NUMA node IDs
->>>>>>> CPU-less NUMA nodes
->>>>>>> CPU-less and memory-less NUMA nodes
->>>>>>>
->>>>>>> For example:
->>>>>>>
->>>>>>> available: 3 nodes (0,2-3)
->>>>>>>
->>>>>>> node 0: CPUs present
->>>>>>> node 2: CPU-less
->>>>>>> node 3: CPU-less
->>>>>>>
->>>>>>> In this case, the driver creates a CPU topology device only for
->>>>>>> node 0 and
->>>>>>> assigns a single CPU proximity domain (0). However, the GPU VCRAT
->>>>>>> still
->>>>>>> references the NUMA node ID to which the GPU is attached (for
->>>>>>> example, node 3)
->>>>>>> in the proximity_domain_to field. Since no corresponding CPU
->>>>>>> proximity domain
->>>>>>> exists for node 3, the parser cannot find a matching proximity
->>>>>>> domain during
->>>>>>> VCRAT parsing, causing topology initialization to fail.
->>>>>>
->>>>>> Hi Tom,
->>>>>
->>>>>
->>>>> Hi Felix,
->>>>>
->>>>>
->>>>>>
->>>>>> Thank you for the explanation and the patch series. I may have some
->>>>>> gaps in my understanding that I would like to clarify. In my mind, I
->>>>>> was using "proximity domain" and "NUMA node" interchangeably. You're
->>>>>> demonstrating that they are not the same thing. Is that just a
->>>>>> different way of labeling the same thing, or are NUMA nodes and
->>>>>> proximity domains fundamentally different concepts.
->>>>>>
->>>>>> Your code in patch 5 (kfd_proximity_domain_to_numa_node and
->>>>>> kfd_numa_node_to_proximity_domain) seems to imply that there is, in
->>>>>> fact, a 1:1 mapping, as it assumes that there is a unique
->>>>>> translation in both directions. Am I missing something?
->>>>>
->>>>>
->>>>>
->>>>> Thanks for the comment.
->>>>>
->>>>> IIUC, NUMA node IDs and proximity domains are different numbering
->>>>> schemes. We have proximity domains for both CPU and GPU devices. CPU
->>>>> proximity domains start from 0, and GPU proximity domains start after
->>>>> the last CPU proximity domain.
->>>>>
->>>>> If the NUMA node IDs are contiguous, the CPU proximity domains happen
->>>>> to match the NUMA node IDs. However, if the NUMA node IDs are
->>>>> discontiguous, the CPU proximity domains and NUMA node IDs no longer
->>>>> have a one-to-one mapping.
->>>>>
->>>>>>
->>>>>> If they are just different numbering systems, do we really need to
->>>>>> keep track of both proximity domains and NUMA nodes in the KFD
->>>>>> topology? Or would it be sufficient to only track NUMA nodes, if
->>>>>> that's what we really care about in the uAPI (KFD sysfs)?
->>>>>
->>>>>
->>>>>
->>>>> Thanks for the suggestion. I also think we don't need to keep track
->>>>> of both the proximity domains and the NUMA node IDs in KFD. Do you
->>>>> think the approach below would be reasonable?
->>>>>
->>>>> Just to make sure I understand correctly, for CPU devices the
->>>>> proximity domain will be the same as the NUMA node ID, and the GPU
->>>>> proximity domains will start after the last CPU proximity domain.
->>>>>
->>>>> In that case, the CPU proximity domains and NUMA node IDs will always
->>>>> have a one-to-one mapping, and the GPU proximity domains will follow
->>>>> after them.
->>>>>
->>>>> For example, if a system has three NUMA nodes and two GPUs:
->>>>>
->>>>> NUMA node IDs:            0   2   3
->>>>> CPU proximity domains:    0   2   3
->>>>> GPU proximity domains:    4   5
->>>>>
->>>>> Would it be okay to proceed with this approach?
->>>>
->>>> Yes, this looks good to me.
->>>
->>>
->>> Hi Felix,
->>>
->>> I have been looking into this issue along with Donet.
->>>
->>> From my understanding, there are three related but distinct concepts
->>> involved here:
->>>
->>> * NUMA node: A system can have sparse NUMA node IDs. For example,
->>>   online nodes can be 0, 2, and 3, with node 1 absent.
->>>
->>> * Proximity domain: The proximity domain is the identifier
->>>   associated with a KFD topology device. In the current implementation,
->>>   proximity domains for CPU topology devices are assigned using a
->>>   sequential counter, and GPU proximity domains are allocated after the
->>>   CPU proximity domains.
->>>
->>> * KFD sysfs topology node: KFD exposes each topology device through
->>>   a node under its sysfs topology interface. Userspace reads these 
->>> sysfs
->>>   nodes to discover the CPU/GPU topology and their relationships. In 
->>> the
->>>   current implementation, the sysfs node numbering corresponds to the
->>>   proximity domain numbering.
->>>
->>> IIUC, the proximity-domain numbering and KFD sysfs topology-node
->>> numbering are expected to correspond, while the Linux NUMA node ID can
->>> be a separate identifier that is mapped to the corresponding topology
->>> or proximity domain.
->>>
->>> As discussed in the thread, we implemented the
->>> 'NUMA node ==Proximity Domain' approach. However, after implementing
->>> this for sparse nodes, we found that the userspace libraries using the
->>> KFD sysfs nodes have an assumption that the topology devices are
->>> contiguous.
->>>
->>> With this approach, discontiguous NUMA nodes result in discontiguous
->>> proximity-domain and sysfs node numbers. This would break userspace
->>> libraries that assume the topology devices are contiguous.
->>>
->>> To support this approach, we would need to make corresponding changes
->>> in the userspace libraries, which would break applications using the
->>> existing userspace and introduce backward-compatibility concerns.
->>>
->>> With this in mind, we think the current RFC v1 approach would be the
->>> better way to proceed, keeping the NUMA node IDs separate from the
->>> proximity-domain/sysfs numbering.
->>
->> I'm not sure about this. We have code in user mode that uses the KFD
->> proximity domains as CPU NUMA nodes, e.g. in calls to mbind. E.g.
->> https://github.com/ROCm/rocm-systems/blob/f437a7135fa67b96b48da4baeb72d5f75c406052/projects/rocr-runtime/libhsakmt/src/fmm.c#L2058 
->>
->>
->> So if you change the KFD CPU proximity domain numbers to something
->> contiguous, you're probably breaking user mode either way.
->
->
-> Hi Felix,
->
-> Thanks for pointing this out.
->
-> I think the approach you originally suggested seems to be the better one:
-> keeping the CPU proximity domain numbers aligned with the NUMA node IDs,
-> including sparse NUMA node IDs.
->
-> This will require corresponding userspace changes to support
-> non-contiguous NUMA node IDs, but I don't expect this to break any
-> existing applications or introduce backward compatibility issues. For
-> systems with contiguous NUMA node IDs, the existing behavior will work
-> as is, while systems with non-contiguous NUMA node IDs will work after
-> the userspace changes.
->
-> For example, one of the areas that will need to be updated is here:
->
-> https://github.com/ROCm/rocm-systems/blob/2d743306cb341b5973cb0d6af7b549569d127724/ 
->
-> projects/rocr-runtime/libhsakmt/src/topology.c#L831
-
-The code here is already designed to handle sysfs nodes that are not 
-accessible because GPUs are not available in the process' cgroup. Maybe 
-we need additional fixes here to handle the case where a directory is 
-completely missing in sysfs. The biggest problem is probably, that user 
-mode tries to remap the node-IDs into a contiguous range here: 
-https://github.com/ROCm/rocm-systems/blob/2d743306cb341b5973cb0d6af7b549569d127724/projects/rocr-runtime/libhsakmt/src/topology.c#L836. 
-We'd need to avoid that for CPU nodes so that we preserve the identity 
-mapping from node IDs to NUMA node IDs. Maybe we can create dummy nodes 
-with no CPU cores and no memory as place-holders.
-
-
->
->
-> If you have any pointers or suggestions regarding this approach,
-> especially for the userspace changes, I would really appreciate your
-> feedback.
->
->
->
->>
->>
->>
->>
->> Can you point out what specific problems you run into with
->> non-contiguous NUMA nodes topologies?
->
->
-> The issue we see on a system with discontiguous NUMA nodes is that the
-> GPU VCRAT parsing fails when we load the GPU driver, resulting in the
-> following errors in dmesg:
->
->     amdgpu: Virtual CRAT table created for GPU
->     amdgpu: Error parsing VCRAT
->     kfd: amdgpu: Error adding device to topology
->     kfd: amdgpu: Error initializing KFD node
->
-> On our system, we have 3 NUMA nodes: 0, 2, and 3, with 2 GPUs attached
-> to NUMA node 3.
-
-OK, that's all stuff that would need to be addressed with kernel mode 
-driver patches. I'm hoping it would be a simplified version of the 
-patches that Donet already proposed.
-
-Regards,
-   Felix
-
-
->
-> With the current upstream implementation, CPU proximity domains are
-> assigned sequentially. Thus, NUMA nodes 0, 2, and 3 get CPU proximity
-> domains 0, 1, and 2 respectively. The two GPUs then get proximity
-> domains 3 and 4.
->
-> However, when generating the GPU VCRAT, `proximity_domain_to` is
-> populated directly with the NUMA node ID. Since both GPUs are attached
-> to NUMA node 3, the VCRAT contains:
->
->     GPU0 -> proximity_domain_to = 3
->     GPU1 -> proximity_domain_to = 3
->
-> https://elixir.bootlin.com/linux/v7.1/source/drivers/gpu/drm/amd/amdkfd/kfd_crat.c#L2175 
->
->
-> Here, the CPU proximity domain corresponding to NUMA node 3 is actually
-> 2, while proximity domain 3 belongs to GPU0.
->
-> During VCRAT parsing, the I/O link parser looks up this `id_to`
-> proximity domain, which is 3, and returns `-ENODEV` because there is no
-> CPU topology device with proximity domain 3:
->
-> https://elixir.bootlin.com/linux/v7.1/source/drivers/gpu/drm/amd/amdkfd/kfd_crat.c#L1284 
->
->
-> Thus, the GPU I/O link is referencing the NUMA node ID as if it were
-> the CPU proximity domain, which causes the VCRAT parsing to fail.
->
-> Since the parsing fails, the driver does not get loaded.
->
-> Thanks,
-> Dhruv B
->>
->>
->>
->>
->>
->>
->> Regards,
->>   Felix
->>
->>
->>>
->>> Would you agree with this approach? If so, I can rebase the RFC v1
->>> series onto the latest kernel and post a new version for review.
->>>
->>> Thanks,
->>> Dhruv B
->>>>
->>>> Regards,
->>>>   Felix
->>>>
->>>>
->>>>>
->>>>> I think this approach should also resolve the driver loading issue.
->>>>>
->>>>>
->>>>> Thanks
->>>>> Donet Tom
->>>>>
->>>>>
->>>>>>
->>>>>> Thanks,
->>>>>>   Felix
->>>>>>
->>>>>>
->>>>>>>
->>>>>>> The failure is observed as:
->>>>>>>
->>>>>>> amdgpu: Virtual CRAT table created for GPU
->>>>>>> amdgpu: Error parsing VCRAT
->>>>>>> kfd: amdgpu: Error adding device to topology
->>>>>>> kfd: amdgpu: Error initializing KFD node
->>>>>>>
->>>>>>>
->>>>>>> Since every online NUMA node is a valid topology object and can
->>>>>>> contain
->>>>>>> CPUs, memory, I/O links, or any combination of these, topology
->>>>>>> devices
->>>>>>> and proximity domains should be created for every online NUMA node
->>>>>>> rather than only for NUMA nodes that contain CPUs.
->>>>>>>
->>>>>>> To address this, this series introduces a new VCRAT subtype that
->>>>>>> records the mapping between the NUMA node ID and the generated 
->>>>>>> VCRAT
->>>>>>> proximity domain. When topology devices are created, this
->>>>>>> information
->>>>>>> is stored in the corresponding topology device, allowing the
->>>>>>> driver to
->>>>>>> translate a NUMA node ID into its associated proximity domain
->>>>>>> whenever
->>>>>>> required.
->>>>>>>
->>>>>>> Returning to the previous example, the system contains three online
->>>>>>> NUMA nodes, so three CPU topology devices and three proximity
->>>>>>> domains
->>>>>>> are created, even though only one NUMA node contains CPUs. The NUMA
->>>>>>> node ID is stored in each topology device together with its
->>>>>>> generated
->>>>>>> proximity domain.
->>>>>>>
->>>>>>> Later, when the GPU VCRAT is generated, the driver only knows the
->>>>>>> NUMA
->>>>>>> node ID to which the GPU is attached (for example, node 3).
->>>>>>> Instead of
->>>>>>> assuming that the NUMA node ID is equal to the proximity domain, 
->>>>>>> the
->>>>>>> driver walks the existing topology devices to locate the
->>>>>>> corresponding
->>>>>>> NUMA node and retrieves its generated proximity domain. In this
->>>>>>> example, NUMA node 3 maps to proximity domain 2, so
->>>>>>> proximity_domain_to is populated with the correct value.
->>>>>>>
->>>>>>> Since the GPU I/O link now references a valid proximity domain,
->>>>>>> VCRAT
->>>>>>> parsing completes successfully and topology initialization proceeds
->>>>>>> without errors on systems with sparse NUMA node IDs, CPU-less NUMA
->>>>>>> nodes, and CPU-less/memory-less NUMA nodes.
->>>>>>>
->>>>>>> This series consists of the following patches:
->>>>>>>
->>>>>>> Patch 1 removes an unused argument from
->>>>>>> kfd_create_crat_image_virtual() as a preparatory cleanup.
->>>>>>>
->>>>>>> Patch 2 introduces a new VCRAT NUMA affinity subtype that stores 
->>>>>>> the
->>>>>>> NUMA node ID and its corresponding proximity domain.
->>>>>>>
->>>>>>> Patch 3 populates the NUMA affinity entries during VCRAT generation
->>>>>>> for every online NUMA node.
->>>>>>>
->>>>>>> Patch 4 parses the NUMA affinity entries from the VCRAT and
->>>>>>> stores the
->>>>>>> NUMA node ID and proximity domain in the corresponding topology
->>>>>>> device.
->>>>>>>
->>>>>>> Patch 5 fixes GPU VCRAT proximity domain mappings by translating 
->>>>>>> the
->>>>>>> GPU's NUMA node ID to the corresponding CPU proximity domain before
->>>>>>> programming proximity_domain_to.
->>>>>>>
->>>>>>> Patch 6 creates proximity domains and VCRAT entries for all online
->>>>>>> NUMA nodes, including CPU-less and memory-less nodes.
->>>>>>>
->>>>>>> Patch 7 adds a numa_node sysfs attribute for CPU and GPU topology
->>>>>>> devices, exposing the associated NUMA node through the topology
->>>>>>> sysfs
->>>>>>> interface.
->>>>>>>
->>>>>>> Please note that the changes in this series are on a best effort
->>>>>>> basis from our
->>>>>>> end. Therefore, requesting the amd-gfx community (who have deeper
->>>>>>> knowledge of the
->>>>>>> HW & SW stack) to kindly help with the review and provide feedback
->>>>>>> / comments on
->>>>>>> these patches
->>>>>>>
->>>>>>> Donet Tom (7):
->>>>>>>    drm/amdgpu: Remove unused argument from
->>>>>>> kfd_create_crat_image_virtual
->>>>>>>    drm/amdgpu: Add VCRAT NUMA affinity entry
->>>>>>>    drm/amdgpu: Populate NUMA affinity entries in VCRAT
->>>>>>>    drm/amdgpu: Parse NUMA affinity entries from VCRAT
->>>>>>>    drm/amdgpu: Fix VCRAT proximity domain mappings for GPU nodes
->>>>>>>    drm/amdgpu: Create proximity domains and VCRAT entries for
->>>>>>> CPU-less
->>>>>>>      and memory-less NUMA nodes
->>>>>>>    drm/amdgpu: Add numa_node in cpu/gpu topology device sysfs entry
->>>>>>>
->>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 152
->>>>>>> +++++++++++++++-------
->>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  19 ++-
->>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  49 +++++--
->>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |   4 +
->>>>>>>   4 files changed, 168 insertions(+), 56 deletions(-)
->>>>>>>
+QU1EIEdlbmVyYWwNCg0KSGkgQ2hyaXN0aWFuLA0KDQpDb3VsZCB5b3Ugc2hhcmUgYSBsaW5rIHRv
+IHRoaXMgVE9ETyBpdGVtPw0KDQpJJ2QgbGlrZSB0byB2ZXJpZnkgd2hldGhlciB0aGlzIGhhcyBi
+ZWVuIGFkZHJlc3NlZCB0aHJvdWdoIE1FUy4gUk9DbSB1c2VzIHRoZSB1c2VyLW1vZGUgcXVldWUs
+IGFuZCBpdHMgVk1JRCBpcyBhc3NpZ25lZCBieSBNRVMgcmF0aGVyIHRoYW4gYnkgdGhlIGtlcm5l
+bCBkcml2ZXIuIElmIE1FUyBzdXBwb3J0IGlzIGF2YWlsYWJsZSwgUk9DbSBjb3VsZCBtb3ZlIFNQ
+TSBzdXBwb3J0IHRvIHVzZXIgbW9kZS4NCg0KSWYgdGhpcyBUT0RPIGhhcyBpbmRlZWQgYmVlbiBy
+ZXNvbHZlZCB0aHJvdWdoIE1FUywgd2UnbGwgcmV2aWV3IHRoZSB0aW1lbGluZSBmb3IgdGhhdCBN
+RVMgc3VwcG9ydC4gQ3VycmVudGx5LCBST0NtIFNQTSBzdGlsbCBnb2VzIHRocm91Z2ggdGhlIGtl
+cm5lbCBkcml2ZXIgcGF0aCwgYW5kIHdlIHdpbGwgbmVlZCB0byBrZWVwIHVzaW5nIHRoYXQgcGF0
+aCB1bnRpbCB0aGUgcmVxdWlyZWQgTUVTIHN1cHBvcnQgYmVjb21lcyBhdmFpbGFibGUuDQoNCkJl
+c3QsDQoNCkJpbmcNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEtvZW5pZywg
+Q2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQpTZW50OiBUdWVzZGF5LCBTZXB0
+ZW1iZXIgMjIsIDIwMjYgODo0NCBBTQ0KVG86IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21h
+aWwuY29tPjsgVGltdXIgS3Jpc3TDs2YgPHRpbXVyLmtyaXN0b2ZAZ21haWwuY29tPg0KQ2M6IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRl
+ci5EZXVjaGVyQGFtZC5jb20+OyBNYSwgQmluZyA8QmluZy5NYUBhbWQuY29tPjsgWmh1LCBKYW1l
+cyA8SmFtZXMuWmh1QGFtZC5jb20+OyBaaHUsIEphbWVzIDxKYW1lcy5aaHVAYW1kLmNvbT47IE5h
+dGFsaWUgVm9jayA8bmF0QHBpeGVsY2x1c3Rlci5kZXY+DQpTdWJqZWN0OiBSZTogW1BBVENIIDAx
+LzEyXSBkcm0vYW1kZ3B1OiBhZGQgcHJvZmlsZXIgVUFQSSBkZWZpbml0aW9ucw0KDQoNCg0KT24g
+OS8yMi8yNiAxNzo0MCwgQWxleCBEZXVjaGVyIHdyb3RlOg0KPiBPbiBUdWUsIFNlcCAyMiwgMjAy
+NiBhdCAxMToyMuKAr0FNIFRpbXVyIEtyaXN0w7NmIDx0aW11ci5rcmlzdG9mQGdtYWlsLmNvbT4g
+d3JvdGU6DQo+Pg0KPj4gT24gVHVlc2RheSwgU2VwdGVtYmVyIDIyLCAyMDI2IDU6MjA6NDHigK9Q
+TSBDZW50cmFsIEV1cm9wZWFuIFN1bW1lcg0KPj4gVGltZSBKYW1lcyBaaHUgd3JvdGU6DQo+Pj4g
+T24gMjAyNi0wOS0yMiAxMTowOSwgVGltdXIgS3Jpc3TDs2Ygd3JvdGU6DQo+Pj4+IE9uIE1vbmRh
+eSwgU2VwdGVtYmVyIDIxLCAyMDI2IDEwOjAzOjAy4oCvUE0gQ2VudHJhbCBFdXJvcGVhbiBTdW1t
+ZXINCj4+Pj4gVGltZQ0KPj4+PiBKYW1lcz4NCj4+Pj4gWmh1IHdyb3RlOg0KPj4+Pj4gQWRkIHRo
+ZSBEUk1fQU1ER1BVX1BST0ZJTEVSIGlvY3RsIG51bWJlciBhbmQgaXRzIGFyZ3VtZW50DQo+Pj4+
+PiBzdHJ1Y3R1cmVzLCB0aGUgVUFQSSBmb3IgR1BVIHBlcmZvcm1hbmNlIG1vbml0b3JpbmcgZmVh
+dHVyZXMgc3VjaA0KPj4+Pj4gYXMgU1BNIChTdHJlYW0gUGVyZm9ybWFuY2UgTW9uaXRvcikuDQo+
+Pj4+Pg0KPj4+Pj4gc3RydWN0IGRybV9hbWRncHVfcHJvZmlsZXJfYXJncyBjYXJyaWVzIGFuIG9w
+ZXJhdGlvbiBzZWxlY3RvciBhbmQNCj4+Pj4+IGEgdW5pb24gb2YgcGVyLW9wZXJhdGlvbiBwYXJh
+bWV0ZXJzLCBjdXJyZW50bHkNCj4+Pj4+IEFNREdQVV9QUk9GSUxFUl9PUF9HRVRfVkVSIGFuZCBB
+TURHUFVfUFJPRklMRVJfT1BfU1BNLiBUaGUgU1BNDQo+Pj4+PiBvcGVyYXRpb25zIGFuZCB0aGUg
+bGF5b3V0IG9mIHRoZSBkZXN0aW5hdGlvbiBidWZmZXIgYXJlIGRlc2NyaWJlZA0KPj4+Pj4gYnkg
+c3RydWN0IGRybV9hbWRncHVfc3BtX2FyZ3MgYW5kIHN0cnVjdCBkcm1fYW1kZ3B1X3NwbV9idWZm
+ZXJfaGVhZGVyLg0KPj4+Pj4NCj4+Pj4+IFRoZSBpb2N0bCBudW1iZXIgYW5kIHN0cnVjdCBsYXlv
+dXQgYXJlIGZyb3plbiBoZXJlLiBUaGUNCj4+Pj4+IGltcGxlbWVudGF0aW9uIGxhbmRzIGluIHRo
+ZSByZXN0IG9mIHRoaXMgc2VyaWVzIGFuZCB0aGUgaW9jdGwgaXMNCj4+Pj4+IG5vdCByZWdpc3Rl
+cmVkIGluIGFtZGdwdV9pb2N0bHNfa21zW10gdW50aWwgdGhlbiwgc28gdGhpcyBoZWFkZXINCj4+
+Pj4+IGNoYW5nZSBhbG9uZSBkb2VzIG5vdCBtYWtlIHRoZSBpbnRlcmZhY2UgcmVhY2hhYmxlLg0K
+Pj4+Pj4NCj4+Pj4+IFNpZ25lZC1vZmYtYnk6IEphbWVzIFpodTxKYW1lcy5aaHVAYW1kLmNvbT4N
+Cj4+Pj4+IFJldmlld2VkLWJ5OiBCaW5nIE1hPGJpbmcubWFAYW1kLmNvbT4NCj4+Pj4NCj4+Pj4g
+SGksDQo+Pj4+DQo+Pj4+IENhbiB5b3UgZ3V5cyBwbGVhc2UgY2xhcmlmeSB3aHkgdGhpcyBpcyBu
+ZWNlc3NhcnkgYW5kIHdoYXQgdGhlIHVzZQ0KPj4+PiBjYXNlIGlzPw0KPj4+Pg0KPj4+PiBBcmUg
+d2Ugc3VyZSB3ZSB3YW50IGEgdUFQSSBmb3IgdGhpcz8gUkFEViBoYXMgYmVlbiB1c2luZyBTUE0g
+ZnJvbQ0KPj4+PiB1c2Vyc3BhY2UgZm9yIG1hbnkgeWVhcnMgbm93Lg0KPj4+DQo+Pj4gW0paXSBj
+dXJyZW50IFJBRFYgU1BNIGlzIGZvciBncmFwaGljIGVuZ2luZS4gVGhlc2UgcGF0Y2hlcyBhcmUg
+Zm9yDQo+Pj4gY29tcHV0ZSBlbmdpbmUgU1BNLg0KPj4+DQo+Pj4gVGhhbmtzIQ0KPj4NCj4+IElz
+IHRoZXJlIGFueSByZWFzb24gd2h5IGl0IGNhbid0IGJlIGRvbmUgaW4gdXNlcnNwYWNlIGZvciBj
+b21wdXRlIHRvbz8NCj4NCj4gVGhlcmUncyBvbmx5IG9uZSBTUE0gc28gdGhlcmUgbmVlZHMgdG8g
+YmUgYXJiaXRyYXRpb24gdG8gYXZvaWQNCj4gbXVsdGlwbGUgYXBwbGljYXRpb25zIHRyeWluZyB0
+byB1c2UgaXQgYXQgdGhlIHNhbWUgdGltZS4gIEl0IGFsc28gb25seQ0KPiB3b3JrcyBvbiBhIHNp
+bmdsZSB2bWlkIGF0IGEgdGltZSBzbyB0aGUgYXBwbGljYXRpb24gdXNpbmcgaXQgaGFzIHRvDQo+
+IHJlcXVlc3QgYSBmaXhlZCB2bWlkLg0KDQpZZWFoLCB3ZSBhbHJlYWR5IGhhdmUgYW4gQVBJIGZv
+ciByZXNlcnZpbmcgYSBWTUlEIGZvciBTUE0uDQoNCldlIGFsc28gaGF2ZSBhIFRPRE8gaXRlbSB0
+byBtYWtlIHRoYXQgYXZhaWxhYmxlIGZvciB1c2VyIHF1ZXVlcyB3aGljaCB0aGVuIGJvdGggUk9D
+bSBhbmQgZ2Z4IGNhbiB1c2UuDQoNClNvIGFzIGZhciBhcyBJIGNhbiBzZWUgdGhhdCB3b3JrIGhl
+cmUgaXMgY29tcGxldGVseSB1bm5lY2Vzc2FyeS4NCg0KQ2hyaXN0aWFuLg0KDQo+DQo+IEFsZXgN
+Cj4NCj4+DQo+Pg0KPj4+Pg0KPj4+Pj4gLS0tDQo+Pj4+Pg0KPj4+Pj4gICBpbmNsdWRlL3VhcGkv
+ZHJtL2FtZGdwdV9kcm0uaCB8IDEyNCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+DQo+Pj4+PiAgIDEgZmlsZSBjaGFuZ2VkLCAxMjQgaW5zZXJ0aW9ucygrKQ0KPj4+Pj4NCj4+Pj4+
+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaA0KPj4+Pj4gYi9pbmNs
+dWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCBpbmRleCA5ZTVmYTZmNTNlNTkuLjI4NTk0OWQ2M2Vi
+Ng0KPj4+Pj4gMTAwNjQ0DQo+Pj4+PiAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0u
+aA0KPj4+Pj4gKysrIGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgNCj4+Pj4+IEBAIC02
+MCw2ICs2MCw3IEBAIGV4dGVybiAiQyIgew0KPj4+Pj4NCj4+Pj4+ICAgI2RlZmluZSBEUk1fQU1E
+R1BVX0dFTV9MSVNUX0hBTkRMRVMgICAgICAweDE5DQo+Pj4+PiAgICNkZWZpbmUgRFJNX0FNREdQ
+VV9QUk9DX09QVElPTlMgICAgICAgICAgMHgxQQ0KPj4+Pj4gICAjZGVmaW5lIERSTV9BTURHUFVf
+VFJBUCAgICAgICAgICAgICAgICAgIDB4MUINCj4+Pj4+DQo+Pj4+PiArI2RlZmluZSBEUk1fQU1E
+R1BVX1BST0ZJTEVSICAgICAgICAgICAgICAgMHgxQw0KPj4+Pj4NCj4+Pj4+ICAgI2RlZmluZSBE
+Uk1fSU9DVExfQU1ER1BVX0dFTV9DUkVBVEUgICAgICBEUk1fSU9XUihEUk1fQ09NTUFORF9CQVNF
+ICsNCj4+Pj4+DQo+Pj4+PiBEUk1fQU1ER1BVX0dFTV9DUkVBVEUsIHVuaW9uIGRybV9hbWRncHVf
+Z2VtX2NyZWF0ZSkgI2RlZmluZQ0KPj4+Pj4gRFJNX0lPQ1RMX0FNREdQVV9HRU1fTU1BUCAgRFJN
+X0lPV1IoRFJNX0NPTU1BTkRfQkFTRSArDQo+Pj4+PiBEUk1fQU1ER1BVX0dFTV9NTUFQLCB1bmlv
+biBkcm1fYW1kZ3B1X2dlbV9tbWFwKSBAQCAtODMsNiArODQsNyBAQA0KPj4+Pj4gZXh0ZXJuICJD
+IiB7DQo+Pj4+Pg0KPj4+Pj4gICAjZGVmaW5lIERSTV9JT0NUTF9BTURHUFVfR0VNX0xJU1RfSEFO
+RExFUw0KPj4+Pj4gRFJNX0lPV1IoRFJNX0NPTU1BTkRfQkFTRSArDQo+Pj4+Pg0KPj4+Pj4gRFJN
+X0FNREdQVV9HRU1fTElTVF9IQU5ETEVTLCBzdHJ1Y3QgZHJtX2FtZGdwdV9nZW1fbGlzdF9oYW5k
+bGVzKSAjZGVmaW5lDQo+Pj4+PiBEUk1fSU9DVExfQU1ER1BVX1BST0NfT1BUSU9OUyAgICAgIERS
+TV9JT1dSKERSTV9DT01NQU5EX0JBU0UgKw0KPj4+Pj4gRFJNX0FNREdQVV9QUk9DX09QVElPTlMs
+IHN0cnVjdCBkcm1fYW1kZ3B1X3Byb2Nfb3B0aW9ucykgI2RlZmluZQ0KPj4+Pj4gRFJNX0lPQ1RM
+X0FNREdQVV9UUkFQICAgICAgRFJNX0lPV1IoRFJNX0NPTU1BTkRfQkFTRSArIERSTV9BTURHUFVf
+VFJBUCwNCj4+Pj4NCj4+Pj4gdW5pb24NCj4+Pj4NCj4+Pj4+IGRybV9hbWRncHVfdHJhcCkgKyNk
+ZWZpbmUNCj4+Pj4+IERSTV9JT0NUTF9BTURHUFVfUFJPRklMRVIgIERSTV9JT1dSKERSTV9DT01N
+QU5EX0JBU0UgKw0KPj4+Pg0KPj4+PiBEUk1fQU1ER1BVX1BST0ZJTEVSLA0KPj4+Pg0KPj4+Pj4g
+c3RydWN0IGRybV9hbWRncHVfcHJvZmlsZXJfYXJncykNCj4+Pj4+DQo+Pj4+PiAgIC8qKg0KPj4+
+Pj4NCj4+Pj4+ICAgICogRE9DOiBtZW1vcnkgZG9tYWlucw0KPj4+Pj4NCj4+Pj4+IEBAIC0xODIx
+LDYgKzE4MjMsMTI4IEBAIHN0cnVjdCBkcm1fYW1kZ3B1X3Byb2Nfb3B0aW9ucyB7DQo+Pj4+Pg0K
+Pj4+Pj4gICAgfSBrZmRfc2lnYnVzX2RlbGF5Ow0KPj4+Pj4NCj4+Pj4+ICAgfTsNCj4+Pj4+DQo+
+Pj4+PiArLyoNCj4+Pj4+ICsgKiBTdXBwb3J0ZWQgU1BNIChTdHJlYW0gUGVyZm9ybWFuY2UgTW9u
+aXRvcikgT3BlcmF0aW9ucyAgKi8NCj4+Pj4+ICsvKioNCj4+Pj4+ICsgKiBkcm1fYW1kZ3B1X3Nw
+bV9vcCAtIFNQTSBpb2N0bCBvcGVyYXRpb25zICAqLyBlbnVtDQo+Pj4+PiArZHJtX2FtZGdwdV9z
+cG1fb3Agew0KPj4+Pj4gKyAgQU1ER1BVX1NQTV9PUF9BQ1FVSVJFID0gMSwNCj4+Pj4+ICsgIEFN
+REdQVV9TUE1fT1BfUkVMRUFTRSwNCj4+Pj4+ICsgIEFNREdQVV9TUE1fT1BfU0VUX0RFU1RfQlVG
+DQo+Pj4+PiArfTsNCj4+Pj4+ICsNCj4+Pj4+ICsvKioNCj4+Pj4+ICsgKiBkcm1fYW1kZ3B1X3Nw
+bV9hcmdzIC0gQXJndW1lbnRzIGZvciBTUE0gaW9jdGwNCj4+Pj4+ICsgKg0KPj4+Pj4gKyAqIEBk
+ZXN0X2J1ZjogW2luXSB1c2VkIGZvciB0aGUgYWRkcmVzcyBvZiB0aGUgZGVzdGluYXRpb24gYnVm
+ZmVyDQo+Pj4+PiArICogICAgICAgICAgICBpbiBAQU1ER1BVX1NQTV9PUF9TRVRfREVTVF9CVUYN
+Cj4+Pj4+ICsgKiBAYnVmX3NpemU6IFtpbl0gc2l6ZSBvZiB0aGUgZGVzdGluYXRpb24gYnVmZmVy
+DQo+Pj4+PiArICogQG9wOiBbaW5dIHNwZWNpZmllcyB0aGUgb3BlcmF0aW9uIHRvIHBlcmZvcm0N
+Cj4+Pj4+ICsgKiBAdGltZW91dDogW2luL291dF0gdGltZW91dCBpbiBtaWxsaXNlY29uZHMgKGlu
+KSwgYW1vdW50IG9mIHRpbWUgbGVmdA0KPj4+Pj4gKyAqICAgICAgICAgICBpbiB0aGUgdGltZW91
+dCB3aW5kb3cgKG91dCkNCj4+Pj4+ICsgKiBAYnl0ZXNfY29waWVkOiBbb3V0XSB0b3RhbCBhbW91
+bnQgb2YgZGF0YSB0aGF0IHdhcyBjb3BpZWQgdG8NCj4+Pj4+ICt0aGUNCj4+Pj4+IHByZXZpb3Vz
+IGRlc3RfYnVmICsgKiBAaGFzX2RhdGFfbG9zczogW291dF0gbm9uLXplcm8gaWYgZGF0YSB3YXMN
+Cj4+Pj4+IGxvc3QgKGUuZy4NCj4+Pj4+IGR1ZSB0byByaW5nIGJ1ZmZlciBvdmVyZmxvdyksICsg
+KiAgICAgICAgICAgICAgICAgemVybyBvdGhlcndpc2UNCj4+Pj4+ICsgKiBAcmVzZXJ2ZWQ6IG11
+c3QgYmUgemVybyBmb3IgZm9yd2FyZCBjb21wYXRpYmlsaXR5DQo+Pj4+PiArICoNCj4+Pj4+ICsg
+KiBUaGlzIGlvY3RsIHBlcmZvcm1zIGRpZmZlcmVudCBmdW5jdGlvbnMgZGVwZW5kaW5nIG9uIHRo
+ZSBAb3ANCj4+Pj4+IHBhcmFtZXRlci4NCj4+Pj4+ICsgKg0KPj4+Pj4gKyAqIEFNREdQVV9TUE1f
+T1BfQUNRVUlSRQ0KPj4+Pj4gKyAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPj4+Pj4gKyAq
+DQo+Pj4+PiArICogQWNxdWlyZXMgZXhjbHVzaXZlIGFjY2VzcyBvZiBTUE0gb24gdGhlIHNwZWNp
+ZmllZCBYQ1AgZm9yIHRoZQ0KPj4+Pj4gKyBjYWxsaW5nDQo+Pj4+PiBwcm9jZXNzLiArICogVGhp
+cyBtdXN0IGJlIGNhbGxlZCBiZWZvcmUgdXNpbmcgQU1ER1BVX1NQTV9PUF9TRVRfREVTVF9CVUYu
+DQo+Pj4+PiArICoNCj4+Pj4+ICsgKiBBTURHUFVfU1BNX09QX1JFTEVBU0UNCj4+Pj4+ICsgKiAt
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4+Pj4+ICsgKg0KPj4+Pj4gKyAqIFJlbGVhc2VzIGV4
+Y2x1c2l2ZSBhY2Nlc3Mgb2YgU1BNIG9uIHRoZSBzcGVjaWZpZWQgWENQIGZvciB0aGUNCj4+Pj4+
+ICsgY2FsbGluZw0KPj4+Pj4gcHJvY2VzcywgKyAqIHdoaWNoIGFsbG93cyBhbm90aGVyIHByb2Nl
+c3MgdG8gYWNxdWlyZSBpdCBpbiB0aGUgZnV0dXJlLg0KPj4+Pj4gKyAqDQo+Pj4+PiArICogQU1E
+R1BVX1NQTV9PUF9TRVRfREVTVF9CVUYNCj4+Pj4+ICsgKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLQ0KPj4+Pj4gKyAqDQo+Pj4+PiArICogSWYgQGRlc3RfYnVmIGlzIE5VTEwsIHRoZSBk
+ZXN0aW5hdGlvbiBidWZmZXIgYWRkcmVzcyBpcyB1bnNldA0KPj4+Pj4gKyBhbmQNCj4+Pj4+IGNv
+cHlpbmcgb2YgY291bnRlcnMgKyAqIGlzIHN0b3BwZWQuDQo+Pj4+PiArICoNCj4+Pj4+ICsgKiBJ
+ZiBAZGVzdF9idWYgaXMgbm90IE5VTEwsIGl0IHNwZWNpZmllcyB0aGUgcG9pbnRlciB0byBhIG5l
+dw0KPj4+Pj4gZGVzdGluYXRpb24NCj4+Pj4+IGJ1ZmZlci4gKyAqIEBidWZfc2l6ZSBzcGVjaWZp
+ZXMgdGhlIHNpemUgb2YgdGhlIGJ1ZmZlci4NCj4+Pj4+ICsgKg0KPj4+Pj4gKyAqIElmIEB0aW1l
+b3V0IGlzIG5vbi0wLCB0aGUgY2FsbCB3aWxsIHdhaXQgZm9yIHVwIHRvIEB0aW1lb3V0IG1zDQo+
+Pj4+PiArIGZvcg0KPj4+Pj4gdGhlDQo+Pj4+PiBwcmV2aW91cyArICogYnVmZmVyIHRvIGJlIGZp
+bGxlZC4gSWYgdGhlIHByZXZpb3VzIGJ1ZmZlciBpcyBmaWxsZWQNCj4+Pj4+IGJlZm9yZSB0aGUg
+dGltZW91dCwgQHRpbWVvdXQgKyAqIGlzIHVwZGF0ZWQgd2l0aCB0aGUgdGltZQ0KPj4+Pj4gcmVt
+YWluaW5nLiBJZiB0aGUgdGltZW91dCBpcyBleGNlZWRlZCwgdGhlIGZ1bmN0aW9uICsgKiBjb3Bp
+ZXMgYW55DQo+Pj4+PiBwYXJ0aWFsIGRhdGEgYXZhaWxhYmxlIGludG8gdGhlIHByZXZpb3VzIHVz
+ZXIgYnVmZmVyIGFuZCByZXR1cm5zDQo+Pj4+PiBzdWNjZXNzLiArICogVGhlIGFtb3VudCBvZiB2
+YWxpZCBkYXRhIGluIHRoZSBwcmV2aW91cyB1c2VyIGJ1ZmZlcg0KPj4+Pj4gaXMgaW5kaWNhdGVk
+IGJ5IEBieXRlc19jb3BpZWQuICsgKg0KPj4+Pj4gKyAqIElmIEB0aW1lb3V0IGlzIDAsIHRoZSBm
+dW5jdGlvbiBpbW1lZGlhdGVseSByZXBsYWNlcyB0aGUNCj4+Pj4+ICsgcHJldmlvdXMNCj4+Pj4+
+IGRlc3RpbmF0aW9uIGJ1ZmZlciArICogd2l0aG91dCB3YWl0aW5nIGZvciB0aGUgcHJldmlvdXMg
+YnVmZmVyIHRvDQo+Pj4+PiBiZSBmaWxsZWQuIFRoYXQgbWVhbnMgdGhlIHByZXZpb3VzIGJ1ZmZl
+ciArICogbWF5IG9ubHkgYmUNCj4+Pj4+IHBhcnRpYWxseSBmaWxsZWQsIGFuZCBAYnl0ZXNfY29w
+aWVkIHdpbGwgaW5kaWNhdGUgaG93IG11Y2ggZGF0YSBoYXMgYmVlbiArICogY29waWVkIHRvIGl0
+Lg0KPj4+Pj4gKyAqDQo+Pj4+PiArICogSWYgZGF0YSB3YXMgbG9zdCwgZS5nLiBkdWUgdG8gYSBy
+aW5nIGJ1ZmZlciBvdmVyZmxvdywNCj4+Pj4+ICsgQGhhc19kYXRhX2xvc3MNCj4+Pj4+IHdpbGwg
+YmUgbm9uLTAuICsgKg0KPj4+Pj4gKyAqIFJldHVybnMgbmVnYXRpdmUgZXJyb3IgY29kZSBvbiBm
+YWlsdXJlLCAwIG9uIHN1Y2Nlc3MuDQo+Pj4+PiArICovDQo+Pj4+PiArc3RydWN0IGRybV9hbWRn
+cHVfc3BtX2FyZ3Mgew0KPj4+Pj4gKyAgX191NjQgZGVzdF9idWY7DQo+Pj4+PiArICBfX3UzMiBi
+dWZfc2l6ZTsNCj4+Pj4+ICsgIF9fdTMyIG9wOw0KPj4+Pj4gKyAgX191MzIgdGltZW91dDsNCj4+
+Pj4+ICsgIF9fdTMyIGJ5dGVzX2NvcGllZDsNCj4+Pj4+ICsgIF9fdTMyIGhhc19kYXRhX2xvc3M7
+DQo+Pj4+PiArICBfX3UzMiByZXNlcnZlZFs5XTsgICAgICAvKiBtdXN0IGJlIHplcm87IHBhZHMg
+dGhpcyBzdHJ1Y3QgdG8gNjQNCj4+Pj4NCj4+Pj4gYnl0ZXMgKi8NCj4+Pj4NCj4+Pj4+ICt9Ow0K
+Pj4+Pj4gKw0KPj4+Pj4gKy8qKg0KPj4+Pj4gKyAqIGRybV9hbWRncHVfc3BtX2J1ZmZlcl9oZWFk
+ZXIgLSBTUE0gQnVmZmVyIGhlYWRlciBmb3INCj4+Pj4+IGRybV9hbWRncHVfc3BtX2FyZ3MtPmRl
+c3RfYnVmICsgKg0KPj4+Pj4gKyAqIEB2ZXJzaW9uOiAgICAgICBbb3V0XSBTUE0gdmVyc2lvbiAo
+MC0yMzogbWlub3IsIDI0LTMxOiBtYWpvcikNCj4+Pj4+ICsgKiBAYnl0ZXNfY29waWVkOiAgW291
+dF0gQW1vdW50IG9mIGRhdGEgY29waWVkIGZvciB0aGlzIHN1Yi1ibG9jaw0KPj4+Pj4gKyAqIEBo
+YXNfZGF0YV9sb3NzOiBbb3V0XSBCb29sZWFuIGluZGljYXRpbmcgd2hldGhlciBkYXRhIHdhcyBs
+b3N0DQo+Pj4+PiArIGZvcg0KPj4+Pj4gdGhpcw0KPj4+Pj4gc3ViLWJsb2NrICsgKiAgICAgICAg
+ICAgICAgICAgICAgICAgKGUuZy4gZHVlIHRvIGEgcmluZy1idWZmZXIgb3ZlcmZsb3cpDQo+Pj4+
+PiArICogQHJlc2VydmVkOiAgICAgIFJlc2VydmVkIGZvciBmdXR1cmUgdXNlLCBtdXN0IGJlIHpl
+cm8NCj4+Pj4+ICsgKg0KPj4+Pj4gKyAqIFRoaXMgaGVhZGVyIHByZWNlZGVzIHRoZSBTUE0gZGF0
+YSBpbiB0aGUgZGVzdGluYXRpb24gYnVmZmVyLg0KPj4+Pj4gKyBUaGUNCj4+Pj4+IHJlc2VydmVk
+ICsgKiBmaWVsZCBtYWludGFpbnMgNjQtYnl0ZSBjYWNoZSBsaW5lIGFsaWdubWVudCAoMzINCj4+
+Pj4+IGJ5dGVzIHRvdGFsKS4NCj4+Pj4+ICsgKi8NCj4+Pj4+ICtzdHJ1Y3QgZHJtX2FtZGdwdV9z
+cG1fYnVmZmVyX2hlYWRlciB7DQo+Pj4+PiArICBfX3UzMiB2ZXJzaW9uOyAvKiAwLTIzOiBtaW5v
+ciwgMjQtMzE6IG1ham9yICovDQo+Pj4+PiArICBfX3UzMiBieXRlc19jb3BpZWQ7DQo+Pj4+PiAr
+ICBfX3UzMiBoYXNfZGF0YV9sb3NzOw0KPj4+Pj4gKyAgX191MzIgcmVzZXJ2ZWRbNV07IC8qIHBh
+ZCB0byAzMiBieXRlcyAoNjQtYnl0ZSBjYWNoZSBsaW5lIC8gMikNCj4+Pj4+ICsqLyB9Ow0KPj4+
+Pj4gKw0KPj4+Pj4gKy8qIFN1cHBvcnRlZCBQcm9maWxlciBPcGVyYXRpb24gKi8NCj4+Pj4+ICsj
+ZGVmaW5lIEFNREdQVV9QUk9GSUxFUl9PUF9HRVRfVkVSICAgICAgICAgICAgICAgIDEgLyogZ2V0
+IHByb2ZpbGVyIFVBUEkNCj4+Pj4NCj4+Pj4gdmVyc2lvbiAqLw0KPj4+Pg0KPj4+Pj4gKyNkZWZp
+bmUgQU1ER1BVX1BST0ZJTEVSX09QX1NQTSAgICAgICAgICAgICAgICAgICAgMg0KPj4+Pj4gKw0K
+Pj4+Pj4gKy8qDQo+Pj4+PiArICogUHJvZmlsZXIgSU9DVEwNCj4+Pj4+ICsgKi8NCj4+Pj4+ICsv
+KioNCj4+Pj4+ICsgKiBzdHJ1Y3QgZHJtX2FtZGdwdV9wcm9maWxlcl9hcmdzIC0gUHJvZmlsZXIg
+SU9DVEwgYXJndW1lbnRzDQo+Pj4+PiArICogQG9wOiBPcGVyYXRpb24gdG8gcGVyZm9ybSAoQU1E
+R1BVX1BST0ZJTEVSX09QXyopDQo+Pj4+PiArICogQHBhZDogTXVzdCBiZSB6ZXJvIGZvciBpbnB1
+dCB2YWxpZGF0aW9uDQo+Pj4+PiArICogQGRhdGE6IE9wZXJhdGlvbi1zcGVjaWZpYyBwYXJhbWV0
+ZXJzICh1bmlvbikNCj4+Pj4+ICsgKg0KPj4+Pj4gKyAqIEdFVF9WRVIgb3BlcmF0aW9uOg0KPj4+
+Pj4gKyAqIFJldHVybnMgdGhlIHByb2ZpbGVyIFVBUEkgdmVyc2lvbiBpbiBAZGF0YS52ZXJzaW9u
+IGFzDQo+Pj4+PiArKE1BSk9SPDwyNCkgfA0KPj4+Pj4gTUlOT1IuICsgKiBJbnB1dDogQGRhdGEg
+bXVzdCBiZSB6ZXJvIChyZXNlcnZlZCBmb3IgZm9yd2FyZA0KPj4+Pj4gY29tcGF0aWJpbGl0eSku
+DQo+Pj4+PiArICoNCj4+Pj4+ICsgKiBEZXNpZ24gbm90ZTogR0VUX1ZFUiBpcyBpbnRlbnRpb25h
+bGx5IGEgcGFyYW1ldGVyLWZyZWUgcXVlcnkNCj4+Pj4+IHJldHVybmluZw0KPj4+Pj4gKyAqIHRo
+ZSBnbG9iYWwgcHJvZmlsZXIgVUFQSSB2ZXJzaW9uLg0KPj4+Pj4gKyAqLw0KPj4+Pj4gK3N0cnVj
+dCBkcm1fYW1kZ3B1X3Byb2ZpbGVyX2FyZ3Mgew0KPj4+Pj4gKyAgX191MzIgb3A7ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIC8qDQo+Pj4+DQo+Pj4+IEFNREdQVV9QUk9GSUxFUl9PUF8q
+ICovDQo+Pj4+DQo+Pj4+PiArICBfX3UzMiBwYWQ7ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgLyogbXVzdCBiZSB6ZXJvICovDQo+Pj4+PiArICB1bmlvbiB7DQo+Pj4+PiArICAgICAgICAg
+IF9fdTMyIHZlcnNpb247ICAgICAgICAgIC8qIEdFVF9WRVI6IG91dA0KPj4+Pg0KPj4+PiAoTUFK
+T1I8PDI0KSB8IE1JTk9SICovDQo+Pj4+DQo+Pj4+PiArICAgICAgICAgIHN0cnVjdCBkcm1fYW1k
+Z3B1X3NwbV9hcmdzIHNwbTsNCj4+Pj4+ICsgIH0gZGF0YTsNCj4+Pj4+ICt9Ow0KPj4+Pj4gKw0K
+Pj4+Pj4NCj4+Pj4+ICAgI2lmIGRlZmluZWQoX19jcGx1c3BsdXMpDQo+Pj4+PiAgIH0NCj4+Pj4+
+ICAgI2VuZGlmDQo+Pg0KPj4NCj4+DQo+Pg0KDQo=
