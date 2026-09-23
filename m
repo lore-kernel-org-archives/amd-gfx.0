@@ -4,134 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8139C982FA
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 13:03:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D5DC9830B
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 13:09:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF1010F034;
-	Wed, 23 Sep 2026 13:03:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE04210F01C;
+	Wed, 23 Sep 2026 13:09:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LPM8FXeu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hji+G/n9";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011030.outbound.protection.outlook.com [52.101.57.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C95A710F002;
- Wed, 23 Sep 2026 13:03:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CbnHkB2H+D1c+6ulpga6m7LDcKZtjseeZ2De0J0s6RD81iB1ZXO6/OeqNqb9jX3GGY1Wj9a9qlhJuUHl7riRRP7iXlaXDJGPC9I9KEG00eRKaDjCdWEJ7Dg2VY038nKAHNqLtkWDvJZ2iI1V7z1U194KWENpbNaKXx0Vwc1I7fiY/v1OiMpAmVo5IrRCPHir5Mic/mVnTjLkKB/VPLhO3J1vF0nLqVQ66NvKJ3S1JGf9B8wd2+dt3Db2K4ZsJCJb37KvB3fXuqoZxdFF/LeMt61g9HT+j5VwnpFGbaDsexDFZzUeNo6LFAH86E42Bs4K43IolN7z2VSW+IhOAVZq6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=06VbYZm2c2dgaMlmuXOAPIhraea7b4AXiREe1cU/gaM=;
- b=sSIp0KRki89XjoWuc6UErFSwfmRHoNaIwn3Usni7iZjbUKbgDGSkGzCZ0bswmJyDOqJ59FHbpxhF5EnwmFQtIzQ7rfKNVVEfav+tcaIlhwZ6QelVLFFtOmrRW8HUA7883BvbZkDbP/6dWAMdKD5nK/oTlxm8U36nQkXkZgYdaRrhQEHcuR8QZ534S0RdWHuYsz+M30Qv9OvnsvZdMCVTcH1VPhM1nW2B+R1n/SklGOhasmifwkauqwdF5DujWjnBSgMbaGF4pzD1WSblpIM3/X1aFmboU6Vo1giSTywrQRDgSDfDYL31Qze10UMX2jjLqU1qvDlthRK46InVcRXXrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=06VbYZm2c2dgaMlmuXOAPIhraea7b4AXiREe1cU/gaM=;
- b=LPM8FXeuUXhu0WLRiF2PtaGppBn/GdMC790zHfgmvC2tyLt6fGwCzXZMhZIN6+dr3PuhP6VcrvRSoIhHr0C9eYAUeaN6xstgkpIC7gijsoMrazBLq1Dtg9+o9bSYQquxjaz5xRxM1PjDYfmoaB5c/3a3Gn1aPmxhGAErIufzI8E=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by DM4PR12MB6397.namprd12.prod.outlook.com (2603:10b6:8:b4::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 13:03:21 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%7]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 13:03:20 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, "jfalempe@redhat.com"
- <jfalempe@redhat.com>, "javierm@redhat.com" <javierm@redhat.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "airlied@gmail.com"
- <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-samsung-soc@vger.kernel.org"
- <linux-samsung-soc@vger.kernel.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "nouveau@lists.freedesktop.org"
- <nouveau@lists.freedesktop.org>, "linux-rockchip@lists.infradead.org"
- <linux-rockchip@lists.infradead.org>, "linux-tegra@vger.kernel.org"
- <linux-tegra@vger.kernel.org>, "sashiko-reviews@lists.linux.dev"
- <sashiko-reviews@lists.linux.dev>
-Subject: RE: [PATCH 0/2] drm/fbdev: Move helpers to clients/ subdirectory
-Thread-Topic: [PATCH 0/2] drm/fbdev: Move helpers to clients/ subdirectory
-Thread-Index: AQHdS0uH+iQ747HqqkGBKqmkqQ+jWbbcIRKw
-Date: Wed, 23 Sep 2026 13:03:20 +0000
-Message-ID: <BN9PR12MB5146DC3299C804856C42C79AF7822@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20260923110537.451614-1-tzimmermann@suse.de>
-In-Reply-To: <20260923110537.451614-1-tzimmermann@suse.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-09-23T13:02:52.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|DM4PR12MB6397:EE_
-x-ms-office365-filtering-correlation-id: 5f6c4c56-fc47-4320-2b03-08df19730b12
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|7416014|38070700021|3023799007|10067099003|11063799006|56012099006|18002099003|22082099003;
-x-microsoft-antispam-message-info: HCt9EvYhTcDqPNVBM8vsGBR/zSYhqc2J7okknJlntDsfWfMM8PQW74SLVU4PslyV2WXGO4V7zZoshLts9ViZgpcz2xL3iQQmyGweyXZl7g7rVnQ+JGE/PDXf3kE/RXCPXmNsfSVqqMVjenFPdv9cKC3t5+ps42KXdSdHcStW5q0K36QFDQOA1CYmccp/6dorf6MeecMdIFkCWsdvrJ46UjSvLujpK+hncRArDWFg6w7e6hWatGlntjWz/Q1D3xV9DMuQhQBLEBus2+L52DRH1oqLm0TJMcsFwV8jK57Et/RHEsxXMd00Dmr2AKN1FjaRipg30Jzifl8fXdv0+eP6UIoQb9BHbOR5LPkTLZIKVVx99rPomXTfDPB/NKp0ej7Xg8bI3WCLbdaghBJsCB4yJmf6p5AsKoyobgLNCutWvtQOWZh2NECe7QkTSM1gJFDZDLq5QhwYF5mlXL+vhMg8M2R+TsNWG0WNXh+gRQN6iyG9gzM5jru6AUEakwf6JcEdla4VoXWy/d/A9Ka3bSYi2lOJDuTew/qjrke0k9947SvMoXMZhsQ5ZrmMItDvBD/4G4XgIeZDs/C5njYTSD++C0yABjYv6xBAp2ugTjtjZ46/Dqi4LEMByDvif5p0Frp0DKotmxsDIpELE2a/D+op74DaYSRnIGa62Z/ZKe3V/h+bmy7Um9Ov2ZpHvEXJZqtLNwGnWHrbhtn/6snj6esP7BkCSdMXUHF5Tex/ydvJZAE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(38070700021)(3023799007)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?j56/wEpydSEHQlPMgpCx+C5AUn3KkNUT44saIQHFK8LEsr+AHoX55WPzSMeR?=
- =?us-ascii?Q?1us20JfSyUlOp3qkGwL6DTJDP6sEsmmps8XnrGahcz8m4HUC0d6qDIebJBQ8?=
- =?us-ascii?Q?x5jVXCndMrSsB5pfkW3L6QdQFMXcGJHTn4xyYSMpMQIDpriXAvc7GGgE9brF?=
- =?us-ascii?Q?NdnM+X/FbwCDlg9Af55/P5mRI9pfJjtRx2o6nhxRWUsGAwPEMAB7WhEeSIc+?=
- =?us-ascii?Q?Tj06gmj2yyRnKEwXm9BCMRIDjEZX86ePHuUJ8prKQnVZE1C1o5kvXekIzpnA?=
- =?us-ascii?Q?kTwoLlpyB1J7sCTROm0tLKD96fQmulAsttBt/bkHnFrsL2RG17JUel+aKXgC?=
- =?us-ascii?Q?T2aE3qFvPj3CxDgUEU+VstKbeuuG0dyxa3/9VPywx564sRLsnnU5iqnphhAs?=
- =?us-ascii?Q?UnhZgpPNbDKDUAxQ2EZT+SUDs2AD4JODUzAB0WGAQJsZXHgtsjO4DYkPfyuC?=
- =?us-ascii?Q?Zfb8c0Ts0NY2Af7B3CIUx0EIjTRlNkv8GnziXmYyot1HykHPiGaCzj7i0zYm?=
- =?us-ascii?Q?+D1EHpqDz2oQ3H9v/zjZ3v1ajJI6mbRx1CVOnoGQbRjKLhRQf3bc2biTVLlO?=
- =?us-ascii?Q?Qz26MG2IywCFMQYW+KoTBkq69ikteeOeGRISdUWrOPPBm+kcxuHR/+5/44H5?=
- =?us-ascii?Q?ttKoogVqotewe90LNC6H0+rY3LbnNGtmhxmQ/4LI41x0JSOkyhaLT5aRf7yJ?=
- =?us-ascii?Q?i50k4dNurx2BOydLtnsPcACgCSisc5frin8fyX+fMK1YpN3VauniMGFmkvqY?=
- =?us-ascii?Q?Hls06Js5EZQYccsCTRgtkMn2M+FQ2HRcZtFnsQdFSHZCf9OPZHYjEaQ/ma4w?=
- =?us-ascii?Q?iSDQ4lVmvZw857ODOBUNi+Obey/RwTQAXV1qBkhRj2obAlPXWQSdngFQ5u6I?=
- =?us-ascii?Q?fFW3h1uqxtn+YDUGH33uHDOu1/72wyPLfyfZm8r5beB2wf/67nXbBqKrPfqa?=
- =?us-ascii?Q?UJF5i0BjoElLotO0w2d43lrrUBsmHYu3yf85JAgqYxE/PmG1hsWPVambCvqe?=
- =?us-ascii?Q?IPLgK4zDuNt900TC3BW13hoorcAV/b3/B2wxt6JMg6lfRv87x9D0e6uIoO6k?=
- =?us-ascii?Q?zn3i7SA/Gb2H9jRivYB3LuCG5S6+QJkZQqVxaRi576db4L+2nM5PF9MS9M2S?=
- =?us-ascii?Q?6J/0HoGR+QU6MLsqkhbPJwqmJMVE3Z21qeizNl+E5Qx6ODkw19xEuMAltIr8?=
- =?us-ascii?Q?+zuk1O2+181UFWhNUPhP3dLBbS3xLw7MKafyZRzorvQt9Ex9aP5p49ixvnaJ?=
- =?us-ascii?Q?UUYpkWm4zNORKOW7HMFv/qpDWrWzZ8XGL76i/ynqj5Z+4pSHOqKrdgr5WY6a?=
- =?us-ascii?Q?QNpPk8mKPvGt+UnfM7I/PV91wjb/houUzSkFuAaghMnG0hLNKGyBrJgBCjSQ?=
- =?us-ascii?Q?JuW8CQShe82G977ei+go1/SATrYNoCBv1LUQdv2pAT7slQsaW0b3CWmaSXLJ?=
- =?us-ascii?Q?RHo0rlfM+bljb2NejydR3/DxeqQIizXIOAIvY2XXWpPyI+It0dqaXlQik94n?=
- =?us-ascii?Q?yZOvwZ+RD2u0LyChyWHBFf65edsXnoFi1qQYgXia25dalUmbfdf0qA/W6Xk8?=
- =?us-ascii?Q?GWGWgRAc7gzsWkwHQHzPh0OF7btgyPpfe39+xqHbAdRM5y9pxIKrc9f0Otij?=
- =?us-ascii?Q?zXS7kPmHHDvlezRJ63PR/Q1e4e64lYw7xO2QyqWl7Own+B2zYeYESwX+A7Au?=
- =?us-ascii?Q?CpKEKT3asbn2jaG+qAJ6CKB92YOJnOUvctXa7FV7ke6wgRrM?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-dy2-f38.google.com (mail-dy2-f38.google.com
+ [74.125.229.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC7D10F01C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 13:09:22 +0000 (UTC)
+Received: by mail-dy2-f38.google.com with SMTP id
+ 5a478bee46e88-339795849f6so204854eec.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 06:09:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790168961; cv=none;
+ d=google.com; s=arc-20260327;
+ b=GQl6EUPaBIISHVEiQbpV88uQGTaJ5Z+11U9xxEBwn7HITWyPtmrQuKy+AKYyqzNlSt
+ Ggzn+2Wik20PEK0eR+Loe8aIrwxemGF5OKwwYBRFYcewCdMO/JHjyVdkygSEe70UgRnf
+ +/KqUoA0v7LuwdO3zeSji/ddbWjEFGekDtXsE1U/gQyzWGwb+zrJ6VHZ9fGPoJtiH0c4
+ L/CVP3noSoD1yL4ErhdC1nGQJ+Rx6fpPXTTfl23vvPD0td3QozVUkyIUGpbOEqLU+kxA
+ FBAxdJT3QxigiuuJ4iP7upIXZNVLy4P0VeLLXcsUAGlrUS288LoLLGtirsGzbOcupYXa
+ FsWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=T9pABhBqRIUppU9mjpLYQvQCGBBqVmX7zzhS7TrB79U=;
+ fh=Zlf+LVUKoazQYvMqwmjEW55CvCKufc/Oxj69vta+J60=;
+ b=b0mRrEfPYiuSuio5A/+6Si5c6K9Gn4B7FJLAekp+Tit/eNjDxphsvU2Y/1m2VzmMgb
+ /0gBLvgLPypBPS3bLydqKfmzXBIbpFhR/sa7kLeRA86n+V+4F1pQktPsQ4RuP55CCJZg
+ mvULbA4ldPYvSHfLcBPWrlAjE9QJvWSKTJOWumOVTZYfQALZIb6NRR4+9o3IIJ5Sdz3k
+ V3Qy7RqGsXob99JxZU/lejT2tmXGdu/xt7lTkhO8Mb6oIyKYadkytGQ57Nyb1dL59Dng
+ NvgybFfCTwh0H5lnBZE1LSX26I30hMwGTjkNOMLcjqS45SdZktbbfYEvP23ugaFaeItL
+ NcLQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790168961; x=1790773761; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=T9pABhBqRIUppU9mjpLYQvQCGBBqVmX7zzhS7TrB79U=;
+ b=hji+G/n9FgNLdYLE39cfxkeVXA+C8MOsNqsDn71SysBdALMem6gN3MeJu74wRFPNwf
+ UGe6oqxtnrt2Hx/jLSAo6DVG8Oxhmt/ASQ8g+vmLYSBDwiOncj4Yu4BqT7bvvPw7X4wg
+ ZYUGNbTRjgCirN0qzIjnAcynbpMsfZKOYKuMhGcV0Pp6rJRkGdX87Nf+SWA4wQhdkzON
+ RhhXE0mh7crt7R8Kjtun4R8D/bH8u/EyFk+2BH1oFLIU9nlCUtTLXKI1p2ZRlYEhU9YX
+ hd1Z+WWXfcCRr2yfdgNK7u1KdpUSefVsVM09Cgec2FoXIxIR2bfHI5jcAIoM3AOv4LnN
+ mcPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790168961; x=1790773761;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=T9pABhBqRIUppU9mjpLYQvQCGBBqVmX7zzhS7TrB79U=;
+ b=PQqX88F90T+MZmckxnAdMVSV+CR6rRSG6czsvJ522/rT0r9mB95sz6vHfgZqL7u6As
+ hutwAH8M9+KOO7c3q2vDkBz2+us3rq7LySwVU6FG8rbdGuFOyvLsfgs/NrDV20ickuQG
+ X4LDLcBIwo6o1GfLJPIJUrbN4y3m6Oo9lh8G6z/TUOXez7foGTKn3B5Aa4fXyYIOdPuv
+ YeAgfKN3H3T3LqdBG9dTIv1qzJ6WtDNz2TYQTaP3eAMBRB8szcRCW14cUXVQDIXs82fJ
+ ADJ5eOvbARZTSgvGkKGJB4xgxurkH7j1fCKfLGw8A0O3oOgnHBgPNdSC6urQCoJ38hv7
+ b2Iw==
+X-Gm-Message-State: AFuF++k5XSOjkv/URDGCG+RvVDnrYujEhCUr0kaAV9WmOCv5BESXsS68
+ MexJubDVzQhfSKXqRBvkYZiIdzJEE1ZVYQY9f7S1vajUyFjaNQ6c/v3JF0rJ4eYHxLsQSdcTGup
+ gnqAHBe5zUu9cs//d0LIZy2qa/W1+Uow=
+X-Gm-Gg: AYBFou1/d0WATGvqtxTrEIRI4dSbjoe8qujr0UCJ2xfzzJfdD4kNO/psEhzECYFTcN6
+ qK6CEE/ZaKRCRbxARUIDH8PnlIQ/Gstw7aGJSWxFb+lFecIa4sL61DGmu45fd4I1d1r8HTwzVc6
+ 2vF2CMolyOgloKOQ7iHuJ/azVoeTFVV7UFe8d79pqoqouyF1tqUtx4iBn5WQWGIMJsv5UtRUCIc
+ kwn/SyfHhO7PsOCj2nLhpqr+zHVJDBAziieHdMQE4H81zyxZvJWPow4NxZGLfCehRVKN8bqqdlR
+ 1GSwf8hjy9XpfFi0Ggle7U0h3/BYJIPFNjPXE2bqk9Ctx/hlHhOGQvE0L+Rv5SKafI0WkxvlYCy
+ n9keYMpDwtvpOh7LlFdzOIBvPGUsS+tcLBxglED1NqA==
+X-Received: by 2002:a05:701b:2903:b0:144:fd17:3b21 with SMTP id
+ a92af1059eb24-144fd173b86mr2402327c88.0.1790168961379; Wed, 23 Sep 2026
+ 06:09:21 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f6c4c56-fc47-4320-2b03-08df19730b12
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 13:03:20.7255 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UbLTPpYio30FP5JxNnc9EZw2f8tgThqsY6rkwNtE/VnLPsusWfX3hbhFFymiCdkg9rM44XO0vzcoEnVMOu+hSg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6397
+References: <20260923095217.3932523-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20260923095217.3932523-1-Jesse.Zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 23 Sep 2026 09:09:09 -0400
+X-Gm-Features: AcwNN1W_eX_yVceLdHQM9s6aI9RXXsXedwKGiPbngp_vSoG_C36IYsIpW-KsYfI
+Message-ID: <CADnq5_MqtGma8in8TuA64_FSWbz-F_Xy9D2rAOKe4rDa19t_Xg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/userq: fix reading the WPTR at a non-zero BO
+ offset
+To: Jesse Zhang <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>, Sunil.Khatri@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,78 +105,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Public
+On Wed, Sep 23, 2026 at 5:52=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> w=
+rote:
+>
+> The user queue UAPI permits the WPTR at any 8-byte aligned offset within =
+a
+> BO. amdgpu_userq_fence_read_wptr() locates the mapping containing the WPT=
+R
+> address, but amdgpu_bo_kmap() returns the start of the BO, so the code re=
+ad
+> the first u64 regardless of the WPTR offset. USERQ_SIGNAL uses this value=
+ as
+> the exported fence seqno, so a wrong read makes the fence signal early (o=
+r
+> never), breaking dependency synchronization.
+>
+> Translate the WPTR GPU address to a byte offset within the BO, accounting
+> for the VA mapping start and the mapping's BO offset, before reading it.
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Thomas Zimmermann
-> Sent: Wednesday, September 23, 2026 6:59 AM
-> To: jfalempe@redhat.com; javierm@redhat.com;
-> maarten.lankhorst@linux.intel.com; mripard@kernel.org; airlied@gmail.com;
-> simona@ffwll.ch
-> Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; linux=
--
-> arm-kernel@lists.infradead.org; linux-samsung-soc@vger.kernel.org; intel-
-> gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org; linux-arm-
-> msm@vger.kernel.org; freedreno@lists.freedesktop.org;
-> nouveau@lists.freedesktop.org; linux-rockchip@lists.infradead.org; linux-
-> tegra@vger.kernel.org; sashiko-reviews@lists.linux.dev; Thomas Zimmermann
-> <tzimmermann@suse.de>
-> Subject: [PATCH 0/2] drm/fbdev: Move helpers to clients/ subdirectory
->
-> Helpers for fbdev emulation are still linked into drm_kms_helper.ko, whic=
-h is
-> for mode setting. Move the source and header files to the clients/ subdir=
-ectory
-> and link them into drm_client_lib.ko. This has some fallout throughout dr=
-ivers,
-> but it's all trivial.
->
-> There are 3 module parameters to drm_kms_helper.ko that control fbdev
-> emulation. For compatibility with existing installations, leave them in t=
-his
-> module.
->
-> Thomas Zimmermann (2):
->   drm/fbdev: Move fbdev module parameters next to module init
->   drm/fbdev: Move fbdev helpers into client library
-
-Series is:
+Fixes: a292fdecd728 ("drm/amdgpu: Implement userqueue signal/wait IOCTL")
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 >
->  drivers/gpu/drm/Makefile                      |  1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  2 +-
->  drivers/gpu/drm/clients/Makefile              |  3 +-
->  drivers/gpu/drm/clients/drm_fbdev_client.c    |  2 +-
->  .../drm_fbdev_helper.c}                       | 34 +---------------
->  drivers/gpu/drm/drm_crtc_helper_internal.h    |  9 +++++
->  drivers/gpu/drm/drm_fbdev_dma.c               |  2 +-
->  drivers/gpu/drm/drm_fbdev_shmem.c             |  2 +-
->  drivers/gpu/drm/drm_fbdev_ttm.c               |  2 +-
->  drivers/gpu/drm/drm_kms_helper_common.c       | 39
-> +++++++++++++++++++
->  drivers/gpu/drm/exynos/exynos_drm_fbdev.c     |  2 +-
->  drivers/gpu/drm/gma500/fbdev.c                |  2 +-
->  drivers/gpu/drm/i915/display/intel_fbdev.c    |  2 +-
->  drivers/gpu/drm/msm/msm_debugfs.c             |  2 +-
->  drivers/gpu/drm/msm/msm_fbdev.c               |  2 +-
->  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  1 -
->  drivers/gpu/drm/omapdrm/omap_debugfs.c        |  2 +-
->  drivers/gpu/drm/omapdrm/omap_fbdev.c          |  2 +-
->  drivers/gpu/drm/radeon/radeon_device.c        |  2 +-
->  drivers/gpu/drm/radeon/radeon_fbdev.c         |  2 +-
->  drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |  2 +-
->  drivers/gpu/drm/sitronix/st7571.c             |  1 -
->  drivers/gpu/drm/tegra/fbdev.c                 |  2 +-
->  drivers/gpu/drm/vboxvideo/vbox_mode.c         |  2 +-
->  .../drm_fbdev_helper.h}                       |  4 +-
->  26 files changed, 72 insertions(+), 56 deletions(-)  rename
-> drivers/gpu/drm/{drm_fb_helper.c =3D> clients/drm_fbdev_helper.c} (97%)
-> rename include/drm/{drm_fb_helper.h =3D> clients/drm_fbdev_helper.h} (99%=
-)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index c270635c907b..b885e90ec5f5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -372,7 +372,7 @@ static int amdgpu_userq_fence_read_wptr(struct amdgpu=
+_device *adev,
+>         struct amdgpu_bo_va_mapping *mapping;
+>         struct amdgpu_bo *bo;
+>         struct drm_exec exec;
+> -       u64 addr, *ptr;
+> +       u64 addr, offset, *ptr;
+>         int ret;
 >
+>         addr =3D queue->userq_prop->wptr_gpu_addr;
+> @@ -404,7 +404,10 @@ static int amdgpu_userq_fence_read_wptr(struct amdgp=
+u_device *adev,
+>                 goto lock_error;
+>         }
+>
+> -       *wptr =3D le64_to_cpu(*ptr);
+> +       /* The WPTR can be anywhere within the BO's VA mapping. */
+> +       offset =3D addr - (mapping->start << AMDGPU_GPU_PAGE_SHIFT);
+> +       offset +=3D mapping->offset;
+> +       *wptr =3D le64_to_cpu(ptr[offset / sizeof(*ptr)]);
+>
+>         amdgpu_bo_kunmap(bo);
+>         drm_exec_fini(&exec);
 > --
-> 2.55.0
-
+> 2.49.0
+>
