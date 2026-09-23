@@ -4,75 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52B7DC98317
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E137C98314
 	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D957810F510;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAFA210F512;
 	Thu, 24 Sep 2026 12:46:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TjqqsjcK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="khXR540s";
 	dkim-atps=neutral
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com
- [74.125.227.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04EAD10E713
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 15:44:11 +0000 (UTC)
-Received: by mail-vs2-f42.google.com with SMTP id
- 71dfb90a1353d-5c67e4d8d8aso766491e0c.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 08:44:10 -0700 (PDT)
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com
+ [74.125.229.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DABCB10E15A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 15:29:24 +0000 (UTC)
+Received: by mail-dl2-f42.google.com with SMTP id
+ a92af1059eb24-144ecebb6cbso468281c88.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 08:29:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790178250; x=1790783050; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790177364; x=1790782164; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=9HtKgKYLrxm3x6UJBU1QmDCl4UFfcngUzG8by9J5Mp4=;
- b=TjqqsjcK05Q8sX4rHdSXhG0vUeyYVyIJGEGVdnSR4rrEj/s2Lrq7r9VYN8KMIH67L5
- eeWbCinaidHXjyVgCM4cI5hPEMy3hvqgbhuoVpnncHXD1152wg5qOFAI93E2DrYhvJxg
- YZDPbh2T6YxJwSL6HlsPYNASGIN2y+g9N09/2rTGqRMpu3p3izSNi7Hebdf8E/awooAt
- INQBmzlqaRAbYOMfQkOS3yIwdmaD5EEH/dMcM3zrBZHpfhtfssrE/0HPgwbLsKs5Co+N
- fNSeF0G7OjtUy/PuacMv51BK/uLB5yZpXr8JfdN/NRIcQwaAG6V75TbA2w88XYKRzxve
- HD7g==
+ bh=4RwhN3nTYO2NwTsY9NysVRh+VFHI1OHGWLQy/WkOav4=;
+ b=khXR540s8WpeZf2Ue7rN2oiKw0wHCtcuhyZWU8vQiq2ZP7s+faPVvPFVgmjTByIsFx
+ JiuXGZQ2e4D5v9Sxs/kW1MHnWkvA+YMbU+idilhl4rkDu2ApEhoz8XTyLuE+JX0B3BzU
+ b1Xx2LJZox7LTU8cmEeq8n7ltUp5e8UcGX6DaOm4h6foSlMabBq0b5zxMU4LgwrBZf4F
+ ZKgw8E9Ym3G4cW1jx1uOxK5uDw6NIlznxEGyExEl/zYxePJyQ4WG8ferqiyCzspg8uMq
+ 3yg/4V5I6rtc17IQQyB2wv25KScZ4Zxv6GIBOOfjF3IqDdTlmZMRJJ/lIKYyEYiho/dS
+ qtVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790178250; x=1790783050;
+ d=1e100.net; s=20260707; t=1790177364; x=1790782164;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=9HtKgKYLrxm3x6UJBU1QmDCl4UFfcngUzG8by9J5Mp4=;
- b=d8OIsQf8R+IPUCyyOXzYeTU1gfImvWCNExeWqSMe8r9B22Jmr3ckgv5dK6QY6/IdZf
- 6xMdhR4p6eklas1a1bZeAXnmcyL95/oiktC9crgaVEd8v8t6wDZHIs3p1mLIkOjjdTj1
- pHeleloqzGtX30zV3RzbwMn6BLCmW1x8vxRhaiuLjqC7mB8+4711/HnXO/SwAhAv6KBE
- M3jzbZh1U5QsuqQCLJZ4XJCvyDqEclXy0YHCmMrd/Qu9Zje+/Sztq1JCb/ga3XEZfaEv
- 1yc8q5kg2J6+JeDt247ZYawjFhHfcwbZxfRQ6YHD1LLcb2zKOdwFFwAB6M5wDFn1kfBq
- 7pOw==
-X-Gm-Message-State: AFuF++ltURGnYNqQ2SsNswpPJqlcFD+hFpR+rl0A5FPsAP+ghrsK8oUQ
- 3w3a9noJ9KpYZ1Lp3nqDEGRM0vt5Y/LdvkZeY0zP9gQWXyt1qfrQJeI1
-X-Gm-Gg: AYBFou04DNw+08lHD7iI6FrqZ+zoTOLD9iltmb1YFvBBUjpUhljvj+y1K9PPoLWw00/
- FIc5upaLasrVzF8vBf/NwwJ5jx13ZnGZTb1XFOL87C5b/R9cEbZvfTwLDduBVETbexAqsVLy7KC
- MjhqPdHcdqdKTAjBRPVDv/doeCP43StxB7sk0K2JKWWd9VGmnJm7A2zZorkk5m3M2Hun0mGLtJc
- MQCNAyk9OBaLZryYIrCVY42htiTzhKyS/YS48W0vxdMZ8GSi6HJtlDPEkQFSsz6MARx70eF7kg/
- qQ/4ru4/dgo5F16wo4ss/jgojdMfElhkClTACvWUTa5dZREVXzo7W7cUYEYw9ynlkjywRYmM62K
- NEAMjKoZxJyG4xH2CDUYuPD4NXVgtaOLA04JJfTQmwptyuhkNTCW3SFqDhkeZC/f6QP44wGcuhN
- 0Xh4ubYgkXCX3LNzUtybB6EowHlNXS4+yJYqCbiS74aP4miENtFEmXGViEp1aRgwXgup/cP368L
- JSuNXsyVuo1
-X-Received: by 2002:a05:6122:400c:b0:5c9:a60c:273f with SMTP id
- 71dfb90a1353d-5c9f16b901cmr3577780e0c.23.1790178249808; 
- Wed, 23 Sep 2026 08:44:09 -0700 (PDT)
+ bh=4RwhN3nTYO2NwTsY9NysVRh+VFHI1OHGWLQy/WkOav4=;
+ b=QyXSyPqU0JvTK22fvChtJjO1PZZkJkXPrLZTqh52TrUYLWPk5LcMzwCE0xjpLFZ/7W
+ TBXZqaqa+lMTnT+SShk6C+pVQIKrVwxzmVziSB2udWwmLQ3lN0soiQ7bTOOP8nbvHPVB
+ gunJhzvlFQyXsjTMJi6Uva8K4Zd2NJwWRJ/J3tCmbjsUqCZZEKeXwcjI4Dg5K1AbkvrM
+ 8Gg7/jIU/xC9PP46vP3JXoitgHyXnm4G0Dp0qBMtKvGjgrJcIOIz6kpn3XieSFSiva/0
+ i4ZgNuLPx6Tdejik3LmPfK2tQi0G++9MJLk1OUdO0BSDEx8HcaH2gBYjGkAk/Mn0cBL+
+ Te2Q==
+X-Gm-Message-State: AFuF++laHYrjvZUtnJgKgn3bH6+TqdKDRfIDh0sODa1ILBtpS7P0F0Hw
+ QvQWGiaE+jioaab4EbQFVunwntK1YSTRWeEHb7HK4TrRsc7pTQsZxhMU
+X-Gm-Gg: AYBFou1pvzos8De0eJdgd+Zo+gWWuOwsTSuyzoRwy3OsYxv83y/MsxZ3iMekGu+lFgL
+ vENzJe6A0z2ssvx2KNvfzhvMhJGydKfx46SWpw17CX9X+Rv1Y4KS6KiZd2HNxl589Z4uHc+SM6e
+ pYQ3noq+x9QATb50t+gIIGfMpUFhQTwES1+KaMZXC5RHpkHK69QA6MGNhcMijnJF/13+rpuwG5i
+ I/73yAM4/b8XSphvrJI+YtVsrCbQ9GfSL0Noq45x+8EqKc/uYwlpyrY1psT9LHKnR/KhUsNeY4j
+ kZbSkhxNnALsiBHqv3dMO5MkOO5rx1p+pWeZFavFN5e4yhXdzn2IvQn5Y682sQ9gAvkRROtcJ7k
+ wo/f04Udr3fBHBhN+sPkSpTK37zdJQGIkV11ZTqoD5F1w7WZrYNvvKbrbaA/gb3AOyX0I/fG/T3
+ ZHZLrFovClSc+KvSwvW917JpRED9zrV216bZ0kNfX6EwBT6+Vw
+X-Received: by 2002:a05:7022:ea4c:b0:145:15d:5313 with SMTP id
+ a92af1059eb24-145015d5351mr741463c88.25.1790177363784; 
+ Wed, 23 Sep 2026 08:29:23 -0700 (PDT)
 Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c9f04f02bfsm3437129e0c.7.2026.09.23.08.44.06
+ a92af1059eb24-144f98bf501sm7232627c88.14.2026.09.23.08.29.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 08:44:09 -0700 (PDT)
+ Wed, 23 Sep 2026 08:29:23 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 To: alexander.deucher@amd.com,
 	christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v3] drm/amdgpu: prevent parameter-space underflow in nested
+Subject: [PATCH v2] drm/amdgpu: prevent parameter-space underflow in nested
  ATOM table calls
-Date: Wed, 23 Sep 2026 12:43:57 -0300
-Message-ID: <20260923154357.1319689-1-qwe.aldo@gmail.com>
+Date: Wed, 23 Sep 2026 12:29:12 -0300
+Message-ID: <20260923152912.1296884-1-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923152912.1296884-1-qwe.aldo@gmail.com>
-References: <20260923152912.1296884-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260923145001.1244517-1-qwe.aldo@gmail.com>
+References: <20260923145001.1244517-1-qwe.aldo@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:10 +0000
@@ -105,42 +104,32 @@ a child table requesting 60 bytes (ps_shift = 15 dwords) with only
 16 - 60 = underflow.
 
 Convert ps_shift to bytes (ps_shift * 4) in both the guard and the
-subtraction so the units are consistent. Abort the interpreter when
-the request exceeds the available space so the parent table does not
-continue with stale or uninitialized data.
+subtraction so the units are consistent and oversized requests are
+correctly rejected.
 
 Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
-v3: abort the interpreter (ctx->abort = true + return) when the
-    child table's parameter space exceeds the parent's remaining
-    capacity, instead of silently skipping execution (found by
-    Sashiko AI review on v2).
 v2: convert ps_shift to bytes (ps_shift * 4) before comparing with
-    ps_size, fixing the unit mismatch (found by Sashiko AI review).
+    ps_size, fixing the unit mismatch found by Sashiko AI review.
 
- drivers/gpu/drm/amd/amdgpu/atom.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/atom.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index e0e585f..af283cd 100644
+index e0e585f..0940bfb 100644
 --- a/drivers/gpu/drm/amd/amdgpu/atom.c
 +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_context *ctx, int *ptr, int arg)
+@@ -646,8 +646,8 @@ static void atom_op_calltable(atom_exec_context *ctx, int *ptr, int arg)
  		SDEBUG("   table: %d (%s)\n", idx, atom_table_names[idx]);
  	else
  		SDEBUG("   table: %d\n", idx);
 -	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
 -		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift);
-+	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx)) {
-+		if (ctx->ps_shift * 4 > ctx->ps_size) {
-+			ctx->abort = true;
-+			return;
-+		}
++	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx) && ctx->ps_shift * 4 <= ctx->ps_size)
 +		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift * 4);
-+	}
  	if (r) {
  		ctx->abort = true;
  	}
