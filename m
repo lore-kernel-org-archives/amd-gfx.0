@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1514C98304
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 19:19:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A27AFC98304
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 19:19:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE2910E58C;
-	Wed, 23 Sep 2026 19:19:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD8E010E961;
+	Wed, 23 Sep 2026 19:19:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OLo3CP7n";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="t1j0HEkg";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012012.outbound.protection.outlook.com [40.107.209.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F025010E58C
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 19:19:03 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013016.outbound.protection.outlook.com
+ [40.93.196.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C132910E961
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 19:19:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DJqbUMMVF1f2rOxSXkLSkcW6zw64w1j0Z+c0D8gAtilJHC7J1Rm5lbfqXnmPAuD1vfsVf+HnrQWSxy/9rR9SG3GfSOXPlOh02bGw5R/kobaxDkd0jvEjUdMvp4wA8Q5WmcN+eADL8wXPGsCbA2OLCyqU34MHEKZlcOYMYR/yc9KXFKTLbh65rU5sYa7CYux6yFO/iOUByV9Zc56XrBhqH36do+bsTOQuzNYgC2V42BBw0V9Ikgced3kD0oYGtphilT04ydwJ/YgHgeBAJY87bg4YMb1z82IKJLQP13WO6lod8tQXHQ/WN/0IKcfvgwspnPhvdgLxbjW5vXFli1IDxg==
+ b=qsssRhyn7yCdrKQ/h587XLLMGKINEPxwVdm6uWGiPchO6kVntb0X2xQFQsYF03bxnuon/RGtPShZCsawm7QZOCkhx07tw8si7aYDuQWZ9S2Qn03rXkYWakrM1WwgRBr5q+LsxiarQhR9zSTYkAoKhQbM+MryQj/Xui8BXl4QxlSTclrR+39dm28OmuX6xgP58ajd6iUatrjy2g+/FP5iNoEiiobyGAd9IIWEUfXRykgCT5G4kFeBKpD64Scl09Ab5ZMPOplv6f3+2p98GD2c22BY8OpH9TcR10ABWJ6mE1pO0MO6Sdkah4/5Wf7Luv8m1timqnaS9+mJXjjT3OlbfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=174ubPrIc74W0n7vm3krPR+34v1XkpnNTDjoyugkHgA=;
- b=WZxqQJJnemKyulcYfJ8OoJJgjHALq9RJfQJx05TP7CEy7X0pkiX2oUeWnZpP/Cy73F/ZErRcbFpMSk5St02C0mRra5yIyn3rq8x/XiCezZrfUQ0t2A8SOds3Tq6QoP8NLM0ghjmRmNcpg9amBtl8PGIJD4Q+mDtBsDg7CnPJVe8zEvrHmdfY47Y0bYjbbwRb15MRXZxBDMWX7w8R22mSKWNblmXI8MczxD+87khoNNeTRvLAsnNWtLLP6lXFtVqYWNAU8fCFqCHUgMLXASfF2JVM9dejreeS2OFFjDMv8F2spvV0x9sBakKTm8DxtmHSDlhfHPKMDRj++0XlJIdbeA==
+ bh=3hcoS5+DVCB4ny4qzL8wu/rgGWUEhaPih1gf3GMeIzY=;
+ b=eqzO7/Q9BvGT7d1UPX4TGyBkAfp4Le2y2YU9EQYe9pmPeNTEH5cD+HPgViVNOYvO+QEe24G7C6rvCkVuaIwNDj8oOZDbVl6goJdSotMif2MrIw02GZiJPRIQdg3FPsCgImWiXc+dJlWrp6vZQ5s1UpZCx1XrXNvN8oQ0pLUoV3Oq8Ti7RpRoyG2dbIia0aqS/ZE7PlQAD5sRzIBxJnRv+pZNcnXkwWN6SbEtuNvgL0Fk8oWs1exgnLII7Mo8PQK5XGaUXDY45cdpyryLqVmuATgAI9b3qlea/40uJp4Qz5fiPSJSScNDpWqF7lzFEyQadUUp1NwQISw58Jbusn32JQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=174ubPrIc74W0n7vm3krPR+34v1XkpnNTDjoyugkHgA=;
- b=OLo3CP7nYK0cFnPPa+HbC7ecOu98hKizTC+vp7rIWk/qjjWHfYJhBzcAKuLX2a5RTIrUAhMWbDFOjyOwqPK0nexyjJo6YsyesUoArZtnq9sMpzAUVfY0+PthHeut+jMEolT3pvEdOKCr8SXDdzOhrVVN+flon4qlt/GT9p+TM4g=
-Received: from PH8PR07CA0015.namprd07.prod.outlook.com (2603:10b6:510:2cd::20)
- by PH8PR12MB6940.namprd12.prod.outlook.com (2603:10b6:510:1bf::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 19:18:58 +0000
-Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
- (2603:10b6:510:2cd:cafe::15) by PH8PR07CA0015.outlook.office365.com
- (2603:10b6:510:2cd::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.16 via Frontend Transport; Wed,
- 23 Sep 2026 19:18:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
+ bh=3hcoS5+DVCB4ny4qzL8wu/rgGWUEhaPih1gf3GMeIzY=;
+ b=t1j0HEkgi9LgxGMHvJ6X7BcaC8RiTC0kWrPjUaS/y19gpEw+RH4b3qKLcKxZlHic+U+JQm3KRpvZy/1M4WeVTUKFNYHzTIhN99le/jh4yyGPZN6ZvRV2s8aVwD67f19BdY/Tgu6uxb5Kuq1RZuaEtKtHnbAfZ6wfUO0hE9TWQRs=
+Received: from MW4PR03CA0014.namprd03.prod.outlook.com (2603:10b6:303:8f::19)
+ by DM4PR12MB6421.namprd12.prod.outlook.com (2603:10b6:8:b7::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
+ 2026 19:19:38 +0000
+Received: from MWH0EPF000A6733.namprd04.prod.outlook.com
+ (2603:10b6:303:8f:cafe::3c) by MW4PR03CA0014.outlook.office365.com
+ (2603:10b6:303:8f::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.13 via Frontend Transport; Wed,
+ 23 Sep 2026 19:19:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000A672F.mail.protection.outlook.com (10.167.249.21) with Microsoft
+ MWH0EPF000A6733.mail.protection.outlook.com (10.167.249.25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 19:18:54 +0000
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 19:19:37 +0000
 Received: from 0yonsun-linux-dev.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 23 Sep 2026 14:18:53 -0500
+ 15.2.2562.49; Wed, 23 Sep 2026 14:19:35 -0500
 From: Yongqiang Sun <Yongqiang.Sun@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <shaoyun.liu@amd.com>, Yongqiang Sun <Yongqiang.Sun@amd.com>
-Subject: [PATCH 1/3] drm/amdgpu: update MES v11/v12 API for mes_dbgext
-Date: Wed, 23 Sep 2026 15:18:41 -0400
-Message-ID: <20260923191842.976419-1-Yongqiang.Sun@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: wire mes_dbgext on gfx11 and gfx12
+Date: Wed, 23 Sep 2026 15:19:21 -0400
+Message-ID: <20260923191921.977163-1-Yongqiang.Sun@amd.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -71,29 +71,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|PH8PR12MB6940:EE_
-X-MS-Office365-Filtering-Correlation-Id: 622fa744-17a9-4951-a43b-08df19a7825c
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6733:EE_|DM4PR12MB6421:EE_
+X-MS-Office365-Filtering-Correlation-Id: cfadd118-b799-43ee-3a76-08df19a79bb4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|56012099006|11063799006|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: jqDjs1YxCwlb+X0tQFII77iQvNjhAaeNRFAVDLnjpxL8Uo6r5kv1ioVaedOeB/G5jso3nnuMUHTWOuIlZ8FyRg4VfLIY5HciYsCTBdiLoB0FInF7/x8zQM+HjGV9zRXEHqty3Cbk7vsWwCbB+bQ5VRANAeNKUQpiqfva15fCi3obouwNSF9nJgRh0Z9gsoQUUNYjhwB5SRW21CuQGrzqPY8GvbAjKqM5CCsGo13qvsMtDmRJB3/2Nri9Idh7SgLnT5syqFPaSd9MlUrBj3VVS4SGFysmBbsEB8oSOW0zTeEGJqe9RH5JvMQY60FavJD8RTjHa/SSzsips3VnuVUPOJZPjfFuM2dc6SQS6/TroBGvcDSCyXxoTMjhygnD9eEe/VNDL3NP+o9YvnSZiU5r3jo0VIBcZOE+XdUS3XjJuZq3jNco9wE7NlkyH/snSIQPmkjGp3ux+u7IhuqfjumaVNPTmEXVUvmFQiUqAKlgzrm/o+3irWgvfm+Mt5IAnGGX2pHBJax/4iDJNnGYk1/KCXXKaOSy5wPcsrb90tVFjCNSPp8unsrdEFIghL2wLM+3IqzarZ0CsQky5UXt3JTBzdeeJQBkSmgAgXhgWoCvKN+w4bnCk0RuTDJqTTUTdN00PnzVbM95LNOWi135ZcLjHhCmqdP1tKsN3f2hSJ3K8dhYf2LbVrAZJu7byPArRaF4o2Wb87V89iYzUYkfdnfuLA==
+ ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: oK1Xv+T8mwfihVKXGJOIEVvSlnuq9u5NTqwW4Ugip3BG9j+0dyBYboFV7PPkHOQSZA62JfyRkrHPjQsQ3RGGUneXft1eTE13TKkKoePtwYXBM+3QFg5O+b+AMArfY832DQEc/qoJ1pdhHBFCJ7oEAOUarJxBqHRzLC+qcnr6q06d4iNf7G0clrMq/VbTMw8V2dnLBPzZz7qRCiLHm/ScjGFJkepl8sab2RKBr0QyWOxTdGm2PeeA6CMJ0dsEzgBupJkK+HIrLuzIA5uarnJ5Dmo6nPe9tKt69XPSSPPIWGKPKqW6FXYrUX1ab2mlAoFI5WdFMDkEmlpnnh+C+tY5F5nuFsmsCMFVUg6yJXWFxrF2dsUc+tUWtjJtr1HnygxZ728N6XGBHXex706uJHO5IRosnrsXc4JQ2LetZD8G1FXyUP+GQ2RHUZtsP/GAe4vUhWpgj4SEccSXbCaKrfto+aSJXd6MbjtaUEWeGUo564XKZyovQ+uHXVMpX8leB0Num92gGczUV/18U648w6uxzlSZ5S4qp8GkSAXjqfhH3EL/SJcKk5y+D3bts31KCtGk/Ds4ZCAPVC9SKpdKZB10uwDQNJb3EmBVfvhCjIdPwbRYe23meVSNZ2QK6I9jwVjNuYI0FmGsOtriSIvvqHuPyA7cMM/IS0M/8FeR0BPhh0e8rkaq18k205izqmk5m+FlglswPzMlD6Epd21/0cJ/XQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(6133799003);
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: wPAwioat+k7zOF3I7Dof3NgCWggstmzT9e+Iqn/R1nMcqsNjrEbAb1ZdbRG/j2v7d7ARC7zUa42/YlsFdj1KSGLgSUAlLLnBz3cgTFpwF9Y+cCdT1whX54qJTOnIHXMejQibcqepE+pkj0erQuZQBIavcDdLv6PFIsR0OBugiHXLZd3xk9fmEnk21vukx6L9BYgGsQeahs1HUjb18+zxKLqQvZQtGLEmF9JMyCiiOu9v0M5eKEX7lgAvzXbCxY5jPdCJYxar5/E/Bu+o786btS7NdlwOmtY7m6qm2RR7lyRYTIFf4ZeLU926qRG+3cSxDRvX3z/hUClNkBplxzdEbJ/DDx1T67EjQMV4mUQXSN5MBiW3xVQw4jmFTiVElgDhJSCLzWV+d1AFpf55uwDk1idHzvWpdv/UXJTrsNYff59bzpTHfn2EKhLKRHPSwQ7t
+X-MS-Exchange-AntiSpam-MessageData-0: vncTP+G2K/Kb8lSsgf9WwRwMmSr5yhESDRjBPXOdWsOvSJwhlejLkVzJytedny3yxv1TWClZa4eIJAqV9/kxnEUMqQTB2ZOML7MjQkRaJ2IzCtohFQ1uQvd5KlLvprbho2NeLFzS94Fj0OEPMco9UB0urvIoCGOlMJyRW1I5u6DAYxpwkd1LmS/TT6NjNYBDdH84qlHpfEop4qW40ktkZaKaOMTqYrbNILo9Ad42v72AjFFyhKDlLhHoRgENgyLpsk9OVv5efuwr2rSB0Ae3HnnKiVj5l9/UXlgnOMPEVtrjsGTcnqu4ec+rEZ1+EjzMiPAyNwLiq3Ceb0DJNVX1dnki9biRF/EAtjiSKVfUG+y/bnV5uDDS0QWSeY+AfwxETpauyN3npBSTQeJdwB+zBIm6Fk/fpTzbMb/yS2AsiO5l5ah8Jz0nYqtwxdVIGaZE
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 19:18:54.5885 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 622fa744-17a9-4951-a43b-08df19a7825c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 19:19:37.1096 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfadd118-b799-43ee-3a76-08df19a79bb4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A672F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6733.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6940
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6421
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,99 +108,259 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the MES firmware debug-extension ("mes_dbgext") API definitions to
-the shared MES v11 and v12 interface headers: the
-MESAPI_MISC__SETUP_MES_DBGEXT misc opcode, the MES_DBGEXT_INIT_DATA
-struct (log buffer MC address + option bits), and the corresponding
-dbgext_init_data member of union MESAPI__MISC.
-
-These describe the SETUP_MES_DBGEXT packet the firmware expects and are
-consumed by the per-IP mes_dbgext wiring for gfx11 and gfx12.
+Add the per-IP hardware wiring that drives the mes_dbgext core on gfx11
+(mes_v11_0 / gfx_v11_0) and gfx12 (mes_v12_0 / gfx_v12_0): handle
+MES_MISC_OP_SETUP_MES_DBGEXT in the misc-op path, unmask the MES debug
+interrupt, select the flat (gfx11) or zoned (gfx12) buffer format in
+sw_init(), start/stop the feature from hw_init()/hw_fini(), and drain
+the log from the EOP interrupt handler while the feature is active.
 
 Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
 ---
- drivers/gpu/drm/amd/include/mes_v11_api_def.h | 18 ++++++++++++++++++
- drivers/gpu/drm/amd/include/mes_v12_api_def.h | 17 +++++++++++++++++
- 2 files changed, 35 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 23 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 23 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 40 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 52 ++++++++++++++++++++++++++
+ 4 files changed, 138 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-index a8e6ccc7817c..e251ccc41f9c 100644
---- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-@@ -622,6 +622,7 @@ enum MESAPI_MISC_OPCODE {
- 	MESAPI_MISC__NOTIFY_TO_UNMAP_PROCESSES,
- 	MESAPI_MISC__CHANGE_CONFIG,
- 	MESAPI_MISC__LAUNCH_CLEANER_SHADER,
-+	MESAPI_MISC__SETUP_MES_DBGEXT,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index a7ed4923857b..8bef32528372 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -6534,6 +6534,29 @@ static int gfx_v11_0_eop_irq(struct amdgpu_device *adev,
  
- 	MESAPI_MISC__MAX,
- };
-@@ -702,6 +703,22 @@ struct CHANGE_CONFIG {
- 	} tdr_config;
- };
+ 	DRM_DEBUG("IH: CP EOP\n");
+ 
++	if (((entry->ring_id & 0x0c) >> 2) == 3) {
++		u32 type = amdgpu_mes_ih_int_type(doorbell_offset);
++
++		switch (type) {
++		case AMDGPU_MES_IH_INT_TYPE_DBGMSG:
++			/*
++			 * MES firmware debug-extension ("mes_dbgext")
++			 * messages are delivered as an EOP interrupt from
++			 * the MES pipe (me 3), carrying MES_DBGMSG (type 7)
++			 * in context dword bits 31:26.  Route them to the
++			 * mes_dbgext drain instead of the (gfx/compute) EOP
++			 * fence handling below.
++			 */
++			if (adev->mes.dbgext_active)
++				amdgpu_mes_dbgext_notify(adev, doorbell_offset);
++			break;
++		default:
++			/* other MES host interrupt types are not handled */
++			break;
++		}
++		return 0;
++	}
++
+ 	if (!adev->gfx.disable_kq) {
+ 		u8 me_id = (entry->ring_id & 0x0c) >> 2;
+ 		u8 pipe_id = (entry->ring_id & 0x03) >> 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index ec1e142549c5..c53c3263ff00 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -4871,6 +4871,29 @@ static int gfx_v12_0_eop_irq(struct amdgpu_device *adev,
+ 
+ 	DRM_DEBUG("IH: CP EOP\n");
+ 
++	if (((entry->ring_id & 0x0c) >> 2) == 3) {
++		u32 type = amdgpu_mes_ih_int_type(doorbell_offset);
++
++		switch (type) {
++		case AMDGPU_MES_IH_INT_TYPE_DBGMSG:
++			/*
++			 * MES firmware debug-extension ("mes_dbgext")
++			 * messages are delivered as an EOP interrupt from
++			 * the MES pipe (me 3), carrying MES_DBGMSG (type 7)
++			 * in context dword bits 31:26.  Route them to the
++			 * mes_dbgext drain instead of the (gfx/compute) EOP
++			 * fence handling below.
++			 */
++			if (adev->mes.dbgext_active)
++				amdgpu_mes_dbgext_notify(adev, doorbell_offset);
++			break;
++		default:
++			/* other MES host interrupt types are not handled */
++			break;
++		}
++		return 0;
++	}
++
+ 	if (!adev->gfx.disable_kq) {
+ 		u8 me_id = (entry->ring_id & 0x0c) >> 2;
+ 		u8 pipe_id = (entry->ring_id & 0x03) >> 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 51bfb672bed7..4a5ed502cedc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -969,6 +969,13 @@ static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
+ 		misc_pkt.opcode = MESAPI_MISC__NOTIFY_WORK_ON_UNMAPPED_QUEUE;
+ 		misc_pkt.queue_sch_level = AMD_PRIORITY_LEVEL_NORMAL;
+ 		break;
++	case MES_MISC_OP_SETUP_MES_DBGEXT:
++		misc_pkt.opcode = MESAPI_MISC__SETUP_MES_DBGEXT;
++		misc_pkt.dbgext_init_data.dbg_ext_mc_addr =
++				input->setup_mes_dbgext.log_buffer_mc_addr;
++		misc_pkt.dbgext_init_data.u64_all =
++				input->setup_mes_dbgext.log_options;
++		break;
+ 	default:
+ 		drm_err(adev_to_drm(mes->adev), "unsupported misc op (%d)\n", input->op);
+ 		return -EINVAL;
+@@ -1144,6 +1151,32 @@ static int mes_v11_0_detect_and_reset_hung_queues(struct amdgpu_mes *mes,
+ 			offsetof(union MESAPI__RESET, api_status));
+ }
  
 +/*
-+ * MES firmware debug extension ("mes_dbgext"): the driver hands the MES a
-+ * GART/GTT log buffer; the MES firmware writes text/binary log items into a
-+ * circular, zone-partitioned buffer that the driver drains and prints.
++ * Enable/disable delivery of the MES firmware host interrupts at the CP.  The
++ * MES firmware debug-message interrupt is delivered as a CP EOP from the MES
++ * pipe (me 3) and handled in gfx_v11_0_eop_irq(); it is gated by CPC_INT_CNTL
++ * in that ME/pipe context, selected via GRBM_GFX_CNTL.  Mirrors the Windows KMD
++ * MES interrupt-enable path.  Must run in process context (takes srbm_mutex).
 + */
-+struct MES_DBGEXT_INIT_DATA {
-+	uint64_t dbg_ext_mc_addr;
-+	union {
-+		struct {
-+			uint64_t trigger_interrupt_per_new_msg : 1;
-+			uint64_t reserved : 63;
-+		};
-+		uint64_t u64_all;
-+	};
-+};
++static int mes_v11_0_enable_dbgext_irq(struct amdgpu_mes *mes, bool enable)
++{
++	struct amdgpu_device *adev = mes->adev;
++	u32 cp_int_cntl;
 +
- union MESAPI__MISC {
- 	struct {
- 		union MES_API_HEADER	header;
-@@ -717,6 +734,7 @@ union MESAPI__MISC {
- 			struct		SET_SHADER_DEBUGGER set_shader_debugger;
- 			enum MES_AMD_PRIORITY_LEVEL queue_sch_level;
- 			struct		CHANGE_CONFIG change_config;
-+			struct		MES_DBGEXT_INIT_DATA dbgext_init_data;
- 
- 			uint32_t	data[MISC_DATA_MAX_SIZE_IN_DWORDS];
- 		};
-diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-index cb7ebdfffeeb..3e214cb4f6e1 100644
---- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-@@ -839,6 +839,22 @@ struct CHANGE_CONFIG {
- 	} tdr_config;
++	mutex_lock(&adev->srbm_mutex);
++	soc21_grbm_select(adev, 3, AMDGPU_MES_SCHED_PIPE, 0, 0);
++
++	cp_int_cntl = RREG32_SOC15(GC, 0, regCPC_INT_CNTL);
++	cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CPC_INT_CNTL,
++					TIME_STAMP_INT_ENABLE, enable ? 1 : 0);
++	WREG32_SOC15(GC, 0, regCPC_INT_CNTL, cp_int_cntl);
++
++	soc21_grbm_select(adev, 0, 0, 0, 0);
++	mutex_unlock(&adev->srbm_mutex);
++
++	return 0;
++}
++
+ static const struct amdgpu_mes_funcs mes_v11_0_funcs = {
+ 	.add_hw_queue = mes_v11_0_add_hw_queue,
+ 	.remove_hw_queue = mes_v11_0_remove_hw_queue,
+@@ -1152,6 +1185,7 @@ static const struct amdgpu_mes_funcs mes_v11_0_funcs = {
+ 	.suspend_gang = mes_v11_0_suspend_gang,
+ 	.resume_gang = mes_v11_0_resume_gang,
+ 	.misc_op = mes_v11_0_misc_op,
++	.enable_dbgext_irq = mes_v11_0_enable_dbgext_irq,
+ 	.reset_hw_queue = mes_v11_0_reset_hw_queue,
+ 	.detect_and_reset_hung_queues = mes_v11_0_detect_and_reset_hung_queues,
  };
+@@ -2049,6 +2083,8 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	adev->gfx.kiq[0].ring.sched.ready = false;
+ 	adev->mes.ring[0].sched.ready = true;
+ 
++	amdgpu_mes_dbgext_start(adev);
++
+ 	return 0;
+ 
+ failure:
+@@ -2058,6 +2094,10 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 
+ static int mes_v11_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ {
++	struct amdgpu_device *adev = ip_block->adev;
++
++	amdgpu_mes_dbgext_stop(adev);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+index 9d220bff0f6f..363e1d6d3c2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+@@ -910,6 +910,13 @@ static int mes_v12_0_misc_op(struct amdgpu_mes *mes,
+ 		misc_pkt.change_config.option.bits.limit_single_process =
+ 				input->change_config.option.limit_single_process;
+ 		break;
++	case MES_MISC_OP_SETUP_MES_DBGEXT:
++		misc_pkt.opcode = MESAPI_MISC__SETUP_MES_DBGEXT;
++		misc_pkt.dbgext_init_data.dbg_ext_mc_addr =
++				input->setup_mes_dbgext.log_buffer_mc_addr;
++		misc_pkt.dbgext_init_data.u64_all =
++				input->setup_mes_dbgext.log_options;
++		break;
+ 
+ 	default:
+ 		DRM_ERROR("unsupported misc op (%d)\n", input->op);
+@@ -1213,6 +1220,45 @@ static int mes_v12_0_inv_tlbs_pasid(struct amdgpu_mes *mes,
+ 
+ }
  
 +/*
-+ * MES firmware debug extension ("mes_dbgext"): the driver hands the MES a
-+ * GART/GTT log buffer; the MES firmware writes text/binary log items into a
-+ * circular, zone-partitioned buffer that the driver drains and prints.
++ * Enable/disable delivery of the MES firmware host interrupts at the CP.  The
++ * MES firmware debug-message ("mes_dbgext") interrupt is delivered to the IH
++ * as a CP EOP (src_id 181) on the MES scheduler pipe (me 3) and handled in
++ * gfx_v12_0_eop_irq(); it is gated by CPC_INT_CNTL in the me3/MES pipe context,
++ * selected via GRBM_GFX_CNTL.  Must run in process context (takes srbm_mutex).
++ *
++ * Although the firmware C code passes Rs64HostIntrGeneric1IntEnable, the RS64
++ * library routine that actually raises the interrupt (AsmRs64SetHostIntr)
++ * hardcodes the TIME_STAMP assertion bit (CP_INT_STAT_DEBUG bit 26).  So
++ * TIME_STAMP_INT_ENABLE - not GENERIC1_INT_ENABLE - is the CPC_INT_CNTL bit
++ * that lets the CP forward the assertion to the host IH.  CPC_INT_CNTL is
++ * per-(me,pipe); the enable must be set on both me3 pipes (0 and 1), matching
++ * the Windows/SR-IOV KMD path - setting it only on the scheduler pipe is not
++ * sufficient.
 + */
-+struct MES_DBGEXT_INIT_DATA {
-+	uint64_t dbg_ext_mc_addr;
-+	union {
-+		struct {
-+			uint64_t trigger_interrupt_per_new_msg : 1;
-+			uint64_t reserved : 63;
-+		};
-+		uint64_t u64_all;
-+	};
-+};
++static int mes_v12_0_enable_dbgext_irq(struct amdgpu_mes *mes, bool enable)
++{
++	struct amdgpu_device *adev = mes->adev;
++	u32 cp_int_cntl;
++	int pipe;
 +
- union MESAPI__MISC {
- 	struct {
- 		union MES_API_HEADER	header;
-@@ -853,6 +869,7 @@ union MESAPI__MISC {
- 			struct SET_SHADER_DEBUGGER set_shader_debugger;
- 			enum MES_AMD_PRIORITY_LEVEL queue_sch_level;
- 			struct CHANGE_CONFIG change_config;
-+			struct MES_DBGEXT_INIT_DATA dbgext_init_data;
- 			uint32_t data[MISC_DATA_MAX_SIZE_IN_DWORDS];
- 		};
- 		uint64_t		timestamp;
++	mutex_lock(&adev->srbm_mutex);
++
++	for (pipe = 0; pipe < 2; pipe++) {
++		soc24_grbm_select(adev, 3, pipe, 0, 0);
++
++		cp_int_cntl = RREG32_SOC15(GC, 0, regCPC_INT_CNTL);
++		cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CPC_INT_CNTL,
++					    TIME_STAMP_INT_ENABLE, enable ? 1 : 0);
++		WREG32_SOC15(GC, 0, regCPC_INT_CNTL, cp_int_cntl);
++	}
++
++	soc24_grbm_select(adev, 0, 0, 0, 0);
++	mutex_unlock(&adev->srbm_mutex);
++
++	return 0;
++}
++
+ static const struct amdgpu_mes_funcs mes_v12_0_funcs = {
+ 	.add_hw_queue = mes_v12_0_add_hw_queue,
+ 	.remove_hw_queue = mes_v12_0_remove_hw_queue,
+@@ -1224,6 +1270,7 @@ static const struct amdgpu_mes_funcs mes_v12_0_funcs = {
+ 	.reset_hw_queue = mes_v12_0_reset_hw_queue,
+ 	.invalidate_tlbs_pasid = mes_v12_0_inv_tlbs_pasid,
+ 	.detect_and_reset_hung_queues = mes_v12_0_detect_and_reset_hung_queues,
++	.enable_dbgext_irq = mes_v12_0_enable_dbgext_irq,
+ };
+ 
+ static int mes_v12_0_allocate_ucode_buffer(struct amdgpu_device *adev,
+@@ -2114,6 +2161,8 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	adev->gfx.kiq[0].ring.sched.ready = false;
+ 	adev->mes.ring[0].sched.ready = true;
+ 
++	amdgpu_mes_dbgext_start(adev);
++
+ 	return 0;
+ 
+ failure:
+@@ -2123,6 +2172,9 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 
+ static int mes_v12_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ {
++	struct amdgpu_device *adev = ip_block->adev;
++
++	amdgpu_mes_dbgext_stop(adev);
+ 	return 0;
+ }
+ 
 -- 
 2.43.0
 
