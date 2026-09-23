@@ -4,74 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E137C98314
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE94CC9831A
 	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAFA210F512;
-	Thu, 24 Sep 2026 12:46:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27FB210F513;
+	Thu, 24 Sep 2026 12:46:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="khXR540s";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sim9s0JP";
 	dkim-atps=neutral
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com
- [74.125.229.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DABCB10E15A
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 15:29:24 +0000 (UTC)
-Received: by mail-dl2-f42.google.com with SMTP id
- a92af1059eb24-144ecebb6cbso468281c88.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 08:29:24 -0700 (PDT)
+Received: from mail-dl2-f36.google.com (mail-dl2-f36.google.com
+ [74.125.229.164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50D2010E92C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 16:13:08 +0000 (UTC)
+Received: by mail-dl2-f36.google.com with SMTP id
+ a92af1059eb24-14373bcc010so1283679c88.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 09:13:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790177364; x=1790782164; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=4RwhN3nTYO2NwTsY9NysVRh+VFHI1OHGWLQy/WkOav4=;
- b=khXR540s8WpeZf2Ue7rN2oiKw0wHCtcuhyZWU8vQiq2ZP7s+faPVvPFVgmjTByIsFx
- JiuXGZQ2e4D5v9Sxs/kW1MHnWkvA+YMbU+idilhl4rkDu2ApEhoz8XTyLuE+JX0B3BzU
- b1Xx2LJZox7LTU8cmEeq8n7ltUp5e8UcGX6DaOm4h6foSlMabBq0b5zxMU4LgwrBZf4F
- ZKgw8E9Ym3G4cW1jx1uOxK5uDw6NIlznxEGyExEl/zYxePJyQ4WG8ferqiyCzspg8uMq
- 3yg/4V5I6rtc17IQQyB2wv25KScZ4Zxv6GIBOOfjF3IqDdTlmZMRJJ/lIKYyEYiho/dS
- qtVQ==
+ d=gmail.com; s=20251104; t=1790179987; x=1790784787; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=sUIXWjLbTey+d3P92W9cG28EMxJiRiFjR+QNnEvmF1I=;
+ b=Sim9s0JP0QGBbDzDuaYtguK9ucojea/O2rmpP/XVq1lQOrRmgIik4LQY3zipfEynDH
+ WzwaTwE0V9xOr2w0ecbp6bxbA0W2xflkgU/roitgQbO9KvFely2X7HuyO+Xua5fB2+Mj
+ 9LtaEMU6UnTw+wNgDhXluValX19TLf3SqnsFsD8LMgmN/6ZLzREklgYR1LsyL3DasMsW
+ RrCrYqiwnmoR6oZkPcag0gfKRCVdy6PM9eX9UXMy+DJFMD8nfB/Cu9/ENWv1oYEA5Jom
+ oVFngFtVWsTjJBX0ywS/qlUXvNb5zZ7mt/9arM2ZbetCWda5sWzI7w1gLP0XaZ/mkfGn
+ QSzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790177364; x=1790782164;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=4RwhN3nTYO2NwTsY9NysVRh+VFHI1OHGWLQy/WkOav4=;
- b=QyXSyPqU0JvTK22fvChtJjO1PZZkJkXPrLZTqh52TrUYLWPk5LcMzwCE0xjpLFZ/7W
- TBXZqaqa+lMTnT+SShk6C+pVQIKrVwxzmVziSB2udWwmLQ3lN0soiQ7bTOOP8nbvHPVB
- gunJhzvlFQyXsjTMJi6Uva8K4Zd2NJwWRJ/J3tCmbjsUqCZZEKeXwcjI4Dg5K1AbkvrM
- 8Gg7/jIU/xC9PP46vP3JXoitgHyXnm4G0Dp0qBMtKvGjgrJcIOIz6kpn3XieSFSiva/0
- i4ZgNuLPx6Tdejik3LmPfK2tQi0G++9MJLk1OUdO0BSDEx8HcaH2gBYjGkAk/Mn0cBL+
- Te2Q==
-X-Gm-Message-State: AFuF++laHYrjvZUtnJgKgn3bH6+TqdKDRfIDh0sODa1ILBtpS7P0F0Hw
- QvQWGiaE+jioaab4EbQFVunwntK1YSTRWeEHb7HK4TrRsc7pTQsZxhMU
-X-Gm-Gg: AYBFou1pvzos8De0eJdgd+Zo+gWWuOwsTSuyzoRwy3OsYxv83y/MsxZ3iMekGu+lFgL
- vENzJe6A0z2ssvx2KNvfzhvMhJGydKfx46SWpw17CX9X+Rv1Y4KS6KiZd2HNxl589Z4uHc+SM6e
- pYQ3noq+x9QATb50t+gIIGfMpUFhQTwES1+KaMZXC5RHpkHK69QA6MGNhcMijnJF/13+rpuwG5i
- I/73yAM4/b8XSphvrJI+YtVsrCbQ9GfSL0Noq45x+8EqKc/uYwlpyrY1psT9LHKnR/KhUsNeY4j
- kZbSkhxNnALsiBHqv3dMO5MkOO5rx1p+pWeZFavFN5e4yhXdzn2IvQn5Y682sQ9gAvkRROtcJ7k
- wo/f04Udr3fBHBhN+sPkSpTK37zdJQGIkV11ZTqoD5F1w7WZrYNvvKbrbaA/gb3AOyX0I/fG/T3
- ZHZLrFovClSc+KvSwvW917JpRED9zrV216bZ0kNfX6EwBT6+Vw
-X-Received: by 2002:a05:7022:ea4c:b0:145:15d:5313 with SMTP id
- a92af1059eb24-145015d5351mr741463c88.25.1790177363784; 
- Wed, 23 Sep 2026 08:29:23 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1790179987; x=1790784787;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=sUIXWjLbTey+d3P92W9cG28EMxJiRiFjR+QNnEvmF1I=;
+ b=EkRCAfxeDsEpvS5fPwDS8hFO/ruucHsi3vR8h958NBiXhDyBSCJbQiGmsQy+kGHT3S
+ Dg/d5dRbzNmV1AunjYGHT+C3xw1qEUXf4TFNtk4q5qqmHd8ENGMUb2clH5KfPkeGnRC7
+ gr9DM1ycwuC+3mPyahOj8fkN+YRXhnJ8fcji95netwxyhyaxHbILXLbTUbSwuKaniDBb
+ 5HvqwYWt/hrJ4eQtzrPloG74B8XhrxDtMNAX/tlFwtHp6cp/CEF0LWfeaTMtrTOYd0rl
+ qxQfQFZI7HUBnE1M3b1zKhd896ae0AKWUBAAsg7aPB+nWJr//hp7rQbsUEtahbSiiU4/
+ 7N1w==
+X-Gm-Message-State: AFuF++m1WFHJMXZNibrYqauR+w/TZenZGR2JbKGVfuP64uOSnFMAufaf
+ 9sm5qMglnCbG+TtcJbMwEW61ET0Y9AsbxBHuMZl5e0XkiI6MPGfbKh82
+X-Gm-Gg: AYBFou1lX1HyCHwVmjw9l4oNneiEjHM5OOR28Q36WsPO3RA0Bxe5729E2ZtswPWlkL9
+ +wF3G0xFy/QZVVCpx2TW/FXBKfrlOhBiW7ZGDK821NXij8mWbxqYSF3y/L62wFVUg5T3g8X5hPA
+ mzyMud1GtruGz4iEnvzaC81GbBX28pTGtLUW81ZviMCfhoRx46lGuQqslTDpHnB4odBXFnP8CKt
+ YNwRRvvNAtsGPsVMJsVdfuEeLn46R+ks3xDnUnldmBuHR9SKGPKj1NxvHp0KMEb/mhQm6sKQNuK
+ ByiFkJ0fK2cZtzH1H74Nksra/hWhF2eIIOAqkTcMFyo5tpf8SXhsGSe7WENdQd+eL2G+oIXCVVi
+ ZJ11rUhl62dyfTIhVzjxNPPrHuSJ0nq2qDATpzbt2Yhwszxd8wLApsiT/sSwiXlhh9+SGTCc15e
+ nPE25M3WDGVKBi4hPccM8xe8IEm91bYLt66weQWPhgUnSlMnIeJV17yky89DDK8ARjU/Sah9qFG
+ g==
+X-Received: by 2002:a05:701b:20de:20b0:145:152:b54c with SMTP id
+ a92af1059eb24-1450152b7ecmr819023c88.23.1790179987346; 
+ Wed, 23 Sep 2026 09:13:07 -0700 (PDT)
 Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-144f98bf501sm7232627c88.14.2026.09.23.08.29.20
+ a92af1059eb24-14501794269sm992777c88.8.2026.09.23.09.13.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 08:29:23 -0700 (PDT)
+ Wed, 23 Sep 2026 09:13:06 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 To: alexander.deucher@amd.com,
 	christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2] drm/amdgpu: prevent parameter-space underflow in nested
- ATOM table calls
-Date: Wed, 23 Sep 2026 12:29:12 -0300
-Message-ID: <20260923152912.1296884-1-qwe.aldo@gmail.com>
+Subject: [PATCH] drm/amdgpu: fix ATOM parameter space index bounds check
+Date: Wed, 23 Sep 2026 13:12:52 -0300
+Message-ID: <20260923161252.1363895-1-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923145001.1244517-1-qwe.aldo@gmail.com>
-References: <20260923145001.1244517-1-qwe.aldo@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 24 Sep 2026 12:46:10 +0000
@@ -89,49 +86,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-atom_op_calltable() invokes a child ATOM table, forwarding the
-parent's parameter space with an offset:
+atom_get_src_int() and atom_put_dst() use idx as a dword index into
+the uint32_t *ps array (ctx->ps[idx]), but compare it against
+ctx->ps_size which is in bytes. A malformed ATOM table operand with
+idx between ps_size/4 and ps_size-1 passes the bounds check but
+accesses up to 3 dwords (12 bytes) beyond the stack-allocated
+parameter buffer.
 
-    amdgpu_atom_execute_table_locked(ctx->ctx, idx,
-        ctx->ps + ctx->ps_shift,
-        ctx->ps_size - ctx->ps_shift);
+For example with ps_size = 16 bytes (4 dwords), idx = 5 passes
+the check (5 < 16) but ctx->ps[5] reads/writes the 6th dword at
+byte offset 20, 4 bytes past the allocation.
 
-ctx->ps_shift is in dwords (set to ps / 4 in
-amdgpu_atom_execute_table_locked()), while ctx->ps_size is the
-remaining capacity in bytes. The subtraction therefore mixes units:
-a child table requesting 60 bytes (ps_shift = 15 dwords) with only
-16 bytes remaining would compute 16 - 15 = 1 instead of the correct
-16 - 60 = underflow.
-
-Convert ps_shift to bytes (ps_shift * 4) in both the guard and the
-subtraction so the units are consistent and oversized requests are
-correctly rejected.
+Divide ps_size by 4 in both comparisons to match the dword indexing.
 
 Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260923163157.1354872-1-qwe.aldo@gmail.com?part=1
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
-v2: convert ps_shift to bytes (ps_shift * 4) before comparing with
-    ps_size, fixing the unit mismatch found by Sashiko AI review.
-
  drivers/gpu/drm/amd/amdgpu/atom.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index e0e585f..0940bfb 100644
+index e0e585f..d0a45f6 100644
 --- a/drivers/gpu/drm/amd/amdgpu/atom.c
 +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -646,8 +646,8 @@ static void atom_op_calltable(atom_exec_context *ctx, int *ptr, int arg)
- 		SDEBUG("   table: %d (%s)\n", idx, atom_table_names[idx]);
- 	else
- 		SDEBUG("   table: %d\n", idx);
--	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
--		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift);
-+	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx) && ctx->ps_shift * 4 <= ctx->ps_size)
-+		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift * 4);
- 	if (r) {
- 		ctx->abort = true;
- 	}
+@@ -232,7 +232,7 @@ static uint32_t atom_get_src_int(atom_exec_context *ctx, uint8_t attr,
+ 		(*ptr)++;
+ 		/* get_unaligned_le32 avoids unaligned accesses from atombios
+ 		 * tables, noticed on a DEC Alpha. */
+-		if (idx < ctx->ps_size)
++		if (idx < ctx->ps_size / 4)
+ 			val = get_unaligned_le32((u32 *)&ctx->ps[idx]);
+ 		else
+ 			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
+@@ -510,7 +510,7 @@ static void atom_put_dst(atom_exec_context *ctx, int arg, uint8_t attr,
+ 		idx = U8(*ptr);
+ 		(*ptr)++;
+ 		DEBUG("PS[0x%02X]", idx);
+-		if (idx >= ctx->ps_size) {
++		if (idx >= ctx->ps_size / 4) {
+ 			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
+ 			return;
+ 		}
 -- 
 2.43.0
