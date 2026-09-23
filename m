@@ -4,86 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99CE0C98304
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 16:07:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97622C98304
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Sep 2026 16:21:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 386ED10E5DA;
-	Wed, 23 Sep 2026 16:07:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 101EA10E11E;
+	Wed, 23 Sep 2026 16:21:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AXla20CJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wG4dp5tw";
 	dkim-atps=neutral
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com
- [74.125.228.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7093B10E5DA
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 16:07:32 +0000 (UTC)
-Received: by mail-ej2-f43.google.com with SMTP id
- a640c23a62f3a-c2a8b9acbc6so183353566b.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 09:07:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790179651; x=1790784451; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=p5jcS04GHIJRKuzdHI5fQPxE/Gjcri6O1kLmUfhhrCc=;
- b=AXla20CJTLpZJgCRxDPMVRAJcu/dxWMVHWJGgZfvToEchSZyFCE8L/bKzYXiFrXXkQ
- mQbZJLXNHKmzAioYxdQfbKuwamdNnVyDqhrvOni+KBS4s3cYCE656IRUvdBECAHi7akO
- SjBN+MkLq2DpWEisl0qH0USw6qtLHFyGKMP9SOJrzo1gEMLDcD8I7VAc9Y1hLEFcnSUA
- NfP34Q0TwyqIVPLnlXBBy5Wbrm/ZFl4e/joAdXJn7MoStbZaENvAy0+DeTixReuZIeJ/
- vLspkgkpHhezdzNr5s0nSmR/JNSot2E9RNSal0EafWAYMS241lZRYTUxUR8sHNkARoAP
- P0pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790179651; x=1790784451;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=p5jcS04GHIJRKuzdHI5fQPxE/Gjcri6O1kLmUfhhrCc=;
- b=fJJLpR4oOh5L8oveJ5bdtVswR5+4u42CXXBDcMhNJnzkJ5sZIeVMlh6CHie8ZfiM+f
- mHdjaoujmull16eErTS1m27La23f838RyatTtfTNT43jcQE7O4t8ZQiV8Hi0dwBCs8Us
- RyaU7mrFesZrAiFpo//omajcrTAG4WNapwTBkQPRrUaUmCWhsMX09gnq6HP3UVfvyHAo
- 3Ipv7sPwJ4nJsyaszCSR690TJ13LoH8hSv7qfqNsAljrN04QXj1Q6QOiPhsrZYdkTbjL
- ZqzRbLCPc1ggGY8dtTkrdjovzmppM/9g0adW7AyWHtgZ7uQnDHV/Z9aoSTTQlBd71nQ3
- Kamg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzcBoaEcVUHg8lrGpQQKdRFDlchi6H+w8HZw8pqHXN2ALsJ2a1AdhZauQtYuAOOT03eO+UcuK4j@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lgFRne5gEOnp3EFNPnjYtNYF4AQ3dECIopFsdrFozLLjGteiQp
- BiWfAjzcEkzd/pCmhJocVZE8idChteyya0umxCcYi+lU8IsPj+u6ictJ
-X-Gm-Gg: AYBFou1tdSRd51DuA/mXFsUlHhrBFOLc4bew6lA4quYG0dncAjOxrKF7pZk0wAra1fS
- 1nhUQ13sApfit5ekpsyZKn5orlJcWr5ixitSFw7VoU9WQmRUd9MFHQWK3Hc333/+z3fgfPrniBr
- 4vYAT78n9/bguwglShsogURjBJwaig9M2IE7l669x01AhOCO3netWxyRgc/PcnmjsiQZ7hQsGG8
- QqBS5hRncfFAF2mYv9quRRUrSaiSBAMu99VzmRbYlCcvu+MTayPXJf+qVHbHEQJxzIyt5ogAiZ2
- oSOw7gcax5aO1RpC215zO/hC7EEbWE8QkUV3HtYqWx3gi3gWJ3DyDwkAn/+GH/5Bpj6Yatemte9
- 5ZMP6cryrJYNS6wQrpnbw+BDBJ6KqXaYFA5oDhzNvlnkY9hspK5eAeqxUBZSbY25rJmz9ECAfo6
- gELGKhLdwlbHqsTo4veFwRwdA3alg2UapPsvzbm+dNQuqWieV3WGOQO/y80Z5WPVSTUUTed5yNK
- qV+7KM=
-X-Received: by 2002:a17:907:3f82:b0:c2a:ad55:b3fa with SMTP id
- a640c23a62f3a-c2aadeb4b50mr259256666b.7.1790179650477; 
- Wed, 23 Sep 2026 09:07:30 -0700 (PDT)
-Received: from [10.194.248.89] ([137.122.66.156])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2aae60e4c8sm152921166b.26.2026.09.23.09.07.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Sep 2026 09:07:29 -0700 (PDT)
-Message-ID: <696580d8-cf2e-47aa-8616-7d930c2f5b82@gmail.com>
-Date: Wed, 23 Sep 2026 12:07:26 -0400
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012070.outbound.protection.outlook.com
+ [40.107.200.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AC9B10E11E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Sep 2026 16:21:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pgrWVrbMEEnj5ZEcIPWv0cjzbTvaS5yBqeKFokZDrfhpt9qcc3Qp8ZINPmDdSvXQzfpducBttb1CKt7kCvf3eu6h27+vvtBg6FHqOonbWBJ1yyP+AsgpKobcANDeEboU/YjdgV3rOvppsD4wiAgfY1HhtWs/kfYrHB2KUFbSsMEg/31v1HpBk5BBwICUqM+gm/7KPCSpICdPyDzAXsTBBi1slxNXSP69vTK3NklH4Wdl4zgGwJcm8ghu4hGeRaoI4l1YPsstkfJbXjrdAmYsGROG76WKaiSgP4J1vuTZRU9VTOBposiKEBKB/it91GK/2Nzg4oNSi6SHePt96AjV2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8jkxrjrUoOInvK1RUgMeAhxYydfC7wLlj4jYn03Qjhs=;
+ b=pGQA+6/CCkmHS4MlOEOmH7M2d5BDoZNtlgRCCjNPdoXvhJgwV8oe8nOHLO+WEyGafvPUeuNezzqirkjZw5m9awWM+JWB41XqnEJ6iuq3csQ47eLEh9BqkrlVqsTRNgm0g3hKjkLT7QuTNfcmxKRL1cwmIDaJaAMiExWNkVrTlJJbQ48R7yt3c1aW6Ul/JmGpd6iHlSs5YGaxfj9dbmfyDfm6xGMrI4qEghxHYUipaISXYAd7f7myQB1jNOlfLaDRH8IxVzqbgD44cmKvl9AYS+MqjGwBYDtK0TDwf37Yn7e05y9OivcIDtXqIsf521HbukEP/Ipq6TKdkE/5OI40Yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8jkxrjrUoOInvK1RUgMeAhxYydfC7wLlj4jYn03Qjhs=;
+ b=wG4dp5twqS5Eor+FkVUpCYL10fViOqGg/fQDBa47nRxgZWcmcdyR8efZtcRkKpmxlfzvrnF7oedzVpstklze4jfVS4i7Q/RN0y+Z6rq6fZe7BkApGQ8hcTEoauoDELP19b4aaXuokO27jNi41UenlPNAVu9MqD/I2AxvljJfWsY=
+Received: from MW4PR03CA0202.namprd03.prod.outlook.com (2603:10b6:303:b8::27)
+ by PH8PR12MB7423.namprd12.prod.outlook.com (2603:10b6:510:229::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 16:21:12 +0000
+Received: from CO1PEPF00012E7E.namprd03.prod.outlook.com
+ (2603:10b6:303:b8:cafe::83) by MW4PR03CA0202.outlook.office365.com
+ (2603:10b6:303:b8::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
+ 23 Sep 2026 16:21:12 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E7E.mail.protection.outlook.com (10.167.249.53) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 16:21:12 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
+ 2026 11:21:09 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
+ 2026 11:21:09 -0500
+Received: from flamewok (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
+ with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport;
+ Wed, 23 Sep 2026 11:21:09 -0500
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <broonie@kernel.org>, <alexander.deucher@amd.com>, Dominik Kaszewski
+ <dominik.kaszewski@amd.com>, Leo Li <sunpeng.li@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Aric Cyr <aric.cyr@amd.com>
+Subject: [PATCH] drm/amd/display: Fix compound literal stackframe limit
+Date: Wed, 23 Sep 2026 12:20:13 -0400
+Message-ID: <20260923162041.724466-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [DRM] amdgpu: HDMI FreeSync not exposed on Samsung S22C31x
- despite AMD VSDB
-To: =?UTF-8?B?QXRhIMSwbGhhbiBLw7ZrdMO8cms=?= <atailhan2006@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260923002718.5915-1-atailhan2006@gmail.com>
-Content-Language: en-US
-From: teapot <huangalex409@gmail.com>
-In-Reply-To: <20260923002718.5915-1-atailhan2006@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E7E:EE_|PH8PR12MB7423:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbfaa47f-d996-43e4-c0a0-08df198eaf09
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|13003099007|6133799003|10086099003|10067099003|56012099006|11063799006|18092099006|18002099003;
+X-Microsoft-Antispam-Message-Info: ORXeBdW4Tiij3qpg3G/xFIJGOUMnPoYrHilb5NKjs0PyvFi6v3DEel52D3IKHfw9CJIhWovOs6wUOjxucecAKn50/bW8Nucyv4xth1bQ7CclebquTBP/vwVSls7pQCBxKA9jDatD8h2EpZO5QDdba2X9FcF013vnlFuJ1qOJe1XQ+c9AqCr2z/8/aMNLldJH4vH2HJmgcXnaWTNkUY8DdZVRQtcFEW74kJujTmD19MyLvPry25s6OFZabOef77JMP8H9M805W+MvHEPiAnceqfPDONPQT0hv7Bhuu26Loi48Ixbuj4/F9DDK/RazuzyEGworDKKBQJDjqOdR/iMgeyvtS+G9JQa/R80aQ0Vx0Zqw6B54SyPcMpjUmRPRNZICzebbN+vqgaUAW+G/3unLR7D+8Z3RMfoGrkTaZmpFyHk+Z/lqWsJ4IZZ/mgJKfz7VBCuSbQ25A3W8xKoDkQdcV6hjKYxpdi4YxWZqDcX17Xm0PwVm/aObI7xZDlM0JyMXaJgHvNb1+qeAzEnKOEcyZdMJQEqCOjs/Ik2fX5mcVElKg/s2CLzALmnpqSwjzbjOs1MX6rMxcM3Wm88KZnmQ0hVb6rWu6vCNotUpwKXoO7CXuUHpHPh2ZOa00dvjTfGy9iDVGGX3YnU7wMhByRxZNZIUcYZH9Z0CTI6x1eVbt/A=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(13003099007)(6133799003)(10086099003)(10067099003)(56012099006)(11063799006)(18092099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: lqvDxXgYKMmb9x1gedZwFHeXROQscPSYzK+ZKXOg/EOcCy3F47+ZYR0FzY9GUWhBH+/iwjZr11AIcleh3f2QGcpgVpDVSO4tBxJmzLTRql8j0TicE7k0Z9c4aPs6wLBmUyEdlkZSBTlTiNvZtQlMS9yL+LriIyik8RAPZS60ocac/ih3FhUFC4MLVOSscz/ADU2Guv3UrbgAr48qnMI3tkT2eq912ik5JhWsesOm2YAwRzr6kH4Ao1AbSTCvZHWefphCTwhDep50TGCEkBeSQEF40yo1/YJl9WAqJ8MUPWteFWNdfY0fZc5TTBjhnP5xkmHxatRTm2VPVBMlat/8Lv92Mbb7wJFwyIbAScBQwAE8LS4bqaj7d4Jse2wMgjJn+9F3vR32UIRHU6pzpey4BozcTCISlG07WoJD2gKT9rxenfyYYAj8ulBb8T/2skaH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 16:21:12.1253 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbfaa47f-d996-43e4-c0a0-08df198eaf09
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E7E.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7423
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,101 +115,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Dominik Kaszewski <dominik.kaszewski@amd.com>
 
+[Why]
+Use of compound literals to initialize heap objects may create stack
+temporaries when compiling in debug mode. For large objects such
+as dc_memory_pool which is 2 pages large to avoid cacheline sharing,
+this causes function stackframe to exceed kernel limit.
 
-On 2026-09-22 20:27, Ata İlhan Köktürk wrote:
-> Hi,
-> 
-> I am investigating an issue where HDMI FreeSync
-> is not exposed for a Samsung S22C31x monitor on
-> an AMD Picasso/Raven 2 GPU, although the monitor
-> advertises an AMD FreeSync range in its EDID and
-> VRR works under Windows.
-> 
-> Hardware/software:
-> 
-> * GPU: 03:00.0 VGA compatible controller [0300]:
-> Advanced Micro Devices, Inc. [AMD/ATI] Picasso/Raven 2
-> [Radeon Vega Series / Radeon Vega Mobile Series]
-> [1002:15d8] (rev c2)
-> * Kernel: 7.2.5-200.fc44
-> * Compositor: Sway (Wayland)
-> * Monitor: Samsung S22C31x
-> * Connector: HDMI-A-1
-> * EDID serial: H9DX100210
-> * Kernel command line includes: amdgpu.freesync_video=1
-> 
-> Observed:
-> 
-> * swaymsg -t get_outputs reports "Adaptive sync: disabled" for HDMI-A-1.
-> * Adaptive sync remains disabled at both 1920x1080@60 Hz and 1920x1080@75 Hz.
-> * The same monitor exposes and enables FreeSync under Windows.
-> 
-> The EDID contains the following AMD Vendor-Specific Data Block:
-> 
-> Vendor-Specific Data Block (AMD), OUI 00-00-1A:
->      Version: 1
->      Feature Caps: 0x01
->      Minimum Refresh Rate: 48 Hz
->      Maximum Refresh Rate: 75 Hz
->      Flags 1.x: 0x00>
-> The HDMI VSDB therefore appears to advertise a 48-75 Hz FreeSync range.
-> 
-> There is also this message in dmesg:
-> 
-> amdgpu 0000:03:00.0: [drm] Failed to setup vendor infoframe on connector HDMI-A-1: -22
-> 
-> I believe this is the -EINVAL path from
-> drm_hdmi_vendor_infoframe_from_display_mode() for this timing and
-> is probably unrelated to the FreeSync issue.
-> 
-> The part I am currently investigating is amdgpu_dm_update_freesync_caps().
-> 
-> For HDMI, the driver calls parse_hdmi_amd_vsdb(), which
-> on this DCN configuration goes through the DMUB path:
-> 
-> parse_hdmi_amd_vsdb()
->    -> parse_edid_cea()
->       -> parse_edid_cea_dmub()
->          -> dm_edid_parser_send_cea()
->             -> output->amd_vsdb.freesync_supported
-> 
-> If the DMUB parser returns freesync_supported == 0,
-> the driver does not expose the connector as VRR capable.
-> 
-> What makes this interesting is that the DRM EDID parser also
-> contains the corresponding AMD VSDB information in
-> connector->display_info.amd_vsdb, while the DMUB result
-> does not result in FreeSync being exposed.
-> 
-> I am wondering about the following:
-> 
-> 1. Is the AMD VSDB layout above expected to be accepted by
-> the DMUB EDID parser, particularly with
-> Feature Caps 0x01, Flags 1.x == 0x00, and no MCCS VCP code byte?
-AFAIK the driver will consider HDMI FreeSync unavailable if MCCS VCP 
-code is 0x0. HDMI FreeSync needs this VCP code.>
-> 2. If the DMUB parser rejects this form of AMD VSDB, should amdgpu_dm
-> fall back to the software-parsed connector->display_info.amd_vsdb
-> when determining FreeSync capability?
-The amd_vsdb struct is currently only for the V2+ luminosity fields, and 
-don't affect FreeSync detection. I had added FreeSync fields support and 
-those changes are in drm-next, but haven't made it up to the Torvalds 
-tree yet.
-> 
-> I have a working kernel tree and can run diagnostic tests
-> or test a small patch. I can also provide drm.debug
-> output or DMUB-related traces if useful.
-I think this might be a case where the Windows FreeSync detection has 
-diverged from the Linux detection, maybe Harry would be able to provide 
-more insight on this?
+[How]
+Replace compound literal with field-by-field initialization.
 
-The monitor's EDID would probably be useful too, I'm not quite sure how 
-to make sense of the edid-decode output since there's a few guessed 
-fields in the AMD VSDB block and hasn't been updated since 2024.>
-> Thanks,
-> Ata İlhan Köktürk
+Signed-off-by: Dominik Kaszewski <dominik.kaszewski@amd.com>
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Aric Cyr <aric.cyr@amd.com>
+---
 
-Best,
-Alex
+Hi Mark,
+
+This should fix the build error mentioned here:
+https://lore.kernel.org/all/aq0vYhZXtMqA41wZ@sirena.org.uk/
+
+It looks like our clang CI builds didn't have UBSAN enabled, which
+expands the stack size. Enabling it will hopefully prevent repeats in
+the future.
+
+Thanks,
+Leo
+
+ drivers/gpu/drm/amd/display/dc/dc_memory_pool.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_memory_pool.c b/drivers/gpu/drm/amd/display/dc/dc_memory_pool.c
+index 904f8c4a47833..087f04d314592 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_memory_pool.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_memory_pool.c
+@@ -107,16 +107,14 @@ __must_check struct dc_memory_pool *dc_memory_pool_create(size_t size,
+ 
+ 	struct dc_memory_pool *pool = page_align_up(unaligned_pool);
+ 
+-	*pool = (struct dc_memory_pool){
+-		.size = size,
+-		.capacity = capacity,
+-		.unaligned_pool = unaligned_pool,
+-		.unaligned_memory = kcalloc(lines + 1, PAGE_SIZE, GFP_KERNEL),
+-		.free_list = kcalloc((uint32_t)capacity, sizeof(atomic_t),
+-				     GFP_KERNEL),
+-		.free_head = ATOMIC_INIT(0),
+-	};
++	// Compound literals create temporary in debug driver, exceeding stack size
++	pool->size = size;
++	pool->capacity = capacity;
++	pool->unaligned_pool = unaligned_pool;
++	pool->unaligned_memory = kcalloc(lines + 1, PAGE_SIZE, GFP_KERNEL);
+ 	pool->memory = page_align_up(pool->unaligned_memory);
++	pool->free_list = kcalloc((uint32_t)capacity, sizeof(atomic_t), GFP_KERNEL);
++	pool->free_head = (atomic64_t)ATOMIC_INIT(0);
+ 
+ 	if (!pool->unaligned_memory || !pool->free_list) {
+ 		dc_memory_pool_destroy(pool);
+-- 
+2.55.0
 
