@@ -4,97 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07270C98315
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 14:22:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24D6AC98321
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 14:56:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7339610F5E2;
-	Thu, 24 Sep 2026 14:22:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F98210F615;
+	Thu, 24 Sep 2026 14:56:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YIpj4Vvp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1z86t+I+";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011017.outbound.protection.outlook.com [52.101.57.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89BA410F5E2
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 14:22:12 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011046.outbound.protection.outlook.com [52.101.62.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FAE610F615;
+ Thu, 24 Sep 2026 14:56:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jpsVx5MSqzumQTLIy3dHi1Xt9AZvMCNvMYh+ekk3wjFw4Zin6LeGpjCMPFMiUm5dZ5C7ZYtLfPslq2UvOBrI3p9KErv3Eu6ezATgPmigxliR+Rb7Ls5d+MBlzXGNHKTldzwO7JyakHYGKdvRxIJYsdru3CyQ/qafGXcKDdsD+a63aOWv3Y7+OroUb+77q9buGKx7UOTvqlKgrz9KkIb21XtPUwbJrh4LN6/b1z1Ef93IPDOUkx+98M6+Pn+0yzT589hRuDwQKm7p7qpA1CxyicykHy5p6CSJQVTekGqT9cqwNLrT7ATR1ADUD+leJylbcqg2FLjgdgiM3Nuf7qYk5g==
+ b=dxkyFvJhrUGsBlaD7f9JJIUk/CmC+HNqlnUu37AEbjjCH3T2PjhwKabCvlCG9dFXmLOJtnA4Q18FHflK5L3H6710OCDlpwhDumy1gRiGh8OlDppCx20U4CD0bK6MYqeOMQ8MuZZ3eg7Bhyo0W7KMW1yQzwkInmiUnuH2OkcijqVbedVbJn/Pq/QEAiPBPQ+Jz13gzf1tHouq4I1BUQRFmecGRZOGrvmPKdtcXx99P3IVAGct0qX96zFe46NzQ8RxST0cLoNYe5kDubPh9yedwh5kUofdbhjI8h9jjrBpVgnaoK2+SRwoyZ4BMDB0NnLzv6+Sm6UxjekTObRU7GET8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SCXax9RmeL8Hp4iVkWvz7vlc4+jqIJBNK5kJ9A3Pga4=;
- b=deFZKb6/fBG5DkhXICR+5cjzAdB3Uowj6lCGrm4n0mBAFM6yN94KRnm6JFoIoVrYWxEUO71q4/T/aak4Nly/2wBbEBG9ndPhXMMQTPoRqlyrTWmZKKYYRB/7vccrJ6dLWE8fYwHdbxkEnybmNog44bI7Sph2fd0pIeYXrkWUrf5ffJR5ioQeq/AWozvLpgvqex074RIaeawF+sdkGnUGQwTrgdAFf9avNII0wZBPs4HKes7iAFlGDKLWHUcdDTisMbGz25R+j1K/B4N32R2R+gRAoByGNfpnKGB4DUi+eBEg1qGw52r7lD5YT5sbDK3omfc/NtoyX6ZxtpdZmkyd2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=dvmUOLf5A3LULM9AWDZwAL5nOKJgC3euoyGl30GUGoo=;
+ b=e3otRpKQA2leVkt7h/xPs2Gv3nbRqWTKkht2bGjys8gHX7KuiBPfAn1sWcXdLGqXqAxYKuVkPPxDYbrVjCvZONBJRydYM6JjjGoZ6/soHtFs1QPGh+S8kCay1+urHb4h7ui7BWUZopYjtP9JQUFCZ9NnWqf7gP2UzT8XRkPIWGTivUkAjyC6Z4PF2MmPDnBZynZeKKikIJJqCJF6QPb+a31TVX74/O7R/p46hVYfofxF+DQ82j/gEXuPTq4Eu53sU7jgER5QvmXGWGG91czTFWTDxIa+fqwhbubIBvtoT9hry7x/MwYlakcQJYWT9cyJMgjNdaeCTb7uLLDwoKry4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SCXax9RmeL8Hp4iVkWvz7vlc4+jqIJBNK5kJ9A3Pga4=;
- b=YIpj4VvpISnS+ZevLtO//2RKomFM6lHeQMnrGR0Sl1QV9FrmZCHoN56hFoYTX2p+/GmDeyhZwxOymdQV9W41iQ8i/o7KzINt0Gh1Z3doB+GbtasZFK3TQYm0L6N8ZZ8mPMsW9jKC+IucyWzbXZuf2qaxfe8bid4iFatR2vybFhE=
-Received: from SJ0PR03CA0277.namprd03.prod.outlook.com (2603:10b6:a03:39e::12)
- by DSVPR12MB999309.namprd12.prod.outlook.com (2603:10b6:8:41f::23)
+ bh=dvmUOLf5A3LULM9AWDZwAL5nOKJgC3euoyGl30GUGoo=;
+ b=1z86t+I+DFWMNX5FU22Pz8K+qjpC7akt7Baq1CJ24Tm5c6yESozdsQIBU6LpuzD1wmIPTSbF1i/z+kjz2AxDVp7lpk8k/JJL5JVA9S588qftq+/CgGBBB52c0hNa8/u2+sKJ7y5dz/aBYspqtq1QbI/2/x25hZCRHRnHjqB1zzk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA0PR12MB4397.namprd12.prod.outlook.com (2603:10b6:806:93::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 14:22:08 +0000
-Received: from SJ1PEPF00002319.namprd03.prod.outlook.com
- (2603:10b6:a03:39e:cafe::4f) by SJ0PR03CA0277.outlook.office365.com
- (2603:10b6:a03:39e::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 14:22:07 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002319.mail.protection.outlook.com (10.167.242.229) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 14:22:07 +0000
-Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 09:22:02 -0500
-From: Xiang Liu <xiang.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Stanley.Yang@amd.com>,
- <YiPeng.Chai@amd.com>, <Mukul.Joshi@amd.com>, Xiang Liu <xiang.liu@amd.com>
-Subject: [PATCH] drm/amdgpu: don't leak bo_va when gem_object_open fails
-Date: Thu, 24 Sep 2026 22:21:29 +0800
-Message-ID: <20260924142129.745010-1-xiang.liu@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ 2026 14:55:56 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 14:55:55 +0000
+Message-ID: <9c2ce6d3-46ea-4a69-a227-a5431c3447a6@amd.com>
+Date: Thu, 24 Sep 2026 16:55:51 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu/gmc_v8_0: restore the FB location after a
+ re-POST
+To: =?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?=
+ <fbeltranmillalen@gmail.com>, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org
+Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260924132952.25054-1-fbeltranmillalen@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260924132952.25054-1-fbeltranmillalen@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR4P281CA0221.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e4::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002319:EE_|DSVPR12MB999309:EE_
-X-MS-Office365-Filtering-Correlation-Id: db35e42a-26c0-45b1-ee0c-08df1a4736ac
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB4397:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8290052-41df-4d01-cd73-08df1a4bef95
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|10067099003|56012099006|5023799004|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: LA7rRK7Tkry168qeYR/qiOTB0g1Swc+VUCQb5bo+UKioO4dlmOLmJfsQ+xGFPOzDRLYdbWELwPTDIrUYuWRJAcmUBRCZflUzB7b2tV3s69k/PGrJSR9jT7KF/UzuM58zoxwOFfRMTMM4uq42PhuZ0g9FgITkk8Dnrr9RsXl7aTSxxJCOgN8JhUtC9a0JMDxfR/ovwPvie87Jk52Fh2FXzmkhUacrcmZzGIzb1atzqG3O3RQ0JvlRpfCmiaS76oebdZJbfrgZVMDdGZp7fKOSAK9OgKMOmlSiTa1JXfxtfubm5oFWCjaGietTvAMWKVjq6CwbutFPVY9Dfey7WFi1U8+/243Zj2P5q2e62u7FQot+65zyn+qMk4aIIYjk981oQF3AR5hp+KR8yi9Hon8xDuQZMkFgjupbP1wc7gOoW78hnAa32SPrzLsu/X+tJHVAuBvd4Y/UUROZsGG+QUPElsQbyb+KZ5LAl3wBW8OHZZXDc3GCluEqxWCPTvUdeWBS1nUVI4J5zrqjZVK67iWSgMedZ5cPmxVy4cUaDxCrCQUPnKcmuDt5g09pv7vOGeW4UkIVa5WQgYmNNOTrwNJx0W5YCvoM19r/TIGEF377VywsMwG4MVfCqE7yAXP3sb5m3guKzdBobD3ifkRHLuI9jBEn8oCs5ufpDWifkBKMku3/peM7AAr7nFiXDCg5FBY2NRRMcdLRe0br4XIsewLrLQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003);
+ ARA:13230040|366016|23010399003|376014|1800799024|11063799006|56012099006|5023799004|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: s1q6mjcu9E+oOt0YU7FgfpTOUk8w8nPhjM7fj45bRbYzRcoPJ73aiVM68U7vYMT8jg3x8M/wkR67DVQl1Yp3vjuyznEVLyLOkJTpPNqJ8ezdNuZJ9RgayeWxQ3GlkbhPRsOw8rJwkwCUEu+CbQvnnJh9sdB1e6E0/C3eatbhKSPmqg9PmVvUwq18/GOXT8bX2fPSbVqlEsvQeTErygC3EzVu7r1cZ9G+biD/+r/cyj6jHgKYxXfcevQWxF0Jc+VJB+5FlX7P5Dmqsvo9ofPBbJQ1IW5pPyHAj9kMK1mCzloCesSZjfnDJXQZZzvmyVGIwLk3oKVQaibaQiR+dKgHXc/ekHll5ofyrvU17R8uJ2iu+v23X0X4r+NkOnn8tm8NOatawNoGGxeavYQTc6FOOmeXdUuW3ll+DijHs9N/vttILaryHjIm1pcSD4qhPOvsUOaE1XJ3RD54x0LXilRmBkWpd7zir+aPK27N+ouoIN1FfGjSs5WgrUDF4lRrehe9cCpjUCfCka00ahKdDXp9IRNPlZf4zjEYzBcfZdq4PH+MFs/lVNn+OTd4Cf6IpnMX9YLVy/k3UfxhyEDGAIUPug5lsSNZqyy2oONTawpFsec+eof3kxPlmpi+FG2W1DgoBFPoTsDJnLXI7fHIDjdoR41pHGUn487AxSCZVhNQJLk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(11063799006)(56012099006)(5023799004)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: kfGjsguEIITbEEAb/OvGonQr6ZpPs+2C4CV+BUAu4h8KqpuUijhdq7nw5MxT5mhhKFcWtzM3rG7o7a75gerk5FRFg9VgF/XvcSqMbmZSbhAIwWTfKZ77h6P+P8U3cV07HI/ZO4Re5LRKqebBSxyQQBAeWKLFz6fCmjGWkF5/MgdG5Plc1jBGR292wQ33UNvl9J+SBWwZYJjvvgxTtGgUxhA26uRTeMWCqh3TqUs1lox3oSgh02MzUdYgy2PQv6Nt3KixXJSnHxHvN5oUA6Epq+1BGh8h7lBmlREB9S2F0Ijxnex5o5PUylZW/9GLcnfixShHInIhomM5pgNnWiWPhofmdaTVS5rP4RKDMf+6isiHXBiU+vfBb4zp2uUSiCK1Z2RYX4NPUQdkEJGq/wGeHNYcHQuop3M3dkDcicTNMmUAh2IT0XEonU5oUVhHqwca
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cCtLVnFGVFBST0I2SHFGOHFVOHhHOWsrMmVTSTVxUnIvSE9zTjMxMVRPMnFo?=
+ =?utf-8?B?NmdFZDJFVXFHdmlUdTUxWmpaVmp4aGRBVUwwSWszMXU1QUdGOHNiM2xSTHJl?=
+ =?utf-8?B?MkhjODFlR1FOREIzeTloVWV5ZCtTUFg1cXhQaVZvbHFyUE9tc2M0MWh4UEp3?=
+ =?utf-8?B?OXdPcURiOXpGRnk4b2o0UUp2LzlUMDZHUXFyZzBTRmtNcTVONnV3TmxqYmNr?=
+ =?utf-8?B?UHBvVS9NbVFlTER0aVlYQkI2Z0MxMFNYRFo4LzVidC9zeWpheU5GdTVjQ0hY?=
+ =?utf-8?B?Q1lRbUZ5ZER4WWhBcHhtc2RoWDBxK1czRitOK0hoQWY2UjhVWS9vejk0NUpx?=
+ =?utf-8?B?eU4xMFQvNVRRWU40TEFDdmIvUDFiUngydjBoUnpjVnJPQzEvQ09BeUV3akZF?=
+ =?utf-8?B?cHpnYzUyTGhXTnlRTkhLVzhvejRXWDRhWlBnYjRjOUFnbG5USUtzNE1JN3NW?=
+ =?utf-8?B?Vjh4QXFCK3F1M0RWeVdaR2tOSTNmaUZUdm9tUHMwVnppa3FqUVdWWkxCT3NW?=
+ =?utf-8?B?dkMvOXYxRllJbFVIZ0ROYXJGQThuZXhROENXZVVFRDFsUno0OHN4WXNKMUQ0?=
+ =?utf-8?B?R0VJSUMzNW9veTlsb2Z3ZWhqclBlVzR5V1l2L21YeGZoeXFxYkxVMDNha01E?=
+ =?utf-8?B?N0N1a1VSa3Z2bjRhamM5ODFuLzY2NEZtbEF3emJ3NUpHcFM0M0wvcnZNQXc1?=
+ =?utf-8?B?YzFOOUpYTFg5VHV1c2NyN1o3THRnbUdMVU10bGVTMzlLVzZWTUJEaHRmZlBa?=
+ =?utf-8?B?eFJ0ZUUxWnU1WENuQXI5Z2ZBYkJPWVVDbnhoVUd5dHcrV1l6M1VsdFRUS1Vs?=
+ =?utf-8?B?Qk1pYVBOQldsdnBMQzFUNzRWU3QzMFBWMmxodWF5K3ozSDBGUHRTSVcxOUtX?=
+ =?utf-8?B?UkJUSlR6MVB4V1NibzI4TGlHU28vZTY2NGo0Vk5Dd3cvWlhHZnJDbkR5UEho?=
+ =?utf-8?B?NXI3SXhYSmtzaWJlZTFJWmFwV3Jld0NBTW5rWmFJRjlFRWxQd2ZKMnBJai8y?=
+ =?utf-8?B?NVhPNDdvcm1RV3RyaFRJYVJPdlA4dzNaNEFtK2xXblgwc2pVaWsvV3c1N0pO?=
+ =?utf-8?B?K1IxWEt5bW1mWXZzT29xSEVMUXc3Z1ZoZW1rTFo1ZjdkdFRSV01wZU5iYzRq?=
+ =?utf-8?B?REpjYXVnZGxSMnVVWW8zUlU0MmNVVkU2RmdvUzMvaC9QVTlDeG54a3R5UmRz?=
+ =?utf-8?B?RDNKR3hXSERXeGJkTVNVSXpWcURmSmRQVGt1SFY1Q0R2ZmVnb1h4QVJxRnhv?=
+ =?utf-8?B?N055T0JiNzYvYzlYcTlpZUdGKzF1Vm13OEpjSDh2c0pFbnowT3B4TGRqdDd5?=
+ =?utf-8?B?Nk4wdmhrUlRXeUVYODZBRlZLTzBrNzIvSmRGQVUwMmYrTXJSYjMxYUFDUjdn?=
+ =?utf-8?B?dXdPTHJ2Rm9hZmVWVytZQXpob1YrTVZTYmsxYkw2cEQrT3BrM3Y5OVJCd0pl?=
+ =?utf-8?B?bWNEZWtVbFdtTWwxNXg2K0lJNGp6cHNBVGFWdDR1UUwzM0NLYmIzTmt4amVu?=
+ =?utf-8?B?d2tMZUdKbWlJVDVxRnY0WGNqeThSUW9kcDlDcEFtN2w1Q2tibWdBWlp5eE0v?=
+ =?utf-8?B?bVR5OCtoblRyQmJRYVlDc2xSbTErU1BPUFQwcFUzQnhtNHNBb1VkMGJyS2xv?=
+ =?utf-8?B?WXRiZFpmaUlBckl6RGk1T0wwMzcwNGRUbmhKejI4cTVwak5qSjdzK0g4Ylk1?=
+ =?utf-8?B?eXVJc0dvanpVamsxNnNBNk56RjcybWdNZmlGOStHbHdMOGdBVXpJSkpIVS9I?=
+ =?utf-8?B?RkhiSStoZUx1QjJpL0lpOW5uRnF5QjVucFl5L1NqN1duUWhoWXhvM1hKZURM?=
+ =?utf-8?B?NVVwVjVETFNkb2hzL2E0eStxalF4RURTalorTlZJQTBpdzA4b01kWEpQUXhR?=
+ =?utf-8?B?dWpkVUdtOWl2VnRUSFRIUTFaUlZFYkc4Z1RsMUpVOXBObEd4bUZBZ0RERmtI?=
+ =?utf-8?B?TnNNa042Q3dJOXcraUVnRjlvNmQzaytxYXVsOEowdGgrS2RZSmJrQ0VkU0lr?=
+ =?utf-8?B?TlBqQXVCOHd0ajJEMDNRQkZhN0VjN0RuL0t3TG1xZjQ1eW5KUkR4N3Jiblhi?=
+ =?utf-8?B?MVdVNnorSlJsV2RlZW5DUDRaZ0tndkpQM28zUjhXWDlKaVVwUGlvbmFvajNt?=
+ =?utf-8?B?ZlY1QTRzbGFpbWFIY2NkdjBJY2gzbFRqZXlmM3gzVVBXUmlVUlUyKzB0dFk1?=
+ =?utf-8?B?aTBQNi9MWWc2VTNPR1ByYW96LzVVNW5HZm8vbVREQXVtS1lOVTkvYmdPVVN6?=
+ =?utf-8?B?b0xVZmdmT3d1Sng5YzRyNnlsMjdLbzlldXlVelVTSDIvcVZtdDVEdmM4TmNj?=
+ =?utf-8?Q?u4ifagz2Qnb3sYESek?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 14:22:07.1502 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: db35e42a-26c0-45b1-ee0c-08df1a4736ac
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8290052-41df-4d01-cd73-08df1a4bef95
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 14:55:55.6636 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002319.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999309
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sTSNkJGezcba/HG+ectZHkxpZtKMEfvhlAEHO649xijWCFuM7jzmMEyTklrcxG2M
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4397
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,132 +137,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_gem_handle_create_tail() skips the close() callback when open()
-returns an error, so a bo_va added before a failing step is never
-removed. It stays linked on bo->vm_bo and a later eviction of that BO
-dereferences the VM after it has been torn down.
+On 9/24/26 15:29, Francisco Beltrán Millalén wrote:
+> On a MacBookPro14,3 (Radeon Pro 560, POLARIS11) amdgpu has never recovered
+> from an ASIC reset: five attempts recorded, zero successes.  Since suspend
+> to RAM goes through a reset, S3 fails the same way, and as the internal
+> panel hangs off the AMD GPU the machine comes back blind.
+> 
+> The failure looks like VRAM going write-only-dead: writes are silently
+> dropped while reads still work, the driver reports success at every step,
+> and then it hands the SMU a pointer to a table that was never written:
+> 
+>   amdgpu_device_asic_init()  -> 0          (reports success)
+>   gmc_v8_0_hw_init()         -> 0          (reports success)
+>   memcpy_toio()                             (write silently discarded)
+>   send_msg(0x251, ...)                      (SMU parses garbage)
+>   smu7_check_fw_load_finish() -> -EINVAL -> black screen
+> 
+> It is not VRAM dying.  It is the framebuffer moving.
+> 
+> On this machine the Apple firmware places VRAM at MC address 0 on a cold
+> boot, and gmc_v8_0_vram_gtt_location() reads MC_VM_FB_LOCATION once, at
+> init, to derive vram_start.  A re-POST -- which is what an ASIC reset and
+> an S3 resume both trigger -- lets the VBIOS put the framebuffer back at
+> its own default instead, 0xf400_0000 here:
+> 
+>   cold boot:   MC_VM_FB_LOCATION = 0x007f0000
+>   after reset: MC_VM_FB_LOCATION = 0xf47ff400
 
-Validate and fence the BO before adding the bo_va, drop the bo_va when
-attaching the eviction fence fails, and propagate the allocation failure
-from amdgpu_vm_bo_add().
+Mhm, interesting I'm really wondering where those values come from.
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 80 ++++++++++++++-----------
- 1 file changed, 45 insertions(+), 35 deletions(-)
+> 
+> gmc_v8_0_mc_program() programs the system aperture from the stale
+> vram_start, but only writes MC_VM_FB_LOCATION and HDP_NONSURFACE_BASE
+> under SR-IOV; on bare metal it trusts whatever the VBIOS left behind.
+> While the MC is still in pass-through everything appears to work, so the
+> mismatch goes unnoticed.  Then gmc_v8_0_gart_enable() sets ENABLE_L1_TLB,
+> SYSTEM_ACCESS_MODE=3 and ENABLE_ADVANCED_DRIVER_MODEL, the MC starts
+> checking the system aperture, and every access lands outside it -- which
+> is why reads return data written before the reset, from a different
+> physical place than the writes are going to.
+> 
+> Write the framebuffer location back when it does not match the one the
+> driver is working with, which is what the SR-IOV path already does.  The
+> comparison keeps this a no-op on machines where the VBIOS restores the
+> same location, so nothing changes for them.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 9da1880ee76d..be0c642f3740 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -260,7 +260,7 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
- 	struct amdgpu_bo_va *bo_va;
- 	struct mm_struct *mm;
- 	struct drm_exec exec;
--	int r;
-+	int r = 0;
- 
- 	mm = amdgpu_ttm_tt_get_usermm(abo->tbo.ttm);
- 	if (mm && mm != current->mm)
-@@ -270,6 +270,42 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
- 	    !amdgpu_vm_is_bo_always_valid(vm, abo))
- 		return -EPERM;
- 
-+	/* Validate and add eviction fence to DMABuf imports with dynamic
-+	 * attachment in compute VMs. Re-validation will be done by
-+	 * amdgpu_vm_validate. Fences are on the reservation shared with the
-+	 * export, which is currently required to be validated and fenced
-+	 * already by amdgpu_amdkfd_gpuvm_restore_process_bos.
-+	 *
-+	 * This runs before the BO is added to the VM: drm_gem_handle_create_tail()
-+	 * does not call the close() callback when open() fails, so nothing that
-+	 * would need unwinding may exist yet.
-+	 *
-+	 * Nested locking below for the case that a GEM object is opened in
-+	 * kfd_mem_export_dmabuf. Since the lock below is only taken for imports,
-+	 * but not for export, this is a different lock class that cannot lead to
-+	 * circular lock dependencies.
-+	 */
-+	if (vm->is_compute_context && vm->process_info &&
-+	    drm_gem_is_imported(obj) &&
-+	    dma_buf_is_dynamic(obj->import_attach->dmabuf)) {
-+		mutex_lock_nested(&vm->process_info->lock, 1);
-+		if (!WARN_ON(!vm->process_info->eviction_fence))
-+			r = amdgpu_amdkfd_bo_validate_and_fence(abo,
-+					AMDGPU_GEM_DOMAIN_GTT,
-+					&vm->process_info->eviction_fence->base);
-+		mutex_unlock(&vm->process_info->lock);
-+		if (r) {
-+			struct amdgpu_task_info *ti = amdgpu_vm_get_task_info_vm(vm);
-+
-+			dev_warn(adev->dev, "validate_and_fence failed: %d\n", r);
-+			if (ti) {
-+				dev_warn(adev->dev, "pid %d\n", ti->task.pid);
-+				amdgpu_vm_put_task_info(ti);
-+			}
-+			return r;
-+		}
-+	}
-+
- 	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
- 	drm_exec_until_all_locked(&exec) {
- 		r = drm_exec_prepare_obj(&exec, &abo->tbo.base, TTM_NUM_MOVE_FENCES + 1);
-@@ -287,47 +323,21 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
- 	bo_va = amdgpu_vm_bo_find(vm, abo);
- 	if (!bo_va) {
- 		bo_va = amdgpu_vm_bo_add(adev, vm, abo);
-+		if (!bo_va) {
-+			r = -ENOMEM;
-+			goto out_unlock;
-+		}
- 		r = amdgpu_evf_mgr_attach_fence(&fpriv->evf_mgr, abo);
--		if (r)
-+		if (r) {
-+			amdgpu_vm_bo_del(adev, bo_va);
- 			goto out_unlock;
-+		}
- 	} else {
- 		++bo_va->ref_count;
- 	}
- 
- 	drm_exec_fini(&exec);
--
--	/* Validate and add eviction fence to DMABuf imports with dynamic
--	 * attachment in compute VMs. Re-validation will be done by
--	 * amdgpu_vm_validate. Fences are on the reservation shared with the
--	 * export, which is currently required to be validated and fenced
--	 * already by amdgpu_amdkfd_gpuvm_restore_process_bos.
--	 *
--	 * Nested locking below for the case that a GEM object is opened in
--	 * kfd_mem_export_dmabuf. Since the lock below is only taken for imports,
--	 * but not for export, this is a different lock class that cannot lead to
--	 * circular lock dependencies.
--	 */
--	if (!vm->is_compute_context || !vm->process_info)
--		return 0;
--	if (!drm_gem_is_imported(obj) ||
--	    !dma_buf_is_dynamic(obj->import_attach->dmabuf))
--		return 0;
--	mutex_lock_nested(&vm->process_info->lock, 1);
--	if (!WARN_ON(!vm->process_info->eviction_fence)) {
--		r = amdgpu_amdkfd_bo_validate_and_fence(abo, AMDGPU_GEM_DOMAIN_GTT,
--							&vm->process_info->eviction_fence->base);
--		if (r) {
--			struct amdgpu_task_info *ti = amdgpu_vm_get_task_info_vm(vm);
--
--			dev_warn(adev->dev, "validate_and_fence failed: %d\n", r);
--			if (ti) {
--				dev_warn(adev->dev, "pid %d\n", ti->task.pid);
--				amdgpu_vm_put_task_info(ti);
--			}
--		}
--	}
--	mutex_unlock(&vm->process_info->lock);
--	return r;
-+	return 0;
- 
- out_unlock:
- 	drm_exec_fini(&exec);
--- 
-2.34.1
+That is still a rather bad idea for multiple reasons.
+
+You often run into suspend/resume and random memory corruption issues when stuff like that is done and we never fully implemented blocking VRAM access during a runtime ASIC reset.
+
+I think the more defensive approach is to do an ASIC reset on driver load and use the values the AtomBIOS init function comes up with.
+
+@Alex what's your take here?
+
+Regards,
+Christian.
+
+> 
+> This runs after the VGA aperture has been locked out and with the display
+> suspended, so the MC does not need to be stopped; only CPU access through
+> the BAR could land while the FB and HDP bases disagree, so BIF_FB_EN is
+> cleared around the update and re-enabled below.
+> 
+> With this the GPU survives resets and S3: the machine has since completed
+> twelve suspend/resume cycles in a single boot without a failure, and the
+> restore is visible on each resume:
+> 
+>   amdgpu 0000:01:00.0: amdgpu: FB location 0xf47ff400 does not match
+>   vram_start, restoring 0x007f0000
+> 
+> To be precise about what those cycles prove: the kernel they were run on
+> also carries unrelated local patches for this machine's Thunderbolt
+> controller, which fails separately.  This patch is the one that brings the
+> display back -- without it the GPU never recovered from a reset at all.
+> 
+> Tested on 6.18.49 on a MacBookPro14,3.  I have no other smu7 hardware, so
+> this is only known to matter on machines whose firmware boots the GPU at a
+> different framebuffer location than the VBIOS default; elsewhere the new
+> branch does nothing.
+> 
+> Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
+> ---
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -472,14 +472,42 @@
+>         WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
+>                adev->mem_scratch.gpu_addr >> 12);
+> 
+> +       tmp = ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
+> +       tmp |= ((adev->gmc.vram_start >> 24) & 0xFFFF);
+> +
+>         if (amdgpu_sriov_vf(adev)) {
+> -               tmp = ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
+> -               tmp |= ((adev->gmc.vram_start >> 24) & 0xFFFF);
+>                 WREG32(mmMC_VM_FB_LOCATION, tmp);
+>                 /* XXX double check these! */
+>                 WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> 8));
+>                 WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
+>                 WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
+> +       } else {
+> +               u32 fb_loc = RREG32(mmMC_VM_FB_LOCATION);
+> +
+> +               /*
+> +                * On bare metal vram_start is the FB base found at init (see
+> +                * gmc_v8_0_vram_gtt_location()).  Normally the VBIOS put it
+> +                * there and a later re-POST puts it back in the same place.
+> +                * On MacBookPros with switchable graphics VRAM is at 0 at boot
+> +                * instead, and a re-POST (S3 resume, ASIC reset) moves it to
+> +                * the VBIOS default, away from the addresses the driver
+> +                * already uses.  Move it back.
+> +                *
+> +                * This only happens after a re-POST: the display is suspended
+> +                * and the VGA aperture has been locked out above, so there is
+> +                * no need to stop the MC.  Only CPU access through the BAR
+> +                * could land while the FB and HDP bases disagree, so block it
+> +                * here; BIF_FB_EN is enabled again below.
+> +                */
+> +               if (REG_GET_FIELD(fb_loc, MC_VM_FB_LOCATION, FB_BASE) !=
+> +                   REG_GET_FIELD(tmp, MC_VM_FB_LOCATION, FB_BASE)) {
+> +                       dev_info(adev->dev,
+> +                                "FB location 0x%08x does not match vram_start, restoring 0x%08x\n",
+> +                                fb_loc, tmp);
+> +                       WREG32(mmBIF_FB_EN, 0);
+> +                       WREG32(mmMC_VM_FB_LOCATION, tmp);
+> +                       WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> 8));
+> +               }
+>         }
+> 
+>         WREG32(mmMC_VM_AGP_BASE, 0);
 
