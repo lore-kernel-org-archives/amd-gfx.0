@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4953C98318
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 18:46:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A76EC98321
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 18:46:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 259D410F72F;
-	Thu, 24 Sep 2026 18:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B98AA10F72B;
+	Thu, 24 Sep 2026 18:46:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U0R1pFAE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Uj0Bxeby";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011037.outbound.protection.outlook.com [52.101.52.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98B6F10F72C
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 18:46:40 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010057.outbound.protection.outlook.com [52.101.85.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB2210F730
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 18:46:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IdCAYUT8IINPp47BwczRtMQ+TzLyRFp38t0igW/+D9+nZMTn8L2b/IPi5R22nS+NE0xyxbYWlJfTCzrGnbS/YFsyB8ZcDI8MQN4XjZOc8ScPwYNkfomDXTcPM8kXu6xCPmyf4emF4l9NttlqFj5mCoa9jcjNPeoxOu3rvyADlXksmS8X37BcBJWzjaZfZykwQWEL83Bvz5H6JFx+3vrupaB9Uw1dKj24GPTtXABMXLTkdZXQTikcmeElhVQv/8di9EenHT4RU8fiuwEwqLkk2X+Gc2w054Q1vxjJXh/0KV9Yyy1obWLMjpThTgroSn/x+EX4WsiS0zR98OL25mfZ/w==
+ b=lFOXMxrepIyY2+DhOGn7BWUhYhl//008jcxiut7mzmJs0NxubO4JMMEjpjA0mVXJWF4126QeeWgu2Z4knvhLMxJxKOCqQVa09zYYk8Z3yInNrba7UcJmEqhkndIXU4Rbt7JebWhLqG/5CbTcV23tUDi86jhTLYDxIIjSvNPeja6moII5AwiqAOjn8ypneaHot4/sj3CWIjGOEkitCsMGD2/eA0w2wg+lUZl2OSi4izB5Z48bGinxzkOK6u1PySf9HfjhO42cPO4DYJ8YXPTctN5ShnWfQ9gbb31BU1kiQZ7g2UVQ0iVL781zvB0bsQ9cRxL593bsZezvDBWhXxplbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a0JSDTMZs3q7/67ATYZAMNBzpV3r5hNw6BUq0xtmMXA=;
- b=bXWxYxU7IdjjYidJQI1qQV6Y1Md2hd4490g2msQZVm6bZfI2UMQD3tSWvGX/feLC9lkbfXB6LCghUJRxCbk6/vMh6TS7y70+DVVUVm9bBa94AAp8ZqrwElHhgxkFSIODP2lWHrA7+vD//BLBsSxz6ShQpT7T8+mjoXRNwaP46nE6mA2xoIHmHjNiSS2+QDwroF9Zw79GKgW2rvplQRsyHuoqyeAaGHffCNhVLl4l7kIl4E+c8abwLKWv08Jve0KQXZOaRL45EykT3FSNW6HuQPuWMKzE2rFKYzcaH0qF3cAnLC3L+OZAYKWQm3uYzKSFXfWeLbSazLD1mhaK+OGxEQ==
+ bh=3L0I5/Pm0eDioe7PdDBuiZMEgQdLW3nmf/PaA2WON+c=;
+ b=rhnhBSK5j6ofZSni+bPEVvcx1gBBik5iJKw+Mqj+VY0PwOBDKCiwxAztMnT0k5Q1s2ZYDW+iD7VCK9q1lpv0yW8JQUhRzcjAIjuV8m0faVORa1um80XwvVMWlZR/o85274ATFN+ngYJmIOhdLv9fwjJ/egpdNI/ZZKT9rsNxh47KTkorSDuk00AAHS8zdgBWWR96/EOOePmoRTDWDIMU7OndLEHVayqohiBRVCfWCqiOBa0xs7babzFuAimtmNbjjzR+EqW26ir95SsYA/miEueAFCUf8NzI3MFycDcdIRXxl7rVoqw+762x0Hmd8fggpvYMUXYLWk/SbCB3MVriNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a0JSDTMZs3q7/67ATYZAMNBzpV3r5hNw6BUq0xtmMXA=;
- b=U0R1pFAEKrq6IHvdr7fZAIDgqfEEM9C9rHbMXlatv4amnTB9Frg9TIPY6omU8RBVIPH/qMUivl1ZwGfPZBRbFtk1YZ94vzXSk2yJoPSFtjNqw/5NGEyeCco6NssGl3qasbAC94o2UeXyUi/KCnSYTXnmvUT9c5e8f1QTxWmS5+g=
-Received: from PH8P221CA0012.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::17)
- by LV2PR12MB5821.namprd12.prod.outlook.com (2603:10b6:408:17a::8)
+ bh=3L0I5/Pm0eDioe7PdDBuiZMEgQdLW3nmf/PaA2WON+c=;
+ b=Uj0Bxebyb+5aDfs1B/2G7S2B0Bir1HymjIF5nhjyqIQJvxHsaKLtmTYpVP/dNcJ6mZOjmwA7p7OSzV/7/q/cieuLOu5XaPP48R6hu5KoTgNjNOqQYg/DrR55wy1pXNWw6ZNa0Le9tti2L6XsRju6Cs3bgeshUg2vYNEN59MWv5k=
+Received: from PH8P221CA0016.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::18)
+ by LV9PR12MB9830.namprd12.prod.outlook.com (2603:10b6:408:2ec::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 18:46:34 +0000
+ 2026 18:46:43 +0000
 Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
- (2603:10b6:510:2d8:cafe::74) by PH8P221CA0012.outlook.office365.com
- (2603:10b6:510:2d8::17) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:510:2d8:cafe::8a) by PH8P221CA0016.outlook.office365.com
+ (2603:10b6:510:2d8::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 18:46:34 +0000
+ 24 Sep 2026 18:46:42 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -51,11 +51,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 18:46:33 +0000
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 18:46:42 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 13:46:16 -0500
+ 2026 13:46:23 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,11 +64,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Piotr Maziarz <piotr.maziarz@amd.com>, "Nicholas
- Kazlauskas" <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 22/34] drm/amd/display: Remove dead self-refresh BLS steps
-Date: Thu, 24 Sep 2026 14:45:35 -0400
-Message-ID: <20260924184824.596894-23-jerry.zuo@amd.com>
+ <Chen-Yu.Chen@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Subject: [PATCH 31/34] drm/amd/display: Update default clocks for DCN60 lite3
+ variant
+Date: Thu, 24 Sep 2026 14:45:44 -0400
+Message-ID: <20260924184824.596894-32-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924184824.596894-1-jerry.zuo@amd.com>
 References: <20260924184824.596894-1-jerry.zuo@amd.com>
@@ -80,29 +80,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|LV2PR12MB5821:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9cffc8a-0ce3-4d70-88d6-08df1a6c2803
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|LV9PR12MB9830:EE_
+X-MS-Office365-Filtering-Correlation-Id: b573eb07-79e4-4263-2c04-08df1a6c2d31
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|376014|23010399003|10067099003|56012099006|6133799003|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info: nynKifRCDps4Bg2qNCszINrTUkuaJXcxxMYyS5DUMQNXh2QSGVK4R9uLRXTOuuRjF4xqQj79l8vpeKlC+sZhxKHBHWE6DTKYQyiRKyHyScMxHkhwco/wwKIZQnKmc3qd4F9Lz0JIGzcnYyD7m+Az+XasEAaqA5wsMEYmf9wGITC4VgaclFZhos0iCiMdaGL7MRWhDSIrzEeQnam9tS5UopFt2c3fhl6bzpXszVLPnMPmOyms/ut5ouiKK+8o7rPN6/UO8JhepER+VCEPdB0+9b4oKZIpCkPlBfXI8m5naOHRFsdh2Vr23U1KuEQJqaLDKoOTpKecX7i2E2BWPmntzhinZQJHlI7jMBcctn+/gXCJ/CJPf1I+EqCAEVKaxgFFKdD9kWyp1ylAPYezpanDGXMXN/kKoOrmQn1i9eHd1+bJEMHpHBz0sL2HoFJJOF6GS4ZigRuASt7sVM1T5KBfd8gmQx6uJO9wDSZqpaZLi/RBVNn54Z4aoD/RCLuLnoZcO+TlKjfOKtl8vpy5LAzHzzAACTkNTX8QQzayyZOE9j7Mxacyi7xCvETnBYNMtvEFrnI15MqmSqErwBqa8B9lFlc5vuNuRNvcYXLCkJ856mkovRbSHbQkBE7LUoPBqLD9aXXn16GiSI9ekv/Ntf6d0SfPQKlX2YJ62Oa9Vi/U7Rkh4RZIBvmavuOvekEwSdFRjvlMQAbO7gYqH/Q2W39o5A==
+ ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|10067099003|56012099006|11063799006|3023799007|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: IL7gc7Eh0yJ2o/lwL3e80RaTRgyCLK51a2Ghs2Kd89etl5NgjjRILRbmMOL5AhfJ0FX0rBTqWklcnaOZb0D4LqG4OSzKCRwGUbCQxj6Y19BYEGVbbUNviK4VQjR4PoP9Du94xfoDDzm2fg7FcZ4/lzBELtpB2lXnxk4ytk+hVfp/TJZAUL4HJwne76W8Yc3wXmhUN5cfHXoSr34sw8uWNggHnVxQi4q8AeOFceGPBabNQdMqZponwuw/3ZFHNYlJ4xh/ltSdyqruWsHt9Z/jvfgXasG1UNG0ehGmm2IRjsCIUT+5GLSN5R7EtJntbb7HCWA8fhS//epAqpxiviB1JYOgsAmaxXqSSX18ywZwoXIaZBH3P/cuyz1DqSHcJS8R0IwUcmWGXn3Hy1Vna6RsLLsI1Kf7mqjmi0+EkIQIPhideTCQEkVTV698qNwbkgciZkXtJx4hyGcL+0F67HiE1TJPR/SpghNk1/sil6o1oJlMYgOSCOeoTJy0cMp2zu+P02q6sIBSE/q3li8k/onVzsQnFHZ8gNPzDNKThsnRRSvvvEqNAjAjyINXTSXZRIlf5tFBpggv2fia83pzoiR7hKuQAocNeQj+rRG8jDbAIPsJPAOpPhtMJTVKl8vZil+JigZ7ztjJ8dBYt9jV0qIRHfk1euPPxApFy5l1h0emLB/21Wa+DxTgpy3nvzRm75cMNXbNO3koU0hoTTMMEVvM0Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(23010399003)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(11063799006);
+ SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(10067099003)(56012099006)(11063799006)(3023799007)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: U/uMqibA0X6IcoYawfU+6exp1WzN0/r1GzirH5osEWzUhR7Gxsh4RnztIyy653PZvY5OAx4SnfBcE6OpQwPI4MjxoVclTxPP5b580UibRyKZTUbXoSbRMc4lsBRG/uL4u/8OZPHHjCB0ieYRqA8fu3WLAz6Xr4s1HH4xqc9LrvnhX17y33OidtKVh7IrwBozUTCIXwuyLptFhVLRh8fDzGEfvEt924CZP3fFjWgt5T1ztzwlh813OqKy/60ZIU9DboKJTGwKLsKoLTNwhpMYop1FsoqbcGgLmtYlwgj4cBnojjPzP6PF4mKMAsGhlusJ1ImmSilPq1x3WGj7AD9r+Ub7R0/Pas5AptpG85qJ63hgy720N5l/1CQHaHZjc8nW0oeQaR4Nct6Iz9bwgeQHt4+KdxXfxGLIyabY82sdl2Z1ESg8iZM2tP2agIoVMmmh
+X-MS-Exchange-AntiSpam-MessageData-0: wN8uGWLrs4lRXacrcoY0Ew5YMDa2Iz363wnhJ38o1eg+jF6sdUXqsMftKwvD8i8X6yqLD2klsCsCxVFKbxRtf/lI0Z1qjZxJZs+VxoR1nltbpnxnAAJBA6AEv18FiEZOuhmM6d+LXeFiYVEmzgLhA8ZNSSlgV7pJcrASr1o/psNO/16eH3wbcP3Ge6N1pBKkZ9iEzSDZCxicmDHeE2QY+4A+zFjm0RXXoAlkZquEMkptpLsaVGwIE4yBOAO5Rhm0OddF/tb8sExIL5smrX/xc+4uWz1BwpmkZjTjh6rrNchPo3R/n1kU/8/FpCch/gjlY2algMi7IEa5bnsOxcy6qgNBiLlkf3mxxyykzusmb3ORmbmInKema+WJcTG8mgUteMtscQ0g5azkjAtcItDP4l8dfy3V5MpNxPFYmCnopRgdl+CloXIIS/TMQVAvYql0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 18:46:33.8694 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9cffc8a-0ce3-4d70-88d6-08df1a6c2803
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 18:46:42.5631 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b573eb07-79e4-4263-2c04-08df1a6c2d31
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002316.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5821
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9830
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,189 +117,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Piotr Maziarz <piotr.maziarz@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[WHY]
-The DCN10 post-unlock BLS path still emitted self-refresh suppression steps
-that are dead for this flow. Keeping them also left non-compliant BLS enums
-and documentation behind after the architecture cleanup.
+[Why]
+These are important for getting correct DP and audio output.
+The wrong pixel clock will be used otherwise.
+[How]
+Update the default clocks for the DCN60 lite3 variant.
 
-[HOW]
-Removed the dead DCN10 BLS producer path, dropped the associated BLS enums,
-params, helpers, dispatcher cases, unit-test dumper cases, and updated the
-BLS documentation. Kept the shared dcn10_update_pending_status consumer
-because later DCN generations still use it.
-
-Signed-off-by: Piotr Maziarz <piotr.maziarz@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 65 -------------------
- .../drm/amd/display/dc/hwss/hw_sequencer.h    | 26 --------
- 2 files changed, 91 deletions(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index ccf5ed47ce62..21a62ca4c8dc 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -1160,25 +1160,6 @@ void hwss_build_post_unlock_full_sequence(struct dc *dc,
- 	if (hwseq && hwseq->wa.DEGVIDCN21)
- 		hwss_add_hubbub_apply_dedcn21_147_wa(&seq_state, dc->res_pool->hubbub);
- 
--	/* Handle stutter underflow WA during MPO transitions */
--	if (hwseq && hwseq->wa.disallow_self_refresh_during_multi_plane_transition &&
--			dc->current_state->stream_status[0].plane_count == 1 &&
--			context->stream_status[0].plane_count > 1) {
--
--		hwss_add_hubbub_allow_self_refresh_control(&seq_state, dc->res_pool->hubbub, false);
--
--		/* Get frame count for WA state tracking - this needs to be done immediately after the above call */
--		if (dc->res_pool->timing_generators[0]->funcs->get_frame_count) {
--			hwss_add_tg_get_frame_count(&seq_state, dc->res_pool->timing_generators[0],
--				&hwseq->wa_state.disallow_self_refresh_during_multi_plane_transition_applied_on_frame);
--		}
--
--		/*
--		 * Set here rather than as a sequence step: the executor must not
--		 * write to logical objects.
--		 */
--		hwseq->wa_state.disallow_self_refresh_during_multi_plane_transition_applied = true;
--	}
- }
- 
- static uint32_t get_dcc_meta_propagation_delay(struct dc *dc, struct pipe_ctx *pipe_ctx)
-@@ -1924,12 +1905,6 @@ void hwss_execute_sequence(struct dc *dc,
- 		case HUBBUB_APPLY_DEDCN21_147_WA:
- 			hwss_hubbub_apply_dedcn21_147_wa(params);
- 			break;
--		case HUBBUB_ALLOW_SELF_REFRESH_CONTROL:
--			hwss_hubbub_allow_self_refresh_control(params);
--			break;
--		case TG_GET_FRAME_COUNT:
--			hwss_tg_get_frame_count(params);
--			break;
- 		case MPC_SET_DWB_MUX:
- 			hwss_mpc_set_dwb_mux(params);
- 			break;
-@@ -3684,22 +3659,6 @@ void hwss_hubbub_apply_dedcn21_147_wa(union block_sequence_params *params)
- 	hubbub->funcs->apply_DEDCN21_147_wa(hubbub);
- }
- 
--void hwss_hubbub_allow_self_refresh_control(union block_sequence_params *params)
--{
--	struct hubbub *hubbub = params->hubbub_allow_self_refresh_control_params.hubbub;
--	bool allow = params->hubbub_allow_self_refresh_control_params.allow;
--
--	hubbub->funcs->allow_self_refresh_control(hubbub, allow);
--}
--
--void hwss_tg_get_frame_count(union block_sequence_params *params)
--{
--	struct timing_generator *tg = params->tg_get_frame_count_params.tg;
--	unsigned int *frame_count = params->tg_get_frame_count_params.frame_count;
--
--	*frame_count = tg->funcs->get_frame_count(tg);
--}
--
- void hwss_mpc_set_dwb_mux(union block_sequence_params *params)
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
+index 26972c220e34..9ce378b821dc 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
+@@ -1804,6 +1804,7 @@ struct clk_mgr_internal *dcn60_clk_mgr_construct(
  {
- 	struct mpc *mpc = params->mpc_set_dwb_mux_params.mpc;
-@@ -5879,30 +5838,6 @@ void hwss_add_hubbub_apply_dedcn21_147_wa(struct block_sequence_state *seq_state
- 	}
- }
+ 	struct dcn60_clk_mgr *clk_mgr60 = kzalloc(sizeof(struct dcn60_clk_mgr), GFP_KERNEL);
+ 	struct clk_mgr_internal *clk_mgr;
++	bool variant_clocks = ASICREV_IS_DCN6_VARIANT_LITE3(ctx->asic_id.hw_internal_rev);
  
--void hwss_add_hubbub_allow_self_refresh_control(struct block_sequence_state *seq_state,
--		struct hubbub *hubbub,
--		bool allow)
--{
--	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
--		seq_state->steps[*seq_state->num_steps].func = HUBBUB_ALLOW_SELF_REFRESH_CONTROL;
--		seq_state->steps[*seq_state->num_steps].params.hubbub_allow_self_refresh_control_params.hubbub = hubbub;
--		seq_state->steps[*seq_state->num_steps].params.hubbub_allow_self_refresh_control_params.allow = allow;
--		(*seq_state->num_steps)++;
--	}
--}
--
--void hwss_add_tg_get_frame_count(struct block_sequence_state *seq_state,
--		struct timing_generator *tg,
--		unsigned int *frame_count)
--{
--	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
--		seq_state->steps[*seq_state->num_steps].func = TG_GET_FRAME_COUNT;
--		seq_state->steps[*seq_state->num_steps].params.tg_get_frame_count_params.tg = tg;
--		seq_state->steps[*seq_state->num_steps].params.tg_get_frame_count_params.frame_count = frame_count;
--		(*seq_state->num_steps)++;
--	}
--}
--
- void hwss_add_cursor_lock(struct block_sequence_state *seq_state,
- 		struct dc *dc,
- 		struct pipe_ctx *pipe_ctx,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index 9c32418be8f2..c0c098b5bcaa 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -525,16 +525,6 @@ struct hubbub_apply_dedcn21_147_wa_params {
- 	struct hubbub *hubbub;
- };
+ 	if (!clk_mgr60)
+ 		return NULL;
+@@ -1828,14 +1829,14 @@ struct clk_mgr_internal *dcn60_clk_mgr_construct(
+ 	 * dcn60_dump_clk_registers from 4 * dentist_vco_freq_khz /
+ 	 * dprefclk DID divider
+ 	 */
+-	clk_mgr->base.dprefclk_khz = 720000;
++	clk_mgr->base.dprefclk_khz = variant_clocks ? 607407 : 720000;
  
--struct hubbub_allow_self_refresh_control_params {
--	struct hubbub *hubbub;
--	bool allow;
--};
--
--struct tg_get_frame_count_params {
--	struct timing_generator *tg;
--	unsigned int *frame_count;
--};
--
- struct mpc_set_dwb_mux_params {
- 	struct mpc *mpc;
- 	int dwb_id;
-@@ -1128,8 +1118,6 @@ union block_sequence_params {
- 	struct tg_wait_double_buffer_pending_params tg_wait_double_buffer_pending_params;
- 	struct update_force_pstate_params update_force_pstate_params;
- 	struct hubbub_apply_dedcn21_147_wa_params hubbub_apply_dedcn21_147_wa_params;
--	struct hubbub_allow_self_refresh_control_params hubbub_allow_self_refresh_control_params;
--	struct tg_get_frame_count_params tg_get_frame_count_params;
- 	struct mpc_set_dwb_mux_params mpc_set_dwb_mux_params;
- 	struct mpc_disable_dwb_mux_params mpc_disable_dwb_mux_params;
- 	struct mcif_wb_config_buf_params mcif_wb_config_buf_params;
-@@ -1301,8 +1289,6 @@ enum block_sequence_func {
- 	UPDATE_FORCE_PSTATE,
- 	PROGRAM_MALL_PIPE_CONFIG,
- 	HUBBUB_APPLY_DEDCN21_147_WA,
--	HUBBUB_ALLOW_SELF_REFRESH_CONTROL,
--	TG_GET_FRAME_COUNT,
- 	MPC_SET_DWB_MUX,
- 	MPC_DISABLE_DWB_MUX,
- 	MCIF_WB_CONFIG_BUF,
-@@ -2018,10 +2004,6 @@ void hwss_update_force_pstate(union block_sequence_params *params);
+ 		/* integer part is now VCO frequency in kHz */
+ 		clk_mgr->base.dentist_vco_freq_khz = dcn60_get_vco_frequency_from_reg(clk_mgr);
  
- void hwss_hubbub_apply_dedcn21_147_wa(union block_sequence_params *params);
+ 		/* in case we don't get a value from the register, use default */
+ 		if (clk_mgr->base.dentist_vco_freq_khz == 0)
+-			clk_mgr->base.dentist_vco_freq_khz = 4500000;
++			clk_mgr->base.dentist_vco_freq_khz = variant_clocks ? 4100000 : 4500000;
  
--void hwss_hubbub_allow_self_refresh_control(union block_sequence_params *params);
--
--void hwss_tg_get_frame_count(union block_sequence_params *params);
--
- void hwss_mpc_set_dwb_mux(union block_sequence_params *params);
+ 	clk_mgr->dfs_bypass_enabled = false;
  
- void hwss_mpc_disable_dwb_mux(union block_sequence_params *params);
-@@ -2660,14 +2642,6 @@ void hwss_add_update_force_pstate(struct block_sequence_state *seq_state,
- void hwss_add_hubbub_apply_dedcn21_147_wa(struct block_sequence_state *seq_state,
- 		struct hubbub *hubbub);
- 
--void hwss_add_hubbub_allow_self_refresh_control(struct block_sequence_state *seq_state,
--		struct hubbub *hubbub,
--		bool allow);
--
--void hwss_add_tg_get_frame_count(struct block_sequence_state *seq_state,
--		struct timing_generator *tg,
--		unsigned int *frame_count);
--
- void hwss_add_tg_set_dsc_config(struct block_sequence_state *seq_state,
- 		struct timing_generator *tg,
- 		struct dsc_optc_config *dsc_optc_cfg,
 -- 
 2.53.0
 
