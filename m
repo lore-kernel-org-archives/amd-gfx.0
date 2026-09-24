@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D27A2C98321
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 18:46:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A279C98324
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 18:47:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC8910F734;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80D9710F73E;
 	Thu, 24 Sep 2026 18:46:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GKExFqqp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qR0GwdYn";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010034.outbound.protection.outlook.com
- [52.101.193.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E136010F73A
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 18:46:53 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012047.outbound.protection.outlook.com [52.101.53.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C19910F734
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 18:46:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iiQO2wYOhjoLw48xB3iMZU5M37uB5p1wq4HISWHON8raQFrXBF/oLpLeQQLquvrjdneHpnV0BIVGBwG7bttjHX1l0si1c47bDXECvYFs9jFFgaVoKnOUeklVOpVbhQIyhoN5EfxZSKAbqtotYAFd5zZUQeNHCQfJGMNV4cEYMd9tVJd3R3DIQO4OB0DGx4Vfhv42vd4uA71P/yVNvOftpLnJgGTdVfsWe4/9SMCIuaiKavD963ZQ4jDUv70jx87ss41vUNYdL3c64bDIIFFpMSzBNjfQ41UHZFEu/cG9xiKNYpr/XwZjqHIWkcIE85FVl9KvfFycutkboOw8WvN1BA==
+ b=U0eWxwjSfljlpGYsNtpeWC8Egmna6xaOPAWV1N4blWV0V4RMmptE+H1kNVBgPFjknKo/ktmXj3zApEdJUOQMQlT0oy9gcFYdfptWUgeWWAo75kuMI6jXEripKSQkkK98pJELti7e0ONHTWy7FhD+t5mY/1L1ho2+FGh4vuopituIoqa+YRrE+4U7SFqjm5bMflBXvNKaHF9iGr8pGpZ3NJ/pFnfXDCtz2X5L/Jv6CTtzIeyVc+P5ZuSiJOfbSV3GL9hWtDX2hM9IV0prY0YtyGVR131RblHgyTXgw6fS0NmH3F430CTz9MVlyARtD/4//De54OOcHTkV2nQIrbjYnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uWZoOPZ44bvIB0jYhBqaBJ66296WfeirulEDYXdIc+M=;
- b=adKUwwpxz51ziNxvjynQFHBYy26VnlBdqwxq5HSwF3ObaslamFpoX4gghMngYYfwwgFXikVxjVkS7CRs45Ore+RAr0Ksjb9Nkv1dA7Gfk/jUYlYXM6/4peJWfGTFwB5qvwWsoenMwJf2wRN9xUek5syIcnsQxGKsY27BcQzNwSdOvu2Dz6TZTVeZ/H84O67OFDtNNKjUbkU30G0ClbzOQiJ+stx78gnn4gozNw+8kblv1Q2ETUM8uS4p+0V2orOMG+ZeweOWB0mwlpE/VRFBO7Wy2UhX35Zix+8cthkTYXCI3/65by9GV9jF3Ga2uJB+Ivf1fxwTe3rIYlzwdigMlg==
+ bh=OWdROqgqziETnqvkkz9Fq9uvElQPGZ/QFdv5Y8Z49hU=;
+ b=He05fN3JRrO/9NO90V0BBUwHG3Mnd5r3qHn45ujmK7LvUDRp1zh3dxSDtQaFSXA8SPsyKoU9fPH+EZgd706+xivGe6erHuXX/YoNSMEtv4P8VWiCr39MhmSIi4sEzINC7r96tiAjJWuqAGkOV4GRB5ysKenXPqF38QZ9P2GDiFc+aJ85xgO7HgoIcuQPaeWDyG3Grvkf8n7GtgW6OZ1eDknv/p6QX87LZSJvrtFutoU2IeDIOdCue0NSap5hgawMjqUp+JUFfRxQ0N5udp8keXaZndXCZDlljgaeYJOYxS9bGqreLyrn4j8KlM6JgSg0gTabgkg6XWWuBqh/5VNJgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uWZoOPZ44bvIB0jYhBqaBJ66296WfeirulEDYXdIc+M=;
- b=GKExFqqpbZhBA8A287ZxzB9yOfnlPy/woOY/dnWiZ9Dsp1rNQd/PzCnJVerAOSAacgePD1xeQ1OBI0cm6mlLTcFW5q/vTKulUwDEnj+IaEBSrDBvXJvZmvVDmxs9luVP3tXJme5Wn4wz6656dYzboYUUxTwAtg1I047lmYG8N+8=
-Received: from PH8P221CA0044.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:346::22)
- by CH3PR12MB9342.namprd12.prod.outlook.com (2603:10b6:610:1cb::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ bh=OWdROqgqziETnqvkkz9Fq9uvElQPGZ/QFdv5Y8Z49hU=;
+ b=qR0GwdYn2MXum4nToM7VFNbqZuBJDwvA6uIv5DciDnYa+pOFhTJFI7r6Y3JKYoIu2dmRbOOssB/nqP/nbbUpqA2f2BdYiBERr1o8PHdh44/pj9oUtmipd9U4IjA2UVb0nyJBfcPqjslxKMEcn34ppmJl+Lqehc5PEeTAA0V4RJQ=
+Received: from PH8P221CA0004.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::9)
+ by MN0PR12MB6320.namprd12.prod.outlook.com (2603:10b6:208:3d3::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Thu, 24 Sep
  2026 18:46:44 +0000
-Received: from SJ1PEPF00002310.namprd03.prod.outlook.com
- (2603:10b6:510:346:cafe::c) by PH8P221CA0044.outlook.office365.com
- (2603:10b6:510:346::22) with Microsoft SMTP Server (version=TLS1_3,
+Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
+ (2603:10b6:510:2d8:cafe::36) by PH8P221CA0004.outlook.office365.com
+ (2603:10b6:510:2d8::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 18:46:44 +0000
+ 24 Sep 2026 18:46:43 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -50,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002310.mail.protection.outlook.com (10.167.242.164) with Microsoft
+ SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 18:46:44 +0000
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 18:46:43 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 13:46:25 -0500
+ 2026 13:46:24 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,12 +64,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Clay King <clayking@amd.com>, Dillon Varone
+ <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Dillon Varone
  <dillon.varone@amd.com>
-Subject: [PATCH 33/34] drm/amd/display: adjust floating point format for gamut
- remap when needed
-Date: Thu, 24 Sep 2026 14:45:46 -0400
-Message-ID: <20260924184824.596894-34-jerry.zuo@amd.com>
+Subject: [PATCH 32/34] drm/amd/display: Don't round up cursor width to nearest
+ 64
+Date: Thu, 24 Sep 2026 14:45:45 -0400
+Message-ID: <20260924184824.596894-33-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924184824.596894-1-jerry.zuo@amd.com>
 References: <20260924184824.596894-1-jerry.zuo@amd.com>
@@ -82,29 +81,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002310:EE_|CH3PR12MB9342:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88321b1a-5707-4ec4-4f12-08df1a6c2e2f
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|MN0PR12MB6320:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a74c35f-6c42-412f-c824-08df1a6c2ddd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: PiJoYQ8VWxx8Ubyw9MSfx20J2QIiFYu0fw9ET+K8sN5AR+XEir6rAN12VUOrKjj83l8mZpALqKVyMXkqwbVqspvRY+r6WPAshtRESINyamqwtNQGzi+Uk6Q1inRYNeiHzYImAFtWtZXRld5TNntM/+E78N4Qs6CWwvKBn50Wh7C6MD8g8/Qa5BEisQ9NYkUgJ2s7qFZDkughhRdNhqGj3nwCpoO25nBQfPJynWwNXBVT8jqSZ3vo+HtP/mDJVYknfB6Rq7rHP1g7SyiVTeeG7WeSEj80Ym2dczAQR366Mp01PRNIMo1ayRvW082s7XJDbqrKvbGJF9fRgnfkv4hvGm2WAJOY2cGxgT9qbiqjia4rnoQTzfHs+zb6zfaEzLN+RNjI89QI0JWjKB9FxNS4Ls2sl6kZWbJ0PH/papyr5ebVziO+5vAdo23FKIZw3F/MpNc+9nVNSos5mGYXHHJr1v/LiLGBGZ6C40L8BKv6TgYwutbkLJMqflW6DWEFvBWthYJTikoWjxHrAiWlMiSYzrhKhnQ6L4ow3eQWHhWHsYOy39hBTNTz9RKPqstHm5LUYap4d8PSdDFuipEHxGzS1FiCXC6wqUbzMDtPRLUknl2J7iOvvLMjw1GRm0aCGUL0Mx1dYJ5uHaa2yjLd4AFEyOadlZji+aqYdgJoYcAX1PQ/qUDI3LgDW23wJoTSjtoJDecSOqWTx6bN4G44KWqfKg==
+ ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: KuQXDO2mfeOHHKrhQyxGQ4wQmJbU5np3vElWPGHQAa7BEPt7jKktYcU1oVPnhdU+eTxTQ9EGDGAcDz5ER7EwXWrdJZMN/SslT2eJIP6j0ywEijasWeaCiJraPoann2Bowhl2uvtYlqSByH7U0+DSFF95+8mRvSlUrVB5VE7KCFyFRjllnJNayvq7XRCpLMZQ1KZ0vnzVbIZpScAIqfApXRMjIDJBAyikl6m2Aqbpuamdesvz/dlVovVCAeuJgDjAhFWq8h9ZfZhyg6pNU7Zo3EQw0dQMKt7Y303DRCDedMG4nfPoXOKdgfMrmEe3yao1RqxK8tJJFxVDzfCddBw9AfvB6tYu68qfLumX0sWy63z87ad6V6qW47AhTngcHcWm9g/ImeHk+o6F7rHmgP88gYjtl8HvUgVtHL/uXz5clqP9tdsZOg01EnuZJbtUUjjiVBeEeGczAHOhEcni3zCKbAy+Asr/QU4sYO+YIKO/SMwXch5dMTYB2S7d1fjJ+pj2uTtGn24/IsayoT2xk0ldaOHIC2QERpALU8fg/xMls3+ORwkL6pD5kcFJYtbpsZ47oVFD7IrcznWjWp+7sf7pWiYaMIGRWZdTwIay0ABDN4b//l/O5UNkFgqlbKti+4t/80bxVGmkb1+ct1eeO5wl/tfiaibDJtdAVoNOmCqQzuoOY7omJQXAehzjdZaiC1jJp5neClIo/NNhro6D9T/jKw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: sxfnxHJhdNdNsYtg0i6/QiHf9jvXQivo9eKFx9oEwuNt3Xs08GFKS2SaZIfLjh/MOgybeeSWXgYBMKxHETr6qUyN0C8x9lKqyDEbj4+OX2wLPAN+KZlAxAwyE8BJcpciW9RmKl13UWdruNaxgrn90O1vaqJzeF0K51S3LAkyK9ly7fgHc08fqftKVG2VuBTF6+ZHj9bhucX97IKs0dVDlE+r/kRHvPDSENZrrjU4Lzg7HALdeWkCJ20232zu0NC37qIqrsLMz4Dpja2gnxvoRdbYNrG6dXUTaPWUA3VN7+p9c94K/YHtTRh9n7/2XbtY8e7e38eVKwRp89Y7Vcsh0ukZJ807xczOx/Ub647hdh3yMwMN/MYmGMvl8BaNK/NrtQ8nty/f2qq/6u2elAdajVTWY62WOjGXYc5BoOviEZDi88l/KvMIMoxq4B1bob2K
+X-MS-Exchange-AntiSpam-MessageData-0: wV3DMaiSHy4f8siJT1+04QXaO8CFqxrHgDaFVDhEvqji9iyZcunPx3noHSOO9G7+wcZvyFE28wGhfpuAwq8/oiWAHMeWzJGfR2cfIpKM/iF/ISUwqFfrj3ynYI5mABEaXry1kGKrkiQoJL3FYeTtUVbE75c72vldCGjwPZ9+LpB1NZVawsebC3JzYJ7DrjL+43cXVxTYgJ44LeqsUhhYbDkY80vjyswibo4FZ5XU4oCrFYyCWAwJ0XGSTPk764eLJR6f81u4p8mz3EP+/7vtIzctzSv2Nw8r5RE5sDxxAvUR1rj10fenQIwfGyLfHhD6xIOKsO0JceCSu0Kh9EWKSrtjX2YyETqOznLpVG/irq942A6Jfpx98cv0dI3JAJX9iY1Tv7xJL7EqvBhQ6eDqgEjf9kiQFX2LNvMHBGpqRq0Eg0mcj6qTRIbx6O08/GQC
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 18:46:44.2216 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88321b1a-5707-4ec4-4f12-08df1a6c2e2f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 18:46:43.7190 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a74c35f-6c42-412f-c824-08df1a6c2ddd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002310.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002316.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9342
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6320
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,259 +118,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Clay King <clayking@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[Why]
-The MPCCs different gamut remap matrices allow for S2D13 and S3D12 floating
-point formats, but only S2D13 is used. There may be cases where
-more integer bits are required.
+[Description]
+Rounding up cursor width was only used to calculate total size in
+previous generations. Do not use the rounded up cursor width in
+hardware programming.
 
-[How]
-Switch to S3D12 if any entries in the remap matrix cannot fit in S2D13.
-Otherwise, prefer the extra precision of S2D13. Communicate the max value
-that hw can support to dm via dc color caps.
-
-Signed-off-by: Clay King <clayking@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Reviewed-by: Dillon Varone <dillon.varone@amd.com>
 ---
- .../dc/gpio/dcn42/hw_translate_dcn42.c.orig   | 206 ------------------
- .../dc/resource/dcn60/dcn60_resource.c        |   2 +
- 2 files changed, 2 insertions(+), 206 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig
+ drivers/gpu/drm/amd/display/dc/hubp/dcn60/dcn60_hubp.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig
-deleted file mode 100644
-index e7e1d9979876..000000000000
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig
-+++ /dev/null
-@@ -1,206 +0,0 @@
--// SPDX-License-Identifier: MIT
--//
--// Copyright 2026 Advanced Micro Devices, Inc.
--
--#include "hw_translate_dcn42.h"
--
--#include "dm_services.h"
--#include "include/gpio_types.h"
--#include "../hw_translate.h"
--
--
--#include "dcn/dcn_4_2_0_offset.h"
--#include "dcn/dcn_4_2_0_sh_mask.h"
--#include "dpcs/dpcs_4_0_0_offset.h"
--#include "dpcs/dpcs_4_0_0_sh_mask.h"
--
--#define DCN_BASE__INST0_SEG2                       0x000034C0
--
--/* begin *********************
-- * macros to expend register list macro defined in HW object header file */
--
--/* DCN */
--#define block HPD
--#define reg_num 0
--
--#undef BASE_INNER
--#define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
--
--#define BASE(seg) BASE_INNER(seg)
--
--#undef REG
--#define REG(reg_name)\
--		(BASE(reg ## reg_name ## _BASE_IDX) + reg ## reg_name)
--#define SF_HPD(reg_name, field_name, post_fix)\
--	.field_name = reg_name ## __ ## field_name ## post_fix
--
--
--/* macros to expend register list macro defined in HW object header file
-- * end *********************/
--
--
--static bool offset_to_id(
--	uint32_t offset,
--	uint32_t mask,
--	enum gpio_id *id,
--	uint32_t *en)
--{
--	(void)mask;
--	switch (offset) {
--	/* HPD */
--	case REG(HPD0_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_1;
--		return true;
--	case REG(HPD1_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_2;
--		return true;
--	case REG(HPD2_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_3;
--		return true;
--	case REG(HPD3_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_4;
--		return true;
--	case REG(HPD4_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_5;
--		return true;
--	/* DDC */
--	/* we don't care about the GPIO_ID for DDC
--	 * in DdcHandle it will use GPIO_ID_DDC_DATA/GPIO_ID_DDC_CLOCK
--	 * directly in the create method
--	 */
--	case REG(DC_GPIO_DDC1_A):
--		*en = GPIO_DDC_LINE_DDC1;
--		return true;
--	case REG(DC_GPIO_DDC2_A):
--		*en = GPIO_DDC_LINE_DDC2;
--		return true;
--	case REG(DC_GPIO_DDC3_A):
--		*en = GPIO_DDC_LINE_DDC3;
--		return true;
--	case REG(DC_GPIO_DDC4_A):
--		*en = GPIO_DDC_LINE_DDC4;
--		return true;
--	case REG(DC_GPIO_DDC5_A):
--		*en = GPIO_DDC_LINE_DDC5;
--		return true;
--	case REG(DC_GPIO_DDCVGA_A):
--		*en = GPIO_DDC_LINE_DDC_VGA;
--		return true;
--	default:
--		ASSERT_CRITICAL(false);
--		return false;
--	}
--}
--
--
--static bool id_to_offset(
--	enum gpio_id id,
--	uint32_t en,
--	struct gpio_pin_info *info)
--{
--	bool result = true;
--
--	switch (id) {
--	case GPIO_ID_DDC_DATA:
--		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK;
--		switch (en) {
--		case GPIO_DDC_LINE_DDC1:
--			info->offset = REG(DC_GPIO_DDC1_A);
--		break;
--		case GPIO_DDC_LINE_DDC2:
--			info->offset = REG(DC_GPIO_DDC2_A);
--		break;
--		case GPIO_DDC_LINE_DDC3:
--			info->offset = REG(DC_GPIO_DDC3_A);
--		break;
--		case GPIO_DDC_LINE_DDC4:
--			info->offset = REG(DC_GPIO_DDC4_A);
--		break;
--		case GPIO_DDC_LINE_DDC5:
--			info->offset = REG(DC_GPIO_DDC5_A);
--		break;
--		case GPIO_DDC_LINE_DDC_VGA:
--			info->offset = REG(DC_GPIO_DDCVGA_A);
--		break;
--		case GPIO_DDC_LINE_I2C_PAD:
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_DDC_CLOCK:
--		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK;
--		switch (en) {
--		case GPIO_DDC_LINE_DDC1:
--			info->offset = REG(DC_GPIO_DDC1_A);
--		break;
--		case GPIO_DDC_LINE_DDC2:
--			info->offset = REG(DC_GPIO_DDC2_A);
--		break;
--		case GPIO_DDC_LINE_DDC3:
--			info->offset = REG(DC_GPIO_DDC3_A);
--		break;
--		case GPIO_DDC_LINE_DDC4:
--			info->offset = REG(DC_GPIO_DDC4_A);
--		break;
--		case GPIO_DDC_LINE_DDC5:
--			info->offset = REG(DC_GPIO_DDC5_A);
--		break;
--		case GPIO_DDC_LINE_DDC_VGA:
--			info->offset = REG(DC_GPIO_DDCVGA_A);
--		break;
--		case GPIO_DDC_LINE_I2C_PAD:
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_SYNC:
--	case GPIO_ID_VIP_PAD:
--	default:
--		ASSERT_CRITICAL(false);
--		result = false;
--	}
--
--	if (result) {
--		info->offset_y = info->offset + 2;
--		info->offset_en = info->offset + 1;
--		info->offset_mask = info->offset - 1;
--
--		info->mask_y = info->mask;
--		info->mask_en = info->mask;
--		info->mask_mask = info->mask;
--	}
--
--	return result;
--}
--
--
--/* function table */
--static const struct hw_translate_funcs funcs = {
--	.offset_to_id = offset_to_id,
--	.id_to_offset = id_to_offset,
--};
--
--
--/*
-- * dal_hw_translate_dcn42_init
-- *
-- * @brief
-- * Initialize Hw translate function pointers.
-- *
-- * @param
-- * struct hw_translate *tr - [out] struct of function pointers
-- *
-- */
--void dal_hw_translate_dcn42_init(struct hw_translate *tr)
--{
--	tr->funcs = &funcs;
--}
--
--
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-index 4e043343a819..3b70e97c0a6a 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-@@ -12,6 +12,7 @@
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn60/dcn60_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn60/dcn60_hubp.c
+index 4af60e473bd9..7c2ff310ea99 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn60/dcn60_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn60/dcn60_hubp.c
+@@ -189,9 +189,6 @@ void hubp60_cursor_set_attributes(
+ 	enum cursor_lines_per_chunk lpc = hubp2_get_lines_per_chunk(
+ 		attr->width, attr->color_format);
  
- #include "resource.h"
- #include "include/irq_service_interface.h"
-+#include "basics/conversion.h"
+-	//Round cursor width up to next multiple of 64
+-	uint32_t cursor_width = ((attr->width + 63) / 64) * 64;
+-
+ 	hubp->curs_attr = *attr;
  
- #include "dcn20/dcn20_resource.h"
- #include "dcn30/dcn30_resource.h"
-@@ -2100,6 +2101,7 @@ static bool dcn60_resource_construct(
- 	dc->caps.color.mpc.ogam_rom_caps.hlg = 0;
- 	dc->caps.color.mpc.ocsc = 1;
- 	dc->caps.color.mpc.preblend = true;
-+	dc->caps.color.mpc.max_gamut_remap_coeff = dc_fixpt_from_fraction(S3D12_MAX, DIVIDER);
- 	/* HACK: Force FRL support until BIOS is ready. */
- 	dc->config.force_hdmi21_frl_enc_enable = true;
- 	dc->config.use_spl = true;
+ 	if (!hubp->cursor_offload) {
+@@ -201,7 +198,7 @@ void hubp60_cursor_set_attributes(
+ 			CURSOR_SURFACE_ADDRESS, attr->address.low_part);
+ 
+ 		REG_UPDATE_2(CURSOR_SIZE,
+-			CURSOR_WIDTH, cursor_width,
++			CURSOR_WIDTH, attr->width,
+ 			CURSOR_HEIGHT, attr->height);
+ 
+ 		REG_UPDATE_4(CURSOR_CONTROL,
 -- 
 2.53.0
 
