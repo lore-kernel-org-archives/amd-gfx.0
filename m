@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD6C5C98318
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 18:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC415C98318
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 18:47:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4890810F743;
-	Thu, 24 Sep 2026 18:47:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 683B410F748;
+	Thu, 24 Sep 2026 18:47:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zqubyh4Q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Kv8DrzVp";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012030.outbound.protection.outlook.com
- [40.93.195.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 624EA10F73A
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 18:46:51 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010020.outbound.protection.outlook.com [52.101.61.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02ADE10F743
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 18:47:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uQGntUd3A7ZDvy4nUB9GEj1W7YNjU0Ifye+8yES22S5WiWqLm79mJQ0GkV7NqCB2y+5mrw2rC2qoGodUxsMbFkqMdT7xZrsp/JTUEvKMcYakTBCYiIw2Quop5vaY+zUDpeKrv/G2vU8cf4NbtGayKBQYLu4OpzbbUh4Lv9S5vNkyZvE2LjIze4TgS+0YUpn+aW0gtf53ObvoTw2Zo+3fNXwFCBiM7aI+0jAszGepB6wkcnx05EarGW7SrfXqH1N2fQNkJCzDFW7aQrsiSezharYwbFsTrebA9/4gRpvoWqAQ8VF/qGzH9YqIEStloI8dWwnnduJ+iWoPXWSH+qZGtQ==
+ b=wpcm8L983ZBKtFUW21F3/bCnKDRm3pk9LunG0K96UYtjbLf50gbu2ZxVOTnUOB4/yXldWvOoGoBhxgeGfp2N43WLreemHBe1uYVdNeBLGiMX/aQDMUHDG6WslbXJVrfjzg/VoOSXFLk4xb/IN/wI2faFOVLfy0+YFORWIdo07kYPmiV9licxgNxYOrhKLnR3dHuyDtjsxtJ9RL6mQnJ/G3LjrnjPu79p7vIxoOEhfE0zmZa5bc/6ZLfM5Oely6buvBefw23whwspNnPsMVy6mDEh1V8GGGGpNEc+cXask0sIvGZJwrzL5gwTUql+4UbFw76G+2QB6tu85ebHZtelsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rEcX01zxt6LuaSrvmeCiGqwYEWLfzPlawdjqzIYe6qE=;
- b=NCr1QvQECy33G8m+Iofrj3GsTeLfLA/ajX97diNGdl+jj4KEX3a3nZlSeDfppA/MmWbW9cpbCxWhJyQWZIBfXzFUSX+tWyFma6qZsEvR4dBIrG7gQvXw/7PfhZYfS8jNGSahfY7R+drU0juCNgWrdkfRGe5avAyMLINm13KcQkAE8ew52vkeptrFsU+mFXMCiL5k5+GtM2V1OzRSTKmNwgm7017VAiduqzQEacelqPjRnSa22NQR1vzMOBxHnEipg+E/vRODNMT7CAhR/lHStJqstAHGVlAU+Hn+nVNEKlJg6vw9aY2kZWi7lFHiarxwKs2ZE5N9y889DJ0KBgSj/Q==
+ bh=tVamjYWl3sBabsLVwMBYZXDGTaB0QiPl6jQ3zLg0xuo=;
+ b=PVGUDG2qINW9y+FwZggKqYy1uV5vKp7ONU5QdoFSPJf8cb06Mno4kXT28s3/Qyvw3Lqcl+pNVE/OqCYKUobcW8PuVPAPlS3kNxH+iMD3m2KfONSKNaNdHl/+pbAzyY7Toex7ifaXIgtcbO0uGsenIqYTCz9KwviDmAFTO01cH1PDaSGGE1w60UMpfFpsFg1GKzxX71oGy4ZD1v+z8yOWzYqWXtJ/wkWK3/LmjUG2sdh8dDgLurpppcJLHW0DeflZLsoISrJ677+gVx8CxGLgKYARFGhX9ltYqPbw+V5f1EacgFiocH/C17X5lICtYOKQyDn9IeilzCEiTGV6WHqOuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rEcX01zxt6LuaSrvmeCiGqwYEWLfzPlawdjqzIYe6qE=;
- b=zqubyh4Q8GQhCW/QTsx0c5Mn+LeZ+URJhus0lB+0CNyvivEfC4sTDloKDM3pUHvsdKMnZ6fRg40VhApF+XP801iQn/lb7NGKSupgdY2b5aK1/6bpZHv5IXvZvfOEr7S1vnYQyN1pY9+QeAYeH1V1t6XcMZAhv3F1MkwzZvJDvkk=
-Received: from PH8P221CA0026.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::29)
- by SJ2PR12MB8133.namprd12.prod.outlook.com (2603:10b6:a03:4af::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Thu, 24 Sep
- 2026 18:46:39 +0000
+ bh=tVamjYWl3sBabsLVwMBYZXDGTaB0QiPl6jQ3zLg0xuo=;
+ b=Kv8DrzVpw+F8SfiJaaNA6sDOlo2O7VgRDgS6AIsWGtwuLydqs7HfSCB8Tipph+VQA5uUzPXgkG2aMDzt5dwwO4PSeKzCbprsbb9aik4HWgJbCh5edI3o2aPqKrhcAHlxjXOvzQfNFLa0O+f3eaBszye+R+HpKYLtmgNDAFDaBGM=
+Received: from PH8P221CA0001.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::16)
+ by DS2PR12MB9615.namprd12.prod.outlook.com (2603:10b6:8:275::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 18:46:33 +0000
 Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
- (2603:10b6:510:2d8:cafe::19) by PH8P221CA0026.outlook.office365.com
- (2603:10b6:510:2d8::29) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:510:2d8:cafe::44) by PH8P221CA0001.outlook.office365.com
+ (2603:10b6:510:2d8::16) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 18:46:39 +0000
+ 24 Sep 2026 18:46:32 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -52,11 +51,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 18:46:39 +0000
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 18:46:32 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 13:46:20 -0500
+ 2026 13:46:16 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,45 +64,46 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Ovidiu Bunea <ovidiu.bunea@amd.com>, "Nicholas
- Kazlauskas" <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 26/34] drm/amd/display: Add urgent watermark override for DCN42
-Date: Thu, 24 Sep 2026 14:45:39 -0400
-Message-ID: <20260924184824.596894-27-jerry.zuo@amd.com>
+ <Chen-Yu.Chen@amd.com>, Piotr Maziarz <piotr.maziarz@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>
+Subject: [PATCH 21/34] drm/amd/display: Dispatch HUBBUB_SOFT_RESET through
+ hubbub_funcs
+Date: Thu, 24 Sep 2026 14:45:34 -0400
+Message-ID: <20260924184824.596894-22-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924184824.596894-1-jerry.zuo@amd.com>
 References: <20260924184824.596894-1-jerry.zuo@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|SJ2PR12MB8133:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f258ebb-12fb-4a7b-33e5-08df1a6c2b30
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|DS2PR12MB9615:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7327bfd9-5d6b-4716-796c-08df1a6c2763
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|3023799007|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: OUOvLQUCC8lTRx9Be5sQ0n7LlGX9UcJuPlFuQ1OS+tihawDp4h0kIFuAHGX6HirhRrrvKwzeObd/zFFvvpt/rI0IW0NN27kqD9NtLJEXi5D5yh+C4GMkA/YtjukAlLBJpWWWc/c/EcXOtn6Dh6pnVnBhCf4Eis1EoISXru1ZiKfVCnDMB6NYuOmEUx4AO1Op4xbkzKSkmNLeWDD4pFUNA4yNiHUbiYmE2kxVayaj8nVVL9m4um8JdblieXleNoh64ntk1rJP14GsGe5yJxKpICmyLZgjW3gKWjCC56SuMSjGBAbqrvr1iAkm7aKpUJj2jTWhBt4kh82CyCEaT1TQZr/ZZk0ZhsWmkQMAziTyvUFewPuVNqt8dlaG52A7LKIv0mSRKwyjXDniVdcJcTK15L/zE9FTI9amLuakXaVk8k36m12KG444xVgJ12xvcMzJq6zM/3Y8Wjvctc2oFi0T9tF5QUnn514hYQMUnoBdlt+iyCi43YltIDdYAyaAj/N2M/ADRtyCNeVyCNawglWJnG6O5g891tdfQOjx0DCJaihLzxfnTzm+gxFHwwyRbM4mF+o7hxfCznIa/DoSO+ZMykqs2VwI5wuEFzQ5U3y0PvQHSKeSabrl2/V3Q11KTl55031iplJHXVno8W5BgdLiCYIEkfWa+fwL3VMv6d5+rpwVVWV9hRqhZH8mESnF319Vh7RdJXxJr6J0ir9HWyg+AA==
+ ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|3023799007|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 4tj3R1rzXmV6evwemxvy92DXzRmf5+HJYUGkK5jT8djgyYGjBpFyRqr7MxZqQ+Yt3CwtM9CjhZjJqvyyA20tbGVAl0KWrBiDOEnhqlVfCOihLpg7wL+MrkaFfqmLNmEocJCBBOG00lv3lN6wHNEG39wYTZ7dBoQ7mJkvud0y/n8VUISofXMD+x2G7ZHTFH6ZyXFlVzB9WfP9hyuIXNKPZdR+0D6OZDqeD9uHKxezKX/m9BaxNICWZrfTmArBoyOVW+DSs1/kgdZPkCmg5YChFXh+6HDJNznkfn/mtRBzLS1k2fM7OUkLJXY6/kfyM98No0UeKcI1lFlMXAV1ajezpWThaRvTE/Rpa7gVpLxPIfRZHrc3e7/0zd4oiyNNPCraKZ3HJh1VIL4n+79SD/AxG+IZUz4zakdUiUilYIklyvtJgt4lJjWeTQ2QrSRooGTKoBN6rv5zjexFf9NmfhexuUquj5i/dMIW/2mK3x52B4YG/7n6prQ1974uCGP3NWJibw9FoIXxVwr6BG7GQRCtvHFTrSvHR5hM8KlahaCKJNnSyHUHdrlLUWo1PAHdG/kVC+B/InBWRr4nmKVrwtytXG/0yF9r2sNAWj4NkXiM03g6iwM5Cgf7dLmBpo5v93y6cXJrIaLicEJE4067xG2pqBy+773gz61JK4jDt8vjzdM0OGof1OgNqnKKiCwCaIvj6FZDeQVYDByFycJbb1gj0w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(3023799007)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(3023799007)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 1sAvHwE2p9sSdFjWn7Y8JCIipH45emYyPKvLBPK6RWEEap/1eoBzOo6duV7rBBTB4Qhcz9xQERzXMCQ8iMUEXm6rf21xULxa0/Mujd3B0wZ8sNKwYpuuTJsg2R/qAkFUkPutLuFWbj7e91mVOc3BtaO0RAruyY+0Pdr9kacrCfhxVcYY9y5UaPF3w2B5v7OS4JWl03fP5Pl3Oen8dKa+2qEFFVAHaLWhMoULeXrPFJ/js4YGNqvLipxGST7ewxuLrXfNnAOtk85oUg/ac5OlonlaPzBWfuA5FB2YM2WhUJcT9WfoSrIs7UXIVngNt+VLD8iMIaTxOSGksZPC6qbjqCeVlyRDDcV9VaGjtlIeQHC1iPJ1JotHzyPeY2tC+ikLnjmlJOvdr79CebT/J7Lh2n2U2uSZQL194TFZkcqae7XNrq0HDIJdESRIETfgO4M8
+X-MS-Exchange-AntiSpam-MessageData-0: gVuHzxMj+/jUeeqbSy7s8YkVdObGl8qp+i1xOVwTG8N7rEkXdoJQNF72EWdb/Unc+714axedZRsBiAuzTlbJrNurJbcwbHj30DqZ3HiCphaywsKFdw4F6u1ZEgYuj73+8RmIE2LE+ZGiaNgyn0NThoolOyA+tFdo7wEaG6O8xVPi+SXJOIF3k35xYGwoaWVkRmcMbWBND5pTAjZR0R91zxOrLewvrLSxyBVvgc9zaYkLtSYOhmQcCyIFBgpS6C8rerNEpzpE2sdJolODz4QcL2nQOHsgL2E+ABjZhe9ZAtwfShGf12ilcWEqaeQer499J4ezSAkcH/20RhGwLKQOZGgkzdA1eb6GRaYgUy0aAyVMEfP484WWymqNxb173ycaa/Ko5OuGbB8trAlhNrAMpMQspPjMX9LiQ0uQ951H5QBLnzgX71yrE7z8qhM1tRRE
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 18:46:39.2009 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f258ebb-12fb-4a7b-33e5-08df1a6c2b30
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 18:46:32.8269 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7327bfd9-5d6b-4716-796c-08df1a6c2763
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002316.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8133
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9615
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,116 +118,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ovidiu Bunea <ovidiu.bunea@amd.com>
+From: Piotr Maziarz <piotr.maziarz@amd.com>
 
-[why & how]
-Out-of-urgent bandwidth delivery to DCN is very poor under workloads.
-Even after asserting urgent, empirical data shows urgent return BW
-delays of up to 100 μs. Override the value when programming
-watermarks to avoid modifying mode support. Maintain the DML's calculated
-value as a floor.
+[WHY]
+hubbub_soft_reset_params carried the callee itself as a function pointer,
+so the step was not fully described by its parameters. The core_gtest
+dumper could only record hubbub and reset, which means two sequences
+calling different functions compare equal. It also forced dcn401_hwseq to
+name the dcn10 symbol hubbub1_soft_reset directly, because hubbub_funcs
+had no slot for a soft reset.
 
-Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+[HOW]
+Added soft_reset to hubbub_funcs and pointed hubbub4_01_funcs,
+hubbub42_funcs and hubbub60_funcs at hubbub1_soft_reset, the same way
+allow_self_refresh_control is already shared. Dropped the function pointer
+from the params struct and the add helper, and had the executor call
+hubbub->funcs->soft_reset. The dcn10_hubbub.h include in dcn401_hwseq.c is
+no longer needed.
+
+Signed-off-by: Piotr Maziarz <piotr.maziarz@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- .../display/dc/hubbub/dcn42/dcn42_hubbub.c    | 41 +++++++++++--------
- 2 files changed, 26 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c       | 6 ++----
+ .../gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c    | 1 +
+ drivers/gpu/drm/amd/display/dc/hubbub/dcn42/dcn42_hubbub.c  | 1 +
+ drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c  | 1 +
+ drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c   | 5 ++---
+ drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h          | 2 --
+ drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h            | 2 ++
+ 7 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 9c8e55715e47..b7c04d7cea3b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1314,6 +1314,7 @@ struct dc_debug_options {
- 	unsigned int auxless_alpm_lfps_t1t2_us;
- 	short auxless_alpm_lfps_t1t2_offset_us;
- 	bool disable_stutter_for_wm_program;
-+	unsigned int urgent_watermark_override;
- 	bool enable_block_sequence_programming;
- 	uint32_t custom_psp_footer_size;
- 	bool disable_deferred_minimal_transitions;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index e6d10e3bd6e9..ccf5ed47ce62 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -3822,8 +3822,8 @@ void hwss_hubbub_soft_reset(union block_sequence_params *params)
+ 	struct hubbub *hubbub = params->hubbub_soft_reset_params.hubbub;
+ 	bool reset = params->hubbub_soft_reset_params.reset;
+ 
+-	if (hubbub)
+-		params->hubbub_soft_reset_params.hubbub_soft_reset(hubbub, reset);
++	if (hubbub->funcs->soft_reset)
++		hubbub->funcs->soft_reset(hubbub, reset);
+ }
+ 
+ void hwss_hubbub_perfmon_reset(union block_sequence_params *params)
+@@ -5176,13 +5176,11 @@ void hwss_add_hubp_disable_control(struct block_sequence_state *seq_state,
+ 
+ void hwss_add_hubbub_soft_reset(struct block_sequence_state *seq_state,
+ 		struct hubbub *hubbub,
+-		void (*hubbub_soft_reset)(struct hubbub *hubbub, bool reset),
+ 		bool reset)
+ {
+ 	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
+ 		seq_state->steps[*seq_state->num_steps].func = HUBBUB_SOFT_RESET;
+ 		seq_state->steps[*seq_state->num_steps].params.hubbub_soft_reset_params.hubbub = hubbub;
+-		seq_state->steps[*seq_state->num_steps].params.hubbub_soft_reset_params.hubbub_soft_reset = hubbub_soft_reset;
+ 		seq_state->steps[*seq_state->num_steps].params.hubbub_soft_reset_params.reset = reset;
+ 		(*seq_state->num_steps)++;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c
+index d948525bc09e..957e8f5a6475 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c
+@@ -1239,6 +1239,7 @@ static const struct hubbub_funcs hubbub4_01_funcs = {
+ 	.allow_self_refresh_control = hubbub1_allow_self_refresh_control,
+ 	.is_allow_self_refresh_enabled = hubbub1_is_allow_self_refresh_enabled,
+ 	.verify_allow_pstate_change_high = NULL,
++	.soft_reset = hubbub1_soft_reset,
+ 	.force_wm_propagate_to_pipes = hubbub32_force_wm_propagate_to_pipes,
+ 	.force_pstate_change_control = hubbub3_force_pstate_change_control,
+ 	.init_watermarks = hubbub401_init_watermarks,
 diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn42/dcn42_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn42/dcn42_hubbub.c
-index 036276c17562..244f3f2824ed 100644
+index b8657de84d31..036276c17562 100644
 --- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn42/dcn42_hubbub.c
 +++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn42/dcn42_hubbub.c
-@@ -30,15 +30,24 @@ static bool hubbub42_program_urgent_watermarks(
- 		bool safe_to_lower)
- {
- 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
-+	const unsigned int urgent_floor = hubbub->ctx->dc->debug.urgent_watermark_override;
-+	const unsigned int urgent_a = max(urgent_floor,
-+		watermarks->dcn4x.a.urgent);
-+	const unsigned int urgent_b = max(urgent_floor,
-+		watermarks->dcn4x.b.urgent);
-+	const unsigned int urgent_c = max(urgent_floor,
-+		watermarks->dcn4x.c.urgent);
-+	const unsigned int urgent_d = max(urgent_floor,
-+		watermarks->dcn4x.d.urgent);
- 	bool wm_pending = false;
+@@ -530,6 +530,7 @@ static const struct hubbub_funcs hubbub42_funcs = {
+ 	.program_watermarks = hubbub42_program_watermarks,
+ 	.allow_self_refresh_control = hubbub42_allow_self_refresh_control,
+ 	.is_allow_self_refresh_enabled = hubbub1_is_allow_self_refresh_enabled,
++	.soft_reset = hubbub1_soft_reset,
+ 	.force_wm_propagate_to_pipes = hubbub32_force_wm_propagate_to_pipes,
+ 	.force_pstate_change_control = hubbub3_force_pstate_change_control,
+ 	.init_watermarks = hubbub35_init_watermarks,
+diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c
+index 843a0da4bdd7..07282b78972a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c
+@@ -1926,6 +1926,7 @@ static const struct hubbub_funcs hubbub60_funcs = {
+ 	.allow_self_refresh_control = hubbub1_allow_self_refresh_control,
+ 	.is_allow_self_refresh_enabled = hubbub1_is_allow_self_refresh_enabled,
+ 	.verify_allow_pstate_change_high = NULL,
++	.soft_reset = hubbub1_soft_reset,
+ 	.force_wm_propagate_to_pipes = hubbub60_force_wm_propagate_to_pipes,
+ 	.force_pstate_change_control = hubbub3_force_pstate_change_control,
+ 	.init_watermarks = hubbub60_init_watermarks,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index b7680326f495..73f969fd1b33 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -30,7 +30,6 @@
  
- 	/* Repeat for water mark set A, B, C and D. */
- 	/* clock state A */
--	if (safe_to_lower || watermarks->dcn4x.a.urgent > hubbub2->watermarks.dcn4x.a.urgent) {
--		hubbub2->watermarks.dcn4x.a.urgent = watermarks->dcn4x.a.urgent;
-+	if (safe_to_lower || urgent_a > hubbub2->watermarks.dcn4x.a.urgent) {
-+		hubbub2->watermarks.dcn4x.a.urgent = urgent_a;
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, 0,
--				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, watermarks->dcn4x.a.urgent);
--	} else if (watermarks->dcn4x.a.urgent < hubbub2->watermarks.dcn4x.a.urgent)
-+				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, urgent_a);
-+	} else if (urgent_a < hubbub2->watermarks.dcn4x.a.urgent)
- 		wm_pending = true;
+ #include "dce/dmub_hw_lock_mgr.h"
+ #include "dcn10/dcn10_cm_common.h"
+-#include "dcn10/dcn10_hubbub.h"
+ #include "dcn20/dcn20_optc.h"
+ #include "dcn20/dcn20_hwseq.h"
+ #include "dcn30/dcn30_cm_common.h"
+@@ -4161,7 +4160,7 @@ bool dcn401_hw_wa_force_recovery_sequence(struct dc *dc,
+ 	}
  
- 	/* determine the transfer time for a quantity of data for a particular requestor.*/
-@@ -64,11 +73,11 @@ static bool hubbub42_program_urgent_watermarks(
- 		wm_pending = true;
+ 	/* Step 2: DCHUBBUB_GLOBAL_SOFT_RESET=1 */
+-	hwss_add_hubbub_soft_reset(seq_state, dc->res_pool->hubbub, hubbub1_soft_reset, true);
++	hwss_add_hubbub_soft_reset(seq_state, dc->res_pool->hubbub, true);
  
- 	/* clock state B */
--	if (safe_to_lower || watermarks->dcn4x.b.urgent > hubbub2->watermarks.dcn4x.b.urgent) {
--		hubbub2->watermarks.dcn4x.b.urgent = watermarks->dcn4x.b.urgent;
-+	if (safe_to_lower || urgent_b > hubbub2->watermarks.dcn4x.b.urgent) {
-+		hubbub2->watermarks.dcn4x.b.urgent = urgent_b;
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_B, 0,
--				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_B, watermarks->dcn4x.b.urgent);
--	} else if (watermarks->dcn4x.b.urgent < hubbub2->watermarks.dcn4x.b.urgent)
-+				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_B, urgent_b);
-+	} else if (urgent_b < hubbub2->watermarks.dcn4x.b.urgent)
- 		wm_pending = true;
+ 	/* Step 3: Set HUBP_DISABLE=1 for all active pipes */
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+@@ -4186,7 +4185,7 @@ bool dcn401_hw_wa_force_recovery_sequence(struct dc *dc,
+ 	}
  
- 	/* determine the transfer time for a quantity of data for a particular requestor.*/
-@@ -94,11 +103,11 @@ static bool hubbub42_program_urgent_watermarks(
- 		wm_pending = true;
+ 	/* Step 5: DCHUBBUB_GLOBAL_SOFT_RESET=0 */
+-	hwss_add_hubbub_soft_reset(seq_state, dc->res_pool->hubbub, hubbub1_soft_reset, false);
++	hwss_add_hubbub_soft_reset(seq_state, dc->res_pool->hubbub, false);
  
- 	/* clock state C */
--	if (safe_to_lower || watermarks->dcn4x.c.urgent > hubbub2->watermarks.dcn4x.c.urgent) {
--		hubbub2->watermarks.dcn4x.c.urgent = watermarks->dcn4x.c.urgent;
-+	if (safe_to_lower || urgent_c > hubbub2->watermarks.dcn4x.c.urgent) {
-+		hubbub2->watermarks.dcn4x.c.urgent = urgent_c;
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_C, 0,
--				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_C, watermarks->dcn4x.c.urgent);
--	} else if (watermarks->dcn4x.c.urgent < hubbub2->watermarks.dcn4x.c.urgent)
-+				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_C, urgent_c);
-+	} else if (urgent_c < hubbub2->watermarks.dcn4x.c.urgent)
- 		wm_pending = true;
+ 	/* Step 6: Set HUBP_BLANK_EN=0 for all active pipes */
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index 821cd0de7271..9c32418be8f2 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -602,7 +602,6 @@ struct hubp_disable_control_params {
  
- 	/* determine the transfer time for a quantity of data for a particular requestor.*/
-@@ -124,11 +133,11 @@ static bool hubbub42_program_urgent_watermarks(
- 		wm_pending = true;
+ struct hubbub_soft_reset_params {
+ 	struct hubbub *hubbub;
+-	void (*hubbub_soft_reset)(struct hubbub *hubbub, bool reset);
+ 	bool reset;
+ };
  
- 	/* clock state D */
--	if (safe_to_lower || watermarks->dcn4x.d.urgent > hubbub2->watermarks.dcn4x.d.urgent) {
--		hubbub2->watermarks.dcn4x.d.urgent = watermarks->dcn4x.d.urgent;
-+	if (safe_to_lower || urgent_d > hubbub2->watermarks.dcn4x.d.urgent) {
-+		hubbub2->watermarks.dcn4x.d.urgent = urgent_d;
- 		REG_SET(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_D, 0,
--				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_D, watermarks->dcn4x.d.urgent);
--	} else if (watermarks->dcn4x.d.urgent < hubbub2->watermarks.dcn4x.d.urgent)
-+				DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_D, urgent_d);
-+	} else if (urgent_d < hubbub2->watermarks.dcn4x.d.urgent)
- 		wm_pending = true;
+@@ -2416,7 +2415,6 @@ void hwss_add_hubp_disable_control(struct block_sequence_state *seq_state,
  
- 	/* determine the transfer time for a quantity of data for a particular requestor.*/
+ void hwss_add_hubbub_soft_reset(struct block_sequence_state *seq_state,
+ 		struct hubbub *hubbub,
+-		void (*hubbub_soft_reset)(struct hubbub *hubbub, bool reset),
+ 		bool reset);
+ 
+ void hwss_add_hubbub_perfmon_reset(struct block_sequence_state *seq_state,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
+index d68232f10f3e..b33273b61abd 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
+@@ -216,6 +216,8 @@ struct hubbub_funcs {
+ 
+ 	void (*apply_DEDCN21_147_wa)(struct hubbub *hubbub);
+ 
++	void (*soft_reset)(struct hubbub *hubbub, bool reset);
++
+ 	void (*force_wm_propagate_to_pipes)(struct hubbub *hubbub);
+ 
+ 	void (*hubbub_read_state)(struct hubbub *hubbub, struct dcn_hubbub_state *hubbub_state);
 -- 
 2.53.0
 
