@@ -4,90 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3284CC98321
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:39:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09CE2C9832B
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:39:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DAC610F936;
-	Fri, 25 Sep 2026 07:39:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C47C110F907;
+	Fri, 25 Sep 2026 07:39:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="nEBHxuWM";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SB2t3yum";
 	dkim-atps=neutral
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
- [74.125.229.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36C4910E767
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 00:17:21 +0000 (UTC)
-Received: by mail-dy2-f43.google.com with SMTP id
- 5a478bee46e88-340f56c44b0so117605eec.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 17:17:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1790295440; x=1790900240; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bBP41wsUfxAtNYlcp3VvzpWs4GlF6loBq2EU7rP0+w0=;
- b=nEBHxuWMkG1RlK1O/n0yKPpKNkuER/K+op2ydKLEBeVQQBFjFkWnUMScl96MQPuDzK
- s5lZDFJBj1U05D6C0qPsQvIghDYYgjAzraK9alwj9fJE9Tw1WFRLv51Pc73xFV/mXn0E
- KUQgW+28I6iyCj+sPtOt8L3Fu9fgfB4vttIQal6QuEFZLsMEaapZHfdqcGyfPRA8Fbhp
- HD619QRtnsC0q7OHgEa7G3eh1CcMcuUV4u225lN0vBn0Zauq38i3ifyk8MNl4crECg7r
- AWDLCaeAXoQqJjBQtyJZmQnw07hIo/KTGJXRvCA9+m/Uwy0DB5tMiI0fhlaPCMlBDzNY
- bdqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790295440; x=1790900240;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=bBP41wsUfxAtNYlcp3VvzpWs4GlF6loBq2EU7rP0+w0=;
- b=pWoPrhFARx6vTo/sd6hWfMUvInNw6o3li0zjKmlWjiiEjo7pLsr+dTI62MjZwgjEYp
- p1F0aGgkmUX2/iqzq+YqN3PEBvNd0CIsSs0GLqd7tHKW5u8fMZX947kkTHsilwQQ8FcI
- 0/c0uaMkZtFSiN0Xk8bGVjH/3oYJROZbvlq5Q7h+SsBps7QygC6VCwgFFiQgR1UaxcFg
- /Df/E6LUBGkobHCJxZDAH2o5rg7+wKONVbSVXYPCSKZwcRpCu90cUGbKgSAKktIdt8m0
- bePBFtvgDS5UBX93Z/ZgCZUoogK/Bad72e9e59KE5yjSP5d9ZfPqjpyBj9SpnksnUfk4
- 5c5Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx0LeeOvs5K4ULn+sHHZmkMUXA69Z/E6X8R2AwBx/p3nJ+TeSqG23W3FF6VRoJqUEZaYNl6AGad@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ncm7BbVOQu6hYkCQIJSu5fSOGIq118cBFK7iICfAb4rcIJVDDw
- 6TXDUyYP+SJDwlJ7m7wJOo8cIDfSShSC9vJYaz2pCmmEEVzLHVqftN4w30GJQ8HOf8k=
-X-Gm-Gg: AYBFou1SEocKXze4GJC/Wyb2uyC4Dt1pPxhkRRgYGMbrODBMSzj7j5h9fU5Dzwy6FT9
- 7aO1bh6akSxqVfRNX5l8YiFOPmVXl9mYX0xtVW7OvbEfyMaeBaVlYKdJulAaeQqeGNwcnXhmhz/
- ZAMlos3CNuHiHWKqaFIjr2OzsYg1Fvhb5EAOmy+KK1686ECx7JM85UYQWIQDsvxHjwRMpiKvS/1
- hHRjEvaC5upZbsesIA5ey9Mr8LgiIJ2Ost1WxBkbyh6mNJ0gKNdslTlIHcAPzn5sDOa+LIyWRDG
- s7YQcQuCspMNFnl+TvGuRRZ9dmSk2TmmKW/EkIB2g7XowopGWuQv2WWmIChfXHqZxGOkd3wuQ5o
- 2EVhOJ2bMabsuvA7QWp2cIKg8tkztGZJef79rphZRdUNAJ172n36cAJnNpmrbYhTDzfZkP4fUAE
- fWFOvG7tutfgIcmYMfkC6z8zjS4bmtShXUFNDKiuRVu+dr
-X-Received: by 2002:a05:7300:23cd:b0:33b:ebaa:e03b with SMTP id
- 5a478bee46e88-340006437eemr4655606eec.22.1790295440228; 
- Thu, 24 Sep 2026 17:17:20 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3414456b496sm1830997eec.11.2026.09.24.17.17.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Sep 2026 17:17:19 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1x9tcs-00000000j4H-2AoY;
- Thu, 24 Sep 2026 21:17:18 -0300
-Date: Thu, 24 Sep 2026 21:17:18 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Mario Limonciello <superm1@kernel.org>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Joerg Roedel <joro@8bytes.org>, amd-gfx@lists.freedesktop.org,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
- Jatin Kataria <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>
-Subject: Re: [PATCH v2 1/2] iommu/amd: Add PerfOpt IOMMU performance
- optimization support
-Message-ID: <20260925001718.GC163130@ziepe.ca>
-References: <20260908041207.38113-1-mario.limonciello@amd.com>
- <20260908041207.38113-2-mario.limonciello@amd.com>
- <20260924225018.GB16465@ziepe.ca>
- <5a6ba6f3-4d8b-4d67-8e5a-ffbe22126464@kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C38910F62F;
+ Thu, 24 Sep 2026 14:58:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=PgCIPXJGgQ1RoakY6skCKlByw6TKSlJVQY3Ukqu3GWw=; b=SB2t3yum/DllcGimybkq52VHZo
+ EdOA8Zcp/+/bjcL0KAR9OcP8W/JJk1m/hFuyr4UC3rWyJZpda01R95KY6Bix0SXIlMwoDgNz6ZK8m
+ 7BivjE5WvRA9Nl5kIps3CHS+BMSOh7ZBgxGMw6YXKNekfd3EoJFIsu23u9kf22/5iLH2wyARlN0db
+ 3qBjo0Z9IbgGHNtbujYLiAZSR1Gwxz2bt4SNrwS1iF/45q3WeIsCXCRvvW77lw2GUoNZ+qdSa5VkO
+ Z5dHPFg1sgtVCnLtn9dFaTEQjwH07M1tp1fWhB0Q3mpSu9Xzct8NqX4K3D2ShXRSPuwg9pR8wBeT0
+ RDwgFzZQ==;
+Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
+ helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x9kuQ-006hVV-NP; Thu, 24 Sep 2026 16:58:50 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Thu, 24 Sep 2026 11:58:40 -0300
+Subject: [PATCH] drm/amdgpu: make amdgpu_vm_update_funcs commit return void
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5a6ba6f3-4d8b-4d67-8e5a-ffbe22126464@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-amdgpu_vm_update_funcs_commit_void-v1-1-9ad7a8283920@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAKE6tWoC/x3NTQrDIBBA4auEWVdQm6bYq5QiRsd0Fv6gUQohd
+ 69k+W3eO6BiIazwmg4o2KlSigPiNoH9mrghIzcMksuFK3lnJrgtN92DbtmZHbVv0VZtUwi0657
+ Isee6eDE/hFIrhxHKBT39rsn7c55/qbEWJHQAAAA=
+X-Change-ID: 20260923-amdgpu_vm_update_funcs_commit_void-7b6f145199b0
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+X-Mailer: b4 0.16-dev-62088
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:39:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,23 +62,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 07:03:56PM -0500, Mario Limonciello wrote:
-> 
-> 
-> On 9/24/26 5:50 PM, Jason Gunthorpe wrote:
-> > On Mon, Sep 07, 2026 at 11:12:06PM -0500, Mario Limonciello wrote:
-> > > +EXPORT_SYMBOL_GPL(amd_iommu_enable_perfopt);
-> > 
-> > Last time we hardwired the GPU and IOMMU drivers together it was a
-> > huge mess to undo.
-> > 
-> > Why does the GPU driver have to request this? Why can't the iommu
-> > driver know that this is a special device that can use this magic fast
-> > path and then auto set it when identity is asked for?
-> 
-> The reason was to allow an "opt-out" path on the GPU driver.
+As both SDMA and CPU implementations always return 0, they can as well
+just return void.
 
-This seems like a very poor reason for doing this given the past
-negative experiances.
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  8 ++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c  |  8 +++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 11 +++--------
+ 5 files changed, 11 insertions(+), 22 deletions(-)
 
-Jason
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index bb04101b0fb5..09037df76400 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1027,9 +1027,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 			goto error;
+ 	}
+ 
+-	r = vm->update_funcs->commit(&params, &vm->last_update);
+-	if (r)
+-		goto error;
++	vm->update_funcs->commit(&params, &vm->last_update);
+ 
+ 	if (flush_tlb_needed)
+ 		atomic64_inc(&vm->tlb_seq);
+@@ -1243,9 +1241,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		start = tmp;
+ 	}
+ 
+-	r = vm->update_funcs->commit(&params, fence);
+-	if (r)
+-		goto error_free;
++	vm->update_funcs->commit(&params, fence);
+ 
+ 	if (params.needs_flush) {
+ 		amdgpu_vm_tlb_flush(&params, fence, tlb_cb);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index d32183cd9e0f..3b237e78c8a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -332,8 +332,8 @@ struct amdgpu_vm_update_funcs {
+ 	int (*update)(struct amdgpu_vm_update_params *p,
+ 		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
+ 		      unsigned count, uint32_t incr, uint64_t flags);
+-	int (*commit)(struct amdgpu_vm_update_params *p,
+-		      struct dma_fence **fence);
++	void (*commit)(struct amdgpu_vm_update_params *p,
++		       struct dma_fence **fence);
+ };
+ 
+ struct amdgpu_vm_fault_info {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+index b31ff6f56f0d..5c17946632cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+@@ -116,8 +116,8 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_params *p,
+  *
+  * Make sure that the hardware sees the page table updates.
+  */
+-static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
+-				struct dma_fence **fence)
++static void amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
++				 struct dma_fence **fence)
+ {
+ 	struct amdgpu_device *adev = p->adev;
+ 
+@@ -127,12 +127,10 @@ static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
+ 	mb();
+ 	/* A reset flushed the HDP anyway, so that here can be skipped when a reset is ongoing */
+ 	if (!down_read_trylock(&adev->reset_domain->sem))
+-		return 0;
++		return;
+ 
+ 	amdgpu_device_flush_hdp(adev, NULL);
+ 	up_read(&adev->reset_domain->sem);
+-
+-	return 0;
+ }
+ 
+ const struct amdgpu_vm_update_funcs amdgpu_vm_cpu_funcs = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index e43a60d09808..e9622adf1246 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -422,7 +422,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (r)
+ 		goto exit;
+ 
+-	r = vm->update_funcs->commit(&params, NULL);
++	vm->update_funcs->commit(&params, NULL);
+ exit:
+ 	drm_dev_exit(idx);
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 50cc0779c340..9e3ade3cd646 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -100,11 +100,9 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
+  * @p: see amdgpu_vm_update_params definition
+  * @fence: resulting fence
+  *
+- * Returns:
+- * Negativ errno, 0 for success.
+  */
+-static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
+-				 struct dma_fence **fence)
++static void amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
++				  struct dma_fence **fence)
+ {
+ 	struct amdgpu_ib *ib = p->job->ibs;
+ 	struct amdgpu_ring *ring;
+@@ -142,7 +140,6 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
+ 		swap(*fence, f);
+ 	}
+ 	dma_fence_put(f);
+-	return 0;
+ }
+ 
+ /**
+@@ -246,9 +243,7 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 		ndw -= p->job->ibs->length_dw;
+ 
+ 		if (ndw < 32) {
+-			r = amdgpu_vm_sdma_commit(p, NULL);
+-			if (r)
+-				return r;
++			amdgpu_vm_sdma_commit(p, NULL);
+ 
+ 			r = amdgpu_vm_sdma_alloc_job(p, count,
+ 						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
+
+---
+base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+change-id: 20260923-amdgpu_vm_update_funcs_commit_void-7b6f145199b0
+
+Best regards,
+--  
+Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+
