@@ -4,45 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ABAEC9830E
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 11:41:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE126C98317
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 12:33:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9783310F4A4;
-	Thu, 24 Sep 2026 11:41:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4032810E96F;
+	Thu, 24 Sep 2026 12:33:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GLMYVYTK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0AfHyqNY";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0314210E0EC
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 11:40:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=mnDfc6sWPbdmYDivYb2A8J2yaWwfx/bDX98/41yhwjM=; b=GLMYVYTKjUTdWJ57AN4+GIjY2a
- qSuRTey41e3IdYiBJ8vbaCq//NSpiVZC9N42W/QP38xhyVcQD7luSPUAjwCrBxZgheuW/Uek8ANUA
- 4vx5jOeXyyjam9a2guJ1Mw6egkpme1tKWzoQmObKXV7A7GZm8pWwC8LeOHdwsVaBNXmk8MoOgecuF
- N9pBJfTmNIjtBNnVn/7n4aPojwoeq1p+7NxMgWJ1v7KJRKZjpKt/5sV3jiBbEF1694AOzGnEXFVwh
- mfO1MdoYBmcRr+rr9WpNV+BW4tB0uGNYrXLEaEc7vHoPEnhrte3isgw7gMCw0wLmoanGu9bdkoWY7
- WzhRr3TQ==;
-Received: from [81.79.79.1] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x9hou-006ctu-8q; Thu, 24 Sep 2026 13:40:56 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 2/2] drm/amd/display: Simplify debugfs token parsing
-Date: Thu, 24 Sep 2026 12:40:49 +0100
-Message-ID: <20260924114049.55201-3-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924114049.55201-1-tvrtko.ursulin@igalia.com>
-References: <20260924114049.55201-1-tvrtko.ursulin@igalia.com>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012024.outbound.protection.outlook.com [52.101.53.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC6F210E96F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 12:33:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kQEy/JkqHW7a8P9dDDtIP63ssM09sXIh26d9jhSCNibuKh7lMbgzzbUbAEqX3HX/Nsf35DPdyiUnqQ0jY6y/GSmZihhV9wPvVdJf7Nu/9sn1zj314oLZod/FsE0jrzf+Q+qXutvG05p1F++rgUz5kKvMIry+H64j+9PaUMSRDUlKO5e2V9P+4es0ypmrQLxxtMNlfbqvtHEok3IMmLBAgG8qrX6/V50gc4qLt3vj+DFiO9hKMyD6UeB56v+hwki9mE/B6v95Br2qiZaX/R6SmNrj8aurxa5Vo0ljFTVW8gk1lAVmqxJOUfKq1/FLhGFtSM5RxWaN0wWE6esoYTgSKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=daEuXwoBnBo3PfXmF8z1JQvRnDLnrLNxu1xlONxOOWs=;
+ b=twG1nHDFqD7GVsThu7bNY5eItYrZkQMfZfWjCMyllhnJjr/3ihpanwTjf5iZqrbZvl1vn83BIq11t0uT4NYh5X+j8VSOBq6/hXZN2gpOeGMoElp/ZJ/yHiUhO4HZ7wp3RK3vk2BL5Cy2i/bPWhaEEdEVefLZrW1FYIoUvWDhUgv/hauTjoXJzcdmDQum44h+9dnh52FMa1MuypyfU6mCFZweq5/GT8LsJo9tMifz7k1oGBd9FunSRwi8MprCvY92dPxAzynDSRV71jyCD95ATilC9qBopO9OwhK2nhv67u9U3c3hDvGD+u8fRTiOdinihQy2jYBz3gip/mY0iZzopA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=daEuXwoBnBo3PfXmF8z1JQvRnDLnrLNxu1xlONxOOWs=;
+ b=0AfHyqNYGCnUtquUzMIrpa5+f3GRW5aWuXRMoYbfo2RfpD9X+OizrQRVYrMosWT1Q7tG7ft0OcI0XwluW6g0hvKvT0kypyO//jfa8Dpf+UCDN8/Rj8zLvyUKhFsxNXjYVMHIZg5tX4NzRm3+QlKyuzzNRue2OGbEpVSC1arU/ic=
+Received: from BY5PR12MB4179.namprd12.prod.outlook.com (2603:10b6:a03:211::8)
+ by CH3PR12MB8756.namprd12.prod.outlook.com (2603:10b6:610:17f::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 12:33:47 +0000
+Received: from BY5PR12MB4179.namprd12.prod.outlook.com
+ ([fe80::2036:e8b:9b3:f325]) by BY5PR12MB4179.namprd12.prod.outlook.com
+ ([fe80::2036:e8b:9b3:f325%6]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 12:33:46 +0000
+From: "Ma, Bing" <Bing.Ma@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, Alex Deucher
+ <alexdeucher@gmail.com>, =?utf-8?B?VGltdXIgS3Jpc3TDs2Y=?=
+ <timur.kristof@gmail.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
+ Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, 
+ Natalie Vock <nat@pixelcluster.dev>
+Subject: RE: [PATCH 01/12] drm/amdgpu: add profiler UAPI definitions
+Thread-Topic: [PATCH 01/12] drm/amdgpu: add profiler UAPI definitions
+Thread-Index: AQHdSgRBxWDDDp4iM0mpNhY8ii6d37batJYAgAADPYCAAACWgIAABPaAgAAA8ACAAJ0VMIAAcCuAgAHdjAA=
+Date: Thu, 24 Sep 2026 12:33:46 +0000
+Message-ID: <BY5PR12MB4179CE212BA6758723D37142FD812@BY5PR12MB4179.namprd12.prod.outlook.com>
+References: <20260921200313.865829-1-James.Zhu@amd.com>
+ <_Vw-t4UsQJK0Ic5kimqXtw@gmail.com>
+ <d955f3a3-2f90-4e6a-bc9f-579df06e6402@amd.com>
+ <E26TqGhRRCmT_3vybr_f2w@gmail.com>
+ <CADnq5_MhUmRZeDKCVHPvq8z=UbJv3MEJZAOzBXjz5cFm46v_Zw@mail.gmail.com>
+ <678a85fe-e544-4ce9-a19e-b9d71f250750@amd.com>
+ <BY5PR12MB4179CBF382C5DA57975FB8BFFD822@BY5PR12MB4179.namprd12.prod.outlook.com>
+ <7b860b82-aab1-4cc5-ba20-8e4bd3a3a646@amd.com>
+In-Reply-To: <7b860b82-aab1-4cc5-ba20-8e4bd3a3a646@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-24T12:16:47.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY5PR12MB4179:EE_|CH3PR12MB8756:EE_
+x-ms-office365-filtering-correlation-id: 6aa94354-1c0f-4142-7526-08df1a38140e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|366016|376014|38070700021|6133799003|3023799007|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
+x-microsoft-antispam-message-info: fWTJ2aRBn8GLWI9awLZwy7FXafujZoUXoshmVr8BKSDl04PsR17fg/qB4p0mHkrs+NsPUe5pF7IX+mbY4yLH3eKcNtfyB0E6vvJTHK/dLmvHU8UMigQRR+XullQFdSb5FzLUZZbef+yp5qBf+23WoBvTrfKUiicfoPBX4X+5L9wy92ndzFm5mcwIrINM2PeFPW6yxFuoWNaZ3PtNUqyBqQapbFO217rrY7jGeAlayRlLy3qdBjwSypRpSrbBz9uh1vOEbLZeBaq2umZv6mM16Y/VzYcY5cMjZEcQ5UDSva4TmOBZH9cLQI2FTcn6mqhA3TobKuYmXRYv7+LaPYUIqZ5/RQ4SK40o3n+45dJ59ESR8UiX2sOZiWJl7H2pScVRFgaLigG3dHHBUdCGZd3/Pd8dkgNKzNBcXGrtwzSa6kgaJOLAkjVsnSNn2vMVldqk4QZDj7dM/w2EZ4svh+ZzJBhko301fF8ovCofDq5ghXVK/6G+izLkAZqbD6F/AYNHJqrwEcrHYJoAq6MFBcgpFOQJM0kCpwSIhs9JHLon1C3kWiHniNWSmqOjTAvLTY5XWrPm1TnTYFNFjFJVuKV0cFe0H4ehaGIq5WjpKd7EPwXVa1vU1U7C44B/duKvn22qEOcfqTk9vNBZh7YEiE6OGiMW3HkrkAKKKc73o/5VNcxAWLWc7m+yPJhAqhlvLmrjUgQiZsaiV05fzoz40MHUyivbXz9c9294fUjVEiQXCNk=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY5PR12MB4179.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(38070700021)(6133799003)(3023799007)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YmxNMjFKaFE1VzhLMENoTzN1OHhCdkhaZGdoaUNYTVpSblVjcXZ1OUE2MGt5?=
+ =?utf-8?B?dGR2UVhiNTFqR2xGYVdGTTcxK0NDMFErSzhmVTA2UGQ5TlFRSDlZWEJFM3ZJ?=
+ =?utf-8?B?aFN6b0pRNEFuWFptakNBSklBTzdXZEZUU0FmMnlibnB5eURPdHN3TzBRbDhk?=
+ =?utf-8?B?S0ZybC9Namc0ZGdHb29rTnZLbTBuMjF5WDl4alN0WFRLRGovVGZVMEdIZU45?=
+ =?utf-8?B?ellHN1NnOFdKbTV6bDdZaVNDbjM0aE5oOW9qNDV3Y3QrZVBNRGhMYnZuMUVS?=
+ =?utf-8?B?YytOSUV0aW93NVhYQUNqeGNRSHp0Y24zcXFpVHVqYlB6ZFFPeGZPcWVzUXlN?=
+ =?utf-8?B?T0UxN0tGTmZKUFZjOVEyMFFHNm0zczljcitlNjBobjBkTVVweTJNUi9sUVQv?=
+ =?utf-8?B?MGd4Z1BocE1nL2RpOTRFZU9XQnZXZytodTllaGNwdzdlcnZFTC9yaklqdUdS?=
+ =?utf-8?B?a2FucFczaFBaTVJyTjlzMll4MWYvdU9DUE5McVF5cnQ5UVQvenlGLzd4ZWpi?=
+ =?utf-8?B?MHRXeU93eE5SS3NmV0pkTHcwbmdIaDdPcGRlaS95b2h4NFpPNXJpcWpsOUR5?=
+ =?utf-8?B?eDhSYlhWUmhTVmtYeDJrc01naWZZeDgyQzhMR3djMXMxSUJSVVFVWnRFWlBL?=
+ =?utf-8?B?QzVkSlJQWldONENGN3V6R3JBV01yWk9CYzNsSFNvcnc4UHpPdmJtYTdMb3dI?=
+ =?utf-8?B?R0VlelRWMkNBUVNFQ3E2SHB0UElib3RneVJXMkJJcWhkUU1vaGNGckJjT0tS?=
+ =?utf-8?B?a2pCUDNLSmFQVnBsMTFuejY3QnNCSUovRTJkOEtoWVd2WFpWSkZrWmhKcFV1?=
+ =?utf-8?B?S0FRTERvUE5RbGZVMVRzWThCdk9SbVBXdGhjZFZZRjZENytMWFJ0bGlTWHVM?=
+ =?utf-8?B?NTdYcklaNnRETTFyaDBZelNjTmFKSFNKQWtkTDVPZnYvN2drOUxkdlBNSDVV?=
+ =?utf-8?B?Y3h1bHVLN0grSC95SUR1a2x0MW0vaVVhN1lia0RMNVcxZTZGeWtqSnU2R2hS?=
+ =?utf-8?B?Tm1wTVdOdUtLMzgzRUFDNjVqcnB0TlVXUHlxSkdvNUdycTJ1YXRzdkozaDVy?=
+ =?utf-8?B?d1ZwT1J1U25sRmpQU3pIdHIyU2FPUmZFYS83OTRYdElmSDNWYlRUL1hTTk5T?=
+ =?utf-8?B?N2psSkp5cHZMSkpJZGx1RkZsWCtCejNOVVgzR1J0SVZzaWRLZ2taWFNtd2FZ?=
+ =?utf-8?B?dDdDVS9rQXBoNXdRS0RSMUx1OFdRQVE5T2FaVjd2dUFZTkIycy84V2JvdHpF?=
+ =?utf-8?B?dUljTjdCZkV2UnMzOFJQckUzNStZRVo5bW9hcDRyd0l6SERZbmNsc3VJUlhQ?=
+ =?utf-8?B?aFFBdnFieDJ6dVdpLzdBaEJHVXNWYmtFN2pnWGtISHE4d3NhS3JhS29QemFn?=
+ =?utf-8?B?bC9QQ3BCc1k3Y1JGKzlkaThobW9JSGhOWXh0MUZnYVFTS3dHQ0lLNFl2cENX?=
+ =?utf-8?B?S0owbDUyUC95Qm9QdG01REMwckdybGw0b2oyRURaZHBRdEc3ZDQ2YkFjZHV0?=
+ =?utf-8?B?bXgxL01IQ3hXQ2l5YkZ2VmtNTlpSN0JVdm9ydFRXZERMUStNdE9taE1mdnJx?=
+ =?utf-8?B?dmxTR2ZIR09XbnFTb1hPOHJ3WnEyY0pDalJHeTRRRXE5VThkQ0NKcGY2VnJR?=
+ =?utf-8?B?c2sxaGFKdm8zQ0pod2dnejNqbGdZN0VLeEM1YU55U256ZzIrT0QxNXpiMXh0?=
+ =?utf-8?B?MS9EaE91Zzh4bzlJbDdmUzdhTW9YNkZDd3ZMdlJudWswMXpFTDFNQWpPTkdz?=
+ =?utf-8?B?OU1YYjM4RVgvdEpVdVJieEprbXBUN1BQRmVjQzF0dm9ZVUlQZGlVdGF0Tk1n?=
+ =?utf-8?B?RkhlTGhjSVpvUkliL29KSkVpQzQrT2dWTG1mWTBSd053YTVRTGlZNC9Rc0Qz?=
+ =?utf-8?B?b01DVW9HdzhqU1dlcncveVdFZVUrTi9SL2ZkY3R4Tks3YXpxaDJJdW9jTU9Z?=
+ =?utf-8?B?eVgxNmFrQXRhenIrYVREbEppMDI4dzk5ZlEzNSt1VDJEcXQxSmtaOTZJWU1H?=
+ =?utf-8?B?TUcybitVOXdhN0o5bW4yeEJMRXlOT3dnWWVLRjM5QnFZWEs5RGZ6REpqYlM4?=
+ =?utf-8?B?VXZMYm5QaThvc0pGTUN4MllGeU00MXJFVHVPRHo3YndvRlJNOEVNdFhtY0Rw?=
+ =?utf-8?B?VG5NYlN4QnEzYVVTWlNMT3U3NlNJUkx1L2tCTENvSDlxMGxaZVJ0TU5OMzNE?=
+ =?utf-8?B?TUVVZS9yWkE3MXdXQ2tSNGpacFBoMXZBWkRaZ3hiMmN5Z0c0RGhNV3pmcDVh?=
+ =?utf-8?B?akhXaHlVMUMvM1R5RU1jamdlbERYRnBFUlRrUS9qYXZET0hkSURQQ1ZpM0JR?=
+ =?utf-8?Q?hBC6P2sVTN+TsS5HwW?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB4179.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6aa94354-1c0f-4142-7526-08df1a38140e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 12:33:46.6556 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xCpn2G8cKMdfTHZBged8somNn0Th3zwGppPqT6t1WYXXAD+JbnTg8Jfeq/FDWLePLFV8J/zgBmbjQbdVypelLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8756
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,905 +151,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The current token parsing is complicated, conflicting with itself, and
-results in a lot of duplicated code throughout.
-
-Lets simplify it by replacing the two pass (count arguments + parse them)
-with a single strsep driven pass. The current two passes disagree on the
-set of separators and this makes it consistent.
-
-Then we also pull all of the repeated boiler plate into the helper -
-buffer allocation, copying, checking pre- and post-conditions. This
-removes a lot of the error handling from all the callers.
-
-There are some behavioural differences though.
-
- * Before tabs were counted as separators but never split on. Now they
-   become full separators.
-
- * Previously argument counting stopped on a newline but parsing was
-   considering them as separators. Now they are always considered
-   separators.
-
- * kstrotol failures used to be logged but assumed zero argument. Now the
-   code errors out.
-
- * dp_dsc_passthrough_set had no error handling and writes with no
-   parameters but not otherwise invalid would silently result in a
-   successful disable of dsc_force_disable_passthrough. Now the debugfs
-   write would fail.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Timur Kristóf <timur.kristof@gmail.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 549 +++++-------------
- 1 file changed, 131 insertions(+), 418 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 969e1361a5da..85807d0d04be 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -67,74 +67,49 @@ static const char *const mst_progress_status[] = {
- 	"clear_allocated_payload",
- };
- 
--/* parse_write_buffer_into_params - Helper function to parse debugfs write buffer into an array
-+/* parse_params - Helper function to parse debugfs write buffer into an array
-  *
-- * Function takes in attributes passed to debugfs write entry
-- * and writes into param array.
-- * The user passes max_param_num to identify maximum number of
-- * parameters that could be parsed.
-+ * Function takes in attributes passed to debugfs write entry and writes into
-+ * param array.
-  *
-+ * The user passes max_param_num to identify maximum number of parameters that
-+ * could be parsed.
-+ *
-+ * Returns zero on success or a negative error code.
-  */
--static int parse_write_buffer_into_params(char *wr_buf, uint32_t wr_buf_size,
--					  long *param, int max_param_num,
--					  uint8_t *param_nums)
-+static int parse_params(const char __user *ubuf, size_t size,
-+			long *param, unsigned int max_params)
- {
--	char *wr_buf_ptr = NULL;
--	uint32_t wr_buf_count = 0;
--	int r;
--	char *sub_str = NULL;
--	const char delimiter[3] = {' ', '\n', '\0'};
--	uint8_t param_index = 0;
--
--	*param_nums = 0;
--
--	wr_buf_ptr = wr_buf;
--
--	/* check number of parameters. isspace could not differ space and \n */
--	while ((*wr_buf_ptr != 0xa) && (wr_buf_count < wr_buf_size)) {
--		/* skip space*/
--		while (isspace(*wr_buf_ptr) && (wr_buf_count < wr_buf_size)) {
--			wr_buf_ptr++;
--			wr_buf_count++;
--			}
--
--		if (wr_buf_count == wr_buf_size)
--			break;
-+	char *buf, *tmp, *token;
-+	unsigned int i;
- 
--		/* skip non-space*/
--		while ((!isspace(*wr_buf_ptr)) && (wr_buf_count < wr_buf_size)) {
--			wr_buf_ptr++;
--			wr_buf_count++;
--		}
-+	if (size == 0)
-+		return -EINVAL;
- 
--		(*param_nums)++;
-+	buf = memdup_user_nul(ubuf, size);
-+	if (IS_ERR(buf))
-+		return PTR_ERR(buf);
- 
--		if (wr_buf_count == wr_buf_size)
--			break;
--	}
-+	i = 0;
-+	tmp = buf;
-+	while ((token = strsep(&tmp, " \t\r\n")) != NULL) {
-+		int ret;
- 
--	if (*param_nums > max_param_num)
--		*param_nums = max_param_num;
-+		if (!*token)
-+			continue;
- 
--	wr_buf_ptr = wr_buf; /* reset buf pointer */
--	wr_buf_count = 0; /* number of char already checked */
-+		if (i == max_params)
-+			break;
- 
--	while (isspace(*wr_buf_ptr) && (wr_buf_count < wr_buf_size)) {
--		wr_buf_ptr++;
--		wr_buf_count++;
-+		ret = kstrtol(token, 16, &param[i++]);
-+		if (ret)
-+			return ret;
- 	}
- 
--	while (param_index < *param_nums) {
--		/* after strsep, wr_buf_ptr will be moved to after space */
--		sub_str = strsep(&wr_buf_ptr, delimiter);
-+	if (!i)
-+		return -EINVAL;
- 
--		r = kstrtol(sub_str, 16, &(param[param_index]));
--
--		if (r)
--			DRM_DEBUG_DRIVER("string to int convert error code: %d\n", r);
--
--		param_index++;
--	}
-+	kfree(buf);
- 
- 	return 0;
- }
-@@ -248,36 +223,18 @@ static ssize_t dp_link_settings_write(struct file *f, const char __user *buf,
- 				 size_t size, loff_t *pos)
- {
- 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
--	struct dc_link *link = connector->dc_link;
- 	struct amdgpu_device *adev = drm_to_adev(connector->base.dev);
--	struct dc *dc = (struct dc *)link->dc;
- 	struct dc_link_settings prefer_link_settings = {0};
--	const uint32_t wr_buf_size = 40;
-+	struct dc_link *link = connector->dc_link;
-+	struct dc *dc = (struct dc *)link->dc;
-+	bool valid_input = true;
- 	/* 0: lane_count; 1: link_rate */
--	int max_param_num = 2;
--	uint8_t param_nums = 0;
- 	long param[2];
--	char *wr_buf;
--	bool valid_input = true;
-+	int r;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		kfree(wr_buf);
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, param, 2);
-+	if (r)
-+		return r;
- 
- 	switch (param[0]) {
- 	case LANE_COUNT_ONE:
-@@ -308,7 +265,6 @@ static ssize_t dp_link_settings_write(struct file *f, const char __user *buf,
- 	}
- 
- 	if (!valid_input) {
--		kfree(wr_buf);
- 		DRM_DEBUG_DRIVER("Invalid Input value No HW will be programmed\n");
- 		mutex_lock(&adev->dm.dc_lock);
- 		dc_link_set_preferred_training_settings(dc, NULL, NULL, link, false);
-@@ -328,7 +284,6 @@ static ssize_t dp_link_settings_write(struct file *f, const char __user *buf,
- 	dc_link_set_preferred_training_settings(dc, &prefer_link_settings, NULL, link, false);
- 	mutex_unlock(&adev->dm.dc_lock);
- 
--	kfree(wr_buf);
- 	return size;
- }
- 
-@@ -380,39 +335,21 @@ static ssize_t dp_mst_link_setting(struct file *f, const char __user *buf,
- 				 size_t size, loff_t *pos)
- {
- 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
--	struct dc_link *link = aconnector->dc_link;
- 	struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
--	struct dc *dc = (struct dc *)link->dc;
- 	struct dc_link_settings prefer_link_settings = {0};
--	const uint32_t wr_buf_size = 40;
-+	struct dc_link *link = aconnector->dc_link;
-+	struct dc *dc = (struct dc *)link->dc;
- 	/* 0: lane_count; 1: link_rate */
--	int max_param_num = 2;
--	uint8_t param_nums = 0;
--	long param[2];
--	char *wr_buf;
- 	bool valid_input = true;
-+	long param[2];
-+	int r;
- 
- 	if (!dp_mst_is_end_device(aconnector))
- 		return -EINVAL;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		kfree(wr_buf);
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, param, 2);
-+	if (r)
-+		return r;
- 
- 	switch (param[0]) {
- 	case LANE_COUNT_ONE:
-@@ -440,7 +377,6 @@ static ssize_t dp_mst_link_setting(struct file *f, const char __user *buf,
- 	}
- 
- 	if (!valid_input) {
--		kfree(wr_buf);
- 		DRM_DEBUG_DRIVER("Invalid Input value No HW will be programmed\n");
- 		mutex_lock(&adev->dm.dc_lock);
- 		dc_link_set_preferred_training_settings(dc, NULL, NULL, link, false);
-@@ -473,7 +409,6 @@ static ssize_t dp_mst_link_setting(struct file *f, const char __user *buf,
- 	mutex_unlock(&aconnector->base.dev->mode_config.mutex);
- 	drm_kms_helper_hotplug_event(aconnector->base.dev);
- 
--	kfree(wr_buf);
- 	return size;
- }
- 
-@@ -599,41 +534,20 @@ static ssize_t dp_phy_settings_write(struct file *f, const char __user *buf,
- 				 size_t size, loff_t *pos)
- {
- 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
--	struct dc_link *link = connector->dc_link;
--	struct dc *dc = (struct dc *)link->dc;
--	uint32_t wr_buf_size = 40;
--	long param[3];
--	bool use_prefer_link_setting;
- 	struct link_training_settings link_lane_settings = {0};
--	int max_param_num = 3;
--	uint8_t param_nums = 0;
--	char *wr_buf;
--	int r = 0;
--
--
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		kfree(wr_buf);
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		return -EINVAL;
--	}
-+	struct dc_link *link = connector->dc_link;
-+	struct dc *dc = (struct dc *)link->dc;
-+	bool use_prefer_link_setting;
-+	long param[3];
-+	int r;
-+
-+	r = parse_params(buf, size, param, 3);
-+	if (r)
-+		return r;
- 
- 	if ((param[0] > VOLTAGE_SWING_MAX_LEVEL) ||
- 			(param[1] > PRE_EMPHASIS_MAX_LEVEL) ||
- 			(param[2] > POST_CURSOR2_MAX_LEVEL)) {
--		kfree(wr_buf);
- 		DRM_DEBUG_DRIVER("Invalid Input No HW will be programmed\n");
- 		return size;
- 	}
-@@ -674,7 +588,6 @@ static ssize_t dp_phy_settings_write(struct file *f, const char __user *buf,
- 	/* program ASIC registers and DPCD registers */
- 	dc_link_set_drive_settings(dc, &link_lane_settings, link);
- 
--	kfree(wr_buf);
- 	return size;
- }
- 
-@@ -740,47 +653,25 @@ static ssize_t dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
- 				 size_t size, loff_t *pos)
- {
- 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
--	struct dc_link *link = connector->dc_link;
--	uint32_t wr_buf_size = 100;
--	long param[11] = {0x0};
--	int max_param_num = 11;
-+	struct dc_link_settings prefer_link_settings =
-+		{LANE_COUNT_UNKNOWN, LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
-+	struct dc_link_settings cur_link_settings =
-+		{LANE_COUNT_UNKNOWN, LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
- 	enum dp_test_pattern test_pattern = DP_TEST_PATTERN_UNSUPPORTED;
--	bool disable_hpd = false;
-+	struct dc_link *link = connector->dc_link;
- 	bool supports_hpd = link->irq_source_hpd != DC_IRQ_SOURCE_INVALID;
--	bool valid_test_pattern = false;
--	uint8_t param_nums = 0;
- 	/* init with default 80bit custom pattern */
--	uint8_t custom_pattern[10] = {
--			0x1f, 0x7c, 0xf0, 0xc1, 0x07,
--			0x1f, 0x7c, 0xf0, 0xc1, 0x07
--			};
--	struct dc_link_settings prefer_link_settings = {LANE_COUNT_UNKNOWN,
--			LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
--	struct dc_link_settings cur_link_settings = {LANE_COUNT_UNKNOWN,
--			LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
-+	uint8_t custom_pattern[10] = { 0x1f, 0x7c, 0xf0, 0xc1, 0x07,
-+				       0x1f, 0x7c, 0xf0, 0xc1, 0x07 };
- 	struct link_training_settings link_training_settings = {0};
--	char *wr_buf;
--	int i;
--
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		kfree(wr_buf);
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		return -EINVAL;
--	}
--
-+	bool valid_test_pattern = false;
-+	bool disable_hpd = false;
-+	long param[11] = {0x0};
-+	int i, r;
-+
-+	r = parse_params(buf, size, param, 11);
-+	if (r)
-+		return r;
- 
- 	test_pattern = param[0];
- 
-@@ -811,7 +702,6 @@ static ssize_t dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
- 	}
- 
- 	if (!valid_test_pattern) {
--		kfree(wr_buf);
- 		DRM_DEBUG_DRIVER("Invalid Test Pattern Parameters\n");
- 		return size;
- 	}
-@@ -878,8 +768,6 @@ static ssize_t dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
- 	if (valid_test_pattern && supports_hpd && disable_hpd)
- 		dc_link_disable_hpd(link);
- 
--	kfree(wr_buf);
--
- 	return size;
- }
- 
-@@ -1185,29 +1073,15 @@ static ssize_t dp_dsc_passthrough_set(struct file *f, const char __user *buf,
- 				 size_t size, loff_t *pos)
- {
- 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
--	uint32_t wr_buf_size = 42;
--	int max_param_num = 1;
- 	long param;
--	uint8_t param_nums = 0;
--	char *wr_buf;
-+	int r;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   &param, max_param_num,
--					   &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, &param, 1);
-+	if (r)
-+		return r;
- 
- 	aconnector->dsc_settings.dsc_force_disable_passthrough = param;
- 
--	kfree(wr_buf);
- 	return 0;
- }
- 
-@@ -1440,40 +1314,20 @@ static ssize_t trigger_hotplug(struct file *f, const char __user *buf,
- 							size_t size, loff_t *pos)
- {
- 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
--	struct drm_connector *connector = &aconnector->base;
--	struct dc_link *link = NULL;
--	struct drm_device *dev = connector->dev;
--	struct amdgpu_device *adev = drm_to_adev(dev);
- 	enum dc_connection_type new_connection_type = dc_connection_none;
--	uint32_t wr_buf_size = 42;
--	int max_param_num = 1;
-+	struct drm_connector *connector = &aconnector->base;
-+	struct drm_device *dev = connector->dev;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct dc_link *link = NULL;
- 	long param[1] = {0};
--	uint8_t param_nums = 0;
--	bool ret = false;
--	char *wr_buf;
-+	int r;
- 
- 	if (!aconnector->dc_link)
- 		return -EINVAL;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	kfree(wr_buf);
--
--	if (param_nums <= 0) {
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, param, 1);
-+	if (r)
-+		return r;
- 
- 	mutex_lock(&aconnector->hpd_lock);
- 
-@@ -1484,6 +1338,7 @@ static ssize_t trigger_hotplug(struct file *f, const char __user *buf,
- 	}
- 
- 	if (param[0] == 1) {
-+		bool ret;
- 
- 		if (!dc_link_detect_connection_type(aconnector->dc_link, &new_connection_type) &&
- 			new_connection_type != dc_connection_none)
-@@ -1637,34 +1492,15 @@ static ssize_t dp_dsc_clock_en_write(struct file *f, const char __user *buf,
- 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
- 	struct drm_connector *connector = &aconnector->base;
- 	struct drm_device *dev = connector->dev;
--	struct drm_crtc *crtc = NULL;
--	struct dm_crtc_state *dm_crtc_state = NULL;
-+	struct dm_crtc_state *dm_crtc_state;
- 	struct pipe_ctx *pipe_ctx;
--	int i;
--	uint32_t wr_buf_size = 42;
--	int max_param_num = 1;
-+	struct drm_crtc *crtc;
- 	long param[1] = {0};
--	uint8_t param_nums = 0;
--	char *wr_buf;
-+	int i, r;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		kfree(wr_buf);
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, param, 1);
-+	if (r)
-+		return r;
- 
- 	for (i = 0; i < MAX_PIPES; i++) {
- 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
-@@ -1676,7 +1512,7 @@ static ssize_t dp_dsc_clock_en_write(struct file *f, const char __user *buf,
- 	}
- 
- 	if (!pipe_ctx->stream)
--		goto done;
-+		return size;
- 
- 	// Get CRTC state
- 	mutex_lock(&dev->mode_config.mutex);
-@@ -1712,8 +1548,6 @@ static ssize_t dp_dsc_clock_en_write(struct file *f, const char __user *buf,
- 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
- 	mutex_unlock(&dev->mode_config.mutex);
- 
--done:
--	kfree(wr_buf);
- 	return size;
- }
- 
-@@ -1814,36 +1648,17 @@ static ssize_t dp_dsc_slice_width_write(struct file *f, const char __user *buf,
- 				     size_t size, loff_t *pos)
- {
- 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
--	struct pipe_ctx *pipe_ctx;
- 	struct drm_connector *connector = &aconnector->base;
- 	struct drm_device *dev = connector->dev;
--	struct drm_crtc *crtc = NULL;
--	struct dm_crtc_state *dm_crtc_state = NULL;
--	int i;
--	uint32_t wr_buf_size = 42;
--	int max_param_num = 1;
-+	struct dm_crtc_state *dm_crtc_state;
-+	struct pipe_ctx *pipe_ctx;
-+	struct drm_crtc *crtc;
- 	long param[1] = {0};
--	uint8_t param_nums = 0;
--	char *wr_buf;
-+	int i, r;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		kfree(wr_buf);
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, param, 1);
-+	if (r)
-+		return r;
- 
- 	for (i = 0; i < MAX_PIPES; i++) {
- 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
-@@ -1855,7 +1670,7 @@ static ssize_t dp_dsc_slice_width_write(struct file *f, const char __user *buf,
- 	}
- 
- 	if (!pipe_ctx->stream)
--		goto done;
-+		return size;
- 
- 	// Safely get CRTC state
- 	mutex_lock(&dev->mode_config.mutex);
-@@ -1891,8 +1706,6 @@ static ssize_t dp_dsc_slice_width_write(struct file *f, const char __user *buf,
- 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
- 	mutex_unlock(&dev->mode_config.mutex);
- 
--done:
--	kfree(wr_buf);
- 	return size;
- }
- 
-@@ -1995,34 +1808,15 @@ static ssize_t dp_dsc_slice_height_write(struct file *f, const char __user *buf,
- 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
- 	struct drm_connector *connector = &aconnector->base;
- 	struct drm_device *dev = connector->dev;
--	struct drm_crtc *crtc = NULL;
--	struct dm_crtc_state *dm_crtc_state = NULL;
-+	struct dm_crtc_state *dm_crtc_state;
- 	struct pipe_ctx *pipe_ctx;
--	int i;
--	uint32_t wr_buf_size = 42;
--	int max_param_num = 1;
--	uint8_t param_nums = 0;
-+	struct drm_crtc *crtc;
- 	long param[1] = {0};
--	char *wr_buf;
-+	int i, r;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		kfree(wr_buf);
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, param, 1);
-+	if (r)
-+		return r;
- 
- 	for (i = 0; i < MAX_PIPES; i++) {
- 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
-@@ -2034,7 +1828,7 @@ static ssize_t dp_dsc_slice_height_write(struct file *f, const char __user *buf,
- 	}
- 
- 	if (!pipe_ctx->stream)
--		goto done;
-+		return size;
- 
- 	// Get CRTC state
- 	mutex_lock(&dev->mode_config.mutex);
-@@ -2070,8 +1864,6 @@ static ssize_t dp_dsc_slice_height_write(struct file *f, const char __user *buf,
- 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
- 	mutex_unlock(&dev->mode_config.mutex);
- 
--done:
--	kfree(wr_buf);
- 	return size;
- }
- 
-@@ -2167,34 +1959,15 @@ static ssize_t dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
- 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
- 	struct drm_connector *connector = &aconnector->base;
- 	struct drm_device *dev = connector->dev;
--	struct drm_crtc *crtc = NULL;
--	struct dm_crtc_state *dm_crtc_state = NULL;
-+	struct dm_crtc_state *dm_crtc_state;
- 	struct pipe_ctx *pipe_ctx;
--	int i;
--	uint32_t wr_buf_size = 42;
--	int max_param_num = 1;
--	uint8_t param_nums = 0;
-+	struct drm_crtc *crtc;
- 	long param[1] = {0};
--	char *wr_buf;
-+	int i, r;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		kfree(wr_buf);
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, param, 1);
-+	if (r)
-+		return r;
- 
- 	for (i = 0; i < MAX_PIPES; i++) {
- 		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
-@@ -2206,7 +1979,7 @@ static ssize_t dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
- 	}
- 
- 	if (!pipe_ctx->stream)
--		goto done;
-+		return size;
- 
- 	// Get CRTC state
- 	mutex_lock(&dev->mode_config.mutex);
-@@ -2237,8 +2010,6 @@ static ssize_t dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
- 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
- 	mutex_unlock(&dev->mode_config.mutex);
- 
--done:
--	kfree(wr_buf);
- 	return size;
- }
- 
-@@ -2592,36 +2363,17 @@ static ssize_t dp_max_bpc_write(struct file *f, const char __user *buf,
- {
- 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
- 	struct drm_connector *connector = &aconnector->base;
--	struct dm_connector_state *state;
- 	struct drm_device *dev = connector->dev;
--	uint32_t wr_buf_size = 42;
--	int max_param_num = 1;
-+	struct dm_connector_state *state;
- 	long param[1] = {0};
--	uint8_t param_nums = 0;
--	char *wr_buf;
-+	int r;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		kfree(wr_buf);
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, param, 1);
-+	if (r)
-+		return r;
- 
- 	if (param[0] < 6 || param[0] > 16) {
- 		DRM_DEBUG_DRIVER("bad max_bpc value\n");
--		kfree(wr_buf);
- 		return -EINVAL;
- 	}
- 
-@@ -2637,7 +2389,6 @@ static ssize_t dp_max_bpc_write(struct file *f, const char __user *buf,
- 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
- 	mutex_unlock(&dev->mode_config.mutex);
- 
--	kfree(wr_buf);
- 	return size;
- }
- 
-@@ -2959,31 +2710,13 @@ static ssize_t hdmi_automation_enable(struct file *f, const char __user *buf,
- 	size_t size, loff_t *pos)
- {
- 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
--	const uint32_t wr_buf_size = 40;
--	int max_param_num = 1;
--	uint8_t param_nums = 0;
- 	bool hdmi_comp_auto;
--	long param[2];
--	char *wr_buf;
-+	long param[1] = {};
-+	int r;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		kfree(wr_buf);
--		DRM_DEBUG_DRIVER("user data not be read\n");
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, param, 1);
-+	if (r)
-+		return r;
- 
- 	switch (param[0]) {
- 	case 0:
-@@ -2998,7 +2731,6 @@ static ssize_t hdmi_automation_enable(struct file *f, const char __user *buf,
- 	/* Persist setting across sink re-detection/hotplug. */
- 	aconnector->hdmi_comp_auto = hdmi_comp_auto;
- 
--	kfree(wr_buf);
- 	return size;
- }
- 
-@@ -3768,39 +3500,22 @@ static ssize_t edp_ilr_write(struct file *f, const char __user *buf,
- 				 size_t size, loff_t *pos)
- {
- 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
--	struct dc_link *link = connector->dc_link;
- 	struct amdgpu_device *adev = drm_to_adev(connector->base.dev);
--	struct dc *dc = (struct dc *)link->dc;
- 	struct dc_link_settings prefer_link_settings;
--	const uint32_t wr_buf_size = 40;
--	/* 0: lane_count; 1: link_rate */
--	int max_param_num = 2;
--	uint8_t param_nums = 0;
--	long param[2];
--	bool valid_input = true;
--	uint8_t supported_link_rates[16] = {0};
--	uint32_t entry = 0;
-+	struct dc_link *link = connector->dc_link;
-+	struct dc *dc = (struct dc *)link->dc;
-+	uint8_t supported_link_rates[16] = {};
- 	uint32_t link_rate_in_khz = 0;
-+	/* 0: lane_count; 1: link_rate */
-+	bool valid_input = true;
- 	uint8_t dpcd_rev = 0;
--	char *wr_buf;
-+	uint32_t entry = 0;
-+	long param[2];
-+	int r;
- 
--	if (size == 0)
--		return -EINVAL;
--
--	wr_buf = memdup_user_nul(buf, wr_buf_size);
--	if (IS_ERR(wr_buf))
--		return PTR_ERR(wr_buf);
--
--	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
--					   param, max_param_num, &param_nums)) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
--
--	if (param_nums <= 0) {
--		kfree(wr_buf);
--		return -EINVAL;
--	}
-+	r = parse_params(buf, size, param, 2);
-+	if (r)
-+		return r;
- 
- 	switch (param[0]) {
- 	case LANE_COUNT_ONE:
-@@ -3816,7 +3531,6 @@ static ssize_t edp_ilr_write(struct file *f, const char __user *buf,
- 		valid_input = false;
- 
- 	if (!valid_input) {
--		kfree(wr_buf);
- 		DRM_DEBUG_DRIVER("Invalid Input value. No HW will be programmed\n");
- 		prefer_link_settings.use_link_rate_set = false;
- 		mutex_lock(&adev->dm.dc_lock);
-@@ -3853,7 +3567,6 @@ static ssize_t edp_ilr_write(struct file *f, const char __user *buf,
- 						NULL, link, false);
- 	mutex_unlock(&adev->dm.dc_lock);
- 
--	kfree(wr_buf);
- 	return size;
- }
- 
--- 
-2.55.0
-
+QU1EIEdlbmVyYWwNCg0KSGkgQ2hyaXN0aWFuLA0KDQo+PiBUaGF0IHdpbGwgcHJvYmFibHkgdGFr
+ZSBhIGNvdWxwbGUgb2YgbW9udGggaWYgbm90IHllYXJzIHRvIGJlIGNvbXBsZXRlZC4NCklmIHNv
+LCBST0NtIFNQTSBzdXBwb3J0IHdpbGwgYmUgaW1wYWN0ZWQgYmVjYXVzZSBST0NQcm9maWxlciBj
+YW5ub3QgdXNlIHRoZSBHcmFwaGljcyBwYXRoIGZvciB0aGUgcmVhc29ucyBJIGxpc3RlZCBiZWxv
+dy4gSSBhbSBub3QgdGhlIG9uZSB3aG8gY2FuIGRlY2lkZSB0byByZW1vdmUgdGhpcyBzdXBwb3J0
+Lg0KDQo+PiBTaW5jZSB0aGlzIGhlcmUgaXMgY2xlYXJseSBicmVha2luZyB0aGUgYWxyZWFkeSBl
+eGlzdGluZyBTUE0gc3VwcG9ydCBmb3IgR3JhcGhpY3MgSSBoYXZlIHRvIGZ1bmRhbWVudGFsbHkg
+cmVqZWN0IHRoZSBST0NtIFNQTSBhcHByb2FjaC4NCk90aGVyIHRoYW4gdGhlIGV4Y2x1c2l2ZSBj
+aGVjayAodG8gbWFrZSBzdXJlIG9ubHkgb25lIFNQTSBzdXBwb3J0IHBhdGgsIGVpdGhlciByb2Ny
+IG9yIHBhbCwgaXMgYWN0aXZlKSwgdGhlIFJPQ20gU1BNIGNvZGUgcGF0aCAoS0ZEICsgYW1kZ3B1
+X2FtZGtmZCkgZG9lcyBub3QgaW50ZXJmZXJlIHdpdGggdGhlIGV4aXN0aW5nIFNQTSBzdXBwb3J0
+IGZvciBHcmFwaGljcy4NCg0KPj4gSSdtIG5vdCBzdXJlIHdoeSB0aGUgUk9DbSBTUE0gcGF0Y2hl
+cyB3ZXJlIGRldmVsb3BlZCBpbiB0aGUgZmlyc3QgcGxhY2UsIHdpdGggdGhlIGFwcHJvYWNoIHRh
+a2luZyBpbiB0aGF0IHBhdGNoZXMgaGVyZSB0aGF0IGZlYXR1cmUgaXMgY2xlYXJseSBub3QgZ29p
+bmcgdG8gZmx5Lg0KUk9DbSBTUE0gc3VwcG9ydCBoYXMgZXhpc3RlZCBmb3IgbWFueSB5ZWFycyBv
+biBES01TLCBGZWxpeCBoYXMgb3JpZ2luYWxseSBkZXZlbG9wZWQgaXQgYWxvbmcgd2l0aCBST0NQ
+cm9maWxlciB0ZWFtLiBJdCBpcyBub3QgYSBuZXcgcGF0Y2guIEZvciB0aGUgZXhpc3RpbmcgYXJj
+aGl0ZWN0dXJlIHdlIGFyZSB1c2luZyBub3csIHdlIHVzZSBLRkQgaW9jdGwgaW5zdGVhZCBvZiBh
+bWRncHUgaW9jdGwuIEtHRCBzdXBwb3J0IGlzIHRocm91Z2ggYW1kZ3B1X2FtZGtmZCBpbnRlcmZh
+Y2UuIFRoZSBmZWF0dXJlIGlzIGN1cnJlbnRseSBlbmFibGVkIGFuZCBmdW5jdGlvbmFsLg0KDQpC
+ZXN0LA0KDQpCaW5nDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBLb2VuaWcs
+IENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KU2VudDogV2VkbmVzZGF5LCBT
+ZXB0ZW1iZXIgMjMsIDIwMjYgMTI6NDggQU0NClRvOiBNYSwgQmluZyA8QmluZy5NYUBhbWQuY29t
+PjsgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+OyBUaW11ciBLcmlzdMOzZiA8
+dGltdXIua3Jpc3RvZkBnbWFpbC5jb20+DQpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmc7IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IFpodSwg
+SmFtZXMgPEphbWVzLlpodUBhbWQuY29tPjsgTmF0YWxpZSBWb2NrIDxuYXRAcGl4ZWxjbHVzdGVy
+LmRldj4NClN1YmplY3Q6IFJlOiBbUEFUQ0ggMDEvMTJdIGRybS9hbWRncHU6IGFkZCBwcm9maWxl
+ciBVQVBJIGRlZmluaXRpb25zDQoNCkhpIEJpbmcsDQoNCnRoYXQgd29uJ3Qgd29yayBsaWtlIHRo
+aXMuIFRoZSBNRVMgaW50ZWdyYXRpb24gaXMgcGFydCBvZiB0aGUgdXBjb21taW5nIEtGRC9LR0Qg
+dW5pZmljYXRpb24uDQoNClRoYXQgd2lsbCBwcm9iYWJseSB0YWtlIGEgY291bHBsZSBvZiBtb250
+aCBpZiBub3QgeWVhcnMgdG8gYmUgY29tcGxldGVkLg0KDQpTaW5jZSB0aGlzIGhlcmUgaXMgY2xl
+YXJseSBicmVha2luZyB0aGUgYWxyZWFkeSBleGlzdGluZyBTUE0gc3VwcG9ydCBmb3IgR3JhcGhp
+Y3MgSSBoYXZlIHRvIGZ1bmRhbWVudGFsbHkgcmVqZWN0IHRoZSBST0NtIFNQTSBhcHByb2FjaC4N
+Cg0KSSdtIG5vdCBzdXJlIHdoeSB0aGUgUk9DbSBTUE0gcGF0Y2hlcyB3ZXJlIGRldmVsb3BlZCBp
+biB0aGUgZmlyc3QgcGxhY2UsIHdpdGggdGhlIGFwcHJvYWNoIHRha2luZyBpbiB0aGF0IHBhdGNo
+ZXMgaGVyZSB0aGF0IGZlYXR1cmUgaXMgY2xlYXJseSBub3QgZ29pbmcgdG8gZmx5Lg0KDQpJIHdp
+bGwgc3luYyB1cCB3aXRoIEplbm55IGFuZCBBbGV4IG9uIHRoaXMuDQoNClJlZ2FyZHMsDQpDaHJp
+c3RpYW4uDQoNCk9uIDkvMjMvMjYgMDM6MjAsIE1hLCBCaW5nIHdyb3RlOg0KPiBBTUQgR2VuZXJh
+bA0KPg0KPiBIaSBDaHJpc3RpYW4sDQo+DQo+IENvdWxkIHlvdSBzaGFyZSBhIGxpbmsgdG8gdGhp
+cyBUT0RPIGl0ZW0/DQo+DQo+IEknZCBsaWtlIHRvIHZlcmlmeSB3aGV0aGVyIHRoaXMgaGFzIGJl
+ZW4gYWRkcmVzc2VkIHRocm91Z2ggTUVTLiBST0NtIHVzZXMgdGhlIHVzZXItbW9kZSBxdWV1ZSwg
+YW5kIGl0cyBWTUlEIGlzIGFzc2lnbmVkIGJ5IE1FUyByYXRoZXIgdGhhbiBieSB0aGUga2VybmVs
+IGRyaXZlci4gSWYgTUVTIHN1cHBvcnQgaXMgYXZhaWxhYmxlLCBST0NtIGNvdWxkIG1vdmUgU1BN
+IHN1cHBvcnQgdG8gdXNlciBtb2RlLg0KPg0KPiBJZiB0aGlzIFRPRE8gaGFzIGluZGVlZCBiZWVu
+IHJlc29sdmVkIHRocm91Z2ggTUVTLCB3ZSdsbCByZXZpZXcgdGhlIHRpbWVsaW5lIGZvciB0aGF0
+IE1FUyBzdXBwb3J0LiBDdXJyZW50bHksIFJPQ20gU1BNIHN0aWxsIGdvZXMgdGhyb3VnaCB0aGUg
+a2VybmVsIGRyaXZlciBwYXRoLCBhbmQgd2Ugd2lsbCBuZWVkIHRvIGtlZXAgdXNpbmcgdGhhdCBw
+YXRoIHVudGlsIHRoZSByZXF1aXJlZCBNRVMgc3VwcG9ydCBiZWNvbWVzIGF2YWlsYWJsZS4NCj4N
+Cj4gQmVzdCwNCj4NCj4gQmluZw0KPg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBG
+cm9tOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTZW50
+OiBUdWVzZGF5LCBTZXB0ZW1iZXIgMjIsIDIwMjYgODo0NCBBTQ0KPiBUbzogQWxleCBEZXVjaGVy
+IDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+OyBUaW11ciBLcmlzdMOzZg0KPiA8dGltdXIua3Jpc3Rv
+ZkBnbWFpbC5jb20+DQo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgRGV1Y2hl
+ciwgQWxleGFuZGVyDQo+IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgTWEsIEJpbmcgPEJp
+bmcuTWFAYW1kLmNvbT47IFpodSwgSmFtZXMNCj4gPEphbWVzLlpodUBhbWQuY29tPjsgWmh1LCBK
+YW1lcyA8SmFtZXMuWmh1QGFtZC5jb20+OyBOYXRhbGllIFZvY2sNCj4gPG5hdEBwaXhlbGNsdXN0
+ZXIuZGV2Pg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDAxLzEyXSBkcm0vYW1kZ3B1OiBhZGQgcHJv
+ZmlsZXIgVUFQSSBkZWZpbml0aW9ucw0KPg0KPg0KPg0KPiBPbiA5LzIyLzI2IDE3OjQwLCBBbGV4
+IERldWNoZXIgd3JvdGU6DQo+PiBPbiBUdWUsIFNlcCAyMiwgMjAyNiBhdCAxMToyMuKAr0FNIFRp
+bXVyIEtyaXN0w7NmIDx0aW11ci5rcmlzdG9mQGdtYWlsLmNvbT4gd3JvdGU6DQo+Pj4NCj4+PiBP
+biBUdWVzZGF5LCBTZXB0ZW1iZXIgMjIsIDIwMjYgNToyMDo0MeKAr1BNIENlbnRyYWwgRXVyb3Bl
+YW4gU3VtbWVyDQo+Pj4gVGltZSBKYW1lcyBaaHUgd3JvdGU6DQo+Pj4+IE9uIDIwMjYtMDktMjIg
+MTE6MDksIFRpbXVyIEtyaXN0w7NmIHdyb3RlOg0KPj4+Pj4gT24gTW9uZGF5LCBTZXB0ZW1iZXIg
+MjEsIDIwMjYgMTA6MDM6MDLigK9QTSBDZW50cmFsIEV1cm9wZWFuIFN1bW1lcg0KPj4+Pj4gVGlt
+ZQ0KPj4+Pj4gSmFtZXM+DQo+Pj4+PiBaaHUgd3JvdGU6DQo+Pj4+Pj4gQWRkIHRoZSBEUk1fQU1E
+R1BVX1BST0ZJTEVSIGlvY3RsIG51bWJlciBhbmQgaXRzIGFyZ3VtZW50DQo+Pj4+Pj4gc3RydWN0
+dXJlcywgdGhlIFVBUEkgZm9yIEdQVSBwZXJmb3JtYW5jZSBtb25pdG9yaW5nIGZlYXR1cmVzIHN1
+Y2gNCj4+Pj4+PiBhcyBTUE0gKFN0cmVhbSBQZXJmb3JtYW5jZSBNb25pdG9yKS4NCj4+Pj4+Pg0K
+Pj4+Pj4+IHN0cnVjdCBkcm1fYW1kZ3B1X3Byb2ZpbGVyX2FyZ3MgY2FycmllcyBhbiBvcGVyYXRp
+b24gc2VsZWN0b3IgYW5kDQo+Pj4+Pj4gYSB1bmlvbiBvZiBwZXItb3BlcmF0aW9uIHBhcmFtZXRl
+cnMsIGN1cnJlbnRseQ0KPj4+Pj4+IEFNREdQVV9QUk9GSUxFUl9PUF9HRVRfVkVSIGFuZCBBTURH
+UFVfUFJPRklMRVJfT1BfU1BNLiBUaGUgU1BNDQo+Pj4+Pj4gb3BlcmF0aW9ucyBhbmQgdGhlIGxh
+eW91dCBvZiB0aGUgZGVzdGluYXRpb24gYnVmZmVyIGFyZSBkZXNjcmliZWQNCj4+Pj4+PiBieSBz
+dHJ1Y3QgZHJtX2FtZGdwdV9zcG1fYXJncyBhbmQgc3RydWN0IGRybV9hbWRncHVfc3BtX2J1ZmZl
+cl9oZWFkZXIuDQo+Pj4+Pj4NCj4+Pj4+PiBUaGUgaW9jdGwgbnVtYmVyIGFuZCBzdHJ1Y3QgbGF5
+b3V0IGFyZSBmcm96ZW4gaGVyZS4gVGhlDQo+Pj4+Pj4gaW1wbGVtZW50YXRpb24gbGFuZHMgaW4g
+dGhlIHJlc3Qgb2YgdGhpcyBzZXJpZXMgYW5kIHRoZSBpb2N0bCBpcw0KPj4+Pj4+IG5vdCByZWdp
+c3RlcmVkIGluIGFtZGdwdV9pb2N0bHNfa21zW10gdW50aWwgdGhlbiwgc28gdGhpcyBoZWFkZXIN
+Cj4+Pj4+PiBjaGFuZ2UgYWxvbmUgZG9lcyBub3QgbWFrZSB0aGUgaW50ZXJmYWNlIHJlYWNoYWJs
+ZS4NCj4+Pj4+Pg0KPj4+Pj4+IFNpZ25lZC1vZmYtYnk6IEphbWVzIFpodTxKYW1lcy5aaHVAYW1k
+LmNvbT4NCj4+Pj4+PiBSZXZpZXdlZC1ieTogQmluZyBNYTxiaW5nLm1hQGFtZC5jb20+DQo+Pj4+
+Pg0KPj4+Pj4gSGksDQo+Pj4+Pg0KPj4+Pj4gQ2FuIHlvdSBndXlzIHBsZWFzZSBjbGFyaWZ5IHdo
+eSB0aGlzIGlzIG5lY2Vzc2FyeSBhbmQgd2hhdCB0aGUgdXNlDQo+Pj4+PiBjYXNlIGlzPw0KPj4+
+Pj4NCj4+Pj4+IEFyZSB3ZSBzdXJlIHdlIHdhbnQgYSB1QVBJIGZvciB0aGlzPyBSQURWIGhhcyBi
+ZWVuIHVzaW5nIFNQTSBmcm9tDQo+Pj4+PiB1c2Vyc3BhY2UgZm9yIG1hbnkgeWVhcnMgbm93Lg0K
+Pj4+Pg0KPj4+PiBbSlpdIGN1cnJlbnQgUkFEViBTUE0gaXMgZm9yIGdyYXBoaWMgZW5naW5lLiBU
+aGVzZSBwYXRjaGVzIGFyZSBmb3INCj4+Pj4gY29tcHV0ZSBlbmdpbmUgU1BNLg0KPj4+Pg0KPj4+
+PiBUaGFua3MhDQo+Pj4NCj4+PiBJcyB0aGVyZSBhbnkgcmVhc29uIHdoeSBpdCBjYW4ndCBiZSBk
+b25lIGluIHVzZXJzcGFjZSBmb3IgY29tcHV0ZSB0b28/DQo+Pg0KPj4gVGhlcmUncyBvbmx5IG9u
+ZSBTUE0gc28gdGhlcmUgbmVlZHMgdG8gYmUgYXJiaXRyYXRpb24gdG8gYXZvaWQNCj4+IG11bHRp
+cGxlIGFwcGxpY2F0aW9ucyB0cnlpbmcgdG8gdXNlIGl0IGF0IHRoZSBzYW1lIHRpbWUuICBJdCBh
+bHNvDQo+PiBvbmx5IHdvcmtzIG9uIGEgc2luZ2xlIHZtaWQgYXQgYSB0aW1lIHNvIHRoZSBhcHBs
+aWNhdGlvbiB1c2luZyBpdCBoYXMNCj4+IHRvIHJlcXVlc3QgYSBmaXhlZCB2bWlkLg0KPg0KPiBZ
+ZWFoLCB3ZSBhbHJlYWR5IGhhdmUgYW4gQVBJIGZvciByZXNlcnZpbmcgYSBWTUlEIGZvciBTUE0u
+DQo+DQo+IFdlIGFsc28gaGF2ZSBhIFRPRE8gaXRlbSB0byBtYWtlIHRoYXQgYXZhaWxhYmxlIGZv
+ciB1c2VyIHF1ZXVlcyB3aGljaCB0aGVuIGJvdGggUk9DbSBhbmQgZ2Z4IGNhbiB1c2UuDQo+DQo+
+IFNvIGFzIGZhciBhcyBJIGNhbiBzZWUgdGhhdCB3b3JrIGhlcmUgaXMgY29tcGxldGVseSB1bm5l
+Y2Vzc2FyeS4NCj4NCj4gQ2hyaXN0aWFuLg0KPg0KPj4NCj4+IEFsZXgNCj4+DQo+Pj4NCj4+Pg0K
+Pj4+Pj4NCj4+Pj4+PiAtLS0NCj4+Pj4+Pg0KPj4+Pj4+ICAgaW5jbHVkZS91YXBpL2RybS9hbWRn
+cHVfZHJtLmggfCAxMjQgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKw0KPj4+Pj4+
+ICAgMSBmaWxlIGNoYW5nZWQsIDEyNCBpbnNlcnRpb25zKCspDQo+Pj4+Pj4NCj4+Pj4+PiBkaWZm
+IC0tZ2l0IGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgNCj4+Pj4+PiBiL2luY2x1ZGUv
+dWFwaS9kcm0vYW1kZ3B1X2RybS5oIGluZGV4IDllNWZhNmY1M2U1OS4uMjg1OTQ5ZDYzZWI2DQo+
+Pj4+Pj4gMTAwNjQ0DQo+Pj4+Pj4gLS0tIGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgN
+Cj4+Pj4+PiArKysgYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaA0KPj4+Pj4+IEBAIC02
+MCw2ICs2MCw3IEBAIGV4dGVybiAiQyIgew0KPj4+Pj4+DQo+Pj4+Pj4gICAjZGVmaW5lIERSTV9B
+TURHUFVfR0VNX0xJU1RfSEFORExFUyAgICAgIDB4MTkNCj4+Pj4+PiAgICNkZWZpbmUgRFJNX0FN
+REdQVV9QUk9DX09QVElPTlMgICAgICAgICAgMHgxQQ0KPj4+Pj4+ICAgI2RlZmluZSBEUk1fQU1E
+R1BVX1RSQVAgICAgICAgICAgICAgICAgICAweDFCDQo+Pj4+Pj4NCj4+Pj4+PiArI2RlZmluZSBE
+Uk1fQU1ER1BVX1BST0ZJTEVSICAgICAgICAgICAgICAgMHgxQw0KPj4+Pj4+DQo+Pj4+Pj4gICAj
+ZGVmaW5lIERSTV9JT0NUTF9BTURHUFVfR0VNX0NSRUFURSAgICAgIERSTV9JT1dSKERSTV9DT01N
+QU5EX0JBU0UgKw0KPj4+Pj4+DQo+Pj4+Pj4gRFJNX0FNREdQVV9HRU1fQ1JFQVRFLCB1bmlvbiBk
+cm1fYW1kZ3B1X2dlbV9jcmVhdGUpICNkZWZpbmUNCj4+Pj4+PiBEUk1fSU9DVExfQU1ER1BVX0dF
+TV9NTUFQICBEUk1fSU9XUihEUk1fQ09NTUFORF9CQVNFICsNCj4+Pj4+PiBEUk1fQU1ER1BVX0dF
+TV9NTUFQLCB1bmlvbiBkcm1fYW1kZ3B1X2dlbV9tbWFwKSBAQCAtODMsNiArODQsNyBAQA0KPj4+
+Pj4+IGV4dGVybiAiQyIgew0KPj4+Pj4+DQo+Pj4+Pj4gICAjZGVmaW5lIERSTV9JT0NUTF9BTURH
+UFVfR0VNX0xJU1RfSEFORExFUw0KPj4+Pj4+IERSTV9JT1dSKERSTV9DT01NQU5EX0JBU0UgKw0K
+Pj4+Pj4+DQo+Pj4+Pj4gRFJNX0FNREdQVV9HRU1fTElTVF9IQU5ETEVTLCBzdHJ1Y3QgZHJtX2Ft
+ZGdwdV9nZW1fbGlzdF9oYW5kbGVzKSAjZGVmaW5lDQo+Pj4+Pj4gRFJNX0lPQ1RMX0FNREdQVV9Q
+Uk9DX09QVElPTlMgICAgICBEUk1fSU9XUihEUk1fQ09NTUFORF9CQVNFICsNCj4+Pj4+PiBEUk1f
+QU1ER1BVX1BST0NfT1BUSU9OUywgc3RydWN0IGRybV9hbWRncHVfcHJvY19vcHRpb25zKSAjZGVm
+aW5lDQo+Pj4+Pj4gRFJNX0lPQ1RMX0FNREdQVV9UUkFQICAgICAgRFJNX0lPV1IoRFJNX0NPTU1B
+TkRfQkFTRSArIERSTV9BTURHUFVfVFJBUCwNCj4+Pj4+DQo+Pj4+PiB1bmlvbg0KPj4+Pj4NCj4+
+Pj4+PiBkcm1fYW1kZ3B1X3RyYXApICsjZGVmaW5lDQo+Pj4+Pj4gRFJNX0lPQ1RMX0FNREdQVV9Q
+Uk9GSUxFUiAgRFJNX0lPV1IoRFJNX0NPTU1BTkRfQkFTRSArDQo+Pj4+Pg0KPj4+Pj4gRFJNX0FN
+REdQVV9QUk9GSUxFUiwNCj4+Pj4+DQo+Pj4+Pj4gc3RydWN0IGRybV9hbWRncHVfcHJvZmlsZXJf
+YXJncykNCj4+Pj4+Pg0KPj4+Pj4+ICAgLyoqDQo+Pj4+Pj4NCj4+Pj4+PiAgICAqIERPQzogbWVt
+b3J5IGRvbWFpbnMNCj4+Pj4+Pg0KPj4+Pj4+IEBAIC0xODIxLDYgKzE4MjMsMTI4IEBAIHN0cnVj
+dCBkcm1fYW1kZ3B1X3Byb2Nfb3B0aW9ucyB7DQo+Pj4+Pj4NCj4+Pj4+PiAgICB9IGtmZF9zaWdi
+dXNfZGVsYXk7DQo+Pj4+Pj4NCj4+Pj4+PiAgIH07DQo+Pj4+Pj4NCj4+Pj4+PiArLyoNCj4+Pj4+
+PiArICogU3VwcG9ydGVkIFNQTSAoU3RyZWFtIFBlcmZvcm1hbmNlIE1vbml0b3IpIE9wZXJhdGlv
+bnMgICovDQo+Pj4+Pj4gKy8qKg0KPj4+Pj4+ICsgKiBkcm1fYW1kZ3B1X3NwbV9vcCAtIFNQTSBp
+b2N0bCBvcGVyYXRpb25zICAqLyBlbnVtDQo+Pj4+Pj4gK2RybV9hbWRncHVfc3BtX29wIHsNCj4+
+Pj4+PiArICBBTURHUFVfU1BNX09QX0FDUVVJUkUgPSAxLA0KPj4+Pj4+ICsgIEFNREdQVV9TUE1f
+T1BfUkVMRUFTRSwNCj4+Pj4+PiArICBBTURHUFVfU1BNX09QX1NFVF9ERVNUX0JVRg0KPj4+Pj4+
+ICt9Ow0KPj4+Pj4+ICsNCj4+Pj4+PiArLyoqDQo+Pj4+Pj4gKyAqIGRybV9hbWRncHVfc3BtX2Fy
+Z3MgLSBBcmd1bWVudHMgZm9yIFNQTSBpb2N0bA0KPj4+Pj4+ICsgKg0KPj4+Pj4+ICsgKiBAZGVz
+dF9idWY6IFtpbl0gdXNlZCBmb3IgdGhlIGFkZHJlc3Mgb2YgdGhlIGRlc3RpbmF0aW9uIGJ1ZmZl
+cg0KPj4+Pj4+ICsgKiAgICAgICAgICAgIGluIEBBTURHUFVfU1BNX09QX1NFVF9ERVNUX0JVRg0K
+Pj4+Pj4+ICsgKiBAYnVmX3NpemU6IFtpbl0gc2l6ZSBvZiB0aGUgZGVzdGluYXRpb24gYnVmZmVy
+DQo+Pj4+Pj4gKyAqIEBvcDogW2luXSBzcGVjaWZpZXMgdGhlIG9wZXJhdGlvbiB0byBwZXJmb3Jt
+DQo+Pj4+Pj4gKyAqIEB0aW1lb3V0OiBbaW4vb3V0XSB0aW1lb3V0IGluIG1pbGxpc2Vjb25kcyAo
+aW4pLCBhbW91bnQgb2YgdGltZSBsZWZ0DQo+Pj4+Pj4gKyAqICAgICAgICAgICBpbiB0aGUgdGlt
+ZW91dCB3aW5kb3cgKG91dCkNCj4+Pj4+PiArICogQGJ5dGVzX2NvcGllZDogW291dF0gdG90YWwg
+YW1vdW50IG9mIGRhdGEgdGhhdCB3YXMgY29waWVkIHRvDQo+Pj4+Pj4gK3RoZQ0KPj4+Pj4+IHBy
+ZXZpb3VzIGRlc3RfYnVmICsgKiBAaGFzX2RhdGFfbG9zczogW291dF0gbm9uLXplcm8gaWYgZGF0
+YSB3YXMNCj4+Pj4+PiBsb3N0IChlLmcuDQo+Pj4+Pj4gZHVlIHRvIHJpbmcgYnVmZmVyIG92ZXJm
+bG93KSwgKyAqICAgICAgICAgICAgICAgICB6ZXJvIG90aGVyd2lzZQ0KPj4+Pj4+ICsgKiBAcmVz
+ZXJ2ZWQ6IG11c3QgYmUgemVybyBmb3IgZm9yd2FyZCBjb21wYXRpYmlsaXR5DQo+Pj4+Pj4gKyAq
+DQo+Pj4+Pj4gKyAqIFRoaXMgaW9jdGwgcGVyZm9ybXMgZGlmZmVyZW50IGZ1bmN0aW9ucyBkZXBl
+bmRpbmcgb24gdGhlIEBvcA0KPj4+Pj4+IHBhcmFtZXRlci4NCj4+Pj4+PiArICoNCj4+Pj4+PiAr
+ICogQU1ER1BVX1NQTV9PUF9BQ1FVSVJFDQo+Pj4+Pj4gKyAqIC0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLQ0KPj4+Pj4+ICsgKg0KPj4+Pj4+ICsgKiBBY3F1aXJlcyBleGNsdXNpdmUgYWNjZXNzIG9m
+IFNQTSBvbiB0aGUgc3BlY2lmaWVkIFhDUCBmb3IgdGhlDQo+Pj4+Pj4gKyBjYWxsaW5nDQo+Pj4+
+Pj4gcHJvY2Vzcy4gKyAqIFRoaXMgbXVzdCBiZSBjYWxsZWQgYmVmb3JlIHVzaW5nIEFNREdQVV9T
+UE1fT1BfU0VUX0RFU1RfQlVGLg0KPj4+Pj4+ICsgKg0KPj4+Pj4+ICsgKiBBTURHUFVfU1BNX09Q
+X1JFTEVBU0UNCj4+Pj4+PiArICogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+Pj4+Pj4gKyAq
+DQo+Pj4+Pj4gKyAqIFJlbGVhc2VzIGV4Y2x1c2l2ZSBhY2Nlc3Mgb2YgU1BNIG9uIHRoZSBzcGVj
+aWZpZWQgWENQIGZvciB0aGUNCj4+Pj4+PiArIGNhbGxpbmcNCj4+Pj4+PiBwcm9jZXNzLCArICog
+d2hpY2ggYWxsb3dzIGFub3RoZXIgcHJvY2VzcyB0byBhY3F1aXJlIGl0IGluIHRoZSBmdXR1cmUu
+DQo+Pj4+Pj4gKyAqDQo+Pj4+Pj4gKyAqIEFNREdQVV9TUE1fT1BfU0VUX0RFU1RfQlVGDQo+Pj4+
+Pj4gKyAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+Pj4+Pj4gKyAqDQo+Pj4+Pj4g
+KyAqIElmIEBkZXN0X2J1ZiBpcyBOVUxMLCB0aGUgZGVzdGluYXRpb24gYnVmZmVyIGFkZHJlc3Mg
+aXMgdW5zZXQNCj4+Pj4+PiArIGFuZA0KPj4+Pj4+IGNvcHlpbmcgb2YgY291bnRlcnMgKyAqIGlz
+IHN0b3BwZWQuDQo+Pj4+Pj4gKyAqDQo+Pj4+Pj4gKyAqIElmIEBkZXN0X2J1ZiBpcyBub3QgTlVM
+TCwgaXQgc3BlY2lmaWVzIHRoZSBwb2ludGVyIHRvIGEgbmV3DQo+Pj4+Pj4gZGVzdGluYXRpb24N
+Cj4+Pj4+PiBidWZmZXIuICsgKiBAYnVmX3NpemUgc3BlY2lmaWVzIHRoZSBzaXplIG9mIHRoZSBi
+dWZmZXIuDQo+Pj4+Pj4gKyAqDQo+Pj4+Pj4gKyAqIElmIEB0aW1lb3V0IGlzIG5vbi0wLCB0aGUg
+Y2FsbCB3aWxsIHdhaXQgZm9yIHVwIHRvIEB0aW1lb3V0DQo+Pj4+Pj4gKyBtcyBmb3INCj4+Pj4+
+PiB0aGUNCj4+Pj4+PiBwcmV2aW91cyArICogYnVmZmVyIHRvIGJlIGZpbGxlZC4gSWYgdGhlIHBy
+ZXZpb3VzIGJ1ZmZlciBpcw0KPj4+Pj4+IGZpbGxlZCBiZWZvcmUgdGhlIHRpbWVvdXQsIEB0aW1l
+b3V0ICsgKiBpcyB1cGRhdGVkIHdpdGggdGhlIHRpbWUNCj4+Pj4+PiByZW1haW5pbmcuIElmIHRo
+ZSB0aW1lb3V0IGlzIGV4Y2VlZGVkLCB0aGUgZnVuY3Rpb24gKyAqIGNvcGllcw0KPj4+Pj4+IGFu
+eSBwYXJ0aWFsIGRhdGEgYXZhaWxhYmxlIGludG8gdGhlIHByZXZpb3VzIHVzZXIgYnVmZmVyIGFu
+ZA0KPj4+Pj4+IHJldHVybnMgc3VjY2Vzcy4gKyAqIFRoZSBhbW91bnQgb2YgdmFsaWQgZGF0YSBp
+biB0aGUgcHJldmlvdXMNCj4+Pj4+PiB1c2VyIGJ1ZmZlciBpcyBpbmRpY2F0ZWQgYnkgQGJ5dGVz
+X2NvcGllZC4gKyAqDQo+Pj4+Pj4gKyAqIElmIEB0aW1lb3V0IGlzIDAsIHRoZSBmdW5jdGlvbiBp
+bW1lZGlhdGVseSByZXBsYWNlcyB0aGUNCj4+Pj4+PiArIHByZXZpb3VzDQo+Pj4+Pj4gZGVzdGlu
+YXRpb24gYnVmZmVyICsgKiB3aXRob3V0IHdhaXRpbmcgZm9yIHRoZSBwcmV2aW91cyBidWZmZXIg
+dG8NCj4+Pj4+PiBiZSBmaWxsZWQuIFRoYXQgbWVhbnMgdGhlIHByZXZpb3VzIGJ1ZmZlciArICog
+bWF5IG9ubHkgYmUNCj4+Pj4+PiBwYXJ0aWFsbHkgZmlsbGVkLCBhbmQgQGJ5dGVzX2NvcGllZCB3
+aWxsIGluZGljYXRlIGhvdyBtdWNoIGRhdGEgaGFzIGJlZW4gKyAqIGNvcGllZCB0byBpdC4NCj4+
+Pj4+PiArICoNCj4+Pj4+PiArICogSWYgZGF0YSB3YXMgbG9zdCwgZS5nLiBkdWUgdG8gYSByaW5n
+IGJ1ZmZlciBvdmVyZmxvdywNCj4+Pj4+PiArIEBoYXNfZGF0YV9sb3NzDQo+Pj4+Pj4gd2lsbCBi
+ZSBub24tMC4gKyAqDQo+Pj4+Pj4gKyAqIFJldHVybnMgbmVnYXRpdmUgZXJyb3IgY29kZSBvbiBm
+YWlsdXJlLCAwIG9uIHN1Y2Nlc3MuDQo+Pj4+Pj4gKyAqLw0KPj4+Pj4+ICtzdHJ1Y3QgZHJtX2Ft
+ZGdwdV9zcG1fYXJncyB7DQo+Pj4+Pj4gKyAgX191NjQgZGVzdF9idWY7DQo+Pj4+Pj4gKyAgX191
+MzIgYnVmX3NpemU7DQo+Pj4+Pj4gKyAgX191MzIgb3A7DQo+Pj4+Pj4gKyAgX191MzIgdGltZW91
+dDsNCj4+Pj4+PiArICBfX3UzMiBieXRlc19jb3BpZWQ7DQo+Pj4+Pj4gKyAgX191MzIgaGFzX2Rh
+dGFfbG9zczsNCj4+Pj4+PiArICBfX3UzMiByZXNlcnZlZFs5XTsgICAgICAvKiBtdXN0IGJlIHpl
+cm87IHBhZHMgdGhpcyBzdHJ1Y3QgdG8gNjQNCj4+Pj4+DQo+Pj4+PiBieXRlcyAqLw0KPj4+Pj4N
+Cj4+Pj4+PiArfTsNCj4+Pj4+PiArDQo+Pj4+Pj4gKy8qKg0KPj4+Pj4+ICsgKiBkcm1fYW1kZ3B1
+X3NwbV9idWZmZXJfaGVhZGVyIC0gU1BNIEJ1ZmZlciBoZWFkZXIgZm9yDQo+Pj4+Pj4gZHJtX2Ft
+ZGdwdV9zcG1fYXJncy0+ZGVzdF9idWYgKyAqDQo+Pj4+Pj4gKyAqIEB2ZXJzaW9uOiAgICAgICBb
+b3V0XSBTUE0gdmVyc2lvbiAoMC0yMzogbWlub3IsIDI0LTMxOiBtYWpvcikNCj4+Pj4+PiArICog
+QGJ5dGVzX2NvcGllZDogIFtvdXRdIEFtb3VudCBvZiBkYXRhIGNvcGllZCBmb3IgdGhpcw0KPj4+
+Pj4+ICsgc3ViLWJsb2NrDQo+Pj4+Pj4gKyAqIEBoYXNfZGF0YV9sb3NzOiBbb3V0XSBCb29sZWFu
+IGluZGljYXRpbmcgd2hldGhlciBkYXRhIHdhcw0KPj4+Pj4+ICsgbG9zdCBmb3INCj4+Pj4+PiB0
+aGlzDQo+Pj4+Pj4gc3ViLWJsb2NrICsgKiAgICAgICAgICAgICAgICAgICAgICAgKGUuZy4gZHVl
+IHRvIGEgcmluZy1idWZmZXIgb3ZlcmZsb3cpDQo+Pj4+Pj4gKyAqIEByZXNlcnZlZDogICAgICBS
+ZXNlcnZlZCBmb3IgZnV0dXJlIHVzZSwgbXVzdCBiZSB6ZXJvDQo+Pj4+Pj4gKyAqDQo+Pj4+Pj4g
+KyAqIFRoaXMgaGVhZGVyIHByZWNlZGVzIHRoZSBTUE0gZGF0YSBpbiB0aGUgZGVzdGluYXRpb24g
+YnVmZmVyLg0KPj4+Pj4+ICsgVGhlDQo+Pj4+Pj4gcmVzZXJ2ZWQgKyAqIGZpZWxkIG1haW50YWlu
+cyA2NC1ieXRlIGNhY2hlIGxpbmUgYWxpZ25tZW50ICgzMg0KPj4+Pj4+IGJ5dGVzIHRvdGFsKS4N
+Cj4+Pj4+PiArICovDQo+Pj4+Pj4gK3N0cnVjdCBkcm1fYW1kZ3B1X3NwbV9idWZmZXJfaGVhZGVy
+IHsNCj4+Pj4+PiArICBfX3UzMiB2ZXJzaW9uOyAvKiAwLTIzOiBtaW5vciwgMjQtMzE6IG1ham9y
+ICovDQo+Pj4+Pj4gKyAgX191MzIgYnl0ZXNfY29waWVkOw0KPj4+Pj4+ICsgIF9fdTMyIGhhc19k
+YXRhX2xvc3M7DQo+Pj4+Pj4gKyAgX191MzIgcmVzZXJ2ZWRbNV07IC8qIHBhZCB0byAzMiBieXRl
+cyAoNjQtYnl0ZSBjYWNoZSBsaW5lIC8gMikNCj4+Pj4+PiArKi8gfTsNCj4+Pj4+PiArDQo+Pj4+
+Pj4gKy8qIFN1cHBvcnRlZCBQcm9maWxlciBPcGVyYXRpb24gKi8NCj4+Pj4+PiArI2RlZmluZSBB
+TURHUFVfUFJPRklMRVJfT1BfR0VUX1ZFUiAgICAgICAgICAgICAgICAxIC8qIGdldCBwcm9maWxl
+ciBVQVBJDQo+Pj4+Pg0KPj4+Pj4gdmVyc2lvbiAqLw0KPj4+Pj4NCj4+Pj4+PiArI2RlZmluZSBB
+TURHUFVfUFJPRklMRVJfT1BfU1BNICAgICAgICAgICAgICAgICAgICAyDQo+Pj4+Pj4gKw0KPj4+
+Pj4+ICsvKg0KPj4+Pj4+ICsgKiBQcm9maWxlciBJT0NUTA0KPj4+Pj4+ICsgKi8NCj4+Pj4+PiAr
+LyoqDQo+Pj4+Pj4gKyAqIHN0cnVjdCBkcm1fYW1kZ3B1X3Byb2ZpbGVyX2FyZ3MgLSBQcm9maWxl
+ciBJT0NUTCBhcmd1bWVudHMNCj4+Pj4+PiArICogQG9wOiBPcGVyYXRpb24gdG8gcGVyZm9ybSAo
+QU1ER1BVX1BST0ZJTEVSX09QXyopDQo+Pj4+Pj4gKyAqIEBwYWQ6IE11c3QgYmUgemVybyBmb3Ig
+aW5wdXQgdmFsaWRhdGlvbg0KPj4+Pj4+ICsgKiBAZGF0YTogT3BlcmF0aW9uLXNwZWNpZmljIHBh
+cmFtZXRlcnMgKHVuaW9uKQ0KPj4+Pj4+ICsgKg0KPj4+Pj4+ICsgKiBHRVRfVkVSIG9wZXJhdGlv
+bjoNCj4+Pj4+PiArICogUmV0dXJucyB0aGUgcHJvZmlsZXIgVUFQSSB2ZXJzaW9uIGluIEBkYXRh
+LnZlcnNpb24gYXMNCj4+Pj4+PiArKE1BSk9SPDwyNCkgfA0KPj4+Pj4+IE1JTk9SLiArICogSW5w
+dXQ6IEBkYXRhIG11c3QgYmUgemVybyAocmVzZXJ2ZWQgZm9yIGZvcndhcmQNCj4+Pj4+PiBjb21w
+YXRpYmlsaXR5KS4NCj4+Pj4+PiArICoNCj4+Pj4+PiArICogRGVzaWduIG5vdGU6IEdFVF9WRVIg
+aXMgaW50ZW50aW9uYWxseSBhIHBhcmFtZXRlci1mcmVlIHF1ZXJ5DQo+Pj4+Pj4gcmV0dXJuaW5n
+DQo+Pj4+Pj4gKyAqIHRoZSBnbG9iYWwgcHJvZmlsZXIgVUFQSSB2ZXJzaW9uLg0KPj4+Pj4+ICsg
+Ki8NCj4+Pj4+PiArc3RydWN0IGRybV9hbWRncHVfcHJvZmlsZXJfYXJncyB7DQo+Pj4+Pj4gKyAg
+X191MzIgb3A7ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8qDQo+Pj4+Pg0KPj4+Pj4g
+QU1ER1BVX1BST0ZJTEVSX09QXyogKi8NCj4+Pj4+DQo+Pj4+Pj4gKyAgX191MzIgcGFkOyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIC8qIG11c3QgYmUgemVybyAqLw0KPj4+Pj4+ICsgIHVu
+aW9uIHsNCj4+Pj4+PiArICAgICAgICAgIF9fdTMyIHZlcnNpb247ICAgICAgICAgIC8qIEdFVF9W
+RVI6IG91dA0KPj4+Pj4NCj4+Pj4+IChNQUpPUjw8MjQpIHwgTUlOT1IgKi8NCj4+Pj4+DQo+Pj4+
+Pj4gKyAgICAgICAgICBzdHJ1Y3QgZHJtX2FtZGdwdV9zcG1fYXJncyBzcG07DQo+Pj4+Pj4gKyAg
+fSBkYXRhOw0KPj4+Pj4+ICt9Ow0KPj4+Pj4+ICsNCj4+Pj4+Pg0KPj4+Pj4+ICAgI2lmIGRlZmlu
+ZWQoX19jcGx1c3BsdXMpDQo+Pj4+Pj4gICB9DQo+Pj4+Pj4gICAjZW5kaWYNCj4+Pg0KPj4+DQo+
+Pj4NCj4+Pg0KPg0KDQo=
