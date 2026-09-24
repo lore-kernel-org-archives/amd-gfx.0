@@ -4,74 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58A92C9830D
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:39:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91E2FC98328
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3F4310F92D;
-	Fri, 25 Sep 2026 07:39:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADBA310F93A;
+	Fri, 25 Sep 2026 07:39:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eop+dxWj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QWkewzZC";
 	dkim-atps=neutral
-Received: from mail-vs2-f28.google.com (mail-vs2-f28.google.com
- [74.125.227.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B43410F559
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 13:30:06 +0000 (UTC)
-Received: by mail-vs2-f28.google.com with SMTP id
- 71dfb90a1353d-5c9031e714dso792087e0c.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 06:30:06 -0700 (PDT)
+Received: from mail-dl2-f22.google.com (mail-dl2-f22.google.com
+ [74.125.229.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74A2B10E1F3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 21:05:14 +0000 (UTC)
+Received: by mail-dl2-f22.google.com with SMTP id
+ a92af1059eb24-14383fddae4so219715c88.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 14:05:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790256605; x=1790861405; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=GafHdzyK4yGVm8vNQl3Rr48yBibIJneXjnAJvLweW2w=;
- b=eop+dxWjYWvd1/lA+izKVKqyLMnFp++Y2aXzYo4Q7UHBAP4sfRVleKTKlT+c4By/NI
- i2HEC2/sCzH5CVVEE97lY52mSVFSDHtUFk1Fmnt8AYTRXmH/n2B+g8bRmDKAFOt1tW5R
- CC5IhfkbB9gRPK7g3KYdKk9QPbNtDh4OElBjjBb40TmddoRrbX7JdUrbVCvldV1rQK6V
- usxd+1kGEIxbkyK9HBTS4SdUXV7LMjYQD8N/wpD3nV0+PikISMT8fCLh89hqeeYfdDi9
- VNbWv0iNJ9ePEbDafIHq2Ot2QwAp92G7zdmSexfI2w5eWXiox4M0aMQGgDJ0vRFBY883
- 2d3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790256605; x=1790861405;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1790283914; x=1790888714; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=GafHdzyK4yGVm8vNQl3Rr48yBibIJneXjnAJvLweW2w=;
- b=qQo3s6XQeo7eUrq9n9RBLv1hAxG68Vvakrsgzr8X+cX7+OhmvwY9EWGI669l5GzwAk
- J01lelaSph+ZqbTltGJpKXHscnTRP7wLONwQdt2rI0zciKynEDOHTCkSpnQyYhhLEk9+
- iRmyz92oFH1xK9OYXGvrQwblvrCILB/1Re6psdQvlABJ747E+RVRxFK/D8Tdki/zDyJw
- rrMdhoy2jTeGDabrbjbAi9XQ7SmlbI3KTAKe8YC36S9sdELbukwHT9iK6ZFfjumxX15w
- 0wizu5jwJOILCv9Bnk5SuG/MNR/4xpoicb8ktsVXQ3wkI1orIlfJzk0PsrwDAWF15c54
- PuIA==
+ bh=1NmZmhgLOy/YmQC3GmGsf1VOw7I8/+ySPDXRuFIlrI8=;
+ b=QWkewzZCsM1B0X4ITFkRYAO0dfNWysEX/cxDNn2oREpKquzfdtIYVjxBlyePn4e9ky
+ P8y2d+mB4Hx9JApWK27xGYSS/oVa2mqNj0jS6kDtkqO6zYVvTImJeCZ5oOP1EYTVIYd1
+ 6aGoPRNv2GFAYI+XZyofl/GWnk7aPqoRIgvyvvxG2bpoOKD8mBnEowLpgRPFSuMLFyED
+ S5eFKdBaQIi/1XUkBF30PlhwnMrVIguJ9am06UvGAnbV4YViYaLJ0DLJAOpM09ekHnUs
+ kaxOkgN4Bm3nWro//CPqTdoI05MuED34ZjF4HdHb5BZweW1llKJFjrzsmB6aoa08RjWH
+ eHDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790283914; x=1790888714;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=1NmZmhgLOy/YmQC3GmGsf1VOw7I8/+ySPDXRuFIlrI8=;
+ b=n4P0sEsjZ/95WGSfD8OJKhQDkXbqvGsPweEeZ5FHw49FCnq+rhmtT5oEsr0WlPMOTB
+ FqzdEGN/y3sfEnWcrxnsji+PbGqjxI4k0bsMRS+Xiyq5RO2NFn3goWmQIiSqEl2uatR0
+ GdfayJje8LQeDVMmeHGbJnPqNaWLhod2Dkztifvf2Oc5OjMSsTIp36lMr2d2VjaXhXNw
+ gj/c8UqrWmhZ+Z/+SRqdE5Aq8O8mf9jPcz7WJl/Q5yIoUU8go7nudoQUkVI9vE+hObum
+ rQDPeb5vHdpFqT/fz3bFBsnk0CshMuBZJFanuvY1Fv3l6a//0vm4Pl2/Zo/2mKrpa1lZ
+ 1nmg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxwb7EzrYJVejCjdCvwqXmdTIv6ZviiHFTNGoEPFV+sRdFdQzZlVOBBUQEb+T4El4IZRk8XwGO3@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lpE2D8g0VGHgokvoUHwR8+lU+6ekJ7iaijHq3hfkrkvkAtLMRh
- 6uL+r5+OmSAf3N0V6/Za85we/z/9/IIIt/HYmmV+FPxi4z4dC0ErtXJM
-X-Gm-Gg: AYBFou20vVgZ/OyxjmUmtciJ/Dhv2DYCUl2lIsdXWYg2NyViCPcHxKQpdceYya5AV22
- KA9LR7cfIrKZwu8IYTfTenwuIC7TJBOFgh++4tUxW5D0SOb6bxLQcahLam9v/Lq5ow4kZFDbaCy
- w9L5LYLQbDAazb7wWAi39HwphMU1uJNVw3EKOjVgrziI/yBLX7q8I6T/FirglWkCVpt7Umkf0z5
- 7oPdt3gjQisYlkra29RNV/z/qpPqM4c8TfdKl/3s+lcUa8IR3SQxvSTnno2wJBfs5JI4vXPuwoO
- Aq+21J4PyAt999IVzLOjzKSiq2mm+i+dPp58mUkzKRrrRtoO8dYLxTmPeVPPKcuVJJ0KD9HND09
- /wCkRe7g9BGKPRferB4WEov/32f8I54HEAd+wZ2M7mpJQkyDh8JfB4LodBRkf4uz8F5hHiThgVk
- Vyv6mQRI096/hYIwLQzCEVSxvr0z8oMEyoY9KXIWGtnKDMCV+fZ1k2ZWP/LASvvYp7sWxhV52xx
- A5b6RGPwI2b7IYbVE8r
-X-Received: by 2002:a05:6122:3d0e:b0:5c9:c60a:e9b6 with SMTP id
- 71dfb90a1353d-5cb0c149318mr1312750e0c.22.1790256605213; 
- Thu, 24 Sep 2026 06:30:05 -0700 (PDT)
+ AKwUvBzdR9YbM42Ip1GtwtopHZp4hAT2JR7khVFoUs7Jzr53kZmrU3ChiDaYjEJx5C1XxG5Ns1xcB9dN@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mNF1T+LDiHXxvhaq7gR+Xr1DU7lME4BZiEwQMVrEqk9yQrBO/X
+ hGqa4zdd2SN6+ODnPsIcYBqACyqAVLkAUXJX6ltBsXn9uYeXPMquQkHj
+X-Gm-Gg: AYBFou19fjLKxCvVnbkr0jMMfufwn5Wz614i9afWf2XyQweXl+gzzC04Be8cl5dXptZ
+ 6Fpsoc4klCifHHC5ie+YA886pfi4TgNB2+lmItKsMMbKeehMvTWrkYYy0J7U0ot4Q1BWAmge4Og
+ mNrB48Qmywll+jUYeylh+eCdOHKEVCaUjxope08w6GbN4PbJaRwIYkfG3NxKguOjD3boktE2v3Q
+ 4pZclfP0BczDkG14sz9nr1g5Ucv5KY3+E8ZfJPY4Dnr26IyfeJaFy4z4h3VCWUqZWgPWRTRuJ7b
+ m61n9/O6NxC9F7U187EtP2gjS4z1uK0XFkT1naUwbo1jB3IVCQByf8/fosd1yDY0oLOQmG57BEY
+ A15RIU/1A5SjGu1jGl5l0H2Jasy6SGHuTDTOiqhMe0WDmdJIQg524khgnnZMJ2umzh5yvEyW82U
+ O+FQLkPx8ufFXDXsWGrs5SVkhvRuBMj0eAjTcPPxcwO8Il5rhC3wX3Il42woLtpoikCFAHr0cY5
+ RSDL1KJIjERdpZ0keY=
+X-Received: by 2002:a05:7022:fd09:b0:13d:974:a42d with SMTP id
+ a92af1059eb24-14503fde9d8mr4585588c88.22.1790283913457; 
+ Thu, 24 Sep 2026 14:05:13 -0700 (PDT)
 Received: from maclinux ([2803:c600:9110:8ba5:43a9:9b8b:ebdc:6411])
  by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c9f0582b6bsm7050251e0c.18.2026.09.24.06.30.03
+ a92af1059eb24-145ac67c0ccsm1054300c88.4.2026.09.24.14.05.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Sep 2026 06:30:04 -0700 (PDT)
+ Thu, 24 Sep 2026 14:05:13 -0700 (PDT)
 From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?=
  <fbeltranmillalen@gmail.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com,
  amd-gfx@lists.freedesktop.org
-Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu/gmc_v8_0: restore the FB location after a re-POST
-Date: Thu, 24 Sep 2026 10:29:52 -0300
-Message-ID: <20260924132952.25054-1-fbeltranmillalen@gmail.com>
+Cc: alexdeucher@gmail.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu/gmc_v8_0: restore the FB location after a
+ re-POST
+Date: Thu, 24 Sep 2026 18:04:57 -0300
+Message-ID: <20260924210457.13100-1-fbeltranmillalen@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CADnq5_PsKKiOXPuH9c8n0u8viyg0u3rTeDnPoeDBk11MP4V_hg@mail.gmail.com>
+References: <CADnq5_PsKKiOXPuH9c8n0u8viyg0u3rTeDnPoeDBk11MP4V_hg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -90,115 +95,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On a MacBookPro14,3 (Radeon Pro 560, POLARIS11) amdgpu has never recovered
-from an ASIC reset: five attempts recorded, zero successes.  Since suspend
-to RAM goes through a reset, S3 fails the same way, and as the internal
-panel hangs off the AMD GPU the machine comes back blind.
+On Thu, Sep 24, 2026 at 11:21 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+> On Thu, Sep 24, 2026 at 11:06 AM Christian König
+> <christian.koenig@amd.com> wrote:
+>> On 9/24/26 15:29, Francisco Beltrán Millalén wrote:
+>>>   cold boot:   MC_VM_FB_LOCATION = 0x007f0000
+>>>   after reset: MC_VM_FB_LOCATION = 0xf47ff400
+>>
+>> Mhm, interesting I'm really wondering where those values come from.
 
-The failure looks like VRAM going write-only-dead: writes are silently
-dropped while reads still work, the driver reports success at every step,
-and then it hands the SMU a pointer to a table that was never written:
+0x007f0000 is what amdgpu finds when it loads after a cold boot, with
+HDP_NONSURFACE_BASE = 0: the framebuffer at MC address 0.  That is what
+the platform hands over; I have no trace of who writes it before the
+kernel runs, so I can only say it comes from the Apple side.
 
-  amdgpu_device_asic_init()  -> 0          (reports success)
-  gmc_v8_0_hw_init()         -> 0          (reports success)
-  memcpy_toio()                             (write silently discarded)
-  send_msg(0x251, ...)                      (SMU parses garbage)
-  smu7_check_fw_load_finish() -> -EINVAL -> black screen
+0xf47ff400, with HDP_NONSURFACE_BASE = 0xf4000000, is written by the
+VBIOS ASIC_Init table that amdgpu runs on resume and after a GPU reset.
+I traced the register writes across that call.  As far as I know it
+is the usual 0xF4_0000_0000 placement of Polaris boards elsewhere.
+(The "0xf400_0000" in my commit message was wrong: the MC address is
+0xF4_0000_0000.)
 
-It is not VRAM dying.  It is the framebuffer moving.
+>> I think the more defensive approach is to do an ASIC reset on driver
+>> load and use the values the AtomBIOS init function comes up with.
+[...]
+> I agree that running asic_init
+> on boot for Macs would make sense.  I think we already have a similar
+> workaround for some other mac models, probably to work around a
+> similar issue:
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a5be7ad8f5f0e067613e9197638f216f46252946
+> Maybe add your device to that existing quirk or make the quirk generic
+> for all VI boards with apple ssids?
 
-On this machine the Apple firmware places VRAM at MC address 0 on a cold
-boot, and gmc_v8_0_vram_gtt_location() reads MC_VM_FB_LOCATION once, at
-init, to derive vram_start.  A re-POST -- which is what an ASIC reset and
-an S3 resume both trigger -- lets the VBIOS put the framebuffer back at
-its own default instead, 0xf400_0000 here:
+That works, thank you both.  I backported a5be7ad8f5f0 to 6.18.49,
+added this board (106b:017a rev c7) and dropped my gmc_v8_0 patch:
 
-  cold boot:   MC_VM_FB_LOCATION = 0x007f0000
-  after reset: MC_VM_FB_LOCATION = 0xf47ff400
+- On load: "PCI CONFIG reset", "GPU posting now...", then
+  "VRAM: 2048M 0x000000F400000000 - 0x000000F47FFFFFFF", after both a
+  cold and a warm boot.  With a debug print just before the reset,
+  MC_VM_FB_LOCATION reads 0x007f0000 before it and 0xf47ff400 after.
 
-gmc_v8_0_mc_program() programs the system aperture from the stale
-vram_start, but only writes MC_VM_FB_LOCATION and HDP_NONSURFACE_BASE
-under SR-IOV; on bare metal it trusts whatever the VBIOS left behind.
-While the MC is still in pass-through everything appears to work, so the
-mismatch goes unnoticed.  Then gmc_v8_0_gart_enable() sets ENABLE_L1_TLB,
-SYSTEM_ACCESS_MODE=3 and ENABLE_ADVANCED_DRIVER_MODEL, the MC starts
-checking the system aperture, and every access lands outside it -- which
-is why reads return data written before the reset, from a different
-physical place than the writes are going to.
+- S3: 9 suspend/resume cycles (lid close and rtcwake, one of them with
+  the lid closed for about 7.5 minutes and a USB-C disk attached), each
+  followed by a few minutes of 3D load.  MC_VM_FB_LOCATION stays at
+  0xf47ff400 and no ring timeouts or VM faults were reported.  In 4 of
+  them my old patch was still in as a detector and never fired; the
+  other 5 ran without it.  The kernel also carries my unrelated PCI and
+  ACPI patches for this machine.
 
-Write the framebuffer location back when it does not match the one the
-driver is working with, which is what the SR-IOV path already does.  The
-comparison keeps this a no-op on machines where the VBIOS restores the
-same location, so nothing changes for them.
+- Cost: the reset and post take 20-35 ms, and amdgpu init up to fbdev
+  takes about 0.23 s longer than before.
 
-This runs after the VGA aperture has been locked out and with the display
-suspended, so the MC does not need to be stopped; only CPU access through
-the BAR could land while the FB and HDP bases disagree, so BIF_FB_EN is
-cleared around the update and re-enabled below.
+So please consider the gmc_v8_0 patch withdrawn.  I'll send the one-line
+quirk as v2 in reply to this thread.
 
-With this the GPU survives resets and S3: the machine has since completed
-twelve suspend/resume cycles in a single boot without a failure, and the
-restore is visible on each resume:
+Two things in case you prefer the generic version:
 
-  amdgpu 0000:01:00.0: amdgpu: FB location 0xf47ff400 does not match
-  vram_start, restoring 0x007f0000
+- The GPU here is a Radeon Pro 555 (2 GB), not the 560 I wrote.  The
+  MacBookPro14,3 was also sold with a Pro 560.  pci.ids lists 106b:0179
+  as a Radeon Pro 560 and 106b:0160, 0166 and 0167 as the Pro 460, 455
+  and 450 (the GPUs of the 2016 MacBookPro13,3), all 1002:67ef.  I have
+  not checked those IDs on real machines, and I only have this one, so
+  I only added 017a/c7.
 
-To be precise about what those cycles prove: the kernel they were run on
-also carries unrelated local patches for this machine's Thunderbolt
-controller, which fails separately.  This patch is the one that brings the
-display back -- without it the GPU never recovered from a reset at all.
+- From reading the code, on VI the reset on load is always a PCI
+  config reset: the BACO capability is only known once the PowerPlay
+  table is parsed in hw_init, after the reset.  That is also what
+  happens here.
 
-Tested on 6.18.49 on a MacBookPro14,3.  I have no other smu7 hardware, so
-this is only known to matter on machines whose firmware boots the GPU at a
-different framebuffer location than the VBIOS default; elsewhere the new
-branch does nothing.
-
-Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
----
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -472,14 +472,42 @@
- 	WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
- 	       adev->mem_scratch.gpu_addr >> 12);
- 
-+	tmp = ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
-+	tmp |= ((adev->gmc.vram_start >> 24) & 0xFFFF);
-+
- 	if (amdgpu_sriov_vf(adev)) {
--		tmp = ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
--		tmp |= ((adev->gmc.vram_start >> 24) & 0xFFFF);
- 		WREG32(mmMC_VM_FB_LOCATION, tmp);
- 		/* XXX double check these! */
- 		WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> 8));
- 		WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
- 		WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
-+	} else {
-+		u32 fb_loc = RREG32(mmMC_VM_FB_LOCATION);
-+
-+		/*
-+		 * On bare metal vram_start is the FB base found at init (see
-+		 * gmc_v8_0_vram_gtt_location()).  Normally the VBIOS put it
-+		 * there and a later re-POST puts it back in the same place.
-+		 * On MacBookPros with switchable graphics VRAM is at 0 at boot
-+		 * instead, and a re-POST (S3 resume, ASIC reset) moves it to
-+		 * the VBIOS default, away from the addresses the driver
-+		 * already uses.  Move it back.
-+		 *
-+		 * This only happens after a re-POST: the display is suspended
-+		 * and the VGA aperture has been locked out above, so there is
-+		 * no need to stop the MC.  Only CPU access through the BAR
-+		 * could land while the FB and HDP bases disagree, so block it
-+		 * here; BIF_FB_EN is enabled again below.
-+		 */
-+		if (REG_GET_FIELD(fb_loc, MC_VM_FB_LOCATION, FB_BASE) !=
-+		    REG_GET_FIELD(tmp, MC_VM_FB_LOCATION, FB_BASE)) {
-+			dev_info(adev->dev,
-+				 "FB location 0x%08x does not match vram_start, restoring 0x%08x\n",
-+				 fb_loc, tmp);
-+			WREG32(mmBIF_FB_EN, 0);
-+			WREG32(mmMC_VM_FB_LOCATION, tmp);
-+			WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> 8));
-+		}
- 	}
- 
- 	WREG32(mmMC_VM_AGP_BASE, 0);
+Thanks,
+Francisco
