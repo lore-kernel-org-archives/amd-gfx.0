@@ -4,100 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 216D0C98317
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 13:37:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 120BBC98317
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 13:38:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9733010F580;
-	Thu, 24 Sep 2026 13:37:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A03F210F585;
+	Thu, 24 Sep 2026 13:38:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hlcddSIq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hPAPcwZR";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013025.outbound.protection.outlook.com
- [40.107.201.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8372F10F580
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 13:37:14 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012065.outbound.protection.outlook.com [52.101.53.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7559110F585
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 13:38:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GashrTdLY/soh6GhPCzs4lqFwWXIqaxslKURNhVVRhVnJvTOf/3DlOr2htTR8T4H5RAxIu9y0wFJrRRgwe4jhwhPKYLjJxMYKO7yIgvm+kGOjK5HnASUSVcaDuxqaNkzjtTPClrUlAEM8E0tJG6pgA+xkAz0X8EtaB7jG5w79tNBf8Qhy4q904IIu6xEiKK8QXfI3KBNiMPnRpCg3OWFSG/zbGgHIqb4JbktWuLb9UI2kPiyndGTJfOA5vxDdvpT9iACr1QbPCwKi9g1bj+gssf5l97rQU8aoMSN/KumrcmPw1+SNtHcSMF4g0CIoOli6QYpzOzsSeqkjF3iDiFMEQ==
+ b=Yeu3VzG7PrFRcvZKfrSD0vx0qYpYiX5mQqt98PQfVRylparNy/Wc/8UQwVDHjlvVq53RrKqw/gfNWqcC7KIC1DQWlLUZJbSKZqnRYCNUBBcZweLktAPgSKNmRL/kOOFL9DNB1a7Y5EX4V8H20IdvPJX8T5NugLAHrg9v5iXqevY1Gdj9yaHYHuFq4jO/nWCKEWizOOhiTS+MmPYzwyk4JycfvmDoFCkqUrAhZY2o7Zi6lFrVMImXAw/4ovoqxF/kzJH5hOS93igC5SB3qWEv5WTbLixZtdLv7NHrDi4Mti+1veTtp0KAM+KETwJuPWhH7+tYV+pbfwhXh1rjopb+iA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rjN2FWD6HJ2fskAEomnM8ukCCyqClgCPvtBcmkugVY8=;
- b=KyZyGsmKu95GmJc06GKK7I+SSJQHyk2G0UjoqZYRQXwSoRXonDdYT5vHJc0D78eCmaAxOklq2huaJJajBQAICHColoV5V810Ir6MQTzPR7HR20QQ7ky6FhVDYUUtwQbBDwEL3pImcZhazyZURfaYVvDN+PGcgf99UvlSvlCKyKJJj0xiTSwzza7IkidKAm5JJ9sQO1rTyIwFJlzjs59/MFzPtbQvShoZcYG6/3ZB47ST4BU6+9ERU/ZaHmXNflBnWCLQQIy0PpHKy+DrB19qBOMFEQPJ1uLWlK5pgvjZuF5p6+VZrk8MgkkdPhXVVbbffy+yX+rkz8PuoyQKgb1BJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=YYe3vBhB+PvovzrzMJOTKZexTmldUN53KdkT3R9NHC8=;
+ b=HWPosQRteDxyx4EemgTIKaeg1NmM+CzIrRa196pfrG/dSekSFyv5qGtnCVOWG+IvF+ZTwyuj/aoVs4ZwE+KXijxYJNUTlD0a2V2vLNtnfPpia1Ovm5lZvjBTp16uZAv8tcsKZcdn/SeS5w8VjXmj+o1Lew8/AYki6CpluzywR2y8G00OQ1fgx5VBT1PZODyR8dEMlyfLZdFuZVri6L8Iq2YZyXbA/RXuvHa8DgTfKvxiXez2cA5Zjdxrs1Xj8hHWLupAo7DVRVI/iIO+6HcRq/eL5ig8eoXrRnswKGREawNa/te8UV2+lxv7LTVomZYBYwCa251UoYz/+tZzsesx8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rjN2FWD6HJ2fskAEomnM8ukCCyqClgCPvtBcmkugVY8=;
- b=hlcddSIq2t2nA8TNhVaYuG1yZhUqSM2fnCX7YxG76Gkh5Bxdx+8Ps8KNkmg0N5rEyVEV914/cEIFrsvP0H0fwoQqYpNIsciLlI49P5klnszo9m9casQH0cDXV8dj5pIFUEsdKlauIvziEsTsGjlSXvtLqkEAnf2vLmceJ2UPOCg=
-Received: from BN0PR02CA0016.namprd02.prod.outlook.com (2603:10b6:408:e4::21)
- by PH8PR12MB999273.namprd12.prod.outlook.com (2603:10b6:510:425::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 13:37:10 +0000
-Received: from BN3PEPF00022BCC.namprd03.prod.outlook.com
- (2603:10b6:408:e4:cafe::6) by BN0PR02CA0016.outlook.office365.com
- (2603:10b6:408:e4::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 13:37:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BCC.mail.protection.outlook.com (10.167.248.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 13:37:10 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 08:36:56 -0500
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <Harish.Kasiviswanathan@amd.com>,
- <philip.yang@amd.com>, <Christian.Koenig@amd.com>, Mukul Joshi
- <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
-Subject: [PATCHv2] drm/amdgpu: place VRAM-capable dma-buf imports in the
+ bh=YYe3vBhB+PvovzrzMJOTKZexTmldUN53KdkT3R9NHC8=;
+ b=hPAPcwZRVROZc1VFy78Yo2Y9t/K7eWTZhdCWEXcbJ4kEKKU8O08G4+B18uKlY7KNaEJkNM5hQUbRNee/JcVTAunYsvQBp6A4MRNYhQvZTWbgK09vjQ5TckYqnbKTNAb0BJC0dHLVtl/uRLCgrWyQ52hTpZuvmf90LNC32rLr7yk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PHXPR12MB999256.namprd12.prod.outlook.com
+ (2603:10b6:510:3ca::15) by DS4PR12MB9745.namprd12.prod.outlook.com
+ (2603:10b6:8:2a9::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Thu, 24 Sep
+ 2026 13:38:38 +0000
+Received: from PHXPR12MB999256.namprd12.prod.outlook.com
+ ([fe80::9cc3:e12c:d992:4ce4]) by PHXPR12MB999256.namprd12.prod.outlook.com
+ ([fe80::9cc3:e12c:d992:4ce4%6]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 13:38:38 +0000
+Content-Type: multipart/alternative;
+ boundary="------------CHX3gfhOm700dU6DMTn0K6uY"
+Message-ID: <8cc1d354-7ce9-4591-8933-9d7eafb4ae81@amd.com>
+Date: Thu, 24 Sep 2026 09:38:35 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: place VRAM-capable dma-buf imports in the
  PREEMPT domain
-Date: Thu, 24 Sep 2026 09:34:57 -0400
-Message-ID: <20260924133644.1541887-1-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.55.0
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
+References: <20260923212838.1421843-1-mukul.joshi@amd.com>
+ <b4254043-2c62-4fa4-927f-ba84aa816560@amd.com>
+Content-Language: en-CA
+From: Mukul Joshi <mukul.joshi@amd.com>
+In-Reply-To: <b4254043-2c62-4fa4-927f-ba84aa816560@amd.com>
+X-ClientProxiedBy: YT4P288CA0013.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d4::18) To PHXPR12MB999256.namprd12.prod.outlook.com
+ (2603:10b6:510:3ca::15)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCC:EE_|PH8PR12MB999273:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccbdb983-bf2d-49a7-a60e-08df1a40ef22
+X-MS-TrafficTypeDiagnostic: PHXPR12MB999256:EE_|DS4PR12MB9745:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61a93534-97ac-4a29-4b58-08df1a4123c6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|10067099003|56012099006|5023799004|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: C4IaEWXrYE/vQKLvKbXmcky2vlkm2YzrFLChIlMT987p9apleIxR/52e4WPDKNXI51fpVrjMs0O0TICdX6eSP5G7yGBRI2ZXLI+1ljPdlD+Q/2h8Cdu7OnPaDDMrV2Vi7KTXkSBrGR3suOkzw3/EJdRL0fXTcsKmoJjdlv5jm2ErUJYV56q/FI37VF9yOzewMi3lt5q9+2JMd7d97j0ozfazp78n5RahgXWe+6IiHNqfhYZUWKbxGtK8WDTeo7ZUqAsUr6EEGzypB921l1BlVKdrEuUpfe6cgml7t1JhbR0SL5HcopVJa/PgYQE7jIAuWb9ioUvfkcKWSyJKs14DbxFhUvTnaAQS2Yv1PI/OX/qKqIJvIZY1GYaqw5Qnq0llEHMGrx2Z07myE5a7RDH0IcgjUPYd+cte853BIPAkvGRG0jxvDiZyuvQiGx/ie5MjHJSMzsBo3P6ny+Uhasn3CuAhV9F3eL233bhyc6A1OuqywCJ4qDAQ5FBxPmBkogUMy7hsAy5keJoRWkkgf02GkXBlLabz1KVKLsaG+Z988j+GBgw971Rji7xE8OphbyUeJQ1OiUmeQmal7thAFGaIIDy18U6dF+WM8vJlePYOSBmAEmZqrzIZXGZwLfXqe7jK/zdMmUZkaJUWn4Cw70JpfRvCGg2PnInUa1TqAxkAhI5GBAs4vCgcZsmaoLpAmurqcXx5dMjvdemhE+6bH2Dg9A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003);
+ ARA:13230040|376014|23010399003|366016|1800799024|22082099003|18002099003|4143699003|11063799006|56012099006|8096899003|5023799004|10067099003;
+X-Microsoft-Antispam-Message-Info: 45CgzvPfIAVmpV//KI/WFm/MSUGKizNHG7vcCJQiJM9Tc+52jXhul0abi7aLQ1nYTGNKOOjDD8QN4vrO8Hk43WOHZNQaV7RtV2afDdsnzuYA2hoUwFQcI/26yhD50xARY4E1uCBXxKmQBSk4J8ckXTazUexbsLw+snUyNSX7iKJfA5S8DNHuDyRZAts/404b5YGZmjMCK7lAtFPm/8B1boR851QWQlId7sxbf3BZZ0YlLJWO6rWHR3FMP0fjUKaXAh9R5WCqymxR+PUyOBZ0AKNd+EK46t6kfPekrUq3YrGUvQwc3JHeqizqIBukmo356vjYxc4JQdbljpBboB4GKmbfOyYK228KnLSCOxPDPlY5i1y8ByzHAT96mgZTXPNc9zj1cMvr2LV4aEXHW9YAapeGgduz1wyz4Xo3dZ9eMJIEDDj5J0DFtAYPuDQYj3WokdqtoDU7VbjQCWZRrW8/11TDZF4ZpKJzSiI6mfcQQfU8WQOE/B3ohR04FhoW/lZhGCW1iAba6ITvK5lmGUT/R8pjIFOPWYI0HqpErhU8gDt0f5vOobvqG81GLRxMYD5KOZ7dHJj1UeNIff1lSBD567iLHzvYYale0oUR/Z8I2pcxlKhq+j3SJjJWiSNVGQ4hXfIMHFFCBQOSm6YL+GTXovzxMSO2JG/cmVPFrPdMqCc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PHXPR12MB999256.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(8096899003)(5023799004)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: r7j3AydBGsvdpkeWuiCu9MjnFnMgnJYPCpCFdYzDQzL0IBppvZbW65Ai3RBWJiAB/pRwTxu5g+5AokKGilPGj7zRo70/HGPtIN5kCLmYowLRkS5onWvlKASmyJXfPEkYmEAMSTxbIqsi5EZVkKkwcx5brMVVUKWaQ4Urb99jOrfPitFjrKc3SU6bufDm+U/GGW85bZpO5wvoVt/AefIsYw17lr614IV1xq3rsknmvLEAmIcjM0K6cxKs4Wtst3zHlWoghsSBldssNVzBgM8KbKxAItrCusOZr68JeTsCTVYmvDMPPhyXG7V2cVU6qqotf7BhyBlKE6xHncZk3mOpenyiXB/YYRZ2TAhG42Z00TDOY048Jn1Yorx3kLwZq5T28wCI+GiKnjIkNJNozo186QLs7u/xV5DnYQkwCBe1+RmrrF1E08LQQmD1pSghRxVx
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1hzU2Mvbm5pYkxMZ0ZhY2pKSWF5MEVJalhkVjJablE1Sm83ajByLzdQWi9T?=
+ =?utf-8?B?NmR2aHNaWXhpb0lXaDFGMmFBWHlLNFZFRTRLV0VMSjlrZGtGOUJtd2tUOEQr?=
+ =?utf-8?B?WW96a2dxT0ZFTll1Z2F1Vk95dEZqM25ieEVJaEtVVGd0OXV6RkVsTFpDdFlk?=
+ =?utf-8?B?QzhOVTBkQzB1Szl5eFp6WnRqa1haN0NwRGRUNGFpeDNRL0YxOHRkSzZ6cDdn?=
+ =?utf-8?B?UnVqUEpLTTBONHErbXptOTNVL0p4UDNyS1dSSlNGc1dYejY5UlhFa0lUWFJG?=
+ =?utf-8?B?ZUo4UFQyOVRMVWxrOFZGWmdlcGFud3V0ajhmTHlHaXZ0QmNSelFsTkk4eDZk?=
+ =?utf-8?B?SER0d1J0ek8zLzBmYTNUOVRRbmJDQXBzcVM3SXprWnR4eWorNHRUZWQ2VnYy?=
+ =?utf-8?B?Vm9Wb0puTm1Vd0hab3R5V0F1amFoOFd2enduQjJYU2dzUncvUGdqWnlSelNz?=
+ =?utf-8?B?VjlpV3hlbzdOcXdNc2hJc2JwOWN1bkVDTThVRkw0T2duRFdlZ01KeHNvWDI3?=
+ =?utf-8?B?dzZrT3JlQUlQbjBuSWZJaWtzeExqL3ZmWTd1Y0I4a0ZQVEtZU21DcTdMMHlT?=
+ =?utf-8?B?NCsySUxFa2JLSTJQaEVaanhYa21DOG5NL2VaT0luSUswODBkelJIZzlxanlQ?=
+ =?utf-8?B?alJESEpOaHMrUkoyV1JSVEtrUXkzcU4wMEFyWVU2aVNQRHpwRTVhTklYTUJr?=
+ =?utf-8?B?U1lXUml4T0tacUJROTVXbTdkczFmU241clN5NDluSzVqVjNjQ010QnovYzhy?=
+ =?utf-8?B?MWxNOUJ4Q2ZjR1hOOVVTSEc0VDF6aVVOTitQQ2FhZ2Y1OFkzRWtWblV6dFpy?=
+ =?utf-8?B?SjFmUTFJUXlGNktpQXp3M2JIYWpnZlJIY0hTNWdJeE52ODh6RERwdDhvRGRr?=
+ =?utf-8?B?dVdmeFNFMVNVVlFoc21ubnlRYUt4V2c0QXY1d3JUeHZKeVJoOWZJQklDSG0r?=
+ =?utf-8?B?SDFXZCsrN3Q2SWg0WTVEbWNBWUhaYTRKZ2tDcHoxWjRZUVAyQUMzMnVBVXZv?=
+ =?utf-8?B?Y1V3SGNJem9zVTQ1KytVZzlkbCtZb0FKYUp3WmVrckkzS3FYM3hoc1g3cEtE?=
+ =?utf-8?B?NlAwSThoQ0VUdXBDTEZPZFNlYnRKdWdBd0FrcU85YWtkNHRQTG5mQlJ4elVC?=
+ =?utf-8?B?Si8vK3hidEE0Y0FGRXNDeTRtZmtmYUxDTkJ2d2dHQkVPYmErMEJiZkFCS1hF?=
+ =?utf-8?B?b2tQOUtsYnFLZnVyRlMwdGdMc25ZQ2haK210dDhUY240azNSRnFRUSt4U3VR?=
+ =?utf-8?B?MHN0VTAzZlV1Q1BFQWlJZGU3bTBNK1NvVGRPc1JMcFBkYnJzeHhhNVNRL1l4?=
+ =?utf-8?B?bWNtZkNoTGhpRVJqOW56SWZPYmpyRkd5ZUVSQmdoeWdTc3QxQWNMZ2pVclFk?=
+ =?utf-8?B?VjE3YU1lWHhBSXlSSWpRTUYwQVR0dWVydXRiNXFvUEI0eStPT1Bxa0FIWjc4?=
+ =?utf-8?B?dHFISktZUDhhcWY5b2lSbGdKL0hyOTVoSEVrMlpyT1VnOWxSZVkzL1pMN1kw?=
+ =?utf-8?B?bTZJNDY5VFhBazRCbDJnWEhQNUVNQWFDdk1NWngvcWpGMStnQXkxRnRkOTBJ?=
+ =?utf-8?B?VS81OXQ5R3c3dytVQXhScjdSQUp4b1RRVDByRGhWZUU5WnM4Rzl1QnZvaHd2?=
+ =?utf-8?B?VTBMNnZNU0tCTk82VktCNFJISnNWN3JKZ0ZDNmRQVjQvSmtXLzRVZWFDL0V2?=
+ =?utf-8?B?NGhNMHJyWE9KaUVqTUxIdVdqdnNFREZzd3NMUXFtME5IOFFNL0t4VjdIYkNY?=
+ =?utf-8?B?ZEY1YUlFcE9uYU9RK29tSC9kZlNLS0VpR2E5cXRsc0VvNHArU2hOV1N1ajJR?=
+ =?utf-8?B?cG1vYW1MOWU2RnhZRXRGM0Q0Y3FxaUphcCtTT3BXMUgwdWx2QlVzZ0lDTFps?=
+ =?utf-8?B?NW5iTXNYMXJJT3AxeFRMUUxwcklDa3FLbFpHVytDTDRndUJISzNlcnBPYWFM?=
+ =?utf-8?B?eFJITExFZmcvSEJUbkczNVpZbE5Ta3liVmx2aGFoRktjT2habUFQemZHSExw?=
+ =?utf-8?B?cS9jRnM0RmY1WEpXbnV5aE92cFNMRXdJdlZyUkl2bHNCKzdSZjcwN0VrQk40?=
+ =?utf-8?B?TEVVMnJ2KzRRVS84OGdaVlZDNXZBWkhZNTRpcVZLSWNwL09zbUNXYmMxckdM?=
+ =?utf-8?B?RFlXYVJvY2g2WVpJTjBXdVo5R01UaHBibExuVGFwTGhxTU1zcUZFdGozcVlP?=
+ =?utf-8?B?Wnd4M1AxYTM3SWlXdXNmbWRSN0o3ZmZLcTZCUXJMR0xOSlRsRzlpYk8vV1Zi?=
+ =?utf-8?B?M0lZaXNqcmRoWlFYbEg3OHhEYUIzamlwcmF0eTdDVFpQRm80VkFxK0VJN3JT?=
+ =?utf-8?B?eVhBQTVkUzhZYUMvblZucXh4UDg5MFYwVlh4RnUwYU9TaGJhSnhKdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 13:37:10.1709 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccbdb983-bf2d-49a7-a60e-08df1a40ef22
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61a93534-97ac-4a29-4b58-08df1a4123c6
+X-MS-Exchange-CrossTenant-AuthSource: PHXPR12MB999256.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 13:38:38.6789 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BCC.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB999273
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C3uzS9C3LXQY5pem/TxuAAavqu/SVRZBB8e9AOqelIbyuGUX45JsHMeG8eMsD2DRlSNYDSAqCI2lgEAaCHvwqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9745
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,7 +136,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-An imported dma-buf BO backed by a VRAM-capable exporter holds no host
+--------------CHX3gfhOm700dU6DMTn0K6uY
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 9/24/2026 3:41 AM, Christian König wrote:
+>
+> On 9/23/26 23:28, Mukul Joshi wrote:
+>> An imported dma-buf BO backed by a VRAM-capable exporter holds no host
+>> pages of its own, yet when validated into TTM_PL_TT it is charged against
+>> the GTT page budget; importing many such buffers can exhaust that budget
+>> and fail with -ENOMEM even though no host memory is used. Set
+>> AMDGPU_GEM_CREATE_PREEMPTIBLE on these imports so they land in the PREEMPT
+>> domain instead, which is GTT-like and still bound (keeping the exporter
+>> resident) but carries no host-page limit.
+>>
+>> Signed-off-by: Mukul Joshi<mukul.joshi@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 9 +++++++++
+>>   1 file changed, 9 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>> index 4031ebe075d8..5bac2474af03 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+>> @@ -472,6 +472,15 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+>>   					 AMDGPU_GEM_CREATE_COHERENT |
+>>   					 AMDGPU_GEM_CREATE_EXT_COHERENT |
+>>   					 AMDGPU_GEM_CREATE_UNCACHED);
+>> +
+>> +		/*
+>> +		 * A VRAM-capable import is backed by the exporter's device
+>> +		 * memory, not host pages of its own. Place it in the PREEMPT
+>> +		 * domain (GTT-like, but with no host-page budget) so many such
+>> +		 * imports cannot exhaust the GTT limit.
+>> +		 */
+>> +		if (other->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)
+>> +			flags |= AMDGPU_GEM_CREATE_PREEMPTIBLE;
+> You also need to check if the attachment results in P2P access, otherwise the DMA-buf will be moved to system memory.
+>
+> Take a look at the amdgpu_gem_prime_import(), since the BO is not published yet just unconditionally clearing the AMDGPU_GEM_CREATE_PREEMPTIBLE flag there again should do the trick.
+>
+> Apart from that looks good to me,
+
+Thanks Christian for the review. I incorporated the change and sent out 
+a v2 just now.
+
+Regards,
+
+Mukul
+
+> Christian.
+>
+>>   	}
+>>   
+>>   	ret = amdgpu_gem_object_create(adev, dma_buf->size, PAGE_SIZE,
+--------------CHX3gfhOm700dU6DMTn0K6uY
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 9/24/2026 3:41 AM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:b4254043-2c62-4fa4-927f-ba84aa816560@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+On 9/23/26 23:28, Mukul Joshi wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">An imported dma-buf BO backed by a VRAM-capable exporter holds no host
 pages of its own, yet when validated into TTM_PL_TT it is charged against
 the GTT page budget; importing many such buffers can exhaust that budget
 and fail with -ENOMEM even though no host memory is used. Set
@@ -120,19 +219,13 @@ AMDGPU_GEM_CREATE_PREEMPTIBLE on these imports so they land in the PREEMPT
 domain instead, which is GTT-like and still bound (keeping the exporter
 resident) but carries no host-page limit.
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Mukul Joshi <a class="moz-txt-link-rfc2396E" href="mailto:mukul.joshi@amd.com">&lt;mukul.joshi@amd.com&gt;</a>
 ---
-v1->v2:
-- Check if p2p access is allowed. If not, clear the PREEMPT flag since
-  the BO will be put in GTT domain.
-- v1 reviewed by Felix.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index 4031ebe075d8..bbe518757907 100644
+index 4031ebe075d8..5bac2474af03 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
 @@ -472,6 +472,15 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
@@ -146,29 +239,36 @@ index 4031ebe075d8..bbe518757907 100644
 +		 * domain (GTT-like, but with no host-page budget) so many such
 +		 * imports cannot exhaust the GTT limit.
 +		 */
-+		if (other->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)
++		if (other-&gt;preferred_domains &amp; AMDGPU_GEM_DOMAIN_VRAM)
 +			flags |= AMDGPU_GEM_CREATE_PREEMPTIBLE;
- 	}
- 
- 	ret = amdgpu_gem_object_create(adev, dma_buf->size, PAGE_SIZE,
-@@ -618,6 +627,17 @@ struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
- 		return ERR_CAST(attach);
- 	}
- 
-+	/*
-+	 * The PREEMPT domain is only correct when the attachment actually
-+	 * resolves to P2P access, in which case the import lives in the
-+	 * exporter's VRAM and consumes no host GTT pages.  Without P2P the
-+	 * import is staged in system memory and must count against the GTT
-+	 * budget normally, so drop AMDGPU_GEM_CREATE_PREEMPTIBLE again.  The
-+	 * BO is not published yet, so clearing the flag here is race-free.
-+	 */
-+	if (!attach->peer2peer)
-+		gem_to_amdgpu_bo(obj)->flags &= ~AMDGPU_GEM_CREATE_PREEMPTIBLE;
-+
- 	get_dma_buf(dma_buf);
- 	obj->import_attach = attach;
- 	return obj;
--- 
-2.55.0
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+You also need to check if the attachment results in P2P access, otherwise the DMA-buf will be moved to system memory.
 
+Take a look at the amdgpu_gem_prime_import(), since the BO is not published yet just unconditionally clearing the AMDGPU_GEM_CREATE_PREEMPTIBLE flag there again should do the trick.
+
+Apart from that looks good to me,</pre>
+    </blockquote>
+    <p>Thanks Christian for the review. I incorporated the change and
+      sent out a v2 just now.</p>
+    <p>Regards,</p>
+    <p>Mukul</p>
+    <blockquote type="cite" cite="mid:b4254043-2c62-4fa4-927f-ba84aa816560@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+Christian.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre"> 	}
+ 
+ 	ret = amdgpu_gem_object_create(adev, dma_buf-&gt;size, PAGE_SIZE,
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------CHX3gfhOm700dU6DMTn0K6uY--
