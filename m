@@ -4,126 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94976C98321
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 14:57:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5071AC98318
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 15:21:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3134910F626;
-	Thu, 24 Sep 2026 14:57:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9D5910E1AA;
+	Thu, 24 Sep 2026 15:21:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N0Bsh2JG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Or/7QVYn";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011063.outbound.protection.outlook.com
- [40.93.194.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9171210F626;
- Thu, 24 Sep 2026 14:57:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=awJ59NDII0E+EJ0Unh4LQ6MYDdtw6N1JlOcAYlgfhK0pkVsfc0Y9yqvjZU1w5V7IQrcS7ZM6CB7Dxg7vOt5pbJnpTb3QlAlOJhE0e8xt6rZwSCv7Hpxx2bDwfoaZfgbTkeDbWtC+FbgtYMSiT6bONeoSU6/CQMYX+JJHxfx8s3S6fn8KEdGysh+q7H+wUu0kx5vSgizRhHGQL79ly5A1+BCeKcWTuGr4pKT7xb8CtWExt3LD17QsS/3jSeLyJLDdj6fmNbwvi5GBVCjvGDobQpoz00Xdji2AH2xI0yUHx05OmttOJzbDNfbOqBP+gs3vAAEEIOVUHtx9Tz+KkfA29A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KUgM1aiIIX77RaHxNQ5tFH6tOI5LJSpdDgfd9LTd0Ns=;
- b=qzUPUzkE/lU5bkxJXtaesmkotfg1bogsPbn33vEezACYRXb+c9OldoVjMqfI6P3uKOii3c1nVuqWRoEtbBGu2NYaHW51NlgCQgpwSyAA5liFkRlhv5fP2wOHoc0udXrcmuMIXIILKTX54WY27HdWU3NBhMaxLDOfDuZuKAaol14yW1jv5g4m9lzGwTx7RY1hZlGGTgareWnOlJsPZImMN3ek58nzmKrAjQ+gxmNSwWZRUykYk1vf26a3hW5knJk4fF4C6Jp6mQgVFPKxEyYPkMWmBpZbdVMrrshC1OnO5XHdCXHSPgySTYjzJSkHAj3n3quiMwOP/CN7uw268lQBug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KUgM1aiIIX77RaHxNQ5tFH6tOI5LJSpdDgfd9LTd0Ns=;
- b=N0Bsh2JGdAXyq2TzB6ekadSr6zl7k+r7DohRbGXtak0fbJlSnr0eiCkvGp610OnFO6p3SrykXyTFqh4O4Jc4eeknc6sKaPwwby+b/+XjOkjVPV10U1y8Lr4x4/527QUHcSY1Tfyb+o3TZUAvzuXicZiVvJAJcUO6ssOOnBt3UMM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA0PR12MB4397.namprd12.prod.outlook.com (2603:10b6:806:93::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 14:57:08 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 14:57:08 +0000
-Message-ID: <76909ea7-cea4-49cf-9a6c-6af260ff3728@amd.com>
-Date: Thu, 24 Sep 2026 16:57:03 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: implement workaround for sdma dcc
- corruption
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260924140616.2647-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260924140616.2647-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0224.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e4::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com
+ [74.125.229.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9227610E1AA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 15:21:38 +0000 (UTC)
+Received: by mail-dy2-f12.google.com with SMTP id
+ 5a478bee46e88-333ada5a44aso191670eec.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 08:21:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790263298; cv=none;
+ d=google.com; s=arc-20260327;
+ b=daCAsrZNK4cmv59+sB7gMeOfgRMTmjb2FyrTDx9U4TIDTVpBRwSTgXjSiYFUN/GNLU
+ 06pI2fUM7cWmxPOrJ/HrthOQyUMNvjJSnRMI3kLhFBy/iipR7jsZtke+WdbckLHoy8A2
+ kR2YBgM0zN/USamPl82xt0CLtibNHEtBSc82kWmx5DjS4nkGJN0oCdTZeLTj1ZEodVu3
+ lap4kIfuTPwshw7U5Kb3FgVur05CxCYUE/XTDYxiSLu9jHepjoC0I+VpNOv1BTO8HHG3
+ sXDG1Yna55Vfu7KX/zmh6mjMdc54t/vMI7NlbwlTXNGyXpjI9s9fJJZVcbT+C1WufAl9
+ yx/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=1HbT6s9c6aFM0LJbQwaDMayMtoWgK4wRQAnAVfXVUqE=;
+ fh=bC+ka6VB/gDub4+qpJseIE/X4zBqSk1GqOnK7qYiKI0=;
+ b=Ewbag54kGs1toFBYLp2O8zC+KB0l6QBtg2OIJozY0iu5JzeHEqaaN8Jm3YrGMx6K7M
+ NNDzXCSqwd+slU7YGLSR8EQOxklgdmG7RrxL7MB7yYcLlnmazuRLVFfRPHUmDUmo6dpS
+ 7a182AUEhy2qb+uNKZGiHuXv6B8DlhglxNTe38RlHH/FTLZF3tlr72GgFFu0EcRr9bpP
+ c6sIqoiZDjIkXsWngSjVH7Ry+oVESq0M6PW2gUlK4EErdleWpk+9AJ25SubfzIQkuHLh
+ H8Ub8oUWXCUfvdNCUpQs/b0LP/4HOs8PAt4N+FYOct6WXTgFNKgVodgPW/K3q5ylHA2b
+ /5Hw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790263298; x=1790868098; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=1HbT6s9c6aFM0LJbQwaDMayMtoWgK4wRQAnAVfXVUqE=;
+ b=Or/7QVYnS/097Cjs+yLn5LKPw9iQxWcoOAsxHuVQN6JjdQf1KhzTCS2iFnu7hSA5r0
+ inLVNWvmnUNnSH0pZXt56vCURB0aNet9utpP2Ky0OakYp3gAnnFVe/1IQ1diB8914e4L
+ /kzTuB4caafRI8H8o3VXXSdx7ds1xG4q7RUYcwaQdc2jPBBeMfjngGXnUzRH4ok/Snui
+ XxK1F7TtS9A/Z0kPHYkTSlbT+4/Y7cUP0oeyU8FCyND11JDIQ/zS+MegOPzVRkKzyKIh
+ Ryygmx+AYdPwGI2WPBERp0nPWg5tla5BnrZk+fkjrCUO+ss00689rdb7WaPPTqfypJtM
+ QIYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790263298; x=1790868098;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=1HbT6s9c6aFM0LJbQwaDMayMtoWgK4wRQAnAVfXVUqE=;
+ b=egJn+jIxOhfNXvKcRo8aTxxuNWV9RNXCz3AqhcpcmCvGaI/bcg7ZTN5rose9LB2OPv
+ GhOzmKqNI9pAzdVermU8ccXkFyUk4fU5xcpCx9eiRMRTq8FiPKGfP4y8pCsl9jbWcsHf
+ C+9bBrYUtfBV/KSSgugJ8XGyJiWjZPICRAjmd/Za9/v+FE6ZjVsTL9PYVAXhhPVhcMOJ
+ oZEf/7xiv1LodwUKmR+A6xVPzLikwUEbnOeVIJOK96uwXFewdub76HtkfrowUBCzl46l
+ oxrRPJf13LU5EerUlS6MO/mTmkzM3ciWFhas0Amyzwdd0ieL4h595/3ljm0cRcpwgTi4
+ YBRw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxXSJcBzA4Xf2Pv0Tpm9fhks6wAyI+xIHJ/xhINIAhGnWRpGlufQpMW6+F5Y+VJtdZ0crd+NIED@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nNmA3/fEFv9MDZOUY1qzXSVF3xMGK9vKmQJFzHqxCid7leIZuo
+ wyHUmC5K1eQ/xxqlqfA4cX5+FNTP93ZzlQrwU1bqkmgRd4FsiQaJP9uKCbAuFTMaVL2xh3gQ0yd
+ M5ebUQQP8SlBWQlsHeDt86RJfOsjvmQA=
+X-Gm-Gg: AYBFou1i2v3TCiMHBaP1JsCSBL09SSjlljNrRVHpHQ5tWc/qH7ImiVVtGLn8aXD30Sb
+ UItglXXX69xpUXRbIcF6V9w3OJFFFgaYHUeyJFgSDorQa3dK+iGwJN9pd247p1gPjvaCGzWnN6g
+ A8qEqx0xM0d8SvHPftE0DuJnQlRbtIloAWtkVbW/LgXdj4WzA91aBYv//68YuYJpuulbzbtZ4sc
+ gdFAOGqk9UHS5JHBsnxPOmN2sxE0guXxTlehRANEihSS1QVmh17V/eypCdKfYRozS9IQNBsId/d
+ txivc+y3Bv2ElzrqwqxOuMJspBfSrMkqRz3dqL3IetPmFFrMrVwU4n3/pDdyli4w1eRr8HJnvHL
+ d0WUiERbPzt3jC8Oz8rRP0rUmhy0/OsdHWTtg7t+SKp0bgJnDvZd1
+X-Received: by 2002:a05:701b:4510:10b0:139:81c6:67a1 with SMTP id
+ a92af1059eb24-1450405cf58mr3632727c88.1.1790263297559; Thu, 24 Sep 2026
+ 08:21:37 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB4397:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb21c566-5fbc-4969-0529-08df1a4c1b2f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: xS7ajhfcAdtgUK2E0OyLiHCFHIwfRLU+C0HSdbHRHv+ufTGKfw9bfPfHRcLVAGqNnLwkW6CNvZG+Q/4RnVxOv3o6F9icX8jxKgxfVOgJXnDwMBKTJvaMnZx9eRGmuS7mqaTwYVEevIzCNP3+619WrOAFBW2W8TZ+4Lzr1tYoWSrmn9K+Gz1yIVjsaTpBxbXMHd0seSE5BZS4N9M28BifbgmLMTXuUjual9RGZ3M68In0w3tcAbhVWFtrtvIQjXTUQeHN694vWwfbtBEeSElAZ0yC67C0PbpnXMyNEaH/iP6TE5HUf772wmcY/hOsohzXGhHKzGBKHbk35o2Qf32K+F2PyD/uEgVPSHXWkCZeH6UAqK7JrlsRFUcP9FQfbXW/DqqEaBkVMGsTFsHpMagCtDGU+jQePSbMm9r7SfZp4A3ygqtftpKW2rWo4VUikvvQZnPycS1GWoW1F4IwZKvtr+MzQ2izt7kFuV5au9i28/uYjZErd4sPhjc0Y2vYrpF9pLKlqeNQXHMqVkOT5IrRGQgcTwCSJZK9ihffDzTlH5W9hjPiaQQ/bB/qEjEWALAYnDLN+ftahzotO8kCBLFdjWjLasP8xSKHee5PIgiT9ChutNYBKIk3U/j6LQXxX7Xj
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDZoWExDRmhHQkdZdjBLWDVNZitsZU1tcGRFNndDR1NqRWhSSVhwOHM2TGY3?=
- =?utf-8?B?RWxDcXp5U0VZQjZYZlRzQ1JsdVA5WUFsNzdGRWI1TDRIZUwybktoUDhtWW1s?=
- =?utf-8?B?UkFtOGwvZXhodFlwb0ZsY2wxSW9qR0RvcGIrWUFRVWJoTzFnN1B4RkJXYjJD?=
- =?utf-8?B?T1dUbEVJWHB6VUtFSjh2Z213emt5UkQ0eEVKYjM3dWdZNExsOUFMZDZTRVY3?=
- =?utf-8?B?bWVLdzNqWjFOQ2FsU3I0TjNRRWEyakNIMk1WUXV2TENQVnV3L3RUMEVvYUpW?=
- =?utf-8?B?dHdSWDNWZkdaWE9IQ3RUWG44Mmd4RXpsMmNhaUU1ZUFWakFyMllWVElRWGQ0?=
- =?utf-8?B?OWJpaXRWaTFmQ1cveTBqNlN2ZklwSlQzQUpJQytOU3ViV3NTRyt6L0dCWU1o?=
- =?utf-8?B?UWVhNUF5bXo4Sk9CSGY1TzNnM0I5dFVRVkJVZHZWRkNVL3Zjc0Z3ZFViZUNt?=
- =?utf-8?B?RmFXQ1dsOWM1SVp1OUFGbi9GNmlmTmtQMUdJMHh5ZlBDbXhldzRINnZhMUdp?=
- =?utf-8?B?OGc0b29IbmorZ1ZlWWFMeEdmellWbXdkK1pvdllyNG5QQlljL1VJVTVnUHlx?=
- =?utf-8?B?Zy9lTFhxRFRuODNsNG5IODh6RXk1QXAxaHU5MHJEbFlZWVB3b0pia1lBOVRR?=
- =?utf-8?B?cmdiaHdoWkNZUXZRZ3BnTU50MGJFQkU0Sm00SVQ4R3Vjcjg1ZEhMd2RVOFFl?=
- =?utf-8?B?N25zcjNtc09uWFdGMWNmcjNhQWlKN3hDZDU3Q1N5M2N3WUVRWWlFbEFaNVpo?=
- =?utf-8?B?bWxMVjlqZlo2K0FlOGE0NWFLSUR3MHljSCtWNDFSWE9Ub3VFODFrcXYwdGlL?=
- =?utf-8?B?ai9KQnhmclMzdTlMTXRuS0gvdW94QkFPVVdBR0ZITkZRejFiVExmc2NSZ2Jm?=
- =?utf-8?B?UGQwd2x3eGMzVE1UcUNHaU1OUmU2WlNJOFNRdmJseWlieVprb25rbFdUaDQ1?=
- =?utf-8?B?RS9FTkZDUm1YRjRyK3dUZUIzN0h6aVN0YkZZKzlRUWpFSWdlZEZock1VbW1G?=
- =?utf-8?B?YVlDc1IzY3FQaWY3TnNoQmVGNXQvTHhsWTQzWWhkM1dIbk0vU1hNZnh3b2o5?=
- =?utf-8?B?Q3Q5YlV5RlVsZGcyTmpmTEV1YlF6RisyUG9xR3ZLaU9XdUtacWYySUQxazlL?=
- =?utf-8?B?K0tUV3hHNkdHcUdQTVYwM0t0aVVnZ2lQN3ljL3VZSmxqS3ZHK2oyZkFHTjY3?=
- =?utf-8?B?amcydE9CbWFncUFjR3hNTnByUW04b3lycjZiSGM1alVCQ1NYOXJRbmJDcG5w?=
- =?utf-8?B?VktjaTBEczhzK3EyMExqdTlaYkdMbCtQeDR2TkltSWltY3VIc0RsVU5Na1V3?=
- =?utf-8?B?WDRYVGxhd1d5K2ltbHdZTTN2N0J5MmF3S21aMHdDWkdpMGl6Qlc1N1N3SUlP?=
- =?utf-8?B?bzNhREJRcnpNeGVTSzRReEFIOGRjSmFyazlka1pmWEFqb0hxWnZVd3VMQlBI?=
- =?utf-8?B?YWhWNzU2dDBoM0VZZzYraUF0eWVDTXZVRVRnUndhZVF1b1ZtWHVuUUJtTG9G?=
- =?utf-8?B?SFRoblFSa0dOMitOL2JQTzQvUldlZU1jMHZzV2FpSk5oK2JYZFhXVWZOaG5M?=
- =?utf-8?B?TzhhVHhQVHlxaU81a2hRb3dOa2czdEtRQ3BNYUd1VDJKSkVxcDNhUE9XOTNK?=
- =?utf-8?B?d2dBRE1zdXV0MXJoMFc4eS81UnZ4RmpFWlNyMmh2SzAwU25tVVF3RytGd3JS?=
- =?utf-8?B?TjF5eWNiTENiWWh0QmRSSlVuS2FVVnhtSndtdXRLSkxGWXF4U29rbG5kcXNO?=
- =?utf-8?B?WklBVGNoM3VQbHl0L0FRdEFaZ3RiT2RWd2dxZnVlNnlOamwyV3FVMXBKWWpi?=
- =?utf-8?B?UWpjTEo1R3hzR0xNZGJYVFpOV0l5TXFRV053QnpHVzJKNzNZOHVkOHI1Sjl0?=
- =?utf-8?B?UndCZ1VXd25uYmdWWWtveXBPdFpYZGNJRW1MTkliU2wyRWVaUVpnUyt0VmEx?=
- =?utf-8?B?V29qY0FWRXk5ZHFFOXBXNHFOam5QZEtoQlh3Ukl5UllQNWFDUG9HUkg2Um80?=
- =?utf-8?B?dDRpbGx0d0lGMzV5ZWNzSTFZb1dJTS9ISWpLY1VVT2p0Y1A4RG1XNXRSbm1t?=
- =?utf-8?B?dEpuUWRBaWVLNzJtWWt0YjRXazAwTHlwSldHUjRHbGM3U0txVmE0QnhUbGow?=
- =?utf-8?B?TUZLWDR0WG1WUVlHR2UxTmR0VXA1ZzVaaFRmTWRlUUJYekQ3QzM5RHpBQ2tV?=
- =?utf-8?B?Y2VVN1lwQk1DR1g3OVBSUWdZY2Q2WmFJcHZrWGpyQjZrdVZiMnVOY0cvdUw1?=
- =?utf-8?B?YytIM1BKc2duNlZhM2FrcGdYYzFndUYyZWwwY08wQUdKUXMvNU85ZkxEejhG?=
- =?utf-8?Q?c6BpxOSPXbiFKH1Kk8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb21c566-5fbc-4969-0529-08df1a4c1b2f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 14:57:08.7409 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DEi/NprheQxpDu9kotCtrv4tNlPuOFB+hQk3CDhpS6iV++YtC5gFuJT7gz2NS677
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4397
+References: <20260924132952.25054-1-fbeltranmillalen@gmail.com>
+ <9c2ce6d3-46ea-4a69-a227-a5431c3447a6@amd.com>
+In-Reply-To: <9c2ce6d3-46ea-4a69-a227-a5431c3447a6@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 24 Sep 2026 11:21:25 -0400
+X-Gm-Features: AclHuK939X-LsDc1Mw-gpXK0-LhWwyhpUJXbBj2XeAIu67VCJD_e4BSptwVLNXw
+Message-ID: <CADnq5_PsKKiOXPuH9c8n0u8viyg0u3rTeDnPoeDBk11MP4V_hg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/gmc_v8_0: restore the FB location after a
+ re-POST
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?=
+ <fbeltranmillalen@gmail.com>, 
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, airlied@gmail.com, 
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,47 +111,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/24/26 16:06, Pierre-Eric Pelloux-Prayer wrote:
-> For unknown reasons, on gfx12 using multiple entities can causes
-> random corruption of BOs with DCC.
-> This workaround seems to prevent the issue until the root cause
-> is understood and fixed.
-> 
-> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5663
-> Fixes: 3a6f6eeb3db5 ("drm/amdgpu: give ttm entities access to all the sdma scheds")
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+On Thu, Sep 24, 2026 at 11:06=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 9/24/26 15:29, Francisco Beltr=C3=A1n Millal=C3=A9n wrote:
+> > On a MacBookPro14,3 (Radeon Pro 560, POLARIS11) amdgpu has never recove=
+red
+> > from an ASIC reset: five attempts recorded, zero successes.  Since susp=
+end
+> > to RAM goes through a reset, S3 fails the same way, and as the internal
+> > panel hangs off the AMD GPU the machine comes back blind.
+> >
+> > The failure looks like VRAM going write-only-dead: writes are silently
+> > dropped while reads still work, the driver reports success at every ste=
+p,
+> > and then it hands the SMU a pointer to a table that was never written:
+> >
+> >   amdgpu_device_asic_init()  -> 0          (reports success)
+> >   gmc_v8_0_hw_init()         -> 0          (reports success)
+> >   memcpy_toio()                             (write silently discarded)
+> >   send_msg(0x251, ...)                      (SMU parses garbage)
+> >   smu7_check_fw_load_finish() -> -EINVAL -> black screen
+> >
+> > It is not VRAM dying.  It is the framebuffer moving.
+> >
+> > On this machine the Apple firmware places VRAM at MC address 0 on a col=
+d
+> > boot, and gmc_v8_0_vram_gtt_location() reads MC_VM_FB_LOCATION once, at
+> > init, to derive vram_start.  A re-POST -- which is what an ASIC reset a=
+nd
+> > an S3 resume both trigger -- lets the VBIOS put the framebuffer back at
+> > its own default instead, 0xf400_0000 here:
+> >
+> >   cold boot:   MC_VM_FB_LOCATION =3D 0x007f0000
+> >   after reset: MC_VM_FB_LOCATION =3D 0xf47ff400
+>
+> Mhm, interesting I'm really wondering where those values come from.
+>
+> >
+> > gmc_v8_0_mc_program() programs the system aperture from the stale
+> > vram_start, but only writes MC_VM_FB_LOCATION and HDP_NONSURFACE_BASE
+> > under SR-IOV; on bare metal it trusts whatever the VBIOS left behind.
+> > While the MC is still in pass-through everything appears to work, so th=
+e
+> > mismatch goes unnoticed.  Then gmc_v8_0_gart_enable() sets ENABLE_L1_TL=
+B,
+> > SYSTEM_ACCESS_MODE=3D3 and ENABLE_ADVANCED_DRIVER_MODEL, the MC starts
+> > checking the system aperture, and every access lands outside it -- whic=
+h
+> > is why reads return data written before the reset, from a different
+> > physical place than the writes are going to.
+> >
+> > Write the framebuffer location back when it does not match the one the
+> > driver is working with, which is what the SR-IOV path already does.  Th=
+e
+> > comparison keeps this a no-op on machines where the VBIOS restores the
+> > same location, so nothing changes for them.
+>
+> That is still a rather bad idea for multiple reasons.
+>
+> You often run into suspend/resume and random memory corruption issues whe=
+n stuff like that is done and we never fully implemented blocking VRAM acce=
+ss during a runtime ASIC reset.
+>
+> I think the more defensive approach is to do an ASIC reset on driver load=
+ and use the values the AtomBIOS init function comes up with.
+>
+> @Alex what's your take here?
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Sounds like crazy Mac specific behavior.  The asic_init bios table has
+to reprogram the FB aperture otherwise the pre-OS environment won't
+work.  Moreover, at some point, these registers became privileged such
+that only firmware can program them.  I agree that running asic_init
+on boot for Macs would make sense.  I think we already have a similar
+workaround for some other mac models, probably to work around a
+similar issue:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
+it/?id=3Da5be7ad8f5f0e067613e9197638f216f46252946
+Maybe add your device to that existing quirk or make the quirk generic
+for all VI boards with apple ssids?
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 3d620ec2937f..e9de5c4b7f63 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2367,7 +2367,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
->  void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
->  {
->  	struct ttm_resource_manager *man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
-> -	u32 num_clear_entities, num_move_entities;
-> +	u32 num_clear_entities, num_move_entities, sdma_ip_version;
->  	int r, i, j;
->  
->  	if (!adev->mman.initialized || amdgpu_in_reset(adev) ||
-> @@ -2392,6 +2392,12 @@ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
->  
->  	num_clear_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
->  	num_move_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
-> +        /* TODO: workaround for DCC corruption when moving BOs from multiple queues at
-> +         * the same time: use a single queue until the root cause is identified and fixed.
-> +         */
-> +	sdma_ip_version = amdgpu_ip_version(adev, SDMA0_HWIP, 0);
-> +	if (sdma_ip_version == IP_VERSION(7, 0, 0) || sdma_ip_version == IP_VERSION(7, 0, 1))
-> +		num_move_entities = 1;
->  
->  	adev->mman.clear_entities = kcalloc(num_clear_entities,
->  						sizeof(struct amdgpu_ttm_buffer_entity),
+Alex
 
+
+>
+> Regards,
+> Christian.
+>
+> >
+> > This runs after the VGA aperture has been locked out and with the displ=
+ay
+> > suspended, so the MC does not need to be stopped; only CPU access throu=
+gh
+> > the BAR could land while the FB and HDP bases disagree, so BIF_FB_EN is
+> > cleared around the update and re-enabled below.
+> >
+> > With this the GPU survives resets and S3: the machine has since complet=
+ed
+> > twelve suspend/resume cycles in a single boot without a failure, and th=
+e
+> > restore is visible on each resume:
+> >
+> >   amdgpu 0000:01:00.0: amdgpu: FB location 0xf47ff400 does not match
+> >   vram_start, restoring 0x007f0000
+> >
+> > To be precise about what those cycles prove: the kernel they were run o=
+n
+> > also carries unrelated local patches for this machine's Thunderbolt
+> > controller, which fails separately.  This patch is the one that brings =
+the
+> > display back -- without it the GPU never recovered from a reset at all.
+> >
+> > Tested on 6.18.49 on a MacBookPro14,3.  I have no other smu7 hardware, =
+so
+> > this is only known to matter on machines whose firmware boots the GPU a=
+t a
+> > different framebuffer location than the VBIOS default; elsewhere the ne=
+w
+> > branch does nothing.
+> >
+> > Signed-off-by: Francisco Beltr=C3=A1n Millal=C3=A9n <fbeltranmillalen@g=
+mail.com>
+> > ---
+> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> > @@ -472,14 +472,42 @@
+> >         WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
+> >                adev->mem_scratch.gpu_addr >> 12);
+> >
+> > +       tmp =3D ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
+> > +       tmp |=3D ((adev->gmc.vram_start >> 24) & 0xFFFF);
+> > +
+> >         if (amdgpu_sriov_vf(adev)) {
+> > -               tmp =3D ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
+> > -               tmp |=3D ((adev->gmc.vram_start >> 24) & 0xFFFF);
+> >                 WREG32(mmMC_VM_FB_LOCATION, tmp);
+> >                 /* XXX double check these! */
+> >                 WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> =
+8));
+> >                 WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
+> >                 WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
+> > +       } else {
+> > +               u32 fb_loc =3D RREG32(mmMC_VM_FB_LOCATION);
+> > +
+> > +               /*
+> > +                * On bare metal vram_start is the FB base found at ini=
+t (see
+> > +                * gmc_v8_0_vram_gtt_location()).  Normally the VBIOS p=
+ut it
+> > +                * there and a later re-POST puts it back in the same p=
+lace.
+> > +                * On MacBookPros with switchable graphics VRAM is at 0=
+ at boot
+> > +                * instead, and a re-POST (S3 resume, ASIC reset) moves=
+ it to
+> > +                * the VBIOS default, away from the addresses the drive=
+r
+> > +                * already uses.  Move it back.
+> > +                *
+> > +                * This only happens after a re-POST: the display is su=
+spended
+> > +                * and the VGA aperture has been locked out above, so t=
+here is
+> > +                * no need to stop the MC.  Only CPU access through the=
+ BAR
+> > +                * could land while the FB and HDP bases disagree, so b=
+lock it
+> > +                * here; BIF_FB_EN is enabled again below.
+> > +                */
+> > +               if (REG_GET_FIELD(fb_loc, MC_VM_FB_LOCATION, FB_BASE) !=
+=3D
+> > +                   REG_GET_FIELD(tmp, MC_VM_FB_LOCATION, FB_BASE)) {
+> > +                       dev_info(adev->dev,
+> > +                                "FB location 0x%08x does not match vra=
+m_start, restoring 0x%08x\n",
+> > +                                fb_loc, tmp);
+> > +                       WREG32(mmBIF_FB_EN, 0);
+> > +                       WREG32(mmMC_VM_FB_LOCATION, tmp);
+> > +                       WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_s=
+tart >> 8));
+> > +               }
+> >         }
+> >
+> >         WREG32(mmMC_VM_AGP_BASE, 0);
+>
