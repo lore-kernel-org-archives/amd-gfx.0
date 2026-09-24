@@ -4,96 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBFADC98318
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 21:52:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62845C98318
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 21:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A83110F7C0;
-	Thu, 24 Sep 2026 21:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBBD810F7C6;
+	Thu, 24 Sep 2026 21:54:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YBaKl6/x";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BcBKEbTm";
 	dkim-atps=neutral
 Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
  [74.125.229.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7D2310F7C0
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 21:52:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F32FB10F7C6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 21:54:54 +0000 (UTC)
 Received: by mail-dy2-f43.google.com with SMTP id
- 5a478bee46e88-33c14c9c8ccso32773eec.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 14:52:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790286766; cv=none;
+ 5a478bee46e88-33e61b947d0so2640eec.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 14:54:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790286894; cv=none;
  d=google.com; s=arc-20260327;
- b=jqNWz3ZAp0dIso+nolGl/3GRjI0qxG8/2qf2oGULiHJ1aWG8ulpJ8f3fKVNaTxXzF6
- t3Cfgnw7JCZYlSHQfn+PCnr/aETqNwqISo1o5YmzRnd2QH4GC4bcTguK2gvcfV4bmd1R
- yRX2bmmxdVJz+O0peIyUH/9nyfLTfiJ3iIXaNA+sY9OzqTZ+NewFlCq7zuR8jXY38Cu9
- PAlOu/+4xnHaDgw/sElZUrCUn47mO+R+GDJPpcxv7tJFEOWo1G06sjRMATZBxM8scXy6
- wt1n9BaPYWY5jCSSuh5GXJQBd28ijKkig/tVa1fALocdgFFtVfeqFPKV1JE17OBiS+r/
- yabg==
+ b=E4P2jiLsqltgT/qBhEOZQ/Jtgk+Q0NZRuVrgbdJvkrWhYXi3DyDZonLdVy8/jHRyTP
+ 1E4Ka+3535mKWQpb3g7SLSK5FBaXQIdPoeYbZspRNzhLdhXFgOLLdTHt9tqU7RjPWDEY
+ XioEAi/BMSg190OKLGicmUu+IrbFfBZLEnrS9DhONCinrNXNdY8aMPUgsOsgJzsReA1g
+ ayyEhjv4fEVjmD09xYoHvVVZhw4G/Wof7us3U2nJVed7R7oiAUAbW/76RVi6lo+JrcDX
+ eaD2aJ/g/OhXB/dBLW8gRBUjcqtqdd8fHAXp7wlLeqC6kzq8SNw2XzLYVX4b/qbpOykB
+ 8Jbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=8lhG9wb5QlfLqgt5UEaJmUthOlH8IOrrPdU2sMoER/4=;
- fh=2fTJE2NcyLNGM6FL+kBiBpTeUon3ddBePR8FPCGbbGM=;
- b=NekgadAx2bqZJjwoTq+7pBP0tbHEfCNzOAJ/xO7JQXEQgsTbCiC0xXSTUb8nGDDKqh
- HKrDToSY4ldEMNggfvwmT1Tn6MspnkxrME8oh6w1YGp0mXlbsAX67EHeN7isFq/YwEjH
- z1ibJRvlSHWj5qyCn4cV2043vq00OLdK9rESm9dvZaRAI5xuQqnXZcQCyYtv78PHb6GR
- QPowg0t3FLWDVFscEu14dxKY6n+Go0AfXIGnS6TlFYoSM2nq0zs7tJDffjJ+WFy7dOYg
- fSyUTu9r1tCI9xF9MMSURiL+OnSFmDxpuOLfBrpIAsiu34vty/8tzZN+xZxQxYdRYZ9G
- /6yA==; darn=lists.freedesktop.org
+ bh=1oE7svzhEf022G5qCXjn73Iy6aMVX182hm8bk8JwbE4=;
+ fh=bO6jBY0Cza84izgABXv+3/ubBnAD67+tMLFu2zVc4iE=;
+ b=noLTmQXOqmSicRXVfa+uWEnppXcOq0OrZ0Liulqb0KEu2EmsYLcBaDg/6JZ1EdYnCy
+ NVOZCYA/RFfo4lX/f/zhdB26CQq8ct8dHsqFslsq8p1Ld87+gnxIgWCBIneYA/AbH3ix
+ aoiOGbzIgnrUuN6xJv3a+Q3ed6+ETgcamM7cj8N9upT8/E9W16NdRkEHMqKkoOpxuQau
+ gtio8H5AJXw9pPvVW4fvFXne4d9pzNW9RqhpeY5jkQyQEG0QaghfHro0g/CYSv07ltmW
+ VrvFde/vKB5YYCwfCNsAvpynTRd6EPo58kW4E3l0do4GdxxgMtlA4xAVHoJkQfFPC3+k
+ Kf3g==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790286766; x=1790891566; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790286894; x=1790891694; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=8lhG9wb5QlfLqgt5UEaJmUthOlH8IOrrPdU2sMoER/4=;
- b=YBaKl6/x+RRgl93mQn9yz8h1zO0A0wfTIMO0atBiKKxNQuLfEDg0RECrq5F0TySBJt
- t0FqI2dqslLFlTR9vnAxg4OFEkJj9Y20lpxoxQqIEys8pv/eJgXcmnizYNa4r1Nm7yV7
- XuW3TNW7zC/TJ/s0n52iBEXMRrWU+WXbMZABy2U6zR0dhrqvwyKqUX5sfkPB6z0TNOJ3
- yqOmYtKaxpXW+plXCCFZIpCAME0wndtom6IwPnKcbW7IXQwggsCpvSuxZ6ZSGR1nguqz
- AYe0eV+7jXdKkUAJIueW67f6MfYrErqS52gp2kjM1wpNuBwDFp74lgh6OhxFn+RmnMFq
- 7wZA==
+ bh=1oE7svzhEf022G5qCXjn73Iy6aMVX182hm8bk8JwbE4=;
+ b=BcBKEbTm+/R05vMqgI7miRUDd7rPFIf4p4eJpUPnT/W0kfsi+2fov1amGgcDmOXzrt
+ ctPoDA9iweHRztVHze7ZptIbN+N+coxLzIvwkx4+sARsWDPzFgXSNvpYgQSLWOuoo/y4
+ egeBW2usUysGcmxilJO9MCvn9Lm37Pp4MdHnhc/rPyBHSNEayOVYn7Ywm+2SDZh83W4W
+ QTxZ1IBWnZRBIqgCtFiSyF3FeXNXMm+xYtqf8YRyLldf4TYafftcfA9AWvF/sMvDbOCR
+ uhyrOtIkGLoFXL0Xgc83xKOOKK8iJRnkZJzXL6DyENgnRlOa3TgT5fqw/giyctgoRFzA
+ J//A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790286766; x=1790891566;
+ d=1e100.net; s=20260707; t=1790286894; x=1790891694;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=8lhG9wb5QlfLqgt5UEaJmUthOlH8IOrrPdU2sMoER/4=;
- b=GmsWGEFqiS+3pDCEM6QHPpPod3RXdj2/0j5j7x00bvs0eexF15oMocjuK2AMVRmRR5
- PmSThOYHyy9+GDl5ZnLaW92zB4c4V+6j2E1tfCDUx4VdyxKFjNGZ/exh9+BHF+7RH2Bn
- zqX1c0S+NzZkVAkva53yRk0HUBc+SU3KCg0k8NNApVVniwSR5xM5xm0/nHNXDZK8AONC
- Gvb/NQAs5ddaExT6Okdq0oJKp2XK4Keh/jm6g/HZTMiD1wByVwLI3A7ePUk+K05ebZLF
- Ry73QwUkA74M5Cy+2UcHab/O0TiBE+Hx95SyypsHwC6sW+0GRif9XyKXy0oXr7+qClXo
- aQ4w==
+ bh=1oE7svzhEf022G5qCXjn73Iy6aMVX182hm8bk8JwbE4=;
+ b=H96FEkZ3prQaf/IrCANxRGMw0DANucbCAZy4T/tKLqyd73HS1sy/ipus4Rw8qRAvFm
+ qrmGJET6jNakHLiyAj5JY8L5cul2aA7LR45rLz8DSJnjXUy9RHcqEnsNXxTPOf2Bo4Rs
+ eyK31QyGqZMpLvUpOrCxkP6d0m2M+ZPWdOuGEokQHO2dT7imrt3I1BqIQ2ih/o97WRNR
+ zfjdwJ1kvOU8PeiBzhoQ8/LTl5/UIsArZcAjDuYCyfjCCfgz4GOnPgvRNlyOx11OCCB2
+ OkjyGVAekU6yty6sfX/lqpsx5Xs/kern0itRxnlVGqsU5rE7bXWuDGzbcIRBeeKASIW6
+ KbWg==
 X-Forwarded-Encrypted: i=1;
- AKwUvByO/drAukDzyjDNRAISDpqZ5qFOAFZ6MtRgOynaiKTFfPCVH8wvOVZHTeEr3OIuCAFf8mWkqB/C@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kLfAGfqEghFEKYRcBoaQ21mkJOtXtXmOXte07TIhCt50jBxRr0
- KKIvCtVkEE1Q0aF2e3SKMjZ1DaaF1AcM91ZiDt6ZS7V8+oeowjiFTW9nIU6VXsczZxfyBM3IPo1
- fPbnwXvBL4FAp35e9yKESMI0HbFi2jq0=
-X-Gm-Gg: AYBFou38qPNhiwQ8wZNXQZPB76+9G89M+AQmXhe/Cxpy1nw2vP2CTqtAQiDrSSwNSBc
- Z6CEkPSP2JtHJdR/rjdiWo3t5EAP+RG0Gu23szSMc1A6Ry3a1uzgR10c/DbVyxgMOXbXmZu5frX
- BSOMpVJjZPhpZgrPejZIXSaNQzGutF2MWXeOVR39V/lPD/+IPY4UIeJMeeyA1BfL0n+xzVj3mg7
- NnDohbNkpBdSjEi2ZPQ4e4uv+NzBEc7ggDwyEn6bWss7KZMSDQVd3yyZuz7QzX1PWKDL/10m9+R
- 8MR+C7X4we/cVf6WoJBdYO4ayeoMJODjRgfKuS4XRD+YT1bUXlb9I6obYZVPvzXUQoebA14HwOR
- 5L2pOE4DUb/x4+/bzboc5+YE/1Jjyvb8vFy/34cVL4g==
-X-Received: by 2002:a05:701b:450c:20b0:144:ff51:2d73 with SMTP id
- a92af1059eb24-14503f1814fmr4390022c88.2.1790286766083; Thu, 24 Sep 2026
- 14:52:46 -0700 (PDT)
+ AKwUvBxiDpzMc5QaP9drsPSN571SbQymB01bTvFS444SEgJEVVqBcu12xlPCzZWJjCNuB7UuzQFYjESs@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nrYHHhQnvgTqteEG1hcJqJW2109E+FSb8ZKjTKdr2spAG/tV+M
+ L5O8KTIox2wHyQaJQ/jLH6mse+9ZhzHsJ6q9zrIS30Gz0wKGIQSDyOFlqGwJVwDLRkFIWJeAFM2
+ g8ATXzCvWFlGG0WEDZ7zZEUI9JiXrdkc=
+X-Gm-Gg: AYBFou1pEoKPmcYJR1GjmRNGd/zoxfrpuALXqDJxysSAZcJZzgNjaaFhSeQtfa78V81
+ zGFhiqddTHGIDr+FbTQVl8Mx2By8X0o2GRiA/ASZ6LDHQhuU0L9plf/Bsf4mAGE+n1yE2GNqN8X
+ xAm1nUBIsPTbGfmbkpevGAA0pMI5qu56mwaAUbyjKwiVfLfV7oKgpdm1hHOWpf8fzyGk5oVPx0c
+ TFDep0DNTrY1StqJ2M6Ro0ULHBlf94MMFMZYAC2FylP6dKxcngMeD2fF+BW/NqJfkqEZTEkDjkv
+ hKo1REc2PMwpGBdwbnqSKkq2bkw2bGu06bMsJWsmEetocKKH/R19XAcVIRsLjdkoRT19droiG3U
+ cyhrXIkOFv5DdNF9WNlDuoWp1EE3CiZyewoWd6KlfcqDXxQkdYqao
+X-Received: by 2002:a05:701b:4287:20b0:139:81c6:67a1 with SMTP id
+ a92af1059eb24-145a619c425mr1306344c88.1.1790286894158; Thu, 24 Sep 2026
+ 14:54:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260923152912.1296884-1-qwe.aldo@gmail.com>
- <20260923154357.1319689-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260923154357.1319689-1-qwe.aldo@gmail.com>
+References: <CADnq5_PsKKiOXPuH9c8n0u8viyg0u3rTeDnPoeDBk11MP4V_hg@mail.gmail.com>
+ <20260924210523.13214-1-fbeltranmillalen@gmail.com>
+In-Reply-To: <20260924210523.13214-1-fbeltranmillalen@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 24 Sep 2026 17:52:34 -0400
-X-Gm-Features: AclHuK8_S3kMABiU0QTNjcDgoAqPTQebAhSNKvPGJWpzU2O6hEoWY7qZTP4di-8
-Message-ID: <CADnq5_PuveD6MFtdLFkkHk24jVCQqgyC1R6pUy7ri_RyWVSZXw@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/amdgpu: prevent parameter-space underflow in
- nested ATOM table calls
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Date: Thu, 24 Sep 2026 17:54:42 -0400
+X-Gm-Features: AclHuK-ygzQGsSs9ter1Q0JQvd72HzE4_8XQf238sK-jHrHnBZECxiZxUctAWQc
+Message-ID: <CADnq5_MAs45uU91Px+6R8MQnkUEgf0s_x-NZexm_KZP6iNTH1Q@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: reset VI ASIC on MacBookPro14,3
+To: =?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?=
+ <fbeltranmillalen@gmail.com>
 Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>
+ amd-gfx@lists.freedesktop.org, airlied@gmail.com, simona@ffwll.ch, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -112,67 +111,69 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Wed, Sep 23, 2026 at 11:44=E2=80=AFAM Aldo Ariel Panzardo <qwe.aldo@gmai=
-l.com> wrote:
+Alex
+
+On Thu, Sep 24, 2026 at 5:05=E2=80=AFPM Francisco Beltr=C3=A1n Millal=C3=A9=
+n
+<fbeltranmillalen@gmail.com> wrote:
 >
-> atom_op_calltable() invokes a child ATOM table, forwarding the
-> parent's parameter space with an offset:
+> On a MacBookPro14,3 with a Radeon Pro 555 (Polaris11), the framebuffer
+> is at MC address 0 when amdgpu loads after a cold boot, as the firmware
+> leaves it (MC_VM_FB_LOCATION =3D 0x007f0000), while the VBIOS ASIC_Init
+> table places it at 0xF4_0000_0000 (0xf47ff400).  amdgpu reads the
+> location once, at init, so after a re-POST (S3 resume or GPU reset)
+> the framebuffer has moved and the driver keeps programming the old
+> one: the SMU is handed a table that was never written and the GPU
+> does not come back, which leaves the internal panel black.
 >
->     amdgpu_atom_execute_table_locked(ctx->ctx, idx,
->         ctx->ps + ctx->ps_shift,
->         ctx->ps_size - ctx->ps_shift);
+> Resetting the ASIC on load makes ASIC_Init run before the driver reads
+> the location, so the driver uses the VBIOS placement from the start and
+> every later re-POST puts the framebuffer back where it already is.
 >
-> ctx->ps_shift is in dwords (set to ps / 4 in
-> amdgpu_atom_execute_table_locked()), while ctx->ps_size is the
-> remaining capacity in bytes. The subtraction therefore mixes units:
-> a child table requesting 60 bytes (ps_shift =3D 15 dwords) with only
-> 16 bytes remaining would compute 16 - 15 =3D 1 instead of the correct
-> 16 - 60 =3D underflow.
+> Add the Radeon Pro 555 used in this machine to the existing VI reset
+> quirk table.
 >
-> Convert ps_shift to bytes (ps_shift * 4) in both the guard and the
-> subtraction so the units are consistent. Abort the interpreter when
-> the request exceeds the available space so the parent table does not
-> continue with stale or uninitialized data.
+> Tested on a MacBookPro14,3 on 6.18.49 with the quirk table backported
+> (the kernel also carries unrelated local PCI and ACPI patches for this
+> machine).  The framebuffer is at 0x000000F400000000 after both cold and
+> warm boot, and the GPU survived 9 S3 cycles (lid close and rtcwake, one
+> of them with the lid closed for about 7.5 minutes and a USB-C disk
+> attached), each followed by a few minutes of 3D load; no ring timeouts
+> or VM faults were reported.  The reset adds about 0.23 s to amdgpu init.
 >
-> Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> Link: https://lore.kernel.org/all/20260924132952.25054-1-fbeltranmillalen=
+@gmail.com/
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Francisco Beltr=C3=A1n Millal=C3=A9n <fbeltranmillalen@gma=
+il.com>
 > ---
-> v3: abort the interpreter (ctx->abort =3D true + return) when the
->     child table's parameter space exceeds the parent's remaining
->     capacity, instead of silently skipping execution (found by
->     Sashiko AI review on v2).
-> v2: convert ps_shift to bytes (ps_shift * 4) before comparing with
->     ps_size, fixing the unit mismatch (found by Sashiko AI review).
+> v2: new approach, as suggested by Christian and Alex: instead of
+>     rewriting MC_VM_FB_LOCATION after every re-POST in gmc_v8_0
+>     (v1, withdrawn), reset the ASIC on load through the existing
+>     vi_reset_quirks table.
+> v1: https://lore.kernel.org/all/20260924132952.25054-1-fbeltranmillalen@g=
+mail.com/
 >
->  drivers/gpu/drm/amd/amdgpu/atom.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/vi.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdg=
-pu/atom.c
-> index e0e585f..af283cd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-> @@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_context *ctx=
-, int *ptr, int arg)
->                 SDEBUG("   table: %d (%s)\n", idx, atom_table_names[idx])=
-;
->         else
->                 SDEBUG("   table: %d\n", idx);
-> -       if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
-> -               r =3D amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx=
-->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift);
-> +       if (U16(ctx->ctx->cmd_table + 4 + 2 * idx)) {
-> +               if (ctx->ps_shift * 4 > ctx->ps_size) {
-> +                       ctx->abort =3D true;
-> +                       return;
-> +               }
-> +               r =3D amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx=
-->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift * 4);
-> +       }
->         if (r) {
->                 ctx->abort =3D true;
->         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu=
+/vi.c
+> index 2cd6d7d77..a0435fd55 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -1397,6 +1397,7 @@ struct vi_reset_quirk {
+>  static const struct vi_reset_quirk vi_reset_quirks[] =3D {
+>         { 0x67ef, PCI_VENDOR_ID_APPLE, 0x0190, 0xe3 }, /* Radeon Pro 555X=
+ */
+>         { 0x67ef, PCI_VENDOR_ID_APPLE, 0x018f, 0xc2 }, /* Radeon Pro 560X=
+ */
+> +       { 0x67ef, PCI_VENDOR_ID_APPLE, 0x017a, 0xc7 }, /* Radeon Pro 555 =
+*/
+>  };
+>
+>  static bool vi_need_reset_on_init(struct amdgpu_device *adev)
 > --
-> 2.43.0
+> 2.55.0
