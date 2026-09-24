@@ -4,87 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E8DC98328
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:39:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C3EDC9830E
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:39:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0862710F91C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A632010F928;
 	Fri, 25 Sep 2026 07:39:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="ox+HGiRp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CHHZwAON";
 	dkim-atps=neutral
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com
- [74.125.229.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE04610E0DB
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 22:50:21 +0000 (UTC)
-Received: by mail-dy2-f42.google.com with SMTP id
- 5a478bee46e88-3411e0ace19so124149eec.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 15:50:21 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2771A10F6A5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 17:13:31 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49e6b885ef8so528285e9.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 10:13:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1790290221; x=1790895021; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1790270009; x=1790874809; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=iN3QgyvzfZDTdr6KkDKa56Csi5I9mIhZDrQiq00doWs=;
- b=ox+HGiRpqvObPGjsLaOxejdT54AmjEra4YKyvn2EuckmVoWtGB9/ZuSELsksbWVOC+
- PUfY2D21gOQempIdTS0M8LVJO/e2CkcQCyPZ0e75sNymdI0EYcY1fRzJLN0TJHlTdwaM
- DYPasXk0XxQtZlvHVJC72+eJf33yLIUwye7hbGpweZYP9UMK+gW1mM9Fu4eBbD5YuVSl
- j+5ut17BP7aFUiZNHQb54S9pu6q05HMzD8v+PhXEYxIJyO6DXvr2qPpl6wp0QJFvDLIw
- lSWcdq8vwbvyFVheuISwUPKNhVKVuE94KRDL7TlMemnvpKMuqArFj9qahv+dOJHV9avJ
- rmbQ==
+ bh=ij7MAN7W+YzHEW+px1HCxBjC06Pm0gT3zC5V96sK/OI=;
+ b=CHHZwAONNcixl+8TBPkW0hCWDLCWV8y/xHztCSo0BC1+qYQOhrImELInPbGqupZijp
+ 9Q1JB4fXydJGqTaNz101ryl89FNCRld3Mt/+pbDbSG/WG0CRaP6nzwxkLk2vlsq1CsJn
+ BYtmDpEXf1rzDCt1qMhEZ3DIxCcsanVxFL+MrBGY+N+X+aGfEL63MuuAmv9m6Aso4T2I
+ tmTAHD1Vfe7g/SbyW3+6L1quo33NnqpxUsaiXGKKeLUkApwEz6Oz8/cvDFgKUlUWnW90
+ CKR4CF8lnnh/CkwSSgMGyVQdoBz7R045Lm8NTjdbi0xppLWh3MW0eL2kX+GcpVb9idQi
+ jTZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790290221; x=1790895021;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20260707; t=1790270009; x=1790874809;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=iN3QgyvzfZDTdr6KkDKa56Csi5I9mIhZDrQiq00doWs=;
- b=ER69a+PU5PVm/KLQnDQ18nVv1i841ZHrMDeolqWqZmLm8jdI1haI9a4z4pi9L9jqtM
- yhSKsqGQsTbGGbzPqAmlQhfAWbH6616m6HgMWUJc51z9gWoom1GbvlreqSm7SL4sZn1C
- kn6MgFUT0Mhwe2plbn7n5hKgJVE1ddESH9A1yooKkT/gccA0iuLsTNSeHJLaG/0FQ6Uo
- qQ5EqYa3Ugk6F4dIXGdifqIQl+xTHiRjHN8qP7vsy98G7Ge4cVROGgH5gdhFGTzc6iO1
- WSqlRObbZEEFaJ0lD7vYXqNixx4MsYJxb05pPIi3Ln2/1YkPoQEwnJfnuUkNVbUwfb4H
- 2UHA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzDhf9/bvfptUCFywTMjPvB+A55WFC5bg5/Ds/gA8BhqCrmtDR/2pumCd6IS5nY4InnwJ98SWxN@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nAnTeKxRa2n+T35QrrcRSsGHNOH3mQxPUlUwpAenX7QfYAgsUZ
- tYTLM+VrshRYgkWvyD4Fr2OqAOnNPjM6VPFHqdm/4FMqzR7oGvXwo40uCLOtSLxzW7c=
-X-Gm-Gg: AYBFou0AQrjWqW6lXCA22RgMwlZ2i9LFES0rKjZmRJwTAAo+YRmVU8bHD4QSIElhbdD
- mriIkR1BdJ/HwqHxRQqzJntgOBVjodt6RwoVLEmzgMi9oV85SyyC8k51OQZncDO2vZDMA2Yw1Tm
- OfQagUef4G71eCDFoBitKNl0N6Gw7ggOEPazH14rxicHsatvX4R453o3SHlnzb17LDXipDGSFlV
- Bp86AQ9WPLZzGG4OaGQ2m2/B+2X5RiHZEfWVN23eDaiJCtR+CreAt2GnyKuNtht8YzgMr9N0tdV
- gw1xQ9F4NO9mSxkKIqOfj6NuCENc3S1h1BFcCfM7mSqzpyECgPJR2WPNYtADLY+IG9pKc6DWOz7
- Ux8aOWTozVg0UvnUvTDW7V+tDXP7R28dER/RUq4sKB1xREJNmXk2BWB860RUQYzP/H66lXuZ6EV
- 8BOWKKxgSUmPBry1Dx5fM/wfRCqrMV6w0RCjvSkJQ6YdHU
-X-Received: by 2002:a05:7301:18ab:b0:33c:3134:1055 with SMTP id
- 5a478bee46e88-340032c267emr3017847eec.12.1790290220645; 
- Thu, 24 Sep 2026 15:50:20 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-34144173a2asm1592472eec.6.2026.09.24.15.50.20
+ bh=ij7MAN7W+YzHEW+px1HCxBjC06Pm0gT3zC5V96sK/OI=;
+ b=DXPl1y+s00UeZ7rIcIz/BuM35gpHNKRQrEXZiQgYiIc9UEKuquKLRrCyn+BT3j6RlD
+ yN1CSYah2pBEwa6OaE2FfkcZ/DPD2b/S5uRloDZDk/UFKD09fLH7Ov89Ua+N2u9Pehmi
+ JotZAgOBRUkP+VEYqB/k1C6+uTRjtok57J+bBxGW7Z1/46ZnvhzM3zNusHSPhflpc6Hj
+ YAoQJMuM02WJPXo5XUfgAlq99JqFt9AL4OKktQip/nxXsw+8O86W72HPkAmMRBcOYip7
+ ZZq3f+rNJkGiacvncAzQI6LsLVhCGHmVZl84CMNnUuDOnlPod2XSOgS4Z20oGV1uMAx1
+ 6suw==
+X-Gm-Message-State: AFuF++kzpg9R1msIfw0L85mKftyeAQy6eiF9pjVs6ry1lkp17OUoQDfK
+ dArfZrECbJcxaLJIUytznDslDwUEzXevxXZUNK4dEb2SKHhQcbuDo8aIdmo9EJrXGmM=
+X-Gm-Gg: AYBFou29fMU+pEYS+LSTtGhTL8+krFPVamX+sK67gG05DBmbF6Tj3dxgJKYLQmUOEhW
+ EMssuoCHLbqa7NTEyETZJ9Ay4enx+vawS2yrdGT5hkmjRHG+v/0nxGCMxyQlcs0R4yOeDCBzSQy
+ ZAPt4tY9GKCI2eVv6UCAvMj/FXoqT3QfN0L11kw5OhmJGbadGAxh3pXi30LDp5Dgfn5IIM1+0Dz
+ QXxhjPHNrgC5zI7KDass1qGOUTo1liLEVHLAE4wlipAPAPUmEYEDUMX3BAGArGC1xA1LyOxa6TS
+ gEDqAirz1q7BY5OoUCAsglgxUkHU9pLpZMs+f6RTm6vAx7Ivk1xoVTP3DXcxRD+NdlEhflMkYQn
+ j0z756lop/+v7i5x4h4OoSbbK0+iOaDlQBeICet3k2UAfRqTZ0p0LIs7FrduCzz4Glw9Zn9/2Lg
+ 5/X4IwAgHLhznB+tjd46kubCSQWC+mA0b4hkuo1kje11HH/qem2tbvslPGP2UQMF9nbhyUlXjBB
+ qM=
+X-Received: by 2002:a05:600c:1d0d:b0:49c:f4e1:4c2d with SMTP id
+ 5b1f17b1804b1-49fe66f144fmr56773715e9.16.1790270009307; 
+ Thu, 24 Sep 2026 10:13:29 -0700 (PDT)
+Received: from NBLK-WAX9X ([2a00:1d36:5f19:6e00:eb69:2262:593:ab12])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fe5cd42f2sm86170695e9.15.2026.09.24.10.13.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Sep 2026 15:50:20 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1x9sGg-00000000eVK-3LHc;
- Thu, 24 Sep 2026 19:50:18 -0300
-Date: Thu, 24 Sep 2026 19:50:18 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Joerg Roedel <joro@8bytes.org>, amd-gfx@lists.freedesktop.org,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
- Jatin Kataria <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>
-Subject: Re: [PATCH v2 1/2] iommu/amd: Add PerfOpt IOMMU performance
- optimization support
-Message-ID: <20260924225018.GB16465@ziepe.ca>
-References: <20260908041207.38113-1-mario.limonciello@amd.com>
- <20260908041207.38113-2-mario.limonciello@amd.com>
+ Thu, 24 Sep 2026 10:13:28 -0700 (PDT)
+From: =?UTF-8?q?Ata=20=C4=B0lhan=20K=C3=B6kt=C3=BCrk?= <atailhan2006@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Jerry Zuo <Jerry.Zuo@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Ata=20=C4=B0lhan=20K=C3=B6kt=C3=BCrk?= <atailhan2006@gmail.com>
+Subject: Re: [DRM] amdgpu: HDMI FreeSync not exposed on Samsung S22C31x
+ despite AMD VSDB
+Date: Thu, 24 Sep 2026 20:12:43 +0300
+Message-ID: <20260924171246.17280-1-atailhan2006@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CHXPR12MB999220241D7681B15420FBA721E5822@CHXPR12MB999220.namprd12.prod.outlook.com>
+References: <20260923002718.5915-1-atailhan2006@gmail.com>
+ <696580d8-cf2e-47aa-8616-7d930c2f5b82@gmail.com>
+ <CHXPR12MB999220241D7681B15420FBA721E5822@CHXPR12MB999220.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908041207.38113-2-mario.limonciello@amd.com>
+Content-Type: multipart/mixed; boundary="===============BOUNDARY=="
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:39:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,27 +98,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 07, 2026 at 11:12:06PM -0500, Mario Limonciello wrote:
-> +EXPORT_SYMBOL_GPL(amd_iommu_enable_perfopt);
+--===============BOUNDARY==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Last time we hardwired the GPU and IOMMU drivers together it was a
-huge mess to undo.
+Hi Alex, teapot,
 
-Why does the GPU driver have to request this? Why can't the iommu
-driver know that this is a special device that can use this magic fast
-path and then auto set it when identity is asked for?
+Thanks for the update and clarification.
 
-How does the GPU driver even know it is magic special?
+I've attached the raw EDID blob from the
+Samsung S22C31x monitor for reference. 
 
-> +	/*
-> +	 * Restore ATS/PRI/PASID (and thus SVA) by re-homing the device onto its
-> +	 * identity domain with the flag cleared, so a later bind without PerfOpt
-> +	 * sees a normally-capable device. See the locking note in
-> +	 * amd_iommu_enable_perfopt().
-> +	 */
+Good to hear that the transition to public DRM parsing for the
+AMD VSDB is in progress. Please feel free to reach out or send
+any RFC/test patches my way when you need validation on this
+hardware; I'm happy to test them and provide logs.
 
-And this is sort of a wrong thing in the driver, it shouldn't have ATS
-turned on for identitiy mappings, and it certainly shouldn't have PRI
-turned on until a PRI capable domain is attached.
+Best regards, and thank you.
+Ata İlhan Köktürk
 
-Jason
+--===============BOUNDARY==
+Content-Type: application/octet-stream; name="samsung_s22c31x.bin"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="samsung_s22c31x.bin"
+
+AP///////wBMLRBzRjdONQEiAQOAMBp4KqHVq1RQpCUMUFS7jACzAIHAgQCBgJUAqcABAQEBAjqA
+GHE4LUBYLEUA3AsRAAAeAAAA/QAwSx5UEgAKICAgICAgAAAA/ABTMjJDMzF4CiAgICAgAAAA/wBI
+OURYMTAwMjEwCiAgAeQCAxyxRpAEHxMSA2cDDAAQAAAjaBoAAAEBMEsAAR0AvFLQHiC4KFVA3AsR
+AAAejArQkCBAMSAMQFUA3AsRAAAYjArQiiDgLRAQPpYA3AsRAAAYKkSAoHA4J0AwIDUA3AsRAAAa
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8w==
+
+--===============BOUNDARY==--
