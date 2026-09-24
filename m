@@ -4,99 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5071AC98318
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 15:21:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03840C98318
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 15:40:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9D5910E1AA;
-	Thu, 24 Sep 2026 15:21:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E69110F683;
+	Thu, 24 Sep 2026 15:40:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Or/7QVYn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vzmAoXql";
 	dkim-atps=neutral
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com
- [74.125.229.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9227610E1AA
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 15:21:38 +0000 (UTC)
-Received: by mail-dy2-f12.google.com with SMTP id
- 5a478bee46e88-333ada5a44aso191670eec.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 08:21:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790263298; cv=none;
- d=google.com; s=arc-20260327;
- b=daCAsrZNK4cmv59+sB7gMeOfgRMTmjb2FyrTDx9U4TIDTVpBRwSTgXjSiYFUN/GNLU
- 06pI2fUM7cWmxPOrJ/HrthOQyUMNvjJSnRMI3kLhFBy/iipR7jsZtke+WdbckLHoy8A2
- kR2YBgM0zN/USamPl82xt0CLtibNHEtBSc82kWmx5DjS4nkGJN0oCdTZeLTj1ZEodVu3
- lap4kIfuTPwshw7U5Kb3FgVur05CxCYUE/XTDYxiSLu9jHepjoC0I+VpNOv1BTO8HHG3
- sXDG1Yna55Vfu7KX/zmh6mjMdc54t/vMI7NlbwlTXNGyXpjI9s9fJJZVcbT+C1WufAl9
- yx/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=1HbT6s9c6aFM0LJbQwaDMayMtoWgK4wRQAnAVfXVUqE=;
- fh=bC+ka6VB/gDub4+qpJseIE/X4zBqSk1GqOnK7qYiKI0=;
- b=Ewbag54kGs1toFBYLp2O8zC+KB0l6QBtg2OIJozY0iu5JzeHEqaaN8Jm3YrGMx6K7M
- NNDzXCSqwd+slU7YGLSR8EQOxklgdmG7RrxL7MB7yYcLlnmazuRLVFfRPHUmDUmo6dpS
- 7a182AUEhy2qb+uNKZGiHuXv6B8DlhglxNTe38RlHH/FTLZF3tlr72GgFFu0EcRr9bpP
- c6sIqoiZDjIkXsWngSjVH7Ry+oVESq0M6PW2gUlK4EErdleWpk+9AJ25SubfzIQkuHLh
- H8Ub8oUWXCUfvdNCUpQs/b0LP/4HOs8PAt4N+FYOct6WXTgFNKgVodgPW/K3q5ylHA2b
- /5Hw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790263298; x=1790868098; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=1HbT6s9c6aFM0LJbQwaDMayMtoWgK4wRQAnAVfXVUqE=;
- b=Or/7QVYnS/097Cjs+yLn5LKPw9iQxWcoOAsxHuVQN6JjdQf1KhzTCS2iFnu7hSA5r0
- inLVNWvmnUNnSH0pZXt56vCURB0aNet9utpP2Ky0OakYp3gAnnFVe/1IQ1diB8914e4L
- /kzTuB4caafRI8H8o3VXXSdx7ds1xG4q7RUYcwaQdc2jPBBeMfjngGXnUzRH4ok/Snui
- XxK1F7TtS9A/Z0kPHYkTSlbT+4/Y7cUP0oeyU8FCyND11JDIQ/zS+MegOPzVRkKzyKIh
- Ryygmx+AYdPwGI2WPBERp0nPWg5tla5BnrZk+fkjrCUO+ss00689rdb7WaPPTqfypJtM
- QIYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790263298; x=1790868098;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=1HbT6s9c6aFM0LJbQwaDMayMtoWgK4wRQAnAVfXVUqE=;
- b=egJn+jIxOhfNXvKcRo8aTxxuNWV9RNXCz3AqhcpcmCvGaI/bcg7ZTN5rose9LB2OPv
- GhOzmKqNI9pAzdVermU8ccXkFyUk4fU5xcpCx9eiRMRTq8FiPKGfP4y8pCsl9jbWcsHf
- C+9bBrYUtfBV/KSSgugJ8XGyJiWjZPICRAjmd/Za9/v+FE6ZjVsTL9PYVAXhhPVhcMOJ
- oZEf/7xiv1LodwUKmR+A6xVPzLikwUEbnOeVIJOK96uwXFewdub76HtkfrowUBCzl46l
- oxrRPJf13LU5EerUlS6MO/mTmkzM3ciWFhas0Amyzwdd0ieL4h595/3ljm0cRcpwgTi4
- YBRw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxXSJcBzA4Xf2Pv0Tpm9fhks6wAyI+xIHJ/xhINIAhGnWRpGlufQpMW6+F5Y+VJtdZ0crd+NIED@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nNmA3/fEFv9MDZOUY1qzXSVF3xMGK9vKmQJFzHqxCid7leIZuo
- wyHUmC5K1eQ/xxqlqfA4cX5+FNTP93ZzlQrwU1bqkmgRd4FsiQaJP9uKCbAuFTMaVL2xh3gQ0yd
- M5ebUQQP8SlBWQlsHeDt86RJfOsjvmQA=
-X-Gm-Gg: AYBFou1i2v3TCiMHBaP1JsCSBL09SSjlljNrRVHpHQ5tWc/qH7ImiVVtGLn8aXD30Sb
- UItglXXX69xpUXRbIcF6V9w3OJFFFgaYHUeyJFgSDorQa3dK+iGwJN9pd247p1gPjvaCGzWnN6g
- A8qEqx0xM0d8SvHPftE0DuJnQlRbtIloAWtkVbW/LgXdj4WzA91aBYv//68YuYJpuulbzbtZ4sc
- gdFAOGqk9UHS5JHBsnxPOmN2sxE0guXxTlehRANEihSS1QVmh17V/eypCdKfYRozS9IQNBsId/d
- txivc+y3Bv2ElzrqwqxOuMJspBfSrMkqRz3dqL3IetPmFFrMrVwU4n3/pDdyli4w1eRr8HJnvHL
- d0WUiERbPzt3jC8Oz8rRP0rUmhy0/OsdHWTtg7t+SKp0bgJnDvZd1
-X-Received: by 2002:a05:701b:4510:10b0:139:81c6:67a1 with SMTP id
- a92af1059eb24-1450405cf58mr3632727c88.1.1790263297559; Thu, 24 Sep 2026
- 08:21:37 -0700 (PDT)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013013.outbound.protection.outlook.com
+ [40.93.201.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACAF210F680
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 15:40:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HA6lfOk4mEDK2VJtQohIQVgdZVRepDqxHwKVo57CfZo1aZSANTClek9812D4p4bwe1hEiBJ7r4b5RFABH1ePOuGcZrunKjydcgXMFLUuZtFATloroPYwG3Ifaj+/ZQIaZoMJGvbeN2CzbddJRoJ4E0KnEbDavR0cQeB60w7b4wcl9+iZgOtKxP7baNCjloKR5ik1rYBqmCXQBegZQqyi/EcJblkP6UwMOOuwM5QUOaEBQfu0sA26kE25kyL7TC+8AH99JCBmb1tUQ4bluV4krxm/gAlbXwoLP4Mb5HeRD96fRgYPR5qn8gVnPqg4mQKq8GwObZDGiJzeJ0e4lQa8Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=afUPiLgyngBrnLYmWuDKOJ5eexW3u5BE/H365gIodwI=;
+ b=TVujfeCC0IrXCUkLuhMnywNW+3pPU2TQnhb77kQMiNMrCaSCAGk4CCAWFr6K/qTDSjPD8bcEqyrWbH1FCAK7hDCkzm0h2sX32C1TvSzRgjA48yvPFHkKcEJ0JWz8W3rICHpJqwVFskfhRd5SuCg2fh0xZLNZofa6/gdHmrO/Me2P45EE8GXW6rhn01j5zSUcBEDTzC4MpuZ9YcWkTBPGcRTV3hJmUyUD7AeBqlNy8JxkhGShLrYwH2wLhM2tS5uYvAD3G1SXPL0n5MAoTJmwFWKBPo20upv/OoW+1FwSO2Xt8nDsR26Fd9TI4ejv/XCIYK8MmWXK/D5JylbBDkEbFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=afUPiLgyngBrnLYmWuDKOJ5eexW3u5BE/H365gIodwI=;
+ b=vzmAoXqljVoJSWYVA31hH1Rtd44oCeP1HwDEDzCXkvqw0ciomHhfOnh0obUPMPRZ7gEcUkH5Pw9HrwnWsLikgywtFiyNDxUyaNs6iclod/SvFQZ67HDGhcnfdye9qS67yYQlSLdXtFw4O2P/EVqAyWah+cwUhZ+mq2RVg4ifUjc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8558.namprd12.prod.outlook.com (2603:10b6:8:187::22)
+ by DM4PR12MB6470.namprd12.prod.outlook.com (2603:10b6:8:b8::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 15:40:42 +0000
+Received: from DM4PR12MB8558.namprd12.prod.outlook.com
+ ([fe80::1b2b:b6fc:16eb:2422]) by DM4PR12MB8558.namprd12.prod.outlook.com
+ ([fe80::1b2b:b6fc:16eb:2422%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 15:40:41 +0000
+Content-Type: multipart/alternative;
+ boundary="------------8Zg4P4QWNqF0i0cnGjFyAHOy"
+Message-ID: <61ab80af-0a33-4660-9f80-13966c3583a2@amd.com>
+Date: Thu, 24 Sep 2026 11:40:40 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 02/10] drm/amdgpu: add device-wide PMC config
+To: "Zhu, Lingshan" <lingshan.zhu@amd.com>, Alexander.Deucher@amd.com,
+ felix.kuehling@amd.com
+Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20260922093436.596947-1-lingshan.zhu@amd.com>
+ <20260922093436.596947-3-lingshan.zhu@amd.com>
+ <d3144b38-64a3-4bbe-910f-722912f9fc66@amd.com>
+ <6394fa47-ec53-4e54-9cc9-bbd59b97f174@amd.com>
+Content-Language: en-US
+From: James Zhu <jamesz@amd.com>
+Organization: AMD RTG
+In-Reply-To: <6394fa47-ec53-4e54-9cc9-bbd59b97f174@amd.com>
+X-ClientProxiedBy: YT4P288CA0061.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d2::15) To DM4PR12MB8558.namprd12.prod.outlook.com
+ (2603:10b6:8:187::22)
 MIME-Version: 1.0
-References: <20260924132952.25054-1-fbeltranmillalen@gmail.com>
- <9c2ce6d3-46ea-4a69-a227-a5431c3447a6@amd.com>
-In-Reply-To: <9c2ce6d3-46ea-4a69-a227-a5431c3447a6@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 24 Sep 2026 11:21:25 -0400
-X-Gm-Features: AclHuK939X-LsDc1Mw-gpXK0-LhWwyhpUJXbBj2XeAIu67VCJD_e4BSptwVLNXw
-Message-ID: <CADnq5_PsKKiOXPuH9c8n0u8viyg0u3rTeDnPoeDBk11MP4V_hg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gmc_v8_0: restore the FB location after a
- re-POST
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: =?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?=
- <fbeltranmillalen@gmail.com>, 
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, airlied@gmail.com, 
- simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8558:EE_|DM4PR12MB6470:EE_
+X-MS-Office365-Filtering-Correlation-Id: d778ec9a-8cb6-4656-3a89-08df1a52307a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|22082099003|18002099003|8096899003|4143699003;
+X-Microsoft-Antispam-Message-Info: RsZIFAGvQtDl15uKNpgYHbZeeckOeYlsny+QJRSISgKKD2U+31XVnKaargQ4FmrMRk+mL3STKc5e+X1Pm/ChhWLbyAxy+h39gOSHasBqei4gbuxlQOT6pXtv6tacKhlLUeLolKJPZMpNM6+cSV4C9zSzczrz59LNIvXx55B2KLWAIEmt1/ptX0JET1qxQ2aXP7wPGqahD0R0lqUWcK+m5SowRY5djgTqzxFwRGli7EzGNnnTDT74NRVt20YKjl+oIHyYkMHSSZjrlyRjmMdaxFqIGJYq9zUp1d0oyVapglPZu7XKrQNc6KjgI0/T3/zh4pDUS2+BOq3NvLZAR2akzSvh85Fv/60QMSfeGO5yuG0oSBC57CIKDgKJ7Hc30hndmSiBvS7clhU8w88xEXKC5zL1UyBQUDxAdc/xGwDo95bq/v6ZbP8714LnwRDSZcKhYBJFXWtlrK+02j8FdLBptDUvGr/DOO3S18Mwm3PJRw5cenzK8DPHQBT3j+2YmssqUC5cxzC6SbEC8EkU+LnYl41O3Qujb3y7T53lBbk4mzNi0v9nzxa1ZMICz7YjdfalNkFOPgZbi6OzQcm3WoJXuApKDuBZ6SOOYMg7srpEKW6XtaR4UPI04yCxncjSA8GThQDFk3GLb1RAmPihjuxW44WlAJ26wwtqFnHkJYIonKg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8558.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(8096899003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1dkSGdoU1d6RDBwc3licGhqVlNOamJ3YzF6alZLMVpxL0hJRC9JdGMveVhj?=
+ =?utf-8?B?VHhrR1ZtQi9tUitveFRxaTZrSUxmRlRDVGlScTFScXNrR3dYbkhnb210dWox?=
+ =?utf-8?B?YXNsRVVEbWNkbnRpRFZvS21qQVFoK2Ntd1NON1EyNHN5RW1ibWtzODdLdTJV?=
+ =?utf-8?B?VS9GNXFOSnJ2Z3EvSWZkOCs5TmNsMDh5dHg3WmxEdG1HbUZtY1dkTGdjamE3?=
+ =?utf-8?B?SmlnRzhFbUowMTk0RXFkN294eFhOZ1p1NmMyR3RxTklscUxnelpVVHlRTU55?=
+ =?utf-8?B?ODVobEo3SWJueitMaXBsK2dveE8zb25hL0kzb1Y3ZWhWU2ZxMkJtSXFhaHhJ?=
+ =?utf-8?B?a2RsV0lOV2c5OS9ZUnV2aWk2KzRvL2E0Z2pTOXQ0RUM3K2FkWXNrSm9oVDdV?=
+ =?utf-8?B?TURvOCtGU1FnSmN3Vk5ITEpnYmJiamRVS2dIQVlNcnB2K3hFOGpXMHlzV0lL?=
+ =?utf-8?B?VXVkeUV1SDYwbkR0cUNSem9iL1Y5NDI1Sm9CUndEM2ZyQlNTNDUrUjNqSGoz?=
+ =?utf-8?B?c0pHZm91VWxFcnloQVBGZmtpRC9icnc0Q0UrdXJjNVdkcTlCdC9uMFhJcE5V?=
+ =?utf-8?B?YXlCb1VyeGNYWjQvdE0yU2tNMjBERHh2bkJKcXBWMGVOaWxiYTkzUU5vSnpB?=
+ =?utf-8?B?UlJpdmVMODR2Wi9VS2k0UnZHa2FTUEg2VEJ3UTg1aGRnR3RjYWFLcmdHQUVQ?=
+ =?utf-8?B?UC93QlBsNkVTMDdZNFQ5bDlwZUpwWUltbGhaeGZkNnN2dlJRNmYxazhUZjRJ?=
+ =?utf-8?B?OFV1VDVmeGlkdmNvV3dHWmRKa1ArMU83V0NxMjZxQWNtcDVtYUt2V2lVcGs3?=
+ =?utf-8?B?L2pBeWU5VFB2ZUl5anRVai9PcnRXWW9ialdobmNYWEphWVlvRDl1NlZPVC9C?=
+ =?utf-8?B?V1UxaWRUVmhUYjN3REpCbndZMFpuN2VzK215SGpLeEtIMXBwSE9WVHI1T3Nu?=
+ =?utf-8?B?bktqbkJ0bnc1N1J3RHV6eEZIZUY0ZTRZbjlFV1NFOER3enYyQlJLNmR0M2hS?=
+ =?utf-8?B?VDBrbWF5UjE1ZFl4N25XcmNRWWx4NFhMYjMxTnNheWpxQWV6TytIcStPWFVm?=
+ =?utf-8?B?QlNYcndPaysvYk5lTXg1YkhHL3pzbHEwRjNhZzFLYUo4MUlxZE5HRkgvcUlu?=
+ =?utf-8?B?c1VrMW5ONUhqUkc5RTIzSTRMSXQ4anlhS21qS0dXVkI5bmJia3F5MzdFOWdR?=
+ =?utf-8?B?ZmRyc3kxMjN1V1pySEdEQnZWZ1l0RGl6R1ZjNXdMT2pxQXREcmxrWnBzNUty?=
+ =?utf-8?B?ZWZyQTRFbnM1VktSSE96OUF1TGlGZzNRcFJoRFcveDJ6ZDVJcUR1b2FUbUND?=
+ =?utf-8?B?NkEvSFNIb0hQYjJpVXg2c0M2U2JXTXlXYzVYelJaRlVDc0RqMFdCN3kvaVBn?=
+ =?utf-8?B?QnMvaERCcnZJaUxndnRjaXpsSzVGOHRWT3NNY2syRFV0bEgrMTkrdWRLRyt1?=
+ =?utf-8?B?cmcra000UHZWT284azc0b21SeTE5UHM5TUlVeXlBbEpuRFpyZWJFQ2hScTZw?=
+ =?utf-8?B?UnlrZG8yTE5hcisxUnFEMHRhT2gxMjVtL21vUUh6L0ZjOWpBMUp3L1ZoWnZj?=
+ =?utf-8?B?NjViQ1Y4a3hWSkU4TkdGS2F5anMrTTY5Q3JpQVROcnB4Rm9KN0hmdmhxMFIz?=
+ =?utf-8?B?RzdZcFBFWXdjUzdqRENHbEFSQ1JBb0hHdWZiWGV6TWZsWnl2SUx2Z3NZcGlu?=
+ =?utf-8?B?UWc5ODRKeTBUdFkyU1RObGFZekNRRWlyWVZ6OTdhWFJVOFJyMnRCbjZ6WUxt?=
+ =?utf-8?B?aFBjS244bm1NdE53WVozUHhINlh1dFlUM2dDeklKWFVyc1hESk1QVEpLMnFC?=
+ =?utf-8?B?ZVc4SVpzNnRaNXlnNkZkWTd6WnZHV1h3UW5SNUtpWnFEZzIzdjg2Wk9pOFl0?=
+ =?utf-8?B?dGVlQmZVKzc3dGU5blU1MXlab3NhS0xGVHVrVmxBS0V3dHZvZlpMS0lleHVY?=
+ =?utf-8?B?MnRaVjJVcVV1K3BjR2kzZkkvTWlIMjI4QXRsaGVHYU5ib1BwaXpFK2VhVjhI?=
+ =?utf-8?B?dmdDU3dXVDZGMGV1RjRqVno0WS9QV2VYeVJ1OXZJT3RhUlVZbXFyMTZ3Y1g3?=
+ =?utf-8?B?cWduZVVscEpsU2VyYmNsb0hPbWZ3bkptUm5lSXZhZXV0VWRYWFZQWDM5S3Ex?=
+ =?utf-8?B?UjFzRzJlOXljS1B3UVp5dzJHdk8waGdTMGdKUzJLWWJIajFkaWtJYkh3STFF?=
+ =?utf-8?B?cWQ2MVVDMEFRMWdJSlVyeGo1aERhR3ZXNG0xa3diaEwxMVl6T1lCMjdiMlZV?=
+ =?utf-8?B?SVlkTHQzcTgxTExqZzBHdTlQSVdiNmhERlFZeGFwMEIyV2lOVzN4dHV6KzJR?=
+ =?utf-8?Q?YxeKmSbqjUIhAg5utO?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d778ec9a-8cb6-4656-3a89-08df1a52307a
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8558.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 15:40:41.6865 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D3gTh+sXZNbyDU666MVSYjJ2x1wk9qPwYpXhT+vas/D39w0pol/BkwFmW4qgjR/J
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6470
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,187 +139,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 11:06=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 9/24/26 15:29, Francisco Beltr=C3=A1n Millal=C3=A9n wrote:
-> > On a MacBookPro14,3 (Radeon Pro 560, POLARIS11) amdgpu has never recove=
-red
-> > from an ASIC reset: five attempts recorded, zero successes.  Since susp=
-end
-> > to RAM goes through a reset, S3 fails the same way, and as the internal
-> > panel hangs off the AMD GPU the machine comes back blind.
-> >
-> > The failure looks like VRAM going write-only-dead: writes are silently
-> > dropped while reads still work, the driver reports success at every ste=
-p,
-> > and then it hands the SMU a pointer to a table that was never written:
-> >
-> >   amdgpu_device_asic_init()  -> 0          (reports success)
-> >   gmc_v8_0_hw_init()         -> 0          (reports success)
-> >   memcpy_toio()                             (write silently discarded)
-> >   send_msg(0x251, ...)                      (SMU parses garbage)
-> >   smu7_check_fw_load_finish() -> -EINVAL -> black screen
-> >
-> > It is not VRAM dying.  It is the framebuffer moving.
-> >
-> > On this machine the Apple firmware places VRAM at MC address 0 on a col=
-d
-> > boot, and gmc_v8_0_vram_gtt_location() reads MC_VM_FB_LOCATION once, at
-> > init, to derive vram_start.  A re-POST -- which is what an ASIC reset a=
-nd
-> > an S3 resume both trigger -- lets the VBIOS put the framebuffer back at
-> > its own default instead, 0xf400_0000 here:
-> >
-> >   cold boot:   MC_VM_FB_LOCATION =3D 0x007f0000
-> >   after reset: MC_VM_FB_LOCATION =3D 0xf47ff400
->
-> Mhm, interesting I'm really wondering where those values come from.
->
-> >
-> > gmc_v8_0_mc_program() programs the system aperture from the stale
-> > vram_start, but only writes MC_VM_FB_LOCATION and HDP_NONSURFACE_BASE
-> > under SR-IOV; on bare metal it trusts whatever the VBIOS left behind.
-> > While the MC is still in pass-through everything appears to work, so th=
-e
-> > mismatch goes unnoticed.  Then gmc_v8_0_gart_enable() sets ENABLE_L1_TL=
-B,
-> > SYSTEM_ACCESS_MODE=3D3 and ENABLE_ADVANCED_DRIVER_MODEL, the MC starts
-> > checking the system aperture, and every access lands outside it -- whic=
-h
-> > is why reads return data written before the reset, from a different
-> > physical place than the writes are going to.
-> >
-> > Write the framebuffer location back when it does not match the one the
-> > driver is working with, which is what the SR-IOV path already does.  Th=
-e
-> > comparison keeps this a no-op on machines where the VBIOS restores the
-> > same location, so nothing changes for them.
->
-> That is still a rather bad idea for multiple reasons.
->
-> You often run into suspend/resume and random memory corruption issues whe=
-n stuff like that is done and we never fully implemented blocking VRAM acce=
-ss during a runtime ASIC reset.
->
-> I think the more defensive approach is to do an ASIC reset on driver load=
- and use the values the AtomBIOS init function comes up with.
->
-> @Alex what's your take here?
-
-Sounds like crazy Mac specific behavior.  The asic_init bios table has
-to reprogram the FB aperture otherwise the pre-OS environment won't
-work.  Moreover, at some point, these registers became privileged such
-that only firmware can program them.  I agree that running asic_init
-on boot for Macs would make sense.  I think we already have a similar
-workaround for some other mac models, probably to work around a
-similar issue:
-https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
-it/?id=3Da5be7ad8f5f0e067613e9197638f216f46252946
-Maybe add your device to that existing quirk or make the quirk generic
-for all VI boards with apple ssids?
-
-Alex
+--------------8Zg4P4QWNqF0i0cnGjFyAHOy
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+On 2026-09-23 23:23, Zhu, Lingshan wrote:
+> On 9/23/2026 10:13 PM, James Zhu wrote:
+>>
+>> On 2026-09-22 05:34, Zhu Lingshan wrote:
+>>> This commit implements a device-wide PMC config
+>>> for amdgpu, which including the profiling owner,
+>>> and the profiling enablement indicator.
+>> [JZ] I think it should be render-node wide, not device-wide
+> Hi James,
 >
-> Regards,
-> Christian.
+> It could be, but we don't have a requirement document defines the scope.
 >
-> >
-> > This runs after the VGA aperture has been locked out and with the displ=
-ay
-> > suspended, so the MC does not need to be stopped; only CPU access throu=
-gh
-> > the BAR could land while the FB and HDP bases disagree, so BIF_FB_EN is
-> > cleared around the update and re-enabled below.
-> >
-> > With this the GPU survives resets and S3: the machine has since complet=
-ed
-> > twelve suspend/resume cycles in a single boot without a failure, and th=
-e
-> > restore is visible on each resume:
-> >
-> >   amdgpu 0000:01:00.0: amdgpu: FB location 0xf47ff400 does not match
-> >   vram_start, restoring 0x007f0000
-> >
-> > To be precise about what those cycles prove: the kernel they were run o=
-n
-> > also carries unrelated local patches for this machine's Thunderbolt
-> > controller, which fails separately.  This patch is the one that brings =
-the
-> > display back -- without it the GPU never recovered from a reset at all.
-> >
-> > Tested on 6.18.49 on a MacBookPro14,3.  I have no other smu7 hardware, =
-so
-> > this is only known to matter on machines whose firmware boots the GPU a=
-t a
-> > different framebuffer location than the VBIOS default; elsewhere the ne=
-w
-> > branch does nothing.
-> >
-> > Signed-off-by: Francisco Beltr=C3=A1n Millal=C3=A9n <fbeltranmillalen@g=
-mail.com>
-> > ---
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> > @@ -472,14 +472,42 @@
-> >         WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
-> >                adev->mem_scratch.gpu_addr >> 12);
-> >
-> > +       tmp =3D ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
-> > +       tmp |=3D ((adev->gmc.vram_start >> 24) & 0xFFFF);
-> > +
-> >         if (amdgpu_sriov_vf(adev)) {
-> > -               tmp =3D ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
-> > -               tmp |=3D ((adev->gmc.vram_start >> 24) & 0xFFFF);
-> >                 WREG32(mmMC_VM_FB_LOCATION, tmp);
-> >                 /* XXX double check these! */
-> >                 WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> =
-8));
-> >                 WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
-> >                 WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
-> > +       } else {
-> > +               u32 fb_loc =3D RREG32(mmMC_VM_FB_LOCATION);
-> > +
-> > +               /*
-> > +                * On bare metal vram_start is the FB base found at ini=
-t (see
-> > +                * gmc_v8_0_vram_gtt_location()).  Normally the VBIOS p=
-ut it
-> > +                * there and a later re-POST puts it back in the same p=
-lace.
-> > +                * On MacBookPros with switchable graphics VRAM is at 0=
- at boot
-> > +                * instead, and a re-POST (S3 resume, ASIC reset) moves=
- it to
-> > +                * the VBIOS default, away from the addresses the drive=
-r
-> > +                * already uses.  Move it back.
-> > +                *
-> > +                * This only happens after a re-POST: the display is su=
-spended
-> > +                * and the VGA aperture has been locked out above, so t=
-here is
-> > +                * no need to stop the MC.  Only CPU access through the=
- BAR
-> > +                * could land while the FB and HDP bases disagree, so b=
-lock it
-> > +                * here; BIF_FB_EN is enabled again below.
-> > +                */
-> > +               if (REG_GET_FIELD(fb_loc, MC_VM_FB_LOCATION, FB_BASE) !=
-=3D
-> > +                   REG_GET_FIELD(tmp, MC_VM_FB_LOCATION, FB_BASE)) {
-> > +                       dev_info(adev->dev,
-> > +                                "FB location 0x%08x does not match vra=
-m_start, restoring 0x%08x\n",
-> > +                                fb_loc, tmp);
-> > +                       WREG32(mmBIF_FB_EN, 0);
-> > +                       WREG32(mmMC_VM_FB_LOCATION, tmp);
-> > +                       WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_s=
-tart >> 8));
-> > +               }
-> >         }
-> >
-> >         WREG32(mmMC_VM_AGP_BASE, 0);
+> But normally a profiler is a device scope,
+> I see KFD profiler operates on all queues under the device queue manager
+
+[JZ] One device could be split into multiple nodes with different 
+processes running.
+
+I am wondering if this is really we want.  Ben may comment on it.
+
 >
+> Thanks
+> Lingshan
+>>>
+>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 8 ++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+>>>   2 files changed, 11 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> index 8eff6b9ebe81..45897dca802f 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> @@ -620,6 +620,12 @@ enum amdgpu_enforce_isolation_mode {
+>>>       AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER = 3,
+>>>   };
+>>>   +struct amdgpu_pmc_profiler {
+>>> +    struct mutex        lock;
+>>> +    struct drm_file        *owner;
+>>> +    bool            enable;
+>>> +};
+>>> +
+>>>   struct amdgpu_device {
+>>>       struct device            *dev;
+>>>       struct pci_dev            *pdev;
+>>> @@ -818,6 +824,8 @@ struct amdgpu_device {
+>>>        */
+>>>       struct xarray userq_doorbell_xa;
+>>>   +    struct amdgpu_pmc_profiler    pmc_profiler;
+>>> +
+>>>       /* df */
+>>>       struct amdgpu_df                df;
+>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index c924a55fd16f..74ed42e53264 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -3673,6 +3673,7 @@ int amdgpu_device_init(struct amdgpu_device 
+>>> *adev,
+>>>       mutex_init(&adev->pm.stable_pstate_ctx_lock);
+>>>       mutex_init(&adev->benchmark_mutex);
+>>>       mutex_init(&adev->gfx.reset_sem_mutex);
+>>> +    mutex_init(&adev->pmc_profiler.lock);
+>>>         /* Associate locks with lockdep classes for ordering 
+>>> validation */
+>>>       amdgpu_lockdep_set_class(adev);
+>>> @@ -4244,6 +4245,8 @@ void amdgpu_device_fini_sw(struct 
+>>> amdgpu_device *adev)
+>>>       kfree(adev->pci_state);
+>>>       kfree(adev->pcie_reset_ctx.swds_pcistate);
+>>>       kfree(adev->pcie_reset_ctx.swus_pcistate);
+>>> +
+>>> +    mutex_destroy(&adev->pmc_profiler.lock);
+>>>   }
+>>>     /**
+--------------8Zg4P4QWNqF0i0cnGjFyAHOy
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2026-09-23 23:23, Zhu, Lingshan
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:6394fa47-ec53-4e54-9cc9-bbd59b97f174@amd.com">
+      
+      <pre class="moz-cite-prefix">On 9/23/2026 10:13 PM, James Zhu wrote:
+</pre>
+      <blockquote type="cite" cite="mid:d3144b38-64a3-4bbe-910f-722912f9fc66@amd.com"> <br>
+        On 2026-09-22 05:34, Zhu Lingshan wrote: <br>
+        <blockquote type="cite">This commit implements a device-wide PMC
+          config <br>
+          for amdgpu, which including the profiling owner, <br>
+          and the profiling enablement indicator. <br>
+        </blockquote>
+        [JZ] I think it should be render-node wide, not device-wide <br>
+      </blockquote>
+      <pre>Hi James,
+
+It could be, but we don't have a requirement document defines the scope.
+
+But normally a profiler is a device scope,
+I see KFD profiler operates on all queues under the device queue manager</pre>
+    </blockquote>
+    <p>[JZ] One device could be split into multiple nodes with different
+      processes running.</p>
+    <p>I am wondering if this is really we want.&nbsp; Ben may comment on it.</p>
+    <blockquote type="cite" cite="mid:6394fa47-ec53-4e54-9cc9-bbd59b97f174@amd.com">
+      <pre>
+
+Thanks
+Lingshan </pre>
+      <blockquote type="cite" cite="mid:d3144b38-64a3-4bbe-910f-722912f9fc66@amd.com">
+        <blockquote type="cite"> <br>
+          Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com" moz-do-not-send="true">&lt;lingshan.zhu@amd.com&gt;</a>
+          <br>
+          --- <br>
+          &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 8 ++++++++ <br>
+          &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++ <br>
+          &nbsp; 2 files changed, 11 insertions(+) <br>
+          <br>
+          diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu.h <br>
+          index 8eff6b9ebe81..45897dca802f 100644 <br>
+          --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h <br>
+          +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h <br>
+          @@ -620,6 +620,12 @@ enum amdgpu_enforce_isolation_mode { <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER = 3, <br>
+          &nbsp; }; <br>
+          &nbsp; +struct amdgpu_pmc_profiler { <br>
+          +&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lock; <br>
+          +&nbsp;&nbsp;&nbsp; struct drm_file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *owner; <br>
+          +&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable; <br>
+          +}; <br>
+          + <br>
+          &nbsp; struct amdgpu_device { <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *dev; <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pci_dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *pdev; <br>
+          @@ -818,6 +824,8 @@ struct amdgpu_device { <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */ <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct xarray userq_doorbell_xa; <br>
+          &nbsp; +&nbsp;&nbsp;&nbsp; struct amdgpu_pmc_profiler&nbsp;&nbsp;&nbsp; pmc_profiler; <br>
+          + <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* df */ <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_df&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; df; <br>
+          &nbsp; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c <br>
+          index c924a55fd16f..74ed42e53264 100644 <br>
+          --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c <br>
+          +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c <br>
+          @@ -3673,6 +3673,7 @@ int amdgpu_device_init(struct
+          amdgpu_device *adev, <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;pm.stable_pstate_ctx_lock); <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;benchmark_mutex); <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;gfx.reset_sem_mutex); <br>
+          +&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;pmc_profiler.lock); <br>
+          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Associate locks with lockdep classes for ordering
+          validation */ <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_lockdep_set_class(adev); <br>
+          @@ -4244,6 +4245,8 @@ void amdgpu_device_fini_sw(struct
+          amdgpu_device *adev) <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pci_state); <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pcie_reset_ctx.swds_pcistate); <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pcie_reset_ctx.swus_pcistate); <br>
+          + <br>
+          +&nbsp;&nbsp;&nbsp; mutex_destroy(&amp;adev-&gt;pmc_profiler.lock); <br>
+          &nbsp; } <br>
+          &nbsp; &nbsp; /** <br>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
+
+--------------8Zg4P4QWNqF0i0cnGjFyAHOy--
