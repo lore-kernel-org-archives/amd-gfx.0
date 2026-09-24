@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08826C98318
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 18:46:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16573C98324
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 18:46:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58D7610F729;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 624FF10F72A;
 	Thu, 24 Sep 2026 18:46:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xQ2vkwmR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cI9Z5eEf";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010034.outbound.protection.outlook.com [52.101.85.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C596910F728
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 18:46:36 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010056.outbound.protection.outlook.com
+ [40.93.198.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D68610F72B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 18:46:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j8cVrL4hAM7PVX6mDSbXg1qEvSBJp2AqmvuRtBQIEVN19skOAKTD6ZA9z1sb7hTO8nvWQSl3ZKUo4uRVL/UVGYrzsEPycViiKDhViaT4CvzbCqnmX0O6b532fOCkvKERmiC29pr6ahF3tH3cPDQYU6rf92pSuzZFn+RfuNoOCd7LAZ5KPmb9KuATKsDnvxvpepVasNwMIIuMuz59+VrCrNx4eN2Hv89+fLtvYEzA0+XbiQXxAnZrGquB+Z7FIQ9uOGvTiBcHS/TW95aFqq8p/DHIn8fhC2mf1JwI9vNflnpCaFXXLXglzcX5oOvxrRUib9TpM92on+SA0SNJEoaXjg==
+ b=suC/60KsOjsfmf17PU6yFdMfSqxDGoXn7MexSABU0CqHQDqNRSpaUaucJb/gLNwwIZme+f0jvRAsCLokfkQdeuRURTbBSmzzzvBJMUqFWm4Ze01080NY+mcEV1ILRYMWdLqnSSo55sMlaVGFfdXuvIADrBgUD3AqL+Yh/FVg5+vIW7gnlRbkv7IGOArGFNk+hwDsPNTcKLoHzx8oP1DGB8trMwZTb8a1kEhF6UbrmESGNkis5dXiMn7nVmbEW4+tEvNZ5/81Sn/EmRBgpY/SrTWC5mt1u+/BqdGT1c8rXEQfw1ihkco/lRf89CwWHgyCcfGxbhAsZvZInYuXtxK4cQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E3uhsX+IgUgZyqgYHNZbvxAdWzy4PIonacBDQZ22jMM=;
- b=BESfJxo6HefVv8rvkqbTWlgYcY6P1agXItd6wP4iMXd0OhpDGYQmPBN32hGIRKY7/sxrwNYF2nKxApuSJqdN7KeoXwvUn8VBTAWocYjBL0kMo1WX79zF/ilV3mW2lcfw+z+SlfLVjd/3aDPPbs6HivoIamK4mzi6Cmu7GlcAJiw/jpKagXlXw6MgoqqzF1BrdURA2T5re+Fn9MSoqkX9Q3EhLvaqGpiKsDVefPTf1knNhZhKuPmfKIboZR3oh/x+p+aF5kwSnfmv8xZLmVOMpwKTu0Ylvu0yFHcpG4SDpv5vkzSc80hFpVwjW3f2QK2Hctcdwxk3VvP/5s66QVOC+A==
+ bh=KiTy1ydJvdUVh8nMGqwiRgMEeCgMDrI7FTXzeYRT/8s=;
+ b=Iu06J2lN3FsyT5IRZDGe43dz2DUXaN+aQZnUyWr39ndwDK4co/BBL1BZNqKFTHpn1oAQZqcD1c+FhRsurCWxaNd27F0/wBrCYcBVRB2B8nFtU6Yw2Kha2Ley145/gnTSRn2z7VKMNQY5B93V3gj3Dsw7qzKn3Ryamu+ZgqzWHW0XvS/q3JtX/gk6Txv/4JH1K9a6K9Y+CPAam7UcN9kSkVxkDAI3yvubF0eqSSyT3IO5dinxoXFJVq+G4DNdpvd0V1wy6I1RVtij1NXTCgOkjZ3NfOfxbU6OFXAxvAHXpiQC4cJdwokZZWjkHCFbnRGtxzIzrZcnvXnTqgTE3HCK1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E3uhsX+IgUgZyqgYHNZbvxAdWzy4PIonacBDQZ22jMM=;
- b=xQ2vkwmR2l2BKvXpAqe6jrM580zYitrrtrzNNtXdirBZXb/sxw7u2InYFFmA/Nv0mtmX/l+fzzKsCwbFw4To0egv97ADhcD1UAkkXO1E51jOmP+eXa0seocQy7Jte5M96t+L32K1t8SndVzeAW87iHwWC9t9GcO/nkamJugHKTY=
-Received: from PH8P221CA0050.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:346::11)
- by CH1PR12MB9719.namprd12.prod.outlook.com (2603:10b6:610:2b2::7)
+ bh=KiTy1ydJvdUVh8nMGqwiRgMEeCgMDrI7FTXzeYRT/8s=;
+ b=cI9Z5eEfinn//axcvqKqGyDMxfnXqizCbBbbpwNwKw+mqaXe0FYzHyuD7N+dP77exjem8t8yp3H4tcZyyb3sS/CDAtwwQovQC9R7a79ZFppfjwtabJsBlyF85h/AKrUoMpK6k6KlPg9gc7XZQxCurgcDXDUVOkqsL1Oh+OFt73g=
+Received: from SJ0P220CA0022.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::33)
+ by CY5PR12MB6177.namprd12.prod.outlook.com (2603:10b6:930:26::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
- 2026 18:46:32 +0000
-Received: from SJ1PEPF00002310.namprd03.prod.outlook.com
- (2603:10b6:510:346:cafe::38) by PH8P221CA0050.outlook.office365.com
- (2603:10b6:510:346::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Thu, 24 Sep
+ 2026 18:46:22 +0000
+Received: from SJ1PEPF00002315.namprd03.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::7) by SJ0P220CA0022.outlook.office365.com
+ (2603:10b6:a03:41b::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Thu,
- 24 Sep 2026 18:46:30 +0000
+ 24 Sep 2026 18:46:21 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,13 +50,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002310.mail.protection.outlook.com (10.167.242.164) with Microsoft
+ SJ1PEPF00002315.mail.protection.outlook.com (10.167.242.169) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 18:46:29 +0000
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 18:46:21 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 13:46:14 -0500
+ 2026 13:46:11 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,11 +65,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Piotr Maziarz <piotr.maziarz@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>
-Subject: [PATCH 18/34] drm/amd/display: Remove OPP_SET_MPCC_DISCONNECT_PENDING
-Date: Thu, 24 Sep 2026 14:45:31 -0400
-Message-ID: <20260924184824.596894-19-jerry.zuo@amd.com>
+ <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>
+Subject: [PATCH 15/34] drm/amd/display: Add temporary programming for port
+ control in dc_init
+Date: Thu, 24 Sep 2026 14:45:28 -0400
+Message-ID: <20260924184824.596894-16-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924184824.596894-1-jerry.zuo@amd.com>
 References: <20260924184824.596894-1-jerry.zuo@amd.com>
@@ -80,29 +82,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002310:EE_|CH1PR12MB9719:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19594ca6-e240-45f3-17b7-08df1a6c259e
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002315:EE_|CY5PR12MB6177:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73631cc7-945f-4cbb-ab47-08df1a6c20db
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|10067099003|11063799006|56012099006|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: Wk8bMI0Nrx08a0vNZWuGz1a4vtbLDbcBum+fgaaOEKhgSyC/OTkteneahjalkANk/tAM5YsE822ap8Azf4O4/Urb7+9wCpMNrYDSS8VhaaxV5fzSRmxy6BUBHpIu/MtU/k7THn4wstSXjdShaGs7JrBeiXXJzSWv9zaf+gPiw5UvcszuFis3NaRS79f3s4om0ROhDDf/EzSvUVL6JznfZKup38vTXYGjX535Gp92KF2G32mx+LhQSB2BMXBKf9EjdS04yJGBVOJyNLEu5b5KzixEA5xe7ZyYLeIyBaH/WrZISZqsd1NiSOWv+rWMPO/IdsYvrp2IHEC+H5KqnOd1ZbbpuVd1k92jsQlzhbW+8vuWUhSDSow+AAbq1M1/8vUH3pZNHqGhPcmiGEUkxH8jxO5h5X5V+9gJCWFHcWvMO0wiAl5FTxD1IL41KUamwkD2+mC2LCOCu0BucKcO8riRUhomK70DHo6S7YevRe199P3ChUJWA4s/+579wh8xUXy24vPs6+QQYV5J2Me6+tpN51Qj975HZL8b/aSVOLKAeGX3PjP/gH9jnLtawNDqAHvJGH8KbrBAYr9ssL43XEOiO6VjQsGYB5V5CWXKvfQOTMf2R3bASAPq+x8t4PdfiZ51Pb948uEpoy+VoGmDEThWFYK9w1nIVlei3w72pCCpNMQockpZWT38knWZQjA1EmbiNWwDF/OYpy7V2VY2ra6vlQ==
+ ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|10067099003|56012099006|3023799007|6133799003|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: 0vAfv2rDyCsU90sr36BRiizt6By5qYtDdUg4aPRttcHwGOdgPZV+GqDCelv7PLW9+NsL/T8wH00lmQYeT4KFD0CrXufCrufeMGNUoJXuMe0NzOiFocCGZxJWB+F8NdsyCw4lU3u5bdU3izCfgVjUdp4gsatHKKBu2mPWTTDV7EOL6mAC/oMoglx+fCNiIyinGNbfRNq4v3QLPUmsulKvP32pzNeK2EDbrhyUW8C31AFLnmbXMNbXPlFhQdcteAUWZPSlKbGae2G2FG3pvUXxj2NdH6GTmMDQbuhlAvdQ9n3LThnrnKUihFzJmfdeF+Y0hXcn7tWn1jX23xd8ornwyAL1lpK4O83mM7Q7bk2DmWgjKWFK/41WHWAJXafT0plRqI9TP65Onrvv8e76lM/tp4gqeClEjwm9nyYo08xMHgN4Ol/3/oAcLNc/8sB+zD22Qu2g8ixg9sr0yx1PvCxsR96fq2OsE/jgN5CKHXMYmKZemdEHSf47KUFp08eNOaPXIZ6mzkU9RPB/4A3KOWr6C+daTX6ewMR94/TpTi85HASNy7iBz8Is0jdIdHsZQFjGJ/2O92F8smZuDx6fusiBI3NV+RWtLwVz876aIQhzKqXZFk9RfWEdvyM54J5aR851ohimgIfNP/LP36S1+BX/zd2KAobhuTTc/FWNTm1BPsQgcIZf7IE9ffr/9PDJqSmxZG1p80NciCQpmcDzLJJYnw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(6133799003)(3023799007);
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(10067099003)(56012099006)(3023799007)(6133799003)(22082099003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: wDNNn4579Wa8GBss2L7xhMXoXzHlQ8HOuW1kGDhTpb9svPlIzxyTkV1S2fd3Lw1aatn/kUQz1iHeaLmPeI3UqYCmgzGBAYYpKU/L7uybx29nx64vQo19VTtGbghsdWo4ArdPZ2fjRrro1rO1H4DqH1yqungHHt93Om/Dn7ExCuRjfylUVLvZobMnTgj43GpCtovdmJgT5QvJbRDOZFEdq5wzI+47p62LR0TmGaeXsYWiVYxtn04Z/o8Z95wmK9aIwpFRaFQOslOO6/9NvWFUeUDKG3mV9x9Q5FCUrP4PHxInqtwFngGDDsJ2pXgK0W/OAuiputy51Ew8R0jGXe64ksFhx3tqM4QUlcwGTsx08TsP2pq2pFig0JhZbWKlP0kqwm7TG7CplMONCuwJDC6zR3B2bA6WaKVZ5fHWdFLzzPKzvg/YBoj4T4qDH28M76vF
+X-MS-Exchange-AntiSpam-MessageData-0: xnwPem5OCpJkPDzzs5Acekyyfw6gY6BYTNJuY+85tS4WtnmPkuWWGocBiWfOOreYuxLwXgpf8Neo1D76RM9BXKJrTfUcmrzeKoNeGR3jV2dgOj8yYFlFmKPMSthLDNfonSOaGBZ3Wsi9TB/fSBOKORvCaCG6EmaalnoEwHZTwArU0ZQ157SCmZoHsbEgdVxzbls0xX04rXixDnI79ctzp4czMoV1VYLDLwlj56fXlYDDO2fdCkKspGxgDfOY4EtGETPbA+3JIQBG5mELyFla8WCbJXzk+30XOJYEN/qMnV8JTJRXxytJHoB0sY+cM2l0Sll3VBNgQ6dN6B0F8VMtBEJ98/qLr6YjLFwSRcktHFtwEiaxJrXEms0qlK5ma85CT+Tl01YCJJgAYypv5rkscNa1U99jZfO1WcigexFtVBXOC43U24yciCR/O7zZHI8U
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 18:46:29.8550 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19594ca6-e240-45f3-17b7-08df1a6c259e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 18:46:21.8676 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73631cc7-945f-4cbb-ab47-08df1a6c20db
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002310.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002315.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9719
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6177
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,150 +119,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Piotr Maziarz <piotr.maziarz@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[WHY]
-The operation wrote no hardware register. Its executor only set
-opp->mpcc_disconnect_pending, a driver side flag, which breaks the rule
-that a block sequence step programs a hardware block rather than mutating
-logical objects. It was also split across phases: written while the
-pre-unlock sequence executed, then read and cleared while the post-unlock
-sequence was still being built.
+[Description]
+Add the POR setting for SDP_PORT_CONTROL into dc init sequence.
+This is temporary until the initialization moves into pre-OS DMCUB.
 
-[HOW]
-Deleted the enum value, the params struct, the add helper, the executor and
-the dispatch case. dcn401_plane_atomic_disconnect_sequence now sets the
-flag during the build phase, matching what dcn10, dcn20, dcn201, dcn35,
-dcn3ag and dcn42b already do. Updated the operation specs and the
-core_gtest dumper.
-
-Signed-off-by: Piotr Maziarz <piotr.maziarz@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
 ---
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 24 -------------------
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  6 +++--
- .../drm/amd/display/dc/hwss/hw_sequencer.h    | 13 ----------
- 3 files changed, 4 insertions(+), 39 deletions(-)
+ .../gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c    | 8 ++++++++
+ drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c   | 5 +++++
+ drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h          | 2 ++
+ 3 files changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index e1d6e31af657..5e41792c622a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -1888,9 +1888,6 @@ void hwss_execute_sequence(struct dc *dc,
- 		case MPC_REMOVE_MPCC:
- 			hwss_mpc_remove_mpcc(params);
- 			break;
--		case OPP_SET_MPCC_DISCONNECT_PENDING:
--			hwss_opp_set_mpcc_disconnect_pending(params);
--			break;
- 		case DC_SET_OPTIMIZED_REQUIRED:
- 			hwss_dc_set_optimized_required(params);
- 			break;
-@@ -3581,15 +3578,6 @@ void hwss_mpc_remove_mpcc(union block_sequence_params *params)
- 	mpc->funcs->remove_mpcc(mpc, mpc_tree_params, mpcc_to_remove);
- }
- 
--void hwss_opp_set_mpcc_disconnect_pending(union block_sequence_params *params)
--{
--	struct output_pixel_processor *opp = params->opp_set_mpcc_disconnect_pending_params.opp;
--	int mpcc_inst = params->opp_set_mpcc_disconnect_pending_params.mpcc_inst;
--	bool pending = params->opp_set_mpcc_disconnect_pending_params.pending;
--
--	opp->mpcc_disconnect_pending[mpcc_inst] = pending;
--}
--
- void hwss_dc_set_optimized_required(union block_sequence_params *params)
- {
- 	struct dc *dc = params->dc_set_optimized_required_params.dc;
-@@ -4773,18 +4761,6 @@ void hwss_add_mpc_remove_mpcc(struct block_sequence_state *seq_state,
+diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c
+index 639c71cf1123..843a0da4bdd7 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c
+@@ -1905,6 +1905,13 @@ static void hubbub60_override_utm_client_qc_profile(struct hubbub *hubbub, uint8
  	}
  }
  
--void hwss_add_opp_set_mpcc_disconnect_pending(struct block_sequence_state *seq_state,
--		struct output_pixel_processor *opp, int mpcc_inst, bool pending)
--{
--	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
--		seq_state->steps[*seq_state->num_steps].func = OPP_SET_MPCC_DISCONNECT_PENDING;
--		seq_state->steps[*seq_state->num_steps].params.opp_set_mpcc_disconnect_pending_params.opp = opp;
--		seq_state->steps[*seq_state->num_steps].params.opp_set_mpcc_disconnect_pending_params.mpcc_inst = mpcc_inst;
--		seq_state->steps[*seq_state->num_steps].params.opp_set_mpcc_disconnect_pending_params.pending = pending;
--		(*seq_state->num_steps)++;
--	}
--}
--
- void hwss_add_hubp_disconnect(struct block_sequence_state *seq_state,
- 		struct hubp *hubp)
- {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index c82f941f42ec..b7680326f495 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -3301,8 +3301,10 @@ void dcn401_plane_atomic_disconnect_sequence(struct dc *dc,
- 	// Phantom pipes have OTG disabled by default, so MPCC_STATUS will never assert idle,
- 	// so don't wait for MPCC_IDLE in the programming sequence
- 	if (dc_state_get_pipe_subvp_type(state, pipe_ctx) != SUBVP_PHANTOM) {
--		/* Step 2: Set MPCC disconnect pending flag */
--		hwss_add_opp_set_mpcc_disconnect_pending(seq_state, opp, pipe_ctx->plane_res.mpcc_inst, true);
-+		/* Step 2: Set MPCC disconnect pending flag. Set here rather than as a sequence step
-+		 * because the post-unlock build phase reads it to decide what to emit.
-+		 */
-+		opp->mpcc_disconnect_pending[pipe_ctx->plane_res.mpcc_inst] = true;
- 	}
- 
- 	/* Step 3: Set optimized required flag */
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index d7ab21c5a1e4..9ad18c9dcff9 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -486,12 +486,6 @@ struct mpc_remove_mpcc_params {
- 	struct mpcc *mpcc_to_remove;
++static void hubbub60_set_sdpif_port_control(struct hubbub *hubbub, bool ignore_cstate_req)
++{
++	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
++
++	REG_UPDATE(DCHUBBUB_SDPIF_CFG0, SDPIF_PORT_CONTROL, ignore_cstate_req);
++}
++
+ static const struct hubbub_funcs hubbub60_funcs = {
+ 	.update_dchub = hubbub2_update_dchub,
+ 	.init_dchub_sys_ctx = hubbub60_init_dchub_sys_ctx,
+@@ -1970,6 +1977,7 @@ static const struct hubbub_funcs hubbub60_funcs = {
+ 		.reset_display_qos_profile =
+ 			hubbub60_reset_display_qos_profile,
+ 	},
++	.set_sdpif_port_control = hubbub60_set_sdpif_port_control,
  };
  
--struct opp_set_mpcc_disconnect_pending_params {
--	struct output_pixel_processor *opp;
--	int mpcc_inst;
--	bool pending;
--};
--
- struct dc_set_optimized_required_params {
- 	struct dc *dc;
- 	bool optimized_required;
-@@ -1128,7 +1122,6 @@ union block_sequence_params {
- 	struct set_abm_immediate_disable_params set_abm_immediate_disable_params;
- 	struct set_disp_pattern_generator_params set_disp_pattern_generator_params;
- 	struct mpc_remove_mpcc_params mpc_remove_mpcc_params;
--	struct opp_set_mpcc_disconnect_pending_params opp_set_mpcc_disconnect_pending_params;
- 	struct dc_set_optimized_required_params dc_set_optimized_required_params;
- 	struct hubp_disconnect_params hubp_disconnect_params;
- 	struct hubbub_force_pstate_change_control_params hubbub_force_pstate_change_control_params;
-@@ -1299,7 +1292,6 @@ enum block_sequence_func {
- 	ABM_SET_LEVEL,
- 	ABM_SET_IMMEDIATE_DISABLE,
- 	MPC_REMOVE_MPCC,
--	OPP_SET_MPCC_DISCONNECT_PENDING,
- 	DC_SET_OPTIMIZED_REQUIRED,
- 	HUBP_DISCONNECT,
- 	HUBBUB_FORCE_PSTATE_CHANGE_CONTROL,
-@@ -2007,8 +1999,6 @@ void hwss_set_abm_immediate_disable(union block_sequence_params *params);
+ void hubbub60_construct(struct dcn20_hubbub *hubbub2,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
+index ef1c10bc9bfa..d515b9cbc934 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
+@@ -885,6 +885,11 @@ void dcn60_init_hw(struct dc *dc)
+ 		dc->res_pool->hubbub->funcs->override_utm_client_qc_profile(dc->res_pool->hubbub, dc->debug.utm_client_qc_profiles[1], 1);
+ 		dc->res_pool->hubbub->funcs->override_utm_client_qc_profile(dc->res_pool->hubbub, dc->debug.utm_client_qc_profiles[2], 2);
+ 	}
++		/* Temporary init for SDP port control in driver.
++		 * Remove once programming is in pre-OS DMU init.
++		 */
++	if (dc->res_pool->hubbub->funcs->set_sdpif_port_control)
++		dc->res_pool->hubbub->funcs->set_sdpif_port_control(dc->res_pool->hubbub, false);
  
- void hwss_mpc_remove_mpcc(union block_sequence_params *params);
+ 	// Get DMCUB capabilities
+ 	if (dc->ctx->dmub_srv) {
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
+index 8d1024a875a7..d68232f10f3e 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
+@@ -226,6 +226,8 @@ struct hubbub_funcs {
  
--void hwss_opp_set_mpcc_disconnect_pending(union block_sequence_params *params);
--
- void hwss_dc_set_optimized_required(union block_sequence_params *params);
+ 	void (*hubbub_read_reg_state)(struct hubbub *hubbub, struct dcn_hubbub_reg_state *hubbub_reg_state);
  
- void hwss_hubp_disconnect(union block_sequence_params *params);
-@@ -2323,9 +2313,6 @@ void hwss_add_dsc_calculate_and_set_config(struct block_sequence_state *seq_stat
- void hwss_add_mpc_remove_mpcc(struct block_sequence_state *seq_state,
- 		struct mpc *mpc, struct mpc_tree *mpc_tree_params, struct mpcc *mpcc_to_remove);
- 
--void hwss_add_opp_set_mpcc_disconnect_pending(struct block_sequence_state *seq_state,
--		struct output_pixel_processor *opp, int mpcc_inst, bool pending);
--
- void hwss_add_hubp_disconnect(struct block_sequence_state *seq_state,
- 		struct hubp *hubp);
- 
++	void (*set_sdpif_port_control)(struct hubbub *hubbub, bool ignore_cstate_req);
++
+ 	/**
+ 	 * @program_det_size:
+ 	 *
 -- 
 2.53.0
 
