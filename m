@@ -4,125 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08EBAC9830D
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 03:24:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6288C9830D
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 03:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9137510F29B;
-	Thu, 24 Sep 2026 03:24:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 138D010F2AA;
+	Thu, 24 Sep 2026 03:30:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dwsm/wxt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J8EL45G6";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011000.outbound.protection.outlook.com
- [40.93.194.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ACE310F29B
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 03:24:28 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010001.outbound.protection.outlook.com [52.101.46.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5CF910F2AA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 03:30:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t3JBD/wAtR3RWZBChpdkO2mkh2tqJRPUHa0fLJ9vUXAPQsXd+zlVtxUWmb7HaHf2otjQO9SW0GrUaGsESYoGSaBgtJ9kGAJ99xHOg9e8X4bqQpkTa7VfxYf3edlkhi7/9FHkQDtDeG6LvAoMLgzo6kt/gTJs6M07yCzihOsh58QauzwTNACe0ksGjWQjWG+UM14OsVVs4QUTqnV2beawXoJlgSIKnUvlSf9oDEUn5hE16DItdBL49BWnY4OgkKJAdxKV1JPL7iftAybSeIoasY8+84aWVMCg2u17j9AfDrEpuyQICNAfcSSUWFCltj7JA7t96k4DxU3woV/1avgAtg==
+ b=PDaXh2i12Qrg/urZnb2dYhNHI8k97kpRAfVfdoQdNz+FYt/LDj2J3OKVvJt2YZdaGlxzi4K01+955NTDEeemWzWe34OwhI25hQ2AotEKllq39ygEFKhwU/mLVmUKItvG7sk2n+vf4yuJp9SrpUKEP6ZtYs5ZrBCoMh/Ae9q/JdtcIxitNeUh0lBcUrnzjGf88R4jQaYeP6qqMlRukr4X3NViK6AmlDmc3FOt4YQCCFuy6za1seJtBcJPNvyVrzKSURk9L2CJtt7ueHlqX1IPTvi+h6WQwk7v2SoaL6IkzmbFrOMa5TEdQpWl6A14tDuVbK9CrvGhSXyVTN24RAgYLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i0zOku2J8ks8AjFgN5P1Nd9tlB6nHDwq/dQKTFu0pF4=;
- b=mBIs7ezM0pWjoxOGh+wUxOPCxNvHsbSYMINbJujbydoxMm0WjGALqI0Z3Kn7/M3y7eTQwwCQDMjowgTj7om6FCwHpwA6fjH52HE58dWhomSY4cmrXba/0ASmU3Hytkac/3stWtMDpKFi7PrVbXree/S3lthuh0gDAqlp5MDUZTp8vHQaS1t83ZHCz+GI6pFjGeiyY2rKsTE1Aje6/Uyz1MoiK8jF7eqvgtTmRLsCDwU66Ha+ozZzcTEN++lAYi/EidfuMFulKgYTQuW4KDbjmgV2AEJ9O7W4nCcEc/yKEs8zrVwRblEbXrV06E9sK9jWKZ/8nKjRk5JbntVX9daIYg==
+ bh=tPsJwetM1BGJCD3LV8Y5ZPFtxon8wT02CXkNKKnrnlw=;
+ b=fHnEJvYlZdsQWHvREKywu6pYuomx4sUOfGLcTo0jheR7jZd+cBdqX0/vifheWdqxd1kRHLeqdQ7jfopX26IiGYcpXjpNyegpnVT6JBn5KqytJIeFSySKBrjSg5949qISxKTfEhzvEKQrdP6FRUhNHWuOXEqdqGBlSbTJqDx8Lv8etEgm3/Z26KauZWAenTMmtBFaPgWWp/I8JL8Wnq0soC66IU7fzYjaHCPphgWrcGuWH/jlQQdeRwZHm3NSbS00Jtm8Ejz9SCr+13G780DsclG10YeLpShQPILpAzuoj0+iYddbvwh1YCD8nOQRK1nkL4VMZYuFimMsSvQgocYCNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i0zOku2J8ks8AjFgN5P1Nd9tlB6nHDwq/dQKTFu0pF4=;
- b=dwsm/wxtjaeAnQNmI0BPl5ew+4IY6xDzXIYRPge/pDZrCN2IbpeEmXzJ2BHX54HYb0SwstpGQFn3ugHMmbTGVWmA54lnP0JxvCdYfthOjKtasSClcI35DNrrISrVkgJd60f0D7R1U2gQ1kO+CFvYJeUMx5MEJkmhdw/sUvRy07w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS7PR12MB9475.namprd12.prod.outlook.com (2603:10b6:8:251::6) by
- DM6PR12MB4139.namprd12.prod.outlook.com (2603:10b6:5:214::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.18; Thu, 24 Sep 2026 03:24:25 +0000
-Received: from DS7PR12MB9475.namprd12.prod.outlook.com
- ([fe80::4371:c924:8800:2587]) by DS7PR12MB9475.namprd12.prod.outlook.com
- ([fe80::4371:c924:8800:2587%6]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 03:24:25 +0000
-Content-Type: multipart/alternative;
- boundary="------------FR7RSvCRZyP4lp7F341okSqQ"
-Message-ID: <6394fa47-ec53-4e54-9cc9-bbd59b97f174@amd.com>
-Date: Thu, 24 Sep 2026 11:23:57 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 02/10] drm/amdgpu: add device-wide PMC config
-To: James Zhu <jamesz@amd.com>, Alexander.Deucher@amd.com,
- felix.kuehling@amd.com
-Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260922093436.596947-1-lingshan.zhu@amd.com>
- <20260922093436.596947-3-lingshan.zhu@amd.com>
- <d3144b38-64a3-4bbe-910f-722912f9fc66@amd.com>
+ bh=tPsJwetM1BGJCD3LV8Y5ZPFtxon8wT02CXkNKKnrnlw=;
+ b=J8EL45G6v7RsGrVlbqioEDdfjB9ErWL2J1sS/IPUW1zv4veTuf3b7iGmnIKPFuCrcy2xP3V7KXeyXo7pAVCOCwzbnk0kGVk3UEbzFIsH9yZR++GprtI3pHhR9QtF5gXhdMPRdG62veZwvZufJYa5ojMu0ENDZiBtKgvfzZWQdXk=
+Received: from DS7PR12MB8348.namprd12.prod.outlook.com (2603:10b6:8:e5::12) by
+ CH3PR12MB8970.namprd12.prod.outlook.com (2603:10b6:610:176::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Thu, 24 Sep
+ 2026 03:30:28 +0000
+Received: from DS7PR12MB8348.namprd12.prod.outlook.com
+ ([fe80::68b0:8811:d3fc:aeaf]) by DS7PR12MB8348.namprd12.prod.outlook.com
+ ([fe80::68b0:8811:d3fc:aeaf%6]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 03:30:27 +0000
+From: "Han, Zhen" <Zhen.Han@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Hou, Junhua (Richard)" <Junhua.Hou@amd.com>, "Han, Zhen"
+ <Zhen.Han@amd.com>, "Yang, Philip" <Philip.Yang@amd.com>, "Joshi, Mukul"
+ <Mukul.Joshi@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhou, Tony"
+ <Tony.Zhou@amd.com>, "Li, Chuan (Richard)" <Chuan.Li2@amd.com>, "Russell,
+ Kent" <Kent.Russell@amd.com>, "Tudor, Alexandru" <Alexandru.Tudor@amd.com>,
+ "Wu, Cindy" <Xiucheng.Wu@amd.com>
+Subject: [PATCH v6 1/2] amdkfd: Fix memory availability double accounting of
+ kfd pinned objects
+Thread-Topic: [PATCH v6 1/2] amdkfd: Fix memory availability double accounting
+ of kfd pinned objects
+Thread-Index: AQHdS9JvtfnDuL3i30OUAkGil2BHObbdEKKQ
+Date: Thu, 24 Sep 2026 03:30:27 +0000
+Message-ID: <DS7PR12MB8348CF6504FD49D77ECB504A8D812@DS7PR12MB8348.namprd12.prod.outlook.com>
+References: <20260924031133.3651910-1-Zhen.Han@amd.com>
+In-Reply-To: <20260924031133.3651910-1-Zhen.Han@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <d3144b38-64a3-4bbe-910f-722912f9fc66@amd.com>
-X-ClientProxiedBy: JH0PR01CA0060.apcprd01.prod.exchangelabs.com
- (2603:1096:990:5d::8) To IA1PR12MB9465.namprd12.prod.outlook.com
- (2603:10b6:208:593::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB9475:EE_|DM6PR12MB4139:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae647b29-a2ee-447e-60d3-08df19eb54b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|4143699003|10067099003|11063799006|56012099006|8096899003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: JgBXbbZsaIBvTMANPOzlmVw53yVfboYM71r8YxQ3HXSCgU83g6j+5uAKCnfaotVtGCIBc9HDFOOhiCrLcFXuQuAiHT9cEnEX5DJ0/agiVaM1phg0mek5avaH+cxxsw51sQW3Bi7r1Wj00+XiWWksUGz5BJGiQyDLt+SkZp+Pet6re5ZlxFeDKRFQhbMse/9LWENcMuS+Feb4Dv2jZjNx9hmOo9ZYwHt0+6iaByjoL33FPEjcKUAX4xpdUF56UCAJUnXzUMm9u5BalAyWhsUNxFMa5F14FMaTFQ70ayMYYX89mC/s62awvvjoTiBsrVAuqjZhaR/SuXstdA2K4BgzY/+4HY7N8BHK0tDRjH/4G3gCKS5BNbhxhLfqEkpthmgD9pxLwn/hrFm74AuVYmVksgvKfvZKt1zHtyhcYLnmCEaaUYS8yteckbMgTZWbZ80dU/4sYkW0pcQppXDMTGdVlvHhWU2qApc9S9+tDPCzqKa8eKsxooUg/8q3YBhimydhOrgsONlrrJg7qWD8dPWkkTbR46f1GW2LwE1tobZFr5d8nOc3lN/mIvStQUEJNIzqARXsDuegQcdpqGxBAm44XGhfWx9UUa69ZxH/p+NhjpjLUyvsEAiGx2ABa4qO7bwFCI7nditBsB1FPc1LjYNVx5FDOwmCdVZZgViKV8rSy9c=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB9475.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(4143699003)(10067099003)(11063799006)(56012099006)(8096899003)(22082099003)(18002099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-24T03:23:59.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB8348:EE_|CH3PR12MB8970:EE_
+x-ms-office365-filtering-correlation-id: b8158f69-44fd-4c72-54b5-08df19ec2d6b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|38070700021|56012099006|11063799006|10067099003;
+x-microsoft-antispam-message-info: Z7MLI1C+yC4D524e3kC7Buf63M6aytR22r3jAuUnTGvGQkl9/rM6NUyNSIxdpLIHTKipNjRSj6n5rcWIFKEfjhdtd0ig9IsLVGaixKc7r0Ghz3REPJXFtj4yRXF8WVzros9YIKq465TpjidRWyLnK+8rYmt/GKK9qiPWVBz9LG/awQqhEuk4NXomNjUhqYb9I27Vo1diFgCPFFX3bbPf0Njoc+66MgZ7oiYRzQf969Lkcw/1ZN2x1S9e2OZAXLy6gDsgfl3JC3AM4a41WZL0JHIiJv6RYSq5pqJl2WL0Unr4faxjDoWA7WhBDGm8FTrf0E9Uz2pqiLGYIkvYWqsnRl6MMWXzekOMfedUiOYbpUs6kVIlf2yhSBuzLdSuua9JCDv6daMPQRQ93r4M0WyZ+NUlx9t2kS5rIKgiA4Me0EBTCylJjjqaytiRsOMOj+HNpguMWBSYig1U0Nap3rxG8aB35Vaetkdc5oKx6KD4y+axG5siJm1yf7hp4YQT8E9teaGoJW+iOldNiuJlLw6PEH6eAlw+uWC0TPQOoWpve7K+wtfLhvdZWa8pYjefNigaBE6o8uarVPB7x6W3TAGzWfXbMzcgkZMNo/gQhTrETndfh0xh6CH+kMH6w0ndAjy2DHCOjtev0ihnPplKL2huSRLC/xBI26WieZod6gKqxy91v/scHmuIWUNMNZLO8jsSXxFshZ3Z1hCai0m/y6TYutr1BtyAHJNC57xnCMASSWQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB8348.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZjBDTXlkR2F0NTdxYjA3UllFTk9DYWpVTmk3Q0lFc2g5dVNmdG45a3k4NzZL?=
- =?utf-8?B?THFnYk55RFYvNVhNb0RhYWIzNjZuNWtDU0wyU3lLWjB4NjYzUTF3K1QwWmRC?=
- =?utf-8?B?TUxDbVcyb3JLRzh5NTNaRkhzQU96Q3pucm9pQ3ZvblRBWHFCTk40QmxoVlQw?=
- =?utf-8?B?aC9vVDFyOVNtSk5ieTZoOWpnaVFaZkpDYUppeTFnQ3d0V0M2dkZmaEJFQlNW?=
- =?utf-8?B?bFBNcVBIREV1RFQxTXkwV2hXZDRPN0xtRzlGVkhJV3IweThabVZDcHdncE8z?=
- =?utf-8?B?dm1NVkJwN2dMUktsSzVHMTV3OFNtWXhpNmh5UlFtRGNEcnFWZjU3d3g3ckNF?=
- =?utf-8?B?TUtRZEdLNXNBeE5FK3Z3YmEwNXNmWFBCU3o0d290RERSQ0NMcVRYUm1PTDZB?=
- =?utf-8?B?N3FUV2RRclYrT0d5NmVwL0g3QmVrVXJVc3NacUw1RGJRcmR1Q1dVRmJ4S1E0?=
- =?utf-8?B?bHBzSXZZbnFWOTR4WVBsdHV4Njh3Y2I2NFZibmFnUEN2S1I0d1RYTEREaXkr?=
- =?utf-8?B?UWN1dlp4eXFBOVoxblVUcTRTNkVnVkFrNmRMZk5tN0E2RXRPK3g1eVB2OWtv?=
- =?utf-8?B?UEVTckxjUGMyNmZjOXZjUllaMGtOdHZMcGptdFRPTyt6L29OK2Z1ZDJ6OU5T?=
- =?utf-8?B?QjRSTTVab3BCTEpPRjBSc3RtWGlVSDdLYTRQdGFwNUo3eURhQ1JNbEx3SWFC?=
- =?utf-8?B?QXROLzlMdHZkaE1Yam5pdDlNL284ZmRsb3AyVVQ1a2wzRmdwZFNnc3N4cGts?=
- =?utf-8?B?Tk44YzZsZml5c09xNEdTMDhsMVhqWmVvNWorZkZWdkRLSkNlQVM4UFFmSXZW?=
- =?utf-8?B?U2V4NlE5Ukx4YTIweXkyalYvRm5DM2c5OGplb2lXekFCeVFVeUxObEViVStJ?=
- =?utf-8?B?K2JjTVkvUk9OK0taQis0VUxQbk41OWpoSlY1TUNnenloUFYvaXl3NUhtN0hs?=
- =?utf-8?B?bWxqcnZpVzNDU0RrOCtKaWp4TVlQcWl1a3JhTWxEbk8wcXlqRGNrYVkyRmJN?=
- =?utf-8?B?Wk1iOVlkeS9UQnE0YitRUUIzcm5uTVFCSXV5Ui9pL0t2NlEwZS9sZU9aN241?=
- =?utf-8?B?eEZacHJZc09QanMzNXFsLyt3bmN2Z0F5aitnU0t5RzVpRkx2Y0ljMHZqK3U4?=
- =?utf-8?B?eHkwL082VU8yVjBzTmNuSVlqbEpCSWFsbjlJSlVQeVR3ZTk2YlhoSExnTmhR?=
- =?utf-8?B?NlpMcWptdG4vcG1RcXQ0cU84WDhLYmxNN2NxNDdScE9VaHNKb2tiSUJ0Q1hT?=
- =?utf-8?B?NXlmQm0rRUhnY2NSZmU4cjdHaStnVjc4bzFnZU9TNCtFeGNSRkJxclpWUVox?=
- =?utf-8?B?R01tY0swSXhRamU2eFJrd2NKZXU0Nk9oZit5NFRVWXpkdHhObk9PaGNqT2d3?=
- =?utf-8?B?R2pnYTN4YVJnRG5MOGlRdENwYzBjaXo3RDF5WlBpZE1TdkRZK2JrQ3h1eERr?=
- =?utf-8?B?M1I5VlQ3VWVpdjNkSng0S0FjMnlkaElMZ1RqSzdURlB4aC9yT0hBM1NocUg5?=
- =?utf-8?B?WWFDMmdYQXR0UFRqK01DMUMrc3BUdGdEL2piNFV0Q1M0RW00MFNRU0U2UVNM?=
- =?utf-8?B?QmFPaUprWk02bFQySnlqWnp0QytTZGtDWktPVlp5enRjdkVoUEtSeTJCRkV5?=
- =?utf-8?B?RlNjZ0c5RDZrbE9ndEw2QW1PNGtLR1ByN09mU1V2Y20wSnVjbzZvRWRWYVdo?=
- =?utf-8?B?ZHkxdEpWQnQ2TXlDdU9BU3VJdDZZNHA3bG5ueS9hdXpEeXUzdlBBc3dHZ01x?=
- =?utf-8?B?K1RJaHJzVyt2cHAwUFhaS25meGcxRUtXWWd1S2xDVEQzeXNhRDBRSG11T1Bw?=
- =?utf-8?B?UjVwTkFneTJJKzRoVVFVcmgvb0ZtOWRpbElYSWM4N092L1hIcHhWWGJnVDFp?=
- =?utf-8?B?YVBPd3V5bEZyWnROUksyTWsrWGdKR0xrclA0RzVZOUdvUUMzZDh5UXZOWkRU?=
- =?utf-8?B?ZjNYM1hNZmxVSUdidWZBTDBnUDJnUGVxcTk0eEpIb1BzSm1qektHME1UakYz?=
- =?utf-8?B?ZjBmOTUzVW9BV1Fkc2NWRHExbVQ1UmV3REpPSGk5VTYyZ0xKZ1dwSEtDUW9D?=
- =?utf-8?B?aWJYMXhVWWxPc1gwQkZCcGRBTTN4Y2pPamU5akY4dk5LcnBJSzY5V0FVc0Rl?=
- =?utf-8?B?cnFhS1JONnlNcm9EdW9wSnNidFIrSDcrMUU0M1JhdkxQMHgybE55QngrZG1M?=
- =?utf-8?B?SGIwUFFMOURpTmlRK1NiWlo3UTI3TXl0VzdCWlprN3c1OWZKYUF4V1hsaXZJ?=
- =?utf-8?B?ZXJ4ZE9mSE5uZEdrcXREY3VOUkowb1o2Y2xSMGdURzZqaER3cG92ZzlwSGhX?=
- =?utf-8?Q?nk2a+9Lf6JIhScX0Ga?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?oGOa5gq2w4ZZoirkjRbMCGfHGkALq5Nb++CjqoVPV+DHL0grcqrxifvw8cN/?=
+ =?us-ascii?Q?skQtNWTtnQIXcBptswxuyyuxYoyGTY90UvK4e530Zl47qDU5U8+mD+fuDZ+2?=
+ =?us-ascii?Q?bty8JTMZ/AFmBj1ViAUOWnPQlwK2tuSiSNj3Sqh9sd5+cWPhyk+csDN9ULL+?=
+ =?us-ascii?Q?Dfc70SMhvztN7fepOH9GfSslsr4FGCmjzJ+4h74DE0PLnhflw79glwVuZ2Jk?=
+ =?us-ascii?Q?lrph3I0sP2J2vPw7m4A74o+YXUomztUx1HsLwgyKt19NlU2ag9edTBpSDqrd?=
+ =?us-ascii?Q?2rqxbGl6WzPkLNIP1kao7ziplEYbbXHof9OrLOzTUadXZjUP/wySk/gJe228?=
+ =?us-ascii?Q?JqzKE+ksHvtysQ4GkqyW/gWFKddcYQG+eyGZ6sDKe8aAbCTv7C1r37Ofj5S5?=
+ =?us-ascii?Q?LEdXS82Q9TpVGuUylZgvQBDhEUlDyBU6nByJZRadzZiUDWvaN9KMmJuIk3Fi?=
+ =?us-ascii?Q?y5RmgNNuPb7AddMgOih9MclZiZUACqeWObDdsZFcVu3SIVUFjizGpnR9MPi/?=
+ =?us-ascii?Q?RMKBXapcCb3fSzEtxRm1Kdqx7yX029FLfpAEDlLNknRpW9FPGdfYT7Bh7jJf?=
+ =?us-ascii?Q?YDRKcGP3nKInWpO+DTW3r4yvxlW90AhZNSJ7S9lfvUQs6vf+DVHLTeyzcqBh?=
+ =?us-ascii?Q?AsXpNoxqcf6EgQajuZIPH00p/fyML9Io8cOr47xVk0P0GlY4ecPB6N0lzhXs?=
+ =?us-ascii?Q?83rF3YsDsur3PTn/2KYdvxLEwEG7QscV3EeCRofuH4jk9DyUsU0ZD6SlGq09?=
+ =?us-ascii?Q?CFAsSdvloBJSIcd/TuHoq7owkx+TVT1D/jfE0DwhOvhY0PyhlKowxQ0TPqFU?=
+ =?us-ascii?Q?SvNLx0bjAqKpuL3B3gAFH84itgki9tYdM0ysaGO/WvTFPQ66G1Y+H00LJ2sY?=
+ =?us-ascii?Q?Jy2Evp7W2ClkcQC0zjQTdosIbG5+jxK5/9L4VWYEqGje+7xNqX9HjipbxgsB?=
+ =?us-ascii?Q?alUUwsQ7ztYvUp1NfAmSYHpLokKJocCRf+2PYU8Pt2sRYyRTaOKKMH/BS42+?=
+ =?us-ascii?Q?QK/HsgFIe4gp+uvrC/1Ke1VpZFnvGyymFZvzTYnKOFQ3GRa73INd/DrYg3qk?=
+ =?us-ascii?Q?n7CTQPY0zBcYE+jIOioQfh7MRLBBQaOVuaaRxliCjLn5BI0rIxymVQJOdeQ8?=
+ =?us-ascii?Q?hpXm9CZnod2H1tY9rI8KqamuFDCDOqjZj0MWgyRWBwPmrT/IgjOesU6C4o6V?=
+ =?us-ascii?Q?tzYprmvfBkEQL5VY6/jZrMJIExVIoFj3lte7VoNk1HaSSDoukcoN99YsSbQw?=
+ =?us-ascii?Q?nXaHT4TT9YAzl1/Mz/A4BCkZWCASaSULTRHroSHDPLRqPWPXY1ky+uq+lzvo?=
+ =?us-ascii?Q?m07B9mC/ugLbn34QsNGP1D93qWSPRDXFDFveZ/WeIIjM/2I9LkZOa2F9ssAt?=
+ =?us-ascii?Q?xHSdXB+o95PGqujJ1R4bFdu4zDsCwlIurgyra5HN8JLoEtH/gQRx6zM145hJ?=
+ =?us-ascii?Q?qJEeXeZ0Xk6GpDSSEEhMHwF54KBtY7AU97xylnle52t3RYq/xkqc6Pebs5k/?=
+ =?us-ascii?Q?n7o0BghFfz4a5C5iG6PlfC0JLjqlKCFqVz0PJL8LS3fMH1HZyJzvAMbueTVZ?=
+ =?us-ascii?Q?FAWiG42JSIGdMeQjE0BQZiKghgjOwWL+UQEE/oEGJY7zREYNBQkrxDw0RCgS?=
+ =?us-ascii?Q?21fNFl8CMWxVQklUxivVqJ6Fpsq2vlCfSsrOyz8/w4k7FGc68et2r5HBFiGn?=
+ =?us-ascii?Q?dxF37e68WRZeBMVPYpFH3wNzNoFxJylym+syQgpGeRuJGli8?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae647b29-a2ee-447e-60d3-08df19eb54b8
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9465.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 03:24:24.9958 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uyJEAau5RfvoSxd6ptqUgqKkKM/1+4lHDCkbc4imfXr42rGkuowEZGQz8nVHZV/Kp1ZeE99WTwzMRUwRaTjK8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4139
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB8348.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8158f69-44fd-4c72-54b5-08df19ec2d6b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 03:30:27.4536 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4IvDL1EuExsfNG5ng4mNHVwfLIZ3MrYeMEtoA/dCu6tT3gHr0zEVOFMU8aqt7eYL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8970
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,222 +137,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------FR7RSvCRZyP4lp7F341okSqQ
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+AMD General
 
-On 9/23/2026 10:13 PM, James Zhu wrote:
+Pinned objects that are not kfd objects reduce the total vram available to =
+kfd, so we subtract the total size of pinned objects from kdf vram availabi=
+lity. However this double counts objects pinned by kfd itself, because they=
+ are counted both as used and pinned. So track the total size of objects pi=
+nned by kfd and add it back to kfd availability to remove the double accoun=
+ting.
 
->
-> On 2026-09-22 05:34, Zhu Lingshan wrote:
->> This commit implements a device-wide PMC config
->> for amdgpu, which including the profiling owner,
->> and the profiling enablement indicator.
-> [JZ] I think it should be render-node wide, not device-wide
+Signed-off-by: Daniel Phillips <daniel.phillips@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 11 +++++++++++
+ 2 files changed, 12 insertions(+)
 
-Hi James,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.h
+index 1b7dc0d3963b..056dd7375d24 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -106,6 +106,7 @@ struct amdgpu_kfd_dev {
+        struct kfd_dev *dev;
+        int64_t vram_used[MAX_XCP];
+        uint64_t vram_used_aligned[MAX_XCP];
++       atomic64_t vram_pinned;
+        bool init_complete;
+        struct work_struct reset_work;
 
-It could be, but we don't have a requirement document defines the scope.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index a5d1d83ee5d3..5a4072792a57 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1536,6 +1536,11 @@ static int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_=
+bo *bo, u32 domain)
+                pr_err("Error in Pinning BO to domain: %d\n", domain);
 
-But normally a profiler is a device scope,
-I see KFD profiler operates on all queues under the device queue manager
+        amdgpu_bo_sync_wait(bo, AMDGPU_FENCE_OWNER_KFD, false);
++
++       if (!ret && bo->tbo.resource->mem_type =3D=3D TTM_PL_VRAM)
++               atomic64_add(amdgpu_bo_size(bo),
++                       &amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
++
+ out:
+        amdgpu_bo_unreserve(bo);
+        return ret;
+@@ -1558,6 +1563,11 @@ static void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdg=
+pu_bo *bo)
+                return;
 
-Thanks
-Lingshan 
+        amdgpu_bo_unpin(bo);
++
++       if (bo->tbo.resource->mem_type =3D=3D TTM_PL_VRAM)
++               atomic64_sub(amdgpu_bo_size(bo),
++                       &amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
++
+        amdgpu_bo_unreserve(bo);
+ }
 
->>
->> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 8 ++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
->>   2 files changed, 11 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> index 8eff6b9ebe81..45897dca802f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> @@ -620,6 +620,12 @@ enum amdgpu_enforce_isolation_mode {
->>       AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER = 3,
->>   };
->>   +struct amdgpu_pmc_profiler {
->> +    struct mutex        lock;
->> +    struct drm_file        *owner;
->> +    bool            enable;
->> +};
->> +
->>   struct amdgpu_device {
->>       struct device            *dev;
->>       struct pci_dev            *pdev;
->> @@ -818,6 +824,8 @@ struct amdgpu_device {
->>        */
->>       struct xarray userq_doorbell_xa;
->>   +    struct amdgpu_pmc_profiler    pmc_profiler;
->> +
->>       /* df */
->>       struct amdgpu_df                df;
->>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index c924a55fd16f..74ed42e53264 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -3673,6 +3673,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->>       mutex_init(&adev->pm.stable_pstate_ctx_lock);
->>       mutex_init(&adev->benchmark_mutex);
->>       mutex_init(&adev->gfx.reset_sem_mutex);
->> +    mutex_init(&adev->pmc_profiler.lock);
->>         /* Associate locks with lockdep classes for ordering
->> validation */
->>       amdgpu_lockdep_set_class(adev);
->> @@ -4244,6 +4245,8 @@ void amdgpu_device_fini_sw(struct amdgpu_device
->> *adev)
->>       kfree(adev->pci_state);
->>       kfree(adev->pcie_reset_ctx.swds_pcistate);
->>       kfree(adev->pcie_reset_ctx.swus_pcistate);
->> +
->> +    mutex_destroy(&adev->pmc_profiler.lock);
->>   }
->>     /**
---------------FR7RSvCRZyP4lp7F341okSqQ
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+@@ -1679,6 +1689,7 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdg=
+pu_device *adev,
+                vram_available =3D KFD_XCP_MEMORY_SIZE(adev, xcp_id)
+                        - adev->kfd.vram_used_aligned[xcp_id]
+                        - atomic64_read(&adev->vram_pin_size)
++                       + atomic64_read(&adev->kfd.vram_pinned)
+                        - reserved_for_pt
+                        - reserved_for_ras;
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <pre class="moz-cite-prefix">On 9/23/2026 10:13 PM, James Zhu wrote:
-</pre>
-    <blockquote type="cite" cite="mid:d3144b38-64a3-4bbe-910f-722912f9fc66@amd.com">
-      <br>
-      On 2026-09-22 05:34, Zhu Lingshan wrote:
-      <br>
-      <blockquote type="cite">This commit implements a device-wide PMC
-        config
-        <br>
-        for amdgpu, which including the profiling owner,
-        <br>
-        and the profiling enablement indicator.
-        <br>
-      </blockquote>
-      [JZ] I think it should be render-node wide, not device-wide
-      <br>
-    </blockquote>
-    <pre>Hi James,
+--
+2.43.0
 
-It could be, but we don't have a requirement document defines the scope.
-
-But normally a profiler is a device scope,
-I see KFD profiler operates on all queues under the device queue manager
-
-Thanks
-Lingshan </pre>
-    <blockquote type="cite" cite="mid:d3144b38-64a3-4bbe-910f-722912f9fc66@amd.com">
-      <blockquote type="cite">
-        <br>
-        Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
-        <br>
-        ---
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 8 ++++++++
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
-        <br>
-        &nbsp; 2 files changed, 11 insertions(+)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-        b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-        <br>
-        index 8eff6b9ebe81..45897dca802f 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-        <br>
-        @@ -620,6 +620,12 @@ enum amdgpu_enforce_isolation_mode {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER = 3,
-        <br>
-        &nbsp; };
-        <br>
-        &nbsp; +struct amdgpu_pmc_profiler {
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lock;
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct drm_file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *owner;
-        <br>
-        +&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable;
-        <br>
-        +};
-        <br>
-        +
-        <br>
-        &nbsp; struct amdgpu_device {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *dev;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pci_dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *pdev;
-        <br>
-        @@ -818,6 +824,8 @@ struct amdgpu_device {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct xarray userq_doorbell_xa;
-        <br>
-        &nbsp; +&nbsp;&nbsp;&nbsp; struct amdgpu_pmc_profiler&nbsp;&nbsp;&nbsp; pmc_profiler;
-        <br>
-        +
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* df */
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_df&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; df;
-        <br>
-        &nbsp; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-        b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-        <br>
-        index c924a55fd16f..74ed42e53264 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-        <br>
-        @@ -3673,6 +3673,7 @@ int amdgpu_device_init(struct
-        amdgpu_device *adev,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;pm.stable_pstate_ctx_lock);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;benchmark_mutex);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;gfx.reset_sem_mutex);
-        <br>
-        +&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;pmc_profiler.lock);
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Associate locks with lockdep classes for ordering
-        validation */
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_lockdep_set_class(adev);
-        <br>
-        @@ -4244,6 +4245,8 @@ void amdgpu_device_fini_sw(struct
-        amdgpu_device *adev)
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pci_state);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pcie_reset_ctx.swds_pcistate);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pcie_reset_ctx.swus_pcistate);
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; mutex_destroy(&amp;adev-&gt;pmc_profiler.lock);
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; /**
-        <br>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------FR7RSvCRZyP4lp7F341okSqQ--
