@@ -4,75 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47A20C9830D
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:39:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FD78C9830D
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:39:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA2E010F900;
-	Fri, 25 Sep 2026 07:39:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF7B610F934;
+	Fri, 25 Sep 2026 07:39:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mlopop8o";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K/o7ijRH";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15BA610E44C
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 07:25:06 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49e6598dd44so3178055e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 00:25:06 -0700 (PDT)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C16D10F67E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 15:36:09 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-482f633cd78so1347305f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 08:36:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790321104; x=1790925904; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=jJsFR3C4BXwq6V8a4asvimu14gijx70uQQhfBt9Dfjk=;
- b=mlopop8o3CPIABgoNh77bfKzDcwZIKdAhhn6mKWFvsg1rOORpm31hv8r3TBsx7ufnp
- SsImscV1vY7dVleSbLs0kAvU3nBPFVyfvPzMZrXr2q+1VF2E1s+XGdhynOxbHSLcAxXI
- L9RrUS97DzYGLlbA8Eyrb4JZiw46D4dQzsCWipfv9TH1+6JwjsrYLLKg1W75xA5SLM8x
- W24gm78V36u5ez1jY0dZ/9AbgsNozlTv2i4bAOJCNrW1uqr/0gc1QAscB+doCkwMlp/y
- sjGjqlQv3J8iq4wAEQ9vPONkgiOEXhBQlq4H4BOZuWBap2Ap8W84EeJKcuDPFPh59AWh
- w2ag==
+ d=gmail.com; s=20251104; t=1790264167; x=1790868967; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=b3avaLkGbJI7b3eQY9BMM4QIlSMsNqoKGq3lOV/zF1s=;
+ b=K/o7ijRH8RwouVJ4GHcb+mIqIaHk/YRDCrWWl1P/oHTYP1ATcyhV/87cFJm/wnQgx3
+ htkvavEsMWjnL/RpHfddvqsRQ6ptmQ95XovDIvzW35l5rl+x7wPDSCL3FWzlPjCLfvk8
+ DqWYiRANvCmJ+y3X9xKHEVQ9gJgFZITJ0r7s5Sr60HMQDPGdkn8SS1P4R4AMroYrIxob
+ lx/btCXsvdU4avGHaM1gn4ZWgpEQgcUPU6kcS27gMBbP458pBzdhpArT2+A8Uz3iF1z3
+ I2HfmFQeZW57OxfFSjmf3ASSD92A/IowLhCPd8S2M3cHiRijdmDhMfpsaQUDcE9Dtgfx
+ 1nQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790321104; x=1790925904;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=jJsFR3C4BXwq6V8a4asvimu14gijx70uQQhfBt9Dfjk=;
- b=t1TshDbcj7NYW0mEusDsbLnYch8TmWJ37djphnl6vHxYKxxklrsqPoT0tuOSFnS6H7
- n6Ws6rbhFQx377n8PSwJQ43LJOAJ2GrYyaHhwXsZKPMFMv/rZyOGBKMjX2CclZY9WySH
- MGnVKUMS6q8v240v+zTfr6AQ0tDGWabzx6SXYfGlYqo1hTViJ3L0ifBiORM8QA7R4R/B
- RTjWn/V1+s9Fr6wO6ccNUPnWvPOxjiYH6NFv8WhBO0ay4ePx58TdC8cQqhQ1/uRL4Aqx
- Yv7pMK3MolOHPUNPHDmDclkNxUVwzRX02PwRiOyXyTpKGm1JzyKccy9fb/fA2LmT2DWR
- 40HA==
-X-Gm-Message-State: AFuF++nBIOxSN/IF1LRSYzjwsa2nrcaw2m9m/uthR9X4VIC0+qpErXTd
- haaAW/8uiOroR+IwB2Am7pdDQR0nm+Wy0gg+p46dbyzyl0oAKm/KHgO6
-X-Gm-Gg: AYBFou0RyrsMMt4dGTJrHkmbh6wJQCNI3KIk3P5YTob9p9UNdGFejmkfbi2l/KwCJAl
- haSDlhR9mMZFsyHUdOm8sTDFMK/zdz2eDIR757qD5deozerrdGetOp3wETtfAulNfe1ByNYt1/x
- 88OjZmYganKgYbQf8ucPflOJvQbaKqcllcgzwBlwhVXNIUNOguhv00Ft3PDeJTCu2ZCUHNXRnCm
- 6f+pphATFMSiNw5swOfuogMQ7i2Nm2JPm1qzae/ltwU58FSmNijY/H7zZZbLEuDWmyDrqckysZa
- NjlLOWJ9ZT3et894wksmG+3aJKvB21LFzqVUH4vNl+InQ6mGsvrA5YDVRrdjssqjdcR+6UnmS8t
- Vjb2bnwaF+af6FCsPSJbZ2NjG05mXrU7EzlpRmAaqx9bjpBt/WPX67j63EOH7+DoP5gKytNJXhj
- 61z5B9SyV+ObEIa4rqCjnzBVQYwc+HakVj0D4/Zd62gmH9gobzRiVuPkTcrI8/9+28dP/gpDpYr
- FtHvA==
-X-Received: by 2002:a05:600c:1546:b0:49c:fa20:cc00 with SMTP id
- 5b1f17b1804b1-49fe66f4f59mr83248455e9.23.1790321104123; 
- Fri, 25 Sep 2026 00:25:04 -0700 (PDT)
-Received: from abcmhome.hgw.local ([83.66.10.10])
+ d=1e100.net; s=20260707; t=1790264167; x=1790868967;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=b3avaLkGbJI7b3eQY9BMM4QIlSMsNqoKGq3lOV/zF1s=;
+ b=i51+td3eF9GhaGu01fVZrlBgJOOCJ/E7NCYRbqN+mTI8vNVVrSas1b3QRcN/+uFbDC
+ LBl88I5sTvhjR2hIMxNyVpUoDW9J+rWBIGAyPmzevPOVxq7EAcyPeA9rXYk3geJwQyFl
+ rZqG9IympKmwVIxRefo4xGIYHocl7mIdF7XsTqvCkGVygo3R1QDPjrYIVhIaza1xZC4/
+ dQmLNzsF7Yd+npE+Vr9ka0pOvNUvUibo8J074VpWiy/1fODfnQdFqVGl5VG5ERr9X+d8
+ YK7hGnwbcgIorA90iZu1f2InOkSDxOa3KSH/74JLwsesfdA/BYWNroy9M2OC7WvDSwAf
+ e39A==
+X-Gm-Message-State: AFuF++mhgxV5anZGzBMMpg5o0N7q6lMuk+YLyywj00dVTUxZXzBvirkV
+ 9yCbvxnDJMPsTSE4T5+xvar1Z3OyNZxbDpaOaIyFzs+KACutle7jy9Mo
+X-Gm-Gg: AYBFou0BtAYN84hKQfaYo/0oV+yP6OwXqYGNEriKYFp74Th+1en/Ylv4S8YaI3neQU2
+ o9e3pyJwaPgl/yr9rAYCLuTKakBiVhI+61jhxDGdKriq4ORyaai1xvhHVYt4VhHF575dgj7Uvfg
+ LzzJLT0fkhdeZQewaF4E2G9kjuJIhnU4V16guD1m3utU8kbHPx6uZKCqTo+PH1N3QgFMU4I8rHo
+ 6JSAyYaEM+00NyYXsNvnw5Z4cqoN6CKhicb2vHqv1YPJuDGes6RUzo6Mc6o0fpqw+rhhMU45Y87
+ l6RbiJUGWbQFGHil3B8BZlbMACSJtLik+3PDmpZVtKz+p/DNQvsFymZ7vYstL1dTLGKhwaYwE4Y
+ ORlGFzWGj6q7F5ueecRRV/iDcbWv0NbM4TfezdVUBUoE75rH29lATnDR12pX08Ve8GJB9tasAjm
+ 3wX/au8INQHV6dCt3iFG/s93Bik6giLDaCmyeZ1D43eY48rFjY6RQNdZ4ogHdia+++LLLe2HAxb
+ CEi7Dyg+mi3U4jHrPuCrfL00MiplF4yhXg=
+X-Received: by 2002:a05:6000:402a:b0:45e:e1a4:c4c3 with SMTP id
+ ffacd0b85a97d-48871670ccdmr5463936f8f.15.1790264167282; 
+ Thu, 24 Sep 2026 08:36:07 -0700 (PDT)
+Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fe5dfa6a7sm201790475e9.12.2026.09.25.00.25.02
+ ffacd0b85a97d-4886848646dsm14308007f8f.10.2026.09.24.08.36.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2026 00:25:03 -0700 (PDT)
-From: =?UTF-8?q?Ayhan=20=C3=87i=C3=A7ek?= <ayhancicek@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
+ Thu, 24 Sep 2026 08:36:06 -0700 (PDT)
+Date: Thu, 24 Sep 2026 18:36:05 +0300
+From: Michail Tatas <michail.tatas@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- =?UTF-8?q?Ayhan=20=C3=87i=C3=A7ek?= <ayhancicek@gmail.com>
-Subject: [PATCH] drm/amdgpu: extend MacBook VRAM-at-0 workaround to VERDE
-Date: Fri, 25 Sep 2026 10:24:44 +0300
-Message-ID: <20260925072444.18982-1-ayhancicek@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/amdgpu: unmap GART dma pages before free
+Message-ID: <arVDZbkfZbzfvKO4@michalis-linux>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:39:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,37 +86,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The existing MacBook workaround reserves VRAM at address 0 for
-Polaris ASICs when the iGPU is enabled. This prevents cursor
-allocations from landing at address 0.
+amdgpu_gart_table_ram_alloc() maps the GART dma pages
+and neither the error path nor amdgpu_gart_table_ram_free()
+unmaps those pages before freeing them, which could leave
+the device writing to freed memory.
 
-A MacBookPro11,5 with Radeon R9 M370X (VERDE) hits the same
-failure mode. Hardware cursor updates repeatedly log
-"DC: Cursor address is 0!" followed by
-"DC failed to set cursor attributes".
+Fix by unmapping the GART dma pages before freeing them.
 
-Extend the existing workaround to CHIP_VERDE. With this change,
-hardware cursor operation is stable, the cursor errors remain at
-zero during repeated cursor movement, and cursor disappearance
-and flicker are no longer observed.
-
-Signed-off-by: Ayhan Çiçek <ayhancicek@gmail.com>
+Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 1bf2a42fa..9e7f9cc2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -1086,6 +1086,7 @@ void amdgpu_gmc_init_vga_resv_regions(struct amdgpu_device *adev)
- 	case CHIP_RENOIR:
- 		adev->mman.keep_stolen_vga_memory = true;
- 		break;
-+	case CHIP_VERDE:
- 	case CHIP_POLARIS10:
- 	case CHIP_POLARIS11:
- 	case CHIP_POLARIS12:
+Changes in v2:
+- Fixed a null dereference possibility based on review 
+  from sashiko
+
+Revisions:
+- v1: https://lore.kernel.org/all/arKhDFCSoPDNYaxX@michalis-linux/
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index c4c21dbbbdbf..116c646b86a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -209,6 +209,8 @@ int amdgpu_gart_table_ram_alloc(struct amdgpu_device *adev)
+ error_resv:
+ 	amdgpu_bo_unreserve(bo);
+ error:
++	dma_unmap_page(&adev->pdev->dev, dma_addr, adev->gart.table_size,
++		       DMA_BIDIRECTIONAL);
+ 	amdgpu_bo_unref(&bo);
+ 	if (sg) {
+ 		sg_free_table(sg);
+@@ -240,6 +242,8 @@ void amdgpu_gart_table_ram_free(struct amdgpu_device *adev)
+ 		amdgpu_bo_unreserve(adev->gart.bo);
+ 	}
+ 	amdgpu_bo_unref(&adev->gart.bo);
++	dma_unmap_page(&adev->pdev->dev, sg_dma_address(sg->sgl), adev->gart.table_size,
++		       DMA_BIDIRECTIONAL);
+ 	sg_free_table(sg);
+ 	kfree(sg);
+ 	p = virt_to_page(adev->gart.ptr);
 -- 
-2.55.0
+2.43.0
 
