@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D6F9C98318
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 21:14:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82045C98327
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Sep 2026 21:14:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB1510E57B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECB2910F79E;
 	Thu, 24 Sep 2026 21:14:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="L3rr4ISO";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WrClwfXg";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9CD110E1F0
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 21:14:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF5CB10E206
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Sep 2026 21:14:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=BotAbiiqRZXmJkNo41Q2GXEcj2IA0qV9fMw14eKAaCc=; b=
- L3rr4ISO6xmdMOSlqtJxug27EcxSmXn3+vUFuV7ceOwSnqKdec1GeVvawHrq3bNqEsvxVhNKVCPs3
- fMAmEREXGPrjMZa52n//x8QficiECO4pAtV37C3/UebFHjkqx5JAcQJnltMcD4eKa7rXUHfdee8Qx
- xPt5CnU8tQ+2rm89mJgMKmukIybuYqiHferInEbvc2nwj2kmjDch5MKrawS9PR1Pd69TwOa/SCUXt
- YHEBwzrDcsPk1/xxN8u+WBJnDBwl8mAmVtZ3oYG6cFbgkrKg9Dv+GYA09RV8QZBoMB3EUAOjvfWeX
- brPrlysQFRosXevUO4/Q8/Ui14rME58Elw==;
+ Cc:To:From:From:Reply-To; bh=+VjMkZ3tS0FShslmwCrFzVtn4w0HMmV0NCSm3WPMU3M=; b=
+ WrClwfXgez2i+pCVgHdG1ExAUSjSk5192q6JO7nf70cTdDWCdfm+w76uhGZ1HckzKeZN9AXLI2382
+ WJE2SZeZfIOb4FbZ0LiVfTK7DV4yYR2nkljIM9CavC/yd55SKVlUZKDiQl4xprC1TPARWqKK2K1YA
+ /jJvfG625uqa8SH6YSLGgR1XlImAZbKthnYgbzHRC9IxKeGUd2ooeJz4ztc9QrMKtjJAuY7IdJHG3
+ swTY86Hfcx0EqPnv7k7De8T+2aEee/QKlN/GkBWoRbZCZ18Sz98jX4qjtWKQ05L3c1qQ0znz3YtQs
+ vx5SKX6hQWBS3apY2HPvIPOhJ6y5O7EOFQ==;
 Received: from 113.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.113]
  helo=killbill) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x9qlh-006qf4-Ob; Thu, 24 Sep 2026 23:14:13 +0200
+ id 1x9qlj-006qf4-Gv; Thu, 24 Sep 2026 23:14:15 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, aurabindo.pillai@amd.com,
  Aurabindo.Pillai@amd.com, christian.koenig@amd.com, David.Francis@amd.com,
@@ -35,10 +35,10 @@ To: airlied@gmail.com, alexander.deucher@amd.com, aurabindo.pillai@amd.com,
  sunpeng.li@amd.com
 Cc: amd-gfx@lists.freedesktop.org, Harry.Wentland@amd.com,
  kernel-dev@igalia.com, linux-kernel@vger.kernel.org
-Subject: [PATCH 3/8] drm/amd/display: fix vready offset assignment in
- dcn_optc_lock_unlock_state
-Date: Thu, 24 Sep 2026 23:10:06 +0200
-Message-ID: <20260924211410.867686-4-mwen@igalia.com>
+Subject: [PATCH 6/8] drm/amd/display: remove redundant cast on
+ amdgpu_dc_reg_template printk
+Date: Thu, 24 Sep 2026 23:10:09 +0200
+Message-ID: <20260924211410.867686-7-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260924211410.867686-1-mwen@igalia.com>
 References: <20260924211410.867686-1-mwen@igalia.com>
@@ -58,29 +58,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-vready_offset is captured by optc_state, but the trace point entry is
-wrongly assigned to vupdate_offset. Fix vready_offset tracepoint field
-in dcn_optc_lock_unloack_state to record optc_state->vready_offset.
+Commit 0cf5eb76e2b4 ("drm/amd/display: Add tracing to dc") prints and
+casts uint32_t fields in amdgpu_dc_reg_template to unsigned long
+unnecessarily. Just print those fields with %08x and remove the
+redundant cast.
 
-Fixes: f1943a51f0f9 ("drm/amd/display: Add events log to trace OPTC lock and unlock")
+Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-index 887ebac8c97e..f5c2f589f691 100644
+index 26c85d95bcc0..7de4fe355c5d 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-@@ -701,7 +701,7 @@ TRACE_EVENT(dcn_optc_lock_unlock_state,
- 			   __entry->vstartup_start = optc_state->vstartup_start;
- 			   __entry->vupdate_offset = optc_state->vupdate_offset;
- 			   __entry->vupdate_width = optc_state->vupdate_width;
--			   __entry->vready_offset = optc_state->vupdate_offset;
-+			   __entry->vready_offset = optc_state->vready_offset;
- 	    ),
- 	    TP_printk("%s: %s()+%d: optc_instance=%d opp_count=%d max_h_total=%d max_v_total=%d "
- 		      "min_h_blank=%d min_h_sync_width=%d min_v_sync_width=%d min_v_blank=%d "
+@@ -57,9 +57,8 @@ DECLARE_EVENT_CLASS(amdgpu_dc_reg_template,
+ 				   *count = *count + 1;
+ 		    ),
+ 
+-		    TP_printk("reg=0x%08lx, value=0x%08lx",
+-			      (unsigned long)__entry->reg,
+-			      (unsigned long)__entry->value)
++		    TP_printk("reg=0x%08x, value=0x%08x",
++			      __entry->reg, __entry->value)
+ );
+ 
+ DEFINE_EVENT(amdgpu_dc_reg_template, amdgpu_dc_rreg,
 -- 
 2.53.0
 
