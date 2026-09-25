@@ -4,92 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1800C98324
-	for <amd-gfx@archiver.kernel.org>; Sun, 27 Sep 2026 13:26:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F0EC9830E
+	for <amd-gfx@archiver.kernel.org>; Sun, 27 Sep 2026 13:26:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02A8410E5D5;
-	Sun, 27 Sep 2026 13:26:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F012F10E5CD;
+	Sun, 27 Sep 2026 13:26:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gXC94Dln";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Q8NG70cU";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4883010E1DE
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 22:25:09 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c254f55efe5so218416066b.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 15:25:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790375107; cv=none;
- d=google.com; s=arc-20260327;
- b=RDkr01l2kehN3YXb5ez6kCS6zAzu8aXgXMdAohWE1Zq4zh4IBhooRm4vIlS0332Q3A
- a9U9+wIsuB9WirzMtSdDRcHSlQlr75oBgkCyuvKgjMTAGazh8RyoXekiklzo61NKxIh+
- hSHespekcXSgeZkb2DUXJHLWajJKSfzrx1ZOIjbi4XxfLMSit4tr3VtMlfk1N3qcXfpU
- QAHa8Dm9neqFT12Hkb2oiBApWmU9Vb2pS+yxQo2Tsx9tDjFT97PNPcBqRA3gcGkljV6Y
- 7Ca4DiP6fWTIQ9dWTv4J5DR3MB/2HUB8s0FuZ6i6LAmiQIAAdKDpIzC84MHbjGmDMq3H
- T5Mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=xQ2iBZjllcn0cdKaDxZ05foMDqb4bzFuS9qMBmYuZTY=;
- fh=QM8fNYFkvOdQ520cPOhg4EStpvlC39kZkdAhDl7GqBA=;
- b=BaE7oK7lCoxMfDnMDMCrhW0hxbooCRh0wYa/PHJ6g2ZRqbOf4vXoTG3zNMUrU3GJKR
- ooEZEUofea5Ipcs2XK5LK2PAk6SpHskguuwp8t2VyvgwMUAjKZADvLG49DUDPCSkVDbV
- wiad8xx8DlP/pr7exuakS7l393s0s3zokjSuH2rauHHbBa1XceVi4qDoIrkF116od8xq
- WP4CdWw1DWnsD2FcKA9+t26HcoIFPG8ukJ957lW6k2uXlHOLxmEvMlQCRu/uB45E36M+
- bbgm9DFIBWC4w540lFPrCV04CQwLmEP8sMDZSWtzW5C+nCxgzz82wO/8OE3RrQRUj+ca
- F2AQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
+ [74.125.229.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 574A810E1D5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 22:39:31 +0000 (UTC)
+Received: by mail-dy2-f43.google.com with SMTP id
+ 5a478bee46e88-33e630052ebso1601748eec.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 15:39:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790375107; x=1790979907; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=xQ2iBZjllcn0cdKaDxZ05foMDqb4bzFuS9qMBmYuZTY=;
- b=gXC94Dlnd12j/kUEBDBh99CKIYQRnFd9at17c30P0Z//ifbraELqaLq34UIEehu6SC
- 3lNEj3t2DPT78ooLzB87uYtdZazu5crBKjRGda5Bck1LzVm4/CjtIZXcEZ1ERvo9cbSx
- R2GpHuE+enmljYiPepKcJxEKjTqB0hIflUy7mBVKOH8H1kIZhYGzdYKrDwxzUrEHokrS
- smNW5af0PR5rupZfvoOhpx615rD6hMDqsOIBORoKH0V/j53ygbw80LuMGP26L3WgIm/d
- tbpLth+yar1EXzYcrXU09V2chRTtNsVbdHOR/W4EO696vjJsjZtlzAVfWnv/ZIjdYKux
- InWQ==
+ d=ziepe.ca; s=google; t=1790375970; x=1790980770; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=2DkhnlaU8X97aKYc97FzNgp9vm+bQnZHirc2X/jss6k=;
+ b=Q8NG70cU9MCAEfhANyrPFYF0/LUlX8jKj08eMryDbA1h/gd3oj4MpnFfkxnm1etCjk
+ 06VrXtbpZIZnQOWy4lk3De/YWeplfX1nRrRRrJsggWdZUr5iBNi2b5NCiqUezs6obcM+
+ rH+a0zbE6Tvf4/iTsB4esr+/YOAkmF2eobm0sJRLsFyLsjAxhXlC9lRpEHkFXT6azs29
+ hjv+Su1mVscbrP0rMPd/oVLXU7SfpNUPqu2A2WDF3pbba5zVGeb857b8SP/FBMISN7gP
+ jnfcfxKso14g0C1eoSqjIIS7KMAde5TZrDFq/OQoSLninNGDT2cg25VCbajFmMstZaMD
+ 8+UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790375107; x=1790979907;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=xQ2iBZjllcn0cdKaDxZ05foMDqb4bzFuS9qMBmYuZTY=;
- b=H/V4QZ36UjfzAcuZfuuYrRSdTQQ5pE4ktFyeMAdAp1RAsnr2M+rTnpfaYjEKhh/k9M
- I9hUbk7ZILbiLsZa80rpUCmjMDREoOcKjuIShYaYzj4tVm+DFdIubZP6IrJ8Olcb++3E
- zilttax/gZFtFiBnOcD4/TaCjhYkrkd0HD1OzBDwKjx3fPuiXwtRvyhoDhqBDEPdmoAB
- 29m9WOm6lDvRfhV2LpWxoOj+nAlCEyGXPz2r2ncgQrQvty3rTDPS1udqnnsKXksUgEJt
- HC06kCC37VeqKi++UTQEeffG8oyqeiriBEvuuKv3lZ+7Ue//wsSUPMTI5HgcCHtR6hFM
- C4uw==
+ d=1e100.net; s=20260707; t=1790375970; x=1790980770;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=2DkhnlaU8X97aKYc97FzNgp9vm+bQnZHirc2X/jss6k=;
+ b=bvZh8BGyrZCnyBdL2WpHezOirMYuQypNVhBHGQTDuo8lHbKkV0L3B/3MLbwsgNHPNM
+ dozxbfnpTMV8BP48fceekf8YySWu+eQ9ItzGlifoa/THCIPg9ooPUQgoGvrqSZ4Ovycg
+ AfT9CUcwK/5fpqdBiMeAKwet1ubgAZdhDWwzN08ogXnYl1JMYJzGSU5E4NyVsO4UupTa
+ gUaM9FqiRazNV0secOx+S8Sfn1Huir2jIVPoAdxgzG0jm32na/3hG3MzUC4pjgaNiiCb
+ rDKT67HtdK4LDfY3EKhyYTc9tQRSxcjSfq/tIH07Lx0XoWBfDBQsgYw5lFlj69YOCU3z
+ HnwQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz7fxgoK4BCTOcXxQmRdFwonuJ0cM26BZF7MdsRPbb92Uyy0V2ZaRddQoIJyHVFT0IqOO0MbJ5+@lists.freedesktop.org
-X-Gm-Message-State: AFuF++np5SJb+HOknaF9JUOlmdo06pJsImwgbRsl2fX//BQdDF7VGL4M
- 3dyF6zz9yMQd6wcq7yJ5WIs3b6segcl79wANU0iuzH+roTFQaql20Om44m3E+B+ZxYixNXLuCwb
- Q0CpDv2Ge2Y3vYxZv91L5WQYKeUVDg7AG2K67vu9Xhg==
-X-Gm-Gg: AYBFou2LxVPZXFsnvP0/NWlanhMO/ueC0IcBUpEKcxd5zc5xpLFkqqjdyGn0+Ckbs9B
- c3PZOnL3bLUYF6l+UWt/N+yjr/rYnXjNFkCYam3xDQ7s/u0EnZqP+sI671AycEDJnRVnnj0Zo7J
- CbBZip0MKKzXLeRjkFm2KLMKJKdAKwjPFW46h+Aw6ICIs3BK2Enopm03yF/EZkeBoBNlKdWRBYR
- 9rAIuboLntAom8jJIAFZ/mXr2ZLjaF/82b1TRMposh1W+KLbKvOEsclH7XpXLkMaN/J+0FL3/Bf
- r8oF9HSCzQvp1fI9lq9UdGYst8zC8chOAdkfs6PCIBkNq6hdbbKG
-X-Received: by 2002:a17:907:86a5:b0:c29:5af0:3b44 with SMTP id
- a640c23a62f3a-c2ac251e640mr628131566b.41.1790375107299; Fri, 25 Sep 2026
- 15:25:07 -0700 (PDT)
+ AKwUvBxbG60h9obDDPJSPXYZbrG8rn6Ixkzq/8cUAx8esTZMae1MLUP2srBmnrhrph+ObMaUJIpXMU+d@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mPiAH4avWtsPHSJnFeXM2MDGnG3wqwhsx5u4zJRMZwMIUmINh/
+ umUigH0mRGq3DrreGsh9wEucs7twLcdC4YSfWtcH4L+7QxhLUoFuYEPdPDEbsPMhxgg=
+X-Gm-Gg: AYBFou1jTM3/idskzl54RsTDw3AoG6kd1oyYW5CjbZ2qu+Xi8hrXSXJrMqoRzo+TzwE
+ HuUqqp6VaZNZlYnbnY9eI7is1AbQtsFUvF5bjJSrRJI+XQjkIzlSgRomWGXEykKFl3ZYmjRwUkR
+ GgVpy7Sm+JQJxEO1msEXKgnOOHcw3jxXfs6wQ4KVgxqr2dSSqAjREC96FEfMS8Qzya0ldOHBarA
+ zwCpFHHBmIi9e255uH0uAZpa5Q1Wmq4oakHx+nuSbseNdLyEthqFQqoG9iFiNOyv2cP2ajRpA7v
+ /hg9VkI68yR2poYjubeWR2q8A4+vmHMPtYc3ZuRZugnjZqt6LE5dTpQmEm5ePzEZPhCkq45zmjF
+ +jrw614WwyWU+3T3wURbZ4rrztIa4HGFUYtLqZ8ZYfXk0vjAExyfuTOr+cEeQNnIkKfw/miyNEH
+ MN+lNWXck/c1/fqtwEmAyFLbcdRT801LSdMpVYBWxmp6Sm
+X-Received: by 2002:a05:7301:7196:b0:341:d152:9cfe with SMTP id
+ 5a478bee46e88-34272c5c768mr1133260eec.38.1790375970281; 
+ Fri, 25 Sep 2026 15:39:30 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3414407ea69sm8644124eec.7.2026.09.25.15.39.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Sep 2026 15:39:29 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1xAEZk-00000001mwH-2Nok;
+ Fri, 25 Sep 2026 19:39:28 -0300
+Date: Fri, 25 Sep 2026 19:39:28 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
+ Jatin Kataria <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>
+Subject: Re: [PATCH v2 1/2] iommu/amd: Add PerfOpt IOMMU performance
+ optimization support
+Message-ID: <20260925223928.GE163130@ziepe.ca>
+References: <20260908041207.38113-1-mario.limonciello@amd.com>
+ <20260908041207.38113-2-mario.limonciello@amd.com>
+ <20260924225018.GB16465@ziepe.ca> <arYf3iJW7hfTua__@8bytes.org>
+ <20260925122848.GD163130@ziepe.ca>
+ <4560d7d3-4d67-457d-bcd7-2176bd850bd4@amd.com>
 MIME-Version: 1.0
-References: <20260925072444.18982-1-ayhancicek@gmail.com>
- <CADnq5_PWzO-UqBJgduTy-X7bYnxSJyBZxL0TcsBue3S9cWyTUw@mail.gmail.com>
-In-Reply-To: <CADnq5_PWzO-UqBJgduTy-X7bYnxSJyBZxL0TcsBue3S9cWyTUw@mail.gmail.com>
-From: =?UTF-8?B?QXloYW4gw4dpY2Vr?= <ayhancicek@gmail.com>
-Date: Sat, 26 Sep 2026 01:24:31 +0300
-X-Gm-Features: AclHuK8B5LiZidiPdKYhiISXgdT5Ar_79Y0LOr08gaC6VjB8HChm3j-ANkVrGCE
-Message-ID: <CAL556cf0rbxePZ9m-W81SOx+aX27Csc6x52QYdJypoX1pJQcsw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: extend MacBook VRAM-at-0 workaround to VERDE
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch
-Content-Type: multipart/alternative; boundary="000000000000490dad065c5630e8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4560d7d3-4d67-457d-bcd7-2176bd850bd4@amd.com>
 X-Mailman-Approved-At: Sun, 27 Sep 2026 13:26:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,160 +103,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000490dad065c5630e8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Fri, Sep 25, 2026 at 08:11:41AM -0500, Mario Limonciello wrote:
+> 
+> 
+> On 9/25/26 07:28, Jason Gunthorpe wrote:
+> > On Fri, Sep 25, 2026 at 09:20:02AM +0200, Joerg Roedel wrote:
+> > > On Thu, Sep 24, 2026 at 07:50:18PM -0300, Jason Gunthorpe wrote:
+> > > > Why does the GPU driver have to request this? Why can't the iommu
+> > > > driver know that this is a special device that can use this magic fast
+> > > > path and then auto set it when identity is asked for?
+> > > 
+> > > This is a layering violation either way. Either the IOMMU driver needs to poke
+> > > into device details and their relations or the device driver needs to poke into
+> > > IOMMU details.
+> > 
+> > There are no device details, this is just a module option in the gpu
+> > driver.
+> 
+> Well the GPU driver has knowledge whether it's a GPU inside of an APU to
+> decide if it's valid.  That information is part of the discovery table
+> setup.
 
-Thanks, that approach makes sense and looks cleaner than handling
-individual ASICs.
-I'll test the attached generic patch on the affected MacBookPro11,5 with
-the Radeon R9 M370X (VERDE), with the hardware cursor enabled.
-I'll verify that the original symptoms do not return and that the kernel no
-longer reports:
-DC: Cursor address is 0!
-DC failed to set cursor attributes
-I'll report back with the test results and add my Tested-by if everything
-works as expected.
-Thanks,
-Ayhan
+Where was that in patch 2?
 
+The right way for this to work is to quirk it through the iommu driver
+so it can choose the fast mode, and not involve the GPU driver at
+all. Like we've done for every other GPU weirdness. And AMD should be
+making this work better by providing ACPI support so the iommu driver
+can understand how it should work without inspecting PCI IDs.
 
-Alex Deucher <alexdeucher@gmail.com>, 25 Eyl 2026 Cum, 16:19 tarihinde =C5=
-=9Funu
-yazd=C4=B1:
+> > > This is not perfect but to some degree unavoidable with these highly integrated
+> > > SOCs.
+> > 
+> > This is exactly the sort of hacky thing ACPI should describe so the
+> > drivers can just turn things on automatically.
+> > 
+> > Who is ever going to track down and figure out it is OK to set these
+> > kinds of module options in the first place? There is general negative
+> > sentiment in the kernel to doing things like this with modue options.
+> > 
+> > How does Windows do it? There certainly isn't a "module option" there?
+> 
+> This specific one I don't know; but these kinds of things usually end up in
+> knobs in a UI that plumb some IPC deep into the driver stack.
 
-> On Fri, Sep 25, 2026 at 3:46=E2=80=AFAM Ayhan =C3=87i=C3=A7ek <ayhancicek=
-@gmail.com> wrote:
-> >
-> > The existing MacBook workaround reserves VRAM at address 0 for
-> > Polaris ASICs when the iGPU is enabled. This prevents cursor
-> > allocations from landing at address 0.
-> >
-> > A MacBookPro11,5 with Radeon R9 M370X (VERDE) hits the same
-> > failure mode. Hardware cursor updates repeatedly log
-> > "DC: Cursor address is 0!" followed by
-> > "DC failed to set cursor attributes".
-> >
-> > Extend the existing workaround to CHIP_VERDE. With this change,
-> > hardware cursor operation is stable, the cursor errors remain at
-> > zero during repeated cursor movement, and cursor disappearance
-> > and flicker are no longer observed.
->
-> Sounds like this may be consistent for most or all Macs.  How about
-> something like the attached patch?
->
-> Alex
->
-> >
-> > Signed-off-by: Ayhan =C3=87i=C3=A7ek <ayhancicek@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > index 1bf2a42fa..9e7f9cc2b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > @@ -1086,6 +1086,7 @@ void amdgpu_gmc_init_vga_resv_regions(struct
-> amdgpu_device *adev)
-> >         case CHIP_RENOIR:
-> >                 adev->mman.keep_stolen_vga_memory =3D true;
-> >                 break;
-> > +       case CHIP_VERDE:
-> >         case CHIP_POLARIS10:
-> >         case CHIP_POLARIS11:
-> >         case CHIP_POLARIS12:
-> > --
-> > 2.55.0
-> >
->
+Given the huge delta I somehow doubt that AMD would ship a windows
+driver that defaults to "slow" ? Nor should linux...
 
-
---=20
-
-
-Ayhan =C3=87=C4=B0=C3=87EK
-Software Architect
-
-+90 532 291 21 62
-http://www.ayhancicek.com
-
---000000000000490dad065c5630e8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Thanks, that approach makes sense and loo=
-ks cleaner than handling individual ASICs.<br>I&#39;ll test the attached ge=
-neric patch on the affected MacBookPro11,5 with the Radeon R9 M370X (VERDE)=
-, with the hardware cursor enabled.<br>I&#39;ll verify that the original sy=
-mptoms do not return and that the kernel no longer reports:<br>DC: Cursor a=
-ddress is 0!<br>DC failed to set cursor attributes<br>I&#39;ll report back =
-with the test results and add my Tested-by if everything works as expected.=
-<br>Thanks,<br>Ayhan</div><div dir=3D"ltr"><br></div><br><div class=3D"gmai=
-l_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">Alex D=
-eucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com</=
-a>&gt;, 25 Eyl 2026 Cum, 16:19 tarihinde =C5=9Funu yazd=C4=B1:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">On Fri, Sep 25, 2026 at 3:46=
-=E2=80=AFAM Ayhan =C3=87i=C3=A7ek &lt;<a href=3D"mailto:ayhancicek@gmail.co=
-m" target=3D"_blank">ayhancicek@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; The existing MacBook workaround reserves VRAM at address 0 for<br>
-&gt; Polaris ASICs when the iGPU is enabled. This prevents cursor<br>
-&gt; allocations from landing at address 0.<br>
-&gt;<br>
-&gt; A MacBookPro11,5 with Radeon R9 M370X (VERDE) hits the same<br>
-&gt; failure mode. Hardware cursor updates repeatedly log<br>
-&gt; &quot;DC: Cursor address is 0!&quot; followed by<br>
-&gt; &quot;DC failed to set cursor attributes&quot;.<br>
-&gt;<br>
-&gt; Extend the existing workaround to CHIP_VERDE. With this change,<br>
-&gt; hardware cursor operation is stable, the cursor errors remain at<br>
-&gt; zero during repeated cursor movement, and cursor disappearance<br>
-&gt; and flicker are no longer observed.<br>
-<br>
-Sounds like this may be consistent for most or all Macs.=C2=A0 How about<br=
->
-something like the attached patch?<br>
-<br>
-Alex<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Ayhan =C3=87i=C3=A7ek &lt;<a href=3D"mailto:ayhancicek@=
-gmail.com" target=3D"_blank">ayhancicek@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +<br>
-&gt;=C2=A0 1 file changed, 1 insertion(+)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_gmc.c<br>
-&gt; index 1bf2a42fa..9e7f9cc2b 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
-&gt; @@ -1086,6 +1086,7 @@ void amdgpu_gmc_init_vga_resv_regions(struct amd=
-gpu_device *adev)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_RENOIR:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;=
-mman.keep_stolen_vga_memory =3D true;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_VERDE:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_POLARIS10:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_POLARIS11:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_POLARIS12:<br>
-&gt; --<br>
-&gt; 2.55.0<br>
-&gt;<br>
-</blockquote></div><div><br clear=3D"all"></div><div><br></div><span class=
-=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_s=
-ignature"><div dir=3D"ltr"><br><div><font size=3D"2"><br><font face=3D"verd=
-ana, sans-serif" color=3D"#444444">Ayhan =C3=87=C4=B0=C3=87EK<br>Software A=
-rchitect</font></font><div><font color=3D"#444444" face=3D"verdana, sans-se=
-rif" size=3D"2"><br></font><div><font face=3D"verdana, sans-serif" color=3D=
-"#444444" size=3D"2">+90 532 291 21 62</font><div><div><font face=3D"verdan=
-a, sans-serif" color=3D"#444444" size=3D"2"><a href=3D"http://www.ayhancice=
-k.com/" target=3D"_blank">http://www.ayhancicek.com</a></font></div><div><b=
-r></div><div><br></div></div></div></div></div></div></div></div>
-
---000000000000490dad065c5630e8--
+Jason
