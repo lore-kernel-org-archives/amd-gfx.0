@@ -4,49 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1292C9830D
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 12:55:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51EEFC9830D
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 12:55:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 333FE10FA56;
-	Fri, 25 Sep 2026 12:55:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA9610FA48;
+	Fri, 25 Sep 2026 12:55:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OTcVbO8C";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="c0+Y1NpC";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F28B210EA25;
- Fri, 25 Sep 2026 08:54:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=tyVss/7ya63mZWkQTf0O8as+/zSeErFL/MAD/HoyieY=; b=OTcVbO8CpgxmmhiUhrrqGnWJqs
- sxIDDWW7kqIp4RwXZQbI1uEbH9MsVBOxOfNm8iQq1lbArxWumk68zqXl5+NVP1F2EfEtplSwn7www
- fw4slvXx5S8H9soN4xqW1/2E9HNFXeVOob5OW5IjT+ZkJ67y06UHVYXo1JIukuWKYolL+sLHIxe4z
- gBl/uq51fZLYfMPQT3omvVpSq063qYhPRrfbcBRbE5qGWqaDRhURuPkIJueuItqzdUaE15Qvs7Q2K
- K64YEa2wn4ztKOAkv+aIBKGbgZ7PCb/+HEFyJ4b7pai1H1HA2s2HudcRnI106P1pOq2VoRIsw1ef+
- Dk0GWGtQ==;
-Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xA1hM-0073wo-AV; Fri, 25 Sep 2026 10:54:28 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Fri, 25 Sep 2026 05:54:04 -0300
-Subject: [PATCH] drm/amdgpu: remove unused adev parameter from
- amdgpu_vm_pt_free_list
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
+ [74.125.229.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 409AE10E5CA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 12:28:51 +0000 (UTC)
+Received: by mail-dy2-f43.google.com with SMTP id
+ 5a478bee46e88-33c24422d4dso940271eec.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 05:28:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1790339330; x=1790944130; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=IYBi22JlMsDFxH8u3SI63AaYNIN6lXRFrma2FvtvBGo=;
+ b=c0+Y1NpCpAxuAkY6U3NVAJLR+QwF/3R0ucrPObe5okHvpxYC7/zcvWI4+2/YpERX0t
+ eRbJASXP8XK5FLSFIn4AtYls3TlId66BgyJX6AOzcRpUYpHVge69tfCdlYx2JaUmalfB
+ 4L4x1TH7VbbGOlpJ0DFfsTDn1lDMyTm9fpAptc+EF6aoxyhAisWnilsHGoSRTIyyOHOK
+ 9/p1yvGqTeeQ55TxRNScHihjNJhcFisAUrrV7bjKFFEMIDLXqH1mHW5lQxsEKPPyrhUY
+ FWpQZeKtbJkh5SfTC93FfAy4XX4GEZM/SNzVVzTMoTSSkDSEXIn0HY5+L9iR7IHtXkmJ
+ PdZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790339330; x=1790944130;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=IYBi22JlMsDFxH8u3SI63AaYNIN6lXRFrma2FvtvBGo=;
+ b=VF+3dtL4chlaMXLUKDyIk0LpA9ezIeh1sYCND8OUXYPAL+m8M4mYdhe9jqsVeVl5rL
+ oAj2qTksnGfSwUBt6IlsvLBWo3mCQubGFGMwwBf5HNaAmfAautyIxzyOSIZ/+4ksh65m
+ utVvmrRkCezPwCrf8W9empdR9skkfYDGCJq2jdnjHVwFDzO3l/KaK8ANYMmxj75v6dn/
+ ue2aelliQ/EAXscgZTo4RSSLYggMY2Be3K86rZ5BbVw1aZgFIJnqC0mJocjOtpTxxzIz
+ xNKYxhZBZ7OHgIyl8Tyq9Nkhlg0OyWtaRVT2BPDWYQ/lgFAevTUtbbCcQYfxZ5UfULRo
+ VRbQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzX8cf8Cr/KyeCW+WxxZmfSeQ9e7IcOsSpDlKYroISjJK6teoTREVr1x0v9dkrra6vNwH0e+kWI@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mR8MzW9IgrZMBmwzrseeqKEb+e9tu3To0yAgsaRNXS9b9KHCuQ
+ qP7c30VMcUZghZkn1Z+NFzr+9qUzLecAbPKBX/BqZSwJqtsxqbsuz+p3ulwxJ4YY9KE=
+X-Gm-Gg: AYBFou2JjQl2yXsa1+YWw9sFXq9G53B5EjQ7dPUMDPa+wPgjdCS+rLWhHU5m+/kDms+
+ BSmBa2unWnV2liCQAfeFSmQ5aQMHcfLrBdWSL0sT57R3NIqn/foZc3nU5LyJ8yY+9wJFlaWvq+j
+ AkARl9i8Yj6Vk40634sKO1I+FH1V8pc73zK6kSdfFWDzg8wjyNnvsa796iQOGC0r2wABlsmc8eP
+ 8MxNCjB+0ZC/W9bE5rn1Mj2+T8LUYD2IKloviVWtmM80+Nyx5a+qXWEQQF/Zv8xHBCs0gCjoxCN
+ gu/zYSPhp2NTLhz2pCXXw/Ag9l11IAOID6pKjnbi2elCTv4i0G494sO5NYEH99ue9rmsNlj2sog
+ 9/t3OERjC1np9D6aCKN7MoYytNcXaq8cLZ28aCr3yv7he2M47wqT2vW8SsrB+ePli3DZIOowz1R
+ 2rlY8xHMu9w+noIVbpDPN/hR+DBvYwjuecnDprAflHhCGn
+X-Received: by 2002:a05:7300:e11c:b0:33e:633c:7f70 with SMTP id
+ 5a478bee46e88-34272b3bbb7mr97724eec.35.1790339330310; 
+ Fri, 25 Sep 2026 05:28:50 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3414456b496sm6623329eec.11.2026.09.25.05.28.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Sep 2026 05:28:49 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1xA52m-00000001FlS-2vL4;
+ Fri, 25 Sep 2026 09:28:48 -0300
+Date: Fri, 25 Sep 2026 09:28:48 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Joerg Roedel <joro@8bytes.org>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
+ Jatin Kataria <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>
+Subject: Re: [PATCH v2 1/2] iommu/amd: Add PerfOpt IOMMU performance
+ optimization support
+Message-ID: <20260925122848.GD163130@ziepe.ca>
+References: <20260908041207.38113-1-mario.limonciello@amd.com>
+ <20260908041207.38113-2-mario.limonciello@amd.com>
+ <20260924225018.GB16465@ziepe.ca> <arYf3iJW7hfTua__@8bytes.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-amdgpu_vm_pt_free_list_args-v1-1-f6f1c644c878@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAKw2tmoC/x3MUQqDMAwA0KtIvlewdRPcVcYIcY01MF1JVATx7
- pZ9vp93gLEKGzyrA5Q3MfnNBf5WwWekObGTWAyhDm3dhbujKaa84jZhXnBQZvyKLUiazHnm2Pr
- GE/UPKENWHmT/76/3eV4SskMtbQAAAA==
-X-Change-ID: 20260924-amdgpu_vm_pt_free_list_args-1eed6131aab5
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arYf3iJW7hfTua__@8bytes.org>
 X-Mailman-Approved-At: Fri, 25 Sep 2026 12:55:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,70 +101,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since commit b6c4f90b3819 ("drm/amdgpu: sync page table freeing with tlb
-flush") simplified amdgpu_vm_pt_free_dfs into amdgpu_vm_pt_free_list, it
-does not need adev as it already finds the target PTs on the
-tlb_flush_waitlist.
+On Fri, Sep 25, 2026 at 09:20:02AM +0200, Joerg Roedel wrote:
+> On Thu, Sep 24, 2026 at 07:50:18PM -0300, Jason Gunthorpe wrote:
+> > Why does the GPU driver have to request this? Why can't the iommu
+> > driver know that this is a special device that can use this magic fast
+> > path and then auto set it when identity is asked for?
+> 
+> This is a layering violation either way. Either the IOMMU driver needs to poke
+> into device details and their relations or the device driver needs to poke into
+> IOMMU details.
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    | 3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 4 +---
- 3 files changed, 3 insertions(+), 6 deletions(-)
+There are no device details, this is just a module option in the gpu
+driver.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index bb04101b0fb5..d090bbbdc00d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1252,7 +1252,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		tlb_cb = NULL;
- 	}
- 
--	amdgpu_vm_pt_free_list(adev, &params);
-+	amdgpu_vm_pt_free_list(&params);
- 
- error_free:
- 	kfree(tlb_cb);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index d32183cd9e0f..5d9063e71268 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -613,8 +613,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
- 			  uint64_t start, uint64_t end,
- 			  uint64_t dst, uint64_t flags);
- void amdgpu_vm_pt_free_work(struct work_struct *work);
--void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
--			    struct amdgpu_vm_update_params *params);
-+void amdgpu_vm_pt_free_list(struct amdgpu_vm_update_params *params);
- 
- #if defined(CONFIG_DEBUG_FS)
- void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index e43a60d09808..af0d95fa8965 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -551,13 +551,11 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
- /**
-  * amdgpu_vm_pt_free_list - free PD/PT levels
-  *
-- * @adev: amdgpu device structure
-  * @params: see amdgpu_vm_update_params definition
-  *
-  * Free the page directory objects saved in the flush list
-  */
--void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
--			    struct amdgpu_vm_update_params *params)
-+void amdgpu_vm_pt_free_list(struct amdgpu_vm_update_params *params)
- {
- 	struct amdgpu_vm_bo_base *entry, *next;
- 	bool unlocked = params->unlocked;
+> This is not perfect but to some degree unavoidable with these highly integrated
+> SOCs.
 
----
-base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
-change-id: 20260924-amdgpu_vm_pt_free_list_args-1eed6131aab5
+This is exactly the sort of hacky thing ACPI should describe so the
+drivers can just turn things on automatically.
 
-Best regards,
---  
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Who is ever going to track down and figure out it is OK to set these
+kinds of module options in the first place? There is general negative
+sentiment in the kernel to doing things like this with modue options.
 
+How does Windows do it? There certainly isn't a "module option" there?
+
+Jason
