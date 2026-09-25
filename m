@@ -4,120 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A01CCC9830E
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 13:22:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EE7EC98321
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 14:00:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3971210FA90;
-	Fri, 25 Sep 2026 13:22:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1850310FABC;
+	Fri, 25 Sep 2026 14:00:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2pTfhFQD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RgfCkIA9";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012018.outbound.protection.outlook.com [52.101.48.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 261D710FAB9
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 13:22:57 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011054.outbound.protection.outlook.com
+ [40.93.194.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E632310FABC;
+ Fri, 25 Sep 2026 14:00:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ysC+DQQhaMWh0MxzcMyoVjOzu/mpHrXkpkbMQbdlSKZ4WbeYrFQzySZV+maG9oqdqRwA70gWMtLCue23/SWbzmjhPq0YSymP/SvW2V8S4b3aXjtwnicdLg0DR4Tgaj7koMM0OZHjNHXtRvsmQFdwc25zV8Gzhzuvu1+h2eeqS2tR2ju341gpLfYMRTX2PQ7L/zYre4wxQco5YJSF72GDV5Vqsf4EQus3nWZpvDva0Xd/WJaybDkD2cqmkXaCUXQJ+T1L8ocmmJgeqO8dhjdyIxv+OiC6AhIhYrXNigAPnPaLgm8xG4Zv0rsuZEC687iYfJb3HA1bR1GYjEGBr3Rt9A==
+ b=diKeXp8rY6bYgvbhyq9tRfJQMXu2r1PdMkq71z6yXnudWPsO3eBzzBpzoKVSkxohbIs3IioEMNRPCIWIAGQi8tZJXE75dpwTFZE2Z2LqGGoChgCqJY0f0LFLOPE+D60pSS7iZuX9ISXIsM2FO/DGGDlFVSjmeV2k/2LBBSXGQmFqcruhxh47XSN1pRFlgxDw8tO3AMbC+n6j5xFkKgoe8zfIco28OjeWxQ+Hb+K6ldOEagx77nc6PWPMzgAL08120hfvLH0yO6FvjfdcVjM8TjVlL1dsZ3e2yGNm0pLuuu4+lC3oC77APPGwh5w4Wo3pKZAduHq+x/6w2Srzkg/XYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6YZMPgypLI27TY6Bkj+41Ze8JSxZX3aXmcSrtU+vnlM=;
- b=AXAXsWW42mjdtuYne501cam85pZXOW5F1bUzCe8R7zUnMauaaT/VCSAa7DjpvUS0f8MrVgw1K8nG8K9OC5cL3sIwKaM8AOg5PyECW7bZwruDqTM8lrWpn9qV0fjWnMZy5kCuy89+iiCFB6kvfPpPx/myElkIBZXb249LDWUYKVbVRkbXy/v+Oj3zufF5s0nLKIDChNfhfE21FYLDRq3rbJbHc1RS8mOI5z0E3HV2dwgHNXJfXzZSg7Ef/b4B+G2BASdBvLh43laC1UhW3sAloGjiZ12jRYye1ypaMNJyWryTkYwtHYs3XJMSaNM8KmBc9g+d5+K32O7MK6H0c2GL8Q==
+ bh=ok0DJyNkZQcQMeHkdTkYqnEmiAl7UYk/I0dlTU3U6+c=;
+ b=bm2jxqlQOWZvtMc9t6Bv4KGvBpVEY9LUrtgeL+3qoHsSI/sdDzRSxJSxNf62cBMR8dVliYBh8U+RMXLPZaDinw7uXf3UpUHpGbxVf2rmdF1zXL3+a7CP0dXJKl10QPE7p1/ks7SHiqYqlP5mTSlNjMk8hhLIcznv8hvyYsSLXX/3NjkC9x8QpZ+4NwAaFKOAyr7wjXQhTumxO8+dROHLL7DXvkJSgilWUMh3wc16+imU7gIhm1TS0rtYFLOxkXuTYeFj3xxPkqqDqJr21cd6W2/8Cu7R4assWGwQeecI4Hk9TeibL1f2MO5hIQJb0lukQAhGwvBIR9B8WwwaeQpW/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6YZMPgypLI27TY6Bkj+41Ze8JSxZX3aXmcSrtU+vnlM=;
- b=2pTfhFQD6GWtVOBkcmrqlE2UqPBDD2VkNXbrWmKeKjFI0m3hpguLW9tvO1AR7trtG50bGd8yLmYo+SpdVsBoy4c3xEyb8H8ZoJCzriLtvYl7zDwP4KEz6YuT9RyVMfEewUgWFnOeRAJZGtFnyghKn6p1G1phKceEnJ1XfuqVZH4=
-Received: from SA1PR12MB8144.namprd12.prod.outlook.com (2603:10b6:806:337::15)
- by SA0PR12MB7004.namprd12.prod.outlook.com (2603:10b6:806:2c0::6)
+ bh=ok0DJyNkZQcQMeHkdTkYqnEmiAl7UYk/I0dlTU3U6+c=;
+ b=RgfCkIA99tnQxeAwU7xllfWp2b9txMWsws8Wlhgm5h8ME03Tfxs/4phv/lccxeL9cTyyam4jU+zUS9Q6AndWtQBn4oC1gsyAUBQ2/dVTceNAd7GtU5LYVCJ/+P7k5ziRsYpnMMuTXUqBiD9syJycGnELM0+Bzu733YT10MDmJz8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by SJ0PR12MB7476.namprd12.prod.outlook.com (2603:10b6:a03:48d::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 13:22:54 +0000
-Received: from SA1PR12MB8144.namprd12.prod.outlook.com
- ([fe80::56ac:f44f:8336:d7ec]) by SA1PR12MB8144.namprd12.prod.outlook.com
- ([fe80::56ac:f44f:8336:d7ec%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 13:22:53 +0000
-From: "Francis, David" <David.Francis@amd.com>
-To: list amd-gfx <amd-gfx@lists.freedesktop.org>
-Subject: Fw: [PATCH v4 2/2] drm/amdgpu: Add CHANGE_ID option for USERQ ioctl
-Thread-Topic: [PATCH v4 2/2] drm/amdgpu: Add CHANGE_ID option for USERQ ioctl
-Thread-Index: AQHdS5IO566v2GYddkyHE4idtouFCbbfL9iAgAAa6n0=
-Date: Fri, 25 Sep 2026 13:22:53 +0000
-Message-ID: <SA1PR12MB81442B9DDAD4ADF35107E9AAEF802@SA1PR12MB8144.namprd12.prod.outlook.com>
-References: <20260923193035.1148578-1-David.Francis@amd.com>
- <20260923193035.1148578-2-David.Francis@amd.com>
- <2c3e1ab8-cffb-4706-add4-fdfae29b36c6@igalia.com>
-In-Reply-To: <2c3e1ab8-cffb-4706-add4-fdfae29b36c6@igalia.com>
-Accept-Language: en-US
+ 2026 14:00:53 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 14:00:53 +0000
+Message-ID: <9a917ebe-9d9d-409d-8913-89b448425726@amd.com>
+Date: Fri, 25 Sep 2026 09:00:49 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/7] VESA DisplayID fixed DSC BPP value support
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-25T13:22:53.064Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB8144:EE_|SA0PR12MB7004:EE_
-x-ms-office365-filtering-correlation-id: 88d32252-0685-4c51-a427-08df1b081b23
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|10067099003|56012099006|3023799007|22082099003|18002099003|11063799006|4143699003|38070700021;
-x-microsoft-antispam-message-info: 5EUov9sqXOZld7EaXT8xoOq4of3kz6GCuQqYwuUBzilv473Qhh2JXWdwbQsFpyH3wY3Qihd7un9c3uqQ721YxIDRUNTyGG4WbSCtOqj4x35ojt3LSZpmajO5S45Ms5nExoSc8Qh4vZReWzqMPRFXdNmrINEO88EQeWOp5PlGIMdF+TxDtyqry+Qnt46vZ9KPFRIG5b/35LbXfRsXQME9MqIV+umzHVvTt+7Kul+fl9idT9X8/B3KPwJc8nmnkeWrP5AElj42l3oaEi3tolUzpm5MtlIVY6Slusfs21NzJmN2WA0toHDiLlzonCiV5psm7HO+wvv2xjkdt27k0Bp0y1pKFMwv/cPiHZKCCCDxXjzVMwDRfGYYaGQgK3VZ2J1MPy3guMJOvz4Tr9P8DkccE0mQC8xqhJxeklpjRHtsn6r1QsQAj7SzzJr3M+aELi7Mnos23jMZM+PPeWuegIcaGA+OrFHTj3iSxmDBeRzImgEc335vmNxmLbrsf/oZFIfZjhkC9pVsifdtzJGIpdLizGeuw6wWGowTPxObWz7BC6ucBD8ByOayKyqgYeNY1d5evpAOKx1hBqpTYIkwrqCtTYHHaVd21Elib3oZhK9ljqOHXqo1W6kNsuoTKYTt1udZpl+rGAyhIdklUJ3ZgUeNhlLf1VVdS5UGQBMLO/Lv4+tacVzhd+C218IQkfDbs6KKENMc8Oh5lqF5Yl6H+pT3zg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB8144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(56012099006)(3023799007)(22082099003)(18002099003)(11063799006)(4143699003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?khC1I9r3Tv4/66+Qd8Cq1inaDsLIcGnF7+aMDCLSqa6qpKbmRUOIe0L4WU?=
- =?iso-8859-1?Q?UpwC6dauTSv+vtVetoQbCWXC07a0K2hNbJesVi3OX06jcoHJO7MLokRgEs?=
- =?iso-8859-1?Q?ChKgRkmkfgmQyq7GIQn4Jyr15FatdkwJ7uKB1tSC48hLMhLA/BHMK0N1JF?=
- =?iso-8859-1?Q?JNyCuUq0ij9+X1Rs91+87pdtGrVMUL90ECwtEMj1UpaHOrZmTOdjJ3P6QI?=
- =?iso-8859-1?Q?ubYzW2jf0C3JemeKliyeJ5nLpToxa0mp9BYpsveeEwJOLkIspn479sRMFq?=
- =?iso-8859-1?Q?c+6gsbMsJDf5rfdw25c0vEm64cX/KZQmpSYM12t9rS1cwH83fKTpGrI4Gn?=
- =?iso-8859-1?Q?yDtzy2tmx9I/GeurWB+l4W1sZSaGoIW//lVZKApMfzFLs+lMzRNBP2Qhuv?=
- =?iso-8859-1?Q?m9RPyFhPM64rfyvwb+UXJ600Wen+oQPdw46lFaqyclZjd1TlPrRHHsUiLk?=
- =?iso-8859-1?Q?XZ7yiGlzHCRYSNay0lY8VyxrUo7B/PFe+4NCCMrQYNuxOB8DlxjH4nloGG?=
- =?iso-8859-1?Q?bEBGWJR13JURF0YQFxjyGqOwr9O0d1JdLLHBJ2tnj3AfEAc4/4ge05v3ku?=
- =?iso-8859-1?Q?Z+GlM2p1tU3tSBrzL88pkiZmOGDc1OggM9qRe5Sji/hWRYqDlUcnMUvJtG?=
- =?iso-8859-1?Q?0LDGKE/tzywwhreGgrlaqIu1VxIOTDaNuttBNzzPIXEfUgme9Obp6FNX0/?=
- =?iso-8859-1?Q?++1JFqry3g/hLfYUWAkJUDMtKTbE0zUyYn8Mh5izVQNsxE1RqL64V7y+uK?=
- =?iso-8859-1?Q?QFcXRkBsSKcvp/tvLP6lqexH7/B+Pm80HAAypM3fbkyzVG8WDUQDHHYsb1?=
- =?iso-8859-1?Q?i8iUPO4zsJo7Dlm1DsxV3lpJQxfproPCCs5ETrprB+V/3FovjM3a8kxNEu?=
- =?iso-8859-1?Q?K/6rgLfabG8cujzST0cP5YRj0HjHty9qvCQdpMfMLBwRfVYUBM07zSD5kp?=
- =?iso-8859-1?Q?8sgIK+SZtBNFqGgQ7PmPd5Z6MVFRe4iExS3UILTrJ/Dyzuu5m2dkc0heZ4?=
- =?iso-8859-1?Q?G4Svfu73IjAd2kJ4fShvlsNwg3grd9a+84HDq1PJg0L3x++mzbG3gl7BGo?=
- =?iso-8859-1?Q?U/hLSCK2PwYvJ/lD9hCfYh6QNkmScKuIIg1+PsaOVxn1x8vToTbleeV1G7?=
- =?iso-8859-1?Q?CMoydNLxhN1qKzJRUWaBozo/hNne6GJ140XqZLnYpfIrDRQGuWh3+BM95N?=
- =?iso-8859-1?Q?DPIQCwx9/wzitm5W99SBr/NrGbbMICPpnubz7MTwJFjtRR03NpgsqpTjUz?=
- =?iso-8859-1?Q?RwL0mEsu8/ZmysVEevPSsgimZP+YBVIPwz9ECnjusFzLW54AL8DMu0JOaf?=
- =?iso-8859-1?Q?t2Sx81dA1UPmWQZDDUOMaukgT4jpuJ+ll2gjRgMk71t4XiuJB1R8LmtFTY?=
- =?iso-8859-1?Q?E9t3d3UwoKQs5h/whd2s78oHJUZXDPKxCEhIoKXU03X5vi/l2M4xhUnX8R?=
- =?iso-8859-1?Q?ypyX1YfJJtEJ8qNwlwdBzT1TRCJyfK35/gHjdemcDxMnKie1tXHLTsd9++?=
- =?iso-8859-1?Q?87lax53LYPZNxMF/k414u8UpSU2XgQzry+Semd6l2NdnsGBYEIHt5O4r8V?=
- =?iso-8859-1?Q?+0buur9e1BbktsAYLdloUhN/n8AicgLkDgtFYXxocB1+t2HQvSqhCf5/Mv?=
- =?iso-8859-1?Q?dhfXP2JCjl21PqL1HSWwsdqnRN/Ri/krWnKuhtXByiUWdWoUJgQ0k685op?=
- =?iso-8859-1?Q?3Dx+Ha62U3+5YQluhYo12J+2uNI4R4eJIVCft7HgCGtmXdlqmB9rrWXdbs?=
- =?iso-8859-1?Q?1hyoDb6iJzPgS+JP+BlXmuRMPwdslM3SpqDt+r/10l/91f?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Yaroslav Bolyukin <iam@0la.ch>, Yaroslav Bolyukin <iam@lach.pw>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20251202110218.9212-1-iam@lach.pw>
+ <5d1fc27a-eea0-4995-8b8e-46006144ae7b@0la.ch>
+ <5b7332c6bc0c7b7f9ba0d95477a5b9f438a07ff6@intel.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <5b7332c6bc0c7b7f9ba0d95477a5b9f438a07ff6@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS7PR03CA0260.namprd03.prod.outlook.com
+ (2603:10b6:5:3b3::25) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SJ0PR12MB7476:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7320a71c-3bd5-44fc-b592-08df1b0d6950
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|7416014|10067099003|56012099006|11063799006|4143699003|6133799003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: U+CTrM91UcRJtEB0es6/jKuyVFj3T5hD+Bwcm2tsKyDPTDGCS6vTTafc6LAciUNxykidRFBo15aztYr8MKRxzLcYx/tM/MYhRuc/6LmLhMmg0cC94eNCHXASZmiuwXIlqUrKNAvvbEfQB88rF4L6rU2v4269wzctmszVe79u5ihcegAQnLV13AazpKZgUX+biRG0O5GCyMpQGkC4xLx2RP2wjVmKRpWU/+gshJk54qM9btDOTBrZ2D0SNShSQ9d7shiqlLwzddbYA+WPLexUvKYWYzHPLZvFMTJmZolPc17mJtWvoZd2h9pk34xQRGMkm7ve2hdM4NlTYdBX0zMleI/itWZmJsOLJ1AVHjWFm50lP1Im7YMSB8dXTnuJii6qiH86CXfC/GwpS2pVCtYl5U+Ua4RvYGnpPo9jt1Y/WPdYOWatUUC1v4P9TgsZt3wcTNxcKWZ8eVmiYhg62fBkkSpuvz8hv0DK6HCr6slltNsG2UK7Ks5RYTMPZvONgLToO1NlbpEBIhoVAbOhaZGQpJrXH8dFDQX3fv629K924VzCm9ts9tZoPx35twyRiVuiV94ofhy4v+wzk7xN6i/2Hiy8sP+jaV550wd5rUa9cq5QVBWj3Yg5rsinXlF8Mwp6
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(3023799007)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TTlRbXl4YW1FM3NFTU5STkg4Y0QxVUhuZ2tPdThOejFLejhNR3V6bVp5Z21Q?=
+ =?utf-8?B?bzRRNzNPYkQ1NDBNeUFsZnpRWDAxV0dlNWR4ZW9ENTdiOEtPLzIyMjN5TmZ5?=
+ =?utf-8?B?TmpNN0tYUkpHaXBHakRIVVBQeXhISGdhSEQ3UDljd21YRHR2ekE5Y0JQYVlP?=
+ =?utf-8?B?N2k2ZDdNa2R6eEUwWi9uSm9pbDVYb2pVR3lOcVZEaUE5UE1LYzNON3NnVTZ5?=
+ =?utf-8?B?NGdsYzE2UkpVRHBpZHN4aHE5WGNjeXlNTDVTMERHQzFxSzBCOVdGbCtuL1VD?=
+ =?utf-8?B?MUg0WlBkZHZjUVRzdHNhVkxLd2J1U1BCdkhXSkhIbk9hZ2loMXM3VnFtcWVr?=
+ =?utf-8?B?SXpWcEsrSEJiYkxGM0d5NEw0T2VnZXpFeVFWM0wzWWc0Q0VUSDdxeWZqcldz?=
+ =?utf-8?B?QS9nRC8yZGtwWTlPTmFpa2EydnFnZWlJanhyTlRNUEYycDd1d2xoelZWYUU3?=
+ =?utf-8?B?b1pQN2R3bDZkbHR4ZENHbFF5bGFnSG15WWthakhJMitLVHFNaUNhVVIyTEcx?=
+ =?utf-8?B?YXRFb3VmRnhQcFd2OUorQng2bzk4djFsd3lTNWhiazZMTjRGcy9RSVk1LzBN?=
+ =?utf-8?B?NjdRQ2ZTd3FyZWpGM0xsL2Z4M2l4dGZoVUYyUklkUUltQlhnZWtpQWlkeVov?=
+ =?utf-8?B?RmVqMmpVOG1ldWZ6QjBmcFVubXgvZjBCZFk4R0ZGOGx3Zlpkc24xM09ZaUk4?=
+ =?utf-8?B?cEd5UTRNajhMWnBFbXAxdEg3eHpINElTVTMwYlB6V2ZHanFTcUptZDNxTFlZ?=
+ =?utf-8?B?bk8yK3drUnJTSnFqVEpiRzEyd2NQc3NDellkdG9SSzkwbWx0bjR2QXRvOUtt?=
+ =?utf-8?B?V3h0TlVVM0RDdFBKM3ZueEVjbkFzYVFiYlREUHo4eDFHKzJlU3RMcXdFcXlK?=
+ =?utf-8?B?RlljY24xeHo0b2JtTmJsZ1FjQjhkWDZiT09ZWHBZb0ZCV0xnMDBoTExwWm04?=
+ =?utf-8?B?SFpFWGJlR0xudENqSXZHd2M3QkJxNzJ0QXF2c05oYUZuTWQvZERJU1NNdWlX?=
+ =?utf-8?B?Q1dJUll1RFIzdmhnVHFDU0FYQ1dpZlFOU2ptMlFOb2tRMGFlOVAxaGl5WnpS?=
+ =?utf-8?B?UlUrOTE5SytoeFBwSjJpSDlkSm9Ec29CWVFwSTA2a09vSWM3MEVMMlFwSjF3?=
+ =?utf-8?B?dzJOaXdhUStPSzRXZWFNL2dkalFBaGxqR3hHQ0pENDh4VVJqbkJSaTRyV3ZR?=
+ =?utf-8?B?QjFYTFYvNXlEYlFYQUM3UzlkZ3A5QjgrOTdzZERXVDBKUkoxVTlyY213UWZJ?=
+ =?utf-8?B?TUZUYlAwL3R6QkRvUFlEN05veHRqeFd1ZVg1SStwVEIwYjU5Q2JLZldzRDNa?=
+ =?utf-8?B?WkV2MkFQZ3E2ZGh6R2FoVThkL2E2cE1yc21sSHBIWno4OU82TFEyNTNxd2Yz?=
+ =?utf-8?B?MGNTL3E1cVN0T3Z4bi9JdmJBUHRsNnE2QS9zTkRMVzhNNEljd2J5aXE5c2F2?=
+ =?utf-8?B?ZHhkNXVWSUl5QVJHb2lmbXRvby9kaGV1dy8xejVHdDBMVGpLcUxVcXRjaTdp?=
+ =?utf-8?B?QUNHSXB3azF6YWsrR2wrMktzd1BGbjVrU3dpZHg5T2lNQURMYTI0a0FJbDVN?=
+ =?utf-8?B?UVYraU9sbitsK1JER2h3SUtyYW9hSE1BeVljNDFHc2xwUFQxaGlvVjQ1MTFN?=
+ =?utf-8?B?SmRDdmZFaDE0ZmZJZWZGQURkRlI5enJXVCtZaUxCcWVVUmZ3RUNyc0VoMzQ1?=
+ =?utf-8?B?b1poRTJYZTJOKzF1Ni91N1FWeUUwNHVDM29lWFNncSs1RWhOb2VERzBrRFBD?=
+ =?utf-8?B?WXlvOXE4c1REbzhudUduOXozWXFSN2ErVXBYdzR1MUY1ZjZ1L3E3dHRKRm9E?=
+ =?utf-8?B?eHFEbkROQTM0SzNlcHpKZDZFTXpjSlpicVZNT0ZHYlA3ZDY0Ui8vdmxsdDNh?=
+ =?utf-8?B?VFd4Ry9NeUhJa1RPZVkyUXhKOUxJdzhBZS9abjdWRjdnT3h2MmRDQ0hadXBs?=
+ =?utf-8?B?czZoUXU0bDhGb1FsUDE2MG83aGV5Wk1KMmhybVFMc29XdTJKZEx2M2hRQzJY?=
+ =?utf-8?B?bndrcEFMTG9OT1NhNVZ6RXR6aW4rV2xaZldJL2FaQXF2WkhQMDdPaE5iU0dm?=
+ =?utf-8?B?aGFnTTVrVnU3ODdadE9PSkdEdnk1aDI4NWdmbUZRNGtrbWkxcFBjQjhvT2Fm?=
+ =?utf-8?B?blJONGlJZ3duaHFzT0dKWlBaRCtGaFg3SURsWTJUMjFMN2hQUCt3RWVXeUQ4?=
+ =?utf-8?B?QllGYXByclhOdklBZ3ZqZFZuWXVoVE82UjVMMXdGY1Yyc2hFUXBvMFkyWmZj?=
+ =?utf-8?B?ditoRUhkNkx1bjJXZGlnUlBGWFZ3UlNFbm8xMENjUU5kUlBiS1NMTURGaVJH?=
+ =?utf-8?Q?XFPkNLATvYhIj8jhLO?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7320a71c-3bd5-44fc-b592-08df1b0d6950
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88d32252-0685-4c51-a427-08df1b081b23
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2026 13:22:53.8316 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EuUpDUxacinJU3F/yPVEyr8xb9HxiS767fPFNc1fafBlbQ8PECzNscRCraQDMQf1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7004
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 14:00:52.8055 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dsqzNf3r9fnEDr+1Oga1fGfVzpfJXoHTSeWyDMWv5KrOSgNPkgQhcL5JIc11nom8qbk6n/5QVlu/y/zCJTr7zA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7476
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,187 +145,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-=0A=
-(mistyped mailing list)=0A=
-=0A=
-________________________________________=0A=
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>=0A=
-Sent: Friday, September 25, 2026 7:46 AM=0A=
-To: Francis, David; amd-gfc@lists.freedesktop.org=0A=
-Subject: Re: [PATCH v4 2/2] drm/amdgpu: Add CHANGE_ID option for USERQ ioct=
-l=0A=
-=0A=
-=0A=
-[Side note - you mistyped the mailing list address in this round.]=0A=
-=0A=
-On 23/09/2026 20:30, David Francis wrote:=0A=
-> Add a new option to the USERQ ioctl, which is called with=0A=
-> the queue_id of an existing user queue and an unused queue_id,=0A=
-> and changes that queue's id to the new value.=0A=
->=0A=
-> Calling with an invalid new handle will fail. Calling with new_handle=0A=
-> =3D handle will succeed if that queue exists but not do anything.=0A=
->=0A=
-> Performing this operation on a queue with signals or waits=0A=
-> outstanding is fine, as those hold not the queue_id but a=0A=
-> direct reference to the queue object.=0A=
->=0A=
-> v3: Poison queue and misc fixes=0A=
-> v4: Using xas interface=0A=
->=0A=
-> Signed-off-by: David Francis <David.Francis@amd.com>=0A=
-> ---=0A=
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 49 +++++++++++++++++++++++=
-=0A=
->   include/uapi/drm/amdgpu_drm.h             | 17 ++++++--=0A=
->   2 files changed, 63 insertions(+), 3 deletions(-)=0A=
->=0A=
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c=0A=
-> index 9338f6f4cc5f..d2ac797dcb7f 100644=0A=
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c=0A=
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c=0A=
-> @@ -852,6 +852,11 @@ static int amdgpu_userq_input_args_validate(struct d=
-rm_device *dev,=0A=
->               break;=0A=
->       case AMDGPU_USERQ_OP_LIST:=0A=
->               break;=0A=
-> +     case AMDGPU_USERQ_OP_CHANGE_ID:=0A=
-> +             if (!args->change_in.new_queue_id ||=0A=
-> +                 args->change_in.new_queue_id > AMDGPU_MAX_USERQ_COUNT)=
-=0A=
-> +                     return -EINVAL;=0A=
-> +             break;=0A=
->       default:=0A=
->               return -EINVAL;=0A=
->       }=0A=
-> @@ -995,6 +1000,47 @@ amdgpu_userq_list(struct drm_file *filp, union drm_=
-amdgpu_userq *args)=0A=
->       return ret;=0A=
->   }=0A=
->=0A=
-> +static int amdgpu_userq_change_id(struct drm_file *filp, union drm_amdgp=
-u_userq *args)=0A=
-> +{=0A=
-> +     struct amdgpu_fpriv *fpriv =3D filp->driver_priv;=0A=
-> +     struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;=0A=
-> +     XA_STATE(xas, &uq_mgr->userq_xa, args->change_in.new_queue_id);=0A=
-> +     struct amdgpu_usermode_queue *queue;=0A=
-> +     int ret;=0A=
-> +=0A=
-> +     if (args->change_in.new_queue_id =3D=3D args->change_in.queue_id) {=
-=0A=
-> +             if (xa_load(&uq_mgr->userq_xa, args->change_in.queue_id))=
-=0A=
-=0A=
-If you insist.=0A=
-=0A=
-> +                     return 0;=0A=
-> +             return -ENOENT;=0A=
-> +     }=0A=
-> +=0A=
-> +     do {=0A=
-> +             xas_lock(&xas);=0A=
-> +=0A=
-> +             queue =3D xa_load(&uq_mgr->userq_xa, args->change_in.queue_=
-id);=0A=
-> +             if (!queue) {=0A=
-> +                     ret =3D -EINVAL;=0A=
-> +                     goto unlock;=0A=
-> +             }=0A=
-> +=0A=
-> +             if (xas_load(&xas)) {=0A=
-> +                     ret =3D -EBUSY;=0A=
-> +                     goto unlock;=0A=
-> +             }=0A=
-> +=0A=
-> +             xas_store(&xas, queue);=0A=
-> +             ret =3D xas_error(&xas);=0A=
-> +             if (ret)=0A=
-> +                     goto unlock;=0A=
-> +=0A=
-> +             __xa_erase(&uq_mgr->userq_xa, args->change_in.queue_id);=0A=
-> +     unlock:=0A=
-=0A=
-I think labels always go to column zero but please double check with=0A=
-checkpatch.=0A=
-=0A=
-> +             xas_unlock(&xas);=0A=
-> +     } while (xas_nomem(&xas, GFP_KERNEL));=0A=
-=0A=
-Yep - this loop should work accordinging to my understanding.=0A=
-=0A=
-> +=0A=
-> +     return ret;=0A=
-> +}=0A=
-> +=0A=
->   bool amdgpu_userq_enabled(struct drm_device *dev)=0A=
->   {=0A=
->       struct amdgpu_device *adev =3D drm_to_adev(dev);=0A=
-> @@ -1041,6 +1087,9 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void=
- *data,=0A=
->       case AMDGPU_USERQ_OP_LIST:=0A=
->               r =3D amdgpu_userq_list(filp, args);=0A=
->               break;=0A=
-> +     case AMDGPU_USERQ_OP_CHANGE_ID:=0A=
-> +             r =3D amdgpu_userq_change_id(filp, args);=0A=
-> +             break;=0A=
->       default:=0A=
->               drm_dbg_driver(dev, "Invalid user queue op specified: %d\n"=
-, args->in.op);=0A=
->               return -EINVAL;=0A=
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h=0A=
-> index 92738d630eea..37d0efd1eda4 100644=0A=
-> --- a/include/uapi/drm/amdgpu_drm.h=0A=
-> +++ b/include/uapi/drm/amdgpu_drm.h=0A=
-> @@ -330,9 +330,10 @@ union drm_amdgpu_ctx {=0A=
->   };=0A=
->=0A=
->   /* user queue IOCTL operations */=0A=
-> -#define AMDGPU_USERQ_OP_CREATE       1=0A=
-> -#define AMDGPU_USERQ_OP_FREE 2=0A=
-> -#define AMDGPU_USERQ_OP_LIST 3=0A=
-> +#define AMDGPU_USERQ_OP_CREATE               1=0A=
-> +#define AMDGPU_USERQ_OP_FREE         2=0A=
-> +#define AMDGPU_USERQ_OP_LIST         3=0A=
-> +#define AMDGPU_USERQ_OP_CHANGE_ID    4=0A=
->=0A=
->   /* queue priority levels */=0A=
->   /* low < normal low < normal high < high */=0A=
-> @@ -464,10 +465,20 @@ struct drm_amdgpu_userq_list_in_out {=0A=
->       __u64   entries;=0A=
->   };=0A=
->=0A=
-> +struct drm_amdgpu_userq_change_id_in {=0A=
-> +     /** AMDGPU_USERQ_OP_CHANGE_ID */=0A=
-> +     __u32   op;=0A=
-> +     /** Queue id of some queue */=0A=
-> +     __u32   queue_id;=0A=
-> +     /** Queue id to change that queue to */=0A=
-> +     __u32   new_queue_id;=0A=
-> +};=0A=
-> +=0A=
->   union drm_amdgpu_userq {=0A=
->       struct drm_amdgpu_userq_in in;=0A=
->       struct drm_amdgpu_userq_out out;=0A=
->       struct drm_amdgpu_userq_list_in_out list_in_out;=0A=
-> +     struct drm_amdgpu_userq_change_id_in change_in;=0A=
->   };=0A=
->=0A=
->   /* GFX V11 IP specific MQD parameters */=0A=
-=0A=
-Looks good to me, assuming checkpatch is either happy or fixed.=0A=
-=0A=
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>=0A=
-=0A=
-We cannot merge it though without userspace and an IGT. Would you like=0A=
-me to re-post my IGT series so you can add userq tests to it?=0A=
-=0A=
-It would also be cool to progress the reviews on my render node amdgpu,=0A=
-IGT and CRIU patches.=0A=
-=0A=
-Regards,=0A=
-=0A=
-Tvrtko=0A=
-=0A=
+
+
+On 1/9/26 02:15, Jani Nikula wrote:
+> On Thu, 08 Jan 2026, Yaroslav Bolyukin <iam@0la.ch> wrote:
+>> Hi,
+>>
+>> Now that every patch in this patchset has a review, any chance this can
+>> be picked up for drm-misc-next?
+>>
+>> Or should it go through amd-staging-drm-next, given that the main EDID
+>> change is only handled for amdgpu driver right now?
+> 
+> As I said in [1] I'm hoping to get Ville's approval on the approach, as
+> he had earlier concerns [2].
+> 
+> BR,
+> Jani.
+> 
+> [1] https://lore.kernel.org/r/b0b1567707c91806e3758bf0b678c2038dffb3c2@intel.com
+> 
+> [2] https://lore.kernel.org/r/aPF32XpVst5mPVz7@intel.com
+> 
+
+Ville,
+
+Can you take a look at this series per Jani's comments?  Here is the 
+full series lore link if you don't have it.
+
+https://lore.kernel.org/all/20251202110218.9212-1-iam@lach.pw/
+
+
+>>
+>> Best regards,
+>> Lach
+>>
+>> On 2025-12-02 12:02, Yaroslav Bolyukin wrote:
+>>> VESA DisplayID spec allows the device to force its DSC bits per pixel
+>>> value.
+>>>
+>>> For example, the HTC Vive Pro 2 VR headset uses this value in
+>>> high-resolution modes (3680x1836@90-120, 4896x2448@90-120), and when the
+>>> kernel doesn't respect this parameter, garbage is displayed on the HMD
+>>> instead.
+>>>
+>>> Me and other users have successfully tested the old (v3) version of this
+>>> patch (which was applying DSC BPP value unconditionally, thus incorrect:
+>>> https://lkml.org/lkml/2023/2/26/116) on Vive Pro 2 and
+>>> Bigscreen Beyond VR headsets, and have been using it daily, it is known
+>>> to work and doesn't seem to break anything else since 2022.
+>>>
+>>> Previously, I didn't have enough dedication to get it merged, I hope
+>>> this time I will manage to get it to v6.19 :D
+>>>
+>>> Regarding driver support - I have looked at amdgpu and Nvidia's
+>>> open-gpu-kernel-modules, and both seem to have some indication for this
+>>> value; however, in Linux, it is unused in both.
+>>>
+>>> First patch implements parsing of DSC BPP values and display mode VII
+>>> timings flag which mandates that the DSC BPP value should actually be
+>>> used for this display mode.
+>>>
+>>> The second patch implements handling of this value for AMDGPU driver.
+>>>
+>>> The only thing that I don't like in the current implementation, is how
+>>> the value of `dsc_passthrough_timings_support` flag is propagated from
+>>> the connector display modes to the mode created in `DRM_IOCTL_MODE_SETCRTC`
+>>> handler (which is used for VR display initialization in Monado and
+>>> StreamVR), it feels like this flag should be initialized by the kernel
+>>> itself, but as far as I can see there is no correct way to do this, as
+>>> the timing constraints calculation belongs to the individual drivers.
+>>>
+>>> Another problem with how this flag is set, is that there is no hard
+>>> connection between modes creaded in `SETCRTC` and the modes actually
+>>> defined by connector, so the current implementation searches for the
+>>> resolution and refresh rate that match exactly declared to obtain
+>>> this flag value. This might not be correct, as device might not support
+>>> the other mode at all, but the situation won't be any worse for the
+>>> existing devices, as the currently they don't work at all, and there
+>>> is no other known devices on the market to check their assumption in
+>>> regard to this part of specs, and the spec does not describe how that
+>>> should work.
+>>>
+>>> Both of those downsides are due to the fact my understanding of DRM
+>>> subsystem is not that high. If another implementation would be proposed
+>>> by AMDGPU maintainers - I will gladly implement it here.
+>>>
+>>> v6->v7:
+>>>    * Print DSC bpp value in fixed point format instead of x16
+>>>    * MSO should only be enabled for eDP, not the other way round.
+>>> v5->v6:
+>>>    * amdgpu: only apply dsc bpp to modes that match exactly the declared
+>>>      modes with this flag set.
+>>> v4->v5:
+>>>    * The patch was split into multiple
+>>>    * Disabled MSO parsing for eDP displays
+>>>    * Disabled MSO logs if not used
+>>>    * Minor codestyle changes: lines moved around, naming, passing of
+>>>      function arguments
+>>> v3->v4:
+>>>    * This patch now parses timings support flag on type VII block, instead
+>>>      of applying it unconditionally. Previously I didn't understand the
+>>>      spec properly.
+>>>    * Now it also is not being applied for non-supported and/or non-VII
+>>>      blocks in amdgpu driver.
+>>>
+>>> Regards,
+>>>
+>>> Lach
+>>>
+>>> Yaroslav Bolyukin (7):
+>>>     drm/edid: rename VESA block parsing functions to more generic name
+>>>     drm/edid: prepare for VESA vendor-specific data block extension
+>>>     drm/edid: MSO should only be used for non-eDP displays
+>>>     drm/edid: parse DSC DPP passthru support flag for mode VII timings
+>>>     drm/edid: for consistency, use mask everywhere for block rev parsing
+>>>     drm/edid: parse DRM VESA dsc bpp target
+>>>     drm/amd: use fixed dsc bits-per-pixel from edid
+>>>
+>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  16 +++
+>>>    drivers/gpu/drm/drm_displayid_internal.h      |  11 ++
+>>>    drivers/gpu/drm/drm_edid.c                    | 102 +++++++++++-------
+>>>    include/drm/drm_connector.h                   |   6 ++
+>>>    include/drm/drm_modes.h                       |  10 ++
+>>>    5 files changed, 109 insertions(+), 36 deletions(-)
+>>>
+> 
+
