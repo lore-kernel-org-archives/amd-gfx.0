@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0346C9830E
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 10:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F442C9830E
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 10:05:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3532010E6E5;
-	Fri, 25 Sep 2026 10:04:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A730D10E9EB;
+	Fri, 25 Sep 2026 10:05:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="n/5SAIYp";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="oSxOyZVA";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D44A10E6E5
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 10:04:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8659110E9EB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 10:05:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
  MIME-Version:Date:Message-ID:From:Reply-To;
- bh=M9TE5rTGnhIZ7qdQJFga3tFEl5iQvSEQZerS3YSmH9M=; b=n/5SAIYpdWANYIH5d+yNiQFRV9
- lp8P8unQeNQBsHmdR7YnMCc4/ejEX/jSooA7VXX4qeY0FmNYbIhz9l8lUIWaGtu36wBBQyLNrAate
- jNzyqHWLVHDFOh6idb4teSqvfH0IvlJhrc1b69vTGZXhXb8lDG3B7jqA29rGhykeOsjj7OJdvCvSu
- 3t7vvGdLJ0Z7SI+xSTrgF0tgRgvadv/xOEKpJ/yTS+kd4y1Z8ihjWUHWOp88N7/soql/4XfMGozqX
- Q+Jn41uDI2eCKisrOAJQoJOoIvLSITaNjb3NCajf8MI3MrFg8HkntSuGo0Ar+HQL8Iju4eq0SuLld
- n0hmH4Pg==;
+ bh=+IHZSw9GJGB4eonCXrhw37O9NY3F+yFCYGgrvXozfn0=; b=oSxOyZVAfzfCvVHrO96XNALA3I
+ IQmJ5DPlNDl5i1Hg8AO/fggbE38K+a5bAxmXB9m7l8CFneL13xsZLLnswFnYbjO405d27PTzdwFQE
+ fy1nGXS9a78PjrlcscVyVibt9pKVFrEysZiHF9X6K/gI/PuKw2ClCORrt5Ox0sb6ktocrNL58sj/m
+ SxBrMhnreAnaVbpmGSE0ZLSqx0Zfj+2WJAMDfj/vWE6Z/ST5NyChhH5Uhn42g5XkbnpixjBZCJ45+
+ ZR6Fd9v/8OLS6YmFo51R6BdgzVslrNUmxx7c6uUEnqZbCP7hqeHHhBKRv7yf0sp1blQ5RQPGCIdWv
+ UcI7FWpg==;
 Received: from [81.79.79.1] (helo=[192.168.0.116])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xA2md-0075bp-39; Fri, 25 Sep 2026 12:03:58 +0200
-Message-ID: <cdef6f02-6361-49ce-a1e8-ab50d83bb81d@igalia.com>
-Date: Fri, 25 Sep 2026 11:03:57 +0100
+ id 1xA2oB-0075ei-Ut; Fri, 25 Sep 2026 12:05:35 +0200
+Message-ID: <90abbe7f-9f58-4fd6-9aae-13acb26b171b@igalia.com>
+Date: Fri, 25 Sep 2026 11:05:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] drm/amd/display: use right type for
- amdgpu_dc_performance event entries
+Subject: Re: [PATCH 6/8] drm/amd/display: remove redundant cast on
+ amdgpu_dc_reg_template printk
 To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
  alexander.deucher@amd.com, aurabindo.pillai@amd.com,
  christian.koenig@amd.com, David.Francis@amd.com, harry.wentland@amd.com,
@@ -42,10 +42,10 @@ To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  linux-kernel@vger.kernel.org
 References: <20260924211410.867686-1-mwen@igalia.com>
- <20260924211410.867686-6-mwen@igalia.com>
+ <20260924211410.867686-7-mwen@igalia.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260924211410.867686-6-mwen@igalia.com>
+In-Reply-To: <20260924211410.867686-7-mwen@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -64,57 +64,35 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 24/09/2026 22:10, Melissa Wen wrote:
-> Some amdgpu_dc_performance trace event params are passed as unsigned
-> long but stored as uint32_t, cutting them off on 64-bit. Use the right
-> type on entry fields and on printk use unsigned format accordingly.
+> Commit 0cf5eb76e2b4 ("drm/amd/display: Add tracing to dc") prints and
+> casts uint32_t fields in amdgpu_dc_reg_template to unsigned long
+> unnecessarily. Just print those fields with %08x and remove the
+> redundant cast.
 > 
-> Fixes: 0cf5eb76e2b4 ("drm/amd/display: Add tracing to dc")
+> Assisted-by: Claude:claude-opus-5-5
 > Signed-off-by: Melissa Wen <mwen@igalia.com>
 > ---
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 17 +++++++----------
->   1 file changed, 7 insertions(+), 10 deletions(-)
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> index c59ba41a9721..26c85d95bcc0 100644
+> index 26c85d95bcc0..7de4fe355c5d 100644
 > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> @@ -76,10 +76,10 @@ TRACE_EVENT(amdgpu_dc_performance,
->   		const char *func, unsigned int line),
->   	TP_ARGS(read_count, write_count, last_read, last_write, func, line),
->   	TP_STRUCT__entry(
-> -			__field(uint32_t, reads)
-> -			__field(uint32_t, writes)
-> -			__field(uint32_t, read_delta)
-> -			__field(uint32_t, write_delta)
-> +			__field(unsigned long, reads)
-> +			__field(unsigned long, writes)
-> +			__field(unsigned long, read_delta)
-> +			__field(unsigned long, write_delta)
->   			__string(func, func)
->   			__field(uint32_t, line)
->   			),
-> @@ -93,12 +93,9 @@ TRACE_EVENT(amdgpu_dc_performance,
->   			*last_read = read_count;
->   			*last_write = write_count;
->   			),
-> -	TP_printk("%s:%d reads=%08ld (%08ld total), writes=%08ld (%08ld total)",
-> -			__get_str(func), __entry->line,
-> -			(unsigned long)__entry->read_delta,
-> -			(unsigned long)__entry->reads,
-> -			(unsigned long)__entry->write_delta,
-> -			(unsigned long)__entry->writes)
-> +	TP_printk("%s:%u reads=%08lu (%08lu total), writes=%08lu (%08lu total)",
-> +		  __get_str(func), __entry->line, __entry->read_delta,
-> +		  __entry->reads, __entry->write_delta, __entry->writes)
+> @@ -57,9 +57,8 @@ DECLARE_EVENT_CLASS(amdgpu_dc_reg_template,
+>   				   *count = *count + 1;
+>   		    ),
+>   
+> -		    TP_printk("reg=0x%08lx, value=0x%08lx",
+> -			      (unsigned long)__entry->reg,
+> -			      (unsigned long)__entry->value)
+> +		    TP_printk("reg=0x%08x, value=0x%08x",
+> +			      __entry->reg, __entry->value)
 >   );
 >   
->   TRACE_EVENT(amdgpu_dm_connector_atomic_check,
+>   DEFINE_EVENT(amdgpu_dc_reg_template, amdgpu_dc_rreg,
 
-8 character width might be insufficient now. I have no idea if it can 
-happen in practice, probably not?
-
-Do fields in struct dc_perf_trace need to be 64-bit wide is a related 
-question?
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
 Regards,
 
