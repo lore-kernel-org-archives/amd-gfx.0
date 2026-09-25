@@ -4,49 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09CE2C9832B
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:39:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47A20C9830D
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 07:39:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C47C110F907;
-	Fri, 25 Sep 2026 07:39:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA2E010F900;
+	Fri, 25 Sep 2026 07:39:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SB2t3yum";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mlopop8o";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C38910F62F;
- Thu, 24 Sep 2026 14:58:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=PgCIPXJGgQ1RoakY6skCKlByw6TKSlJVQY3Ukqu3GWw=; b=SB2t3yum/DllcGimybkq52VHZo
- EdOA8Zcp/+/bjcL0KAR9OcP8W/JJk1m/hFuyr4UC3rWyJZpda01R95KY6Bix0SXIlMwoDgNz6ZK8m
- 7BivjE5WvRA9Nl5kIps3CHS+BMSOh7ZBgxGMw6YXKNekfd3EoJFIsu23u9kf22/5iLH2wyARlN0db
- 3qBjo0Z9IbgGHNtbujYLiAZSR1Gwxz2bt4SNrwS1iF/45q3WeIsCXCRvvW77lw2GUoNZ+qdSa5VkO
- Z5dHPFg1sgtVCnLtn9dFaTEQjwH07M1tp1fWhB0Q3mpSu9Xzct8NqX4K3D2ShXRSPuwg9pR8wBeT0
- RDwgFzZQ==;
-Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x9kuQ-006hVV-NP; Thu, 24 Sep 2026 16:58:50 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Thu, 24 Sep 2026 11:58:40 -0300
-Subject: [PATCH] drm/amdgpu: make amdgpu_vm_update_funcs commit return void
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15BA610E44C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 07:25:06 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49e6598dd44so3178055e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 00:25:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790321104; x=1790925904; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=jJsFR3C4BXwq6V8a4asvimu14gijx70uQQhfBt9Dfjk=;
+ b=mlopop8o3CPIABgoNh77bfKzDcwZIKdAhhn6mKWFvsg1rOORpm31hv8r3TBsx7ufnp
+ SsImscV1vY7dVleSbLs0kAvU3nBPFVyfvPzMZrXr2q+1VF2E1s+XGdhynOxbHSLcAxXI
+ L9RrUS97DzYGLlbA8Eyrb4JZiw46D4dQzsCWipfv9TH1+6JwjsrYLLKg1W75xA5SLM8x
+ W24gm78V36u5ez1jY0dZ/9AbgsNozlTv2i4bAOJCNrW1uqr/0gc1QAscB+doCkwMlp/y
+ sjGjqlQv3J8iq4wAEQ9vPONkgiOEXhBQlq4H4BOZuWBap2Ap8W84EeJKcuDPFPh59AWh
+ w2ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790321104; x=1790925904;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=jJsFR3C4BXwq6V8a4asvimu14gijx70uQQhfBt9Dfjk=;
+ b=t1TshDbcj7NYW0mEusDsbLnYch8TmWJ37djphnl6vHxYKxxklrsqPoT0tuOSFnS6H7
+ n6Ws6rbhFQx377n8PSwJQ43LJOAJ2GrYyaHhwXsZKPMFMv/rZyOGBKMjX2CclZY9WySH
+ MGnVKUMS6q8v240v+zTfr6AQ0tDGWabzx6SXYfGlYqo1hTViJ3L0ifBiORM8QA7R4R/B
+ RTjWn/V1+s9Fr6wO6ccNUPnWvPOxjiYH6NFv8WhBO0ay4ePx58TdC8cQqhQ1/uRL4Aqx
+ Yv7pMK3MolOHPUNPHDmDclkNxUVwzRX02PwRiOyXyTpKGm1JzyKccy9fb/fA2LmT2DWR
+ 40HA==
+X-Gm-Message-State: AFuF++nBIOxSN/IF1LRSYzjwsa2nrcaw2m9m/uthR9X4VIC0+qpErXTd
+ haaAW/8uiOroR+IwB2Am7pdDQR0nm+Wy0gg+p46dbyzyl0oAKm/KHgO6
+X-Gm-Gg: AYBFou0RyrsMMt4dGTJrHkmbh6wJQCNI3KIk3P5YTob9p9UNdGFejmkfbi2l/KwCJAl
+ haSDlhR9mMZFsyHUdOm8sTDFMK/zdz2eDIR757qD5deozerrdGetOp3wETtfAulNfe1ByNYt1/x
+ 88OjZmYganKgYbQf8ucPflOJvQbaKqcllcgzwBlwhVXNIUNOguhv00Ft3PDeJTCu2ZCUHNXRnCm
+ 6f+pphATFMSiNw5swOfuogMQ7i2Nm2JPm1qzae/ltwU58FSmNijY/H7zZZbLEuDWmyDrqckysZa
+ NjlLOWJ9ZT3et894wksmG+3aJKvB21LFzqVUH4vNl+InQ6mGsvrA5YDVRrdjssqjdcR+6UnmS8t
+ Vjb2bnwaF+af6FCsPSJbZ2NjG05mXrU7EzlpRmAaqx9bjpBt/WPX67j63EOH7+DoP5gKytNJXhj
+ 61z5B9SyV+ObEIa4rqCjnzBVQYwc+HakVj0D4/Zd62gmH9gobzRiVuPkTcrI8/9+28dP/gpDpYr
+ FtHvA==
+X-Received: by 2002:a05:600c:1546:b0:49c:fa20:cc00 with SMTP id
+ 5b1f17b1804b1-49fe66f4f59mr83248455e9.23.1790321104123; 
+ Fri, 25 Sep 2026 00:25:04 -0700 (PDT)
+Received: from abcmhome.hgw.local ([83.66.10.10])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fe5dfa6a7sm201790475e9.12.2026.09.25.00.25.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Sep 2026 00:25:03 -0700 (PDT)
+From: =?UTF-8?q?Ayhan=20=C3=87i=C3=A7ek?= <ayhancicek@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ =?UTF-8?q?Ayhan=20=C3=87i=C3=A7ek?= <ayhancicek@gmail.com>
+Subject: [PATCH] drm/amdgpu: extend MacBook VRAM-at-0 workaround to VERDE
+Date: Fri, 25 Sep 2026 10:24:44 +0300
+Message-ID: <20260925072444.18982-1-ayhancicek@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-amdgpu_vm_update_funcs_commit_void-v1-1-9ad7a8283920@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAKE6tWoC/x3NTQrDIBBA4auEWVdQm6bYq5QiRsd0Fv6gUQohd
- 69k+W3eO6BiIazwmg4o2KlSigPiNoH9mrghIzcMksuFK3lnJrgtN92DbtmZHbVv0VZtUwi0657
- Isee6eDE/hFIrhxHKBT39rsn7c55/qbEWJHQAAAA=
-X-Change-ID: 20260923-amdgpu_vm_update_funcs_commit_void-7b6f145199b0
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:39:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,144 +88,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As both SDMA and CPU implementations always return 0, they can as well
-just return void.
+The existing MacBook workaround reserves VRAM at address 0 for
+Polaris ASICs when the iGPU is enabled. This prevents cursor
+allocations from landing at address 0.
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+A MacBookPro11,5 with Radeon R9 M370X (VERDE) hits the same
+failure mode. Hardware cursor updates repeatedly log
+"DC: Cursor address is 0!" followed by
+"DC failed to set cursor attributes".
+
+Extend the existing workaround to CHIP_VERDE. With this change,
+hardware cursor operation is stable, the cursor errors remain at
+zero during repeated cursor movement, and cursor disappearance
+and flicker are no longer observed.
+
+Signed-off-by: Ayhan Çiçek <ayhancicek@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  8 ++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c  |  8 +++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 11 +++--------
- 5 files changed, 11 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index bb04101b0fb5..09037df76400 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1027,9 +1027,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
- 			goto error;
- 	}
- 
--	r = vm->update_funcs->commit(&params, &vm->last_update);
--	if (r)
--		goto error;
-+	vm->update_funcs->commit(&params, &vm->last_update);
- 
- 	if (flush_tlb_needed)
- 		atomic64_inc(&vm->tlb_seq);
-@@ -1243,9 +1241,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		start = tmp;
- 	}
- 
--	r = vm->update_funcs->commit(&params, fence);
--	if (r)
--		goto error_free;
-+	vm->update_funcs->commit(&params, fence);
- 
- 	if (params.needs_flush) {
- 		amdgpu_vm_tlb_flush(&params, fence, tlb_cb);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index d32183cd9e0f..3b237e78c8a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -332,8 +332,8 @@ struct amdgpu_vm_update_funcs {
- 	int (*update)(struct amdgpu_vm_update_params *p,
- 		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
- 		      unsigned count, uint32_t incr, uint64_t flags);
--	int (*commit)(struct amdgpu_vm_update_params *p,
--		      struct dma_fence **fence);
-+	void (*commit)(struct amdgpu_vm_update_params *p,
-+		       struct dma_fence **fence);
- };
- 
- struct amdgpu_vm_fault_info {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-index b31ff6f56f0d..5c17946632cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-@@ -116,8 +116,8 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_params *p,
-  *
-  * Make sure that the hardware sees the page table updates.
-  */
--static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
--				struct dma_fence **fence)
-+static void amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
-+				 struct dma_fence **fence)
- {
- 	struct amdgpu_device *adev = p->adev;
- 
-@@ -127,12 +127,10 @@ static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
- 	mb();
- 	/* A reset flushed the HDP anyway, so that here can be skipped when a reset is ongoing */
- 	if (!down_read_trylock(&adev->reset_domain->sem))
--		return 0;
-+		return;
- 
- 	amdgpu_device_flush_hdp(adev, NULL);
- 	up_read(&adev->reset_domain->sem);
--
--	return 0;
- }
- 
- const struct amdgpu_vm_update_funcs amdgpu_vm_cpu_funcs = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index e43a60d09808..e9622adf1246 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -422,7 +422,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	if (r)
- 		goto exit;
- 
--	r = vm->update_funcs->commit(&params, NULL);
-+	vm->update_funcs->commit(&params, NULL);
- exit:
- 	drm_dev_exit(idx);
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 50cc0779c340..9e3ade3cd646 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -100,11 +100,9 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
-  * @p: see amdgpu_vm_update_params definition
-  * @fence: resulting fence
-  *
-- * Returns:
-- * Negativ errno, 0 for success.
-  */
--static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
--				 struct dma_fence **fence)
-+static void amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
-+				  struct dma_fence **fence)
- {
- 	struct amdgpu_ib *ib = p->job->ibs;
- 	struct amdgpu_ring *ring;
-@@ -142,7 +140,6 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
- 		swap(*fence, f);
- 	}
- 	dma_fence_put(f);
--	return 0;
- }
- 
- /**
-@@ -246,9 +243,7 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
- 		ndw -= p->job->ibs->length_dw;
- 
- 		if (ndw < 32) {
--			r = amdgpu_vm_sdma_commit(p, NULL);
--			if (r)
--				return r;
-+			amdgpu_vm_sdma_commit(p, NULL);
- 
- 			r = amdgpu_vm_sdma_alloc_job(p, count,
- 						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
-
----
-base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
-change-id: 20260923-amdgpu_vm_update_funcs_commit_void-7b6f145199b0
-
-Best regards,
---  
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 1bf2a42fa..9e7f9cc2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -1086,6 +1086,7 @@ void amdgpu_gmc_init_vga_resv_regions(struct amdgpu_device *adev)
+ 	case CHIP_RENOIR:
+ 		adev->mman.keep_stolen_vga_memory = true;
+ 		break;
++	case CHIP_VERDE:
+ 	case CHIP_POLARIS10:
+ 	case CHIP_POLARIS11:
+ 	case CHIP_POLARIS12:
+-- 
+2.55.0
 
