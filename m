@@ -4,133 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EE7EC98321
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 14:00:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A563EC9830E
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 16:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1850310FABC;
-	Fri, 25 Sep 2026 14:00:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33A3D10FB8B;
+	Fri, 25 Sep 2026 16:31:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RgfCkIA9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eJbKFnDM";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011054.outbound.protection.outlook.com
- [40.93.194.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E632310FABC;
- Fri, 25 Sep 2026 14:00:57 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010034.outbound.protection.outlook.com [52.101.46.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 306A410FB7F;
+ Fri, 25 Sep 2026 16:31:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=diKeXp8rY6bYgvbhyq9tRfJQMXu2r1PdMkq71z6yXnudWPsO3eBzzBpzoKVSkxohbIs3IioEMNRPCIWIAGQi8tZJXE75dpwTFZE2Z2LqGGoChgCqJY0f0LFLOPE+D60pSS7iZuX9ISXIsM2FO/DGGDlFVSjmeV2k/2LBBSXGQmFqcruhxh47XSN1pRFlgxDw8tO3AMbC+n6j5xFkKgoe8zfIco28OjeWxQ+Hb+K6ldOEagx77nc6PWPMzgAL08120hfvLH0yO6FvjfdcVjM8TjVlL1dsZ3e2yGNm0pLuuu4+lC3oC77APPGwh5w4Wo3pKZAduHq+x/6w2Srzkg/XYg==
+ b=o/Gy2C6QiIuIM9EKS9A6P0TWUfmX9SfRurt2jEPJfJ4/6SXi4WdGDW+TJwGPH2PUd90PkkKzj9RcK8YlcSrD0RoG5M5vv1OL7khrMKWpeZ6iD/DkTiyGPN2jTYRq2ToZSrWMxqiDRICUpFbiAacscUTeqnXoxvVXzQmpTvSlvkM4PnBYAohaMmLSbuYlLWoRWgOXZ/nEgYmBnkz7ZE4/ZoIx5UKemLC+OP0VO0krvXCf3yAEBdTehDZVLI0V7R3DAvdEENVxwUsOZDyQ6emevVmqhRW8h6gvmHDj/QUTCw3hDl0J4+aO4+eXF7tz17P6g0qVR4gm047fD5I8TvoLIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ok0DJyNkZQcQMeHkdTkYqnEmiAl7UYk/I0dlTU3U6+c=;
- b=bm2jxqlQOWZvtMc9t6Bv4KGvBpVEY9LUrtgeL+3qoHsSI/sdDzRSxJSxNf62cBMR8dVliYBh8U+RMXLPZaDinw7uXf3UpUHpGbxVf2rmdF1zXL3+a7CP0dXJKl10QPE7p1/ks7SHiqYqlP5mTSlNjMk8hhLIcznv8hvyYsSLXX/3NjkC9x8QpZ+4NwAaFKOAyr7wjXQhTumxO8+dROHLL7DXvkJSgilWUMh3wc16+imU7gIhm1TS0rtYFLOxkXuTYeFj3xxPkqqDqJr21cd6W2/8Cu7R4assWGwQeecI4Hk9TeibL1f2MO5hIQJb0lukQAhGwvBIR9B8WwwaeQpW/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=SJFvTFKpM6uPKDULl4M1nT/7vdmgh1gHiXkBsPr6S5E=;
+ b=O4ZY73KdXcLDxwB+oVDPJzll3kt6/64oZumiGxXto3anIlNai4a1r0ufAz8WFxuM64SlW7ElVX5KP+T5MV4HRmzQQmaaMSL7n5uQCKseTyG0j41Xh8pQIB4zpXhb044uOpH9m5LjlokE3lDbnfmvE17Icj3fJNdfzMMamX+t5hvH1WMXr1Ir64GgFE5Oeok5UbvADxROXRzhzWa6zmT0VY3DW6i31Rv5qVBTz8iP+INt8SbswTnzW7MjD8O9pAH1UDEJ86bHlhp4RKIlCHbPjMI/6bFdkYiU1qSYcZH8HtKb+vG3RQtq3CiefVnZuZnYKYal9994+5kxx2ds9tMe3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.de smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ok0DJyNkZQcQMeHkdTkYqnEmiAl7UYk/I0dlTU3U6+c=;
- b=RgfCkIA99tnQxeAwU7xllfWp2b9txMWsws8Wlhgm5h8ME03Tfxs/4phv/lccxeL9cTyyam4jU+zUS9Q6AndWtQBn4oC1gsyAUBQ2/dVTceNAd7GtU5LYVCJ/+P7k5ziRsYpnMMuTXUqBiD9syJycGnELM0+Bzu733YT10MDmJz8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by SJ0PR12MB7476.namprd12.prod.outlook.com (2603:10b6:a03:48d::19)
+ bh=SJFvTFKpM6uPKDULl4M1nT/7vdmgh1gHiXkBsPr6S5E=;
+ b=eJbKFnDMiJfMc2OGdzzR7dQEJscc493qUP7ONidQ3tdyciSzReZ1Lga57TcTJGNVdPJhFVuAVXGTTYSNNaY0PfapySY8ANzVO+a/GX/LZg8KVjqZ+NQZdaBVLGSildxQRmUzhFClmRwNXRPrmJ3zWYszhB7O0bh4jBDCBuwrzis=
+Received: from CH2PR17CA0006.namprd17.prod.outlook.com (2603:10b6:610:53::16)
+ by FT1PR12MB222952.namprd12.prod.outlook.com (2603:10b6:170:d::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 14:00:53 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 14:00:53 +0000
-Message-ID: <9a917ebe-9d9d-409d-8913-89b448425726@amd.com>
-Date: Fri, 25 Sep 2026 09:00:49 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/7] VESA DisplayID fixed DSC BPP value support
-Content-Language: en-US
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Yaroslav Bolyukin <iam@0la.ch>, Yaroslav Bolyukin <iam@lach.pw>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20251202110218.9212-1-iam@lach.pw>
- <5d1fc27a-eea0-4995-8b8e-46006144ae7b@0la.ch>
- <5b7332c6bc0c7b7f9ba0d95477a5b9f438a07ff6@intel.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <5b7332c6bc0c7b7f9ba0d95477a5b9f438a07ff6@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS7PR03CA0260.namprd03.prod.outlook.com
- (2603:10b6:5:3b3::25) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+ 2026 16:30:59 +0000
+Received: from CH3PEPF00000015.namprd21.prod.outlook.com
+ (2603:10b6:610:53:cafe::6e) by CH2PR17CA0006.outlook.office365.com
+ (2603:10b6:610:53::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
+ 25 Sep 2026 16:30:59 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.0 via Frontend Transport; Fri, 25 Sep 2026 16:30:58 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
+ 2026 11:30:56 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
+ 2026 11:30:56 -0500
+Received: from [10.254.92.96] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 25 Sep 2026 11:30:55 -0500
+Message-ID: <8a650274-008a-4515-95a6-9cd200eb12f4@amd.com>
+Date: Fri, 25 Sep 2026 12:30:54 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 03/14] drm/property: add a per-connector luminance flag
+To: Thomas Zimmermann <tzimmermann@suse.de>, Mario Limonciello
+ <mario.limonciello@amd.com>, <dri-devel@lists.freedesktop.org>,
+ <harry.wentland@amd.com>, Simona Vetter <simona@ffwll.ch>, Alex Deucher
+ <alexander.deucher@amd.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>
+CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
+ list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
+ I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Hans de Goede
+ <hansg@kernel.org>, Mario Limonciello <superm1@kernel.org>
+References: <20260908044035.62093-1-mario.limonciello@amd.com>
+ <20260908044035.62093-4-mario.limonciello@amd.com>
+ <b436e947-198d-40f6-a14e-de26cceb56f4@suse.de>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <b436e947-198d-40f6-a14e-de26cceb56f4@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SJ0PR12MB7476:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7320a71c-3bd5-44fc-b592-08df1b0d6950
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|FT1PR12MB222952:EE_
+X-MS-Office365-Filtering-Correlation-Id: abda830e-0bb6-4e2b-949d-08df1b226196
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|7416014|10067099003|56012099006|11063799006|4143699003|6133799003|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: U+CTrM91UcRJtEB0es6/jKuyVFj3T5hD+Bwcm2tsKyDPTDGCS6vTTafc6LAciUNxykidRFBo15aztYr8MKRxzLcYx/tM/MYhRuc/6LmLhMmg0cC94eNCHXASZmiuwXIlqUrKNAvvbEfQB88rF4L6rU2v4269wzctmszVe79u5ihcegAQnLV13AazpKZgUX+biRG0O5GCyMpQGkC4xLx2RP2wjVmKRpWU/+gshJk54qM9btDOTBrZ2D0SNShSQ9d7shiqlLwzddbYA+WPLexUvKYWYzHPLZvFMTJmZolPc17mJtWvoZd2h9pk34xQRGMkm7ve2hdM4NlTYdBX0zMleI/itWZmJsOLJ1AVHjWFm50lP1Im7YMSB8dXTnuJii6qiH86CXfC/GwpS2pVCtYl5U+Ua4RvYGnpPo9jt1Y/WPdYOWatUUC1v4P9TgsZt3wcTNxcKWZ8eVmiYhg62fBkkSpuvz8hv0DK6HCr6slltNsG2UK7Ks5RYTMPZvONgLToO1NlbpEBIhoVAbOhaZGQpJrXH8dFDQX3fv629K924VzCm9ts9tZoPx35twyRiVuiV94ofhy4v+wzk7xN6i/2Hiy8sP+jaV550wd5rUa9cq5QVBWj3Yg5rsinXlF8Mwp6
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(3023799007)(22082099003)(18002099003);
+ ARA:13230040|1800799024|36860700016|82310400026|42112799006|23010399003|376014|7416014|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: GqJWWAC5DoL4dGxJ74qQ2Xkmx9FQIPzuUGeCjD6wurTQxyW0UbVIGJYYYejya2jlp10eFcOjUZV9nPKxV+EE0aE6C7eL7IVeYeDjMprdM+RjILIR9BKR+vO2Orq372Yf+hWMFmbBNoRw7SBw7/b0xap4cSDNhpdkPHf9yeFPP/c7SMkc8XKkVngNOgqV3qUBit5ZK6ylwB11Vrt86yeCV9oMWrla1TFJFLqk215pEY8NYZgOmb3FZXqg7ta0n9xzsgGCLSX1F6aq1gBW/L5T5yoF7m7ecePhwl9TNTcdTy/6MnPNELYgqRAIW/Ejd74fsdregngJoNl2Lo3KEIONCU0sgj++X6lsgzjtJrJMJDAsUjNXXc+I29lWbDpKlCFFkcw4Upqk7zZi62/VpYZZ1zNuixpZwqGYsfm7XRF0ZfFzqGX9Moh57ppBtr1VguKF1BiPmffKCxaXhtN+b2gKvL1Gutp2RhAMB+cyysiPUuBD/Aui0s1g5Bjq4/RmHOZcRjYARZ/Qt/t4m61k0OErcSE11N1GMSeysuRo0agXIJHH2D0nmdkYQrv5LqxewAMSsJgFTPFudPT9yZoRk7G03lVBvF3gC94QSzGdy18epTffqAYF9bz/LsjuWsjoAdnq5U4hbRsvIBcWnmJh2omx8roNCJ6wg69hPebfnPiznQT4oHtxB4XWTgPHqUKM/wrbOcldJj1qqQ8Whsh+HMWO+g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(82310400026)(42112799006)(23010399003)(376014)(7416014)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TTlRbXl4YW1FM3NFTU5STkg4Y0QxVUhuZ2tPdThOejFLejhNR3V6bVp5Z21Q?=
- =?utf-8?B?bzRRNzNPYkQ1NDBNeUFsZnpRWDAxV0dlNWR4ZW9ENTdiOEtPLzIyMjN5TmZ5?=
- =?utf-8?B?TmpNN0tYUkpHaXBHakRIVVBQeXhISGdhSEQ3UDljd21YRHR2ekE5Y0JQYVlP?=
- =?utf-8?B?N2k2ZDdNa2R6eEUwWi9uSm9pbDVYb2pVR3lOcVZEaUE5UE1LYzNON3NnVTZ5?=
- =?utf-8?B?NGdsYzE2UkpVRHBpZHN4aHE5WGNjeXlNTDVTMERHQzFxSzBCOVdGbCtuL1VD?=
- =?utf-8?B?MUg0WlBkZHZjUVRzdHNhVkxLd2J1U1BCdkhXSkhIbk9hZ2loMXM3VnFtcWVr?=
- =?utf-8?B?SXpWcEsrSEJiYkxGM0d5NEw0T2VnZXpFeVFWM0wzWWc0Q0VUSDdxeWZqcldz?=
- =?utf-8?B?QS9nRC8yZGtwWTlPTmFpa2EydnFnZWlJanhyTlRNUEYycDd1d2xoelZWYUU3?=
- =?utf-8?B?b1pQN2R3bDZkbHR4ZENHbFF5bGFnSG15WWthakhJMitLVHFNaUNhVVIyTEcx?=
- =?utf-8?B?YXRFb3VmRnhQcFd2OUorQng2bzk4djFsd3lTNWhiazZMTjRGcy9RSVk1LzBN?=
- =?utf-8?B?NjdRQ2ZTd3FyZWpGM0xsL2Z4M2l4dGZoVUYyUklkUUltQlhnZWtpQWlkeVov?=
- =?utf-8?B?RmVqMmpVOG1ldWZ6QjBmcFVubXgvZjBCZFk4R0ZGOGx3Zlpkc24xM09ZaUk4?=
- =?utf-8?B?cEd5UTRNajhMWnBFbXAxdEg3eHpINElTVTMwYlB6V2ZHanFTcUptZDNxTFlZ?=
- =?utf-8?B?bk8yK3drUnJTSnFqVEpiRzEyd2NQc3NDellkdG9SSzkwbWx0bjR2QXRvOUtt?=
- =?utf-8?B?V3h0TlVVM0RDdFBKM3ZueEVjbkFzYVFiYlREUHo4eDFHKzJlU3RMcXdFcXlK?=
- =?utf-8?B?RlljY24xeHo0b2JtTmJsZ1FjQjhkWDZiT09ZWHBZb0ZCV0xnMDBoTExwWm04?=
- =?utf-8?B?SFpFWGJlR0xudENqSXZHd2M3QkJxNzJ0QXF2c05oYUZuTWQvZERJU1NNdWlX?=
- =?utf-8?B?Q1dJUll1RFIzdmhnVHFDU0FYQ1dpZlFOU2ptMlFOb2tRMGFlOVAxaGl5WnpS?=
- =?utf-8?B?UlUrOTE5SytoeFBwSjJpSDlkSm9Ec29CWVFwSTA2a09vSWM3MEVMMlFwSjF3?=
- =?utf-8?B?dzJOaXdhUStPSzRXZWFNL2dkalFBaGxqR3hHQ0pENDh4VVJqbkJSaTRyV3ZR?=
- =?utf-8?B?QjFYTFYvNXlEYlFYQUM3UzlkZ3A5QjgrOTdzZERXVDBKUkoxVTlyY213UWZJ?=
- =?utf-8?B?TUZUYlAwL3R6QkRvUFlEN05veHRqeFd1ZVg1SStwVEIwYjU5Q2JLZldzRDNa?=
- =?utf-8?B?WkV2MkFQZ3E2ZGh6R2FoVThkL2E2cE1yc21sSHBIWno4OU82TFEyNTNxd2Yz?=
- =?utf-8?B?MGNTL3E1cVN0T3Z4bi9JdmJBUHRsNnE2QS9zTkRMVzhNNEljd2J5aXE5c2F2?=
- =?utf-8?B?ZHhkNXVWSUl5QVJHb2lmbXRvby9kaGV1dy8xejVHdDBMVGpLcUxVcXRjaTdp?=
- =?utf-8?B?QUNHSXB3azF6YWsrR2wrMktzd1BGbjVrU3dpZHg5T2lNQURMYTI0a0FJbDVN?=
- =?utf-8?B?UVYraU9sbitsK1JER2h3SUtyYW9hSE1BeVljNDFHc2xwUFQxaGlvVjQ1MTFN?=
- =?utf-8?B?SmRDdmZFaDE0ZmZJZWZGQURkRlI5enJXVCtZaUxCcWVVUmZ3RUNyc0VoMzQ1?=
- =?utf-8?B?b1poRTJYZTJOKzF1Ni91N1FWeUUwNHVDM29lWFNncSs1RWhOb2VERzBrRFBD?=
- =?utf-8?B?WXlvOXE4c1REbzhudUduOXozWXFSN2ErVXBYdzR1MUY1ZjZ1L3E3dHRKRm9E?=
- =?utf-8?B?eHFEbkROQTM0SzNlcHpKZDZFTXpjSlpicVZNT0ZHYlA3ZDY0Ui8vdmxsdDNh?=
- =?utf-8?B?VFd4Ry9NeUhJa1RPZVkyUXhKOUxJdzhBZS9abjdWRjdnT3h2MmRDQ0hadXBs?=
- =?utf-8?B?czZoUXU0bDhGb1FsUDE2MG83aGV5Wk1KMmhybVFMc29XdTJKZEx2M2hRQzJY?=
- =?utf-8?B?bndrcEFMTG9OT1NhNVZ6RXR6aW4rV2xaZldJL2FaQXF2WkhQMDdPaE5iU0dm?=
- =?utf-8?B?aGFnTTVrVnU3ODdadE9PSkdEdnk1aDI4NWdmbUZRNGtrbWkxcFBjQjhvT2Fm?=
- =?utf-8?B?blJONGlJZ3duaHFzT0dKWlBaRCtGaFg3SURsWTJUMjFMN2hQUCt3RWVXeUQ4?=
- =?utf-8?B?QllGYXByclhOdklBZ3ZqZFZuWXVoVE82UjVMMXdGY1Yyc2hFUXBvMFkyWmZj?=
- =?utf-8?B?ditoRUhkNkx1bjJXZGlnUlBGWFZ3UlNFbm8xMENjUU5kUlBiS1NMTURGaVJH?=
- =?utf-8?Q?XFPkNLATvYhIj8jhLO?=
+X-MS-Exchange-AntiSpam-MessageData-0: zNEuhFA8LsT5XNYQ9eQdzNlnz3/zY7/3IvsG5W7QN9YW7iKv6bt9W1ueXlEILs7XKGJFoH/3xGeaClthut5Ps5EmeXO3vvghbv8MBnMY+c+pdhkpn/hsOuTEWrSaaDGzmuG6COLjdn7FvjbLE9mGnkSalCwEqmJu778nXx46dnHtTdDZyFrKZaUaOP2yFyIeyQGcxOOXWpVgRm88BqlmR8P7JYxNQMWOefOs1eueucj2Z3owLIO0v3UBdw1KDKempgajcoM9nwAQU81gJkpM1tZ1muWDCz8tM+BC+OScJpzgsQgW+LxsXlJiSWXT87zkjJaSZj6YjfiFYC3z9Z7CNrmdxsGNMim3Fif0pYVBHxN9ipahd+Wp7wKvvxjNJZUFIpdAZYchF53mm8ABG7Onq1czLOvMhj1GTJqk/C99Rd7s/K7Pq3rVRNQg9SJqjR0P
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7320a71c-3bd5-44fc-b592-08df1b0d6950
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 14:00:52.8055 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 16:30:58.9444 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: abda830e-0bb6-4e2b-949d-08df1b226196
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dsqzNf3r9fnEDr+1Oga1fGfVzpfJXoHTSeWyDMWv5KrOSgNPkgQhcL5JIc11nom8qbk6n/5QVlu/y/zCJTr7zA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7476
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000015.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB222952
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,128 +128,77 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 1/9/26 02:15, Jani Nikula wrote:
-> On Thu, 08 Jan 2026, Yaroslav Bolyukin <iam@0la.ch> wrote:
->> Hi,
+On 2026-09-22 04:32, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 08.09.26 um 06:40 schrieb Mario Limonciello:
+>> The upcoming per-connector LUMINANCE range property needs to accept the
+>> value 0 (to turn the display off on DPMS-off) even when its advertised
+>> minimum is 1. The existing check special-cased a single device-wide
+>> property object, which does not work once every connector owns its own
+>> LUMINANCE property.
 >>
->> Now that every patch in this patchset has a review, any chance this can
->> be picked up for drm-misc-next?
+>> Add a kernel-internal is_luminance flag on struct drm_property and key
+>> the value-0 exception off it instead of a pointer comparison. The flag
+>> is not exposed to userspace.
+> 
+> I don't think this is a good idea. Let userspace control display status and luminance independently.  To my understanding, both are independent devices. Just because the backlight is off doesn't mean that the display is off as well, (right ?)
+> 
+> Best regards
+> Thomas
+
+Yeah, backlight off and DPMS off are quite different. The CRTC is still active if backlight off, but that's not the case for DPMS.
+
+I agree that we should detangle LUMINANCE from DPMS completely: Leave LUMINANCE alone when DPMS_OFF. If LUMINANCE is changed during DPMS_OFF, save the state in sw. Then on DPMS_ON, restore it to panel. Sysfs seems to have the same behavior today (I just tried it on my fw13 laptop).
+
+It would be good to remove references to DPMS on the LUMINANCE property in patch 04/14 as well.
+
+Thanks,
+Leo
+
+> 
 >>
->> Or should it go through amd-staging-drm-next, given that the main EDID
->> change is only handled for amdgpu driver right now?
-> 
-> As I said in [1] I'm hoping to get Ville's approval on the approach, as
-> he had earlier concerns [2].
-> 
-> BR,
-> Jani.
-> 
-> [1] https://lore.kernel.org/r/b0b1567707c91806e3758bf0b678c2038dffb3c2@intel.com
-> 
-> [2] https://lore.kernel.org/r/aPF32XpVst5mPVz7@intel.com
-> 
-
-Ville,
-
-Can you take a look at this series per Jani's comments?  Here is the 
-full series lore link if you don't have it.
-
-https://lore.kernel.org/all/20251202110218.9212-1-iam@lach.pw/
-
-
+>> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+>> ---
+>>   drivers/gpu/drm/drm_property.c |  6 ++++++
+>>   include/drm/drm_property.h     | 10 ++++++++++
+>>   2 files changed, 16 insertions(+)
 >>
->> Best regards,
->> Lach
->>
->> On 2025-12-02 12:02, Yaroslav Bolyukin wrote:
->>> VESA DisplayID spec allows the device to force its DSC bits per pixel
->>> value.
->>>
->>> For example, the HTC Vive Pro 2 VR headset uses this value in
->>> high-resolution modes (3680x1836@90-120, 4896x2448@90-120), and when the
->>> kernel doesn't respect this parameter, garbage is displayed on the HMD
->>> instead.
->>>
->>> Me and other users have successfully tested the old (v3) version of this
->>> patch (which was applying DSC BPP value unconditionally, thus incorrect:
->>> https://lkml.org/lkml/2023/2/26/116) on Vive Pro 2 and
->>> Bigscreen Beyond VR headsets, and have been using it daily, it is known
->>> to work and doesn't seem to break anything else since 2022.
->>>
->>> Previously, I didn't have enough dedication to get it merged, I hope
->>> this time I will manage to get it to v6.19 :D
->>>
->>> Regarding driver support - I have looked at amdgpu and Nvidia's
->>> open-gpu-kernel-modules, and both seem to have some indication for this
->>> value; however, in Linux, it is unused in both.
->>>
->>> First patch implements parsing of DSC BPP values and display mode VII
->>> timings flag which mandates that the DSC BPP value should actually be
->>> used for this display mode.
->>>
->>> The second patch implements handling of this value for AMDGPU driver.
->>>
->>> The only thing that I don't like in the current implementation, is how
->>> the value of `dsc_passthrough_timings_support` flag is propagated from
->>> the connector display modes to the mode created in `DRM_IOCTL_MODE_SETCRTC`
->>> handler (which is used for VR display initialization in Monado and
->>> StreamVR), it feels like this flag should be initialized by the kernel
->>> itself, but as far as I can see there is no correct way to do this, as
->>> the timing constraints calculation belongs to the individual drivers.
->>>
->>> Another problem with how this flag is set, is that there is no hard
->>> connection between modes creaded in `SETCRTC` and the modes actually
->>> defined by connector, so the current implementation searches for the
->>> resolution and refresh rate that match exactly declared to obtain
->>> this flag value. This might not be correct, as device might not support
->>> the other mode at all, but the situation won't be any worse for the
->>> existing devices, as the currently they don't work at all, and there
->>> is no other known devices on the market to check their assumption in
->>> regard to this part of specs, and the spec does not describe how that
->>> should work.
->>>
->>> Both of those downsides are due to the fact my understanding of DRM
->>> subsystem is not that high. If another implementation would be proposed
->>> by AMDGPU maintainers - I will gladly implement it here.
->>>
->>> v6->v7:
->>>    * Print DSC bpp value in fixed point format instead of x16
->>>    * MSO should only be enabled for eDP, not the other way round.
->>> v5->v6:
->>>    * amdgpu: only apply dsc bpp to modes that match exactly the declared
->>>      modes with this flag set.
->>> v4->v5:
->>>    * The patch was split into multiple
->>>    * Disabled MSO parsing for eDP displays
->>>    * Disabled MSO logs if not used
->>>    * Minor codestyle changes: lines moved around, naming, passing of
->>>      function arguments
->>> v3->v4:
->>>    * This patch now parses timings support flag on type VII block, instead
->>>      of applying it unconditionally. Previously I didn't understand the
->>>      spec properly.
->>>    * Now it also is not being applied for non-supported and/or non-VII
->>>      blocks in amdgpu driver.
->>>
->>> Regards,
->>>
->>> Lach
->>>
->>> Yaroslav Bolyukin (7):
->>>     drm/edid: rename VESA block parsing functions to more generic name
->>>     drm/edid: prepare for VESA vendor-specific data block extension
->>>     drm/edid: MSO should only be used for non-eDP displays
->>>     drm/edid: parse DSC DPP passthru support flag for mode VII timings
->>>     drm/edid: for consistency, use mask everywhere for block rev parsing
->>>     drm/edid: parse DRM VESA dsc bpp target
->>>     drm/amd: use fixed dsc bits-per-pixel from edid
->>>
->>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  16 +++
->>>    drivers/gpu/drm/drm_displayid_internal.h      |  11 ++
->>>    drivers/gpu/drm/drm_edid.c                    | 102 +++++++++++-------
->>>    include/drm/drm_connector.h                   |   6 ++
->>>    include/drm/drm_modes.h                       |  10 ++
->>>    5 files changed, 109 insertions(+), 36 deletions(-)
->>>
+>> diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
+>> index f38f2c5437e68..adccee10cfde4 100644
+>> --- a/drivers/gpu/drm/drm_property.c
+>> +++ b/drivers/gpu/drm/drm_property.c
+>> @@ -952,6 +952,12 @@ bool drm_property_change_valid_get(struct drm_property *property,
+>>       *ref = NULL;
+>>         if (drm_property_type_is(property, DRM_MODE_PROP_RANGE)) {
+>> +        /*
+>> +         * Special case for the luminance property: allow 0 to turn the
+>> +         * display off even when the normal range starts at 1.
+>> +         */
+>> +        if (property->is_luminance && value == 0 && property->values[1] > 0)
+>> +            return true;
+>>           if (value < property->values[0] || value > property->values[1])
+>>               return false;
+>>           return true;
+>> diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
+>> index aa49b5a42bb56..8bb568a4cd485 100644
+>> --- a/include/drm/drm_property.h
+>> +++ b/include/drm/drm_property.h
+>> @@ -188,6 +188,16 @@ struct drm_property {
+>>        */
+>>       struct drm_device *dev;
+>>   +    /**
+>> +     * @is_luminance:
+>> +     *
+>> +     * True for the per-connector LUMINANCE range property. Such a property
+>> +     * additionally accepts the value 0 (to turn the display off) even when
+>> +     * its minimum is 1. This is a kernel-internal flag and is not exposed
+>> +     * to userspace.
+>> +     */
+>> +    bool is_luminance;
+>> +
+>>       /**
+>>        * @enum_list:
+>>        *
 > 
 
