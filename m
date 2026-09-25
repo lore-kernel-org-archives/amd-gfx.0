@@ -4,122 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54057C9830D
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 08:51:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98A64C9830E
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Sep 2026 09:03:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC91D10EA11;
-	Fri, 25 Sep 2026 08:51:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CBD210E6C8;
+	Fri, 25 Sep 2026 09:03:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RpfUMX4J";
+	dkim=pass (2048-bit key; unprotected) header.d=edu-teu-ac-jp.20251104.gappssmtp.com header.i=@edu-teu-ac-jp.20251104.gappssmtp.com header.b="EYv5CVA2";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010035.outbound.protection.outlook.com [52.101.46.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84DC110EA11
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 08:51:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PQ2fbbVVqVPwIwbC/UjbeFguiKIohyuGW/z3DCPL/fDKPpb2LBY8osGaD6FlVi3m64ZxHsUbSw4NGUOc7nyQ/px34rZ9IL6Fo7FDZG2W6cHy4KCJK0cWwB9YLm9Mu1m2M5TBwuxeBqLsAVPKcEgJcWf4SpUWcfkulNal4VeeEDRYs1vMlZuhMyQdemqiij4kgCWeuN2C2iLIpg5kXUhSuit7pLCvGJkSSbEIWyeyGwL9ByK3cFAc0oSU7hl5gFmg+S7jmOVRIhm3eytDqCMTyqPTcir24aXZYscXQN8M/hxQy2Wf3Pc/Q84z3rUmXQRDsPWKhIuRSIMan3VI/Uftuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Va1+kjgbaeaSDCHKL5FXsy0e6BHEAD7WH3qn8Fe/kBE=;
- b=PST5aWC6+Yc1TfHRfFjOlswB9TLzaqHthPVsVwGXTD9NxJuV/NvzKE/f2w66WBZkIQxEx9v0za8wAToOM03VA267K3kDmLa7bgQ/23ueuS0m7eWr52+1PEz/u6dB30Z+AlQHVAKPg0RSg4/7iltgiVpmddpOlZ3MUcYDXYjaZgQ3LGZfGssAiJP1uCh0DIMHfedZE2UZvqoX70lvM1JOCVgJx6U2GPumwEZ+UMiB9poB+sfRTJmO/WhMGAUoJxFAfQ7pKwTgu101oAAHbhj8FL1veFNnjJOQTK/aA24hqKRvX4qAG/ezxTaVtZEwgmtVME6ZO3TcH3hVv6r5cRiiKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Va1+kjgbaeaSDCHKL5FXsy0e6BHEAD7WH3qn8Fe/kBE=;
- b=RpfUMX4Jh6uexcgXkFT0VS6vLmlHwwJSx4/OmhdTA4Y8HIbni5Ps5DCaxqnBKPpJGuG7uObrsU8ti2rleJx8zLPbcTWqkPe3erDBN2g+QIcWZZ/X7oN1aSRuUsg3LSEFAkZA0qc+qAhOddzv4ECXr7mrIvLdsAI3XBo9w9pSVyw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB7459.namprd12.prod.outlook.com (2603:10b6:a03:48d::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 08:51:38 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 08:51:32 +0000
-Message-ID: <c901f3d3-6451-466f-8e41-42baa61137b8@amd.com>
-Date: Fri, 25 Sep 2026 10:51:29 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2] drm/amdgpu: place VRAM-capable dma-buf imports in the
- PREEMPT domain
-To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
-References: <20260924133644.1541887-1-mukul.joshi@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260924133644.1541887-1-mukul.joshi@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0092.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cb::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com
+ [74.125.230.234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FA4D10E6C8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 09:03:24 +0000 (UTC)
+Received: by mail-qk2-f42.google.com with SMTP id
+ d75a77b69052e-5329fc7b325so5301661cf.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Sep 2026 02:03:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790327003; cv=none;
+ d=google.com; s=arc-20260327;
+ b=HfhmvzL4YmtcMlM1EPzgq01ga4dI42u9MOMB2dmUT4JW+62Q5m7cemgHVSwZtw7rq+
+ ypfc7C4khDiBHjBfdUxHgur2/7bIicpNWgo0QJ1AvDEL4Hp1sSIES5EKWjM0tK+zrTk5
+ JMf/rBbL5GoKcYgmNbVQ/1k8pWr7UdANnTEU6gYVmYBPBfAKOpTsUgebPc7ooYYXHHZt
+ kyukUp7AcKEst4fOwULhjQUXQgjhL/4X/Pu1naBNB5IBgtZzKUk9sZJP7Nxp/Ztavuwl
+ iPtu6knxZraQDQ5a8ccMUcOt+SAN3kmYTQwgMcZ4zY8fceiEH7UnOFRt1ow6ad/m2q+k
+ 7dEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=UUM1cagg6+KsxznGPIESuErtkI8Q27s07XUtQoLKiL8=;
+ fh=JEGSdrxhcysQVgf15gCITfV2iBJwaoFmc4m8htrWF20=;
+ b=CVwAIXcMLk+nKBgSy0bJr4JRfB4jxKn3n0IIM7d8ZV9D+VHVHoA+BIljVelB+OJHo2
+ jxO0jQq+eVN5QloZSh1mbCqoVFH0N8gEb0bAoi/Idzdskjm1LTWRtv1LEHAbRQgX/d9T
+ 0wSxTmx6Z9+16O1b0ZAjAqSM2MVzOZyR+qjM9g0BRZcPX4LfpPStV06MGQWCiW1e8IoE
+ JcNhFmAE1SO7Prv1wRJuSLlZleOQ2eXx6wJ45dHH3c7bzY7SeB4KPEO4JDSl4k+kypad
+ Cv0WsoWSz0aFK7C3CT9b5KNwd6RZ9wv7/CiXFC+bppVIwz9dXtAJLRkmmuzaPaO1mk+2
+ 76GA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=edu-teu-ac-jp.20251104.gappssmtp.com; s=20251104; t=1790327003; x=1790931803;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=UUM1cagg6+KsxznGPIESuErtkI8Q27s07XUtQoLKiL8=;
+ b=EYv5CVA2/TWNaNQTgSFqJ22lxALnjTaalbehgTNif5aIXOov9ALXllp027w4hOtOWV
+ YzN4Xkviev13UIx+KUV38CdKswPhmgk5qIXP5dYR0DbEBbsiCPe1no4rQc/ZgVEP2rqj
+ zW0ta2rHRZ1GL/GCZR3kY8N6gXx5A3wliNSDVMmmBMT3pr9+xwDBEblbkcyb38E4H/fK
+ z4ZiRF1EE4+9y0KCxHfpR8FBS2ELEcSkEFWZpj/i8C5Swqk+g1tSXL2MfS8/7vN72Qv4
+ zKn3AXv1nizr4deOtVFDRXgDm28wOb2y5dkZMJoUFbMm6ZKUfqPUiE9M5Pjxzfr37FzJ
+ zzwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790327003; x=1790931803;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=UUM1cagg6+KsxznGPIESuErtkI8Q27s07XUtQoLKiL8=;
+ b=kcnnVJzEoDxBYSpDvfHDRQdAbNzvzbtg/6m9lMd6AifjGXn/yFC5sj3yyhaG+QOmDQ
+ p/Bl3s6vIYgUzLiqnhVxHRURVo9Q4/rohvs47DcZGGPGvW8e+ZCzXsmddXoSpjXRFcpn
+ k5X7mI6mO6H0wJYRdHyMSxBFZDfSabFwVHRy5MT96Nx/KEcCL9D+yFWLN0zZlZCuQxtf
+ CVDtsHjOeGhiEcaDWyDso9kKqv5OsJd8Ax28wJVDXpY+hrpNR+m3Sa+D+UH49yVU7Vts
+ Q9xgFesrs7SOQBpwZwTXmgZ7R6rgwSUfiB+ujyUVLi4pbnGDYJ/wD3KGpv31sTvHVazG
+ WPWA==
+X-Gm-Message-State: AFuF++kWzXIMD1YmbPN43FyceTN0t35m20cBaNus+scV7Q2ECasbzS3E
+ co5ppH/+wQ0oCpMwSo+NwZGUFRQaIJxRIls+bumXcge89ZhrLtJUnIs9x4N5JGgDIDqev/RXmy+
+ 0DAKRjqKDimeY6eaTFSp2ULHVz2CjJIScBTK/Gn2qJg==
+X-Gm-Gg: AYBFou1GkfPLuiB1iVibf8oc8ifWQ3FCsVh2pNSxuoJfZ0hMZQwV5hXpxfGnY3Tmar7
+ RWqmAYVJa4CwAnH6xGsGjMkUz60i2JuEPRSkuS9lyR5/0ECs17vEVLzw7i+e/5D2CHZsmAHJ6xN
+ 4bQ1dNypTmydHOeYeuzOPjtQLYA8w/bmesaRPGV+ih/JXp/+oXkd9Qs/TXqF38bPq7kOi7uh9uc
+ f6vh59ylQF51nyKDPfvhlwh3YbqcR8zT2psiNCQhaO3yeTOeuucJ04kx2KR0mV0IuoPn/T2gzNe
+ ga/EMZKFhBTmZZEWRfoL11hLZU6PQnekqLe5mcKpmICGXGFRPPK383N4g4FjGEQudW7jfCaM9t6
+ QqO0Rjym2+g459nXy15r7MtKWqKhjcY603xPqfBT1EXqL6Q==
+X-Received: by 2002:a05:622a:107:b0:531:175b:97e6 with SMTP id
+ d75a77b69052e-5330b6d438amr32216001cf.54.1790327002921; Fri, 25 Sep 2026
+ 02:03:22 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB7459:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a8861ee-49d9-4c3f-59ee-08df1ae232c3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|22082099003|18002099003|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info: hb6CLrfABMUidENm7gfovAnGl2UQNjw1PeNUx16f0IHMMEiuV1WrUmB4Q1IX1GT8bbgZwK6sS8QDgk/l+GDJGjPwgkQ+bB5urgeEurWtLd0xSTOGG+pAUEgxVySfNPtt3tF/PIUJd9Yqq3YLCi25b0DVw9oMid2cp5uRgB2YyrwMsDl6arT6bPvM6uucbcioN5FWSHCGMXSpXomf3BAU4QRSra+OKh5xuIPFXPsyRZfuMJB+zJ8rxLiMaFp0GlCuN2iHs7sgPyWQH9dBrKmLodRNRQUmCZ8lbz3wLVIcvtvH5s8tjz09rCBYHugzUMNylCzHTWZsNfGssPc3Zqk3QsGMSRVEKHTbSUI/WtTNOQNwUi5CHJitLaJzRVBU4qmdpCYMAWiR0ga/gDf3x3hDML+r0RZNOUvh43UVEa5LeS+gFxO/UJwmVuPRE9cVzaOOBKv5eDYdAH1X5DG0a4YF2qsja5aYvNaQPojh+SRE1xaRv0Y94zYSwXjoPL6VKhfrihOl9VHB6o6gF7u618bh7CNRj3/sL9Zx9rhsUS8T0mHt2dxDRtbGcZzvsfioEF3UuIb5yzESu4yuIk2eHjTKJugKJ/2mKqDkR7utL3y8VQL5AnqutIHmiT4CwjcoX4aM1EnjdtY08zp9AMBrbWxgOZzvMVoeDhKGj7rM9E6M8+w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006)(5023799004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V0ZMRkwwSFUzRmlOK0xhbjMyWk9YQWRwejJuWnJwTCtFTEROREhlT3d0OXpG?=
- =?utf-8?B?WkxOYlMvd3pockYvWWZzS0lDR2JHTWJHbW9KOHNCSzRLQTFCSEdQQUk0RExt?=
- =?utf-8?B?Sld4akNDZm9ZWFMva1QwaGhmQzVCZ29tQ2RRd1QyOU1rczdXSEorSjdvbGdn?=
- =?utf-8?B?ZzBFSUJPWjhkdlhsUjM1Qnlsd0VHejhNK0ZGZVpTbEMwK2grSktKMGRQdGpP?=
- =?utf-8?B?MHVVMkJxRFluZGlKUWFLLy9wbmx6ZXR6dTFXZVpFOFk1YXJFSmN4Tzc5cmt2?=
- =?utf-8?B?RHZYRHBqNStQam1ObTNYM3BuaTNJVWNNQjN2Sk5uVjd3Zlptc0ZlcVRHdG9B?=
- =?utf-8?B?NWNuYy9oRURuakhaZkhVSnluSHo4ZEpZTWwvSXhOR0tKN0hDeXF0NngxNER3?=
- =?utf-8?B?MCs2OWpwZlYrUWNZckd6bjRINTNlQnNsUk0wTXVVRzQxbUd0amc5eGo3ZmlL?=
- =?utf-8?B?L21KWEUwUGk1TDQ2TSt6anBjZXpJcWJQMy9sUDVDUlVzUGJXMUpCaHY3RTRG?=
- =?utf-8?B?bjFHSWtMMGVVSTdZL2g0cGhoK2dsdHRjU2Z1TXRPRGpSbWdMSHQ1MlY4dndl?=
- =?utf-8?B?VFd5ZktnUEE0YWdsa3FHZlFCK2puN2RzNlFwcS91eW4vSXBiNlhBalFoSFVT?=
- =?utf-8?B?WVAvTjVzRCswQjdrRjhuMHNtenVseG5lL1JRTG9YZFRUT1BqeDUxcm02YWFz?=
- =?utf-8?B?L1BUSlM4bnVHYlMrWEhON2E4VGd6M1grYWk3K1BlU0dPKzAycGFOKzRaeHJl?=
- =?utf-8?B?NWM1SEFiOWZhdzlpS2RnUVJidkloZUJZM2psbUpZb0hzdDBnV2drL1ZUaHh4?=
- =?utf-8?B?VGtmbEZIanB6M0lXa2UxVDZLUlFWNnhRZUU4MDZBaHRZaENwWGdyV2xVdHVH?=
- =?utf-8?B?RnQycVV4RUVQSjR3Sm1IMkRER3owUGN3djJrR0hhaFJEVldlR0JLS2hScnhq?=
- =?utf-8?B?Tm1ZeHcyKys0MFIxNWt2SWJ5ZUxnMWxaK1FjL1hUMjluKytuM1N3Z1hmdVV3?=
- =?utf-8?B?NGprTnh3c3JnQkd2WjV4MUl0RnJLV1dnYzB5MlZybWVEYkdkTVNoblIvMmJu?=
- =?utf-8?B?empGemgwemo4eEYzdFZNZmxqZHZsS0ltcDd3VUNoYXpPUlM1SWNZRmd5aEM3?=
- =?utf-8?B?eCtoc1lrSkZ3eVY0d0toTVFKdGY1M3ZrNWdjZkwrR3lFMDZ4blBld3luY3g1?=
- =?utf-8?B?ME5JcFNCR1VvUmpZL2ZTdU1ZMHl3R25DUDc2OXdyeCsrUWk3VTd2VENSenNU?=
- =?utf-8?B?YVVIOGZDaVRKbzhGcnZGWW9KeDB1UVhaNHp3M25BQ3N1bDNpVE1kNDdGYTRs?=
- =?utf-8?B?MGhKUXZhdkRXRHV0TFhWTzJya3BPVjI1bGc3SFRRKzNXTlBDOW9KVHd6MnVD?=
- =?utf-8?B?ejJQVGh1YnpGRG1QbHVDWXNRVUg5Mk44Skc1NGxZNnhQalZuU0x1OGZxY1p6?=
- =?utf-8?B?ZWZkY0FxWk4wTlBOS3ZnSXFwNlFYWmpmRDhYbC83eDdSMHBUaDlsV0RDR3Y2?=
- =?utf-8?B?dUpuZm11b01RRkdPK3JYMStva0lqV0VORmsvNFMzYXZPSmJNQjlEMHkrTzB6?=
- =?utf-8?B?aFExajM4Y3pvZytPZlE1ZkI3Skd3cktTNWpzKzRRQ0Z6RGVCekl2bmNrUjM2?=
- =?utf-8?B?OFlUUmVHWTdCb0NzSG0xajZ6Y3d5WUFPeUo2WWQ3ejBXZ3ZIbkN0T2ovNDBZ?=
- =?utf-8?B?UDlTNFc2TnNSd2lJWHcwc1dWQmZBbCsyR0pzaUE3cm4xV3l2UTFueTBwTC9E?=
- =?utf-8?B?aDRMcnUvTkxXZDVrWUtWaVBnS1JHRlUraGM4NDd3STYxd1Zmd3JzYitMNVo5?=
- =?utf-8?B?WlhrUk0rbzIrcGs3Tzh2S2xqZGhHR09ERHJxVGd0UTQ3QTZsQ3RETFhnWXVt?=
- =?utf-8?B?NE15cXZJZDlkR2xici9vSi83ajBhcjRyaDgzdm9lRlJwQWdQMmZhcnl6b3kv?=
- =?utf-8?B?WE11UFJCa0REZ2puUGJDRzJITjFXc1IzdzhFQ0Z3MHM0RzRzQTZxcFM0ajZh?=
- =?utf-8?B?UHUrVEVhZ3owdzNRQzE1YmtFTkhxVFV0Tml5WnNOVWpoWHBBTzRmNnRuYnB3?=
- =?utf-8?B?VFpTRnpyVktKYmFMRUlqRGFJYzhBWmJlRFYwTXlmMU1PQWNRRkVpME9EYUhJ?=
- =?utf-8?B?L0EzSDhiY1hkcklyZWRDb29LL2FMSEtUV2NGdm1Qb29QTlJnUGtOTDhkcWRV?=
- =?utf-8?B?OHZ0K2IrZmtOcjRCcVowUGlQTGJkMVNKQ3YvMFgyc1h2SVFoZ3VLZXFLYlRm?=
- =?utf-8?B?cXE1KzlIMGorcDcrOWFlMkczL1RvM2k2L0Fvbm5OblZDYVk3NmxJWEE3OWtD?=
- =?utf-8?Q?ymC9pOTfLmBu2zwEB4?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a8861ee-49d9-4c3f-59ee-08df1ae232c3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 08:51:32.8254 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oNXN+wGSC3m27AeraMFpCbafHQ7bOjJgFcGatu8bhWII97ShkwgsgU93LH14pLl/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7459
+From: =?UTF-8?B?6LWk5bKh5oKg?= <c0a25004a6@edu.teu.ac.jp>
+Date: Fri, 25 Sep 2026 18:03:11 +0900
+X-Gm-Features: AclHuK8uKIwMszV9uZI9jsv9hA3ReCxL7ah2w9L2B8U3f-2prJhiHot9xZdxkRc
+Message-ID: <CA+Y9VQNZnAKCoCjWtLeA5TS+CLm0rPgsa7YrE8vOPDo4pV-mDQ@mail.gmail.com>
+Subject: [REGRESSION] drm/ttm: NULL dereference in ttm_resource_add_bulk_move
+ after OOM on Navi32
+To: dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, bub4z0r@gmail.com, 
+ thomas.hellstrom@linux.intel.com, christian.koenig@amd.com
+Content-Type: multipart/alternative; boundary="0000000000000a8c02065c4afda9"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,65 +100,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/24/26 15:34, Mukul Joshi wrote:
-> An imported dma-buf BO backed by a VRAM-capable exporter holds no host
-> pages of its own, yet when validated into TTM_PL_TT it is charged against
-> the GTT page budget; importing many such buffers can exhaust that budget
-> and fail with -ENOMEM even though no host memory is used. Set
-> AMDGPU_GEM_CREATE_PREEMPTIBLE on these imports so they land in the PREEMPT
-> domain instead, which is GTT-like and still bound (keeping the exporter
-> resident) but carries no host-page limit.
-> 
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+--0000000000000a8c02065c4afda9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Hi,
 
-> ---
-> v1->v2:
-> - Check if p2p access is allowed. If not, clear the PREEMPT flag since
->   the BO will be put in GTT domain.
-> - v1 reviewed by Felix.
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index 4031ebe075d8..bbe518757907 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -472,6 +472,15 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
->  					 AMDGPU_GEM_CREATE_COHERENT |
->  					 AMDGPU_GEM_CREATE_EXT_COHERENT |
->  					 AMDGPU_GEM_CREATE_UNCACHED);
-> +
-> +		/*
-> +		 * A VRAM-capable import is backed by the exporter's device
-> +		 * memory, not host pages of its own. Place it in the PREEMPT
-> +		 * domain (GTT-like, but with no host-page budget) so many such
-> +		 * imports cannot exhaust the GTT limit.
-> +		 */
-> +		if (other->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)
-> +			flags |= AMDGPU_GEM_CREATE_PREEMPTIBLE;
->  	}
->  
->  	ret = amdgpu_gem_object_create(adev, dma_buf->size, PAGE_SIZE,
-> @@ -618,6 +627,17 @@ struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
->  		return ERR_CAST(attach);
->  	}
->  
-> +	/*
-> +	 * The PREEMPT domain is only correct when the attachment actually
-> +	 * resolves to P2P access, in which case the import lives in the
-> +	 * exporter's VRAM and consumes no host GTT pages.  Without P2P the
-> +	 * import is staged in system memory and must count against the GTT
-> +	 * budget normally, so drop AMDGPU_GEM_CREATE_PREEMPTIBLE again.  The
-> +	 * BO is not published yet, so clearing the flag here is race-free.
-> +	 */
-> +	if (!attach->peer2peer)
-> +		gem_to_amdgpu_bo(obj)->flags &= ~AMDGPU_GEM_CREATE_PREEMPTIBLE;
-> +
->  	get_dma_buf(dma_buf);
->  	obj->import_attach = attach;
->  	return obj;
+I hit a kernel Oops in the AMDGPU/TTM swapout path on a Radeon RX 7800 XT.
+The
+failure happened immediately after a global OOM condition and was followed
+by an
+RCU stall and a host reset.
 
+The kernel was `7.2.4-1-cachyos` on CachyOS. The GPU is a Sapphire Navi32 /
+RX
+7800 XT (`1002:747e`, subsystem `1da2:475d`). The relevant userspace
+versions
+were Mesa `26.2.2-2`, KWin/Plasma `6.7.5-1.1`, and libdrm `2.4.134-1.1`.
+
+The first failure in the affected boot was:
+
+kswapd0 invoked oom-killer: gfp_mask=3D0xcc0(GFP_KERNEL), order=3D0
+oom-kill: ... global_oom ... task_memcg=3D<redacted>, task=3Dllama-server
+Out of memory: Killed process <pid> (llama-server)
+
+amdgpu 0000:03:00.0: [drm] *ERROR* Not enough memory for command submission=
+!
+WARNING: drivers/gpu/drm/ttm/ttm_resource.c:235 at
+ttm_resource_add_bulk_move+0x124/0x150 [ttm], CPU#15: QSGRenderThread
+/2457
+BUG: kernel NULL pointer dereference, address: 0000000000000008
+Oops: Oops: 0000 [#1] SMP NOPTI
+RIP: ttm_resource_add_bulk_move+0xc9/0x150 [ttm]
+
+The call chain was:
+
+ttm_resource_add_bulk_move
+ttm_resource_alloc
+ttm_bo_swapout_cb
+ttm_lru_walk_for_evict
+ttm_bo_swapout
+ttm_global_swapout
+ttm_tt_populate
+ttm_bo_populate
+ttm_bo_vm_fault_reserved
+amdgpu_gem_fault
+
+After the Oops, an `amdgpu` KFD cleanup worker and an `amdgpu_drm_release`
+path were both blocked on TTM-related spinlocks. The journal does not
+contain
+`Kernel panic - not syncing`; I am calling this an Oops followed by a
+lockup or
+reset, not a confirmed formal panic.
+
+This is consistent with the stale `bulk_move` endpoint bug introduced by
+`b2ed01e7ad3d` ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout
+failure", v7.1+): `ttm_tt_swapout()` returns the number of pages swapped on
+success (never zero for a populated ttm), so the
+`ttm_resource_del_bulk_move_unevictable()` /
+`ttm_resource_move_to_lru_tail()` pair under `if (!ret)` is skipped on ever=
+y
+successful swapout. A swapped-out resource stays inside its BO's bulk_move
+range while unevictable; a later `ttm_resource_free()` /
+`ttm_bo_set_bulk_move()` skips it via the `!ttm_resource_unevictable()`
+guard, leaving a dangling range endpoint. Upstream names
+`ttm_resource_add_bulk_move()` as one of the places that trips over that
+cursor (a use-after-free on the dangling endpoint) =E2=80=94 exactly the fu=
+nction
+my NULL dereference hit at `+0xc9`.
+
+The trigger on my system differs from the hibernation cycles reported in
+https://gitlab.freedesktop.org/drm/amd/-/issues/5387: here the swapout was
+driven by runtime memory pressure =E2=80=94 a global OOM followed by
+`ttm_global_swapout()` reached from
+`amdgpu_gem_fault()`/`ttm_tt_populate()`.
+If the mechanism is the same, the defect is not suspend-specific; any
+memory-pressure eviction pass can leave the stale endpoint.
+
+The upstream fix history is worth noting:
+
+- 3db7d7d <
+https://github.com/torvalds/linux/commit/3db7d7d583419f7b1f2e141e36418802db=
+b25cf8
+>
+  was the intended fix, but it was applied to the wrong `if`: it changed
+  `if (ret)` to `if (ret > 0)` after `ttm_resource_try_charge()` in
+  `ttm_bo_alloc_at_place()` (a separate dmem-charge bypass) and left the
+  `if (!ret)` after `ttm_tt_swapout()` untouched. A kernel carrying only
+  `3db7d7d` therefore still has the original bug.
+- fcfe647 <
+https://github.com/torvalds/linux/commit/fcfe64715b425262af1b36f498f9197f35=
+37ceed
+>
+  applies the intended `if (ret > 0)` at the swapout site and restores the
+  charge check (`Cc: stable # v7.1+`).
+
+I checked the source release used for `linux-cachyos 7.2.4-1`:
+`cachyos-7.2.4-1` <
+https://github.com/CachyOS/linux/releases/tag/cachyos-7.2.4-1>.
+It still contains:
+
+ret =3D ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
+if (!ret) {
+        ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
+        ttm_resource_move_to_lru_tail(bo->resource);
+}
+
+The installed `ttm.ko` has the matching `test eax,eax` / `jne` branch, so
+the
+installed binary also has the old zero-only condition. The CachyOS 7.2.4
+PKGBUILD does not list a TTM bulk-move patch. Version check
+(upstream sources):
+
+- `v6.18.52` does not contain `b2ed01e7ad3d` =E2=80=94 it keeps the pre-cha=
+nge
+  structure: the resource is removed from the bulk_move before the
+  swapout and re-added conditionally, so it is not affected.
+- `v7.2.6` and `v7.2.7` still have `if (!ret)` at this site. The host now
+  runs `7.2.6-1-cachyos` (booted) and its installed `ttm.ko` still shows th=
+e
+  same code generation.
+- `v7.3-rc4` has the corrected `if (ret > 0)` form.
+
+The kernel was tainted with `CPU_OUT_OF_SPEC`, `OOT_MODULE`, and
+`UNSIGNED_MODULE`; the Oops also set `WARN` and `DIE`. For completeness:
+the only out-of-tree module was `v4l2loopback` (a DKMS V4L2 loopback
+device) =E2=80=94 not in the DRM/TTM path.
+
+Caveats: I have not boot-tested a fixed kernel on this hardware =E2=80=94 n=
+o
+native kernel A/B was performed. The evidence above is source-level plus
+disassembly of the installed `ttm.ko`; `drm/amd#5387` has the live
+reproduction data on a different GPU.
+
+Since `fcfe647` already carries `Cc: stable # v7.1+`, I assume the 7.2.y
+backport is queued =E2=80=94 `7.2.7` (latest 7.2.y) still carries the bug. =
+Two
+things this report adds: (a) an independent hit through a non-hibernation
+trigger, on a distribution kernel (CachyOS 7.2.4/7.2.6/7.2.7 all show the
+old condition); (b) a heads-up that trees which picked up `3db7d7d`
+alone are still buggy =E2=80=94 its one-line change landed on the wrong `if=
+`, so
+the intended swapout-site fix only exists in `fcfe647` (this
+backport-unit warning is now also on public record via a comment on the
+CachyOS issue). Does the crash signature above match the dangling-cursor
+mechanism?
+
+--0000000000000a8c02065c4afda9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi,<br><br>I hit a kernel Oops in the AMDGPU/TTM swap=
+out path on a Radeon RX 7800 XT. The<br>failure happened immediately after =
+a global OOM condition and was followed by an<br>RCU stall and a host reset=
+.<br><br>The kernel was `7.2.4-1-cachyos` on CachyOS. The GPU is a Sapphire=
+ Navi32 / RX<br>7800 XT (`1002:747e`, subsystem `1da2:475d`). The relevant =
+userspace versions<br>were Mesa `26.2.2-2`, KWin/Plasma `6.7.5-1.1`, and li=
+bdrm `2.4.134-1.1`.<br><br>The first failure in the affected boot was:<br><=
+br>kswapd0 invoked oom-killer: gfp_mask=3D0xcc0(GFP_KERNEL), order=3D0<br>o=
+om-kill: ... global_oom ... task_memcg=3D&lt;redacted&gt;, task=3Dllama-ser=
+ver<br>Out of memory: Killed process &lt;pid&gt; (llama-server)<br><br>amdg=
+pu 0000:03:00.0: [drm] *ERROR* Not enough memory for command submission!<br=
+>WARNING: drivers/gpu/drm/ttm/ttm_resource.c:235 at ttm_resource_add_bulk_m=
+ove+0x124/0x150 [ttm], CPU#15: QSGRenderThread<br>/2457<br>BUG: kernel NULL=
+ pointer dereference, address: 0000000000000008<br>Oops: Oops: 0000 [#1] SM=
+P NOPTI<br>RIP: ttm_resource_add_bulk_move+0xc9/0x150 [ttm]<br><br>The call=
+ chain was:<br><br>ttm_resource_add_bulk_move<br>ttm_resource_alloc<br>ttm_=
+bo_swapout_cb<br>ttm_lru_walk_for_evict<br>ttm_bo_swapout<br>ttm_global_swa=
+pout<br>ttm_tt_populate<br>ttm_bo_populate<br>ttm_bo_vm_fault_reserved<br>a=
+mdgpu_gem_fault<br><br>After the Oops, an `amdgpu` KFD cleanup worker and a=
+n `amdgpu_drm_release`<br>path were both blocked on TTM-related spinlocks. =
+The journal does not contain<br>`Kernel panic - not syncing`; I am calling =
+this an Oops followed by a lockup or<br>reset, not a confirmed formal panic=
+.<br><br>This is consistent with the stale `bulk_move` endpoint bug introdu=
+ced by<br>`b2ed01e7ad3d` (&quot;drm/ttm: Fix ttm_bo_swapout() infinite LRU =
+walk on swapout<br>failure&quot;, v7.1+): `ttm_tt_swapout()` returns the nu=
+mber of pages swapped on<br>success (never zero for a populated ttm), so th=
+e<br>`ttm_resource_del_bulk_move_unevictable()` /<br>`ttm_resource_move_to_=
+lru_tail()` pair under `if (!ret)` is skipped on every<br>successful swapou=
+t. A swapped-out resource stays inside its BO&#39;s bulk_move<br>range whil=
+e unevictable; a later `ttm_resource_free()` /<br>`ttm_bo_set_bulk_move()` =
+skips it via the `!ttm_resource_unevictable()`<br>guard, leaving a dangling=
+ range endpoint. Upstream names<br>`ttm_resource_add_bulk_move()` as one of=
+ the places that trips over that<br>cursor (a use-after-free on the danglin=
+g endpoint) =E2=80=94 exactly the function<br>my NULL dereference hit at `+=
+0xc9`.<br><br>The trigger on my system differs from the hibernation cycles =
+reported in<br><a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/5=
+387">https://gitlab.freedesktop.org/drm/amd/-/issues/5387</a>: here the swa=
+pout was<br>driven by runtime memory pressure =E2=80=94 a global OOM follow=
+ed by<br>`ttm_global_swapout()` reached from `amdgpu_gem_fault()`/`ttm_tt_p=
+opulate()`.<br>If the mechanism is the same, the defect is not suspend-spec=
+ific; any<br>memory-pressure eviction pass can leave the stale endpoint.<br=
+><br>The upstream fix history is worth noting:<br><br>- 3db7d7d &lt;<a href=
+=3D"https://github.com/torvalds/linux/commit/3db7d7d583419f7b1f2e141e364188=
+02dbb25cf8">https://github.com/torvalds/linux/commit/3db7d7d583419f7b1f2e14=
+1e36418802dbb25cf8</a>&gt;<br>=C2=A0 was the intended fix, but it was appli=
+ed to the wrong `if`: it changed<br>=C2=A0 `if (ret)` to `if (ret &gt; 0)` =
+after `ttm_resource_try_charge()` in<br>=C2=A0 `ttm_bo_alloc_at_place()` (a=
+ separate dmem-charge bypass) and left the<br>=C2=A0 `if (!ret)` after `ttm=
+_tt_swapout()` untouched. A kernel carrying only<br>=C2=A0 `3db7d7d` theref=
+ore still has the original bug.<br>- fcfe647 &lt;<a href=3D"https://github.=
+com/torvalds/linux/commit/fcfe64715b425262af1b36f498f9197f3537ceed">https:/=
+/github.com/torvalds/linux/commit/fcfe64715b425262af1b36f498f9197f3537ceed<=
+/a>&gt;<br>=C2=A0 applies the intended `if (ret &gt; 0)` at the swapout sit=
+e and restores the<br>=C2=A0 charge check (`Cc: stable # v7.1+`).<br><br>I =
+checked the source release used for `linux-cachyos 7.2.4-1`:<br>`cachyos-7.=
+2.4-1` &lt;<a href=3D"https://github.com/CachyOS/linux/releases/tag/cachyos=
+-7.2.4-1">https://github.com/CachyOS/linux/releases/tag/cachyos-7.2.4-1</a>=
+&gt;.<br>It still contains:<br><br>ret =3D ttm_tt_swapout(bdev, tt, swapout=
+_walk-&gt;gfp_flags);<br>if (!ret) {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 ttm_res=
+ource_del_bulk_move_unevictable(bo-&gt;resource, bo);<br>=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 ttm_resource_move_to_lru_tail(bo-&gt;resource);<br>}<br><br>The =
+installed `ttm.ko` has the matching `test eax,eax` / `jne` branch, so the<b=
+r>installed binary also has the old zero-only condition. The CachyOS 7.2.4<=
+br>PKGBUILD does not list a TTM bulk-move patch. Version check<br>(upstream=
+ sources):<br><br>- `v6.18.52` does not contain `b2ed01e7ad3d` =E2=80=94 it=
+ keeps the pre-change<br>=C2=A0 structure: the resource is removed from the=
+ bulk_move before the<br>=C2=A0 swapout and re-added conditionally, so it i=
+s not affected.<br>- `v7.2.6` and `v7.2.7` still have `if (!ret)` at this s=
+ite. The host now<br>=C2=A0 runs `7.2.6-1-cachyos` (booted) and its install=
+ed `ttm.ko` still shows the<br>=C2=A0 same code generation.<br>- `v7.3-rc4`=
+ has the corrected `if (ret &gt; 0)` form.<br><br>The kernel was tainted wi=
+th `CPU_OUT_OF_SPEC`, `OOT_MODULE`, and<br>`UNSIGNED_MODULE`; the Oops also=
+ set `WARN` and `DIE`. For completeness:<br>the only out-of-tree module was=
+ `v4l2loopback` (a DKMS V4L2 loopback<br>device) =E2=80=94 not in the DRM/T=
+TM path.<br><br>Caveats: I have not boot-tested a fixed kernel on this hard=
+ware =E2=80=94 no<br>native kernel A/B was performed. The evidence above is=
+ source-level plus<br>disassembly of the installed `ttm.ko`; `drm/amd#5387`=
+ has the live<br>reproduction data on a different GPU.<br><br>Since `fcfe64=
+7` already carries `Cc: stable # v7.1+`, I assume the 7.2.y<br>backport is =
+queued =E2=80=94 `7.2.7` (latest 7.2.y) still carries the bug. Two<br>thing=
+s this report adds: (a) an independent hit through a non-hibernation<br>tri=
+gger, on a distribution kernel (CachyOS 7.2.4/7.2.6/7.2.7 all show the<br>o=
+ld condition); (b) a heads-up that trees which picked up `3db7d7d`<br>alone=
+ are still buggy =E2=80=94 its one-line change landed on the wrong `if`, so=
+<br>the intended swapout-site fix only exists in `fcfe647` (this<br>backpor=
+t-unit warning is now also on public record via a comment on the<br>CachyOS=
+ issue). Does the crash signature above match the dangling-cursor<br>mechan=
+ism?<span style=3D"font-family:monospace"></span></div></div>
+
+--0000000000000a8c02065c4afda9--
