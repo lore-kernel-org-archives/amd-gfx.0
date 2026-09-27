@@ -4,46 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37537C98324
-	for <amd-gfx@archiver.kernel.org>; Sun, 27 Sep 2026 10:57:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FFA0C9830E
+	for <amd-gfx@archiver.kernel.org>; Sun, 27 Sep 2026 13:26:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C486710E47C;
-	Sun, 27 Sep 2026 10:57:04 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UtjjsSSr";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7E1B10E47C;
- Sun, 27 Sep 2026 10:57:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 379C960D7F;
- Sun, 27 Sep 2026 10:57:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C1F1F000FF;
- Sun, 27 Sep 2026 10:57:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790506622;
- bh=7hec+lMEDGI9y3jbHt6Y6kArMIsxA69vRhR2rOPeIFE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=UtjjsSSrWF+TFt54/0px6YzSyUYzlv91ip/Lcs/KQAoOamZa5b/L9bVLQr1c49pr6
- rZs4OMKT/daTgTbfTNw1O9OOYTok6mhb9QMqKwRJkiyCwrGaeY2p9A7BDpOqn8avNF
- 3TP1auOS0UIXwjNVcGySRRnQGMJMgawY5M/zIAOgCmnhwJ1Bt7k37sKB9d+LAkdn0Z
- NDATEzOnvjtacpBm4OrfYt3I3wPneZcPuTpKUZT0UImruFzyG4vY1Me9Bv0gDjBBmV
- kDq88JrH5NETzKs4MczRZfcEJemq9gWx+kNPnBOGmMjtD5pKV1+f6629p/jwNuZ1Y0
- bEEYriCG4ctiQ==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] drm/radeon: add a connector table for the Sun XVR-300
-Date: Sun, 27 Sep 2026 12:55:55 +0200
-Message-ID: <20260927105555.8771-3-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260927105555.8771-1-kaloz@kernel.org>
-References: <20260927105555.8771-1-kaloz@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB3BF10E4A3;
+	Sun, 27 Sep 2026 13:26:05 +0000 (UTC)
+Received: from omta038.useast.a.cloudfilter.net
+ (omta038.useast.a.cloudfilter.net [44.202.169.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15CBF10E28A
+ for <amd-gfx@lists.freedesktop.org>; Sun, 27 Sep 2026 00:48:08 +0000 (UTC)
+Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
+ by cmsmtp with ESMTPS
+ id AGlnxHzc3JFmFAd3nxIUJr; Sun, 27 Sep 2026 00:48:08 +0000
+Received: from delta.websitewelcome.com ([192.185.83.61]) by cmsmtp with ESMTPS
+ id Ad3mxKBsLouFZAd3nx81B8; Sun, 27 Sep 2026 00:48:07 +0000
+X-Authority-Analysis: v=2.4 cv=Zd4dNtVA c=1 sm=1 tr=0 ts=6ab867c7
+ a=sy7HV6YSrPMGO6i17biZvg==:117 a=AaDvNZWQTOfaQVmSqZoT7Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=0XjxDzgCAAAA:8 a=Mpv9E8u5tF5z9Bn9wf4A:9
+ a=QEXdDO2ut3YA:10 a=dbKRzECqi5yn7_EwFreH:22 a=9Z0VUmeasobPx05O_PEl:22
+Received: from [193.5.233.205] (port=14475 helo=desktopmikael)
+ by delta.websitewelcome.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.100.1)
+ (envelope-from <contact@mikaelpelle.com>) id 1xAd3m-00000003lsI-20u0;
+ Sat, 26 Sep 2026 19:48:06 -0500
+From: <contact@mikaelpelle.com>
+To: <timur.kristof@gmail.com>
+Cc: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amd/pm/si: Check AMD_IS_MOBILITY flag for
+ PPSMC_SYSTEMFLAG_GPIO_DC
+Date: Sun, 27 Sep 2026 02:48:04 +0200
+Message-ID: <003801dd4e19$db9cacd0$92d60670$@mikaelpelle.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: Ad1OGJtJvhxAnrmBSva/rmtQd15kwg==
+Content-Language: en-gb
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - delta.websitewelcome.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - mikaelpelle.com
+X-BWhitelist: no
+X-Source-IP: 193.5.233.205
+X-Source-L: No
+X-Exim-ID: 1xAd3m-00000003lsI-20u0
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: (desktopmikael) [193.5.233.205]:14475
+X-Source-Auth: contact@mikaelpelle.com
+X-Email-Count: 2
+X-Org: HG=hgreseller;ORG=hostgator;
+X-Source-Cap: bXBlbGxlO21wZWxsZTtkZWx0YS53ZWJzaXRld2VsY29tZS5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfELQOT1F/pURgbYp/Lhzp+VZbXYmGfnfmCWgXnBksPMJy3OKRY5EK0akK2PpY07yMCtf5cdAdiDCg3QKJd2ZswHGia/cvlUAYYKKD5ICb18R8bMc0xOv
+ /wZkcKQsIO3n7NfGJPjHUMkyqsKn9nTz5v/+eXBU4AVScVyYi76nNbbw9O0AdofV1bRQc+Lm9SkIk9Ca67zKQUgnTxWijSdPQJ0+Id/fEhQ4+VGSrqmv1ggU
+X-Mailman-Approved-At: Sun, 27 Sep 2026 13:26:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,109 +77,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The Sun XVR-300 is a FireMV 2200 PCIe (RV370) board with an
-FCode-only Open Firmware ROM and no COMBIOS to parse, so the
-generic connector table leaves both DVI-I outputs undetected. Both
-XVR-300 SKUs report device ID 5b64 with an ATI subsystem ID rather
-than Sun's, so match the OF node name prefix instead. The table
-comes from the board's FCode.
+I tested this patch on a Late 2013 Mac Pro (MacPro6,1) with dual Apple =
+FirePro D700 (Tahiti XT, 6 GB), and can confirm that it fixes the DPM =
+issue on the D700 as well.
 
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
- drivers/gpu/drm/radeon/radeon_combios.c | 51 +++++++++++++++++++++++++
- drivers/gpu/drm/radeon/radeon_mode.h    |  3 +-
- 2 files changed, 53 insertions(+), 1 deletion(-)
+Test environment:
+Arch Linux
+Kernel: 6.18.54-1-lts + this patch
+Mesa/RADV: 26.2.3
+GPU: 2x FirePro D700 (Tahiti XT, 6 GB)
+Params: radeon.si_support=3D0 amdgpu.si_support=3D1
 
-diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
-index b3e7a747f11e..096f953c67be 100644
---- a/drivers/gpu/drm/radeon/radeon_combios.c
-+++ b/drivers/gpu/drm/radeon/radeon_combios.c
-@@ -25,6 +25,7 @@
-  *          Alex Deucher
-  */
- 
-+#include <linux/of.h>
- #include <linux/pci.h>
- 
- #include <drm/drm_device.h>
-@@ -1512,6 +1513,14 @@ bool radeon_get_legacy_connector_info_from_table(struct drm_device *dev)
- 			rdev->mode_info.connector_table = CT_RN50_POWER;
- 		else
- #endif
-+		if (of_node_name_prefix(rdev->pdev->dev.of_node, "SUNW,XVR-300"))
-+			/* FireMV 2200 PCIe with FCode-only ROM, no COMBIOS
-+			 * to parse; both XVR-300 SKUs share device ID 5b64
-+			 * with an ATI subsystem ID, so match the OF node
-+			 * name instead.
-+			 */
-+			rdev->mode_info.connector_table = CT_SUN_XVR300;
-+		else
- 			rdev->mode_info.connector_table = CT_GENERIC;
- 	}
- 
-@@ -2187,6 +2196,48 @@ bool radeon_get_legacy_connector_info_from_table(struct drm_device *dev)
- 					    CONNECTOR_OBJECT_ID_SVIDEO,
- 					    &hpd);
- 		break;
-+	case CT_SUN_XVR300:
-+		DRM_INFO("Connector Table: %d (sun xvr-300)\n",
-+			 rdev->mode_info.connector_table);
-+		/* DVI-I - internal tmds, tv dac */
-+		ddc_i2c = combios_setup_i2c_bus(rdev, DDC_DVI, 0, 0);
-+		hpd.hpd = RADEON_HPD_1;
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_DFP1_SUPPORT,
-+								0),
-+					  ATOM_DEVICE_DFP1_SUPPORT);
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_CRT2_SUPPORT,
-+								2),
-+					  ATOM_DEVICE_CRT2_SUPPORT);
-+		radeon_add_legacy_connector(dev, 0,
-+					    ATOM_DEVICE_DFP1_SUPPORT |
-+					    ATOM_DEVICE_CRT2_SUPPORT,
-+					    DRM_MODE_CONNECTOR_DVII, &ddc_i2c,
-+					    CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_I,
-+					    &hpd);
-+		/* DVI-I - sil164 dvo, primary dac */
-+		ddc_i2c = combios_setup_i2c_bus(rdev, DDC_VGA, 0, 0);
-+		hpd.hpd = RADEON_HPD_2;
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_DFP2_SUPPORT,
-+								0),
-+					  ATOM_DEVICE_DFP2_SUPPORT);
-+		radeon_add_legacy_encoder(dev,
-+					  radeon_get_encoder_enum(dev,
-+								ATOM_DEVICE_CRT1_SUPPORT,
-+								1),
-+					  ATOM_DEVICE_CRT1_SUPPORT);
-+		radeon_add_legacy_connector(dev, 1,
-+					    ATOM_DEVICE_DFP2_SUPPORT |
-+					    ATOM_DEVICE_CRT1_SUPPORT,
-+					    DRM_MODE_CONNECTOR_DVII, &ddc_i2c,
-+					    CONNECTOR_OBJECT_ID_SINGLE_LINK_DVI_I,
-+					    &hpd);
-+		break;
- 	default:
- 		DRM_INFO("Connector table: %d (invalid)\n",
- 			 rdev->mode_info.connector_table);
-diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
-index 031a3bf6fe0a..6a16d821915d 100644
---- a/drivers/gpu/drm/radeon/radeon_mode.h
-+++ b/drivers/gpu/drm/radeon/radeon_mode.h
-@@ -226,7 +226,8 @@ enum radeon_connector_table {
- 	CT_MAC_X800,
- 	CT_MAC_G5_9600,
- 	CT_SAM440EP,
--	CT_MAC_G4_SILVER
-+	CT_MAC_G4_SILVER,
-+	CT_SUN_XVR300
- };
- 
- enum radeon_dvo_chip {
--- 
-2.47.3
+Without the patch, both D700s remained at 300 MHz SCLK / 150 MHz MCLK =
+under Vulkan compute load.
+I checked the D700 VBIOS as well: ATOM_PP_PLATFORM_CAP_HARDWAREDC is =
+set, and it contains a battery state at 300/150 MHz.
+With the patch applied to the same kernel, each D700 correctly =
+transitions from 300/150 MHz at idle to 850/1370 MHz under load. I =
+tested both GPUs individually and simultaneously.
+As a real-world test, Ollama/Qwen3-8B fully offloaded across both GPUs =
+sustained approximately 18.3-18.7 tokens/s, compared with ~2.34 tokens/s =
+before the patch. One API run generated 1517 tokens in 81.24 seconds.  =20
+I observed no amdgpu VM faults, GPU timeouts or resets during the tests.
+Tested-by: Mikael Pelle contact@mikaelpelle.com
 
