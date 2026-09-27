@@ -4,76 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACB76C9832F
-	for <amd-gfx@archiver.kernel.org>; Sun, 27 Sep 2026 13:26:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F614C9830E
+	for <amd-gfx@archiver.kernel.org>; Sun, 27 Sep 2026 13:30:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE5610E5EE;
-	Sun, 27 Sep 2026 13:26:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25C3B10E5EF;
+	Sun, 27 Sep 2026 13:30:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WJAH0+W8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CYkR8ykr";
 	dkim-atps=neutral
-Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com
- [74.125.230.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E6CD10E049
- for <amd-gfx@lists.freedesktop.org>; Sat, 26 Sep 2026 15:16:40 +0000 (UTC)
-Received: by mail-lr2-f34.google.com with SMTP id
- 38308e7fff4ca-3a65a351692so6417221fa.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 26 Sep 2026 08:16:40 -0700 (PDT)
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com
+ [74.125.229.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50D5210E5F0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 27 Sep 2026 13:29:59 +0000 (UTC)
+Received: by mail-dl2-f12.google.com with SMTP id
+ a92af1059eb24-141a5cf1371so124334c88.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 27 Sep 2026 06:29:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790515798; cv=none;
+ d=google.com; s=arc-20260327;
+ b=UM1bbcdK4FlykP/St4HMceZWDoIbjkQ/z1d3KuRJ44BoVqfcQfmr1iW7vwGo7mk2KA
+ mlCvvj+sToi365U2z6JGIIAjrYvrawrTeBiKz+1AfgyI5uGVb1bfJbU4WmUKjXNDH1ay
+ zmKW8bUo1FCVW3uA6CppdPkh/aM7MQ7PzcwrhKswwYsEZrwTak8a0RQ020k4RHZAXDLU
+ ScHO3auuqda6Mkr4NyQrqgmsvlGg7URuqu5WfkjPz/MwmiKykJnAapVq74TndsVJM12O
+ 9ZtmZpnHp6AGZ62dVcIJGN+O1APApUHNZAHPZ9IFfYyiwYL+cQ2HAaKUO7cqHvYCSolt
+ F9rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=JjWx7CdMGt/+JDfl7KX1wEPjdEp46bufMD+qtwVQ9jw=;
+ fh=49PlFXa6BK5CG1J+N8Zh/P8mJx2Zkg4iOR47EnOrvBM=;
+ b=S8nfeK8CpcgmpIMH4vJPLUKAsoA93AmrCmpVtjf9zJvc+jnMp4EFt3Sq6DRPf7nLOF
+ 8M9cM65IomRGFG3DjlT52kJBWX8fydueLZ8nRAX8e3WV7UrRsN4DsYq+XxydoHZDSkr/
+ C/CNPEZEgsfg+MCv+cpE+8BH8xm1xDlt/Lq3/QOu9YfreskErPHdlmTRPhJYhCK+hrQS
+ mojhxM88Izrb+pnGv3tNQKB1B2XUZqT4Bou22ZbsWhwfzCOdCT/WohAT8TmMUsSWxJk6
+ RkzxrWiU4YrL9Py7yfGDWVyQGXtfuiJ7Qa9IjTCEvyi3ly0nZxO9B2c2Q5dJDEVOx/qL
+ 1vuw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790435798; x=1791040598; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=fqPVpQ+V1zmPGZnUc7U8magacWwW56Enx58NJaEH+aw=;
- b=WJAH0+W8mvC6HLtubXqkZHOGR763Eum1kcSSsC8ot+cBIrz8GELyhzVg7iwAkXVtiV
- /zwqPPc+LpoyAT5JxIA6182hTJ4tI77eaOaOYBrNZec7wnbwV0oduuvKnp3ZBeB2JbOQ
- ZQ4+mwOSYkSy0pAEUKNS5Z3C6rm1uxrzngyr4RtNQ3gKE6K1wfC3QP3bK6VDAFlyP3cS
- GbaIBki9jbGM/qcXNSdBz28oTmVAVW9TlSZnKOH5cMKNONYNp9GPxd2oQyR7Wih1awwP
- EnwCFBdCLW8UMmftaCVWXKngh7YAeDoe01OuDAipDer/Qrv7P3tRHsqicp6YoHzjT7el
- WxGA==
+ d=gmail.com; s=20251104; t=1790515798; x=1791120598; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=JjWx7CdMGt/+JDfl7KX1wEPjdEp46bufMD+qtwVQ9jw=;
+ b=CYkR8ykrnTKYEA7ZoiHIeaOb4q8nVWYHEe+8gu+4xel1R74R/yoG6FsuxCpodd/G/S
+ BmdlJTFoLenvNA/5scvtW2VGrdtfs9w8pnQwGpUwRp9e4FD6G8HQxR+7sPVY0iJAcTlJ
+ XxkWcJKdikCFfHjDXzNFYdH8y9iZnst2BskFo5csNJcHAhf/sTJ+AUiL2V6jvNS+PBht
+ FisSBxMGfsE3Y2uaT6Zr5tUrRFqU6FYt1LeoL0oetsF2DAm31TF3feAyRyTyTaDXFmBD
+ eXMzdb0kZoyckDALKTl7SzOUuyKXHzlJ0SOfd57abYyfisciQ/zc4TnW4Gyxqljwu5v2
+ 8K4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790435798; x=1791040598;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=fqPVpQ+V1zmPGZnUc7U8magacWwW56Enx58NJaEH+aw=;
- b=wgkQgFv0qM4hovUnB6x9igEf+kFA8plsRrefQA/B0JuJVDsSB1oLIo4BHUXOjX3RS2
- 9Z1He/2AO5xFI15FhwCfmxk/qyve4ho5UEEldKuq3jeqlWICfcKfHIb3NK7nVQkJgnVB
- BKUKbhpsa4eR2ZJlLvR2l3eyN26URmsAtDL/tBLiIJ2vm2mLtA0KB2X10dA0PoJPyQQQ
- Fbhn5lh81W5n7HZ/LivqSMSlCByO4dfgNJyjk8qBixYHvl4dOm86mtpR0e/4BPkqudgP
- jiWci9C3JRpOy7QfamVHCyKsPwEwabZW5NKI7nx5DxoLUhNDbkJXqxfd/LnKMH+QKc06
- 3v1w==
-X-Gm-Message-State: AFuF++nbgwSSk0HTDqKG/r4K58TjpbtmBdlm7dIydxEiLIUE++w5+ov9
- lZY+CWb6fBMRcvz49HsdSXA/PQLZDxzo4WJB5vTFEhOf3qcwgneWssK8d0oLsg==
-X-Gm-Gg: AYBFou1dt3UNMHIJY5Bk2xs9KJxy3fRZ3f42XjzAbHlqyutgZWHC7A1stdqAD5p4Uqs
- NwxVVUEBpFdoyZz4a0TYh6h/zuyFA4PUGIdyFYliI8WJXtLpzazQ9MOmFZwUwQc4GMeMwtz8n1U
- qQ6FlITW5jqi1+dTxDpltDwzBEy4UfllDgfeKRrxVmvAnugmViUr57fE6xRFUsGEWG9+1GrIpnr
- M50x7K9CJsaG1P7cEMFgHJPaIQ/d6CL/yaUqGcQtWiv9VHlP2EqpJJj/SP7Aasc0/fGitMwxhDI
- aSJWJS+9HLqDu9JSXkRn4LUmgfjobQ9YOvaMKp2P2QTWyWVAKhClxw/i0fv6i6XxU8lM/4AdWeq
- WmQAYRpYIKo795RamivaSk3r/428vZJReaRb5hSNq2GU6xfiC7NCp3aGQbPrXgaOuVyPldtzt4W
- Kh2rSn4L1skJ9LBxWeYbZoHjuf+khazPmcUrO17UQS/N3cNAo7FxXdJ2+clePlsh+/oWJHX/xCW
- FVm/V8B3TimArciFDkRbQwJaCd+haiIksppJkba5VgnV8NbmWns/zLZr/S7xc0rQ6A=
-X-Received: by 2002:a2e:be11:0:b0:3a3:2ff2:f818 with SMTP id
- 38308e7fff4ca-3a63c30cc59mr25951381fa.13.1790435798233; 
- Sat, 26 Sep 2026 08:16:38 -0700 (PDT)
-Received: from imachy
- (2001-14ba-a00e-3d00-71de-74d9-568f-7b2c.rev.dnainternet.fi.
- [2001:14ba:a00e:3d00:71de:74d9:568f:7b2c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8e6b0795bsm1277051e87.64.2026.09.26.08.16.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Sep 2026 08:16:36 -0700 (PDT)
-From: Teemu Haila <teemu.haila@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- Teemu Haila <teemu.haila@gmail.com>
-Subject: [PATCH] drm/amdgpu: defer the probe on iMac20,
- 2 when init times out before a reset
-Date: Sat, 26 Sep 2026 18:16:19 +0300
-Message-ID: <20260926151619.85213-1-teemu.haila@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ d=1e100.net; s=20260707; t=1790515798; x=1791120598;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=JjWx7CdMGt/+JDfl7KX1wEPjdEp46bufMD+qtwVQ9jw=;
+ b=Cx5nQ/sbhUfkUqrY4WO2r3drK8loVcTL0nGMXue4PVeoSpKsoBzhCBiANf4QH4kEJa
+ jyeZcqAjxvdC19Ikqi2MshCaxpnLvcTxYyC4ihIatDZBsixLGCuQs+YkCugohp2o3EAC
+ TM1Ucnn5+DbEkOReOCqrBEJm+0AV3k2/c70i9pOTgQz4ipE1NE9xeSbJw1WrVtO81CGQ
+ zlfZPFnfHhu/5oYxULKPIZzcnkfZkOdEKZ4uN2a8fELuiuip8h9jSTkndBn7nbkig+AB
+ i9CfItA0WeDj44kNOIC/KcrMyZpxUvw+0ILsHc663W7XjYIlP6klufKa0nz5Vp9t1sq9
+ zhaA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByHixAKTK3d2xSr7UVbeK/8A1tU91AqkrAYDwdT4uM8iwkQwrllkn6gO/oAUi9C5JOW0m+5VA2e@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mly2uPIbrVpcPKbfEr7HnQpqOtql4ESR0oAUW5TwGkXF3oot3+
+ tmuJ2g+2+4j+7M5ZNLvKgdDps58n3PBC8adPcvr5rmf8aWlRM/dXScljLjP1tBvn07WrlWjkqKR
+ qTQxaK8DQeEOZKPA0LXzWOPKMlU1CA5A=
+X-Gm-Gg: AYBFou1wsg6V7ihZJAiVKQZkqiyBIGGUCOn2IQ5Egf0T5msPY7tQ7keP+Ps/mkHcks/
+ vAoe1WnP+EV4CcoaGyJ2rKXO7rc5PcHda19vDkrTDb0G1UdvLZxCM7wgjVR6+3ZdB4dNcS3HG9g
+ /H12DeEtv9HmVtCgaFz9X1j8kI0/RK1CNlaDPNuZCOra56eLNJRYKWu7qF7uX12sH8xSZma8DW7
+ MI6Ixya5MR0Alb7kKhMRk79ohFm8MiZajuGKOmw2RBdkR4WJP4S9ebGp22W88y3sOTA5d/j3B6A
+ Jd4pZySputLoxfeYAZWZiWq9Q5ODbUJRmOL9RexHhlbS8FhgefQFDQr9BkX0slaYfsTkgYTCjji
+ A+JTyYKTCtUkhQU1lkOpYvKFeNvLHh5yh76GstvRI5Q==
+X-Received: by 2002:a05:7022:29c:20b0:12d:c389:ae54 with SMTP id
+ a92af1059eb24-146cfdd1a65mr10144867c88.2.1790515798339; Sun, 27 Sep 2026
+ 06:29:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 27 Sep 2026 13:26:05 +0000
+References: <179039514312.597384.1659548947123427650@kernelci.org>
+ <8ad00f0f-d924-4b19-986c-8c17dcdade86@leemhuis.info>
+In-Reply-To: <8ad00f0f-d924-4b19-986c-8c17dcdade86@leemhuis.info>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Sun, 27 Sep 2026 09:29:46 -0400
+X-Gm-Features: AclHuK-3xaAgJQ-_J7Ya8xlZeXYTi28sJqJn3vWlASVO1_3rsBfjl4g86XVoWRU
+Message-ID: <CADnq5_O7R096UP9mF5RvGSzT+c2p2v2Dm8M243CLxXa=VZvRwQ@mail.gmail.com>
+Subject: Re: [REGRESSION] mainline/master: (build)stack frame size (3096)
+ exceeds limit (3072) in 'dml_core_mode_prog...
+To: Thorsten Leemhuis <regressions@leemhuis.info>,
+ "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>, Alex Hung <alex.hung@amd.com>
+Cc: kernelci@lists.linux.dev, kernelci-results@groups.io, 
+ regressions@lists.linux.dev, broonie@kernel.org, 
+ Alex Deucher <alexander.deucher@amd.com>, DRI <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,136 +112,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On iMac20,2 the Radeon Pro 5700 (1002:731b, Apple subsystem 106b:021a)
-fails to initialize on approximately half of all boots. The SMU replies
-to GetSmuVersion and GetDriverIfVersion, then does not reply to
-EnableAllSmuFeatures:
+On Sat, Sep 26, 2026 at 6:37=E2=80=AFAM Thorsten Leemhuis
+<regressions@leemhuis.info> wrote:
+>
+> On 9/26/26 05:59, KernelCI bot wrote:
+> > New build issue found on mainline/master:
+> >
+> > ---
+> > stack frame size (3096) exceeds limit (3072) in 'dml_core_mode_programm=
+ing' [-Werror,-Wframe-larger-than] in drivers/gpu/drm/amd/amdgpu/../display=
+/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.o (drivers/gpu/drm/amd/=
+amdgpu/../display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c) [lo=
+gspec:kbuild,kbuild.compiler.error]
+> > ---
+> >
+> > Log excerpt:
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+> > /tmp/kci/linux/drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/sr=
+c/dml2_core/dml2_core_dcn4_calcs.c:10513:13: error: stack frame size (3096)=
+ exceeds limit (3072) in 'dml_core_mode_programming' [-Werror,-Wframe-large=
+r-than]
+> >  10513 | static bool dml_core_mode_programming(struct dml2_core_calcs_m=
+ode_programming_ex *in_out_params)
+> >        |             ^
+> > 1 error generated.
+>
+> Hmmm, there are known "stack frame size [...] exceeds limit" problems in
+> -next that should soon be fixed there, see:
+> https://lore.kernel.org/all/CADnq5_MFMriR-b3eX0mTZShPDgUBgwoObgumEjJ9cJqd=
+mDM6xQ@mail.gmail.com/
+>
+> But this error is new -- and happens in mainline. Wondering if this is
+> caused by a fix for those problems.
 
-  amdgpu 0000:03:00.0: SMU: No response msg_reg: 6 resp_reg: 0
-  amdgpu 0000:03:00.0: Failed to enable requested dpm features!
-  amdgpu 0000:03:00.0: hw_init of IP block <smu> failed -62
++ Leo, Alex
 
-A second bind of the driver recovers the GPU each time (86 of 86
-failures). The failed probe has loaded the PSP. On the second probe,
-nv_need_reset_on_init() reads a sign of life in MP0_SMN_C2PMSG_81, so
-the driver does a mode1 reset and a vPOST before it initializes the IP
-blocks.
+Looks like some combination of compiler and/or config options explodes
+the stack even further than the recent changes handled.
 
-A reset on init is not possible on the first probe. If the driver tries
-a reset on init, psp_v11_0_mode1_reset() times out on
-MBOX_TOS_READY_FLAG, because Apple's firmware does not load the PSP, and
-the probe fails. The PSP is then still not loaded, and a later bind
-cannot recover the GPU.
+Alex
 
-Because of this, on this board, return -EPROBE_DEFER when
-amdgpu_device_ip_init() fails with -ETIME, this attempt did no reset on
-init, and the ASIC now reports that it needs one. The failed init
-unwinds as before. When the driver core probes the device again, the
-probe takes the existing reset-on-init path. The decision uses only
-local state: the retry has reset the ASIC, so it cannot defer again,
-and a first attempt that did not load the PSP does not defer.
-
-The retry is not done in amdgpu_pci_probe(). adev is devm allocated and
-amdgpu_device_init() is not re-entrant, so a retry there needs a second
-adev for the same pci_dev while the first is torn down.
-
-The driver core probes a deferred device again only when another driver
-binds, or when the deferred probe timeout expires. On this board other
-drivers bind during the SMU timeout, so the retry starts almost
-immediately. If no driver binds, the GPU stays deferred and the kernel
-writes no "probe failed" line. dev_err_probe() records the reason, and
-/sys/kernel/debug/devices_deferred shows it.
-
-Tested on iMac20,2 with v7.2.3, built against the 7.2.3 headers: 30 of
-30 boots initialized the GPU without user space intervention. The first
-probe timed out on 14 of them, and each deferred retry succeeded after
-a mode1 reset.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5726
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Teemu Haila <teemu.haila@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 44 ++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index fa67de6..600479d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3746,6 +3746,40 @@ amdgpu_device_should_register_switcheroo(struct amdgpu_device *adev, bool px)
- 		       apple_gmux_detect(NULL, NULL)));
- }
- 
-+/*
-+ * On some Apple boards, the first probe after the pre-OS driver times out in
-+ * SMU hw_init.  A reset on init recovers the ASIC, but the PSP does the reset,
-+ * and the PSP is not loaded on the first probe.  The failed probe loads the
-+ * PSP, so a retry resets the ASIC and succeeds.  Because of this, defer the
-+ * probe on these boards instead of failing it.
-+ */
-+struct amdgpu_probe_retry_quirk {
-+	u16 device;
-+	u16 subsystem_vendor;
-+	u16 subsystem_device;
-+	u8 revision;
-+};
-+
-+static const struct amdgpu_probe_retry_quirk amdgpu_probe_retry_quirks[] = {
-+	{ 0x731b, PCI_VENDOR_ID_APPLE, 0x021a, 0x40 }, /* Radeon Pro 5700, iMac20,2 */
-+};
-+
-+static bool amdgpu_device_probe_retry_quirk(struct amdgpu_device *adev)
-+{
-+	struct pci_dev *pdev = adev->pdev;
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(amdgpu_probe_retry_quirks); i++) {
-+		if (pdev->device == amdgpu_probe_retry_quirks[i].device &&
-+		    pdev->subsystem_vendor == amdgpu_probe_retry_quirks[i].subsystem_vendor &&
-+		    pdev->subsystem_device == amdgpu_probe_retry_quirks[i].subsystem_device &&
-+		    pdev->revision == amdgpu_probe_retry_quirks[i].revision)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- /**
-  * amdgpu_device_init - initialize the driver
-  *
-@@ -3761,6 +3795,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- {
- 	struct pci_dev *pdev = adev->pdev;
- 	int r, i;
-+	bool reset_on_init = false;
- 	bool px = false;
- 	u32 max_MBps;
- 	int tmp;
-@@ -4037,6 +4072,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	 *  E.g., driver was not cleanly unloaded previously, etc.
- 	 */
- 	if (!amdgpu_sriov_vf(adev) && amdgpu_asic_need_reset_on_init(adev)) {
-+		reset_on_init = true;
- 		if (adev->gmc.xgmi.num_physical_nodes) {
- 			dev_info(adev->dev, "Pending hive reset.\n");
- 			amdgpu_set_init_level(adev,
-@@ -4110,6 +4146,14 @@ fence_driver_init:
- 	if (r) {
- 		dev_err(adev->dev, "amdgpu_device_ip_init failed\n");
- 		amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_AMDGPU_INIT_FAIL, 0, 0);
-+		if (r == -ETIME && !reset_on_init &&
-+		    amdgpu_device_probe_retry_quirk(adev) &&
-+		    amdgpu_asic_need_reset_on_init(adev)) {
-+			dev_warn(adev->dev,
-+				 "init timed out before the ASIC could be reset, deferring the probe to retry with a reset on init\n");
-+			r = dev_err_probe(adev->dev, -EPROBE_DEFER,
-+					  "init timed out before the ASIC could be reset, deferring the probe to retry with a reset on init\n");
-+		}
- 		goto release_ras_con;
- 	}
- 
-
-base-commit: a24db07159cdd27eba171278366670e9a6c9643f
--- 
-2.55.0
-
+>
+> CCing Alex and Christian in case this is really something new they want
+> to know about.
+>
+> Ciao, Thorsten
+>
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+> >
+> > When fixing this issue, please attribute this report according to the
+> > patch submission rules:
+> >
+> > Reported-by: kernelci.org bot <bot@kernelci.org>
+> > Link: https://lore.kernel.org/all/179039514312.597384.16595489471234276=
+50@kernelci.org/
+> >
+> > For complete logs and details about the environment used, see the issue
+> > on the KernelCI dashboard:
+> >
+> > - dashboard: https://d.kernelci.org/i/maestro:24dc0670f5eb776888969170a=
+199e08b7f23f99b
+> > - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linu=
+x.git
+> > - commit HEAD:  6812ce4e4379ffc99c52401ec28f0d7ffbc36206
+> >
+> > # Builds where the incident occurred:
+> >
+> > ## x86_64_defconfig+allmodconfig on (x86_64):
+> > - compiler: clang-21
+> > - config: None
+> > - dashboard: https://d.kernelci.org/build/maestro:6ab70c1f5ec73975aade9=
+d6e
+> >
+> > #regzbot introduced: f14572c203d57492e1d4e5d7851a3b143e083b82..6812ce4e=
+4379ffc99c52401ec28f0d7ffbc36206
+> > #regzbot link: https://d.kernelci.org/i/maestro:24dc0670f5eb77688896917=
+0a199e08b7f23f99b
+> >
+> > #kernelci issue maestro:24dc0670f5eb776888969170a199e08b7f23f99b
+> >
+> > --
+> > This is an experimental report format. Please send feedback in!
+> > Talk to us at kernelci@lists.linux.dev
+> >
+> > Made with love by the KernelCI team - https://kernelci.org
+>
