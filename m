@@ -4,137 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19B25CA5FA2
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 15:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B2ADCA5FA5
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 16:03:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD67110E158;
-	Mon, 28 Sep 2026 15:32:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7A8E10EA98;
+	Mon, 28 Sep 2026 16:03:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HkSJy59J";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="GzWYHwuZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gpKYCzFj";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="clZzh1S1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="29KcpiFq";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013035.outbound.protection.outlook.com
- [40.93.196.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67CD410E158
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 15:32:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OHXABjvpMOyssgKL4RAjz/P+4ubOfOj4rKUSUYXOXgW77KBojINnkYMpT0r+lSQHWVsRrY3YzZgP+bwtCxoaWtzdj4SVzAzpgwr43F/IO7jQKnQ6MmHVF7qk5Pqxz2ReYejZsFnKfRBG6wh2EFIsHMWYYJE7AZ019Ir/YX6Ae7vUMHB2YkAMUdLQzsaeN++aTOskzt22db8SdKvLM0UeUD0g8tmcIWdwd+B8/ei38vVf6SYoY5aVHvTmWvPrciSb/USLSlNbrejHLF47m0tHEjg1ATfa7scdTaFIpjebFllnrCHLnRruHt0Yif6qAO611DDyz+yX6KYvyBxVFaJ/RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tkxTFNIi830q1uLVXgN31K2N3yNuCOpOXh3DR2aS6pU=;
- b=m433QFFJ9SyDTO58K4Ml5ObF5MVJmcViUg0zToFHjZps6VALYgySia9dtBCoxxIV8oyuWq+5yF2Pch2nYquwXi3JuNjSssggCJKUY5JLsdGam8bSvixLxsoHjuX5bfeYpqu58Xu8ooocY/e0d/zVaxMDHXzz/86U6/taYS2H4i48Mpk6IldbOIGkqYUMPDRGfxgblyU412TQgBlDzgMNInYKgikqYpmYJCpBHKpMZiD1p3TAUtfzISFrG3a0LBifAjO+41/n0BlDr0e/mXby+nUdtayovY95W8ahu4AupuotuFWnyZqCEec0jZ2fClJGqpoTQ1LryotWseFZcOYz0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tkxTFNIi830q1uLVXgN31K2N3yNuCOpOXh3DR2aS6pU=;
- b=HkSJy59JCiq4yvr04yVJ+VjD3kVyKWr9xVjyrD7s0hxTkGeUOD7Jyr41VS1c1ONgBGj5BETZMoCbWUyjsoKN/oKYhjpRbklCiR2JR6Zjd2M5q3m7MP7zzKeHiNip1MmON2PoXPmM+pxQjcU7bJDg8+QeyY7tQnyX3jjv0uhIt9E=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by SA1PR12MB7317.namprd12.prod.outlook.com (2603:10b6:806:2ba::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 15:32:44 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 15:32:44 +0000
-Message-ID: <34bcdf7a-82b1-43cb-8409-735ebef3fa97@amd.com>
-Date: Mon, 28 Sep 2026 10:32:41 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] iommu/amd: Add PerfOpt IOMMU performance
- optimization support
-Content-Language: en-US
-To: Jason Gunthorpe <jgg@ziepe.ca>, Mario Limonciello <superm1@gmail.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx@lists.freedesktop.org,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
- Jatin Kataria <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>
-References: <20260908041207.38113-1-mario.limonciello@amd.com>
- <20260908041207.38113-2-mario.limonciello@amd.com>
- <20260924225018.GB16465@ziepe.ca> <arYf3iJW7hfTua__@8bytes.org>
- <20260925122848.GD163130@ziepe.ca>
- <4560d7d3-4d67-457d-bcd7-2176bd850bd4@amd.com>
- <20260925223928.GE163130@ziepe.ca>
- <ab1cdd64-3390-480a-8d41-a942e8b2e120@gmail.com>
- <20260928120831.GF163130@ziepe.ca>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260928120831.GF163130@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0312.namprd03.prod.outlook.com
- (2603:10b6:610:118::21) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43DBC10EB0F;
+ Mon, 28 Sep 2026 16:03:24 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5140F1FB78;
+ Mon, 28 Sep 2026 16:03:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790611398; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=BorMpSb07x45a4x0pYrD3+JOrw0xFip8PbtVgE17uqU=;
+ b=GzWYHwuZrFSdBnGyMXfWo+iId539ubpy47VwCj23s03dYCAHS0ixgcZ9nsgiqdlZ8FZRbb
+ 9bEYX3qLngddqiFLD9a3bsqILg+TZY+gKdIp/RnrSFNBOizoGeOZVrUzOU529gO2KYF4WG
+ wUKRz0A4hKxkBMtuiLP7NExsMDhKrsw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790611398;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=BorMpSb07x45a4x0pYrD3+JOrw0xFip8PbtVgE17uqU=;
+ b=gpKYCzFjZUW6VM5ZC4mkBGG2d99RaoXuNZinLf+C0L2Y185WKkw9o4ufcbYNJJ8PTLgn5d
+ EothAXJmlQhmi3Dg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790611394; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=BorMpSb07x45a4x0pYrD3+JOrw0xFip8PbtVgE17uqU=;
+ b=clZzh1S1qSBG+MEiOs3ezQrHuH0x16OYxPYJB3ev1/U+ukTFmPBza/+tY3AFkwZ0OYgDeP
+ nVF0MAMRYJl1ocXMRMpn0XSUH2fE4bf8A0HuPk8g0qf4Ueosw/nYSsV0wO35bfz3F+A6Zz
+ np/rvkfCLtPdwTodY4XWbVleebPKd9o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790611394;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=BorMpSb07x45a4x0pYrD3+JOrw0xFip8PbtVgE17uqU=;
+ b=29KcpiFqYqFdjDFnuAzpULbmVbh2Nh7kOeuvr1HOpf7RejRPp8a8O7SWIyKB42Gfh1oVO8
+ c7/C4wOrV9iftvDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 81580133F3;
+ Mon, 28 Sep 2026 16:03:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id g4jXD8GPumrWYAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 16:03:13 +0000
+Message-ID: <3a146579-b9c6-4d4c-835b-89871b0dcd6a@suse.de>
+Date: Mon, 28 Sep 2026 18:03:12 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SA1PR12MB7317:EE_
-X-MS-Office365-Filtering-Correlation-Id: da1a1c91-4c45-4128-5d42-08df1d75bdd1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|7416014|10067099003|11063799006|4143699003|18002099003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info: DQum4l5JzKzBQx2nJ+2Mua7HyyoK2X2UPxWvkzZ4E/TqOyYsK5sXPQsimSE65jTrj3rMe2+AU5F7md6ZPeQyM3itFxxQ55gHY+do3qH0o6+oKCE1bGQceRXEWzqGBp91qkhEduRShWOZ4DEy2hv5x+Mi57pvC7ZfpS4uQW9R5z85N1dS3V2X1CimlfOBgcRDAPXSQSeZa0l5s6rMbYqE18357PrcaLvpIl9i9ZyKRCAuobo8KB2/nk9hjdbtVmK1eVUDG4yDkJeYPRXdBzBZNRTm8qPAvZZihL7GxYBVEqM31pAujhR7MWaYg1p0HMrN7ZgU3/AystweT8slDmXcRc1Vo5qkDnUXNiZ2GDAhuZE+cLTQYz6B7SqyzK0NXZryoWu79QbyEv8xVEw8ZNB5x9/YBfiYfnvx91GI40pqDc7cSD0OTLe6ifKw/QdksjtDjbBs9oO5k9W6l5bYCR+ck4uHJjZORU0klHNMwXQZz9xxH0PNPvsgd6rINZuHVXVeAPg86BnH7h3ingzAr17byYkSLNEhKcsPR+7gZ60sgZA71/E9AH/y+EdeMd7JwyFkrqUCzwS6QjdSQIX8LTEwIUNlzLDWBli/V2UWGzS5Slt+fCo9gSJ9okELRdk62MGV
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(10067099003)(11063799006)(4143699003)(18002099003)(56012099006)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bENWSm1VZE1FbUxHUzdWUm9OeTNMS2JlSTBZbllDL1RXU3M5REdCS3RuTWx5?=
- =?utf-8?B?b21nZ1pCTkNXQjRDRmxxNG9DdlB5Q2lUKzRIcWtkaDQvODkxWjdhcmlkam5U?=
- =?utf-8?B?djNWSHI5ZDVReUtuMnhsbnE3c0ZLZzVBb1NWU0RTSDJzTXdnTmQ0SGkvQ2Zy?=
- =?utf-8?B?RlVjM3dhdmJaeUxwemhPb216Vy8weG9RZzFTUUZOc1d6WFBIVXNPOHd1NTJK?=
- =?utf-8?B?anlYVHVqZHArZkF3UVd1WkdQcjdjM296NFRsZXVRVEltZERJanF4V2g5N0ha?=
- =?utf-8?B?R3VqdEtyOW1FZStnYVB5SGZJR0lwME5jMzJyalBVajNvVmJVR2dCMWFEeU5l?=
- =?utf-8?B?QWhwTk96YjFyalFON1J0dXI0QklacFJCUDdMWElYazVKMEkwL280OUhUTnRQ?=
- =?utf-8?B?bHZBRmI2aTl1emNnbkJONVoxVVJza0J6dENTWmVYNGE4OWlnV1dsa0JGUVlE?=
- =?utf-8?B?aWdFNzduZjRBYVpQeXVhcm1ZREtlVGQ3U1M2MkRLM1gveEw1ZTNscTBrK1JG?=
- =?utf-8?B?VHhnYlZjQnQ0VmhwWFFmd3hsOFhZQkJEZ1lab1FCNDRnOExSVU5XNVBCSnlZ?=
- =?utf-8?B?TTliZG5jTHBsMk1pVXFrRzdQaTBRTi8xWmQzZzBIc1lxMkt3OFJRV3lGaDVz?=
- =?utf-8?B?MkxlNlRFbDJ3Z0FTa1RDTEdsTWN1VlMvdzB3a1VKay9tRmZMZERJZWI5Y0l4?=
- =?utf-8?B?MktYcVNERHFGT1d5RWgrQ3dhdFE2NW1vaEQ3cExqODVKejhhVDJWWkIyUjF0?=
- =?utf-8?B?alhoUFlobWtUblk4ZHpPcDBSeFgvSzg4SS90K0krNnR4QTFQbmtxUk5PTVBY?=
- =?utf-8?B?VHNFblhNUUxFRUhkc3NYY0NOUVFoU2lSU1doM3JHeVZ5anZWcmtBRUdxYk1x?=
- =?utf-8?B?Y1lXVkMwRWJxdlQ5c3JlTitpMzdObTN4V1lzc2ZzbjdTYU1CSEQ3d0tUZE5C?=
- =?utf-8?B?cFZZU1FsMS8zOVdVRTlWb1JMWmhYbmwrM2NOcXVzZmRsbC96T3daSzNuZnVW?=
- =?utf-8?B?eFNXT2ZVamRrTnBaWlNualBpK3RlYVBtK0QxTDI3alBLQndhZUx2WXJnNzBF?=
- =?utf-8?B?WHY1aTVvVVpubjZKTVF0MWxqazQ3c1dvTjlxUHYrY3M5b29Fd0IyMmdxRFp6?=
- =?utf-8?B?YkxvRFpLYVVhZzN3Nlk0ZXFoeVRrWi9XUDh1NGxKelJKMkRScTR0M0theWhQ?=
- =?utf-8?B?dERmVkdpS040NVIvOE0zMkhOWUw3NkQ5VlZqeFh2amhxUzhYZm42RWYzV2xM?=
- =?utf-8?B?QkFsQWdRSm5oV1VZSEF6QTV1VWQ4MG9HeUdvZ0pkU29VTFZJTXI1MkxBamQ5?=
- =?utf-8?B?MExXSC9mTWludTJBUXhSL2tnSXpNQ0Zob05rdXBRdGp5a3YyTStvRE1yMFFT?=
- =?utf-8?B?dmN0U2pyY1hPSndvS04xRDV1WFdkT0E1d204aldpZE02S2NHMlIydnhpQ1ZP?=
- =?utf-8?B?QzBialZNZ3p3d1V6NHJEcGViOTNVZEhPdXozRHdsa3l3eUpXNmUzZ0RpSHBk?=
- =?utf-8?B?NTljYVA5dldsK2NTR1ZhSmhVbnRmb2hOVmZJYTdFLzB4NURmQWxNeUNOUkdn?=
- =?utf-8?B?V0EvVE1PRHZRRFBJc3JTTzNUMVhVVzZZTzhlcFg5MDJvU0ZJa2pOQ1lEZHcy?=
- =?utf-8?B?RnFibXZobS9kc1BtOWNIZG5Ic0p1eEdjSGlLaG9jbURwSmpPcTM4cDNSeFZQ?=
- =?utf-8?B?UDVIbEdoc1M3VGxWWmdNKzRZU21QbnZRb2p1NjFtM2k5M0FoNWFJbUdrRmRy?=
- =?utf-8?B?VWpwcDlGekRmdUxFNHhUMVpVYy80RE1hZGpzQ2QzbTRtMzM5M3NhbjJxYXla?=
- =?utf-8?B?MkNaOUlnQ0gvc0xXM0UwaXI4RERQM1ZwRUNzYmttWFNJYlhYNDJTaml5L1VR?=
- =?utf-8?B?WnlpeXBGV081WEtVVEFvK3FHSXRhNENlYldkclM3VHN4b3U1d1R5L01kdUNu?=
- =?utf-8?B?Y0o4bjNHWElKL0I0UFdCR25OdC80a05FS1FjV04zclhzKzFEdzlCbGxKV0hN?=
- =?utf-8?B?THdGa2JpaFU4SWNDcWhLZ09HRTZYcTFmcXBPaVd4c291Ym1kR2RVdkdwS3NK?=
- =?utf-8?B?UkUyOXFyRVNhODRPa0pNaXRzWUNMWnQxTHgxTHpIS01zTkNNZlY4QkovTWdu?=
- =?utf-8?B?U1RNMzl3VTZ4ZjFHdWU0L2QvV3JaMzhpaUhXRHU0TFhlTVR3MVhtOWVLMnNp?=
- =?utf-8?B?R0diWUhzVUhQcFdJc0tQNVAzSmQxY00yZkd6aEhONVFwaWtRUEpGamMya1A5?=
- =?utf-8?B?M0NRT21raGUzQ09nanBNT0N0N2g4TUpSYWQyenQ0ZU5WRHZBR1ZCWlRmRDZR?=
- =?utf-8?Q?7Zwira5YKwdbpo0Heb?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da1a1c91-4c45-4128-5d42-08df1d75bdd1
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 15:32:44.4753 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: amJGEmKiCKyuIMe1SUJ9oh14jln0YDL2U6yNqV8d+8zV0QvyRRsytukdFR//gKuIlQU/86ymWiHb49F6yRSqHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7317
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/7] drm: Move drm_timeout_abs_to_jiffies() to
+ drm_timeout.c
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+ <20260915-drm-timeout-helpers-v3-1-f2ae987d861f@igalia.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260915-drm-timeout-helpers-v3-1-f2ae987d861f@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
+ RCPT_COUNT_TWELVE(0.00)[19]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, suse.com:url,
+ igalia.com:email, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,74 +150,310 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi
+
+Am 15.09.26 um 21:42 schrieb Maíra Canal:
+> drm_timeout_abs_to_jiffies() began as a static helper inside the syncobj
+> wait implementation and was later exported in place, so that it could be
+> called by multiple drivers (e.g. panfrost, lima, tegra and accel
+> drivers). All of them reach it through drm_utils.h.
+>
+> Give it a file of its own, so that timeout conversion helpers have a
+> home, which will be useful when we add new timeout handlers. Also create
+> a drm_timeout.h header to host all timeout-related helpers.
+>
+> No functional change.
+>
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+But see my comment below.
 
 
-On 9/28/26 07:08, Jason Gunthorpe wrote:
-> On Fri, Sep 25, 2026 at 07:33:08PM -0500, Mario Limonciello wrote:
->>
->>
->> On 9/25/26 5:39 PM, Jason Gunthorpe wrote:
->>> On Fri, Sep 25, 2026 at 08:11:41AM -0500, Mario Limonciello wrote:
->>>>
->>>>
->>>> On 9/25/26 07:28, Jason Gunthorpe wrote:
->>>>> On Fri, Sep 25, 2026 at 09:20:02AM +0200, Joerg Roedel wrote:
->>>>>> On Thu, Sep 24, 2026 at 07:50:18PM -0300, Jason Gunthorpe wrote:
->>>>>>> Why does the GPU driver have to request this? Why can't the iommu
->>>>>>> driver know that this is a special device that can use this magic fast
->>>>>>> path and then auto set it when identity is asked for?
->>>>>>
->>>>>> This is a layering violation either way. Either the IOMMU driver needs to poke
->>>>>> into device details and their relations or the device driver needs to poke into
->>>>>> IOMMU details.
->>>>>
->>>>> There are no device details, this is just a module option in the gpu
->>>>> driver.
->>>>
->>>> Well the GPU driver has knowledge whether it's a GPU inside of an APU to
->>>> decide if it's valid.  That information is part of the discovery table
->>>> setup.
->>>
->>> Where was that in patch 2?
->>
->> amdgpu_device_use_perfopt()
-> 
-> Ah, sneaky, that looks like it just decodes from a a giant list of PCI IDs
-
-Actually; no.  amdgpu has migrated away from PCI IDs and probes based on 
-the "ATI vendor" + "display class" instead.  As part of the probe 
-sequence there is something called an IP discovery table pull from the 
-platform that identifies all IP blocks in the hardware.
-
-This IP discovery table will indicate graphics IP and that is mapped to 
-relevant driver code.  So for example GC 11.5.1 is what you find in a 
-Strix Halo APU.  If a future APU had exactly the same graphics IP but a 
-different display IP it would still be GC 11.5.1.
-
-This design was implemented about 4 years ago, and all SoCs (APU, dGPU 
-and accelerator) since then use it.
+> ---
+>   drivers/accel/ethosu/ethosu_drv.c       |  2 +-
+>   drivers/accel/ivpu/ivpu_gem.c           |  2 +-
+>   drivers/accel/rocket/rocket_gem.c       |  2 +-
+>   drivers/gpu/drm/Makefile                |  1 +
+>   drivers/gpu/drm/drm_syncobj.c           | 35 +----------------------
+>   drivers/gpu/drm/drm_timeout.c           | 50 +++++++++++++++++++++++++++++++++
+>   drivers/gpu/drm/lima/lima_gem.c         |  2 +-
+>   drivers/gpu/drm/panfrost/panfrost_drv.c |  2 +-
+>   drivers/gpu/drm/tegra/uapi.c            |  2 +-
+>   drivers/gpu/drm/xe/xe_wait_user_fence.c |  2 +-
+>   include/drm/drm_timeout.h               | 16 +++++++++++
+>   include/drm/drm_utils.h                 |  2 --
+>   12 files changed, 75 insertions(+), 43 deletions(-)
+>
+> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
+> index 1cf284e7f300..1ac08f09fde8 100644
+> --- a/drivers/accel/ethosu/ethosu_drv.c
+> +++ b/drivers/accel/ethosu/ethosu_drv.c
+> @@ -12,10 +12,10 @@
 >   
->>> The right way for this to work is to quirk it through the iommu driver
->>> so it can choose the fast mode, and not involve the GPU driver at
->>> all. Like we've done for every other GPU weirdness. And AMD should be
->>> making this work better by providing ACPI support so the iommu driver
->>> can understand how it should work without inspecting PCI IDs.
->>
->> There is a heuristic that Vasant added recently that we detect APU from the
->> IOMMU driver.  We might be able to use that for now.
->>
->> I'll take a look at what an incremental patch looks like on top of
->> iommu/next that I think reworks all these paths the way you want.  I should
->> be able to post something next week.
-> 
-> ACPI is the right answer to these kinds of problems.
-> 
-> Jason
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_ioctl.h>
+> -#include <drm/drm_utils.h>
+>   #include <drm/drm_gem.h>
+>   #include <drm/drm_accel.h>
+>   #include <drm/drm_managed.h>
+> +#include <drm/drm_timeout.h>
+>   #include <drm/ethosu_accel.h>
+>   
+>   #include "ethosu_drv.h"
+> diff --git a/drivers/accel/ivpu/ivpu_gem.c b/drivers/accel/ivpu/ivpu_gem.c
+> index 4f2005a8d496..563eeffb5736 100644
+> --- a/drivers/accel/ivpu/ivpu_gem.c
+> +++ b/drivers/accel/ivpu/ivpu_gem.c
+> @@ -12,7 +12,7 @@
+>   #include <drm/drm_cache.h>
+>   #include <drm/drm_debugfs.h>
+>   #include <drm/drm_file.h>
+> -#include <drm/drm_utils.h>
+> +#include <drm/drm_timeout.h>
+>   
+>   #include "ivpu_drv.h"
+>   #include "ivpu_fw.h"
+> diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
+> index a5fffa51ff35..d981c6a93ff1 100644
+> --- a/drivers/accel/rocket/rocket_gem.c
+> +++ b/drivers/accel/rocket/rocket_gem.c
+> @@ -3,7 +3,7 @@
+>   
+>   #include <drm/drm_device.h>
+>   #include <drm/drm_print.h>
+> -#include <drm/drm_utils.h>
+> +#include <drm/drm_timeout.h>
+>   #include <drm/rocket_accel.h>
+>   #include <linux/dma-mapping.h>
+>   #include <linux/iommu.h>
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index e635fcffd379..7283cf87880f 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -68,6 +68,7 @@ drm-y := \
+>   	drm_rect.o \
+>   	drm_syncobj.o \
+>   	drm_sysfs.o \
+> +	drm_timeout.o \
+>   	drm_trace_points.o \
+>   	drm_vblank.o \
+>   	drm_vblank_work.o \
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index c23a5de27eff..f1d4da168545 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -208,7 +208,7 @@
+>   #include <drm/drm_gem.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_syncobj.h>
+> -#include <drm/drm_utils.h>
+> +#include <drm/drm_timeout.h>
+>   
+>   #include "drm_internal.h"
+>   
+> @@ -1193,39 +1193,6 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>   	return timeout;
+>   }
+>   
+> -/**
+> - * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> - *
+> - * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> - *
+> - * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+> - */
+> -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
 
-I'll discuss this with architects for the future programs.
+As Jani noted, the types seem to be off here. The timeout should likely 
+by unsigned. Jiffies are counted in u64 and the helper should return it 
+as such.
 
-For now as promissed I've worked out a patch [1] that keeps it all in 
-iommu/amd per your suggestions.  It is using the existing APU heuristic.
+If you have the time, another such patch on top would be appreciated.
 
-https://lore.kernel.org/linux-iommu/20260928045050.955165-1-superm1@kernel.org/ 
-[1]
+Best regards
+Thomas
+
+
+> -{
+> -	ktime_t abs_timeout, now;
+> -	u64 timeout_ns, timeout_jiffies64;
+> -
+> -	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> -	if (timeout_nsec == 0)
+> -		return 0;
+> -
+> -	abs_timeout = ns_to_ktime(timeout_nsec);
+> -	now = ktime_get();
+> -
+> -	if (!ktime_after(abs_timeout, now))
+> -		return 0;
+> -
+> -	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+> -
+> -	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+> -	/*  clamp timeout to avoid infinite timeout */
+> -	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+> -		return MAX_SCHEDULE_TIMEOUT - 1;
+> -
+> -	return timeout_jiffies64 + 1;
+> -}
+> -EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> -
+>   static int drm_syncobj_array_wait(struct drm_device *dev,
+>   				  struct drm_file *file_private,
+>   				  struct drm_syncobj_wait *wait,
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> new file mode 100644
+> index 000000000000..35e10293e0a1
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_timeout.c
+> @@ -0,0 +1,50 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Timeout conversion helpers for wait ioctls.
+> + *
+> + * Copyright 2017 Red Hat
+> + * Copyright 2016 Advanced Micro Devices, Inc.
+> + */
+> +
+> +#include <linux/export.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/ktime.h>
+> +#include <linux/sched.h>
+> +
+> +#include <drm/drm_timeout.h>
+> +
+> +/**
+> + * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> + * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> + *
+> + * Calculate the timeout in jiffies from an absolute time in ns. The result is
+> + * clamped to MAX_SCHEDULE_TIMEOUT - 1 to avoid infinite timeouts.
+> + *
+> + * Returns:
+> + * The number of jiffies until the given timeout, or the upper limit.
+> + */
+> +signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+> +{
+> +	ktime_t abs_timeout, now;
+> +	u64 timeout_ns, timeout_jiffies64;
+> +
+> +	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> +	if (timeout_nsec == 0)
+> +		return 0;
+> +
+> +	abs_timeout = ns_to_ktime(timeout_nsec);
+> +	now = ktime_get();
+> +
+> +	if (!ktime_after(abs_timeout, now))
+> +		return 0;
+> +
+> +	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+> +
+> +	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+> +	/*  clamp timeout to avoid infinite timeout */
+> +	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+> +		return MAX_SCHEDULE_TIMEOUT - 1;
+> +
+> +	return timeout_jiffies64 + 1;
+> +}
+> +EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> diff --git a/drivers/gpu/drm/lima/lima_gem.c b/drivers/gpu/drm/lima/lima_gem.c
+> index 0c73860bb501..97e1dc541c2e 100644
+> --- a/drivers/gpu/drm/lima/lima_gem.c
+> +++ b/drivers/gpu/drm/lima/lima_gem.c
+> @@ -10,7 +10,7 @@
+>   
+>   #include <drm/drm_file.h>
+>   #include <drm/drm_syncobj.h>
+> -#include <drm/drm_utils.h>
+> +#include <drm/drm_timeout.h>
+>   
+>   #include <drm/lima_drm.h>
+>   
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> index 96a66d673ba6..70c05210ea84 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -18,7 +18,7 @@
+>   #include <drm/drm_ioctl.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_syncobj.h>
+> -#include <drm/drm_utils.h>
+> +#include <drm/drm_timeout.h>
+>   
+>   #include "panfrost_device.h"
+>   #include "panfrost_drv.h"
+> diff --git a/drivers/gpu/drm/tegra/uapi.c b/drivers/gpu/drm/tegra/uapi.c
+> index c0ac6b45f2d7..bee310b07eb0 100644
+> --- a/drivers/gpu/drm/tegra/uapi.c
+> +++ b/drivers/gpu/drm/tegra/uapi.c
+> @@ -7,7 +7,7 @@
+>   
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_file.h>
+> -#include <drm/drm_utils.h>
+> +#include <drm/drm_timeout.h>
+>   
+>   #include "drm.h"
+>   #include "uapi.h"
+> diff --git a/drivers/gpu/drm/xe/xe_wait_user_fence.c b/drivers/gpu/drm/xe/xe_wait_user_fence.c
+> index 51eb940ceb4e..e241f3ec3547 100644
+> --- a/drivers/gpu/drm/xe/xe_wait_user_fence.c
+> +++ b/drivers/gpu/drm/xe/xe_wait_user_fence.c
+> @@ -7,7 +7,7 @@
+>   
+>   #include <drm/drm_device.h>
+>   #include <drm/drm_file.h>
+> -#include <drm/drm_utils.h>
+> +#include <drm/drm_timeout.h>
+>   #include <uapi/drm/xe_drm.h>
+>   
+>   #include "xe_device.h"
+> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
+> new file mode 100644
+> index 000000000000..cd9621c52062
+> --- /dev/null
+> +++ b/include/drm/drm_timeout.h
+> @@ -0,0 +1,16 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Function prototypes for timeout conversion helpers for wait ioctls.
+> + *
+> + * Copyright 2017 Red Hat
+> + * Copyright 2016 Advanced Micro Devices, Inc.
+> + */
+> +
+> +#ifndef __DRM_TIMEOUT_H__
+> +#define __DRM_TIMEOUT_H__
+> +
+> +#include <linux/types.h>
+> +
+> +signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
+> +
+> +#endif
+> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+> index 7e077484c5bb..c61dee76451c 100644
+> --- a/include/drm/drm_utils.h
+> +++ b/include/drm/drm_utils.h
+> @@ -25,6 +25,4 @@ struct drm_panel_backlight_quirk {
+>   const struct drm_panel_backlight_quirk *
+>   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
+>   
+> -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+> -
+>   #endif
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
