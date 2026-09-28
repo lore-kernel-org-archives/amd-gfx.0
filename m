@@ -4,83 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E1B1C9832A
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93BADCA5FA7
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0F3710ED7C;
-	Tue, 29 Sep 2026 08:23:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2681110ED7B;
+	Tue, 29 Sep 2026 08:23:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="DgHxUQxO";
+	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="vksL4Kmk";
 	dkim-atps=neutral
-Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com
- [74.125.230.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C344910E93E
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 17:27:44 +0000 (UTC)
-Received: by mail-qv2-f41.google.com with SMTP id
- 6a1803df08f44-91784fbb60dso885426d6.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 10:27:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1790616463; x=1791221263; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Snkhkpv5tfQYCAgHHo/k8kMLGqfuMfM+gSc1uL+OvlM=;
- b=DgHxUQxOIHzuDvEv4NJMXoEnhLb+Wq/hFx5atqWJL9AMj9QsmBb3ePlc1Y5g3j6hAN
- ELzAuqGne6RJS0t/uZFUH/NIzi8TGhnWPLvOGQVCNnw1RnH3UA+Tnl8EujDO+w5usayq
- 0jJk8e4+TP8dqxBabIAguXpVPtRCEYRvnrVuiXR+XPtOV+/+lpisWMEh/ebosj0fPAyH
- mZk4KuaGebQNSvYc/VpdTwM6FzAqzJXIvaYQLBpo0bVmGeLXIEGndRF9xp0LlTAStoEE
- cVfed+DuAmSqkiYiswUAG1Xuoz8csj5/VxOVSRrXdwR/h443+4G9Yn0c4Ktb1EO+fU0n
- 4PoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790616463; x=1791221263;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Snkhkpv5tfQYCAgHHo/k8kMLGqfuMfM+gSc1uL+OvlM=;
- b=dGEfJX//1QSMMZHRKjyNax+5tQhNvJ6WiRz7q7o1pqVRkLiZrWYSz2eWezs2/zS22V
- JwA6w0DCE9sBhQLp4LGsTtsV6Mb5pbXoNlrqn9saKSJItvJxHtMm/zhxpGfincFu13Fx
- Qro08PMnf+do3LM+vbg29dSf7cSZ+PcVtUcypeO5zB9Dr4AsFH1NQGVqWoXxVEz8RdJY
- Mq7F+zkJQIO2+Dy3UzyixnqkN5AGrMJr3H5tPsMpGMOqtkeT/qjOXkng+Ze5h/A0uIH5
- UGPtEOotXaT65ZGpX6N3XnhOlJTicqLoJ1pDiPrm33TBR+MARJNuQpJWjPzhQIwFXFO3
- 9l1g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwCRjz34b0QIrKzYv6GopdurFnivOZ5cUwlPC17JA+04oxI8JRzTcCMUvWstZTEIFhprgWLp6Wp@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l1n+BoCDQhVn1Y0P2TgX3Arlq8CqJo03z7qcGH0XHnWw7rSOHD
- Hrxc4PtLU4wzUSnFgIlcaY61BGZVeZ2cZryk5oBHUkqY0EKHciKwLSg1MclIoEf0ZHU=
-X-Gm-Gg: AYBFou03FAECtU2Dy+0xOhgxIwvn3MegWEhORwhYnHur4qqrUAWUlug4UZqrwZt3HKf
- CExF3JJxYGrKjWejzluQXI9+vvWf81iDeYKezhDHowQFBZ2lHZ6LPO2R+5VLhcPcco/E+cDuH7r
- sXj8NQamTyWIItvVTqlOJ1so9JcDN3WWftaFNsvesB9DSYednZxIqInvTbgCOkPwgrhu5+6uHXj
- erFJIRmWBtq70RteX+r3BzzZmFFvBI/WpOfmxTEyBerZG6nSKQoRahhkZEDYxVR3SLo/Cm2Gxqj
- flomrfnDQI3QePRUThltU4QJYH0GCRDidBm0m6RYJDFzvEycjxZPoG3p4cqZKxFd74iT3cWwhcw
- yGy4jrvcrqehMasgQZvvtd5fcMEFWaEPXWo3ImKPxXBLXlIW1BEUHaursZaeMgcPHTnL6pnkH4X
- +o/Ht1o9wAOu2Sck2KSr3VYRMBjo8Nf36fw5JEXwTWIbz9
-X-Received: by 2002:a05:6214:ca2:b0:915:e892:d932 with SMTP id
- 6a1803df08f44-915e892f966mr81063516d6.3.1790616463265; 
- Mon, 28 Sep 2026 10:27:43 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-9144b6335f6sm57161666d6.11.2026.09.28.10.27.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2026 10:27:42 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1xBF8f-00000007NXN-3v3H;
- Mon, 28 Sep 2026 14:27:41 -0300
-Date: Mon, 28 Sep 2026 14:27:41 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>
-Subject: Re: [PATCH] iommu/amd: Make PerfOpt compulsory for APUs in identity
-Message-ID: <20260928172741.GJ163130@ziepe.ca>
-References: <20260928045050.955165-1-superm1@kernel.org>
+X-Greylist: delayed 2450 seconds by postgrey-1.36 at gabe;
+ Mon, 28 Sep 2026 18:07:04 UTC
+Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA6D10E95E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 18:07:04 +0000 (UTC)
+Received: from [192.168.10.153] (p865013-ipoe.ipoe.ocn.ne.jp [153.242.222.12])
+ (authenticated bits=0)
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68SHPi5M004380
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Tue, 29 Sep 2026 02:25:44 +0900 (JST)
+ (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=rvIrxGw3Y3qe2djohG1u2oQ0KR6/RuYYbn73hE+XyXI=; 
+ c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+ h=From:Message-ID:To:Subject:Date;
+ s=rs20250326; t=1790616344; v=1;
+ b=vksL4Kmk3TJCH7made6gj3jSvb3jdJENbOR5pWR+szdAzcEDQaLPXHjNm6rJaA0K
+ HtfOEQYrCXaAPV2TdcOHQooJxvX8xUV0MKAS/Rz+KZ+Yel/5oV9QwUcRZRzPMsHx
+ cpuVJLKYh89tOUAE6SFHEFqFS72TQY5RNaX/elb5rsWMKYrZBfJmJtBwMUgTmWkq
+ Hj2dEBHD08Ar5Md0q++qsPOyfYRJzQBCSG0AMmGhFBpc14VnRKsVZbCbiAc30y0p
+ NhD+64BLr1gStTdBXBVAKu8/GdKtK8RrMMy/uxwbXZKrn6dk0wKTOdzzJVPsWYTb
+ KYrEuqkrhchwURlMmW0mow==
+Message-ID: <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
+Date: Tue, 29 Sep 2026 02:25:43 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928045050.955165-1-superm1@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: "Huang, Honglei" <honghuan@amd.com>, dmitry.osipenko@collabora.com,
+ airlied@redhat.com, kraxel@redhat.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+ <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
+Content-Language: en-US
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 29 Sep 2026 08:23:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,70 +68,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Sep 27, 2026 at 11:50:50PM -0500, Mario Limonciello (AMD) wrote:
-> PerfOpt is only a feature usable by integrated GPUs and only in identity
-> mode.  Instead of leaving a policy knob in amdgpu, just turn it on when
-> an integrated GPU in an APU is in identity. Re-use the heuristic in
-> amd_iommu_def_domain_type() to make this decision.
+On 2026/09/29 1:22, Huang, Honglei wrote:
 > 
-> This drops quite a bit of compatibility glue.  There was a refcounting
-> system, exported symbols, and device attach/detach logic.  By just setting
-> it immediately it's a lot more straightforward.
 > 
-> Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  50 -----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 --
->  drivers/iommu/amd/amd_iommu.h              |   2 +-
->  drivers/iommu/amd/amd_iommu_types.h        |   3 -
->  drivers/iommu/amd/init.c                   |   3 +-
->  drivers/iommu/amd/iommu.c                  | 234 ++++-----------------
->  include/linux/amd-iommu.h                  |  11 -
->  8 files changed, 48 insertions(+), 268 deletions(-)
+> On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
+>> On 2026/09/24 18:55, Honglei Huang wrote:
+>>> Add userptr blob objects so the guest kernel can pin an existing
+>>> userspace mapping and advertise it as CREATE_BLOB backing entries.
+>>>
+>>> - New virtio_gpu_object_userptr type for userptr resources
+>>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
+>>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
+>>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
+>>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
+>>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
+>>> - Mark writable pages dirty when unpinning
+>>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
+>>>    cleanup_object() on the unref response or on create failure
+>>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
+>>> - Reject unaligned or overflowing userptr ranges at create time
+>>> - Disallow PRIME export of userptr objects
+>>> - Save CREATE_BLOB params and restore userptr resources after
+>>>    hibernation without using the shmem restore path
+>>>
+>>> The hibernation restore path maps with the same attrs and direction
+>>> used at create time, as documented next to the call. Like shmem
+>>> blobs, the DMA API can still bounce through a buffer there. This
+>>> design only avoids a second guest side shmem allocation and memcpy,
+>>> nothing more.
+>>
+>> I don't see the restore path is documented though this says 
+>> "documented next to the call".
+> 
+> Will fix in next version
+> 
+>>
+>>>
+> ...
+>>> +        goto err_cleanup;
+>>> +    }
+>>> +
+>>> +    userptr->sgt = sgt;
+>>> +
+>>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
+>>> +        enum dma_data_direction dir =
+>>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
+>>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
+>>> +
+>>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
+>>> +                      dir, 0);
+>>
+>> I checked the ROCm code and documentation, and I do not see how this 
+>> mapping satisfies the HIP coherence contract when bounce buffers or 
+>> explicit DMA cache maintenance are required.
+>>
+>> HIP distinguishes two coherence models:
+>>
+>>  > Coarse-grained coherence: The memory is considered up-to-date only
+>>  > after synchronization performed using hipDeviceSynchronize(),
+>>  > hipStreamSynchronize(), or any blocking operation that acts on the
+>>  > null stream such as hipMemcpy(). To avoid the cache from being
+>>  > accessed by a part of the system while simultaneously being written by
+>>  > another, the memory is made visible only after the caches have been
+>>  > flushed.
+>>  >
+>>  > Fine-grained coherence: The memory is coherent even while being
+>>  > modified by a part of the system. Fine-grained coherence ensures that
+>>  > up-to-date data is visible to others regardless of kernel boundaries.
+>>  > This can be useful if both host and device operate on the same data.
+>>
+>> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
+>> hip_runtime_api/memory_management/coherence_control.html
+>>
+>> Fine-grained access requires coherence throughout execution; copying
+>> between the original pages and a bounce buffer only at kernel boundaries
+>> would not suffice. Coarse-grained access could support such copies, but
+>> they must occur at the required synchronization points. I found no code
+>> that synchronizes this DMA mapping at those points.
+>>
+> 
+> Whether dma_map_sgtable() bounces is decided by the platform's IOMMU/ 
+> SWIOTLB behind the device, not by we request. attrs=0 here just matches 
+> the existing shmem blob path, and is exactly what native (non- 
+> virtualized) ROCm's own userptr support does too:
+> 
+> // drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
+> kfd_mem_dmamap_userptr()
+> ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
+> 
+> And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
+> property, it is a GPU VM/cache thing. In upstream KFD it's implemented 
+> as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the SNOOPED bit), 
+> set by whichever driver programs the real GPU's page tables for this 
+> memory:
+> 
+> // drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
+> mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
+> pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+> 
+> I really want to disable the bounce buffers in DMA, but it is a platform 
+> behaviour, can not disable it in this layer. And in XEN, the dmapping 
+> for it is another form of iovector/simple sgtable. And if use the 
+> virtio-iommu or somthing else, the efficiency and the complexity of 
+> driver integration are both lower than using iovector/sgtable directly.
+> And for how to handle the DMA thing for userptr, since we have so many 
+> concern about it, maybe we can drop this part in next version. But we 
+> may have the AI review warn/error.
 
-Diffing across the originals to net them out it is much smaller:
+Documentation/core-api/dma-attributes.rst says:
 
- 5 files changed, 122 insertions(+), 1 deletion(-)
+ > DMA_ATTR_REQUIRE_COHERENT
+ > -------------------------
+ >
+ > DMA mapping requests with the DMA_ATTR_REQUIRE_COHERENT fail on any
+ > system where SWIOTLB or cache management is required. This should only
+ > be used to support uAPI designs that require continuous HW DMA
+ > coherence with userspace processes, for example RDMA and DRM. At a
+ > minimum the memory being mapped must be userspace memory from
+ > pin_user_pages() or similar.
+ >
+ > Drivers should consider using dma_mmap_pages() instead of this
+ > interface when building their uAPIs, when possible.
+ >
+ > It must never be used in an in-kernel driver that only works with
+ > kernel memory.
 
-And I think this is much better , but I have a few questions
+This is exactly our use case. Although the platform decides whether a
+mapping requires bouncing or cache maintenance, 
+DMA_ATTR_REQUIRE_COHERENT lets the driver reject mappings that cannot 
+meet this requirement.
 
-Why is this setting and clearing perf_opt in dev_data?
+The shmem path serves a different use case, but amdkfd is a relevant 
+comparison. HIP's coherence guarantees depend on both the GPU VM/cache 
+configuration and the DMA mapping established by the kernel driver. GPU 
+page table attributes alone cannot make a bounce buffer coherent with 
+the original userspace pages.
 
-I expect probe to make a determination if this device has the special
-path and if so then there should be a permanent flag in the dev_data.
+The amdkfd mapping you cited therefore warrants discussion with its
+developers as well. I have CCed the maintainer.
 
-Based on that flag amd_iommu_def_domain_type() can return identity to
-override things
+Regards,
+Akihiko Odaki
 
-When the driver does an identity attachment it would enable the
-perfopt and write out the right DTE for it.
+> 
+> Regards,
+> Honglei
+> 
+>> Regards,
+>> Akihiko Odaki
+>>
+>>> +        if (ret)
+>>> +            goto err_cleanup;
+>>> +
+>>> +        userptr->dma_dir = dir;
+>>> +        userptr->dma_mapped = true;
+>>> +    }
+>>> +
+>>> +    ret = virtio_gpu_userptr_get_entries(vgdev, userptr, &ents, 
+>>> &nents);
+>>> +    if (ret)
+>>> +        goto err_cleanup;
+>>> +
+>>> +    virtio_gpu_cmd_resource_create_blob(vgdev, &userptr->base, 
+>>> params, ents,
+>>> +                        nents);
+>>> +
+>>> +    userptr->base.params = *params;
+>>> +    virtio_gpu_add_object_to_restore_list(vgdev, &userptr->base);
+>>> +
+>>> +    *bo_ptr = &userptr->base;
+>>> +    return 0;
+>>> +
+>>> +err_cleanup:
+>>> +    virtio_gpu_cleanup_object(&userptr->base);
+>>> +    return ret;
+>>> +}
+>>
+> 
 
-Whenever the driver removes that identity it would disable the
-perf_opt. These points are all marked out in the attach function flow
-you don't need another variable to keep track, or the funny logic to
-block things. All you want is an attached identity domain that is
-"optimized".
-
-Release goes to blocked which should already disable it, so no need to
-disable it again in amd_iommu_release_device()
-
-The repeated pattern is a bit much:
-+       if (dev_data->perfopt) {
-+               if (WARN_ON(amd_iommu_perfopt_clear(iommu)))
-+                       dev_err(dev, "IOMMU%d: failed to clear PerfOpt on release\n",
-+                               iommu->index);
-
-Clear should probably just do the warn on and not return any error
-code. It is never OK to allow this to fail..
-
-I'm also scratching my head a bit why the global register needs to be
-set/unset like this? Does that global bit completely bypass the iommu
-for a single special device? With no way to discover from FW which BDF
-is the special device? If this is the right guess please document this
-in a comment around __perfopt_write (and again that's awful, ACPI
-should have a pointer to the special device so the OS can understand
-this)
-
-Jason
