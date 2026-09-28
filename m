@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D41B4CA5FA2
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 16:44:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB463CA5FA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 16:44:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EEC910E2A8;
-	Mon, 28 Sep 2026 16:44:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A40E10E68B;
+	Mon, 28 Sep 2026 16:44:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0gLhkzj/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QOjE8Biw";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010056.outbound.protection.outlook.com [52.101.85.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F00AC10E2A8
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 16:44:50 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011028.outbound.protection.outlook.com [52.101.52.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0007210E68B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 16:44:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iv2HGd3uyPUUq8JL/A5Xyh8NcTt214FkSCsHk81ZhKe7+7CPZz3JvyKHeVqr22pdELvRi2KU5I/adV9WJLHgoAPbemRlL6/rGPircJaExkysJXMdovlEn4y8jVACf4no16W4/let4ReEk8P6I/kF+oKhCroJ8dsnt3vMFjgTF3RBHLD3motR2/h2FiYsfiMve7qlZrvr/TeN9+uVO6bnA6+wJYGrCePIFyr49tdLKbm+cMKRdq6t7fb1ZNzRqMxJywJp2bE2zEKC1P8ewRBqqMuyVRkB2KxgHPVRbYDYjVdqeEFnHvOyg3mqHJ7sJr9lRi517uiHHpnH/Kbh4lcXDQ==
+ b=oXryyoy+RA+5jDQ08x9i2RxvEHVMniPUwI1TC7sn1V9m5U7E8JAJf/yL9evUFxUKnadXuYaN6xK327xgMXzGzblx/rykx1qzwVPmPI1ekVRd/f/eIPRSdWM/YE9Io724chtXjKGoRGHmdvt1xV6riDEOmoV/BVGohFOJef80QwR43SWJpussd8kM13Akq1IKsrEjAXqzCkZeSft7ol1GDoAWub8CDuPyE2wfEXN5OGUHHz/gOSQmgvXAoxReg+5OKJQ4IIO/cTdByPMNRfJmvcoXqEqkMDnmxcK5ypAhVisY0MZCsYB8MuZEWeymp15yGHFgYqvRFEAbovoC3zhfPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sQnSbcayjxyq63W8MzUzpHnbk1VY2jdXn4O63fY6rCM=;
- b=clYff+TujXAKRXw0lMJnoDlBGWAU9z35mZGSNCzjpAqQdq9aN8r4ABE4u58xUNWOOTCy5BEMFkbFXM5NIe4yhr+u2u8hHJiUzEXbPeKGvrloH+uIvqF7uGNUsJYK37X7Hcpg617t/fRdWnPmiuBElqdLSxJMBmUQMxezypW6/N5UNsrNm0v7dThdILiwnm9NI+vK2gW6WQ80nY5h5fcOpSEM73VvsUV5vsgRp5No3V8dBe8Nl9JTrVxHsG7CfFF8r22nnpr0ztP3hixsRB2GYY8ogHN5jkLMleqAYTTPNfILCfY0Q3Tf2pINsOrp1TIdKp18uEd83Ub8dEh2qIhf6A==
+ bh=0WXhcgSDofMfzO//IBYhvatj/S+NRJbbWS+udljNLOA=;
+ b=ngHPNPs2Id6EVCzeUcH5DaDYoNjrAL//7vl024MJ82lREiX3WZ8NnaVKuI8TV6+REjdXxlQB9cyXnFy92Ryk+dfStzNmqkPXTgYufgmmD/CTHV6bmd1XYgHxL2kUp+t28TO7Zxh2h06xr3Y0URCDscgkyOFZnBT9QJw+bnRpPnkneWJve6ynvRCNTJoPKb/7tRWVBTNnm9C+WNI7XHJM1d7s5b6jZEmqIGwhj3AkonTLJbE7PN7hutiVGbzQovwX5l9/B2D+oOIjgWFAgswqwNDBfUimGCyUBpFjVCnGV9rbmbuTOlDuZP25dnCvved51NwjOaZyHX82ZgJ0ktPMig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sQnSbcayjxyq63W8MzUzpHnbk1VY2jdXn4O63fY6rCM=;
- b=0gLhkzj/TZ/xmic0HD+1XpjwrZjAjZSq+GBp0IXO/vxj8Hs3FSfleOFtlvTN58OqC+bOVtYMAnMKOimjEEo87zYJ+tvRC4bKBxRWZmHklV6fOIEEJDzPM9YZ0x5ehItnPQ0QHW+SoZipsFfYTLtGE3lABNd12lbtiEtSWoVGsrE=
-Received: from BN9PR03CA0776.namprd03.prod.outlook.com (2603:10b6:408:13a::31)
- by DS6PR12MB777192.namprd12.prod.outlook.com (2603:10b6:8:411::5)
+ bh=0WXhcgSDofMfzO//IBYhvatj/S+NRJbbWS+udljNLOA=;
+ b=QOjE8Biwu3v/YU7sL1dflTzHT3l4tKt3emx7P9XtcQ9ifmmHz4m/VnO3I1UpwmrBDnT4TkL4XPIu8LqFVUYCEbIv1+Sn5hYK+8lWEdyuc91jR6rTpsYptxp85YBJghNIpAf0Fmix1aaJlBj53TK5h/hNK91HHQbo9Jt3GOIUlUU=
+Received: from BN9PR03CA0754.namprd03.prod.outlook.com (2603:10b6:408:13a::9)
+ by SN7PR12MB6887.namprd12.prod.outlook.com (2603:10b6:806:261::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 16:44:47 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 16:44:48 +0000
 Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
- (2603:10b6:408:13a:cafe::36) by BN9PR03CA0776.outlook.office365.com
- (2603:10b6:408:13a::31) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:13a:cafe::1f) by BN9PR03CA0754.outlook.office365.com
+ (2603:10b6:408:13a::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 16:44:47 +0000
+ 28 Sep 2026 16:44:48 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -51,7 +51,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 16:44:47 +0000
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 16:44:48 +0000
 Received: from MKMZHLUO01.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
@@ -63,9 +63,9 @@ CC: <Alexander.Deucher@amd.com>, <Philip.Yang@amd.com>,
  <Victor.Skvortsov@amd.com>, Zhigang Luo <Zhigang.Luo@amd.com>, Zhigang Luo
  <zhigang.luo@amd.com>, Fangsheng Huang <Fangsheng.Huang@amd.com>, YuBiao Wang
  <YuBiao.Wang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
-Subject: [PATCH 3/6] drm/amdgpu: fetch the A+A VF VBIOS from the SRAT HBM range
-Date: Mon, 28 Sep 2026 12:44:17 -0400
-Message-ID: <20260928164421.10144-3-Zhigang.Luo@amd.com>
+Subject: [PATCH 4/6] drm/amdgpu: take the A+A VF GMC aperture from SRAT
+Date: Mon, 28 Sep 2026 12:44:18 -0400
+Message-ID: <20260928164421.10144-4-Zhigang.Luo@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260928164421.10144-1-Zhigang.Luo@amd.com>
 References: <20260928164421.10144-1-Zhigang.Luo@amd.com>
@@ -77,29 +77,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|DS6PR12MB777192:EE_
-X-MS-Office365-Filtering-Correlation-Id: c4c8cde0-33df-4483-6c61-08df1d7fced2
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|SN7PR12MB6887:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7290172-ac3c-42bf-1e0b-08df1d7fcf69
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|10067099003|11063799006|6133799003|22082099003|10063799003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: FAqCo3yaj1PlsNUcB2gd3+Xx9vDLQRDsDNJRXjd0NvJ1YJ3BRpSALLZ+6lKWawoTJY+lJatZ+bf1D006JThh/lWwoG0wQwdrloyk8jguOY3VnvZhjBaVnw135qEe9i13wbs1MOX2NWfe2BfqlKoJqkvIO3jlofblcG9IdFXyy0PdIJkCgauk3XYp/GzpPW7P37xXfROPnV2odaICMP8NDaj76X3LMNGd7VAyYML81/p1ist5Dn/ym1wub8wfVOC+TMDW766wi2SG8sKjn9LmdFMqUixB9wxGqzZE3mcQckDTvUQHMGRIKQfVqaOfwu9Mnlm3kGpHAmvWKr7CD1aL9ZoUQf6c2p7PUVaTnjecMHe/ICIDnOegzJVHUEPL67+jI1l1UGtZ8uoflwB1f2tbOEQteR7QxIzXPMoxym1q2xZ1Da59+BkPvimJIgkN+8tah/HwXQf1TIYD1LWbrVXxX3kqWKQzQYU0APSFjYGPbrFGTGPGOf8Rbuw6lsi9g3xCiJJbVUlfZHOgTmaDQQRrqF3loWsk3NOf+Iv9wfg9OgtrfP52deKTYwoVpW/AuzHymedWWzAQpyQiSyVRQ1NQiJFSGSmdMmvKgwQ3C1ksCtPEkPRcv25P87nqOeES10nDPqwVdrQH8IRpnd4WAatAyF9hUI0Egm/hNnJD/Xv8rKc4TOXM93JI7EF6XitoDZ8eEOZIcEc63WHllSL09IQaKg==
+ ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|11063799006|56012099006|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: elO+x9cQnndEA3WxG/jk/85zxee2G36i1BYPUVboXME/IwU5/dPlFUS4Z/hgjA9XcIlBmlPOAZLUCukbg+QlMXzuPDpUjBTulk08RpfzCXxlZpFyHKhA/hvGgj/xDRbZVVQ7+IS7lt8r3EqO8CDYSjCRUVg3Rvd6Zygl8aLOQMgOADvwIhp/XzmEeVFDAN58qQjCg5ILH2lx2+3JQuP7RuhPn9R3qKkiJZLfivoVU06Ft28CkP+zxxXJ7jS5czXhNeyYaigIvolBh/8g1YDGfPgJfXdxRrGViQ0xU8mJIEA4BK146aOYyhvHQ7oqAJILbz7UmLVgVFJfA2e2Hggnn0U57bE4CLJSpCUvd9ajk6+/Hl4U7r7B3nYIHaBJ9iXGa0+WzzrzzQDW6HadRv6q3eGMcjHNNe7eTEQaKTyjg3lJ8t6wcy6bGqk9ZOR/P0hu+8AEq4r4+mObHTuJwWj9JLb3yQHDVLxetvC3kwzQz90gRFU18eIGp7/DrNGp80JMMRGYbl7l494/zez+UDa1GLxVso+qMLBJ62JjJuOxzitOlQs9WKl8MfkfpVeOdfbmZYJIeLbYUtUiZ9VOVjL/EvtQvgvitgHb969Atk3o15EYwSGU7GsTut1y8pKd8g8Lro/RRi3WcfW8fY5x6cLkRhJsjL7d8/07IkQKrQNhr1tjqzP/0GXqxw2+vEh7O3fflyNt+G9XymyumobHKGduGA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(10067099003)(11063799006)(6133799003)(22082099003)(10063799003)(18002099003)(56012099006);
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: SmajGe0Dird82ZSPb+0QR05njEsEBG2NtKtSi1asYR6r7NRe2S1xcXeC5kLuTzFpyPU5ejj7pSexgufKxD1nIPVzeq4Ua6dZE9Xx1uS6tP7etd1wss/xEm0nffGyK+dByjHQH2xKJrgYaaUhMsMk2ctoTy5Si+uJXEH8Oe7G8QvBIdrqA9E8xX9iLA252EiqsyWxZbQhYAwrs8JyU+SE/GUtbjP9y6ZgPx0Tw4YvY6r0JCXWTi0kKllQEAEwKKZj+i3xvL5ycz6TIBGGsGy/SnxvrjoFE+lDlRwiltgtV8U6nsbcJhM8yf9vahspv6gsradcwMz8oHWCg0buXKc0fBieri3RXUj2bZJ1sPmV2+/uTVNxKgyjujTKvB0fO3pJoJarja35aY356mVr8dMKIZvsgQARg+Rn3Nsz/IOzv+4+baRGIj1eV7t0uBey+bXp
+X-MS-Exchange-AntiSpam-MessageData-0: VtQLW6HyF7arQF1YNwFtmYA/a3XllTaYjyVJkClxGPkbzrS3kqYxU45+2NAmfSJ4viDQZ3mw+65lgrCkXVOTZ319+O20GfiK0POOeBnd+LUed8WnKXspyY2N0rKpXMdNmabDYOQZouIwvvZcyszvu6vAM6bhedRTaVb2NtasKwaZcrtsgz2XCZ2j22E3O/ZYxeaBsT1IiJjpjtbhp7SKDEVliFeBcIyI9DV/APjoJs5qfHXeaW1KqqNvdquThXPM3AG436HIsR98NPWe3d+amH4ZfQ7k3YHknht6SIf9WByvqnxBnDtDmMBp8HeKzQkjLa8I7XlX2FF/vjbuoy5N1qW9Urj1fepyAWFZWe6tPpUaOyB+zF/r4ye7i4AwlATNkPtxu+jfHpMmCBhvAUXnHJrphBcSVBNrtrckJ8KP5+VrEP6uGuv090U3VdLjgD6L
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 16:44:47.7312 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4c8cde0-33df-4483-6c61-08df1d7fced2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 16:44:48.7298 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7290172-ac3c-42bf-1e0b-08df1d7fcf69
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A7.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB777192
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6887
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,26 +114,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On A+A the VF has no usable FB BAR, so the VBIOS copy cannot be read
-through BAR 0. It lives in HBM, which the SRAT describes as
-specific-purpose memory reachable at a system physical address.
+The A+A VF FB BAR is not usable, so resolve its aperture from SRAT in
+GMC early_init. Skip later aperture assignment for SPM-backed devices,
+and restrict the existing mmhub-based override to native A+A and APU.
 
-Add a dedicated amdgpu_read_bios_from_spm() path that resolves the HBM
-range from SRAT and maps it as write-back system memory. Keep the
-existing SR-IOV dynamic critical region path when it is enabled,
-matching the VRAM reader.
+The GPU reaches its HBM at a system physical address, so
+vram_base_offset becomes aper_base as well, which makes PDB0 map GPU
+address 0 onto that address.
+
+The XGMI node segment size comes from the same place: once early_init
+has resolved the aperture, use its size rather than the value derived
+from the register, which does not describe the VF partition.
 
 v2:
-- Use a separate amdgpu_read_bios_from_spm() helper and leave
-  amdgpu_read_bios_from_vram() unchanged.
-- Keep the SR-IOV dynamic critical region path for SPM-backed VBIOS.
-- Fetch VBIOS after the COMMON block and make it optional for
-  SPM-backed SR-IOV VF and passthrough configurations.
+- Use (sriov_vf || passthrough) and amdgpu_virt_vram_is_spm()
+  instead of connected_to_cpu for the SRAT aperture and node segment
+  size.
 
 v3:
-- Keep the SRAT range local to the VBIOS path; GMC owns aper_base and
-  aper_size.
-- Map SPM with memremap(), memcpy(), and memunmap().
+- Resolve the SRAT aperture in GMC early_init and skip later aperture
+  assignment in mc_init for SPM-backed devices.
 - Rely on amdgpu_virt_vram_is_spm() without redundant VF/passthrough
   checks.
 
@@ -142,97 +142,114 @@ Signed-off-by: Fangsheng Huang <Fangsheng.Huang@amd.com>
 Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
 Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c   | 55 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  3 ++
- 2 files changed, 58 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c    | 53 ++++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c |  5 ++-
+ 2 files changed, 45 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index 08ed1eb69558..f9315e0472fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -152,6 +152,56 @@ static bool amdgpu_read_bios_from_vram(struct amdgpu_device *adev)
- 	return true;
- }
- 
-+static bool amdgpu_read_bios_from_spm(struct amdgpu_device *adev)
-+{
-+	u64 spm_base, spm_size;
-+	void *bios = NULL;
-+	u32 size = 256U * 1024U; /* ??? */
-+	int r;
-+
-+	if (!amdgpu_virt_vram_is_spm(adev))
-+		return false;
-+
-+	r = amdgpu_acpi_find_gpu_memory_in_srat(adev, &spm_base, &spm_size);
-+	if (r)
-+		return false;
-+
-+	adev->bios = kmalloc(size, GFP_KERNEL);
-+	if (!adev->bios)
-+		return false;
-+
-+	/* For SRIOV with dynamic critical region is enabled,
-+	 * the vbios image is put at a dynamic offset of VRAM in the VF.
-+	 * If dynamic critical region is disabled, read it from SPM.
-+	 */
-+	if (amdgpu_sriov_vf(adev) && adev->virt.is_dynamic_crit_regn_enabled) {
-+		if (amdgpu_virt_get_dynamic_data_info(adev,
-+						      AMD_SRIOV_MSG_VBIOS_IMG_TABLE_ID,
-+						      adev->bios, &size)) {
-+			amdgpu_bios_release(adev);
-+			return false;
-+		}
-+	} else {
-+		bios = memremap(spm_base, size, MEMREMAP_WB);
-+		if (!bios) {
-+			amdgpu_bios_release(adev);
-+			return false;
-+		}
-+
-+		memcpy(adev->bios, bios, size);
-+		memunmap(bios);
-+	}
-+
-+	adev->bios_size = size;
-+
-+	if (!check_atom_bios(adev, size)) {
-+		amdgpu_bios_release(adev);
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- bool amdgpu_read_bios(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+index 0cc73982ed6f..c88ce5b94863 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+@@ -638,6 +638,7 @@ static void gmc_v12_0_set_gfxhub_funcs(struct amdgpu_device *adev)
+ static int gmc_v12_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	uint8_t __iomem *bios;
-@@ -530,6 +580,11 @@ static bool amdgpu_get_bios_dgpu(struct amdgpu_device *adev)
- 		goto success;
+ 	struct amdgpu_device *adev = ip_block->adev;
++	int r;
+ 
+ 	if (adev->smuio.funcs &&
+ 	    adev->smuio.funcs->is_host_gpu_xgmi_supported)
+@@ -660,6 +661,14 @@ static int gmc_v12_0_early_init(struct amdgpu_ip_block *ip_block)
+ 	gmc_v12_0_set_mmhub_funcs(adev);
+ 	gmc_v12_0_set_umc_funcs(adev);
+ 
++	if (amdgpu_virt_vram_is_spm(adev)) {
++		r = amdgpu_acpi_find_gpu_memory_in_srat(adev,
++							&adev->gmc.aper_base,
++							&adev->gmc.aper_size);
++		if (r)
++			return r;
++	}
++
+ 	adev->gmc.shared_aperture_start = 0x2000000000000000ULL;
+ 	adev->gmc.shared_aperture_end =
+ 		adev->gmc.shared_aperture_start + (4ULL << 30) - 1;
+@@ -706,10 +715,19 @@ static void gmc_v12_0_vram_gtt_location(struct amdgpu_device *adev,
+ 			amdgpu_gmc_agp_location(adev, mc);
+ 	}
+ 	/* base offset of vram pages */
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_virt_vram_is_spm(adev)) {
++		/*
++		 * For SPM-backed VRAM, PDB0 entries use PTE_SYSTEM, so the
++		 * address is a system physical address. vram_base_offset must
++		 * be aper_base so PDB0 maps GPU address 0 onto the HBM system
++		 * physical address.
++		 */
++		adev->vm_manager.vram_base_offset = adev->gmc.aper_base;
++	} else if (amdgpu_sriov_vf(adev)) {
+ 		adev->vm_manager.vram_base_offset = 0;
+-	else
++	} else {
+ 		adev->vm_manager.vram_base_offset = adev->mmhub.funcs->get_mc_fb_offset(adev);
++	}
+ 
+ 	adev->vm_manager.vram_base_offset +=
+ 		adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
+@@ -746,17 +764,28 @@ static int gmc_v12_0_mc_init(struct amdgpu_device *adev)
+ 			return r;
  	}
  
-+	if (amdgpu_read_bios_from_spm(adev)) {
-+		dev_info(adev->dev, "Fetched VBIOS from SPM\n");
-+		goto success;
-+	}
-+
- 	/* this is required for SR-IOV */
- 	if (amdgpu_read_bios_from_vram(adev)) {
- 		dev_info(adev->dev, "Fetched VBIOS from VRAM BAR\n");
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 96165b1b3e6d..4b43c80a30af 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -944,6 +944,9 @@ u32 amdgpu_device_get_rev_id(struct amdgpu_device *adev)
+-	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
+-	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
+-
+ #ifdef CONFIG_X86_64
+-	if (((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) ||
+-	    (adev->gmc.xgmi.connected_to_cpu)) {
+-		adev->gmc.aper_base =
+-			adev->mmhub.funcs->get_mc_fb_offset(adev) +
+-			adev->gmc.xgmi.physical_node_id *
+-			adev->gmc.xgmi.node_segment_size;
+-		adev->gmc.aper_size = adev->gmc.real_vram_size;
++	/*
++	 * SPM-backed devices resolve the aperture from SRAT during early_init.
++	 * For native A+A (non-VF) or APU, override aper_base using mmhub
++	 * offset. Otherwise derive the aperture from BAR 0.
++	 */
++	if (!amdgpu_virt_vram_is_spm(adev)) {
++		if (!amdgpu_sriov_vf(adev) &&
++		    (((adev->flags & AMD_IS_APU) &&
++		      !amdgpu_passthrough(adev)) ||
++		     adev->gmc.xgmi.connected_to_cpu)) {
++			adev->gmc.aper_base =
++				adev->mmhub.funcs->get_mc_fb_offset(adev) +
++				adev->gmc.xgmi.physical_node_id *
++				adev->gmc.xgmi.node_segment_size;
++			adev->gmc.aper_size = adev->gmc.real_vram_size;
++		} else {
++			adev->gmc.aper_base =
++				pci_resource_start(adev->pdev, 0);
++			adev->gmc.aper_size =
++				pci_resource_len(adev->pdev, 0);
++		}
+ 	}
+ #endif
+ 	/* In case the PCI BAR is larger than the actual amount of vram */
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
+index 4495d52b4b07..4c0a2d671cfc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
+@@ -154,7 +154,10 @@ static int mmhub_v4_2_0_get_xgmi_info(struct amdgpu_device *adev)
+ 	if (adev->gmc.xgmi.physical_node_id > max_physical_node_id)
+ 		return -EINVAL;
  
- static uint32_t amdgpu_device_get_vbios_flags(struct amdgpu_device *adev)
- {
-+	if (amdgpu_virt_vram_is_spm(adev))
-+		return AMDGPU_VBIOS_OPTIONAL;
-+
- 	if (hweight32(adev->aid_mask) && (adev->flags & AMD_IS_APU))
- 		return AMDGPU_VBIOS_SKIP;
+-	adev->gmc.xgmi.node_segment_size = seg_size;
++	if (amdgpu_virt_vram_is_spm(adev) && adev->gmc.aper_size)
++		adev->gmc.xgmi.node_segment_size = adev->gmc.aper_size;
++	else
++		adev->gmc.xgmi.node_segment_size = seg_size;
  
+ 	return 0;
+ }
 -- 
 2.43.0
 
