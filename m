@@ -4,46 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC9DBCA5FA1
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 16:20:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A013CA5FA3
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 16:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 325B710E0CB;
-	Mon, 28 Sep 2026 16:20:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B92B610EB21;
+	Mon, 28 Sep 2026 16:23:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZfbYphDc";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="wGAo4Usj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fReGh006";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QPuLWW9y";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VT6VXm3n";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3347C10E0CB
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 16:20:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CADA9439C5;
- Mon, 28 Sep 2026 16:20:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 604A51F000FF;
- Mon, 28 Sep 2026 16:20:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790612432;
- bh=haVC3ZDhXr6G1yi+CDxc5cTZbbKe7dXa5fxgrthI4M8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=ZfbYphDc4N8oyYT3UVWCZD4hD6E7hcOuSw3XarZ8mX4CojDkLq1o40ZTrvuLBjK4p
- OoPc8r3pfJM1E9IOHegWfJPlhY8dwNa9gwunb3HtKqM596tgfJdf5WEMXfeN4uOaQi
- cBkrCXMyHOIVrd1lsRIJ7NAfkX2x1N0DKhdUX4QVvCZ01mDgT+Hq/QoM42HmpYf0Wk
- Nn6jfdy7UEuAXiZEaiSPl7fpnEEFi0kkt+Ja4U1m5nE1oWXP7eEsLuK7ZL4MnWCQQX
- NrR+hTIqJkbsbfcAB7Xt8mvuLzvaVM9xlFrgvuZsbW8q4ifMxx3glkgbzglFqR287E
- CzvUI1KCOkLfw==
-Message-ID: <2d9c87e5-8ead-4f46-a2ef-be7188d209af@kernel.org>
-Date: Mon, 28 Sep 2026 11:20:31 -0500
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EE0B10EB21;
+ Mon, 28 Sep 2026 16:23:16 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3E50B21E46;
+ Mon, 28 Sep 2026 16:23:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790612590; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+HJjOuO8xcq/OOsycAl+zKOkYJKewV7JxY1ayXejoZo=;
+ b=wGAo4UsjMD4xRsACbux7hRF89PdH6VrG1OTX748DENa6i6k89nmkQ6TGc6ni64NamyIGAA
+ oh9TZRNNZ5KoqabCytIO+5CRxU+kip6tA5j76jIR8Y/pXHtxt/8944N1oLkBMFROITVOiY
+ 7+UH/IL9iwgIqp7UgS1nAgazCknsg7Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790612590;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+HJjOuO8xcq/OOsycAl+zKOkYJKewV7JxY1ayXejoZo=;
+ b=fReGh006NS774Tj0bv4hJ4K6bQi1acNPDg4Ch+xhvmt2yGGFZk+cdqRgogka1jJnvtJkvM
+ Vc7WdxoqiXU4rFCA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QPuLWW9y;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VT6VXm3n
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790612586; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+HJjOuO8xcq/OOsycAl+zKOkYJKewV7JxY1ayXejoZo=;
+ b=QPuLWW9yvS1dyzDrKJG/L0OakwzEYR5bN5FTdfTBU4H+uDzfYxuVSGKNog5O6bCyaewatf
+ hR7RVyejbTeQOM9ZPStzGH3v/kvj4NkK4XSIJVkDJFxiqS0Nl3ex5Vjio+TIkxSZkX+YGT
+ hpfHXm2BgYy8LYAcYR21nwLetDeY9X8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790612586;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+HJjOuO8xcq/OOsycAl+zKOkYJKewV7JxY1ayXejoZo=;
+ b=VT6VXm3naMz6oLGjwMcF7Ln9BZSSJj/687TeV+VL2+LaZRHNx/0r7IpBoocW7vmYhns/yd
+ JqqPodtSwASlSMBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 904EA133F1;
+ Mon, 28 Sep 2026 16:23:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id /uN0D2mUumqpdQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 16:23:05 +0000
+Message-ID: <f2fa45c2-8b6a-4097-a974-d3a85fb812d3@suse.de>
+Date: Mon, 28 Sep 2026 18:23:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/amdgpu: Add newlines in drm_dbg format strings
+Subject: Re: [PATCH v3 1/7] drm: Move drm_timeout_abs_to_jiffies() to
+ drm_timeout.c
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+ <20260915-drm-timeout-helpers-v3-1-f2ae987d861f@igalia.com>
+ <3a146579-b9c6-4d4c-835b-89871b0dcd6a@suse.de>
+ <a4593bf7-2036-432f-ba6a-85321fcb28df@suse.de>
 Content-Language: en-US
-To: Ed Maste <emaste@FreeBSD.org>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260928133030.69982-1-emaste@FreeBSD.org>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260928133030.69982-1-emaste@FreeBSD.org>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <a4593bf7-2036-432f-ba6a-85321fcb28df@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 3E50B21E46
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,79 +161,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/28/26 08:30, Ed Maste wrote:
-> From: Ed Maste <emaste@FreeBSD.org>
-> 
-> Signed-off-by: Ed Maste <emaste@FreeBSD.org>
 
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Applied to amd-staging-drm-next, thanks.
+Am 28.09.26 um 18:12 schrieb Thomas Zimmermann:
+>
+>
+> Am 28.09.26 um 18:03 schrieb Thomas Zimmermann:
+> [...]
+>>>   -/**
+>>> - * drm_timeout_abs_to_jiffies - calculate jiffies timeout from 
+>>> absolute value
+>>> - *
+>>> - * @timeout_nsec: timeout nsec component in ns, 0 for poll
+>>> - *
+>>> - * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+>>> - */
+>>> -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+>>
+>> As Jani noted, the types seem to be off here. The timeout should 
+>> likely by unsigned. Jiffies are counted in u64 and the helper should 
+>> return it as such.
+>
+> Scratch that. Jiffies are stored in unsigned long. So this should be 
+> returned.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c    | 4 ++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c      | 2 +-
->   drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c          | 2 +-
->   4 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> index 1e21e3444802..c283087bb560 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> @@ -311,7 +311,7 @@ static int amdgpu_atomfirmware_get_uma_carveout_info_v2_3(struct amdgpu_device *
->   
->   	if (nr_uma_options > MAX_UMA_OPTION_ENTRIES) {
->   		drm_dbg(adev_to_drm(adev),
-> -			"Number of UMA options exceeds max table size. Options will not be parsed");
-> +			"Number of UMA options exceeds max table size. Options will not be parsed\n");
->   		return -EINVAL;
->   	}
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 62f5c5cbd7f9..d23de711d8cf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -720,13 +720,13 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
->   	/* Read from file if it is the preferred option */
->   	fw_name = amdgpu_discovery_get_fw_name(adev);
->   	if (fw_name != NULL) {
-> -		drm_dbg(&adev->ddev, "use ip discovery information from file");
-> +		drm_dbg(&adev->ddev, "use ip discovery information from file\n");
->   		r = amdgpu_discovery_read_binary_from_file(adev, discovery_bin,
->   							   fw_name);
->   		if (r)
->   			goto out;
->   	} else {
-> -		drm_dbg(&adev->ddev, "use ip discovery information from memory");
-> +		drm_dbg(&adev->ddev, "use ip discovery information from memory\n");
->   		r = amdgpu_discovery_read_binary_from_mem(adev, discovery_bin,
->   							  is_tmr_in_sysmem);
->   		if (r)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index 59ea338b554c..0a8dd7241750 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -1428,7 +1428,7 @@ static int amdgpu_display_framebuffer_init(struct drm_device *dev,
->   			ret = convert_tiling_flags_to_modifier_gfx6(rfb);
->   
->   		if (ret) {
-> -			drm_dbg_kms(dev, "Failed to convert tiling flags 0x%llX to a modifier",
-> +			drm_dbg_kms(dev, "Failed to convert tiling flags 0x%llX to a modifier\n",
->   				    rfb->tiling_flags);
->   			return ret;
->   		}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> index 485ecdec9618..363266f3e0a3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> @@ -235,7 +235,7 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
->   
->   	r = amdgpu_acpi_get_isp4_dev(&acpi_dev);
->   	if (r) {
-> -		drm_dbg(&adev->ddev, "Invalid isp platform detected (%d)", r);
-> +		drm_dbg(&adev->ddev, "Invalid isp platform detected (%d)\n", r);
->   		/* allow GPU init to progress */
->   		return 0;
->   	}
+Oh well, jiffies.h is confusing to me. There's a 32-bit and a 64-bit 
+interface. I guess the 32-bit variant is good enough for us for now. If 
+we ever need jiffies_64, we can add 64-bit variants of the DRM helpers 
+as well.
+
+Best regards
+Thomas
+
+>
+>>
+>> If you have the time, another such patch on top would be appreciated.
+>
+> ^ This.
+>
+> Best regards
+> Thomas
+>
+>
+>>
+>> Best regards
+>> Thomas
+>>
+>>
+>>> -{
+>>> -    ktime_t abs_timeout, now;
+>>> -    u64 timeout_ns, timeout_jiffies64;
+>>> -
+>>> -    /* make 0 timeout means poll - absolute 0 doesn't seem valid */
+>>> -    if (timeout_nsec == 0)
+>>> -        return 0;
+>>> -
+>>> -    abs_timeout = ns_to_ktime(timeout_nsec);
+>>> -    now = ktime_get();
+>>> -
+>>> -    if (!ktime_after(abs_timeout, now))
+>>> -        return 0;
+>>> -
+>>> -    timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+>>> -
+>>> -    timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+>>> -    /*  clamp timeout to avoid infinite timeout */
+>>> -    if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+>>> -        return MAX_SCHEDULE_TIMEOUT - 1;
+>>> -
+>>> -    return timeout_jiffies64 + 1;
+>>> -}
+>>> -EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+>>> -
+>>>   static int drm_syncobj_array_wait(struct drm_device *dev,
+>>>                     struct drm_file *file_private,
+>>>                     struct drm_syncobj_wait *wait,
+>>> diff --git a/drivers/gpu/drm/drm_timeout.c 
+>>> b/drivers/gpu/drm/drm_timeout.c
+>>> new file mode 100644
+>>> index 000000000000..35e10293e0a1
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/drm_timeout.c
+>>> @@ -0,0 +1,50 @@
+>>> +// SPDX-License-Identifier: MIT
+>>> +/*
+>>> + * Timeout conversion helpers for wait ioctls.
+>>> + *
+>>> + * Copyright 2017 Red Hat
+>>> + * Copyright 2016 Advanced Micro Devices, Inc.
+>>> + */
+>>> +
+>>> +#include <linux/export.h>
+>>> +#include <linux/jiffies.h>
+>>> +#include <linux/ktime.h>
+>>> +#include <linux/sched.h>
+>>> +
+>>> +#include <drm/drm_timeout.h>
+>>> +
+>>> +/**
+>>> + * drm_timeout_abs_to_jiffies - calculate jiffies timeout from 
+>>> absolute value
+>>> + * @timeout_nsec: timeout nsec component in ns, 0 for poll
+>>> + *
+>>> + * Calculate the timeout in jiffies from an absolute time in ns. 
+>>> The result is
+>>> + * clamped to MAX_SCHEDULE_TIMEOUT - 1 to avoid infinite timeouts.
+>>> + *
+>>> + * Returns:
+>>> + * The number of jiffies until the given timeout, or the upper limit.
+>>> + */
+>>> +signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+>>> +{
+>>> +    ktime_t abs_timeout, now;
+>>> +    u64 timeout_ns, timeout_jiffies64;
+>>> +
+>>> +    /* make 0 timeout means poll - absolute 0 doesn't seem valid */
+>>> +    if (timeout_nsec == 0)
+>>> +        return 0;
+>>> +
+>>> +    abs_timeout = ns_to_ktime(timeout_nsec);
+>>> +    now = ktime_get();
+>>> +
+>>> +    if (!ktime_after(abs_timeout, now))
+>>> +        return 0;
+>>> +
+>>> +    timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+>>> +
+>>> +    timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+>>> +    /*  clamp timeout to avoid infinite timeout */
+>>> +    if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+>>> +        return MAX_SCHEDULE_TIMEOUT - 1;
+>>> +
+>>> +    return timeout_jiffies64 + 1;
+>>> +}
+>>> +EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+>>> diff --git a/drivers/gpu/drm/lima/lima_gem.c 
+>>> b/drivers/gpu/drm/lima/lima_gem.c
+>>> index 0c73860bb501..97e1dc541c2e 100644
+>>> --- a/drivers/gpu/drm/lima/lima_gem.c
+>>> +++ b/drivers/gpu/drm/lima/lima_gem.c
+>>> @@ -10,7 +10,7 @@
+>>>     #include <drm/drm_file.h>
+>>>   #include <drm/drm_syncobj.h>
+>>> -#include <drm/drm_utils.h>
+>>> +#include <drm/drm_timeout.h>
+>>>     #include <drm/lima_drm.h>
+>>>   diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c 
+>>> b/drivers/gpu/drm/panfrost/panfrost_drv.c
+>>> index 96a66d673ba6..70c05210ea84 100644
+>>> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+>>> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+>>> @@ -18,7 +18,7 @@
+>>>   #include <drm/drm_ioctl.h>
+>>>   #include <drm/drm_print.h>
+>>>   #include <drm/drm_syncobj.h>
+>>> -#include <drm/drm_utils.h>
+>>> +#include <drm/drm_timeout.h>
+>>>     #include "panfrost_device.h"
+>>>   #include "panfrost_drv.h"
+>>> diff --git a/drivers/gpu/drm/tegra/uapi.c 
+>>> b/drivers/gpu/drm/tegra/uapi.c
+>>> index c0ac6b45f2d7..bee310b07eb0 100644
+>>> --- a/drivers/gpu/drm/tegra/uapi.c
+>>> +++ b/drivers/gpu/drm/tegra/uapi.c
+>>> @@ -7,7 +7,7 @@
+>>>     #include <drm/drm_drv.h>
+>>>   #include <drm/drm_file.h>
+>>> -#include <drm/drm_utils.h>
+>>> +#include <drm/drm_timeout.h>
+>>>     #include "drm.h"
+>>>   #include "uapi.h"
+>>> diff --git a/drivers/gpu/drm/xe/xe_wait_user_fence.c 
+>>> b/drivers/gpu/drm/xe/xe_wait_user_fence.c
+>>> index 51eb940ceb4e..e241f3ec3547 100644
+>>> --- a/drivers/gpu/drm/xe/xe_wait_user_fence.c
+>>> +++ b/drivers/gpu/drm/xe/xe_wait_user_fence.c
+>>> @@ -7,7 +7,7 @@
+>>>     #include <drm/drm_device.h>
+>>>   #include <drm/drm_file.h>
+>>> -#include <drm/drm_utils.h>
+>>> +#include <drm/drm_timeout.h>
+>>>   #include <uapi/drm/xe_drm.h>
+>>>     #include "xe_device.h"
+>>> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
+>>> new file mode 100644
+>>> index 000000000000..cd9621c52062
+>>> --- /dev/null
+>>> +++ b/include/drm/drm_timeout.h
+>>> @@ -0,0 +1,16 @@
+>>> +/* SPDX-License-Identifier: MIT */
+>>> +/*
+>>> + * Function prototypes for timeout conversion helpers for wait ioctls.
+>>> + *
+>>> + * Copyright 2017 Red Hat
+>>> + * Copyright 2016 Advanced Micro Devices, Inc.
+>>> + */
+>>> +
+>>> +#ifndef __DRM_TIMEOUT_H__
+>>> +#define __DRM_TIMEOUT_H__
+>>> +
+>>> +#include <linux/types.h>
+>>> +
+>>> +signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
+>>> +
+>>> +#endif
+>>> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+>>> index 7e077484c5bb..c61dee76451c 100644
+>>> --- a/include/drm/drm_utils.h
+>>> +++ b/include/drm/drm_utils.h
+>>> @@ -25,6 +25,4 @@ struct drm_panel_backlight_quirk {
+>>>   const struct drm_panel_backlight_quirk *
+>>>   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
+>>>   -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+>>> -
+>>>   #endif
+>>>
+>>
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
