@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E23A9C9832F
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9CD6C9832F
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D83610E860;
-	Mon, 28 Sep 2026 08:43:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DCC910E8CD;
+	Mon, 28 Sep 2026 08:44:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="vCL999nq";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="w3iHo66f";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3211410E774
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 05:17:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=4ZS6kstd6BIICwqAN1M2ypMQk8KRKCHT0lhVaYKNm1A=; b=vCL999nq/HIPd5KJ+zOLTAyz4G
- Aw+mGCRquekPCRK6EW4p/d6S76wWDKPuh+mMXENLfmRIi4gbC2DdaKKzsGgZMNfNTZocf5qcOGgrn
- Qd+BdMZauAbgFut1usVOeVGIswhc+/dd9d3D5o2i2P6lpryuXbcqPzlZYPlmjwD0JwzLQKRZUCLhl
- 6wMN4QhKY//mhh/rk6iba/taGwIG58PXYCMpH8q1P3BQVR54tPRo5kt/3UlGC2C06rzie1PDXSqy6
- jVDOaIJ8iSWGQpWuOUEdLwxdfeo7HId8mIXZovj6TNHeJwP/UXn/OapGxmd6S7g1Hzak2INU72ltH
- sVSnI2UQ==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red
- Hat Linux)) id 1xB3jc-0000000HLnt-2UJA;
- Mon, 28 Sep 2026 05:17:04 +0000
-Date: Sun, 27 Sep 2026 22:17:04 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Joerg Roedel <joro@8bytes.org>, amd-gfx@lists.freedesktop.org,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
- Jatin Kataria <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>
-Subject: Re: [PATCH v2 1/2] iommu/amd: Add PerfOpt IOMMU performance
- optimization support
-Message-ID: <arn4UPLhYJeNNxnZ@infradead.org>
-References: <20260908041207.38113-1-mario.limonciello@amd.com>
- <20260908041207.38113-2-mario.limonciello@amd.com>
- <20260924225018.GB16465@ziepe.ca>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 629D010E4E2;
+ Mon, 28 Sep 2026 07:49:55 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4htYPC5mnxz8vYJ;
+ Mon, 28 Sep 2026 09:49:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1790581791; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qwLrqBaX4aJRrtH+q2H5It1KegUZ24HKRxI7RL2t1Hc=;
+ b=w3iHo66fHMt5SZhAwf//dKVo3+gmT4kXJzlclg9W/dTvtYReUI+UEonCcDyBWwshRh1Y70
+ IbVgOdcPIyWMFP6Qm7Ju7P02htjkxKOWpEXtGuXTpFLI3ODFyuKgDYyB+Frpl4u1e9tMZp
+ Nn10mKDU9TZjDzc6Qo1WPaHzF5lO5YiJz8ZUDrg5cDD3J21XD7W1E3S19YmiMbfUU2btxf
+ I+WDwdWLiWbrPOHnnZvwuqFu4FspZ7S3yXjHiZwEh1DasZ16d/FcR3jp57EM5+Ldtr02d8
+ 9i9qDHdhXPzIsq9MBZQiIYl/ljsBYfW9pxtPKR9Ri0d/z0mZI91K4b5drm1DTw==
+Message-ID: <138ead6cd35ee60645206c17b35069551de103f0.camel@mailbox.org>
+Subject: Re: [PATCH 1/2] drm/sched: keep the current runqueue when no
+ scheduler is ready
+From: Philipp Stanner <phasta@mailbox.org>
+To: vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Matthew Brost
+ <matthew.brost@intel.com>, Danilo Krummrich	 <dakr@kernel.org>, Philipp
+ Stanner <phasta@kernel.org>
+Date: Mon, 28 Sep 2026 09:49:47 +0200
+In-Reply-To: <20260928020018.120503-1-vitaly.prosyak@amd.com>
+References: <20260928020018.120503-1-vitaly.prosyak@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924225018.GB16465@ziepe.ca>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:43:05 +0000
+X-MBO-RS-META: 3urdfth9bpgw6g4wt583ts8a56staepa
+X-MBO-RS-ID: 3bc95865c4ac5480736
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:43:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,25 +64,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 07:50:18PM -0300, Jason Gunthorpe wrote:
-> On Mon, Sep 07, 2026 at 11:12:06PM -0500, Mario Limonciello wrote:
-> > +EXPORT_SYMBOL_GPL(amd_iommu_enable_perfopt);
-> 
-> Last time we hardwired the GPU and IOMMU drivers together it was a
-> huge mess to undo.
+On Sun, 2026-09-27 at 21:59 -0400, vitaly.prosyak@amd.com wrote:
+> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+>=20
+> The IGT amd_dispatch test exposed a NULL pointer dereference in the
+> AMDGPU CS submission path when the GPU schedulers were not ready.
+>=20
+> drm_sched_pick_best() returns NULL when every scheduler in an entity's
+> list is marked not ready. drm_sched_entity_select_rq() then replaces
+> the entity's existing runqueue with NULL.
+>=20
+> A subsequent drm_sched_job_arm() retains that invalid runqueue.
+> When AMDGPU CS submission calls drm_sched_entity_push_job(), the
+> scheduler pointer derived from entity->rq is invalid and the access
+> to sched->score faults. The reported oops shows the sequence:
+>=20
+> =C2=A0=C2=A0=C2=A0 [drm] scheduler comp_1.1.0 is not ready, skipping
+> =C2=A0=C2=A0=C2=A0 [drm] scheduler comp_1.2.0 is not ready, skipping
+> =C2=A0=C2=A0=C2=A0 BUG: kernel NULL pointer dereference, address: 0000000=
+000000268
+> =C2=A0=C2=A0=C2=A0 RIP: drm_sched_entity_push_job+0x4f/0x2b0 [gpu_sched]
 
-Every time a driver depends on an exact iommu driver is a major design
-problem.
+That seems to be the issue that the LLM was hinting at a few weeks ago:
 
-> Why does the GPU driver have to request this? Why can't the iommu
-> driver know that this is a special device that can use this magic fast
-> path and then auto set it when identity is asked for?
->
-> How does the GPU driver even know it is magic special?
+https://lore.kernel.org/dri-devel/20260625121102.3AB3A1F000E9@smtp.kernel.o=
+rg/
 
-Yes.  And WTF is "perfopt" supposed to mean.  Everything is a
-performance optimization.
 
+
+> =C2=A0=C2=A0=C2=A0 Call Trace:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_cs_ioctl+0x1e9e/0x2530 [amdgpu]
+>=20
+> Keep the previously selected runqueue when no ready replacement is
+> found. This prevents scheduler selection from turning a valid entity
+> runqueue into NULL; it does not make a stopped scheduler ready or
+> guarantee that the submitted job will execute.
+>=20
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> ---
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c | 4 ++--
+> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
+cheduler/sched_entity.c
+> index 4ebb513255ed..b11e1dddabd0 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -584,8 +584,8 @@ void drm_sched_entity_select_rq(struct drm_sched_enti=
+ty *entity)
+> =C2=A0
+> =C2=A0	spin_lock(&entity->lock);
+> =C2=A0	sched =3D drm_sched_pick_best(entity->sched_list, entity->num_sche=
+d_list);
+> -	rq =3D sched ? &sched->rq : NULL;
+> -	if (rq !=3D entity->rq) {
+> +	if (sched && &sched->rq !=3D entity->rq) {
+> +		rq =3D &sched->rq;
+
+
+I'm not sure if either explicit or implicit "fix" within drm_sched
+would solve the issue at hand, because the entire "ready" state
+tracking is actually a responsibility of the driver =E2=80=93 AFAIK its
+existence has to do with AMD GPUs' ring resetting? I had a conversation
+with Christian about that a while ago; I think we agree that that flag
+should be carried by the driver in its own data structure.
+
+Does amdgpu still modify sched->ready without going through a drm_sched
+API? A first grep hints at about ~135 places where this might be the
+case.
+
+What I'm especially wondering about is whether different threads
+participate in handling that state; dealing with the flag is in no way
+synchronized in drm_sched_init() and drm_sched_fini(). If yes, the
+proposed fix would likely still be UB.
+
+
+So since this patch seems to stem from a broken test, not an actual bug
+at a customer, my hope would be that we have some time to fix it and
+that AMD, thus, can help with reducing drm_sched's tech debt by
+removing that flag and have amdgpu invoke the scheduler API in the
+correct order.
+
+
+Thx
+P.
