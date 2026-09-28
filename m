@@ -4,77 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C58FFCA5FA1
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E1B1C9832A
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC6B410ED7A;
-	Tue, 29 Sep 2026 08:23:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0F3710ED7C;
+	Tue, 29 Sep 2026 08:23:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=freebsd.org header.i=@freebsd.org header.b="rCW4HRuJ";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="DgHxUQxO";
 	dkim-atps=neutral
-Received: from mx2.freebsd.org (mx2.freebsd.org [96.47.72.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12C3710E891
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 13:30:51 +0000 (UTC)
-Received: from mx1.freebsd.org (mx1.freebsd.org [IPv6:2610:1c1:1:606c::19:1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519)
- (Client CN "mx1.freebsd.org", Issuer "YR1" (not verified))
- by mx2.freebsd.org (Postfix) with ESMTPS id 4hthyd5vKsz4fq3;
- Mon, 28 Sep 2026 13:30:49 +0000 (UTC)
- (envelope-from emaste@freebsd.org)
-Received: from freefall.freebsd.org (freefall.freebsd.org [96.47.72.132])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256
- client-signature RSA-PSS (4096 bits) client-digest SHA256)
- (Client CN "freefall.freebsd.org", Issuer "YR2" (not verified))
- by mx1.freebsd.org (Postfix) with ESMTPS id 4hthyd55y5z3JR5;
- Mon, 28 Sep 2026 13:30:49 +0000 (UTC)
- (envelope-from emaste@freebsd.org)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freebsd.org; s=dkim;
- t=1790602249;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=YCxMIzkkwqZVcAZWwFDBgHmeqojxubLQfMAiQkqnlzM=;
- b=rCW4HRuJGsQlHgh5xkeyci7i8WTSXsU31P2Y+tJoO+A9SpQIDW6qPAeY9mtM2XETGNxkWV
- SMhlSCeJGruZoCQAHlQchC4aEpiPB2iTGYvx3OkVKt0qZVrI9lbcextq3099S0sop4PHSb
- jASUgF9oKJRvR594c3ElLTzj4FJkWgZ5oZcbAVjZPi/nB5F7KspJLux3KUBCHyW7HRVX1D
- mL7G0+O9yKGRpD3fqVsdX7WF5ySDt0xLAzBGspYmFJpkF110/aKUgGtpfUKvGpGVn8nK7q
- CeZD6vPNK+v31H2pnHUQJkiAzoMIAFOcG1Bl121StXoPVIHV+KWP1qTWxp6ebg==
-ARC-Seal: i=1; a=rsa-sha256; d=freebsd.org; s=dkim; cv=none; t=1790602249;
- b=VkuH7erWgR1fIA2vPnVE9kIRGbhEDbDUKMN2Ep4Z2H02BvO6b379U7ATQBK/tfcCp0Cbxc
- nJPAXkUB5yatByetkq0RO8iD0MYvyn5jKEnbOXR83s/l+slgj5GsLJTqEIe8PSxoOsD3fv
- WNeTHfiOT36mgC+7puM/f0tYuSSlehNbuGBzi1SXh0gNrG++GcPs9htaBs2B29TTXV+HmR
- vJHk4b18MJZNMoU5lALzE/jumJC6p6+lW2H/q1jyq07J5R7SZIYvYM4huHUxo86oKHt0Od
- etaY747TnW27z83FwzmMWR05tk4KiZb+Kzz/UqdFg2+VZN82+U2++EHbt0vRzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=freebsd.org;
- s=dkim; t=1790602249;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=YCxMIzkkwqZVcAZWwFDBgHmeqojxubLQfMAiQkqnlzM=;
- b=PGGz+LCSssOBgY/TfZjabpN2TIDkTS7Roqbc+YH/szL4VCk7Uc0HvOSx2NFnVXOj2BBRwC
- +D2YoIlmxiO6kqA92HPeCUun3Wli4wpGvBmXAXnN4PtE1LPx771Hd3JkKWShfFEcC1tBC1
- 5Cp7Tf9cw1yi3axrv1ziBO6XV2BAPyfJYmLOLN/bTf4h6qEcwFOcy4+iGgwMz2OXBx+4Tr
- VxHSRFAwi9JNkMeScQeJc9sJeoaiZHyrLFa9AgO614atM7a01AFQn9oF1gpJ8vyjbINpeP
- 1YW+SvrrK0Q3LVEvFh2BD1hE5Cq7hmK+Nxeu7hu+N1eVNm5zihMZFHFSgj9rnA==
-ARC-Authentication-Results: i=1;
-	mx1.freebsd.org;
-	none
-Received: by freefall.freebsd.org (Postfix, from userid 1079)
- id 8BA0819BB5; Mon, 28 Sep 2026 13:30:49 +0000 (UTC)
-From: "Ed Maste" <emaste@FreeBSD.org>
-To: "Alex Deucher" <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org,
-	Ed Maste <emaste@FreeBSD.org>
-Subject: [PATCH] drm/amd/amdgpu: Add newlines in drm_dbg format strings
-Date: Mon, 28 Sep 2026 13:30:30 +0000
-Message-ID: <20260928133030.69982-1-emaste@FreeBSD.org>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com
+ [74.125.230.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C344910E93E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 17:27:44 +0000 (UTC)
+Received: by mail-qv2-f41.google.com with SMTP id
+ 6a1803df08f44-91784fbb60dso885426d6.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 10:27:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1790616463; x=1791221263; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Snkhkpv5tfQYCAgHHo/k8kMLGqfuMfM+gSc1uL+OvlM=;
+ b=DgHxUQxOIHzuDvEv4NJMXoEnhLb+Wq/hFx5atqWJL9AMj9QsmBb3ePlc1Y5g3j6hAN
+ ELzAuqGne6RJS0t/uZFUH/NIzi8TGhnWPLvOGQVCNnw1RnH3UA+Tnl8EujDO+w5usayq
+ 0jJk8e4+TP8dqxBabIAguXpVPtRCEYRvnrVuiXR+XPtOV+/+lpisWMEh/ebosj0fPAyH
+ mZk4KuaGebQNSvYc/VpdTwM6FzAqzJXIvaYQLBpo0bVmGeLXIEGndRF9xp0LlTAStoEE
+ cVfed+DuAmSqkiYiswUAG1Xuoz8csj5/VxOVSRrXdwR/h443+4G9Yn0c4Ktb1EO+fU0n
+ 4PoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790616463; x=1791221263;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Snkhkpv5tfQYCAgHHo/k8kMLGqfuMfM+gSc1uL+OvlM=;
+ b=dGEfJX//1QSMMZHRKjyNax+5tQhNvJ6WiRz7q7o1pqVRkLiZrWYSz2eWezs2/zS22V
+ JwA6w0DCE9sBhQLp4LGsTtsV6Mb5pbXoNlrqn9saKSJItvJxHtMm/zhxpGfincFu13Fx
+ Qro08PMnf+do3LM+vbg29dSf7cSZ+PcVtUcypeO5zB9Dr4AsFH1NQGVqWoXxVEz8RdJY
+ Mq7F+zkJQIO2+Dy3UzyixnqkN5AGrMJr3H5tPsMpGMOqtkeT/qjOXkng+Ze5h/A0uIH5
+ UGPtEOotXaT65ZGpX6N3XnhOlJTicqLoJ1pDiPrm33TBR+MARJNuQpJWjPzhQIwFXFO3
+ 9l1g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwCRjz34b0QIrKzYv6GopdurFnivOZ5cUwlPC17JA+04oxI8JRzTcCMUvWstZTEIFhprgWLp6Wp@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l1n+BoCDQhVn1Y0P2TgX3Arlq8CqJo03z7qcGH0XHnWw7rSOHD
+ Hrxc4PtLU4wzUSnFgIlcaY61BGZVeZ2cZryk5oBHUkqY0EKHciKwLSg1MclIoEf0ZHU=
+X-Gm-Gg: AYBFou03FAECtU2Dy+0xOhgxIwvn3MegWEhORwhYnHur4qqrUAWUlug4UZqrwZt3HKf
+ CExF3JJxYGrKjWejzluQXI9+vvWf81iDeYKezhDHowQFBZ2lHZ6LPO2R+5VLhcPcco/E+cDuH7r
+ sXj8NQamTyWIItvVTqlOJ1so9JcDN3WWftaFNsvesB9DSYednZxIqInvTbgCOkPwgrhu5+6uHXj
+ erFJIRmWBtq70RteX+r3BzzZmFFvBI/WpOfmxTEyBerZG6nSKQoRahhkZEDYxVR3SLo/Cm2Gxqj
+ flomrfnDQI3QePRUThltU4QJYH0GCRDidBm0m6RYJDFzvEycjxZPoG3p4cqZKxFd74iT3cWwhcw
+ yGy4jrvcrqehMasgQZvvtd5fcMEFWaEPXWo3ImKPxXBLXlIW1BEUHaursZaeMgcPHTnL6pnkH4X
+ +o/Ht1o9wAOu2Sck2KSr3VYRMBjo8Nf36fw5JEXwTWIbz9
+X-Received: by 2002:a05:6214:ca2:b0:915:e892:d932 with SMTP id
+ 6a1803df08f44-915e892f966mr81063516d6.3.1790616463265; 
+ Mon, 28 Sep 2026 10:27:43 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-9144b6335f6sm57161666d6.11.2026.09.28.10.27.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Sep 2026 10:27:42 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1xBF8f-00000007NXN-3v3H;
+ Mon, 28 Sep 2026 14:27:41 -0300
+Date: Mon, 28 Sep 2026 14:27:41 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Vasant Hegde <vasant.hegde@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>
+Subject: Re: [PATCH] iommu/amd: Make PerfOpt compulsory for APUs in identity
+Message-ID: <20260928172741.GJ163130@ziepe.ca>
+References: <20260928045050.955165-1-superm1@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928045050.955165-1-superm1@kernel.org>
 X-Mailman-Approved-At: Tue, 29 Sep 2026 08:23:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,75 +96,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ed Maste <emaste@FreeBSD.org>
+On Sun, Sep 27, 2026 at 11:50:50PM -0500, Mario Limonciello (AMD) wrote:
+> PerfOpt is only a feature usable by integrated GPUs and only in identity
+> mode.  Instead of leaving a policy knob in amdgpu, just turn it on when
+> an integrated GPU in an APU is in identity. Re-use the heuristic in
+> amd_iommu_def_domain_type() to make this decision.
+> 
+> This drops quite a bit of compatibility glue.  There was a refcounting
+> system, exported symbols, and device attach/detach logic.  By just setting
+> it immediately it's a lot more straightforward.
+> 
+> Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  50 -----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 --
+>  drivers/iommu/amd/amd_iommu.h              |   2 +-
+>  drivers/iommu/amd/amd_iommu_types.h        |   3 -
+>  drivers/iommu/amd/init.c                   |   3 +-
+>  drivers/iommu/amd/iommu.c                  | 234 ++++-----------------
+>  include/linux/amd-iommu.h                  |  11 -
+>  8 files changed, 48 insertions(+), 268 deletions(-)
 
-Signed-off-by: Ed Maste <emaste@FreeBSD.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c    | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c          | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+Diffing across the originals to net them out it is much smaller:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index 1e21e3444802..c283087bb560 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -311,7 +311,7 @@ static int amdgpu_atomfirmware_get_uma_carveout_info_v2_3(struct amdgpu_device *
- 
- 	if (nr_uma_options > MAX_UMA_OPTION_ENTRIES) {
- 		drm_dbg(adev_to_drm(adev),
--			"Number of UMA options exceeds max table size. Options will not be parsed");
-+			"Number of UMA options exceeds max table size. Options will not be parsed\n");
- 		return -EINVAL;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 62f5c5cbd7f9..d23de711d8cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -720,13 +720,13 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
- 	/* Read from file if it is the preferred option */
- 	fw_name = amdgpu_discovery_get_fw_name(adev);
- 	if (fw_name != NULL) {
--		drm_dbg(&adev->ddev, "use ip discovery information from file");
-+		drm_dbg(&adev->ddev, "use ip discovery information from file\n");
- 		r = amdgpu_discovery_read_binary_from_file(adev, discovery_bin,
- 							   fw_name);
- 		if (r)
- 			goto out;
- 	} else {
--		drm_dbg(&adev->ddev, "use ip discovery information from memory");
-+		drm_dbg(&adev->ddev, "use ip discovery information from memory\n");
- 		r = amdgpu_discovery_read_binary_from_mem(adev, discovery_bin,
- 							  is_tmr_in_sysmem);
- 		if (r)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 59ea338b554c..0a8dd7241750 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1428,7 +1428,7 @@ static int amdgpu_display_framebuffer_init(struct drm_device *dev,
- 			ret = convert_tiling_flags_to_modifier_gfx6(rfb);
- 
- 		if (ret) {
--			drm_dbg_kms(dev, "Failed to convert tiling flags 0x%llX to a modifier",
-+			drm_dbg_kms(dev, "Failed to convert tiling flags 0x%llX to a modifier\n",
- 				    rfb->tiling_flags);
- 			return ret;
- 		}
-diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-index 485ecdec9618..363266f3e0a3 100644
---- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-@@ -235,7 +235,7 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
- 
- 	r = amdgpu_acpi_get_isp4_dev(&acpi_dev);
- 	if (r) {
--		drm_dbg(&adev->ddev, "Invalid isp platform detected (%d)", r);
-+		drm_dbg(&adev->ddev, "Invalid isp platform detected (%d)\n", r);
- 		/* allow GPU init to progress */
- 		return 0;
- 	}
--- 
-2.55.0
+ 5 files changed, 122 insertions(+), 1 deletion(-)
 
+And I think this is much better , but I have a few questions
+
+Why is this setting and clearing perf_opt in dev_data?
+
+I expect probe to make a determination if this device has the special
+path and if so then there should be a permanent flag in the dev_data.
+
+Based on that flag amd_iommu_def_domain_type() can return identity to
+override things
+
+When the driver does an identity attachment it would enable the
+perfopt and write out the right DTE for it.
+
+Whenever the driver removes that identity it would disable the
+perf_opt. These points are all marked out in the attach function flow
+you don't need another variable to keep track, or the funny logic to
+block things. All you want is an attached identity domain that is
+"optimized".
+
+Release goes to blocked which should already disable it, so no need to
+disable it again in amd_iommu_release_device()
+
+The repeated pattern is a bit much:
++       if (dev_data->perfopt) {
++               if (WARN_ON(amd_iommu_perfopt_clear(iommu)))
++                       dev_err(dev, "IOMMU%d: failed to clear PerfOpt on release\n",
++                               iommu->index);
+
+Clear should probably just do the warn on and not return any error
+code. It is never OK to allow this to fail..
+
+I'm also scratching my head a bit why the global register needs to be
+set/unset like this? Does that global bit completely bypass the iommu
+for a single special device? With no way to discover from FW which BDF
+is the special device? If this is the right guess please document this
+in a comment around __perfopt_write (and again that's awful, ACPI
+should have a pointer to the special device so the OS can understand
+this)
+
+Jason
