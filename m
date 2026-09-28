@@ -4,81 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A065CCA5FA9
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 15:10:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19B25CA5FA2
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 15:32:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14CAB10EAD4;
-	Mon, 28 Sep 2026 15:10:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD67110E158;
+	Mon, 28 Sep 2026 15:32:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D+N+9XVO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HkSJy59J";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DCD910EAB5
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 15:10:49 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-482f6351831so1863104f8f.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 08:10:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790608247; x=1791213047; darn=lists.freedesktop.org;
- h=content-transfer-encoding:reply-to:content-type:mime-version
- :references:in-reply-to:message-id:date:subject:cc:to:from:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=gAJCiFk1nnvH9RVGfNBTozRGTzntHW+RvdNDSL5aCA0=;
- b=D+N+9XVO1kXanhhY/boE1uYQP+KAm6kKd0413kXg/nRJ53+ccuwhQ3lBn4nG231cWH
- tdiO7jQdMZ1oXifwTnmTzOjtgDmcR1cUeygGyUfWEK9J3+OJ8snaPu7LV9HxHmtjBjbf
- BnEFAXGT6p7+Bbiknvzcmv2Nx9xvHgv59ft8qzNaFDMQwsYyOgaoI8GhkyfdWktDBYHQ
- iSErFYA6Qz0Y4HgK32KVExXorlF43eb7prrIoFipvAZnxeMqGa640uoxSSRdGbtusilL
- 30NI10OBUAbb0XqnMC7YFNE6wiSENgDcmdeKF5J5m3yWm0YKd2CuHaFbES5QjsSRT1/P
- WZ4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790608247; x=1791213047;
- h=content-transfer-encoding:reply-to:content-type:mime-version
- :references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=gAJCiFk1nnvH9RVGfNBTozRGTzntHW+RvdNDSL5aCA0=;
- b=A5ItujNy0ZshJVw1WO/+xQubEZsxqM/Py2Z7c4RJ79FO0QLH5ncbXt5k6eFS1MY47y
- 8jOJXFM1HR74N1YSns1TN7ov8l2Tqhi4kuktv39rPj68cl7OKLjeljwo31bg/BzZ98TP
- 5yrfhUvPY6lPivlbVnU0mahXmdwMvZ1eDO/xjUV60SxrGVLQaQsjR9O9Poi1ddx2/vga
- dkCP86zOW7t1nH/GK6c3W7IRrMAplHyOVwrzGAYAmBez5c2VdjqHK092r9ncIkuUvmFQ
- lxe40Qx8ZYfpjniYMSh/xbOhoVteyq9NTaVwGZ2iPwxtiTPMh0S8Vg3EBql1TIL+J/Ff
- oT+g==
-X-Gm-Message-State: AFq9FYKjIjBejn0qKAL67xJPKYgzFh/LHPS6qOldsdFUe/mT6oV+NHFk
- mB83PTbAHIdQ608driaQNS07/icvcno17bCFoYgI46MuPYL+VoMPV5NY
-X-Gm-Gg: AYBFou0c3qSFCv2RvrykinpHbg4ervctZNp1F8rCb4Rt7k0yCS3Or4XScQQy9AQ3U+n
- gRz1Yd8BpIFRxI1yaz66kd5kjPJbcznnClTI3OPeq55uEXL7gv5UgOG48ObeZuNDRCsKOv7wNeF
- UDv6UB50WLESI2Eg3Ei+iD255lyBQLO13Z1v8sO+HMaeniGote+RfddOK1KDTWU8eXyknLpnJnb
- 43vzFvfdgImXgEav3n7ebYxjb61OikVG5TDqYtedGOc8BwgZEhbrnUxpPI98Vj1J65hhMOHR6sX
- dsPUkG6/EcpOxLdraYrngMBnwBdd3Mt1JR/zhQpi3b1iSiMB3g0VQ2yd/OS+OIbSN7hnE43kOZr
- 0ArF57c2ADaYXVNoCfObbFTEX1IJCVMMUKfT0G5+7cZTbpSypC1Y1mVklQH2BSkvH8fqQtv+eJm
- uMQX1Vk/r/zJQeb+aawZdK3Y1cURnlksJozgURPU+TaQP5Phwce5ZJx19b0iAXoUxscFA1R0G32
- Eq0O0V0wyC1tzp1195PrA==
-X-Received: by 2002:a05:6000:22ca:b0:487:af3:836 with SMTP id
- ffacd0b85a97d-48871764dd8mr27102331f8f.45.1790608247330; 
- Mon, 28 Sep 2026 08:10:47 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:152b:4800:8072:ed4c:898d:d82d])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4887a35fb05sm31513965f8f.20.2026.09.28.08.10.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2026 08:10:46 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: natalie.vock@gmx.de, honghuan@amd.com, Alexander.Deucher@amd.com,
- Felix.Kuehling@amd.com, Philip.Yang@amd.com, timur.kristof@gmail.com,
- cascardo@igalia.com, tvrtko.ursulin@igalia.com
-Cc: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/9] drm/amdgpu: drop immediate updates from
- amdgpu_vm_update_range
-Date: Mon, 28 Sep 2026 17:10:37 +0200
-Message-ID: <20260928151041.1857-5-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928151041.1857-1-christian.koenig@amd.com>
-References: <20260928151041.1857-1-christian.koenig@amd.com>
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013035.outbound.protection.outlook.com
+ [40.93.196.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67CD410E158
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 15:32:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OHXABjvpMOyssgKL4RAjz/P+4ubOfOj4rKUSUYXOXgW77KBojINnkYMpT0r+lSQHWVsRrY3YzZgP+bwtCxoaWtzdj4SVzAzpgwr43F/IO7jQKnQ6MmHVF7qk5Pqxz2ReYejZsFnKfRBG6wh2EFIsHMWYYJE7AZ019Ir/YX6Ae7vUMHB2YkAMUdLQzsaeN++aTOskzt22db8SdKvLM0UeUD0g8tmcIWdwd+B8/ei38vVf6SYoY5aVHvTmWvPrciSb/USLSlNbrejHLF47m0tHEjg1ATfa7scdTaFIpjebFllnrCHLnRruHt0Yif6qAO611DDyz+yX6KYvyBxVFaJ/RA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tkxTFNIi830q1uLVXgN31K2N3yNuCOpOXh3DR2aS6pU=;
+ b=m433QFFJ9SyDTO58K4Ml5ObF5MVJmcViUg0zToFHjZps6VALYgySia9dtBCoxxIV8oyuWq+5yF2Pch2nYquwXi3JuNjSssggCJKUY5JLsdGam8bSvixLxsoHjuX5bfeYpqu58Xu8ooocY/e0d/zVaxMDHXzz/86U6/taYS2H4i48Mpk6IldbOIGkqYUMPDRGfxgblyU412TQgBlDzgMNInYKgikqYpmYJCpBHKpMZiD1p3TAUtfzISFrG3a0LBifAjO+41/n0BlDr0e/mXby+nUdtayovY95W8ahu4AupuotuFWnyZqCEec0jZ2fClJGqpoTQ1LryotWseFZcOYz0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tkxTFNIi830q1uLVXgN31K2N3yNuCOpOXh3DR2aS6pU=;
+ b=HkSJy59JCiq4yvr04yVJ+VjD3kVyKWr9xVjyrD7s0hxTkGeUOD7Jyr41VS1c1ONgBGj5BETZMoCbWUyjsoKN/oKYhjpRbklCiR2JR6Zjd2M5q3m7MP7zzKeHiNip1MmON2PoXPmM+pxQjcU7bJDg8+QeyY7tQnyX3jjv0uhIt9E=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by SA1PR12MB7317.namprd12.prod.outlook.com (2603:10b6:806:2ba::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 15:32:44 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 15:32:44 +0000
+Message-ID: <34bcdf7a-82b1-43cb-8409-735ebef3fa97@amd.com>
+Date: Mon, 28 Sep 2026 10:32:41 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] iommu/amd: Add PerfOpt IOMMU performance
+ optimization support
+Content-Language: en-US
+To: Jason Gunthorpe <jgg@ziepe.ca>, Mario Limonciello <superm1@gmail.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Alex Deucher <alexander.deucher@amd.com>, 
+ amd-gfx@lists.freedesktop.org,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
+ Jatin Kataria <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>
+References: <20260908041207.38113-1-mario.limonciello@amd.com>
+ <20260908041207.38113-2-mario.limonciello@amd.com>
+ <20260924225018.GB16465@ziepe.ca> <arYf3iJW7hfTua__@8bytes.org>
+ <20260925122848.GD163130@ziepe.ca>
+ <4560d7d3-4d67-457d-bcd7-2176bd850bd4@amd.com>
+ <20260925223928.GE163130@ziepe.ca>
+ <ab1cdd64-3390-480a-8d41-a942e8b2e120@gmail.com>
+ <20260928120831.GF163130@ziepe.ca>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260928120831.GF163130@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR03CA0312.namprd03.prod.outlook.com
+ (2603:10b6:610:118::21) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SA1PR12MB7317:EE_
+X-MS-Office365-Filtering-Correlation-Id: da1a1c91-4c45-4128-5d42-08df1d75bdd1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|7416014|10067099003|11063799006|4143699003|18002099003|56012099006|22082099003;
+X-Microsoft-Antispam-Message-Info: DQum4l5JzKzBQx2nJ+2Mua7HyyoK2X2UPxWvkzZ4E/TqOyYsK5sXPQsimSE65jTrj3rMe2+AU5F7md6ZPeQyM3itFxxQ55gHY+do3qH0o6+oKCE1bGQceRXEWzqGBp91qkhEduRShWOZ4DEy2hv5x+Mi57pvC7ZfpS4uQW9R5z85N1dS3V2X1CimlfOBgcRDAPXSQSeZa0l5s6rMbYqE18357PrcaLvpIl9i9ZyKRCAuobo8KB2/nk9hjdbtVmK1eVUDG4yDkJeYPRXdBzBZNRTm8qPAvZZihL7GxYBVEqM31pAujhR7MWaYg1p0HMrN7ZgU3/AystweT8slDmXcRc1Vo5qkDnUXNiZ2GDAhuZE+cLTQYz6B7SqyzK0NXZryoWu79QbyEv8xVEw8ZNB5x9/YBfiYfnvx91GI40pqDc7cSD0OTLe6ifKw/QdksjtDjbBs9oO5k9W6l5bYCR+ck4uHJjZORU0klHNMwXQZz9xxH0PNPvsgd6rINZuHVXVeAPg86BnH7h3ingzAr17byYkSLNEhKcsPR+7gZ60sgZA71/E9AH/y+EdeMd7JwyFkrqUCzwS6QjdSQIX8LTEwIUNlzLDWBli/V2UWGzS5Slt+fCo9gSJ9okELRdk62MGV
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(10067099003)(11063799006)(4143699003)(18002099003)(56012099006)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bENWSm1VZE1FbUxHUzdWUm9OeTNMS2JlSTBZbllDL1RXU3M5REdCS3RuTWx5?=
+ =?utf-8?B?b21nZ1pCTkNXQjRDRmxxNG9DdlB5Q2lUKzRIcWtkaDQvODkxWjdhcmlkam5U?=
+ =?utf-8?B?djNWSHI5ZDVReUtuMnhsbnE3c0ZLZzVBb1NWU0RTSDJzTXdnTmQ0SGkvQ2Zy?=
+ =?utf-8?B?RlVjM3dhdmJaeUxwemhPb216Vy8weG9RZzFTUUZOc1d6WFBIVXNPOHd1NTJK?=
+ =?utf-8?B?anlYVHVqZHArZkF3UVd1WkdQcjdjM296NFRsZXVRVEltZERJanF4V2g5N0ha?=
+ =?utf-8?B?R3VqdEtyOW1FZStnYVB5SGZJR0lwME5jMzJyalBVajNvVmJVR2dCMWFEeU5l?=
+ =?utf-8?B?QWhwTk96YjFyalFON1J0dXI0QklacFJCUDdMWElYazVKMEkwL280OUhUTnRQ?=
+ =?utf-8?B?bHZBRmI2aTl1emNnbkJONVoxVVJza0J6dENTWmVYNGE4OWlnV1dsa0JGUVlE?=
+ =?utf-8?B?aWdFNzduZjRBYVpQeXVhcm1ZREtlVGQ3U1M2MkRLM1gveEw1ZTNscTBrK1JG?=
+ =?utf-8?B?VHhnYlZjQnQ0VmhwWFFmd3hsOFhZQkJEZ1lab1FCNDRnOExSVU5XNVBCSnlZ?=
+ =?utf-8?B?TTliZG5jTHBsMk1pVXFrRzdQaTBRTi8xWmQzZzBIc1lxMkt3OFJRV3lGaDVz?=
+ =?utf-8?B?MkxlNlRFbDJ3Z0FTa1RDTEdsTWN1VlMvdzB3a1VKay9tRmZMZERJZWI5Y0l4?=
+ =?utf-8?B?MktYcVNERHFGT1d5RWgrQ3dhdFE2NW1vaEQ3cExqODVKejhhVDJWWkIyUjF0?=
+ =?utf-8?B?alhoUFlobWtUblk4ZHpPcDBSeFgvSzg4SS90K0krNnR4QTFQbmtxUk5PTVBY?=
+ =?utf-8?B?VHNFblhNUUxFRUhkc3NYY0NOUVFoU2lSU1doM3JHeVZ5anZWcmtBRUdxYk1x?=
+ =?utf-8?B?Y1lXVkMwRWJxdlQ5c3JlTitpMzdObTN4V1lzc2ZzbjdTYU1CSEQ3d0tUZE5C?=
+ =?utf-8?B?cFZZU1FsMS8zOVdVRTlWb1JMWmhYbmwrM2NOcXVzZmRsbC96T3daSzNuZnVW?=
+ =?utf-8?B?eFNXT2ZVamRrTnBaWlNualBpK3RlYVBtK0QxTDI3alBLQndhZUx2WXJnNzBF?=
+ =?utf-8?B?WHY1aTVvVVpubjZKTVF0MWxqazQ3c1dvTjlxUHYrY3M5b29Fd0IyMmdxRFp6?=
+ =?utf-8?B?YkxvRFpLYVVhZzN3Nlk0ZXFoeVRrWi9XUDh1NGxKelJKMkRScTR0M0theWhQ?=
+ =?utf-8?B?dERmVkdpS040NVIvOE0zMkhOWUw3NkQ5VlZqeFh2amhxUzhYZm42RWYzV2xM?=
+ =?utf-8?B?QkFsQWdRSm5oV1VZSEF6QTV1VWQ4MG9HeUdvZ0pkU29VTFZJTXI1MkxBamQ5?=
+ =?utf-8?B?MExXSC9mTWludTJBUXhSL2tnSXpNQ0Zob05rdXBRdGp5a3YyTStvRE1yMFFT?=
+ =?utf-8?B?dmN0U2pyY1hPSndvS04xRDV1WFdkT0E1d204aldpZE02S2NHMlIydnhpQ1ZP?=
+ =?utf-8?B?QzBialZNZ3p3d1V6NHJEcGViOTNVZEhPdXozRHdsa3l3eUpXNmUzZ0RpSHBk?=
+ =?utf-8?B?NTljYVA5dldsK2NTR1ZhSmhVbnRmb2hOVmZJYTdFLzB4NURmQWxNeUNOUkdn?=
+ =?utf-8?B?V0EvVE1PRHZRRFBJc3JTTzNUMVhVVzZZTzhlcFg5MDJvU0ZJa2pOQ1lEZHcy?=
+ =?utf-8?B?RnFibXZobS9kc1BtOWNIZG5Ic0p1eEdjSGlLaG9jbURwSmpPcTM4cDNSeFZQ?=
+ =?utf-8?B?UDVIbEdoc1M3VGxWWmdNKzRZU21QbnZRb2p1NjFtM2k5M0FoNWFJbUdrRmRy?=
+ =?utf-8?B?VWpwcDlGekRmdUxFNHhUMVpVYy80RE1hZGpzQ2QzbTRtMzM5M3NhbjJxYXla?=
+ =?utf-8?B?MkNaOUlnQ0gvc0xXM0UwaXI4RERQM1ZwRUNzYmttWFNJYlhYNDJTaml5L1VR?=
+ =?utf-8?B?WnlpeXBGV081WEtVVEFvK3FHSXRhNENlYldkclM3VHN4b3U1d1R5L01kdUNu?=
+ =?utf-8?B?Y0o4bjNHWElKL0I0UFdCR25OdC80a05FS1FjV04zclhzKzFEdzlCbGxKV0hN?=
+ =?utf-8?B?THdGa2JpaFU4SWNDcWhLZ09HRTZYcTFmcXBPaVd4c291Ym1kR2RVdkdwS3NK?=
+ =?utf-8?B?UkUyOXFyRVNhODRPa0pNaXRzWUNMWnQxTHgxTHpIS01zTkNNZlY4QkovTWdu?=
+ =?utf-8?B?U1RNMzl3VTZ4ZjFHdWU0L2QvV3JaMzhpaUhXRHU0TFhlTVR3MVhtOWVLMnNp?=
+ =?utf-8?B?R0diWUhzVUhQcFdJc0tQNVAzSmQxY00yZkd6aEhONVFwaWtRUEpGamMya1A5?=
+ =?utf-8?B?M0NRT21raGUzQ09nanBNT0N0N2g4TUpSYWQyenQ0ZU5WRHZBR1ZCWlRmRDZR?=
+ =?utf-8?Q?7Zwira5YKwdbpo0Heb?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da1a1c91-4c45-4128-5d42-08df1d75bdd1
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 15:32:44.4753 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: amJGEmKiCKyuIMe1SUJ9oh14jln0YDL2U6yNqV8d+8zV0QvyRRsytukdFR//gKuIlQU/86ymWiHb49F6yRSqHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7317
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,316 +146,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-That case is handled by amdgpu_vm_update_leaves now.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    | 42 +++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 21 ++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        | 11 +++--
- .../gpu/drm/amd/amdgpu/amdgpu_vm_internal.h   |  5 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     | 13 ++----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  4 +-
- 6 files changed, 43 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 6e937f31a5b1a..aac97dca36e33 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -2056,9 +2056,9 @@ static int amdgpu_ualink_unmap_npa_addr(struct amdgpu_device *adev,
- 		return r;
- 	}
- 
--	r = amdgpu_vm_update_range(adev, vm, false, false, true,
--				false, NULL, npa_addr, npa_addr + size - 1,
--				pte_value, 0, 0, NULL, NULL, &vm->last_update);
-+	r = amdgpu_vm_update_range(adev, vm, false, true, false, NULL, npa_addr,
-+				   npa_addr + size - 1, pte_value, 0, 0, NULL,
-+				   NULL, &vm->last_update);
- 	if (r) {
- 		dev_err(adev->dev,
- 			"Failed to unmap NPA addr (%llx) from NPA VM\n", npa_addr);
-@@ -2108,10 +2108,10 @@ static int amdgpu_ualink_map_npa_addr(struct amdgpu_device *adev, u64 npa_addr,
- 		return r;
- 	}
- 
--	r = amdgpu_vm_update_range(adev, vm, false, false, true,
--				false, NULL, npa_addr, npa_addr + size - 1,
--				pte_flags, offset, adev->vm_manager.vram_base_offset,
--				bo->tbo.resource, NULL, &vm->last_update);
-+	r = amdgpu_vm_update_range(adev, vm, false, true, false, NULL, npa_addr,
-+				   npa_addr + size - 1, pte_flags, offset,
-+				   adev->vm_manager.vram_base_offset,
-+				   bo->tbo.resource, NULL, &vm->last_update);
- 	if (r) {
- 		dev_warn(adev->dev,
- 			"Failed to map NPA addr (%llx) into NPA VM\n", npa_addr);
-@@ -2645,10 +2645,12 @@ static void amdgpu_ualink_force_retry_rpcs(struct amdgpu_device *adev,
- 			"RETRY-RPC: setting PTE.X=1 for NPA:%llx remote:%u pte:0x%llx\n",
- 			npa_addr, remote_acc_id, pte_flags);
- 
--		r = amdgpu_vm_update_range(adev, vm, false, false, true,
--					false, NULL, npa_addr, npa_addr + size - 1,
--					pte_flags, 0, adev->vm_manager.vram_base_offset,
--					bo->tbo.resource, NULL, &vm->last_update);
-+		r = amdgpu_vm_update_range(adev, vm, false, true, false, NULL,
-+					   npa_addr, npa_addr + size - 1,
-+					   pte_flags, 0,
-+					   adev->vm_manager.vram_base_offset,
-+					   bo->tbo.resource, NULL,
-+					   &vm->last_update);
- 
- 		if (r)
- 			dev_warn(adev->dev,
-@@ -2781,10 +2783,10 @@ static void amdgpu_ualink_unmap_all_npa_addr(struct amdgpu_device *adev,
- 			npa_addr, exp_xa_node->handle.handle_hi, exp_xa_node->handle.handle_lo,
- 			remote_acc_id, pte_value);
- 
--		r = amdgpu_vm_update_range(adev, vm, false,
--					   false, true, false, NULL, npa_addr,
--					   npa_addr + size - 1, pte_value, 0,
--					   0, NULL, NULL, &vm->last_update);
-+		r = amdgpu_vm_update_range(adev, vm, false, true, false, NULL,
-+					   npa_addr, npa_addr + size - 1,
-+					   pte_value, 0, 0, NULL, NULL,
-+					   &vm->last_update);
- 
- 		if (r)
- 			dev_err(adev->dev,
-@@ -4567,9 +4569,8 @@ static int amdgpu_ualink_npa_vm_map_range(struct amdgpu_device *adev, struct amd
- 		offset, size_in_pages << AMDGPU_GPU_PAGE_SHIFT, pte_flags,
- 		npa_in_pages << AMDGPU_GPU_PAGE_SHIFT);
- 
--	r = amdgpu_vm_update_range(adev, npa_vm, false, false, true,
--				   false, NULL, npa_in_pages,
--				   npa_in_pages + size_in_pages - 1,
-+	r = amdgpu_vm_update_range(adev, npa_vm, false, true, false, NULL,
-+				   npa_in_pages, npa_in_pages + size_in_pages - 1,
- 				   pte_flags, offset, adev->vm_manager.vram_base_offset,
- 				   bo->tbo.resource, NULL, &npa_vm->last_update);
- 	if (r)
-@@ -4602,9 +4603,8 @@ static int amdgpu_ualink_npa_vm_unmap_range(struct amdgpu_device *adev, struct a
- 		offset, size_in_pages << AMDGPU_GPU_PAGE_SHIFT, pte_flags,
- 		npa_in_pages << AMDGPU_GPU_PAGE_SHIFT);
- 
--	r = amdgpu_vm_update_range(adev, npa_vm, false, false, true,
--				   false, NULL, npa_in_pages,
--				   npa_in_pages + size_in_pages - 1,
-+	r = amdgpu_vm_update_range(adev, npa_vm, false, true, false, NULL,
-+				   npa_in_pages, npa_in_pages + size_in_pages - 1,
- 				   pte_flags, offset, 0, bo->tbo.resource, NULL,
- 				   &npa_vm->last_update);
- 	if (r)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index d6358cbfcc9b1..017ec0ac0870d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1108,7 +1108,6 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
-  *
-  * @adev: amdgpu_device pointer to use for commands
-  * @vm: the VM to update the range
-- * @immediate: immediate submission in a page fault
-  * @unlocked: unlocked invalidation during MM callback
-  * @flush_tlb: trigger tlb invalidation after update completed
-  * @allow_override: change MTYPE for local NUMA nodes
-@@ -1128,12 +1127,11 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
-  * 0 for success, negative erro code for failure.
-  */
- int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--			   bool immediate, bool unlocked, bool flush_tlb,
--			   bool allow_override, struct amdgpu_sync *sync,
--			   uint64_t start, uint64_t last, uint64_t flags,
--			   uint64_t offset, uint64_t vram_base,
--			   struct ttm_resource *res, dma_addr_t *pages_addr,
--			   struct dma_fence **fence)
-+			   bool unlocked, bool flush_tlb, bool allow_override,
-+			   struct amdgpu_sync *sync, uint64_t start,
-+			   uint64_t last, uint64_t flags, uint64_t offset,
-+			   uint64_t vram_base, struct ttm_resource *res,
-+			   dma_addr_t *pages_addr, struct dma_fence **fence)
- {
- 	struct amdgpu_vm_tlb_seq_struct *tlb_cb;
- 	struct amdgpu_vm_update_params params;
-@@ -1163,7 +1161,6 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	memset(&params, 0, sizeof(params));
- 	params.adev = adev;
- 	params.vm = vm;
--	params.immediate = immediate;
- 	params.pages_addr = pages_addr;
- 	params.unlocked = unlocked;
- 	params.needs_flush = flush_tlb;
-@@ -1389,7 +1386,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
- 
- 		trace_amdgpu_vm_bo_update(mapping);
- 
--		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb,
-+		r = amdgpu_vm_update_range(adev, vm, false, flush_tlb,
- 					   !uncached, &sync, mapping->start,
- 					   mapping->last, update_flags,
- 					   mapping->offset, vram_base, mem,
-@@ -1600,7 +1597,7 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
- 			struct amdgpu_bo_va_mapping, list);
- 		list_del(&mapping->list);
- 
--		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
-+		r = amdgpu_vm_update_range(adev, vm, false, true, false,
- 					   &sync, mapping->start, mapping->last,
- 					   0, 0, 0, NULL, NULL, &f);
- 		amdgpu_vm_free_mapping(adev, vm, mapping, f);
-@@ -2661,7 +2658,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	vm->tlb_fence_context = dma_fence_context_alloc(1);
- 
- 	r = amdgpu_vm_pt_create(adev, vm, adev->vm_manager.root_level,
--				false, &root, xcp_id);
-+				&root, xcp_id);
- 	if (r)
- 		goto error_free_delayed;
- 
-@@ -2677,7 +2674,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	if (r)
- 		goto error_free_root;
- 
--	r = amdgpu_vm_pt_clear(adev, vm, root, false);
-+	r = amdgpu_vm_pt_clear(adev, vm, root);
- 	if (r)
- 		goto error_free_root;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index ec5cd38fe4e34..3ff17625a8c0c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -466,12 +466,11 @@ int amdgpu_vm_flush_compute_tlb(struct amdgpu_device *adev,
- void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
- 			    struct amdgpu_vm *vm, struct amdgpu_bo *bo);
- int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--			   bool immediate, bool unlocked, bool flush_tlb,
--			   bool allow_override, struct amdgpu_sync *sync,
--			   uint64_t start, uint64_t last, uint64_t flags,
--			   uint64_t offset, uint64_t vram_base,
--			   struct ttm_resource *res, dma_addr_t *pages_addr,
--			   struct dma_fence **fence);
-+			   bool unlocked, bool flush_tlb, bool allow_override,
-+			   struct amdgpu_sync *sync, uint64_t start,
-+			   uint64_t last, uint64_t flags, uint64_t offset,
-+			   uint64_t vram_base, struct ttm_resource *res,
-+			   dma_addr_t *pages_addr, struct dma_fence **fence);
- int amdgpu_vm_bo_update(struct amdgpu_device *adev,
- 			struct amdgpu_bo_va *bo_va,
- 			bool clear);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-index dafdb3a001b8e..89fdeff0575ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-@@ -116,10 +116,9 @@ struct amdgpu_vm_update_funcs {
- };
- 
- int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--		       struct amdgpu_bo_vm *vmbo, bool immediate);
-+		       struct amdgpu_bo_vm *vmbo);
- int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--			int level, bool immediate, struct amdgpu_bo_vm **vmbo,
--			int32_t xcp_id);
-+			int level, struct amdgpu_bo_vm **vmbo, int32_t xcp_id);
- void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
- 			 struct amdgpu_vm_bo_base *entry);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index 27003b03b5fdb..50c41e39e2a2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -379,7 +379,6 @@ static uint64_t amdgpu_vm_pt_clear_flags(struct amdgpu_device *adev,
-  * @adev: amdgpu_device pointer
-  * @vm: VM to clear BO from
-  * @vmbo: BO to clear
-- * @immediate: use an immediate update
-  *
-  * Root PD needs to be reserved when calling this.
-  *
-@@ -387,7 +386,7 @@ static uint64_t amdgpu_vm_pt_clear_flags(struct amdgpu_device *adev,
-  * 0 on success, errno otherwise.
-  */
- int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--		       struct amdgpu_bo_vm *vmbo, bool immediate)
-+		       struct amdgpu_bo_vm *vmbo)
- {
- 	unsigned int level = adev->vm_manager.root_level;
- 	struct ttm_operation_ctx ctx = { true, false };
-@@ -423,7 +422,6 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	memset(&params, 0, sizeof(params));
- 	params.adev = adev;
- 	params.vm = vm;
--	params.immediate = immediate;
- 
- 	r = vm->update_funcs->prepare(&params, NULL,
- 				      AMDGPU_KERNEL_JOB_ID_VM_PT_CLEAR);
-@@ -447,13 +445,11 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-  * @adev: amdgpu_device pointer
-  * @vm: requesting vm
-  * @level: the page table level
-- * @immediate: use a immediate update
-  * @vmbo: pointer to the buffer object pointer
-  * @xcp_id: GPU partition id
-  */
- int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--			int level, bool immediate, struct amdgpu_bo_vm **vmbo,
--			int32_t xcp_id)
-+			int level, struct amdgpu_bo_vm **vmbo, int32_t xcp_id)
- {
- 	struct amdgpu_bo_param bp;
- 	unsigned int num_entries;
-@@ -484,7 +480,6 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		bp.flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
- 
- 	bp.type = ttm_bo_type_kernel;
--	bp.no_wait_gpu = immediate;
- 	bp.xcp_id_plus1 = xcp_id + 1;
- 
- 	if (vm->root.bo)
-@@ -534,7 +529,7 @@ static int amdgpu_vm_pt_alloc(struct amdgpu_vm_update_params *p,
- 		return 0;
- 
- 	amdgpu_vm_end_critical(p);
--	r = amdgpu_vm_pt_create(p->adev, p->vm, cursor->level, p->immediate,
-+	r = amdgpu_vm_pt_create(p->adev, p->vm, cursor->level,
- 				&pt, p->vm->root.bo->xcp_id);
- 	r2 = amdgpu_vm_begin_critical(p);
- 	if (r)
-@@ -548,7 +543,7 @@ static int amdgpu_vm_pt_alloc(struct amdgpu_vm_update_params *p,
- 	pt_bo = &pt->bo;
- 	pt_bo->parent = amdgpu_bo_ref(cursor->parent->bo);
- 	amdgpu_vm_bo_base_init(entry, p->vm, pt_bo);
--	r = amdgpu_vm_pt_clear(p->adev, p->vm, pt, p->immediate);
-+	r = amdgpu_vm_pt_clear(p->adev, p->vm, pt);
- 	if (r)
- 		goto error_unpin;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index a99dbedf3cd4f..411bd3394442a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1411,7 +1411,7 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		return -EINVAL;
- 	}
- 
--	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, gpu_start,
-+	return amdgpu_vm_update_range(adev, vm, true, true, false, NULL, gpu_start,
- 				      gpu_end, init_pte_value, 0, 0, NULL, NULL,
- 				      fence);
- }
-@@ -1523,7 +1523,7 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
- 			 (last_domain == SVM_RANGE_VRAM_DOMAIN) ? 1 : 0,
- 			 pte_flags);
- 
--		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, true,
-+		r = amdgpu_vm_update_range(adev, vm, false, flush_tlb, true,
- 					   NULL, gpu_start, gpu_end,
- 					   pte_flags,
- 					   (last_start - prange->start) << PAGE_SHIFT,
--- 
-2.43.0
+On 9/28/26 07:08, Jason Gunthorpe wrote:
+> On Fri, Sep 25, 2026 at 07:33:08PM -0500, Mario Limonciello wrote:
+>>
+>>
+>> On 9/25/26 5:39 PM, Jason Gunthorpe wrote:
+>>> On Fri, Sep 25, 2026 at 08:11:41AM -0500, Mario Limonciello wrote:
+>>>>
+>>>>
+>>>> On 9/25/26 07:28, Jason Gunthorpe wrote:
+>>>>> On Fri, Sep 25, 2026 at 09:20:02AM +0200, Joerg Roedel wrote:
+>>>>>> On Thu, Sep 24, 2026 at 07:50:18PM -0300, Jason Gunthorpe wrote:
+>>>>>>> Why does the GPU driver have to request this? Why can't the iommu
+>>>>>>> driver know that this is a special device that can use this magic fast
+>>>>>>> path and then auto set it when identity is asked for?
+>>>>>>
+>>>>>> This is a layering violation either way. Either the IOMMU driver needs to poke
+>>>>>> into device details and their relations or the device driver needs to poke into
+>>>>>> IOMMU details.
+>>>>>
+>>>>> There are no device details, this is just a module option in the gpu
+>>>>> driver.
+>>>>
+>>>> Well the GPU driver has knowledge whether it's a GPU inside of an APU to
+>>>> decide if it's valid.  That information is part of the discovery table
+>>>> setup.
+>>>
+>>> Where was that in patch 2?
+>>
+>> amdgpu_device_use_perfopt()
+> 
+> Ah, sneaky, that looks like it just decodes from a a giant list of PCI IDs
 
+Actually; no.  amdgpu has migrated away from PCI IDs and probes based on 
+the "ATI vendor" + "display class" instead.  As part of the probe 
+sequence there is something called an IP discovery table pull from the 
+platform that identifies all IP blocks in the hardware.
+
+This IP discovery table will indicate graphics IP and that is mapped to 
+relevant driver code.  So for example GC 11.5.1 is what you find in a 
+Strix Halo APU.  If a future APU had exactly the same graphics IP but a 
+different display IP it would still be GC 11.5.1.
+
+This design was implemented about 4 years ago, and all SoCs (APU, dGPU 
+and accelerator) since then use it.
+>   
+>>> The right way for this to work is to quirk it through the iommu driver
+>>> so it can choose the fast mode, and not involve the GPU driver at
+>>> all. Like we've done for every other GPU weirdness. And AMD should be
+>>> making this work better by providing ACPI support so the iommu driver
+>>> can understand how it should work without inspecting PCI IDs.
+>>
+>> There is a heuristic that Vasant added recently that we detect APU from the
+>> IOMMU driver.  We might be able to use that for now.
+>>
+>> I'll take a look at what an incremental patch looks like on top of
+>> iommu/next that I think reworks all these paths the way you want.  I should
+>> be able to post something next week.
+> 
+> ACPI is the right answer to these kinds of problems.
+> 
+> Jason
+
+I'll discuss this with architects for the future programs.
+
+For now as promissed I've worked out a patch [1] that keeps it all in 
+iommu/amd per your suggestions.  It is using the existing APU heuristic.
+
+https://lore.kernel.org/linux-iommu/20260928045050.955165-1-superm1@kernel.org/ 
+[1]
