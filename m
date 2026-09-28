@@ -4,139 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16571CA5FA1
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 17:15:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAC93CA5FA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 17:52:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 766C010E941;
-	Mon, 28 Sep 2026 17:15:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42C0C10E972;
+	Mon, 28 Sep 2026 17:52:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U0erKL0t";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OrHkv8Ij";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011039.outbound.protection.outlook.com
- [40.93.194.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1CFE10E941
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 17:15:10 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013065.outbound.protection.outlook.com
+ [40.93.196.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A2B410E098;
+ Mon, 28 Sep 2026 17:52:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Bxx/mPe3UXgr2HH1DvLKsEdvF6ZHZzugUBwaCUa3qYUStAMxB8xlUrANOHNpbtZp16BKqdEWxeQEKdSk1usfnnLfqjn4xtaxZ01DkUJjvz6XRHO2T/lznK+kWzIFsmiLk24QzHqWPBEqv6QW+KZpMYO/miYyuDL9p7cPlPEx3cn9hzcLueg8g2AYAnTazqninHbvBoe9LPlnFBL1fzZVmF6iCIqUh9zFF4lTpeu34Dh4aKgrSwAxT935WIOWLrE3YSt1EivUNgodTLuxj97zIo3wYp1osQ/0727vAaQpBThnZtlAiDCMvIOAJzvlCGtquQ3btJgpeo3zAm1IxPHiag==
+ b=h+NrcNrMN1nr4k+fiFAMjnwqUtSe/T/O6WkCOJ8yGOSLoXERYr8lhi9lh+3RDdfUCxvAhSeIgSWyJbcCqOhdqM79RTzexnGL7OtJU/A1nR6H+pRgnUZL1rrH1cSiX1/ND94ETnRkn7GRpKiGNX41BI1IevC24ZEy+qN1lMLMZvEO3BXQRYokc2bNxd6Gki+skefWkz5z3RrrZjjSmNjOIqgNdQ5nokMevwh4ibvgIdJ+0xJ7tMOQJMBjgRHHUVrC0BDudp36zJDenBuoUTvVtYdvriruo1PnUhmz12dIv95pckWmgJqYbBxnhfNsh0u1ISYh03ZAzs6MLXtxvWM6/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XJQoqSEPZFOxU9SKlrmeAOOR1/x49yTJvh+LjkqYq/4=;
- b=eFy0aX2+5+ZQMECN3+vCmAW9i+lhFQ/DNWZX+vr8ghnXnRAflfxcDFstLI84pEDFQ+oZOXWzRICrjh/8rhuLk3TdIYTiG3wYDz0HXsg4L+DMjkvG6YeJiLVJv0JCx7iC+gzlrWUyGpTeyg8xrsG/JMawVaM4ULwwF67Yk9QENsPcnUodSH/TJk/f7Xu/UVcOFh45Rfw4nypGOLvVINJMM6NFjXLBCM+TAZofsT1Fr52AOOE1X2jVHGl8iqCzvrspcfBPjsTKcSPIllDyqN1DaUYspjAEDC6PLZIl7Hpwxt7XYcxxD7GS0sqfgkT9990peLWzr4RunldOZl+1jRpDmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=kxpPLdOSVxBdeXvvm0/Y5++4DhOo+DvfnJu50qGKSFc=;
+ b=aLGpMIqqsPwY59kXvqe1fhWpD14IyJE8NZP8USBLOxoPhND0ebQ1QsXlw5gi4xDi5mMevYtrO57qvvDxTdUwap+qeNrR085G2W/XIaVJ5b+apUmDFbf5X9yS6gY9zaaSh9V/bwd/6sAqKSeWaX5uiTs/sNbV9JrPN86G3n/KgzVrpQGni+7MvnLPy46h0+xULHOHCIYVhbZD/auL3dj2OOOgwxRB1F11GSX2puxWOosX0L3JPdO7NbsGIW7BVVlsHrA73IifTFUGf3eEtq2XP6fwot8cQW6kcg93Mq5SRiB9/TTn+xPZNk5n1P874FO9BjDDttPtRyBlK7XuYdFxZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XJQoqSEPZFOxU9SKlrmeAOOR1/x49yTJvh+LjkqYq/4=;
- b=U0erKL0t7GfhZpc1LY+HtoXE3S2+vwgWdDMguu4C/B7vFP0+CbrEgPV3uRdhjI7SCaLQWvxo3B3LssXs+3H5YP1XcA8onYxaiGkOwpWa8lTttCKCYehKy7JgWPdxW82xyMDe7yPRyT3zP1gjDypuBV4Mt87KIXxJt6G3usWQZos=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by DS5PPF5A66AFD1C.namprd12.prod.outlook.com (2603:10b6:f:fc00::64d)
+ bh=kxpPLdOSVxBdeXvvm0/Y5++4DhOo+DvfnJu50qGKSFc=;
+ b=OrHkv8Ij/xCnGqc37UDHDsB9Tf5wCHCYiwiTAULDmx8m1EyLoP1G6x31qyGh1l2izGHpux/PTXn2HzK1CGX9YQotL0epDjawLZCt8hkuyQS9v3LXHzS/mc3vi/KwFh6FQeF+DMsXl8yAGuH+PWjWkgmLjy3T7/GFWecz29e52hc=
+Received: from MN2PR15CA0045.namprd15.prod.outlook.com (2603:10b6:208:237::14)
+ by SA1PR12MB8841.namprd12.prod.outlook.com (2603:10b6:806:376::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 17:15:05 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 17:15:05 +0000
-Message-ID: <d0f7e245-829c-471c-bf91-f3a0994f5fa4@amd.com>
-Date: Mon, 28 Sep 2026 12:15:01 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] iommu/amd: Add PerfOpt IOMMU performance
- optimization support
-Content-Language: en-US
-To: Jason Gunthorpe <jgg@ziepe.ca>, Alex Deucher <alexander.deucher@amd.com>
-Cc: Mario Limonciello <superm1@gmail.com>, Joerg Roedel <joro@8bytes.org>,
- amd-gfx@lists.freedesktop.org,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
- Jatin Kataria <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>
-References: <20260908041207.38113-1-mario.limonciello@amd.com>
- <20260908041207.38113-2-mario.limonciello@amd.com>
- <20260924225018.GB16465@ziepe.ca> <arYf3iJW7hfTua__@8bytes.org>
- <20260925122848.GD163130@ziepe.ca>
- <4560d7d3-4d67-457d-bcd7-2176bd850bd4@amd.com>
- <20260925223928.GE163130@ziepe.ca>
- <ab1cdd64-3390-480a-8d41-a942e8b2e120@gmail.com>
- <20260928120831.GF163130@ziepe.ca>
- <34bcdf7a-82b1-43cb-8409-735ebef3fa97@amd.com>
- <20260928171157.GI163130@ziepe.ca>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260928171157.GI163130@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0331.namprd03.prod.outlook.com
- (2603:10b6:610:11a::22) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+ 2026 17:51:55 +0000
+Received: from BN1PEPF00018547.namprd05.prod.outlook.com
+ (2603:10b6:208:237:cafe::86) by MN2PR15CA0045.outlook.office365.com
+ (2603:10b6:208:237::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 17:51:55 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00018547.mail.protection.outlook.com (10.167.248.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 17:51:55 +0000
+Received: from rtg-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 28 Sep 2026 12:51:51 -0500
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+To: <matthew.auld@intel.com>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
+ <Anand.Raghavendra@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH 1/2] gpu/buddy: fix missing split-undo on allocation-search
+ exhaustion
+Date: Mon, 28 Sep 2026 23:21:27 +0530
+Message-ID: <20260928175128.257266-1-arunpravin.paneerselvam@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DS5PPF5A66AFD1C:EE_
-X-MS-Office365-Filtering-Correlation-Id: de1f9dc3-e067-4351-f631-08df1d8409cf
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018547:EE_|SA1PR12MB8841:EE_
+X-MS-Office365-Filtering-Correlation-Id: 042d45b8-1fe0-4326-faf5-08df1d892f47
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|366016|1800799024|22082099003|18002099003|10067099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: /2Wyb8b0UEQHDgTXqIRYKjUW4sotHcU+U8ygJbKMCrraytLHO/tbRZ+qK03eWe79QnHewOXrixZjDCmhtkMxK/TMGn3quJDP3E4JEF19EiVeUASULvY9k6b/QLbsoS1jDnZv/xawyyjY895T2MV6Tkf7m7ZaJoVUjrVtjAMcFB2Ph6xBYFb9EOXD7j2gpTixi1bBLU7oJkitI0HP4NPd/IzrFZKzuk3yFwYZDbyGEM+WBN9etVdsNUjWVX4sMH/gth9JEfAJv2c7bo9UOmUiIHjVaB+WnW4CIS5a0TfaojwmacfaFj9WTnOXm3Suf5D8ltJ1EkhEG/gii9z+VB8oT7CTfzjmqB2VMXu0C/s9nUo3J6hykrCnoXRirVn6EmnyasnvLAd1wPE3F1jwjP8HHo2EtDjYZUHfxvv8SoP9KQBf4y2JeyWobKa2YEMKCGh2Jl3r52SwC8otWnHPQezxAlR+OJTs71NgzUUygNDHhUv2Q6hihMmBT5+9JLdxoPQOlk1pNR/PqQmy3PDOZjrqp0RpNWEngCmbF8DUI5krEymo6igtqBACnfJcJ+i6WgJB0h3F+PyxBxCp0AGI4gbusuoDgUfhNKtZEEnFRKVJy5Pg3+KZnXfhbQ/eMygYmJBUxwEP3dykfoE9HDR02QeNqWrhg16sYxaVmTmh1oozVcw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(4143699003);
+ ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: EGuv61OFBl4K8M19ES3ZGlLlQwNMVFaKU/THCxNXOg6bVZaMz3tD2Nc5u8navy0P0csx9Do/nKmpoHiqw+YF9xbAm5AeSLboZ2CmjqGXwMHFM70eHFAC9j3fEzYg98/ed6eWjSqOy5fJCCaUsBBm3+AOJirxYSz9wiZNMTujnYH2euFoGPOqcZ4We/07IjstgKuGnS7eDGIVvOHuBZsIo/uOAVf5o9+oRyPPq/lZU4XUytbLsFAb7cnckvXATUOphWY4Nqlyt82NE8sVk4cu3s60adnxKcZDIG9Y1WmGmwtWixtk9QsdiGefSr7avod+tohcaDWGqUGj3GjlGKGnRkQ5uO0YhS7zXobKiB+MWsHJSi/jmgHVCwcqPd4fyrYHFlL+5CTNGt4qwX7cO1QKllyeM10KYAVVXqmGKZ+fXMqTgGmvIxS7AUAYp+Ml4kJ1xDmiM6uerRt3+DPgyIUb/56b/gm/8PyqPjOAqA5w+y8jgXT7ksL9DyHVRpwk6bkcrAjsUB/reVaa3KyYaLaGlwkdYM/9Cg4YOEfHp9LX62WhKAGkqyVz/dKM0PaAUN2YQk6xPFw1tVCiK3zFyel4aqlJ1BQ26VNtcWRVghkemvfMolBz0YPAhN42FpNtD9F8dv7We/jTnVrwQTslZXx+9ctbYDpaSZLlrZXPGK1tq5bwxZBkdFltC4+TROJqarxgjmZb71b8s4irmSzZhUeVXA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(10067099003)(56012099006)(11063799006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ump3bDlXRG9EcSt1MTgrc2ZqNm5JQWRxdmsxcDJGSnlCYzVHakhycGRCdDdt?=
- =?utf-8?B?ekdhT0xSWUxHR2x2TWFqVlkySnZ6bjcxV1NLZ2RzdGxSbmVmRms4dE9lMlNQ?=
- =?utf-8?B?RTFUUG5qcGV0Mlh5Y20rWTA5RVgxdThxODJVS3E2OEdRVzBtcFlndzNWS2VX?=
- =?utf-8?B?MjNXMmdmcHI3c2V4bGYzTzJhSTJLUUY4NnpGY3NSZDNIK2VoU1pPVXFvU2hH?=
- =?utf-8?B?Nkg2K01HSnQzVXRldXVjVTcyejZXbWladEkvM3lKZUZyRnBMazJJdXh2WHM0?=
- =?utf-8?B?dXY0YjRXYTRRd3AvTlBLbXV6K3AvZFZLU0g4U1Y2VmdZS0xZTm55aTZVRE9t?=
- =?utf-8?B?TXQxN29pZmhOSVhNSldVeFMzQk5POVhxTncxdXRTUi9VMXFoL085NExiRXFW?=
- =?utf-8?B?OGVxcUFLVEI1UFlVY2ZuMjhXeXF3N2hGUjFkR2Y2Z1VieUtXZGpPbkhRd2c3?=
- =?utf-8?B?RmJMY2p4U3VRcnJudGsyTG5LZjBOa3phWU1jak9DSS9XSm9pdnJjQXoxbjlE?=
- =?utf-8?B?LzRVbWd3cStpdWx3RU9yamV1QkpjYlNuY0N6L2l6TTlrT3B2bXJwS0NoNTdn?=
- =?utf-8?B?ZlAzRmZEaXExYW10dldlZ1dndWNZakFxbFQvYkh0dTMwcEE4cmx0WG5rb01r?=
- =?utf-8?B?TVNLOXFEV3RlZTJPQlJ6cFVJZ0JYVGo3TlJoZDczNjZ2WkpkKysyOUR3cDhO?=
- =?utf-8?B?cmMzellrcXI5c2d4bkZJNW5DdGNSME9ocDQ1anFCRlRjRURFVFFXOHRaLzFj?=
- =?utf-8?B?WEhzY09wVi9MWTBGZkpOOUtXL3l4eXM1YzVac2lPU2VDOFIxWGRWNEN1eVZF?=
- =?utf-8?B?NE9PUUlQbTErZFNQN2M1WVl0OEpWSTF0QVpLQUI5ZUlMbHpJa0ltL2JYWHdm?=
- =?utf-8?B?UmNTUXlHY3U4NmxETU93NG5EbGM0Y1JnejZlMnR4Q1FWeDBJVkRqYWpzQ1FW?=
- =?utf-8?B?emVBR0VPZkZCOTZsOUNlUDZ5U1BmbS94aC9GNkFybUhRMEJINWcrcDNaK3dt?=
- =?utf-8?B?VGRSaXJKSmEzUFh5dXhBRDdWSUxrdEpuNEMrVGNVNis5ck9TaFp3QmI1SG15?=
- =?utf-8?B?Tm5EMzdDemRVOURwWWJUa1BpWEpvRU9CYU1lcDdjLzFEQkViRTVKeWJIeld4?=
- =?utf-8?B?Mi82MmM3MzYvYmM4TENTYlJ1empGdkJiZ1hJeGN3dlBXdS9pNVMzOE8wbXgw?=
- =?utf-8?B?MGJCY0dYRFlxelZyYzJpV2ZkalJ2K0VJQzN3YXdMV2lkVGZlaC9IUWZ6Tzgr?=
- =?utf-8?B?Q0wxbi9zdldzS0RodEY5RTQ3QXR4RW1KN1dhT1hDQXZ2ZTVxMWZYaHRMWjg2?=
- =?utf-8?B?MDA4c1QvM2VheERJMGVaaGJKYm1SWjJmdkxRVVgyT1JEekpoOFllaTAwd3My?=
- =?utf-8?B?dklOUWJ0VnFxbW1qL1BEOEdnYXhqbEdMVEJPWDFjcm56YVFZTkZQQkxCeE5a?=
- =?utf-8?B?emR3QU1XWCtiOVY4QlBIbTFDb2FQUUtnajRTNlpDUjZmeWZCMFBlcys5WVBo?=
- =?utf-8?B?R25uZ0N1U2UyeEp3S05sQ2tRK3kyd0w5cFlWS2xpOEhtZFB0QzZ0NDNENEho?=
- =?utf-8?B?VGM5ejc2dUp2NmxnOXhRam9FNnBOUm5tQmZMOU50eC84Z0w5RGFBSVlFenVu?=
- =?utf-8?B?RTFLU1lVVlBTYmJVOEN0NWtBUXFkaXdjQjJZRXRqbzByUitJT2NlaXFFVDlt?=
- =?utf-8?B?UFpnajEzblBERURkdkJJQ0ZiQnFCMG94aFc3VExWbnVoTThtNmJ1ZjFOaDZk?=
- =?utf-8?B?MnkxK1hncS9RMTJjeUIrb3lhSzR1dGNTUmVoN2E4ZTZsSktzYlJkRWhMdjh6?=
- =?utf-8?B?UnJNVFI5NzN5ZXlDMHhjY2ZPRFcxbEhXUDVhcm00NHFqa1pNM3RjcFNSTG83?=
- =?utf-8?B?U3haN2plOEtDSzRTcTZpMTVkaVBKOVlEcHUrajBLcXRleU80K1ZTTHNBK0dL?=
- =?utf-8?B?T1c2NkovNWprU3I2N01halFqd2gzZW15Nkl1VUoxVS95bUJwVHdzYWpnaGpS?=
- =?utf-8?B?UXJ6S00vY29xMmdCRWc5aktubXZXbGFCOFJOOC90VGprOUxwUVZZVndBTzJV?=
- =?utf-8?B?b0ZkQnZzT2NOOXh1UFlpbFpxUDhSYXVvSmZVL0FURFM2dVMrbTl2aVZ3aWd1?=
- =?utf-8?B?OHBJMml4STJIdGNvZVZyNzBVYm41VmFSMCtUS2Q2ci9nODdkeFJqa1BDc3BD?=
- =?utf-8?B?TVdtMmRUcEltb0JOK0o3NVZDUTZZazlDRE81alppWkprWU0yQWxnbEJtVmlX?=
- =?utf-8?B?N0V0U2JBRTR5NzJoM0hHRmliQXp4a3dQZURBRUVhT3k1eVVIRExyNGNzcHVW?=
- =?utf-8?Q?nY9hb+l/7qmoXj2szu?=
+X-MS-Exchange-AntiSpam-MessageData-0: ny1osJYez7wMc0EPDrtm9dUlNrYMZGv7RPvI6ZnQI2fQZ5g0xsENt5NRo8v+xiFS74HfaA7u95gJQpAkANhiLsvnkX+TLEa4h99ASQmjlBZVxc4co3FokSStNxxTnaHJpzRlKoC+Py8c003yFdH0E2TU+oL2RtnAO68updBlL3bBRPifZK5I0beSkSOGuci0+JHulMRpqg6i6ZxOpwCviIA0nGyeM8HDFeBAZegN6b4bOWHPEGf6O77XagOQvDre7NxF5mDrN/9ZHaMh76FG+sg8kh3RbTz2CNBNdl0g+qIhEfg2q94kmEsIWEokf/W8cWs2Lwb0WCB6kOJuvsZz8JNHyq2+3acsgffvR3c/rkelpH/KGDbC4ur72CJpoILUIBdjmtwIkXEvhzqMlJNViViZdKzJJR05UKcqzJX1XTiV0Nbme7A6twws8HU6vgPn
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de1f9dc3-e067-4351-f631-08df1d8409cf
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 17:15:05.0304 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 17:51:55.0447 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 042d45b8-1fe0-4326-faf5-08df1d892f47
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ApI91/v+gi2XcJ5R3Eu3odbmhI14XXkBfDbES65vItb4zVfQFg0StkMFJhitoIe26KOjSo8pAVtE1s0rfwicJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF5A66AFD1C
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018547.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8841
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,31 +114,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
+__alloc_range_bias() and __alloc_range() only undid splits made during
+their search when split_block() itself failed. Their DFS-exhaustion
+failure paths (-ENOSPC, when no suitable block is found) skipped the
+undo, leaving the buddy tree needlessly fragmented over repeated
+failed allocation attempts.
 
-On 9/28/26 12:11, Jason Gunthorpe wrote:
-> On Mon, Sep 28, 2026 at 10:32:41AM -0500, Mario Limonciello wrote:
-> 
->> Actually; no.  amdgpu has migrated away from PCI IDs and probes based on the
->> "ATI vendor" + "display class" instead.  As part of the probe sequence there
->> is something called an IP discovery table pull from the platform that
->> identifies all IP blocks in the hardware.
-> 
-> Oh, so that big table is not processing pci ids.. OK
-> 
->> This IP discovery table will indicate graphics IP and that is mapped to
->> relevant driver code.  So for example GC 11.5.1 is what you find in a Strix
->> Halo APU.  If a future APU had exactly the same graphics IP but a different
->> display IP it would still be GC 11.5.1.
-> 
-> Move this stuff to drivers/firmware and iommu and GPU can access it
-> together?
-> 
-> "IP discovery table" sure sounds like a platform firmware datablob to
-> me at least?
-> 
-> Jason
+Fix by recording every successful split_block() call in a list and
+unconditionally undoing those splits on every failure exit, via a
+new single-level gpu_buddy_merge_one_level() helper (the original
+__gpu_buddy_undo_splits() cascaded merges upward, which is unsafe
+when called per split-list entry).
 
-Yes; it comes from platform firmware.
+Resolves the igt@kms_plane@plane-panning-bottom-right@pipe-a/pipe-b
+regression.
 
-Alex, what do you think of doing this?
+Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with decoupled dirty tracker")
+Assisted-by: Claude:claude-opus-4-8
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/buddy.c | 64 ++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 58 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index 2f2aaadafe35..b741160d3d16 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -1240,6 +1240,52 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
+ 	}
+ }
+ 
++static void gpu_buddy_merge_one_level(struct gpu_buddy *mm,
++				      struct gpu_buddy_block *block)
++{
++	struct gpu_buddy_block *buddy = __get_buddy(block);
++	struct gpu_buddy_block *parent = block->parent;
++	enum gpu_block_state block_state;
++
++	if (!buddy || !gpu_buddy_block_is_free(block) ||
++	    !gpu_buddy_block_is_free(buddy))
++		return;
++
++	block_state = gpu_block_cached_state(block);
++	if (gpu_block_cached_state(buddy) != block_state)
++		block_state = GPU_BLOCK_MIXED;
++
++	rbtree_remove(mm, block);
++	rbtree_remove(mm, buddy);
++	mm->free_scoreboard[gpu_buddy_block_order(block)] -= 2;
++
++	gpu_block_free(mm, block);
++	gpu_block_free(mm, buddy);
++
++	__mark_free(mm, parent, block_state);
++}
++
++static void gpu_buddy_undo_splits(struct gpu_buddy *mm,
++				  struct gpu_buddy_block *block,
++				  struct list_head *splits)
++{
++	if (block)
++		gpu_buddy_merge_one_level(mm, block);
++
++	while (!list_empty(splits)) {
++		struct gpu_buddy_block *parent =
++			list_first_entry(splits, struct gpu_buddy_block,
++					 tmp_link);
++
++		list_del(&parent->tmp_link);
++
++		if (!gpu_buddy_block_is_split(parent))
++			continue;
++
++		gpu_buddy_merge_one_level(mm, parent->left);
++	}
++}
++
+ static struct gpu_buddy_block *
+ __alloc_range_bias(struct gpu_buddy *mm,
+ 		   u64 start, u64 end,
+@@ -1249,6 +1295,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 	u64 req_size = mm->chunk_size << order;
+ 	struct gpu_buddy_block *block;
+ 	LIST_HEAD(dfs);
++	LIST_HEAD(splits);
+ 	int err;
+ 	int i;
+ 
+@@ -1313,6 +1360,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 			err = split_block(mm, block);
+ 			if (unlikely(err))
+ 				goto err_undo;
++
++			list_add(&block->tmp_link, &splits);
+ 		}
+ 
+ 		/*
+@@ -1349,7 +1398,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 		}
+ 	} while (1);
+ 
+-	return ERR_PTR(-ENOSPC);
++	err = -ENOSPC;
+ 
+ err_undo:
+ 	/*
+@@ -1357,7 +1406,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 	 * bigger is better, so make sure we merge everything back before we
+ 	 * free the allocated blocks.
+ 	 */
+-	__gpu_buddy_undo_splits(mm, block);
++	gpu_buddy_undo_splits(mm, block, &splits);
++
+ 	return ERR_PTR(err);
+ }
+ 
+@@ -1580,6 +1630,7 @@ static int __alloc_range(struct gpu_buddy *mm,
+ 	struct gpu_buddy_block *block;
+ 	u64 total_allocated = 0;
+ 	LIST_HEAD(allocated);
++	LIST_HEAD(splits);
+ 	u64 end;
+ 	int err;
+ 
+@@ -1605,7 +1656,7 @@ static int __alloc_range(struct gpu_buddy *mm,
+ 
+ 		if (gpu_buddy_block_is_allocated(block)) {
+ 			err = -ENOSPC;
+-			goto err_free;
++			goto err_undo;
+ 		}
+ 
+ 		if (contains(start, end, block_start, block_end)) {
+@@ -1634,6 +1685,8 @@ static int __alloc_range(struct gpu_buddy *mm,
+ 			err = split_block(mm, block);
+ 			if (unlikely(err))
+ 				goto err_undo;
++
++			list_add(&block->tmp_link, &splits);
+ 		}
+ 
+ 		list_add(&block->right->tmp_link, dfs);
+@@ -1642,7 +1695,7 @@ static int __alloc_range(struct gpu_buddy *mm,
+ 
+ 	if (total_allocated < size) {
+ 		err = -ENOSPC;
+-		goto err_free;
++		goto err_undo;
+ 	}
+ 
+ 	list_splice_tail(&allocated, blocks);
+@@ -1655,9 +1708,8 @@ static int __alloc_range(struct gpu_buddy *mm,
+ 	 * bigger is better, so make sure we merge everything back before we
+ 	 * free the allocated blocks.
+ 	 */
+-	__gpu_buddy_undo_splits(mm, block);
++	gpu_buddy_undo_splits(mm, block, &splits);
+ 
+-err_free:
+ 	if (err == -ENOSPC && total_allocated_on_err) {
+ 		list_splice_tail(&allocated, blocks);
+ 		*total_allocated_on_err = total_allocated;
+
+base-commit: 90780f2c3d30187116128f71bcf92c8ab63400e7
+-- 
+2.43.0
+
