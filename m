@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 551FAC9833F
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 12:53:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2592C9833F
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 12:54:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBDBB10E88E;
-	Mon, 28 Sep 2026 12:53:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67ED410E5BE;
+	Mon, 28 Sep 2026 12:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4QPrnUN3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S6qvgtuI";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011024.outbound.protection.outlook.com [40.107.208.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 530CE10E88E
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 12:53:19 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011067.outbound.protection.outlook.com [52.101.57.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFC9810E5BE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 12:54:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nJSlmlz8xFAPbKBw5VSirCHC0T6KCspqAVo57Fpmhtzu6HLaiR7bmF3VwwXPg026EBUBuMYiXHIGxiHF+AQxOMPL37m16FSflnyd+6zTULQsPMnvd1vjNdnro39u5l+ZnmJW1jXI004Vq8DblhNinup/odmRnDVP5745mr8Cip1zdnEePOtyU2jBy8pcs1Rv9tZ/0DfSK7M/7FBcuOWYJ3m5EzJS5OeC3G6nnQAXTEahr0GwgZOBIsCqsOX2khaYXeF24MDEN0V3bOuxFXDh4OKVKwxfejd/kJwSfI51ELZjbyfQXnZ3Ovi67YKeN3SJrZOTMhW6U+CZaFdb6N4yjQ==
+ b=x38ZBtQkuIqWmte853+pueNb+P43aBZKo0IgH9QMU+qnXJ2aPka8qtXoMkXnjzp1i/M+At3ys68fJNVfI2pVjU6Q4kRWG9it5iKSOA+45vnNROcmsxKMx6OTik92dOHCvCwwKuN+OkZq2iZi2xo1tSS0IWYiKysearWHcpHbeLR8GTppHmhgoFpgc+GPk1G8b9+hIKoafbxtgsdg8mtLMzSapz7xnEdR8IPAD8unspjgStr1Xb/0dlfbRkCm2pISY2POti+PX3uAtrjJB8WZVnWF5kC/KCEpv51Zqs8wjMgrxKjMx0cAz1VvyCj08eBTranatpLdEzOOUONwqHS6Og==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZC8oUwmFWOVzW8hg2sf6XvXQDWcFzqtiOo1sGiwvbeU=;
- b=uv7bnL6JV2dmup+L/4tQfQoVVyi+MYce1mUcE1/xzEecVa1EEJNVdomrjMDVxzJW6Om5NZEAhWgiZjoio252vWPMDQ6Q5GsFCB6MXMTL5lVFpQxjgPWKzfo1t74irigoz6T2VvXE/KTEisPiRurpOf3si7wsGWMsD0438s+mcU5NBGR8KdxZjc3L9MVLYomWek8QrdM9wwTJXq+SuvWMYB/cTniTvQLFOZ6DgfWvTiAHnlUfqV9FyAnajNklGfPKu2+Ep9wVgi2m0dbl4W5CA2mI0y7We/TydgNFTeHMkxlAeRH+KXJWPvbFlprvqyUBhXXq+I4uw6TRvJ/em21u/g==
+ bh=HaE+azql5REINsl1jfCaZNY91p+AnFHCN6opJAkhbao=;
+ b=T00S5y2afvjeJ2Eg7/Im2fVetTaFVLbxc6LQCKDKI3jzCiD1W0FoX31OM15X11Cg6Jg4G8C6WhudJnmkMRpM2Ndi5IG/x/PhsFx/3gmU6sDuKP5CdI80fZepmeJ9P1QM0x59KZLj8McrlVrJbNIDVUH9rZ9lQNgFGWVFXXGWYxtkKkzdWpnOjOEdOvLQfBytmXDDidWv9THVYIgF95ikL9O9EZ4Ho/M64gZ1hXK0licTaBQ+/rnKgDOKp6KClVVtArC8Z2m1q64gh8Cyg49M0xFKUFC86JkKPp7nO4aM17jJsE6J+z7F939Z+Ub1/b/koXCuPBmIczpZ10p07Q97lw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZC8oUwmFWOVzW8hg2sf6XvXQDWcFzqtiOo1sGiwvbeU=;
- b=4QPrnUN3a03NW74I+csri62jjEMS6HIayQLobZlRL4ZYfeOsFH1knLud5KpCYiZFY1LBNe50jrOv/zOrcebaX3vOitCSPkQtgbt1hZcii8GRqjGsOiFu6qZ4V6o7LrpFVJqntnlUJ9xCTBYCWpNNJjBT7gVc37t6HOlyNNkhXOM=
+ bh=HaE+azql5REINsl1jfCaZNY91p+AnFHCN6opJAkhbao=;
+ b=S6qvgtuI6hBeg/QG+aXH42/xBiCZpPc2gpbuKbYrcYoLxcguOJzqB43ZWNJVU1QxY/ubTAiFNKg5GzZJ4ACJ+WraIGYJXpqSo5JWnF08DVa2UDPKQ+brA+RElmEpJj4vIoDp+5n4W3PxdDV3IZHmxmzV5NRdhPQvBJWyl0dpENY=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
  by PH7PR12MB9202.namprd12.prod.outlook.com (2603:10b6:510:2ef::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 12:53:12 +0000
+ 2026 12:54:13 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 12:53:12 +0000
-Message-ID: <83714274-6699-4c6b-a446-f002d0cddd1a@amd.com>
-Date: Mon, 28 Sep 2026 18:23:05 +0530
+ 12:54:13 +0000
+Message-ID: <c2425078-8c5b-49ef-a3db-f6795a1007c3@amd.com>
+Date: Mon, 28 Sep 2026 18:24:08 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/amdgpu/mes: Support 64-bit register reads
+Subject: Re: [PATCH v3 2/2] drm/amdgpu: Read RLC GPU clock on GFX12.1 VF
 To: Victor Zhao <Victor.Zhao@amd.com>, amd-gfx@lists.freedesktop.org,
  Alexander.Deucher@amd.com, Shaoyun.Liu@amd.com
 Cc: Davis.Ming@amd.com, Gavin.Wan@amd.com
 References: <20260928103155.843597-1-Victor.Zhao@amd.com>
+ <20260928103155.843597-2-Victor.Zhao@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260928103155.843597-1-Victor.Zhao@amd.com>
+In-Reply-To: <20260928103155.843597-2-Victor.Zhao@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ClientProxiedBy: MA0PR01CA0112.INDPRD01.PROD.OUTLOOK.COM
@@ -60,65 +61,65 @@ X-ClientProxiedBy: MA0PR01CA0112.INDPRD01.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH7PR12MB9202:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c813eb5-c63f-4279-843c-08df1d5f7440
+X-MS-Office365-Filtering-Correlation-Id: bb2efda2-2035-4e8c-e84c-08df1d5f98f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ZWPJB4qbyZHRkjUhiMvssnuF5LXX08B29piLXOifTf5yBqa5uJhacSPHbLD7+hTG9VeNr1XPnoVQCMPKHm0HgmBKlmxCoQZMPI2bVlPbqaNWJfe+0RAe1X72qRZd8fQS+YbKtseZ+eP9z5w+v6GmBdyZq7XzHhpUnX2seNQWjvHabMmRcZE5OEmvCo9e0cnJncjXhq4U/KumzKBNLJKrm13XRY/ed0c4JGpkd1WtL+uFO0yhe1lWoJUvaI6FkPlb3lVIDdwGfNiemPB5bMCgcThW1xB0vITgpHfEnKomtRiCUG/U11TOb/x6FvtXFFoLFiK2oFCLQIpUJX5TuWjlXI/uSQV7NbPSzEhigGWCi+Zh2aCTpyIV7muO6GSzkEvVrU3720d1c8fzbVNcd1l86T5EmcZkFqGKccc9QUvIqr8wKT9D1eAkljRyU0hEh+Z3QRfd6pDnUMXPX2TSYl3S/dSZ5pW5kBnKjHJcHxncna2T3tanbvtPq08DeODCnWwr4I1o+KGBNTeJE65LuuMwxLP1Q/hJCldkcj7lrHqohBVe7EDwdmGekfB5KD9bz1VNwbw3ZRsPHtm+DTQYVGtrPgLtWuEvG+RJ/LSXKXfkR5R1RthVLg5oNsXV4PnU0BIrIrkLlah71LBR27fOZnh6w9jeQ8jR8hChm5ZpGlV18Qw=
+ ARA:13230040|1800799024|376014|366016|23010399003|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: JVR8Sjoo2J1qoUS0q1IFVKuMl/CCgqEXAMP30GEcCvmIT2pvQqQJ2qBHQfSDIJb6TaOUWMrhm6DckI1i2qMXrZCylQJ9QcUub8Gj7u8ZNABZwCiG2EsKEha+BnDhYZJp9K9hipkVDj9SLEeGHSqY+a/fjnwPL8Pso+m/QtzZGLqEPwCoyHvbx2YeHd1om3zaZWfLR8A2vbQH3Ltc+JhjH8dvoLmWCXf610Y7u2hven/LN/T/k98thiCxnuoyscEX6FDibTwWUXN37zma/Zf8usa2YMSK3Zvu98hMT4M4P2lS5ttXbvZeZIit0hCvB9xOH3b95VfkarsZqDqySKgPEL/4QLrdnv7FEMcv3aQPqJiWnVc0RZHwWNwFR70FyHJXcMKL4OYDffltfNp0oxRYXYY3aXUlq7kou1uwh6y0L+Oeg7HRf9F0Cge4kbqnkT19/A18vBfY4vvDgRHcYM5pYBPVnKFokSjgSzJkmkM96eYKvTvuEM9oUyw3LXx9MROHMr62B4aw1TU+7VKW5AfXlLEpQ46bkddA8IA50PXclbg61IiSQ3AqSkTvcs9H8b3NGdBpbuAcE2eH412DybydPfTagEIwfMTcsRr8/Vu1ail+0As+nEReTN1isSZPeb69IWKbCcSBkysV/RoqCJmx25MtDwYk+V19F0IOopIvEj0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHlQdENDTFVaR3hNbXVLQ1lCVlhZaWhwMVp0RVVxNnJtTnhycUtHbUdsNjJZ?=
- =?utf-8?B?TWlhdURtZU5Gd1FQSEFhM1Y0V1JuQzRZQjc5NmxHNm5WaGY1QVI1aFhQc3RL?=
- =?utf-8?B?cU1hUUpaTHkvVXp6djRJSE5OVmVjQkI0ZFZOUkhCaVRJbU9DWWNFU3RUbHZn?=
- =?utf-8?B?eE1rZzZlZFBvRTBpamtQRHFNUHBzc25sYXpoeWZzUVcydVFoSGc2R3dBZUhm?=
- =?utf-8?B?cFZibmpVMklVNFNETE0zaVZqa3FSRGRVN0pTaWdmTDFoK2FLUHNLV3hvSmNo?=
- =?utf-8?B?Y01JYnlkbEhYNXhTU2FEa1d6cnZEOUU1NE5DS1VJNkJJZGVhdTlEcUJQYjBH?=
- =?utf-8?B?MTRyOFBCNUJaZnNTS2Mwa3B6U2xvSk5RcUVoM2dzdG9WSHIxT0JCeUhNbzBH?=
- =?utf-8?B?T1pUNmxNMnExS3V0eWttc3lFUHJKS0lLUko2RGNJcFNiUUNQRmRtN1ZvRDNy?=
- =?utf-8?B?TndYTGxaZUhTc0FTTFBiMm0wdk91Vk1JN0kzWml6NFI0a0l5TFV2Rkh0bkxE?=
- =?utf-8?B?MTlsa1VZYmhYY1JZeTRJSzhNVm5SZmMrdlJ4UFlnSUw3OTdURlk5UVdjVjFt?=
- =?utf-8?B?N2xibTcvWVlrYlM2WDhBeWxvb1pXekRtdWFNUnBXVkJGYURURTA4YVdaZUx6?=
- =?utf-8?B?YVVkQ0orNHRzUGM2b0dQZGRLN0tTbllHcld6MHNNbTE3WVI4RWNFQ2JGeE9L?=
- =?utf-8?B?VTdhOW0rekhpRlFoeVVzK3NNQlBQVUlaRWZyQTA3eCtqcDlkL2d0R1J6MC9X?=
- =?utf-8?B?Qjcxby9CUlBxTDRtcXViTjZzRjEzV0FCelFQN1hnaWdsU055UzdpbzMrdUJt?=
- =?utf-8?B?YldVTXBCclFhL0VtVWpyZ0kyRi9VREV1bEVPVzdmSXdNV0lRb1pOamh6bGZW?=
- =?utf-8?B?TDVBTXB4ZitqZThJeUJlaTdUblIyQWtjTlZkVVlpdUwwRUhoemM2SmJKV3Zq?=
- =?utf-8?B?U3llRGxZZkM4TEU2VTBUZzl1MkRDVzFPODVzdjh3YnVQV3oxZTh1dHc4TEE3?=
- =?utf-8?B?RDBIQVo4bmdCcWFuSEN6elVKUHVrYVdPUG9GL09yZVhadXdDdzJ2WHdndlNz?=
- =?utf-8?B?c1NxZWk1UGpKTU13Mkh4WTBPYXEzTjJQRjhJRzJzTjhBSEZtUlE3VjFEREc0?=
- =?utf-8?B?UWU4MnVRc1VpQ1FWbnU2M1FVUFNUSEo5YW96ei9mL1VrMDRCVEpkR1pMVkh6?=
- =?utf-8?B?RllsUlhhVm5BWXlvZzZ5ZU5GcXlsbWlYeXJmcnptVnMvbXlFMUsxVVpoeHY0?=
- =?utf-8?B?WmozM1lWL1dFbENWRlN2T2pJUmsvUFNPUGNHMUJxa0NJK2FKYnBTRVl4eWxX?=
- =?utf-8?B?NG9TdHRkdU5oRnFIQ3p6VDgxRzhlUVF1OEtJcUFtaUxxanZRbE9WeSs5elN6?=
- =?utf-8?B?d25aR0RzUHNpR29GNUhSdW5jRDAyaXJSdWtYd2dqWHN5ZEVLRDdWcEdHdkdB?=
- =?utf-8?B?K0I2VEo4SjcrN002dmVMdm54SmtYVDVTNmM2UUNXVEVLR0l1SG9Wa0oxNzlz?=
- =?utf-8?B?TjE5WHpTZjlQdE9lMzQrSXFuVXBLZWFwQVcrdFFZek9jR2wrNXR1Zkh5cGhm?=
- =?utf-8?B?dGhXbVB5enZ4WFZQd2hqVXE5MytrWG5Ea0llMWZGUnZzc0hsYTB0YjNyeklH?=
- =?utf-8?B?bEtIQm91RjhqU2llYk5TdnY1K0ZxRXNkbEVXdS9FZ0IwMnlvS2F2bnFOM0Q5?=
- =?utf-8?B?T3A4OEpEYWt3K0wvcThETk0ycjBDUlJuRDd5bS83MHpFODY5elF6YUFOSVBk?=
- =?utf-8?B?aUp5REZHM0JNa295OGZTeXJPYzl2UTZKekdHNEVPZ0p3Y3YvSkRtY0puNnBO?=
- =?utf-8?B?Q0w4WjVwQ0NPT1NsUEZGLzVsdERNWWFkMk5WU1lxSFlmWUtzVlZ5YzQ2Y1JV?=
- =?utf-8?B?VHlXeFZxTER0VDdZWURYQ2xPanF5NTdlYmVGWjU2SkY3RW9sNnNYVXBxTmxB?=
- =?utf-8?B?T2U5dzlady9xcXR1MGttdlc5MlEwZ0FKM0JJc1QyNVNzZnVQZmFxYWpDbWlJ?=
- =?utf-8?B?SjM0dHF2RXYyQzRNWDZJWndpcU9aNWtzUnJNRkNnRit0SjlZSE0zbXNiNWZQ?=
- =?utf-8?B?WGtmM1d4cVkyYVByb05EczZUQzNWeWJBdzZ0QmlTMVZTOFNnOFNoK09FdkVU?=
- =?utf-8?B?c3BoMkFmbHg4U3FKUGkvNTMzaTlJbi9JNm01OUVrSTNsY1pQTUc1QVRhMnRi?=
- =?utf-8?B?U1UxNitITHZ1WkZTYWlRLzlSUXJKSFhPODk4SSsvQmVxbEFFZzhBZ1I1UWVS?=
- =?utf-8?B?czZnTUxoN1JzRmwwM3YxVFhNOEhaZkhSK0NWMnlPNE9KRjZhWUl6MzVLRHJr?=
- =?utf-8?Q?FgpQLlWoR4QMFUCpqW?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWxuT2IwbXB5QnlvckhkTDlTZjVhZUY3QXVwb0pHb1VNdEUrTUxrZmtjendx?=
+ =?utf-8?B?L3JaUjA2NnBOanQ5R0pldXJjcmplZ1JBL2JWWThyRXgxZnJ4bm5yTGFGK1Rr?=
+ =?utf-8?B?Y0x3UTJreFhXb2NyWHpWQzBTVG01MTIxeEt0Sk5KUE1FbXdYbHpKZUJ6SERY?=
+ =?utf-8?B?ZDNsVHB2N1d3T3NzVjFoczVrd0dvbG55MDdaM2grN3FrNVN0elZOUklUYjVt?=
+ =?utf-8?B?MkdyM0JmRERYWEtZTC9CaVR6M2hvcEg3b3FJVWpZWmhvRlQ5UmpkOWhZRk9M?=
+ =?utf-8?B?SHQrZnBqN3BKbkFuWk9VOTlxK0NvbUN0OGxIYTRlejQzejFGZXpDYW8wSXUy?=
+ =?utf-8?B?bjkxbEcrNWwxWGlXbXJsWkdiVk16S1dGdTVjTy9QZW9TRzdMOHhCancyQmlF?=
+ =?utf-8?B?TWQ1b3I5cXZjalhNejVTSmxGbXZUYVQ3WlJJTWxwdkh2R1REdm0wUzh6KzUr?=
+ =?utf-8?B?Q2JTS1EvSCttbVh5NXVrVUhZODEyWXA4bTgwaGZJVG5VdUJybVZ4MTh5ZFYz?=
+ =?utf-8?B?Q3VCQ1VGTWxSNWx0Mlp1STJ3MisxdnA4UXo3VDRHYmhMMWtXYjJBRERWRVZH?=
+ =?utf-8?B?am9VU0VHNEF5MkNjbWozKzlMZFVyMUFkNVN4WTNSU2xYcHBPa3ppUTJyRVhT?=
+ =?utf-8?B?akhhNDNhNkVPYjVyQjN1aXNkTm9hM0xNRFluenA1R1JxYmdvUmYzUWxRa2t5?=
+ =?utf-8?B?WGVTeVdOT2FkY3lrcXJHNTYxM3BoWmIxTzVGeThhUXMveXlML3dRUkJYeHg0?=
+ =?utf-8?B?TlRDVXp4OFRiSlI4YjJGOXR1eVh2ZDJtNlpWQmVDWWMrcVBWWFliWGxLRGs5?=
+ =?utf-8?B?dkJ2UEdTWGUrbzZqdkcyZ1d6ZXlUeUJ5dUNnbnUyWVcyMGpzMldTVUNKVFln?=
+ =?utf-8?B?RkMvQVM3V3VydTlNVEIzS1RDQW9ZcjZHSnJuTjkwMDMwL29zdHViRlFPZXRr?=
+ =?utf-8?B?ZzhjTk1LMzlSRHIxbzcybUdBem8vSStoZ2VCVHNCYkdINTZJaXZFRC9ZbkRR?=
+ =?utf-8?B?aFU5SitGL0ZTV0FDbW11UlZMUjdRTGJMVXF3YktvTnYyMUV2VnBjYnRPQXls?=
+ =?utf-8?B?K2d4TGJ3NkNiQk5HLzZTdUFYKy96L3lGY0J6TE1GS21KdlgxaGRWb3VINDRx?=
+ =?utf-8?B?QzF0b2Z4ekV2RlRuU3JzSWR4WVNSR2cxbi9QQWpyTFh0L0NWKy8wMFc4WUhz?=
+ =?utf-8?B?TkVsZnMxOWVnb0srNkdJMTYvOXFTU0xwWXVDVU9GWlBuaktjRXQrd0JQekU1?=
+ =?utf-8?B?aDBzVlh3ZkY3MVJCRk83ME1XSk5NQXV3WkNKYzhoQWl3SUpnZXlpMnlyTUF6?=
+ =?utf-8?B?eVMydDdsWlZzeVdHQWFIN0YyWTJqNkp4NkVzR2NWaGIvT3RZN1I4cXUySVBI?=
+ =?utf-8?B?ZVk4V3QwUmlMdlJnb2tKQnppZEdTU0pIeFovdWFkb1QzcE1FMys2a0JERVJT?=
+ =?utf-8?B?eGhTWjZ1bDR3dERqam4zQWNPUGd3ajd4YWJ0SkM4c0dpeEFvOE9WM0JVSDZO?=
+ =?utf-8?B?THFkSDV1SytWRHpEaHJNcUd3SDJjdHhvVU5FYnFtQkRhZ0FJVk9JUno1UzNP?=
+ =?utf-8?B?Q1pOdnkxSWhpcERKRFNjK25vS1BvdTErVWFLZnBhOFlhc1RRT3hPZ09oOXI1?=
+ =?utf-8?B?Ukp5WTRVcDlyMUJBaUU3bDYvejVOcUROTktSSHVQYlJpMXgzTWNMYXc5SkhC?=
+ =?utf-8?B?eE95amlNdU14M1FiQmxFbVdTYWJualM5TDQyTTNyWitLVDk4TEdSSGdTSVZW?=
+ =?utf-8?B?Y0hsd2t1YmF3eDFWeHRRY0RRWURsTjh0UHEvTHhZcmJoQk9La1hnVnQ0QjJF?=
+ =?utf-8?B?aVNJYiswR2cxMEFqT1BlSmJ2YVVjK3p3VTBJUUkzWjV1d3cvQ0dzeklEUkcr?=
+ =?utf-8?B?VUFoakVXN1Ziazd2QlVuQ21zK3RmdEk3RXFYM0NQNDMwU2dJK2hzSGpUUUtX?=
+ =?utf-8?B?eW5QZzkxQjNaejQ3T2UzajlGRDVCaGNvYW5MZDEyL2tNNmZpUWZDR2VKTzBX?=
+ =?utf-8?B?WjY2NWNxRkN6OFZIUU9objlVV2dkVmRacTRRT3ZIZ1ZWUnZPMzkwZnJtU0lk?=
+ =?utf-8?B?NURVUmlNOTVJa1h4ZVhTS2swbkFzS3NNNVN3bkp5UCtWVDZiK0ZDMGhnU2xT?=
+ =?utf-8?B?NEdSWWhNZnJLOWdBT29UVjM0NEF0dVMwRDJyUGJEN3pySWRzTkNnd0Z6VFZ0?=
+ =?utf-8?B?TDFxNkY5OEl6cVNtS09UNjFCWGlyKzlEY2d6QjNLYTQ0ZDFCWmFzcUl2U0xU?=
+ =?utf-8?B?QkFRSUp5RXJKM0d5MG9jbXZOOWZPajJ5QW5iTTdKNWcvTExVK0F2ZGFOenF3?=
+ =?utf-8?Q?9gC93dSQEzOSCP2NKx?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c813eb5-c63f-4279-843c-08df1d5f7440
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb2efda2-2035-4e8c-e84c-08df1d5f98f1
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 12:53:12.3700 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 12:54:13.6387 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t1xopDR6rz7+5gLZ78F3Zqx01Lkc4Z8u2V3Q+jevYME3GdmiI7UPZL4PxiY6z9h3
+X-MS-Exchange-CrossTenant-UserPrincipalName: k7Tg/VIjf4yxi7iybsaS8GQL2vg8GNvJoPar7o5muo4t/ZWX1zDvpJXfzf0wJdIN
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9202
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,180 +139,66 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 28-Sep-26 4:01 PM, Victor Zhao wrote:
 > [why]
-> Some register values span two consecutive dwords and must be sampled
-> with one MES operation.
+> VF timestamp queries need a TSC sample independent of CP/MES.
+> The SMUIO path is not safe on VF.
 > 
 > [how]
-> Add amdgpu_mes_rreg64(), set READ_REG read64Bits for MES 11 and
-> MES 12, and combine the two returned dwords into a 64-bit value.
-> Reject 64-bit reads on MES 11 scheduler firmware older than 0x42,
-> which predates read64Bits support.
+> Capture via RLC_CAPTURE_GPU_CLOCK_COUNT and read the consecutive
+> count registers with amdgpu_mes_rreg64().
 > 
-> v2: add MES 11 support with the same read64Bits option
-> v3: return read status separately and require MES 11 firmware 0x42 or newer
+> v3: check errors returned by amdgpu_mes_rreg64()
 > 
 > Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       | 43 +++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |  3 ++
->   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  6 +++
->   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        |  2 +
->   drivers/gpu/drm/amd/amdgpu/mes_v12_1.c        |  2 +
->   drivers/gpu/drm/amd/include/mes_v11_api_def.h |  7 +++
->   6 files changed, 63 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index 5bebe74de01ad..3be6e577a8aa7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -582,6 +582,7 @@ uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev, uint32_t reg,
->   	op_input.op = MES_MISC_OP_READ_REG;
->   	op_input.read_reg.reg_offset = reg;
->   	op_input.read_reg.buffer_addr = read_val_gpu_addr;
-> +	op_input.read_reg.read64_bits = false;
->   
->   	if (!adev->mes.funcs->misc_op) {
->   		dev_err(adev->dev, "mes rreg is not supported!\n");
-> @@ -602,6 +603,48 @@ uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev, uint32_t reg,
->   	return val;
->   }
->   
-> +int amdgpu_mes_rreg64(struct amdgpu_device *adev, uint32_t reg,
-> +		      uint32_t xcc_id, uint64_t *val)
-> +{
-> +	struct mes_misc_op_input op_input = { 0 };
-> +	uint32_t addr_offset;
-> +	uint32_t *read_val_ptr;
-> +	int r;
-> +
-> +	r = amdgpu_wb_get(adev, &addr_offset);
-> +	if (r) {
-> +		dev_err(adev->dev, "critical bug! too many mes readers\n");
-> +		return r;
-> +	}
-> +
-> +	read_val_ptr = (uint32_t *)&adev->wb.wb[addr_offset];
 
-read_val_ptr may be declared/assigned as u64* and used during read back.
-
-That aside, this looks good.
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Thanks,
 Lijo
 
-> +	op_input.xcc_id = xcc_id;
-> +	op_input.op = MES_MISC_OP_READ_REG;
-> +	op_input.read_reg.reg_offset = reg;
-> +	op_input.read_reg.buffer_addr = adev->wb.gpu_addr + addr_offset * 4;
-> +	op_input.read_reg.read64_bits = true;
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c | 27 ++++++++++++++++++++++++++
+>   1 file changed, 27 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> index d6f70d33201a0..83be620d7204b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> @@ -3168,10 +3168,37 @@ static int gfx_v12_1_wait_for_idle(struct amdgpu_ip_block *ip_block)
+>   	return -ETIMEDOUT;
+>   }
+>   
+> +static uint64_t gfx_v12_1_get_rlc_gpu_clock_counter(struct amdgpu_device *adev)
+> +{
+> +	uint64_t clock = 0;
+> +	uint32_t reg;
 > +
-> +	if (!adev->mes.funcs->misc_op) {
-> +		dev_err(adev->dev, "mes rreg is not supported!\n");
-> +		r = -EINVAL;
-> +		goto error;
-> +	}
+> +	if (!down_read_trylock(&adev->reset_domain->sem))
+> +		return 0;
+> +	if (amdgpu_device_skip_hw_access(adev) ||
+> +	    !adev->mes.ring[0].sched.ready)
+> +		goto unlock_reset;
 > +
-> +	amdgpu_mes_lock(&adev->mes);
-> +	r = adev->mes.funcs->misc_op(&adev->mes, &op_input);
-> +	amdgpu_mes_unlock(&adev->mes);
-> +	if (r) {
-> +		dev_err(adev->dev, "failed to read reg (0x%x)\n", reg);
-> +	} else {
-> +		*val = READ_ONCE(read_val_ptr[0]);
-> +		*val |= (uint64_t)READ_ONCE(read_val_ptr[1]) << 32;
-> +	}
+> +	mutex_lock(&adev->gfx.gpu_clock_mutex);
+> +	WREG32_SOC15(GC, GET_INST(GC, 0), regRLC_CAPTURE_GPU_CLOCK_COUNT, 1);
+> +	reg = SOC15_REG_OFFSET(GC, GET_INST(GC, 0),
+> +			       regRLC_GPU_CLOCK_COUNT_LSB);
+> +	if (amdgpu_mes_rreg64(adev, reg, 0, &clock))
+> +		clock = 0;
+> +	mutex_unlock(&adev->gfx.gpu_clock_mutex);
 > +
-> +error:
-> +	amdgpu_wb_free(adev, addr_offset);
-> +	return r;
+> +unlock_reset:
+> +	up_read(&adev->reset_domain->sem);
+> +	return clock;
 > +}
 > +
->   int amdgpu_mes_wreg(struct amdgpu_device *adev, uint32_t reg,
->   		    uint32_t val, uint32_t xcc_id)
+>   static uint64_t gfx_v12_1_get_gpu_clock_counter(struct amdgpu_device *adev)
 >   {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> index 33a426f58e723..1e801f427ddb2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -373,6 +373,7 @@ struct mes_misc_op_input {
->   		struct {
->   			uint32_t                  reg_offset;
->   			uint64_t                  buffer_addr;
-> +			bool                      read64_bits;
->   		} read_reg;
+>   	uint64_t clock = 0;
 >   
->   		struct {
-> @@ -545,6 +546,8 @@ int amdgpu_mes_detect_and_reset_hung_queues(struct amdgpu_device *adev,
->   
->   uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev, uint32_t reg,
->   			 uint32_t xcc_id);
-> +int amdgpu_mes_rreg64(struct amdgpu_device *adev, uint32_t reg,
-> +		      uint32_t xcc_id, uint64_t *val);
->   int amdgpu_mes_wreg(struct amdgpu_device *adev,
->   		    uint32_t reg, uint32_t val, uint32_t xcc_id);
->   int amdgpu_mes_reg_write_reg_wait(struct amdgpu_device *adev,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> index d8b4d3deff605..ef82f7536e449 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -902,9 +902,15 @@ static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
->   
->   	switch (input->op) {
->   	case MES_MISC_OP_READ_REG:
-> +		if (input->read_reg.read64_bits &&
-> +		    (mes->sched_version & AMDGPU_MES_VERSION_MASK) < 0x42)
-> +			return -EOPNOTSUPP;
+> +	if (amdgpu_sriov_vf(adev))
+> +		return gfx_v12_1_get_rlc_gpu_clock_counter(adev);
 > +
->   		misc_pkt.opcode = MESAPI_MISC__READ_REG;
->   		misc_pkt.read_reg.reg_offset = input->read_reg.reg_offset;
->   		misc_pkt.read_reg.buffer_addr = input->read_reg.buffer_addr;
-> +		misc_pkt.read_reg.option.bits.read64Bits =
-> +			input->read_reg.read64_bits;
->   		break;
->   	case MES_MISC_OP_WRITE_REG:
->   		misc_pkt.opcode = MESAPI_MISC__WRITE_REG;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> index 04465804c2544..0d2a60528802e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -858,6 +858,8 @@ static int mes_v12_0_misc_op(struct amdgpu_mes *mes,
->   		misc_pkt.opcode = MESAPI_MISC__READ_REG;
->   		misc_pkt.read_reg.reg_offset = input->read_reg.reg_offset;
->   		misc_pkt.read_reg.buffer_addr = input->read_reg.buffer_addr;
-> +		misc_pkt.read_reg.option.bits.read64Bits =
-> +			input->read_reg.read64_bits;
->   		break;
->   	case MES_MISC_OP_WRITE_REG:
->   		misc_pkt.opcode = MESAPI_MISC__WRITE_REG;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> index d17ced46d5f73..e0a488e516c09 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> @@ -581,6 +581,8 @@ static int mes_v12_1_misc_op(struct amdgpu_mes *mes,
->   	case MES_MISC_OP_READ_REG:
->   		misc_pkt.opcode = MESAPI_MISC__READ_REG;
->   		misc_pkt.read_reg.buffer_addr = input->read_reg.buffer_addr;
-> +		misc_pkt.read_reg.option.bits.read64Bits =
-> +			input->read_reg.read64_bits;
->   		mes_v12_1_get_rrmt(input->read_reg.reg_offset,
->   				   GET_INST(GC, input->xcc_id),
->   				   &misc_pkt.read_reg.rrmt_opt,
-> diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> index 1fe824b41f2a5..b27ec78da3b08 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> @@ -635,6 +635,13 @@ struct WRITE_REG {
->   struct READ_REG {
->   	uint32_t                  reg_offset;
->   	uint64_t                  buffer_addr;
-> +	union {
-> +		struct {
-> +			uint32_t read64Bits : 1;
-> +			uint32_t reserved : 31;
-> +		} bits;
-> +		uint32_t all;
-> +	} option;
->   };
->   
->   enum WRM_OPERATION {
+>   	if (adev->smuio.funcs &&
+>   	    adev->smuio.funcs->get_gpu_clock_counter)
+>   		clock = adev->smuio.funcs->get_gpu_clock_counter(adev);
 
