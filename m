@@ -4,121 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4D9FCA5FA2
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 13:49:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89FB9CA5FA5
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Sep 2026 15:10:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5716310EA8A;
-	Mon, 28 Sep 2026 13:49:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11AC010E3E8;
+	Mon, 28 Sep 2026 15:10:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tQVZi29t";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ms4F5mJd";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011001.outbound.protection.outlook.com [52.101.57.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A076710EA89
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 13:49:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vebqoB7WSm7zeTfJ798vO15FhP1di5UafaCG3BYeo0d8Zflks6aYPBxyNQFNCFGGCguLNk82GjUBwqsNNHOpTPV9gi32C2YkNwfe1K0VWPcuYOTnlWIXlY1CFhBDQaHTRfsg+fQSxnTjbP+D3JCmwnbUZbOu7Dz8aH6VV5sp55/pAqW+K/U8PKZ54Q2azEAzXXGrjC8FfGUaoBoTT2nu2XMf3UUtmsmAV0ulOnhW3klwH3QiISn5UvNIV1ZQE7eZ3z/eE6T43nvKZzZ8xJlwtLjVRjbJFTz3VZ3ROSNLsbikIVGceKZzFilTZWND8DsY/gtNkxjN0hTBAOTRfT4D6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IDn9NKL/VkV3WG7tQlQ6lh72X9Y+qQzZsoYLVgSeCvw=;
- b=qVD20+rjIZev9xe7eEnx5MaDmSNDK4nK6z1RYPWjeUOS/1TMKrtZrcsUnC4BikHY2Omd3S+VHJOWAOz2Dfc/21nEXBf9MzQBfnxYneSvUh5hPslknPGBRKsR8aNvYeOXc3L5bczhFmLsb01vyvFTxtHtQkMjf+TEv+KRLa+I474dE0vA8o+6kZxBQFUgjMcP2u9LfDSs+FOwuv5404ffC2bPlGH1gqDkihFXYcMwZPsyraqiRypPqSyy5UeJRrbIrjDzmOGE8kS1nqbvQf0D7FCsgEQUZpxt4bjL/gwzF4WnX3zbuYzTa3IHXKmUs6ZXei5S9EOHi/r/af6kBq8DVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IDn9NKL/VkV3WG7tQlQ6lh72X9Y+qQzZsoYLVgSeCvw=;
- b=tQVZi29tN4IXCuBTwZIQFjR4wu1XPaOi1/pMITfHzJKm9lsEiBjNIhLCU9NhpkYf0hEPDdtruKJTZWypw24eFFBvCi5+bFV3aFjpsloWOQ5uypJE9kbhODs92I/RNolf5umOtTTL/LnpUdaZOC43o8fEmJgOSTf/gZLL0pG6rQE=
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by CH2PR12MB4152.namprd12.prod.outlook.com (2603:10b6:610:a7::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 13:49:50 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 13:49:49 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Zhu, James" <James.Zhu@amd.com>, "Ma, Bing" <Bing.Ma@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Derive RLC SPM xcc from GFXHUB
-Thread-Topic: [PATCH] drm/amdgpu: Derive RLC SPM xcc from GFXHUB
-Thread-Index: AQHdTNGMt3AQ6wUtnEe4vsESL6m/ebbkBrrg
-Date: Mon, 28 Sep 2026 13:49:49 +0000
-Message-ID: <SA0PR12MB7091927251394D32F43248A7978D2@SA0PR12MB7091.namprd12.prod.outlook.com>
-References: <20260925093718.2737342-1-lijo.lazar@amd.com>
-In-Reply-To: <20260925093718.2737342-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-09-28T13:49:45.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA0PR12MB7091:EE_|CH2PR12MB4152:EE_
-x-ms-office365-filtering-correlation-id: eaec0de7-2614-4480-9370-08df1d675d70
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|38070700021|56012099006|6133799003|10067099003|11063799006|22082099003|18002099003;
-x-microsoft-antispam-message-info: jlo/DVnNl3vAEeVI+vKPF8qduMNMXMerWAGQTCjUfClG+EDcJhmHW+dngsGksXqIebj2uKU6eOuyxBY8FC+QMkUkDHJRDrT0yzvtfc82IEHpBdH37qP6tgz6S9u4e6D/zvlb6IT8vpvpJDeb/rZQYfJwEt4e4D3I1i85O9RyR+AdHgs9GhqSreDbY8oGy36JZ6T4CppX7j58mwTnNNxWhpK1zdhPjXYXZGpVatV6zS3ow1rgmTLl468w0+ciIG9drJN/GnXA1F4pp9oBK+aRA8DV+QGVthCsv+qFz6atOvN/76NhQ+lOMWO6P2h8xT7buWfJTxIvulLZ1jXgEr02aOSdHBPbeM18u+/IHtFQaY1KWXv4lGVqevYM+y+8X/vZuvbx7Fn0lt6V2KW8gCPKl4i5iZSEu+wcOTfR4M8VvYGdrxLueoVXxi5Ke3eJW2JYZqXta0spoZ77/1skdTnVNQ47EI8Bjpm2EfaR3p8Q4F3H2b8t7V5aOw5lstyrOe3fSz5ejWGyg1LPTMQJrvFh/U3/gmKNncpQX/Q5UrD/4fl6N6WdDYOFKx2875oiFeJOrNCrocgwoIRc6kaYucpGDncpBBtpNb18a3RqazN6+3YNSUyD/qAZAFaGqtewK5Wm+KA6TNXDxKJ9RZAFH7tGyBullopAaZjGzsS+Hhx3Ew2mgGssGE/qafARE2cFigC3tD94krUnL/oD0Cuu3gMPWpXqQ5wuf/tiFoquziDWpb4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(38070700021)(56012099006)(6133799003)(10067099003)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6oyMJWEOJn7DEDtQY/0fZDA+WfXkUwwoiHfCeMBNyxn2t0+F4u1RTc1rri/v?=
- =?us-ascii?Q?/LYS4QllrHWAyQsPZeDNOqBDOzVONnHDdRaJME7ViCiNjtmcjqPOgaVtROMB?=
- =?us-ascii?Q?bBaWfXocOjqOPtga5u9IacWJTwX8I7GD7yjK4Qh1jiKvfwprWwQPJAFG0Gzk?=
- =?us-ascii?Q?D9cHtTX9eXeB7ZjLoT3LXJ/fr/6S6mccqsvXNYSizOXYc83pk4BoB0VQBBTY?=
- =?us-ascii?Q?onh/3Zcx5hLQt8wQzTXA/a7hQuaOdI1gtkTPVa2DncjVatdXS3e3kUjR12+H?=
- =?us-ascii?Q?+pTLXhKfy8vCC2EpNkVgAIyrD9vMD2AhvK5zQB5G2nzs/sEY4AUNF/rRdY3F?=
- =?us-ascii?Q?BeJbqJH9WilJxvj8O4i24aKJRtf0ouN03Bjb+X5QRwV4nteJ5kebk4VfAqYs?=
- =?us-ascii?Q?C7I5BKiRbJrCgh30LaEBTw5H9ZAZZWz/qupeA3/QKlqu3gAjydBZk/oE684l?=
- =?us-ascii?Q?5/XtSgpFFwSoBwepvAgj8crKdbEnqfLNF/HNGNAGVOblL6NVE3yO0dtphfCi?=
- =?us-ascii?Q?HtLozEQ7Hmuq+PJPItptusg/X4d1HUY5c7b/P/l9J6WjcCEaDBNKAx8gH820?=
- =?us-ascii?Q?obrya6ZGDUxs9HDDqoVMejb+jXX5EmLzBSCVTsxG+p1v6a2bRa7zE4YxeV2n?=
- =?us-ascii?Q?/OMariuweI93I2DqtBhiw548lEk9fu1wmN7RY8KEjPQd+fz/ZwiNm6nT+gUj?=
- =?us-ascii?Q?DDPAhG8lsTZ8n0gAMZ31tjvQXydutlm/BlEBqLJda9YdDsAH9hvQSm7ur8SA?=
- =?us-ascii?Q?9ydResVQl6ZGDXlWTvtqOGG5XsvpqyArrEoTS2EH3pUdyA4tK9BnWBaR7MZk?=
- =?us-ascii?Q?kzKaHMxLVrWZQeWKep4Qq2KerRTfAz0cqylICev1ErUheCky+udBQWfpKOCh?=
- =?us-ascii?Q?pPR/McQ6ndLrRyGtEq/aspMdwOzzGVPmf8QMgsZZDEvgYTvVPIeWDLDBHwZy?=
- =?us-ascii?Q?Iz1dDR4iIqTSmWjiuOw4qt1xA1xDey/nifgXA1ZT1lLOy5CkWJIqgC5M3MwF?=
- =?us-ascii?Q?G8Qr8Lv17nqjztrI9zDlUflv5PBlSqU6eG18tsgK9f6waeBnDwTV4RbQfc11?=
- =?us-ascii?Q?mgC+T306FaCP7tS53KPp5W+i8JK4JOW676ExYzN3RnLitWAQuM189IliDILn?=
- =?us-ascii?Q?fl+pSmL3sp+Jsj6W13cJ+DYeeqDYH+jbTCRIR0X9FjUAwpO8aMfCXEwHm0EF?=
- =?us-ascii?Q?pjv8hX5dXS6f8E6LebH+DMlCyPE++aVZ8+G902q4N5nf1AfkGvWYOVlGxglz?=
- =?us-ascii?Q?UU+0CD9hOKBOmAt6+W4cqN7zmUXlnXP0Cz18apkjaCz/sx3dp/C4oylTK1gQ?=
- =?us-ascii?Q?J7paeMPL2EN4TaBf02uLtUl0dVZcT8m+63ZqoD7WiSrBleeVeTR1krfou/+f?=
- =?us-ascii?Q?jtH2KkGM+wmVW4XXw5eAwCNo3HN+eMVFlmVKnN2fC8sqVrezEzE+4NdDNnsK?=
- =?us-ascii?Q?+b6OIaJfOCbdmBldfk8Yb/pJNpfGlkXsB8utx1ojyc2SlcyK4tJQx1Znsr0C?=
- =?us-ascii?Q?PTlzE3Ns9a0xMmk3KBt907Ja072nO7unLmOVc5E8VaKbfS8qZH370L012xz2?=
- =?us-ascii?Q?vbInCu8CaXad7kExdG3GtG6asYFuivzQbwNlXE1mNRnP8rq/8c8qntz0ccQR?=
- =?us-ascii?Q?LHHigXcZ+YR0wmajMesLL0Huxr4tN96xGuthAVW0iMIQdQpEkXBGys2nMWtu?=
- =?us-ascii?Q?PGISVH5JvV8xegC4iDHaS3gd/WetP8Ab8NqFIze6Njx34VCz?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
+ [74.125.225.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7735F10E3E8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 15:10:45 +0000 (UTC)
+Received: by mail-wr2-f34.google.com with SMTP id
+ ffacd0b85a97d-48884b0219bso1386989f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 08:10:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790608244; x=1791213044; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:reply-to:content-type:mime-version
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=1b+J2wTA/NlUTKCKyplsYEzkGi5ZLrqHxgLKYxKpI7Y=;
+ b=ms4F5mJdkDBmK3YC+hCd5uiBnJG2FY8InI4hv/xveeaaGbkti5sMYr8tszxd7qelSi
+ QJIL1KeTlWyRH5Vw5ePBZQOzg0wQPxengcxEuBiAcN4+/kAEpy3pWJfVR1LxwjrcRPFd
+ xeJ2x0AxdtOeUVkcHov/43+0TD/3V2Wy5Iy0Lj2dJR53OCZ/pn+08t4kYr4UmHFCBcji
+ iuyGBLv0DxeGF8D1icHXiQgt9m/tDI2eTsAhsxBLpk6XIPno95+4TtsOlJrFJwsri2Xl
+ Tstl0S28iWNwPDpPJbVu0NAo3S8mu8Q8kb7d7LMn42rLM0LA4I9RiDC/xTSfSfwCE/BQ
+ Tbzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790608244; x=1791213044;
+ h=content-transfer-encoding:reply-to:content-type:mime-version
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=1b+J2wTA/NlUTKCKyplsYEzkGi5ZLrqHxgLKYxKpI7Y=;
+ b=wYfadQ4ELwQnbjFBDKSDnZpMpsTdckRIqLz5462PtWtt3bF0vNm+0R9qzGBB2iWPYj
+ s7mW7liAh3dhs+keYFJ6USl/GvJ7OELGgWP2t0B7Lq/SRbCcjvaIYM3xYOFznXtlJ4TH
+ xSISruQ34VFQozv2NLQX1CnTFlQNZotx8j2FwP6O3MaHYJDDp61tz+wrH7Obkm4c7R0n
+ V1sSzQUJhMK3p6vzJTng5ynk0CUf2lZFvcuNopHEckOFA1KoBWLT1Q/ivC6/w4LgW0AA
+ tbCfTnJdXpdkWNyI7EUzUiobybeDWkPvRko59aH+WEfm3S1CQPI4d5eDhrUtKXNW5F+k
+ nNFQ==
+X-Gm-Message-State: AFq9FYKAS3BuObbZfSPo6oky8PbL4ix9mMVQKsySgeS+Vl9x+v24GmzM
+ nNMWHmKKgxkJFywzriggh4DSeM0bnMWe3tOU8P6+id8GGCZS6wPsUvPH
+X-Gm-Gg: AYBFou10kn3olSYOteKWmkBBUFOgYVBtsxOqHgXKaSHifvjjsUbvN8vjAi+Khm+wsOY
+ WFdWBctI2xJf+XwDcB2RxDjFPJJJUgtLRmmcZeMPKJRu+/uID4Zf1vBlzRlBW/gvKbKjITyr/7o
+ MOek8MPb3prAaV4jvvOiFsB1CTRpbUNy62H/hBAGLSfkwB6jB2ktBNfpJ5TFnH5J0UJ7CIGnC6o
+ oUT8rzZtsui1zwx0hl5oVlqZwiRdJWibUx1dVXFmg4Rapg3162VE7Lyjh4zwWon9+R3xjqUeBw0
+ E0lUsb9yJikgTdrvVmjDxyv2pylE8mi9bsoWxh2avGyTGSV334+Aia+FZJmV518Rh6DacLl4ZsA
+ OqL6IJL8DBt5EidtDdkJCmjoJPkqesUEw5cP3paAvukzUjmoTvVye1aokOwaNfjo5BIz0Thtfbk
+ hK+CD6xCMrgU29QTdkinLFccUd4X4VKTiXjtrQRiw5Ft2H25TGcrdse52ZGPTGaOGNEtonjtQtm
+ m10TAZ8oNY5QF92PT01HGbMr79FtzBF
+X-Received: by 2002:a05:6000:1842:b0:487:452:dbd3 with SMTP id
+ ffacd0b85a97d-4887db40fb3mr19241248f8f.47.1790608243655; 
+ Mon, 28 Sep 2026 08:10:43 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:152b:4800:8072:ed4c:898d:d82d])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4887a35fb05sm31513965f8f.20.2026.09.28.08.10.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Sep 2026 08:10:43 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: natalie.vock@gmx.de, honghuan@amd.com, Alexander.Deucher@amd.com,
+ Felix.Kuehling@amd.com, Philip.Yang@amd.com, timur.kristof@gmail.com,
+ cascardo@igalia.com, tvrtko.ursulin@igalia.com
+Cc: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/9] drm/amdgpu: rework eviction lock handling into critical
+ section v3
+Date: Mon, 28 Sep 2026 17:10:33 +0200
+Message-ID: <20260928151041.1857-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eaec0de7-2614-4480-9370-08df1d675d70
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Sep 2026 13:49:49.5267 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xdWDKQSDZK0CGkvOF3dJxi+MepGmOdLDVu+0AaZhFQ07J8BUdK2qGNlbQT+g404w
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4152
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,133 +87,225 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Public
+Taking the eviction lock is actually just one step which we need to do
+in the critical section handling.
 
-<Ping>
+Rename the functions to reflect that, use the update parameters instead of the
+vm to save the GFP flags.
 
-Thanks,
-Lijo
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo Laz=
-ar
-Sent: Friday, September 25, 2026 3:07 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Zhu, James <=
-James.Zhu@amd.com>; Ma, Bing <Bing.Ma@amd.com>
-Subject: [PATCH] drm/amdgpu: Derive RLC SPM xcc from GFXHUB
+v2: rebased and reordered
+v3: fix rebase artefact, fix error handling in amdgpu_vm_pt_alloc
 
-RLC SPM is updated for GFX subsystem related performance counters. Only job=
-s on rings that use GFX subsystem need to be updated. Some rings like SDMA =
-could be inside/outside of GFX subsytem based on SOC. Identify the rings us=
-ing GFXHUB assignment and use hub id assigned to find the right GC rather t=
-han relying on xcc id. xcc id may not be necessarily assigned properly for =
-all rings.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Natalie Vock <nat@pixelcluster.dev>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  |  2 +-  drivers/gpu/drm/amd/amdgp=
-u/amdgpu_rlc.c | 31 +++++++++++++++++++++++++  drivers/gpu/drm/amd/amdgpu/a=
-mdgpu_rlc.h |  2 ++  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |  2 +-
- 4 files changed, 35 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  8 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  1 -
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_internal.h   | 43 ++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     | 40 ++++++++---------
+ 4 files changed, 54 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_ib.c
-index 0f8b097001e3..6ea73ef6e672 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -212,7 +212,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct=
- amdgpu_job *job,
-                amdgpu_ring_emit_pipeline_sync(ring);
-
-        if (emit_spm_needed)
--               adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ri=
-ng, job->vmid);
-+               amdgpu_gfx_rlc_update_spm(adev, ring, job->vmid);
-
-        if (emit_gds_needed)
-                amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,=
- diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_rlc.c
-index 002fae3c380e..f791e1bcbf17 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
-@@ -27,6 +27,37 @@
- #include "amdgpu_gfx.h"
- #include "amdgpu_rlc.h"
-
-+/**
-+ * amdgpu_gfx_rlc_update_spm - update RLC SPM VMID
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @ring: ring the VMID got assigned to
-+ * @vmid: VMID to program
-+ *
-+ * RLC SPM counters are used only for GFX and GFX Cache subsystem. Only
-+jobs submitted to
-+ * rings in GFX subsystem need to update RLC SPM counters. Derive xcc_id f=
-rom ring->vm_hub.
-+ */
-+void amdgpu_gfx_rlc_update_spm(struct amdgpu_device *adev,
-+                              struct amdgpu_ring *ring, unsigned int vmid)=
- {
-+       int xcc_id, num_xcc;
-+
-+       if (!adev->gfx.rlc.funcs->update_spm_vmid || !ring)
-+               return;
-+
-+       if (!AMDGPU_IS_GFXHUB(ring->vm_hub))
-+               return;
-+
-+       num_xcc =3D NUM_XCC(adev->gfx.xcc_mask);
-+       for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
-+               if (AMDGPU_GFXHUB(xcc_id) =3D=3D ring->vm_hub) {
-+                       adev->gfx.rlc.funcs->update_spm_vmid(adev, xcc_id, =
-ring,
-+                                                            vmid);
-+                       return;
-+               }
-+       }
-+}
-+
- /**
-  * amdgpu_gfx_rlc_enter_safe_mode - Set RLC into safe mode
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_rlc.h
-index 959d60c90dcd..1410954da5a6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-@@ -370,6 +370,8 @@ struct amdgpu_rlc {
-        struct amdgpu_rlcg_reg_access_ctrl reg_access_ctrl[AMDGPU_MAX_RLC_I=
-NSTANCES];
- };
-
-+void amdgpu_gfx_rlc_update_spm(struct amdgpu_device *adev,
-+                              struct amdgpu_ring *ring, unsigned int vmid)=
-;
- void amdgpu_gfx_rlc_enter_safe_mode(struct amdgpu_device *adev, int xcc_id=
-);  void amdgpu_gfx_rlc_exit_safe_mode(struct amdgpu_device *adev, int xcc_=
-id);  int amdgpu_gfx_rlc_init_sr(struct amdgpu_device *adev, u32 dws); diff=
- --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgp=
-u/amdgpu_vm.c
-index 29a66e39f3d6..dc8f85176b8b 100644
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 29a66e39f3d60..7b9494375649f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -865,7 +865,7 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct a=
-mdgpu_job *job,
-                amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid);
-
-        if (spm_update_needed)
--               adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ri=
-ng, job->vmid);
-+               amdgpu_gfx_rlc_update_spm(adev, ring, job->vmid);
-
-        if (gds_switch_needed)
-                amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
---
-2.49.0
+@@ -1170,11 +1170,9 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	params.override_pte = allow_override && adev->gmc.override_pte;
+ 	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
+ 
+-	amdgpu_vm_eviction_lock(vm);
+-	if (vm->evicting) {
+-		r = -EBUSY;
++	r = amdgpu_vm_begin_critical(&params);
++	if (r)
+ 		goto error_free;
+-	}
+ 
+ 	if (!unlocked && !dma_fence_is_signaled(vm->last_unlocked)) {
+ 		struct dma_fence *tmp = dma_fence_get_stub();
+@@ -1258,7 +1256,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ error_free:
+ 	kfree(tlb_cb);
+-	amdgpu_vm_eviction_unlock(vm);
++	amdgpu_vm_end_critical(&params);
+ 	drm_dev_exit(idx);
+ 	return r;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 0f6634b749746..98cdd7e3475fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -289,7 +289,6 @@ struct amdgpu_vm {
+ 	 */
+ 	struct mutex		eviction_lock;
+ 	bool			evicting;
+-	unsigned int		saved_flags;
+ 
+ 	/* Memory statistics for this vm, protected by stats_lock */
+ 	spinlock_t		stats_lock;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+index ca86eaac75235..8ebb0b033291e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+@@ -51,7 +51,7 @@ struct amdgpu_vm_update_params {
+ 	struct amdgpu_device *adev;
+ 
+ 	/**
+-	 * @vm: optional amdgpu_vm we do this update for
++	 * @vm: amdgpu_vm we do this update for
+ 	 */
+ 	struct amdgpu_vm *vm;
+ 
+@@ -93,6 +93,11 @@ struct amdgpu_vm_update_params {
+ 	 */
+ 	bool override_pte;
+ 
++	/**
++	 * @saved_flags: Saved flags for GFP reduction.
++	 */
++	unsigned int saved_flags;
++
+ 	/**
+ 	 * @tlb_flush_waitlist: temporary storage for BOs until tlb_flush
+ 	 */
+@@ -126,21 +131,37 @@ void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
+ 			    struct amdgpu_vm_update_params *params);
+ int amdgpu_vm_pt_map_tables(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+ 
+-/*
+- * vm eviction_lock can be taken in MMU notifiers. Make sure no reclaim-FS
+- * happens while holding this lock anywhere to prevent deadlocks when
+- * an MMU notifier runs in reclaim-FS context.
++/**
++ * amdgpu_vm_begin_critical - start the critical section of the update
++ * @p: The update parameters
++ *
++ * Serialize all updates, check parameters and make sure that memory allocations
++ * don't enter the reclaim path so that we don't deadlock with MMU notifiers.
++ *
++ * Returns:
++ *
++ * 0 on success or a negative error code on failure.
++ * Even on error amdgpu_vm_end_critical() must still be called to clean up!
+  */
+-static inline void amdgpu_vm_eviction_lock(struct amdgpu_vm *vm)
++static inline int amdgpu_vm_begin_critical(struct amdgpu_vm_update_params *p)
+ {
+-	mutex_lock(&vm->eviction_lock);
+-	vm->saved_flags = memalloc_noreclaim_save();
++	mutex_lock(&p->vm->eviction_lock);
++	p->saved_flags = memalloc_noreclaim_save();
++	if (p->vm->evicting)
++		return -EBUSY;
++	return 0;
+ }
+ 
+-static inline void amdgpu_vm_eviction_unlock(struct amdgpu_vm *vm)
++/**
++ * amdgpu_vm_end_critical - end the critical section of the update
++ * @p: The update parameters
++ *
++ * Restore the GFP flags and drop the lock.
++ */
++static inline void amdgpu_vm_end_critical(struct amdgpu_vm_update_params *p)
+ {
+-	memalloc_noreclaim_restore(vm->saved_flags);
+-	mutex_unlock(&vm->eviction_lock);
++	memalloc_noreclaim_restore(p->saved_flags);
++	mutex_unlock(&p->vm->eviction_lock);
+ }
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index 1cdf2b854f261..c03327f1242d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -505,52 +505,51 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ /**
+  * amdgpu_vm_pt_alloc - Allocate a specific page table
+  *
+- * @adev: amdgpu_device pointer
+- * @vm: VM to allocate page tables for
++ * @p: see amdgpu_vm_update_params definition
+  * @cursor: Which page table to allocate
+- * @immediate: use an immediate update
+  *
+  * Make sure a specific page table or directory is allocated.
+  *
+  * Returns:
+- * 1 if page table needed to be allocated, 0 if page table was already
+- * allocated, negative errno if an error occurred.
++ *
++ * 0 on success or a negative error code on failure.
+  */
+-static int amdgpu_vm_pt_alloc(struct amdgpu_device *adev,
+-			      struct amdgpu_vm *vm,
+-			      struct amdgpu_vm_pt_cursor *cursor,
+-			      bool immediate)
++static int amdgpu_vm_pt_alloc(struct amdgpu_vm_update_params *p,
++			      struct amdgpu_vm_pt_cursor *cursor)
+ {
+ 	struct amdgpu_vm_bo_base *entry = cursor->entry;
+ 	struct amdgpu_bo *pt_bo;
+ 	struct amdgpu_bo_vm *pt;
+-	int r;
++	int r, r2;
+ 
+ 	if (entry->bo)
+ 		return 0;
+ 
+-	amdgpu_vm_eviction_unlock(vm);
+-	r = amdgpu_vm_pt_create(adev, vm, cursor->level, immediate, &pt,
+-				vm->root.bo->xcp_id);
+-	amdgpu_vm_eviction_lock(vm);
++	amdgpu_vm_end_critical(p);
++	r = amdgpu_vm_pt_create(p->adev, p->vm, cursor->level, p->immediate,
++				&pt, p->vm->root.bo->xcp_id);
++	r2 = amdgpu_vm_begin_critical(p);
+ 	if (r)
+ 		return r;
++	if (r2)
++		goto error_free_pt;
+ 
+ 	/* Keep a reference to the root directory to avoid
+ 	 * freeing them up in the wrong order.
+ 	 */
+ 	pt_bo = &pt->bo;
+ 	pt_bo->parent = amdgpu_bo_ref(cursor->parent->bo);
+-	amdgpu_vm_bo_base_init(entry, vm, pt_bo);
+-	r = amdgpu_vm_pt_clear(adev, vm, pt, immediate);
++	amdgpu_vm_bo_base_init(entry, p->vm, pt_bo);
++	r = amdgpu_vm_pt_clear(p->adev, p->vm, pt, p->immediate);
+ 	if (r)
+-		goto error_free_pt;
++		goto error_unpin;
+ 
+ 	return 0;
+ 
+-error_free_pt:
+-	if (vm->is_npa)
++error_unpin:
++	if (p->vm->is_npa)
+ 		amdgpu_bo_unpin(pt_bo);
++error_free_pt:
+ 	amdgpu_bo_unref(&pt_bo);
+ 	return r;
+ }
+@@ -838,8 +837,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+ 			/* make sure that the page tables covering the
+ 			 * address range are actually allocated
+ 			 */
+-			r = amdgpu_vm_pt_alloc(params->adev, params->vm,
+-					       &cursor, params->immediate);
++			r = amdgpu_vm_pt_alloc(params, &cursor);
+ 			if (r)
+ 				return r;
+ 		}
+-- 
+2.43.0
 
