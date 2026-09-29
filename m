@@ -4,127 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D970FCA5FA5
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 18:59:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12961CA5FAD
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 19:05:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7005810E565;
-	Tue, 29 Sep 2026 18:59:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2C610F056;
+	Tue, 29 Sep 2026 19:05:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EDaAI4VJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BsvstnUm";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011012.outbound.protection.outlook.com
- [40.93.194.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9A610E565
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 18:59:30 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010011.outbound.protection.outlook.com [52.101.61.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0B1B10F048;
+ Tue, 29 Sep 2026 19:05:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cqeAj1+78DuTixAl8qfiZq5MaVEisBZkJ5LNG0upgx8TYWG1e/vvjktPW4+7DbMuAVsTKSj8LHcYs4kW7dL2mhpMS8rzpAMmOHrzy4DMW3l3yHmDzfIkMInJhigxk7shOXAwR/ysEMyxj3Z5Gp483ne88SAq1JOeiYhSMm0utINZ96qjdY/q46Pa/S2IsJF3wVhgKhxE0XVmESCDwfzKXXATyyT+JjijT6Ivq7eKIbnxmiUnbWIv/c/NdyE0A4x81giqGKSBU+WA/MFz3i0aUSVgUWT9ypOHUearAPSk0Ii+UxNcgwZIxHAl5WngNIGJYqCoNZrwhzrhJBcspR9U0Q==
+ b=WBrbgryXZ1g8IVzpqrZPv6vNnWPvyqq2obzYrL8rDdJJYoPggWx56YZNNiZ3zfyhm7joHRwnkyC2wyXEHWgADL908wX8RKP34E6459NM/Y8W7OAFvRu03z24elNthh3j2O8hCh+ZXYlXLXyHiq82/KtrvYZ+GnGGrzHGd6C8wZP5tngR6PilBSWyz77AeNtdDM4k+9qmz2PkP3kJaRJgRrcKT2PPlL5YXqbvomCmFkWY2HO9EyQC62VivavjaffU/CPvUNMRRIOLCH5HzDMZjMACoifnilU2xMrdscZQij+bc7Vw/8AdrZ214kwbSDXTcGO3UZkDEoU0MDbKt9A4hg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rx3ntdUteVVTZ6JqUZS3lx4UMZVHr0tx6d0IzwXovAE=;
- b=TV09VZYSuUzwaC2BEMBgMEUJOhpiguS5Ws5rdqIz2i2vuGQwA0a1O5UO4/wrtH5PjAYnXdaV6GewQpfh5u/koWcMiE+OpsFNQ50G7r2g2/u/lqbQXbuN4SdrKzf6J2iSZfqbkVDGkcMnP0W2bb4jGtCL1fqESL65V57MHRGQPINmDaTdaLSARwrU00TT8DbaDXR/yXVGgADn0u6nv7wiVMcE1+OpoAuDv29jceIQoFPPSCzFhTSpmlj+9PjEruTIh/3rokwmAKkL2EcHMekaAwmzDYrj2E3Av09/J/j42qEMGWNdIoQZigbJr85ygaUBJHJsBEuDqpbQZYMqg12Fsg==
+ bh=w5Ue03WC0nJ7AT2Fuw0fitWm2CSou6wUVwthPY6sf2I=;
+ b=RHaDWWhvv6d1GOu85Y9w7+2io177hzlTjXRuIsCSJkk96HBHXqEk3XwkYuiNwfbRZOVyvXxAL9z6YvNtx0jitIyx+0Cvz4ORxDxeor5mrIIO86VpelGE41AEhHE7cwSkvRHopIuDLyWkCyRiRBl2FX+SJzAz6Mtv1TohVfDmqz9RfkZxc16/fK0xOmdRwFAoD+cjITeWKicco2QqtNaYspx9RQQOsQUGtE1ozUIb6ml9BbYlYANcFiXeX93MzmUYKhLkvPCpQ8CJ5fLdKRN0Ln6vueojWOA7pSHscmqdFs4/XaieTKko42fAoiakH6v3Jq79kQ9iiBoWpXzB+FJfQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rx3ntdUteVVTZ6JqUZS3lx4UMZVHr0tx6d0IzwXovAE=;
- b=EDaAI4VJ0ZFUBaHL0/tnyqjHGFd6hbWdzuDkX57B3ZTlcXi87Ih/0O//f+NjBXaLHbayDxHFBzv2ZiQsD+Y3lQEGWGaCTsRGybNs1ePBCN8CPYQQ3XCuTY0bSa03ekeZcAuZDkwwBfwGj+rrMoifL8/8/UFn83uWSxDlfPKhmrE=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by SJ1PR12MB6241.namprd12.prod.outlook.com (2603:10b6:a03:458::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Tue, 29 Sep
- 2026 18:59:25 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%7]) with mapi id 15.21.0451.026; Tue, 29 Sep 2026
- 18:59:25 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Yuan, Perry" <Perry.Yuan@amd.com>
-Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset on
- gfx12
-Thread-Topic: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset
- on gfx12
-Thread-Index: AQHdT7nkdmR42IxKkkCaoz9kGWx+t7blQ/QAgAAIdwCAAJ0ulQ==
-Date: Tue, 29 Sep 2026 18:59:25 +0000
-Message-ID: <BN9PR12MB5146D08AFE80E7E6EE34B614F78C2@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20260929022540.122318-1-yifan1.zhang@amd.com>
- <f9db848b-da68-4acf-a0e3-41464b939817@amd.com>
- <CY5PR12MB6369B765E89F17858A5AB4A8C18C2@CY5PR12MB6369.namprd12.prod.outlook.com>
-In-Reply-To: <CY5PR12MB6369B765E89F17858A5AB4A8C18C2@CY5PR12MB6369.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-09-29T18:59:25.324Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD
- Public; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=1;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Standard; 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ bh=w5Ue03WC0nJ7AT2Fuw0fitWm2CSou6wUVwthPY6sf2I=;
+ b=BsvstnUm9UIB3ZJrJsaT45PdlXFSof72qpqgHrnSifH+beq36UTvczaWJ3Ft1OsiOPOKkVHLHSZXfnHvHXBrcvobqZSBIze34bTCsU86Guxx2AyVnklCFjePR8lFTPejM97PxPxa//+J56kZlSnj88pPajQlgn1Q8nZVTn3E6Ws=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|SJ1PR12MB6241:EE_
-x-ms-office365-filtering-correlation-id: f45b21d1-6b8b-41f3-002f-08df1e5bc81b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|38070700021|11063799006|4143699003|10067099003|56012099006|8096899003;
-x-microsoft-antispam-message-info: 25xFE/kTBF1ExXnOb/b6gpgZWf9hqPdHRm8dBrCtJlauKD0GQq6ezd5e1A3oh5JZOJsuMwBFsQqtAjnr0zf8HkkNLXDFBoZrD7FEKINI6AkZL7Hxhpx15FXBJ0fWsVU7vKmEdan1uPStqqMqlpUPwk2AYeWIMehEjmAa2Q0DhbfmzhjJGEbMJ1dOX+xxyrlgp91+FjZM15uwnTFQ8s+QcDZY1YzVribdW3uxdifFRkkIg6UjyaDqWtGJZYxy2i3hzAthPzebfuLruENY74yv3Ti1IQBFlGkv+n7bgZdJavO0wA5yORsUr0m53s87XqzaDl8waAf14r6xPKfwOsoaEx4jZZqLhxJKCVnZRlyrWJ18IZWTOfzfChVs7eWIKA07Ktk1UZr6iYaZTBR/wfIJPfjDcprGW6p5r7VGcHtheGj5lHsgaWpGw5bPSVVYW7a6luxE+vFVhTL0mgATJ74I10Q604trTk8JLmzwZnc1xvGRXVBhMCsSsWJDMlEHLU6mVRAExjFedxAaF43SnoKYh/tg8bCerlZhS4K0tgQPa4vLSgcgzQGMq1dHiIliKddXRWfgIcIOGcvqllGKHcfVTv0lWDWuad8ZYV1qOEkWKNumc+QuUe28sRFO3DIeQXAJ/W299ltFFGRTDI+0HJduNSf/aEVKIppEAMQPtlhcSUuECn6VIlxaccbx93euJd07korAhOKHd9tAvQw1T+/4LKnbQncfyPE1wrz9dzxPWJg=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(38070700021)(11063799006)(4143699003)(10067099003)(56012099006)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?29x1HUgwkqUDjq08gcIWT6ptiboqNalbb0FCwkLhxrHkUQ0g3abLkPae?=
- =?Windows-1252?Q?p9IwPMpJrSxPbAvK8LReHEuJIhpQ3HaDxNcNxPwfsAzstW7smwrCcB9T?=
- =?Windows-1252?Q?TKmwxlL37o3bG5cc0wfAaqHZMfOU/iwYwmiVvWJLen27uXi1ZEiZXhkW?=
- =?Windows-1252?Q?49HrMbsir7UiH1R/Q5O3rmeN3ZQPSPJR4vD/HGHv1qGgQD0jK717snqv?=
- =?Windows-1252?Q?m1HRVzY5ORZ2UWAPTxncr02qLj98KsIMs9l1wB3eMHuOc2mnCW7Dt5PR?=
- =?Windows-1252?Q?s9NYegkE2h0E5gMkR1TcQB68SgP41lEv3rnTKXSlnRm2q1uzIGm8cV2l?=
- =?Windows-1252?Q?2L7u3Nh7U23iyfcZDzGW8sOmnDS0bdTVXYgaXY9+1oGF87Li/6GYThbn?=
- =?Windows-1252?Q?pjnr3GqJ8FdssIyoHNtWrORIIkps7LFWM0geRT8V7VKbSAatGa40beMb?=
- =?Windows-1252?Q?UpKdRHcuFWMYoe6tLMfTciQ1ixqZxWW2urNasSSHmnXzOB8Z+6Wklb7p?=
- =?Windows-1252?Q?C0naq/cxoV8pzzmWm47+nJwPr1wH1BbTEIohlZOtuC3Fp5gxjBUAL3Zv?=
- =?Windows-1252?Q?W9lLgHNPquElseoljuWh0JillgWfaZPQOuwbRUFh7a3PEtteKktVAy6k?=
- =?Windows-1252?Q?2zp9dm7AfV8z9LxkxTWoUI0gq/hvmnk6i/RzSEXrFfXFINrJCvoqtljO?=
- =?Windows-1252?Q?GZPjzT/QGTzPkETomm37BOfZxhIUaiY7SnO58RnG0uKWiAWr3ejPv9/r?=
- =?Windows-1252?Q?asC2Hx+eKBgc5f40fCBrfs4Uvu4NfZqPIIKFb9tOQ37q9GmGO6QQnO5o?=
- =?Windows-1252?Q?UpXb2IuJR3toSXsleU2y0QMWgWfdYGUA2qgZHHYCpN8WcFCaKNEZ0QfH?=
- =?Windows-1252?Q?siofNTT8nMpjbT7rSEQR7CzuDYEjieOKrkmTh2BaidHkyO8p6Dp2TTv5?=
- =?Windows-1252?Q?ga2Op1O4Dthtok8q4GNXI1LwquWe7wAeZVOGYcVXzLcDMD2vvjymwPBb?=
- =?Windows-1252?Q?u3LfIrvX4XKSqkjhc0+he12qnLnL4hefEjDaMSS6Q0032M3bFkJWh1Wh?=
- =?Windows-1252?Q?JTG8NSO6vqNj7+icG2bRubrcc4IdmYCZIS3JIuxQ8SRrdLPDHCzIdnMO?=
- =?Windows-1252?Q?YafICASTef2k8gYV0/rTODYpgn3w8vwU0ldGzOvF/icfRsdtTZr01LaT?=
- =?Windows-1252?Q?9VkbhwMhTG0j41mxhVQcP3ORtxAAV8ewHhI1v6t4G2Yozesjufgxqj5c?=
- =?Windows-1252?Q?Wj+cIaI0mw3pLqj9imMwGAGdsheXOlyGu/HDkUfV+MwK7oHCAV4CkkQN?=
- =?Windows-1252?Q?2hC1VIbYkvaB1HAT9w3dWH4IO970wXTIEtIWd8hfpfWcPy+NBUvi3CWg?=
- =?Windows-1252?Q?5xIyGuEZyNQBH6C6MKYqGCWktT4fYoqqD/6OSUsmlpN3DcQYdO9RKKP9?=
- =?Windows-1252?Q?A62K06M2zYU2PskUDYBYmNrujz29iGNtMAlT7gvFBLZlVcKRgXhXmlCI?=
- =?Windows-1252?Q?Lq/hqKhZ+oW+5FT8sYni5e2a2578ZT+nGAsFGuSEX4DAkOpWz1Oi8ZJj?=
- =?Windows-1252?Q?6vuz1OVmyTbYeTOlDrzXLpgg2dP4MO8ToJD3inVjoa4wEkbvrfK6fipM?=
- =?Windows-1252?Q?oKQvO5a/wos7xMkYL/fXxYan/AeIUA83vtBl+xyZfZhQ9xReCYmTvVG6?=
- =?Windows-1252?Q?RQMTCFrTb4qZotxg1voUxTSD8dGfWQ7+ZE8YJJU5oR+u3URv04KzvaAJ?=
- =?Windows-1252?Q?NETKdvlTd4a1B58QBXqAdeQipZ/HwjYMK62D6ljsa6Kz8QpWoTl6IeyX?=
- =?Windows-1252?Q?64cHYRKoK6voFDIQTqEQHcjRIv78b6Nv0jlRNTUWCoDn2tN1?=
+Received: from PHXPR12MB999256.namprd12.prod.outlook.com
+ (2603:10b6:510:3ca::15) by SN7PR12MB7324.namprd12.prod.outlook.com
+ (2603:10b6:806:29b::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
+ 2026 19:05:20 +0000
+Received: from PHXPR12MB999256.namprd12.prod.outlook.com
+ ([fe80::9cc3:e12c:d992:4ce4]) by PHXPR12MB999256.namprd12.prod.outlook.com
+ ([fe80::9cc3:e12c:d992:4ce4%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 19:05:19 +0000
 Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB5146D08AFE80E7E6EE34B614F78C2BN9PR12MB5146namp_"
+ boundary="------------e7L0AC7VOchL46D4Ra2Bs0KC"
+Message-ID: <e5b5770f-8ae1-41c3-b5d9-53798dd3fd45@amd.com>
+Date: Tue, 29 Sep 2026 15:05:15 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: Fix NPA-REVOKE racing an in-flight UALink
+ import
+To: David Carlier <devnexen@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260926174406.346253-1-devnexen@gmail.com>
+Content-Language: en-CA
+From: Mukul Joshi <mukul.joshi@amd.com>
+In-Reply-To: <20260926174406.346253-1-devnexen@gmail.com>
+X-ClientProxiedBy: YT3PR01CA0018.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:86::22) To PHXPR12MB999256.namprd12.prod.outlook.com
+ (2603:10b6:510:3ca::15)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PHXPR12MB999256:EE_|SN7PR12MB7324:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2e6f177-1c26-4bb2-e72b-08df1e5c9a96
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|13003099007|22082099003|18002099003|10067099003|5023799004|56012099006|11063799006|8096899003;
+X-Microsoft-Antispam-Message-Info: kTDFsdy6qRwCJw/tdkqyW4nfR28kq/5kos0fdh5zHy/ydqFtmMafoxLoxm3tD9EVqN2u30mWsDXUtocwrhrIT3PtdhHuMBBRr7Y6eYQAh+GiTDJ1W0CdX+Ad1OglMnp6wTTsN4cgK9tJm8TLSAgiJ/yctMymfhAq8rcQ2RXF3QgrdMS/4eoPFORyHwVtW2m+31G71vU3pQZFPdGpb+7mD+GaFumwC/zEKRFJva86B6UQqJ+vGSPIukiOT3zV0p05kfNSJ/OeIZnihg6tG2mXi2vnxR6BzkObM//IM6w4vEIF+CVV8iv5PCh79kdTmQNZpI9+4jhQQDnHIViG2tAAQZWRWqv11AqVhOb4xUJX0miFnSQO1huPgMfXfz5M+K4xGYDSvycIUSIV0ZG5T0IZnaSjxMYQ4rn7Lp4/KPULA22sSERqSLXjxMNSZCLAAuldokiIpHmuamAl0G4T5pbhK5TqFH6/ffEyWWjdlsnv9hCOLMLkT1fGi58Luga5a8Bze/IoUXabpcGK2kfpR0eQh0caRGysbxVt/PYNj23pL4Qc8zoVCmdCoYtFYwKnthz06XeDUI1iGnBnz42/GlJzn6nTWWItP4yM4jixEjgFyICJG9o8SzYyVXK1bg1rqtqmDG+YH5IYYBlS0MN8JqGJEV0bMnFK+wscTuXSXTbKjHM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PHXPR12MB999256.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(13003099007)(22082099003)(18002099003)(10067099003)(5023799004)(56012099006)(11063799006)(8096899003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NlZCR3hYS0UxSDg5bENGbGQyclZRR1hYNHIvQ3BIdFU5VXdqeXJYRlVjbEoz?=
+ =?utf-8?B?VndvR242Tm5PVlY4ZEFFSTRFaGFVTTNIbi9pMDgwUTZxTnd5YkJ0UmpJVDVQ?=
+ =?utf-8?B?dlNrQ1NGNFJDU1d3WmsxcHNjV3E4T04ySGMxMHM0SkJaWXlaaGFvc0FvRlVi?=
+ =?utf-8?B?QVoveHlCY1NmRnlMMGt2ZXRqSVVFWEFCaG5yKzN6UHd0aWs4ZG0zc3crZjVy?=
+ =?utf-8?B?RTFYVWFDWGpLYzd2OTM5YXIvUTNvc3ZLc0ViSzNIQ3JncGROck1XRlFYOVc3?=
+ =?utf-8?B?UVBDZjBKQkk0NG9tbEZZalh5OTE2WUpxeVE4RHBWQWRPcCtIcW5rTElVMGg2?=
+ =?utf-8?B?NmREVU92TENMbmwwWmp4bStDT1VpOUJDNmVhZ1dKb3hjMEQ1bXpTc2RSbzRB?=
+ =?utf-8?B?UDRyaGFNL0RTdGF6UUZXTHlBUkc1TitUN3MvOXZzdS9BYlRIbEV2bWd5cjBJ?=
+ =?utf-8?B?UjdGQ0VzNWZNNFpaZ3BpOHk2ZzljUFR1OVozOE5nUkpTWnR2ZVNRV29jUzJ2?=
+ =?utf-8?B?Q25DanVDWTJST3JncDUyRGYrNW9BSFNQVStvQ3R3Z3ZqWWEvSW13SlUwbWtS?=
+ =?utf-8?B?Q0sxNFVTaGk5ajVBb2RxRWVRdW1RekNPd25UYlk0UDB4U2xGNFg1L2crd3JT?=
+ =?utf-8?B?V210R0Z4U0VSWlFxRkU5bFkxa21ZREM5Q0FPL2I3d3h3ajhJc1h5Y2ZBbEt5?=
+ =?utf-8?B?Y3dicXFwemg1ZWhVanUvdEM3d1dQN3N5alJ1RmRpSzZiRjlzV2FDMkRJZXlt?=
+ =?utf-8?B?eWgvaFJNOWtPVjlvQWdyR1hickRyV0VrSXlWTlA1c3ZMNnUwbTJDUG5ydXBI?=
+ =?utf-8?B?T21QOW9GbVpJVFFRQ0N4N0FKOHcwelhqaDZHTVpteXgwMDh6Z0FTZ1Zjcm9r?=
+ =?utf-8?B?Y3VISDJyOG5rWmZjWnpOMW1KT3BEZzF3RGNJWWEvU05ibHhtdXYvUHJjQ2Q5?=
+ =?utf-8?B?N3VLaEMvWnJYSnFqUWp1RXFHdnJjWjFrbUljdTVWVmlOb25jbFNwc2FYN3l3?=
+ =?utf-8?B?czUySkpic1RZRThEMzVUV05rellzclRMb1pQdE5JTEJIUFpQOW5vVkJBVU8r?=
+ =?utf-8?B?TUpiV3BaQ2tjWjBBTDVBTVFKMVBqQ1Y3ZUM4YWx6THFpVnhRS1JxSDJndlg5?=
+ =?utf-8?B?ZWZtdW42YUdzWTVzUW9Zemh3eDJTbXp1Sm9NejBHNExoZ00rTlZTM0JYRStC?=
+ =?utf-8?B?Y1h6emJpSEV1dVRFdGFGekwyVWpPdHNiM2l3VVlNemc4cjFLcGV1Vkh4S2FC?=
+ =?utf-8?B?SHQxb1A1RXUxbGpKbjJSYmRtWDVwbXJaQkE1aUJma2Q1UllITmFMeWNZYzd3?=
+ =?utf-8?B?ODdyZEV6QnoyWUR2MEVZT25VV2JOMUM1cittQWhFS2FBaDZKTzJDSHRRekEx?=
+ =?utf-8?B?eS9sdTBVUldGTUltMVp5N1VHTmFjM21UNDl4ZjVLcXNFR21KTUFCOWYxYzll?=
+ =?utf-8?B?UTRVVFErZW1rMDRoZkhpT09NdnVaSTR0cWhOUlk3c3pwWHFNL1dsMUZ2Zk9l?=
+ =?utf-8?B?My93cXdJNHNyeFptc25tMmRpVERaTmJtVFpLbjBrdkRlN0ZEV1lrQjZpeEUr?=
+ =?utf-8?B?ZlRneTJtak1BWXJqS3BrdTVsNnU4WS9hUk1taDlsY2t5SWR1Y0t4SlNGVTNy?=
+ =?utf-8?B?V3JvSld2YzFkMVR1M05JakZzMTVieDZ6Q0t4OEVjaTJFWmxvWmozQnlDSW1h?=
+ =?utf-8?B?ZUc1eFFYT1J5dW5HZzZTVHc0am9iMFQzK2VFZG9QbDE4NUxlbGdveDNTdGRV?=
+ =?utf-8?B?NldBSFBHc3MvdWMyYkxRU2k2QTFmZ054TXNSeHRiMXBzUDdVR0VWS0UyVWJL?=
+ =?utf-8?B?L2Z4dUxGb2R3aWtwZnVVYStpclhHZVBTMXBlZmprUXpCQ09CZ3dkelRvMlMz?=
+ =?utf-8?B?cDlKRHFpRG85MjErTFFEbzJXYlkxcEhSWCt1RytyMmpLZEJzeDc0TUxTbThU?=
+ =?utf-8?B?bkhRMk1PSEFNc2poSmxZdXJLd3dpRXRLbFJyV2poOFE1WEZaQnB1cUg3MWJw?=
+ =?utf-8?B?VWhmUFVnU3ZueTk5bk11cWtxRkVxQkQ0elNEVVVSLytoemJkRzdWQnNvQ2FR?=
+ =?utf-8?B?RG05dUpyamoyY2xIOEwyN0F2UnhOQmpIb1BXNlVoVWY4cmN4eWs4WHhTTFpl?=
+ =?utf-8?B?aGRBRitjSTR6N1VqdDFzVitVY3JoMGpWT2dscTZDLzd6NjhqNlUzQ28xTkZ1?=
+ =?utf-8?B?Tk54aHJUeDhiZ1FiSkkxcitrS202WUhnTEF4WjhSZHk0a3RlaTdaRnV6NE5p?=
+ =?utf-8?B?OXRCaGRyY2s5WWwzYlZIZ3FpR3hHelpwU29JcXVCTmpScFltNk95bU1WTXh6?=
+ =?utf-8?B?NmJWUktnVmRmbEhHQkhrQis3bDNNOW9xbFplVmZkZnZtNmVCbmc1Zz09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2e6f177-1c26-4bb2-e72b-08df1e5c9a96
+X-MS-Exchange-CrossTenant-AuthSource: PHXPR12MB999256.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f45b21d1-6b8b-41f3-002f-08df1e5bc81b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 18:59:25.7861 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: edc2J8wxpHduN/lRuCBksBzeo+6jAhptuACG2Ba5DDidAoZduu+QjaAP2069oTtHjF4xHN4DYrm4i0E8n9/Lgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6241
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 19:05:19.0749 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cI0sobiiTzmaGgz42QdBp2h36xrbaWfU5Gdx32fQyyA4izm33aAME64ZnG4OgroMGSnDtcu2IPYs7FbiO8LJmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7324
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,315 +140,361 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BN9PR12MB5146D08AFE80E7E6EE34B614F78C2BN9PR12MB5146namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+--------------e7L0AC7VOchL46D4Ra2Bs0KC
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Public
+Hi David,
 
-I think this should be asic agnostic.  Any asic doing mode1 reset should do=
- this?
+Thanks for the patch. Yes the race is real, however, the patch needs 
+some updations.
 
-Alex
+More below.
 
-________________________________
-From: Zhang, Yifan <Yifan1.Zhang@amd.com>
-Sent: Tuesday, September 29, 2026 5:36 AM
-To: Koenig, Christian <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop=
-.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Yuan, Perry <Perry.Yuan=
-@amd.com>
-Subject: RE: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset=
- on gfx12
 
-Public
+On 9/26/2026 1:44 PM, David Carlier wrote:
+> [You don't often get email fromdevnexen@gmail.com. Learn why this is important athttps://aka.ms/LearnAboutSenderIdentification ]
+>
+> The exporter records an importer when it answers NPA-REQ, so it can send
+> NPA-REVOKE as soon as the BO is freed, before the importer has finished
+> building the dma-buf for that handle. The revoke handler assumes a fully
+> imported node: it dereferences imp_xa_node->dmabuf, which is still NULL
+> until the import completes, and drops the xarray reference the importing
+> thread still relies on. The importer then links the node and marks it
+> READY regardless, so the node can be freed while still on the per-remote
+> list.
+>
+> Only tear down a node that is READY. Otherwise mark it for teardown and
+> send NPA-RELEASE, as nothing has been handed to user-space yet, and wake
+> the importer if it is still waiting for NPA-RSP so that it fails right
+> away. A node already in teardown belongs to whoever moved it there, so a
+> duplicate NPA-REVOKE no longer touches it either. The importer checks for
+> teardown under the xarray lock before linking the node and marking it
+> READY, and unwinds otherwise.
+I think NPA-REVOKE cannot land before a NPA-RSP so we will not hit the 
+condition where
+we have to wake up the importer.
+NPA-REVOKE is sent only when the exporter's XA entry's ref count goes 
+down to 0.
+That will happen at the end of process_npa_req(), by that time, the 
+NPA-RSP is already sent.
+>
+> Fixes: 7cc82cd90d35 ("drm/amdgpu: Implement mechanism to revoke exported memory")
+> Assisted-by: LLM
+> Signed-off-by: David Carlier<devnexen@gmail.com>
+> ---
+> Changes in v2:
+> - Tear down only READY nodes, so a duplicate NPA-REVOKE for a node already
+>    in teardown neither dereferences a NULL dmabuf nor drops the node
+>    reference twice (Sashiko).
+> - Complete npa_done when a revoke arrives before NPA-RSP, so the importer
+>    fails right away instead of timing out into a connection reset (Sashiko).
+> - Use the current Assisted-by format.
+>
+> Found by code analysis and compile-tested with W=1. Not tested on hardware,
+> as it needs two UALink-connected accelerators in a vPod.
+>
+> v1:https://lore.kernel.org/all/20260926171625.288519-1-devnexen@gmail.com/
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 34 +++++++++++++++++++---
+>   1 file changed, 30 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index 8411ea17172f..cb35026e6eba 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -3265,6 +3265,7 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
+>   {
+>          struct amdgpu_ualink_imp_xa_node *imp_xa_node;
+>          struct amdgpu_bo *bo;
+> +       u32 node_state;
+>          int r = 0;
+>
+>          /* Remove the entry from the Xarray. */
+> @@ -3288,7 +3289,23 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
+>                  return;
+>          }
+>
+> +       node_state = READ_ONCE(imp_xa_node->node_state);
+>          WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
+> +
+> +       /* Only a READY node is torn down here. If the import is still in
+> +        * flight, the dmabuf may not exist yet and nothing has been handed
+> +        * to user-space: leave the node to the importing thread, which sees
+> +        * the teardown state and unwinds, and wake it up if it is still
+> +        * waiting for NPA-RSP. A node already in teardown is owned by
+> +        * whoever moved it there, e.g. an earlier NPA-REVOKE.
+> +        */
+> +       if (node_state != AMDGPU_UALINK_NODE_READY) {
+> +               if (node_state == AMDGPU_UALINK_NODE_NOT_READY)
+> +                       complete(&imp_xa_node->npa_done);
+> +               xa_unlock(&adev->ualink.imp_xa);
+> +               goto send_release;
+> +       }
+As mentioned above, NPA-REVOKE cannot land before the NPA-RSP is sent by 
+the exporter.
+So, if the node_state is NOT_READY that means its a stale NPA_REVOKE and 
+we should just ignore
+that NPA-REVOKE. Having said that, we should definitely do the teardown 
+when the node_state is READY.
+We should also handle NPA-REVOKE while node_state is in PENDING state.
+So, maybe we can refactor this code to something like this:
 
-Hi Christian,
+switch (READ_ONCE(imp_xa_node->node_state)) {
+     case AMDGPU_UALINK_NODE_READY:
+         /* existing teardown */
+         break;
+     case AMDGPU_UALINK_NODE_PENDING:
+         WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
+         xa_unlock(&adev->ualink.imp_xa);
+         break;
+     default:
+         xa_unlock(&adev->ualink.imp_xa);
+         return;
+     }
 
-The no_hw_access flag was first set in commit 0de604d0357d0d22cbf03af1077d1=
-74b641707b6. This was intended to fix the Mode 1 reset hang, but it proved =
-insufficient.
-I think the flag was set in the SMU code so that it would apply only to SMU=
-13/14 ASICs, without affecting the Mode 1 reset process on other ASICs.
-I=92m not sure whether we can drop the no_hw_access flag after disabling PC=
-I_COMMAND_MEMORY. The PCI hang occurs intermittently, so we may need anothe=
-r round of stress testing to confirm that the flag is no longer needed. Sho=
-uld we remove no_hw_access in a separate patch?
+> +
+>          list_del_init(&imp_xa_node->list);
+>          xa_unlock(&adev->ualink.imp_xa);
+>
+> @@ -3299,6 +3316,7 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
+>          /* Drop the refcount for the node */
+>          amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
+>
+> +send_release:
+>          r = amdgpu_ualink_send_npa_release_msg(adev, remote_acc_id, handle);
+>          if (r)
+>                  dev_err(adev->dev,
+> @@ -3760,9 +3778,20 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
+>                  return r;
+>          }
+>
+> -       /* Add this node to the imported handles list for the remote GPU */
+> +       /* Add this node to the imported handles list for the remote GPU,
+> +        * unless the exporter revoked the handle while the import was in
+> +        * flight. The dmabuf is released with the last node reference.
+> +        */
+>          xa_lock(&adev->ualink.imp_xa);
+> +       if (READ_ONCE(imp_xa_node->node_state) == AMDGPU_UALINK_NODE_TEARDOWN) {
+> +               xa_unlock(&adev->ualink.imp_xa);
+> +               dev_warn(adev->dev,
+> +                        "IMPORT: handle:%llx:%llx revoked during import\n",
+> +                        handle.handle_hi, handle.handle_lo);
+> +               return -EINVAL;
+> +       }
+>          list_add(&imp_xa_node->list, &adev->ualink.imp_handles_list[remote_acc_id]);
+> +       WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_READY);
+>          xa_unlock(&adev->ualink.imp_xa);
+The changes here makes sense. One nit-pick is to change from dev_warn to 
+dev_dbg().
+>
+>          return 0;
+> @@ -3938,9 +3967,6 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
+>                                          "IMPORT: XA import failed for handle:%llx:%llx\n",
+>                                          handle.handle_hi, handle.handle_lo);
+>                          goto cleanup;
+> -               } else {
+> -                       WRITE_ONCE(imp_xa_node->node_state,
+> -                                  AMDGPU_UALINK_NODE_READY);
+>                  }
 
-Best Regards,
-Yifan
+ACK.
 
------Original Message-----
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Tuesday, September 29, 2026 5:06 PM
-To: Zhang, Yifan <Yifan1.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Yuan, Perry <Perry.Yuan=
-@amd.com>
-Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset=
- on gfx12
-
-On 9/29/26 04:25, Yifan Zhang wrote:
-> block GPU PCI bar access during mode1 reset on gfx12, to resolve the
-> random mode1 reset hang issue.
-
-Interesting idea, that is much simpler than trying to mess with CPU page ta=
-bles in the GPU reset path.
-
-The only downside I can see is that we now drop VRAM and doorbell writes, b=
-ut I think that won't matter since VRAM is lost by a mode1 reset anyway.
-
-MMIO writes are dropped as well which means that we can also drop the no_hw=
-_access flag.
-
-And BTW the SMU code should absolutely *NOT* touch that no_hw_access flag i=
-n any way. Who added that there?
 
 Regards,
-Christian.
 
->
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-> ---
->  .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 29
-> ++++++++++++-------
->  1 file changed, 19 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index 072d9c4e202d..25b9085ead71 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -2078,21 +2078,30 @@ static int smu_v14_0_2_set_df_cstate(struct
-> smu_context *smu,
->
->  static int smu_v14_0_2_mode1_reset(struct smu_context *smu)  {
-> +     struct amdgpu_device *adev =3D smu->adev;
-> +     u16 saved_cmd, cmd;
->       int ret =3D 0;
->
->       ret =3D smu_cmn_send_debug_smc_msg(smu, DEBUGSMC_MSG_Mode1Reset);
-> -     if (!ret) {
-> -             if (amdgpu_emu_mode =3D=3D 1) {
-> -                     msleep(50000);
-> -             } else {
-> -                     /* disable mmio access while doing mode 1 reset*/
-> -                     smu->adev->no_hw_access =3D true;
-> -                     /* ensure no_hw_access is globally visible before a=
-ny MMIO */
-> -                     smp_mb();
-> -                     msleep(1000);
-> -             }
-> +     if (ret)
-> +             return ret;
-> +
-> +     pci_read_config_word(adev->pdev, PCI_COMMAND, &saved_cmd);
-> +     cmd =3D saved_cmd & ~PCI_COMMAND_MEMORY;
-> +     pci_write_config_word(adev->pdev, PCI_COMMAND, cmd);
-> +
-> +     if (amdgpu_emu_mode =3D=3D 1) {
-> +             msleep(50000);
-> +     } else {
-> +             /* disable mmio access while doing mode 1 reset*/
-> +             smu->adev->no_hw_access =3D true;
-> +             /* ensure no_hw_access is globally visible before any MMIO =
-*/
-> +             smp_mb();
-> +             msleep(1000);
->       }
->
-> +     pci_write_config_word(adev->pdev, PCI_COMMAND, saved_cmd);
-> +
->       return ret;
->  }
->
+Mukul
 
-
---_000_BN9PR12MB5146D08AFE80E7E6EE34B614F78C2BN9PR12MB5146namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-Public</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-I think this should be asic agnostic.&nbsp; Any asic doing mode1 reset shou=
-ld do this?</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Alex</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Yifan &lt;Yifa=
-n1.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, September 29, 2026 5:36 AM<br>
-<b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; amd-gfx@list=
-s.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Yuan, Perr=
-y &lt;Perry.Yuan@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] amdgpu/pm: block GPU PCI bar access during mode=
-1 reset on gfx12</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
- style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">Public<br>
-<br>
-Hi Christian,<br>
-<br>
-The no_hw_access flag was first set in commit 0de604d0357d0d22cbf03af1077d1=
-74b641707b6. This was intended to fix the Mode 1 reset hang, but it proved =
-insufficient.<br>
-I think the flag was set in the SMU code so that it would apply only to SMU=
-13/14 ASICs, without affecting the Mode 1 reset process on other ASICs.<br>
-I=92m not sure whether we can drop the no_hw_access flag after disabling PC=
-I_COMMAND_MEMORY. The PCI hang occurs intermittently, so we may need anothe=
-r round of stress testing to confirm that the flag is no longer needed. Sho=
-uld we remove no_hw_access in a separate
- patch?<br>
-<br>
-Best Regards,<br>
-Yifan<br>
-<br>
------Original Message-----<br>
-From: Koenig, Christian &lt;Christian.Koenig@amd.com&gt;<br>
-Sent: Tuesday, September 29, 2026 5:06 PM<br>
-To: Zhang, Yifan &lt;Yifan1.Zhang@amd.com&gt;; amd-gfx@lists.freedesktop.or=
-g<br>
-Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Yuan, Perry &lt;P=
-erry.Yuan@amd.com&gt;<br>
-Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset=
- on gfx12<br>
-<br>
-On 9/29/26 04:25, Yifan Zhang wrote:<br>
-&gt; block GPU PCI bar access during mode1 reset on gfx12, to resolve the<b=
-r>
-&gt; random mode1 reset hang issue.<br>
-<br>
-Interesting idea, that is much simpler than trying to mess with CPU page ta=
-bles in the GPU reset path.<br>
-<br>
-The only downside I can see is that we now drop VRAM and doorbell writes, b=
-ut I think that won't matter since VRAM is lost by a mode1 reset anyway.<br=
+>          }
 >
-<br>
-MMIO writes are dropped as well which means that we can also drop the no_hw=
-_access flag.<br>
-<br>
-And BTW the SMU code should absolutely *NOT* touch that no_hw_access flag i=
-n any way. Who added that there?<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Yifan Zhang &lt;yifan1.zhang@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c&nbsp; | 29<br>
-&gt; ++++++++++++-------<br>
-&gt;&nbsp; 1 file changed, 19 insertions(+), 10 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c<br>
-&gt; b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c<br>
-&gt; index 072d9c4e202d..25b9085ead71 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c<br>
-&gt; @@ -2078,21 +2078,30 @@ static int smu_v14_0_2_set_df_cstate(struct<br=
->
-&gt; smu_context *smu,<br>
-&gt;<br>
-&gt;&nbsp; static int smu_v14_0_2_mode1_reset(struct smu_context *smu)&nbsp=
-; {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D smu-&gt;adev;=
-<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; u16 saved_cmd, cmd;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_cmn_send_debug_smc_msg=
-(smu, DEBUGSMC_MSG_Mode1Reset);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!ret) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (amdgpu_emu_mode =3D=3D 1) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msleep(50000);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; } else {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable mmio access =
-while doing mode 1 reset*/<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;adev-&gt;no_hw_=
-access =3D true;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* ensure no_hw_access =
-is globally visible before any MMIO */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smp_mb();<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msleep(1000);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; }<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return ret;<br>
-&gt; +<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; pci_read_config_word(adev-&gt;pdev, PCI_COMM=
-AND, &amp;saved_cmd);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; cmd =3D saved_cmd &amp; ~PCI_COMMAND_MEMORY;=
-<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; pci_write_config_word(adev-&gt;pdev, PCI_COM=
-MAND, cmd);<br>
-&gt; +<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_emu_mode =3D=3D 1) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; msleep(50000);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; /* disable mmio access while doing mode 1 reset*/<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; smu-&gt;adev-&gt;no_hw_access =3D true;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; /* ensure no_hw_access is globally visible before any MMIO */<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; smp_mb();<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; msleep(1000);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; pci_write_config_word(adev-&gt;pdev, PCI_COM=
-MAND, saved_cmd);<br>
-&gt; +<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt;&nbsp; }<br>
-&gt;<br>
-<br>
-</span></font></div>
-</span></font></div>
-</body>
+> --
+> 2.55.0
+--------------e7L0AC7VOchL46D4Ra2Bs0KC
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><font face="monospace">Hi David,</font></p>
+    <p><font face="monospace">Thanks for the patch. Yes the race is
+        real, however, the patch needs some updations.</font></p>
+    <p><font face="monospace">More below.</font></p>
+    <p><font face="monospace"><br>
+      </font></p>
+    <div class="moz-cite-prefix">On 9/26/2026 1:44 PM, David Carlier
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20260926174406.346253-1-devnexen@gmail.com">
+      <pre wrap="" class="moz-quote-pre">[You don't often get email from <a class="moz-txt-link-abbreviated" href="mailto:devnexen@gmail.com">devnexen@gmail.com</a>. Learn why this is important at <a class="moz-txt-link-freetext" href="https://aka.ms/LearnAboutSenderIdentification">https://aka.ms/LearnAboutSenderIdentification</a> ]
+
+The exporter records an importer when it answers NPA-REQ, so it can send
+NPA-REVOKE as soon as the BO is freed, before the importer has finished
+building the dma-buf for that handle. The revoke handler assumes a fully
+imported node: it dereferences imp_xa_node-&gt;dmabuf, which is still NULL
+until the import completes, and drops the xarray reference the importing
+thread still relies on. The importer then links the node and marks it
+READY regardless, so the node can be freed while still on the per-remote
+list.
+
+Only tear down a node that is READY. Otherwise mark it for teardown and
+send NPA-RELEASE, as nothing has been handed to user-space yet, and wake
+the importer if it is still waiting for NPA-RSP so that it fails right
+away. A node already in teardown belongs to whoever moved it there, so a
+duplicate NPA-REVOKE no longer touches it either. The importer checks for
+teardown under the xarray lock before linking the node and marking it
+READY, and unwinds otherwise.</pre>
+    </blockquote>
+    I think NPA-REVOKE cannot land before a NPA-RSP so we will not hit
+    the condition where<br>
+    we have to wake up the importer.&nbsp;<br>
+    NPA-REVOKE is sent only when the exporter's XA entry's ref count
+    goes down to 0.<br>
+    That will happen at the end of process_npa_req(), by that time, the
+    NPA-RSP is already sent.
+    <blockquote type="cite" cite="mid:20260926174406.346253-1-devnexen@gmail.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Fixes: 7cc82cd90d35 (&quot;drm/amdgpu: Implement mechanism to revoke exported memory&quot;)
+Assisted-by: LLM
+Signed-off-by: David Carlier <a class="moz-txt-link-rfc2396E" href="mailto:devnexen@gmail.com">&lt;devnexen@gmail.com&gt;</a>
+---
+Changes in v2:
+- Tear down only READY nodes, so a duplicate NPA-REVOKE for a node already
+  in teardown neither dereferences a NULL dmabuf nor drops the node
+  reference twice (Sashiko).
+- Complete npa_done when a revoke arrives before NPA-RSP, so the importer
+  fails right away instead of timing out into a connection reset (Sashiko).
+- Use the current Assisted-by format.
+
+Found by code analysis and compile-tested with W=1. Not tested on hardware,
+as it needs two UALink-connected accelerators in a vPod.
+
+v1: <a class="moz-txt-link-freetext" href="https://lore.kernel.org/all/20260926171625.288519-1-devnexen@gmail.com/">https://lore.kernel.org/all/20260926171625.288519-1-devnexen@gmail.com/</a>
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 34 +++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index 8411ea17172f..cb35026e6eba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -3265,6 +3265,7 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
+ {
+        struct amdgpu_ualink_imp_xa_node *imp_xa_node;
+        struct amdgpu_bo *bo;
++       u32 node_state;
+        int r = 0;
+
+        /* Remove the entry from the Xarray. */
+@@ -3288,7 +3289,23 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
+                return;
+        }
+
++       node_state = READ_ONCE(imp_xa_node-&gt;node_state);
+        WRITE_ONCE(imp_xa_node-&gt;node_state, AMDGPU_UALINK_NODE_TEARDOWN);
++
++       /* Only a READY node is torn down here. If the import is still in
++        * flight, the dmabuf may not exist yet and nothing has been handed
++        * to user-space: leave the node to the importing thread, which sees
++        * the teardown state and unwinds, and wake it up if it is still
++        * waiting for NPA-RSP. A node already in teardown is owned by
++        * whoever moved it there, e.g. an earlier NPA-REVOKE.
++        */
++       if (node_state != AMDGPU_UALINK_NODE_READY) {
++               if (node_state == AMDGPU_UALINK_NODE_NOT_READY)
++                       complete(&amp;imp_xa_node-&gt;npa_done);
++               xa_unlock(&amp;adev-&gt;ualink.imp_xa);
++               goto send_release;
++       }</pre>
+    </blockquote>
+    As mentioned above, NPA-REVOKE cannot land before the NPA-RSP is
+    sent by the exporter.<br>
+    So, if the node_state is NOT_READY that means its a stale NPA_REVOKE
+    and we should just ignore<br>
+    that NPA-REVOKE. Having said that, we should definitely do the
+    teardown when the node_state is READY.<br>
+    We should also handle NPA-REVOKE while node_state is in PENDING
+    state.<br>
+    So, maybe we can refactor this code to something like this:
+    <p>switch (READ_ONCE(imp_xa_node-&gt;node_state)) {<br>
+      &nbsp; &nbsp; case AMDGPU_UALINK_NODE_READY:<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; /* existing teardown */<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; break;<br>
+      &nbsp; &nbsp; case AMDGPU_UALINK_NODE_PENDING:<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; WRITE_ONCE(imp_xa_node-&gt;node_state,
+      AMDGPU_UALINK_NODE_TEARDOWN);<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; xa_unlock(&amp;adev-&gt;ualink.imp_xa);<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; break;<br>
+      &nbsp; &nbsp; default:<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; xa_unlock(&amp;adev-&gt;ualink.imp_xa);<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; return;<br>
+      &nbsp; &nbsp; }</p>
+    <blockquote type="cite" cite="mid:20260926174406.346253-1-devnexen@gmail.com">
+      <pre wrap="" class="moz-quote-pre">
++
+        list_del_init(&amp;imp_xa_node-&gt;list);
+        xa_unlock(&amp;adev-&gt;ualink.imp_xa);
+
+@@ -3299,6 +3316,7 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
+        /* Drop the refcount for the node */
+        amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
+
++send_release:
+        r = amdgpu_ualink_send_npa_release_msg(adev, remote_acc_id, handle);
+        if (r)
+                dev_err(adev-&gt;dev,
+@@ -3760,9 +3778,20 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
+                return r;
+        }
+
+-       /* Add this node to the imported handles list for the remote GPU */
++       /* Add this node to the imported handles list for the remote GPU,
++        * unless the exporter revoked the handle while the import was in
++        * flight. The dmabuf is released with the last node reference.
++        */
+        xa_lock(&amp;adev-&gt;ualink.imp_xa);
++       if (READ_ONCE(imp_xa_node-&gt;node_state) == AMDGPU_UALINK_NODE_TEARDOWN) {
++               xa_unlock(&amp;adev-&gt;ualink.imp_xa);
++               dev_warn(adev-&gt;dev,
++                        &quot;IMPORT: handle:%llx:%llx revoked during import\n&quot;,
++                        handle.handle_hi, handle.handle_lo);
++               return -EINVAL;
++       }
+        list_add(&amp;imp_xa_node-&gt;list, &amp;adev-&gt;ualink.imp_handles_list[remote_acc_id]);
++       WRITE_ONCE(imp_xa_node-&gt;node_state, AMDGPU_UALINK_NODE_READY);
+        xa_unlock(&amp;adev-&gt;ualink.imp_xa);</pre>
+    </blockquote>
+    The changes here makes sense. One nit-pick is to change from
+    dev_warn to dev_dbg().
+    <blockquote type="cite" cite="mid:20260926174406.346253-1-devnexen@gmail.com">
+      <pre wrap="" class="moz-quote-pre">
+
+        return 0;
+@@ -3938,9 +3967,6 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
+                                        &quot;IMPORT: XA import failed for handle:%llx:%llx\n&quot;,
+                                        handle.handle_hi, handle.handle_lo);
+                        goto cleanup;
+-               } else {
+-                       WRITE_ONCE(imp_xa_node-&gt;node_state,
+-                                  AMDGPU_UALINK_NODE_READY);
+                }</pre>
+    </blockquote>
+    <p>ACK.</p>
+    <p><br>
+    </p>
+    <p>Regards,</p>
+    <p>Mukul</p>
+    <blockquote type="cite" cite="mid:20260926174406.346253-1-devnexen@gmail.com">
+      <pre wrap="" class="moz-quote-pre">
+        }
+
+--
+2.55.0
+</pre>
+    </blockquote>
+  </body>
 </html>
 
---_000_BN9PR12MB5146D08AFE80E7E6EE34B614F78C2BN9PR12MB5146namp_--
+--------------e7L0AC7VOchL46D4Ra2Bs0KC--
