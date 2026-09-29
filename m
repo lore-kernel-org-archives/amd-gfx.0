@@ -4,122 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9E95CA5FA1
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 07:25:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6AEBCA5FA1
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 08:07:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 510EF10E98E;
-	Tue, 29 Sep 2026 07:25:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52D0410ED3F;
+	Tue, 29 Sep 2026 08:07:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AIFQr8hs";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="s/0deL0s";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5hCa7PoA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rqFZbwRq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OduqukU2";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010060.outbound.protection.outlook.com [52.101.46.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0B5310E14F
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 07:25:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UjruF35lCoXu7vxJEYTVAhX2jTcJlluhwrp/HhiiuwV6EtQ+NuzKfwDszwIen7oSx5+WbV/zpoeYeYXi9iKnNgWXEGjufDWij74muAIdKPwIRlly74pcWKZm0ahheOdVVMDzBUkrEg2NnTSXWlLXmuhJDugHI/1FVz/7NcXMu6InZGsCvlEayfqGdP12sQatLXtonbub480dkhi+XQ0pQHs6UabLpMqryuSzeBULnoMji0Flr0ZHpihvA1WeOl/xOQ9g52zZwihbph/jXxcAPGiGrr17GrMNB6lIMrv29a0jd4JR+FROZoBqq2wej7qYCbDhIfMTWtKeKNCPjVA2rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z93/W6r5kYtp+Ny+2+QggdasvI2fGPOrLmIHUpphS7U=;
- b=X7m2Egyfacgn4YISgbs41L8zdhqIzQzUR9Cda3kP6qxldAixOb7XrV+a1TUagGY41+uNH9BE+yuUwjbpL8u1SUc4Xp8UVBzGkGs/LRqm7hgmxriTzL9Yu2wHCGYTWBJ0JwoZAy4I5enPErIKO0x059gUgdRkpgaIDqLru+Oz6i+WCFd4vp6+sYf0tfdr0X+fOfnv3aTWrUkEcn5VS9IOaQvcuBe3MQOtxLevHq5oAl0wOtc0R0N55K74mURf6He7QjNgeHuQ+WCiI0pPc0VrhA1DgVXD8Wo5HzXgjQdkyTQhxTvzBSppZ8xNL1GMmoQPp18yKg86DoD2yNrCTnD0sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z93/W6r5kYtp+Ny+2+QggdasvI2fGPOrLmIHUpphS7U=;
- b=AIFQr8hspQ7VXu0MjRVokM3Q5RNIhfdUYgiHA60vhs2VH+QC8UvH3daGsuBfoeppJ/17kZJn56edRHFya0x3K+beA1K9ao8T4RPHONHyT8kk75UEhlFtL1CwkdJtYq7ppz9R+YDuU8dbQLoDkmt+HMw5k2GAEYRL1IwiJACy1Rs=
-Received: from LV3PR12MB9235.namprd12.prod.outlook.com (2603:10b6:408:1a4::10)
- by DS6PR12MB176549.namprd12.prod.outlook.com (2603:10b6:8:468::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 07:25:12 +0000
-Received: from LV3PR12MB9235.namprd12.prod.outlook.com
- ([fe80::fa69:b1ab:8128:4ec5]) by LV3PR12MB9235.namprd12.prod.outlook.com
- ([fe80::fa69:b1ab:8128:4ec5%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 07:25:11 +0000
-From: "Hong, Chi" <Chi.Hong@amd.com>
-To: "Hong, Chi" <Chi.Hong@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Zhang, Tiantian (Celine)" <Tiantian.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amd/ras: skip RAS TA firmware reload on resume for
- SR-IOV VFs
-Thread-Topic: [PATCH] drm/amd/ras: skip RAS TA firmware reload on resume for
- SR-IOV VFs
-Thread-Index: AQHdTxBHfNaTUsoRCkidkpaFmONe/rblI/3w
-Date: Tue, 29 Sep 2026 07:25:11 +0000
-Message-ID: <LV3PR12MB9235640A364B16BA772702889F8C2@LV3PR12MB9235.namprd12.prod.outlook.com>
-References: <20260928061148.117428-1-Chi.Hong@amd.com>
-In-Reply-To: <20260928061148.117428-1-Chi.Hong@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-29T07:06:32.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV3PR12MB9235:EE_|DS6PR12MB176549:EE_
-x-ms-office365-filtering-correlation-id: f304b8e2-e226-4336-794d-08df1dfacc30
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|11063799006|5023799004|10067099003|56012099006|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: QBMFhZj6hbq7q91DJoKmVftd9XpgWjLzi23ZhLdbdZXbU5D1xUPya9Fuq2/u9Xfg0SzG3AWLB0ETsYyHS+MeVtvIzHTpxF64qmG9nlsiZ8XH1B9sKE3E/9KQLw4WNwzhAca3FFtUfi3+TQco6q5IVwn7tJoqM8UTGTIzcYuzThXf1VPnVWh9GPFrluvSAoTuLbG9rG2JoM0ieJLXa/5tEAcIRglA0EAbcKRzG6zDpAPtJc9MX/H/4UkTw7dnTHfiU97EV8k5w6TtAunmhzm48LOzKZjIfGctJcpX7W6/VSNoOpZWtI3qQ0Qpi34ssqKFpapRcs1ZO54rxJUYC7mBwgSBarPNSNOU14/OvzR31aQVaIKAEAWWkd2gp0etStzD+G3x54Xmhyz+L89klGKm9GBYN5ZS6zogEQcdIdDvQ4qhvLZsyBp+1+nAfiAklkidhoMUsjmxm4oMO3iNIXoEXUn8ldDflo3aFXIepTvuHbSjsw5kCvMozbWqA3Run9YLk8TlJnYalisI81UA+dqNXlxUyeyLiB1DE88eR8FaxkHsdT7tHQIH7rQdSZdhQLbz28ud6+r41WncD+fj9OlYwNioYLTBQqUbXp4rDoQobAHhl073MomNso+lrWDwFCgks/pbs0t5dKnyH323sRalhypCp+P4d/5XNAcWBe1SRHJNooB2DSlsPYvNU85Ol4SLHcCuMJNLxwgHu0DB1Slprpfug4C3RlreiQCoRDeGOMU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV3PR12MB9235.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(11063799006)(5023799004)(10067099003)(56012099006)(18002099003)(22082099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PVVz7pAd14oKAbyuYNSTLBlB/E2RbImktzhz4td1QlKhBNYi7seWJjSh0eyS?=
- =?us-ascii?Q?R06V2w2aVPOCVaWo7lqM1SBowfCz1JrwZrrA5BDr1ovGXtgJJ4l4p+49Us0N?=
- =?us-ascii?Q?Iaiq0a93vl8ZHS/Zcd6mF+FuU9xaALWFDSCFbm4ZzmfkykGu0vZDSxJqP9uA?=
- =?us-ascii?Q?+u2JmlDLnl1WDgIsNn2qcW3elvtMWZ6zd1u+epiPM6t8qWP6Vzvtvei37etW?=
- =?us-ascii?Q?0loWZD67/aP5mHTDfFnJV44d00YJMl48qpVubo4rkAeFA9wlRNOmOwM4B/O5?=
- =?us-ascii?Q?gQw4mACYeloszfweQStNppIhVoJoMwUJdNBYPMAB/pWBHEaYY1HkSYkmJP+0?=
- =?us-ascii?Q?H1mg0A+ktMDXs9fWnrNgkjkYdPBH4PsmF75qVbOPNI9rz0/1FTvG9x/ZIPmj?=
- =?us-ascii?Q?5bn1EBSANWbkPpp7SSmkbamPgxV0GjlomylV2STfA6GpjnyixigjOq3y5EN7?=
- =?us-ascii?Q?9GshzxnDx+c0snhCW1UmSPQgxg5UW1gk6gOeSG60IWaoZqik3sWAE7qcEtFK?=
- =?us-ascii?Q?5OPgLSz5oZ2c63ebu6tL1uFxVeAetOz/PFnMmnTuvs/ia1mRrr8s2T4OBX99?=
- =?us-ascii?Q?JMWWyQdpdoLi8AdLf9R18/duOmhs1/K3Hs4pw4JlYN22ngxpLSnT3thWTDEt?=
- =?us-ascii?Q?1wG1xzURCqdb+mGjHgQ24DXM4vJ4t3S6KTF5LdiLAXuOcyCoTJx5wCIlCJVP?=
- =?us-ascii?Q?yYEg0z+6aHNWbRP/95odqkCudkCPxtc1b+vfoRNWWXj4Tt9eM4O6vvRNjCLD?=
- =?us-ascii?Q?Sk5npcuXRvFuOqzE5+rlKEFUeBY4xk2zrpPDCbxPo5wZDKrklbetSiUq7eIY?=
- =?us-ascii?Q?EatSK038l3T9BXir/bO1NWzo0SNxWf0q39aX2psXKxpqDdNOLSz/6e+dUqvy?=
- =?us-ascii?Q?cawYK1kZ53V4sXSZiUr0IIeQD68upr7dtERXqXgtjnLxSCsm7bFI0P1+kVY/?=
- =?us-ascii?Q?q9ADSfxRHPsPNG+9amBYjsExIPHv/46PU4JzgDeej/j0WYDNcbXlwPMwhbnz?=
- =?us-ascii?Q?eplWSHhPvYInRKKASrOuGfEKiHTh5/ePUFCivLDDC4eXDsoMWjjFGssYjBO1?=
- =?us-ascii?Q?9KQNV6zj+TVRAYnXdiJ2zdJDVeFrfbVMjoKOuGc7VqpPN2O9wIO6AtAe1puh?=
- =?us-ascii?Q?xYeAciy4yFdKTEvyM529B4apueHlP06Tv5NKZjgYUuJPzSrGTz9NjiN9Ub7t?=
- =?us-ascii?Q?NHP+gdvUKLCVs1JpCQlQIh8l8AQayzZC6CHUL0DvP+iSUSvlh+lXv87Qp11i?=
- =?us-ascii?Q?qnqOYmWNYCojoPCY7N531LWhKZw/wEUccqti7YmsqthvR4p4iuSpw2ZYHFEV?=
- =?us-ascii?Q?92XJo9j75NdNN4jZB8mnoG6HjD9NIA6T6YpkiINoFvTXiGbhJjEpdVRkh9Tx?=
- =?us-ascii?Q?1T+q1c5aZl37t7QxqJxE+8NEeFtXa46TRKB5TU+QTrQ7jupn+kBZpy5DUpBO?=
- =?us-ascii?Q?Wr0gPUrJGXuPd1uzVl8mEWLqlhgOlAAJHfCdv7PyNPkxhFADz7CYt9OpIIl7?=
- =?us-ascii?Q?RJM9A1ZDsIJcvBoedP4wgqJMr9ABxvuerQn04JmaAwZMdGCz+/eZOSQWpp+g?=
- =?us-ascii?Q?bkgmxK1svF408YY7bMrHY6ZY/52nw6kV8+t+FTfgsO4Dore1ERJFeSpChT9w?=
- =?us-ascii?Q?bIMzBiZAiR2fiRxptlSdZGJcKxf+IN0rpaup4nJGjA8pE8sQ5gTIaEr6Jxc9?=
- =?us-ascii?Q?UQsLgfjmNOr6LMF4Fw8OgOfAYtCg5QmBtrGCZWWhmf6rjAOG?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3005610E544;
+ Tue, 29 Sep 2026 08:07:30 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DF10B21CE9;
+ Tue, 29 Sep 2026 08:07:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790669244; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=L+QGPiP//e7Js9o0sP26yA6tf2Fm46JYPpPJ/rdE/QE=;
+ b=s/0deL0s1emqvjcVb2M+kwcjzHhGe79Z6ICC2aZXVhzxbMEGOjVZBhCT3HkL+ubboxd3K5
+ ajwrOr6a7SVqMVir83d1G/KhCHHHgOBPToK6/ggHsVbMRzY3SzEeZhzIratJ8c6Ss8wMqK
+ WxeHDECMPhwtWGTP91KFjOV6wdwV8zg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790669244;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=L+QGPiP//e7Js9o0sP26yA6tf2Fm46JYPpPJ/rdE/QE=;
+ b=5hCa7PoANUTovHm+jPuhtG3sncL57tU5MISfOrXcWq2noxGzaHIijHszn6bjK1qh/gIbC9
+ PBz6EJVQCbJS/wCg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rqFZbwRq;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=OduqukU2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790669239; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=L+QGPiP//e7Js9o0sP26yA6tf2Fm46JYPpPJ/rdE/QE=;
+ b=rqFZbwRqx2PWf+ifQluQSSKeJkrFcOHsOyZZxNIChx/3CimfkbbEwzD2kag+G22MfWVfp2
+ 5KwOvIKBkJulQMqiATfrXPokqlZ1jwxArB3FuofaWMOwhOBQCLDUjFcHFa7bRlY8RTvCfN
+ uZXmSfU9XIzq1MQEdgonWpgdInfuRv4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790669239;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=L+QGPiP//e7Js9o0sP26yA6tf2Fm46JYPpPJ/rdE/QE=;
+ b=OduqukU2zx3UkvpDYvUJyJLwsXi2S3Kv/SXZ38wC2UiZk0lILxfuNhGPU4VM73/ZpPPH4l
+ rc3iXbgdgC0FcyAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 46C63136E4;
+ Tue, 29 Sep 2026 08:07:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id i/p9Abdxu2pMOQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 29 Sep 2026 08:07:19 +0000
+Message-ID: <1a4e787f-c61f-4892-ae7e-344880f5c7bf@suse.de>
+Date: Tue, 29 Sep 2026 10:07:18 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9235.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f304b8e2-e226-4336-794d-08df1dfacc30
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 07:25:11.4593 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Fftf7kuTin23fmU1xJceigTK89SN6Mj8FD2nHvx77T/YBPMTAqDA6QYNUAhRFnDg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB176549
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] drm: Add drm_timeout_rel_to_jiffies()
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+ <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
+ <7a19a212-194a-4d5b-b0a0-6d2bee24f636@suse.de>
+ <7dda1960-9e73-43af-bbb8-e6e7ba32a8f3@igalia.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <7dda1960-9e73-43af-bbb8-e6e7ba32a8f3@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.31 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: DF10B21CE9
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,49 +157,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+Hi
 
-Ping
+Am 28.09.26 um 20:09 schrieb Maíra Canal:
+> Hi Thomas,
+>
+> Thank you for your review!
+>
+> On 28/09/26 13:37, Thomas Zimmermann wrote:
+>
+> [...]
+>
+>>> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
+>>> +{
+>>> +    u64 secs;
+>>> +    u32 rem;
+>>> +
+>>> +    /* Make 0 timeout means poll, as for the absolute variant. */
+>>> +    if (timeout_nsec == 0)
+>>> +        return 0;
+>>> +
+>>> +    /*
+>>> +     * As nsecs_to_jiffies64() does not guard against overflow, split
+>>> +     * the timeout into whole seconds and nanoseconds. This way
+>>> +     * nsecs_to_jiffies64() is always handed a value below a second.
+>>> +     */
+>>> +    secs = div_u64_rem(timeout_nsec, NSEC_PER_SEC, &rem);
+>>> +    if (secs >= MAX_JIFFY_OFFSET / HZ)
+>>> +        return MAX_JIFFY_OFFSET;
+>>> +
+>>> +    return min_t(u64, MAX_JIFFY_OFFSET,
+>>> +             secs_to_jiffies(secs) + nsecs_to_jiffies64(rem) + 1);
+>>
+>> The timeout is controled by user space, right? Can these additions 
+>> overflow?  I see that secs is tested against MAX_JIFFY_OFFSET, but is 
+>> that sufficient?
+>
+> Although the timeout is controlled by user-space, the additions cannot
+> overflow here. The secs test bounds the multiplication, which is why it
+> is written as secs >= MAX_JIFFY_OFFSET / HZ rather than secs * HZ >=
+> MAX_JIFFY_OFFSET (which could overflow).
+>
+> Past that check, we know that the remaining is smaller than one second
+> and therefore, nsecs_to_jiffies64(rem) <= HZ - 1. So, the sum + 1 is at
+> most MAX_JIFFY_OFFSET.
+>
+>>
+>> BTW there was this NSEC % HZ test in the original code? What was it 
+>> good for? It is no longer useful?
+>>
+>
+> I believe that NSEC_PER_SEC % HZ was only useful to check if it was a
+> plain division, which wouldn't overflow. With the current approach, I
+> believe it's no longer needed.
 
------Original Message-----
-From: Chi Hong <Chi.Hong@amd.com>
-Sent: Monday, September 28, 2026 2:12 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Hong, Chi <Chi.Hong@amd.com>
-Subject: [PATCH] drm/amd/ras: skip RAS TA firmware reload on resume for SR-=
-IOV VFs
+Thanks for answering my questions.
 
-SR-IOV VFs use amdgpu_virt_ras_hw_init() which skips ras_core_hw_init(), le=
-aving fw_gpu_mem unallocated. ras_psp_reload_firmwares() then hits the NULL=
- buffer and returns -ENOMEM (-12) for every VF on resume, aborting
-ip_resume_phase2 before amdgpu_fence_driver_hw_init() runs. The next hibern=
-ate double-puts IRQ refcounts causing a WARN storm.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Skip the reload for VFs - there is nothing local to reload. The post-reset =
-path (amdgpu_ras_mgr_resume_after_reset) is unaffected.
+Best regards
+Thomas
 
-Fixes: 5e5be56a5b76 ("drm/amdgpu/ras: reload RAS TA from ras mgr resume")
-Signed-off-by: Chi Hong <Chi.Hong@amd.com>
----
- drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu=
-/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index a02167397ce2..5bac792554f5 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -529,6 +529,9 @@ static int amdgpu_ras_mgr_resume(struct amdgpu_ip_block=
- *ip_block)
-        if (!ras_mgr->ras_is_ready)
-                return 0;
+>
+> Best regards,
+> - Maíra
+>> Best regards
+>> Thomas
+>>
+>>
+>>> +}
+>>> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
+>>> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
+>>> index cd9621c52062..6ee222a3e97c 100644
+>>> --- a/include/drm/drm_timeout.h
+>>> +++ b/include/drm/drm_timeout.h
+>>> @@ -12,5 +12,6 @@
+>>>   #include <linux/types.h>
+>>>   signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
+>>> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
+>>>   #endif
+>>>
+>>
+>
 
-+       if (amdgpu_sriov_vf(adev))
-+               return 0;
-+
-        ret =3D ras_psp_reload_firmwares(ras_mgr->ras_core, 0);
-        if (ret)
-                RAS_DEV_ERR(adev,
+-- 
 --
-2.43.0
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
