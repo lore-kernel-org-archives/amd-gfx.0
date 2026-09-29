@@ -4,126 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD688CA5FA5
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 14:07:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA6ACA5FA5
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 14:22:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F1EA10E072;
-	Tue, 29 Sep 2026 14:07:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B483D10E172;
+	Tue, 29 Sep 2026 14:22:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zxovtb1N";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2Jx/qnvb";
 	dkim-atps=neutral
 Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013032.outbound.protection.outlook.com
- [40.107.201.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECD6210EEE4
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 14:07:38 +0000 (UTC)
+ (mail-northcentralusazon11013059.outbound.protection.outlook.com
+ [40.107.201.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD26610E172
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 14:22:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=co4LIHx5IJV+5YmKR8hXvYa1qm7GvkLMgEuqdsudGF1n3h3FE8D79ofwOvhAgbOLHlxBR39ZF1wKq0os7QiAodXveKH4vu4xTQplVQHNZ/cM0DDDvP5wF4I0LuWkOD3xBDtUcBr3INaWYEB4dbtNtWnhPpkSgfkZWro9QhiTxfZaSXDjQEPGk70n2UvNWX430/o/K21iExnUNey0rzO1MuGu9Y8PMC8Yf+radGA/9ct1MBzZgRKXNf9z+OyGsponONq7zYgmGHpenouGPK4oiT9eJ1tejjFtWzptJb5aNGTO9jzxa6sz38phcIbmu4EfJe7CgNamxKRgVi9RVkIcqg==
+ b=YosB/3nwlYqR/gxIlb7fm7EQclSJhA+Jb4d8Ji1gNn3GJkCUDcfk96GQ5B8vg4Q5yq3QaWmYPd2/X3JJTFBxCcTv2pvbY8fQnDagBBZXIjsDWh2bX0sRAQ9S+xJIwMdMPzXfrHvS4jMxZzytAgxmkT2YNSPCkWPkMrudgx5Ab67w3yJABmV5WV8WXYn/8WjJDI0OSVuOT3QhA98JonVvk2JHPPVRcswhzMFIiikz92h/Ek5HvUSy2anhQbwEqm8T19x60XNdRSwkfuYerrwEn2XZcre4K/KEXXIKbUodBTZ6BcBP7LjWeRVVGsvJVC/kz7ot9SLQ9GPRPkofWnATVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q9MkoxkNexcZ7AxnQqSVR0BcanAT5w8M2m3kt52UNI4=;
- b=BoK4kKavUUCMjNGmCe/7JDDYxrqoPeok9qlbKwf1R56x0dcb/W0ZXDoiO3gDURiJTZsLnyr7HE8rt7CuJyxRl/gveLvipA8ddiD52kCeOOehCBtyxxryGMpxp31sIRdbGIa4hEWCymXbtPCPCO7xutPDGt8lkhRLmlKjLGj2iOJ9iyiMLO1QlDZ9r4fRVOdqM1xi1bhrfrM/vNTlMAevVcSFyuKeCVdp0tUZU/389PE9IShQxQjFDldQ+Fcw3tyWp7sNn46nl+cxnnrTHUK7AJZUOxptT45WuwEotuQEFNnmM08jfaqHUHatBFCytGe8tT/ioyBfUBd0I/36UPEc+A==
+ bh=/1ksRkOdATAmUh45WGEsYqhYpH6mROiDzZ15fD14WM8=;
+ b=WiNbXB/os+iSgFeUsWEJ56ftufPUpjLm0V3NsxDKwHYp91aESPGfef8ZIdIaod95Oa0Sn5um95LshMu6HkDgPUrMYehxK6lAKRneVZeywMnIsyqC3XcMoLBuh5SUx+JIt1a9zk/9+VL5XZvEvWjaZIUPlTEjQ8eqoKl6pMe6OOI+6OLrsWfUDiWu9p7pVTN2C8I8oex1zWFSPMMrZJCpMdDjLMP/YNyUylVuUvAKWyjARU5jnZRVLThqqnQiSLOaIJBNFomQ+1WrDxga5zh8w3ql9h7oT8Iy6OvsgWdGjkm+zn15IwtElr6aYQZONJJpFTSrB1rWm+7KrbZK7NaYQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q9MkoxkNexcZ7AxnQqSVR0BcanAT5w8M2m3kt52UNI4=;
- b=zxovtb1NWbZhE6uWtMZPhPK4DQTRd+lbD+UDIa31UMl3InF3JOOGxy0cnDu2cPxm/BX+9dKEVHpb54LUvHcUDVcphfa+hVNiP417CTKEpL8MY2PdEloAK57RhG4jmMZ82z+ZfTz/JRgqdCH2gJMRpDvNwNaP3449j1nXBEL/JbM=
+ bh=/1ksRkOdATAmUh45WGEsYqhYpH6mROiDzZ15fD14WM8=;
+ b=2Jx/qnvbk8UP6uqwb83iTm6LI/onNZ6A5ljozcrOXVlQMCCP5wxm2y7tVzHWJANU6/fYqYkCyjnlokz2/CT8X6fLVZGJZV6AspjXJ6BW4JRAWGN5yaaNwSg17xI7hml7Rtr2AeW0gk6TVboDv7aLUbNS3G5+Smp9qpneLy14HG8=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by SN7PR12MB7810.namprd12.prod.outlook.com (2603:10b6:806:34c::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
- 2026 14:07:32 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0451.026; Tue, 29 Sep 2026
- 14:07:32 +0000
-Message-ID: <e2527328-9099-4d04-b9db-f7c738c66327@amd.com>
-Date: Tue, 29 Sep 2026 22:07:23 +0800
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by CH3PR12MB7737.namprd12.prod.outlook.com
+ (2603:10b6:610:14d::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
+ 2026 14:22:27 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 14:22:27 +0000
+Message-ID: <ef10e8fb-39f2-47cd-b36a-8d6ec780bbcb@amd.com>
+Date: Tue, 29 Sep 2026 10:22:25 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] drm/amdgpu: rework eviction lock handling into
- critical section v3
-To: christian.koenig@amd.com
-Cc: natalie.vock@gmx.de, Alexander.Deucher@amd.com, Felix.Kuehling@amd.com,
- Philip.Yang@amd.com, timur.kristof@gmail.com, cascardo@igalia.com,
- tvrtko.ursulin@igalia.com, Huang Rui <Ray.Huang@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20260928151041.1857-1-christian.koenig@amd.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Flush the pasid on all XCCs in parallel
+To: David Yat Sin <David.YatSin@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: philip.yang@amd.com
+References: <20260928185223.368752-1-David.YatSin@amd.com>
 Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <20260928151041.1857-1-christian.koenig@amd.com>
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20260928185223.368752-1-David.YatSin@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TY4P286CA0027.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:2b0::9) To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0488.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10c::18) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|SN7PR12MB7810:EE_
-X-MS-Office365-Filtering-Correlation-Id: d947bbde-8143-4994-3e47-08df1e330116
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|CH3PR12MB7737:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39171b9f-0933-4487-62ff-08df1e35168c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|10067099003|11063799006|260925021911599003|3023799007|6133799003|260925021311599003|260925022911599003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: fRj5AsyOGov0UHUkXLCd1rwhY4K+Pjm7YqNn65oyc1XSVjTMeQ7OVcbui3c2fu87cn62+8K0/qLSOUOjpScahSzukTw1JINFth053/X9QQMqzHclet/3IYWn0sE0FjGodHmmtQ7RFb8HpkzF+8rSXs/qgZrS5FJwJeP4rMjRYcDBSvxw3v2Nk92UzQtkqC4LMUNuayb+sQ6boeEACbGp84jRpKsBPSdGaGHcdYv43CyE2XcoEfd425KycoPl3pLJy9TJBUd//pVoGfqvBW2npN2N0Py0+jV7yVP7i9KDGgRQiJqQ/QaCWE/O0RC1GUUjUYJDsP6hutXontaOoOHbEsaf3YhmR6E8p3DXCGEB0SWTQ3Tcj0ni8q9zGNnlUt1eQq5Cnv5VQEDP2QSKdextyPiGNWF+jtVpJR7M1n5trlE4OFcpH6SW7vfdqjuREkRSIJVx1GTU1IdoOOAR05fyIWS2uuapjv5TMJKrzShTNC8Y25gKFJYEdFaK+n+I+74UigwAyERcnLnh63ybH5bntkVGPwmKbLHjemu13DVQj1qa8CPnP2XaM/PwNEsU8CHcCcYg6i7Lv6fJAdb0HFwA3R9wk1E92V1CmtaRCRKTFBaubGUdvD1pOrHoPdDElfM/2/Y9YLnVjSrZcVJ++8NSexJKW2RLpguLVdXCqob5Lm4=
+ ARA:13230040|376014|23010399003|366016|1800799024|11063799006|5023799004|56012099006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: IuwFcAblvbm3Lc4Ys5BVb/ugha7Tltjc6wHjoOslzYwor6xzwq7UBS9xR4xlBnp38fHj+Jl6j+wYs7jrufUAj+aQQAwB5/3+/ngbLL1KkV297al1bMteJ0yYVjFYKmkBcbSkdx6IksgUxkkPpPDM3qRMIIAH6Kda3V1UgmcdaAaX1+yDITp/qybGebDWjs3GbaTBuxUACBhsTPWDDvJyqpI8yS8CpWAYipiKILIfzFXbQ0gTi/SP1KKuGQAhEyo1PJ6zZTe7/z71MtYQm0GdTENZ+i5+45+ImoJ8iEO6EKFFybiz+Jc54Wo7Gqb7FGbYsLCtZaw+dsVFlY50gaWeqgWcjsMhjWPLhi+sETxqPpHRoKwXKfKm8JxudJf1qsSwLnb8d+6bw1pDVOXqrcMwS2GK3uoGcxE+LRfsfs7retUAugx/RvFK8UEJDAC1oAa4rbhKb/FZNgTK8fEFtj4yIS4x1RN8euH9T1BY1o12REODckCVcTM50+68lgJzrVZzOB4+Dybfv9K33Dwc6YXt5E0r1zw/LMME26INgYTw8zH5fRhLLlSmC8FFmx61Yeta2qXmn58ViwxyJKES9svFbOcCfXL9+PT7p1cpoMd3riafsXMWT+rvc+VrFBUFH8PUCtQofIBk6qlSswxQNGiFpRzkoK+goIKAyL+f2d5YIm4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(11063799006)(260925021911599003)(3023799007)(6133799003)(260925021311599003)(260925022911599003)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(11063799006)(5023799004)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDJMUEVPRm1XVTMzVGltbjROOTcwZ3d4emgvTUUwTVRHelJ4U3NkeTFxTTdV?=
- =?utf-8?B?emZDaXV1WjdoQmhQa2l3TjltUHkxRE9CV2NMai9vcXRITEs0dUFIelBjTWlr?=
- =?utf-8?B?UmlNN1Q0RW1PMENGenAzN05uWi9JTDlNbkd2aGxoRXhYdVR4TTFUZ1NvL1E2?=
- =?utf-8?B?cERkcjQ2YWVvSDVnMWVKMnZJUHhTUzQ1d1BvM2NRWTZpdld3UUtUcE5JOWxk?=
- =?utf-8?B?eDU0bXQwUnhUU09RbUs4RW5sRXkvNXBjME1KNk5qbjd5VlJkeFRoakhGRy9z?=
- =?utf-8?B?cmhMNmZSZHdSOEZLV1BwejVKcHFEOTd0UlZkRlJIUGptclg5aWdDYUJoVWZl?=
- =?utf-8?B?VHAzVXJXZkVRMlBza2tjRE4yMTZWZkUzRU9uNlBYcm9XRlREUXdUNFlEWHdt?=
- =?utf-8?B?Szc1dldCOXdHWE40dTRUZUxERTRXaExYWm9POWtMUTVidjJ5cldiTkcwWFZj?=
- =?utf-8?B?bTRrVjNQWkU2OFVvbXZkQ0s3Z2diVkVnYlJkWmQwNGpNT0FmT3RYQXVCNE5n?=
- =?utf-8?B?c2RLOXhnc1BhNU93anFOWEVvcVhIQkxZNVlJUVlPSnYzK0JxUlA1dXZ5YVdE?=
- =?utf-8?B?QmNLQ1dqZ3RLQmhwRUpqQ0ZUNkFnWEhjYlZ3YzBsN2pyMy9VYUxDM1FOSnpO?=
- =?utf-8?B?SEk1RUJ0R001MXAzc0FVaXd3eGsySEVoaE11MlJsNU5KbmhPblFVUWtkd2ZJ?=
- =?utf-8?B?SHZEY0xIcVZpMG96QU5rc2wrdlYzR1N0bTNCUGpnNXRxaDV4SFFQd0Jza1RG?=
- =?utf-8?B?RnhuWjg4c1Y5RDlOaEwrZmErdzZMTDdJQzZIdnV1NE1OWWZuVWZvNTN4VmYr?=
- =?utf-8?B?N1YvczFseFdYckVBaGxaWWtoeGlsVHpGRkxMOGF0NnJTM2hjS3FvSENJdys0?=
- =?utf-8?B?dUZlbkVVVXVGblh5ZVFRU3hnb1JkOXhYeWJOWnlDcmRNL0hZQ2pSZHBOUmdI?=
- =?utf-8?B?ckVvV01XMzMvaGdFd3BYUWdSem4xWE93TnRaZmdKWjhWQUVnR2s3eThJclFY?=
- =?utf-8?B?c0hIeFJxUHFJb2ltcmhad1hoMUhRdDdmV2ZKOHkwMjZ4ZXlWR2x5V3Vqbjhh?=
- =?utf-8?B?L1BxczhVY2ZJRW9hYmdta2xTNUNDbkplRHhSRkQxVVlucVFGWXlYNUN1bGFv?=
- =?utf-8?B?VklpTVNFRHZaNUx3bVlBa1FSdC9WaWFyQTRCbGNROC9mMEdaR2VCQnY5aVhM?=
- =?utf-8?B?UDlpVEFEb1VSZUxnWkpBUC9IVVNWdWZHbGQrWGRFaG5pejM4RWJsUEFsb0VR?=
- =?utf-8?B?M2FDSWRMMjZBRXp3S1lvWXR6U2U3OGJKN00ycEF2azNwRUhwV3o2UGhySUto?=
- =?utf-8?B?OVVMWjVOMERKQ3EzazVGVU0vb3dIaElSVVlJSDlCbm1vK01BbTY3MHR4ZHB1?=
- =?utf-8?B?bWl6MkpLS3JhUm83TUI5ZEtoTjRFR2ZnSHZuK3VIZUx2NERkbVE1aFBRLzI4?=
- =?utf-8?B?aE5ucCtXMnNMendlYXVUa0JBSk9RVnM1bG8rWHdWVW90WkJCSFNPT0hUeGgw?=
- =?utf-8?B?S0pGZ3JDSDZEMmhoeEd2WEtBR0wvZXArcjBUL0xCUVhERHNJT0Q2a3dlWDE5?=
- =?utf-8?B?RWJNY3F1TVc3WkR1ZkFTNW4xRHAxbzZOc1JialZ3Y0RxOWlFSmV2OEZzTjZY?=
- =?utf-8?B?QjF1cHd3Ulphdk9zWXNLSnhMNWtKb2ZwbUVRSndYVi81dEF4Ni90cjExemZz?=
- =?utf-8?B?U0o1MWhra2g4anpnOHZDVDYvWndwcnFJMU90MEVoY0JsaUF1YkpBSXZjZTRH?=
- =?utf-8?B?dmZIRXFQT00wTE1qUFZTVXVXT2NQOUNmdUNBRldGYSswZEJSYmlYUE9JOEVi?=
- =?utf-8?B?UXlVa2dZS0YyUkZUa2w5TGt4ZkFtL0RnZzYrQmZMN29XTUs1R1N3azNYU1BL?=
- =?utf-8?B?VFVhelpXSXZqNjVsQXRDZzNkMVpReFVYUkoxM25jbXlnOWdvOUlXTWExOW1D?=
- =?utf-8?B?bzl1bE0wSlBGOTh3YVRRRE1LLzFGaUl3bFhvMlZpeUJRMWFzakNZUGtjNnVp?=
- =?utf-8?B?RHFSS0tScDRZY3FHbTFxN2FuQ0dUYUFFaGRmR1M5dkZPekREZlZ6YUV5amFQ?=
- =?utf-8?B?eHZUK3pCTHpyczBSeXdnYTNnbDdxQmNldEhtQU9mbFVrL3RIV1FZZjJNYmJM?=
- =?utf-8?B?aFJGSko4alVQVWt0aldFWE5pYXBJbCt3dUdReVozRGFnU2RLTVpudWdKZmtM?=
- =?utf-8?B?RnhTanR6T2tSWk5NeExxd2RTSDdNM0ViaFNFQ00yVlYxV3NaQVp4d1NCNG9u?=
- =?utf-8?B?cDRBTkhodnlCb3RSc2RnRGRHTVNQSFRiVFdvVEV3S3dPdVF4bnlvQ0NPMHpx?=
- =?utf-8?Q?EdAr30BFgfg1HEYgBx?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WCtoMktuaEN5T0NxUEIzTVg1RERFbUJWZ09BbVgrR25iQVNva1RhUlAzNjBm?=
+ =?utf-8?B?WmhXNjVGMTIxcHo0TEpzUG1FU0p6SXFuSVNMY2xNNEdiRkpaYmhTd0M4b0Jw?=
+ =?utf-8?B?UEhLbkZBcEpLN2Y5M0Uxb0ttUCtxeUFhM2RrSEhFVmFlTUxHcnN3R0s0YzFm?=
+ =?utf-8?B?U0VwTzl5Zy9xeDR4eDFaemN3Sm9PdkQvV2VCNnpzSCtNaWoyNXBpU0tGcHdZ?=
+ =?utf-8?B?UnNucGRqU3hiMG4rcDdOM0JzNTI2aXptRlpvdVFJa0NvMHRVVEc5OVJDYWNt?=
+ =?utf-8?B?bjhmcXNERkgvT2YyMlZld2VpTzNPNm1YRHhiZTY2cGlGRCtZQVlhMXMrTy9o?=
+ =?utf-8?B?V1h0QjhKRXJyTGxTU29udWd6eG85QmRhM29ZZElWMFROZE5UeVdlb054UHJ1?=
+ =?utf-8?B?V2hTQS9NMzJWaWZZWDlabjYzTVdlVlpsZ056dzcwY3NIaU5OVUpXQXpLc1Bh?=
+ =?utf-8?B?Zjk4bDRxUVJuQ2c2U3h2Y0hBakJtRE1EU2lhaWNQdWlibEszS3ZRVDRoTGVz?=
+ =?utf-8?B?cDJVbzFrQ0VDNGw0dXhVMkhBdmRMQ3NXNHFkcmNyc0dUYm5ORm1WMXc1YnFh?=
+ =?utf-8?B?VTR4Nk16dVpYbzlwRHZ2eldtNmtTNVNDcHROTkNzNjdLOWlQckc4Z3VvSXZz?=
+ =?utf-8?B?ZitOTkRiYTNpOGxYc1BzOWxZai9zenlmMmdCVUVFSTBjWHFrV2lscmtqU2Rq?=
+ =?utf-8?B?RXRZbTEzNlFsaUhZZGRWdzFQYkRUWXA5L3p2OFVoczFKQkpqZE9aMnV6Nnk3?=
+ =?utf-8?B?S1Z4dmFVSmZPdUZNRWlhdUpyb001L2FjcjMzd2ZaWlFwamcrRFVpOTFVQysx?=
+ =?utf-8?B?RUlrQ1ZTc0RobWtVSmVkbWloL1N0MG5HQWhzTWJXbytLbWdoWStNczBDSHVm?=
+ =?utf-8?B?VGNldUw0R2Z0eEVSbXZRTzhxOXdMYWZVaFN5R1ZQdFBYOTVEdTRQSUNiWUZh?=
+ =?utf-8?B?N1dEdmdFRjVMZGJpellYZXBCRmRCaFZRSWpyS05qcTlmODdwS3h3bDd4L0FI?=
+ =?utf-8?B?ZVVoTHFGb1RYUFEvODBzUHkxRHJ4aHUwU3ZFQnA4dm1vWXpsQW5pcjc1SU1W?=
+ =?utf-8?B?Njg5T2Z2ZXl4Y1lsTGVmdmoxM0MwMSt1VDRmYlZ1Q25XOFlCNSt6ZTB5NUhi?=
+ =?utf-8?B?S29UNGRrWTVoanZGa0ZMWDRjWVd0S3huc1B6c0djUkxEeitZcE9PYnpndEZ4?=
+ =?utf-8?B?Zk1qSFpwRTZBb3Y5YVJDa3d0eFMyNTNNakJ2a1BWN0FZRUE4U3N0dUp3R0FK?=
+ =?utf-8?B?aElmeTRwUGtka0RkU205MWFtT0RVVnFNTVNxZStQRnlCL1NwWWdiOE5OSE5V?=
+ =?utf-8?B?MStxNzQ1UzgzYmZPTmJpNnE0Qi91a2JyK1laQVRCV2l6RzBQVTlRYkRIMDJN?=
+ =?utf-8?B?VEVibU0yVjRHL1prNXZKR2tGbEhUdVpkc2NOYjMvcXh1Y3htRVBvL3dpY29W?=
+ =?utf-8?B?bEJlTC9ub3FkdmhyNzZqbDIxRHlORmlBUUtpK1lsM3hvLzNDYkk5Y1U2eHVy?=
+ =?utf-8?B?aFJiSmdaTEMzR1lVVzI0b2F5dVlobTlPZDNvOWZZRFJ3M1dBZ29DbEkwR1px?=
+ =?utf-8?B?VHFDSjZzY3djVXVSTjQvVTdtei9qUGNEZkhPSlpJMVJiR0VVMURRQy9BUkFP?=
+ =?utf-8?B?c1B5TjhBeWpLN0tzWnhCRithTGFiWUdPWE9zallxakFZT1dISzJwVExsdzJx?=
+ =?utf-8?B?Wk0wZWs4MmFydmdIc2kvdmJvRGJyWmxQNnBya0VycXdITkZqOXplUlVSZk1D?=
+ =?utf-8?B?RmpZcU9XNmh3aEVaU1c5Qk4xUnJXV3dBRDFzMTI5OFhJQ0o3WTJiU3JHcndo?=
+ =?utf-8?B?N1N2RkRBTkV3bWMyMUh4eDQ5WW1ZejBldXNycTNJRUd5WEdRc3lJcGdjNlZG?=
+ =?utf-8?B?S0VDdmFOcTBiRy92WGIrZGwreTJUTk8yYTRWUWtqYlJTQ2ROcFB1MnZ0eno3?=
+ =?utf-8?B?UmFxT2h5Smxlb0tYalJrMk40aWM4S0ZySzR5bnE2VTNhemtacEo0VzM5c09o?=
+ =?utf-8?B?VzJjeklvZTBLaTAxLy9qZ0t2VkNFQ0NtYmkxeTlyYjhkRWFFelA1V0orNXNy?=
+ =?utf-8?B?S0VLYVI4bnU3OWgwaTNCaEFmd1ZkWXBkaGFiSnZKUDhNZTBvbVhOZ1MzSFk1?=
+ =?utf-8?B?UDlLcmNCQnoyZ0ZZL1IwbkF2V3AvdjljQW9mRFdMWkZVUjhmL3FaTHNVelhj?=
+ =?utf-8?B?YnJ0cDZ1V3NOVFZyVUtjYlk5c1ZwRFJDdVBOVkd1Zi8rVitUWmc4c2hxNC9F?=
+ =?utf-8?B?dEY4dS92N0pHaS9uZlpwbFptUWFLYlhteTBuRnBJcFlHRlJacWI2Mk8xeGpx?=
+ =?utf-8?Q?Y3snSrrDgGpZVhzjv/?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d947bbde-8143-4994-3e47-08df1e330116
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39171b9f-0933-4487-62ff-08df1e35168c
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 14:07:32.2995 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 14:22:27.2045 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /I/AHdc1cAZcs/xKIe4SwpnCO08R1MkGzEOGV2zO/R8TVk7KAWKF9FWH0HlekHKN8rUB0TL/PzaH9tphL3N6vg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7810
+X-MS-Exchange-CrossTenant-UserPrincipalName: 22NSgZPE7Z87Kr0+yy0s0VRndCiRubTrYEUeePsXpDgAEMaoJdf4Z/GBRTxUblmTTkhDfErTiGRQzwCC0mZOWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7737
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,227 +134,362 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 2026-09-28 14:52, David Yat Sin wrote:
+> amdgpu_vm_flush_compute_tlb() walks the XCCs of the compute partition one
+> at a time, and amdgpu_gmc_flush_gpu_tlb_pasid() submits the invalidation
+> to one XCC's KIQ and then busy-waits for its fence before the caller can
+> move on to the next. On a partition that owns every XCC of the device
+> that is num_xcc round trips back to back.
+>
+> The XCCs do not depend on each other here. Each has its own KIQ ring,
+> ring lock and fence sequence, the page tables are already updated before
+> any invalidation is issued, and no invalidation needs another XCC to have
+> finished first.
+>
+> Split the submit out of amdgpu_gmc_flush_gpu_tlb_pasid() and add
+> amdgpu_gmc_flush_gpu_tlb_pasid_xccs(), which queues the invalidation on
+> every XCC in the mask before collecting any of the fences, so the round
+> trips overlap. amdgpu_gmc_flush_gpu_tlb_pasid() becomes a one bit mask
+> call into it, so both entry points share the reset-domain handling and
+> the KIQ dispatch.
+>
+> Note that amdgpu_vm_flush_compute_tlb() no longer stops at the first XCC
+> that fails. Every XCC in the mask is flushed regardless and the first
+> error is returned, which is a deliberate behaviour change for callers:
+> one XCC failing to queue its invalidation no longer leaves the remaining
+> XCCs unflushed.
+>
+> Measured on gfx950 with all 8 XCCs in one SPX partition, revoking host
+> memory access for a pasid mapped on every XCC. Traced with ftrace,
+> amdgpu_vm_flush_compute_tlb() drops from 141 us to 65 us, against 23 us
+> for the slowest individual XCC flush. The KFD SVM ioctl carrying that
+> flush drops from 0.14 ms to 0.05 ms at p50.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: David Yat Sin <David.YatSin@amd.com>
+
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
 
-Will rebase the amdgpu drm svm on this series.
-
-Regards,
-Honglei
-
-On 9/28/2026 11:10 PM, Christian König wrote:
-> Taking the eviction lock is actually just one step which we need to do
-> in the critical section handling.
-> 
-> Rename the functions to reflect that, use the update parameters instead of the
-> vm to save the GFP flags.
-> 
-> v2: rebased and reordered
-> v3: fix rebase artefact, fix error handling in amdgpu_vm_pt_alloc
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Reviewed-by: Natalie Vock <nat@pixelcluster.dev>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  8 ++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  1 -
->   .../gpu/drm/amd/amdgpu/amdgpu_vm_internal.h   | 43 ++++++++++++++-----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     | 40 ++++++++---------
->   4 files changed, 54 insertions(+), 38 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 29a66e39f3d60..7b9494375649f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1170,11 +1170,9 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   	params.override_pte = allow_override && adev->gmc.override_pte;
->   	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
->   
-> -	amdgpu_vm_eviction_lock(vm);
-> -	if (vm->evicting) {
-> -		r = -EBUSY;
-> +	r = amdgpu_vm_begin_critical(&params);
-> +	if (r)
->   		goto error_free;
-> -	}
->   
->   	if (!unlocked && !dma_fence_is_signaled(vm->last_unlocked)) {
->   		struct dma_fence *tmp = dma_fence_get_stub();
-> @@ -1258,7 +1256,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   
->   error_free:
->   	kfree(tlb_cb);
-> -	amdgpu_vm_eviction_unlock(vm);
-> +	amdgpu_vm_end_critical(&params);
->   	drm_dev_exit(idx);
->   	return r;
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 233 +++++++++++++++++-------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |   8 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |  10 +-
+>   3 files changed, 173 insertions(+), 78 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 1bf2a42fa63c..167f1344f8f4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -782,98 +782,197 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   	dev_err(adev->dev, "Error flushing GPU TLB using the SDMA (%d)!\n", r);
 >   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 0f6634b749746..98cdd7e3475fb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -289,7 +289,6 @@ struct amdgpu_vm {
->   	 */
->   	struct mutex		eviction_lock;
->   	bool			evicting;
-> -	unsigned int		saved_flags;
 >   
->   	/* Memory statistics for this vm, protected by stats_lock */
->   	spinlock_t		stats_lock;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-> index ca86eaac75235..8ebb0b033291e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-> @@ -51,7 +51,7 @@ struct amdgpu_vm_update_params {
->   	struct amdgpu_device *adev;
->   
->   	/**
-> -	 * @vm: optional amdgpu_vm we do this update for
-> +	 * @vm: amdgpu_vm we do this update for
->   	 */
->   	struct amdgpu_vm *vm;
->   
-> @@ -93,6 +93,11 @@ struct amdgpu_vm_update_params {
->   	 */
->   	bool override_pte;
->   
-> +	/**
-> +	 * @saved_flags: Saved flags for GFP reduction.
-> +	 */
-> +	unsigned int saved_flags;
+> -int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
+> -				   uint32_t flush_type, bool all_hub,
+> -				   uint32_t inst)
+> +static void amdgpu_gmc_flush_pasid_regs(struct amdgpu_device *adev, u16 pasid,
+> +					u32 flush_type, bool all_hub,
+> +					u32 inst)
+> +{
+> +	if (!adev->gmc.gmc_funcs->flush_gpu_tlb_pasid)
+> +		return;
 > +
->   	/**
->   	 * @tlb_flush_waitlist: temporary storage for BOs until tlb_flush
->   	 */
-> @@ -126,21 +131,37 @@ void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
->   			    struct amdgpu_vm_update_params *params);
->   int amdgpu_vm_pt_map_tables(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+> +	if (adev->gmc.flush_tlb_needs_extra_type_2)
+> +		adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid, 2, all_hub,
+> +							 inst);
+> +
+> +	if (adev->gmc.flush_tlb_needs_extra_type_0 && flush_type == 2)
+> +		adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid, 0, all_hub,
+> +							 inst);
+> +
+> +	adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid, flush_type, all_hub,
+> +						 inst);
+> +}
+> +
+> +/*
+> + * Queue the invalidation on one XCC and return its fence without waiting, so
+> + * that a caller flushing several XCCs can have them in flight together.  The
+> + * KIQ ring, its lock and its fence sequence are per XCC, so the submissions do
+> + * not interfere with each other.
+> + */
+> +static int amdgpu_gmc_flush_pasid_kiq_submit(struct amdgpu_device *adev,
+> +					     u16 pasid, u32 flush_type,
+> +					     bool all_hub, u32 inst,
+> +					     u32 *seq)
+>   {
+> -	struct amdgpu_ring *ring = &adev->gfx.kiq[inst].ring;
+>   	struct amdgpu_kiq *kiq = &adev->gfx.kiq[inst];
+> +	struct amdgpu_ring *ring = &kiq->ring;
+>   	unsigned int ndw;
+> -	int r, cnt = 0;
+> -	uint32_t seq;
+> +	int r;
 >   
-> -/*
-> - * vm eviction_lock can be taken in MMU notifiers. Make sure no reclaim-FS
-> - * happens while holding this lock anywhere to prevent deadlocks when
-> - * an MMU notifier runs in reclaim-FS context.
-> +/**
-> + * amdgpu_vm_begin_critical - start the critical section of the update
-> + * @p: The update parameters
+> -	/*
+> -	 * A GPU reset should flush all TLBs anyway, so no need to do
+> -	 * this while one is ongoing.
+> -	 */
+> -	if (!down_read_trylock(&adev->reset_domain->sem))
+> -		return 0;
+> +	/* one flush + 8 dwords fence */
+> +	ndw = kiq->pmf->invalidate_tlbs_size + 8;
+>   
+> -	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready) {
+> +	if (adev->gmc.flush_tlb_needs_extra_type_2)
+> +		ndw += kiq->pmf->invalidate_tlbs_size;
+>   
+> -		if (!adev->gmc.gmc_funcs->flush_gpu_tlb_pasid) {
+> -			r = 0;
+> -			goto error_unlock_reset;
+> -		}
+> +	if (adev->gmc.flush_tlb_needs_extra_type_0 && flush_type == 2)
+> +		ndw += kiq->pmf->invalidate_tlbs_size;
+>   
+> -		if (adev->gmc.flush_tlb_needs_extra_type_2)
+> -			adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
+> -								 2, all_hub,
+> -								 inst);
+> +	spin_lock(&kiq->ring_lock);
+> +	r = amdgpu_ring_alloc(ring, ndw);
+> +	if (r) {
+> +		spin_unlock(&kiq->ring_lock);
+> +		return r;
+> +	}
+>   
+> -		if (adev->gmc.flush_tlb_needs_extra_type_0 && flush_type == 2)
+> -			adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
+> -								 0, all_hub,
+> -								 inst);
+> +	if (adev->gmc.flush_tlb_needs_extra_type_2)
+> +		kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 2, all_hub);
+>   
+> -		adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
+> -							 flush_type, all_hub,
+> -							 inst);
+> -		r = 0;
+> -	} else {
+> -		/* 2 dwords flush + 8 dwords fence */
+> -		ndw = kiq->pmf->invalidate_tlbs_size + 8;
+> +	if (flush_type == 2 && adev->gmc.flush_tlb_needs_extra_type_0)
+> +		kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 0, all_hub);
+>   
+> -		if (adev->gmc.flush_tlb_needs_extra_type_2)
+> -			ndw += kiq->pmf->invalidate_tlbs_size;
+> -
+> -		if (adev->gmc.flush_tlb_needs_extra_type_0)
+> -			ndw += kiq->pmf->invalidate_tlbs_size;
+> +	kiq->pmf->kiq_invalidate_tlbs(ring, pasid, flush_type, all_hub);
+> +	r = amdgpu_fence_emit_polling(ring, seq, MAX_KIQ_REG_WAIT);
+> +	if (r) {
+> +		amdgpu_ring_undo(ring);
+> +		spin_unlock(&kiq->ring_lock);
+> +		return r;
+> +	}
+>   
+> -		spin_lock(&adev->gfx.kiq[inst].ring_lock);
+> -		r = amdgpu_ring_alloc(ring, ndw);
+> -		if (r) {
+> -			spin_unlock(&adev->gfx.kiq[inst].ring_lock);
+> -			goto error_unlock_reset;
+> -		}
+> -		if (adev->gmc.flush_tlb_needs_extra_type_2)
+> -			kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 2, all_hub);
+> +	amdgpu_ring_commit(ring);
+> +	spin_unlock(&kiq->ring_lock);
+>   
+> -		if (flush_type == 2 && adev->gmc.flush_tlb_needs_extra_type_0)
+> -			kiq->pmf->kiq_invalidate_tlbs(ring, pasid, 0, all_hub);
+> +	return 0;
+> +}
+>   
+> -		kiq->pmf->kiq_invalidate_tlbs(ring, pasid, flush_type, all_hub);
+> -		r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
+> -		if (r) {
+> -			amdgpu_ring_undo(ring);
+> -			spin_unlock(&adev->gfx.kiq[inst].ring_lock);
+> -			goto error_unlock_reset;
+> -		}
+> +/*
+> + * Wait for an invalidation queued by amdgpu_gmc_flush_pasid_kiq_submit().
 > + *
-> + * Serialize all updates, check parameters and make sure that memory allocations
-> + * don't enter the reclaim path so that we don't deadlock with MMU notifiers.
+> + * Bailing out because a reset became pending is reported as success: the reset
+> + * flushes all TLBs anyway, so the invalidation no longer has to complete.  Only
+> + * running out of tries is an error.
+> + */
+> +static int amdgpu_gmc_flush_pasid_kiq_wait(struct amdgpu_device *adev,
+> +					   u32 inst, u32 seq)
+> +{
+> +	struct amdgpu_ring *ring = &adev->gfx.kiq[inst].ring;
+> +	int cnt = 0;
+> +	signed long r;
+>   
+> -		amdgpu_ring_commit(ring);
+> -		spin_unlock(&adev->gfx.kiq[inst].ring_lock);
+> +	r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+>   
+> +	might_sleep();
+> +	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY &&
+> +	       !amdgpu_reset_pending(adev->reset_domain)) {
+> +		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+>   		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+> +	}
+> +
+> +	if (cnt > MAX_KIQ_REG_TRY) {
+> +		dev_err(adev->dev, "timeout waiting for kiq fence\n");
+> +		return -ETIME;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * amdgpu_gmc_flush_gpu_tlb_pasid_xccs - flush a pasid on several XCCs at once
+> + *
+> + * @adev: amdgpu_device pointer
+> + * @pasid: pasid to be flushed
+> + * @flush_type: the flush type
+> + * @all_hub: flush all hubs
+> + * @xcc_mask: mask of the XCCs to flush
+> + *
+> + * Submits the invalidation to every XCC in @xcc_mask before waiting for any of
+> + * them, so the round trips overlap instead of running back to back.  Flushing
+> + * one XCC at a time costs num_xcc times the latency of a single one, which on
+> + * a partition holding every XCC of the device is most of the cost of a compute
+> + * TLB flush.
+> + *
+> + * The XCCs are independent of each other here: the page tables are already
+> + * updated before any invalidation is issued, and nothing in an invalidation
+> + * depends on another XCC having completed its own.
 > + *
 > + * Returns:
-> + *
-> + * 0 on success or a negative error code on failure.
-> + * Even on error amdgpu_vm_end_critical() must still be called to clean up!
->    */
-> -static inline void amdgpu_vm_eviction_lock(struct amdgpu_vm *vm)
-> +static inline int amdgpu_vm_begin_critical(struct amdgpu_vm_update_params *p)
->   {
-> -	mutex_lock(&vm->eviction_lock);
-> -	vm->saved_flags = memalloc_noreclaim_save();
-> +	mutex_lock(&p->vm->eviction_lock);
-> +	p->saved_flags = memalloc_noreclaim_save();
-> +	if (p->vm->evicting)
-> +		return -EBUSY;
-> +	return 0;
->   }
->   
-> -static inline void amdgpu_vm_eviction_unlock(struct amdgpu_vm *vm)
-> +/**
-> + * amdgpu_vm_end_critical - end the critical section of the update
-> + * @p: The update parameters
-> + *
-> + * Restore the GFP flags and drop the lock.
+> + * 0 for success, the first error otherwise.  Every XCC is flushed even if one
+> + * of them fails.
 > + */
-> +static inline void amdgpu_vm_end_critical(struct amdgpu_vm_update_params *p)
->   {
-> -	memalloc_noreclaim_restore(vm->saved_flags);
-> -	mutex_unlock(&vm->eviction_lock);
-> +	memalloc_noreclaim_restore(p->saved_flags);
-> +	mutex_unlock(&p->vm->eviction_lock);
->   }
+> +int amdgpu_gmc_flush_gpu_tlb_pasid_xccs(struct amdgpu_device *adev, u16 pasid,
+> +					u32 flush_type, bool all_hub,
+> +					u32 xcc_mask)
+> +{
+> +	u32 seq[AMDGPU_MAX_GC_INSTANCES];
+> +	unsigned long pending = 0;
+> +	int xcc, r = 0, err;
 >   
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index 1cdf2b854f261..c03327f1242d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -505,52 +505,51 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   /**
->    * amdgpu_vm_pt_alloc - Allocate a specific page table
->    *
-> - * @adev: amdgpu_device pointer
-> - * @vm: VM to allocate page tables for
-> + * @p: see amdgpu_vm_update_params definition
->    * @cursor: Which page table to allocate
-> - * @immediate: use an immediate update
->    *
->    * Make sure a specific page table or directory is allocated.
->    *
->    * Returns:
-> - * 1 if page table needed to be allocated, 0 if page table was already
-> - * allocated, negative errno if an error occurred.
-> + *
-> + * 0 on success or a negative error code on failure.
->    */
-> -static int amdgpu_vm_pt_alloc(struct amdgpu_device *adev,
-> -			      struct amdgpu_vm *vm,
-> -			      struct amdgpu_vm_pt_cursor *cursor,
-> -			      bool immediate)
-> +static int amdgpu_vm_pt_alloc(struct amdgpu_vm_update_params *p,
-> +			      struct amdgpu_vm_pt_cursor *cursor)
->   {
->   	struct amdgpu_vm_bo_base *entry = cursor->entry;
->   	struct amdgpu_bo *pt_bo;
->   	struct amdgpu_bo_vm *pt;
-> -	int r;
-> +	int r, r2;
+> -		might_sleep();
+> -		while (r < 1 && cnt++ < MAX_KIQ_REG_TRY &&
+> -		       !amdgpu_reset_pending(adev->reset_domain)) {
+> -			msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+> -			r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+> +	/*
+> +	 * A GPU reset should flush all TLBs anyway, so no need to do
+> +	 * this while one is ongoing.
+> +	 *
+> +	 * Unlike the one XCC at a time flush this holds the read side across
+> +	 * every submit and every wait, so a reset's down_write() can only get
+> +	 * in once the whole mask is done.  The waits are sequential, which
+> +	 * bounds that at num_xcc * MAX_KIQ_REG_TRY * MAX_KIQ_REG_BAILOUT_INTERVAL
+> +	 * in the worst case, and amdgpu_gmc_flush_pasid_kiq_wait() cuts each
+> +	 * wait short as soon as a reset becomes pending.
+> +	 */
+> +	if (!down_read_trylock(&adev->reset_domain->sem))
+> +		return 0;
+> +
+> +	for_each_inst(xcc, xcc_mask) {
+> +		struct amdgpu_ring *ring;
+> +
+> +		if (WARN_ON_ONCE(xcc >= AMDGPU_MAX_GC_INSTANCES)) {
+> +			if (!r)
+> +				r = -EINVAL;
+> +			break;
+>   		}
 >   
->   	if (entry->bo)
->   		return 0;
+> -		if (cnt > MAX_KIQ_REG_TRY) {
+> -			dev_err(adev->dev, "timeout waiting for kiq fence\n");
+> -			r = -ETIME;
+> -		} else
+> -			r = 0;
+> +		ring = &adev->gfx.kiq[xcc].ring;
+> +		if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready) {
+> +			amdgpu_gmc_flush_pasid_regs(adev, pasid, flush_type,
+> +						    all_hub, xcc);
+> +			continue;
+> +		}
+> +
+> +		err = amdgpu_gmc_flush_pasid_kiq_submit(adev, pasid, flush_type,
+> +							all_hub, xcc, &seq[xcc]);
+> +		if (err) {
+> +			if (!r)
+> +				r = err;
+> +			continue;
+> +		}
+> +
+> +		pending |= BIT(xcc);
+> +	}
+> +
+> +	for_each_set_bit(xcc, &pending, AMDGPU_MAX_GC_INSTANCES) {
+> +		err = amdgpu_gmc_flush_pasid_kiq_wait(adev, xcc, seq[xcc]);
+> +		if (err && !r)
+> +			r = err;
+>   	}
 >   
-> -	amdgpu_vm_eviction_unlock(vm);
-> -	r = amdgpu_vm_pt_create(adev, vm, cursor->level, immediate, &pt,
-> -				vm->root.bo->xcp_id);
-> -	amdgpu_vm_eviction_lock(vm);
-> +	amdgpu_vm_end_critical(p);
-> +	r = amdgpu_vm_pt_create(p->adev, p->vm, cursor->level, p->immediate,
-> +				&pt, p->vm->root.bo->xcp_id);
-> +	r2 = amdgpu_vm_begin_critical(p);
->   	if (r)
->   		return r;
-> +	if (r2)
-> +		goto error_free_pt;
->   
->   	/* Keep a reference to the root directory to avoid
->   	 * freeing them up in the wrong order.
->   	 */
->   	pt_bo = &pt->bo;
->   	pt_bo->parent = amdgpu_bo_ref(cursor->parent->bo);
-> -	amdgpu_vm_bo_base_init(entry, vm, pt_bo);
-> -	r = amdgpu_vm_pt_clear(adev, vm, pt, immediate);
-> +	amdgpu_vm_bo_base_init(entry, p->vm, pt_bo);
-> +	r = amdgpu_vm_pt_clear(p->adev, p->vm, pt, p->immediate);
->   	if (r)
-> -		goto error_free_pt;
-> +		goto error_unpin;
->   
->   	return 0;
->   
-> -error_free_pt:
-> -	if (vm->is_npa)
-> +error_unpin:
-> +	if (p->vm->is_npa)
->   		amdgpu_bo_unpin(pt_bo);
-> +error_free_pt:
->   	amdgpu_bo_unref(&pt_bo);
+> -error_unlock_reset:
+>   	up_read(&adev->reset_domain->sem);
 >   	return r;
 >   }
-> @@ -838,8 +837,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
->   			/* make sure that the page tables covering the
->   			 * address range are actually allocated
->   			 */
-> -			r = amdgpu_vm_pt_alloc(params->adev, params->vm,
-> -					       &cursor, params->immediate);
-> +			r = amdgpu_vm_pt_alloc(params, &cursor);
->   			if (r)
->   				return r;
->   		}
-
+>   
+> +int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, u16 pasid,
+> +				   u32 flush_type, bool all_hub, u32 inst)
+> +{
+> +	return amdgpu_gmc_flush_gpu_tlb_pasid_xccs(adev, pasid, flush_type,
+> +						   all_hub, BIT(inst));
+> +}
+> +
+>   void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
+>   				      uint32_t reg0, uint32_t reg1,
+>   				      uint32_t ref, uint32_t mask,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index cffd5ca3fc66..76e6f1f96913 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -444,9 +444,11 @@ int amdgpu_gmc_ras_sw_init(struct amdgpu_device *adev);
+>   int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev);
+>   void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>   			      uint32_t vmhub, uint32_t flush_type);
+> -int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
+> -				   uint32_t flush_type, bool all_hub,
+> -				   uint32_t inst);
+> +int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, u16 pasid,
+> +				   u32 flush_type, bool all_hub, u32 inst);
+> +int amdgpu_gmc_flush_gpu_tlb_pasid_xccs(struct amdgpu_device *adev, u16 pasid,
+> +					u32 flush_type, bool all_hub,
+> +					u32 xcc_mask);
+>   void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
+>   				      uint32_t reg0, uint32_t reg1,
+>   				      uint32_t ref, uint32_t mask,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 29a66e39f3d6..25a74d497255 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1723,7 +1723,6 @@ int amdgpu_vm_flush_compute_tlb(struct amdgpu_device *adev,
+>   {
+>   	uint64_t tlb_seq = amdgpu_vm_tlb_seq(vm);
+>   	bool all_hub = false;
+> -	int xcc = 0, r = 0;
+>   
+>   	WARN_ON_ONCE(!vm->is_compute_context);
+>   
+> @@ -1739,13 +1738,8 @@ int amdgpu_vm_flush_compute_tlb(struct amdgpu_device *adev,
+>   	    adev->family == AMDGPU_FAMILY_RV)
+>   		all_hub = true;
+>   
+> -	for_each_inst(xcc, xcc_mask) {
+> -		r = amdgpu_gmc_flush_gpu_tlb_pasid(adev, vm->pasid, flush_type,
+> -						   all_hub, xcc);
+> -		if (r)
+> -			break;
+> -	}
+> -	return r;
+> +	return amdgpu_gmc_flush_gpu_tlb_pasid_xccs(adev, vm->pasid, flush_type,
+> +						   all_hub, xcc_mask);
+>   }
+>   
+>   /**
