@@ -4,79 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91095CA5FC5
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 07:17:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC11DCA5FCE
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 07:17:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C03110F5A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8917E10F5A4;
 	Thu,  1 Oct 2026 07:17:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J2Ury0OX";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cPqlDVUc";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64AFD10F055
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 19:34:37 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49e6b885ef8so26545055e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 12:34:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790710476; x=1791315276; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=acnZdYKptnO57K0FUhrjejxYfH3e0lZEcXBnvErIjnY=;
- b=J2Ury0OXPmxB9Fjhvotr4qtn5k/jJEtHQQQ/NS2bkgbYBaxNVcAwxe49aGv3ORsfXp
- oubfUP0DTaEqqXcolDBLwOMZ6hJRLDKnaWRSfx0tqM+Tt/4ZhjOAVHMEuzevjm9YGgIV
- 6k7Ac2sSI8bDowDirwpYH9rLHrJ09Fh+aj8PNb+LcZ9N4IAPJweU0tlVdf+6Z/im2bvw
- Ya5bheZw0yRR/+OmN0ox23fSGYdBIfMP/eTuaj0DNdQTJOYQ1SZAfoye5pkq9VWP2BzV
- EP6TT9NIrFkOyCKWV4z8Fd0eDQjEOwopHckLxNNyVwXaXs/jlputQiNLhTKVX0RdKUJI
- ww4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790710476; x=1791315276;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=acnZdYKptnO57K0FUhrjejxYfH3e0lZEcXBnvErIjnY=;
- b=hieiujMcc2phDTaQsREiPdjt6hmp8mp9xOxttnggMUsNfB/G1r9mDzWv4NjgsNJ9gP
- tXHw9YZadjPTx4eAVgan+HyRNiJ2opzD1vGVy4HfSGQnLUkReLgrnNsv+o8u+l4Ev3xQ
- lwEE4ZwhWlDHgw3RU2gB9uRGpyO7J9b+B/B3qQ+eP00QepFqVSPanxl6UCgoRrOvss9X
- BAFZDNkmmFKlRm70/gS2W78ffD7uv47QQZThLdJxDz7KJW5yPqQqXU8uSB+B1L1nn/2v
- y+DgwWiIYRJhztqcxN0TfM39+DgWLcVDHIlBgbQ9VBuXyNZz5/mb4/+JAvi9YzUwxj3r
- WJSw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy++0StHW8HzsdPxav4tmSC4ATnNsdJLcpBCxED0d165dsABMZnK7PI29Oq5Z/JoDZxi+mx+fPi@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nHFHxg/iOA8TSBu8sKzfQDm78qt+kljQi8Ayuxgef4+kPAuMxS
- 4C8GudYTw7UVM9STB9qgMURJ0ja/LNNCgjMxfJV1ulACo/p7ceVYp7Fi
-X-Gm-Gg: AYBFou3d0PnPcD3PL69hbw+s5AVUriIa4x6iWgu9exXg6gK0AREmW4MAKoTOlWNQuXt
- uJ5yVHtL6uQ1PMrI0mR0+lkn8izV8Ldftv3urbo/KYJiDGtwP+IxOLevHiYJEUbt9jQXChTI5si
- hrBhHtPs3cCcvPOWlh4J5t0LAofm5GEuuKGM5ZASLviPpubP0w2IKCFfRveJ8Dabrtb5fNxPR7D
- KTpv8hj4Fbf6CAfKHXHA/V6hnBb3mOkoWZPs8JU1ASL6YZHcHHzrALroULAS1ZO62RCmbU1/XL0
- 8EXvQ1+LZBseTQbHUZG69B4swNJOPfLC2mrb0Mnpd4Vgu7CVi7XG8XToPag6DfloccKdBUGlICf
- zRZwEuhPIbk/tfDX/lTNVqBCjPGIhmFx5viN5IJ8AT+Wd3pz0dYugg7i8vDCp5afUOvvaZXDBW2
- wxeWyTfvXcx3TfZO1ZUAwLyIVXYc1AoSTuhm4wJ3rYOIIgRGWMz9/zRyqEkswdeUyT6sGbrWG51
- KW46fzW/nfQzoFYnUSrAZgTk5P4gghWfGXxMIdW3hUNL7seElvf6ucLGtk=
-X-Received: by 2002:a05:600c:19d4:b0:49c:fa21:e73c with SMTP id
- 5b1f17b1804b1-4a015032c77mr1786905e9.18.1790710475411; 
- Tue, 29 Sep 2026 12:34:35 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a014f29530sm4477685e9.1.2026.09.29.12.34.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Sep 2026 12:34:34 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Carlier <devnexen@gmail.com>
-Subject: [PATCH v3] drm/amdgpu: Fix NPA-REVOKE racing an in-flight UALink
- import
-Date: Tue, 29 Sep 2026 20:34:32 +0100
-Message-ID: <20260929193432.100694-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17AB010F08D;
+ Tue, 29 Sep 2026 20:34:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=iC0rPzMQI+Iz27Lx6x02hGWhWmmmEWXNSGie2PKlBYE=; b=cPqlDVUcympBIusM9qhmUz/CeO
+ iSDFbC2JyIdD7wDB+nIDtzvJNCuk4Mb/ZQYgNwCY1hwQmBR/rpa9THGKBfyUTRAKvDJTZjRMAkjEg
+ HZOmj6FEkmqW62os2WngSxwLP2U6t5ZjsnR2g0tfSj9fu5qohkm7+M/N+uo70Ko/X3zt8AbW3l6AC
+ kwmd32f1xYSQNZcwLK+6xYfm8XPajbaddi6sCGNdOnVdemItb0o3pw0J3TM9kmm12jhtvwVIjblXE
+ 4zvcgqyIhTUfg0SwiMbJRFwXMZdppebZNcz6PROq81BMdKWb8VGzKySIWOeiLRRYGAoYnF+g5Kddd
+ KTp+bkug==;
+Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
+ helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xBeWy-0096Z5-Uz; Tue, 29 Sep 2026 22:34:29 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Tue, 29 Sep 2026 17:34:05 -0300
+Subject: [PATCH 2/2] drm/amdgpu: free job when amdgpu_vm_ptes_update fails
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-amdgpu_vm_update_funcs_abort-v1-2-a8072140a7db@igalia.com>
+References: <20260929-amdgpu_vm_update_funcs_abort-v1-0-a8072140a7db@igalia.com>
+In-Reply-To: <20260929-amdgpu_vm_update_funcs_abort-v1-0-a8072140a7db@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>, 
+ Chunming Zhou <david1.zhou@amd.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Natalie Vock <nat@pixelcluster.dev>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+X-Mailer: b4 0.16-dev-62088
 X-Mailman-Approved-At: Thu, 01 Oct 2026 07:16:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,133 +64,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The exporter records an importer when it answers NPA-REQ, so it can send
-NPA-REVOKE as soon as the BO is freed, before the importer has finished
-building the dma-buf for that handle. The revoke handler assumes a fully
-imported node: it dereferences imp_xa_node->dmabuf, which is still NULL
-until the import completes, and drops the xarray reference the importing
-thread still relies on. The importer then links the node and marks it
-READY regardless, so the node can be freed while still on the per-remote
-list.
+When amdgpu_vm_update_range hits a failure at amdgpu_vm_ptes_update, it
+will skip calling update_funcs commit, which might lead to a memory
+leak.
 
-Only tear down a node that is READY. A PENDING node is still being
-imported and nothing has been handed to user-space yet, so only mark it
-for teardown and send NPA-RELEASE. The importer checks for teardown under
-the xarray lock before linking the node and marking it READY, and unwinds
-otherwise. As NPA-REVOKE always follows NPA-RSP, a revoke that finds the
-node NOT_READY is stale, and one that finds it in teardown hits a node
-that is already being released, so both are ignored.
+[ 2877.877264] kmemleak: unreferenced object 0xffff89b1f3cf0800 (size 1024):
+[ 2877.877273] kmemleak:   comm "vm_always_valid", pid 3027, jiffies 4295714403
+[ 2877.877275] kmemleak:   hex dump (first 32 bytes):
+[ 2877.877277] kmemleak:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+[ 2877.877279] kmemleak:     00 03 da 52 b1 89 ff ff 38 25 5f cb b1 89 ff ff  ...R....8%_.....
+[ 2877.877280] kmemleak:   backtrace (crc d52b9041):
+[ 2877.877282] kmemleak:     __kmalloc_noprof+0x4b3/0x770
+[ 2877.877288] kmemleak:     amdgpu_job_alloc+0x69/0x280 [amdgpu]
+[ 2877.877668] kmemleak:     amdgpu_job_alloc_with_ib+0x55/0xf0 [amdgpu]
+[ 2877.878023] kmemleak:     amdgpu_vm_sdma_prepare+0x4b/0xa0 [amdgpu]
+[ 2877.878350] kmemleak:     amdgpu_vm_update_range+0x24f/0x940 [amdgpu]
+[ 2877.878668] kmemleak:     amdgpu_vm_clear_freed+0x13b/0x290 [amdgpu]
+[ 2877.878983] kmemleak:     amdgpu_gem_object_close+0x1ac/0x270 [amdgpu]
+[ 2877.879300] kmemleak:     drm_gem_object_release_handle+0x35/0xd0
+[ 2877.879305] kmemleak:     idr_for_each+0x70/0xe0
+[ 2877.879310] kmemleak:     drm_gem_release+0x23/0x30
+[ 2877.879311] kmemleak:     drm_file_free+0x217/0x2a0
+[ 2877.879314] kmemleak:     drm_release+0x61/0xe0
+[ 2877.879317] kmemleak:     amdgpu_drm_release+0x62/0xd0 [amdgpu]
+[ 2877.879630] kmemleak:     __fput+0xfb/0x2d0
+[ 2877.879634] kmemleak:     __x64_sys_close+0x3d/0x80
+[ 2877.879637] kmemleak:     do_syscall_64+0x12d/0x6c0
 
-Fixes: 7cc82cd90d35 ("drm/amdgpu: Implement mechanism to revoke exported memory")
-Assisted-by: LLM
-Signed-off-by: David Carlier <devnexen@gmail.com>
+So introduce a amdgpu_vm_update_funcs abort hook that is empty for CPU
+and frees the job for SDMA and call it on any error path after the
+prepare hook has been successfully called.
+
+Fixes: 81417bea8755 ("drm/amdgpu: explicitly sync VM update to PDs/PTs")
+Fixes: c3546695830e ("drm/amdgpu: use the new VM backend for PTEs")
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
-Changes in v3:
-- Handle the node state with a switch: tear down READY nodes, mark
-  PENDING ones for teardown, ignore the rest (Mukul).
-- Drop the npa_done completion on a NOT_READY node: the exporter only
-  records the importer after sending NPA-RSP, so such a revoke is stale
-  (Mukul).
-- No longer send NPA-RELEASE for a node already in teardown (Mukul).
-- Use dev_dbg() for the revoked-during-import message (Mukul).
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c          | 10 ++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c      |  7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c       |  7 +++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c     |  9 ++++++++-
+ 5 files changed, 28 insertions(+), 6 deletions(-)
 
-Changes in v2:
-- Tear down only READY nodes, so a duplicate NPA-REVOKE for a node already
-  in teardown neither dereferences a NULL dmabuf nor drops the node
-  reference twice (Sashiko).
-- Complete npa_done when a revoke arrives before NPA-RSP, so the importer
-  fails right away instead of timing out into a connection reset (Sashiko).
-- Use the current Assisted-by format.
-
-Found by code analysis and compile-tested with W=1. Not tested on hardware,
-as it needs two UALink-connected accelerators in a vPod.
-
-v2: https://lore.kernel.org/all/20260926174406.346253-1-devnexen@gmail.com/
-v1: https://lore.kernel.org/all/20260926171625.288519-1-devnexen@gmail.com/
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 51 +++++++++++++++++-----
- 1 file changed, 39 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 8411ea17172f..ea18e7f2e0a3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -3288,16 +3288,35 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
- 		return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 201e3e114f07..be908ef3fe80 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1021,7 +1021,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 
+ 		r = amdgpu_vm_pde_update(&params, entry);
+ 		if (r)
+-			goto error;
++			goto error_abort;
  	}
  
--	WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
--	list_del_init(&imp_xa_node->list);
--	xa_unlock(&adev->ualink.imp_xa);
-+	switch (READ_ONCE(imp_xa_node->node_state)) {
-+	case AMDGPU_UALINK_NODE_READY:
-+		WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
-+		list_del_init(&imp_xa_node->list);
-+		xa_unlock(&adev->ualink.imp_xa);
+ 	vm->update_funcs->commit(&params, &vm->last_update);
+@@ -1033,6 +1033,9 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 				 vm_status)
+ 		amdgpu_vm_bo_idle(entry);
  
--	/* Invalidate the GPUVM mappings */
--	bo = gem_to_amdgpu_bo(imp_xa_node->dmabuf->priv);
--	amdgpu_ualink_invalidate_import_mappings(bo);
-+		/* Invalidate the GPUVM mappings */
-+		bo = gem_to_amdgpu_bo(imp_xa_node->dmabuf->priv);
-+		amdgpu_ualink_invalidate_import_mappings(bo);
++error_abort:
++	if (r)
++		vm->update_funcs->abort(&params);
+ error:
+ 	drm_dev_exit(idx);
+ 	return r;
+@@ -1234,7 +1237,7 @@ int amdgpu_vm_map_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		tmp = start + num_entries;
+ 		r = amdgpu_vm_ptes_update(&params, start, tmp, addr, flags);
+ 		if (r)
+-			goto error_free;
++			goto error_abort;
  
--	/* Drop the refcount for the node */
--	amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
-+		/* Drop the refcount for the node */
-+		amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
-+		break;
-+	case AMDGPU_UALINK_NODE_PENDING:
-+		/* The import is still building the dma-buf and nothing has
-+		 * been handed to user-space yet. The importing thread sees
-+		 * the teardown state and unwinds.
-+		 */
-+		WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
-+		xa_unlock(&adev->ualink.imp_xa);
-+		break;
-+	default:
-+		/* NPA-REVOKE always follows NPA-RSP, so a NOT_READY node means
-+		 * a stale revoke, and a node in teardown is already being
-+		 * released by whoever moved it there.
-+		 */
-+		xa_unlock(&adev->ualink.imp_xa);
-+		return;
-+	}
+ 		amdgpu_res_next(&cursor, num_entries * AMDGPU_GPU_PAGE_SIZE);
+ 		start = tmp;
+@@ -1249,6 +1252,9 @@ int amdgpu_vm_map_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
  
- 	r = amdgpu_ualink_send_npa_release_msg(adev, remote_acc_id, handle);
+ 	amdgpu_vm_pt_free_list(adev, &params);
+ 
++error_abort:
++	if (r)
++		vm->update_funcs->abort(&params);
+ error_free:
+ 	kfree(tlb_cb);
+ 	amdgpu_vm_end_critical(&params);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+index ec715bcaa0f2..8565a2899e08 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+@@ -134,9 +134,14 @@ static void amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
+ 	up_read(&adev->reset_domain->sem);
+ }
+ 
++static void amdgpu_vm_cpu_abort(struct amdgpu_vm_update_params *p)
++{
++}
++
+ const struct amdgpu_vm_update_funcs amdgpu_vm_cpu_funcs = {
+ 	.map_table = amdgpu_vm_cpu_map_table,
+ 	.prepare = amdgpu_vm_cpu_prepare,
+ 	.update = amdgpu_vm_cpu_update,
+-	.commit = amdgpu_vm_cpu_commit
++	.commit = amdgpu_vm_cpu_commit,
++	.abort = amdgpu_vm_cpu_abort,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+index e056999d8406..3d8cbd4530ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+@@ -121,6 +121,7 @@ struct amdgpu_vm_update_funcs {
+ 		      unsigned count, uint32_t incr, uint64_t flags);
+ 	void (*commit)(struct amdgpu_vm_update_params *p,
+ 		       struct dma_fence **fence);
++	void (*abort)(struct amdgpu_vm_update_params *p);
+ };
+ 
+ uint64_t amdgpu_vm_pt_clear_flags(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index f9abafef6a4f..e98a7a86bf3c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -426,14 +426,17 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	r = vm->update_funcs->prepare(&params, NULL,
+ 				      AMDGPU_KERNEL_JOB_ID_VM_PT_CLEAR);
  	if (r)
-@@ -3760,9 +3779,20 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
- 		return r;
- 	}
+-		goto exit;
++		goto exit_abort;
  
--	/* Add this node to the imported handles list for the remote GPU */
-+	/* Add this node to the imported handles list for the remote GPU,
-+	 * unless the exporter revoked the handle while the import was in
-+	 * flight. The dmabuf is released with the last node reference.
-+	 */
- 	xa_lock(&adev->ualink.imp_xa);
-+	if (READ_ONCE(imp_xa_node->node_state) == AMDGPU_UALINK_NODE_TEARDOWN) {
-+		xa_unlock(&adev->ualink.imp_xa);
-+		dev_dbg(adev->dev,
-+			"IMPORT: handle:%llx:%llx revoked during import\n",
-+			handle.handle_hi, handle.handle_lo);
-+		return -EINVAL;
-+	}
- 	list_add(&imp_xa_node->list, &adev->ualink.imp_handles_list[remote_acc_id]);
-+	WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_READY);
- 	xa_unlock(&adev->ualink.imp_xa);
+ 	flags = amdgpu_vm_pt_clear_flags(adev, vm, level);
+ 	r = vm->update_funcs->update(&params, vmbo, 0, 0, entries, 0, flags);
+ 	if (r)
+-		goto exit;
++		goto exit_abort;
  
+ 	vm->update_funcs->commit(&params, NULL);
++exit_abort:
++	if (r)
++		vm->update_funcs->abort(&params);
+ exit:
+ 	drm_dev_exit(idx);
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 0611ae38a9b5..7c48a370a6bc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -298,9 +298,16 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
  	return 0;
-@@ -3938,9 +3968,6 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
- 					"IMPORT: XA import failed for handle:%llx:%llx\n",
- 					handle.handle_hi, handle.handle_lo);
- 			goto cleanup;
--		} else {
--			WRITE_ONCE(imp_xa_node->node_state,
--				   AMDGPU_UALINK_NODE_READY);
- 		}
- 	}
+ }
  
++static void amdgpu_vm_sdma_abort(struct amdgpu_vm_update_params *p)
++{
++	if (p->job)
++		amdgpu_job_free(p->job);
++}
++
+ const struct amdgpu_vm_update_funcs amdgpu_vm_sdma_funcs = {
+ 	.map_table = amdgpu_vm_sdma_map_table,
+ 	.prepare = amdgpu_vm_sdma_prepare,
+ 	.update = amdgpu_vm_sdma_update,
+-	.commit = amdgpu_vm_sdma_commit
++	.commit = amdgpu_vm_sdma_commit,
++	.abort = amdgpu_vm_sdma_abort,
+ };
+
 -- 
-2.55.0
+2.47.3
 
