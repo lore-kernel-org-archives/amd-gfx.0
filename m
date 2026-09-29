@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59132C9832A
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 03:47:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB1E3C9832A
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 03:47:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C577110EC92;
-	Tue, 29 Sep 2026 03:47:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C10910EC94;
+	Tue, 29 Sep 2026 03:47:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="147Vkeh7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pL5waGvY";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010047.outbound.protection.outlook.com [52.101.46.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 700A610EC90
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 03:47:29 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011046.outbound.protection.outlook.com [52.101.62.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 508CF10EC90
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 03:47:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Bi2l/qDFDIqijWX5M0JDhr/PnRMBl+qlo8UHnjp8vMR03YLyAyrYQrxM22hGB8/geWasZSvwb529cjIFiGAozs9UxlFq52xNLMDc4tA8jMUb6s23RH5i6RUgge+CX8KdpdtrF8Vmrp0QTbyVq0XxJIljPv1fKjEyC+lnl+uG5AnKOQwZgIAvPc1pCeNsLF7rgU9VQrVTFI7Q4X1TR0WUmjx7rxoPZpcv4Ft39Hhind1lZiVFduY3ONamoOx/PKg8NIhB4yaH/Cca914yh6jAl8WF9rQfsHbxZyBBAF1cVki8wyfYZqPjITaIcWCjekbAblIsKARGzi0QEc2ZQltmvA==
+ b=eB0npQX6Vpnhec1Q8P0wLZEtgXG0QIvel6bxay7XAcTrdqpR36ViW1PCbiIT+RoQrP7sInD2ghamMT16j/wgcyIQQuHw/U9kD+vhtXYvyECmZIupTbDI/BwJYeiAWWR91QnpJqdhOBFzsZb6e/OuxDJY/c1H+wxiAsi7tKytEaLShLPp93wfoneb+2CONB7VLgjpLSXglh9t8fO6j0G2cUGrFOJwcE+QQmJWR3Lsc7OGel1tMLUOIdJjyyEc8PwAPhwIfYNqPz0d9sCBqX+d7pGMP+o6pz/Bwk/GHONoauxc36ZEi3SGOi3eMBwiOlWrVrFsmbU0boKyr6c/77CEUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SWlF7c7eC4D/rsSqxftnb/vaFKLpmgWDP++C8wLy8R4=;
- b=qeC6HFM8JvxmJrSQkpkJLe3kbgFqjeGD/rka9hGQceqQiplncv25jrYGHp6yuXRlwe5zobIikh/CNxl27fdc+1uTaL1YwEJfiXKHp+GU576e4xUWxUEB7J4LD3V4iGzyYSYacj4o3Z0Tt9JDks196GS53FotilP2NHD1ExEuQYiSelLHjkJgUX3Lm2tqvGtLq16fc2A0SGVBzcmL0e5qXJUNDAIlsG6rI0U6vZBlRKo7Tu6atwPwiayjdD5+x/41o986t1i2rV/zTsbeVw7VmNmZyoPLN/no6dUIBEIlcafFDLHiDBEI6OlnuaXWQp+FFy+rk0l6dab5GjNzxU2cnQ==
+ bh=zh5WRGgwl89cAt5URkz4W0TU1INNUSCCLKhJeAKarQI=;
+ b=t1XLEiDg+LVhTIVNbKMm5Po4tEYoFj4+jhm9nrrfvemJ/nYYCLaE8ToF4zCvLF1VCwp+zWhoar10IL6rFGa77yJBm8vLI3F5d+F4Ar6V5ANCOove7Nbq9fI7MlCMjT89h4tO9JWBXwxnE21xGCt6qT4fnlYPyoG1Hz7LWH1JmHIJyMMyJ9MUOWE3iW96MqGgw+5Po+Rz50gnH/tcDQaW+vkbO1Y1XATzC8Xa7WKb5h8Q9zegkzaCOnbjFsVQikQG0+I7kTpdV+ZHKqF9g8it09li/nYA1WzblOykB2ZCEVdmPxpQJDegqdjgplGwAmaJxztVfM/QRnEGfzW124svpQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SWlF7c7eC4D/rsSqxftnb/vaFKLpmgWDP++C8wLy8R4=;
- b=147Vkeh7t4Mv0iqmOmeuzFKsyJG/Pv9o8yuop6yYq5rYwstwvtiMJbpEBK1bz25dWV2/qLk1LNbR59vP8EHZJ7rJ+wkEkYPaPdjLZmbyfO57WOxB6E9SFxkQ1P4Bk7Id6eHwOV4Z9yyYJGo/44j+Wtvm9Wko0cpP8mcf91vgCY8=
-Received: from CH2PR18CA0025.namprd18.prod.outlook.com (2603:10b6:610:4f::35)
- by SJ2PR12MB8061.namprd12.prod.outlook.com (2603:10b6:a03:4cb::13)
+ bh=zh5WRGgwl89cAt5URkz4W0TU1INNUSCCLKhJeAKarQI=;
+ b=pL5waGvYTvW4JQFk1LA5rFGM/o15O0ooUMLWELs6rVR9kMmDRNmULylpl/eyhSj3jirkYMSAi6YOaMGCrasUz5bg8XajkUHgu+0y9GPOGd5Yv0kgge1qdkQ8TSgYhFivWmvv8bU+Ad0A5ACpjIr+XutNa1QWXnULReJg4cz8BNE=
+Received: from BN9PR03CA0085.namprd03.prod.outlook.com (2603:10b6:408:fc::30)
+ by SA1PR12MB6848.namprd12.prod.outlook.com (2603:10b6:806:25f::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 03:47:22 +0000
-Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
- (2603:10b6:610:4f:cafe::8) by CH2PR18CA0025.outlook.office365.com
- (2603:10b6:610:4f::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Tue,
- 29 Sep 2026 03:47:22 +0000
+ 2026 03:47:04 +0000
+Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
+ (2603:10b6:408:fc:cafe::6a) by BN9PR03CA0085.outlook.office365.com
+ (2603:10b6:408:fc::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Tue,
+ 29 Sep 2026 03:47:04 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,20 +49,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
+ BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 03:47:22 +0000
+ 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 03:47:04 +0000
 Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 28 Sep
- 2026 22:47:20 -0500
+ 2026 22:47:02 -0500
 From: Prike Liang <Prike.Liang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
  <Vitaly.Prosyak@amd.com>, Prike Liang <Prike.Liang@amd.com>
-Subject: [PATCH v2 13/14] drm/amdgpu: prepare all locked BOs before userq rearm
-Date: Tue, 29 Sep 2026 11:46:49 +0800
-Message-ID: <20260929034650.2393125-13-Prike.Liang@amd.com>
+Subject: [PATCH v2 03/14] drm/amdgpu: serialize userq eviction and restore
+ with GPU reset
+Date: Tue, 29 Sep 2026 11:46:39 +0800
+Message-ID: <20260929034650.2393125-3-Prike.Liang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260929034650.2393125-1-Prike.Liang@amd.com>
 References: <20260929034650.2393125-1-Prike.Liang@amd.com>
@@ -74,29 +75,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|SJ2PR12MB8061:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4f80475-95bd-48ee-ed45-08df1ddc5e69
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|SA1PR12MB6848:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d40c147-1fef-49d2-34b6-08df1ddc53ab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|11063799006|22082099003|18002099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: TMWs56qZo6SNFq7FNIUHZReTJJ+egNKcIbZRcX7cjoMNnV+xwDZYYwEmXP1SvJacYC5bRk1xL3tLXyAOYlI/RUZ5y4aMCf8HkvajVC1Uw6pgjaf6Hb+66QL0TbIC77T5ITwY8BIFOwlRROrNuUCSxWdJ+HjdiftIpmn1Wp/7rEoj65pymmK/o6+XPopMqVO2JMqU61SLQCAIka3iJQ5kKW8z7yd55Qu0Ia22hGoZVk51GFDGyyYPmOPLZQ5IGwan7csFk+b5q4mMqOn2OmH5C1FxqBDtBonKMVj/PKYcaz4if49ADhShf0k7u5pzbuB6RQOcLoiWhbP52lRqqgaM/NaT3Bp/ZalJnr5bl8CZnSuHEUyG0NjZW799TW+ew5OSIRotAmAeqjXPRfL5mcS8dEy3CmNuPGmCsHcOusG5Ur3WtLxLYKDQkQR/qPs/nlxbbn6O21iYsiZflXKKS8BWTxDDHfpc7TdkiZHJqLsFgieFdHHOl/AaWqr9OP5MEjMasCE79gsZrUlB1kQCqJ0ezjaH8bENIVluPY1WSNeXs0aV1I2PqBipwMZvrezsfb5Sb8cjQa7qIBMI3hoH2pzZ1Gi7cxjQsJcEJyQpggWGQEdZ1ZZ/Jx/vhKfOVb1ZC0PLTvbarNirD+5Q9hNR9IJFSaIxirnFhac5srgiWJyQKyQU7B6t/APww771o+DlwL/cObDnwzC3InHv+wT0f7BCVA==
+ ARA:13230040|23010399003|1800799024|36860700016|82310400026|376014|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: r6QESJjHn7AOwJdXJtBm52GDMV0Iw9HDmXaYb3MXdYuv8zdeioviSTS2VjSp97M+7uHQpa2KFgJ9XvOaCkL1te05Vo7IUbqIrPQfLvRkhAJiZggATO5nnoDuDYmN4A2WxqmssqE6UJwf+4byrsnbd5EVliyXZLoBc4xBeH+bttFEYBRok3w8sfY8nnbYIJlqNzGY9K0UDJ9ByMEpXldDARurwsSw16a2/itJnTlI8h6OhdF2B6zHU7E06MN1i7+QfXIdPpQTBDFrjR7oPgNuD2SDBGqQXE8oMAipSi3yLVVpdEoRM/v7BQSfod0KhWhWabo0Uaxv2Yu3Yeo+6oGXxrDCezfn+QPoW7DEj1vkHj96613+KBJy90c6s/AWVISbGe83DepDqHgMQqbUr2EEor5si4Vhnw1gMb7QVp/N0pARoJ3vhqUuNuIzU/bKrPtOsx5h+XCc2WNOhLFJZ5ZBEYsdlF2QMa3uYbL4SbZE9wnJxBWZQYbnGzu/zhBn23NRK45TdLPkHOAbi1rb49Wv+gYCX6dekjMTMlsMXWPrI5wc4XjUxM81Vyx/cXhVoH+DuHzRc5jEiPbCf24zxIT3j9R3w30hUC1r9X96dVmOAHm6RTd7AAUN9WddMmfZyMiOP9h34FUaKeszQmNhGZB1yHfz24exR3EdQy0GvmRN63YRvxj4LZaObkpePj95XoGs7HGVh8jG3eP1ffLXODo3Nw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(11063799006)(22082099003)(18002099003)(10067099003)(56012099006);
+ SFS:(13230040)(23010399003)(1800799024)(36860700016)(82310400026)(376014)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: qzort4/O4A3HiTgQElZL0tUv0Ul7oUeMAaD7Lw8r9OfMfRoQlStviSDfj5NoaBBmiK9IBxOG4KpdWTH1h1uhXYQo0ZpNCNduxvHmoeWn9hkNDJUByQfp5p5R5RaOrQBfdd7j0VHiRrUJR76MMiSQ8t5g+z48FCjpev3nv0Em0qgpaMWrkcG86igM3jv0j2V5XtML2ZZT+ivSDoJ4o16CdGI6vHK8sVrcTfCUkRD1OOWgB4lcqlXobgIJJopdcQ3ZG2d99+RC+xfXHFxDO76WnJJa+uAUs9ruIk0TmvYQuaNvLU2KdsjrqZGgLIe3urUeF4f+pevfPWlh6CkzktU7A8nNi5NgiHQ7/r9i3/1Y2uqsZMv0VxJbOkE4PRaeX880Q6lrgIz7bULiZFXTg4PKoodoeI4md7nRTIRqPuwRG+5nAchQNvRxHRT+9K3YY9qa
+X-MS-Exchange-AntiSpam-MessageData-0: wvYqxPJc6avA+Yl1gcrR0sjihDqJSb4bUKEm1sxoONDjYhxkP3jAtv/+l8YANA+u9WyA3Ok1k3nktE6c4tJMGnrHUg2Y2FCEhRUsh8TP2CfWbPla3pJ5paKhVkq5rFNI3fQkZ6oNmlAK6kCSNMsJ2XbVSmLp/fTMGmHdn9mUqixIINL5J1Xtp8WR5n/brLAGbAPXYxJfQcyLRrMTAbdT4rPnNtNqQ2DRUQ3MT0Wjh1kaRZzAdYV8FxLX1EMUXq3Dd3Xl4VQDNXyzJKmLq9QmzJ1Xo3xCt27E6TuBXhQz4M2kNj1SM8ODQqi7ehKklkrlJ6/GOzAe3blfE67eaZz2vZZXN0kMTMaMN6xe7BID4XJCbxTZjdkAJHKSLWKIcyf9V57Nb6v8pSAg3HQjBJ/Edh/FZRj0rDjfPHhtrwcI6c1Wty4wvWl5L2cyvqt1fRZb
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 03:47:22.3485 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4f80475-95bd-48ee-ed45-08df1ddc5e69
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 03:47:04.3238 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d40c147-1fef-49d2-34b6-08df1ddc53ab
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8061
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6848
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,100 +112,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-An individual BO can leave the VM idle list while drm_exec backs off on
-contention during userq restore. The retry prelocks that BO and retains
-it in exec->objects, but the restarted VM-list walk can skip its
-drm_exec_prepare_obj() call.
-
-amdgpu_evf_mgr_rearm() still attaches an eviction fence to every locked
-object. With CONFIG_DEBUG_MUTEXES, the preceding unlock resets
-max_fences to num_fences. If ttm_bo_validate() returns without moving
-the BO and no existing fence can be replaced, dma_resv_add_fence() hits
-its capacity BUG.
+Hold the reset-domain semaphore for read around queue eviction. If it
+cannot be acquired immediately under userq_mutex, release the mutex,
+wait for recovery, and retry the queue and fence checks. Protect
+eviction-fence publication and hardware mapping with the same semaphore.
+BO validation can wait for evictions, so it must not hold the reset
+semaphore across those waits.
 
 Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
- .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 26 ++++++++++++++++++-
- 2 files changed, 28 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c |  9 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          | 12 ++++++++++++
+ 2 files changed, 21 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-index f0cc49213c01..8b2e25770bdf 100644
+index 15897c3eacb7..f0cc49213c01 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-@@ -159,11 +159,10 @@ int amdgpu_evf_mgr_rearm(struct amdgpu_eviction_fence_mgr *evf_mgr,
- 	dma_fence_put(evf_mgr->ev_fence);
- 	evf_mgr->ev_fence = &ev_fence->base;
+@@ -67,10 +67,18 @@ amdgpu_eviction_fence_suspend_worker(struct work_struct *work)
+ 	bool cookie;
+ 	int r;
  
--	/* And add it to all existing BOs */
-+	/* The caller has validated and reserved space on every locked BO. */
- 	drm_exec_for_each_locked_object(exec, index, obj) {
--		struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
--
--		amdgpu_evf_mgr_attach_fence(evf_mgr, bo);
-+		dma_resv_add_fence(obj->resv, &ev_fence->base,
-+				   DMA_RESV_USAGE_BOOKKEEP);
- 	}
- 	return 0;
- }
++retry:
+ 	mutex_lock(&uq_mgr->userq_mutex);
+ 
+ 	/* Fence waits are not allowed in a fence signalling critical section. */
+ 	amdgpu_userq_wait_for_signal(uq_mgr);
++	if (!down_read_trylock(&uq_mgr->adev->reset_domain->sem)) {
++		mutex_unlock(&uq_mgr->userq_mutex);
++
++		down_read(&uq_mgr->adev->reset_domain->sem);
++		up_read(&uq_mgr->adev->reset_domain->sem);
++		goto retry;
++	}
+ 
+ 	/*
+ 	 * This is intentionally after taking the userq_mutex since we do
+@@ -81,6 +89,7 @@ amdgpu_eviction_fence_suspend_worker(struct work_struct *work)
+ 
+ 	ev_fence = amdgpu_evf_mgr_get_fence(evf_mgr);
+ 	r = amdgpu_userq_evict(uq_mgr);
++	up_read(&uq_mgr->adev->reset_domain->sem);
+ 
+ 	/*
+ 	 * Signaling the eviction fence must be done while holding the
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index e6ce9d12bdb4..0f509e67ca1a 100644
+index fa8ffa060fa5..322c95201494 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -1105,6 +1105,7 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
- 	struct amdgpu_bo_va *bo_va;
- 	struct amdgpu_usermode_queue *queue;
- 	struct amdgpu_bo *bo;
-+	struct drm_gem_object *obj;
- 	struct drm_exec exec;
- 	struct xarray xa;
- 	int ret;
-@@ -1184,7 +1185,21 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
- 		invalidated = false;
- 	}
- 
--	ret = amdgpu_vm_handle_moved(adev, vm, NULL);
-+	/*
-+	 * A contended BO can change VM lists while drm_exec drops the locks.
-+	 * Prepare every finally locked object before updating PTEs or publishing
-+	 * the replacement eviction fence, including prelocked retry objects.
-+	 */
-+	drm_exec_for_each_locked_object(&exec, tmp_key, obj) {
-+		ret = dma_resv_reserve_fences(obj->resv, TTM_NUM_MOVE_FENCES + 1);
-+		if (ret)
-+			goto unlock_all;
-+		ret = amdgpu_userq_validate_vm(NULL, gem_to_amdgpu_bo(obj));
-+		if (ret)
-+			goto unlock_all;
-+	}
-+
-+	ret = amdgpu_vm_handle_moved(adev, vm, &exec.ticket);
- 	if (ret)
- 		goto unlock_all;
- 
-@@ -1255,6 +1270,8 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
- 	 */
- 	list_for_each_entry(bo_va, &vm->always_valid.idle, base.vm_status)
- 		dma_fence_wait(bo_va->last_pt_update, false);
-+	list_for_each_entry(bo_va, &vm->individual.idle, base.vm_status)
-+		dma_fence_wait(bo_va->last_pt_update, false);
- 	/*
- 	 * The PRT bo_va is kept off the state lists, so its PTE update fence
- 	 * lands in prt_va->last_pt_update rather than vm->last_update; wait on
-@@ -1281,6 +1298,13 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
+@@ -1219,13 +1219,21 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
  		queue->wptr_obj.gpu_addr = amdgpu_bo_gpu_offset(bo);
  	}
  
-+	/* Page-table updates may have consumed the earlier reservation slots. */
-+	drm_exec_for_each_locked_object(&exec, tmp_key, obj) {
-+		ret = dma_resv_reserve_fences(obj->resv, 1);
-+		if (ret)
-+			goto unlock_all;
++	/* Back off without publishing a fence if recovery owns the hardware. */
++	if (!down_read_trylock(&adev->reset_domain->sem)) {
++		ret = -EAGAIN;
++		goto unlock_all;
 +	}
 +
- 	/* Back off without publishing a fence if recovery owns the hardware. */
- 	if (!down_read_trylock(&adev->reset_domain->sem)) {
- 		ret = -EAGAIN;
+ 	ret = amdgpu_evf_mgr_rearm(&fpriv->evf_mgr, &exec);
+ 	if (ret) {
++		up_read(&adev->reset_domain->sem);
+ 		drm_file_err(uq_mgr->file, "Failed to replace eviction fence\n");
+ 		goto unlock_all;
+ 	}
+ 
+ 	ret = amdgpu_userq_restore_all(uq_mgr);
++	up_read(&adev->reset_domain->sem);
+ 
+ unlock_all:
+ 	drm_exec_fini(&exec);
+@@ -1252,6 +1260,10 @@ static void amdgpu_userq_restore_worker(struct work_struct *work)
+ 		goto put_fence;
+ 
+ 	ret = amdgpu_userq_vm_validate_and_restore_queue(uq_mgr);
++	if (ret == -EAGAIN) {
++		schedule_delayed_work(&uq_mgr->resume_work, msecs_to_jiffies(10));
++		goto put_fence;
++	}
+ 	if (ret) {
+ 		drm_file_err(uq_mgr->file, "Failed to validate BOs to restore ret=%d\n", ret);
+ 		goto put_fence;
 -- 
 2.34.1
 
