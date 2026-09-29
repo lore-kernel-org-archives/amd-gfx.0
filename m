@@ -4,95 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8D7DCA5FB1
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7940C9832A
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA6810ED86;
-	Tue, 29 Sep 2026 08:23:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 381CB10ED7F;
+	Tue, 29 Sep 2026 08:23:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="dEDNXdqj";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="qRZqf5gJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hx0PHwlK";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="v4LKtIRb";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qp+H4KB/";
 	dkim-atps=neutral
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com
- [209.85.161.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 079C610E927
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 17:12:00 +0000 (UTC)
-Received: by mail-oo1-f47.google.com with SMTP id
- 006d021491bc7-6d95185ee17so182770eaf.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 10:12:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1790615520; x=1791220320; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=a9vn70oN/MkzXdp1qzKn2h1C6fFreFjIcRIhZBrGV58=;
- b=dEDNXdqjTkeIVyxX/1bNuzSHvJppEQ54IEWo4E2g1AsMUsvTTJefkHY/M4W0jj++TV
- Ihyq8NgqqV0zHMuXC5dl7f1TSRmDpJkaTflJqspLZo/okRKyrRjR+Ro+utOLgs6MXZz1
- /5qnKNKIDfwRB+d6FEQv1fJnzIjcg0j3xnhtj/3fnOT9A2eMlOuSnNtUEfN4M6vxIkZg
- uTvaB0MKEqf0ljr0uJyNrS336nDM9wYu2gI2daDcEkvLil8zdFffRIjNFFsaOHXkvkf/
- G1aR/CNnq/pQPmcQoKrptqdRB0ewl/PNCuXRR0q5jBxgBtF7c6Psne/Ct8rP/+GO+MA+
- Ldjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790615520; x=1791220320;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=a9vn70oN/MkzXdp1qzKn2h1C6fFreFjIcRIhZBrGV58=;
- b=lsnkWQMqvklIXqyrNU1wr9HEqQDrMOvrIdt8XmQ5fPGfmSr1hYBkyUD/P4UrfnLYeg
- UK8QRHP0Ht2H5cE522dwTMHlvj7OgjUV40wKzQAhQFZ1FIlhQ0gYinSaRvwV6YjYybqL
- /Y6SQ4771MxjRURMTfeBR6jFqG5XFoKNcnCXZBYtp8TIUIg7xzg7TTWFdP+XDfTwD4YL
- ualXiVVYjK6ARqfeiQxm4IKL1cZgzWUwUFT5CQpr0QJ9kE9j9xTChHriy0ANxbi3zfAy
- ACl7NTNEQfEG9NHaWeyUDnjDTEcMKmJGMVbPth/yg5djyqIAxukvvkcPg0bJKkgrE0xW
- oHUA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwhw4jGNCHRsra5I6mkpAzdnIIEGPi4aBXb2+50gEanJIjZ72YN4+V8V8V4iOObaDc1eWED6wcl@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kvhBXfExrvX+Gk+9yrElghIvhBvLwbVMhAUlDmjwK730wv7IDE
- lSFULy7Q3tiklHTGZv5hv+2LHAwe8ruTYPpsHnEw22esvoLjZxF2dOJ811ntQ7ZDvJw=
-X-Gm-Gg: AYBFou27lDX9xSrusAsRG43js2ltLh/QA/z7qzoii+wAPrXbfOkbt9+VzRDp/VaHJaI
- GhxpuOtrbU2lQceb2ZdDPA34dkMP2KffaPvO+8dmJX2W+/6W4KYRKgqc78MyMr+Hka4VJ2I+8QG
- UP6oUx+6/LjRfCUfdByILEvlYnpl+UJqn/KJw7Y3l/DPZEPURjW5utiF+00ZDyt3XBChYS2vd4s
- kbcbBPpkC4m4VSy4FJYXaF+n4xeDn80xxhXemukI3bp9jMxEO9fempXkl834vN6U1oP5PyP+tYq
- Ke4Lv/kLiuPH9GUzBF+kftsRIWUjPpb5rQPzOQoHSep+yHVshEvzezChVyu1+G1ExEXEepCimfx
- Oqr/By9ygHSTcCm8GxMd/uk4h1/hBqeF2cD5p2PEnOhLXvH4IDe6FULFOV3gchEaMYr9j1WnDK0
- o02Dzmk8ok1jTviPgKN8dsZfHwtoVQvJbHvQENLeGKc6zz/w==
-X-Received: by 2002:a05:6820:308f:b0:6d8:f3dd:4453 with SMTP id
- 006d021491bc7-6db1146f8d1mr8836eaf.1.1790615519756; 
- Mon, 28 Sep 2026 10:11:59 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202]) by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-4933501183bsm8991295fac.5.2026.09.28.10.11.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2026 10:11:58 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1xBEtR-00000007LlD-3D6p;
- Mon, 28 Sep 2026 14:11:57 -0300
-Date: Mon, 28 Sep 2026 14:11:57 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Mario Limonciello <superm1@gmail.com>, Joerg Roedel <joro@8bytes.org>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
- Jatin Kataria <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>
-Subject: Re: [PATCH v2 1/2] iommu/amd: Add PerfOpt IOMMU performance
- optimization support
-Message-ID: <20260928171157.GI163130@ziepe.ca>
-References: <20260908041207.38113-1-mario.limonciello@amd.com>
- <20260908041207.38113-2-mario.limonciello@amd.com>
- <20260924225018.GB16465@ziepe.ca> <arYf3iJW7hfTua__@8bytes.org>
- <20260925122848.GD163130@ziepe.ca>
- <4560d7d3-4d67-457d-bcd7-2176bd850bd4@amd.com>
- <20260925223928.GE163130@ziepe.ca>
- <ab1cdd64-3390-480a-8d41-a942e8b2e120@gmail.com>
- <20260928120831.GF163130@ziepe.ca>
- <34bcdf7a-82b1-43cb-8409-735ebef3fa97@amd.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2F6710ED76;
+ Tue, 29 Sep 2026 08:22:43 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DEDB521A57;
+ Tue, 29 Sep 2026 08:22:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790670158; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=eThddSy2KIXuB2qbWMK6C68b5mt/wMpc5TtS87JTgVI=;
+ b=qRZqf5gJqh2DP28JAG4ZJtfGyANvL9//SOh+xLLF/vumlcM1ynmHjvynZRz3igpINFsWnc
+ N+7LJHIcxqnnqNTER43X5jB9XQitMLNrmNd8Ztdskt6IDk0/ZLNXuwi2H4K/bf0bIzkAt8
+ //omjzq72Amc/cfJO0lihFISj8/AHj8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790670158;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=eThddSy2KIXuB2qbWMK6C68b5mt/wMpc5TtS87JTgVI=;
+ b=hx0PHwlKD1iwP7gQduDeNFmnoxBkk00AdleiOpzuv/cBjbJ+ji3x4vRxv4hMYL1N7G+jTq
+ HVpPgxTOYH7bC5Dg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=v4LKtIRb;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="qp+H4KB/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790670153; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=eThddSy2KIXuB2qbWMK6C68b5mt/wMpc5TtS87JTgVI=;
+ b=v4LKtIRbaJJrHEe88R86Nz+zKIhojBDiieyDIky8VRizIxo4T9X9JkUAPubuX5tXHBfMDQ
+ VfqK6wejOVNg7DxLgIKKkuzs68TWlIsoSMvumfaLPj0h1cjBtkvGcrcnws3uZdlnJu2/EZ
+ 0Zasxza6ZkDEKMM+jkIeM957Yw/k6/g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790670153;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=eThddSy2KIXuB2qbWMK6C68b5mt/wMpc5TtS87JTgVI=;
+ b=qp+H4KB/EhzpihIbc0FRfbSlGOZ3T3U00RrBcL1BBx9HZtS/U+lCTz0suAMVz76T+TaXvw
+ cgma4GUgFngToGBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4F474136E4;
+ Tue, 29 Sep 2026 08:22:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 93cwO0h1u2orSgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 29 Sep 2026 08:22:33 +0000
+Message-ID: <a91b6a20-b54e-438b-a8c8-3b08948f4a45@suse.de>
+Date: Tue, 29 Sep 2026 10:22:32 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <34bcdf7a-82b1-43cb-8409-735ebef3fa97@amd.com>
-X-Mailman-Approved-At: Tue, 29 Sep 2026 08:23:02 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/7] drm/v3d: Use drm_timeout_rel_to_jiffies()
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+ <20260915-drm-timeout-helpers-v3-4-f2ae987d861f@igalia.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260915-drm-timeout-helpers-v3-4-f2ae987d861f@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
+ MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[igalia.com:email,suse.de:dkim,suse.de:email,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: DEDB521A57
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,24 +155,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 28, 2026 at 10:32:41AM -0500, Mario Limonciello wrote:
 
-> Actually; no.  amdgpu has migrated away from PCI IDs and probes based on the
-> "ATI vendor" + "display class" instead.  As part of the probe sequence there
-> is something called an IP discovery table pull from the platform that
-> identifies all IP blocks in the hardware.
 
-Oh, so that big table is not processing pci ids.. OK
+Am 15.09.26 um 21:42 schrieb Maíra Canal:
+> v3d carried an exact copy of i915's nsecs_to_jiffies_timeout(). Now
+> that the conversion lives in "drm_timeout.c", drop the copy and use it.
+>
+> The core helper also returns 0 for a zero timeout. i915 has that check in
+> to_wait_timeout(), but v3d only ever copied the conversion, so
+> DRM_IOCTL_V3D_WAIT_BO with timeout_ns == 0 was turned into a one jiffy
+> wait and could block for a tick before reporting -ETIME. It now returns
+> without waiting.
+>
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 
-> This IP discovery table will indicate graphics IP and that is mapped to
-> relevant driver code.  So for example GC 11.5.1 is what you find in a Strix
-> Halo APU.  If a future APU had exactly the same graphics IP but a different
-> display IP it would still be GC 11.5.1.
+i915 and the new helper return 0 if the given time is 0. It looks like 
+v3d always returned 1 in this case. Assuming that v3d can handle the 
+slightly different semantics:
 
-Move this stuff to drivers/firmware and iommu and GPU can access it
-together?
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-"IP discovery table" sure sounds like a platform firmware datablob to
-me at least?
+Best regards
+Thomas
 
-Jason
+
+> ---
+>   drivers/gpu/drm/v3d/v3d_bo.c  |  3 ++-
+>   drivers/gpu/drm/v3d/v3d_drv.h | 10 ----------
+>   2 files changed, 2 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
+> index a847d2f0ccf5..db95a2fac5d0 100644
+> --- a/drivers/gpu/drm/v3d/v3d_bo.c
+> +++ b/drivers/gpu/drm/v3d/v3d_bo.c
+> @@ -19,6 +19,7 @@
+>   #include <linux/vmalloc.h>
+>   
+>   #include <drm/drm_print.h>
+> +#include <drm/drm_timeout.h>
+>   
+>   #include "v3d_drv.h"
+>   #include "uapi/drm/v3d_drm.h"
+> @@ -281,7 +282,7 @@ v3d_wait_bo_ioctl(struct drm_device *dev, void *data,
+>   	ktime_t start = ktime_get();
+>   	u64 delta_ns;
+>   	unsigned long timeout_jiffies =
+> -		nsecs_to_jiffies_timeout(args->timeout_ns);
+> +		drm_timeout_rel_to_jiffies(args->timeout_ns);
+>   
+>   	if (args->pad != 0)
+>   		return -EINVAL;
+> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+> index 79ef20c89ff2..78de9fd69e0b 100644
+> --- a/drivers/gpu/drm/v3d/v3d_drv.h
+> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
+> @@ -578,16 +578,6 @@ struct v3d_submit_ext {
+>   						   (Wmax))
+>   #define wait_for(COND, MS)		_wait_for((COND), (MS) * 1000, 10, 1000)
+>   
+> -static inline unsigned long nsecs_to_jiffies_timeout(const u64 n)
+> -{
+> -	/* nsecs_to_jiffies64() does not guard against overflow */
+> -	if ((NSEC_PER_SEC % HZ) != 0 &&
+> -	    div_u64(n, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
+> -		return MAX_JIFFY_OFFSET;
+> -
+> -	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(n) + 1);
+> -}
+> -
+>   /* v3d_bo.c */
+>   struct drm_gem_object *v3d_create_object(struct drm_device *dev, size_t size);
+>   void v3d_free_object(struct drm_gem_object *gem_obj);
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
