@@ -4,100 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A812CCA5FA1
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 12:02:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99BA2CA5FA5
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 12:04:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C74F10EE58;
-	Tue, 29 Sep 2026 12:02:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AE7E10EE76;
+	Tue, 29 Sep 2026 12:04:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OVys9FCQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PMg4KOwH";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011070.outbound.protection.outlook.com [52.101.57.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 514C110EE7D
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 12:02:48 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013017.outbound.protection.outlook.com
+ [40.93.196.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C50B010EE75
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 12:04:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m74f5o0uV0k+bMYJUcGE1Nci/v7pyiOC2Kik2dMGRtZclXFOklOX+2qb8PWqE0R9gIstyibKsGGiE3/9eJngFwQxaHadd026SkTeaL8Nrk5Rvtv7+8UQZaR3t7F90BPQXXKxIdWQLovVT0sNCP7SOvdeHgf8Gm/XIURRUubLnwYocv/WjliaN0nJWFR1mkV9v6F+W+KbFK6HRzoWaq5U+d7ineSS1fvkNF2MLrBkEpQbUVejhPaJhLbTbN6T9fA9uyk5ZiH0UsAbFnEZIJXW1NltQMCFRb5oZHWUC7FkQNbT8cShJVfynaOLBpkrpyiXZPVhGfae3ZKIAJObdQ4sFw==
+ b=PhydPEVxMdh4Fw+ZAJuVqWuMwKzqGpwWWVnB1VadW7QwyaH47nQnPvMkPm5lOmeRbInw+H9wECJZ+RMSwOjEXDxxaqBJzJ30aqT2AGNbDr/W5yr5ky3+Ji2TLyuTr6IgWBBiFIv08NR4IOvJoyqH0skogy4vyQkFnfvnMzJp4B/wjWrCHSpZDEGRv4AnWbpOdd6fQ24LzOHiPe4C9AGf4YZxn9mipP6eLkAPV+bNymtsvNZvVpePfr7tN7iZIlc+R9IV9xixSHLb/Wy4JOJ/7M1AYGuIEkw/OXkgr4crFpqIMV2XLmXL8jNzYnXTVFBou14/BGaRGuWaDK67RJzroQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s50d2FpNjg/CXRY+uE6/XMS5x0AZMurDli89nEYMzpk=;
- b=JHntco2h8kdsCYXlOB7Mad/uMvghfAuKp7hvaOB8StcvZE3xapf73ary3iYpnaeI48pzNG2i5dS1ESlk9zAzbZvsKEEi4wkD+B2OANoOu9O2yGatmJo3Z/psVi9m5KnR/HvRd8HCPevAZnJ4rD1EOR43DK/oYppdToxg2fy+G3QopO2RkgG4LhEX7sSu5OfuAvHnxRQ7x9dl90z9EMySYZnVMYQmrhoU1r1dCvBLxjnjBzB6tiKWQFeyUgLB5WvcfsPwxMTfDrnbbQNIHFftL8hyuKtzdEB5/6d4FFu4BHMHD4h2OSIP26fzdY9U6CU6DFcgLXl2+zAYTLY60HojrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=dDsZxQBYDie8xyGzKA8vVwUQepY7rfQQ+pfI+3JvFd8=;
+ b=LFtYDnoDCg+8El1LhePbS1TrNMZJK65zb2KfEB0vgmPHpjfEdmBHWbp5dR2wPIYKDy/RYgY0r3eNpczekfoj9N8ATMpeQ3onF8E3C/dsJtU44qBVa4B5iT86hHtKtMGwsJGKkPFc1zxvJeOpWSENmoz6L1qvOwrthT870/c6lFgjoGS5SQXdkUCjrE8jiZ5wnrVie2FQs2FSntW+WGE3IsqaXSpcRcqpNshuI/hG/xRhxQ3Vm5IvkQyvRNzH7sZ0wwp9SW6eEgrmMJJ/EPFk8MWVKxlbG7VzBGJWVwrijsxD1WccbYGLHDCKs9L6xrUoaKt9LG84zk7Zwn3uiYFdGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s50d2FpNjg/CXRY+uE6/XMS5x0AZMurDli89nEYMzpk=;
- b=OVys9FCQOtPetQIDn5PXLI8QMhU7EIU1x1suKg7vFbBtHEubYuul3yjH9plNn2IpnsD2oX4xDmgqa23O2iMfLyWji/VvrLxRxJA0ImhIHKXfJWFfZlNSciscjplxEbJ/u0yhYO3F5NOEwcSyeyVLcJDguhiz72J/fREldndyLGk=
-Received: from BN9PR03CA0660.namprd03.prod.outlook.com (2603:10b6:408:13b::35)
- by CH2PR12MB4310.namprd12.prod.outlook.com (2603:10b6:610:a9::15)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=dDsZxQBYDie8xyGzKA8vVwUQepY7rfQQ+pfI+3JvFd8=;
+ b=PMg4KOwHWfEDNoGoprJMdef32KKqBBBG7cVbUzVNb43yR7MDZSJt/EgyxLR9FNZ7qxWz+ztYF5JUqzssfM3yJ3EkfcIDwj5Ic1j9TcZs3ApcC4jcB1Y6Cqwt+45SMVNjl/+0QqltAoG71MkVnHm1SvFtif5o1LJnS35nsuu1MWo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB8068.namprd12.prod.outlook.com (2603:10b6:930:75::6) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 12:02:45 +0000
-Received: from BN7PEPF000000A5.namprd05.prod.outlook.com
- (2603:10b6:408:13b:cafe::73) by BN9PR03CA0660.outlook.office365.com
- (2603:10b6:408:13b::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Tue,
- 29 Sep 2026 12:02:45 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF000000A5.mail.protection.outlook.com (10.167.245.229) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 12:02:44 +0000
-Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 07:02:42 -0500
-From: Xiang Liu <xiang.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Stanley.Yang@amd.com>,
- <YiPeng.Chai@amd.com>, Xiang Liu <xiang.liu@amd.com>
-Subject: [PATCH 3/3] drm/amd/ras: init reserved vram size before RAS core sw
- init
-Date: Tue, 29 Sep 2026 20:02:16 +0800
-Message-ID: <20260929120216.1230237-3-xiang.liu@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260929120216.1230237-1-xiang.liu@amd.com>
-References: <20260929120216.1230237-1-xiang.liu@amd.com>
+ 2026 12:04:08 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 12:04:07 +0000
+Message-ID: <fb63b082-0430-4711-b68e-d2eac63db26c@amd.com>
+Date: Tue, 29 Sep 2026 14:04:03 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 9/9] drm/amdgpu: use spm_vmid for the default RLC SPM
+ VMID
+To: Sunil Khatri <sunil.khatri@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Zhu James <James.Zhu@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, Ma Bing <Bing.Ma@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20260928185756.2382322-1-sunil.khatri@amd.com>
+ <20260928185756.2382322-9-sunil.khatri@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260928185756.2382322-9-sunil.khatri@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0047.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:92::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A5:EE_|CH2PR12MB4310:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4232c341-c190-4156-e434-08df1e219243
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8068:EE_
+X-MS-Office365-Filtering-Correlation-Id: a84f36ac-7c40-4881-2df5-08df1e21c3c5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|56012099006|3023799007|6133799003|10067099003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: iT2fqehA0/dfC+KVHRM28+VCmwFdtiY+PsTSMM61k6E+z51cdH/5kKhBqBjSe9y+4gJBurCxD36sThYkvZIokekf8L9BviX/RZD1zNzK4VlRYwaPpuaTonxLrKBzBZ1QBVweMDY2EWh1Y8k5qsWRIAksPQsg1ZaSODi9cftl6DvpoZ5+aTmAeu7KHrKSvQZDSAeL/Ua2WMLb0TgB9kyzMcU4g92yffdWI+SRR5hp7z4JqEsJ3q5faVfp5gf4/kCvwb90QFAcXoMlH+WrL4lGanLflSJycMqHVpoNo5eyuv+aPuzD4OLMV04y0FUk7IVxa16NqQ/v6cJYfI3m1PI2F0IhCy2rOfH+C2m5rC58Q/OtpKIKZw9N+QyNyQ7a6Q50ePvSYMRySBE+r2H70dgEAPUp4t+fjs/+lDDQFglERBq8a3AO7ajJM1UJJ1Kyg/SQoQbY7cMvEMoxaPIsD6IO79TmU/rhVaG6b9R21On2hW2bsGFtVqVIkmWALN/WgLepPiH6b7BrZpHRvlizYeSOYN+RCloNl2jxrVkUFIuAw1TNiFLMjFs8CAYy4imB7SaLqPVpnEKYT5xlyhCQrK6eW2OWhrEbE9lRKHdwJgQBoqxLCKBm6WmM2B0WryTnKjHz1vdEaJmh3dB7AUn0aCKscO5/oxs/FUh/2UmpXn/mnt3luH8XOvY+PpG50QHs8uBkI9bm4/uIMM9rW+a0hDQ65Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(56012099006)(3023799007)(6133799003)(10067099003)(11063799006)(18002099003)(22082099003);
+ ARA:13230040|376014|366016|1800799024|23010399003|56012099006|10067099003|11063799006|18002099003|4143699003|22082099003;
+X-Microsoft-Antispam-Message-Info: 6hpzr+HAjiGKumsMLdUqEWXZzia/T+kiogqIfR41nVNpXFPQ47h8EgDusCo8+lECAlD7qn6yNMlaqIbSvfdyWGSpkrmgh5eqdn2M6OqI2tYgeXGJU7NYyqJNEeJ/pRCuThvD8QQrIaf0M1NfDJunDKpNXN4I+Tyg0yA531GFRLKY+9+S34yk6i0Y8bPRWh0YlJOr4N1H+b9cfJZPd/fAjOj1LMlRLkdz0oFOifZfgPIUTfVZQct/nY4SoxHpvm+/KZSWhonaL4NA47W6u7YhJxS32QOwaMnPbwUdT/wfo7Ekd0fqZ93vC4ncvm4SZ+BuS2WqF3r1Yf3XRqKQv6YVmdpmgNGNSXaRwG2Y8Kcy1JDQmrzWE3+pqrj7CDzY28auUNftSMxdc9s2n3LqNqksfLjqdEMH/3kPhsDzsrI+zHGkF0nwbqT/cbXlDaMciOxgWZY4LZ1fSbg1zD+1nCjREvrmnaNxs7xysIAaqSjAocxvCyz7S5gP9UD+OxZUm2+bPV1GJ/ncBAMUbkCpvqNwWbY2AaWlOLj3kGZUbYAbOPaJbhYR0V0ZlMsQxxu9x6guGVZHwtT6iUN81Jw+zFp4RwCO5Qul28O7SuSwp2EO0PN7jZEnKKbXJTeENlRenS7/o/TRZY95BnPojemM7Th9DZgeINMBpXmfn0WugdBeWJg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(10067099003)(11063799006)(18002099003)(4143699003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: o8Jng1YeTAtn0fOICnyctbWHZGUpjc/ninTx4s+cTrptP9TbM29ozKp0YVqp1pzyhpe4pBCK36/+raZKzwYIEFytLHgMrc/SKEiq9K+uMGMxyvWaDNAjaXcYtVEJh8D3M2AE46LfUQJJn9MBPxwgUgv0SKBURehnxrjrhTBVQpncBgPghjBO+DQZmHFaCbpNhZK2j9D4w6PNMq8I3TdWxWxoE/tAMVeUkTr12Ktynx9PM4mThdXufX7zuVOVH1rs9F1Z2dZYrUc6ikZYky1YH4KIHwJmW2EnX+x3KpYW5hKBknSBucOdD+HB7my2dEl/WdS1FoyBrfrV4h2CZ4EId3KRu8naI4Np9cekC1kd8E1qeNIxFOwMS/C3Wkz3tbfKPgl/F4m4RivG84rHlzjfV4UCLTzFToscWYEjHbGwo+d3XGuOK30vSGaNmKYKYNVA
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2xvcktxMi9WemZVcmhFdlRyaHpGUklyYlNHUEd1Q1lQUlVZV0ZDY2Y5Qklp?=
+ =?utf-8?B?NGxmdU9jMVNUZm56eXFGK0hoaEQ0UjEwd3lxUlorL0dDd2ZMVGVhcEVEbGFw?=
+ =?utf-8?B?NjFmcEQ4TzlWNndFUDk1eWlVT05nQURXZUJRQVZlNmgyZlh6a05kS3pHei9x?=
+ =?utf-8?B?dTByOEQwUEFtRk1YaUorZU1nckNQenF5RlpETCtoa1Y5VURadnZkVlBDU3Bw?=
+ =?utf-8?B?NXdJZG1tVkRFMDJTQTh2a3JwUnMvNXlJMUdnd24zSDJKTDV6Y0tkcG5IQnp0?=
+ =?utf-8?B?QzBzSWhQaWV3dThMUTgrb0cyL1VMWlBvQW1UN29SLzNIam1WUXc2aFZsZ29J?=
+ =?utf-8?B?WXR4Z0xsdXpCK3I2SDJlY0UwL1Y0WEtmcytWMTZTSDNhSVhVOWZUb3VCeXpS?=
+ =?utf-8?B?c3BOQkh6NStINFFVengyQkh0UDZFbWJRNUQxeVF2dVV1WnZpRnpMVjRyTFpB?=
+ =?utf-8?B?Y2pXQ0g5RXE3c0RzRW5xU0c3RUZrc283bENZTUFYUVk5d1M1Y0VOVXVZV3ZY?=
+ =?utf-8?B?S0J1c29ORXd1Qnhab2dmVHRiK0dIZ1dKK3pTVmZ1dkV3aWhNVjM4RkdaWFdl?=
+ =?utf-8?B?R1hqY1VkMVJ6ZGNMY1Z0QUNGdDZqWG5UUEtFYkZSVXJrbVFOYVlnZlJDSFYw?=
+ =?utf-8?B?KzcxUU5vTnZuWjU4dUR4WDJ0Z0szK3JSTjhyNkR2V2NwekV6SUZ1dDMxOEZE?=
+ =?utf-8?B?UGtqZVBBNkVBVXhsL0NRYlczVHhveHJ6eTRGYUkzYXVpMjJiT2djakZPanVS?=
+ =?utf-8?B?dXQ1TVpYUUdISlN3VW5lcVc1WGVWMWpzOTYzbi9Jak1KTDZabW9kc2pEbncr?=
+ =?utf-8?B?MSszeXVpQkhRdWRzQ21TVjVGLy9BRmc2Nm04WmFWTy9QVjY5Mko2VVZjbnBw?=
+ =?utf-8?B?Y0wrMEw2VC9Fck1HM3ZuNVIyc0dEYjE0U3pSdjlBVHBaYitBT3ZiZFZSdmtv?=
+ =?utf-8?B?bXhaSG9Taks4NnJkWXNjb3NFVFB3akFLTGlNL250bmtpUmszSG95M2l6TGJk?=
+ =?utf-8?B?WXV6eEZ5MTZCSVlZTVhNYmVJenN0cXozbWNqRTh5U1NzdG53TWxQWXpTWUJs?=
+ =?utf-8?B?ajdCUXdmYW52ZFRCR01rR3lqenpYRkdEbjdGK1drSEZDRmYvczUyN2dNb1Iv?=
+ =?utf-8?B?ZTBNUkxWZE9DV2lBSVJodkRwaXA4bFplMWdWelF4K0VTTEo0N3M2WUIyeTlH?=
+ =?utf-8?B?VzFRVytRSTlHU21tMEFrVG9xVjBQb1VDNEJuUDVHR2lncXVrYnlQLzZqQy9J?=
+ =?utf-8?B?Y21WcmNYaTMvblBqNGx3bVBlVTNsZE1GQmQ5VHdCQlhDY2swcExCZy9lRFBZ?=
+ =?utf-8?B?WXAyTnhZQWx4UnFaMWp4TXRKZURJUTZrNW1QeW55WllkdmFFS0ZubEs1bk5m?=
+ =?utf-8?B?V1krVGk5dUNQUnFUN0g4bE1ZY2tsQWxGQTJDeHZ5Q1RieEsycmpoc3ZNTmNw?=
+ =?utf-8?B?QllhWnpteXAzT2NVU0tBMGhCRXlKOGszL1lnU2JLTytxbW9EMVdORlllU1Rp?=
+ =?utf-8?B?QUtTVzg1bUVKOXQyRzFtbzlnR2ZBNTNIb0JnQUNtSXlFNzg0Z2xmaElaWDdt?=
+ =?utf-8?B?N1QweS9ubVFCbXJzd1gyTjNKV3FNVGp5T3hSVkRQb1JvaDlua2t1Y1BDVzZB?=
+ =?utf-8?B?NCtoZmQrV0dWbkpBdTBNYzNxUTBkd1BYRk5DMm0xZi9uRnZKMGo2WjV1eEQw?=
+ =?utf-8?B?VjJJSEF4TzFtU1RMWGFUOG5KRE9xUUhIYkl5ak90WHBRanhuM1QrMFFzSEZp?=
+ =?utf-8?B?WnVFc2l4aUJSNVBSR0pNeW1QS09wTUtWb1BNTlNHM0Q5amp5WU9CK1hkZmNC?=
+ =?utf-8?B?Um1CeTk2TTBJcDNVdHJiRHhWbGZSR0puRFdDdnBBdk5DMWk1Umt2Q1lKbytD?=
+ =?utf-8?B?d3dJbWJscXdLcE1PZ0RQSURGdmVya2R4RUtLY2tsMDNTNmtqMk40TzVwcWo2?=
+ =?utf-8?B?QmpnWDJRTnhYV0lQYmpraUE5OUIrM2dCOGowaUU5UlM2YU10SG9kcDdiMDhj?=
+ =?utf-8?B?NTl1T0lHS00rK1Z2UXJLZGdneUttTXREblo1T3Z4eDBNS1FRaGtiV1JEZFRN?=
+ =?utf-8?B?ZDhGZlkrNWNLTzU1RWZ0WmdrQ1VDbkYrZ2xQZG03Tzd4QVdoWmhTOVNtMmIv?=
+ =?utf-8?B?U2lzYlVqbzI0T2paSVpDQkwzRmNuVE5QT2N2c2F6bW80bUwwdjdjUHZhd2hQ?=
+ =?utf-8?B?M0JOVnFsdlgrV2cxV21MY0hUL1cwdGZZVlFsTy9iaWxWNXNFcXNtaS9WOEdN?=
+ =?utf-8?B?dXlFWndhRnp2N2NJY3AweDJIUzNDeHBGMC8yeTV6Z3ZDL2lrTkdhbEw2TC9k?=
+ =?utf-8?Q?FWiTy59Fxm8Aa+QAAs?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 12:02:44.6150 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4232c341-c190-4156-e434-08df1e219243
+X-MS-Exchange-CrossTenant-Network-Message-Id: a84f36ac-7c40-4881-2df5-08df1e21c3c5
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 12:04:07.8784 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF000000A5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4310
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yqaZ5TkYe7mid/lOcluu3rRbAa7RsCDtLJyGz7un7MZefqRVlf3pDbWng9I30xvo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8068
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,43 +138,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The RAS core derives the bad page threshold from
-con->reserved_pages_in_bytes when amdgpu_ras_mgr_sw_init() builds the
-EEPROM configuration. That field is still zero at this point, so the
-threshold falls back to the 16MB default and ends up at 128 pages on
-ASICs that reserve 32MB.
+On 9/28/26 20:57, Sunil Khatri wrote:
+> The RLC bring-up paths programmed the RLC_SPM_VMID field to a hardcoded
+> 0xf as the idle default. Now that the dedicated SPM VMID is tracked in
+> vm_manager.spm_vmid, use it directly so the idle default matches the
+> VMID the reservation path hands out.
+> 
+> No functional change: spm_vmid is the top VMID (0xf) on all affected
+> generations (gfx7 through gfx12).
 
-Set the reserved vram size before RAS core sw init so the threshold is
-computed from the per-ASIC value.
+You also need to remove all the calls to adev->gfx.rlc.funcs->update_spm_vmid from amdgpu_vm_flush() and amdgpu_ib_schedule().
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index becad704113c..0d39b1872b4c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3628,6 +3628,9 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 
- 	amdgpu_ras_check_supported(adev);
- 
-+	/* The RAS core derives the bad page threshold from this value. */
-+	amdgpu_ras_init_reserved_vram_size(adev);
-+
- 	param.ras_feature_enable = amdgpu_ras_enable;
- 	param.ras_feature_mask = amdgpu_ras_mask;
- 	param.ras_bad_page_threshold = amdgpu_bad_page_threshold;
-@@ -3725,8 +3728,6 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 	/* Get RAS schema for particular SOC */
- 	con->schema = amdgpu_get_ras_schema(adev);
- 
--	amdgpu_ras_init_reserved_vram_size(adev);
--
- 	if (amdgpu_ras_fs_init(adev)) {
- 		r = -EINVAL;
- 		goto release_con;
--- 
-2.34.1
+> 
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 4 ++--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c  | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 2 +-
+>  8 files changed, 9 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 33403e16df5ca..88f9f0b0bf524 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -5583,7 +5583,7 @@ static int gfx_v10_0_rlc_resume(struct amdgpu_device *adev)
+>  
+>  		gfx_v10_0_init_csb(adev);
+>  
+> -		gfx_v10_0_update_spm_vmid_internal(adev, 0xf);
+> +		gfx_v10_0_update_spm_vmid_internal(adev, adev->vm_manager.spm_vmid);
+>  
+>  		if (!amdgpu_sriov_vf(adev)) /* enable RLC SRM */
+>  			gfx_v10_0_rlc_enable_srm(adev);
+> @@ -5615,7 +5615,7 @@ static int gfx_v10_0_rlc_resume(struct amdgpu_device *adev)
+>  
+>  		gfx_v10_0_init_csb(adev);
+>  
+> -		gfx_v10_0_update_spm_vmid_internal(adev, 0xf);
+> +		gfx_v10_0_update_spm_vmid_internal(adev, adev->vm_manager.spm_vmid);
+>  
+>  		adev->gfx.rlc.funcs->start(adev);
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 7bfc8cbdcad85..036d1b7ade4e6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -944,7 +944,7 @@ static int gfx_v11_0_rlc_init(struct amdgpu_device *adev)
+>  
+>  	/* init spm vmid with 0xf */
+>  	if (adev->gfx.rlc.funcs->update_spm_vmid)
+> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
+> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> index b75512e7b1db6..4caa43ff50a1b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -773,7 +773,7 @@ static int gfx_v12_0_rlc_init(struct amdgpu_device *adev)
+>  
+>  	/* init spm vmid with 0xf */
+>  	if (adev->gfx.rlc.funcs->update_spm_vmid)
+> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
+> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> index 91764f2e5ad01..a3d72cbaa6cf1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> @@ -1848,7 +1848,7 @@ static int gfx_v12_1_xcc_rlc_resume(struct amdgpu_device *adev,
+>  	int r;
+>  
+>  	/* init spm vmid with 0xf */
+> -	gfx_v12_1_update_spm_vmid(adev, xcc_id, NULL, 0xf);
+> +	gfx_v12_1_update_spm_vmid(adev, xcc_id, NULL, adev->vm_manager.spm_vmid);
+>  
+>  	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+>  		gfx_v12_1_xcc_init_csb(adev, xcc_id);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> index 549d1239e326b..04ee7e1725a94 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> @@ -3252,7 +3252,7 @@ static int gfx_v7_0_rlc_init(struct amdgpu_device *adev)
+>  
+>  	/* init spm vmid with 0xf */
+>  	if (adev->gfx.rlc.funcs->update_spm_vmid)
+> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
+> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index ab4123ddbb942..61ba71b57b8e2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -1274,7 +1274,7 @@ static int gfx_v8_0_rlc_init(struct amdgpu_device *adev)
+>  
+>  	/* init spm vmid with 0xf */
+>  	if (adev->gfx.rlc.funcs->update_spm_vmid)
+> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
+> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 1678015ce5a97..4862d17a58237 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -3240,7 +3240,7 @@ static int gfx_v9_0_rlc_resume(struct amdgpu_device *adev)
+>  		break;
+>  	}
+>  
+> -	gfx_v9_0_update_spm_vmid_internal(adev, 0xf);
+> +	gfx_v9_0_update_spm_vmid_internal(adev, adev->vm_manager.spm_vmid);
+>  
+>  	adev->gfx.rlc.funcs->start(adev);
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> index 01ed1701c781a..add8099cf8e05 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -1395,7 +1395,7 @@ static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)
+>  {
+>  	/* init spm vmid with 0xf */
+>  	if (adev->gfx.rlc.funcs->update_spm_vmid)
+> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
+> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
+>  
+>  	return 0;
+>  }
 
