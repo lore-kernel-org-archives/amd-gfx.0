@@ -4,54 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93BADCA5FA7
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1982CA5FA1
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2681110ED7B;
-	Tue, 29 Sep 2026 08:23:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8BA10ED82;
+	Tue, 29 Sep 2026 08:23:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="vksL4Kmk";
+	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="LQQ9WNnN";
 	dkim-atps=neutral
-X-Greylist: delayed 2450 seconds by postgrey-1.36 at gabe;
- Mon, 28 Sep 2026 18:07:04 UTC
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA6D10E95E
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 18:07:04 +0000 (UTC)
-Received: from [192.168.10.153] (p865013-ipoe.ipoe.ocn.ne.jp [153.242.222.12])
- (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68SHPi5M004380
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Tue, 29 Sep 2026 02:25:44 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=rvIrxGw3Y3qe2djohG1u2oQ0KR6/RuYYbn73hE+XyXI=; 
- c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
- h=From:Message-ID:To:Subject:Date;
- s=rs20250326; t=1790616344; v=1;
- b=vksL4Kmk3TJCH7made6gj3jSvb3jdJENbOR5pWR+szdAzcEDQaLPXHjNm6rJaA0K
- HtfOEQYrCXaAPV2TdcOHQooJxvX8xUV0MKAS/Rz+KZ+Yel/5oV9QwUcRZRzPMsHx
- cpuVJLKYh89tOUAE6SFHEFqFS72TQY5RNaX/elb5rsWMKYrZBfJmJtBwMUgTmWkq
- Hj2dEBHD08Ar5Md0q++qsPOyfYRJzQBCSG0AMmGhFBpc14VnRKsVZbCbiAc30y0p
- NhD+64BLr1gStTdBXBVAKu8/GdKtK8RrMMy/uxwbXZKrn6dk0wKTOdzzJVPsWYTb
- KYrEuqkrhchwURlMmW0mow==
-Message-ID: <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
-Date: Tue, 29 Sep 2026 02:25:43 +0900
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com
+ [74.125.229.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D80110E8EC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 03:12:14 +0000 (UTC)
+Received: by mail-dy2-f41.google.com with SMTP id
+ 5a478bee46e88-34b7a0e1ee0so42992eec.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Sep 2026 20:12:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=trailofbits.com; s=google; t=1790651533; x=1791256333;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=tYBLb2quugyRTAsa7b71SM3DW5Wwgo3gafQib73WBzk=;
+ b=LQQ9WNnNZiFbr0NlWb62sqagmpgMm/Q/vSH9zKjSGDxsx2Fv45QsQMudINfUuIn5zL
+ 0PZI/vxjFbl3N0YjiKRAU+IRlIgmrljWXOri8HOS8He1AGvysCfVkGMHZk/zzYwojKC8
+ n35ANyuDT06MFk1clTLcasr6Q/7QZR5wjZLw8oYV5LvB1BtImTxSxseca7nRtMeANXOz
+ l/+Bd7Vtt2bEumvCM8X57J7B8rCqdAw0ILl4fImrAfqUUh+IaVLbvrrJhYeKS82rrIny
+ 01Vc8OHrKh+tgJzs8QELH8EG5qFUxoB1Wj8xwoiI7uXxjVGQ6JhSfHj14/jfV4lHUXke
+ NEeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790651533; x=1791256333;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=tYBLb2quugyRTAsa7b71SM3DW5Wwgo3gafQib73WBzk=;
+ b=RFKZmKZMejpKEgAfkVDaUs2sgzK+ut8lOIvTnL52FKXFvg3GwQM8go8jVxiOCDTX4q
+ a2CAW+awmtkKzKSdNwGTWjYx6eK0Pmp8Hdq6ThigDki8NkuZXhWGLWQBNkHw08ThEhLe
+ oEiwK9e8h81IcSYZFOlx68DLIYIGMGEgHjOg+f9jv7nhy1knppDErQAGEgGrfrJRGZ0w
+ bTey/yiEoaIJ27IHqfVkhunIJBfGowR0qWEzuC+FLaqoc4n7PfylmjPEL7nWunk3Jbtl
+ wa07DZaN60EbWi7rEZ6SaECmc8nPrWLoEqAsMgOQBTQIOPN7MB2a+ebGN4EAePIK2TpC
+ jKIg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwGkoaECBU26M/+R+Hp8ABiC+w0bozyefU3W33Wi1RUOZTWrKMb/QwxuaC/+XsFF9QDem/e3i9L@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIoQlaz42kqklzL+nYtyc9V0EwLOo0nZXb9sOnti8IX8W38FYKY
+ I0S4+hV6Af/qW1/q6aT/txJ4IBEJFLEPYPvZQW6HVs/j9KtsTQUVnm+NwFAraukD80s=
+X-Gm-Gg: AYBFou0D0pt+GYypDRyy0QCz0fF0Z+16gG+pvvB1+rLTP2U6Sua42jOAKUmUurK6ALn
+ 1dTV8V+0m4LJGSBLQ/cV5etyo4cwcSmBpnPCEO/0gn60LiEQKVae8KBDT24aPZ8dkpe961tnm8s
+ gjQuomPN7m3UdfYqnyqep0ym+nq0A56Xk+3xJK5K7Jze9B5FWZ7uvR+QXdMMfbJL6IeMiUiOG0M
+ YXfHqojFGEjIoFQb30r9KeUWdwFJoIuQJme1eyj7kFsOJHmF00E/JORIVCihDQTNjNzdspZ7EMB
+ aL3UpwGzCcCnP4fzSv6QpGq0ihJ0iTPrROFoGJplDttqo04I2iNBq13EaLSWpkXVb+VZPojMg9s
+ ER9saTbxYZUqvvjktabkNs/GyDZIWKmYO5enh8EcDM4NPTVcSrJn8IjAZvU0oRNKoakrNXELt7+
+ cIzSKLlYzx1sTPlFWYiXIi/xA83iFfcrj7ErYpOl8LqqCu1CGzHCpFwVgbE82IEGMmmuhWcw0gS
+ zy/WMa5JU2CT5jLuJCSthdokQifzRmIvpw1nUmAUCzEsGvDBKCW0VJxwy1BGPXosmN/Gs7mF4Ll
+ a41XCw==
+X-Received: by 2002:a05:693c:65d1:b0:34a:e4f6:4a5e with SMTP id
+ 5a478bee46e88-34ae505937fmr2051657eec.24.1790651533232; 
+ Mon, 28 Sep 2026 20:12:13 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-343580930e2sm22425259eec.16.2026.09.28.20.12.11
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 28 Sep 2026 20:12:12 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, Alex Hung <alex.hung@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <xinhui.pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Simona Vetter <simona@ffwll.ch>, Rodrigo Siqueira <siqueira@igalia.com>
+Subject: [PATCH 6.6.y] drm/amd/display: Ensure array index tg_inst won't be -1
+Date: Mon, 28 Sep 2026 23:12:06 -0400
+Message-ID: <20260929031209.87164-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: "Huang, Honglei" <honghuan@amd.com>, dmitry.osipenko@collabora.com,
- airlied@redhat.com, kraxel@redhat.com
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
- <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
- <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 29 Sep 2026 08:23:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,181 +101,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026/09/29 1:22, Huang, Honglei wrote:
-> 
-> 
-> On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
->> On 2026/09/24 18:55, Honglei Huang wrote:
->>> Add userptr blob objects so the guest kernel can pin an existing
->>> userspace mapping and advertise it as CREATE_BLOB backing entries.
->>>
->>> - New virtio_gpu_object_userptr type for userptr resources
->>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
->>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
->>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
->>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
->>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
->>> - Mark writable pages dirty when unpinning
->>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
->>>    cleanup_object() on the unref response or on create failure
->>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
->>> - Reject unaligned or overflowing userptr ranges at create time
->>> - Disallow PRIME export of userptr objects
->>> - Save CREATE_BLOB params and restore userptr resources after
->>>    hibernation without using the shmem restore path
->>>
->>> The hibernation restore path maps with the same attrs and direction
->>> used at create time, as documented next to the call. Like shmem
->>> blobs, the DMA API can still bounce through a buffer there. This
->>> design only avoids a second guest side shmem allocation and memcpy,
->>> nothing more.
->>
->> I don't see the restore path is documented though this says 
->> "documented next to the call".
-> 
-> Will fix in next version
-> 
->>
->>>
-> ...
->>> +        goto err_cleanup;
->>> +    }
->>> +
->>> +    userptr->sgt = sgt;
->>> +
->>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
->>> +        enum dma_data_direction dir =
->>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
->>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
->>> +
->>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
->>> +                      dir, 0);
->>
->> I checked the ROCm code and documentation, and I do not see how this 
->> mapping satisfies the HIP coherence contract when bounce buffers or 
->> explicit DMA cache maintenance are required.
->>
->> HIP distinguishes two coherence models:
->>
->>  > Coarse-grained coherence: The memory is considered up-to-date only
->>  > after synchronization performed using hipDeviceSynchronize(),
->>  > hipStreamSynchronize(), or any blocking operation that acts on the
->>  > null stream such as hipMemcpy(). To avoid the cache from being
->>  > accessed by a part of the system while simultaneously being written by
->>  > another, the memory is made visible only after the caches have been
->>  > flushed.
->>  >
->>  > Fine-grained coherence: The memory is coherent even while being
->>  > modified by a part of the system. Fine-grained coherence ensures that
->>  > up-to-date data is visible to others regardless of kernel boundaries.
->>  > This can be useful if both host and device operate on the same data.
->>
->> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
->> hip_runtime_api/memory_management/coherence_control.html
->>
->> Fine-grained access requires coherence throughout execution; copying
->> between the original pages and a bounce buffer only at kernel boundaries
->> would not suffice. Coarse-grained access could support such copies, but
->> they must occur at the required synchronization points. I found no code
->> that synchronizes this DMA mapping at those points.
->>
-> 
-> Whether dma_map_sgtable() bounces is decided by the platform's IOMMU/ 
-> SWIOTLB behind the device, not by we request. attrs=0 here just matches 
-> the existing shmem blob path, and is exactly what native (non- 
-> virtualized) ROCm's own userptr support does too:
-> 
-> // drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
-> kfd_mem_dmamap_userptr()
-> ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
-> 
-> And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
-> property, it is a GPU VM/cache thing. In upstream KFD it's implemented 
-> as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the SNOOPED bit), 
-> set by whichever driver programs the real GPU's page tables for this 
-> memory:
-> 
-> // drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
-> mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
-> pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
-> 
-> I really want to disable the bounce buffers in DMA, but it is a platform 
-> behaviour, can not disable it in this layer. And in XEN, the dmapping 
-> for it is another form of iovector/simple sgtable. And if use the 
-> virtio-iommu or somthing else, the efficiency and the complexity of 
-> driver integration are both lower than using iovector/sgtable directly.
-> And for how to handle the DMA thing for userptr, since we have so many 
-> concern about it, maybe we can drop this part in next version. But we 
-> may have the AI review warn/error.
+From: Alex Hung <alex.hung@amd.com>
 
-Documentation/core-api/dma-attributes.rst says:
+[ Upstream commit 687fe329f18ab0ab0496b20ed2cb003d4879d931 ]
 
- > DMA_ATTR_REQUIRE_COHERENT
- > -------------------------
- >
- > DMA mapping requests with the DMA_ATTR_REQUIRE_COHERENT fail on any
- > system where SWIOTLB or cache management is required. This should only
- > be used to support uAPI designs that require continuous HW DMA
- > coherence with userspace processes, for example RDMA and DRM. At a
- > minimum the memory being mapped must be userspace memory from
- > pin_user_pages() or similar.
- >
- > Drivers should consider using dma_mmap_pages() instead of this
- > interface when building their uAPIs, when possible.
- >
- > It must never be used in an in-kernel driver that only works with
- > kernel memory.
+[WHY & HOW]
+tg_inst will be a negative if timing_generator_count equals 0, which
+should be checked before used.
 
-This is exactly our use case. Although the platform decides whether a
-mapping requires bouncing or cache maintenance, 
-DMA_ATTR_REQUIRE_COHERENT lets the driver reject mappings that cannot 
-meet this requirement.
+This fixes 2 OVERRUN issues reported by Coverity.
 
-The shmem path serves a different use case, but amdkfd is a relevant 
-comparison. HIP's coherence guarantees depend on both the GPU VM/cache 
-configuration and the DMA mapping established by the kernel driver. GPU 
-page table attributes alone cannot make a bounce buffer coherent with 
-the original userspace pages.
+[ Backport to 6.6.y: mapped the newer pipe index and helper to i in the
+  older acquire_first_free_pipe(). ]
 
-The amdkfd mapping you cited therefore warrants discussion with its
-developers as well. I have CCed the maintainer.
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Acked-by: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and drm amd maintainers,
 
-Regards,
-Akihiko Odaki
+I am working through the small CVE backports still missing from 6.6.y.
+This one addresses CVE-2024-46730. It adds upstream's zero-count guard
+before the fallback timing-generator index is computed.
 
-> 
-> Regards,
-> Honglei
-> 
->> Regards,
->> Akihiko Odaki
->>
->>> +        if (ret)
->>> +            goto err_cleanup;
->>> +
->>> +        userptr->dma_dir = dir;
->>> +        userptr->dma_mapped = true;
->>> +    }
->>> +
->>> +    ret = virtio_gpu_userptr_get_entries(vgdev, userptr, &ents, 
->>> &nents);
->>> +    if (ret)
->>> +        goto err_cleanup;
->>> +
->>> +    virtio_gpu_cmd_resource_create_blob(vgdev, &userptr->base, 
->>> params, ents,
->>> +                        nents);
->>> +
->>> +    userptr->base.params = *params;
->>> +    virtio_gpu_add_object_to_restore_list(vgdev, &userptr->base);
->>> +
->>> +    *bo_ptr = &userptr->base;
->>> +    return 0;
->>> +
->>> +err_cleanup:
->>> +    virtio_gpu_cleanup_object(&userptr->base);
->>> +    return ret;
->>> +}
->>
-> 
+The condition now avoids forming timing_generators[-1] if a zero-count pool
+reaches this helper. I did not find a successfully constructed in-tree
+resource pool with zero timing generators on this revision, so this is a
+defensive match to the upstream check rather than a reproduced fault.
 
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+This fix also affects 6.1.y, which will need a separate backport; this
+submission contains only the 6.6.y patch.
+The target-specific adjustment is recorded in the bracketed note above.
+
+Could you please queue it for 6.6.y?
+
+CVE: CVE-2024-46730
+Upstream: 687fe329f18ab0ab0496b20ed2cb003d4879d931
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
+
+Thanks,
+Artem Dinaburg
+
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 84474d5122284a..1f576b2a1960fd 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -2354,7 +2354,8 @@ static int acquire_first_free_pipe(
+ 				pipe_ctx->plane_res.mpcc_inst = pool->dpps[i]->inst;
+ 			pipe_ctx->pipe_idx = i;
+ 
+-			if (i >= pool->timing_generator_count) {
++			if (i >= pool->timing_generator_count &&
++			    pool->timing_generator_count != 0) {
+ 				int tg_inst = pool->timing_generator_count - 1;
+ 
+ 				pipe_ctx->stream_res.tg = pool->timing_generators[tg_inst];
+-- 
+2.39.5
