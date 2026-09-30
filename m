@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97A7DCA5FB1
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 07:08:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47FF4CA5FC1
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 07:12:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD4310F1F9;
-	Wed, 30 Sep 2026 07:08:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFE7810F1FD;
+	Wed, 30 Sep 2026 07:12:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k3AiYZ3v";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jEFRarPD";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012023.outbound.protection.outlook.com [40.107.209.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95D9710F1F2
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 07:08:23 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011015.outbound.protection.outlook.com [40.107.208.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 981A510F1FC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 07:12:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CAgpt8O2elcLxpSM42qbkrgUzd00QVZs0scyVPJ/kLzmYUeQXKxTHbQ8Ukw+fqiIfzh07mh1CJqSED6nZ0KXXkfSJmyEVXmKCAtVdthto3x85acJJiXRBq2UqXFGAA0zgQbxObxjuHSB70HVUGmB/2eLjAYZkOiP/f+CTnOf5t2a+l6a+oV778TM+ai+eoB35Jj9zhecC4WKVlzwzUzhV1ENGbv+1Fn9pCcfJz6zXooOG0dQZHjHYR80mWNpLoQUMCcHKYqqKVWAYV6VI4pKDsILIYmmD2nbW9INySZz9i4whyuoDbX0xPSPYFPtjI3r+0buHgumWlIIOGr7LYRVCQ==
+ b=q9ZPlvxwFAtQ42bmnn1Tf1fmuIGbW9oE+VRNos0fVXNWNvXk8+RTIlarC15k1u+bgePr35JWnwzofjneIKqpvpOQg+bx939f3WC0qZuXzzOWGDfhzoxEDdxeU0iTdZ26NY63hZt4uLomCtgBYk0P7xRI7bWvASyLE2KHUvt+j+IlV/SughH23vZVvSoWGjZx15vJgYbR/pgkt2MgkeCod8qZgW/s4obPvKhLKgS6AAkZz1nAIocOsPwWOTe+unKawvUH9sfC57aXLyrY6h0ZrRDnaD990uQ4VzXwkToMe0XER4m0IilWg4JFjSTtIOH2o8nupFToxYQa6WGbTla83A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QgqwMaX46RMh4Jp0wx11kwMVYDWE8kOHHYlK9ldKCGI=;
- b=VR42cfO+Rg6ov6W1gGwuYCSOfZ+ktFEBEliV6Y6Nx5/J1tC85v/h0oNXjtvOLysh2Mnnv4LohQFFkJ6qDwr/NWEwMLuOGxSJtX5DiugeN10h1E4Y7WlGmiNm0eue3gZv/j7N+plmxTbTO/WHCZ//vdrEzgE0zMH+lD9Iep5E8F7rgbWbf/1jZGvti7IaHKzfLqIZOvOe03AdB9KzuRdtZzGdyaLqEVMOZjSaPfKAB/IwyGLMEA5J/EV1q0L2tG0EpO8qPLdH/5VSRCY837Ol2UdHu/RLzuTL09EmVU7ZE5x38oIpxzVwvijU27NQfQx12hR8fNkRuXysNWpvQUgM0A==
+ bh=2ZsOBaxA7tAW31bRdRxku4wUA0V+ExO4dBTkjiuddvw=;
+ b=mi4vX+OsDnNqHbb5zAmDDlWasV+DJ22YNdA6HZEjdDKHVHmMlXa+UbU7slCMgryAXcFSXlwj4/H7fwLUHqiNweAhlDRi6rhRBWYAH98r28uGE8dRBH3u7T8AmH0xaRJ5cxp/at3TscKMzyOYoaXtGvCsF+YDTt9hf1jO3ovvRhxIlPNmuQfWVIYn/G0NsFUpB3hFWZ9y4yMXO+FCqv/8p1XLwrVOLbWeoy5Rp7rjha7mgQZJR/Y8L2lVCy0AI/+YKnaILm3KoIUaSAaiut45H8ZLODncFXLSuYn6SjSaRhegfdEF8VbApE9XOXIceY+oHLP+cMnl348Xax2VIx27Pw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QgqwMaX46RMh4Jp0wx11kwMVYDWE8kOHHYlK9ldKCGI=;
- b=k3AiYZ3vM3CyT78C/+wf5zOoTx1czy0WYlDHI3wBoSsh4jeKwcKRqI/CidEurFpm0pMrdHS0+EJvnkJ58ZZhhIzXZfH/fyITR2rilacXzzVwtAtsCCvhPhePy69WoJuM1/cPFd1+3to4CQq+kMv0hsnn1lorw5qG+prv1OQiPf0=
+ bh=2ZsOBaxA7tAW31bRdRxku4wUA0V+ExO4dBTkjiuddvw=;
+ b=jEFRarPDwMOz7c2KDquRDZbEuoL2lUGfG3oK3dIlXpoHZ6wq5uz8nWkwxFHsbPhbxb5ldNxh9e1yYRw4AMmI6TU3g4NExz2Fw796dW38W4vW8vuX86rk1NktKzt9+ISqdlyglPJ9fzCJtXPNazdcpukFT7Od4+0dPXwDdCPNJlU=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by SJ0PR12MB7457.namprd12.prod.outlook.com (2603:10b6:a03:48d::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 07:08:18 +0000
+ 2026 07:12:27 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 07:08:18 +0000
-Message-ID: <8254e124-be8e-4666-afc1-edc2a83e5886@amd.com>
-Date: Wed, 30 Sep 2026 09:08:15 +0200
+ 07:12:20 +0000
+Message-ID: <0b83688d-d517-457e-b9f1-c62baa5d9087@amd.com>
+Date: Wed, 30 Sep 2026 09:12:17 +0200
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset on
  gfx12
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>,
+To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "Lazar, Lijo"
+ <Lijo.Lazar@amd.com>, "Wang, Kevin" <Kevin.Wang@amd.com>,
  "Deucher, Alexander" <Alexander.Deucher@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Cc: "Yuan, Perry" <Perry.Yuan@amd.com>
@@ -55,76 +56,85 @@ References: <20260929022540.122318-1-yifan1.zhang@amd.com>
  <CY5PR12MB6369B765E89F17858A5AB4A8C18C2@CY5PR12MB6369.namprd12.prod.outlook.com>
  <BN9PR12MB5146D08AFE80E7E6EE34B614F78C2@BN9PR12MB5146.namprd12.prod.outlook.com>
  <CY5PR12MB63694BE5CF3FB172F837CCBFC18B2@CY5PR12MB6369.namprd12.prod.outlook.com>
+ <6b086b84-deed-47ec-ab7f-8cc016ab519d@amd.com>
+ <CY5PR12MB63696540D11FBBD268D9B7ECC18B2@CY5PR12MB6369.namprd12.prod.outlook.com>
+ <a2f8757d-1566-4b8e-a606-e363221db6a1@amd.com>
+ <CY5PR12MB63693EB274BB3A16097332AAC18B2@CY5PR12MB6369.namprd12.prod.outlook.com>
+ <fa59606b-0860-4aaa-b6ce-ac037f73eab4@amd.com>
+ <BN9PR12MB5211C24FDF238C2A748378DC938B2@BN9PR12MB5211.namprd12.prod.outlook.com>
+ <CY5PR12MB63693C7F0614B19DC5CD525FC18B2@CY5PR12MB6369.namprd12.prod.outlook.com>
+ <SA0PR12MB70915BCDD0BE98B2F8B54A0E978B2@SA0PR12MB7091.namprd12.prod.outlook.com>
+ <CY5PR12MB63692E6BAC9D9589354ED1B5C18B2@CY5PR12MB6369.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CY5PR12MB63694BE5CF3FB172F837CCBFC18B2@CY5PR12MB6369.namprd12.prod.outlook.com>
+In-Reply-To: <CY5PR12MB63692E6BAC9D9589354ED1B5C18B2@CY5PR12MB6369.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-X-ClientProxiedBy: FR4P281CA0410.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d0::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: FR4P281CA0031.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c7::15) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB7457:EE_
-X-MS-Office365-Filtering-Correlation-Id: a101d1e7-5e63-43aa-8e02-08df1ec19ae1
+X-MS-Office365-Filtering-Correlation-Id: c0c95ae3-32ba-4921-64b7-08df1ec22ae5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|23010399003|376014|366016|1800799024|18002099003|22082099003|11063799006|56012099006|10067099003|4143699003;
-X-Microsoft-Antispam-Message-Info: x/YPpJoi9OYMnnmiH0SMBJ6yBgKar25IC+wndpH2O9AZ3lwsfcQ3h9/Ub8zwkUnktERTIWqOT8wjSzLdQGUA2afpO3r5ssyZD+twppJc8Rw2f7+a3B0MYb7dOU5QJZ1Uwxy700wvtufbBY0ofJDZYBswkc3j4UYbjEGfsJqP3Qlt7eoqyKw2F/6Gjw42bOf/NEKP9elCDBlbGS5Z6WvN/eL7Jjvz+jcuE+yNSzFwEMkR97RfDgFYuYpZP5VNdLaNau0rji2iYNOvTEBYr86s6AAgtAVV325Oo687W+YHUdimQ3oqPbyYHYR4Vff2HYtGly6AXGo2mTGP99txKCKIfzjgHGGx5VZKbhguSsjMqXdSqLvSvK9oMoOxg36ezN3c6YH2rHuoC+iCiGh18CFzffKSQcWVGkG2yWFQffDc2bLTabJ3rhDNhMp7w53MnxysnHBuM67Q8mKDZaH7YK6LBN7UktmKAxv5POz8JkGTOdA3zhvHt18pXpducxaTu/r26179XdKzstxzoAtqkpgl4JZ/y4/Vstc3Cw9eozZWtDQ7qGeq+lSYABxmzqe/0Yqlb5KKAKpBrQ9m1Y0JKl/FlCiThtcfFM17gpP9CliWmANL1XCM+I+lYtiRnJm3zFCBvM/aiIYHHYaTZ1Rn6uUIxj1KiNhqRfotSoYcUlUC584=
+X-Microsoft-Antispam-Message-Info: UNAA+z3dA/xsbX4O8BhPysyhW0t/yz8Ich+p371mC09ifx0hUTUSS9/qDXskP8fY/OaNpldzgi13/Q2psbhPu8wDeVotOEoTFGEBNnzhWmt1xLnynYiWgG9/pUvx0hc6s8SRP9ezlAUcqZhvSlPJxO/yCliZyOMep++2nL6G+uQJRFcfT2Da6/zn2T5ZuAA0a7z0qj1FQq2oh7cddOnMMUhiU6aW8WhCmGCDLHJ1M9s0j46vqiujAk9l92SaD9Ze0nJ4mCWJpy2WQSfqTIajYzc6UqTmMAyaGDFOYEhvbe0BSJQPE281LRBv3z2YxfUL3pglPuQKJr861m9D9VCqVa7EcgxHgsHu4b2eFordN6xD0mz27Q0Ib+9lTCB46273BcWoG19nQClGzP0sNlTVkEPP5eU0rgycS7j//jF2OPGo5jDszb1gWwJimRsdsQx+RwCaUP9PfaVwlmgyf+9YoRzTOad5+1BLRt1/ESkZX+5r93U9V0GebWmwvoWuR/dkwPIuyIRab3iqNZrQUdLHQLCIMjbx1wK92tNgQ+VT2NTiEopDpUP146N+mYGrd/M67Dw6Kg1kQrsaPg8NRawhKjxhXDsqPi/Nvwf+lzdulOvUlmsmyIiAzXZm13TcYqtIRnnRb1pns4QFjy2ueUQjI9vzFi78DXfkfHNzgSdAbS4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDdRZXA5dVlTRnJYQ3Z4S2xqTUQ5cGRvQlJQNE1BeTVmNXFYNTJoeWc2dXZI?=
- =?utf-8?B?YnhtUU1qQWZ3bWFVb2Z4QlRjdURzS3BKNitIcU9NNnNBS1NqSVN4Ui9SeHlX?=
- =?utf-8?B?WFp6UlpidEFXazdzTkN5UGdjRzJlQXZFYjUvcUovMXIzUnhPaERtbUxuRm93?=
- =?utf-8?B?c0xMbEdJNHdGeFRjUnk5dzdsblk5UE5uUzhvaitPMTZhQU9YWm9KbkNWeGt1?=
- =?utf-8?B?N2tSZkRqTmlTdWhBb1RRS2VSaENRVTNVdDFtNHZlVFl6aTV3K0dtQWp5eGlF?=
- =?utf-8?B?TGl0THZZd2VyZUlaU0J0ek1Mb3hmNEhWYWhweDVGeUFsTWQ5UXZHekFYTnhF?=
- =?utf-8?B?LzBoK2RKdjhJVWlVNUFnWm9KWXgyKzJOaWV6VFBydXY5S1cweThqbkNMWUJP?=
- =?utf-8?B?R3UvQk14MGhoVXhNOE01SjAwMHFSN1dteWpSaENQa2RQT0N1NUErZHMwRnhX?=
- =?utf-8?B?RHhaY1hZT2l1WHJiMk1LT1dDclVLRko0ZHJNWTZuVFdYeFFncXh4Qm5FK3dT?=
- =?utf-8?B?RVVMMHJTajRHTWFkSjFoVUxCN3lJOVBWUFlVcDlTa3FIc2FvWmJUSk0vUUVn?=
- =?utf-8?B?SmpGcFI3d0lIMHVmcHpITnVSRm9Sb0tIU3U4TWxmKy9CeDNySnhPL1R3a0xI?=
- =?utf-8?B?ZTNwcjN0MUlQNDFZUHE5NHo0cjlkbkpPSzJoLzRvaFFtM2ZiVkVySE9ZQWlX?=
- =?utf-8?B?QnB1NkdRckpuK2NiRmZ3L1NBb0dwOGRJOHMwa1RjOGdkRGZkb3ZxU29XOHda?=
- =?utf-8?B?Q2lteTByOHZZYkZFSitSTE5YeTFWWDBjRkFoRC9qWjNFT2VLUk5tU1pNVGdK?=
- =?utf-8?B?Mm9aQzF4L3ZYZU9sMDlZTWw2TGxEakFmRWlMZ0lXZGg5OXdoYzBWbFBoL3Ry?=
- =?utf-8?B?Q04xaFI3Sk9YUGdGdEdnM3N2RFhpcmRBZkptQlphUjQ4VW1ndFRIU1g5QXBl?=
- =?utf-8?B?TTY2MW41eHVKc0wyM2liUlVudnN4dFA2MDdPUDdsdjZKaFZvQ3FHTjcwRHND?=
- =?utf-8?B?SWI4OUkzOHRsd1lGWkQxZXhQOGxCdjFqZ1IxS0tJQjllWUdnVWxzNHByclZX?=
- =?utf-8?B?Z3ZHV29telpTVDA4LzVjdVIxeDkyYkhTK0xYdkNvQktuM0gzSnhKbDNZMTBi?=
- =?utf-8?B?ZG1YYmc3MG0zOUZEbHZRQVBKditxWmhKUHRUSXhZZFpiNFV4cVd5Z1FkSkly?=
- =?utf-8?B?aEhZUHVrbEQ0dmxCbDNHdzFTUXRYQWRDU2lPWkUycVZWQ3Ayd2xSQXdoVlFC?=
- =?utf-8?B?SjFmTEtQdTk5MkVFaXhoNXRjT0hXOXFQcFM2WHRFUVZGc2pZU3BkdGVUdWo0?=
- =?utf-8?B?TmhvWmNjWDNCZ21PSk1OeHpnTEVUVkVqLzRScG01RUdyMGlHRWlWOUwrOHU4?=
- =?utf-8?B?d3dFRURGUEhqRHlYM2lScFVHNyt6RmU5R3AyeUszZHVrTG1OQU5DdExjU01M?=
- =?utf-8?B?bnhqZE1MN3JkOU9WTE96TE9waHRPWUtMS095b09OckkwT1ZyajllclRyWEZr?=
- =?utf-8?B?c0VRbC8wR2d4MmRWSzQvMWlkS2hiQVpMZHo5TVRESUg0clc0bWpqbTRqWFR3?=
- =?utf-8?B?VUp2SGNQS3gwaldXdFYyMmNuT3FKOXdkYXZjMDZ3NzdxeDdlL1NPMWJwUmRJ?=
- =?utf-8?B?YTdzejRpVWdXUGRGZlNLQ2FxQW9ib1M1QmZzY2dUQTlxc2dJR1hWclBjWG50?=
- =?utf-8?B?eXBsRlRWdkJNT0lEaTMrTm9tL1cvR1lBSDZEeG5DNTNFUzY0UUdsdmFoYTNE?=
- =?utf-8?B?dDBPU0tjc2I3Z3ZEdEYyTlljc2J6Q1lGZGJoczdHdVpsSnkyWE5zZDJIQ1Ju?=
- =?utf-8?B?NG1OY2hVeURDd0xndG1TYzZNTFVjemhBYThYTUVKU3N4THJOdzdGOGMzVXph?=
- =?utf-8?B?U1FDVTIyS0IzQlRQN1BEOE1OWHkwcGpSSHFER3VhS2hQRlJweGxRTGJPam5Y?=
- =?utf-8?B?L1lLSjhPdzRiYkJqVzJSYjlDVG1Oa0N2MVVHUm1nRXdJL3FQMnFUNkpEZjR6?=
- =?utf-8?B?SmhLUERqdUpETWltSWZzcFVyVzlLbFB1NVdPYVhrKzY1bXo1V29JVjlielgr?=
- =?utf-8?B?Y2g0ME10dFZwdWtyOFI0K0lKbUdOUnBMMzVrWWVYbDVIbC9pS0JMOU1qRTUy?=
- =?utf-8?B?YVBkRjFRMit6YkpTRFp4Ly9abnludmJ6d004dkxZMmxZUXAvdjJjK3V5YUEx?=
- =?utf-8?B?YTlocXhnMnoyR2JOTnZ4TWlYSEUvL3BOY2dDcDAwL0l1R0lHMk5wRTZUZjND?=
- =?utf-8?B?VzBHeEs4bnVlak9MUXJSUUJJWkRzSy9oVHpWRUJGOHovanZoSHpyb0Zmdksw?=
- =?utf-8?Q?F2Qht0AWd7cnqJb1I6?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UDM5RUxabGlXZzJTcXN2Wk04QkE1Vzd6dEVoVkladWNTWndwOVRjYlc1QUo3?=
+ =?utf-8?B?a2R4TUZxUk9oZTRJNVhjR2dTQXBLbjFkWGpoOUhObzBBKy83Z05VMklVbGha?=
+ =?utf-8?B?di9XTlc2MjIybWt6aW5ZU1RqVkczTTZvbFdaWlNuZW45d0RUYmNJZXpOUDQ5?=
+ =?utf-8?B?VGUvQkhlMzZNcTdwcE5PRDVHSGpIemtGaFRHNDdDbmkvV2gvUno4aC9oQWZy?=
+ =?utf-8?B?VWYxWW5KSDdIMENxR3Z4MG1tcUREK2hGZWQ5NG5ydEtZTEdlb1g4M3hpRzFz?=
+ =?utf-8?B?WFgwV2s5UERGU3g2S24yZnl3ZkdNekdPUGRNUTlQQVU3TGc3NFN4NmdUaXE5?=
+ =?utf-8?B?SC8xRnhqZmlFUXIzN2tkc2dRQTlzQ3pXWUlyNzVqaTZkeE9MeEhmdUZhQ3dB?=
+ =?utf-8?B?NVVmWWZONWM4bDdJT1REOWU2OEZtM0lQQWlVMUliMlp1UlRlc1BsRVVWUDVE?=
+ =?utf-8?B?aUZGdTQ3a3VGb0w4cjJyVkFOM0p3YXBTaHBYT1NmcXAzTlgreGNXVEx5TmFW?=
+ =?utf-8?B?SEZxbmNWOTRDL1N3b2NObkhaRVhMNnl6d3pRSDd1a0EzSkpEZ1NGekZhSzFm?=
+ =?utf-8?B?dFA3R0J1engwZng3MFJCQ3A4Z1J6bEM5RzlqbzRQNUJ3dHhKRmV3VWtjL2Ey?=
+ =?utf-8?B?T2F6YlkwcGF6UUpvVExBYVlueCtkYzluMWtPNXl0d2dEcXNYUkMrNVk4OWJP?=
+ =?utf-8?B?K3FCeWVvbXdrUmViZ3lDeWs5Q0RWZVVIZEVvWSs3WU9jTytZQ05YdFJqT0JG?=
+ =?utf-8?B?OTZ6ZHBoOWF4bXhYcFZNa0IrNG9RV1NXUEpxSjFFU3RwQ25hTFoxaVRHY3N6?=
+ =?utf-8?B?OEZxL1pNMnA4NG9GZ2JiaW9ycnFVYXk1eS9zVldEWjZma1NNQ0J0THRvVHVz?=
+ =?utf-8?B?WFcrNEtodFJibkxrZW5Ea3lSTklhYXZlZS9SY1RNbDdCdmFoYXdCejhaNzVJ?=
+ =?utf-8?B?bVdZVkNNbnM1cFFJdmk3WXZTVzdxVDFIT1lrNHNSekVpOU9tSkt1NGNRMnVQ?=
+ =?utf-8?B?cGhpMHJJK25maDZLMFNlNDJ2eXZIL2tPaGlSaWladStmSGZJSnc4eHhzL0hJ?=
+ =?utf-8?B?Mm5EYWp1QXhIdG96ZS84UHNwY3VuU1RZWHNESGpSNTBUK1lTYXhRK01YYnJF?=
+ =?utf-8?B?U29BcmpXYS9hMGVSa004Rjh3SzJRS05LcnRYUGljRlU5WXV6SlQyRGs4Y2JL?=
+ =?utf-8?B?eldObHZIbmo0OHB5THZWelZlMDhTRUJLelZiREcvL3JSeFZ5NWk3c25INkJj?=
+ =?utf-8?B?bWF4K01TdmluSnVUaFFiQ1VoTnltWkZFeEZuUG9BdmZuM0M4WnZrUGhSNWlD?=
+ =?utf-8?B?WVlEekFEK05TMzA0ZUNYd0hLTE9ObyszclZOMVNHRW9rSnIyZUp0dk10V0Zq?=
+ =?utf-8?B?bzZiMENKSlF1VFYzTzdqekNwWHBYMW1tQ0IwZ2xoSHpBeXY3dlRidHVMMDQ4?=
+ =?utf-8?B?TytoYkhaL05WQ1dZdFF0Z0hiSi9ZeHVrTXNZeVRhWUJkUlhsOHcwNDdaeHhS?=
+ =?utf-8?B?ays5WnhQUldUallGOEJoaG15OTFoWHU1NEFtZUo1aWFxV09zOUF5MzBucFQ4?=
+ =?utf-8?B?TTVnQ1FhaVNGSW0rQVJQajlaWFV6dGR1SUo0dnFNNkI4OE9ySml6NGdDMTZC?=
+ =?utf-8?B?L3daS2FrNVZ2eUpPVzVIMWsxQjhMMldzZFVkT0l2Zm5DRE5xMkpmczBJL2l6?=
+ =?utf-8?B?SlVXR0tuZ2YwTjhWc0xRSktoZDdpOTRSSldneUEya2l2dlAzYjczQ2xscmVK?=
+ =?utf-8?B?R3hCM2g4NzRBdVZqQ3puV3RRTysxTlgxK05xNStuUXlTOWNsVHc1T1BocHdD?=
+ =?utf-8?B?d0dYSDkzMGpLbXFxa3c1ZXZ6TVFZVG1OenU0TFM4enRCeEZzeWpRdTZDWWtV?=
+ =?utf-8?B?NkRFS0FPMlJBWWhYb3JoQ3Fmc2VwQnlPbkRqdEVhaGRJTTNwKzY1T3RETmhq?=
+ =?utf-8?B?NlpwaEM4V2NCeFFTT29uMzd1S2R3S3FKZjQ2RUJXUUNtVWhCMTh1ajI5elFs?=
+ =?utf-8?B?RFpCd2M2RUF3MkFMdlN1ODF5byt5Mjc1TkdwYjJJOHJVTEhKVmFpd1c3WWRK?=
+ =?utf-8?B?VU1hUnFNbkF5L0xNcW85MithMU5QUDdGR01pQlBTUnpRRmtrbW8yU04xdTVJ?=
+ =?utf-8?B?Y3ZhMUFyR0pMN0JUY0ZRcExXS3c4Zm1LQ3hHOEppZkRXVU5pWGVDOHcvdU1i?=
+ =?utf-8?B?ZkpSUDR6ejdwelRkcDE1amZuTzRkZXVDS0gvTWg5NHdVdVdpOUxkS3RHRnhS?=
+ =?utf-8?B?S1hGalIxMVF4ZytjMXlhekljcUZId3lhRnc4QnFMcitzd2xRdGVqekRaZHp6?=
+ =?utf-8?Q?DeTl3sCvL7OFmunbzT?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a101d1e7-5e63-43aa-8e02-08df1ec19ae1
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0c95ae3-32ba-4921-64b7-08df1ec22ae5
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 07:08:18.7087 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 07:12:20.3595 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aBgvhOxudn49J+EO8uVNg28AZ2nJtP8V6AkNbSe/TdKpatEiFu8MdR7iN3J2xJE7
+X-MS-Exchange-CrossTenant-UserPrincipalName: tC1obMwfd/clfXQhdgeNYz5EqaFkCTb2VZONCzMLpgRBBHjEUrO6pnGXalojpyIb
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7457
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,163 +150,566 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QnJhbmNoaW5nIHRoZSBkaXNjdXNzaW9uIG9mIGhlcmUgc2luY2Ugd2hhdCBMaWpvIHdyb3RlIGlz
-IG1vcmUgb24gdGhlIEhXIHNpZGUgd2hpbGUgSSB3YW50IHRvIGNvbW1lbnQgb24gdGhlIFNXIHNp
-ZGUgb2YgdGhpcy4NCg0KT24gOS8zMC8yNiAwNDo1NSwgWmhhbmcsIFlpZmFuIHdyb3RlOg0KPiBQ
-dWJsaWMNCj4gDQo+IA0KPiBIaSBBbGV4LA0KPiANCj4gwqANCj4gDQo+IEkgdGhpbmsgaXQgaXMg
-cmVhc29uYWJsZSB0byBhcHBseSB0aGUgcGF0Y2ggdG8gYWxsIEFTSUNzLiBJIHdpbGwgc3luYyB3
-aXRoIHRoZSBoYXJkd2FyZSB0ZWFtIGFib3V0IHRoaXMgY2hhbmdlOyBzbyBmYXIgd2UgaGF2ZSBv
-bmx5IHRlc3RlZCBpdCBvbiBOYXZpMzEuDQo+IA0KPiDCoA0KPiANCj4gSG93IGFib3V0IGFkZGlu
-ZyBhIGNvbW1vbiBoZWxwZXIgYW5kIGNhbGxpbmcgaXQgZnJvbSBBU0lDLXNwZWNpZmljIGNvZGUs
-IHN0YXJ0aW5nIHdpdGggTmF2aTMxPyBGb3IgZXhhbXBsZToNCg0KV2UgYWxyZWFkeSBoYXZlIHRo
-YXQsIHNlZSBhbWRncHVfZGV2aWNlX21vZGUxX3Jlc2V0KCkuIFRoYXQncyB3aHkgSSB3YXMgc28g
-c3VwcmlzZWQgdG8gc2VlIG5vX2h3X2FjY2VzcyBiZWVpbmcgdG91Y2hlZCBmcm9tIHRoZSBTTVUg
-Y29kZS4NCg0KV2hhdCBjb3VsZCBiZSBpcyB0aGF0IHRoZSBzbXUgdjE0IGNvZGUgcmUtaW1wbGVt
-ZW50ZWQgdGhpcyBmdW5jdGlvbiwgYnV0IHRoYXQgd291bGQgYmUgYSByZWFsbHkgcXVlc3Rpb25h
-YmxlIGFwcHJvYWNoIGFuZCBzaG91bGQgYmUgYXZvaWRlZC4NCg0KUmVnYXJkcywNCkNocmlzdGlh
-bi4NCg0KPiANCj4gwqANCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMNCj4gDQo+IGluZGV4IGI2OTBhMDdlMzFhYi4uMDc1ZGU2ODFhYjg2IDEwMDY0NA0K
-PiANCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+
-IA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4g
-DQo+IEBAIC00OTMxLDYgKzQ5MzEsMjggQEAgYm9vbCBhbWRncHVfZGV2aWNlX3Nob3VsZF9yZWNv
-dmVyX2dwdShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gDQo+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gZmFsc2U7DQo+IA0KPiB9DQo+IA0KPiDCoA0KPiANCj4g
-K3ZvaWQgYW1kZ3B1X2RldmljZV9tb2RlMV9yZXNldF93YWl0KHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LA0KPiANCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCBkZWxheV9tcykNCj4gDQo+
-ICt7DQo+IA0KPiArwqDCoMKgwqDCoMKgIHUxNiBzYXZlZF9jbWQsIGNtZDsNCj4gDQo+ICsNCj4g
-DQo+ICvCoMKgwqDCoMKgwqAgcGNpX3JlYWRfY29uZmlnX3dvcmQoYWRldi0+cGRldiwgUENJX0NP
-TU1BTkQsICZzYXZlZF9jbWQpOw0KPiANCj4gK8KgwqDCoMKgwqDCoCBjbWQgPSBzYXZlZF9jbWQg
-JiB+UENJX0NPTU1BTkRfTUVNT1JZOw0KPiANCj4gK8KgwqDCoMKgwqDCoCBwY2lfd3JpdGVfY29u
-ZmlnX3dvcmQoYWRldi0+cGRldiwgUENJX0NPTU1BTkQsIGNtZCk7DQo+IA0KPiArDQo+IA0KPiAr
-wqDCoMKgwqDCoMKgIG1zbGVlcChkZWxheV9tcyk7DQo+IA0KPiArDQo+IA0KPiArwqDCoMKgwqDC
-oMKgIHBjaV93cml0ZV9jb25maWdfd29yZChhZGV2LT5wZGV2LCBQQ0lfQ09NTUFORCwgc2F2ZWRf
-Y21kKTsNCj4gDQo+ICt9DQo+IA0KPiArDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wbS9zd3NtdS9zbXUxMy9zbXVfdjEzXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG0vc3dzbXUvc211MTMvc211X3YxM18wLmMNCj4gDQo+IGluZGV4IGIyNTBjNWU0MWU0NS4uMzU2
-ZTA5YjdlZWY5IDEwMDY0NA0KPiANCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3Nt
-dS9zbXUxMy9zbXVfdjEzXzAuYw0KPiANCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9z
-d3NtdS9zbXUxMy9zbXVfdjEzXzAuYw0KPiANCj4gQEAgLTIyNDIsNyArMjI0Miw4IEBAIGludCBz
-bXVfdjEzXzBfbW9kZTFfcmVzZXQoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpDQo+IA0KPiDCoA0K
-PiANCj4gwqDCoMKgwqDCoMKgwqAgcmV0ID0gc211X2Ntbl9zZW5kX3NtY19tc2coc211LCBTTVVf
-TVNHX01vZGUxUmVzZXQsIE5VTEwpOw0KPiANCj4gwqDCoMKgwqDCoMKgwqAgaWYgKCFyZXQpDQo+
-IA0KPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtc2xlZXAoU01VMTNfTU9ERTFfUkVT
-RVRfV0FJVF9USU1FX0lOX01TKTsNCj4gDQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGFtZGdwdV9kZXZpY2VfbW9kZTFfcmVzZXRfd2FpdChzbXUtPmFkZXYsDQo+IA0KPiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFNNVTEzX01PREUxX1JFU0VUX1dBSVRfVElNRV9J
-Tl9NUyk7DQo+IA0KPiDCoA0KPiANCj4gwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsNCj4gDQo+
-IH0NCj4gDQo+IMKgDQo+IA0KPiBCZXN0IFJlZ2FyZHMsDQo+IA0KPiBZaWZhbg0KPiANCj4gwqAN
-Cj4gDQo+ICpGcm9tOipEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5j
-b20+DQo+ICpTZW50OiogV2VkbmVzZGF5LCBTZXB0ZW1iZXIgMzAsIDIwMjYgMjo1OSBBTQ0KPiAq
-VG86KiBaaGFuZywgWWlmYW4gPFlpZmFuMS5aaGFuZ0BhbWQuY29tPjsgS29lbmlnLCBDaHJpc3Rp
-YW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnDQo+ICpDYzoqIFl1YW4sIFBlcnJ5IDxQZXJyeS5ZdWFuQGFtZC5jb20+DQo+ICpTdWJqZWN0
-OiogUmU6IFtQQVRDSF0gYW1kZ3B1L3BtOiBibG9jayBHUFUgUENJIGJhciBhY2Nlc3MgZHVyaW5n
-IG1vZGUxIHJlc2V0IG9uIGdmeDEyDQo+IA0KPiDCoA0KPiANCj4gUHVibGljDQo+IA0KPiDCoA0K
-PiANCj4gSSB0aGluayB0aGlzIHNob3VsZCBiZSBhc2ljIGFnbm9zdGljLsKgIEFueSBhc2ljIGRv
-aW5nIG1vZGUxIHJlc2V0IHNob3VsZCBkbyB0aGlzPw0KPiANCj4gwqANCj4gDQo+IEFsZXgNCj4g
-DQo+IMKgDQo+IA0KPiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4gDQo+ICpGcm9tOipaaGFuZywg
-WWlmYW4gPFlpZmFuMS5aaGFuZ0BhbWQuY29tIDxtYWlsdG86WWlmYW4xLlpoYW5nQGFtZC5jb20+
-Pg0KPiAqU2VudDoqIFR1ZXNkYXksIFNlcHRlbWJlciAyOSwgMjAyNiA1OjM2IEFNDQo+ICpUbzoq
-IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20gPG1haWx0bzpDaHJp
-c3RpYW4uS29lbmlnQGFtZC5jb20+PjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcgPG1h
-aWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gPGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnIDxtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+Pg0KPiAqQ2M6
-KiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20gPG1haWx0bzpB
-bGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPj47IFl1YW4sIFBlcnJ5IDxQZXJyeS5ZdWFuQGFtZC5j
-b20gPG1haWx0bzpQZXJyeS5ZdWFuQGFtZC5jb20+Pg0KPiAqU3ViamVjdDoqIFJFOiBbUEFUQ0hd
-IGFtZGdwdS9wbTogYmxvY2sgR1BVIFBDSSBiYXIgYWNjZXNzIGR1cmluZyBtb2RlMSByZXNldCBv
-biBnZngxMg0KPiANCj4gwqANCj4gDQo+IFB1YmxpYw0KPiANCj4gSGkgQ2hyaXN0aWFuLA0KPiAN
-Cj4gVGhlIG5vX2h3X2FjY2VzcyBmbGFnIHdhcyBmaXJzdCBzZXQgaW4gY29tbWl0IDBkZTYwNGQw
-MzU3ZDBkMjJjYmYwM2FmMTA3N2QxNzRiNjQxNzA3YjYuIFRoaXMgd2FzIGludGVuZGVkIHRvIGZp
-eCB0aGUgTW9kZSAxIHJlc2V0IGhhbmcsIGJ1dCBpdCBwcm92ZWQgaW5zdWZmaWNpZW50Lg0KPiBJ
-IHRoaW5rIHRoZSBmbGFnIHdhcyBzZXQgaW4gdGhlIFNNVSBjb2RlIHNvIHRoYXQgaXQgd291bGQg
-YXBwbHkgb25seSB0byBTTVUxMy8xNCBBU0lDcywgd2l0aG91dCBhZmZlY3RpbmcgdGhlIE1vZGUg
-MSByZXNldCBwcm9jZXNzIG9uIG90aGVyIEFTSUNzLg0KPiBJ4oCZbSBub3Qgc3VyZSB3aGV0aGVy
-IHdlIGNhbiBkcm9wIHRoZSBub19od19hY2Nlc3MgZmxhZyBhZnRlciBkaXNhYmxpbmcgUENJX0NP
-TU1BTkRfTUVNT1JZLiBUaGUgUENJIGhhbmcgb2NjdXJzIGludGVybWl0dGVudGx5LCBzbyB3ZSBt
-YXkgbmVlZCBhbm90aGVyIHJvdW5kIG9mIHN0cmVzcyB0ZXN0aW5nIHRvIGNvbmZpcm0gdGhhdCB0
-aGUgZmxhZyBpcyBubyBsb25nZXIgbmVlZGVkLiBTaG91bGQgd2UgcmVtb3ZlIG5vX2h3X2FjY2Vz
-cyBpbiBhIHNlcGFyYXRlIHBhdGNoPw0KPiANCj4gQmVzdCBSZWdhcmRzLA0KPiBZaWZhbg0KPiAN
-Cj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogS29lbmlnLCBDaHJpc3RpYW4g
-PENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbSA8bWFpbHRvOkNocmlzdGlhbi5Lb2VuaWdAYW1kLmNv
-bT4+DQo+IFNlbnQ6IFR1ZXNkYXksIFNlcHRlbWJlciAyOSwgMjAyNiA1OjA2IFBNDQo+IFRvOiBa
-aGFuZywgWWlmYW4gPFlpZmFuMS5aaGFuZ0BhbWQuY29tIDxtYWlsdG86WWlmYW4xLlpoYW5nQGFt
-ZC5jb20+PjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcgPG1haWx0bzphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZz4NCj4gQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVy
-LkRldWNoZXJAYW1kLmNvbSA8bWFpbHRvOkFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+PjsgWXVh
-biwgUGVycnkgPFBlcnJ5Lll1YW5AYW1kLmNvbSA8bWFpbHRvOlBlcnJ5Lll1YW5AYW1kLmNvbT4+
-DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGFtZGdwdS9wbTogYmxvY2sgR1BVIFBDSSBiYXIgYWNj
-ZXNzIGR1cmluZyBtb2RlMSByZXNldCBvbiBnZngxMg0KPiANCj4gT24gOS8yOS8yNiAwNDoyNSwg
-WWlmYW4gWmhhbmcgd3JvdGU6DQo+PiBibG9jayBHUFUgUENJIGJhciBhY2Nlc3MgZHVyaW5nIG1v
-ZGUxIHJlc2V0IG9uIGdmeDEyLCB0byByZXNvbHZlIHRoZQ0KPj4gcmFuZG9tIG1vZGUxIHJlc2V0
-IGhhbmcgaXNzdWUuDQo+IA0KPiBJbnRlcmVzdGluZyBpZGVhLCB0aGF0IGlzIG11Y2ggc2ltcGxl
-ciB0aGFuIHRyeWluZyB0byBtZXNzIHdpdGggQ1BVIHBhZ2UgdGFibGVzIGluIHRoZSBHUFUgcmVz
-ZXQgcGF0aC4NCj4gDQo+IFRoZSBvbmx5IGRvd25zaWRlIEkgY2FuIHNlZSBpcyB0aGF0IHdlIG5v
-dyBkcm9wIFZSQU0gYW5kIGRvb3JiZWxsIHdyaXRlcywgYnV0IEkgdGhpbmsgdGhhdCB3b24ndCBt
-YXR0ZXIgc2luY2UgVlJBTSBpcyBsb3N0IGJ5IGEgbW9kZTEgcmVzZXQgYW55d2F5Lg0KPiANCj4g
-TU1JTyB3cml0ZXMgYXJlIGRyb3BwZWQgYXMgd2VsbCB3aGljaCBtZWFucyB0aGF0IHdlIGNhbiBh
-bHNvIGRyb3AgdGhlIG5vX2h3X2FjY2VzcyBmbGFnLg0KPiANCj4gQW5kIEJUVyB0aGUgU01VIGNv
-ZGUgc2hvdWxkIGFic29sdXRlbHkgKk5PVCogdG91Y2ggdGhhdCBub19od19hY2Nlc3MgZmxhZyBp
-biBhbnkgd2F5LiBXaG8gYWRkZWQgdGhhdCB0aGVyZT8NCj4gDQo+IFJlZ2FyZHMsDQo+IENocmlz
-dGlhbi4NCj4gDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogWWlmYW4gWmhhbmcgPHlpZmFuMS56aGFu
-Z0BhbWQuY29tIDxtYWlsdG86eWlmYW4xLnpoYW5nQGFtZC5jb20+Pg0KPj4gLS0tDQo+PsKgIC4u
-Li9kcm0vYW1kL3BtL3N3c211L3NtdTE0L3NtdV92MTRfMF8yX3BwdC5jwqAgfCAyOQ0KPj4gKysr
-KysrKysrKysrLS0tLS0tLQ0KPj7CoCAxIGZpbGUgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwg
-MTAgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG0vc3dzbXUvc211MTQvc211X3YxNF8wXzJfcHB0LmMNCj4+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wbS9zd3NtdS9zbXUxNC9zbXVfdjE0XzBfMl9wcHQuYw0KPj4gaW5kZXggMDcyZDljNGUyMDJk
-Li4yNWI5MDg1ZWFkNzEgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3
-c211L3NtdTE0L3NtdV92MTRfMF8yX3BwdC5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3BtL3N3c211L3NtdTE0L3NtdV92MTRfMF8yX3BwdC5jDQo+PiBAQCAtMjA3OCwyMSArMjA3OCwz
-MCBAQCBzdGF0aWMgaW50IHNtdV92MTRfMF8yX3NldF9kZl9jc3RhdGUoc3RydWN0DQo+PiBzbXVf
-Y29udGV4dCAqc211LA0KPj4NCj4+wqAgc3RhdGljIGludCBzbXVfdjE0XzBfMl9tb2RlMV9yZXNl
-dChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSnCoCB7DQo+PiArwqDCoMKgwqAgc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYgPSBzbXUtPmFkZXY7DQo+PiArwqDCoMKgwqAgdTE2IHNhdmVkX2NtZCwg
-Y21kOw0KPj7CoMKgwqDCoMKgwqAgaW50IHJldCA9IDA7DQo+Pg0KPj7CoMKgwqDCoMKgwqAgcmV0
-ID0gc211X2Ntbl9zZW5kX2RlYnVnX3NtY19tc2coc211LCBERUJVR1NNQ19NU0dfTW9kZTFSZXNl
-dCk7DQo+PiAtwqDCoMKgwqAgaWYgKCFyZXQpIHsNCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgaWYgKGFtZGdwdV9lbXVfbW9kZSA9PSAxKSB7DQo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBtc2xlZXAoNTAwMDApOw0KPj4gLcKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCB9IGVsc2Ugew0KPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgLyogZGlzYWJsZSBtbWlvIGFjY2VzcyB3aGlsZSBkb2luZyBtb2RlIDEgcmVzZXQqLw0K
-Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc211LT5hZGV2LT5u
-b19od19hY2Nlc3MgPSB0cnVlOw0KPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgLyogZW5zdXJlIG5vX2h3X2FjY2VzcyBpcyBnbG9iYWxseSB2aXNpYmxlIGJlZm9y
-ZSBhbnkgTU1JTyAqLw0KPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgc21wX21iKCk7DQo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBtc2xlZXAoMTAwMCk7DQo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0NCj4+ICvCoMKg
-wqDCoCBpZiAocmV0KQ0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Ow0K
-Pj4gKw0KPj4gK8KgwqDCoMKgIHBjaV9yZWFkX2NvbmZpZ193b3JkKGFkZXYtPnBkZXYsIFBDSV9D
-T01NQU5ELCAmc2F2ZWRfY21kKTsNCj4+ICvCoMKgwqDCoCBjbWQgPSBzYXZlZF9jbWQgJiB+UENJ
-X0NPTU1BTkRfTUVNT1JZOw0KPj4gK8KgwqDCoMKgIHBjaV93cml0ZV9jb25maWdfd29yZChhZGV2
-LT5wZGV2LCBQQ0lfQ09NTUFORCwgY21kKTsNCj4+ICsNCj4+ICvCoMKgwqDCoCBpZiAoYW1kZ3B1
-X2VtdV9tb2RlID09IDEpIHsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbXNsZWVwKDUw
-MDAwKTsNCj4+ICvCoMKgwqDCoCB9IGVsc2Ugew0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCAvKiBkaXNhYmxlIG1taW8gYWNjZXNzIHdoaWxlIGRvaW5nIG1vZGUgMSByZXNldCovDQo+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNtdS0+YWRldi0+bm9faHdfYWNjZXNzID0gdHJ1ZTsN
-Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogZW5zdXJlIG5vX2h3X2FjY2VzcyBpcyBn
-bG9iYWxseSB2aXNpYmxlIGJlZm9yZSBhbnkgTU1JTyAqLw0KPj4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBzbXBfbWIoKTsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbXNsZWVwKDEw
-MDApOw0KPj7CoMKgwqDCoMKgwqAgfQ0KPj4NCj4+ICvCoMKgwqDCoCBwY2lfd3JpdGVfY29uZmln
-X3dvcmQoYWRldi0+cGRldiwgUENJX0NPTU1BTkQsIHNhdmVkX2NtZCk7DQo+PiArDQo+PsKgwqDC
-oMKgwqDCoCByZXR1cm4gcmV0Ow0KPj7CoCB9DQo+Pg0KPiANCg0K
+Well it doesn't matter who gets the request and what do we pool.
+
+The real question is if that goes over the MMIO BAR or the PCIe config spac=
+e.
+
+If the SMU debug mailbox registers or PSP bootloader status is accessed ove=
+r the MMIO BAR space then I agree with Lijo that the approach of disabling =
+all MMIO BAR accesses won't work.
+
+Regards,
+Christian.
+
+On 9/30/26 08:35, Zhang, Yifan wrote:
+> AMD General
+>=20
+>=20
+> On Navi3x/Navi4x, the driver doesn't poll for a response. It sends the mo=
+de1 reset request through the SMU debug mailbox and waits a fixed interval =
+(SMU13_MODE1_RESET_WAIT_TIME_IN_MS) for the reset to proceed. After that, i=
+t polls the PSP bootloader status and the memsize register to confirm the A=
+SIC is out of reset. On ASICs where the regular SMU message path is used, t=
+he polled response only acknowledges the message; it doesn't indicate that =
+the reset has completed.
+>=20
+> =C2=A0
+>=20
+> *From:*Lazar, Lijo <Lijo.Lazar@amd.com>
+> *Sent:* Wednesday, September 30, 2026 2:28 PM
+> *To:* Zhang, Yifan <Yifan1.Zhang@amd.com>; Wang, Kevin <Kevin.Wang@amd.co=
+m>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
+> *Cc:* Yuan, Perry <Perry.Yuan@amd.com>
+> *Subject:* Re: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 r=
+eset on gfx12
+>=20
+> =C2=A0
+>=20
+> AMD General
+>=20
+> =C2=A0
+>=20
+> The actual reset sequence is run by the FW while you are polling for the =
+response. This patch doesn't make any sense in that way.
+>=20
+> =C2=A0
+>=20
+> Thanks,
+>=20
+> Lijo
+>=20
+> -------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+-----------------
+>=20
+> *From:*Zhang, Yifan <Yifan1.Zhang@amd.com <mailto:Yifan1.Zhang@amd.com>>
+> *Sent:* Wednesday, 30 September 2026 11:47:46
+> *To:* Wang, Kevin <Kevin.Wang@amd.com <mailto:Kevin.Wang@amd.com>>; Lazar=
+, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>; Deucher, Alexander=
+ <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>; Koenig, Ch=
+ristian <Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>; amd-g=
+fx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@li=
+sts.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>>
+> *Cc:* Yuan, Perry <Perry.Yuan@amd.com <mailto:Perry.Yuan@amd.com>>
+> *Subject:* RE: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 r=
+eset on gfx12
+>=20
+> =C2=A0
+>=20
+> AMD General
+>=20
+> Yes. In addition, the polling happens inside smu_cmn_send_smc_msg(), whic=
+h runs before PCI_COMMAND_MEMORY is cleared. During the mode1 reset process=
+ there should be no traffic to the PCIe BARs; otherwise, the PCI bus may ha=
+ng.
+>=20
+> Also, every PCI config write in the patch targets only the GPU device its=
+elf (pci_write_config_dword is per device), so no other PCI devices are aff=
+ected.
+>=20
+> -----Original Message-----
+> From: Wang, Kevin <Kevin.Wang@amd.com <mailto:Kevin.Wang@amd.com>>
+> Sent: Wednesday, September 30, 2026 2:09 PM
+> To: Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>; Zhang, =
+Yifan <Yifan1.Zhang@amd.com <mailto:Yifan1.Zhang@amd.com>>; Deucher, Alexan=
+der <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>; Koenig,=
+ Christian <Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>; am=
+d-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+> Cc: Yuan, Perry <Perry.Yuan@amd.com <mailto:Perry.Yuan@amd.com>>
+> Subject: RE: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 res=
+et on gfx12
+>=20
+> AMD General
+>=20
+>> On a second look, the patch doesn't seem right. Reset sequence is
+>> supposed to be complete by the time FW responds back to the mode-1 reset=
+ message.
+>> During reset sequence, we need Mem space to be enabled to poll success
+>> status of the message and that's most volatile window during the whole
+>> sequence.
+>=20
+> That is not right. When the OS driver polls and sees the response registe=
+r become "1", it does **NOT** mean the mode1 sequence is completed.
+> The PMFW will continue forward the message to PSP and wait for PMFW ucode=
+ reload to finish at a 2nd-half stage.
+>=20
+> Best Regards,
+> Kevin
+>=20
+>> -----Original Message-----
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org <mailto:amd-gfx-bou=
+nces@lists.freedesktop.org>> On Behalf Of
+>> Lazar, Lijo
+>> Sent: Wednesday, September 30, 2026 1:41 PM
+>> To: Zhang, Yifan <Yifan1.Zhang@amd.com <mailto:Yifan1.Zhang@amd.com>>; D=
+eucher, Alexander
+>> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>; Koenig, =
+Christian
+>> <Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>; amd-gfx@li=
+sts.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>> Cc: Yuan, Perry <Perry.Yuan@amd.com <mailto:Perry.Yuan@amd.com>>
+>> Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1
+>> reset on gfx12
+>>
+>> On a second look, the patch doesn't seem right. Reset sequence is
+>> supposed to be complete by the time FW responds back to the mode-1 reset=
+ message.
+>> During reset sequence, we need Mem space to be enabled to poll success
+>> status of the message and that's most volatile window during the whole
+>> sequence.
+>>
+>> Disabling the memory space after reset sequence is complete looks to
+>> be the wrong diagnosis of the issue. Access during reinit sequence
+>> after reset is safe and shouldn't cause any issue in general.
+>>
+>> That said, we should try to resolve the issue without touching any PCI
+>> config settings. PCI config space is open for others as well.
+>>
+>> Thanks,
+>> Lijo
+>>
+>> On 30-Sep-26 10:57 AM, Zhang, Yifan wrote:
+>> > AMD General
+>> >
+>> > How about disable UE during mode1 reset ? E.g.
+>> >
+>> > Before:
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pcie_capability_=
+read_word(pdev, PCI_EXP_DEVCTL, &saved_devctl);
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pcie_capability_=
+write_word(pdev, PCI_EXP_DEVCTL,
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sa=
+ved_devctl & ~PCI_EXP_DEVCTL_URRE);
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_read_config_=
+dword(pdev, aer + PCI_ERR_UNCOR_MASK,
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 &saved_uemsk);
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_write_config=
+_dword(pdev, aer + PCI_ERR_UNCOR_MASK,
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 saved_uemsk |
+>> > PCI_ERR_UNC_UNSUP);
+>> >
+>> >
+>> > After:
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_write_config=
+_dword(pdev, aer + PCI_ERR_UNCOR_MASK,
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 saved_uemsk);
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pcie_capability_=
+write_word(pdev, PCI_EXP_DEVCTL,
+>> > saved_devctl);
+>> >
+>> > -----Original Message-----
+>> > From: Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
+>> > Sent: Wednesday, September 30, 2026 11:37 AM
+>> > To: Zhang, Yifan <Yifan1.Zhang@amd.com <mailto:Yifan1.Zhang@amd.com>>;=
+ Deucher, Alexander
+>> > <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>; Koenig=
+, Christian
+>> > <Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>; amd-gfx@=
+lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>> > Cc: Yuan, Perry <Perry.Yuan@amd.com <mailto:Perry.Yuan@amd.com>>
+>> > Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during
+>> > mode1 reset on gfx12
+>> >
+>> >
+>> > This is the behaviour of this bit -
+>> >
+>> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Memory Space Ena=
+ble - Controls a Function's response to
+>> > Memory=C2=A0 Space accesses. When this bit is Clear, all received Memo=
+ry
+>> > Space
+>> accesses are caused to be handled as "Unsupported Requests"
+>> >
+>> > On AER enabled systems, depending on how the platform is configured
+>> > to
+>> classify the severity of UR errors, that could result in System error.
+>> >
+>> > On other hand, if you are sure that there is no such access during
+>> > mode-1 reset, we don't need this patch in the first place.
+>> >
+>> > Thanks,
+>> > Lijo
+>> >
+>> >
+>> > On 30-Sep-26 8:53 AM, Zhang, Yifan wrote:
+>> >> AMD General
+>> >>
+>> >> Hi Lijo,
+>> >>
+>> >> Why does clearing PCI_COMMAND_MEMORY cause AER errors on data
+>> center GPUs? Are their PCIe BARs still being accessed during a mode1 res=
+et?
+>> >>
+>> >> Best Regards,
+>> >> Yifan
+>> >>
+>> >> -----Original Message-----
+>> >> From: Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
+>> >> Sent: Wednesday, September 30, 2026 11:06 AM
+>> >> To: Zhang, Yifan <Yifan1.Zhang@amd.com <mailto:Yifan1.Zhang@amd.com>>=
+; Deucher, Alexander
+>> >> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>; Koeni=
+g, Christian
+>> >> <Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>; amd-gfx=
+@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>> >> Cc: Yuan, Perry <Perry.Yuan@amd.com <mailto:Perry.Yuan@amd.com>>
+>> >> Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during
+>> >> mode1 reset on gfx12
+>> >>
+>> >> This doesn't work for all (at least on some datacenter GPUs). With
+>> >> AER
+>> enabled, this will result in AER errors. Depending on the platform
+>> config, some may classify this access as fatal.
+>> >>
+>> >> Thanks,
+>> >> Lijo
+>> >>
+>> >> On 30-Sep-26 8:25 AM, Zhang, Yifan wrote:
+>> >>> Public
+>> >>>
+>> >>>
+>> >>> Hi Alex,
+>> >>>
+>> >>> I think it is reasonable to apply the patch to all ASICs. I will
+>> >>> sync with the hardware team about this change; so far we have only
+>> >>> tested it on Navi31.
+>> >>>
+>> >>> How about adding a common helper and calling it from ASIC-specific
+>> >>> code, starting with Navi31? For example:
+>> >>>
+>> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> >>> b/drivers/gpu/ drm/amd/amdgpu/amdgpu_device.c
+>> >>>
+>> >>> index b690a07e31ab..075de681ab86 100644
+>> >>>
+>> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> >>>
+>> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> >>>
+>> >>> @@ -4931,6 +4931,28 @@ bool
+>> amdgpu_device_should_recover_gpu(struct
+>> >>> amdgpu_device *adev)
+>> >>>
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return false;
+>> >>>
+>> >>> }
+>> >>>
+>> >>> +void amdgpu_device_mode1_reset_wait(struct amdgpu_device *adev,
+>> >>>
+>> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned in=
+t delay_ms)
+>> >>>
+>> >>> +{
+>> >>>
+>> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u16 saved_cmd, cmd;
+>> >>>
+>> >>> +
+>> >>>
+>> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_read_config_word(adev->pde=
+v, PCI_COMMAND, &saved_cmd);
+>> >>>
+>> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cmd =3D saved_cmd & ~PCI_COMMA=
+ND_MEMORY;
+>> >>>
+>> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_write_config_word(adev->pd=
+ev, PCI_COMMAND, cmd);
+>> >>>
+>> >>> +
+>> >>>
+>> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 msleep(delay_ms);
+>> >>>
+>> >>> +
+>> >>>
+>> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_write_config_word(adev->pd=
+ev, PCI_COMMAND, saved_cmd);
+>> >>>
+>> >>> +}
+>> >>>
+>> >>> +
+>> >>>
+>> >>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+>> >>> b/drivers/ gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+>> >>>
+>> >>> index b250c5e41e45..356e09b7eef9 100644
+>> >>>
+>> >>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+>> >>>
+>> >>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+>> >>>
+>> >>> @@ -2242,7 +2242,8 @@ int smu_v13_0_mode1_reset(struct
+>> smu_context
+>> >>> *smu)
+>> >>>
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 re=
+t =3D smu_cmn_send_smc_msg(smu, SMU_MSG_Mode1Reset,
+>> >>> NULL);
+>> >>>
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if=
+ (!ret)
+>> >>>
+>> >>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 msleep(SMU13_MODE1_RESET_WAIT_TIME_IN_MS);
+>> >>>
+>> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 amdgpu_device_mode1_reset_wait(smu->adev,
+>> >>>
+>> >>> +
+>> >>> SMU13_MODE1_RESET_WAIT_TIME_IN_MS);
+>> >>>
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 re=
+turn ret;
+>> >>>
+>> >>> }
+>> >>>
+>> >>> Best Regards,
+>> >>>
+>> >>> Yifan
+>> >>>
+>> >>> *From:*Deucher, Alexander <Alexander.Deucher@amd.com <mailto:Alexand=
+er.Deucher@amd.com>>
+>> >>> *Sent:* Wednesday, September 30, 2026 2:59 AM
+>> >>> *To:* Zhang, Yifan <Yifan1.Zhang@amd.com <mailto:Yifan1.Zhang@amd.co=
+m>>; Koenig, Christian
+>> >>> <Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>; amd-gf=
+x@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>> >>> *Cc:* Yuan, Perry <Perry.Yuan@amd.com <mailto:Perry.Yuan@amd.com>>
+>> >>> *Subject:* Re: [PATCH] amdgpu/pm: block GPU PCI bar access during
+>> >>> mode1 reset on gfx12
+>> >>>
+>> >>> Public
+>> >>>
+>> >>> I think this should be asic agnostic.=C2=A0 Any asic doing mode1 res=
+et
+>> >>> should do this?
+>> >>>
+>> >>> Alex
+>> >>>
+>> >>> ------------------------------------------------------------------
+>> >>> --
+>> >>> -
+>> >>> -
+>> >>> --
+>> >>>
+>> >>> *From:*Zhang, Yifan <Yifan1.Zhang@amd.com
+> <mailto:Yifan1.Zhang@amd.com%0b>> >>> <mailto:Yifan1.Zhang@amd.com <mailt=
+o:Yifan1.Zhang@amd.com>>>
+>> >>> *Sent:* Tuesday, September 29, 2026 5:36 AM
+>> >>> *To:* Koenig, Christian <Christian.Koenig@amd.com
+> <mailto:Christian.Koenig@amd.com%0b>> >>> <mailto:Christian.Koenig@amd.co=
+m <mailto:Christian.Koenig@amd.com>>>; amd-gfx@lists.freedesktop.org <mailt=
+o:amd-gfx@lists.freedesktop.org>
+>> >>> <mailto:amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesk=
+top.org>>
+>> >>> <amd-gfx@lists.freedesktop.org
+> <mailto:amd-gfx@lists.freedesktop.org%0b>> >>> <mailto:amd-gfx@lists.free=
+desktop.org <mailto:amd-gfx@lists.freedesktop.org>>>
+>> >>> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com
+> <mailto:Alexander.Deucher@amd.com%0b>> >>> <mailto:Alexander.Deucher@amd.=
+com <mailto:Alexander.Deucher@amd.com>>>; Yuan, Perry
+>> <Perry.Yuan@amd.com
+> <mailto:Perry.Yuan@amd.com%0b>> >>> <mailto:Perry.Yuan@amd.com <mailto:Pe=
+rry.Yuan@amd.com>>>
+>> >>> *Subject:* RE: [PATCH] amdgpu/pm: block GPU PCI bar access during
+>> >>> mode1 reset on gfx12
+>> >>>
+>> >>> Public
+>> >>>
+>> >>> Hi Christian,
+>> >>>
+>> >>> The no_hw_access flag was first set in commit
+>> >>> 0de604d0357d0d22cbf03af1077d174b641707b6. This was intended to fix
+>> >>> the Mode 1 reset hang, but it proved insufficient.
+>> >>> I think the flag was set in the SMU code so that it would apply
+>> >>> only to
+>> >>> SMU13/14 ASICs, without affecting the Mode 1 reset process on
+>> >>> other
+>> ASICs.
+>> >>> I=E2=80=99m not sure whether we can drop the no_hw_access flag after
+>> >>> disabling PCI_COMMAND_MEMORY. The PCI hang occurs intermittently,
+>> so
+>> >>> we may need another round of stress testing to confirm that the
+>> >>> flag is no longer needed. Should we remove no_hw_access in a
+>> >>> separate
+>> patch?
+>> >>>
+>> >>> Best Regards,
+>> >>> Yifan
+>> >>>
+>> >>> -----Original Message-----
+>> >>> From: Koenig, Christian <Christian.Koenig@amd.com
+> <mailto:Christian.Koenig@amd.com%0b>> >>> <mailto:Christian.Koenig@amd.co=
+m <mailto:Christian.Koenig@amd.com>>>
+>> >>> Sent: Tuesday, September 29, 2026 5:06 PM
+>> >>> To: Zhang, Yifan <Yifan1.Zhang@amd.com
+> <mailto:Yifan1.Zhang@amd.com%0b>> >>> <mailto:Yifan1.Zhang@amd.com <mailt=
+o:Yifan1.Zhang@amd.com>>>; amd-gfx@lists.freedesktop.org <mailto:amd-gfx@li=
+sts.freedesktop.org>
+>> >>> <mailto:amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesk=
+top.org>>
+>> >>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com
+> <mailto:Alexander.Deucher@amd.com%0b>> >>> <mailto:Alexander.Deucher@amd.=
+com <mailto:Alexander.Deucher@amd.com>>>; Yuan, Perry
+>> <Perry.Yuan@amd.com
+> <mailto:Perry.Yuan@amd.com%0b>> >>> <mailto:Perry.Yuan@amd.com <mailto:Pe=
+rry.Yuan@amd.com>>>
+>> >>> Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during
+>> >>> mode1 reset on gfx12
+>> >>>
+>> >>> On 9/29/26 04:25, Yifan Zhang wrote:
+>> >>>> block GPU PCI bar access during mode1 reset on gfx12, to resolve
+>> >>>> the random mode1 reset hang issue.
+>> >>>
+>> >>> Interesting idea, that is much simpler than trying to mess with
+>> >>> CPU page tables in the GPU reset path.
+>> >>>
+>> >>> The only downside I can see is that we now drop VRAM and doorbell
+>> >>> writes, but I think that won't matter since VRAM is lost by a
+>> >>> mode1 reset anyway.
+>> >>>
+>> >>> MMIO writes are dropped as well which means that we can also drop
+>> >>> the no_hw_access flag.
+>> >>>
+>> >>> And BTW the SMU code should absolutely *NOT* touch that
+>> no_hw_access
+>> >>> flag in any way. Who added that there?
+>> >>>
+>> >>> Regards,
+>> >>> Christian.
+>> >>>
+>> >>>>
+>> >>>> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com
+> <mailto:yifan1.zhang@amd.com%0b>> >>>> <mailto:yifan1.zhang@amd.com <mail=
+to:yifan1.zhang@amd.com>>>
+>> >>>> ---
+>> >>>>=C2=A0=C2=A0=C2=A0 .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c=C2=
+=A0 | 29
+>> >>>> ++++++++++++-------
+>> >>>>=C2=A0=C2=A0=C2=A0 1 file changed, 19 insertions(+), 10 deletions(-)
+>> >>>>
+>> >>>> diff --git
+>> a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+>> >>>> b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+>> >>>> index 072d9c4e202d..25b9085ead71 100644
+>> >>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+>> >>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+>> >>>> @@ -2078,21 +2078,30 @@ static int
+>> >>>> smu_v14_0_2_set_df_cstate(struct smu_context *smu,
+>> >>>>
+>> >>>>=C2=A0=C2=A0=C2=A0 static int smu_v14_0_2_mode1_reset(struct smu_con=
+text *smu)=C2=A0 {
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_device *adev =3D smu->adev;
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0 u16 saved_cmd, cmd;
+>> >>>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int ret =3D 0;
+>> >>>>
+>> >>>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D smu_cmn_sen=
+d_debug_smc_msg(smu,
+>> DEBUGSMC_MSG_Mode1Reset);
+>> >>>> -=C2=A0=C2=A0=C2=A0=C2=A0 if (!ret) {
+>> >>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 if (amdgpu_emu_mode =3D=3D 1) {
+>> >>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 msleep(50000);
+>> >>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 } else {
+>> >>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* disable mmio acce=
+ss while doing mode 1
+>> >>>> reset*/
+>> >>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 smu->adev->no_hw_acc=
+ess =3D true;
+>> >>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* ensure no_hw_acce=
+ss is globally visible
+>> >>>> before any MMIO */
+>> >>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 smp_mb();
+>> >>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 msleep(1000);
+>> >>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 }
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0 if (ret)
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 return ret;
+>> >>>> +
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0 pci_read_config_word(adev->pdev, PCI_COMM=
+AND, &saved_cmd);
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0 cmd =3D saved_cmd & ~PCI_COMMAND_MEMORY;
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0 pci_write_config_word(adev->pdev, PCI_COM=
+MAND, cmd);
+>> >>>> +
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0 if (amdgpu_emu_mode =3D=3D 1) {
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 msleep(50000);
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0 } else {
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 /* disable mmio access while doing mode 1 reset*/
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 smu->adev->no_hw_access =3D true;
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 /* ensure no_hw_access is globally visible before
+>> >>>> +any MMIO */
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 smp_mb();
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 msleep(1000);
+>> >>>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> >>>>
+>> >>>> +=C2=A0=C2=A0=C2=A0=C2=A0 pci_write_config_word(adev->pdev, PCI_COM=
+MAND, saved_cmd);
+>> >>>> +
+>> >>>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
+>> >>>>=C2=A0=C2=A0=C2=A0 }
+>> >>>>
+>> >>>
+>> >>
+>> >
+>=20
+
