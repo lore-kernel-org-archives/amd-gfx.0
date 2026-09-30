@@ -4,51 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC11DCA5FCE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFC95CA5FD2
 	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 07:17:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8917E10F5A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4695C10F5A3;
 	Thu,  1 Oct 2026 07:17:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cPqlDVUc";
+	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="ZJMvIwby";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17AB010F08D;
- Tue, 29 Sep 2026 20:34:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=iC0rPzMQI+Iz27Lx6x02hGWhWmmmEWXNSGie2PKlBYE=; b=cPqlDVUcympBIusM9qhmUz/CeO
- iSDFbC2JyIdD7wDB+nIDtzvJNCuk4Mb/ZQYgNwCY1hwQmBR/rpa9THGKBfyUTRAKvDJTZjRMAkjEg
- HZOmj6FEkmqW62os2WngSxwLP2U6t5ZjsnR2g0tfSj9fu5qohkm7+M/N+uo70Ko/X3zt8AbW3l6AC
- kwmd32f1xYSQNZcwLK+6xYfm8XPajbaddi6sCGNdOnVdemItb0o3pw0J3TM9kmm12jhtvwVIjblXE
- 4zvcgqyIhTUfg0SwiMbJRFwXMZdppebZNcz6PROq81BMdKWb8VGzKySIWOeiLRRYGAoYnF+g5Kddd
- KTp+bkug==;
-Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xBeWy-0096Z5-Uz; Tue, 29 Sep 2026 22:34:29 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Tue, 29 Sep 2026 17:34:05 -0300
-Subject: [PATCH 2/2] drm/amdgpu: free job when amdgpu_vm_ptes_update fails
+Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67D7C10E93F;
+ Wed, 30 Sep 2026 04:56:55 +0000 (UTC)
+Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
+ (authenticated bits=0)
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68U4uQrb098371
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Wed, 30 Sep 2026 13:56:26 +0900 (JST)
+ (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=Il6Pn8W1NJX9qhwbRcpycT2Saqf/wh2/BgvOLGH6lG4=; 
+ c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+ h=From:Message-ID:To:Subject:Date;
+ s=rs20250326; t=1790744186; v=1;
+ b=ZJMvIwbyT8HsLngGKDH8Dxl0o6DaQol1ktghTGr8gxAPjovpuDN1bQfkJcXPUJfp
+ VTTNJ22GMW1PslrLxc5OsAR0JsKbo2suAjU0opJkeP9Ive4PqU3sq7Bczbw6wEPl
+ 5590um/csXpYGEFb+W0ZkIUy6U6k80/YZgshn2v4rZShf7OJjcaUvRxJZErJFiSB
+ 3qA3GqNktTXgv4ChUSK54faOGV209MrbZ/nt+r3vLIocCzAwhMrXedGZtohA/3jC
+ BQDp7FbMNoHyyD6tiMRLLqnALtGhGXfxQTJ2wG6ODOp5pAzsGkthx/tOjcUs9X5T
+ ReqciSAod4gJPVdAE60hcw==
+Message-ID: <dce3d9ed-87a7-43fe-b7d8-c7281514f7d1@rsg.ci.i.u-tokyo.ac.jp>
+Date: Wed, 30 Sep 2026 13:56:26 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-amdgpu_vm_update_funcs_abort-v1-2-a8072140a7db@igalia.com>
-References: <20260929-amdgpu_vm_update_funcs_abort-v1-0-a8072140a7db@igalia.com>
-In-Reply-To: <20260929-amdgpu_vm_update_funcs_abort-v1-0-a8072140a7db@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Felix Kuehling <Felix.Kuehling@amd.com>, 
- Chunming Zhou <david1.zhou@amd.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Natalie Vock <nat@pixelcluster.dev>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: "Huang, Honglei" <honghuan@amd.com>, dmitry.osipenko@collabora.com,
+ airlied@redhat.com, kraxel@redhat.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+ <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
+ <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
+ <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
+Content-Language: en-US
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 01 Oct 2026 07:16:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,169 +68,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When amdgpu_vm_update_range hits a failure at amdgpu_vm_ptes_update, it
-will skip calling update_funcs commit, which might lead to a memory
-leak.
+On 2026/09/29 11:22, Huang, Honglei wrote:
+> 
+> 
+> On 9/29/2026 1:25 AM, Akihiko Odaki wrote:
+>> On 2026/09/29 1:22, Huang, Honglei wrote:
+>>>
+>>>
+>>> On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
+>>>> On 2026/09/24 18:55, Honglei Huang wrote:
+>>>>> Add userptr blob objects so the guest kernel can pin an existing
+>>>>> userspace mapping and advertise it as CREATE_BLOB backing entries.
+>>>>>
+>>>>> - New virtio_gpu_object_userptr type for userptr resources
+>>>>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
+>>>>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
+>>>>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
+>>>>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
+>>>>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
+>>>>> - Mark writable pages dirty when unpinning
+>>>>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
+>>>>>    cleanup_object() on the unref response or on create failure
+>>>>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
+>>>>> - Reject unaligned or overflowing userptr ranges at create time
+>>>>> - Disallow PRIME export of userptr objects
+>>>>> - Save CREATE_BLOB params and restore userptr resources after
+>>>>>    hibernation without using the shmem restore path
+>>>>>
+>>>>> The hibernation restore path maps with the same attrs and direction
+>>>>> used at create time, as documented next to the call. Like shmem
+>>>>> blobs, the DMA API can still bounce through a buffer there. This
+>>>>> design only avoids a second guest side shmem allocation and memcpy,
+>>>>> nothing more.
+>>>>
+>>>> I don't see the restore path is documented though this says 
+>>>> "documented next to the call".
+>>>
+>>> Will fix in next version
+>>>
+>>>>
+>>>>>
+>>> ...
+>>>>> +        goto err_cleanup;
+>>>>> +    }
+>>>>> +
+>>>>> +    userptr->sgt = sgt;
+>>>>> +
+>>>>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
+>>>>> +        enum dma_data_direction dir =
+>>>>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
+>>>>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
+>>>>> +
+>>>>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
+>>>>> +                      dir, 0);
+>>>>
+>>>> I checked the ROCm code and documentation, and I do not see how this 
+>>>> mapping satisfies the HIP coherence contract when bounce buffers or 
+>>>> explicit DMA cache maintenance are required.
+>>>>
+>>>> HIP distinguishes two coherence models:
+>>>>
+>>>>  > Coarse-grained coherence: The memory is considered up-to-date only
+>>>>  > after synchronization performed using hipDeviceSynchronize(),
+>>>>  > hipStreamSynchronize(), or any blocking operation that acts on the
+>>>>  > null stream such as hipMemcpy(). To avoid the cache from being
+>>>>  > accessed by a part of the system while simultaneously being 
+>>>> written by
+>>>>  > another, the memory is made visible only after the caches have been
+>>>>  > flushed.
+>>>>  >
+>>>>  > Fine-grained coherence: The memory is coherent even while being
+>>>>  > modified by a part of the system. Fine-grained coherence ensures 
+>>>> that
+>>>>  > up-to-date data is visible to others regardless of kernel 
+>>>> boundaries.
+>>>>  > This can be useful if both host and device operate on the same data.
+>>>>
+>>>> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
+>>>> hip_runtime_api/memory_management/coherence_control.html
+>>>>
+>>>> Fine-grained access requires coherence throughout execution; copying
+>>>> between the original pages and a bounce buffer only at kernel 
+>>>> boundaries
+>>>> would not suffice. Coarse-grained access could support such copies, but
+>>>> they must occur at the required synchronization points. I found no code
+>>>> that synchronizes this DMA mapping at those points.
+>>>>
+>>>
+>>> Whether dma_map_sgtable() bounces is decided by the platform's IOMMU/ 
+>>> SWIOTLB behind the device, not by we request. attrs=0 here just 
+>>> matches the existing shmem blob path, and is exactly what native 
+>>> (non- virtualized) ROCm's own userptr support does too:
+>>>
+>>> // drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
+>>> kfd_mem_dmamap_userptr()
+>>> ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
+>>>
+>>> And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
+>>> property, it is a GPU VM/cache thing. In upstream KFD it's 
+>>> implemented as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the 
+>>> SNOOPED bit), set by whichever driver programs the real GPU's page 
+>>> tables for this memory:
+>>>
+>>> // drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
+>>> mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
+>>> pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+>>>
+>>> I really want to disable the bounce buffers in DMA, but it is a 
+>>> platform behaviour, can not disable it in this layer. And in XEN, the 
+>>> dmapping for it is another form of iovector/simple sgtable. And if 
+>>> use the virtio-iommu or somthing else, the efficiency and the 
+>>> complexity of driver integration are both lower than using iovector/ 
+>>> sgtable directly.
+>>> And for how to handle the DMA thing for userptr, since we have so 
+>>> many concern about it, maybe we can drop this part in next version. 
+>>> But we may have the AI review warn/error.
+>>
+>> Documentation/core-api/dma-attributes.rst says:
+>>
+>>  > DMA_ATTR_REQUIRE_COHERENT
+>>  > -------------------------
+>>  >
+>>  > DMA mapping requests with the DMA_ATTR_REQUIRE_COHERENT fail on any
+>>  > system where SWIOTLB or cache management is required. This should only
+>>  > be used to support uAPI designs that require continuous HW DMA
+>>  > coherence with userspace processes, for example RDMA and DRM. At a
+>>  > minimum the memory being mapped must be userspace memory from
+>>  > pin_user_pages() or similar.
+>>  >
+>>  > Drivers should consider using dma_mmap_pages() instead of this
+>>  > interface when building their uAPIs, when possible.
+>>  >
+>>  > It must never be used in an in-kernel driver that only works with
+>>  > kernel memory.
+>>
+>> This is exactly our use case. Although the platform decides whether a
+>> mapping requires bouncing or cache maintenance, 
+>> DMA_ATTR_REQUIRE_COHERENT lets the driver reject mappings that cannot 
+>> meet this requirement.
+>>
+>> The shmem path serves a different use case, but amdkfd is a relevant 
+>> comparison. HIP's coherence guarantees depend on both the GPU VM/cache 
+>> configuration and the DMA mapping established by the kernel driver. 
+>> GPU page table attributes alone cannot make a bounce buffer coherent 
+>> with the original userspace pages.
+>>
+>> The amdkfd mapping you cited therefore warrants discussion with its
+>> developers as well. I have CCed the maintainer.
+> 
+> 
+> Will add DMA_ATTR_REQUIRE_COHERENT in virtio GPU userptr in next version.
+> And are there some places else need to be modified?
 
-[ 2877.877264] kmemleak: unreferenced object 0xffff89b1f3cf0800 (size 1024):
-[ 2877.877273] kmemleak:   comm "vm_always_valid", pid 3027, jiffies 4295714403
-[ 2877.877275] kmemleak:   hex dump (first 32 bytes):
-[ 2877.877277] kmemleak:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-[ 2877.877279] kmemleak:     00 03 da 52 b1 89 ff ff 38 25 5f cb b1 89 ff ff  ...R....8%_.....
-[ 2877.877280] kmemleak:   backtrace (crc d52b9041):
-[ 2877.877282] kmemleak:     __kmalloc_noprof+0x4b3/0x770
-[ 2877.877288] kmemleak:     amdgpu_job_alloc+0x69/0x280 [amdgpu]
-[ 2877.877668] kmemleak:     amdgpu_job_alloc_with_ib+0x55/0xf0 [amdgpu]
-[ 2877.878023] kmemleak:     amdgpu_vm_sdma_prepare+0x4b/0xa0 [amdgpu]
-[ 2877.878350] kmemleak:     amdgpu_vm_update_range+0x24f/0x940 [amdgpu]
-[ 2877.878668] kmemleak:     amdgpu_vm_clear_freed+0x13b/0x290 [amdgpu]
-[ 2877.878983] kmemleak:     amdgpu_gem_object_close+0x1ac/0x270 [amdgpu]
-[ 2877.879300] kmemleak:     drm_gem_object_release_handle+0x35/0xd0
-[ 2877.879305] kmemleak:     idr_for_each+0x70/0xe0
-[ 2877.879310] kmemleak:     drm_gem_release+0x23/0x30
-[ 2877.879311] kmemleak:     drm_file_free+0x217/0x2a0
-[ 2877.879314] kmemleak:     drm_release+0x61/0xe0
-[ 2877.879317] kmemleak:     amdgpu_drm_release+0x62/0xd0 [amdgpu]
-[ 2877.879630] kmemleak:     __fput+0xfb/0x2d0
-[ 2877.879634] kmemleak:     __x64_sys_close+0x3d/0x80
-[ 2877.879637] kmemleak:     do_syscall_64+0x12d/0x6c0
+I don't have anything else to add right now. As a QEMU developer, I've 
+only reviewed the more obvious aspects of this patch, so others may have 
+deeper kernel-specific feedback.
 
-So introduce a amdgpu_vm_update_funcs abort hook that is empty for CPU
-and frees the job for SDMA and call it on any error path after the
-prepare hook has been successfully called.
+At this stage, my main priority is seeing how the current feedback is 
+resolved. Before we dig deeper into the low-level details, I’d also like 
+to review the virtio specification changes alongside the 
+QEMU/virglrenderer implementation so I can better evaluate the overall 
+design.
 
-Fixes: 81417bea8755 ("drm/amdgpu: explicitly sync VM update to PDs/PTs")
-Fixes: c3546695830e ("drm/amdgpu: use the new VM backend for PTEs")
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c          | 10 ++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c      |  7 ++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c       |  7 +++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c     |  9 ++++++++-
- 5 files changed, 28 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 201e3e114f07..be908ef3fe80 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1021,7 +1021,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 
- 		r = amdgpu_vm_pde_update(&params, entry);
- 		if (r)
--			goto error;
-+			goto error_abort;
- 	}
- 
- 	vm->update_funcs->commit(&params, &vm->last_update);
-@@ -1033,6 +1033,9 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 				 vm_status)
- 		amdgpu_vm_bo_idle(entry);
- 
-+error_abort:
-+	if (r)
-+		vm->update_funcs->abort(&params);
- error:
- 	drm_dev_exit(idx);
- 	return r;
-@@ -1234,7 +1237,7 @@ int amdgpu_vm_map_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		tmp = start + num_entries;
- 		r = amdgpu_vm_ptes_update(&params, start, tmp, addr, flags);
- 		if (r)
--			goto error_free;
-+			goto error_abort;
- 
- 		amdgpu_res_next(&cursor, num_entries * AMDGPU_GPU_PAGE_SIZE);
- 		start = tmp;
-@@ -1249,6 +1252,9 @@ int amdgpu_vm_map_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- 	amdgpu_vm_pt_free_list(adev, &params);
- 
-+error_abort:
-+	if (r)
-+		vm->update_funcs->abort(&params);
- error_free:
- 	kfree(tlb_cb);
- 	amdgpu_vm_end_critical(&params);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-index ec715bcaa0f2..8565a2899e08 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-@@ -134,9 +134,14 @@ static void amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
- 	up_read(&adev->reset_domain->sem);
- }
- 
-+static void amdgpu_vm_cpu_abort(struct amdgpu_vm_update_params *p)
-+{
-+}
-+
- const struct amdgpu_vm_update_funcs amdgpu_vm_cpu_funcs = {
- 	.map_table = amdgpu_vm_cpu_map_table,
- 	.prepare = amdgpu_vm_cpu_prepare,
- 	.update = amdgpu_vm_cpu_update,
--	.commit = amdgpu_vm_cpu_commit
-+	.commit = amdgpu_vm_cpu_commit,
-+	.abort = amdgpu_vm_cpu_abort,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-index e056999d8406..3d8cbd4530ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-@@ -121,6 +121,7 @@ struct amdgpu_vm_update_funcs {
- 		      unsigned count, uint32_t incr, uint64_t flags);
- 	void (*commit)(struct amdgpu_vm_update_params *p,
- 		       struct dma_fence **fence);
-+	void (*abort)(struct amdgpu_vm_update_params *p);
- };
- 
- uint64_t amdgpu_vm_pt_clear_flags(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index f9abafef6a4f..e98a7a86bf3c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -426,14 +426,17 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	r = vm->update_funcs->prepare(&params, NULL,
- 				      AMDGPU_KERNEL_JOB_ID_VM_PT_CLEAR);
- 	if (r)
--		goto exit;
-+		goto exit_abort;
- 
- 	flags = amdgpu_vm_pt_clear_flags(adev, vm, level);
- 	r = vm->update_funcs->update(&params, vmbo, 0, 0, entries, 0, flags);
- 	if (r)
--		goto exit;
-+		goto exit_abort;
- 
- 	vm->update_funcs->commit(&params, NULL);
-+exit_abort:
-+	if (r)
-+		vm->update_funcs->abort(&params);
- exit:
- 	drm_dev_exit(idx);
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 0611ae38a9b5..7c48a370a6bc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -298,9 +298,16 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
- 	return 0;
- }
- 
-+static void amdgpu_vm_sdma_abort(struct amdgpu_vm_update_params *p)
-+{
-+	if (p->job)
-+		amdgpu_job_free(p->job);
-+}
-+
- const struct amdgpu_vm_update_funcs amdgpu_vm_sdma_funcs = {
- 	.map_table = amdgpu_vm_sdma_map_table,
- 	.prepare = amdgpu_vm_sdma_prepare,
- 	.update = amdgpu_vm_sdma_update,
--	.commit = amdgpu_vm_sdma_commit
-+	.commit = amdgpu_vm_sdma_commit,
-+	.abort = amdgpu_vm_sdma_abort,
- };
-
--- 
-2.47.3
-
+Regards,
+Akihiko Odaki
