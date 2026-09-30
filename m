@@ -4,82 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE58CA5FB1
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 09:03:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 995E0CA5FB1
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 09:12:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0DF310E91E;
-	Wed, 30 Sep 2026 09:03:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F3BD10EA11;
+	Wed, 30 Sep 2026 09:12:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AhV9q4Kl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tC1+qXBY";
 	dkim-atps=neutral
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
- [74.125.225.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A81ED10E91E
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 09:03:28 +0000 (UTC)
-Received: by mail-wr2-f34.google.com with SMTP id
- ffacd0b85a97d-48aef5d66c1so1098946f8f.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 02:03:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790759007; x=1791363807; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Xw2/+ozrc4J9brQA48GMQ6vkyz9q9SCUPEFr5E0FVQw=;
- b=AhV9q4KlZgnI5bozYjFKdnSDUveyySQaOJbkNb7+EcVdguhCqLxLzeJ05SVdWfC07m
- shpDjBuNtcpTvNDRWxkDR4y/ANs/bpyLAlRoUrQS+so2STvPIjKbK0DaFwpTReLele6g
- VSatVw6ovfj2RvaNNp9RUvxX8qqt7S65lcUZdQiVq3/8ZOVntRHFuIvTLTL94hhpBqZJ
- 50xcd+9pJRZ3kk4Y5/MrZ9aLVKy6JkkzwYX6/0b6Ucc4m8/aCGu0INitzCHesCRn4bwA
- At95ekiAbNN+0XlY3WBx7g0rCI2oG0izbdCxcVhqy8HVCEQioJ0Pu4zUY0bYBSA8Ev4R
- dFuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790759007; x=1791363807;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Xw2/+ozrc4J9brQA48GMQ6vkyz9q9SCUPEFr5E0FVQw=;
- b=JnLl2U0J2rWwlLNx7wFuVZdJnN/YySWsrrGmmMeYvB0tRMmXUSX1+vcmff/NM2/nnL
- X2TzBhgw3Zyrr3X1tTuwy6qUOT/hHFt8h6hitpXN10Z9WxbWyPJnrjyY228knkT3sPR+
- OGYNwVD41HqZHOdiuwtqAhkwfcdEc4wQqnUYUW4k4LZ3814vwcG89Jy9IuQeHYyKEzr0
- EKH4AF8hbgPV/UptRgOGbhtuY9xiwNKCllB9/g08ZiO1o1jQbaaS0sk5hb9AJNqU9Wxh
- b+M680Bxt5h+DN7YlDWVZZM5VDELAAHXhl/LliNH0hZ5QekAS5Yp0PLkVZwdC3nS/A8e
- 6x7A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy/3NVN8tcGtryezc+h4mal7qH2XQbyV4yJG+DwcTfrDKJQfg5mNx3adu1mtiWINjheh/sSQTtt@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKfaUHYvaCxGkh2sn8c/6aMcnxT1w14D6/sA+GPdDjdN2u+04nn
- 9Wm8R0g/iUB1/3PkvQaVH+vWUM96QEz2lvLsD3ZqxMJoi0oCBB+0yFM1
-X-Gm-Gg: AYBFou3++tzxsr9eEoeHVQmve+xBaFTSJL26W/WZX40lAFyk/vJJdhwSwifZRqvh0pR
- JQsG8Ajkq+ExT+4F53t6g2MhTndKDpqnbX8iImUUJMkrQTX+yQyfJv0lvicBNsj9vk6tvVrF0Nh
- 2b/cw25UP2oXlqebEPm6V6fv/Y6iLwV8ytt/yvQYwZeCZ3hm/FM2oqyUYIk4zTYiyyg0L1Ku4z9
- uBZANWkjnFH/A0TKCYXJgdGcA26lWPX2H+PDLaBdY11+SEyQXeGV5x2PzzhnFwtY2P8baokjuAM
- dv/X9ht9d6A8Y1Ly7gvG7IShSg/xTTCMhxpfF7t6LtqfPHWTDAZuoUNFyXsUr8GBWnqhy90PrKg
- 7G9tIQ36Bkk85ZeBFco5RX2YJZ97g/Yl3gQQMQ0TOqM+gkS8ihBdIzmbrKVa1MdD+iDn4NKowty
- FZsOZQvDuYefsZKBERuEM6ZfQ04a8xgdiYAAu+kkvg8PY5A38sQReGVAYe90jK95hOjhbLuLw3K
- r/xxi4tRY4sEEVG/39Rfk6QHhZLg6vYmdKkb5Q8OE2pdrAdn6NHf3p9IQ/RLhbml7jxk+fQnAWR
- jrngy1q8MnDQ3Mpx9qDi9vsahh5EBcpmqArgUDZB1IFn7HemAi14aNEgXrHth7FdncBQ0dH7pF9
- c2QkOfW9ON1lJNlv6//K5dnF20TEUD53eWE+sVHegcfUE9EPJ+yRJdUdORmt0sjJOHTisR44bYq
- oppOaF8UwwGixU6EM=
-X-Received: by 2002:a05:6000:4a07:b0:487:9a9:6d24 with SMTP id
- ffacd0b85a97d-48b024bd031mr1653013f8f.19.1790759006604; 
- Wed, 30 Sep 2026 02:03:26 -0700 (PDT)
-Received: from localhost.localdomain
- ([2a0d:e487:415f:3423:d0fc:6384:3b6e:b871])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48b029f5bcdsm1910233f8f.27.2026.09.30.02.03.25
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 30 Sep 2026 02:03:26 -0700 (PDT)
-From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-To: olivier.kaloudoff@gmail.com,
-	amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 06/13] drm/amdgpu: add amdgpu_vm_update_leaves()
-Date: Wed, 30 Sep 2026 11:03:25 +0200
-Message-ID: <20260930090325.46167-1-olivier.kaloudoff@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260529114031.3714-7-christian.koenig@amd.com>
-References: 
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012057.outbound.protection.outlook.com [40.107.209.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 260B710EA11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 09:12:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sIGDvjX1yox4oc1bSMgjwEg3JUlPtbxEZzZxfUjppMEWHtj+bOJ9tjM+2V9fWPUctm+6WyZ9PNTT3qr2Y1NFQRQ1UolbEcwL2AUnW2WZ9SHGq5EWFBrVfbiCp6fewmZDsFt54C0qCGL89d0g7yrjYjMf+zrRZ0Ovw/giA6ctxGVUOp5/bUvy35fb8SZyQloiCDDyQms1vDeglVlHoChmZZoRN+RhSNmEooibj9UikuMoF8zk5IkU4oKufInaNLoo6XmyS41grU/r03CdofqVAQixx8zak1bA1+zRMwFL1UgRT5WxQJ/VGkRDgBHhsN+JtdMDUU2Gqb3VKFlAonKqeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=STWY8le5hSUwEtnqeQMZlzlHzhY+e5hJTWzo/k5lkeg=;
+ b=cO9P3f9aefe3yOfA8nj9ZAUhKHihFFU3aS0J8a5YDONWhzWvaD7C4SHCDu0CyyrumG7fatT1HldmW+wEmE4q8xYx7jvQ9q0VGJBSZGq9CXn6HFcoCbbyRQEFFBlJ0irpCKwzKZ8aH6z0LwDqWM6JrAClDKegYGzYjeSrhN7W1i1acnY7pJrC/ac/ptMi7ctD+qNm+IctZTi6GsJAH5yDmQvb0tqIR4+MfEPQxdSkX0ezE/PqXm6g5ES/0gUY72ev6BkpYJ5rnD32XAQ6lFw7RcpTEPkSEX5TNNsoH/t0MzMm3VktVWR1CmxmeRRQWyRo+pCl7JfNjnb/61YJz0QBsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=STWY8le5hSUwEtnqeQMZlzlHzhY+e5hJTWzo/k5lkeg=;
+ b=tC1+qXBY7y4/lPlDsPz7EWykHq+lFuvD3HJmWWi2efsO+Wfrjpsk8EfHn7Ean9+cOC7FiIstLUHyzBAAD29NfdB4lHl33drp4hWf8veTdyL5IIOcRS7BpMIA9Ej1nOMnFZaXckglX+YWrWhirMmR6LeTipRabFIWxBTnK6i8RII=
+Received: from SJ2P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5da::11)
+ by DM4PR12MB6085.namprd12.prod.outlook.com (2603:10b6:8:b3::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Wed, 30 Sep
+ 2026 09:12:12 +0000
+Received: from BY1PEPF0002696A.namprd05.prod.outlook.com
+ (2603:10b6:a03:5da:cafe::59) by SJ2P220CA0004.outlook.office365.com
+ (2603:10b6:a03:5da::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Wed,
+ 30 Sep 2026 09:12:12 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0002696A.mail.protection.outlook.com (10.167.244.154) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 09:12:11 +0000
+Received: from marui-Super-Server.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 30 Sep 2026 04:12:06 -0500
+From: Heng Zhou <Heng.Zhou@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Lijo.Lazar@amd.com>, <Christian.Koenig@amd.com>, <Emily.Deng@amd.com>,
+ <Victor.Zhao@amd.com>, <Felix.Kuehling@amd.com>, <phasta@kernel.org>,
+ <Qing.Ma@amd.com>, <HaiJun.Chang@amd.com>, <Heng.Zhou@amd.com>,
+ <Victor.Skvortsov@amd.com>
+Subject: [PATCH] drm/amdgpu: clear IH ring overflow on SR-IOV VF via PSP relay
+Date: Wed, 30 Sep 2026 17:10:55 +0800
+Message-ID: <20260930091055.395542-1-Heng.Zhou@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0002696A:EE_|DM4PR12MB6085:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7614e028-c37a-4c51-c52a-08df1ed2e965
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|18002099003|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: wYKc9rDId8FJK2jIogwZpKND/kPE3BhW+dI7QD2qIeEbLqWQC6cMiAyphgrvYtB/AvAKB471psa6CDYfBV9Ua/YvF6i6ATBDaxSyTT+5DE4F3R3C1W8/jw+rwU0mpZq2U1TdEPeFZT9t7msFCebrbGKQIQ9bHwQHqxBwh+sfML8JEPQC09qV7CR+7+WmNSXJmCrxr6dXrc5bxDExyb5NYB2m7cxXbOquEohgXvzjlQ8xPHZVP5CIhVJ5duVX57kwmDSKIpU5NPAMkMD7XV20XrN/7uPM9AE8P8K+/XQwItBo6XjPMQUz/DzuI30BUnY3aByCF8/wODb9Wp3ZkoDoJatHb86lGMTsAEWfOjgbX0NJvJLJdIkoVltBL5bCFJOv+eUetyn62oa6tCNxbwNf3ph+5JLp/c6hoFGGNq6ERd19C3iIkv0FwOWOi8LHMV5GPKgwXQ3J4jXW77wAlCISxYjR6FVUhqG74j9daZDeeX1FuOrDznowGSqrVs7lhECaorAHJ7EQ3n28WJiepaOa7ONjgsiKmVan9dNsKD/6lpmfNLo7lcZJ7PraSKoP+71awIAZXK7OWCiowc7X0MkMCaCxkjMDys+K52qXvVn83Yo9SYYfSC+BkxANN4OP9KVqZMBO+gVhLHVT4QdsevPPda4ZJyof3HE4codwr8i3M7YuCQuoRXAU//VjEpgn112JQmgkJvnj3lGa2buHgMuOgA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: GniYZXADN39HzcOUF7xJ/u5A6fSxbjX3CIa506w5FbEawv6rY9U4f5WfDiF++1sWfH9/1htDDNxpyvHC2n9HGCDoqvq2V/keSbMEWAl4fjvezQZREKa3ztfZCus3GJjpJRM9tH3MP7ybRZMKWAskCNmJ4kJdPY3riRN4IMVPZIk+/Vxm0m+yJVR4IvImpvLRkOFAqVtvfZY6anirCD4LiZu3iKpBZV8S9KIrXptBCe7dylfsshe2JHWc/Bhtz0J99vi1tUjNk2TpoX0z0dXWvx1RAUma15YHvx+9W+/PRGuWFnPjRHM8nxAJj7tGOJ6HPh9SLHrCJ0ZUc/SCjtY6EKeMTu7zQnaakuyEWJeFMSVT5cfHz1KSevuIl4N8Lh8TccQ01ezYx9MTv7yHKdxKvJ1mJtNUlCp4HjQiyHMmuNor236qOJdve6Oqy2/8AkDn
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 09:12:11.6367 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7614e028-c37a-4c51-c52a-08df1ed2e965
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0002696A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6085
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,123 +111,421 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+On an SR-IOV VF the IH_RB_CNTL register is protected, so the VF cannot
+set WPTR_OVERFLOW_CLEAR itself once an IH ring overflows. Today the VF
+marks the ring as overflowed and schedules an FLR from
+amdgpu_ih_process(). With rocgdb on MI300X a breakpoint at kernel entry
+makes every wave raise a debug trap interrupt at once, which overflows
+the IH ring almost immediately, so every such debug session ends up in
+an FLR.
 
-while testing this series (applied on top of 7.2.6) we hit a regression
-in amdgpu_vm_update_leaves() that deterministically produces MMHUB
-page faults under KFD SVM load on gfx906 (MI50 32GB, Vega 20, PCIe via
-Thunderbolt 3 eGPU).
+Let the VF ask the host to relay the IH_RB_CNTL program command to PSP
+instead:
 
-> +		pt = cursor.parent->bo;
-> +		shift = amdgpu_vm_pt_level_shift(adev, cursor.level - 1);
-> +		mask = amdgpu_vm_pt_entries_mask(adev, cursor.level - 1);
-> +
-> +		/* Looks good so far, calculate parameters for the update */
-> +		pe_start = ((cursor.pfn >> shift) & mask) * 8;
-> +
-> +		entry_end = ((uint64_t)mask + 1) << shift;
-> +		entry_end += cursor.pfn & ~(entry_end - 1);
-> +		entry_end = min(entry_end, end);
-> +
-> +		nptes = (entry_end - cursor.pfn) >> shift;
-> +		/*
-> +		 * This can happen when we set higher level PDEs to unmap and/or
-> +		 * silent to stop fault floods.
-> +		 */
-> +		nptes = max(nptes, 1u);
-> +
-> +		trace_amdgpu_vm_update_ptes(params, cursor.pfn, entry_end,
-> +					    min(nptes, 32u), dst, 0, flags,
-> +					    tgid,
-> +					    vm->immediate.fence_context);
-> +		amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_vm(pt),
-> +					   cursor.level - 1, pe_start, dst,
-> +					   nptes, 0, flags);
+- Add a vf_cmd_relay virt op, implemented for the nv mailbox with the
+  new IDH_PSP_VF_CMD_RELAY request, which passes the updated PSP KM ring
+  wptr to the host. The mailbox ack result is now propagated to the
+  caller.
+- Add psp_reg_program_vf_relay(), which submits the reg program command
+  on the VF KM ring, notifies the host through the relay op and fails
+  on a non-zero PSP response status. Once the frame is on the ring, a
+  relay failure no longer rolls back the fence value.
+- In vega20_ih_get_wptr(), when running as a VF at runtime with relay
+  support, move rptr past the overwritten entries once, mark the ring
+  as overflow_clearing and queue clear_overflow_work. Further calls
+  return the real wptr without jumping rptr again until the work has
+  cleared the overflow bit.
+- clear_overflow_work sets and clears WPTR_OVERFLOW_CLEAR through PSP
+  relay for every ring whose RB_OVERFLOW is set. It skips the work
+  during shutdown or when a reset is in progress, and falls back to
+  FLR if the relay fails.
 
-When amdgpu_vm_pt_descendant() cannot descend (a gap — the position has
-no leaf table in the tree), the write targets the parent's slot at
-level-1, i.e. a PDE slot. nptes as computed above covers *every*
-remaining slot up to entry_end (the end of the parent-table span,
-clamped to the op end) — not just the slot the cursor is at.
+VFs without relay support keep the existing behaviour of flagging the
+overflow and letting amdgpu_ih_process() schedule an FLR. This
+requires a host driver that handles IDH_PSP_VF_CMD_RELAY.
 
-The old code had an explicit clamp for this exact case, in
-amdgpu_vm_ptes_update() under params->unlocked:
+Signed-off-by: Heng Zhou <Heng.Zhou@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h     |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 56 ++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h    |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 15 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  4 ++
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c      | 18 +++++-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h      |  1 +
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c     | 73 ++++++++++++++++++++--
+ 9 files changed, 164 insertions(+), 10 deletions(-)
 
-	if (cursor.level < AMDGPU_VM_PTB && params->unlocked)
-		/* only clear one entry. Next entry search again for PDE or
-		 * PTE leave.
-		 */
-		entry_end = 1ULL << shift;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index b690a07e31ab..17066ec1891b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5427,8 +5427,10 @@ static inline void amdgpu_device_stop_pending_resets(struct amdgpu_device *adev)
+ 	if (adev->kfd.dev)
+ 		cancel_work(&adev->kfd.reset_work);
+ 
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev)) {
+ 		cancel_work(&adev->virt.flr_work);
++		cancel_work(&adev->virt.clear_overflow_work);
++	}
+ 
+ 	if (con && adev->ras_enabled)
+ 		cancel_work(&con->recovery_work);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+index 8d74a89b40cf..c68b3d609acc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+@@ -75,6 +75,7 @@ struct amdgpu_ih_ring {
+ 	wait_queue_head_t wait_process;
+ 	uint64_t		processed_timestamp;
+ 	bool overflow;
++	bool overflow_clearing;
+ };
+ 
+ /* return true if time stamp t2 is after t1 with 48bit wrap around */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 82a2684dbd2e..b78f7b065c17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -890,15 +890,19 @@ static bool psp_err_warn(struct psp_context *psp)
+ }
+ 
+ static int
+-psp_cmd_submit_buf(struct psp_context *psp,
+-		   struct amdgpu_firmware_info *ucode,
+-		   struct psp_gfx_cmd_resp *cmd, uint64_t fence_mc_addr)
++__psp_cmd_submit_buf(struct psp_context *psp,
++		     struct amdgpu_firmware_info *ucode,
++		     struct psp_gfx_cmd_resp *cmd, uint64_t fence_mc_addr,
++		     bool vf_relay)
+ {
+ 	int ret;
+ 	int index;
+ 	int timeout = psp->adev->psp_timeout;
+ 	bool ras_intr = false;
+ 	bool skip_unsupport = false;
++	u32 rb_frame_size_dw = sizeof(struct psp_gfx_rb_frame) / 4;
++	u32 ring_size_dw = psp->km_ring.ring_size / 4;
++	u32 wptr = 0;
+ 
+ 	if (psp->adev->no_hw_access)
+ 		return 0;
+@@ -907,6 +911,8 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 
+ 	memcpy(psp->cmd_resp_buf_mem, cmd, sizeof(struct psp_gfx_cmd_resp));
+ 
++	if (vf_relay)
++		wptr = psp_ring_get_wptr(psp);
+ 	index = atomic_inc_return(&psp->fence_value);
+ 	ret = psp_ring_cmd_submit(psp, psp->cmd_resp_buf_mc_addr, fence_mc_addr, index);
+ 	if (ret) {
+@@ -914,6 +920,12 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 		goto exit;
+ 	}
+ 
++	if (vf_relay) {
++		ret = amdgpu_virt_vf_cmd_relay(psp->adev, (wptr + rb_frame_size_dw) % ring_size_dw);
++		if (ret)
++			goto exit;
++	}
++
+ 	amdgpu_device_invalidate_hdp(psp->adev, NULL);
+ 	while (*((unsigned int *)psp->fence_buf) != index) {
+ 		if (--timeout == 0)
+@@ -975,6 +987,14 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 	return ret;
+ }
+ 
++static int
++psp_cmd_submit_buf(struct psp_context *psp,
++		   struct amdgpu_firmware_info *ucode,
++		   struct psp_gfx_cmd_resp *cmd, uint64_t fence_mc_addr)
++{
++	return __psp_cmd_submit_buf(psp, ucode, cmd, fence_mc_addr, false);
++}
++
+ static struct psp_gfx_cmd_resp *acquire_psp_cmd_buf(struct psp_context *psp)
+ {
+ 	struct psp_gfx_cmd_resp *cmd = psp->cmd;
+@@ -2201,6 +2221,36 @@ int psp_reg_program(struct psp_context *psp, enum psp_reg_prog_id reg,
+ 	return ret;
+ }
+ 
++int psp_reg_program_vf_relay(struct psp_context *psp, enum psp_reg_prog_id reg,
++			     uint32_t value)
++{
++	struct psp_gfx_cmd_resp *cmd;
++	int ret;
++
++	if (reg >= PSP_REG_LAST)
++		return -EINVAL;
++
++	if (!amdgpu_virt_vf_cmd_relay_supported(psp->adev))
++		return -EOPNOTSUPP;
++
++	cmd = acquire_psp_cmd_buf(psp);
++
++	psp_prep_reg_prog_cmd_buf(cmd, reg, value);
++	ret = __psp_cmd_submit_buf(psp, NULL, cmd, psp->fence_buf_mc_addr, true);
++	if (ret) {
++		dev_err(psp->adev->dev, "PSP failed to relay reg id %d program, ret %d\n",
++			reg, ret);
++	} else if (cmd->resp.status) {
++		ret = -EIO;
++		dev_err(psp->adev->dev, "PSP failed to program reg id %d, status 0x%x\n",
++			reg, cmd->resp.status);
++	}
++
++	release_psp_cmd_buf(psp);
++
++	return ret;
++}
++
+ static void psp_prep_ta_load_cmd_buf(struct psp_gfx_cmd_resp *cmd,
+ 				     uint64_t ta_bin_mc,
+ 				     struct ta_context *context)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index a4ec60f6c317..6cdb44d2160a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -662,6 +662,8 @@ int psp_rlc_autoload_start(struct psp_context *psp);
+ 
+ int psp_reg_program(struct psp_context *psp, enum psp_reg_prog_id reg,
+ 		uint32_t value);
++int psp_reg_program_vf_relay(struct psp_context *psp, enum psp_reg_prog_id reg,
++			     uint32_t value);
+ int psp_ring_cmd_submit(struct psp_context *psp,
+ 			uint64_t cmd_buf_mc_addr,
+ 			uint64_t fence_mc_addr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 3ba254411642..96c8477e1a6b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -113,6 +113,21 @@ int amdgpu_virt_request_full_gpu(struct amdgpu_device *adev, bool init)
+ 	return 0;
+ }
+ 
++bool amdgpu_virt_vf_cmd_relay_supported(struct amdgpu_device *adev)
++{
++	struct amdgpu_virt *virt = &adev->virt;
++
++	return virt->ops && virt->ops->vf_cmd_relay;
++}
++
++int amdgpu_virt_vf_cmd_relay(struct amdgpu_device *adev, u32 wptr)
++{
++	if (!amdgpu_virt_vf_cmd_relay_supported(adev))
++		return -EOPNOTSUPP;
++
++	return adev->virt.ops->vf_cmd_relay(adev, wptr);
++}
++
+ /**
+  * amdgpu_virt_release_full_gpu() - release full gpu access
+  * @adev:	amdgpu device.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 9957241bdf59..63cd65e1d864 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -118,6 +118,7 @@ struct amdgpu_virt_ops {
+ 			u32 param1, u32 param2, u32 param3);
+ 	int (*req_ptl_update)(struct amdgpu_device *adev,
+ 			u32 req_code, u32 ptl_state, u32 fmt1, u32 fmt2);
++	int (*vf_cmd_relay)(struct amdgpu_device *adev, u32 wptr);
+ };
+ 
+ /*
+@@ -303,6 +304,7 @@ struct amdgpu_virt {
+ 	struct amdgpu_irq_src		rcv_irq;
+ 
+ 	struct work_struct		flr_work;
++	struct work_struct		clear_overflow_work;
+ 	struct work_struct		req_bad_pages_work;
+ 	struct work_struct		handle_bad_pages_work;
+ 
+@@ -470,6 +472,8 @@ int amdgpu_virt_ptl_request(struct amdgpu_device *adev, u32 req_code,
+ 			    uint32_t *ptl_state, uint32_t *fmt1, uint32_t *fmt2);
+ void amdgpu_virt_ready_to_reset(struct amdgpu_device *adev);
+ int amdgpu_virt_wait_reset(struct amdgpu_device *adev);
++bool amdgpu_virt_vf_cmd_relay_supported(struct amdgpu_device *adev);
++int amdgpu_virt_vf_cmd_relay(struct amdgpu_device *adev, u32 wptr);
+ int amdgpu_virt_alloc_mm_table(struct amdgpu_device *adev);
+ void amdgpu_virt_free_mm_table(struct amdgpu_device *adev);
+ bool amdgpu_virt_rcvd_ras_interrupt(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+index eb537b2ae685..29018a598c3c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+@@ -136,8 +136,8 @@ static int xgpu_nv_poll_msg(struct amdgpu_device *adev, enum idh_event event)
+ 	return -ETIME;
+ }
+ 
+-static void xgpu_nv_mailbox_trans_msg (struct amdgpu_device *adev,
+-	      enum idh_request req, u32 data1, u32 data2, u32 data3)
++static int __xgpu_nv_mailbox_trans_msg(struct amdgpu_device *adev,
++				       enum idh_request req, u32 data1, u32 data2, u32 data3)
+ {
+ 	int r;
+ 	uint8_t trn;
+@@ -170,6 +170,14 @@ static void xgpu_nv_mailbox_trans_msg (struct amdgpu_device *adev,
+ 		dev_err(adev->dev, "Doesn't get ack from pf, continue\n");
+ 
+ 	xgpu_nv_mailbox_set_valid(adev, false);
++
++	return r;
++}
++
++static void xgpu_nv_mailbox_trans_msg(struct amdgpu_device *adev,
++				      enum idh_request req, u32 data1, u32 data2, u32 data3)
++{
++	__xgpu_nv_mailbox_trans_msg(adev, req, data1, data2, data3);
+ }
+ 
+ static int xgpu_nv_send_access_requests_with_param(struct amdgpu_device *adev,
+@@ -624,6 +632,11 @@ static int xgpu_nv_req_ptl_update(struct amdgpu_device *adev,
+ 			req_code, ptl_state, AMD_SRIOV_PTL_PACK_FORMATS(fmt1, fmt2));
+ }
+ 
++static int xgpu_nv_vf_cmd_relay(struct amdgpu_device *adev, u32 wptr)
++{
++	return __xgpu_nv_mailbox_trans_msg(adev, IDH_PSP_VF_CMD_RELAY, wptr, 0, 0);
++}
++
+ const struct amdgpu_virt_ops xgpu_nv_virt_ops = {
+ 	.req_full_gpu	= xgpu_nv_request_full_gpu_access,
+ 	.rel_full_gpu	= xgpu_nv_release_full_gpu_access,
+@@ -640,4 +653,5 @@ const struct amdgpu_virt_ops xgpu_nv_virt_ops = {
+ 	.req_ras_chk_criti = xgpu_nv_check_vf_critical_region,
+ 	.req_remote_ras_cmd = xgpu_nv_req_remote_ras_cmd,
+ 	.req_ptl_update = xgpu_nv_req_ptl_update,
++	.vf_cmd_relay = xgpu_nv_vf_cmd_relay,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
+index 5023113e7600..5e51c805c666 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
+@@ -36,6 +36,7 @@ enum idh_request {
+ 	IDH_REL_GPU_FINI_ACCESS,
+ 	IDH_REQ_GPU_RESET_ACCESS,
+ 	IDH_REQ_GPU_INIT_DATA,
++	IDH_PSP_VF_CMD_RELAY,
+ 
+ 	IDH_LOG_VF_ERROR	= 200,
+ 	IDH_READY_TO_RESET 	= 201,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+index 0bda48558d4d..dbaab8633f05 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+@@ -351,6 +351,7 @@ static int vega20_ih_irq_init(struct amdgpu_device *adev)
+ 				return ret;
+ 		}
+ 		ih[i]->overflow = false;
++		ih[i]->overflow_clearing = false;
+ 	}
+ 
+ 	if (!amdgpu_sriov_vf(adev))
+@@ -402,6 +403,56 @@ static void vega20_ih_irq_disable(struct amdgpu_device *adev)
+ 	mdelay(1);
+ }
+ 
++static void vega20_ih_clear_overflow_work(struct work_struct *work)
++{
++	struct amdgpu_virt *virt = container_of(work, struct amdgpu_virt, clear_overflow_work);
++	struct amdgpu_device *adev = container_of(virt, struct amdgpu_device, virt);
++	struct amdgpu_ih_ring *ih[] = {&adev->irq.ih, &adev->irq.ih1, &adev->irq.ih2};
++	struct amdgpu_ih_regs *ih_regs;
++	u32 wptr, tmp;
++	int i;
++
++	if (adev->shutdown)
++		return;
++
++	if (!down_read_trylock(&adev->reset_domain->sem))
++		return;
++
++	for (i = 0; i < ARRAY_SIZE(ih); i++) {
++		if (!ih[i]->ring_size)
++			continue;
++
++		ih_regs = &ih[i]->ih_regs;
++		wptr = RREG32_NO_KIQ(ih_regs->ih_rb_wptr);
++		if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW)) {
++			WRITE_ONCE(ih[i]->overflow_clearing, false);
++			continue;
++		}
++
++		tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
++		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
++		if (psp_reg_program_vf_relay(&adev->psp, ih_regs->psp_reg_id, tmp))
++			goto fail;
++
++		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++		if (psp_reg_program_vf_relay(&adev->psp, ih_regs->psp_reg_id, tmp))
++			goto fail;
++
++		WRITE_ONCE(ih[i]->overflow_clearing, false);
++		dev_dbg(adev->dev, "%s overflow cleared\n",
++			amdgpu_ih_ring_name(adev, ih[i]));
++	}
++	goto out;
++
++fail:
++	dev_warn(adev->dev, "failed to clear %s overflow, schedule FLR\n",
++		 amdgpu_ih_ring_name(adev, ih[i]));
++	ih[i]->overflow = true;
++	amdgpu_reset_domain_schedule(adev->reset_domain, &adev->virt.flr_work);
++out:
++	up_read(&adev->reset_domain->sem);
++}
++
+ /**
+  * vega20_ih_get_wptr - get the IH ring buffer wptr
+  *
+@@ -438,10 +489,10 @@ static u32 vega20_ih_get_wptr(struct amdgpu_device *adev,
+ 	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+ 		goto out;
+ 
+-	if (!amdgpu_sriov_vf(adev))
+-		wptr = REG_SET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW, 0);
+-	else
+-		ih->overflow = true;
++	if (amdgpu_sriov_runtime(adev) && READ_ONCE(ih->overflow_clearing))
++		goto out;
++
++	wptr = REG_SET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW, 0);
+ 
+ 	/* When a ring buffer overflow happen start parsing interrupt
+ 	 * from the last not overwritten vector (wptr + 32). Hopefully
+@@ -452,6 +503,17 @@ static u32 vega20_ih_get_wptr(struct amdgpu_device *adev,
+ 			     amdgpu_ih_ring_name(adev, ih), wptr, ih->rptr, tmp);
+ 	ih->rptr = tmp;
+ 
++	if (amdgpu_sriov_runtime(adev)) {
++		if (!amdgpu_virt_vf_cmd_relay_supported(adev)) {
++			ih->overflow = true;
++			goto out;
++		}
++		WRITE_ONCE(ih->overflow_clearing, true);
++		amdgpu_reset_domain_schedule(adev->reset_domain,
++					     &adev->virt.clear_overflow_work);
++		goto out;
++	}
++
+ 	tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+ 	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
+ 	WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
+@@ -608,6 +670,9 @@ static int vega20_ih_sw_init(struct amdgpu_ip_block *ip_block)
+ 	/* initialize ih control registers offset */
+ 	vega20_ih_init_register_offset(adev);
+ 
++	if (amdgpu_sriov_vf(adev))
++		INIT_WORK(&adev->virt.clear_overflow_work, vega20_ih_clear_overflow_work);
++
+ 	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, use_bus_addr);
+ 	if (r)
+ 		return r;
+-- 
+2.43.0
 
-That clamp was lost in the rewrite. Without it, an unlocked unmap
-(PATCH 08/13 wires amdgpu_vm_unmap_range() to update_leaves()) that
-hits a gap *before* still-linked sibling subtrees will clear their
-parent slots too:
-
-  - the gap's unmap write covers N parent slots (we observed runs like
-    pe 0x58 n15, pe 0x60 n14, pe 0x68 n13 — each gap position
-    re-clearing the whole remaining tail of the parent page),
-  - sibling PDE slots inside that span still hold live child pointers,
-  - the write overwrites them with the PDE_PTE-only marker
-    (0x40000000000000 in RAM — bit 54 set, no address),
-  - the in-memory PT tree still considers those subtrees linked, so
-    their needs_update is never set and a later amdgpu_vm_update_pdes()
-    pass does not re-link them,
-  - the next GPU page walk through that slot reads a non-pointer and
-    faults: "memory access fault ... reason: PTE not valid" (MMHUB
-    no-retry).
-
-Captured write ordering (instrumented amdgpu_vm_pte_update_flags /
-amdgpu_vm_pde_update, job ids tagged):
-
-  MAP_RANGE    PTEs pe 0x368..0x800        (big map)
-  UPDATE_PDES  pde 0x0..0x1a8 links, incl. [0x80] -> child 0x5d4dd0000
-  MAP_RANGE    PTEs pe 0x58..0x1e0         (re-map)
-  UNMAP_RANGE  clear pe 0x58 n15  -> covers 0x58..0xc8, incl. 0x80
-  UPDATE_PDES  relinks 0x58..0x78, 0xf0..0x1f0  -- but not 0x80..0xe8
-  FAULT        slot 0x80 reads 0x40000000000000,
-               tree still expects 0x5d4dd0001
-
-The unmap's clear overshoots slot 0x80; the relink pass skips it
-because the subtree was never dropped from the tree. This is fully
-deterministic — our reproducer (vLLM/ROCm loading a 10-shard model,
-i.e. heavy SVM map/unmap/re-add churn) faulted at the same stage on
-every run.
-
-Locally we fixed it by restoring the single-entry semantics for
-non-leaf slot writes:
-
-	/* only clear one entry, next entry search again for PDE/PTE leaf */
-	if (cursor.level < AMDGPU_VM_PTB)
-		nptes = 1;
-
-(nptes = 1 rather than re-clamping entry_end, since entry_end is only
-used for the tracepoint afterward; either form works.)
-
-With the clamp restored the full workload completes cleanly — all
-checkpoint shards load, engine serves inference, zero page faults
-across repeated runs and reboots.
-
-Two questions:
-
-1. Is this already fixed in a later revision of the series? I tested
-   the patches as posted on amd-gfx (2026-05-29), not a git branch.
-2. If not — since 08/13 makes the unlocked unmap path use
-   update_leaves(), everyone driving SVM eviction/restore traffic will
-   hit this. Would you like a formal patch, or do you prefer to fold
-   the clamp into a v2?
-
-Full debugging trail (STALE PDE dumps, write histories, vanilla diff)
-is available if useful.
-
-Regards,
-Olivier
-
-== Environment ==
-  GPU:       AMD Radeon Instinct MI50 32GB, gfx906, 0000:05:00.0
-             (Vega 20, PCIe via Thunderbolt 3 eGPU enclosure)
-  Host:      AMD Strix Halo (Ryzen AI Max+ 395), 28GB RAM, Proxmox VE 9
-  Kernel:    7.2.6 + amd-gfx VM critical-section series (vmcrit 1-14)
-             + TLB invalidation V3 series
-  Workload:  vLLM 0.28.0 (rocm, gfx906 build) loading GLM-4-9B 1M
-             via KFD SVM; deterministic fault during weight staging
