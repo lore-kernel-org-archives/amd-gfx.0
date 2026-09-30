@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB03CA5FC5
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 19:12:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E54DCA5FC5
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 19:19:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2B4310F3B0;
-	Wed, 30 Sep 2026 19:12:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11DDB10F458;
+	Wed, 30 Sep 2026 19:19:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ehA3Fn2K";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h4z6UzAP";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012056.outbound.protection.outlook.com [52.101.53.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E68110E0E8;
- Wed, 30 Sep 2026 19:12:12 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011050.outbound.protection.outlook.com [52.101.62.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9889610E263;
+ Wed, 30 Sep 2026 19:19:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lliSPHBPFrUH4l+PcMPImmOjaWQWK/9iYTUtQvT9xODmyoEhcMOn5t9MdubRlqSYaObY3etFrwuaCgfMJAvHcaXxT0ruGVYQaaTIpa173RMlf38YwUIQtinx8o2pLRgNuGgtQcsrTumVunM7i1ptfcL8AiFtkT77L+CmBQ1F6McWVDqEnRV5wMqrGfz7rRYQuU4zlX+CULLkoIEJrx2MwOwFh9sKUo9eAaLayd6JePBdaWl2FH6Ur9oQVAe1QvbmyIQX3vpl8w2zUwagNG6dCaq5zkmTSQZixhZVMjYaEdBtixR5oOjkxnhsLLIFczgkKsxMQSKFsdrGUhLHK9I7MQ==
+ b=B1Ue67aKRKIx+qTcvZDfwUBdff5Uq0VUuzRkLNuZCrAK9khe8UQLMKg/t0Rs3CE0D0DuiEK0gvpt6IlAS6gtWlyqp5dQnw2cIQiX8R665bfR3WSw3WVw1KdP2nGs4TTFZ7uHbRGOWi4JbsbR6ZrTzHS5mnkA6UKJZbUNnjaDGI0uuHcSE0yRaIZiXUco9GCuFt2ep8qJAIsMbFDbus7DNHtb/ZL3mBSQNKI76Za4DcRbh/YBQkhkr+wkLvRhGdkV0U5ztB5co2M6SuYVRos2jgXhEQiSYabZwn/ZIe0bBqDAfVZ31XkV1FNhBR+0Wj/7iYy/73Ay8RyqM5fIbm+S5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w5wKxFuFAC4LioUkzK4OYLtMj4BYyJev5r7AuA8HLEw=;
- b=ZAgBDrLctC2tc2AyizRZxnkrQTVd0a//GJDYrFgaSKx0xAzBOFS7ZcFoCmd+oxYXR8wKI5rc+LH8YbLDWR1hEBs9xmtBPau4ofjeESv7YbZIaPjm6TtMHLOBJMfY6cHa0mKzJTGpozmtFC4zBFxV19uKam92xZ4AhvtYnitFZm3gQ7BOZvGIIi3hBH9SZ0QEZPBV/HvsLvrMnXmlOdfRijV3f8lDm6xAKit3bg0fjOwTcm/+T5SkBrfOprzuGz4BqIqGIaO+Nqnra6GXlBvNuuRmQhLNrwdngQ5x/hDCuCsQkUb7Htwa9kz4hFMMUR+71IxZ1hbgcsf+o7Ij4frEwg==
+ bh=vtdeQBjCiTLS6d6jcw+i+WUefwW2Vme5icurAQ5gnd8=;
+ b=no+ilUiSjtfABBUfegDh7cCugFDVCwZ7tI9/tBBOv01Z2fNedrH0OIgoc/JFNVeLmhP2SE+81rK+HdrLx8ZHocOw4N8AAvWPUry12tbCeq8dDVTPTZjoyGobtA/OKfIXngUfQdvr4n7QzgIxxBQsMydJGKNOezeBu1wxi6jNpdwSC2IYVELHI2osO2x8bNqjUFtcfmvPOjauliZMbylx6Ch9GE4fbtKqfwdPjeGv0WtLnwpjp7x/qvw73F76EC+9NBIot0VERCzaLkP2BnzOzAGLj7Bm/VGlDvd9uW2y5ITTEM3sIjMMzu1QyDPEXMP2QBWxpaO/KW9IkrHy7k2w+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w5wKxFuFAC4LioUkzK4OYLtMj4BYyJev5r7AuA8HLEw=;
- b=ehA3Fn2KMrHEbvNpEoEa5cKcrLu8zSSx08TIPsnugCfP+An0bt4AiATfuwxhrscxPjkHToz+OgfbCvabDp+VdEuReoJViKaTZmW6sFEXuPuSVqZpr4nNiRsh4MmDcwY5Jp8G4QhLJCn4Wmcw02q4Ph90RZYppdInYsGPMD76vrE=
+ bh=vtdeQBjCiTLS6d6jcw+i+WUefwW2Vme5icurAQ5gnd8=;
+ b=h4z6UzAPh8xENDRMwSG0tB2F5pAePUBwyazZi8KY7mCq4y5cz2CGTJ1yZCZTpMs8IQ+E8OzW5FHHy613gJ7dVFe6YRuCMT1OLDI+zrD+Ym7IdrGLHUHo+mozAq8K5bv2eTHa+K81RTQo7disD6vgdCZGKAYusg1XNF/q7zvyXPM=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by DS7PR12MB6093.namprd12.prod.outlook.com (2603:10b6:8:9e::12) with
+ by DS2PR12MB9664.namprd12.prod.outlook.com (2603:10b6:8:27b::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 19:12:04 +0000
+ 2026 19:18:19 +0000
 Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
  ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
  ([fe80::6f95:c4a2:894d:9e8a%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 19:12:04 +0000
-Message-ID: <c66d2ba4-bebf-434f-8d91-58b867b4a407@amd.com>
-Date: Wed, 30 Sep 2026 15:11:57 -0400
+ 19:18:16 +0000
+Message-ID: <15aaa974-9f8e-4768-81b0-0a3ff2578412@amd.com>
+Date: Wed, 30 Sep 2026 15:18:08 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/11] drm/atomic: only add states of active or
- transient active colorops
+Subject: Re: [PATCH v4 02/11] drm/atomic: reject colorop update from inactive
+ color pipeline
 To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
  alexander.deucher@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
  christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
@@ -65,78 +65,78 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 References: <20260811171011.184964-1-mwen@igalia.com>
- <20260811171011.184964-2-mwen@igalia.com>
+ <20260811171011.184964-3-mwen@igalia.com>
 Content-Language: en-US
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260811171011.184964-2-mwen@igalia.com>
+In-Reply-To: <20260811171011.184964-3-mwen@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0386.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:108::7) To SJ0PR12MB7007.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT4PR01CA0394.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:108::23) To SJ0PR12MB7007.namprd12.prod.outlook.com
  (2603:10b6:a03:486::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|DS7PR12MB6093:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec382a0a-e151-47a5-2270-08df1f26b67d
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|DS2PR12MB9664:EE_
+X-MS-Office365-Filtering-Correlation-Id: 357ca787-b125-4cd0-6685-08df1f27946e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|23010399003|4143699003|11063799006|10067099003|6133799003|56012099006|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: 86bI8i5GmMJW1UWfwYKN5946kQOwUNcS6izLlrEOFPr+ozlsCnviQyCQBpYf5S5nvq+Sp1zCAwC5JeBdiddpI6E/jZT7MLRJZnX2caH5sREMrcoODmVsb6R1rGjgmy3j5DpEb8rii6BteSwP8azrBrCrUDgIsTz/Nfign4P+0TeplE0UctJFWljye594ozyS6T47gITaBgc6hL5fB/4YFBL3KLTXMgEcjnx9npRMAEqtJEx1IYrsRX9Lc8zKvszBARAj0lvT+pdP5wh+FObTXeY7B7QVUxKjlM6dBNt6fA6CqUoI0/t8Y3ptpsSnY/nFXRoql/yK4jvnf7w9meTYTYPAshUVtuDmxg3YtRSjlxA4QaFRuL7IkTXSegCJa0ht36cSdxelNmqeF9BD+ipVU2n4KLAU3XyBSjyoDNVuzHCvbHp/jvj8QsV/vAYambYK66DP6dJVdGuN3JAeIKm07Ef6A3fN33hNu2kECrzy1izVmR5uxhIaM61kPHWc1RFtvzADNeZBw/ouWLYgcpCCPdg0yhv9grCL8X1YzCXfxoOsVaygn46kxQhDHb4AnFmVDkawwLGQtQKp+cj7J3zBtuAcCxk2MBPnI1dluySn4Kd7hW3kLq0p7jySdGYKaeGR59AawpwWx8Q7DuvIcs2lCmDKmF2t6kpWNC7AaBX5iMEQr/KBwSk+feD/hHmWzXC6Nj9UxZFhY9Y8nMTtoC3p4g==
+ ARA:13230040|376014|1800799024|7416014|366016|23010399003|10067099003|56012099006|11063799006|4143699003|921020|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: NVHH11jEx/VfIA9NP/fR7BRDAon07A/Q89/9fnsLXkgyLWrQAKC+EY7z14b9h9pGOL1C4r3b4PpBXa7IilaJRymXrr+IPVj5tXtWIMCgimlKK0ZMo9lw9VK6b9wl0RWSY1P86sV4Z9upM3zqa59lFAT6PLwP955yW0RgDQVYDmixoFjhKuOeNfHCr3eO6XmvGO5jEE3M+HSvrsPLcOmKtLk1GgWJUWesEKEZjWaH+Jdu+eRq5htIkqey9eiUB+c/6TU/NGIox1eQEtJv+547CZ5K11YqzUY5idQk88cIOFyfnZtZ2fis+M8lkLvB8v3PKbaILES/XyWCdAUvhLKubD+aqEX736cBWABf73RkIrvJyTv1AXC5OPSFYJdXrOn9touvvNdjrunUaxw0gKtjRAM/bM1wZ2XyIpWwQK5G0DrOJvwoamjOjh5PI4yOvZGlebrgRYiySL36uUEB4KkKZ8hHizpDfGYww3x0hv8HZ7P36B1Z0o+K0phEuR2WCb0pkZK1ATHMNCBRDj95cQam5hiN5eT+g3GpH0nZnFANgCfenZgKALTi5cE7Aqh+4pC30k0vxe5DJ7hpI4v9tKiKq6ks5QuUgMDpOonR4S0h1Ca5n1qn+HlNpgD6SYycYpVh6M62Kxbr4/e9xjXtIpv4YE44/O6pp5vesblFzBwNKCw=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(4143699003)(11063799006)(10067099003)(6133799003)(56012099006)(18002099003)(22082099003)(921020);
+ SFS:(13230040)(376014)(1800799024)(7416014)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(921020)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHNQSUttYnlUYUk4ZkFLV2hNVG5sdWpCdHJtQkcrU1Z2dHJmNE1ua3gzSExv?=
- =?utf-8?B?ZzM2TytKR2Zad3ZQb2pXZFBjdWdrSGc0L3pTVW83cmFEK0F5SzlkM1UzVWZs?=
- =?utf-8?B?YitYR0dyQVg5aXkyMHkweisrZHhLSUhRRlpvdVp6R05kOWRWSGpwaUt4NFF2?=
- =?utf-8?B?SngxTWRFNFJMWjhLek9obloyUE9PQ0dndWRYdzQrL3lIaEdKT1FHc3lQd1JD?=
- =?utf-8?B?TVNtRmlGV3RRdjNlTzRYSkFPT2hTVm53MGNhUUtPNDRTM1JMK0NGdkF6dGYv?=
- =?utf-8?B?c0VMUWdlL3dUUmI4RGMzajNpTGlEWXQvNFVmZ2wrNUpwSmxDOVNIRlZBd2ox?=
- =?utf-8?B?dTFDcW9qVGpRWFpnQUhBRXVzZnRhU1I2VG42MFY2bDdhVlMyZzlNcTd3MUNq?=
- =?utf-8?B?RkwxMlpINFZzWDRKc1MvTTdncmVSZVVFY1ViNUZwakpVWHN4cUZCejlRbWtS?=
- =?utf-8?B?QWlwZEtXZldPVUpzTG9pdXNOT0UxblJUZGhxK0Q0ZEJqbTdVQXdrM2NMLy9o?=
- =?utf-8?B?SGpvSSs1S3YrWG95T3h5Q09aR3A5bDJSL3BGTURFb2ZQbEM3aTNINlprcWFD?=
- =?utf-8?B?dnlRQ2V4NWpjanZTeEVXM0V4OFJtb0wzbHlCRm9aNWZiOUFrMGFyaXYrU2dR?=
- =?utf-8?B?T3Y0djJCd2RDcGh6cjJVUlhnajhKK1FHbm1vbjlwR3JBQ3ZjZnpTK09wdnhZ?=
- =?utf-8?B?RGVpdlk2ZUdIVDJwalcrRVJuVWF1RXlEaGRSWC8vUXhUZGgyMXU5a1J3U1c1?=
- =?utf-8?B?WGJEKzNuRkxzVHB6OHR0TzZVbU5wYTBBcWU0WnFGUXljT3NkYzRUWGRYVFh6?=
- =?utf-8?B?MUF5ZngwSzFFRExtUkMwTG9pR25URTdOTjc3MnpNNW95cXRJdHcwQ3pkR3Ex?=
- =?utf-8?B?MHVDbXhidi9vTFN2VDFDNjVXa28ySXpEcDFtV0xnNG5IdEdUR0xvNjNBdkVK?=
- =?utf-8?B?aGpkMTM0dDJiZ1RUcFpZRW00MnNlTXJ6dm5PdDU0T3dYOTRHOTF6T0R6b3I3?=
- =?utf-8?B?T1ZQbGwrU0s2TldxdjFjdXpJbjBCZTQwejM5QjFoM0pZSVZTQzZCeGhEaHFQ?=
- =?utf-8?B?eTJ6b1hyQTRHbUJQRExHNE9LaTNtSVo2MTJTREE3RmgyTDQzVzJpUFNoNXY0?=
- =?utf-8?B?WHhjOWxqZi96dHF3RXQ1a3FXZlkwRCtGQXdRbzU5SVdac2RobkRKM3AvcmVx?=
- =?utf-8?B?UHpDK0x5eEJ1NTR3TjNnbDcvR1ZQM3ZFenhjWERHVWltSmVGeEU5V2RtVmNJ?=
- =?utf-8?B?THovMGNWNGpVYk5QTXhjQmRvTlA5N2QyVGQvMFRRQkpWTEdoUGh6S25ma0NO?=
- =?utf-8?B?ZnRnZjdndWgzeUhHU2xCSmdMSzZ2Y0VrNDk0T24yZmFXVXBvN2tJNkxZTVpo?=
- =?utf-8?B?czlxeXVMZjgyUzI0aEN3azhUeGJpNTBSRkpPR3cyOEt3Lyt2TDFwZXdYWml0?=
- =?utf-8?B?VXZvVlRPTWpzL0xNdGRUck05eGlsakdrWDJ2dTVRTHFRbGFNL2taZ3hpNE1o?=
- =?utf-8?B?TEorY2UySnQ3bmhmZjNYNStIMnVOV2wrRlA5R1pjZzRJdHlEbEdMVmNLWWNv?=
- =?utf-8?B?K09tVGFrSFhDUFJDdTBBWUxWWkNZeWdjNDlTeG9GVGtHOTB0ZVFsb2lKaXN4?=
- =?utf-8?B?bE5aZ09lU3ZNMUFwcnpqVlhiaGRSeENKdzNLU25mQkxuUmFuRi8xSGN1b3Ey?=
- =?utf-8?B?UTVobzhtRHN5VHVCOW5aK3pOL1J6M21nekVPTUl5MlhXZXh1VnNzY2toWEhu?=
- =?utf-8?B?akptT1BCaHhjYmVFaXgrTHlZTThZdEJJK005V2tXUHptaFhDeHBSM0tEUFhI?=
- =?utf-8?B?SS9uTXg5cTBoZHB4bWFlZXNEdGNpYUR5KzBiLzJwVE94T05BS1VkSEkxTGRr?=
- =?utf-8?B?M2FhbWRwQkcrYkkvZHJKUUtNZ0JLem1yOGJzanZUelZnTjVDcktvWUFJV2FY?=
- =?utf-8?B?SUZrdml1bFQrYUw5UzhCNlc5VGM3MEw4UFRYVEFkbDJNS252U0xGWTdpUmNa?=
- =?utf-8?B?WUE0VjNrR2lMcC9YZk1mTmF0QllaQlUycE9xV28zVkNzRzJtQnNuSzZTNVN4?=
- =?utf-8?B?TWFiUWRJYndWRmNZTUhxbWFnUzZUYlpRVkNkcSszRlpGZmJ3Q3dxblM3R3Fy?=
- =?utf-8?B?TE9HSXFhQnBtNEMxM29yWWhkbW03bUJndWJMcHFGT3JaUGRXV2YwN082a1Qw?=
- =?utf-8?B?dncyQTlNd2lqcVl6MndkV3IwSmkxMDh2bFp6VnVvN0dtbldTb1F0L29GK0ZR?=
- =?utf-8?B?cTlhWHFEeC9CaEdwdmJ0djc5b0MyMGdQY2ZWNUV6VDNkUlJoSXc0SHhoeE1Z?=
- =?utf-8?B?eFo1NkVOR3F3VzRkY09nOEJEdmVaSUUrcmxqOGRxRDdlaVZtbmJiQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NWkrbUlNc2E0Z3M3alpma2tjY3pIK29qUy9SN211dWRLTDR0YzlJZFZhektT?=
+ =?utf-8?B?SUZ1b1NLR3pqTWJQNmZWajhIVWhqazFvMU9kOFE3UVpydllQaFVOYWRTOExl?=
+ =?utf-8?B?VG1BaWVrUStueEVleTZBSEw1SkF0QjlpaWk4NzBiMy9lMUdMdk9PMHNOaWVZ?=
+ =?utf-8?B?clpEWm55eGNzNk0wRjdvZFEyRFBTRWJLcVJlOG1wdW5uNjdKWTJiNHoyRUJX?=
+ =?utf-8?B?OGdOa0UwdTkvR2FJWXFHUVRCS0VyZVJQU1h6RVpTanM3MU1iV3EyQXVwcTZx?=
+ =?utf-8?B?eDJrUndpMGFrMWNzVllQUDQxUjRwQU5NWGwzdkFtN21tYWxDQ0xRSkx1bW01?=
+ =?utf-8?B?UDBnQjZQRVQ3SXdDY1lZd05aRkNuZXpUU1FtVWtRcVNSVStPOU9uZFpaMDhP?=
+ =?utf-8?B?Z0hJYTdqaE9LL3BEcWEraGVLdGExZ0FmYng3SGZlbU1IM2VYWHBGeUUrcnAy?=
+ =?utf-8?B?d2tyM0dDT3NpVmpVWlZiYVZ2djNJTVF3R2xvN1VQbStEMUJIbFd5R3ZRd1pI?=
+ =?utf-8?B?SGJmYjM5WjZGWFFIS2N5bWZ0d0R0Q1NzbTE1b2llVitUUHhqVDE1ZDlINUxi?=
+ =?utf-8?B?aGFmd0JnU1QvS2IyODdjb3h4QUFScHR5cThEckMvMUIvZGk4WU90NlBpVE53?=
+ =?utf-8?B?WXRQK2JJZzIyeVZVQnBveElQNnpQazZpV1VoT2x5Ny9hTGx0aE15Q3dsVmsv?=
+ =?utf-8?B?L1FMUyt3TVNBemlhN3NFWVJIb0YwL0xQWFdBOUc2U0Z3Z1loZHFuSjlpNWNm?=
+ =?utf-8?B?amhpemdiMTUwLzltWmpYdEV6cW8yK3NKMDJic1Y3MExpa2FIamV0VkJ4aXlP?=
+ =?utf-8?B?QXIzV2QyaEFkbWl4bWFCTEdYMHFvSXdRUzFwWTRvbG90a3pQOUZIV2x6cmRP?=
+ =?utf-8?B?a3ZxN2xiNHJMRURRak1NWGRoY25Wa1lXaTY1Q0VEdzlNS1E4bGFDUUFKRTg2?=
+ =?utf-8?B?eFN6ZDdHa2JVcURRMzBpSi8xczA3N3dTUXQwSi9QQUU1enlUMWtWSU84QjhH?=
+ =?utf-8?B?cXY2M2hWM1pQOTJEUjJQZFBaajNoYVF1dWVDTzZoOW1jMENQdzlIbVJNMGx2?=
+ =?utf-8?B?YjlSb0JHdllaZUtjS1Z0NGhwSWZvcG1FOWpsZ0Rxam9wc0Jsell6KzVCUklM?=
+ =?utf-8?B?eThaWDRJSURFVGFLb2RyYWtIdVNzWkRGcW1RalhjVU12ZlJ2dTMwYk0rRTVh?=
+ =?utf-8?B?TmlVc3BZWmM1YU52ZExkcGZqZTdnc29KdjAyUDdGaS9USlJRNWhjZml2QzFB?=
+ =?utf-8?B?NURCQmduNXBxemEzLzVBRUMzcmJDaUxKaldOUW9kNFRzYWMreXRsY2dVU1Vk?=
+ =?utf-8?B?VUViaGVsMUM2MjFhRHZ1YXhyZEdwWkpMM1NWd1ZTeTNSOWNTdTVoNTdxZzcr?=
+ =?utf-8?B?TUFidXBQZTVpQ2NhZ2xmU2QrNWVZdFFFQlI5ZUgva2wrMFpJblQ3a1JsSUFn?=
+ =?utf-8?B?K3VFMnZPeDFMbE5aeFc1ZThTdlExSlR1Ukl3QW1uV2pyN25kdS9RUEVRN09s?=
+ =?utf-8?B?SXpHWFQ4MzI0MTN6Y1hOQWYzQUppREtuN1dvMHlDK3d5U1BlbWNIc0RuVTUv?=
+ =?utf-8?B?WUVrc3BKSlBrdnh3ME9raDgwNjZWUHhIaExDQ3ozTVR0NVRRbnBzRnZvRmdh?=
+ =?utf-8?B?azEwZUlrVFhEUTZPZnE4NjBWN252aEpRNlFtM3lPWVRhMzNFVFRPWjFPRitM?=
+ =?utf-8?B?UHdHZkcwa1RrR2oxN25obGZ1TEl3R1JlYUdCMktPaXJOeU1meXRsdTVJVVhu?=
+ =?utf-8?B?ZFJVL0U2d3FVeHZ1NnpkeG9TWWgxYTVTQUsrV1dCemNFWGIyMEhNZWVnZWhr?=
+ =?utf-8?B?MElqYXlLUU40SmU4cnVnN3VOQVd6b1d6ZVFWVUNkTVNRLy9NZWlCeTZreHZx?=
+ =?utf-8?B?aW1DaDNzV2grZkZjY3hkYlZJSE5HUFM2NGZjOEVUYmdhUFlsWWdmbjdMVzJP?=
+ =?utf-8?B?eVo1Wi9sSzVuTWtuaEV2YURjYkhCNWg1eWNSU0p4VXZoSnJvaVRxNlYvRlY1?=
+ =?utf-8?B?QS9Ed2VuTEM0RmpuT0xNalhtdTJON0o3NHJPWkNmU2c5SytyTFdJRGRIVmN0?=
+ =?utf-8?B?OUJscTVvQmlPVjREbXJ1dEdFMCt3NU1GRWpNRUZsek52cFNicTk0cVlIZHpJ?=
+ =?utf-8?B?bENLTHQ5MlZ5aEVFUHJjQkd3QjR4WHdIRnp4ZWo0R0NFUGN4RlBhajdoV213?=
+ =?utf-8?B?aUJkeEk2Qm0reTJLRjU4MUllSit4bnN1Vnk3M3JWMnkwYytiUXFJdmsrSHQ3?=
+ =?utf-8?B?cVN4R1grS3V3bm4reFJrQU1HTkRQWGZTRlh2TEJEdmFQMGNBUWhqS0ZidmRU?=
+ =?utf-8?B?Y1JxZE54RVR4R2RMNk96TDVaSGxxNmZDZ1d4TkExRDNkNERGeEFsZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec382a0a-e151-47a5-2270-08df1f26b67d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 357ca787-b125-4cd0-6685-08df1f27946e
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 19:12:04.2743 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 19:18:16.5967 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hlt9Y2QCcssDR2chJoraQLBRgsn1t6g3FSe3gyFwtP5AQZM5twOgF8D8u7Q0fVqfdk6+zEf0XUGvtAN+k36ZWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6093
+X-MS-Exchange-CrossTenant-UserPrincipalName: S8Cgpaoc2Cs+MVQdM9y+KwWQAgU09t8YNcM6f2QiAha6e9T3x6f4uuAIO2o4kZpMG0CGsEUPWUrmaPF8xnbFig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9664
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,246 +154,132 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 2026-08-11 12:45, Melissa Wen wrote:
-> Only consider affected colorop states those that are part of an active
-> color pipeline or a pipeline that is about to be activated or
-> deactivated in the same atomic commit, i.e., colorop is in the chain of
-> old/new plane color pipeline property. To cover color_pipeline
-> deactivation, remove the condition for plane_state->color_pipeline.
-> Make drm_atomic_add_affected_colorops() static and move to
-> drm_atomic_helper.c since it's only used by
-> drm_atomic_helper_duplicate_state() now.
+> A colorop can only be changed while it is part of an active color
+> pipeline, or in the same commit that activates or deactivates that
+> pipeline. Enforce this contract by checking that the colorop belongs to
+> the color pipeline of a plane in its current, new or old state, and
+> rejecting the state change otherwise. Do the check in
+> drm_atomic_check_only() rather than when the colorop property is set, so
+> it doesn't depend on the order userspace sets properties within a
+> commit.
 > 
+> Link: https://lore.kernel.org/dri-devel/20260519211111.228303-1-mwen@igalia.com/
+> Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Acked-by: Harry Wentland <harry.wentland@amd.com> #v3
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 
-There is an amdgpu_dm bit in drm-misc-next now that needs it. Would it 
-be possible to treat it the same as drm_atomic_add_affected_planes?
-
-There's a chance that Patch 3 in this series fixes it but it'll be a 
-while since I'll have a chance to try it.
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
 Harry
 
-> Acked-by: Harry Wentland <harry.wentland@amd.com> #v3
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
 > 
 > ---
-> 
-> v2: define a macro to walk in the color pipeline (Alex H.)
-> v4: make drm_atomic_add_affected_colorops static and move to drm_atomic_helper.c (John H.)
+> v4:
+> - skip check when just duplicating state for suspend/resume persistence
+> - rewrite commit message and better explain the change (John H.)
 > ---
->   drivers/gpu/drm/drm_atomic.c        | 105 ++++++++++++++--------------
->   drivers/gpu/drm/drm_atomic_helper.c |  43 ++++++++++++
->   include/drm/drm_atomic.h            |   3 -
->   include/drm/drm_colorop.h           |   3 +
->   4 files changed, 100 insertions(+), 54 deletions(-)
+>   drivers/gpu/drm/drm_atomic.c | 76 ++++++++++++++++++++++++++++++++++++
+>   1 file changed, 76 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index e5c8ef06caed..f00df28e2051 100644
+> index f00df28e2051..86e4348cad58 100644
 > --- a/drivers/gpu/drm/drm_atomic.c
 > +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -892,6 +892,57 @@ static int drm_atomic_plane_check(const struct drm_plane_state *old_plane_state,
+> @@ -943,6 +943,71 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
 >   	return 0;
 >   }
 >   
 > +/*
-> + * This function walks old and new plane state color pipelines and adds all
-> + * colorops in use by @plane to the atomic configuration @state. This is useful
-> + * when an atomic commit needs to check all currently enabled or about to be
-> + * enabled colorop on @plane, e.g. when changing the mode. This also avoids
-> + * including colorop states that are not part of the atomic state.
+> + * drm_atomic_colorop_check - check new colorop state
+> + * @new_colorop_state: new colorop state to check
 > + *
-> + * Returns:
-> + * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
-> + * then the w/w mutex code has detected a deadlock and the entire atomic
-> + * sequence must be restarted. All other errors are fatal.
+> + * Ensure that the colorop in @new_colorop_state belongs to an active color
+> + * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
+> + * property of current, old or new plane state.
+> + *
+> + * Userspace is allowed to finalize colorop's settings in the same commit that
+> + * deactivates its pipeline, and the changes should persist for when that
+> + * pipeline is reactivated later. So changes to colorop in the old plane
+> + * state's pipeline are accepted even though it won't drive hardware updates.
+> + *
+> + * Skip this check for duplicated state, since all colorop states must persist
+> + * in suspend/resume regardless of whether it belongs to an active color
+> + * pipeline or not.
+> + *
+> + * Returns: 0 on success, -EINVAL otherwise.
 > + */
-> +static int
-> +drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
-> +				 struct drm_plane *plane)
+> +static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_state)
 > +{
-> +	struct drm_colorop *colorop;
-> +	struct drm_colorop_state *colorop_state;
+> +	struct drm_atomic_commit *state = new_colorop_state->state;
+> +	struct drm_plane *plane = new_colorop_state->colorop->plane;
 > +	struct drm_plane_state *new_plane_state, *old_plane_state;
+> +	struct drm_colorop *colorop;
+> +
+> +	if (state->duplicated)
+> +		return 0;
+> +
+> +	/* Not a plane colorop */
+> +	if (!plane)
+> +		return 0;
 > +
 > +	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
 > +	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
 > +
-> +	if (WARN_ON(!new_plane_state || !old_plane_state))
+> +	/* No changes in the plane state. Check current-committed plane state */
+> +	if (!new_plane_state) {
+> +		drm_for_each_colorop_in_pipeline(colorop, plane->state->color_pipeline)
+> +			if (colorop == new_colorop_state->colorop)
+> +				return 0;
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (WARN_ON(!old_plane_state))
 > +		return -EINVAL;
 > +
-> +	drm_dbg_atomic(plane->dev,
-> +		       "Adding old+new pipeline colorops for [PLANE:%d:%s]\n",
-> +		       plane->base.id, plane->name);
+> +	/* Check if the colorop is active in the new plane state */
+> +	drm_for_each_colorop_in_pipeline(colorop, new_plane_state->color_pipeline)
+> +		if (colorop == new_colorop_state->colorop)
+> +			return 0;
 > +
-> +	drm_for_each_colorop_in_pipeline(colorop,
-> +					 new_plane_state->color_pipeline) {
-> +		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-> +		if (IS_ERR(colorop_state))
-> +			return PTR_ERR(colorop_state);
-> +	}
-> +
-> +	/* Same color pipeline as new; no point walking old. */
+> +	/* Same color pipeline as new; no point walking old. Colorop isn't active */
 > +	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
-> +		return 0;
+> +		return -EINVAL;
 > +
-> +	drm_for_each_colorop_in_pipeline(colorop,
-> +					 old_plane_state->color_pipeline) {
-> +		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-> +		if (IS_ERR(colorop_state))
-> +			return PTR_ERR(colorop_state);
-> +	}
+> +	/* Check if the colorop was active in the old plane state */
+> +	drm_for_each_colorop_in_pipeline(colorop, old_plane_state->color_pipeline)
+> +		if (colorop == new_colorop_state->colorop)
+> +			return 0;
 > +
-> +	return 0;
+> +	/* Colorop is not part of an active color pipeline. */
+> +	return -EINVAL;
 > +}
 > +
 >   static void drm_atomic_colorop_print_state(struct drm_printer *p,
 >   					   const struct drm_colorop_state *state)
 >   {
-> @@ -1671,62 +1722,14 @@ drm_atomic_add_affected_planes(struct drm_atomic_commit *state,
->   		if (IS_ERR(plane_state))
->   			return PTR_ERR(plane_state);
->   
-> -		if (plane_state->color_pipeline) {
-> -			ret = drm_atomic_add_affected_colorops(state, plane);
-> -			if (ret)
-> -				return ret;
-> -		}
-> +		ret = drm_atomic_add_pipeline_colorops(state, plane);
-> +		if (ret)
-> +			return ret;
->   	}
->   	return 0;
->   }
->   EXPORT_SYMBOL(drm_atomic_add_affected_planes);
->   
-> -/**
-> - * drm_atomic_add_affected_colorops - add colorops for plane
-> - * @state: atomic state
-> - * @plane: DRM plane
-> - *
-> - * This function walks the current configuration and adds all colorops
-> - * currently used by @plane to the atomic configuration @state. This is useful
-> - * when an atomic commit also needs to check all currently enabled colorop on
-> - * @plane, e.g. when changing the mode. It's also useful when re-enabling a plane
-> - * to avoid special code to force-enable all colorops.
-> - *
-> - * Since acquiring a colorop state will always also acquire the w/w mutex of the
-> - * current plane for that colorop (if there is any) adding all the colorop states for
-> - * a plane will not reduce parallelism of atomic updates.
-> - *
-> - * Returns:
-> - * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
-> - * then the w/w mutex code has detected a deadlock and the entire atomic
-> - * sequence must be restarted. All other errors are fatal.
-> - */
-> -int
-> -drm_atomic_add_affected_colorops(struct drm_atomic_commit *state,
-> -				 struct drm_plane *plane)
-> -{
-> -	struct drm_colorop *colorop;
-> -	struct drm_colorop_state *colorop_state;
-> -
-> -	WARN_ON(!drm_atomic_get_new_plane_state(state, plane));
-> -
-> -	drm_dbg_atomic(plane->dev,
-> -		       "Adding all current colorops for [PLANE:%d:%s] to %p\n",
-> -		       plane->base.id, plane->name, state);
-> -
-> -	drm_for_each_colorop(colorop, plane->dev) {
-> -		if (colorop->plane != plane)
-> -			continue;
-> -
-> -		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-> -		if (IS_ERR(colorop_state))
-> -			return PTR_ERR(colorop_state);
-> -	}
-> -
-> -	return 0;
-> -}
-> -EXPORT_SYMBOL(drm_atomic_add_affected_colorops);
-> -
->   /**
->    * drm_atomic_check_only - check whether a given config would work
->    * @state: atomic configuration to check
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index 285aac3554df..917fd0594259 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -3697,6 +3697,49 @@ void drm_atomic_helper_shutdown(struct drm_device *dev)
->   }
->   EXPORT_SYMBOL(drm_atomic_helper_shutdown);
->   
-> +/*
-> + * drm_atomic_add_affected_colorops - add colorops for plane
-> + * @state: atomic state
-> + * @plane: DRM plane
-> + *
-> + * This function walks the current configuration and adds all colorops
-> + * currently used by @plane to the atomic configuration @state. It's useful
-> + * when re-enabling a plane to avoid special code to force-enable all colorops.
-> + *
-> + * Since acquiring a colorop state will always also acquire the w/w mutex of the
-> + * current plane for that colorop (if there is any) adding all the colorop states for
-> + * a plane will not reduce parallelism of atomic updates.
-> + *
-> + * Returns:
-> + * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
-> + * then the w/w mutex code has detected a deadlock and the entire atomic
-> + * sequence must be restarted. All other errors are fatal.
-> + */
-> +static int
-> +drm_atomic_add_affected_colorops(struct drm_atomic_commit *state,
-> +				 struct drm_plane *plane)
-> +{
+> @@ -1748,6 +1813,8 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
+>   	struct drm_plane *plane;
+>   	struct drm_plane_state *old_plane_state;
+>   	struct drm_plane_state *new_plane_state;
 > +	struct drm_colorop *colorop;
-> +	struct drm_colorop_state *colorop_state;
-> +
-> +	WARN_ON(!drm_atomic_get_new_plane_state(state, plane));
-> +
-> +	drm_dbg_atomic(plane->dev,
-> +		       "Adding all current colorops for [PLANE:%d:%s] to %p\n",
-> +		       plane->base.id, plane->name, state);
-> +
-> +	drm_for_each_colorop(colorop, plane->dev) {
-> +		if (colorop->plane != plane)
-> +			continue;
-> +
-> +		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-> +		if (IS_ERR(colorop_state))
-> +			return PTR_ERR(colorop_state);
+> +	struct drm_colorop_state *new_colorop_state;
+>   	struct drm_crtc *crtc;
+>   	struct drm_crtc_state *old_crtc_state;
+>   	struct drm_crtc_state *new_crtc_state;
+> @@ -1764,6 +1831,15 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
+>   			requested_crtc |= drm_crtc_mask(crtc);
+>   	}
+>   
+> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+> +		ret = drm_atomic_colorop_check(new_colorop_state);
+> +		if (ret) {
+> +			drm_dbg_atomic(dev, "[COLOROP:%d:%d] isn't in an active color pipeline.\n",
+> +				       colorop->base.id, colorop->type);
+> +			return ret;
+> +		}
 > +	}
 > +
-> +	return 0;
-> +}
-> +
->   /**
->    * drm_atomic_helper_duplicate_state - duplicate an atomic state object
->    * @dev: DRM device
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 88087910ab1a..0597041bde04 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -921,9 +921,6 @@ drm_atomic_add_affected_connectors(struct drm_atomic_commit *state,
->   int __must_check
->   drm_atomic_add_affected_planes(struct drm_atomic_commit *state,
->   			       struct drm_crtc *crtc);
-> -int __must_check
-> -drm_atomic_add_affected_colorops(struct drm_atomic_commit *state,
-> -				 struct drm_plane *plane);
->   
->   int __must_check drm_atomic_check_only(struct drm_atomic_commit *state);
->   int __must_check drm_atomic_commit(struct drm_atomic_commit *state);
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index 224fae40ed2b..568dfcc4dd63 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -457,6 +457,9 @@ static inline unsigned int drm_colorop_index(const struct drm_colorop *colorop)
->   #define drm_for_each_colorop(colorop, dev) \
->   	list_for_each_entry(colorop, &(dev)->mode_config.colorop_list, head)
->   
-> +#define drm_for_each_colorop_in_pipeline(colorop, pipeline) \
-> +	for ((colorop) = (pipeline); (colorop); (colorop) = (colorop)->next)
-> +
->   /**
->    * drm_get_colorop_type_name - return a string for colorop type
->    * @type: colorop type to compute name of
+>   	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
+>   		ret = drm_atomic_plane_check(old_plane_state, new_plane_state);
+>   		if (ret) {
 
