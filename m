@@ -4,131 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05C1ECA5FC7
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 16:12:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63C2FCA5FC4
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 16:24:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94B3710E278;
-	Wed, 30 Sep 2026 16:12:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D419A10E1D3;
+	Wed, 30 Sep 2026 16:24:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RpbkMxlE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LP29YWUE";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013063.outbound.protection.outlook.com
- [40.93.201.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 206B410E278
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 16:12:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D7SwqSqzD4+uvXPntDOpvu6brXiRrasjeHoUr+lzCrvMqfVZFeoL006HQbfb7W1bYx00pYtHPGn5Ll0KiKcqnZTpagXge2mhHQFIdVK7xbd7WgQdDNlE53XAp2Xao0yFCeNY4wDtNCOrxXG32VNz6wjO6ZKt4wLgIy3j4bzfbhxVl2NosVHIOsVKyhGZHK8KdgE/zNUkORujo9P8YmOEu64PzpbyZBq95U1RMtrJBif360fV3LpzsboTZrVrdhtK+B4N968XQ2DIig10JHfrD9064SEKXC7Ccv4jU9HPgo/Lk/nOe7YbO2HNxeSONpwL1qDM/tPN4KD9S0QSCt8RoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PnctWBhdscnw8P1rtKTCEE/4c+59u+hojACo+1X7ZMg=;
- b=uSV1mITlMkrCZKifRPNKrDY0mtxVLP6QvwnnM54gPO2/lZhBow0ZxUw6ZqHsHGpEA+51cK/K57N89GQxABUh9fDRc0l9VZ4UMCD+9JS2yGuNmgqqjann+YnUlLGf68VzGcBNcH5B6Hq6HbaH5moskdpZnwkIuM3QTKmY0iZN2OSYyEfsE5pMYOj31Fx6tWtm1jveyyL3QcM7Joc3Np8JbesRKD81Y8a9Tpp5tGW3/7xET6gKQpux3nl3ffFbgcPDLRI7KkEgbtoHb8wLeASvLrQIHlQ8LYZgn+okT9lC7Et+FqVaCtQTnr4JBU3G2rMfnJdrCnP2JgKRDICG9Exzjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PnctWBhdscnw8P1rtKTCEE/4c+59u+hojACo+1X7ZMg=;
- b=RpbkMxlE2aQkwqQRGBpsbO9bosUJBsIw5EQ0bL8YTbR1RmXKbkMEDkviVDwJCe9t6PgTAAFq400xwDcMmyhzgTGvuFI8rW6KJzWvK/WpQKzC9sxFsWcl2C7HAOweHWCqb84w6+HDoG/jp0/LwqsjRw1bZgG6rNsx7IxEsE7uWYw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by SA1PR12MB9247.namprd12.prod.outlook.com
- (2603:10b6:806:3af::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Wed, 30 Sep
- 2026 16:12:51 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 16:12:49 +0000
-Message-ID: <33693b8d-ed0a-4910-af87-eb29e887a1d5@amd.com>
-Date: Wed, 30 Sep 2026 12:12:48 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/9] drm/amdgpu: fix cleared PDE/PTE flag generation
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- natalie.vock@gmx.de, honghuan@amd.com, Alexander.Deucher@amd.com,
- Philip.Yang@amd.com, cascardo@igalia.com, tvrtko.ursulin@igalia.com,
- "Joshi, Mukul" <mukul.joshi@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260928151041.1857-1-christian.koenig@amd.com>
- <20260928151041.1857-2-christian.koenig@amd.com>
- <P3WG6T-ATwauPO6Yp0bWtQ@gmail.com>
- <cd5af67b-d2af-43a5-be86-216155f46ff8@amd.com>
- <7b1ec2f8-0619-4132-ac35-bc2722755b97@amd.com>
- <9b181f91-4de1-4c0d-8a38-dfd75c8eb98c@amd.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <9b181f91-4de1-4c0d-8a38-dfd75c8eb98c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0278.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:109::19) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85EF810E1D3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 16:24:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3C383438C4;
+ Wed, 30 Sep 2026 16:24:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468B51F00893;
+ Wed, 30 Sep 2026 16:24:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790785451;
+ bh=2SOlj6uaLOWYAs2UKWsOJXKhXw2SoZzv74RwWYjCQHk=;
+ h=From:To:Cc:Subject:Date;
+ b=LP29YWUEBB/q2SwxUnVSbrYMcRu2LBbb18cLpjaSflHSYaXKw4ayRixQIdzsPCiq7
+ qfJrYpvr/W4eFUAn1lKm2FCYE8Gr42V2Hil4qKHWuY3HdL89ZE//wMvTBZ56U7H79i
+ m4ClbYDdLKP0Ox5oduzAT136VDRtVt8u9GLVYUvwnM9Kgph+aDeBlGJhcsuHYvjb+P
+ DgKEdEkALYQ2pzerTX6LXrj9V/8nErYuJgiK76I2QBJmM8II+fDOhF8UyhAz4gHaju
+ 5QaOicy/FCFqEinYvx+jw1WReWIaXkZ+s+ctUTq8wWyGEPBv11Vkf2O9oCp9J4EvMf
+ ojXPSzpZdOyEw==
+From: "Mario Limonciello (AMD)" <superm1@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Vasant Hegde <vasant.hegde@amd.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list),
+ iommu@lists.linux.dev (open list:AMD IOMMU (AMD-VI)),
+ "Mario Limonciello (AMD)" <superm1@kernel.org>
+Subject: [PATCH v3] iommu/amd: Make PerfOpt compulsory
+Date: Wed, 30 Sep 2026 11:24:01 -0500
+Message-ID: <20260930162401.273907-1-superm1@kernel.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|SA1PR12MB9247:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd5d10f5-f7c7-4795-fc32-08df1f0dac4f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|18002099003|22082099003|921020|10067099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: ZfHQVz0zzyz9xH0fyXBbzi2A/Cv5SS6Q4yBjXAB/OK+8b1jW9WX44vABveYfEhV4WUWyHtpzq8555aO97ZKDOyD+E5D1F1LPsU8yG0yuvxgb+GArLBAw34rBVfQsB1oUmcduJdufEVvjPTFq553R9hqfk2WiGe18N6wpa48lS63sKbXS1azjXSiNgy7D5PfcOWjWVWxUOAn6beYux87ElMPTtseu9Qe3tGvGSmE18xGVXoNEfJM4lQZMzKhzMgLnqo7gsOdG7ELY/MYiYBIKuIRkZxKDyFvk+LNLrDA0TbduzXxMxhbbpHHIpkb/9BI74gjrFc2MrqrwLqLWyWpP8DgGlBjeBpRKqTqsLVmG+YJJX0fr4pxbJQTN/iG9SYboPNqotrcVM+d+GFJ+YqltdLXdvWUBJsIMKJqgxgAuO1vxLRtpNntSLSxzVmiregJB87/pyZ6RwNXutJRiXhwTfmO/nnsRycD2uBoUzh8eHCjfquYa+XdMBKVbzZdsjkX+6dWwlsRRmdNOvbzNqZ2c5wrXnkzI7wNaybEvjpKam5xnWfBq1ZJcjQ0R/kGulvUwB493jVWl9EkHyQl5Z5e17Mg1J+66HlfvBaa9eSjlp3ycevkUP3T0BCDIcx2BlE1Gjvc4590QjIhzgLwhgVvNwZgpEN9aeRa+gR0aoRyu375ZLt/JezHaXDkl46BhLbDQ3d+FnbDIAnRI0DZbjlaQOQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(18002099003)(22082099003)(921020)(10067099003)(56012099006)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qk1UQXVFUUhVNjZVemFEUjZ5bElSZUhGTG40VnArS1pHTW5LbEJvYXNueHV5?=
- =?utf-8?B?TWtvNEYzZFVvbzVhVXRTWm9zeXcvbEtZdGYyUnpOS3dEbTlURFJHRkZQVXdV?=
- =?utf-8?B?S1pucVF3WE91OEFZMWs2SUxwQ1FDY1FHakhlODNnaVc2SC8wUk1uc0pjK3hl?=
- =?utf-8?B?dnRBUEpXMWUxcEJWYXZzMzVaVDBYSStDbjBjQXZ1VlY0NFpFdUpKcVJBby92?=
- =?utf-8?B?Z0pTQ3IzcUp4YjhGZmlyOG9wTm5pRDlEV2lPZVdzbnJJOUFNSy9MTjkyOEpW?=
- =?utf-8?B?UmJ2ZTUxLzB0RWtxN2pJT0MwTFg5emxFSnZwOTh0VldyZjFGd05RNlhGSnB1?=
- =?utf-8?B?cEtacXhMU0ZLSG9COVhkeFJRb1drZGIrdTh1ZjZkNGVIeHFsSVV5OHVCWFFw?=
- =?utf-8?B?Uit0YzJTZEYxMG5vc2taaWphYUR1YXM0S0ZVWnVuYUttZXhtS1N3Y3hGaG9l?=
- =?utf-8?B?M1BJbjh0SEd2MVl1MFgwZ2swL0hoOUZCRlJSSjBOU09YVUZ3bzcza2lFUDBj?=
- =?utf-8?B?U2xJaWdnSjZ6RnhLN2ZqNzRneGNET3FrbVBQdzZEd0hvYVVpMnNQRDhYbFlK?=
- =?utf-8?B?c3pBUm9ROFROWFhrd2lWTWRJenpKc0FoSVVRWmVoU2d6RFM5WE54Zi8yU29j?=
- =?utf-8?B?TnZUa2VnSnRqaEpodGdOV0txd1VRMnRualZYdGpzdXNlZFZaRE5jSnFBRWZ5?=
- =?utf-8?B?STBzb25vWlN6d3FVQWlkbE1tNFF6aTVaN0N5NXNvQ0JzazR5L0xXVTNLaFRJ?=
- =?utf-8?B?cHBuRDg5Z05mallZT1FTSytXeThhdnpCd1VJa1VRSVMyYjltSWwzSFNWakU3?=
- =?utf-8?B?YnVWMmVpeGdUMjZHcDdhNnM1NmZ2MCtDcHF3ZGI2RGRJZVhvcWs5MjRKdm1p?=
- =?utf-8?B?eXI2OGVaSkx6WXg3aTdVUlBScUxQaWJRZjJvVm10eGZEd2FMRllvZmdMVHlt?=
- =?utf-8?B?czI4Zzc4MklxU1dkR01qazlsaWRrM05XQzVoVUIzaHVLWFk4WTgvNk9ydUNL?=
- =?utf-8?B?K2oraXhaZkErMW80YmM2L1BiOHUrNzN4R3JsbHlvYml1TUpsOEkvUkJsYUhM?=
- =?utf-8?B?QWZQeDNLNjVOY29aSTFWdFc0SFZ3NU1Sb2FXSmFwd1ZEN2cxSWRsN0tpUXBS?=
- =?utf-8?B?OTNQWnN1aXNuWTFuWGJQbmxLb1M2VFBYcDhQd0w5S283UGhSYStXNUFpSlpD?=
- =?utf-8?B?K3E0UzhSdk40N1hMd1l6elNXcTFqMm5obVczQWtQaGZsZm9Kc1NSdWJvQmRN?=
- =?utf-8?B?TlNDbFg2dUFkbUxtbjJORDRISTNCL3BOb0x3TnRtSUJ3VklLMU53dmZHSXc3?=
- =?utf-8?B?Z3BBQldDdnBtRWJUaFBWb0tNQzBaeDd2WjduZFZ4djlsNnZlTXNZaWNsV3ZR?=
- =?utf-8?B?b21XVXhSeG5tdmM3LzFiS3E2S1p2cWkvSFB1d3EydXpzZDdvRXZWZ0pwYVNI?=
- =?utf-8?B?Y0tIWTNjbzI3NmFaY0JoSndYMEpOWlVZSTd4YjhJVFV6MzJuR1FUQVVtT1g0?=
- =?utf-8?B?V25PblVkQzY5bDNGRlZmRFBLRGVzcy9Tek5HZUN6ZUJGR1kxdlZ6MzNRM3l4?=
- =?utf-8?B?MjdETVpNSmVWc1dhcDVBb1phL1FZeng4QWJmRUhtME4ya0FFZkt4ay9lQTN2?=
- =?utf-8?B?M0xIbHd2RE5WVFVNVy9lZHF4UjFycUFUbnlKSlFYMXhxUzhqNmlKYytjbStx?=
- =?utf-8?B?ckJnMkFlbENqK2R3eGxmSythaVJUZnIzUXhQQzBxMTRkcDFrZW5PMFE2RWVS?=
- =?utf-8?B?VzIyRk9obTZJRWxCUzZuY08rT01EYUczSlNaOS9aUzQrdW5ubDA3R3d3OXJr?=
- =?utf-8?B?UXViQlU3cUxKYXliVFo3ZzVkOGM1QUpNWm1PZ2ZtMEpkWXluVitJZkdrMnBo?=
- =?utf-8?B?L1p5anlobzNCWDRIYWZnNzB6K1MvL2RyVnhlbVk1d0NSbjllZHl0dXAySkcr?=
- =?utf-8?B?SDNPMmYwbFU4MXVaMFNxUW1OYzZqUEVSakxnTEREZmRVRThlcDliSFFGT0JI?=
- =?utf-8?B?bmZBOStjYjNsUndjYjVFRkpsYUwwQ3RRbThxbGZNMzkrLzlMMDBGL3Z5eWRR?=
- =?utf-8?B?VGV1alMxYTZvcEp2N0xaUHk0VGJ2K2hIMFR5bENzSXZubjNqczh3ME5yS0RS?=
- =?utf-8?B?R2h4V3RkUXBTU1lwdmZ0YWRIaUJTb2Nncmt5bFhmM2R2M2pWVGhKdGJKZ3Vy?=
- =?utf-8?B?MXpvUGdYZEowOW5kNklRazV0R3YzZGJzMkRYOHNWbWlnclgzY3FpSnZSSmdL?=
- =?utf-8?B?emRSajZFMWdURTgyUWJuanluUFE1d1BROHNqUlNaYnkxeXUzV29WR09IVzV0?=
- =?utf-8?Q?rBIzaUXyAY0OKtlckn?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd5d10f5-f7c7-4795-fc32-08df1f0dac4f
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 16:12:49.7202 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ML3hkvoEOOe7nYH6NqrGiu1O7VVQ0uXwJI3qzagiWQnl7AJm/FQUZukfGF1cK3YGnm6KUXqtdh2PihysRQ7NZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9247
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,165 +59,619 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-09-30 10:59, Christian König wrote:
-> On 9/30/26 16:44, Kuehling, Felix wrote:
->> [+Mukul]
->>
->> On 2026-09-30 05:02, Christian König wrote:
->>> @Felix and @Philip any objections to this patch?
->>>
->>> It is actually a bug fix for the NPA support.
->> As I understand it, this fixes the flags used when unmapping memory from the NPA VM. We passed adev->gmc.noretry_flags from amdgpu_ualink_unmap_npa_addr to amdgpu_vm_update_range explicitly in the flags parameter. I guess that's no longer needed with your fix. But I think the end result would be the same, right?
-> Not quite, passing adev->gmc.noretry_flags to amdgpu_vm_update_range() is completely broken as well and also need fixing.
->
-> The flags parameter to amdgpu_vm_update_range() can't contain the AMDGPU_PTE_TF nor the AMDGPU_PDE_PTE flag because those are overwritten by the PTE callbacks.
+PerfOpt is only a feature usable by integrated GPUs and only in identity
+mode.  Instead of leaving a policy knob in amdgpu, just turn it on when
+an integrated GPU is in identity.
 
-I'm pretty sure Mukul tested this and got something that worked as 
-expected, at least for a time. I'm not sure if it regressed since, maybe 
-during upstreaming. @Mukul, can you comment?
+This drops quite a bit of compatibility glue.  There was a refcounting
+system, exported symbols, and device attach/detach logic.  By just setting
+it immediately it's a lot more straightforward.
 
+Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
+Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+---
+v3:
+ * Move amd_iommu_perfopt_set() to init.c and set static (Vasant)
+ * Clear bit if it fails to enable (Vasant)
+ * Use pr_err() instead of dev_err for early errors (Sashiko)
+ * Restore attach_device check for VFIO cases (Sashiko)
+ * Handle VFIO case (Sashiko)
+ * Handle multi-IOMMU case (Sashiko)
+v2:
+ * Move WARN_ON to amd_iommu_perfopt_clear()
+ * Make amd_iommu_perfopt_clear() void
+ * Drop unnecessary cleanup/create paths that unset feature
+ * Enable the feature in IOMMU if supported (per guidance in IVRS spec)
+ * Use existing check_feature() helper instead
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  50 -----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 --
+ drivers/iommu/amd/amd_iommu.h              |   3 -
+ drivers/iommu/amd/amd_iommu_types.h        |   3 -
+ drivers/iommu/amd/init.c                   |  81 ++++----
+ drivers/iommu/amd/iommu.c                  | 215 +--------------------
+ include/linux/amd-iommu.h                  |  11 --
+ 8 files changed, 42 insertions(+), 334 deletions(-)
 
->
-> That's why setting the AMDGPU_PTE_IS_PTE for gfx12 through the init_pte_flags is completely broken as well.
->
-> We seriously need to stop doing such hacks.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 0e53a02ad1bab..a9c6f5d4a6397 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -156,7 +156,6 @@ struct amdgpu_watchdog_timer {
+  * Modules parameters.
+  */
+ extern int amdgpu_modeset;
+-extern int amdgpu_iommu_perfopt;
+ extern unsigned int amdgpu_vram_limit;
+ extern int amdgpu_vis_vram_limit;
+ extern int amdgpu_gart_size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index bfe4d90343c4e..9269e780feb73 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -33,7 +33,6 @@
+ #include <linux/console.h>
+ #include <linux/slab.h>
+ #include <linux/iommu.h>
+-#include <linux/amd-iommu.h>
+ #include <linux/pci.h>
+ #include <linux/pci-p2pdma.h>
+ #include <linux/apple-gmux.h>
+@@ -3753,28 +3752,6 @@ amdgpu_device_should_register_switcheroo(struct amdgpu_device *adev, bool px)
+ 		       apple_gmux_detect(NULL, NULL)));
+ }
+ 
+-static inline bool amdgpu_device_identity(struct amdgpu_device *adev)
+-{
+-	struct pci_dev *pdev = adev->pdev;
+-	struct iommu_domain *domain = iommu_get_domain_for_dev(&pdev->dev);
+-
+-	if (!domain)
+-		return false;
+-
+-	return domain->type == IOMMU_DOMAIN_IDENTITY;
+-}
+-
+-static bool amdgpu_device_use_perfopt(struct amdgpu_device *adev)
+-{
+-	if (amdgpu_iommu_perfopt == 0)
+-		return false;
+-
+-	if (!(adev->flags & AMD_IS_APU))
+-		return false;
+-
+-	return amdgpu_device_identity(adev);
+-}
+-
+ /**
+  * amdgpu_device_init - initialize the driver
+  *
+@@ -3982,16 +3959,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	if (r)
+ 		return r;
+ 
+-	if (amdgpu_device_use_perfopt(adev)) {
+-		int perfopt_ret = amd_iommu_enable_perfopt(pdev);
+-
+-		/* Optional optimization; a failure to arm it must not abort probe. */
+-		if (perfopt_ret)
+-			dev_warn(adev->dev,
+-				 "Failed to enable IOMMU PerfOpt (%d); continuing without it\n",
+-				 perfopt_ret);
+-	}
+-
+ 	/*
+ 	 * No need to remove conflicting FBs for non-display class devices.
+ 	 * This prevents the sysfb from being freed accidently.
+@@ -4361,9 +4328,6 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 
+ 	amdgpu_gart_dummy_page_fini(adev);
+ 
+-	if (amdgpu_device_use_perfopt(adev))
+-		amd_iommu_disable_perfopt(adev->pdev);
+-
+ 	if (pci_dev_is_disconnected(adev->pdev))
+ 		amdgpu_device_unmap_mmio(adev);
+ 
+@@ -4727,20 +4691,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
+ 	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
+ 		return 0;
+ 
+-	if (amdgpu_device_use_perfopt(adev)) {
+-		int perfopt_ret = amd_iommu_enable_perfopt(adev->pdev);
+-
+-		/*
+-		 * Must not return on failure: a bare return would leak the
+-		 * SR-IOV VF exclusive-mode acquisition taken above (released
+-		 * via the exit: path).
+-		 */
+-		if (perfopt_ret)
+-			dev_warn(adev->dev,
+-				 "Failed to enable IOMMU PerfOpt (%d); continuing without it\n",
+-				 perfopt_ret);
+-	}
+-
+ 	if (adev->in_s0ix)
+ 		amdgpu_dpm_gfx_state_change(adev, sGpuChangeState_D0Entry);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 3ca98091ce487..5c33c19fd9bc5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -185,7 +185,6 @@ char *amdgpu_disable_cu;
+ char *amdgpu_virtual_display;
+ int amdgpu_enforce_isolation = -1;
+ int amdgpu_modeset = -1;
+-int amdgpu_iommu_perfopt = -1;
+ 
+ /* Specifies the default granularity for SVM, used in buffer
+  * migration and restoration of backing memory when handling
+@@ -393,17 +392,6 @@ module_param_named(fw_load_type, amdgpu_fw_load_type, int, 0444);
+ MODULE_PARM_DESC(aspm, "ASPM support (1 = enable, 0 = disable, -1 = auto)");
+ module_param_named(aspm, amdgpu_aspm, int, 0444);
+ 
+-/**
+- * DOC: iommu_perfopt (int)
+- * Control the AMD IOMMU PerfOpt DMA-latency optimization
+- * (0 = disable; -1 = enable on supported devices).
+- * This arms the IOMMU PerfOpt control (IOMMU spec, MMIO Offset 016Ch, EFR PerfOptSup / PerfOptEn)
+- * Arming it disables ATS, PRI, PASID and SVA for the GPU and removes IOMMU DMA containment for it,
+- * trading isolation for lower DMA latency.
+- */
+-MODULE_PARM_DESC(iommu_perfopt, "Control IOMMU PerfOpt DMA-latency optimization (-1 = enable on supported devices, 0 = disable)");
+-module_param_named(iommu_perfopt, amdgpu_iommu_perfopt, int, 0444);
+-
+ /**
+  * DOC: runpm (int)
+  * Override for runtime power management control for dGPUs. The amdgpu driver can dynamically power down
+diff --git a/drivers/iommu/amd/amd_iommu.h b/drivers/iommu/amd/amd_iommu.h
+index 93845b3c3fbf7..71113e8608594 100644
+--- a/drivers/iommu/amd/amd_iommu.h
++++ b/drivers/iommu/amd/amd_iommu.h
+@@ -48,9 +48,6 @@ extern u8 amd_iommu_hpt_vasize;
+ extern unsigned long amd_iommu_pgsize_bitmap;
+ extern bool amd_iommu_hatdis;
+ 
+-int amd_iommu_perfopt_clear(struct amd_iommu *iommu);
+-int amd_iommu_perfopt_restore(struct amd_iommu *iommu);
+-
+ /* Protection domain ops */
+ void amd_iommu_init_identity_domain(void);
+ struct protection_domain *protection_domain_alloc(void);
+diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
+index 1c1624b7c9a36..9d873819304fb 100644
+--- a/drivers/iommu/amd/amd_iommu_types.h
++++ b/drivers/iommu/amd/amd_iommu_types.h
+@@ -657,9 +657,6 @@ struct amd_iommu {
+ 	/* Extended features 2 */
+ 	u64 features2;
+ 
+-	/* Devices requesting PerfOpt; the shared PERF_OPT_EN bit is on while >0. Protected by @lock. */
+-	int perfopt_refcount;
+-
+ 	/* PCI device id of the IOMMU device */
+ 	u16 devid;
+ 
+diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+index 8ec8a6fccaaf3..e510ac724eea1 100644
+--- a/drivers/iommu/amd/init.c
++++ b/drivers/iommu/amd/init.c
+@@ -426,6 +426,37 @@ static void iommu_enable(struct amd_iommu *iommu)
+ 	iommu_feature_enable(iommu, CONTROL_IOMMU_EN);
+ }
+ 
++/*
++ * Program or clear the per-IOMMU PerfOpt enable bit.
++ * Gate on this IOMMU's own EFR, not the global AND-mask.
++ */
++static int amd_iommu_perfopt_set(struct amd_iommu *iommu, bool enable)
++{
++	u32 old, val, readback;
++
++	if (!(iommu->features & FEATURE_PERF_OPT))
++		return enable ? -ENODEV : 0;
++
++	old = readl(iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
++	if (old == U32_MAX)
++		goto fail;
++
++	val = enable ? old | PERF_OPT_EN : old & ~PERF_OPT_EN;
++	if (val != old)
++		writel(val, iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
++	readback = readl(iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
++	if (readback == U32_MAX ||
++	    (readback & PERF_OPT_EN) != (val & PERF_OPT_EN)) {
++		goto fail;
++	}
++
++	return 0;
++fail:
++	iommu->features &= ~FEATURE_PERF_OPT;
++	pr_err("Failed to set PerfOpt to %d\n", enable);
++	return -EIO;
++}
++
+ static void iommu_disable(struct amd_iommu *iommu)
+ {
+ 	if (!iommu->mmio_base)
+@@ -451,6 +482,9 @@ static void iommu_disable(struct amd_iommu *iommu)
+ 
+ 	/* Clear IRTE cache disabling bit */
+ 	iommu_feature_disable(iommu, CONTROL_IRTCACHEDIS);
++
++	/* Clear PerfOpt feature */
++	amd_iommu_perfopt_set(iommu, FALSE);
+ }
+ 
+ /*
+@@ -1943,9 +1977,6 @@ static int __init init_iommu_one(struct amd_iommu *iommu, struct ivhd_header *h,
+ 	if (!iommu->mmio_base)
+ 		return -ENOMEM;
+ 
+-	if (amd_iommu_perfopt_clear(iommu))
+-		pr_err("IOMMU%d: failed to clear PerfOpt\n", iommu->index);
+-
+ 	return init_iommu_from_acpi(iommu, h);
+ }
+ 
+@@ -2314,6 +2345,9 @@ static void print_iommu_info(void)
+ 		if (check_feature2(FEATURE_SEVSNPIO_SUP))
+ 			pr_cont(" SEV-TIO");
+ 
++		if (check_feature(FEATURE_PERF_OPT))
++			pr_cont(" PerfOpt");
++
+ 		pr_cont("\n");
+ 	}
+ 
+@@ -2921,6 +2955,7 @@ static void early_enable_iommu(struct amd_iommu *iommu)
+ 	iommu_enable_xt(iommu);
+ 	iommu_enable_irtcachedis(iommu);
+ 	iommu_enable_2k_int(iommu);
++	amd_iommu_perfopt_set(iommu, TRUE);
+ 	iommu_enable(iommu);
+ 	amd_iommu_flush_all_caches(iommu);
+ }
+@@ -3050,46 +3085,10 @@ static void enable_iommus_vapic(void)
+ #endif
+ }
+ 
+-static int clear_perfopt_all(void)
+-{
+-	struct amd_iommu *iommu;
+-	int err, ret = 0;
+-
+-	for_each_iommu(iommu) {
+-		err = amd_iommu_perfopt_clear(iommu);
+-		if (err)
+-			ret = err;
+-	}
+-
+-	return ret;
+-}
+-
+-static int restore_perfopt_all(void)
+-{
+-	struct amd_iommu *iommu;
+-	int err, ret = 0;
+-
+-	for_each_iommu(iommu) {
+-		err = amd_iommu_perfopt_restore(iommu);
+-		if (err)
+-			ret = err;
+-	}
+-
+-	return ret;
+-}
+-
+ static void disable_iommus(void)
+ {
+ 	struct amd_iommu *iommu;
+ 
+-	/*
+-	 * PerfOpt is an optional performance bit, so a failure to clear it must
+-	 * not skip the mandatory disable below. This also runs from the void
+-	 * amd_iommu_disable() shutdown/kexec path, which cannot report an error.
+-	 */
+-	if (clear_perfopt_all())
+-		pr_err("Failed to clear PerfOpt while disabling IOMMUs\n");
+-
+ 	for_each_iommu(iommu)
+ 		iommu_disable(iommu);
+ 
+@@ -3115,10 +3114,6 @@ static void amd_iommu_resume(void *data)
+ 	for_each_iommu(iommu)
+ 		early_enable_iommu(iommu);
+ 
+-	/* early_enable_iommu() cleared PERF_OPT_EN; re-assert it from the refcount. */
+-	if (restore_perfopt_all())
+-		pr_err("Failed to restore PerfOpt after IOMMU resume\n");
+-
+ 	iommu_enable_event_buffer();
+ 	amd_iommu_enable_interrupts();
+ }
+diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+index c9b28e5e582ea..3f9f02274e809 100644
+--- a/drivers/iommu/amd/iommu.c
++++ b/drivers/iommu/amd/iommu.c
+@@ -2370,7 +2370,7 @@ static int attach_device(struct device *dev,
+ 	if (ret)
+ 		goto out;
+ 
+-	if (dev_data->perfopt)
++	if (dev_data->perfopt && pdom_is_in_pt_mode(domain))
+ 		goto skip_caps;
+ 
+ 	/* Setup GCR3 table */
+@@ -2512,192 +2512,6 @@ static int iommu_init_device_caps(struct iommu_dev_data *dev_data,
+ 	return 0;
+ }
+ 
+-/* Program the per-IOMMU PerfOpt enable bit. Caller must hold iommu->lock. */
+-static int __perfopt_write(struct amd_iommu *iommu, bool enable)
+-{
+-	u32 old, val, readback;
+-
+-	if (!(readq(iommu->mmio_base + MMIO_EXT_FEATURES) & FEATURE_PERF_OPT))
+-		return enable ? -ENODEV : 0;
+-
+-	old = readl(iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
+-	if (old == U32_MAX)
+-		return -EIO;
+-
+-	val = enable ? old | PERF_OPT_EN : old & ~PERF_OPT_EN;
+-	if (val != old)
+-		writel(val, iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
+-	readback = readl(iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
+-	if (readback == U32_MAX ||
+-	    (readback & PERF_OPT_EN) != (val & PERF_OPT_EN))
+-		return -EIO;
+-	return 0;
+-}
+-
+-/*
+- * PERF_OPT_EN is a single bit shared by every device behind @iommu, so it is
+- * reference counted: armed on the first requesting device, cleared on the last.
+- */
+-static int perfopt_get(struct amd_iommu *iommu)
+-{
+-	unsigned long flags;
+-	int ret = 0;
+-
+-	if (!iommu->mmio_base)
+-		return 0;
+-
+-	raw_spin_lock_irqsave(&iommu->lock, flags);
+-	if (iommu->perfopt_refcount == 0) {
+-		ret = __perfopt_write(iommu, true);
+-		if (ret)
+-			goto out;
+-	}
+-	iommu->perfopt_refcount++;
+-out:
+-	raw_spin_unlock_irqrestore(&iommu->lock, flags);
+-	return ret;
+-}
+-
+-static int perfopt_put(struct amd_iommu *iommu)
+-{
+-	unsigned long flags;
+-	int ret = 0;
+-
+-	if (!iommu->mmio_base)
+-		return 0;
+-
+-	raw_spin_lock_irqsave(&iommu->lock, flags);
+-	if (iommu->perfopt_refcount > 0 && --iommu->perfopt_refcount == 0)
+-		ret = __perfopt_write(iommu, false);
+-	raw_spin_unlock_irqrestore(&iommu->lock, flags);
+-	return ret;
+-}
+-
+-/*
+- * Force PERF_OPT_EN off without touching the refcount (used on init, shutdown,
+- * and suspend). The count is preserved so amd_iommu_perfopt_restore() can
+- * re-arm on resume.
+- */
+-int amd_iommu_perfopt_clear(struct amd_iommu *iommu)
+-{
+-	unsigned long flags;
+-	int ret;
+-
+-	if (!iommu->mmio_base)
+-		return 0;
+-
+-	raw_spin_lock_irqsave(&iommu->lock, flags);
+-	ret = __perfopt_write(iommu, false);
+-	raw_spin_unlock_irqrestore(&iommu->lock, flags);
+-	return ret;
+-}
+-
+-/*
+- * Re-assert PERF_OPT_EN from the refcount after the hardware was reprogrammed on
+- * resume, so devices armed before suspend keep the optimization without each
+- * consumer driver re-arming.
+- */
+-int amd_iommu_perfopt_restore(struct amd_iommu *iommu)
+-{
+-	unsigned long flags;
+-	int ret;
+-
+-	if (!iommu->mmio_base)
+-		return 0;
+-
+-	raw_spin_lock_irqsave(&iommu->lock, flags);
+-	ret = __perfopt_write(iommu, iommu->perfopt_refcount > 0);
+-	raw_spin_unlock_irqrestore(&iommu->lock, flags);
+-	return ret;
+-}
+-
+-int amd_iommu_enable_perfopt(struct pci_dev *pdev)
+-{
+-	struct iommu_dev_data *dev_data = dev_iommu_priv_get(&pdev->dev);
+-	struct amd_iommu *iommu = rlookup_amd_iommu(&pdev->dev);
+-	struct protection_domain *domain;
+-	int ret;
+-
+-	if (!iommu || !dev_data)
+-		return -ENODEV;
+-
+-	if (!(iommu->features & FEATURE_PERF_OPT))
+-		return -ENODEV;
+-
+-	domain = dev_data->domain;
+-	if (!domain)
+-		return -ENODEV;
+-
+-	/* Already armed for this device (e.g. re-entry on resume). */
+-	if (dev_data->perfopt)
+-		return 0;
+-
+-	/*
+-	 * The bit is only architecturally valid while the device is untranslated:
+-	 * identity domain with ATS/PRI/PASID off. The identity domain is
+-	 * SVA-capable so attach_device() enabled ATS/PRI/PASID and built a GCR3
+-	 * table. Re-home the device onto the same identity domain with
+-	 * perfopt set, so the attach_device() skip_caps path leaves
+-	 * ATS/PRI/PASID off and no GCR3 table. This follows the detach/attach
+-	 * pattern used by amd_iommu_attach_device().
+-	 *
+-	 * Locking: this and amd_iommu_disable_perfopt() run only from the
+-	 * consumer driver's bind/unbind path. group->mutex is not exposed to
+-	 * drivers, but a device bound to its native driver cannot have its domain
+-	 * changed concurrently by the core (VFIO ownership is mutually exclusive;
+-	 * sysfs domain changes require an unused group), so the detach/attach pair
+-	 * is serialized without it.
+-	 */
+-	dev_data->perfopt = true;
+-	detach_device(&pdev->dev);
+-	ret = attach_device(&pdev->dev, domain);
+-	if (ret)
+-		goto err_restore;
+-
+-	ret = perfopt_get(iommu);
+-	if (ret)
+-		goto err_rearm;
+-
+-	dev_info_once(&pdev->dev, "PerfOpt armed on IOMMU%d\n", iommu->index);
+-	return 0;
+-
+-err_rearm:
+-	detach_device(&pdev->dev);
+-err_restore:
+-	dev_data->perfopt = false;
+-	if (attach_device(&pdev->dev, domain))
+-		pci_err(pdev, "failed to restore state after PerfOpt setup; device left detached\n");
+-	dev_err_once(&pdev->dev, "PerfOpt failed to arm on IOMMU%d (%d)\n",
+-		     iommu->index, ret);
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(amd_iommu_enable_perfopt);
+-
+-void amd_iommu_disable_perfopt(struct pci_dev *pdev)
+-{
+-	struct iommu_dev_data *dev_data = dev_iommu_priv_get(&pdev->dev);
+-	struct amd_iommu *iommu = rlookup_amd_iommu(&pdev->dev);
+-	struct protection_domain *domain;
+-
+-	if (!iommu || !dev_data || !dev_data->perfopt || !dev_data->domain)
+-		return;
+-
+-	if (WARN_ON(perfopt_put(iommu)))
+-		pci_err(pdev, "failed to clear PerfOpt\n");
+-
+-	/*
+-	 * Restore ATS/PRI/PASID (and thus SVA) by re-homing the device onto its
+-	 * identity domain with the flag cleared, so a later bind without PerfOpt
+-	 * sees a normally-capable device. See the locking note in
+-	 * amd_iommu_enable_perfopt().
+-	 */
+-	domain = dev_data->domain;
+-	dev_data->perfopt = false;
+-	detach_device(&pdev->dev);
+-	if (attach_device(&pdev->dev, domain))
+-		pci_err(pdev, "failed to restore caps after PerfOpt disable\n");
+-}
+-EXPORT_SYMBOL_GPL(amd_iommu_disable_perfopt);
+ static struct iommu_device *amd_iommu_probe_device(struct device *dev)
+ {
+ 	struct iommu_device *iommu_dev;
+@@ -2741,14 +2555,6 @@ static struct iommu_device *amd_iommu_probe_device(struct device *dev)
+ static void amd_iommu_release_device(struct device *dev)
+ {
+ 	struct iommu_dev_data *dev_data = dev_iommu_priv_get(dev);
+-	struct amd_iommu *iommu = get_amd_iommu_from_dev_data(dev_data);
+-
+-	if (dev_data->perfopt) {
+-		if (WARN_ON(perfopt_put(iommu)))
+-			dev_err(dev, "IOMMU%d: failed to clear PerfOpt on release\n",
+-				iommu->index);
+-		dev_data->perfopt = false;
+-	}
+ 
+ 	WARN_ON(dev_data->domain);
+ 
+@@ -3123,19 +2929,6 @@ static int blocked_domain_attach_device(struct iommu_domain *domain,
+ 					struct iommu_domain *old)
+ {
+ 	struct iommu_dev_data *dev_data = dev_iommu_priv_get(dev);
+-	struct amd_iommu *iommu = get_amd_iommu_from_dev_data(dev_data);
+-
+-	/*
+-	 * blocked_domain is also the .release_domain, so this is the normal
+-	 * teardown path: drop the reference and clear the flag here too, and
+-	 * don't fail teardown if the WARN-guarded write doesn't stick.
+-	 */
+-	if (dev_data->perfopt) {
+-		if (WARN_ON(perfopt_put(iommu)))
+-			dev_err(dev, "IOMMU%d: failed to clear PerfOpt for blocked domain\n",
+-				iommu->index);
+-		dev_data->perfopt = false;
+-	}
+ 
+ 	if (dev_data->domain)
+ 		detach_device(dev);
+@@ -3204,9 +2997,6 @@ static int amd_iommu_attach_device(struct iommu_domain *dom, struct device *dev,
+ 	struct amd_iommu *iommu = get_amd_iommu_from_dev(dev);
+ 	int ret;
+ 
+-	if (dev_data->perfopt && !pdom_is_in_pt_mode(domain))
+-		return -EBUSY;
+-
+ 	/*
+ 	 * Skip attach device to domain if new domain is same as
+ 	 * devices current domain
+@@ -3421,6 +3211,9 @@ static int amd_iommu_def_domain_type(struct device *dev)
+ 		if (cc_platform_has(CC_ATTR_MEM_ENCRYPT))
+ 			return 0;
+ 
++		dev_data->perfopt = get_amd_iommu_from_dev_data(dev_data)->features &
++				    FEATURE_PERF_OPT;
++
+ 		return IOMMU_DOMAIN_IDENTITY;
+ 	}
+ 
+diff --git a/include/linux/amd-iommu.h b/include/linux/amd-iommu.h
+index 104817e8d8977..5c9dcf720f846 100644
+--- a/include/linux/amd-iommu.h
++++ b/include/linux/amd-iommu.h
+@@ -76,15 +76,4 @@ static inline int amd_iommu_snp_disable(void) { return 0; }
+ static inline bool amd_iommu_sev_tio_supported(void) { return false; }
+ #endif
+ 
+-#ifdef CONFIG_AMD_IOMMU
+-int amd_iommu_enable_perfopt(struct pci_dev *pdev);
+-void amd_iommu_disable_perfopt(struct pci_dev *pdev);
+-#else
+-static inline int amd_iommu_enable_perfopt(struct pci_dev *pdev)
+-{
+-	return 0;
+-}
+-static inline void amd_iommu_disable_perfopt(struct pci_dev *pdev) { }
+-#endif
+-
+ #endif /* _ASM_X86_AMD_IOMMU_H */
+-- 
+2.53.0
 
-Is there any documentation that tells us what flags can be used where. 
-This isn't obvious at all.
-
-Thanks,
-   Felix
-
-
->
-> Regards,
-> Christian.
->
->> Regards,
->>    Felix
->>
->>
->>> Regards,
->>> Christian.
->>>
->>> On 9/28/26 21:08, Timur Kristóf wrote:
->>>> On 2026. szeptember 28., hétfő 11:10:34 keleti államokbeli nyári idő Christian
->>>> König wrote:
->>>>> That was broken since adding the NPA support.
->>>>>
->>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
->>>>
->>>>> ---
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 64 ++++++++++++-----------
->>>>>    1 file changed, 33 insertions(+), 31 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c index
->>>>> c03327f1242d3..e8f441e018839 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->>>>> @@ -346,6 +346,33 @@ static void amdgpu_vm_pt_next_dfs(struct amdgpu_device
->>>>> *adev, amdgpu_vm_pt_continue_dfs((start), (entry));
->>>> \
->>>>>             (entry) = (cursor).entry, amdgpu_vm_pt_next_dfs((adev),
->>>> &(cursor)))
->>>>> +/* Return the flags used for cleared PDEs/PTES */
->>>>> +static uint64_t amdgpu_vm_pt_clear_flags(struct amdgpu_device *adev,
->>>>> +                    struct amdgpu_vm *vm,
->>>>> +                    unsigned int level)
->>>>> +{
->>>>> +    uint64_t flags;
->>>>> +
->>>>> +    if (adev->asic_type < CHIP_VEGA10)
->>>>> +        return 0;
->>>>> +
->>>>> +    if (level != AMDGPU_VM_PTB) {
->>>>> +        uint64_t value = 0;
->>>>> +
->>>>> +        flags = AMDGPU_PDE_PTE_FLAG(adev);
->>>>> +        if (vm->is_npa)
->>>>> +            flags |= adev->gmc.noretry_flags;
->>>>> +        amdgpu_gmc_get_vm_pde(adev, level, &value, &flags);
->>>>> +    } else if (vm->is_npa) {
->>>>> +        flags = adev->gmc.noretry_flags;
->>>>> +    } else {
->>>>> +        /* Workaround for fault priority problem on GMC9 */
->>>>> +        flags = AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags;
->>>>> +    }
->>>>> +
->>>>> +    return flags;
->>>>> +}
->>>>> +
->>>>>    /**
->>>>>     * amdgpu_vm_pt_clear - initially clear the PDs/PTs
->>>>>     *
->>>>> @@ -366,10 +393,9 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev,
->>>>> struct amdgpu_vm *vm, struct ttm_operation_ctx ctx = { true, false };
->>>>>        struct amdgpu_vm_update_params params;
->>>>>        struct amdgpu_bo *ancestor = &vmbo->bo;
->>>>> -    unsigned int entries;
->>>>>        struct amdgpu_bo *bo = &vmbo->bo;
->>>>> -    uint64_t value = 0, flags = 0;
->>>>> -    uint64_t addr;
->>>>> +    unsigned int entries;
->>>>> +    uint64_t flags;
->>>>>        int r, idx;
->>>>>
->>>>>        /* Figure out our place in the hierarchy */
->>>>> @@ -404,26 +430,8 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev,
->>>>> struct amdgpu_vm *vm, if (r)
->>>>>            goto exit;
->>>>>
->>>>> -    addr = 0;
->>>>> -
->>>>> -    if (adev->asic_type >= CHIP_VEGA10) {
->>>>> -        if (level != AMDGPU_VM_PTB) {
->>>>> -            if (vm->is_npa)
->>>>> -                flags = adev->gmc.noretry_flags;
->>>>> -            /* Handle leaf PDEs as PTEs */
->>>>> -            flags |= AMDGPU_PDE_PTE_FLAG(adev);
->>>>> -            amdgpu_gmc_get_vm_pde(adev, level,
->>>>> -                          &value, &flags);
->>>>> -        } else if (vm->is_npa) {
->>>>> -            flags = adev->gmc.noretry_flags;
->>>>> -        } else {
->>>>> -            /* Workaround for fault priority problem on
->>>> GMC9 */
->>>>> -            flags = AMDGPU_PTE_EXECUTABLE | adev-
->>>>> gmc.init_pte_flags;
->>>>> -        }
->>>>> -    }
->>>>> -
->>>>> -    r = vm->update_funcs->update(&params, vmbo, addr, 0, entries,
->>>>> -                     value, flags);
->>>>> +    flags = amdgpu_vm_pt_clear_flags(adev, vm, level);
->>>>> +    r = vm->update_funcs->update(&params, vmbo, 0, 0, entries, 0,
->>>> flags);
->>>>>        if (r)
->>>>>            goto exit;
->>>>>
->>>>> @@ -712,15 +720,9 @@ static void amdgpu_vm_pte_update_flags(struct
->>>>> amdgpu_vm_update_params *params, flags |=
->>>>> AMDGPU_PDE_PTE_FLAG(params->adev);
->>>>>            amdgpu_gmc_get_vm_pde(adev, level, &addr, &flags);
->>>>>
->>>>> -    } else if (adev->asic_type >= CHIP_VEGA10 &&
->>>>> -           !(flags & AMDGPU_PTE_VALID) &&
->>>>> +    } else if (!(flags & AMDGPU_PTE_VALID) &&
->>>>>               !(flags & AMDGPU_PTE_PRT_FLAG(params->adev))) {
->>>>> -
->>>>> -        /* Workaround for fault priority problem on GMC9 and
->>>> GFX12,
->>>>> -         * EXECUTABLE for GMC9 fault priority and init_pte_flags
->>>>> -         * (e.g. AMDGPU_PTE_IS_PTE on GFX12)
->>>>> -         */
->>>>> -        flags |= AMDGPU_PTE_EXECUTABLE | adev-
->>>>> gmc.init_pte_flags;
->>>>> +        flags |= amdgpu_vm_pt_clear_flags(adev, params->vm,
->>>> level);
->>>>>        }
->>>>>
->>>>>        /*
->>>>
->>>>
