@@ -4,72 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B47CCA5FC7
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 15:49:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2589DCA5FC5
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 15:55:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1204610E184;
-	Wed, 30 Sep 2026 15:49:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACCE910E200;
+	Wed, 30 Sep 2026 15:55:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jkOD2M7u";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nj371Meg";
 	dkim-atps=neutral
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
  [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E0E010E184
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 15:49:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F13E210E200
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 15:55:21 +0000 (UTC)
 Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49b912df756so42935565e9.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 08:49:50 -0700 (PDT)
+ 5b1f17b1804b1-49ffe281cb1so28373625e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 08:55:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790783388; x=1791388188; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=eryavSC9Mq+IbIe9IYvlTJODUywMaOaLGazdRydfD7M=;
- b=jkOD2M7uuK/scVvN2073xOkXm2KMaHxqxsz7cOQFluS7Zh0gLxE9rhvQPmcA090WuR
- ZXPcmTzPYGoZVaDPDGcURP70nQaVrojNhKhHhfdTAvl3k4IAIz0tkslUEQvJ5orNDQgZ
- +E76WfogeEayqYKwSGecGkUAaWvVFnw7Xy1lbuOIYlkIJ4JXaB6ACShi5kXgJRBFXe1x
- 4Wbmu7rCN9+lsXzxSq3xPD7+6dpt0ViGW7wVjBcvxKswydLA7iRwRw8ESGVVXhubImZm
- xti3IzeKePX4oLC2oUfeA1JOISv19sWV+2dxZZdclx/O4g6Vsaj6shcP5U0dp+m5zGih
- IqHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790783388; x=1791388188;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1790783720; x=1791388520; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=eryavSC9Mq+IbIe9IYvlTJODUywMaOaLGazdRydfD7M=;
- b=P4lIWroCHEJZM+G7+ocbu72qtP2UwdQhAIYMaQLPLf1eoG3VpsICcw62xSWQQyBaDa
- mz42vUkKASARPuqffl7G8UMuZrcEqpri6J8tjt4mWc+9ii+DjINBTo8ywr3JYW1LuPgW
- kcExkE13sBfEIVGaAXtZlkF44qp4xL0ye80HwsLq4WgLbQeujQmVZs3M9YzSFscQxEXx
- +YHNi1y/fmcGEC0JZc9W/y+sKUMyJYATuVVwWflhb9HHH28o1f4iQc3q46syA9bt6cmX
- 7pBHbymh7Yc/0nIYs1ufdRO+21h5vusRu6/YWq3DwQOOmOZ84Bmio/tR/bbJOuyU2CBn
- V84w==
-X-Gm-Message-State: AFuF++m5NamzOiSG6dp0h6npwpHWuWFW4+2ip6coJUQCV2gjACDSdj3Q
- /r6T7MGcOB8Jo2zOs5d+YEICB2QB3n9TuWtpzJIvbFSY7q+NQEKRnKQIXetldDS9Qabwce7c
-X-Gm-Gg: AYBFou2ahy28XYe7b/0d9nDMKR+9p5wkh7w9bOvizUhq9PuvALQ19hmpIbE2mRGFH5l
- L2P66qCceCaHyEYDxcSkPG4zZn7grEh2cw/nQ+/nt0dQ4Jgmn6aXHxH9uylbKAAPbOAjiI+b4Bf
- DIA1Bu1zhTWRbu25RMZsUgpK6Yr9M/aqkGzJkXo8t/mYPQ09JHBkgHhOBOuJXytMHh82OSwtWBw
- 8tNbsZzXlqKBcBOQg7rb8i2rQci/kWsOMqZljB9hbcBIuqLwUaT1BDbLImpAOSyL9VWXJPMRuYS
- GZFmxBBdGuS1M/K1U0cYyWhxVoNOM34pJoh96TnMxMcCW6zcPbOagfWvqmbM/5jkh/nIPXhGEf5
- NJFzDL6HoKawNXg3VIAHkHiU8Y/XS27EtQfuW1oUxAYMhsE9tZQhfYtFh4TNsuE++n5TX1GKmw8
- CDNkc6TCki5QSUaVq/gwn7L6Zt6Ud7TmfD8woo1bymZfbMGBQ/T/4icO6ff/aLdtXS6923gmJqG
- /xtyWZXYTUMSG8+jXd6bbx2C4AUf2R5UvqLN7gjVUyfk87p3JSohocwiQ58Y4M2iK+GX/vOXIiK
- lTYszw==
-X-Received: by 2002:a05:600c:3e1b:b0:4a0:159b:d2a9 with SMTP id
- 5b1f17b1804b1-4a01b126300mr34590075e9.24.1790783388035; 
- Wed, 30 Sep 2026 08:49:48 -0700 (PDT)
+ bh=ycpIURId7rKP3x172gP4mZJ4LLseCO66YY86MDk9R/4=;
+ b=Nj371MegGvqYB/ZvIbIIyeyI3Z74IsZ+c4k/hrLWhZkEHm5m351vWrkQX6Ev/ImvIu
+ nG2jnGefXX8wY+1f0rXmA4l81SM+i9lbx+/9DpM6OW7v4irA3TB1cMoOBvjM567teHIK
+ 6QUfDAOwq2SFPkIf40379OQZdRaWsEpftMuo9MFVl7NXcfXFwrRD8tKpZBx/x8GNmxPv
+ SVV2ls8hpjXLMTiz9hKDbH3QxGyUUeuCqubc2NGiRr8bsIWVVf5adseLq2eDz3VmKo+4
+ m9JBQzQRkoJlQsCb/HTvlkSrxNOZzbcEx8+K51iX3JP5+WpjGUREwiqoGhjsDqtBCYrV
+ Vt+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790783720; x=1791388520;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ycpIURId7rKP3x172gP4mZJ4LLseCO66YY86MDk9R/4=;
+ b=klbxcMdUx6ZJ0O7j0J8MBiAc7qP0plgaKUvD/bHS/Iv8dmEuDyee3FE7yLAxeaOZUa
+ z/s6bKRFk0+vRnsH3MhNZ9lxqA2aqmP+qmFC2oGxo5xbJUzmnL2kS+t7gdN0E3oo+4lr
+ IHRei4NZXNg0EcIvXHzBm8x1ja+/JtEiVkR2bpiB+tVZnzDy8rq0/lfipx3fGrVT9CtK
+ fIcL/ZU8gebG0CUiUpT5uMaLWB6Cu4Iz1AzyGmU7Fp5eC67NfHf+p1F5KTNu9EeO65dS
+ DHWmh7XwIcFlhj3XliNGn0GOy3M22wc/z7yOcqc4pjiQP9IUv1zB68s6zcKWnknkBNcc
+ 9//Q==
+X-Gm-Message-State: AFuF++kKCyh6dhpALGs7Xec58bk2I6WuA0lKklYFLiFE43WaEB3YRB/A
+ Tw906elihNsy5JOEMZAfiNnZADvCz+xAG4XHxERy9NFbCgGIkcWcegNDmTtI2aMEBJ7pgjLE
+X-Gm-Gg: AYBFou1g7SPL8WWfVLF6fKK0kOj8cmgZMughRlJv29sIyXR6zMy2sYfQY9qQbv2/9yr
+ jFRkQ8m92kCWHfd43Po/pyHLHa0QfGCalmRgu+asZFL4uM4MLOXvgEctBM/m02nL6Ng8h/gFxvC
+ rmyzTaw5aCjUFO868m7A+3CLVK3lff15/n4SR/+NS6p61myoomQDHWnsJ3gubeNlfPpQAMFLsGl
+ tVCIrB3wWrvEa8H/Lie+tzQdT09rwD/M8O7kToxdKbZdha+EYF6lu1t6ELcS9dUQ2Mo2M4bn1JY
+ QVSsCLSeBFqU6MxjYSOCmL0szeXlsUBiYMu+KT5/vRO09kP5Un9Pg2VX28LfzZqATCy0Re517CC
+ 00hEUofufP0/k0nBpFdNPFqqTCQte+Og5xVPjtsk5Ewj0R0QsoZZ9amDIZiOuLw5Qask/XiQKmY
+ wAmmOVvPznrUFpfndu2njK+OCI50BjsS7yVLbmVY32rE4aIJx865UySwGUFXLmx/45Fmu4SbFg/
+ rsXGDXVThP0aLiisOmtbIwBHPitsL+qcsfjfoT2RCfDxna68oCBdQO30X9iN+wCvaCm1Fk=
+X-Received: by 2002:a05:600c:6815:b0:49f:f963:7093 with SMTP id
+ 5b1f17b1804b1-4a01b00d679mr33327255e9.23.1790783720293; 
+ Wed, 30 Sep 2026 08:55:20 -0700 (PDT)
 Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a01ccf92d2sm12506965e9.1.2026.09.30.08.49.45
+ 5b1f17b1804b1-4a01e672ee5sm12247765e9.9.2026.09.30.08.55.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 08:49:46 -0700 (PDT)
+ Wed, 30 Sep 2026 08:55:19 -0700 (PDT)
 From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
  vitaly.prosyak@amd.com, tom.stdenis@amd.com,
  Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH] drm/amdgpu: copy debugfs register data outside the GRBM/SRBM
- locks
-Date: Wed, 30 Sep 2026 20:49:34 +0500
-Message-ID: <20260930154934.27981-1-mikhail.v.gavrilov@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: copy debugfs register data outside the
+ GRBM/SRBM locks
+Date: Wed, 30 Sep 2026 20:55:16 +0500
+Message-ID: <20260930155516.29560-1-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930154934.27981-1-mikhail.v.gavrilov@gmail.com>
+References: <20260930154934.27981-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,182 +88,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reading or writing a register through the amdgpu_regs2 debugfs file
-with GRBM bank selection, which umr does for every banked access (a
-single "umr -b x x x -r <reg>" is enough, as is the wave dump with
-"-O halt_waves"), makes lockdep report a circular locking dependency,
-after which lockdep stays off until reboot:
+Tested on Navi 31 (gfx1100), 7.3.0-rc5 at 551c722f4080, with lockdep.
 
-  WARNING: possible circular locking dependency detected
-  umr/63306 is trying to acquire lock:
-  ffff8882cf4b8350 (&mm->mmap_lock){++++}-{4:4}, at: __might_fault+0x9b/0x140
-  but task is already holding lock:
-  ffff8881aec010d0 (&amdgpu_grbm_lock_key){+.+.}-{4:4}, at: amdgpu_debugfs_regs2_op.isra.0+0x20d/0xd00 [amdgpu]
-  ...
-  Chain exists of:
-    &mm->mmap_lock --> &amdgpu_srbm_lock_key --> &amdgpu_grbm_lock_key
-  ...
-   __might_fault+0xc5/0x140
-   amdgpu_debugfs_regs2_op.isra.0+0x441/0xd00 [amdgpu]
-   full_proxy_write+0x10e/0x1d0
-   vfs_write+0x1d0/0xf50
-   ksys_write+0x116/0x250
+Without this patch the first GRBM-banked access through amdgpu_regs2
+produces the report quoted in the commit message: from the write
+branch when umr halts waves, and from the read branch for a single
+"umr -b x x x -r '*.gfx1100.regGRBM_STATUS'" on a fresh boot.
 
-amdgpu_debugfs_regs2_op() and amdgpu_debugfs_process_reg_op() call
-get_user()/put_user() for every dword while holding grbm_idx_mutex or
-srbm_mutex, and pm.mutex if requested, so a fault there takes mmap_lock
-inside those locks. The lock hierarchy declared in amdgpu_lockdep.c since
-commit 1d0f5838b126
-("drm/amdgpu: Add lockdep annotations for lock ordering validation") puts
-srbm_mutex and grbm_idx_mutex below notifier_lock, which
-amdgpu_cs_submit() takes with the BO reservations held, and
-dma_resv_lockdep() orders the reservations inside mmap_lock. So
-mmap_lock is outside grbm_idx_mutex and srbm_mutex, and these two
-debugfs paths nest it the other way round.
+With this patch, and with the chain from reservation_ww_class_mutex
+through &amdgpu_notifier_lock_key down to &amdgpu_grbm_lock_key present
+in /proc/lockdep, none of the following produced a report, and
+debug_locks stayed 1:
+- the banked read of GRBM_STATUS* above;
+- "umr -O halt_waves -wa gfx_0.0.0" (banked SQ_CMD writes);
+- writing SCRATCH_REG0 and reading it back through amdgpu_regs2 with
+  GRBM broadcast, and through amdgpu_regs with the bank bits in the
+  offset; both reads returned the value written.
 
-Copy the user buffer in before any of the locks is taken and the result
-out after all of them are dropped, as amdgpu_debugfs_wave_read(),
-amdgpu_debugfs_gpr_read() and amdgpu_debugfs_gprwave_read() already do.
-A fault on the user buffer of a write now fails with -EFAULT before any
-register is written, instead of after a partial write.
-
-Fixes: 1d0f5838b126 ("drm/amdgpu: Add lockdep annotations for lock ordering validation")
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 71 ++++++++++++---------
- 1 file changed, 40 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index aca1a8045afa..5618bd3e2610 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -121,6 +121,17 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 
- 	*pos &= (1UL << 22) - 1;
- 
-+	/*
-+	 * Access the user buffer only while none of the locks below are held:
-+	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
-+	 * inside it.
-+	 */
-+	u32 *data __free(kvfree) = kvmalloc(size, GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+	if (!read && copy_from_user(data, buf, size))
-+		return -EFAULT;
-+
- 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
- 	if (r < 0) {
- 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-@@ -152,28 +163,16 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 		mutex_lock(&adev->pm.mutex);
- 
- 	while (size) {
--		uint32_t value;
--
--		if (read) {
--			value = RREG32(*pos >> 2);
--			r = put_user(value, (uint32_t *)buf);
--		} else {
--			r = get_user(value, (uint32_t *)buf);
--			if (!r)
--				amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, value, 0);
--		}
--		if (r) {
--			result = r;
--			goto end;
--		}
-+		if (read)
-+			data[result >> 2] = RREG32(*pos >> 2);
-+		else
-+			amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, data[result >> 2], 0);
- 
- 		result += 4;
--		buf += 4;
- 		*pos += 4;
- 		size -= 4;
- 	}
- 
--end:
- 	if (use_bank) {
- 		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
- 		mutex_unlock(&adev->grbm_idx_mutex);
-@@ -188,6 +187,10 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 
- 	amdgpu_virt_disable_access_debugfs(adev);
-+
-+	if (read && copy_to_user(buf, data, result))
-+		return -EFAULT;
-+
- 	return result;
- }
- 
-@@ -238,11 +241,21 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 	struct amdgpu_device *adev = rd->adev;
- 	ssize_t result = 0;
- 	int r;
--	uint32_t value;
- 
- 	if (size & 0x3 || offset & 0x3)
- 		return -EINVAL;
- 
-+	/*
-+	 * Access the user buffer only while none of the locks below are held:
-+	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
-+	 * inside it.
-+	 */
-+	u32 *data __free(kvfree) = kvmalloc(size, GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+	if (write_en && copy_from_user(data, buf, size))
-+		return -EFAULT;
-+
- 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
- 	if (r < 0) {
- 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-@@ -281,24 +294,16 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 		mutex_lock(&adev->pm.mutex);
- 
- 	while (size) {
--		if (!write_en) {
--			value = RREG32(offset >> 2);
--			r = put_user(value, (uint32_t *)buf);
--		} else {
--			r = get_user(value, (uint32_t *)buf);
--			if (!r)
--				amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, value, rd->id.xcc_id);
--		}
--		if (r) {
--			result = r;
--			goto end;
--		}
-+		if (!write_en)
-+			data[result >> 2] = RREG32(offset >> 2);
-+		else
-+			amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, data[result >> 2],
-+						rd->id.xcc_id);
- 		offset += 4;
- 		size -= 4;
- 		result += 4;
--		buf += 4;
- 	}
--end:
-+
- 	if (rd->id.use_grbm) {
- 		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, rd->id.xcc_id);
- 		mutex_unlock(&adev->grbm_idx_mutex);
-@@ -317,6 +322,10 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 
- 	amdgpu_virt_disable_access_debugfs(adev);
-+
-+	if (!write_en && copy_to_user(buf, data, result))
-+		return -EFAULT;
-+
- 	return result;
- }
- 
--- 
-2.55.0
-
+The patch is against 551c722f4080 and also applies to
+amd-staging-drm-next and next-20260929.
