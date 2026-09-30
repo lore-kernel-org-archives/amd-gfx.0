@@ -4,138 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9828ECA5FC4
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 20:57:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8359CA5FC5
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 21:03:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C3B410F4FB;
-	Wed, 30 Sep 2026 20:57:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63B9910E128;
+	Wed, 30 Sep 2026 21:03:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j91yaOv4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KG82MCJ4";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012024.outbound.protection.outlook.com [52.101.43.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40EA710E128;
- Wed, 30 Sep 2026 20:57:36 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010007.outbound.protection.outlook.com [52.101.85.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C333A10E128
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 21:03:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DR1WMQD0+N9eJPKhqLU/hBZEvL71nzFgbLnr5dM3TunIOP3qZBXyhMOM++Qt52MIYjDtu9Zs0o6UgC4fYiML9mOzcw+ScZYHyD1RIjtA/5nitPzamibwNNYqdu/igfE5a35ryk0SqWSoFar+cpClbOoRzH5n7JP8IPV/4TrMCdXcHjZknhFzOxLUr2fq+3OQL/AELnbYY0Bbg6wfNzeIHIWqrJYzmcKlQ9DmncS+Hwq1eopDOpSaycUgFJQdfyNUUxZPUyf/g6+/WGzEIQu5vzcc4GK9QvlW+kdySq24co1nIlXG80GnjZb9JR5bw+JEDS/tLFnQbNDAO8qMv+FHdw==
+ b=sWj7szgwuGBLAiEpsaeh43j+SR4ZtzDr8ie4lCcOgddFOrgXZgbFsZTnQrfv3+0eLkiHfwmVrvRYpvgTSEJ5B3CuzZJfIykN4LAg2/d9P7yU3EHYYiCtyHhEiCvWRVGXnd+eXej636oZPvJJLlh9BlBJpe8lJKftc6zQ00RDn7+n8m1LSg1G1x71qVJOAAAxzvWJa0kh358CCdNVMTUILy9nPhcVpEt00ocMQT7prSklwiIrKbXG4DqpIVqgU5fCDYnPBxa3sQCxk0LNXQn9ZaIpvRgYNytcgG5MNDYTmYHuBdMJVNJAIClp1KiGrMo14/kB4tOnTEE6aLjSH2xNJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Acumv7R2EFMjQOrrGHw2GO0Vgh3edBlIFdYXQsbNGW8=;
- b=LZ0kiehtGNOZyMqnGDDV0pZrEPg8UBzOMcDCdbPhB16R9p7GrLee8DtnMuY8KZNaOCNCPTOSiD/cradItrf6jPOSY2m524i3/omMTaVp8wvkgHiDIk0ItG4yB4LjhXxz4aNB560yFI2K+i4lvVjdN5IYS3bUF011zh4dboKlReozfMMJNzC65OIfVdKq5kcPoYI0NdLj9nUMFCyj/m9RrETbGuavklf2lGsuNRf1ghoQ9VrqjfE7UvOhDIkUQPXb39po3s1R1XoWaJKNj6imPuvQmHn/2ELdkJOaACfrKTXqo8DVNYDEEHH/1wNvqPFBQrFyclZPE8BlgL5L9yT/zg==
+ bh=vYhOpJw7TKj3aWhZR1B6bMqD103bePrEnYUNKsmcVa0=;
+ b=nxdi5PzZol3v63SzkhSfzp3Usk6xPUiVs9M87zZy4svU+lvPcbMbEzA4QLvZhPxTZWBtjHUgHIEIh+kqmnt0qZx3FFxjFUNpId2c4L8FEDmKA0Y+zn3KvlmHqxnDLqprkC6A+ysRQy/Hpx1/k/I1eK31QcGBiD4g20RURezsqypckDRInbwC63KrOmGGU+h8qZEhDu0PwYxDIshUeL8vFHcccmziFfanPCyMLjlU+Cf2j/pwcaDtoJ/4fpQ7cpkDbcsF3VN22+j4g+ka/e5uS/faymJjQGKtXAXv23dsZg2S7WK3DjqHceRD6/t3AWkpfLsH+sRD1wr9YTKI77LCFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Acumv7R2EFMjQOrrGHw2GO0Vgh3edBlIFdYXQsbNGW8=;
- b=j91yaOv4EvVqJbuDcb5K/0gVt3N83rVpCoFpEKD6I+d8TkgQEmrB5TjbtUs+WlVJ9C2t9uRpqneMVTgmINi8peMVtOcWa27lr4JweJwv8oaoke+1eiUK2VWrbWktQT1sujnzjkknRDSkMualds7Wy2c3DQnMVg8tapsNIDeQ1Gc=
+ bh=vYhOpJw7TKj3aWhZR1B6bMqD103bePrEnYUNKsmcVa0=;
+ b=KG82MCJ42R9HdCTd+bUTkZog3Vv4a30DdVYTx1i8kSI3iJGdku5QeUSm1Uaz4ZELThws0kcWu9gWAcy5nxTckQ91s841Va5Jn1HpayaPrEoiIIEgPFTBofRHoBIOeVxvX9iOhMdq5m/KskP7guyWw4qr6Kp+xN65MlJ7c3PsIKE=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by CH2PR12MB4101.namprd12.prod.outlook.com (2603:10b6:610:a8::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 20:57:30 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 20:57:30 +0000
-Message-ID: <227ed8e6-b99e-454a-b5a3-ff92e21ce543@amd.com>
-Date: Wed, 30 Sep 2026 16:57:22 -0400
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by SN7PR12MB7417.namprd12.prod.outlook.com
+ (2603:10b6:806:2a4::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Wed, 30 Sep
+ 2026 21:03:48 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 21:03:48 +0000
+Content-Type: multipart/alternative;
+ boundary="------------W6yiXvswjUTIEKO8V67xSxJp"
+Message-ID: <e546c00d-6686-4f33-9e17-fee0cf25eaed@amd.com>
+Date: Wed, 30 Sep 2026 17:03:46 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/11] drm/amd/display: allow individual colorop changes
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
- christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
- louis.chauvet@bootlin.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, sebastian.wick@redhat.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260811171011.184964-1-mwen@igalia.com>
- <20260811171011.184964-11-mwen@igalia.com>
+Subject: Re: [PATCH] drm/amdkfd: fix lost wakeup in interrupt drain on
+ debugged process exit
+To: Heng Zhou <Heng.Zhou@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Sierra <alex.sierra@amd.com>
+Cc: Lijo.Lazar@amd.com, Christian.Koenig@amd.com, Emily.Deng@amd.com,
+ Victor.Zhao@amd.com, phasta@kernel.org, Qing.Ma@amd.com,
+ HaiJun.Chang@amd.com, Jonathan.Kim@amd.com
+References: <20260930134205.469578-1-Heng.Zhou@amd.com>
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260811171011.184964-11-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0391.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:108::9) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20260930134205.469578-1-Heng.Zhou@amd.com>
+X-ClientProxiedBy: YQZPR01CA0015.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::20) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|CH2PR12MB4101:EE_
-X-MS-Office365-Filtering-Correlation-Id: 869981ce-b47b-455e-3c3b-08df1f3570d9
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|SN7PR12MB7417:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80642220-942f-4380-a9f8-08df1f3652ba
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|23010399003|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: a4Vk0mkVQ+ZW0I9IYArIENsscjcIbgRsQO1MkGdWdnpy2afISCu0dIOstxRvI/XtDybhsE8zo0fuQ3nWy3LE4hvefywDj2lnDSYwActdwLRo1mXsmQhbli6uhM3x4DttGODKFP1+xe139AC0lFDk67VTVkyAHp4Cr474a1hyTN7u+nkJ0qCD36/J9wBauRAtWBNrMx4mEr90efxka2uaJtavrZPmZapiFuPWNXpyL63ps9aptsy6R1G4fZS7qjhSvtJweRVthYZ3N8pTnBHMEP6mLiYzpW5+NxUBwIxDKOEs36jW5VAdPf7rA/DYbuvy6kI/e//TyB0gbQe6gG2OpK4L/oFXai6ERhJY6PzgSPcAV+JNwvykufEcpO2+mzQmFsy66zmz9DsdcFZmJuuz9mEoGN7V4XX2FydHQB4UH1zpiYTslkCY21SbpWB+s8upj33qR0wIIauNAvDeyexol/9cOHDQz2EqJkkyd6jObLBXSM64n7AF2HEn5RPGK+C7arPz6nBycBlRWWg5S6t0PiGU2u2rRZS7SiDoLJ4gwnvI5tUXUTuWN3/7/IO4Wfrr2Up2/rpJN7oupPxASW/qt0ObNfACFnspAgmCy+OFhwLlzHWlPHdr/OCCw/I0ONTtnJ1NgQ5fWhWylpQVdQqL4pQD+7ePN5WrVtd3MWpkgil69eMsmuMoI9PRGQLBDGdl6igabyhRzEn1iNEBqbsdzw==
+ ARA:13230040|23010399003|376014|1800799024|366016|10067099003|11063799006|5023799004|6133799003|56012099006|18002099003|22082099003|8096899003;
+X-Microsoft-Antispam-Message-Info: 5I6LB2SaJXcJbM6PUbMjLCUktioVWwS+Z6pxKispae4ifFlU5b9qg1j5CMw1p+aCj7/VOJl4r0D/qz5FHNlFnMCFOFOia+eYb7GKhMfYriEWYfZC6+genbxt+063wiX7MKRpGklnofBztIjMLTuX8sv1mZbSJiU+LNJi37rkcmd+NErpY8SB5eb1W7NMFuYMxgD5/qZ1uVycrxHgkqNCybLjn4AUOvW8+dUPLO8kwFPqYL7B+2+HU2dkuKl9AZNJexSQ5JBTg1hcNrmESD3luC1Pr1CurWsm9mByPoo9U/D2DXkwSTmfeWciNq7sohpBS/QD7ynsaK3wfOJ+jAtdJmvnajh8Q/YMq9VoW7tpxkgkHjeedlOKWPXI5Q/1QUBSu92RSb72J5rnWTPtKB1vohb+BX02pXP5s5Hhnggwt6ij2nxkXRxIe/2qzPVwAurMtuCATDQwZR0uNtg6Qyj2lSEzajJ1JO+82WTeJGDFmSV0r/vPCpfF2EXWBwx8CVKvD22fphwWEHgxRO1OknMiHkSXd5Ti89S2W5FMLldt3BW59CxrL3Lh1xgnc1pioCQuNyq8ZnLG0zzVSodAYm2Iz/Q5Qpy0cjHZS1AXqOBPLmw24sqHjNOcHNSlgjMrWz5HOCf7fbSRJfOhj/QdyAahHXh4B06nYZjeIO1Y4cUwaOk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(921020);
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(11063799006)(5023799004)(6133799003)(56012099006)(18002099003)(22082099003)(8096899003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SEJnNlV1anJkaGEvU3ZrcnovbjQweTBTdEZ2eGQwOXEyY0JKTUZxZVdRUFZ5?=
- =?utf-8?B?MlZCQzFlSE9VemkvdHFLK1hGUHJwRFZad2RQNEVIbGk2Q3lqR0k1VlNIeThL?=
- =?utf-8?B?WWY3REhFVXJJQ013ZmR5alVCRHhaRW9ibXVFQTZWcWNQV3pHZjRTMnpCRXZq?=
- =?utf-8?B?M2tMTEdlMUV1UDFkZlR6MWc3ZFVnem1RTU1hcXpTZHVDRXJUaG1GMW1lak1l?=
- =?utf-8?B?bmNhK0M0WFgrR0pQeno3cjlzK1VqenJBTGgwYkVhV0EyaklRZXFpbjhSR1dn?=
- =?utf-8?B?Z0Zid2hCTElDd2dEbnArNFg3UzYzbXFxV1pGM0dNMlQrUU5jTVBsNW5pMFZW?=
- =?utf-8?B?T2hBclhBbXUyUjN3SFlsWUUvcXd6ODN1Mk1GSmlQdUtwV3ZveTQwdHRqa0wx?=
- =?utf-8?B?R0Vrem1wVlpaamVvblNoZlRjbllvTXpLRWVuMHE2Yk54c2hOVFhTWXB1V2pn?=
- =?utf-8?B?dXowTWZTTWVwYXJvUUhya1Y4aWtPL0x3cjJ3Q0RpcHliMlQzOXpTcnhIbGts?=
- =?utf-8?B?aWJiQ2FaUzlaVXJYUkFHckt1NUs1c3FnYS84VWx1L0RQektjc3J4UW9iY3Bt?=
- =?utf-8?B?YzZVbm4rV01hYXJaQjhBZzczU1hvcmJiZjZxTm84OGd2NEE4MzYrMkU1THV4?=
- =?utf-8?B?OWp2ei9tQWkrcVhxek5mZkwxTW10MTNnN3czZDBhVUt0QlBYc0djbFFCSjJn?=
- =?utf-8?B?Zm04ZmNUQjRWS1lLLzhHY0F0dDZURHE5b2VoZ25jOFAxLzJLYTJCTUF3ZUd2?=
- =?utf-8?B?UFR1OW0vMGNYb3RoKytnSUNSakVzZmhXaTlMN1lOdElka2F3Y083SlY1ZjJJ?=
- =?utf-8?B?ZVU2RllLamNXbUZZL1VKL084OUNoY2NQaCsvcDRaOE05WitseFhYRTJNS2pl?=
- =?utf-8?B?c3I2Z2lZdy9wODMvZWZqbWVOWHc3dmxtWVBTWjVkZlpRV1Z0WXA1UzVteTVs?=
- =?utf-8?B?citvcjdUNUsvQTF4WVVNSDJKNkhoQjJzWWY0UnZmTk4ySjhJdGJaRm1QRzl2?=
- =?utf-8?B?WVA0ZEpzS2s1UUtXOGxSdFE2eU50QjRlZldjZU9jWCtiaHlFNTZlcGwxZHNn?=
- =?utf-8?B?WEdyRzYwRWZpN2J0WUxNM3ZLa0VBb3YxY0tiamFUVnBJeERjdDhtY0RHM1N0?=
- =?utf-8?B?S0ZFd0lwK203cng5czMxbTlPUFAzMmwvd3puZ3VsZkpIMTZmZWJKR0E5Visz?=
- =?utf-8?B?Y1VxeWY5Sm90ZlY3V1A0MGg3alY3bm1pNk9wYi9VRklrSnVMNVcxTW54ckJ1?=
- =?utf-8?B?RTNuRmY5VERVUkE5SmFQR0ltenBaMi9jWmFEK0htcVNYOUo3c3M2RkhlWi85?=
- =?utf-8?B?R3FNRmFad3hDaThVVmRXOVlvYjZKTE9tenlLQVRZVUNQQ3lIcDgxOG1PQUx6?=
- =?utf-8?B?c1dvYlltM0pnV05mRGxXYkgrRFVZM3JQb3ZTOFF2SHMzZ2h6R3dpdXM2K1JP?=
- =?utf-8?B?Y1Y1dVpncVZmOWVsaktvbHZoZEpLWjUvM05iSWFpZXlIMGhKRUhXQzBnWEJs?=
- =?utf-8?B?YlpsODlzcU1sUEZEcTl6OEVoa0JaWit0VXhsamNNMmtpdU9qVmc0WU5yRlBa?=
- =?utf-8?B?aTN2WWNUeWoza3BqVXpXQm5NNnZvYXJvTWUzOXZ4UDhsS1UxSTNDKzFwZzVw?=
- =?utf-8?B?Yzk2WktiMjFHVDNZbFVkRHNwbG1MMEFmNTFhSCtjVlhtQ2lnbDNUTGhQMXBu?=
- =?utf-8?B?eTNMVDFVck96UlFUa1p2RjgzT1kzN1NISGlDeHZkbDZxVEppcVV3S2ZrNlB2?=
- =?utf-8?B?Nml6bmpuYjNhVjJLWjFPQUJXdkJrb1c5cHlJOEZGU0thS2haWC9RVHpkY0tF?=
- =?utf-8?B?M1pCeEw2S3VBdFlzY2NqaGkvRk5NZTRYUDZob3Fhc3FJeW5qbm9CZzcvUTNp?=
- =?utf-8?B?YUNqa2d6aDZRQ0I4SUdBdVhlSTQxTzVpSk03TldaV3FDV1IxTEEwQVZYa2s4?=
- =?utf-8?B?bTIrUERYYmJXcFlCM1FSaURGbmg3b2RyWFdxUVRZZml2RmhQYXA4bjU3V2Fk?=
- =?utf-8?B?VkpCY1piUzB3dXFnUkFFU1I5alh1TGJ1aVEwak4rdWx0N3FWR1lLWGZmb0Fx?=
- =?utf-8?B?ZWpMVFhTaGhwUUo5S1k5OUpMTm1lWVQ1SXdieHlYRU5NY2Jnelo0QnFwZlpC?=
- =?utf-8?B?b0Q0Q3AzN1pVOFJMRVVNQWZoRWgyUTBpRUxLdzZFZnNlOGdVR3hMYmsrK3pB?=
- =?utf-8?B?dHJyU3Q3KytGQXd2MHhxODNKNkdXRWlnK3RwVTkwSmdZbDNDbm53a3dlZ0lh?=
- =?utf-8?B?a2prbjlLZ1ZZa20yMm5uNzY2Tkkva3N5akxXYWN6TGZnd2p1eFdxMUpjYkRV?=
- =?utf-8?B?dXZvckZ4WENETkJPbEpwQ1A2WmJSek1BT1lUMnF3WkE0ZVdHRUpBZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ck83aUtyTEJ5cEFtTTJxNnFPOU92ZHpPdkNGa3pkdEJnZ3A2Nmt0Q3hyc3Nh?=
+ =?utf-8?B?cnUxVm1IdG5KSStsM0dkOGVReFk3Q1I3VXRRZHYyOC9uQ0dvRGl4M05hdFp0?=
+ =?utf-8?B?VnBlWUZxekZleVJYb0xKWExzL0NoQ28waFlNZGRDb2o1Q3FBNmxBdTBtMmor?=
+ =?utf-8?B?T2xDRmdOanp0Y00wSEoybzJINHlQc3BOcURRVUFWSGJPcnhQWGlNSzNraXps?=
+ =?utf-8?B?dmJVSjBLak1TS1d1bFpFNFlJNFUzbmsxQmFvMWN4aUt0bnhOL1RTUlZ5Mnpq?=
+ =?utf-8?B?dHRyWHgyK2hucFMyTlpEWTRTcnoxWVVNcTlFSWhiekNWM0tGTE5oTU1uajZJ?=
+ =?utf-8?B?YkhXb0VrTENubGNtMi9oczdjd2FuMkZvdlVubVpRU05VQWV4Q3ovL2h6Vnpw?=
+ =?utf-8?B?YkZOTmhBb2lGZlpEWkQzSDMxSDluSDJhWWJ6Z0hTcG9VNUVHdFFyWlRwRHND?=
+ =?utf-8?B?ZG1HRmNuRDBJU0xXNzh2R3ZjVkovNDN4bTNMUWFPd0V1MkxwNnljTC9iUkZo?=
+ =?utf-8?B?ZTZYR0JQa3dNWHRGdWRscm1rdE1GNlFhR1FIK2VaYitGZ1RhSHhaUVkxeExo?=
+ =?utf-8?B?TGtnNS9JSVczVGtjNC9Hc3QvWHA5UUlYdkVubXVWWCtVd0M2QmhBMDhBanBa?=
+ =?utf-8?B?YzRYZzUxOFY1U2Z2TkJSMGxVSU91UlpxV2FCWnNwd3V5dFp2RHdnTDIrV1Fq?=
+ =?utf-8?B?RG1vMTVMUFNqVCsxaDAwbDR5TjhUUFZWL0k2dnZXQ0Y0M1B2TW4wRnhuRjRI?=
+ =?utf-8?B?R09CZHhaN0lhYnBwNFJpOGZ0N2hYYWNIR1BEY0hLWnhteEJlVFlYaG1PbGc4?=
+ =?utf-8?B?ZmpvM1NqdzBMSXZZdkwwOVVlR1FRK0lZbm12WWxlc202YTd4KzdHQnJKVzQr?=
+ =?utf-8?B?T1J4eDVMSU1VcUcvcFBpQzU5REZ3VlNwaXBydU4wMEZxQ1F4SFd3Wm9ZaHFi?=
+ =?utf-8?B?aHNHbmhGTTdsRmFRMTZGVFFjQ29rR1pjcHFWMVRITU4yT3lWdlliNmZFM1Aw?=
+ =?utf-8?B?V3VhRU96WkFoR0puOXNjM1FWVEsxa2I0QXlTZ09kelNyMi9la2gwVm40R2Uw?=
+ =?utf-8?B?ekpuUkg4Q2xjZFF4andOem1ZcEp1UUVCUERUTDlpemJZNDNhS1ZIQ0pDRjNx?=
+ =?utf-8?B?WWo1YTgxSHVmR3B4MyszSng5L2E3U2k1UVhqR0g3ZVp4bVFhVDh5Rlo2Nm1J?=
+ =?utf-8?B?dCtwZElOTWhTVXFwVms4d0R0Y0lSQWo5aUhoalkrOHp2Tkd3UnlHelc3NVpY?=
+ =?utf-8?B?NFV6bTV5QmYwVEUzRUJOaFVlZXU3MkZWR25EQTYvUC9tclBpYm51Y1FPTkd0?=
+ =?utf-8?B?QnVBR28yRVY5UUZYcXRDZlQ4ZzFRZlBWZVl1YkdwdmZ2Q0RWcmp2WnM2VURa?=
+ =?utf-8?B?UDJzK1MzZ0FFcTM1UDdlbWJ4WkFQTmpCQmJBb1dDRkM3OWk3NE9rVWRzWW92?=
+ =?utf-8?B?d1pCVWVWZGduSm85WlA5R0NFUUthZFl0WnN5VHdvdEl6RERGV2ovZHFCVm5l?=
+ =?utf-8?B?SXNGRWdZblZTaTNaZnE2bGRUZStLeThJWUVkMXR2ZFJVMlh1OWQ5L0ZkZThZ?=
+ =?utf-8?B?Vy9CK0l1azRyVitzR0xBcHFVN1JmVTJaQnBOT3JkUE9CcXNJSmNPZWl2dGlN?=
+ =?utf-8?B?UzIrN0dZSyt2RThQZm5KUkpiVFg3eUNhWlVGZ1FaUVF4bTRGNUtsUmVUMlFS?=
+ =?utf-8?B?ZnF3MVRqazhSRFBRM09qdmg0RThmQ0JPZjREamN5Tk9OWExiVnJwN3FWWG5X?=
+ =?utf-8?B?NEN5YW5aT25uVjI5Z0dsK214QXVxS3ZBVzRUQmNCVi9uSmYvendWQXJsdW8x?=
+ =?utf-8?B?b1E2YnVTQm1LdnFYdEdQNzBpcjIvNEJ3MVlRVy9HZ3lJdm5TVmVEeTErc0xq?=
+ =?utf-8?B?QWtTZ292UWRueUZkY3M1amNzTEdsYXlpNXNUOVo3bUFmbW02N0QrUHFBWXRU?=
+ =?utf-8?B?Wks1N1l0SkJMR1E5Nnhpb0FOU0ZocWV3cWtTZkRwWTlOSVJnS2pwZUhBSC9u?=
+ =?utf-8?B?N04xeXlKUjRHS0NvSlh5TEpYNkdwOW1vU3JyK2VwdmF5cmMxV2RJbmd1aXBw?=
+ =?utf-8?B?K01KRWQybmN0T1A4c0xmdzg1YUVUcnpiZGhiTHIrZDM5SjhybmlmZjU3STVm?=
+ =?utf-8?B?OWJEVGFVVWRUR0xlN3VYL3lnenA1SVhqUm81eUJTLzB4MEFiZTBnb05hWmdK?=
+ =?utf-8?B?c1UvT2FNZXFLYW5NQnYxdWloVzhWTnJ3SFVmQW55UDJ2Vko0alQ3V0xMdlVL?=
+ =?utf-8?B?bEh5c1pjQmFnU052YnRYQ0tJTVR6VmdVK1hzT2tVckk5WHlSVWt6RkpDTjgy?=
+ =?utf-8?Q?sWvmlkGl7onu1nPZoW?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 869981ce-b47b-455e-3c3b-08df1f3570d9
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80642220-942f-4380-a9f8-08df1f3652ba
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 20:57:29.9119 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 21:03:48.7879 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Tq7svOUI6MIZfcelnThj0ealGKGcQ1cPaBkAlCvSLDppUPg0oa54KxY7mtwRYV0JHnZ4Eu5KAtcLDe1S2rlhfg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4101
+X-MS-Exchange-CrossTenant-UserPrincipalName: JJHlUnskBq90ZcCmHXqZR9LW46TaGbEbTIK+238palwCQijJhzbRiqc0FD9nWAYj2osm2WolCb7N+kY7DZOYGg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7417
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,354 +137,545 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-08-11 12:45, Melissa Wen wrote:
-> Every AMD colorop helper requires new colorop state to update a single
-> active colorop, i.e. if the userspace modifies a single property of a
-> colorop, but doesn't resubmit the whole color pipeline, the driver
-> silently falls back to the legacy color path, instead of just restore
-> colorop settings from committed state. Change all colorop helpers to get
-> the committed state if there's no new state for a given colorop. It
-> keeps walking in the active color pipeline and update a color block if
-> the related colorop changed.
-> 
+--------------W6yiXvswjUTIEKO8V67xSxJp
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This probably needs an update for __set_dm_plane_colorop_fixed_matrix as 
-well.
+On 2026-09-30 09:42, Heng Zhou wrote:
+> When a debugged process exits, kfd_process_notifier_release_internal()
+> first removes it from kfd_processes_table and then calls
+> kfd_dbg_trap_disable(), which drains the process interrupts. The drain
+> sends a fence through the IH and waits, without a timeout, for
+> kfd_process_close_interrupt_drain() to wake it up. That wakeup looks
+> the process up by PASID in kfd_processes_table, which no longer holds
+> it, so the wakeup is lost and the exiting task sleeps forever. The
+> fatal signal has already been consumed in do_exit(), so the
+> interruptible wait cannot be broken either.
+>
+> The wait happens inside the mmu_notifier release callback, i.e. within
+> the global mmu_notifier SRCU read-side critical section, so every
+> synchronize_srcu() on it stalls as well. Any other process releasing
+> its mm then hangs in D state and the system needs a reboot. This is
+> seen with rocgdb on MI300X.
 
-> Fixes: 9ba25915efba ("drm/amd/display: Add support for sRGB EOTF in DEGAM block")
-> Acked-by: Harry Wentland <harry.wentland@amd.com> #v3
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
+I suspect this may have been introduced by this patch by Alex:
+
+commit f34034ce5d2116f397008c63901c9c1946e5d665
+Author: Alex Sierra<alex.sierra@amd.com>
+Date:   Fri Jul 24 15:53:48 2026 -0500
+
+     drm/amdkfd: disable debug before retiring MES process context on teardown
+
+...
+
+If you can confirm that, please add an appropriate Fixes: tag.
+
+
+>
+> Fix this by:
+>
+> - Tracking pending drains in a list keyed by PASID instead of looking
+>    the process up in kfd_processes_table, so the drain fence always
+>    finds its waiter.
+> - Bounding the wait with a timeout, since the fence can be lost when
+>    the IH ring or the KFD interrupt FIFO overflows, and warning when the
+>    drain does not complete.
+> - Deferring the drain of an exiting debugged process from the
+>    mmu_notifier release path to kfd_process_wq_release(), before the
+>    PDDs and their PASIDs are released, so that stale interrupts cannot
+>    hit a process that reuses the PASID.
+>
+> Signed-off-by: Heng Zhou<Heng.Zhou@amd.com>
 > ---
->   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 183 +++++++-----------
->   1 file changed, 66 insertions(+), 117 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index c528daefac5e..f6a2af5d2e96 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -1550,24 +1550,13 @@ __set_dm_plane_colorop_degamma(struct drm_plane_state *plane_state,
->   			       struct dc_plane_state *dc_plane_state,
->   			       struct drm_colorop *colorop)
->   {
-> -	struct drm_colorop *old_colorop;
-> -	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-> +	struct drm_colorop_state *colorop_state;
->   	struct drm_atomic_commit *state = plane_state->state;
-> -	int i = 0;
-> -
-> -	old_colorop = colorop;
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.c   |  3 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  7 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 89 +++++++++++++++++-------
+>   3 files changed, 68 insertions(+), 31 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> index 0dd1fd448059..2b227d9de492 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> @@ -664,7 +664,8 @@ static void kfd_dbg_clean_exception_status(struct kfd_process *target)
+>   	for (i = 0; i < target->n_pdds; i++) {
+>   		struct kfd_process_device *pdd = target->pdds[i];
 >   
->   	/* 1st op: 1d curve - degamma */
-> -	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> -		if (new_colorop_state->colorop == old_colorop &&
-> -		    (BIT(new_colorop_state->curve_1d_type) & amdgpu_dm_supported_degam_tfs)) {
-> -			colorop_state = new_colorop_state;
-> -			break;
-> -		}
-> -	}
-> -
-> +	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
->   	if (!colorop_state)
-> -		return -EINVAL;
-> +		colorop_state = colorop->state;
+> -		kfd_process_drain_interrupts(pdd);
+> +		if (!target->irq_drain_deferred)
+> +			kfd_process_drain_interrupts(pdd);
+
+The way you're setting and clearing p->irq_drain_deferred seems pretty 
+fragile. I'd prefer to just pass this as a parameter to 
+kfd_dbg_trap_disable and kfd_dbg_clean_exception_status. Then you also 
+don't need two different drain functions.
+
+
 >   
->   	return __set_colorop_in_tf_1d_curve(dc_plane_state, colorop_state);
+>   		pdd->exception_status = 0;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 2847a5ec5ede..c04c3a03f559 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -1030,9 +1030,7 @@ struct kfd_process {
+>   	uint64_t exception_enable_mask;
+>   	uint64_t exception_status;
+>   
+> -	/* Used to drain stale interrupts */
+> -	wait_queue_head_t wait_irq_drain;
+> -	bool irq_drain_is_open;
+> +	bool irq_drain_deferred;
+>   
+>   	/* shared virtual memory registered by this process */
+>   	struct svm_range_list svms;
+> @@ -1245,7 +1243,8 @@ bool enqueue_ih_ring_entry(struct kfd_node *kfd, const void *ih_ring_entry);
+>   bool interrupt_is_wanted(struct kfd_node *dev,
+>   				const uint32_t *ih_ring_entry,
+>   				uint32_t *patched_ihre, bool *flag);
+> -int kfd_process_drain_interrupts(struct kfd_process_device *pdd);
+> +void kfd_process_drain_interrupts(struct kfd_process_device *pdd);
+> +void kfd_process_drain_deferred_interrupts(struct kfd_process *p);
+>   void kfd_process_close_interrupt_drain(unsigned int pasid);
+>   
+>   /* amdkfd Apertures */
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 226f52626e84..b2365c21db9e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -55,6 +55,22 @@ DEFINE_MUTEX(kfd_processes_mutex);
+>   
+>   DEFINE_SRCU(kfd_processes_srcu);
+>   
+> +/*
+> + * Pending interrupt drains, keyed by PASID. Deliberately not keyed off
+> + * kfd_processes_table: a draining process may already have been removed from
+> + * it, and the drain fence must still be able to find its waiter.
+> + */
+> +struct kfd_irq_drain_waiter {
+> +	struct list_head list;
+> +	u32 pasid;
+> +	struct completion done;
+> +};
+> +
+> +static DEFINE_SPINLOCK(kfd_irq_drain_lock);
+> +static LIST_HEAD(kfd_irq_drain_list);
+
+If you use an XArray here, you have a more efficient lookup and you also 
+get the spin-lock for free. In fact, that xarray already exists in 
+amdgpu_ids.c: amdgpu_pasid_xa. It stores a pointer to the fpriv. You can 
+get it with amdgpu_pasid_get_fpriv_locked. So you could just add the 
+completion to struct amdgpu_fpriv. Maybe the whole IRQ draining logic 
+should move to amdgpu_ids.c in that case, and KFD would just invoke it 
+with a PASID.
+
+Regards,
+   Felix
+
+
+> +
+> +#define KFD_IRQ_DRAIN_TIMEOUT	msecs_to_jiffies(1000)
+> +
+>   /* For process termination handling */
+>   static struct workqueue_struct *kfd_process_wq;
+>   
+> @@ -1019,8 +1035,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+>   		if (ret)
+>   			pr_warn("Failed to create debugfs entry for the kfd_process, ret = %d\n",
+>   				ret);
+> -
+> -		init_waitqueue_head(&process->wait_irq_drain);
+>   	}
+>   out:
+>   	mutex_unlock(&kfd_processes_mutex);
+> @@ -1344,6 +1358,8 @@ static void kfd_process_wq_release(struct work_struct *work)
+>   	kfd_process_free_outstanding_kfd_bos(p);
+>   	svm_range_list_fini(p);
+>   
+> +	kfd_process_drain_deferred_interrupts(p);
+> +
+>   	kfd_process_destroy_pdds(p);
+>   	dma_fence_put(ef);
+>   
+> @@ -1420,6 +1436,8 @@ void kfd_process_notifier_release_internal(struct kfd_process *p)
+>   	 * back on the MES list and, once proc_ctx_bo is freed, MES would fault
+>   	 * on the freed process context. Retiring the context last avoids this.
+>   	 */
+> +	if (p->debug_trap_enabled)
+> +		p->irq_drain_deferred = true;
+>   	kfd_dbg_trap_disable(p);
+>   
+>   	if (atomic_read(&p->debugged_process_count) > 0) {
+> @@ -2313,17 +2331,16 @@ int kfd_resume_all_processes(void)
+>   	return ret;
 >   }
-> @@ -1577,43 +1566,37 @@ __set_dm_plane_colorop_3x4_matrix(struct drm_plane_state *plane_state,
->   				  struct dc_plane_state *dc_plane_state,
->   				  struct drm_colorop *colorop)
+>   
+> -/* assumes caller holds process lock. */
+> -int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
+> +void kfd_process_drain_interrupts(struct kfd_process_device *pdd)
 >   {
-> -	struct drm_colorop *old_colorop;
-> -	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-> +	struct drm_colorop_state *colorop_state;
->   	struct drm_atomic_commit *state = plane_state->state;
->   	const struct drm_device *dev = colorop->dev;
->   	const struct drm_property_blob *blob;
->   	struct drm_color_ctm_3x4 *ctm = NULL;
-> -	int i = 0;
+> +	struct kfd_irq_drain_waiter waiter;
+>   	uint32_t irq_drain_fence[8];
+> +	unsigned long flags;
+>   	uint8_t node_id = 0;
+> -	int r = 0;
+> +	long r;
 >   
->   	/* 3x4 matrix */
-> -	old_colorop = colorop;
-> -	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> -		if (new_colorop_state->colorop == old_colorop &&
-> -		    new_colorop_state->colorop->type == DRM_COLOROP_CTM_3X4) {
-> -			colorop_state = new_colorop_state;
-> -			break;
-> -		}
-> +	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-> +	if (!colorop_state)
-> +		colorop_state = colorop->state;
-> +
-> +	if (colorop_state->colorop->type != DRM_COLOROP_CTM_3X4)
-> +		return -EINVAL;
-> +
-> +	if (colorop_state->bypass) {
-> +		dc_plane_state->gamut_remap_matrix.enable_remap = false;
-> +		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-> +		return 0;
->   	}
->   
-> -	if (colorop_state && colorop->type == DRM_COLOROP_CTM_3X4) {
-> -		if (colorop_state->bypass) {
-> -			dc_plane_state->gamut_remap_matrix.enable_remap = false;
-> -			dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-> -			return 0;
-> -		}
+>   	if (!KFD_IS_SOC15(pdd->dev))
+> -		return 0;
 > -
-> -		drm_dbg(dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
-> -		blob = colorop_state->data;
-> -		if (blob->length == sizeof(struct drm_color_ctm_3x4)) {
-> -			ctm = (struct drm_color_ctm_3x4 *) blob->data;
-> -			__drm_ctm_3x4_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
-> -			dc_plane_state->gamut_remap_matrix.enable_remap = true;
-> -			dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-> -		} else {
-> -			drm_warn(dev, "blob->length (%zu) isn't equal to drm_color_ctm_3x4 (%zu)\n",
-> -				 blob->length, sizeof(struct drm_color_ctm_3x4));
-> -			return -EINVAL;
-> -		}
-> +	drm_dbg(dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
-> +	blob = colorop_state->data;
-> +	if (blob->length == sizeof(struct drm_color_ctm_3x4)) {
-> +		ctm = (struct drm_color_ctm_3x4 *) blob->data;
-> +		__drm_ctm_3x4_to_dc_matrix(ctm, dc_plane_state->gamut_remap_matrix.matrix);
-> +		dc_plane_state->gamut_remap_matrix.enable_remap = true;
-> +		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-> +	} else {
-> +		drm_warn(dev, "blob->length (%zu) isn't equal to drm_color_ctm_3x4 (%zu)\n",
-> +			 blob->length, sizeof(struct drm_color_ctm_3x4));
-> +		return -EINVAL;
+> -	pdd->process->irq_drain_is_open = true;
+> +		return;
+>   
+>   	memset(irq_drain_fence, 0, sizeof(irq_drain_fence));
+>   	irq_drain_fence[0] = (KFD_IRQ_FENCE_SOURCEID << 8) |
+> @@ -2341,33 +2358,53 @@ int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
+>   		irq_drain_fence[3] |= node_id << 16;
 >   	}
 >   
->   	return 0;
-> @@ -1624,29 +1607,23 @@ __set_dm_plane_colorop_multiplier(struct drm_plane_state *plane_state,
->   				  struct dc_plane_state *dc_plane_state,
->   				  struct drm_colorop *colorop)
->   {
-> -	struct drm_colorop *old_colorop;
-> -	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-> +	struct drm_colorop_state *colorop_state;
->   	struct drm_atomic_commit *state = plane_state->state;
->   	const struct drm_device *dev = colorop->dev;
-> -	int i = 0;
->   
->   	/* Multiplier */
-> -	old_colorop = colorop;
-> -	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> -		if (new_colorop_state->colorop == old_colorop &&
-> -		    new_colorop_state->colorop->type == DRM_COLOROP_MULTIPLIER) {
-> -			colorop_state = new_colorop_state;
-> -			break;
-> -		}
-> -	}
-> +	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-> +	if (!colorop_state)
-> +		colorop_state = colorop->state;
->   
-> -	if (colorop_state && colorop->type == DRM_COLOROP_MULTIPLIER) {
-> -		if (colorop_state->bypass) {
-> -			dc_plane_state->hdr_mult = dc_fixpt_one;
-> -		} else {
-> -			drm_dbg(dev, "Multiplier colorop with ID: %d\n", colorop->base.id);
-> -			dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(colorop_state->multiplier);
-> -		}
-> +	if (colorop_state->colorop->type != DRM_COLOROP_MULTIPLIER)
-> +		return -EINVAL;
-
-dm_test_colorop_multiplier_no_match needs to be updated to now expect
--EINVAL.
-
+> +	waiter.pasid = pdd->pasid;
+> +	init_completion(&waiter.done);
 > +
-> +	if (colorop_state->bypass) {
-> +		dc_plane_state->hdr_mult = dc_fixpt_one;
-> +	} else {
-> +		drm_dbg(dev, "Multiplier colorop with ID: %d\n", colorop->base.id);
-> +		dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(colorop_state->multiplier);
+> +	spin_lock_irqsave(&kfd_irq_drain_lock, flags);
+> +	list_add(&waiter.list, &kfd_irq_drain_list);
+> +	spin_unlock_irqrestore(&kfd_irq_drain_lock, flags);
+> +
+>   	/* ensure stale irqs scheduled KFD interrupts and send drain fence. */
+> -	if (amdgpu_amdkfd_send_close_event_drain_irq(pdd->dev->adev,
+> -						     irq_drain_fence)) {
+> -		pdd->process->irq_drain_is_open = false;
+> -		return 0;
+> +	if (!amdgpu_amdkfd_send_close_event_drain_irq(pdd->dev->adev,
+> +						      irq_drain_fence)) {
+> +		r = wait_for_completion_interruptible_timeout(&waiter.done,
+> +							      KFD_IRQ_DRAIN_TIMEOUT);
+> +		if (r <= 0)
+> +			dev_warn_ratelimited(pdd->dev->adev->dev,
+> +					     "irq drain on pasid 0x%x did not complete (%ld)\n",
+> +					     waiter.pasid, r);
 >   	}
 >   
->   	return 0;
-> @@ -1657,8 +1634,6 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
->   			      struct dc_plane_state *dc_plane_state,
->   			      struct drm_colorop *colorop)
+> -	r = wait_event_interruptible(pdd->process->wait_irq_drain,
+> -				     !READ_ONCE(pdd->process->irq_drain_is_open));
+> -	if (r)
+> -		pdd->process->irq_drain_is_open = false;
+> -
+> -	return r;
+> +	spin_lock_irqsave(&kfd_irq_drain_lock, flags);
+> +	list_del(&waiter.list);
+> +	spin_unlock_irqrestore(&kfd_irq_drain_lock, flags);
+>   }
+>   
+> -void kfd_process_close_interrupt_drain(unsigned int pasid)
+> +void kfd_process_drain_deferred_interrupts(struct kfd_process *p)
 >   {
-> -	struct drm_colorop *old_colorop;
-> -	struct drm_colorop_state *new_colorop_state;
->   	struct drm_colorop_state *tf_state = NULL, *lut_state = NULL;
->   	struct drm_atomic_commit *state = plane_state->state;
->   	struct drm_colorop *lut_colorop;
-> @@ -1667,38 +1642,29 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
->   	const struct drm_color_lut32 *shaper_lut;
->   	struct drm_device *dev = colorop->dev;
->   	u32 shaper_size;
-> -	int i = 0, ret = 0;
-> +	int ret = 0;
+> -	struct kfd_process *p;
+> -
+> -	p = kfd_lookup_process_by_pasid(pasid, NULL);
+> +	int i;
 >   
->   	tf->type = TF_TYPE_BYPASS;
->   	dc_plane_state->cm.flags.bits.shaper_enable = 0;
+> -	if (!p)
+> +	if (!p->irq_drain_deferred)
+>   		return;
 >   
->   	/* 1D Curve - SHAPER TF: find state */
-> -	old_colorop = colorop;
-> -	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> -		if (new_colorop_state->colorop == old_colorop &&
-> -		    (BIT(new_colorop_state->curve_1d_type) & amdgpu_dm_supported_shaper_tfs)) {
-> -			tf_state = new_colorop_state;
-> -			break;
-> -		}
-> -	}
-> +	tf_state = drm_atomic_get_new_colorop_state(state, colorop);
-> +	if (!tf_state)
-> +		tf_state = colorop->state;
+> -	WRITE_ONCE(p->irq_drain_is_open, false);
+> -	wake_up_all(&p->wait_irq_drain);
+> -	kfd_unref_process(p);
+> +	p->irq_drain_deferred = false;
+> +
+> +	for (i = 0; i < p->n_pdds; i++)
+> +		kfd_process_drain_interrupts(p->pdds[i]);
+> +}
+> +
+> +void kfd_process_close_interrupt_drain(unsigned int pasid)
+> +{
+> +	struct kfd_irq_drain_waiter *waiter;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&kfd_irq_drain_lock, flags);
+> +	list_for_each_entry(waiter, &kfd_irq_drain_list, list) {
+> +		if (waiter->pasid == pasid)
+> +			complete(&waiter->done);
+> +	}
+> +	spin_unlock_irqrestore(&kfd_irq_drain_lock, flags);
+>   }
 >   
->   	/* 1D LUT - SHAPER LUT: find state */
-> -	lut_colorop = old_colorop->next;
-> +	lut_colorop = colorop->next;
->   	if (!lut_colorop) {
->   		drm_dbg(dev, "no Shaper LUT colorop found\n");
->   		return -EINVAL;
->   	}
->   
-> -	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> -		if (new_colorop_state->colorop == lut_colorop &&
-> -		    new_colorop_state->colorop->type == DRM_COLOROP_1D_LUT) {
+>   struct send_exception_work_handler_workarea {
+--------------W6yiXvswjUTIEKO8V67xSxJp
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-We control the pipeline creation, so this should never not be 
-DRM_COLOROP_1D_LUT but it might make sense to still check that for 
-sanity, in case someone goes and messes with pipeline creation.
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 2026-09-30 09:42, Heng Zhou wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20260930134205.469578-1-Heng.Zhou@amd.com">
+      <pre wrap="" class="moz-quote-pre">When a debugged process exits, kfd_process_notifier_release_internal()
+first removes it from kfd_processes_table and then calls
+kfd_dbg_trap_disable(), which drains the process interrupts. The drain
+sends a fence through the IH and waits, without a timeout, for
+kfd_process_close_interrupt_drain() to wake it up. That wakeup looks
+the process up by PASID in kfd_processes_table, which no longer holds
+it, so the wakeup is lost and the exiting task sleeps forever. The
+fatal signal has already been consumed in do_exit(), so the
+interruptible wait cannot be broken either.
 
-Same for the blend LUT below.
+The wait happens inside the mmu_notifier release callback, i.e. within
+the global mmu_notifier SRCU read-side critical section, so every
+synchronize_srcu() on it stalls as well. Any other process releasing
+its mm then hangs in D state and the system needs a reboot. This is
+seen with rocgdb on MI300X.</pre>
+    </blockquote>
+    <p>I suspect this may have been introduced by this patch by Alex:</p>
+    <pre>commit f34034ce5d2116f397008c63901c9c1946e5d665
+Author: Alex Sierra <a class="moz-txt-link-rfc2396E" href="mailto:alex.sierra@amd.com">&lt;alex.sierra@amd.com&gt;</a>
+Date:   Fri Jul 24 15:53:48 2026 -0500
 
-> -			lut_state = new_colorop_state;
-> -			break;
-> -		}
-> -	}
-> +	lut_state = drm_atomic_get_new_colorop_state(state, lut_colorop);
-> +	if (!lut_state)
-> +		lut_state = lut_colorop->state;
->   
-> -	if (tf_state && !tf_state->bypass) {
-> -		drm_dbg(dev, "Shaper TF colorop with ID: %d\n", old_colorop->base.id);
-> +	if (!tf_state->bypass) {
-> +		drm_dbg(dev, "Shaper TF colorop with ID: %d\n", colorop->base.id);
->   		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
->   		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
->   		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-> @@ -1708,7 +1674,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
->   		dc_plane_state->cm.flags.bits.shaper_enable = 1;
->   	}
->   
-> -	if (lut_state && !lut_state->bypass) {
-> +	if (!lut_state->bypass) {
->   		drm_dbg(dev, "Shaper LUT colorop with ID: %d\n", lut_colorop->base.id);
->   		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
->   		tf->tf = default_tf;
-> @@ -1765,8 +1731,7 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
->   			     struct dc_plane_state *dc_plane_state,
->   			     struct drm_colorop *colorop)
->   {
-> -	struct drm_colorop *old_colorop;
-> -	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-> +	struct drm_colorop_state *colorop_state;
->   	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
->   	struct drm_atomic_commit *state = plane_state->state;
->   	const struct amdgpu_device *adev = drm_to_adev(colorop->dev);
-> @@ -1774,19 +1739,14 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
->   	const struct drm_device *dev = colorop->dev;
->   	const struct drm_color_lut32 *lut3d;
->   	uint32_t lut3d_size;
-> -	int i = 0, ret = 0;
-> +	int ret = 0;
->   
->   	/* 3D LUT */
-> -	old_colorop = colorop;
-> -	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> -		if (new_colorop_state->colorop == old_colorop &&
-> -		    new_colorop_state->colorop->type == DRM_COLOROP_3D_LUT) {
-> -			colorop_state = new_colorop_state;
-> -			break;
-> -		}
-> -	}
-> +	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-> +	if (!colorop_state)
-> +		colorop_state = colorop->state;
->   
-> -	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_3D_LUT) {
-> +	if (!colorop_state->bypass && colorop->type == DRM_COLOROP_3D_LUT) {
+    drm/amdkfd: disable debug before retiring MES process context on teardown
 
-An issue that existed before is that we silently treated a colorop in 
-this position that wasn't DRM_COLOROP_3D_LUT as valid and simply set 
-lut3d_enable = 0 below. It would be better if we explicitly check for 
-the type here as well and return -EINVAL if it's not a DRM_COLOROP_3D_LUT.
+...
+</pre>
+    <p>If you can confirm that, please add an appropriate Fixes: tag.</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:20260930134205.469578-1-Heng.Zhou@amd.com">
+      <pre wrap="" class="moz-quote-pre">
 
-Harry
+Fix this by:
 
->   		if (!has_3dlut) {
->   			drm_dbg(dev, "3D LUT is not supported by hardware\n");
->   			return -EINVAL;
-> @@ -1825,8 +1785,6 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
->   			     struct dc_plane_state *dc_plane_state,
->   			     struct drm_colorop *colorop)
->   {
-> -	struct drm_colorop *old_colorop;
-> -	struct drm_colorop_state *new_colorop_state;
->   	struct drm_colorop_state *tf_state = NULL, *lut_state = NULL;
->   	struct drm_atomic_commit *state = plane_state->state;
->   	struct drm_colorop *lut_colorop;
-> @@ -1835,38 +1793,29 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
->   	const struct drm_color_lut32 *blend_lut = NULL;
->   	struct drm_device *dev = colorop->dev;
->   	uint32_t blend_size = 0;
-> -	int i = 0, ret;
-> +	int ret;
->   
->   	tf->type = TF_TYPE_BYPASS;
->   	dc_plane_state->cm.flags.bits.blend_enable = 0;
->   
->   	/* 1D Curve - BLND TF: find state */
-> -	old_colorop = colorop;
-> -	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> -		if (new_colorop_state->colorop == old_colorop &&
-> -		    (BIT(new_colorop_state->curve_1d_type) & amdgpu_dm_supported_blnd_tfs)) {
-> -			tf_state = new_colorop_state;
-> -			break;
-> -		}
-> -	}
-> +	tf_state = drm_atomic_get_new_colorop_state(state, colorop);
-> +	if (!tf_state)
-> +		tf_state = colorop->state;
->   
->   	/* 1D LUT - BLND LUT: find state */
-> -	lut_colorop = old_colorop->next;
-> +	lut_colorop = colorop->next;
->   	if (!lut_colorop) {
->   		drm_dbg(dev, "no Blend LUT colorop found\n");
->   		return -EINVAL;
->   	}
->   
-> -	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> -		if (new_colorop_state->colorop == lut_colorop &&
-> -		    new_colorop_state->colorop->type == DRM_COLOROP_1D_LUT) {
-> -			lut_state = new_colorop_state;
-> -			break;
-> -		}
-> -	}
-> +	lut_state = drm_atomic_get_new_colorop_state(state, lut_colorop);
-> +	if (!lut_state)
-> +		lut_state = lut_colorop->state;
->   
-> -	if (tf_state && !tf_state->bypass) {
-> -		drm_dbg(dev, "Blend TF colorop with ID: %d\n", old_colorop->base.id);
-> +	if (!tf_state->bypass) {
-> +		drm_dbg(dev, "Blend TF colorop with ID: %d\n", colorop->base.id);
->   		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
->   		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
->   		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-> @@ -1876,7 +1825,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
->   		dc_plane_state->cm.flags.bits.blend_enable = 1;
->   	}
->   
-> -	if (lut_state && !lut_state->bypass) {
-> +	if (!lut_state->bypass) {
->   		drm_dbg(dev, "Blend LUT colorop with ID: %d\n", lut_colorop->base.id);
->   		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
->   		tf->tf = default_tf;
+- Tracking pending drains in a list keyed by PASID instead of looking
+  the process up in kfd_processes_table, so the drain fence always
+  finds its waiter.
+- Bounding the wait with a timeout, since the fence can be lost when
+  the IH ring or the KFD interrupt FIFO overflows, and warning when the
+  drain does not complete.
+- Deferring the drain of an exiting debugged process from the
+  mmu_notifier release path to kfd_process_wq_release(), before the
+  PDDs and their PASIDs are released, so that stale interrupts cannot
+  hit a process that reuses the PASID.
 
+Signed-off-by: Heng Zhou <a class="moz-txt-link-rfc2396E" href="mailto:Heng.Zhou@amd.com">&lt;Heng.Zhou@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c   |  3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  7 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 89 +++++++++++++++++-------
+ 3 files changed, 68 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+index 0dd1fd448059..2b227d9de492 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+@@ -664,7 +664,8 @@ static void kfd_dbg_clean_exception_status(struct kfd_process *target)
+ 	for (i = 0; i &lt; target-&gt;n_pdds; i++) {
+ 		struct kfd_process_device *pdd = target-&gt;pdds[i];
+ 
+-		kfd_process_drain_interrupts(pdd);
++		if (!target-&gt;irq_drain_deferred)
++			kfd_process_drain_interrupts(pdd);</pre>
+    </blockquote>
+    <p>The way you're setting and clearing p-&gt;irq_drain_deferred
+      seems pretty fragile. I'd prefer to just pass this as a parameter
+      to kfd_dbg_trap_disable and kfd_dbg_clean_exception_status. Then
+      you also don't need two different drain functions.</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:20260930134205.469578-1-Heng.Zhou@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+ 
+ 		pdd-&gt;exception_status = 0;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 2847a5ec5ede..c04c3a03f559 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1030,9 +1030,7 @@ struct kfd_process {
+ 	uint64_t exception_enable_mask;
+ 	uint64_t exception_status;
+ 
+-	/* Used to drain stale interrupts */
+-	wait_queue_head_t wait_irq_drain;
+-	bool irq_drain_is_open;
++	bool irq_drain_deferred;
+ 
+ 	/* shared virtual memory registered by this process */
+ 	struct svm_range_list svms;
+@@ -1245,7 +1243,8 @@ bool enqueue_ih_ring_entry(struct kfd_node *kfd, const void *ih_ring_entry);
+ bool interrupt_is_wanted(struct kfd_node *dev,
+ 				const uint32_t *ih_ring_entry,
+ 				uint32_t *patched_ihre, bool *flag);
+-int kfd_process_drain_interrupts(struct kfd_process_device *pdd);
++void kfd_process_drain_interrupts(struct kfd_process_device *pdd);
++void kfd_process_drain_deferred_interrupts(struct kfd_process *p);
+ void kfd_process_close_interrupt_drain(unsigned int pasid);
+ 
+ /* amdkfd Apertures */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 226f52626e84..b2365c21db9e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -55,6 +55,22 @@ DEFINE_MUTEX(kfd_processes_mutex);
+ 
+ DEFINE_SRCU(kfd_processes_srcu);
+ 
++/*
++ * Pending interrupt drains, keyed by PASID. Deliberately not keyed off
++ * kfd_processes_table: a draining process may already have been removed from
++ * it, and the drain fence must still be able to find its waiter.
++ */
++struct kfd_irq_drain_waiter {
++	struct list_head list;
++	u32 pasid;
++	struct completion done;
++};
++
++static DEFINE_SPINLOCK(kfd_irq_drain_lock);
++static LIST_HEAD(kfd_irq_drain_list);</pre>
+    </blockquote>
+    <p>If you use an XArray here, you have a more efficient lookup and
+      you also get the spin-lock for free. In fact, that xarray already
+      exists in amdgpu_ids.c: amdgpu_pasid_xa. It stores a pointer to
+      the fpriv. You can get it with amdgpu_pasid_get_fpriv_locked. So
+      you could just add the completion to struct amdgpu_fpriv. Maybe
+      the whole IRQ draining logic should move to amdgpu_ids.c in that
+      case, and KFD would just invoke it with a PASID.</p>
+    <p>Regards,<br>
+      &nbsp; Felix</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:20260930134205.469578-1-Heng.Zhou@amd.com">
+      <pre wrap="" class="moz-quote-pre">
++
++#define KFD_IRQ_DRAIN_TIMEOUT	msecs_to_jiffies(1000)
++
+ /* For process termination handling */
+ static struct workqueue_struct *kfd_process_wq;
+ 
+@@ -1019,8 +1035,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+ 		if (ret)
+ 			pr_warn(&quot;Failed to create debugfs entry for the kfd_process, ret = %d\n&quot;,
+ 				ret);
+-
+-		init_waitqueue_head(&amp;process-&gt;wait_irq_drain);
+ 	}
+ out:
+ 	mutex_unlock(&amp;kfd_processes_mutex);
+@@ -1344,6 +1358,8 @@ static void kfd_process_wq_release(struct work_struct *work)
+ 	kfd_process_free_outstanding_kfd_bos(p);
+ 	svm_range_list_fini(p);
+ 
++	kfd_process_drain_deferred_interrupts(p);
++
+ 	kfd_process_destroy_pdds(p);
+ 	dma_fence_put(ef);
+ 
+@@ -1420,6 +1436,8 @@ void kfd_process_notifier_release_internal(struct kfd_process *p)
+ 	 * back on the MES list and, once proc_ctx_bo is freed, MES would fault
+ 	 * on the freed process context. Retiring the context last avoids this.
+ 	 */
++	if (p-&gt;debug_trap_enabled)
++		p-&gt;irq_drain_deferred = true;
+ 	kfd_dbg_trap_disable(p);
+ 
+ 	if (atomic_read(&amp;p-&gt;debugged_process_count) &gt; 0) {
+@@ -2313,17 +2331,16 @@ int kfd_resume_all_processes(void)
+ 	return ret;
+ }
+ 
+-/* assumes caller holds process lock. */
+-int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
++void kfd_process_drain_interrupts(struct kfd_process_device *pdd)
+ {
++	struct kfd_irq_drain_waiter waiter;
+ 	uint32_t irq_drain_fence[8];
++	unsigned long flags;
+ 	uint8_t node_id = 0;
+-	int r = 0;
++	long r;
+ 
+ 	if (!KFD_IS_SOC15(pdd-&gt;dev))
+-		return 0;
+-
+-	pdd-&gt;process-&gt;irq_drain_is_open = true;
++		return;
+ 
+ 	memset(irq_drain_fence, 0, sizeof(irq_drain_fence));
+ 	irq_drain_fence[0] = (KFD_IRQ_FENCE_SOURCEID &lt;&lt; 8) |
+@@ -2341,33 +2358,53 @@ int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
+ 		irq_drain_fence[3] |= node_id &lt;&lt; 16;
+ 	}
+ 
++	waiter.pasid = pdd-&gt;pasid;
++	init_completion(&amp;waiter.done);
++
++	spin_lock_irqsave(&amp;kfd_irq_drain_lock, flags);
++	list_add(&amp;waiter.list, &amp;kfd_irq_drain_list);
++	spin_unlock_irqrestore(&amp;kfd_irq_drain_lock, flags);
++
+ 	/* ensure stale irqs scheduled KFD interrupts and send drain fence. */
+-	if (amdgpu_amdkfd_send_close_event_drain_irq(pdd-&gt;dev-&gt;adev,
+-						     irq_drain_fence)) {
+-		pdd-&gt;process-&gt;irq_drain_is_open = false;
+-		return 0;
++	if (!amdgpu_amdkfd_send_close_event_drain_irq(pdd-&gt;dev-&gt;adev,
++						      irq_drain_fence)) {
++		r = wait_for_completion_interruptible_timeout(&amp;waiter.done,
++							      KFD_IRQ_DRAIN_TIMEOUT);
++		if (r &lt;= 0)
++			dev_warn_ratelimited(pdd-&gt;dev-&gt;adev-&gt;dev,
++					     &quot;irq drain on pasid 0x%x did not complete (%ld)\n&quot;,
++					     waiter.pasid, r);
+ 	}
+ 
+-	r = wait_event_interruptible(pdd-&gt;process-&gt;wait_irq_drain,
+-				     !READ_ONCE(pdd-&gt;process-&gt;irq_drain_is_open));
+-	if (r)
+-		pdd-&gt;process-&gt;irq_drain_is_open = false;
+-
+-	return r;
++	spin_lock_irqsave(&amp;kfd_irq_drain_lock, flags);
++	list_del(&amp;waiter.list);
++	spin_unlock_irqrestore(&amp;kfd_irq_drain_lock, flags);
+ }
+ 
+-void kfd_process_close_interrupt_drain(unsigned int pasid)
++void kfd_process_drain_deferred_interrupts(struct kfd_process *p)
+ {
+-	struct kfd_process *p;
+-
+-	p = kfd_lookup_process_by_pasid(pasid, NULL);
++	int i;
+ 
+-	if (!p)
++	if (!p-&gt;irq_drain_deferred)
+ 		return;
+ 
+-	WRITE_ONCE(p-&gt;irq_drain_is_open, false);
+-	wake_up_all(&amp;p-&gt;wait_irq_drain);
+-	kfd_unref_process(p);
++	p-&gt;irq_drain_deferred = false;
++
++	for (i = 0; i &lt; p-&gt;n_pdds; i++)
++		kfd_process_drain_interrupts(p-&gt;pdds[i]);
++}
++
++void kfd_process_close_interrupt_drain(unsigned int pasid)
++{
++	struct kfd_irq_drain_waiter *waiter;
++	unsigned long flags;
++
++	spin_lock_irqsave(&amp;kfd_irq_drain_lock, flags);
++	list_for_each_entry(waiter, &amp;kfd_irq_drain_list, list) {
++		if (waiter-&gt;pasid == pasid)
++			complete(&amp;waiter-&gt;done);
++	}
++	spin_unlock_irqrestore(&amp;kfd_irq_drain_lock, flags);
+ }
+ 
+ struct send_exception_work_handler_workarea {
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------W6yiXvswjUTIEKO8V67xSxJp--
