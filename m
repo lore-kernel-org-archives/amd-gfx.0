@@ -4,124 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28918CA5FC1
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 20:27:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F8ACCA5FC4
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 20:41:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A775510E0F7;
-	Wed, 30 Sep 2026 20:27:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D49CE10E0E6;
+	Wed, 30 Sep 2026 20:41:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EHISc3CB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gTdZQQuH";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011054.outbound.protection.outlook.com [52.101.57.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DAAD10E0F7
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 20:27:00 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012031.outbound.protection.outlook.com
+ [40.93.195.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D014510E0E6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 20:41:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W5kzwjgifj7JiIEdftOvN/c7gRbz09wHjlglZjkGZJDcpEHItGCa/Y99In8hBT+NSbqEhYS3Btx24mTzDpgNWHW0I/iD1GCg0GLKGE2wlmjqZJFfIIn5M6+CoVK/Jl2smH8+poyw7C2oTzP4HTTWT9f4RD2uVx4RbB9ExNQjZbtrqlhrnP1pbJ2ONFyPO67zPz93MIbNrQYxZdVPRSx08qJwnYZa7+uN4teycqZzxoTUFJFugQc9VizbzXlJIG5Bu7ni7YsJUptaMJjoX3BM4gzsBx/XkX/kdFU0hYM2I2H7dhJhCy9ftfpapXLGDBnp/IYcGXtJ+glWfl90GGro1A==
+ b=cMOPvL31A82u7prm/OqlyWVvZMXDQeNqeXr2j8Jfg3/VA204s0dKb6kM0YgYBvKTbXZ31Cyj7RCnHLyIo9u+Yrc8yUtx4LIFViMXXgh//+QzAvhRwEGjGCAy6rtrUkvFw+4qGURYVEGntIDWX1Y6+Kz/nsRaokcD0qp3mWfB/FPoVonvN+fMwL0LVrYlWG7j+5bl4UJuAWhylivX+SfjukK0diPQJScC0kAOo02raQgefUL01lL7z3v9Hp0JE6zSeWB1BO729nyQ4WgqshuxxCyIur7awiucuPaQzCAd7nUTv6fIp+WDuohqbH2HwVFBYgyLxlFoJWfSKT2o9LluFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=suLcHKYG9fG8obVZgjN1aFT5SlzMD1pHNkH/Tpx1/wE=;
- b=G0j0rwD9twGbqaEQQZ+Rjg8tRhDgmrh9GwBPobSgIG8MsLw8hbRtpe4A0628w+GwK3pYsboiN005EHJT/2FWRjcfeAnl/PhFwJ+w5Nf+ECWeBa7qheZ3sSZh09uDPpGVpsPBk+nwxxBY5OH+SGwGgo5Nmzc+jZeyTFEjJlz2Vd9evnbigaxp6j3HooU17+pjUwY8kvIV9rFl53GkCvcAqYCMKPtn8yK4yfsRveZMd+0QFdDltBr//Uv203O4nko3vjIlKU4VvV6n/tzZBaOuDB9xSTMJeZZl6BoF0BBpP9erX6hPApQ8ur5lgwxuewoqVjGUzF/YQzWAGeZmE4FQAw==
+ bh=GBBGwoN/w9CnhRZz5DKrZjA83E8J1IVhwSVS0gQ/9qY=;
+ b=BADkX1DDci7KUOOwiphLscY9c5Iht8LZ5OuvWEtgH6QIgc764pxdcTxQ7OuIub+uk+9y5wJiK9ynzSlyaucfW8Xr1XhrCgpWMnctflmD6+3kl7skQz04k0p2Cv7SsedAO71eI2j2/f03pYJdkssw0Tp25VpU3FuWI1aCfj/9848rtOz97pqc/R2nDxkGNf579/SyFDa+LlJusjperZJ0szgWjudpIbzSWhxI5ymrBCoZ2HOkBbfdbkpjGdgjUN2iDSqT1VJ8ctXP/Fm1yURB4HK31po/mkN91UzTVtJdFg4oIqXO+eVVtp16BgWiBSngUUcFj5fYM4839cSv9b0evw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=suLcHKYG9fG8obVZgjN1aFT5SlzMD1pHNkH/Tpx1/wE=;
- b=EHISc3CBPb99NNMJ8UAc4OjMyLp1gCFHyFdXS5Tpu7bzyksikT2sT2tkt0KNGPOIzRWEfCIU9FxKesgiszNwSObBaKACOOBYzoR+60y+cuZggmaE7t2QX59GKCQSrbeawyOLdPPcDB4T9FrkgmmJ5jEQw6GBYZipn07NbuhmD8Q=
+ bh=GBBGwoN/w9CnhRZz5DKrZjA83E8J1IVhwSVS0gQ/9qY=;
+ b=gTdZQQuHH5T2uhvoCfmpNliGZe8rDpcGVM93YVJkilRA9exJ42uSxidl9wkUqFVF3A+uh2I23RzFlY/1JuRX5lSg+MNHUrFdVx/h5adMoOSfqjgL9StFZ+TRlytNImtccD+Q7RMwoWmaNdvnojSUexl6jMuuGg0g85CfmR/NIv0=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by MW4PR12MB7189.namprd12.prod.outlook.com
- (2603:10b6:303:224::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
- 2026 20:26:57 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 20:26:57 +0000
-Message-ID: <b22fa0b2-6da7-4a03-8ea3-fcf15f1b444b@amd.com>
-Date: Wed, 30 Sep 2026 16:26:54 -0400
+Received: from MW4PR12MB8610.namprd12.prod.outlook.com (2603:10b6:303:1ef::18)
+ by DS7PR12MB5862.namprd12.prod.outlook.com (2603:10b6:8:79::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.24; Wed, 30 Sep 2026 20:41:42 +0000
+Received: from MW4PR12MB8610.namprd12.prod.outlook.com
+ ([fe80::67c6:7360:f51:dc2b]) by MW4PR12MB8610.namprd12.prod.outlook.com
+ ([fe80::67c6:7360:f51:dc2b%7]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 20:41:41 +0000
+Message-ID: <ea758386-13b0-4667-8eca-9aa4efefe92b@amd.com>
+Date: Wed, 30 Sep 2026 16:41:38 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: add amdgpu_vmid_uq_mask_init() helper
-To: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Zhu James <James.Zhu@amd.com>, Ma Bing <Bing.Ma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260930144341.66352-1-sunil.khatri@amd.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20260930144341.66352-1-sunil.khatri@amd.com>
+Subject: Re: [RFC] AMD ISP4: OV13B10 (OMNI13B1) rear camera on ASUS ROG Flow
+ Z13 GZ302 - ISP comes up, SET_STREAM_CONFIG fails with error 6
+To: "caspar.adriani" <caspar.adriani@proton.me>,
+ Pratap Nirujogi <pratap.nirujogi@amd.com>,
+ Benjamin Chan <benjamin.chan@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ Hans de Goede <hansg@kernel.org>, "Adam J. Sypniewski" <ajsyp@syptech.net>
+References: <lWYl1YJwDSh-q2Ew2f8b0BweQ4V-SUnPMSMurU5gT1LkqVdrmWFunj0sSgjC7m66bORBAD_jRCFTt1_ZOkotOMukY46rI4ayYbIfPQq4E9U=@proton.me>
+Content-Language: en-GB
+From: "Nirujogi, Pratap" <pnirujog@amd.com>
+In-Reply-To: <lWYl1YJwDSh-q2Ew2f8b0BweQ4V-SUnPMSMurU5gT1LkqVdrmWFunj0sSgjC7m66bORBAD_jRCFTt1_ZOkotOMukY46rI4ayYbIfPQq4E9U=@proton.me>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0129.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:87::20) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0135.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:e::8) To MW4PR12MB8610.namprd12.prod.outlook.com
+ (2603:10b6:303:1ef::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|MW4PR12MB7189:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33c81107-219e-4b43-463b-08df1f312c52
+X-MS-TrafficTypeDiagnostic: MW4PR12MB8610:EE_|DS7PR12MB5862:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d5767df-f953-42de-6b2e-08df1f333bc8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 2JuNVWZIJOXnHrm1blN9ay4bJ5eW/JmcgJiCtIuC95hccTOHxY9laLnXbheh1rD0E9ieIgVUdAkFZcQkhulfsZN3WIl3gHpn7/MQcdxP8w11BEZsstuBtbDafQY218sl6FgfJjTO+gbj5JHbxR8weE/zZF4yXCWydhYTKHHub3PViyW6btRdJeYmWC5sTpzLbY3rXuM8g24LtkqJPzb5Roy7LntGqiCfAGcLirbdc5diM64dmenbOHI25AyXN0O/G+m/qFOwHcDhn6i9bN5m7Zy7Q0UwmvatbUtjVag3SOvdwzfdIeZhpAjnxteVGS/gnsRvcv2E7r+65pNutGizvPPNR/tD6ZPvIPYbPEBIAarCoAbRx3k17/KkFoR3FW4t7MZrv/4JqD4YKoEoH0kE1+Lu1sebp9zzycuuxLzB7ClFXLuXUEomgTpDMrml9s25FdEfxNRlaNIpKKRMsPlDk4ahAxqRLKCPdMJjm3hXmaysKFFQbWrRlsqxwSdZrFxstZ1EVqiNhLVoG5l+oU/YpRlt3m2T6mOHEUNJlDKP+NO1wDyOwCp/cRIhTlL/P6vQj+7sPqmy9F7fh+w37ikf/t9cRinVUrm4B0OfXpxuwMA0HaqJD48a7IDIJMeRcJoSfvVvcezynhuHITop8XFGeTQNzWTjGlVpXBCf+QCOh6I=
+ ARA:13230040|1800799024|366016|23010399003|376014|11063799006|5023799004|56012099006|10067099003|22082099003|18002099003|6133799003|3023799007|13003099007;
+X-Microsoft-Antispam-Message-Info: ThGywbbYXpZxrH4+DoeJqn5yxH2wnD9vPBYDCSra/xIBmOh9t0r+ZzXPGjlNSuXhIYQTALDY9mDuG+u3M7ScwpQmDAxsiIGx32i5fk+9S3n/y8m2iHZVDgwPww39vBbwLNCqQieydHhYh0Z4XA1ctiHCaGa8Qyhbzlbuvly17gdskQmj6PcZr9B3tzaxZToxAaUOWwVg186mwXC73/ECyiH0zv2R4pPZH/qmMPzhRdftJpiKGiiswzrjDM8AGHAyOnc9AxOhQvfqVXYl82FVS6KaZyv/7MDxF+HAYhXylHqx5w42RScqxJ1P51rk+i6ipWL4QMRbUA17luae52vXVBmOmFBJe8YEkP3qBt+DEM5Yov/g+kfzQowo/145Z02XaHbN7yoc0FgjCzDKrry5vIfDHtuGwjYH1rL/rOBLEYUX/uAkXRGOzTSJk3rW7teAlR6fpix31bDf+zHvrB7OzJo12ZSmq4Gxlx5JI9iVaDqGn6+Qyl/dsShEzVzTEDFPeKOiDBgpvYvPfnDERI6FJ+Zr6IxYJG4BEemQkD59Vg2zDMp+8cU+tqR3delFr5lghK/b7rTthSNjmTyJ9D67ZhAzvEQNCPM83bgRevAUoPrGkeYFNocJdFSo+gzIgrHe
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB8610.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(5023799004)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007)(13003099007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aTJnY1oxYm1QeFo0WGhIM0M2aUo1YTd3bHphTmFWQUxvTXBFaWJxV2FRQ3pZ?=
- =?utf-8?B?V0pRcGxtR0k1NFhYK005cXhXUEp0OG1kU0I2cTlYaEs1OTNjTXFKRTRlMm9t?=
- =?utf-8?B?bFYxN3hoTm9lWk5hS0NwR0psNVZ3K0lvallVNjJSdnZjUVJHVHNJMTltaUVo?=
- =?utf-8?B?SW5SbVA2UlRrVUlQMjB4U0h6Zndwd2llSnNJN0haY2NUOTV4dzlHOE91dG56?=
- =?utf-8?B?VW9ZYjRJL3JnaitRSWY2UUlHczROekFaN3lpUUxqL0kzQTRLRXFZWnlmY0k1?=
- =?utf-8?B?aG9vVjQ3ZWNPbW5hWHVUNC85U3BWQXVhNzkxMGpGTDlNNUM4SVdZM0NBbThC?=
- =?utf-8?B?elpJajNHWEEzTzBLLzdZdzE0TGFTejRVWHk3bDBzU0VIMkdZai9CMVhWbnFv?=
- =?utf-8?B?SVR0Y3JBY1J3eEVGVzAzaEdUUFZyNjMzMU1XYUZabldteFhLTWhidWN5aUFr?=
- =?utf-8?B?M1BtNmVNY013UkM3SUxDZE5JZlplbDZwMXJ2cnhTR1JoK1gvRnBFZlZsVXFa?=
- =?utf-8?B?SDdDUWF2TlV1TDY1SVNwTXNqNk9XKzBLV2FNWXJPRkdXL1luaXRMczBMLzIy?=
- =?utf-8?B?RU1jZFV0cFVkMFFkTnlGTjdFcmR1dWRGYWFNVXpsNEtGUnMvYmlKYzdtdHNl?=
- =?utf-8?B?ZzRBNEJINUozaytVeERDSGowVFFscHZiSlF3KzBRN2xRMm5WcEE0R2JFcnZw?=
- =?utf-8?B?TEdYcGJ5OHN6d2pnT1BqaHdGWmFiSGNzdkhsQjd5dlJSc2xJWnFzNmZmK2tu?=
- =?utf-8?B?WTZZVGlMWE4wNFVkRVJvUUdWeFNVUk1icU5vQUtDQkJXTXpNMnRhN2lIR0Vs?=
- =?utf-8?B?QnpteDJOSmdjYWVtUExmVm5QRE0xdHRJL2ZwbUNUeEdDMkxydGZQWXZSKy9F?=
- =?utf-8?B?V1ZBVUVNRS9OS3lRWFdXa0VreTk3bUtaVUtFSXBqdk5wYjVFRkNZcHlabGs0?=
- =?utf-8?B?YXJLMXltdFk5YTRpbDViRzBxUXR0OCtSMDUwb3o1RU1paXZKMmJGWEJVWThQ?=
- =?utf-8?B?WVZoKzdlWWJ3UHp6MHN1a25nZ1FWalFFSWtBM2FBQk53ZkZaVmFaaW5ISW0y?=
- =?utf-8?B?Nm5xZm9RMUlQcXRNSXNUWlBZQmNOZ3I3OVh4SnZvNXBLNHZXZHpYSTNhSUZz?=
- =?utf-8?B?TGtqTVZCcnhIdWszaitSdWtweGpzdkQvV2k0ZkhQd1pDNXB0QVArcTh0VXY3?=
- =?utf-8?B?TklaUHE1YzVDdUhTLzRCTXNpNWhkNElBUUpDc0pSa3VxNHNiaitucGdjZzRz?=
- =?utf-8?B?M1RyQmJHc0pEODZvZFNHVHdxY2VsbGtPMXBSU0l2UjNrVzk5aDlYejYrMFRn?=
- =?utf-8?B?SmhIYkt3eEVnYmlwSGlDRnFoN1BCRVBycFFEeUU4RWtLei9COUhSSWtxN0Nm?=
- =?utf-8?B?Q2FCTS9GSGFZWVNrREF5bHV5c3hDN21DbU1URElsVDlMOUE2Y1lYRUdzTXJ1?=
- =?utf-8?B?MUNPbFZiNmlQTnkxZVQzZzljOUlJQzUzNktPWXRtZC8yZ2lLRWVBeHVzRWs4?=
- =?utf-8?B?TkpZa0NuKzA3di9UbTRxbDFhbnVLQkhPVkZDUk5aenZHOW9SSXF6dWczdXl0?=
- =?utf-8?B?V2ZzUG9FbFVkR2hEMHI1SjdOSzVjZktuRUt6RmIwZEJrMit1UmpQMmRqcnc5?=
- =?utf-8?B?bVl5QTA3L09yeDBrMEp0UjlVL0JUT3JWWkRjNzNCeXp5OWthN3g1cTFaNnR3?=
- =?utf-8?B?Mmx6d0ZOQUFtMjN2bWhZRkpoSnlDbHFEQ3Q4R1JMeFJ6MWI5bkRia2toNkpZ?=
- =?utf-8?B?N1c1N3lpYkFOMnVwYmlkS0xrWDZvaHFOSDZvam5QUDRXRkp2MXVTd2ZYS0ZW?=
- =?utf-8?B?Unc2SHhVTVVpVEQ2V0lNZDBEVll0RW1XZWJLclBUN2Nwa3NWMVBmVVVWbjFO?=
- =?utf-8?B?S3RCeGNnK01wY0tSSVdTUnUrSWRidDFtV1BtNDEraTBic3g3bEpUamJsblIw?=
- =?utf-8?B?SitFR205dFZNVmJ3NG5SYzNmLytPVEhjMlQ1YnRNYmhIVm80NE9WWDJxK3ZZ?=
- =?utf-8?B?OUE2SGVqWnd3OFZUNFhvZDVtcVFpMnRIcTd3NzlnaGN6TjFGMHpaWU1VWWFj?=
- =?utf-8?B?SFZZbVBneU56UlFkMUM4ZEc1NVJ2SlB4U0hUNWJ2eXFXRzBOQzJPV1VjVUNX?=
- =?utf-8?B?dVp5aE9mOUlnYkdSZS9kVWZwaitJa013Q2htbGdYVlE2NHBwVnRmRWVOV08x?=
- =?utf-8?B?TFlwazFFSWx6NXU1aU15V0dnNkhkN1UwZE9sRzZkQnV4cFNKU3NZclA5bmtz?=
- =?utf-8?B?QkF4TW5pYlJnbGdnWVQ0TXJqNWI2LzJwajVvN1ZtMVVha29BaCt6THZSdXph?=
- =?utf-8?Q?xXCyWc3AxyNKT+HdO2?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEFoWWxWQ3Nac29lcWNSZnJ1bHIwdnpkRnhDUlN6Ykd2Wm1HZWdldGRJYUxB?=
+ =?utf-8?B?RmhJUzEybDUzNjJHSGVVUnlaSTM3Y0JCcHg2bXkvWlNkSlg3N0cxTkZ5VUtr?=
+ =?utf-8?B?NitCRWlTbUpXdXFlTk9YUS83bWpJaE54U0NrWDBMRy9VQURyTmFQb0huWFor?=
+ =?utf-8?B?UXFvK1c5dkRzM2d0L3hzVzlUc2pBV1EvZC96c29kUUxNVlBwZm02RWgySjhH?=
+ =?utf-8?B?RzI1OUFPZTJGaXNWa0hCUEpwRXdlYjhJdG1VV3JlQTNtZXJDbU5mOXZxYkg2?=
+ =?utf-8?B?Y3g4enZiR3NSbXY2SG5kOFNYMENuYTc3MnloUysxMzZBalNtaTFsSDRGeWRG?=
+ =?utf-8?B?MFJDUnlYd0g4UUxCaXR5dkRjelp2WkJNN0txNEFoUFF5OTNqMHdSVzdhaXEz?=
+ =?utf-8?B?VGpUU3hsQ0pMNW9RMW52Q09KZWpUdDc5RmVWTDN2THF0ajBNeXNmUTJCWk1r?=
+ =?utf-8?B?Wm0vSzM1bkxza0luU3d3bnJkcTdaNVdma2g2MDI4WmU3dHlVeS93QjBqZ2lG?=
+ =?utf-8?B?bHZidXlWekVLdmFlNzVxcmE2UlZDV2FQb01nQkpBcjdaUGIxUUY2K0ZwUzdr?=
+ =?utf-8?B?bzRKMVYvSGpLajBscWJjSmNZcTM2cEdSeXgrWmNmalM1NHhnQ3B6c0ZCS2o1?=
+ =?utf-8?B?WEJHQ0l5VkljNFZKZk9ndE1IcFNVMFliUDJyYmtTVzByQ2pqeGpHU05YQmw1?=
+ =?utf-8?B?bStqM0xoN2NhK2FxNklPMlB3NUROaVBLRXRzTzlDMm9PTVViVHZkdm43N2xM?=
+ =?utf-8?B?bVU4RkdxcERHT25GdThTeWRtRUZyNVJyRDJkdVhwTTZVamhPbjRwZU0yMzV6?=
+ =?utf-8?B?VFFXd25mOG9KUm9sU2gyVlc0UEhaR3NLZ2g1dlBIMmM0RW1VS2VNMC93ZVhr?=
+ =?utf-8?B?MUluZ2YyZ1RKTGg4SWZtUk0wd2lzR1pjeE45VFNwYzdndnQzQlljUnpTNUpq?=
+ =?utf-8?B?clMwQ3BsYVhNc09UL2FJOXRkN2lONytzOEZ6NTBXSkR1V2JVQXphSHNIemdw?=
+ =?utf-8?B?anVnWVFrUzBKSGVzdzFTYXpIMXZWUnhWSXdncmExMFVFc1MyVmJ1N05Renhi?=
+ =?utf-8?B?QlVPSFA1LzgxaGVtNVFJTFRoWkdhOUQrRUtwM2h2UUloNXhpTitjV2pkREFE?=
+ =?utf-8?B?V2Uvb0VxTk9YaC9FTDI0eHJha1g2bGgvWG02Q0dPai9vVW5mS0pURU1XVFlr?=
+ =?utf-8?B?WTQ2R1NLRGJkcU1IZ1ZBZjdIaFo4U3NYV1VxNGdjSHhoakRYOXd3Y0JDbVJs?=
+ =?utf-8?B?QTkyT0V2eTE5NWJCSkt2TTZpRk5HWi9HRWhQMHZpOEk5VTdZcUlvd3Q3WVh6?=
+ =?utf-8?B?aWpiMXZkdUpOaWRpUFZwQmtEbDRrZnBOQXpQTXlRRTJKTnhIS090MGc0SmNB?=
+ =?utf-8?B?Y1VKWXBFM1lia1YxNXcrNWV5K3JhUHd5TXJVOTZiTXhNK0Y1NXd0N0NPYmQ3?=
+ =?utf-8?B?ZVB0RzNGbUdrc2lFRlQrdHhWNzdKQTBkVEh6WkJvL0EvRXBDL09lQTBSWExI?=
+ =?utf-8?B?R25tWVNKcFk2OUF6N1JpZVBTQi92L2tlcGR1SXRZR01EVFI0dkp6RVozVWlY?=
+ =?utf-8?B?L3MyTlNNZGdvS0liSFVxRVZCYmgvN1lPcmdNeFZvb1BENDNLNWUwVDFiTDVN?=
+ =?utf-8?B?UmhEOWZJS093cjlLd3MxZTcwVVZ0U2o5MWJ4aTExVUdPR1RzNnN0bmIyZE5U?=
+ =?utf-8?B?VHlvMlVlL2s2WDR0VXpZdGtZNjNMQkdqNWJDcWJ1TC9INElvSDRTWnhGY1Zm?=
+ =?utf-8?B?L3pGaSs5NFFLUVBxQ3lkSm52VlhHT0tvWXJkUE5DU2VLWVAxUHZYeXBhdUdy?=
+ =?utf-8?B?cWdEbEN5RVJab2crMkJhS283ZTlITnhZZFVDT2xCZytZM0RBNGYvZWVBT2Ez?=
+ =?utf-8?B?N3FiWlgzWi9vcnd3ZjgvOC94NU15VXBoTUljRFlVUkJNaDdoQ2FFOG5aY095?=
+ =?utf-8?B?bjJxNUFqUi9RVE1PeEJsNFVYWkxscWtuVGxBTmx6YkdJenJyTkVNZmFqRXlI?=
+ =?utf-8?B?aTRHOGdKRlB0aGdBdURtVGRnc25aeUkyM1dzZjk3bWpVWk5tekxoa2hHWXJX?=
+ =?utf-8?B?Y3IyZE51Y1o0S1BVeWZEMUlFdXJ5MGZ1L2p2YmdWODlpN1c2L2JkS3F2RTBa?=
+ =?utf-8?B?Tk5IMkJOWjhqY3RsdSszOW9yZnpxZkVFYlA2eCttcVRwZ0RybCtRcHZDMWZy?=
+ =?utf-8?B?b1FsQ3pKMXFnOEtMTW51dGhZVVdXSTZjWStzZHAxVFBWUFBSVHRtbW9sbE14?=
+ =?utf-8?B?RjFMT0tUTUFaQTN5RW1LMm5XakVVeDBSQzI5Q2RXQnB2T0RDWVo5VXJpN1ZP?=
+ =?utf-8?B?MHBFeWhDNGVUM1JIeHRwdmlOWEc1UWxxUGF0TU9Qb0RkSXlGYnRsUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33c81107-219e-4b43-463b-08df1f312c52
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d5767df-f953-42de-6b2e-08df1f333bc8
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB8610.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 20:26:56.9715 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 20:41:41.8790 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nv9NqvULRFBn0j9aZebSZzA/kucDTaOMWJOwXU6yZn+83fRXlxV8zpjUTj1VOj9dGuO61H78ga+/2JB5TVXZ0g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7189
+X-MS-Exchange-CrossTenant-UserPrincipalName: cvegEAo7Ch/JCcE6Puv3iHmIn2QSr1kztFZaA5Oq/pp2wfSuOMHEg7XnTxbrR0UMWsZVGgRl4YrKsxy8psUd6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5862
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,96 +140,296 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-09-30 10:43, Sunil Khatri wrote:
-> Move the duplicated VMID-mask-above-first_kfd_vmid computation out of
-> amdgpu_mes.c and amdgpu_amdkfd.c into a shared helper, called once
-> from amdgpu_vmid_mgr_init() to set vm_manager.vmid_uq_mask_gfxhub/mmhub.
-> MES and KFD now just read those fields instead of each computing them.
->
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Hi Caspar,
 
-Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+On 9/28/2026 10:45 AM, caspar.adriani wrote:
+> 	
+> You don't often get email from caspar.adriani@proton.me. Learn why this 
+> is important <https://aka.ms/LearnAboutSenderIdentification>
+> 	
+> 
+> 	
+> Caution: This message originated from an External Source. Use proper 
+> caution when opening attachments, clicking links, or responding.
+> 
+> 
+> Hi,
+> 
+> This is a status report plus questions about getting the rear camera of
+> the ASUS ROG Flow Z13 2025 (GZ302, Strix Halo) working with the upstream
+> AMD ISP4 stack. In the ISP4 v6 thread [1] GZ302 / OMNI13B1 support was
+> described as a TODO for after the HP ZBook Ultra G1a support landed. I
+> have been experimenting with it and got part of the way. The remaining
+> blocker appears to be in firmware or board wiring that I cannot see
+> from outside, so I would appreciate some pointers.
+> 
+> Kernel: v7.2.8 (stable), plus the local patch below
+> Firmware: amdgpu/isp_4_1_1.bin from linux-firmware (as shipped by NixOS)
+> 
+Thank you for sharing the status of your OV13B10 enablement work with 
+the AMD ISP4 driver.
 
+You made good progress toward bringing up the sensor; however, the 
+OV13B10 has several dependencies on the ISP firmware, which means it is 
+not compatible with the currently upstreamed AMD ISP4 driver and 
+firmware implementation.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  4 +---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c    | 18 ++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c    |  7 -------
->   3 files changed, 19 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index afcfb92fb9f5f..c59a8f99ecdf6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -178,9 +178,7 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
->   
->   	if (adev->kfd.dev) {
->   		struct kgd2kfd_shared_resources gpu_resources = {
-> -			.compute_vmid_bitmap =
-> -				((1 << AMDGPU_NUM_VMID) - 1) -
-> -				((1 << adev->vm_manager.first_kfd_vmid) - 1),
-> +			.compute_vmid_bitmap = adev->vm_manager.vmid_uq_mask_gfxhub,
->   			.num_pipe_per_mec = adev->gfx.mec.num_pipe_per_mec,
->   			.num_queue_per_pipe = adev->gfx.mec.num_queue_per_pipe,
->   			.gpuvm_size = min(adev->vm_manager.max_pfn
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> index f8bda01f3bca2..c4c1b2d1e3cd6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> @@ -646,6 +646,22 @@ void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
->   	}
->   }
->   
-> +/**
-> + * amdgpu_vmid_uq_mask_init - init the user queue VMID masks
-> + *
-> + * @adev: amdgpu_device pointer
-> + *
-> + * Sets vmid_uq_mask_gfxhub/mmhub to the pool of VMIDs at or above
-> + * first_kfd_vmid, shared by KFD and MES user queues.
+The original objective was to keep the AMD ISP4 driver sensor-agnostic. 
+Consistent with that approach, the x86/platform driver and OV05C10 
+sensor driver patches were submitted upstream [1]. However, during the 
+AMD ISP4 driver review process, feedback from upstream reviewers led to 
+a change in direction. Reviewers recommended to keep the sensor access 
+exclusive to the host or FW, this led to adopting a webcam-style driver 
+model because certain sensor-specific AEC-related registers are accessed 
+directly by the firmware.
+
+[1] OV05C10 driver patch discussion on the Linux kernel mailing list: 
+https://lore.kernel.org/all/60cf7590-4fd8-419b-a782-8bc89fb5395a@kernel.org/
+
+Based on this feedback, support for the OV05C10 sensor was moved 
+entirely into the firmware so that sensor control is handled exclusively 
+by the firmware rather than being split between the x86 driver and 
+firmware. As a result, the currently upstreamed firmware image 
+(amdgpu/isp_4_1_1.bin) is OV05C10-specific, and the upstream AMD ISP4 
+driver support is limited to the HP ZBook Ultra G1a 14-inch Mobile 
+Workstation PC platform.
+
+We are actively working toward a sensor-agnostic ISP4 driver 
+architecture. Until that effort is completed and upstreamed, we do not 
+plan to add support for additional platform and sensor combinations, 
+including the GZ302 with the OV13B10 sensor.
+
+> 
+> 1. Hardware / ACPI
+> ------------------
+> 
+> The rear 13MP camera is an OmniVision OV13B10 on the ISP MIPI path.
+> amdgpu reports "detected ip block number 12 <isp_v4_1_1> (isp_ip)".
+> The front camera is a separate USB UVC module (0bda:636e) and is not
+> involved here.
+> 
+> The sensor is described in an SSDT as \_SB_.CAMB:
+> 
+>    Device (CAMB)
+>      {
+>          Name (_HID, "OMNI13B1")
+>          Name (_DDN, "OV13B-RGB")
+>          Name (_SUB, "OV13B")
+>          Name (_UID, "0")
+>          Name (_PLD, ...)          // PLD_Panel = "BACK"
+>          Method (_STA) { Return (0x0F) }
+>          Method (_DSM, 4)          // UUID f8fd3bff-21b7-4a99-bdc8- 
+> c414a3e9453c
+>          {
+>              // Arg1 == 0:
+>              //   func 0 -> Buffer { 0xEF }
+>              //   func 1 -> 0x07
+>              //   func 2 -> "3001"
+>              //   func 3 -> 1
+>              //   func 4 -> 1
+>              //   func 5 -> 0x10
+>              //   func 6 -> 0x0C
+>              //   func 7 -> 0x50
+>          }
+>      }
+> 
+> There is no _CRS, so there are no I2C, GPIO or clock resources, the
+> same as OMNI5C10 on the HP. I read _DSM funcs 5/6/7 as the I2C
+> addresses of the sensor (0x10), the VCM (0x0C) and the EEPROM (0x50).
+> The VCM and EEPROM addresses are confirmed by the bus scan below; the
+> sensor address is not.
+> 
+> Side note: the ov13b10 commit that added OMNI13B1 describes it as the
+> front-facing camera. On this unit _PLD says BACK, and the front camera
+> is the USB UVC module.
+> 
+> 
+> 2. What I changed
+> ------------------------------------------------------
+> 
+> Unpatched, OMNI13B1 is missing from isp_sensor_ids[] in amdgpu_acpi.c.
+> amdgpu_acpi_get_isp4_dev() therefore fails, isp_v4_1_1_hw_init()
+> returns early, and no ISP MFD children are created. I added OMNI13B1
+> in the three places that currently key on OMNI5C10. The OV05C10 GPIO
+> lookup tables and swnode graph are reused unchanged: AMDI0030:00 pin 85
+> as "enable_isp", i2c address 0x10, 24 MHz, 2 lanes, 900 MHz.
+> 
+> diff -ru a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/ 
+> amd/amdgpu/amdgpu_acpi.c
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -1588,6 +1588,7 @@
+>   #if IS_ENABLED(CONFIG_DRM_AMD_ISP)
+>   static const struct acpi_device_id isp_sensor_ids[] = {
+>    { "OMNI5C10" },
+> + { "OMNI13B1" }, /* ASUS ROG Flow Z13 (GZ302), OV13B10 */
+>    { }
+>   };
+> 
+> diff -ru a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/ 
+> amd/amdgpu/isp_v4_1_1.c
+> --- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+> @@ -240,8 +240,9 @@
+>    return 0;
+>    }
+> 
+> - /* add GPIO resources required for OMNI5C10 sensor */
+> - if (!strcmp("OMNI5C10", acpi_device_hid(acpi_dev))) {
+> + /* add GPIO resources required for OMNI5C10 / OMNI13B1 sensors */
+> + if (!strcmp("OMNI5C10", acpi_device_hid(acpi_dev)) ||
+> +   !strcmp("OMNI13B1", acpi_device_hid(acpi_dev))) {
+>    gpiod_add_lookup_table(&isp_gpio_table);
+>    gpiod_add_lookup_table(&isp_sensor_gpio_table);
+>    }
+> diff -ru a/drivers/platform/x86/amd/amd_isp4.c b/drivers/platform/x86/ 
+> amd/amd_isp4.c
+> --- a/drivers/platform/x86/amd/amd_isp4.c
+> +++ b/drivers/platform/x86/amd/amd_isp4.c
+> @@ -247,6 +247,12 @@
+> 
+>   static const struct acpi_device_id amdisp_sensor_ids[] = {
+>    { AMDISP_OV05C10_HID, (kernel_ulong_t)&ov05c10_platform_config },
+> + /*
+> + * ASUS ROG Flow Z13 (GZ302): OV13B10 at i2c 0x10 per its _DSM. The ISP
+> + * firmware drives the sensor itself; the swnode graph is not consumed
+> + * by any in-tree driver, so the OV05C10 layout is reused as-is.
 > + */
-> +static void amdgpu_vmid_uq_mask_init(struct amdgpu_device *adev)
-> +{
-> +	adev->vm_manager.vmid_uq_mask_gfxhub =
-> +		((1U << AMDGPU_NUM_VMID) - 1) &
-> +		~((1U << adev->vm_manager.first_kfd_vmid) - 1);
-> +	adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
-> +}
-> +
->   /**
->    * amdgpu_vmid_mgr_init - init the VMID manager
->    *
-> @@ -657,6 +673,8 @@ void amdgpu_vmid_mgr_init(struct amdgpu_device *adev)
->   {
->   	unsigned i, j;
->   
-> +	amdgpu_vmid_uq_mask_init(adev);
-> +
->   	for (i = 0; i < AMDGPU_MAX_VMHUBS; ++i) {
->   		struct amdgpu_vmid_mgr *id_mgr =
->   			&adev->vm_manager.id_mgr[i];
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index d1e956cf8e5b8..8d813c68450bf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -111,7 +111,6 @@ static void amdgpu_mes_userq_notify_unmap_work_handler(struct work_struct *work)
->   int amdgpu_mes_init(struct amdgpu_device *adev)
->   {
->   	int i, r, num_pipes, num_queues = 0;
-> -	u32 total_vmid_mask, reserved_vmid_mask;
->   	int num_xcc = adev->gfx.xcc_mask ? NUM_XCC(adev->gfx.xcc_mask) : 1;
->   	u32 gfx_hqd_mask = amdgpu_mes_get_hqd_mask(adev->gfx.me.num_pipe_per_me,
->   				adev->gfx.me.num_queue_per_pipe,
-> @@ -134,12 +133,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
->   	atomic_set(&adev->mes.userq_hw_queue_count, 0);
->   	INIT_DELAYED_WORK(&adev->mes.userq_notify_unmap_work,
->   			  amdgpu_mes_userq_notify_unmap_work_handler);
-> -	total_vmid_mask = (u32)((1UL << 16) - 1);
-> -	reserved_vmid_mask = (u32)((1UL << adev->vm_manager.first_kfd_vmid) - 1);
-> -
-> -	adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
-> -	adev->vm_manager.vmid_uq_mask_gfxhub = total_vmid_mask & ~reserved_vmid_mask;
-> -
->   	num_pipes = adev->gfx.me.num_pipe_per_me * adev->gfx.me.num_me;
->   	if (num_pipes > AMDGPU_MES_MAX_GFX_PIPES)
->   		dev_warn(adev->dev, "more gfx pipes than supported by MES! (%d vs %d)\n",
+> + { "OMNI13B1", (kernel_ulong_t)&ov05c10_platform_config },
+>    { }
+>   };
+>   MODULE_DEVICE_TABLE(acpi, amdisp_sensor_ids);
+> 
+> I also added a temporary dev_err() in isp4sd_fw_resp_cmd_done() that
+> prints isp4fw_error_code and the payload when cmd_status != 0. Upstream
+> currently drops both.
+> 
+> 
+> 3. What works with the patch
+> ----------------------------
+> 
+> - amd_isp_capture.*.auto, amd_isp_i2c_designware.*.auto and
+>    amdisp-pinctrl.*.auto are created and bound.
+> - "AMDISP DesignWare I2C adapter" appears (i2c-24 here), and amd_isp4
+>    instantiates i2c-ov05c10 at 0x10 on it.
+> - amd_isp_capture registers /dev/videoN + /dev/mediaN (amd_isp41_mdev).
+> - On stream start:
+>        enable isp_subdev module
+>        ISP CCPU FW boot success
+>        send fw mem pool ... suc
+>        isp4fw_sensor_id 0, pipeId 0x5f91 EnableTnr 1
+>        channel:prev,fmt NV12,w:h=1920:1080,lp:1920,cp1920
+>    and the firmware acks SEND_BUFFER, SET_OUT_CHAN_PROP and
+>    ENABLE_OUT_CHAN with status 0.
+> 
+> 
+> 4. What fails
+> -------------
+> 
+> SET_STREAM_CONFIG is rejected:
+> 
+>    amd_isp_capture amd_isp_capture: fw cmd 
+> ISP4FW_CMD_ID_SET_STREAM_CONFIG(0x02010001)
+>      seq 1 status 1 error_code 6 (0x0006) payload 00 00 00 ... 00 (36 x 00)
+> 
+> The command at seq 16 (sent after the 4th buffer, which I take to be
+> START_STREAM) is never acked. No frame-done responses arrive.
+> With fw_log_enable=1 and dynamic debug on, the firmware log ring
+> produced no text.
+> 
+> Secondary issue: after this, stopping the stream (closing the fd, or
+> killing the process) leaves the task in D state in
+> isp4sd_stop_stream() / vb2_fop_release() indefinitely. The kernel logs
+> "fail to disable stream" / "fail to stop stream", and only a reboot
+> recovers the device. The driver probably needs a timeout on that path
+> when the firmware is in this state.
+> 
+> 
+> 5. I2C bus probing while the ISP is powered
+> --------------------------------------------
+> 
+> With a capture pending (ISP powered, after the failed
+> SET_STREAM_CONFIG), on the AMDISP adapter:
+> 
+>    i2cdetect -y -r 24:
+>         0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+>    00:                         -- -- -- -- 0c -- -- --
+>    10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>    ...
+>    50: 50 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+> 
+>    OV13B10 chip ID (reg 0x300a, 3 bytes) at 0x10 and 0x36:
+>        Remote I/O error at both addresses
+>    EEPROM @0x50, first 32 bytes from offset 0:
+>        01 0b 19 01 11 08 01 01 01 01 00 ... 00 9c 34 be 89
+>    VCM @0x0c: 00 00
+> 
+> So the module's EEPROM and VCM are powered and reachable, but the
+> sensor does not ACK at either OV13B10 address.
+> 
+> I then drove each amdisp-pinctrl line (GPIO_0/1/2, "sensor0/1/2
+> control") to 1 and to 0 in turn, rescanning the bus each time. Nothing
+> changed: only 0x0c and 0x50 respond in every state.
+> 
+> 
+> 6. Questions
+> ------------
+> 
+> a) Does the current isp_4_1_1.bin support the OV13B10? As far as I can
+>     tell, the host never tells the firmware which sensor is attached,
+>     and there is no in-tree ov05c10 driver in v7.2.8. So I assume the
+>     firmware identifies and programs the sensor itself. Is that
+>     OV05C10-only?
+> 
+Currently, the upstreamed isp_4_1_1.bin firmware does not support the 
+OV13B10 sensor. Your understanding is correct. There is no in-tree 
+OV05C10 driver in the Linux kernel; instead, the firmware is responsible 
+for programming and controlling the sensor directly. As a result, the 
+current firmware implementation is specific to the OV05C10 sensor and is 
+not intended to support other sensor variants.
+
+> b) What does isp4fw_error_code 6 mean for SET_STREAM_CONFIG? For
+>     example: sensor not detected, unsupported sensor, or MIPI/PHY setup
+>     failure?
+> 
+Error code 6 corresponds to the "UNSUPPORTED_SENSOR" error condition.
+
+
+> c) GZ302 board data. Which lines control the OV13B10 reset/shutdown and
+>     power rails? Candidates are the amdisp GPIOs, AMDI0030 pins, or
+>     something the firmware drives. Is AMDI0030:00 pin 85 correct for
+>     "enable_isp" on this board? Which clock output feeds the sensor, and
+>     at what rate? The ov13b10 driver expects 19.2 MHz. Which lane count
+>     and link frequency are used?
+> 
+sorry, I’m unable to provide the platform configuration for the OV13B10 
+sensor, as it has not been validated on Linux.
+
+> d) Does the firmware enable the sensor clock and power before or
+>     during SET_STREAM_CONFIG? Or does it expect the host (a sensor
+>     driver using the "enable" lookup for i2c-ov05c10) to have powered
+>     the sensor first? Nothing upstream consumes that lookup today.
+> 
+As part of processing the SET_STREAM_CONFIG command from host, firmware 
+takes care of powering on the sensor and configuring the required 
+clocks. Therefore, host is not required to perform any sensor power-on 
+operations.
+
+
+> If OMNI13B1 support is already planned on your side, I am happy to test
+> patches on this machine. If it is easier, I can also provide the full
+> ACPI tables, dmesg with dynamic debug, or other register dumps.
+> 
+Thank you for offering your support. We will certainly reach out as we 
+make progress on OV13B10 firmware support or when a draft version of the 
+sensor-agnostic ISP4 driver becomes available for testing.
+
+Thanks,
+Pratap
+
+> [1] https://lists.openwall.net/linux-kernel/2025/12/01/84 <https:// 
+> lists.openwall.net/linux-kernel/2025/12/01/84>
+> 
+> Thanks,
+> Caspar Adriani
+
