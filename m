@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3761FCA5FAB
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 06:26:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A017CA5FB1
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 06:28:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3C1710F1EB;
-	Wed, 30 Sep 2026 06:26:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4DA710E10A;
+	Wed, 30 Sep 2026 06:28:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dJq5Zyt1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j/oG2Xqv";
 	dkim-atps=neutral
 Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012058.outbound.protection.outlook.com [52.101.53.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E07810F1ED
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 06:25:58 +0000 (UTC)
+ (mail-eastusazon11012070.outbound.protection.outlook.com [52.101.53.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 760D810E848
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 06:28:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fr2k8UVk/qvnfGHQoksYFWfbMyJ+ZLjvGEpBKITK7k9l7wHix0rbd7wdDHvoWzDn6TYeIYXwxv80lfjGMVknINM0iTOCaI/4vFpoUBFdkR7A4MaMZ+b+xGsvBkwm3zkmsQRzpwoK/73splyn8AEtokMDnbkmmX4xyTw5W97c8mzW0yH8IsGB1PQ/ryjTvtkIdaTOwcaXfqUkumJiOtVJF4dcrktgKTL+Ncfpwj4vMA9rm0aEVd918CJqJ9LtcuQ7LKljnBzuHuocoWgdQcN/AOloAZgVodr0W8QGG1gigi/iPl0SUfzku1vol/nQILhn1Wrc6cgEuED/grPcbKyZgA==
+ b=WEf4hl0238jYO/hMnZEAfMB+3+5P2lxVnFCiighDCPOGogJCtxOfxt9g5aBmv0IVEj3Ebd1X+VX6VfnlnZ7mNKluUucJ/bgAcy6khvIF5Cmk9AcbHl/ICrR8yo/UHXzvZw9zUUgyXMM+TcnJ30gD05bnlhbpefisDxsIaVVCjKlsntvNO9j0hldJu0cWXPyXpoOoLv0okqZvHN4WjssBx8emlNgcs1vB4wUZ8cjGxPU1X05srfVoNUp5dRLjQtM8PHSZE19mYj4rUlK9cu18n7DiaMmA4t0gvDRnocqoFuTrsUHxzjrMu6Kik/COr2DFj+S0NDyqRhbdduW2BbwVtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VQWwdO9usmwO3W1jxD3gm0mHTGrI1V9i9haXihX3Yrw=;
- b=FiIuWPLw8EkQu2eWEBqsPPFVpJ1t/XSHqZLpVdB6x0mSClj58/zb8taaHNiW4/iZ0herHnOvsi7BMnsXZX6fvtspcX99MHc0MZnNLj9mGgFBkm1FQg2hMpV+GNLxKAkIrXjZFR49xyh8qowkAykZM4e6MhHygR3AiPb2yE34l/I/OsuIuwDL+8+pV66DASybe9QfIFJqwwq7r0/JTASyayZs+uNXP5kwrctkFLxNlJBwO7ftT2E85IGtldgfTPpRc6Xl8AhMPeFS6tRl7v+/8IBvxXIFzdYLnzSn0cU81HBmVXVZ7xQHlE7X72S6NpkmrOATlN9D0MIlWhaL1/g67w==
+ bh=H8rl5sWtWvQGZHUiRBLhDrcRocrsZmnpMt0v1t0iPw8=;
+ b=tu2CrPBDsUpQZsCEhWfmFrsFXchnxLjW7LZLI27qdtjAyHNCmtrGyE9AZFngNxEorcD4G8pQOlpWVpxHcNJGYEYZlg8+XHqQ2m3CPOVE9nbPPWyQHV7HlU5eYEOkRZ2/Iw0YLBXA0dMgpX+0/a0bOoFmL8Hl7EwMUQA+McYRwhoIqKAtyuCv3cFQAUPFSwoaw3HqwSm+na2rg4wSw+LSjogG3jNmH9OiBAPqtpZ6JmDvEW1uDVBTnRm5v2hS+pGlHXJr30UucvlkF8F8zuLmOgFqFgRl7LqXwVdidMwugRK6Gh4Y5Hp342uKB0STERpk3qIxJR6gnFm6tm0uxml1kQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VQWwdO9usmwO3W1jxD3gm0mHTGrI1V9i9haXihX3Yrw=;
- b=dJq5Zyt1n3HiuYctKjgAISO0eit0ylp7N0xGPU7Ex8Rkh7fLQKmXZpUmLwjS4LxQzRGYwNEW+HNVWzKW168O0f3Kvg0lQoCxjBs4lGfxrsaK7JdwtEDaL/SMKCKtlTBAJYlWGcaOS3eFZJSVW58HXGbNjOApII9WzsMANkICu2g=
+ bh=H8rl5sWtWvQGZHUiRBLhDrcRocrsZmnpMt0v1t0iPw8=;
+ b=j/oG2XqvUjycKd6021jendbQp0JRDO80QK1U3IV4w8Ga2+1VWnknFKKPPB0zBaZyXrNykIz8MIAYaegNhvUSoxw6aOtNrNIXk1XB5EzPXm8sPiPxvsi8xSSTBtejU/NJbSPbsQERip+A/xCPDdcip2az+wWMPIx2Y7tElci6fpk=
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
  by CH3PR12MB7524.namprd12.prod.outlook.com (2603:10b6:610:146::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 06:25:55 +0000
+ 2026 06:28:03 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 06:25:54 +0000
+ 06:28:03 +0000
 From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Wang, Kevin" <Kevin.Wang@amd.com>, "Zhang, Yifan" <Yifan1.Zhang@amd.com>, 
+To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "Wang, Kevin" <Kevin.Wang@amd.com>, 
  "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
  <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
@@ -49,9 +49,9 @@ Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset on
  gfx12
 Thread-Topic: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset
  on gfx12
-Thread-Index: AQHdT7nkajEGCzvlxkysHsiQKH+ICbblQ/QAgAAIdwCAAJ1rgIAAhO8AgAAC+ACAAATegIAAA8iAgAAe/QCAAAOnAIAAB+8AgAAEevQ=
-Date: Wed, 30 Sep 2026 06:25:54 +0000
-Message-ID: <SA0PR12MB7091607C821DD468DDD2BC3B978B2@SA0PR12MB7091.namprd12.prod.outlook.com>
+Thread-Index: AQHdT7nkajEGCzvlxkysHsiQKH+ICbblQ/QAgAAIdwCAAJ1rgIAAhO8AgAAC+ACAAATegIAAA8iAgAAe/QCAAAOnAIAAB+8AgAACZwCAAAKrLA==
+Date: Wed, 30 Sep 2026 06:28:03 +0000
+Message-ID: <SA0PR12MB70915BCDD0BE98B2F8B54A0E978B2@SA0PR12MB7091.namprd12.prod.outlook.com>
 References: <20260929022540.122318-1-yifan1.zhang@amd.com>
  <f9db848b-da68-4acf-a0e3-41464b939817@amd.com>
  <CY5PR12MB6369B765E89F17858A5AB4A8C18C2@CY5PR12MB6369.namprd12.prod.outlook.com>
@@ -63,7 +63,8 @@ References: <20260929022540.122318-1-yifan1.zhang@amd.com>
  <CY5PR12MB63693EB274BB3A16097332AAC18B2@CY5PR12MB6369.namprd12.prod.outlook.com>
  <fa59606b-0860-4aaa-b6ce-ac037f73eab4@amd.com>
  <BN9PR12MB5211C24FDF238C2A748378DC938B2@BN9PR12MB5211.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB5211C24FDF238C2A748378DC938B2@BN9PR12MB5211.namprd12.prod.outlook.com>
+ <CY5PR12MB63693C7F0614B19DC5CD525FC18B2@CY5PR12MB6369.namprd12.prod.outlook.com>
+In-Reply-To: <CY5PR12MB63693C7F0614B19DC5CD525FC18B2@CY5PR12MB6369.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -79,61 +80,61 @@ authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: SA0PR12MB7091:EE_|CH3PR12MB7524:EE_
-x-ms-office365-filtering-correlation-id: 8312a86e-d0d1-4a3d-6265-08df1ebbae8f
+x-ms-office365-filtering-correlation-id: 65d6c563-a32b-4433-13f6-08df1ebbfb46
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003|8096899003|38070700021;
-x-microsoft-antispam-message-info: I7v1ix0eAtT5i5fcWZ3OLJkWAhgcRfs+DSFa/XE3sS2hCybVVcwAfz9B+pxpD2EPKxFmooybs0gqkBY+c2U5I+M6kLDqtmqWP5mUOeAn11AcsvTX4ILVxZZI4Aq4xrJqqILER3tD3cOP7VCZC35gQj6u2Z2Ly1yF/E36v3gzJIzNlPO8zPC/cJsxC04y+A0I9QJ+m6iGCT59aq/F9+oGrpiCHeJGjNmvZ4gDIZnjSIgeP6LP0c7NeVc/Ys8nSy8n1VTOK5Y3qtjbzWb+5PoWYrIRFN5N4/7Pmimk7wk3CWXRCpL5JP1KMVHJXe6P5H69XGf/WvwheVyYL1K+M1VezxJmevwRz3BzMJ43L2mQfiBtwBBinRnuJpm2iUfOKq3/H0su1PnSBDnv3cjRY0X2LOx72H7tiTFOgy1UKsuHJCg4wRu/eDMrPfxtBY4PCA2vmtlLuEJ6x/FO/bVR4B4rdAZOLesF47qV/kBCzOsV0KtrtSlbmB+dpxmdtJcFSwhIFVdIcs8h3kkkDIwe09Yuu2dOtkr2izuL9QO6nhmxIgdJDG1PxT+f4hTZ/DZPlpBYU0LnboQN2j9p+WyxFBf/OkRn7vJoN5JSvG5lfphi9nypdFzcFWkz0VlxdCyySxfJMtxnXe1F+1Np4W8SqDFNy+IJlTy4OAhbQ7WKKhXVjLuKtMLWeAVmKIZHdmhB6H8pEFWCnmAr7e6Aqr1v4hkrAUXoHjoVWXDgFRjC1IWUQ3c=
+x-microsoft-antispam-message-info: PRGN1nlqHqJUIde6FlygfJwiQeC9umVh/xLyDfPWUFbp1+P7y9/ROiImKcmK8jUkzaTGXiUCl0AcHCdOGuNDUIcQs+Z/F3SWCQGJJY3PrcROkFAU4ubQV9MeoZxI790j4yrlgPi4U2p5N6lcgt6zilfnk0kVNDQR/oTwmMvfXYZhOrsGnDU1IStAVGlCFUux9+wBK9C/UV/DX9pbzmXDjy0ryYiX9iEATbJND2vr2O4u5X0OpY4ISQ31WgDPOZ22O9bQIs4QuTIqra7ONzCxDz/WHKKzHGXRtLY2yt2brZvsyVUqhkZSPWcsX8f7MvUGwnDrbeL+Pn6sxj7BAsA5252fMoT1KxeXgMc5gwG4Ta/O1hCoTDjwKVHpvUu6gRsVwvsafkmvi4ZVbvYR6ckZnjxstSBz35ksAwM0hhmn4YyCubcb3o8tOO14nD50vad/7wYEN3hjPohBrguc7aTJvBIewe0AnnzRGljFmPPuzy4TOAKStyUzhXNC2R2D/DebXCMtyiVPfTyD4VizG3GGryd0WYLAKCqXJcsTeOsODrswZJDtkh6VJlHiquKys/QxZ0Pcr/isxMeVoIrFKGZhrqeNI4pWjcH5ndMaVnlLTZAIb49pAqpEEl76MnKKRlIBaK7M3gnyy0GSwJCwxBtqdlYfuyncDOLa/MasdORHjOZ2X5IF7DfWcGE/PPNW4A8Uvt9aQpzT35smH5R0pClgPqskxVMHgLXeLRH1/KWFMd0=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(8096899003)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?ftKAdpXS7C7Y0r7YvEs6LRMArXl/RZ7U9/8qBrdDOo+doZ1Vxt6EVDcf?=
- =?Windows-1252?Q?8G67is3ArWPu3WMkYoM8jKvnUMlicQhgMw+2MXrkC51zLR9ihXQpK6Uc?=
- =?Windows-1252?Q?Uxqos5JvOEJMqNb9ypzCS6IwPtauzX9VOZyWJa6YhnZWwKZcADpqxEcm?=
- =?Windows-1252?Q?P/OfjC9DkcgqU0oxM0s3jMeU8yXFELIA8UDlK7pvCMWPQJfPbQIEZS8T?=
- =?Windows-1252?Q?X4Pbi3wpY/WCG+XflSEHLojgYN3/x/UjzOFv/ayG1kRPWkZxvbPextYU?=
- =?Windows-1252?Q?aqfckrrJeC/JBQiawZvN+Xc4cvyEnmAerY9sfBNy3BVT6hiWnDh9df01?=
- =?Windows-1252?Q?7Ajlb2mmxVF1UwgcmeYpSs+YWlm6Kwt146DzBbSLirG+PDWdQ1QO9dyN?=
- =?Windows-1252?Q?yBU344Bob3YY9SWoz0tq3Lki3lXkQ9Rg0RkEZGM7Hw3a3dtQrOjV3zWE?=
- =?Windows-1252?Q?Sbe+JKLgxd44/VtOSox7RXxYHFxUba22HXIe0bCPkSrHjVL2KldRnE5/?=
- =?Windows-1252?Q?xwLYauAvCYSYIGtjQ+vnSS7AgV4Oo1SaMkAdNykrLWBECK3ck4mw7CKD?=
- =?Windows-1252?Q?ZRIANihVLxWYIOxHFHY4HGt1x93lNICGuifJNeTfbydejnHqFWoNg7j6?=
- =?Windows-1252?Q?ohxHwiGLn1B60WHF7Imm4FSIL8Z3HEB+d5qxzm/Nm2XhrH4mUlSF+1UB?=
- =?Windows-1252?Q?TfyUM6PGSIpkwHjK8zbiaprIRGSy6xdBIjwQz4N6bg25n32uNYd1GcaM?=
- =?Windows-1252?Q?4qj5yvuh3tDIpLYnoR1WDxjWuFs5z7QusAFK5yrMt5xKvBmx10ysBEoz?=
- =?Windows-1252?Q?tlZ8TSe4sxLP9eP8myzTlCyq2s/z7iLPNErR7fTUVBf0m/MEvia0RoUK?=
- =?Windows-1252?Q?EFV+YNgi/OWdXgO0jDK0BNNxU+VHWeqJlOnnv2PeSEow3+0XaC50gIaf?=
- =?Windows-1252?Q?SbzSO79jRd1lf1V47FM/Jo2ICTrK+cGcOJAJUpeJzgBkyQ3wyxqUWiVe?=
- =?Windows-1252?Q?BLHao24YqT882wRy3T+5OcuKN8A4a99oZq9RRWAg1fFsRi0ptRo3knXl?=
- =?Windows-1252?Q?mQvFROzNwCHH0hjfDTJh+2Oa86rs6qCx9e7yhIOJgWgNAk+nBVfOeQyb?=
- =?Windows-1252?Q?5GuK8I2zzjnquARZ0EawmC2fLl3W0JyJN67ClOc7ceXqJ5H/s9lEnrGK?=
- =?Windows-1252?Q?aior5RSMKBNIM6CiBCd9rAT+9HIfWRcjPIsDjONiKn5Z0e4rwxKR6nDJ?=
- =?Windows-1252?Q?V2VjA1D0sJAOvRCNfQziKhLmVItSVKsAtgp/CowTOf7PUSKrZZmghVXg?=
- =?Windows-1252?Q?3fR/5DUZe9QgyNhhMiXYMLa342FxSBbCzpuBguT5Ca7F51gjSK6e6Gvk?=
- =?Windows-1252?Q?gBWDpx6XQ0xGe2Ikky3WH9ZAe173nUSpICJVNa0aInPL/ahfIet8fJrh?=
- =?Windows-1252?Q?Ky6eV8vGkqzj/0hyw313CO3lbyyf4CuDFCQii6kZCxXiZBDkYlc59hSv?=
- =?Windows-1252?Q?b/u8NinT8BIF1nWPABm2tL9zytbixxCe+wMBgfV9y5lgjmzZv5tUMrFT?=
- =?Windows-1252?Q?+s4ZIM2n79u2b4TJ4ZVlPUUYUhTPmZeSOb7/JXEM4elx/I6DHhSrVWG5?=
- =?Windows-1252?Q?zHtrFaH6XYdUvfp5eVtJ2DTe7ZBDbgpp/fAcBhP6Ih+d0OvpHNCgBc7j?=
- =?Windows-1252?Q?T+eG4SvRksZFPLQwovgTVJ4AFVUGagEONhs2Ab0PUMAxmOjeTUpCwYdy?=
- =?Windows-1252?Q?ptbpiwfiG7mizo2H213038OO3nL6UVNWcVRZC0Qah85q8LDNEyLRs+nO?=
- =?Windows-1252?Q?xMfXy2KgfV7B5Wbywm8e/BLhD3MgzBgV7jjCc2vxrcoY4IexdCm9atZH?=
- =?Windows-1252?Q?WSptQGSR0D6/OA=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?I5XMkDd6Ub0x0TWxchyUe+/iwdNHK/0sg0alV8uB8a0iQG/nx36PZA0b?=
+ =?Windows-1252?Q?VJb50Y/JOr9mIVxEjvdolya/h2NjqlNhOaBltNzZfWTQ2il9hH6gDLuW?=
+ =?Windows-1252?Q?2I7phKFb/8geb0cQZBXIBa4uNTGXq9V5BO25la37VYTnL9JiZI/d/0Ti?=
+ =?Windows-1252?Q?6IIxlhK1crEvz4uv0OceDMLYK7g+dhC4yhPXlBtAc2W8EDG2qVytFqdo?=
+ =?Windows-1252?Q?f+geKnggEt/YtuMBPU7fNgyXAr7ceeK/wPwes8T4QbLFKFCJonBwD2/E?=
+ =?Windows-1252?Q?0Md1w6PvgiIU3U6Ky1J9ZMDmBrkQ6v6dWr55ot2PdFNHF9n8w8u5MWa4?=
+ =?Windows-1252?Q?tgfowCylHwdkWVaKws182oNBvTf+MpH2BDq7K0CEoYbFZl1A/+FoEd0O?=
+ =?Windows-1252?Q?UrAUsGI3mpWgB6eQ8YCo07DaBhGOzFKYaQpM64c5i0etOBY6E+c0dp6S?=
+ =?Windows-1252?Q?0ojhMzvop1zhWqhhB1fATi0Vef0+imtyM0TCpeDriSlrlQCjHkr9oUHJ?=
+ =?Windows-1252?Q?QeOcDbXqt+LVBXa9vILIs1I7mo6PaS7r6Snq1AwnVCKo5AHwPVkb8iH6?=
+ =?Windows-1252?Q?WZl3y8WUyOjN+0rtSyg2U4nQW4wwOIowp1I8DtRvGu58DT4aUFi9YQTf?=
+ =?Windows-1252?Q?8z0t2vQY2NF/clrHNGTUub1H9/7UumC/O+IG2Rsazj5jqkoTMZQTb0GZ?=
+ =?Windows-1252?Q?2pvF4MH1Fi498kwyS7SIeO/3kpiE+scWeNhQB29/2lHOlK9KX8udfOEa?=
+ =?Windows-1252?Q?2Bez0ZP0Jv4O5Qm7BtVi/oITAnwRxTHv6iB9im4b7QyYk7zg41KwxT8/?=
+ =?Windows-1252?Q?/hKJDTH4/ipp60MmvCzmpYWJdn3AU9oHXR90SjvIaZnZ1csDQjclXXik?=
+ =?Windows-1252?Q?G2nV47SOVAfmnxAaM7k57centkuZSoOiwhPz07c95KkMSV9UBtt4TM4S?=
+ =?Windows-1252?Q?ToB7yZFVaEVrmlBqmlJvzwe7oAyYJJgIy3nO0GqTeD5p5k0iy50sYM5c?=
+ =?Windows-1252?Q?qzTA+m0O3XfHrX+VGwxl5fCCBaN4dhe/Cwx+uGue+BwhI21tqrxIkCSf?=
+ =?Windows-1252?Q?ygORbJ3kCuHQ/hgLe/riH09MU7vPWzIDaoit4IjWuCLwp3iQxjkmNOW1?=
+ =?Windows-1252?Q?suV8LEYPhW6jM8oWvyMa8vytrVzXng5nHRnfAYclGGQo8qxOuFLhlm1W?=
+ =?Windows-1252?Q?KKxD5Q85lfnICvHsZJ6YmyUaqDMVH4i3j9GvdXAfwQWQ8tqkXnLyv0Kf?=
+ =?Windows-1252?Q?guUhab3ZritbTzptkeAHyCTfvFjagkJeFVmjtFYUrANE7u705ja1ojTY?=
+ =?Windows-1252?Q?/1QWI6tCMDStbCJ2xFDyc3Qsq+qGf0A1MDoR1SRhpu+ImRPxWE3Zrr9q?=
+ =?Windows-1252?Q?xKGUFEYRhU23e9lrmjOyhOFEKNZoFVBAN2gAlr3aArgipVn1Ytvxfzod?=
+ =?Windows-1252?Q?7/K8bfZWlo/e10Fwnlx33hXa/ZkdAd/4L2Mnw+TIHbm+gTaClc6eHyZC?=
+ =?Windows-1252?Q?UCWGGQ173+Sw9vtopxu3fiex/DZ4RH4zrh7J1K7VoV11Vx5n20bh22Wj?=
+ =?Windows-1252?Q?8JKYjj7caUomGTQaqnC5CMI99U/ysCbrlSfW7J1rBIYLbklDtKMktIkf?=
+ =?Windows-1252?Q?RQ8JEbbtUqaORYblheN85K2mOkLFZCfzG7sTumkgTy+SFm0muwKHcA6K?=
+ =?Windows-1252?Q?oMnqeGVNa58SrlKFNfFIVYpkRbLPYkaZLrR3ySgCiZHH3DNvQPmU+CKk?=
+ =?Windows-1252?Q?ndEl67IFRj/H1qQx0VvnEwwyIyDMt3tZA6+it+nm+OTaLqLwPZKDfV2f?=
+ =?Windows-1252?Q?VQeoBoPCgsgPk1Ksge9Mg4IW6Dq76MzSOY8QK1EfrSEJvy0g4iO7f9YW?=
+ =?Windows-1252?Q?FwNf/cmMic2bgg=3D=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_SA0PR12MB7091607C821DD468DDD2BC3B978B2SA0PR12MB7091namp_"
+ boundary="_000_SA0PR12MB70915BCDD0BE98B2F8B54A0E978B2SA0PR12MB7091namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8312a86e-d0d1-4a3d-6265-08df1ebbae8f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 06:25:54.5718 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65d6c563-a32b-4433-13f6-08df1ebbfb46
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 06:28:03.3193 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /Ahvz66DeV+ql/Q1dR1pbdX+uRFEyKqRlaIBsYWpEYsJBf1H0AmPebzUo3htuzR5
+X-MS-Exchange-CrossTenant-userprincipalname: JIryp7124iCfg+Tj/7BRoQuvVVZurahYpzde4tvOYiEyfnDqDvlrnhjv3VHaxWOC
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7524
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -149,33 +150,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SA0PR12MB7091607C821DD468DDD2BC3B978B2SA0PR12MB7091namp_
+--_000_SA0PR12MB70915BCDD0BE98B2F8B54A0E978B2SA0PR12MB7091namp_
 Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
 AMD General
 
-That is not part of actual reset, it is reinit after reset and that time ac=
-cess is safe.
+The actual reset sequence is run by the FW while you are polling for the re=
+sponse. This patch doesn't make any sense in that way.
 
 Thanks,
 Lijo
 ________________________________
-From: Wang, Kevin <Kevin.Wang@amd.com>
-Sent: Wednesday, 30 September 2026 11:39:10
-To: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; =
-Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christia=
-n.Koenig@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop=
-.org>
+From: Zhang, Yifan <Yifan1.Zhang@amd.com>
+Sent: Wednesday, 30 September 2026 11:47:46
+To: Wang, Kevin <Kevin.Wang@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Deu=
+cher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.K=
+oenig@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.or=
+g>
 Cc: Yuan, Perry <Perry.Yuan@amd.com>
 Subject: RE: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset=
  on gfx12
 
 AMD General
 
-> On a second look, the patch doesn't seem right. Reset sequence is suppose=
-d
-> to be complete by the time FW responds back to the mode-1 reset message.
+Yes. In addition, the polling happens inside smu_cmn_send_smc_msg(), which =
+runs before PCI_COMMAND_MEMORY is cleared. During the mode1 reset process t=
+here should be no traffic to the PCIe BARs; otherwise, the PCI bus may hang=
+.
+
+Also, every PCI config write in the patch targets only the GPU device itsel=
+f (pci_write_config_dword is per device), so no other PCI devices are affec=
+ted.
+
+-----Original Message-----
+From: Wang, Kevin <Kevin.Wang@amd.com>
+Sent: Wednesday, September 30, 2026 2:09 PM
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; =
+Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christia=
+n.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Yuan, Perry <Perry.Yuan@amd.com>
+Subject: RE: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset=
+ on gfx12
+
+AMD General
+
+> On a second look, the patch doesn't seem right. Reset sequence is
+> supposed to be complete by the time FW responds back to the mode-1 reset =
+message.
 > During reset sequence, we need Mem space to be enabled to poll success
 > status of the message and that's most volatile window during the whole
 > sequence.
@@ -189,8 +211,8 @@ Best Regards,
 Kevin
 
 > -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lazar,
-> Lijo
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Lazar, Lijo
 > Sent: Wednesday, September 30, 2026 1:41 PM
 > To: Zhang, Yifan <Yifan1.Zhang@amd.com>; Deucher, Alexander
 > <Alexander.Deucher@amd.com>; Koenig, Christian
@@ -199,22 +221,19 @@ Kevin
 > Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1
 > reset on gfx12
 >
-> On a second look, the patch doesn't seem right. Reset sequence is suppose=
-d
-> to be complete by the time FW responds back to the mode-1 reset message.
+> On a second look, the patch doesn't seem right. Reset sequence is
+> supposed to be complete by the time FW responds back to the mode-1 reset =
+message.
 > During reset sequence, we need Mem space to be enabled to poll success
 > status of the message and that's most volatile window during the whole
 > sequence.
 >
-> Disabling the memory space after reset sequence is complete looks to be t=
-he
-> wrong diagnosis of the issue. Access during reinit sequence after reset i=
-s safe
-> and shouldn't cause any issue in general.
+> Disabling the memory space after reset sequence is complete looks to
+> be the wrong diagnosis of the issue. Access during reinit sequence
+> after reset is safe and shouldn't cause any issue in general.
 >
-> That said, we should try to resolve the issue without touching any PCI co=
-nfig
-> settings. PCI config space is open for others as well.
+> That said, we should try to resolve the issue without touching any PCI
+> config settings. PCI config space is open for others as well.
 >
 > Thanks,
 > Lijo
@@ -250,18 +269,19 @@ nfig
 > > <Alexander.Deucher@amd.com>; Koenig, Christian
 > > <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
 > > Cc: Yuan, Perry <Perry.Yuan@amd.com>
-> > Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1
-> > reset on gfx12
+> > Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during
+> > mode1 reset on gfx12
 > >
 > >
 > > This is the behaviour of this bit -
 > >
 > >          Memory Space Enable - Controls a Function's response to
-> > Memory  Space accesses. When this bit is Clear, all received Memory Spa=
-ce
+> > Memory  Space accesses. When this bit is Clear, all received Memory
+> > Space
 > accesses are caused to be handled as "Unsupported Requests"
 > >
-> > On AER enabled systems, depending on how the platform is configured to
+> > On AER enabled systems, depending on how the platform is configured
+> > to
 > classify the severity of UR errors, that could result in System error.
 > >
 > > On other hand, if you are sure that there is no such access during
@@ -290,13 +310,13 @@ t?
 > >> <Alexander.Deucher@amd.com>; Koenig, Christian
 > >> <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
 > >> Cc: Yuan, Perry <Perry.Yuan@amd.com>
-> >> Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1
-> >> reset on gfx12
+> >> Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during
+> >> mode1 reset on gfx12
 > >>
-> >> This doesn't work for all (at least on some datacenter GPUs). With AER
-> enabled, this will result in AER errors. Depending on the platform config=
-,
-> some may classify this access as fatal.
+> >> This doesn't work for all (at least on some datacenter GPUs). With
+> >> AER
+> enabled, this will result in AER errors. Depending on the platform
+> config, some may classify this access as fatal.
 > >>
 > >> Thanks,
 > >> Lijo
@@ -407,7 +427,8 @@ t?
 > >>>
 > >>> Alex
 > >>>
-> >>> --------------------------------------------------------------------
+> >>> ------------------------------------------------------------------
+> >>> --
 > >>> -
 > >>> -
 > >>> --
@@ -434,15 +455,17 @@ t?
 > >>> The no_hw_access flag was first set in commit
 > >>> 0de604d0357d0d22cbf03af1077d174b641707b6. This was intended to fix
 > >>> the Mode 1 reset hang, but it proved insufficient.
-> >>> I think the flag was set in the SMU code so that it would apply only
-> >>> to
-> >>> SMU13/14 ASICs, without affecting the Mode 1 reset process on other
+> >>> I think the flag was set in the SMU code so that it would apply
+> >>> only to
+> >>> SMU13/14 ASICs, without affecting the Mode 1 reset process on
+> >>> other
 > ASICs.
 > >>> I=92m not sure whether we can drop the no_hw_access flag after
 > >>> disabling PCI_COMMAND_MEMORY. The PCI hang occurs intermittently,
 > so
-> >>> we may need another round of stress testing to confirm that the flag
-> >>> is no longer needed. Should we remove no_hw_access in a separate
+> >>> we may need another round of stress testing to confirm that the
+> >>> flag is no longer needed. Should we remove no_hw_access in a
+> >>> separate
 > patch?
 > >>>
 > >>> Best Regards,
@@ -466,12 +489,12 @@ t?
 > >>>> block GPU PCI bar access during mode1 reset on gfx12, to resolve
 > >>>> the random mode1 reset hang issue.
 > >>>
-> >>> Interesting idea, that is much simpler than trying to mess with CPU
-> >>> page tables in the GPU reset path.
+> >>> Interesting idea, that is much simpler than trying to mess with
+> >>> CPU page tables in the GPU reset path.
 > >>>
 > >>> The only downside I can see is that we now drop VRAM and doorbell
-> >>> writes, but I think that won't matter since VRAM is lost by a mode1
-> >>> reset anyway.
+> >>> writes, but I think that won't matter since VRAM is lost by a
+> >>> mode1 reset anyway.
 > >>>
 > >>> MMIO writes are dropped as well which means that we can also drop
 > >>> the no_hw_access flag.
@@ -497,8 +520,8 @@ t?
 > >>>> index 072d9c4e202d..25b9085ead71 100644
 > >>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
 > >>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> >>>> @@ -2078,21 +2078,30 @@ static int smu_v14_0_2_set_df_cstate(struct
-> >>>> smu_context *smu,
+> >>>> @@ -2078,21 +2078,30 @@ static int
+> >>>> smu_v14_0_2_set_df_cstate(struct smu_context *smu,
 > >>>>
 > >>>>    static int smu_v14_0_2_mode1_reset(struct smu_context *smu)  {
 > >>>> +     struct amdgpu_device *adev =3D smu->adev;
@@ -531,8 +554,8 @@ t?
 > >>>> +     } else {
 > >>>> +             /* disable mmio access while doing mode 1 reset*/
 > >>>> +             smu->adev->no_hw_access =3D true;
-> >>>> +             /* ensure no_hw_access is globally visible before any
-> >>>> +MMIO */
+> >>>> +             /* ensure no_hw_access is globally visible before
+> >>>> +any MMIO */
 > >>>> +             smp_mb();
 > >>>> +             msleep(1000);
 > >>>>         }
@@ -547,7 +570,8 @@ t?
 > >
 
 
---_000_SA0PR12MB7091607C821DD468DDD2BC3B978B2SA0PR12MB7091namp_
+
+--_000_SA0PR12MB70915BCDD0BE98B2F8B54A0E978B2SA0PR12MB7091namp_
 Content-Type: text/html; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
@@ -563,11 +587,11 @@ AMD General<br>
 </p>
 <br>
 <div>
-<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
-o, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(33, 33, 33);" =
-dir=3D"auto">
-That is not part of actual reset, it is reinit after reset and that time ac=
-cess is safe.</div>
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(3=
+3, 33, 33);">
+The actual reset sequence is run by the FW while you are polling for the re=
+sponse. This patch doesn't make any sense in that way.</div>
 <div id=3D"ms-outlook-mobile-body-separator-line" data-applydefaultfontstyl=
 es=3D"true" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system=
 , Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"auto">
@@ -590,13 +614,13 @@ Lijo</div>
 </div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wang, Kevin &lt;Kevin=
-.Wang@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, 30 September 2026 11:39:10<br>
-<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Zhang, Yifan &lt;Yifan1.=
-Zhang@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Ko=
-enig, Christian &lt;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop=
-.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Yifan &lt;Yifa=
+n1.Zhang@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, 30 September 2026 11:47:46<br>
+<b>To:</b> Wang, Kevin &lt;Kevin.Wang@amd.com&gt;; Lazar, Lijo &lt;Lijo.Laz=
+ar@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koeni=
+g, Christian &lt;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop.or=
+g &lt;amd-gfx@lists.freedesktop.org&gt;<br>
 <b>Cc:</b> Yuan, Perry &lt;Perry.Yuan@amd.com&gt;<br>
 <b>Subject:</b> RE: [PATCH] amdgpu/pm: block GPU PCI bar access during mode=
 1 reset on gfx12</font>
@@ -606,10 +630,31 @@ enig, Christian &lt;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop=
  style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
 <div><font size=3D"2"><span style=3D"font-size:11pt;">AMD General<br>
 <br>
-&gt; On a second look, the patch doesn't seem right. Reset sequence is supp=
-osed<br>
-&gt; to be complete by the time FW responds back to the mode-1 reset messag=
-e.<br>
+Yes. In addition, the polling happens inside smu_cmn_send_smc_msg(), which =
+runs before PCI_COMMAND_MEMORY is cleared. During the mode1 reset process t=
+here should be no traffic to the PCIe BARs; otherwise, the PCI bus may hang=
+.<br>
+<br>
+Also, every PCI config write in the patch targets only the GPU device itsel=
+f (pci_write_config_dword is per device), so no other PCI devices are affec=
+ted.<br>
+<br>
+-----Original Message-----<br>
+From: Wang, Kevin &lt;Kevin.Wang@amd.com&gt;<br>
+Sent: Wednesday, September 30, 2026 2:09 PM<br>
+To: Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Zhang, Yifan &lt;Yifan1.Zhang@a=
+md.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, C=
+hristian &lt;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop.org<br=
+>
+Cc: Yuan, Perry &lt;Perry.Yuan@amd.com&gt;<br>
+Subject: RE: [PATCH] amdgpu/pm: block GPU PCI bar access during mode1 reset=
+ on gfx12<br>
+<br>
+AMD General<br>
+<br>
+&gt; On a second look, the patch doesn't seem right. Reset sequence is<br>
+&gt; supposed to be complete by the time FW responds back to the mode-1 res=
+et message.<br>
 &gt; During reset sequence, we need Mem space to be enabled to poll success=
 <br>
 &gt; status of the message and that's most volatile window during the whole=
@@ -627,8 +672,8 @@ Kevin<br>
 <br>
 &gt; -----Original Message-----<br>
 &gt; From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf =
-Of Lazar,<br>
-&gt; Lijo<br>
+Of<br>
+&gt; Lazar, Lijo<br>
 &gt; Sent: Wednesday, September 30, 2026 1:41 PM<br>
 &gt; To: Zhang, Yifan &lt;Yifan1.Zhang@amd.com&gt;; Deucher, Alexander<br>
 &gt; &lt;Alexander.Deucher@amd.com&gt;; Koenig, Christian<br>
@@ -638,25 +683,23 @@ Of Lazar,<br>
 br>
 &gt; reset on gfx12<br>
 &gt;<br>
-&gt; On a second look, the patch doesn't seem right. Reset sequence is supp=
-osed<br>
-&gt; to be complete by the time FW responds back to the mode-1 reset messag=
-e.<br>
+&gt; On a second look, the patch doesn't seem right. Reset sequence is<br>
+&gt; supposed to be complete by the time FW responds back to the mode-1 res=
+et message.<br>
 &gt; During reset sequence, we need Mem space to be enabled to poll success=
 <br>
 &gt; status of the message and that's most volatile window during the whole=
 <br>
 &gt; sequence.<br>
 &gt;<br>
-&gt; Disabling the memory space after reset sequence is complete looks to b=
-e the<br>
-&gt; wrong diagnosis of the issue. Access during reinit sequence after rese=
-t is safe<br>
-&gt; and shouldn't cause any issue in general.<br>
+&gt; Disabling the memory space after reset sequence is complete looks to<b=
+r>
+&gt; be the wrong diagnosis of the issue. Access during reinit sequence<br>
+&gt; after reset is safe and shouldn't cause any issue in general.<br>
 &gt;<br>
 &gt; That said, we should try to resolve the issue without touching any PCI=
- config<br>
-&gt; settings. PCI config space is open for others as well.<br>
+<br>
+&gt; config settings. PCI config space is open for others as well.<br>
 &gt;<br>
 &gt; Thanks,<br>
 &gt; Lijo<br>
@@ -710,9 +753,9 @@ lity_write_word(pdev, PCI_EXP_DEVCTL,<br>
 &gt; &gt; &lt;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop.org<b=
 r>
 &gt; &gt; Cc: Yuan, Perry &lt;Perry.Yuan@amd.com&gt;<br>
-&gt; &gt; Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during m=
-ode1<br>
-&gt; &gt; reset on gfx12<br>
+&gt; &gt; Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access during<b=
+r>
+&gt; &gt; mode1 reset on gfx12<br>
 &gt; &gt;<br>
 &gt; &gt;<br>
 &gt; &gt; This is the behaviour of this bit -<br>
@@ -720,12 +763,14 @@ ode1<br>
 &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Memory Spac=
 e Enable - Controls a Function's response to<br>
 &gt; &gt; Memory&nbsp; Space accesses. When this bit is Clear, all received=
- Memory Space<br>
+ Memory<br>
+&gt; &gt; Space<br>
 &gt; accesses are caused to be handled as &quot;Unsupported Requests&quot;<=
 br>
 &gt; &gt;<br>
 &gt; &gt; On AER enabled systems, depending on how the platform is configur=
-ed to<br>
+ed<br>
+&gt; &gt; to<br>
 &gt; classify the severity of UR errors, that could result in System error.=
 <br>
 &gt; &gt;<br>
@@ -760,14 +805,14 @@ nder<br>
 rg<br>
 &gt; &gt;&gt; Cc: Yuan, Perry &lt;Perry.Yuan@amd.com&gt;<br>
 &gt; &gt;&gt; Subject: Re: [PATCH] amdgpu/pm: block GPU PCI bar access duri=
-ng mode1<br>
-&gt; &gt;&gt; reset on gfx12<br>
+ng<br>
+&gt; &gt;&gt; mode1 reset on gfx12<br>
 &gt; &gt;&gt;<br>
 &gt; &gt;&gt; This doesn't work for all (at least on some datacenter GPUs).=
- With AER<br>
-&gt; enabled, this will result in AER errors. Depending on the platform con=
-fig,<br>
-&gt; some may classify this access as fatal.<br>
+ With<br>
+&gt; &gt;&gt; AER<br>
+&gt; enabled, this will result in AER errors. Depending on the platform<br>
+&gt; config, some may classify this access as fatal.<br>
 &gt; &gt;&gt;<br>
 &gt; &gt;&gt; Thanks,<br>
 &gt; &gt;&gt; Lijo<br>
@@ -907,7 +952,8 @@ g mode1 reset<br>
 &gt; &gt;&gt;&gt; Alex<br>
 &gt; &gt;&gt;&gt;<br>
 &gt; &gt;&gt;&gt; ---------------------------------------------------------=
------------<br>
+---------<br>
+&gt; &gt;&gt;&gt; --<br>
 &gt; &gt;&gt;&gt; -<br>
 &gt; &gt;&gt;&gt; -<br>
 &gt; &gt;&gt;&gt; --<br>
@@ -944,10 +990,11 @@ s during<br>
 ed to fix<br>
 &gt; &gt;&gt;&gt; the Mode 1 reset hang, but it proved insufficient.<br>
 &gt; &gt;&gt;&gt; I think the flag was set in the SMU code so that it would=
- apply only<br>
-&gt; &gt;&gt;&gt; to<br>
+ apply<br>
+&gt; &gt;&gt;&gt; only to<br>
 &gt; &gt;&gt;&gt; SMU13/14 ASICs, without affecting the Mode 1 reset proces=
-s on other<br>
+s on<br>
+&gt; &gt;&gt;&gt; other<br>
 &gt; ASICs.<br>
 &gt; &gt;&gt;&gt; I=92m not sure whether we can drop the no_hw_access flag =
 after<br>
@@ -955,9 +1002,10 @@ after<br>
 ttently,<br>
 &gt; so<br>
 &gt; &gt;&gt;&gt; we may need another round of stress testing to confirm th=
-at the flag<br>
-&gt; &gt;&gt;&gt; is no longer needed. Should we remove no_hw_access in a s=
-eparate<br>
+at the<br>
+&gt; &gt;&gt;&gt; flag is no longer needed. Should we remove no_hw_access i=
+n a<br>
+&gt; &gt;&gt;&gt; separate<br>
 &gt; patch?<br>
 &gt; &gt;&gt;&gt;<br>
 &gt; &gt;&gt;&gt; Best Regards,<br>
@@ -989,14 +1037,14 @@ during<br>
 &gt; &gt;&gt;&gt;&gt; the random mode1 reset hang issue.<br>
 &gt; &gt;&gt;&gt;<br>
 &gt; &gt;&gt;&gt; Interesting idea, that is much simpler than trying to mes=
-s with CPU<br>
-&gt; &gt;&gt;&gt; page tables in the GPU reset path.<br>
+s with<br>
+&gt; &gt;&gt;&gt; CPU page tables in the GPU reset path.<br>
 &gt; &gt;&gt;&gt;<br>
 &gt; &gt;&gt;&gt; The only downside I can see is that we now drop VRAM and =
 doorbell<br>
 &gt; &gt;&gt;&gt; writes, but I think that won't matter since VRAM is lost =
-by a mode1<br>
-&gt; &gt;&gt;&gt; reset anyway.<br>
+by a<br>
+&gt; &gt;&gt;&gt; mode1 reset anyway.<br>
 &gt; &gt;&gt;&gt;<br>
 &gt; &gt;&gt;&gt; MMIO writes are dropped as well which means that we can a=
 lso drop<br>
@@ -1031,9 +1079,9 @@ c<br>
 ppt.c<br>
 &gt; &gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_=
 ppt.c<br>
-&gt; &gt;&gt;&gt;&gt; @@ -2078,21 +2078,30 @@ static int smu_v14_0_2_set_df=
-_cstate(struct<br>
-&gt; &gt;&gt;&gt;&gt; smu_context *smu,<br>
+&gt; &gt;&gt;&gt;&gt; @@ -2078,21 +2078,30 @@ static int<br>
+&gt; &gt;&gt;&gt;&gt; smu_v14_0_2_set_df_cstate(struct smu_context *smu,<br=
+>
 &gt; &gt;&gt;&gt;&gt;<br>
 &gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; static int smu_v14_0_2_mode1_reset(=
 struct smu_context *smu)&nbsp; {<br>
@@ -1094,9 +1142,8 @@ p;&nbsp;&nbsp;&nbsp; /* disable mmio access while doing mode 1 reset*/<br>
 &gt; &gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp; smu-&gt;adev-&gt;no_hw_access =3D true;<br>
 &gt; &gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; /* ensure no_hw_access is globally visible before any<=
-br>
-&gt; &gt;&gt;&gt;&gt; +MMIO */<br>
+p;&nbsp;&nbsp;&nbsp; /* ensure no_hw_access is globally visible before<br>
+&gt; &gt;&gt;&gt;&gt; +any MMIO */<br>
 &gt; &gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp; smp_mb();<br>
 &gt; &gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
@@ -1114,10 +1161,11 @@ n ret;<br>
 &gt; &gt;&gt;<br>
 &gt; &gt;<br>
 <br>
+<br>
 </span></font></div>
 </span></font></div>
 </div>
 </body>
 </html>
 
---_000_SA0PR12MB7091607C821DD468DDD2BC3B978B2SA0PR12MB7091namp_--
+--_000_SA0PR12MB70915BCDD0BE98B2F8B54A0E978B2SA0PR12MB7091namp_--
