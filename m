@@ -4,126 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBB60CA5FB1
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 09:02:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE58CA5FB1
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 09:03:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5292910F28C;
-	Wed, 30 Sep 2026 09:02:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0DF310E91E;
+	Wed, 30 Sep 2026 09:03:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KJVnTQz6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AhV9q4Kl";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012012.outbound.protection.outlook.com [52.101.48.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1F9610F289
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 09:02:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q0dExGrH9Kysez9lDJunnHQBmCoO7reD62acSESvIfe6d21gcRxEWOo49zgsWa3z4iEYJ9fNqeeyMD4BEhUbnifdS/IWpCCbWGxneGn4EPAltzO93wmQET5b7oVc5Ds6D/ws0UGJjt/tSIuxRRsLqy9H+wQxEL/a0ReXDTG9aws4OmZSFqjr08pGXSDRJpz9EVrB5QhkE/dSa3kxd2uh1xaoCeksoB1mqmvZrbqzqj/AQjGwrKZ/5fFjfOfsNEkrGMxwjCEgaLg7wwN+JwdVCmvCqTb6/u0vQsYsHvJ81Js9mBtESoIjGPNEatH/q6X+Q5u6kbVx89NfmwlhR49byA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W9aMt2VUvA18z3/+6IQ7tMQOE3lXMg0zuZy5NiHD0rY=;
- b=u5LtSuSXa0KVjju+deKo7Km4ZyKSWULeL1KmM0obK84ximndDf4+igUCXr/3nCST460XPvWjv4ppdrPQvee5W3N/Zk+DTb2UMANbbAKPK15bItGavwh97O/IGgMSVn2r3ezd4k19QpEpUM7wmlnByjQ4WLKmHlq1B8+J5TlK4mgIqftxHQP0ld1MvY8nZYRc3eEb5gYHs89gKwgLtQhj8GKyGAKbi5GB8k4lSzwFlRaHiZm4rAXYivINALBEFU9oMR4ivEw3vAcnZ5lOGMBi7zkPzRa4/ry59yMiukYikl+jNXnlOxGj+4UQfcBNae2+f80lbDM/9MOWlFz2I/2yfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W9aMt2VUvA18z3/+6IQ7tMQOE3lXMg0zuZy5NiHD0rY=;
- b=KJVnTQz6vxphB/WW/0QxCJ4IYP3zmHLjH/g5BcxLCyv/2CzOHMmNGCAlDs9cnbneewDLToQRmtcuUZGq/hyxg04urcFlaOajAQvWoshIAg47BEnxBzRlOAdzxlvw6e/60h1ioVATa3901ONR9t1fWwPt23QXTXnDqF6oTloFKDI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CYYPR12MB8869.namprd12.prod.outlook.com (2603:10b6:930:bf::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 09:02:34 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 09:02:34 +0000
-Message-ID: <cd5af67b-d2af-43a5-be86-216155f46ff8@amd.com>
-Date: Wed, 30 Sep 2026 11:02:30 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/9] drm/amdgpu: fix cleared PDE/PTE flag generation
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- natalie.vock@gmx.de, honghuan@amd.com, Alexander.Deucher@amd.com,
- Felix.Kuehling@amd.com, Philip.Yang@amd.com, cascardo@igalia.com,
- tvrtko.ursulin@igalia.com
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260928151041.1857-1-christian.koenig@amd.com>
- <20260928151041.1857-2-christian.koenig@amd.com>
- <P3WG6T-ATwauPO6Yp0bWtQ@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <P3WG6T-ATwauPO6Yp0bWtQ@gmail.com>
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
+ [74.125.225.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A81ED10E91E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 09:03:28 +0000 (UTC)
+Received: by mail-wr2-f34.google.com with SMTP id
+ ffacd0b85a97d-48aef5d66c1so1098946f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 02:03:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790759007; x=1791363807; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Xw2/+ozrc4J9brQA48GMQ6vkyz9q9SCUPEFr5E0FVQw=;
+ b=AhV9q4KlZgnI5bozYjFKdnSDUveyySQaOJbkNb7+EcVdguhCqLxLzeJ05SVdWfC07m
+ shpDjBuNtcpTvNDRWxkDR4y/ANs/bpyLAlRoUrQS+so2STvPIjKbK0DaFwpTReLele6g
+ VSatVw6ovfj2RvaNNp9RUvxX8qqt7S65lcUZdQiVq3/8ZOVntRHFuIvTLTL94hhpBqZJ
+ 50xcd+9pJRZ3kk4Y5/MrZ9aLVKy6JkkzwYX6/0b6Ucc4m8/aCGu0INitzCHesCRn4bwA
+ At95ekiAbNN+0XlY3WBx7g0rCI2oG0izbdCxcVhqy8HVCEQioJ0Pu4zUY0bYBSA8Ev4R
+ dFuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790759007; x=1791363807;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Xw2/+ozrc4J9brQA48GMQ6vkyz9q9SCUPEFr5E0FVQw=;
+ b=JnLl2U0J2rWwlLNx7wFuVZdJnN/YySWsrrGmmMeYvB0tRMmXUSX1+vcmff/NM2/nnL
+ X2TzBhgw3Zyrr3X1tTuwy6qUOT/hHFt8h6hitpXN10Z9WxbWyPJnrjyY228knkT3sPR+
+ OGYNwVD41HqZHOdiuwtqAhkwfcdEc4wQqnUYUW4k4LZ3814vwcG89Jy9IuQeHYyKEzr0
+ EKH4AF8hbgPV/UptRgOGbhtuY9xiwNKCllB9/g08ZiO1o1jQbaaS0sk5hb9AJNqU9Wxh
+ b+M680Bxt5h+DN7YlDWVZZM5VDELAAHXhl/LliNH0hZ5QekAS5Yp0PLkVZwdC3nS/A8e
+ 6x7A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy/3NVN8tcGtryezc+h4mal7qH2XQbyV4yJG+DwcTfrDKJQfg5mNx3adu1mtiWINjheh/sSQTtt@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKfaUHYvaCxGkh2sn8c/6aMcnxT1w14D6/sA+GPdDjdN2u+04nn
+ 9Wm8R0g/iUB1/3PkvQaVH+vWUM96QEz2lvLsD3ZqxMJoi0oCBB+0yFM1
+X-Gm-Gg: AYBFou3++tzxsr9eEoeHVQmve+xBaFTSJL26W/WZX40lAFyk/vJJdhwSwifZRqvh0pR
+ JQsG8Ajkq+ExT+4F53t6g2MhTndKDpqnbX8iImUUJMkrQTX+yQyfJv0lvicBNsj9vk6tvVrF0Nh
+ 2b/cw25UP2oXlqebEPm6V6fv/Y6iLwV8ytt/yvQYwZeCZ3hm/FM2oqyUYIk4zTYiyyg0L1Ku4z9
+ uBZANWkjnFH/A0TKCYXJgdGcA26lWPX2H+PDLaBdY11+SEyQXeGV5x2PzzhnFwtY2P8baokjuAM
+ dv/X9ht9d6A8Y1Ly7gvG7IShSg/xTTCMhxpfF7t6LtqfPHWTDAZuoUNFyXsUr8GBWnqhy90PrKg
+ 7G9tIQ36Bkk85ZeBFco5RX2YJZ97g/Yl3gQQMQ0TOqM+gkS8ihBdIzmbrKVa1MdD+iDn4NKowty
+ FZsOZQvDuYefsZKBERuEM6ZfQ04a8xgdiYAAu+kkvg8PY5A38sQReGVAYe90jK95hOjhbLuLw3K
+ r/xxi4tRY4sEEVG/39Rfk6QHhZLg6vYmdKkb5Q8OE2pdrAdn6NHf3p9IQ/RLhbml7jxk+fQnAWR
+ jrngy1q8MnDQ3Mpx9qDi9vsahh5EBcpmqArgUDZB1IFn7HemAi14aNEgXrHth7FdncBQ0dH7pF9
+ c2QkOfW9ON1lJNlv6//K5dnF20TEUD53eWE+sVHegcfUE9EPJ+yRJdUdORmt0sjJOHTisR44bYq
+ oppOaF8UwwGixU6EM=
+X-Received: by 2002:a05:6000:4a07:b0:487:9a9:6d24 with SMTP id
+ ffacd0b85a97d-48b024bd031mr1653013f8f.19.1790759006604; 
+ Wed, 30 Sep 2026 02:03:26 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2a0d:e487:415f:3423:d0fc:6384:3b6e:b871])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48b029f5bcdsm1910233f8f.27.2026.09.30.02.03.25
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 30 Sep 2026 02:03:26 -0700 (PDT)
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+To: olivier.kaloudoff@gmail.com,
+	amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 06/13] drm/amdgpu: add amdgpu_vm_update_leaves()
+Date: Wed, 30 Sep 2026 11:03:25 +0200
+Message-ID: <20260930090325.46167-1-olivier.kaloudoff@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260529114031.3714-7-christian.koenig@amd.com>
+References: 
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0124.namprd13.prod.outlook.com
- (2603:10b6:208:2bb::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8869:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc65fe3c-6334-451d-29a5-08df1ed1912f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|10067099003|11063799006|56012099006|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info: qdLsA5Zdha7rqD6W2thYYjxclg0wfBzjYXU5EU/Ino/POkvzNxjwk4ML9JTfS/M3OXfbZV9a9WkIEOb+/V8xM1VACZE3iZEn8cACeKme4sA31n5AadR2MoIyU/qEH6QX0nrQ5Fk3k0x1bPk8BDtbtFf7/5dK3joMnJEu1JdVEmoWdharDDL3wADMr9d6dlm4CfXTotQ5ugLJDAoCjA/zecUJ1jtCSKvbPU/IP3OJk8ylS2wvRQ8BqeT0s0vVBlvnZfrBN6F6n92TNbF/6FmR1hMVaRUAb+vGLazStBTnt3pqOHQpEDrTbunICdN9T5pvh4r7Znwo6nY1YMN/zOyjl+rud/zJYle6MdXXYLeOZLhqp4ZODs1nHlqcWdHcTGjbpQv+rjhZ6UVkLU6vg9OVPCLgmXIczAHi5EI6u0xRniJ40egUyCycYEj2Y4Dy9lhHBQhNuL4KYoD4IzzHbTnnF5CZ6fgt0sSQyvraESDLGzen33/d/B9jhnbiGYEZr0+fik7PA7dRnPDIu6Vc1D+7zxliE7qdQKVwCbAeLE3XA1lVhb0NSqU0He+b9TKrNA222PRKDNJQqkS7j4Lm3up+17pG15QG0RPB9rqbaC8ORRwTDdjlDwRg7jP7GhA4eGm9CfFpEUfvySnb+fML+rGvoneWlNlvR8xghuSpBIsA+CI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MjgwQ0l2ZEM2TnczaTUyNFl5NlF2MFpxK0s3QmZ1SWY3Y2k4WWErY0dDYUFx?=
- =?utf-8?B?eUR0RVI4S0lRT1VPVzFLeXpEQ2p0UXJac0p6MHNSbE5JRlNGdE0rVVNzanBP?=
- =?utf-8?B?U1l0d0UwTEtqdTFXa09TWEovenVTMGpNVTA2TWJCM2dVZm9FQXIxRmVsK0Fs?=
- =?utf-8?B?dHNLYXk4ZE5XcC9xcDlGemEwSTVvRGFuRlliVXdFbldiN2dpR0NsS2dORVBC?=
- =?utf-8?B?UHdEenl2Y0V3L3BMWTJSWFBmMFBmQ05wdWNTVnpIcklqWmJRVDY4SHl3YTBT?=
- =?utf-8?B?cjI1RHMvOGpYV05SM29YdEw3SHhYQzV2Q3hENkcvdFBzK1ZjeHh1cGg2K0tj?=
- =?utf-8?B?aU5OcWFsYUFQUzVNZkFxcTkyeUpRYXNZVUMzbXR3MDNVb1p3elRxelYrQmFS?=
- =?utf-8?B?dUlJQitoWThBSlhqKzB2a1FEWndzSkZlZUJEK2s4OXgxcXc5UWd4ejNuZ3BR?=
- =?utf-8?B?YkQzOTlOK0JIaUs0dExoU2FFTmljOW56MUdYUkhua1FGUVZFRjZFSG8zMmJu?=
- =?utf-8?B?cjQ2TlNvNjgrb054VGxWRE5XUit3L3NFdk5pNjdhNzFsYkwxSHIyRkZiRGtX?=
- =?utf-8?B?UmdFQXJWdlMvRkJDWlBQR1FWQzN1cWFkajE0TkJycitiVlB4VEl3Zko5VDZw?=
- =?utf-8?B?RFRWdWNZYytWekI0L0E5a0plRUdQYkU2czFnZmpncitFYXU1OUwrVHMvSEJq?=
- =?utf-8?B?VXZpRHgrOTdWeXJYV1NWMnYxaXdjd3cvODV0cVpFNnJHZlhTMXVYTnI3dFVs?=
- =?utf-8?B?d2o5Uzh3dzA3S3AxWEVnQUc5K3d2ZUhRWDFIeXdheEZuRVhrZHlMVXBibHYy?=
- =?utf-8?B?bEx0RTJEUlNmTnpISXV2SitNZ1dpN0FoQ2l4L01KQVUyQ0tVQkVJQnY5bXg5?=
- =?utf-8?B?UXdVa3JOUVVMYzNhMkhyZHhZKzJ3Y3czdXN3cEIwQURuVU9WbGxzamdSQTFl?=
- =?utf-8?B?bndIdmhvZ3VTVE4zb1F3UEk1Z25IaytEd285SEgxOEFUMTF1ZWFZSnduN2NM?=
- =?utf-8?B?c2ZRak1FbGttOW9sVU9YTHRGQ29SdEVxTkdjeHVJMkRpK0E2QUtDajVPb1BS?=
- =?utf-8?B?MkJDelppM3NUeU9JaURZbUptYlRjZHN1VUt6amU2dXNMc3JWY2pQeE4wL3BS?=
- =?utf-8?B?RXFYb1hKUzVZMktmSFdjaVJZRWhyaUZTVENPYTFmNytTd21ibk85RllNWm4r?=
- =?utf-8?B?eGtHR2xrNVlmaFlnYjVpTDNhM1pqTmM1NGZZbHZPV2d2eER4MEhUOUNNOHdB?=
- =?utf-8?B?alBXNkJXdEJnMExkMytvUThOVy9oZHMzRk9qd0RhQitCOUhPQ08wdjlob0ds?=
- =?utf-8?B?b0oyMHcwTk5ienpjSS9Zc2ZLQjFZWnQ0aTdMMitmN2JaYUI3dDgxMzFRU01Q?=
- =?utf-8?B?WU9FZW0vcGFrRk0vVnFPMEtiNGg3ZlVNaitRejdYUFFCU1REQ2xqNXhycDBP?=
- =?utf-8?B?b2graGlXSTRzVllFVjNhN3poY3RRejkwcnBTZGhlNVdRY2ZkVG5Vd0JLTlpW?=
- =?utf-8?B?dXZHOG01VDBFcnh2V0ZoZFdTMHdaaDVFdFRkaWRWazE5V0xUSS9nV3JkUVdH?=
- =?utf-8?B?SGQ3dWgrVU1oMGE5MUxLVEhOUXRzWW81ZWM3S0RNcys3Z2ZuNEhKS2dDYWRO?=
- =?utf-8?B?N25QSGtkOGhiRUJrdk45QnFJNUNmUjBYbldZV2NFRWVmL1pGVjBmTmE3dmQw?=
- =?utf-8?B?RSt1cWJqckpSeUx4Zjg5eEp5aU81bGZKcFphWDBCazU0UjUwanhENGdIa3JD?=
- =?utf-8?B?Q3ZQMTQ0RGtITGpXbWJFU296VWwzeG5lbFJkMjZaa3I1Yng4ZURDK2NXZHpY?=
- =?utf-8?B?b0xDaW5nWkxUbCtWaGU5SHlackpiR2pWRXBMdEN2WDlaTERjTis2ZTVKbHRu?=
- =?utf-8?B?WkZYMWFMWndXdWtWZ1g4akdLQ1pNVkVRVFV2b0FBdVZNMkxKM3luVlZCMHhF?=
- =?utf-8?B?ZmRsL2UwRndEWU5PNy8vbVBnWVdhUkFPeVNkQkFrWFdmZkVld0N1cC9oUnhJ?=
- =?utf-8?B?MFBZSk03c0diWXdXMEdjeDV1QWJlMElKaWZ5L1hxSFFYUjR6NzBGc1NIdzJ2?=
- =?utf-8?B?MWlCSHZsMW95elExajNEV1JXQnpJOGtJQ09vOWQ4SHM0Y0dDRkdTcXpwYzcw?=
- =?utf-8?B?NGhwMEdBdmVYRXlhSmFFN3RlSi8reFFFaTFQcE1wUnBXZ1AyVForK2tjQ2Fq?=
- =?utf-8?B?a0dodXlqcVpId1Vkbk52WW1RTFBnYWtEZFAyU0FlYjJkYkRrbCs2UXl0R2ty?=
- =?utf-8?B?M1dEM2pQY2FrUndROGhhdEFUclAvVDhKRzVSeWJxTUUxMHg2WWc3dWV1TGw5?=
- =?utf-8?Q?H3V33qqdzD9yBx7+4o?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc65fe3c-6334-451d-29a5-08df1ed1912f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 09:02:34.4733 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DTlKtBj7IfwRcB1OgBgo5LsOkX2BDVopgJZscOU0mwpbbKak/nHVVtCzWPRyvmbU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8869
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,136 +94,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-@Felix and @Philip any objections to this patch?
+Hi Christian,
 
-It is actually a bug fix for the NPA support.
+while testing this series (applied on top of 7.2.6) we hit a regression
+in amdgpu_vm_update_leaves() that deterministically produces MMHUB
+page faults under KFD SVM load on gfx906 (MI50 32GB, Vega 20, PCIe via
+Thunderbolt 3 eGPU).
+
+> +		pt = cursor.parent->bo;
+> +		shift = amdgpu_vm_pt_level_shift(adev, cursor.level - 1);
+> +		mask = amdgpu_vm_pt_entries_mask(adev, cursor.level - 1);
+> +
+> +		/* Looks good so far, calculate parameters for the update */
+> +		pe_start = ((cursor.pfn >> shift) & mask) * 8;
+> +
+> +		entry_end = ((uint64_t)mask + 1) << shift;
+> +		entry_end += cursor.pfn & ~(entry_end - 1);
+> +		entry_end = min(entry_end, end);
+> +
+> +		nptes = (entry_end - cursor.pfn) >> shift;
+> +		/*
+> +		 * This can happen when we set higher level PDEs to unmap and/or
+> +		 * silent to stop fault floods.
+> +		 */
+> +		nptes = max(nptes, 1u);
+> +
+> +		trace_amdgpu_vm_update_ptes(params, cursor.pfn, entry_end,
+> +					    min(nptes, 32u), dst, 0, flags,
+> +					    tgid,
+> +					    vm->immediate.fence_context);
+> +		amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_vm(pt),
+> +					   cursor.level - 1, pe_start, dst,
+> +					   nptes, 0, flags);
+
+When amdgpu_vm_pt_descendant() cannot descend (a gap — the position has
+no leaf table in the tree), the write targets the parent's slot at
+level-1, i.e. a PDE slot. nptes as computed above covers *every*
+remaining slot up to entry_end (the end of the parent-table span,
+clamped to the op end) — not just the slot the cursor is at.
+
+The old code had an explicit clamp for this exact case, in
+amdgpu_vm_ptes_update() under params->unlocked:
+
+	if (cursor.level < AMDGPU_VM_PTB && params->unlocked)
+		/* only clear one entry. Next entry search again for PDE or
+		 * PTE leave.
+		 */
+		entry_end = 1ULL << shift;
+
+That clamp was lost in the rewrite. Without it, an unlocked unmap
+(PATCH 08/13 wires amdgpu_vm_unmap_range() to update_leaves()) that
+hits a gap *before* still-linked sibling subtrees will clear their
+parent slots too:
+
+  - the gap's unmap write covers N parent slots (we observed runs like
+    pe 0x58 n15, pe 0x60 n14, pe 0x68 n13 — each gap position
+    re-clearing the whole remaining tail of the parent page),
+  - sibling PDE slots inside that span still hold live child pointers,
+  - the write overwrites them with the PDE_PTE-only marker
+    (0x40000000000000 in RAM — bit 54 set, no address),
+  - the in-memory PT tree still considers those subtrees linked, so
+    their needs_update is never set and a later amdgpu_vm_update_pdes()
+    pass does not re-link them,
+  - the next GPU page walk through that slot reads a non-pointer and
+    faults: "memory access fault ... reason: PTE not valid" (MMHUB
+    no-retry).
+
+Captured write ordering (instrumented amdgpu_vm_pte_update_flags /
+amdgpu_vm_pde_update, job ids tagged):
+
+  MAP_RANGE    PTEs pe 0x368..0x800        (big map)
+  UPDATE_PDES  pde 0x0..0x1a8 links, incl. [0x80] -> child 0x5d4dd0000
+  MAP_RANGE    PTEs pe 0x58..0x1e0         (re-map)
+  UNMAP_RANGE  clear pe 0x58 n15  -> covers 0x58..0xc8, incl. 0x80
+  UPDATE_PDES  relinks 0x58..0x78, 0xf0..0x1f0  -- but not 0x80..0xe8
+  FAULT        slot 0x80 reads 0x40000000000000,
+               tree still expects 0x5d4dd0001
+
+The unmap's clear overshoots slot 0x80; the relink pass skips it
+because the subtree was never dropped from the tree. This is fully
+deterministic — our reproducer (vLLM/ROCm loading a 10-shard model,
+i.e. heavy SVM map/unmap/re-add churn) faulted at the same stage on
+every run.
+
+Locally we fixed it by restoring the single-entry semantics for
+non-leaf slot writes:
+
+	/* only clear one entry, next entry search again for PDE/PTE leaf */
+	if (cursor.level < AMDGPU_VM_PTB)
+		nptes = 1;
+
+(nptes = 1 rather than re-clamping entry_end, since entry_end is only
+used for the tracepoint afterward; either form works.)
+
+With the clamp restored the full workload completes cleanly — all
+checkpoint shards load, engine serves inference, zero page faults
+across repeated runs and reboots.
+
+Two questions:
+
+1. Is this already fixed in a later revision of the series? I tested
+   the patches as posted on amd-gfx (2026-05-29), not a git branch.
+2. If not — since 08/13 makes the unlocked unmap path use
+   update_leaves(), everyone driving SVM eviction/restore traffic will
+   hit this. Would you like a formal patch, or do you prefer to fold
+   the clamp into a v2?
+
+Full debugging trail (STALE PDE dumps, write histories, vanilla diff)
+is available if useful.
 
 Regards,
-Christian.
+Olivier
 
-On 9/28/26 21:08, Timur Kristóf wrote:
-> On 2026. szeptember 28., hétfő 11:10:34 keleti államokbeli nyári idő Christian 
-> König wrote:
->> That was broken since adding the NPA support.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
-> 
-> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
-> 
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 64 ++++++++++++-----------
->>  1 file changed, 33 insertions(+), 31 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c index
->> c03327f1242d3..e8f441e018839 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->> @@ -346,6 +346,33 @@ static void amdgpu_vm_pt_next_dfs(struct amdgpu_device
->> *adev, amdgpu_vm_pt_continue_dfs((start), (entry));			
-> \
->>  	     (entry) = (cursor).entry, amdgpu_vm_pt_next_dfs((adev), 
-> &(cursor)))
->>
->> +/* Return the flags used for cleared PDEs/PTES */
->> +static uint64_t amdgpu_vm_pt_clear_flags(struct amdgpu_device *adev,
->> +					struct amdgpu_vm *vm,
->> +					unsigned int level)
->> +{
->> +	uint64_t flags;
->> +
->> +	if (adev->asic_type < CHIP_VEGA10)
->> +		return 0;
->> +
->> +	if (level != AMDGPU_VM_PTB) {
->> +		uint64_t value = 0;
->> +
->> +		flags = AMDGPU_PDE_PTE_FLAG(adev);
->> +		if (vm->is_npa)
->> +			flags |= adev->gmc.noretry_flags;
->> +		amdgpu_gmc_get_vm_pde(adev, level, &value, &flags);
->> +	} else if (vm->is_npa) {
->> +		flags = adev->gmc.noretry_flags;
->> +	} else {
->> +		/* Workaround for fault priority problem on GMC9 */
->> +		flags = AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags;
->> +	}
->> +
->> +	return flags;
->> +}
->> +
->>  /**
->>   * amdgpu_vm_pt_clear - initially clear the PDs/PTs
->>   *
->> @@ -366,10 +393,9 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev,
->> struct amdgpu_vm *vm, struct ttm_operation_ctx ctx = { true, false };
->>  	struct amdgpu_vm_update_params params;
->>  	struct amdgpu_bo *ancestor = &vmbo->bo;
->> -	unsigned int entries;
->>  	struct amdgpu_bo *bo = &vmbo->bo;
->> -	uint64_t value = 0, flags = 0;
->> -	uint64_t addr;
->> +	unsigned int entries;
->> +	uint64_t flags;
->>  	int r, idx;
->>
->>  	/* Figure out our place in the hierarchy */
->> @@ -404,26 +430,8 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev,
->> struct amdgpu_vm *vm, if (r)
->>  		goto exit;
->>
->> -	addr = 0;
->> -
->> -	if (adev->asic_type >= CHIP_VEGA10) {
->> -		if (level != AMDGPU_VM_PTB) {
->> -			if (vm->is_npa)
->> -				flags = adev->gmc.noretry_flags;
->> -			/* Handle leaf PDEs as PTEs */
->> -			flags |= AMDGPU_PDE_PTE_FLAG(adev);
->> -			amdgpu_gmc_get_vm_pde(adev, level,
->> -					      &value, &flags);
->> -		} else if (vm->is_npa) {
->> -			flags = adev->gmc.noretry_flags;
->> -		} else {
->> -			/* Workaround for fault priority problem on 
-> GMC9 */
->> -			flags = AMDGPU_PTE_EXECUTABLE | adev-
->> gmc.init_pte_flags;
->> -		}
->> -	}
->> -
->> -	r = vm->update_funcs->update(&params, vmbo, addr, 0, entries,
->> -				     value, flags);
->> +	flags = amdgpu_vm_pt_clear_flags(adev, vm, level);
->> +	r = vm->update_funcs->update(&params, vmbo, 0, 0, entries, 0, 
-> flags);
->>  	if (r)
->>  		goto exit;
->>
->> @@ -712,15 +720,9 @@ static void amdgpu_vm_pte_update_flags(struct
->> amdgpu_vm_update_params *params, flags |=
->> AMDGPU_PDE_PTE_FLAG(params->adev);
->>  		amdgpu_gmc_get_vm_pde(adev, level, &addr, &flags);
->>
->> -	} else if (adev->asic_type >= CHIP_VEGA10 &&
->> -		   !(flags & AMDGPU_PTE_VALID) &&
->> +	} else if (!(flags & AMDGPU_PTE_VALID) &&
->>  		   !(flags & AMDGPU_PTE_PRT_FLAG(params->adev))) {
->> -
->> -		/* Workaround for fault priority problem on GMC9 and 
-> GFX12,
->> -		 * EXECUTABLE for GMC9 fault priority and init_pte_flags
->> -		 * (e.g. AMDGPU_PTE_IS_PTE on GFX12)
->> -		 */
->> -		flags |= AMDGPU_PTE_EXECUTABLE | adev-
->> gmc.init_pte_flags;
->> +		flags |= amdgpu_vm_pt_clear_flags(adev, params->vm, 
-> level);
->>  	}
->>
->>  	/*
-> 
-> 
-> 
-> 
-
+== Environment ==
+  GPU:       AMD Radeon Instinct MI50 32GB, gfx906, 0000:05:00.0
+             (Vega 20, PCIe via Thunderbolt 3 eGPU enclosure)
+  Host:      AMD Strix Halo (Ryzen AI Max+ 395), 28GB RAM, Proxmox VE 9
+  Kernel:    7.2.6 + amd-gfx VM critical-section series (vmcrit 1-14)
+             + TLB invalidation V3 series
+  Workload:  vLLM 0.28.0 (rocm, gfx906 build) loading GLM-4-9B 1M
+             via KFD SVM; deterministic fault during weight staging
