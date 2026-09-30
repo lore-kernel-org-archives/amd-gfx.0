@@ -4,54 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFC95CA5FD2
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 07:17:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86F32CA5FC5
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 07:17:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4695C10F5A3;
-	Thu,  1 Oct 2026 07:17:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DC0610F5A1;
+	Thu,  1 Oct 2026 07:17:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="ZJMvIwby";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YayvKTzr";
 	dkim-atps=neutral
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67D7C10E93F;
- Wed, 30 Sep 2026 04:56:55 +0000 (UTC)
-Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
- (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68U4uQrb098371
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Wed, 30 Sep 2026 13:56:26 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=Il6Pn8W1NJX9qhwbRcpycT2Saqf/wh2/BgvOLGH6lG4=; 
- c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
- h=From:Message-ID:To:Subject:Date;
- s=rs20250326; t=1790744186; v=1;
- b=ZJMvIwbyT8HsLngGKDH8Dxl0o6DaQol1ktghTGr8gxAPjovpuDN1bQfkJcXPUJfp
- VTTNJ22GMW1PslrLxc5OsAR0JsKbo2suAjU0opJkeP9Ive4PqU3sq7Bczbw6wEPl
- 5590um/csXpYGEFb+W0ZkIUy6U6k80/YZgshn2v4rZShf7OJjcaUvRxJZErJFiSB
- 3qA3GqNktTXgv4ChUSK54faOGV209MrbZ/nt+r3vLIocCzAwhMrXedGZtohA/3jC
- BQDp7FbMNoHyyD6tiMRLLqnALtGhGXfxQTJ2wG6ODOp5pAzsGkthx/tOjcUs9X5T
- ReqciSAod4gJPVdAE60hcw==
-Message-ID: <dce3d9ed-87a7-43fe-b7d8-c7281514f7d1@rsg.ci.i.u-tokyo.ac.jp>
-Date: Wed, 30 Sep 2026 13:56:26 +0900
+Received: from mail-dl2-f33.google.com (mail-dl2-f33.google.com
+ [74.125.229.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C205510EC09
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 20:03:37 +0000 (UTC)
+Received: by mail-dl2-f33.google.com with SMTP id
+ a92af1059eb24-1438e88300cso5857110c88.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 13:03:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790798617; x=1791403417; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=cASLx32ym87jdhS0h2FvPN2AduCc3BT2HfqD8zMngx0=;
+ b=YayvKTzrZRVoCpfIAupEZxhGiQLSfp1KKZFfOksMwZLYDDtGLa6XaJYTz8kkcZmsAU
+ XB1e8FHhnDkH/Tpx7YwGr5fnl7MW9LFEV2BzaWl3qVjOc7zeTVoublM7MBElYbSq5Z2E
+ Tz21zWt3dzYBC6uv6jH0gHIFi3ygaVcMdSVfRIk6FTqshR77lubbQhbR5ACE1S3rNj1f
+ 5DW559odl35oahYZZSY+hJ0E1LH4MCGKmZq3YkRmA385QHmfg288gUebg5PK9hL4Sv3x
+ HNDZv6wmBYRXTA5V1AUP9h/KJv1ka2FVx0hrEnhNCS4tj1A1eBYrFwPtWfwpARUd9xEj
+ vVhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790798617; x=1791403417;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=cASLx32ym87jdhS0h2FvPN2AduCc3BT2HfqD8zMngx0=;
+ b=cNf3hgGENsHZfnv6d4tsb+kKAwo5chwC5FZYTHPUvGMXUMYrC7ekAaV4PObWAWzGvb
+ mBtyg8ss+yxV7wQEnJGvz6ZAP2LI6tWa0wA1PAv2Ill33mPFw/dXR0jZ0flnmCasPfAS
+ KzkLY8muIL6nVVfQoDgk4uMNueeqMGDDZJKS0qJ50XG8SpOrXrrbKprZyWlwM/tnaxz4
+ 9K+KGxMp3sBimFXf7H0xNZxQVLysdRArcY53KWSOlCm0DrOlbTp7iuk9xtJY/yhEdlIf
+ khdT0VEd9XwZTf0/vOUJdq+UJd2oKOA2+WSeXXjLHE+iGopdRYU6QVZeyLYSx25EDuJI
+ L9bw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwwBi3WudwasTkRfq1V5NrUNS74WDpUPY4UUlg3nAd3wnE+0BPExk753uNkuWhmwwdW8ohjlx8Q@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k7ErDpm4ZndDAyk5okzuKOLQPjkwgurbQCS4xEGIl3k0QJ4ReS
+ sW7ew1SsffKQ4WukTzCaYvxZ62Cz/Rq3QfK2h7Z/4L88sOan1k4PNGp/
+X-Gm-Gg: AYBFou1ojGbFqddrDUkT5NnZbalAMZnFfg23Z328utrDBnOUJpSN8DXFfp08oOT9JUf
+ G7lAgaz3LuJ+XXBRIj7kon4M6vIX51XoVF8XLEGfumFmyAMVFwXEPk/JhBEHInvNtHFYTw6OoQo
+ 43aqFJgHGalksqbznJGz2uQbSEVhVqR9oAYQJycdQZGzn462Nu0KmoBDrDwWhVEU/83fnQ2IUmc
+ V/UousID87jjuF0MDw0a4sT4qT3mkrXQglemAHpq2DsZKhs+sxjDlsYG5fwTDzFpvOV6xvobFWO
+ EF7HOMiMRa06ZnOsrj0MSWyXdp7uRXJdzgL/dW5LXh1U3Gh3tkXM1tohO1rFtdMnflcp2L9My8w
+ u8Wei+YCUd5gqfJqQ/5/mH0W43FCBTAU/iPqGK4V6cl5gRS5RNzu9Gbxf7EdRK2gvFDxgqSWz5r
+ J/kcY9QsUHetn77Va03rpKkJoT6ZZeP9QUNA87R0xCPeYoqlWQCZbt0gPiPIx5v8Fjotrc7gvOz
+ c/sqoc=
+X-Received: by 2002:a05:7022:158b:b0:141:5281:8a41 with SMTP id
+ a92af1059eb24-14d33494dfamr2639297c88.9.1790798616734; 
+ Wed, 30 Sep 2026 13:03:36 -0700 (PDT)
+Received: from G15-5520 ([36.255.19.64]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-14df11858b3sm460601c88.2.2026.09.30.13.03.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Sep 2026 13:03:36 -0700 (PDT)
+From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Subject: [PATCH] amdgpu: Use 2-argument strscpy() where destination size is
+ known
+Date: Wed, 30 Sep 2026 20:03:25 +0000
+Message-ID: <20260930200326.42827-1-lalitshankarch@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: "Huang, Honglei" <honghuan@amd.com>, dmitry.osipenko@collabora.com,
- airlied@redhat.com, kraxel@redhat.com
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
- <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
- <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
- <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
- <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 01 Oct 2026 07:16:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,167 +91,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026/09/29 11:22, Huang, Honglei wrote:
-> 
-> 
-> On 9/29/2026 1:25 AM, Akihiko Odaki wrote:
->> On 2026/09/29 1:22, Huang, Honglei wrote:
->>>
->>>
->>> On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
->>>> On 2026/09/24 18:55, Honglei Huang wrote:
->>>>> Add userptr blob objects so the guest kernel can pin an existing
->>>>> userspace mapping and advertise it as CREATE_BLOB backing entries.
->>>>>
->>>>> - New virtio_gpu_object_userptr type for userptr resources
->>>>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
->>>>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
->>>>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
->>>>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
->>>>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
->>>>> - Mark writable pages dirty when unpinning
->>>>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
->>>>>    cleanup_object() on the unref response or on create failure
->>>>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
->>>>> - Reject unaligned or overflowing userptr ranges at create time
->>>>> - Disallow PRIME export of userptr objects
->>>>> - Save CREATE_BLOB params and restore userptr resources after
->>>>>    hibernation without using the shmem restore path
->>>>>
->>>>> The hibernation restore path maps with the same attrs and direction
->>>>> used at create time, as documented next to the call. Like shmem
->>>>> blobs, the DMA API can still bounce through a buffer there. This
->>>>> design only avoids a second guest side shmem allocation and memcpy,
->>>>> nothing more.
->>>>
->>>> I don't see the restore path is documented though this says 
->>>> "documented next to the call".
->>>
->>> Will fix in next version
->>>
->>>>
->>>>>
->>> ...
->>>>> +        goto err_cleanup;
->>>>> +    }
->>>>> +
->>>>> +    userptr->sgt = sgt;
->>>>> +
->>>>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
->>>>> +        enum dma_data_direction dir =
->>>>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
->>>>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
->>>>> +
->>>>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
->>>>> +                      dir, 0);
->>>>
->>>> I checked the ROCm code and documentation, and I do not see how this 
->>>> mapping satisfies the HIP coherence contract when bounce buffers or 
->>>> explicit DMA cache maintenance are required.
->>>>
->>>> HIP distinguishes two coherence models:
->>>>
->>>>  > Coarse-grained coherence: The memory is considered up-to-date only
->>>>  > after synchronization performed using hipDeviceSynchronize(),
->>>>  > hipStreamSynchronize(), or any blocking operation that acts on the
->>>>  > null stream such as hipMemcpy(). To avoid the cache from being
->>>>  > accessed by a part of the system while simultaneously being 
->>>> written by
->>>>  > another, the memory is made visible only after the caches have been
->>>>  > flushed.
->>>>  >
->>>>  > Fine-grained coherence: The memory is coherent even while being
->>>>  > modified by a part of the system. Fine-grained coherence ensures 
->>>> that
->>>>  > up-to-date data is visible to others regardless of kernel 
->>>> boundaries.
->>>>  > This can be useful if both host and device operate on the same data.
->>>>
->>>> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
->>>> hip_runtime_api/memory_management/coherence_control.html
->>>>
->>>> Fine-grained access requires coherence throughout execution; copying
->>>> between the original pages and a bounce buffer only at kernel 
->>>> boundaries
->>>> would not suffice. Coarse-grained access could support such copies, but
->>>> they must occur at the required synchronization points. I found no code
->>>> that synchronizes this DMA mapping at those points.
->>>>
->>>
->>> Whether dma_map_sgtable() bounces is decided by the platform's IOMMU/ 
->>> SWIOTLB behind the device, not by we request. attrs=0 here just 
->>> matches the existing shmem blob path, and is exactly what native 
->>> (non- virtualized) ROCm's own userptr support does too:
->>>
->>> // drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
->>> kfd_mem_dmamap_userptr()
->>> ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
->>>
->>> And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
->>> property, it is a GPU VM/cache thing. In upstream KFD it's 
->>> implemented as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the 
->>> SNOOPED bit), set by whichever driver programs the real GPU's page 
->>> tables for this memory:
->>>
->>> // drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
->>> mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
->>> pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
->>>
->>> I really want to disable the bounce buffers in DMA, but it is a 
->>> platform behaviour, can not disable it in this layer. And in XEN, the 
->>> dmapping for it is another form of iovector/simple sgtable. And if 
->>> use the virtio-iommu or somthing else, the efficiency and the 
->>> complexity of driver integration are both lower than using iovector/ 
->>> sgtable directly.
->>> And for how to handle the DMA thing for userptr, since we have so 
->>> many concern about it, maybe we can drop this part in next version. 
->>> But we may have the AI review warn/error.
->>
->> Documentation/core-api/dma-attributes.rst says:
->>
->>  > DMA_ATTR_REQUIRE_COHERENT
->>  > -------------------------
->>  >
->>  > DMA mapping requests with the DMA_ATTR_REQUIRE_COHERENT fail on any
->>  > system where SWIOTLB or cache management is required. This should only
->>  > be used to support uAPI designs that require continuous HW DMA
->>  > coherence with userspace processes, for example RDMA and DRM. At a
->>  > minimum the memory being mapped must be userspace memory from
->>  > pin_user_pages() or similar.
->>  >
->>  > Drivers should consider using dma_mmap_pages() instead of this
->>  > interface when building their uAPIs, when possible.
->>  >
->>  > It must never be used in an in-kernel driver that only works with
->>  > kernel memory.
->>
->> This is exactly our use case. Although the platform decides whether a
->> mapping requires bouncing or cache maintenance, 
->> DMA_ATTR_REQUIRE_COHERENT lets the driver reject mappings that cannot 
->> meet this requirement.
->>
->> The shmem path serves a different use case, but amdkfd is a relevant 
->> comparison. HIP's coherence guarantees depend on both the GPU VM/cache 
->> configuration and the DMA mapping established by the kernel driver. 
->> GPU page table attributes alone cannot make a bounce buffer coherent 
->> with the original userspace pages.
->>
->> The amdkfd mapping you cited therefore warrants discussion with its
->> developers as well. I have CCed the maintainer.
-> 
-> 
-> Will add DMA_ATTR_REQUIRE_COHERENT in virtio GPU userptr in next version.
-> And are there some places else need to be modified?
+Simplify the code by dropping the explicit size argument from strscpy()
+where the destination buffer has a compile-time known size.
 
-I don't have anything else to add right now. As a QEMU developer, I've 
-only reviewed the more obvious aspects of this patch, so others may have 
-deeper kernel-specific feedback.
+No functional change.
 
-At this stage, my main priority is seeing how the current feedback is 
-resolved. Before we dig deeper into the low-level details, I’d also like 
-to review the virtio specification changes alongside the 
-QEMU/virglrenderer implementation so I can better evaluate the overall 
-design.
+Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       | 2 +-
+ drivers/gpu/drm/amd/amdgpu/atom.c                | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c            | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
 
-Regards,
-Akihiko Odaki
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+index 1e21e3444802..34defcfc563d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+@@ -327,7 +327,7 @@ static int amdgpu_atomfirmware_get_uma_carveout_info_v2_3(struct amdgpu_device *
+ 			uma_info->entries[i].memory_carved_mb = (uint32_t)opts[i].memoryCarvedGb << 10;
+ 
+ 		uma_info->entries[i].flags = opts[i].uma_carveout_option_flags.all8;
+-		strscpy(uma_info->entries[i].name, opts[i].optionName, MAX_UMA_OPTION_NAME);
++		strscpy(uma_info->entries[i].name, opts[i].optionName);
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+index 92c98e999efe..40829d2f9c97 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+@@ -428,7 +428,7 @@ static void amdgpu_connector_add_common_modes(struct drm_encoder *encoder,
+ 		mode = drm_cvt_mode(dev, common_modes[i].w, common_modes[i].h, 60, false, false, false);
+ 		if (!mode)
+ 			return;
+-		strscpy(mode->name, common_modes[i].name, DRM_DISPLAY_MODE_LEN);
++		strscpy(mode->name, common_modes[i].name);
+ 
+ 		drm_mode_probed_add(connector, mode);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 9269e780feb7..aafcd60d2107 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3591,7 +3591,7 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+ 	 * remains intact for multi-GPU systems where this function is called
+ 	 * once per device.
+ 	 */
+-	strscpy(buf, amdgpu_lockup_timeout, sizeof(buf));
++	strscpy(buf, amdgpu_lockup_timeout);
+ 
+ 	while ((timeout_setting = strsep(&input, ",")) &&
+ 	       strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index e0e585f280e2..9796eeab73bb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -1410,7 +1410,7 @@ static void atom_get_vbios_name(struct atom_context *ctx)
+ 
+ no_name:
+ 	/* do not know where to find name */
+-	strscpy(ctx->name, na, sizeof(ctx->name));
++	strscpy(ctx->name, na);
+ }
+ 
+ static void atom_get_vbios_date(struct atom_context *ctx)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index c3322058720f..a50d2885d786 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2356,7 +2356,7 @@ static int gfx_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 		for (i = 0; i < GFX9_NUM_SW_GFX_RINGS; i++) {
+ 			ring = &adev->gfx.sw_gfx_ring[i];
+ 			ring->ring_obj = NULL;
+-			strscpy(ring->name, amdgpu_sw_ring_name(i), sizeof(ring->name));
++			strscpy(ring->name, amdgpu_sw_ring_name(i));
+ 			ring->use_doorbell = true;
+ 			ring->doorbell_index = adev->doorbell_index.gfx_ring0 << 1;
+ 			ring->is_sw_ring = true;
+-- 
+2.53.0
+
