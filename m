@@ -4,98 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDCD8CA5FB3
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 07:17:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B847DCA5FCF
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 07:17:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A12D10F5A2;
-	Thu,  1 Oct 2026 07:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D24E10F5A7;
+	Thu,  1 Oct 2026 07:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zixi5faG";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="i0wRPb5X";
 	dkim-atps=neutral
-Received: from mail-oi2-f42.google.com (mail-oi2-f42.google.com
- [74.125.231.234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 935E310F071
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 19:19:25 +0000 (UTC)
-Received: by mail-oi2-f42.google.com with SMTP id
- 5614622812f47-4e849c5fe49so2743270b6e.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Sep 2026 12:19:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790709563; cv=none;
- d=google.com; s=arc-20260327;
- b=FNUrG/Ycaaeu9/+pqORstP+6kM/qJ0m8a/CjkBQ96hJtNoeodggbJdqzjgQP/uBpZx
- 1cmY154g4+0KR/CYjl4IpwRD+KbFjFlGesKlLBqCRTkofZuZIX10CuL7ByLnClE+i+hP
- e1OxndQLxaLYdnAFNVKm3utIJVfF82du32QLGuh3j5Ec+O3Rm8mUNl5E3h6CETjLSO7o
- 5cboI9N4Sdrf/xE6ZneaZ52y41w/QfK4cnea2KyMVpgDEUmzAtbBEsDv5vpV1OQDO7qN
- +wf3bd8wleZWVbUVb6udqZ1JdJ70R+4JEnhBWz+8AVA6KadCWy/j9YUPR5sHH64jQypy
- rWIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=kzJgW1rsJZfo72Y77K+E8QsTkrVDWI4mp7BQj3TrqUo=;
- fh=9gFPfwZcI6CQrDy2zUIiF4+9XjZKVuJeRtII9S1+3SY=;
- b=CyCG5AjzAyARx8AsmdjEjN/AQIOqAsQH7yhNVKmjyar0t7Z4B8V2N5zlNmW0Y6acnZ
- Uuli7r3uKSR+vjz+F4fOZaPe0KgusxPFHwv23iGa70573j1RGs0LnQovQ2ci+xk/b1pO
- Wb/by9k0I6c6myMbXDBls+HHWrZZiBLF4W2LyEgJUsOicG9wZo9Wx30oaU6E2sze773I
- RgDosT86bbnscsYaLydAxS8s5f9LsItAgui0ygNF+3wJS5SNrtCuZJ87BOdB2lP1oA6C
- Hv1LrmzUixu/ghMdmvJjuStgZq5FnnJdk39BC5WtFysY7eXzXgR/JUKA0EmH6lNGdLqW
- zWsg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790709563; x=1791314363; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=kzJgW1rsJZfo72Y77K+E8QsTkrVDWI4mp7BQj3TrqUo=;
- b=Zixi5faGCARIr10YoSmACtnAogM/1h/AJXrYd4DxpF7AuAwX3M6GoU4arms/5bBgbL
- coZY7lGrmGJAIdDTHRKsKM/gWdc2HVQD7XT9YTvXtFloy+L5sG5UJfVgqNDn6dkSwQ2O
- rgLIHK5ihUBqYQ4yStiqjkN1LCNCvHqRwAcM7+qDE2ic4vuAxoEJYtrq+xwhpZEBvOcM
- aUbXW+VlU8ziwQI1uoCPUuvhNVq1vvgkM+Awl0AuDj3HzntHyIWgds4tZcPiVg5AGrIH
- OTTDFagYBVV1da0JD2lfM3evzlBsCjSz0KkDavSOO40AT7JHCh//OPBOi3fNfZAnvCpD
- JnXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790709563; x=1791314363;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=kzJgW1rsJZfo72Y77K+E8QsTkrVDWI4mp7BQj3TrqUo=;
- b=m5bD7nePMgSsPLLhKbkQ0GYyhA/kouR9AEhJeF+gby7Almv/YWEfI2Uiuuz9Xh9uIP
- 0ff9Sj66jE24z5tQaDx4ErPH/knbaITK0msiNxiJa/7BCwRlWP77G4Apg2gBXiw1Ztpo
- SxKohblicOeRWa0NruHBKEHJ+Q0Q0Zm1oXvJkNbT+2YjfiS51/AyRp6mBbAmopNWXFPR
- VEWH7bXxVXpaHdrA3TDctl4d0ZgVHCVQB290+SL4oOL5s2uCUTvJsekfbcBGW1zpdbMi
- /1CkUNE3G5jvS6F8BRWUO2uV5BvFgtsWSqqZpCo7UZUEmDDMk1sOcQGZkF7uoEdrx5T+
- lj+Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzyfJAg5dwWLHc8Pw6h+LGZzbZjgpc0cgBB3lvzJz/sk+RiLCmxI/dM0SNtpPW/7kj92/T7m1nV@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lmYExDy9a1dn/gSYpywQiG0eOP23CLv6+cPq1qwc8pbN55+pZm
- 3ftDsg+8T6JlGN63OQBiAGaXjDWmedya0dpLs+KmBJx+dw7vY7u/ilBLF/XU3x5APrSfEz3n6bS
- KZDwNoUvkdmt9w14/55SSRoJzOG2YYM0=
-X-Gm-Gg: AYBFou1XjLT4aiXFSWgAQ+MqGN1/T9ygqCBdchZhyUHDuemenIRpiWoXFlECkcx2GgC
- 4erclHEuddrbZsYUeIhO+d7xGOnXnddlHl0QNpMlT4EHP2ef5CAyQ+sS8FKnQaJoNLC01ZkpWz2
- fFzuj2Gbht06b+L8KTd/q5/Bu+zEBHKWeNhAvfd4rvYPBtiopUeIONwpqv7F+X4rjLLVd3PRm6s
- Ia17jGLvJPiYzFjNfzZ6ruu6QgMEordpoE4yWWg4udCpIxKshtEgEKEvk3TS3tdfbG6KEwgUgGC
- zCmrknmKhoaSq+dN93CPJLSduTTBVuNHqDt3Wse7aV7qNKs+WQ225dMRxp9ZKXjCuxPNWXpubtO
- mku9Y9eEpPw==
-X-Received: by 2002:a05:6808:1714:b0:4c3:82cd:601a with SMTP id
- 5614622812f47-4f06a4671d5mr577481b6e.32.1790709563185; Tue, 29 Sep 2026
- 12:19:23 -0700 (PDT)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012028.outbound.protection.outlook.com
+ [40.107.200.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5E4010E1D0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 22:40:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LVohkEupu4MbrQKOXFybUV1nSD9dmwIPGto0se5CXh0RcwP48S7nTTxzfq0HyBKTxJwfKTbnNUEXTeRp3XZr/KitAr9c0GUbkrWcwEdghznARCt+coNDEcLeTQdvPaCqNLyeIvXV3Ris8T5wdtW2XgCl2uNdr1ua2qnzA2It0wYYYbBymS6o8DajMp14NYg6oJso4etzsClhat5p3wcT/V1x0C0Wvufvc/V0sVFBaCh69oMNKoojsdv0JPsqza7rxAOTlmmDF+WGXYzaWf/L43ERygnt1Eov/KKijvy06dC1/EqKM3q8MQBAjIvkhEeGsItCSAK38bz7FKnynOH3xA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zzii6NN2bgAlDsYfHFFBLcvVpWypHxplFpU4Ez8DiYE=;
+ b=IowZqjXskNibiIcHBI0EpzSYWJLA9hYMGUg9Krng4DP7Us2MXBAHd/dqRcw+q5LNPEThbf+pim+KbNi1MmBNVl2JM7U0el/7cNd5Kx4RCeWD5mLk++635AfLgl6B2IX7s6XyIfnRioR6dfLXVIwnqp0uTViiQi1xt1fXGNT9kme2whbH8e4TZeOelucjdWqeAtZgq2gCxgp1l4S/fYGGJ/QJUXdDqbh/xURRMp2ji/W6TSp6G6/rXXVWNYurfJ5h0bB/GKIo9NJEMyyEJEkg5BjPbGKkageOy5k3ZZu4ggFuHJujDzI1sWPTCXLYGbwCfUH51DtCCmY8r3RHfd/sMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zzii6NN2bgAlDsYfHFFBLcvVpWypHxplFpU4Ez8DiYE=;
+ b=i0wRPb5XILr2BjcpzYJ16nB6QQ9BTHIQde4idDh0MeRuGqWFjUkWPi7zDPxTQa+aFtPlQAhopJDn9xvqgJ9DMiRSJcO9S7tHT7yaAY3eMFv15iU1yXprL/o2q8MRq85FkyquvyAOD6gbGDzOYJvVBkblUEM8F+dYB4C5m00ThZ+cOp6FkW6UStvugC1qBRwLhrnP467bNUV3H3iMUsSzmNIIU8rLLXev9CgPOvo737UmFO46nSAxL1GMuBJLJP2nqCZcpmfAgiyRlPmdJ0+Pgxmv9grvjecKkU4SAn/h+C0911W0zbRgjXkp4iUbhEW7mD2DLg5zfW3/HWuM8YEMfQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by IA1PR12MB6603.namprd12.prod.outlook.com
+ (2603:10b6:208:3a1::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
+ 2026 22:40:20 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.024; Wed, 30 Sep 2026
+ 22:40:20 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3] iommu/amd: Make PerfOpt compulsory
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, 
+ Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>, 
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, 
+ Vasant Hegde <vasant.hegde@amd.com>, amd-gfx@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev
+In-Reply-To: <20260930162401.273907-1-superm1@kernel.org>
+References: <20260930162401.273907-1-superm1@kernel.org>
+Date: Wed, 30 Sep 2026 19:40:17 -0300
+Message-Id: <179080801733.122959.2048638492948411360.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-ClientProxiedBy: DS7PR05CA0037.namprd05.prod.outlook.com
+ (2603:10b6:8:2f::24) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 MIME-Version: 1.0
-References: <20260926174406.346253-1-devnexen@gmail.com>
- <e5b5770f-8ae1-41c3-b5d9-53798dd3fd45@amd.com>
-In-Reply-To: <e5b5770f-8ae1-41c3-b5d9-53798dd3fd45@amd.com>
-From: David CARLIER <devnexen@gmail.com>
-Date: Tue, 29 Sep 2026 20:19:12 +0100
-X-Gm-Features: AclHuK-hjcBmIezQ0GYgI88OqlUbULC7G7Y8Vcu-Rocor7p5PAhT4RVRzBr4btA
-Message-ID: <CA+XhMqzQRS4Re6YXONFmrt2rOOKoghyQqFgHu=Ziixpm2n4sLA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Fix NPA-REVOKE racing an in-flight UALink
- import
-To: Mukul Joshi <mukul.joshi@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Felix Kuehling <felix.kuehling@amd.com>, Philip Yang <Philip.Yang@amd.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA1PR12MB6603:EE_
+X-MS-Office365-Filtering-Correlation-Id: d06c4a42-226f-4aa5-0231-08df1f43cebe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: sZAANpM5SxpH2Jfgz2CLEkkEa9eRYmzrG4hPZYDMcI/PAe55L+FVTQAjkpeVzI9DDrIg0zQ/jjRS+VbkAiJqgCnBpAnt7IKKBYcR6fnaRboS5lLp2yXZ17FjdiKCFxWk6SIq4bIz1dwqteB8SI23uduiSd6Ft3oaBwxEVSYA2OboCfMkQZpcOckXEEPpHFkbNly5q3i+is3mso4I7iJUwyXPEQGtGedXSAuF7ipPT5c4Yb4MZsktMevuysJORYCbLQsbwPERwlHIP89YcxNbHo0bf2Q/kifhLG5PKiS/2t1udbrGdUzJhSAJ5HD6PrLgDxLGstoGo4p3PZ8kz0lcO0z/Xk0IaH+qavDlflMNiejYHjwaANYgaiqoL2hbqmC/GdnWpb49iwWycIHzRI54pIroHLoV1hVOdkfjasi4T/dG/OQYqyOIH85ktKjwSm37gnDjeVCdE0i9CrvP2PjOeayu+mUrfNaBmasucxdykGS38YSjyL1MtNvU/wmBg1A9GTUvKyyokOnfLpHMPofIracqpcjzyvKuzNYYdOw0+L2BRwKKYedOCmpngEQyalYhJ2EjwHU2krP0xKdTqf7v8ulDQzFo68Gp1EnHYeF1rfpAQ9oHEyZRsju5V/+WFoeBFYUztYpGS5MUh2xgBb8Cg/Y3AhcPnL0e2vmVUeJO/og=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NExwcnVQRDlIRlRZTjBNWjZmYzY4VWJmbVFobTZBbXFCVHl2NEEvZjh2UFhv?=
+ =?utf-8?B?emdxN05tN0xsSVFUWkppd1NpcExtQXJKOWdSUmVHaW8xRnV2U1dBVHUwY2t3?=
+ =?utf-8?B?U2RleEpVZFpIVE53Ni8xa3VLRlJXYkhld0xCSzgwc0NsWmlHdGZiVEV1RkNG?=
+ =?utf-8?B?WGJhS1h1MzNobW1qRWQvcGJRMW5lWmlKeUl4bkhZRDFIajVxRFM1MkE2QlRo?=
+ =?utf-8?B?OWIzUlhIVnoyejBzeEowOEpON3BFcC90VG55ZlMxUDA4TWJ6dW9ycXFCSVR2?=
+ =?utf-8?B?MlFYU2s1QXRmWlBvWVUwQ0xwM2drdTQvZk9IT0p1UFBHcUxQOENIem5mTTNv?=
+ =?utf-8?B?MUxXdWRWeG5XUTlsSVdxcEJUTHk0WFJxY1c5Vkl4WFF3YXlqOE1SaFNpbFV0?=
+ =?utf-8?B?dVd6Yk9UL3pOMFVDVTlSbjlzRTk5SCtuUDNubDltVTRlSThoaWh6MytrVEUw?=
+ =?utf-8?B?RDN0SFlPelFSTXUzTnkxVnBJb1ZOUHdqeVp2SHNaT0dyRTMrRFVMRmFGN1Ji?=
+ =?utf-8?B?V29CMW1uUDVEb1Z4QWg2OXc4R0U3ajZ4MTI2RkhkdmhjcUs2TnR1eVpEdUps?=
+ =?utf-8?B?bGpVRkxpNlByMkhkWUN0VUZrSlJFN3RWYkx2YXhKN1pSZGJCYkFuSjhSNjFO?=
+ =?utf-8?B?VXFrUEVVMzI5RTRveTBWcUkvOUpoV2tTK3RVcjh3WVNSdTFpeGpPVGkyMXlO?=
+ =?utf-8?B?ejltRW1VeVkwck93U3pENmxlNGZNRVVienFDdHBwbWhoYlpoV0Z6WEVnV1Qv?=
+ =?utf-8?B?SkdPQWZQMVdTdTFHK3hIQ2JSNGo1QndndGdyeC80MjM1b2NMNnBOb2kwRFVl?=
+ =?utf-8?B?SVRHOHMrQTY3Rmk2ZnNReUMrQVhkZDB4QnMrSkY0dmp2bW9HUnkrOWFqUkJY?=
+ =?utf-8?B?aEdmdUtLbzVJMS96Yk43NDhjMXI3dWllN3JuRXpkZU5wOVhaejNoTk1IR0d1?=
+ =?utf-8?B?ZVQrZUR6QmNRMGVvb2FjMmJRZi9KTFN1RnF1bUlPeUkwSk9wRzBUaGFaWWFV?=
+ =?utf-8?B?YlJBS0hYRVI3QmhKSmxFR1ZWdUpWVHNRSFd5cVdBTU5UVHFzMkllSldKOHdZ?=
+ =?utf-8?B?b3NJNVZTbGdsUE1nV29NekdhOGV0SWExb0toaVkrTVpzSWNSVVhZT3NPTFA0?=
+ =?utf-8?B?aUtkczBwSFdiTm9ubm9xRnBPTlhFVDR1VlJEVU5oSGhWbm5mRkNuV2RZc2Fo?=
+ =?utf-8?B?TmlDQWZScGxab2d4d00vN2JLZDArT0lKTWV6REs3SnR5eE41TkI5ZDJwdTMr?=
+ =?utf-8?B?eURJdEEwZDdPNVB5Vkg3YXlHSlBKSkwwejUrWkxyZnUyWm0wUE5INGhJSDAy?=
+ =?utf-8?B?YnVtSEFPYUlqK1A4ak1ONzBlcVJKMFM5dytsbFU3L2VKZGREWTlwSDIyWVdP?=
+ =?utf-8?B?OStFYnJvV1l2YjFPUFE0Ym9kTkgzQnR1L29IWitBRVpWcVNPMEU3eG1KVWRu?=
+ =?utf-8?B?UnBGUHFnb2pnMkgzQVBLUWxMRHR3SlRPVnlacGNhUThXeGt1Z2hxY1BhMjRD?=
+ =?utf-8?B?bWlnYzhiTDJzSjJOa1h0MXhybkNRU3pXWVkzLzJiQWJEWDFMVGdoVFlCQTR0?=
+ =?utf-8?B?N29tNmtQQjIvWHhYNnBGdzJuVTFwOGhqRjFTaEtQcEEwSDZ4aHlTVmJSNkdB?=
+ =?utf-8?B?Zk82eEZhUnlQR09ReUJqL3U3OE5FSGpEOUZLQ05qWWhtRk5sOEwvdHlLTFpE?=
+ =?utf-8?B?U2tNc1N5aG5rWmFSMzRHclZ6ejlDc1p1bHplVVRNT1AxNlZiSGUvem5Ka3Qy?=
+ =?utf-8?B?b2dWOHNhamM5RnAwNmVFdFZDTDg3cHZDYk1uOHA3OEhDUThtQnlGZWVPUWpt?=
+ =?utf-8?B?Z3FLNit0UTFva2FCVGlzSENHOVVxdnNpLzZRVHk0b0VyT1lKZWNnc1NtRm9E?=
+ =?utf-8?B?ZWVSVVlZVHpoK1ZFbWFEY3hQWFJaME9wOXBGS3pGclRQZ2hlbkFPNndramRl?=
+ =?utf-8?B?d1VSN3BqeEZuWEF0SGhCY3NkR21YZTZSS1J5RDdtRnlHNGZzYjZUeDh3UVJZ?=
+ =?utf-8?B?MWJlR0RCaXgvZjNubnJlK3hWMWs4SHlCUWNPWVRhQUJXdEZac3Z4MDdHV09q?=
+ =?utf-8?B?SGpNYUpkdnB4cWJzbGlDQzhWUUx5YTBiZkMvVTAyVGNoR01YSk1PNmtVQmh1?=
+ =?utf-8?B?aFljcVI2RlFyTHRpZHVGdVpScS9FU0dXRUVMT2kxRDJLc25qVnBQcEhjL2g3?=
+ =?utf-8?B?RU4yTHhYeCtERGpyNG5xbnNNSE1jSVNpS21qN3NWZDVjUkplQURTM29OSUlp?=
+ =?utf-8?B?NDlKRk9qWHozMWlSeXI1MDVkeE5hdzF6R2xKNFZ6bUZ5YWxxR1haa3ZLS1hU?=
+ =?utf-8?Q?rKfZHlNnKF1Tm5E22e?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d06c4a42-226f-4aa5-0231-08df1f43cebe
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 22:40:20.3712 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: acP4/noPgBQi84yvAgrf67qrciWhExtATXXwq35Opkycz2nWwf7rct7Kv2JKkaeo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6603
 X-Mailman-Approved-At: Thu, 01 Oct 2026 07:16:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,173 +139,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mukul,
+> [ ... 336 lines skipped ... ]
+> @@ -2370,7 +2370,7 @@ static int attach_device(struct device *dev,
+>  	if (ret)
+>  		goto out;
+>  
+> -	if (dev_data->perfopt)
+> +	if (dev_data->perfopt && pdom_is_in_pt_mode(domain))
+>  		goto skip_caps;
 
-On Tue, 29 Sept 2026 at 20:05, Mukul Joshi <mukul.joshi@amd.com> wrote:
->
-> Hi David,
->
-> Thanks for the patch. Yes the race is real, however, the patch needs some updations.
->
-> More below.
->
->
-> On 9/26/2026 1:44 PM, David Carlier wrote:
->
-> [You don't often get email from devnexen@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> The exporter records an importer when it answers NPA-REQ, so it can send
-> NPA-REVOKE as soon as the BO is freed, before the importer has finished
-> building the dma-buf for that handle. The revoke handler assumes a fully
-> imported node: it dereferences imp_xa_node->dmabuf, which is still NULL
-> until the import completes, and drops the xarray reference the importing
-> thread still relies on. The importer then links the node and marks it
-> READY regardless, so the node can be freed while still on the per-remote
-> list.
->
-> Only tear down a node that is READY. Otherwise mark it for teardown and
-> send NPA-RELEASE, as nothing has been handed to user-space yet, and wake
-> the importer if it is still waiting for NPA-RSP so that it fails right
-> away. A node already in teardown belongs to whoever moved it there, so a
-> duplicate NPA-REVOKE no longer touches it either. The importer checks for
-> teardown under the xarray lock before linking the node and marking it
-> READY, and unwinds otherwise.
->
-> I think NPA-REVOKE cannot land before a NPA-RSP so we will not hit the condition where
-> we have to wake up the importer.
-> NPA-REVOKE is sent only when the exporter's XA entry's ref count goes down to 0.
-> That will happen at the end of process_npa_req(), by that time, the NPA-RSP is already sent.
->
-> Fixes: 7cc82cd90d35 ("drm/amdgpu: Implement mechanism to revoke exported memory")
-> Assisted-by: LLM
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
-> Changes in v2:
-> - Tear down only READY nodes, so a duplicate NPA-REVOKE for a node already
->   in teardown neither dereferences a NULL dmabuf nor drops the node
->   reference twice (Sashiko).
-> - Complete npa_done when a revoke arrives before NPA-RSP, so the importer
->   fails right away instead of timing out into a connection reset (Sashiko).
-> - Use the current Assisted-by format.
->
-> Found by code analysis and compile-tested with W=1. Not tested on hardware,
-> as it needs two UALink-connected accelerators in a vPod.
->
-> v1: https://lore.kernel.org/all/20260926171625.288519-1-devnexen@gmail.com/
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 34 +++++++++++++++++++---
->  1 file changed, 30 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> index 8411ea17172f..cb35026e6eba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> @@ -3265,6 +3265,7 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
->  {
->         struct amdgpu_ualink_imp_xa_node *imp_xa_node;
->         struct amdgpu_bo *bo;
-> +       u32 node_state;
->         int r = 0;
->
->         /* Remove the entry from the Xarray. */
-> @@ -3288,7 +3289,23 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
->                 return;
->         }
->
-> +       node_state = READ_ONCE(imp_xa_node->node_state);
->         WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
-> +
-> +       /* Only a READY node is torn down here. If the import is still in
-> +        * flight, the dmabuf may not exist yet and nothing has been handed
-> +        * to user-space: leave the node to the importing thread, which sees
-> +        * the teardown state and unwinds, and wake it up if it is still
-> +        * waiting for NPA-RSP. A node already in teardown is owned by
-> +        * whoever moved it there, e.g. an earlier NPA-REVOKE.
-> +        */
-> +       if (node_state != AMDGPU_UALINK_NODE_READY) {
-> +               if (node_state == AMDGPU_UALINK_NODE_NOT_READY)
-> +                       complete(&imp_xa_node->npa_done);
-> +               xa_unlock(&adev->ualink.imp_xa);
-> +               goto send_release;
-> +       }
->
-> As mentioned above, NPA-REVOKE cannot land before the NPA-RSP is sent by the exporter.
-> So, if the node_state is NOT_READY that means its a stale NPA_REVOKE and we should just ignore
-> that NPA-REVOKE. Having said that, we should definitely do the teardown when the node_state is READY.
-> We should also handle NPA-REVOKE while node_state is in PENDING state.
-> So, maybe we can refactor this code to something like this:
->
-> switch (READ_ONCE(imp_xa_node->node_state)) {
->     case AMDGPU_UALINK_NODE_READY:
->         /* existing teardown */
->         break;
->     case AMDGPU_UALINK_NODE_PENDING:
->         WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
->         xa_unlock(&adev->ualink.imp_xa);
->         break;
->     default:
->         xa_unlock(&adev->ualink.imp_xa);
->         return;
->     }
->
-> +
->         list_del_init(&imp_xa_node->list);
->         xa_unlock(&adev->ualink.imp_xa);
->
-> @@ -3299,6 +3316,7 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
->         /* Drop the refcount for the node */
->         amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
->
-> +send_release:
->         r = amdgpu_ualink_send_npa_release_msg(adev, remote_acc_id, handle);
->         if (r)
->                 dev_err(adev->dev,
-> @@ -3760,9 +3778,20 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
->                 return r;
->         }
->
-> -       /* Add this node to the imported handles list for the remote GPU */
-> +       /* Add this node to the imported handles list for the remote GPU,
-> +        * unless the exporter revoked the handle while the import was in
-> +        * flight. The dmabuf is released with the last node reference.
-> +        */
->         xa_lock(&adev->ualink.imp_xa);
-> +       if (READ_ONCE(imp_xa_node->node_state) == AMDGPU_UALINK_NODE_TEARDOWN) {
-> +               xa_unlock(&adev->ualink.imp_xa);
-> +               dev_warn(adev->dev,
-> +                        "IMPORT: handle:%llx:%llx revoked during import\n",
-> +                        handle.handle_hi, handle.handle_lo);
-> +               return -EINVAL;
-> +       }
->         list_add(&imp_xa_node->list, &adev->ualink.imp_handles_list[remote_acc_id]);
-> +       WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_READY);
->         xa_unlock(&adev->ualink.imp_xa);
->
-> The changes here makes sense. One nit-pick is to change from dev_warn to dev_dbg().
->
->         return 0;
-> @@ -3938,9 +3967,6 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
->                                         "IMPORT: XA import failed for handle:%llx:%llx\n",
->                                         handle.handle_hi, handle.handle_lo);
->                         goto cleanup;
-> -               } else {
-> -                       WRITE_ONCE(imp_xa_node->node_state,
-> -                                  AMDGPU_UALINK_NODE_READY);
->                 }
->
-> ACK.
->
->
-> Regards,
->
-> Mukul
->
->         }
->
-> --
-> 2.55.0
+This should also disable PASID support since without a gcr3 table
+that's broken. Set the max_pasid to zero during probe device.
 
-True, a revoke can't arrive before NPA-RSP, so
-v3 uses your switch and dev_dbg():
+The flow is weird like this because the driver still hasn't cleaned up
+the identity/blocking domain flows. There is no need to track them in
+lists and things because they never need invalidation..
 
-Cheers.
+This is much nicer if the above could be written in side
+amd_iommu_identity_attach().
+
+Also, I'm a little confused, I thought this had to be toggled on and
+off so it is only set while in identity, how does the DTE influence
+what happens when in this special mode? I was sort of expecting it was
+ignored entirely in HW. This version seems to lock it to always on,
+but still permits a blocking domain to attach.
+
+-- 
+Jason
