@@ -4,51 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88B1ACA5FB3
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 07:16:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 187BDCA5FB3
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 07:17:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F14C610F598;
-	Thu,  1 Oct 2026 07:16:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B318610F59E;
+	Thu,  1 Oct 2026 07:17:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Y5hNfTFk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jUPNRH9e";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56F5810F083;
- Tue, 29 Sep 2026 20:34:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=4JFQSlkOpl/juhAvdKb3xT2ojX/cdAsls0KqZvgss9o=; b=Y5hNfTFk1mUA90tfQg9hhrcIYO
- 2tOQAlibMjy9T1UJnUw49AxQsAhL/Y52kceXdyqUiAFm13dBqZOOzDMWUI1aNLJvSBrAfCqcdRSHG
- p9r0RUEJoIB/2LAedYrFlPIQMzjMGPvLfahL3eUQUSjLZqp1lp+Hhjzcw5FD3On70R74lMZXy65jv
- aLMlA0zs9h2esZ/4CctjH23OZOLLa/V0jR3oWiChnsJujkMcjGCZrREJKwd9WxV/32WfYeo6ueN0A
- 0M9NXbsrhIYwNwrkP3fG26v3oM/9JwjImbVHnmZKjlb4Br514JTVSmJIJa1lD5MC1fydhIgX2SBpX
- jpq0CegQ==;
-Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xBeWu-0096Z5-LJ; Tue, 29 Sep 2026 22:34:24 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Tue, 29 Sep 2026 17:34:04 -0300
-Subject: [PATCH 1/2] drm/amdgpu: make amdgpu_vm_update_funcs commit return void
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com
+ [74.125.228.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF3910F422
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 14:28:40 +0000 (UTC)
+Received: by mail-pz2-f37.google.com with SMTP id
+ 41be03b00d2f7-cc7cadbe09dso703424a12.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 07:28:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790778520; x=1791383320; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Ub3ItDFWWUJig/RVRQKmIzmWoY7xODGq9ETYrV07aDs=;
+ b=jUPNRH9e8Mrjlkz4LAGWsKLgUZo7gZIEw4j5UC1bMyQe/Sso5pKH2+8BALx6EChMyz
+ avFUha//MkjG1aWRqTxC7LCth4cGC1Ppud9ShhCgHEyV1mSler6Wtq+9Eoh0tNEisWpr
+ vTMW1R1Md1zhcgL99qW6nP1GbEVYw8zBmrpTtGn6wq+oiRdk1uudHr6TM9W7afu9+X0T
+ nE2hILvWR7KDhrf+9o3MH/C0FWJn3hJzUDRWifLt3JqhSyQlKMUzfMwV8QUCm/9Yr3Rq
+ Vp/I1idt2aNCkXTtGzyGckn/yo36183NGDgjlsPt4UCiDG2dawyIcE55j+JQ+K5LD+N9
+ 0YdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790778520; x=1791383320;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Ub3ItDFWWUJig/RVRQKmIzmWoY7xODGq9ETYrV07aDs=;
+ b=mHQJa+b0aSXtLnmu1waTV/0X3Qc8LUU1ZvDTiXFbEvtk4FZ6WHgk/HHfagYMeyJzUc
+ ZD+Pcl7QRb3sx+ctESp8tZqcz2F2ZRLRFcFFB7cl4yO43EuKaOS6oy8Pjcflq98lAJTN
+ Kn85yKEYEQt6DAbLeRJ58z2ZPsfX73I32uG1DgMRpCtdrX5Y8avB4woses2NJLkoRdZS
+ ikw8nYGJcWb64E+MskqPOsKAxzi1q8zaD7Mlh8/WgOCbBLJf0dx+tGhCxr/9aqsB//qN
+ hailwHEIyti2VzeP9cRl2xnQ9vdnIpRRllexKiKRx3WyAsu7O77cN5hjDmMYmv29mfTm
+ GQZA==
+X-Gm-Message-State: AFq9FYIjuwUay0x3b6MrCLXGy2wF6m06yIqM6CtLxNuEWOaTnh04YGdC
+ hgWoo6yPA9vHizFJyYJRzvzxYg57s3A24GjxKdScIg3u3KK1Kq35hKGZ/7sEv18Tl5k=
+X-Gm-Gg: AYBFou3XVm6fDh2QRSVJ2hzeQET+RuOKvSSWt7Ne5E1vkS1WYA3kzwmhtQEJF8blaZJ
+ mefgpMAZKFymStErTivtTU3dpVUONg1jXRAjFhJBO6All4gqGdOtvMfzWu0zZdT22isXlpCklXK
+ jrwrM08e6mxkS9UDV6cNOQJX4Vf1sG+n/WQQfIUrmrWevSY0DPYEftnFUfFVxSAOYE7oxIhetZN
+ TQ+21AkaAKrm07Va0AbAM50hN0DdVSUq6j0cs+geHOvxkk0L9e5W9nAusKrTyRjtmrGF2oPgfTD
+ dpwRPAtXFBk6lDFwTUw7oFnPtFjbSyuN6KbrT/Ly3u2OBvh8ZKkoY3gSnZibntakJyS1DFT1V48
+ /wbktKqVj1VXcQ66v1fDK/oPvPqksZgUcic3eMHhxfVPUeuo+WcIOig68pE9irKX2KOuSARW7qt
+ PlpU74tN4glL22N2ws5VQ0wC32/vt79isT16n+92wCxIUfShkgayyJJwnBC2DdxVNQQ7Wn5ZgoE
+ qdd1Wj4FF9+QtDcGw0oN+Pc2gIOOR1rOXhLpb5e7ZX3pjsO42Lp7Oq/FuBdzdCw13AU6iI29hF5
+ e+fv
+X-Received: by 2002:a17:903:3c26:b0:2dd:ad73:5b6c with SMTP id
+ d9443c01a7336-2e2e49be8damr14622625ad.28.1790778520005; 
+ Wed, 30 Sep 2026 07:28:40 -0700 (PDT)
+Received: from francomeister ([138.84.137.76])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2e2e5b89fd6sm8632405ad.26.2026.09.30.07.28.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Sep 2026 07:28:39 -0700 (PDT)
+From: Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ Francis Marlou Pacaro <pacaro.francis.marlou.n@gmail.com>
+Subject: [BUG] drm/amd/display: drm_crtc_vblank_get() WARN on resume in VRR
+ off->on transition
+Date: Wed, 30 Sep 2026 22:28:14 +0800
+Message-ID: <20260930142814.142832-1-pacaro.francis.marlou.n@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-amdgpu_vm_update_funcs_abort-v1-1-a8072140a7db@igalia.com>
-References: <20260929-amdgpu_vm_update_funcs_abort-v1-0-a8072140a7db@igalia.com>
-In-Reply-To: <20260929-amdgpu_vm_update_funcs_abort-v1-0-a8072140a7db@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Felix Kuehling <Felix.Kuehling@amd.com>, 
- Chunming Zhou <david1.zhou@amd.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Natalie Vock <nat@pixelcluster.dev>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 01 Oct 2026 07:16:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,159 +87,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As both SDMA and CPU implementations always return 0, they can as well
-just return void.
+Hi,
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c          | 14 ++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c      |  8 +++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c     | 11 +++--------
- 5 files changed, 13 insertions(+), 26 deletions(-)
+This looks like the same WARN as drm/amd issue #5883, which I can't
+comment on, so reporting here. In my case it only shows up when
+compositor VRR is enabled, which the issue doesn't mention.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index bcb5015bdede..201e3e114f07 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1024,9 +1024,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 			goto error;
- 	}
- 
--	r = vm->update_funcs->commit(&params, &vm->last_update);
--	if (r)
--		goto error;
-+	vm->update_funcs->commit(&params, &vm->last_update);
- 
- 	if (flush_tlb_needed)
- 		atomic64_inc(&vm->tlb_seq);
-@@ -1242,9 +1240,7 @@ int amdgpu_vm_map_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		start = tmp;
- 	}
- 
--	r = vm->update_funcs->commit(&params, fence);
--	if (r)
--		goto error_free;
-+	vm->update_funcs->commit(&params, fence);
- 
- 	if (params.needs_flush) {
- 		amdgpu_vm_tlb_flush(&params, fence, tlb_cb);
-@@ -1319,9 +1315,7 @@ int amdgpu_vm_unmap_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- 	amdgpu_vm_pt_leaves(&params, start, last + 1, NULL, flags);
- 
--	r = vm->update_funcs->commit(&params, fence);
--	if (r)
--		goto error_free;
-+	vm->update_funcs->commit(&params, fence);
- 
- 	amdgpu_vm_tlb_flush(&params, fence, tlb_cb);
- 	amdgpu_vm_pt_free_list(adev, &params);
-@@ -3250,7 +3244,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 
- 	amdgpu_vm_pt_leaves(&params, addr, addr + 1, dst, flags);
- 
--	r = vm->update_funcs->commit(&params, &vm->last_update);
-+	vm->update_funcs->commit(&params, &vm->last_update);
- 
- error_end_critical:
- 	amdgpu_vm_end_critical(&params);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-index d03b9bbe20c7..ec715bcaa0f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-@@ -117,8 +117,8 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_params *p,
-  *
-  * Make sure that the hardware sees the page table updates.
-  */
--static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
--				struct dma_fence **fence)
-+static void amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
-+				 struct dma_fence **fence)
- {
- 	struct amdgpu_device *adev = p->adev;
- 
-@@ -128,12 +128,10 @@ static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
- 	mb();
- 	/* A reset flushed the HDP anyway, so that here can be skipped when a reset is ongoing */
- 	if (!down_read_trylock(&adev->reset_domain->sem))
--		return 0;
-+		return;
- 
- 	amdgpu_device_flush_hdp(adev, NULL);
- 	up_read(&adev->reset_domain->sem);
--
--	return 0;
- }
- 
- const struct amdgpu_vm_update_funcs amdgpu_vm_cpu_funcs = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-index 8a0e5fcbd55b..e056999d8406 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-@@ -119,8 +119,8 @@ struct amdgpu_vm_update_funcs {
- 	int (*update)(struct amdgpu_vm_update_params *p,
- 		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
- 		      unsigned count, uint32_t incr, uint64_t flags);
--	int (*commit)(struct amdgpu_vm_update_params *p,
--		      struct dma_fence **fence);
-+	void (*commit)(struct amdgpu_vm_update_params *p,
-+		       struct dma_fence **fence);
- };
- 
- uint64_t amdgpu_vm_pt_clear_flags(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index dea80796f139..f9abafef6a4f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -433,7 +433,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	if (r)
- 		goto exit;
- 
--	r = vm->update_funcs->commit(&params, NULL);
-+	vm->update_funcs->commit(&params, NULL);
- exit:
- 	drm_dev_exit(idx);
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 6dc71687c398..0611ae38a9b5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -101,11 +101,9 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
-  * @p: see amdgpu_vm_update_params definition
-  * @fence: resulting fence
-  *
-- * Returns:
-- * Negativ errno, 0 for success.
-  */
--static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
--				 struct dma_fence **fence)
-+static void amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
-+				  struct dma_fence **fence)
- {
- 	struct amdgpu_ib *ib = p->job->ibs;
- 	struct amdgpu_ring *ring;
-@@ -143,7 +141,6 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
- 		swap(*fence, f);
- 	}
- 	dma_fence_put(f);
--	return 0;
- }
- 
- /**
-@@ -247,9 +244,7 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
- 		ndw -= p->job->ibs->length_dw;
- 
- 		if (ndw < 32) {
--			r = amdgpu_vm_sdma_commit(p, NULL);
--			if (r)
--				return r;
-+			amdgpu_vm_sdma_commit(p, NULL);
- 
- 			r = amdgpu_vm_sdma_alloc_job(p, count,
- 						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
+  https://gitlab.freedesktop.org/drm/amd/-/issues/5883
 
--- 
-2.47.3
+Hardware / software:
+  - RX 6600 (Navi 23, DCN 3.0.2), single DP monitor, 1920x1080 @ 240 Hz,
+    HDR on
+  - CachyOS, kernels 7.2.2 and 7.2.8 (linux-cachyos-bore-lto),
+    KDE Plasma 6.7.5 / KWin Wayland
 
+Same WARN, same resume path:
+
+  WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:10219 at amdgpu_dm_atomic_commit_tail+0x1fcc/0x44f0 [amdgpu]
+  Call Trace:
+   commit_tail
+   drm_atomic_helper_commit
+   drm_atomic_commit
+   drm_atomic_helper_commit_duplicated_state
+   drm_atomic_helper_resume
+   dm_resume [amdgpu]
+   amdgpu_ip_block_resume [amdgpu]
+   amdgpu_device_resume [amdgpu]
+   amdgpu_pmops_resume [amdgpu]
+
+(Reported as amdgpu_dm.c:10114 on 7.2.2 -- the same statement.)
+
+Unlike the GitLab report, it is intermittent here (3 WARNs across ~30
+resumes in my retained logs, counting "PM: suspend exit"), the monitor
+always comes back, and nothing follows it (no vblank refcount,
+flip-timeout or put-underflow messages).
+
+VRR correlation:
+
+All three WARNs were on days when KWin's VRR setting was enabled
+("Always" for the first two, "Automatic" for the third). On the two
+dates in between when I checked the setting it was "Never", and no
+resume between those WARNs produced it.
+
+That fits the code. In 7.2.8, line 10219 is
+
+  WARN_ON(drm_crtc_vblank_get(new_state->base.crtc) != 0);
+
+in amdgpu_dm_handle_vrr_transition(), inside the VRR off->on branch.
+With the compositor's vrr_enabled = 0 (and freesync_video = 0),
+get_freesync_config_for_crtc() leaves the state at VRR_STATE_INACTIVE,
+so that branch -- and the WARN -- can't be reached. Presumably it
+triggers when the resume commit restores a pre-suspend state that had
+VRR active.
+
+If it helps confirm a shared trigger: it would be useful to know
+whether VRR/FreeSync is enabled in the GitLab reporter's setup, and
+whether disabling it also stops their black screen.
+
+Thanks,
+Francis
