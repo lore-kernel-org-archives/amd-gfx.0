@@ -4,129 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE8C3CA5FAC
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 12:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44AB6CA5FC5
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 13:24:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A20B10E789;
-	Wed, 30 Sep 2026 12:28:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7EB310E273;
+	Wed, 30 Sep 2026 13:24:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Dj98tVyn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Hzt0JXl6";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013019.outbound.protection.outlook.com
- [40.93.201.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7163010E789
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 12:28:40 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011024.outbound.protection.outlook.com [52.101.62.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10D7110E273
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 13:24:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LPEej0Y5xTtKT57bUKdaACLlSEQ/t+1OPYRcgxZvpCbCLWmu9PeeSKAGOivnQ7a0NNmINiyr1yw0S1yxA/0vz/QeDkmhkWdy7WtoDDcWz+VH9JMIdx8E9FDXIl2rcRCL1cPnm2lOHbMoN2gDrv6Me1GNo1wTwmukNg+OzpS6CKQhTGpkklDiRoBYJeYivHpYn4pwbqxBnK8+wpz6pk3VOC5zQ4uZEVvI91/7nGC8S5yYqUGot9LlkT0gidbm3uKCJgxjJz6RmmaYF0MrRHtUosjj8/OiLwSJowIDJEVgn8kNyGAfEXSOSs6qVvOAs3df3xLSs1UgTOVNLsb/hpmhhg==
+ b=yMb2QesKI1/8VG+bEkmphFqb9yQ3a58+KrBNIyq22GzbMAhbp5qyl2Z7u4iepb6ZdXlQHZohJbZq7nAE6b8Vl39MqMpUmSeEKwVjK/A9oJIfntjX1eMbNDlVyKlhVGOjuQDhGkVf2H7FwvmTdZgPcetnUtGcZdxSkwBEUZVDrWnal1+qz9ABtrKKMQ8bEvrTkEgf2NAk/3WbdghMCk3NN3vnaqMBLX2ksyRrAPtVjvBPy0KgGamRBjs1hSef21bNY6lq1b7fNfuGqxRhAQpSui3S4nTViHaSaiLa9TTlVq45nqase10caLK5j1HOFQ5OWVNws/1DkFJD7qjHx+XevQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/KFxsN+AC0cec4VcUjnGNWyIxDvsf80ybEQ/rybI6hY=;
- b=k/rKuZnmGl7Snx58tonOR2ohwVxyp4pJK5DiKSkq5NHAE3JKQoXlig+cKVg+64r9sBb6V3234GB7lQCQgGSKQ/zEPqEKN8hJX2bmVAH6gGO34My1Bg779jp5uBdF3OFDM/X0bMuXPsMPmheiWdrmRLQWiz7wxkETAqdirctJ8e4sgFZ6EXFVNWhzqUnEMZOn9nZp06/+5UAIpju4ej80qSq9keYw6CxwyJqUrKSrYgM16VWxNDuOdhQ4Yk4lsuOsPd8xLzxsOacvbO4mC1maDEQRQ/cIPFqauEPoowY5ALHbYgg5LAg43Iml/mC1XLmsq+J1lwJECooKGMpG92410A==
+ bh=//SJujTnentl4lnediLNsJfMviup4GdymqGC2foBOYk=;
+ b=K1gg3/dI9GXLN8I0tzkz3qVCYifhid+JnpZf+Zs4g619Ci8sjVTPM+leoyxqkzOGffijMw02O15Mc49EwivXm3ZqRqoixiWa1SWPSCETYOc4M3J8JtsQIh8IhWmmjxbK9iWHtEY8G7EV8uZn1UPBiHyxMlIVpEFJImFqGrawj2u8B23faz6iNR0O/Bkqge7VX/DrnT3h0z8YTZc+hDMZRF9YFgBocui6HZeMJ9IRqCGf5avFv3+HlYOoyMGPjSyxK1hAkPkG9wZ9X8mZVyGQy0fXEoyCrVdvc2mvRA3cVgPo01NWYlIfnCVUEiUwKQHSMLuxTBtrAfwZ9Bcva5aogQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/KFxsN+AC0cec4VcUjnGNWyIxDvsf80ybEQ/rybI6hY=;
- b=Dj98tVynmQNqKg9XviWBhtIs6TVWgpdzSXSuqe5sYcSUXrPJdv93qnaEKc8r32xAfvyvmLxdUU8Rv+N9VmVP4Xhkb8aQPvXb5iqIylG/sNp5EjhVhDqh90hiUoiqS4TArP8tTkGv2r6aWMxbF/MqQzF3NhcTPBbG1msR01oZXS8=
+ bh=//SJujTnentl4lnediLNsJfMviup4GdymqGC2foBOYk=;
+ b=Hzt0JXl6iWTSLEPjbvfMjwL1p+LZGoct0wLKJk9FLhtifHC8TpTL0/TOsE1LiEvVQGWukvlMYHlsoIazS3KHe+cF5go2kzdRjgT9tbSM28/LeAY3iZTRcBFAEX6devz+iq67BlWcjeifJR99i8bVLpJ4hBtmpw8H5EBAcljnXyw=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB5877.namprd12.prod.outlook.com (2603:10b6:510:1d5::17)
+ by PH7PR12MB9067.namprd12.prod.outlook.com (2603:10b6:510:1f5::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Wed, 30 Sep
- 2026 12:28:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
+ 2026 13:23:56 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 12:28:35 +0000
-Message-ID: <a3edcdbc-f4a0-491b-b66b-04a1a7e6cc4a@amd.com>
-Date: Wed, 30 Sep 2026 14:28:31 +0200
+ 13:23:54 +0000
+Message-ID: <da65b814-7c7d-4efe-9db9-8fe42d09b57f@amd.com>
+Date: Wed, 30 Sep 2026 15:23:51 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/amdgpu: move vmid_mask_gfxhub/vmid_mask_mmhub to
- vm_manager
-To: "Khatri, Sunil" <sukhatri@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Zhu James <James.Zhu@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, Ma Bing <Bing.Ma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260930111601.3721001-1-sunil.khatri@amd.com>
- <2873ad31-7fd9-4fcd-96fa-7f4fff1c1934@amd.com>
- <8939b352-899f-4327-a8ed-26e12e3b6c39@amd.com>
- <0e990a33-7251-4c96-b52d-e87f924eee99@amd.com>
- <36532d93-3880-470b-9b64-38d3b24d0060@amd.com>
+Subject: Re: [PATCH 06/13] drm/amdgpu: add amdgpu_vm_update_leaves()
+To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>
+References: <20260930103207.10690-1-olivier.kaloudoff@gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <36532d93-3880-470b-9b64-38d3b24d0060@amd.com>
+In-Reply-To: <20260930103207.10690-1-olivier.kaloudoff@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0087.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cd::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: BLAPR03CA0079.namprd03.prod.outlook.com
+ (2603:10b6:208:329::24) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5877:EE_
-X-MS-Office365-Filtering-Correlation-Id: 145bfe50-79e1-48af-07cb-08df1eee591a
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB9067:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5f40393-58b5-4903-37c1-08df1ef61350
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|10067099003|11063799006|22082099003|18002099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: DlqwPigYH4Lo2QRDZ+p3j2TsRYg8EtWnYOOahoBixTdgQqWpYoElYpe1vJAbQ49OUEdIVea2IT7Fzg8QSyAUC5XcB6sKU9jrG73SYf+RGzBIQy4BLecJk1qvRV84ryn7vrayMXexsgMFkvLHgf1N6mjps8SIoczUtYsGES+Az9NQOq34ZRaSU8i2T2PCiI1hfpwy+BCEHMMSxZZ2CQrafjQARGA6fhYvrJv70kYIpyAdAYA8127afSXS+3Jbk5ff+EHMbIgbqLHiyIX0EaJtjwhLPGgwKyfERBbauJmcsp3KxHE9BROd4vUy3L9moQ0dYd5qMMfgff6DExYbH7jeYVepYQxYY06ziHrCvHRXi9l2caw1B9d8QYicrio0lfASzg+vfWhIK9lZ4XwUpOdl2MajJFbmi6mxL3EObBjv66In4a5rBAmr5AenyCdVeSak8tHFt8LVxOJERSYt0kMw3sW8OCYDGx+LrEC1mZJj0qnRs3fgjfo1JhKaV2WCUW6V3ofEOnZ8Vp61m+sAbjIQA2uPvVYDCNWxSQ4lE5gjUGXjow2bnsYL1Sy9oy5N0NcuJ+khH4iv3d0qW8ET1mpjFiS3IvPI8eJeUDrWu9Rr84avGkU6FXPj77GZIhzSCzWwboTVc+CyM8UcOAWgfp2JsmENW/7WD16DUn65AxDbU6Y=
+ ARA:13230040|23010399003|376014|1800799024|366016|10067099003|5023799004|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: W/uS5vRGcqJlmxdjIKmrUbKw+csnZek+WB6AF8DuJTwZki2kpED8KlEjUtNvrXz55Cwr6jIP9UmzhVt7aJUaFd5z5t5adE0yc77Mr+PPoYTsGYSf93D4uGVWtJH7YMHzaa6VWUSGmAeebsOiIG4sscYCCjE5GiyanVxkV0442CSioCA4y8CF4Ed1pRgA009Az6yxAdc1U2IC7ec/GdsBND6edm07WikzE2e8lNuk4Rbbss5nBUb8Dk0CC2Gfyh7v9rw8rZSve9/+S3WrVj/mIkTx0y3tuMe1AMAguTvdNnmIJgqDhxpTeJAIwIBTI4Csf6wQHL6dfO8hZKLVzx7PNuh74ObGxcZZMz19DjA18qVik7Uz825Xb41rc47ImVKrOgeJvK7e3PxnbdNZZncmPmU+kOBD9Rjzv3q1N4TG/zWK7gXB8L89FuBThfDwebNbpaIkc9k6ybtS/JdKGXzOZ6a5VIop1oWUk8oQgF80CBhp1ANITS9bxJng9iu2T9aOWYDXr+bGKD0FMf8kKGFspntuUCuxBr/c7FVhRm/0m59RTYFJ9JqB78AE9IzUhjb9Mxv+A6uLR179rzMKZVC+IAiPzMOR9DZA4qDQ/kWWgbL6dO4MWybx1h6D1zIAmivc
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006)(4143699003);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(5023799004)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dkN6eVF1bXJHZTBLQ3dDNENYTjQrNGFremNaajd0QjFjbzBTMzBmQ1p4ZUZY?=
- =?utf-8?B?S05ScGQ4VXlncmVnK0s1WkNjRHFPM056TWYzUkFuSHo3MUJBbWdNWUlaWi9K?=
- =?utf-8?B?dE9aTWIzOFpFeGhHWTN1SXd1Rk1SN0tld3JyQ1JERXJWeGM3d1RBdlNYanRt?=
- =?utf-8?B?ODcva3d6VnJRUmVCdmJCc09QVVZJc0hHaGdtQmROZlRrbmtBQURHTFBVYnBF?=
- =?utf-8?B?V0U4ODNqN0tLRzZ2RUhuZjk0LysrYS9NUzRZUDltVmRSMjlaU2tiTmxiMGdB?=
- =?utf-8?B?WlY5ekNBNldrNTkwVHFTczJvWGtVVUhSRUdsLzdnazVKcmdmaytOZk0wamd1?=
- =?utf-8?B?Zm53TFVuYy94aFFwMG5INkE0eVRyOXZJclNCcHJiMDBwb1RrM0F5WDF4OUJO?=
- =?utf-8?B?dFJ5QmJuOWViM09lcnc0d0ZlWmRyanVqSDFQLzVFdjE0UzFnczhpZXdETmM1?=
- =?utf-8?B?clB5V3ZtUUwvMkVQSXRVRWJ2VWtMczhjd2ZSY3E0citPSWJ1NXl3U2t2Z0da?=
- =?utf-8?B?bXZ6UXVhOSt6cHlESjVsek82MGE3cHNoWkVMTFpobmdSaFlmNHZ2WC9Sd1dy?=
- =?utf-8?B?WGRrTk81NHo1Q0kyQWMrNVYyOFdWOEhoOFp5TFNRcUplbldQVGpBYXVNT3Nw?=
- =?utf-8?B?ZHNnbmNDSmhmRVRuaFdySUh2NnBVMUM4VTErMmk3SUtGcmgxUGdxL0xpa0gv?=
- =?utf-8?B?RmJVZ3ZZZjRBVHRVaHc2ZVdkU1F0MHQxQjRrY0drVDg2aFhLdnA5QlhrVS9K?=
- =?utf-8?B?bHZoa3JabHowQmQzUUVDV29adTVaNERkbTNQZUZFaFBvSVJjaWwzaTNPc0dl?=
- =?utf-8?B?SDZsblJFY2p3OHFURnFLcFlTTEJvMEpyVmdzWENtZGZtTit6ZFdiVjJlZklQ?=
- =?utf-8?B?U0NwL25uekxOcVdFcVFhUUc1S3Z5M1ZUMUpnUUFaSjN1VUlyZGpYckZhVkhG?=
- =?utf-8?B?Z05aeE5uV05IME10bzZrYnNBbU94ZWxnNVBPTHloV0FLMEhvU3I5U29raDF5?=
- =?utf-8?B?bWZjaFB2eE5TcklZOEROeVo0KzdMTys5TVROSC9IMnV1ekxFbHl1Nkg4TGdj?=
- =?utf-8?B?RHlUMDF0b0hXZ0UvaE9RS0t0UVdEVDh5L1VUVCtOeUkxQVlDdkxETUlmNDdB?=
- =?utf-8?B?bHIyUS80RW84NXFQYXV0Y29BakdvZzI4SkYxczkxYVFTQTFhQSthZnJ2OCs1?=
- =?utf-8?B?eHFrc04wR0Z6NHN3OVJtTi82ZDk4T2NROWpWNUhVL05HU3VhSEUwWDZHckFp?=
- =?utf-8?B?OVc5ME5QdTFva011YVFyOWhKSW9nTUJrb3Bra0xXbXRIT3c5RlZNQVJ0VHZI?=
- =?utf-8?B?dDZuTE5kdjNhTG5kdm9sb0M0TE5OQUJyM1E4UFBUQnpuVFFtL1lFR1hoQXY5?=
- =?utf-8?B?RHl0QTJCZVpmZFo0eDExanI4TG1maVJzdmZZTC9GT0xyZFptamNXVEZ5RUdy?=
- =?utf-8?B?NVZ2TytueTQ0NFBEMEV2Nmt6VlVDN3JqRWpFdVpTalFKcUE2U2l2NzR1dmNM?=
- =?utf-8?B?YUF6SHRpL2JWU0VvRFpvRmJWTjRPN3hMVkxsSXdMdFNhWjRqQXlTSDJ5bnFs?=
- =?utf-8?B?a2pNYzNCeVRSTnY5NC9KejlURDFHdjB1UU9QeXloNXI2a3ZnUEEzMEx1b2hF?=
- =?utf-8?B?L0Z5OGxweHUzTWJUWm5CUmNWbDNpVGxKbmdNTzRIK3N5eGxGblhIQW5oTG9w?=
- =?utf-8?B?WFVrTkt6QmVXc3pueDhHZ1pzV3BXU3NuT24wazJJVDVBcGEwYmdjY2RRSHlq?=
- =?utf-8?B?ZXdUdHFKVkFmU3VjUFhpRWlyU0Z5TkhjemdkVHA1c2Z3QktiSjdrYnJjMG9U?=
- =?utf-8?B?bXk4SlA3TmQxMnNEMnZnNU84SXh0VzB4RDl1YksxZ25mVGgwOFlJKzQzZHg0?=
- =?utf-8?B?dkVFeEE2eW9Ya1hHSXNueWxVZi9DMHlWeStmNE1kajFIdTVZL3V6RlAzM1dD?=
- =?utf-8?B?YmdRSFR4b1ZzcnViYnY4ZWtrMnRUOTZPekcwanIvMDlDejlhaXczQ2hvbHVK?=
- =?utf-8?B?alkyUUlSQXU4c053NlZjMER3Rlk2N20xbGZrZngzKzFPUWNYTU9kTlZ1RjRp?=
- =?utf-8?B?emlMc2hQR0tRdGhqSmdveWE1Q0NFNTFlVzB1RmZiSU9tS25sQ05ieFJuRjA3?=
- =?utf-8?B?ZUdHR0tvREdZRjZRVktPNEs0cmpHSldNTDMrZ2ZxUHNIZDVYTmRGdjJUcmFy?=
- =?utf-8?B?WFlNUVdTUEhQTkxydjR2MlRUbFdxclI4aTBXRFd1Y3NCYm44bG1oU09rdU0w?=
- =?utf-8?B?cUkwa01CVnFuSmZ3eFBzSSs4WThZaklPUU82VWQrM2dWQTZDbGFGTURyamRx?=
- =?utf-8?Q?TZUxnYiq00zBMQ60sc?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eTZPd0hOaFV4WVlJQVZCK05vTG5GOWRCRlo2T0U2Sm1RN25mWU1DNEM0bm90?=
+ =?utf-8?B?ZXRJSXhPSWcwS1p0MTAyQzI4QloxQUVXTGZPUW04WUVjbTZEY0ZLcmJnL0sr?=
+ =?utf-8?B?U0RDK2FQTVIxdG5yNndYZEJDUGxLdkQxbGdjN2crTy9HL1pET1JWY0VOSkly?=
+ =?utf-8?B?TGR0L3Jac09ndGFBVDdlazU2ZjFYVFZxU1U1OFJyM0M2b1pSKy9ueGNoQ3ZJ?=
+ =?utf-8?B?UkYySjZ1NVMwRXFxaE9Xdnc5ei9nNmQ3R0VtS2V2VnpRNmZHQ2JWY0gwQ0lU?=
+ =?utf-8?B?RWlhWlhPZ2NTRDAvOE1jS0g3ZlQ2MGRJOFNEQXNDZW0xSG1kaXRNSllzeUxX?=
+ =?utf-8?B?UWp0Z0wzKzZQcXQwYjIxM0drdTMxeTNwdW5Ia2JENzRic3FKTmVNUHRqSnB5?=
+ =?utf-8?B?ZWwrRmg4OHhWQU9JZVVQV3R2ejMzcEp4WnRMczVVK3JqMHRrVVFmNHV1L0NF?=
+ =?utf-8?B?ZkFsbERzOW9WQXo5YytXdC9Kend6TmZsbkpVeHl1Z3pIN3JIWlJFaVZHMW9S?=
+ =?utf-8?B?ZzJ1aWtEelVPWlUrbnBmL21VYjdCeUtrc0I1NmVCbkVpVGlHc3E0Ykx6akJL?=
+ =?utf-8?B?b04wNDg0eVM4QWFzWkJsM2RZZ0NiSWp6VmpiRTdoQnE5M0Vxa0VLVjcvZllR?=
+ =?utf-8?B?VnNobisyZ0RRL215UG5YVVhma216L0U2T0FsVzN6aDlwQlJYTEE1bWo0Ukcx?=
+ =?utf-8?B?MTRVZjhROW81ZkVFQWlrcGhFVEc5QW4zRGloSnlMY3pvdmlWNUYrcXhycW5P?=
+ =?utf-8?B?QjdlaGg1QkJJZ09wU0g5R3M2MVNzSXhCUnNTeGcrQjdTUHZhbGlOSnIwTmts?=
+ =?utf-8?B?VEI2Z0V1czFUTVNyMDgzL3BVajBxZFQ1WmFvU3lOZTJpZ0tRUitWQWJqd05j?=
+ =?utf-8?B?RmlxRTZGUVJ4RWJjRXU1Q0VTVm02ZTJXL0pxUHF2alA1UWJHRktDNHQ5SmVB?=
+ =?utf-8?B?ZkwrVFUxVEx2NWcvVnJsM0tTTHNDcmxXalJ1UWNRY0FLRmRxM0kyVjdSQzhQ?=
+ =?utf-8?B?bThnVkkrZzltQnV5SnJIM0FSdlZsWElmYVBzN3EvRkRYRitBTVR5c29PTERu?=
+ =?utf-8?B?c2xNeVh0REgwWXV1TC90THYvcExRNnVINmkra1l6eVZ6djhsL3pib0hsNHp1?=
+ =?utf-8?B?VWEzbzNnR2RCTDUzTjdob3VhVE1KQ0dHd2RTK0QvajhIRTI3SFFhM3R1Undj?=
+ =?utf-8?B?a3NmM0pNeWhaNWxNWG1uaUxpT0hRL3J2aTdQaHdqbm81b0MrV013OGtycW9V?=
+ =?utf-8?B?QkRiOWpFbXd3RHlITDNlSHcxV3JJOWFTR1NmMklqc2lYNUMzSVhkUmNDNk5s?=
+ =?utf-8?B?TDkvcGxxNDgwVWJwNFBqclFuRk5mRWg3djIzNU8xeUZ5WGNRbW1lOHpoZUJM?=
+ =?utf-8?B?T1JCYm5nK0FteU5BN2JVQ05FN3NBWnQwTUl1QkwzV2dvUTByb1c2L284TTkw?=
+ =?utf-8?B?N1F4QXNDSTdPMjhHZEE0eE5XY3RNbkE2Rkt3SjZPQ3VzZ2RsT2xEY2lXbkdW?=
+ =?utf-8?B?ZU5RcDZ2dHlTcG1JNUNpZ0VrajRzVjhCY2s4aS9CK3Z4bE5BbUFuK3ZlNzRC?=
+ =?utf-8?B?eE9vV09WaFNCWXRkK1E4RmVQK3lCMG1hOFcvNWlsejRpTEhVVUZ3U21nN2hh?=
+ =?utf-8?B?NmpRME9JUUc2SEJZekFySEhJNkN5ejdGY1NMaHVFSkdxN2JPT2h0NXAwWEpY?=
+ =?utf-8?B?dWs4L2VvdFY2bU03ZG1URUdnSjMzVVU3NGoyK1NNb3ZuWTFMcVQwbC9wd3VT?=
+ =?utf-8?B?Q2NocWR3WVFsYnBybFpvM1gzWlJKN0tUdEROaVNkRkxtd3FYc2ZTakx3aHFs?=
+ =?utf-8?B?WHlNUEQycmhCOXZrVGhyaitFNWs0SGtvbkdWbW5sYVFzMHFwbXlKTmhBZkpp?=
+ =?utf-8?B?enRac2lkSS9hV21QcG50VDJkeTlnK0c5a1cyOGNRdVJIbkdaZXFqOTRhOEQ0?=
+ =?utf-8?B?aHJTUjcveHFZenk2R1JVZVY0b0M4Ujl3SjhUQnUrWWlHcFdJYmhVZ0lmdGNa?=
+ =?utf-8?B?SUFuVDV0RWdEM1N2dkhseWF2NjRiN1o3RW9MVnUzY25EYjFmaTdOcnl0Y2hK?=
+ =?utf-8?B?VG5CUXBIR3YyYU1nQzIvdWk3NHJVbVBaYW5FNHJTM1prQW1OUTQ2cHJZTEIz?=
+ =?utf-8?B?UENZTzdXRXBKKzVsdTFnYWk4UkM3SEtINFRocnF2VUhjcWVrT3JmOGc3UElu?=
+ =?utf-8?B?V2hsN0gycjNHalBPVUdtdE9aNXBQTzRiRW5Yb2dJdHVJYkt0dlZuRnZrb3hZ?=
+ =?utf-8?B?Q2ZrNUd1RzJBWEg4aGdWeHFUalpYTzlwSkovY0J3M21PUXljNUxscGkxRE96?=
+ =?utf-8?Q?o/q/tG31QlnHkaOOO8?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 145bfe50-79e1-48af-07cb-08df1eee591a
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5f40393-58b5-4903-37c1-08df1ef61350
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 12:28:35.7698 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 13:23:54.7288 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NfrmVttx3MTYz9EAkSB0/RZkYhbbpbEwQFgxfZC/AIsj3m/QakrYVb+K9rKIeZFH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5877
+X-MS-Exchange-CrossTenant-UserPrincipalName: lRms/D0rT96AiMCAPs6ejyYxpNXVZB4gl0md0cmP5NX5bfGyPcENV178T20Mmt9d
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9067
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,158 +135,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Olivier,
 
-
-On 9/30/26 13:58, Khatri, Sunil wrote:
+On 9/30/26 12:32, Olivier Kaloudoff wrote:
+> Hi Christian,
 > 
-> On 30-09-2026 05:11 pm, Christian König wrote:
->> On 9/30/26 13:35, Khatri, Sunil wrote:
->>> On 30-09-2026 05:01 pm, Christian König wrote:
->>>> On 9/30/26 13:16, Sunil Khatri wrote:
->>>>> vmid_mask_gfxhub/vmid_mask_mmhub makes more sense logically in
->>>>> vm_manager than the mes ip struct.
->>>> That's the VMID mask for the user queues, so I would name it vmid_mask_uq_gfxhub/vmid_mask_uq_mmhub.
->>>>
->>>> Apart from that looks good to me.
->>> Noted. Another point here if that is the case then should i change that in MES HW layer too..
->>> unionMESAPI_SET_HW_RESOURCES{
->>>          struct{
->>>                  unionMES_API_HEADER   header;
->>>                  uint32_t               vmid_mask_mmhub;
->>>                  uint32_t               vmid_mask_gfxhub;
->>>
->>> Should i update here too or this is fine ??
->> No, that is fine. The MES handles only user queues here so that is unambious.
+> On 9/30/26 12:16, Christian König wrote:
+>> thanks for the testing, but you are looking at outdated code.
 >>
->> But thinking more about it, we should also do a bunch of more cleanups.
+>> I was initially only testing with 2MiB pages and didn't see that
+>> issue, it is already fixed in what I've send out on Friday.
 >>
->> The structure amdgpu_vmid_mgr is really the per VMHUB structure for example.
->>
->> And the vmid_mask in the that structure is really the mask of VMIDs used by kernel queues.
->>
->> We should probably name that structure and the field more appropriate.
->>
->> Regards,
->> Christian.
+>> Can you give that version another round of testing? The would be
+>> great.
 > 
-> That's true.
-> But since it is used by both GFXHUB as well as MMHUB so something generic seems ok to me. But we can change vmid_mask -> kernel_vmid_mask. Suggest if you still think to change the amdgpu_vmid_mgr to something else like amdgpu_vmhub_vmid_mgr or amdgpu_kernel_vmid_mgr... but these names seems pretty big.
+> Makes sense — with 2MiB mappings the leaf-level writes dominate and the
+> non-leaf gap slot case barely gets exercised. Our SVM workload
+> (eviction/restore churn under memory pressure) hits it reliably because
+> it creates exactly the pattern that breaks: an unmapped gap followed by
+> still-linked sibling subtrees in the same parent PD.
+> 
+> I just read the v2 series (the 9-patch set from the 28th) — the reworked
+> amdgpu_vm_pt_leaves() in patch 4/9 looks right: walking forward and
+> accumulating only consecutive entries that have no leaf in the same
+> parent is strictly better than the one-entry clamp we used locally, since
+> it still batches genuine gaps. And patch 2/9 explains the other half of
+> what we observed in RAM — the PDE_PTE-only marker (0x40000000000000) in
+> the clobbered slots lines up with the cleared-flag generation fix.
+> 
+> Happy to re-test. I'll apply the 9-patch series on top of our 7.2.6 tree
+> and re-run the reproducer (vLLM/ROCm checkpoint staging on the MI50 —
+> previously a deterministic fault at the same stage on every run). Will
+> report back on the new thread.
 
-Just name that amdgpu_vmhub instead.
+I'm about to send out v3 of the series which can also be found here: https://gitlab.freedesktop.org/ckoenig/linux-drm/-/commits/amd-vm-svm
 
-And using kq and uq as accronyms for kernel and user queues seem pretty staright forward to me.
+It's based on the latest amd-staging-drm-next development branch. I have no idea if that will even apply to 7.2.6.
+
+> Two unrelated findings from the same debugging session, FYI — I'll send
+> them as separate mails rather than polluting this thread:
+> 
+>   * amdgpu_vm_fini NULL pointer dereference when the eGPU is surprise-
+>     removed while a compute VM is being torn down (TB3 link drop under
+>     load). Sibling of a teardown_processes NULL deref we already patched
+>     locally.
+
+Interesting, we should have test cases for that since that is a rather common use case now.
+
+If you could give a bit more data (e.g. what timing) then Vitaly will probably be able to create a CI test case for that.
+
+
+>   * (older, on vanilla kernels too) the SVM restore-worker livelock
+>     under sustained reclaim — separate mail already in preparation.
+
+Yeah that is already very well known problem.
+
+The old KFD SVM code has a whole bunch of design bugs. Because of that we are working on completely replacing that with a new implementation based on the drm_gpusvm component.
+
+This patch set here is a per-requisite to that which fixes only one bug in the existing KFD implementation.
 
 Regards,
 Christian.
 
 > 
-> Regards
-> Sunil Khatri
-> 
->>
->>> Regards
->>> Sunil Khatri
->>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>>>> ---
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 8 ++++----
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 2 --
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  | 4 ++++
->>>>>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 4 ++--
->>>>>   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c  | 4 ++--
->>>>>   drivers/gpu/drm/amd/amdgpu/mes_v12_1.c  | 4 ++--
->>>>>   6 files changed, 14 insertions(+), 12 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
->>>>> index 5285c1d1fd4cb..9c36ccf5d5659 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
->>>>> @@ -137,8 +137,8 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
->>>>>       total_vmid_mask = (u32)((1UL << 16) - 1);
->>>>>       reserved_vmid_mask = (u32)((1UL << adev->vm_manager.first_kfd_vmid) - 1);
->>>>>   -    adev->mes.vmid_mask_mmhub = 0xFF00;
->>>>> -    adev->mes.vmid_mask_gfxhub = total_vmid_mask & ~reserved_vmid_mask;
->>>>> +    adev->vm_manager.vmid_mask_mmhub = 0xFF00;
->>>>> +    adev->vm_manager.vmid_mask_gfxhub = total_vmid_mask & ~reserved_vmid_mask;
->>>>>         num_pipes = adev->gfx.me.num_pipe_per_me * adev->gfx.me.num_me;
->>>>>       if (num_pipes > AMDGPU_MES_MAX_GFX_PIPES)
->>>>> @@ -184,8 +184,8 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
->>>>>         dev_info(adev->dev,
->>>>>                "MES: vmid_mask_mmhub 0x%08x, vmid_mask_gfxhub 0x%08x\n",
->>>>> -             adev->mes.vmid_mask_mmhub,
->>>>> -             adev->mes.vmid_mask_gfxhub);
->>>>> +             adev->vm_manager.vmid_mask_mmhub,
->>>>> +             adev->vm_manager.vmid_mask_gfxhub);
->>>>>         dev_info(adev->dev,
->>>>>                "MES: gfx_hqd_mask 0x%08x, compute_hqd_mask 0x%08x, sdma_hqd_mask 0x%08x\n",
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
->>>>> index 594fb817e0a38..2b13a5b375393 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
->>>>> @@ -122,8 +122,6 @@ struct amdgpu_mes {
->>>>>       void                            *mqd_backup[AMDGPU_MAX_MES_INST_PIPES];
->>>>>       struct amdgpu_irq_src            irq[AMDGPU_MAX_MES_INST_PIPES];
->>>>>   -    uint32_t                        vmid_mask_gfxhub;
->>>>> -    uint32_t                        vmid_mask_mmhub;
->>>>>       uint32_t                        gfx_hqd_mask[AMDGPU_MES_MAX_GFX_PIPES];
->>>>>       uint32_t                        compute_hqd_mask[AMDGPU_MES_MAX_COMPUTE_PIPES];
->>>>>       uint32_t                        sdma_hqd_mask[AMDGPU_MES_MAX_SDMA_PIPES];
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>>> index 98cdd7e3475fb..5f22c146e2339 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->>>>> @@ -413,6 +413,10 @@ struct amdgpu_vm_manager {
->>>>>       /* Global registration of recent page fault information */
->>>>>       struct amdgpu_vm_fault_info    fault_info;
->>>>>       unsigned int                npa_vmid;
->>>>> +
->>>>> +    /* VMID masks for GFXHUB and MMHUB */
->>>>> +    uint32_t                        vmid_mask_gfxhub;
->>>>> +    uint32_t                        vmid_mask_mmhub;
->>>>>   };
->>>>>     struct amdgpu_bo_va_mapping;
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
->>>>> index d1cd665ab301c..178ef8dfe6d61 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
->>>>> @@ -1080,8 +1080,8 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_mes *mes)
->>>>>       mes_set_hw_res_pkt.header.opcode = MES_SCH_API_SET_HW_RSRC;
->>>>>       mes_set_hw_res_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
->>>>>   -    mes_set_hw_res_pkt.vmid_mask_mmhub = mes->vmid_mask_mmhub;
->>>>> -    mes_set_hw_res_pkt.vmid_mask_gfxhub = mes->vmid_mask_gfxhub;
->>>>> +    mes_set_hw_res_pkt.vmid_mask_mmhub = adev->vm_manager.vmid_mask_mmhub;
->>>>> +    mes_set_hw_res_pkt.vmid_mask_gfxhub = adev->vm_manager.vmid_mask_gfxhub;
->>>>>       mes_set_hw_res_pkt.gds_size = adev->gds.gds_size;
->>>>>       mes_set_hw_res_pkt.paging_vmid = 0;
->>>>>       mes_set_hw_res_pkt.g_sch_ctx_gpu_mc_ptr = mes->sch_ctx_gpu_addr[0];
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
->>>>> index c0719d8fa63e9..f2dd4323ffd3e 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
->>>>> @@ -1042,8 +1042,8 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_mes *mes, int pipe)
->>>>>       mes_set_hw_res_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
->>>>>         if (pipe == AMDGPU_MES_SCHED_PIPE) {
->>>>> -        mes_set_hw_res_pkt.vmid_mask_mmhub = mes->vmid_mask_mmhub;
->>>>> -        mes_set_hw_res_pkt.vmid_mask_gfxhub = mes->vmid_mask_gfxhub;
->>>>> +        mes_set_hw_res_pkt.vmid_mask_mmhub = adev->vm_manager.vmid_mask_mmhub;
->>>>> +        mes_set_hw_res_pkt.vmid_mask_gfxhub = adev->vm_manager.vmid_mask_gfxhub;
->>>>>           mes_set_hw_res_pkt.gds_size = adev->gds.gds_size;
->>>>>           mes_set_hw_res_pkt.paging_vmid = 0;
->>>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
->>>>> index 20159fb9d6ea3..c3e1f9a746ce0 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
->>>>> @@ -685,8 +685,8 @@ static int mes_v12_1_set_hw_resources(struct amdgpu_mes *mes,
->>>>>       mes_set_hw_res_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
->>>>>         if (pipe == AMDGPU_MES_SCHED_PIPE) {
->>>>> -        mes_set_hw_res_pkt.vmid_mask_mmhub = mes->vmid_mask_mmhub;
->>>>> -        mes_set_hw_res_pkt.vmid_mask_gfxhub = mes->vmid_mask_gfxhub;
->>>>> +        mes_set_hw_res_pkt.vmid_mask_mmhub = adev->vm_manager.vmid_mask_mmhub;
->>>>> +        mes_set_hw_res_pkt.vmid_mask_gfxhub = adev->vm_manager.vmid_mask_gfxhub;
->>>>>           mes_set_hw_res_pkt.gds_size = adev->gds.gds_size;
->>>>>           mes_set_hw_res_pkt.paging_vmid = 0;
->>>>>   
+> Regards,
+> Olivier
 
