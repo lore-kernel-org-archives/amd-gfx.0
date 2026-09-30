@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43D00CA5FCA
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 13:33:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFDEDCA5FAC
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 13:33:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4FE010F3F5;
-	Wed, 30 Sep 2026 13:33:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7837010F3DD;
+	Wed, 30 Sep 2026 13:33:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H2apOMsU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="caHRJj9j";
 	dkim-atps=neutral
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
  [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1DE510F3F5
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 13:33:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8302310F3F9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 13:33:22 +0000 (UTC)
 Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-4a00d8bec5aso12698165e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 06:33:20 -0700 (PDT)
+ 5b1f17b1804b1-49e721b5503so50073675e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 06:33:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790775199; x=1791379999; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790775201; x=1791380001; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:cc:to:from:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=mZXgG7LNCLJctuba28KYlbW9BwxpeiXtQwJGE4OSkY4=;
- b=H2apOMsUOAPt87dVWXRsc1a7SNgCymOKmFMpAG0GvySsKsxTNqRexSF+uJ4hRvK/Y7
- Pn3RuZVf1iVCYFhutZAgCPUK9+ruMORW7q75SsPqpbXOJDPVGh3K4JUQhbbO9KB4843s
- BoXnIOc7gjycifMEepxYvaVO8A85kHsi7Asdf32YvA/yiAN87ciBsmVIxryZlpwYUilP
- O/vpImARlOiA+kqB+UCU6a+eu1CqnSg2BZLTgtgkD3uZoxo3qQzMchSLlSEww2FZ0HQ1
- rjbOovpHr8RGfqYp+C1i5K+HXhXBWojx17F+6eTjDB8YueDNF0yd36ZgYbH9H8kVxoxB
- UlTg==
+ bh=IG1nHIDMNXHhVtmqRQ1SBfwo8kCDgQLox4j+H3YFab4=;
+ b=caHRJj9j7a9ittPmPJVAzuA3yQ9h+YfFeMXlWWy825xVBVljY4NnyHvnUwSieouRKM
+ tQ5/RBF5CaWekgK6gZ0Hewvpd7jl40oz/yqc7c3xdH6uIS1sT84VKp4dnqqt3k/6RsMc
+ vp2XNpee9u2fFeBFplaqALS1kLhVvW3PJ7ylqdAu4WuvjberGwbskaUbyqUsHxyEhPFq
+ GwRR/G17dOCEe/EHQul6gWgEbpGqvd5DuRg2lWiwQoeStTUgYhdmSVNVTBaUUyMGjR8g
+ WQ1u+EqyRCG++dbOSXqtAwSPkUfbv6Koi+e18X1DdsLBv8LYPAmY0hkSA7wXBN5lM11h
+ FYVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790775199; x=1791379999;
+ d=1e100.net; s=20260707; t=1790775201; x=1791380001;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=mZXgG7LNCLJctuba28KYlbW9BwxpeiXtQwJGE4OSkY4=;
- b=lq4t/PEmIle00soPolessbXm/u3Px+72F6cCm+5VrBBGI7ptVYO+QCFPJUQKEYHMCk
- vTjgEzXne9BlMkuylNN16CWXSBDQEzOKZ8676CFH9ZMSpyYRxDvYSpKe51kWHU4/FvE1
- niadyZ6SF8jhZW0NvpvYzFUyhiN5gBeyVXfhX/HvAHA8gPSewoEVRM5PQ0TZTshJhHls
- xuAi53skYXJM8FF7+lJgpGVm29XsRrgiEKq3IJ6aOT8fp4OV6BlmLGN2sKXp9EOBoA5V
- yOep482ximeK2Si111O/xv8w+pL0T6BrWW3jkPmYxOMKF0gtxeO4MvWYjgW/D6vO+f4y
- tAZw==
-X-Gm-Message-State: AFuF++nHKz95Envpgk9J2bRNImZhPl9/Qw1DqCdjDdSs/nYv1A2EnobU
- wDZxmBB0DxIQSpKZCaIDxyW68OqVOvDtXmsE+jnoRYD7I5P67b8rcTad
-X-Gm-Gg: AYBFou37Szwzhd3R5/SpSFjSpajTarREQN6o5LLf6QmUESu1m72ZWPTTVAMLCTL+ciB
- MeeNTgRhtbEzFwXZmvyVa/ajk5AsFhRVahWYfovYzGOg6mNMCsvIUnJdwjvgzfs2j/rvU1OEErf
- 9+kgeL3AVO61jII0GtoyG6iUmvG1pr3fqQ4b/GHGwXI5yS/qfrDpIWFZoJOwa/vHR5/cZytQECF
- 3BpdlCoPfc1t6WZckYATg5WACWqRrZNulabiblfhFxCcWe+bXAyjwImRbGX2jX53eem6lTJaVKA
- ej/OFvh7byZW3RJgiOYfATbTdqEt/HOwgxKFaIZgh5g1kYYOCudGEdS+XcJ2mNR5s7O8uyhYijP
- REssues/thu0/Z/VCWVOh05gsWzsOj8qKUrJCSbqLCaCYLAMWpA0FYSzlBFPuLCNpPpa6UzXHRO
- yLonLZbbd/2Vv8X/hfdMtmafbRrQtWYv2IVWaqtHpkUkkhrztkiGlk8H7PXzkptH4igE3ptuOGw
- L6AokHsvmU=
-X-Received: by 2002:a05:600c:45d3:b0:49f:cac3:c68a with SMTP id
- 5b1f17b1804b1-4a01affeca0mr21811475e9.31.1790775198955; 
- Wed, 30 Sep 2026 06:33:18 -0700 (PDT)
+ bh=IG1nHIDMNXHhVtmqRQ1SBfwo8kCDgQLox4j+H3YFab4=;
+ b=ZvGvI4V86lCQ+hDQWRX5ZnxwQjZefEMWdMYlEO8MLy0WSz7OFssWs9YAuDe6TuydsR
+ JV/hm6GJnymqZWhMglRkd4T4F74oB+pibpVMzJ/PmRkp0iWSYE7ZbH1GTMuo9DVI8EUL
+ Y6//tfR4HauZ/mAAyoDsUk+MdI6Bt8Yfsv5AjmlEMAx/XXVkLg5GpwDaFmD66cdg+G4X
+ Hz9kaj4ZeFdRLWMObaEIVW2ZFtnFSJf8zogax/8PKbZMwtcxd6LiK7HAfKgYbGSzI8KA
+ DRybFMxHBDV4ysKw2qnApnspQk2I1knlbrQmOzI9uk56bx22gmwB+d1E6I4Ronz7CAY1
+ oy/g==
+X-Gm-Message-State: AFuF++n2ca1uTeUAYaJQK1DkC+fLAaFE+oiM1Rp+6rV3k5UHZHHfS0iP
+ HHAQ8IdUY2hjljEtNQCixbkf70r/N4sCfVnbnKebkAr9J0DiOku5cvAA
+X-Gm-Gg: AYBFou26BfrF62pkCaFwEQKi95svXums4TqXooSAMqWG5CtuYVzc1xut8pvPtxiR2tO
+ rlp5j69fIUDfOs0Bkqn759hYEuxnrWz4fuysS2z4HQm8e+EB4iDPJURU2/JhuIkxdyNA8jJ82SM
+ TeVeVFQDfDFpstXE62IqQ6wOk3/VpvBfqtBHMXXnCxaW3pFe6dhcWKNuM9A3aB4RejJ8dMcCVdY
+ 2Jqq7v7abp1O6DQooRLPBQCK31y9qGFqlaS5jvKkDE/sfzgjgXpNw25+fhWLvmhododG7KkwiKL
+ 63pZQCT/idwuIsMHzZ/EeTuFUWNtIRrh8oMi+gyvOhSCHxS5sJcVJf5AFD5KyY/8pqsMg34IUxq
+ +w/s5SBQIhiw8RVkpWQKInRvQicWKYJLUyKMj/xaZpX9OtHrj7rmuRstooXvfn6qJ6qqfbJBhwW
+ NVC+JNeWe0Np8daexLCNMeDAtNWkduDF94lL6QcT5ELE4QdJoVFvgJ3oIcNPG/ew1CNZ1o0CfyL
+ ofnc8Nf0II=
+X-Received: by 2002:a05:600c:4e42:b0:499:79b9:e220 with SMTP id
+ 5b1f17b1804b1-4a01aff3a44mr26366485e9.10.1790775200771; 
+ Wed, 30 Sep 2026 06:33:20 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:155e:6500:f261:39ca:dadd:d0c6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a01771cf9fsm60407975e9.14.2026.09.30.06.33.17
+ 5b1f17b1804b1-4a01771cf9fsm60407975e9.14.2026.09.30.06.33.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 06:33:18 -0700 (PDT)
+ Wed, 30 Sep 2026 06:33:20 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -69,9 +69,10 @@ To: natalie.vock@gmx.de, honghuan@amd.com, Alexander.Deucher@amd.com,
  Felix.Kuehling@amd.com, Philip.Yang@amd.com, timur.kristof@gmail.com,
  cascardo@igalia.com, tvrtko.ursulin@igalia.com, olivier.kaloudoff@gmail.com
 Cc: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/8] drm/amdgpu: add amdgpu_vm_pt_leaves() v3
-Date: Wed, 30 Sep 2026 15:33:09 +0200
-Message-ID: <20260930133315.12270-3-christian.koenig@amd.com>
+Subject: [PATCH 5/8] drm/amdgpu: drop immediate updates from
+ amdgpu_vm_update_pdes
+Date: Wed, 30 Sep 2026 15:33:11 +0200
+Message-ID: <20260930133315.12270-5-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260930133315.12270-1-christian.koenig@amd.com>
 References: <20260930133315.12270-1-christian.koenig@amd.com>
@@ -93,229 +94,187 @@ Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a new function amdgpu_vm_update_leaves() to avoid memory allocation
-on page faults.
-
-The idea is to only update the leave PDEs/PTEs to let them point to the
-dummy page.
-
-v2: fix of by one, rework the function to work correctly on PTB as well.
-v3: use NUM_LEVELS, don't overwrite vm->last_update
+That case is handled by amdgpu_vm_update_leaves now.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 54 ++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  5 +-
- .../gpu/drm/amd/amdgpu/amdgpu_vm_internal.h   |  3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     | 74 +++++++++++++++++++
- 4 files changed, 119 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c       | 12 ++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           |  5 +----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h           |  3 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c             |  2 +-
+ 8 files changed, 13 insertions(+), 17 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index a5d1d83ee5d32..cb46111b2dc8c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -503,7 +503,7 @@ static int vm_update_pds(struct amdgpu_vm *vm, struct amdgpu_sync *sync)
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(pd->tbo.bdev);
+ 	int ret;
+ 
+-	ret = amdgpu_vm_update_pdes(adev, vm, false);
++	ret = amdgpu_vm_update_pdes(adev, vm);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index e7a9c2de46131..eef3acfdb7c73 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1182,7 +1182,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+ 	if (r)
+ 		return r;
+ 
+-	r = amdgpu_vm_update_pdes(adev, vm, false);
++	r = amdgpu_vm_update_pdes(adev, vm);
+ 	if (r)
+ 		return r;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 76f11cff869c7..e52fc0273e49d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -821,7 +821,7 @@ amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
+ 	}
+ 
+ 	/* Always update PDEs after we touched the mappings. */
+-	r = amdgpu_vm_update_pdes(adev, vm, false);
++	r = amdgpu_vm_update_pdes(adev, vm);
+ 	if (r)
+ 		goto error;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index 7189ee0939ca2..708ca8d56e8c2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -2065,7 +2065,7 @@ static int amdgpu_ualink_unmap_npa_addr(struct amdgpu_device *adev,
+ 		goto out;
+ 	}
+ 
+-	r = amdgpu_vm_update_pdes(adev, vm, false);
++	r = amdgpu_vm_update_pdes(adev, vm);
+ 	if (r) {
+ 		dev_err(adev->dev,
+ 			"Failed %d to update page directories during unmapping NPA: 0x%llx\n",
+@@ -2119,7 +2119,7 @@ static int amdgpu_ualink_map_npa_addr(struct amdgpu_device *adev, u64 npa_addr,
+ 		goto out;
+ 	}
+ 
+-	r = amdgpu_vm_update_pdes(adev, vm, false);
++	r = amdgpu_vm_update_pdes(adev, vm);
+ 	if (r) {
+ 		dev_err(adev->dev,
+ 			"failed %d to update page directories for NPA: 0x%llx\n",
+@@ -2661,7 +2661,7 @@ static void amdgpu_ualink_force_retry_rpcs(struct amdgpu_device *adev,
+ 			break;
+ 	}
+ 
+-	r = amdgpu_vm_update_pdes(adev, vm, false);
++	r = amdgpu_vm_update_pdes(adev, vm);
+ 	if (r) {
+ 		dev_err(adev->dev,
+ 			"Failed %d to update page directories during force retry rpcs\n",
+@@ -2798,7 +2798,7 @@ static void amdgpu_ualink_unmap_all_npa_addr(struct amdgpu_device *adev,
+ 			break;
+ 	}
+ 
+-	r = amdgpu_vm_update_pdes(adev, vm, false);
++	r = amdgpu_vm_update_pdes(adev, vm);
+ 	if (r) {
+ 		dev_err(adev->dev,
+ 			"Failed %d to update page directories during all NPA addresses unmapping\n",
+@@ -4892,7 +4892,7 @@ static void amdgpu_ualink_metadata_npa_unmapping(struct amdgpu_device *adev)
+ 		}
+ 	}
+ 
+-	r = amdgpu_vm_update_pdes(adev, &adev->ualink.npa_vm, false);
++	r = amdgpu_vm_update_pdes(adev, &adev->ualink.npa_vm);
+ 	if (r) {
+ 		dev_dbg(adev->dev, "failed %d to update directories\n", r);
+ 		goto out_unreserve;
+@@ -5035,7 +5035,7 @@ static int amdgpu_ualink_metadata_npa_mapping(struct amdgpu_device *adev)
+ 		}
+ 	}
+ 
+-	r = amdgpu_vm_update_pdes(adev, &adev->ualink.npa_vm, false);
++	r = amdgpu_vm_update_pdes(adev, &adev->ualink.npa_vm);
+ 	if (r) {
+ 		dev_dbg(adev->dev, "failed %d to update directories\n", r);
+ 		goto error_npa_mapping;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 63875761dfaca..116ab0b967f8d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -1173,7 +1173,7 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
+ 		goto retry_lock;
+ 	}
+ 
+-	ret = amdgpu_vm_update_pdes(adev, vm, false);
++	ret = amdgpu_vm_update_pdes(adev, vm);
+ 	if (ret)
+ 		goto unlock_all;
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index c0cf10d030c36..eb704d07dce61 100644
+index aaf702ec2acda..75a6f9c2a8be3 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -3072,10 +3072,12 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 			    u32 vmid, u32 node_id, uint64_t addr,
- 			    uint64_t ts, bool write_fault)
+@@ -985,15 +985,13 @@ uint64_t amdgpu_vm_map_gart(const dma_addr_t *pages_addr, uint64_t addr)
+  *
+  * @adev: amdgpu_device pointer
+  * @vm: requested vm
+- * @immediate: submit immediately to the paging queue
+  *
+  * Makes sure all directories are up to date.
+  *
+  * Returns:
+  * 0 for success, error for failure.
+  */
+-int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+-			  struct amdgpu_vm *vm, bool immediate)
++int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm)
  {
-+	struct amdgpu_vm_update_params params;
- 	bool is_compute_context = false;
--	struct drm_exec exec;
--	uint64_t value, flags;
-+	uint64_t *dst, flags[AMDGPU_VM_NUM_LEVELS];
- 	struct amdgpu_vm *vm;
-+	struct drm_exec exec;
-+	unsigned int idx;
- 	int r;
+ 	struct amdgpu_vm_update_params params;
+ 	struct amdgpu_vm_bo_base *entry, *tmp;
+@@ -1011,7 +1009,6 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 	memset(&params, 0, sizeof(params));
+ 	params.adev = adev;
+ 	params.vm = vm;
+-	params.immediate = immediate;
  
- 	drm_exec_init(&exec, 0, 1);
-@@ -3119,24 +3121,24 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	}
- 
- 	addr /= AMDGPU_GPU_PAGE_SIZE;
--	flags = adev->gmc.init_pte_flags |
--		AMDGPU_PTE_VALID | AMDGPU_PTE_SNOOPED |
--		AMDGPU_PTE_SYSTEM;
--
- 	if (is_compute_context) {
- 		/* Intentionally setting invalid PTE flag
- 		 * combination to force a no-retry-fault
- 		 */
--		flags = AMDGPU_VM_NORETRY_FLAGS;
--		value = 0;
-+		for (int i = 0; i < AMDGPU_VM_NUM_LEVELS; ++i)
-+			flags[i] = AMDGPU_VM_NORETRY_FLAGS;
-+		dst = NULL;
- 	} else if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_NEVER) {
- 		/* Redirect the access to the dummy page */
--		value = adev->dummy_page_addr;
--		flags |= AMDGPU_PTE_EXECUTABLE | AMDGPU_PTE_READABLE |
--			 AMDGPU_PTE_WRITEABLE;
-+		for (int i = 0; i < AMDGPU_VM_NUM_LEVELS; ++i)
-+			flags[i] = 0;
-+		dst = adev->vm_manager.dummy_dst;
- 	} else {
- 		/* Let the hw retry silently on the PTE */
--		value = 0;
-+		for (int i = 0; i < AMDGPU_VM_NUM_LEVELS; ++i)
-+			flags[i] = AMDGPU_PTE_VALID | AMDGPU_PTE_SNOOPED |
-+				AMDGPU_PTE_SYSTEM;
-+		dst = NULL;
- 	}
- 
- 	r = dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 1);
-@@ -3145,12 +3147,32 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 		goto error_unlock;
- 	}
- 
--	r = amdgpu_vm_update_range(adev, vm, true, false, false, false,
--				   NULL, addr, addr, flags, value, 0, NULL, NULL, NULL);
--	if (r)
-+	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
-+		r = -ENODEV;
- 		goto error_unlock;
-+	}
- 
--	r = amdgpu_vm_update_pdes(adev, vm, true);
-+	memset(&params, 0, sizeof(params));
-+	params.adev = adev;
-+	params.vm = vm;
-+	params.immediate = true;
-+
-+	r = amdgpu_vm_begin_critical(&params);
-+	if (r)
-+		goto error_end_critical;
-+
-+	r = vm->update_funcs->prepare(&params, NULL,
-+				      AMDGPU_KERNEL_JOB_ID_VM_UPDATE_PDES);
-+	if (r)
-+		goto error_end_critical;
-+
-+	amdgpu_vm_pt_leaves(&params, addr, addr + 1, dst, flags);
-+
-+	r = vm->update_funcs->commit(&params, NULL);
-+
-+error_end_critical:
-+	amdgpu_vm_end_critical(&params);
-+	drm_dev_exit(idx);
- 
- error_unlock:
- 	drm_exec_fini(&exec);
+ 	r = vm->update_funcs->prepare(&params, NULL,
+ 				      AMDGPU_KERNEL_JOB_ID_VM_UPDATE_PDES);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index c59647554b416..4ba49fe045df9 100644
+index f6f14f1e96b39..d84e0a3ff88d4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -195,7 +195,10 @@ enum amdgpu_vm_level {
- 	AMDGPU_VM_PDB2,
- 	AMDGPU_VM_PDB1,
- 	AMDGPU_VM_PDB0,
--	AMDGPU_VM_PTB
-+	AMDGPU_VM_PTB,
-+
-+	/* Not HW level, but for array sizing */
-+	AMDGPU_VM_NUM_LEVELS
- };
+@@ -451,8 +451,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 		     bool *need_pipe_sync, bool *emit_spm_needed,
+ 		     bool *emit_gds_needed);
+-int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+-			  struct amdgpu_vm *vm, bool immediate);
++int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+ 			  struct amdgpu_vm *vm,
+ 			  struct dma_fence **fence);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 411bd3394442a..af8d2ede183a1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1540,7 +1540,7 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
+ 		last_start = prange->start + i + 1;
+ 	}
  
- /* base structure for tracking BO usage in a VM */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-index 3c48a3401e2a4..dafdb3a001b8e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-@@ -126,6 +126,9 @@ int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
- int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
- 			  uint64_t start, uint64_t end,
- 			  uint64_t dst, uint64_t flags);
-+void amdgpu_vm_pt_leaves(struct amdgpu_vm_update_params *params,
-+			 uint64_t start, uint64_t end,
-+			 int64_t *dst, uint64_t *flags);
- void amdgpu_vm_pt_free_work(struct work_struct *work);
- void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
- 			    struct amdgpu_vm_update_params *params);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index 710c813c3a045..ab39122f19b68 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -963,6 +963,80 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
- 	return 0;
- }
- 
-+/**
-+ * amdgpu_vm_pt_leaves - update leaf PDEs/PTEs
-+ *
-+ * @params: see amdgpu_vm_update_params definition
-+ * @start: start of GPU address range
-+ * @end: end of GPU address range
-+ * @dst: optional array with one dst addr per layer
-+ * @flags: array of mapping flags per layer
-+ *
-+ * Update the leaf PDEs/PTEs in the range @start - @end without allocating or
-+ * freeing page tables.
-+ *
-+ * Returns:
-+ * 0 for success, negative error code for failure.
-+ */
-+void amdgpu_vm_pt_leaves(struct amdgpu_vm_update_params *params,
-+			 uint64_t start, uint64_t end,
-+			 int64_t *dst, uint64_t *flags)
-+{
-+	struct amdgpu_device *adev = params->adev;
-+	struct amdgpu_vm_pt_cursor cursor;
-+
-+	amdgpu_vm_pt_start(adev, params->vm, start, &cursor);
-+	while (cursor.pfn < end) {
-+		unsigned int level, shift, mask, nptes;
-+		uint64_t pe_start, entry_start, entry_end, d, f;
-+		struct amdgpu_bo *pt;
-+
-+		/* Walk to the leave entries */
-+		if (amdgpu_vm_pt_descendant(adev, &cursor))
-+			continue;
-+
-+		if (cursor.entry->bo) {
-+			level = cursor.level;
-+			pt = cursor.entry->bo;
-+		} else {
-+			level = cursor.level - 1;
-+			pt = cursor.parent->bo;
-+		}
-+
-+		shift = amdgpu_vm_pt_level_shift(adev, level);
-+		mask = amdgpu_vm_pt_entries_mask(adev, level);
-+
-+		/* Looks good so far, calculate parameters for the update */
-+		pe_start = ((cursor.pfn >> shift) & mask) * 8;
-+
-+		entry_start = cursor.pfn;
-+		if (cursor.entry->bo) {
-+			entry_end = ((uint64_t)mask + 1) << shift;
-+			entry_end += cursor.pfn & ~(entry_end - 1);
-+			entry_end = min(entry_end, end);
-+
-+			nptes = (entry_end - cursor.pfn) >> shift;
-+			amdgpu_vm_pt_next(adev, &cursor);
-+		} else {
-+			nptes = 0;
-+			entry_end = cursor.pfn;
-+			do {
-+				nptes += 1;
-+				entry_end += 1 << shift;
-+				amdgpu_vm_pt_next(adev, &cursor);
-+			} while (cursor.parent && cursor.parent->bo == pt &&
-+				 cursor.pfn < end && !cursor.entry->bo);
-+		}
-+
-+		d = dst ? dst[level] : 0;
-+		f = flags[level];
-+		trace_amdgpu_vm_update_ptes(params, entry_start, entry_end,
-+					    min(nptes, 32u), d, 0, f);
-+		params->vm->update_funcs->update(params, to_amdgpu_bo_vm(pt),
-+						 pe_start, d, nptes, 0, f);
-+	}
-+}
-+
- /**
-  * amdgpu_vm_pt_map_tables - have bo of root PD cpu accessible
-  * @adev: amdgpu device structure
+-	r = amdgpu_vm_update_pdes(adev, vm, false);
++	r = amdgpu_vm_update_pdes(adev, vm);
+ 	if (r) {
+ 		pr_debug("failed %d to update directories 0x%lx\n", r,
+ 			 prange->start);
 -- 
 2.43.0
 
