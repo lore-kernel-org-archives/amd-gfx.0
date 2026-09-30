@@ -4,123 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44AB6CA5FC5
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 13:24:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA825CA5FCA
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Sep 2026 13:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7EB310E273;
-	Wed, 30 Sep 2026 13:24:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A3110F3EB;
+	Wed, 30 Sep 2026 13:33:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Hzt0JXl6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F5x9r7De";
 	dkim-atps=neutral
 Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011024.outbound.protection.outlook.com [52.101.62.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10D7110E273
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Sep 2026 13:24:29 +0000 (UTC)
+ (mail-centralusazon11011023.outbound.protection.outlook.com [52.101.62.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B747110F3EC;
+ Wed, 30 Sep 2026 13:33:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yMb2QesKI1/8VG+bEkmphFqb9yQ3a58+KrBNIyq22GzbMAhbp5qyl2Z7u4iepb6ZdXlQHZohJbZq7nAE6b8Vl39MqMpUmSeEKwVjK/A9oJIfntjX1eMbNDlVyKlhVGOjuQDhGkVf2H7FwvmTdZgPcetnUtGcZdxSkwBEUZVDrWnal1+qz9ABtrKKMQ8bEvrTkEgf2NAk/3WbdghMCk3NN3vnaqMBLX2ksyRrAPtVjvBPy0KgGamRBjs1hSef21bNY6lq1b7fNfuGqxRhAQpSui3S4nTViHaSaiLa9TTlVq45nqase10caLK5j1HOFQ5OWVNws/1DkFJD7qjHx+XevQ==
+ b=VMZwDHcMbm+6k42CXQnqYHvtcW3QkAuxqUz0si6+tZErExFZzHMF/O8h0X+y9AB8u843UR1DpB/OZFj7EkPq4Lg5X1cEpf4eYcXHO4jVLYs55/aNLajf6l+zwKO+RYvSBCRY+8DoYKeSMWOfflHtdNJEAR+R6cBqkzrsmDU8md1lWXzT/5fvqKHJuwmweDrmLncuzUdvq35W38nmB+p0vk0F7Rcct7Nit8o5ZjaRYWNc4Ne/O2G6KwdnpBhDR1evviFEeBj5QhpCkd2QIlwUoOFzN5nRXlaCkpfpWkEb9csELGOducWRRAEmRiEAss86Nia7Nq3sNFmTfgBgKg8B5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=//SJujTnentl4lnediLNsJfMviup4GdymqGC2foBOYk=;
- b=K1gg3/dI9GXLN8I0tzkz3qVCYifhid+JnpZf+Zs4g619Ci8sjVTPM+leoyxqkzOGffijMw02O15Mc49EwivXm3ZqRqoixiWa1SWPSCETYOc4M3J8JtsQIh8IhWmmjxbK9iWHtEY8G7EV8uZn1UPBiHyxMlIVpEFJImFqGrawj2u8B23faz6iNR0O/Bkqge7VX/DrnT3h0z8YTZc+hDMZRF9YFgBocui6HZeMJ9IRqCGf5avFv3+HlYOoyMGPjSyxK1hAkPkG9wZ9X8mZVyGQy0fXEoyCrVdvc2mvRA3cVgPo01NWYlIfnCVUEiUwKQHSMLuxTBtrAfwZ9Bcva5aogQ==
+ bh=5bahXitpYeZsoLVRTHrIYq5OVV33hG/C3aPsiq40FvU=;
+ b=uJOJP/ru1BPuFPfy0U+L4AJeYJbQrT2Fch/KokZBtgcdpKSJ6XXn9mTPy45kyUhQ7QAOtX6SBiXmWFOa8+IBfl4DiHZtH3SLxzooagZeYYVdp63KUjY0C1nQA01PRcK1y5FxX6yPlx4ac7KxmQScN3NvVVnr9No+QkxN6Xi/kAUni6C90zwaRscd49KomNRiovCQhaBLqrvGMJWsW4QNuYzdgP7C5wqIpX1VrNgdUn0IYAkJchCbXjKbPj8rnWLREMN4/zmrNsQ3LjfON/vYQaCf7BWJ3/tl7QypsGd9OnT7mZkta6+1h38a4Ru1fKYb9QCyl8wccaEmp9PJy9NDXQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=//SJujTnentl4lnediLNsJfMviup4GdymqGC2foBOYk=;
- b=Hzt0JXl6iWTSLEPjbvfMjwL1p+LZGoct0wLKJk9FLhtifHC8TpTL0/TOsE1LiEvVQGWukvlMYHlsoIazS3KHe+cF5go2kzdRjgT9tbSM28/LeAY3iZTRcBFAEX6devz+iq67BlWcjeifJR99i8bVLpJ4hBtmpw8H5EBAcljnXyw=
+ bh=5bahXitpYeZsoLVRTHrIYq5OVV33hG/C3aPsiq40FvU=;
+ b=F5x9r7Dee3Drec9UiUarygpQmQK1HtHHBJ8WPCqabmTXqNBjvinXO4U6X1XhWwOhUYFf8uGvTokJBO1NlHwC8oADvdjQa4IRdYN9eDpca8wEb7LcU5yNRJcJCmJ3nyP8NBJ/lz+0aCx0Oj8Gvms8Fen3KKTuIZQij1LmGhh4AjI=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB9067.namprd12.prod.outlook.com (2603:10b6:510:1f5::8)
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by MN2PR12MB4455.namprd12.prod.outlook.com (2603:10b6:208:265::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 13:23:56 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 13:23:54 +0000
-Message-ID: <da65b814-7c7d-4efe-9db9-8fe42d09b57f@amd.com>
-Date: Wed, 30 Sep 2026 15:23:51 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 13:32:42 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
+ 13:32:42 +0000
+Message-ID: <7d317175-d1f8-428b-a5fa-51c53e2d51c8@amd.com>
+Date: Wed, 30 Sep 2026 21:32:31 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/13] drm/amdgpu: add amdgpu_vm_update_leaves()
-To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>
-References: <20260930103207.10690-1-olivier.kaloudoff@gmail.com>
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ amd-gfx@lists.freedesktop.org, dmitry.osipenko@collabora.com,
+ airlied@redhat.com, kraxel@redhat.com
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+ <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
+ <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
+ <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
+ <dce3d9ed-87a7-43fe-b7d8-c7281514f7d1@rsg.ci.i.u-tokyo.ac.jp>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260930103207.10690-1-olivier.kaloudoff@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <dce3d9ed-87a7-43fe-b7d8-c7281514f7d1@rsg.ci.i.u-tokyo.ac.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0079.namprd03.prod.outlook.com
- (2603:10b6:208:329::24) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: SE2P216CA0185.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c5::8) To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB9067:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5f40393-58b5-4903-37c1-08df1ef61350
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|MN2PR12MB4455:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b8e4362-440b-480c-8173-08df1ef74db1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|10067099003|5023799004|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: W/uS5vRGcqJlmxdjIKmrUbKw+csnZek+WB6AF8DuJTwZki2kpED8KlEjUtNvrXz55Cwr6jIP9UmzhVt7aJUaFd5z5t5adE0yc77Mr+PPoYTsGYSf93D4uGVWtJH7YMHzaa6VWUSGmAeebsOiIG4sscYCCjE5GiyanVxkV0442CSioCA4y8CF4Ed1pRgA009Az6yxAdc1U2IC7ec/GdsBND6edm07WikzE2e8lNuk4Rbbss5nBUb8Dk0CC2Gfyh7v9rw8rZSve9/+S3WrVj/mIkTx0y3tuMe1AMAguTvdNnmIJgqDhxpTeJAIwIBTI4Csf6wQHL6dfO8hZKLVzx7PNuh74ObGxcZZMz19DjA18qVik7Uz825Xb41rc47ImVKrOgeJvK7e3PxnbdNZZncmPmU+kOBD9Rjzv3q1N4TG/zWK7gXB8L89FuBThfDwebNbpaIkc9k6ybtS/JdKGXzOZ6a5VIop1oWUk8oQgF80CBhp1ANITS9bxJng9iu2T9aOWYDXr+bGKD0FMf8kKGFspntuUCuxBr/c7FVhRm/0m59RTYFJ9JqB78AE9IzUhjb9Mxv+A6uLR179rzMKZVC+IAiPzMOR9DZA4qDQ/kWWgbL6dO4MWybx1h6D1zIAmivc
+ ARA:13230040|376014|7416014|1800799024|366016|23010399003|5023799004|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: uBjffF6omrq2kkFSExdYA8skKHpvBH64QaipKiC/6HG9UxP6WAhhrTtLBNY+SJxeEtTr+mmyl29U6s/uTHYZuFiHdWo/ymlKjAcnoK0CzoaPkdQNtbYzJVCoucM3Ah6sDUSjFUa8Sqwu88GuCmlUWgcZiTmqk+Dr05+HpvAC/ZMugdT183PykfaXLUIv1AE1f6VKuyjwKX4bFb4bnqyFyH6f+ZWy/olwXHXHI2Xe9cIaWvHY5jPBBuV1zR/ZVm6HYJJ4eLO3t1P+4BqmcP6fHhCoexg0BDmlimaaqmjIUIIMDkAPaC41uLfYxHU4YSpDtkUSBKyEEwS5VZ/9CFrhDvQzgRWhJXSFPrv0PIeuFdGALC9XZjRHXaK2tMUBwJJh7FtnatVAcGTlz5Hzr42jifgOMIbSP74OxRtZrKuf+qWix5Ahh5coObYbj7/6S2jE66RnBNXx1WjgOJ3dZk/UozFJnWJZu8w5i1sksJxkYakFn6tbqxffgFQzqw7jPuyeMvYXnwnyhJVTPkJCLaGZ9aaSLMWJxewqVq2sSSyYf8cyQRABd4YQAIgk3dlL0GURklGYM/wvfroJgqWzv6HgmnL9E+KFnb2LQIiTWBT8nNiRo875dAtadca6QFjYWyQ5BU6fgAmF6N0hpskXH5tMtCp+uN1BMNwb8kmSzqyPS5o=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(5023799004)(56012099006)(11063799006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(5023799004)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eTZPd0hOaFV4WVlJQVZCK05vTG5GOWRCRlo2T0U2Sm1RN25mWU1DNEM0bm90?=
- =?utf-8?B?ZXRJSXhPSWcwS1p0MTAyQzI4QloxQUVXTGZPUW04WUVjbTZEY0ZLcmJnL0sr?=
- =?utf-8?B?U0RDK2FQTVIxdG5yNndYZEJDUGxLdkQxbGdjN2crTy9HL1pET1JWY0VOSkly?=
- =?utf-8?B?TGR0L3Jac09ndGFBVDdlazU2ZjFYVFZxU1U1OFJyM0M2b1pSKy9ueGNoQ3ZJ?=
- =?utf-8?B?UkYySjZ1NVMwRXFxaE9Xdnc5ei9nNmQ3R0VtS2V2VnpRNmZHQ2JWY0gwQ0lU?=
- =?utf-8?B?RWlhWlhPZ2NTRDAvOE1jS0g3ZlQ2MGRJOFNEQXNDZW0xSG1kaXRNSllzeUxX?=
- =?utf-8?B?UWp0Z0wzKzZQcXQwYjIxM0drdTMxeTNwdW5Ia2JENzRic3FKTmVNUHRqSnB5?=
- =?utf-8?B?ZWwrRmg4OHhWQU9JZVVQV3R2ejMzcEp4WnRMczVVK3JqMHRrVVFmNHV1L0NF?=
- =?utf-8?B?ZkFsbERzOW9WQXo5YytXdC9Kend6TmZsbkpVeHl1Z3pIN3JIWlJFaVZHMW9S?=
- =?utf-8?B?ZzJ1aWtEelVPWlUrbnBmL21VYjdCeUtrc0I1NmVCbkVpVGlHc3E0Ykx6akJL?=
- =?utf-8?B?b04wNDg0eVM4QWFzWkJsM2RZZ0NiSWp6VmpiRTdoQnE5M0Vxa0VLVjcvZllR?=
- =?utf-8?B?VnNobisyZ0RRL215UG5YVVhma216L0U2T0FsVzN6aDlwQlJYTEE1bWo0Ukcx?=
- =?utf-8?B?MTRVZjhROW81ZkVFQWlrcGhFVEc5QW4zRGloSnlMY3pvdmlWNUYrcXhycW5P?=
- =?utf-8?B?QjdlaGg1QkJJZ09wU0g5R3M2MVNzSXhCUnNTeGcrQjdTUHZhbGlOSnIwTmts?=
- =?utf-8?B?VEI2Z0V1czFUTVNyMDgzL3BVajBxZFQ1WmFvU3lOZTJpZ0tRUitWQWJqd05j?=
- =?utf-8?B?RmlxRTZGUVJ4RWJjRXU1Q0VTVm02ZTJXL0pxUHF2alA1UWJHRktDNHQ5SmVB?=
- =?utf-8?B?ZkwrVFUxVEx2NWcvVnJsM0tTTHNDcmxXalJ1UWNRY0FLRmRxM0kyVjdSQzhQ?=
- =?utf-8?B?bThnVkkrZzltQnV5SnJIM0FSdlZsWElmYVBzN3EvRkRYRitBTVR5c29PTERu?=
- =?utf-8?B?c2xNeVh0REgwWXV1TC90THYvcExRNnVINmkra1l6eVZ6djhsL3pib0hsNHp1?=
- =?utf-8?B?VWEzbzNnR2RCTDUzTjdob3VhVE1KQ0dHd2RTK0QvajhIRTI3SFFhM3R1Undj?=
- =?utf-8?B?a3NmM0pNeWhaNWxNWG1uaUxpT0hRL3J2aTdQaHdqbm81b0MrV013OGtycW9V?=
- =?utf-8?B?QkRiOWpFbXd3RHlITDNlSHcxV3JJOWFTR1NmMklqc2lYNUMzSVhkUmNDNk5s?=
- =?utf-8?B?TDkvcGxxNDgwVWJwNFBqclFuRk5mRWg3djIzNU8xeUZ5WGNRbW1lOHpoZUJM?=
- =?utf-8?B?T1JCYm5nK0FteU5BN2JVQ05FN3NBWnQwTUl1QkwzV2dvUTByb1c2L284TTkw?=
- =?utf-8?B?N1F4QXNDSTdPMjhHZEE0eE5XY3RNbkE2Rkt3SjZPQ3VzZ2RsT2xEY2lXbkdW?=
- =?utf-8?B?ZU5RcDZ2dHlTcG1JNUNpZ0VrajRzVjhCY2s4aS9CK3Z4bE5BbUFuK3ZlNzRC?=
- =?utf-8?B?eE9vV09WaFNCWXRkK1E4RmVQK3lCMG1hOFcvNWlsejRpTEhVVUZ3U21nN2hh?=
- =?utf-8?B?NmpRME9JUUc2SEJZekFySEhJNkN5ejdGY1NMaHVFSkdxN2JPT2h0NXAwWEpY?=
- =?utf-8?B?dWs4L2VvdFY2bU03ZG1URUdnSjMzVVU3NGoyK1NNb3ZuWTFMcVQwbC9wd3VT?=
- =?utf-8?B?Q2NocWR3WVFsYnBybFpvM1gzWlJKN0tUdEROaVNkRkxtd3FYc2ZTakx3aHFs?=
- =?utf-8?B?WHlNUEQycmhCOXZrVGhyaitFNWs0SGtvbkdWbW5sYVFzMHFwbXlKTmhBZkpp?=
- =?utf-8?B?enRac2lkSS9hV21QcG50VDJkeTlnK0c5a1cyOGNRdVJIbkdaZXFqOTRhOEQ0?=
- =?utf-8?B?aHJTUjcveHFZenk2R1JVZVY0b0M4Ujl3SjhUQnUrWWlHcFdJYmhVZ0lmdGNa?=
- =?utf-8?B?SUFuVDV0RWdEM1N2dkhseWF2NjRiN1o3RW9MVnUzY25EYjFmaTdOcnl0Y2hK?=
- =?utf-8?B?VG5CUXBIR3YyYU1nQzIvdWk3NHJVbVBaYW5FNHJTM1prQW1OUTQ2cHJZTEIz?=
- =?utf-8?B?UENZTzdXRXBKKzVsdTFnYWk4UkM3SEtINFRocnF2VUhjcWVrT3JmOGc3UElu?=
- =?utf-8?B?V2hsN0gycjNHalBPVUdtdE9aNXBQTzRiRW5Yb2dJdHVJYkt0dlZuRnZrb3hZ?=
- =?utf-8?B?Q2ZrNUd1RzJBWEg4aGdWeHFUalpYTzlwSkovY0J3M21PUXljNUxscGkxRE96?=
- =?utf-8?Q?o/q/tG31QlnHkaOOO8?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0NVOUszOVFPRHZEaFYxSG1NVFVmUStjcEVOQWZTRDJ3TXZxZWhCRmVxWVhZ?=
+ =?utf-8?B?VDMzNEpaNTRUR2ViZHJBS1RRUXFRalF5R1pIMkNsUTVmMzlPeE1pZGZkK3Fa?=
+ =?utf-8?B?S05IUzluRDlqUUMyRlZEK2Fyem0vdXJVaG5rRDU2anoyc3V6VmdhNXhCY0VG?=
+ =?utf-8?B?TEViS3BxNTdJaHV1ZW9Ebjlkc1QzT0w0KzVwUldkS3R5ZW9FZVVpbnpUSUha?=
+ =?utf-8?B?Wk0zR0ZJNkVoYTNpdkZHTHJtQXdxOUpOZ052Wm5QM3grWmtmTmxLb3RIellm?=
+ =?utf-8?B?QktMMktaeU5QazNSTEVFK1M1aWVMSVp5aHdQZUtCaVI2bXpiSmhGdFFXQ1lh?=
+ =?utf-8?B?R3QyU2xFMDF5NnlDKyt0NHMvRTI0ZXZydW5ycEFWUFBTcmdEM0VNOFhzZEZZ?=
+ =?utf-8?B?aG9yQWFnckNvMzhNam03QlU5UWRYNUZQV1h5K29TakpyU3hnVGZHckQ1VHdT?=
+ =?utf-8?B?WXBMY01GempoMlB5VHhkaThQNzI5NTJKNHY0V3hBT3FVZWkwT3dLalg5V09u?=
+ =?utf-8?B?bGNqd1VSaWlIcjliU2w3VktML3YzeXlqTldtcDdQRktDU0Y5NDFmeDRQUjRr?=
+ =?utf-8?B?OGpCdTlrSzMxQ1FmWndqcmVNRytKamVyc3JINWJMVGxsbjA3aHB5WUZaeStP?=
+ =?utf-8?B?dWl1UjNiK2VGME9PbTFXVTNjZmEyK1JYLzBhOTVQMkgveFdOVGRFei9TNDZq?=
+ =?utf-8?B?VnVGZlhaUGJQU29GOC9QdmpNL041OElSaWJOVVV4WjRoOU0reExiZFRKeFJH?=
+ =?utf-8?B?VzlRbCtLeXdYczdoZGZwdG94N0JBUFFGK3h6TE1UMDIySHRRRElKeGZ1VFFP?=
+ =?utf-8?B?UkIzYXRxclpDYTgvZytUSGRWTkE5WVpHTzQ3bXYxTHR5M2N6Sm1nRU5GcUFw?=
+ =?utf-8?B?Skc3Rk44Y1hEMWJma1BSY3VqVUtVMTA0Q2hkZTBOVlJRM0d6d3UxZ1ducGR3?=
+ =?utf-8?B?ajV2YUw0SzBOZVhCOEdlSHNBNTlRUm1FYVFXWlRVWWRJbGp6OTZwUWo1UjdX?=
+ =?utf-8?B?ZDZVSVUvR3ZrbHZkZTcveVQrRnptSkd4T3drQlozeUtTVGpQMlBuNG5QdEY1?=
+ =?utf-8?B?eGF6L1M2Kzl3UGxWT2swWWZwOWRna2dYWUFHY3hFeTBCbmpWZk1ENWFMRXVB?=
+ =?utf-8?B?cXU2UTRjYWsxSnNSYnJxdkplOVBzSEdlNWVGdjhXdUlYNlFzMXVZN1llV3lk?=
+ =?utf-8?B?S09mRk54WUxidUVoWlZhZlYxTWZTbGxiRU9vTVcvMmE0VFQzV1FvcVFvK01r?=
+ =?utf-8?B?cXZ4NEl2d1QyUHNuTitqcXgyemVwSUw0UnhNcC9ScGdJN2tIZG5JVkZ4TWVt?=
+ =?utf-8?B?OWRIc0w5bnpRZUZoSFRBR1paSnlsSlRHKy9Bdld5eS9CSXlrVTFpVFpSaTNY?=
+ =?utf-8?B?a0VibnRZSGdoWFhiK3JrSjA2bzN3b1E4L2RUbTQ5VVN2WkxCQTJpNE9jV0Mx?=
+ =?utf-8?B?NldWclJnMTMvNTFCU2NQSzA3amdxbjd0RHRlMTlCbFh6b1RYK0FqUUIvaDNq?=
+ =?utf-8?B?YlczV2tBVFloMVpRdmgyN0pUY3hNSEx2bXFPQnAxampyQzZVNWhHcHZRSWI5?=
+ =?utf-8?B?TjMzU2dmVi9jRU9Kb1hGOG5xSDRscmFEWG4vN2lOWHFuU04yaEw3Uyt3S3ZY?=
+ =?utf-8?B?a1FCRzdQb3NjZTJEMkRuMmUxTHRpTkk4QUVFUVNjd25ZVnRKMTB6ZTR0VU5L?=
+ =?utf-8?B?bEdEdHlFWGFGTmxacW56WURaOENybWNlaThUWS8rdDlwV1VsZmczTUZLb3VH?=
+ =?utf-8?B?R3F0UkQwVDc4N1VtU2xsdXlNY2wwdkpKN1hKbkRzTUFrdHZ0QmVmQit3a2Fv?=
+ =?utf-8?B?NWYvM1RoWDhLN3Z0R1BvN05qcHZ3ZEtDb2VoaFBMYzFHTXBoVnpYdlF6V2wy?=
+ =?utf-8?B?YlRYTm9vTWUzR0pyRGY3WDlBZmNvWU5HQk05ZXJqTDhMRnc0UEpkRmRSMUhS?=
+ =?utf-8?B?RllrOHQ5OEdLd1hOQm8yTUZaUUl1T0JWOHlwUWRVTXJ6WGl0NzIyNFZzbmdy?=
+ =?utf-8?B?eGNrcG1IVjlDenJKZ3A3TDU2dUNsV09kamhyaGNUU29RWWhaeHNvb2lJVWg4?=
+ =?utf-8?B?WXI1c0dkRHpaS0Z3OU93RzVNUmxYRUNQbUJsSXl3N2RhazNzVnY1dUIzMm1D?=
+ =?utf-8?B?azArTC9jUWdvUWxVc3d4d1dqRlZFMTliVmJVNlpvT0xzeWVLK1l0R3hNOU9p?=
+ =?utf-8?B?dXMvKzlyMzY2TUdpZS9kZHZQdkFVQUlMS1FzcFN0SXA0WENodWlaOS85QXlq?=
+ =?utf-8?B?WEhybCtwUGU1bDZGMEZSc1kwU2lnMmhWN2ZKN0VsM281QStibHNoOG9MWW9E?=
+ =?utf-8?Q?oMp5r2vCe6FuJ8JTZv?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5f40393-58b5-4903-37c1-08df1ef61350
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b8e4362-440b-480c-8173-08df1ef74db1
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 13:23:54.7288 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 13:32:42.1107 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lRms/D0rT96AiMCAPs6ejyYxpNXVZB4gl0md0cmP5NX5bfGyPcENV178T20Mmt9d
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9067
+X-MS-Exchange-CrossTenant-UserPrincipalName: Dl84go3Gr9skybLdkCz1GFKJP5S4iMCiTYkT8WThS5DQXIUnJuOhyof1034PExUcpg6tL2rBJtN5CzUWdTzWvg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4455
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,69 +143,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Olivier,
 
-On 9/30/26 12:32, Olivier Kaloudoff wrote:
-> Hi Christian,
-> 
-> On 9/30/26 12:16, Christian König wrote:
->> thanks for the testing, but you are looking at outdated code.
+
+On 9/30/2026 12:56 PM, Akihiko Odaki wrote:
+> On 2026/09/29 11:22, Huang, Honglei wrote:
 >>
->> I was initially only testing with 2MiB pages and didn't see that
->> issue, it is already fixed in what I've send out on Friday.
 >>
->> Can you give that version another round of testing? The would be
->> great.
+>> On 9/29/2026 1:25 AM, Akihiko Odaki wrote:
+>>> On 2026/09/29 1:22, Huang, Honglei wrote:
+>>>>
+>>>>
+>>>> On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
+>>>>> On 2026/09/24 18:55, Honglei Huang wrote:
+>>>>>> Add userptr blob objects so the guest kernel can pin an existing
+>>>>>> userspace mapping and advertise it as CREATE_BLOB backing entries.
+>>>>>>
+>>>>>> - New virtio_gpu_object_userptr type for userptr resources
+>>>>>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
+>>>>>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
+>>>>>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
+>>>>>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
+>>>>>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
+>>>>>> - Mark writable pages dirty when unpinning
+>>>>>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
+>>>>>>    cleanup_object() on the unref response or on create failure
+>>>>>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
+>>>>>> - Reject unaligned or overflowing userptr ranges at create time
+>>>>>> - Disallow PRIME export of userptr objects
+>>>>>> - Save CREATE_BLOB params and restore userptr resources after
+>>>>>>    hibernation without using the shmem restore path
+>>>>>>
+>>>>>> The hibernation restore path maps with the same attrs and direction
+>>>>>> used at create time, as documented next to the call. Like shmem
+>>>>>> blobs, the DMA API can still bounce through a buffer there. This
+>>>>>> design only avoids a second guest side shmem allocation and memcpy,
+>>>>>> nothing more.
+>>>>>
+>>>>> I don't see the restore path is documented though this says 
+>>>>> "documented next to the call".
+>>>>
+>>>> Will fix in next version
+>>>>
+>>>>>
+>>>>>>
+>>>> ...
+>>>>>> +        goto err_cleanup;
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    userptr->sgt = sgt;
+>>>>>> +
+>>>>>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
+>>>>>> +        enum dma_data_direction dir =
+>>>>>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
+>>>>>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
+>>>>>> +
+>>>>>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
+>>>>>> +                      dir, 0);
+>>>>>
+>>>>> I checked the ROCm code and documentation, and I do not see how 
+>>>>> this mapping satisfies the HIP coherence contract when bounce 
+>>>>> buffers or explicit DMA cache maintenance are required.
+>>>>>
+>>>>> HIP distinguishes two coherence models:
+>>>>>
+>>>>>  > Coarse-grained coherence: The memory is considered up-to-date only
+>>>>>  > after synchronization performed using hipDeviceSynchronize(),
+>>>>>  > hipStreamSynchronize(), or any blocking operation that acts on the
+>>>>>  > null stream such as hipMemcpy(). To avoid the cache from being
+>>>>>  > accessed by a part of the system while simultaneously being 
+>>>>> written by
+>>>>>  > another, the memory is made visible only after the caches have been
+>>>>>  > flushed.
+>>>>>  >
+>>>>>  > Fine-grained coherence: The memory is coherent even while being
+>>>>>  > modified by a part of the system. Fine-grained coherence ensures 
+>>>>> that
+>>>>>  > up-to-date data is visible to others regardless of kernel 
+>>>>> boundaries.
+>>>>>  > This can be useful if both host and device operate on the same 
+>>>>> data.
+>>>>>
+>>>>> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
+>>>>> hip_runtime_api/memory_management/coherence_control.html
+>>>>>
+>>>>> Fine-grained access requires coherence throughout execution; copying
+>>>>> between the original pages and a bounce buffer only at kernel 
+>>>>> boundaries
+>>>>> would not suffice. Coarse-grained access could support such copies, 
+>>>>> but
+>>>>> they must occur at the required synchronization points. I found no 
+>>>>> code
+>>>>> that synchronizes this DMA mapping at those points.
+>>>>>
+>>>>
+>>>> Whether dma_map_sgtable() bounces is decided by the platform's 
+>>>> IOMMU/ SWIOTLB behind the device, not by we request. attrs=0 here 
+>>>> just matches the existing shmem blob path, and is exactly what 
+>>>> native (non- virtualized) ROCm's own userptr support does too:
+>>>>
+>>>> // drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
+>>>> kfd_mem_dmamap_userptr()
+>>>> ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
+>>>>
+>>>> And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
+>>>> property, it is a GPU VM/cache thing. In upstream KFD it's 
+>>>> implemented as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the 
+>>>> SNOOPED bit), set by whichever driver programs the real GPU's page 
+>>>> tables for this memory:
+>>>>
+>>>> // drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
+>>>> mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
+>>>> pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+>>>>
+>>>> I really want to disable the bounce buffers in DMA, but it is a 
+>>>> platform behaviour, can not disable it in this layer. And in XEN, 
+>>>> the dmapping for it is another form of iovector/simple sgtable. And 
+>>>> if use the virtio-iommu or somthing else, the efficiency and the 
+>>>> complexity of driver integration are both lower than using iovector/ 
+>>>> sgtable directly.
+>>>> And for how to handle the DMA thing for userptr, since we have so 
+>>>> many concern about it, maybe we can drop this part in next version. 
+>>>> But we may have the AI review warn/error.
+>>>
+>>> Documentation/core-api/dma-attributes.rst says:
+>>>
+>>>  > DMA_ATTR_REQUIRE_COHERENT
+>>>  > -------------------------
+>>>  >
+>>>  > DMA mapping requests with the DMA_ATTR_REQUIRE_COHERENT fail on any
+>>>  > system where SWIOTLB or cache management is required. This should 
+>>> only
+>>>  > be used to support uAPI designs that require continuous HW DMA
+>>>  > coherence with userspace processes, for example RDMA and DRM. At a
+>>>  > minimum the memory being mapped must be userspace memory from
+>>>  > pin_user_pages() or similar.
+>>>  >
+>>>  > Drivers should consider using dma_mmap_pages() instead of this
+>>>  > interface when building their uAPIs, when possible.
+>>>  >
+>>>  > It must never be used in an in-kernel driver that only works with
+>>>  > kernel memory.
+>>>
+>>> This is exactly our use case. Although the platform decides whether a
+>>> mapping requires bouncing or cache maintenance, 
+>>> DMA_ATTR_REQUIRE_COHERENT lets the driver reject mappings that cannot 
+>>> meet this requirement.
+>>>
+>>> The shmem path serves a different use case, but amdkfd is a relevant 
+>>> comparison. HIP's coherence guarantees depend on both the GPU VM/ 
+>>> cache configuration and the DMA mapping established by the kernel 
+>>> driver. GPU page table attributes alone cannot make a bounce buffer 
+>>> coherent with the original userspace pages.
+>>>
+>>> The amdkfd mapping you cited therefore warrants discussion with its
+>>> developers as well. I have CCed the maintainer.
+>>
+>>
+>> Will add DMA_ATTR_REQUIRE_COHERENT in virtio GPU userptr in next version.
+>> And are there some places else need to be modified?
 > 
-> Makes sense — with 2MiB mappings the leaf-level writes dominate and the
-> non-leaf gap slot case barely gets exercised. Our SVM workload
-> (eviction/restore churn under memory pressure) hits it reliably because
-> it creates exactly the pattern that breaks: an unmapped gap followed by
-> still-linked sibling subtrees in the same parent PD.
+> I don't have anything else to add right now. As a QEMU developer, I've 
+> only reviewed the more obvious aspects of this patch, so others may have 
+> deeper kernel-specific feedback.
+
+Thanks for your detailed review.
+
 > 
-> I just read the v2 series (the 9-patch set from the 28th) — the reworked
-> amdgpu_vm_pt_leaves() in patch 4/9 looks right: walking forward and
-> accumulating only consecutive entries that have no leaf in the same
-> parent is strictly better than the one-entry clamp we used locally, since
-> it still batches genuine gaps. And patch 2/9 explains the other half of
-> what we observed in RAM — the PDE_PTE-only marker (0x40000000000000) in
-> the clobbered slots lines up with the cleared-flag generation fix.
-> 
-> Happy to re-test. I'll apply the 9-patch series on top of our 7.2.6 tree
-> and re-run the reproducer (vLLM/ROCm checkpoint staging on the MI50 —
-> previously a deterministic fault at the same stage on every run). Will
-> report back on the new thread.
+> At this stage, my main priority is seeing how the current feedback is 
+> resolved. Before we dig deeper into the low-level details, I’d also like 
+> to review the virtio specification changes alongside the QEMU/ 
+> virglrenderer implementation so I can better evaluate the overall design.
 
-I'm about to send out v3 of the series which can also be found here: https://gitlab.freedesktop.org/ckoenig/linux-drm/-/commits/amd-vm-svm
-
-It's based on the latest amd-staging-drm-next development branch. I have no idea if that will even apply to 7.2.6.
-
-> Two unrelated findings from the same debugging session, FYI — I'll send
-> them as separate mails rather than polluting this thread:
-> 
->   * amdgpu_vm_fini NULL pointer dereference when the eGPU is surprise-
->     removed while a compute VM is being torn down (TB3 link drop under
->     load). Sibling of a teardown_processes NULL deref we already patched
->     locally.
-
-Interesting, we should have test cases for that since that is a rather common use case now.
-
-If you could give a bit more data (e.g. what timing) then Vitaly will probably be able to create a CI test case for that.
-
-
->   * (older, on vanilla kernels too) the SVM restore-worker livelock
->     under sustained reclaim — separate mail already in preparation.
-
-Yeah that is already very well known problem.
-
-The old KFD SVM code has a whole bunch of design bugs. Because of that we are working on completely replacing that with a new implementation based on the drm_gpusvm component.
-
-This patch set here is a per-requisite to that which fixes only one bug in the existing KFD implementation.
+Will give the implementation for other components later.
 
 Regards,
-Christian.
+Honglei
 
 > 
 > Regards,
-> Olivier
+> Akihiko Odaki
 
