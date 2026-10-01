@@ -4,104 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB410CA5FC4
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 00:51:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B165CA5FC1
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 02:13:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4105610E2C6;
-	Thu,  1 Oct 2026 00:51:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF43F10F54F;
+	Thu,  1 Oct 2026 02:13:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IoEIotsB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YCzSWA/r";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012057.outbound.protection.outlook.com
- [40.107.200.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C33FA10E2C6
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Oct 2026 00:51:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XD/LOOrBChdY3RdjtRJavHd+na+IH3i85Z6dXpxBjVXWcZ9zaBnC8hgDVjycZXU7sj0B+DxbNw7elcPLwhZeuKFLdPuyNugWBWgaoFHnQ3t+q4weCwsLf9oW5qIf+HMm7EtPUpA9N2QZjFFZtaBBultvxZEvD2nBsS+CTo+FsQrsMbGV8npLsMqZNmEyj7xOYZjEYzxWVZ1qHpnT6KrDd1Y+KFQ8aOflEaRl0MepwqPUaPNK7gSrqAS5EkpBaQw1EPClRGr0HFRwcGJ4x/qvc9t6vhxUXMDLMGJkd0iKSVJyPckZ74ZTsXQAUTUAicUnu0z3JPatB/K3T2mGt9t8Ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/qooiF9pYXWmgaZVKMHrdzMMCF07VXwa2W1TWWkqwfc=;
- b=kM6VU7d6PcFuciyjRueuXzr3V0lq9WDkvekbAgQcP2e3DFXEodS4pq49hS7hrHv+LYuCUsgOhHHgARor9VIhCF7hbYc23XJzcTvKbkhI9imF0Zn+DIJs3LdWEa+NhiCkf10SKquRvyx6L6GZOC7LpCu9TPN4+bzymm700LFQZCYiMu0MbPi6BovA6YyVeBWHPmiX+G+f2SELER/x6gHboCewZfJLHQB+JQ//XBWMDsK0XXPxowLXL580zb1cP/BavYqptWEVxEginQVFrd1Q4J6pNVjJ8+eLNvO1rJyZrz7cG0rB9U0Ht1HT5w0U8y90VHa5WySwXNPsyy91pVNK0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/qooiF9pYXWmgaZVKMHrdzMMCF07VXwa2W1TWWkqwfc=;
- b=IoEIotsB9cn1J9oyo+A7kLpnc83JnATrROeBQV7XounA5dyx1itIfzmRcmktVVT/2rgOPJ9sr8jkPRTV8s3js/1lb/AI7KZldbU/tekuKcxOX2JKKEpgdPzI9doy01TJRBXcwzDuQPjvk5euwoNJ1hoFno3od+N2TIjh696UWb8=
-Received: from SJ0PR03CA0074.namprd03.prod.outlook.com (2603:10b6:a03:331::19)
- by MN2PR12MB4157.namprd12.prod.outlook.com (2603:10b6:208:1db::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Thu, 1 Oct
- 2026 00:51:24 +0000
-Received: from MWH0EPF000C618E.namprd02.prod.outlook.com
- (2603:10b6:a03:331:cafe::2a) by SJ0PR03CA0074.outlook.office365.com
- (2603:10b6:a03:331::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Thu, 1
- Oct 2026 00:51:23 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000C618E.mail.protection.outlook.com (10.167.249.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 00:51:22 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 19:51:22 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 19:51:21 -0500
-Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 30 Sep 2026 19:51:21 -0500
-From: <vitaly.prosyak@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Vitaly Prosyak <vitaly.prosyak@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, Sunpeng
- Li <sunpeng.li@amd.com>
-Subject: [PATCH] drm/amdgpu: serialize vblank counter reads against GPU reset
-Date: Wed, 30 Sep 2026 20:51:03 -0400
-Message-ID: <20261001005114.115268-1-vitaly.prosyak@amd.com>
-X-Mailer: git-send-email 2.55.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41A4E10F54F;
+ Thu,  1 Oct 2026 02:13:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C7735400AA;
+ Thu,  1 Oct 2026 02:13:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A780AC2BCB9;
+ Thu,  1 Oct 2026 02:13:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1790820816;
+ bh=DuNWW2/4c2h8l/+mCS129Lv1oKgRWfY4Vpu4QEuPlGk=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=YCzSWA/rG5zVl/G0Z5N6DFntPfxH9iOvDAF1WS+8WeyAM1FtkiifDiRkiuJp7EsSQ
+ venGZziP8Lff/9fyiCIvihxfsv/NCRo6g65ehCbxoQkMOFeLhGDhCk/oagvytTgqsC
+ xDnsC3fWfCU1qJTOJ8zTpCtgCXO2bWE96mVObnKXuUGCrM+2LuZ3o+SD1nXBY0cEta
+ ji7fgMHnuYTz/tE5hZB+zdnsYa+rCCN3jPAF+X1hbmIjUv5bde7CG74ZhN4KpXOSbF
+ pE+H1OFkXlTPdCWidSnPWNjKC8MiGzugR4tqPUW9itOuCV+ABtJT7ov0/hPZOXNUVR
+ 2u8/a6yv0fHFA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 80A81CA5FC1;
+ Thu,  1 Oct 2026 02:13:36 +0000 (UTC)
+From: David Medina via B4 Relay <devnull+b2amedina.gmail.com@kernel.org>
+Date: Wed, 30 Sep 2026 22:13:36 -0400
+Subject: [PATCH RFC] drm/amd/display: Disable CRTC on MST connector unregister
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C618E:EE_|MN2PR12MB4157:EE_
-X-MS-Office365-Filtering-Correlation-Id: 44487b74-1c32-4c90-761a-08df1f561d64
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|56012099006|10067099003|6133799003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: 6foyLjV/V5tnhDMqDMSX+UIlchjg3YV8zoxXg9BQ8/p9mUbFaY0u8SvSEfmKAzO9ituPHqLeY3f/GNWMFCxDw4Dj1EJWpEnV8Q2xeCQaTmnexTwIR3G1n5mNG72dZ6rHG/nwEn1fkiy7tx/qazlXPZRMXk1r5l1pV72Iot9BmWBTcTqwNbocABlzarUtnN5XqfcZoC5YklIqjo2NrIkZwEJHSLrvMMjfFV4kOGdH1N8VSj1YG+uveHhhZkA5FRkRaT4EN9YcxQujvNamlgDkoUohAaXMTkf5vCgzrk1qRB7EvFE5Dt8fTzWVYxdBrrMhwe60HZ87E7BxOHgffLpZg7rhEVyemR4/MenQNFeTbWpKXwXiHKD3T6o/A48DcjMZaAXM8a39kPzvuKt+/pHMOdz0ZvNvXHPgVzv0I2fbS4kBHGpr6VXj4m9c7ndMaF4USVlznonp9eLLxO3JMbX0CaIi7XYC2SzY6nftNJIvdstIfFYfLgu8IE9MLgOWTc2jVxUL4ZecqBLDzVGhI8XofB0tgh5Zg1WcHRFe5i4oJpHcYRYJApPNVJmCCtqtBlFguKEfmHrMgCRGsK89MwkApgWrvkPNXp609YCXYKU4mDkcpHig2SWUhMfo/lRQLsHumB+inv0u9RRyyEvjibb0eV+s7BIhCMC2cb+E84P380U2VRADPW/CSpRyLEsX/md9
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(56012099006)(10067099003)(6133799003)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: mP4lCou/I8tsvJOW7o8BDtRuZXTLFraTaYCihDX5yp8/qfU5CoXZ0VLVzp4xgTOFvFJi+raS9lVLJwQXxWKG23N6euXuuM/i6CeSYnN2yt99Q3/ZgwItMwwUpVRvla4A6v53kaBvXl8LRQ9Y1oB/Sb7P5IKN2H0/Dt6ThFpigcH5m/feZtpnvCaKoAQ8LJdRZe/ANu9iNORrx+lGWsD5uGJbohaevSRdHSH3T0EEVSgeoY7rcS7EQVgHLJOkyYJ6JN7L9fx9CxfiNEEzGhchhW3kfsXYjkonZS8HTIMiRq4Xpe+6p5ozTWqAh6wIRJibbJwFBk1UsvUwJrb7VVRd7ywHpCE8NzHAJOpjqiVaeY8CaB4rHMhPT5SCpOCy2ce1AJIWHDWgR+92WxRuQRCIbEyiKDsiKI1p7+tJgbx9gVwm5ha0dtt/mIogzBTzXDHo
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 00:51:22.9331 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44487b74-1c32-4c90-761a-08df1f561d64
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C618E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4157
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-amd-mst-teardown-v1-1-16a39ebdd4de@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS2MD3cTcFN3c4hLdktTEopT88jzd5MQki0Rjc2NDU0szJaC2gqLUtMw
+ KsJHRSkFuzkqxEMHi0qSs1OQSkGFKtbUAKYzzU3kAAAA=
+X-Change-ID: 20260930-amd-mst-teardown-cab8a3731596
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, David Medina <b2amedina@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790820815; l=4851;
+ i=b2amedina@gmail.com; s=20261001; h=from:subject:message-id;
+ bh=ACruRfV2/ag5NwIsG5RQC9W31bSPTFkiXG9HJmO8Xf8=;
+ b=GyBptfxYhz4vHnlsYJz54kDnkBdXkCtlEy9z0/PHR5jo03HeDgHd/gVGXvEa1EZE6OuOD+8s/
+ FD0RCaUs2NIDTi65kZnyA2obdEkkGAh5ujUtJ6QQ+NWA7hvi2G9MfkX
+X-Developer-Key: i=b2amedina@gmail.com; a=ed25519;
+ pk=6kajg3wsf4T4/+F2W+hj7g5W4lTch1OgfXS+6o1FsFY=
+X-Endpoint-Received: by B4 Relay for b2amedina@gmail.com/20261001 with
+ auth_id=1091
+X-Original-From: David Medina <b2amedina@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,68 +75,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: b2amedina@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+From: David Medina <b2amedina@gmail.com>
 
-The vblank counter callback reads display registers and scanout
-position without holding reset_domain->sem. During GPU recovery,
-display commit work can call the callback while reset owns the
-semaphore for writing. The hardware access then triggers the
-lockdep_assert_held() in amdgpu_device_skip_hw_access() and sets
-TAINT_WARN when lockdep is enabled.
+amdgpu_dm_mst_connector_early_unregister() releases the connector's
+sink but leaves the CRTC it was driving active and its MST encoder
+assigned. Because the connector is unregistered in the same step,
+userspace has no chance to disable the CRTC before it is gone. When the
+same display is re-plugged a new MST connector is created, and the
+re-commit fails in drm_atomic_helper_check_modeset() because the stale
+connector still owns the encoder (handle_conflicting_encoders), leaving
+the display dark until a full modeset (e.g. a session restart) tears
+everything down.
 
-Try to acquire the reset semaphore for reading before accessing the
-hardware, and hold it across the counter and scanout-position reads.
-If reset is already in progress, return DRM's cached software vblank
-count instead. This avoids blocking behind reset and avoids accessing
-display hardware while it is being reset.
+Disable the CRTC from the driver when the connector is torn down, so the
+MST encoder is released and the DC stream dropped. Reuse the
+drm_atomic_helper_disable_all() pattern: deactivate the CRTC, clear the
+mode, and disconnect the connector.
 
-The cached count is less accurate than the hardware count, but is
-used only when reset prevents a safe hardware read. This addresses
-the reset-time warning from this vblank path; it does not suppress or
-fix unrelated lockdep warnings.
+Reproduced 100% of the time by unplugging and re-plugging the Thunderbolt
+dock driving the LG ULTRAWIDE: on re-plug the display stays dark and
+dmesg shows drm_atomic_helper_check_modeset() failing with an encoder
+conflict (handle_conflicting_encoders). Verified over four unplug/replug
+cycles with this patch applied.
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Sunpeng Li <sunpeng.li@amd.com>
-Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+I am not certain that forcing a modeset from early_unregister() is the
+right approach, and the disable here is intentionally minimal: it
+deactivates the CRTC and disconnects the connector but does not
+add/detach the CRTC's affected planes the way
+drm_atomic_helper_disable_all() does. The minimal version resolves the
+failure in testing; I would welcome guidance on whether the full
+affected-planes teardown (or a different location) is required.
+
+Fixes: a1b27e99229a ("drm/amd/display: Implement MST Aux device registration")
+Signed-off-by: David Medina <b2amedina@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 53 ++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index bac072d73e16..f34150d20a2f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -30,6 +30,7 @@
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fb_helper.h>
-+#include <drm/drm_vblank.h>
- #include "amdgpu_uvd.h"
- #include "amdgpu_vce.h"
- #include "atom.h"
-@@ -1669,6 +1670,9 @@ u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *crtc)
- 		DRM_ERROR("Invalid crtc %u\n", pipe);
- 		return -EINVAL;
- 	}
-+	if (!down_read_trylock(&adev->reset_domain->sem))
-+		return drm_crtc_vblank_count(crtc);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 045a7f88b754..24b146068739 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -29,6 +29,7 @@
+ #include <drm/display/drm_dp_mst_helper.h>
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_fixed.h>
+ #include <drm/drm_edid.h>
+ #include "dm_services.h"
+@@ -227,6 +228,7 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
+ 	struct amdgpu_dm_connector *root = aconnector->mst_root;
+ 	struct dc_link *dc_link = aconnector->dc_link;
+ 	struct dc_sink *dc_sink = aconnector->dc_sink;
++	struct drm_crtc *crtc = connector->state ? connector->state->crtc : NULL;
+ 
+ 	drm_dp_mst_connector_early_unregister(connector, port);
+ 
+@@ -250,6 +252,57 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
+ 
+ 	aconnector->mst_status = MST_STATUS_DEFAULT;
+ 	drm_modeset_unlock(&root->mst_mgr.base.lock);
 +
- 
- 	/* The hw increments its frame counter at start of vsync, not at start
- 	 * of vblank, as is required by DRM core vblank counter handling.
-@@ -1714,6 +1718,7 @@ u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *crtc)
- 		DRM_DEBUG_VBL("NULL mode info! Returned count may be wrong.\n");
- 	}
- 
-+	up_read(&adev->reset_domain->sem);
- 	return count;
++	/*
++	 * The connector is being removed from the MST topology. If a CRTC is
++	 * still driving it, force a modeset that disables the CRTC so that the
++	 * MST encoder is released and the DC stream dropped. Otherwise, on a
++	 * subsequent re-plug the stale CRTC/encoder assignment triggers an
++	 * encoder conflict in drm_atomic_helper_check_modeset() and the display
++	 * stays dark.
++	 */
++	if (crtc) {
++		struct drm_atomic_commit *state;
++		struct drm_connector_state *conn_state;
++		struct drm_crtc_state *crtc_state;
++		struct drm_modeset_acquire_ctx ctx;
++		int ret;
++
++		drm_modeset_acquire_init(&ctx, 0);
++retry:
++		state = drm_atomic_commit_alloc(connector->dev);
++		if (!state)
++			goto out;
++		state->acquire_ctx = &ctx;
++
++		crtc_state = drm_atomic_get_crtc_state(state, crtc);
++		ret = PTR_ERR_OR_ZERO(crtc_state);
++		if (!ret)
++			crtc_state->active = false;
++		if (!ret)
++			ret = drm_atomic_set_mode_prop_for_crtc(crtc_state, NULL);
++		if (!ret) {
++			conn_state = drm_atomic_get_connector_state(state, connector);
++			ret = PTR_ERR_OR_ZERO(conn_state);
++		}
++		if (!ret)
++			ret = drm_atomic_set_crtc_for_connector(conn_state, NULL);
++		if (!ret)
++			ret = drm_atomic_commit(state);
++
++		drm_atomic_commit_put(state);
++		if (ret == -EDEADLK) {
++			drm_modeset_backoff(&ctx);
++			goto retry;
++		}
++		if (ret)
++			drm_err(connector->dev,
++				"DM_MST: failed to disable CRTC for removed connector %s (%d)\n",
++				connector->name, ret);
++out:
++		drm_modeset_drop_locks(&ctx);
++		drm_modeset_acquire_fini(&ctx);
++	}
  }
  
--- 
-2.43.0
+ static const struct drm_connector_funcs dm_dp_mst_connector_funcs = {
+
+---
+base-commit: 551c722f40809618230001baccf219193e22fc5a
+change-id: 20260930-amd-mst-teardown-cab8a3731596
+
+Best regards,
+--  
+David Medina <b2amedina@gmail.com>
+
 
