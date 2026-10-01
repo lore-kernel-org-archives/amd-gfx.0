@@ -4,125 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 114B6CA5FCB
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 14:00:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CA71CA5FCB
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 14:03:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ED9210F6BD;
-	Thu,  1 Oct 2026 14:00:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36D3410F6C2;
+	Thu,  1 Oct 2026 14:03:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oZEtopU0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CvyJBd6h";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011071.outbound.protection.outlook.com [52.101.62.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92E7510F6BD
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Oct 2026 14:00:57 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012056.outbound.protection.outlook.com [52.101.53.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39A9110F6C2
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Oct 2026 14:03:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NdezS+v/h1igaCa7v2DDmSl7+kIslyXszOLhIkmqeFrnGQA+oUgziKQet0ETyIV95affrFLwzP7DJH9Dabj70LQzROxGP7uITZjltgOXj7JDx85EJSgMU4YJttojT33HPHuDFk8dVOuyIlIWIqTzelSJj9PSgVd9eJZCElQeb5JnhW4lQ/NB3NmmGabKyfSJzFNZt8xkCfKkz9ahI7PzPoAMu7d7KsciZ3AoxmHhYyPhx7frafc+b3pHL4kJ6QD0QUMRlKlHDGB0PQt5smapgnrZeAQkDHfM3SW0qbjH4M678pu52z1ePjJlI3D2Kf8WCQ5f1u1/mpGxZoAe9wMTzg==
+ b=dyYifm70NtLO4Srvt3Q9QFtBHm6UCeYYkg5r1PUjDyqQtFKp0Qijyv1zaCNPDVZ10jrhE702MGFhcQUQ2PRjhzzp0HicalTFVrZ5KegRrTZf3EbbXTZj9HKSSOKbk10rmE6qegC6QUfu9R46LzN0jl3FpPv6fFxntF2ecjG8kpgbcm2mh1VnjiT6kqHdnSdSkY11Zt5/AV51/KY3rAf4XjXLQ8rwPsHHJLteYyM52/9L91r2qQ6PbfppUjEdY/e4MJnULJqRU1DuO5JiuohZNa/TEfUx2pvpN4FI8sFJHNE3EZA8J1v4a8HOoUTqaAnArtPdyfXWTzuIn4eOawNlYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/mzKgWAyYbOQtrBQowAD7bDqnMigZwzzez0TjunTDy0=;
- b=HeEsJM2FEupwLD+uP9FGDAHlt1vsNMNJXN0+rUOn3Gt/LqB0WnCfR3u8MeYBcViqfuTGXbEkMgbdvYp3NvzlWNeGvybOqr61IwqM3Bg2Camw3uL3659S+MZNirQg3sKU0xoPaaO2qT67DFD6H2fmf7A7KknHTSBfwZfH98wvrmTlI0TGLh6U5DQOm+YSS230erQ2YSwSPUGxX32apUuDIwIJVh9laGDfEJx+gF2NyHY0YkhS8+eAMu4BtipcBYPSqhyw7EbqPvNhQv1MYMayV5XjBX8f2c9iGhWSG9kSSk79t3x2dQg5yP8SqYrgfnycxPSq41eVJGC8XYbPxLCD4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=2QmmbIGaTjF1DjzHNcTPxquTmeHmM7lqJnR3ucmMZyU=;
+ b=Bx0+MhA4cZGKTGLta7EYflEBBNBVUtRQV2Zs2I/qnS1/xclpCApVybHMHs+u+fWa7vjyG/hidbk/53lOV/ODXp65SP4B+8ljRLtmyka89wVtEbyRI9iq6XEPN344S6VFDmV+/Ur/xb4a+Qv0CtUz0QumT47U/kgKjTnkHO40A++xoJDePNiGPwuvhm6PN/h6VwVtPejL7FYdHm8pvbYnSyFDDpO5icHieMbBZviff/AOYJ1rtgChV+0Rl+abg44LOuRuHJ3OWif0MYL1hH4p5adjiXJ53OCi7pZenCUl1YTQ1nQBZytGKZ8H7JbNp4GQNnnhHnsKT+cQ4adH8cNnPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/mzKgWAyYbOQtrBQowAD7bDqnMigZwzzez0TjunTDy0=;
- b=oZEtopU0QTeQUcsMtdy+TIIq8S7SPkCKi2347G6Q3rcEoYsIMc8Us2HzenJhlpFx//HNzL6NkmL7vw3pqTjIcct6yRt40tjuskYzYK+oI4XzReEe/a6DioQ87FKioxXhd8kkPkOgpu7YRwnqn3qvZjOUpBLHMLS4RfIu448t2TQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB8190.namprd12.prod.outlook.com (2603:10b6:208:3f2::7)
- by SJ5PPF2CD49510F.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::98f) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Thu, 1 Oct
- 2026 14:00:21 +0000
-Received: from IA1PR12MB8190.namprd12.prod.outlook.com
- ([fe80::c581:f5cc:c58f:c5de]) by IA1PR12MB8190.namprd12.prod.outlook.com
- ([fe80::c581:f5cc:c58f:c5de%5]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 14:00:21 +0000
-Message-ID: <48abb339-31a7-4083-8775-722fa010f34b@amd.com>
-Date: Thu, 1 Oct 2026 10:00:17 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: copy debugfs register data outside the
- GRBM/SRBM locks
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, vitaly.prosyak@amd.com, tom.stdenis@amd.com
-References: <20260930154934.27981-1-mikhail.v.gavrilov@gmail.com>
- <957a0ec9-a772-400a-b633-ecf41d16a2b7@amd.com>
-Content-Language: en-US
-From: vitaly prosyak <vprosyak@amd.com>
-In-Reply-To: <957a0ec9-a772-400a-b633-ecf41d16a2b7@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0034.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:86::18) To IA1PR12MB8190.namprd12.prod.outlook.com
- (2603:10b6:208:3f2::7)
+ bh=2QmmbIGaTjF1DjzHNcTPxquTmeHmM7lqJnR3ucmMZyU=;
+ b=CvyJBd6hwEujOktTeh750kzHsYeun8MjtkAUoaaALMnRHpfVScQe7NxMhqsI/lzkuf96JmeMfxjP0Ev7nXW0o+ZpZfJCRtiBzz1/r7gm1A/gAAuPd+FUcV+E9yDKRVO9K6y/bIV/cAavaaqB1RBAluSsR7bpxG/XK55vfNDIsMQ=
+Received: from PH0P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:d3::14)
+ by BN3PR12MB9571.namprd12.prod.outlook.com (2603:10b6:408:2ca::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Thu, 1 Oct
+ 2026 14:03:19 +0000
+Received: from BY1PEPF000264B6.namprd02.prod.outlook.com
+ (2603:10b6:510:d3:cafe::aa) by PH0P220CA0002.outlook.office365.com
+ (2603:10b6:510:d3::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Thu, 1
+ Oct 2026 14:03:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF000264B6.mail.protection.outlook.com (10.167.242.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 14:03:18 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 1 Oct
+ 2026 09:03:17 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
+ <Harish.Kasiviswanathan@amd.com>, <Mukul.Joshi@amd.com>
+CC: Philip Yang <Philip.Yang@amd.com>
+Subject: [PATCH v2 1/3] drm/amdgpu: Enable remote TLB shootdown
+Date: Thu, 1 Oct 2026 09:54:04 -0400
+Message-ID: <20261001135406.4049406-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB8190:EE_|SJ5PPF2CD49510F:EE_
-X-MS-Office365-Filtering-Correlation-Id: 638d16e8-f824-455a-a3c5-08df1fc45525
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B6:EE_|BN3PR12MB9571:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0cade836-5316-4f45-f0bc-08df1fc4bee1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|56012099006|11063799006|10067099003|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: /E8A60xUtsDz/fO3uXD+Ixzc2vKQmEe74YC4U5FL+tutD9EE76KkXCOzHUJ5bYFoRomDUFHhun7+JAeFFtgoMoy63kS8SeI7Re/O25SoRlA7t63fbOZCam28TwBQD0n819HSB2j4ChAG9N7dqHgPOfE3MyzMojPJ++66+ejPiZ/K+mUbHS5nggEsiYD1RxEk4le9YDA8X3oIGn0Y5zAB4kcRaTS5p2a3TDplnT5XJZnQlyMvtaDhKVN5sz3gXYNBlUQBPUqw2RRHkCpBzmhmbGSit8ZW4Dv6bv4TUOt/sNF16yOeWF8bGpP5Oj6LM45Uj2tHOkvF2vmXJymvshPYHPbsU4ON6rrArssrcGMJpzi9rI9zn3OkThJDBcG3vZX2Xp0VkmyMPyWpDVAVrNBNmkGNDE6ItoqAvkkiit5vNt0n17rMgIrYV8CZazgjCyKEd1EUQuseS3RfgNJUHB10B6tj97GGtaYPMsbka+803Yjlw6fCIk9BdH85qaon4Q6RULJ58qRvTwvJKS4D62kiBFrlSPGqEPwDYVl3+OkoxfdO2kglr8rwaZRSjug6Dt4Dj3Hlp5BVmHLt4OuWKtX2/0D7I1Es6EKXE2cAZlP5lSrQbr5QU/KWjqSl8AvaOgZbBA1R1urdtzAa2FwJr+ufrrlKJzD2Tsy+L43GEgCY3Hw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB8190.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(56012099006)(11063799006)(10067099003)(4143699003)(6133799003)(22082099003)(18002099003);
+ ARA:13230040|1800799024|82310400026|36860700016|376014|23010399003|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: brHc/yeYcIB0kXB3lDbC0lqGQRcLfzgpoUSUzj8DMUW9V16IrEgHiu3Rw5Gib6mWuHauxRmmbnA1lezHjwbX+aF3/3mkzBaA15djHcafi43Q1AguXfOF1tDQHWnJ3hYfLyKk7S94kEBBvBO2EJYaJ9w7AsKUsSpGjZiDJyxuGjzoDt8jS9fEaRdAqbAZXjgxpigJ1tqOkGpdaKB0qshdup5xFfYW2sDApUFeiCwva+rLe75w2wX4SrePFGaJikMxLNOisqC0cmCv9nSW6aeZ4XeaA6dLe/fuacf0u/NS0Ym/EKpUShQzHSKCMCOWyoWz53zatFEUwhV9NqlP73+u7zKitC0931qsOC9nwZgu33UhYKa1xNiuL6dJJlfnWUI87vCP9OFd6HDSXee/IflDjXsrV0eqOXxHbIh/DuemyLjtcd/f8bckSQ9SZnVKTIjX+lPjPidWMG8XfgDQ4DdBnXUw80RAijjd1SfjC/8RvvTTlPkFD9vKXxPvGMO2mUX/GejsvY1Cmssjzs5T6nL4sInkJfYUDDw0us9skJXt8DhKUeUzY0FDXmKAS0WRth6YJNbwixFgkywYK1zacKaLSgocwleoHBSobUNq3H/56H9j5mbQTLx0QNTo6Uk/K8yEo1zJdxTxphujfkK5dshylIUft2WRVS7HhhZ0/aaqGJg4d/wDibU7XKiOFPKyG4oh
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0lzSVhoMlZFQlVJNjRnYyt2LzZHdG1NcllBemt2NlQvdVlIaUMxQ1cwc1lI?=
- =?utf-8?B?QUl0aGxrR1U1Uml0dDEyVmVtdStBMjNLYTlJV2NCS29sNEVhVzlrR1ByV1VU?=
- =?utf-8?B?MGVSZFo4cEVLZEtVVnduWldhRzREaTViOHBudzR2NjFpa1lrNmduQ2FxbEdx?=
- =?utf-8?B?WVl1SHdkSmdpbUxMS2pncm9DdWZaOEdNcjRnMWxrMUU5UUVwYWZNREFqWS9x?=
- =?utf-8?B?Y21SeDNqSzNLbWU0MUdnMmZoMUh0SEZjWWl3eDF2NXdtYWdGeXVRZjk2eFFp?=
- =?utf-8?B?RFk3UDN6bFpEUzhkZDBlRkJacG94SmFrdk43TUZuVTN1U2JwSzdCZHRLcHp6?=
- =?utf-8?B?ZEhzZVUvU29QTzdSeTRRQVVmOWZMVzNnamtQY1c4eVh6SjhZM081MG5DZnJR?=
- =?utf-8?B?eWJXMy9Ra3duMXlhSWkveEg0WndtU1FxcFMxemtBTlVRakhkNW94SEsyNjRQ?=
- =?utf-8?B?cXc5V05LeG9GWHpjNCt0cW9JOHR2Rm85UjlVUFo5S05ydE5mbUZQbTdkQ0Zo?=
- =?utf-8?B?YzFKUmY4YmlTZHpkdC9UYWROYk9pY3E0V0J6cGpvNFhZZVpmSE5vWkRVWDBW?=
- =?utf-8?B?cXp5THVZVHFpTjhwZlh5U1lkYU5ZV0VQMmhpTWttYmdPMmNpVnhKQ1kvbVdv?=
- =?utf-8?B?UXN1TzlVbi9LSnZYbWNDeWpscTZoc2dVOW1ETnowUkhsc1NQU2Q5enc4aFNF?=
- =?utf-8?B?SnU2enRQMmhJQTgwUmRuYmtxUlNiZjBhK2liUHhnbXF2SXRmemRIbVdycEhq?=
- =?utf-8?B?ejlqOS93eGZsZ1BnY2VFVzRvNnRHQ0ZjRkNGaU1sOXo3U3oxMjk4eGVndkpQ?=
- =?utf-8?B?SEs5YXdJM3RFejgwQWF0L3ZtM09tOGtUUTQwT2d0OUQ1TERITkpTaU1WcFlG?=
- =?utf-8?B?cmpHdmxNaUZsZzg5SXowTG05YXliU0NXc3FuVkpjOXNSRWh6OWN2L0ZyT3M1?=
- =?utf-8?B?RVJoZDd4cUJWZTdLRS9vck03bm9HbGJRY1JSZjVKVWlHUzIwQlMvOWFLdWM4?=
- =?utf-8?B?czN4czRXaW5PNys2UCtPZm11SkpMMEZMaUU3UnhxdU1KeGsxZlZQWDZOSHQ2?=
- =?utf-8?B?cjRQTVR1QUl0WFREN0NmQ3VYU0RJYVVpSlk2dUg0T3V0TENNL2pBQmZId3ls?=
- =?utf-8?B?TzJNQ3VsYUYwMU54YTNyd3o4STYreElOOTlLWEh0U0VyZUY1L0RiQlkzYXB6?=
- =?utf-8?B?M3gza1d3Y0R4RFpQYVhYYWFkV1NlYmlKN3RKNno0bGM3dVJnRnh1aHgrNUFV?=
- =?utf-8?B?N0ZvQ1lQQ3hTWnlvSzNraEZkT05jaXRhdlRlQ1RFVzllcEtySy9JSXA4d2FS?=
- =?utf-8?B?alNHZEZLYldTV3ltc2Y4Nk0yZi9USEV4b296ZWs0RWNGZXBYRUY2b1lRMCtn?=
- =?utf-8?B?dHBUaTB0dlVDd1JVcklRLzBUWFMyd2dpdlM4SmgvOVh3ajdjQ0ZFeURvSUhj?=
- =?utf-8?B?UXQ0Nm10a0p2TTgxTi9UK216REtzWHdvMXV6UFNFbWs2aGpuYys0OHVrNG9V?=
- =?utf-8?B?dHVzMTVSWEcvdWhKSEE2NTY5WTlhTkpyZENKTDltUzJOLzlqRnRRR2V0bGpy?=
- =?utf-8?B?cnFjYUpHQ05sbTdNeXV3NXU5THlKMWtiZlYvMmpkVVE2N0FWaGwzeFVuRERQ?=
- =?utf-8?B?aHNidDNuYzJkbGNRb0pjL3dGN01PbGYvcE5oQ0JLVVR2R3RXMWxpUlpWRXVT?=
- =?utf-8?B?LzJHYVVrcmhYU005RnJKdnE0YzlmWDhKdHRGVUNWdnNQVmlsN3NZTFdDNEVm?=
- =?utf-8?B?V08wTlFhWlFFK1FBMjhSNzRaQXBsdGVYanEwOVFGaUp5MVF3QmtDTHlGZVRM?=
- =?utf-8?B?d2ZhMG85bU11YUJWMkhrZ3hsU1huV3NQYWV5akJaQWNFejNUdVQrK0xnRHNO?=
- =?utf-8?B?YStOLzIvZEQzVzBSMjh2VUZCem5yamhsZ0c2a2VNSmMvZmdvREtHTUt4K2VU?=
- =?utf-8?B?SEhGZXRXY01ZSDFFZUFQdW9ITUNGNHdYdnJZd0NhTTZscVBGcnhwNmNyTDRI?=
- =?utf-8?B?VUJwSmp6a2hoQmlpMVdkNWxXWS9PT0NQTWpTWXM5aXRTZFhqRHBNTmRpWEs2?=
- =?utf-8?B?NmNPZEVxUTFwTVEvbnAyTjJPVXFQclRZcHM5RlE5dGpHeFp6ZmdROWUzc0hm?=
- =?utf-8?B?N2dvMUYrQlk3bTViUytLOHh2dlNlaVdrTkFmNEhmYWc1VndMcHI5eGN6NmhK?=
- =?utf-8?B?VThxajJSdTY5Z3gvZkZvNWFabWM2THVPOGlsNHV2NVpXTnlyYlN1ZzdPbm5S?=
- =?utf-8?B?YTRRVTBqL3Y5VXUrejl4MVM2NTRoME9lNGxCS21nRHhqS1RxMUQ1YmN2dTZB?=
- =?utf-8?B?NFdXazcyZ2k2Sml0aEk3WEN3bDQ1THBHem5MTG1XQ3hzNzNJbEpRZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: lxE7YEnWS0Q9La+a/lQB9wj2DBfiPP5dL0aulkIKJRZwpnmifqG3gURLJTbeZDw4xJmh577L8IZEJNxpnPvmXHFRdqikuJC1rNog2p+28Efip+xMnjdgRj1iIoycOuOQ2wkTWyqPcNL/ZGo6UNqKO2TGSW/ATXtdMSit8qxMlGx1BVYgZS/xnYVQWhcNXSTyNO6Y0YfzRfbiC/v1HWfSM2cnlQzx45sypOgqq96GBldI8/nXWewxoRmOIJ2o/+LB5n8d2Km69mVNY3jU3dE22G3yK9uqnM0EKrnOMOGyf1VC9jS+A7/lr2bWJ9YNKzMdw/TAS3RCvOIjuPaElt6RS3PJtKgJsYHkgb5zEH4+Nk7XHZv2HtMCRzK+3iC4oAOTDm602pdt903+9MEgw5sT7zVlwTVMKY4W2IXjMWfoaKCR5lxI3bULVCqkGnlQ8w+e
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 638d16e8-f824-455a-a3c5-08df1fc45525
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8190.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:00:21.5797 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 14:03:18.5432 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cade836-5316-4f45-f0bc-08df1fc4bee1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YHlUpKKIsEVcLyXdWKGNvC/Q+EORPr2q4YiRTOwp5K225btwr5lQiSTYf16FAc4rrHVOZWRqVeG3cNFj4LUrcg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF2CD49510F
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF000264B6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9571
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,209 +109,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Mikhail's proposed kvmalloc(size, GFP_KERNEL) correctly stages user data outside the GRBM/SRBM locks, avoiding a potential page fault while holding those locks.
-However, since size is derived directly from a userspace read or write request, we must validate it before allocating memory in both amdgpu_debugfs_process_reg_op() and amdgpu_debugfs_regs2_op().
+FW remote TLB shootdown support is ready now. Remove the early-return stub
+so the command is actually sent to the peer GPU.
 
-Tom, do you agree with this? Will adding a restriction here break any UMR  requests?
-Please add a bounds check in each handler after the existing alignment/offset validation and immediately before kvmalloc():
+This requires nHT firmware version >= 1.2.E.1 (IFWI >= BRP0660).
 
-if (size > PAGE_SIZE)
-    return -EINVAL;
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-data = kvmalloc(size, GFP_KERNEL);
-if (!data)
-    return -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index 1cbf1b5e1631..3b3339c5be08 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -6072,9 +6072,8 @@ static int amdgpu_ualink_remote_shootdown(struct amdgpu_device *adev,
+ 	struct amdgpu_ualink_ring *ring;
+ 	int r;
+ 
+-	dev_dbg(adev->dev, "skip remote shootdown to remote_accel_id %u\n",
++	dev_dbg(adev->dev, "send remote shootdown to remote_accel_id %u\n",
+ 		remote_accel_id);
+-	return 0;
+ 
+ 	peer = &remote->peer[remote_accel_id];
+ 	ring = &peer->shootdown;
+-- 
+2.50.1
 
-With that input validation addressed:
-Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-
-
-On 2026-10-01 02:12, Christian König wrote:
-> On 9/30/26 17:49, Mikhail Gavrilov wrote:
->> Reading or writing a register through the amdgpu_regs2 debugfs file
->> with GRBM bank selection, which umr does for every banked access (a
->> single "umr -b x x x -r <reg>" is enough, as is the wave dump with
->> "-O halt_waves"), makes lockdep report a circular locking dependency,
->> after which lockdep stays off until reboot:
->>
->>   WARNING: possible circular locking dependency detected
->>   umr/63306 is trying to acquire lock:
->>   ffff8882cf4b8350 (&mm->mmap_lock){++++}-{4:4}, at: __might_fault+0x9b/0x140
->>   but task is already holding lock:
->>   ffff8881aec010d0 (&amdgpu_grbm_lock_key){+.+.}-{4:4}, at: amdgpu_debugfs_regs2_op.isra.0+0x20d/0xd00 [amdgpu]
->>   ...
->>   Chain exists of:
->>     &mm->mmap_lock --> &amdgpu_srbm_lock_key --> &amdgpu_grbm_lock_key
->>   ...
->>    __might_fault+0xc5/0x140
->>    amdgpu_debugfs_regs2_op.isra.0+0x441/0xd00 [amdgpu]
->>    full_proxy_write+0x10e/0x1d0
->>    vfs_write+0x1d0/0xf50
->>    ksys_write+0x116/0x250
->>
->> amdgpu_debugfs_regs2_op() and amdgpu_debugfs_process_reg_op() call
->> get_user()/put_user() for every dword while holding grbm_idx_mutex or
->> srbm_mutex, and pm.mutex if requested, so a fault there takes mmap_lock
->> inside those locks. The lock hierarchy declared in amdgpu_lockdep.c since
->> commit 1d0f5838b126
->> ("drm/amdgpu: Add lockdep annotations for lock ordering validation") puts
->> srbm_mutex and grbm_idx_mutex below notifier_lock, which
->> amdgpu_cs_submit() takes with the BO reservations held, and
->> dma_resv_lockdep() orders the reservations inside mmap_lock. So
->> mmap_lock is outside grbm_idx_mutex and srbm_mutex, and these two
->> debugfs paths nest it the other way round.
->>
->> Copy the user buffer in before any of the locks is taken and the result
->> out after all of them are dropped, as amdgpu_debugfs_wave_read(),
->> amdgpu_debugfs_gpr_read() and amdgpu_debugfs_gprwave_read() already do.
->> A fault on the user buffer of a write now fails with -EFAULT before any
->> register is written, instead of after a partial write.
->>
->> Fixes: 1d0f5838b126 ("drm/amdgpu: Add lockdep annotations for lock ordering validation")
-> Well that's not really correct since that patch only makes the problem visible and not introduce it :)
->
-> But apart from that rather good catch, Vitalies work to add lockdep annotations pays of.
->
->> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> I don't have time to review this in detail. Vitaly and Tom please take a look at this.
->
-> But feel free to add Acked-by: Christian König <christian.koenig@amd.com>
->
-> Thanks in advance,
-> Christian.
->
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 71 ++++++++++++---------
->>  1 file changed, 40 insertions(+), 31 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> index aca1a8045afa..5618bd3e2610 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->> @@ -121,6 +121,17 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
->>  
->>  	*pos &= (1UL << 22) - 1;
->>  
->> +	/*
->> +	 * Access the user buffer only while none of the locks below are held:
->> +	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
->> +	 * inside it.
->> +	 */
->> +	u32 *data __free(kvfree) = kvmalloc(size, GFP_KERNEL);
->> +	if (!data)
->> +		return -ENOMEM;
->> +	if (!read && copy_from_user(data, buf, size))
->> +		return -EFAULT;
->> +
->>  	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->>  	if (r < 0) {
->>  		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->> @@ -152,28 +163,16 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
->>  		mutex_lock(&adev->pm.mutex);
->>  
->>  	while (size) {
->> -		uint32_t value;
->> -
->> -		if (read) {
->> -			value = RREG32(*pos >> 2);
->> -			r = put_user(value, (uint32_t *)buf);
->> -		} else {
->> -			r = get_user(value, (uint32_t *)buf);
->> -			if (!r)
->> -				amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, value, 0);
->> -		}
->> -		if (r) {
->> -			result = r;
->> -			goto end;
->> -		}
->> +		if (read)
->> +			data[result >> 2] = RREG32(*pos >> 2);
->> +		else
->> +			amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, data[result >> 2], 0);
->>  
->>  		result += 4;
->> -		buf += 4;
->>  		*pos += 4;
->>  		size -= 4;
->>  	}
->>  
->> -end:
->>  	if (use_bank) {
->>  		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
->>  		mutex_unlock(&adev->grbm_idx_mutex);
->> @@ -188,6 +187,10 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
->>  	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>  
->>  	amdgpu_virt_disable_access_debugfs(adev);
->> +
->> +	if (read && copy_to_user(buf, data, result))
->> +		return -EFAULT;
->> +
->>  	return result;
->>  }
->>  
->> @@ -238,11 +241,21 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
->>  	struct amdgpu_device *adev = rd->adev;
->>  	ssize_t result = 0;
->>  	int r;
->> -	uint32_t value;
->>  
->>  	if (size & 0x3 || offset & 0x3)
->>  		return -EINVAL;
->>  
->> +	/*
->> +	 * Access the user buffer only while none of the locks below are held:
->> +	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
->> +	 * inside it.
->> +	 */
->> +	u32 *data __free(kvfree) = kvmalloc(size, GFP_KERNEL);
->> +	if (!data)
->> +		return -ENOMEM;
->> +	if (write_en && copy_from_user(data, buf, size))
->> +		return -EFAULT;
->> +
->>  	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->>  	if (r < 0) {
->>  		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->> @@ -281,24 +294,16 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
->>  		mutex_lock(&adev->pm.mutex);
->>  
->>  	while (size) {
->> -		if (!write_en) {
->> -			value = RREG32(offset >> 2);
->> -			r = put_user(value, (uint32_t *)buf);
->> -		} else {
->> -			r = get_user(value, (uint32_t *)buf);
->> -			if (!r)
->> -				amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, value, rd->id.xcc_id);
->> -		}
->> -		if (r) {
->> -			result = r;
->> -			goto end;
->> -		}
->> +		if (!write_en)
->> +			data[result >> 2] = RREG32(offset >> 2);
->> +		else
->> +			amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, data[result >> 2],
->> +						rd->id.xcc_id);
->>  		offset += 4;
->>  		size -= 4;
->>  		result += 4;
->> -		buf += 4;
->>  	}
->> -end:
->> +
->>  	if (rd->id.use_grbm) {
->>  		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, rd->id.xcc_id);
->>  		mutex_unlock(&adev->grbm_idx_mutex);
->> @@ -317,6 +322,10 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
->>  	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>  
->>  	amdgpu_virt_disable_access_debugfs(adev);
->> +
->> +	if (!write_en && copy_to_user(buf, data, result))
->> +		return -EFAULT;
->> +
->>  	return result;
->>  }
->>  
