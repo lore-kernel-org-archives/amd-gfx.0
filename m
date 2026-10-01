@@ -4,123 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01EA9CA5FB3
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 06:12:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D05FCA5FB3
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 06:25:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FADD10E076;
-	Thu,  1 Oct 2026 06:12:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0206110E1B9;
+	Thu,  1 Oct 2026 06:25:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0vECd6j0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w88jQZFO";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011022.outbound.protection.outlook.com [52.101.52.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2678310E076
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Oct 2026 06:12:21 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011004.outbound.protection.outlook.com
+ [40.93.194.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDD4910E1B9
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Oct 2026 06:25:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YyvzfYGfLVAk0tCaY5Hj+f3QDOMh7lDMzdU42KPQ0gHsMaZQg/76CH9aClZZm4LLfVN7+WKBQYQJjEmTEeE4aq/WkRNpX9bwd2FtDK8M0VUMkzFj/TItGnFVz+jQHGQVBzkUKy4MBfFgKBxbQn2xk7x7K2MB8djfMCYGCkTNciN6qk62fipkK0hxCyQZp/5UhoXuCUvltuSI9Igl2IUNaug4O9ua0evQphlMoTUZU1Kn1SRIN3Xsbguty/1OflA5TJZuIiS/mHgXhuEzFykjQ7/BAx9VJPEk6GTU1JHjoDqIGyj9bFAjYAWp1H2wAxVZJjP86dI/2RW2+R5kg6zmsA==
+ b=aPaC4vK13R8t1kMq0py0S7o42Got1o2TQMrwCfqc815FuIvlXGyolavq5iIxMO6FhN1n5hi8CrvJq2tSgvScvar91IUvmR+/SPmw1u30meSe/Na025OanFY98dRBjjXDs4pdQb0M1lLVxeISEvuXJ9OVXTSQIWs5F/hcICLue4IOX2Q2ifAHtBmWMjMpq/RhBMfN5aQUawpEV4nE2Vtfu+sYr4iXlctIoD466gil1uJIx4ZlrMvMG0s8HCKMtqCkUwG0BrHI7B3JB0b3l6d0F45syV4B/ArqfMEb87vB1mSofWOuCu9wYQY+p6BPdxTqWx0ig/PvorY6STvB+X5kKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aYbUm+O4VcITc62SL9c1e+N6Qod+AeN92jZPsLBrVRU=;
- b=w7CQhBXBMUDqzEt4YpD55kmO5mtYeJ2Gxs0sAilh4aD1MVHbww183gOIlBSzK4joDspp2YhTAAul95y9j7MwSasMvWxDSAocpWy/zPIW1Lw7cWQ2S1pxC53QNjU+ZUvhR1nc/pFpfxo8dl8Nv8ruHzlbRn0tZvdL3EKAwhWjDgISemPoDrQbTTHb0+1ZgRsWnJXFwcwllXjoArTZN8w1VPQduQeXsfH3mkpStlT0B6v5leVqvWS1lhM9ALbes3fyuhPqrD7+LvqQj0gE/oXlSV6w3qCNItVr5JovMG1EyXxbYGm/TqN0OZLs+HVyLNrJwPW8G/mgINTvmwfrbF75TQ==
+ bh=AsMEqhicF4ji3Lj2SEvnfdz5hHCH2WcDaRi7m1PCAEU=;
+ b=p2cyTK7SqfbrpYQu0cxlCTJ8lYgPYMFiHhITG0w151PA/KxTO6NF6+tGz6TQZSjEth25P1OKftEF30Xwyauvatlowpsx0txVzy2ICVVk+TV/KizPZi+fEjF0aWAHk1VAm7Fk8Nf8ZEBdyGh7Cx2MXq1u2/VVr4hgD7zG/Bp41wEtwapsijGHZhG7ZZmbObk9nQ5vl0GWvi+ZHKPAMQJ6WsXfh4CQefKDBkhUBCvd1MR2Kx6cbUuGy80T/4eM+zSNat72NMgziY7NMQ/UdSYy1wqa26IYj4zYxuYE1NmxPm6duVUU/e6OiFO8rGdxiqnHWDFYZO0V5FpKvY0RRfR5jw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aYbUm+O4VcITc62SL9c1e+N6Qod+AeN92jZPsLBrVRU=;
- b=0vECd6j0Nw5RhDdgKaAGUHBcBKqO6aNPdELWDls4OLtCqx8PFmIG4DEC1mhZsVqtp8HZHWnA1BICYEqPPIaTCS7sqZISg9SV9b7RfWNMLegbMsnw9iqXsRULIm29V23z+jYHJXwBc4Axq5wymLCFFEjTm/C3C4DX6EcyYxjTBj4=
+ bh=AsMEqhicF4ji3Lj2SEvnfdz5hHCH2WcDaRi7m1PCAEU=;
+ b=w88jQZFO/lzmS6tXRGASpXGKiM0vjZWKzPGarAAAk9M884xTrBBa39ViGkiGT4dzcv3ZDknNJ/d9i6Deo16JblEmw/ZL7WyAjoOLrJi4+V7fGxR7+wVUMTlX9ohT9epUnfiKpf8BRmM5oXE+2oSgTnICIQfsqhLr9EbPqhAdv70=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY1PR12MB9651.namprd12.prod.outlook.com (2603:10b6:930:104::8)
+ by SA1PR12MB999251.namprd12.prod.outlook.com (2603:10b6:806:4dd::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Thu, 1 Oct
- 2026 06:12:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
+ 2026 06:25:05 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 06:12:14 +0000
-Message-ID: <957a0ec9-a772-400a-b633-ecf41d16a2b7@amd.com>
-Date: Thu, 1 Oct 2026 08:12:10 +0200
+ 06:25:05 +0000
+Message-ID: <c5b1322c-7421-4f9d-8fb0-db894de55591@amd.com>
+Date: Thu, 1 Oct 2026 08:24:59 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: copy debugfs register data outside the
- GRBM/SRBM locks
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, vitaly.prosyak@amd.com, tom.stdenis@amd.com
-References: <20260930154934.27981-1-mikhail.v.gavrilov@gmail.com>
+Subject: Re: [PATCH 2/9] drm/amdgpu: fix cleared PDE/PTE flag generation
+To: "Kuehling, Felix" <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ natalie.vock@gmx.de, honghuan@amd.com, Alexander.Deucher@amd.com,
+ Philip.Yang@amd.com, cascardo@igalia.com, tvrtko.ursulin@igalia.com,
+ "Joshi, Mukul" <mukul.joshi@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20260928151041.1857-1-christian.koenig@amd.com>
+ <20260928151041.1857-2-christian.koenig@amd.com>
+ <P3WG6T-ATwauPO6Yp0bWtQ@gmail.com>
+ <cd5af67b-d2af-43a5-be86-216155f46ff8@amd.com>
+ <7b1ec2f8-0619-4132-ac35-bc2722755b97@amd.com>
+ <9b181f91-4de1-4c0d-8a38-dfd75c8eb98c@amd.com>
+ <33693b8d-ed0a-4910-af87-eb29e887a1d5@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260930154934.27981-1-mikhail.v.gavrilov@gmail.com>
+In-Reply-To: <33693b8d-ed0a-4910-af87-eb29e887a1d5@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0231.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e9::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0181.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::17) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY1PR12MB9651:EE_
-X-MS-Office365-Filtering-Correlation-Id: f846ab4c-a25e-4ec5-bab6-08df1f82efba
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB999251:EE_
+X-MS-Office365-Filtering-Correlation-Id: e38b6819-0a5f-40f0-26b9-08df1f84bb06
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|6133799003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: 8Fun3inZmUbN2o/HjT4YCNc8JlkEhTC+bnPhUW1zn7Saio4jZGLcjdnLEp9sLAUZgE5Nrpl114ZmZ88DEq2BDucgIBrvyWSFv1zQysW0PoAu8cdIfpdwXNlEUxBt1Tcun+yT2oV7+Hdx/hGOZLWmsnD6OmYxm8WLB44GVc+nOaPqTEwW1/URzgvmWfKQZzh5W5UwMQtcIO2vrkeGZ+KSzwOKT1MXBOEP6DlnBbUSubPrIhMglN2P5jadfoRgs1DsUPiWRm/xN3aYVxDSWIcRQNShkhx2PuAXlEaNd2JBGAz88QOgWbbmWaU0xrQ4Q9eiYcVLkmKko/64jZhfSfhjHH+Rm/78S8iT7HBpbTPwNnFwuUVHsOBMgn19zYiC4Ps/LO0djw1/vCduhsxEJDRNkBfnh5UtqbmNMtZHE+NOfhIadI1CFxoqn8SvxQ26VOBKCyCCRpy8+zQ3S11FTzdiUhaZWGcSx4FrJiWYlvpsGnn8J2fc/bmNGgPoeofUUGtw2GV3jJv9+//g8Z04qEPGSEd7/6WJKDjoLwpOi8ncLiFBapXniSWpCHqOYYKXoi75Njia9i6PlV6VwVhBoR1LbmBgCFIPWRyRYEBSOUd2Dr9TbCSgKX9IN0im1YsnGMO+HhiWtp+ynPDrUptvZO1J3dw7ZnjdFd26ah94cPTGzyw=
+ ARA:13230040|376014|1800799024|366016|23010399003|4143699003|11063799006|10067099003|56012099006|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: Hwy/QuSwO/VDYlHz2l4AtmNHcbcGkvAJKq/X2V4u+9M5jxnDejnl49rIBEPLvmZvdveF2yYTkzRh304ponpIwQd1PzDIxL52Fb3Rsmqd46mpS1lF0m5Jkr4XaCqRTNLS29U+cVjpdBb5l0bI46X7oGo11MDKzC4lyV2Cs8aeukbCHMfd8EvoVX+5v6d8XB3kTddIbrJhxcjTZXKjVQ9CsRNrmU6k7eMbuh46sx8rHEvz9tt7FbeRBabwPOsMvaIUgG595kzDpA1N0hr8MC5Q12CLEJSIhODni76HnKNHyZXQhcgL/HVwS11CajM24tObcEJQNkRCFBkGTGoLYXageMRVNNWm8gw2AEkUPcAOdLP0IV33ENK2MtdEZ+hvkRygtDjFMStasslYD5oWdkQpo5SbaLDfDOBYc+p+bKjeDwWxhtqyBlS56/TFdaSYpieAHHk7i9Ok0UGRBQpVsUukCh99KGOG+4X36MHB6wrYTDSkBSBeL83eK2JOKAscPQErpo7MOBtq7FjIilYal0kYUCT+PHGkLdzkaKpleEUy81ZqyTs+3MOI1eMahB1QfYstT7wJp1t4WJwBJAXEl9Ert1AT1Z3bnYnOlKXCAY5CF+vrPsbCYrHEw1/NAlhELmXbV7bBmAaPMjgRCxFIc5yNXxwRqsEWrunPecyj0c43EjyR0nV2hSvS5YpgsXIDbvwS2KEMnRTcvTFf/aorN4eb1Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006);
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(4143699003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Kzl0eTB5ZU5USnl0OHBTam9Gc0pFSGhGNFRZa1JmalNhNTYvQktRZGhpbzc5?=
- =?utf-8?B?YkVwa3NCRGtVNUlGTHppRVgyUjhSb1d4U3hxM0RPdDRLWVJXcXhzTkJlTTkz?=
- =?utf-8?B?RzJjdGRBMm80ZWJncE1kU3FUcUpRdHN3R2JXWEpzTEhLMHZkc3pRZHJsNVFP?=
- =?utf-8?B?NGVtTzl3dDdZYS9JTVZtK2laODh4Q1NzVUY3Z1I2MHZyYkRzMXgxTTBCN1hz?=
- =?utf-8?B?QzhvTWJia3ZLUldMbWxPMFZqSUVBUEovc0E0cTdzT1M2SWEyS2Foa0g2dnV2?=
- =?utf-8?B?VHNCZGV3ZU84RXRxNGpLQ1ZvSmNMQmZEdlM5c2xjWHFRRGdWa0VYNXY0RFUy?=
- =?utf-8?B?bGUybnYvOC9IbDlOYTdYQ2xKYVk5QW9ha0w1RFdmQ0srT2NpM2JaM3lHZmw2?=
- =?utf-8?B?eHNzOXZIRzE5NDI2cHZ3am9LRGhOV3lBUWhOVGhwZTFIaC9ENDA1K0dMQkJu?=
- =?utf-8?B?Z2VsaFFwOWZKWHh3bEFNcURoem5hdjhhUnVva3Znbk41Mi9xcWg5Y0FPdzFX?=
- =?utf-8?B?YnJOUnovZ1lSM0dmWVMzeGhEcmxuZTVDTTBXV0ZYWURkZTFHR0h3bGZhWXR3?=
- =?utf-8?B?ZVZiRUpYdGlEalNKUnFLNW51R1E1eXoxdk9hVlArMnJuakl3bHpxeVkzR1lC?=
- =?utf-8?B?TXAwaytjMVl0allMOUpGNkdVa3lnZVFlMGFJS3ZKZnUwYW9hSUlTQnNzdGVk?=
- =?utf-8?B?ekZrUktKaFdPcmxvUHp1eEdDcWduWG02T0c4K29oWFI0aU5iWmJ5NHlkTTV2?=
- =?utf-8?B?Z0QwTnZBUHMyTFpkdEV1ckZLRnB3UkNHRnl2OVlVRFhMM052elo3T3oyQmpN?=
- =?utf-8?B?eStuK1pyYitsWWtZY3hXemVieFdWWGpYZ1IyQ0ltVlV1M3dPd0xZRXZtaWFM?=
- =?utf-8?B?LzR6ZUJvREJuYnRjaERGTTAwSVQ1ak0vQ0pIZHEreXRNSjlGSmJyTWdCWUM0?=
- =?utf-8?B?V09peG5zSEZnOWdaaGwzbG50U1hzWnBaZXkyS2dnYlp1SWc1aDNiZkxjWWxD?=
- =?utf-8?B?QStTallYbGd3T1Roc2gwNThsM1JEbWdjbTNQK2RpemdCV3k3bUZ2d1FnVmhi?=
- =?utf-8?B?Zjk0ZW0vZlhKblgyT1NEdG1ubzVKM3ltT0wyanpzVUFlaWtZQWM0UTJ6Q01T?=
- =?utf-8?B?ZGZxaS9VbDJDeUptUkRoS2NZMEhBUDd1MCtTRUFmK0VIQkpSNmZmWSthYVQv?=
- =?utf-8?B?MngvSVRCT1ljbXVJeHFTekI3M0hFN2xmLzQ5YnMzaE9PaGJaY1pkT1FjSmlU?=
- =?utf-8?B?NDZoNzZnRXYxRUwyMkllY1dnck5GeklsRWZYcXFwV0pwa0owUEhzTkNhSktq?=
- =?utf-8?B?S1JpSTVMSkpUK01qb1p4b3pxTkFoQ0t6cXVFQmFaUTZrLzJGdXlCaHhteWlu?=
- =?utf-8?B?TS9IVlhVZjJlTHV3cFN6U3hOd2VabmxQMUhXVi9YZncyRDJPM3hHNVdHUUZX?=
- =?utf-8?B?MnVoeVBKU2NNYk56MXFZTi9JcG9xSFFlMVZYUFk4NUQ0M3RkNHRDT0pTSXlR?=
- =?utf-8?B?aUJGbXBqQ3RFNGRzRDFKQ05pbWZvZnN4aFRwVU1mcTY3VmZHYVg3VnNYUmhB?=
- =?utf-8?B?SmdKWjB2VjFDMWpEU1RrMEMxSEtvL2oyckVQdnBXZUZ6UUMrUmdIeUIxbU9K?=
- =?utf-8?B?b0piWHZVSVRocXlvdmJBTFJtbGdDbW5LcURHVGFnR0FiVW1tZUwrbHkxWnNK?=
- =?utf-8?B?UTJvLzZvVm5DYThZMTh5c2V5WG1mMlI0UDZwdUdTRTlTQXd3UjFWeUpHN056?=
- =?utf-8?B?UHhqWlBSZklmZ3AwM1FNcG55aVBrYVgrU2twWlhNaEw0b1pGbGMyZitCTnZX?=
- =?utf-8?B?SlRFWHQxTG84SlRkaXI0M0ttS0RiamRhanVIWHR4QjZmQjdib3NmWmJkQ3lU?=
- =?utf-8?B?UVJYMlZrd1dUaFFIYUR6UWZwNVRMWWZDNVBacUl2WUpVN2xVMm9MTGdpajlH?=
- =?utf-8?B?NjM0VkdOVk5pemhtSHllR0dQWllCRFd0ZnB1Y0ZPMzdMZEN4TThlbUpvNzFI?=
- =?utf-8?B?RTdhT3FLbWFXOHZ1bkhMdTQ5ajBydWhsZWF5ZFJjandiM0EyODQrL1NuTjEy?=
- =?utf-8?B?UElaY0w0TTNXdEpGN1pESTJGVSt4bjVYNmFSRjhkUmo4bC9oQjE3QnVROHI5?=
- =?utf-8?B?MlNVWW1xMlRNbmJGTmpJSDdQbDNlWUJFWm50Y2NvUW4rVlBZeGFsOTZnZVZh?=
- =?utf-8?B?eEttdkh0bEtHMFQrakVqenVnWWhPS3VpR2lpc2dramwwemRoNFdiVVhFNFpi?=
- =?utf-8?B?N3JsSGxnMWt4VXJJT1ZmOVdLb0x4SzJYdlg5ZXpQYUVFc0g3ZkJDa3Z2S2NV?=
- =?utf-8?Q?sIQk14HdqCVQ9LVile?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czlKMk9SS3lzRnFpSjdWKy9SUVJHazc1QSthRjZFemdiNU5XSFhiZmtGaWNw?=
+ =?utf-8?B?TTdXZUpWbzFQMG54VzIxM2tJMFJObGdYdUZSV0k2YnRWeVBLeUwwbHJwdW0r?=
+ =?utf-8?B?bWE4eVZPcDY5UElRVm1yZWRvazRPRHVkWEhXdWY2UkJJQkRuMFUyNHJ3dnRa?=
+ =?utf-8?B?WHRvcEx5QXNJVXV1UnJXRVpUdmtxTHNvVXNpc0JFd1pPdzYxMGRFTVB0NDVh?=
+ =?utf-8?B?Vkx5RXFXWnB0Y1R0OUdJWU9ucmp0QUNrdUJ1MmdIZWYzNXBYaFF1UXRBWERl?=
+ =?utf-8?B?dEVnVGRqQW1LRWpmUytQeUZBVFNKMjRVSjBaRlk4ZkhoMFFXc1FITm8wa01W?=
+ =?utf-8?B?MGlDa3lQQXM0bGQxLytrQWpzS3hsc2VXNnRWMHdiRkRnSmEvWm9CVC9EYjd5?=
+ =?utf-8?B?S3pXa2RMa3VXR2tJelQrMURhZU5OOUNQYlpReTg3R3QzRDg4VVZWZ043R0dZ?=
+ =?utf-8?B?N241dG5RYWlVYUgwbFFPRG9UU2VIY1daeDFqRzB6RklhWkRxOUFhWGZDR1pv?=
+ =?utf-8?B?L1RXNTdQYk4wYklMeENNZHI2MWNmN3hTQXo5TDlzdUVUWFR1Vmx2djI5OFV6?=
+ =?utf-8?B?M1R2d29JU3YvSnozLzVMUHNHeXRQbE5RWXdqbjR2WXFuWU1UM1NQai9QNTJ1?=
+ =?utf-8?B?WkRLT25UQ2VHVGpoSUxLQ2t4MkZyWEdXWHNlMnhHNXlUMWpCRGtEQmE3R0pw?=
+ =?utf-8?B?dS9EZnBDaU1oakNpYnYvc2dqbFVMd2R5ZStTMlJ2SFg4a0pYT1NaYnZDRXJv?=
+ =?utf-8?B?UDVmT0FKL3dtUTVwcFBYbldLTnNKNDdQdFMwa1Jjb2dzV1BOWDFMQkV2Mm5X?=
+ =?utf-8?B?M1JHaU9rY3JHb2d0TWhVaEYvbkZ4TFp3ZysycHNFakVmSXFZRDJxNkFlNys5?=
+ =?utf-8?B?M056MzNpYjAyL1BWY3B6NGpvSVZqMDY2UWMwSngwNkhyUXE2ZGVOYzkzS3hm?=
+ =?utf-8?B?Y3NiUCtPU0tabU5CV3N1VnRnakZreEFUR1RwVEI2bFJ5T2t4c2FINnh4NXYx?=
+ =?utf-8?B?NEh1L1AzVW5id3AxM1Zob3pGaHJjT20wTGwvUTY1ajI1MDdOTXAxaUFvZ1E1?=
+ =?utf-8?B?b0hlYW1MNnRHeHlLN1plbENiUTNZQ21NTnpPYXlpV1RROWQzQTFDYnpxUGFI?=
+ =?utf-8?B?VDdpWjRDdlJGZWE0cGdXcVZqWTEzSDJpZkFWQ0xBNFQraER5elpjLzJuMG02?=
+ =?utf-8?B?NUltSURCYnVlNmJ5OFFHbW5ydEZIbnBLRWorTlA0V3JtaWUrTlBYcUIyek9t?=
+ =?utf-8?B?cVNzd2lnM3hudEdzQ0RqWndPQktOU29hV3NxQnAxRTZ1M1I2eDVrMnZIYmMz?=
+ =?utf-8?B?dEVSWjdyYmNqZXdib2VhaEg1QkdFTnhYVm13bk1kYVRMSlFPRmZHOGxOb01t?=
+ =?utf-8?B?cGJodlR3TGxQM1ZQZmM2ZmlRM095MEloUzBNTitGQnBuOHkwaENIUWN3L2tz?=
+ =?utf-8?B?bm9KdVowSVRoQ0kvbUdYRG9oQjdwNWJ0TUtCYVppMWsyZGtKdm56QzczakJa?=
+ =?utf-8?B?cVJma2ppb2dIczljNkE3ZDhUUlNiQnB6M2pzaG15NmZMckk3d1NZRFQ2RWth?=
+ =?utf-8?B?RnM5czQvQWdTMWR5cXlYL2xPa1A3S2c0ZG83VXM3UVhjUStwdjNuOFpTWlkx?=
+ =?utf-8?B?cjZnRGhvRnB5V3pDcFBBZXBqK0V2UnB0Q0dIY2pCTDZuWFJibm4wOGErWkV6?=
+ =?utf-8?B?M0lKV1dCVXorYXlPNnFyMm9zYUxBMEJXZnRyUS9TV1hnQzhkSUttVDVNY0V4?=
+ =?utf-8?B?b3B2S0YwVWhlRWwzTWpUYVI2UkFWYW0zcW1UQXB2UnNkNFdnN1VHYVFlaGFM?=
+ =?utf-8?B?ZmVPR3lIZitQamtacnVacFVJYjNGTXhxdUtpanhUQ0p3Rmo3SjlyRW9hZkFS?=
+ =?utf-8?B?SHpxc2xwbXppODRhQW9BQ1RJK0pRT3BKbEtBclMwMFZ0NE1hZmpIeDdhYnZv?=
+ =?utf-8?B?LzF5b2pkQWRQOVErTWlGaWJGcFVmQ1ZJNE5vTXdWOGs5V0p5VDd4UXRYRER6?=
+ =?utf-8?B?cm1MVm5vZEZCUXF0WjlZd3ZRVmRXWDVtWEZnRklHUmtTZitsSllHWXlSanla?=
+ =?utf-8?B?Y1NtZEFJYk8ybjk1eE5sekJ6dkFPQlRjeGJEREtmai9ZT215WElGZkZPNGRP?=
+ =?utf-8?B?NitJK3hYYnZFNjdQcm1SMElNbW9jMms4U0NCNzNhQUNKTVBZclpYcE9CeWNw?=
+ =?utf-8?B?aHhOOXdaKzh4M1JLSEhzcXhnUkx0aFdHSWlpa3ZyMm1xSUUwZGlyOVlBank2?=
+ =?utf-8?B?eHY4b3lPWGlCZTFkMDlUWWhiSTM1T0JxSTBmR3hWQlRlT0UrZGlrOHJYVU1M?=
+ =?utf-8?Q?6CdPRr51EQAJ02GApc?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f846ab4c-a25e-4ec5-bab6-08df1f82efba
+X-MS-Exchange-CrossTenant-Network-Message-Id: e38b6819-0a5f-40f0-26b9-08df1f84bb06
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 06:12:13.9507 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 06:25:04.5499 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mxOfEphvlaA6vJnlc9L88PGVJfLD0kZP/1Z94e53L3BXenFax49wKt45gB8dUmic
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9651
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1a0Qw6vFzoI+/Uj2e3xDqekGMyUOWtUEwVhjipWOIi+BsH+gAnWJPikZbYE1uc9T
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB999251
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,194 +144,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/30/26 17:49, Mikhail Gavrilov wrote:
-> Reading or writing a register through the amdgpu_regs2 debugfs file
-> with GRBM bank selection, which umr does for every banked access (a
-> single "umr -b x x x -r <reg>" is enough, as is the wave dump with
-> "-O halt_waves"), makes lockdep report a circular locking dependency,
-> after which lockdep stays off until reboot:
+On 9/30/26 18:12, Kuehling, Felix wrote:
+> On 2026-09-30 10:59, Christian König wrote:
+>> On 9/30/26 16:44, Kuehling, Felix wrote:
+>>> [+Mukul]
+>>>
+>>> On 2026-09-30 05:02, Christian König wrote:
+>>>> @Felix and @Philip any objections to this patch?
+>>>>
+>>>> It is actually a bug fix for the NPA support.
+>>> As I understand it, this fixes the flags used when unmapping memory from the NPA VM. We passed adev->gmc.noretry_flags from amdgpu_ualink_unmap_npa_addr to amdgpu_vm_update_range explicitly in the flags parameter. I guess that's no longer needed with your fix. But I think the end result would be the same, right?
+>> Not quite, passing adev->gmc.noretry_flags to amdgpu_vm_update_range() is completely broken as well and also need fixing.
+>>
+>> The flags parameter to amdgpu_vm_update_range() can't contain the AMDGPU_PTE_TF nor the AMDGPU_PDE_PTE flag because those are overwritten by the PTE callbacks.
 > 
->   WARNING: possible circular locking dependency detected
->   umr/63306 is trying to acquire lock:
->   ffff8882cf4b8350 (&mm->mmap_lock){++++}-{4:4}, at: __might_fault+0x9b/0x140
->   but task is already holding lock:
->   ffff8881aec010d0 (&amdgpu_grbm_lock_key){+.+.}-{4:4}, at: amdgpu_debugfs_regs2_op.isra.0+0x20d/0xd00 [amdgpu]
->   ...
->   Chain exists of:
->     &mm->mmap_lock --> &amdgpu_srbm_lock_key --> &amdgpu_grbm_lock_key
->   ...
->    __might_fault+0xc5/0x140
->    amdgpu_debugfs_regs2_op.isra.0+0x441/0xd00 [amdgpu]
->    full_proxy_write+0x10e/0x1d0
->    vfs_write+0x1d0/0xf50
->    ksys_write+0x116/0x250
+> I'm pretty sure Mukul tested this and got something that worked as expected, at least for a time. I'm not sure if it regressed since, maybe during upstreaming. @Mukul, can you comment?
+
+It could be that this works by coincident, e.g. that we set the flag but never clear it. But it is definately not a good idea to rely on that.
+
+>>
+>> That's why setting the AMDGPU_PTE_IS_PTE for gfx12 through the init_pte_flags is completely broken as well.
+>>
+>> We seriously need to stop doing such hacks.
 > 
-> amdgpu_debugfs_regs2_op() and amdgpu_debugfs_process_reg_op() call
-> get_user()/put_user() for every dword while holding grbm_idx_mutex or
-> srbm_mutex, and pm.mutex if requested, so a fault there takes mmap_lock
-> inside those locks. The lock hierarchy declared in amdgpu_lockdep.c since
-> commit 1d0f5838b126
-> ("drm/amdgpu: Add lockdep annotations for lock ordering validation") puts
-> srbm_mutex and grbm_idx_mutex below notifier_lock, which
-> amdgpu_cs_submit() takes with the BO reservations held, and
-> dma_resv_lockdep() orders the reservations inside mmap_lock. So
-> mmap_lock is outside grbm_idx_mutex and srbm_mutex, and these two
-> debugfs paths nest it the other way round.
-> 
-> Copy the user buffer in before any of the locks is taken and the result
-> out after all of them are dropped, as amdgpu_debugfs_wave_read(),
-> amdgpu_debugfs_gpr_read() and amdgpu_debugfs_gprwave_read() already do.
-> A fault on the user buffer of a write now fails with -EFAULT before any
-> register is written, instead of after a partial write.
-> 
-> Fixes: 1d0f5838b126 ("drm/amdgpu: Add lockdep annotations for lock ordering validation")
+> Is there any documentation that tells us what flags can be used where. This isn't obvious at all.
 
-Well that's not really correct since that patch only makes the problem visible and not introduce it :)
+No, I mean I thought that this would be obvious.
 
-But apart from that rather good catch, Vitalies work to add lockdep annotations pays of.
+The AMDGPU_PTE_TF, AMDGPU_PDE_PTE and AMDGPU_PTE_IS_PTE control the walker behavior.
 
-> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+So we need to set them depending on what the VM code decides on which layer PDEs and on which layer PTEs are.
 
-I don't have time to review this in detail. Vitaly and Tom please take a look at this.
+I will add some comment to the code.
 
-But feel free to add Acked-by: Christian König <christian.koenig@amd.com>
-
-Thanks in advance,
+Thanks,
 Christian.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 71 ++++++++++++---------
->  1 file changed, 40 insertions(+), 31 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index aca1a8045afa..5618bd3e2610 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -121,6 +121,17 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
->  
->  	*pos &= (1UL << 22) - 1;
->  
-> +	/*
-> +	 * Access the user buffer only while none of the locks below are held:
-> +	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
-> +	 * inside it.
-> +	 */
-> +	u32 *data __free(kvfree) = kvmalloc(size, GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +	if (!read && copy_from_user(data, buf, size))
-> +		return -EFAULT;
-> +
->  	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->  	if (r < 0) {
->  		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> @@ -152,28 +163,16 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
->  		mutex_lock(&adev->pm.mutex);
->  
->  	while (size) {
-> -		uint32_t value;
-> -
-> -		if (read) {
-> -			value = RREG32(*pos >> 2);
-> -			r = put_user(value, (uint32_t *)buf);
-> -		} else {
-> -			r = get_user(value, (uint32_t *)buf);
-> -			if (!r)
-> -				amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, value, 0);
-> -		}
-> -		if (r) {
-> -			result = r;
-> -			goto end;
-> -		}
-> +		if (read)
-> +			data[result >> 2] = RREG32(*pos >> 2);
-> +		else
-> +			amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, data[result >> 2], 0);
->  
->  		result += 4;
-> -		buf += 4;
->  		*pos += 4;
->  		size -= 4;
->  	}
->  
-> -end:
->  	if (use_bank) {
->  		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
->  		mutex_unlock(&adev->grbm_idx_mutex);
-> @@ -188,6 +187,10 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
->  	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->  
->  	amdgpu_virt_disable_access_debugfs(adev);
-> +
-> +	if (read && copy_to_user(buf, data, result))
-> +		return -EFAULT;
-> +
->  	return result;
->  }
->  
-> @@ -238,11 +241,21 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
->  	struct amdgpu_device *adev = rd->adev;
->  	ssize_t result = 0;
->  	int r;
-> -	uint32_t value;
->  
->  	if (size & 0x3 || offset & 0x3)
->  		return -EINVAL;
->  
-> +	/*
-> +	 * Access the user buffer only while none of the locks below are held:
-> +	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
-> +	 * inside it.
-> +	 */
-> +	u32 *data __free(kvfree) = kvmalloc(size, GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +	if (write_en && copy_from_user(data, buf, size))
-> +		return -EFAULT;
-> +
->  	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->  	if (r < 0) {
->  		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> @@ -281,24 +294,16 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
->  		mutex_lock(&adev->pm.mutex);
->  
->  	while (size) {
-> -		if (!write_en) {
-> -			value = RREG32(offset >> 2);
-> -			r = put_user(value, (uint32_t *)buf);
-> -		} else {
-> -			r = get_user(value, (uint32_t *)buf);
-> -			if (!r)
-> -				amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, value, rd->id.xcc_id);
-> -		}
-> -		if (r) {
-> -			result = r;
-> -			goto end;
-> -		}
-> +		if (!write_en)
-> +			data[result >> 2] = RREG32(offset >> 2);
-> +		else
-> +			amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, data[result >> 2],
-> +						rd->id.xcc_id);
->  		offset += 4;
->  		size -= 4;
->  		result += 4;
-> -		buf += 4;
->  	}
-> -end:
-> +
->  	if (rd->id.use_grbm) {
->  		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, rd->id.xcc_id);
->  		mutex_unlock(&adev->grbm_idx_mutex);
-> @@ -317,6 +322,10 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
->  	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->  
->  	amdgpu_virt_disable_access_debugfs(adev);
-> +
-> +	if (!write_en && copy_to_user(buf, data, result))
-> +		return -EFAULT;
-> +
->  	return result;
->  }
->  
+> Thanks,
+>   Felix
+> 
+> 
+>>
+>> Regards,
+>> Christian.
+>>
+>>> Regards,
+>>>    Felix
+>>>
+>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>> On 9/28/26 21:08, Timur Kristóf wrote:
+>>>>> On 2026. szeptember 28., hétfő 11:10:34 keleti államokbeli nyári idő Christian
+>>>>> König wrote:
+>>>>>> That was broken since adding the NPA support.
+>>>>>>
+>>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>>>> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
+>>>>>
+>>>>>> ---
+>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 64 ++++++++++++-----------
+>>>>>>    1 file changed, 33 insertions(+), 31 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c index
+>>>>>> c03327f1242d3..e8f441e018839 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>>>>> @@ -346,6 +346,33 @@ static void amdgpu_vm_pt_next_dfs(struct amdgpu_device
+>>>>>> *adev, amdgpu_vm_pt_continue_dfs((start), (entry));
+>>>>> \
+>>>>>>             (entry) = (cursor).entry, amdgpu_vm_pt_next_dfs((adev),
+>>>>> &(cursor)))
+>>>>>> +/* Return the flags used for cleared PDEs/PTES */
+>>>>>> +static uint64_t amdgpu_vm_pt_clear_flags(struct amdgpu_device *adev,
+>>>>>> +                    struct amdgpu_vm *vm,
+>>>>>> +                    unsigned int level)
+>>>>>> +{
+>>>>>> +    uint64_t flags;
+>>>>>> +
+>>>>>> +    if (adev->asic_type < CHIP_VEGA10)
+>>>>>> +        return 0;
+>>>>>> +
+>>>>>> +    if (level != AMDGPU_VM_PTB) {
+>>>>>> +        uint64_t value = 0;
+>>>>>> +
+>>>>>> +        flags = AMDGPU_PDE_PTE_FLAG(adev);
+>>>>>> +        if (vm->is_npa)
+>>>>>> +            flags |= adev->gmc.noretry_flags;
+>>>>>> +        amdgpu_gmc_get_vm_pde(adev, level, &value, &flags);
+>>>>>> +    } else if (vm->is_npa) {
+>>>>>> +        flags = adev->gmc.noretry_flags;
+>>>>>> +    } else {
+>>>>>> +        /* Workaround for fault priority problem on GMC9 */
+>>>>>> +        flags = AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags;
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    return flags;
+>>>>>> +}
+>>>>>> +
+>>>>>>    /**
+>>>>>>     * amdgpu_vm_pt_clear - initially clear the PDs/PTs
+>>>>>>     *
+>>>>>> @@ -366,10 +393,9 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev,
+>>>>>> struct amdgpu_vm *vm, struct ttm_operation_ctx ctx = { true, false };
+>>>>>>        struct amdgpu_vm_update_params params;
+>>>>>>        struct amdgpu_bo *ancestor = &vmbo->bo;
+>>>>>> -    unsigned int entries;
+>>>>>>        struct amdgpu_bo *bo = &vmbo->bo;
+>>>>>> -    uint64_t value = 0, flags = 0;
+>>>>>> -    uint64_t addr;
+>>>>>> +    unsigned int entries;
+>>>>>> +    uint64_t flags;
+>>>>>>        int r, idx;
+>>>>>>
+>>>>>>        /* Figure out our place in the hierarchy */
+>>>>>> @@ -404,26 +430,8 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev,
+>>>>>> struct amdgpu_vm *vm, if (r)
+>>>>>>            goto exit;
+>>>>>>
+>>>>>> -    addr = 0;
+>>>>>> -
+>>>>>> -    if (adev->asic_type >= CHIP_VEGA10) {
+>>>>>> -        if (level != AMDGPU_VM_PTB) {
+>>>>>> -            if (vm->is_npa)
+>>>>>> -                flags = adev->gmc.noretry_flags;
+>>>>>> -            /* Handle leaf PDEs as PTEs */
+>>>>>> -            flags |= AMDGPU_PDE_PTE_FLAG(adev);
+>>>>>> -            amdgpu_gmc_get_vm_pde(adev, level,
+>>>>>> -                          &value, &flags);
+>>>>>> -        } else if (vm->is_npa) {
+>>>>>> -            flags = adev->gmc.noretry_flags;
+>>>>>> -        } else {
+>>>>>> -            /* Workaround for fault priority problem on
+>>>>> GMC9 */
+>>>>>> -            flags = AMDGPU_PTE_EXECUTABLE | adev-
+>>>>>> gmc.init_pte_flags;
+>>>>>> -        }
+>>>>>> -    }
+>>>>>> -
+>>>>>> -    r = vm->update_funcs->update(&params, vmbo, addr, 0, entries,
+>>>>>> -                     value, flags);
+>>>>>> +    flags = amdgpu_vm_pt_clear_flags(adev, vm, level);
+>>>>>> +    r = vm->update_funcs->update(&params, vmbo, 0, 0, entries, 0,
+>>>>> flags);
+>>>>>>        if (r)
+>>>>>>            goto exit;
+>>>>>>
+>>>>>> @@ -712,15 +720,9 @@ static void amdgpu_vm_pte_update_flags(struct
+>>>>>> amdgpu_vm_update_params *params, flags |=
+>>>>>> AMDGPU_PDE_PTE_FLAG(params->adev);
+>>>>>>            amdgpu_gmc_get_vm_pde(adev, level, &addr, &flags);
+>>>>>>
+>>>>>> -    } else if (adev->asic_type >= CHIP_VEGA10 &&
+>>>>>> -           !(flags & AMDGPU_PTE_VALID) &&
+>>>>>> +    } else if (!(flags & AMDGPU_PTE_VALID) &&
+>>>>>>               !(flags & AMDGPU_PTE_PRT_FLAG(params->adev))) {
+>>>>>> -
+>>>>>> -        /* Workaround for fault priority problem on GMC9 and
+>>>>> GFX12,
+>>>>>> -         * EXECUTABLE for GMC9 fault priority and init_pte_flags
+>>>>>> -         * (e.g. AMDGPU_PTE_IS_PTE on GFX12)
+>>>>>> -         */
+>>>>>> -        flags |= AMDGPU_PTE_EXECUTABLE | adev-
+>>>>>> gmc.init_pte_flags;
+>>>>>> +        flags |= amdgpu_vm_pt_clear_flags(adev, params->vm,
+>>>>> level);
+>>>>>>        }
+>>>>>>
+>>>>>>        /*
+>>>>>
+>>>>>
 
