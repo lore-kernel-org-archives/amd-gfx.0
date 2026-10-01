@@ -4,46 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F19CCA5FD2
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 18:24:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4187CA5FD2
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Oct 2026 18:29:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6E8110E070;
-	Thu,  1 Oct 2026 18:24:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CECE810E3EE;
+	Thu,  1 Oct 2026 18:29:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dg9/Ehd7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mpm+Q5yW";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1667110E070
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Oct 2026 18:24:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 72D9043715;
- Thu,  1 Oct 2026 18:24:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8040B1F000FF;
- Thu,  1 Oct 2026 18:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790879056;
- bh=ZgxiMdazseruDEi0GaGGu4bU4aWYrUGoIt3ANntPUCU=;
- h=From:To:Cc:Subject:Date;
- b=Dg9/Ehd77ARGlfdB2U/X+Mzb0SvPDTnoD+uR69Zs/YWLOsusL2PHC6OaRtSbRGWpn
- irclrx1yKahDlmwj2e7faptFUr0pN7UDF4IX0tTHuL8IyvRRzTpdJ2vDoAsB6L/F+g
- mGNAeoH6tsqNyMw7tTEssVTPoTqppajAXkh5eSmBzOF1QDlbzCCuMTxGmtDENqmP6l
- FmVa1LtfvMNq3u0ggJakP4RqJxv2h1GaODwGbm0c1Pe5BOb3lz/V+d/aLaw8OyvQjr
- nYl+n8tYOMx+y0ClwyGFaxuviI2dCRXDlPLLvvWUbQumflV5CrXVAMZx7FYVqmKAtN
- Dc/17TBBs4E6A==
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list),
- iommu@lists.linux.dev (open list:AMD IOMMU (AMD-VI)),
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v4] iommu/amd: Make PerfOpt compulsory
-Date: Thu,  1 Oct 2026 13:24:10 -0500
-Message-ID: <20261001182410.1525285-1-superm1@kernel.org>
-X-Mailer: git-send-email 2.53.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79A5A10E2B5;
+ Thu,  1 Oct 2026 18:29:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790879342; x=1822415342;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=E81U4XJM9pN1WjMWQPIEK/Y9pJ5Co2fGYxI2NjKfu2k=;
+ b=mpm+Q5yW1BiqAiAtC1w/AJYSYdFkkzymgMMTa0PBSwuPojmYTwhBN1Hy
+ 4RpQOPYhHipygXbbcEE4MPgCw/K6+lYj0TqtaR7ZeNIVRH8guaV0t8t9A
+ Ja1+P7adYwibKHpS7WZV4PFDEKb1zliwCtLEvhpnoVu1q/otNHw1kf93j
+ XpluppOqGG/pa7SIChrs4wOx1s8WOiJYHiAmI+ZJKvWH6GMsZalFO6VlW
+ 7xwdu5NgNM0PZgv0M7eaJ8F9e1s3OG48lax5p9xGJMCgkeYoAFeU8HbDK
+ sJHoOLDdf7dgDNeMd2oLtYajrMyAvSw1ZVS/bSH5R71ffKUeGvxT2CSAz Q==;
+X-CSE-ConnectionGUID: 3wXSaCaSTf+f2FhlMRwhTQ==
+X-CSE-MsgGUID: JfHq+e6yTra34X0026OAxA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91509358"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="91509358"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 11:29:01 -0700
+X-CSE-ConnectionGUID: SGsb97rOTWmaMxFRkaxAyA==
+X-CSE-MsgGUID: Ud98J+BNQOuAO9PDSEAlxQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="275593666"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO [10.245.244.54])
+ ([10.245.244.54])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 11:28:59 -0700
+Message-ID: <254159a2-66f8-4fce-b185-84e81d126e25@intel.com>
+Date: Thu, 1 Oct 2026 19:28:57 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] gpu/buddy: add range-restricted contiguous allocation
+ fallback
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ Anand.Raghavendra@amd.com
+References: <20260930062117.585089-1-arunpravin.paneerselvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260930062117.585089-1-arunpravin.paneerselvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,644 +73,314 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PerfOpt is only a feature usable by integrated GPUs and only in identity
-mode.  Instead of leaving a policy knob in amdgpu, just turn it on when
-an integrated GPU is in identity.
+On 30/09/2026 07:21, Arunpravin Paneer Selvam wrote:
+> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> 
+> A range + contiguous allocation (e.g. a scanout FB confined to the
+> CPU-visible VRAM aperture) rounds its size up to a power of two and
+> requires a naturally aligned free block of that size; on a fragmented
+> aperture no such aligned block may exist even though enough contiguous
+> space is free, so the allocation fails with -ENOSPC.
+> 
+> The non-range contiguous path already recovers from this via
+> __alloc_contig_try_harder(), which stitches an exact-size span from
+> smaller adjacent blocks, but that fallback was unreachable once
+> GPU_BUDDY_RANGE_ALLOCATION was set. Give __alloc_contig_try_harder()
+> a [range_start, range_end) window and route the range + contiguous
+> case through it: each candidate placement is confined to the window
+> and aligned to min_block_size. Non-range callers pass [0, mm->size),
+> where the guards are no-ops, so the existing behaviour is unchanged.
+> A KUnit regression test covers the fragmentation pattern.
+> 
+> Resolves the igt@kms_plane@plane-panning-bottom-right@pipe-a/pipe-b
+> regression.
+> 
+> v2:
+>   - Drop the split-undo patch; the range-bias search always descends to
+>     an exact-order block or fails the split (already handled), so the
+>     extra undo was redundant. (Matthew)
+>   - Verified this fallback alone fixes the kms_plane regression.
+> 
+> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with decoupled dirty tracker")
 
-PerfOpt locks the GPU into identity mode where the DTE is ignored, so mark
-it require_direct (blocks VFIO/iommufd claims) and disable PASID (no GCR3
-table in the fast path).
+Patch looks more like totally new functionally/feature, so the fixes 
+here is maybe unexpected? Did something in that fixes commit change 
+something such that the try_harder is now needed, but that needs some 
+expansion with bias + contig? Do we know exactly what changed here?
 
-This drops quite a bit of compatibility glue.  There was a refcounting
-system, exported symbols, and device attach/detach logic.  By just setting
-it immediately it's a lot more straightforward.
+> Assisted-by: Claude:claude-opus-4-8
 
-Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
----
-v4:
- * Disable PASID for PerfOpt devices
- * Don't allow attaching a blocked domain
-v3:
- * Move amd_iommu_perfopt_set() to init.c and set static (Vasant)
- * Clear bit if it fails to enable (Vasant)
- * Use pr_err() instead of dev_err for early errors (Sashiko)
- * Restore attach_device check for VFIO cases (Sashiko)
- * Handle VFIO case (Sashiko)
- * Handle multi-IOMMU case (Sashiko)
-v2:
- * Move WARN_ON to amd_iommu_perfopt_clear()
- * Make amd_iommu_perfopt_clear() void
- * Drop unnecessary cleanup/create paths that unset feature
- * Enable the feature in IOMMU if supported (per guidance in IVRS spec)
- * Use existing check_feature() helper instead
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  50 -----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 --
- drivers/iommu/amd/amd_iommu.h              |   3 -
- drivers/iommu/amd/amd_iommu_types.h        |   3 -
- drivers/iommu/amd/init.c                   |  81 ++++---
- drivers/iommu/amd/iommu.c                  | 233 ++-------------------
- include/linux/amd-iommu.h                  |  11 -
- 8 files changed, 60 insertions(+), 334 deletions(-)
+Assisted-by: LLM
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 0e53a02ad1bab..a9c6f5d4a6397 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -156,7 +156,6 @@ struct amdgpu_watchdog_timer {
-  * Modules parameters.
-  */
- extern int amdgpu_modeset;
--extern int amdgpu_iommu_perfopt;
- extern unsigned int amdgpu_vram_limit;
- extern int amdgpu_vis_vram_limit;
- extern int amdgpu_gart_size;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index bfe4d90343c4e..9269e780feb73 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -33,7 +33,6 @@
- #include <linux/console.h>
- #include <linux/slab.h>
- #include <linux/iommu.h>
--#include <linux/amd-iommu.h>
- #include <linux/pci.h>
- #include <linux/pci-p2pdma.h>
- #include <linux/apple-gmux.h>
-@@ -3753,28 +3752,6 @@ amdgpu_device_should_register_switcheroo(struct amdgpu_device *adev, bool px)
- 		       apple_gmux_detect(NULL, NULL)));
- }
- 
--static inline bool amdgpu_device_identity(struct amdgpu_device *adev)
--{
--	struct pci_dev *pdev = adev->pdev;
--	struct iommu_domain *domain = iommu_get_domain_for_dev(&pdev->dev);
--
--	if (!domain)
--		return false;
--
--	return domain->type == IOMMU_DOMAIN_IDENTITY;
--}
--
--static bool amdgpu_device_use_perfopt(struct amdgpu_device *adev)
--{
--	if (amdgpu_iommu_perfopt == 0)
--		return false;
--
--	if (!(adev->flags & AMD_IS_APU))
--		return false;
--
--	return amdgpu_device_identity(adev);
--}
--
- /**
-  * amdgpu_device_init - initialize the driver
-  *
-@@ -3982,16 +3959,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if (r)
- 		return r;
- 
--	if (amdgpu_device_use_perfopt(adev)) {
--		int perfopt_ret = amd_iommu_enable_perfopt(pdev);
--
--		/* Optional optimization; a failure to arm it must not abort probe. */
--		if (perfopt_ret)
--			dev_warn(adev->dev,
--				 "Failed to enable IOMMU PerfOpt (%d); continuing without it\n",
--				 perfopt_ret);
--	}
--
- 	/*
- 	 * No need to remove conflicting FBs for non-display class devices.
- 	 * This prevents the sysfb from being freed accidently.
-@@ -4361,9 +4328,6 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 
- 	amdgpu_gart_dummy_page_fini(adev);
- 
--	if (amdgpu_device_use_perfopt(adev))
--		amd_iommu_disable_perfopt(adev->pdev);
--
- 	if (pci_dev_is_disconnected(adev->pdev))
- 		amdgpu_device_unmap_mmio(adev);
- 
-@@ -4727,20 +4691,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
- 	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
- 		return 0;
- 
--	if (amdgpu_device_use_perfopt(adev)) {
--		int perfopt_ret = amd_iommu_enable_perfopt(adev->pdev);
--
--		/*
--		 * Must not return on failure: a bare return would leak the
--		 * SR-IOV VF exclusive-mode acquisition taken above (released
--		 * via the exit: path).
--		 */
--		if (perfopt_ret)
--			dev_warn(adev->dev,
--				 "Failed to enable IOMMU PerfOpt (%d); continuing without it\n",
--				 perfopt_ret);
--	}
--
- 	if (adev->in_s0ix)
- 		amdgpu_dpm_gfx_state_change(adev, sGpuChangeState_D0Entry);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 3ca98091ce487..5c33c19fd9bc5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -185,7 +185,6 @@ char *amdgpu_disable_cu;
- char *amdgpu_virtual_display;
- int amdgpu_enforce_isolation = -1;
- int amdgpu_modeset = -1;
--int amdgpu_iommu_perfopt = -1;
- 
- /* Specifies the default granularity for SVM, used in buffer
-  * migration and restoration of backing memory when handling
-@@ -393,17 +392,6 @@ module_param_named(fw_load_type, amdgpu_fw_load_type, int, 0444);
- MODULE_PARM_DESC(aspm, "ASPM support (1 = enable, 0 = disable, -1 = auto)");
- module_param_named(aspm, amdgpu_aspm, int, 0444);
- 
--/**
-- * DOC: iommu_perfopt (int)
-- * Control the AMD IOMMU PerfOpt DMA-latency optimization
-- * (0 = disable; -1 = enable on supported devices).
-- * This arms the IOMMU PerfOpt control (IOMMU spec, MMIO Offset 016Ch, EFR PerfOptSup / PerfOptEn)
-- * Arming it disables ATS, PRI, PASID and SVA for the GPU and removes IOMMU DMA containment for it,
-- * trading isolation for lower DMA latency.
-- */
--MODULE_PARM_DESC(iommu_perfopt, "Control IOMMU PerfOpt DMA-latency optimization (-1 = enable on supported devices, 0 = disable)");
--module_param_named(iommu_perfopt, amdgpu_iommu_perfopt, int, 0444);
--
- /**
-  * DOC: runpm (int)
-  * Override for runtime power management control for dGPUs. The amdgpu driver can dynamically power down
-diff --git a/drivers/iommu/amd/amd_iommu.h b/drivers/iommu/amd/amd_iommu.h
-index 93845b3c3fbf7..71113e8608594 100644
---- a/drivers/iommu/amd/amd_iommu.h
-+++ b/drivers/iommu/amd/amd_iommu.h
-@@ -48,9 +48,6 @@ extern u8 amd_iommu_hpt_vasize;
- extern unsigned long amd_iommu_pgsize_bitmap;
- extern bool amd_iommu_hatdis;
- 
--int amd_iommu_perfopt_clear(struct amd_iommu *iommu);
--int amd_iommu_perfopt_restore(struct amd_iommu *iommu);
--
- /* Protection domain ops */
- void amd_iommu_init_identity_domain(void);
- struct protection_domain *protection_domain_alloc(void);
-diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-index 1c1624b7c9a36..9d873819304fb 100644
---- a/drivers/iommu/amd/amd_iommu_types.h
-+++ b/drivers/iommu/amd/amd_iommu_types.h
-@@ -657,9 +657,6 @@ struct amd_iommu {
- 	/* Extended features 2 */
- 	u64 features2;
- 
--	/* Devices requesting PerfOpt; the shared PERF_OPT_EN bit is on while >0. Protected by @lock. */
--	int perfopt_refcount;
--
- 	/* PCI device id of the IOMMU device */
- 	u16 devid;
- 
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index 8ec8a6fccaaf3..e510ac724eea1 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -426,6 +426,37 @@ static void iommu_enable(struct amd_iommu *iommu)
- 	iommu_feature_enable(iommu, CONTROL_IOMMU_EN);
- }
- 
-+/*
-+ * Program or clear the per-IOMMU PerfOpt enable bit.
-+ * Gate on this IOMMU's own EFR, not the global AND-mask.
-+ */
-+static int amd_iommu_perfopt_set(struct amd_iommu *iommu, bool enable)
-+{
-+	u32 old, val, readback;
-+
-+	if (!(iommu->features & FEATURE_PERF_OPT))
-+		return enable ? -ENODEV : 0;
-+
-+	old = readl(iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
-+	if (old == U32_MAX)
-+		goto fail;
-+
-+	val = enable ? old | PERF_OPT_EN : old & ~PERF_OPT_EN;
-+	if (val != old)
-+		writel(val, iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
-+	readback = readl(iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
-+	if (readback == U32_MAX ||
-+	    (readback & PERF_OPT_EN) != (val & PERF_OPT_EN)) {
-+		goto fail;
-+	}
-+
-+	return 0;
-+fail:
-+	iommu->features &= ~FEATURE_PERF_OPT;
-+	pr_err("Failed to set PerfOpt to %d\n", enable);
-+	return -EIO;
-+}
-+
- static void iommu_disable(struct amd_iommu *iommu)
- {
- 	if (!iommu->mmio_base)
-@@ -451,6 +482,9 @@ static void iommu_disable(struct amd_iommu *iommu)
- 
- 	/* Clear IRTE cache disabling bit */
- 	iommu_feature_disable(iommu, CONTROL_IRTCACHEDIS);
-+
-+	/* Clear PerfOpt feature */
-+	amd_iommu_perfopt_set(iommu, FALSE);
- }
- 
- /*
-@@ -1943,9 +1977,6 @@ static int __init init_iommu_one(struct amd_iommu *iommu, struct ivhd_header *h,
- 	if (!iommu->mmio_base)
- 		return -ENOMEM;
- 
--	if (amd_iommu_perfopt_clear(iommu))
--		pr_err("IOMMU%d: failed to clear PerfOpt\n", iommu->index);
--
- 	return init_iommu_from_acpi(iommu, h);
- }
- 
-@@ -2314,6 +2345,9 @@ static void print_iommu_info(void)
- 		if (check_feature2(FEATURE_SEVSNPIO_SUP))
- 			pr_cont(" SEV-TIO");
- 
-+		if (check_feature(FEATURE_PERF_OPT))
-+			pr_cont(" PerfOpt");
-+
- 		pr_cont("\n");
- 	}
- 
-@@ -2921,6 +2955,7 @@ static void early_enable_iommu(struct amd_iommu *iommu)
- 	iommu_enable_xt(iommu);
- 	iommu_enable_irtcachedis(iommu);
- 	iommu_enable_2k_int(iommu);
-+	amd_iommu_perfopt_set(iommu, TRUE);
- 	iommu_enable(iommu);
- 	amd_iommu_flush_all_caches(iommu);
- }
-@@ -3050,46 +3085,10 @@ static void enable_iommus_vapic(void)
- #endif
- }
- 
--static int clear_perfopt_all(void)
--{
--	struct amd_iommu *iommu;
--	int err, ret = 0;
--
--	for_each_iommu(iommu) {
--		err = amd_iommu_perfopt_clear(iommu);
--		if (err)
--			ret = err;
--	}
--
--	return ret;
--}
--
--static int restore_perfopt_all(void)
--{
--	struct amd_iommu *iommu;
--	int err, ret = 0;
--
--	for_each_iommu(iommu) {
--		err = amd_iommu_perfopt_restore(iommu);
--		if (err)
--			ret = err;
--	}
--
--	return ret;
--}
--
- static void disable_iommus(void)
- {
- 	struct amd_iommu *iommu;
- 
--	/*
--	 * PerfOpt is an optional performance bit, so a failure to clear it must
--	 * not skip the mandatory disable below. This also runs from the void
--	 * amd_iommu_disable() shutdown/kexec path, which cannot report an error.
--	 */
--	if (clear_perfopt_all())
--		pr_err("Failed to clear PerfOpt while disabling IOMMUs\n");
--
- 	for_each_iommu(iommu)
- 		iommu_disable(iommu);
- 
-@@ -3115,10 +3114,6 @@ static void amd_iommu_resume(void *data)
- 	for_each_iommu(iommu)
- 		early_enable_iommu(iommu);
- 
--	/* early_enable_iommu() cleared PERF_OPT_EN; re-assert it from the refcount. */
--	if (restore_perfopt_all())
--		pr_err("Failed to restore PerfOpt after IOMMU resume\n");
--
- 	iommu_enable_event_buffer();
- 	amd_iommu_enable_interrupts();
- }
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index c9b28e5e582ea..ca9f698846454 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -2370,7 +2370,7 @@ static int attach_device(struct device *dev,
- 	if (ret)
- 		goto out;
- 
--	if (dev_data->perfopt)
-+	if (dev_data->perfopt && pdom_is_in_pt_mode(domain))
- 		goto skip_caps;
- 
- 	/* Setup GCR3 table */
-@@ -2512,192 +2512,6 @@ static int iommu_init_device_caps(struct iommu_dev_data *dev_data,
- 	return 0;
- }
- 
--/* Program the per-IOMMU PerfOpt enable bit. Caller must hold iommu->lock. */
--static int __perfopt_write(struct amd_iommu *iommu, bool enable)
--{
--	u32 old, val, readback;
--
--	if (!(readq(iommu->mmio_base + MMIO_EXT_FEATURES) & FEATURE_PERF_OPT))
--		return enable ? -ENODEV : 0;
--
--	old = readl(iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
--	if (old == U32_MAX)
--		return -EIO;
--
--	val = enable ? old | PERF_OPT_EN : old & ~PERF_OPT_EN;
--	if (val != old)
--		writel(val, iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
--	readback = readl(iommu->mmio_base + MMIO_PERF_OPT_OFFSET);
--	if (readback == U32_MAX ||
--	    (readback & PERF_OPT_EN) != (val & PERF_OPT_EN))
--		return -EIO;
--	return 0;
--}
--
--/*
-- * PERF_OPT_EN is a single bit shared by every device behind @iommu, so it is
-- * reference counted: armed on the first requesting device, cleared on the last.
-- */
--static int perfopt_get(struct amd_iommu *iommu)
--{
--	unsigned long flags;
--	int ret = 0;
--
--	if (!iommu->mmio_base)
--		return 0;
--
--	raw_spin_lock_irqsave(&iommu->lock, flags);
--	if (iommu->perfopt_refcount == 0) {
--		ret = __perfopt_write(iommu, true);
--		if (ret)
--			goto out;
--	}
--	iommu->perfopt_refcount++;
--out:
--	raw_spin_unlock_irqrestore(&iommu->lock, flags);
--	return ret;
--}
--
--static int perfopt_put(struct amd_iommu *iommu)
--{
--	unsigned long flags;
--	int ret = 0;
--
--	if (!iommu->mmio_base)
--		return 0;
--
--	raw_spin_lock_irqsave(&iommu->lock, flags);
--	if (iommu->perfopt_refcount > 0 && --iommu->perfopt_refcount == 0)
--		ret = __perfopt_write(iommu, false);
--	raw_spin_unlock_irqrestore(&iommu->lock, flags);
--	return ret;
--}
--
--/*
-- * Force PERF_OPT_EN off without touching the refcount (used on init, shutdown,
-- * and suspend). The count is preserved so amd_iommu_perfopt_restore() can
-- * re-arm on resume.
-- */
--int amd_iommu_perfopt_clear(struct amd_iommu *iommu)
--{
--	unsigned long flags;
--	int ret;
--
--	if (!iommu->mmio_base)
--		return 0;
--
--	raw_spin_lock_irqsave(&iommu->lock, flags);
--	ret = __perfopt_write(iommu, false);
--	raw_spin_unlock_irqrestore(&iommu->lock, flags);
--	return ret;
--}
--
--/*
-- * Re-assert PERF_OPT_EN from the refcount after the hardware was reprogrammed on
-- * resume, so devices armed before suspend keep the optimization without each
-- * consumer driver re-arming.
-- */
--int amd_iommu_perfopt_restore(struct amd_iommu *iommu)
--{
--	unsigned long flags;
--	int ret;
--
--	if (!iommu->mmio_base)
--		return 0;
--
--	raw_spin_lock_irqsave(&iommu->lock, flags);
--	ret = __perfopt_write(iommu, iommu->perfopt_refcount > 0);
--	raw_spin_unlock_irqrestore(&iommu->lock, flags);
--	return ret;
--}
--
--int amd_iommu_enable_perfopt(struct pci_dev *pdev)
--{
--	struct iommu_dev_data *dev_data = dev_iommu_priv_get(&pdev->dev);
--	struct amd_iommu *iommu = rlookup_amd_iommu(&pdev->dev);
--	struct protection_domain *domain;
--	int ret;
--
--	if (!iommu || !dev_data)
--		return -ENODEV;
--
--	if (!(iommu->features & FEATURE_PERF_OPT))
--		return -ENODEV;
--
--	domain = dev_data->domain;
--	if (!domain)
--		return -ENODEV;
--
--	/* Already armed for this device (e.g. re-entry on resume). */
--	if (dev_data->perfopt)
--		return 0;
--
--	/*
--	 * The bit is only architecturally valid while the device is untranslated:
--	 * identity domain with ATS/PRI/PASID off. The identity domain is
--	 * SVA-capable so attach_device() enabled ATS/PRI/PASID and built a GCR3
--	 * table. Re-home the device onto the same identity domain with
--	 * perfopt set, so the attach_device() skip_caps path leaves
--	 * ATS/PRI/PASID off and no GCR3 table. This follows the detach/attach
--	 * pattern used by amd_iommu_attach_device().
--	 *
--	 * Locking: this and amd_iommu_disable_perfopt() run only from the
--	 * consumer driver's bind/unbind path. group->mutex is not exposed to
--	 * drivers, but a device bound to its native driver cannot have its domain
--	 * changed concurrently by the core (VFIO ownership is mutually exclusive;
--	 * sysfs domain changes require an unused group), so the detach/attach pair
--	 * is serialized without it.
--	 */
--	dev_data->perfopt = true;
--	detach_device(&pdev->dev);
--	ret = attach_device(&pdev->dev, domain);
--	if (ret)
--		goto err_restore;
--
--	ret = perfopt_get(iommu);
--	if (ret)
--		goto err_rearm;
--
--	dev_info_once(&pdev->dev, "PerfOpt armed on IOMMU%d\n", iommu->index);
--	return 0;
--
--err_rearm:
--	detach_device(&pdev->dev);
--err_restore:
--	dev_data->perfopt = false;
--	if (attach_device(&pdev->dev, domain))
--		pci_err(pdev, "failed to restore state after PerfOpt setup; device left detached\n");
--	dev_err_once(&pdev->dev, "PerfOpt failed to arm on IOMMU%d (%d)\n",
--		     iommu->index, ret);
--	return ret;
--}
--EXPORT_SYMBOL_GPL(amd_iommu_enable_perfopt);
--
--void amd_iommu_disable_perfopt(struct pci_dev *pdev)
--{
--	struct iommu_dev_data *dev_data = dev_iommu_priv_get(&pdev->dev);
--	struct amd_iommu *iommu = rlookup_amd_iommu(&pdev->dev);
--	struct protection_domain *domain;
--
--	if (!iommu || !dev_data || !dev_data->perfopt || !dev_data->domain)
--		return;
--
--	if (WARN_ON(perfopt_put(iommu)))
--		pci_err(pdev, "failed to clear PerfOpt\n");
--
--	/*
--	 * Restore ATS/PRI/PASID (and thus SVA) by re-homing the device onto its
--	 * identity domain with the flag cleared, so a later bind without PerfOpt
--	 * sees a normally-capable device. See the locking note in
--	 * amd_iommu_enable_perfopt().
--	 */
--	domain = dev_data->domain;
--	dev_data->perfopt = false;
--	detach_device(&pdev->dev);
--	if (attach_device(&pdev->dev, domain))
--		pci_err(pdev, "failed to restore caps after PerfOpt disable\n");
--}
--EXPORT_SYMBOL_GPL(amd_iommu_disable_perfopt);
- static struct iommu_device *amd_iommu_probe_device(struct device *dev)
- {
- 	struct iommu_device *iommu_dev;
-@@ -2741,14 +2555,6 @@ static struct iommu_device *amd_iommu_probe_device(struct device *dev)
- static void amd_iommu_release_device(struct device *dev)
- {
- 	struct iommu_dev_data *dev_data = dev_iommu_priv_get(dev);
--	struct amd_iommu *iommu = get_amd_iommu_from_dev_data(dev_data);
--
--	if (dev_data->perfopt) {
--		if (WARN_ON(perfopt_put(iommu)))
--			dev_err(dev, "IOMMU%d: failed to clear PerfOpt on release\n",
--				iommu->index);
--		dev_data->perfopt = false;
--	}
- 
- 	WARN_ON(dev_data->domain);
- 
-@@ -3123,19 +2929,6 @@ static int blocked_domain_attach_device(struct iommu_domain *domain,
- 					struct iommu_domain *old)
- {
- 	struct iommu_dev_data *dev_data = dev_iommu_priv_get(dev);
--	struct amd_iommu *iommu = get_amd_iommu_from_dev_data(dev_data);
--
--	/*
--	 * blocked_domain is also the .release_domain, so this is the normal
--	 * teardown path: drop the reference and clear the flag here too, and
--	 * don't fail teardown if the WARN-guarded write doesn't stick.
--	 */
--	if (dev_data->perfopt) {
--		if (WARN_ON(perfopt_put(iommu)))
--			dev_err(dev, "IOMMU%d: failed to clear PerfOpt for blocked domain\n",
--				iommu->index);
--		dev_data->perfopt = false;
--	}
- 
- 	if (dev_data->domain)
- 		detach_device(dev);
-@@ -3204,9 +2997,6 @@ static int amd_iommu_attach_device(struct iommu_domain *dom, struct device *dev,
- 	struct amd_iommu *iommu = get_amd_iommu_from_dev(dev);
- 	int ret;
- 
--	if (dev_data->perfopt && !pdom_is_in_pt_mode(domain))
--		return -EBUSY;
--
- 	/*
- 	 * Skip attach device to domain if new domain is same as
- 	 * devices current domain
-@@ -3421,6 +3211,27 @@ static int amd_iommu_def_domain_type(struct device *dev)
- 		if (cc_platform_has(CC_ATTR_MEM_ENCRYPT))
- 			return 0;
- 
-+		dev_data->perfopt = get_amd_iommu_from_dev_data(dev_data)->features &
-+				    FEATURE_PERF_OPT;
-+
-+		/*
-+		 * With PerfOpt the device is locked into the identity fast path
-+		 * and HW ignores the DTE, so a blocking domain cannot actually
-+		 * stop its DMA. Require a 1:1 mapping so the core rejects any
-+		 * attempt to attach a blocking domain (vfio/iommufd) while still
-+		 * redirecting release to the identity domain.
-+		 *
-+		 * The PerfOpt attach path also skips GCR3 setup, so the device
-+		 * has no PASID table. Clear the PASID counts to disable PASID for
-+		 * it; otherwise set_dev_pasid() would operate on a missing GCR3
-+		 * table.
-+		 */
-+		if (dev_data->perfopt) {
-+			dev->iommu->require_direct = 1;
-+			dev_data->max_pasids = 0;
-+			dev->iommu->max_pasids = 0;
-+		}
-+
- 		return IOMMU_DOMAIN_IDENTITY;
- 	}
- 
-diff --git a/include/linux/amd-iommu.h b/include/linux/amd-iommu.h
-index 104817e8d8977..5c9dcf720f846 100644
---- a/include/linux/amd-iommu.h
-+++ b/include/linux/amd-iommu.h
-@@ -76,15 +76,4 @@ static inline int amd_iommu_snp_disable(void) { return 0; }
- static inline bool amd_iommu_sev_tio_supported(void) { return false; }
- #endif
- 
--#ifdef CONFIG_AMD_IOMMU
--int amd_iommu_enable_perfopt(struct pci_dev *pdev);
--void amd_iommu_disable_perfopt(struct pci_dev *pdev);
--#else
--static inline int amd_iommu_enable_perfopt(struct pci_dev *pdev)
--{
--	return 0;
--}
--static inline void amd_iommu_disable_perfopt(struct pci_dev *pdev) { }
--#endif
--
- #endif /* _ASM_X86_AMD_IOMMU_H */
--- 
-2.53.0
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   drivers/gpu/buddy.c                | 88 ++++++++++++++++--------------
+>   drivers/gpu/tests/gpu_buddy_test.c | 83 ++++++++++++++++++++++++++--
+>   2 files changed, 126 insertions(+), 45 deletions(-)
+> 
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 2f2aaadafe35..5265e1f6a318 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -1685,26 +1685,14 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+>   			     blocks, total_allocated_on_err);
+>   }
+>   
+> -static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
+> -					u64 unaligned_offset,
+> -					u64 size,
+> -					u64 min_block_size,
+> -					unsigned long flags,
+> -					struct list_head *blocks)
+> -{
+> -	u64 aligned_offset = round_down(unaligned_offset, min_block_size);
+> -
+> -	return __gpu_buddy_alloc_range(mm, aligned_offset, size, flags,
+> -				       NULL, blocks);
+> -}
+> -
+>   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+> +				     u64 range_start, u64 range_end,
+>   				     u64 size,
+>   				     u64 min_block_size,
+>   				     unsigned long flags,
+>   				     struct list_head *blocks)
+>   {
+> -	u64 rhs_offset, lhs_offset, filled;
+> +	u64 rhs_offset, lhs_offset, filled, aligned;
+>   	struct gpu_buddy_block *block;
+>   	struct rb_root *root;
+>   	struct rb_node *iter;
+> @@ -1734,20 +1722,24 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>   					       flags, &filled, blocks);
+>   		if (err && err != -ENOSPC)
+>   			return err;
+> -		if (!err && IS_ALIGNED(rhs_offset, min_block_size))
+> +		if (!err && IS_ALIGNED(rhs_offset, min_block_size) &&
+> +		    rhs_offset >= range_start && rhs_offset + size <= range_end)
+>   			return 0;
+>   		if (!err) {
+>   			/* Allocate the unaligned RHS offset using round_down */
+>   			gpu_buddy_free_list_internal(mm, blocks);
+> -			err = __alloc_contig_aligned_retry(mm, rhs_offset,
+> -							   size,
+> -							   min_block_size,
+> -							   flags, blocks);
+> -			if (!err)
+> -				return 0;
+> -			if (err != -ENOSPC) {
+> -				gpu_buddy_free_list_internal(mm, blocks);
+> -				return err;
+> +
+> +			aligned = round_down(rhs_offset, min_block_size);
+> +			if (aligned >= range_start &&
+> +			    aligned + size <= range_end) {
+> +				err = __gpu_buddy_alloc_range(mm, aligned, size,
+> +							      flags, NULL, blocks);
+
+Did you consider doing a bias-range for [start, end] using 
+min_block_size and using what it returns as the starting point, 
+extending left/right? If that fails advance start and try again? Maybe 
+what you have here is much better for the case you have in mind?
+
+> +				if (!err)
+> +					return 0;
+> +				if (err != -ENOSPC) {
+> +					gpu_buddy_free_list_internal(mm, blocks);
+> +					return err;
+> +				}
+>   			}
+>   			goto next;
+>   		}
+> @@ -1759,15 +1751,17 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>   
+>   		/* Allocate the unaligned LHS offset using round_down */
+>   		gpu_buddy_free_list_internal(mm, blocks);
+> -		err = __alloc_contig_aligned_retry(mm, lhs_offset,
+> -						   size,
+> -						   min_block_size,
+> -						   flags, blocks);
+> -		if (!err)
+> -			return 0;
+> -		if (err != -ENOSPC) {
+> -			gpu_buddy_free_list_internal(mm, blocks);
+> -			return err;
+> +
+> +		aligned = round_down(lhs_offset, min_block_size);
+> +		if (aligned >= range_start && aligned + size <= range_end) {
+> +			err = __gpu_buddy_alloc_range(mm, aligned, size,
+> +						      flags, NULL, blocks);
+> +			if (!err)
+> +				return 0;
+> +			if (err != -ENOSPC) {
+> +				gpu_buddy_free_list_internal(mm, blocks);
+> +				return err;
+> +			}
+>   		}
+>   next:
+>   		gpu_buddy_free_list_internal(mm, blocks);
+> @@ -2021,11 +2015,18 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>   	min_order = ilog2(min_block_size) - ilog2(mm->chunk_size);
+>   
+>   	if (order > mm->max_order || size > mm->size) {
+> -		if ((flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) &&
+> -		    !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+> -			return __alloc_contig_try_harder(mm, original_size,
+> +		if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
+> +			u64 range_start, range_end;
+> +
+> +			range_start = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? start : 0;
+> +			range_end = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? end : mm->size;
+> +
+> +			return __alloc_contig_try_harder(mm, range_start,
+> +							 range_end,
+> +							 original_size,
+>   							 original_min_size,
+>   							 flags, blocks);
+> +		}
+>   
+>   		return -EINVAL;
+>   	}
+> @@ -2058,9 +2059,14 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>   			 * Try contiguous block allocation through
+>   			 * try harder method.
+>   			 */
+> -			if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
+> -			    !(flags & GPU_BUDDY_RANGE_ALLOCATION)) {
+> -				err = __alloc_contig_try_harder(mm,
+> +			if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
+> +				u64 range_start, range_end;
+> +
+> +				range_start = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? start : 0;
+> +				range_end = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? end : mm->size;
+> +
+> +				err = __alloc_contig_try_harder(mm, range_start,
+> +								range_end,
+>   								original_size,
+>   								original_min_size,
+>   								flags,
+> @@ -2068,9 +2074,9 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>   				if (!err)
+>   					return 0;
+>   				if (err != -ENOSPC)
+> -					return err;
+> -				goto err_free;
+> +					goto err_free;
+>   			}
+> +
+>   			err = -ENOSPC;
+>   			goto err_free;
+>   		} while (1);
+> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+> index b75d32ca6ca0..2c445870b808 100644
+> --- a/drivers/gpu/tests/gpu_buddy_test.c
+> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+> @@ -1251,6 +1251,77 @@ static void gpu_test_buddy_alloc_contiguous(struct kunit *test)
+>   	gpu_buddy_fini(&mm);
+>   }
+>   
+> +static void gpu_test_buddy_alloc_range_contiguous(struct kunit *test)
+> +{
+> +	const unsigned long ps = SZ_4K, mm_size = 16 * ps;
+> +	const unsigned long range_end = 8 * ps;
+> +	struct gpu_buddy_block *block, *prev;
+> +	LIST_HEAD(allocated);
+> +	struct gpu_buddy mm;
+> +	LIST_HEAD(pin_lo);
+> +	LIST_HEAD(pin_hi);
+> +	u64 total;
+> +
+> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, ps),
+> +			       "buddy_init failed\n");
+> +
+> +	/*
+> +	 * Idea is to confine the test to the sub-range [0, 32K), which a 12K
+> +	 * contiguous request (rounded up to 16K) splits into two naturally
+> +	 * aligned 16K slots: [0, 16K) and [16K, 32K). We pin the first 4K page
+> +	 * of each slot ([0, 4K) and [16K, 20K)) so that neither aligned slot
+> +	 * can satisfy the rounded-up 16K allocation, yet the freed remainder
+> +	 * still leaves a contiguous 12K hole at offset 4K, which is page-aligned
+> +	 * but not 16K-aligned. A 12K contiguous+range allocation must therefore
+> +	 * fall back to stitching that span instead of returning -ENOSPC.
+> +	 */
+> +	KUNIT_ASSERT_FALSE_MSG(test,
+> +			       gpu_buddy_alloc_blocks(&mm, 0, ps, ps, ps,
+> +						      &pin_lo, 0),
+> +			       "failed to pin low page\n");
+> +	KUNIT_ASSERT_FALSE_MSG(test,
+> +			       gpu_buddy_alloc_blocks(&mm, 4 * ps, 5 * ps, ps,
+> +						      ps, &pin_hi, 0),
+> +			       "failed to pin high page\n");
+> +
+> +	/* No aligned 16K block is free; the range-aware fallback must stitch
+> +	 * the unaligned [ps, 4*ps) hole instead of returning -ENOSPC.
+> +	 */
+> +	KUNIT_ASSERT_FALSE_MSG(test,
+> +			       gpu_buddy_alloc_blocks(&mm, 0, range_end, 3 * ps,
+> +						      ps, &allocated,
+> +						      GPU_BUDDY_CONTIGUOUS_ALLOCATION |
+> +						      GPU_BUDDY_RANGE_ALLOCATION),
+> +			       "range-restricted contiguous alloc failed\n");
+> +
+> +	/* The result must be exactly 3*ps, contiguous, and inside the range. */
+> +	total = 0;
+> +	prev = NULL;
+> +	list_for_each_entry(block, &allocated, link) {
+> +		u64 offset = gpu_buddy_block_offset(block);
+> +		u64 bsize = gpu_buddy_block_size(&mm, block);
+> +
+> +		KUNIT_EXPECT_TRUE_MSG(test, offset + bsize <= range_end,
+> +				      "block [%llx, %llx) outside range\n",
+> +				      offset, offset + bsize);
+> +		if (prev)
+> +			KUNIT_EXPECT_EQ_MSG(test,
+> +					    gpu_buddy_block_offset(prev) +
+> +					    gpu_buddy_block_size(&mm, prev),
+> +					    offset,
+> +					    "block at %llx not contiguous\n",
+> +					    offset);
+> +		prev = block;
+> +		total += bsize;
+> +	}
+> +	KUNIT_EXPECT_EQ(test, total, 3 * ps);
+> +
+> +	gpu_buddy_free_list(&mm, &allocated, 0);
+> +	gpu_buddy_free_list(&mm, &pin_lo, 0);
+> +	gpu_buddy_free_list(&mm, &pin_hi, 0);
+> +	gpu_buddy_fini(&mm);
+> +}
+> +
+>   static void gpu_test_buddy_alloc_pathological(struct kunit *test)
+>   {
+>   	u64 mm_size, size, start = 0;
+> @@ -1534,10 +1605,13 @@ static void gpu_test_buddy_alloc_exceeds_max_order(struct kunit *test)
+>   				     GPU_BUDDY_RANGE_ALLOCATION);
+>   	KUNIT_EXPECT_EQ(test, err, -EINVAL);
+>   
+> -	/* CONTIGUOUS + RANGE should return -EINVAL (no try_harder for RANGE) */
+> -	err = gpu_buddy_alloc_blocks(&mm, 0, mm_size, size, SZ_4K, &blocks,
+> -				     GPU_BUDDY_CONTIGUOUS_ALLOCATION | GPU_BUDDY_RANGE_ALLOCATION);
+> -	KUNIT_EXPECT_EQ(test, err, -EINVAL);
+> +	/* CONTIGUOUS + RANGE should succeed via the range-aware try_harder */
+> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size, size,
+> +							    SZ_4K, &blocks,
+> +							    GPU_BUDDY_CONTIGUOUS_ALLOCATION |
+> +							    GPU_BUDDY_RANGE_ALLOCATION),
+> +			       "range contiguous alloc hit an error size=%llu\n", size);
+> +	gpu_buddy_free_list(&mm, &blocks, 0);
+>   
+>   	gpu_buddy_fini(&mm);
+>   }
+> @@ -1603,6 +1677,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+>   	KUNIT_CASE(gpu_test_buddy_alloc_pessimistic),
+>   	KUNIT_CASE(gpu_test_buddy_alloc_pathological),
+>   	KUNIT_CASE(gpu_test_buddy_alloc_contiguous),
+> +	KUNIT_CASE(gpu_test_buddy_alloc_range_contiguous),
+>   	KUNIT_CASE(gpu_test_buddy_alloc_clear),
+>   	KUNIT_CASE(gpu_test_buddy_alloc_range),
+>   	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
+> 
+> base-commit: 744f262401cc2e1f3827496c72a47e072d31a852
 
