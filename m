@@ -4,94 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B587CA5FDD
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 12:52:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFDC7CA5FDD
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 13:34:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E01B410F82B;
-	Fri,  2 Oct 2026 12:52:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DFF810E5F4;
+	Fri,  2 Oct 2026 13:34:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Rq724k8A";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D3cWyX6I";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B437E10E34E;
- Fri,  2 Oct 2026 11:06:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790939214; x=1822475214;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version:content-id;
- bh=iVs/6MWO+8q0fKTudkDlTIGtM1VvF7ZOENUVyUx0evs=;
- b=Rq724k8AaYXkD0Z4+arBJ/gPlo/GYjgNcyCt06G5w1GlSfIh7UsNqNOj
- aYq0PUoHb34a10HCzLPaJTvDgZewi3iKpIZQeMKNlY1iOHXkOE3MuTSJT
- essOnLjN56VOyeQN1LSfWgBS4HAJ/648szFHWeV0BLBwxSljuncqJoHEH
- Dp3stbhVVxy5zi3HpD1uv4Uu8eKSDwjmI+2F/yGl3n3F/89J14AFu0cSD
- DFfRikLm9APtEgRSVYbxspyYM+cFInrByo6D+IsCGS5eSfAdaQ31YBH4S
- xFnpAbECXRhr3UUqyUNjZ7hlOFpkwKNodmj7BjKeIFP5WVTZNojnCCm0A Q==;
-X-CSE-ConnectionGUID: FnSFY8DvRSeFnp+eQkjQiA==
-X-CSE-MsgGUID: 4KDnwxybTVmxORB1MjJosQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90840786"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="90840786"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2026 04:06:53 -0700
-X-CSE-ConnectionGUID: QgNatFWjTVWtaEFzHzuunQ==
-X-CSE-MsgGUID: 7jABSax3Tsy0UNm4lm3j2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="252607"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.243])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2026 04:06:44 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 2 Oct 2026 14:06:40 +0300 (EEST)
-To: Armin Wolf <W_Armin@gmx.de>
-cc: Alex Deucher <alexdeucher@gmail.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Hans de Goede <hansg@kernel.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "linux@weissschuh.net" <linux@weissschuh.net>, 
- "rafael@kernel.org" <rafael@kernel.org>, 
- "lenb@kernel.org" <lenb@kernel.org>, 
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, 
- "Koenig, Christian" <Christian.Koenig@amd.com>, 
- "airlied@gmail.com" <airlied@gmail.com>, 
- "simona@ffwll.ch" <simona@ffwll.ch>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>, 
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, 
- "mripard@kernel.org" <mripard@kernel.org>, 
- "tzimmermann@suse.de" <tzimmermann@suse.de>, 
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>, 
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, 
- "tursulin@ursulin.net" <tursulin@ursulin.net>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
- "matthew.brost@intel.com" <matthew.brost@intel.com>, 
- "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>, 
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
- nvidia_wmi_ec_supported()
-In-Reply-To: <154fc984-5c29-4a23-ab8b-736471f419a1@gmx.de>
-Message-ID: <1ff7a529-15bb-e166-5bf1-3dad34119bcd@linux.intel.com>
-References: <20260724025959.142826-1-W_Armin@gmx.de>
- <20260724025959.142826-3-W_Armin@gmx.de>
- <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
- <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
- <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
- <11976ed3784675ad241646287a909286a42675a8@intel.com>
- <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
- <62d7da838e7042df8456e76190db792093065b57@intel.com>
- <06550473-63c2-4a3e-a5ad-7e23d7b6b050@kernel.org>
- <d696d85c44930d2124054ce11a06d3096c0db04a@intel.com>
- <CADnq5_PT7s6ixTqDSwe9ai9tUQa04z7UnwhMn7bo7CcsH5Qf0w@mail.gmail.com>
- <154fc984-5c29-4a23-ab8b-736471f419a1@gmx.de>
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com
+ [74.125.229.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F24410F837
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2026 13:34:46 +0000 (UTC)
+Received: by mail-dy2-f42.google.com with SMTP id
+ 5a478bee46e88-350e6de7dfeso57921eec.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Oct 2026 06:34:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790948086; cv=none;
+ d=google.com; s=arc-20260327;
+ b=iuCmXxhu9KnC2gAQJMtuLN4Iz4JRlrwX8IFCg52Y5Ek5rkpeeCp0SzyBvAm7htR8WU
+ bS6aRs1OnbNns35kqa2M9zJKNdNhu2fT4tpVXRosQlk32yV3UpUDzA1l8PP4uN73Y6Pi
+ uCutyQb9E3lji5HTkHnMXf7Yno1eVYBGuHv/4ZrJUs0iUXfyfzjbSRI8wzB8dj/AdQ4Z
+ ucJjENGEWTRHyY/68/v5/L0GskM2ygIZc8bpZonhYv8ToXyZ78E7P4V9Aoq0bSxA8h7l
+ GAhIVc67NHVcUNl7MoxkBCVzJT3IfTJoFrlMTh1kZpuIPlh8IW9hBbSuzS6mCd228Dxy
+ Lzmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=yx6G1AW+nvvITgzsA9b25EAkpoWe5JEuWuaZEwVI7YQ=;
+ fh=5zKtID1MnxpWWgNpSNnrmdZb/wKNudG/e3wLwgp0Umg=;
+ b=WhB3tdgik4PF6yeRlAopZN8sWG02rk+rROg5SBxktP6ZaQkYylG9ALnXGNw0d81ZYe
+ Q56mCMH1nVU5g0pP4NLPnoZKGCeRAzC2cJuyyCgRATUwY8YKPgYG5SrcNkaBRGTpMhIM
+ /suT8bvOMrzRP5m5hJ7zWh4NsktN1WECQ5yB4zQwa4Pap80dcmGsUpSxCo95xdexSJgu
+ oEd80FJnOD0mcFotCkmU4KSVg0aoKZc4hsOxGkxQroK1N4NunHHDFKwvoxsmjlHscJsi
+ MVYbLZ3usFGogEF/4qSghFC4ezXPlod1u1qpxtEBZap4n/3iASZlHpGiI+txeEIvwcCN
+ FZqQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790948086; x=1791552886; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=yx6G1AW+nvvITgzsA9b25EAkpoWe5JEuWuaZEwVI7YQ=;
+ b=D3cWyX6IHokLUUTeeSIuKSOOFVAFlYNeY+YTDtnSWxDZCYJ8eoJywdjT6qI1+WKUVe
+ pgFv9Vs5l3y4QcmmqMtGannA36FkwbS1GcGau74i4Bsrp1xsVfQnb+O6Rl0gF1SZBxVC
+ QxM1LOGwbTsneMHza0oUQoI1TOkC5G/nnBKa6eVr3qLuN5HneCVx7s4JAUOtk+CxBuYl
+ eb/zK5KjKReRlgiKXHyVrirF+1Vv9Li7CJeIGIoCvMykXQAYcjONUGji6+LCc0FyF/54
+ j+e2utunDQ3A97JwU5DGLZhEPr6+QHaDk6QFqveJllGrqkxrWBkzpDNk69ZN7FTM/U8h
+ lIBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790948086; x=1791552886;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=yx6G1AW+nvvITgzsA9b25EAkpoWe5JEuWuaZEwVI7YQ=;
+ b=Spje7btpspbrhlR25ONkZfmmblrn6RUe6g/RnCYU4oTCGCpBWOvY7eFQ1damUoScSN
+ 1YqRoXB21YE/IGi35Cp65rMRXC3GX8q8MTqc9FDNljulEQsxIRIhbd9olKnZVv8+AF0h
+ 4elZRZV4050jJqBHy+S/KODiTMh0S3wch0sECPAvFCy1W2r+cRq9S5GAAv0FfaVtoBR+
+ Gyuf1yuUF4Jqx549Tts+z2JgPb3RB2nYVtmIk5so+2fx9uxZ+RwX51rquYPwfP+Rteb1
+ NKv94n1MBYdS6C++zS6U6tnb2Rqqe/92kRcteioSufOXy7vHFS3n5EseGB6N4ZolzhH4
+ uINA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzETS34SN0l5X/qS93OyapDqU5Ny5SdbhsCi3HTBgwwGb/pyosP9Kzt8wiJTA7Q4KrnFxdzmzWQ@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lXjjgdjCZhhtl+ph1133upWcQ3kGvQvHBWPL7v5D+h7LD0lVKB
+ t2zPWfTEOOsJEji9jQbsmieMv+UTSKP3s8geQAPXxq1TzXDxDqhOXOxwOLRArSFaq0ReOz5qmyz
+ KhVH+ESjQNEoGqbvgXmJrCMJ2iCRHbRY=
+X-Gm-Gg: AYBFou3dBdTOJ5v6QoeYCICaDTcY+xYnOwNLNQPABPTT15tqNG88LgfVOy32tJ7xtnC
+ 6lkWsKYP4B9Ps8fGxzSvaFTl9USE6Kh5vSQqou6H2tk8hcrw/bbz7Jmm+f6TsIurPLN7nHfA/Pa
+ aM6fOkBoEqGWdMszNdNsIlkdHowH7cIvLhIM/EH5XQdY7k5V1SoGfcICuIOwsOGJ/DJndhlDx5g
+ gY1V0XizSnSqFQn2D+sV794KkbeBOEm4tz7ifly22EcTsar2LHPHPKm1bQQEqF9UZTIqkeaZcfL
+ AoWVzqmYLUTbLBjtAGdYWtYLQ6xg/bBi/4/3Jrsg9dW08UmDYbckdu55aeVfat5Cw4yb5/0GbuK
+ HfIWYQlF5j8crG1t4Ugdn+T0vrFIag73w5CtQjNdFhUJBDZV5pVPt
+X-Received: by 2002:a05:701b:424d:20b0:146:ffa9:2117 with SMTP id
+ a92af1059eb24-14f5aa4188fmr4688728c88.1.1790948085630; Fri, 02 Oct 2026
+ 06:34:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-2070456929-1790935925=:1156"
-Content-ID: <75628c1c-0bd3-f8c4-b5a1-0f09ab6ce72d@linux.intel.com>
-X-Mailman-Approved-At: Fri, 02 Oct 2026 12:52:19 +0000
+References: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
+In-Reply-To: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 2 Oct 2026 09:34:33 -0400
+X-Gm-Features: AclHuK_TcjLVEROGMJB5lyBOvzPZSfQv2eIf90DD5P5QCDVjEATvEIscfiIQFpg
+Message-ID: <CADnq5_MZZje5XGfYgJ1v4Ts_k+ZyyBtSrSqB5upTEt+AqBi9Yg@mail.gmail.com>
+Subject: Re: [PATCH 0/3] drm/amd/display: use kunit/visibility.h for test
+ helpers
+To: Albert Esteve <aesteve@redhat.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,147 +115,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Mon, Sep 7, 2026 at 9:45=E2=80=AFAM Albert Esteve <aesteve@redhat.com> w=
+rote:
+>
+> amdgpu_dm grew its own STATIC_IFN_KUNIT / EXPORT_IF_KUNIT /
+> INLINE_IFN_KUNIT macros instead of using kunit/visibility.h. This
+> series switches the KUnit helpers over to the common API.
+>
+> VISIBLE_IF_KUNIT is gated on CONFIG_KUNIT rather than
+> CONFIG_DRM_AMD_DC_KUNIT_TEST, so the helpers are non-static whenever
+> KUnit is enabled. EXPORT_SYMBOL_IF_KUNIT places the symbols in the
+> EXPORTED_FOR_KUNIT_TESTING namespace; the AMD DC test files import
+> that namespace with MODULE_IMPORT_NS().
+>
+> INLINE_IFN_KUNIT is dropped rather than generalized. It was only used
+> on amdgpu_dm_fixpt_from_s3132(), inverted the original static inline,
+> and is unnecessary for tests in another translation unit.
+>
+> Tested with:
+>   ./tools/testing/kunit/kunit.py run --arch=3Dx86_64 \
+>     --kunitconfig=3Ddrivers/gpu/drm/amd/display/amdgpu_dm/tests
+>
+> (CONFIG_GCOV omitted; it is not available on x86_64.)
+>
+> Suggested-by: Maxime Ripard <mripard@kernel.org>
+>
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
 
---8323328-2070456929-1790935925=:1156
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <09d346bc-de98-fbe2-c9e5-d57da5cc6f1a@linux.intel.com>
+I've reverted this series.  It breaks the build when CONFIG_KUNIT=3Dy and
+CONFIG_DRM_AMD_DC_KUNIT_TEST=3Dn. When CONFIG_KUNIT=3Dy,
+the functions are not static, but when CONFIG_DRM_AMD_DC_KUNIT_TEST=3Dn,
+they should be, resulting in build errors.
 
-On Tue, 22 Sep 2026, Armin Wolf wrote:
+Alex
 
-> Am 18.09.26 um 15:03 schrieb Alex Deucher:
->=20
-> > On Fri, Sep 18, 2026 at 7:01=E2=80=AFAM Jani Nikula <jani.nikula@linux.=
-intel.com>
-> > wrote:
-> > > On Fri, 18 Sep 2026, Hans de Goede <hansg@kernel.org> wrote:
-> > > > Hi,
-> > > >=20
-> > > > On 16-Sep-26 09:16, Jani Nikula wrote:
-> > > > > On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
-> > > > > > Am 15.09.26 um 14:31 schrieb Jani Nikula:
-> > > > > >=20
-> > > > > > > On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.=
-intel.com>
-> > > > > > > wrote:
-> > > > > > > > GPU people heads up!!
-> > > > > > > >=20
-> > > > > > > > On Wed, 2 Sep 2026, Armin Wolf wrote:
-> > > > > > > >=20
-> > > > > > > > > Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
-> > > > > > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> > > > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> > > > > > > > > > > index 12e4a41bf1f0..50305630f533 100644
-> > > > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> > > > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> > > > > > > > > > > @@ -30,9 +30,7 @@ config DRM_AMDGPU
-> > > > > > > > > > >          # ACPI_VIDEO's dependencies must also be
-> > > > > > > > > > > selected.
-> > > > > > > > > > >          select INPUT if ACPI
-> > > > > > > > > > >          select ACPI_VIDEO if ACPI
-> > > > > > > > > > > -     # On x86 ACPI_VIDEO also needs ACPI_WMI
-> > > > > > > > > > > -     select X86_PLATFORM_DEVICES if ACPI && X86
-> > > > > > > > > > The change below makes sense, but this one looks like i=
-t
-> > > > > > > > > > should remain
-> > > > > > > > > > unless X86_PLATFORM_DEVICES is handled some other way?
-> > > > > > > > > >=20
-> > > > > > > > > > Alex
-> > > > > > > > > AFAIK the dependency on X86_PLATFORM_DEVICES was only
-> > > > > > > > > necessary because
-> > > > > > > > > ACPI-WMI depended on it in the past.
-> > > > > > > > > By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES o=
-r X86
-> > > > > > > > > anymore.
-> > > > > > > > Hi all,
-> > > > > > > >=20
-> > > > > > > > Could more GPU people besides Alex take a look on this. I'd=
- want
-> > > > > > > > to make
-> > > > > > > > progress with this series within this cycle but would prefe=
-r to
-> > > > > > > > have Acks
-> > > > > > > > from GPU side.
-> > > > > > > I share the same concern with Alex. It seems to me we could n=
-ow
-> > > > > > > end up
-> > > > > > > with x86 configurations without X86_PLATFORM_DEVICES, which h=
-andle
-> > > > > > > e.g. backlight on a lot of platforms.
-> > > > > > >=20
-> > > > > > > I think the safer option might be to go for:
-> > > > > > >=20
-> > > > > > >     depends on X86_PLATFORM_DEVICES || !X86
-> > > > > > >=20
-> > > > > > > in all of the cases that select/depend on X86_PLATFORM_DEVICE=
-S in
-> > > > > > > drm.
-> > > > > > >=20
-> > > > > > > The alternative is to find out, and handle the fallout, if an=
-y.
-> > > > > > >=20
-> > > > > > >=20
-> > > > > > > BR,
-> > > > > > > Jani.
-> > > > > > Alright, should i leave the original "select X86_PLATFORM_DEVIC=
-ES if
-> > > > > > ..." statements
-> > > > > > as-is or should is change them to "depends on X86_PLATFORM_DEVI=
-CES
-> > > > > > || !X86" everywhere?
-> > > > > There are some places that depends on X86_PLATFORM_DEVICES. I thi=
-nk
-> > > > > it's
-> > > > > almost always a mistake to have some places select and some place=
-s
-> > > > > depends on, and select should anyway be used with care. I'd go fo=
-r
-> > > > > depends on.
-> > > > I'm a bit late to the party here, sorry.
-> > > >=20
-> > > > Note that X86_PLATFORM_DEVICES is an option which enables / disable=
-s
-> > > > a menu and does nothing more.
-> > > >=20
-> > > > Enabling it or depending on it by itself does nothing.
-> > > >=20
-> > > > The select used to be there since it must be selected to be able
-> > > > to select ACPI_WMI (which is no longer the case after this series).
-> > > >=20
-> > > > To depends on in XE was probably copy pasted from the existing
-> > > > select-s and then changed to a depends and already was a completely
-> > > > no-op since depending on ACPI_WMI was enough as that itself
-> > > > dependend on ACPI_WMI.
-> > > >=20
-> > > > As for X86_PLATFORM_DEVICES being needed for some backlight
-> > > > interfaces, depending on it by itself does not result in those
-> > > > interfaces being there. That requires enabling the actual drivers
-> > > > providing those interfaces.
-> > > >=20
-> > > > And I don't think that the GPU drivers should start depending
-> > > > on those since that will become very unyielding.
-> > > >=20
-> > > > TL;DR: I believe Armin's original patch is fine and this is
-> > > > a welcome cleanup / simplification of the DRM drivers Kconfig
-> > > > bits.
-> > > Your explanation makes sense, thanks.
-> > Yeah, sounds good.  Thanks!
-> >=20
-> > Alex
->=20
-> Nice, i suppose we can apply this series as-is then?
-
-Hi all,
-
-I don't see anyone opposing this anymore and the discussion has died down=
-=20
-so I took this into the review-ilpo-next branch.
-
-If somebody still feels there's something wrong with this, please let me=20
-know soonish.
-
---=20
- i.
---8323328-2070456929-1790935925=:1156--
+> ---
+> Albert Esteve (3):
+>       drm/amd/display: replace STATIC_IFN_KUNIT with VISIBLE_IF_KUNIT
+>       drm/amd/display: replace EXPORT_IF_KUNIT with EXPORT_SYMBOL_IF_KUNI=
+T
+>       drm/amd/display: drop INLINE_IFN_KUNIT
+>
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  79 ++++-----
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  26 +--
+>  .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  74 ++++----
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 133 +++++++--------
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  12 +-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 190 ++++++++++-----=
+------
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  38 ++---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  52 +++---
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c   |  10 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  30 ++--
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c |  10 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 105 ++++++------
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 140 +++++++--------
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 146 ++++++++-------=
+-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |  40 ++---
+>  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  60 +++----
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 104 +++++------
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   | 116 ++++++-------
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  22 +--
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c   |   4 +-
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   9 +-
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_services.c |  10 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  18 +-
+>  .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |   1 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |   1 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   1 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c        |   1 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   1 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |   1 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |   1 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |   1 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c        |   1 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_quirks_test.c        |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |   1 +
+>  .../amdgpu_dm/tests/amdgpu_dm_services_test.c      |   1 +
+>  .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   1 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   1 +
+>  drivers/gpu/drm/amd/display/dc/core/dc_sink.c      |   6 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   2 +-
+>  drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  13 +-
+>  tools/lib/python/kdoc/xforms_lists.py              |   3 +-
+>  51 files changed, 748 insertions(+), 728 deletions(-)
+> ---
+> base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+> change-id: 20260907-visibility-unification-fd358c580447
+>
+> Best regards,
+> --
+> Albert Esteve <aesteve@redhat.com>
+>
