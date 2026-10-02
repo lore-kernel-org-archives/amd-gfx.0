@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38D3BCA5FE5
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 19:33:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A0F4CA5FE4
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 19:33:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C01F010F9F0;
-	Fri,  2 Oct 2026 19:33:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A095F10FA02;
+	Fri,  2 Oct 2026 19:33:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MMJQoVba";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GW1+BuTQ";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010070.outbound.protection.outlook.com
- [40.93.198.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E73A910F9D8
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2026 19:33:30 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011024.outbound.protection.outlook.com [40.107.208.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E64A210FA01
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2026 19:33:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LV84ELfi6rnNp8oNS3/dbDfR6ME1TA0KssXPNOxjEDo66+Dp87D3LZ8q3fQ20erTrUvseZIjHSmM+LpNVnJl9jhZFl+vpNlKofFieQzWNMP7Z0oLUs9DyK9j3Aziz/JL/b90SwunoL2MEiH1FXodwxWKYtY1cFtEVLiSyplL5X0LFHcuBfwSZAUJhovS7YP8KncP0XZA4S+wS0empiTY38SHRCij5uq3f0km61S+gRMG8SwDW4R9w+0g4PLOll0OZfq60lEMRlKDsduxs/OLeglFB7qvt/aAk3TIk6MFvGzJNEiECM928IRziybrRm3kGllcQxVRFz+6JROGXnhLLA==
+ b=otBbiNZ62y854qjyFpCamMbDzEwxwd0K3qc24mnCbkI4p6qg4bAlwicwtt4TQjxioRPtg9jlaaFCLTGwEJQck40MZOvYgcDP8L2o4eY1fWKwo4K/P2AKw8zqXCg8dR6dKr0kvimPVt739zM6X82hHnNyz1/+9l3xJ72X61eLKr/uucE0n/TrI7EKXBLo6xJko/lZ4h6s8MWLT6DP+mOyxjRYD5A+tTe96l+cC2q/0gDCNXQpjngHOKGYiGffsnKFy4b8htJFWpum1VXN8wPsXMr8rh3wwmB4Ys1tH3bnfL8mnwf3hxYOCsLxmT7s50kEK4iRQXFMyN+ZCVefcWDl1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ClhGb9vflDCiGXa4EzkvfDVup1KPiBK4GQ+q72gacJg=;
- b=CEht2xqZE6O2CRiE0enCllKSVH+ukRMsMNK1RJfnRaaGNs69Z54bBp3kVFs2I0UFYD4+0Fyhwh/v+AlF5SI/Wj4ugAsvGB3hk5Gq1hX6wPC8qBttljdW4Bh9gHcjtVwQX0x/U0JXg2nRYE3qpIFOR/LWFfqP+hy3pqtBeef8H8lfsr+m/Rb4e2f1E9wp62hIv46SyqyvzhVFcksbeapt3MdwRXFrEL1KP9t24ee2xjriQZBMOsfUBhCt7XJjJYK0BRPTEDE8gxyD5syVTdNYFAigEYn4crlMO+sRlU/HJUM5J7bfWoeqBTXd4WAm5tb+MFMzopFmW2PB5a6R+xE80A==
+ bh=ApfWXXWiJj2Z9zuyBS9Olkjwt+yVl/Q9juaFJ2K4Ro8=;
+ b=R0THkonuGH6NOOs1M9u5/x3z/n6lRciR8vcLDnh71UHwj6cFSM3iObLinco5lVuE71hsF7P5RI34aYP8VjGbavXfm7IRaCQBMRG+ivNQf5w2UwQH4DFSPj/oj1aB7AOEoft/V1RxgRrXkxHHZZ+DWvrMA+zDBYP/rG70iRnytUQfFzjSJM3tBgJZmFlNrkUAsiGfKXcpZabGuZZ1OFM7Ry6rz0qLYSAcoOMU+Fh3Al4tvNpfvavK8LQpHSrs3IceMUm0X/1Ar+7GbdQgcOLBJ8E9ZqF+l9XMfQCkOCBrB4gjpEQ5k4Ynmr0v6Q7oPfs7YmfvcA6cInA5U9qRaJomaw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ClhGb9vflDCiGXa4EzkvfDVup1KPiBK4GQ+q72gacJg=;
- b=MMJQoVba/iKXkmYTJ1U5grb0ty88RIDpV5weiAKTtbZB19kYeI4g+H3/ooYXpMLAAqUm6M3BmIY1YaZqkmWc3yM7FfWgGsRrBV7VXwGhbnQ+Gi2Dt1YkjIGUosFgeFvwwkOx/LGVZuROEKnyYLQoGb2Srk1hZLy3/ePB3Gfjm4U=
-Received: from CH0PR08CA0010.namprd08.prod.outlook.com (2603:10b6:610:33::15)
- by DM6PR12MB4451.namprd12.prod.outlook.com (2603:10b6:5:2ab::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Fri, 2 Oct
- 2026 19:33:24 +0000
-Received: from CH2PEPF00000145.namprd02.prod.outlook.com
- (2603:10b6:610:33:cafe::93) by CH0PR08CA0010.outlook.office365.com
- (2603:10b6:610:33::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
- Oct 2026 19:33:24 +0000
+ bh=ApfWXXWiJj2Z9zuyBS9Olkjwt+yVl/Q9juaFJ2K4Ro8=;
+ b=GW1+BuTQW5uovlykGxk/w69ZVtvPYfRL9vfTJ8n0wpMihOGvsn/hA+4TBnqPPR1OJG0o4XVcwn9zy+rCE76rfgMhBQqy2xx+j8Z62mKNxT4NyHG81MlZsQd7wq1C28oLZQvjraaCUgubISGt87VlhVAwG9shj0CP3LBepeyLr4w=
+Received: from BL1PR13CA0001.namprd13.prod.outlook.com (2603:10b6:208:256::6)
+ by SJ0PR12MB6927.namprd12.prod.outlook.com (2603:10b6:a03:483::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 19:33:27 +0000
+Received: from BN3PEPF00022BD4.namprd03.prod.outlook.com
+ (2603:10b6:208:256:cafe::79) by BL1PR13CA0001.outlook.office365.com
+ (2603:10b6:208:256::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.11 via Frontend Transport; Fri, 2
+ Oct 2026 19:33:27 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000145.mail.protection.outlook.com (10.167.244.102) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BD4.mail.protection.outlook.com (10.167.248.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 19:33:24 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 19:33:27 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 2 Oct
- 2026 14:33:23 -0500
+ 2026 14:33:24 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 2 Oct 2026 14:33:23 -0500
+ Transport; Fri, 2 Oct 2026 14:33:24 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -67,11 +66,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler
  <daniel.wheeler@amd.com>, Ray Wu <Ray.Wu@amd.com>, Ivan Lipski
  <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>, James Lin
- <PingLei.Lin@amd.com>, Chenyu Chen <Chen-Yu.Chen@amd.com>, Dillon Varone
- <Dillon.Varone@amd.com>, Austin Zheng <austin.zheng@amd.com>
-Subject: [PATCH 14/17] drm/amd/display: Add dcn42b project id
-Date: Fri, 2 Oct 2026 15:32:37 -0400
-Message-ID: <20261002193240.3441018-15-Roman.Li@amd.com>
+ <PingLei.Lin@amd.com>, Chenyu Chen <Chen-Yu.Chen@amd.com>, Alvin Lee
+ <Alvin.Lee2@amd.com>, Austin Zheng <austin.zheng@amd.com>
+Subject: [PATCH 15/17] drm/amd/display: Add debug option to override low power
+ SR latencies
+Date: Fri, 2 Oct 2026 15:32:38 -0400
+Message-ID: <20261002193240.3441018-16-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261002193240.3441018-1-Roman.Li@amd.com>
 References: <20261002193240.3441018-1-Roman.Li@amd.com>
@@ -80,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000145:EE_|DM6PR12MB4451:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ebb510c-f1b1-4c9c-76fe-08df20bc065b
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD4:EE_|SJ0PR12MB6927:EE_
+X-MS-Office365-Filtering-Correlation-Id: f507054e-67ae-491c-31c2-08df20bc0840
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|10067099003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: mqSbogyHUAT6acqQRONRerBy3QzFmbxEOAt1NNU2RGSt5mkwAadp860gD53vuZ18lkeZl4qtLcldlMsr+nyFlrmWbhnY3wlprf74tm9vDlOxH3pijoq/JfXw9W2ye3eRY7JppmAX+MBUqgmKtanZLDBt3jtPD5wM46US+GREZOBm5L4JPCxCEu2+3nza67eWYXaIekVlnBw+9lM3VMP8sAtGn5sPxBqGQolAIOsTUkJgPgmhHM9JD+xoSnAnvurOMFp0WTFeplfV7dEZCpOyOHCjWtQaTe3VA65zs0Fro7M7Evb3CWN/xbJ7ci0BnXuO2koZBVVEp3wvvhReC4NcXIjc6r700d9G4Kibqb9l412PsSCit1kPFOoi4nHJGp8xuL1QC3EuBTgQFziFT/4ps51gGVyF6zmosNXqE5w9ezU2C4wmb8H/dp0rbKX7zRx8kDtPBtT3+XrafDtyCvRwYXuzWZwe5iyLnjnlTNOIFuyhvU8XNyj28wZyCTM0QACfEaNcfaqVyNsDNiifaDGrZPX91OyRGqfo2qLZc5vKwLj3bQKpVHPTt4PbJLtqkpVXVDR1UdusgrEdUWwePaXiXVhR1e7s4K2S213E+nA+vmbf9zspEAinLqRqcY9uyJ2lZumPHoCO1QN/J/eUGts65csmBiOBN7sSMgFUF2JkyaQWIaen3MEDon1qhjTzWNujDKdG9PT6mqrb77LzF18iHw==
+ ARA:13230040|376014|82310400026|36860700016|30052699003|23010399003|1800799024|10067099003|56012099006|6133799003|3023799007|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: nJLYNsHDR5GmQRVDIYT04w7UUIJlXkpd9PXRnz+xJcFUcG3iA+E0TAUcxsNjiHqCosQtdKXDrvqZ5OnLfFob7UZYBNkXdMNTG9SBffyJAH6es3SsLoG42VIxhLK8b+amv+f4DfLDIahjlAqlTFRpEa+zDo03RxbnKC6Ch1+gHzYncqK4JchwsUSqiALSn1IVHY4UJcpFSDjdSAszq5ZUZtVtx2PImVxTp8Np6MgjE5eU+VefcOTdBb8/eosCml4y/vXNxt7EEFGQ+ATZGMHJcGZ0m0F9XRv2HISN5T1OREmSh/NDj7IXqOFi+jBw9bc6CViHLaFMFnVqtXcW1jag3+lxQ1MLfloe0/k4K1r4e+rZSWOyQt/6O7K8zfbQuSXdWs96iWrqyoJwwRfdc7u4cEx/pqVqhApTzkv6yH66ZHNlojlp4iYyUFuPFEKsuLDqY1P3JqfQdGpNhWVmM+iHcd85ZZNqyFuLPs3bqAzouxWMDbAirJUwQi6/5VWlCb0BMSXMBJzxS7BbCzk0/zNIXJkp9YqgzDlMIAoB2U5A9mudOu6VUTAmm8p0LxKOz2gR4WM7PlFfe8iEHOk0u5GOJ/p5eHjDxkcelvYfgOaoA2dgY2Smm5yLT28TV4iHhC2epjHxStDXzLdswSAmixbUtcRrJJsHsRHsfr5SrEEvR6W090KJ+sP4H5/ovuSinFR1R8YvQQaCyEGtOFyh0w+F2w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(30052699003)(23010399003)(1800799024)(10067099003)(56012099006)(6133799003)(3023799007)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: cl1D+SroAwY5Y+leEesdnToM8Zfj2Dh/Eo4ilDGEvilc4NzxR1Vq/LkQ3oBexmfHKNpmdiLXWJGhOCcd8HI4YhkbcbO7SiMyKrQm3yVsSzocHSEEunvhnonwew0tPQNYwKdJf/JvUSdYAXBixesozaqIATbsb15ZDXVHIxX8DncCooQQ3mKNbIV4uBAtGJcy2u+WxoYB1uTmW7Rmm8ip9DLlwsgOyK4Iq+H9axRaaxCSCfHT1/23XECqy721mt3w/suGie3VjlBVEvrsXPqpc53HixGWv18+ZJh7QPNBlWCBEfBlAXcBEShfJBlxhwbiA8fkqyd9Y9oKmOzlhGyFN9oEcNsJhE7296RwWQp3KhAZ+h8MOSd1Qn5HSCz+g9ybw5voZFVRvtIiTinxFE1oXHHpfXQTGaTzTVBRpCGzpnaewheqXL5craJ94129c1FK
+X-MS-Exchange-AntiSpam-MessageData-0: iyTko6abGF6kHq4C4mHWtfEer8x2nGXjRkmiYjXvENT1zw6TmGUuj10Nh/RZt4J+TqTHF0ztpo1DXwf9VTnsDe+mW048ZHHshMIK0OfEE302VBAPw0QISyHK9Q9Mfsr+iQcjGitz1nQRt4qarOJDcVtaBznYEtGPcpeaKj+gHTb+iRLkGyYNjRMRIuAJwQHIVExLqIQ6YJxrs/FgGFmUviEGHPmd+GNHLdWU9vjS8oqP7LhxB2ENDIdY1H78J7XHUPznjnszFcIIPqD0rokjdXBoIBOvdgEcEl4/YZS18dic7tOsMCmU99pn7O1mBjBZLm2u6eDgNqgY6ZiIJ1TcFFw9CwG5Jwg0S3ym7irmO3dYcZ4kZ8JwvaFMkTT80OV2fU7UkZmXNVwup4wEkoUkRE3Nr2fvOX0/VKY9/LU8TU5bIBV6g3p+krhTDyNPmeMc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:33:24.2222 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ebb510c-f1b1-4c9c-76fe-08df20bc065b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:33:27.3813 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f507054e-67ae-491c-31c2-08df20bc0840
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000145.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BD4.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4451
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6927
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,121 +117,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dillon Varone <Dillon.Varone@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[WHY&HOW]
-Add project ID to distinguish dcn42b from dcn42.
+[Description]
+- Add debug options to override low power SR latencies
+- Match regular SR latency debug override
 
 Reviewed-by: Austin Zheng <austin.zheng@amd.com>
-Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h  | 1 +
- .../amd/display/dc/dml2_0/dml21/src/dml2_cga/dml2_cga_factory.c  | 1 +
- .../display/dc/dml2_0/dml21/src/dml2_core/dml2_core_factory.c    | 1 +
- .../display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_factory.c    | 1 +
- .../amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_factory.c  | 1 +
- .../amd/display/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_factory.c  | 1 +
- .../display/dc/dml2_0/dml21/src/dml2_top/dml2_top_interfaces.c   | 1 +
- .../dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_factory.c   | 1 +
- 8 files changed, 8 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +
+ .../dcn60/dcn60_soc_and_ip_translator.c       | 39 ++++++++++++++++++-
+ 2 files changed, 40 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h
-index 5a8550f592ca..75a24a85775e 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h
-@@ -20,6 +20,7 @@ enum dml2_project_id {
- 	dml2_project_dcn4x_stage2,
- 	dml2_project_dcn4x_stage2_auto_drr_svp,
- 	dml2_project_dcn42,
-+	dml2_project_dcn42b,
- 	dml2_project_dcn4x_utm,
- 	dml2_project_dcn5x,
- 	dml2_project_dcn5x_utm,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_cga/dml2_cga_factory.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_cga/dml2_cga_factory.c
-index 92cdc11c1892..ddf4f55cc261 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_cga/dml2_cga_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_cga/dml2_cga_factory.c
-@@ -16,6 +16,7 @@ bool dml2_cga_create(enum dml2_project_id project_id, struct dml2_clock_granular
- 	switch (project_id) {
- 	case dml2_project_dcn4x_stage1:
- 	case dml2_project_dcn42:
-+	case dml2_project_dcn42b:
- 	case dml2_project_dcn4x_stage2:
- 	case dml2_project_dcn4x_stage2_auto_drr_svp:
- 	case dml2_project_dcn4x_utm:
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_factory.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_factory.c
-index 0800c667f204..320f60cfa165 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_factory.c
-@@ -35,6 +35,7 @@ bool dml2_core_create(enum dml2_project_id project_id, struct dml2_core_instance
- 		result = true;
- 		break;
- 	case dml2_project_dcn42:
-+	case dml2_project_dcn42b:
- 		out->initialize = &core_dcn42_initialize;
- 		out->mode_support = &core_dcn4_mode_support;
- 		out->mode_programming = &core_dcn4_mode_programming;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_factory.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_factory.c
-index 528ebadb87e1..ec09c69482ec 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_factory.c
-@@ -45,6 +45,7 @@ bool dml2_dpmm_create(enum dml2_project_id project_id, struct dml2_dpmm_instance
- 		result = true;
- 		break;
- 	case dml2_project_dcn42:
-+	case dml2_project_dcn42b:
- 		out->map_mode_to_soc_dpm = &dpmm_dcn4_map_mode_to_soc_dpm;
- 		out->map_watermarks = &dpmm_dcn42_map_watermarks;
- 		result = true;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_factory.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_factory.c
-index a1d63148b6e5..0105fb890792 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_factory.c
-@@ -33,6 +33,7 @@ bool dml2_mcg_create(enum dml2_project_id project_id, struct dml2_mcg_instance *
- 		result = true;
- 		break;
- 	case dml2_project_dcn42:
-+	case dml2_project_dcn42b:
- 		out->build_min_clock_table = &mcg_dcn42_build_min_clock_table;
- 		result = true;
- 		break;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_factory.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_factory.c
-index 44438792931c..997a2be30ef9 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_factory.c
-@@ -63,6 +63,7 @@ bool dml2_pmo_create(enum dml2_project_id project_id, struct dml2_pmo_instance *
- 		result = true;
- 		break;
- 	case dml2_project_dcn42:
-+	case dml2_project_dcn42b:
- 		out->initialize = pmo_dcn42_initialize;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 957e15e4a84c..5cd7699e3e84 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1042,6 +1042,8 @@ struct dc_virtual_addr_space_config {
+ struct dc_bounding_box_overrides {
+ 	unsigned int sr_exit_time_ns;
+ 	unsigned int sr_enter_plus_exit_time_ns;
++	unsigned int sr_lp_exit_time_ns;
++	unsigned int sr_lp_enter_plus_exit_time_ns;
+ 	unsigned int sr_exit_z8_time_ns;
+ 	unsigned int sr_enter_plus_exit_z8_time_ns;
+ 	unsigned int urgent_latency_ns;
+diff --git a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn60/dcn60_soc_and_ip_translator.c b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn60/dcn60_soc_and_ip_translator.c
+index f1ee2225e9b8..aef527c7584b 100644
+--- a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn60/dcn60_soc_and_ip_translator.c
++++ b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn60/dcn60_soc_and_ip_translator.c
+@@ -79,6 +79,43 @@ static void dcn60_update_soc_bb_with_values_from_dmub(struct dml2_soc_bb *soc_bb
+ 			min_alt_ch_carveout_size_mb;
+ }
  
- 		out->init_for_vmin = pmo_dcn4_fams2_init_for_vmin;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_interfaces.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_interfaces.c
-index aaca0a450f0e..95558710a834 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_interfaces.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_interfaces.c
-@@ -19,6 +19,7 @@ bool dml2_initialize_instance(struct dml2_initialize_instance_in_out *in_out)
- 	case dml2_project_dcn4x_stage2:
- 	case dml2_project_dcn4x_stage2_auto_drr_svp:
- 	case dml2_project_dcn42:
-+	case dml2_project_dcn42b:
- 		return dml2_top_soc15_initialize_instance(in_out);
- 	case dml2_project_dcn5x_utm:
- 	case dml2_project_dcn6x_soc_var_a:
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_factory.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_factory.c
-index 2faf28f753fe..68a6b1a4f2a7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_factory.c
-@@ -20,6 +20,7 @@ bool dml2_utm_soc_bb_create(enum dml2_project_id project_id, struct dml2_utm_soc
- 	case dml2_project_dcn5x:
- 	case dml2_project_dcn4x_stage1:
- 	case dml2_project_dcn42:
-+	case dml2_project_dcn42b:
- 	case dml2_project_dcn4x_stage2:
- 	case dml2_project_dcn4x_stage2_auto_drr_svp:
- 	case dml2_project_invalid:
++static void dcn60_update_soc_bb_with_values_from_software_policy(struct dml2_soc_bb *soc_bb, const struct dc *dc)
++{
++	/* set if the value is provided */
++	if (dc->bb_overrides.sr_exit_time_ns)
++		soc_bb->power_management_parameters.stutter_exit_latency_us =
++				dc->bb_overrides.sr_exit_time_ns / 1000.0;
++
++	if (dc->bb_overrides.sr_enter_plus_exit_time_ns)
++		soc_bb->power_management_parameters.stutter_enter_plus_exit_latency_us =
++				dc->bb_overrides.sr_enter_plus_exit_time_ns / 1000.0;
++
++	if (dc->bb_overrides.dram_clock_change_latency_ns)
++		soc_bb->power_management_parameters.dram_clk_change_blackout_us =
++				dc->bb_overrides.dram_clock_change_latency_ns / 1000.0;
++
++	if (dc->bb_overrides.fclk_clock_change_latency_ns)
++		soc_bb->power_management_parameters.fclk_change_blackout_us =
++				dc->bb_overrides.fclk_clock_change_latency_ns / 1000.0;
++
++	if (dc->bb_overrides.sr_exit_z8_time_ns)
++		soc_bb->power_management_parameters.z8_stutter_exit_latency_us =
++				dc->bb_overrides.sr_exit_z8_time_ns / 1000.0;
++
++	if (dc->bb_overrides.sr_enter_plus_exit_z8_time_ns)
++		soc_bb->power_management_parameters.z8_stutter_enter_plus_exit_latency_us =
++				dc->bb_overrides.sr_enter_plus_exit_z8_time_ns / 1000.0;
++
++	/* low power stutter latencies exist only on DCN6 and above */
++	if (dc->bb_overrides.sr_lp_exit_time_ns)
++		soc_bb->power_management_parameters.low_power_stutter_exit_latency_us =
++				dc->bb_overrides.sr_lp_exit_time_ns / 1000.0;
++
++	if (dc->bb_overrides.sr_lp_enter_plus_exit_time_ns)
++		soc_bb->power_management_parameters.low_power_stutter_enter_plus_exit_latency_us =
++				dc->bb_overrides.sr_lp_enter_plus_exit_time_ns / 1000.0;
++}
++
+ static void apply_soc_bb_updates(struct dml2_soc_bb *soc_bb, const struct dc *dc, const struct dml2_configuration_options *config)
+ {
+ 	/* Individual modification can be overwritten even if it was obtained by a previous function.
+@@ -89,7 +126,7 @@ static void apply_soc_bb_updates(struct dml2_soc_bb *soc_bb, const struct dc *dc
+ 	dcn60_update_soc_bb_with_values_from_dmub(soc_bb, config);
+ 	dcn401_update_soc_bb_with_values_from_clk_mgr(soc_bb, dc, config);
+ 	dcn401_update_soc_bb_with_values_from_vbios(soc_bb, dc);
+-	dcn401_update_soc_bb_with_values_from_software_policy(soc_bb, dc);
++	dcn60_update_soc_bb_with_values_from_software_policy(soc_bb, dc);
+ }
+ 
+ static void dcn60_get_soc_bb(struct dml2_soc_bb *soc_bb, const struct dc *dc, const struct dml2_configuration_options *config)
 -- 
 2.34.1
 
