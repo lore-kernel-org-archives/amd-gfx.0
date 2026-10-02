@@ -4,105 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9B9ECA5FE0
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 19:33:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 728D9CA5FDD
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 20:37:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BDC810FA2A;
-	Fri,  2 Oct 2026 19:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DBDE10E048;
+	Fri,  2 Oct 2026 20:37:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1/E0kuR7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eoD/wapg";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011011.outbound.protection.outlook.com [52.101.62.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E7AD10FA25
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2026 19:33:48 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012023.outbound.protection.outlook.com [52.101.53.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28DCB10E048
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2026 20:37:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mZeHUdpqKhkPerMab6mF6UnFlvFAj0qlYIMItfZv8JQwfh4/8kln5ECdw9nlEf0VlfuW6bgqG9+9Im24cNh4HQVyiT+SipA+UaF+ZoU10lQKKOsVZ4eWKBjrClTpmBi958Q9t4aE5/JjPp4OucqGy3H3z5OAGw8dXVPkKdKIVFdI5q/5KKo4qEsW3bEdfuN2UamvYjrzpW/eTjiT95lmofEBcgXCSHR4sSVXWB6vsoPwQImDSC/9rzBqLF+yZXKpGDiyBPGWTLlJG0Hq27G0mtwSleCa/xYqrEqP+mACNxTR0AGUm6T3343F/ZIQ9W6KJrKpFx1LRAvly92JsSCfjg==
+ b=cfZqZAwbTKrS79K1EY6CMtZ7poBCnV9vTEtHH9lqMmiAcFPpGTcgk481GXTwJkHgTMgeTytXDPxnFRB5SSbERYNHZXI3i1juhyPANDJAv4cosnyYm6QAeTiYg1E8fvNJa2OYlxaPZ1i9EgzMSyi4keAIcHv+t8BlW9Y8rSagY8OTekBd1jNHXyfDLwZO7ZoQuDtvVlbqCDiqSokI+PN8tmJWnUG31IiTqscAwRMLLkeOM8228XGSLQ5h5jxTgq5GuZ4B/YhmqrB/OaJoFSrU6XtzWjTn0MOv2c46Gll+883LZ9jb02Z6gBOB/bXsduthhg+n10fK4nZdua6xMajhfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wfDCswEIkQZOCEmRc2ixVq44OqWr6J1ttkFWGXDP9qw=;
- b=xXipFBfujl7WxTRbiuvfNMnFDrIeqIPSz8v9f4RlAfKR8O+r7Iekie6wwX3qx/7OfJej7lrdpyivMdWNo5KldCNjR9GZ6F4m7jeQPmFqXcLBQWINeQaI++xEi6JYi9cacLZjTwJinfpKcULvYXQws+MUBQbDySERMkdgknsIZ/s71nk1ynm5D78UusiD4nUgzcrEx6gaX6fleXpyU0bx7TfMwxEo+3vUFnugaI24IwEbJUK3Op1+2Q5HUVxLOsgKEDTkdhOSw2Gk+OV6LN/0yyIMNwx30GnfrnjnBeIuIxHhf3WXejHqZ+X85hEoHfCXNg4/NWlvoxRpouzjdIdr8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=Q0yK2ojn9wFGpLd6mOOiSfijpiQwXeRNGyvdYmhZltc=;
+ b=Ne/TzatnYlQHI56p+qhFpJfuijjFoJ4MDOKrXhftfZnEZidPPQbJcSRvmp/i2MwJp7qUf8Fv/jNX2uIv54dBSCQ8iKOznTPBnahSxbUJ7Fh91UKDNJS6Sfe8r06hYj8qcUYSdJxFAw41Os9zze7cjbjveP+99IrQlYHCyG6OHGXYajXG18QuOd5+G1Fk8CDYhO3b9lX1ycKSH5V7DtSNrtMZhnsZvj62unpqanTUd0QELjTPTDbc/nMwUVm1bdooz92I1xnl0gC1EJTxOYubgvyCgMeV7ByElZkgljofE5Ggy4gWPUv+7hCxJEwMsGebe1ndXnfrrCxEdqSW7OgFZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wfDCswEIkQZOCEmRc2ixVq44OqWr6J1ttkFWGXDP9qw=;
- b=1/E0kuR7ZAf/hbzTdT9c/LKLdvs680nukvdoBZ6Sb543cqu6GP1UkZKw8jg2saem+HexKuefRkabQUgd74xXn/QjJKqnf5aQ4ava+TdptddS5XXM2cY/17+30Y8i3Goa+lHoXwSmGOwMvc+RGZt6ykaWzBZ8WFm8tMrsnZ/o/Z0=
-Received: from CH2PR04CA0004.namprd04.prod.outlook.com (2603:10b6:610:52::14)
- by BY5PR12MB4148.namprd12.prod.outlook.com (2603:10b6:a03:208::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.19; Fri, 2 Oct
- 2026 19:33:14 +0000
-Received: from CH2PEPF00000144.namprd02.prod.outlook.com
- (2603:10b6:610:52:cafe::94) by CH2PR04CA0004.outlook.office365.com
- (2603:10b6:610:52::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Fri, 2
- Oct 2026 19:33:14 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000144.mail.protection.outlook.com (10.167.244.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 19:33:14 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 2 Oct
- 2026 14:33:07 -0500
-Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 2 Oct 2026 14:33:06 -0500
-From: <Roman.Li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Roman Li <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
- <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler
- <daniel.wheeler@amd.com>, Ray Wu <Ray.Wu@amd.com>, Ivan Lipski
- <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>, James Lin
- <PingLei.Lin@amd.com>, Chenyu Chen <Chen-Yu.Chen@amd.com>, Alvin Lee
- <Alvin.Lee2@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 05/17] drm/amd/display: Set cursor_offload for all pipes for a
- given stream
-Date: Fri, 2 Oct 2026 15:32:28 -0400
-Message-ID: <20261002193240.3441018-6-Roman.Li@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261002193240.3441018-1-Roman.Li@amd.com>
-References: <20261002193240.3441018-1-Roman.Li@amd.com>
+ bh=Q0yK2ojn9wFGpLd6mOOiSfijpiQwXeRNGyvdYmhZltc=;
+ b=eoD/wapgZr1iVqedz1QUoyb9b4dmzSfEAFF29PaNTcndUk46UHluHvIk6HjMTgOVyyZoyL+DilWpt1yIuPX8IaE50u2lY9IX0u882oi6uWF6oL8Wg4JVXE63u4BbqCV7x4cyMp+C7ocVM3+UVEpSQsZz73QJihF5cuWX/5uiLmQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by IA0PR12MB8279.namprd12.prod.outlook.com
+ (2603:10b6:208:40c::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 2 Oct
+ 2026 20:37:33 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 20:37:33 +0000
+Message-ID: <3490aab0-76a4-4154-92e6-a52660869d92@amd.com>
+Date: Fri, 2 Oct 2026 16:37:32 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Flush NPA VM TLB after page table base is
+ programmed
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harish.Kasiviswanathan@amd.com, Mukul.Joshi@amd.com
+References: <20261002155432.334448-1-Philip.Yang@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20261002155432.334448-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0453.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10d::14) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000144:EE_|BY5PR12MB4148:EE_
-X-MS-Office365-Filtering-Correlation-Id: b75b2d85-a579-43f1-231b-08df20bc0087
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|IA0PR12MB8279:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b68ba1d-a67a-4025-4695-08df20c4fccc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|36860700016|376014|82310400026|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: AaMiY5IG+lHksCd2gKErWqpAe5pTqAF6dBkznOvubb+dK0hMLiXvk6RiA5HxJfB0R79IJEoadwx1roEQA/LLQP5GWPOnVXZVCsVtXpF42d+vrSzlSNFuItx1yEYcWd8SseCywYMnyTzUUk8UkdQL9zma17yvApRIE/LsmV5C2yniWIun86k+c23ZotjMO58ihuPlh1klgWidDQ9dKuiYth0GJeue3TmjEq2yJVoQDeS27a5Yu8TBowqVQfvAXMYgMqA6o3rTUFozdw1vzEbAvbX/W6bowpdtPRZeScTe90V0cUKMGHLnwX0SUxwkJgkFN7pjhODD2AbG6NwTvQQ+8sFhud7I2W3Iq4ut/2uKSJTb7jbNKXYElhmPQf/7SvyvPvitLqJWhyh+sSY+2scuHoIVkFvRocpog38km0PihJ99GWGg8PemDJ/eqxQcKgeApTPVZfLaAOqOFMf5vv6r3EJUSeEGmxeuCKVza/muVtq45GXSrSN9BCuuPMFG8TSTLvEJRE65q9bWRe+3AysP4ovgzp9EnMkklhJ7X4EsgdwJ/aU6IfLzJ80F2xM+hrslBbI6UiyOI/OXbCfATuXvD64bAJR3pBZBorh3Mb550e8nVbL8Z+avmBp5WtyN2uK0Npy+1yjTgGnGf0XPiwsaNACJBE94YoKSsqDlYE9IEhLKPurUkdDWj+acf2AIvzv08bOoR3YccZotMgKythHzFA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(36860700016)(376014)(82310400026)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ ARA:13230040|366016|23010399003|1800799024|376014|18002099003|22082099003|56012099006|10067099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info: mggSt1S+j+iOzBt+OaMHfF1RlnUuvDaTE9mTchvvACu4gESUTRyMSLwlBpWyCC0qsb6Y93z3vHOUEQj/3RdsEuDxSpXKbnSgLulLL7xDVKRUKBUQjAwqR0XJ8tVCwWSO2+ND+8odCnsiJDnLF1T/qnCguxrD08XERjQmVnXjZapEh1ffOjEJb8cKARevaBCjJQbpuOSjoeMlg7VdYp6WJDb46y9UHiUk2exgqYfZ6U9ZE3396xFpp8gP6at53m2VBuYITIsd+nT3c1ce/YkhpBOiMLOACfD5QvbhJHmHqPgzO0NAu7xXXAJv+nhY/BY4PeTsnABslXyJkoCizb+CTJeimyJf5mXgJ/mULpw1LcSbdHKOau/vBPZaqN4FM/f7Az2G1p5L0bzoeLIJbII8gcxLwCbdvPt9Oe0DDkCz6gMDC42IWjEUT8Rc3uCIKGrxquyidNwYucvDVD3Bo4SingFCrXSsmFf9W2xU2qx8yl6WoxP00OxJglAc96PRUgIi8q55h6wKy83gpgTG2q+MpxYCMWRSQCx5E1GCcOh1bORLJylyD9A9Nat8qkjjADSnt6cZkiuXjfCb+pVg/06OGZ61xsZw/dbDXSnM8kTOXDrl3hFqNfcUNFVz4ub9YS7QxTa+IuEpPfbGFqut4sa9WNQVKXdApJRsT9m7LOBDzQk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(10067099003)(5023799004)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: LFSZ5XvzlmrQ13LcqH0AjX1kXscK0nSyiUpvyU6KxncFkq+vVpVmQSy4vWmBjz74YdtlQjO+Ie4cKHYCVdhqSORmiZEFwJqKSWynVv0eO/oP8SCF1chM8U42gFzSWjTaY7/+2B246zBDb8AI8175JelSkAiYPxrMGo0Wutx2kduNHxr8O2njsOMZb9dh8ZQoWazpqDaHQPlpflQnyohBwLeze3ht2hBYoFpi0SvE8H1u3HeiFNN3JlBQouwUPSBM99Nx1jA3kYqCCvQHun8PEPhuH1AKzyBODbHFl1UOfo/tLRee91uPlrEG5d2r53ahqk/lo8qKbMqsAwBboVOHb76S5bmwRiLz9qcQeTCx7SRoeny9USjCacxZ0mpqCglMo3DejZTLKTunIsKoO6FNQEC2wmWVELp9HsEvKKb7oqmj4+LYvf8232qig16ATu2k
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VEsvTERCSDNlNEc1ckJtczl6SWJHSkhQMTVITUNPTldaM0xKdlBZN25UTUQz?=
+ =?utf-8?B?UExyZ1NRM3ljUmI3Mm0xazZzMG4vVno3UytPSE8rT0VZYnkxODJtaTJUQkM2?=
+ =?utf-8?B?MTJEZThLRlN2TjZDSXpJNE1ZdzZIT0ZQU0pFRllWbXpmVFVEQVhqNitVdkQv?=
+ =?utf-8?B?QmdWS3I3RnlXUXplTUhNS1hXUGw2Vzd4VDJiZldxMGR0dm5laDlyV3Q0ZjJH?=
+ =?utf-8?B?S2kycThzWk5uSzRJZW9DYThoaThyVFFvWTJsQnpxbHNDQVNqS3JQUVhsTUFZ?=
+ =?utf-8?B?SktOMG12ZDNZK0kwSTZvNlVYMmczTGo5U0FLd2F4Y2UreE90a3BoTmVkT3U2?=
+ =?utf-8?B?YysvZjRiNkc4eVJiRVVSaVFqS3ZDRnE2dDZpeTE1UkUyMU8yaERxOVJkQ2Yv?=
+ =?utf-8?B?MCs0djE2L3dWOXRRd2w2eHIzaWI2WUwySzI0OE9EQWFSU3MyR1V0NVBEZnpJ?=
+ =?utf-8?B?bHptMVI5ZEpxdzVGRmFsZ25WWlRCbTArMzdsdUNiSW1zM0liRHU1RmdxL2w2?=
+ =?utf-8?B?NkowL1YwcHlHYzh3SDdoQy9DaVc2ZDVOUW9yV1A5T3o0UGJJS0UrTjViTjd0?=
+ =?utf-8?B?MGlFUEptZDl2d1dSNGFBTG56T2N2UWtITXRDMFpUNjZIMTUxVm1qSGRMaW9B?=
+ =?utf-8?B?c1pWVW5BZDh0Q0pRZ1VKaHdSTjlFMmxOYXRidUNIRDN5RlhWdyt6NWpCMXp5?=
+ =?utf-8?B?clJROExvNXFXd1JYRHFBTEFFZXlEQ0w5ZUxPek9PT1Q1QTNDQVc0eFBqV0lU?=
+ =?utf-8?B?YkF1NlErMGxJWlJ2VW04cW1Ja2QydW9DWkRoRzVlMHM3aTJUZy9ZbE9sTmdJ?=
+ =?utf-8?B?MUQyUnI5SkgvRFRuWkU4NHFUWkd3MDlQWlZYK0tUUjVreWNzMFJOREVFZUJx?=
+ =?utf-8?B?RVlQMGhCMXl3Rzg0M0VhODNuS1BnWW1iTE1tRTBOY0xBeHRnaXpIUUZBZkNQ?=
+ =?utf-8?B?dDdHb09LYzZHUjFKSklBUVZuRXlTOWxKTTl3c0JUQUcyVlNoMVVTL1pOZG5i?=
+ =?utf-8?B?aWVkUlloREQyN3I0cXkvTWxSSm81QXhyUG04YitPM01xU3lZV2p5bVVKNGNV?=
+ =?utf-8?B?bW5IUmN5eHdHYm1VNjJxakY2d2IrV3d4c2djc2RHWGJpRVFybjNpbWF1WDZ1?=
+ =?utf-8?B?bWtjVmlUazNhSEJWRWRHdW1mckZ2RVY5dDFvbHhMVHRTTFJMM2FpWUxZQW1y?=
+ =?utf-8?B?S01UdGFweENuV1pVVk5zOGgxeGlTYk5KbjRPbUFjbytCSEpxTnpvOUdXZTI1?=
+ =?utf-8?B?Q0xLdS9tcDlsYVNmUDhOenNKa2YzcGdXQlI5Zk1SYml1RFpPRENxQ2xlak00?=
+ =?utf-8?B?T3hOWGFmVWlybkhXUWdEdFJuQ1o2OUtDRTJQaFRBSUdjY1NhWVFrQko3aito?=
+ =?utf-8?B?YldYNnZVTW8reU5LMXp6TGJwY05CS0Fud0lMc0lFTDRqT3YwZjgwbVQyUXk0?=
+ =?utf-8?B?SWhCT2RXM1FjZVJTbHF1YmVpV2Z3QVhSNnNmSU5ZT0NuNVJyVHdZM3lXZ3RG?=
+ =?utf-8?B?Slpyako5OW12VGkrbW00QkFSd2pQMFI1ZGJtTkNlR0NnQVR1eGxwQ2xOZDNs?=
+ =?utf-8?B?WGpDanVabUxOTFFIY2JnMWxpT0pERG93RlRPeU1KVVBmY3ZpTE9VRjY3cVZk?=
+ =?utf-8?B?aS9xMFdqU0RLSGxwQkRyQWlXNllvbURuRWpPOERxSEJTSXlNQm1yc3hoT2pR?=
+ =?utf-8?B?VUJxRC9RcUdiamQ5ODlPZlVpQXluOUxCd1VyWHl2czdiZWpFU2QxUElrSENO?=
+ =?utf-8?B?d2N1dEJ0SmRncEdzZDBVWTJSb0VpZXVGbnpYQUU2R3ZZZnRsYlBNQTh6SERq?=
+ =?utf-8?B?YlBiVEdBSldTdHBMbGRuUlIwMlRnTVdhVUZVb3A5NG5YSzNCQWZxZFlQaWIy?=
+ =?utf-8?B?N2FHMUxURlZCeU1ST3BqSDU1OE9OWlF0ZlBvZUtzTXhWYXBqbXRJbWhjQ3Y3?=
+ =?utf-8?B?MkJyU2VVb2Z3Zm02Q0Z5R1lFY3did3JqbHJyOFdXUFdXZnRGWUQxK2V2eE03?=
+ =?utf-8?B?U0h0dHFuN0w2WTBvMDJya2VWaFNETzN0ZlpNQXZBQThOdUZ3Ryt0U0owNnRa?=
+ =?utf-8?B?YStNSG4vK0tuMUtmaURPczc3bU5BZ09xR0U5VzU3OHRFRjY1NjRIMVlibWw0?=
+ =?utf-8?B?eFg3ZUt4cHlUa055VUZBSklqbVI0YUhPMXAxdkw3NE1ZajcvWm83VXk2dXc4?=
+ =?utf-8?B?M3BlU2VWcG90a0Z0clMzbjVIM25kSitPTm1mYlJjUWtjNU9IYzAybFNyZHIw?=
+ =?utf-8?B?MjlsdkhxdjNIZXl5bXAvNzV5eHBUNW5Eb2dOWHNSSmNyNUcwdnprRU0xT3NO?=
+ =?utf-8?B?TUx1UzlVUEtzOExTMHF6RngxNGhsNTE3ZVZvUFJSZVNENTZ4MU5xdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:33:14.4150 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b75b2d85-a579-43f1-231b-08df20bc0087
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b68ba1d-a67a-4025-4695-08df20c4fccc
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 20:37:33.8243 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000144.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4148
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v4ewKJAp/kx7mSkdY4PVW+Wc4WRMRUtzM6qFGpfeE7ZEajThFJb0ydi+WDTWDiLVZFGe8cyuKLb2oDC2Q7jlzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8279
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,515 +135,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[Description]
-- When using the cursor offload path, the cursor_offload flag must
-  be set for each DPP and HUBP driving the stream
-- Previous implementation only sets the flag in the DPP and HUBP for
-  the OTG master pipe
-- Add helper function to populate an array of DPP's and HUBP's that need
-  to have the cursor_offload flag set
-    - This is to avoid passing in pipe_ctx to hwss execution params
+On 2026-10-02 11:54, Philip Yang wrote:
+> Flush the NPA VMID TLB once, right after the NPA VM page directory base
+> address is programmed, so no stale translation is left behind from a
+> previous page table.
+>
+> After that the TLB has nothing cached for the NPA VMID, so mapping a new
+> NPA address doesn't need a flush. Drop the flush from the metadata NPA
+> mapping and from amdgpu_ualink_map_npa_addr(), which never updates valid
+> page directory entries, it only maps a newly allocated NPA address.
+>
+> The NPA unmap paths keep the TLB flush.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
----
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 67 ++++++++++++-------
- .../gpu/drm/amd/display/dc/core/dc_stream.c   | 36 ++++++----
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 11 ++-
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 11 ++-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 57 ++++++++++------
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.h   | 10 +--
- .../amd/display/dc/hwss/dcn50/dcn50_hwseq.c   | 11 ++-
- .../drm/amd/display/dc/hwss/hw_sequencer.h    | 31 +++++----
- 8 files changed, 153 insertions(+), 81 deletions(-)
+Sounds reasonable. But the removal of the TLB flush in map_npa_addr 
+needs to be regression-tested before it can be submitted.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 3d88c5c377fc..4e75eb3e3dab 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -4242,6 +4242,7 @@ void hwss_begin_cursor_offload_update(struct dc *dc, union block_sequence_params
- 			params->begin_cursor_offload_update_params.dmub,
- 			params->begin_cursor_offload_update_params.dpp,
- 			params->begin_cursor_offload_update_params.hubp,
-+			params->begin_cursor_offload_update_params.pipe_count,
- 			params->begin_cursor_offload_update_params.stream_idx);
- }
- 
-@@ -4252,6 +4253,7 @@ void hwss_commit_cursor_offload_update(struct dc *dc, union block_sequence_param
- 			params->commit_cursor_offload_update_params.dmub,
- 			params->commit_cursor_offload_update_params.dpp,
- 			params->commit_cursor_offload_update_params.hubp,
-+			params->commit_cursor_offload_update_params.pipe_count,
- 			params->commit_cursor_offload_update_params.stream_idx);
- }
- 
-@@ -4273,6 +4275,7 @@ void hwss_abort_cursor_offload_update(struct dc *dc, union block_sequence_params
- 			params->abort_cursor_offload_update_params.dmub,
- 			params->abort_cursor_offload_update_params.dpp,
- 			params->abort_cursor_offload_update_params.hubp,
-+			params->abort_cursor_offload_update_params.pipe_count,
- 			params->abort_cursor_offload_update_params.stream_idx);
- }
- 
-@@ -5912,25 +5915,47 @@ void hwss_add_update_cursor_offload_pipe(struct block_sequence_state *seq_state,
- 	}
- }
- 
-+uint8_t hwss_build_cursor_offload_pipe_list(struct pipe_ctx *pipe_ctx,
-+		struct dpp **dpp,
-+		struct hubp **hubp)
-+{
-+	struct pipe_ctx *otg_master = resource_get_otg_master(pipe_ctx);
-+	struct pipe_ctx *odm_pipe;
-+	struct pipe_ctx *mpc_pipe;
-+	uint8_t count = 0;
-+
-+	if (!otg_master)
-+		return 0;
-+
-+	for (odm_pipe = otg_master; odm_pipe != NULL; odm_pipe = odm_pipe->next_odm_pipe) {
-+		for (mpc_pipe = odm_pipe; mpc_pipe != NULL; mpc_pipe = mpc_pipe->bottom_pipe) {
-+			if (count >= MAX_PIPES)
-+				return count;
-+			dpp[count] = mpc_pipe->plane_res.dpp;
-+			hubp[count] = mpc_pipe->plane_res.hubp;
-+			count++;
-+		}
-+	}
-+
-+	return count;
-+}
-+
- void hwss_add_commit_cursor_offload_update(struct block_sequence_state *seq_state,
- 		struct dc *dc,
- 		struct pipe_ctx *pipe_ctx)
- {
- 	const struct pipe_ctx *top_pipe = resource_get_otg_master(pipe_ctx);
-+	struct commit_cursor_offload_update_params *p;
- 
- 	if (!top_pipe)
- 		return;
- 
- 	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
- 		seq_state->steps[*seq_state->num_steps].func = HWSS_COMMIT_CURSOR_OFFLOAD_UPDATE;
--		seq_state->steps[*seq_state->num_steps].params.commit_cursor_offload_update_params.dmub =
--			dc->ctx->dmub_srv->dmub;
--		seq_state->steps[*seq_state->num_steps].params.commit_cursor_offload_update_params.stream_idx =
--			top_pipe->pipe_idx;
--		seq_state->steps[*seq_state->num_steps].params.commit_cursor_offload_update_params.dpp =
--			 pipe_ctx->plane_res.dpp;
--		seq_state->steps[*seq_state->num_steps].params.commit_cursor_offload_update_params.hubp =
--			pipe_ctx->plane_res.hubp;
-+		p = &seq_state->steps[*seq_state->num_steps].params.commit_cursor_offload_update_params;
-+		p->dmub = dc->ctx->dmub_srv->dmub;
-+		p->stream_idx = top_pipe->pipe_idx;
-+		p->pipe_count = hwss_build_cursor_offload_pipe_list(pipe_ctx, p->dpp, p->hubp);
- 		(*seq_state->num_steps)++;
- 	}
- }
-@@ -5940,20 +5965,17 @@ void hwss_add_begin_cursor_offload_update(struct block_sequence_state *seq_state
- 		struct pipe_ctx *pipe_ctx)
- {
- 	const struct pipe_ctx *top_pipe = resource_get_otg_master(pipe_ctx);
-+	struct begin_cursor_offload_update_params *p;
- 
- 	if (!top_pipe)
- 		return;
- 
- 	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
- 		seq_state->steps[*seq_state->num_steps].func = HWSS_BEGIN_CURSOR_OFFLOAD_UPDATE;
--		seq_state->steps[*seq_state->num_steps].params.begin_cursor_offload_update_params.dmub =
--			dc->ctx->dmub_srv->dmub;
--		seq_state->steps[*seq_state->num_steps].params.begin_cursor_offload_update_params.stream_idx =
--			top_pipe->pipe_idx;
--		seq_state->steps[*seq_state->num_steps].params.begin_cursor_offload_update_params.dpp =
--			 pipe_ctx->plane_res.dpp;
--		seq_state->steps[*seq_state->num_steps].params.begin_cursor_offload_update_params.hubp =
--			pipe_ctx->plane_res.hubp;
-+		p = &seq_state->steps[*seq_state->num_steps].params.begin_cursor_offload_update_params;
-+		p->dmub = dc->ctx->dmub_srv->dmub;
-+		p->stream_idx = top_pipe->pipe_idx;
-+		p->pipe_count = hwss_build_cursor_offload_pipe_list(pipe_ctx, p->dpp, p->hubp);
- 		(*seq_state->num_steps)++;
- 	}
- }
-@@ -5963,20 +5985,17 @@ void hwss_add_abort_cursor_offload_update(struct block_sequence_state *seq_state
- 		struct pipe_ctx *pipe_ctx)
- {
- 	const struct pipe_ctx *top_pipe = resource_get_otg_master(pipe_ctx);
-+	struct abort_cursor_offload_update_params *p;
- 
- 	if (!top_pipe)
- 		return;
- 
- 	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
- 		seq_state->steps[*seq_state->num_steps].func = ABORT_CURSOR_OFFLOAD_UPDATE;
--		seq_state->steps[*seq_state->num_steps].params.abort_cursor_offload_update_params.dmub =
--			dc->ctx->dmub_srv->dmub;
--		seq_state->steps[*seq_state->num_steps].params.abort_cursor_offload_update_params.stream_idx =
--			top_pipe->pipe_idx;
--		seq_state->steps[*seq_state->num_steps].params.abort_cursor_offload_update_params.dpp =
--			 pipe_ctx->plane_res.dpp;
--		seq_state->steps[*seq_state->num_steps].params.abort_cursor_offload_update_params.hubp =
--			pipe_ctx->plane_res.hubp;
-+		p = &seq_state->steps[*seq_state->num_steps].params.abort_cursor_offload_update_params;
-+		p->dmub = dc->ctx->dmub_srv->dmub;
-+		p->stream_idx = top_pipe->pipe_idx;
-+		p->pipe_count = hwss_build_cursor_offload_pipe_list(pipe_ctx, p->dpp, p->hubp);
- 		(*seq_state->num_steps)++;
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 6b01db8b32d0..d92c51b01272 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -309,6 +309,9 @@ void program_cursor_attributes(
- 	struct pipe_ctx *pipe_to_program = NULL;
- 	bool enable_cursor_offload = dc_dmub_srv_is_cursor_offload_enabled(dc);
- 	bool unlock_dmub = false;
-+	struct dpp *dpp[MAX_PIPES];
-+	struct hubp *hubp[MAX_PIPES];
-+	uint8_t pipe_count = 0;
- 
- 	if (!stream)
- 		return;
-@@ -327,10 +330,13 @@ void program_cursor_attributes(
- 			if (enable_cursor_offload && dc->hwss.begin_cursor_offload_update) {
- 				struct pipe_ctx *top_pipe = resource_get_otg_master(pipe_ctx);
- 
--				if (top_pipe)
-+				if (top_pipe) {
-+					pipe_count =
-+						hwss_build_cursor_offload_pipe_list(pipe_ctx, dpp, hubp);
-+
- 					dc->hwss.begin_cursor_offload_update(dc->ctx->dmub_srv->dmub,
--						pipe_ctx->plane_res.dpp, pipe_ctx->plane_res.hubp,
--						top_pipe->pipe_idx);
-+						dpp, hubp, pipe_count, top_pipe->pipe_idx);
-+				}
- 			} else {
- 				if (dc->hwss.dmub_hw_control_lock && pipe_ctx->stream &&
- 				    should_use_dmub_inbox0_lock_for_link(dc, pipe_ctx->stream->link)) {
-@@ -362,10 +368,10 @@ void program_cursor_attributes(
- 		if (enable_cursor_offload && dc->hwss.commit_cursor_offload_update) {
- 			struct pipe_ctx *top_pipe = resource_get_otg_master(pipe_to_program);
- 
--			if (top_pipe)
-+			if (top_pipe) {
- 				dc->hwss.commit_cursor_offload_update(dc->ctx->dmub_srv->dmub,
--					pipe_to_program->plane_res.dpp, pipe_to_program->plane_res.hubp,
--					top_pipe->pipe_idx);
-+					dpp, hubp, pipe_count, top_pipe->pipe_idx);
-+			}
- 		} else {
- 			dc->hwss.cursor_lock(dc, pipe_to_program, false);
- 			if (pipe_to_program->next_odm_pipe)
-@@ -493,6 +499,9 @@ void program_cursor_position(
- 	struct pipe_ctx *pipe_to_program = NULL;
- 	bool enable_cursor_offload = dc_dmub_srv_is_cursor_offload_enabled(dc);
- 	bool unlock_dmub = false;
-+	struct dpp *dpp[MAX_PIPES];
-+	struct hubp *hubp[MAX_PIPES];
-+	uint8_t pipe_count = 0;
- 
- 	if (!stream)
- 		return;
-@@ -515,10 +524,13 @@ void program_cursor_position(
- 			if (enable_cursor_offload && dc->hwss.begin_cursor_offload_update) {
- 				struct pipe_ctx *top_pipe = resource_get_otg_master(pipe_ctx);
- 
--				if (top_pipe)
-+				if (top_pipe) {
-+					pipe_count =
-+						hwss_build_cursor_offload_pipe_list(pipe_ctx, dpp, hubp);
-+
- 					dc->hwss.begin_cursor_offload_update(dc->ctx->dmub_srv->dmub,
--						pipe_ctx->plane_res.dpp, pipe_ctx->plane_res.hubp,
--						top_pipe->pipe_idx);
-+						dpp, hubp, pipe_count, top_pipe->pipe_idx);
-+				}
- 			} else {
- 				if (dc->hwss.dmub_hw_control_lock && pipe_ctx->stream &&
- 				    should_use_dmub_inbox0_lock_for_link(dc, pipe_ctx->stream->link)) {
-@@ -547,10 +559,10 @@ void program_cursor_position(
- 		if (enable_cursor_offload && dc->hwss.commit_cursor_offload_update) {
- 			struct pipe_ctx *top_pipe = resource_get_otg_master(pipe_to_program);
- 
--			if (top_pipe)
-+			if (top_pipe) {
- 				dc->hwss.commit_cursor_offload_update(dc->ctx->dmub_srv->dmub,
--					pipe_to_program->plane_res.dpp, pipe_to_program->plane_res.hubp,
--					top_pipe->pipe_idx);
-+					dpp, hubp, pipe_count, top_pipe->pipe_idx);
-+			}
- 		} else {
- 			dc->hwss.cursor_lock(dc, pipe_to_program, false);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index 33f7ab4c6c15..771555ec1431 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -3168,11 +3168,16 @@ static void dcn10_update_dchubp_dpp(
- 	if (pipe_ctx->stream->cursor_attributes.address.quad_part != 0) {
- 		if (dc_dmub_srv_is_cursor_offload_enabled(dc) && dc->hwss.abort_cursor_offload_update) {
- 			struct pipe_ctx *top_pipe = resource_get_otg_master(pipe_ctx);
-+			struct dpp *dpp[MAX_PIPES];
-+			struct hubp *hubp[MAX_PIPES];
-+
-+			if (top_pipe) {
-+				uint8_t pipe_count =
-+					hwss_build_cursor_offload_pipe_list(pipe_ctx, dpp, hubp);
- 
--			if (top_pipe)
- 				dc->hwss.abort_cursor_offload_update(dc->ctx->dmub_srv->dmub,
--					pipe_ctx->plane_res.dpp, pipe_ctx->plane_res.hubp,
--					top_pipe->pipe_idx);
-+					dpp, hubp, pipe_count, top_pipe->pipe_idx);
-+			}
- 		}
- 
- 		dc->hwss.set_cursor_attribute(pipe_ctx);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index f408589072d7..e8b9495c799f 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -1840,11 +1840,16 @@ void dcn20_update_dchubp_dpp(
- 			pipe_ctx->stream->cursor_attributes.address.quad_part != 0) {
- 		if (dc_dmub_srv_is_cursor_offload_enabled(dc) && dc->hwss.abort_cursor_offload_update) {
- 			struct pipe_ctx *top_pipe = resource_get_otg_master(pipe_ctx);
-+			struct dpp *dpp[MAX_PIPES];
-+			struct hubp *hubp[MAX_PIPES];
-+
-+			if (top_pipe) {
-+				uint8_t pipe_count =
-+					hwss_build_cursor_offload_pipe_list(pipe_ctx, dpp, hubp);
- 
--			if (top_pipe)
- 				dc->hwss.abort_cursor_offload_update(dc->ctx->dmub_srv->dmub,
--					pipe_ctx->plane_res.dpp, pipe_ctx->plane_res.hubp,
--					top_pipe->pipe_idx);
-+					dpp, hubp, pipe_count, top_pipe->pipe_idx);
-+			}
- 		}
- 
- 		dc->hwss.set_cursor_attribute(pipe_ctx);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index a959d8c37b6a..41abfff6cf47 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -1646,9 +1646,30 @@ void dcn35_hardware_release(struct dc *dc)
- 		dc->hwss.hw_block_power_up(dc, &pg_update_state);
- }
- 
--void dcn35_abort_cursor_offload_update(struct dmub_srv *dmub, struct dpp *dpp, struct hubp *hubp, uint32_t stream_idx)
-+/* Set the cursor offload flag on every resolved hubp/dpp in the pipe tree. */
-+static void dcn35_set_cursor_offload(struct dpp **dpp, struct hubp **hubp,
-+		uint8_t pipe_count, bool enable)
- {
--	struct dc *dc = dpp->ctx->dc;
-+	uint8_t i;
-+
-+	for (i = 0; i < pipe_count; i++) {
-+		if (hubp[i])
-+			hubp[i]->cursor_offload = enable;
-+		if (dpp[i])
-+			dpp[i]->cursor_offload = enable;
-+	}
-+}
-+
-+void dcn35_abort_cursor_offload_update(struct dmub_srv *dmub, struct dpp **dpp,
-+		struct hubp **hubp, uint8_t pipe_count, uint32_t stream_idx)
-+{
-+	struct dc *dc;
-+	uint8_t i;
-+
-+	if (pipe_count == 0 || dpp[0] == NULL)
-+		return;
-+
-+	dc = dpp[0]->ctx->dc;
- 
- 	/*
- 	 * Insert a blank update to modify the write index and set pipe_mask to 0.
-@@ -1667,10 +1688,10 @@ void dcn35_abort_cursor_offload_update(struct dmub_srv *dmub, struct dpp *dpp, s
- 	 */
- 
- 	if (dc->hwss.begin_cursor_offload_update)
--		dc->hwss.begin_cursor_offload_update(dmub, dpp, hubp, stream_idx);
-+		dc->hwss.begin_cursor_offload_update(dmub, dpp, hubp, pipe_count, stream_idx);
- 
- 	if (dc->hwss.commit_cursor_offload_update)
--		dc->hwss.commit_cursor_offload_update(dmub, dpp, hubp, stream_idx);
-+		dc->hwss.commit_cursor_offload_update(dmub, dpp, hubp, pipe_count, stream_idx);
- 
- 	/*
- 	 * The aborted payload is dropped by firmware, so resync the SW cursor
-@@ -1678,13 +1699,16 @@ void dcn35_abort_cursor_offload_update(struct dmub_srv *dmub, struct dpp *dpp, s
- 	 * set_cursor_position re-program CURSOR_ENABLE instead of skipping it
- 	 * because of a stale cache.
- 	 */
--	if (dpp->funcs->refresh_cursor_state)
--		dpp->funcs->refresh_cursor_state(dpp);
--	if (hubp && hubp->funcs->refresh_cursor_state)
--		hubp->funcs->refresh_cursor_state(hubp);
-+	for (i = 0; i < pipe_count; i++) {
-+		if (dpp[i] && dpp[i]->funcs->refresh_cursor_state)
-+			dpp[i]->funcs->refresh_cursor_state(dpp[i]);
-+		if (hubp[i] && hubp[i]->funcs->refresh_cursor_state)
-+			hubp[i]->funcs->refresh_cursor_state(hubp[i]);
-+	}
- }
- 
--void dcn35_begin_cursor_offload_update(struct dmub_srv *dmub, struct dpp *dpp, struct hubp *hubp, uint32_t stream_idx)
-+void dcn35_begin_cursor_offload_update(struct dmub_srv *dmub, struct dpp **dpp,
-+		struct hubp **hubp, uint8_t pipe_count, uint32_t stream_idx)
- {
- 	volatile struct dmub_cursor_offload_v1 *cs = dmub->cursor_offload_v1;
- 	uint32_t write_idx, payload_idx;
-@@ -1695,24 +1719,17 @@ void dcn35_begin_cursor_offload_update(struct dmub_srv *dmub, struct dpp *dpp, s
- 	cs->offload_streams[stream_idx].payloads[payload_idx].write_idx_start = write_idx;
- 	cs->offload_streams[stream_idx].payloads[payload_idx].pipe_mask = 0;
- 
--	if (hubp)
--		hubp->cursor_offload = true;
--
--	if (dpp)
--		dpp->cursor_offload = true;
-+	dcn35_set_cursor_offload(dpp, hubp, pipe_count, true);
- }
- 
--void dcn35_commit_cursor_offload_update(struct dmub_srv *dmub, struct dpp *dpp, struct hubp *hubp, uint32_t stream_idx)
-+void dcn35_commit_cursor_offload_update(struct dmub_srv *dmub, struct dpp **dpp,
-+		struct hubp **hubp, uint8_t pipe_count, uint32_t stream_idx)
- {
- 	volatile struct dmub_cursor_offload_v1 *cs = dmub->cursor_offload_v1;
- 	volatile struct dmub_shared_state_cursor_offload_stream_v1 *shared_stream;
- 	uint32_t write_idx, payload_idx;
- 
--	if (hubp)
--		hubp->cursor_offload = false;
--
--	if (dpp)
--		dpp->cursor_offload = false;
-+	dcn35_set_cursor_offload(dpp, hubp, pipe_count, false);
- 
- 	write_idx = cs->offload_streams[stream_idx].write_idx + 1; /*  new payload (+1) */
- 	payload_idx = write_idx % ARRAY_SIZE(cs->offload_streams[stream_idx].payloads);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-index 9f779e408ec6..d47f7232f863 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-@@ -105,10 +105,12 @@ bool dcn35_is_dp_dig_pixel_rate_div_policy(struct pipe_ctx *pipe_ctx);
- 
- void dcn35_hardware_release(struct dc *dc);
- 
--void dcn35_abort_cursor_offload_update(struct dmub_srv *dmub, struct dpp *dpp, struct hubp *hubp, uint32_t stream_idx);
--void dcn35_begin_cursor_offload_update(struct dmub_srv *dmub, struct dpp *dpp, struct hubp *hubp, uint32_t stream_idx);
--void dcn35_commit_cursor_offload_update(struct dmub_srv *dmub, struct dpp *dpp,
--	struct hubp *hubp, uint32_t stream_idx);
-+void dcn35_abort_cursor_offload_update(struct dmub_srv *dmub, struct dpp **dpp,
-+		struct hubp **hubp, uint8_t pipe_count, uint32_t stream_idx);
-+void dcn35_begin_cursor_offload_update(struct dmub_srv *dmub, struct dpp **dpp,
-+		struct hubp **hubp, uint8_t pipe_count, uint32_t stream_idx);
-+void dcn35_commit_cursor_offload_update(struct dmub_srv *dmub, struct dpp **dpp,
-+		struct hubp **hubp, uint8_t pipe_count, uint32_t stream_idx);
- void dcn35_update_cursor_offload_pipe(struct dmub_srv *dmub, uint32_t stream_idx,
- 		uint8_t pipe_idx, const struct dpp *dpp, const struct hubp *hubp);
- void dcn35_notify_cursor_offload_drr_update(struct dc *dc, struct dc_state *context,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c
-index 0361c520b7d9..7a82aaa6d1d6 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c
-@@ -204,11 +204,16 @@ void dcn50_update_dchubp_dpp(
- 		pipe_ctx->stream->cursor_attributes.address.quad_part != 0) {
- 		if (dc_dmub_srv_is_cursor_offload_enabled(dc) && dc->hwss.abort_cursor_offload_update) {
- 			struct pipe_ctx *top_pipe = resource_get_otg_master(pipe_ctx);
-+			struct dpp *dpp[MAX_PIPES];
-+			struct hubp *hubp[MAX_PIPES];
-+
-+			if (top_pipe) {
-+				uint8_t pipe_count =
-+					hwss_build_cursor_offload_pipe_list(pipe_ctx, dpp, hubp);
- 
--			if (top_pipe)
- 				dc->hwss.abort_cursor_offload_update(dc->ctx->dmub_srv->dmub,
--					pipe_ctx->plane_res.dpp, pipe_ctx->plane_res.hubp,
--					top_pipe->pipe_idx);
-+					dpp, hubp, pipe_count, top_pipe->pipe_idx);
-+			}
- 		}
- 
- 		dc->hwss.set_cursor_attribute(pipe_ctx);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index c0c098b5bcaa..de7a12c706ac 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -887,8 +887,9 @@ struct phantom_hubp_post_enable_params {
- 
- struct begin_cursor_offload_update_params {
- 	struct dmub_srv *dmub;
--	struct dpp *dpp;
--	struct hubp *hubp;
-+	struct dpp *dpp[MAX_PIPES];
-+	struct hubp *hubp[MAX_PIPES];
-+	uint8_t pipe_count;
- 	uint32_t stream_idx;
- };
- 
-@@ -902,15 +903,17 @@ struct update_cursor_offload_pipe_params {
- 
- struct commit_cursor_offload_update_params {
- 	struct dmub_srv *dmub;
--	struct dpp *dpp;
--	struct hubp *hubp;
-+	struct dpp *dpp[MAX_PIPES];
-+	struct hubp *hubp[MAX_PIPES];
-+	uint8_t pipe_count;
- 	uint32_t stream_idx;
- };
- 
- struct abort_cursor_offload_update_params {
- 	struct dmub_srv *dmub;
--	struct dpp *dpp;
--	struct hubp *hubp;
-+	struct dpp *dpp[MAX_PIPES];
-+	struct hubp *hubp[MAX_PIPES];
-+	uint8_t pipe_count;
- 	uint32_t stream_idx;
- };
- 
-@@ -1526,12 +1529,12 @@ struct hw_sequencer_funcs {
- 	void (*set_cursor_position_legacy)(struct pipe_ctx *pipe);
- 	void (*set_cursor_attribute)(struct pipe_ctx *pipe);
- 	void (*set_cursor_sdr_white_level)(struct pipe_ctx *pipe);
--	void (*abort_cursor_offload_update)(struct dmub_srv *dmub, struct dpp *dpp,
--			struct hubp *hubp, uint32_t stream_idx);
--	void (*begin_cursor_offload_update)(struct dmub_srv *dmub, struct dpp *dpp,
--			struct hubp *hubp, uint32_t stream_idx);
--	void (*commit_cursor_offload_update)(struct dmub_srv *dmub, struct dpp *dpp,
--			struct hubp *hubp, uint32_t stream_idx);
-+	void (*abort_cursor_offload_update)(struct dmub_srv *dmub, struct dpp **dpp,
-+			struct hubp **hubp, uint8_t pipe_count, uint32_t stream_idx);
-+	void (*begin_cursor_offload_update)(struct dmub_srv *dmub, struct dpp **dpp,
-+			struct hubp **hubp, uint8_t pipe_count, uint32_t stream_idx);
-+	void (*commit_cursor_offload_update)(struct dmub_srv *dmub, struct dpp **dpp,
-+			struct hubp **hubp, uint8_t pipe_count, uint32_t stream_idx);
- 	void (*update_cursor_offload_pipe)(struct dmub_srv *dmub,
- 			uint32_t stream_idx,
- 			uint8_t pipe_idx,
-@@ -2655,6 +2658,10 @@ void hwss_add_opp_program_left_edge_extra_pixel(struct block_sequence_state *seq
- void hwss_add_hubp_enable_3dlut_fl(struct block_sequence_state *seq_state,
- 		struct hubp *hubp);
- 
-+uint8_t hwss_build_cursor_offload_pipe_list(struct pipe_ctx *pipe_ctx,
-+		struct dpp **dpp,
-+		struct hubp **hubp);
-+
- void hwss_add_begin_cursor_offload_update(struct block_sequence_state *seq_state,
- 		struct dc *dc,
- 		struct pipe_ctx *pipe_ctx);
--- 
-2.34.1
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
+
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 7 ++-----
+>   1 file changed, 2 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index 758265670340..f49404a6dee4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -2148,9 +2148,6 @@ static int amdgpu_ualink_map_npa_addr(struct amdgpu_device *adev, u64 npa_addr,
+>   
+>   	amdgpu_ualink_unreserve_npa_vm_and_bos(adev, &exec);
+>   
+> -	/* TLB flush may be needed after updated page directories */
+> -	amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
+> -
+>   	return 0;
+>   
+>   unmap_npa:
+> @@ -4162,6 +4159,8 @@ int amdgpu_ualink_manager_start(struct amdgpu_device *adev)
+>   	adev->mmhub.funcs->setup_vm_pt_regs(adev, adev->vm_manager.npa_vmid,
+>   			amdgpu_gmc_pd_addr(adev->ualink.npa_vm.root.bo));
+>   
+> +	amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
+> +
+>   	xa_init(&adev->ualink.exp_xa);
+>   	xa_init(&adev->ualink.imp_xa);
+>   	xa_init(&adev->ualink.handle_invalid_xa);
+> @@ -5056,8 +5055,6 @@ static int amdgpu_ualink_metadata_npa_mapping(struct amdgpu_device *adev)
+>   			dev_dbg(adev->dev, "failed %d to dma fence wait\n", r);
+>   	}
+>   
+> -	amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
+> -
+>   	amdgpu_ualink_unreserve_npa_vm_and_bos(adev, &exec);
+>   	return 0;
+>   
