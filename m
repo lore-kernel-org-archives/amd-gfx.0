@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5751ACA5FC4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A95BDCA5FDD
 	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 15:47:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03DF210F8DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9AB10F8EE;
 	Fri,  2 Oct 2026 15:47:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qi6IO5v8";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="R+igOaMz";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B81D310F8E0;
- Fri,  2 Oct 2026 15:47:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80E0510E63A;
+ Fri,  2 Oct 2026 15:47:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=7ft/q98GUrJ7TX5RmiLNsVRWpyj/puWeXVh9jNvBcf0=; b=qi6IO5v87ypsuJJj9ZYpgUTxqa
- 0BFBtA647QwD/G14PioxUwnXzdebmU5Avzh2pVnHCO4n0sBtXgMBB7EahHyITaw/X/5d8b7jI0X23
- njvCW1/6GesSDdM8hDjUtw8P9PR9ZDbzOiZlf2Kk7CCpTtCuKfKHWvffme4K3Dv3GHZSBNcS2EAgG
- FYEuWiJo8HmXhaobmZcwsH+Jl8ni5iw+zPgNj/M/a3uR+onjabOlRORx0qK56keOD7CFcKDkHnewT
- dVydiq2kIZEW0oE/1WdSDV9bgXoZGct7j2U1pfnqc2549ID3hXL3K+zM2O4Bvc1UMjcUrg+mnGmYc
- qOLuvZBA==;
+ bh=9dF54tKEr/G9cdNYBClqpJLRpoMx/nXC3p6bg34WrDs=; b=R+igOaMz4FPbc6ZP2GLMvcHwSI
+ WGtRWjUul0BjxMKKK+DDMRUX3pi1egDqVtmaNZ+QtdcjwEOBkKcvenQgUb9TqcXjTfziDoSme/aKA
+ j8Uuh8PhP3YeICD0CLicAbnz3s26mPneSH5kGxgWZCLXjDChmzFY2Cvi64n7IiF/M+l95DxQ8e+jS
+ ks4EikceW2hPvQYaX2UxlR1tbaMH3+u9TpBbUbnQuHX0WoQ0gxosDYEbkdU1aBgHjr/YvcUBnd0RC
+ pjSNKpodWW3ARhZPwXOjRZ2EeFPiFIHNGFDMnuMZtPR0w2/EvYXrOpOt+E1S9cAHQCMS7rjJVfDVH
+ AUAe//OA==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xCfTi-00Aflb-R3; Fri, 02 Oct 2026 17:47:18 +0200
+ id 1xCfTg-00AflJ-I8; Fri, 02 Oct 2026 17:47:16 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -36,10 +36,10 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 4/9] drm/sched: Reject double scheduler initialization
-Date: Fri,  2 Oct 2026 16:47:08 +0100
-Message-ID: <20261002154713.77591-5-tvrtko.ursulin@igalia.com>
+ Philipp Stanner <phasta@kernel.org>, stable@vger.kernel.org
+Subject: [PATCH 1/9] drm/sched: Fix out of bounds entity priority check
+Date: Fri,  2 Oct 2026 16:47:05 +0100
+Message-ID: <20261002154713.77591-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261002154713.77591-1-tvrtko.ursulin@igalia.com>
 References: <20261002154713.77591-1-tvrtko.ursulin@igalia.com>
@@ -60,47 +60,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is no point in having code and logging whose only purpose is to
-notify developers of incorrect usage of the API while bringing up a new
-driver. Lets simply return an error and let the developers figure it out.
+When the out of range priority at entity init time is clamped to the
+number of run queues in the supplied scheduler the internal run-queue
+priority needs to be adjusted as well.
+
+There is no impact since none of the drivers hit the clamping path, but
+we still need to address it by moving the entity->rq_priority assignment
+to after the clamping is done.
+
+Note that a lot of this will hopefully get removed once again when the
+single run-queue simplification lands.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
+Cc: <stable@vger.kernel.org> # v7.2+
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/scheduler/sched_entity.c | 27 +++++++++++-------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index aba5545033ac..bb89c169d553 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -1102,6 +1102,9 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
- {
- 	int i;
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 7be0387bac3c..e12709b7bd0c 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -130,10 +130,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
  
-+	if (sched->sched_rq)
-+		return -EINVAL;
+ 	INIT_LIST_HEAD(&entity->list);
+ 	entity->guilty = guilty;
+-	entity->priority = priority;
+ 	entity->last_user = current->group_leader;
+-	entity->rq_priority = drm_sched_policy == DRM_SCHED_POLICY_FAIR ?
+-			      DRM_SCHED_PRIORITY_KERNEL : priority;
+ 	entity->num_sched_list = num_sched_list;
+ 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+ 	RB_CLEAR_NODE(&entity->rb_tree_node);
+@@ -144,25 +141,25 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 		 * not to do this and to fix their DRM calling order.
+ 		 */
+ 		pr_warn("%s: called with uninitialized scheduler\n", __func__);
+-	} else {
+-		enum drm_sched_priority p = entity->priority;
+-
++	} else if (priority >= sched_list[0]->num_user_rqs) {
+ 		/*
+ 		 * The "priority" of an entity cannot exceed the number of
+ 		 * run-queues of a scheduler. Protect against num_rqs being 0,
+ 		 * by converting to signed. Choose the lowest priority
+ 		 * available.
+ 		 */
+-		if (p >= sched_list[0]->num_user_rqs) {
+-			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num_user_rqs:%u\n",
+-				p, sched_list[0]->num_user_rqs);
+-			p = max_t(s32,
+-				  (s32)sched_list[0]->num_user_rqs - 1,
+-				  (s32)DRM_SCHED_PRIORITY_KERNEL);
+-			entity->priority = p;
+-		}
++		dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num_user_rqs:%u\n",
++			priority, sched_list[0]->num_user_rqs);
++		priority = max_t(s32,
++				 (s32)sched_list[0]->num_user_rqs - 1,
++				 (s32)DRM_SCHED_PRIORITY_KERNEL);
++	}
 +
- 	sched->ops = args->ops;
- 	sched->credit_limit = args->credit_limit;
- 	sched->name = args->name;
-@@ -1117,13 +1120,6 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
- 		dev_err(sched->dev, "%s: num_rqs cannot be greater than DRM_SCHED_PRIORITY_COUNT\n",
- 			__func__);
- 		return -EINVAL;
--	} else if (sched->sched_rq) {
--		/* Not an error, but warn anyway so drivers can
--		 * fine-tune their DRM calling order, and return all
--		 * is good.
--		 */
--		dev_warn(sched->dev, "%s: scheduler already initialized!\n", __func__);
--		return 0;
- 	}
++	entity->priority = priority;
++	entity->rq_priority = drm_sched_policy == DRM_SCHED_POLICY_FAIR ?
++			      DRM_SCHED_PRIORITY_KERNEL : priority;
++	if (sched_list[0]->sched_rq)
+ 		entity->rq = sched_list[0]->sched_rq[entity->rq_priority];
+-	}
  
- 	if (args->submit_wq) {
+ 	init_completion(&entity->entity_idle);
+ 
 -- 
 2.55.0
 
