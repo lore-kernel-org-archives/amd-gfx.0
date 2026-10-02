@@ -4,50 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB960CA5FE2
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 15:47:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6CA2CA5FDD
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 15:47:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D72E410F904;
-	Fri,  2 Oct 2026 15:47:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52E8F10F8F5;
+	Fri,  2 Oct 2026 15:47:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aecgofvg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nmfrf511";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B92810F8FD;
- Fri,  2 Oct 2026 15:47:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=gLuKEtefT02zvX/w9K4IvErpvGfuVS+aYPkIuPV13C0=; b=aecgofvgbdJyUNK6Z6atYjWTfo
- mfW9wANNFZemw0wUWMQtYsSZeD/Hjuj7VJX3/XwAkNinHR0uuXphc10c3Mgx3vVfClmPzEKOKaZdF
- E017i2qmRhfNuSWJEsZ1fGFvOGZVyZKmz9XtE/kpNPMffSI+DVLhSObvqnQkcptIq7ZJs981lAXKh
- Qui1MSQfKdFlCMKtYc/dv8F7XDEWEUYPBSt5KdWBVQ3Czbskc8TQoqql8piMdCtPFLHAE2fWNNXiG
- i0jSFOH08nvG8zblYZRPw6woG7RVXTmmQQVNySK/z7pVv/eS6GcRI7xpaP6yxi3DLoFibqUkRZpEi
- IP6lMneg==;
-Received: from [81.79.79.1] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xCfTm-00Afme-Kc; Fri, 02 Oct 2026 17:47:22 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
- Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 9/9] drm/sched: Untangle the scheduler list mess
-Date: Fri,  2 Oct 2026 16:47:13 +0100
-Message-ID: <20261002154713.77591-10-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002154713.77591-1-tvrtko.ursulin@igalia.com>
-References: <20261002154713.77591-1-tvrtko.ursulin@igalia.com>
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com
+ [74.125.229.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A5A410F8F5
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2026 15:47:39 +0000 (UTC)
+Received: by mail-dl2-f12.google.com with SMTP id
+ a92af1059eb24-1431a73fa1eso679989c88.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 02 Oct 2026 08:47:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790956058; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Dq2AdHHYBAr6ePI6BAQ9AgTXDYGIIoY7/2d88BhI2izEHRobk2aODvZ25sF/h2wl0l
+ 3eUmCxJcwZTx5Y1talo9cPU56O5BYEthWFsLCCGQLWtcoUJNGBi6VBJCuYdT0xxvg248
+ 0pW+NfH0bk33LvRLbvfSQm4fIeXBi27dIoBx9MVAYF5ahyMhlKX4T003woWEg9ABluYy
+ jDTsZCDub6RQ1j08NPYPW5Hv1cWLdLfo+uhgBbjp+aZrku77sTSmek7mjdkO5VNFd/cr
+ +HZhRa7DbGjpNzB3FY0WGodNwRj6LZFeH31+3cKIpUYXPuAZrACrj/crBK5zioYb3weD
+ 8/gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=PtYJt2HiWSES49AdyTOSflj0yjcQseHIoq5zx8MW3O0=;
+ fh=p/1C9UsJV+Ddxz+7z1iTeUvOFzwYWSz4Fx/+yYyLdz8=;
+ b=eDJTaTRZiHjukNCmaiw99CbVCdpsMv4wwddtU6Mm0l/gQGImJTjQ75cOIzaxJn0lro
+ YH4gqnhGvFBmFX2+B3bRY6ZKUD8zF40EnA1n1lE2l1A8eXI7kUN5l4fotgfUxhED+Kwm
+ qXL958yWIWD69KS11zFOTHJ8qo+gRyDt+T1wKrpghEW9dO795AVDIcA3TFVhFw9bNunu
+ qb1+pLHOGoFJJmI8uYmt4RcicQhD6/ZEUdRRhYpt91zdE1f4KsGXKb5JGx4v87ElAdNE
+ 0WIE25AOfaNCv3S4mBjdgXP6hbTY9k7m3AU3iBF7hZKqSKolzzKbUlf2stPBr3m9GMGP
+ wOyw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790956058; x=1791560858; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=PtYJt2HiWSES49AdyTOSflj0yjcQseHIoq5zx8MW3O0=;
+ b=nmfrf511nb4zwCC/ib26cpW0HzY7ycRc0LQPRdk4rN9XqzJ7Az1hL/iLbhKlyd+wkJ
+ tkvYax6MG0PF4CCToVjsqWFg4Nof7fBmUTuEfD6pdED09ygScEC0Sb+0LmpVWEVOvWB5
+ 5gfosqEB4z3o5/tCf+vxxO3L+/ttlfchvcPAJEw1rEWB86LqvKLnSeGAM0y8WFCtZdIx
+ j2YC1i8gt4xPKFEVX86T8FVS6M36Z7D/bdxdkzwcZBtaZBApBd04V2te+jwmeKdAVcT3
+ tFz9QPHzf/ZgLM+pbYCS6N6OXPLQ7xkdAtXhxynn239bZY6xij3tZ5E2buAw9slHopeU
+ CcNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790956058; x=1791560858;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=PtYJt2HiWSES49AdyTOSflj0yjcQseHIoq5zx8MW3O0=;
+ b=n/WHqdpeqHfG7yfTCjDQZTVdZUk/uwfrBd+98vGvzhaSxfRuh05ZznNOxG4nBZ3GSQ
+ BCs4GekD4eNgE+SbX+K6QZt3/6KA/bqDZT+fGAmul3J1h8pVJm/6I9TdFAJIA1PZxhtj
+ vEW+1sLsckqCyN7QA2rI5LIehJQs9hrGno1LQJEcrIAksKSh1P6zeTPFZ2nBsOXT3pga
+ JC17QSAqnIlbhQaTja8sOXVGhrQ8VxpbVcdeKBtDSK1jYQiV/L3b00WCpNP+Of5KNKEU
+ jCn7MmfDioR00m1nDQWpTfEzg5y2aG++W5FfBaK1KlSKoGQDMXk0TP4bASWVa2TDgmNf
+ UiZA==
+X-Gm-Message-State: AFuF++mnABY5ZOsviMsvvaf+p0aIpaWJDHMAQvKktQrixLDA3Fv1C8uv
+ LTtyBBubGcBdzKv4GUNNveIaFTAlVJYXj2/ODTCnOUjGm67mAegbaUIGp0zZx7ANiO3ndB4tyKX
+ JEocOz4WIcAB/ByYZJ0pvtEHDBYyF9Wk=
+X-Gm-Gg: AYBFou3GLbMey/+dU3EOi1xNrVUgReZNNNGBRXR1GAdAv9kaM0Bbiz5ar2nscYcmZZ0
+ 6xZ8q0L2wKOa8yDFc3gnhDFAk8mBRFbghrAyVWR0LjeYjCAfAYeede/x/PoEK1wwQnM3FNi3Ah8
+ QEFbeQgY5kuKBxwT0sT92Dmbv5IN+cKgY3nsJvuLAqSwSvUbo6Yj1YgD7yZO5bGaYLLSIC9SOUk
+ WWhTWEbUk8KmtA7JWzNrycbpa0GYXqdl+cwvX+UUpRvyDhxQQwxuVy8siNAd1CNfrZ3tpgKOc6m
+ RfTJm7J5q6ws5pv9SrI8DJU4xd8P4lGv1eDIXy93Obz1GtxVuAdhziJrRVcoYS8ahbnX9F743/R
+ YCGeB1FWDKDaRhrJ8H6wI/DMv35CptIVJy/D/BsS8BokvwWGXgOXC9A==
+X-Received: by 2002:a05:7022:b04b:20b0:143:5c2a:e45f with SMTP id
+ a92af1059eb24-14f56063178mr5259965c88.0.1790956058416; Fri, 02 Oct 2026
+ 08:47:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <ar-GzWfyQMeRTRCt@sig21.net>
+In-Reply-To: <ar-GzWfyQMeRTRCt@sig21.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 2 Oct 2026 11:47:26 -0400
+X-Gm-Features: AclHuK_H9G69qh-U9t9OWIH05C5M1tNbCZij3V2y__uhQx9HTkLt6JPJQq8yHfA
+Message-ID: <CADnq5_ODecWYOwbBYDnV-aeAi+pCMoxJvufuzY8_4yf5cF0dEg@mail.gmail.com>
+Subject: Re: amdgpu causes boot failure after BIOS update AGESA ComboAM5
+ 1.3.0.1a on Asrock X600
+To: Johannes Stezenbach <js@sig21.net>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,476 +105,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Long time ago in commit
-b3ac17667f11 ("drm/scheduler: rework entity creation")
-a change was made which prevented priority changes for entities with only
-one assigned scheduler.
++ Mario
 
-That commit reduced drm_sched_entity_set_priority() to simply update the
-entities priority, but the run queue selection logic in
-drm_sched_entity_select_rq() was never able to actually change the
-originally assigned run queue.
+On Fri, Oct 2, 2026 at 8:52=E2=80=AFAM Johannes Stezenbach <js@sig21.net> w=
+rote:
+>
+> Hi,
+>
+> I have one Asrock Deskmini X600 with Ryzen 8700G.
+> Recently a BIOS update was released which updates
+> AGESA ComboAM5 from 1.2.0.3g to  1.3.0.1a.
+>
+> https://www.asrock.com/nettop/AMD/DeskMini%20X600%20Series/index.asp#BIOS
+>
+> The result is boot failure before any message could be printed
+> with my self-built kernel, which has the amdgpu driver built-in.
+> However, a Debian rescue image with kernel 7.2.8 could boot
+> (in text mode or vesa graphics mode).
+>
+> Using the rescue system, I installed the Debian kernel 7.2.8,
+> it can boot but hangs after the amdgpu module is loaded
+> (no error message or crash output).
+> It can boot successfully with module_blacklist=3Damdgpu.
+>
+> https://packages.debian.org/forky/linux-image-7.2.8+deb14-amd64
+>
+> If you have any ideas what to try please let me know soon,
+> otherwise I'll have to downgrade to the previous BIOS version.
 
-In practice that only affected amdgpu, being the only driver which can do
-dynamic priority changes, and it appears it was attempted to rectify this
-in commit
-2316a86bde49 ("drm/amdgpu: change hw sched list on ctx priority override")
-.
+Can you get ssh access to the system?  Can you boot without amdgpu and
+then log in remotely and manually load amdgpu and get the dmesg
+output?
 
-A few unresolved problems remained - this only fixed
-drm_sched_entity_set_priority() if drm_sched_entity_modify_sched() was
-called first, which was not documented anywhere.
-
-Secondly, that only worked if drm_sched_entity_modify_sched() is actually
-called, which in amdgpu's case is true only for gfx and compute. Priority
-changes for other engines, which have only one scheduler assigned such as
-jpeg and video decode still did not work.
-
-(Note that this was also noticed in 981b04d96856 ("drm/sched: improve docs
-around drm_sched_entity").)
-
-The last problem was ultimately indirectly fixed by the removal of multiple
-run-queues in commit
-77a6809f1dc3 ("drm/sched: Remove FIFO and RR and simplify to a single run queue")
-. After that commit all drivers and all engines (queue types) can now do
-dynamic priority changes if they so wish.
-
-Completely different set of non-obvious confusion was that, whereas
-drm_sched_entity_init() was not keeping the passed in list of schedulers
-(courtesy of commit
-8c23056bdc7a ("drm/scheduler: do not keep a copy of sched list")
-), drm_sched_entity_modify_sched() was disagreeing with that and
-would simply assign the single item list. That incosistency appears to
-have been semi-silently fixed in commit
-ac4eb83ab255 ("drm/sched: select new rq even if there is only one v3")
-.
-
-What was also not documented is why it was important to not keep the list
-of schedulers when there is only one scheduler is given. This was in fact
-due many of the callers passing in a stack container for this case. For
-the multiple schedulers on the other hand, amdgpu is the only such caller,
-and there the container is not on the stack. Keeping a stack backed list
-in the entity would obviously be undefined behaviour if the list was kept.
-
-Amdgpu however did only stop passing in stack backed container for the more
-than one scheduler case in commit
-977f7e1068be ("drm/amdgpu: allocate entities on demand")
-. Until then dereferencing freed stack from drm_sched_entity_select_rq()
-was a possibility.
-
-In order to untangle all this, document how the scheduler behaves, and
-make it behave consistently and sensibly, lets make the entity own its own
-copy of the scheduler list. This allows removal of the special cases which
-needed to artificially clear entity->sched_list for a single scheduler
-case. Individual scheduler pointers are still owned by the driver with
-unchanged lifetime rules.
-
-To enable maintaining its own container some API calls needed to grow a
-capability for returning success/failure, which is a change which
-percolates mostly through amdgpu.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Fixes: b3ac17667f11 ("drm/scheduler: rework entity creation")
-References: 8c23056bdc7a ("drm/scheduler: do not keep a copy of sched list")
-References: 977f7e1068be ("drm/amdgpu: allocate entities on demand")
-References: 2316a86bde49 ("drm/amdgpu: change hw sched list on ctx priority override")
-References: ac4eb83ab255 ("drm/sched: select new rq even if there is only one v3")
-References: 981b04d96856 ("drm/sched: improve docs around drm_sched_entity")
-References: 77a6809f1dc3 ("drm/sched: Remove FIFO and RR and simplify to a single run queue")
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Luben Tuikov <ltuikov89@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c   | 31 +++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c | 13 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c     |  3 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c     |  3 +-
- drivers/gpu/drm/scheduler/sched_entity.c  | 85 ++++++++++++++++-------
- include/drm/gpu_scheduler.h               | 48 +++++++------
- 7 files changed, 119 insertions(+), 66 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index acafa8c59cc9..6500e7f69f5e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -791,15 +791,15 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
- 	return fence;
- }
- 
--static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
--					   struct amdgpu_ctx_entity *aentity,
--					   int hw_ip,
--					   int32_t priority)
-+static int amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
-+					  struct amdgpu_ctx_entity *aentity,
-+					  int hw_ip,
-+					  int32_t priority)
- {
- 	struct amdgpu_device *adev = ctx->mgr->adev;
--	unsigned int hw_prio;
- 	struct drm_gpu_scheduler **scheds = NULL;
--	unsigned num_scheds;
-+	unsigned int hw_prio, num_scheds;
-+	int ret = 0;
- 
- 	/* set sw priority */
- 	drm_sched_entity_set_priority(&aentity->entity,
-@@ -811,16 +811,18 @@ static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
- 		hw_prio = array_index_nospec(hw_prio, AMDGPU_RING_PRIO_MAX);
- 		scheds = adev->gpu_sched[hw_ip][hw_prio].sched;
- 		num_scheds = adev->gpu_sched[hw_ip][hw_prio].num_scheds;
--		drm_sched_entity_modify_sched(&aentity->entity, scheds,
--					      num_scheds);
-+		ret = drm_sched_entity_modify_sched(&aentity->entity, scheds,
-+						    num_scheds);
- 	}
-+
-+	return ret;
- }
- 
--void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
--				  int32_t priority)
-+int amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t priority)
- {
- 	int32_t ctx_prio;
- 	unsigned i, j;
-+	int ret;
- 
- 	ctx->override_priority = priority;
- 
-@@ -831,10 +833,15 @@ void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
- 			if (!ctx->entities[i][j])
- 				continue;
- 
--			amdgpu_ctx_set_entity_priority(ctx, ctx->entities[i][j],
--						       i, ctx_prio);
-+			ret = amdgpu_ctx_set_entity_priority(ctx,
-+							     ctx->entities[i][j],
-+							     i, ctx_prio);
-+			if (ret)
-+				return ret;
- 		}
- 	}
-+
-+	return 0;
- }
- 
- int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-index a4b89eca4169..c44349f310f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-@@ -86,7 +86,7 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
- 				       struct drm_sched_entity *entity,
- 				       uint64_t seq);
- bool amdgpu_ctx_priority_is_valid(int32_t ctx_prio);
--void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t ctx_prio);
-+int amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx, int32_t ctx_prio);
- 
- int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
- 		     struct drm_file *filp);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-index 8effb1158430..0efe90767bfb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-@@ -51,11 +51,14 @@ static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
- 
- 	mgr = &fpriv->ctx_mgr;
- 	xa_lock(&mgr->ctx_handles);
--	xa_for_each(&mgr->ctx_handles, id, ctx)
--		amdgpu_ctx_priority_override(ctx, priority);
-+	xa_for_each(&mgr->ctx_handles, id, ctx) {
-+		r = amdgpu_ctx_priority_override(ctx, priority);
-+		if (r)
-+			break;
-+	}
- 	xa_unlock(&mgr->ctx_handles);
- 
--	return 0;
-+	return r;
- }
- 
- static int amdgpu_sched_context_priority_override(struct amdgpu_device *adev,
-@@ -80,9 +83,9 @@ static int amdgpu_sched_context_priority_override(struct amdgpu_device *adev,
- 	if (!ctx)
- 		return -EINVAL;
- 
--	amdgpu_ctx_priority_override(ctx, priority);
-+	r = amdgpu_ctx_priority_override(ctx, priority);
- 	amdgpu_ctx_put(ctx);
--	return 0;
-+	return r;
- }
- 
- int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 0f4f4d66e2e4..40ea94e31fc1 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -1901,8 +1901,7 @@ static int vcn_v3_0_limit_sched(struct amdgpu_cs_parser *p,
- 
- 	scheds = p->adev->gpu_sched[AMDGPU_HW_IP_VCN_DEC]
- 		[AMDGPU_RING_PRIO_DEFAULT].sched;
--	drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
--	return 0;
-+	return drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
- }
- 
- static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 4b7f7bbe18da..6ca8430fa426 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1817,8 +1817,7 @@ static int vcn_v4_0_limit_sched(struct amdgpu_cs_parser *p,
- 
- 	scheds = p->adev->gpu_sched[AMDGPU_HW_IP_VCN_ENC]
- 		[AMDGPU_RING_PRIO_0].sched;
--	drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
--	return 0;
-+	return drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
- }
- 
- static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 79ea20838328..a2e043df1061 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -102,7 +102,12 @@ ktime_t drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
-  * @guilty: atomic_t set to 1 when a job on this queue
-  *          is found to be guilty causing a timeout
-  *
-- * Note that the &sched_list must have at least one element to schedule the entity.
-+ * Note that the &sched_list must have at least one element to schedule the
-+ * entity.
-+ *
-+ * The individual drm_gpu_scheduler pointers have borrow semantics, ie.
-+ * they must remain valid during entities lifetime, while the containing
-+ * array can be freed after this call returns.
-  *
-  * For changing @priority later on at runtime see
-  * drm_sched_entity_set_priority(). For changing the set of schedulers
-@@ -119,16 +124,11 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 			  unsigned int num_sched_list,
- 			  atomic_t *guilty)
- {
--	unsigned int i;
-+	int ret;
- 
--	if (!entity || !sched_list || !num_sched_list)
-+	if (!entity)
- 		return -EINVAL;
- 
--	for (i = 0; i < num_sched_list; i++) {
--		if (!sched_list[i] || !sched_list[i]->sched_rq)
--			return -EINVAL;
--	}
--
- 	memset(entity, 0, sizeof(struct drm_sched_entity));
- 
- 	entity->stats = drm_sched_entity_stats_new();
-@@ -138,8 +138,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	INIT_LIST_HEAD(&entity->list);
- 	entity->guilty = guilty;
- 	entity->last_user = current->group_leader;
--	entity->num_sched_list = num_sched_list;
--	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
- 	RB_CLEAR_NODE(&entity->rb_tree_node);
- 
- 	if (priority >= sched_list[0]->num_user_rqs) {
-@@ -159,11 +157,18 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	entity->priority = priority;
- 	entity->rq_priority = drm_sched_policy == DRM_SCHED_POLICY_FAIR ?
- 			      DRM_SCHED_PRIORITY_KERNEL : priority;
--	entity->rq = sched_list[0]->sched_rq[entity->rq_priority];
- 
- 	spin_lock_init(&entity->lock);
- 	spsc_queue_init(&entity->job_queue);
- 
-+	ret = drm_sched_entity_modify_sched(entity, sched_list, num_sched_list);
-+	if (ret) {
-+		drm_sched_entity_stats_put(entity->stats);
-+		return ret;
-+	}
-+
-+	drm_sched_entity_select_rq(entity);
-+
- 	atomic_set(&entity->fence_seq, 0);
- 	entity->fence_context = dma_fence_context_alloc(2);
- 
-@@ -178,21 +183,53 @@ EXPORT_SYMBOL(drm_sched_entity_init);
-  *		 existing entity->sched_list
-  * @num_sched_list: number of drm sched in sched_list
-  *
-+ * The individual drm_gpu_scheduler pointers have borrow semantics, ie.
-+ * they must remain valid during entities lifetime, while the containing
-+ * array can be freed after this call returns.
-+ *
-  * Note that this must be called under the same common lock for @entity as
-  * drm_sched_job_arm() and drm_sched_entity_push_job(), or the driver needs to
-  * guarantee through some other means that this is never called while new jobs
-  * can be pushed to @entity.
-+ *
-+ * Returns zero on success and a negative error code on failure.
-  */
--void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
--				    struct drm_gpu_scheduler **sched_list,
--				    unsigned int num_sched_list)
-+int drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
-+				  struct drm_gpu_scheduler **sched_list,
-+				  unsigned int num_sched_list)
- {
--	WARN_ON(!num_sched_list || !sched_list);
-+	struct drm_gpu_scheduler **newscheds, **oldscheds;
-+	unsigned int i;
-+
-+	if (!sched_list || !num_sched_list)
-+		return -EINVAL;
-+
-+	for (i = 0; i < num_sched_list; i++) {
-+		if (!sched_list[i] || !sched_list[i]->sched_rq)
-+			return -EINVAL;
-+	}
-+
-+	if (num_sched_list > 1) {
-+		newscheds = kmemdup_array(sched_list, num_sched_list,
-+					  sizeof(*sched_list), GFP_KERNEL);
-+		if (!newscheds)
-+			return -ENOMEM;
-+	}
- 
- 	spin_lock(&entity->lock);
--	entity->sched_list = sched_list;
-+	if (num_sched_list == 1) {
-+		entity->sched = sched_list[0];
-+		oldscheds = NULL;
-+	} else {
-+		oldscheds = entity->sched_list;
-+		entity->sched_list = newscheds;
-+	}
- 	entity->num_sched_list = num_sched_list;
- 	spin_unlock(&entity->lock);
-+
-+	kfree(oldscheds);
-+
-+	return 0;
- }
- EXPORT_SYMBOL(drm_sched_entity_modify_sched);
- 
-@@ -413,6 +450,9 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
- 
- 	dma_fence_put(entity->last_scheduled);
- 	drm_sched_entity_stats_put(entity->stats);
-+
-+	if (entity->num_sched_list > 1)
-+		kfree(entity->sched_list);
- }
- EXPORT_SYMBOL(drm_sched_entity_fini);
- 
-@@ -577,10 +617,6 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	struct drm_gpu_scheduler *sched;
- 	struct drm_sched_rq *rq;
- 
--	/* single possible engine and already selected */
--	if (!entity->sched_list)
--		return;
--
- 	/* queue non-empty, stay on the same engine */
- 	if (spsc_queue_count(&entity->job_queue))
- 		return;
-@@ -597,16 +633,17 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	if (fence && !dma_fence_is_signaled(fence))
- 		goto out;
- 
--	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
-+	if (entity->num_sched_list == 1)
-+		sched = entity->sched;
-+	else
-+		sched = drm_sched_pick_best(entity->sched_list,
-+					    entity->num_sched_list);
- 	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
- 	if (rq != entity->rq) {
- 		drm_sched_rq_remove_entity(entity->rq, entity);
- 		entity->rq = rq;
- 	}
- 
--	if (entity->num_sched_list == 1)
--		entity->sched_list = NULL;
--
- out:
- 	spin_unlock(&entity->lock);
- }
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index c89a581f54bf..97b72bcbfe0b 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -120,23 +120,31 @@ struct drm_sched_entity {
- 	 */
- 	struct drm_sched_entity_stats	*stats;
- 
--	/**
--	 * @sched_list:
--	 *
--	 * A list of schedulers (struct drm_gpu_scheduler).  Jobs from this entity can
--	 * be scheduled on any scheduler on this list.
--	 *
--	 * This can be modified by calling drm_sched_entity_modify_sched().
--	 * Locking is entirely up to the driver, see the above function for more
--	 * details.
--	 *
--	 * This will be set to NULL if &num_sched_list equals 1 and @rq has been
--	 * set already.
--	 *
--	 * FIXME: This means priority changes through
--	 * drm_sched_entity_set_priority() will be lost henceforth in this case.
--	 */
--	struct drm_gpu_scheduler        **sched_list;
-+	union {
-+		/**
-+		 * @sched_list:
-+		 *
-+		 * A list of schedulers (struct drm_gpu_scheduler).  Jobs from
-+		 * this entity can be scheduled on any scheduler on this list.
-+		 *
-+		 * This can be modified by calling
-+		 * drm_sched_entity_modify_sched(). Locking is entirely up to
-+		 * the driver, see the above function for more details.
-+		 */
-+		struct drm_gpu_scheduler        **sched_list;
-+
-+		/**
-+		 * @sched:
-+		 *
-+		 * A single struct drm_gpu_scheduler jobs from this entity will
-+		 * be scheduled on.
-+		 *
-+		 * This can be modified by calling
-+		 * drm_sched_entity_modify_sched(). Locking is entirely up to
-+		 * the driver, see the above function for more details.
-+		 */
-+		struct drm_gpu_scheduler        *sched;
-+	};
- 
- 	/**
- 	 * @num_sched_list:
-@@ -721,9 +729,9 @@ void drm_sched_entity_destroy(struct drm_sched_entity *entity);
- void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
- 				   enum drm_sched_priority priority);
- int drm_sched_entity_error(struct drm_sched_entity *entity);
--void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
--				   struct drm_gpu_scheduler **sched_list,
--				   unsigned int num_sched_list);
-+int drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
-+				  struct drm_gpu_scheduler **sched_list,
-+				  unsigned int num_sched_list);
- 
- /**
-  * struct drm_sched_pending_job_iter - DRM scheduler pending job iterator state
--- 
-2.55.0
-
+Alex
