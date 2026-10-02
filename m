@@ -4,98 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9CDACA5FDD
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 15:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 006CCCA5FC4
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Oct 2026 16:13:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5508D10E510;
-	Fri,  2 Oct 2026 15:54:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ED3210E623;
+	Fri,  2 Oct 2026 16:13:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S1be38C9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HiLJuVqh";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010058.outbound.protection.outlook.com [52.101.56.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5433D10E4E5
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2026 15:54:49 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011053.outbound.protection.outlook.com [52.101.62.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B5BE10E623
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2026 16:13:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jwwX/fUcdKBQjtMrpP6kAdTiJSS41+7mhMgsmEEVwelY3rCwkW2n1Dw13YabBW42q7az6lQfeXbN3DwRDEJk1/YO72D71HN6lgnYTkFS4xfhXwWB3oufHhwak0JFe7qDI8G10FK2+xR9P2JKlsCKyM/W3VqyyVXYBvBx66rEnph9jBW8hSnr/hLKBZYucud9T3Fw2KBGO00hemPQ2Jjuw/fb4YRuaY3xCm9mTpFEitTSFnvn5Pybr6yV7XzGXGKKz4TLCKl358h04GsnFMCGT7NLXw/F3Ez8WSnR4OaXppjfY6MSDPegV0QfosZzMPeURpTBDC7JfZCE0+o3KhkWGA==
+ b=Y/BCXY94vAQ0x9IQoPQgljVXfg5n+Bk8QAZYQXlrNucCQEg6IjvFV2lxLycZS1422yjapTCnBRGsesBDDDcFlTpxB1fIjq1wXU35lmOIMDRBDa9tRCHLI53guCDRq7afsH83bBUhf02PamgDBgckAd6dEGxlOvobdG7lD6y4WROlp+Kf0/R2vzNvrfaeZRd1RydNb9cOfvCVug+uCh/2sXrFNlw46IoXTIpL+Jv2BtrwdEJnHcXBK5kAfCKBk+niWYT2FFMw9UfjPjvtgJ0fiH22E53HZlohkFMxgGrR7Bh+pJ5SO2qKJAd6u/Kw9EozaUWs0vmm4qrKU4xP8kpaiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2PdujgJuZDpJQQ8JenueFHgeWd5v7EEsoom5+c533uM=;
- b=hKmsoDk+P8LhjB7FmaGNSRVYFY5ZVCmahKEgAbOeRClO1NAqZG9o46fLgOfo9SvijkpHxnIHxepXnFGYplz915spqp0KBtvCaP1f5axfCSOqv83Kf7ctDV2ihtYRDHPy4UutZ1cJXwhJ+50oOXqNlzdP2SvjSuo6gknaTFhcuDpySwlc12ZuIo+6FBUCp9VFisWbBIOGmpLOYvLIXCL1yw0lP7Vezg6A2urDThbF+06kB3YFdt4/D4HLNB6wCaaDpiDvTOdMVZkzRNrqlAz9m5N7pdVAkV1XJMiXIsnIjVdurpgntDVEc8bFdpOU/RSupGcRlOEaANtMunXP9FYPtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=BSzPbeGK213bvABY9acxOLPss2fOBTTuOu1cQ3iBwhQ=;
+ b=i7JIDJDvI/ocHIl7QuDQJGfRy3vpxKw2MOeEwn0y8+Z8josXjP1ShrBXwNwj93phaNcwNLwEKf5JcD0QtEO9ZbwyCNaQvz5EHJ3I+kU90+hT93MYOQfvg2sam3Ahrx2Xx2qmYMEijuZj7ASO1uPBgP2fofooCMWlAbwqvNabKa2WMd/L/6suu47M5HiYdmJn2fZ0r3tUgNWomTu+dYQEC/Bl1n051z6jTYrGrSmlEnJ+XGX4hr4yV7Cst6VVESxMyAGVW/U9AUpw+Ehad9pf40BzEEAqPrtY+O3O9sARcjPfBuRV7s0BNI5S+HNzVGaldTGHj5g25F1YDR4NYppvNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2PdujgJuZDpJQQ8JenueFHgeWd5v7EEsoom5+c533uM=;
- b=S1be38C9GrUeL9ZkrtRs/hRIvRiYvMDcyqhFkj2GMAZUlkox9t7mD1lph/Y2qxClcoe2dC8YIjv/9EFETTIznujAbsyu0xEDWQ5CY4h2wisR6dMs0GRHUKibztMNu7yq75PiYnkaaQEVZ2Ge+um06+PbRIQae1mca2cA5GYQxSM=
-Received: from SJ0PR03CA0186.namprd03.prod.outlook.com (2603:10b6:a03:2ef::11)
- by IA0PR12MB8907.namprd12.prod.outlook.com (2603:10b6:208:492::19)
+ bh=BSzPbeGK213bvABY9acxOLPss2fOBTTuOu1cQ3iBwhQ=;
+ b=HiLJuVqhkAzvUq2j0NC2NKSS8PoKtq5KPWe3Eyx8bf76TDKlmQOM9puoXhshvO6MlkIB6hgVhWtzIBdJGAA40pGJ0lEqlnGHOkbqi7dq7ldGnzPK4FeRyCvTuO0iZgZ6bJjeQyJxsnMnYDBgvgm1uM9DsFjM++N+h/WyE5c8mMc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by MW4PR12MB7215.namprd12.prod.outlook.com (2603:10b6:303:228::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 15:54:44 +0000
-Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::98) by SJ0PR03CA0186.outlook.office365.com
- (2603:10b6:a03:2ef::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
- Oct 2026 15:54:43 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 15:54:43 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 2 Oct
- 2026 10:54:42 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
- <Harish.Kasiviswanathan@amd.com>, <Mukul.Joshi@amd.com>
-CC: Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH] drm/amdgpu: Flush NPA VM TLB after page table base is
- programmed
-Date: Fri, 2 Oct 2026 11:54:32 -0400
-Message-ID: <20261002155432.334448-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.50.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 2 Oct
+ 2026 16:12:13 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 16:12:12 +0000
+Message-ID: <2b4560f5-3458-4218-89f7-509c298b2126@amd.com>
+Date: Fri, 2 Oct 2026 11:12:10 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: amdgpu causes boot failure after BIOS update AGESA ComboAM5
+ 1.3.0.1a on Asrock X600
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>, Johannes Stezenbach <js@sig21.net>
+Cc: amd-gfx@lists.freedesktop.org
+References: <ar-GzWfyQMeRTRCt@sig21.net>
+ <CADnq5_ODecWYOwbBYDnV-aeAi+pCMoxJvufuzY8_4yf5cF0dEg@mail.gmail.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <CADnq5_ODecWYOwbBYDnV-aeAi+pCMoxJvufuzY8_4yf5cF0dEg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: SA9PR03CA0027.namprd03.prod.outlook.com
+ (2603:10b6:806:20::32) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|IA0PR12MB8907:EE_
-X-MS-Office365-Filtering-Correlation-Id: aed59453-7078-46ea-8c73-08df209d7a02
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|MW4PR12MB7215:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb8a08f8-b724-4d0e-6539-08df209feb0e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|56012099006|10067099003|11063799006|5023799004|18002099003;
-X-Microsoft-Antispam-Message-Info: ZN9WYoh5haGssEscevUgZSoJXPM96q8hkZx2fnfP79fJOEnPNaivEDQU5RwtGEARcHlxnbVC12mB9aunPrN6vsRxZrJdfXFhZRVheOIeHIPFHSRP3zU5Oi2zRMiFiOXL/6xQYb0vXVz8d1rFdrPps39tmQef1aPuTuYX7S3WYeyq2DYUIT8dub06EcZmnpYzlJhvpgLkz9S0V0Pe7Wjk6IX7RblaHj4W2YvezUORHBDRlxXPegWZDf6VS5Cecm0ae6wl4asoc3mg8qKoeo8j78ebk/qelo6dflqSIY12+rzuKN9Q4B/C53zTeo4m/WJYao6JBLh1QdVAwNAgjZXIPh3JbUneBn0ektb/GqQKIdprm5SJNkrj60ROiQDiiMixLTKuFMuMVyX7X+rKnQhTnnxTONlB6MSob2Tch+qEnmcE//WUax5tqLCtC6dAAeSM8l1Ab4146ytA+5IAgt1Lk8WOdVXADeWutYoFFvTbs/o44hk33U7uYCj5VcBAzDMFy4qXF6xjJ7XQSuMPDiK11znp4ySM1bby5aytnsgAYZU0l/IFqxreORppiXR6bWW9uie3Xv2kxH6LIlEYczDOZ5Wto2yp4nG78CCtAAF3NbC8evQ8CI89OSyd0KK3OocImNJkf0yagx/KshgysVFFSUAXVFNqjevN7snfJ1ieoEPXLXgwiJQPEOn8Are4i4gWVug4VEAx14yUr6+T0lwGFA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(56012099006)(10067099003)(11063799006)(5023799004)(18002099003);
+ ARA:13230040|1800799024|366016|376014|23010399003|20046099003|10067099003|11063799006|3023799007|18002099003|4143699003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 2MNWOsBm/ertVi0lboXwf1gr94RHAnAFHIb2Y6J7BtxZLfVM2+xo+pu6/xhZw9bkJ9vbNorIVA2AK/ShlE7JSWdY+BVDkKnc2VFJ+TxP5kOXV66lE5LHDkXGRvEnpEUMAtBdYhU2KMtadOTEHW2dBCirFm4gf9Ki6hQpSGGJRLVtUvP0k3z0gSHlB990Hf+HFl/N5qMb7X4sk8kMJ5+nc45YEU3AYkVGnKn+P30Y+m51r9TaSbuXIUF21rlbO+DBDkNFRmAGzCW/IvnSyMRUZFVwCOo4PAXIsJJGuc2+FR1m9dRjGMh4+15Ygep3nJtJJ9PuwqbJNcV2jR86DOwFiBbveeDcvsf6/FHoIL80ZLw8Uw0a5+/FXy5I9YXjgv4vA/Wl8P2D0GSoUekqr8um9Xm3I7LUT/ZDsgfgdqTxmTbpif7vzxT+JchBQ1nOGmFNe7GmZzqgnoYXMfGZcNOgmFeRRs/6rxtTcN9uFopl+B6QHHZXRWIg8hKvqaPWcZgZxzrg/No79ciDJHCPE8UGdvuMDnvYMrj3JVXPalWg8/R0PwUmHmicSGcS0+JRlRVWI4i8bheItJG8hk7UWenJi3kVBOa1QJ/TD7KtLTldj/jjoHYEjxSErh09sNFjLaC0
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(20046099003)(10067099003)(11063799006)(3023799007)(18002099003)(4143699003)(22082099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: wI7QQ3eaTgArnGwlLlWIZ9aZ34t0GdwtKUK1e76MkBoD76TK6Eh22I+npZ/zx/jRR9TTecLV9Sqa8wWAY8XWxFxnlY88n6CR296obao6UJOygffdp7xaAAK2k4bVy0FjDykEZkP6VkD+oMutpZUSh632Vr/UgrUD6SP85y4fvbANBgLuxYb3tV+sc4mbH7Jfqk5jIRJpltwzFTyzUzgToBzSQIW7JHZHhd7gJfAyLU4TKo/9Tr4DZJH1T1HiD0CCfHIS3wL0KuEMw2+xzRyVrXC7SWIP07W+Hgc7LOVB3bt8LLIBQM2il6k8TlgXQVazPJdd/DEBay5EvRqF26ekF2Tkb1b+mZncpwbnK6SzYjmhBHj1nbwomK9FPmmm0rtjXoZVFfTccq4kCJTvlfyvd56VMPWSC8CQowdptrpsZYGymc0YlK5ngcHLLUN1TDhl
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dmJ3R0YrNHpFb0xYdDAzcjl6SURxOHJKYytheFdrOUdoOHZmOURMNVlEdHU0?=
+ =?utf-8?B?cUxVaWlUTXZvWE9CdzJGa3pWU0FGaVdQNS85TG81cXBxc2VjQ1pBZjUzS3BE?=
+ =?utf-8?B?cVZkNkNMT24zWlZHbHZyZklOUUZqSzNWZm9XUTlhUnJ5cXhnbkJnR3dBN2d4?=
+ =?utf-8?B?elovYTQwaUtYbi9qcjY4bGE0aHhoNkhHRzIzMXN4YU9hSkQwajIzSElCQmZQ?=
+ =?utf-8?B?Z2ZWVC9XYUpIcXJHckNUM0dFTlR4bVRlaktyWkxrV29MSHkyU2ZRYkZmakRP?=
+ =?utf-8?B?anR2NjQwWTZwM3pWUUZUazZLZjRPTlk5RFpZb0ZPQmNaRUU1bld5V0p1TFJm?=
+ =?utf-8?B?NmNvaWh4MW91NnRjbFh6eWxHVTYzUFZOb3VqMkg1K2F1dHVGOExoYUZ4RmNI?=
+ =?utf-8?B?ZmlUVmN3TUpBOTNHTTVJMWZsYWltZzl5UXF1QTNob0haempScVRQcndsWUhm?=
+ =?utf-8?B?QXgzTVRmK1FXdGYrV0dPNGlsU05sN1BGT0dyOTJ1eW9OcFVudW1kek9Qd3VX?=
+ =?utf-8?B?VjJ0bFZzRUNESTFaK0hCMVNteTRuQm5FTmI3SmVqRVZZZGJMM3phejRIYTdK?=
+ =?utf-8?B?aG1iV2l5ckpLRk5oTTdZbXFjQ1ZIYllzZERJRXEwVGJLcnJ2QlVGdnd2RXFX?=
+ =?utf-8?B?MzlqbEJ4MGRsYmFobWpvUm5JNS9YaFhKRktxZVJBV3NXTWZNM3F4MnlIejlm?=
+ =?utf-8?B?N01OTG1MdmdGeW5KbHlPbnpid2FKNWlYSVNKRjlWcU1aS0l6V3YzY3hBMGNR?=
+ =?utf-8?B?cFc2aTdqSjIrdTNzT2hkR0w2ZkdBd0VQYk1jbUpJZFBMOHp2aW40WFM0SXZu?=
+ =?utf-8?B?dkg3ekd2T3dhaWVQSU94Wk4xR3FhNVVoYXJQQjV3TXFFWVQ5Y1gwaDdrNVJr?=
+ =?utf-8?B?T1pTRmZxd0VzS0pubmE2ZjNGdjk1Zk9JM3FXckEyd0hqVDFwZUhWQ3cwYWNW?=
+ =?utf-8?B?QitYRDM4NVhhcEM0cTBHQWxTL1FCM041OGJSRjhZcndhUFY5bkMyckJCeGo3?=
+ =?utf-8?B?bkpuRjU2S09jMFI1N00zS0JZVWwwTU0vUWdIcHlsWEJHQ1ZVTDZ6cHpNYmJs?=
+ =?utf-8?B?bWIycXdoS2F4SU1qbUtTeitzRndYakJ6VWRSdUh2aWdZbkVVaXhrdGdMaldX?=
+ =?utf-8?B?UmFxWTNKVm16THJYczFDMW5lNk5wcFhXTHFONUFkVTJyditnZC93WUV2QnRJ?=
+ =?utf-8?B?SUFCWDVORTc5NlcrbmlMbzBPV0FSaTNScDMxVmt6VjR4Qmw4ZTgxZUdZVnE2?=
+ =?utf-8?B?ajhWUHVFWVBEU1hRaU5MNWI1aXFqMTQvemVyUzVqNzlmellBNHlYTzZZZHEz?=
+ =?utf-8?B?ajVnR0pzNU5uWTI4MnZGSmZvTXpoN25iQTVKOGNRVVhhUjJlcVpQZU1zaENy?=
+ =?utf-8?B?SmVkcnJDL0V4cnF1OHBWTjdSL3F6MnZVVUlmcTRveHpoSFY4WUtrY1ZyaGtO?=
+ =?utf-8?B?NGxIZkVkRkcwL05Cejd2K25DUE9oSTczVFgrdzI2MXVldkdmVi9rZTdmN2d3?=
+ =?utf-8?B?MU1RaG9tNVRQVFRpaXZnSnBodHkrVitZL3crdVZaK2xOTzdwSkg1bU5GWUZW?=
+ =?utf-8?B?RklHcVBZeTRDV0MvcGRsWHpsOFI0dzVrQTdFZXhzNkxwUjhYR0dnSit2SXpu?=
+ =?utf-8?B?Y1hBenRmZHY2RzcvMFN6M08yWUJ1N1BtYy9aQ2hkZzVRa04xdnJQMFRDenp2?=
+ =?utf-8?B?RU5LUTFRRWUrN1dQdjNFUzhjUUFiaHo1cEt3NlB6V01rQWNyWlhlY3BGbkpx?=
+ =?utf-8?B?UDUzNzZHY2FzZzhHMXRwVks0d1ZBcDlpWkJTd2hxOTQvYmJMQkx1VUd0WDk5?=
+ =?utf-8?B?eFI5eVdrQjFDbFdhSXBURkdvdzVPOS94RklOdlQrdnpzMGU5NGlFSE5ZOGNO?=
+ =?utf-8?B?QWRxdExwZXBuTVNXaHloaUFpQTVNOTZ6WWNQdzRoNXpTWlVwclAvQmswd3dy?=
+ =?utf-8?B?VnZrRnVQUGZBNHZaQ0o3ZXVtVlM1WVVrMDBTOWU4d3o4WEhaL3VESGthRVpW?=
+ =?utf-8?B?UEVTakdpUXROeUNZVTRyWklHdmRCMEgwWXFaeXRpV1lrTVV3MS9YK0UxSG1M?=
+ =?utf-8?B?NXlxMXVyZitEMW1iNVFOMHJVMFV4S2FCMEsvY0s5M1FNaytyMmRJODlpcWFk?=
+ =?utf-8?B?dEpkdmp0V3FCNW5CQXNhSnM3ZHZWeTVHN2pub09nNmxXZE41eFhmTjF6M1E5?=
+ =?utf-8?B?eXhnU0hSL1d2bWRJZmhIS1YrMk9DbkpObUxkaGowTnB4ZEh4MEVhdGkyUldz?=
+ =?utf-8?B?ZVM4c0JYYUg5M0xoRyt3amY4cjI0Vk5PeERWeUdZUUdCcDFXcEtTQnh4Z3NX?=
+ =?utf-8?Q?9UFISObX1N0Y7AlKGr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 15:54:43.7468 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aed59453-7078-46ea-8c73-08df209d7a02
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb8a08f8-b724-4d0e-6539-08df209feb0e
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 16:12:12.7782 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6194.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8907
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: K7IvJbNGayEnaCk5oeG+YZw/2vr1Ns4o+YuOXoZnF0SkeaRgiC4NR1eoVC5e7OevrfSTORx45xNvcxOiNlx36g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7215
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,54 +135,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Flush the NPA VMID TLB once, right after the NPA VM page directory base
-address is programmed, so no stale translation is left behind from a
-previous page table.
 
-After that the TLB has nothing cached for the NPA VMID, so mapping a new
-NPA address doesn't need a flush. Drop the flush from the metadata NPA
-mapping and from amdgpu_ualink_map_npa_addr(), which never updates valid
-page directory entries, it only maps a newly allocated NPA address.
 
-The NPA unmap paths keep the TLB flush.
+On 10/2/26 10:47, Alex Deucher wrote:
+> + Mario
+> 
+> On Fri, Oct 2, 2026 at 8:52 AM Johannes Stezenbach <js@sig21.net> wrote:
+>>
+>> Hi,
+>>
+>> I have one Asrock Deskmini X600 with Ryzen 8700G.
+>> Recently a BIOS update was released which updates
+>> AGESA ComboAM5 from 1.2.0.3g to  1.3.0.1a.
+>>
+>> https://www.asrock.com/nettop/AMD/DeskMini%20X600%20Series/index.asp#BIOS
+>>
+>> The result is boot failure before any message could be printed
+>> with my self-built kernel, which has the amdgpu driver built-in.
+>> However, a Debian rescue image with kernel 7.2.8 could boot
+>> (in text mode or vesa graphics mode).
+>>
+>> Using the rescue system, I installed the Debian kernel 7.2.8,
+>> it can boot but hangs after the amdgpu module is loaded
+>> (no error message or crash output).
+>> It can boot successfully with module_blacklist=amdgpu.
+>>
+>> https://packages.debian.org/forky/linux-image-7.2.8+deb14-amd64
+>>
+>> If you have any ideas what to try please let me know soon,
+>> otherwise I'll have to downgrade to the previous BIOS version.
+> 
+> Can you get ssh access to the system?  Can you boot without amdgpu and
+> then log in remotely and manually load amdgpu and get the dmesg
+> output?
+> 
+> Alex
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+Depending upon how early it hangs, anything saved into the journal from 
+previous boot?  You can try:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 758265670340..f49404a6dee4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -2148,9 +2148,6 @@ static int amdgpu_ualink_map_npa_addr(struct amdgpu_device *adev, u64 npa_addr,
- 
- 	amdgpu_ualink_unreserve_npa_vm_and_bos(adev, &exec);
- 
--	/* TLB flush may be needed after updated page directories */
--	amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
--
- 	return 0;
- 
- unmap_npa:
-@@ -4162,6 +4159,8 @@ int amdgpu_ualink_manager_start(struct amdgpu_device *adev)
- 	adev->mmhub.funcs->setup_vm_pt_regs(adev, adev->vm_manager.npa_vmid,
- 			amdgpu_gmc_pd_addr(adev->ualink.npa_vm.root.bo));
- 
-+	amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
-+
- 	xa_init(&adev->ualink.exp_xa);
- 	xa_init(&adev->ualink.imp_xa);
- 	xa_init(&adev->ualink.handle_invalid_xa);
-@@ -5056,8 +5055,6 @@ static int amdgpu_ualink_metadata_npa_mapping(struct amdgpu_device *adev)
- 			dev_dbg(adev->dev, "failed %d to dma fence wait\n", r);
- 	}
- 
--	amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
--
- 	amdgpu_ualink_unreserve_npa_vm_and_bos(adev, &exec);
- 	return 0;
- 
--- 
-2.50.1
+# journalctl -k -b-1
+
+Also; what is the version of your DMCUB 
+(/lib/firmware/amdgpu/dcn_3_1_4_dmcub.bin.zst)?
+
+You can use this script to parse it:
+
+https://gitlab.com/kernel-firmware/linux-firmware/-/blob/main/contrib/get_amdgpu_fw_version.py?ref_type=heads
+
+If you upgrade to the latest upstream version does it help?
+
+Thanks,
 
