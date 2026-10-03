@@ -4,51 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E65BCA5FDD
-	for <amd-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 08:36:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A3A1CA5FDD
+	for <amd-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 10:31:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5219010E03F;
-	Sat,  3 Oct 2026 08:36:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17C9710E92F;
+	Sat,  3 Oct 2026 10:31:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nbmdVTb8";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UReXiafg";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C42610E03F;
- Sat,  3 Oct 2026 08:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=1FT2aHW4FQFzpdhNzBR+z098CQvzO9uKHLxt4GQ8rqY=; b=nbmdVTb8PjQdBsiQG/bi86D/to
- iGAyt+7x3xjHa9GYpbQ9rXd68q/gb5vQMozuLe/z6zqtiSn53lIuz8AauiO8ZYk0V1/MqUdrkjW0E
- TIx+9kxQ2Hsage4pS/DTA61U3C9aMw1kzOPCZqWR8zDuNcfZnaG27+Qt/P9+joI6WJrSCy2YRBJz6
- vTqC5biSe5GzLoulbdHIxmidU7V3knEDDTC2ZDBVFVvC4g6UayRADGeCr4ZVZxz6KYIBmoIbyY+k8
- ISzsCG91+4YdiXsIIbtXaReBtuzkmbWQ3MYqRLgAIFnTX/remt0MIIe+pj93VCDUftXmhfA3rLUdM
- 8h5D4ulw==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xCvEC-00Axgs-41; Sat, 03 Oct 2026 10:36:20 +0200
-Message-ID: <401fd882-e9c8-44c5-9497-31ea6b8a596a@igalia.com>
-Date: Sat, 3 Oct 2026 09:36:18 +0100
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F28EE10E92B
+ for <amd-gfx@lists.freedesktop.org>; Sat,  3 Oct 2026 10:30:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1791023458;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=x3OlQPuKLle/RWQyCvYbmxpN1t4vBLUkyyPtEqihZM4=;
+ b=UReXiafghX64kpKGImsxTTKlDlI3P7ZvzxZc//n7Evfe82nc3yPdUOTGKjX2HrfCxdDlAW
+ oXW2JwwrQ6I6QCCAr4ECDY9kicU8bmXgEJ2AinnMFWINqE+6WP3CHIMc0Oju3ZvFc472x9
+ vaHydr8BpNTpO9Zf8p4vO1HTU1ktw6U=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-450-i_o116hDPx-B7uIKzyrsXg-1; Sat, 03 Oct 2026 06:30:57 -0400
+X-MC-Unique: i_o116hDPx-B7uIKzyrsXg-1
+X-Mimecast-MFC-AGG-ID: i_o116hDPx-B7uIKzyrsXg_1791023456
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-49e6862e924so4887375e9.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 03 Oct 2026 03:30:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791023456; x=1791628256;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=x3OlQPuKLle/RWQyCvYbmxpN1t4vBLUkyyPtEqihZM4=;
+ b=V6/60DB89JQ9XAae0bcDjk7hCGsRSR3HILL49eTQHxK7gs9EJNZnvg0NdsXYzlLDWp
+ l6YPtS/1sGkRDjy7GyxMZrt4t1u+TV6tEzma5E+hJqHVKiRRPB5Pypc5vip0S2CG4kiP
+ LiJzavq49FYpLtnfcbTYuf+nshq8/1JH/9qOLs95/f4GmndPcXar6byocYn20KC9Z/cU
+ ucBZmqb19Nas/dXiLofsgK7GBQD1ff+e54/5zoXkjBtDpWQPQMV0ktU2hBgIfQSHfpue
+ 230mPDH8aEVrD4Jyd9Gqdyp8WDkpoVbWwjh5ko4aoq+tJhyduO+EetsbmgGxzbv01mbt
+ 9XGg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw6W3veeduMxaV5tQYXhwpEeMQEVXXBIWvzcZabE7PeCzIHqBfljVOS/9Nmqrawu18iTZ8zSaxh@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lW2dY67X2qkxRTZUg3UJqIukLY/ad6LcQHZNE+KmBEhkTtEvoq
+ 1IW5mBD7TK15QGyibQiTH6F70LDPa0rWJU23tzikRRAGlgiAKhblNh3rxTQRG1+AYUJu7w/bX+q
+ e0H8B8AWPYZbep5++YH2Q+IjxO7hu/nEY+hkzOdAnAN7+aRGr9u0Agb09LO0ldV6C6n8=
+X-Gm-Gg: AYBFou3iL7RIci+QBn95+uzzl4FTgHcjec9MjwjNZ+hWC43031kxgVESe/aOf6Ds27a
+ 7bSi9z4yjuFKDq8TvMj8zBbI+++ecy5JZwRJJ4xdkpPPHczzDiuXJgPHzKIBBnvAktiM3e8nHsH
+ mBDM+2AJ6Ojm49oaPzMxRYyF70tEDZbUtn4O6LMCnh9ZrRvTyYrhlzBghDlddfzeFzjMEIrUgvN
+ XopTsvJkp3TKa+QcKCVgWQzr6JNBfT9VDr1CeFzaiI2C6tDVGIjqPJF9OPD1rTnCxpxntQDhGPa
+ D+aWQYRxIvGYfi+X05P7otUnkAWn7YcSCmYkckXwkhKDvikVACITm0VG2OG91YX01lxIcwfnKHX
+ TpoZT9ZVYx6DApj0Whu0vOeSEjO/PJtqLE+ue5fnl/THkT2ALfm3dqFQ6rjwCNR+0/Q==
+X-Received: by 2002:a05:600c:3115:b0:49f:cac3:c68a with SMTP id
+ 5b1f17b1804b1-4a168105ddfmr30255995e9.31.1791023456048; 
+ Sat, 03 Oct 2026 03:30:56 -0700 (PDT)
+X-Received: by 2002:a05:600c:3115:b0:49f:cac3:c68a with SMTP id
+ 5b1f17b1804b1-4a168105ddfmr30255685e9.31.1791023455648; 
+ Sat, 03 Oct 2026 03:30:55 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a03ff20831sm97747375e9.4.2026.10.03.03.30.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 03 Oct 2026 03:30:55 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, harry.wentland@amd.com, Simona Vetter
+ <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, "open
+ list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
+ I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Mario Limonciello
+ <mario.limonciello@amd.com>
+Subject: Re: [PATCH v9 21/21] drm/solomon: add SSD130x connector luminance
+ support
+In-Reply-To: <20261002190030.211356-22-mario.limonciello@amd.com>
+References: <20261002190030.211356-1-mario.limonciello@amd.com>
+ <20261002190030.211356-22-mario.limonciello@amd.com>
+Date: Sat, 03 Oct 2026 12:30:53 +0200
+Message-ID: <xlv1zewv5b4y.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 0/2] DRM standardized memory stats
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Ludovico de Nittis <ludovico.denittis@collabora.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
- <5e0949d4-85a2-4519-9e3e-a1b01ae58f46@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <5e0949d4-85a2-4519-9e3e-a1b01ae58f46@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: eKUrKes4IpbXv5gyr7HNWcei4peVdRtli82lvPZol4g_1791023456
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,94 +106,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Mario Limonciello <mario.limonciello@amd.com> writes:
 
-On 21/09/2026 10:19, Christian König wrote:
-> On 9/17/26 14:04, Tvrtko Ursulin wrote:
->> Re-floating a simple idea (this time with more Cc) born from an user interest to
->> be able to correctly size the swap space during OS installation, based on the
->> size of the VRAM a discrete GPU might have. And to be able to do it in a vendor
->> agnostic way.
->>
->> Idea is to expose a standardized scheme in sysfs, under the DRM class card, and
->> under a new 'memstat' directory. Such as, example from amdgpu:
->>
->> /sys/class/drm/card1/memstat/
->> ├── gtt
->> │   ├── total_mb
->> │   └── used_mb
->> └── vram
->>      ├── total_mb
->>      └── used_mb
->>
->> Or with concrete numbers:
->>
->> $ grep -Hr . /sys/class/drm/card1/memstat/
->> /sys/class/drm/card1/memstat/vram/total_mb:1024
->> /sys/class/drm/card1/memstat/vram/used_mb:445
->> /sys/class/drm/card1/memstat/gtt/total_mb:7394
->> /sys/class/drm/card1/memstat/gtt/used_mb:71
->>
->> Drivers need to implement a simple DRM driver level callback which needs to
->> report a stable list of interesting memory regions and their respective stats.
->> The region names then become sub-directory names under the new 'memstat'
->> directory, with each region exposing the total size and the current usage.
->>
->> Similar data can already be queried if the dmem cgroup controller is enabled,
->> also only for the participating drivers, by querying the root cgroup. But
->> perhaps sysfs is easier, or perhaps it is too much code for too little benefit.
->> I am curious to hear any opinions.
-> 
-> The implementation can be polished a bit but I seriously like the idea to standardize that.
+Hello Mario,
 
-Indeed. I think I've fixed all the kobject related flaring bugs locally.
+> Expose SSD130x contrast through the connector LUMINANCE property when
+> DRM_LUMINANCE is enabled. Program contrast directly and retain the
+> backlight class interface otherwise.
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
 
-> amdgpu already exposes the information as non-standard sysfs files and adds a bit more, e.g. CPU visible VRAM size, VRAM vendor etc...
-> 
-> I'm wondering if those shouldn't be added as well and the existing sysfs files then implemented as symlinks.
+[...]
 
-CPU visible I guess could be added with a small addition to the 2nd 
-(amdgpu) patch. So far the implementation is driven trivially from TTM 
-placements / range managers, but I could easily add a different stat 
-since drivers define what they export.
+>  struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
+>  {
+>  	struct ssd130x_device *ssd130x;
+> +#ifndef CONFIG_DRM_LUMINANCE
+>  	struct backlight_device *bl;
+> +#endif
 
-Existing files as symlinks I do not know who I would implement it. File 
-to file is not possible AFAIU, right?
+[...]
 
-Allowing drivers to put custom files in there might be complicated and 
-could create a standardization problem. If vendor is strongly desired I 
-could add it as DRM owned attribute perhaps. Like 
-/sys/class/drm/card1/memstat/vram/hw_vendor or something.
+> +#ifndef CONFIG_DRM_LUMINANCE
+>  	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ssd130x,
+>  					    &ssd130xfb_bl_ops[ssd130x->device_info->family_id],
+>  					    NULL);
+> @@ -2258,6 +2298,7 @@ struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
+>  	bl->props.brightness = ssd130x->contrast;
+>  	bl->props.max_brightness = MAX_CONTRAST;
+>  	ssd130x->bl_dev = bl;
+> +#endif
 
-Regards,
+I think that IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE) makes more sense?
 
-Tvrtko
+Other than that, the patch looks good to me.
 
->> Cc: Maíra Canal <mcanal@igalia.com>
->> Cc: Ludovico de Nittis <ludovico.denittis@collabora.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> Cc: Maxime Ripard <mripard@kernel.org>
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: David Airlie <airlied@gmail.com>
->> Cc: Simona Vetter <simona@ffwll.ch>
->>
->> Tvrtko Ursulin (2):
->>    drm: Allow drivers to report standardized memory stats
->>    drm/amdgpu: Wire up DRM memory stats reporting
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   6 +
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   2 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  40 +++++--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  37 +++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |   3 +
->>   drivers/gpu/drm/drm_drv.c                  |  10 ++
->>   drivers/gpu/drm/drm_sysfs.c                | 123 +++++++++++++++++++++
->>   include/drm/drm_device.h                   |  19 ++++
->>   include/drm/drm_drv.h                      |   8 ++
->>   include/drm/drm_file.h                     |   9 ++
->>   include/drm/drm_sysfs.h                    |   4 +
->>   11 files changed, 248 insertions(+), 13 deletions(-)
->>
-> 
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
