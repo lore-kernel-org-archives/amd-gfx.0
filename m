@@ -4,77 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C9F6CA5FDD
-	for <amd-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 06:38:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E65BCA5FDD
+	for <amd-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 08:36:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1E5B10E750;
-	Sat,  3 Oct 2026 06:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5219010E03F;
+	Sat,  3 Oct 2026 08:36:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MNNVxsDP";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nbmdVTb8";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0566A10E750
- for <amd-gfx@lists.freedesktop.org>; Sat,  3 Oct 2026 06:38:22 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-4a003bd18e5so2430105e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 Oct 2026 23:38:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791009501; x=1791614301; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=/EGDVj/JX49MDewUpmkRIx4iJb4U7DfFprD/EuooNYI=;
- b=MNNVxsDPpOyxB6dg31nPcYvrA39kt+W/H+t+o/nW/28xem8M/Tfo4p71JCJx1FeQIK
- Y/NCJ+Cp71C4A9qpBPJcuTnqI37CnqTErSxbS43Wtq227tAnIMtEa/7Vzxnz/gYZZzQ5
- yMDcps2or4c/pM9VRud9D7XWMw7S8jZ2duJBxvodoQ3Xd//mxgEmsYx1d1cUwWT/+0bh
- 0Cd84wLchoQF4bcgkyFviBieO8mvjXKUVxoghar56un8911CxSCn8f4BdAe0tGP2YgZR
- V8ZnUOOCoObiIU7ag6tXfNWaGIYSQYWGqi0gvdyiYhwM19GtMk5fjDxgQ1Yo/80LcaIo
- 2Axg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791009501; x=1791614301;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=/EGDVj/JX49MDewUpmkRIx4iJb4U7DfFprD/EuooNYI=;
- b=LFcVLxzoIi16EPp/XPVNBT021MEjCO164CQT7OG2jCSOM8E5MZGsZw7yGPpoK0Sf/r
- Xyzl8DX6TYdrBWkrFKCj92iJVLCdFVhMo08YuAwiHC8z9KwtA+gChhijdsDEcJqeuPSm
- Pm796203i4s7Y2VH+Vl4JO4fbHwdo4ygfJIxoSjzETYaXJiUw6R6qtinwm5W/E9iyv06
- 2JuWf/SY3peCapIeDHRRZEsQg51kSsmZRLRm6JAN5EHE6exLfsE8T/dUdli+KYsBie4i
- C+tBzOuuIvcQpnEDbSnOgbi3D/VF5t6G7PhILhjssN9mWHetRA126a7mH3YTthgtuFBT
- qX0w==
-X-Gm-Message-State: AFuF++l8zSAQWVHEEXL4LLJTIAMt4LekUII/RbZmwJwRQ3sEv454jd56
- v4T2RTIKRbQHxIIzJfln3hvhEihWuXa0HftOo+vb36nvePNjgY/dJQA8XO9QAA==
-X-Gm-Gg: AYBFou2JgTb/3QtiVJSFCszKYw9wzyGtvpYBUcpRmqiNcOFiItQD2fMo75DuY0PJv9f
- njL/4c9a4Yvp9gl5xrnqW7uL2SL7HvRSNFMti7kKO7KUlE1tcIUH9O1M5LICVqA40AbeG/+Qay1
- J/rWGN5W2YP7bEJp6Mr/YGFzve52hxPyrOrpWkWVz0bFx6tec0GD6m05c48T4e/FAja0P65hw3Y
- Qj7V/IJPDXzeFLk7DZytp6YFBcpoNeGeWHPRB6pB/jalbzlLSUK0CO1D8lTaHwsp8Ekzljwcltq
- xaK5rXaJLTjpW7KFwSOBmuoiFtqBCB3wm/w2DkoK2BkDbWVZlXz5Tlm1rbEvOnvi8Rmc4+Sc6iS
- PPV9cYQd1CzivDd8ejyRTerEcMftimjJBLCNXwKVqBm2syDIYYKWB0VQ699QG48rYyx15/fYqAH
- zyImhIkuDSuf+FAIe6uwvtO/3kZeVvqjmSE3I4/8K0tHE+AmpCOi0WFUnOT6iJRcgyYmTZXw5dx
- ZPVVCleY5NExIb6gJ0WlAmWIJJye6mH2SHjJAaL2HZqdDUCt5CjXWoSHukZaIFa47pn1BOM7sd9
- illZwmA0KDDL+n691BEvEp5ynncys1lTzPmXQIU7UzA1USzhkFp5LvUOPwqjJs78CbeaQtiXmyz
- BWtXB7Faur/2/i8CexJUzCozHqlOgHpfmt3lw5yXL2TkzYdUYfM9kxKHxakUgPYo1aH8LgCi1cG
- Ozkts9dPTSUBvSp+g=
-X-Received: by 2002:a05:600c:3e07:b0:49f:df99:ff1a with SMTP id
- 5b1f17b1804b1-4a02759770dmr79699845e9.17.1791009500990; 
- Fri, 02 Oct 2026 23:38:20 -0700 (PDT)
-Received: from localhost.localdomain ([2a0d:e487:416e:c95d:c72:8d01:9941:d6d0])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a027735be1sm200215285e9.11.2026.10.02.23.38.20
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 02 Oct 2026 23:38:20 -0700 (PDT)
-From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: xiaogang.chen@amd.com, felix.kuehling@amd.com, christian.koenig@amd.com,
- alexander.deucher@amd.com, Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Subject: [PATCH 2/2] drm/amdkfd: stop userptr restore retries on device unplug
-Date: Sat,  3 Oct 2026 08:38:17 +0200
-Message-ID: <20261003063817.36606-3-olivier.kaloudoff@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261003063817.36606-1-olivier.kaloudoff@gmail.com>
-References: <20261003063817.36606-1-olivier.kaloudoff@gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C42610E03F;
+ Sat,  3 Oct 2026 08:36:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=1FT2aHW4FQFzpdhNzBR+z098CQvzO9uKHLxt4GQ8rqY=; b=nbmdVTb8PjQdBsiQG/bi86D/to
+ iGAyt+7x3xjHa9GYpbQ9rXd68q/gb5vQMozuLe/z6zqtiSn53lIuz8AauiO8ZYk0V1/MqUdrkjW0E
+ TIx+9kxQ2Hsage4pS/DTA61U3C9aMw1kzOPCZqWR8zDuNcfZnaG27+Qt/P9+joI6WJrSCy2YRBJz6
+ vTqC5biSe5GzLoulbdHIxmidU7V3knEDDTC2ZDBVFVvC4g6UayRADGeCr4ZVZxz6KYIBmoIbyY+k8
+ ISzsCG91+4YdiXsIIbtXaReBtuzkmbWQ3MYqRLgAIFnTX/remt0MIIe+pj93VCDUftXmhfA3rLUdM
+ 8h5D4ulw==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xCvEC-00Axgs-41; Sat, 03 Oct 2026 10:36:20 +0200
+Message-ID: <401fd882-e9c8-44c5-9497-31ea6b8a596a@igalia.com>
+Date: Sat, 3 Oct 2026 09:36:18 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 0/2] DRM standardized memory stats
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Ludovico de Nittis <ludovico.denittis@collabora.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
+ <5e0949d4-85a2-4519-9e3e-a1b01ae58f46@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <5e0949d4-85a2-4519-9e3e-a1b01ae58f46@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,84 +63,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_amdkfd_restore_userptr_worker() reschedules itself every
-AMDGPU_USERPTR_RESTORE_DELAY_MS whenever validation of invalidated
-userptr BOs fails. On PCIe surprise removal the VM update paths
-already fail fast: amdgpu_vm_update_pdes() and amdgpu_vm_update_range()
-return -ENODEV when drm_dev_enter() fails, which propagates up through
-process_update_pds()/update_gpuvm_pte()/validate_invalid_user_pages().
-The worker ignores the error code and reschedules unconditionally,
-producing an endless retry loop on a device that is permanently gone.
 
-Observed on MI50 eGPU TB3 surprise removal: ~11k rescheduled restore
-cycles, the worker holding reclaim-related locks until the system
-soft-locked up.
+On 21/09/2026 10:19, Christian König wrote:
+> On 9/17/26 14:04, Tvrtko Ursulin wrote:
+>> Re-floating a simple idea (this time with more Cc) born from an user interest to
+>> be able to correctly size the swap space during OS installation, based on the
+>> size of the VRAM a discrete GPU might have. And to be able to do it in a vendor
+>> agnostic way.
+>>
+>> Idea is to expose a standardized scheme in sysfs, under the DRM class card, and
+>> under a new 'memstat' directory. Such as, example from amdgpu:
+>>
+>> /sys/class/drm/card1/memstat/
+>> ├── gtt
+>> │   ├── total_mb
+>> │   └── used_mb
+>> └── vram
+>>      ├── total_mb
+>>      └── used_mb
+>>
+>> Or with concrete numbers:
+>>
+>> $ grep -Hr . /sys/class/drm/card1/memstat/
+>> /sys/class/drm/card1/memstat/vram/total_mb:1024
+>> /sys/class/drm/card1/memstat/vram/used_mb:445
+>> /sys/class/drm/card1/memstat/gtt/total_mb:7394
+>> /sys/class/drm/card1/memstat/gtt/used_mb:71
+>>
+>> Drivers need to implement a simple DRM driver level callback which needs to
+>> report a stable list of interesting memory regions and their respective stats.
+>> The region names then become sub-directory names under the new 'memstat'
+>> directory, with each region exposing the total size and the current usage.
+>>
+>> Similar data can already be queried if the dmem cgroup controller is enabled,
+>> also only for the participating drivers, by querying the root cgroup. But
+>> perhaps sysfs is easier, or perhaps it is too much code for too little benefit.
+>> I am curious to hear any opinions.
+> 
+> The implementation can be polished a bit but I seriously like the idea to standardize that.
 
-Stop rescheduling when the validation failure is -ENODEV: the device
-is gone for good and the affected processes are being torn down
-anyway. Other errors keep the existing retry behavior, as they may be
-transient.
+Indeed. I think I've fixed all the kobject related flaring bugs locally.
 
-Cc: Xiaogang Chen <xiaogang.chen@amd.com>
-Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 22 ++++++++++++++-----
- 1 file changed, 16 insertions(+), 6 deletions(-)
+> amdgpu already exposes the information as non-standard sysfs files and adds a bit more, e.g. CPU visible VRAM size, VRAM vendor etc...
+> 
+> I'm wondering if those shouldn't be added as well and the existing sysfs files then implemented as symlinks.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index d668816..6c040ed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2827,6 +2827,7 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 	struct task_struct *usertask;
- 	struct mm_struct *mm;
- 	uint32_t evicted_bos;
-+	int ret = 0;
- 
- 	mutex_lock(&process_info->notifier_lock);
- 	evicted_bos = process_info->evicted_bos;
-@@ -2846,14 +2847,16 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 
- 	mutex_lock(&process_info->lock);
- 
--	if (update_invalid_user_pages(process_info, mm))
-+	ret = update_invalid_user_pages(process_info, mm);
-+	if (ret)
- 		goto unlock_out;
- 	/* userptr_inval_list can be empty if all evicted userptr BOs
- 	 * have been freed. In that case there is nothing to validate
- 	 * and we can just restart the queues.
- 	 */
- 	if (!list_empty(&process_info->userptr_inval_list)) {
--		if (validate_invalid_user_pages(process_info))
-+		ret = validate_invalid_user_pages(process_info);
-+		if (ret)
- 			goto unlock_out;
- 	}
- 	/* Final check for concurrent evicton and atomic update. If
-@@ -2886,11 +2889,18 @@ unlock_out:
- 
- 	/* If validation failed, reschedule another attempt */
- 	if (evicted_bos) {
--		queue_delayed_work(system_freezable_wq,
--			&process_info->restore_userptr_work,
--			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
-+		if (ret == -ENODEV) {
-+			/* Device is gone for good, stop retrying */
-+			pr_warn_once("%s: device unplugged, aborting userptr restore (pid %d, %s)\n",
-+				     __func__, pid_nr(process_info->pid),
-+				     usertask->comm);
-+		} else {
-+			queue_delayed_work(system_freezable_wq,
-+				&process_info->restore_userptr_work,
-+				msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
- 
--		kfd_smi_event_queue_restore_rescheduled(mm);
-+			kfd_smi_event_queue_restore_rescheduled(mm);
-+		}
- 	}
- 	mmput(mm);
- 	put_task_struct(usertask);
--- 
-2.54.0 (Apple Git-157)
+CPU visible I guess could be added with a small addition to the 2nd 
+(amdgpu) patch. So far the implementation is driven trivially from TTM 
+placements / range managers, but I could easily add a different stat 
+since drivers define what they export.
+
+Existing files as symlinks I do not know who I would implement it. File 
+to file is not possible AFAIU, right?
+
+Allowing drivers to put custom files in there might be complicated and 
+could create a standardization problem. If vendor is strongly desired I 
+could add it as DRM owned attribute perhaps. Like 
+/sys/class/drm/card1/memstat/vram/hw_vendor or something.
+
+Regards,
+
+Tvrtko
+
+>> Cc: Maíra Canal <mcanal@igalia.com>
+>> Cc: Ludovico de Nittis <ludovico.denittis@collabora.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> Cc: Maxime Ripard <mripard@kernel.org>
+>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: David Airlie <airlied@gmail.com>
+>> Cc: Simona Vetter <simona@ffwll.ch>
+>>
+>> Tvrtko Ursulin (2):
+>>    drm: Allow drivers to report standardized memory stats
+>>    drm/amdgpu: Wire up DRM memory stats reporting
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   6 +
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   2 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  40 +++++--
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  37 +++++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |   3 +
+>>   drivers/gpu/drm/drm_drv.c                  |  10 ++
+>>   drivers/gpu/drm/drm_sysfs.c                | 123 +++++++++++++++++++++
+>>   include/drm/drm_device.h                   |  19 ++++
+>>   include/drm/drm_drv.h                      |   8 ++
+>>   include/drm/drm_file.h                     |   9 ++
+>>   include/drm/drm_sysfs.h                    |   4 +
+>>   11 files changed, 248 insertions(+), 13 deletions(-)
+>>
+> 
 
