@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C1C0CA5FEF
-	for <amd-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 16:15:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 841E1CA5FDD
+	for <amd-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 16:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 574E610E2B9;
-	Sat,  3 Oct 2026 16:15:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C98B10E2B8;
+	Sat,  3 Oct 2026 16:15:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lXXJ/teN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dm0BSHuJ";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FFD910E158
- for <amd-gfx@lists.freedesktop.org>; Sat,  3 Oct 2026 16:15:54 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-48c4649b35bso477724f8f.3
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1824610E2B1
+ for <amd-gfx@lists.freedesktop.org>; Sat,  3 Oct 2026 16:15:55 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-4a11603310fso6544515e9.1
  for <amd-gfx@lists.freedesktop.org>; Sat, 03 Oct 2026 09:15:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791044152; x=1791648952; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791044153; x=1791648953; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=eJALif/NZKKKwgBHANRUIYhyULS4mSKxyPgmAZ59sbU=;
- b=lXXJ/teNPZx4OCWKpqxSiAW9yYL48weKnf33lXBvhRA/Uh0y7GZ4UVUrAvDVXWSOXq
- KMT65WOPkuVdf6Zyjl6BTPbuFz4v0e99oIvBxchZnLivhCyyoDNviOdQ/WZHqz/4MCG2
- Q8BlHvlVuooQkRas6Mez+Cau7Sf/RRtLgk9D9sQdWUZTdTdiI0iyy2j6yKFoCTshyOeS
- 2IV67OkkI6xFwgu24h41txzZUVpwvhYSgo+jmGqTluk0TZtdDV10b1CTOuRLZMEN53Px
- EWEE2mHmaNCy9ApV5VVAd29lLFi0TLSqqYVi0ZtSDN7KmSPf2qzJSm2GzhM7OtfhPHVI
- VPGQ==
+ bh=ya85XkpyrpMe6Lfgalo1nGODKz5TM2XHUGeehhaYQEs=;
+ b=dm0BSHuJe2NDpCZ7h3uZ90YR/YwAnxmUosWLlfcbSriJn3xMF5ZX1nDpjhEXxURk0L
+ XrMIPzEEwXrsin/FD+yMt1VkLhy0YaiDUQC+pueyOAwcG6HuKfvY8Wpr4GZDv6VJ1dhg
+ vTgNqQlGreD3jfdSJdrFOrK7LZt43roqGJukDu5iSaroC2hV+tkRjDmVTFnvTtba5jf9
+ uIxEqO/6hMIahDB49LRa6qvo/UAO22BY9X7AayyUNtKXhOw462fBBYA6mrYOTureQeTu
+ E+gpBbU6bkETRbf91HhE7FJ6W0+z8yEeq0kyEajak18GepXUiYtQ9wga+O3SgYDXNXEu
+ X4Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791044152; x=1791648952;
+ d=1e100.net; s=20260707; t=1791044153; x=1791648953;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=eJALif/NZKKKwgBHANRUIYhyULS4mSKxyPgmAZ59sbU=;
- b=ACv3/nYDFQgyyu7tkj4DxmH8GmCP5R3GS/Ksds0AKplNfzr/ZWjHItfE6uhcdfJmR8
- eiX3yJFAslPX2I0BG7ioRXLkxrtBK/bjF+owwNm29BQVlqAvowYUOsk505+45y4NsKUF
- Hjo+fHbCi6O3HuMJAt8AGv/D9Wf52ZKYIcLbs0nsn7nVzzYD4uMonkv+NG+bEnn8qtvD
- 0oE+a7KIKc4lMzbFmvGpm3YE9foTby+kWb4gANmoNrBvmg+EKHSBHEwSmfQZUtfga+dY
- UM1WE2/Xq77Um3gIqwYBG57xKck667tyO+SsvsICnUfl3XXrBZcGxlMgPClSh8EKFMsr
- hsSg==
+ bh=ya85XkpyrpMe6Lfgalo1nGODKz5TM2XHUGeehhaYQEs=;
+ b=MlAahfQtGphjNMecNChdBg8WuSYXwPD9hNv0/TNTcL+/yMeCnHwCFfSZf6hw8QcLaz
+ IO3lzWbE8odnDreEbUQEpgtpQQn+cAenC0YcI/Q42eampE2UckV38297nz0eJyaWIKBG
+ rQo7PMdHDN60y9bCgmbrxcScEhOGnLh0LfpPlNfswCBxzHUWe17jn681STGmzVDy5J8e
+ UO5cLmPH/vbZHvGgXEj4f9jQIjFql4e1IIUNr7RZOeaj0cBW4tRn3PD1e+6sqwmuIySb
+ DqG0ps0bk28mt6ptwINvnYTbfr1YBMhKFmide3ahbGmOCVy9NLs7ttqlO2gHTRPlWH/H
+ 3oRg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwLRfoEnRBUE2GtAapbTos6iRFt+SyoKvcJf2SEAL9qCWEwqq8PqCMztl7qAWvSy3ytOHCt7YB0@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIpgknB2z0QhJSd1gh4kifK+VSnQG8QsuKy1zrY1RfgzuZiE3Bl
- a127d8Difm66sUgP8P4alTrP3TcMMI9qFGlwSi8a4ho7xuyaOFpVaFLN
-X-Gm-Gg: AYBFou1UD63im0hw9NK8sEZ8BvLrhxbgPQIWzf2+dRXCVQmGxlrNWLIyPEhJt3BxJxf
- 8MadeO4xHs4ymzsRldgbDs2ezNuk2Wd/yY16u8qkU6NB4kXiVgT7bGaYMvURiZ33ql5jGVsJOAn
- QWl0R6flApzLU11M7jKsNhBaeD8YYjZF7vHvDFciZcTnYr3cCi3axsB3ZAeSLh9dOoOavsDVyYN
- 4DkKSJ7gJUiOO+s1JubHyUUa5Jq6FDXXdm5WRR6//86SPCNJ2KqutZUGgRkWBdQO4xfdnGCl3X7
- 7ar5t0xOXZOQGEKVY7vr3Rq2kFIN+UUHyI0zA0CL2FlQxJB+YU5ot7ixIYYlZ9EdULT/wJPydxG
- ZnDfo7JDAmEV9vTCsfFzGzCAWITU3Bf++LcPE9+ye9053JaNNHu5VpMBAj52GeynLfOmPFq0knO
- uKeJPgDo05JYFa9bPCNBlZEWOUNHaHxBDoFuELqNS8081+tpBRcwqFwu3p+4ocsJHgMk426lsS7
- +09N7z/uxsUlaGifFI9LYpQf7xXTrhSvtwIXBA5SYxILuUs+bviKlEwD6AvMFHOE6Q4
-X-Received: by 2002:a05:6000:2382:b0:488:84af:caf8 with SMTP id
- ffacd0b85a97d-48c48018dddmr3795373f8f.55.1791044152278; 
- Sat, 03 Oct 2026 09:15:52 -0700 (PDT)
+ AKwUvByVMRpQMMktT+A0dxUgfy13jDdXZElFe3nDPuFJmK2k26zkGU1sakYZzAAKSrTdwqG4eiqpSyqL@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mkhJrlxcGIpiOsdYwZCoD7kw76hns63T5u2PeqmO0IjBN88d/P
+ uReA66AZeCNuNfP3kO8KUC8ZMVWS+cZoP32mVjcH9Wc8xAlGFExYEAG1
+X-Gm-Gg: AYBFou3l19XR2pDR30aHTWc+ngNUO5RneM9CeYbDPsKu1GQ7SEJBCRmZ1Wbf7h8bgKb
+ 8JzgG3lNjgGYpt8i6A+7u3Zu0hyODPcDYforEVM9ldM/bADaYpP1dxYWgxkpskobw9bgwTk7trg
+ 3sxRfUoRh2ks/yRqLolt1ehin/QlNss2P3ZeWEdEeIBaqRS69ImattRvdVoaEIcOuwpsYe/slMd
+ JvVU5IyZ/3qjPG5TvoQ2KiLLIL+Rpux6q2xI5MWpDKXT6F+FvC93ua+NnDx4P4S8586GAeJF14w
+ dQjZkHElOGgy1SOylqmgS/mNNRdyELzMDkBc46A7+yxikphCH4+gMmUZ/bcXtxZjbDP879vv6kM
+ 6kStVvzh+JypRFXBkQbpZHjBefNc2Niv4N4HNJfvst/sjTiJZrSM/CuqE5S2ex8DBFpfdR4QNqU
+ a76/cdgdlJLH18gTmkQLEinRZiO8Q8HExSq53ND9GJPV4Yc071I9yZVO+BUqShLZZiMCtsTE5mM
+ 1GPnrDYIhnzIdh+P2H41PiVQ5dsJeqOR/4O7qPxBCjHPznIYtL2tAZe5VVex3sj2uy/
+X-Received: by 2002:a05:600c:4e13:b0:49c:cee0:e7c1 with SMTP id
+ 5b1f17b1804b1-4a02757999cmr98416455e9.16.1791044153155; 
+ Sat, 03 Oct 2026 09:15:53 -0700 (PDT)
 Received: from localhost
  (p200300eba703ae00ca7f54fffe019321.dip0.t-ipconnect.de.
  [2003:eb:a703:ae00:ca7f:54ff:fe01:9321])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48b382f8c4asm14067659f8f.37.2026.10.03.09.15.51
+ 5b1f17b1804b1-4a02854073csm167309945e9.3.2026.10.03.09.15.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Sat, 03 Oct 2026 09:15:52 -0700 (PDT)
 From: =?UTF-8?q?Johannes=20W=C3=BCller?= <johanneswueller@gmail.com>
@@ -77,9 +77,9 @@ Cc: =?UTF-8?q?Johannes=20W=C3=BCller?= <johanneswueller@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@intel.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [RESEND PATCH v2 1/2] drm: add edid_overridden flag to drm_connector
-Date: Sat,  3 Oct 2026 18:15:07 +0200
-Message-ID: <20261003161525.23600-2-johanneswueller@gmail.com>
+Subject: [RESEND PATCH v2 2/2] drm/amd: fix HDMI signal type for EDID overrides
+Date: Sat,  3 Oct 2026 18:15:08 +0200
+Message-ID: <20261003161525.23600-3-johanneswueller@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261003161525.23600-1-johanneswueller@gmail.com>
 References: <20261003161525.23600-1-johanneswueller@gmail.com>
@@ -100,57 +100,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When an EDID override is in effect, the physical connector may not
-match reported capabilities. Adds a drm_connector flag that allows
-drivers to detect such mismatches.
+If an EDID override is in effect (e.g. via debugfs edid_override or
+drm.edid_firmware kernel parameter), the overriding EDID may not
+advertise capabilities matching the physical connector being used.
+In that case, trust the physical connector type over the EDID in
+create_eml_sink() and dm_helpers_parse_edid_caps().
 
 Signed-off-by: Johannes Wüller <johanneswueller@gmail.com>
 ---
-v2: rebased, no functional change.
+v2: rebased; create_eml_sink() now lives in amdgpu_dm_connector.c.
 
- drivers/gpu/drm/drm_edid.c  | 2 ++
- include/drm/drm_connector.h | 8 ++++++++
- 2 files changed, 10 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c  | 9 ++++++++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c    | 9 ++++++++-
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 42f4e41c459f..9ea6f5f19131 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -2424,6 +2424,7 @@ static struct edid *_drm_do_get_edid(struct drm_connector *connector,
- 	struct edid *edid, *new;
- 	size_t alloc_size = EDID_LENGTH;
- 
-+	connector->edid_overridden = false;
- 	override = drm_edid_override_get(connector);
- 	if (override) {
- 		alloc_size = override->size;
-@@ -2431,6 +2432,7 @@ static struct edid *_drm_do_get_edid(struct drm_connector *connector,
- 		drm_edid_free(override);
- 		if (!edid)
- 			return NULL;
-+		connector->edid_overridden = true;
- 		goto ok;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index ad3383169d83..2bce57b06037 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -2134,7 +2134,14 @@ VISIBLE_IF_KUNIT void create_eml_sink(struct amdgpu_dm_connector *aconnector)
+ 		return;
  	}
  
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 899643586bb3..d242fb922741 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2394,6 +2394,14 @@ struct drm_connector {
- 	/** @bad_edid_counter: track sinks that give us an EDID with invalid checksum */
- 	unsigned bad_edid_counter;
- 
-+	/**
-+	 * @edid_overridden: Indicates whether the last read EDID was an
-+	 * override (e.g. via debugfs edid_override or drm.edid_firmware kernel
-+	 * parameter), which can cause the physical connector to differ from
-+	 * the advertised capabilities.
+-	if (connector->display_info.is_hdmi)
++	/*
++	 * If an EDID override is active, it may not advertise HDMI capability
++	 * even though the physical connector is HDMI. Trust the connector type.
 +	 */
-+	bool edid_overridden;
-+
- 	/**
- 	 * @edid_corrupt: Indicates whether the last read EDID was corrupt. Used
- 	 * in Displayport compliance testing - Displayport Link CTS Core 1.2
++	if (connector->display_info.is_hdmi ||
++	    (connector->edid_overridden &&
++	     (connector->connector_type == DRM_MODE_CONNECTOR_HDMIA ||
++	      connector->connector_type == DRM_MODE_CONNECTOR_HDMIB)))
+ 		init_params.sink_signal = SIGNAL_TYPE_HDMI_TYPE_A;
+ 
+ 	aconnector->drm_edid = drm_edid;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 5c74f19fc33a..9f4465682088 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -223,7 +223,14 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 				  edid_caps->display_name,
+ 				  AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
+ 
+-	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
++	/*
++	 * If an EDID override is active, it may not advertise HDMI capability
++	 * even though the physical connector is HDMI. Trust the connector type.
++	 */
++	edid_caps->edid_hdmi = connector->display_info.is_hdmi ||
++		(connector->edid_overridden &&
++		 (connector->connector_type == DRM_MODE_CONNECTOR_HDMIA ||
++		  connector->connector_type == DRM_MODE_CONNECTOR_HDMIB));
+ 
+ 	if (edid_caps->edid_hdmi) {
+ 		edid_caps->qs_bit = connector->display_info.rgb_quant_range_selectable;
 -- 
 2.56.0
 
