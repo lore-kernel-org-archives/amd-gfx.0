@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A3A1CA5FDD
-	for <amd-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 10:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E517FCA5FE6
+	for <amd-gfx@archiver.kernel.org>; Sat,  3 Oct 2026 10:39:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17C9710E92F;
-	Sat,  3 Oct 2026 10:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 625D810FB13;
+	Sat,  3 Oct 2026 10:39:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UReXiafg";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="f4wk1eEo";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F28EE10E92B
- for <amd-gfx@lists.freedesktop.org>; Sat,  3 Oct 2026 10:30:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4BA10FB13
+ for <amd-gfx@lists.freedesktop.org>; Sat,  3 Oct 2026 10:39:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1791023458;
+ s=mimecast20190719; t=1791023994;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=x3OlQPuKLle/RWQyCvYbmxpN1t4vBLUkyyPtEqihZM4=;
- b=UReXiafghX64kpKGImsxTTKlDlI3P7ZvzxZc//n7Evfe82nc3yPdUOTGKjX2HrfCxdDlAW
- oXW2JwwrQ6I6QCCAr4ECDY9kicU8bmXgEJ2AinnMFWINqE+6WP3CHIMc0Oju3ZvFc472x9
- vaHydr8BpNTpO9Zf8p4vO1HTU1ktw6U=
+ bh=yEazttUDpzXlqXpxwJlMZPomrWiWdlvAhL9J6+CU2p8=;
+ b=f4wk1eEo9CdHqGaXqMDH9jtMslhTckkoTa4SmXzHlKiJey5wUWIth/AW9/JkuZnjSPJ8xF
+ QrfKHQfjm29QywYBf622wzsSU6KDFT0wGi5oymqMeOKFsnPD0mBR3iebzPDPjs9lIm3iYN
+ YRFjGjFSjvnQdY8fombqnJuG65U613A=
 Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
  [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-450-i_o116hDPx-B7uIKzyrsXg-1; Sat, 03 Oct 2026 06:30:57 -0400
-X-MC-Unique: i_o116hDPx-B7uIKzyrsXg-1
-X-Mimecast-MFC-AGG-ID: i_o116hDPx-B7uIKzyrsXg_1791023456
+ us-mta-374-nR2KQuAoOMaEy4yIR939yw-1; Sat, 03 Oct 2026 06:39:51 -0400
+X-MC-Unique: nR2KQuAoOMaEy4yIR939yw-1
+X-Mimecast-MFC-AGG-ID: nR2KQuAoOMaEy4yIR939yw_1791023990
 Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-49e6862e924so4887375e9.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 03 Oct 2026 03:30:57 -0700 (PDT)
+ 5b1f17b1804b1-4a027f2e364so3897495e9.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 03 Oct 2026 03:39:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791023456; x=1791628256;
+ d=1e100.net; s=20260707; t=1791023990; x=1791628790;
  h=content-type:mime-version:message-id:date:references:in-reply-to
  :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=x3OlQPuKLle/RWQyCvYbmxpN1t4vBLUkyyPtEqihZM4=;
- b=V6/60DB89JQ9XAae0bcDjk7hCGsRSR3HILL49eTQHxK7gs9EJNZnvg0NdsXYzlLDWp
- l6YPtS/1sGkRDjy7GyxMZrt4t1u+TV6tEzma5E+hJqHVKiRRPB5Pypc5vip0S2CG4kiP
- LiJzavq49FYpLtnfcbTYuf+nshq8/1JH/9qOLs95/f4GmndPcXar6byocYn20KC9Z/cU
- ucBZmqb19Nas/dXiLofsgK7GBQD1ff+e54/5zoXkjBtDpWQPQMV0ktU2hBgIfQSHfpue
- 230mPDH8aEVrD4Jyd9Gqdyp8WDkpoVbWwjh5ko4aoq+tJhyduO+EetsbmgGxzbv01mbt
- 9XGg==
+ bh=yEazttUDpzXlqXpxwJlMZPomrWiWdlvAhL9J6+CU2p8=;
+ b=mx+VFNH1M93O83spqw09eK/DXDs4I0NyEJgMKCr78+l0+YtBzTPm0RC1WWAxN4N28e
+ z4jZ58+MMxM9AcyWQKQFgiQWNDEUXc+hxgcQGECSLuyVyjiee0pdeCXxf82O7/MSJcjx
+ /InQrunwNwOMyu6j0JcQ5s1uVDIJeajHbJhH99fl8URECGrl6qo5ahr9dTG5s9S3t6YO
+ n/YvytEsrf+PZ8JsIYUZTyevHZpm84+OmtS382MZ8jynGtLG6so4ue70XeQoUizjRVNY
+ ZPNtyGtb2grMtCIDIW7ctiWTb1X/jAmhME7Lh8Hlwyix0sCf2UtDn9MNUGhDuPL7QpmT
+ cETw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw6W3veeduMxaV5tQYXhwpEeMQEVXXBIWvzcZabE7PeCzIHqBfljVOS/9Nmqrawu18iTZ8zSaxh@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lW2dY67X2qkxRTZUg3UJqIukLY/ad6LcQHZNE+KmBEhkTtEvoq
- 1IW5mBD7TK15QGyibQiTH6F70LDPa0rWJU23tzikRRAGlgiAKhblNh3rxTQRG1+AYUJu7w/bX+q
- e0H8B8AWPYZbep5++YH2Q+IjxO7hu/nEY+hkzOdAnAN7+aRGr9u0Agb09LO0ldV6C6n8=
-X-Gm-Gg: AYBFou3iL7RIci+QBn95+uzzl4FTgHcjec9MjwjNZ+hWC43031kxgVESe/aOf6Ds27a
- 7bSi9z4yjuFKDq8TvMj8zBbI+++ecy5JZwRJJ4xdkpPPHczzDiuXJgPHzKIBBnvAktiM3e8nHsH
- mBDM+2AJ6Ojm49oaPzMxRYyF70tEDZbUtn4O6LMCnh9ZrRvTyYrhlzBghDlddfzeFzjMEIrUgvN
- XopTsvJkp3TKa+QcKCVgWQzr6JNBfT9VDr1CeFzaiI2C6tDVGIjqPJF9OPD1rTnCxpxntQDhGPa
- D+aWQYRxIvGYfi+X05P7otUnkAWn7YcSCmYkckXwkhKDvikVACITm0VG2OG91YX01lxIcwfnKHX
- TpoZT9ZVYx6DApj0Whu0vOeSEjO/PJtqLE+ue5fnl/THkT2ALfm3dqFQ6rjwCNR+0/Q==
-X-Received: by 2002:a05:600c:3115:b0:49f:cac3:c68a with SMTP id
- 5b1f17b1804b1-4a168105ddfmr30255995e9.31.1791023456048; 
- Sat, 03 Oct 2026 03:30:56 -0700 (PDT)
-X-Received: by 2002:a05:600c:3115:b0:49f:cac3:c68a with SMTP id
- 5b1f17b1804b1-4a168105ddfmr30255685e9.31.1791023455648; 
- Sat, 03 Oct 2026 03:30:55 -0700 (PDT)
+ AKwUvBx5nWE4wTwB3/PFSC/ZET+7r4nWrjAlNBUJil9Jk4D53KxTd9l9sJiznZeB3YEurcLzm5kRfC6H@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lAecXo4aQGED1JcVYAmxjizXYdLm2mBeXIN3Z7NLnqPd7dboHe
+ 4hLJm9p14+FVadnlOMN0Y0XGyr8ivEN9AX/fv5zW1x05T8/wQSGcdmeNJE3RVRUZYNZRixrD1Cs
+ wtK4FG3vJzLaYViHcmJIQgz8RR3MnMINsJBegS7Tdr/++lPrepknXXMbpxYIAGTlyFfk=
+X-Gm-Gg: AYBFou3hBTIidg5IGn4H+2QQHyeuY4rgZ/gk1vMvWUqzvhTUnn2xNZiOU0fvraoDB5K
+ f3ZnTeQWwQJRqBsYMieu2dgUF/ZTrpBaZHR/G8J0DdPWiFwxEnj1TbtmMIp75At3l7uH7tMGcfu
+ +ZtVOrUMTsX/zkSFKlFZX68CEZoxVXdg6Za65PsAqdm9fXr7lZ1ZQJeJZAG6VF900BLVxMM/MGy
+ wclNwbKsXA/JmoJj+ycVndgGzyBTFEWL3Kw41gwPYKafox28X7msNNNsljnoAa5CcuPSxCpp7l1
+ sOtAd3L7wjAikM2MIKHM9n0RXTshqtkVEzcIGfok1ju4HIScF8HfQ/kya+R1VRWp5mmt79Zxn41
+ dcLXtMu/3X+mNqoxdaKvjMN7u0tT2TnXGZGkGHv8nAGX2OvUpMbE92f5/wFEjpMK5FA==
+X-Received: by 2002:a05:600c:5392:b0:4a1:6991:36d7 with SMTP id
+ 5b1f17b1804b1-4a1699137bfmr23376285e9.10.1791023989746; 
+ Sat, 03 Oct 2026 03:39:49 -0700 (PDT)
+X-Received: by 2002:a05:600c:5392:b0:4a1:6991:36d7 with SMTP id
+ 5b1f17b1804b1-4a1699137bfmr23376055e9.10.1791023989341; 
+ Sat, 03 Oct 2026 03:39:49 -0700 (PDT)
 Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a03ff20831sm97747375e9.4.2026.10.03.03.30.54
+ 5b1f17b1804b1-4a02770fe4csm168249935e9.7.2026.10.03.03.39.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 03 Oct 2026 03:30:55 -0700 (PDT)
+ Sat, 03 Oct 2026 03:39:48 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
 To: Mario Limonciello <mario.limonciello@amd.com>,
  dri-devel@lists.freedesktop.org, harry.wentland@amd.com, Simona Vetter
@@ -85,11 +85,11 @@ Subject: Re: [PATCH v9 21/21] drm/solomon: add SSD130x connector luminance
 In-Reply-To: <20261002190030.211356-22-mario.limonciello@amd.com>
 References: <20261002190030.211356-1-mario.limonciello@amd.com>
  <20261002190030.211356-22-mario.limonciello@amd.com>
-Date: Sat, 03 Oct 2026 12:30:53 +0200
-Message-ID: <xlv1zewv5b4y.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Date: Sat, 03 Oct 2026 12:39:47 +0200
+Message-ID: <xlv1wlrz5aq4.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: eKUrKes4IpbXv5gyr7HNWcei4peVdRtli82lvPZol4g_1791023456
+X-Mimecast-MFC-PROC-ID: ZGUhOvykm4_naKevnHIp-X56kl9GJ7Idtd3ifvgvVJM_1791023990
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -108,8 +108,6 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Mario Limonciello <mario.limonciello@amd.com> writes:
 
-Hello Mario,
-
 > Expose SSD130x contrast through the connector LUMINANCE property when
 > DRM_LUMINANCE is enabled. Program contrast directly and retain the
 > backlight class interface otherwise.
@@ -117,32 +115,17 @@ Hello Mario,
 > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
 
-[...]
+Actually, one more comment:
 
->  struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
->  {
->  	struct ssd130x_device *ssd130x;
-> +#ifndef CONFIG_DRM_LUMINANCE
->  	struct backlight_device *bl;
-> +#endif
+>  
+> -static const struct backlight_ops ssd130xfb_bl_ops[] = {
+> +static const struct backlight_ops ssd130xfb_bl_ops[] __maybe_unused = {
+>  	[SSD130X_FAMILY] = {
+>  		.update_status	= ssd130x_update_bl,
+>  	},
 
-[...]
-
-> +#ifndef CONFIG_DRM_LUMINANCE
->  	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ssd130x,
->  					    &ssd130xfb_bl_ops[ssd130x->device_info->family_id],
->  					    NULL);
-> @@ -2258,6 +2298,7 @@ struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
->  	bl->props.brightness = ssd130x->contrast;
->  	bl->props.max_brightness = MAX_CONTRAST;
->  	ssd130x->bl_dev = bl;
-> +#endif
-
-I think that IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE) makes more sense?
-
-Other than that, the patch looks good to me.
-
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+I think that instead of __maybe_unused, this definition could also
+be guarded by IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE).
 
 -- 
 Best regards,
