@@ -4,91 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B237CA5FFE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AD5ACA5FCE
 	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 07:28:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0307A10EBC4;
-	Mon,  5 Oct 2026 07:28:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Ux8CbnfT";
-	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4691D10E5BC
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Oct 2026 13:46:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1790948810;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6dEanQnOyXhk+suk32DBilMCW9SZjDiEbY5jKTMsnxY=;
- b=Ux8CbnfTUrAwmfo2c6J51p6tSP8CWkVhtft1ueF5HMNFpr4H/kCpLYFn0qLkp+oApwwprm
- Zo1cwHnlb945xS0l40yWKW3iIFIQt14d41Zk8DU5bUrbXgcQNRcRVzrkM3+yb1KRrO2s7b
- hd9pGgDzE7nH/4uhMSseimDGq5/fq2s=
-Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com
- [74.125.224.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-556-BfcV3vPnOUagUaDg2pDWyA-1; Fri, 02 Oct 2026 09:46:47 -0400
-X-MC-Unique: BfcV3vPnOUagUaDg2pDWyA-1
-X-Mimecast-MFC-AGG-ID: BfcV3vPnOUagUaDg2pDWyA_1790948807
-Received: by mail-yx1-f71.google.com with SMTP id
- 956f58d0204a3-66cbfb7ec42so11808883d50.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 02 Oct 2026 06:46:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790948807; x=1791553607;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=6dEanQnOyXhk+suk32DBilMCW9SZjDiEbY5jKTMsnxY=;
- b=JABDadBenPcF/2/XLxPVkJ1f4w0mjATNE2AiuZvfqRP8CcD2j4jDW7RqqsPHsw2its
- QVhe/gjzgm7ZypLrgf0peAcYiMVjvCq3gs2nF8wA9sVI+YG2VAFjXeh1cBmwzlSugvx+
- XWVR74UNpCGlRfWsKq32YQiEtBAVgm4ivnh5AhNgmzIu9nfbBiqEEhNtR3edXdKTf4/x
- w5w+i4X4lh9ravyOS8J+Ye1FSMoi3lCNy6pgY4Ea6bkpkfx+e7WyDAvFYciBqlm9wLiS
- khlOUqiGi/vZyKX9rOWAnzmdNDclZjzdSP9EA7aRuuW2q/n4+pYSwXSnxSSZadEJqK5K
- HXkQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzI+8/knOcjd+gpA+edAAqehgn5bT5ID1ku5QukOTrBCy7BxV0/pmwXGNZYU5IG4RroR5S07zNq@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ4ooVTAab4jL53EbEr3VaWeKLHz6JA+pJSfhtPUxcnVeBAs3ZA
- kYFc8ZLbb4lmcYP158EF3dU3KklVfYzle2iycb7E5hWUcoE1PlBdSoBSE37gcnkCuDVd1iVfQPz
- aXnXFJLq7fP9SeANwJix/DilSWh0VjGzRJNZtvMWNf8h/SANOcj/fFDdO2EonBo0X2bOSCmGKlk
- slo/NQkxu0ObUICrWP0R0p5ldqI22QjEb3zgVqcy3Mag==
-X-Gm-Gg: AYBFou0KiLk+L0IxAKYRZ7eY9XYyuTDOEoewkUzRuAJp33G2F166qV7gNEAijGrXTPf
- rsrL8tVAprtqYKrsVguCsZnoT9R2gJuO6h2o3CYqBnmCk9k328H6dMDvyGF1ZoDuohWLsxYm+9+
- EaR/0QNQNURFfn/afkVOsDojUQ6tcbSkPrAtUzRgPDrjPo3ug4tlNYuA==
-X-Received: by 2002:a05:690e:168c:b0:677:ad61:2984 with SMTP id
- 956f58d0204a3-677ad61357bmr927188d50.40.1790948806625; 
- Fri, 02 Oct 2026 06:46:46 -0700 (PDT)
-X-Received: by 2002:a05:690e:168c:b0:677:ad61:2984 with SMTP id
- 956f58d0204a3-677ad61357bmr927146d50.40.1790948806082; Fri, 02 Oct 2026
- 06:46:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB9DE10EBC1;
+	Mon,  5 Oct 2026 07:28:12 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26E8B10E343;
+ Sun,  4 Oct 2026 02:47:11 +0000 (UTC)
+X-UUID: e2ca91c0bf9d11f19a56ed5b684f684d-20261004
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:04ae20aa-c67e-4ad1-b157-8115466f53b8, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:25
+X-CID-META: VersionHash:7db8b62, CLOUDID:d7486a0040c1398355efd2231865bb92,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+ 5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,A
+ V:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: e2ca91c0bf9d11f19a56ed5b684f684d-20261004
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1698785018; Sun, 04 Oct 2026 10:47:06 +0800
+From: yaolu@kylinos.cn
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Lu Yao <yaolu@kylinos.cn>
+Subject: [PATCH] drm/amdgpu: Fix double runtime PM put in
+ amdgpu_debugfs_gpr_read()
+Date: Sun,  4 Oct 2026 10:47:00 +0800
+Message-Id: <20261004024700.53610-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
- <CADnq5_MZZje5XGfYgJ1v4Ts_k+ZyyBtSrSqB5upTEt+AqBi9Yg@mail.gmail.com>
-In-Reply-To: <CADnq5_MZZje5XGfYgJ1v4Ts_k+ZyyBtSrSqB5upTEt+AqBi9Yg@mail.gmail.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 2 Oct 2026 15:46:33 +0200
-X-Gm-Features: AclHuK9i1DaMDvJYQE2Z1NJPuLF2VanTJNwwCXcvdTlybffYDnKmDymLXiGYtmw
-Message-ID: <CADSE00L=KGCXqpjm3aiOQ-JwzirXTrvVsd-mNXpb9QDggVs=pw@mail.gmail.com>
-Subject: Re: [PATCH 0/3] drm/amd/display: use kunit/visibility.h for test
- helpers
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: YwjwiDixOA7EHrT6jlq3ku9UWDnFdH_VLLEUqY5Tko0_1790948807
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 05 Oct 2026 07:28:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,121 +60,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 2, 2026 at 3:34=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com>=
- wrote:
->
-> On Mon, Sep 7, 2026 at 9:45=E2=80=AFAM Albert Esteve <aesteve@redhat.com>=
- wrote:
-> >
-> > amdgpu_dm grew its own STATIC_IFN_KUNIT / EXPORT_IF_KUNIT /
-> > INLINE_IFN_KUNIT macros instead of using kunit/visibility.h. This
-> > series switches the KUnit helpers over to the common API.
-> >
-> > VISIBLE_IF_KUNIT is gated on CONFIG_KUNIT rather than
-> > CONFIG_DRM_AMD_DC_KUNIT_TEST, so the helpers are non-static whenever
-> > KUnit is enabled. EXPORT_SYMBOL_IF_KUNIT places the symbols in the
-> > EXPORTED_FOR_KUNIT_TESTING namespace; the AMD DC test files import
-> > that namespace with MODULE_IMPORT_NS().
-> >
-> > INLINE_IFN_KUNIT is dropped rather than generalized. It was only used
-> > on amdgpu_dm_fixpt_from_s3132(), inverted the original static inline,
-> > and is unnecessary for tests in another translation unit.
-> >
-> > Tested with:
-> >   ./tools/testing/kunit/kunit.py run --arch=3Dx86_64 \
-> >     --kunitconfig=3Ddrivers/gpu/drm/amd/display/amdgpu_dm/tests
-> >
-> > (CONFIG_GCOV omitted; it is not available on x86_64.)
-> >
-> > Suggested-by: Maxime Ripard <mripard@kernel.org>
-> >
-> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
->
-> I've reverted this series.  It breaks the build when CONFIG_KUNIT=3Dy and
-> CONFIG_DRM_AMD_DC_KUNIT_TEST=3Dn. When CONFIG_KUNIT=3Dy,
-> the functions are not static, but when CONFIG_DRM_AMD_DC_KUNIT_TEST=3Dn,
-> they should be, resulting in build errors.
+From: Lu Yao <yaolu@kylinos.cn>
 
-Oops! I'm very sorry. What's the procedure now? I see you posted a
-series containing the revert. Can I send another version of this
-series after that lands to fix it?
+If put_user() failed in loop, jumping to err label will cause putting
+the reference a second time.
 
-BR,
-Albert.
-
->
-> Alex
->
-> > ---
-> > Albert Esteve (3):
-> >       drm/amd/display: replace STATIC_IFN_KUNIT with VISIBLE_IF_KUNIT
-> >       drm/amd/display: replace EXPORT_IF_KUNIT with EXPORT_SYMBOL_IF_KU=
-NIT
-> >       drm/amd/display: drop INLINE_IFN_KUNIT
-> >
-> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  79 ++++-----
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  26 +--
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  74 ++++----
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 133 +++++++------=
---
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  12 +-
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 190 ++++++++++---=
---------
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  38 ++---
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  52 +++---
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c   |  10 +-
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  30 ++--
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c |  10 +-
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 105 ++++++------
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 140 +++++++------=
---
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 146 ++++++++-----=
+Fixes: 9eee152aab56 ("drm/amdgpu/debugfs: fix ref count leak when pm_runtime_get_sync fails")
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
 ---
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |  40 ++---
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  60 +++----
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 104 +++++------
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   | 116 ++++++-------
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  22 +--
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c   |   4 +-
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   9 +-
-> >  .../drm/amd/display/amdgpu_dm/amdgpu_dm_services.c |  10 +-
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  18 +-
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |   1 +
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |   1 +
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   1 +
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c        |   1 +
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   1 +
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |   1 +
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |   1 +
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |   1 +
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c        |   1 +
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_quirks_test.c        |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |   1 +
-> >  .../amdgpu_dm/tests/amdgpu_dm_services_test.c      |   1 +
-> >  .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   1 +
-> >  .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   1 +
-> >  drivers/gpu/drm/amd/display/dc/core/dc_sink.c      |   6 +-
-> >  drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   2 +-
-> >  drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  13 +-
-> >  tools/lib/python/kdoc/xforms_lists.py              |   3 +-
-> >  51 files changed, 748 insertions(+), 728 deletions(-)
-> > ---
-> > base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-> > change-id: 20260907-visibility-unification-fd358c580447
-> >
-> > Best regards,
-> > --
-> > Albert Esteve <aesteve@redhat.com>
-> >
->
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index aca1a8045afa..7a3246852efb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1302,8 +1302,9 @@ static ssize_t amdgpu_debugfs_gpr_read(struct file *f, char __user *buf,
+ 		value = data[result >> 2];
+ 		r = put_user(value, (uint32_t *)buf);
+ 		if (r) {
++			kfree(data);
+ 			amdgpu_virt_disable_access_debugfs(adev);
+-			goto err;
++			return r;
+ 		}
+ 
+ 		result += 4;
+-- 
+2.25.1
 
