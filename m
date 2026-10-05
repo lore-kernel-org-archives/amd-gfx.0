@@ -4,100 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C9E0CA5FFC
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 19:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9796CA5FF5
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 20:14:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 139EF10EE59;
-	Mon,  5 Oct 2026 19:46:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2806F10E0F0;
+	Mon,  5 Oct 2026 20:14:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3pGGocrW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fsRC9GZ6";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013063.outbound.protection.outlook.com
- [40.93.201.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E89410E20A;
- Mon,  5 Oct 2026 19:46:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gU9msaBPnKuNsq6WQBxz6PkQsyL9gQFTZyoe9wMcReuLrwpzB8n1nictezqM/VAqD37ecfv4aWPeTR/Buz5eVl3F2TnTmU1kGfHGtFkV1TW3pXXj4IXbXQ7VraaLJdwAocadgg66dLhm2UmuzeeeoGKwewfDm5eKxMasa2Cfh1ILYZREW9suIw7nQSBmBZ370bAwI9UDNb/UQM5hIKqhQ9oNSbw5gWE6yK62p1SaQnUJSGe95quFjkG6PyBbbFC6krLDV+zrW2Rh5edlwuKVSNJ8ZK7B3fCCf/8RNfgjhh5n8hupWX75R0RMNJZl+a9rGVX45L+xMDLBj1Bdj4vSjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XR89lu3tuOqauMwnlbX9GtagJtGIUe/Rt7OovjzOldY=;
- b=oGrhXP3dMe7Zvhlmf2XmVN66pKLonjeT/HEqXN1rtre7x5yfgoFIf25lGRNWH+d9wnsLCvXADmWD5iUyrortDV4SYtNRZmjdTnMGYz2mIDv+KQXHwxMOScKXpplj18VV5kdcVU4TlGNbE1K5Nj3Sie8EH0hKp7PCOgduBenJnJnLAgtmVWHKsZ/aVAj6GvIgusBRw/SjKZ8AANuN0Dve3BIDDAtXSCXFjpYIBY5Y5v8OoeWqMxUTfSBPY8Glv+y0bmlXZLZ71sHeRMFUg0dR7QrzXriZnpRZKXZr21fWhyBTFriBO8zZFIv1slN4vD7WuNgJunHmqhJijs49AB9lRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XR89lu3tuOqauMwnlbX9GtagJtGIUe/Rt7OovjzOldY=;
- b=3pGGocrW0VRlu4Ubq78CHU4d5SRlz/tN0hcEsGKF/JRsCx3JIqnnwR1TJVXnSekR8wnKNNkd+BiCydyALm24UJq9istmIpBMy6SoYYgUNfpi94PX/kpvAAnVzEWPFlr+x7CSAhmrjtxMCE78uB5oT3QbIGnR+YXxQQ+YfC9Gm0Q=
-Received: from DM6PR04CA0028.namprd04.prod.outlook.com (2603:10b6:5:334::33)
- by LV8PR12MB9450.namprd12.prod.outlook.com (2603:10b6:408:202::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 5 Oct
- 2026 19:46:00 +0000
-Received: from DM3PEPF000265C3.namprd03.prod.outlook.com
- (2603:10b6:5:334:cafe::23) by DM6PR04CA0028.outlook.office365.com
- (2603:10b6:5:334::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 19:46:00 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DM3PEPF000265C3.mail.protection.outlook.com (10.167.23.184) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 19:46:00 +0000
-Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 14:45:58 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>, Curtis Vogt
- <curtis.vogt@gmail.com>
-Subject: [PATCH v2 1/2] drm/edid: Add a connector-specific DDC probe callback
-Date: Mon, 5 Oct 2026 14:45:45 -0500
-Message-ID: <20261005194546.1712792-2-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005194546.1712792-1-mario.limonciello@amd.com>
-References: <20261005194546.1712792-1-mario.limonciello@amd.com>
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
+ [74.125.229.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF88310E0F0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 20:14:57 +0000 (UTC)
+Received: by mail-dy2-f43.google.com with SMTP id
+ 5a478bee46e88-33e4e75342aso179370eec.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 Oct 2026 13:14:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791231297; cv=none;
+ d=google.com; s=arc-20260327;
+ b=GaOsr8pLwMpT9MQBb6tmzyEjAUaMHsJUBlGMrCpLA7nKupm8erJjXLCYAsRpyy/BR6
+ YmUVyBeAPF18rAO1B+gRq6RrfyZcgj5q61+JJX2XPXltP2VB8xnq6BwGrCiSBpQpTdkh
+ VCUhL/6Zc4HJWZl6UtU1o0J6k5iWAAqJb1EDqCzN6WtBkAFa7M7Wel9XCgFsl3xJETwd
+ MdLQ8IR/mw8s5jrPHMTdv3vIwoHGnz0eHqMuA/h9yUArLzcmoYnmlSC/BpqdUVioKtWl
+ HmFYazKO9EnhQDXXd9bf5KpVFl1jWjeoNB5JPsNdl9SpV2e8Szybkye6HgJ4ckUCzrx+
+ H73w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=AMDrs/XT8ZcB40o2W5+io947QcRQ068ng6Mvjz++tqs=;
+ fh=t3z07bXpE5dv597OzIs4IK4RMZbiWGP78ly0fqVN1mA=;
+ b=dyPXbbknePsHY4pKCRfvVBu5Uyphav3eHAUGWkf+ojEIzfCLCRthSlQUtxauuT0AVQ
+ Dgh8Q51VGGVIdK7mBb4EbQ6qFbVGJLE5URgLRaLhjOftu6OL6Ty8WyCl51D6KtdZpwKo
+ UdHIZh6waMyj6rrdEv+dAdm6GcGXTW0WdckuGauG8rIyMv4sTQYvwZtfBkLDzoXDTmh6
+ qDJ5keiJLa+nvQry+bNfoDx17oxvTZUnjyei1vRjNdVnHfNemB7f4Dtn5+HZYHW6x68g
+ NKSdjrsMlQjCawQa2VpZeoj//XQdDdmupB7SNLukiU5meyPysQC7JUygTCXXGL/dvpIz
+ D6Sw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791231297; x=1791836097; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=AMDrs/XT8ZcB40o2W5+io947QcRQ068ng6Mvjz++tqs=;
+ b=fsRC9GZ6onTDpD8eeiwPsQx03Ozjenxi6J3475JasKl1nE2R0cmn9DnJChIfkfkK02
+ k8Fv7S5Kvbpr/fbTJrPoQnwDGtz83WuXuq57/i2BOUxJLjWbF8cthjHvRWqJCRXC6TtT
+ 8FfqnTk0wAfbWpW4GMD7FCxuaRCS//owrYD0DN+saaidIL6O4yLa/aT1Um20zoE2O3vi
+ GuOZYf5tSMtst125MM1xtElWe5RVtxgrwGtdtJEQkVHbyIqhMxFXBW37VrzPfrpOLxM8
+ tYTdMLiNlMGgaKlNx66pLX5NQAaYZOXaytfL9oc3wkYhmTPIEwVRpcaGuRV/pZQ31FNR
+ Z5Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791231297; x=1791836097;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=AMDrs/XT8ZcB40o2W5+io947QcRQ068ng6Mvjz++tqs=;
+ b=BEZiwrvL/5r0rvr6mPwMacwSRbgF1VUHc6s9Gr9eMzuLkWlKoQpFEllNwrCpC8jSOr
+ tWeRSM6jmeq7voMKjDLJ/JzHY9kwWUa7S0Itci0jmoUso+4FG2d35NMYcA9GPrgcQvrQ
+ d1JMmKu6lZb1FqerXx0a9VAtGtJPlwgU8o7u4p5ZEYI6KLqUX5JbIbh41jul1IE4Gpi5
+ q8xjsSKu6HL7e8if/y6HPHCy2kPg30V1eCmJuj0XpF4YRAMO+C3kOQ8IIeZ0Wkx2pfNO
+ MEIzOBVY2MdmTZuFM52Uh3wBGbRz+rMg77AtcuvceSCUNSGFOQjJpSwvEdwlNzS2i0Dr
+ OEPw==
+X-Gm-Message-State: AFuF++n6NaYqUPCUE+fcWjRUtOyWTD3uS23glFoNwNgueDjmB7HEzxpC
+ KvrdnNDmBxxtnVfik7WAyUyyyf7xxNaVFdrmMidSbJiBhs14eZVj4bAjhyD4p0VuMv0BwIpkRF5
+ rVUO7YpmRkxKtDXEaRD2PogcLkernNjo=
+X-Gm-Gg: AYBFou0hCA98GcKGG5I22P1UfzmxuZedL6WnM1dXleZYBROfyTfILiWaR9SBvO0D860
+ gOHDfQPthlCXGencAKUyqakXAVOAN9NgrjTCB7JQqUySmZtoeGF6gGe5WgiXQAwDjJBIeRafgSu
+ V1OZZ7DitoJV1VqvnKhhh1R9yXKfmmp3R+LjrvCJYw0WDUbdKtxdnMVdMGy17pYV0HZf0vzN24I
+ tFmcj6kbUzNZOD7RGzPsOdRvO84OacaOH8D8hFpnmYeBCOKZaZRDr4pyHA51522tZf9zMXUMb28
+ 22PJ9Ysd1+xED/IFjOZx0C27Aqgd/3uI0ZITWY5slNswWFCZOlIQ/JU62ozGmaMn3FR3CYbSGKU
+ 67QjTewHo6N0W+FdQkizhoGBfMl/wtO4JLAHUyGTyyXKm9rdoVPUR
+X-Received: by 2002:a05:701b:424d:20b0:146:ffa9:2117 with SMTP id
+ a92af1059eb24-14f5aa4188fmr24322303c88.1.1791231296682; Mon, 05 Oct 2026
+ 13:14:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265C3:EE_|LV8PR12MB9450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0224751c-0717-4dda-7bf9-08df2319485e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|22082099003|3023799007|10067099003|11063799006|56012099006|260925021911599003|260925021311599003|260925022911599003|18002099003;
-X-Microsoft-Antispam-Message-Info: wnzN+6aI759QXQA9SCeiRBYXybPs2LAH2OMRSmuUg5E6f2MiVso88PHp+MMqiaRDkdUQlEonQ/CPpu0EFzOjFnZ6+jAdK/RqJjJrghNmJbFcGJ8sG3wmfzMI99gXYczqx2IWw60SBgF7okLZlBg4hwbwEDrfkKtiDeqlibRxTxeZLbG/oFkkitsRhJv7pzoDeYSj3oEs3N+kkLzjK3xIx0yxz6O3JeugMvNjkvv6PhJwmuyceIU+E5hTJAgFtnRKAEqtnnNeO2z63VSCbQ5XtqxS85ErbN148vIZG0lXNZPZVA5rnmRjwgi/O4mIRnahuKHW2Q/2eUM3cxGhLGr5Bz6+1oS1zw+vwcGUKSdZ7cY5Lbgv0FH8kNYIkuoPj0PAvoiMJC2sqeGegH8rQeiXwZUBOmUxjmgW2+tRN2H8wIWfkFkaqBWARuwL2O9/xMSDh5yombR7bIBrqIIAryrzKd+NGsIMs/FDll8a9zLVM9YGbgNA+2T/CdbRCvlLyvNv4sKOHlWe+uykZKmS2ZTSAN2JNTnVSOl2BUdW6ddKZ6sL1vrfMgE2HosO9C9bzDFkQ8iAiOM1tIHmlGCLo8PEloiFHqRFbkwyyL6tHL6eyQhvL8xXgVBZZ/5JTk3YwDQf6vK47JLPPC07sUH93B9R1cq0z14ZeF8fhvG62u9VYwX6CSZ0nxgrzMJWgazpcSLOtwdktVKI+blagS19nBchpw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(22082099003)(3023799007)(10067099003)(11063799006)(56012099006)(260925021911599003)(260925021311599003)(260925022911599003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 8s5lG6yWXb8Y/PFW3HZH3X0OWeh4JVxQo1m4x0TAAcxUxlFWGuVwtdazuzUfMumHrzpnAXoAY43fqJtiz2ytFCvV79HuTgM2Z6xtEbvZYsz2ZDFxX8tPGIX+wnYgV8b93/AD8gp8WcyBvo6XPofvQOmKvdTDeEUHMoAG4Iwys/j+aJG4K6dZjbr+vX20H+f+yHiJ+txVeITtMFUX6YDHj/M+qEkc935jl2hG0bHn0FgfidCVH1MScbkVPTFPaCxLFPlpCXSGELity+7yXUHzX4lhHefgScRJUZBkTAEZKjy4r3OmxNosvNMA019980jKx5n/45sJr/TgtiaAdXcyQxccV1YjKf/lwpe4RvrckYDye5p+brXK7Qdrtt5b+CS8GL8MNEMgxX7o28X7M8Y22cEc2hlGyQlGijrDaLUFFEmWRkbyWt4Yo6M5RKnIaq/h
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 19:46:00.4366 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0224751c-0717-4dda-7bf9-08df2319485e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265C3.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9450
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 5 Oct 2026 16:14:45 -0400
+X-Gm-Features: AclHuK_EZlkeYKVOf5yOf2obDYc8_quHkQ2koc09s-PajMO3v5D25hjL-FV-od4
+Message-ID: <CADnq5_MO+ZNOzW+_EH+gUYZ27X_ggWJJ0XdK6m2QW53m_ThtUQ@mail.gmail.com>
+Subject: GPU initialization failure with kernel 7.3
+To: Linux regressions mailing list <regressions@lists.linux.dev>,
+ Linux PCI <linux-pci@vger.kernel.org>, 
+ LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Lukas Wunner <lukas@wunner.de>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Christian Koenig <christian.koenig@amd.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,92 +103,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The EDID helpers probe DDC before consulting debugfs or firmware
-overrides. This preserves connector-detection semantics for drivers that
-use a successful DDC probe as presence evidence, but it prevents drivers
-with independent presence detection from using an override when DDC is
-unresponsive.
+Hi Lukas,
 
-Add an optional connector callback that replaces drm_probe_ddc() in
-drm_get_edid() and drm_edid_read_ddc(). Drivers can report presence using
-their own reliable detection while retaining the unified override and
-firmware EDID handling in DRM core.
+The following commit causes GPUs to fail to initialize on a number of
+our servers:
+eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal Errors")
+The change reverts cleanly and the GPUs initialize fine with it
+reverted.  I've filed a kernel bug to track this:
+https://bugzilla.kernel.org/show_bug.cgi?id=222095
+Happy to test patches, etc.
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-Cc: Curtis Vogt <curtis.vogt@gmail.com>
- drivers/gpu/drm/drm_edid.c  | 15 +++++++++++++--
- include/drm/drm_connector.h | 17 +++++++++++++++++
- 2 files changed, 30 insertions(+), 2 deletions(-)
+Thanks,
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 3148038747b6e..c0e73ead308d3 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -2643,6 +2643,15 @@ drm_probe_ddc(struct i2c_adapter *adapter)
- }
- EXPORT_SYMBOL(drm_probe_ddc);
- 
-+static bool drm_connector_probe_ddc(struct drm_connector *connector,
-+				    struct i2c_adapter *adapter)
-+{
-+	if (connector->funcs->probe_ddc)
-+		return connector->funcs->probe_ddc(connector);
-+
-+	return drm_probe_ddc(adapter);
-+}
-+
- /**
-  * drm_get_edid - get EDID data, if available
-  * @connector: connector we're probing
-@@ -2661,7 +2670,8 @@ struct edid *drm_get_edid(struct drm_connector *connector,
- 	if (connector->force == DRM_FORCE_OFF)
- 		return NULL;
- 
--	if (connector->force == DRM_FORCE_UNSPECIFIED && !drm_probe_ddc(adapter))
-+	if (connector->force == DRM_FORCE_UNSPECIFIED &&
-+	    !drm_connector_probe_ddc(connector, adapter))
- 		return NULL;
- 
- 	edid = _drm_do_get_edid(connector, drm_do_probe_ddc_edid, adapter, NULL);
-@@ -2742,7 +2752,8 @@ const struct drm_edid *drm_edid_read_ddc(struct drm_connector *connector,
- 	if (connector->force == DRM_FORCE_OFF)
- 		return NULL;
- 
--	if (connector->force == DRM_FORCE_UNSPECIFIED && !drm_probe_ddc(adapter))
-+	if (connector->force == DRM_FORCE_UNSPECIFIED &&
-+	    !drm_connector_probe_ddc(connector, adapter))
- 		return NULL;
- 
- 	drm_edid = drm_edid_read_custom(connector, drm_do_probe_ddc_edid, adapter);
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 2ee7c59329aae..185cefe6e292f 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1640,6 +1640,23 @@ struct drm_connector_hdmi_funcs {
-  * etc.
-  */
- struct drm_connector_funcs {
-+	/**
-+	 * @probe_ddc:
-+	 *
-+	 * Optional connector-specific replacement for drm_probe_ddc(). Drivers
-+	 * may use this to report connector presence when they have a reliable
-+	 * detection method other than probing the DDC bus.
-+	 *
-+	 * This callback is used by drm_get_edid() and drm_edid_read_ddc() before
-+	 * retrieving an override or reading the EDID. If it is not implemented,
-+	 * the helpers fall back to drm_probe_ddc().
-+	 *
-+	 * RETURNS:
-+	 *
-+	 * True if a sink is connected, false otherwise.
-+	 */
-+	bool (*probe_ddc)(struct drm_connector *connector);
-+
- 	/**
- 	 * @dpms:
- 	 *
--- 
-2.43.0
-
+Alex
