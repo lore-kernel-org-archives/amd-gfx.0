@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCFB6CA5FF0
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 18:33:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68CC3CA5FFD
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 18:53:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A39B10EE5C;
-	Mon,  5 Oct 2026 18:33:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7C1E10E5E7;
+	Mon,  5 Oct 2026 18:53:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k6GCOawJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Zlo27vVf";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010020.outbound.protection.outlook.com [52.101.85.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42ED410EE40
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 18:33:18 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011062.outbound.protection.outlook.com [52.101.62.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0459C10E5E7
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 18:53:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W8HA34DA4EAZkbuWwWoydlGAUaohBlAU1SFR2s0ZDTd/ujz+SsQjpCy6rTw6Neb6zu9pHRGkQi87ek4+Yj1zVII+wSfl2iXaOQ3E85gwzdUHeXHYnwyiYRBlCXxAvCUUBA4EhD/sB1No5XeD6ZmiRW9nJwl6VB90+D1va8JsHLt4Aw6WNpoEpc9cq0Nq6QKKi++8tfKLJAk08zAJE+aojC7LQQyKH6Om7e+qKRUFOgculUe4BrJ6FwyLRbSebLGD7SDVcQP3bsmcR+fqFdAs38rXLcN/oNMljnDIskJ9EWYqmkFF9PJ8ZCFiI7C4WdTnW95WE3kGyC6IBB2nzGfobA==
+ b=QEn2hncGWCOUOWqgupiKOVpDdaQ8OwjQnV/bcjcnBu+pMpfz+SzMYSaUi1ww0/I3TGJZuEx3RKuZU25b/gBOQzFJiMV+qV244cwKqd/oQWVemU9P5huah5yc5lPbEs8IFZqmL/nQ+IdG0KBkebiac7AheiGLMiSxVFqYr/684QmWOucLVUPVA2W0nGS+pGwvpw8u/lmHeNBWXL2mz25g8MhUPia+/46G+ib3ApFHIQ+zn5sUk+lWPaIB4089vaH5v2onEMA5Btka02khLPZJxLEEXPGyetDhcepY+hyyRdheDjqD+/+cBYFafOPgcwkCethJEiUNGTZbkhrrAOGi/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+vfHEH3AlJtt/0M9WYYyqNNb4CFrOJ4M4TY97T3IbXE=;
- b=cAxsMfmOqOS2QL0FhdDaWjl+slWfuPGCnMbadqYjok/rQh8DswEyd++Ckqyfcj49nPXPv7uRBWZT5QxoXAfTgxd9VkKRGtc8WZ/jw9ovpp4gA0G3EsF/09PAjMyYA/BnTw4d1f3xF26eREUJaPxUtklOY50p2Wqfn1qP/JBFL+7oaTzqj0vGgvinVI897k9P9vqpKgnV68qvxgcwb2lk+b74mt7HW3z8Diutz3ZPwcDMtcmSeQ1NEaKFqbu0N4BFhjb8OF6QaoGpj6vblBLXh9e8bSaFDtO5GJkPuRoo75kcfQ7cbUNN0tZ/+AeEvy23Z4YB3LivHp5B3hjmxggZUg==
+ bh=f4XZjvg4bZWXtjDiJF7UYJpmhDtKl8bHlrYlyiDkL5c=;
+ b=eIxRS0ct5h+D7QCVpr8/wYkf49G/vlIG3WwTIIwqHmbDWbJY8ggbMy942YIqLoecLLBOuuvlwPhh3gxpsQscrGdMdtCxZT0hKOfF9y65p/HywC1vz9TOyq3zLO6WOWiUR5Caibj7O8aK7t50i9G/9xsvQy7s6U8dnZYVOtN0edToAVqJFSyz+IRdWKrS6m//3xcGKI/0tZARNqF8fij8iLw2I49FLpMPjL+8U00NPuuLMgeJ2HqIAllT6jvuKsD2PxBsctJ0Z2lAiLxT+keRwWmM+Dzzh6cyXZ9/aFyerPlgZooRADemeC4LBwBwekM6votmjy1kH43UKpQFRaOiaQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+vfHEH3AlJtt/0M9WYYyqNNb4CFrOJ4M4TY97T3IbXE=;
- b=k6GCOawJrsGTo3WK7w3PyjCPjE6/trOXqoBhG5Mn3d8yyTW8sJ0IQoRqH0suIo9y5Tgwoel7hxwzAXmIfTIVsfHbznLzUVaDjZaadnHQezvWpVBN+IDZZb8Coff68QFIbNU53Vj3PnZB4yosGGILa+rwmrP/+Zh03ehmHIdw8ck=
-Received: from BN9PR03CA0514.namprd03.prod.outlook.com (2603:10b6:408:131::9)
- by PH0PR12MB8152.namprd12.prod.outlook.com (2603:10b6:510:292::14)
+ bh=f4XZjvg4bZWXtjDiJF7UYJpmhDtKl8bHlrYlyiDkL5c=;
+ b=Zlo27vVfe9Mxa0VDV1HCPlpK/SNkShXeuGXNTIbJS0tNQUlYsoM1+0sDQxKmMNbMy2sn73CdzRIjYDI3V7hjb1CQPn0jLOSiiHY9VACrvezd3sYyrai0L36h2oWwIpWQfBSMnHvBBIyAH/Zha/Ewxnr1zBxZONQNlT7UPX4yWfc=
+Received: from BN9PR03CA0342.namprd03.prod.outlook.com (2603:10b6:408:f6::17)
+ by SA1PR12MB7319.namprd12.prod.outlook.com (2603:10b6:806:2b5::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Mon, 5 Oct
- 2026 18:33:12 +0000
-Received: from BL02EPF00021F6B.namprd02.prod.outlook.com
- (2603:10b6:408:131:cafe::93) by BN9PR03CA0514.outlook.office365.com
- (2603:10b6:408:131::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Mon, 5 Oct
+ 2026 18:53:00 +0000
+Received: from BL6PEPF0006C3E0.namprd02.prod.outlook.com
+ (2603:10b6:408:f6:cafe::20) by BN9PR03CA0342.outlook.office365.com
+ (2603:10b6:408:f6::17) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 18:33:11 +0000
+ Oct 2026 18:52:57 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,20 +49,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F6B.mail.protection.outlook.com (10.167.249.7) with Microsoft
+ BL6PEPF0006C3E0.mail.protection.outlook.com (10.167.249.235) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 18:33:10 +0000
-Received: from atitest-Rembrandt.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 13:33:09 -0500
-From: <boyuan.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, Boyuan Zhang <boyuan.zhang@amd.com>
-Subject: [PATCH] drm/amdgpu/psp: Fail on VCN firmware load error
-Date: Mon, 5 Oct 2026 14:32:45 -0400
-Message-ID: <20261005183245.432709-1-boyuan.zhang@amd.com>
-X-Mailer: git-send-email 2.43.0
+ 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 18:52:57 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 13:52:56 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
+ <Harish.Kasiviswanathan@amd.com>, <Mukul.Joshi@amd.com>
+CC: Philip Yang <Philip.Yang@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
+Subject: [PATCH] drm/amdkfd: Fix svm_bo use after free in svm_range_clone
+Date: Mon, 5 Oct 2026 14:52:45 -0400
+Message-ID: <20261005185245.1060657-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,29 +72,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6B:EE_|PH0PR12MB8152:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb5dfd7b-2492-45c9-bcf7-08df230f1bd0
+X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3E0:EE_|SA1PR12MB7319:EE_
+X-MS-Office365-Filtering-Correlation-Id: b18d10d2-1d0c-4b81-6c66-08df2311df21
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|11063799006|18002099003|6133799003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: fJy+C3xPuo39f3OWDoUVrWNZiagPcpJpm7gPR+Xbc79zAIsl22XP5KleGEpCIEWHbeczPHZr4jwQnVPYyeBRe3H8lxiRdvNuUqWoUwD1Z7evGHk/60pg9/YpsaaogbJwIly9YxRoHR+ToKDsKK+nB9rZgYRY773O3Hiro3dN0TW80KpwkwIXlrzUHD7z2NXsgSBs7wRB0fSMImOPQAPoSZ8Qgjm/OxNcorqdaebFFb91KeM9r5pDt4BJiPj7R/CMNsbG1ZqkSDxjnFXwQsg50LaKkL6KPAu4gEX9bmHWo74Qub2IqeVrPZ4JYI1TpPDqqBAoiJADpjPobJbuBIziVH/gMn2MRtB5Fbr/xe2UNsnzKcu6jrnT4uDdq9hwRHijKlngMhx+bHDzdrC2N5mlBagP91ssJcn3yTfUjXzS67gTu8mhuBH/sWMlw+T02XyYVNab2FASF0mSGbmjhRBqsAc3tK+NuXqAvJAtWcAzeXBXGCiM/EsdKk8FxYtwIaxmibQ4VMwhCEEywJQs4WSxcBXSFYVFsP1fgpjp0n0cW4jEdK7+SUw74Tf/gsfNT461dcNPZXEacuQz9z8xQTb+QNFRDPNHjQnv87nU0VFe9BoumVcPQfkWfhG1KAwiVlG++bc4zwSbnQnxCCu1GgWJXmbet90hGtM0Qhu9rndmVIm4eElxA6alTd+07TP+a/9RmqwYFp2jzEfzV4LHQXRs1w==
+ ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|18002099003|56012099006|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info: AmUHx03WSjTem3z6oUvrczQXzprPlcYs6jSBJ403DoRq/kX8Sr5EYozJYg/h9R/2NIAAimiTbIs1CyjoCyDLhihrnbZ6iY7EtQbechi8NT7SDQQVDIMoIK7Ku0QpX4i/JhJ1B9HpRHl0dXua1J6j/ohuTyVyZG0RduwDo2nwMo+mP13EM+JrvP4pnnWS/pJ8OPg6wXHgDQgE8E7o769+Bucozr2FjzWuC4FotPgkVX/cHG1e4sPYiOHItUcd2CJFzMyAYDNanCc3pY440TBqfV1Cap/totjnoszoWgLmXr4u3A5gHoCWjAzt67zcW9WLu5i6vR1Znyoes4ra8mijZ9sLiddGImWh+YEqAW4H8Hoqp/qEgso1/Si9zwXT/ItpmH0GCgCIxp9O2I8pm3C85P4wVveF2axcOS7YX44WCnu1LBUOJMP+FctFAebltoAaq4dYNqFnSddMOXamdO8dWJ3ZDkuIazDki5mPY7D7ZbNrL3AU3vco+VFd43fW1ttHUrr1S+yQ2H7Siuq1EZi1+K+/NpuObFDU7KdHtamUPxSfKsk306QADUueozLvKbyZ2HzrCx8/yL/l6eaQTThEDcjKzW10lCV/6nlxbOkM7Adb4Dd4v7x5DY0l8Kk43K3wtitFS4uJ85YkpeeDsv14ceo/1WnWi1/wJA5tvnMHSaDAl1OYv2Fa3W5n7+poASTyRs2xdV0zdoL0bqP4CnvSsg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(11063799006)(18002099003)(6133799003)(56012099006)(10067099003);
+ SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(56012099006)(10067099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: uKMJgh48CwRBbVmVGaFi8AbjEQVmt78uJINapny6JrYIhEv0hBxGdeDAWqLzDwa4417XVGBwkY8yY2QH0I9RDIfvR23JdoR5IemXrTTf31c4wHABleUDoNTB2qSkaoKUon2S0lOG4AKBAV2UB019HSlX9GgnXrStqGqLtrq+21Wg3tk8Zp1OjHsZzS9hRm1KhqKcZHv60NJ+xNuBm+XgwKo/JmesxP2nyXRlcBpc/hJta7xUDn+kEDBwKJWRdR5pHoLfRAaGcOHQ9bbyoxWiAASgSv0K7RYHlPOm9lhoAZ302Qoh5ikOMzBF5BCm26aJdOsXmTcW+0mz1JM20R+mPviMM9//heS+YSnyanmy+xPy0iQIdqSuy+E6VsYsDT/WU1cf/vJu3p2esFfoxZJqulSgghTqZaF5G+cGAvoqRiGdF2i3s7uQ4TvlLm4jPlkM
+X-MS-Exchange-AntiSpam-MessageData-0: reVOfIT/y0Kxuxp55o9gsSgwMzs3KYJoTyW1W4oweb2nu94wMw6MpW2xBO6kRkwpGGrz2Nq5iu5Az7UV1Yag27qsB2upWmLEBQuArElaxx51fAOloz2Lw6N9oVPztG9qve8yXavfdZ3X77y2IS3+gsNa6vp2agYrJYVpVZgvrW+wssMzVq2Tx85g0WApi0D2iztqyujIDITfFEiDrn3BgsQo9mNwbrXWh8oZGUuy0WzVznSUaFm0KBmrL7zHfqConGM5QgmfQe/LSExlK/LEePDOragw4kNQTP2XWFBdYUOo1JYx48MCGZGV8/RtDyuP5IcAk5iK2eW9h6ob5uODnjAkpMxZurMEYJ7wAG60HKc4G2GGqLrtIod+1kHwVpkaKgJ8PE/G9NaH6iJgkiVXlPSxO2S6u3S3660FBw+ev2xJaEyRARSOQY7hgCU5U2/m
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 18:33:10.7623 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb5dfd7b-2492-45c9-bcf7-08df230f1bd0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 18:52:57.4390 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b18d10d2-1d0c-4b81-6c66-08df2311df21
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0006C3E0.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8152
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7319
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,35 +109,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Boyuan Zhang <boyuan.zhang@amd.com>
+prange->svm_bo stays set after the range drops its reference in
+svm_range_vram_node_free(), it is only cleared later by
+svm_range_bo_release(). Taking a new reference based on old->svm_bo can
+therefore hit a svm_bo with refcount 0 and svm_range_bo_release_async()
+pending, leaving the clone with a freed svm_bo.
 
-Return an error when PSP reports a failure while loading VCN firmware,
-preventing GPU initialization from continuing with unavailable VCN firmware.
+Check old->ttm_res under old->lock instead, it is cleared together with
+the reference drop, same as svm_range_validate_svm_bo() does.
 
-Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 04f6ebf31cca..1d853d2e8cc1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -784,9 +784,13 @@ psp_cmd_submit_buf(struct psp_context *psp,
- 				psp->cmd_buf_mem->resp.status);
- 		/* If any firmware (including CAP) load fails under SRIOV, it should
- 		 * return failure to stop the VF from initializing.
-+		 * A VCN firmware load failure must also stop initialization.
- 		 * Also return failure in case of timeout
- 		 */
--		if ((ucode && amdgpu_sriov_vf(psp->adev)) || !timeout) {
-+		if ((ucode &&
-+		    (amdgpu_sriov_vf(psp->adev) ||
-+		    ucode->ucode_id == AMDGPU_UCODE_ID_VCN)) ||
-+		    !timeout) {
- 			ret = -EINVAL;
- 			goto exit;
- 		}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index cfb428c72686..536e804bc2c5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2158,7 +2158,14 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
+ 		svm_range_free(new, false);
+ 		return NULL;
+ 	}
+-	if (old->svm_bo) {
++
++	/*
++	 * Only share svm_bo if old still holds a reference to it (ttm_res
++	 * set). Otherwise old->svm_bo may already be at refcount 0 with
++	 * svm_range_bo_release_async pending.
++	 */
++	mutex_lock(&old->lock);
++	if (old->ttm_res) {
+ 		new->ttm_res = old->ttm_res;
+ 		new->offset = old->offset;
+ 		new->svm_bo = svm_range_bo_ref(old->svm_bo);
+@@ -2166,6 +2173,8 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
+ 		list_add(&new->svm_bo_list, &new->svm_bo->range_list);
+ 		spin_unlock(&new->svm_bo->list_lock);
+ 	}
++	mutex_unlock(&old->lock);
++
+ 	new->flags = old->flags;
+ 	new->preferred_loc = old->preferred_loc;
+ 	new->prefetch_loc = old->prefetch_loc;
 -- 
-2.43.0
+2.50.1
 
