@@ -4,127 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04A28CA5FFC
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 15:54:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E764DCA5FFC
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 16:10:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26DED10EA19;
-	Mon,  5 Oct 2026 15:54:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B36E10E184;
+	Mon,  5 Oct 2026 16:10:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Vz2PI+wH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rYe152FI";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010009.outbound.protection.outlook.com [52.101.46.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C73310EA19;
- Mon,  5 Oct 2026 15:54:04 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012070.outbound.protection.outlook.com [52.101.43.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6E5C10E184
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 16:10:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lHQm9g3k3CBLkmx+waaVxNBvX9BZbu4Zyn1EZdx7E4O6EPOt1yQay4S8v4kB3oDEsAGb5ODlnxxV2MWaXxQj3u8iY7+CHn1S03s726rXh3h6uOuEj+7Gw7cmZfGa/4tDwiZHxEKLlGZYNnpAjr0SpEvnR0v0BFzQuwOpUy/HYsuMWG3L2cvXPLLGf8BOXgZ8UcaMDcThPFTZ6w4Dou1HZ6ACD0DZFGwTg7HIcpvIfGZhd3OQ6JrQv3pu3R+7Ogkrb1qTMUFdkYtdynBG8REXlHcTJQSm9Ef6hybmpHVULr6Z86tQnBSpNKlXT7MjlY9wZNcTjGFu1hfMlcSskT8vYg==
+ b=gkyd0I/OAmiEZtxZ6gFezzkW/VheYLXMjVrNyAkN9f5LcVmNnIueEFJmpD4nC8qcsScA6uvCStpaCBCXlAd8QIb1PsddwVV5FG5sV6Z6uCvOWGPNsiTUEpwfil5qgnLrtGN9WsN1Fe/d3Jdy4RUkMxfvlDgYoER1lfPGiMM5VOBuSWw2pkBKoqGUuUEL4J1nD2h3G+5oSJbVGTEQVuT1y7Ou0ndSlrvUt7lc1Sla8ElqRaUo990R/5tgHi3kegS0ePODsbtj2G76Y0sHmux7RvMmTFqpjMJY2zlZqW0QzcvnQDPN5WfQY3KDl4Y/oju0RzCtmclX4tQMaBOtk7L9Ew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zIerh1ks4VSxj7ztC+tRpaOAzKcuiY9PlKyij5SROX8=;
- b=U7T2YWEjZR1xTYg5l1DDRPOJF88pcmdEIFG8/m4Vl1u2stunSPaPwbnVjm+Z5VtvSy9LkPO/tun3rI51TK8heJGNyofaTxwPMfORg0W060ad+CaAUgsHHnz+p2KoTDirjuVJg3lCPbdAtbzvsHCZathO2CdGEphaIqpzYfG9QUJH6Y0DnRjlSXewtENW97L87KK8sJrW6doIyFqJPnIjB/TfYWXUm52E8P3ECjy0b3z9dzh/pMfDZxb9DsIDNhPnV+coytieWX988H7BiiyvzMlIvDRtRU1wbsjs1kpzD0JbEJPgHtSqdDk9JhAoZy+ca4YJahJ+xkkGbXK3z1kzTg==
+ bh=h51KG5QHvksjDU2l5SH9JSEUblVoXPyDFbwIzv92ux4=;
+ b=nEsjydyUiH4N7OGeP+XlgW0EKFp7fqwRZmbTV6h3hHJnFZbFeFDTkkqKBmHLchQvEwaHywMAUErvA8dAKSsApO4oYjqruUVNvPkOXLUL83y5+dRNbUfc16OVe6NhGpkyCIefgup3Qv3RXYo0YQuDB0lGRb11DwY5pHTVMcUqVOqHQPK6fIRs8XluGimQVZavurj5GIY8m69VHSbbdnszOH4HkcaQQsB4+EBwu/Ca0zXqr+ICccPNSmwma/glaGZTx45RTfjQgHDIkF5Nih6GngLF747XniA/clHzI6+L+7LzKO8HzHqWiw2aavXuZsQ9xNUsMYY3RjrhgB1nh83FuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zIerh1ks4VSxj7ztC+tRpaOAzKcuiY9PlKyij5SROX8=;
- b=Vz2PI+wHosYN4Ru544kcUf59m5NfdXyuvSd0qPhirOooF1JqHUsRGrY6vn32/F6zo8RjZ6qmlbcUoxJ6NmUjSvGxf4shYwGx56MwwwlIHfzsgc5bfLdR2MZUnJF9pPrOswWBjha2KTHS33AMpz+Ri4jA5LdSNlz32unm1M0d95c=
-Received: from DSWPR12MB999127.namprd12.prod.outlook.com (2603:10b6:8:36c::7)
- by SN7PR12MB6743.namprd12.prod.outlook.com (2603:10b6:806:26d::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 5 Oct
- 2026 15:53:54 +0000
-Received: from DSWPR12MB999127.namprd12.prod.outlook.com
- ([fe80::54e1:5b6e:4c39:d7b2]) by DSWPR12MB999127.namprd12.prod.outlook.com
- ([fe80::54e1:5b6e:4c39:d7b2%5]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 15:53:54 +0000
-From: "Li, Roman" <Roman.Li@amd.com>
-To: Adrian Betschart <adrian.betschart@cinemaone.ch>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] drm/amd/display: Don't replace a sink mode that shares
- the native totals
-Thread-Topic: [PATCH] drm/amd/display: Don't replace a sink mode that shares
- the native totals
-Thread-Index: AQHdTO0nixdP7a5xwkWsp/w6k5FgQLbvKQ8g
-Date: Mon, 5 Oct 2026 15:53:54 +0000
-Message-ID: <DSWPR12MB999127197E635763213D5D3FF089962@DSWPR12MB999127.namprd12.prod.outlook.com>
-References: <20260925074829.92079-1-adrian.betschart@cinemaone.ch>
-In-Reply-To: <20260925074829.92079-1-adrian.betschart@cinemaone.ch>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-10-05T15:52:06.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ bh=h51KG5QHvksjDU2l5SH9JSEUblVoXPyDFbwIzv92ux4=;
+ b=rYe152FIqV+tVJh8Wz2tvc7VZYdfaXA+UQYg63CC2g3r/ozdGPnMEKnlK3GvYVDgyKSaJIqVPo9lqyKuRl2D56tZljX/P8nXxmd45jcLrHtLqz8kh0QhEAgGyLvXuwEwNkKfeR/e9GLLA4f7l0IqUILjzWpItUi3Bbev7TU8Z70=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DSWPR12MB999127:EE_|SN7PR12MB6743:EE_
-x-ms-office365-filtering-correlation-id: 3fee4441-638d-47ef-dca4-08df22f8dba0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: Qa+l3b43p7oRbA/pUl7EQcbEPvUuAb+n9lFcRcm84XXolw6RsbahWqBk8Ew7AIpQgTmHT9qp5H+q17QZ3Xk8EAjYbIY+xM/dYxRe9XllREKyKEOXQRz0I3RKFuyEB3eNh5qBztZAs0+Ho1Y+cZWLIVGO37KPsaiUCUV1PZMIyKPNTqeWk/owFHazOQl3Y1iIFzKz9Hf/wMuiuXODjWrwzNMkHSDeaur+IjTeX5ohyPyjz2FeuqHDyfiJbGEvE+9Bp+qnvk/kLm4ukPFbtvLCp5GSmuzvyr2uJFjOy26YeAVePQKuK89pvbHullb1xmkdFsR7giEL8fgqylW9Zh6eRt4z4rNqDuNXwcAeDXER0DOdOG0o3Y5pMO5adSHgTCLeYOwIvkketsmLSuoYvoBeipOmb1/HVHHZVMbiiW9DsZLAfGlmW2XtPjI05YJTYasjPTMp93bsSHmKVf+WNV3PGv7ljuvmFSTulP+WFFxydyBZrohIGSybvtDREG8Fp40J62UbDdtamxavAEMHNJE+UBgNr9+RH3V6NICVZ1+2QDUWU2oOzRwpwJfiGDUk0VWjZ/c5uWolZ8iC5D/tRDM9YDZNhA6i8DtHp9ppLqvIn1+SSknqwhAnCiAkVIoT+39zT4ve3uafXFMz7MMDP0JEx/22zfVD8L527Mg5wrtofoYt69t3GJMmtNRWK6UXR+SXwkNZfysAvgiA+iOgRh0v7+81Z27obkkRRW9/yq0L7VA=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DSWPR12MB999127.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XJrnGI1IE3aRc6A+tPRzWQKVYIuGrYbjwiRsigOu2MvxRXu5rwQNktHau4Oq?=
- =?us-ascii?Q?PpZpZ+Z5oAyHhwpNs/9Mtw1MmgQjob84dtdwDq2J7QUzHzkk4BDBCuqGoPph?=
- =?us-ascii?Q?rlpy1xbI1qSwEbue0sYO6RKfHSmM3iagvX1TQyPeCIRPgvT9Ap8i/YWEo6r6?=
- =?us-ascii?Q?SqhVG5WobOZ/dBIBS5Ctz/UlvBU65KxCIyHhAAJIfpYZ/WN2I3ulY6p1zKJj?=
- =?us-ascii?Q?vkR7nD/blwmr4WotlFLxqVzbtgLIZDpbGfpmveroSz4JwS2wzsk9O//65kkJ?=
- =?us-ascii?Q?GRkbuIowqL0RRVEHFdvq1qIhXILWYwsrKuO+mgwBNrJvHPev3xPX/Bdh8Hky?=
- =?us-ascii?Q?Yb8Yj6yIHqc3jYAPkVBTEsaVPHkEGD38GLprEXOuk25S5CGvFbfJ1AQfkyDr?=
- =?us-ascii?Q?TdPHwPhDtCuHRiUriDUlFv9qQQpet5oWdFx9EhjfbXmJeo44HGvJGbbo+GTX?=
- =?us-ascii?Q?3TtbWy6nIVNOc+LCXXXFXMC96e5oUizveNFlOf1RnYom5hXbi8JGbVyZVj1u?=
- =?us-ascii?Q?jpV3s6MDSBt+hxXpogLFpjKhfnLjFJP/M8njHsdoO3tKGD19BPT8C7NKe426?=
- =?us-ascii?Q?zrHc9hcRJf7TeXY3o6Qv+wuyruQDYnroRVzG/B4bDihyREyXVqRVVEy3eD6h?=
- =?us-ascii?Q?gQcyXkrMlif69MJhg9SWuGBy1Q41Hpsj2ORko6iIHzVJNPKU6R8QMkodpBO+?=
- =?us-ascii?Q?D3IBfSlo5CprDC/AhQ59Jw9C901JcJULixKKGI8GAtmoUgawgToaT7JFjI4g?=
- =?us-ascii?Q?4wMgbmfxY/Xt805ugyuF55Qupgm8DaEYcRyyYo/nj1y3XwulDlwPkhwYHdKO?=
- =?us-ascii?Q?Tu6Ngl0LgB6eXH+8iqFxT0SDN5edrh04Ycpz5bZ6Tk7MZqyK24FHdNRoqgnk?=
- =?us-ascii?Q?09bjXh73Gk2bmdLaG4B5iOa/dYlgvGoC8i+wzDwebsMgQ0U5PDayPFMBGkcQ?=
- =?us-ascii?Q?QVmYPSDiI3Q6jekKske31gRi8Nnr5k1AY2xh2yyCPG8VF7YulZgg80pBiUxc?=
- =?us-ascii?Q?rRVAcJ6epgQ+erU8/1XQC70Vp8tk/IJyEMoFnBWFadeaOZuCe7iHYojI6nh2?=
- =?us-ascii?Q?+/InzP1KkhHg0Z7fvXaGrtKz8VLwyEdZ7dm9XzmRj9/XA3MM+Po/dynMl1aW?=
- =?us-ascii?Q?yKFdG4mwuCyQ/YQsCjkqbTQlSUNiRMpFTzudpaUctxsTjradT1v2PWXH9Lfk?=
- =?us-ascii?Q?IBsaEtZM1cc4Ljhdn7Pf52txx3X738tAYt+CKQ5G7NBcKE8PFesZQDK3cbBs?=
- =?us-ascii?Q?nK+vBmCo3XmVw5PYBREaTACuy5mdiVW6hXEK92KYts1lYbs22qp7fOOGeUFJ?=
- =?us-ascii?Q?Doa3kEaMuhGIXyKHXUKZWhvz/BjLYdbFtgzyU6xRVTRz3d0eHvo2gb/rGq+U?=
- =?us-ascii?Q?2y3ZiDeshZggRTKuf9/WsvPwWzYFEnLB8Trt0cXIuRZfWvfGJmvAvAdYddBV?=
- =?us-ascii?Q?SidhX4PcgKl1IoqJFajrGHoADa6l9c3xNMziNwuEzoCsHSoVepaZaURuLbuA?=
- =?us-ascii?Q?/K6p7qYPfdL6fPuiEBgl0wRWXWIdxY+9JBWXk54xOpgdNgmVTK3WHjJ7mXlT?=
- =?us-ascii?Q?IW55HEWmFuS3fskQlPm0YI9JNPIhgVjoPy1fbgzxtHAHBpkoAQlD4B6fxvzT?=
- =?us-ascii?Q?z1GDfTrDEXmyX4x6XoLko+wbPPmdGf8S7GVmgmwoum5blvdZtlGXCKCIQqgY?=
- =?us-ascii?Q?tNJWi7lygg/saVuX9EQRaRgk77mZ2UWHlmWeINwBtcwfDXAn?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DS4SPRMB0031.namprd12.prod.outlook.com (2603:10b6:8:349::17) by
+ MW4PR12MB7165.namprd12.prod.outlook.com (2603:10b6:303:21b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Mon, 5 Oct
+ 2026 16:10:24 +0000
+Received: from DS4SPRMB0031.namprd12.prod.outlook.com
+ ([fe80::5a9e:89da:d693:13a3]) by DS4SPRMB0031.namprd12.prod.outlook.com
+ ([fe80::5a9e:89da:d693:13a3%7]) with mapi id 15.21.0472.015; Mon, 5 Oct 2026
+ 16:10:23 +0000
+Message-ID: <2fe98d68-88dc-4ede-bca1-4eb8c13ff2ae@amd.com>
+Date: Mon, 5 Oct 2026 18:10:21 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Allow VCE SEI command in IB
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20261002145248.30879-2-david.rosca@amd.com>
+ <CADnq5_NO7sDFC0m6cwfz=n4BQG7a6us0s343HRuq4nN0opDr9A@mail.gmail.com>
+Content-Language: en-US
+From: David Rosca <david.rosca@amd.com>
+In-Reply-To: <CADnq5_NO7sDFC0m6cwfz=n4BQG7a6us0s343HRuq4nN0opDr9A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT3PR01CA0118.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::32) To DS4SPRMB0031.namprd12.prod.outlook.com
+ (2603:10b6:8:349::17)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4SPRMB0031:EE_|MW4PR12MB7165:EE_
+X-MS-Office365-Filtering-Correlation-Id: 651decdd-eee2-46b1-55cf-08df22fb296a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: ZwUQYi2NvBMtTKEvbzTlupqr2a1kIJ0BGKO3C5iFygCmvBlRsy9oCthvCAg1WrWgHGIa3IqA0quVs5aiQM7miEuAgRwZSxqTHHcmizxw9l4pxAqWSkWY64PNMEmzfSFFfvfJALgomcsV1a8pWx/NExfyNc2yWfx5/UzKpU9vhR3cBWjG0r6VCOPK1nCPK1IgaJr4M7pU7ash1JX4cubttAxrPl81bRoMsLOIR1MwWHJSBNCzKGsax09Cmq0TweDJPXtKiVW6DkPKFI8qIEdA74/E4RnyfGbn39YSl73LZZ6AMTehTBNvpaRziEn1KkUwrufjCP82YXcTK95n89sQh9Z20OBGRoqkWbTvAbn8E71dLFixEH/l84r+gfOhN4eEcyUg0+5n1v0MgKSeH/ZD/7S2JX7bFAMtzcLdoLvIQ4joagxGOE5/4Nyyr4HQZkQqljmDnocytzouPX144FETx/elEykS6E9bZkV2JsfrAF8h6xPOgRH9apS+0WKN/7eNuMuTBOt9KBv2MvPh/q+MjHDqqji2buy/5O9UrePpvSyBLYonWwfH9LsiKMz/sWihFuJYP1JgD5DZuAJe6XZ4sUQxnQWlowE0ZAvoxCGdb3+At1Pl/cL45D93IEx+Kojo9R5aKqAtUxH6SbgV9nBC/Afow7h5a8Uaqi2gtsL52mw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4SPRMB0031.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MlFpV1YrNmhVMmNDcEI5ck0wbklhenF4UE03b2x2aEd5TE9MemxqZXRpM0k0?=
+ =?utf-8?B?UGxOSmVQSDVMS2NrNmlhSG1KMHFzTjFQZnMxbXA4eUhzT1FNZ3A2d1lhMi8v?=
+ =?utf-8?B?SWZOR1hmcUdiSWpISnpUZHd3MytKaWsrU1J0S2hYNC9xVVBLZ3FXRDlaejMr?=
+ =?utf-8?B?ZTcrQnZ4SDJkQmRMNXgyMEVldW9VcGdYUXo2UllISUFWR09YVFd6TDIydnNq?=
+ =?utf-8?B?UHBPMEZvalgwejlSRDJRYkVScGUrYndMZlFGRDdwN1NXQVkyK2ZUUHZFSW1o?=
+ =?utf-8?B?WXFFWGRRRVRPZXg4czR3bm81WEYzZWVxbUJ3eEp0NFF1SkRxWEZrMkV0REVm?=
+ =?utf-8?B?Q1RlMWwyYjZTM0paZnN4SkphRjR0QkcvWEJsQ2VXWko4ZFVnUUNqdEEvalhJ?=
+ =?utf-8?B?ZTRETW9NSWFqL3BjUmJaOUNvYnlzNUloOUxyNWNlbkdndTI1KzY2L0ZuazU4?=
+ =?utf-8?B?RHR4WEpOcmszd1gzWjZqRWlJRWFFWHRaRkd4bWZZMFlENzVydlhyT0Z6QUdq?=
+ =?utf-8?B?VGNBdU9MTjhvVit4dVllTDkyMXFLUWs5bWtibU9neWc2QTlOVGhmbE56Z2di?=
+ =?utf-8?B?UUc2R2doa3FvYnUxanFOM2kwa2pPRkJCN3ZsQ1REaERNQ1dSdVdCUHp3V0tG?=
+ =?utf-8?B?QXJEaEhQMC8yUVluV0hKTHN4VGxyRzQzdDNoOStiWmJkMURoWjliMmVWbGtw?=
+ =?utf-8?B?ZVg0UVBaZE4vcTgxdnN1SWxvN3JCOTBQUGxRRmxnYjZFYmZlVlBMV3l5K0Z6?=
+ =?utf-8?B?VVJuN1grWUNCazg3TWw1MWJjbGsrR0c4Mjc5N2IwMTNkVWFCZEZXRE50cW5F?=
+ =?utf-8?B?STMrOGNMejd2UjMzVlhad29ZeGZ2S0ZMM1FkM2VURnBESjhRTnFuaHM2SCtF?=
+ =?utf-8?B?bmZ2bUZOTjVvdUZ6OW1zRzBMM3gvSklzTFQ1SXU0dEtHakRFdUpGMjFOSmpu?=
+ =?utf-8?B?c1Vvbi9RVlJsUEtubHNmZGZYY0Z4a3hSZStnRDdMaVZFSFV4NkNhN3I5MVdw?=
+ =?utf-8?B?eVp4SHViTDVlOHpzMHo4RnpJcHZXTDJOUDVMd29mWGpWeTZEeXdWaVpLOUpF?=
+ =?utf-8?B?TlF2UjJkM1pmTzJiRnBFWEFnQmJkSHprN3NWaWdhRXIrTk1GNmNQek1keUtU?=
+ =?utf-8?B?eUF5ZXdlM0dQTlYzb2Z3VFR4VlFHMERaRGNNVTFDK2MzNmNSZW50UWJSYjhX?=
+ =?utf-8?B?V1hlMTNydmJFV0RvMkZ4T0hOWDFQRDFvS3dReHhSZU1VaHR1dU01ZzVuQ1BM?=
+ =?utf-8?B?VDhDUXhEOFNvd25mNGtDQndJTmxQa0IzUE5mQTdEK0YrTmJCd3VBd3MyM1RD?=
+ =?utf-8?B?VENvNUkvQmZnTTVmWG12a1VXanZJTnV1cC9zMk1IbkpMdUFJYzgvbkZYam9X?=
+ =?utf-8?B?UE1Pc3ZQdm56S2VEeHBXS2ZTdnRWQm54Ym52SkR3NGx3MUpmYVYvaUxGOHdT?=
+ =?utf-8?B?bmxpdnRzRmYwSzdnTVRVUTBlV2RUNnVNRFBkTTVzMW9ocWhkby9hS0tFZG11?=
+ =?utf-8?B?aHR6d2t4TXNORTl2MHVZdEtyanRvVXNCMW5jSnpGOTVLaWV0V0FvZDVQS1Bi?=
+ =?utf-8?B?OGtiUmNyQ01xY3VoZjhncmhRNENVc0l2ZGVOL0U2VG9udU9CSzNSc1JtSlp4?=
+ =?utf-8?B?NlhRSTFFV0loNVUxMXRRMkhMVGIvUzF0Y2srVnhZb29pV0R2QzRxUWxXNUpw?=
+ =?utf-8?B?N2ZBQm5UakNaNGFkMlNNeTkvaFN6cXVzaFd6eHdOZ1ptM3U4V0tqOUt5SFBj?=
+ =?utf-8?B?SUJxejBiNTdGTitRU3BVNVIyclJYd1F3UmRMbFVQMVpMbm5NL0FoQTkwakp6?=
+ =?utf-8?B?TU9zSU1jazB6MytlM3VKS3p4bTJ0MFM4bEZvbE9pWkRSUC9XbWU0V0pGS0Jw?=
+ =?utf-8?B?VzRJZWdpdnhlRGRoVG9OM3RqelhKcmp0SEZyNk9IUWF3RjFmbUN0dmhtQWFU?=
+ =?utf-8?B?SGNrS1haa2x2U2tLbjl4MkpsdGRsV01xQUJ5OENrSmg1OXBYTGwyMXlRMXFt?=
+ =?utf-8?B?bUNtczB5b1p2Sm9oUjhnbjBmdGl0Z01ubDVucmJMYUJnaTRFWHRxc1ZYQUN2?=
+ =?utf-8?B?NzAwVktJU3BNdFlKUmNjNktMaGptSzE2M3hWYzRFcEZVbkIvWHp5VmFuVzF1?=
+ =?utf-8?B?elJudVF4dGh2ekJxYmhJTitPNVM5a2VkWHhscG1hMUVvY3ZOaTY5V0FyRkNZ?=
+ =?utf-8?B?ZUdXN3MzV2pNWEppUG5VcCtrNW5XQlNaRE1hN1p1V3l3bHZzb2F0ZWx0b3Vn?=
+ =?utf-8?B?aEVhcjRLSVRBZFBZT2JkMTZjWWJTb3NuMzk4aEo2aDdnQy90bWhlcmtPV2VR?=
+ =?utf-8?B?UXUxZndMb0kwYnJzbWhhMUVEaDN1Z1ZRTkRML0NTemxkcEZBRXhkQT09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 651decdd-eee2-46b1-55cf-08df22fb296a
+X-MS-Exchange-CrossTenant-AuthSource: DS4SPRMB0031.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DSWPR12MB999127.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fee4441-638d-47ef-dca4-08df22f8dba0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 15:53:54.1706 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xiWfdWREwT4FvjLYhSl0rtBVhJzYiCxZCKjKbxsX4bol/9cZTjU6wv4LjGnhezR0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6743
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 16:10:23.7911 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +KAhVRKUhExGvC25hXEYc0Tin+1dnYKEuarHfiQTV38e8am47WZORhhw3tUrB8mVi1z9aSHO3HYu35igJ8o88w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7165
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,165 +134,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Public
 
-Reviewed-by: Roman Li <roman.li@amd.com>
+On 10/2/26 17:34, Alex Deucher wrote:
+> On Fri, Oct 2, 2026 at 11:31 AM David Rosca <david.rosca@amd.com> wrote:
+>> Mesa will use it to get the slice offset in bitstream from feedback,
+>> which makes it possible to filter out SPS/PPS headers that VCE 1 and 2
+>> FW always forces on IDR frames.
+> You probably want a driver version bump as well so mesa knows when
+> it's ok to use that?
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Adrian
-> Betschart
-> Sent: Friday, September 25, 2026 3:48 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
-> <Sunpeng.Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Deucher,
-> Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona Vett=
-er
-> <simona@ffwll.ch>; dri-devel@lists.freedesktop.org; linux-kernel@vger.ker=
-nel.org
-> Subject: [PATCH] drm/amd/display: Don't replace a sink mode that shares t=
-he
-> native totals
->
-> decide_crtc_timing_for_drm_display_mode() copies the native mode's CRTC t=
-iming
-> into the requested mode when clock, htotal and vtotal match.
-> That is meant for the modes amdgpu inserts itself:
-> amdgpu_dm_create_common_mode() duplicates the native mode and changes onl=
-y
-> hdisplay and vdisplay, so those are sent with the native timing and scale=
-d.
->
-> A sink can also offer a real mode with the same clock and totals as its n=
-ative mode.
-> CTA-861 VIC 102 (4096x2160@60) and VIC 97
-> (3840x2160@60) both use 594 MHz and 4400x2250. With 3840x2160@60 as the
-> preferred mode, a 4096x2160@60 request goes out with the 3840x2160 timing=
- and
-> the framebuffer scaled into it (dst 3840x2025 at y=3D67), while the AVI I=
-nfoFrame still
-> carries VIC 102. A JVC projector then reports 3840x2160 and shows a corru=
-pted
-> right edge. 4096x2160@24, whose totals differ, is sent and displayed corr=
-ectly.
->
-> Inserted modes keep the native sync positions; a real mode with its own a=
-ctive
-> width does not. Compare those too, so only inserted modes are patched.
->
-> Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
-> Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
-> Assisted-by: Claude Code:claude-opus-5-5
-> ---
-> Tested on an RX 7600 (7.2.4 backport) with a JVC projector behind an HDFu=
-ry
-> VRROOM: 4096x2160@60 now arrives as 4096x2160 with a clean right edge;
-> 3840x2160@60 and 7680x4320@60 are unchanged. KUnit
-> amdgpu_dm_connector*: 360/360.
->
->  .../display/amdgpu_dm/amdgpu_dm_connector.c   |  7 +++-
->  .../tests/amdgpu_dm_connector_test.c          | 42 +++++++++++++++++++
->  2 files changed, 48 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index 7ebf7216b499..7db85bcebecd 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -996,10 +996,15 @@ decide_crtc_timing_for_drm_display_mode(struct
-> drm_display_mode *drm_mode,
->                                       const struct drm_display_mode *nati=
-ve_mode,
->                                       bool scale_enabled)
->  {
-> +     /* Inserted modes copy the native sync; a sink mode with equal tota=
-ls
-> +may not */
->       if (scale_enabled || (
->           native_mode->clock =3D=3D drm_mode->clock &&
->           native_mode->htotal =3D=3D drm_mode->htotal &&
-> -         native_mode->vtotal =3D=3D drm_mode->vtotal)) {
-> +         native_mode->vtotal =3D=3D drm_mode->vtotal &&
-> +         native_mode->hsync_start =3D=3D drm_mode->hsync_start &&
-> +         native_mode->hsync_end =3D=3D drm_mode->hsync_end &&
-> +         native_mode->vsync_start =3D=3D drm_mode->vsync_start &&
-> +         native_mode->vsync_end =3D=3D drm_mode->vsync_end)) {
->               if (native_mode->crtc_clock)
->                       copy_crtc_timing_for_drm_display_mode(native_mode,
-> drm_mode);
->       } else {
-> diff --git
-> a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-> index bd55d943e4e5..04e0afd7aa71 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_tes=
-t.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_te
-> +++ st.c
-> @@ -1468,6 +1468,46 @@ static void
-> dm_test_decide_crtc_timing_no_crtc_clock(struct kunit *test)
->       KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 0);  }
->
-> +static void dm_test_decide_crtc_timing_sink_mode_same_totals(struct
-> +kunit *test) {
-> +     struct drm_display_mode native_mode =3D {
-> +             DRM_MODE("3840x2160", DRM_MODE_TYPE_DRIVER, 594000,
-> 3840, 4016, 4104,
-> +                      4400, 0, 2160, 2168, 2178, 2250, 0,
-> +                      DRM_MODE_FLAG_PHSYNC |
-> DRM_MODE_FLAG_PVSYNC) };
-> +     struct drm_display_mode drm_mode =3D {
-> +             DRM_MODE("4096x2160", DRM_MODE_TYPE_DRIVER, 594000,
-> 4096, 4184, 4272,
-> +                      4400, 0, 2160, 2168, 2178, 2250, 0,
-> +                      DRM_MODE_FLAG_PHSYNC |
-> DRM_MODE_FLAG_PVSYNC) };
-> +
-> +     drm_mode_set_crtcinfo(&native_mode, 0);
-> +     drm_mode_set_crtcinfo(&drm_mode, 0);
-> +
-> +     decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode,
-> +false);
-> +
-> +     KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 4096);
-> +     KUNIT_EXPECT_EQ(test, drm_mode.crtc_hsync_start, 4184); }
-> +
-> +static void dm_test_decide_crtc_timing_inserted_mode(struct kunit
-> +*test) {
-> +     struct drm_display_mode native_mode =3D {
-> +             DRM_MODE("3840x2160", DRM_MODE_TYPE_DRIVER, 594000,
-> 3840, 4016, 4104,
-> +                      4400, 0, 2160, 2168, 2178, 2250, 0,
-> +                      DRM_MODE_FLAG_PHSYNC |
-> DRM_MODE_FLAG_PVSYNC) };
-> +     struct drm_display_mode drm_mode;
-> +
-> +     drm_mode_set_crtcinfo(&native_mode, 0);
-> +     drm_mode =3D native_mode;
-> +     drm_mode.hdisplay =3D 1920;
-> +     drm_mode.vdisplay =3D 1080;
-> +     drm_mode_set_crtcinfo(&drm_mode, 0);
-> +
-> +     decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode,
-> +false);
-> +
-> +     KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 3840);
-> +     KUNIT_EXPECT_EQ(test, drm_mode.crtc_vdisplay, 2160); }
-> +
->  /* Tests for amdgpu_dm_connector_funcs_reset() */
->
->  static const struct drm_connector_funcs dm_test_connector_funcs =3D { @@=
- -
-> 10342,6 +10382,8 @@ static struct kunit_case amdgpu_dm_connector_tests[] =
-=3D {
->       KUNIT_CASE(dm_test_decide_crtc_timing_matching_mode),
->       KUNIT_CASE(dm_test_decide_crtc_timing_no_copy),
->       KUNIT_CASE(dm_test_decide_crtc_timing_no_crtc_clock),
-> +     KUNIT_CASE(dm_test_decide_crtc_timing_sink_mode_same_totals),
-> +     KUNIT_CASE(dm_test_decide_crtc_timing_inserted_mode),
->       /* amdgpu_dm_connector_funcs_reset */
->       KUNIT_CASE(dm_test_funcs_reset_sets_defaults),
->       KUNIT_CASE(dm_test_funcs_reset_edp_abm_level),
-> --
-> 2.55.0
+Yes, but there are more changes needed before that.
+I'll resend this as a series with the version bump.
 
+David
+
+>
+> Alex
+>
+>> Signed-off-by: David Rosca <david.rosca@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+>> index 39d87f3df9e0..bfad44ec7feb 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+>> @@ -920,6 +920,7 @@ int amdgpu_vce_ring_parse_cs(struct amdgpu_cs_parser *p,
+>>                  case 0x04000007: /* motion estimation */
+>>                  case 0x04000008: /* rdo */
+>>                  case 0x04000009: /* vui */
+>> +               case 0x0400000d: /* sei */
+>>                  case 0x05000002: /* auxiliary buffer */
+>>                  case 0x05000009: /* clock table */
+>>                          break;
+>> --
+>> 2.43.0
+>>
