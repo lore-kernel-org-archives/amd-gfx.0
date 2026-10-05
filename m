@@ -4,123 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44343CA5FCE
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 07:42:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2B80CA5FFC
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 07:44:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDCBA10EA01;
-	Mon,  5 Oct 2026 07:42:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5033A10EBD2;
+	Mon,  5 Oct 2026 07:44:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZXbfnnkz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xs11ts0c";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010057.outbound.protection.outlook.com [52.101.61.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 967E810EA01
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 07:42:13 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012059.outbound.protection.outlook.com [52.101.43.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85ED710EBD2
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 07:44:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xptBC0iTONX0kWTWhs4yvElyUMWWxNc3eWU2e67PcPJaxRmD2muoIJScrLkdtWk1IG2yWEEo//fqXbkPogIQR6LXO8sBmdJywEYcVWuS08SN042pANkUaA1SVgHPgyg7UgdmYdQVVGK/NLOG/10ndXtG29XdfAV+MD1DSo6mPXTZMM/l3rfO5zRRh8/XI8w+5U3Z2SaHDEECPc+a1O7P8T85yw93V43IAGb+KNjHJi3bdFUzjTh5j2//RjdpvCO2tUhWjA3EPbsUPY4vzW8/HRlbtaiymdRjDZaNVtsAX4PIkfB5D2wNYJb1zpjsh4xydfFtPoFbljzEeuUmd1/47w==
+ b=rXE/44dPpng5vuep0T4g9AkMzsxuk8l69XK8c0RqI5GwigxF6+d2UJQJ9b9oGYmVKo5tjd+bAdFs0S9V4Oj/I4Akhw1lKPo69nsRjxd5uLf7UYmj1vA6CYhfGqXCVEbjli74z00ncZussvJs5LBO2Z4be/be3XfpToBvYelN3x0z6GGQPp/egBt9VXUIvlyprmyuGuV10p6E3AWWDMmPB4vgrGdh7RZytoVhu9Nj6338VziY01IxqJH/lWJoZcfPLAtqN/CtXyzOxDM/4UacH4lM3TwgvhbRycJtUezeoMCzbrKVjIFWVWDsnJ3oRIboj3fCE47/Ay41Mz25pjzJRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8nuO+6aX+3c1omJ+X3cSxpIoZrDvR7bjqsMM7BrALLs=;
- b=Cvs5300hSyZD/+GkTlWt9VEMNAIPAIEafYyhb46c8vxMWaIZYV2eBFxKWG6HK0lnWI2agb9CKIe8Fahg5sbOMOFmXPp46fGpprfMXDbdx72PHsYb8y9nGpxG+7klMlJUxFLI1L/O8yVYlEanEGDw8XwbU9HTTdQ/+aBAAeb5BZR1DlWcRzSY+Toeq5/u+cTrovZyaJyRAuj3JnaUR9SXez59UPDw6sW/0E6FHTMKzd7U6I1HB5bxH3BztTYXAkTtexRRT8AXZz50Rs6IDifB62jldfMKBZo9RjCpc5x3fkec3gvwFeJxdioxpvZumosQzjo15m41TLHxlTv/DEiogA==
+ bh=lXNnvPweGvWkITcaRay1slCjugIhfwShzJMXD8Rc77U=;
+ b=WOdgFUaSRrnGpsRrq8CEeAbrwMIlOOXtPJdOWPWYuyPN1xg9SyL33xzP8YDTRd7sOtrvHAlXsoHJRdbUcAgFWfg36zACYS1TdF5xU8qo3npkivdM9FN7eUZ2gJz55TYeizL+J/F67iWNBQWpDeeVkg0lsbmaxxSd6HHZ4lcX/9rN8BvXGgLcySdhC404Tkj3Sjqj9/SqlMor3z4sqpgVUOCCSG7yo0vbTiASgI3mkKXH1FdZM9kplyEuOOFpKVdoqh4WOM5VO5PivVwLzBRTRg4CMeW8NuDcMdOaCumJPLSD/373eptt1qTkR0dFkNKLN9bIH1ldfvwPJMpi06aJpQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8nuO+6aX+3c1omJ+X3cSxpIoZrDvR7bjqsMM7BrALLs=;
- b=ZXbfnnkzcdzhu6Qe50JiqcTdA0EOSEsPVP/mWksGxie6JLah/L1ep6mIrNb/wr5JVC0JdgUYCwv+7JoC3FK2vDiopuJzxMKKEpwWRBFbi9HkmeuInfG8+Ps1qLF6ELMHLgZi1q3LTDERP3YuFSsVYn9Z4Nc3G6leqSQB2NMU1vg=
+ bh=lXNnvPweGvWkITcaRay1slCjugIhfwShzJMXD8Rc77U=;
+ b=xs11ts0cWHtBtOW6ciMcFiElMeI1PpHj38UekFSKugs6o68R3mQmeE0ze9OGMRhVQN2tLxO/ojPIrjPyTDcksHciVJ4HdlevYcT7nzYWWfuggMjFUlLYBrC7TdkkdQ0btvStqG4JN6syY2M8utPBggmqb+WU8xoy6+rv4Gd2GVc=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by MN0PR12MB5835.namprd12.prod.outlook.com (2603:10b6:208:37a::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Mon, 5 Oct
- 2026 07:41:40 +0000
+ 2026 07:44:40 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 07:41:40 +0000
-Message-ID: <91edc04d-c635-41e9-8ce7-88bbbb2b5938@amd.com>
-Date: Mon, 5 Oct 2026 09:41:33 +0200
+ 07:44:40 +0000
+Message-ID: <7de6d58f-6037-45e5-917c-6c62b42e00be@amd.com>
+Date: Mon, 5 Oct 2026 09:44:33 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdkfd: fix NULL deref and unbounded wait in
- teardown_processes on surprise removal
+Subject: Re: [PATCH 2/2] drm/amdkfd: stop userptr restore retries on device
+ unplug
 To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
  amd-gfx@lists.freedesktop.org
 Cc: xiaogang.chen@amd.com, felix.kuehling@amd.com, alexander.deucher@amd.com
 References: <20261003063817.36606-1-olivier.kaloudoff@gmail.com>
- <20261003063817.36606-2-olivier.kaloudoff@gmail.com>
+ <20261003063817.36606-3-olivier.kaloudoff@gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261003063817.36606-2-olivier.kaloudoff@gmail.com>
+In-Reply-To: <20261003063817.36606-3-olivier.kaloudoff@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0122.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::31) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT1PR01CA0108.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2c::17) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB5835:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0a3a525-4d59-44e7-bff0-08df22b41810
+X-MS-Office365-Filtering-Correlation-Id: 8942ebe5-ea22-42c1-9709-08df22b48385
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: i/ykXrVBiveDIAJPxOPPnxJmGxUqKUU6ReoMnhcPBWvkQtcHRDAZ1KtzTeemEV31daDXFDeo1a29ZcOADyt/EPJLSp8MDUJlUgOeCYnj0AdGxykzHWwtNbo7np7djU3FKwwXsIjYD2a/LGfRf1f5kgvlmNJ6lYqVmB6f4OcZ5PhVsXqf5atxf6oLtHVevfI3r8qAX+67nXkRWYMsZHQ2ngQu9BQFiom6Yj5s0aJh7BcobjuU2JfuvejLqk4ILw8WktX9QQ4JlulurSyndRbglnTGBhXe3MEEtHGxkEaCC6lwdqf/GVzsM3EObC/iDNVRr9UXJvIRnXsq7IBuN/kh00/vjj3VZuA/QjWuvz+sqm1NDoS0mMjxHNenqNQlMfmAT2ZClG2qJe1P69LPPSqYJvg3LQbyJFpYAMFWYADghjw+s2t1qNKGREkWXLOLiou27NMvyXpKU80YWYnV/Uk3omPlXa9fwRa3KmpxzTDj8LLXaFua6q1C8E1E/sJSJLKs+N2snmiU0Vrxn1VZ9qroj4ttnQo0+3y+e3vckV8BX2zu5s7E3cOTZUxPcZEHAvLVKAoGMNbFh7xfSH9/NTWby9zlVlgoFq0tcGmbh8iVLqhoACSa4H7oY99gH6Khh8n6Tqx5MShxlnPS8hLdgjt7j6C/iEPSdDOyNYkRTIP8SiU=
+ ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|56012099006|5023799004|11063799006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info: gWSaX82c8QHNEGv1FN8/3z0C7dzerdfN1xiZ49RgvCPEkD3peVzFeU6chIjHevYZAq0oFlPU82MdgxXghrmO4zftyVxn4qsCYfhEn22bQb4+k2aING9c8nHymcbs0JKtfLWvod3IeiRcYKCAAJ1n5PfPyIj+6FHjc4Ay6VjpYKVq0RFJUWYi9MRmwwWCQuTWQJoDno5CoIiBKknVPF+VD0w2ceCZhqnZ5X7THdX7LFQIQSo2Ah3HMGommRs60+wEocekJdpK3Oz9g3Nb/3QXaVpKoSoGb6jQ50uOTLYRbsAKb78h0z/gdw4lEWD67kAvYIyKlZzJ/itxLunqv32eOH8EOevt2wZ+FF3/TFDD/f+d/RGkZ1bRR57jQze89Q3zf0qXYzZQg5JirNMB00PR+mFKTuIrXcp2w5H7UrnRn11nQgZw72tff9kO0CWYOyOaKWbklTOyG41lInJMmmV8HGBNlmn9ppqXABplokx2jOIZqTRE+UKqEtHNAps7VKKPmQWyMkVitNBTnr5IRzkH91H8IP1mcrxnWA6sjdKkYwhr9zPGqtGxQXWQivJGugylZWATb8lFsezmdjIMRWhUMnmdtrwf1FRsVNG6qkRaNyZBA27OFClC7dif8Y1Lu+KWUrKwp4Gax2+3sWBIciLLtj0U4XRXBZ3vF7uTQU/IyQo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(5023799004)(11063799006)(4143699003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWNOT1BmaDhiQ3lPL01SdGVSeGh6dFM2NkUwdTZMNytlUlJTbGMvREc0RGRw?=
- =?utf-8?B?MEVNb2N4N0pnaHY1akVvaWNzNlUrb1Zabk1lR0YrdzREc0djc1BrN0hXZ0Jt?=
- =?utf-8?B?SFR5TVhVQ0JWNnZNRDcrVlpHa2FTMlpjT3JldHhVMXlnZ1loR1RHdUl6cEJ3?=
- =?utf-8?B?bkl2K3FDUnlidWt3NDFoK3ZkbXZ6ODAwYWJsVzhVZCtEZ0tEaGJHOFJaOUQy?=
- =?utf-8?B?Wlc2dEtLNEhzTzRVS08zdEFRRHdxVHFEeU1YR0pKU0JycnpFSnNUVEZ1bnhM?=
- =?utf-8?B?M0tnVVlxYTJWdnlvMjlldmhnd1FZa214SHVUdnRKL0lWN24vUWlRbFM5OVFL?=
- =?utf-8?B?UFhHaksvQ1ZtU010eEd4SStpTXpjbmZ1NlFaM0NtRkNqc3FIVnNvdldQWmlK?=
- =?utf-8?B?cUdZajY3c3d6R0kxTmxXUlUyRmpackFveVhMdkVuRnhnN1hmQmpSZHEyUnJK?=
- =?utf-8?B?RVh3NXg4ZStBSTh1RkhRVUlTRlo4bTJlVHRsbFVpYjk1MGt0cmI1Q2l6Qi9U?=
- =?utf-8?B?Y3FyajEyVzhwemxJaGJhUjJPNE9qOXFVWjFONU5yUXRTMis5b3J1dXJUdFBQ?=
- =?utf-8?B?TlJnVEpQMklqTk5OclNhZ2tKdXZwYU9ZQnFTcStiQ1FqSEZUR2R3UnJ1OWlX?=
- =?utf-8?B?MGVidFMxR3F6M2dDUXdPc29TQVBTckFDVDlVTTg3cEpFS2EzWEJMODFUY25I?=
- =?utf-8?B?ZlJ6NFR0ajBsQ2hBQzBJTzhTUWxURXNYVFNrZi9IRUZoQjRyUEVpV2pOTkV2?=
- =?utf-8?B?WFZHbnhtbzBaQXNsejhwZzBRV0NqMDc3S2Zzb3FtcnN0OEtNWWxNSW00aHBz?=
- =?utf-8?B?OFhzdzU0K2FLeEMrcFAwc2FsMVJxRWJmRzAyL09pbHBJOVZDTk5vUGZCRDZO?=
- =?utf-8?B?eGZsdkVUT1NDTllFaU9mVFdQdFc5ejhxbTk4UWh5MklGaXVrZzhWY3RUeGRx?=
- =?utf-8?B?L0FoYS96SlpEMFV3d0Y4OEhCelE3cUJTdG1XeTZ3a0RsT2N4ajd1MGdoTVU3?=
- =?utf-8?B?VGs1RWI0QUdONmJlQnNjVzNWeXJlaVBjZm4xTlZTaHlOR1h1aUtYVENCN1RO?=
- =?utf-8?B?UmFEWFZhZmZteFRLekpQTXE0bGYzdURvZFBSZThWK2tEVVlDNWpLR1lIdjdH?=
- =?utf-8?B?a1FNbFZ0b1BPRHdyampRU05WeWcwR0tzZnZveG4zN1ZHUjJYbXFzWkFSUVlT?=
- =?utf-8?B?UnRpSElWdGt5ay9TTjRZSDEwM3FsT1E1QjdWRlJEWFJobWJpZDZXZGxvQVc5?=
- =?utf-8?B?NTRYL0lWMUx0YUIwT1lxaGdLcnZ3eit4TUtyN09PQ0NLdldZMkc4MnpwVk90?=
- =?utf-8?B?dlV3T0pIWDNKOWJrZU4vajJTaFFEaHF4b3RrbG1DcmZycXJpODlFTE1tam9B?=
- =?utf-8?B?VU42Q1ZqU0VBMDE5MitnbWtFVXRiSnp5eDVWM24vZGRwTHltMTcrWmx5ZGF6?=
- =?utf-8?B?d3ZQUVJPTjBOOU9WMVdlYTRWQ0x0MHhlUDVVOWR0S2hNd0RHTjZacjZVZndj?=
- =?utf-8?B?NlZMamNlckVZWWs1eTZmZG1FUmNCOStyQTZVWDRFdkp2WTAvVDFyeko0NEUy?=
- =?utf-8?B?TXZSS0plbTVKYlNlcERpVTBubmhFRW5FUWJSamNiSmFSRmQ1VWRyaUFhSXhj?=
- =?utf-8?B?WThpRHZGZGZFU2l1bFh3UFhGK3h3dHRqZ0UrSC9MaVJJY3o0M3BUeEl1Wnkr?=
- =?utf-8?B?YVhKMFNOK1VzcEV5Z2U4UHNvbFNJL0pkYjBZOXNvYXlaOXp1YWFkdFpRbzl5?=
- =?utf-8?B?UUtROEJjS0hDYmhoYTQ5d0ZrQlQ4VXZEbVZIMy9OVTB6ZDFERzRPYmZ4SUkw?=
- =?utf-8?B?bTVQQURmbkhKNzlpQmI1d0YrSVJnbkRpWWNFbzY0cU9DMHg0MXRtdnc1dXV5?=
- =?utf-8?B?d1JBOUpvMVdSWmVMWFRxVEREWDRQY0JxZDA0MW9DT2wrRnROUmFXOFdpVE4v?=
- =?utf-8?B?c3J0aUFOajNGUzMwN0ZtQ3hWblo0QU1LdEE1MlRqUnkwcG1YQjFFK05GSldU?=
- =?utf-8?B?MW80aWtVSDlMME9FVEp1NHlzYldtbnFwN3ozYmFHM05MT2RzbnpQSndzMzlV?=
- =?utf-8?B?eDNqaGFSblIyb3M5V2dxQUdJalVHdFNDSlNqVVRRRnpJTnhzMTRkS2FlYkh2?=
- =?utf-8?B?MmRSTlBtTFgvaERXUkpMWTlaOUhtN3JWczFUU2NUOUJxTWpvVWhYOVFVZ1RM?=
- =?utf-8?B?akl4dUxMZVp5QWJudEt3Vkd4ME1VRGJ5RGtTWmFISi8yenFodUFSTU9kbmlp?=
- =?utf-8?B?ZHMvZ3Z2dUJ4QUR2U2FHeSt1dU9pRGpmakEyS2Yya2FFM2NBMzhjRzlDTVp0?=
- =?utf-8?Q?buoH7BlxFoD2v49Hnw?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UTd2UTU3djl2amJWWnJ0VkhjWXgrTDNFbEVSY0YvZi8zbUhHNHEwcDlGVEE1?=
+ =?utf-8?B?WVRKZDloSXNxcHVhei9WOEMxTVZHNzk5UUlVQkRNNGZjUDFiNjdNZDVrc212?=
+ =?utf-8?B?RFR3Znp2TXZGdVExSGczN3RHbmNaczFOK3NYM2NhK3pQczRVTERORk1pclhG?=
+ =?utf-8?B?OVhUSjY0dGkyU1BvK0VFTHdjZzZIR1pjd0F3dHl6ZzRNZXFLU2lRNk1MZG5V?=
+ =?utf-8?B?NE1TbktuMmlkNnI4VUhiNGhta3pKcERoZXFsaVBZdVFIMk1TR1NHVjJqbEJ5?=
+ =?utf-8?B?VlljMGk2ajlrSVNPSG4wMVNnL29TTnBIL2ZsMG5Xa21XWUQvY0VhOWtaR3lx?=
+ =?utf-8?B?dm9zdkhDd002WUlTNmxhbTlERUNVNFRua2g2WlYzaFhvUjNyWmV5SkdiVVNX?=
+ =?utf-8?B?Ym1DMnQ0RXltWG16TWlUZHdXNWJxNGt0bEVsaExMZHRVRGZhSk0vVEVYT3F5?=
+ =?utf-8?B?OVVrTmRQNDN2UkNVQVZXUk5lOWxsNm9tUFBIZ01nendSTDBaczlxaWt5aXF6?=
+ =?utf-8?B?TnNRQS9BQ3pwbGVPOHNXajZoUTdQenlIcy9ycVd3eVhJbVduc2N3SWxidFFu?=
+ =?utf-8?B?aUcxUXVoTElkR1p4M2xOamxYc2VUMjNETm9KNDZQTTNRNjk4R3dRcDJMYThw?=
+ =?utf-8?B?SXk0d05rTFhtdFRHQk9CNHcxWTF5WVlFVmJkMXpNSWUzeFNCbnRTQWJpUjJP?=
+ =?utf-8?B?dW9CbktnajQ5ZkloVmJidlFPb1ZWS1ZIaDcva3JpOHVmWldwUjh0cHc3UDMx?=
+ =?utf-8?B?Q3JuQUZ1V094bkxuM1pWM1BhNEFQdit1VHBYeWVEdUdpcXRwWm1qTnBvaTR5?=
+ =?utf-8?B?REdxVjIreHhGRlRpVmZkNUhqb1JnT3EzMjc1Tm1qYThqblVOUEI4SUFkT2FW?=
+ =?utf-8?B?RGJja3BqVklpWUxCdzd1Y0FWTGxOK2J1Nk9TNkhvUGFXamVzeHJoQ0FKQUdI?=
+ =?utf-8?B?aXlXU3JLYk9JQ2xPZEJZNHI4N0hWNnVHK2Z5QktZK1FoTVlJYmdac3BrNmNB?=
+ =?utf-8?B?L0tPZ2V6dFJiTFhLMFAwTTdwLzY0c1g1cTVlQUhOMm9xY3Jpb1NWTy9RLzI4?=
+ =?utf-8?B?SC9wOEhhb2lDT2pzZmoyS2kyZ2Jac1M2UXF1eVU5cm55Y1VSR2F0cTJJQzd3?=
+ =?utf-8?B?c01ldjBDNDA0MjRVNnRidFcyM2g3MXhSK2RNWU5zSjZJUWxOT29UTncwbExk?=
+ =?utf-8?B?RVVKdkVOZVNIOWNIK2Fjb1dnSjdTaEJBZ0RsbG0rY0FBWjByY2p3T05XM0Fs?=
+ =?utf-8?B?ek9SQnZvd3hodmZWYkExZnF4WDBNVVV1WHp3WDYrdFl5WkZGSFVoY1dhY1VH?=
+ =?utf-8?B?SjkrbEkzaVBOWW9ENWc4SEd1UzZ5YVMxb0diMUlaT3BJNStkbW90K2lLUnM3?=
+ =?utf-8?B?UGt0Z2ljVjY2Smt1dmlZbnh5NFNsNnJpTWN0L3JUeGVLaE1SQldWNW50eGlT?=
+ =?utf-8?B?OGdVaXZSRXNhM21maUhnMTVUSkFTZlRQZ3l0Z0ExMFFvQlFvU0s0RFQ3RXlh?=
+ =?utf-8?B?WkVzbUdWanpLaFdzd2NjSGdKSWNBeEhlQnRtN0VrN0pseFNmajJheU1wdDEw?=
+ =?utf-8?B?bUlkczZqVWRrNEplS2VNVjNQYmV3ZFRxY2VIZEdpT3c5SHJUTjgzb21yeUc1?=
+ =?utf-8?B?TytyZ2hzZnZsTkJkeE5Sd0loc2xMMzREdUFWajBhclBOYmNuTU1tMUVzRkpt?=
+ =?utf-8?B?bzY5VFJBa3pWL29FdE1MbndvVEtnWU9zM1lrVElta0VWaGRJaTczVDJrMEF1?=
+ =?utf-8?B?WHFsTUVrYWo1UFRiNWNMb3Rzakt6L3IrZkNjMDJvYzgwekJWS1c3aFlmK0I4?=
+ =?utf-8?B?WlRsclExaFIvL0VnUzI1ZUh3ZldTM3lhdHJzbjZ3THV0enI0elQrZk40VjRK?=
+ =?utf-8?B?bnc3aHRQNmhuTmljQUJnZWdiZkFxZFBUbGNGcUdGZk1HM0owblVOaGoxYWNC?=
+ =?utf-8?B?bVhvMnhxdElPZ3dKOVhMSVZuYi9qNGVBMlJ4dEZ4dWttVHlMMjF1ekFCOW0w?=
+ =?utf-8?B?SlJtRk5FcDVwZk84a1Jxc1MxU0ZVeHVCY0tvREJoOGt3aUY4UTFacUV2cmZq?=
+ =?utf-8?B?SlpERFd5a3VXbmNHZEg2bHNrWi9oRjNodTd2VjlFWUVLVHBpc0tHck9RNWpC?=
+ =?utf-8?B?YVJ6ZDBQMmMzWXVUQlAxM2tqYUJjbnJkcTd3OXNuVDJvUWVUOFlScEJhb21K?=
+ =?utf-8?B?ellzdnROSkkrejdmUDNzRWh0cDcwQXJCSVFoK1JQRVpYTVJQSWlMVURlUllk?=
+ =?utf-8?B?clNUd2ZBM1c5ZGc2L0V1bXhKeXJuVU0zNUkvMXdTU2pUQlJWdDcvOGszdEpE?=
+ =?utf-8?B?enQvWGtPeWxUY05EZW0ycmdZcklVQjVJUlR0WkQzb0JvNG8vaXdGUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0a3a525-4d59-44e7-bff0-08df22b41810
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8942ebe5-ea22-42c1-9709-08df22b48385
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 07:41:40.5137 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 07:44:40.7646 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NZyuSV4w9+boNgvmWNkfHZOmaQdDt6Zepe26NqiFG4ZsDAIkcE62zU9oTT+4KJ50
+X-MS-Exchange-CrossTenant-UserPrincipalName: h9IzkAygHvNzN6pCsOlQneL60DmKuPA2FEwhMp2RNl1ujTCeJzlFQyj6Of0u0IG/
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5835
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,79 +137,95 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 10/3/26 08:38, Olivier Kaloudoff wrote:
-> On PCIe surprise removal (e.g. Thunderbolt eGPU link drop),
-> amdgpu_device_fini_hw() calls amdgpu_amdkfd_device_fini_sw() when
-> pci_dev_is_disconnected() is true, which frees adev->kfd.dev and sets
-> it to NULL. amdgpu_device_ip_fini_early() then runs a few calls later
-> in the same function and reaches kgd2kfd_teardown_processes(), which
-> unconditionally dereferences adev->kfd.dev->kfd_processes_count.
+> amdgpu_amdkfd_restore_userptr_worker() reschedules itself every
+> AMDGPU_USERPTR_RESTORE_DELAY_MS whenever validation of invalidated
+> userptr BOs fails. On PCIe surprise removal the VM update paths
+> already fail fast: amdgpu_vm_update_pdes() and amdgpu_vm_update_range()
+> return -ENODEV when drm_dev_enter() fails, which propagates up through
+> process_update_pds()/update_gpuvm_pte()/validate_invalid_user_pages().
+> The worker ignores the error code and reschedules unconditionally,
+> producing an endless retry loop on a device that is permanently gone.
 > 
-> Observed on real hardware (MI50 eGPU behind TB3): NULL deref at +0x1b4
-> (kfd_processes_count) inside kgd2kfd_teardown_processes, called from
-> the pciehp removal thread; panic via panic_on_oops (pstore capture).
+> Observed on MI50 eGPU TB3 surprise removal: ~11k rescheduled restore
+> cycles, the worker holding reclaim-related locks until the system
+> soft-locked up.
 > 
-> Additionally, the wait-for-termination loop is unbounded: on a
-> physically gone device, processes can be unable to make forward
-> progress, wedging the pciehp removal thread in cond_resched() forever
-> and cascading into hung-task/softlockup panics.
+> Stop rescheduling when the validation failure is -ENODEV: the device
+> is gone for good and the affected processes are being torn down
+> anyway. Other errors keep the existing retry behavior, as they may be
+> transient.
 > 
-> Guard the wait on adev->kfd.dev and bound it to 30s with a dev_warn so
-> removal can complete and the kernel survives.
+> Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+> Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+> ---
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 22 ++++++++++++++-----
+>  1 file changed, 16 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index d668816..6c040ed 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -2827,6 +2827,7 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+>  	struct task_struct *usertask;
+>  	struct mm_struct *mm;
+>  	uint32_t evicted_bos;
+> +	int ret = 0;
 
-That is clearly a really bad idea. Waiting for the termination *must* be unbounded.
+Please don't initialize return values when it isn't necessary.
 
-The real question is why those KFD processes doesn't terminate?
+Initialize it before the goto.
+
+>  
+>  	mutex_lock(&process_info->notifier_lock);
+>  	evicted_bos = process_info->evicted_bos;
+> @@ -2846,14 +2847,16 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+>  
+>  	mutex_lock(&process_info->lock);
+>  
+> -	if (update_invalid_user_pages(process_info, mm))
+> +	ret = update_invalid_user_pages(process_info, mm);
+> +	if (ret)
+>  		goto unlock_out;
+>  	/* userptr_inval_list can be empty if all evicted userptr BOs
+>  	 * have been freed. In that case there is nothing to validate
+>  	 * and we can just restart the queues.
+>  	 */
+>  	if (!list_empty(&process_info->userptr_inval_list)) {
+> -		if (validate_invalid_user_pages(process_info))
+> +		ret = validate_invalid_user_pages(process_info);
+> +		if (ret)
+>  			goto unlock_out;
+>  	}
+>  	/* Final check for concurrent evicton and atomic update. If
+> @@ -2886,11 +2889,18 @@ unlock_out:
+>  
+>  	/* If validation failed, reschedule another attempt */
+>  	if (evicted_bos) {
+> -		queue_delayed_work(system_freezable_wq,
+> -			&process_info->restore_userptr_work,
+> -			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
+> +		if (ret == -ENODEV) {
+> +			/* Device is gone for good, stop retrying */
+> +			pr_warn_once("%s: device unplugged, aborting userptr restore (pid %d, %s)\n",
+> +				     __func__, pid_nr(process_info->pid),
+> +				     usertask->comm);
+
+That warning is most likely unnecessary and maybe even harmful.
+
+That the device is hot removed should just be a perfectly normal abortion condition for the worker.
 
 Regards,
 Christian.
 
-> 
-> Fixes: d12d05c4bc4c ("drm/amdkfd: Check if there are kfd porcesses using adev by kfd_processes_count")
-> Cc: Xiaogang Chen <xiaogang.chen@amd.com>
-> Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 586e640..9326447 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -1780,6 +1780,7 @@ bool kgd2kfd_vmfault_fast_path(struct amdgpu_device *adev, struct amdgpu_iv_entr
->  void kgd2kfd_teardown_processes(struct amdgpu_device *adev)
->  {
->  	struct hlist_node *p_temp;
-> +	unsigned long timeout;
->  	struct kfd_process *p;
->  	struct kfd_node *dev;
->  	unsigned int temp;
-> @@ -1801,9 +1802,26 @@ void kgd2kfd_teardown_processes(struct amdgpu_device *adev)
+> +		} else {
+> +			queue_delayed_work(system_freezable_wq,
+> +				&process_info->restore_userptr_work,
+> +				msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
 >  
->  	mutex_unlock(&kfd_processes_mutex);
->  
-> -	/* wait all kfd processes use adev terminate */
-> -	while (!!atomic_read(&adev->kfd.dev->kfd_processes_count))
-> +	/* On surprise removal amdgpu_amdkfd_device_fini_sw() has already
-> +	 * freed kfd.dev before we get here.
-> +	 */
-> +	if (!adev->kfd.dev)
-> +		return;
-> +
-> +	/* Wait for all kfd processes using adev to terminate. Bound the
-> +	 * wait: on a physically gone device processes may never finish,
-> +	 * and spinning here forever wedges the pciehp removal thread.
-> +	 */
-> +	timeout = jiffies + msecs_to_jiffies(30000);
-> +	while (atomic_read(&adev->kfd.dev->kfd_processes_count)) {
-> +		if (time_after(jiffies, timeout)) {
-> +			dev_warn(adev->dev,
-> +				 "kfd: %d processes still attached to removed device\n",
-> +				 atomic_read(&adev->kfd.dev->kfd_processes_count));
-> +			break;
+> -		kfd_smi_event_queue_restore_rescheduled(mm);
+> +			kfd_smi_event_queue_restore_rescheduled(mm);
 > +		}
->  		cond_resched();
-> +	}
->  }
->  
->  int kgd2kfd_reset_mes_queue(struct kfd_dev *kfd, uint32_t node_id,
+>  	}
+>  	mmput(mm);
+>  	put_task_struct(usertask);
 
