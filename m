@@ -4,83 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79EEFCA5FFC
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 16:56:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB08ECA5FFC
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 16:56:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0234110E2CC;
-	Mon,  5 Oct 2026 16:56:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63AAA10E26A;
+	Mon,  5 Oct 2026 16:56:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZJhbjZ5j";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FaspzogL";
 	dkim-atps=neutral
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com
- [74.125.225.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E555010E2CC
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 16:56:33 +0000 (UTC)
-Received: by mail-wr2-f35.google.com with SMTP id
- ffacd0b85a97d-48b08452cafso1392058f8f.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 05 Oct 2026 09:56:33 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1C2010E322
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 16:56:41 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-48afcfc4bf5so1591599f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 Oct 2026 09:56:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791219392; x=1791824192; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791219400; x=1791824200; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=SKCBX/zPXZW+h0+n3etEeolFk/I8rwuwSTB1BIxIo+Y=;
- b=ZJhbjZ5joFJoULEw9ExW0zIbVYNluF4ChZq4mxlwQJc7u9dQ7mD3ZlB0KgZx04j8Z9
- 5AKxJ+35uSgTvKM88/b1MvitFHmDeF5xEH60H/a7vlmzmhAKQo9r3ecSjAvQU4gHyt92
- yb8P+EkzyycNmLUQP3gXTKkecDT0vEFwA/k6UVaL8n7pQ6nLPKPc74rKet2Ifha1Reok
- tRqSPIeXwP0CQJQAIxqrQaJusZtDNXLpX/JvVazh9pHTxgDHfUEmlHxDw0NbmKDIFzV0
- +PHOBq+m5ZEszbxSjY88g5ea54Hz7ObHvOW46Ea/apxklwk3Kk9WEr5Ug9N7VgigSTsa
- zxdg==
+ bh=Qry2Ln4Z2h9BtE4t/h1ALGOBUGa+Z1sLazs3I9vc934=;
+ b=FaspzogL92xM7kxoxaBxA+OllcMy2hU3jgpa4Z91R7cATIi2j1dt+V3ofbzCD57z88
+ L+pi00QyHdM1XKoBMGLMVcvlP7/82VzK/Md18SdKJItris+sWfUZyDI5KUuh3dkrHfVv
+ +w4AkInpihf7/hfv6LxVyzWnfki0Qa+NXcj6aQv6unodWoQQbJPR5oWduK9zr0Lql6n7
+ PDDhDH5fgBZ+ZTabC+SPSqrweVLayPJfKG7Ovt23aZHb5sdnwkFsWGJwcnJ0wqGRqVlC
+ qKFvBITeT/2fi2o5pE3X1zjukdhHfj94Ox4OrceRz5O0i6GIFfA4fHX8wdcovLoA8GEz
+ /3EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791219392; x=1791824192;
+ d=1e100.net; s=20260707; t=1791219400; x=1791824200;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=SKCBX/zPXZW+h0+n3etEeolFk/I8rwuwSTB1BIxIo+Y=;
- b=n4tL+rDrLSgGfuEVjy1qxNAq9wuwL5KGL8rS4adHBtavhxJ/YJGWpA19JzsfEg6YdZ
- wdtkM7r0+ANqoZlMBFoKuIm0djjNb1hPqtd6a51V085W0Rf5yIRmRdivcO2xwDi/324h
- mWNsA9fdDPUzcu7VRxElLlERcOuPGSPlKV5GsmZtzF50xiw1sCm9QHvjNVaFgvLFt9zY
- skpyS7lcJgGcfB7aM3MXzcm5fUqlUmVkNcBumBaZBI6/TP01+mmFyY5u8wM+GK/q4qsC
- Jn5plJW0CcLxJb0ckrnYlMHvl/wCnfkrBhiNi8SnSEGUm+EuiWBcZWoIJvhdP4mPOYM5
- A23w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBycwTXUKyXB6QxvltJxflnBSU6Jr6lfenQruZXrq9SXVVWNkcCXfC5liK43hApRXNpZJ42xpol0@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ5XQ9+NJIBciOU3ARK6BsK2tLFoeybTy+85yJioWtVHpAMr5o2
- z5VxNHn3P8kWyCmRIigRNOb4UP5ZMl3q//pkXTfvoPMWIhD18OccCPvG
-X-Gm-Gg: AYBFou2DzCZ+TT983T1AcgvZPGyF3QH/58o9eN7OsmK8XhL+mMdoNDE5SN94/wK+Yjg
- rBOUIEYMQ+vC3J+MljPlWvlTc+fiM4eiBfyVsIK0q+VnWlAfeUeRO7IK0QUsbKOvfEoarf3hssg
- 8092O9o+JZvogcP6mu8gv1gitwjEm1Ge1BYLrXCkUKhmkURIKA5p92Ptx9sHGdW8FYK/79DWsu4
- RgmAxhzf84juagyYGet29mHnYJ07t+rGETzmy8EzfmXQu8iXjWBJUN3/GLtJMSNZjHE6Dxaykci
- WVCrMlxLO9gBXXp1lQpHJziiPiITpic7+6Ua+3RSifTzHyGjBS38ir0yPZTs/ac+Qt5aPqiNio9
- J4G5Sb4b65xTZYL8OnC6V35BP1h/+9r0Gq+XfK7yuCS9QfO5JTaMoJcL/gZvpIYuW/XplKTjkKm
- IKImb1s4OqvfWiMZraS+RrQCcRBTE6x8S860l5fOMfQP7AO/iBtKE3pIs20lzl/jd9y6mrjXNLX
- gHeSOKZVMNYDnKltWDa0KCP9zlyES1M95aJ341cDlnletmsMX4mwwyGUXIlR7UCAg24NnnkYbp7
- DGMrnxtEFAk3wYF6XOIJhVl424Dgi2ekH+6kAA4u+CXkLyjbjVbtHEFnf17WaHIwdXzM290BP7J
- EaT6jH47uDYrP3fuGJKlAm7j3QnzxRc/y2wtMndwWyZ9F/zNFILeqM0Soiuoip3LQgfWsmRkaAS
- DXSzqbgRwga95dVVNmvb5AYeG6cQ==
-X-Received: by 2002:adf:e002:0:10b0:48c:6504:7125 with SMTP id
- ffacd0b85a97d-48c65047180mr2563159f8f.42.1791219391993; 
- Mon, 05 Oct 2026 09:56:31 -0700 (PDT)
+ bh=Qry2Ln4Z2h9BtE4t/h1ALGOBUGa+Z1sLazs3I9vc934=;
+ b=SQR4Ex75umolwxrdoUOUY9mw9HPruDFrLQKfSXfvT6ZKy+PsaSdi8n32x8wHd8MffI
+ 0HODCo3C9EUfxgjTWJB5JBW4imot2Fcznyo2i3MU5jLzQbw5k3GMZqKicMOHLKeNRDWL
+ JuYRN6pB1Q9QqdLMX66C7Tk4WcOaTMRcPu1KswNvUDKvBF1Sb2wIX87pgU9fHVGwj/cL
+ suxdy+qLvd87TP4aWTR/IWVWeofZKeiduKWBcHdZ2qk6svgeVqeZKTR1dH2rs7jzBUl4
+ 8uMNAy0+NlXfSdKDrh1WeSrG6YYyEPLBa94xvaHFr4Fu5tvTGLzg4PpmjcY9iSAQ1zkz
+ L26A==
+X-Gm-Message-State: AFq9FYLKw5I6ofwvxVEqvVtkG2IW7GBscG8bHiwAzx/vstxqwgcSGSL+
+ j6sU4wQGycjuSHMGiXe4B5lrLGvpbW89cTIvFl0IkMl/GiVDjBTgQArPKdSgjA9u
+X-Gm-Gg: AYBFou0jrDHqBR3Du1f04L7oi2AJh0zB5SAzbNq7jCsQI42WplM8pDqap+cMUGMvfvU
+ rE4oUNnhLCb4imEhmOieJlHTeDnYWWXHwOeqjzyiTcvQVu5jMnemr6xLHqg0bZojs9LLdxAXQH4
+ gVw+/E82Ss2Qf3wnGfRDL8iqCD+izEJlgzPsHqYHotcIO3Z3RaGQHAHS2CH2GGd8p8drQSpIdnm
+ Moq4knZG3HmYG7phj2nmBTdSNDeYAJp2dZT0v1Giu23VmSPLwlaJ/PAFY7yJLaXxxSL0gN5YZmN
+ ZrhHGDCNi8PSG3PYbTIKMPdZSkAMOcgdCv8hPdPJzuHPMMPhboX5VxhdJZs8Cdd9940oRmyzExQ
+ FjL0bPsjPmPoMPvsVYorcvf+g2F38VKPbQEdcuQyAvG6hGGAMSlBfX/JCFrfQZAgpe8eUDYj8Yx
+ L1/N05fFXMWaVLQWeEjXPqXGKRjipwFkDfGXayl3CZl1QVYn0vc+IfhER0gF03dMAmKx8grfEeg
+ fZeGcOiOQoHZtDVPzs1b0cPsRa4UbOxEdX9IZy2jGrHx04pEBlzbMZ0mAW5ka3UxUoJ8EkoJtiG
+ hETW9jO/yXg1NlREUZ9Q3D4ZejARtdrkVGpnemS/FN92tb/Bq/qRI302nGQkfacsgzWYRtzvb39
+ 30yz3TI7ke4ZeglCfu0LN7VvdtzFmNk8SXv+wT9QaxCMAP5szjJiYUduvNCqtqgwACd++wIwLPh
+ DOMaTW1QgF7WG+dT4=
+X-Received: by 2002:a05:6000:400b:b0:48c:4442:54e with SMTP id
+ ffacd0b85a97d-48c47fdc0acmr12494769f8f.30.1791219400006; 
+ Mon, 05 Oct 2026 09:56:40 -0700 (PDT)
 Received: from localhost.localdomain ([2a0d:e487:418f:dfa:759c:a4bd:ccc9:9d41])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48c622bb172sm10037994f8f.42.2026.10.05.09.56.31
+ ffacd0b85a97d-48c622ab326sm4791527f8f.35.2026.10.05.09.56.39
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 05 Oct 2026 09:56:31 -0700 (PDT)
+ Mon, 05 Oct 2026 09:56:39 -0700 (PDT)
 From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
- amd-gfx@lists.freedesktop.org, xiaogang.chen@amd.com,
- felix.kuehling@amd.com, alexander.deucher@amd.com
-Subject: Re: [PATCH 2/2] drm/amdkfd: stop userptr restore retries on device
+To: amd-gfx@lists.freedesktop.org
+Cc: xiaogang.chen@amd.com, felix.kuehling@amd.com, christian.koenig@amd.com,
+ alexander.deucher@amd.com, Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Subject: [PATCH v2 2/2] drm/amdkfd: stop userptr restore retries on device
  unplug
-Date: Mon,  5 Oct 2026 18:56:30 +0200
-Message-ID: <20261005165630.28840-1-olivier.kaloudoff@gmail.com>
+Date: Mon,  5 Oct 2026 18:56:38 +0200
+Message-ID: <20261005165638.28961-1-olivier.kaloudoff@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <7de6d58f-6037-45e5-917c-6c62b42e00be@amd.com>
-References: <20261003063817.36606-1-olivier.kaloudoff@gmail.com>
- <20261003063817.36606-3-olivier.kaloudoff@gmail.com>
- <7de6d58f-6037-45e5-917c-6c62b42e00be@amd.com>
+In-Reply-To: <20261003063817.36606-3-olivier.kaloudoff@gmail.com>
+References: <20261003063817.36606-3-olivier.kaloudoff@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -98,37 +93,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/5/26 09:44, Christian König wrote:
->> +	int ret = 0;
->
-> Please don't initialize return values when it isn't necessary.
->
-> Initialize it before the goto.
+amdgpu_amdkfd_restore_userptr_worker() reschedules itself every
+AMDGPU_USERPTR_RESTORE_DELAY_MS whenever validation of invalidated
+userptr BOs fails. On PCIe surprise removal the VM update paths
+already fail fast: amdgpu_vm_update_pdes() and amdgpu_vm_update_range()
+return -ENODEV when drm_dev_enter() fails, which propagates up through
+process_update_pds()/update_gpuvm_pte()/validate_invalid_user_pages().
+The worker ignores the error code and reschedules unconditionally,
+producing an endless retry loop on a device that is permanently gone.
 
-Done, ret is now declared uninitialized and assigned at the two call
-sites before each goto.
+Observed on MI50 eGPU TB3 surprise removal: ~11k rescheduled restore
+cycles, the worker holding reclaim-related locks until the system
+soft-locked up.
 
-For completeness: every path reaching the "if (evicted_bos)"
-reschedule check has ret assigned -- the two failure gotos carry the
-error, and unlock_notifier_out is only reachable after
-update_invalid_user_pages() (and validate_invalid_user_pages() when
-the list is non-empty) returned 0. So the concurrent-eviction and
-WARN paths still reschedule exactly as before.
+Stop rescheduling when the validation failure is -ENODEV: the device
+is gone for good and the affected processes are being torn down
+anyway. Other errors keep the existing retry behavior, as they may be
+transient.
 
->> +			pr_warn_once("%s: device unplugged, aborting userptr restore (pid %d, %s)\n",
->
-> That warning is most likely unnecessary and maybe even harmful.
->
-> That the device is hot removed should just be a perfectly normal
-> abortion condition for the worker.
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+---
+Changes in v2:
+- Don't pre-initialize ret; every path to the reschedule check is
+  dominated by an assignment (Christian König)
+- Drop the pr_warn_once; hot removal is a normal abort condition for
+  the worker (Christian König)
 
-Agreed, dropped entirely. The worker now just skips the reschedule
-when ret == -ENODEV, treated as a normal termination condition. This
-also correctly suppresses the KFD_SMI_EVENT restore-rescheduled
-notification, which would otherwise falsely tell userspace that
-another attempt is coming.
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-v2 follows.
-
-Thanks,
-Olivier
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index d668816..dc94d32 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2827,6 +2827,7 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+ 	struct task_struct *usertask;
+ 	struct mm_struct *mm;
+ 	uint32_t evicted_bos;
++	int ret;
+ 
+ 	mutex_lock(&process_info->notifier_lock);
+ 	evicted_bos = process_info->evicted_bos;
+@@ -2846,14 +2847,16 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+ 
+ 	mutex_lock(&process_info->lock);
+ 
+-	if (update_invalid_user_pages(process_info, mm))
++	ret = update_invalid_user_pages(process_info, mm);
++	if (ret)
+ 		goto unlock_out;
+ 	/* userptr_inval_list can be empty if all evicted userptr BOs
+ 	 * have been freed. In that case there is nothing to validate
+ 	 * and we can just restart the queues.
+ 	 */
+ 	if (!list_empty(&process_info->userptr_inval_list)) {
+-		if (validate_invalid_user_pages(process_info))
++		ret = validate_invalid_user_pages(process_info);
++		if (ret)
+ 			goto unlock_out;
+ 	}
+ 	/* Final check for concurrent evicton and atomic update. If
+@@ -2884,8 +2887,8 @@ unlock_notifier_out:
+ unlock_out:
+ 	mutex_unlock(&process_info->lock);
+ 
+ 	/* If validation failed, reschedule another attempt */
+-	if (evicted_bos) {
++	if (evicted_bos && ret != -ENODEV) {
+ 		queue_delayed_work(system_freezable_wq,
+ 			&process_info->restore_userptr_work,
+ 			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
+-- 
+2.54.0 (Apple Git-157)
