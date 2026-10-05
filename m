@@ -4,122 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E764DCA5FFC
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 16:10:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79EEFCA5FFC
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 16:56:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B36E10E184;
-	Mon,  5 Oct 2026 16:10:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0234110E2CC;
+	Mon,  5 Oct 2026 16:56:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rYe152FI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZJhbjZ5j";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012070.outbound.protection.outlook.com [52.101.43.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6E5C10E184
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 16:10:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gkyd0I/OAmiEZtxZ6gFezzkW/VheYLXMjVrNyAkN9f5LcVmNnIueEFJmpD4nC8qcsScA6uvCStpaCBCXlAd8QIb1PsddwVV5FG5sV6Z6uCvOWGPNsiTUEpwfil5qgnLrtGN9WsN1Fe/d3Jdy4RUkMxfvlDgYoER1lfPGiMM5VOBuSWw2pkBKoqGUuUEL4J1nD2h3G+5oSJbVGTEQVuT1y7Ou0ndSlrvUt7lc1Sla8ElqRaUo990R/5tgHi3kegS0ePODsbtj2G76Y0sHmux7RvMmTFqpjMJY2zlZqW0QzcvnQDPN5WfQY3KDl4Y/oju0RzCtmclX4tQMaBOtk7L9Ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h51KG5QHvksjDU2l5SH9JSEUblVoXPyDFbwIzv92ux4=;
- b=nEsjydyUiH4N7OGeP+XlgW0EKFp7fqwRZmbTV6h3hHJnFZbFeFDTkkqKBmHLchQvEwaHywMAUErvA8dAKSsApO4oYjqruUVNvPkOXLUL83y5+dRNbUfc16OVe6NhGpkyCIefgup3Qv3RXYo0YQuDB0lGRb11DwY5pHTVMcUqVOqHQPK6fIRs8XluGimQVZavurj5GIY8m69VHSbbdnszOH4HkcaQQsB4+EBwu/Ca0zXqr+ICccPNSmwma/glaGZTx45RTfjQgHDIkF5Nih6GngLF747XniA/clHzI6+L+7LzKO8HzHqWiw2aavXuZsQ9xNUsMYY3RjrhgB1nh83FuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h51KG5QHvksjDU2l5SH9JSEUblVoXPyDFbwIzv92ux4=;
- b=rYe152FIqV+tVJh8Wz2tvc7VZYdfaXA+UQYg63CC2g3r/ozdGPnMEKnlK3GvYVDgyKSaJIqVPo9lqyKuRl2D56tZljX/P8nXxmd45jcLrHtLqz8kh0QhEAgGyLvXuwEwNkKfeR/e9GLLA4f7l0IqUILjzWpItUi3Bbev7TU8Z70=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS4SPRMB0031.namprd12.prod.outlook.com (2603:10b6:8:349::17) by
- MW4PR12MB7165.namprd12.prod.outlook.com (2603:10b6:303:21b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Mon, 5 Oct
- 2026 16:10:24 +0000
-Received: from DS4SPRMB0031.namprd12.prod.outlook.com
- ([fe80::5a9e:89da:d693:13a3]) by DS4SPRMB0031.namprd12.prod.outlook.com
- ([fe80::5a9e:89da:d693:13a3%7]) with mapi id 15.21.0472.015; Mon, 5 Oct 2026
- 16:10:23 +0000
-Message-ID: <2fe98d68-88dc-4ede-bca1-4eb8c13ff2ae@amd.com>
-Date: Mon, 5 Oct 2026 18:10:21 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Allow VCE SEI command in IB
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20261002145248.30879-2-david.rosca@amd.com>
- <CADnq5_NO7sDFC0m6cwfz=n4BQG7a6us0s343HRuq4nN0opDr9A@mail.gmail.com>
-Content-Language: en-US
-From: David Rosca <david.rosca@amd.com>
-In-Reply-To: <CADnq5_NO7sDFC0m6cwfz=n4BQG7a6us0s343HRuq4nN0opDr9A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0118.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:85::32) To DS4SPRMB0031.namprd12.prod.outlook.com
- (2603:10b6:8:349::17)
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com
+ [74.125.225.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E555010E2CC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 16:56:33 +0000 (UTC)
+Received: by mail-wr2-f35.google.com with SMTP id
+ ffacd0b85a97d-48b08452cafso1392058f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 Oct 2026 09:56:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791219392; x=1791824192; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=SKCBX/zPXZW+h0+n3etEeolFk/I8rwuwSTB1BIxIo+Y=;
+ b=ZJhbjZ5joFJoULEw9ExW0zIbVYNluF4ChZq4mxlwQJc7u9dQ7mD3ZlB0KgZx04j8Z9
+ 5AKxJ+35uSgTvKM88/b1MvitFHmDeF5xEH60H/a7vlmzmhAKQo9r3ecSjAvQU4gHyt92
+ yb8P+EkzyycNmLUQP3gXTKkecDT0vEFwA/k6UVaL8n7pQ6nLPKPc74rKet2Ifha1Reok
+ tRqSPIeXwP0CQJQAIxqrQaJusZtDNXLpX/JvVazh9pHTxgDHfUEmlHxDw0NbmKDIFzV0
+ +PHOBq+m5ZEszbxSjY88g5ea54Hz7ObHvOW46Ea/apxklwk3Kk9WEr5Ug9N7VgigSTsa
+ zxdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791219392; x=1791824192;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=SKCBX/zPXZW+h0+n3etEeolFk/I8rwuwSTB1BIxIo+Y=;
+ b=n4tL+rDrLSgGfuEVjy1qxNAq9wuwL5KGL8rS4adHBtavhxJ/YJGWpA19JzsfEg6YdZ
+ wdtkM7r0+ANqoZlMBFoKuIm0djjNb1hPqtd6a51V085W0Rf5yIRmRdivcO2xwDi/324h
+ mWNsA9fdDPUzcu7VRxElLlERcOuPGSPlKV5GsmZtzF50xiw1sCm9QHvjNVaFgvLFt9zY
+ skpyS7lcJgGcfB7aM3MXzcm5fUqlUmVkNcBumBaZBI6/TP01+mmFyY5u8wM+GK/q4qsC
+ Jn5plJW0CcLxJb0ckrnYlMHvl/wCnfkrBhiNi8SnSEGUm+EuiWBcZWoIJvhdP4mPOYM5
+ A23w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBycwTXUKyXB6QxvltJxflnBSU6Jr6lfenQruZXrq9SXVVWNkcCXfC5liK43hApRXNpZJ42xpol0@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ5XQ9+NJIBciOU3ARK6BsK2tLFoeybTy+85yJioWtVHpAMr5o2
+ z5VxNHn3P8kWyCmRIigRNOb4UP5ZMl3q//pkXTfvoPMWIhD18OccCPvG
+X-Gm-Gg: AYBFou2DzCZ+TT983T1AcgvZPGyF3QH/58o9eN7OsmK8XhL+mMdoNDE5SN94/wK+Yjg
+ rBOUIEYMQ+vC3J+MljPlWvlTc+fiM4eiBfyVsIK0q+VnWlAfeUeRO7IK0QUsbKOvfEoarf3hssg
+ 8092O9o+JZvogcP6mu8gv1gitwjEm1Ge1BYLrXCkUKhmkURIKA5p92Ptx9sHGdW8FYK/79DWsu4
+ RgmAxhzf84juagyYGet29mHnYJ07t+rGETzmy8EzfmXQu8iXjWBJUN3/GLtJMSNZjHE6Dxaykci
+ WVCrMlxLO9gBXXp1lQpHJziiPiITpic7+6Ua+3RSifTzHyGjBS38ir0yPZTs/ac+Qt5aPqiNio9
+ J4G5Sb4b65xTZYL8OnC6V35BP1h/+9r0Gq+XfK7yuCS9QfO5JTaMoJcL/gZvpIYuW/XplKTjkKm
+ IKImb1s4OqvfWiMZraS+RrQCcRBTE6x8S860l5fOMfQP7AO/iBtKE3pIs20lzl/jd9y6mrjXNLX
+ gHeSOKZVMNYDnKltWDa0KCP9zlyES1M95aJ341cDlnletmsMX4mwwyGUXIlR7UCAg24NnnkYbp7
+ DGMrnxtEFAk3wYF6XOIJhVl424Dgi2ekH+6kAA4u+CXkLyjbjVbtHEFnf17WaHIwdXzM290BP7J
+ EaT6jH47uDYrP3fuGJKlAm7j3QnzxRc/y2wtMndwWyZ9F/zNFILeqM0Soiuoip3LQgfWsmRkaAS
+ DXSzqbgRwga95dVVNmvb5AYeG6cQ==
+X-Received: by 2002:adf:e002:0:10b0:48c:6504:7125 with SMTP id
+ ffacd0b85a97d-48c65047180mr2563159f8f.42.1791219391993; 
+ Mon, 05 Oct 2026 09:56:31 -0700 (PDT)
+Received: from localhost.localdomain ([2a0d:e487:418f:dfa:759c:a4bd:ccc9:9d41])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48c622bb172sm10037994f8f.42.2026.10.05.09.56.31
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 05 Oct 2026 09:56:31 -0700 (PDT)
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
+ amd-gfx@lists.freedesktop.org, xiaogang.chen@amd.com,
+ felix.kuehling@amd.com, alexander.deucher@amd.com
+Subject: Re: [PATCH 2/2] drm/amdkfd: stop userptr restore retries on device
+ unplug
+Date: Mon,  5 Oct 2026 18:56:30 +0200
+Message-ID: <20261005165630.28840-1-olivier.kaloudoff@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <7de6d58f-6037-45e5-917c-6c62b42e00be@amd.com>
+References: <20261003063817.36606-1-olivier.kaloudoff@gmail.com>
+ <20261003063817.36606-3-olivier.kaloudoff@gmail.com>
+ <7de6d58f-6037-45e5-917c-6c62b42e00be@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4SPRMB0031:EE_|MW4PR12MB7165:EE_
-X-MS-Office365-Filtering-Correlation-Id: 651decdd-eee2-46b1-55cf-08df22fb296a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: ZwUQYi2NvBMtTKEvbzTlupqr2a1kIJ0BGKO3C5iFygCmvBlRsy9oCthvCAg1WrWgHGIa3IqA0quVs5aiQM7miEuAgRwZSxqTHHcmizxw9l4pxAqWSkWY64PNMEmzfSFFfvfJALgomcsV1a8pWx/NExfyNc2yWfx5/UzKpU9vhR3cBWjG0r6VCOPK1nCPK1IgaJr4M7pU7ash1JX4cubttAxrPl81bRoMsLOIR1MwWHJSBNCzKGsax09Cmq0TweDJPXtKiVW6DkPKFI8qIEdA74/E4RnyfGbn39YSl73LZZ6AMTehTBNvpaRziEn1KkUwrufjCP82YXcTK95n89sQh9Z20OBGRoqkWbTvAbn8E71dLFixEH/l84r+gfOhN4eEcyUg0+5n1v0MgKSeH/ZD/7S2JX7bFAMtzcLdoLvIQ4joagxGOE5/4Nyyr4HQZkQqljmDnocytzouPX144FETx/elEykS6E9bZkV2JsfrAF8h6xPOgRH9apS+0WKN/7eNuMuTBOt9KBv2MvPh/q+MjHDqqji2buy/5O9UrePpvSyBLYonWwfH9LsiKMz/sWihFuJYP1JgD5DZuAJe6XZ4sUQxnQWlowE0ZAvoxCGdb3+At1Pl/cL45D93IEx+Kojo9R5aKqAtUxH6SbgV9nBC/Afow7h5a8Uaqi2gtsL52mw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4SPRMB0031.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MlFpV1YrNmhVMmNDcEI5ck0wbklhenF4UE03b2x2aEd5TE9MemxqZXRpM0k0?=
- =?utf-8?B?UGxOSmVQSDVMS2NrNmlhSG1KMHFzTjFQZnMxbXA4eUhzT1FNZ3A2d1lhMi8v?=
- =?utf-8?B?SWZOR1hmcUdiSWpISnpUZHd3MytKaWsrU1J0S2hYNC9xVVBLZ3FXRDlaejMr?=
- =?utf-8?B?ZTcrQnZ4SDJkQmRMNXgyMEVldW9VcGdYUXo2UllISUFWR09YVFd6TDIydnNq?=
- =?utf-8?B?UHBPMEZvalgwejlSRDJRYkVScGUrYndMZlFGRDdwN1NXQVkyK2ZUUHZFSW1o?=
- =?utf-8?B?WXFFWGRRRVRPZXg4czR3bm81WEYzZWVxbUJ3eEp0NFF1SkRxWEZrMkV0REVm?=
- =?utf-8?B?Q1RlMWwyYjZTM0paZnN4SkphRjR0QkcvWEJsQ2VXWko4ZFVnUUNqdEEvalhJ?=
- =?utf-8?B?ZTRETW9NSWFqL3BjUmJaOUNvYnlzNUloOUxyNWNlbkdndTI1KzY2L0ZuazU4?=
- =?utf-8?B?RHR4WEpOcmszd1gzWjZqRWlJRWFFWHRaRkd4bWZZMFlENzVydlhyT0Z6QUdq?=
- =?utf-8?B?VGNBdU9MTjhvVit4dVllTDkyMXFLUWs5bWtibU9neWc2QTlOVGhmbE56Z2di?=
- =?utf-8?B?UUc2R2doa3FvYnUxanFOM2kwa2pPRkJCN3ZsQ1REaERNQ1dSdVdCUHp3V0tG?=
- =?utf-8?B?QXJEaEhQMC8yUVluV0hKTHN4VGxyRzQzdDNoOStiWmJkMURoWjliMmVWbGtw?=
- =?utf-8?B?ZVg0UVBaZE4vcTgxdnN1SWxvN3JCOTBQUGxRRmxnYjZFYmZlVlBMV3l5K0Z6?=
- =?utf-8?B?VVJuN1grWUNCazg3TWw1MWJjbGsrR0c4Mjc5N2IwMTNkVWFCZEZXRE50cW5F?=
- =?utf-8?B?STMrOGNMejd2UjMzVlhad29ZeGZ2S0ZMM1FkM2VURnBESjhRTnFuaHM2SCtF?=
- =?utf-8?B?bmZ2bUZOTjVvdUZ6OW1zRzBMM3gvSklzTFQ1SXU0dEtHakRFdUpGMjFOSmpu?=
- =?utf-8?B?c1Vvbi9RVlJsUEtubHNmZGZYY0Z4a3hSZStnRDdMaVZFSFV4NkNhN3I5MVdw?=
- =?utf-8?B?eVp4SHViTDVlOHpzMHo4RnpJcHZXTDJOUDVMd29mWGpWeTZEeXdWaVpLOUpF?=
- =?utf-8?B?TlF2UjJkM1pmTzJiRnBFWEFnQmJkSHprN3NWaWdhRXIrTk1GNmNQek1keUtU?=
- =?utf-8?B?eUF5ZXdlM0dQTlYzb2Z3VFR4VlFHMERaRGNNVTFDK2MzNmNSZW50UWJSYjhX?=
- =?utf-8?B?V1hlMTNydmJFV0RvMkZ4T0hOWDFQRDFvS3dReHhSZU1VaHR1dU01ZzVuQ1BM?=
- =?utf-8?B?VDhDUXhEOFNvd25mNGtDQndJTmxQa0IzUE5mQTdEK0YrTmJCd3VBd3MyM1RD?=
- =?utf-8?B?VENvNUkvQmZnTTVmWG12a1VXanZJTnV1cC9zMk1IbkpMdUFJYzgvbkZYam9X?=
- =?utf-8?B?UE1Pc3ZQdm56S2VEeHBXS2ZTdnRWQm54Ym52SkR3NGx3MUpmYVYvaUxGOHdT?=
- =?utf-8?B?bmxpdnRzRmYwSzdnTVRVUTBlV2RUNnVNRFBkTTVzMW9ocWhkby9hS0tFZG11?=
- =?utf-8?B?aHR6d2t4TXNORTl2MHVZdEtyanRvVXNCMW5jSnpGOTVLaWV0V0FvZDVQS1Bi?=
- =?utf-8?B?OGtiUmNyQ01xY3VoZjhncmhRNENVc0l2ZGVOL0U2VG9udU9CSzNSc1JtSlp4?=
- =?utf-8?B?NlhRSTFFV0loNVUxMXRRMkhMVGIvUzF0Y2srVnhZb29pV0R2QzRxUWxXNUpw?=
- =?utf-8?B?N2ZBQm5UakNaNGFkMlNNeTkvaFN6cXVzaFd6eHdOZ1ptM3U4V0tqOUt5SFBj?=
- =?utf-8?B?SUJxejBiNTdGTitRU3BVNVIyclJYd1F3UmRMbFVQMVpMbm5NL0FoQTkwakp6?=
- =?utf-8?B?TU9zSU1jazB6MytlM3VKS3p4bTJ0MFM4bEZvbE9pWkRSUC9XbWU0V0pGS0Jw?=
- =?utf-8?B?VzRJZWdpdnhlRGRoVG9OM3RqelhKcmp0SEZyNk9IUWF3RjFmbUN0dmhtQWFU?=
- =?utf-8?B?SGNrS1haa2x2U2tLbjl4MkpsdGRsV01xQUJ5OENrSmg1OXBYTGwyMXlRMXFt?=
- =?utf-8?B?bUNtczB5b1p2Sm9oUjhnbjBmdGl0Z01ubDVucmJMYUJnaTRFWHRxc1ZYQUN2?=
- =?utf-8?B?NzAwVktJU3BNdFlKUmNjNktMaGptSzE2M3hWYzRFcEZVbkIvWHp5VmFuVzF1?=
- =?utf-8?B?elJudVF4dGh2ekJxYmhJTitPNVM5a2VkWHhscG1hMUVvY3ZOaTY5V0FyRkNZ?=
- =?utf-8?B?ZUdXN3MzV2pNWEppUG5VcCtrNW5XQlNaRE1hN1p1V3l3bHZzb2F0ZWx0b3Vn?=
- =?utf-8?B?aEVhcjRLSVRBZFBZT2JkMTZjWWJTb3NuMzk4aEo2aDdnQy90bWhlcmtPV2VR?=
- =?utf-8?B?UXUxZndMb0kwYnJzbWhhMUVEaDN1Z1ZRTkRML0NTemxkcEZBRXhkQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 651decdd-eee2-46b1-55cf-08df22fb296a
-X-MS-Exchange-CrossTenant-AuthSource: DS4SPRMB0031.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 16:10:23.7911 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +KAhVRKUhExGvC25hXEYc0Tin+1dnYKEuarHfiQTV38e8am47WZORhhw3tUrB8mVi1z9aSHO3HYu35igJ8o88w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7165
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,40 +98,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 10/2/26 17:34, Alex Deucher wrote:
-> On Fri, Oct 2, 2026 at 11:31 AM David Rosca <david.rosca@amd.com> wrote:
->> Mesa will use it to get the slice offset in bitstream from feedback,
->> which makes it possible to filter out SPS/PPS headers that VCE 1 and 2
->> FW always forces on IDR frames.
-> You probably want a driver version bump as well so mesa knows when
-> it's ok to use that?
-
-Yes, but there are more changes needed before that.
-I'll resend this as a series with the version bump.
-
-David
-
+On 10/5/26 09:44, Christian König wrote:
+>> +	int ret = 0;
 >
-> Alex
+> Please don't initialize return values when it isn't necessary.
 >
->> Signed-off-by: David Rosca <david.rosca@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
->> index 39d87f3df9e0..bfad44ec7feb 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
->> @@ -920,6 +920,7 @@ int amdgpu_vce_ring_parse_cs(struct amdgpu_cs_parser *p,
->>                  case 0x04000007: /* motion estimation */
->>                  case 0x04000008: /* rdo */
->>                  case 0x04000009: /* vui */
->> +               case 0x0400000d: /* sei */
->>                  case 0x05000002: /* auxiliary buffer */
->>                  case 0x05000009: /* clock table */
->>                          break;
->> --
->> 2.43.0
->>
+> Initialize it before the goto.
+
+Done, ret is now declared uninitialized and assigned at the two call
+sites before each goto.
+
+For completeness: every path reaching the "if (evicted_bos)"
+reschedule check has ret assigned -- the two failure gotos carry the
+error, and unlock_notifier_out is only reachable after
+update_invalid_user_pages() (and validate_invalid_user_pages() when
+the list is non-empty) returned 0. So the concurrent-eviction and
+WARN paths still reschedule exactly as before.
+
+>> +			pr_warn_once("%s: device unplugged, aborting userptr restore (pid %d, %s)\n",
+>
+> That warning is most likely unnecessary and maybe even harmful.
+>
+> That the device is hot removed should just be a perfectly normal
+> abortion condition for the worker.
+
+Agreed, dropped entirely. The worker now just skips the reschedule
+when ret == -ENODEV, treated as a normal termination condition. This
+also correctly suppresses the KFD_SMI_EVENT restore-rescheduled
+notification, which would otherwise falsely tell userspace that
+another attempt is coming.
+
+v2 follows.
+
+Thanks,
+Olivier
