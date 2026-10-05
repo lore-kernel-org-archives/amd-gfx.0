@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FA88CA5FFE
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 07:35:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCD4CA6004
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 07:35:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CC4710F21F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9197610F220;
 	Tue,  6 Oct 2026 07:35:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="hJOR32P5";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="G8891UQP";
 	dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B1FC10ED40
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 14:01:03 +0000 (UTC)
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70FC210E5D4
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 14:00:44 +0000 (UTC)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 695CZQjr711304; Mon, 5 Oct 2026 14:00:58 GMT
+ 695CZTcI3033289; Mon, 5 Oct 2026 14:00:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=pcxZ97yVQBRhL4mev
- 1ZkpPOfJXusTAX+xkIqTE+1vMo=; b=hJOR32P5qAJUKSgoIri1p/GaXK2rBXXHd
- 7R+FdxDE4FCaW4zUCk6FekIgK8+FwpsdTY7ne7ghcdm0PrqSgLZbD53JwbyvUjhZ
- xqP/mlGpuO0fGwpYu0XI881cvvYCVt8hDzeLWTVCTWU8dTa8uW84UqRqZaBQlLjH
- xlwNtDI8twFAqhIrz4WAfbqBjGfxjwG9ruKT7Awt0R3WLcJ7LzlrM9fftg8FNPdp
- +1Gx3nWVGMJ1d2TPAzzHG1ku4JA29F+GrtAB4iJc2iYo6ivgrjRG1FWvUaRkfJST
- DKx4mu5Sa6c9yAH64kvSn1enfUO+HB8f3pr/Bf7D3KyEvygc3N7PQ==
-Received: from ppma12.dal12v.mail.ibm.com
- (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2s74jp18-1
+ :content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=pp1; bh=KIYR3c+bnN1HCsBEqwBC/lIHrtDY2MmPT0yVU0BX6
+ VI=; b=G8891UQPbiSsQYonUEmhrLAuM2IGPzbc8xVSmyWmK0l9vmkOjK1t+xRLM
+ othcduL2bQiHsdDoJeSKiF8Kctb9WAWAFcsWxjo1uWtvclEDUyPx81EwkLc8r2bC
+ bwHSaJL0I1A78czIV9n8CBgYWrjPvFnmzwtkw0NGE77PZZaXeuA0QsWuaMzt29Mi
+ oer4/IiW/79lq1Jwj7dN94h3Qf5QB4EWB+nsA5Ev1Hnnz4F24k9YBOiJGU6GlFHJ
+ xRWF2m8xLYGdm1JVCTWp15d1dGgunl0U8XX1qlPMJIhwfBymRGXQ1FZPi7Oa8FMF
+ xNUFbYsFX/xpDCKjD6/Wq3RzQ4eQw==
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2scrakxg-1
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Mon, 05 Oct 2026 14:00:57 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
- by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 695CHoGf2900851; Mon, 5 Oct 2026 14:00:56 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
- by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3c1pnwes-1
+ Mon, 05 Oct 2026 14:00:40 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 695CWlO92894074; Mon, 5 Oct 2026 14:00:40 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3cdvnts6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 05 Oct 2026 14:00:56 +0000 (GMT)
+ Mon, 05 Oct 2026 14:00:39 +0000 (GMT)
 Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
  [10.20.54.103])
- by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 695E0qkg40239500
+ by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 695E0axL31916648
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 5 Oct 2026 14:00:53 GMT
+ Mon, 5 Oct 2026 14:00:36 GMT
 Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D533720040;
- Mon,  5 Oct 2026 14:00:52 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 0056620043;
+ Mon,  5 Oct 2026 14:00:36 +0000 (GMT)
 Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0CE2B2004B;
- Mon,  5 Oct 2026 14:00:50 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 38D5F20040;
+ Mon,  5 Oct 2026 14:00:33 +0000 (GMT)
 Received: from localhost.localdomain (unknown [9.43.115.22])
  by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Mon,  5 Oct 2026 14:00:49 +0000 (GMT)
+ Mon,  5 Oct 2026 14:00:33 +0000 (GMT)
 From: Dhruv B <dhruv.b@linux.ibm.com>
 To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -65,40 +65,38 @@ Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
  Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  donettom@linux.ibm.com, dhruv.b@linux.ibm.com
-Subject: [PATCH 3/3] drm/amdkfd: Restrict CU and memory entries to resource
- nodes
-Date: Mon,  5 Oct 2026 19:30:23 +0530
-Message-ID: <82a530038f8eb9ea0cc95bb6bf93420fc74073bb.1791208447.git.dhruv.b@linux.ibm.com>
+Subject: [PATCH 0/3] drm/amdkfd: Add support for discontiguous and CPU-less
+ NUMA topologies
+Date: Mon,  5 Oct 2026 19:30:20 +0530
+Message-ID: <cover.1791208447.git.dhruv.b@linux.ibm.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1791208447.git.dhruv.b@linux.ibm.com>
-References: <cover.1791208447.git.dhruv.b@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: P0Q8ieMwi7HNcKo9HL9Zrpr84KYMWPaU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA1MyBTYWx0ZWRfX/bc7BSmHY4UU
- sghfe9p6Zsuq+7shvQMnA8hkTbW3U6nUuDGfL84VUqcpu7rGTVUsfPvb1TkjtSXmbnOqxlCyMUK
- B5z2GRUy2QQywXiQU1wVFX1uHjLzV8A=
-X-Proofpoint-GUID: iWjB5q3vIahw_rslQksqYi0PUV858O41
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA1MyBTYWx0ZWRfXxrXE0lQwTEyW
- P4S66DOU8X/lkcUB557ZgjBLXPmPIa2thLNu4MkMW//BK9NdvcQDd6UwL10Q6pWtmsDKfe6SA8e
- lVO7v0sHiurh1ta+I2eZlihNN01ndAqjDDnxy98gvVEDvhCN6c6vSId3WpBoJ3uOxD2xZMdW/mg
- c9POi8wcP1rAslOlayF79E+REF5yuQr/F1s+kx3FbeAgH3CRRUUeEuqOwQnpCihdeniXq9Tzh90
- 2OSZotgX7H1lpmDgy5m7BaaEvIrNiEpzbpqQAwhkxAZSxJSL1KO3HP4Oal2imiai/6rDqvbQUW5
- yE8wK2McMdRx4JZiQZ1A+Rsx5Lvgm0NE/5wtHPVaH7y7nvet3AObXtMiBtqa8Em/lMndwnzykdM
- yAIZgYL8CWUDF3Oi0D4/Q64F+hix+HMYTIBB0WBiU98rFvVmWjxY3BxE5MZRJv2FTsHpBxKUVyq
- J/eTizXq6DJ1JdBsHGg==
-X-Authority-Analysis: v=2.4 cv=fM2sTpae c=1 sm=1 tr=0 ts=6ac3ad99 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA1MyBTYWx0ZWRfX+uoLKtaT/6Q5
+ 8ZLwRJFG4tzguD6WY6F6o4YLlYm65+xL5D8JGSoAV3KiFf7cEiwdhHPtFnpHC+uojJNLpdnMmAz
+ 7osJhSYLQh70Zs84HRaWKgNk179WZ7M=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA1MyBTYWx0ZWRfX1Cdlc8u7W4wB
+ E+655FqKUz4VKIGCyuPg9v/b2RWzxvkNcjNEGEBSvdHqzlPGZvL6GgGtEG9PhiTBoYYpRoDkPPG
+ e1+3aHI0tr8m2kAWsucPhtAviCiDQUBC/J/rcW2RiiZEbHoVdtCqdqOjUmwg5Hfd4SRwZ/Hrm/0
+ 5HpRXxlj/mmN1z3XXvY2n+8E4HV3Z3zZulI9knA7+WeOKjFi0li7KY1vHSXDYa4T/gtAZjrZgE0
+ Sv+7dZQb08rJyFZsw5ZrOiF5Pwcw+o/2vCNuYxXI7zc6itmDloaZTUO9dMVKEV1F/NQ4vcm86Ym
+ W2/a6ZRDEovi5gi0w4795c7Mf4OSp0CK8DgkXOrUEyJExrTcYKr73IlBYf2W7WkYIa3DtGD7LtN
+ JC24QPv9SErlbiMQ+Rlrp8YKI5Z+9MC+Mpbgrx/a0swd1fRpcz3b4CCLf2ejU4Y5QgyLSXvt6Sc
+ osfV9Gzo/vYKN5Hqe0Q==
+X-Proofpoint-GUID: 05ikkrIyxUPNWoVcQCqauvJ7_04xQUvi
+X-Proofpoint-ORIG-GUID: IlnQ67EoCVVXor1HMGqc5V7807S-bVeN
+X-Authority-Analysis: v=2.4 cv=B7osQ+tM c=1 sm=1 tr=0 ts=6ac3ad89 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=CEoOl4_7Db87k78x3ngA:9
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=2T2nS5HjsIvHWfO5MkkA:9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-05_03,2026-10-05_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1015 suspectscore=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050053
 X-Mailman-Approved-At: Tue, 06 Oct 2026 07:35:16 +0000
@@ -116,85 +114,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In heterogeneous or non-uniform NUMA systems, a NUMA node may be
-CPU-less, memory-less, or both CPU-less and memory-less.
+This series fixes VCRAT generation in AMDKFD for systems that do not
+provide a CRAT table and where the driver generates a Virtual CRAT
+(VCRAT) for the CPU topology.
 
-Previously, kfd_create_vcrat_image_cpu() assumed that every online NUMA
-node contained both compute units and memory, attempting to create both
-CU and memory CRAT entries unconditionally for every online node.
+The current implementation uses for_each_online_node() to iterate over
+NUMA nodes and assigns proximity domain IDs sequentially (0, 1, 2, ...)
+regardless of the actual NUMA node IDs. It also assumes that every online
+NUMA node contains both CPUs and memory, unconditionally emitting
+Compute Unit and Memory CRAT subtypes for each node.
 
-Add explicit guards to:
-1. Only create Compute Unit CRAT entries if the NUMA node has valid
-   CPU cores (kfd_numa_node_to_apic_id() != -1).
-2. Only create Memory CRAT entries if the NUMA node actually contains
-   memory (node_state(numa_node_id, N_MEMORY)).
+These assumptions break on systems with:
 
-This avoids emitting invalid or empty CRAT subtype entries for CPU-less,
-memory-less, or both CPU-less and memory-less NUMA nodes in virtual CRAT
-generation.
+  Discontiguous (sparse) NUMA node IDs
+  CPU-less NUMA nodes
+  Memory-less NUMA nodes
 
-Co-developed-by: Donet Tom <donettom@linux.ibm.com>
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
-Signed-off-by: Dhruv B <dhruv.b@linux.ibm.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 40 +++++++++++++++------------
- 1 file changed, 22 insertions(+), 18 deletions(-)
+For example:
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index d4739db1c14c..489ddf68b751 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1944,28 +1944,32 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
- 			continue;
- 
- 		/* Fill in Subtype: Compute Unit */
--		ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
--			crat_table->num_domains,
--			(struct crat_subtype_computeunit *)sub_type_hdr);
--		if (ret < 0)
--			return ret;
--		crat_table->length += sub_type_hdr->length;
--		crat_table->total_entries++;
-+		if (kfd_numa_node_to_apic_id(numa_node_id) != -1) {
-+			ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
-+						  crat_table->num_domains,
-+						  (struct crat_subtype_computeunit *)sub_type_hdr);
-+			if (ret < 0)
-+				return ret;
-+			crat_table->length += sub_type_hdr->length;
-+			crat_table->total_entries++;
- 
--		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
--			sub_type_hdr->length);
-+			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr->length);
-+		}
- 
- 		/* Fill in Subtype: Memory */
--		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
--			crat_table->num_domains,
--			(struct crat_subtype_memory *)sub_type_hdr);
--		if (ret < 0)
--			return ret;
--		crat_table->length += sub_type_hdr->length;
--		crat_table->total_entries++;
-+		if (node_state(numa_node_id, N_MEMORY)) {
-+			ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
-+							crat_table->num_domains,
-+							(struct crat_subtype_memory *)sub_type_hdr);
-+			if (ret < 0)
-+				return ret;
-+			crat_table->length += sub_type_hdr->length;
-+			crat_table->total_entries++;
- 
--		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
--			sub_type_hdr->length);
-+			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr->length);
-+		}
- 
- 		/* Fill in Subtype: IO Link */
- #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+  available: 3 nodes (0,2-3)
+
+  node 0: CPUs present
+  node 2: CPU-less
+  node 3: CPU-less
+
+In this case, the existing code iterates over nodes 0, 2 and 3 and
+assigns proximity domains 0, 1 and 2 respectively, instead of 0, 2
+and 3. The mismatch between NUMA node IDs and proximity domain IDs
+results in an inconsistent KFD topology and causes topology parsing to
+fail with:
+
+  amdgpu 0038:12:00.0: Error parsing VCRAT
+  kfd kfd: Error adding device to topology
+  kfd kfd: Error initializing KFD node
+
+To fix the proximity domain mismatch, the VCRAT generation loop is
+changed to iterate over the complete NUMA node ID range up to the last
+online node, incrementing num_domains for every node ID in the range.
+This preserves a direct 1:1 mapping between NUMA node ID and proximity
+domain ID, while skipping resource entry creation for offline or
+unpopulated node IDs.
+
+To fix the unconditional subtype emission, explicit guards are added so
+that Compute Unit entries are only written for nodes that have valid CPU
+cores (kfd_numa_node_to_apic_id() != -1), and Memory entries are only
+written for nodes that actually contain memory (node_state(N_MEMORY)).
+This prevents invalid or empty CRAT subtype entries from being emitted
+for CPU-less, memory-less, or empty NUMA nodes.
+
+This series consists of the following patches:
+
+Patch 1 removes unused code in the CRAT initialization path.
+
+Patch 2 fixes the proximity domain mismatch by iterating through the
+complete NUMA node ID range and preserving a direct NUMA-node-to-
+proximity-domain mapping.
+
+Patch 3 restricts Compute Unit and Memory CRAT subtype entries to NUMA
+nodes that actually have the corresponding resources.
+
+Dhruv B (3):
+  drm/amdkfd: Remove unused code in CRAT initialization
+  drm/amdkfd: Add support for discontiguous NUMA node topology
+  drm/amdkfd: Restrict CU and memory entries to resource nodes
+
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 61 ++++++++++++-----------
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 11 +---
+ 3 files changed, 35 insertions(+), 39 deletions(-)
+
 -- 
 2.54.0 (Apple Git-157)
 
