@@ -4,97 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68CC3CA5FFD
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 18:53:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2A19CA5FCE
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Oct 2026 19:04:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7C1E10E5E7;
-	Mon,  5 Oct 2026 18:53:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4011610E1CB;
+	Mon,  5 Oct 2026 19:04:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Zlo27vVf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w5ApN1xk";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011062.outbound.protection.outlook.com [52.101.62.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0459C10E5E7
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 18:53:30 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012065.outbound.protection.outlook.com [52.101.48.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A741010E1CB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Oct 2026 19:03:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QEn2hncGWCOUOWqgupiKOVpDdaQ8OwjQnV/bcjcnBu+pMpfz+SzMYSaUi1ww0/I3TGJZuEx3RKuZU25b/gBOQzFJiMV+qV244cwKqd/oQWVemU9P5huah5yc5lPbEs8IFZqmL/nQ+IdG0KBkebiac7AheiGLMiSxVFqYr/684QmWOucLVUPVA2W0nGS+pGwvpw8u/lmHeNBWXL2mz25g8MhUPia+/46G+ib3ApFHIQ+zn5sUk+lWPaIB4089vaH5v2onEMA5Btka02khLPZJxLEEXPGyetDhcepY+hyyRdheDjqD+/+cBYFafOPgcwkCethJEiUNGTZbkhrrAOGi/A==
+ b=zRDYlGXXD+lQxoJ5vhmRlqW29isRF70c2DcJ4PRrrMZrMSTSyIRnYqFG9jDFLalgZ4KdoklvgyOG0sT9EMjF8bfrZ1DOM/weazfdUzr3ycoxH/1RDO6TD/7Nl1IV5kyAZA+XI1mezi2Da4yyABhwOpTgqMex05S0YBCxQfJ01aTxuNrXGqIrnm8Dskg7azEwfqaUOTmDGnIDDnhd1v+4/e/iV9ZUcYghDgM3GP/b7tY0O0ZvUBdbleN0z//lhzi3qoPYHO4FSygKBZDvRKEcadFWD4pMI4pLNxOK3NPDGIu5eJZy+1Cgvo8doSLbyRA6+ejwaUKHkkyl4rMkMRl06Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f4XZjvg4bZWXtjDiJF7UYJpmhDtKl8bHlrYlyiDkL5c=;
- b=eIxRS0ct5h+D7QCVpr8/wYkf49G/vlIG3WwTIIwqHmbDWbJY8ggbMy942YIqLoecLLBOuuvlwPhh3gxpsQscrGdMdtCxZT0hKOfF9y65p/HywC1vz9TOyq3zLO6WOWiUR5Caibj7O8aK7t50i9G/9xsvQy7s6U8dnZYVOtN0edToAVqJFSyz+IRdWKrS6m//3xcGKI/0tZARNqF8fij8iLw2I49FLpMPjL+8U00NPuuLMgeJ2HqIAllT6jvuKsD2PxBsctJ0Z2lAiLxT+keRwWmM+Dzzh6cyXZ9/aFyerPlgZooRADemeC4LBwBwekM6votmjy1kH43UKpQFRaOiaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=zjBMkU6i3Zvf/EZKIqNgRxYbYqmQPiyIn4RcvkHgsCo=;
+ b=eP8//JiQUamji9cxxHQMBTP3agSqYSDDFAWyBXshHO3PePJjTU4vZgnwgVX8KfhxoVCLItBzqttu5jojGzyghF0+NqkxxqKx9yLOs1IcZf3YNDS5Mz2MZcnKX8q1Rjjus7VkjJjIh9MVd77GLwiIijpzh+HfP2Hww46gVWwkUxmgK+xewBINHt4lQal4irE2zcd8b9Vrp6brqbJCIuS4gatPVS6AhblcwPeQhq1xlZLOof2QpJxGej3fqW8OheAnqwv5I2EBowDEtaFQFJUTAVlmkQaa5nwMU9q76CkhiaonuwC9lgDX+H64XZj2tzXlIO8is4sDlSbxWBH2TR0Yvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f4XZjvg4bZWXtjDiJF7UYJpmhDtKl8bHlrYlyiDkL5c=;
- b=Zlo27vVfe9Mxa0VDV1HCPlpK/SNkShXeuGXNTIbJS0tNQUlYsoM1+0sDQxKmMNbMy2sn73CdzRIjYDI3V7hjb1CQPn0jLOSiiHY9VACrvezd3sYyrai0L36h2oWwIpWQfBSMnHvBBIyAH/Zha/Ewxnr1zBxZONQNlT7UPX4yWfc=
-Received: from BN9PR03CA0342.namprd03.prod.outlook.com (2603:10b6:408:f6::17)
- by SA1PR12MB7319.namprd12.prod.outlook.com (2603:10b6:806:2b5::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Mon, 5 Oct
- 2026 18:53:00 +0000
-Received: from BL6PEPF0006C3E0.namprd02.prod.outlook.com
- (2603:10b6:408:f6:cafe::20) by BN9PR03CA0342.outlook.office365.com
- (2603:10b6:408:f6::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 18:52:57 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0006C3E0.mail.protection.outlook.com (10.167.249.235) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 18:52:57 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 13:52:56 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
- <Harish.Kasiviswanathan@amd.com>, <Mukul.Joshi@amd.com>
-CC: Philip Yang <Philip.Yang@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
-Subject: [PATCH] drm/amdkfd: Fix svm_bo use after free in svm_range_clone
-Date: Mon, 5 Oct 2026 14:52:45 -0400
-Message-ID: <20261005185245.1060657-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.50.1
-MIME-Version: 1.0
+ bh=zjBMkU6i3Zvf/EZKIqNgRxYbYqmQPiyIn4RcvkHgsCo=;
+ b=w5ApN1xkSyxv3sLFNGS2t0HuKeLgLymB9ciTgfi5wEfLMRk+IYVl2Ia0pEQa/1hVYufTu4+GXuFMCNsbQcj1WVNfk5BoyoUpPbhKisssvEy3sVDmxKk1Hr1W8P+J+DVRh/INUlRIGaQ3fXlWsy3z/QrimTgd4lEyR3NJd3eRIT4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by MW3PR12MB4475.namprd12.prod.outlook.com
+ (2603:10b6:303:55::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 19:03:56 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 19:03:56 +0000
+Message-ID: <a1bc9a71-a352-4888-ad56-79da1f171b07@amd.com>
+Date: Mon, 5 Oct 2026 15:03:54 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: Fix svm_bo use after free in svm_range_clone
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harish.Kasiviswanathan@amd.com, Mukul.Joshi@amd.com
+References: <20261005185245.1060657-1-Philip.Yang@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20261005185245.1060657-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YQBPR0101CA0098.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:4::31) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3E0:EE_|SA1PR12MB7319:EE_
-X-MS-Office365-Filtering-Correlation-Id: b18d10d2-1d0c-4b81-6c66-08df2311df21
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|MW3PR12MB4475:EE_
+X-MS-Office365-Filtering-Correlation-Id: aba04254-343f-4007-aa38-08df2313677e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|18002099003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: AmUHx03WSjTem3z6oUvrczQXzprPlcYs6jSBJ403DoRq/kX8Sr5EYozJYg/h9R/2NIAAimiTbIs1CyjoCyDLhihrnbZ6iY7EtQbechi8NT7SDQQVDIMoIK7Ku0QpX4i/JhJ1B9HpRHl0dXua1J6j/ohuTyVyZG0RduwDo2nwMo+mP13EM+JrvP4pnnWS/pJ8OPg6wXHgDQgE8E7o769+Bucozr2FjzWuC4FotPgkVX/cHG1e4sPYiOHItUcd2CJFzMyAYDNanCc3pY440TBqfV1Cap/totjnoszoWgLmXr4u3A5gHoCWjAzt67zcW9WLu5i6vR1Znyoes4ra8mijZ9sLiddGImWh+YEqAW4H8Hoqp/qEgso1/Si9zwXT/ItpmH0GCgCIxp9O2I8pm3C85P4wVveF2axcOS7YX44WCnu1LBUOJMP+FctFAebltoAaq4dYNqFnSddMOXamdO8dWJ3ZDkuIazDki5mPY7D7ZbNrL3AU3vco+VFd43fW1ttHUrr1S+yQ2H7Siuq1EZi1+K+/NpuObFDU7KdHtamUPxSfKsk306QADUueozLvKbyZ2HzrCx8/yL/l6eaQTThEDcjKzW10lCV/6nlxbOkM7Adb4Dd4v7x5DY0l8Kk43K3wtitFS4uJ85YkpeeDsv14ceo/1WnWi1/wJA5tvnMHSaDAl1OYv2Fa3W5n7+poASTyRs2xdV0zdoL0bqP4CnvSsg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(56012099006)(10067099003)(11063799006);
+ ARA:13230040|366016|1800799024|376014|23010399003|22082099003|18002099003|56012099006|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info: JONytMGFHYX/TaxQTCqWwCmqNVWJl4BcTYAXuL3mtTN57pbrhPKFSS9FOqYPBLflcmTiEAfZijkRTmLDFjqAExRq5rpqNiEeiVarEyktgYZ6+YsAgDmZYBYZxiJZy8XbQP0FNs36MAMFBpy0w9oBeaEc9HHKHZjfLBUakeTknTSr6dYEhZKbcXf+YicgdzGILp6wS3zAgmY6aEmtET5QsI0637vPb/JNGgF13tO3Vl1EsHHqyWwCOxDWufJL2BTylsC3WPywSbX17HY8ghK3yx9XXiEPvgqc2NoZyi599+T4BZAeLYA5nE32ecGCxtnj175C56OXcgkH2098WXLlwKDFzVIwgRtgQJXPHzb971moAcKMu5AZumgcgoctJV0KzVFE1ukCzy5MfG9E1HMov5IahKPAfYhynah4UYxqDMEDRgfsiAf5V/sQ6a3ZSu/4px2Vaozcv/K46uASwHIWxAmZVKNva/fcQn8y6rUw+SpSHzWi5gIHiRThggqTB7AcvhqKgZKTOCSe5sajfGzO0HMeeiRchYzDpgzpUeBq6N+DMggCtjGwOiXeo/0zYqHp/lq72Y5hFjPT6QzHb91cB2mh05HZLTt/nv/ntec15K0l6Pbe/Orc8HqX+tvOlSCMRgJ4tLjf33qMbWtDjtw37DMA0rxjaTbJ7Gia31j8jbo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(10067099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: reVOfIT/y0Kxuxp55o9gsSgwMzs3KYJoTyW1W4oweb2nu94wMw6MpW2xBO6kRkwpGGrz2Nq5iu5Az7UV1Yag27qsB2upWmLEBQuArElaxx51fAOloz2Lw6N9oVPztG9qve8yXavfdZ3X77y2IS3+gsNa6vp2agYrJYVpVZgvrW+wssMzVq2Tx85g0WApi0D2iztqyujIDITfFEiDrn3BgsQo9mNwbrXWh8oZGUuy0WzVznSUaFm0KBmrL7zHfqConGM5QgmfQe/LSExlK/LEePDOragw4kNQTP2XWFBdYUOo1JYx48MCGZGV8/RtDyuP5IcAk5iK2eW9h6ob5uODnjAkpMxZurMEYJ7wAG60HKc4G2GGqLrtIod+1kHwVpkaKgJ8PE/G9NaH6iJgkiVXlPSxO2S6u3S3660FBw+ev2xJaEyRARSOQY7hgCU5U2/m
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZGRHZmcrY1dzZnpIUFFTRG81M2FSVXJzcStPWlE1SkpGT2tJN21LalBGQkZ6?=
+ =?utf-8?B?cjZ4Nk02bHJvS0VmUVZmekpjZlgyN3k1L3VCNXVOTEZVaVBDeU5MbkM1MXFx?=
+ =?utf-8?B?bWgySGw0SVNRRlFuK2dqVVl3ZklmdjBwQWtZa3I1WUJrOUhQSUYwcVRuTjJN?=
+ =?utf-8?B?U2RPZFFmU3lmckRLZ0wxdDJTbUhvanR4K1B5VkMzUzZhSU4zcVZFRkRhWWZT?=
+ =?utf-8?B?UWxCcVE1TnFKRS9RVFF5VXJaNlJxUWhxano0akxETFNVRTBpL0IxMTRHMUU0?=
+ =?utf-8?B?enJwZTdvRkd1U052YUVsY2d6Y0RUck96VWI0ZW5wdFZWaGU1RHkxOFgxRjl1?=
+ =?utf-8?B?OEhmWlNsNGxEUVZmMXNOTmtLUUxIRUtzWjBYMjFCTWEvYkgxZVhIaDV4dnhS?=
+ =?utf-8?B?TzlkRWtFTW9maldqTW9qeTdOYXhQajNRaHBNZzRreWt3UTJKSlJ5WFNtZEJD?=
+ =?utf-8?B?V0ZxMVdRV3dtVlYyVy9Vc09VSHF2L1hqOFZGZFVhVUc1NEZUQ3Z4VzhyVm5Y?=
+ =?utf-8?B?UGFsa0xYazUwZUhha1F0bUNTcHFSYVNnMDlkWjBxbjMwRWdJRENXOG9oUXJB?=
+ =?utf-8?B?elhrTURkNnloZ3N0UHVNTU1UQ3BSUTRDK3J3SHVvNU1MR2lueTh2ZmYyU0hy?=
+ =?utf-8?B?cTl6bFIrQkhTTk5CejNiS3JXL011QkVZT0xsRlBPVVZYMEt4T2ZabUwzdjJy?=
+ =?utf-8?B?ZElVbkNYRk5JSVN5WkZaaG1GRE04Y0NjM09EMno2dXUwMnZIV2F5bHpuRjR5?=
+ =?utf-8?B?T3IrWmNiYTcrK0N6cm45QTFVT2owaEsrNEJnVW9DTzNrajJWRGw1TkYxVlNk?=
+ =?utf-8?B?ZkpLUWhaTGZIRWdDK1RTWHZtUU1OMTI2UUg0K1JPVVJBV2ppbmRPSW4xS1Za?=
+ =?utf-8?B?a0d4TzBPUmRCalAvN1ZLcGhZeE9yNUJNNzBENEJjaGVERjRoYlFlVUgzc1ds?=
+ =?utf-8?B?V3hkbkxyVklDVDB5cEhRendYcHhXREYrbzZBa1l5ZUt6a2RYTXIzYU5ZS0VP?=
+ =?utf-8?B?RFpQbW1IeW15V3JCWVRyWHhQVzFvQUJSS3FCZFArcnlVa3VxeTJxMkFWanVt?=
+ =?utf-8?B?b3YvbldnNjFQbVh5T1VHUDBCUk9YUVd0N04yZjJIVU5KS2lrZXZCakttSkVt?=
+ =?utf-8?B?ZlFDZ0FXUHlZWWZoQ29DSTIxUHoyR05Nc0NhSnJoTEthMlhvUE96dDZLRk9M?=
+ =?utf-8?B?WG10ZnNnaS9Mbk9TQUYzWmdPUGpzRURCbXZyY1RWbHJ1WldhR05FYTRjeldX?=
+ =?utf-8?B?bXZlU1FBaHBaN2M1UG0rbGJmTTVqcHZvTS92N3JZNXJVSW5wVWxLRFFXZkRa?=
+ =?utf-8?B?emVTV2Y1aDdaVWxIN0NyVVJTVVhVNk1hQTkwSEFCL2hjaFJCdVk3ME9iUkdx?=
+ =?utf-8?B?c2dUQTNWY0FYOWRGbjZzUTJ2ZnpaVEJrUHhKZTQyL0pNZlFQRkZtaUpnOGpI?=
+ =?utf-8?B?UldpNU1qYVpWWDJLTFpPVHR0QjRLVHJPeGQ0ZUpWTWQ2Qy9FZmJvRnMwU01m?=
+ =?utf-8?B?d0dFbnN2ZDRkYXlhSGJrQXdCVFI4c251bzRPSlNrZUZqLyt0LzR3YThWMG1S?=
+ =?utf-8?B?NXlZVmJxYmJ1bUN0SmhHZnFXRS9NNG5rVHprU2V0REZaYU5UbFVPWFpUVkor?=
+ =?utf-8?B?OS9tNXF0ZlpCMVIvM0NJNmE4R1JrZXByd1U3bzVnOVZWLzhaWW1ucm5FcEM1?=
+ =?utf-8?B?dm9sM1o1YmtwOFJJRjZWV25mS3g4NU9hMlNNUG14VTlUd0NzWm1meWdWMmxR?=
+ =?utf-8?B?czZRdHNQaFk5MlJOUGNBZ0dtN0VwWlhpRkVlRm95b1RDS3U1c0Z1VXpqWHlr?=
+ =?utf-8?B?Q2JBb1E4NGFhWUFqSWZjeFZxeUVldGpLWGo4eXFHLzNwVDNSNTFWK2owRUVu?=
+ =?utf-8?B?S2krR1dwT1dmeXUyVENINXh4Y3J5ZnlHQ0lVRlFmMWF2UEFQc1lzMENHTS9r?=
+ =?utf-8?B?bFhxWmdpNTNldG9yL2lxR3dUSFZaMjRZRnlTYUErZkFaQ1hYbElXcVlnZjFG?=
+ =?utf-8?B?cFhIdk92TGMwKzRyVGNJUzQvaGdJQWdSQWQ1OU5mUGREVjE0Tld2c1BmN1cz?=
+ =?utf-8?B?emtQbVRGS25BTlFLdTd2R1krRFdyNVZhZVhiMEdDQm1xS1VCaXlRRk1nMXRo?=
+ =?utf-8?B?ZmhYazVFYUhiRjBoYTBCSW1PcDYyOVh0ZmFnQ2E4cWtDZWFhM0ZzbXdQOGRV?=
+ =?utf-8?B?YUtVaXV3VmZsRGRFdnpxOUgyaStpS3BlQ0RML3ozTVF3Z1B1OEl0UVFwNlRv?=
+ =?utf-8?B?bkZ4QmVNdmJWcTQxTVRoTndYYzZkd2xSVVUvQ2VSTnEwVVFIMk9Vc1g4a1ZJ?=
+ =?utf-8?B?L0tqb3pHdS9DN3p0UThWUHJuaTRLVGI1akJKSmZnUlVUblJ0V1dVdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 18:52:57.4390 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b18d10d2-1d0c-4b81-6c66-08df2311df21
+X-MS-Exchange-CrossTenant-Network-Message-Id: aba04254-343f-4007-aa38-08df2313677e
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 19:03:56.0053 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0006C3E0.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7319
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L2/yVg/PqVTgm5+vn90W/XM6rc6lMt45rAZhgzgnAQDjs62rRpJ0xjBJz3leJCEhWhqZDmwSnJf7n4skHcihuA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4475
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,50 +134,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-prange->svm_bo stays set after the range drops its reference in
-svm_range_vram_node_free(), it is only cleared later by
-svm_range_bo_release(). Taking a new reference based on old->svm_bo can
-therefore hit a svm_bo with refcount 0 and svm_range_bo_release_async()
-pending, leaving the clone with a freed svm_bo.
+On 2026-10-05 14:52, Philip Yang wrote:
+> prange->svm_bo stays set after the range drops its reference in
+> svm_range_vram_node_free(), it is only cleared later by
+> svm_range_bo_release(). Taking a new reference based on old->svm_bo can
+> therefore hit a svm_bo with refcount 0 and svm_range_bo_release_async()
+> pending, leaving the clone with a freed svm_bo.
+>
+> Check old->ttm_res under old->lock instead, it is cleared together with
+> the reference drop, same as svm_range_validate_svm_bo() does.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 11 ++++++++++-
+>   1 file changed, 10 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index cfb428c72686..536e804bc2c5 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -2158,7 +2158,14 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
+>   		svm_range_free(new, false);
+>   		return NULL;
+>   	}
+> -	if (old->svm_bo) {
+> +
+> +	/*
+> +	 * Only share svm_bo if old still holds a reference to it (ttm_res
+> +	 * set). Otherwise old->svm_bo may already be at refcount 0 with
+> +	 * svm_range_bo_release_async pending.
+> +	 */
+> +	mutex_lock(&old->lock);
+> +	if (old->ttm_res) {
 
-Check old->ttm_res under old->lock instead, it is cleared together with
-the reference drop, same as svm_range_validate_svm_bo() does.
+This seems to prevent some legitimate svm_bo sharing opportunities. Can 
+we use svm_bo_ref_unless_zero to safely get a reference to the BO instead?
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+Regards,
+   Felix
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index cfb428c72686..536e804bc2c5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2158,7 +2158,14 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
- 		svm_range_free(new, false);
- 		return NULL;
- 	}
--	if (old->svm_bo) {
-+
-+	/*
-+	 * Only share svm_bo if old still holds a reference to it (ttm_res
-+	 * set). Otherwise old->svm_bo may already be at refcount 0 with
-+	 * svm_range_bo_release_async pending.
-+	 */
-+	mutex_lock(&old->lock);
-+	if (old->ttm_res) {
- 		new->ttm_res = old->ttm_res;
- 		new->offset = old->offset;
- 		new->svm_bo = svm_range_bo_ref(old->svm_bo);
-@@ -2166,6 +2173,8 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
- 		list_add(&new->svm_bo_list, &new->svm_bo->range_list);
- 		spin_unlock(&new->svm_bo->list_lock);
- 	}
-+	mutex_unlock(&old->lock);
-+
- 	new->flags = old->flags;
- 	new->preferred_loc = old->preferred_loc;
- 	new->prefetch_loc = old->prefetch_loc;
--- 
-2.50.1
 
+>   		new->ttm_res = old->ttm_res;
+>   		new->offset = old->offset;
+>   		new->svm_bo = svm_range_bo_ref(old->svm_bo);
+> @@ -2166,6 +2173,8 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
+>   		list_add(&new->svm_bo_list, &new->svm_bo->range_list);
+>   		spin_unlock(&new->svm_bo->list_lock);
+>   	}
+> +	mutex_unlock(&old->lock);
+> +
+>   	new->flags = old->flags;
+>   	new->preferred_loc = old->preferred_loc;
+>   	new->prefetch_loc = old->prefetch_loc;
