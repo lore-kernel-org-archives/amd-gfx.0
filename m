@@ -4,98 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D43ACA5FF0
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 13:57:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02500CA5FFC
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 17:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDE5310E203;
-	Tue,  6 Oct 2026 13:57:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82AE510E161;
+	Tue,  6 Oct 2026 17:03:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h/apyy/T";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DqUYY0/3";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013023.outbound.protection.outlook.com
- [40.93.196.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7370710E203
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 13:57:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SKG5GBf4hwsI4XOaaOLgVTkpYEpipDY0jDnwf/55PMHB1x6mhKJ/dZoPdKGFybL27/zVBIP2CgS0ul83hK0mDIZ+IOi8gjpb0jyNAt5yprw4vwmZW7+QUoeVNazSapBXVOHYz9x1w2VKSCdW5OUU9SYc3AvfpVKZf6HNmwJyOwKzJl6fC7AGiYU2TyOBxazSABdOunxt4cLWjTKdvYtUJoE6/85OhTxwxfIKf0ezVLqIQ9WNqkZNvUu+qRx7KR8Az60Jn2QjIaaWhViSF+FXrP40zbT6cxbZehL17cjmWTcoyLCHPrZKwMNd0l80RlBGJrL7G0Wbt3FvPHUZd3tNkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DPpwGUbMR0b0SorT4bNsqrK2j0eJgc+KMl4XqOdUgPw=;
- b=PvFfmE2ZNaIJwlh98smBQxd03xkteyKm2TORMmjk/jaz4RmnxseZEmJD8+UpPPjcbJllHyvt6ZjS4ceDfJGs5LMg/Z1WHd68OLnYB4NLFiZxyilhK+cJrsxNjstSulCnkxBRa74gsI7kFpAW5OcYsdda0Fw7PyXYcUF2rhvsAKyAXjomkTAkZT+NHe9yvtjJURYN2hcYyVe4jb1gyJ9jlWr5EP/uxV+s0gJmyC26SzPPIVDj/3LqqXPKyhNbEgST0DRrWp+uRq//Je8D4A16poZGs2qECK36WqZ3S73C4rpsK88/NbIJNcrHccj9cGTbGiXl3ymwuu2TyLR5imSqKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DPpwGUbMR0b0SorT4bNsqrK2j0eJgc+KMl4XqOdUgPw=;
- b=h/apyy/T6u3YOfxa4Fe2LqkDpkGMIeuuo6P/STDOgFXEBpUypk/jby10g9LvCtpl9MQjikolJToax92G5CiAYoYjKEN1hL1fUqMYZ1gJoVaqcl00jUSPaHC6PG6iuPFgscHc4J5mCPnp/rKRPFxrKfk6CUe6uZounT2OpOLT26Y=
-Received: from CY5PR16CA0015.namprd16.prod.outlook.com (2603:10b6:930:10::28)
- by PH8PR12MB8432.namprd12.prod.outlook.com (2603:10b6:510:25b::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 6 Oct
- 2026 13:57:10 +0000
-Received: from CY4PEPF000392D9.namprd03.prod.outlook.com
- (2603:10b6:930:10:cafe::37) by CY5PR16CA0015.outlook.office365.com
- (2603:10b6:930:10::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue, 6
- Oct 2026 13:57:09 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF000392D9.mail.protection.outlook.com (10.167.247.119) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 13:57:09 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 08:57:02 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
- <Harish.Kasiviswanathan@amd.com>, <Mukul.Joshi@amd.com>
-CC: Philip Yang <Philip.Yang@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
-Subject: [PATCH v3] drm/amdkfd: Fix svm_bo use after free in svm_range_clone
-Date: Tue, 6 Oct 2026 09:56:40 -0400
-Message-ID: <20261006135641.312419-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.50.1
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64A9910E161
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 17:03:57 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-c2e2db5e8e4so540354166b.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Oct 2026 10:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791306236; x=1791911036; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rwdhe5qGMBEsuNIYT4HuAZHYf0vlSVZa0lqR6n2VyUA=;
+ b=DqUYY0/3EPtlyAT6yWCObsnw9zvIMF+7nW1l53tTJLTHkvm/uKEfgvD1ABMs1Ud7H/
+ Krw60GcvIhBTOfCqCn0bSZ5bFDuZ7Y7rH4i6BfAJNhxL4tI+H736ua4332bjKVIxM/m5
+ YyIbuWTnCfSraGKlqCZLzFmTlVMOKAPL2aNpeXbq0gAdB2K92x5y2FtR6Md7O47Ss8E9
+ Ww1INZUj7QQHOH1fuvaRrsgM/VBgDYxePu1DJaRgIvhibdYRvfNHkM9ofUBlUpKccMWp
+ ZnyqKAD66VCmbSWRxayWJHs7mGPwkTjg0iTOIGAdH2wkhsZm9z9//O2PiMKZucP0lHX0
+ BgTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791306236; x=1791911036;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=rwdhe5qGMBEsuNIYT4HuAZHYf0vlSVZa0lqR6n2VyUA=;
+ b=NcmMgL/3eFEKLqmeTHyIABQoK5nNrU322zdUK1GQWqyC4OBQHS0uebEn1YZWCAqz+S
+ 2PXGMQMIfUR0ogvoTKSLQQsOAHq/zge1sbweKZr9seIiJGWTH4WzeOidyrbsSVtL0xGR
+ Rj5hJIJEd6llyaDi1q7sTuhzpqfno2tb+B6YMtoIrhYEjk20AQge+LdbRh7EEzHQVMbD
+ 5q4WsK8FeWkghb3R4WzTgEJ+1ukH2Ftuju9JFblH3AFmUd/bnLx5QFZYfOOvPF8SuAdl
+ yJIF8zYKhWRozOdQz1NmVrPPZq42W+Zq3mVmALhmUR+3Q0XwJpTRiQqhwTA+fwPjvYOG
+ OroQ==
+X-Gm-Message-State: AFuF++nSRHRT8fkRmIQGIqTsq1GhxJbSxwugOKPD3oOpbCq3MHww9M/E
+ pXB0G55YTJNq6K4zEZEcN3yeBV+numiSHdcH8TdsZ/fsVZBbeP/WU0o/wrV+Bg==
+X-Gm-Gg: AYBFou3mZU1f9uTP2a+pkrgaKj+sww9JhAa4Xd2OS7GOuYNHtixC/Z+vnuXOvrmN325
+ JHWbqlq42Z36af3OfemhjdnIiw95ict9YMOl9rITpzCWBLt7Mxl7UOj/uFI8w+/L/noIo5OwT/g
+ AkLVFJjzJyY31A+/8UDssM5i+BzyHgS4OX2K4cAk1Cn4yo3ocb9yt0+KoPWUKOOXOvL3guc4MQq
+ 1DpgCtivO+Dkd+p/QSaZ53R1lh+tafIPvZA6kxLYZ12iLvjqvwdQzyLlmOsd3goF7aNV1vVzzps
+ PMJYYd8CwV0u/CyrEj8pvESXiL+IefVaXuefdd4rbDqPDfKSSPox6uGQGYfIt4cSmojygKhJtPl
+ 5rQwnQrHZ1zJhQS7KByniVoaelQjUuSewGW83Krt4wSxU7CZI5uavgMGsVWtB2A5D5mPKMO/HE7
+ UbqYXM33ILybzDJ92wRYFhl8gD+9uSGjEiTFSm2TTsKFJj2PzqcEUWPCE8Z3STuROwxovHgJVrm
+ RPO1/M6JeDsS69h1GW2YISbKMbdkPQQJxTifN+CTDo=
+X-Received: by 2002:a17:907:7f87:b0:c2e:513a:e964 with SMTP id
+ a640c23a62f3a-c2e6ee82857mr1085318366b.49.1791306235499; 
+ Tue, 06 Oct 2026 10:03:55 -0700 (PDT)
+Received: from Timur-Hyperion.home (86FF63C5.dsl.pool.telekom.hu.
+ [134.255.99.197]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c31563008casm228200066b.47.2026.10.06.10.03.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Oct 2026 10:03:55 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ David Rosca <david.rosca@amd.com>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH] drm/amdgpu/vce1: Fix checking whether VCE1 is idle
+Date: Tue,  6 Oct 2026 19:03:52 +0200
+Message-ID: <20261006170352.26722-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF000392D9:EE_|PH8PR12MB8432:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8aaacc98-a403-4180-8fbe-08df23b1b6dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|11063799006|18002099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: s+1QMaZnlasKD0lxpDXXKpQFo86lAr2URz3G1WI1PpXrJe7fcBGrflcELblFNbb2BpjkoHLJ9Kjbk5MVfqswVBIXirZe1VwVTh/4WjdbMk+SMrLFCuqLbeYWkq9r0LlcCDXyvKSvr1sqsoNDNBo7AnQTeTK5sgvXLVFxKAwCLZ9u7MM06lc3pQT3wmOMQRuPWXMMITSVmg70lcvorlUBQGSEtyOdkRyz+KCWz2KBkwDOisewMmRGfKlQXJZaqJwJML+Dp9spWkGCRErBLNUdTID9zAJd4ip4zodjAVxS7KwBkEcFBxY9sk96udLGHmMyRgqwFPc5Ae8hpNnsY35TGecs/SBw9XQjh5Wghwla1aAEol2ek6fzSUEkx3Obl1HeJL3afACnlE/XppVNIX373KsjlNN8VBgg1alKTKqUdnonjlbe83AZk6KeJuILqTJAud2pco7jEN1Y5Xdguf/bicy1RR34WEjXKVf5j9aCpXG0bMfvPO5xOLgfJIkbdyNfhbxoQZIky2/IC2pSYdrLvbTUSJGRI8NSUaaTsUSK51tCtXq7anfRu2raPag8/5ltobvtIfxCxfG+oeSm6DQ8W2CncxgsbLvQjIOk+gtHwYqTgF7yBAL2wi4cp/1F9qp9bPQV3k4pszcxLQjKbgDrNMr77OZGZG464DYMd5HWJGVbuY4WNSLxcLTLsA8W7NbDRy4aKQZlP0JjQkIvpyw3og==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(11063799006)(18002099003)(10067099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /1gLXmfKcGo1OeKiSYx5quXpdEwq03STvD/COq/q5gDLReytLnayc3u7ua/Gb1R5qxCWMrsfnlvU8UnZBY5GEutC5BnkhgFQWG39G72jPRVGgzAHs8BkrS8LK/nW4K7kvKHihnHRTZxmHJdw3KrPo4A4Z0meSQV9lxtPiNNm+CwbW2FeegUi/uRs/zwH5bfRcszhGmKjP45WyDIo7i7I9graMhSlLQoXxK7yOg6wQskF7+1hsKNz5d/b+lnBf0VxaIhVxTgst5/inm4JvKMEPucyhFU5Z/YfqDxBVEoE9k/DdBH1i/f5iWCBbptivY1WSIHMxEPL9TEfPkmfNHOse9QCw9rdn0NOcYj6iQ+p4EjT6JBGSHnFzJtSiR9hiM40lBD/h0Fm7hTNAp2ioogh0342vS78yrV+kPM9a8Hc2mi3Ba0eMkyxvsUvNbqDQ1UG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 13:57:09.3367 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8aaacc98-a403-4180-8fbe-08df23b1b6dc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF000392D9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8432
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,62 +87,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-prange->svm_bo stays set after the range drops its reference in
-svm_range_vram_node_free(), it is only cleared later by
-svm_range_bo_release(). Taking a new reference based on old->svm_bo can
-therefore hit a svm_bo with refcount 0 and svm_range_bo_release_async()
-pending, leaving the clone with a freed svm_bo.
+It turns out that the VCE_STATUS register bits that we
+used to check whether VCE1 is idle are actually not useful:
+VCE_STATUS.JOB_BUSY doesn't exist until VCE3
+VCE_STATUS.UENC_BUSY seems to be stuck high on Cape Verde
 
-Use svm_bo_ref_unless_zero() under old->lock to only share the svm_bo if
-it is still alive, same as svm_range_validate_svm_bo() does.
+Instead, do the following:
+Check that the read and write pointer matches for each ring.
+Check VCE_STATUS.VCPU_REPORT bits to check busy status.
+Finally, also check SRBM_STATUS2.VCE_BUSY just in case,
+although this one seems bogus on VCE1.
 
-A range only holds a svm_bo reference while ttm_res is set, so drop the
-reference again if old had already dropped its own. The clone keeps the
-svm_bo pointer and stays on svm_bo->range_list, so svm_range_bo_release()
-clears the pointer when the svm_bo goes away. The unref must be done
-outside old->lock because svm_range_bo_release() takes the lock of every
-range on the list, including old.
-
-v3: drop the reference if ttm_res is not set, don't leak it.
-v2: use svm_bo_ref_unless_zero instead of checking old->ttm_res, to keep
-    sharing the svm_bo when the range dropped its own reference (Felix).
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+Fixes: d4a640d4b9f3 ("drm/amdgpu/vce1: Implement VCE1 IP block (v2)")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vce_v1_0.c         | 25 ++++++++++++++-----
+ .../include/asic_reg/vce/vce_1_0_sh_mask.h    |  2 --
+ 2 files changed, 19 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index cfb428c72686..5dda163cf4ae 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2158,14 +2158,23 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
- 		svm_range_free(new, false);
- 		return NULL;
- 	}
--	if (old->svm_bo) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+index b1428f5bbc81..38e21d1a3ebb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+@@ -47,6 +47,9 @@
+ #define VCE_V1_0_STACK_SIZE	(64 * 1024)
+ #define VCE_V1_0_DATA_SIZE	(ALIGN(7808 * (AMDGPU_MAX_VCE_HANDLES + 1), VCE_V1_0_ALIGNMENT))
+ #define VCE_STATUS_VCPU_REPORT_FW_LOADED_MASK	0x02
++#define VCE_STATUS_VCPU_REPORT_AUTO_BUSY_MASK   0x08
++#define VCE_STATUS_VCPU_REPORT_RB0_BUSY_MASK    0x10
++#define VCE_STATUS_VCPU_REPORT_RB1_BUSY_MASK    0x20
+ 
+ static void vce_v1_0_set_ring_funcs(struct amdgpu_device *adev);
+ static void vce_v1_0_set_irq_funcs(struct amdgpu_device *adev);
+@@ -349,19 +352,29 @@ static int vce_v1_0_mc_resume(struct amdgpu_device *adev)
+  *
+  * @ip_block: amdgpu_ip_block pointer
+  *
+- * Check whether VCE is busy according to VCE_STATUS.
++ * Check whether VCE is busy according to VCE_STATUS
++ * and whether the ring pointers match.
++ *
+  * Also check whether the SRBM thinks VCE is busy, although
+- * SRBM_STATUS.VCE_BUSY seems to be bogus because it
++ * SRBM_STATUS2.VCE_BUSY seems to be bogus because it
+  * appears to mirror the VCE_STATUS.VCPU_REPORT_FW_LOADED bit.
+  */
+ static bool vce_v1_0_is_idle(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+-	bool busy =
+-		(RREG32(mmVCE_STATUS) & (VCE_STATUS__JOB_BUSY_MASK | VCE_STATUS__UENC_BUSY_MASK)) ||
+-		(RREG32(mmSRBM_STATUS2) & SRBM_STATUS2__VCE_BUSY_MASK);
+ 
+-	return !busy;
++	/* Check whether the rings are busy. */
++	if (RREG32(mmVCE_RB_RPTR) != RREG32(mmVCE_RB_WPTR) ||
++	    RREG32(mmVCE_RB_RPTR2) != RREG32(mmVCE_RB_WPTR2))
++		return false;
 +
-+	/* old->lock keeps old->svm_bo alive while taking the reference */
-+	mutex_lock(&old->lock);
-+	if (svm_bo_ref_unless_zero(old->svm_bo)) {
- 		new->ttm_res = old->ttm_res;
- 		new->offset = old->offset;
--		new->svm_bo = svm_range_bo_ref(old->svm_bo);
-+		new->svm_bo = old->svm_bo;
- 		spin_lock(&new->svm_bo->list_lock);
- 		list_add(&new->svm_bo_list, &new->svm_bo->range_list);
- 		spin_unlock(&new->svm_bo->list_lock);
- 	}
-+	mutex_unlock(&old->lock);
++	/* Check whether the VCPU is busy. */
++	if (RREG32(mmVCE_STATUS) & (VCE_STATUS_VCPU_REPORT_AUTO_BUSY_MASK |
++				    VCE_STATUS_VCPU_REPORT_RB0_BUSY_MASK |
++				    VCE_STATUS_VCPU_REPORT_RB1_BUSY_MASK))
++		return false;
 +
-+	/* prange only holds an svm_bo reference while ttm_res is set */
-+	if (new->svm_bo && !new->ttm_res)
-+		svm_range_bo_unref(new->svm_bo);
-+
- 	new->flags = old->flags;
- 	new->preferred_loc = old->preferred_loc;
- 	new->prefetch_loc = old->prefetch_loc;
++	return !(RREG32(mmSRBM_STATUS2) & SRBM_STATUS2__VCE_BUSY_MASK);
+ }
+ 
+ static int vce_v1_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
+index 1f82d6f5abde..13c15c2138b3 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
+@@ -63,8 +63,6 @@
+ #define VCE_SOFT_RESET__ECPU_SOFT_RESET__SHIFT 0x00000000
+ #define VCE_SOFT_RESET__FME_SOFT_RESET_MASK 0x00000004L
+ #define VCE_SOFT_RESET__FME_SOFT_RESET__SHIFT 0x00000002
+-#define VCE_STATUS__JOB_BUSY_MASK 0x00000001L
+-#define VCE_STATUS__JOB_BUSY__SHIFT 0x00000000
+ #define VCE_STATUS__UENC_BUSY_MASK 0x00000100L
+ #define VCE_STATUS__UENC_BUSY__SHIFT 0x00000008
+ #define VCE_STATUS__VCPU_REPORT_MASK 0x000000feL
 -- 
-2.50.1
+2.55.0
 
