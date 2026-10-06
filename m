@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94481CA5FF1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D737FCA5FFC
 	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 13:22:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4C610F59F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6665910F5A0;
 	Wed,  7 Oct 2026 13:22:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="Cghd85Mh";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="UrbPL3ta";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C151710E031
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 12:51:56 +0000 (UTC)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68E0610E031
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 12:51:45 +0000 (UTC)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 696Bb1Ql3618027; Tue, 6 Oct 2026 12:51:54 GMT
+ 696BZUrd3595064; Tue, 6 Oct 2026 12:51:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
  :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=uHcyHADL+PLeijU1b
- u14zBQKTn8qW2ZiHWAFMj2iDkQ=; b=Cghd85MhM0XWIz0VY6jjp/kAmk5kyMfng
- 9Usz8uxHvQ+dB0uevmLFxrVZMPcS605vc+6uQbzfIeeTzLDQ+oEaBtCaTLPG/JBK
- G3g4+gSP8A1YUzbRGGRXBmcePLHv8mUjoy/tSD6jbrCDVIhguWcbonguRfulRb3A
- RPPPom8hsSkuWco8CGN/qXoEUKdG/P4WO9z9LmuqlZyGj0y9rCgtb+bhrk5+lNDO
- NZh6T9JImZ1O915Acd+INgsYGIHH9G2HR2qKOajdBw08DWQw6tbo1BlhFjnPkfd0
- dnefQ3jaRCAo4HsUI0EzTmCC0baySSlpwXUR9sr6SIUmt7nG7e+fA==
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2sbv70vs-1
+ :mime-version:references:subject:to; s=pp1; bh=BU9/EQdf/cPfecTls
+ ox10+pap8zx5X1mdjkLzbpBV5M=; b=UrbPL3tajiVTpt3+VZH9Aqzb8+oMglvX/
+ z+cP5Sf4eBhUmkyjHD3Et6k38aBYenCZDLHs8AyaS128oSOE9EJ3Z7XQaX64W7yR
+ kQ0jA+36KAKrWE7mw7Hs5nEBQi3+VJgKdmShFYRfp+3gO1eTHjZXwofEchXxofR2
+ urc6VVwC6L7wzi7RB5r1m+R5ZcUjaQMaoKdWMVElTZ6QyJjMphYJyM+DAwrqY9tc
+ iWixwZgGFLE3n/NVi+7QqQgSHqqLPjo6A/eVAgnnCcebf7IXbcpKMbQPkIaazSS6
+ XVG5+wM9S72TVsgdCb3hVJPOQDJ31CKHQH4aCtbNS8VPhr1dYH3pQ==
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2se5fyvs-1
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Tue, 06 Oct 2026 12:51:53 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 696BWYPI269943; Tue, 6 Oct 2026 12:51:52 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3dhgsuqf-1
+ Tue, 06 Oct 2026 12:51:43 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 696BlYjb220923; Tue, 6 Oct 2026 12:51:42 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3cdvt19y-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 06 Oct 2026 12:51:52 +0000 (GMT)
+ Tue, 06 Oct 2026 12:51:41 +0000 (GMT)
 Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com
  [10.20.54.105])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 696Cpm1142729778
+ by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 696CpbG947186232
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 6 Oct 2026 12:51:48 GMT
+ Tue, 6 Oct 2026 12:51:38 GMT
 Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0BA8D2004B;
- Tue,  6 Oct 2026 12:51:48 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id D6ADA2004D;
+ Tue,  6 Oct 2026 12:51:37 +0000 (GMT)
 Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0A2A620040;
- Tue,  6 Oct 2026 12:51:45 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 9C9BF20049;
+ Tue,  6 Oct 2026 12:51:34 +0000 (GMT)
 Received: from mac.bl1-in.ibm.com (unknown [9.123.4.213])
  by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Tue,  6 Oct 2026 12:51:44 +0000 (GMT)
+ Tue,  6 Oct 2026 12:51:34 +0000 (GMT)
 From: Dhruv B <dhruv.b@linux.ibm.com>
 To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -64,11 +64,11 @@ Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
  Ritesh Harjani <ritesh.list@gmail.com>,
  Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- donettom@linux.ibm.com, dhruv.b@linux.ibm.com
-Subject: [PATCH v2 3/3] drm/amdkfd: Restrict CU and memory entries to resource
- nodes
-Date: Tue,  6 Oct 2026 18:21:24 +0530
-Message-ID: <c1a0b1c06c7616c225bf1eb22fad4ca4d73eeddf.1791289746.git.dhruv.b@linux.ibm.com>
+ donettom@linux.ibm.com, dhruv.b@linux.ibm.com,
+ Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH v2 1/3] drm/amdkfd: Remove unused code in CRAT initialization
+Date: Tue,  6 Oct 2026 18:21:22 +0530
+Message-ID: <711c32a706f474833608a03439518e40cb3c04a9.1791289746.git.dhruv.b@linux.ibm.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1791289746.git.dhruv.b@linux.ibm.com>
 References: <cover.1791289746.git.dhruv.b@linux.ibm.com>
@@ -76,32 +76,32 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: LiD9j2sIVbAiDVdvYqg2s25EMhyGAxqA
-X-Authority-Analysis: v=2.4 cv=KJHPn1Fo c=1 sm=1 tr=0 ts=6ac4eee9 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1MCBTYWx0ZWRfXwL9EHV6Qenyx
+ 6CzndWHbPaKb7uYuaux9sNsaqp6kiaIy6IoP8yh2VpPggYtkM7Fv8iUXRqHQd//UzGEACD8Bxkm
+ f+opMQZVDfbS9PnE6t0WTLhwzBfotOo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1MCBTYWx0ZWRfX/kv9x3cl1Ct8
+ f3irYCK2CeKhig3jhpljC6N3Cv3okg/EsY3xYc2bbUyy8W/alzg1YbPpz2HHeUTkUPlelnXBCCi
+ hYgnkF8WcNAIQsa2U9rqLChTn7WWXNp4pedcJqu9hPRpDcCjTFJZVZiAMw1UO911xFu4rW/0Sx7
+ i7BU20vYR6LCCVkV+sLBLiycsPUOiSDr4NA9srS5vtSX+G095Kv+ARau9kOUxttaqYiut4ZkWc+
+ mhX3oAHIu6kTeXTr+54YDhVhhs1p83yOk8ondwBLEYaSIhNu0hoxL4i8AxHRKTrhbwe+5ItIo5t
+ 0vbDQvfeJ6Ln3uAB8sXnZjGcDLOGrudHNx8aEp0r+QP7rvFOxP8mDxjAhCWBo9zwpmI77xVUowg
+ Ybzuw7M4NrmbKhUORKL4OoBNNrFnhlZsQNsDo/y2lVbR0T/jaCZjpxrMsGMZ/CNbCEdC0Xmdqk5
+ R7HhWW8zMtF1xqESe8Q==
+X-Proofpoint-GUID: NVDS0svru1tdTItUjOQS92frQW2Gnm7r
+X-Authority-Analysis: v=2.4 cv=UNRIjyfy c=1 sm=1 tr=0 ts=6ac4eedf cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=CEoOl4_7Db87k78x3ngA:9
-X-Proofpoint-GUID: 8_UHQSqbB9LnpJhwYg1XDZwT_-I7zGlL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1MCBTYWx0ZWRfXwdTYmGssEV8m
- 91mCHXvImEzqvzmw93cUEcjWx675XMDKjiBE4yK7By0TmxNuNCLe06ievyAseCVzaAbipNo69w1
- /PD0B53SPICLSnXPR7nFMppw3mrkW9X06xt59Y4KnlqRi88vtD+UKwQ3mjjouL4LmTksVF0Ctm7
- +4fGOjP6Cm4w0Fg527+6j33rj802+bQEXUj7l5zPef+UpmLTSjlJFVeWGjYSzjEwUyEDeBHg70F
- 8oRgN+IKOkk9jOvMCy6lGeY7MzfvP/jWMSoRc+8JJabvhO4qnntZGgr/OuWrlndhWwDiP54CR4U
- 3aCxT0AzwM3FZ1MpQEU4JnZQKX8vVH+Oi735axKQEdoRXzttc6P8G4gHsGiCS/Ki2QCjqQuewIY
- oe8tYNJr2FNTJMUMf2nJ3nOHvjX1Qukl4b1rzrKbLblZDI/PcCvw/FdSsZ3mhEVwP3uu0vwvpfn
- so7OqLzikxPi5t98A7w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1MCBTYWx0ZWRfX8RK+ZAqgarc1
- GcGY8aYRlEosLio15iW+8rsxgoxsxbsqz3kOxt6FUdMHxoFPI+1OesmXXx+RLHkE0dTEFapeWeZ
- eGFJzKDzR+RH/nzyQkEtNkwuCoLchd8=
+ a=U7nrCbtTmkRpXpFmAIza:22 a=zd2uoN0lAAAA:8 a=VnNF1IyMAAAA:8
+ a=aW7DMclhPewLEMwWYsYA:9
+X-Proofpoint-ORIG-GUID: P4END694Xt4hMV6ryZK64Wdm2v1ZluDw
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-06_03,2026-10-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610060050
+ spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060050
 X-Mailman-Approved-At: Wed, 07 Oct 2026 13:22:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,85 +117,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In heterogeneous or non-uniform NUMA systems, a NUMA node may be
-CPU-less, memory-less, or both CPU-less and memory-less.
+The 'size' argument in kfd_create_crat_image_virtual() is not used
+by callers to retrieve the allocated CRAT image size. The callers
+rely solely on the returned image pointer and inspect the parsed CRAT
+table header directly for entry counts and lengths.
 
-Previously, kfd_create_vcrat_image_cpu() assumed that every online NUMA
-node contained both compute units and memory, attempting to create both
-CU and memory CRAT entries unconditionally for every online node.
+Additionally, in kfd_topology_init(), the 'kdev' pointer assignment
+via list_first_entry() after parsing the CPU CRAT table is not being
+used and can be removed.
 
-Add explicit guards to:
-1. Only create Compute Unit CRAT entries if the NUMA node has valid
-   CPU cores (kfd_numa_node_to_apic_id() != -1).
-2. Only create Memory CRAT entries if the NUMA node actually contains
-   memory (node_state(numa_node_id, N_MEMORY)).
+Clean up the function signature of kfd_create_crat_image_virtual() by
+dropping the unused 'size' parameter, manage the buffer size locally,
+and remove the unused variable assignments in kfd_topology_init().
 
-This avoids emitting invalid or empty CRAT subtype entries for CPU-less,
-memory-less, or both CPU-less and memory-less NUMA nodes in virtual CRAT
-generation.
-
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Co-developed-by: Donet Tom <donettom@linux.ibm.com>
 Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 Signed-off-by: Dhruv B <dhruv.b@linux.ibm.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 40 +++++++++++++++------------
- 1 file changed, 22 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 10 ++++------
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 11 ++---------
+ 3 files changed, 7 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 7dad8f30ff2a..329931b0edc6 100644
+index 6e0df685503d..99b0c7f825fe 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1944,28 +1944,32 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
- 		}
+@@ -2411,7 +2411,6 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+  *
+  *	@crat_image: VCRAT image created because ACPI does not have a
+  *		     CRAT for this device
+- *	@size: [OUT] size of virtual crat_image
+  *	@flags:	COMPUTE_UNIT_CPU - Create VCRAT for CPU device
+  *		COMPUTE_UNIT_GPU - Create VCRAT for GPU
+  *		(COMPUTE_UNIT_CPU | COMPUTE_UNIT_GPU) - Create VCRAT for APU
+@@ -2421,7 +2420,7 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+  *
+  *	Return 0 if successful else return -ve value
+  */
+-int kfd_create_crat_image_virtual(void **crat_image, size_t *size,
++int kfd_create_crat_image_virtual(void **crat_image,
+ 				  int flags, struct kfd_node *kdev,
+ 				  uint32_t proximity_domain)
+ {
+@@ -2449,9 +2448,8 @@ int kfd_create_crat_image_virtual(void **crat_image, size_t *size,
+ 		pcrat_image = kvmalloc(dyn_size, GFP_KERNEL);
+ 		if (!pcrat_image)
+ 			return -ENOMEM;
+-		*size = dyn_size;
+ 		pr_debug("CRAT size is %ld", dyn_size);
+-		ret = kfd_create_vcrat_image_cpu(pcrat_image, size);
++		ret = kfd_create_vcrat_image_cpu(pcrat_image, &dyn_size);
+ 		break;
+ 	case COMPUTE_UNIT_GPU:
+ 		if (!kdev)
+@@ -2459,8 +2457,8 @@ int kfd_create_crat_image_virtual(void **crat_image, size_t *size,
+ 		pcrat_image = kvmalloc(VCRAT_SIZE_FOR_GPU, GFP_KERNEL);
+ 		if (!pcrat_image)
+ 			return -ENOMEM;
+-		*size = VCRAT_SIZE_FOR_GPU;
+-		ret = kfd_create_vcrat_image_gpu(pcrat_image, size, kdev,
++		dyn_size = VCRAT_SIZE_FOR_GPU;
++		ret = kfd_create_vcrat_image_gpu(pcrat_image, &dyn_size, kdev,
+ 						 proximity_domain);
+ 		break;
+ 	case (COMPUTE_UNIT_CPU | COMPUTE_UNIT_GPU):
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+index a8ca7ecb6d27..418a3939eda3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+@@ -313,7 +313,7 @@ int kfd_get_gpu_cache_info(struct kfd_node *kdev, struct kfd_gpu_cache_info **pc
+ void kfd_destroy_crat_image(void *crat_image);
+ int kfd_parse_crat_table(void *crat_image, struct list_head *device_list,
+ 			 uint32_t proximity_domain);
+-int kfd_create_crat_image_virtual(void **crat_image, size_t *size,
++int kfd_create_crat_image_virtual(void **crat_image,
+ 				  int flags, struct kfd_node *kdev,
+ 				  uint32_t proximity_domain);
  
- 		/* Fill in Subtype: Compute Unit */
--		ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
--			crat_table->num_domains,
--			(struct crat_subtype_computeunit *)sub_type_hdr);
--		if (ret < 0)
--			return ret;
--		crat_table->length += sub_type_hdr->length;
--		crat_table->total_entries++;
-+		if (kfd_numa_node_to_apic_id(numa_node_id) != -1) {
-+			ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
-+						  crat_table->num_domains,
-+						  (struct crat_subtype_computeunit *)sub_type_hdr);
-+			if (ret < 0)
-+				return ret;
-+			crat_table->length += sub_type_hdr->length;
-+			crat_table->total_entries++;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 35b3abe57b80..b38d12f3da84 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -996,7 +996,6 @@ static void kfd_add_non_crat_information(struct kfd_topology_device *kdev)
+ int kfd_topology_init(void)
+ {
+ 	void *crat_image = NULL;
+-	size_t image_size = 0;
+ 	int ret;
+ 	struct list_head temp_topology_device_list;
+ 	int cpu_only_node = 0;
+@@ -1023,8 +1022,7 @@ int kfd_topology_init(void)
+ 	 */
+ 	proximity_domain = 0;
  
--		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
--			sub_type_hdr->length);
-+			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr->length);
-+		}
+-	ret = kfd_create_crat_image_virtual(&crat_image, &image_size,
+-					    COMPUTE_UNIT_CPU, NULL,
++	ret = kfd_create_crat_image_virtual(&crat_image, COMPUTE_UNIT_CPU, NULL,
+ 					    proximity_domain);
+ 	cpu_only_node = 1;
+ 	if (ret) {
+@@ -1040,9 +1038,6 @@ int kfd_topology_init(void)
+ 		goto err;
+ 	}
  
- 		/* Fill in Subtype: Memory */
--		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
--			crat_table->num_domains,
--			(struct crat_subtype_memory *)sub_type_hdr);
--		if (ret < 0)
--			return ret;
--		crat_table->length += sub_type_hdr->length;
--		crat_table->total_entries++;
-+		if (node_state(numa_node_id, N_MEMORY)) {
-+			ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
-+							crat_table->num_domains,
-+							(struct crat_subtype_memory *)sub_type_hdr);
-+			if (ret < 0)
-+				return ret;
-+			crat_table->length += sub_type_hdr->length;
-+			crat_table->total_entries++;
+-	kdev = list_first_entry(&temp_topology_device_list,
+-				struct kfd_topology_device, list);
+-
+ 	down_write(&topology_lock);
+ 	kfd_topology_update_device_list(&temp_topology_device_list,
+ 					&topology_device_list);
+@@ -1871,11 +1866,9 @@ static int kfd_topology_add_device_locked(struct kfd_node *gpu,
+ 	int proximity_domain = ++topology_crat_proximity_domain;
+ 	struct list_head temp_topology_device_list;
+ 	void *crat_image = NULL;
+-	size_t image_size = 0;
+ 	int res;
  
--		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
--			sub_type_hdr->length);
-+			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr->length);
-+		}
- 
- 		/* Fill in Subtype: IO Link */
- #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+-	res = kfd_create_crat_image_virtual(&crat_image, &image_size,
+-					    COMPUTE_UNIT_GPU, gpu,
++	res = kfd_create_crat_image_virtual(&crat_image, COMPUTE_UNIT_GPU, gpu,
+ 					    proximity_domain);
+ 	if (res) {
+ 		dev_err(gpu->adev->dev, "Error creating VCRAT\n");
 -- 
 2.54.0 (Apple Git-157)
 
