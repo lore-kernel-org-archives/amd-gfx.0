@@ -4,123 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29DF2CA5FED
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 22:45:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6883ECA5FED
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 22:50:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F18A10E1B4;
-	Tue,  6 Oct 2026 22:45:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4F7C10E453;
+	Tue,  6 Oct 2026 22:50:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l35m7gVO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XppEJAip";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010035.outbound.protection.outlook.com [52.101.85.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A17F410E1B4
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 22:45:04 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012024.outbound.protection.outlook.com
+ [40.107.200.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D3EF10E453
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 22:50:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ql87wSKtVICmM5+Zmb5fbNoihuMln5T4e0BViEljdc8NVoX4kbT4xAdymVsuolKOqH+5YJ+nAepNOL6IbcpdxrTtpLmiTlB6lh4AgYXqwoivks1RoIHpSvde7Q4loMo8xJMVcIb5O9Wx1+fYFqneLV5hjtgDdf5Ae/8mCNsMidtUSD1DlT3D926uowJ+zRMNSxbX41cgt4hb7E1+/QUWoW8HWmZAtjFpQYjr4aqaDgueOo0Hy3u5P3ivt4rOu/h8kB5jJaBMyAyUJNcQME5xhkaxSfTqm0YAplwdUhw50p2FDp+IgbdlzWuUAftqsXJoUTOgcHt7/pD9g5icVT2t9w==
+ b=APmAwwVu7YTZDXcNNtp4nUHce3xPXL3QjRDSXVB9jbxKbCwYAz44iljHUhkfovQYIPUMY/sgIwdrIZ3CnhQaVn1Iy4I8EMPUmwcqxclbp19IGJ0+Rrk1VEnn1tRZyDBO2gsfq3d76xJPLe9GA6sVrskv14Uu2srrRSsSarkkJJ4UwpaPbxnyphynf0OdGnoIlwhzpX+CR9Eh8PJTH3TRXNbqC8i18CPGnLZPuoOONm4VHkOue8Q6CzqfCnHC6N9tg7MZX8APJ5O9wJvujTisU/8IeCOyp77thKfPvAJg2c3N9y8eKenRNYVhAFJXQLyizHHcqR16JGeEcVT8MBTcYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wj+yoDRY13Av4+g88AFqJscM7zj2Jv5F0OYyoXXHYx8=;
- b=KO3qq11nw7vTizITmL1LiDWFFS3wnmKJ4F8Sn/95jQ1AngCi7ckds84trs8ExYmDkfBe+PPbTzA+vDBSckx8zS1uEf/VKIhSjA8eb5a0zLV5YRlnnlUJLGPmIqOHzQau+SeuW9wzOtWlxHS94qiDkL7fzQ1zX2ZfUGkISDfK21nRWYiqtiKGOVj7NK35sVtR2++B5N/7ULPAiUrhSyU2M7Ei8wL+1fAfyrUZhxyXwNAZJgBC8M9eyOmyk6s429eS9HwkdCI3uwyq3f0iL9+LkVGvbDAEIy4Eq8fdHeew1GVeIYZD4YVm0ePTQqyN8wtQgGnp6SQS9b1imvPiIVIoKQ==
+ bh=k8+0Xpb2SAeGV/A/gixwAl35Uas0d7KtFoILV1f96bE=;
+ b=L085m7RfOnRVKP6F05f8lTUpBuA1h7g1+M0weq9Wu4e49VHGOhd3q5ZiVkBWpQKVJxgifUT70rmuVxPyyN39g9Uzg5RqCatO87GB7UJGpGruP6XB4zkmanGSmoat8v7crtNopzv+huY/9E/tyw7aGe2Aia/5WXgeZMzqN4fPTN4gdET/4skJQdHvxvdP5WpARObS7Zzkl4lFebl/3w5hYBMkau32VWMKjv2+BoC0pT02MgqzymyGmQifBrRAbhUDdNLBWmouc4tNG92PYKOwK2Vd9UhZGUMrwwjYPWUPqf71efxEfE3xBeagLmxbVaiiXW5GJHKwHABtkkeBFJ9gBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wj+yoDRY13Av4+g88AFqJscM7zj2Jv5F0OYyoXXHYx8=;
- b=l35m7gVOphv504XyoLOANeJAJlKi7z8iiP1Hzj0pmbCKXOmfryHX3YiQR1xALidEyO7ZfaqpQrWY1E3VlPIYsMipa9AGibOEOF5JxetOWCudT2v3KSvS4wdVrVl2cROCgcakuYMx7j/tjoaLE+E6s9s5rnHrUZXDCfMA9VYKK8Y=
+ bh=k8+0Xpb2SAeGV/A/gixwAl35Uas0d7KtFoILV1f96bE=;
+ b=XppEJAipLwX3oiP4BdNAymUwXEjTRlnWXVoZp+L2FFCiZ2WPglA6TsqnsObh9InT4+vfY1CNQl4U/1O2Nq+B4gUR4yv0AkV+FkidZGSVd9V8YFg3h6gmlF1L7kTDKXjhSfayKIDPu6TZEZcVd0ayhEnm6udDZVZ5vLVl6ujwTvo=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by DS7PR12MB6189.namprd12.prod.outlook.com
- (2603:10b6:8:9a::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 22:45:00 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
- 22:45:00 +0000
-Content-Type: multipart/alternative;
- boundary="------------owsYB0N6I6QvU6qt0drthlvm"
-Message-ID: <554ee275-f01f-48ee-ad8c-9253d4739308@amd.com>
-Date: Tue, 6 Oct 2026 18:44:58 -0400
+Received: from IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8)
+ by CHBPR12MB971693.namprd12.prod.outlook.com (2603:10b6:610:340::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Tue, 6 Oct
+ 2026 22:49:59 +0000
+Received: from IA1PR12MB8517.namprd12.prod.outlook.com
+ ([fe80::c47e:c884:f06:1525]) by IA1PR12MB8517.namprd12.prod.outlook.com
+ ([fe80::c47e:c884:f06:1525%4]) with mapi id 15.21.0472.015; Tue, 6 Oct 2026
+ 22:49:58 +0000
+Message-ID: <73bea04f-27ee-48dc-842b-3c0ba08eb062@amd.com>
+Date: Tue, 6 Oct 2026 17:49:56 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] drm/amdkfd: Apply HMM THP zone device-private
- memory migration in kfd driver
-To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/4] drm/amdkfd: Add awareness of THP of device and
+ system RAM in kfd svm driver
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20260904195421.42919-1-xiaogang.chen@amd.com>
- <20260904195421.42919-4-xiaogang.chen@amd.com>
+ <20260904195421.42919-2-xiaogang.chen@amd.com>
+ <225421e2-3ab1-4c6c-b229-6c59dcb4bcbc@amd.com>
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20260904195421.42919-4-xiaogang.chen@amd.com>
-X-ClientProxiedBy: YT4PR01CA0269.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:109::25) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <225421e2-3ab1-4c6c-b229-6c59dcb4bcbc@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH2PR10CA0010.namprd10.prod.outlook.com
+ (2603:10b6:610:4c::20) To IA1PR12MB8517.namprd12.prod.outlook.com
+ (2603:10b6:208:449::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DS7PR12MB6189:EE_
-X-MS-Office365-Filtering-Correlation-Id: 08f74d84-de38-41b4-3901-08df23fb73f1
+X-MS-TrafficTypeDiagnostic: IA1PR12MB8517:EE_|CHBPR12MB971693:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7284a0e4-932f-4670-405b-08df23fc25f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|11063799006|5023799004|4143699003|10067099003|56012099006|18002099003|22082099003|8096899003;
-X-Microsoft-Antispam-Message-Info: m7EeawjTVAMG8kuFnqGenZ3s1knx1b2dfwAojrwlvP+6OmpwDENNag0zGxJqO4wQVmhNwS8CjO2xrxm+Ly2l1IdNFeKgxCrds6eJPEdntcaaPWNhR5/snuuj0cfOLeeQpXzJ/NMS+rnYe1TXNYo5cvaApklA8h36PkhcGZwOHyKuB0qTUByMwdmexkQTWVRpQgMgwNGR+ngAppD6MTgmt62ecS+QRyCGTHpgSEXxU9D/LzKAL3NPtbEKXmkypn+kHtq/hDorGYI1OowojGRYyxxkCZP+Mc8eWT6C5eTNFUMd4YFZUtAGrVnNvUCwsm/fXf6b9ByMEhsT93Pu0QNIp/R6rb7eZO1Hg9Ll/U/BW3fLKAJlL1mhE+izQ3/AT3XFubfVxApzA052ZZJ149deA0DFtMuYnYirNfF9EIjEavbvrgjrWK//3rNkYkC4BhBD7g/912axbcTLqxxRYlsjnIdbE8HhtTSKHQSOiumAduzWWrduzkLZyBRs6GFKRHR0XhBGXUjKfpc5QSnmmS8kIN7L7ZjHQl7k3auh2vCG2WWSfp+YWMKlbBUiOokDuhB1rvlbrPCeFLrXd8dp4d7UyXhrMs9htA2YYzC/KPh1NEy13tzKvq7/LBYDRvfAdZc6kfuJJbyyEzl16DBW3FMP4xUXuB50HIx8gp2MBbxuEPY=
+ ARA:13230040|376014|23010399003|366016|1800799024|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: tE9FK/SJUbQ6ngXzjPz9CT9/re5KfHRkyYZZ/pfbtQWv2DeggGebgE74TMsAT0sfAMwyYC14SKLNRdsZ6pKf7RTSL72Ot88sZsdckKQq9hxWGWejoRN7kOG4IxxGLREU2ecvO57r2n/E1qdvKvtuvmIaXbPR2H9CnMULEOR+TJUpgQ9mImbzp8nC9h4kwMbwZx2HKrdxNOKI3VA5qqT3JX4wSqWr9ekSMluDIpLYGxARWNx8SBifEWCCyYT0Amj1iC6KsfZnltXf4ZBDNkM2FEkJTI+yzrwpBU9oaBzsp6CkCtrTb6LxAisHYsbJvJQkCz8zg0yPxlVupyLUq9lUSxGGF+w4V8AwfIKcAmwRSEnsqOtH8eOiK9A0/LBnE0FFfNNrhPZh5EBG2m6LcYIZ3MTqfOrR7SqwANVcLcjjHuTI6T57ber51adELJ6xxvWBjOQzK2bTBcZ/vJgjlG25PfuY8jPmMqDnPgRPgVLID3D0Iv+OLBlP7RxKT35YiJJunWQDBYu6Rg6PxbH3IZ9yZ7P4XVxHzTzoDdohMy2UrWF8snfHvqY5HPaxfW0ANQgB990rh2y0titJhd6CCB51gPsGaZRVcNQ3Q1K8UuaaWLlE7+unzptUl/OcxKgcX/gm2XU81fVZtiFOhHOxoyKUUv7eo0J8t15pEbmCNIhcDlQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(11063799006)(5023799004)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003)(8096899003);
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB8517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2RKVGU2c2xGQ2dmZVlMN3pmSDljT1pERjZnUExlbjdyd2IvZmFkWkg4ODZn?=
- =?utf-8?B?SEkzNWx5Q0l2NkMwdEV1dU1zcWIyalk4dDUzSkNIa1B6STREVW5QYTI5bjdC?=
- =?utf-8?B?WEFTWVh2cEpHZnhXb1cxZjVyMlZuVzROZkpoU1Y3a1F4WFVqM05sTytFbS9C?=
- =?utf-8?B?WnI3eHVoT2dBaVpzVFYwZ29nQlZubjgxWUZZTmoweCsvZjc5RStQOWI2ZXA5?=
- =?utf-8?B?cm9Ma00zZE1hYkVJNDVnVE05R3gwSGNhYzJHS3kvNnUyN2I5UUdKK2N2L3g2?=
- =?utf-8?B?U2d1OGk2RUFiWWZtazJkbEhTVFovZ3BFZTBTTW1DZWJmaFN0QUZ4bGhweFFj?=
- =?utf-8?B?QTBZVWhWWmFweTBYcWJWaW5MeE95RDdMOHNEcDdvTEJIVWtrSmJVVHZYbEFI?=
- =?utf-8?B?bXltcDNNMG1vU2NkUk9ibTUxYUl2c21yQ0RSN0NMNEh3YlFvYk5CQ3VvdUNI?=
- =?utf-8?B?WG5LVWd0S0hqZkh4UVdDRVRWWGN2VUNxMlFSSHBHSHdxYUFrMUJkN2ZUZHB2?=
- =?utf-8?B?SkpsemlvWkh6U2kxRTQ3dUV0ZEEwdTVPMndRcUsySE5jeUgxenpWQXk1SFBo?=
- =?utf-8?B?bVdIMTJiR0tFOC9BSkdsalU1Ympyc3RxUEF6b0F1OEZNY0FJODBXVUVxaEtQ?=
- =?utf-8?B?aWMydXd6RU9XSGNwRjBrZG55UXJzT2ErY3UzM2xaTUNjR1FRMksrejF0SUxx?=
- =?utf-8?B?UHlPMDRVOWtNbmZRbng4U0xhVmJxMlRvU0RMcmJ5SGliemZGZGM1YVZaYUVD?=
- =?utf-8?B?ZWZyKzZseExOdkxmaFMzUmFQVnhhQ1oza3NjWldCa3VwWGZXZXA1VlpXemFH?=
- =?utf-8?B?b2U0OS9WRGsxUHpHMHJGYkc5LzBNVUZTM0l3ellWbUtwQWEvSms1RFVnaDVH?=
- =?utf-8?B?MlRrSkdGSGN1OTJrZGRtTmljTy9FSjUrekhRRDNiekxTeDFBZlcvTGM0WUsr?=
- =?utf-8?B?dFRQTTYxUmpGUU1NRmtMbWExZ21xSG5EUGM3Q1AxUGFST1JtOU92d21obHRQ?=
- =?utf-8?B?ejAxQ0w1eTJyemg3b3hTbDdIR2p3dGxQQVdXdFdyaktXTTRNV2Rnd29yMDM2?=
- =?utf-8?B?Vjh1aEpwdGd2WnBUeHRuckJNeG5zd3haZEZ5Z0hvNDN5KzU2RG1VWDd1ZzJG?=
- =?utf-8?B?cWZoQ000VkF2M3RBWVFWMTNHekZIRVMxZE5QK2VVamxNTlJ1U2lRWE9LZXVy?=
- =?utf-8?B?K3drbWlJbnBiNnBrZ3RORGpycDRTc0NDcEYrUUgzWlNNUXo3SVBHSGJmUWkv?=
- =?utf-8?B?NzFkUCtveDAremtHcTBtVE45NWhSa3FPa1pPd3lXWE8xaW0xeStYc0xyaWdE?=
- =?utf-8?B?RjJPUUxZS3BGTDM0aVdsL1hKOFVtK2xIWXBxM1RIeUxzTWs4Q0hKWDJrR0pL?=
- =?utf-8?B?aEd3NEt1VCtZbzhVWEJtbTNEeExZak1SUDZKRytaVS9FMUgyT0doZno4SVlD?=
- =?utf-8?B?UnVPUGREZzNNVUVlLzF0QUx2bkdTR2NGcTNDYlNRUzEvUzBIU0xLb3pWdlBB?=
- =?utf-8?B?YzdqN24zZnFxV2RuZnhzL0tBdjJTQ3hVQi8rTHdtWGFFdjdrMy9tL1VDbU85?=
- =?utf-8?B?ZmVUQ2oxeFhpWGVDVjI0NjhZM1BNVXJEY2k4bmtSR3ZRWVphK0FXbHRaMHlE?=
- =?utf-8?B?Q2k5UHkrcmhjMk5MeWxhaDZIZTI3QXkrc2pIRFJvWUpTYnNobE9OT01Bb0FR?=
- =?utf-8?B?Y1R0ZWRKcG43ckxTMUl2QUdiQys1dHFCUElNTUY2K3Q4ZnpnQzR3eTZCOEU1?=
- =?utf-8?B?TmZzbzdpYjhyVnBKaXlxT2ZZYzFOOGtzb3RxR2k2Q1l4Y1lSL3BhMkVZV2x5?=
- =?utf-8?B?RlZscTlxMFlOWTB0UHJVN3UxUTJ4bnVab0ZlZmtTVlhCa3pkVy9tdVBkVlhr?=
- =?utf-8?B?bEpQaHpQVzZ6YmtYWlI4L0crSlU0MzM1TzhnZzhGOTFpZTkxa3FDNjhkeEVR?=
- =?utf-8?B?UnNRSzFiYVlVdFZCZ0RSQUZwelRDS01wRHFqQnFHdXU5cDhSSUd2Vno3YmEv?=
- =?utf-8?B?R28ySGg2VC93RDJCeVBNajhTS3ZxZnZYd3RrTCtnNDcvbExKdkVCaUNMbnVT?=
- =?utf-8?B?QkRaZ2F2S25HMlNaQzJGSGNtVk5DVjlFY0R1bFFrUWpyaUJtSjkxZWVURVFF?=
- =?utf-8?B?QXVIeVdGdVIvcXJ0djZLR005bWQ2SWt6OWJnSVhXcmIxZ25XWk9QU2N5emR0?=
- =?utf-8?B?M3FjckdKT1VqN3ZMdlAwNzNCczNPY1k5Q0NYcVp5aHFtUnFUc1RIZFY4ZDBx?=
- =?utf-8?B?VCtRUnkzaC90VnFnUVJDdksxalFtWk5HKy9Gd24ySXRGT2pKbEVha2N6bUFu?=
- =?utf-8?B?SFhUdmVpVDZwbUZzdnc3QUdWQWF4emhmTEt1MjNQT1orSGpHdWhxUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnE5dXAzczVGM2JWK3ladTVESTE4cENHb1M0V1BXTndnd09yZnBRZ091VCtS?=
+ =?utf-8?B?SnNwOGtNTEdWQTVRSENBM2MzbDVHdW1rQ3JrbWRXVHVQbk1OSkl6Y05odkhS?=
+ =?utf-8?B?WlFJakpyNGNUMGlNeGJZNUZVcWo3azBWZVNFcHVpNDBkKzd2NzNKeEtjYXZ4?=
+ =?utf-8?B?cGZuSndoUFNKMEtpUW4rSWkyMHdxK3RMTCt6eVFCNFJCdkcxMHNxRHlXY3ZO?=
+ =?utf-8?B?RExENkFETWxQMGpYL2VaZk10Tk9MdE9DSDRZSUx1UmhYZld1RlQ4S1RMY3N6?=
+ =?utf-8?B?aHVVTkJaWHdjWEdQclNZd2dhdXZmdW5ld1AvYlU1ejJ4elJLbWRseUFsYkVp?=
+ =?utf-8?B?cVo3U3JiSEVlWm5GazZtVkZjSFJqRWsxWW1HZmJCU1hvK1hEMCtJdUlJUWh6?=
+ =?utf-8?B?a3pTNjJsb3gzZUlveXR6YTMrUFpxK0FMV21RU0Y3VVJERThIMjJOMEJzR1ZW?=
+ =?utf-8?B?UG9ROU1hV2hLSlN2N3ZVK2d1ZVFpS1RRMmY2bjduM0JRZ1laSUdTTTE2elda?=
+ =?utf-8?B?WGdKK1hxcVBGckZ0ZGsyK0NYQldWNkZJTWV4Snh3bzVXSGUzbDQ4MVlhZ2M2?=
+ =?utf-8?B?dTkvRzN0WUdGUENobTdUT2VaT1NDN0hGOGhwUUZZcTRUeXBlRjNDKzdFWVJR?=
+ =?utf-8?B?N3hkNzFhUHFzTW5YYXkrVGIxVGxsdUZqcUVnUlcza3lycTFjN2hlLy85UHFR?=
+ =?utf-8?B?R2VQRlcrRWREUy9GMUNBeTNwT3k5eWdwNENHRUVkV3RodGdyQ2Z0M1Faa2lz?=
+ =?utf-8?B?N2RsdjBLNkVCb3VzdUdVMjEyWXlFdFRsM1FVcTdibFh3WlkwS1ROa20xQVB5?=
+ =?utf-8?B?V0U2a2dubkFkejU2cTFWVTRIMjlSam1odUt2UmgwNTVQQUUvdnd3VHI5UFpJ?=
+ =?utf-8?B?NnRMNm5uMEFWVTFhQlorSlpvNHZrR3FlTktsWnpiZ25jMDhvd211TnNYUFFN?=
+ =?utf-8?B?NGdsQ2JCUHF5V1IzYXFMOFRxbHpjNE1yZDVRWkxDY3EzVGd6SFpQYUdFLzB0?=
+ =?utf-8?B?aHdBdlRpSUd4ak9Dd2FiVWxsWjhXVjZVbHpQRkU3TUtPL0JhVTVhL3ZWMXM5?=
+ =?utf-8?B?alZlYmVKTGNYRE96MTdSR2oxVzVOQ0dPa1o4clVOYnRWWjVTQjVlMkJxd29C?=
+ =?utf-8?B?YlV4OHlYS25VWHRLMW9HWUU4YlhzQmNBZklrbkZSWGNteEVWYjVIQ2hVYWVi?=
+ =?utf-8?B?b0M2ZjFsUTVFeUR6Q1VLTkVPSnU3RHdoODRLZFMvc285SlA4bDZEVExDNUxt?=
+ =?utf-8?B?OHhaTUozY0ppY0ttSGVGaWpteG9wKzFIN2h6dUQ4Q2JQZTVuR3Z6cE9YSksx?=
+ =?utf-8?B?K2V1MGthYlN6UzNockc2d3FjLytDWHhocWdiUzZiKyt2SE8xU3plY2FBbmdp?=
+ =?utf-8?B?VXlxcUdqSVphUVNyUWU0bG5LMTVsVWpGWDdKRmFlbzVkdjNqWWRmTEowTkla?=
+ =?utf-8?B?Mk9GMm9QaE1ZUGc4YjJPNUVVV0FIeERrTUJxdXRScTRGV2R0ZXBscjFXTi92?=
+ =?utf-8?B?d1QyY241RktEME9LVk5reGNrWmt1SGdNN0VSdEhLRkN6REJJTEo3UjZ5QXFN?=
+ =?utf-8?B?NTdEK3VUaGcyUy9McmlqV0w3Mmx6aUtnV0V5S3pEOXlzRnU2UDRDeU9nbVFo?=
+ =?utf-8?B?cmkxNENhQmdrRlhTS0pwUk82U09kRzlCbi8wWWN6UmxKUHJOcU1mSWh1UEFR?=
+ =?utf-8?B?Z1JlZTRXczFGcjJ2NENLZkpsNUxoOXAxQ0lhM093UEd3WnVyYy9rMUpQVWND?=
+ =?utf-8?B?Znd4T3M0OEptR3MyQmEyRGhWMXBPTk1wcUgrRURZY2Fnc3NHd3dkaGd6Q0JT?=
+ =?utf-8?B?MUphNnNQQkFMakNGR2pKOEZrY2FwUW1YL291NGNjNC9nN0dxVDJJcHJleHZ1?=
+ =?utf-8?B?ZWFVU1JQWVExZFZXVmx2RVNKd3FmaHhNNjVWSDVLYVd6RU9tRVc4TlMxQ1pO?=
+ =?utf-8?B?M1d2cWt5VmFmRWpBUDN3U3FlMU9FWG10N1pnQUpFV05BQUZuc253ZUZoZ203?=
+ =?utf-8?B?ZkhsMEJkWVgrRWlXVFlxcXBVSThyenptVWRZUG9nQndwa0tZajZhamU2Vnoy?=
+ =?utf-8?B?aXQzN0FqaEdPcUFNTWFPb2lYblkyS1c5c1BpZnZ0aDZjZERKSTVKNm4yak0y?=
+ =?utf-8?B?bVVVbEpXeURDSjQ5SHBRMzNBWEZmekx0UVc4NERQUVVLeXVUa2ZXWVZnQ0tD?=
+ =?utf-8?B?VTArSnRqWmpZVGpoemh0WFBPbk9kSTdmQXVEOVZBa2xOM2xXVTVPTUM2WXpk?=
+ =?utf-8?B?SGl5eEkycTdzcXBncmpBS0ZLRzlEajd1UzJHeW9iNFlKZmJ4NDdyUEpNQXI4?=
+ =?utf-8?Q?9rWbj7D8ZfaU29C4xM?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08f74d84-de38-41b4-3901-08df23fb73f1
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7284a0e4-932f-4670-405b-08df23fc25f0
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8517.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 22:45:00.0153 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 22:49:58.8057 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 62jtMVH+KqdRiC64MQ6343RrNZY31/wg4NbIJFEhf56An38DBZYb6I4wh06SufW/wDTOSgp01UuTj+hxCUhnbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6189
+X-MS-Exchange-CrossTenant-UserPrincipalName: sBeeEkulJ/4joGtFrJ0HLENB+HJ5J4yti4ZNtUmz1GRFiIlNMZzMfE6Qo47G1L7o
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHBPR12MB971693
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,1046 +136,246 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------owsYB0N6I6QvU6qt0drthlvm
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 2026-09-04 15:54, Xiaogang.Chen wrote:
-> From: Xiaogang Chen<xiaogang.chen@amd.com>
+On 10/6/2026 4:40 PM, Felix Kuehling wrote:
+> On 2026-09-04 15:54, Xiaogang.Chen wrote:
+>> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>>
+>> Extend kfd/svm function to allocate HPAGE_PMD_SIZE based device 
+>> memory by buddy
+>> allocator, each drm_buddy_block is HPAGE_PMD_SIZE aligned and to 
+>> allocate THP
+>> system ram by vma_alloc_folio.
+>>
+>> Introduce SVM_RANGE_DMA_THP flag that indicates dma map of THP. THP dma
+>> addresss will use this flag.
+>>
+>> Add dev_pagemap_ops->folio_split callback that is called by 
+>> folio_split when
+>> core MM splits device memory folio.
+>>
+>> These are preparations for following support for (THP) migration of zone
+>> device-private memory, no function change.
+>>
+>> Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 50 +++++++++++++++++++-----
+>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 15 +++++--
+>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  1 +
+>>   3 files changed, 54 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> index 253365a8257e..813f3c1d29dc 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> @@ -217,14 +217,19 @@ svm_migrate_addr_to_pfn(struct amdgpu_device 
+>> *adev, unsigned long addr)
+>>   }
+>>     static void
+>> -svm_migrate_get_vram_page(struct svm_range *prange, unsigned long pfn)
+>> +svm_migrate_get_vram_page(struct svm_range *prange, unsigned long pfn,
+>> +               int order)
+>>   {
+>>       struct page *page;
+>> +    struct folio *folio;
+>>         page = pfn_to_page(pfn);
+>> +    folio = page_folio(page);
+>> +
+>> +    zone_device_folio_init(folio, folio->pgmap, order);
+>> +
+>> +    folio_set_zone_device_data(folio, prange->svm_bo);
 >
-> Update kfd svm driver to migrate device-private THP introduced from HMM core
-> migration function. Select this function by flag MIGRATE_VMA_SELECT_COMPOUND
-> when call migrate_vma_setup. kfd migration procedure is updated according to
-> collected page type that can be either compound folio(physical continuous) or
-> normal size page.
+> I see that folio_set_zone_device_data checks that folio is 
+> device_private. This will fail for device_coherent pages. We can't use 
+> this function without breaking MI200 A+A.
+
+Yes, I was looking if this work has changes that can affect 
+device_coherent. It is one of them. This work is for GPU with device 
+private memory by now. I will change this part to:
+
+if (folio_is_device_private(folio))
+     folio_set_zone_device_data(folio, prange->svm_bo);
+else
+     folio->page.zone_device_data = prange->svm_bo;
+
 >
-> Signed-off-by: Xiaogang Chen<xiaogang.chen@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 271 ++++++++++++++++++-----
->   1 file changed, 219 insertions(+), 52 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index bbf0fefd5722..af39e547c1fa 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -298,7 +298,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   	u64 mpages = 0;
->   	dma_addr_t *src;
->   	u64 *dst;
-> -	u64 i, j;
-> +	u64 i, j, k, l, m;
->   	int r = 0;
->   
->   	pr_debug("svms 0x%p [0x%lx 0x%lx 0x%llx]\n", prange->svms, prange->start,
-> @@ -309,59 +309,158 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->   
->   	amdgpu_res_first(prange->ttm_res, ttm_res_offset,
->   			 npages << PAGE_SHIFT, &cursor);
-> -	for (i = j = 0; (i < npages) && (mpages < migrate->cpages); i++) {
-> +	for (i = j = m = 0; (i < npages) && (mpages < migrate->cpages);) {
->   		struct page *spage;
-> +		unsigned long cur_dst_pfn;
-> +		bool is_large = false;
->   
-> -		if (migrate->src[i] & MIGRATE_PFN_MIGRATE) {
-> -			dst[i] = cursor.start + (j << PAGE_SHIFT);
-> -			migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
-> -			svm_migrate_get_vram_page(prange, migrate->dst[i], 0);
-> -			migrate->dst[i] = migrate_pfn(migrate->dst[i]);
-> +		cur_dst_pfn = svm_migrate_addr_to_pfn(adev,
-> +						      cursor.start + (m << PAGE_SHIFT));
-> +
-> +		/* when migrate->src[i] has MIGRATE_PFN_COMPOUND set the src page
-> +		 * is compound THP; its vm address is HPAGE_PMD_SIZE aligned and
-> +		 * its MIGRATE_PFN_MIGRATE is set
-> +		 */
-> +		if ((m + HPAGE_PMD_NR) <= (cursor.size >> PAGE_SHIFT) &&
-> +		    (i + HPAGE_PMD_NR) <= npages &&
-> +		    (migrate->src[i] & MIGRATE_PFN_COMPOUND) &&
-> +		    IS_ALIGNED(cur_dst_pfn, HPAGE_PMD_NR)) {
-> +
+>>       svm_range_bo_ref(prange->svm_bo);
+>> -    page->zone_device_data = prange->svm_bo;
+>> -    zone_device_page_init(page, page_pgmap(page), 0);
+>>   }
+>>     static void
+>> @@ -247,11 +252,17 @@ svm_migrate_addr(struct amdgpu_device *adev, 
+>> struct page *page)
+>>   }
+>>     static struct page *
+>> -svm_migrate_get_sys_page(struct vm_area_struct *vma, unsigned long 
+>> addr)
+>> +svm_migrate_get_sys_page(struct vm_area_struct *vma, unsigned long 
+>> addr,
+>> +              unsigned long order)
+>>   {
+>>       struct page *page;
+>>   -    page = alloc_page_vma(GFP_HIGHUSER, vma, addr);
+>> +    if (order)
+>> +        page = folio_page(vma_alloc_folio(GFP_HIGHUSER,
+>> +                          order, vma, addr), 0);
+>> +    else
+>> +        page = alloc_page_vma(GFP_HIGHUSER, vma, addr);
+>> +
+>>       if (page)
+>>           lock_page(page);
+>>   @@ -265,8 +276,12 @@ static unsigned long 
+>> svm_migrate_successful_pages(struct migrate_vma *migrate)
+>>         for (i = 0; i < migrate->npages; i++) {
+>>           if (migrate->dst[i] & MIGRATE_PFN_VALID &&
+>> -            migrate->src[i] & MIGRATE_PFN_MIGRATE)
+>> -            mpages++;
+>> +            migrate->src[i] & MIGRATE_PFN_MIGRATE) {
+>> +                if (migrate->dst[i] & MIGRATE_PFN_COMPOUND)
+>> +                    mpages += HPAGE_PMD_NR;
+>> +                else
+>> +                    mpages++;
+>> +            }
+>
+> Please fix the indentation.  This is one tab too deep. The alignment 
+> of the condition should remain unchanged.
+ok
+>
+>
+>>       }
+>>       return mpages;
+>>   }
+>> @@ -300,7 +315,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, 
+>> struct svm_range *prange,
+>>           if (migrate->src[i] & MIGRATE_PFN_MIGRATE) {
+>>               dst[i] = cursor.start + (j << PAGE_SHIFT);
+>>               migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
+>> -            svm_migrate_get_vram_page(prange, migrate->dst[i]);
+>> +            svm_migrate_get_vram_page(prange, migrate->dst[i], 0);
+>>               migrate->dst[i] = migrate_pfn(migrate->dst[i]);
+>>               mpages++;
+>>           }
+>> @@ -568,6 +583,7 @@ svm_migrate_ram_to_vram(struct svm_range *prange, 
+>> uint32_t best_loc,
+>>       return r < 0 ? r : 0;
+>>   }
+>>   +/* folio can be compound folio or single page */
+>>   static void svm_migrate_folio_free(struct folio *folio)
+>>   {
+>>       struct page *page = &folio->page;
+>> @@ -630,7 +646,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device 
+>> *adev, struct svm_range *prange,
+>>               j = 0;
+>>           }
+>>   -        dpage = svm_migrate_get_sys_page(migrate->vma, addr);
+>> +        dpage = svm_migrate_get_sys_page(migrate->vma, addr, 0);
+>>           if (!dpage) {
+>>               pr_debug("failed get page svms 0x%p [0x%lx 0x%lx]\n",
+>>                    prange->svms, prange->start, prange->last);
+>> @@ -1033,9 +1049,25 @@ static vm_fault_t svm_migrate_to_ram(struct 
+>> vm_fault *vmf)
+>>       return r ? VM_FAULT_SIGBUS : 0;
+>>   }
+>>   +static void svm_migrate_folio_split(struct folio *head, struct 
+>> folio *tail)
+>> +{
+>> +    struct svm_range_bo *svm_bo;
+>> +
+>> +    if (tail == NULL)
+>> +        return;
+>> +
+>> +    tail->pgmap = head->pgmap;
+>> +    tail->mapping = head->mapping;
+>> +
+>> +    svm_bo = folio_zone_device_data(head);
+>> +    folio_set_zone_device_data(tail, svm_bo);
+>> +    svm_range_bo_ref(svm_bo);
+>> +}
+>> +
+>>   static const struct dev_pagemap_ops svm_migrate_pgmap_ops = {
+>>       .folio_free        = svm_migrate_folio_free,
+>>       .migrate_to_ram        = svm_migrate_to_ram,
+>> +    .folio_split        = svm_migrate_folio_split,
+>>   };
+>>     /* Each VRAM page uses sizeof(struct page) on system memory */
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> index fa4054d51f60..6b783d12bce4 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> @@ -245,7 +245,16 @@ void svm_range_dma_unmap_dev(struct device *dev, 
+>> dma_addr_t *dma_addr,
+>>           if (!svm_is_valid_dma_mapping_addr(dev, dma_addr[i]))
+>>               continue;
+>>           pr_debug_ratelimited("unmap 0x%llx\n", dma_addr[i] >> 
+>> PAGE_SHIFT);
+>> -        dma_unmap_page(dev, dma_addr[i], PAGE_SIZE, dir);
+>> +
+>> +        /* dma unmap of THP */
+>> +        if (dma_addr[i] & SVM_RANGE_DMA_THP) {
+>> +
+>
+> Unnecessary empty line.
+>
+>
+ok
+>> +            dma_addr[i] &= ~SVM_RANGE_DMA_THP;
+>> +            dma_unmap_page(dev, dma_addr[i], PAGE_SIZE*HPAGE_PMD_NR,
+>> +                                   DMA_BIDIRECTIONAL);
+>> +        } else
+>> +            dma_unmap_page(dev, dma_addr[i], PAGE_SIZE, dir);
+>
+> The else-branch should also use {} braces if the if-branch does.
+ok
+>
+>
+>> +
+>>           dma_addr[i] = 0;
+>>       }
+>>   }
+>> @@ -578,10 +587,10 @@ svm_range_vram_node_new(struct kfd_node *node, 
+>> struct svm_range *prange,
+>>       }
+>>         memset(&bp, 0, sizeof(bp));
+>> -    bp.size = prange->npages * PAGE_SIZE;
+>> +    bp.size = ALIGN(prange->npages * PAGE_SIZE, HPAGE_PMD_SIZE);
+>
+> This wastes memory for small ranges. Maybe guard this so it only 
+> applies to ranges that are larger than HPAGE_PMD_NR pages.
 
-Unnecessary empty line.
+I am think this too. The waste is 2MB at most instead of current 4KB. I 
+will change allocation size/aliment according to request size.
 
+Regards
 
-> +			is_large = true;
-> +			k = HPAGE_PMD_NR;
+Xiaogang
 
-is_large is redundant. Just use (k > 1).
-
-
-> +		} else
-> +			 k = 1;
-
-Bad indentation.
-
-
-> +
-> +		/* for THP src[0] alwas MIGRATE_PFN_MIGRATE
-> +		 * just the first migrate->dst need be setup, others are zero
-> +		 */
-> +		if (is_large) {
-> +
-> +			dst[i] = cursor.start + (m << PAGE_SHIFT);
-> +			svm_migrate_get_vram_page(prange, cur_dst_pfn,
-> +						  HPAGE_PMD_ORDER);
-> +
-> +			migrate->dst[i] = migrate_pfn(cur_dst_pfn);
-> +			migrate->dst[i] |= MIGRATE_PFN_COMPOUND;
-> +
-> +			for (l=1; l < k; l++)
-> +				migrate->dst[i+l] = 0;
-> +
-> +			mpages++;
-> +
-> +		} else if ((migrate->src[i] & MIGRATE_PFN_MIGRATE)) {
-> +			dst[i] = cursor.start + (m << PAGE_SHIFT);
-> +			svm_migrate_get_vram_page(prange, cur_dst_pfn, 0);
-> +			migrate->dst[i] = migrate_pfn(cur_dst_pfn);
->   			mpages++;
->   		}
-> -		spage = migrate_pfn_to_page(migrate->src[i]);
-> -		if (spage && !is_zone_device_page(spage)) {
-> -			src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
-> -					      DMA_BIDIRECTIONAL);
-> -			r = dma_mapping_error(dev, src[i]);
-> -			if (r) {
-> -				src[i] = 0;
-> -				dev_err(dev, "%s: fail %d dma_map_page\n",
-> -					__func__, r);
-> -				goto out_free_vram_pages;
-> +
-> +		if (is_large) {
-> +			if (j) {
-> +				/* migrate previous accumulated pages */
-> +				r = svm_migrate_copy_memory_gart(
-> +						adev, src + i - j,
-> +						dst + i - j, j,
-> +						FROM_RAM_TO_VRAM,
-> +						mfence);
-> +
-> +				if (r)
-> +					goto out_free_vram_pages;
-> +
-> +				j = 0;
-> +			}
-> +
-> +			/* for THP check if the first src page is valid
-> +			 * if not valid skip following HPAGE_PMD_NR - 1 pages
-> +			 */
-> +			spage = migrate_pfn_to_page(migrate->src[i]);
-> +			if (spage && !is_zone_device_page(spage)) {
-> +				/* dma_map continuous HPAGE_PMD_NR sys ram pages */
-> +				src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE*HPAGE_PMD_NR,
-> +						      DMA_BIDIRECTIONAL);
-> +
-> +				r = dma_mapping_error(dev, src[i]);
-> +				if (r) {
-> +					dev_err(dev, "%s: fail %d dma_map_page\n",
-> +							__func__, r);
-> +					goto out_free_vram_pages;
-> +				}
-> +
-> +				/* get dma address for following HPAGE_PMD_NR-1 pages
-> +				 * since src pages are continuous their dma addresses
-> +				 * are continuous too.
-> +				 */
-> +				for (l=1; l < k; l++)
-> +					src[i + l] = src[i] + l*PAGE_SIZE;
-> +
-> +				/* migrate the HPAGE_PMD_NR pages above */
-> +				r = svm_migrate_copy_memory_gart(
-> +						adev, src + i,
-> +						dst + i, HPAGE_PMD_NR,
-> +						FROM_RAM_TO_VRAM,
-> +						mfence);
-> +
-> +				/* mark head page dma mapping as THP, tail pages dma addr
-> +				 * are set to 0 for following dma_unmap
-> +				 */
-> +				src[i] |= SVM_RANGE_DMA_THP;
-> +				for (l = 1; l < k; l++)
-> +					src[i + l] = 0;
-
-I hope this doesn't break partial mapping or unmapping. We'd need to be 
-sure that code always aligns addresses to huge-page boundaries and gets 
-the whole huge page. A safer alternative would be to use a different 
-flag for the second and subsequent compound pages. So you'd still have 
-the DMA addresses, but you could ignore them for DMA unmapping.
-
-
-> +
-> +				if (r)
-> +					goto out_free_vram_pages;
-> +
-> +				j = 0;
->   			}
->   		} else {
-> -			if (j) {
-> +			/* single normal page case */
-> +			spage = migrate_pfn_to_page(migrate->src[i]);
-> +			if (spage && !is_zone_device_page(spage)) {
-> +				src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
-> +						      DMA_BIDIRECTIONAL);
-> +
-> +				r = dma_mapping_error(dev, src[i]);
-> +
-> +				if (r) {
-> +					dev_err(dev, "%s: fail %d dma_map_page\n",
-> +							__func__, r);
-> +					goto out_free_vram_pages;
-> +				}
-> +				j += 1;
-> +
-> +			} else if (j) {
->   				r = svm_migrate_copy_memory_gart(
->   						adev, src + i - j,
->   						dst + i - j, j,
->   						FROM_RAM_TO_VRAM,
->   						mfence);
-> +
->   				if (r)
->   					goto out_free_vram_pages;
-> -				amdgpu_res_next(&cursor, (j + 1) << PAGE_SHIFT);
-> +
->   				j = 0;
-> -			} else {
-> -				amdgpu_res_next(&cursor, PAGE_SIZE);
->   			}
-> -			continue;
->   		}
->   
-> -		pr_debug_ratelimited("dma mapping src to 0x%llx, pfn 0x%lx\n",
-> -				     src[i] >> PAGE_SHIFT, page_to_pfn(spage));
-> +		pr_debug_ratelimited("dma mapping %lld pages, src to 0x%llx, pfn 0x%lx\n",
-> +				     k, src[i] >> PAGE_SHIFT, migrate->src[i] >> MIGRATE_PFN_SHIFT);
-> +		i += k;
-> +		m += k;
-> +
-> +		if (m >= (cursor.size >> PAGE_SHIFT)) {
-> +			if (j > 0) {
-> +				r = svm_migrate_copy_memory_gart(adev, src + i - j,
-> +								 dst + i - j, j,
-> +								 FROM_RAM_TO_VRAM,
-> +								 mfence);
-
-Are you sure this is correct? The old code incremented i after this copy 
-was done. Your new code does it before. I think that will mess up your 
-address calculations.
-
-
-> +				if (r)
-> +					goto out_free_vram_pages;
-> +			}
-> +
-> +			amdgpu_res_next(&cursor, m*PAGE_SIZE);
->   
-> -		/* accumulated j + 1 pages reach end of current drm_buddy_block */
-> -		if (j + 1 >= (cursor.size >> PAGE_SHIFT)) {
-> -			r = svm_migrate_copy_memory_gart(adev, src + i - j,
-> -							 dst + i - j, j + 1,
-> -							 FROM_RAM_TO_VRAM,
-> -							 mfence);
-> -			if (r)
-> -				goto out_free_vram_pages;
-> -			amdgpu_res_next(&cursor, (j + 1) * PAGE_SIZE);
->   			j = 0;
-> -		} else {
-> -			j++;
-> +			m = 0;
->   		}
->   	}
->   
-> @@ -410,17 +509,24 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
->   	struct kfd_process_device *pdd;
->   	struct dma_fence *mfence = NULL;
->   	struct migrate_vma migrate = { 0 };
-> +	bool is_private_device = false;
->   	unsigned long cpages = 0;
->   	unsigned long mpages = 0;
->   	dma_addr_t *scratch;
->   	void *buf;
->   	int r = -ENOMEM;
->   
-> +	is_private_device = svm_is_private_zone(adev);
-> +
->   	memset(&migrate, 0, sizeof(migrate));
->   	migrate.vma = vma;
->   	migrate.start = start;
->   	migrate.end = end;
->   	migrate.flags = MIGRATE_VMA_SELECT_SYSTEM;
-> +
-> +	if (is_private_device && ((end - start) >> PAGE_SHIFT) >= HPAGE_PMD_NR)
-> +		migrate.flags = migrate.flags | MIGRATE_VMA_SELECT_COMPOUND;
-> +
-
-Why do you apply this only to device_private memory. This should work 
-just as well for device_coherent on MI200 A+A.
-
-
->   	migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
->   
->   	buf = kvcalloc(npages,
-> @@ -609,6 +715,9 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   	u64 addr;
->   	int r = 0;
->   
-> +	u64 l, k;
-> +	bool is_large = false;
-> +
->   	pr_debug("svms 0x%p [0x%lx 0x%lx]\n", prange->svms, prange->start,
->   		 prange->last);
->   
-> @@ -616,8 +725,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   
->   	src = (u64 *)(scratch + npages);
->   	dst = scratch;
-> -
-> -	for (i = 0, j = 0; i < npages; i++, addr += PAGE_SIZE) {
-> +	for (i = 0, j = 0; i < npages;) {
-
-If you reset k = 1, you could keep the increment in the loop header. 
-Just update it to
-
-	for (i = 0, j = 0, k = 1; i < npages; i += k, addr += k*PAGE_SIZE, k = 1)
-
-
->   		struct page *spage;
->   
->   		spage = migrate_pfn_to_page(migrate->src[i]);
-> @@ -633,6 +741,9 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   					goto out_oom;
->   				j = 0;
->   			}
-> +
-> +			addr += PAGE_SIZE;
-> +			i++;
->   			continue;
->   		}
->   		src[i] = svm_migrate_addr(adev, spage);
-> @@ -646,7 +757,22 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   			j = 0;
->   		}
->   
-> -		dpage = svm_migrate_get_sys_page(migrate->vma, addr, 0);
-> +		if(IS_ALIGNED(page_to_pfn(spage), HPAGE_PMD_NR) &&
-
-There should be a space after "if". I see a few more coding style issues 
-below. Please run check_patch.pl to check for common coding style issues.
-
-
-> +		   (addr + HPAGE_PMD_SIZE) <= migrate->end &&
-> +		   IS_ALIGNED (addr, HPAGE_PMD_SIZE) &&
-> +		   migrate->src[i] & MIGRATE_PFN_COMPOUND) {
-> +
-> +			is_large = true;
-> +			k = HPAGE_PMD_NR;
-
-is_large is redundant. You could just use (k > 1).
-
-
-> +
-> +			dpage = svm_migrate_get_sys_page(migrate->vma, addr,
-> +							 HPAGE_PMD_ORDER);
-
-Do we need a fallback to small pages if if huge-page allocation fails?
-
-
-> +		} else {
-> +			k = 1;
-> +			is_large = false;
-> +			dpage = svm_migrate_get_sys_page(migrate->vma, addr, 0);
-> +		}
-> +
->   		if (!dpage) {
->   			pr_debug("failed get page svms 0x%p [0x%lx 0x%lx]\n",
->   				 prange->svms, prange->start, prange->last);
-> @@ -654,21 +780,59 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   			goto out_oom;
->   		}
->   
-> -		dst[i] = dma_map_page(dev, dpage, 0, PAGE_SIZE, DMA_BIDIRECTIONAL);
-> +		dst[i] = dma_map_page(dev, dpage, 0, PAGE_SIZE*k, DMA_BIDIRECTIONAL);
->   		r = dma_mapping_error(dev, dst[i]);
->   		if (r) {
->   			dev_err(adev->dev, "%s: fail %d dma_map_page\n", __func__, r);
-> -			dst[i] = 0;
-
-Why did you remove this?
-
-
->   			goto out_oom;
->   		}
->   
-> -		pr_debug_ratelimited("dma mapping dst to 0x%llx, pfn 0x%lx\n",
-> -				     dst[i] >> PAGE_SHIFT, page_to_pfn(dpage));
-> -
->   		migrate->dst[i] = migrate_pfn(page_to_pfn(dpage));
-> +		if (is_large)
-> +			migrate->dst[i] |= MIGRATE_PFN_COMPOUND;
-
-Looks like you can merge that into the next if-block just below.
-
-
->   
-> -		dpage = NULL;
-> -		j++;
-> +		if (is_large) {
-> +			/* migrate previous accumulated pages */
-> +			if(j) {
-> +				r = svm_migrate_copy_memory_gart(adev, dst + i - j,
-> +								 src + i - j, j, FROM_VRAM_TO_RAM, mfence);
-> +				if (r)
-> +					goto out_oom;
-> +				j = 0;
-> +			}
-> +
-> +			for (l = 1; l < k; l++) {
-> +
-> +				src[i + l] = src[i] + l*PAGE_SIZE;
-> +				dst[i + l] = dst[i] + l*PAGE_SIZE;
-> +				migrate->dst[i + l] = 0;
-> +			}
-> +
-> +			/* migrate the HPAGE_PMD_NR pages above */
-> +			/* svm_migrate_copy_memory_gart will add a paramter to indicate
-> +			 * the migration is for 2MB THP
-> +			 */
-> +			r = svm_migrate_copy_memory_gart(
-> +						adev, dst + i,
-> +						src + i, HPAGE_PMD_NR,
-> +						FROM_VRAM_TO_RAM,
-> +						mfence);
-> +
-> +			/* mark head page dma mapping as THP, tail pages dma addr
-> +			 * are set to 0 for following dma_unmap
-> +			 */
-> +			dst[i] |= SVM_RANGE_DMA_THP;
-> +			for (l = 1; l < k; l++)
-> +				dst[i + l] = 0;
-
-I hope this doesn't break partial mapping or unmapping. We'd need to be 
-sure that code always aligns addresses to huge-page boundaries and gets 
-the whole huge page.
-
-
-> +
-> +			if (r)
-> +				goto out_oom;
-> +
-> +		} else
-> +			j++;
-> +
-> +		addr += PAGE_SIZE*k;
-> +		i += k;
->   	}
->   
->   	if (j > 0)
-> @@ -687,12 +851,9 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
->   		/* release previous allocated sys pages and unmap dma address */
->   		while (i--) {
->   
-> -			if (dst[i]) {
-> -				dma_unmap_page(dev, dst[i], PAGE_SIZE,
-> -					       DMA_BIDIRECTIONAL);
-> -				dst[i] = 0;
-> -			}
-> -
-> +			/* follwing svm_range_dma_unmap_dev will do dma unmap anyway
-> +			 * not need do dma unmap here
-> +			 */
->   			dpage = migrate_pfn_to_page(migrate->dst[i]);
->   			if (!dpage)
->   				continue;
-> @@ -733,6 +894,7 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
->   	unsigned long cpages = 0;
->   	unsigned long mpages = 0;
->   	struct amdgpu_device *adev = node->adev;
-> +	bool is_private_device = false;
->   	struct kfd_process_device *pdd;
->   	struct dma_fence *mfence = NULL;
->   	struct migrate_vma migrate = { 0 };
-> @@ -740,6 +902,8 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
->   	void *buf;
->   	int r = -ENOMEM;
->   
-> +	is_private_device = svm_is_private_zone(adev);
-> +
->   	memset(&migrate, 0, sizeof(migrate));
->   	migrate.vma = vma;
->   	migrate.start = start;
-> @@ -750,6 +914,9 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
->   	else
->   		migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
->   
-> +	if (is_private_device && ((end - start) >> PAGE_SHIFT) >= HPAGE_PMD_NR)
-> +		migrate.flags = migrate.flags | MIGRATE_VMA_SELECT_COMPOUND;
-
-Why do you apply this only to device_private memory. This should work 
-just as well for device_coherent on MI200 A+A.
-
-
-> +
->   	buf = kvcalloc(npages,
->   		       2 * sizeof(*migrate.src) + sizeof(u64) + sizeof(dma_addr_t),
->   		       GFP_KERNEL);
-> @@ -1132,7 +1299,7 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
->   
->   	amdgpu_amdkfd_reserve_system_mem(SVM_HMM_PAGE_STRUCT_SIZE(size));
->   
-> -	pr_info("HMM registered %ldMB device memory\n", size >> 20);
-> +	pr_info("---XCHEN 3.2 HMM registered %ldMB device memory\n", size >> 20);
-
-This looks like it's not meant to be submitted.
-
-Regards,
-   Felix
-
-
->   
->   	return 0;
->   }
---------------owsYB0N6I6QvU6qt0drthlvm
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 2026-09-04 15:54, Xiaogang.Chen
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">From: Xiaogang Chen <a class="moz-txt-link-rfc2396E" href="mailto:xiaogang.chen@amd.com">&lt;xiaogang.chen@amd.com&gt;</a>
-
-Update kfd svm driver to migrate device-private THP introduced from HMM core
-migration function. Select this function by flag MIGRATE_VMA_SELECT_COMPOUND
-when call migrate_vma_setup. kfd migration procedure is updated according to
-collected page type that can be either compound folio(physical continuous) or
-normal size page.
-
-Signed-off-by: Xiaogang Chen <a class="moz-txt-link-rfc2396E" href="mailto:xiaogang.chen@amd.com">&lt;xiaogang.chen@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 271 ++++++++++++++++++-----
- 1 file changed, 219 insertions(+), 52 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index bbf0fefd5722..af39e547c1fa 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -298,7 +298,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
- 	u64 mpages = 0;
- 	dma_addr_t *src;
- 	u64 *dst;
--	u64 i, j;
-+	u64 i, j, k, l, m;
- 	int r = 0;
- 
- 	pr_debug(&quot;svms 0x%p [0x%lx 0x%lx 0x%llx]\n&quot;, prange-&gt;svms, prange-&gt;start,
-@@ -309,59 +309,158 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
- 
- 	amdgpu_res_first(prange-&gt;ttm_res, ttm_res_offset,
- 			 npages &lt;&lt; PAGE_SHIFT, &amp;cursor);
--	for (i = j = 0; (i &lt; npages) &amp;&amp; (mpages &lt; migrate-&gt;cpages); i++) {
-+	for (i = j = m = 0; (i &lt; npages) &amp;&amp; (mpages &lt; migrate-&gt;cpages);) {
- 		struct page *spage;
-+		unsigned long cur_dst_pfn;
-+		bool is_large = false;
- 
--		if (migrate-&gt;src[i] &amp; MIGRATE_PFN_MIGRATE) {
--			dst[i] = cursor.start + (j &lt;&lt; PAGE_SHIFT);
--			migrate-&gt;dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
--			svm_migrate_get_vram_page(prange, migrate-&gt;dst[i], 0);
--			migrate-&gt;dst[i] = migrate_pfn(migrate-&gt;dst[i]);
-+		cur_dst_pfn = svm_migrate_addr_to_pfn(adev,
-+						      cursor.start + (m &lt;&lt; PAGE_SHIFT));
-+
-+		/* when migrate-&gt;src[i] has MIGRATE_PFN_COMPOUND set the src page
-+		 * is compound THP; its vm address is HPAGE_PMD_SIZE aligned and
-+		 * its MIGRATE_PFN_MIGRATE is set
-+		 */
-+		if ((m + HPAGE_PMD_NR) &lt;= (cursor.size &gt;&gt; PAGE_SHIFT) &amp;&amp;
-+		    (i + HPAGE_PMD_NR) &lt;= npages &amp;&amp;
-+		    (migrate-&gt;src[i] &amp; MIGRATE_PFN_COMPOUND) &amp;&amp;
-+		    IS_ALIGNED(cur_dst_pfn, HPAGE_PMD_NR)) {
-+
-</pre>
-    </blockquote>
-    <p>Unnecessary empty line.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">+			is_large = true;
-+			k = HPAGE_PMD_NR;</pre>
-    </blockquote>
-    <p>is_large is redundant. Just use (k &gt; 1).</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		} else
-+			 k = 1;</pre>
-    </blockquote>
-    <p>Bad indentation.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+
-+		/* for THP src[0] alwas MIGRATE_PFN_MIGRATE
-+		 * just the first migrate-&gt;dst need be setup, others are zero
-+		 */
-+		if (is_large) {
-+
-+			dst[i] = cursor.start + (m &lt;&lt; PAGE_SHIFT);
-+			svm_migrate_get_vram_page(prange, cur_dst_pfn,
-+						  HPAGE_PMD_ORDER);
-+
-+			migrate-&gt;dst[i] = migrate_pfn(cur_dst_pfn);
-+			migrate-&gt;dst[i] |= MIGRATE_PFN_COMPOUND;
-+
-+			for (l=1; l &lt; k; l++)
-+				migrate-&gt;dst[i+l] = 0;
-+
-+			mpages++;
-+
-+		} else if ((migrate-&gt;src[i] &amp; MIGRATE_PFN_MIGRATE)) {
-+			dst[i] = cursor.start + (m &lt;&lt; PAGE_SHIFT);
-+			svm_migrate_get_vram_page(prange, cur_dst_pfn, 0);
-+			migrate-&gt;dst[i] = migrate_pfn(cur_dst_pfn);
- 			mpages++;
- 		}
--		spage = migrate_pfn_to_page(migrate-&gt;src[i]);
--		if (spage &amp;&amp; !is_zone_device_page(spage)) {
--			src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
--					      DMA_BIDIRECTIONAL);
--			r = dma_mapping_error(dev, src[i]);
--			if (r) {
--				src[i] = 0;
--				dev_err(dev, &quot;%s: fail %d dma_map_page\n&quot;,
--					__func__, r);
--				goto out_free_vram_pages;
-+
-+		if (is_large) {
-+			if (j) {
-+				/* migrate previous accumulated pages */
-+				r = svm_migrate_copy_memory_gart(
-+						adev, src + i - j,
-+						dst + i - j, j,
-+						FROM_RAM_TO_VRAM,
-+						mfence);
-+
-+				if (r)
-+					goto out_free_vram_pages;
-+
-+				j = 0;
-+			}
-+
-+			/* for THP check if the first src page is valid
-+			 * if not valid skip following HPAGE_PMD_NR - 1 pages
-+			 */
-+			spage = migrate_pfn_to_page(migrate-&gt;src[i]);
-+			if (spage &amp;&amp; !is_zone_device_page(spage)) {
-+				/* dma_map continuous HPAGE_PMD_NR sys ram pages */
-+				src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE*HPAGE_PMD_NR,
-+						      DMA_BIDIRECTIONAL);
-+
-+				r = dma_mapping_error(dev, src[i]);
-+				if (r) {
-+					dev_err(dev, &quot;%s: fail %d dma_map_page\n&quot;,
-+							__func__, r);
-+					goto out_free_vram_pages;
-+				}
-+
-+				/* get dma address for following HPAGE_PMD_NR-1 pages
-+				 * since src pages are continuous their dma addresses
-+				 * are continuous too.
-+				 */
-+				for (l=1; l &lt; k; l++)
-+					src[i + l] = src[i] + l*PAGE_SIZE;
-+
-+				/* migrate the HPAGE_PMD_NR pages above */
-+				r = svm_migrate_copy_memory_gart(
-+						adev, src + i,
-+						dst + i, HPAGE_PMD_NR,
-+						FROM_RAM_TO_VRAM,
-+						mfence);
-+
-+				/* mark head page dma mapping as THP, tail pages dma addr
-+				 * are set to 0 for following dma_unmap
-+				 */
-+				src[i] |= SVM_RANGE_DMA_THP;
-+				for (l = 1; l &lt; k; l++)
-+					src[i + l] = 0;</pre>
-    </blockquote>
-    <p>I hope this doesn't break partial mapping or unmapping. We'd need
-      to be sure that code always aligns addresses to huge-page
-      boundaries and gets the whole huge page. A safer alternative would
-      be to use a different flag for the second and subsequent compound
-      pages. So you'd still have the DMA addresses, but you could ignore
-      them for DMA unmapping.</p>
-    <p><br>
-    </p>
-    <p></p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+
-+				if (r)
-+					goto out_free_vram_pages;
-+
-+				j = 0;
- 			}
- 		} else {
--			if (j) {
-+			/* single normal page case */
-+			spage = migrate_pfn_to_page(migrate-&gt;src[i]);
-+			if (spage &amp;&amp; !is_zone_device_page(spage)) {
-+				src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
-+						      DMA_BIDIRECTIONAL);
-+
-+				r = dma_mapping_error(dev, src[i]);
-+
-+				if (r) {
-+					dev_err(dev, &quot;%s: fail %d dma_map_page\n&quot;,
-+							__func__, r);
-+					goto out_free_vram_pages;
-+				}
-+				j += 1;
-+
-+			} else if (j) {
- 				r = svm_migrate_copy_memory_gart(
- 						adev, src + i - j,
- 						dst + i - j, j,
- 						FROM_RAM_TO_VRAM,
- 						mfence);
-+
- 				if (r)
- 					goto out_free_vram_pages;
--				amdgpu_res_next(&amp;cursor, (j + 1) &lt;&lt; PAGE_SHIFT);
-+
- 				j = 0;
--			} else {
--				amdgpu_res_next(&amp;cursor, PAGE_SIZE);
- 			}
--			continue;
- 		}
- 
--		pr_debug_ratelimited(&quot;dma mapping src to 0x%llx, pfn 0x%lx\n&quot;,
--				     src[i] &gt;&gt; PAGE_SHIFT, page_to_pfn(spage));
-+		pr_debug_ratelimited(&quot;dma mapping %lld pages, src to 0x%llx, pfn 0x%lx\n&quot;,
-+				     k, src[i] &gt;&gt; PAGE_SHIFT, migrate-&gt;src[i] &gt;&gt; MIGRATE_PFN_SHIFT);
-+		i += k;
-+		m += k;
-+
-+		if (m &gt;= (cursor.size &gt;&gt; PAGE_SHIFT)) {
-+			if (j &gt; 0) {
-+				r = svm_migrate_copy_memory_gart(adev, src + i - j,
-+								 dst + i - j, j,
-+								 FROM_RAM_TO_VRAM,
-+								 mfence);</pre>
-    </blockquote>
-    <p>Are you sure this is correct? The old code incremented i after
-      this copy was done. Your new code does it before. I think that
-      will mess up your address calculations.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+				if (r)
-+					goto out_free_vram_pages;
-+			}
-+
-+			amdgpu_res_next(&amp;cursor, m*PAGE_SIZE);
- 
--		/* accumulated j + 1 pages reach end of current drm_buddy_block */
--		if (j + 1 &gt;= (cursor.size &gt;&gt; PAGE_SHIFT)) {
--			r = svm_migrate_copy_memory_gart(adev, src + i - j,
--							 dst + i - j, j + 1,
--							 FROM_RAM_TO_VRAM,
--							 mfence);
--			if (r)
--				goto out_free_vram_pages;
--			amdgpu_res_next(&amp;cursor, (j + 1) * PAGE_SIZE);
- 			j = 0;
--		} else {
--			j++;
-+			m = 0;
- 		}
- 	}
- 
-@@ -410,17 +509,24 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
- 	struct kfd_process_device *pdd;
- 	struct dma_fence *mfence = NULL;
- 	struct migrate_vma migrate = { 0 };
-+	bool is_private_device = false;
- 	unsigned long cpages = 0;
- 	unsigned long mpages = 0;
- 	dma_addr_t *scratch;
- 	void *buf;
- 	int r = -ENOMEM;
- 
-+	is_private_device = svm_is_private_zone(adev);
-+
- 	memset(&amp;migrate, 0, sizeof(migrate));
- 	migrate.vma = vma;
- 	migrate.start = start;
- 	migrate.end = end;
- 	migrate.flags = MIGRATE_VMA_SELECT_SYSTEM;
-+
-+	if (is_private_device &amp;&amp; ((end - start) &gt;&gt; PAGE_SHIFT) &gt;= HPAGE_PMD_NR)
-+		migrate.flags = migrate.flags | MIGRATE_VMA_SELECT_COMPOUND;
-+</pre>
-    </blockquote>
-    <p>Why do you apply this only to device_private memory. This should
-      work just as well for device_coherent on MI200 A+A.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 	migrate.pgmap_owner = SVM_ADEV_PGMAP_OWNER(adev);
- 
- 	buf = kvcalloc(npages,
-@@ -609,6 +715,9 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 	u64 addr;
- 	int r = 0;
- 
-+	u64 l, k;
-+	bool is_large = false;
-+
- 	pr_debug(&quot;svms 0x%p [0x%lx 0x%lx]\n&quot;, prange-&gt;svms, prange-&gt;start,
- 		 prange-&gt;last);
- 
-@@ -616,8 +725,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 
- 	src = (u64 *)(scratch + npages);
- 	dst = scratch;
--
--	for (i = 0, j = 0; i &lt; npages; i++, addr += PAGE_SIZE) {
-+	for (i = 0, j = 0; i &lt; npages;) {</pre>
-    </blockquote>
-    <p>If you reset k = 1, you could keep the increment in the loop
-      header. Just update it to</p>
-    <pre>	for (i = 0, j = 0, k = 1; i &lt; npages; i += k, addr += k*PAGE_SIZE, k = 1)</pre>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 		struct page *spage;
- 
- 		spage = migrate_pfn_to_page(migrate-&gt;src[i]);
-@@ -633,6 +741,9 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 					goto out_oom;
- 				j = 0;
- 			}
-+
-+			addr += PAGE_SIZE;
-+			i++;
- 			continue;
- 		}
- 		src[i] = svm_migrate_addr(adev, spage);
-@@ -646,7 +757,22 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 			j = 0;
- 		}
- 
--		dpage = svm_migrate_get_sys_page(migrate-&gt;vma, addr, 0);
-+		if(IS_ALIGNED(page_to_pfn(spage), HPAGE_PMD_NR) &amp;&amp;</pre>
-    </blockquote>
-    <p>There should be a space after &quot;if&quot;. I see a few more coding style
-      issues below. Please run check_patch.pl to check for common coding
-      style issues.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		   (addr + HPAGE_PMD_SIZE) &lt;= migrate-&gt;end &amp;&amp;
-+		   IS_ALIGNED (addr, HPAGE_PMD_SIZE) &amp;&amp;
-+		   migrate-&gt;src[i] &amp; MIGRATE_PFN_COMPOUND) {
-+
-+			is_large = true;
-+			k = HPAGE_PMD_NR;</pre>
-    </blockquote>
-    <p>is_large is redundant. You could just use (k &gt; 1).</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+
-+			dpage = svm_migrate_get_sys_page(migrate-&gt;vma, addr,
-+							 HPAGE_PMD_ORDER);</pre>
-    </blockquote>
-    <p>Do we need a fallback to small pages if if huge-page allocation
-      fails?</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		} else {
-+			k = 1;
-+			is_large = false;
-+			dpage = svm_migrate_get_sys_page(migrate-&gt;vma, addr, 0);
-+		}
-+
- 		if (!dpage) {
- 			pr_debug(&quot;failed get page svms 0x%p [0x%lx 0x%lx]\n&quot;,
- 				 prange-&gt;svms, prange-&gt;start, prange-&gt;last);
-@@ -654,21 +780,59 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 			goto out_oom;
- 		}
- 
--		dst[i] = dma_map_page(dev, dpage, 0, PAGE_SIZE, DMA_BIDIRECTIONAL);
-+		dst[i] = dma_map_page(dev, dpage, 0, PAGE_SIZE*k, DMA_BIDIRECTIONAL);
- 		r = dma_mapping_error(dev, dst[i]);
- 		if (r) {
- 			dev_err(adev-&gt;dev, &quot;%s: fail %d dma_map_page\n&quot;, __func__, r);
--			dst[i] = 0;</pre>
-    </blockquote>
-    <p>Why did you remove this?</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 			goto out_oom;
- 		}
- 
--		pr_debug_ratelimited(&quot;dma mapping dst to 0x%llx, pfn 0x%lx\n&quot;,
--				     dst[i] &gt;&gt; PAGE_SHIFT, page_to_pfn(dpage));
--
- 		migrate-&gt;dst[i] = migrate_pfn(page_to_pfn(dpage));
-+		if (is_large)
-+			migrate-&gt;dst[i] |= MIGRATE_PFN_COMPOUND;</pre>
-    </blockquote>
-    <p>Looks like you can merge that into the next if-block just below.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 
--		dpage = NULL;
--		j++;
-+		if (is_large) {
-+			/* migrate previous accumulated pages */
-+			if(j) {
-+				r = svm_migrate_copy_memory_gart(adev, dst + i - j,
-+								 src + i - j, j, FROM_VRAM_TO_RAM, mfence);
-+				if (r)
-+					goto out_oom;
-+				j = 0;
-+			}
-+
-+			for (l = 1; l &lt; k; l++) {
-+
-+				src[i + l] = src[i] + l*PAGE_SIZE;
-+				dst[i + l] = dst[i] + l*PAGE_SIZE;
-+				migrate-&gt;dst[i + l] = 0;
-+			}
-+
-+			/* migrate the HPAGE_PMD_NR pages above */
-+			/* svm_migrate_copy_memory_gart will add a paramter to indicate
-+			 * the migration is for 2MB THP
-+			 */
-+			r = svm_migrate_copy_memory_gart(
-+						adev, dst + i,
-+						src + i, HPAGE_PMD_NR,
-+						FROM_VRAM_TO_RAM,
-+						mfence);
-+
-+			/* mark head page dma mapping as THP, tail pages dma addr
-+			 * are set to 0 for following dma_unmap
-+			 */
-+			dst[i] |= SVM_RANGE_DMA_THP;
-+			for (l = 1; l &lt; k; l++)
-+				dst[i + l] = 0;</pre>
-    </blockquote>
-    <p>I hope this doesn't break partial mapping or unmapping. We'd need
-      to be sure that code always aligns addresses to huge-page
-      boundaries and gets the whole huge page.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+
-+			if (r)
-+				goto out_oom;
-+
-+		} else
-+			j++;
-+
-+		addr += PAGE_SIZE*k;
-+		i += k;
- 	}
- 
- 	if (j &gt; 0)
-@@ -687,12 +851,9 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
- 		/* release previous allocated sys pages and unmap dma address */
- 		while (i--) {
- 
--			if (dst[i]) {
--				dma_unmap_page(dev, dst[i], PAGE_SIZE,
--					       DMA_BIDIRECTIONAL);
--				dst[i] = 0;
--			}
--
-+			/* follwing svm_range_dma_unmap_dev will do dma unmap anyway
-+			 * not need do dma unmap here
-+			 */
- 			dpage = migrate_pfn_to_page(migrate-&gt;dst[i]);
- 			if (!dpage)
- 				continue;
-@@ -733,6 +894,7 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
- 	unsigned long cpages = 0;
- 	unsigned long mpages = 0;
- 	struct amdgpu_device *adev = node-&gt;adev;
-+	bool is_private_device = false;
- 	struct kfd_process_device *pdd;
- 	struct dma_fence *mfence = NULL;
- 	struct migrate_vma migrate = { 0 };
-@@ -740,6 +902,8 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
- 	void *buf;
- 	int r = -ENOMEM;
- 
-+	is_private_device = svm_is_private_zone(adev);
-+
- 	memset(&amp;migrate, 0, sizeof(migrate));
- 	migrate.vma = vma;
- 	migrate.start = start;
-@@ -750,6 +914,9 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
- 	else
- 		migrate.flags = MIGRATE_VMA_SELECT_DEVICE_PRIVATE;
- 
-+	if (is_private_device &amp;&amp; ((end - start) &gt;&gt; PAGE_SHIFT) &gt;= HPAGE_PMD_NR)
-+		migrate.flags = migrate.flags | MIGRATE_VMA_SELECT_COMPOUND;</pre>
-    </blockquote>
-    <p>Why do you apply this only to device_private memory. This should
-      work just as well for device_coherent on MI200 A+A.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+
- 	buf = kvcalloc(npages,
- 		       2 * sizeof(*migrate.src) + sizeof(u64) + sizeof(dma_addr_t),
- 		       GFP_KERNEL);
-@@ -1132,7 +1299,7 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
- 
- 	amdgpu_amdkfd_reserve_system_mem(SVM_HMM_PAGE_STRUCT_SIZE(size));
- 
--	pr_info(&quot;HMM registered %ldMB device memory\n&quot;, size &gt;&gt; 20);
-+	pr_info(&quot;---XCHEN 3.2 HMM registered %ldMB device memory\n&quot;, size &gt;&gt; 20);</pre>
-    </blockquote>
-    <p>This looks like it's not meant to be submitted.</p>
-    <p>Regards,<br>
-      &nbsp; Felix</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260904195421.42919-4-xiaogang.chen@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 
- 	return 0;
- }
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------owsYB0N6I6QvU6qt0drthlvm--
+>
+>
+>>       bp.bo_ptr_size = sizeof(struct svm_range_bo);
+>>       bp.destroy = svm_range_bo_destroy;
+>> -    bp.byte_align = PAGE_SIZE;
+>> +    bp.byte_align = HPAGE_PMD_SIZE;
+>
+> Same as above. There is no need to align smaller allocations.
+>
+> Regards,
+>   Felix
+>
+>
+>>       bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
+>>       bp.flags = AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
+>>       bp.flags |= clear ? AMDGPU_GEM_CREATE_VRAM_CLEARED : 0;
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+>> index c7d7adae4476..f2b3a05cd8cf 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+>> @@ -35,6 +35,7 @@
+>>   #include "kfd_priv.h"
+>>     #define SVM_RANGE_VRAM_DOMAIN (1UL << 0)
+>> +#define SVM_RANGE_DMA_THP (1UL << 1)
+>>   #define SVM_ADEV_PGMAP_OWNER(adev)\
+>>               ((adev)->hive ? (void *)(adev)->hive : (void *)(adev))
