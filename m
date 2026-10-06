@@ -4,125 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9B5ACA5FF0
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 13:26:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A01BCA5FF0
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 13:34:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D2CC10E1FD;
-	Tue,  6 Oct 2026 13:26:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1C7B10E2D9;
+	Tue,  6 Oct 2026 13:34:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x7/fOw9Y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ur2scY4r";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013036.outbound.protection.outlook.com
- [40.93.201.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 917FA10E1FD
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 13:26:22 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012021.outbound.protection.outlook.com [52.101.53.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8EEA10E2D9
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 13:34:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dMtlHTxrdKxHzd+Yo07eBKEigtbbu0bnb6KXSXbSx9x9IaVYVHlHqoeNccSpR4moy6uBTFH8fDc6XmaQoVHrHIyXUBOlmzY3BRGG2/rsZiwRkadv7caR9DtAnDIFqlcZuADISF+SxoCE5ECAJt+9fCdE4a3bZJccTbyUMmzIu4IW2tTo5irWe8ghFGKYptEsXg8YF8sieVjE34zxYKiDDyHk5+Gq/4DKGGlhbEv0Rt+Ns14ITYARBUTf1Xfg+KVkvuf/h5Y/CHUU1D2zQfPmLAWfRtVJcimw/t/UhtYHu+jQtLUHVaT0gGovF5NiZrrGp31nJhABXjBm0tTUqfKCGw==
+ b=NpR9HlmNEXNOeo+S8WJr7fVS57nHWIupQG0H//GgOfmxkJcjJ8OL/GoH0yEc6EiKicLm3lLBX2JzgpQVtOHo7oaW1blYqnz90VYjRdGg/AGBrlzMHUOna7Uk6aFPrpXaQShFbxSMt/hd1fREe78aU9I8ZqKX/r1B0Mcb4rM2oD0gG21zQBxi2Icz7DMnID3cqBpnMwpXIp6+pHJdmULJr/Y8IKYrBo/PjG6OIihtj/cdkfWMfX36NXQyHdK/BOCczl2SG55HY5uYeodoqmnu8dV4tw33qZhL+LJ1wqDQ0jB3Qka3GCz7jlz7Qxn1W4CFcxX3F07Du+UxTYXzFn6Fng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kqR2JItCENcOqBbOlH4LFDnhPO2eZreGssc0bZ6pj6c=;
- b=WxtJise7gCn2pkwHeEFT/2HdRBGF071GlWBfpAYzYBx/id0rW25PUDzTPgF5vryIpicvkcDBFc/DekuEKTnUh4ajxiBqFroXvwV5G7Dr2cY7ZQLs6kndTj+dIm2Z88gkAaYhY+ULh5M89/A2POgoamom+x6Pc92EqnXckthoeNzJiTi6AzbZc4/Y+1xpDaXBijQ8DCcPfYzAvEjFSqpFvqS3VH/kj4Le2VCAW1ZXkKCMmKujDTKSM3RkK2STi1ftnsCYKTYh4LCIx2InMjvXilaEVDpkB82Vukq3DLeRPcs8mW8kI8cMkIGn8uJDWXq5HXV8rYc+DKgRDeWiDAeHCQ==
+ bh=DWwyzabqk4qho6R/DTkEDXSHIAcI2m+VslR4pFGax9Q=;
+ b=xBD7G9RmRz7HJ6R6PAMz0K7HfT4C/wy9DQ8HLzPibUFlFwxQBD8TDaZclsKa9gTOgJCvfeivWrb1lSDsXd5MHYAb1gRrwdkEszv1ijH7RNUL3FNYk3rQnsjBl89ajvpAscPCIbb+kgAjstZ2lG7KW5Iry3QODK5ne/LkPT0ZuzAT3j3LpuEIT70hNkMkdqSqbHi7rRgqqkSdZVks70eu4tghJIyy0VAoF0aYaZprrZuLrWSM2QLAfcxtVi0MabIbYCslvEtjofOlHEOUpM1WOS1bE1N07+E/NTVzQ0pIwTPoUeiZ78N9xiAF5QHUIuV0joaq1HCprlNGS4h0+cIFHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kqR2JItCENcOqBbOlH4LFDnhPO2eZreGssc0bZ6pj6c=;
- b=x7/fOw9Y/vhPWEx/1cnoNY6wuWbv9RL63iOGxYjF6ZcC2vqUkbyIEbQ6Rr1yHzhmSfiqLco0tbmhb7RBgLB6mWm+qS4bvZ7aTmZcqIyg6tqXaVvQWl19QXDd5sGuwz0+oNiLytfiVQPIQ64vC3Lv/SbE4/alkpewEhrOjrqBZfM=
+ bh=DWwyzabqk4qho6R/DTkEDXSHIAcI2m+VslR4pFGax9Q=;
+ b=Ur2scY4rtsDN6L7iAoGmvqIlHjW58rbxKACEjQU6IODsIjuUiQC0rFTbMOY0kaNVmwmMniw9deNS2gowYmnv398HlXQ3zbjqESvCda0My+TLjuTa9Ns+Ada7Af+H71PSWQsrhm5HP3Q6Gok8uigC6A4nrkwWjhHcXtdST3gsBWo=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM4PR12MB5167.namprd12.prod.outlook.com (2603:10b6:5:396::10)
- by DS6PR12MB765562.namprd12.prod.outlook.com (2603:10b6:8:4c5::15) with
+ by SN7PR12MB7024.namprd12.prod.outlook.com (2603:10b6:806:26e::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Tue, 6 Oct
- 2026 13:26:19 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 13:34:33 +0000
 Received: from DM4PR12MB5167.namprd12.prod.outlook.com
  ([fe80::4588:54c1:bc29:2c7c]) by DM4PR12MB5167.namprd12.prod.outlook.com
  ([fe80::4588:54c1:bc29:2c7c%3]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
- 13:26:18 +0000
+ 13:34:33 +0000
 Content-Type: multipart/alternative;
- boundary="------------h5kWE05ikbrQuonHUP4U92PT"
-Message-ID: <b6f6c61a-799b-4e70-a10c-b6c481cbf7e7@amd.com>
-Date: Tue, 6 Oct 2026 09:26:12 -0400
+ boundary="------------iZ6jtybFh5nRfZ1R6vT00RMP"
+Message-ID: <cdc09891-d062-4956-bfdd-c98ef0983015@amd.com>
+Date: Tue, 6 Oct 2026 09:34:30 -0400
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] drm/amdkfd: Fix svm_bo use after free in
  svm_range_clone
-To: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
- <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
- Harish.Kasiviswanathan@amd.com, Mukul.Joshi@amd.com
+To: "Chen, Xiaogang" <xiaogang.chen@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com, Mukul.Joshi@amd.com
 References: <20261005203247.1363226-1-Philip.Yang@amd.com>
- <16bb0bc3-b714-4192-ae6c-c20912328600@amd.com>
+ <c98c7828-738e-460a-8fed-9ccf4b591240@amd.com>
 Content-Language: en-US
 From: Philip Yang <yangp@amd.com>
-In-Reply-To: <16bb0bc3-b714-4192-ae6c-c20912328600@amd.com>
-X-ClientProxiedBy: YT4PR01CA0371.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:fd::20) To DM4PR12MB5167.namprd12.prod.outlook.com
+In-Reply-To: <c98c7828-738e-460a-8fed-9ccf4b591240@amd.com>
+X-ClientProxiedBy: YQZPR01CA0013.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::12) To DM4PR12MB5167.namprd12.prod.outlook.com
  (2603:10b6:5:396::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5167:EE_|DS6PR12MB765562:EE_
-X-MS-Office365-Filtering-Correlation-Id: e156d686-9668-4dce-c413-08df23ad64a4
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5167:EE_|SN7PR12MB7024:EE_
+X-MS-Office365-Filtering-Correlation-Id: a451a547-de9a-4357-7fc6-08df23ae8e8f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|8096899003;
-X-Microsoft-Antispam-Message-Info: 3IRXH3TP5dPD8W0EiD7FL+oQb++8H11EnTiWs3YOCqjbn8KO3h0Aa3HhQqrK17+tCu9Z8CUjHrmDc57dM6/ZKNwEeqoq/fIIWI83dgJncdamjwO/EgN7F0rIlcqbxeNu4KZSFdI4RwyOco3gcidezhFXMzJb1Sl8Lex54R78dfYCynUXyNUJ6KlyZr7TJPcdNkxOyt0t5S0GEciGxGwZxhuAFaXol8E2RMgW//8dGn9UyULEKIlvWVYz3gwefpnvU1aJfaMfMHw9Cm+3NoGewLtOOAMyoigFQF3Ywe9FYZnyVptmukpsrJOrgwSCEJFihz8hhSJCw2ERpLXC7LMp9D8M/rsyvvhu7+Utk3pVXayzYHrqCYpn6uG11N5BCLU0pJMcvR33z/XDtcYcyX/31ovalBJuzjZpuXcgZdferT/XL00FCAPK0Wpar+XauKAh/Umn3gLIVeaad7uuXYfChxZFwMhQLscmmiEjr6u8ES/JuVgrpVgF0ta5RwaxiGhE39UVub8P1PVV6C1feChUd+ho0ssUMcysZP8XaA2x1Rq8TFlGTVfCOGvgbOvoLyAAw/0Fz0sBo/CBRrTXoSqXYlzo8zv4+ZiGebqZsIJAq25abtQqxzMSHzYZ9wgU771xIMm9n3Ez+CiRhAk9/KCzDf+h3heNTWM7MPe/mGd111k=
+ ARA:13230040|376014|23010399003|366016|1800799024|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003|8096899003;
+X-Microsoft-Antispam-Message-Info: ai4lOJGtayJbPPSUBqXaOYKAx3vuAWJMnSXedTc4pSW67rF+RX8XarZ1pzFq5gO0/d+bBrDE8VdtncJ1sMid60EQms5pXpBrYfC4nx9rc0p4FwPhIsxOY6pKbtP0HvpM/rEy3xQ8umyWJmekTQ4Z1e5oMHQmlqdAR8hzfu/YpyW2Kl5gaYYakZHZLT4/tpYtQpICGJ7Rz1U08UxPyNLjmBFW5aDuAGB6j1eQpLgksTK8/Tb2Jke/++URQ9K+H3rrCHaa31ysvmlWwqueHdNCuAuG7KqJ5bnEIjI4iqv41fX7da2R6h/8QH2ioqvvIReQN6owigrbEk2wD6AuiSm0XAcAclI4vLh9+M4gV7aOHj1cxYrLPnknMF0AImxrNwKNaEM0P9D4bq0OdvrauhBnVejpL0Zsd2/XWwVhIp02Dgy/Mqonv/dHHg1MBBQxCGe3VKRZMkukA5fiCys5b/Z00A4rVB8NhwPwwPiKlbaVojlTCGsirbTpkKNwjGX9tXiXIWwYLjycOb0rb0WylkCeQCE5CqwjWQ52LfFRt3RVfZ9+NEXZg+zBErIS5ObSuBccVt4+CHa3bA0QfuIBONhS4sIGHveYBwqfqwq38qchzIzIAyq5WH62IedvkD1NRZYrCig9NqAE8aMs0HYuAkCUqrCxKA/BCclvktCgI2LplDc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5167.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(8096899003);
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(8096899003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UXVZY0dFc0tIYlptMktHM3M0RzBKbjZ0SmFIMVEvQ3pKS3JYQ3FyaVVVRXVT?=
- =?utf-8?B?eXB4dUxnMDVTM0FVeXJvQXBtWGZobzhRRjB5ZHdkSlA1bDBRMEw1K1hLdGlP?=
- =?utf-8?B?UHVqMFBLbnFTM1NQZ01ZRGcvT1Jaak5wa2I5T1VvN3pGcUJZVFRBN2NsSFZ6?=
- =?utf-8?B?SUJUWTVBTkZkRkF2aHVKRzl5dVgwUFEzS0JXakwxaVFnYWZHRzdVUUs4ZEt0?=
- =?utf-8?B?UmE5eFcxV3l6eEhhSWt4T3F2cHFHcFBmRjVNaWlmMTBCYlpka0J1Ri9PQmJa?=
- =?utf-8?B?L2YweGJtczgvWTM4a2NMYXAxTnBTNVpSWFpxZTlHbmZ2dmNiamt2NVVCQ0F5?=
- =?utf-8?B?VlZOOFVqZ0ZQMDg2d0J3WHp3amsvZ0ZyRFYxeVBJY0dMUW41U2FsZDhsenhH?=
- =?utf-8?B?c1RiS0FCTHFKMlc0V1BLNDlTTlpGNGxuQ0c2eXNTRnRSQWhpQnBGY3BZL1lx?=
- =?utf-8?B?Sm9SYnNKT0wyZjQybXVnYm1QM2dwdDkzNHJLK0xYcFh4RXZzMUVoNExrcllD?=
- =?utf-8?B?RXFqKzJ3bm5LM2swSS9RV3BzSVdOWXNaT2ZyODRuR1lPOTVNN01tZ2JjMU95?=
- =?utf-8?B?SGEvbElkeFJCVklxb2JhUXd6dDZwL2NVbjcxRFZzOW10Q3loeWF4Q1BmbUFj?=
- =?utf-8?B?OFU2RlFISDdBRUpGUTVmL3IyNUkvUFhLRG5DU21vMUVIZGFHQ0NpU0RES2gy?=
- =?utf-8?B?WXA5M2dmLzk1NmdVOU1kTlYxR1dWTXhVaUkwVy9jclZSNkkza29xcDcvMVl5?=
- =?utf-8?B?SVZtbEl0dVM5Q0NsSkk1SFNIQ3VKUnlBeGsyOEhhWlk3R3pUUWFsUGYrbjV0?=
- =?utf-8?B?R2hiQWNmYzcvekVscFNaRXBVQXVTMzlVVjJ6Z2xjSTR0elAzWjZkUUhCK3R3?=
- =?utf-8?B?dmdmVXdiZVZ6YXJZenhqZi9EdnBCR2Rtalg5eVplNERQOGkxclFYTmZmM1Ex?=
- =?utf-8?B?bFF5ZnJoUlArZk1GZEpFRllJWmdEY2lETjJwSElRaHhhenJXSGdNMmE3ZmRY?=
- =?utf-8?B?aXZKbGpwakpnWVVJR3h0QWVJdUxIMms1VlpOaUd0eThtRHh0VXF2bzNsMGta?=
- =?utf-8?B?Z0c5MC9ybDNuUXAxd0Ezc01RWERSYUNRTlljMlplbU9Ia0l2VjNVNm5jNUNx?=
- =?utf-8?B?ZEFnQ1I1WXJIL1dFYWl1Rzl2aG1ubVkxTk0zSVM2eEZZSVphcVgzdnp2eWZu?=
- =?utf-8?B?TFlWQjBrMmY1ME9weHREWitkb2RQSkZoUDN5bE9DQ2JWWkYxelQ2STNzbzBW?=
- =?utf-8?B?UmpvYVBpWVF5NE1PcWhDQ3pWdGtINHRIZ2UrVXNTVlJldGoxNXRsMXhrQ3VQ?=
- =?utf-8?B?clo5M01lYUtNTUs5c3V1V0R2QU5IU2crMHlUTDhqVm53Y01HS0RCUDNkRVcx?=
- =?utf-8?B?bnpzVndTWEFwR2JXdkhTdzZEcUsrRWN4L0o0SjZMc2xFekJRQmlRd1ZCOFht?=
- =?utf-8?B?TE9HcExBMXJaNDZxSVIvQkJSSUhiMWFrQlRwUFFVd2dibS81QmxWb0hTTFVk?=
- =?utf-8?B?dmU0RjduVFpCVy9sQmxpZUlpRmtwZm4zaTlFWlRwbWFkRDBrazFIVTlMUXd5?=
- =?utf-8?B?T1hDYjhjQjE3ODArUzVsNmY3WFJ0N3YvSFFSajBYRGNJeXlQWVVkMlI0VXNu?=
- =?utf-8?B?OE1wYk1UbEgrRm4wdkpINHhxdVBReCtya2U2dlp4ZWRNb2MreTA0b1UrSlFE?=
- =?utf-8?B?QnBLVkpNR1pFT1hXd29xT0c0L09weUpnSnBqb3ZSL0doREJXK1FlUDlzYTY2?=
- =?utf-8?B?M1llWnc0VWtyZmxoS1RPaEt6eVlQQzByNFhJQzRidkVXYlZOTGJaZXNWSFYx?=
- =?utf-8?B?TmxUWkpXUUZkTG9TbG5LVFFLY2VFRlpiaUNFV3VlRTN0RXV4VlZwWmg3U1Rk?=
- =?utf-8?B?TEJSdCt1Ukg2SnJ3ZDNWOTdFOTgzaTFYTzRxdW1qb1M0Ty9tN1dINnRsbW1Q?=
- =?utf-8?B?TEdzazB4b05vRHVBNG1heVpUQWk3M2RDM2hHOGo5UTFZRnowNmZSL0IxL1dT?=
- =?utf-8?B?ZzA4cDF4dTFHVFdYZFFEdy90UDUyVyswRlpDY3YyTE5aSlV4cVhaV3dYdzVh?=
- =?utf-8?B?S1prL3dhWHZFV3pXRm9EeHdHdnBiZUhBQkhWMy9HbzJhbjRBME0wRjl4bC9x?=
- =?utf-8?B?VGdHOFVENkNJU1pmTkZPWjNreXNEcHhZWm1XcDNsUlFpTzl5T0ZBbGs4TVp1?=
- =?utf-8?B?TlNJL0NydlpYTktycGVDZjEzdWx2NUFEaFJnV05MUmpGQTBjYWlTVmJtYUdv?=
- =?utf-8?B?SkkyZDZmejQ0ZTkvcENyZUNDckMxZ1QzK2RJdUw5RFU4RHUzYXFuZ2JSYnlF?=
- =?utf-8?Q?LylZkg6mM6GUgSdltm?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1lWMUNZeDZjQnNYRWc4cmtSc0ZOblpJNzh6NzFMYUJiVzd3SG5DdlJLZktF?=
+ =?utf-8?B?dnV6Z2RFYkM5a2MybzAwbFpUcUx0d0VYYkJaazFyZllScGJWeWI5N3A0eVFS?=
+ =?utf-8?B?aXlaVHlORlV5UFg0SFJLKzJKK0pxMk1JQ29hQ2M5bTRQRlIzMncxM2t4dW00?=
+ =?utf-8?B?RjA1Rmt2eXdyazhpeTg2ZlNFZ0YvSlVEOFZZTjNZTTdWZDhIS2hKdFhGb1Iz?=
+ =?utf-8?B?MUFVZkhMYUxLZktQNGJFN1MyOVY4WUdJNWRwdWxOL2tBSnBMNlZFZzBYUDg5?=
+ =?utf-8?B?TE5aa2orQmdmdDZnUFE0ZHlZVkhCaWNkTG5MVEppbGhjUHJ2MzQ5MHFHNUpj?=
+ =?utf-8?B?ZzE5UDM5d2U3YTl4WWtDaVlUcTRqWDc5aWgvbFJJQll1N05KMUNDa3VWOWJV?=
+ =?utf-8?B?RkVJbDNwYzFlVHFaNUtaWFd3bHFvYVhKOHY3aW1yU0JLaVZMbkxOQ2RUb3U2?=
+ =?utf-8?B?NElzRlRyeERmbVBCcUQ3VkhpTGtnd0xKSXNSZDIvb1VsT2lPSnBWTlM0NDNJ?=
+ =?utf-8?B?dUxybDZTVko1NWR0SVZBNC9IZHhsMnZWaEJQT094N3BOMXZPYW1qQytlVW96?=
+ =?utf-8?B?ZnFrV3cvbDd4WTE3QXNZZElQczFqa1ZqOUR0THY1SHN3eU5Sa0RrcGpTSUs2?=
+ =?utf-8?B?T1BWUmhtTTZIc0RSRDdQeERWMGI2ZGE5eGU5M1g2NkcyMEZwUmFlMnI5cElX?=
+ =?utf-8?B?ajlYSmg5OVlydkYvOTM3dEpIeG9FU01oaS9WSFd1ZzFJeEhSTkdpdWUrQ2Ri?=
+ =?utf-8?B?NGEvQ09Ea1EwSXpUTDBWandJOWN6MVIzbVF3cE95Qkg1RGlLdER5UW9LaUdn?=
+ =?utf-8?B?bjRuSWRLRzNqeUdRd3NhZVk5bHdnMURkWmNtQW5qOWFCTzB0aUtaV3VWUERa?=
+ =?utf-8?B?MXkxa0hEekFQRkNJVTRyb2NEcUNrM2Q1Q0JvdFQxMHRpeFNmQUo5a1NiNjFM?=
+ =?utf-8?B?ZHRhcVVCWVVqRUl0ZkN3Y0krS1VaZ1FvRVI3ek5yckVRbHZMSFl6VmxYSDVy?=
+ =?utf-8?B?ajF5WExZRWcwZkdBM09JRXNDN0F1dkZVaFNKbGNBZ2haeVU4bEZ2VG9XZE5B?=
+ =?utf-8?B?VTlzZ0kyU1lBMmFHTjI4aUJyZUIrcG9sVGxySlVqYmRDQmk1WGFhSVk5VW4r?=
+ =?utf-8?B?dnFmMS9tdCtmbzdTQTFkN25leVo4OUNvV0k2SEhYenl0SlhYdXVlcmt4YzBl?=
+ =?utf-8?B?MTRrUVBESGI0TTJRYVZrOWdjNFNTRDZqczBBV3NWSmdiR2g5cmdNVjR3cTR3?=
+ =?utf-8?B?UTJxeDgzZjlqTnYzTGlscW91U1FvcDJRcURja3g4SDEwYkhZNVo5WXRxOFov?=
+ =?utf-8?B?V0srbjZnWDhCcFVweXZqMEczNVFVU29FRXpFWTBIcE5mT1lUMU5MbVBZS0to?=
+ =?utf-8?B?aklTSG9KRkF0SWM0eENlNXU3ekhFOG82dlgzUFBVTkZUZXJUREUxYjQ5ODhv?=
+ =?utf-8?B?Wjg1MS9mTkpLdC83Mk5TWjUvTXdIOW9DMStzcnBFZGNMSkd3SVFnaHRjUWdN?=
+ =?utf-8?B?YkJzTUhNZm5FQVNpelFiSVdoSndTbHZVd0VSNE1aM0c5WTNKY21kT2xqVnh0?=
+ =?utf-8?B?VWFsRndXV0FLeGsxUDl5dHJFVDFFNUltVzVjUUhNSzBnMDNQcDQrZGxJcXBw?=
+ =?utf-8?B?by9SdFd2S3B6dUFCaDRQZjBnQ2txUm1FWGY5ZUZERGUvRnFlVHhtRGkxQlg1?=
+ =?utf-8?B?ekx2Wk9TWXdHSm96VlQ1emtxMktEWmlaMVNRSEtXbTB5ZGdJeTVaejZnOTVK?=
+ =?utf-8?B?c1JoL3FsL3Zjb3VTd3l0SXl4bTNPaGc1NmxOK0RYcWd0TWVzMU5IKzR4azNQ?=
+ =?utf-8?B?dDZHVzhZV1R0Y3lKOFF3ZHU0MlQ4VUVraWV1Vkg3c3d3SXZiMHg4Wm5NWWEv?=
+ =?utf-8?B?ZDk0S29VaXBnZWh3bHd6TERIZCtYNGJMTW5lZEZmc1d4K050dElaaFdMZUhr?=
+ =?utf-8?B?bmsveW9tQnJSc2xRSy8rTGNidUhBWEh0YUF0UGJPYUVzR2FXTWN1Y1pKM1Rs?=
+ =?utf-8?B?aGI1NkFoK1NTMjV5M0NPQVlpN2xTbzdxU3ZqWmhnaHdoSFU4ZjcvM1dvblZK?=
+ =?utf-8?B?OEhoK2lLV25TVFRtY0JjM1lPMDIzWkF0ZWE2VjAydWxxdG1qaEVzRGRpeDRq?=
+ =?utf-8?B?L05rUENLcmgzYytNTkxDOHlvV05ENHYxMnVEWlVQdGVmTTV6TnJnazQ4cDBY?=
+ =?utf-8?B?QmNWbHZEMW1zUDQwRjV2NjJlMi9QS2VHM2Q4V2V2akxpRmMzc0U3TU1PQmV6?=
+ =?utf-8?B?c2MvNzJURWx3YTFvcW9vdSt1Z0JSY2VjK1hJbGRMVVhqSTBLRXo3c2REMngy?=
+ =?utf-8?Q?ETsEUtaj93fXrlreYU?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e156d686-9668-4dce-c413-08df23ad64a4
+X-MS-Exchange-CrossTenant-Network-Message-Id: a451a547-de9a-4357-7fc6-08df23ae8e8f
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5167.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 13:26:18.8448 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 13:34:33.4699 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5Wk32hpRmdbf5mDsFbAkRKHXgnG6ddNhXMHDXhbU4todIODGCPq8lEn4O69UrA+A
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB765562
+X-MS-Exchange-CrossTenant-UserPrincipalName: Gqed0dKBP5mPILilqBgGiQOSBlZu4jEHJIGbk8bOggLegwWZ/atrjPxo3CLjCXGk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7024
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,14 +136,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------h5kWE05ikbrQuonHUP4U92PT
+--------------iZ6jtybFh5nRfZ1R6vT00RMP
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
 
-On 2026-10-05 16:57, Felix Kuehling wrote:
-> On 2026-10-05 16:32, Philip Yang wrote:
+On 2026-10-05 17:05, Chen, Xiaogang wrote:
+>
+> On 10/5/2026 3:32 PM, Philip Yang wrote:
 >> prange->svm_bo stays set after the range drops its reference in
 >> svm_range_vram_node_free(), it is only cleared later by
 >> svm_range_bo_release(). Taking a new reference based on old->svm_bo can
@@ -160,10 +160,6 @@ On 2026-10-05 16:57, Felix Kuehling wrote:
 >>
 >> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 >> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
->
-> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
->
->
 >> ---
 >>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++++--
 >>   1 file changed, 7 insertions(+), 2 deletions(-)
@@ -181,6 +177,25 @@ On 2026-10-05 16:57, Felix Kuehling wrote:
 >> -    if (old->svm_bo) {
 >> +
 >> +    /* old->lock keeps old->svm_bo alive while taking the reference */
+>
+> How old->lock can keep old->svm_bo alive? This lock protects old 
+> prange's data from accessing.
+prange->svm_bo and prange->ttm_res set to NULL under prange lock when 
+svm_bo is released.
+
+So holding old->lock while taking the reference guarantees we read 
+either a valid svm_bo pointer
+or NULL; the structure cannot be freed between reading the pointer and 
+kref_get_unless_zero().
+The lock protects the svm_bo pointer, not the svm_bo lifetime itself.
+
+Regards,
+Philip
+>
+> Regards
+>
+> Xiaogang
+>
 >> +    mutex_lock(&old->lock);
 >> +    if (svm_bo_ref_unless_zero(old->svm_bo)) {
 >>           new->ttm_res = old->ttm_res;
@@ -193,23 +208,11 @@ On 2026-10-05 16:57, Felix Kuehling wrote:
 >>       }
 >> +    mutex_unlock(&old->lock);
 >> +
-prange only holds svm_bo reference while ttm_res is set, refer to 
-svm_range_vram_node_free,
-prange can have svm_bo, without reference count, with ttm_res NULL.
-
-For this case, new prange should drop the svm_bo reference, will add 
-this in v3 patch
-
-+if (new->svm_bo && !new->ttm_res)
-+               svm_range_bo_unref(new->svm_bo);
-
-Regards,
-Philip
->>       new->flags = old->flags;
+>>       new->flags = old->flags;
 >>       new->preferred_loc = old->preferred_loc;
 >>       new->prefetch_loc = old->prefetch_loc;
 
---------------h5kWE05ikbrQuonHUP4U92PT
+--------------iZ6jtybFh5nRfZ1R6vT00RMP
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -219,11 +222,12 @@ Content-Transfer-Encoding: 8bit
   <body text="#000000" bgcolor="#FFFFFF">
     <br>
     <br>
-    <div class="moz-cite-prefix">On 2026-10-05 16:57, Felix Kuehling
+    <div class="moz-cite-prefix">On 2026-10-05 17:05, Chen, Xiaogang
       wrote:<br>
     </div>
-    <blockquote type="cite" cite="mid:16bb0bc3-b714-4192-ae6c-c20912328600@amd.com">On
-      2026-10-05 16:32, Philip Yang wrote:
+    <blockquote type="cite" cite="mid:c98c7828-738e-460a-8fed-9ccf4b591240@amd.com">
+      <br>
+      On 10/5/2026 3:32 PM, Philip Yang wrote:
       <br>
       <blockquote type="cite">prange-&gt;svm_bo stays set after the
         range drops its reference in
@@ -256,13 +260,7 @@ Content-Transfer-Encoding: 8bit
         <br>
         Signed-off-by: Mukul Joshi <a class="moz-txt-link-rfc2396E" href="mailto:mukul.joshi@amd.com">&lt;mukul.joshi@amd.com&gt;</a>
         <br>
-      </blockquote>
-      <br>
-      Reviewed-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
-      <br>
-      <br>
-      <br>
-      <blockquote type="cite">---
+        ---
         <br>
         &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++++--
         <br>
@@ -294,7 +292,31 @@ Content-Transfer-Encoding: 8bit
         +&nbsp;&nbsp;&nbsp; /* old-&gt;lock keeps old-&gt;svm_bo alive while taking the
         reference */
         <br>
-        +&nbsp;&nbsp;&nbsp; mutex_lock(&amp;old-&gt;lock);
+      </blockquote>
+      <br>
+      How old-&gt;lock can keep old-&gt;svm_bo alive? This lock protects
+      old prange's data from accessing.&nbsp;<br>
+    </blockquote>
+    prange-&gt;svm_bo and prange-&gt;ttm_res set to NULL under prange
+    lock when svm_bo is released.<br>
+    <br>
+    So holding old-&gt;lock while taking the reference guarantees we
+    read either a valid svm_bo pointer<br>
+    or NULL; the structure cannot be freed between reading the pointer
+    and kref_get_unless_zero().<br>
+    The lock protects the svm_bo pointer, not the svm_bo lifetime
+    itself.<br>
+    <br>
+    Regards,<br>
+    Philip
+    <blockquote type="cite" cite="mid:c98c7828-738e-460a-8fed-9ccf4b591240@amd.com"><br>
+      Regards
+      <br>
+      <br>
+      Xiaogang
+      <br>
+      <br>
+      <blockquote type="cite">+&nbsp;&nbsp;&nbsp; mutex_lock(&amp;old-&gt;lock);
         <br>
         +&nbsp;&nbsp;&nbsp; if (svm_bo_ref_unless_zero(old-&gt;svm_bo)) {
         <br>
@@ -317,25 +339,9 @@ Content-Transfer-Encoding: 8bit
         <br>
         +&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;old-&gt;lock);
         <br>
-        +&nbsp;<br>
-      </blockquote>
-    </blockquote>
-    <span data-teams="true">prange only holds svm_bo reference while
-      ttm_res is set, refer to svm_range_vram_node_free,<br>
-      prange can have svm_bo, without reference count, with ttm_res
-      NULL.<br>
-      <br>
-      For this case, new prange should drop the svm_bo reference, will
-      add this in v3 patch<br>
-      <br>
-    </span><span data-teams="true">+if (new-&gt;svm_bo &amp;&amp;
-      !new-&gt;ttm_res)<br>
-      +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_bo_unref(new-&gt;svm_bo);<br>
-      <br>
-      Regards,<br>
-      Philip</span>
-    <blockquote type="cite" cite="mid:16bb0bc3-b714-4192-ae6c-c20912328600@amd.com">
-      <blockquote type="cite">&nbsp; &nbsp; &nbsp; new-&gt;flags = old-&gt;flags;
+        +
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new-&gt;flags = old-&gt;flags;
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new-&gt;preferred_loc = old-&gt;preferred_loc;
         <br>
@@ -347,4 +353,4 @@ Content-Transfer-Encoding: 8bit
   </body>
 </html>
 
---------------h5kWE05ikbrQuonHUP4U92PT--
+--------------iZ6jtybFh5nRfZ1R6vT00RMP--
