@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9EAACA5FFC
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 17:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAFF8CA6002
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 17:04:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CAD910E5B6;
-	Wed,  7 Oct 2026 17:04:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E7EC10E63C;
+	Wed,  7 Oct 2026 17:04:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gFwbDY7Z";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZY34rkKg";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010026.outbound.protection.outlook.com
- [40.93.198.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 246BF10E5B6
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 17:04:22 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013041.outbound.protection.outlook.com
+ [40.93.196.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F17DA10E61C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 17:04:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BvtbJfrYkf98fKav3h6gx3ITV9IzhFQCAZvvg7RvGRJKSCIthLj+iYrUZkrBlN0girxSggPj1t0GrR2yt1XqQ6Cz10r/wLXigN3kYX+b6Qy2pzx/ZbhyckVmyXHkQBQ+NFOPkpVFB2wlCbs6VjN0DojRbdlsegO3BydJ4Q13JJyDrlggVw8/l0HCxTo1et3j6hiSOePAek1YZt1aOeFwH5L5qkFGRJgzEkrNrQNeysBZEy+fA5h07ZhFkuAoiOC5M/xhedqog4rPN6NitM7mQ4heKj8rv7u2FEg89Hw5qHJsBERBuKO3M09weJH6YwHtJi9pgO/tQjjJQxk5hgT7Qg==
+ b=Qq1AWj1LOxiuJZgecLe2j0xA0sWVjXkoYFc5vVyDG5JglIdnLltoSng1JBSnwQ5+0lqZ2HMlg3TL6p32Gdw3jMBZUTnRN4fYEWWH7XZgFsumjJWcWEGAOsHhII1UyLYB8ey/g7ZIBgdWrWX3fEr4IkgY0gEkLfrL8RKdAzTyR0fBACENCNAuFQFqUL1vDRj6Y+HO1JteCTzGUZlID3xif+ZMQEYcf+PKkAEUxxWosJdQOIH87I1oCjlQAn7Cl/PebGUbW8hv9Z4VTkN4AS7KmT578Kb/k43dgsaYNRuJV1BnrfQ3kBKbk4Onkh3THJ4LKqluITgYWyZ5CAT9UAqjcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d4YHzfF5fKFgpnlVqpB6/Y5zJptqzLsIkQ53T/qeED8=;
- b=bzFirBhAMbNmW5tdvhEhuWKij5Kkx1QOf3ivL1zqa7MOu21/TkvxM9JunYJnzICQkQheckwVD4/fj5NV6YlQHqBYsVAit/5anWLNBjHSZ70ZJqkDrOn5WDWDvX1JmaxypzhT5vXQLuZGBoBnRrgZ0OU4ozX0kqap5lXIyuByvsRbno/4BBSgfynBJ9pJwkKPcYrF0+etzGS6qPUVTUoh/8VZ6cgQwOYM9v6hoQ7ENGbdrnwnHZY7JasWyiDmmiSBS69Ic4I9KcPePtnxEUCbbk2TLFgzK2Nt8gmxkYeSijYQtF94BNwugyDmm6nRMGkXDLeZ3QUV4rmeFjC0yMw0Uw==
+ bh=xdmLjR1dKuExWp1gsiocgY425SFeNu5nXFal5Gt/sQU=;
+ b=YH/3WDB1zTAvCuQ84hSzvkb+RIWV36mXsM3TWztGYciENGJv8yJGnON7SlupF7pev2mW+o5sqcbNF2GQzZ+uAtVD0NazJieJjfp5i5Es1tciy8WY2NHTsfbsaUU67GqYHbjT/hRR0F1u4iIVQc/250IzNAgp9Ni3/IDgV0RDz8rvucAf5OrtkkSumPZPaznWFzt22WK9+qCsywxgFR8U+gqfpDo2QAOGk7OamVC4X3Z7D5EWc9b6E4P2ECqVU+lL+paT/7+Ws90a+E1D3OaEHbofwtsX9+esqF6A6CkEKOL8i/R3FpAaGV/aCgCN9hWhBnvdNO9YJYbdHCi3Z+z+9Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d4YHzfF5fKFgpnlVqpB6/Y5zJptqzLsIkQ53T/qeED8=;
- b=gFwbDY7ZU3Tdr0lb/LoGrEx7QZBfP0vHHW2HoPrqGIxWw7pjQUmDmlrBaN1uE6DGSVqAfTiSIiPNUmwVJBZsP6ikAYg4At4kDa6Yjx4CuV4Kb4Pu7zyTH6N9qbcPNCI/w5AoUz4gLRbN/gjwln2f5xQnss4KFdev36wXa6unlPc=
-Received: from BN9PR03CA0644.namprd03.prod.outlook.com (2603:10b6:408:13b::19)
- by DS4PR12MB999102.namprd12.prod.outlook.com (2603:10b6:8:2fc::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=xdmLjR1dKuExWp1gsiocgY425SFeNu5nXFal5Gt/sQU=;
+ b=ZY34rkKgEWjJ6K45oPUesUnlTeCvhhAZ/6MAcTCAIIqFZC/zMz3xt/i+hMX+TVeRDN2La2qvVuwbZbD+oBBqK6m1X6k4aO7W0BqP2WmuXsduVkBj12wh0MjTMiYkc1zzHy7mok/XDTi2O+mWh7UV9GUOCygF941Gt7x0zEp5MrQ=
+Received: from BN0PR02CA0002.namprd02.prod.outlook.com (2603:10b6:408:e4::7)
+ by BY5PR12MB4324.namprd12.prod.outlook.com (2603:10b6:a03:209::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 17:04:18 +0000
-Received: from BN1PEPF00005FFD.namprd05.prod.outlook.com
- (2603:10b6:408:13b:cafe::af) by BN9PR03CA0644.outlook.office365.com
- (2603:10b6:408:13b::19) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 17:04:22 +0000
+Received: from BN1PEPF00006001.namprd05.prod.outlook.com
+ (2603:10b6:408:e4:cafe::27) by BN0PR02CA0002.outlook.office365.com
+ (2603:10b6:408:e4::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 7
- Oct 2026 17:04:18 +0000
+ Oct 2026 17:04:22 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -50,13 +50,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00005FFD.mail.protection.outlook.com (10.167.243.229) with Microsoft
+ BN1PEPF00006001.mail.protection.outlook.com (10.167.243.233) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 17:04:17 +0000
+ 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 17:04:22 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 12:04:16 -0500
+ 2026 12:04:17 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
  Transport; Wed, 7 Oct 2026 12:04:16 -0500
@@ -68,39 +68,42 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 00/19] DC Patches October 5, 2026
-Date: Wed, 7 Oct 2026 12:59:33 -0400
-Message-ID: <20261007170412.1898315-1-ivan.lipski@amd.com>
+ <Chen-Yu.Chen@amd.com>, Rafal Ostrowski <rafal.ostrowski@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>
+Subject: [PATCH 01/19] drm/amd/display: HWSS Refactor - DC IP request control
+Date: Wed, 7 Oct 2026 12:59:34 -0400
+Message-ID: <20261007170412.1898315-2-ivan.lipski@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261007170412.1898315-1-ivan.lipski@amd.com>
+References: <20261007170412.1898315-1-ivan.lipski@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFD:EE_|DS4PR12MB999102:EE_
-X-MS-Office365-Filtering-Correlation-Id: 373a7f9e-b95c-4570-56a9-08df249505f4
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006001:EE_|BY5PR12MB4324:EE_
+X-MS-Office365-Filtering-Correlation-Id: 129cfb81-633b-4757-e614-08df24950886
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: AJJiExDYcMjjOah973C8KEO5fMXm/IBo3jKHGmxLzr1aVnBekQbLcC+ZU6Y8jCZ+yCLdG2WB18mKZDcygC6IGwQTHo39dkey7mepOQrfBoPok2XLWf9OFb/XBw60SDjEWkXTvw8B10Rya0KzSP6W5xLCNgXj1kvMPk49dG/yixfvtwJou4wItFYVmu+BTOkl6F+pc660l4krt+FTKQAoe0qFbmTCsBZRcaDvDXlQhiJB1HmAUBuZiN1vV2BysYyO1rFPjao2XcyYTutOdGCR3VAd2qZrKf+eBI697LKmrCVJxAGzwPpPcwcDrpbyvGzNHM5aMf1Uqwrne4UB0UatWMb+OJH83F7s4Wa08QrQ44RJecoEumxGOGPZ0kCBXL5OZWUArEKTk0RRMxtP2syYwpuzgObg6k9do0xt3MJB0nQuwmgySaJ8J6ALYEHq4Afwwq+DVLrxITvarfebdeNaPFGTIWRU0w7rZ2WYm+mH8U6gougie66gW8ymWo3BXQwkIoH4JMa82Y5/2S8uWy3idYLnjfdRNjMyl7u3MY7n+Zc9gOpXQyD/7eOMZpvmNnKRoiHUtlNMh3NpPXItrGGBtxWfstlzKbPom/f3Xo7ArYWj4sVQgSDJLnSDF0BZwTG1Ar6CdrmtCgSmmWYU9a7jYwH7ethj7UWynawaoxA+ak30UqBT3GOYyXa6qqm2VpZ1ufsGYttsZzAFdZbaM2Bm8w==
+ ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: XJv4oANZG/h7OlpKIsLoYIuVqq5KQ3PpOUQSx5WYlX/RWQZvTLZEL52gkDXjJNFPziGP02PUO1aH/iveNucdgFD6czwxYCQohNXhtcFmTT+q4KXiM2qcng/AbE2idDNqpK4+lB0pv/6srqUAa4UV5nSGR5kvJh3zAd+582gSKtGozDuE3u/BxR5PtWMhwlllVbmBflSEVKFCkQTy9+GGcFBVll0mIHqQASxUS1HiS+fLGY1cmcZa0KPj1dW+8EtHo+EVfwhYaOuFsX9Zh7hmsxevCOmj5srMM4SP2mQ3foY/zGZ6XEgly0/p/5cWdfCnpMESkvQNeyaKRQa9xjToUB7CBzHfGdIN0jCf2AHs2c2EHVKbRLIJu3YdChpmt2sWYdoObdiKwuI7Los9FEKxPU9tFSCtNB9/qDIJNJLY0546UkNYvlKYRW9uEEjLMQeftVVz9agDKGgQ99PCUF62Sc3DVRXTMznIryQjRoCaIZeA9m4HZUuew+lEM8xOj/Um9U0J8Dgjs8V86Rg9+FLQM3BmAr88RlOesOPfcalNA4I325THwMos8At3F1Xv7/1LvTYspbJcZ347LGjkZO9Mgx17RDotPnCOSuMAxhfgz/RjUwtlgxzoH3RZixuomeAuCo3DE4wZ8aeBrBW1g2Lw2uaICn6XtokbmKkkRQtA5EEHmGoEmXCRncoXIuYaHb3ihs2/fOh/yDgv8JryTODdAg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003);
+ SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: NtQQkPXzztLrHRrSUwx1pUpiNByNVsU0wZoTysb0J1Hj/yiDUvACJubMkGQDoM9meDUQmu3TQAwQSIQsQjYac6409d/yhg/ySnxvz+pkYBbScaWusPZdseroKW+Ia2JosGV2VEJCCfP1owlhLLcXtsA+nBVEkoh7R0RCRVGcmmGV9o5gVdbgwFralgz7P9xsRnEqBUY/KQzQXChbCVkAlvh3d7NvH8cu5Ccl45TsaLSCR2LJCIHrKQBT6KrW0wueBUhAu5oMVTVO67CjDLFhTCnqLbZ/W/0XlEO7xh0+bNKBKGa0rxgL5Y2yvPOeXf+L7aop9AGQqWlkH4/i1evVpPF3pvid3YtfCNJdLWzMhuHWri6716bY/12Tioo7lHnvXnvQVWZ97vP8fy9KirSBhID14MPvkVrdK6dEda84HKyeJ/H67dJor1sre+01B+CX
+X-MS-Exchange-AntiSpam-MessageData-0: 4fvvsR3w28dsMIcWo9wm7jUXJjJ9yhG9hx+8fULBC8PAY0YJNo5/W8JRVC5nMEDyhlN/0PFLK6T2N+bD8otza1vSLbjm52Z0BSwOqdWjNir7pje7nubgB9Eo/+6/kT4C8FFOd2DNXJyofm9uc7c1uRVIpMVPosv3s+naBn30dGqSQ7zZ84tjoKs9TOrcWE0Goq6qOLivpWdKtgiKWq8MnpWXirRoueBw8DT0upKAqed7bm+W+1fsES8YsGeKUOMSVKBi56VqYvMBh/mmIIX1+PgQEtC6dW+BlqdMAobG+Bz/NqG5QcKB1Hw6yrp7j+3doWyIjn7SPVmEMDDRs+A0Spp0tJ9R1QHNGXCJmFFBbNg1Ws2UP70DHJMVH0JREgCvVXy5LdLQj/SmbmpJME0mwOBkUf0XX364jby4TRmcfPBtzoO36o3QFurlXpSXHElr
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 17:04:17.8093 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 373a7f9e-b95c-4570-56a9-08df249505f4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 17:04:22.1262 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 129cfb81-633b-4757-e614-08df24950886
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006001.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB999102
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4324
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,147 +118,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivan.lipski@amd.com>
+From: Rafal Ostrowski <rafal.ostrowski@amd.com>
 
-This DC patchset brings improvements in multiple areas. In summary, we highlight:
+[WHY]
+Refactor DC_IP_REQUEST_CNTL to follow BLS rules: replace struct dc *dc
+with dce_hwseq handle in parameter structure and vtable signature, and
+add comprehensive hardware access guards.
 
- - Refactor DC IP request control in HWSS.
- - Fix rotate 90 degrees surface corruption issue.
- - Refactor DPP root clock control in HWSS.
- - Fix upsampling and linear scaling.
- - Use aux hw inst if no ddc pin exists.
- - Directly include compiler_attributes.h.
- - Fix frac_urg_bw conversion to correct U0.10 format.
- - Do full link training during HDR/SDR seamless switch.
- - Fix SPL format handling for linear scaling and upsampling.
- - Update DCN42 cstate latencies.
- - Invalidate the DRR shadow after a hardware re-init.
- - Program HDR visual confirm based on per pipe info.
- - Split link_set_dsc_on_stream into encoder and DSC components.
- - Add new config_dsc hwseq function for DCN60.
- - Program DSC prior to OTG enable starting DCN60.
- - Improve mandatory pstate optimization and check.
- - Disable HUBP/DPP power gating on DCN42.
+[HOW]
+- Update struct dc_ip_request_cntl_params to store struct dce_hwseq *hws
+  instead of struct dc *dc.
+- Update hwseq_private_funcs.dc_ip_request_cntl signature and dcn401 implementation
+  to take (struct dce_hwseq *hws, bool enable).
+- Add null checks for hws context, registers, shifts, and masks in dcn401_dc_ip_request_cntl.
+- Update hwss_dc_ip_request_cntl executor and hwss_add_dc_ip_request_cntl builder.
 
-Cc: Dan Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
+Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+---
+ .../gpu/drm/amd/display/dc/core/dc_hw_sequencer.c    | 12 +++++++-----
+ .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c    |  6 +++---
+ .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h    |  2 +-
+ drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h   |  2 +-
+ .../drm/amd/display/dc/hwss/hw_sequencer_private.h   |  2 +-
+ 5 files changed, 13 insertions(+), 11 deletions(-)
 
-Alvin Lee (2):
-  drm/amd/display: Use aux hw inst if no ddc pin exists
-  drm/amd/display: Program HDR visual confirm based on per pipe info
-
-Aric Cyr (1):
-  drm/amd/display: Invalidate the DRR shadow after a hardware re-init
-
-Charlene Liu (1):
-  drm/amd/display: Fix rotate 90 degrees surface corruption issue
-
-Dillon Varone (1):
-  drm/amd/display: Improve mandatory pstate optimization and check
-
-Dominik Kaszewski (1):
-  drm/amd/display: Directly include compiler_attributes.h
-
-George Shen (3):
-  drm/amd/display: Split link_set_dsc_on_stream into encoder and DSC
-    components
-  drm/amd/display: Add new config_dsc hwseq function for dcn60
-  drm/amd/display: Program DSC prior to OTG enable starting DCN60
-
-Ivan Lipski (1):
-  drm/amd/display: Fix FreeSync caps tests after common EDID VSDB switch
-
-Karthi Kandasamy (1):
-  drm/amd/display: Do full link training during HDR/SDR seamless switch
-
-Leo Chen (1):
-  drm/amd/display: Disable HUBP/DPP power gating on DCN42
-
-Ovidiu Bunea (2):
-  drm/amd/display: Fix frac_urg_bw conversion to correct U0.10 format
-  drm/amd/display: Update DCN42 cstate latencies
-
-Rafal Ostrowski (2):
-  drm/amd/display: HWSS Refactor - DC IP request control
-  drm/amd/display: HWSS Refactor - DPP root clock control
-
-Sridevi Arvindekar (2):
-  drm/amd/display: Fix upsampling for linear scaling of subsampled YUV
-  drm/amd/display: Fix linear scaling and upsampling
-
-Taimur Hassan (1):
-  drm/amd/display: Promote DC to 3.2.402
-
- .../tests/amdgpu_dm_connector_test.c          |  30 +-
- drivers/gpu/drm/amd/display/dc/Makefile       |   1 +
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  43 ++-
- .../drm/amd/display/dc/core/dc_hw_sequencer.c |  93 ++++--
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  19 --
- .../amd/display/dc/core/dc_resource_helper.c  |  46 +++
- drivers/gpu/drm/amd/display/dc/dc.h           |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_fused_io.c  |   4 +-
- .../gpu/drm/amd/display/dc/dc_memory_pool.c   |   1 +
- .../gpu/drm/amd/display/dc/dc_memory_pool.h   |   2 +
- .../gpu/drm/amd/display/dc/dc_spl_translate.c |  22 +-
- .../amd/display/dc/dccg/dcn314/dcn314_dccg.c  |   4 +-
- .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    |  21 +-
- .../amd/display/dc/dccg/dcn35/dcn35_dccg.h    |   3 +-
- .../amd/display/dc/dccg/dcn42/dcn42_dccg.c    |   2 +-
- .../dml21/inc/bounding_boxes/dcn42_soc_bb.h   |   8 +-
- .../src/dml2_core/dml2_core_dcn4_calcs.c      |   7 +-
- .../dml2_core/dml2_core_dcn5_calcs_dchub.c    |   5 +-
- .../dml2_core/dml2_core_dcn6_calcs_dchub.c    |  10 +-
- .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c      |  20 +-
- .../dml21/src/dml2_dpmm/dml2_dpmm_dcn5.c      |  13 +-
- .../dml2_pmo/dml2_pmo_dcn6_stage_optimizers.c |  97 +++---
- .../src/inc/dml2_internal_shared_types.h      |   2 +-
- .../drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c  |   4 +-
- .../drm/amd/display/dc/dpp/dcn10/dcn10_dpp.h  |   3 +-
- .../drm/amd/display/dc/dpp/dcn20/dcn20_dpp.c  |   4 +-
- .../amd/display/dc/dpp/dcn201/dcn201_dpp.c    |   4 +-
- .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c  |  76 ++++-
- .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.h  |   9 +-
- .../amd/display/dc/dpp/dcn401/dcn401_dpp.c    |   4 +-
- .../amd/display/dc/dpp/dcn401/dcn401_dpp.h    |   3 +-
- .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   |   8 +-
- .../drm/amd/display/dc/dpp/dcn42/dcn42_dpp.c  |   4 +-
- .../drm/amd/display/dc/dpp/dcn50/dcn50_dpp.c  |   4 +-
- .../drm/amd/display/dc/dpp/dcn50/dcn50_dpp.h  |   3 +-
- .../drm/amd/display/dc/dpp/dcn60/dcn60_dpp.c  |  38 ++-
- .../drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h  |  15 +-
- .../amd/display/dc/dpp/dcn60/dcn60_dpp_dscl.c |  13 +-
- .../display/dc/hubbub/dcn31/dcn31_hubbub.c    |   9 +-
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  13 +-
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  28 +-
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  23 +-
- .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |  21 +-
- .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c |  20 +-
- .../amd/display/dc/hwss/dcn314/dcn314_hwseq.h |   2 +
- .../amd/display/dc/hwss/dcn314/dcn314_init.c  |   1 +
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |   7 +-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  24 +-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.h   |   2 +
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |   1 +
- .../amd/display/dc/hwss/dcn351/dcn351_init.c  |   1 +
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  27 +-
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |   2 +-
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   |   6 +-
- .../amd/display/dc/hwss/dcn42/dcn42_init.c    |   1 +
- .../amd/display/dc/hwss/dcn50/dcn50_hwseq.c   |   3 +-
- .../amd/display/dc/hwss/dcn60/dcn60_hwseq.c   | 101 ++++++-
- .../amd/display/dc/hwss/dcn60/dcn60_hwseq.h   |   1 +
- .../amd/display/dc/hwss/dcn60/dcn60_init.c    |   1 +
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |   9 +-
- .../display/dc/hwss/hw_sequencer_private.h    |   5 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |   6 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |   3 +-
- .../gpu/drm/amd/display/dc/link/link_dpms.c   | 282 +++++++++++-------
- drivers/gpu/drm/amd/display/dc/os_types.h     |   1 -
- .../dc/resource/dcn42/dcn42_resource.c        |   4 +-
- .../dc/resource/dcn60/dcn60_resource.h        |   6 +
- drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c  |  52 ++--
- 68 files changed, 874 insertions(+), 435 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/core/dc_resource_helper.c
-
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index da98afee558f..7b93f57aff85 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -4051,12 +4051,10 @@ void hwss_dpp_root_clock_control(union block_sequence_params *params)
+ 
+ void hwss_dc_ip_request_cntl(union block_sequence_params *params)
+ {
+-	struct dc *dc = params->dc_ip_request_cntl_params.dc;
++	struct dce_hwseq *hws = params->dc_ip_request_cntl_params.hws;
+ 	bool enable = params->dc_ip_request_cntl_params.enable;
+-	struct dce_hwseq *hws = dc->hwseq;
+ 
+-	if (hws->funcs.dc_ip_request_cntl)
+-		hws->funcs.dc_ip_request_cntl(dc, enable);
++	hws->funcs.dc_ip_request_cntl(hws, enable);
+ }
+ 
+ void hwss_dccg_update_dpp_dto(union block_sequence_params *params)
+@@ -4964,9 +4962,13 @@ void hwss_add_dc_ip_request_cntl(struct block_sequence_state *seq_state,
+ 		struct dc *dc,
+ 		bool enable)
+ {
++	if (!seq_state || !seq_state->steps || !seq_state->num_steps || !dc ||
++			!dc->hwseq || !dc->hwseq->funcs.dc_ip_request_cntl)
++		return;
++
+ 	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
+ 		seq_state->steps[*seq_state->num_steps].func = DC_IP_REQUEST_CNTL;
+-		seq_state->steps[*seq_state->num_steps].params.dc_ip_request_cntl_params.dc = dc;
++		seq_state->steps[*seq_state->num_steps].params.dc_ip_request_cntl_params.hws = dc->hwseq;
+ 		seq_state->steps[*seq_state->num_steps].params.dc_ip_request_cntl_params.enable = enable;
+ 		(*seq_state->num_steps)++;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index 0abdfc55290c..efff09784f45 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -3598,10 +3598,10 @@ void dcn401_post_unlock_reset_opp_sequence(
+ 	}
+ }
+ 
+-void dcn401_dc_ip_request_cntl(struct dc *dc, bool enable)
++void dcn401_dc_ip_request_cntl(struct dce_hwseq *hws, bool enable)
+ {
+-	struct dce_hwseq *hws = dc->hwseq;
+-
++	if (!hws || !hws->ctx || !hws->regs || !hws->shifts || !hws->masks)
++		return;
+ 	if (REG(DC_IP_REQUEST_CNTL))
+ 		REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, enable ? 1 : 0);
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
+index ecaeb192bca3..9df72e980e7a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
+@@ -185,7 +185,7 @@ void dcn401_post_unlock_reset_opp_sequence(
+ 		struct pipe_ctx *opp_head,
+ 		struct block_sequence_state *seq_state);
+ 
+-void dcn401_dc_ip_request_cntl(struct dc *dc, bool enable);
++void dcn401_dc_ip_request_cntl(struct dce_hwseq *hws, bool enable);
+ 
+ void dcn401_enable_plane_sequence(struct dc *dc, struct pipe_ctx *pipe_ctx,
+ 				 struct dc_state *context,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index 7800b0501c39..bd005aaf9317 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -711,7 +711,7 @@ struct dpp_root_clock_control_params {
+ };
+ 
+ struct dc_ip_request_cntl_params {
+-	struct dc *dc;
++	struct dce_hwseq *hws;
+ 	bool enable;
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
+index 9586029dcec1..b2e63363066f 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
+@@ -225,7 +225,7 @@ struct hwseq_private_funcs {
+ 			struct hubp *primary_hubp);
+ 	void (*wait_for_pipe_update_if_needed)(struct dc *dc, struct pipe_ctx *pipe_ctx, bool is_surface_update_only);
+ 	void (*set_wait_for_update_needed_for_pipe)(struct dc *dc, struct pipe_ctx *pipe_ctx);
+-	void (*dc_ip_request_cntl)(struct dc *dc, bool enable);
++	void (*dc_ip_request_cntl)(struct dce_hwseq *hws, bool enable);
+ 	void (*program_cm_hist)(struct dc *dc,
+ 		struct pipe_ctx *pipe_ctx,
+ 		const struct dc_plane_state *plane_state);
 -- 
 2.43.0
 
