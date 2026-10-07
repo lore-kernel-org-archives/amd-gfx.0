@@ -4,77 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EE88CA5FFC
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 12:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7DDACA5FFC
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 13:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9D1B10F55F;
-	Wed,  7 Oct 2026 12:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC0310F589;
+	Wed,  7 Oct 2026 13:14:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GqfI5SiN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c1MAdw3b";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DA5F10F55F
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 12:47:01 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-486e70f2457so1805270f8f.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Oct 2026 05:47:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791377220; x=1791982020; darn=lists.freedesktop.org;
- h=content-transfer-encoding:reply-to:content-type:mime-version
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Pw9oOm89VS3pKxM7huEG/FH/rlcTt1EJ1qu86BiIZks=;
- b=GqfI5SiNHpDoYJvMOQbnRZxr3+jY6pYopJLoAP/AabJZfbxrxP3ZwbKE008Gj8ZI72
- 3KgyWqsMbuspA3wjfMfsGTfJjNhWPpiphFL7JD/WBFVaaqYOYywVJNn6ZUCuv202XABl
- y+fqiVjMMh2U6pJjBCyu6rKjKdqE1uy/fWsvkFJyGA4uuHo1rczljH1BvJt+1OoDMJQj
- YN3ehsyJxHN8wJRAOxix0IPzx1m9fa74tywCQzJBr/TUoE+tU8eHD3VepSXXG11AlGIL
- vSLT+mVo119X+eJTc6ze/v4g3KufoicPDQOj7HVZG8DabAjsoCnTGAnDoH7B/jbH0/fw
- eT4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791377220; x=1791982020;
- h=content-transfer-encoding:reply-to:content-type:mime-version
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Pw9oOm89VS3pKxM7huEG/FH/rlcTt1EJ1qu86BiIZks=;
- b=20E8X8xpFI9itv2LP0Pu0doaqEvPSfQv74VY/A/lLbFT1f7kES1Sx5+Z8G4Q+wZ6I9
- xFlhhv3zfRsXtjRLPdZfky0vNFXEemUTEctd6pN3UYohZ5Dw+BH996xyQ6U86BhViiTk
- p7okk2noFtNB3AIzqljkNpQWIh51iaXdwec1Kxz6TuGDf5IXZi9+er/01fr5B+xzQr3Q
- ydCU0QOpm8l4pUmuJqoLyNXE0Nui5PaOqTxm51zdQFfmxKvGASZFqRryrX9XXioRH/Xj
- g8y1blZyge03PeF6peqtVlshywZgJjKwdl6d9+LY/inLK6EdNSqYHLXBpRvbNMKisT/0
- TlWQ==
-X-Gm-Message-State: AFq9FYInHQG75a84XKBDZ0WeYUehH/tjHTJVoCKU98ryov1QCno6aOAv
- llWZSy4dO/eyjJz863pwOsWLaFP8+f+8hWuk57s75dCXcz3fc63OvhCK
-X-Gm-Gg: AYBFou17p98jem98cNp1nF69YjA6GS695zBVwRkDyqLPtqXwCTV15zL0R6isyffcNBm
- 8raKkYdo02uNc/gkYeYn7WaPBVcCeGTOhk3LNnKAJbL/pCgJtffm2A+kcnPBjAoa6vd4jjyRRnX
- 3B0Thkocf++/htqMfaxjTOqC0hzSNOBNXUe+Amvb+WzEj1CysQ5HOCK6ra1kbDKwseJLWWJYxC5
- qPAizIFTvY97bG+W6BTkrfRGa6FZTf7nuLcBN4RvyI4V69GK2keiY+EfcE0mCZK7aA+npvh2HiH
- 4SYbj+eB6qLOgoYSrvNaAvrta0+H7d9EI8o8UMpI16lT+X2P2aw28QkwZTH3AnPE2W4IPason6I
- WAi/XJ5ZCkS624sIMvP9Dz71E1OnHDm27DYDXmKeAbBKs7a2Vf4HsolDoSMdaFyoiB39Aszc2Ug
- C8lS5gNj50U0NCMTxoFWjZisq1gAWDYyPxUPsnJaEG/4rWzkYd50Eo39Jx4z/+TlT8Fd2aM6Vp1
- ew64Tbm+2w=
-X-Received: by 2002:a05:6000:25c2:b0:48b:ec8:b0d8 with SMTP id
- ffacd0b85a97d-48c72896f2bmr4602766f8f.32.1791377219486; 
- Wed, 07 Oct 2026 05:46:59 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:150a:df00:dcdc:55f8:fa06:622a])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48c71d3050asm5011285f8f.50.2026.10.07.05.46.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2026 05:46:58 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: vitaly.prosyak@amd.com
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/exec: don't immediately add prelocked obj to array of
- locked objs
-Date: Wed,  7 Oct 2026 14:46:57 +0200
-Message-ID: <20261007124657.9664-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013020.outbound.protection.outlook.com
+ [40.93.201.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17B4710F58A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 13:14:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=llkCli984R4Kx4Ip8kbLnYzdzIjYy425kKXRrrGhaIw40VNU1BbFNLSp38T6xF/S16kiU/ktwWyuso+ai1XNBqJvjbt2yUXZKm39slPW32YQd6ypc1nUCpQM/Xyr+QXNRrmacFmgcoZH9e/azuG1ArmmeYnrI8Rz9NNCH+rdx0kr1sstIrSS4pwyEETihXVWSEyxswNaYPu+mkXQ07ymvCa6OXZeQvVpcfsg5q8utEdyWaF5hp/44FEAKhZf6FLcoBJTrUre4T1vcBG8ay+c5py0sqmjdB6OfIjg8mSGD67WReJDOaMv1vz7qT8lPwsM3mxXOJKi1ri5AZeNx7wQ9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qldb/bAEQZyU1x1pranerEw15hzBWZEmNc56AM+sO2Y=;
+ b=MDLbwuLNVgC7pN5nt+zsbmXJ5VUpH0a790kyakgZiKqUJOGUal6jwfLWgkxQHSTqmWRvDAfD5XVmRuO+u7OLPofwi0bx2l/bfNf4nsY28miZx8IQSHIxaPiFlW5+65mKA+R1BWPedzmS1jAc+aHw7WAnDfZQxiId9KOtUDMw1ayupCFjml5u2wYI7oNw44Rb3tEePThGHe0eqVQzWOx1o+flS6LuzVxFR/SxmbkvGdqYHVkGCHDFJ1ACzavmAzQYLVh6ByLZqxdk5XKk0Ni8eVlm0EtqURUvLlh+ALhJ06pqZHdifO8yunYIOZshLUj1aXxenhq4KGglo3ioUyh5wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qldb/bAEQZyU1x1pranerEw15hzBWZEmNc56AM+sO2Y=;
+ b=c1MAdw3bBqW/ooSSzs9aMMf54t3zVUPd/BTp3h5wvZFfdEpcae7dKMM912/GU1NVihBj+6taoR9FyaohUDdWMli9QAobEoHIQJTyXGcV6cHJEsJ4ZHXM9dwrmT88vngu9t4hs/16WkO00Ujc7P+WieJsvODsWGq+Vl9g3PBTf/I=
+Received: from BY5PR03CA0029.namprd03.prod.outlook.com (2603:10b6:a03:1e0::39)
+ by SJ0PR12MB6925.namprd12.prod.outlook.com (2603:10b6:a03:483::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 13:14:45 +0000
+Received: from SJ1PEPF000037AB.namprd03.prod.outlook.com
+ (2603:10b6:a03:1e0:cafe::88) by BY5PR03CA0029.outlook.office365.com
+ (2603:10b6:a03:1e0::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Wed, 7
+ Oct 2026 13:14:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000037AB.mail.protection.outlook.com (10.167.244.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 13:14:44 +0000
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 08:14:40 -0500
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
+ <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <Kevin.Wang@amd.com>,
+ <asad.kamal@amd.com>
+Subject: [PATCH 1/4] drm/amd/pm: Update smu_v15_0_8 PMFW headers
+Date: Wed, 7 Oct 2026 21:14:25 +0800
+Message-ID: <20261007131428.351196-1-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AB:EE_|SJ0PR12MB6925:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39637668-faa6-4dcb-d9b3-08df2474f47b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|11063799006|18002099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: yeF4POsjiwTcMfFpiZc5AkEQK8ZiOIrZgNQt8gdepDeCHw+2dhNOz0igKW5ZcnfYYF8XIjuQNAEKg2mB8d3G2yTf6+3Ni4IEl5qobm4cbIqTa5dMAL+XJ3zJogusMRpE8FL9eBGM6hFSaRBY3fpytMU8E0gqaq3g7QsdF90FEIwdx0qt0QkmlIdHDksyX3Pz+8wCrVahPfaHFlOTRHXyJOI/WTy1ehEd16hiiRFOuk83GRFJNs29G2ABRMhGsMlGDHjVxafI16w0rd0lA9UC6vzq7N0pDt4a83u7j0q000BfJyMEDqb+WBgVvvGsEOo9nXS8nbvD2Ky3LGQk0nS8VSnKk3/R2JF4XMJ99RjA+3E+9yOfkxwRivQE3lWFsh7FiWnc1vRzMxw3J4XAASKhX+/tLNsCem44MtivuRh4p+AzfgdtsmGRp2SgkL74cPjbh7Wo4pHhi24Cznz2ZR7FdqbBQ3tRGGpid3fOnH3E2l8caudL2XN2ZDW5ei70YN234pwBpxe+o6Bf1M25S5Uj2Y3O/i9AAzR0RxD+cpn9kdY3P7U3hzeeaMFXKa9FGqSL7bK0mxOMq+uZLZZMsjH0O9+/mxwQQzw2D7aKe8LctEWLVIW1h6sYis+UgTCQQzpKCknjxXlg051mFBFAKXuT1UqPDGxhO+6Vtu/buM2B5ddQSzjcCZK6eLKGvnGw6xNzVE3DqRuc34fRM4+CqXrahQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(11063799006)(18002099003)(56012099006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: RQEHy/GHvkEcU0UA2xiUl8ZRSV63OMbQ0NqYJQFyHgaDX/Gd050pIjvLx3e35vN+ZvfFTknfkHjw2wQgDFF6u9V9o7OT+Nz5Yh3mR0C/VO9MIo0aE95gRnhrwa8wnpYxldO622Fk1+0XmKqyHAfWv2E5pFxN2zPlx2LczFK3vP7EwPoRfnBJLe97CxKpyL9y6q2y9ZLrxJ53AftTTNlq57JDadIJD72cIwP7+HU6tS3p3gzMwcHJItx6llgBDjErvBkwVeqZHzpdRegTV/oQMYiHo9qpktyJEZnb+ZlGGhOGDgXB6wHE8wZ8WhXekXxzCHfcTLtf7iRuuBqXTrVQEGa53U+JjrvijtmcIAiVD+r7XNq2X0CgaMIrqZOrqBObatmedZmdVH1TjCjjE6irVVsGUiPRuxJpayn9j3JogJtgBwRIW5gNnTfkCmRPGMki
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 13:14:44.5426 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39637668-faa6-4dcb-d9b3-08df2474f47b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037AB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6925
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,202 +108,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a contention is detected the drm_exec object grabs a reference to
-the contended object, unlocks all other objects and pre-locks the
-contended one before anything else.
+Update smu_v15_0_8 PMFW headers to include NPM metrics
 
-The problem is that it is possible that this pre-locked object was about
-to be destroyed and drm_exec is now holding the last reference to it.
-
-So we never actually see this pre-locked object again to be explicitly
-locked and so also never reserve a slot for a dma_fence object on it.
-
-Should the driver now use drm_exec_for_each_locked_object() to add a new
-fence to all locked objects we eventually see a warning or even a
-BUG_ON() to prevent random memory corruption.
-
-Fix this by keeping the prelocked object of the array of locked objs
-until it was explicitly mentioned by the driver again.
-
-Should the prelocked object never been mentioned again by the driver
-just unlock and drop the reference at the end of the locking loop.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Reported-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Fixes: 09593216bff1 ("drm: execution context for GEM buffers v7")
-CC: stable@vger.kernel.org # v6.6+
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/drm_exec.c | 73 ++++++++++++++++++++++----------------
- include/drm/drm_exec.h     | 15 ++++----
- 2 files changed, 52 insertions(+), 36 deletions(-)
+ .../drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_pmfw.h  | 12 +++++++++---
+ .../drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_ppsmc.h |  4 +++-
+ drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c |  2 +-
+ 3 files changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-index 2453ec41360f4..a910b0ad17ce4 100644
---- a/drivers/gpu/drm/drm_exec.c
-+++ b/drivers/gpu/drm/drm_exec.c
-@@ -48,6 +48,16 @@
-  * See struct dma_exec for more details.
-  */
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_pmfw.h
+index a3401c4cc20b..61d76ebfdbd4 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_pmfw.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_pmfw.h
+@@ -328,7 +328,7 @@ typedef struct __attribute__((packed, aligned(4))) {
+   uint64_t GfxclkLowUtilizationAcc[8];
+ } MetricsTable_t;
  
-+/* Unlock and put the prelocked obj */
-+static void drm_exec_drop_prelocked(struct drm_exec *exec)
-+{
-+	if (exec->prelocked) {
-+		dma_resv_unlock(exec->prelocked->resv);
-+		drm_gem_object_put(exec->prelocked);
-+		exec->prelocked = NULL;
-+	}
-+}
+-#define SMU_SYSTEM_METRICS_TABLE_VERSION 0x1
++#define SMU_SYSTEM_METRICS_TABLE_VERSION 0x2
+ 
+ #pragma pack(push, 4)
+ typedef struct {
+@@ -343,9 +343,13 @@ typedef struct {
+   //NPM: NODE POWER MANAGEMENT
+   uint32_t NodePowerLimit;
+   uint32_t NodePower;
+-  uint32_t GlobalPPTResidencyAcc;
++  uint32_t NPMResidencyAcc;
+ 
+   uint16_t SystemPower[SYSTEM_POWER_MAX_ENTRIES];           // UBB Current Power and Power Threshold
 +
- /* Unlock all objects and drop references */
- static void drm_exec_unlock_all(struct drm_exec *exec)
- {
-@@ -58,8 +68,7 @@ static void drm_exec_unlock_all(struct drm_exec *exec)
- 		drm_gem_object_put(obj);
- 	}
++  // NPM flags
++  uint32_t NpmSupported;
++  uint32_t NpmEnabled;
+ } SystemMetricsTable_t;
+ #pragma pack(pop)
  
--	drm_gem_object_put(exec->prelocked);
--	exec->prelocked = NULL;
-+	drm_exec_drop_prelocked(exec);
- }
+@@ -368,7 +372,7 @@ typedef struct __attribute__((aligned(4))) {
+   uint8_t  FruId[PRODUCT_FRU_ID_LEN];
+ } FRUProductInfo_t;
  
- /**
-@@ -118,6 +127,14 @@ EXPORT_SYMBOL(drm_exec_fini);
- bool drm_exec_cleanup(struct drm_exec *exec)
- {
- 	if (likely(!exec->contended)) {
+-#define SMU_STATIC_METRICS_TABLE_VERSION 0x1
++#define SMU_STATIC_METRICS_TABLE_VERSION 0x2
+ 
+ #pragma pack(push, 4)
+ typedef struct {
+@@ -421,6 +425,8 @@ typedef struct {
+   uint32_t PPT1Max;
+   uint32_t PPT1Min;
+   uint32_t PPT1Default;
 +
-+		/*
-+		 * The contended and prelocked object might never given to
-+		 * drm_exec_lock_obj() again. This can happen when the object
-+		 * is about to be cleaned up and we now hold the last reference
-+		 * to it. Make sure that we don't unecessarily keep it around.
-+		 */
-+		drm_exec_drop_prelocked(exec);
- 		ww_acquire_done(&exec->ticket);
- 		return false;
- 	}
-@@ -175,16 +192,16 @@ static int drm_exec_lock_contended(struct drm_exec *exec)
- 		dma_resv_lock_slow(obj->resv, &exec->ticket);
- 	}
++  uint32_t MaxNodePowerLimit;
+ } StaticMetricsTable_t;
+ #pragma pack(pop)
  
--	ret = drm_exec_obj_locked(exec, obj);
--	if (unlikely(ret))
--		goto error_unlock;
-+	/*
-+	 * It is perfectly possible that we see another contention before the
-+	 * first one is fully handled.
-+	 */
-+	drm_exec_drop_prelocked(exec);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_ppsmc.h
+index 7ffb445f4c0c..bf73d10c0ce7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_ppsmc.h
+@@ -83,7 +83,9 @@
+ #define PPSMC_MSG_SetSoftMaxGl2clk	                0x32
+ #define PPSMC_MSG_SetSoftMinFclk	                0x33
+ #define PPSMC_MSG_SetSoftMaxFclk	                0x34
+-#define PPSMC_Message_Count                         0x35
++/* NPM limit setter; NPM reads are served from the SystemMetricsTable. */
++#define PPSMC_MSG_SetNpmLimit                       0x40
++#define PPSMC_Message_Count                         0x41
  
-+	/* We move the reference from contended to prelocked here */
- 	exec->prelocked = obj;
- 	return 0;
- 
--error_unlock:
--	dma_resv_unlock(obj->resv);
--
- error_dropref:
- 	drm_gem_object_put(obj);
- 	return ret;
-@@ -212,35 +229,31 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
- 	if (exec->prelocked == obj) {
- 		drm_gem_object_put(exec->prelocked);
- 		exec->prelocked = NULL;
--		return 0;
--	}
-+	} else {
-+		if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
-+			ret = dma_resv_lock_interruptible(obj->resv,
-+							  &exec->ticket);
-+		else
-+			ret = dma_resv_lock(obj->resv, &exec->ticket);
-+
-+		if (unlikely(ret == -EDEADLK)) {
-+			drm_gem_object_get(obj);
-+			exec->contended = obj;
-+			return -EDEADLK;
-+		}
- 
--	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
--		ret = dma_resv_lock_interruptible(obj->resv, &exec->ticket);
--	else
--		ret = dma_resv_lock(obj->resv, &exec->ticket);
-+		if (unlikely(ret == -EALREADY) &&
-+		    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
-+			return 0;
- 
--	if (unlikely(ret == -EDEADLK)) {
--		drm_gem_object_get(obj);
--		exec->contended = obj;
--		return -EDEADLK;
-+		if (unlikely(ret))
-+			return ret;
- 	}
- 
--	if (unlikely(ret == -EALREADY) &&
--	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
--		return 0;
--
--	if (unlikely(ret))
--		return ret;
--
- 	ret = drm_exec_obj_locked(exec, obj);
- 	if (ret)
--		goto error_unlock;
--
--	return 0;
-+		dma_resv_unlock(obj->resv);
- 
--error_unlock:
--	dma_resv_unlock(obj->resv);
- 	return ret;
- }
- EXPORT_SYMBOL(drm_exec_lock_obj);
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index cc2937185a9f7..c92d69a2c793d 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -73,13 +73,15 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
- 
- /* Helper for drm_exec_for_each_locked_object(). Internal use only. */
- #define __drm_exec_for_each_locked_object(exec, obj, __index)		\
--	for (unsigned long __index = 0; ((obj) = drm_exec_obj(exec, __index)); ++__index)
-+	for (unsigned long __index = 0; ((obj) = drm_exec_obj(exec, __index)); \
-+	     ++__index)
- /**
-  * drm_exec_for_each_locked_object - iterate over all the locked objects
-  * @exec: drm_exec object
-  * @obj: the current GEM object
-  *
-- * Iterate over all the locked GEM objects inside the drm_exec object.
-+ * Iterate over all the explicitly locked GEM objects inside the drm_exec
-+ * container, except for the contended and implicit prelocked one.
-  */
- #define drm_exec_for_each_locked_object(exec, obj)			\
- 	__drm_exec_for_each_locked_object(exec, obj, __UNIQUE_ID(drm_exec))
-@@ -94,12 +96,13 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
-  * @exec: drm_exec object
-  * @obj: the current GEM object
-  *
-- * Iterate over all the locked GEM objects inside the drm_exec object in
-- * reverse locking order. Note that the internal index may wrap around,
-- * but that will be caught by drm_exec_obj(), returning a NULL object.
-+ * Iterate over all the explicitly locked GEM objects inside the drm_exec
-+ * container in reverse locking order. Note that the internal index may wrap
-+ * around, but that will be caught by drm_exec_obj(), returning a NULL object.
-  */
- #define drm_exec_for_each_locked_object_reverse(exec, obj)		\
--	__drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(drm_exec))
-+	__drm_exec_for_each_locked_object_reverse(exec, obj,		\
-+						  __UNIQUE_ID(drm_exec))
- 
- /**
-  * drm_exec_until_all_locked - loop until all GEM objects are locked
+ /* PSMC Reset Types for driver msg argument */
+ #define PPSMC_RESET_TYPE_DRIVER_MODE_1_RESET        0x1
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+index 1b5a31163f3c..a013ae2a877e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+@@ -622,7 +622,7 @@ static int smu_v15_0_8_get_npm_data(struct smu_context *smu,
+ 		*value = !!SMUQ10_ROUND(metrics->NodePower);
+ 		break;
+ 	case AMDGPU_PP_SENSOR_GPPTRESIDENCY:
+-		*value = SMUQ10_ROUND(metrics->GlobalPPTResidencyAcc);
++		*value = SMUQ10_ROUND(metrics->NPMResidencyAcc);
+ 		break;
+ 	default:
+ 		return -EINVAL;
 -- 
-2.43.0
+2.46.0
 
