@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE0BCA5FFC
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 17:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2502FCA600A
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 17:04:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE5F10E659;
-	Wed,  7 Oct 2026 17:04:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B570810F6F8;
+	Wed,  7 Oct 2026 17:04:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fuzizTgj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ri+PrZVf";
 	dkim-atps=neutral
 Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011064.outbound.protection.outlook.com
- [40.93.194.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF45D10E64A
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 17:04:36 +0000 (UTC)
+ (mail-southcentralusazon11011027.outbound.protection.outlook.com
+ [40.93.194.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 649AB10E659
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 17:04:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wDiqjfzNy2AoSwz2RCtA3/NJYus0C2fVbwsyuN5zfQj7d6zkRVFq5U4kGg9dOifzCM9wEEBobALq1X7fldAarf51eek92c6RzOKf0IKKpB9qYyeYcdbVc/iYqrDLAc/cNEFGL92IMEwxoMMI1ILSEzWqnJiNRjtKMyr1WvCUMSG69s+6D3MjVtokIzWT1Ae3Bnohq0iM+8b7YYWb87GcOJYF7+RKUR/qxuwNsKqIK/8MZbsxJRhT/3vOGU0oaAdAoERdmIa2SRR5wXWSg5qKLgyIRySdd1KzANQ1/OSCmyhjp+bGw/q5+/PJU6WcPejtmP204nb/VQ11JB9X0MXX2A==
+ b=DLQwhl3ssoUozIL+USu+iW9y1euHe009bD6/8QSrWyVRoOFEYRlA286PQf4rYvcEceeTAdIIUW3ssros3cl0BeLXmcLr4uchIIF73YwFMUaXgOCE6ZMtG8tR9fEpIGhmiC+ZHLDppGejMTRz/aUIiN/huBG8D6yyQkwtAfl1kd6k4oiFgNVWOL5hBIXrXg6t1lYD4Gow98nGNJfJe0bJB+8ZwcDk4IiGCBr7/Fxjfhuiy2puBTecMotP8d2TmfYyXnkhTJDgPwa4QtBek2VcegQdidzVwJuXSOsM13PrWhFgr4rJPtswtstbe107ZDdFf0AwR2h2MQXR3Hjgjq/Xfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W6RGtetQoOcyoqLnfmJpv7sy1ITsS5QX3pt08aXHFCk=;
- b=LRKKmAQHzZFR+pPrS7Y/f/3TGwe6JL/bRoc3tRRNjG3LskiN0HmnQOUyQSFcj6rYJv4XSBFyBVIAdmq+836drTzKZj9mjSVQomDE/18Zbw2EPQ/bSJLXCZ8epBHBYdt1ynojDboAJmjxXMIkOXBUVqJf0Jbw686EW0mCmYcaLAQfJTk6iItwbWNjWCdk4MZEpE0o+BjBzXh5IwYbpxfQOij2Q1/6qcBUGr8g2MRfjF0RFuVgfaJG35bsRCBqklI2qNNI5L6xPzs0SMzqn0V2ZrHf/sYHMLlrPg5nxgzOKSb3WDiaGPRB+mrBvtuOQe0eI0Ob/u6mULbwPLPpF0ROZg==
+ bh=WpqHgF8SWQWXYfvJ4XVscPymAcyxeIbvreCXSPDozvE=;
+ b=CEFdpB39GXpIhhRBP+BXzg4+YTmVv7cwlAl6I3f/kbKUeK/w/zcBWWkWtUUBLZYA3VMJaIimyNZA404D0SBwsV+i0QGkQH4TG++tYrhO7tTBywluac4lPh2cbgieQZMPo12ME914QIuH8rPvcQt1uD7I3lEG/+IMsGlI3xAdDkCTI+cKiD4gUpQyI1oa/KkCNh6PnaJ4p0KE6oq/JgtTlYq10bBKQj6/HUyQgdefehKI5S/ZbHVPpbO8Xm7YMEbTJldl75l/6mXdimXaINeHBti0cYgDxc7hvuytZ+oMLfT3epKEBP9g7BNJAWIII78JxBAtB/ke4Y59U5vqDE5Ppg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W6RGtetQoOcyoqLnfmJpv7sy1ITsS5QX3pt08aXHFCk=;
- b=fuzizTgjbD3DHdxKi7kqZIMT6Ek+KEEYWWARdeIQep2knJDEDHh7mP6iiXHUU0Zsnd8H/ih18ir/lN8Ft325gHsNavmtI8mYuFAINvT6ZtgcjY63jglK6ZLgS0iNIi4tlucrrwflifUNOLgfNQWN0dgzRchOjaAHtVkwh4G9NCE=
-Received: from YT3PR01CA0139.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:83::31)
- by DS0PR12MB9725.namprd12.prod.outlook.com (2603:10b6:8:226::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.19; Wed, 7 Oct
- 2026 17:04:32 +0000
-Received: from BN1PEPF00005FFE.namprd05.prod.outlook.com
- (2603:10b6:b01:83:cafe::7b) by YT3PR01CA0139.outlook.office365.com
- (2603:10b6:b01:83::31) with Microsoft SMTP Server (version=TLS1_3,
+ bh=WpqHgF8SWQWXYfvJ4XVscPymAcyxeIbvreCXSPDozvE=;
+ b=Ri+PrZVfiU9qcKAFthEqUhh/Pjw2Edrf+im2PnC+RndnuDRX3BzhSHWne9kwmIMe5DGeS736JeA0+OQRPdOcD6UbtNshfCfd8HcepKUtjRCetvykfOxS/kIfInFT0XXP0N6V55CkYonw77xqgLnZ95d+fwm3sNZ8RqaHIHRCLMU=
+Received: from PH8PR15CA0011.namprd15.prod.outlook.com (2603:10b6:510:2d2::28)
+ by SA6PR12MB999202.namprd12.prod.outlook.com (2603:10b6:806:450::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Wed, 7 Oct
+ 2026 17:04:34 +0000
+Received: from MW1PEPF0001888D.namprd03.prod.outlook.com
+ (2603:10b6:510:2d2:cafe::e) by PH8PR15CA0011.outlook.office365.com
+ (2603:10b6:510:2d2::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
- Oct 2026 17:04:30 +0000
+ Oct 2026 17:04:33 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00005FFE.mail.protection.outlook.com (10.167.243.230) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF0001888D.mail.protection.outlook.com (10.167.249.164) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 17:04:30 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 17:04:33 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
  2026 12:04:28 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 12:04:27 -0500
+ 2026 12:04:28 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
  Transport; Wed, 7 Oct 2026 12:04:27 -0500
@@ -72,12 +72,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Karthi Kandasamy <karthi.kandasamy@amd.com>, "Anthony
- Koo" <anthony.koo@amd.com>
-Subject: [PATCH 08/19] drm/amd/display: Do full link training during HDR/SDR
- seamless switch
-Date: Wed, 7 Oct 2026 12:59:41 -0400
-Message-ID: <20261007170412.1898315-9-ivan.lipski@amd.com>
+ <Chen-Yu.Chen@amd.com>, Sridevi Arvindekar <sridevi.arvindekar@amd.com>,
+ Samson Tam <samson.tam@amd.com>
+Subject: [PATCH 09/19] drm/amd/display: Fix linear scaling and upsampling
+Date: Wed, 7 Oct 2026 12:59:42 -0400
+Message-ID: <20261007170412.1898315-10-ivan.lipski@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261007170412.1898315-1-ivan.lipski@amd.com>
 References: <20261007170412.1898315-1-ivan.lipski@amd.com>
@@ -86,29 +85,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFE:EE_|DS0PR12MB9725:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7cff581-dcd1-4a87-288d-08df24950d72
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001888D:EE_|SA6PR12MB999202:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d920c5a-22c2-4f7c-a513-08df24950f66
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|18002099003|22082099003|56012099006|10067099003|3023799007|11063799006;
-X-Microsoft-Antispam-Message-Info: cUUlk7mlNP6xXF4c748wNx5+TI6M+4Q0BCKXtCasG4jUQTQkmwPp3Y9YQVvrUTJRPSHh9nPDjjE5MqYicRLpFXMvdKLu1lO6U4kzl90OtHW2Jl+s99CCJi1U1DngBFHoFdRPhLxOzTVKCJJB/W2+E0w4+tfGFssCLs+3URavymid3rUYjzHU7lTb0lanGhwnHHC+PZPTAuu5G4UFgdZxR50kJQpoaIyvozr+m5++SoDPLEoZTJjmBto7+mXXAQPcEQ36u54II4PWY0gbk0gv9ocH+jbhQz0Kt0M0FTvlGxZ42DDnfLil0VfueSEMUEMRTflWMjGmr+0su6Pv0RZ8HnJjKh2WUKp689zgxdS2pva+Htds4w/sM/uVFysl7SPpyO9YzwsyWq7Dp7x27liVgg3CNNNmh9nceNefG7+D2oauhnrnvHqrHm0GALP+W9MrCCPBB+qw7tYSuLDnINU0LPkT6U2HD/W5MI/KljjyeS/UK6Mxe3zXPSNwjRL4BMn2MGOSihhRQHMAwncJBeU60tFsdObQv/AVCKDGRk9sry1F463FyXoucKMQEi+/j2JVtFPM1SNKadetQf3AeCTVJfjSICB3MZjImb3MmwzAJk2MHdImfHfhFNZvHNG71h0eNO+C9NC3Ri0zbtZWuoiWQl0i+rrueT0xNwny8UdCoNPLdQRvyWRrxKHGa5qUvtZoHQUbMba2xoqAxMA+2C5llw==
+ ARA:13230040|376014|36860700016|1800799024|82310400026|23010399003|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: qZeRXmQHf3MPOdiynuNGOy+iyx61bJD7j8hldn1ZZ5WtYuOq21ICdrvBJFR6kXHjMfb3yjM8+5HKtfTCexnAfFjCc0GRUH8GJXZTmjf16x3x2FdzAEyMN0Tu8g6l3EeOTHeDw/xZfUQPsUiBe5JMU5v/vmdGhWE6VCfTG+SJmMDMLrA63xR+Qyf6X0BhwxjSXlWQvXdJXnFGNHz3mtT/diC/ups6BE0Mx8YRxg5XJ9tE15X4N7FaOoGC08QZxD4F2Xu06MA0gdlIULeItUwJBxy7gpvkkkv1LOm0a47wWd9VUCzn4WlILbhE4pmbRkgTnlT/+tvU2I/wJ6TVDTHpsx6/rQvAzMFYP0Qg47oiQA4xdLGtTlz6ccTmCD8GaERpq15f8cdhH2GfDpquZieBXBYaekcjMwzUHUh5cTcNnfh7cy/lLtLDLd41ERT4Vj8y9jXRu8uYSehVr13fMVIT+SN54Jp7gItbosLyUl1XduDisCvnhqNWWyZpJmDASOSd4rvafVaZxvpd5Cl9L7tKqCzA9/8K2Gtk0UyYFozgpsX37mQ/IRe63ZfXn9Hf6seH0ZoYFFtqlHjpj8+28WJ2kWp6ZbdRyiCjjKo+cNtBVii3CQMQmXhY/HThtUXEy10WRkwR61iXQo7lGwBAUyPK8tpApHdYuj45S0Psu9O/x6xeaSVg+AIz3WJKL0iGPMBHVr5bEJk/svusP4MEGVi8XA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(10067099003)(3023799007)(11063799006);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(23010399003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: RBsPaArsormQbro+v2ogKFw2a6rgqTf32QGw0oBcm3vmHEVEkYa/VrdvM5DE7kjFfmO8U/040boyPoWzL6ksDsh5W7bLLY6h1vcTo7Jnw1mD2xCmdz6MGQz4wgIw9CCOwWAFqTTj21mXQWOeBt7uTQX4P06SvxCle3ciMD/z9z3bftqFRkIs6pmUuBZ388o1APdFN3ojUXWK1012YaUgNdyTfKP3FBZNaU3TiG+kNeLoTC9fcaOh26ZH2Dqd3nT1nT9720qrHBZb/smUg//lj+OBl99So87D4K25tmozgFiKHF1zn7dEie5vdsVduwBuTP1n3XzRyppeHeKCaYYIbIYwl7bIMLmS7aACBCO5yQM2dnv6queENJ46scYk7TUt4qmDWSwpNEZExfgtQAyXiypy1eW+Buw4Jo8K7pGBC4Og4Myfvz2zYIDVbyeucG0k
+X-MS-Exchange-AntiSpam-MessageData-0: chdJV5RC8bB2ATaJ1mv+8bIVPq6jCSn/VMaUG8h2mft5b+xwW1qx3SUkzx6fHtWy0N64nWgq4h805tkbtR4pQWTl7KxoE4UpGY36WLeWF7EKjJ1afh+0WHJqTFMUWkKhBFo/Jl+r3QBRbfm+PkuVJy4jVg97vGdVO0xLkqrHzyyzSx0XumONzGl7vxFzrSWQZLC6s2YipVBn4YprKFInxtnKc40BZ37AwRYnNCpF4m89t/apY2rsmXZ4Di3HkycuScNXCg3NDeND0dcUlZBz0xmNcyIDtQw+aJwlx/9G2aO6QOrGhCrrzk67SnByp2wWPIt5zgwDoA+wmuuus/wDTwqoxpunM4v5mf6Jwz8OsKd3s80VU1xrjsGBiVDWSIXCVCEGnOqRGR9MAhawQSAAlG1tp6N/wK6WUIQ3tkEyBOgz3gyV8objcArDd5DZLBkQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 17:04:30.3784 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7cff581-dcd1-4a87-288d-08df24950d72
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 17:04:33.5910 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d920c5a-22c2-4f7c-a513-08df24950f66
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFE.namprd05.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001888D.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9725
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR12MB999202
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,266 +122,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Karthi Kandasamy <karthi.kandasamy@amd.com>
+From: Sridevi Arvindekar <sridevi.arvindekar@amd.com>
 
-[Why]
-The forced_psr_active gates added across hwseq skipped backlight, ABM,
-CRTC/OTG, PHY link output and DPMS teardown whenever seamless switch happens.
-This meant the link was not fully retrained during an HDR/SDR switch, going beyond the
-intended scope of just preventing the frozen frame from being disrupted.
+[Why/How]
+For upsampling/linear scaling case, SPL needs to consider format
+to be rgb and not yuv.
 
-[How]
-Removed the forced_psr_active conditionals from early return, the dpms_on gate,
-the disable_link_output gates, and the reset_back_end_for_pipe
-dpms_off/abm/disable_crtc/enable_optc_clock skips and hwseq,
-restoring their unconditional behavior so full link training runs during the HDR/SDR
-switch even with seamless switch
-
-Reviewed-by: Anthony Koo <anthony.koo@amd.com>
-Signed-off-by: Karthi Kandasamy <karthi.kandasamy@amd.com>
+Reviewed-by: Samson Tam <samson.tam@amd.com>
+Signed-off-by: Sridevi Arvindekar <sridevi.arvindekar@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 13 +++---------
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 19 ++++++-----------
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 17 +++++----------
- .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   | 21 ++++++-------------
- .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c |  8 +++----
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  7 ++-----
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  7 ++-----
- .../amd/display/dc/hwss/dcn60/dcn60_hwseq.c   |  4 +---
- 8 files changed, 28 insertions(+), 68 deletions(-)
+ drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c | 52 +++++++++++---------
+ 1 file changed, 30 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 7b3aa02dda63..1abb28504aec 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1285,8 +1285,6 @@ void dce110_blank_stream(struct pipe_ctx *pipe_ctx)
- 		return;
+diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
+index f14e3069acfd..1b7ce1a8c59d 100644
+--- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
++++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
+@@ -487,15 +487,17 @@ static void spl_calculate_scaling_ratios(struct spl_in *spl_in,
+ 	spl_scratch->scl_data.ratios.horz_c = spl_scratch->scl_data.ratios.horz;
+ 	spl_scratch->scl_data.ratios.vert_c = spl_scratch->scl_data.ratios.vert;
  
- 	if (link->local_sink && link->local_sink->sink_signal == SIGNAL_TYPE_EDP) {
--		if (link->forced_psr_active)
--			return;
- 		if (!link->skip_implict_edp_power_control && hws)
- 			hws->funcs.edp_backlight_control(link, false);
- 		link->dc->hwss.set_abm_immediate_disable(pipe_ctx);
-@@ -1815,9 +1813,7 @@ enum dc_status dce110_apply_single_controller_ctx_to_hw(
- 			dc->link_srv->set_dsc_enable(pipe_ctx, true);
+-	if (spl_is_yuv420(spl_in->basic_in.format)) {
+-		spl_scratch->scl_data.ratios.horz_c.value /= 2;
+-		spl_scratch->scl_data.ratios.vert_c.value /= 2;
+-	} else if (spl_is_yuv422(spl_in->basic_in.format)) {
+-		if (spl_in->basic_in.rotation == SPL_ROTATION_ANGLE_90 ||
+-			spl_in->basic_in.rotation == SPL_ROTATION_ANGLE_270)
+-			spl_scratch->scl_data.ratios.vert_c.value /= 2;
+-		else
++	if (!spl_in->upsp_mode) {
++		if (spl_is_yuv420(spl_in->basic_in.format)) {
+ 			spl_scratch->scl_data.ratios.horz_c.value /= 2;
++			spl_scratch->scl_data.ratios.vert_c.value /= 2;
++		} else if (spl_is_yuv422(spl_in->basic_in.format)) {
++			if (spl_in->basic_in.rotation == SPL_ROTATION_ANGLE_90 ||
++				spl_in->basic_in.rotation == SPL_ROTATION_ANGLE_270)
++				spl_scratch->scl_data.ratios.vert_c.value /= 2;
++			else
++				spl_scratch->scl_data.ratios.horz_c.value /= 2;
++		}
+ 	}
+ 	spl_scratch->scl_data.ratios.horz = spl_fixpt_truncate(
+ 			spl_scratch->scl_data.ratios.horz, 19);
+@@ -669,7 +671,8 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
+ 			&flip_vert_scan_dir,
+ 			&flip_horz_scan_dir);
+ 
+-	if (spl_is_subsampled_format(spl_in->basic_in.format)) {
++	if (spl_is_subsampled_format(spl_in->basic_in.format) &&
++			!spl_in->upsp_mode) {
+ 		/* this gives the direction of the cositing (negative will move
+ 		 * left, right otherwise)
+ 		 */
+@@ -804,6 +807,9 @@ static enum scl_mode spl_get_dscl_mode(const struct spl_in *spl_in,
+ 			&& !enable_isharp)
+ 		return SCL_MODE_SCALING_444_BYPASS;
+ 
++	if (spl_in->upsp_mode)
++		return SCL_MODE_SCALING_444_RGB_ENABLE;
++
+ 	if (!spl_is_subsampled_format(pixel_format)) {
+ 		if (spl_is_video_format(pixel_format))
+ 			return SCL_MODE_SCALING_444_YCBCR_ENABLE;
+@@ -824,9 +830,9 @@ static enum scl_mode spl_get_dscl_mode(const struct spl_in *spl_in,
+ }
+ 
+ static void spl_choose_lls_policy(enum spl_pixel_format format,
+-	enum linear_light_scaling *lls_pref)
++	enum linear_light_scaling *lls_pref, enum upsp_mode upsp_mode)
+ {
+-	if (spl_is_subsampled_format(format))
++	if (spl_is_subsampled_format(format) && !upsp_mode)
+ 		*lls_pref = LLS_PREF_NO;
+ 	else /* RGB or YUV444 */
+ 		*lls_pref = LLS_PREF_YES;
+@@ -858,7 +864,7 @@ static bool enable_easf(struct spl_in *spl_in, struct spl_scratch *spl_scratch)
+ 	 */
+ 	if (spl_in->lls_pref == LLS_PREF_DONT_CARE)
+ 		spl_choose_lls_policy(spl_in->basic_in.format,
+-			&spl_in->lls_pref);
++			&spl_in->lls_pref, spl_in->upsp_mode);
+ 
+ 	/* Check for linear scaling or EASF preferred */
+ 	if (spl_in->lls_pref != LLS_PREF_YES && !spl_in->prefer_easf)
+@@ -1009,8 +1015,8 @@ static bool spl_get_optimal_number_of_taps(
+ 	unsigned int min_taps_y, min_taps_c;
+ 	enum lb_memory_config lb_config;
+ 	bool skip_easf          = false;
+-	bool is_horz_subsampled = spl_is_subsampled_format(spl_in->basic_in.format);
+-	bool is_vert_subsampled = spl_is_yuv420(spl_in->basic_in.format);
++	bool is_horz_subsampled = (spl_is_subsampled_format(spl_in->basic_in.format) && !spl_in->upsp_mode);
++	bool is_vert_subsampled = (spl_is_yuv420(spl_in->basic_in.format) && !spl_in->upsp_mode);
+ 
+ 	if (spl_scratch->scl_data.viewport.width > spl_scratch->scl_data.h_active &&
+ 		max_downscale_src_width != 0 &&
+@@ -1043,7 +1049,8 @@ static bool spl_get_optimal_number_of_taps(
+ 		spl_get_taps_non_adaptive_scaler(spl_scratch, in_taps, is_horz_subsampled, is_vert_subsampled);
+ 	}
+ 	else {
+-		if (spl_is_subsampled_format(spl_in->basic_in.format)) {
++		if (spl_is_subsampled_format(spl_in->basic_in.format) &&
++				!spl_in->upsp_mode) {
+ 			spl_scratch->scl_data.taps.h_taps = 6;
+ 			spl_scratch->scl_data.taps.v_taps = 6;
+ 			spl_scratch->scl_data.taps.h_taps_c = 4;
+@@ -1213,9 +1220,10 @@ static bool spl_get_optimal_number_of_taps(
+ }
+ 
+ static void spl_set_black_color_data(enum spl_pixel_format format,
+-			struct scl_black_color *scl_black_color)
++		struct scl_black_color *scl_black_color,
++		enum upsp_mode upsp_mode)
+ {
+-	bool ycbcr = spl_is_video_format(format);
++	bool ycbcr = (spl_is_video_format(format) && !upsp_mode);
+ 	if (ycbcr)	{
+ 		scl_black_color->offset_rgb_y = BLACK_OFFSET_RGB_Y;
+ 		scl_black_color->offset_rgb_cbcr = BLACK_OFFSET_CBCR;
+@@ -1298,8 +1306,8 @@ static void spl_set_dscl_prog_data(struct spl_in *spl_in, struct spl_scratch *sp
+ 		enable_easf);
+ 
+ 	// SCL_BLACK_COLOR
+-	spl_set_black_color_data(spl_in->basic_in.format, scl_black_color);
+-
++	spl_set_black_color_data(spl_in->basic_in.format, scl_black_color,
++			spl_in->upsp_mode);
+ 	/* Manually calculate scale ratio and init values */
+ 	spl_set_manual_ratio_init_data(dscl_prog_data, data);
+ 
+@@ -1358,7 +1366,7 @@ static void spl_calculate_c0_c3_hdr(struct dscl_prog_data *dscl_prog_data, uint3
+ static void spl_set_easf_data(struct spl_scratch *spl_scratch, struct spl_out *spl_out, bool enable_easf_v,
+ 	bool enable_easf_h, enum linear_light_scaling lls_pref,
+ 	enum spl_pixel_format format, enum system_setup setup,
+-	uint32_t sdr_white_level_nits)
++	uint32_t sdr_white_level_nits, enum upsp_mode upsp_mode)
+ {
+ 	struct dscl_prog_data *dscl_prog_data = spl_out->dscl_prog_data;
+ 	if (enable_easf_v) {
+@@ -1689,7 +1697,7 @@ static void spl_set_easf_data(struct spl_scratch *spl_scratch, struct spl_out *s
+ 			0x0;	// fp1.5.10, C3 coefficient
  	}
  
--	if (!stream->dpms_off &&
--	    !(link->connector_signal == SIGNAL_TYPE_EDP &&
--	      link->forced_psr_active))
-+	if (!stream->dpms_off)
- 		dc->link_srv->set_dpms_on(context, pipe_ctx);
+-	if (spl_is_subsampled_format(format)) { /* TODO: 0 = RGB, 1 = YUV */
++	if (spl_is_subsampled_format(format) && !upsp_mode) { /* TODO: 0 = RGB, 1 = YU//V */
+ 		dscl_prog_data->easf_matrix_mode = 1;
+ 		/*
+ 		 * 2-bit, BF3 chroma mode correction calculation mode
+@@ -2073,7 +2081,7 @@ bool SPL_NAMESPACE(spl_calculate_scaler_params(struct spl_in *spl_in, struct spl
  
- 	/* DCN3.1 FPGA Workaround
-@@ -3607,11 +3603,8 @@ void dce110_disable_link_output(struct dc_link *link,
- 	else if (dmcu != NULL && dmcu->funcs->lock_phy)
- 		dmcu->funcs->lock_phy(dmcu);
+ 	// Set EASF
+ 	spl_set_easf_data(&spl_scratch, spl_out, enable_easf_v, enable_easf_h, spl_in->lls_pref,
+-		spl_in->basic_in.format, setup, spl_in->sdr_white_level_nits);
++		spl_in->basic_in.format, setup, spl_in->sdr_white_level_nits, spl_in->upsp_mode);
  
--	if (!(signal == SIGNAL_TYPE_EDP &&
--			link->forced_psr_active)) {
--		link_hwss->disable_link_output(link, link_res, signal);
--		link->phy_state.symclk_state = SYMCLK_OFF_TX_OFF;
--	}
-+	link_hwss->disable_link_output(link, link_res, signal);
-+	link->phy_state.symclk_state = SYMCLK_OFF_TX_OFF;
- 	/*
- 	 * Add the logic to extract BOTH power up and power down sequences
- 	 * from enable/disable link output and only call edp panel control
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index 2ab247d9748b..f1d14b97977f 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -1350,12 +1350,7 @@ static void dcn10_reset_back_end_for_pipe(
- 	 * screen only, the dpms_off would be true but
- 	 * VBIOS lit up eDP, so check link status too.
- 	 */
--	if (link->connector_signal == SIGNAL_TYPE_EDP &&
--	    link->forced_psr_active) {
--		/* forced psr is active for seamless switch; skip dpms-off. */
--		if (pipe_ctx->stream_res.audio)
--			dc->hwss.disable_audio_stream(pipe_ctx);
--	} else if (!pipe_ctx->stream->dpms_off || link->link_status.link_active)
-+	if (!pipe_ctx->stream->dpms_off || link->link_status.link_active)
- 		dc->link_srv->set_dpms_off(pipe_ctx);
- 	else if (pipe_ctx->stream_res.audio)
- 		dc->hwss.disable_audio_stream(pipe_ctx);
-@@ -1379,15 +1374,13 @@ static void dcn10_reset_back_end_for_pipe(
- 	 * parent pipe.
- 	 */
- 	if (pipe_ctx->top_pipe == NULL) {
--		if (!(link->connector_signal == SIGNAL_TYPE_EDP &&
--			link->forced_psr_active)) {
--			if (pipe_ctx->stream_res.abm)
--				dc->hwss.set_abm_immediate_disable(pipe_ctx);
- 
--			pipe_ctx->stream_res.tg->funcs->disable_crtc(pipe_ctx->stream_res.tg);
-+		if (pipe_ctx->stream_res.abm)
-+			dc->hwss.set_abm_immediate_disable(pipe_ctx);
- 
--			pipe_ctx->stream_res.tg->funcs->enable_optc_clock(pipe_ctx->stream_res.tg, false);
--		}
-+		pipe_ctx->stream_res.tg->funcs->disable_crtc(pipe_ctx->stream_res.tg);
-+
-+		pipe_ctx->stream_res.tg->funcs->enable_optc_clock(pipe_ctx->stream_res.tg, false);
- 		set_drr_and_clear_adjust_pending(pipe_ctx, pipe_ctx->stream, NULL);
- 		if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
- 			pipe_ctx->stream->link->phy_state.symclk_ref_cnts.otg = 0;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index 6b8c5b1e436c..b0cc1f2506ba 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -2914,12 +2914,7 @@ void dcn20_reset_back_end_for_pipe(
- 	 * screen only, the dpms_off would be true but
- 	 * VBIOS lit up eDP, so check link status too.
- 	 */
--	if (link->connector_signal == SIGNAL_TYPE_EDP &&
--	    link->forced_psr_active) {
--		/* forced psr is active for seamless switch; skip dpms-off. */
--		if (pipe_ctx->stream_res.audio)
--			dc->hwss.disable_audio_stream(pipe_ctx);
--	} else if (!pipe_ctx->stream->dpms_off || link->link_status.link_active)
-+	if (!pipe_ctx->stream->dpms_off || link->link_status.link_active)
- 		dc->link_srv->set_dpms_off(pipe_ctx);
- 	else if (pipe_ctx->stream_res.audio)
- 		dc->hwss.disable_audio_stream(pipe_ctx);
-@@ -2944,14 +2939,12 @@ void dcn20_reset_back_end_for_pipe(
- 	 * parent pipe.
- 	 */
- 	if (pipe_ctx->top_pipe == NULL) {
--		if (!(link->connector_signal == SIGNAL_TYPE_EDP &&
--				link->forced_psr_active)) {
--			dc->hwss.set_abm_immediate_disable(pipe_ctx);
- 
--			pipe_ctx->stream_res.tg->funcs->disable_crtc(pipe_ctx->stream_res.tg);
-+		dc->hwss.set_abm_immediate_disable(pipe_ctx);
- 
--			pipe_ctx->stream_res.tg->funcs->enable_optc_clock(pipe_ctx->stream_res.tg, false);
--		}
-+		pipe_ctx->stream_res.tg->funcs->disable_crtc(pipe_ctx->stream_res.tg);
-+
-+		pipe_ctx->stream_res.tg->funcs->enable_optc_clock(pipe_ctx->stream_res.tg, false);
- 		if (pipe_ctx->stream_res.tg->funcs->set_odm_bypass)
- 			pipe_ctx->stream_res.tg->funcs->set_odm_bypass(
- 					pipe_ctx->stream_res.tg, &pipe_ctx->stream->timing);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-index 823ef06c64f5..b6f3c0480ab6 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-@@ -537,11 +537,9 @@ static void dcn31_reset_back_end_for_pipe(
- 	}
- 	ASSERT(!pipe_ctx->top_pipe);
- 
--	link = pipe_ctx->stream->link;
-+	dc->hwss.set_abm_immediate_disable(pipe_ctx);
- 
--	if (!(link->connector_signal == SIGNAL_TYPE_EDP &&
--	      link->forced_psr_active))
--		dc->hwss.set_abm_immediate_disable(pipe_ctx);
-+	link = pipe_ctx->stream->link;
- 
- 	if (dc->hwseq)
- 		dc->hwseq->wa_state.skip_blank_stream = false;
-@@ -557,11 +555,9 @@ static void dcn31_reset_back_end_for_pipe(
- 			pipe_ctx->stream_res.tg,
- 			OPTC_DSC_DISABLED, 0, 0);
- 
--	if (!(link->connector_signal == SIGNAL_TYPE_EDP &&
--	      link->forced_psr_active)) {
--		pipe_ctx->stream_res.tg->funcs->disable_crtc(pipe_ctx->stream_res.tg);
--		pipe_ctx->stream_res.tg->funcs->enable_optc_clock(pipe_ctx->stream_res.tg, false);
--	}
-+	pipe_ctx->stream_res.tg->funcs->disable_crtc(pipe_ctx->stream_res.tg);
-+
-+	pipe_ctx->stream_res.tg->funcs->enable_optc_clock(pipe_ctx->stream_res.tg, false);
- 	if (pipe_ctx->stream_res.tg->funcs->set_odm_bypass)
- 		pipe_ctx->stream_res.tg->funcs->set_odm_bypass(
- 				pipe_ctx->stream_res.tg, &pipe_ctx->stream->timing);
-@@ -590,12 +586,7 @@ static void dcn31_reset_back_end_for_pipe(
- 	 * screen only, the dpms_off would be true but
- 	 * VBIOS lit up eDP, so check link status too.
- 	 */
--	if (link->connector_signal == SIGNAL_TYPE_EDP &&
--	    link->forced_psr_active) {
--		/* forced psr is active for seamless switch; skip dpms-off. */
--		if (pipe_ctx->stream_res.audio)
--			dc->hwss.disable_audio_stream(pipe_ctx);
--	} else if (!pipe_ctx->stream->dpms_off || link->link_status.link_active)
-+	if (!pipe_ctx->stream->dpms_off || link->link_status.link_active)
- 		dc->link_srv->set_dpms_off(pipe_ctx);
- 	else if (pipe_ctx->stream_res.audio)
- 		dc->hwss.disable_audio_stream(pipe_ctx);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-index 583007c1fee3..de7dde2b036b 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-@@ -531,11 +531,9 @@ void dcn314_disable_link_output(struct dc_link *link,
- 		link->dc->hwss.edp_backlight_control(link, false);
- 	else if (dmcu != NULL && dmcu->funcs->lock_phy)
- 		dmcu->funcs->lock_phy(dmcu);
--	if (!(signal == SIGNAL_TYPE_EDP &&
--		link->forced_psr_active)) {
--		link_hwss->disable_link_output(link, link_res, signal);
--		link->phy_state.symclk_state = SYMCLK_OFF_TX_OFF;
--	}
-+
-+	link_hwss->disable_link_output(link, link_res, signal);
-+	link->phy_state.symclk_state = SYMCLK_OFF_TX_OFF;
- 	/*
- 	 * Add the logic to extract BOTH power up and power down sequences
- 	 * from enable/disable link output and only call edp panel control
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-index e7bf865755d4..9135b01fe388 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-@@ -1463,11 +1463,8 @@ void dcn32_disable_link_output(struct dc_link *link,
- 	else if (dmcu != NULL && dmcu->funcs->lock_phy)
- 		dmcu->funcs->lock_phy(dmcu);
- 
--	if (!(signal == SIGNAL_TYPE_EDP &&
--		link->forced_psr_active)) {
--		link_hwss->disable_link_output(link, link_res, signal);
--		link->phy_state.symclk_state = SYMCLK_OFF_TX_OFF;
--	}
-+	link_hwss->disable_link_output(link, link_res, signal);
-+	link->phy_state.symclk_state = SYMCLK_OFF_TX_OFF;
- 	/*
- 	 * Add the logic to extract BOTH power up and power down sequences
- 	 * from enable/disable link output and only call edp panel control
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index fbf4d0f95c5c..aa047b5b4939 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -1849,11 +1849,8 @@ void dcn35_disable_link_output(struct dc_link *link,
- 		disable_link_output_symclk_on_tx_off(link, DP_UNKNOWN_ENCODING);
- 		link->phy_state.symclk_state = SYMCLK_ON_TX_OFF;
- 	} else {
--		if (!(signal == SIGNAL_TYPE_EDP &&
--		      link->forced_psr_active)) {
--			link_hwss->disable_link_output(link, link_res, signal);
--			link->phy_state.symclk_state = SYMCLK_OFF_TX_OFF;
--		}
-+		link_hwss->disable_link_output(link, link_res, signal);
-+		link->phy_state.symclk_state = SYMCLK_OFF_TX_OFF;
- 	}
- 	/*
- 	 * Add the logic to extract BOTH power up and power down sequences
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
-index d515b9cbc934..f8254dfe1ce7 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
-@@ -413,9 +413,7 @@ enum dc_status dcn60_apply_single_controller_ctx_to_hw(
- 			dc_is_virtual_signal(pipe_ctx->stream->signal)))
- 			dc->link_srv->set_dsc_enable(pipe_ctx, true);
- 	}
--	if (!stream->dpms_off &&
--	    !(link->connector_signal == SIGNAL_TYPE_EDP &&
--	      link->forced_psr_active))
-+	if (!stream->dpms_off)
- 		dc->link_srv->set_dpms_on(context, pipe_ctx);
- 
- 	/* DCN3.1 FPGA Workaround
+ 	// Set iSHARP
+ 	vratio = spl_fixpt_ceil(spl_scratch.scl_data.ratios.vert);
 -- 
 2.43.0
 
