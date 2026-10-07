@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC574CA6002
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 17:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62223CA6007
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 17:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA68510F3B5;
-	Wed,  7 Oct 2026 17:04:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4B8F10F6FB;
+	Wed,  7 Oct 2026 17:04:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3O6aV4J7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CF/Nt7SQ";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010034.outbound.protection.outlook.com
- [40.93.198.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 571A410E64A
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 17:04:37 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013013.outbound.protection.outlook.com
+ [40.93.201.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92A8A10E64A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 17:04:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RDwvDlRPDXW9XsesxHWs3iehgb/MKph5K0QbZXw+hpARoWQRuDEyoQHxVjIW7KMYU0EnX6RPtGCk5LU6MKJUe6LDWjxHQJlK7Dgb3IEP1argRm1lsxmCURumhh4yJl8XroStQSUwSgt4CjF+SVPOjTDd3xKdd62kVQX75TOqbr6uuwZjwZGAgtFhYlisk9MC3mkYqp1Ve1V9QTbD7zS8WIMyoyV92wu7/PUiuBvRsdvqvhsX85Jgvjuzq1IfoMy2ZWfBJ9TlxkdrOO9hnShhv+z9z79SUm16bU3EHxBblPo+4A+TJNm85FmSegCed55pTmfZDS+H8nwTNTeJJD2jBg==
+ b=W3a8i38OUX2j01ZvdVmbR4IEyGBTOHTcpD5q5FYwr6VTauhPCsBYvfrrvgflOhmcZKi8YyqQhslK78x4mEq/1GN9jCNkSgTIRALAOB3feNtx6TTdpK+h2B0+U5HQTtofi5eQs+LVe/b4InTJS7f8iuPDHnyviJhTdVe55L4gJmiy38ONI6t3v2xCXiVSu0nk0fo4TNHY5yFHb1Fe2xllE1a0YKUYNT63WOt820jgCzkulk6a58VtKS/4tl1B9agfYQzCTQj1QKzwiH+f2FbETF6uDNmr+WH/FspXzRGdS2SZ2F6S/NC6+K4649l8gMCvwgM/chUcYJ2UEgzvxHesRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aZBUzKEEf4Z2rDAYjOnrsB6T6X9QwuWdTQQDN3rTPEU=;
- b=q+CeftiZTSjuxXoG7aioV8PeSXvqVUWUB15i5SQsQz6JlOZPqNpk7ZYF6nr0DZLIK+sR1hjdYow2ggOe4yxY98hP0FtmQS/ATYZjeFHc4DPWwk0VXl0raRT/H0VOaISQvjsEoecAajf8xze3hjwQLTYiMMgRkT5+sFI5dVftZJPYmI0hFgOub3NezxLi4hdYdglXaupJO4oyO24etobRgBtI7McQ0ZghXegdHUJwS+HtV60WRlVrENqZOBDkfmg1vfWRatOSKQVXI6p8QT0x45VrUiHv4ZzP7dw+40DKsn8uQCEQfwCljeWaonCxsZRYWoIpLwg4VkXRS5FaZgteLw==
+ bh=HhfT37P1h1yDHkiNiPWJSqMDl24uIUa/X5Hk2/Dgf0Q=;
+ b=QlZlC7NkOFlBhYHVP+/rMS0m/0eTbDGWapQpnsNxqcupSWQP4CWIwOzkGDMNZ3Qkt+rIwj4Km1bkogE9kt/qIs7B4+jMTp+8E4cocAxrhoM/A0WWVv0+yLWYODfhb4ZXvozGhBjM6Zf92vIwS3gAb/PoxDGwaC4Y965OXB0sFmygH0NkSBT8X65p2vS6QV9UEHr/QTM+D4WD0J5HFdMMoUn5flYtFMYpEIKfK5D/pnT/LIY1bL/p0WenKnjq2HQsQHDsyCDqG/1QawCHf2x2XAxl16AEdXWe9MYzq3cXQZLUlFYQkm/GhIyTmtzptydfa9leYrbRTiL2E7F+z0qCLA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aZBUzKEEf4Z2rDAYjOnrsB6T6X9QwuWdTQQDN3rTPEU=;
- b=3O6aV4J7GWnHpu+e6pLHjoOti9d63/zXR3X4fQqlJLWpYI6PnlOdGoUVzqwcqunExqa46bg0A4VSWPgLZrIMSO+Z5DszbOEM2Z0HthUMofZw2AGuKdm2omNOCSr+al0f0YLgr19AZaOqlpyJGlfSyUrT36/rFXqNIZok/n3RBlg=
-Received: from YT3PR01CA0124.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:83::33)
- by BN7PPF683A477A9.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6d3) with Microsoft SMTP Server (version=TLS1_2,
+ bh=HhfT37P1h1yDHkiNiPWJSqMDl24uIUa/X5Hk2/Dgf0Q=;
+ b=CF/Nt7SQ+RJzM6BzC0AYI6maw624zI6F26/FEgQNbSXtw/c/NynsUB1gWZatXmlD8cskks7iqYIZrXsnYpLEeU+GjrXzZ/e9P226Nma/PsnDprRzjQtHjutkjIAqe8eHG8qSMK/3TWqOss0gsOzg3FO3vY7og77pgZOWXg+65iE=
+Received: from YT3PR01CA0136.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:83::21)
+ by CY8PR12MB7636.namprd12.prod.outlook.com (2603:10b6:930:9f::15)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Wed, 7 Oct
- 2026 17:04:30 +0000
+ 2026 17:04:34 +0000
 Received: from BN1PEPF00005FFE.namprd05.prod.outlook.com
- (2603:10b6:b01:83:cafe::52) by YT3PR01CA0124.outlook.office365.com
- (2603:10b6:b01:83::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
- Oct 2026 17:04:29 +0000
+ (2603:10b6:b01:83:cafe::77) by YT3PR01CA0136.outlook.office365.com
+ (2603:10b6:b01:83::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 7
+ Oct 2026 17:04:34 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -52,18 +52,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  BN1PEPF00005FFE.mail.protection.outlook.com (10.167.243.230) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 17:04:29 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 17:04:34 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 12:04:27 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 12:04:30 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 12:04:26 -0500
+ 2026 12:04:29 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 7 Oct 2026 12:04:26 -0500
+ Transport; Wed, 7 Oct 2026 12:04:29 -0500
 From: <ivan.lipski@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -72,12 +72,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Ovidiu Bunea <ovidiu.bunea@amd.com>, Dillon Varone
- <dillon.varone@amd.com>
-Subject: [PATCH 07/19] drm/amd/display: Fix frac_urg_bw conversion to correct
- U0.10 format
-Date: Wed, 7 Oct 2026 12:59:40 -0400
-Message-ID: <20261007170412.1898315-8-ivan.lipski@amd.com>
+ <Chen-Yu.Chen@amd.com>, Aric Cyr <Aric.Cyr@amd.com>, Josip Pavic
+ <josip.pavic@amd.com>
+Subject: [PATCH 11/19] drm/amd/display: Invalidate the DRR shadow after a
+ hardware re-init
+Date: Wed, 7 Oct 2026 12:59:44 -0400
+Message-ID: <20261007170412.1898315-12-ivan.lipski@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261007170412.1898315-1-ivan.lipski@amd.com>
 References: <20261007170412.1898315-1-ivan.lipski@amd.com>
@@ -86,29 +86,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFE:EE_|BN7PPF683A477A9:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf475722-794b-4f65-8628-08df24950d16
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFE:EE_|CY8PR12MB7636:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17089f7b-1efd-4091-78f7-08df24950ffe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|30052699003|36860700016|376014|23010399003|82310400026|56012099006|11063799006|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: Ey9ri0yRicBF4UtdnjNxwVbdDS1CIVu69561R8rlIET1G4qXlvjODMtDqXz+oT3jbWY4jV1ReqtE0C5Zz5uZ74gkuCYa7EUGXD60GdOdzM8UduNGjnC9GJAhiUnNRRDDL02qwiRxW45jJGCMMol5mw2OGL+5n+LFxW5xZKH9/Wgcv6kXphTh3FIdxcZOf1N191bGOZgWWjhYn/GuuHqPmkvHq6u4q2/j9Hb9it5sAZEWcBZ6KfY88jclNXiGlGkq1YQZT6oyrNLk9vRp5I17occAV8OvZsTYfJialdE2GlTeTFEcTnzxMOCFgDcBtR/G964HSnt4g6lur3IZ/HPUCAcV0nxW8F/3gX5/I7Ij7xBExeqhEiWdcdyo82c+9c49+VznaFbBqDDCioEE5GLrGrAtHH8XttNgO+tnWQ/S5W4B4yCLUfA52SyF6kabFvVC6irvWsjbYDIIGfTRIM0NkLOIlEgVgkSouvZFAEi5a9CF7jAlXlJqecupkSqDD0RThvGUkQ1cwFnE+1kqy4xSW7VaR576PhyUYc1sSvj87DU02qgZ6ofq2lbwazU9jb9JLaYMwn075NowDctwrfr4x0eEuxcbMPnGGAwb2lk+1yriGKnR/qGD0DWiN/vwHi95Tyjyay3Z7SDuUcR251pA4N2TAWYMpxsLj31GSGH/c1bn1n8+qwKy1XRSdc+J4uElAGKoMdt4/MzcupB2X+ZVcw==
+ ARA:13230040|1800799024|23010399003|36860700016|82310400026|376014|56012099006|5023799004|11063799006|22082099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: XazHsdbAaOoQ7ypX3yz/GJfFGZjLQjEdo01UymxSi9lkKGuAVqS+D5X+GYeQ+GH2IH5IpbtSy21059VogVbKKlDaw87RNLbExtoohQCtFd42sEchMB8k1+1ZAhJ6OfACbDLHK+kTMTqHv1MCoa8f6pKPwpukLuOCpWV6blIg2dOkcNqSo8YEVJHFxM8f9vPc2ivc1dvgGDKgykn+5X/Z2Bitc09ohl8pwAJMd6o1XBsqbO+ZtsHxgoHGioyuAxLthqkUqZVR9yNIuzR3kNKOzIfps9Rfl4sajdIfb7Lb/WcAz7kuHnKxRDMl3/vxWTPGrYJxMekSvVOQFBIPcgzvY0Q5WqR5ebeuB0BC2d+DHZHKKJT4ug9FGou8Gzbz6+0nNiHBP6ivKugINclNjxfkp3YPWzLKEymPnYOVYBZOP1D3z0pkFdW3JPUybxRg92H4vJsIqmvrPbF35P9Bdjq/8PtKNC5arAZNXs4+0jZT2IoD1G1BaMawisYxcPKtEYG40AdyM0bXUpSBaow3QOXKMZVkb8N1Nq0KYXCzyOKKJlc/MaFymE5CE5U863I4uQpm1zN7UEUfQZ4rloM634DFaGK1Tr6PnWxYemM+9cDmnm/HilDiOdJpis6/RKlnv5Q7AzVOEJARPgQEqgjlo7x1y3dVOYYGxm0QaGK4u2PoakuxtV00mObBTOxUQ5vRv4lA
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(30052699003)(36860700016)(376014)(23010399003)(82310400026)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(3023799007);
+ SFS:(13230040)(1800799024)(23010399003)(36860700016)(82310400026)(376014)(56012099006)(5023799004)(11063799006)(22082099003)(18002099003)(6133799003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: tQuLyFGzJA+jAiepZtjizu1+qgyfaWRtVc26y7ZjjNhBqBs6T3QzSLZ1qrxYIBYjDyxVMUHUuv41jcT4DdVI6A8eVgHZEmIbQyNclR5hJyGoet9t+SWtRkONsM4kDdIIaVtnlHGXVv1eJk0xEkcUQNamQUkG+fynURMLJtzowo2wQLnbHrUTs8c2Hy2VzsKILQoKkqMzsSrB/jzQ9UtYfiIjQ/+TQKCC66KwRv+52mvlMOPvQ/oJcURya11w1auo2nfgYNP/WAi8HOO8ufkVD3iJOggejW3SgVVGpcYcZ5ArW1GtoYZ6jCcho92ZxXYhPmPCm1jIs7pu1ksC+Qd1Fw75XmV5+gEI/tjLB8gykVVCDGNO5Sl2enD0AZn6sCsuXekIVjR7wna2lao+n9w20M/R9y9M2f/3KqO7/Nb4V3SULYX/hULWupZUYzcBZ0nF
+X-MS-Exchange-AntiSpam-MessageData-0: JcpC+0P5e8DJJFSAERrGOtIhpys4X1yHt9is6sFEGu5KgVlKId4q29xBV/5JNU4UaWa8vlCoZUWdLkydcKf6OFQ8NAHcHPnRakQDJApvYHBxBluwwNKUXnmrpume/SO5etv6LZdR5M3UHt9zq3dKcVhTFhASdXQZgHZTnMVHDmrCbh2/EBUm7fcjTQSGZ7xZJoKwuYdQA0JjaPiW0ZCHDv3kjWODYCTEHWTOFEQu47az/sImtSVHh2B7k+/sItuTaiMREUs51mCq64dVPKs/SSDBiJ1zoqEX/nV05gsjWIOr5OJshvOKBJ8XwdyehNAoF/iFJu8xlqYRJnbzPSruWkrQSe7m2dFoACozpQBo5pIDp1UDg8iOjKV8IYQox0ESyfxvnI0kT5jpB9xntCbZsFUWynOwAKvxKtH3ZzT4qwkS/k8a4q6ub9Usc4dMbWy3
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 17:04:29.7761 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf475722-794b-4f65-8628-08df24950d16
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 17:04:34.6538 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17089f7b-1efd-4091-78f7-08df24950ffe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFE.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF683A477A9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7636
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,199 +123,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ovidiu Bunea <ovidiu.bunea@amd.com>
+From: Aric Cyr <Aric.Cyr@amd.com>
 
-[why * how]
-DCHUBBUB_ARB_FRAC_URG_BW_* registers only have 10 programmable bits that are formatted in
-U0.10 fixed point. Multiplying the fraction by 1000 is incorrect, and understates the
-fraction by 2.34%.
+[Why]
+dc_stream_adjust_vmin_vmax() skips hardware programming when
+stream->adjust already matches the request and timing_adjust_pending is
+clear. That treats stream->adjust as a faithful shadow of the OTG, but
+dc_set_power_state(D0) calls init_hw(),
+which returns OTG_V_TOTAL_MIN/MAX and the static screen triggers to
+their reset defaults without touching any stream. After an S3/S4 resume
+or a GPU reset the shadow claims hardware is current when it is not.
 
-Rounding or truncating is not correct either since it can cut off 0.1% of the fraction
-which has direct implications on the assumed deadlines and TTU, albeit minor.
+A resume that reuses the same stream object also short-circuits
+dc_commit_streams() on !streams_changed(), so enable_stream_timing()
+never runs either and nothing reprograms DRR. Replay then fails to arm:
+the static screen trigger is at its reset value and the coasting vtotal
+no longer matches the OTG.
 
-Scale the fraction by the correct 1024 value, use ceiling to ensure the assumed fraction is
-maintained, and clamp to 1023 since the register field is only 10 bits wide.
-Clamping from 1024 -> 1023 only impacts modes at > 99.9% fractions.
+The max_v_total overflow path has a second problem. When OTG v_count
+halt is not allowed it stores the new values and marks the adjustment
+pending even though nothing was programmed, and no later call with the
+same values can clear that flag.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+[How]
+Add invalidate_drr_adjust() to mark every stream in current_state as
+having a pending timing adjustment, and call it once hardware has been
+re-initialized in dc_set_power_state(),
+so the next dc_stream_adjust_vmin_vmax() reprograms the OTG.
+
+Hoist the max_v_total check above the point where stream->adjust is
+updated and return early when v_count halt is not allowed, leaving the
+shadow describing the OTG instead of latching a flag nothing can clear.
+On the paths that do update stream->adjust, set the flag up front and
+clear it only after set_long_vtotal() or set_drr() has actually run.
+
+Reviewed-by: Josip Pavic <josip.pavic@amd.com>
+Signed-off-by: Aric Cyr <Aric.Cyr@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../src/dml2_core/dml2_core_dcn4_calcs.c      |  7 ++++---
- .../dml2_core/dml2_core_dcn5_calcs_dchub.c    |  5 +++--
- .../dml2_core/dml2_core_dcn6_calcs_dchub.c    |  5 +++--
- .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c      | 20 ++++++++++---------
- .../dml21/src/dml2_dpmm/dml2_dpmm_dcn5.c      | 13 ++++++------
- 5 files changed, 28 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 43 +++++++++++++++++++-----
+ 1 file changed, 34 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index 2d43a35c4c42..a4a77e375d9f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -12315,6 +12315,7 @@ static unsigned int dml_get_plane_idx(const struct dml2_core_internal_display_mo
- static void rq_dlg_get_wm_regs(const struct dml2_display_cfg *display_cfg, const struct dml2_core_internal_display_mode_lib *mode_lib, struct dml2_dchub_watermark_regs *wm_regs)
- {
- 	double refclk_freq_in_mhz = (display_cfg->overrides.hw.dlg_ref_clk_mhz > 0) ? (double)display_cfg->overrides.hw.dlg_ref_clk_mhz : mode_lib->soc.dchub_refclk_mhz;
-+	unsigned int u0_10_fixed_point_scale = 1U << 10;
- 
- 	wm_regs->fclk_pstate = (unsigned int)(mode_lib->mp.Watermark.FCLKChangeWatermark * refclk_freq_in_mhz);
- 	wm_regs->sr_enter = (unsigned int)(mode_lib->mp.Watermark.StutterEnterPlusExitWatermark * refclk_freq_in_mhz);
-@@ -12327,9 +12328,9 @@ static void rq_dlg_get_wm_regs(const struct dml2_display_cfg *display_cfg, const
- 	wm_regs->usr = (unsigned int)(mode_lib->mp.Watermark.USRRetrainingWatermark * refclk_freq_in_mhz);
- 	wm_regs->refcyc_per_trip_to_mem = (unsigned int)(mode_lib->mp.UrgentLatency * refclk_freq_in_mhz);
- 	wm_regs->refcyc_per_meta_trip_to_mem = (unsigned int)(mode_lib->mp.MetaTripToMemory * refclk_freq_in_mhz);
--	wm_regs->frac_urg_bw_flip = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * 1000);
--	wm_regs->frac_urg_bw_nom = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidth * 1000);
--	wm_regs->frac_urg_bw_mall = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthMALL * 1000);
-+	wm_regs->frac_urg_bw_flip = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	wm_regs->frac_urg_bw_nom = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidth * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	wm_regs->frac_urg_bw_mall = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthMALL * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index ef876a24afc2..05e8fcc710e3 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -446,6 +446,21 @@ static bool set_long_vtotal(struct dc *dc, struct dc_stream_state *stream, struc
+ 	return false;
  }
  
- static unsigned int log_and_substract_if_non_zero(unsigned int a, unsigned int subtrahend)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c
-index f407afefb37f..262b8e098343 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c
-@@ -5344,6 +5344,7 @@ void dcn5_adjust_pixel_clock_for_progressive_to_interlace_unit(const struct dml2
- static void dcn5_rq_dlg_get_wm_regs(const struct dml2_display_cfg *display_cfg, const struct dml2_core_internal_display_mode_lib *mode_lib, const struct dml2_utm_soc_bb *utm_soc_bb, struct dml2_dchub_watermark_regs *wm_regs)
++/* A hardware re-init resets the OTG DRR registers while stream->adjust keeps the
++ * pre-reset values, so those values represent has to be marked stale.
++ */
++static void invalidate_drr_adjust(struct dc *dc)
++{
++	int i;
++
++	if (!dc->current_state)
++		return;
++
++	for (i = 0; i < dc->current_state->stream_count; i++)
++		if (dc->current_state->streams[i])
++			dc->current_state->streams[i]->adjust.timing_adjust_pending = true;
++}
++
+ /**
+  * dc_stream_get_last_used_drr_vtotal - Looks up the pipe context of
+  * dc_stream_state and gets the last VTOTAL used by DRR (Dynamic Refresh Rate)
+@@ -1343,6 +1358,9 @@ bool dc_stream_adjust_vmin_vmax(struct dc *dc,
  {
- 	double refclk_freq_in_mhz = (display_cfg->overrides.hw.dlg_ref_clk_mhz > 0) ? (double)display_cfg->overrides.hw.dlg_ref_clk_mhz : utm_soc_bb->dchub_refclk_mhz;
-+	unsigned int u0_10_fixed_point_scale = 1U << 10;
+ 	int i;
+ 	bool drr_unchanged;
++	bool exceeds_max_v_total = dc->caps.max_v_total != 0 &&
++			(adjust->v_total_max > dc->caps.max_v_total ||
++			 adjust->v_total_min > dc->caps.max_v_total);
  
- 	wm_regs->fclk_pstate = (int unsigned)(mode_lib->mp.Watermark.FCLKChangeWatermark * refclk_freq_in_mhz);
- 	wm_regs->sr_enter = (int unsigned)(mode_lib->mp.Watermark.StutterEnterPlusExitWatermark * refclk_freq_in_mhz);
-@@ -5356,8 +5357,8 @@ static void dcn5_rq_dlg_get_wm_regs(const struct dml2_display_cfg *display_cfg,
- 	wm_regs->usr = (int unsigned)(mode_lib->mp.Watermark.USRRetrainingWatermark * refclk_freq_in_mhz);
- 	wm_regs->refcyc_per_trip_to_mem = (unsigned int)(mode_lib->mp.UrgentLatency * refclk_freq_in_mhz);
- 	wm_regs->refcyc_per_meta_trip_to_mem = (unsigned int)(mode_lib->mp.MetaTripToMemory * refclk_freq_in_mhz);
--	wm_regs->frac_urg_bw_flip = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * 1000);
--	wm_regs->frac_urg_bw_nom = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidth * 1000);
-+	wm_regs->frac_urg_bw_flip = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	wm_regs->frac_urg_bw_nom = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidth * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
- }
+ 	/*
+ 	 * Don't adjust DRR while there's bandwidth optimizations pending to
+@@ -1370,6 +1388,12 @@ bool dc_stream_adjust_vmin_vmax(struct dc *dc,
+ 	if (drr_unchanged)
+ 		return true;
  
- void dcn5_get_mcif_arb_params(const struct dml2_core_internal_display_mode_lib *mode_lib, struct dml2_mcif_global_register_set *out)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c
-index 6ad41846a73a..ce6eb94230c1 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c
-@@ -1059,6 +1059,7 @@ static void dcn6_rq_dlg_get_dlg_reg(
- static void dcn6_rq_dlg_get_wm_regs(const struct dml2_display_cfg *display_cfg, const struct dml2_core_internal_display_mode_lib *mode_lib, const struct dml2_utm_soc_bb *utm_soc_bb, struct dml2_dchub_watermark_regs *wm_regs)
- {
- 	double refclk_freq_in_mhz = (display_cfg->overrides.hw.dlg_ref_clk_mhz > 0) ? (double)display_cfg->overrides.hw.dlg_ref_clk_mhz : utm_soc_bb->dchub_refclk_mhz;
-+	unsigned int u0_10_fixed_point_scale = 1U << 10;
++	/* leave stream->adjust describing the OTG rather than latching
++	 * a pending adjustment that no later call can ever clear.
++	 */
++	if (exceeds_max_v_total && !adjust->allow_otg_v_count_halt)
++		return false;
++
+ 	dc_exit_ips_for_hw_access(dc);
  
- 	wm_regs->fclk_pstate = (int unsigned)(mode_lib->mp.Watermark.FCLKChangeWatermark * refclk_freq_in_mhz);
- 	wm_regs->sr_enter = (int unsigned)(mode_lib->mp.Watermark.StutterEnterPlusExitWatermark * refclk_freq_in_mhz);
-@@ -1074,8 +1075,8 @@ static void dcn6_rq_dlg_get_wm_regs(const struct dml2_display_cfg *display_cfg,
- 	wm_regs->usr = (int unsigned)(mode_lib->mp.Watermark.USRRetrainingWatermark * refclk_freq_in_mhz);
- 	wm_regs->refcyc_per_trip_to_mem = (unsigned int)(mode_lib->mp.UrgentLatency * refclk_freq_in_mhz);
- 	wm_regs->refcyc_per_meta_trip_to_mem = (unsigned int)(mode_lib->mp.MetaTripToMemory * refclk_freq_in_mhz);
--	wm_regs->frac_urg_bw_flip = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * 1000);
--	wm_regs->frac_urg_bw_nom = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidth * 1000);
-+	wm_regs->frac_urg_bw_flip = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	wm_regs->frac_urg_bw_nom = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidth * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
- }
+ 	stream->adjust.v_total_max = adjust->v_total_max;
+@@ -1377,16 +1401,15 @@ bool dc_stream_adjust_vmin_vmax(struct dc *dc,
+ 	stream->adjust.v_total_mid_frame_num = adjust->v_total_mid_frame_num;
+ 	stream->adjust.v_total_min = adjust->v_total_min;
+ 	stream->adjust.allow_otg_v_count_halt = adjust->allow_otg_v_count_halt;
++	/* Only cleared once the new values have actually reached an OTG. */
++	stream->adjust.timing_adjust_pending = true;
  
- void dcn6_get_pipe_regs(const struct dml2_display_cfg *display_cfg,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
-index 54a1f9c13dbf..7fa50ccfcfd1 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
-@@ -898,6 +898,7 @@ bool dpmm_dcn4_map_watermarks(struct dml2_dpmm_map_watermarks_params_in_out *in_
- 	struct dml2_dchub_global_register_set *dchubbub_regs = &in_out->programming->global_regs;
+-	if (dc->caps.max_v_total != 0 &&
+-		(adjust->v_total_max > dc->caps.max_v_total || adjust->v_total_min > dc->caps.max_v_total)) {
+-		if (adjust->allow_otg_v_count_halt) {
+-			stream->adjust.timing_adjust_pending = false;
+-			return set_long_vtotal(dc, stream, adjust);
+-		}
+-		/* Nothing reached hw, so stream->adjust no longer describes the OTG. */
+-		stream->adjust.timing_adjust_pending = true;
+-		return false;
++	if (exceeds_max_v_total) {
++		if (!set_long_vtotal(dc, stream, adjust))
++			return false;
++
++		stream->adjust.timing_adjust_pending = false;
++		return true;
+ 	}
  
- 	double refclk_freq_in_mhz = (display_cfg->overrides.hw.dlg_ref_clk_mhz > 0) ? (double)display_cfg->overrides.hw.dlg_ref_clk_mhz : mode_lib->soc.dchub_refclk_mhz;
-+	unsigned int u0_10_fixed_point_scale = 1U << 10;
+ 	for (i = 0; i < MAX_PIPES; i++) {
+@@ -6310,6 +6333,8 @@ void dc_set_power_state(struct dc *dc, enum dc_acpi_cm_power_state power_state)
  
- 	/* set A */
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].fclk_pstate = (int unsigned)(mode_lib->mp.Watermark.FCLKChangeWatermark * refclk_freq_in_mhz);
-@@ -911,9 +912,9 @@ bool dpmm_dcn4_map_watermarks(struct dml2_dpmm_map_watermarks_params_in_out *in_
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].usr = (int unsigned)(mode_lib->mp.Watermark.USRRetrainingWatermark * refclk_freq_in_mhz);
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].refcyc_per_trip_to_mem = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].refcyc_per_meta_trip_to_mem = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_flip = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * 1000);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_nom = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidth * 1000);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_mall = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthMALL * 1000);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_flip = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_nom = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidth * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_mall = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthMALL * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
+ 		dc->hwss.init_hw(dc);
  
- 	/* set B */
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].fclk_pstate = (int unsigned)(mode_lib->mp.Watermark.FCLKChangeWatermark * refclk_freq_in_mhz);
-@@ -927,9 +928,9 @@ bool dpmm_dcn4_map_watermarks(struct dml2_dpmm_map_watermarks_params_in_out *in_
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].usr = (int unsigned)(mode_lib->mp.Watermark.USRRetrainingWatermark * refclk_freq_in_mhz);
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].refcyc_per_trip_to_mem = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].refcyc_per_meta_trip_to_mem = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_flip = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * 1000);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_nom = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidth * 1000);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_mall = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthMALL * 1000);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_flip = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_nom = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidth * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_mall = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthMALL * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
- 
- 	dchubbub_regs->num_watermark_sets = 2;
- 
-@@ -944,6 +945,7 @@ bool dpmm_dcn42_map_watermarks(struct dml2_dpmm_map_watermarks_params_in_out *in
- 	struct dml2_dchub_global_register_set *dchubbub_regs = &in_out->programming->global_regs;
- 
- 	double refclk_freq_in_mhz = (display_cfg->overrides.hw.dlg_ref_clk_mhz > 0) ? (double)display_cfg->overrides.hw.dlg_ref_clk_mhz : mode_lib->soc.dchub_refclk_mhz;
-+	unsigned int u0_10_fixed_point_scale = 1U << 10;
- 
- 	/* set A */
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].fclk_pstate = (int unsigned)(mode_lib->mp.Watermark.FCLKChangeWatermark * refclk_freq_in_mhz);
-@@ -957,9 +959,9 @@ bool dpmm_dcn42_map_watermarks(struct dml2_dpmm_map_watermarks_params_in_out *in
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].usr = (int unsigned)(mode_lib->mp.Watermark.USRRetrainingWatermark * refclk_freq_in_mhz);
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].refcyc_per_trip_to_mem = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].refcyc_per_meta_trip_to_mem = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_flip = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * 1000);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_nom = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidth * 1000);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_mall = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthMALL * 1000);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_flip = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_nom = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidth * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_mall = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthMALL * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
- 
- 	/* set B */
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B] = dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A];
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn5.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn5.c
-index f6230f8f9127..e607d763f5a3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn5.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn5.c
-@@ -397,6 +397,7 @@ bool dpmm_dcn5_map_watermarks(struct dml2_dpmm_map_watermarks_params_in_out *in_
- 	struct dml2_mcif_global_register_set *mcif_regs = &in_out->programming->mcif_global_regs;
- 
- 	double refclk_freq_in_mhz = (display_cfg->overrides.hw.dlg_ref_clk_mhz > 0) ? (double)display_cfg->overrides.hw.dlg_ref_clk_mhz : in_out->core->utm_soc_bb->dchub_refclk_mhz;
-+	unsigned int u0_10_fixed_point_scale = 1U << 10;
- 
- 	/* set A */
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].fclk_pstate = (int unsigned)(mode_lib->mp.Watermark.FCLKChangeWatermark * refclk_freq_in_mhz);
-@@ -410,9 +411,9 @@ bool dpmm_dcn5_map_watermarks(struct dml2_dpmm_map_watermarks_params_in_out *in_
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].usr = (int unsigned)(mode_lib->mp.Watermark.USRRetrainingWatermark * refclk_freq_in_mhz);
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].refcyc_per_trip_to_mem = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].refcyc_per_meta_trip_to_mem = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_flip = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * 1000);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_nom = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidth * 1000);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_mall = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthMALL * 1000);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_flip = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_nom = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidth * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_A].frac_urg_bw_mall = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthMALL * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
- 
- 	/* set B */
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].fclk_pstate = (int unsigned)(mode_lib->mp.Watermark.FCLKChangeWatermark * refclk_freq_in_mhz);
-@@ -426,9 +427,9 @@ bool dpmm_dcn5_map_watermarks(struct dml2_dpmm_map_watermarks_params_in_out *in_
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].usr = (int unsigned)(mode_lib->mp.Watermark.USRRetrainingWatermark * refclk_freq_in_mhz);
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].refcyc_per_trip_to_mem = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
- 	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].refcyc_per_meta_trip_to_mem = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_flip = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * 1000);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_nom = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidth * 1000);
--	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_mall = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthMALL * 1000);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_flip = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_nom = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidth * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
-+	dchubbub_regs->wm_regs[DML2_DCHUB_WATERMARK_SET_B].frac_urg_bw_mall = (unsigned int)math_min2(math_ceil(mode_lib->mp.FractionOfUrgentBandwidthMALL * u0_10_fixed_point_scale), u0_10_fixed_point_scale - 1);
- 
- 	dchubbub_regs->num_watermark_sets = 2;
- 
++		invalidate_drr_adjust(dc);
++
+ 		if (dc->hwss.init_sys_ctx != NULL &&
+ 			dc->vm_pa_config.valid) {
+ 			dc->hwss.init_sys_ctx(dc->hwseq, dc, &dc->vm_pa_config);
 -- 
 2.43.0
 
