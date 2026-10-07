@@ -4,123 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8C40CA5FED
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Oct 2026 23:15:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78F02CA5FF1
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Oct 2026 08:07:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E95310E05F;
-	Tue,  6 Oct 2026 23:15:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14E7D10E53E;
+	Wed,  7 Oct 2026 08:07:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WWtgcYVR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Fydh8RXe";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013051.outbound.protection.outlook.com
- [40.93.196.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E23C10E05F
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Oct 2026 23:15:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LQMbCAytTU5oyKhNi1ViDC1mBShPjZAtev5vU77zkZOYKIG0O58erGWxPAPpFru3rofynIFNLqeZ3IOj7t6uSStzZ2IAwTZGG2ssXm//nOR2VXAbWlo54VsVhIazziMmhm4OrslnMk5Lx4n2q/VhZS2dQI6BGkD/4+t0oITwMVPHDz0aZbLCxYYcDxwFz8AwBvNXsU1/e1UILhHttz7Acd2qrBkF+ctoYfWTAJ7FOp2EsnhfVFirRbUGtZfivFIxDMhKu0wl6wZ5MyaweTuOZr0IDp1QBb9mhuImD1QmTDalVwmE6i6Ju7xzEKZkU+r3SIi4uPgEvAn84Akt3QfWBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q1NEBOHlOwe0ZnZM9ArBkG2k3OaltRnkMCvqluZVX0Y=;
- b=wlN2Vm9eKXtLQK5IlYONveku3fVvqAUvloeS8GGL/506JS1pRSRzYtDkKfFPBTneVUrdY9Rs5OTdO0RSYSCynrDo4wU9+YphL9gnWV437u9TM2fUZBMaMa32ff9MCeYrhI6UOq0gBEyvrLAukVLlCtXP7fJZu0yAYKPvlw0vpdemmDdAirsxTSxGZ3PA6oY2ayIfHL7YPzjm4tF6xnjSMBMpfWTc1EKn2DPh1DhjZYKDk+3siDgvWzpa1FnmVakNSbfcAkM3mrCss+xdTWApTqsw4KTWlX361l8CfsDzZnHq0b4fUUgHst8pcHkNzsWgQkhPKMvRup07vbls/ks/aA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q1NEBOHlOwe0ZnZM9ArBkG2k3OaltRnkMCvqluZVX0Y=;
- b=WWtgcYVR+zFQVdTmhXyr8eATGaEinHFbEo6qcldwR/CtjcCcjX1zTd3KTsioVEq3y/pykiuTg9xs4Fd5lBck+zQ20N7ymw4dplf2vB7iOijOr+tX1mrsrplZqPWBzK2V+DJgqoZqn9kzL3j3Sbk14rVyQWcr2kuANiBJqj8G97c=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8)
- by MN2PR12MB4078.namprd12.prod.outlook.com (2603:10b6:208:1de::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Tue, 6 Oct
- 2026 23:15:08 +0000
-Received: from IA1PR12MB8517.namprd12.prod.outlook.com
- ([fe80::c47e:c884:f06:1525]) by IA1PR12MB8517.namprd12.prod.outlook.com
- ([fe80::c47e:c884:f06:1525%4]) with mapi id 15.21.0472.015; Tue, 6 Oct 2026
- 23:15:08 +0000
-Content-Type: multipart/alternative;
- boundary="------------YeVXQMR09cs3k5NZ98LHjxcO"
-Message-ID: <481e84c9-ebd9-4b81-90ea-a59c54d23dec@amd.com>
-Date: Tue, 6 Oct 2026 18:15:05 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdkfd: Fix svm_bo use after free in
- svm_range_clone
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
- Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com, Mukul.Joshi@amd.com
-References: <20261006135641.312419-1-Philip.Yang@amd.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <20261006135641.312419-1-Philip.Yang@amd.com>
-X-ClientProxiedBy: CH0PR07CA0009.namprd07.prod.outlook.com
- (2603:10b6:610:32::14) To IA1PR12MB8517.namprd12.prod.outlook.com
- (2603:10b6:208:449::8)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E971210E53E;
+ Wed,  7 Oct 2026 08:07:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791360429; x=1822896429;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=romjlo+9XGi6AHS6ZJhdS/i4Eu/Sc0BFFjJspgHaBRQ=;
+ b=Fydh8RXe/cVk2ESxvkcHrTIBLhX8I+YFPJQZ2ceLcRhPNCvg+XGDyXIb
+ abO/mJoRjXmj7ePjXKumkKPKeg7OqXAuQGb9owOtbjvLd0qa3ZGmQIlZM
+ M7poJ5kpn38haUOFPzkaEngt7fdcM312xuv0ztH1RySebnTlpdyfUVNr/
+ 2et3QAByGDkpx9AO+BIhDUDcWjFk3pssbFYIBK9zatCeZ7qb4Bb2zGiw0
+ 0qgZg09suwbFfWsX0+JXBpcLl2lROZ7fLDNhXk+SfiUYBymSpGPpaW1ci
+ g0rwfucjdK8hYNqFfNcSqWnm6z4R9vcibpymONdGVlchaPrVwk/4AZJZU w==;
+X-CSE-ConnectionGUID: IgkobZtNRpWeOGtBEpCBEA==
+X-CSE-MsgGUID: tBv+nc/BRva8rmtfsj2qsA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="108529"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="108529"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2026 01:07:07 -0700
+X-CSE-ConnectionGUID: 0Mk0mLUSRr2GF0Bs/rpY/w==
+X-CSE-MsgGUID: CouYNn0jRoy1mAI6wVYmuA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; d="scan'208";a="315405490"
+Received: from aravind-dev.iind.intel.com ([10.190.239.36])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2026 01:07:02 -0700
+From: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
+To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: simona.vetter@ffwll.ch, airlied@gmail.com, tejas.upadhyay@intel.com,
+ himal.prasad.ghimiray@intel.com, rodrigo.vivi@intel.com,
+ riana.tauro@intel.com, raag.jadav@intel.com,
+ joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
+ pratik.bari@intel.com, Hawking.Zhang@amd.com, tao.zhou1@amd.com,
+ YiPeng.Chai@amd.com, jinzhou.su@amd.com, cesun102@amd.com,
+ lijo.lazar@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Subject: [PATCH v2 0/2] drm/xe: Expose retired VRAM pages via drm-ras
+Date: Wed,  7 Oct 2026 13:33:52 +0530
+Message-Id: <20261007080354.3072751-1-aravind.iddamsetty@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB8517:EE_|MN2PR12MB4078:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc9255aa-ed25-4110-ec79-08df23ffa983
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|11063799006|8096899003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: P+gFSmVt4JyaPQu9JKUPrEzsFHWURmF5EhyKSg3yOwL4S+oZYb4S6Ut5mSsTXACFJWpwSSlfAOqjewon2nVgd4uHr4pQ9SguOoZkhadr/35iA1RFBc+eCawawMVGUWeAFUEdCZjKH3qNflkU573EaP9lBMDDfj+grf+d3NkbB9+NkM1dzLt7wDiwTDB6gmso0LCIePgcwsbI0+grCHLqJfhACfXr8V3y84u0NI5sCJZtJ0WzCY31sR7nWf7BMWoLeX1ZmZ5bFT+35O4wwQ52pNgWGmExEHvndExtnWNIW6ZcYwOo+nS2lGqW6AV1pd3jEh12IlryT143w96NzcNhuWFre+ddqAqlQW5ePlTlraShsylQ23O7Xi/u92rYrZyC+g7bpqeSVWXWovlSF2pDZCKO69axHqDb2fCMu1x9AvysCzYZxuqigSURIeyO8AoJTg5H55Jm9ukoYOlQUG6p5PI/PaDWS5r9RZWWikUk4CmgSOM9g1v2q3RdEu6N3Q2cDRerAyrs2Hcj7cr6vyvcdeaf0QsWJlfnhwwTLF2vRiPD77SE7XMMUV+rTcThlK9r1neiuKsbnPOMLhnnSMJ0I/jvjQGD6YLeo1rwX5ib7/ntAor9T+CYPYLaNBO1kjI6PNoYzNRyYN4KDTLqWIOPcKQHzi7ebIpW79BOK5GRM3s=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB8517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(8096899003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R0t4TU10K0lScDJBNEJyZktPeFhTUFdKTDFWYXhkU0tTVGUvb1ZVazYyMWZO?=
- =?utf-8?B?WlhDQnVCU3ZqcGVUencwdU9USlAzdVpJZ2ozZmh2dUJML1c2V200K29PUS80?=
- =?utf-8?B?QVJWQ2pvS0p3cVBPeW1GMW9SbDNuT0N4QTN6M0hUTFZhNENuUlRNbjJKdUhI?=
- =?utf-8?B?eE5Yc1FKNXlVWmJpdENhR0Q0bVVIODl6U1FCVTBqL01GUkJ3Z2pXMHEvWWRK?=
- =?utf-8?B?b3ZuMDJaTTFkc2VrZDN3RmwwazMxOVdxOGc2bUdCZFd4cm4yUG9IeW5hbHpR?=
- =?utf-8?B?emxWV1NXT0ZxbjRaNVRpOVJOaVRrUENCamlqRnZuZW9qSWZwLzhvMW5abHFv?=
- =?utf-8?B?MGNNNC9iVng5NUJLTWhTV0UwNnExK25rR05WSUlVVzVhS2tEOUlUajNTd25F?=
- =?utf-8?B?Zi9jQWJ6dTFtbVhWNUpyZVg4eXk2QzN6d3BmaGp1dHpocWQ1ZkVUcjlURmZz?=
- =?utf-8?B?eFdpNjkrWWlyaDdTWTU4K2FlZHRzelVqR0labTNmd2txVTRKWUU0aVh1SkI5?=
- =?utf-8?B?UHNBdjdRT1FOL0lrWDZqSjVkaXdCajFtMEtuVzBuZGdNdHRyK2xkb0c5cDRa?=
- =?utf-8?B?OXAwOUZLdWtiQTdza2trZlJtNkVRYkt3S0RWWVd1NlM5WWUrVE44eDMzcVhE?=
- =?utf-8?B?ZEVybWZ1cHY2NDV2czB0dUxLWnB3U3VBN29HVXJNUGJ4QnZkd2U2ZkFMODVz?=
- =?utf-8?B?dmlmZFBWb3ladXF3S09UeHlUa1o2UFNGNTdDWlN6NTZ5YzcvcS9VckdKSlA0?=
- =?utf-8?B?eEVCWFJvcEFxbk01b1o4MmNqckpESHhWZjBGZ29GOGh0cWJOSWN4MkdpNWhx?=
- =?utf-8?B?NkFlOCtZYWFZTHQ1WldtRHVqVEFoWW9MOFl5d1ZiNUlIS3M3bVYwMHhQekps?=
- =?utf-8?B?akhBcUhDa0J6MUwxVnAreHR4WFhBZDVCWDBVWCtMWXhDNG9meUI0Y1BmZ1lw?=
- =?utf-8?B?U28xcVpWZTJYODhnRmsxNnFYci9DZ0txczdDTHFaK0szSmNjZ2c4NUFUa3dZ?=
- =?utf-8?B?Z3JmMHN3QU5nM1FvMHYyMFQySWxsUTJMV0lkZG5yMzdwL3Q5WDBIbzZ0bFV6?=
- =?utf-8?B?K0M5dERnWXVEbzlsOGN0ZWRBUFI3TDUwbWpDY0xsdlFtOU4wdE8rM0FQajZv?=
- =?utf-8?B?U0FaUGphY0FQNmh6bDR4MzBUdmc3YnBLMUpPcndEbEo1QVl1SDFoa0gyZHJa?=
- =?utf-8?B?WFBkbGNNWVdadFNlTEZieTBzMWVka2YySEhSWDNTSGowTjAwZjdwYTJLY01D?=
- =?utf-8?B?NWYrQk9CdUt2N3BOL3JDTG45Z1lhKzUyNU9KMmxValVTdlRZc25YZ1RHeG1O?=
- =?utf-8?B?bnExeENUcjE3MXlPdGxQcmE3S3NweHV4aDB4c1lkRUMxOStYSllCRzZoaGQz?=
- =?utf-8?B?UkRZUmQxYWF3TzV1dS9Fa2FmeTdGWGpRYVUyVlQzWmNTMHJ6Zk04R0xFZ1N3?=
- =?utf-8?B?dHVGYmdsUjNrUnZWYjFmejRkeXlOY2xUWm1oV1djdlhzYm55Yjc2cHcrWEUv?=
- =?utf-8?B?OUVlTitDOE5QVm1xdGlxUlFGa2lKWXRIaHJqYTdkeUxYTjVXUng4bkwwOGVN?=
- =?utf-8?B?amVYY0hGZmh6MTQ1N0NHU1VFY0FzQkswNVBCUGk4M0pDMmJyRDhUUm8yemxN?=
- =?utf-8?B?bzltTkRkOXlaUU91T3NwaW01S051TXRYSEhtUjAra2s5dTlZNm1uY0F0RjMv?=
- =?utf-8?B?NjFXL0MxQWFvaGp5RHdkOC9BdFVSNXdrNk5EelN3bXhmNlIydWxlekFCMWw2?=
- =?utf-8?B?YVJ1Q1FzaWszbG9VcGZLL2o4SzRLVWhGdHZFeDRQNzlUNjYyVDNFVXFleFJh?=
- =?utf-8?B?ZFlsaVVxaFVjMzk1djNKcVlVNUNEYzNTVDRuaXJiM1YwRnI1SjFRdUJkMWJw?=
- =?utf-8?B?UG4xaWJTRXJ1Qi9rZSt0RmFJQXFad3dBSEZ1Vnl0UTNpTUd6VytzSHVJRHBR?=
- =?utf-8?B?RDhZQ0ExODZwWDRtQ1NkeC9RZ2tRSlhxMURJZWVrMzR6V0JaZ28zODJTbWtm?=
- =?utf-8?B?a2tTZmdDVjZYaGwyTHpCMmN4dmROeTJ6QTdES0EzK0t0WjdFbmJVVEpZTzhN?=
- =?utf-8?B?NThtVEQzZlAxRUVDTndRZXhObmVmT3NCdHByQ3lSb3dnMmk3RDV0eXp3Tjdp?=
- =?utf-8?B?bittcnd3aXJ5amJFaUJPK2hrbkdhN2RqdHBoeXZZL0w3eTV3WG4yRCs5WDZT?=
- =?utf-8?B?MmRiQTRXMjBiRmYxN0ZHMkVKL2U5RHRJUnUwQ3I4Y0praGdFbzNxb3d0Skg0?=
- =?utf-8?B?ayswOVA4clFGeE0wRUR2b1hqeTl5UHFMaHY0L3J1MFJPKzNSSHhHRmNuV1FS?=
- =?utf-8?Q?cQUSfe1PSNF7CsiqXO?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc9255aa-ed25-4110-ec79-08df23ffa983
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8517.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 23:15:08.1120 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8B+fW95enojBdSXNq28EFO+P3OT/QgdeN6PGpAfZSVHYVop5/Yk5HWfTaDVdoIOQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4078
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,174 +72,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------YeVXQMR09cs3k5NZ98LHjxcO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+The memory page offlining support tracks bad VRAM pages and currently
+only exposes them through debugfs (vram_bad_pages), which is not a
+stable ABI. Add a proper userspace interface using the drm-ras
+generic netlink family.
 
+Introduce a new node type DRM_RAS_NODE_TYPE_RETIRED_RESOURCES which
+enumerates hardware resources that have been permanently taken out of
+service. Each node reports a single resource type, identified by its
+node-name, so the resource type is implied by the node rather than
+carried per entry. The per-entry payload stays extensible: each entry
+carries a single type-specific nested attribute, so future resource
+types can be added without touching existing consumers. VRAM pages are
+the first supported type, reported via the vram-page nest as
+{address, size, status} where status is one of retired/pending/failed.
 
-On 10/6/2026 8:56 AM, Philip Yang wrote:
-> prange->svm_bo stays set after the range drops its reference in
-> svm_range_vram_node_free(), it is only cleared later by
-> svm_range_bo_release(). Taking a new reference based on old->svm_bo can
-> therefore hit a svm_bo with refcount 0 and svm_range_bo_release_async()
-> pending, leaving the clone with a freed svm_bo.
->
-> Use svm_bo_ref_unless_zero() under old->lock to only share the svm_bo if
-> it is still alive, same as svm_range_validate_svm_bo() does.
->
-> A range only holds a svm_bo reference while ttm_res is set, so drop the
-> reference again if old had already dropped its own. The clone keeps the
-> svm_bo pointer and stays on svm_bo->range_list, so svm_range_bo_release()
-> clears the pointer when the svm_bo goes away. The unref must be done
-> outside old->lock because svm_range_bo_release() takes the lock of every
-> range on the list, including old.
->
-> v3: drop the reference if ttm_res is not set, don't leak it.
-> v2: use svm_bo_ref_unless_zero instead of checking old->ttm_res, to keep
->      sharing the svm_bo when the range dropped its own reference (Felix).
->
-> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
-> Signed-off-by: Mukul Joshi<mukul.joshi@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 13 +++++++++++--
->   1 file changed, 11 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index cfb428c72686..5dda163cf4ae 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -2158,14 +2158,23 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
->   		svm_range_free(new, false);
->   		return NULL;
->   	}
-> -	if (old->svm_bo) {
-> +
-> +	/* old->lock keeps old->svm_bo alive while taking the reference */
-> +	mutex_lock(&old->lock);
-> +	if (svm_bo_ref_unless_zero(old->svm_bo)) {
+A single operation is added on the node:
+ - GET_RETIRED_RESOURCES: dump the resources retired on the node. The
+   dump opens with a leading capacity summary entry (max-pages
+   inside the vram-page nest, i.e. the maximum number of pages that
+   can be offlined, with no address/size/status), followed by one
+   entry per retired resource. Userspace derives the retired/queued
+   counts by counting entries.
 
-The following checking if new->ttm_res is null, you drop ref of 
-new->svm_bo that was just got.
+The netlink interface is described by the YAML spec
+Documentation/netlink/specs/drm_ras.yaml. The following files are
+generated from that spec with tools/net/ynl/ynl-regen.sh and must not
+be edited by hand:
+ - include/uapi/drm/drm_ras.h        (uapi attribute/command enums)
+ - drivers/gpu/drm/drm_ras_nl.c      (generated policy and op table)
+ - drivers/gpu/drm/drm_ras_nl.h      (generated declarations)
 
-If old->ttm_res is null old prange has no reference on svm_bo, so new 
-prange(cloned from old). Can following checking is ok?
+Eg:
+$ sudo ./tools/net/ynl/pyynl/cli.py \
+     --spec Documentation/netlink/specs/drm_ras.yaml \
+     --dump list-nodes
 
-+	if (old->ttm_res && svm_bo_ref_unless_zero(old->svm_bo)) {
+[{'device-name': '0000:03:00.0', 'node-id': 0, 'node-name':'correctable-errors',
+ 'node-type': 'error-counter'},
+ {'device-name': '0000:03:00.0', 'node-id': 1, 'node-name':'uncorrectable-errors
+', 'node-type': 'error-counter'},
+ {'device-name': '0000:03:00.0', 'node-id': 2, 'node-name':'vram-retired-pages',
+ 'node-type': 'retired-resources'}]
 
-If old->ttm_res is null, new prange will not hold any vram buf metadata 
-since new is cloned from old. Then do not need following checking to 
-drop ref of svm_bo that was just got here since new->ttm_res is valid.
+$ sudo ./tools/net/ynl/pyynl/cli.py --spec \
+Documentation/netlink/specs/drm_ras.yaml  --dump  get-retired-resources \
+--json '{"node-id": 2}'
 
-Regards
+[{'node-id': 2, 'vram-page': {'max-pages': 100}},
+ {'node-id': 2, 'vram-page': {'address': 12807041024, 'size': 4096,
+ 'status': 'retired'}},
+ {'node-id': 2, 'vram-page': {'address': 12809400320, 'size': 4096,
+ 'status': 'retired'}}]
 
-Xiaogang
+The first entry is the capacity summary (max-pages); subsequent entries
+are the retired pages.
 
->   		new->ttm_res = old->ttm_res;
->   		new->offset = old->offset;
-> -		new->svm_bo = svm_range_bo_ref(old->svm_bo);
-> +		new->svm_bo = old->svm_bo;
->   		spin_lock(&new->svm_bo->list_lock);
->   		list_add(&new->svm_bo_list, &new->svm_bo->range_list);
->   		spin_unlock(&new->svm_bo->list_lock);
->   	}
-> +	mutex_unlock(&old->lock);
-> +
-> +	/* prange only holds an svm_bo reference while ttm_res is set */
-> +	if (new->svm_bo && !new->ttm_res)
-> +		svm_range_bo_unref(new->svm_bo);
-> +
->   	new->flags = old->flags;
->   	new->preferred_loc = old->preferred_loc;
->   	new->prefetch_loc = old->prefetch_loc;
---------------YeVXQMR09cs3k5NZ98LHjxcO
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+v2:
+ - Rebase on drm-tip
+ - Drop the per-entry resource-type discriminator attribute; the type is
+   now implied by the node (node-name), which reports a single type.
+ - Fold all VRAM-page fields, including the retirement status, into the
+   vram-page nested attribute; the top-level entry is just
+   {node-id, vram-page}. (Rodrigo)
+ - Drop the separate GET_RETIRED_RESOURCES_INFO operation. The capacity
+   (max-pages) is now emitted as a leading summary entry inside
+   GET_RETIRED_RESOURCES (max-pages in the vram-page nest, no status);
+   offlined/queued counts are derived by counting entries.
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 10/6/2026 8:56 AM, Philip Yang
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20261006135641.312419-1-Philip.Yang@amd.com">
-      <pre wrap="" class="moz-quote-pre">prange-&gt;svm_bo stays set after the range drops its reference in
-svm_range_vram_node_free(), it is only cleared later by
-svm_range_bo_release(). Taking a new reference based on old-&gt;svm_bo can
-therefore hit a svm_bo with refcount 0 and svm_range_bo_release_async()
-pending, leaving the clone with a freed svm_bo.
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>
+Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Riana Tauro <riana.tauro@intel.com>
+Cc: Raag Jadav <raag.jadav@intel.com>
+Cc: Joshua Santhosh Ranjan <joshua.santosh.ranjan@intel.com>
+Cc: Ashwin Kumar Kulkarni <ashwin.kumar.kulkarni@intel.com>
+Cc: Pratik Bari <pratik.bari@intel.com>
 
-Use svm_bo_ref_unless_zero() under old-&gt;lock to only share the svm_bo if
-it is still alive, same as svm_range_validate_svm_bo() does.
+Aravind Iddamsetty (2):
+  drm/xe: Expose retired VRAM pages via drm-ras
+  drm/xe: Remove bad VRAM pages debugfs interface
 
-A range only holds a svm_bo reference while ttm_res is set, so drop the
-reference again if old had already dropped its own. The clone keeps the
-svm_bo pointer and stays on svm_bo-&gt;range_list, so svm_range_bo_release()
-clears the pointer when the svm_bo goes away. The unref must be done
-outside old-&gt;lock because svm_range_bo_release() takes the lock of every
-range on the list, including old.
+ Documentation/netlink/specs/drm_ras.yaml |  91 ++++++++++-
+ drivers/gpu/drm/drm_ras.c                | 174 ++++++++++++++++++++-
+ drivers/gpu/drm/drm_ras_nl.c             |  12 ++
+ drivers/gpu/drm/drm_ras_nl.h             |   2 +
+ drivers/gpu/drm/xe/xe_debugfs.c          |   2 -
+ drivers/gpu/drm/xe/xe_drm_ras.c          |  77 +++++++++
+ drivers/gpu/drm/xe/xe_drm_ras_types.h    |   3 +
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c     | 190 ++++++++++++++---------
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.h     |   4 +-
+ include/drm/drm_ras.h                    |  74 +++++++++
+ include/uapi/drm/drm_ras.h               |  48 +++++-
+ 11 files changed, 592 insertions(+), 85 deletions(-)
 
-v3: drop the reference if ttm_res is not set, don't leak it.
-v2: use svm_bo_ref_unless_zero instead of checking old-&gt;ttm_res, to keep
-    sharing the svm_bo when the range dropped its own reference (Felix).
+-- 
+2.25.1
 
-Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
-Signed-off-by: Mukul Joshi <a class="moz-txt-link-rfc2396E" href="mailto:mukul.joshi@amd.com">&lt;mukul.joshi@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index cfb428c72686..5dda163cf4ae 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2158,14 +2158,23 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
- 		svm_range_free(new, false);
- 		return NULL;
- 	}
--	if (old-&gt;svm_bo) {
-+
-+	/* old-&gt;lock keeps old-&gt;svm_bo alive while taking the reference */
-+	mutex_lock(&amp;old-&gt;lock);</pre>
-    </blockquote>
-    <blockquote type="cite" cite="mid:20261006135641.312419-1-Philip.Yang@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+	if (svm_bo_ref_unless_zero(old-&gt;svm_bo)) {</pre>
-    </blockquote>
-    <p>The following checking if new-&gt;ttm_res is null, you drop ref
-      of&nbsp;<span style="white-space: pre-wrap">new-&gt;svm_bo that was just got.</span></p>
-    <p><span style="white-space: pre-wrap">If </span><span style="white-space: pre-wrap">old-&gt;ttm_res is null old prange has no reference on svm_bo, so new prange(cloned from old). Can following checking is ok?</span></p>
-    <pre wrap="" class="moz-quote-pre">+	if (old-&gt;ttm_res &amp;&amp; svm_bo_ref_unless_zero(old-&gt;svm_bo)) {</pre>
-    <p>If old-&gt;ttm_res is null, new prange will not hold any vram buf
-      metadata since new is cloned from old. Then do not need following
-      checking to drop ref of svm_bo that was just got here since
-      new-&gt;ttm_res is valid.</p>
-    <p>Regards</p>
-    <p>Xiaogang</p>
-    <blockquote type="cite" cite="mid:20261006135641.312419-1-Philip.Yang@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 		new-&gt;ttm_res = old-&gt;ttm_res;
- 		new-&gt;offset = old-&gt;offset;
--		new-&gt;svm_bo = svm_range_bo_ref(old-&gt;svm_bo);
-+		new-&gt;svm_bo = old-&gt;svm_bo;
- 		spin_lock(&amp;new-&gt;svm_bo-&gt;list_lock);
- 		list_add(&amp;new-&gt;svm_bo_list, &amp;new-&gt;svm_bo-&gt;range_list);
- 		spin_unlock(&amp;new-&gt;svm_bo-&gt;list_lock);
- 	}
-+	mutex_unlock(&amp;old-&gt;lock);
-+
-+	/* prange only holds an svm_bo reference while ttm_res is set */
-+	if (new-&gt;svm_bo &amp;&amp; !new-&gt;ttm_res)
-+		svm_range_bo_unref(new-&gt;svm_bo);
-+
- 	new-&gt;flags = old-&gt;flags;
- 	new-&gt;preferred_loc = old-&gt;preferred_loc;
- 	new-&gt;prefetch_loc = old-&gt;prefetch_loc;
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------YeVXQMR09cs3k5NZ98LHjxcO--
