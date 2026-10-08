@@ -4,45 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A95FCA600D
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 17:17:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3078CA600D
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 17:23:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82C7210E2B1;
-	Thu,  8 Oct 2026 17:17:10 +0000 (UTC)
-X-Greylist: delayed 486 seconds by postgrey-1.36 at gabe;
- Thu, 08 Oct 2026 17:17:08 UTC
-Received: from mailout3.hostsharing.net (mailout3.hostsharing.net
- [144.76.133.104])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B596110E2B1
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 17:17:08 +0000 (UTC)
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
- client-signature ECDSA (secp384r1) client-digest SHA384)
- (Client CN "*.hostsharing.net",
- Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
- by mailout3.hostsharing.net (Postfix) with ESMTPS id 5554CC37;
- Thu, 08 Oct 2026 19:09:00 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
- id 3333560CF5D2; Thu,  8 Oct 2026 19:09:00 +0200 (CEST)
-Date: Thu, 8 Oct 2026 19:09:00 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org,
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- Oliver OHalloran <oohall@gmail.com>, linuxppc-dev@lists.ozlabs.org,
- Christian Koenig <christian.koenig@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- amd-gfx@lists.freedesktop.org, Aditya Garg <aditya.garg@linux.dev>,
- Jason Perlow <jperlow@gmail.com>
-Subject: Re: [PATCH for-linus] PCI/AER: Skip error recovery on false alarms
-Message-ID: <asfOLOMCKt2ZxrJv@wunner.de>
-References: <0552ed277e40a288e0157af799257ee6ec722534.1791460615.git.lukas@wunner.de>
- <CADnq5_PVD6G_VMepJ3mAz=60vM1PHtun51Kccxyz9sdBsx_7wA@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F08F10E3BB;
+	Thu,  8 Oct 2026 17:23:29 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="o+vp4uu8";
+	dkim-atps=neutral
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010028.outbound.protection.outlook.com [52.101.201.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE02E10E3BB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 17:23:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nEHwabfKyQTeWx5uDCTRX0VfukzY/2GEHFvb0MQzcUpnIe+3+K29gmCHrxl7FMaXXpQ3IfXFLEHIoQ8hj88oJPe35QhItQv16CW/bxmPGOlOmoNzlFdp7zB7fGCtfOLQgbCo0M6yS+eymGoSbKI95Mi02Tnw4XwZ+4ZKBuolyXcGwwALdVusbm3ScBoVCBYWEr/osq6rLqdtII83RkyVHoU2UCmWZ1TkndEuyJ6PvEhkImPNkeWgZ3lADhBud5EC502swPNRK783rdQMSd7Ci1O2C00tgb0zfi0bZ7E/hdrOyK7V7r1e+eT4GYIBgDPED7Z440bHPSXvjq5KBT1baQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+OmPSYpaEBYvaBtT8J0dMXblyiI/Qek6p9otNRMWWCI=;
+ b=mKx1IA6FoiHmLhVvJTTYaNeWhhtuv7c5nyAMhQ32wkD3lV0IVKWa11N3NQgVd5Qyx4aDnG8HXduvml5FsA/NEhT9QJNF469Bvs081sJyt7KBpmrYMcCY+gu/tXSHwDTaL7e+GzYZZvS/0TzISQKW71OnxaR7mo66hIZo2gE4z9dc+9D1i3a3+/Y0J0co72T33cfcT7CYTN3KgQWoFbPx0+B9LRHn2+8vm61+stK/95tRE2+V4cBoWrPrc9B3SfyTu7jEI0fC4iotDSEjyQNeH6l7bsyKmGezZ1x3jehzNFNj/9fAa7Xzkvrr7g0vYjm1efAJmIBi5nVdtTPgV+CheQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+OmPSYpaEBYvaBtT8J0dMXblyiI/Qek6p9otNRMWWCI=;
+ b=o+vp4uu8jw++h18pjYeljco2LRq8Sf/4Fy4i1UNkRqYspp4Hd7WoyrnUjQnA1+zPaJSjA6Z8BCo1jFb3p7FquZzj4QvQHeogYuViNzu1EMYzHnpSaARCjXtScTCAJYpr137cDIV7D6iYp+Udn+zl4Rz+g2Gng5Op9HDgI35N9es=
+Received: from CH0P221CA0027.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11d::8)
+ by BN7PPFFF39339DD.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6eb) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Thu, 8 Oct
+ 2026 17:23:25 +0000
+Received: from BL6PEPF0006C3DC.namprd02.prod.outlook.com
+ (2603:10b6:610:11d:cafe::15) by CH0P221CA0027.outlook.office365.com
+ (2603:10b6:610:11d::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Thu, 8
+ Oct 2026 17:23:23 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0006C3DC.mail.protection.outlook.com (10.167.249.230) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 8 Oct 2026 17:23:22 +0000
+Received: from krussell.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
+ 2026 12:23:17 -0500
+From: Kent Russell <kent.russell@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <jay.cornwall@amd.com>, <gang.ba@amd.com>, Kent Russell
+ <kent.russell@amd.com>
+Subject: [PATCH] drm/amdgpu: Run shader cleaner on all XCCs on faults
+Date: Thu, 8 Oct 2026 13:23:13 -0400
+Message-ID: <20261008172313.2714482-1-kent.russell@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADnq5_PVD6G_VMepJ3mAz=60vM1PHtun51Kccxyz9sdBsx_7wA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DC:EE_|BN7PPFFF39339DD:EE_
+X-MS-Office365-Filtering-Correlation-Id: 513cee8a-a03b-400d-ee31-08df2560daaf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|30052699003|36860700016|82310400026|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: MvgsonXwoWwJKxjrjLwj/dR9tLpg/Xw0/NPLYqchUhZlNCHvHLvyeSVcoODxAnCL21Y4PGxgIfUoaq6RAsaq/v38MZgeElAJ8rq+ysY2DJKC/HpeEEnbeTTKDBnnS9nj4cJVB/d6v+iTUQ7WMIVc1THi1ZcydlVT8WACGXkunsCZaQfSQvkiGRcN+LLzoudMGVlqpgnFiMpE6E7DWpRZKG0QrDNgJBtds7n6F020R61Uxre40+jzx7AdC5bBSGCZZTvTuex7aI98e6Re6DDe9Ky1LP0fFru601lZPK+5SR1YraEYJYstNtbh2s+EuiG4iZ9AfIM6nnRr5MnywIaCDnfHwCxddu25cmNG9pTQHUQeyuYPt/p3Tqm2ZVoZFDEjWMcGddaE4rxSCe1haQUby6zqPHX4FNiO6IajPgob8UzRVqZKECby6RukufOy/Qk9K/eWRRcFzDaZ5DO1L5pQu0XJoekEi83bQeRc/8BAGSJ3tto79I27m+tAxsRvf800QD2aoHe8XJQqQy9muxeQrhgEQgTDHqFUT+Zauj6hoVHhDC8ZgcTRYWOAxVYzIYuuY6kBV2IRfTrxr8aywD6FdRFMTTFr9RfRsD9EMRXY3x9b/Ak6LZ1mkwyoznY4XImUnaxhG2oyPT+0fs2glr1wLY2/VTMR4Ej6mFXqaBHG9Iw36o1nCNfNr6NAby83t+ArOVywosAwtxhMCV+f8EKM+w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(30052699003)(36860700016)(82310400026)(11063799006)(56012099006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: sYYucAOW6mwShm8SIzi8RNe9NsdzcseM6y0DQa9RnrqXOoni03unYaFAC6HUNLWBRN5e6KVh3uL5k/uiEhM42H2LemoRyjofcxhvNGyyIiG0tf0HcyIEdte2ykv/Q1xlADr+bMst3XTlC4D4bJJ7+oGxHHETpIiJVW2qjTrj/3OCheDSkAAkH6gmloQBUoq8DuduxmBZn6WtB3Qkr0s+UoshG5LzJDmGQdU0haisFaDIX7J3mX1BgJUBhE9wZa26LG3i6CWx0Kw18eL9nB17vikx0PGhX2j+5BNvILwiONFK4sRwH+Pt8+kWF3HFHHdWzqBpnTuSj6nA5zQPR4Eehcew/WSfu/rRZNKT7zG0TUrIGaWD3pI454kJ8xjZ+i644dREMvtHJPQmyI1l2j3aDDv9ZMi4VeH0/Ge1V8I1cIggsc1FIHY0Qz0gKrv/TMtn
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 17:23:22.5518 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 513cee8a-a03b-400d-ee31-08df2560daaf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0006C3DC.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFFF39339DD
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,52 +109,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 08, 2026 at 11:19:22AM -0400, Alex Deucher wrote:
-> On Thu, Oct 8, 2026 at 8:26???AM Lukas Wunner <lukas@wunner.de> wrote:
-> > Alex is seeing a probe failure of the amdgpu driver after the Root Port
-> > above an AMD Navi10 GPU has been reset.  The reset was performed to
-> > recover from a Firmware First reported Fatal Error.
-> >
-> > However all status registers in the Root Port's AER Extended Capability
-> > are blank, so apparently the platform firmware raised a false alarm.
-[...]
-> > Skip error recovery on false alarms, i.e. if no unmasked errors were
-> > actually signaled.
-[...]
-> > Fixes: eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal Errors")
-> > Reported-by: Alex Deucher <alexander.deucher@amd.com>
-> > Tested-by: Alex Deucher <alexander.deucher@amd.com>
-> 
-> FWIW, I only tested this patch in conjunction with the other two
-> patches you had posted on the ticket.  I haven't tried just this patch
-> alone.
+The previous patch only ran on XCC0, giving us a good chance that we
+don't clear the right registers on fault handling in MI3. Loop through
+them all to make sure we clear them all.
 
-This patch alone should avoid the issues you're seeing both
-on the Vega20 system (the first one you reported in the bugzilla) and
-on the Navi10 system (the second one).
+Signed-off-by: Kent Russell <kent.russell@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c | 82 +++++++++++++++----------
+ 1 file changed, 49 insertions(+), 33 deletions(-)
 
-On both systems, the BIOS is signaling a Fatal Error via Firmware First
-error handling even though the error status registers are blank.
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+index 3cecf4ecf88f..e81044f01669 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+@@ -724,54 +724,70 @@ static int gfx_v9_4_2_do_vgprs_init(struct amdgpu_device *adev)
+ 
+ static int gfx_v9_clean_shaders(struct amdgpu_device *adev)
+ {
+-	int r;
++	int r = 0;
+ 	/* CU_ID: 0~15, SIMD_ID: 0~3, WAVE_ID: 0 ~ 9 */
+ 	int wb_size = adev->gfx.config.max_shader_engines *
+ 			 CU_ID_MAX * SIMD_ID_MAX * WAVE_ID_MAX;
+ 	struct amdgpu_ib disp_ib;
+ 	struct amdgpu_ib wb_ib;
++	struct amdgpu_ring *ring;
+ 	struct dma_fence *fence = NULL;
+ 	u32 pattern = 0xa;
++	int xcc_id;
+ 
+-	/* bail if the compute ring is not ready */
+-	if (!adev->gfx.compute_ring[0].sched.ready)
++	if (adev->gfx.disable_kq) {
++		dev_warn(adev->dev, "Cannot run shader cleaner with kernel queues disabled");
+ 		return 0;
+-
+-	/* allocate the write-back buffer from IB */
+-	memset(&wb_ib, 0, sizeof(wb_ib));
+-	r = amdgpu_ib_get(adev, NULL, (1 + wb_size) * sizeof(uint32_t),
+-			  AMDGPU_IB_POOL_DIRECT, &wb_ib);
+-	if (r) {
+-		dev_err(adev->dev, "failed to get ib (%d) for wb.\n", r);
+-		return r;
+ 	}
+-	memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
+ 
+-	r = gfx_v9_4_2_run_shader(adev,
+-			&adev->gfx.compute_ring[0],
+-			&disp_ib,
+-			fault_cleaner_compute_shader_aldebaran,
+-			sizeof(fault_cleaner_compute_shader_aldebaran),
+-			fault_cleaner_init_regs_aldebaran,
+-			ARRAY_SIZE(fault_cleaner_init_regs_aldebaran),
+-			adev->gfx.cu_info.number * 32,
+-			wb_ib.gpu_addr, pattern, &fence);
++	for_each_inst(xcc_id, adev->gfx.xcc_mask) {
++		ring = &adev->gfx.compute_ring[xcc_id * adev->gfx.num_compute_rings];
+ 
+-	if (r) {
+-		dev_err(adev->dev, "failed to clear MI200\n");
+-		goto pro_end;
+-	}
++		/* bail if the compute ring is not ready */
++		if (!ring->sched.ready)
++			continue;
+ 
+-	/* wait for the GPU to finish processing the IB */
+-	r = dma_fence_wait(fence, false);
+-	if (r)
+-		dev_err(adev->dev, "timeout to clear MI200\n");
++		/* allocate the write-back buffer from IB */
++		memset(&wb_ib, 0, sizeof(wb_ib));
++		r = amdgpu_ib_get(adev, NULL, (1 + wb_size) * sizeof(uint32_t),
++				  AMDGPU_IB_POOL_DIRECT, &wb_ib);
++		if (r) {
++			dev_err(adev->dev, "failed to get ib (%d) for wb.\n", r);
++			return r;
++		}
++		memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
++
++		r = gfx_v9_4_2_run_shader(adev,
++				ring,
++				&disp_ib,
++				fault_cleaner_compute_shader_aldebaran,
++				sizeof(fault_cleaner_compute_shader_aldebaran),
++				fault_cleaner_init_regs_aldebaran,
++				ARRAY_SIZE(fault_cleaner_init_regs_aldebaran),
++				adev->gfx.cu_info.number * 32,
++				wb_ib.gpu_addr, pattern, &fence);
++
++		if (r) {
++			dev_err(adev->dev, "failed to clear GPR on xcc %d\n", xcc_id);
++			goto pro_end;
++		}
++
++		/* wait for the GPU to finish processing the IB */
++		r = dma_fence_wait(fence, false);
++		if (r)
++			dev_err(adev->dev, "timeout to clear GPR on xcc %d\n", xcc_id);
+ 
+ pro_end:
+-	amdgpu_ib_free(&disp_ib, NULL);
+-	if (fence)
+-		dma_fence_put(fence);
+-	amdgpu_ib_free(&wb_ib, NULL);
++		amdgpu_ib_free(&disp_ib, NULL);
++		if (fence) {
++			dma_fence_put(fence);
++			fence = NULL;
++		}
++		amdgpu_ib_free(&wb_ib, NULL);
++
++		if (r)
++			break;
++	}
+ 
+ 	if (r)
+ 		dev_dbg(adev->dev, "Clean GPR Failed\n");
+-- 
+2.43.0
 
-The Vega20 log says that error recovery failed because no driver was
-bound to the GPU.  The two additional patches you tested with avoid this
-error message because they change error recovery to tolerate unbound
-devices.  But by not attempting recovery on false alarms in the first
-place, it becomes irrelevant whether the device is bound.
-
-I had skimmed the log after your initial report, saw the message about
-recovery failing for unbound devices and hence pointed you to the
-patches which tolerate unbound devices on error recovery.
-
-Then on closer inspection of the logs I realized that the error status
-registers are completely blank, so the error reported by firmware is
-bogus and attempting recovery is pointless.
-
-For native error handling (i.e. not Firmware First), we already check
-whether "status & ~mask" is zero in aer_get_device_error_info() and
-skip recovery if so.  This patch aligns Firmware First error handling
-with native error handling in that regard.
-
-Thanks,
-
-Lukas
