@@ -4,99 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CCF9CA6007
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 14:17:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBD59CA6007
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 15:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AF1010E092;
-	Thu,  8 Oct 2026 14:17:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5851210E45C;
+	Thu,  8 Oct 2026 15:19:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bCaKTjX4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sHgOO3iu";
 	dkim-atps=neutral
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBE9B10E092
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 14:17:31 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-35179d0747fso56899eec.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 08 Oct 2026 07:17:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791469051; cv=none;
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64A3710E45C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 15:19:35 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-150b2fbd784so56923c88.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 08 Oct 2026 08:19:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791472774; cv=none;
  d=google.com; s=arc-20260327;
- b=LEqs6CTZ/RKMspTNLPrp/FX4gC57kTgGdUcV1XAqNa3WCXfElQj1vIHrX70U290XAr
- MY9aBKbMtpGDN1IuhzV04zNOekz6bw7W+UINXBDMvFu3IslMiO8Fas/HtZFt37AV+mHo
- mc2IvyPiQel9QoC5/0fRo3EVFTu+qxqZicbEbN7ysLit3vmxExFh5HSCx0fTKPTwDinp
- FXcLIdgkCpOFZnibl/r+bhbuwnXDjMSdaztMJvQAl3FPNvCdgBbtiPp9i3sq2Ir9DmTM
- ionPKReoafcwrrqK6ZXFc4N4CUrL4lx+USAx/pwHZELHS4oQbXHn9p5s7y5prXSI8EYu
- G27Q==
+ b=Q5P2qWMQPGlDJva5bJiuCkqOUHd/JqpGbTkM6uTMjLpMTn/BndzL4IW6is0t09VGM2
+ psB2vHUSyJiCJhY5kFtybD8/VfF/J+EDkIJxc+MGQ4G6qsK8kGbZCfHHvCv9YWU1neud
+ xwQBKBtuKnKj5P5oalXCvTajsshcaf501bHTDnZP+r2ln+4LGz6O3rK3m7/9CaghSNyI
+ jnK/ejjlpjhz6dlqvmPKte+7igBEmi5SOVUY//z+ZI0GbGKm5E4mkL1BSSOUOCErDuR2
+ 9NoDTA1QVZyg1n/JQhYLBAUAt502d4OMom1ZIfSP8o9Ko95gOdVSe98Zt/Yngssk9MHn
+ /jXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=KDb7cAKDvbzwZi7ebR+v1AmBrrZjRmurUspT1IHBNTw=;
- fh=BB64UYH3LKZLg6FCw8YE6OdNd9pDx+/0a9bd9c+atp4=;
- b=Kk5zwhEKpoh6Ns2FyjP7W6Fp6rbf1TWM2BEqAuaWWJfK25zeM3Oe+91BISEqho0rRD
- x6Bu4CGN2tFIq8AAV28RqbcS+220QCvA9mbl1iyspIC4b/sFkFLKpUepkQZzCf7+ynPV
- bykrr+oDI9rhxDusplJ7l3Sogjb3jFrMBHCtxB7aDWhTNAQlvC30mu7aAj+mX++eQsd8
- zx5m/BpfavlYmO6HOjDDCknD49lcJ/VU/0mY4tfpd0OVTmaN9ZlLIrsXheKTGZdVxy4O
- Tlw/whyo6GFt2uswfRKRnBznhcBJOta+9ZNayZ3wkHF7R+urDpJ1PPsqNXm/ABIKyNsW
- NUbA==; darn=lists.freedesktop.org
+ bh=npfelcdpyTnvOtpnktEjaeVdPI171st1+yAn0CtmD5k=;
+ fh=GfD5FIX1FDIfpPlBSWCweuN81+Owaqq8jzGQMMasyNg=;
+ b=H9vDK6B+JWNqYpAFfmt86nyPy8CUCE0EXbOGUrwGr4wx8O7yzTcyFlFDRYPteyzi2j
+ c0iKJ2pERBsbfTC9GT7h9xOmDhBSPaIgmj6SrpXOYQVzh29ezIpBryHNec9mC3S6MWKS
+ raeOo97sxZvuAymM2GUt5SxPbGhRJhdo5o5ht4ACKj+4xXZJ8cMRoOP1AL5L0oQeF0tn
+ PzrtbpqF4qfBbgBs2lwzNkc4jOIWz3q2FNrc5RG4f9pP/ddCzUmmYTZydMxvKlBRBN47
+ LK+luzPDPAPzxUJMRDdZd2To24/8f7fwsHh90ldeh7W/7WE2i+0A3E/aObrla/52AU8B
+ xd3Q==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791469051; x=1792073851; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791472774; x=1792077574; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=KDb7cAKDvbzwZi7ebR+v1AmBrrZjRmurUspT1IHBNTw=;
- b=bCaKTjX4Y3VC6Au5Ig2J8OGrcbbCNCMWAQCihegxVfP07NumNtHfQ+Ct1JwxIfa9mg
- ODB2zQCgNhcJUMP+7yaXhCXHDvd08IbvK8khGYMYYeJr3xhaVhvl4QXkqCZuKUHAdE2S
- NS9+8IGJMU0CEopdeWcim1oMCrLvvXDlEzLscn+fl9YA6dDGd6aPXll+nlK4r4S+w/Wd
- 1HXeTHe+FNNh4IggjEchE8CvCQuUi3K3Eubt1vc3sGxgSLx3n3/k9mym3fpJ2XVuVaKt
- XuMpMqBQ4SW4yCcaCLuK3rAexsK5ix3bfQr9rDcTO/OhDZiC6z5wKoUXZzyBgEWTPq+c
- RRlA==
+ bh=npfelcdpyTnvOtpnktEjaeVdPI171st1+yAn0CtmD5k=;
+ b=sHgOO3iuTnn6iRJ0ypJeMxYow0ly223Lwe4wmLzVrBt8yh/i+c5xZ+2MQSrBstyAjG
+ FyQZ8/hzti65p5vkJON1zb+Rv1jM1rCDTXadZBJGd7FeKhMxpH46s3BPaBfUtUsdVAR/
+ 2BMGl0J0Nj28YChWllHG6vCHnuAv9AzSJWHK3nk7vLf16L3HjBPSwQ58B0lT8mMIFC6w
+ 8aeoa0ZKuVNfZkczrDNIDQpFU0fU309d3dqNWz/6udKJa+Thi8rqS0du7Kls8T1BT+U1
+ +G+bxkVgUTPI4ruVTuxU9d6NU2cVENMOGBtRW12wHKEuXcyf7AVbDyyrpGrBMyOwU4sE
+ O4Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791469051; x=1792073851;
+ d=1e100.net; s=20260707; t=1791472774; x=1792077574;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=KDb7cAKDvbzwZi7ebR+v1AmBrrZjRmurUspT1IHBNTw=;
- b=Dso+TlxWYzJk9huCwVknc4xbcO8x0xcae5b4t0I30+NGrro5opKqFvC0B2yf3hO/3u
- y+lKp0Q1MxB2sG4MGadBSC3W5qS87H+r2Pj5dYAHbLP8ewPHFnWVPnBTikFTOBplNpAM
- Cv3uZxFLqXw942xbGhKHWwWyHS621Pj92aiUWzUJFW6WVJn2RrI8UtSbxVIjKlMAcoOB
- +qMPx0HRdI9nXDw8E8AQx+CjH7Hlj/tYiQA9WHXn4Q4aTICmwNwPJwHBjnfglk0fA1cj
- p1ONAYZdW47DBCMNMaiXQBY1exgiCzslHdM6DXB4uXgazMm9e36bVI8h3rrIj58s1m7I
- Kq6A==
+ bh=npfelcdpyTnvOtpnktEjaeVdPI171st1+yAn0CtmD5k=;
+ b=OQ2h30tScf7rDFyQ6q6odjZrmD4lYcfcRcJB4ZDinxOUxy6bkRJUW4Ztqi9yrnXOfA
+ aB7+Y2ji9nNyb6WznrgICxhy2Zf7Rv3SRTzE0+xdmEumlyEmlY6NS/qA7LcjIn6eICgL
+ hJIAJ+71QwKuhlBtK7Pi2fDigG40ybty3mtlQXJNwl/4Sr4TtepOOjmUPBbLmMAt9kGm
+ YrNga1I51gSkZ0kZhXWHG6Ey4MSa0zyt8x2OiWSOnHSS5TTRFffyI3xtu2iNIxlMSHrR
+ wOb6uhy82AVS8E9H9Hz3iwlwf8ixloVplOqACcXVOufnuEXqD6DQsSWSIMQm7jQxz5oG
+ b9EA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx3lBLIHhhC1kdNaGU8fcd8i8mjfgwPjSTteEnJryHUPmJgdJo4y6i0uk7d0fjclD9axHWYzm8/@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIRcKfRrAacq5WADbBkhwlHIbyQ+IG93C8b0qSkA2S8D9roI9yo
- 8DV2Wm4BDo8+UKsnE0Vca3h0uqanqDuSB/G/4eH7ERDLjkCxODuAaXLGe3OGMJjs6Cd6wmUmeTz
- IknwXmycCU2Sncsn8AS4YBe5X6OElZ5c=
-X-Gm-Gg: AYBFou3NylibJyBTEQ9WmoyjB/iVBX+a22iannA+vUS5ugWp3SNj1/MjyQzg1d17zgK
- jdGxNCA8LpQEI5xkTCdqO1PZCW3+RNRNGxux4OSQoBQuXb2KA9bEA28RQrJj0uw3xr+27aSho+p
- 6U9vpAlsM3V4ceLGgeT/w+enKppBpMshlqJbdNzgKDG4UZBcTzuxUQwwtBZ0wiZJdwS0mQOg28O
- ZcJBiPDwE/HkuKFuJlf4zJIHpz/DTi4kcg8TgKliyLEOGaxf7aECiM0t3VtZgYlbGdn7/M70EY4
- J5kMuzu90odBybO2sLqp6F7nFS6JdIrdNYndIaWfWS/B0LFmrqOgn5EDM1dPElFs0SwwMbLDCrf
- mMFE2GINzIT3zeKSzgdh9ynP5dn9utzWW6nzmKVh7lA==
-X-Received: by 2002:a05:693c:630c:b0:351:d38e:6c0a with SMTP id
- 5a478bee46e88-351d38e6d5cmr3014494eec.0.1791469050804; Thu, 08 Oct 2026
- 07:17:30 -0700 (PDT)
+ AKwUvByxj4gz0YC8GOYUZ6bCp73zqYeg4K6O5B5Gesq1K3Tuhb2fJUGS4qpRc1AFRQ7YYLdivO4aLtOG@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lkbXa34tGOqnnPlk6s/6weAnqJ2P+7CCr/hoqF2t2efRys8Uc+
+ OWcgR5qU7F6ktnf7kuuRJKGQaK9RQmRrolRIEm3cAQSZb6Mk3FfucJ13/YIrWICP92+/HUNRJSK
+ uvjl/NUR4AoIGHs9bqymRM4tBcS/ZLII=
+X-Gm-Gg: AYBFou0ZwbshQDM16mcNetKs6RhZ3vLPZ1aWgNaRwvPxwfINfezm0EcjOeiasMvJZsR
+ n8XJbUsiCnZt++VCau9+kkNGU71wYFnmRBUYd85LJG/48utVphvJ7kyME2GN+lXfS3QLy9SL4bZ
+ WmfDVZ5EUUa+JEsGG2da8NHt1B7QyDTcm3aJ0YMrtfqssc+Ic2U5mLGKfUNjTUTlNLrjDYPhuvM
+ xE8IqVw/nhhvgqqndd2TcCIQEigzQ8D8pYh4tj0UoUfuLfZzNjgmNHW1kerGo86N3U3vbT/BxtA
+ 1bxdPFrxt6gXmTDj8vNzA0ksruYyHpMNT5eq0doOijWa458l77Y0sjo6nsZMbKdk9XxJG8n3EGZ
+ LZgYSDXxiz51N5HZJDGFUI4SakKCr1jL8GMBdFRoBxA==
+X-Received: by 2002:a05:7022:1505:b0:12d:c389:ae54 with SMTP id
+ a92af1059eb24-1658abf47cfmr6616040c88.2.1791472774454; Thu, 08 Oct 2026
+ 08:19:34 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260831150211.1486154-1-sunil.khatri@amd.com>
- <CADnq5_Mz1KrT70mLEbJ4EqikmFGGRiJLXXEWF++pfu2LQC+wQQ@mail.gmail.com>
- <DM4PR12MB5152CAC197B2A15B4D43596FE3932@DM4PR12MB5152.namprd12.prod.outlook.com>
- <622cc749-f196-404f-b130-8c909b69d1b6@amd.com>
-In-Reply-To: <622cc749-f196-404f-b130-8c909b69d1b6@amd.com>
+References: <0552ed277e40a288e0157af799257ee6ec722534.1791460615.git.lukas@wunner.de>
+In-Reply-To: <0552ed277e40a288e0157af799257ee6ec722534.1791460615.git.lukas@wunner.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 8 Oct 2026 10:17:19 -0400
-X-Gm-Features: AclHuK9Jy1XA6QUgIJ6eYWYlzpqKmyAT4ntBm8C_N80Oj-WMWZK8zBaZ10qbbXg
-Message-ID: <CADnq5_O0CjqLNvQZX6VQYzyXWpdsJNHoJ6QNj_uqXdbjoPntGg@mail.gmail.com>
-Subject: Re: [PATCH v1 1/3] drm/amdgpu: update the fw version for gfx11
- userqueues
-To: "Khatri, Sunil" <sukhatri@amd.com>
-Cc: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "Khatri,
- Sunil" <Sunil.Khatri@amd.com>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Date: Thu, 8 Oct 2026 11:19:22 -0400
+X-Gm-Features: AclHuK8eqqZZwcxfnGYDRIjGfmIuea5RApPlIzK4ZWhRJY1bOeK92MqHIl3h3To
+Message-ID: <CADnq5_PVD6G_VMepJ3mAz=60vM1PHtun51Kccxyz9sdBsx_7wA@mail.gmail.com>
+Subject: Re: [PATCH for-linus] PCI/AER: Skip error recovery on false alarms
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org, 
+ Mahesh J Salgaonkar <mahesh@linux.ibm.com>, Oliver OHalloran <oohall@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, 
+ Christian Koenig <christian.koenig@amd.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Aditya Garg <aditya.garg@linux.dev>, 
+ Jason Perlow <jperlow@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -113,97 +110,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 8, 2026 at 6:09=E2=80=AFAM Khatri, Sunil <sukhatri@amd.com> wro=
-te:
+On Thu, Oct 8, 2026 at 8:26=E2=80=AFAM Lukas Wunner <lukas@wunner.de> wrote=
+:
 >
+> Alex is seeing a probe failure of the amdgpu driver after the Root Port
+> above an AMD Navi10 GPU has been reset.  The reset was performed to
+> recover from a Firmware First reported Fatal Error.
 >
-> On 08-10-2026 01:36 pm, Zhang, Jesse(Jie) wrote:
-> > AMD General
-> >
-> > Hi Sunil,
-> >
-> > Could you please help confirm whether the firmware version check in thi=
-s patch is correct?
-> >
-> > For example, the latest gfx11 ME firmware version I can see is 2550, bu=
-t the patch requires me_fw_version >=3D 3090. That's quite a big gap, so I'=
-d like to make sure these thresholds are intended for gfx11.
-> >
-> > I also noticed that the new values (ME 3090 / PFP 3190 / MEC 3450) matc=
-h the versions in our recent gfx12 (navi48) CP firmware builds. Could they =
-have been taken from gfx12 by mistake?
-> >
-> > If these numbers are correct, could you let me know which gfx11 firmwar=
-e release they correspond to?
-> I see the same fixes merged for gfx11 too, i did not validate on gfx11
-> myself but the assumption was to have that same version... probably i
-> might have made a mistake not confirm on gfx11 target... I would say use
-> the brahma utils and check the fw version on the target and update the
-> patch ....
+> However all status registers in the Root Port's AER Extended Capability
+> are blank, so apparently the platform firmware raised a false alarm.
+>
+> The issue is only occurring since commit eddba19b8b5f ("PCI/AER: Support
+> Advisory Non-Fatal Errors").  It looks like enabling Advisory Non-Fatal
+> Errors causes code paths to be exercised in platform firmware which
+> were never validated before.
+>
+> Skip error recovery on false alarms, i.e. if no unmasked errors were
+> actually signaled.
+>
+> Note that this will also skip recovery if both the Status and Mask
+> registers are "all ones", as would be the case for inaccessible devices.
+> However that seems justified because it would imply either a hot-unplug
+> event or a Surprise Down Error further up in the hierarchy.  Interfering
+> with recovery from that seems uncalled for.
+>
+> Fixes: eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal Errors")
+> Reported-by: Alex Deucher <alexander.deucher@amd.com>
+> Tested-by: Alex Deucher <alexander.deucher@amd.com>
 
-They use different versioning.  Please double check the correct versions.
-
-Thanks!
+FWIW, I only tested this patch in conjunction with the other two
+patches you had posted on the ticket.  I haven't tried just this patch
+alone.
 
 Alex
 
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D222095
+> Signed-off-by: Lukas Wunner <lukas@wunner.de>
+> ---
+>  When applied to pci/for-linus, this will cause a conflict during the
+>  merge window with a commit queued on pci/aer, d4c842c3af5b ("PCI/AER:
+>  Fix memory leak in aer_recover_work_func() when pci_dev is missing").
 >
-> Regards
-> Sunil Khatri
-> >
-> > Thanks,
-> > Jesse
-> >
-> >> -----Original Message-----
-> >> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Ale=
-x
-> >> Deucher
-> >> Sent: Monday, August 31, 2026 11:13 PM
-> >> To: Khatri, Sunil <Sunil.Khatri@amd.com>
-> >> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> >> <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
-> >> Subject: Re: [PATCH v1 1/3] drm/amdgpu: update the fw version for gfx1=
-1
-> >> userqueues
-> >>
-> >> Patches 1 and 2:
-> >> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> >>
-> >> On Mon, Aug 31, 2026 at 11:02=E2=80=AFAM Sunil Khatri <sunil.khatri@am=
-d.com>
-> >> wrote:
-> >>> Update to the latest stable fw versions where userqueues is working a=
-s
-> >>> it is expected with major fixes.
-> >>>
-> >>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> >>> ---
-> >>>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 8 ++++----
-> >>>   1 file changed, 4 insertions(+), 4 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> >>> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> >>> index d704ce328e6e..2c160ec9dc57 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> >>> @@ -1655,10 +1655,10 @@ static int gfx_v11_0_sw_init(struct
-> >> amdgpu_ip_block *ip_block)
-> >>>          case IP_VERSION(11, 0, 2):
-> >>>          case IP_VERSION(11, 0, 3):
-> >>>                  if (!adev->gfx.disable_uq &&
-> >>> -                   adev->gfx.me_fw_version  >=3D 2420 &&
-> >>> -                   adev->gfx.pfp_fw_version >=3D 2580 &&
-> >>> -                   adev->gfx.mec_fw_version >=3D 2650 &&
-> >>> -                   adev->mes.fw_version[0] >=3D 120) {
-> >>> +                   adev->gfx.me_fw_version  >=3D 3090 &&
-> >>> +                   adev->gfx.pfp_fw_version >=3D 3190 &&
-> >>> +                   adev->gfx.mec_fw_version >=3D 3450 &&
-> >>> +                   adev->mes.fw_version[0] >=3D 147) {
-> >>>                          adev->userq_funcs[AMDGPU_HW_IP_GFX] =3D
-> >> &userq_mes_funcs;
-> >>>                          adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] =3D
-> >> &userq_mes_funcs;
-> >>>                  }
-> >>> --
-> >>> 2.34.1
-> >>>
+>  To resolve the conflict, change "if (pdev)" to "if (pdev && err)"
+>  and move the pci_dev_put() out of the if-clause (so that it gets
+>  called if pdev !=3D NULL but err =3D=3D 0).
+>
+>  If this is all too complicated and/or late, I can respin on top of
+>  pci/aer or v7.4-rc1.
+>
+>  drivers/pci/pcie/aer.c | 22 ++++++++++++++++------
+>  1 file changed, 16 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+> index d8dcd238fda1..922a726a52a5 100644
+> --- a/drivers/pci/pcie/aer.c
+> +++ b/drivers/pci/pcie/aer.c
+> @@ -1360,8 +1360,10 @@ static DEFINE_KFIFO(aer_recover_ring, struct aer_r=
+ecover_entry,
+>
+>  static void aer_recover_work_func(struct work_struct *work)
+>  {
+> +       struct aer_capability_regs *regs;
+>         struct aer_recover_entry entry;
+>         struct pci_dev *pdev;
+> +       u32 err;
+>
+>         while (kfifo_get(&aer_recover_ring, &entry)) {
+>                 pdev =3D pci_get_domain_bus_and_slot(entry.domain, entry.=
+bus,
+> @@ -1375,6 +1377,12 @@ static void aer_recover_work_func(struct work_stru=
+ct *work)
+>                 }
+>                 pci_print_aer(pdev, entry.severity, entry.regs);
+>
+> +               regs =3D entry.regs;
+> +               if (entry.severity =3D=3D AER_CORRECTABLE)
+> +                       err =3D regs->cor_status & ~regs->cor_mask;
+> +               else
+> +                       err =3D regs->uncor_status & ~regs->uncor_mask;
+> +
+>                 /*
+>                  * Memory for aer_capability_regs(entry.regs) is being
+>                  * allocated from the ghes_estatus_pool to protect it fro=
+m
+> @@ -1385,12 +1393,14 @@ static void aer_recover_work_func(struct work_str=
+uct *work)
+>                 ghes_estatus_pool_region_free((unsigned long)entry.regs,
+>                                             sizeof(struct aer_capability_=
+regs));
+>
+> -               if (entry.severity =3D=3D AER_NONFATAL)
+> -                       pcie_do_recovery(pdev, pci_channel_io_normal,
+> -                                        aer_root_reset);
+> -               else if (entry.severity =3D=3D AER_FATAL)
+> -                       pcie_do_recovery(pdev, pci_channel_io_frozen,
+> -                                        aer_root_reset);
+> +               if (err) {
+> +                       if (entry.severity =3D=3D AER_NONFATAL)
+> +                               pcie_do_recovery(pdev, pci_channel_io_nor=
+mal,
+> +                                                aer_root_reset);
+> +                       else if (entry.severity =3D=3D AER_FATAL)
+> +                               pcie_do_recovery(pdev, pci_channel_io_fro=
+zen,
+> +                                                aer_root_reset);
+> +               }
+>                 pci_dev_put(pdev);
+>         }
+>  }
+> --
+> 2.53.0
+>
