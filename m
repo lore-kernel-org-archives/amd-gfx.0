@@ -4,132 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C131CA600A
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 09:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B18BCA600E
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 09:47:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 240BF10E783;
-	Thu,  8 Oct 2026 09:19:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28A3A10FD3C;
+	Thu,  8 Oct 2026 09:47:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IeQ7WpYd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c+zyNR4G";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012048.outbound.protection.outlook.com
- [40.93.195.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27B9910E783
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 09:19:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xHAIYOkkMdDruxSZtTXE80sRYi8fXwYd3gBBHUMoIWBqMzhs1rJ3VfqxcdwajCfUQEXXIMi1m/8QYGHt2iJbjs9d8r5uTb9hlPhK8BmHwC9moXCnpPxt1cDviVldRFpMhLlmSaGdR9kwumrQleM+mVZlkmarXgQjEUsMrwG9+BlJrz22WWbqHccDiB0Hjvq2IaLVP7B9KatYyqnbJJbJwX3/IISW3B8Rmg5aYVkLCXs9+u7kLsw3BHR/PMEHxCdSq3Fd+Ri8LkGciabk284WfOxCio2GByCTcOawx+aeQ1mFGSn+E/7a7O+GicZioiHYx0fLngKmcPN40h5o+6WYFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UUIaFdXQkj3yqF/g+5tUR4NhVpyOuhQvC15zXOLU9bc=;
- b=bL1VXTUkiPgK4JiGiw2wATlow1Y92Qf+lIl9l4xZeFu+/uxDt/cfIUKbtWrXhVG3f5hYhpKroT02EAcf3HdVCrFLTfcIHtEH+hKX+e6f6kUPwcBAr3Zcxu7BbgwkPaDP8rk3uDZ9wCXaeAsc+uEbaaOrHCPwixC08z0WRlllRbeMBbj8PnDDXbSFGDpt7lyAMHLpfG87nWS5nC/Np6NtoetEMaZhfOVx89HVynupP3JXZKIKMRm3kvRRyPeszIGHXOnUm+lsBZhwF6NllSauFegRhJq36SPfHp8yfRdSBAR/Ru9JUgKTQxHa/jbLartW0aJmpO6iXLcHLpbgpSC/qA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UUIaFdXQkj3yqF/g+5tUR4NhVpyOuhQvC15zXOLU9bc=;
- b=IeQ7WpYdbRMGDobCuPMLvbXldzOsxsKHxGMeNUmYb4w3VCPEqNTsUJ//2csMxxexGcQJnGwhU8emmmbW4EN+lksibMp7Yv8/IswdJ/rTfcgAoJPPSKqKWwxkZu1vGCJvmOPMUHffhBUKHEYvHMbgCy9PHLVErs1SFmMXYrNNb64=
-Received: from DM4PR12MB5748.namprd12.prod.outlook.com (2603:10b6:8:5f::19) by
- IA1PR12MB8540.namprd12.prod.outlook.com (2603:10b6:208:454::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Thu, 8 Oct
- 2026 09:19:25 +0000
-Received: from DM4PR12MB5748.namprd12.prod.outlook.com
- ([fe80::6c62:e99c:480d:2729]) by DM4PR12MB5748.namprd12.prod.outlook.com
- ([fe80::6c62:e99c:480d:2729%3]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 09:19:25 +0000
-From: "Kamal, Asad" <Asad.Kamal@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Allow cancelling a requested NPS mode
-Thread-Topic: [PATCH] drm/amdgpu: Allow cancelling a requested NPS mode
-Thread-Index: AQHdVlPmeZJHwRzvLUGCZBOhj2wxOrbzU5UAgAALxXA=
-Date: Thu, 8 Oct 2026 09:19:25 +0000
-Message-ID: <DM4PR12MB57485E971E96C73EDC5DEE938E932@DM4PR12MB5748.namprd12.prod.outlook.com>
-References: <20261007120321.3516957-1-lijo.lazar@amd.com>
- <993eb2ce-b57d-456e-a18d-462d44b31ed6@amd.com>
-In-Reply-To: <993eb2ce-b57d-456e-a18d-462d44b31ed6@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-08T09:18:38.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5748:EE_|IA1PR12MB8540:EE_
-x-ms-office365-filtering-correlation-id: abb3aedc-65cd-4394-f9a5-08df251d3f26
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|38070700021|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: TUvjskHG54DY2Gd86hMNh6fm/NyvqdhttjfRRcc8tRfSANZ2d+LcRtvO1dr4eFXl6otiU6FxjHPRBj0+x1613P+HQjnDJEY/CH771Bc9nof1tGaD3/1rMSVd0tDn3m7fxG41RAFwmhtfLe4B0M/4Omqss6sJ/T09Doumg7p3ZH4tRLDR+UAt+jUpAFg0vwOwh5w7H1n6y6kDFbw/5MR23aHMXYHlLocPYqy2GNGldPC80lswHwC69cyCkNZF6yukoRXXXoq4I5Rb0Tjh4htYfo+GilIs8s0D5zPy5TmKY02y8e5I41RepjlN1TLDJG0YdemL/4HHdwPdNp0Wu1UBubKnttYWmReCJO4WwwvDlaXsXp2os8tfKOHz7xc2ZeCerUX0YtX7ZFe3u/KTUI64eVDMicuGSuaIiQA3A8MRQpbGNmvAZaWJRp0TGOXGIlLB7mrxyx2Ui7+3xl9u/hm/l3XBGKU4LLXvtLvs7zr3MRaod26AefWDZr/tO6NqlV+2hdCPsl3MTh1ZTye2+M7anOcGj7Nl67ZLgUJQZ21qGXQJr2dF+Y+x6CR3EjaBcAGbEvLSoQv+RR2IUN5YFg8aohEd2HTLUeoUlvW+j4DAM3HuJDUaymwqmTjKkgt0s/dQ84H4ZQPxT60cM2HP5PFx2vNW+ChEVN4fJWDXrdYoXaHcT9E6oP95rTCexw8gB/Y2hlkk933PvLWqRDNW4B8ExOn1DIDk5w8/xcFgJWJQK8s=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5748.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(38070700021)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VS9Vc095bHdpcVVBc3lBbjRhOFVrRDJybTlIZlBEc0Qyd2QzcHJMQzF4QkVT?=
- =?utf-8?B?S1VpM3F5OGFUNDR1ZEt4bCt5eE5DQXZZb2QzY2lobTF6YWZ1Yi9BMmdPS0N6?=
- =?utf-8?B?UVlGcEY0S0tGR3hJVHlOVjhzMVQwUW9xQld5QjlITTBseHpwaTMveFVSMnBt?=
- =?utf-8?B?T0NuMUtlbUVPR1VhZWtkTFdjY1RBZmlJcUdLQUtTeVBsN2ZDbFU3c1hmc3Jy?=
- =?utf-8?B?SDBTR2tMVnJ5Uk9iOHRoVzg5b0U4T1dabGFGaVlzV0VqZEZZanAxODA0UVYy?=
- =?utf-8?B?YVZUQTdZOFhXUjR1djRub2JtT1lGbStTaTBaTXNjSEVXeW5rQUNSR1lrcE9o?=
- =?utf-8?B?QXA0bXQ4dkVyUHJhU01TUEwyMElRU2pJOXRSNk1jZWplOWwrRlYwTFdFbWgy?=
- =?utf-8?B?Q2g3OExMTXFZRit3VXZSaUZvaEpDS0J5Wm13NEJmUmtyRHBPRkRGOE9kUC9J?=
- =?utf-8?B?RFlreW5YMXZhTDdJWXJBYlp1K3h2cXJZdDU3dHZxNWN2T0JMeFhXMHhIekNV?=
- =?utf-8?B?RzMrZTkxZzlUbFBVSlVzVGVVTXc2QUozQjdjekFhMmRhdVhPejFqbWg4emZZ?=
- =?utf-8?B?UzlyYXhyNzcvOXV1cGRrRDRHOTRabzhoaFNIay92cHl2YkdzU3lSQU9PMVNR?=
- =?utf-8?B?bnVKNTc0YURYelh1Ym8xbTJhbFBtWEx0Z2d0T2M0MzNEM3N6aDVZcnIreHZP?=
- =?utf-8?B?a3lyRDFweDlUQVJTVnh5a0Eyc1QyQkxxcEdVbEc3MkpKUWx5NHpPbG9BT05i?=
- =?utf-8?B?ajl5a0VvTDFuOEFqQks4VE1jNStsbjFsb3pFeWhvcWZGaGlPQUs3Vkl5YWtG?=
- =?utf-8?B?TXN3eTlhSEVtWTlxNzNqbWQ0Tkgxd1VSL0RvMEZoV2pGOE9JeitUbkF1eUo0?=
- =?utf-8?B?cVkwRUJtZXlwR2tBTTVjK3hBcTRGTmVXR293aEFUQitoaVBnSU5ZZGl3VTNV?=
- =?utf-8?B?MGFNTjJJc29GdVZTRzRuWDEwazVGYitBaExDQlpuWDV2b1ZnUm9RV2huRWpV?=
- =?utf-8?B?Z3h4N0NtbVBQT2ZiSGl6NWNFVFZyTHVoZnZnaTBmeUJvSkg4Y21CSmd4b01w?=
- =?utf-8?B?b0ZUeGNRUlFSK1RvbndpOTI3K203SDNrS29iZGt0QjlENHl3emxiZmwvcXVC?=
- =?utf-8?B?Ulcwalg5aSsyVmlVdmNiOER3aURYT0FKRzhqaUlLTGtoc1NwSWhFM05aRk9m?=
- =?utf-8?B?S3hraEo0eEJzSGsvSjFkVkNOeUNzRDUzcTBsUkY0Q3lTdld1ZDljdWhzeWhp?=
- =?utf-8?B?cGdqQkhzdldueFNmbHYwN2c5Ykkzayt6NmVPM05qcWExL0ljM0hCZ2x5Ym5S?=
- =?utf-8?B?cVR2Vkl2WmIvS1dLN3dQNTFOTEtWM1ErcDFmRnBJZ0hCYmJ2VUNpbHNBQzZh?=
- =?utf-8?B?RzNhaW9kWE9tYWFGUEJtdzNiOXdFMUNmMHBNTDR0OUNWVTR3QjZQS05hc2dN?=
- =?utf-8?B?QkhkZHBSOERvSDZLbUw2V1c3RVg2aWtKMGhxQjRUMEVwcFZnbllPTHNUZzl6?=
- =?utf-8?B?Y1UwZDVjK0dyK09lc0E4R0ZQaVJWRHlCbU5udnY4aFNJb29EdGpyTEZUU2tW?=
- =?utf-8?B?OThTZW03RWVMaDF3WTA4ZUdmYkQvM0JxeUhKVVUxRy9IVk1KblN0TWFwc09M?=
- =?utf-8?B?MmtqSDU3ZlozL2lOZ1hOdDdXYm4wRk5KSkVEVWUwSS95SytTVEdUZFJtZVEx?=
- =?utf-8?B?K2VKYkFZeDNGaGt2emhuV2U5cFBvbDFkLzRDNDN5cG95Rk1vbFJSQmk5VVJy?=
- =?utf-8?B?aHBoT2FhbjRJS0RWWWJGVmdRWG94ZnZ4aDB0cWlNb1FUUDJPWXFzdFNTcVVp?=
- =?utf-8?B?ZkFwVUdLcFFocS92L3liT1drckxJaHJ3ZG1WV3FadE9wR244TEtXeGpUcVBp?=
- =?utf-8?B?YVFHS09RSWRCUDZ5Ly9kdGVkZWxla0ZCZDNpOE1lcUJoK3hWRjBhTVpMa1JQ?=
- =?utf-8?B?L2k5TlNXK2ozYkhNZTRTUTVvbklWWFMxWUtwM0R6V0g2ell2NXVodW9tekdN?=
- =?utf-8?B?OW9SbUxnakxsVlg4UktWZGtCZjhUT0wwaDZUTUtrK09jWjlid3Evc2g0aVRQ?=
- =?utf-8?B?dnZObWtpL0UySnlRU2hlQWxSOGFrN0JNVWNiZ0JiQ0R0S1hKK3gyb2I5YXhZ?=
- =?utf-8?B?a3ZVRGN2cGl6MFdHOHFNSjlRYTRrZkNJSlF3WlZqUnoxSFBKOGNpcXcvTTU0?=
- =?utf-8?B?SzJyZk90TUZkYTRPMlY0SDZESGJSdW9JMjlhdzZpelp4SjdBMWVHUXk2cXpL?=
- =?utf-8?B?T0d6Tk1lU29BS2NQdVpvTVVlaG51eVBwL241WXo3UU83VHZzVGZ0WUdhVGN2?=
- =?utf-8?Q?8aSg4JzHoFYIjV1cuM?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30B5710FD3C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 09:47:07 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-c2dcbcc546fso343417066b.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 08 Oct 2026 02:47:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791452825; cv=none;
+ d=google.com; s=arc-20260327;
+ b=J6OGBFluHK2LmaTgcRtC1gzKAkIGmlxDTTaXIXoDpM/8IggmOEZTvKCzHYr0kcEcYV
+ hq76oAI5Xnx1DZKnoFjfGjG0c/eSJljwTb7vK36FghlS72bIqJs3SkOC4Sky/Bi/ocO7
+ V91eqU5d3lLFSYCz2Jhc99OOHDgNLsT4JZUK1Dum6/UvNZ/Cc2IT207LPwuFcINLzgT1
+ 1REInhbO2ZBd53v1qK00XDRJSuzlZA5cm1Hr/ipxK2ldvRXLRDwBU/67s1FClQckywup
+ G+BUafNqDf+17O9cWlo6+3tiLPyJj6aFuheYcL8HJLibpI6KAUjyuiA4PTJ7O/24r4mC
+ iXRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=pBG2CfwZvvXh2kkPTzl9pyAXNEnFVYX5W7gHYOSfvRM=;
+ fh=Grz8QArY2f48Ga98yM82yXGSpBlRDHeAV9afm3mfz+4=;
+ b=AQwUaQm6bqw7SnFaAMy3hsi62VdTNSeSaVExBrMXdt2yMDaCJ/Ecdx3Z5ntjTCwo4A
+ UwxlzSFTcQoJ5O8qitjVuKEznRR18OU7DSVMOe8Yo3C/MRcfuWhXfmBkJjwv3lmwxH3I
+ JkFH53fVh5dEvAfmWUvMsrh3Ge91cFCPRIfHTs38hfz8y9O7D4Ml4w9GiwjiSZ/a8Cic
+ U+NO5/k0d24t3BKFpiVWYwNlwAO0wxy3BD2lETaVEDpHNY+sPW1F7IBssxLt7HQJeTxc
+ fqnnDhllawuyGPbZgU/d/2R6HZiRijYxt5on6NUff9KR04vBNphxDVFPtwISm5+T8Lg3
+ QmEA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791452825; x=1792057625; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=pBG2CfwZvvXh2kkPTzl9pyAXNEnFVYX5W7gHYOSfvRM=;
+ b=c+zyNR4GaIssXV7z+bRXJwTI3uWZcd6NqnNypG6Eryi3pyei9ah6EeQwFqz1NG+UzP
+ 8PRrUIPgBMehXBHNTR5ls1sD0fdMpyNM6KTD1jUxexIb0Gyq5+FT1JBNqXPZcC6mZmFC
+ 858pTYF0qyIsosP2MJEozEkuxOT9To8XSqk5BGeuR9PG0sVSJee+Th9aMs7xslC+k+h5
+ zFQlDdNmG6j1etprSETgtHT/5iP2sYBPm+saH3L9bMcpqx/B6gs6yPRfkbXx6x9EbP1r
+ tKPdxecJFRYZN1csqA89xCDX2MmQCinG6eZMEVJEgrKrV7W95UEvJfpaaahg8EymYOkm
+ oqdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791452825; x=1792057625;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=pBG2CfwZvvXh2kkPTzl9pyAXNEnFVYX5W7gHYOSfvRM=;
+ b=b4JSeTGhCttKcpseYQjpq780o/KjH5HugP99i5q1XW523nl2Ek5kVFO+Uvbk7LqLbC
+ NoZWvaZECbZRXlhhmU2pwkZ/aNcymWF6b8flw0SYAv9Uv1Gbmw2VFmJVI5Mv3R1MIJwx
+ exvA5thozd9jQ7l7LXvXiwQqXCHtYmf6wqtZZBK5hWZDK7vxvqTGN/zvlQBgwLCyktLx
+ IVHohSWAL+Rnxx/QLwnczluF4No2qDEAhX2s3nx9RzK0bVgAz/V4XkUewcT6tYLO8xuE
+ aCjgNPIjxO3s/vM2bitxvdHFS+NHWv5/HrrNI8edprvHxTxOaIYCn4nyt03BZMk8p/bx
+ fxfA==
+X-Gm-Message-State: AFuF++lZECmQzhJ4LocwuZck37PEB05R2QXCSBJDCXMMfY+oXPbOn04L
+ 9LVObVRY29ibKR6weGc/OrK9OyP/EMpQiBZd1FH2ga1W0s+pQ0Qd98XBXhb/UefhoL3K0nv+Qk/
+ kZES77VF6vYP5fDzyNQEl8Cj7dLKX68s=
+X-Gm-Gg: AYBFou2OPpDzq8cJTn+m6DN590TqQ1wJQ21AMk4Kx37XHbQxqkmiuJFqSZrPvQNPbmA
+ 3UO1+KnUzV8oKdJ7q7tzKCFSN1Wn/mrVzcLN4++TGvyz+8omI2EpkbO+DzkoSHJbAn0tW/UjH5h
+ lnd2KQ6L929xfLeMgsBGm63TGxx1A2mTebbVDx0hSmnjjJTs/geSpjzTiEQhIr5zUmTUixt9Ad8
+ tlCrqmyA1WNWdyqqObILsYzxjl7P8G0tRodjuLtuEDJDHYPocBUrju3xob/6cYszC1ogSlV7cAr
+ xqHRUaZmWTb2CF1dxqOp9lC1XRwTnTvNFZkta5lWfn1187BE5jLqEw==
+X-Received: by 2002:a17:907:3e20:b0:c2e:9034:138f with SMTP id
+ a640c23a62f3a-c317c1787edmr504310366b.47.1791452825330; Thu, 08 Oct 2026
+ 02:47:05 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5748.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: abb3aedc-65cd-4394-f9a5-08df251d3f26
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 09:19:25.3250 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: W6o0xwUqUQ16vOj7HRqkf5UEPlURznUlMTFTk+fYPk8u5Lyu9fVCTLjk4uxFqLIwM9BAG9QDJyyKpn9TTUa4xA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8540
+References: <20261007200345.417281-1-jfisher84@gmail.com>
+ <e14295dd-c78e-4604-ba38-5a03c8ffa7c4@amd.com>
+In-Reply-To: <e14295dd-c78e-4604-ba38-5a03c8ffa7c4@amd.com>
+From: John Fisher <jfisher84@gmail.com>
+Date: Thu, 8 Oct 2026 22:46:51 +1300
+X-Gm-Features: AclHuK_AjxFaQeg1twq6ZvT33J1CFW4b0jM4QIal_YB9ZXA4gSkmPYLd--SuBYg
+Message-ID: <CAC7wNSAqWcaR=v7N+_Qe9SRPU8AAd0vjophDtkfnhRY4RhrXqA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: wait for pending page table updates before
+ switching a VM to CPU updates
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org, 
+ Prike Liang <Prike.Liang@amd.com>
+Content-Type: multipart/alternative; boundary="0000000000004928f7065d511dad"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,126 +103,362 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QU1EIEdlbmVyYWwNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IExhemFyLCBM
-aWpvIDxMaWpvLkxhemFyQGFtZC5jb20+DQpTZW50OiBUaHVyc2RheSwgT2N0b2JlciA4LCAyMDI2
-IDI6MDcgUE0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KQ2M6IFpoYW5nLCBI
-YXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhh
-bmRlci5EZXVjaGVyQGFtZC5jb20+OyBLYW1hbCwgQXNhZCA8QXNhZC5LYW1hbEBhbWQuY29tPg0K
-U3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogQWxsb3cgY2FuY2VsbGluZyBhIHJlcXVl
-c3RlZCBOUFMgbW9kZQ0KDQo8cGluZz4NCg0KT24gMDctT2N0LTI2IDU6MzMgUE0sIExpam8gTGF6
-YXIgd3JvdGU6DQo+IE5QUyBtb2RlIGNoYW5nZSByZXF1ZXN0IGRvZXNuJ3QgYWxsb3cgdG8gcmVx
-dWVzdCB0aGUgY3VycmVudCBtb2RlLg0KPiBUaGlzIGNhdXNlcyBhbiBpc3N1ZSB3aGVyZSBhIHVz
-ZXIgc3RvcmVzIGEgcmVxdWVzdCBhbmQgbGF0ZXIgd2FudHMgdG8NCj4gY2FuY2VsIHRoZSByZXF1
-ZXN0IGJ5IHdyaXRpbmcgdGhlIGN1cnJlbnQgbW9kZSBiYWNrLiBUaCBwZW5kaW5nDQoNCg0KTWlu
-b3Igbml0Og0KVGgtPlRoZQ0KDQpSZXZpZXdlZC1ieTogQXNhZCBLYW1hbCA8YXNhZC5rYW1hbEBh
-bWQuY29tPg0KDQpUaGFua3MgJiBSZWdhcmRzDQpBc2FkDQo+IHJlcXVlc3Qgc3RheXMgdGhlIHNh
-bWUgYXMgYmVmb3JlLg0KPg0KPiBBbGxvdyB1c2VyIHRvIGNoYW5nZSB0aGUgbW9kZSBieSBjb21w
-YXJpbmcgYWdhaW5zdCB0aGUgY2FjaGVkIHJlcXVlc3QuDQo+IFdyaXRpbmcgdGhlIGN1cnJlbnQg
-bW9kZSBiYWNrIGNsZWFycyB0aGUgcGVuZGluZyByZXF1ZXN0IHdpdGhvdXQNCj4gYXNraW5nIGZv
-ciBhIHJlbG9hZC4NCj4NCj4gRml4ZXM6IDAxMmJlNmYyMmMwMSAoImRybS9hbWRncHU6IEFkZCBz
-eXNmcyBpbnRlcmZhY2VzIGZvciBOUFMgbW9kZSIpDQo+IFNpZ25lZC1vZmYtYnk6IExpam8gTGF6
-YXIgPGxpam8ubGF6YXJAYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2dtYy5jIHwgNTIgKysrKysrKysrKysrKysrKysrLS0tLS0tLQ0KPiAgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCB8ICA0ICsrDQo+ICAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyAgIHwgMTMgKysrKysrKw0KPiAgIDMgZmls
-ZXMgY2hhbmdlZCwgNTYgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmMNCj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmMNCj4gaW5kZXggZDI1Y2E5MDNlMjFi
-Li44N2Q3OGZkMzRlMjMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9nbWMuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Z21jLmMNCj4gQEAgLTEzOTgsNiArMTM5OCw0MCBAQCBzdGF0aWMgc3NpemVfdCBhdmFpbGFibGVf
-bWVtb3J5X3BhcnRpdGlvbl9zaG93KHN0cnVjdCBkZXZpY2UgKmRldiwNCj4gICAgICAgcmV0dXJu
-IHNpemU7DQo+ICAgfQ0KPg0KPiArdm9pZCBhbWRncHVfZ21jX3NldF9yZXF1ZXN0ZWRfbnBzX21v
-ZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBlbnVtIGFtZGdwdV9tZW1vcnlfcGFydGl0aW9uIG1vZGUpIHsNCj4gKyAg
-ICAgc3RydWN0IGFtZGdwdV9oaXZlX2luZm8gKmhpdmU7DQo+ICsNCj4gKyAgICAgLyogSWYgZGV2
-aWNlIGlzIHBhcnQgb2YgaGl2ZSwgYWxsIGRldmljZXMgaW4gdGhlIGhpdmUgc2hvdWxkIHJlcXVl
-c3QgdGhlDQo+ICsgICAgICAqIHNhbWUgbW9kZS4gSGVuY2Ugc3RvcmUgdGhlIHJlcXVlc3RlZCBt
-b2RlIGluIGhpdmUuDQo+ICsgICAgICAqLw0KPiArICAgICBoaXZlID0gYW1kZ3B1X2dldF94Z21p
-X2hpdmUoYWRldik7DQo+ICsgICAgIGlmIChoaXZlKSB7DQo+ICsgICAgICAgICAgICAgYXRvbWlj
-X3NldCgmaGl2ZS0+cmVxdWVzdGVkX25wc19tb2RlLCBtb2RlKTsNCj4gKyAgICAgICAgICAgICBh
-bWRncHVfcHV0X3hnbWlfaGl2ZShoaXZlKTsNCj4gKyAgICAgfSBlbHNlIHsNCj4gKyAgICAgICAg
-ICAgICBhZGV2LT5nbWMucmVxdWVzdGVkX25wc19tb2RlID0gbW9kZTsNCj4gKyAgICAgfQ0KPiAr
-fQ0KPiArDQo+ICtlbnVtIGFtZGdwdV9tZW1vcnlfcGFydGl0aW9uDQo+ICthbWRncHVfZ21jX2dl
-dF9yZXF1ZXN0ZWRfbnBzX21vZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpIHsNCj4gKyAg
-ICAgc3RydWN0IGFtZGdwdV9oaXZlX2luZm8gKmhpdmU7DQo+ICsgICAgIGVudW0gYW1kZ3B1X21l
-bW9yeV9wYXJ0aXRpb24gbW9kZTsNCj4gKw0KPiArICAgICBoaXZlID0gYW1kZ3B1X2dldF94Z21p
-X2hpdmUoYWRldik7DQo+ICsgICAgIGlmIChoaXZlKSB7DQo+ICsgICAgICAgICAgICAgbW9kZSA9
-IGF0b21pY19yZWFkKCZoaXZlLT5yZXF1ZXN0ZWRfbnBzX21vZGUpOw0KPiArICAgICAgICAgICAg
-IGFtZGdwdV9wdXRfeGdtaV9oaXZlKGhpdmUpOw0KPiArICAgICB9IGVsc2Ugew0KPiArICAgICAg
-ICAgICAgIG1vZGUgPSBhZGV2LT5nbWMucmVxdWVzdGVkX25wc19tb2RlOw0KPiArICAgICB9DQo+
-ICsNCj4gKyAgICAgcmV0dXJuIG1vZGU7DQo+ICt9DQo+ICsNCj4gICBzdGF0aWMgc3NpemVfdCBj
-dXJyZW50X21lbW9yeV9wYXJ0aXRpb25fc3RvcmUoc3RydWN0IGRldmljZSAqZGV2LA0KPiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkZXZpY2VfYXR0
-cmlidXRlICphdHRyLA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGNvbnN0IGNoYXIgKmJ1Ziwgc2l6ZV90IGNvdW50KSBAQCAtMTQwNSw3ICsxNDM5LDYgQEAN
-Cj4gc3RhdGljIHNzaXplX3QgY3VycmVudF9tZW1vcnlfcGFydGl0aW9uX3N0b3JlKHN0cnVjdCBk
-ZXZpY2UgKmRldiwNCj4gICAgICAgc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBkZXZfZ2V0X2Ry
-dmRhdGEoZGV2KTsNCj4gICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkcm1fdG9f
-YWRldihkZGV2KTsNCj4gICAgICAgZW51bSBhbWRncHVfbWVtb3J5X3BhcnRpdGlvbiBtb2RlOw0K
-PiAtICAgICBzdHJ1Y3QgYW1kZ3B1X2hpdmVfaW5mbyAqaGl2ZTsNCj4gICAgICAgaW50IGk7DQo+
-DQo+ICAgICAgIG1vZGUgPSBVTktOT1dOX01FTU9SWV9QQVJUSVRJT05fTU9ERTsgQEAgLTE0MTks
-MjMgKzE0NTIsMTYgQEANCj4gc3RhdGljIHNzaXplX3QgY3VycmVudF9tZW1vcnlfcGFydGl0aW9u
-X3N0b3JlKHN0cnVjdCBkZXZpY2UgKmRldiwNCj4gICAgICAgaWYgKG1vZGUgPT0gVU5LTk9XTl9N
-RU1PUllfUEFSVElUSU9OX01PREUpDQo+ICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+
-DQo+IC0gICAgIGlmIChtb2RlID09IGFkZXYtPmdtYy5nbWNfZnVuY3MtPnF1ZXJ5X21lbV9wYXJ0
-aXRpb25fbW9kZShhZGV2KSkgew0KPiArICAgICBpZiAobW9kZSA9PSBhbWRncHVfZ21jX2dldF9y
-ZXF1ZXN0ZWRfbnBzX21vZGUoYWRldikpIHsNCj4gICAgICAgICAgICAgICBkZXZfaW5mbygNCj4g
-ICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPmRldiwNCj4gLSAgICAgICAgICAgICAgICAgICAg
-ICJyZXF1ZXN0ZWQgTlBTIG1vZGUgaXMgc2FtZSBhcyBjdXJyZW50IE5QUyBtb2RlLCBza2lwcGlu
-Z1xuIik7DQo+ICsgICAgICAgICAgICAgICAgICAgICAicmVxdWVzdGVkIE5QUyBtb2RlIGlzIHNh
-bWUgYXMgY3VycmVudC9hbHJlYWR5IHJlcXVlc3RlZCBOUFMgbW9kZSwNCj4gK3NraXBwaW5nXG4i
-KTsNCj4gICAgICAgICAgICAgICByZXR1cm4gY291bnQ7DQo+ICAgICAgIH0NCj4NCj4gLSAgICAg
-LyogSWYgZGV2aWNlIGlzIHBhcnQgb2YgaGl2ZSwgYWxsIGRldmljZXMgaW4gdGhlIGhpdmUgc2hv
-dWxkIHJlcXVlc3QgdGhlDQo+IC0gICAgICAqIHNhbWUgbW9kZS4gSGVuY2Ugc3RvcmUgdGhlIHJl
-cXVlc3RlZCBtb2RlIGluIGhpdmUuDQo+IC0gICAgICAqLw0KPiAtICAgICBoaXZlID0gYW1kZ3B1
-X2dldF94Z21pX2hpdmUoYWRldik7DQo+IC0gICAgIGlmIChoaXZlKSB7DQo+IC0gICAgICAgICAg
-ICAgYXRvbWljX3NldCgmaGl2ZS0+cmVxdWVzdGVkX25wc19tb2RlLCBtb2RlKTsNCj4gLSAgICAg
-ICAgICAgICBhbWRncHVfcHV0X3hnbWlfaGl2ZShoaXZlKTsNCj4gLSAgICAgfSBlbHNlIHsNCj4g
-LSAgICAgICAgICAgICBhZGV2LT5nbWMucmVxdWVzdGVkX25wc19tb2RlID0gbW9kZTsNCj4gLSAg
-ICAgfQ0KPiArICAgICBhbWRncHVfZ21jX3NldF9yZXF1ZXN0ZWRfbnBzX21vZGUoYWRldiwgbW9k
-ZSk7DQo+ICsgICAgIGlmIChtb2RlID09IGFtZGdwdV9nbWNfcXVlcnlfbWVtb3J5X3BhcnRpdGlv
-bihhZGV2KSkNCj4gKyAgICAgICAgICAgICByZXR1cm4gY291bnQ7DQo+DQo+ICAgICAgIGRldl9p
-bmZvKA0KPiAgICAgICAgICAgICAgIGFkZXYtPmRldiwNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9nbWMuaA0KPiBpbmRleCA3NmU2ZjFmOTY5MTMuLjg5ZjFlZTgyOWVlYSAx
-MDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5oDQo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaA0KPiBAQCAtNDg0
-LDYgKzQ4NCwxMCBAQCBlbnVtIGFtZGdwdV9tZW1vcnlfcGFydGl0aW9uDQo+ICAgYW1kZ3B1X2dt
-Y19nZXRfbWVtb3J5X3BhcnRpdGlvbihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyICpz
-dXBwX21vZGVzKTsNCj4gICBlbnVtIGFtZGdwdV9tZW1vcnlfcGFydGl0aW9uDQo+ICAgYW1kZ3B1
-X2dtY19xdWVyeV9tZW1vcnlfcGFydGl0aW9uKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsN
-Cj4gK3ZvaWQgYW1kZ3B1X2dtY19zZXRfcmVxdWVzdGVkX25wc19tb2RlKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZW51
-bSBhbWRncHVfbWVtb3J5X3BhcnRpdGlvbiBtb2RlKTsgZW51bQ0KPiArYW1kZ3B1X21lbW9yeV9w
-YXJ0aXRpb24gYW1kZ3B1X2dtY19nZXRfcmVxdWVzdGVkX25wc19tb2RlKHN0cnVjdA0KPiArYW1k
-Z3B1X2RldmljZSAqYWRldik7DQo+ICAgaW50IGFtZGdwdV9nbWNfaW5pdF9tZW1fcmFuZ2VzKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsNCj4gICB2b2lkIGFtZGdwdV9nbWNfaW5pdF9zd19t
-ZW1fcmFuZ2VzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X21lbV9wYXJ0aXRpb25faW5mbyAqbWVtX3Jh
-bmdlcyk7IGRpZmYgLS1naXQNCj4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlf
-MC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPiBpbmRleCA4
-NWJhMjI4ZjAwMmQuLjVjMjMzYWNiYTA4NCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nbWNfdjlfMC5jDQo+IEBAIC0xNjE3LDYgKzE2MTcsNyBAQCBzdGF0aWMgaW50IGdtY192OV8w
-X2Vhcmx5X2luaXQoc3RydWN0IGFtZGdwdV9pcF9ibG9jayAqaXBfYmxvY2spDQo+ICAgc3RhdGlj
-IGludCBnbWNfdjlfMF9sYXRlX2luaXQoc3RydWN0IGFtZGdwdV9pcF9ibG9jayAqaXBfYmxvY2sp
-DQo+ICAgew0KPiAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGlwX2Jsb2NrLT5h
-ZGV2Ow0KPiArICAgICBib29sIG5wc19zd2l0Y2hfc3VwcG9ydDsNCj4gICAgICAgaW50IHI7DQo+
-DQo+ICAgICAgIHIgPSBhbWRncHVfZ21jX2FsbG9jYXRlX3ZtX2ludl9lbmcoYWRldik7DQo+IEBA
-IC0xNjQxLDYgKzE2NDIsMTggQEAgc3RhdGljIGludCBnbWNfdjlfMF9sYXRlX2luaXQoc3RydWN0
-IGFtZGdwdV9pcF9ibG9jayAqaXBfYmxvY2spDQo+ICAgICAgICAgICAgICAgYW1kZ3B1X3Jhc19y
-ZXNldF9lcnJvcl9jb3VudChhZGV2LCBBTURHUFVfUkFTX0JMT0NLX19IRFApOw0KPiAgICAgICB9
-DQo+DQo+ICsgICAgIG5wc19zd2l0Y2hfc3VwcG9ydCA9ICFhZGV2LT5nbWMueGdtaS5jb25uZWN0
-ZWRfdG9fY3B1ICYmDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgIChod2VpZ2h0MzIoYWRl
-di0+Z21jLnN1cHBvcnRlZF9ucHNfbW9kZXMgJg0KPiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIEFNREdQVV9BTExfTlBTX01BU0spID4gMSk7DQo+ICsgICAgIC8qIEluaXRp
-YWxpemUgcmVxdWVzdGVkIE5QUyBtb2RlIHRvIGJlIHRoZSBzYW1lIGFzIGN1cnJlbnQgbW9kZSAq
-Lw0KPiArICAgICBpZiAobnBzX3N3aXRjaF9zdXBwb3J0KSB7DQo+ICsgICAgICAgICAgICAgZW51
-bSBhbWRncHVfbWVtb3J5X3BhcnRpdGlvbiBtb2RlID0NCj4gKyAgICAgICAgICAgICAgICAgICAg
-IGFtZGdwdV9nbWNfZ2V0X3JlcXVlc3RlZF9ucHNfbW9kZShhZGV2KTsNCj4gKyAgICAgICAgICAg
-ICBpZiAobW9kZSA9PSBVTktOT1dOX01FTU9SWV9QQVJUSVRJT05fTU9ERSkNCj4gKyAgICAgICAg
-ICAgICAgICAgICAgIGFtZGdwdV9nbWNfc2V0X3JlcXVlc3RlZF9ucHNfbW9kZSgNCj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgYWRldiwgYW1kZ3B1X2dtY19xdWVyeV9tZW1vcnlfcGFy
-dGl0aW9uKGFkZXYpKTsNCj4gKyAgICAgfQ0KPiArDQo+ICAgICAgIHJldHVybiBhbWRncHVfaXJx
-X2dldChhZGV2LCAmYWRldi0+Z21jLnZtX2ZhdWx0LCAwKTsNCj4gICB9DQo+DQoNCg==
+--0000000000004928f7065d511dad
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Ok understood. Uninterruptible with no return value check.
+
+Which fence should it wait on, though?
+
+The jobs that race here are the PD/PT clears from the render node's open,
+and as far as I can see their fences only end up as BOOKKEEP fences on the
+root PD:
+amdgpu_vm_pt_clear() commits with a NULL fence, so they never reach
+vm->last_update.
+Nothing else sets vm->last_update between amdgpu_vm_init() and ACQUIRE_VM
+either: amdgpu_seq64_map() goes through amdgpu_vm_bo_update(), which puts
+its fence in bo_va->last_pt_update because the seq64 BO is not always
+valid; amdgpu_map_static_csa() only maps; and the PDEs of the new tables
+stay on vm->kernel.needs_update.
+So at this point vm->last_update is still the stub, and a
+dma_fence_wait(vm->last_update, false) here would not close the race.
+
+I think maybe two other ways to wait for the VM's own updates:
+
+   1. Have amdgpu_vm_pt_clear() commit with &vm->last_update instead of
+   NULL, and dma_fence_wait(vm->last_update, false) here before it is dropp=
+ed.
+   The clears all go through vm->delayed, so the last one covers the earlie=
+r
+   ones.
+   2. Keep the clears as they are and wait here only for the fences on the
+   root PD whose owner is AMDGPU_FENCE_OWNER_VM (exporting
+   amdgpu_sync_get_owner() or adding a small helper to amdgpu_sync.c).
+
+
+Which would you prefer, or did you have something else in mind?
+
+I'll send a v2 once I've rerun the tests on it.
+
+Thanks,
+John
+
+
+On Thu, 8 Oct 2026 at 21:13, Christian K=C3=B6nig <christian.koenig@amd.com=
+>
+wrote:
+
+> On 10/7/26 22:03, John Fisher wrote:
+> > amdgpu_vm_make_compute() switches a VM from SDMA to CPU page table
+> > updates when a KFD process acquires it. It syncs "with the last SDMA
+> > update/clear" through amdgpu_bo_sync_wait() on the root PD, but that
+> > walks the reservation with DMA_RESV_USAGE_READ, and the VM's own page
+> > table jobs (the root clear from amdgpu_vm_init(), and the PD/PT clears
+> > and the seq64 mapping from the render node's open) are added by
+> > amdgpu_vm_sdma_commit() with DMA_RESV_USAGE_BOOKKEEP. The CPU path's ow=
+n
+> > waits (amdgpu_vm_cpu_update(), amdgpu_bo_kmap()) use
+> > DMA_RESV_USAGE_KERNEL. None of them waits for a clear that is still
+> > queued.
+> >
+> > When one is, the CPU writes the first entries of the new compute VM (th=
+e
+> > KFD trap handler's TBA/TMA page at AMDGPU_VA_RESERVED_TRAP_START, mappe=
+d
+> > during ACQUIRE_VM) into a page directory the SDMA then clears. The
+> > entries are gone, the handler's page is unmapped, and the first wave
+> > save of any queue of the process faults in the SQC instruction fetch at
+> > the handler's address (GCVM_L2_PROTECTION_FAULT_STATUS 0x008012B1,
+> > PERMISSION_FAULTS 0xb). The MES then fails REMOVE_QUEUE and SUSPEND, an=
+d
+> > the device takes a MODE1 reset with VRAM lost on 7.2.9; on 7.3-rc6 the
+> > queue is reset instead.
+> >
+> > The window is the time between the render node's open and ACQUIRE_VM.
+> > ROCr spends milliseconds there and is practically never hit; a minimal
+> > KFD client that opens the render node and acquires the VM at once is hi=
+t
+> > most of the time. On a Radeon AI PRO R9700 (gfx1201, Resizable BAR, so
+> > vm_update_mode defaults to CPU updates for compute VMs), a wave reading
+> > the trap handler's page right after queue creation found it unmapped in
+> > 8 of 12 runs; a 5 ms sleep between the open and ACQUIRE_VM made that 0
+> > of 9, and the same sleep after queue creation instead 3 of 3.
+> >
+> > The wait covered these jobs until commit 926c79ad6ecd ("drm/amdgpu:
+> > promote the implicit sync to the dependent read fences") narrowed
+> > amdgpu_sync_resv() from DMA_RESV_USAGE_BOOKKEEP to DMA_RESV_USAGE_READ;
+> > the VM's page table jobs have been added with BOOKKEEP since commit
+> > 4247084057cf ("drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP v2"), so from
+> > v6.16 on the sync in amdgpu_vm_make_compute() waits for nothing of
+> > them.
+> >
+> > Wait for every fence on the root PD's reservation before switching the
+> > update functions. With this the same client reads the handler 10 of 10
+> > times, 8 busy queues on the 4 compute slots complete in 5 of 5 runs
+> > (1 of 6 before), and two processes with 8 queues each complete together=
+,
+> > with no fault.
+> >
+> > Fixes: 926c79ad6ecd ("drm/amdgpu: promote the implicit sync to the
+> dependent read fences")
+> > Cc: stable@vger.kernel.org # v6.16+
+> > Cc: Prike Liang <Prike.Liang@amd.com>
+> > Signed-off-by: John Fisher <jfisher84@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 17 +++++++++++++----
+> >  1 file changed, 13 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > index 29187fabc..8d0c03a40 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -2736,11 +2736,20 @@ int amdgpu_vm_make_compute(struct amdgpu_device
+> *adev, struct amdgpu_vm *vm)
+> >                   "CPU update of VM recommended only for large BAR
+> system\n");
+> >
+> >         if (vm->use_cpu_for_update) {
+> > -               /* Sync with last SDMA update/clear before switching to
+> CPU */
+> > -               r =3D amdgpu_bo_sync_wait(vm->root.bo,
+> > -                                       AMDGPU_FENCE_OWNER_UNDEFINED,
+> true);
+> > -               if (r)
+> > +               /*
+> > +                * Sync with the last SDMA update/clear before switchin=
+g
+> to CPU
+> > +                * updates. The VM's own page table updates are tracked
+> with
+> > +                * DMA_RESV_USAGE_BOOKKEEP on the root PD, which
+> > +                * amdgpu_bo_sync_wait() does not wait for: a clear of =
+a
+> PD still
+> > +                * pending here lands after the CPU has written its
+> entries.
+>
+> That comment is a bit superfluous, it describes the what and not the why.
+>
+> Just keep the "Sync with last SDMA update/clear before switching to CPU"
+> or maybe change to "Sync with the last async SDMA update".
+>
+> > +                */
+> > +               long t =3D
+> dma_resv_wait_timeout(vm->root.bo->tbo.base.resv,
+> > +                                              DMA_RESV_USAGE_BOOKKEEP,
+> true,
+> > +                                              MAX_SCHEDULE_TIMEOUT);
+>
+> That is quite suboptimal, we don't want to wait for the BOOKKEEP fences
+> here. And drop the return value checking and wait uninterruptible.
+>
+> Regards,
+> Christian.
+>
+> > +               if (t < 0) {
+> > +                       r =3D t;
+> >                         goto unreserve_bo;
+> > +               }
+> >
+> >                 vm->update_funcs =3D &amdgpu_vm_cpu_funcs;
+> >                 r =3D amdgpu_vm_pt_map_tables(adev, vm);
+> > --
+> > 2.55.0
+> >
+>
+>
+
+--0000000000004928f7065d511dad
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Ok understood. Uninterruptible with no return value check.=
+<br><br>Which fence should it wait on, though?<br><br>The jobs that race he=
+re are the PD/PT clears from the render node&#39;s open, and as far as I ca=
+n see their fences only end up as BOOKKEEP fences on the root PD:<br>amdgpu=
+_vm_pt_clear() commits with a NULL fence, so they never reach vm-&gt;last_u=
+pdate.<br>Nothing else sets vm-&gt;last_update between amdgpu_vm_init() and=
+ ACQUIRE_VM either: amdgpu_seq64_map() goes through amdgpu_vm_bo_update(), =
+which puts its fence in bo_va-&gt;last_pt_update because the seq64 BO is no=
+t always valid; amdgpu_map_static_csa() only maps; and the PDEs of the new =
+tables stay on vm-&gt;kernel.needs_update.<br>So at this point vm-&gt;last_=
+update is still the stub, and a dma_fence_wait(vm-&gt;last_update, false) h=
+ere would not close the race.<br><br>I think maybe two other ways to wait f=
+or the VM&#39;s own updates:<br><div><ol><li>Have amdgpu_vm_pt_clear() comm=
+it with &amp;vm-&gt;last_update instead of NULL, and dma_fence_wait(vm-&gt;=
+last_update, false) here before it is dropped. The clears all go through vm=
+-&gt;delayed, so the last one covers the earlier ones.</li><li>Keep the cle=
+ars as they are and wait here only for the fences on the root PD whose owne=
+r is AMDGPU_FENCE_OWNER_VM (exporting amdgpu_sync_get_owner() or adding a s=
+mall helper to amdgpu_sync.c).</li></ol></div><br><div>Which would you pref=
+er, or did you have something else in mind?</div><div><br></div>I&#39;ll se=
+nd a v2 once I&#39;ve rerun the tests on it.<br><br>Thanks,<br>John<br><br>=
+</div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr"=
+ class=3D"gmail_attr">On Thu, 8 Oct 2026 at 21:13, Christian K=C3=B6nig &lt=
+;<a href=3D"mailto:christian.koenig@amd.com">christian.koenig@amd.com</a>&g=
+t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 10/=
+7/26 22:03, John Fisher wrote:<br>
+&gt; amdgpu_vm_make_compute() switches a VM from SDMA to CPU page table<br>
+&gt; updates when a KFD process acquires it. It syncs &quot;with the last S=
+DMA<br>
+&gt; update/clear&quot; through amdgpu_bo_sync_wait() on the root PD, but t=
+hat<br>
+&gt; walks the reservation with DMA_RESV_USAGE_READ, and the VM&#39;s own p=
+age<br>
+&gt; table jobs (the root clear from amdgpu_vm_init(), and the PD/PT clears=
+<br>
+&gt; and the seq64 mapping from the render node&#39;s open) are added by<br=
+>
+&gt; amdgpu_vm_sdma_commit() with DMA_RESV_USAGE_BOOKKEEP. The CPU path&#39=
+;s own<br>
+&gt; waits (amdgpu_vm_cpu_update(), amdgpu_bo_kmap()) use<br>
+&gt; DMA_RESV_USAGE_KERNEL. None of them waits for a clear that is still<br=
+>
+&gt; queued.<br>
+&gt; <br>
+&gt; When one is, the CPU writes the first entries of the new compute VM (t=
+he<br>
+&gt; KFD trap handler&#39;s TBA/TMA page at AMDGPU_VA_RESERVED_TRAP_START, =
+mapped<br>
+&gt; during ACQUIRE_VM) into a page directory the SDMA then clears. The<br>
+&gt; entries are gone, the handler&#39;s page is unmapped, and the first wa=
+ve<br>
+&gt; save of any queue of the process faults in the SQC instruction fetch a=
+t<br>
+&gt; the handler&#39;s address (GCVM_L2_PROTECTION_FAULT_STATUS 0x008012B1,=
+<br>
+&gt; PERMISSION_FAULTS 0xb). The MES then fails REMOVE_QUEUE and SUSPEND, a=
+nd<br>
+&gt; the device takes a MODE1 reset with VRAM lost on 7.2.9; on 7.3-rc6 the=
+<br>
+&gt; queue is reset instead.<br>
+&gt; <br>
+&gt; The window is the time between the render node&#39;s open and ACQUIRE_=
+VM.<br>
+&gt; ROCr spends milliseconds there and is practically never hit; a minimal=
+<br>
+&gt; KFD client that opens the render node and acquires the VM at once is h=
+it<br>
+&gt; most of the time. On a Radeon AI PRO R9700 (gfx1201, Resizable BAR, so=
+<br>
+&gt; vm_update_mode defaults to CPU updates for compute VMs), a wave readin=
+g<br>
+&gt; the trap handler&#39;s page right after queue creation found it unmapp=
+ed in<br>
+&gt; 8 of 12 runs; a 5 ms sleep between the open and ACQUIRE_VM made that 0=
+<br>
+&gt; of 9, and the same sleep after queue creation instead 3 of 3.<br>
+&gt; <br>
+&gt; The wait covered these jobs until commit 926c79ad6ecd (&quot;drm/amdgp=
+u:<br>
+&gt; promote the implicit sync to the dependent read fences&quot;) narrowed=
+<br>
+&gt; amdgpu_sync_resv() from DMA_RESV_USAGE_BOOKKEEP to DMA_RESV_USAGE_READ=
+;<br>
+&gt; the VM&#39;s page table jobs have been added with BOOKKEEP since commi=
+t<br>
+&gt; 4247084057cf (&quot;drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP v2&quot;),=
+ so from<br>
+&gt; v6.16 on the sync in amdgpu_vm_make_compute() waits for nothing of<br>
+&gt; them.<br>
+&gt; <br>
+&gt; Wait for every fence on the root PD&#39;s reservation before switching=
+ the<br>
+&gt; update functions. With this the same client reads the handler 10 of 10=
+<br>
+&gt; times, 8 busy queues on the 4 compute slots complete in 5 of 5 runs<br=
+>
+&gt; (1 of 6 before), and two processes with 8 queues each complete togethe=
+r,<br>
+&gt; with no fault.<br>
+&gt; <br>
+&gt; Fixes: 926c79ad6ecd (&quot;drm/amdgpu: promote the implicit sync to th=
+e dependent read fences&quot;)<br>
+&gt; Cc: <a href=3D"mailto:stable@vger.kernel.org" target=3D"_blank">stable=
+@vger.kernel.org</a> # v6.16+<br>
+&gt; Cc: Prike Liang &lt;<a href=3D"mailto:Prike.Liang@amd.com" target=3D"_=
+blank">Prike.Liang@amd.com</a>&gt;<br>
+&gt; Signed-off-by: John Fisher &lt;<a href=3D"mailto:jfisher84@gmail.com" =
+target=3D"_blank">jfisher84@gmail.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 17 +++++++++++++----<br=
+>
+&gt;=C2=A0 1 file changed, 13 insertions(+), 4 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_vm.c<br>
+&gt; index 29187fabc..8d0c03a40 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt; @@ -2736,11 +2736,20 @@ int amdgpu_vm_make_compute(struct amdgpu_devic=
+e *adev, struct amdgpu_vm *vm)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&q=
+uot;CPU update of VM recommended only for large BAR system\n&quot;);<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (vm-&gt;use_cpu_for_update) {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Sync with l=
+ast SDMA update/clear before switching to CPU */<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_b=
+o_sync_wait(vm-&gt;<a href=3D"http://root.bo" rel=3D"noreferrer" target=3D"=
+_blank">root.bo</a>,<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMDGP=
+U_FENCE_OWNER_UNDEFINED, true);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Sync with t=
+he last SDMA update/clear before switching to CPU<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * updates. Th=
+e VM&#39;s own page table updates are tracked with<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * DMA_RESV_US=
+AGE_BOOKKEEP on the root PD, which<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * amdgpu_bo_s=
+ync_wait() does not wait for: a clear of a PD still<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * pending her=
+e lands after the CPU has written its entries.<br>
+<br>
+That comment is a bit superfluous, it describes the what and not the why.<b=
+r>
+<br>
+Just keep the &quot;Sync with last SDMA update/clear before switching to CP=
+U&quot; or maybe change to &quot;Sync with the last async SDMA update&quot;=
+.<br>
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0long t =3D dma=
+_resv_wait_timeout(vm-&gt;root.bo-&gt;tbo.base.resv,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 DMA_RESV_USAGE_BOOKKEEP, true,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 MAX_SCHEDULE_TIMEOUT);<br>
+<br>
+That is quite suboptimal, we don&#39;t want to wait for the BOOKKEEP fences=
+ here. And drop the return value checking and wait uninterruptible.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (t &lt; 0) =
+{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0r =3D t;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0goto unreserve_bo;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vm-&gt;up=
+date_funcs =3D &amp;amdgpu_vm_cpu_funcs;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amd=
+gpu_vm_pt_map_tables(adev, vm);<br>
+&gt; --<br>
+&gt; 2.55.0<br>
+&gt; <br>
+<br>
+</blockquote></div>
+
+--0000000000004928f7065d511dad--
