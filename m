@@ -4,66 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2257FCA600D
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 17:33:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9485CA6011
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 17:33:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A85F710FAC5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8794A10FAA1;
 	Thu,  8 Oct 2026 17:33:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ptThtlCi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eq1IS3GR";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D977110FAA1
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3190210FAA1
  for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 17:33:54 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4a018792ab3so30321265e9.0
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-486e8faff03so1822232f8f.1
  for <amd-gfx@lists.freedesktop.org>; Thu, 08 Oct 2026 10:33:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791480833; x=1792085633; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=JHyXEA81uIcFaEXFeQajZTPWN3ep6NByIM41lzeyh3Y=;
- b=ptThtlCiygwJQNW5Jdp7MgeKlu9E1EzyFTkvpCsZiZ4pg9BCvagbxfXdJzb+ZqlpZw
- qiSgSdEn85cI1B0wFqRGjAKjRzsMVwoKvXl19AjkG4r8eCB0ggmuJc9vYO+g0cWf64pQ
- 2PpMkWj3IZSNI7DR8jiaRSuteWZnj8PXExXfLEucEudcpH5wRcEcFHFjQBMaYdfDs8LX
- +YZwmTD8FrbvkLkRCU6Irazq3nlVtZzODW9BW8KS59ytsFaHjZXz16l2wzldQBlmuq5Y
- GZZ7zsCWIrPUr1bbYKk31IxfmDIBd9R0gHERNGpQHYKSwZrkJRudO508B4E5t1Dr6La8
- ViMg==
+ d=gmail.com; s=20251104; t=1791480832; x=1792085632; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=apSg04ofG9JT17gTFMqyZX3rIV33q37d0TfAc3UMcCs=;
+ b=eq1IS3GRS0qtP0fA3KBH+CGDs9SyZ9hKiilZk8m1FGw2EXXEspcwmTd3bk7S6BNEpu
+ re8f8dGkch6skFvXXaOGiKycKa8iLZ+ZAyB5rsa3BsYMGO7QHNWhbdQ4J9nA2vT7EUYJ
+ kmh1H9xbl/UCpmnFuL1WJcszKGSkMmlwALdlO4EAHpKaQCRPqfdZQCJmT4l4JkwjqiXZ
+ lg8WaaY0uUYknOftLlNWCc3k9UB5EBINI5Q8Tm4hmO4h2Y3VDE0E+sYfuHGvIVSSgMqC
+ sdfUzGlv2hV2Y93iWwLBVRM7etAt9FrPyaDDT+V+/ZImOuJ6UX54LHzO9IhpF9BdvdKJ
+ LgLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791480833; x=1792085633;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=JHyXEA81uIcFaEXFeQajZTPWN3ep6NByIM41lzeyh3Y=;
- b=xR5OUZHB0Wyyk+JAz50QqMankaqmn+O91iuWfzxroH+AL1TjfR2DCYXyfDs4pTjkjy
- y8l9aRfJvxCL40qZCC2zXb74z0al5Vzdfl/6eDjV6ctYo7HUrnwinBan8YTFW0Hnx0xs
- 8Qh/mlrcYi4X9Faj+y8twpeBHnZdfTLJlo528ujFCiBSuOcTSLTGoCpglY2F6Y/qgiYM
- 90rM50OFxzIvo8EOsL8uRzcOdGBdRt2UBR27N1WFrt+dd/J7pW2D9okUtQo1pRt9n8Pw
- 4sFVsENMRxIqJ5sTNfx24o45ie6PIxDfGZnY7gkGVVPvckWf+9A+UlYZoA+AXpqjX3jw
- SMWQ==
-X-Gm-Message-State: AFuF++ncopGsMunf+6s+Q+x6U2M0pu5+NkwT0xOr7h0DOuHj/IkFCqCM
- fw8vBZn/T6Bf+CoIR6ELtSBNK0DSPDryTmef/7ZitPzUoXj9b/kOzA0ashxQ/jc15iU=
-X-Gm-Gg: AYBFou22amEuoUYeubjZqIqwHdO91TXLQWdbQiXRdvLIxN29C4gWNr8c7TcFZUILzCn
- 08c4Zh47CFodz/rkyuV9k5puNEmMj2xGF1sQUmlc1eb6yRVXojmDCuOdkjyn3o1bxJd+lin25U9
- AXpoNmx7rVuZKjM+IMGR1+ZKtdDwBIX1ZH0zHBjlWXSF63vHh3TvX/TRIL8k0y7zgTjUhxoR11R
- vKZ8fEMSN3GQpBNDTeZ5102nf4baZqLJBCjNVOqDdnxhDFYFJZbFwq7nsIq9DK/dAq9eP7AZS30
- mZXM9wpG20iKxG+yl20b2RUtvjvHWS0R85p/I5fo7HShUWwlfOEe0ISmo6vzmCiRBKe10COzQyR
- 77B5yYFoNYR7St6PsXbWmcrgKz1kTFIJHmdKNUdSjRCA7pNCY+aOJ+ar0sla0U4zNGFPMfanYzA
- tiEoOelAI56bAAbWqzv7BMQLf53tsZoAIxf9jXheZDOlRrKAnJjHkRK4jwrsiPr13F18QFmWn28
- AC7CVcsCLdYuov6hZgM5qzPlZSl5NnhgepItb4CLEjm/q8/Xn19uk77bkbm4BnNHUzVFn+PAHnq
- hyEU4166NSBnNaci6wmZLH783f/pcWmqbXYjiYGakAhLKWae+UOtVdxIlMvkqbgDoVoF/18N1fq
- XTKalJi3M8yGJ742xqwA02RHdutoVuOgXvzq+3shTZv09Fioz2BT+11bEhIH4Ks0akM2o57N2vL
- 3VOf/7Q9gJgIZs7rI=
-X-Received: by 2002:a05:600c:821a:b0:4a0:1a7f:2abf with SMTP id
- 5b1f17b1804b1-4a1802f6338mr111349435e9.7.1791480833107; 
- Thu, 08 Oct 2026 10:33:53 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1791480832; x=1792085632;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=apSg04ofG9JT17gTFMqyZX3rIV33q37d0TfAc3UMcCs=;
+ b=u7yFhXxClBatSEutBgB30hKf+F5XJy7jJivK3Grip8UH6pdGOMqRmIttA13DTkNcTQ
+ /ZCjzj9dffxVT/NTjt3ufbTqIYI6Et9vyqRGZLMm3t+Zdr0RNIbVei6IWa+wLcOw2sbb
+ a0tmJlOWzAXHAUmOGtuXCPZrR8mH1DINii+eOLbzOE/SgTLza0DyYhFT83ICVHdsM0wu
+ 2XXP8kYT9gl89hF7iYW3ZxmhzTJcz90Dyp5fp5MP0/MZw+F8JzbEzgCMYXNn1ya60XpK
+ 70Cg6Bor3fpJMBeMYpGmtNaXzLGTZtoRklXpZTnBGf0+xPKGENtIZxrqsTS+VS+nlH57
+ DitA==
+X-Gm-Message-State: AFq9FYLDZU7HxH+qf5DD8Cbkavu46h59oRTFWR8NEoCWouXmofHb4K/6
+ S10MiZ8O5GmsGW4YM2HT6cGkf0JUgkOMslFXPYkJ7MMqZojrTcdmo/MT4o/d8ZPu7q4=
+X-Gm-Gg: AYBFou2qLogkct2GLSC3yC1Ww6HFRHPHlijHHsf3lhGNBKZYEJkd9a2EBC1drtQUku8
+ 70YOa52Wg5gU0+mS5YBqpK3nvK3Z0u8I09kLPDzUf9mnazxzx0VTAImIGsxabp3VG+qo22NvD3r
+ 7rQ3PZLI1E44D4wNI2KGi/q7DRkLI9gT9ypt8wFs9Ea8dQ5+fRXuuWFMh8ypGHOT4K2P4G/MUNu
+ 22q/W/u2d4Q8LWl3QhUVryc/OgjoghqisgjpdK+PXZqVDjsG6qeNbTPmw5qxATfeuc2z8msMkLf
+ aeHjK8sNDUP/dCWby/m2Y6mzkHZV2nphg6WW9iI5R1Pbx7k4z178P4SYfHVJZypaIW8S3foA3Va
+ 1ir9BerDUbaeZo77dvmzVSF/JL08UCu12zREX2BpIuo26uUDRzrtdvCR6RywJffO2QcYMrAu+ET
+ g2HZC6vdrxQheQd+sGITWqzxdKO6zTdywbdizM4nFM+6lOd6bQSlu+461pW96s/WP1tMgG/7s4N
+ lLKuT8MBxkuftWEYjvjFTJ14usGdIW57tr+rohupYf8UziivTvk4uN1G+MYLkRhg5NixhksYOc0
+ e2A36h9jkwgwLulv2P9qaL9M/lYgpwwKCCqintPWc4q/YE4OZdg87Jw6/Jin3+xI6ntFFhbRCgW
+ XqpBCejMwQ+5za3txoRdbsAUx76vVNqiWfsrevTTmaTS0517h6TbtkIPr9q7Ph5Sen+zMyPSv/S
+ 0chXTuPOvvScLNP5w=
+X-Received: by 2002:adf:e19c:0:b0:48c:4f94:2214 with SMTP id
+ ffacd0b85a97d-48c726fcc83mr11517500f8f.3.1791480832266; 
+ Thu, 08 Oct 2026 10:33:52 -0700 (PDT)
 Received: from localhost.localdomain
  ([2a0d:e487:415e:bf71:e574:69b7:f11e:4204])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48db652e593sm659451f8f.34.2026.10.08.10.33.52
+ ffacd0b85a97d-48db652e593sm659451f8f.34.2026.10.08.10.33.51
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
  Thu, 08 Oct 2026 10:33:52 -0700 (PDT)
 From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
@@ -73,13 +71,10 @@ Cc: Felix Kuehling <felix.kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Xiaogang Chen <xiaogang.chen@amd.com>,
  Olivier Kaloudoff <kaloudoff@icloud.com>
-Subject: [PATCH v5 1/3] drm/amdkfd: tear down KFD processes before early
- fini_sw on disconnect
-Date: Thu,  8 Oct 2026 19:33:48 +0200
-Message-ID: <20261008173350.40455-2-olivier.kaloudoff@gmail.com>
+Subject: [PATCH v5 0/3] drm/amdkfd: fix wedged teardown on surprise removal
+Date: Thu,  8 Oct 2026 19:33:47 +0200
+Message-ID: <20261008173350.40455-1-olivier.kaloudoff@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261008173350.40455-1-olivier.kaloudoff@gmail.com>
-References: <20261008173350.40455-1-olivier.kaloudoff@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -97,79 +92,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On surprise removal, amdgpu_device_fini_hw() calls
-amdgpu_amdkfd_device_fini_sw() when pci_dev_is_disconnected() is true.
-fini_sw frees kfd.dev, but KFD processes may still be alive and hold
-references to it: kfd_process_destroy() dereferences kfd.dev via
-kfd_processes_remove(), and svm_range_list_fini() /
-kfd_process_free_outstanding_kfd_bos() touch per-device SVM state.
+On surprise removal of a GPU behind Thunderbolt (MI50, PCIe slot
+power cut), the KFD teardown path wedges the host:
 
-The kfd_processes_count wait only happens later in
-kgd2kfd_teardown_processes(), called from the top-half remove path
-well after fini_sw. In the observed failure the killed KFD process
-(SIGBUS on unplug) stuck in D state on its exit path, so
-kfd_processes_count never drained and the PCIe removal thread wedged
-permanently in cond_resched(), producing soft-lockup and hung-task
-splats.
+- the killed KFD process faults on its own SVM ranges during exit /
+  coredump (SIGBUS -> get_dump_page -> do_swap_page ->
+  svm_migrate_to_ram), submits SDMA work to an already-killed
+  drm_sched entity, and waits uninterruptibly on a fence that can
+  never signal;
+- the dying task holds svms->lock, which wedges
+  svm_range_restore_work() and prevents kfd_processes_count from
+  draining;
+- kgd2kfd_teardown_processes() therefore spins forever in
+  cond_resched() while holding the pciehp removal thread, producing
+  soft-lockup and hung-task splats.
 
-Tear KFD processes down before freeing kfd.dev on the disconnect
-path, and guard kgd2kfd_teardown_processes() against kfd.dev already
-being gone when it runs a second time.
+This series:
 
-Cc: Xiaogang Chen <xiaogang.chen@amd.com>
-Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
----
+1. tears KFD processes down in amdgpu_device_fini_hw() *before*
+   amdgpu_amdkfd_device_fini_sw() frees kfd.dev on disconnect, so the
+   drain happens while kfd.dev is still valid, and guards the second
+   kgd2kfd_teardown_processes() call against kfd.dev already being
+   gone;
+
+2. makes the userptr and SVM range restore workers stop rescheduling
+   themselves on -ENODEV;
+
+3. guards the hardware-accessing SVM migration sections with
+   drm_dev_enter()/drm_dev_exit() and bounds the job fence wait with
+   AMDGPU_FENCE_JIFFIES_TIMEOUT, so a migration cannot race with
+   unplug and a fence on a dead device cannot stall the critical
+   section or the faulting task indefinitely.
+
+Verified on MI50 behind Thunderbolt (2 GB SVM workload, PCIe slot
+power cut): the workload takes SIGBUS, coredump completes,
+kfd_processes_count drains in ~7s, pciehp removal finishes without
+warnings, and the device re-enumerates cleanly on slot re-power.
+Previously the same repro wedged the host every time.
+
 Changes in v5:
-- none
+- patch 3: dropped the drm_dev_is_unplugged() and
+  pci_dev_is_disconnected() checks entirely; drm_dev_enter()/exit()
+  plus the bounded fence wait is sufficient (Felix Kuehling)
 
 Changes in v4:
-- none
+- patch 3: AMDGPU_FENCE_JIFFIES_TIMEOUT instead of an open-coded 10s;
+  drm_dev_enter()/exit() guarding the whole migration section
+  including the bounded wait (Felix Kuehling)
+- patch 2: folded in the svm_range_restore_work() -ENODEV change;
+  fixed a latent uninitialized ret read on the evicted_bos-mismatch
+  and confirm_valid-WARN paths
 
 Changes in v3:
-- added NULL guard for the second teardown_processes call once
-  kfd.dev is already freed (Christian König)
-- dropped the bounded-wait mechanism from v1; the drain now happens
-  before fini_sw instead (Christian König)
+- patch 1: NULL guard for the second teardown call (Christian König)
+- patch 3: new, fail fast on gone device in SVM migration paths
 
 Changes in v2:
-- none
----
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 9269e78..bd9d73a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4315,8 +4315,11 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 	 * before ip_fini_early to prevent kfd locking refcount issues by calling
- 	 * amdgpu_amdkfd_suspend()
- 	 */
--	if (pci_dev_is_disconnected(adev->pdev))
-+	if (pci_dev_is_disconnected(adev->pdev)) {
-+		/* Drain KFD processes while kfd.dev is still valid */
-+		amdgpu_amdkfd_teardown_processes(adev);
- 		amdgpu_amdkfd_device_fini_sw(adev);
-+	}
- 
- 	amdgpu_coredump_fini(adev);
- 	amdgpu_device_ip_fini_early(adev);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 586e640..43029b2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -1801,7 +1801,14 @@ void kgd2kfd_teardown_processes(struct amdgpu_device *adev)
- 
- 	mutex_unlock(&kfd_processes_mutex);
- 
--	/* wait all kfd processes use adev terminate */
-+	/* kfd.dev may already be freed on surprise removal */
-+	if (!adev->kfd.dev)
-+		return;
-+
-+	/*
-+	 * Wait for all KFD processes using adev to terminate. Must be
-+	 * unbounded: device state is freed once they are gone.
-+	 */
- 	while (!!atomic_read(&adev->kfd.dev->kfd_processes_count))
- 		cond_resched();
- }
+- patch 1: drain before fini_sw instead of bounding the wait
+  (Christian König)
+- patch 2: new, stop restore retries on unplug
+
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+
+Olivier Kaloudoff (3):
+  drm/amdkfd: tear down KFD processes before early fini_sw on disconnect
+  drm/amdkfd: stop restore retries on device unplug
+  drm/amdkfd: bound SVM migration fence wait and guard with drm_dev_enter
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |  5 ++-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c      | 29 +++++++++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c           |  9 ++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c          | 36 ++++++++++++++++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c              |  2 +-
+ 5 files changed, 70 insertions(+), 11 deletions(-)
+
 -- 
 2.47.3
