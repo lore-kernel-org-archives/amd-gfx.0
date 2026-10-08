@@ -4,81 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C460CA600E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1DF1CA6012
 	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 07:43:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B34FC10FCEC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9939510FCE9;
 	Thu,  8 Oct 2026 07:43:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iyuTOvzV";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="WZs6YJtT";
 	dkim-atps=neutral
-Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
- [209.85.208.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 061F310E5BB
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Oct 2026 13:26:37 +0000 (UTC)
-Received: by mail-lj1-f196.google.com with SMTP id
- 38308e7fff4ca-3a771ad2a9aso16528851fa.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 07 Oct 2026 06:26:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791379595; x=1791984395; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=NfnoS6laDtDOjlhPtBWxVPWGkEBbm6NCgizgXhR32xk=;
- b=iyuTOvzVVBIJ8xK4M+83Crw+yoOt3rWdVRN0QCi20WYE8YwTvWoA3TlW5I/cfVZ48E
- 13tMFsdicRE3rUxtm3O4iwkf14X+mtSR0982aafInYH1FfJ8Dr8lxEFcVaT2fDcDK5ZG
- aYVOIRTUmntAlW+EQh8e2sbHwOORzVJjMaWZvBkMLNcRcRvEDOWBrGZU8hEVmdvHYI4k
- ijMBCaZqpz/SQ/BCXld7q1ANd0alqLexSobWABiU+3H0p5oJCpccuEwTPOjiluKRinvV
- S0Fmv9veSIS8L93vUPD4IWs6TZ61AoAkUxAcvbSLbmty12e3qVfEi0kBCL35Ela594Uc
- IW3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791379595; x=1791984395;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=NfnoS6laDtDOjlhPtBWxVPWGkEBbm6NCgizgXhR32xk=;
- b=SEhtIPRqM0ZmShCSgt0GPdXahkLwiD1+T7rQUdMqTgCQEVu1Errb4LTICf0PsBbZDf
- byFf3MfRmKe7/KgCLvclRiEBdNw6EQ/T4YhCunb5FJrf6yef2YvrX36yVxXzzWm8z+AB
- O+eDqhIXszE8VQLWa+eXYSO7cttrOPyZ4dJE8rmlDPZGvXKM9kzaifoZaGf4MUrrOzRe
- 11+t0SWH6uS8vDvCE0Wm64ZMtOYaMuDiiU2oRc2TMP+J+e8URAPOT99ZZDr/CzfyQj79
- FqsF6JjEdv10WwQ8XD0kRvwIwYz/HujBeRTirv1oWsohlhJvMGAjvyZ92VNXd4IHWX5u
- IiEA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzYxjJ1uum3P378BvJdCc4cOnrRqKn8OtERVAfc8wgMVrq8nEbesHTUmqzue0zjX1QG3Afh+D/Y@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIwIoFkqncOkMxtAstVv8x+Txwd5N+9N61ZoA0mkPs4IkUynCYb
- Q9eBD/o8QsAwuTG64rc1rD+Kr5hhD3sRQvMmMsDOjGTPSTxTZshyJC3s
-X-Gm-Gg: AYBFou1amqL/Fd1PsF2rSLjEDTbBGgbdw5yw+R61pJ2SzOOlBbihxUAynTwuKB+jRXQ
- 5Wr2m956ic1eBt0uyptZd9gr/RUcABBFk+20CQV13IPQDrkd6Mgza/77so5rOo1/8AjidWITz64
- Z9KIXM/CDfYt3/RYAmlg6GQiW969aue+Lbg8qIkxIl1CoGowBivSOvAG8Tj77O4R386hEhx3WiI
- gAj88A23Q290xVAz/P+kdfGleJzeM0xvUg/UfVd4ZeWdAe9tRyDiOHqgdv8V9DSFZ8rNac0piH2
- jRDhnFMoCmeTyeCfYcR/w8GYmlz5OwPTnzyF1I9hGmFQEo8Z2dno3i9JjM521+pdKrR7zc2EOVD
- HpGeuEHor20YhJvyjBmcQDsxQeymaCZcDQXGO1w1JzqB88KTs9oshtNDhc8ugjzblQn/9E/s/L6
- k9b/sLJ63ys6ylFgQ9J9EBQVkr56TxIFfv9vKf4nbExCTmDAsMhAeBvvzMd6dV8Oh+0YWFb/48p
- q5TMrBLAxsRx7VrEdC4XhzOGes=
-X-Received: by 2002:a05:651c:b12:b0:3a6:5c8f:857 with SMTP id
- 38308e7fff4ca-3a9941d9654mr13497871fa.8.1791379595005; 
- Wed, 07 Oct 2026 06:26:35 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a9a1d33f1asm6191851fa.11.2026.10.07.06.26.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Oct 2026 06:26:32 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com
+ [203.205.221.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 252B510FCCC
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 07:31:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1791444705; bh=d0eH5iO0On4vXoUUnrxJ7otqop8z0svHJFJ1BPfCn98=;
+ h=From:To:Cc:Subject:Date;
+ b=WZs6YJtTDT5dJP1e1REyJelKbxgDmRLGlrYMOYy+GEW5JyvoiR8G1+kuyNCtUoW1W
+ dxbEQZzxUP7KioVraYRKfGkewKbsZEhG34lgfg89+X/JwasjnfCG5OQLxWJFjCA14h
+ JDgnwniPtIVkh+B/HJ36UbL1EFJDHeem/az3Dgsk=
+Received: from localhost.localdomain ([116.128.244.169])
+ by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+ id 7EA3786F; Thu, 08 Oct 2026 15:31:42 +0800
+X-QQ-mid: xmsmtpt1791444702t4uny6kii
+Message-ID: <tencent_B4299278015532212E7D2E624FA23C09C90A@qq.com>
+X-QQ-XMAILINFO: OcN56dxiYj5TIpJ32xOmc8ljJioECF8WSFHTXltBzar1DonW34D2y8zRJp89yw
+ lk75+QW4p5/8GemVW4aFPSAfnR581XMSPYsXGkbUqh4/XH45xQYyHKJRf2Q90GsGXym72w4393PC
+ 74aR5oa4m46zzYd5U6Lov69V+jBgIug9S7eIFATvkdvtxupb8gf8HjZtvZzmyl8L8Y18AgmEnfik
+ xEKM7nkft3s8MtWPgt8wA8+7trRc8ZGC60xtKvg5VTQZfcsUk8Dsk6W76SgKgq4kmOr7ze+r4HMW
+ LBvYdaCkhDzHakrd7MWhH8LobYf4T11DP7eUBRuTNHirOpEuzFDggJWCC7rfgToVuEcwbwHCLcAV
+ +brFvEzJoSegqCToOegws687uHAQ3YKF3hK7Ijm1Etv+l+WDFKrJORbM0F/g4Is9GMIAbXmmpIZd
+ ZMNG1kOlGwL2R6i/gf2aTh+aiDV/sNjnq9JcqBRlltYlnzeCSilol3oE6gJB+vF5tCyoUMn8sOQs
+ Xqdj/wvjYcgCmNxqvuAAVOg1FKA3q5NKKWMG/sSGekZa5JofCJZ0N3/seqilL/pPWteM+XT9frX7
+ O0QyK0MgoM9cYC1B9sgt2JJk7uX59tiKOv9p9042AixbQeGXr6sTyWYUZHotxQpDG1Fki/1GyjX9
+ ISs8WCaXBGSS1LYmdeogm9J+MQT6KySeVvqfnRB3PR1+peH3MOm0exwcNUXXhDQPNL6+FH4ZmhEv
+ gjzaI4A1Y8SRHYAG9eatY7t3xAQuqr5+Uot1p91UJEJtSrhg292y1TWqHbVLmtWIHKIGrK8US112
+ E28idPx6OoVCnh1qkVlEO23rxJlvCLLJgPu8uUuY8j6OMiRaSmkTuipXyTzjkooBTXEKsblqlBES
+ xevj5IduNnExAITuilUv1NkFasKyQuD/8Ag08JGEeRx69ccJNqtYie9dkls1U+im/m+6BEacD6vd
+ gUmU31gLzGvtx9g2EIyKfdjxXve0MtPYIEqIwkgAxyZ2WtzKhsFtp7B8AMvopTX2e2oSNEOk2Dlg
+ gbruP+mVx0TwWx/226
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: 2564278112@qq.com
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Leo Liu <leo.liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org
+Cc: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
+ Roman Li <Roman.Li@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Dillon Varone <dillon.varone@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Lu Yao <yaolu@kylinos.cn>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, Yinjie Yao <yinjie.yao@amd.com>,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10] drm/amdgpu/jpeg: set no_user_fence for JPEG v2.5 ring
-Date: Wed,  7 Oct 2026 16:26:18 +0300
-Message-ID: <20261007132619.121324-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH] drm/amd/display: Increase the HDMI HPD disconnect filter time
+Date: Thu,  8 Oct 2026 15:31:40 +0800
+X-OQ-MSGID: <20261008073140.570133-1-2564278112@qq.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 08 Oct 2026 07:43:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -95,41 +77,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yinjie Yao <yinjie.yao@amd.com>
+From: Wang Jiang <jiangwang@kylinos.cn>
 
-commit 79405e774ede411c6b47ed41c651e40b92de64a2 upstream.
+The HPD filter programmed for the DVI/HDMI link types uses 100ms for a
+disconnect, which is shorter than the HPD low period that some sinks
+generate while they reconfigure, for example when the video mode changes
+or when the audio infoframe is updated. Such a sink is then reported as
+unplugged and plugged back in, so the connector is torn down and
+re-probed for nothing.
 
-JPEG rings do not support 64-bit user fence writes, reject CS
-submissions with user fences.
+Raise the disconnect filter to 800ms for the DVI/HDMI link types,
+including HDMI FRL. The delay is written to DC_HPD_TOGGLE_FILT_CNTL in
+10ms units inside an 8-bit field, so 800ms is encoded as 80, and the
+filter runs in hardware, so there is no CPU cost. The connect filter is
+left at 500ms. A genuine unplug keeps HPD low, so the only cost is that
+the event is reported up to 800ms later.
 
-Fixes: 14f43e8f88c5 ("drm/amdgpu: move JPEG2.5 out from VCN2.5")
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Yinjie Yao <yinjie.yao@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 3216a7f4e2642bda5fd14f57586e835ae9202587)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-[ Roman: Version 5.10 does not yet support JPEG2.6, so the fix is being
-applied only to JPEG2.5 ]
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+The DP branch above already tunes its filter values empirically to hide
+a bouncing HPD, and link_factory.c notes that a badly programmed GPIO
+makes HPD not "rise or drain fast enough, leading to bounces".
+
+Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
 ---
-Backport fix for CVE-2026-63847
+ drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-index 8c84e35c2719..dfb96f052f6d 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -566,6 +566,7 @@ static const struct amd_ip_funcs jpeg_v2_5_ip_funcs = {
- static const struct amdgpu_ring_funcs jpeg_v2_5_dec_ring_vm_funcs = {
- 	.type = AMDGPU_RING_TYPE_VCN_JPEG,
- 	.align_mask = 0xf,
-+	.no_user_fence = true,
- 	.vmhub = AMDGPU_MMHUB_1,
- 	.get_rptr = jpeg_v2_5_dec_ring_get_rptr,
- 	.get_wptr = jpeg_v2_5_dec_ring_get_wptr,
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
+index cfb5ef0523a7..2b38ddaaaa4b 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
+@@ -82,8 +82,12 @@ bool program_hpd_filter(const struct dc_link *link)
+ 	case SIGNAL_TYPE_HDMI_TYPE_A:
+ 	case SIGNAL_TYPE_HDMI_FRL:
+ 		/* Program hpd filter */
++		/* Some HDMI/DVI sinks drive HPD low for a few hundred ms while
++		 * they reconfigure; 100ms is not enough to hide that bounce,
++		 * which is then reported as a fake unplug/plug pair.
++		 */
+ 		delay_on_connect_in_ms = 500;
+-		delay_on_disconnect_in_ms = 100;
++		delay_on_disconnect_in_ms = 800;
+ 		break;
+ 	case SIGNAL_TYPE_DISPLAY_PORT:
+ 	case SIGNAL_TYPE_DISPLAY_PORT_MST:
 -- 
-2.53.0
+2.25.1
 
