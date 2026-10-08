@@ -4,100 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EB23CA600C
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 19:23:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E9CCA600D
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 19:28:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1AD310E936;
-	Thu,  8 Oct 2026 19:23:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2A4610E974;
+	Thu,  8 Oct 2026 19:28:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a433ev6S";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wTxC6vhq";
 	dkim-atps=neutral
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
- [74.125.82.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4765310E936
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 19:23:47 +0000 (UTC)
-Received: by mail-dy1-f181.google.com with SMTP id
- 5a478bee46e88-3535dd9a601so23189eec.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 08 Oct 2026 12:23:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791487426; cv=none;
- d=google.com; s=arc-20260327;
- b=PD2jHbDXkK3WezbGG8qxVXLnI3zwD1jHekQNL4eC3gu0W2rTk9F6mowrWP4ZYXDVm4
- yDbxHk3V6falfwCODbVPMWRa0xLH2I+tvaeCqnKxk1wTDO55hk+jc4x5eVeYbijOPMv1
- eLvbXQv+L+shZAo8DO4szPZOcj5OM6V+HAOzaVIg7OtbYm4O75dj76WFaJHoot1TGEfe
- S0qcrKiFPYyTaY98eniex2Ms947KSyS72zK7mN73DzIu/Y6qZxF9f2IqY3lIQPwqFs22
- GNd3ICNVBUJfjR0FJXkgqQf3NzWaGMgEENHg3G4Vi4mtBSTJZtkXku2TnyIZ3FS9gX7Y
- Xt+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=WHO6i2IO1cdf5Kp1Y2GcYe9pGO81oa3PqBFRgoAXgiI=;
- fh=X2ejhVr3wGiPDNBNviapyj7ANpGyZEKS8jS4Hsl3pKQ=;
- b=fT2/EIkjcCqdC+1x07Te4CXLEMUggNOBOYcRGM8c3nwPe9YootZlC7FF7Cxb+TJq9M
- sMmjjmTPVPqzdHV/s1IdMKaOAYtJKrP9qyfsRu55gV5Hoj3FZliGE4RkxhBcn2INAyin
- q97YyY6zQSbWUI4qafNQUZB+bsd+lWbZdL9qHg37Ck8R1xNfNcmOd0J6Vi7/3aiByHZB
- LWDtClzyFC30N0SWpYLzjPlhfzHnlls001OKG/pqPmcDwickv9eecpbzD8URDOZ4BOtc
- YpptH8aPxOGMdHgN/vO4mDi9b238rvHO1s3UPdwkBWra6XS1sI8JNgvcBhijB0xWqTTz
- EVQQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791487426; x=1792092226; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=WHO6i2IO1cdf5Kp1Y2GcYe9pGO81oa3PqBFRgoAXgiI=;
- b=a433ev6SduZ1u52+bMaEnBfkML4SLQVkTIq1JXRGEtW165Bpdkr8ej9mKvDeZ+TTfp
- F+eT4iEimYiaMxbegRY7Dj1+ajV53C9hCnjNUUrXcAK7dVK/r9sipQLeoS06+k3JPtkQ
- dyycsy6YEXBh+Zg1hk3kySFJFpONZ5Ri/+Mr/1A0ptrrPduAnbipBbfT1gyXBqy3bbzz
- I/DFjS7xY42OVt+ccMISgHuZ87kdFAOTC4PEUxCD0hhtfTTFk1CfFn14M9E+C6kLD3hL
- lBQMLa4pGKDwnkYoWBgTb9Q2gjvl/P5hZQrT2KvROXSOb9nKxjP+JLMcKWWN25kJbWVK
- lsIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791487426; x=1792092226;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=WHO6i2IO1cdf5Kp1Y2GcYe9pGO81oa3PqBFRgoAXgiI=;
- b=jCM0r57flywSv+5VivfnT3TGNeuUN9AZHVaxM7uNiABw+ldn9qWoGnpnKD4dgoGzwh
- 0mn1n1tosk/sY1td1AnLK1ATvAbeYC5a+DEq5F8DmYY4NAhUIDwfkwPWWmjMkbMPhk6H
- bRJKCwr68p9P61t6JojdvNmNHf83CgQ+KXKj6otChtuD9q0dLdVIA/CBKV3McJUIdMgK
- 8YhtrgYcM/dh7NnRhPV7+RylDvAU6HxTJROP/Eb6PGTZc3CwM+YoycTQ7gckBSKALSvc
- dFyQV0r9Mb3rJ+HyaUrlURqh5IVL+JE6ZkJO5NNBDBaoV2sF5TSgiU8g8AoV5E2Gn6hk
- T8YA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxVJ4oL7Jd5n58SBxFU5f6WOomqBlsItfRNNMDgw5xX6MQdHd+7HShCFw31ZfydObKSan6xf/zx@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mtm+ibhepiHjZr6er8myfewA0N6PCWNvVjvR25AglgsC+Vb2e/
- vGqTcbF+wzplF/fJaIUMFpdcdsuYniRk7AcPHGst8pPHqtbJEHZSQPR87dDGUeJX1E4q05FUf+g
- X/yCMT24DmuPL/jV1Jqlum4gPMGAuxRM=
-X-Gm-Gg: AYBFou2n8P024x/Mov+5MaZvsx5ZAhpFxMZ7S/M0GkvYKJ6iKYpXncJVIPsBinV2P4U
- a5rfZoZKIfFuK53WYqyfisvoCKmp2cHHybJcdQ7kuUJmCuDT6vB/j+cp5pOoau1v2ZxDNTnN1r0
- Mus2O4P62BHrRR9fGJSN5sZhAcB3TiFCLEwaDm20tUteNid49+1D6QZlNHNHpBL71+pYJMOwNTI
- Ovcfa8wfCQ5+iyAg49gCBsc5ebYNGDltshFKTSqhcguqMfWrrRL0xN2Oo1F9wjTX23TVZQPCwHx
- L0+AneKH9TaxHM4Ec4CshUsPthZa3Ro3wXtersJQyi/uDn3Ph54aW7PtOLx46T9gAmVmv+d9vnb
- 5qgQfX6ibN1H8nmQRTxC1TwLzVhyfrS7G8oTuv/oEdA==
-X-Received: by 2002:a05:701b:42d3:10b0:14c:f3ae:c1a1 with SMTP id
- a92af1059eb24-1657b80bf6emr6467363c88.0.1791487425985; Thu, 08 Oct 2026
- 12:23:45 -0700 (PDT)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013045.outbound.protection.outlook.com
+ [40.93.196.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9458810E974
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 19:28:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Lezpg4FQTHne/wMJudyxwI7Xej97uY+ljbulWwII/eaNDcJ8/44BLgrf1JH2TYVOBr5jwnEG2tPJhf+4yDTrSvarlMabA+OQn0LHPyCrBnIKb3IAThIOf7F6ZwtEXvB6tF7noapgW2tzmoFXDoqASw5b3PXe++EI+d8TlY7owKpdgHQwbhc1ukYFpyUnDLIyZ0e/JXDDyp/GHwB2bwtxz2BjlgBBjT0IAB7kwIofjxgaFOQSOc95oziFjo7iycnjlrvOjW39CW/cjCgPl1xS8l5r3bmAARvXoNH3ZQhqbhqwVZW7lwkMi/RbA0UJtFDWflkuIvOO8ftHlavCRagJtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IeHgBNPDUexFI2VoQbzBDrN+F4WBlkZCkZIj2DhSnRI=;
+ b=nZjTNR+PCK0u1G0aB9joKctVW0R7+Dzfu8r31paDSSJVMDn14pp2xghxCPEm3tNxnVSUDZrp0VQWEcfUSBNfQPcQ8gNA0Md8PynUQAgULoufQ4itFrDaqxHvGCC+F5x8RJ+URNDBqET8Gnryzg5Br/bXmrQ8CMwvRLOjWxva5dMJKu+sk9uB34fxXn5PjmLUAJ0xDFiT6ptezJhFiAn7WCnXgkptdYXdBHrCgNxeEn+OcTj1Wbcub7U7apXmkqVppG4Qi2OAA71mu5U9+gds9Pist/GbpBqtglVH7dufl0pq0C0lLs9bUjjPxCmLPJ5OOdcBhLOLHAC34UtnKKQdSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IeHgBNPDUexFI2VoQbzBDrN+F4WBlkZCkZIj2DhSnRI=;
+ b=wTxC6vhqurrQz+rxV2+PfuOUVFFckKbFNBIl48vhc+A7bIuivS4r1dkJg8INbUtjgPSJsIgQbY28wV55cMz0rYUhqQDHxYW2PpR7gxKTPF5WbrTp7XsyTegmTxIRozE1EpA6XjXbH38uzMk+Zj6vkOdvDL5NkMJCnNKs9wZxUnU=
+Received: from MW4PR03CA0211.namprd03.prod.outlook.com (2603:10b6:303:b9::6)
+ by CY3PR12MB9555.namprd12.prod.outlook.com (2603:10b6:930:10a::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
+ 2026 19:28:28 +0000
+Received: from MWH0EPF000A6734.namprd04.prod.outlook.com
+ (2603:10b6:303:b9:cafe::7e) by MW4PR03CA0211.outlook.office365.com
+ (2603:10b6:303:b9::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 8
+ Oct 2026 19:28:26 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000A6734.mail.protection.outlook.com (10.167.249.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 8 Oct 2026 19:28:26 +0000
+Received: from MKMLUIRSHAD03.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
+ 2026 14:28:21 -0500
+From: Luqmaan Irshad <luqmaan.irshad@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <yunxiang.li@amd.com>, <luqmaan.irshad@amd.com>
+Subject: [PATCH v2] drm/amdgpu: defer XCP DRM device free until primary release
+Date: Thu, 8 Oct 2026 15:27:42 -0400
+Message-ID: <20261008192742.22943-1-luqmaan.irshad@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260922205731.254264-1-luqmaan.irshad@amd.com>
+References: <20260922205731.254264-1-luqmaan.irshad@amd.com>
 MIME-Version: 1.0
-References: <0552ed277e40a288e0157af799257ee6ec722534.1791460615.git.lukas@wunner.de>
- <20261008191705.GA917105@bhelgaas>
-In-Reply-To: <20261008191705.GA917105@bhelgaas>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 8 Oct 2026 15:23:34 -0400
-X-Gm-Features: AclHuK-jV3SbZUxMOMQXs-rSTId7Jf-E2wheC8RGkrqRF9AJfJ4NNMx1Hsaj4Lw
-Message-ID: <CADnq5_P_y-6Ra4Swoxz-CmL1Q3nGhM3RVJUAB2iw1E1D-r1cjQ@mail.gmail.com>
-Subject: Re: [PATCH for-linus] PCI/AER: Skip error recovery on false alarms
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Lukas Wunner <lukas@wunner.de>, linux-pci@vger.kernel.org, 
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>, Oliver OHalloran <oohall@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, 
- Christian Koenig <christian.koenig@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, 
- amd-gfx@lists.freedesktop.org, Aditya Garg <aditya.garg@linux.dev>, 
- Jason Perlow <jperlow@gmail.com>, Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6734:EE_|CY3PR12MB9555:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc82ef8d-1af6-44ba-e5f9-08df25725328
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|18002099003|22082099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: BhPbAPXx2RSynuk+JXz5UWknpN2uPjKplFGeY84/TTJtb/iKRIT72glgOj6cl6zCq87qJplwWjmtJ+mNJxgKP9P/ogEw/H+sPhD9KtEJPNYmCftXFpFFrFzc2W0ZC7ql25miD/MINxgTNHtYSfL/A6fTlYCgjHni2W/JLfGcusoP7QxacJZaMAgGa+lpHwRffL8uB8qjlRSf/QlTLDF1AOafAqMmIfNrTfj176vvfdYgQDspqgWwOquNYIq6RzzFhv6TE7SuH/8eU7xBix7ajAqi/8jrPrZS1thop/NDzMikvVy7I2exKkGQ7/bvJDuEC6TjohVzUuxHKPt7YD6DZ309CjwHgxeSgbOlgy7ntNacFoY5Q0KR/t+p8/UCtBZSFAR0HL37Galx6LA9Vrh6hQIzh1c+gOUdfqZzmyNIH9rSb18311V2uL2JNQ/YCJjXDtfN7BeC0yVq7pFXPVrmS0DpbQjjVqBNJThTxTlBE8GDJ9sPcJMFtzoT1LrDda/P/Cxa6Ju9c5UMTkTeg/4IvjYNj8MdSBdCTp6a/mhXx53ZA1LYaigdNDH6D5XDzTX+i2q7fewJ47uSq8QJjawy1Gmb7P6HCALN+3BD4NjsKEYJkSGKEA+8HnLWqAFRh4KLiYJZi7b3DOZK0i4Ed3u5SY9VZZ2kwMuVvGsyLQEEEUzE8exyYyoxfceSukGKhVdewIMkaTQcPaUUbn3PysFZng==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Q273goGzmq9pPbA0ZSnL1pnQzBmVkWfVSrqudXAI1rLEthhS7mULmrf4ug5TQQc36DyFLfALH3xEgUtiJEmW+oinVEGTtQLglRNgPVjRkm6c0Ov4flq0xffJQ45e/6I9douhglojDLZrp4iqyrwp3q5n8QVY2pCGwFdHsuT3mZJP0mkuyHndxto0bteXlzlGzztKYcTGUAtrx5y4e1UB52/JYhWsHrSjLnsTo0739QUnIlQAjbsfbI4dR0kiUj7fmnw5cz/kBx/8EQlbYxke9IyjQkSQjxKux8tYyv7wfWsqQOMPEyCpcOUJ71o5z+B5CDPqe/1ksjIaHkBLbI/qTSiYeB0nHG+rdhGoRJdO07fGGPVAB+IHSpcRp20/G6xmzgsWZcmcJ65FdYcBdmlrDoYZIG/mm/F9BSBHAIr/BiVsaje3HyMBWMZqNUg6ggwC
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 19:28:26.0239 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc82ef8d-1af6-44ba-e5f9-08df25725328
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6734.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9555
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,146 +112,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 8, 2026 at 3:17=E2=80=AFPM Bjorn Helgaas <helgaas@kernel.org> w=
-rote:
->
-> [+cc Thorsten]
->
-> On Thu, Oct 08, 2026 at 02:26:00PM +0200, Lukas Wunner wrote:
-> > Alex is seeing a probe failure of the amdgpu driver after the Root Port
-> > above an AMD Navi10 GPU has been reset.  The reset was performed to
-> > recover from a Firmware First reported Fatal Error.
-> >
-> > However all status registers in the Root Port's AER Extended Capability
-> > are blank, so apparently the platform firmware raised a false alarm.
-> >
-> > The issue is only occurring since commit eddba19b8b5f ("PCI/AER: Suppor=
-t
-> > Advisory Non-Fatal Errors").  It looks like enabling Advisory Non-Fatal
-> > Errors causes code paths to be exercised in platform firmware which
-> > were never validated before.
-> >
-> > Skip error recovery on false alarms, i.e. if no unmasked errors were
-> > actually signaled.
-> >
-> > Note that this will also skip recovery if both the Status and Mask
-> > registers are "all ones", as would be the case for inaccessible devices=
-.
-> > However that seems justified because it would imply either a hot-unplug
-> > event or a Surprise Down Error further up in the hierarchy.  Interferin=
-g
-> > with recovery from that seems uncalled for.
-> >
-> > Fixes: eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal Errors")
-> > Reported-by: Alex Deucher <alexander.deucher@amd.com>
-> > Tested-by: Alex Deucher <alexander.deucher@amd.com>
-> > Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D222095
-> > Signed-off-by: Lukas Wunner <lukas@wunner.de>
->
-> Applied to pci/for-linus for v7.3, thanks!  I dropped Alex's Tested-by
-> since he hasn't tested this change by itself.
+XCP unplug currently restores the partition minors' device pointers to
+the synthetic p_ddev and frees that device while files opened through
+those minors may still be active. Those files acquired drm_device
+references on the primary ddev because the minors were redirected at
+XCP allocation time. After unplug reverses the redirection, close paths
+operate on the already-freed p_ddev, causing a use-after-free and
+p_ddev refcount underflow while leaking the matching primary-device
+references.
 
-FWIW, I just tested this patch by itself and it works as expected.
-Feel free to add:
-Tested-by: Alex Deucher <alexander.deucher@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Split teardown into two phases. amdgpu_xcp_dev_unplug() only calls
+drm_dev_unplug() so new opens fail, leaving minor->dev pointing at the
+primary device. amdgpu_xcp_dev_fini() restores the partition device
+pointers and frees p_ddev from amdgpu_driver_release_kms(), when the
+primary drm_device reaches final release and all references held by
+redirected files have been dropped.
 
-Thanks,
+Signed-off-by: Luqmaan Irshad <luqmaan.irshad@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 40 ++++++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h |  1 +
+ 3 files changed, 35 insertions(+), 7 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index f2f179421c4d..f4bc9e6eb97b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1638,6 +1638,7 @@ void amdgpu_driver_release_kms(struct drm_device *dev)
+ {
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 
++	amdgpu_xcp_dev_fini(adev);
+ 	amdgpu_device_fini_sw(adev);
+ 	pci_set_drvdata(adev->pdev, NULL);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+index a8c79a66df1d..c780d6794b89 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+@@ -412,7 +412,6 @@ int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
+ 
+ void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev)
+ {
+-	struct drm_device *p_ddev;
+ 	int i;
+ 
+ 	if (!adev->xcp_mgr)
+@@ -422,12 +421,39 @@ void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev)
+ 		if (!adev->xcp_mgr->xcp[i].ddev)
+ 			break;
+ 
+-		p_ddev = adev->xcp_mgr->xcp[i].ddev;
+-		drm_dev_unplug(p_ddev);
+-		p_ddev->render->dev = adev->xcp_mgr->xcp[i].rdev;
+-		p_ddev->primary->dev = adev->xcp_mgr->xcp[i].pdev;
+-		p_ddev->driver =  adev->xcp_mgr->xcp[i].driver;
+-		p_ddev->vma_offset_manager = adev->xcp_mgr->xcp[i].vma_offset_manager;
++		drm_dev_unplug(adev->xcp_mgr->xcp[i].ddev);
++	}
++}
++
++void amdgpu_xcp_dev_fini(struct amdgpu_device *adev)
++{
++	struct amdgpu_xcp *xcp;
++	struct drm_device *p_ddev;
++	int i;
++
++	if (!adev->xcp_mgr)
++		return;
++
++	for (i = 1; i < MAX_XCP; i++) {
++		xcp = &adev->xcp_mgr->xcp[i];
++		if (!xcp->ddev)
++			break;
++
++		p_ddev = xcp->ddev;
++
++		/* Unregister devices on paths that did not unplug them earlier. */
++		if (p_ddev->registered)
++			drm_dev_unplug(p_ddev);
++
++		/*
++		 * All XCP minor files have been released, so it is now safe to
++		 * restore the partition device and free it.
++		 */
++		p_ddev->render->dev = xcp->rdev;
++		p_ddev->primary->dev = xcp->pdev;
++		p_ddev->driver = xcp->driver;
++		p_ddev->vma_offset_manager = xcp->vma_offset_manager;
++		xcp->ddev = NULL;
+ 		amdgpu_xcp_drm_dev_free(p_ddev);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+index 33157409eda0..e2fd32af9932 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+@@ -181,6 +181,7 @@ int amdgpu_xcp_get_inst_details(struct amdgpu_xcp *xcp,
+ int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
+ 				const struct pci_device_id *ent);
+ void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev);
++void amdgpu_xcp_dev_fini(struct amdgpu_device *adev);
+ int amdgpu_xcp_open_device(struct amdgpu_device *adev,
+ 			   struct amdgpu_fpriv *fpriv,
+ 			   struct drm_file *file_priv);
+-- 
+2.53.0
 
->
-> If we're confident that this also fixes the MacBookPro16,1 power-off
-> issue reported by Jason (it would be ideal if you could test this,
-> Jason), maybe it's ok to keep eddba19b8b5f plus this patch for v7.3.
-> If so, I'd like to add Jason's Reported-by and link.
->
-> But if we're not sure whether this fixes the MacBookPro16,1 power-off
-> issue, I think we'll have to revert eddba19b8b5f for v7.3, then squash
-> it with this fix and try again for v7.4.
->
-> As far as I'm aware, the reports are:
->
->   https://lore.kernel.org/all/CADnq5_MO+ZNOzW+_EH+gUYZ27X_ggWJJ0XdK6m2QW5=
-3m_ThtUQ@mail.gmail.com/
->     Alex's report for AMD Navi10 and Vega20
->
->   https://lore.kernel.org/all/CABZrw2HcaOh3DHTJtxU5dXrb3Vg19scr6+qR-xe_+R=
-7rME35_Q@mail.gmail.com
->     Jason's report of power-off issue on MacBookPro16,1
->
-> > ---
-> >  When applied to pci/for-linus, this will cause a conflict during the
-> >  merge window with a commit queued on pci/aer, d4c842c3af5b ("PCI/AER:
-> >  Fix memory leak in aer_recover_work_func() when pci_dev is missing").
-> >
-> >  To resolve the conflict, change "if (pdev)" to "if (pdev && err)"
-> >  and move the pci_dev_put() out of the if-clause (so that it gets
-> >  called if pdev !=3D NULL but err =3D=3D 0).
-> >
-> >  If this is all too complicated and/or late, I can respin on top of
-> >  pci/aer or v7.4-rc1.
-> >
-> >  drivers/pci/pcie/aer.c | 22 ++++++++++++++++------
-> >  1 file changed, 16 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-> > index d8dcd238fda1..922a726a52a5 100644
-> > --- a/drivers/pci/pcie/aer.c
-> > +++ b/drivers/pci/pcie/aer.c
-> > @@ -1360,8 +1360,10 @@ static DEFINE_KFIFO(aer_recover_ring, struct aer=
-_recover_entry,
-> >
-> >  static void aer_recover_work_func(struct work_struct *work)
-> >  {
-> > +     struct aer_capability_regs *regs;
-> >       struct aer_recover_entry entry;
-> >       struct pci_dev *pdev;
-> > +     u32 err;
-> >
-> >       while (kfifo_get(&aer_recover_ring, &entry)) {
-> >               pdev =3D pci_get_domain_bus_and_slot(entry.domain, entry.=
-bus,
-> > @@ -1375,6 +1377,12 @@ static void aer_recover_work_func(struct work_st=
-ruct *work)
-> >               }
-> >               pci_print_aer(pdev, entry.severity, entry.regs);
-> >
-> > +             regs =3D entry.regs;
-> > +             if (entry.severity =3D=3D AER_CORRECTABLE)
-> > +                     err =3D regs->cor_status & ~regs->cor_mask;
-> > +             else
-> > +                     err =3D regs->uncor_status & ~regs->uncor_mask;
-> > +
-> >               /*
-> >                * Memory for aer_capability_regs(entry.regs) is being
-> >                * allocated from the ghes_estatus_pool to protect it fro=
-m
-> > @@ -1385,12 +1393,14 @@ static void aer_recover_work_func(struct work_s=
-truct *work)
-> >               ghes_estatus_pool_region_free((unsigned long)entry.regs,
-> >                                           sizeof(struct aer_capability_=
-regs));
-> >
-> > -             if (entry.severity =3D=3D AER_NONFATAL)
-> > -                     pcie_do_recovery(pdev, pci_channel_io_normal,
-> > -                                      aer_root_reset);
-> > -             else if (entry.severity =3D=3D AER_FATAL)
-> > -                     pcie_do_recovery(pdev, pci_channel_io_frozen,
-> > -                                      aer_root_reset);
-> > +             if (err) {
-> > +                     if (entry.severity =3D=3D AER_NONFATAL)
-> > +                             pcie_do_recovery(pdev, pci_channel_io_nor=
-mal,
-> > +                                              aer_root_reset);
-> > +                     else if (entry.severity =3D=3D AER_FATAL)
-> > +                             pcie_do_recovery(pdev, pci_channel_io_fro=
-zen,
-> > +                                              aer_root_reset);
-> > +             }
-> >               pci_dev_put(pdev);
-> >       }
-> >  }
-> > --
-> > 2.53.0
-> >
