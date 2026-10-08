@@ -4,99 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72F36CA601D
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 08:12:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2DF2CA5FED
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 08:12:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50D4C10FF7F;
-	Fri,  9 Oct 2026 08:12:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DECDE10FF6E;
+	Fri,  9 Oct 2026 08:12:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WmbCSFR1";
+	dkim=pass (2048-bit key; unprotected) header.d=jqluv-com.20251104.gappssmtp.com header.i=@jqluv-com.20251104.gappssmtp.com header.b="u/5KXGiv";
 	dkim-atps=neutral
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 635BD10E09B
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 19:49:15 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c2e4df2e26fso452705866b.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 08 Oct 2026 12:49:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791488954; cv=none;
- d=google.com; s=arc-20260327;
- b=CHQNsWhPmD8kPNPDHc88dHohw1xZQoUCp/3bCDnyMzNbMFflydd5ypiel7lEpuf7Mb
- iL8Z7VrYp0xmidF/NH6E/mpwW77BUqhKUX/33qbvoKop3Mno78FN4AAB0u5+hBecwYgp
- VHxr1puo6FPgoSyNN8XDMQqczYvjfRIDhQ9h9WN8dwRb8W0jLI30PQuan4/YHplPjnQj
- /UEYB1PCwug7FtEi57F1yKCgeO3D22wPoWCbIft7BHEL1aVbJDo2WtLlOdhWUNNkOtib
- 33/hFFl64rgwsUGGKx5zrLJY23yLK4NSILt2sBMW07PVxEpgAmLPTPz+dL7+/mUmmWY5
- mpSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=VF8T3c+JVdlAKxcXmMWBq81K4KmYQwVJxfIeNGY8A0k=;
- fh=QxvoxP5a0lZsIIYvldtJXa+HC13ElnUfoNTs6fOE/Ac=;
- b=HoNmJh5hQSNKzo4Zxn7yOZVktqdDYHBhIMfIcAGteGkAKEhJV7cKieEhHNWZoOzUe9
- 11ty0n26ztWpodD6eKUzeHcQ1pNhLnN0bWgxXrEfxpBPcZ6q/zqFpV1RmUJ+FoG0mgAE
- Z0S1pITkExwrNDzTe6srAedTNoM6/fcHFzpdnJcgrPTXNoxlR3D5zP7IrtiGskW91oeK
- 9bbqPsEz7czrRfH++TH3QuzuaRhis2QpoiN5hHABILLe/88NpFYTi0lRkV8aKPEzmCfT
- sab1XxOrjf39wqrf4H8yH7orNB4D7v78u6Kk/siaR023iKa5srx6/u2PQ8tL0fTjynBK
- zEVA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF18C10E961
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 22:11:20 +0000 (UTC)
+Received: by mail-dy2-f4.google.com with SMTP id
+ 5a478bee46e88-3535936351fso229276eec.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 08 Oct 2026 15:11:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791488954; x=1792093754; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=VF8T3c+JVdlAKxcXmMWBq81K4KmYQwVJxfIeNGY8A0k=;
- b=WmbCSFR17cDGrRKKg4LgWEXyaWzgOdxD//fdEYWMG02RHL2UwM2MJON//UQqbVOsCt
- D4Lmoy6lTYla7YQHBbnccmj6Ai2xHLPluyNiAARy++HkPvLnWlqDvy0rMYupF+TaV6Jq
- bYloiZwvACVurJjIwfVsU2fHwOU6IWWE1yVabTlcN1TGToiVgGtKE+MGBFTfwTquDQxb
- vR7nO/QbXDj0AiLMw08hqghqN9cP4+Ljjtx/SQuOGQ2eIC3PBCmCYfVQbZk/RPXE0la4
- llo6HZGCQN5MhQxCH4e25Tc2zrniLcINzKi1lKal4pfKjal9QfvGcjyGMqcAYmJgL+5t
- ql4A==
+ d=jqluv-com.20251104.gappssmtp.com; s=20251104; t=1791497480; x=1792102280;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:content-language:subject:cc
+ :to:from:user-agent:mime-version:date:message-id:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=J+DeZALYQDrGNmq6Vo6tBsQx3QUc7m/841o6VhiFuF8=;
+ b=u/5KXGivDHJN3TG72QlcNbN7duh4S4vDM/SsoDAVYIxu0gQmT9LDQ+PI/R9UemjFzc
+ d803NAec/v+ZGeuNHaTGjgBglcYWkOVCQhlDI6kCReMcbiPre/71Fbnu8BGsQzC93CdX
+ yT328ANwgAyjIOhUdUhTEDEl9DWTgLY/GQDeVaq4qqXpb2hM464UxHFNepx0UuhBjX/v
+ 3gFleDnqRy7dm8zXGfLvzeUqhBnVf2k95TgjOtYDmCTiuLhcplDUV6oezdg9PWsmYZYU
+ 1ME2+zIfDOSNBdOp16NsP+pKMmffgfNk38wViUZXfzJyh5NI68uwgB6V4rzDjpgqxiPh
+ w/Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791488954; x=1792093754;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=VF8T3c+JVdlAKxcXmMWBq81K4KmYQwVJxfIeNGY8A0k=;
- b=shy08Ad2nOgWmSocyHXhJWeGU7xulpJIWWZIALK7TY5kJ0C4YYjPVFBeneVx6ZfweH
- W2+iOZlilay3ZlZC7REzEJod0NMoXl6umLVql/PNbfytXylofacMSE1OqlSrkhotFtyQ
- Kfco/z/zb2dDphitmhq5Oglvmu4ZxCoXD6DsNhUzbQBnWQUPnUuww6BXThnntD4DA96n
- if9cDEWOo13r8awT5H8iLJmVIccuEixUNBAmP0LCbDttl6RD7WSJO5NwUroUr2RNN2Bc
- mSvYlW8CeRWrgf5/emEFeZqcZV9xtrdvOWzSPdhbGkdMJSu4dzrpFJNPJInIXd30E6Ay
- K+7g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw7xL4RiirBRTdztQ9pGPPGrfud8bYu6PSEYCLoS7G33scnsjtoCHzA1wSS5Gd5fh+WZNqc2DJ/@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nHtUQTtcYM+G0W7fmkpmH0lEjYMrAM+J5YjndPKPkGYrMEeecg
- E7TDwlOcm7mZJnBXRwcFhI7AfSrpYnx343UGAPvFpxlXrnOUeoRW9rji3QXpvO7XMU+VHymJS2I
- rPvuTt7kfdBWDog+US9qWAFPQX33DPY4=
-X-Gm-Gg: AYBFou1ye3f1HR7FlINUyqWpj+Q5lcewLIH+T4tGbxYo0izGUVKyWnEUzTNpfDe/rUQ
- F5S7BSvzabOs5dnQqMumxgBvWAPA9A0vDxnVvGIPRBYCms1FfqYLJN5ChTej46OTG5DyHqK3a5f
- NJNWYEcCsuxGWlnSXBE8FquYboNs9RejQH++knB8qEN/AU6IEI8mcAZHHcUHF7pIhTo5pFhwIy4
- EGXHx1/v15CNRwC3AG0Iz70ysG5UeGXF2yrbr/DsBO6qCI6+nozIa4qbySVlXn/bhuT26mmcbz5
- MBecSMpAJibvoeZcPropUlaUm8dRJkBFIa09KT2mhJwZ3WFlYyezPirfwVX7AAby8zIg4IrSR0Q
- tIgNLf/Kwzy7fMn2F9TGMlX8bzGBv/peWDNrAMrZA1HnU0NYLesxtO1hAfv/oKEXVCFsfADStnY
- hki39PMkpKv6zpsHMXof63
-X-Received: by 2002:a17:907:1c93:b0:c2e:61e:f4fd with SMTP id
- a640c23a62f3a-c317bb4d1d6mr678650966b.5.1791488953277; Thu, 08 Oct 2026
- 12:49:13 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1791497480; x=1792102280;
+ h=content-transfer-encoding:content-type:content-language:subject:cc
+ :to:from:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=J+DeZALYQDrGNmq6Vo6tBsQx3QUc7m/841o6VhiFuF8=;
+ b=xXoh1G9h9AGsl0hJo9tEvqiiqEffk648mcS/MlBic5qCtv5KDC+nMdfxXt2zPY5Twv
+ j9FTwp3JpsIqXYzpEeIs/Tqrd/cgWE7q6953lo6POyDjQBLSft70sZJ+vPjaprssTY+u
+ 0MaWkztdE5SDEvIF0k1V5f6Zmwu++lu7KxMHdxbcQqlYBhmIAUiBE6tOnqvI8L85Vyhm
+ +3R7WxVlsHAYkLxHv9rXfe6jjiPP1J+6ApcIPWulG81qi2i46X4MnsIFWvkuepdtp63d
+ jN5uSaAkS9LJaMHjJRTfh5oFPPq9qf7fehu9c3TLxJsVjWRW9OJX3GqElCDI9zgT60OI
+ 7U8A==
+X-Gm-Message-State: AFuF++mvaAugz1+9KOZTv4/NdNVNRsD7n61DH0puljovX5fPybdCBuBS
+ zH90PFxTAWjpL/GWFl8cX7u8wjLUO/hTh1w0DcZT0SYhMvLyOFOvgL4LbHnehKhq76uXKm9a4v5
+ 62Z/Cp8N55xq4Vo4=
+X-Gm-Gg: AYBFou2S2bwq2yNwwfBTTVkJew8uzWCttA1nNHzwIbZk0yKVUIwJyCYMIPKHL494Af9
+ 9ia4weeuynPBAdAxhbc96Mi5hVwk4zTF7gtFBTToyG3TlXyTrIikH6qkENi8hhqIwjZOQUfx2zt
+ pzdibSv+TbZb04bSUj2q+9QAvAOMfMC6mBvmzUJymFi1awmC0WTRR/+MwW8HWuDxQIn6I3Tuvqg
+ xYa2tr0MWY+L1TRUAS4AjCyf2c4dYfuzyp7OsD5l+KlEoiRW8ONShGfINNB7Sx0fjlq7StqBxlz
+ OvTHX7fBMJcD36EP+slYPLd/Z5cEMKaOvGkY3wjtiZnLPOP5LnrdUKBy9SRozXU1WjkhHUtJnOB
+ GZjOPctXL7wOGnefUtT1jOeOTiEELijNRPLpcteqHCkxNUp9Yhr+FIKxAjcElTQr5VYTJznxGKO
+ ERKoMcOPOc7yDRlqrpOnJ4msG6/9DYKVA+CXzCdPu4BzG91SRpJaGboD01Nv9rGtdBKneWOvWXi
+ zR/6FZm0F+vqjhIK9I+HGB8H38f248FNgkqYowxxpM7v6jmiSMxRrMwICfQh8ZIjaBC
+X-Received: by 2002:a05:7022:ea8a:b0:151:2e62:fe8d with SMTP id
+ a92af1059eb24-16205cc1e4bmr7143226c88.9.1791497479755; 
+ Thu, 08 Oct 2026 15:11:19 -0700 (PDT)
+Received: from ?IPV6:2600:1700:1782:ba0:1510:b088:cef9:53a6?
+ ([2600:1700:1782:ba0:1510:b088:cef9:53a6])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-169a1becefdsm947450c88.7.2026.10.08.15.11.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Oct 2026 15:11:19 -0700 (PDT)
+Message-ID: <01534506-891e-4d0d-8d0c-fb5e82264c03@jqluv.com>
+Date: Thu, 8 Oct 2026 15:11:18 -0700
 MIME-Version: 1.0
-References: <CADnq5_P_y-6Ra4Swoxz-CmL1Q3nGhM3RVJUAB2iw1E1D-r1cjQ@mail.gmail.com>
- <20261008193356.GA920772@bhelgaas>
-In-Reply-To: <20261008193356.GA920772@bhelgaas>
-From: "Perlow, Jason" <jperlow@gmail.com>
-Date: Thu, 8 Oct 2026 15:49:01 -0400
-X-Gm-Features: AclHuK9lS4qMXsIqQtLZTvbvn4pXQsnJpTz-SJNc1hOoHum8WTGW7X9lZuuEvIg
-Message-ID: <CABZrw2ErJVdJ=vm15+9YeCmpn3n2OxS6HypjRJ3dZWU0tdcxow@mail.gmail.com>
-Subject: Re: [PATCH for-linus] PCI/AER: Skip error recovery on false alarms
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Lukas Wunner <lukas@wunner.de>,
- linux-pci@vger.kernel.org, 
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>, Oliver OHalloran <oohall@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, 
- Christian Koenig <christian.koenig@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, 
- amd-gfx@lists.freedesktop.org, Aditya Garg <aditya.garg@linux.dev>, 
- Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Type: multipart/alternative; boundary="000000000000ade413065d5986a5"
+User-Agent: Mozilla Thunderbird
+From: Geramy Loveless <gloveless@jqluv.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH] drm/amdkfd: place GFX12 compute queue MQDs in CPU-visible VRAM
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 09 Oct 2026 08:12:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,167 +92,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000ade413065d5986a5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+KFD sub-allocates the MQD of every GFX12 user compute queue from its
+GTT pool, so the MQD is in system memory. The CP accesses the MQD while
+it runs the queue. A dispatch that exactly fills a shader engine is
+retired through a path that accesses the MQD, so with the MQD in system
+memory that dispatch pays the PCIe/host-link latency.
 
-I will test the patch on MacBook 16,1 on RC6. Stand by.
+Measured with an empty kernel, median of 200 dispatches, on a Radeon AI
+PRO R9700 (gfx1201), for a dispatch of 253-256 workgroups x 256
+threads:
 
-On Thu, Oct 8, 2026 at 3:33=E2=80=AFPM Bjorn Helgaas <helgaas@kernel.org> w=
-rote:
+  - stock Linux (MQD in GTT): 26 us, against 7.9 us for 252
+    workgroups.
+  - Thunderbolt-attached R9700 to MacOS running mac_linuxgpu running the same amdgpu code under a
+    different host OS: 51 us with the MQD in system memory, 17 us with
+    the MQD in VRAM.
 
-> On Thu, Oct 08, 2026 at 03:23:34PM -0400, Alex Deucher wrote:
-> > On Thu, Oct 8, 2026 at 3:17=E2=80=AFPM Bjorn Helgaas <helgaas@kernel.or=
-g> wrote:
-> > > On Thu, Oct 08, 2026 at 02:26:00PM +0200, Lukas Wunner wrote:
-> > > > Alex is seeing a probe failure of the amdgpu driver after the Root
-> Port
-> > > > above an AMD Navi10 GPU has been reset.  The reset was performed to
-> > > > recover from a Firmware First reported Fatal Error.
-> > > >
-> > > > However all status registers in the Root Port's AER Extended
-> Capability
-> > > > are blank, so apparently the platform firmware raised a false alarm=
-.
-> > > >
-> > > > The issue is only occurring since commit eddba19b8b5f ("PCI/AER:
-> Support
-> > > > Advisory Non-Fatal Errors").  It looks like enabling Advisory
-> Non-Fatal
-> > > > Errors causes code paths to be exercised in platform firmware which
-> > > > were never validated before.
-> > > >
-> > > > Skip error recovery on false alarms, i.e. if no unmasked errors wer=
-e
-> > > > actually signaled.
-> > > >
-> > > > Note that this will also skip recovery if both the Status and Mask
-> > > > registers are "all ones", as would be the case for inaccessible
-> devices.
-> > > > However that seems justified because it would imply either a
-> hot-unplug
-> > > > event or a Surprise Down Error further up in the hierarchy.
-> Interfering
-> > > > with recovery from that seems uncalled for.
-> > > >
-> > > > Fixes: eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal Errors")
-> > > > Reported-by: Alex Deucher <alexander.deucher@amd.com>
-> > > > Tested-by: Alex Deucher <alexander.deucher@amd.com>
-> > > > Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D222095
-> > > > Signed-off-by: Lukas Wunner <lukas@wunner.de>
-> > >
-> > > Applied to pci/for-linus for v7.3, thanks!  I dropped Alex's Tested-b=
-y
-> > > since he hasn't tested this change by itself.
-> >
-> > FWIW, I just tested this patch by itself and it works as expected.
-> > Feel free to add:
-> > Tested-by: Alex Deucher <alexander.deucher@amd.com>
-> > Acked-by: Alex Deucher <alexander.deucher@amd.com>
->
-> Added, thanks very much!
->
+On dGPUs, allocate GFX12 compute queue MQDs with
+amdgpu_bo_create_kernel() in VRAM. That sets CPU_ACCESS_REQUIRED, so
+the BO is placed in the CPU-visible part of VRAM, which is needed
+because the CPU writes the MQD. Flush HDP after CPU writes to the MQD:
+at the end of update_mqd() (init_mqd() ends with it), in restore_mqd(),
+and in a new update_mqd_gpu_addr().
 
+Add GC 12.0.0 and 12.0.1 to mqd_on_vram() so the existing S4 handling
+(unpin at suspend, repin on resume) covers these MQDs, and implement
+update_mqd_gpu_addr() for v12 so the MQD base address is fixed up after
+a repin.
 
---=20
-*Jason Perlow | Argonaut Media Communications*
+This follows existing practice: KFD already places compute queue MQDs
+in VRAM on GFX 9.4.2, 9.4.3, 9.4.4 and 9.5.0 (mqd_on_vram()), and
+amdgpu places its kernel compute queue MQDs in VRAM on GFX10+
+(amdgpu_gfx_mqd_sw_init()).
 
-*Voice/Text * (954) 242-3484 | jperlow@gmail.com |
-*Blog: techbroiler.net <http://techbroiler.net>Read my Tech and Food
-Industry articles:* https://linktr.ee/jperlow
-*Bluesky:* https://bsky.app/profile/jperlow.bsky.social
+Only GFX12 (GC 12.0.x) is affected. SDMA, HIQ and DIQ MQDs are
+unchanged, as are APUs that prefer GTT.
 
-*Need to schedule a meeting with me? *https://bit.ly/3y8P3Gp
-<https://calendly.com/jasonperlow>
+Testing: compile-tested on amd-staging-drm-next. The patched kernel has
+not been measured on Linux yet; the VRAM number above is from the other
+host OS.
 
---000000000000ade413065d5986a5
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+for macos r9700 support reference where i prove the gains:
+https://github.com/lemonade-sdk/mac_linuxgpu
 
-<div dir=3D"ltr">I will test the patch on MacBook 16,1 on RC6. Stand by.</d=
-iv><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" cl=
-ass=3D"gmail_attr">On Thu, Oct 8, 2026 at 3:33=E2=80=AFPM Bjorn Helgaas &lt=
-;<a href=3D"mailto:helgaas@kernel.org">helgaas@kernel.org</a>&gt; wrote:<br=
-></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
-border-left:1px solid rgb(204,204,204);padding-left:1ex">On Thu, Oct 08, 20=
-26 at 03:23:34PM -0400, Alex Deucher wrote:<br>
-&gt; On Thu, Oct 8, 2026 at 3:17=E2=80=AFPM Bjorn Helgaas &lt;<a href=3D"ma=
-ilto:helgaas@kernel.org" target=3D"_blank">helgaas@kernel.org</a>&gt; wrote=
-:<br>
-&gt; &gt; On Thu, Oct 08, 2026 at 02:26:00PM +0200, Lukas Wunner wrote:<br>
-&gt; &gt; &gt; Alex is seeing a probe failure of the amdgpu driver after th=
-e Root Port<br>
-&gt; &gt; &gt; above an AMD Navi10 GPU has been reset.=C2=A0 The reset was =
-performed to<br>
-&gt; &gt; &gt; recover from a Firmware First reported Fatal Error.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; However all status registers in the Root Port&#39;s AER Exte=
-nded Capability<br>
-&gt; &gt; &gt; are blank, so apparently the platform firmware raised a fals=
-e alarm.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; The issue is only occurring since commit eddba19b8b5f (&quot=
-;PCI/AER: Support<br>
-&gt; &gt; &gt; Advisory Non-Fatal Errors&quot;).=C2=A0 It looks like enabli=
-ng Advisory Non-Fatal<br>
-&gt; &gt; &gt; Errors causes code paths to be exercised in platform firmwar=
-e which<br>
-&gt; &gt; &gt; were never validated before.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Skip error recovery on false alarms, i.e. if no unmasked err=
-ors were<br>
-&gt; &gt; &gt; actually signaled.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Note that this will also skip recovery if both the Status an=
-d Mask<br>
-&gt; &gt; &gt; registers are &quot;all ones&quot;, as would be the case for=
- inaccessible devices.<br>
-&gt; &gt; &gt; However that seems justified because it would imply either a=
- hot-unplug<br>
-&gt; &gt; &gt; event or a Surprise Down Error further up in the hierarchy.=
-=C2=A0 Interfering<br>
-&gt; &gt; &gt; with recovery from that seems uncalled for.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Fixes: eddba19b8b5f (&quot;PCI/AER: Support Advisory Non-Fat=
-al Errors&quot;)<br>
-&gt; &gt; &gt; Reported-by: Alex Deucher &lt;<a href=3D"mailto:alexander.de=
-ucher@amd.com" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-&gt; &gt; &gt; Tested-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deuc=
-her@amd.com" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-&gt; &gt; &gt; Closes: <a href=3D"https://bugzilla.kernel.org/show_bug.cgi?=
-id=3D222095" rel=3D"noreferrer" target=3D"_blank">https://bugzilla.kernel.o=
-rg/show_bug.cgi?id=3D222095</a><br>
-&gt; &gt; &gt; Signed-off-by: Lukas Wunner &lt;<a href=3D"mailto:lukas@wunn=
-er.de" target=3D"_blank">lukas@wunner.de</a>&gt;<br>
-&gt; &gt;<br>
-&gt; &gt; Applied to pci/for-linus for v7.3, thanks!=C2=A0 I dropped Alex&#=
-39;s Tested-by<br>
-&gt; &gt; since he hasn&#39;t tested this change by itself.<br>
-&gt; <br>
-&gt; FWIW, I just tested this patch by itself and it works as expected.<br>
-&gt; Feel free to add:<br>
-&gt; Tested-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.co=
-m" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-&gt; Acked-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
-" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-<br>
-Added, thanks very much!<br>
-</blockquote></div><div><br clear=3D"all"></div><div><br></div><span class=
-=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_s=
-ignature"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"lt=
-r"><div></div><div dir=3D"ltr"><b>Jason Perlow | Argonaut Media Communicati=
-ons</b></div><div dir=3D"ltr"><b><br></b></div><div dir=3D"ltr"><b>Voice/Te=
-xt </b>=C2=A0(954) 242-3484 |=C2=A0<a href=3D"mailto:jperlow@gmail.com" tar=
-get=3D"_blank">jperlow@gmail.com</a>=C2=A0|=C2=A0<b>Blog: <a href=3D"http:/=
-/techbroiler.net" target=3D"_blank">techbroiler.net</a><br>Read my Tech and=
- Food Industry articles:</b> <a href=3D"https://linktr.ee/jperlow" target=
-=3D"_blank">https://linktr.ee/jperlow</a><br><b>Bluesky:</b>=C2=A0<a href=
-=3D"https://bsky.app/profile/jperlow.bsky.social" target=3D"_blank">https:/=
-/bsky.app/profile/jperlow.bsky.social</a><br><br></div><div dir=3D"ltr"><ta=
-ble style=3D"border:0pt;table-layout:auto;white-space:normal;color:rgb(95,9=
-5,95);width:650px;font-size:11px" cellpadding=3D"0" cellspacing=3D"0" width=
-=3D"650px"><tbody></tbody></table><b>Need to schedule a meeting with me? </=
-b><a href=3D"https://calendly.com/jasonperlow" target=3D"_blank">https://bi=
-t.ly/3y8P3Gp</a></div></div></div></div></div></div>
+Signed-off-by: Geramy Loveless <gloveless@jqluv.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  |  2 +
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c  | 54 ++++++++++++++++++-
+ 2 files changed, 55 insertions(+), 1 deletion(-)
 
---000000000000ade413065d5986a5--
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+index 9b7859a77..e6b45950e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+@@ -326,6 +326,8 @@ bool mqd_on_vram(struct amdgpu_device *adev)
+ 	case IP_VERSION(9, 4, 3):
+ 	case IP_VERSION(9, 4, 4):
+ 	case IP_VERSION(9, 5, 0):
++	case IP_VERSION(12, 0, 0):
++	case IP_VERSION(12, 0, 1):
+ 		return true;
+ 	default:
+ 		return false;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+index 6ea09b031..d3a8c2aed 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+@@ -92,6 +92,37 @@ static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
+ 	return mqd_mem_obj;
+ }
+ 
++/*
++ * The CP accesses the MQD while the queue is running, so keep compute queue
++ * MQDs in VRAM. The CPU writes the MQD, so it must be CPU visible.
++ */
++static struct kfd_mem_obj *allocate_cp_mqd(struct mqd_manager *mm,
++					   struct queue_properties *q)
++{
++	u32 mqd_size = AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size);
++	struct amdgpu_device *adev = mm->dev->adev;
++	struct kfd_mem_obj *mqd_mem_obj;
++	struct amdgpu_bo *bo = NULL;
++
++	if (!mqd_on_vram(adev))
++		return allocate_mqd(mm, q);
++
++	mqd_mem_obj = kzalloc_obj(*mqd_mem_obj);
++	if (!mqd_mem_obj)
++		return NULL;
++
++	if (amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
++				    AMDGPU_GEM_DOMAIN_VRAM, &bo,
++				    &mqd_mem_obj->gpu_addr,
++				    (void **)&mqd_mem_obj->cpu_ptr)) {
++		kfree(mqd_mem_obj);
++		return NULL;
++	}
++	mqd_mem_obj->mem = bo;
++
++	return mqd_mem_obj;
++}
++
+ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 			struct kfd_mem_obj *mqd_mem_obj, uint64_t *gart_addr,
+ 			struct queue_properties *q)
+@@ -242,6 +273,23 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 	set_priority(m, q);
+ 
+ 	q->is_active = QUEUE_IS_ACTIVE(*q);
++
++	if (mqd_on_vram(mm->dev->adev))
++		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
++}
++
++static void update_mqd_gpu_addr(struct mqd_manager *mm, void *mqd,
++				struct kfd_mem_obj *mqd_mem_obj,
++				struct queue_properties *qp)
++{
++	struct v12_compute_mqd *m = get_mqd(mqd);
++	u64 addr = mqd_mem_obj->gpu_addr;
++
++	m->cp_mqd_base_addr_lo = lower_32_bits(addr);
++	m->cp_mqd_base_addr_hi = upper_32_bits(addr);
++
++	if (mqd_on_vram(mm->dev->adev))
++		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
+ }
+ 
+ static bool check_preemption_failed(struct mqd_manager *mm, void *mqd)
+@@ -409,6 +457,9 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
+ 		*gart_addr = addr;
+ 
+ 	qp->is_active = 0;
++
++	if (mqd_on_vram(mm->dev->adev))
++		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
+ }
+ 
+ static void restore_mqd_sdma(struct mqd_manager *mm, void **mqd,
+@@ -454,7 +505,7 @@ struct mqd_manager *mqd_manager_init_v12(enum KFD_MQD_TYPE type,
+ 	switch (type) {
+ 	case KFD_MQD_TYPE_CP:
+ 		pr_debug("%s@%i\n", __func__, __LINE__);
+-		mqd->allocate_mqd = allocate_mqd;
++		mqd->allocate_mqd = allocate_cp_mqd;
+ 		mqd->init_mqd = init_mqd;
+ 		mqd->free_mqd = kfd_free_mqd_cp;
+ 		mqd->load_mqd = load_mqd;
+@@ -465,6 +516,7 @@ struct mqd_manager *mqd_manager_init_v12(enum KFD_MQD_TYPE type,
+ 		mqd->get_wave_state = get_wave_state;
+ 		mqd->mqd_stride = kfd_mqd_stride;
+ 		mqd->restore_mqd = restore_mqd;
++		mqd->update_mqd_gpu_addr = update_mqd_gpu_addr;
+ #if defined(CONFIG_DEBUG_FS)
+ 		mqd->debugfs_show_mqd = debugfs_show_mqd;
+ #endif
+-- 
+2.43.0
+
