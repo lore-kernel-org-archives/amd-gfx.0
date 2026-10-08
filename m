@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01FA8CA6015
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 21:42:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B27FCA6016
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 21:44:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5E110E150;
-	Thu,  8 Oct 2026 21:42:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6AC410EA24;
+	Thu,  8 Oct 2026 21:44:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0VZQ1x5y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Sm1HQYh+";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011005.outbound.protection.outlook.com [52.101.52.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B132010E150
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 21:42:45 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010040.outbound.protection.outlook.com [52.101.46.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 413CF10EA24
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 21:44:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GQqsFCTxcIgO0UG4H3XcpdiX3UhPgiX1PVZjA2zjNW1N4UIgwEo4lsP3esVhZd413swIS+ihsOmnpMxKM1vUDMKgcdTTQ0UAt07Rt1m1JibXGK9UbaeA/FXZQzPPUSjKrIVeabMr65IPJ61iMm31vekcJ8/7JYnON9jlbEGG7mjupXjepZxgyQWPpwJIg5EKZRG2AOIZ+KDzeugSeby1SMOXjfkcvtozBuvXR3NPfJF5/apEUl1iqL2UScLtdwPBn5IKkQ5hd34KrnSKPkOu80KWhf3d8nUDnECFwfCwcQkmHWO4yJ2JBF+CkpodSW9B7+3NqfLASh/LK/HOPqfLVg==
+ b=fO9dmO5uAuE689UtxNhUerAagTKBYCOuKdskAH5xZ2oUZo3YSW1GW+kVTwoHrpSNyG1PNj+Fmo6SmpgR+iHOUWa1Y9yXKgh957rDhu+YLRtgeoOn1gNnI3YYJDpLFAFIzfWHegEioM/YUoqS0bNf4ODDwbbqV0jNVMdfZD4/ej4EUap3j6oL2ULUiqVXuakP2IWqn1vSdHJ2ablqdMbA5RAA1PH84y1Oouhc+2wpAQNLqg2XfckRm3C1DRodc5l+Z4SctFgb/32FoM6/ocSCASCROT+PNWUP7puYRMdIH8QblAIIqwPBGSvQFCfTRGrpE8OcfeZQ4pkhb0dwmj4VHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wH072A/LvisimmUXTphJDgp4lhlRTelNnNB+9l3GAKg=;
- b=cmO6WUmWsv8dce0HwVZpIG2GT6SqeTt3jVD1/7oRItE+6TBht8VcOGUjlv0VA9IG5IqU9WSeC9Y3cVaXerZ52sG64q/0rXZrOdnZV0Db9W5wvkthWkQ0IXlM8WL6dbtGla22C8e30vKb0iVayl+qlIwPEf4iJ82jYnSM4jHtYj1Ck3qdY7fvLYA4w3GHSHo5m/v24LR2kSZE23cuLd0h4xXTKUqro+hVzpFi2stHllICjfyqT34dk8TMtimHyvv4MoRSeLhbAbzWr7T+hlnSv0GaNlwfokuvLf+QJB4Sr7oXMuFt5atDsREp95hL4XaNNUOGpwOxvCA7QmErEWr3Xw==
+ bh=mBZnROwB2YreTLUieDKONgA0oJE8bmKKF4BbLEIQwOo=;
+ b=t3sC9ct0AxKjusfrleWA3nWZfNiWEKu+uShCtRt45kQ0ffVqW9Mw2DeA5Jk5+DdnPd2PoI+WODmPqJX2vVLqgc9f64hLKd76CWeFUQbYmd4xmlYn38lI3Tdc8TxBqqqguqGPyKuXuWJEoicxPceemds9yfbP5KmuSKzAuVlxcyvp5uwQqFMd90EdhAVWiEy8VN2kYAOh92xjdm+4nWQj6CtdAQC3W4JWbUXt2tzwpBK2Oa0EFcO110malA/Y5GVjR/9j5ULQnpqS2snQgG9x2rf1ybAbc/8NnRhcVDE7DYPfCUhI5RXavxbdDBaKB0XdVwld07hHNS/5wyR0N9ChCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wH072A/LvisimmUXTphJDgp4lhlRTelNnNB+9l3GAKg=;
- b=0VZQ1x5y03sfgD1vONCsiT3CqTFroY0g6dKpkJITW4/dbcTTZryovMVrcIhSe7f6AXnuH+r+wiNQ4e8aWzz4D4gMQhLvCZNcee+8sBap8Iyr7nOMDAw5xflznr5hTavde/OPXL6WK2seotueB+4ncGqncWkvRl8U72z25CoounY=
+ bh=mBZnROwB2YreTLUieDKONgA0oJE8bmKKF4BbLEIQwOo=;
+ b=Sm1HQYh+OPZuwzGRRvT3TQPKn7hPhgYwS5sh0NgfsI7zheHZA48Bcve+RGP6AO8T9QrLyMY1cXWWXFnRLs6EoiSe0eg5SHcin4mMuxHSAcfJnFhiSCyICsqSYQ8Ibq0xROEtJuee2gasG4G/rqz06uFgh6UTf39jFzuF3CqwxvU=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  (2603:10b6:40f:fc02::607) by PH8PR12MB6795.namprd12.prod.outlook.com
  (2603:10b6:510:1c6::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 21:42:42 +0000
+ 2026 21:44:37 +0000
 Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 21:42:42 +0000
-Message-ID: <9f7f2076-7306-4f42-87ff-3f51ef5144bd@amd.com>
-Date: Thu, 8 Oct 2026 17:42:36 -0400
+ 21:44:37 +0000
+Message-ID: <5a6fd15e-4600-42c4-9b27-d066ad9ac6f0@amd.com>
+Date: Thu, 8 Oct 2026 17:44:32 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
- guard with drm_dev_enter
+Subject: Re: [PATCH v5 0/3] drm/amdkfd: fix wedged teardown on surprise removal
 To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
  amd-gfx@lists.freedesktop.org
 Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -53,77 +52,76 @@ Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Xiaogang Chen <xiaogang.chen@amd.com>,
  Olivier Kaloudoff <kaloudoff@icloud.com>
 References: <20261008173350.40455-1-olivier.kaloudoff@gmail.com>
- <20261008173350.40455-4-olivier.kaloudoff@gmail.com>
 Content-Language: en-US
 From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20261008173350.40455-4-olivier.kaloudoff@gmail.com>
+In-Reply-To: <20261008173350.40455-1-olivier.kaloudoff@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0097.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:83::29) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQZPR01CA0109.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:83::15) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|PH8PR12MB6795:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88600870-f50c-48ad-58e6-08df258514d6
+X-MS-Office365-Filtering-Correlation-Id: d4895e51-c551-43dc-4b5c-08df258559ce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|3023799007|6133799003|22082099003|18002099003|4143699003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: Xq1ikN7qdjke91Iu3qLFjygC86NKtL+X61MeBDZJduV7WBCTCfjurdX1BDCa3YqrcXJXWbKhvL9SyujaH5S3kCWbW56J9TnmHmpL4ROinHvCYvSDS4VojIPke1+0JCHAvr4LFuTjXTndaWYG+vYR6szflt44pzUh79lYFpFy0uK+3WisX5erTU+8xQ4YoWjqcB62eF+ghKedLcrbiDw3r+w7rHxq5OjTEkK9lOo1ZNd3gz1EHJR8fjdWU6WxHnOh4LNV24XdznoWNITi8Ffyh2x5ydFUBzUM0kMuDpSsOHF6GbsQ9caGABg30H/GEvImiGHpP/ihxO9hdw/1zAi1pvP64WB7TmCsE4XhGBLH8hWVSMS475bSLX04HcxAeRLk676xTYZOtVY7QQN3WSUStT+rYtLfpnTogpHVL0F9nt2Bc53CHQ7qss/fOIC/f/YGdMGdflAVCET/oAZjUyB6zcEOq5v2QVuLdGMQvDkVFvofOHyLDGEgIVdlVI4q8Ka1EhVGw/LyUFyUliUN8Q45A5PdImKXN0jePupDc9wrjvaL1FlG81I80SHDBXTlNKcNH6s2xKbXr5gaMJBQ0izENESfL24ltIaKGKoJzM0TWRKxRJzbNBytXcCTRuDkwzZrPVK2nfVXMdx4tTDZ8/iRFn28NCyLPJLqLEJ9PHL49bU=
+ ARA:13230040|366016|1800799024|376014|23010399003|3023799007|6133799003|22082099003|18002099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: Mk/gH0t6VD7bBYs3gbsRDZWSglmc197CfaQ3j/Q/NDFtCPxB7hTLELgBkBOr7Ez02tjX7t5B4HQItjnHlzH8TMwAd48Agf1sRdOVTxlszbKLl04Sh/E8i01FqaZK8rKX07INiKz2m7LN/AUuUILMthlrKueyfzyiUmsYiIveMM649ZlSdab7BT6fap503pE/fP2N+7roQbEY5Fa/XypLd3GZyM8bkyu54gizpt7ciP08IRG3Nvi0f5j6OHbilKdHsMdDTqTZZE16ckN02CSmPbjk15wXKKLb/iGN53yXmOIe3VhYVcFlbX76PsuQN1NNQjaQ41Ra566GuuHtYEzz1ZvN0SdZwAdyz4mIMl4wcmJpB5MykZa8rZsOvBpGP1of/vdva8pJHLFP5oaels+63vEVa8iEEsd0oh0lUPW2Ke7hBkenqZYK+nTcZSz4Jm1xZmYDTLKZhUvBplA+tojebpbH3ZIrVUMxCUS0qp6GTIo1IE0/M0F1cFX/Cwu/mSJFsL4KYyEdUl6h2Tu8x+BhhCkDbdTCLLT6itfjayw2IYoQCk8Ttg+w5NhaMcSA6CdPF9ke9qid5aQzPP7IciIPEhhelLphkuaRqJfZEC4ft2SC6SjSCY23pQyb1wFj+KLUXAxqLsnZI0YB4HV8atx+8oSY2ShcKM21oSl5FRjWgFA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(3023799007)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006)(10067099003)(56012099006);
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(3023799007)(6133799003)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q2NwTHdwLzRZK2szWnppMFo1TmlPVFJrTEJXRllxZUthTTRsSWk4NW1LZnFp?=
- =?utf-8?B?S2VieFdhR0huS3VPUWtsOE56cjVvOHdBL2F4MHdvWjhQSjMwV2hxN25IUWEr?=
- =?utf-8?B?M3pHQ2RndFd0N0toUHpEb21uWTV6QURtNkQ1Uk9pTUlZNldjYmxlUjUxNEg3?=
- =?utf-8?B?a3VHOVNIRUZyZzQ4YkZvZUV4VlpYZ3ZQeU95R1VKR2owQ1BFWHpwWmRpQ0hv?=
- =?utf-8?B?UzZHcHVtcVArMkczNTA5SHNWcGxMeUt6b01ES293VHQ5OTJRK0s0MFltTGlm?=
- =?utf-8?B?Um54WHB5VUZHd2V2dEl3Q2I5TmtwNDJSMzQwYThQemRvRXlQRlIzTHoyR0hT?=
- =?utf-8?B?d081aCsyK0VuRC9nWXdLaVB6QlJnOEUyaG9uTVMxZ2FOeHBUZkdneTRyS20y?=
- =?utf-8?B?YmFtMjlTM3RNNGc0ME5tSnY3SW5zdzdlMmYwMkJSaVliMlV4S0NWK1VoeFVk?=
- =?utf-8?B?b005cUlqQzFNZnN4TlJoUGJkMnJEaklENU5FYllsYlZ6VnRBWVRuVG16a2tx?=
- =?utf-8?B?MnU3RFNFUzJsQUJhaGxaOFI2eGM0TC9TMG9lT21sRkI4T3EzWnBNTUw4ZmRx?=
- =?utf-8?B?Tk1OR2hpODNHcmFqME1YSXZFQVczK2NCRWpXMU9GY0JibkIwdDUyS1pkblk1?=
- =?utf-8?B?bTFudm5KZ1NnNjNiUlNMUUQwcDVYeVdMc0UweHg2WEw4VzFXMVhoRDhBY0Fi?=
- =?utf-8?B?VXRGYW56ZVBFNE51MmhZdCt6QVJYWUtPaHFVMmhtU0JNYWMrcmgzRWFqUzF0?=
- =?utf-8?B?OUlERVJ4Q0VGMnRGK0E0cHBqbENrb0NUeEl3UWFCeHVuSlN1N0treS8zSXlK?=
- =?utf-8?B?QXVNOUc1WHRyZ2RJM1NRc21XVzY0V3lRcGVLYkptOU1hVW03elBDei9WRURZ?=
- =?utf-8?B?SEl6UFo3dmZUcXBXSGl0UGlzd21icU5aVktSeitXeXRrTjBOQytJTjhWbDlo?=
- =?utf-8?B?ZFFqMHYycU1DeURKVjlWd2MxUENDUU5JSVlFdUhQeFJkUFZnL2FvQ1o2SHlr?=
- =?utf-8?B?OFF1SHM0K0pyOThBRFhzVXUycUFTV2hiRThORTFVbE9tNGkrRlZoL1NPVDc2?=
- =?utf-8?B?cUtsa2dyMlZuaFlzMEllVHRGK1RwOThLaStmNU4vdFlnc3JEKzYrbHJDQWFL?=
- =?utf-8?B?aklBTzl3d1U5OUZNUmtxcitheVlIZlo1VXg0U01PMnR5NmgzaWJoRldsQnly?=
- =?utf-8?B?YnU3ZUNubmRWUVhLN0k5WktaR0J2K2RqbldrYjJqNnhaR1c2R3lNbjJNVTN5?=
- =?utf-8?B?OU81UEQyNnBKWFV2S0NCSFpucG1kVkhvNmlBdnIrY3ArRkxxVzJ2ZnZPek9B?=
- =?utf-8?B?RUNiTkNGVERnMy9zNnlCcHBxNm90TW1pNTlYUG05VElnbTRQR0VvVjk5a0V0?=
- =?utf-8?B?TGUrRVlRVlE0VGdhV0pnSDVabWdqNUlxQ3UyREJUblVpa3NhR3RCVkVXSTJy?=
- =?utf-8?B?WktVaEp6SVRTUW4rTHQrdkdXQWlvc1J6dzd4N0R1cGgyQjZrRWhDTy9iZDVF?=
- =?utf-8?B?czNyaXFYcHhIMmpqNlRGaC9FN0NsYlBCS2tIeUhWTGQxZm5RT0pMVU85V24x?=
- =?utf-8?B?YkxsYml4ellsRVhaRWtVN0lPUjUrTnRSbUZDWmJkMnlKbUVkSXRlZEZjbG1O?=
- =?utf-8?B?UTNXbkQwYWwrVHhUSUJ3SjkzNjJhK0dYNWFCOURwZUpkSGJDK2RqU0QwZ1FZ?=
- =?utf-8?B?L1Yyeno1c3pnek9uNy9rT2Zka2FEMndKWDVoK3U3bkx0MHRyNTRiaGllcjhT?=
- =?utf-8?B?bHZRYjlkSlIyRCtvUE11c25BM0duUDVWbk00am1sNkh4eUxoczBiY3RYanJ4?=
- =?utf-8?B?SHkzaUdvUk1iZW5hT081citueDl2UHZTL01RYncwNmNDcWdGTTA4c09RbldE?=
- =?utf-8?B?ZDM4OTlKdHplaUpIQzFFRXZ3aTViNU9lcUxvN2JtZGVCUEdjcnpLWXIySEF6?=
- =?utf-8?B?RkV5MjQrb1J5aVBuNXZUR21aakFsUDFVQ1RLS2t0dnQ2T3lOeDdodGxMMVZB?=
- =?utf-8?B?TUNvYzIyMFdIbGNwaTBENzJ0WW8yL0dXNENOZFNJdTJrUHY3ei96ZG9uV1hG?=
- =?utf-8?B?VzZ2QmQ1NlRiZTZ2eVBYU2NCTVlxQzJZU0ovbkVta3lXWW9zQnd6WTZyOVdX?=
- =?utf-8?B?b1pGT1cveVZPRi9MS0paSVE5cXovYlZLeGtOdm9NYVZlNCtJYUs0TVozNHEv?=
- =?utf-8?B?VXpyU1ZacFMrbDdPSXFBaWxMVmxmcExTTkhHS1VlSU0yMW44NUFjQThPbXcy?=
- =?utf-8?B?NEh2V3c5a0sydkZULzJTY3pJa2QralVWRzJZdU93Qk85NWNHeFBMVW1iL0hh?=
- =?utf-8?B?MHRpRkk3dUwrSng3NkxQeXBWaUd4OG8vT0g5dDBDMVQ3SXZRZEhaUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFp5N29zbFRnMWE5dlcwbXN0M3pQTXhybTNNaDlCREt5Y1BwdTF4RS9UbExt?=
+ =?utf-8?B?STVGMWp3b3Z0MkxFWjZCN0FsaUtuVnkzUHJhTUg3OVVDek1uTXo3NGZ2ajRh?=
+ =?utf-8?B?SEx3U09oeTVmTmtlUDgyZGk3RGNwVUtzNUd0WXI0TENvWlVHVyt2RzNrTDFy?=
+ =?utf-8?B?NzJ2SXdlZlAybHhEQWxxWTRqd0hCR1hQRHpNdEV3Zmo4UVV5TEZpbHR0YU1h?=
+ =?utf-8?B?SXN6SDdPV2kvVnNXL05qVVVpZkdoam42Q0tCblI2WHRXSVhjdUo2aG1qaXM5?=
+ =?utf-8?B?OHd1aGpSeHN2ekp2K1ZDWUZmUkM2NlZGbDgrZmt5MjZ6UHB5SGZNcEN1U0Qx?=
+ =?utf-8?B?dXpyamp3UThaYUwvN0F1VDAyaE5VM2taNFlwUHViU0t3dkFTWlJqTExKL1F2?=
+ =?utf-8?B?TTZXL3NJM280REQyZWFlVjNtU25EdXpMSms5MnVmODBTellFRHZFWFdQcHhi?=
+ =?utf-8?B?bmxvUVR4SUNtbUVMQmJ1QTV4aXB6Y0xPV2E1OFpUbmtEdjNreHo0VWlwRWs2?=
+ =?utf-8?B?Yk9qSDRhRG9naENKTXI1QUhCeFRMRHdLMDR6R01OdVVjRnNCOGZiWjNTSFVj?=
+ =?utf-8?B?cm9kNDJqSE95Z0t1T2xFKy9Hb1FZZFdReDBTZ2hYWi9jRHYwR2NiS3pyaTND?=
+ =?utf-8?B?MUhUVmFtcHczcU90R3N2d0s0b3pacVM0c2VaYzN5MnFzeDdtcjRGekZXVHh4?=
+ =?utf-8?B?R3dTSzZuZzB4aGNkOFkxaVFKbTBCM2VtUHpqcXlEQjQrNk10S2tPSFdMK1oz?=
+ =?utf-8?B?OGZVL0lWaHpjdFhJTnE2V2phaHR4eXZVakFDSW5Vd2k5MXZaN0QralNrQ2tz?=
+ =?utf-8?B?UWdLY1RiTHNGOVFpMURoNDVDa2lxR2IxZGo2aVBDVWcyV2RUOVQ2clRzNVB3?=
+ =?utf-8?B?djRLTHR6dGtGRXNPSW5aZEh3RU5CUS9mcnN2dC9qWUszRlh1RzAvVTVhT251?=
+ =?utf-8?B?dUdhR3RhWElGVEVkenBkV2JrUnFxTEJpMmJ6QzFxOEszRUZZQTdJM282YkxM?=
+ =?utf-8?B?RjdyR0hIdjNXcnVFWm1ZZlhKblNWOHBvMnJUZklHQXpBU3lZMCszR0UrUDlq?=
+ =?utf-8?B?L3RkMnhmYytzVTdSTXBObE5PdU5NWkVDQTlFSVpTL0UzN0tXRUJDb2l3RGs4?=
+ =?utf-8?B?RWVzVUxlWEFiMUJpZyt3eEI1cm0yUENaWDliUHBlQ2Y4S1Z6c0J1dU1LWjgw?=
+ =?utf-8?B?VFlFRFk0WU9CTE1tS0NPWit2UXNCcXhqT2ExbmJGMXUxYkpIdlNVOGhodlB1?=
+ =?utf-8?B?bEhEU1ZGclpCL1FSWnV2dXdIcDNLaU90QjlUb2dYbG1XYXBacHM3ZDVqeXR1?=
+ =?utf-8?B?MkkwWHpRdUpMU2YzYUNkeC9WdUI3ampsOUV1VjBZRHI4T25OM0JPeU10ZEVu?=
+ =?utf-8?B?UHM0VjJzYjFqbkNHcG1acXRRa2xZamN2NXZENmI4QnFtaVpQQm55bUJJZVJn?=
+ =?utf-8?B?aXVBM2t3aGc2S01GMFgxQkVnUm12STJjcENMM3lHUzgvQTBzY2lEalhqWCtU?=
+ =?utf-8?B?NFNpSFU4MC9MdWdJQXdtZHZOb1QxeStNMjZzOStvL3lBYlh1ampVZ1Awdjlx?=
+ =?utf-8?B?cWpaOFFKQzR6RUdwMG9hcjhZeEVXTHc0a3o0N2FsUGZIUTZOVFIvOVF6OUF6?=
+ =?utf-8?B?V2tmMW81bUxYankrZ000ZXBXUTdLcTd3YUkzRnJUb0FPbzFySjk5UXMrMTdx?=
+ =?utf-8?B?YWF5bnE2UytlVW96VU5BNlFJQURreFZTU0V6aTA4T2xUcWZodkoyUVpOa0Yr?=
+ =?utf-8?B?ZkZ0WmVxdC9aemlJK3lzSnVjeFJzN0hSWFk5am0vTC9FU3Q3ZHIwUlJDZU8w?=
+ =?utf-8?B?NzljOGVoS1dFVjZYdmpZcHZBUmJKUWlkcGdJek9WQlIyaHFtcWR3QitFVzQw?=
+ =?utf-8?B?K2dnOUVDUUxWZ0lBMmpJSGJCd3RMNkpEZ1JnL29Ta0hScjlkR2xDQlI2ZWM0?=
+ =?utf-8?B?WjAxemlEN2RiWHBQOW9aRDNnS2tYaUU2dk1KZEs3WGdKODl3WDcwSkNnOVAz?=
+ =?utf-8?B?anpFRWVrSjZPNnlhb1dkVUhYVTZDNVJRcGFCaWRQU0NURjFNeXRnbmFKcEg3?=
+ =?utf-8?B?bFBKN2kxK25EZXMzQUJJMDR4cUlTSCtNdndleURDM1NCQ3JkSnhHTlRUSG95?=
+ =?utf-8?B?eGdQWVVOcGpPUmxJUk5QL1FxZW9XVnhZdmM2YktEaGRxV2t1VWk0UERGYTE2?=
+ =?utf-8?B?YkJYbTlZbUNhbUtROEgyOTVqcnBudDhVckxxOTFYT3lpZzN2NHcxUXMrcWE5?=
+ =?utf-8?B?c01BakZHclpiYmRhU250bGhwbFdJdzVxRmFmSVZNQm9HT3JQRnJSSXV2czRY?=
+ =?utf-8?Q?PVG8Ipun0NH5ypv7nz?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88600870-f50c-48ad-58e6-08df258514d6
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4895e51-c551-43dc-4b5c-08df258559ce
 X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 21:42:42.1728 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 21:44:37.8327 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Jl7uH8z30r9YgUEmKsuhNHgDljJhb4bye5PX1Usl3ot4dswlNW8JLRsu4xMhHHAtaAl7phqTGjHmSxhKyPT3ig==
+X-MS-Exchange-CrossTenant-UserPrincipalName: CHh86Uvl55dGJDHW92MN69n1MQ+1Eo7l90SC7/s6V0p4gc2ILrDW5QO6KaDLRtKQOsS8oz1NGL7t+73xHk1i2g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6795
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,148 +137,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
 On 2026-10-08 13:33, Olivier Kaloudoff wrote:
-> On surprise removal the killed process's own exit path can fault on
-> its SVM managed ranges: SIGBUS -> coredump -> get_dump_page() ->
-> __get_user_pages() -> do_swap_page() -> svm_migrate_to_ram(). Without
-> protection, svm_migrate_vram_to_ram() submits an SDMA copy job to an
-> already-killed drm_sched entity (observed as
-> "drm_sched_rq_add_entity: Trying to push to a killed entity" plus
-> refcount_t saturation warnings), then svm_migrate_copy_done() waits
-> uninterruptibly on a job fence that can never signal. The task dies
-> in D state holding svms->lock, which wedges svm_range_restore_work()
-> on the rwsem writer side, so kfd_processes_count never drains and the
-> pciehp removal thread wedges for good.
+> On surprise removal of a GPU behind Thunderbolt (MI50, PCIe slot
+> power cut), the KFD teardown path wedges the host:
 >
-> Guard the hardware-accessing migration sections with
-> drm_dev_enter()/drm_dev_exit() so unplug cannot proceed while a
-> migration submits jobs and waits on them, and bound the job fence
-> wait in svm_migrate_copy_done() with AMDGPU_FENCE_JIFFIES_TIMEOUT so
-> a fence that can never signal does not stall the critical section
-> (or the faulting task) indefinitely.
+> - the killed KFD process faults on its own SVM ranges during exit /
+>    coredump (SIGBUS -> get_dump_page -> do_swap_page ->
+>    svm_migrate_to_ram), submits SDMA work to an already-killed
+>    drm_sched entity, and waits uninterruptibly on a fence that can
+>    never signal;
+> - the dying task holds svms->lock, which wedges
+>    svm_range_restore_work() and prevents kfd_processes_count from
+>    draining;
+> - kgd2kfd_teardown_processes() therefore spins forever in
+>    cond_resched() while holding the pciehp removal thread, producing
+>    soft-lockup and hung-task splats.
 >
-> Verified on MI50 behind Thunderbolt: the workload takes SIGBUS,
-> coredump completes, kfd_processes_count drains in ~7s, pciehp
-> removal finishes, and the device re-enumerates cleanly on slot
-> re-power. Previously the same repro wedged the host.
+> This series:
 >
-> Cc: Xiaogang Chen <xiaogang.chen@amd.com>
-> Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-> ---
+> 1. tears KFD processes down in amdgpu_device_fini_hw() *before*
+>     amdgpu_amdkfd_device_fini_sw() frees kfd.dev on disconnect, so the
+>     drain happens while kfd.dev is still valid, and guards the second
+>     kgd2kfd_teardown_processes() call against kfd.dev already being
+>     gone;
+>
+> 2. makes the userptr and SVM range restore workers stop rescheduling
+>     themselves on -ENODEV;
+>
+> 3. guards the hardware-accessing SVM migration sections with
+>     drm_dev_enter()/drm_dev_exit() and bounds the job fence wait with
+>     AMDGPU_FENCE_JIFFIES_TIMEOUT, so a migration cannot race with
+>     unplug and a fence on a dead device cannot stall the critical
+>     section or the faulting task indefinitely.
+>
+> Verified on MI50 behind Thunderbolt (2 GB SVM workload, PCIe slot
+> power cut): the workload takes SIGBUS, coredump completes,
+> kfd_processes_count drains in ~7s, pciehp removal finishes without
+> warnings, and the device re-enumerates cleanly on slot re-power.
+> Previously the same repro wedged the host every time.
+>
 > Changes in v5:
-> - dropped drm_dev_is_unplugged()/pci_dev_is_disconnected() checks;
->    drm_dev_enter()/exit() alone is sufficient (Felix Kuehling)
->
-> Changes in v4:
-> - use AMDGPU_FENCE_JIFFIES_TIMEOUT instead of an open-coded 10s
->    (Felix Kuehling)
-> - guard migration sections with drm_dev_enter()/exit() instead of
->    racing flag checks (Felix Kuehling)
-> - keep pci_dev_is_disconnected() early-out for the dead-link window
-> - moved svm_range_restore_work() change to patch 2
->
-> Changes in v3:
-> - new
-> ---
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> index 253365a..14f2273 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-> @@ -202,7 +202,17 @@ svm_migrate_copy_done(struct amdgpu_device *adev, struct dma_fence *mfence)
->   	int r = 0;
->   
->   	if (mfence) {
-> -		r = dma_fence_wait(mfence, false);
-> +		/* Bound the wait: on a dying device the fence may never
-> +		 * signal.
-> +		 */
-> +		long ret;
-> +
-> +		ret = dma_fence_wait_timeout(mfence, false,
-> +				AMDGPU_FENCE_JIFFIES_TIMEOUT);
-> +		if (!ret)
-> +			r = -ETIMEDOUT;
-> +		else if (ret < 0)
-> +			r = ret;
+> - patch 3: dropped the drm_dev_is_unplugged() and
+>    pci_dev_is_disconnected() checks entirely; drm_dev_enter()/exit()
+>    plus the bounded fence wait is sufficient (Felix Kuehling)
 
-You're adding more failure cases here.  But the callers of this function 
-currently don't check for errors. We'll need to fix that. If the copy 
-times out or fails otherwise, we should not pretend that the migration 
-succeeded. It doesn't matter in the GPU-unplug and process termination 
-case you're working on, but it could result in silent data corruption in 
-other cases where we hit a timeout maybe because the DMA engine just 
-takes too long for some reason.
-
-We'll need to put all the migration pages and clear the migrate->dst 
-array before calling migrate_vma_finalize.
-
-Also pass the error code back to the caller.
+Thanks. Patches 1 and 2 look good now. I found one more problem with the 
+handling of the new timeout error conditions in patch 3 that will need 
+to be addressed before this can be submitted.
 
 Regards,
    Felix
 
 
->   		dma_fence_put(mfence);
->   		pr_debug("sdma copy memory fence done\n");
->   	}
-> @@ -494,6 +504,7 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
->   	u64 ttm_res_offset;
->   	struct kfd_node *node;
->   	unsigned long mpages = 0;
-> +	int idx;
->   	long r = 0;
->   
->   	if (start_mgr < prange->start || last_mgr > prange->last) {
-> @@ -507,6 +518,9 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
->   		pr_debug("failed to get kfd node by id 0x%x\n", best_loc);
->   		return -ENODEV;
->   	}
-> +	/* Block unplug while the migration submits jobs and waits on them */
-> +	if (!drm_dev_enter(adev_to_drm(node->adev), &idx))
-> +		return -ENODEV;
->   
->   	pr_debug("svms 0x%p [0x%lx 0x%lx] in [0x%lx 0x%lx] to gpu 0x%x\n",
->   		prange->svms, start_mgr, last_mgr, prange->start, prange->last,
-> @@ -521,6 +535,7 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
->   					node->xcp ? node->xcp->id : 0);
->   	if (r) {
->   		dev_dbg(node->adev->dev, "failed to reserve VRAM, r: %ld\n", r);
-> +		drm_dev_exit(idx);
->   		return -ENOSPC;
->   	}
->   
-> @@ -565,6 +580,7 @@ out:
->   					prange->npages * PAGE_SIZE,
->   					KFD_IOC_ALLOC_MEM_FLAGS_VRAM,
->   					node->xcp ? node->xcp->id : 0);
-> +	drm_dev_exit(idx);
->   	return r < 0 ? r : 0;
->   }
->   
-> @@ -821,6 +837,7 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm,
->   	unsigned long start;
->   	unsigned long end;
->   	unsigned long mpages = 0;
-> +	int idx;
->   	long r = 0;
->   
->   	/* this pragne has no any vram page to migrate to sys ram */
-> @@ -841,6 +858,9 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm,
->   		pr_debug("failed to get kfd node by id 0x%x\n", prange->actual_loc);
->   		return -ENODEV;
->   	}
-> +	/* Block unplug while the migration submits jobs and waits on them */
-> +	if (!drm_dev_enter(adev_to_drm(node->adev), &idx))
-> +		return -ENODEV;
->   	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx] from gpu 0x%x to ram\n",
->   		 prange->svms, prange, start_mgr, last_mgr,
->   		 prange->actual_loc);
-> @@ -885,6 +905,7 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm,
->   		}
->   	}
->   
-> +	drm_dev_exit(idx);
->   	return r < 0 ? r : 0;
->   }
->   
+>
+> Changes in v4:
+> - patch 3: AMDGPU_FENCE_JIFFIES_TIMEOUT instead of an open-coded 10s;
+>    drm_dev_enter()/exit() guarding the whole migration section
+>    including the bounded wait (Felix Kuehling)
+> - patch 2: folded in the svm_range_restore_work() -ENODEV change;
+>    fixed a latent uninitialized ret read on the evicted_bos-mismatch
+>    and confirm_valid-WARN paths
+>
+> Changes in v3:
+> - patch 1: NULL guard for the second teardown call (Christian König)
+> - patch 3: new, fail fast on gone device in SVM migration paths
+>
+> Changes in v2:
+> - patch 1: drain before fini_sw instead of bounding the wait
+>    (Christian König)
+> - patch 2: new, stop restore retries on unplug
+>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Felix Kuehling <felix.kuehling@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+>
+> Olivier Kaloudoff (3):
+>    drm/amdkfd: tear down KFD processes before early fini_sw on disconnect
+>    drm/amdkfd: stop restore retries on device unplug
+>    drm/amdkfd: bound SVM migration fence wait and guard with drm_dev_enter
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |  5 ++-
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c      | 29 +++++++++++++----
+>   drivers/gpu/drm/amd/amdkfd/kfd_device.c           |  9 ++++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c          | 36 ++++++++++++++++++--
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c              |  2 +-
+>   5 files changed, 70 insertions(+), 11 deletions(-)
+>
