@@ -4,125 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B27FCA6016
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 21:44:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E622ECA6015
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 21:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6AC410EA24;
-	Thu,  8 Oct 2026 21:44:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68D1310E959;
+	Thu,  8 Oct 2026 21:59:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Sm1HQYh+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0nNsphDl";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010040.outbound.protection.outlook.com [52.101.46.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 413CF10EA24
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 21:44:43 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013046.outbound.protection.outlook.com
+ [40.93.201.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B74810E959
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 21:59:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fO9dmO5uAuE689UtxNhUerAagTKBYCOuKdskAH5xZ2oUZo3YSW1GW+kVTwoHrpSNyG1PNj+Fmo6SmpgR+iHOUWa1Y9yXKgh957rDhu+YLRtgeoOn1gNnI3YYJDpLFAFIzfWHegEioM/YUoqS0bNf4ODDwbbqV0jNVMdfZD4/ej4EUap3j6oL2ULUiqVXuakP2IWqn1vSdHJ2ablqdMbA5RAA1PH84y1Oouhc+2wpAQNLqg2XfckRm3C1DRodc5l+Z4SctFgb/32FoM6/ocSCASCROT+PNWUP7puYRMdIH8QblAIIqwPBGSvQFCfTRGrpE8OcfeZQ4pkhb0dwmj4VHw==
+ b=dIOMCayxPHNQKQaakj+CasqVFhSnNM7zrTR6nhfjxLhAt11E94vihM17So3tEp3Q6M1PN1hKj4fXaxqbJ50qQQi0Cg1oluy20QTNmcohkTggiZA2p3ElQj3CU88wJsyBtnT07OtjNY6Z0aXhiPtIMaEqiaWbqgtG2HnnGPnlNyNuku22OPCZoe5zgDWavHAkf4xyZS8cbdWbB3SgmAfizu3dmGHnxii+ZMEvhMuQQI9rJOUpQiMSuqJ+IS12x3JXzHYRMVEt29vaMEltc4a5BaRaA40w0pgBmQKfyVc0Oo+wx5arHeNs6swhwRuNhQIT7hJcBP1NFY2Q/rXjR8JH0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mBZnROwB2YreTLUieDKONgA0oJE8bmKKF4BbLEIQwOo=;
- b=t3sC9ct0AxKjusfrleWA3nWZfNiWEKu+uShCtRt45kQ0ffVqW9Mw2DeA5Jk5+DdnPd2PoI+WODmPqJX2vVLqgc9f64hLKd76CWeFUQbYmd4xmlYn38lI3Tdc8TxBqqqguqGPyKuXuWJEoicxPceemds9yfbP5KmuSKzAuVlxcyvp5uwQqFMd90EdhAVWiEy8VN2kYAOh92xjdm+4nWQj6CtdAQC3W4JWbUXt2tzwpBK2Oa0EFcO110malA/Y5GVjR/9j5ULQnpqS2snQgG9x2rf1ybAbc/8NnRhcVDE7DYPfCUhI5RXavxbdDBaKB0XdVwld07hHNS/5wyR0N9ChCg==
+ bh=uzwRO3C5JC2AiNiJGVevbBmcfjexFn3tTzExSMBPpWM=;
+ b=RoP5sDugU26T5EafxRL/F6q8WCWl/GMCleBhYuKYYvelkJ8XVq661CpJUkKt+330kqi4d4WiiyoFhWOA9OLNqRoOtre/1729h9lTxGJhGRukx8jJz4zK9cjZsPy6Y1LtvAWdxE9p0RCHVTsV5AzkKpjjExcw3dpXtMpismkDfw8OtNz/xwdGF50iIquGoTCJ9vVdE+2HxJEGHBatAq11UBqoxFzloBSQSURW6V3NMTJpkDwWKpy4d3w2YjetTmhsBAnvGEsrYvl9ebJgfRH0vYFqZxdNbVgRKvLVf+XEp9/tpmGihezG9bbOY41LdUeEpQIFScyok+94D9/0GPB/kg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mBZnROwB2YreTLUieDKONgA0oJE8bmKKF4BbLEIQwOo=;
- b=Sm1HQYh+OPZuwzGRRvT3TQPKn7hPhgYwS5sh0NgfsI7zheHZA48Bcve+RGP6AO8T9QrLyMY1cXWWXFnRLs6EoiSe0eg5SHcin4mMuxHSAcfJnFhiSCyICsqSYQ8Ibq0xROEtJuee2gasG4G/rqz06uFgh6UTf39jFzuF3CqwxvU=
+ bh=uzwRO3C5JC2AiNiJGVevbBmcfjexFn3tTzExSMBPpWM=;
+ b=0nNsphDl3izfn/M2ocVVB0gxQ00IGQgYtBAoI1K+1bRzWblug6JomEh6jKvlAwpeBrQnHy1ZCg8bJowUwAHzK0zNZOFBUuV2WpMQ2ukAMBr8fhAvg4Jnro5n+cfFc3g9UKI2fAnT2z19rQEhqaD8McTBDzwK79N0kzkAXdGdYhU=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by PH8PR12MB6795.namprd12.prod.outlook.com
- (2603:10b6:510:1c6::14) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:40f:fc02::607) by CY1PR12MB9603.namprd12.prod.outlook.com
+ (2603:10b6:930:108::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 21:44:37 +0000
+ 2026 21:59:21 +0000
 Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 21:44:37 +0000
-Message-ID: <5a6fd15e-4600-42c4-9b27-d066ad9ac6f0@amd.com>
-Date: Thu, 8 Oct 2026 17:44:32 -0400
+ 21:59:18 +0000
+Message-ID: <cda6720c-0957-4345-9cbf-e78deaa2cc8a@amd.com>
+Date: Thu, 8 Oct 2026 17:59:12 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/3] drm/amdkfd: fix wedged teardown on surprise removal
-To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Xiaogang Chen <xiaogang.chen@amd.com>,
- Olivier Kaloudoff <kaloudoff@icloud.com>
-References: <20261008173350.40455-1-olivier.kaloudoff@gmail.com>
+Subject: Re: [PATCH v2] drm/amdkfd: fix lost wakeup in interrupt drain on
+ debugged process exit
+To: Heng Zhou <Heng.Zhou@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Lijo.Lazar@amd.com, Christian.Koenig@amd.com, Emily.Deng@amd.com,
+ Victor.Zhao@amd.com, phasta@kernel.org, Qing.Ma@amd.com,
+ HaiJun.Chang@amd.com, Jonathan.Kim@amd.com
+References: <e546c00d-6686-4f33-9e17-fee0cf25eaed@amd.com>
+ <20261008140605.944513-1-Heng.Zhou@amd.com>
 Content-Language: en-US
 From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20261008173350.40455-1-olivier.kaloudoff@gmail.com>
+In-Reply-To: <20261008140605.944513-1-Heng.Zhou@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0109.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:83::15) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT4PR01CA0488.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10c::18) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|PH8PR12MB6795:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4895e51-c551-43dc-4b5c-08df258559ce
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|CY1PR12MB9603:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1358a61c-3a75-44ee-e6de-08df258766a7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|3023799007|6133799003|22082099003|18002099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: Mk/gH0t6VD7bBYs3gbsRDZWSglmc197CfaQ3j/Q/NDFtCPxB7hTLELgBkBOr7Ez02tjX7t5B4HQItjnHlzH8TMwAd48Agf1sRdOVTxlszbKLl04Sh/E8i01FqaZK8rKX07INiKz2m7LN/AUuUILMthlrKueyfzyiUmsYiIveMM649ZlSdab7BT6fap503pE/fP2N+7roQbEY5Fa/XypLd3GZyM8bkyu54gizpt7ciP08IRG3Nvi0f5j6OHbilKdHsMdDTqTZZE16ckN02CSmPbjk15wXKKLb/iGN53yXmOIe3VhYVcFlbX76PsuQN1NNQjaQ41Ra566GuuHtYEzz1ZvN0SdZwAdyz4mIMl4wcmJpB5MykZa8rZsOvBpGP1of/vdva8pJHLFP5oaels+63vEVa8iEEsd0oh0lUPW2Ke7hBkenqZYK+nTcZSz4Jm1xZmYDTLKZhUvBplA+tojebpbH3ZIrVUMxCUS0qp6GTIo1IE0/M0F1cFX/Cwu/mSJFsL4KYyEdUl6h2Tu8x+BhhCkDbdTCLLT6itfjayw2IYoQCk8Ttg+w5NhaMcSA6CdPF9ke9qid5aQzPP7IciIPEhhelLphkuaRqJfZEC4ft2SC6SjSCY23pQyb1wFj+KLUXAxqLsnZI0YB4HV8atx+8oSY2ShcKM21oSl5FRjWgFA=
+ ARA:13230040|366016|23010399003|376014|1800799024|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: E6IZD/FwORTpfs6CwXnDQkvnr/XHMLt8AULQAO/yik8ceWmDnl7J0FnjeCnEfIr40I9iqpCW3Lkij9OIDZglI9vT5Og83QX2OF2gUCQS/H1p7kkqlsF+8WOIz6F/x6DchjUnKvcCeLwBGUrP9Fbd8Tl5FAxaqQA7QrI7SJra5+V9QX14l2/BvhYpyhkk3cU3RhPpn/IoXIGYK15HlNpACCe6Lwy/FRRy9HNlWC0JNCw4tT5GspTQPTC8etCcvr8XWiu5s3yTX9X/OFxd9531dhdWVJhKzzZoktW6bLAksqjk5oZ/fYBtADgPI/OqOIWg768K4mqCRXNStOqFveB6zLG5cb9/GziZUKhxics1CDT9eF8XgEWuTZNoJhjLM+CzLePDOglaBk7rsJS7vVp7I/k+putEzA4XscV955TbNo0RvgGK34rPJOA19WETbk0f/JUH1SwTBiAKtI/rQ8vW9N+FGUhHM3JUqQ8vvP4BXNWA94jyoAcPNM5ZSsUSYvyH3ynclafNaugEhMukovHH+yXNjWYxeCWNFoZnWU1Xzjr9wopFNj/9OCqV5RwfjZPiHBa1Iqvybe7gzPUE/xtuYyz3tPc/4xKVq2i0q2bTpEFk37MHrO9h2ubqjqqqU7iUmoQa9wE1jEXubiVyoEGm69b8KJ8BeuxY1sqB5tO6/LA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(3023799007)(6133799003)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006);
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFp5N29zbFRnMWE5dlcwbXN0M3pQTXhybTNNaDlCREt5Y1BwdTF4RS9UbExt?=
- =?utf-8?B?STVGMWp3b3Z0MkxFWjZCN0FsaUtuVnkzUHJhTUg3OVVDek1uTXo3NGZ2ajRh?=
- =?utf-8?B?SEx3U09oeTVmTmtlUDgyZGk3RGNwVUtzNUd0WXI0TENvWlVHVyt2RzNrTDFy?=
- =?utf-8?B?NzJ2SXdlZlAybHhEQWxxWTRqd0hCR1hQRHpNdEV3Zmo4UVV5TEZpbHR0YU1h?=
- =?utf-8?B?SXN6SDdPV2kvVnNXL05qVVVpZkdoam42Q0tCblI2WHRXSVhjdUo2aG1qaXM5?=
- =?utf-8?B?OHd1aGpSeHN2ekp2K1ZDWUZmUkM2NlZGbDgrZmt5MjZ6UHB5SGZNcEN1U0Qx?=
- =?utf-8?B?dXpyamp3UThaYUwvN0F1VDAyaE5VM2taNFlwUHViU0t3dkFTWlJqTExKL1F2?=
- =?utf-8?B?TTZXL3NJM280REQyZWFlVjNtU25EdXpMSms5MnVmODBTellFRHZFWFdQcHhi?=
- =?utf-8?B?bmxvUVR4SUNtbUVMQmJ1QTV4aXB6Y0xPV2E1OFpUbmtEdjNreHo0VWlwRWs2?=
- =?utf-8?B?Yk9qSDRhRG9naENKTXI1QUhCeFRMRHdLMDR6R01OdVVjRnNCOGZiWjNTSFVj?=
- =?utf-8?B?cm9kNDJqSE95Z0t1T2xFKy9Hb1FZZFdReDBTZ2hYWi9jRHYwR2NiS3pyaTND?=
- =?utf-8?B?MUhUVmFtcHczcU90R3N2d0s0b3pacVM0c2VaYzN5MnFzeDdtcjRGekZXVHh4?=
- =?utf-8?B?R3dTSzZuZzB4aGNkOFkxaVFKbTBCM2VtUHpqcXlEQjQrNk10S2tPSFdMK1oz?=
- =?utf-8?B?OGZVL0lWaHpjdFhJTnE2V2phaHR4eXZVakFDSW5Vd2k5MXZaN0QralNrQ2tz?=
- =?utf-8?B?UWdLY1RiTHNGOVFpMURoNDVDa2lxR2IxZGo2aVBDVWcyV2RUOVQ2clRzNVB3?=
- =?utf-8?B?djRLTHR6dGtGRXNPSW5aZEh3RU5CUS9mcnN2dC9qWUszRlh1RzAvVTVhT251?=
- =?utf-8?B?dUdhR3RhWElGVEVkenBkV2JrUnFxTEJpMmJ6QzFxOEszRUZZQTdJM282YkxM?=
- =?utf-8?B?RjdyR0hIdjNXcnVFWm1ZZlhKblNWOHBvMnJUZklHQXpBU3lZMCszR0UrUDlq?=
- =?utf-8?B?L3RkMnhmYytzVTdSTXBObE5PdU5NWkVDQTlFSVpTL0UzN0tXRUJDb2l3RGs4?=
- =?utf-8?B?RWVzVUxlWEFiMUJpZyt3eEI1cm0yUENaWDliUHBlQ2Y4S1Z6c0J1dU1LWjgw?=
- =?utf-8?B?VFlFRFk0WU9CTE1tS0NPWit2UXNCcXhqT2ExbmJGMXUxYkpIdlNVOGhodlB1?=
- =?utf-8?B?bEhEU1ZGclpCL1FSWnV2dXdIcDNLaU90QjlUb2dYbG1XYXBacHM3ZDVqeXR1?=
- =?utf-8?B?MkkwWHpRdUpMU2YzYUNkeC9WdUI3ampsOUV1VjBZRHI4T25OM0JPeU10ZEVu?=
- =?utf-8?B?UHM0VjJzYjFqbkNHcG1acXRRa2xZamN2NXZENmI4QnFtaVpQQm55bUJJZVJn?=
- =?utf-8?B?aXVBM2t3aGc2S01GMFgxQkVnUm12STJjcENMM3lHUzgvQTBzY2lEalhqWCtU?=
- =?utf-8?B?NFNpSFU4MC9MdWdJQXdtZHZOb1QxeStNMjZzOStvL3lBYlh1ampVZ1Awdjlx?=
- =?utf-8?B?cWpaOFFKQzR6RUdwMG9hcjhZeEVXTHc0a3o0N2FsUGZIUTZOVFIvOVF6OUF6?=
- =?utf-8?B?V2tmMW81bUxYankrZ000ZXBXUTdLcTd3YUkzRnJUb0FPbzFySjk5UXMrMTdx?=
- =?utf-8?B?YWF5bnE2UytlVW96VU5BNlFJQURreFZTU0V6aTA4T2xUcWZodkoyUVpOa0Yr?=
- =?utf-8?B?ZkZ0WmVxdC9aemlJK3lzSnVjeFJzN0hSWFk5am0vTC9FU3Q3ZHIwUlJDZU8w?=
- =?utf-8?B?NzljOGVoS1dFVjZYdmpZcHZBUmJKUWlkcGdJek9WQlIyaHFtcWR3QitFVzQw?=
- =?utf-8?B?K2dnOUVDUUxWZ0lBMmpJSGJCd3RMNkpEZ1JnL29Ta0hScjlkR2xDQlI2ZWM0?=
- =?utf-8?B?WjAxemlEN2RiWHBQOW9aRDNnS2tYaUU2dk1KZEs3WGdKODl3WDcwSkNnOVAz?=
- =?utf-8?B?anpFRWVrSjZPNnlhb1dkVUhYVTZDNVJRcGFCaWRQU0NURjFNeXRnbmFKcEg3?=
- =?utf-8?B?bFBKN2kxK25EZXMzQUJJMDR4cUlTSCtNdndleURDM1NCQ3JkSnhHTlRUSG95?=
- =?utf-8?B?eGdQWVVOcGpPUmxJUk5QL1FxZW9XVnhZdmM2YktEaGRxV2t1VWk0UERGYTE2?=
- =?utf-8?B?YkJYbTlZbUNhbUtROEgyOTVqcnBudDhVckxxOTFYT3lpZzN2NHcxUXMrcWE5?=
- =?utf-8?B?c01BakZHclpiYmRhU250bGhwbFdJdzVxRmFmSVZNQm9HT3JQRnJSSXV2czRY?=
- =?utf-8?Q?PVG8Ipun0NH5ypv7nz?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWV2ZkZrWGMvZzhpL0g2RkFHMUo5cUkzRkZZZUY4c0lsemE4U0RXejhNU21I?=
+ =?utf-8?B?eDg3Uzd4cmZ2eDZScWJsaFdXbmI4cytxSlJ4ZmdTdC9LbjVmSjhTNWgyOE1N?=
+ =?utf-8?B?cU1JUUY5SHc1Y0lNRXAwZTdtSUMwd25Yb054a1gzWGxLV1FienU4bGZDbE1z?=
+ =?utf-8?B?SFQ0YmkxK01Fa211MElXc2hvTExBVnRlbytSNjBFMzFXY21Jd3I5ajU5d0hJ?=
+ =?utf-8?B?eEdRSmJZVk9ONWxROEVPeEVkMERabXJaMmpnU1EvT3hGNGFrVWVkajZ6M1p6?=
+ =?utf-8?B?WDFJT21hS056RzNTUyswaUVxcjYwRFIreTFscithUkpnZFZibjIzNGlQUzZB?=
+ =?utf-8?B?VFErKzRodWhpcVFqUEVYa3cxWTlyUzk1OFRiclpnV1lCWmZUSmtCMEQ4RnJa?=
+ =?utf-8?B?OFRrc0V5Wi9JMWdTdkZ4V1FMNklJRHZvTE1saWZ4TkRoN3gyV0RDTUZyRllO?=
+ =?utf-8?B?d0o4OGJMLy9rekJCaEZuVHV5azlaOFZ5RTE4TklWNlc5RzIxZ2lKRXNKYkJl?=
+ =?utf-8?B?eGhSTWVUVmRBdU1UUmwwT1BQRXhlN2VkOWFtN0NNd1hDald5WVJUY1VCNkxu?=
+ =?utf-8?B?ZnV2Q3RMVjlTTGRlbmsyZG9KVStHZURlY3NqUzVqTkR6aFRHS2YxdTNaTVkv?=
+ =?utf-8?B?azlqaUNwNXUwZDZBczBzcUlva20zMFYxS3BPMmVoZXpVdTRNMVZjcGlZSUM3?=
+ =?utf-8?B?dEZnNmYyL0lITm5EbUhQTGR0UWtNYmdHRlduRldERUpGd3FoVm1xeDd1dkdt?=
+ =?utf-8?B?clh2d1E3eU40SzZmOHFnWnkxcXh0dTc2Ylg2bnBOTmpJSUtDNlV6ZUJiaHh6?=
+ =?utf-8?B?R1lOcndIRnZzaXRieTlPZkdWdE1WeUJXaS9XQmdEUDlRazQ1Y0xOdGdqaWZ2?=
+ =?utf-8?B?Y1BMNWhLSlk5WHNLRWJxMm5sdHBxSmZ0S3AvNjFHcjZrSktyRmo5OTRRVnU5?=
+ =?utf-8?B?WlI5OEtPV0J6Y0RxQTJFMWdHUGFJcHdyZ2g5UmFmQTVHb1JEVlRjZWU5WGNE?=
+ =?utf-8?B?bStCaW5LdkdGcndXc3FwTUFUVVN4eHFsNkRNQ0E0TEtzbElLOVVocVo4NjYv?=
+ =?utf-8?B?eUpZRldsMGQ2SHd3QnJvOWZ0NkJiLzhuQTNmcUdHRyttTHV5M1U2VGgrcklV?=
+ =?utf-8?B?YUdGRXZTbm80RTF6Sk0waGpOV2cxL3RwUkNXZTJQRFJNTVlITWVoZGRvbXM2?=
+ =?utf-8?B?TGRQNDFjazhEZ3RTanNFU1lNMzZEVFhBQUhwbFN6OFJ2bm5SZ2l0UnVNak1Z?=
+ =?utf-8?B?aEJJbHc1WXQyR3RGNFo3Y0xMYjdwVjlNSXRqTE1ORWp0ZU45WFpUbUhpOGkz?=
+ =?utf-8?B?Rzd5emhuZG10YUxBc1RoV1poekFpOVdGVjc0NGVvOXZaajJzKytxNjN4S0VQ?=
+ =?utf-8?B?dGx5a01rdElUV2hpcWVGZHhZT1BmKzFuOEhtdk05VUVrOGhwRXJlQ21NQk1i?=
+ =?utf-8?B?NVVVanpuV1BUcS9nZnVOQTFjaytmbFdjUDl5enhBLzhONm1YUmp2S2toY0Mz?=
+ =?utf-8?B?cTJndjV5UXl1QmRjd0VtS3lLcTFEUlJhYVN5b1VCaXpMT01TWjZkQ0tHZXlU?=
+ =?utf-8?B?MGFoOEF4KzNnV2J5RVpHdnIwdDlZUUdIQzhKOTV6WGVxQnNPOVVycHlybzRP?=
+ =?utf-8?B?V2JpUkZvOFM3U0dCNWMvNXVmTE4wNjc2SWxQQzYwY2l6YUplancxYTNlWHd3?=
+ =?utf-8?B?UnhNUDFtdzJEOUFBenhDanRqSmhoSUFmZUluUEtIQ0NncDRoNS9kNGp3b3ZB?=
+ =?utf-8?B?aW9vMm42aHFjdGtUZFRMTlVkMi9CWGhLTVpXNllOZjBvcG9DNzY0bWpFR2Jn?=
+ =?utf-8?B?aWRyM2ZSdElXaE1PMzFxRXRPZ2JtYXVybGJtalBSeGtTTEFMaFkydDJWd1NF?=
+ =?utf-8?B?OHE0VlBTQ2I3cEw0eUlKWnROdUEyeGhqNEJzZ0hnWkhNOTFBM0FQOEdrVVRL?=
+ =?utf-8?B?cEZXeGJISzZPR1JUSGwyYlhXL29MNmkwU2VyY0FLbmVQNmlwN0VmUzF6YTBR?=
+ =?utf-8?B?bENCUzk4dHE4VytmWjltRHhsK1NsNXNlYTZmalRxaWJKa2tqNkVHbTNRS0Ns?=
+ =?utf-8?B?VllxVWp1aE5TeHp3dDlzczU0UmNEc0x0YWo2NGR2Q1cxREZLQXJENGVqa2pK?=
+ =?utf-8?B?UVc5eWovK2tLR1JJdDRBVzRoT3k3eGZ3RzhQVGx4bXRsaHJIT3U5cmtveTFV?=
+ =?utf-8?B?d1cxSHpFWk5tUitCT2k2S25lWEh5QXZBaHY4eG9uOFBhTGl1WlJyT0VITGhr?=
+ =?utf-8?B?NkdBZjlLQkN5czI5TFVOa1pObis4VnFpekNzd2dSTEp6b05lSGdRVm1Fc0pn?=
+ =?utf-8?Q?5fMcdB6FdySZX+AO0v?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4895e51-c551-43dc-4b5c-08df258559ce
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1358a61c-3a75-44ee-e6de-08df258766a7
 X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 21:44:37.8327 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 21:59:18.4415 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CHh86Uvl55dGJDHW92MN69n1MQ+1Eo7l90SC7/s6V0p4gc2ILrDW5QO6KaDLRtKQOsS8oz1NGL7t+73xHk1i2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6795
+X-MS-Exchange-CrossTenant-UserPrincipalName: GD4IP/W6QWp0AE/vzrhrm0Gz/b3hEoAkZNrYlEctz2W+PgrJ2oAJpSVhjdoDmp1/3NbTHEcitqaa3ZVHRDjdfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9603
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,90 +138,376 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-10-08 13:33, Olivier Kaloudoff wrote:
-> On surprise removal of a GPU behind Thunderbolt (MI50, PCIe slot
-> power cut), the KFD teardown path wedges the host:
+On 2026-10-08 10:06, Heng Zhou wrote:
+> When a debugged process exits, kfd_process_notifier_release_internal()
+> first removes it from kfd_processes_table and then calls
+> kfd_dbg_trap_disable(), which drains the process interrupts. The drain
+> sends a fence through the IH and waits, without a timeout, for
+> kfd_process_close_interrupt_drain() to wake it up. That wakeup looks
+> the process up by PASID in kfd_processes_table, which no longer holds
+> it, so the wakeup is lost and the exiting task sleeps forever. The
+> fatal signal has already been consumed in do_exit(), so the
+> interruptible wait cannot be broken either.
 >
-> - the killed KFD process faults on its own SVM ranges during exit /
->    coredump (SIGBUS -> get_dump_page -> do_swap_page ->
->    svm_migrate_to_ram), submits SDMA work to an already-killed
->    drm_sched entity, and waits uninterruptibly on a fence that can
->    never signal;
-> - the dying task holds svms->lock, which wedges
->    svm_range_restore_work() and prevents kfd_processes_count from
->    draining;
-> - kgd2kfd_teardown_processes() therefore spins forever in
->    cond_resched() while holding the pciehp removal thread, producing
->    soft-lockup and hung-task splats.
+> The wait happens inside the mmu_notifier release callback, i.e. within
+> the global mmu_notifier SRCU read-side critical section, so every
+> synchronize_srcu() on it stalls as well. Any other process releasing
+> its mm then hangs in D state and the system needs a reboot. This is
+> seen with rocgdb on MI300X.
 >
-> This series:
+> Fix this by:
 >
-> 1. tears KFD processes down in amdgpu_device_fini_hw() *before*
->     amdgpu_amdkfd_device_fini_sw() frees kfd.dev on disconnect, so the
->     drain happens while kfd.dev is still valid, and guards the second
->     kgd2kfd_teardown_processes() call against kfd.dev already being
->     gone;
+> - Waiting on a completion in struct amdgpu_fpriv, looked up by PASID
+>    through amdgpu_pasid_xa, instead of looking the process up in
+>    kfd_processes_table. The DRM file owning the PASID is still
+>    referenced by KFD while it drains, so the drain fence always finds
+>    its waiter. The drain logic moves to amdgpu_ids.c and KFD only
+>    passes the PASID.
+> - Bounding the wait with a timeout, since the fence can be lost when
+>    the IH ring or the KFD interrupt FIFO overflows, and warning when the
+>    drain does not complete.
+> - Passing drain_irqs to kfd_dbg_trap_disable() and skipping the drain
+>    when the process itself exits. Its interrupts are no longer delivered
+>    once it is out of kfd_processes_table, and its PASID owner is cleared
+>    before the PASID is freed and later reallocated cyclically.
 >
-> 2. makes the userptr and SVM range restore workers stop rescheduling
->     themselves on -ENODEV;
+> v2: track drains with a completion in amdgpu_fpriv via amdgpu_pasid_xa
+>      and move the drain logic to amdgpu_ids.c; pass drain_irqs to
+>      kfd_dbg_trap_disable() and skip the drain on process exit instead
+>      of deferring it (Felix)
 >
-> 3. guards the hardware-accessing SVM migration sections with
->     drm_dev_enter()/drm_dev_exit() and bounds the job fence wait with
->     AMDGPU_FENCE_JIFFIES_TIMEOUT, so a migration cannot race with
->     unplug and a fence on a dead device cannot stall the critical
->     section or the faulting task indefinitely.
+> Fixes: 12fb1ad70d65 ("drm/amdkfd: update process interrupt handling for debug events")
+> Signed-off-by: Heng Zhou <Heng.Zhou@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  3 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c  | 62 ++++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h  |  3 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  |  2 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.c   | 10 ++--
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.h   |  2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  6 +--
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 46 ++++++------------
+>   9 files changed, 93 insertions(+), 43 deletions(-)
 >
-> Verified on MI50 behind Thunderbolt (2 GB SVM workload, PCIe slot
-> power cut): the workload takes SIGBUS, coredump completes,
-> kfd_processes_count drains in ~7s, pciehp removal finishes without
-> warnings, and the device re-enumerates cleanly on slot re-power.
-> Previously the same repro wedged the host every time.
->
-> Changes in v5:
-> - patch 3: dropped the drm_dev_is_unplugged() and
->    pci_dev_is_disconnected() checks entirely; drm_dev_enter()/exit()
->    plus the bounded fence wait is sufficient (Felix Kuehling)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index ce671731b700..c32d3b0b4153 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -426,6 +426,9 @@ struct amdgpu_fpriv {
+>   
+>   	/** GPU partition selection */
+>   	uint32_t		xcp_id;
+> +
+> +	/** Signaled when a KFD interrupt drain fence for this PASID is seen */
+> +	struct completion	irq_drain_done;
+>   };
+>   
+>   int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> index 5e424e3b6e71..87cc297109a0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -171,6 +171,68 @@ struct amdgpu_fpriv *amdgpu_pasid_get_fpriv_locked(u32 pasid)
+>   	return xa_load(&amdgpu_pasid_xa, pasid);
+>   }
+>   
+> +/**
+> + * amdgpu_pasid_drain_irq - wait for pending KFD interrupts of a PASID
+> + * @adev: amdgpu device the drain fence is sent to
+> + * @pasid: PASID whose interrupts should be drained
+> + * @ih_fence: IH entry injected as the drain fence
+> + * @timeout: maximum time to wait, in jiffies
+> + *
+> + * Injects @ih_fence behind the interrupts already queued for KFD and waits
+> + * until amdgpu_pasid_drain_irq_done() is called for @pasid.
+> + *
+> + * The caller must hold a reference to the DRM file that owns @pasid, so
+> + * that its amdgpu_fpriv stays valid after the PASID lock is dropped.
+> + *
+> + * Returns:
+> + * 0 on success or when no fence could be sent, -ENOENT if @pasid has no
+> + * owner, -ETIMEDOUT on timeout or -ERESTARTSYS if interrupted.
+> + */
+> +int amdgpu_pasid_drain_irq(struct amdgpu_device *adev, u32 pasid,
+> +			   u32 *ih_fence, unsigned long timeout)
+> +{
+> +	struct amdgpu_fpriv *fpriv;
+> +	unsigned long flags;
+> +	long r;
+> +
+> +	amdgpu_pasid_lock(&flags);
+> +	fpriv = amdgpu_pasid_get_fpriv_locked(pasid);
+> +	if (fpriv)
+> +		reinit_completion(&fpriv->irq_drain_done);
+> +	amdgpu_pasid_unlock(flags);
+> +	if (!fpriv)
+> +		return -ENOENT;
+> +
+> +	if (amdgpu_amdkfd_send_close_event_drain_irq(adev, ih_fence))
+> +		return 0;
+> +
+> +	r = wait_for_completion_interruptible_timeout(&fpriv->irq_drain_done,
+> +						      timeout);
+> +	if (!r)
+> +		return -ETIMEDOUT;
+> +
+> +	return r < 0 ? r : 0;
+> +}
+> +
+> +/**
+> + * amdgpu_pasid_drain_irq_done - signal that a KFD interrupt drain completed
+> + * @pasid: PASID carried by the drain fence
+> + *
+> + * Called by KFD when it processes the drain fence injected by
+> + * amdgpu_pasid_drain_irq().
+> + */
+> +void amdgpu_pasid_drain_irq_done(u32 pasid)
+> +{
+> +	struct amdgpu_fpriv *fpriv;
+> +	unsigned long flags;
+> +
+> +	amdgpu_pasid_lock(&flags);
+> +	fpriv = amdgpu_pasid_get_fpriv_locked(pasid);
+> +	if (fpriv)
+> +		complete(&fpriv->irq_drain_done);
+> +	amdgpu_pasid_unlock(flags);
+> +}
+> +
+>   /**
+>    * amdgpu_pasid_free_delayed - free pasid when fences signal
+>    *
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> index 46b2c2160126..2af733d96d60 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> @@ -98,6 +98,9 @@ int amdgpu_pasid_alloc(unsigned int bits, struct amdgpu_fpriv *fpriv);
+>   void amdgpu_pasid_lock(unsigned long *flags);
+>   void amdgpu_pasid_unlock(unsigned long flags);
+>   struct amdgpu_fpriv *amdgpu_pasid_get_fpriv_locked(u32 pasid);
+> +int amdgpu_pasid_drain_irq(struct amdgpu_device *adev, u32 pasid,
+> +			   u32 *ih_fence, unsigned long timeout);
+> +void amdgpu_pasid_drain_irq_done(u32 pasid);
+>   void amdgpu_pasid_free(u32 pasid);
+>   void amdgpu_pasid_free_delayed(struct dma_resv *resv,
+>   			       u32 pasid);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index bac072d73e16..8b080e2e1496 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1507,6 +1507,8 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+>   	if (r)
+>   		goto error_pasid;
+>   
+> +	init_completion(&fpriv->irq_drain_done);
+> +
+>   	pasid = amdgpu_pasid_alloc(16, fpriv);
+>   	if (pasid < 0) {
+>   		dev_warn(adev->dev, "No more PASIDs available!");
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 1d86ddfd6bde..b3ebbee76088 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -3223,7 +3223,7 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
+>   
+>   		break;
+>   	case KFD_IOC_DBG_TRAP_DISABLE:
+> -		r = kfd_dbg_trap_disable(target);
+> +		r = kfd_dbg_trap_disable(target, true);
+>   		break;
+>   	case KFD_IOC_DBG_TRAP_SEND_RUNTIME_EVENT:
+>   		r = kfd_dbg_send_exception_to_runtime(target,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> index 0dd1fd448059..8bed0d0f9bd2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> @@ -655,7 +655,8 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
+>   	kfd_dbg_set_workaround(target, false);
+>   }
+>   
+> -static void kfd_dbg_clean_exception_status(struct kfd_process *target)
+> +static void kfd_dbg_clean_exception_status(struct kfd_process *target,
+> +					   bool drain_irqs)
+>   {
+>   	struct process_queue_manager *pqm;
+>   	struct process_queue_node *pqn;
+> @@ -664,7 +665,8 @@ static void kfd_dbg_clean_exception_status(struct kfd_process *target)
+>   	for (i = 0; i < target->n_pdds; i++) {
+>   		struct kfd_process_device *pdd = target->pdds[i];
+>   
+> -		kfd_process_drain_interrupts(pdd);
+> +		if (drain_irqs)
+> +			kfd_process_drain_interrupts(pdd);
+>   
+>   		pdd->exception_status = 0;
+>   	}
+> @@ -680,7 +682,7 @@ static void kfd_dbg_clean_exception_status(struct kfd_process *target)
+>   	target->exception_status = 0;
+>   }
+>   
+> -int kfd_dbg_trap_disable(struct kfd_process *target)
+> +int kfd_dbg_trap_disable(struct kfd_process *target, bool drain_irqs)
+>   {
+>   	if (!target->debug_trap_enabled)
+>   		return 0;
+> @@ -704,7 +706,7 @@ int kfd_dbg_trap_disable(struct kfd_process *target)
+>   	}
+>   
+>   	target->debug_trap_enabled = false;
+> -	kfd_dbg_clean_exception_status(target);
+> +	kfd_dbg_clean_exception_status(target, drain_irqs);
+>   	kfd_unref_process(target);
+>   
+>   	return 0;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> index fbb751821c69..5babf9b992cd 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> @@ -43,7 +43,7 @@ bool kfd_dbg_ev_raise(uint64_t event_mask,
+>   			unsigned int source_id, bool use_worker,
+>   			void *exception_data,
+>   			size_t exception_data_size);
+> -int kfd_dbg_trap_disable(struct kfd_process *target);
+> +int kfd_dbg_trap_disable(struct kfd_process *target, bool drain_irqs);
+>   int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+>   			void __user *runtime_info,
+>   			uint32_t *runtime_info_size);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 2847a5ec5ede..ef9c698bd5cb 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -1030,10 +1030,6 @@ struct kfd_process {
+>   	uint64_t exception_enable_mask;
+>   	uint64_t exception_status;
+>   
+> -	/* Used to drain stale interrupts */
+> -	wait_queue_head_t wait_irq_drain;
+> -	bool irq_drain_is_open;
+> -
+>   	/* shared virtual memory registered by this process */
+>   	struct svm_range_list svms;
+>   
+> @@ -1245,7 +1241,7 @@ bool enqueue_ih_ring_entry(struct kfd_node *kfd, const void *ih_ring_entry);
+>   bool interrupt_is_wanted(struct kfd_node *dev,
+>   				const uint32_t *ih_ring_entry,
+>   				uint32_t *patched_ihre, bool *flag);
+> -int kfd_process_drain_interrupts(struct kfd_process_device *pdd);
+> +void kfd_process_drain_interrupts(struct kfd_process_device *pdd);
+>   void kfd_process_close_interrupt_drain(unsigned int pasid);
+>   
+>   /* amdkfd Apertures */
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 226f52626e84..c1a01260463e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -55,6 +55,8 @@ DEFINE_MUTEX(kfd_processes_mutex);
+>   
+>   DEFINE_SRCU(kfd_processes_srcu);
+>   
+> +#define KFD_IRQ_DRAIN_TIMEOUT	msecs_to_jiffies(1000)
 
-Thanks. Patches 1 and 2 look good now. I found one more problem with the 
-handling of the new timeout error conditions in patch 3 that will need 
-to be addressed before this can be submitted.
+Could we use AMDGPU_FENCE_JIFFIES_TIMEOUT here instead of inventing a 
+new arbitrary timeout? If interrupts take longer than the fence-timeout 
+to drain, surely fences will timeout, too.
 
-Regards,
+
+> +
+>   /* For process termination handling */
+>   static struct workqueue_struct *kfd_process_wq;
+>   
+> @@ -1019,8 +1021,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+>   		if (ret)
+>   			pr_warn("Failed to create debugfs entry for the kfd_process, ret = %d\n",
+>   				ret);
+> -
+> -		init_waitqueue_head(&process->wait_irq_drain);
+>   	}
+>   out:
+>   	mutex_unlock(&kfd_processes_mutex);
+> @@ -1420,7 +1420,7 @@ void kfd_process_notifier_release_internal(struct kfd_process *p)
+>   	 * back on the MES list and, once proc_ctx_bo is freed, MES would fault
+>   	 * on the freed process context. Retiring the context last avoids this.
+>   	 */
+> -	kfd_dbg_trap_disable(p);
+> +	kfd_dbg_trap_disable(p, false);
+>   
+>   	if (atomic_read(&p->debugged_process_count) > 0) {
+>   		struct kfd_process *target;
+> @@ -1430,7 +1430,7 @@ void kfd_process_notifier_release_internal(struct kfd_process *p)
+>   		hash_for_each_rcu(kfd_processes_table, temp, target, kfd_processes) {
+>   			if (target->debugger_process && target->debugger_process == p) {
+>   				mutex_lock_nested(&target->mutex, 1);
+> -				kfd_dbg_trap_disable(target);
+> +				kfd_dbg_trap_disable(target, true);
+>   				mutex_unlock(&target->mutex);
+>   				if (atomic_read(&p->debugged_process_count) == 0)
+>   					break;
+> @@ -2313,17 +2313,14 @@ int kfd_resume_all_processes(void)
+>   	return ret;
+>   }
+>   
+> -/* assumes caller holds process lock. */
+> -int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
+> +void kfd_process_drain_interrupts(struct kfd_process_device *pdd)
+>   {
+>   	uint32_t irq_drain_fence[8];
+>   	uint8_t node_id = 0;
+> -	int r = 0;
+> -
+> -	if (!KFD_IS_SOC15(pdd->dev))
+> -		return 0;
+> +	int r;
+>   
+> -	pdd->process->irq_drain_is_open = true;
+> +	if (!KFD_IS_SOC15(pdd->dev) || !pdd->drm_priv)
+> +		return;
+>   
+>   	memset(irq_drain_fence, 0, sizeof(irq_drain_fence));
+>   	irq_drain_fence[0] = (KFD_IRQ_FENCE_SOURCEID << 8) |
+> @@ -2342,32 +2339,17 @@ int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
+>   	}
+>   
+>   	/* ensure stale irqs scheduled KFD interrupts and send drain fence. */
+> -	if (amdgpu_amdkfd_send_close_event_drain_irq(pdd->dev->adev,
+> -						     irq_drain_fence)) {
+> -		pdd->process->irq_drain_is_open = false;
+> -		return 0;
+> -	}
+> -
+> -	r = wait_event_interruptible(pdd->process->wait_irq_drain,
+> -				     !READ_ONCE(pdd->process->irq_drain_is_open));
+> +	r = amdgpu_pasid_drain_irq(pdd->dev->adev, pdd->pasid, irq_drain_fence,
+> +				   KFD_IRQ_DRAIN_TIMEOUT);
+>   	if (r)
+> -		pdd->process->irq_drain_is_open = false;
+> -
+> -	return r;
+> +		dev_warn_ratelimited(pdd->dev->adev->dev,
+> +				     "irq drain on pasid 0x%x did not complete (%d)\n",
+> +				     pdd->pasid, r);
+>   }
+>   
+>   void kfd_process_close_interrupt_drain(unsigned int pasid)
+
+Please get rid of this wrapper and call amdgpu_pasid_drain_irq_done 
+directly from the interrupt handlers.
+
+Thanks,
    Felix
 
 
->
-> Changes in v4:
-> - patch 3: AMDGPU_FENCE_JIFFIES_TIMEOUT instead of an open-coded 10s;
->    drm_dev_enter()/exit() guarding the whole migration section
->    including the bounded wait (Felix Kuehling)
-> - patch 2: folded in the svm_range_restore_work() -ENODEV change;
->    fixed a latent uninitialized ret read on the evicted_bos-mismatch
->    and confirm_valid-WARN paths
->
-> Changes in v3:
-> - patch 1: NULL guard for the second teardown call (Christian König)
-> - patch 3: new, fail fast on gone device in SVM migration paths
->
-> Changes in v2:
-> - patch 1: drain before fini_sw instead of bounding the wait
->    (Christian König)
-> - patch 2: new, stop restore retries on unplug
->
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Felix Kuehling <felix.kuehling@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Xiaogang Chen <xiaogang.chen@amd.com>
->
-> Olivier Kaloudoff (3):
->    drm/amdkfd: tear down KFD processes before early fini_sw on disconnect
->    drm/amdkfd: stop restore retries on device unplug
->    drm/amdkfd: bound SVM migration fence wait and guard with drm_dev_enter
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |  5 ++-
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c      | 29 +++++++++++++----
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c           |  9 ++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c          | 36 ++++++++++++++++++--
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c              |  2 +-
->   5 files changed, 70 insertions(+), 11 deletions(-)
->
+>   {
+> -	struct kfd_process *p;
+> -
+> -	p = kfd_lookup_process_by_pasid(pasid, NULL);
+> -
+> -	if (!p)
+> -		return;
+> -
+> -	WRITE_ONCE(p->irq_drain_is_open, false);
+> -	wake_up_all(&p->wait_irq_drain);
+> -	kfd_unref_process(p);
+> +	amdgpu_pasid_drain_irq_done(pasid);
+>   }
+>   
+>   struct send_exception_work_handler_workarea {
