@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1DF1CA6012
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8F94CA600F
 	for <amd-gfx@archiver.kernel.org>; Thu,  8 Oct 2026 07:43:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9939510FCE9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 963C610FCE6;
 	Thu,  8 Oct 2026 07:43:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="WZs6YJtT";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="loAn2ilU";
 	dkim-atps=neutral
-Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com
- [203.205.221.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 252B510FCCC
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 07:31:47 +0000 (UTC)
+X-Greylist: delayed 439 seconds by postgrey-1.36 at gabe;
+ Thu, 08 Oct 2026 07:24:40 UTC
+Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com
+ [203.205.221.233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54E9510FCB5
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Oct 2026 07:24:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1791444705; bh=d0eH5iO0On4vXoUUnrxJ7otqop8z0svHJFJ1BPfCn98=;
+ t=1791444278; bh=R454WeZIZx0fGBpfO5iMULnx8b+XzjR8Ok5RQcB8RTc=;
  h=From:To:Cc:Subject:Date;
- b=WZs6YJtTDT5dJP1e1REyJelKbxgDmRLGlrYMOYy+GEW5JyvoiR8G1+kuyNCtUoW1W
- dxbEQZzxUP7KioVraYRKfGkewKbsZEhG34lgfg89+X/JwasjnfCG5OQLxWJFjCA14h
- JDgnwniPtIVkh+B/HJ36UbL1EFJDHeem/az3Dgsk=
+ b=loAn2ilUNAAW10+EiIdXx2aatyLkqx7xVSxbLz/FzgmT3sehtkvmXkIiQC3fs2jv8
+ SX/rqOKpTocv3r+PkYZduGBt2meUuVUsl2TtFTAUySEf8dE19JBy5z34+cnyVMyAuh
+ lr53M8nFphP5yMGmB9qpXRdcErNzvFwHoajSz/ho=
 Received: from localhost.localdomain ([116.128.244.169])
- by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
- id 7EA3786F; Thu, 08 Oct 2026 15:31:42 +0800
-X-QQ-mid: xmsmtpt1791444702t4uny6kii
-Message-ID: <tencent_B4299278015532212E7D2E624FA23C09C90A@qq.com>
-X-QQ-XMAILINFO: OcN56dxiYj5TIpJ32xOmc8ljJioECF8WSFHTXltBzar1DonW34D2y8zRJp89yw
- lk75+QW4p5/8GemVW4aFPSAfnR581XMSPYsXGkbUqh4/XH45xQYyHKJRf2Q90GsGXym72w4393PC
- 74aR5oa4m46zzYd5U6Lov69V+jBgIug9S7eIFATvkdvtxupb8gf8HjZtvZzmyl8L8Y18AgmEnfik
- xEKM7nkft3s8MtWPgt8wA8+7trRc8ZGC60xtKvg5VTQZfcsUk8Dsk6W76SgKgq4kmOr7ze+r4HMW
- LBvYdaCkhDzHakrd7MWhH8LobYf4T11DP7eUBRuTNHirOpEuzFDggJWCC7rfgToVuEcwbwHCLcAV
- +brFvEzJoSegqCToOegws687uHAQ3YKF3hK7Ijm1Etv+l+WDFKrJORbM0F/g4Is9GMIAbXmmpIZd
- ZMNG1kOlGwL2R6i/gf2aTh+aiDV/sNjnq9JcqBRlltYlnzeCSilol3oE6gJB+vF5tCyoUMn8sOQs
- Xqdj/wvjYcgCmNxqvuAAVOg1FKA3q5NKKWMG/sSGekZa5JofCJZ0N3/seqilL/pPWteM+XT9frX7
- O0QyK0MgoM9cYC1B9sgt2JJk7uX59tiKOv9p9042AixbQeGXr6sTyWYUZHotxQpDG1Fki/1GyjX9
- ISs8WCaXBGSS1LYmdeogm9J+MQT6KySeVvqfnRB3PR1+peH3MOm0exwcNUXXhDQPNL6+FH4ZmhEv
- gjzaI4A1Y8SRHYAG9eatY7t3xAQuqr5+Uot1p91UJEJtSrhg292y1TWqHbVLmtWIHKIGrK8US112
- E28idPx6OoVCnh1qkVlEO23rxJlvCLLJgPu8uUuY8j6OMiRaSmkTuipXyTzjkooBTXEKsblqlBES
- xevj5IduNnExAITuilUv1NkFasKyQuD/8Ag08JGEeRx69ccJNqtYie9dkls1U+im/m+6BEacD6vd
- gUmU31gLzGvtx9g2EIyKfdjxXve0MtPYIEqIwkgAxyZ2WtzKhsFtp7B8AMvopTX2e2oSNEOk2Dlg
- gbruP+mVx0TwWx/226
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+ by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+ id 4428A614; Thu, 08 Oct 2026 15:17:02 +0800
+X-QQ-mid: xmsmtpt1791443822t0oj1sozp
+Message-ID: <tencent_3F4F1469A115C5112FD7CA3CC4A9CF6F6C07@qq.com>
+X-QQ-XMAILINFO: MpYZqmNm/7vMf3GiqJ+kHOJuLpcOSc6M+xpzqjWmbsKM/BqgvyDuGg7xW/GR33
+ 6ZG1JnDHTixk7j3Mj5vxdul1kx37G9WjGBsZAmPBoc0ZPHQB24ZXAnFTGtcvkvXZBud/MHBlmsrW
+ ATVssq3w1p4OaR/XqVRCApPP/k9TIV1oUqEHVo65M363Xe98Jxm3pdyb1+A+DFZ4u8KHuDdOd9Hx
+ 0mQKm+TLyWEwPBbUCdogJHXIVoBGDt8tDz+G69pxsI2P+bnOEdp7Z98uIJM9h3AqT7qEDu7GZ0/X
+ y8eG7sQt2DapiKv0lC0Wux/V3BSX/bmp86fX5SgNBQKjNYrRxJuIuaZ8s7PB22oKR55bc97nmX16
+ 4LEa4UqK/o6dpvkEmGdAU487jKzQ8v5GPE5mov2LPZCT6zKBEPXpcbLK+HQPbVk8GTUqf+kJExFM
+ tmcPj8yKwOa4HcJ06vylrzQDYIjD9LcIhFGQlmzXetC+gi7/T/7k3rgmd7v2qtQFmrQe5mm/ozq3
+ qG+mw2g9J3sZP2HamInRtAdy6XTUfFqDxqHhk/lVSGzjlEY3nQleBqfCZOZmq8WOlPHPXDsEMId8
+ QJ+NlHrwWmSyxYcHxqWPbMMM5otSqox+o1Cj75odHjmbkXJbbPCoW30xtqIRRZKfkAvZQ3yd4vRh
+ BBxEFY2ERAECZYznZOyh7MwXPg7kJ+vvxj6meNoQm+Q/VYtScgLsmrwDxW3aTpv312TN0yQ6K8CV
+ Z6FenOEARhY5fu1wHl/yH30R36Gm3iQPN0x75sUB2aFtZ9MHBnwb/BeTLKNMksdPXg81aHUiimmr
+ 2GxWjDInqQpjI8d28vod9UrvKbC0JPYON+7GZEgksmPgfTMqfP2OqfL9zk4mpVs//USA9QD2K3LP
+ fOeAS9Js7W7og9EpsQDNAt9meRLqcnkyoWo8lOoBTBmGECTcd4TiKMcS/QRYxdM3PHNhRNQP6AW8
+ K22NIwwtJjJUO6KuEhytqA8782xTe4P7bZqRg+cgsxCKZyXuFymFzSxI0jESBd/Mnh39U8PIsQQY
+ d1sD87dAy27rQE++bv
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 From: 2564278112@qq.com
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <siqueira@igalia.com>,
@@ -50,15 +52,14 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  amd-gfx@lists.freedesktop.org
-Cc: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
- Roman Li <Roman.Li@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- Alex Hung <alex.hung@amd.com>, Lu Yao <yaolu@kylinos.cn>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Wang Jiang <jiangwang@kylinos.cn>
-Subject: [PATCH] drm/amd/display: Increase the HDMI HPD disconnect filter time
-Date: Thu,  8 Oct 2026 15:31:40 +0800
-X-OQ-MSGID: <20261008073140.570133-1-2564278112@qq.com>
+Cc: Alex Hung <alex.hung@amd.com>, Mario Limonciello <superm1@kernel.org>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Ray Wu <ray.wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ Lu Yao <yaolu@kylinos.cn>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH] drm/amd/display: Snapshot dm_crtc_state->stream before use
+Date: Thu,  8 Oct 2026 15:16:59 +0800
+X-OQ-MSGID: <20261008071700.552056-1-2564278112@qq.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -79,47 +80,313 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Wang Jiang <jiangwang@kylinos.cn>
 
-The HPD filter programmed for the DVI/HDMI link types uses 100ms for a
-disconnect, which is shorter than the HPD low period that some sinks
-generate while they reconfigure, for example when the video mode changes
-or when the audio infoframe is updated. Such a sink is then reported as
-unplugged and plugged back in, so the connector is torn down and
-re-probed for nothing.
+The suspend/resume path releases the DC streams and clears
+dm_crtc_state->stream (dm_destroy_cached_state()) while an atomic commit
+can still be in flight.  A commit that races with it therefore observes
+the member becoming NULL after it has already been NULL checked, and
+dereferences it again for every plane or stream update.  The fbdev
+damage worker is one such commit: it is queued by the console and runs
+after the workqueues are thawed during resume, which is exactly when the
+display manager is tearing down and rebuilding its cached state.
 
-Raise the disconnect filter to 800ms for the DVI/HDMI link types,
-including HDMI FRL. The delay is written to DC_HPD_TOGGLE_FILT_CNTL in
-10ms units inside an 8-bit field, so 800ms is encoded as 80, and the
-filter runs in hardware, so there is no CPU cost. The connect filter is
-left at 500ms. A genuine unplug keeps HPD low, so the only cost is that
-the event is reported up to 800ms later.
+Observed with the amdgpu DKMS module:
 
-The DP branch above already tunes its filter values empirically to hide
-a bouncing HPD, and link_factory.c notes that a badly programmed GPIO
-makes HPD not "rise or drain fast enough, leading to bounces".
+  BUG: unable to handle page fault for address: 0000000000006490
+  RIP: amdgpu_dm_atomic_commit_tail+0x14c3/0x3cb0 [amdgpu_pro]
+  Workqueue: events drm_fb_helper_damage_work
+  Kernel panic - not syncing: amdgpu-pro 0000:04:00.0: unrecoverable failure
+
+0x6490 is offsetof(struct dc_stream_state, abm_level), i.e. the stream
+pointer read as NULL right before
+
+  acrtc_state->stream->abm_level = acrtc_state->abm_level;
+
+Take a single snapshot of dm_crtc_state->stream in
+amdgpu_dm_commit_planes() and amdgpu_dm_enable_self_refresh(), check it
+before use, and use the same snapshot for the connector stream update in
+amdgpu_dm_atomic_commit_tail(), skipping the update when no stream is
+attached.
 
 Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
 ---
- drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 112 ++++++++++++------
+ 1 file changed, 73 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
-index cfb5ef0523a7..2b38ddaaaa4b 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hpd.c
-@@ -82,8 +82,12 @@ bool program_hpd_filter(const struct dc_link *link)
- 	case SIGNAL_TYPE_HDMI_TYPE_A:
- 	case SIGNAL_TYPE_HDMI_FRL:
- 		/* Program hpd filter */
-+		/* Some HDMI/DVI sinks drive HPD low for a few hundred ms while
-+		 * they reconfigure; 100ms is not enough to hide that bounce,
-+		 * which is then reported as a fake unplug/plug pair.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 91fdf3de7202..c4c8904fea42 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3696,10 +3696,21 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
+ 					  const struct dm_crtc_state *acrtc_state,
+ 					  const u64 current_ts)
+ {
+-	struct psr_settings *psr = &acrtc_state->stream->link->psr_settings;
+-	struct replay_settings *pr = &acrtc_state->stream->link->replay_settings;
+-	struct amdgpu_dm_connector *aconn =
+-		(struct amdgpu_dm_connector *)acrtc_state->stream->dm_stream_context;
++	struct dc_stream_state *stream = acrtc_state->stream;
++	struct psr_settings *psr;
++	struct replay_settings *pr;
++	struct amdgpu_dm_connector *aconn;
++
++	/*
++	 * The stream can be cleared concurrently by the system suspend/resume
++	 * path, so make sure the snapshot we are about to dereference is valid.
++	 */
++	if (!stream || !stream->link)
++		return;
++
++	psr = &stream->link->psr_settings;
++	pr = &stream->link->replay_settings;
++	aconn = (struct amdgpu_dm_connector *)stream->dm_stream_context;
+ 
+ 	/* Decrement skip count when SR is enabled and we're doing fast updates. */
+ 	if (acrtc_state->update_type == UPDATE_TYPE_FAST &&
+@@ -3720,10 +3731,10 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
+ 		 */
+ 		if (acrtc_attach->dm_irq_params.allow_sr_entry &&
+ 			(current_ts - psr->psr_dirty_rects_change_timestamp_ns) > 500000000) {
+-			amdgpu_dm_psr_set_event(dm, acrtc_state->stream, false,
++			amdgpu_dm_psr_set_event(dm, stream, false,
+ 				psr_event_hw_programming, false);
+ 
+-			amdgpu_dm_replay_set_event(dm, acrtc_state->stream, false,
++			amdgpu_dm_replay_set_event(dm, stream, false,
+ 				replay_event_hw_programming, false);
+ 		}
+ 	} else {
+@@ -3799,6 +3810,15 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(new_pcrtc_state);
+ 	struct dm_crtc_state *dm_old_crtc_state =
+ 			to_dm_crtc_state(drm_atomic_get_old_crtc_state(state, pcrtc));
++	/*
++	 * Take a single snapshot of the stream pointer and use it everywhere
++	 * below. dm_crtc_state->stream can be cleared concurrently, e.g. by the
++	 * system suspend/resume path (dm_destroy_cached_state()), so re-reading
++	 * the member after a NULL check can observe NULL and crash while writing
++	 * dc_stream_state members (see the NULL write at
++	 * offsetof(struct dc_stream_state, abm_level)).
++	 */
++	struct dc_stream_state *stream = acrtc_state->stream;
+ 	int planes_count = 0, vpos, hpos;
+ 	unsigned long flags;
+ 	u32 target_vblank, last_flip_vblank;
+@@ -3836,12 +3856,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 	    dm_old_crtc_state->cursor_mode == DM_CURSOR_NATIVE_MODE) {
+ 		struct dc_cursor_position cursor_position = {0};
+ 
+-		if (!dc_stream_set_cursor_position(acrtc_state->stream,
++		if (!dc_stream_set_cursor_position(stream,
+ 						   &cursor_position))
+ 			drm_err(dev, "DC failed to disable native cursor\n");
+ 
+ 		bundle->stream_update.cursor_position =
+-				&acrtc_state->stream->cursor_position;
++				&stream->cursor_position;
+ 	}
+ 
+ 	if (acrtc_state->active_planes == 0 &&
+@@ -3919,12 +3939,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		bundle->surface_updates[planes_count].plane_info =
+ 			&bundle->plane_infos[planes_count];
+ 
+-		if (acrtc_state->stream->link->psr_settings.psr_feature_enabled ||
+-		    acrtc_state->stream->link->replay_settings.replay_feature_enabled) {
++		if (stream->link->psr_settings.psr_feature_enabled ||
++		    stream->link->replay_settings.replay_feature_enabled) {
+ 			fill_dc_dirty_rects(plane, old_plane_state,
+ 					    new_plane_state, new_crtc_state,
+ 					    &bundle->flip_addrs[planes_count],
+-					    acrtc_state->stream->link->psr_settings.psr_version ==
++					    stream->link->psr_settings.psr_version ==
+ 					    DC_PSR_VERSION_SU_1,
+ 					    &dirty_rects_changed);
+ 
+@@ -3935,14 +3955,14 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 			 * amdgpu_dm_crtc_vblank_control_worker() if user
+ 			 * pause the video during the PSR-SU was disabled.
+ 			 */
+-			if (acrtc_state->stream->link->psr_settings.psr_version >= DC_PSR_VERSION_SU_1 &&
++			if (stream->link->psr_settings.psr_version >= DC_PSR_VERSION_SU_1 &&
+ 			    acrtc_attach->dm_irq_params.allow_sr_entry &&
+ 			    dirty_rects_changed) {
+ 				mutex_lock(&dm->dc_lock);
+-				acrtc_state->stream->link->psr_settings.psr_dirty_rects_change_timestamp_ns =
++				stream->link->psr_settings.psr_dirty_rects_change_timestamp_ns =
+ 				timestamp_ns;
+ 				dc_exit_ips_for_hw_access(dm->dc);
+-				amdgpu_dm_psr_set_event(dm, acrtc_state->stream, true,
++				amdgpu_dm_psr_set_event(dm, stream, true,
+ 					psr_event_hw_programming, true);
+ 				mutex_unlock(&dm->dc_lock);
+ 			}
+@@ -3985,7 +4005,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 			amdgpu_dm_update_freesync_state_on_stream(
+ 				dm,
+ 				acrtc_state,
+-				acrtc_state->stream,
++				stream,
+ 				dc_plane,
+ 				bundle->flip_addrs[planes_count].flip_timestamp_in_us);
+ 
+@@ -4038,10 +4058,10 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 			usleep_range(1000, 1100);
+ 		}
+ 
+-		if (acrtc_state->stream) {
++		if (stream) {
+ 			if (acrtc_state->freesync_vrr_info_changed)
+ 				bundle->stream_update.vrr_infopacket =
+-					&acrtc_state->stream->vrr_infopacket;
++					&stream->vrr_infopacket;
+ 		}
+ 	}
+ 
+@@ -4063,7 +4083,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 
+ 	/* Update the planes if changed or disable if we don't have any. */
+ 	if ((planes_count || acrtc_state->active_planes == 0) &&
+-		acrtc_state->stream) {
++		stream) {
+ 		/*
+ 		 * If PSR or idle optimizations are enabled then flush out
+ 		 * any pending work before hardware programming.
+@@ -4071,10 +4091,10 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		if (dm->vblank_control_workqueue)
+ 			flush_workqueue(dm->vblank_control_workqueue);
+ 
+-		bundle->stream_update.stream = acrtc_state->stream;
++		bundle->stream_update.stream = stream;
+ 		if (new_pcrtc_state->mode_changed) {
+-			bundle->stream_update.src = acrtc_state->stream->src;
+-			bundle->stream_update.dst = acrtc_state->stream->dst;
++			bundle->stream_update.src = stream->src;
++			bundle->stream_update.dst = stream->dst;
+ 		}
+ 
+ 		if (new_pcrtc_state->color_mgmt_changed) {
+@@ -4083,18 +4103,18 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 			 * already modified the stream in place.
+ 			 */
+ 			bundle->stream_update.gamut_remap =
+-				&acrtc_state->stream->gamut_remap_matrix;
++				&stream->gamut_remap_matrix;
+ 			bundle->stream_update.output_csc_transform =
+-				&acrtc_state->stream->csc_color_matrix;
++				&stream->csc_color_matrix;
+ 			bundle->stream_update.out_transfer_func =
+-				&acrtc_state->stream->out_transfer_func;
++				&stream->out_transfer_func;
+ 			bundle->stream_update.lut3d_func =
+-				(struct dc_3dlut *) acrtc_state->stream->lut3d_func;
++				(struct dc_3dlut *) stream->lut3d_func;
+ 			bundle->stream_update.func_shaper =
+-				(struct dc_transfer_func *) acrtc_state->stream->func_shaper;
++				(struct dc_transfer_func *) stream->func_shaper;
+ 		}
+ 
+-		acrtc_state->stream->abm_level = acrtc_state->abm_level;
++		stream->abm_level = acrtc_state->abm_level;
+ 		if (acrtc_state->abm_level != dm_old_crtc_state->abm_level)
+ 			bundle->stream_update.abm_level = &acrtc_state->abm_level;
+ 
+@@ -4106,7 +4126,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		if (amdgpu_dm_is_dc_timing_adjust_needed(dm_old_crtc_state, acrtc_state)) {
+ 			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+ 			dc_stream_adjust_vmin_vmax(
+-				dm->dc, acrtc_state->stream,
++				dm->dc, stream,
+ 				&acrtc_attach->dm_irq_params.vrr_params.adjust);
+ 			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+ 		}
+@@ -4114,7 +4134,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		update_planes_and_stream_adapter(dm->dc,
+ 					 acrtc_state->update_type,
+ 					 planes_count,
+-					 acrtc_state->stream,
++					 stream,
+ 					 &bundle->stream_update,
+ 					 bundle->surface_updates);
+ 		updated_planes_and_streams = true;
+@@ -5045,6 +5065,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		struct dc_stream_update stream_update;
+ 		struct dc_info_packet hdr_packet;
+ 		struct dc_stream_status *status = NULL;
++		struct dc_stream_state *stream = NULL;
+ 		bool abm_changed, hdr_changed, scaling_changed, output_color_space_changed = false;
+ 
+ 		memset(&stream_update, 0, sizeof(stream_update));
+@@ -5065,6 +5086,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 							     dm_old_con_state);
+ 
+ 		if ((new_con_state->hdmi.broadcast_rgb != old_con_state->hdmi.broadcast_rgb) &&
++			dm_old_crtc_state->stream && dm_new_crtc_state->stream &&
+ 			(dm_old_crtc_state->stream->output_color_space !=
+ 				amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing, new_con_state)))
+ 			output_color_space_changed = true;
+@@ -5078,24 +5100,36 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		if (!scaling_changed && !abm_changed && !hdr_changed && !output_color_space_changed)
+ 			continue;
+ 
+-		stream_update.stream = dm_new_crtc_state->stream;
++		/*
++		 * Take a snapshot of the stream pointer once. The member can be
++		 * cleared concurrently by the system suspend/resume path
++		 * (dm_destroy_cached_state()), so re-reading it after this point
++		 * can observe NULL and crash.
 +		 */
- 		delay_on_connect_in_ms = 500;
--		delay_on_disconnect_in_ms = 100;
-+		delay_on_disconnect_in_ms = 800;
- 		break;
- 	case SIGNAL_TYPE_DISPLAY_PORT:
- 	case SIGNAL_TYPE_DISPLAY_PORT_MST:
++		stream = dm_new_crtc_state->stream;
++		if (!stream) {
++			drm_dbg_state(dev, "No stream attached to CRTC, skipping stream update\n");
++			continue;
++		}
++
++		stream_update.stream = stream;
+ 		if (scaling_changed) {
+ 			amdgpu_dm_update_stream_scaling_settings(dev, &dm_new_con_state->base.crtc->mode,
+-					dm_new_con_state, dm_new_crtc_state->stream);
++					dm_new_con_state, stream);
+ 
+-			stream_update.src = dm_new_crtc_state->stream->src;
+-			stream_update.dst = dm_new_crtc_state->stream->dst;
++			stream_update.src = stream->src;
++			stream_update.dst = stream->dst;
+ 		}
+ 
+ 		if (output_color_space_changed) {
+-			dm_new_crtc_state->stream->output_color_space
+-				= amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing, new_con_state);
++			stream->output_color_space
++				= amdgpu_dm_get_output_color_space(&stream->timing, new_con_state);
+ 
+-			stream_update.output_color_space = &dm_new_crtc_state->stream->output_color_space;
++			stream_update.output_color_space = &stream->output_color_space;
+ 		}
+ 
+ 		if (abm_changed) {
+-			dm_new_crtc_state->stream->abm_level = dm_new_crtc_state->abm_level;
++			stream->abm_level = dm_new_crtc_state->abm_level;
+ 
+ 			stream_update.abm_level = &dm_new_crtc_state->abm_level;
+ 		}
+@@ -5105,7 +5139,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 			stream_update.hdr_static_metadata = &hdr_packet;
+ 		}
+ 
+-		status = dc_stream_get_status(dm_new_crtc_state->stream);
++		status = dc_stream_get_status(stream);
+ 
+ 		if (WARN_ON(!status))
+ 			continue;
+@@ -5133,7 +5167,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		dc_update_planes_and_stream(dm->dc,
+ 					    dummy_updates,
+ 					    status->plane_count,
+-					    dm_new_crtc_state->stream,
++					    stream,
+ 					    &stream_update);
+ 		mutex_unlock(&dm->dc_lock);
+ 		kfree(dummy_updates);
 -- 
 2.25.1
 
