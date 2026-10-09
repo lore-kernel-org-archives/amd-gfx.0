@@ -4,122 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F29B7CA6012
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 09:45:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DA3CCA6019
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 09:46:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61BBA10FFFD;
-	Fri,  9 Oct 2026 09:45:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEEA112001;
+	Fri,  9 Oct 2026 09:46:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0rttc+PD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Afnm9Gnb";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012064.outbound.protection.outlook.com [52.101.53.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C97310FFFD
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 09:45:01 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013000.outbound.protection.outlook.com
+ [40.107.201.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F33A4112001
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 09:46:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IYNWEE+1tQDQWG1TBDcmsKYIUmuFEgGbp6KlC4IA+1HS3ILQFGrTGaCp4YC1j9Llf+jzdpjzmS5F7PH5IeUK/pdFLSpOkAgQyKbkVPkRSYUDWFsoXA9+m6hxRA1Dko1EPnHasH0zzUMp3eEzSgpdqWVu1jFN8tgLUtzudfr031X341kdyPZHmK/TcWu4suzUo3mL43ENGSkKnZjcqImQfqK3J11c6o9nZIq1fEoiBfhvGd33sMGDcsMdtcsCL6PwMisgRtYnF6XwtzQ46N07xA3daWT3t9FZfwmqinmY692jl/k4hz+1O0RwJvos1bKXXIT1WCMQl6Yxdqq12UTk8A==
+ b=kx9ZYxckyZkaKXHyKitJs9Pjv4PWTfU8ZZIXJ68pmy5lsPPF2XEsU14s81MgIlqyc1lb7mGvygBuFCqJy2JiX1304JlAO+maAbVzF2gKYvTozja9R4IfTXxQ9+ZdvuGOlQeDye8F3E/88D8Ev+1f4xFRmDZJ+QkR5fWGK+G0y+RT4un0l3s32m8rijAR4Qp0APt/Lg8IpDalK4EvZjcLrlW1CWXgqTwBLvcb9nnAM1ZZ2f8AnVlKIXwKG5UtDNOF5RDwHJIppSVWq0cC3YQtfMplyxp0tFrq8lhCUtL85wklFD5T/m0v4Rdy58Qg+6u/2ngMzvmoQnW+fcvFkhuk7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yZCoa5osHsSAhbINjjcSRhaDoT+UH4Gp/qkCuVfexhA=;
- b=dUXO7m1yy0Bl5pWabKZySCk8ckYXGPOP9eaE1PKmKHa0ZYf8v3ecsj6LPm3c/S8dDSjQ8eSxl0NJvUDn+5Y1kNvLuMIhrGFpw74JYyXUThArc4MAMCQMwcpZCC36lrZplhbGjvAtlQ2zX3sfOIfbDVXQ0oWfrUjBfZcfj8l+7chAWeVZMElNjr5Nz9Jg536JGyuGdULDq2O6NRmqRrySa6fy0W53dhS5ZIhSeYJtxdG1eqrxz1fPKvUeUhyXrbci7TsxkBcOg2HJUlkwLmx6eaSRy9iaI+g/3Sc18egIbrYXGK9DjKFXYfTEkDhKcVR3PwtYYiXQqL0yYKd9VO+noA==
+ bh=fszfiZd/MCznW2BAhbi2yWTH3ZCPSkuAVsCY8RMGIIQ=;
+ b=dv8NzEFMO11+KeRnjEnJUGxokwv3iAsMg4qpi0BPQgVUY8LxUWZi6VcIDLogXoIVJjxt95TX0QVJlqJXP0HK7hZBJLMXoqMGoB+cx2Xx7n69tYkKEtO2ccYGvlWimHT1P6jXMn/pA4ASZ5+RddKeIxgO2+bOrF31kWT3qifYTyu3mpFnXwNNrKTVxmdJW08IByPLkPQT4+1L57EmBMhuVhJWnZVIe5ZgMUkkmgUyhrH1KROs+CoOECiiiMM1iLd4gnrXjGfS6RTn8152hNhLR6n2lTuYglP+g/jb3/Kov7+EX3S+Imk9hMOEHwXX637ZTBA0/4yM4nVyM37KZ88Inw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yZCoa5osHsSAhbINjjcSRhaDoT+UH4Gp/qkCuVfexhA=;
- b=0rttc+PDDufNuug1f9a1vFzt2nBrQYDnhyfL5feo8w80xIDmR397y+VFrM6mpGNeWvYyZHwoIUSunVg/VrEd0WmvBPShwthf7Wqoo+BFD1arpymRLDhRVLSVwCXy41j8Msub5saFaKeL/janLxpWuWKlSEzP4qEJxBvdifMh084=
+ bh=fszfiZd/MCznW2BAhbi2yWTH3ZCPSkuAVsCY8RMGIIQ=;
+ b=Afnm9GnbBK5quqc52KU3kzRRMDUcc4hPms7rKkS0fXA30AIsoW/GantNTX+U6gvKTm5krDlhPqj9DS433d+EeCHB/TtfS2Z/hg8xlf+PMTURbAaPeoOutW5dOv9YIdOzCGNLFB8ONcZnMNTgdV9Z9o+2EC5agPny17d4KqaxKcI=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by DM4PR12MB7768.namprd12.prod.outlook.com (2603:10b6:8:102::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
- 2026 09:44:56 +0000
+ 2026 09:46:27 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
- 09:44:55 +0000
-Message-ID: <54195ff0-9eec-4b06-a02a-2b1469a583b4@amd.com>
-Date: Fri, 9 Oct 2026 11:44:52 +0200
+ 09:46:27 +0000
+Message-ID: <f7b59f29-66d3-48ea-b9b0-1c23e2f3f104@amd.com>
+Date: Fri, 9 Oct 2026 11:46:24 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/amdgpu: store the user-queue VMID mask instead
- of first_kfd_vmid
+Subject: Re: [PATCH v3 2/2] drm/amdgpu: amdgpu_vmid_mgr_set_vmid_mask to set
+ up both hubs at once
 To: Sunil Khatri <sunil.khatri@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 References: <20261009094001.3521891-1-sunil.khatri@amd.com>
+ <20261009094001.3521891-2-sunil.khatri@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261009094001.3521891-1-sunil.khatri@amd.com>
+In-Reply-To: <20261009094001.3521891-2-sunil.khatri@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0144.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0148.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::6) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB7768:EE_
-X-MS-Office365-Filtering-Correlation-Id: b60371a1-0990-4804-1010-08df25e9f97a
+X-MS-Office365-Filtering-Correlation-Id: 57d77aca-641f-4778-5d96-08df25ea304e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|11063799006|10067099003|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: jDEMxoR6NilKLxjBhUhpeKWrriPrpgWzl5x39Cjh6Dxa11dzC+kZI67srZOW2MlJuSggcPEJWhn62oT0/EQw4+q/HotojQ1Y0Og/H0Wu8HLids3DWe2KXQMIpr8VwVkwTQJZXpue/QWGGkGaL7aYHS2v63zFc2Z0NeyhAmgeTw616FOBbDuHENUU4myB2DG+T/+dyTUCCSb2f4w60fI3m/pV34bP9u8DpBtXWzd3SHXy7V8SAX9rI8ogo0ECSYfAqtBIfg07Au/KRh4VnC107CLmPCkPF9nKupwy+HdJVnVzxECKiHuQ2hscMyW6xdwYLXNMMA/CF4RXNBhM+41Pf2mm3vO2Irrkx649q0RlBTHNH7C0Z1iMBZJmVztLQ2YAWi/vNB2AGhrqsEBJEPh7vrbX+cMBCZztJV7Fo9aYGKqqcnLlZsvBRrYQtm9vS8pc7gqF1X+tT5c4k/RrIZjlRsQ05Sd1ts+R0yVFEPPlBCYCygddBGuxDgCuKoxbbZXs9SLFVamtiDvOHVVhCypTW1wD6zkc6KKTvyEk/DoZ7Dgg9rf3Te51pBCBMOTvpE+IviUyqf5uKA/IBHBJLyBs21SymsfMHNf7V0+SoOBo57Nz57qSjz8BK07OCfb7ZTkUS3bO0X5fjNbVef7CUk5qE/ekDSEWMZ+2AzAZc09ujic=
+ ARA:13230040|376014|23010399003|1800799024|366016|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: ArnW4l8QvOUX2dFWaEJEM2IagDn1ufnFKgWTMvAr4LyEtd5cXhIVLLjrOOT2JXM+iYeD1PgquTgS09THqPlPM3vM+p8B/wtiu9TMTAm6YYoYUG+lirHh7DHEYnjA9bBg46AEn2GgfyZopxwWlFdfdiat0oBvRqYGNQkGQBVLruDANq3t2+IX18IIgR7JChgVCoqEJvuCY10KXPyEe3CpVe3TyTv1dNEXCdlgn8Q3IGJGZ0+jFwp1EqYmLMRj3znkREGeVZSiuIxjDISmlavQBdgoki3IgntT3uYN09tX13hNfgLuFu8gfNoWlt/FBvYDqr8OubB3nMVUViUZUbwqyyARN1fJHAfBXitIcHEgDJ83VCQ7nhT9sYCgfiRwjkHu0v3KnrkvFWVbwRmYoHI+JjtASkZjsWHWvUCF32kZK15BQ096EXtBecIDj22T5r9BElZjHAmlyJYPDvZm90n96672VEtCMKldUeJfRb44a4oEHZ3o8aeargv3NSO/cwwQ337R1kxwBWMxzlPdMNnLzFiF56isybi2iIR9LTDzkPS4E8xqDVnW6KuUMSyKZgEekiKKMf6FpCV0zRV1QgBVjYbucHJVF5ZSFWep6z2yGiFGrj91MvKHP3UaWgR9aLEuJ6kA2DbNejjP9zj4ewea6hOnk+zElumQzUae7+5ot+E=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0w0RVViUmVqRGhFZEFPMnJxZHYxOTdyNHNHV3FpWHdVUHlGR2todzNTd3Nu?=
- =?utf-8?B?MEt5N1NROFIzYjM1aGdvMzZEWllzSlh4eXRWbUhRb2Vialdhd3JRem1JTURK?=
- =?utf-8?B?anNsSmVNTjdiblM0T3pleEVwK3R0b1dLVkNNdTkvNmJnOG5JcU5UZHVPRy9k?=
- =?utf-8?B?OVRwSGd0bE1LQjFRb1p6cXRSV3F3cHZocHREck1YMmFFY3RpU3hROElZVzl4?=
- =?utf-8?B?cEgwenltd3RuL3Q3OXdkTVIyNVhHeWZMcCt2WEdKSno2QzVkbDJhNlVBVklB?=
- =?utf-8?B?aGhLamV1cUJFa09XR3JUQ2R1Z2cwSitETDVOM2Zpenc2UDlCa2F6TCtHa1ox?=
- =?utf-8?B?SHNTRUM0eVlMR1U4c1hlRVJVMDN5S2RRMEp0Y0JmQldKNW9tcnA4SHNXc3F0?=
- =?utf-8?B?dEdlMmkzRHE2Ynl6eTQ4WWZqK2ZSRDl0UzhYdUo5a0RpQUUzVWR3cHN4N1RL?=
- =?utf-8?B?d1J3Sy95VTliQmxnYXFVOUdwRmtqeDN2WU85bXM0NWtWZGpTNG56czJJMGVT?=
- =?utf-8?B?VGtSdk4xMkJiN3RXK0xneWhQN09Wa3orSml1UzlmUnZRN3RPRkRXa21HSlhM?=
- =?utf-8?B?RWg1STRScThrbHBPUVV3Rk04N3ZsVVF3VU1oRmh2aTdETnBTZzBuOGlBV2lR?=
- =?utf-8?B?TE55djZOSDVVWWdLamxUMEt4SmQwN1ZoRXFOUjBJWSt4OHZDWTliK2NuN1pv?=
- =?utf-8?B?aVdzNnRSUkdCUmUxclo3L3Jrc25zNmJ0ZUZzSjVjdmhqcHRkS0NybDZmNmlP?=
- =?utf-8?B?YVFNME9CSXp2MGtUN2htK3c3UWxROUo1eGN5OXN4dnRDZXRvWDhmaHRITVdU?=
- =?utf-8?B?c2FFT0l4UXp6YzNqeE5jNGFXWGs4SHYwaFY4cGZkWkdPQm96cERaeGJqNFl2?=
- =?utf-8?B?dDZ2T0NCZXNQUXphcXVjRm5LdE5pOUViZm5Mb0FBL1dqMUdPWmhaN0x4SDhB?=
- =?utf-8?B?eDdMVm9IRncvbVFleDRPY01SV0JZNFBwOXJ4bW9mcVJ0VGNwN1pLZzFpUkU3?=
- =?utf-8?B?YW4xUFNEcjVtUTcvOUg3Mnl0OSs5S2hnU3VpQml2OGc5Sm0rRTBNZ1dIRnEv?=
- =?utf-8?B?bzhuamx4Y2tSSmplNVhkUG5UY3g4RTlUT1pTM2dSR1pQVnVaNEFpbHF6S0lF?=
- =?utf-8?B?RnFHWTRZby9XVkdsa0MzOTRCc052b2x2R3Q4bnBWb0ZyUXQycFJselJJeW40?=
- =?utf-8?B?anA5RWQ3K0UzZ2gvaHZQa0NSNGx4bGdvdzBZTUM3Kzc3Y2FsdDBHN25mVm10?=
- =?utf-8?B?aThkVFdyUXY1eDd0VW1KdGtTM2NEU2F0czdXRVpzZDlHWlN5bTNBNlBpQjdS?=
- =?utf-8?B?aVBzWHJyOFo2dmlQaUdyL2hYdjZBOWp2NDFnRk1NVjRoL2dUbTRFMGxBd1VX?=
- =?utf-8?B?QWUxSXFBS2I1cnN2NzRMVGNsQ1lDTmhleG9mZEZZbDgzWW1LUXFzeTQ1UWtL?=
- =?utf-8?B?SkYxMzZwQ2dJZzVDZDdSa3BWaFBJMi9VYS9SbGlzU3ZpRWxVamFodlVYOGlD?=
- =?utf-8?B?NzkxcEVoY3hGSkI3L3ptVDI4TkF4ODNnb3lPSHhtd0FLOFp6VUJHWWxyM2Vs?=
- =?utf-8?B?RXQxZXpDRy9SblkzYTFvWW9aVDEwZDg0RzFEZGR2UUhONllRcThVVWl0Ykl4?=
- =?utf-8?B?eEd6QTIvajhhTmpKZEhrWWpGZDRhdEtwY2hhLzlQS3lqckpxMTVIaUpqcDFW?=
- =?utf-8?B?ZDltYWhkc3VTNVV4bitnVW51WGM5Z2YzaitMTVk3U0NZdlp4THZCUmsxUkdp?=
- =?utf-8?B?WEFzdG1udk01eXJxUWZVOTBucDdXYVpYTkRRbTBvYnBSekFaeSs0Z0MzU0pC?=
- =?utf-8?B?QVFGRUxsOXZKRm5XdzlCQWwranR1TVJLb1pPYVJ0U0JQY09XNXV0bk9iekJM?=
- =?utf-8?B?UVc1SnNIQ0ttdGtUYU9zQkZGYzZjQTF4ZlVmTnhuR0RpZmNadkdIeDlDeDBY?=
- =?utf-8?B?OUF3UjhMT29reFBBd1R0L0V5QUNvTTUxcmp3akZrRDJEZGlEV21HWDAvK0g0?=
- =?utf-8?B?YnFqMzRmcE1jaHNVd2MzWW9aU29mNlcxQ1ByN01LOUdxMHFnaHhKeHBnT0pN?=
- =?utf-8?B?RVdweWV4MTVnTFlSSzVrdnVUblVMNjQ1T0QycWlGaTZuUEpMWWN5SjJ3cWov?=
- =?utf-8?B?bFdtMWMybEN6OU1TSzErbDYyajBOQm4xRVd3SmlGWDh5bjh2V2EwTlJzTzhz?=
- =?utf-8?B?ZWFYOTNJRXF1SUNZcnJENVVDL0xXVDBvSHpRbG9pMndMQUk0VFRYZlFyUEtY?=
- =?utf-8?B?ZVRITUpseU5OenhFeW1aYXEvcW9tdXJlME9ZMkNsM0VoWjdPYzVHRVZNL05a?=
- =?utf-8?Q?gf68ya60fo5GFTmDWn?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UkUrN3Jqckg1SWtGRkw4TWpUbUwzWWRmRTQrbUxuUzFORUlpZWo0SmJub0tv?=
+ =?utf-8?B?Yk4wMS9hMGY0NUZjSCtycXNlbGlXbGJ3cHRGYW56TnBFaHF0bG15MGEzUVRT?=
+ =?utf-8?B?N202ZjR3RWJIaUlvVFlyUmhEdTZIMDJ6MUVFZ0c2WjhxRFJ4S3NFQjhJZFF4?=
+ =?utf-8?B?WWQwZWprWXVYQ3MvMVg4RzEwSitYc2twZm9hK3RTZU52WkQ5UENSMlRUdFpX?=
+ =?utf-8?B?UFNuRFdxek5Zc0Z6S0IxeDcvK2d0RFBGWkpiQ2dYSW81TzBaVjY1MWNCdmFp?=
+ =?utf-8?B?dG82NUdsakpIRWlGamRoS0lrN1hNQTBIOHVZc3FmU3ZKbWY2TFBpY3hyQlpo?=
+ =?utf-8?B?Snd1dU5NQVM1cUx5S1NzTmRqN3JpRFlJdkcwcWY0ZHBrUER3RDREUTUxdWdp?=
+ =?utf-8?B?dm1SOXNTRCs3ZWt3aXVnTHJoOXpYWmpWVUNXSWhtMHRmanlnd3NXU2V6T0w5?=
+ =?utf-8?B?V0w1QVFtTU0yNGMxcGdSSlZqaXJyTEJoVVpCMi9kRWFuTVdaYXpCYkdaUC9p?=
+ =?utf-8?B?S212MlQxYTNVS1lzZHVQdGsvQUxnbHNINDlGTmp2ZEJiTDNzUFN3bWZHZlFY?=
+ =?utf-8?B?Q3dZbmxqcVQrOEFxcUFuVWwrWXlXYlJGS001bkhnbDVrOVdyTmYrU3d4UXVD?=
+ =?utf-8?B?NVpCZXd5UERUYjVOSUFyNWdGc0hIWDZhOEFYU3ZDQzNxb28wbGVRMW9PRjRE?=
+ =?utf-8?B?eFAvQ0kyeE9yaDdvSDdqelA4V0FpM2xvQjFlemNlcVB0VzhqbVl3cWNhYlFu?=
+ =?utf-8?B?ZmNRUVBIeHMxTjNaUklTTDMrNVpuZlBKQ21ZWHNqd242Q0Zuek81ekV6VmRY?=
+ =?utf-8?B?VjgzMDhGeDIvS01wUERqdzFzRkF4K1V5RDRIcDdNQjRXakF2amhwTkRQSkpZ?=
+ =?utf-8?B?Yng4WmNxK0EzN25sNkNJS1VlZjl3WjVXbUJlTDFDSjBNb0U4SXYxR2NTWm5X?=
+ =?utf-8?B?RWMwaDIvUXdtZ1BYUmY4aEp4RzE4SWI3SFVhREtVR09QTUxQLzBEWFZRNWgr?=
+ =?utf-8?B?Y3phWHpYNEdPK05BclZpWWFJakphSkl6Rm1SVUNqbnVhTit0UmZlRDd4MVdz?=
+ =?utf-8?B?SUg0aFFEd2VRNVF1K1lNQzh1NW1ZUi9ieGJzWlhpeXZRRzhTRUFKYnpnaWR2?=
+ =?utf-8?B?VGRhRUN5Tk5LanBKMmFqbFEwRlhyR3laMHgyQW1NQmliZjdyNXRsYmVlTUE5?=
+ =?utf-8?B?VHZ5THVuTXI4OGRpNldLUXh4M2h5SzhyMFVGQ3h5RmxEcEtweGh4T2NQMGk3?=
+ =?utf-8?B?U3Z4cFYzY3EyYnFJV21xYmFoSXpocmJZMXd4SFFlblA0dDJLNTNuVDdpNUx3?=
+ =?utf-8?B?bVd2QUlnMGZXaGlXZFhTOWpwRW5CZldrYjFZWXRmZnYxZVJ3SGFvd2w1TFhi?=
+ =?utf-8?B?aCtmSEJOdmxEV1YwYXZ2SzFWaVNHWWVzSkhHUTJVNWtIN1JqY2xHeWs3VVhy?=
+ =?utf-8?B?eFB5RGM4ZGlYMkloWGgvNU0rbUZEK3d0MXdQNjRlTE9wZ3JOVjI2ZDZLMUFn?=
+ =?utf-8?B?ZHhiaHVWTkRvMythVlNrRnhLTkRJZHVxQmpFR1o4RmQ3dlV5dGE0ZUpuWjh0?=
+ =?utf-8?B?MFZlUjkwZ2dSYW9BQi8xaUZRRGo2clVIbmdiMjdDN0lRS3JxN1U1NzU0M3Qz?=
+ =?utf-8?B?UGZGOUR6b1RBWjNHMFRKZUNrZ1B6M0cvajJtQ0RmQXV4TXRGR2dpSEdCdkV2?=
+ =?utf-8?B?TFVKUCtMbE9tWHNRaW9zVzlEQUhubXJ4U3FabVB2Tk4zYlhISzZSZXRmTkdv?=
+ =?utf-8?B?K2ZtNjU0bGd1ZVhRcjhtYTgwODlJVi92bkN6VHBDTGlOMGhGU1FDS1Z4WmQv?=
+ =?utf-8?B?T1NyaTcyM0JaSzRRTTFIbnlJSy9ONzY1YVBqTkV6cUVlYlBEMmlqckJ4djlr?=
+ =?utf-8?B?eUQ1aVptZ0FlU3k4SmhXT1hDMEd5UlFaSU9xbGNBOUtwUGZneUNEMzBxRjBO?=
+ =?utf-8?B?anQxUGh1R0Q4Z2l5Q3dET1lyZnlUb2N2eXUxUmZEZHNOd2hodkIzbnQ5K2hR?=
+ =?utf-8?B?Nmg4dzkzS0pWQlpBdEorOGFwUWcwQjFHZW9HYUMrR1ZlUURiRkJBR0N4My90?=
+ =?utf-8?B?czc3TUJYbC83bFhhN1JHZVVpMzhVV0kzS3h6L2RCVVZFUkZTOTlzMmttcHB0?=
+ =?utf-8?B?VU9mNlZWVlBDNld2UVB6RlpRdE5GdzRCSGYxNkxOR2ROZmRhcCsyWE5QOUpS?=
+ =?utf-8?B?Z0NwSnlMU0RRL1h2ZHBWTFhNQnAyaWR1dTdZUktDaDB2SU9PY25FUnJqU0dr?=
+ =?utf-8?B?cU11ZDZQdE8yRUZhTThmelVPVkNaMWZZM25wUXF6SkNsYmQ0ZkVybmh5UjVi?=
+ =?utf-8?Q?srIEPNj6jGBnQTFFQV?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b60371a1-0990-4804-1010-08df25e9f97a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57d77aca-641f-4778-5d96-08df25ea304e
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 09:44:55.6183 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 09:46:27.6878 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0NHgrA95wSLfWqhAkrIKT97AcdP6XujVFvz+rGEUTKj3TnD045SypggKQfcRxxJs
+X-MS-Exchange-CrossTenant-UserPrincipalName: jya3zI/xG2ZiMUSy4MKOplm/P7llP1R0lyePeFFzN4cvfqs9qqKNBp/w+3p2v2l0
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7768
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,671 +138,389 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 10/9/26 11:40, Sunil Khatri wrote:
-> first_kfd_vmid only ever existed to be turned back into a mask
-> (directly, or via range loops over VMIDs). Drop it and have each
-> generation set vmid_uq_mask_gfxhub directly instead, add
-> for_each_uq_vmid() to replace the range loops, and mask-test it in
-> amdgpu_amdkfd_is_kfd_vmid().
+> Set the kernel and user-queue VMID pools for both hubs in one call.
+> The caller now just hands over each hub's raw kernel-queue mask;
+> vmid_uq_mask_gfxhub is derived here as its complement, and
+> vmid_uq_mask_mmhub is the fixed pool set here too, with npa_vmid
+> excluded from both MMHUB pools, instead of any of this being split
+> across a separate post-hoc fix-up or a field the caller had to
+> pre-compute itself.
 > 
 > Assisted-by: Claude:claude-sonnet-5
 > Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c    | 41 +++++++++++++---------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h    | 16 +++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  1 -
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 18 +++-------
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     |  4 +--
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c     |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c      |  4 +--
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      |  4 +--
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 20 ++++-------
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c    |  6 ++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h    |  3 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    |  4 +--
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     | 10 +++---
->  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c     | 11 +++---
->  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c     | 20 +++++------
->  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c      | 14 ++++----
->  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      | 14 ++++----
->  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      | 14 ++++----
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 18 +++++-----
->  21 files changed, 119 insertions(+), 109 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 50 +++++++++++++------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |  3 +-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 13 ++-----
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 17 +++------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 28 ++++++--------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   | 14 +++----
+>  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 14 +++----
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 14 +++----
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 24 +++++-------
+>  9 files changed, 75 insertions(+), 102 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index 3391e8c77f13b..e023cc734ebc4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -789,7 +789,7 @@ void amdgpu_amdkfd_set_compute_idle(struct amdgpu_device *adev, bool idle)
->  bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid)
->  {
->  	if (adev->kfd.dev)
-> -		return vmid >= adev->vm_manager.first_kfd_vmid;
-> +		return !!(adev->vm_manager.vmid_uq_mask_gfxhub & BIT(vmid));
->  
->  	return false;
->  }
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> index 9cdd8870960a6..55d6b2107d8f9 100644
+> index 55d6b2107d8f9..1c5bce0500ac9 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> @@ -630,6 +630,21 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev)
->  	}
->  }
->  
-> +/**
-> + * amdgpu_vmid_mgr_set_vmid_mask - set the kernel-queue VMID pool for a
-> + * hub, and the matching user-queue mask on MMHUB
-> + *
-> + * @adev: amdgpu device structure
-> + * @vmid_mask: kernel-queue round-robin VMID mask for this hub
-> + * @for_mmhub: true to target MMHUB instances, false for GFXHUB
-> + *
-> + * On MMHUB, also sets vmid_uq_mask_mmhub to the fixed pool of VMIDs
-> + * MES/KFD use there, excluding npa_vmid (a VMID dedicated to a single
-> + * fixed purpose) from both the kernel- and user-queue masks; the
-> + * caller must already have set npa_vmid. vmid_uq_mask_gfxhub is set
-> + * directly by each generation's sw_init(), since unlike MMHUB's it
-> + * varies per generation.
-> + */
->  void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
->  				   unsigned long vmid_mask, bool for_mmhub)
->  {
-> @@ -637,6 +652,9 @@ void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
->  
->  	BUILD_BUG_ON(AMDGPU_NUM_VMID > BITS_PER_LONG);
->  
-> +	if (for_mmhub && adev->vm_manager.npa_vmid)
-> +		vmid_mask &= ~BIT(adev->vm_manager.npa_vmid);
-> +
->  	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
->  		bool is_mmhub = AMDGPU_IS_MMHUB0(i) || AMDGPU_IS_MMHUB1(i);
->  
-> @@ -644,22 +662,13 @@ void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
->  			bitmap_copy(adev->vm_manager.id_mgr[i].vmid_mask,
->  				    &vmid_mask, AMDGPU_NUM_VMID);
->  	}
-> -}
->  
-> -/**
-> - * amdgpu_vmid_uq_mask_init - init the user queue VMID masks
-> - *
-> - * @adev: amdgpu_device pointer
-> - *
-> - * Sets vmid_uq_mask_gfxhub/mmhub to the pool of VMIDs at or above
-> - * first_kfd_vmid, shared by KFD and MES user queues.
-> - */
-> -static void amdgpu_vmid_uq_mask_init(struct amdgpu_device *adev)
-> -{
-> -	adev->vm_manager.vmid_uq_mask_gfxhub =
-> -		((1U << AMDGPU_NUM_VMID) - 1) &
-> -		~((1U << adev->vm_manager.first_kfd_vmid) - 1);
-> -	adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
-> +	if (for_mmhub) {
-> +		adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
-> +		if (adev->vm_manager.npa_vmid)
-> +			adev->vm_manager.vmid_uq_mask_mmhub &=
-> +				~BIT(adev->vm_manager.npa_vmid);
-> +	}
+> @@ -631,44 +631,48 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev)
 >  }
 >  
 >  /**
-> @@ -673,8 +682,6 @@ void amdgpu_vmid_mgr_init(struct amdgpu_device *adev)
+> - * amdgpu_vmid_mgr_set_vmid_mask - set the kernel-queue VMID pool for a
+> - * hub, and the matching user-queue mask on MMHUB
+> + * amdgpu_vmid_mgr_set_vmid_mask - set the kernel- and user-queue VMID
+> + * pools for both hubs
+>   *
+>   * @adev: amdgpu device structure
+> - * @vmid_mask: kernel-queue round-robin VMID mask for this hub
+> - * @for_mmhub: true to target MMHUB instances, false for GFXHUB
+> - *
+> - * On MMHUB, also sets vmid_uq_mask_mmhub to the fixed pool of VMIDs
+> - * MES/KFD use there, excluding npa_vmid (a VMID dedicated to a single
+> - * fixed purpose) from both the kernel- and user-queue masks; the
+> - * caller must already have set npa_vmid. vmid_uq_mask_gfxhub is set
+> - * directly by each generation's sw_init(), since unlike MMHUB's it
+> - * varies per generation.
+> + * @gfx_vmid_mask: kernel-queue VMID pool mask for GFXHUB
+> + * @mmhub_vmid_mask: kernel-queue VMID pool mask for MMHUB
+> + *
+> + * Sets both hubs' kernel-queue VMID pools (tracked least-recently-used
+> + * via id_mgr[].ids_lru), and both hubs' KFD/MES user-queue masks.
+> + * vmid_uq_mask_gfxhub is set to the
+> + * complement of @gfx_vmid_mask, since unlike MMHUB's it is always a
+> + * clean partition of the full VMID range; vmid_uq_mask_mmhub is the
+> + * fixed pool set here instead, since MMHUB's kq and uq pools are
+> + * allowed to overlap. A VMID dedicated to a single fixed purpose on
+> + * MMHUB (npa_vmid) is excluded from both MMHUB pools; it is the
+> + * caller's responsibility to have already set npa_vmid.
+>   */
+>  void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
+> -				   unsigned long vmid_mask, bool for_mmhub)
+> +				   unsigned long gfx_vmid_mask,
+> +				   unsigned long mmhub_vmid_mask)
 >  {
->  	unsigned i, j;
+>  	unsigned int i;
 >  
-> -	amdgpu_vmid_uq_mask_init(adev);
-> -
->  	for (i = 0; i < AMDGPU_MAX_VMHUBS; ++i) {
->  		struct amdgpu_kq_vmid_mgr *id_mgr =
->  			&adev->vm_manager.id_mgr[i];
+>  	BUILD_BUG_ON(AMDGPU_NUM_VMID > BITS_PER_LONG);
+>  
+> -	if (for_mmhub && adev->vm_manager.npa_vmid)
+> -		vmid_mask &= ~BIT(adev->vm_manager.npa_vmid);
+> +	if (adev->vm_manager.npa_vmid)
+> +		mmhub_vmid_mask &= ~BIT(adev->vm_manager.npa_vmid);
+>  
+>  	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
+>  		bool is_mmhub = AMDGPU_IS_MMHUB0(i) || AMDGPU_IS_MMHUB1(i);
+>  
+> -		if (is_mmhub == for_mmhub)
+> -			bitmap_copy(adev->vm_manager.id_mgr[i].vmid_mask,
+> -				    &vmid_mask, AMDGPU_NUM_VMID);
+> +		bitmap_copy(adev->vm_manager.id_mgr[i].vmid_mask,
+> +			    is_mmhub ? &mmhub_vmid_mask : &gfx_vmid_mask,
+> +			    AMDGPU_NUM_VMID);
+>  	}
+>  
+> -	if (for_mmhub) {
+> -		adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
+> -		if (adev->vm_manager.npa_vmid)
+> -			adev->vm_manager.vmid_uq_mask_mmhub &=
+> -				~BIT(adev->vm_manager.npa_vmid);
+> -	}
+> +	adev->vm_manager.vmid_uq_mask_gfxhub =
+> +		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
+> +
+> +	adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
+> +	if (adev->vm_manager.npa_vmid)
+> +		adev->vm_manager.vmid_uq_mask_mmhub &= ~BIT(adev->vm_manager.npa_vmid);
+>  }
+>  
+>  /**
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-> index 21d6a41d1738a..73ac1b18e8487 100644
+> index 73ac1b18e8487..4dfcec76afed7 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-> @@ -56,6 +56,22 @@
->  	     __vmid_mask; __vmid_mask = 0)				\
->  		for_each_set_bit((vmid), &__vmid_mask, AMDGPU_NUM_VMID)
+> @@ -135,6 +135,7 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev);
+>  void amdgpu_vmid_mgr_init(struct amdgpu_device *adev);
+>  void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev);
+>  void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
+> -				   unsigned long vmid_mask, bool for_mmhub);
+> +				   unsigned long gfx_vmid_mask,
+> +				   unsigned long mmhub_vmid_mask);
 >  
-> +/**
-> + * for_each_uq_gfx_vmid - iterate over every VMID set in vmid_uq_mask_gfxhub
-> + * @vmid:	loop cursor (int / unsigned int)
-> + * @adev:	struct amdgpu_device *
-> + *
-> + * Equivalent to walking adev->vm_manager.vmid_uq_mask_gfxhub with
-> + * for_each_set_bit().
-> + *
-> + * Relies on AMDGPU_NUM_VMID (16) fitting in a single unsigned long.
-> + */
-> +#define for_each_uq_gfx_vmid(vmid, adev)					\
-> +	for (unsigned long __uq_vmid_mask =				\
-> +		(adev)->vm_manager.vmid_uq_mask_gfxhub;		\
-> +	     __uq_vmid_mask; __uq_vmid_mask = 0)			\
-> +		for_each_set_bit((vmid), &__uq_vmid_mask, AMDGPU_NUM_VMID)
-> +
->  struct amdgpu_device;
->  struct amdgpu_fpriv;
->  struct amdgpu_vm;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 8e478d3bda1ac..d99e42ca308ef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -383,7 +383,6 @@ struct amdgpu_vm {
->  struct amdgpu_vm_manager {
->  	/* Handling of VMIDs */
->  	struct amdgpu_kq_vmid_mgr		id_mgr[AMDGPU_MAX_VMHUBS];
-> -	unsigned int				first_kfd_vmid;
->  	bool					concurrent_flush;
->  
->  	uint64_t				max_pfn;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index 33403e16df5ca..e791bf86ad571 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -5178,19 +5178,12 @@ static u32 gfx_v10_0_init_pa_sc_tile_steering_override(struct amdgpu_device *ade
->  #define DEFAULT_SH_MEM_BASES	(0x6000)
->  
->  static void gfx_v10_0_debug_trap_config_init(struct amdgpu_device *adev,
-> -				uint32_t first_vmid,
-> -				uint32_t last_vmid)
-> +				uint32_t vmid_mask)
->  {
->  	uint32_t data;
-> -	uint32_t trap_config_vmid_mask = 0;
-> -	int i;
-> -
-> -	/* Calculate trap config vmid mask */
-> -	for (i = first_vmid; i < last_vmid; i++)
-> -		trap_config_vmid_mask |= (1 << i);
->  
->  	data = REG_SET_FIELD(0, SPI_GDBG_TRAP_CONFIG,
-> -			VMID_SEL, trap_config_vmid_mask);
-> +			VMID_SEL, vmid_mask);
->  	data = REG_SET_FIELD(data, SPI_GDBG_TRAP_CONFIG,
->  			TRAP_EN, 1);
->  	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_CONFIG), data);
-> @@ -5214,7 +5207,7 @@ static void gfx_v10_0_init_compute_vmid(struct amdgpu_device *adev)
->  	sh_mem_bases = DEFAULT_SH_MEM_BASES | (DEFAULT_SH_MEM_BASES << 16);
->  
->  	mutex_lock(&adev->srbm_mutex);
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		nv_grbm_select(adev, 0, 0, 0, i);
->  		/* CP and shaders */
->  		WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);
-> @@ -5227,15 +5220,14 @@ static void gfx_v10_0_init_compute_vmid(struct amdgpu_device *adev)
->  	 * Initialize all compute VMIDs to have no GDS, GWS, or OA
->  	 * access. These should be enabled by FW for target VMIDs.
->  	 */
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		WREG32_SOC15_OFFSET(GC, 0, mmGDS_VMID0_BASE, 2 * i, 0);
->  		WREG32_SOC15_OFFSET(GC, 0, mmGDS_VMID0_SIZE, 2 * i, 0);
->  		WREG32_SOC15_OFFSET(GC, 0, mmGDS_GWS_VMID0, i, 0);
->  		WREG32_SOC15_OFFSET(GC, 0, mmGDS_OA_VMID0, i, 0);
->  	}
->  
-> -	gfx_v10_0_debug_trap_config_init(adev, adev->vm_manager.first_kfd_vmid,
-> -					AMDGPU_NUM_VMID);
-> +	gfx_v10_0_debug_trap_config_init(adev, adev->vm_manager.vmid_uq_mask_gfxhub);
->  }
->  
->  static void gfx_v10_0_init_gds_vmid(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index d5f428ac19bf3..1caecf26c4589 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -2167,7 +2167,7 @@ static void gfx_v11_0_init_compute_vmid(struct amdgpu_device *adev)
->  			SCRATCH_APP_BASE;
->  
->  	mutex_lock(&adev->srbm_mutex);
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		soc21_grbm_select(adev, 0, 0, 0, i);
->  		/* CP and shaders */
->  		WREG32_SOC15(GC, 0, regSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);
-> @@ -2185,7 +2185,7 @@ static void gfx_v11_0_init_compute_vmid(struct amdgpu_device *adev)
->  	 * Initialize all compute VMIDs to have no GDS, GWS, or OA
->  	 * access. These should be enabled by FW for target VMIDs.
->  	 */
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		WREG32_SOC15_OFFSET(GC, 0, regGDS_VMID0_BASE, 2 * i, 0);
->  		WREG32_SOC15_OFFSET(GC, 0, regGDS_VMID0_SIZE, 2 * i, 0);
->  		WREG32_SOC15_OFFSET(GC, 0, regGDS_GWS_VMID0, i, 0);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index 420ce997bebc7..a5151e15e1011 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -1808,7 +1808,7 @@ static void gfx_v12_0_init_compute_vmid(struct amdgpu_device *adev)
->  			SCRATCH_APP_BASE;
->  
->  	mutex_lock(&adev->srbm_mutex);
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		soc24_grbm_select(adev, 0, 0, 0, i);
->  		/* CP and shaders */
->  		WREG32_SOC15(GC, 0, regSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> index 4498e253846f1..4ceb3c0aa3322 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> @@ -1540,7 +1540,7 @@ static void gfx_v12_1_xcc_init_compute_vmid(struct amdgpu_device *adev,
->  	sh_mem_config = gfx_v12_1_get_sh_mem_config(adev);
->  
->  	mutex_lock(&adev->srbm_mutex);
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		soc_v1_0_grbm_select(adev, 0, 0, 0, i, GET_INST(GC, xcc_id));
->  		/* CP and shaders */
->  		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regSH_MEM_CONFIG, sh_mem_config);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> index 549d1239e326b..2eaea0e4864dd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -1837,7 +1837,7 @@ static void gfx_v7_0_init_compute_vmid(struct amdgpu_device *adev)
->  			SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
->  	sh_mem_config |= MTYPE_NONCACHED << SH_MEM_CONFIG__DEFAULT_MTYPE__SHIFT;
->  	mutex_lock(&adev->srbm_mutex);
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		cik_srbm_select(adev, 0, 0, 0, i);
->  		/* CP and shaders */
->  		WREG32(mmSH_MEM_CONFIG, sh_mem_config);
-> @@ -1850,7 +1850,7 @@ static void gfx_v7_0_init_compute_vmid(struct amdgpu_device *adev)
->  
->  	/* Initialize all compute VMIDs to have no GDS, GWS, or OA
->  	   access. These should be enabled by FW for target VMIDs. */
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		WREG32(amdgpu_gds_reg_offset[i].mem_base, 0);
->  		WREG32(amdgpu_gds_reg_offset[i].mem_size, 0);
->  		WREG32(amdgpu_gds_reg_offset[i].gws, 0);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index ab4123ddbb942..696558f6f30d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -3682,7 +3682,7 @@ static void gfx_v8_0_init_compute_vmid(struct amdgpu_device *adev)
->  			SH_MEM_CONFIG__PRIVATE_ATC_MASK;
->  
->  	mutex_lock(&adev->srbm_mutex);
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		vi_srbm_select(adev, 0, 0, 0, i);
->  		/* CP and shaders */
->  		WREG32(mmSH_MEM_CONFIG, sh_mem_config);
-> @@ -3695,7 +3695,7 @@ static void gfx_v8_0_init_compute_vmid(struct amdgpu_device *adev)
->  
->  	/* Initialize all compute VMIDs to have no GDS, GWS, or OA
->  	   access. These should be enabled by FW for target VMIDs. */
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		WREG32(amdgpu_gds_reg_offset[i].mem_base, 0);
->  		WREG32(amdgpu_gds_reg_offset[i].mem_size, 0);
->  		WREG32(amdgpu_gds_reg_offset[i].gws, 0);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 1678015ce5a97..3fb51417ebee5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -2568,19 +2568,12 @@ static void gfx_v9_0_setup_rb(struct amdgpu_device *adev)
->  }
->  
->  static void gfx_v9_0_debug_trap_config_init(struct amdgpu_device *adev,
-> -				uint32_t first_vmid,
-> -				uint32_t last_vmid)
-> +				uint32_t vmid_mask)
->  {
->  	uint32_t data;
-> -	uint32_t trap_config_vmid_mask = 0;
-> -	int i;
-> -
-> -	/* Calculate trap config vmid mask */
-> -	for (i = first_vmid; i < last_vmid; i++)
-> -		trap_config_vmid_mask |= (1 << i);
->  
->  	data = REG_SET_FIELD(0, SPI_GDBG_TRAP_CONFIG,
-> -			VMID_SEL, trap_config_vmid_mask);
-> +			VMID_SEL, vmid_mask);
->  	data = REG_SET_FIELD(data, SPI_GDBG_TRAP_CONFIG,
->  			TRAP_EN, 1);
->  	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_CONFIG), data);
-> @@ -2610,7 +2603,7 @@ static void gfx_v9_0_init_compute_vmid(struct amdgpu_device *adev)
->  			SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
->  
->  	mutex_lock(&adev->srbm_mutex);
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		soc15_grbm_select(adev, 0, 0, 0, i, 0);
->  		/* CP and shaders */
->  		WREG32_SOC15_RLC(GC, 0, mmSH_MEM_CONFIG, sh_mem_config);
-> @@ -2621,7 +2614,7 @@ static void gfx_v9_0_init_compute_vmid(struct amdgpu_device *adev)
->  
->  	/* Initialize all compute VMIDs to have no GDS, GWS, or OA
->  	   access. These should be enabled by FW for target VMIDs. */
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		WREG32_SOC15_OFFSET(GC, 0, mmGDS_VMID0_BASE, 2 * i, 0);
->  		WREG32_SOC15_OFFSET(GC, 0, mmGDS_VMID0_SIZE, 2 * i, 0);
->  		WREG32_SOC15_OFFSET(GC, 0, mmGDS_GWS_VMID0, i, 0);
-> @@ -4932,11 +4925,10 @@ static int gfx_v9_0_late_init(struct amdgpu_ip_block *ip_block)
->  		return r;
->  
->  	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2))
-> -		gfx_v9_4_2_debug_trap_config_init(adev,
-> -			adev->vm_manager.first_kfd_vmid, AMDGPU_NUM_VMID);
-> +		gfx_v9_4_2_debug_trap_config_init(adev);
->  	else
->  		gfx_v9_0_debug_trap_config_init(adev,
-> -			adev->vm_manager.first_kfd_vmid, AMDGPU_NUM_VMID);
-> +			adev->vm_manager.vmid_uq_mask_gfxhub);
->  
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-> index 54bcb5fdca242..f54f54fe535e0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-> @@ -836,16 +836,14 @@ void gfx_v9_4_2_init_sq(struct amdgpu_device *adev)
->  	}
->  }
->  
-> -void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
-> -				uint32_t first_vmid,
-> -				uint32_t last_vmid)
-> +void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev)
->  {
->  	uint32_t data;
->  	int i;
->  
->  	mutex_lock(&adev->srbm_mutex);
->  
-> -	for (i = first_vmid; i < last_vmid; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		data = 0;
->  		soc15_grbm_select(adev, 0, 0, 0, i, 0);
->  		data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, 1);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-> index c8757de669eaa..ca240f4298da6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-> @@ -24,8 +24,7 @@
->  #ifndef __GFX_V9_4_2_H__
->  #define __GFX_V9_4_2_H__
->  
-> -void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
-> -				uint32_t first_vmid, uint32_t last_vmid);
-> +void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev);
->  void gfx_v9_4_2_init_golden_registers(struct amdgpu_device *adev,
->  				      uint32_t die_id);
->  void gfx_v9_4_2_init_sq(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index 01ed1701c781a..3572eb9b5758a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -1173,7 +1173,7 @@ static void gfx_v9_4_3_xcc_init_compute_vmid(struct amdgpu_device *adev,
->  			SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
->  
->  	mutex_lock(&adev->srbm_mutex);
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		soc15_grbm_select(adev, 0, 0, 0, i, GET_INST(GC, xcc_id));
->  		/* CP and shaders */
->  		WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regSH_MEM_CONFIG, sh_mem_config);
-> @@ -1191,7 +1191,7 @@ static void gfx_v9_4_3_xcc_init_compute_vmid(struct amdgpu_device *adev,
->  	 * Initialize all compute VMIDs to have no GDS, GWS, or OA
->  	 * access. These should be enabled by FW for target VMIDs.
->  	 */
-> -	for (i = adev->vm_manager.first_kfd_vmid; i < AMDGPU_NUM_VMID; i++) {
-> +	for_each_uq_gfx_vmid(i, adev) {
->  		WREG32_SOC15_OFFSET(GC, GET_INST(GC, xcc_id), regGDS_VMID0_BASE, 2 * i, 0);
->  		WREG32_SOC15_OFFSET(GC, GET_INST(GC, xcc_id), regGDS_VMID0_SIZE, 2 * i, 0);
->  		WREG32_SOC15_OFFSET(GC, GET_INST(GC, xcc_id), regGDS_GWS_VMID0, i, 0);
+>  #endif
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 490b4c4eb662a..a95bfe22c640e 100644
+> index a95bfe22c640e..55d286275466d 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -746,6 +746,7 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
+> @@ -746,7 +746,6 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
 >  {
 >  	int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
 >  	struct amdgpu_device *adev = ip_block->adev;
-> +	unsigned long gfx_vmid_mask;
+> -	unsigned long gfx_vmid_mask;
 >  
 >  	adev->gfxhub.funcs->init(adev);
 >  
-> @@ -869,10 +870,11 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
->  	 * amdgpu graphics/compute will use VMIDs 1-7
->  	 * amdkfd will use VMIDs 8-15
+> @@ -867,15 +866,11 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
+>  	/*
+>  	 * number of VMs
+>  	 * VMID 0 is reserved for System
+> -	 * amdgpu graphics/compute will use VMIDs 1-7
+> -	 * amdkfd will use VMIDs 8-15
+> +	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
+> +	 * amdkfd/MES user queues will use VMIDs 8-15
 >  	 */
-> -	adev->vm_manager.first_kfd_vmid = 8;
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      false);
-> +	gfx_vmid_mask = GENMASK(7, 1);
-> +
-> +	adev->vm_manager.vmid_uq_mask_gfxhub =
-> +		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
->  	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(AMDGPU_NUM_VMID - 1, 1), true);
+> -	gfx_vmid_mask = GENMASK(7, 1);
+> -
+> -	adev->vm_manager.vmid_uq_mask_gfxhub =
+> -		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(AMDGPU_NUM_VMID - 1, 1), true);
+> +	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(7, 1),
+> +				      GENMASK(AMDGPU_NUM_VMID - 1, 1));
 >  
 >  	amdgpu_vm_manager_init(adev);
+>  
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> index 3cdc7893587a1..7b19c59a2f743 100644
+> index 7b19c59a2f743..301ffb89c9672 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -745,6 +745,8 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+> @@ -745,8 +745,7 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
 >  {
 >  	int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
 >  	struct amdgpu_device *adev = ip_block->adev;
-> +	unsigned int first_userq_vmid;
-> +	unsigned long gfx_vmid_mask;
+> -	unsigned int first_userq_vmid;
+> -	unsigned long gfx_vmid_mask;
+> +	unsigned int last_kq_vmid;
 >  
 >  	adev->mmhub.funcs->init(adev);
 >  
-> @@ -854,11 +856,12 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
->  	 * amdgpu graphics/compute will use VMIDs 1-7
->  	 * amdkfd will use VMIDs 8-15
+> @@ -853,16 +852,12 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+>  	/*
+>  	 * number of VMs
+>  	 * VMID 0 is reserved for System
+> -	 * amdgpu graphics/compute will use VMIDs 1-7
+> -	 * amdkfd will use VMIDs 8-15
+> +	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
+> +	 * amdkfd/MES user queues will use VMIDs 8-15
 >  	 */
-> -	adev->vm_manager.first_kfd_vmid = adev->gfx.disable_kq ? 1 : 8;
-> +	first_userq_vmid = adev->gfx.disable_kq ? 1 : 8;
-> +	gfx_vmid_mask = GENMASK(first_userq_vmid - 1, 1);
->  
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      false);
-> +	adev->vm_manager.vmid_uq_mask_gfxhub =
-> +		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
->  	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(AMDGPU_NUM_VMID - 1, 1), true);
+> -	first_userq_vmid = adev->gfx.disable_kq ? 1 : 8;
+> -	gfx_vmid_mask = GENMASK(first_userq_vmid - 1, 1);
+> -
+> -	adev->vm_manager.vmid_uq_mask_gfxhub =
+> -		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(AMDGPU_NUM_VMID - 1, 1), true);
+> +	last_kq_vmid = adev->gfx.disable_kq ? 0 : 7;
+> +	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(last_kq_vmid, 1),
+> +				      GENMASK(AMDGPU_NUM_VMID - 1, 1));
 >  
 >  	amdgpu_vm_manager_init(adev);
+>  
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> index fcc1d580fa946..9194130c25f29 100644
+> index 9194130c25f29..e4a74cd6574f4 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> @@ -849,6 +849,8 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+> @@ -848,9 +848,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+>  	int r, vram_width = 0, vram_type = 0, vram_vendor = 0, dma_addr_bits;
 >  	struct amdgpu_device *adev = ip_block->adev;
 >  	uint64_t pte_addr_mask = 0;
->  	u32 mmhub_vmid_mask;
-> +	unsigned int first_userq_vmid;
-> +	unsigned long gfx_vmid_mask;
+> -	u32 mmhub_vmid_mask;
+> -	unsigned int first_userq_vmid;
+> -	unsigned long gfx_vmid_mask;
+> +	unsigned int last_kq_vmid;
 >  	int i;
 >  
 >  	adev->mmhub.funcs->init(adev);
-> @@ -997,26 +999,24 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+> @@ -992,28 +990,24 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+>  	/*
+>  	 * number of VMs
+>  	 * VMID 0 is reserved for System
+> -	 * amdgpu graphics/compute will use VMIDs 1-7
+> -	 * amdkfd will use VMIDs 8-15.
+> -	 * On GFX 12.1, amdkfd will use VMIDs 3-15, with VMID 15 reserved
+> -	 * for NPA and therefore excluded from the MMHUB VMID pool.
+> +	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
+> +	 * amdkfd/MES user queues will use VMIDs 8-15.
+> +	 * On GFX 12.1, amdkfd/MES user queues will use VMIDs 3-15, with
+> +	 * VMID 15 reserved for NPA and therefore excluded from the
+> +	 * MMHUB VMID pool.
 >  	 */
->  	mmhub_vmid_mask = GENMASK(AMDGPU_NUM_VMID - 1, 1);
+> -	mmhub_vmid_mask = GENMASK(AMDGPU_NUM_VMID - 1, 1);
 >  	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 1, 0)) {
-> -		adev->vm_manager.first_kfd_vmid = 3;
-> +		first_userq_vmid = 3;
+> -		first_userq_vmid = 3;
+> +		last_kq_vmid = 2;
 >  		adev->vm_manager.npa_vmid = 15;
-> -		mmhub_vmid_mask &= ~BIT(adev->vm_manager.npa_vmid);
 >  	} else {
-> -		adev->vm_manager.first_kfd_vmid = 8;
-> +		first_userq_vmid = 8;
+> -		first_userq_vmid = 8;
+> +		last_kq_vmid = 7;
 >  	}
 >  
 >  	if (adev->gfx.disable_kq)
-> -		adev->vm_manager.first_kfd_vmid = 1;
-> +		first_userq_vmid = 1;
+> -		first_userq_vmid = 1;
+> +		last_kq_vmid = 0;
 >  
-> +	gfx_vmid_mask = GENMASK(first_userq_vmid - 1, 1);
-> +
-> +	adev->vm_manager.vmid_uq_mask_gfxhub =
-> +		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
->  	amdgpu_vmid_mgr_set_vmid_mask(adev, mmhub_vmid_mask, true);
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      false);
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
+> -	gfx_vmid_mask = GENMASK(first_userq_vmid - 1, 1);
+> -
+> -	adev->vm_manager.vmid_uq_mask_gfxhub =
+> -		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, mmhub_vmid_mask, true);
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
+> +	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(last_kq_vmid, 1),
+> +				      GENMASK(AMDGPU_NUM_VMID - 1, 1));
 >  
 >  	amdgpu_vm_manager_init(adev);
 >  
-> -	if (adev->vm_manager.npa_vmid)
-> -		adev->vm_manager.vmid_uq_mask_mmhub &= ~BIT(adev->vm_manager.npa_vmid);
-> -
->  	r = amdgpu_gmc_ras_sw_init(adev);
->  	if (r)
->  		return r;
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> index 71409eb718d39..4e593e67221ff 100644
+> index 4e593e67221ff..a7c353d1ac09d 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -768,6 +768,7 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+> @@ -768,7 +768,7 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
 >  {
 >  	int r;
 >  	struct amdgpu_device *adev = ip_block->adev;
-> +	unsigned long gfx_vmid_mask;
+> -	unsigned long gfx_vmid_mask;
+> +	unsigned long vmid_mask;
 >  
 >  	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
 >  
-> @@ -824,13 +825,12 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
->  	 * amdgpu graphics/compute will use VMIDs 1-7
->  	 * amdkfd will use VMIDs 8-15
+> @@ -822,15 +822,11 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+>  	/*
+>  	 * number of VMs
+>  	 * VMID 0 is reserved for System
+> -	 * amdgpu graphics/compute will use VMIDs 1-7
+> -	 * amdkfd will use VMIDs 8-15
+> +	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
+> +	 * amdkfd/MES user queues will use VMIDs 8-15
 >  	 */
-> -	adev->vm_manager.first_kfd_vmid = 8;
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      false);
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      true);
-> +	gfx_vmid_mask = GENMASK(7, 1);
-> +
-> +	adev->vm_manager.vmid_uq_mask_gfxhub =
-> +		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
+> -	gfx_vmid_mask = GENMASK(7, 1);
+> -
+> -	adev->vm_manager.vmid_uq_mask_gfxhub =
+> -		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
+> +	vmid_mask = GENMASK(7, 1);
+> +	amdgpu_vmid_mgr_set_vmid_mask(adev, vmid_mask, vmid_mask);
 >  	amdgpu_vm_manager_init(adev);
 >  
 >  	/* base offset of vram pages */
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index c95e097241bf8..bbb5c42b9d4ed 100644
+> index bbb5c42b9d4ed..4199300eab177 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -941,6 +941,7 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+> @@ -941,7 +941,7 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
 >  {
 >  	int r;
 >  	struct amdgpu_device *adev = ip_block->adev;
-> +	unsigned long gfx_vmid_mask;
+> -	unsigned long gfx_vmid_mask;
+> +	unsigned long vmid_mask;
 >  
 >  	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
 >  
-> @@ -1006,13 +1007,12 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
->  	 * amdgpu graphics/compute will use VMIDs 1-7
->  	 * amdkfd will use VMIDs 8-15
+> @@ -1004,15 +1004,11 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+>  	/*
+>  	 * number of VMs
+>  	 * VMID 0 is reserved for System
+> -	 * amdgpu graphics/compute will use VMIDs 1-7
+> -	 * amdkfd will use VMIDs 8-15
+> +	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
+> +	 * amdkfd/MES user queues will use VMIDs 8-15
 >  	 */
-> -	adev->vm_manager.first_kfd_vmid = 8;
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      false);
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      true);
-> +	gfx_vmid_mask = GENMASK(7, 1);
-> +
-> +	adev->vm_manager.vmid_uq_mask_gfxhub =
-> +		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
+> -	gfx_vmid_mask = GENMASK(7, 1);
+> -
+> -	adev->vm_manager.vmid_uq_mask_gfxhub =
+> -		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
+> +	vmid_mask = GENMASK(7, 1);
+> +	amdgpu_vmid_mgr_set_vmid_mask(adev, vmid_mask, vmid_mask);
 >  	amdgpu_vm_manager_init(adev);
 >  
 >  	/* base offset of vram pages */
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index 8d8a0775878ff..25d47d2c288dd 100644
+> index 25d47d2c288dd..3f9ec7427319d 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -1051,6 +1051,7 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
+> @@ -1051,7 +1051,7 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
 >  {
 >  	int r;
 >  	struct amdgpu_device *adev = ip_block->adev;
-> +	unsigned long gfx_vmid_mask;
+> -	unsigned long gfx_vmid_mask;
+> +	unsigned long vmid_mask;
 >  
 >  	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
 >  
-> @@ -1121,13 +1122,12 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
->  	 * amdgpu graphics/compute will use VMIDs 1-7
->  	 * amdkfd will use VMIDs 8-15
+> @@ -1119,15 +1119,11 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
+>  	/*
+>  	 * number of VMs
+>  	 * VMID 0 is reserved for System
+> -	 * amdgpu graphics/compute will use VMIDs 1-7
+> -	 * amdkfd will use VMIDs 8-15
+> +	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
+> +	 * amdkfd/MES user queues will use VMIDs 8-15
 >  	 */
-> -	adev->vm_manager.first_kfd_vmid = 8;
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      false);
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      true);
-> +	gfx_vmid_mask = GENMASK(7, 1);
-> +
-> +	adev->vm_manager.vmid_uq_mask_gfxhub =
-> +		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
+> -	gfx_vmid_mask = GENMASK(7, 1);
+> -
+> -	adev->vm_manager.vmid_uq_mask_gfxhub =
+> -		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
+> +	vmid_mask = GENMASK(7, 1);
+> +	amdgpu_vmid_mgr_set_vmid_mask(adev, vmid_mask, vmid_mask);
 >  	amdgpu_vm_manager_init(adev);
 >  
 >  	/* base offset of vram pages */
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 85ba228f002d0..7ebf7b1299ff6 100644
+> index 7ebf7b1299ff6..3a8dc15ef95b9 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1849,6 +1849,8 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+> @@ -1849,8 +1849,8 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
 >  	int r, vram_width = 0, vram_type = 0, vram_vendor = 0, dma_addr_bits;
 >  	struct amdgpu_device *adev = ip_block->adev;
 >  	unsigned long inst_mask = adev->aid_mask;
-> +	unsigned int first_userq_vmid;
-> +	unsigned long gfx_vmid_mask;
+> -	unsigned int first_userq_vmid;
+> -	unsigned long gfx_vmid_mask;
+> +	unsigned int last_kq_vmid;
+> +	unsigned long vmid_mask;
 >  
 >  	adev->gfxhub.funcs->init(adev);
 >  
-> @@ -2030,21 +2032,21 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+> @@ -2019,8 +2019,8 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+>  	/*
+>  	 * number of VMs
+>  	 * VMID 0 is reserved for System
+> -	 * amdgpu graphics/compute will use VMIDs 1..n-1
+> -	 * amdkfd will use VMIDs n..15
+> +	 * amdgpu graphics/compute kernel queues will use VMIDs 1..n-1
+> +	 * amdkfd/MES user queues will use VMIDs n..15
+>  	 *
+>  	 * The first KFD VMID is 8 for GPUs with graphics, 3 for
+>  	 * compute-only GPUs. On compute-only GPUs that leaves 2 VMIDs
+> @@ -2032,21 +2032,17 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
 >  	    adev->jpeg.disable_kq &&
 >  	    adev->vcn.disable_kq &&
 >  	    adev->sdma.no_user_submission)
-> -		adev->vm_manager.first_kfd_vmid = 1;
-> +		first_userq_vmid = 1;
+> -		first_userq_vmid = 1;
+> +		last_kq_vmid = 0;
 >  	else
-> -		adev->vm_manager.first_kfd_vmid =
-> +		first_userq_vmid =
+> -		first_userq_vmid =
+> +		last_kq_vmid =
 >  			(amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 1) ||
 >  			 amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2) ||
 >  			 amdgpu_is_multi_aid(adev)) ?
->  			3 :
->  			8;
+> -			3 :
+> -			8;
+> +			2 :
+> +			7;
 >  
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      false);
-> -	amdgpu_vmid_mgr_set_vmid_mask(adev,
-> -				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
-> -				      true);
-> +	gfx_vmid_mask = GENMASK(first_userq_vmid - 1, 1);
-> +
-> +	adev->vm_manager.vmid_uq_mask_gfxhub =
-> +		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
-> +	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
+> -	gfx_vmid_mask = GENMASK(first_userq_vmid - 1, 1);
+> -
+> -	adev->vm_manager.vmid_uq_mask_gfxhub =
+> -		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
+> -	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
+> +	vmid_mask = GENMASK(last_kq_vmid, 1);
+> +	amdgpu_vmid_mgr_set_vmid_mask(adev, vmid_mask, vmid_mask);
 >  	amdgpu_vm_manager_init(adev);
 >  
 >  	gmc_v9_0_save_registers(adev);
