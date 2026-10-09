@@ -4,100 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18F6DCA6019
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 10:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC135CA6018
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 11:35:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA69112047;
-	Fri,  9 Oct 2026 10:34:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B72E10E54D;
+	Fri,  9 Oct 2026 11:35:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3SAa51cN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BMU5e2h9";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011014.outbound.protection.outlook.com
- [40.93.194.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99FA2112047;
- Fri,  9 Oct 2026 10:34:36 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013006.outbound.protection.outlook.com
+ [40.107.201.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4D3A10E54D;
+ Fri,  9 Oct 2026 11:35:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WlG5L2/GFiN8PIAwTeXYafmTDNAMy0SzHQC3/I1DrogArFGZbJRvh0lGZ1y2JFBLmtKTnTMJKiW8AHo/mqARoam9xXbvMWuzbbH+0lU+pubdDS6mUxvTJM4FfwoORgsvdGtCW/u3m7jszEmYww9+2qraZafjCrcLKronjSQn1Vn1F7H19p/cVWZ7dob8YvetDwqU/cU8C7rQyurYxyagPlym+5so+hCWSItg1ZU94bb61vwT7xpCTMQABWUF07os54vaZqNAI9BmTqupEMXZun5QUO5Pacp/6jEAV/uw2U/p+d+23RDhlFel9Ev6ujCjLNQ4gxOBF7TnZgZCnKl+Kg==
+ b=NEixSCg9WVosYuTGdzqwpQ89bxHxctP7YFC+L5n/MnnuZkUgREB2qEouIBDh9XbpxrgZ1TtkL3WkLaGQ5GKiFsKUfWSsH6xQCfoLn3n4TwIYuBib3J2rr2CxNsCMGlo3Jzn+qrGpdN+OXg1v+34dICcQpDN/B1oKUEf0uiVg0DarlZF4fPLeznbtHa44i3fD0LiadysN/0KvdsiXR//I+L+JEb/EKo04WwKsS8/5N5ZrJ9VFR6iPbPoNzs1/j6YvYdJn9f2/ebm2PstKlpLqnjwfW2wLQDiVpVt7mMs8kh0Ih2aTV2NtcGo2oudwIjWRVr6oQWHgzctHMsKMFEptPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R1r1FLfCQKFfs6DmnFGHuERcE5sgz0UtSgOBgcbwCUo=;
- b=phZD44Rf08nCdBcTzRCScpBsW3U/5tQJsSrn/9PxyOkJiHV0FVc7P32UsN37DHO41eXwNnlDYDMSdIAH6LRUFLmCl8gyGfpkn8m9tg1rwZDcdpsj6mb+tCxDkpn482zPKzf5t86L+dUoWDPFekBgZVrRNcMhd6tYlNBJIhEeRBitQKsGeslfAN42Ufw5fXvfa9ZR/xAldvP0B7uWGxyWemazULr8SoZ/TLnxQMh8yHRyWBMxcWKa5XHV08Z2sziCtiNwB1eONCBH/jM7u20iV7FHItPdc/tk2GuQEatr1e1nDFhKS0MtOmjIsvWEdRgeP3wuEewyL9fA+SnbLKTKZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=PYfwrcoViiR/gnFoyNIAHCBYZreGcrKXTWBTATdQzQQ=;
+ b=AXdMInN49SHs83Js/0XGsjT0RtVIcOloYCYtMz6x1NdBSx51BkEmMkzZv6YrnkjaenLELUY1W7mgrdfj24coyXA1p7349PFAYFMkqS9M0JVdmS8iNtn+u0QWcqyOdK9ki19Cj4ReQ6kl5IIXjYCET5HH6bwEwylw9kTrkuiS74rJx7G14z0f4Entpd7z7UNdct1gyVY8QiwIQ5HvgGl0LdM+fFDa3UAjKwmTJ6kSrNiEDoJn0LzrLAzgSMEODjPv2t4e8pYEa8VfOMW4JvDafw3hoxi1eoHGEpHkvdkSglFOc5gq6Y14U4cIuAO2tlfTKA+7KkjN3wo+2+3pb0DawA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R1r1FLfCQKFfs6DmnFGHuERcE5sgz0UtSgOBgcbwCUo=;
- b=3SAa51cNkhVf+KFVllqNCcDA0dxAxkDRSNgvwW518/PWBypCfMEZtgDtP+67mrFl2KkYWLCWWRUsjtnWfEBDyjohmBKcqdisjp1XT1VySxBqdwP0ntuVfX3K1Xe5vTnF5iPBSfvCwkPfzWqYafW7uJ1IyTiEbEshm/YXiofvAZk=
-Received: from SJ0PR03CA0162.namprd03.prod.outlook.com (2603:10b6:a03:338::17)
- by MN6PR12MB8471.namprd12.prod.outlook.com (2603:10b6:208:473::19)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=PYfwrcoViiR/gnFoyNIAHCBYZreGcrKXTWBTATdQzQQ=;
+ b=BMU5e2h9JVKbODBoKp5Syk8J3+Y8IGh79grdBvISLxK9dj1DVOe+AIvTENEP5TsD7t4OVCWHNXpNJMgTVivT/oZIXH6XMUvy4ErOUXEF0cY5X4UtfzUPhcbFbS3NiObSXmYM8wLGU3eP7YQwAn/ZGYmdoFPrDnqxAMFjh76bcRk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by DM4PR12MB6064.namprd12.prod.outlook.com (2603:10b6:8:af::12) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 10:34:28 +0000
-Received: from MWH0EPF000C6190.namprd02.prod.outlook.com
- (2603:10b6:a03:338:cafe::7) by SJ0PR03CA0162.outlook.office365.com
- (2603:10b6:a03:338::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
- Oct 2026 10:34:28 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6190.mail.protection.outlook.com (10.167.249.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 10:34:28 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
- 2026 05:34:23 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 9 Oct 2026 05:34:15 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
- <natalie.vock@gmx.de>, <Arunpravin.PaneerSelvam@amd.com>,
- <stable@vger.kernel.org>, Jesse Zhang <Jesse.Zhang@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH v2] drm/ttm: return an error when kmapping a BO without pages
-Date: Fri, 9 Oct 2026 18:33:39 +0800
-Message-ID: <20261009103419.4122940-1-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.50.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ 2026 11:35:21 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 11:35:21 +0000
+Message-ID: <caa4405c-eb97-48a2-a088-c22242179018@amd.com>
+Date: Fri, 9 Oct 2026 17:05:10 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/ttm: return an error when kmapping a BO without
+ pages
+To: Jesse Zhang <Jesse.Zhang@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Christian.Koenig@amd.com, natalie.vock@gmx.de, 
+ stable@vger.kernel.org
+References: <20261009103419.4122940-1-Jesse.Zhang@amd.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <20261009103419.4122940-1-Jesse.Zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: MA5P287CA0018.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:179::17) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6190:EE_|MN6PR12MB8471:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7404d0b2-f6ef-435d-27cb-08df25f0e56b
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|DM4PR12MB6064:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2dda7cf5-282f-4a11-76cc-08df25f96669
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|376014|23010399003|11063799006|56012099006|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: jzbG8ntD3o/5ZrMVS9YBiF0WTtsI3Z2R6dtDeYYV2yktnkJd7KkHj330g8Sa99W5yaOMzG1oBIReTGdbVsVyH/JzdzjqrEsEKgbzMHg3s7kQbEp8NWjJ6wkEicScNTMMkDZgEd8u60K2fIX3uMc+xl+iuQBagteqValgy2qq0rWzFeNNwYsJcCFe2Bss6+E3NW6cVYViouj4Ww7afuAEFbow7sE6gBk9eA5PQnBxDiCTF9fVhGKexvUCyS3eebryiBgS8oPfesCo1a6RptVPHmjbfjX0EKMKecAzsBAyLWpG3w/6mRVL5/2lq0dlvjtMd3iCWQN8CfITE+ZfncSXqGz5ahR5aougN3kQeMVZ7xN4sbrwq6jwHIc7ym0HQh3QF1wneX7zKrIHdHs59kaMMw6/0gDqy9OabCEKGXVKc6tvjVcuZt9UKDv8IYVb/8n+h5jINietXQESEDQfXpdgHhJxbkPYyVOPwIvFxMpNMpwC89qRCyEaJDvdy0oi51Q6rd142tNgmgZY75kqt3DnyQnvK1c3cFkCcy3j+LY26LLSoVdIzbrWmlpGAUxl86oFfgeWsGYJRSCUPXvbzE9jUgAmn0kytAoTMoF4QTHcI5JTJmP6tUckx8G/lBDr2+h0liISgFwn7V37fp4h/hwH1wP3u9j6NkhhMtBT9yiOxMnjNcSRQtxozzFXo7y2D5nE9uScBlbdE6Cgr5QIj8EvMg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(23010399003)(11063799006)(56012099006)(18002099003)(10067099003);
+ ARA:13230040|23010399003|376014|1800799024|366016|18002099003|10067099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: pySBPY7lLSkEO7Y0gFvPg4SaGIC5Oa/1Bp1Pt3Svn4lYOjQlfnVjQHbI0wfL6/wCvZNl13Vy1sJ+e+V7p0OMeRO0Jd2T8F0Wzei9NQZwQxsG5mU8Lu4eYaHq714FRIj6QMVWnRogRwR+q+9z9q5Wx+QLgo+PSi4Cct2NCZL4xZTdT/69X5e/CVAV9e0lvj3NgRMz9Mp5g68uqW+1/Lrtrx8PPgqT2irULQraCaCKGqWsR3UYI2DV7XkvE5i59M4LYVKSSMxq1UCTDTdYNLbK2BPGqTuPI8JxPeE2QbE0VsZ4eRkdFK3mHxqfNCZ0v7OviDvl0ZNTwdbXtCQo2Cn9NBNs0K87NGXO4StGDQ/wn+6uFook6vzc+KvL4CGpmQpfPE9MY3jcNi+CyVsH6+aA8+mkzkxJDl0DNV3SMnlYmtEV8r/IJKq6sjegCe0NDPKjJTDnsHBqPXuN5egShaviyq4dP8PmwpIgmBds01VPAowGSevzA2Bti8mRaisQOT7rPSX1FC8J21FWWTcrCZzCH1e3pe/Sw/3VY52zVDq95q8zwPYSOnT51n8bo7KK3nKL9SVfzznCYvvA6AOTixjj7d5w28ZOC3ZyInLhvJE09Cl7hSj8JkA/afqtOI+ehdDI8ynGKRMyaHhTdW40xFKM2EIp/YkqXm+P29O3/O7XKDQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(10067099003)(22082099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 1a9K8X9D75UjRqB0BiAuMdSuGTmTH8A+Ps7oORGTmdR3bd7ATDcCykRaNTi8IgJYKNeqrWliGBnFkWe44qZq4ko6PRma0j5qBtfx53UXwFY69pW4SrAR8kC4klYs6T5S3tI2PqrQxBpEzxQaGYRznUTiWsqAKut0HcRBVJGUQMZ0FZ2fAmTgpFMjrfh/eWPq+A73Fmf3KyWXbzvFj+jAx63pbFL+T82nq0w1XC2IXzQelxb76i6QOt6ObfuCTzSC2Dqzl3+EXbz2vK7ZxF4vq0JMwdlN5HtNE/ZnwpK4p+Iat+9T6CR/NZpG4spMpVJVtkrnAlYf6oQfV/cKDcr7gFSLSTtUGMbEvx4Q37uDBBYRGIrSAL607pNb3FNxzzOh9aPJ4C7EtyaRmkM6QAw958vCSZPcGqoumMVHDJC7LUtUTjNsgEaiOggjW7UPyIhw
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHNEcU5nU0g3ZG5qRVFUWC9NeGtaZDJMdU4zWURaMWpsMExVQVVBM3VyTmZt?=
+ =?utf-8?B?ZjZLV0pLUGtla2tZR21uc3ZHcFF6NHAvODdEbk5BNkdiNHpjaXBtVTVib1pX?=
+ =?utf-8?B?RDJEZ1RqWVlkd0FKRWhKYW5sWnpQQ3c2RXBvZlF4T2NLUVJyU1RDV3h2ZWV5?=
+ =?utf-8?B?MHRhVUVZZEVJb21sREhKbjhNNnhmTDZXSmRCaHkyYUkybXJWRE9UcTRBNks0?=
+ =?utf-8?B?am9RUnYrYlA0cXRhNklLaDcrNlVNUzZNWkpodWRQdnZtRk9LZDc4ZWQyRFNH?=
+ =?utf-8?B?NmZPSW1IenhoMk1ZR041em1QNVNnTjVDMmlkYnk4TnVCNXl5cER3K0tsaU10?=
+ =?utf-8?B?T09obUNNREE4dmVtQUkwZHlaMytlRi9jc0c3NFY3T3BDNFlNQjdnOTFCV3gy?=
+ =?utf-8?B?S2pzN2NiYVZXb2ZKR2U4RDRpcUpUSGlnK3dDYk5RYXVieE5rSVE1SE5OcGxl?=
+ =?utf-8?B?UjZzdFBvcW5Xb0FwSHZaMFlmczdGT1RhWmszUWNkQ2pyWVZtaW9VQUZZeE5N?=
+ =?utf-8?B?amJwdkxjVG5nanRtUEpuNjBCRXhrcXU5ZUdlOVhkUUh4NUp3OGJiN2x5d0dT?=
+ =?utf-8?B?K2NIRDgxa1dvQkpwbXB0UjF1bzBKdGdpaHRlcE1CSXVnMXpQd1pyR0tGUVBH?=
+ =?utf-8?B?VTFIcjBLcEhjNFNKUjIrMUVGVTNPbSs3LzZBdXZBRVFhOXlUcnVxOGlHcXVQ?=
+ =?utf-8?B?M1hrbVZmUzduaWpFQi96Y1hXR2ZCaGcrSjBZYjE4Z3JwRmVqeFBFYjhLNkF6?=
+ =?utf-8?B?SHN0dTNkeHBGYXBnSFBoaC9Db3NqNWFIbW5uSHV4a2lzU3M1OW1odUREMFlI?=
+ =?utf-8?B?cW1BeWd4NzMrNXFwazI3TUk1ZjJKZkdCYmQrY3FVSGphczA4aytHVURZRmRR?=
+ =?utf-8?B?WEZTZXVTTFNNZFIycVc3akRlZ3c5MDdvMklrRjluMFJEKzRESzVHaFJwZ0lv?=
+ =?utf-8?B?dE5DR3dWQVJjdktYQTY5RDVLZ2Z6VGJGZW85M3FnRlNQK0Y3QWZjakpDUlUw?=
+ =?utf-8?B?c1FzZlhVaEZGREJjUWNVWC9QcUJ2dEpIZUp3RWNFWFEwc0M1OU1iT3ZZMmFV?=
+ =?utf-8?B?di9BN3N0WDQ4MC92K2ZCeDRPdGJGTDRvVXZzR0Q3OEtPclY5Vi9rb013ZHFB?=
+ =?utf-8?B?b3pydHNLVU5IajZzOG1QdFdrdS9xTUVDMHFtQkJTSXJES0EyRVdqQ0FjdDB4?=
+ =?utf-8?B?c0J6MEpDdlo3aXVKa0RKQlFHY0ZSaEFzd09RVGM0UFhob2pJYmIyUlFYM0xa?=
+ =?utf-8?B?WU13YTNpRnNuQ3V2REt6Y0pnWHl1M0UyUWVxUjNJRjRaajNmSUhwQ1Q5ZTFQ?=
+ =?utf-8?B?V0pYTDR3TXVzandFbVBFRW1ZbUhFTk5XOGU0MGtjd3BIdEtVME9mYk1mWEF6?=
+ =?utf-8?B?aDFXOGMwZElXb2kzMEFkQWlIY0c2MmFmQVFVRmRaTHY5UDd6RVA5cVROV1RL?=
+ =?utf-8?B?NmNMQ3g2V2gxMzBiVG84c0NmcTY5ZXBCbWtBaGZ2akhiNWFRVnAzeklOdGlq?=
+ =?utf-8?B?MUxtL0hKRjFZZ3ZZL3dxT1ZuWlpHMWRxUk9hSzQ0K2lXSVFoVUFvM21uYUNR?=
+ =?utf-8?B?Y1NGaWtvYVFEWjM1UUcyTTZSZmUxczBuUXZ5VzVFejQ3UXFpelhKbkk5amFW?=
+ =?utf-8?B?SEdnSytrdGp5Wi9Xb0piZ1AzUmpieEFJQ254V2lyUkY0a0NzbjNVT21oQ3hw?=
+ =?utf-8?B?djdCNUxpTGJ6VGVTMUJ0WGh5L0NncGlIZndwSzgrSXRVMEtBbEQ1NGNTbTd6?=
+ =?utf-8?B?cDVSMW0vUVNVeUpEemRRc0xBNDd6bEljS2NXanFaUWtpQ2I1OXR5YnZHdkpZ?=
+ =?utf-8?B?TGdsVWFWcDYvbFRZSnNHdVdVL2NGRklGdHpQZE5BRDcvd05kVjlIcmhVSytx?=
+ =?utf-8?B?WlN3bGdETDFqM2d2S0VHdFRWRjBQMDNMblVLNEJnK0Y3cHNrWk1KSC95TDdP?=
+ =?utf-8?B?U0QzaHFVbXQ3M3NjOXFIY1gyVW1uWG42Y1pWTW1tZXlkMmREM0hWb3hDVFF1?=
+ =?utf-8?B?clVuekFUTVRGeTdtQmpieVBWTFdoWGd2TlFkc1FudjVmNHFqZC81djFIcnR1?=
+ =?utf-8?B?OGFOY1JqZTRrWlNwbWovWjFRQVVrRnp0T1VSeW96VlRaRHdmWlk3K0NrMXVa?=
+ =?utf-8?B?WGtZWVRKTVBPajV5UGsvdThrVmk3V3R2MkwvejRBWkczWUkwS1h3QVhyTlJy?=
+ =?utf-8?B?NXpnUlZSY0I3Vm1oUzJTWjVFUDFMMjNoTDNOYlFDYklTeUNKT1JxeWcxU1ov?=
+ =?utf-8?B?V1FkV29KSDVqS2ZuTFJyN2hZT2ZSM1ZZWmMyQUF0di9Td3Y3OWtTMStaRWo5?=
+ =?utf-8?B?eWdCcnhQbENVd2RHY0NRQlBzVnVEeGZYQTdWRXZMRmpPUjhhVmF4Zz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 10:34:28.0310 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7404d0b2-f6ef-435d-27cb-08df25f0e56b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2dda7cf5-282f-4a11-76cc-08df25f96669
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 11:35:20.8762 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6190.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8471
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iZwDF9a++pn2xDDZnCY/UUID84IsmT5inlvckep7Xv82fwNH//N1IDQ2qr5aYojnlWONiRycBPQcmHGFcUOkFg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6064
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,74 +137,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ttm_tt objects for imported sg tables (ttm_bo_type_sg, set up by
-ttm_sg_tt_init() with TTM_TT_FLAG_EXTERNAL) only have DMA addresses and
-no pages array. ttm_bo_kmap() and ttm_bo_vmap() still dereference
-ttm->pages for them, so a driver that tries to CPU map such a BO oopses
-instead of getting an error:
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:ttm_bo_kmap+0x26c/0x300 [ttm]
-  Call Trace:
-   amdgpu_bo_kmap+0x89/0xb0 [amdgpu]
-   amdgpu_userq_fence_read_wptr+0x116/0x170 [amdgpu]
-   amdgpu_userq_signal_ioctl+0x3fe/0xbb0 [amdgpu]
 
-Return -EINVAL in that case, like ttm_bo_kmap_try_from_panic() already
-checks for a missing pages array.
+On 10/9/2026 4:03 PM, Jesse Zhang wrote:
+> ttm_tt objects for imported sg tables (ttm_bo_type_sg, set up by
+> ttm_sg_tt_init() with TTM_TT_FLAG_EXTERNAL) only have DMA addresses and
+> no pages array. ttm_bo_kmap() and ttm_bo_vmap() still dereference
+> ttm->pages for them, so a driver that tries to CPU map such a BO oopses
+> instead of getting an error:
+>
+>    BUG: kernel NULL pointer dereference, address: 0000000000000000
+>    RIP: 0010:ttm_bo_kmap+0x26c/0x300 [ttm]
+>    Call Trace:
+>     amdgpu_bo_kmap+0x89/0xb0 [amdgpu]
+>     amdgpu_userq_fence_read_wptr+0x116/0x170 [amdgpu]
+>     amdgpu_userq_signal_ioctl+0x3fe/0xbb0 [amdgpu]
+>
+> Return -EINVAL in that case, like ttm_bo_kmap_try_from_panic() already
+> checks for a missing pages array.
+>
+> Fixes: 75a57669cbc8 ("drm/ttm: add ttm_sg_tt_init")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+I have upstreamed this patch.
 
-Fixes: 75a57669cbc8 ("drm/ttm: add ttm_sg_tt_init")
-Cc: stable@vger.kernel.org
-Suggested-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/ttm/ttm_bo_util.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index 3e3c201a0222..83142bfa3bc1 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -356,6 +356,10 @@ static int ttm_bo_kmap_ttm(struct ttm_buffer_object *bo,
- 	if (ret)
- 		return ret;
- 
-+	/* Imported sg tables only come with DMA addresses, no pages to map. */
-+	if (!ttm->pages)
-+		return -EINVAL;
-+
- 	if (num_pages == 1 && ttm->caching == ttm_cached &&
- 	    !(man->use_tt && (ttm->page_flags & TTM_TT_FLAG_DECRYPTED))) {
- 		/*
-@@ -419,7 +423,7 @@ EXPORT_SYMBOL(ttm_bo_kmap_try_from_panic);
-  *
-  * Returns
-  * -ENOMEM: Out of memory.
-- * -EINVAL: Invalid range.
-+ * -EINVAL: Invalid range or the BO has no pages to map.
-  */
- int ttm_bo_kmap(struct ttm_buffer_object *bo,
- 		unsigned long start_page, unsigned long num_pages,
-@@ -493,7 +497,7 @@ EXPORT_SYMBOL(ttm_bo_kunmap);
-  *
-  * Returns
-  * -ENOMEM: Out of memory.
-- * -EINVAL: Invalid range.
-+ * -EINVAL: Invalid range or the BO has no pages to map.
-  */
- int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
- {
-@@ -537,6 +541,9 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
- 		if (ret)
- 			return ret;
- 
-+		if (!ttm->pages)
-+			return -EINVAL;
-+
- 		/*
- 		 * We need to use vmap to get the desired page protection
- 		 * or to make the buffer object look contiguous.
--- 
-2.50.1
+Regards,
+Arun.
+> ---
+>   drivers/gpu/drm/ttm/ttm_bo_util.c | 11 +++++++++--
+>   1 file changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index 3e3c201a0222..83142bfa3bc1 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -356,6 +356,10 @@ static int ttm_bo_kmap_ttm(struct ttm_buffer_object *bo,
+>   	if (ret)
+>   		return ret;
+>   
+> +	/* Imported sg tables only come with DMA addresses, no pages to map. */
+> +	if (!ttm->pages)
+> +		return -EINVAL;
+> +
+>   	if (num_pages == 1 && ttm->caching == ttm_cached &&
+>   	    !(man->use_tt && (ttm->page_flags & TTM_TT_FLAG_DECRYPTED))) {
+>   		/*
+> @@ -419,7 +423,7 @@ EXPORT_SYMBOL(ttm_bo_kmap_try_from_panic);
+>    *
+>    * Returns
+>    * -ENOMEM: Out of memory.
+> - * -EINVAL: Invalid range.
+> + * -EINVAL: Invalid range or the BO has no pages to map.
+>    */
+>   int ttm_bo_kmap(struct ttm_buffer_object *bo,
+>   		unsigned long start_page, unsigned long num_pages,
+> @@ -493,7 +497,7 @@ EXPORT_SYMBOL(ttm_bo_kunmap);
+>    *
+>    * Returns
+>    * -ENOMEM: Out of memory.
+> - * -EINVAL: Invalid range.
+> + * -EINVAL: Invalid range or the BO has no pages to map.
+>    */
+>   int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+>   {
+> @@ -537,6 +541,9 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+>   		if (ret)
+>   			return ret;
+>   
+> +		if (!ttm->pages)
+> +			return -EINVAL;
+> +
+>   		/*
+>   		 * We need to use vmap to get the desired page protection
+>   		 * or to make the buffer object look contiguous.
 
