@@ -4,123 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91681CA5FED
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 07:07:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8466ACA6012
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 07:14:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E531610FECE;
-	Fri,  9 Oct 2026 07:07:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2387F10FEEC;
+	Fri,  9 Oct 2026 07:14:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QZ0k3wdN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pej6/JOU";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011003.outbound.protection.outlook.com [52.101.57.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BADC510FECE
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 07:07:46 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012054.outbound.protection.outlook.com [52.101.53.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D19C10FEEC;
+ Fri,  9 Oct 2026 07:14:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HbTHihmBImSwUF4QYL9nu02g4E0xK/RdgC2DjYTe18qVwcNN71xzQPrU/Q2r4eHCoaOU5VlY0/rR/5tfMGwlB8Vo6bPe/nUDwDyBzu9BrrctStWrlYYHq6JOyAwySElBKtl63O6whWTvb0NV2lZofe4bp6GPXwqSbcXVfC3eOF/M8O69L8xhNks3LyY+gZHYoW8SWbce40uPEPYqEuv2DCuEpW4b3PLwtRa3zoSm2+d/kMrHU5RMl0wom4d+6aYOBRKTvKbt/+iV0Jkih4whzVSZs10wAS9zUHSXzPmFPkLnuTHt6tT9kG62lcPGHA+mbVWVS49z/5nMNusNu5iFhQ==
+ b=AyRBxFn67mt7aH6fWecX7faFAmhUdPKuJu+a6VsrQgU9zWDNKitZUFi0DdwgkS7Y2dXQvdoK+X6JjEkP79haPWhGimDlU5jKIPXEWsQIG1gMuK25fn82T4w9znoVD9lmsMiCmc/eaoHJdp150iQ3hh22J626OZfS3E2ZBMcLavuIkv13aL/RzSDxwtxCV0g+5PHwtGUHZaKCzCAYbKojdGfdCcqxhEaqjhFYONxEY11ER9LAhk9F7lvwDvogR4VPxjDBTJMZcHh6IauE9LcsR99uDbY9tZAQ5KzQafTzjsUTHq0a/ZDEw5srWsdRbK0yXtJhp677+VcH1PWzNOr3vg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tABKd2Lvp/UGCjY1DdNdGcsc/lUt/w3zdeVTRzjaCIk=;
- b=T0/A7GuxokH6RzZ7bABevjEHyFA0JdzMCMmoJgYoDMlqTD92QP//zDahoJ/fGEZo8Tv/HRt1vkQmqt5tCe3PEI018RTaP4TgEDPxcSs2FlTDZOr18qCPSUYg8AHIJfMAa3/iaUpLUTaFa74Np1ur0kl4tzKh6ohrAscRB6bvwIBI617bqFt2QO5RZG82iGkXiay5NRKKu4c9UixYhciazrbuBtq+BJ9+BVdFrlr1qqp9d6/Whd3/COuUaQUIjR7TPWN0GQQlKjcBqWQgdzlWUlUVtgehHpMVjP4qfP0jDEpYVNN2z/54cftLy7koH3+zCz/0WEB1KJEq6AmeOpzZrQ==
+ bh=B7tqPLwIyv66xHM0sOsQjN48WMNd0QxEbj+g4xsISuQ=;
+ b=bl4zCRYKjU5aA9xUdtlso9RPMxeWlrIwP0qJs6tdSvFZ+mufNPQf0S8ucVnQNoJsxN5h2sVIdMDjhTNTq+DHOPxB1bXMTVoMz9ChukAD6no3TECzDDK9HeJZUiGZpWboBSra5i3AAlW/dzp3u3yAt9Agjl5wIM7C7Vk5YrCXQUUpjmPqg4zTMJxZDKIFKCc1hp+i/LWBgY7DctLRiCOr43aj71KaE+r8ob+jyrfLAgPzboTllgOy8RiDuuklM2LS598DS/lHUZoOCBEehaUFyy+OsxC1UpIWKCezwe4tzdWYbbeMLaveCGF2SB577hnE1uBIAa03/9d4x+juVawqhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tABKd2Lvp/UGCjY1DdNdGcsc/lUt/w3zdeVTRzjaCIk=;
- b=QZ0k3wdN0iVN2faJJlY6p7rK75p+m+W45n2A002R+uVzTlAEiWsNeZhk30ksyASHN1FByXMXffhUu9MfCoA+dqzYmYTiXL/BKr20PpZPbLbC0kmKq/Jq3BvqQGJ8r1+ccxa+jys7dK5d7YSXJr+kOoqVtSEV3Fr0hDMT4EFAZYc=
+ bh=B7tqPLwIyv66xHM0sOsQjN48WMNd0QxEbj+g4xsISuQ=;
+ b=pej6/JOUUd/J0BiQ6vvup0lyI3yk/zxPqk1YPzcdZ3AwsOMd4Z+r70SEf5HGUs9Fa8YHu/S5epCMLjibuyqiJmY7WL6MPp/cC72poRKrFyJoc/okJtyOjG55XKKnXOw4Sux4xFPX2bB8aYQu34viQRF3SQVk2BYACV2OkRysqKY=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB6728.namprd12.prod.outlook.com (2603:10b6:806:257::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 9 Oct
- 2026 07:07:40 +0000
+ by DS7PR12MB8418.namprd12.prod.outlook.com (2603:10b6:8:e9::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Fri, 9 Oct
+ 2026 07:14:19 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
- 07:07:34 +0000
-Message-ID: <01f9a0f8-63c3-4e84-a17e-51ea8f9b6104@amd.com>
-Date: Fri, 9 Oct 2026 09:07:30 +0200
+ 07:14:11 +0000
+Message-ID: <894d90fc-613e-4454-95b1-7f75fb74e121@amd.com>
+Date: Fri, 9 Oct 2026 09:14:08 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: place GFX12 compute queue MQDs in CPU-visible
- VRAM
-To: Geramy Loveless <gloveless@jqluv.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <01534506-891e-4d0d-8d0c-fb5e82264c03@jqluv.com>
+Subject: Re: [PATCH] drm/ttm: return an error when kmapping a BO without pages
+To: Jesse Zhang <Jesse.Zhang@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Natalie Vock <natalie.vock@gmx.de>,
+ "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
+References: <20261009011952.3925146-1-Jesse.Zhang@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <01534506-891e-4d0d-8d0c-fb5e82264c03@jqluv.com>
+In-Reply-To: <20261009011952.3925146-1-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0365.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f8::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0428.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:d1::11) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB6728:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80ea30d5-4612-40c8-a159-08df25d3fdef
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8418:EE_
+X-MS-Office365-Filtering-Correlation-Id: 986ffa82-9906-4102-451d-08df25d4eae0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|56012099006|10067099003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: V/v83ReSMmHs0b5OY/sa3E6riMArVHy+2npyhHFfFJZJFglMh+TBmlq6rrTQYqWYX8UCUKOVlcGVjA35NvKzzVdaDeRqiWBwjQwgweIIyQcoWe3p8P3GwwoijPPdVglKmvk2SYATS9RhplDd14L5sBRFhZe7N/MxBsU8gwOp2ecoHsCd/1BEkoY+rHDgy2CJ0TPy/+6CafswnRexLh12ugMQKTJ3Oxh5xUC8ON/pXEOvTVpiqv5xI3Rv4phvHxCcvYwhlOsk65yG5x66SMGjIuxyNgL3XMpB8JwEpqC8mZN9t07jM0h5ktAuWzHuGfD4nKzqHhlcD0fWk+Gzbw8BvGP6LW8ZF6q64iVbXNYGLUstJmVHAAPvMF8X17HilSpXEmwjB3Wb2WCov4UXCUlwBaHA+Xku2bSH+yPNQokx4lU6tAA3J5YF0jabnIk7TflAFnYTu6S+29XRVGsVi5ny3CNp55nXzef7iwUw72r/srXJYFkADW9/v5R9NtdU4SIBNgRz2v0O2d9LFmq/qxvOe5sKDxatkkGT6dW53y6FFIyXlHrnkVpYoRq9c/P+J16uxz6vZKVhP0mXQvF/+Q4NJAU4lauGgfRJCEglglRapJml/RFRbRnxC60jnx7Ooc64HivImnWUKjq9IX8hbnJgPhEYAdFEQZVMdohgZuvRHDY=
+ ARA:13230040|376014|23010399003|1800799024|366016|22082099003|10067099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: WPCcRzXNVwuWYKQkoNpY7jUc3rKto2iejbLSGLaZqISKZBM04o279Mq+y7qwZwLpLpmy6EACr27M4ndDK+K9pxpZY1JtMRopS6xct8BUE2mfQQjTpCZneIxsVPuS/UyPF+NCULQ7KfivuauTI2aFITJUjgL6y5x8tIVtfuPkpVgzPa+2GRJmjCO84d15fo5+8T9bX0VaHqpNbdfW2X5yMh3DvmalEVRxA2ewVztifrRU4dKGsjO3T1gGJVYSWqnyZYOMLQ4IryakZGy+bPQMivwcTR5yla9wgc60MmXK7yfp+0sPpNa6WmXwSC07sertnNJI6blZoFqvQaFq6o5toL9K54jN1+PAqedBRQj6S4BZez0ZrgOqrvNSh8hIO+ffQMtMkL0N+Q3BiKLJlEaYNkY45N8ScLrgIjzr8RyjxcHAwK2OSFIjnBQHo/Iur0f5AKA+Maj3MSFlNqrFeogUOMu+2hpdCKLA9tLgQP0XboIKG69wbcyYRe91LTjTBYhyjp3AcLwYzbqORgqJxse9NTKufet4c51WuGfiw0YStlIjEXEkhRmo3cmSBt+Y3hi7Hk0rI+VkGAtYH/kWY2/pGOL/AoyKgXIh9Wv2qcN6bjUn+l+YwrMFa7UDQU6yM113EG6lkxC2/F2dynmvZXoXUamAdhEUhPb1o4lhSxUuCF8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(22082099003)(10067099003)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnVIK1RMb1E3OEE5Vm03WU01SEU3SFliMTRLMUNScGNwYktwaHpLMXpOVWdI?=
- =?utf-8?B?YWVyQVo5QTBsem5NTkJGZFN4STd1RXlzMWxoYklBdW1wOTNmbU1lamFIWnds?=
- =?utf-8?B?dmV1N1dYeHEwZUpMOFV2anpZRTV6YmNvc2JMb1cvbHpWai8zZEdaQy9WZVZq?=
- =?utf-8?B?YjBsZFY0OUdsZkhxNklpQWF3dTRqdVZkTkk3MjkydTlLc2l4TlAwQXcwL1R5?=
- =?utf-8?B?OVF4dHpKWlhaZnNuNWFtMXkyaGdOU3pWdTliNXVFeElqTWpuOVJ1OEVxSHo4?=
- =?utf-8?B?RE5HVWtVQURSekowQ2ZJZUtqM2sxZC9rYlcyRkk3eUI1aStTQk5pQkErbFZi?=
- =?utf-8?B?UFhqNnBLaUc0cFVIc01NQkh2MU9aOFM5S0paS0c2YVBDWU9leXJ1VWUwV2d4?=
- =?utf-8?B?SUxwZGpyWFRZVW5JbmdZTXlpVW0vWk1ZSGVLaHozbTlnYmMrcXc5Q1lxbUxE?=
- =?utf-8?B?WFRwQ3VyanpnZTRpVStHb1VKZzNRVFdRdnByUUZQTmxOdUsxdUlkQ3d5ZWZw?=
- =?utf-8?B?d29KdVNaWjI4R2JEZzg5N25VVlhhbHpYNGswVDFuWGdOcEFyRHJMQnZKZ0p2?=
- =?utf-8?B?NVNNK0gwcWVPSFo5bXFoRlR0MSs3cnkyT0taUHR1ZFhUcHdSYjlFcE9yR2d6?=
- =?utf-8?B?QUVrWkpMVGJ4bGJ1TGpVNit6emJrdlFkdEhXSHJqNFBsWkdURmhRMDNOMDdM?=
- =?utf-8?B?RDE4NHN2a3pHL3EyNHhJYmExNzM4UGxvZjNZVXdhNHhPaTdGMlRyTWNMMjNx?=
- =?utf-8?B?M2k5aityYks3NWUzRTE0WG1EN0orWElsQVRNNHE2aDl5Y2xuNWJpY2ptby9q?=
- =?utf-8?B?ZlM5Y1BKR3l6M3Z6ejdVbEZDNnZDaTJPU0NETzRuYVlRZ2FPaGxnQmRTZzhN?=
- =?utf-8?B?V3RYV1NhdHdPaVNMYUN3aVVLZCsxaVRQbmZYb1BNUG1DeUFtM0V1UC80OXBU?=
- =?utf-8?B?KzI1eVFreklib3ZIYTQwMmliTCs3NzJRdkZEOTBYZ2Y5dFpwaGFhK3VNV3NS?=
- =?utf-8?B?WWdkWFBWcFlmeHlzY0YzQmIveDF1ZU1VZjM5T2w2RkZXZ1lEcXh2MHZsb1A4?=
- =?utf-8?B?K2xHWUhNK3FOc1lJdFlRUVRnTWpna3JiT2VRNnFqcVhrRXhOQ2xuK0Y2OFZm?=
- =?utf-8?B?WFlHV0RZU0kwb1gxZ1lVT1RZMFo5OXlHYmlDemtxbzZJNkh1OHhrSzlqays0?=
- =?utf-8?B?bjNJTmdOcXhhbk03YVNYT1NqR1RqSU1GblI1bHlRMWJwb1ArU1dMQWxlL2pN?=
- =?utf-8?B?WG5weVhFd1FLQXpKSEFXREJMWEJ2WEdHQlkwMU9hRzBFcEJvVUNJWUtPL2Ju?=
- =?utf-8?B?Y3JZaXVHbVJzTjc5Mk4vdHI3R0NHbCtXVEhEdGpQNC8rVFRRMzVzTE4zb2ZR?=
- =?utf-8?B?aGI5citXSVQ3MUV4MU1BMFBtVHhJcWtNTnBrREcyRVNtNFI5NVpEN1RWVTQy?=
- =?utf-8?B?dkE3TXdMY0tIOVJ5bFZBbnVRaGRVblMwZWxTaHdNUnBvRUREWm5RdUxCaVBX?=
- =?utf-8?B?dHNtUlQ5Y1VheW02RXFMNkpiS29CT0o1TTdnSzRrZ1ZtWGhJWDBSV0VXUzlq?=
- =?utf-8?B?NlByMHhwNURpWUZBNWRsUDd1Q2daVi9zZ3pmczJ0YllpZ1kweDNmWko0bzZK?=
- =?utf-8?B?SGV0c2hReUFSU1FpNkVxeXRWZENJdk1mYnVkZnRJdlpoWDNMOTdDdUg3YlNU?=
- =?utf-8?B?NmljRDRDWUhVUlV2ZUJ3dW8xbGkrREQ5QlVjYkI5K0dtMjFLM01ETkJPcTZw?=
- =?utf-8?B?SjlPWi9XRCtMQ2s2ZG0vQitsSE9aVXF5YVBhVVY4NHVxR1RVMFg4dXRaRHNY?=
- =?utf-8?B?cHB1NFRrQkJTTXduSjY4M3dlR2IySzUvQk5TcUJaZG1sSWpRQUJpRjhNWitQ?=
- =?utf-8?B?TzY0cWk4NHA2TXRtN1krdmpMMDJwT29Ec3RYM1BBbFk5RUFHcURTT0pIQWNr?=
- =?utf-8?B?dW5tVmhWTzdvcDFUSVZPbmIra2k0NlRhV093WGtMUzlGRFRKcXBvUlVTRTYx?=
- =?utf-8?B?YUJRbmE2RzlxM21iL2RxYXQ5eWFaSHo0OUV1WEtwYWw3aTJSU2x3a0NxdElR?=
- =?utf-8?B?QVVtUkJCMWFpNEFWQjhxbGsvRlpzN2VPbmFXMk1IR1B1aDlXUWdZSlp5dHJW?=
- =?utf-8?B?WnZ4dDdEb0o4N2NINVpHMUorTFVIYUJJZGptTWtjZHJlRUFXMmQxeFhYSXAv?=
- =?utf-8?B?U1RGRXdsbXBLMmx4aE0wQi9EekJkbHBZVkwxSE45WFlGc05ibkhsTnN4TDhH?=
- =?utf-8?B?RnJiTUcxZkxRRkJFQjVpeEFvRXRML2RNWllBbDNUdVRaWHFpbk1TQ1dnOXRI?=
- =?utf-8?Q?+FcfKkquK4uwEvqkeb?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFRVL0NWVEtiaFZvZU0xQ1EzZVByQ01WN25Vczk5UmpWQnNXTENJU3d1VnBa?=
+ =?utf-8?B?K3IyVXhYYUYvSVh2bFB0VWhsMmdXL1ZaU1BxaEV1cENrcms2Y2cyVXVnUFdD?=
+ =?utf-8?B?TDVkVEVXTWNPeWozVkNEcENlMlo1QTN4YXQ3cXZjQUxsYytvWXcvK1V0S2Fw?=
+ =?utf-8?B?Tll0NTRxVWhpWHZqTUJzZk1UQks2WHNrT25CMGVBZjZTQVFtenNUcDVPK0Jt?=
+ =?utf-8?B?RFJFZHdmYVYyUUhCSlpZRisyMkg2VHhyQkN2TE92K0d0TW5IS0lDK3V0a0tF?=
+ =?utf-8?B?MFI4MTAwWEx2Y1plOTArSWwrN1ZmRkZXMWdnWVBjdS9ZVEhvcjJCdzlXbVZE?=
+ =?utf-8?B?cWNsOXFtY29KZWpBeGwrSHNnNTJGNWxUdjVuMkRxRW9MOElsRnQ3M0hwVVRF?=
+ =?utf-8?B?T1BPanlZNTlJQ0xLanBEZjE1WlFmYVhuMXNEanRHT3RoUGpEajltU0hTU0NX?=
+ =?utf-8?B?dThlS3NOb0pwSHlwZFlmZThMaTREcnhlRHpQVXdHSTVmQmxKOXNNRGliaGJp?=
+ =?utf-8?B?RlUzVjVaZ3Awck5tbUV5dkE2c3l3ZVYzOGtiOCttQXMraXByeDdCczFPK3dl?=
+ =?utf-8?B?VFhkelcxdkJBamVYOUE4UDFOTnNQNkpaOTJ2MFFNbkVLdzJNMVVUazlDM0xv?=
+ =?utf-8?B?UHYrZDE2ZnV5STRxendYd2hzM0k2MmV4Q05saHJ3ZTk3Ty9VSDFJU1hLRDJy?=
+ =?utf-8?B?cmtGZWN1NU9MNklKTjhTeityTmpSYnJFSVJESGhPcnE2MWtQMDFmUGVkdVVK?=
+ =?utf-8?B?czlYY2xHNi9QZGZId2kvRzVxQ2UyUHB1cTN4K1JrOStic0J5c0RjNlZocVdX?=
+ =?utf-8?B?aVkveElqSy93ZG1Ua0V1aTJnSkFMVCthbUlrcTVpam5DZlJ6TmcxaXZsWFRU?=
+ =?utf-8?B?aXVYZzQ0SWdhTXJ1U0RQL3ZEUFhWc0Q3dDFBb01kZ25Fa3JLbDdibG1kQzNz?=
+ =?utf-8?B?cEZJazBjUTYxNE95ZEw3b1dwS2R4TEpYSGJmZTBTM3pHMjI3TFYzNzkzcXZs?=
+ =?utf-8?B?eU5JSk9qcDhHRDEzR3p4SDhQVWIydlVyRnV3Q0tURE1qWUV0azFNOStoT3JG?=
+ =?utf-8?B?a3F5S1UvbWFEZXh1c0gvUFRIbVhaN2FJODBFSVljVHByZ1ZKdDV2dUJQV0oz?=
+ =?utf-8?B?OGlsbzlKVzRIeXFVT2RZbkhCR1p2dlBVR08yMStLYXZzWEQ2WXBiSytuY0g3?=
+ =?utf-8?B?QjRXVis5dDZTZkJQZUE1OUVrUnJ6NkxRZ1o5VXZzcFRGTTByMEV0dFhKN09l?=
+ =?utf-8?B?eVRRNVZCQXhBcWtieXZOZ1FIWWRxNGNSemJSL0t1R1gvQkEvaXdSbXpqNWlr?=
+ =?utf-8?B?d1pUcmtvQmp3MUMxTitFcmxzNGpZTFlHRmVHdmJrdEhpbFN3STZGUkMxRHBp?=
+ =?utf-8?B?d21KMHJjNk84cm9jaDVjTW5USElTQjVCcGVqT2pyYnAxNTYwN0JTa0Erc0xs?=
+ =?utf-8?B?ZVA3SjBYOWdoTEplU2JkdGFiczBBOFYxK0t0MnBJNlhxdHlsSVpJWXFmbnIr?=
+ =?utf-8?B?dDhjbGZFYUtucmtPRWFZUnFmMFl1OGxDc2NuUDNOWCtMUEM3cDM5THBOWVMr?=
+ =?utf-8?B?ZEtiTzJyWnVtOU1FWmczZ1dFSG1EbGtZR2Z3TTlXWXJtOUJ4aDl2Sy9wbC9M?=
+ =?utf-8?B?dkJwdldOM3c3UnRkNzR0WHQ3UXRsRlh3dU5hV3hUQXdqT0psbkZkVUg2UEJR?=
+ =?utf-8?B?d1RkMXVRcGJnalBvWWV6TTVjYk1FWnFsNjdDNG5pYXdoWnYrOHpFNFJ3VXQ0?=
+ =?utf-8?B?NU5ESWRoUGJNK3JuR3B3NDRIMWYwRjFzK1dQVzRXWUJUMVV0S25ZTmZ2a1BW?=
+ =?utf-8?B?S0NyUzVaam9xYUErVm5ZRVdHWXFSVThqbUxnb2NsOEdweE8vL3l5SXNmb2xT?=
+ =?utf-8?B?a2F6Tzh1eTl1VDJuVkg0bUpNS1ZDM3NXRmNBdzB0TFhkNW4rVk1McFFOVGVw?=
+ =?utf-8?B?WDhmWkdrdlNvZ1FsZUJCL1VOUmJ2SklZMXB2dUNNa1gwMllSK0RQblUwa1dn?=
+ =?utf-8?B?SXlEbkwwT1hTZXVYY1EvczJjQjd3QUtIckwxWExUdGZYcmlpWXlhOW1YSWFG?=
+ =?utf-8?B?VHhJajRsT1d3cmk2aUFVSVFsRmNyK0Y1ckdEWVlxOG9ZbjY5REdzbkxWVjhU?=
+ =?utf-8?B?QTU2MjFMNVpTVFRGNzl6c3RQSWhnVjRUb05KSjdOa21FK21lY256ckJacU9r?=
+ =?utf-8?B?WUowSHduaTdUM3FpTXJ2Qzh0V1FjTVBZM0F6cmkySXd4VEErZm1KTXdWRHNL?=
+ =?utf-8?B?cERwbStBQTNqb0QyWGpHNEZxTE85dXZxRHFPMVpKZFpwbG85VFZrTGxOQ1Ba?=
+ =?utf-8?Q?xIK0f/00jSsJXafgCz?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80ea30d5-4612-40c8-a159-08df25d3fdef
+X-MS-Exchange-CrossTenant-Network-Message-Id: 986ffa82-9906-4102-451d-08df25d4eae0
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 07:07:34.0252 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 07:14:11.5792 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tdAO1/BLedK5EUoQhTGV5vIiem8JyIwfyN9lXn93M20xHmkV5zTj/k742htWnUTx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6728
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3pPW2bkmuK87rC6GO7GfHUItm1xHmIY5QL9CaMmg0OaNfHCNIEWPEGZGca0lm4xF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8418
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,172 +135,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/9/26 00:11, Geramy Loveless wrote:
-> KFD sub-allocates the MQD of every GFX12 user compute queue from its
-> GTT pool, so the MQD is in system memory. The CP accesses the MQD while
-> it runs the queue. A dispatch that exactly fills a shader engine is
-> retired through a path that accesses the MQD, so with the MQD in system
-> memory that dispatch pays the PCIe/host-link latency.
-> 
-> Measured with an empty kernel, median of 200 dispatches, on a Radeon AI
-> PRO R9700 (gfx1201), for a dispatch of 253-256 workgroups x 256
-> threads:
-> 
->   - stock Linux (MQD in GTT): 26 us, against 7.9 us for 252
->     workgroups.
->   - Thunderbolt-attached R9700 to MacOS running mac_linuxgpu running the same amdgpu code under a
->     different host OS: 51 us with the MQD in system memory, 17 us with
->     the MQD in VRAM.
-> 
-> On dGPUs, allocate GFX12 compute queue MQDs with
-> amdgpu_bo_create_kernel() in VRAM. That sets CPU_ACCESS_REQUIRED, so
-> the BO is placed in the CPU-visible part of VRAM, which is needed
-> because the CPU writes the MQD. Flush HDP after CPU writes to the MQD:
-> at the end of update_mqd() (init_mqd() ends with it), in restore_mqd(),
-> and in a new update_mqd_gpu_addr().
-> 
-> Add GC 12.0.0 and 12.0.1 to mqd_on_vram() so the existing S4 handling
-> (unpin at suspend, repin on resume) covers these MQDs, and implement
-> update_mqd_gpu_addr() for v12 so the MQD base address is fixed up after
-> a repin.
-> 
-> This follows existing practice: KFD already places compute queue MQDs
-> in VRAM on GFX 9.4.2, 9.4.3, 9.4.4 and 9.5.0 (mqd_on_vram()), and
-> amdgpu places its kernel compute queue MQDs in VRAM on GFX10+
-> (amdgpu_gfx_mqd_sw_init()).
-> 
-> Only GFX12 (GC 12.0.x) is affected. SDMA, HIQ and DIQ MQDs are
-> unchanged, as are APUs that prefer GTT.
-> 
-> Testing: compile-tested on amd-staging-drm-next. The patched kernel has
-> not been measured on Linux yet; the VRAM number above is from the other
-> host OS.
-> 
-> for macos r9700 support reference where i prove the gains:
-> https://github.com/lemonade-sdk/mac_linuxgpu
+You need to add Natalie and Arun as well, they are the new TTM maintainers.
 
-Absolutely clear NAK!
+On 10/9/26 03:18, Jesse Zhang wrote:
+> ttm_tt objects for imported sg tables (ttm_bo_type_sg, set up by
+> ttm_sg_tt_init() with TTM_TT_FLAG_EXTERNAL) only have DMA addresses and
+> no pages array. ttm_bo_kmap() and ttm_bo_vmap() still dereference
+> ttm->pages for them, so a driver that tries to CPU map such a BO oopses
+> instead of getting an error:
+> 
+>   BUG: kernel NULL pointer dereference, address: 0000000000000000
+>   RIP: 0010:ttm_bo_kmap+0x26c/0x300 [ttm]
+>   Call Trace:
+>    amdgpu_bo_kmap+0x89/0xb0 [amdgpu]
+>    amdgpu_userq_fence_read_wptr+0x116/0x170 [amdgpu]
+>    amdgpu_userq_signal_ioctl+0x3fe/0xbb0 [amdgpu]
+> 
+> Return -EINVAL in that case, like ttm_bo_kmap_try_from_panic() already
+> checks for a missing pages array.
+> 
+> Fixes: 75a57669cbc8 ("drm/ttm: add ttm_sg_tt_init")
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
-You are missing tons and I mean litterally hundreds of technical pre-requisites of doing this.
+CC: stable?
 
-Keep in mind that VRAM is not coherent, you need HDP flushes and iosys_map() handling for all memory accesses to the MQD for that to work correctly.
-
-We have some internal patches to do this, but IIRC they are still not full stable.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
 Regards,
 Christian.
 
-> 
-> Signed-off-by: Geramy Loveless <gloveless@jqluv.com>
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  |  2 +
->  .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c  | 54 ++++++++++++++++++-
->  2 files changed, 55 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/ttm/ttm_bo_util.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-> index 9b7859a77..e6b45950e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-> @@ -326,6 +326,8 @@ bool mqd_on_vram(struct amdgpu_device *adev)
->  	case IP_VERSION(9, 4, 3):
->  	case IP_VERSION(9, 4, 4):
->  	case IP_VERSION(9, 5, 0):
-> +	case IP_VERSION(12, 0, 0):
-> +	case IP_VERSION(12, 0, 1):
->  		return true;
->  	default:
->  		return false;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-> index 6ea09b031..d3a8c2aed 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-> @@ -92,6 +92,37 @@ static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
->  	return mqd_mem_obj;
->  }
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index 3e3c201a0222..83142bfa3bc1 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -356,6 +356,10 @@ static int ttm_bo_kmap_ttm(struct ttm_buffer_object *bo,
+>  	if (ret)
+>  		return ret;
 >  
-> +/*
-> + * The CP accesses the MQD while the queue is running, so keep compute queue
-> + * MQDs in VRAM. The CPU writes the MQD, so it must be CPU visible.
-> + */
-> +static struct kfd_mem_obj *allocate_cp_mqd(struct mqd_manager *mm,
-> +					   struct queue_properties *q)
-> +{
-> +	u32 mqd_size = AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size);
-> +	struct amdgpu_device *adev = mm->dev->adev;
-> +	struct kfd_mem_obj *mqd_mem_obj;
-> +	struct amdgpu_bo *bo = NULL;
+> +	/* Imported sg tables only come with DMA addresses, no pages to map. */
+> +	if (!ttm->pages)
+> +		return -EINVAL;
 > +
-> +	if (!mqd_on_vram(adev))
-> +		return allocate_mqd(mm, q);
-> +
-> +	mqd_mem_obj = kzalloc_obj(*mqd_mem_obj);
-> +	if (!mqd_mem_obj)
-> +		return NULL;
-> +
-> +	if (amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
-> +				    AMDGPU_GEM_DOMAIN_VRAM, &bo,
-> +				    &mqd_mem_obj->gpu_addr,
-> +				    (void **)&mqd_mem_obj->cpu_ptr)) {
-> +		kfree(mqd_mem_obj);
-> +		return NULL;
-> +	}
-> +	mqd_mem_obj->mem = bo;
-> +
-> +	return mqd_mem_obj;
-> +}
-> +
->  static void init_mqd(struct mqd_manager *mm, void **mqd,
->  			struct kfd_mem_obj *mqd_mem_obj, uint64_t *gart_addr,
->  			struct queue_properties *q)
-> @@ -242,6 +273,23 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
->  	set_priority(m, q);
+>  	if (num_pages == 1 && ttm->caching == ttm_cached &&
+>  	    !(man->use_tt && (ttm->page_flags & TTM_TT_FLAG_DECRYPTED))) {
+>  		/*
+> @@ -419,7 +423,7 @@ EXPORT_SYMBOL(ttm_bo_kmap_try_from_panic);
+>   *
+>   * Returns
+>   * -ENOMEM: Out of memory.
+> - * -EINVAL: Invalid range.
+> + * -EINVAL: Invalid range or the BO has no pages to map.
+>   */
+>  int ttm_bo_kmap(struct ttm_buffer_object *bo,
+>  		unsigned long start_page, unsigned long num_pages,
+> @@ -493,7 +497,7 @@ EXPORT_SYMBOL(ttm_bo_kunmap);
+>   *
+>   * Returns
+>   * -ENOMEM: Out of memory.
+> - * -EINVAL: Invalid range.
+> + * -EINVAL: Invalid range or the BO has no pages to map.
+>   */
+>  int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+>  {
+> @@ -537,6 +541,9 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+>  		if (ret)
+>  			return ret;
 >  
->  	q->is_active = QUEUE_IS_ACTIVE(*q);
+> +		if (!ttm->pages)
+> +			return -EINVAL;
 > +
-> +	if (mqd_on_vram(mm->dev->adev))
-> +		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
-> +}
-> +
-> +static void update_mqd_gpu_addr(struct mqd_manager *mm, void *mqd,
-> +				struct kfd_mem_obj *mqd_mem_obj,
-> +				struct queue_properties *qp)
-> +{
-> +	struct v12_compute_mqd *m = get_mqd(mqd);
-> +	u64 addr = mqd_mem_obj->gpu_addr;
-> +
-> +	m->cp_mqd_base_addr_lo = lower_32_bits(addr);
-> +	m->cp_mqd_base_addr_hi = upper_32_bits(addr);
-> +
-> +	if (mqd_on_vram(mm->dev->adev))
-> +		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
->  }
->  
->  static bool check_preemption_failed(struct mqd_manager *mm, void *mqd)
-> @@ -409,6 +457,9 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
->  		*gart_addr = addr;
->  
->  	qp->is_active = 0;
-> +
-> +	if (mqd_on_vram(mm->dev->adev))
-> +		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
->  }
->  
->  static void restore_mqd_sdma(struct mqd_manager *mm, void **mqd,
-> @@ -454,7 +505,7 @@ struct mqd_manager *mqd_manager_init_v12(enum KFD_MQD_TYPE type,
->  	switch (type) {
->  	case KFD_MQD_TYPE_CP:
->  		pr_debug("%s@%i\n", __func__, __LINE__);
-> -		mqd->allocate_mqd = allocate_mqd;
-> +		mqd->allocate_mqd = allocate_cp_mqd;
->  		mqd->init_mqd = init_mqd;
->  		mqd->free_mqd = kfd_free_mqd_cp;
->  		mqd->load_mqd = load_mqd;
-> @@ -465,6 +516,7 @@ struct mqd_manager *mqd_manager_init_v12(enum KFD_MQD_TYPE type,
->  		mqd->get_wave_state = get_wave_state;
->  		mqd->mqd_stride = kfd_mqd_stride;
->  		mqd->restore_mqd = restore_mqd;
-> +		mqd->update_mqd_gpu_addr = update_mqd_gpu_addr;
->  #if defined(CONFIG_DEBUG_FS)
->  		mqd->debugfs_show_mqd = debugfs_show_mqd;
->  #endif
+>  		/*
+>  		 * We need to use vmap to get the desired page protection
+>  		 * or to make the buffer object look contiguous.
 
