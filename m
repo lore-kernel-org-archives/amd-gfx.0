@@ -4,101 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49BC2CA5FED
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 06:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E56F2CA6012
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 07:00:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D101B10FECA;
-	Fri,  9 Oct 2026 06:46:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7229310FEE3;
+	Fri,  9 Oct 2026 07:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uWF0gk0J";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PIz2bIap";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010063.outbound.protection.outlook.com [52.101.56.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCD6E10FED2
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 06:46:17 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012068.outbound.protection.outlook.com [40.107.209.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9AB410FEE3
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 07:00:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m1b/TcEGODIIwpC5q4r3GTbz/KwE+cFX75ulZn+u9l8BAb/PUhiLavTZLnzdvCsWjkCzYnT9W2Qz1QPbx8fXKqg6wd1Sca/xnzYk+HncMidqnouPip+8iBdfRpaSzD76MJfZtC/kmBGflwnZIq07+7KQa62Ks7TCuZyPF4Wsy0pWahQatBYx0WPCNiRcYC+fPY5D2Qw4GrAyBvSx9ltK3ZpYhEyGXWGqg7rnfxS4rmJ8vRmkVFJfWC+0o7N4Jgqtm9rUm+9e2CNWqNpPCSFprKLKaqfnti30Ar302i5XzurmbKWsy5JYdkVY5DFOvX0h0LUqc9I0bb5VhsuTWW5ipw==
+ b=pqtbPjtloH/OBlZopDZXtFxo1kP77lvquw6VEDAWG5GFnnhv5W87ObSkcKYhOqaDTMJQj41XGuTOOYW+qQnaybHHGOUCrd9EzbKfXw968NeVGUuB1+w6cIbE7tsb1LhaH/Ftommf9zbRYGtdSRZfQZKIyGMPp7MEv/7MHD//4ebHiLH1/3wuSrSNYMh0n2z9Hy9Kwfz8nlXs7aI7As8Kzp7dchVdTiF2gGRVcYxRm07gzr11DuEDolawzmvJ/FHBQRDPpmhT3dB72d7rGWUMFpMcZIkWc15vbtnd0N6Qp+gjoUVfaI2/YNWpB6gTMZvlG0sGZlIdYh/2+rsutM/ofg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vi0nfz948WGdNBWvfBRzN5LaKSXSKvxaKx/qRfnRIXs=;
- b=olNNdjXWQ8YvnQsZGuzGU5hagz9lsg1zP1ZKWmSTuVPHWPqJEEaCB25M0PHHR+AxsxleGFS35CGJG0zOcbdbVOoHewSeZl4VUUDofm0WgNVcwajvf4s56SAssXW/65vHUcp6/Vok4wK/0PoeixLsx95BYUFcdeT146vmzSfXhKuPiyAP6KSSm2BPlCBLEC+7V5Zk0Pp2xEeWubyfWZ2R2dkLctSu8l14jK2UP8F2mraW524m6xD2f+hDYl/y8LUx1wMu5cW6zHKxJ1h/f7rC+auBWiCGibLOHh1Uo2ioygmS69cPjLMOnTYWvl9MwI0XvI4MboWBgZ37exVEi/SeUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=vrLkLQA/JXfHeLnoh5HNAPPEE8ANeKxBQbfUhFztDq0=;
+ b=Pi1ZEgVsy1+wuM7XZ+3XH+oNuyE0eBZgIcduWAspJwZBVB850b5OLAieydjRiqrglWRAwZC6Weh1FW+JAWJ+ZN6/6OoNgJvS+4tDtatGo5Zw7ELwG2q6w08qHVlr/QA2G/YrCt6S3YA3JpvO/uC4MiNwHP2CGH9TOSsKnNdvDbqxQf96yjLEPVgxjP0MxbnNZLFq6xmjovyxKs7YZPo3YbxM1UPW47ZKllA8AWsMcWkLj4dBwW7OYZKarXJmZEi8Zjt/NmMw03mHtJ48ZCxaJzMWEtStxTAdTwTwaMy/Pvk4H+cfgLV3LYE1qO7dkYk0IRoymxSYtU5K8swIBaXREg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vi0nfz948WGdNBWvfBRzN5LaKSXSKvxaKx/qRfnRIXs=;
- b=uWF0gk0J8IRwM/8tiTIkjMhZRmgWMDIeMayAmOGE3wpNFRVpObpsn00X6a+69d8CiKGmNxRtDyUt/bl2EFUPqxcaQb1ujtV6D2asGSNBoiGI/P25TDWzkM08vhN7L5cXTAkbBGMbIDMUqWdROp8lweniAHKWAyTUkwb4ZYw2H0s=
-Received: from BN0PR03CA0022.namprd03.prod.outlook.com (2603:10b6:408:e6::27)
- by DS6PR12MB306834.namprd12.prod.outlook.com (2603:10b6:8:4c5::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 06:46:13 +0000
-Received: from BN5PEPF00046987.namprd02.prod.outlook.com
- (2603:10b6:408:e6:cafe::6c) by BN0PR03CA0022.outlook.office365.com
- (2603:10b6:408:e6::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
- Oct 2026 06:46:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN5PEPF00046987.mail.protection.outlook.com (10.167.245.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 06:46:13 +0000
-Received: from marui-Super-Server.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 9 Oct 2026 01:46:05 -0500
-From: Heng Zhou <Heng.Zhou@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Lijo.Lazar@amd.com>, <Christian.Koenig@amd.com>, <Emily.Deng@amd.com>,
- <Victor.Zhao@amd.com>, <Felix.Kuehling@amd.com>, <phasta@kernel.org>,
- <HaiJun.Chang@amd.com>, <Heng.Zhou@amd.com>, <Jonathan.Kim@amd.com>
-Subject: [PATCH v3] drm/amdkfd: fix lost wakeup in interrupt drain on debugged
- process exit
-Date: Fri, 9 Oct 2026 14:45:47 +0800
-Message-ID: <20261009064547.1091603-1-Heng.Zhou@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cda6720c-0957-4345-9cbf-e78deaa2cc8a@amd.com>
-References: <cda6720c-0957-4345-9cbf-e78deaa2cc8a@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN5PEPF00046987:EE_|DS6PR12MB306834:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f687ee9-2288-4a2a-05b4-08df25d1028b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Kyiu3UvifQA6adUYvs4Pg7Zrvl5Wsj/QztnTSXTCs0WYFIF4iJlKo/pPr8LGPgGOWKyX3j95M0e1NAf2CCBCQNMLGAWBOjj0MGx5bcJjp5V1+FlgC1CxcNOaZfj+4dWZDAQyI5JSo3aOzM41JQVjR1HZ0vX9jJC7ZYiZ4+4k6wJTTt4OSjBL9rX23taLVWXSP0k6QEJaLHW5TqfIN0jprDoDibd6K3L2jStUItYdnEbNt7GyLeseM4O+UFgLg/x1tcOJK8CA3PXUK3OLKiG0ph18/7JnQbwYqEWTT/du2IYS714UpZrXaS8j7pc/S36D1UnwH22izTpyXekVXyNZeigthEkjFKyAZozh85aVpZ2YR3aVlpSPMydLwtp5lKJlFPWSG7E4ErTO2jV4MDocVw0ZgzInyJoEho4oq2QAIiqUFA+QOb74kuperbVSOI7wXIS3MPiEdHNwT+TGQhYC2qbgj9X8EJitJpLPT8myfL1ZXkyxFodStMqnhPXySksWReIfe+kxXDydZhFGUAQiK7piyJ+pc6U5/M6kro0nk/ExPfKc5LIXAbCA6TQYpPt64IIywYW/irXOmbQ9TlKtJ3t7+yUkDhtaVViI6ELHvXPOjRIN+pIUTAcLykByREAWT9yxm+5CezMr1PffAi/AvMyEvR/8e8Qu+e9GZ08ulrOWTltAYIKlAP4iTPmO1bipRyHTVEfVV8pjKG5mLZly1g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
+ bh=vrLkLQA/JXfHeLnoh5HNAPPEE8ANeKxBQbfUhFztDq0=;
+ b=PIz2bIapQqkiKGXzzZlOdyhE5xc3WlV4uQMGGR4BK5+VW9roNg5asji60EDaQ9CVwJVl5SK28EuvquaihVA9/WjEKwh0oVlbkKDsMQ/rqevJC4+2kf7QM53jmcUN6v2Rw7fQZq1lw24aShpyMyhnRuLYWe6NVIRPvYdVuvoUU3w=
+Received: from BN7PPFFF39339DD.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6eb) by PH0PR12MB7861.namprd12.prod.outlook.com
+ (2603:10b6:510:26e::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.27; Fri, 9 Oct
+ 2026 07:00:01 +0000
+Received: from BN7PPFFF39339DD.namprd12.prod.outlook.com
+ ([fe80::9e62:eec6:fa38:a6a6]) by BN7PPFFF39339DD.namprd12.prod.outlook.com
+ ([fe80::9e62:eec6:fa38:a6a6%4]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
+ 07:00:01 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>,
+ "Li, Candice" <Candice.Li@amd.com>, "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>,
+ "Sun, Ce(Overlord)" <Ce.Sun@amd.com>, "Xie, Patrick" <Gangliang.Xie@amd.com>, 
+ "Yang, Stanley" <Stanley.Yang@amd.com>
+Subject: RE: [PATCH Review v2 1/1] drm/amd/ras: Support invoke ras command
+Thread-Topic: [PATCH Review v2 1/1] drm/amd/ras: Support invoke ras command
+Thread-Index: AQHdV7RXpLjjZo9x5Em0+7hDEKpswrb0yBkQ
+Date: Fri, 9 Oct 2026 07:00:00 +0000
+Message-ID: <BN7PPFFF39339DDFB073AB8C670D2363E12FC922@BN7PPFFF39339DD.namprd12.prod.outlook.com>
+References: <20261009060553.62203-1-Stanley.Yang@amd.com>
+In-Reply-To: <20261009060553.62203-1-Stanley.Yang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-09T06:59:40.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN7PPFFF39339DD:EE_|PH0PR12MB7861:EE_
+x-ms-office365-filtering-correlation-id: 9d81d803-da8e-4754-ed1c-08df25d2effc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|10067099003|5023799004|3023799007|56012099006|6133799003|11063799006|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: f/KDTSwZr5avTLdsX0om4lyfmm3pBO7LDtNxGUP125/2HlmMo7tHKQy+dGtjqo5G/qFQGimhQk4v1XghLT4gA04FCnymNLbn8tf0zjl7a4teIHbk/S13CRhijlNVh+zgx5j1Bg7qX32ctUIvpDipMcmOpQVLb98PeOn8hpN8f/a3QXl6bl8Rh/Lra1whbOZbwVrYTrQ1zvCjUmDYY6KKAjCbA2bZI6hLNNw5yd5hZ0f0fUnZuowipU/UPEKxG00hDtoVAvVx/JzgQYT7Wu7NSi+DyAkVFUjvgb2Wm6BYZRByatLLU57gwmJN24o7sMIG74QqxdxhZalYvnUUun7r1/UaVUhQMSVlx1vAqi10wiNm/1A/GGCah7/2jgdmWilcAc+IHmo6DBtFRE779ZAtgbABJrkBPAgvG0BaNE1u74FwE06HKOAygkZqhbIj0BzsuVlt1qUM1qYo/teXf28/fcja2XEMHhE0tDRGSuWcdtZcqydABA/3g582HtJMezicy7QlC4FnlSL2uAs28yWAc8IHfxMNRXpZ7nxwZX/wPWhF4r5K72n6ilxHHfCUxszagiUcJD4v9hCynWsciVHwVgxyQINcNDbfa96YYzPKDu+XZNUgNE6/oDhLrOiQXl/TfUEzjQiK34uG5oRX4WFw0Quq1BTd/BPRyaFfjhNPhwgU6JekyOxepSQAGV4LFWziWLbVvnflnbzTqAReQIOeAkkYFO52AN+G2bIm+wSy+RU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPFFF39339DD.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(5023799004)(3023799007)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: eAFlXJythhe8k+FoairStc3yNnwkgautU7+w5Co7V73QVdXnpXv9Tjg0WkPJa5AAsswqgO02blW0zJqVHSKboA3j4joqMrU1yB8+TofffGhgum5HC0tkRAQv1l9EoQZ+n5IN9PueorAblsYasqa/e6mO9/XO5w42zVGBEZXUHP5bHZU6xJpnmv6qjUzb17Z+mJ/mQCgiK8U3CcNQJLMzJ1IzqqaqCDkaHmTcBZBmxNM1PpWCArMbblIgJDYC8eejIdWWRk/jq7arbCX1irnv6OLXufTqlYh2vDF2M1kl0kG3wHcQ+gQOnkNFUjQBykZ7NFx0kinedO40LERl1leY9bMuU+S05qKe+fKVOoilevoct6fzbxq+HYxG40QZrFeIceg/z1xfDF3VL5vNlHj5lcCoRXkS307PVKo/0lDL8+kqwuiIvvr47zjBxP2cEkX7
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jL5fcmC3bQnkDWiXR+DumJaJgP62kFXWp8+z364NAspWMts/4DwFPMty+M0A?=
+ =?us-ascii?Q?1k62izN3tqUNfkb9gF2dEJqrkmEyETNAxOIXseHwlZLz1NC3pptxZB0Xd/Ug?=
+ =?us-ascii?Q?eDAW74Tz1Y/go53L/ApAodnliVUG6JxdSwpAoBBq89iF72oPu0c1tUJGptqj?=
+ =?us-ascii?Q?+PWzUEybMxuHgeOkwtuhpMLQth0wLsc1EoWG2EJH0Z0aRf77wdK5Mft330gR?=
+ =?us-ascii?Q?Sx4F3IoOdG4XMH38Z2Gji0K6JOquoz6g+iJh0s/RJhYnSOt7Z1UmaRnJPWBe?=
+ =?us-ascii?Q?svwE2DLSx29OLGPCyPFZCz20Xn2GjTy/erEYd03WF3iDXm39hwwmIDoLpHBS?=
+ =?us-ascii?Q?79n+DI6yCBHHftSedM0Ka3HEqoY0qpf2TPheKRCfa8yFVC31exJ/yVhndop+?=
+ =?us-ascii?Q?9KO6Hfw/4GQNIa+wf+hAlDHZUxQKokuvP2uOwsBN2cyxRK/IceJHY9XmYQW/?=
+ =?us-ascii?Q?WZLQhhJoW2vqfpWWb9V05vb+YMpE0t9dNXeCaINy+CQMyTQ3tozhhkDnmdn7?=
+ =?us-ascii?Q?oqsAlmxCpCWfMYhzDOJsUNuaB7xVRST+91UZlNO5ywbCrhwbndjqHMbMYhti?=
+ =?us-ascii?Q?KW9CndgW4tpFcYIqY2iWEteAFNx1rt/XjaM/JTZC2s+G2Du2gMNfRkCw/FAT?=
+ =?us-ascii?Q?IMT03Krg23UKS1vVJyohmX9CWziDTh6wGLL5+EwsaGWsF5YeDwqr7ESALVbx?=
+ =?us-ascii?Q?yPOTC/Fqn2HQfeFe8Ot+w7lHoAarU5NA2G4gK8HWiau+ijQu7pgryvORdmo+?=
+ =?us-ascii?Q?FVNr3dYEdtXWpY0weGHsNSic7QNtqh9ehQtONvIP086xfA1h1BgG77Kz1T6N?=
+ =?us-ascii?Q?pvSZX98zHNIkO/k4OANOyYgw4KJwjmHqTB81MeOUQYBXbV/FmBQJcxK7GCd4?=
+ =?us-ascii?Q?WNAFJF6vmmoLYMXP9qje11FPJtSkSAx2YGCEeKHAhJi8DtluUvALMmBOrer9?=
+ =?us-ascii?Q?R6Ic7K041jT2nzlZIaZo7NVt9z60ORhH9HysAUGDeXR/mSg10Y18wIPb40po?=
+ =?us-ascii?Q?AgpO1Pc2j5V2DRM37/Ej2JlaWXH5xfbMUq26+SsP4hlJvpnzQI72Bhq+f5Vp?=
+ =?us-ascii?Q?Bs7J1B5GXkI+p0zdq9nGGbWdMnHepR34EOtll6JZj0crApw04BUW8pGPxb0Y?=
+ =?us-ascii?Q?z2GpxDMpojHYkTmtiNGNtgXe8scgtMp17KA0DiUE+xlXud1yaXaQ+m23j7Wp?=
+ =?us-ascii?Q?alZEeoy6EYEYiRRQBcnLUJNMPyIearcfeUKlaUfoKB7TMpsNlEVE4rhvHel5?=
+ =?us-ascii?Q?IsiFtKUgzXECHl45iGEFENy1uvwguf3sxNem2M9YE92+us11vWyAATAvBD2I?=
+ =?us-ascii?Q?9o8Yi7nJaA//ZpK24yl5ifiSi0MIYooG4H8//sOY2ylszYD/HqRlv0rD7bHa?=
+ =?us-ascii?Q?zay4lJ+AtixeTspQSuUAggI9jJ3Fkz3XhYyLiSK4ID76rkli8rPHxPwmh092?=
+ =?us-ascii?Q?pj3rGv33LFWEn9Hu+W586bSzdWucrl+wX8mGye9oooTbSo5IKxpVLL6exQn7?=
+ =?us-ascii?Q?aebpj9oSDXQA7UNiFDwwVN4JQOr0z/h7IZ808qj5nEy7DrOCjQPle6nTWC1Y?=
+ =?us-ascii?Q?EFefvQk+2txiXHOZBtw67bu4ZxuWGnrBCtoA02oUOkoFkrvAs32Y5Kbc5Xlj?=
+ =?us-ascii?Q?9jYQ7kOdBupGP2dAUHdVF6Uk3hWg0AfKhgYTld4wK9m5HEQnh/JQB6F6xN49?=
+ =?us-ascii?Q?SQ8H0EfmWRcRE4UIIWTSAKY/hD4G8WyuR4lXQlbu6WiiiNJs?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 06:46:13.0524 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f687ee9-2288-4a2a-05b4-08df25d1028b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN5PEPF00046987.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB306834
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPFFF39339DD.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d81d803-da8e-4754-ed1c-08df25d2effc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 07:00:00.9424 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BkApIc2E3Th2u8gYkxE/5rMOCVXJb5EecfZNYIcmn/3gvnmIx90Om8O64Cpa9sV5/yq7eA1rrZTcj9iu/lig8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7861
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,417 +134,211 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a debugged process exits, kfd_process_notifier_release_internal()
-first removes it from kfd_processes_table and then calls
-kfd_dbg_trap_disable(), which drains the process interrupts. The drain
-sends a fence through the IH and waits, without a timeout, for
-kfd_process_close_interrupt_drain() to wake it up. That wakeup looks
-the process up by PASID in kfd_processes_table, which no longer holds
-it, so the wakeup is lost and the exiting task sleeps forever. The
-fatal signal has already been consumed in do_exit(), so the
-interruptible wait cannot be broken either.
+AMD General
 
-The wait happens inside the mmu_notifier release callback, i.e. within
-the global mmu_notifier SRCU read-side critical section, so every
-synchronize_srcu() on it stalls as well. Any other process releasing
-its mm then hangs in D state and the system needs a reboot. This is
-seen with rocgdb on MI300X.
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Fix this by:
+Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Stanley.=
+Yang
+Sent: Friday, October 9, 2026 2:06 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
+ Chai, Thomas <YiPeng.Chai@amd.com>; Li, Candice <Candice.Li@amd.com>; Liu,=
+ Xiang(Dean) <Xiang.Liu@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>; Xie, =
+Patrick <Gangliang.Xie@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>
+Subject: [PATCH Review v2 1/1] drm/amd/ras: Support invoke ras command
 
-- Waiting on a completion in struct amdgpu_fpriv, looked up by PASID
-  through amdgpu_pasid_xa, instead of looking the process up in
-  kfd_processes_table. The DRM file owning the PASID is still
-  referenced by KFD while it drains, so the drain fence always finds
-  its waiter. The drain logic moves to amdgpu_ids.c and KFD only
-  passes the PASID.
-- Bounding the wait with a timeout, since the fence can be lost when
-  the IH ring or the KFD interrupt FIFO overflows, and warning when the
-  drain does not complete.
-- Passing drain_irqs to kfd_dbg_trap_disable() and skipping the drain
-  when the process itself exits. Its interrupts are no longer delivered
-  once it is out of kfd_processes_table, and its PASID owner is cleared
-  before the PASID is freed and later reallocated cyclically.
+Use uniras core to invoke ras command.
 
-v2: track drains with a completion in amdgpu_fpriv via amdgpu_pasid_xa
-    and move the drain logic to amdgpu_ids.c; pass drain_irqs to
-    kfd_dbg_trap_disable() and skip the drain on process exit instead
-    of deferring it (Felix)
+Changed from v1:
+        use common function send_ras_ta_runtime_cmd in ras_psp_invoke_ras_t=
+a
 
-v3: use AMDGPU_FENCE_JIFFIES_TIMEOUT for the drain timeout; drop
-    kfd_process_close_interrupt_drain() and call
-    amdgpu_pasid_drain_irq_done() directly from the interrupt handlers
-    (Felix)
-
-Fixes: 12fb1ad70d65 ("drm/amdkfd: update process interrupt handling for debug events")
-Signed-off-by: Heng Zhou <Heng.Zhou@amd.com>
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c       | 62 +++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h       |  3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  2 +
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 10 +--
- drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |  2 +-
- .../gpu/drm/amd/amdkfd/kfd_int_process_v10.c  |  2 +-
- .../gpu/drm/amd/amdkfd/kfd_int_process_v11.c  |  2 +-
- .../drm/amd/amdkfd/kfd_int_process_v12_1.c    |  2 +-
- .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  8 +--
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 47 ++++----------
- 13 files changed, 94 insertions(+), 53 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c | 17 +++++++++
+ drivers/gpu/drm/amd/ras/core/ras_psp.c     | 40 +++++++++++++++++-----
+ drivers/gpu/drm/amd/ras/core/ras_psp.h     |  3 ++
+ drivers/gpu/drm/amd/ras/core/ta_if.h       |  1 +
+ 4 files changed, 53 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index ce671731b700..c32d3b0b4153 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -426,6 +426,9 @@ struct amdgpu_fpriv {
- 
- 	/** GPU partition selection */
- 	uint32_t		xcp_id;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_psp_ta.c
+index 8ae72c862d11..2d494ac57eb4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
+@@ -23,6 +23,7 @@
+
+ #include "amdgpu.h"
+ #include "amdgpu_psp_ta.h"
++#include "amdgpu_ras_mgr.h"
+
+ #if defined(CONFIG_DEBUG_FS)
+
+@@ -330,6 +331,22 @@ static ssize_t ta_if_invoke_debugfs_write(struct file =
+*fp, const char *buf, size
+        if (IS_ERR(shared_buf))
+                return PTR_ERR(shared_buf);
+
++       if (ta_type =3D=3D TA_TYPE_RAS && amdgpu_uniras_enabled(adev)) {
++               struct amdgpu_ras_mgr *ras_mgr =3D amdgpu_ras_mgr_get_conte=
+xt(adev);
 +
-+	/** Signaled when a KFD interrupt drain fence for this PASID is seen */
-+	struct completion	irq_drain_done;
++               if (!ras_mgr || !ras_mgr->ras_core) {
++                       ret =3D -EINVAL;
++                       goto free_shared_buf;
++               }
++
++               ret =3D ras_psp_invoke_ras_ta(ras_mgr->ras_core, ta_id, cmd=
+_id,
++                                          shared_buf, shared_buf_len);
++               if (!ret && copy_to_user((char *)&buf[copy_pos], shared_buf=
+, shared_buf_len))
++                       ret =3D -EFAULT;
++
++               goto free_shared_buf;
++       }
++
+        set_ta_context_funcs(psp, ta_type, &context);
+
+        if (!context || !context->initialized) { diff --git a/drivers/gpu/d=
+rm/amd/ras/core/ras_psp.c b/drivers/gpu/drm/amd/ras/core/ras_psp.c
+index ed53cd25d6bd..c3c6039bfe7a 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_psp.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_psp.c
+@@ -426,7 +426,8 @@ static int __check_ras_ta_cmd_resp(struct ras_core_cont=
+ext *ras_core,  }
+
+ static int send_ras_ta_runtime_cmd(struct ras_core_context *ras_core,
+-                       enum ras_ta_cmd_id cmd_id, void *in, uint32_t in_si=
+ze,
++                       uint32_t session_id, enum ras_ta_cmd_id cmd_id,
++                       void *in, uint32_t in_size,
+                        void *out, uint32_t out_size)
+ {
+        struct ras_ta_ctx *ta_ctx =3D &ras_core->ras_psp.ta_ctx; @@ -467,7 =
++468,7 @@ static int send_ras_ta_runtime_cmd(struct ras_core_context *ras_c=
+ore,
+        memcpy(&ras_cmd->ras_in_message, in, in_size);
+
+        invoke_cmd.ta_cmd_id =3D cmd_id;
+-       invoke_cmd.session_id =3D ta_ctx->session_id;
++       invoke_cmd.session_id =3D session_id;
+
+        ret =3D send_psp_cmd(ras_core, GFX_CMD_ID_INVOKE_CMD,
+                        &invoke_cmd, sizeof(invoke_cmd), &resp); @@ -494,10=
+ +495,15 @@ static int send_ras_ta_runtime_cmd(struct ras_core_context *ras=
+_core,
+                goto unlock;
+        }
+
+-       if (!ras_cmd->ras_status && out && out_size)
++       /* Hand the TA output back regardless of status; ret carries the st=
+atus. */
++       if (out && out_size)
+                memcpy(out, &ras_cmd->ras_out_message, out_size);
+
+-       ret =3D __check_ras_ta_cmd_resp(ras_core, ras_cmd);
++       /* cmd from user space requires special handling for CHECK_ACA_BANK=
+_ERROR_TYPES */
++       if (cmd_id =3D=3D RAS_TA_CMD_ID__CHECK_ACA_BANK_ERROR_TYPES)
++               __check_ras_ta_cmd_resp(ras_core, ras_cmd);
++       else
++               ret =3D __check_ras_ta_cmd_resp(ras_core, ras_cmd);
+
+ unlock:
+        mutex_unlock(&ta_ctx->ta_mutex);
+@@ -536,7 +542,9 @@ static int trigger_ras_ta_error(struct ras_core_context=
+ *ras_core,
+        dev_mask &=3D RAS_TA_INST_MASK;
+        info->sub_block_index |=3D dev_mask;
+
+-       return send_ras_ta_runtime_cmd(ras_core, RAS_TA_CMD_ID__TRIGGER_ERR=
+OR,
++       return send_ras_ta_runtime_cmd(ras_core,
++                               ras_core->ras_psp.ta_ctx.session_id,
++                               RAS_TA_CMD_ID__TRIGGER_ERROR,
+                                info, sizeof(*info), NULL, 0);
+ }
+
+@@ -785,6 +793,21 @@ int ras_psp_unsideload_ras_ta(struct ras_core_context =
+*ras_core,
+        return unload_ras_ta_fw(ras_core, ras_ta_unload);  }
+
++int ras_psp_invoke_ras_ta(struct ras_core_context *ras_core,
++               uint32_t session_id, uint32_t cmd_id,
++               void *shared_buf, uint32_t shared_buf_len) {
++       /* The debugfs caller hands over a full ras_ta_cmd shared buffer. *=
+/
++       struct ras_ta_cmd *ras_cmd =3D shared_buf;
++
++       if (!shared_buf || shared_buf_len < sizeof(*ras_cmd))
++               return -EINVAL;
++
++       return send_ras_ta_runtime_cmd(ras_core, session_id, cmd_id,
++                       &ras_cmd->ras_in_message, sizeof(ras_cmd->ras_in_me=
+ssage),
++                       &ras_cmd->ras_out_message, sizeof(ras_cmd->ras_out_=
+message));
++}
++
+ int ras_psp_reload_firmwares(struct ras_core_context *ras_core,
+                uint32_t flags)
+ {
+@@ -810,7 +833,7 @@ int ras_psp_enable_features(struct ras_core_context *ra=
+s_core,
+                return -ENOEXEC;
+        }
+
+-       return send_ras_ta_runtime_cmd(ras_core,
++       return send_ras_ta_runtime_cmd(ras_core, ta_ctx->session_id,
+                        enable ? RAS_TA_CMD_ID__ENABLE_FEATURES :
+                                 RAS_TA_CMD_ID__DISABLE_FEATURES,
+                        info, sizeof(*info), NULL, 0);
+@@ -846,8 +869,9 @@ int ras_psp_query_address(struct ras_core_context *ras_=
+core,
+        if (!addr_in || !addr_out)
+                return -EINVAL;
+
+-       return send_ras_ta_runtime_cmd(ras_core, RAS_TA_CMD_ID__QUERY_ADDRE=
+SS,
+-               addr_in, sizeof(*addr_in), addr_out, sizeof(*addr_out));
++       return send_ras_ta_runtime_cmd(ras_core, ta_ctx->session_id,
++               RAS_TA_CMD_ID__QUERY_ADDRESS, addr_in, sizeof(*addr_in),
++               addr_out, sizeof(*addr_out));
+ }
+
+ int ras_psp_sw_init(struct ras_core_context *ras_core) diff --git a/driver=
+s/gpu/drm/amd/ras/core/ras_psp.h b/drivers/gpu/drm/amd/ras/core/ras_psp.h
+index 4cc133c6a6d3..91d17fdd6bda 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_psp.h
++++ b/drivers/gpu/drm/amd/ras/core/ras_psp.h
+@@ -196,6 +196,9 @@ int ras_psp_sideload_ras_ta(struct ras_core_context *ra=
+s_core,
+                struct ras_psp_ta_load *ta_load);
+ int ras_psp_unsideload_ras_ta(struct ras_core_context *ras_core,
+                struct ras_psp_ta_unload *ras_ta_unload);
++int ras_psp_invoke_ras_ta(struct ras_core_context *ras_core,
++               uint32_t session_id, uint32_t cmd_id,
++               void *shared_buf, uint32_t shared_buf_len);
+ int ras_psp_enable_features(struct ras_core_context *ras_core,
+        struct ras_ta_enable_features_input *info, bool enable);  int ras_p=
+sp_trigger_error(struct ras_core_context *ras_core, diff --git a/drivers/gp=
+u/drm/amd/ras/core/ta_if.h b/drivers/gpu/drm/amd/ras/core/ta_if.h
+index 30c058a524db..87d5aa3f8477 100644
+--- a/drivers/gpu/drm/amd/ras/core/ta_if.h
++++ b/drivers/gpu/drm/amd/ras/core/ta_if.h
+@@ -44,6 +44,7 @@ enum ras_ta_cmd_id {
+        RAS_TA_CMD_ID__QUERY_BLOCK_INFO,
+        RAS_TA_CMD_ID__QUERY_SUB_BLOCK_INFO,
+        RAS_TA_CMD_ID__QUERY_ADDRESS,
++       RAS_TA_CMD_ID__CHECK_ACA_BANK_ERROR_TYPES =3D 10,
+        MAX_RAS_TA_CMD_ID
  };
- 
- int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index 5e424e3b6e71..87cc297109a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -171,6 +171,68 @@ struct amdgpu_fpriv *amdgpu_pasid_get_fpriv_locked(u32 pasid)
- 	return xa_load(&amdgpu_pasid_xa, pasid);
- }
- 
-+/**
-+ * amdgpu_pasid_drain_irq - wait for pending KFD interrupts of a PASID
-+ * @adev: amdgpu device the drain fence is sent to
-+ * @pasid: PASID whose interrupts should be drained
-+ * @ih_fence: IH entry injected as the drain fence
-+ * @timeout: maximum time to wait, in jiffies
-+ *
-+ * Injects @ih_fence behind the interrupts already queued for KFD and waits
-+ * until amdgpu_pasid_drain_irq_done() is called for @pasid.
-+ *
-+ * The caller must hold a reference to the DRM file that owns @pasid, so
-+ * that its amdgpu_fpriv stays valid after the PASID lock is dropped.
-+ *
-+ * Returns:
-+ * 0 on success or when no fence could be sent, -ENOENT if @pasid has no
-+ * owner, -ETIMEDOUT on timeout or -ERESTARTSYS if interrupted.
-+ */
-+int amdgpu_pasid_drain_irq(struct amdgpu_device *adev, u32 pasid,
-+			   u32 *ih_fence, unsigned long timeout)
-+{
-+	struct amdgpu_fpriv *fpriv;
-+	unsigned long flags;
-+	long r;
-+
-+	amdgpu_pasid_lock(&flags);
-+	fpriv = amdgpu_pasid_get_fpriv_locked(pasid);
-+	if (fpriv)
-+		reinit_completion(&fpriv->irq_drain_done);
-+	amdgpu_pasid_unlock(flags);
-+	if (!fpriv)
-+		return -ENOENT;
-+
-+	if (amdgpu_amdkfd_send_close_event_drain_irq(adev, ih_fence))
-+		return 0;
-+
-+	r = wait_for_completion_interruptible_timeout(&fpriv->irq_drain_done,
-+						      timeout);
-+	if (!r)
-+		return -ETIMEDOUT;
-+
-+	return r < 0 ? r : 0;
-+}
-+
-+/**
-+ * amdgpu_pasid_drain_irq_done - signal that a KFD interrupt drain completed
-+ * @pasid: PASID carried by the drain fence
-+ *
-+ * Called by KFD when it processes the drain fence injected by
-+ * amdgpu_pasid_drain_irq().
-+ */
-+void amdgpu_pasid_drain_irq_done(u32 pasid)
-+{
-+	struct amdgpu_fpriv *fpriv;
-+	unsigned long flags;
-+
-+	amdgpu_pasid_lock(&flags);
-+	fpriv = amdgpu_pasid_get_fpriv_locked(pasid);
-+	if (fpriv)
-+		complete(&fpriv->irq_drain_done);
-+	amdgpu_pasid_unlock(flags);
-+}
-+
- /**
-  * amdgpu_pasid_free_delayed - free pasid when fences signal
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-index 46b2c2160126..2af733d96d60 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-@@ -98,6 +98,9 @@ int amdgpu_pasid_alloc(unsigned int bits, struct amdgpu_fpriv *fpriv);
- void amdgpu_pasid_lock(unsigned long *flags);
- void amdgpu_pasid_unlock(unsigned long flags);
- struct amdgpu_fpriv *amdgpu_pasid_get_fpriv_locked(u32 pasid);
-+int amdgpu_pasid_drain_irq(struct amdgpu_device *adev, u32 pasid,
-+			   u32 *ih_fence, unsigned long timeout);
-+void amdgpu_pasid_drain_irq_done(u32 pasid);
- void amdgpu_pasid_free(u32 pasid);
- void amdgpu_pasid_free_delayed(struct dma_resv *resv,
- 			       u32 pasid);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index bac072d73e16..8b080e2e1496 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1507,6 +1507,8 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 	if (r)
- 		goto error_pasid;
- 
-+	init_completion(&fpriv->irq_drain_done);
-+
- 	pasid = amdgpu_pasid_alloc(16, fpriv);
- 	if (pasid < 0) {
- 		dev_warn(adev->dev, "No more PASIDs available!");
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 1d86ddfd6bde..b3ebbee76088 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -3223,7 +3223,7 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
- 
- 		break;
- 	case KFD_IOC_DBG_TRAP_DISABLE:
--		r = kfd_dbg_trap_disable(target);
-+		r = kfd_dbg_trap_disable(target, true);
- 		break;
- 	case KFD_IOC_DBG_TRAP_SEND_RUNTIME_EVENT:
- 		r = kfd_dbg_send_exception_to_runtime(target,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index 0dd1fd448059..8bed0d0f9bd2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -655,7 +655,8 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
- 	kfd_dbg_set_workaround(target, false);
- }
- 
--static void kfd_dbg_clean_exception_status(struct kfd_process *target)
-+static void kfd_dbg_clean_exception_status(struct kfd_process *target,
-+					   bool drain_irqs)
- {
- 	struct process_queue_manager *pqm;
- 	struct process_queue_node *pqn;
-@@ -664,7 +665,8 @@ static void kfd_dbg_clean_exception_status(struct kfd_process *target)
- 	for (i = 0; i < target->n_pdds; i++) {
- 		struct kfd_process_device *pdd = target->pdds[i];
- 
--		kfd_process_drain_interrupts(pdd);
-+		if (drain_irqs)
-+			kfd_process_drain_interrupts(pdd);
- 
- 		pdd->exception_status = 0;
- 	}
-@@ -680,7 +682,7 @@ static void kfd_dbg_clean_exception_status(struct kfd_process *target)
- 	target->exception_status = 0;
- }
- 
--int kfd_dbg_trap_disable(struct kfd_process *target)
-+int kfd_dbg_trap_disable(struct kfd_process *target, bool drain_irqs)
- {
- 	if (!target->debug_trap_enabled)
- 		return 0;
-@@ -704,7 +706,7 @@ int kfd_dbg_trap_disable(struct kfd_process *target)
- 	}
- 
- 	target->debug_trap_enabled = false;
--	kfd_dbg_clean_exception_status(target);
-+	kfd_dbg_clean_exception_status(target, drain_irqs);
- 	kfd_unref_process(target);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-index fbb751821c69..5babf9b992cd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-@@ -43,7 +43,7 @@ bool kfd_dbg_ev_raise(uint64_t event_mask,
- 			unsigned int source_id, bool use_worker,
- 			void *exception_data,
- 			size_t exception_data_size);
--int kfd_dbg_trap_disable(struct kfd_process *target);
-+int kfd_dbg_trap_disable(struct kfd_process *target, bool drain_irqs);
- int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
- 			void __user *runtime_info,
- 			uint32_t *runtime_info_size);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-index 19406ab92c5b..45ac77bb2102 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-@@ -376,7 +376,7 @@ static void event_interrupt_wq_v10(struct kfd_node *dev,
- 						&exception_data,
- 						sizeof(exception_data));
- 	} else if (KFD_IRQ_IS_FENCE(client_id, source_id)) {
--		kfd_process_close_interrupt_drain(pasid);
-+		amdgpu_pasid_drain_irq_done(pasid);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-index 12d81abed748..24d13a74a181 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-@@ -408,7 +408,7 @@ static void event_interrupt_wq_v11(struct kfd_node *dev,
- 		}
- 
- 	} else if (KFD_IRQ_IS_FENCE(client_id, source_id)) {
--		kfd_process_close_interrupt_drain(pasid);
-+		amdgpu_pasid_drain_irq_done(pasid);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
-index 0da7e1db55c9..4c7ad5aaaebc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
-@@ -395,7 +395,7 @@ static void event_interrupt_wq_v12_1(struct kfd_node *node,
- 		}
- 
- 	} else if (KFD_IRQ_IS_FENCE(client_id, source_id)) {
--		kfd_process_close_interrupt_drain(pasid);
-+		amdgpu_pasid_drain_irq_done(pasid);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index 2ae1129fea55..e241ad7d55df 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -596,7 +596,7 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
- 						sizeof(exception_data));
- 		kfd_smi_event_update_vmfault(dev, pasid);
- 	} else if (KFD_IRQ_IS_FENCE(client_id, source_id)) {
--		kfd_process_close_interrupt_drain(pasid);
-+		amdgpu_pasid_drain_irq_done(pasid);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 2847a5ec5ede..4777d6b7911c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1030,10 +1030,6 @@ struct kfd_process {
- 	uint64_t exception_enable_mask;
- 	uint64_t exception_status;
- 
--	/* Used to drain stale interrupts */
--	wait_queue_head_t wait_irq_drain;
--	bool irq_drain_is_open;
--
- 	/* shared virtual memory registered by this process */
- 	struct svm_range_list svms;
- 
-@@ -1245,9 +1241,7 @@ bool enqueue_ih_ring_entry(struct kfd_node *kfd, const void *ih_ring_entry);
- bool interrupt_is_wanted(struct kfd_node *dev,
- 				const uint32_t *ih_ring_entry,
- 				uint32_t *patched_ihre, bool *flag);
--int kfd_process_drain_interrupts(struct kfd_process_device *pdd);
--void kfd_process_close_interrupt_drain(unsigned int pasid);
--
-+void kfd_process_drain_interrupts(struct kfd_process_device *pdd);
- /* amdkfd Apertures */
- int kfd_init_apertures(struct kfd_process *process);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 226f52626e84..e742ef206abd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1019,8 +1019,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
- 		if (ret)
- 			pr_warn("Failed to create debugfs entry for the kfd_process, ret = %d\n",
- 				ret);
--
--		init_waitqueue_head(&process->wait_irq_drain);
- 	}
- out:
- 	mutex_unlock(&kfd_processes_mutex);
-@@ -1420,7 +1418,7 @@ void kfd_process_notifier_release_internal(struct kfd_process *p)
- 	 * back on the MES list and, once proc_ctx_bo is freed, MES would fault
- 	 * on the freed process context. Retiring the context last avoids this.
- 	 */
--	kfd_dbg_trap_disable(p);
-+	kfd_dbg_trap_disable(p, false);
- 
- 	if (atomic_read(&p->debugged_process_count) > 0) {
- 		struct kfd_process *target;
-@@ -1430,7 +1428,7 @@ void kfd_process_notifier_release_internal(struct kfd_process *p)
- 		hash_for_each_rcu(kfd_processes_table, temp, target, kfd_processes) {
- 			if (target->debugger_process && target->debugger_process == p) {
- 				mutex_lock_nested(&target->mutex, 1);
--				kfd_dbg_trap_disable(target);
-+				kfd_dbg_trap_disable(target, true);
- 				mutex_unlock(&target->mutex);
- 				if (atomic_read(&p->debugged_process_count) == 0)
- 					break;
-@@ -2313,17 +2311,14 @@ int kfd_resume_all_processes(void)
- 	return ret;
- }
- 
--/* assumes caller holds process lock. */
--int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
-+void kfd_process_drain_interrupts(struct kfd_process_device *pdd)
- {
- 	uint32_t irq_drain_fence[8];
- 	uint8_t node_id = 0;
--	int r = 0;
-+	int r;
- 
--	if (!KFD_IS_SOC15(pdd->dev))
--		return 0;
--
--	pdd->process->irq_drain_is_open = true;
-+	if (!KFD_IS_SOC15(pdd->dev) || !pdd->drm_priv)
-+		return;
- 
- 	memset(irq_drain_fence, 0, sizeof(irq_drain_fence));
- 	irq_drain_fence[0] = (KFD_IRQ_FENCE_SOURCEID << 8) |
-@@ -2342,32 +2337,12 @@ int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
- 	}
- 
- 	/* ensure stale irqs scheduled KFD interrupts and send drain fence. */
--	if (amdgpu_amdkfd_send_close_event_drain_irq(pdd->dev->adev,
--						     irq_drain_fence)) {
--		pdd->process->irq_drain_is_open = false;
--		return 0;
--	}
--
--	r = wait_event_interruptible(pdd->process->wait_irq_drain,
--				     !READ_ONCE(pdd->process->irq_drain_is_open));
-+	r = amdgpu_pasid_drain_irq(pdd->dev->adev, pdd->pasid, irq_drain_fence,
-+				   AMDGPU_FENCE_JIFFIES_TIMEOUT);
- 	if (r)
--		pdd->process->irq_drain_is_open = false;
--
--	return r;
--}
--
--void kfd_process_close_interrupt_drain(unsigned int pasid)
--{
--	struct kfd_process *p;
--
--	p = kfd_lookup_process_by_pasid(pasid, NULL);
--
--	if (!p)
--		return;
--
--	WRITE_ONCE(p->irq_drain_is_open, false);
--	wake_up_all(&p->wait_irq_drain);
--	kfd_unref_process(p);
-+		dev_warn_ratelimited(pdd->dev->adev->dev,
-+				     "irq drain on pasid 0x%x did not complete (%d)\n",
-+				     pdd->pasid, r);
- }
- 
- struct send_exception_work_handler_workarea {
--- 
+
+--
 2.43.0
 
