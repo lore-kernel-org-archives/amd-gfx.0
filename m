@@ -4,96 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE717CA601D
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 15:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E24A7CA6019
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 15:33:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0955F89083;
-	Fri,  9 Oct 2026 15:31:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74F1810E888;
+	Fri,  9 Oct 2026 15:33:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jWyTOkSr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qdjn2qCB";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010009.outbound.protection.outlook.com [52.101.46.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BAA610E16B
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 15:31:32 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010059.outbound.protection.outlook.com
+ [40.93.198.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8398D10F6A3;
+ Fri,  9 Oct 2026 15:33:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uxxoio/060wEUJ0cNIxLnRhlSUwuQY0oAYtGbYGOUdGa3lF0zP+YQEYqZLI8GDIsCnCbf3zL0DCiPhjlCieMdO7LqyCTp4FBEigJWIM/o0PY8ZuXx+KXCc/airB7ktFlJJ0MlDjiN20Z5iPS/AD5cLdUolsQZkX5/si5brvCEkpxfS0PTLmko6UTfisz/gBzRaehHLgoLY7+YS9tPFiWsr+2G2AjSePv4b2OFAlRyWVvRU/V+Nxco4CaDAA+A4e+0Ztl01dbrkw8uLJBtRhmQkAxClWuoNndTBHB9WMUicEFfW+p8Jhwck/P/RaTv3zU7lUSrbYAm0qsTdwnptJN2w==
+ b=shxgvDt0me5cde8FK+X5iLzUeym1fm3+zxRG0LbPw9v3i0wwobh+4iRqvspnh0HjZ0MHru1+1WVLnBmXAbHFIPccdVVmU0gm2PvX2Emjmsl7maMhU88h21yJ6+c9GxabPmf8DAdfsNI8jkRKg05HFs0G2zOZWu+771UihtDkHyuUEqd760AAxUvddDb6d0NF349uZRdhYZ3LOu0NvbocQPH25oAW5pgR71lQ2ip0TIlLm+UzOyVMYaMs026zLCOzJiL31z7ZjdbkyeiAfIlAc0jJe4xmPOGv1VnK52qJf4zX9esdmGd+X5xY1gEfkT+jVxTZbPDa44OlGeIasDuGDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AEXj1jaUAAqQ0yySqmzgmOErUWKpnBKuYlTS5RsIuX8=;
- b=xSF174x7KDRMweUOxXarf40KzLunvCwEOdAcxyBj7cTmGp2Q9J/shpPKbQi5JGsAXvAzwQ1Z2P9nY7MeCCF3GJ/vI4fq4ealuFo0QPNxzJtj0/o7kwxZKL0dQka3yoZxdCbvRFme1s8vAXARzyoj7dClobHZkySRdgHeLHjo7iGCfsm9jJqnFzrOAhl80cuypqmyd44M/1dNa8cnaJex62BIPNLYUgGfXzBxykLlkEaHLcqbMun/U4+Va0yivlTIW/HYpaH5sSmRct0Vkf1qVb4BEgFSB2Krmkp/txVuUmbHaaOx4Bas0J2CDWkqDqq6AhnjeOu+yNT0O+KUrSTEJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=Kqzl5Wlog2CHlRUnqGWTElc0l83f2R3GsoIz2GkTpjA=;
+ b=uC2mD+P5Gc81tf6m3kszICZh37jAon0tVwNaQd7c7L2P+X+gasGOGTdmbkwIUwR5n1x1aAyfxs35wD6ELymbSX7RbGdTuV6VJeqmDVd9WYWDI1HeK7kV7g0q2DsEt0WV4z+XcAo4uINy1QdlX5FmUFtrhyCHmJ91RtvQZmEohJiErDbMz8oZn1pB8/7Ws/JDy8eGk9alnpmMAzeh2MjqZ9Z94/yxXJdY1IlOjN6fk9PRZB6FaICWNt0LYuU+kRUTj5OuUoNxZ4jYevIcui6TBhc5jpF0hahWg52euswwUZ58BK+KCkOCXf5gqiWa6nvMX4tnVxG4F9gjRNk/98nNLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AEXj1jaUAAqQ0yySqmzgmOErUWKpnBKuYlTS5RsIuX8=;
- b=jWyTOkSr3i1xpvFqhQBBVh5+4Z/YKtQfx15/iuUd1N/Og87a/2mbumvBCVnuVN2qbI0ZKJ3+gUjb/2fHbB/2PG0rAjd8r9/gb7AxkG6UDHDQFFpv1tfMISZonEi8bKQz/o5k/QmYmrx8cOQm/MfQQf3f3fx8E3YaS+QK6nIeUaA=
-Received: from BLAPR05CA0039.namprd05.prod.outlook.com (2603:10b6:208:335::20)
- by SA1PR12MB8164.namprd12.prod.outlook.com (2603:10b6:806:338::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 15:31:28 +0000
-Received: from BN2PEPF000055DF.namprd21.prod.outlook.com
- (2603:10b6:208:335:cafe::8c) by BLAPR05CA0039.outlook.office365.com
- (2603:10b6:208:335::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 9
- Oct 2026 15:31:28 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN2PEPF000055DF.mail.protection.outlook.com (10.167.245.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.0 via Frontend Transport; Fri, 9 Oct 2026 15:31:27 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
- 2026 10:31:22 -0500
-Received: from vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 9 Oct 2026 10:31:22 -0500
-From: Tom St Denis <tom.stdenis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Tom St Denis <tom.stdenis@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: Add missing GC 11.0.0 registers
-Date: Fri, 9 Oct 2026 11:31:22 -0400
-Message-ID: <20261009153122.532708-1-tom.stdenis@amd.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
+ bh=Kqzl5Wlog2CHlRUnqGWTElc0l83f2R3GsoIz2GkTpjA=;
+ b=Qdjn2qCByPf0GqhL6ErwZloaAQ8qVVy6v8ONrPK8OGgn1nPXwXd2R0WRn+GCS8ZRbyy4I4Pyu6QQD2UbqXbYRgyxcq7htA7P400YHSu7GOdFd3HSdWp5ejgDKtZIoDi8m8Wmf/I2Y73aXHKhJYGozggJKISod9SPFY35ZfMEKMU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by MN0PR12MB6150.namprd12.prod.outlook.com
+ (2603:10b6:208:3c6::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 9 Oct
+ 2026 15:33:44 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 15:33:44 +0000
+Message-ID: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
+Date: Fri, 9 Oct 2026 11:33:38 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] amdkfd: fix doorbell allocation race creating duplicate
+ allocations
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+To: Henry Martin <bsdhenrymartin@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261009101842.3294707-1-bsdhenrymartin@gmail.com>
+ <2bbea75d-2e3f-4a57-a291-5f5d9ca698c5@amd.com>
+Content-Language: en-US
+In-Reply-To: <2bbea75d-2e3f-4a57-a291-5f5d9ca698c5@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT3PR01CA0138.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:83::25) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DF:EE_|SA1PR12MB8164:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e1f6b24-f377-41e9-ce6a-08df261a62c9
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|MN0PR12MB6150:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0fed93e3-0a9a-4e3b-5f01-08df261ab41e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|18002099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: jRPHEwOQQXfggZZO9W3eJ+OPSb49U/iSbneUsJv9v2Ol0ggs+pT0N/WOpp+9ugFmUhX3rnRSjmgoDMkJqlttiVK1699VGIL7SPSj0zvAcjvTyidkApHa3ZrPnnfn62HWWLU89/ReP1LpXY1UwaqcwtawRi8DwqXPBLK6+tOTmRwblwwLHK56dUK8HGR8mPnhhzsQaceQ5ggMWqwszhDvapIgD/vZQttQ1BaYocvdb0cppP8oG6jS2QfDdy/fwzr7daHuAG43NHjmXU5sPwWAXbIZdsO3bIIVPnh/sxguPW33lVfs9TnKHoYWfwm9k7CDxBb163iUp6/M9TNTUTHGKI0Z/UrajzhHi7YEHe4NrD7CGs0LHScktZJ36HeEqJEfV5pspOLUusB4OjbeX64kyrc5KEJqpANszKOHVTy5AEMZRSZu+8QRhk/OoQKYZ3NFyfjNoJbecQ2YFByTfHqoAHFZ9m3QhAx6ffSoGEAKtDQH/IUDCeIhHXvzt/Xum42Bb9O6UV0Pv77qsLzF4OHzERBeMm090zSCsCRHltzpHWQZpZvW+HIDmyIr9Kiow9X56oqIChL0y+LgH87EKEUR52vmeUMf+PXp/DuBuX0wWiEsxTQKS61de9s/hGKgfxO7rx7bZlN8oVNqbdPdllNTZURqoF4kXoZSY4lioSKUBHq1yImiZF5hf4f7ddZMPtfHezwTQjfIfsb24KQf+fI1UA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(18002099003)(10067099003)(11063799006)(56012099006);
+ ARA:13230040|376014|1800799024|366016|23010399003|4143699003|22082099003|10067099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: Zt7NBZVT9ac6/O7FrrmGEnxtgyl8uKrLIXUuyp4mfrixondyRQNLiGnkTh357THKDD3eCcp4pBB9Z4QqM2T4QiAVo+YIGyUiW8npgMN3UHCo+j6wRWzdt+7/2kWfIJYztg+4KM4twQvNhtlmrE6jn1KRS5neJz7AjN//GLvoLAPd+Af2vtmuzbaEexsKAv7or0uQjpS/npSZHmlSXrWWnzGmbL07qHT+g5s83pzLzxKgxZOo574ZbVGMIy5s+a+mcDYQm8Ca3nZ35DZpEl0/ZoaV4O+g0mkhuTUDg05MARaNEhoFe5me5jjjmsyKmun9S1omXFQSIF9pY/VtVwD2ifE4/msgC84sMzL5Tb0DFOYCNFuYkgiI8XYoVLZCpwMWplJgj947f+NNnfA1aw/0lryx13Lbz0RF5V4IjJA8x8vFTUStw8pxN0CxaaVxhsosJKzsEc/k8BemXe0fLsSYV0pDtu6KaH3toQIb7rOtcNT/z1at6B5M5nHX733n2ugxJvOu2SouCp1hVoYADPC7GZ9eeljtTx/LsCecmumQVNvkFPo3Je1kQi7l2ZXUYINquMznaJR1VwgnAQpVIe9dpKz/iWE2051AG7fZuH+w94uGzMUiEr/ohqWoKZjWPSnlHStAj8yPDdTXm3o/B5SdjXEvqGD7ijRmeHi5sUg9EBg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(4143699003)(22082099003)(10067099003)(18002099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bC8eFAG5QFubQdE14R23AnKIlbo/w9X0faCCgKW2edaMnkuwuUqC4wMeVm/6DtnRoCpsT7qWwH/kR0l+AOFqI+aJmH9sxGzmeth5T7cpFlm8MNypOWD7BL+TsaUyUrhYRf2aiQGsXkLp+IfdPYwJXYeo0jN1tbgxTRlAEaD7IO4b4KYyIiWbGjIlw2cvOBYjY8V59Z5pHjFS9DUf73zPpBeHSbEhCSCCOZgYitZlFEHUUVG+tSYA9MpSTm6RtKsfPip5zpRjOhgVIxG0xCTfHRQrmaATH/uGMDdwgiLQYO0rSNnytr4Ve1N6Y30RVxF0BvlbanHyHYfevh+ocOFUW9GSzXIljGNNwiOVqEgYSCqJ+nlNkafg1bs0dtNYd5e/Mg5dG1yTuimEIKsZw17wR9o+7FwRKFTZiMksrzX9tfGJeqfd3FDAPdDdqN6kHQ7r
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emhoQVUrWGNTcnJ6dlBLa0Vob3JlZUtnNFhobGNsK2R0YjFialZWa2NNNEc2?=
+ =?utf-8?B?UHFBSDZqT0RyVWVUSWY0elNaQ0dPcHBaQmxxOVFBdFZLalhxb29ZTFhXN21q?=
+ =?utf-8?B?NEVvZjZVOStYZUZab3duOVRUOUFuV1VNK0hEYjdZakJwemdMU00yWXhtQXg2?=
+ =?utf-8?B?SytlRWxVK0VOc2Q4UGI1ZWNLOGVNTjlBK0pyYmtLY2FxRVEva3p1cUozRWtu?=
+ =?utf-8?B?bDEyN1dleWZ1VStrcmNMcXJQQXRvYytyN1Y1VU14TE1tazlnYnBBRVZMSmF0?=
+ =?utf-8?B?bU1PeTN4TlduVnc4RnZWc2JRRDNpZ0gzUTRBSm15dGdyQXQrNkc1UDhZN1pP?=
+ =?utf-8?B?Yk9oZ3ROdHFxcS85RXJRaTlWdnpRZFJMV3NqWGFwSk9qRE13R05lUGtSN2w0?=
+ =?utf-8?B?Q0pvUmF2dTc1bUY3aWY5ZTRRdzFFVjlYTjZDdnQ1ekVmZTR3TENmeG1ETTh2?=
+ =?utf-8?B?SUhNV21wdUhlV3A1b3VTT3c5K3lVampxZi9sQ3d0OUk0blJSTktsZmNDdktr?=
+ =?utf-8?B?dlpybGZDUDBxRlRpZ1JEWkVPYlZYMG9KWjc2d2NQMytvSXdNeWhhbnlmY0Fo?=
+ =?utf-8?B?MHc4VGs4cXpUN1ZxS3dDRHNQNzYrcUUwdzQzMUpoUzV6VWh0UndVRStJbUdn?=
+ =?utf-8?B?aGJaN2w2SHZrQjBmWWNNNGFpeFg4a1pXYnc4NnhueExSSitrOS9BdmVwSUtO?=
+ =?utf-8?B?MzN0dnJMTmV0d1lpNkwrQjVaQXFoZC93RzI5eFBTNVRMRGtQQVNqRmR0ZHlQ?=
+ =?utf-8?B?a1gvdjJyVHdDTXBicmw5OVlKUEtNZTRRa1l6VWR2THZTNTBqY0taaUFXSVFi?=
+ =?utf-8?B?dmp1N3dsWXRjd2FjZkovOXZRUFlSTWYvWG1RUG04Njd2LzA0S1AyVCszNUh3?=
+ =?utf-8?B?MTQwMWRxVTVwV3pMeEd4UXROeEpkSXRtZ0NzUXRTekNrNm9KaEk3ZlZ4b014?=
+ =?utf-8?B?cEgzZHozSUhiU0szMTBWSDJLN1VJMkU4OWovaWRBV2xBb09jelNISmFrcnRT?=
+ =?utf-8?B?c1FIaFBDSUlZMFZhQ1JCYTc4bmR0TmpNQUhyenFvelVoeGVoUmt6cjV1amw1?=
+ =?utf-8?B?TXFjNXBoMHpSZUFiYlhVdDFybm1VNy81M2tybHduRTNEZDNoZGJjai9mdVBI?=
+ =?utf-8?B?WTlTUGJjdlBmMVRYZHpqTTN0Tk5rNFVCVExtU00vK1QwVXhUYjEvRlI4VjVS?=
+ =?utf-8?B?aFRIMWtwOUNLWFhXSkNFcWljS1lIVDRrQUFFeVRNZTNtQUZwR2o1dDQ4a3Nj?=
+ =?utf-8?B?UXRUb3lSOFovbmZ0MzA2V1ZJVVcwRE1ha2w0aGVnTzhZS3ArTzNzT1pCZGZs?=
+ =?utf-8?B?QUpPT1I2SGpFV1NWeWc4R1BDZGZEaVpiN3F0QU1Ha2NlaUFSd1FBSklGYjUx?=
+ =?utf-8?B?aFpNOWRCVVg0MFBPVU1pczA0OUo3V0JlSzNESllrL01vUlV1eFdPZDB1eDVH?=
+ =?utf-8?B?M2tIVFJ2SzBDYlhuNE5LM0JjS1FDSzZ3VFo1ZEx1VGltdk9QTVV1ZnEvcXNJ?=
+ =?utf-8?B?RVQ2MFVZRGR4THVHMGlZVktGNHZPelZ3cXZWVzBMKzFyWWJ5OUZpRlQxTkNx?=
+ =?utf-8?B?bDVPWFp2aWxoOStQOHBZbUJ6QS8xU0c5WmgydzF1elhDUVY1c1J0TEV5WEkz?=
+ =?utf-8?B?QXJDRVp6eE5POWozWEJUcHRGV1RzU25KZTdjN1dYRW5JU1JFQm9nSEhSc3Iz?=
+ =?utf-8?B?bDl1Rk9HSDIxTU1qamk4MWhMb2VQLzFXenE3Zm5mQlVjRHpJK3Y5c0NNTGZ1?=
+ =?utf-8?B?YzBmWVEzQStOOFVMUlZXL0tPamYzMDZLWFNJWjFUOWNTSElyM2w0bGkxL1dw?=
+ =?utf-8?B?bFkrY25Nc1dJVm81WEVwblAxTHhMNW10RjBsRXcxRyt2K0ZTRnorbEpQeEJP?=
+ =?utf-8?B?eUY5bFdqd0V3SWprc0p3TTlpVGRFZTJzOEVpaUNHTkw5OWl4N2F4TEIxQWRR?=
+ =?utf-8?B?cGRzVHdWVUtENFNhL3grdUlMQnJTT2JBNCsrbGt2VEtTSU80ZTlFQlNPSkxG?=
+ =?utf-8?B?YTNIYUhpcEdPOHJELy9kYXd4MEFvQXhtWEVJVkNWWGZnQ2plN29NbUJ3S1Jo?=
+ =?utf-8?B?bC9BNnh5OXFnNERUejVmY1l0cFFacWRKQTR5TEtCdFAzdTlRSU0zV3NjazdC?=
+ =?utf-8?B?MzVlSU1vc1B6NGhySUN5UnBsMXpXRmxDNGJONlNYOFc4RG0rK2J3Nkp1SERY?=
+ =?utf-8?B?WUlyUk1JWmlBSkdoOVFlWTlsdVRXdjlEU3RzQjNreFlzdDV5aldFWTJEZWda?=
+ =?utf-8?B?Z1E3TkRhRlplRWZ5c3hnazc2S1ZKdVBZOFhjSUdZZjBzWThOOHZnbFcyY3hX?=
+ =?utf-8?Q?Ek4iN7H3qvmuwiJWcR?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:31:27.7991 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e1f6b24-f377-41e9-ce6a-08df261a62c9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fed93e3-0a9a-4e3b-5f01-08df261ab41e
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:33:44.4409 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DF.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8164
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RWd46IskLnKJFm3v/1DmItrjEdwmrp0NdYGEdVHoAAJbNdkP3L4lDPVMwHO0snSbkDUGHfPknJ0O6nSGUVzttA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6150
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,95 +141,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This adds the regCP_ME1_INT_STAT_DEBUG and regCP_ME2_INT_STAT_DEBUG registers that
-were missing from the GC 11.0.0 headers but found in GC 11.0.3
+On 2026-10-09 11:00, Kuehling, Felix wrote:
+> On 2026-10-09 06:18, Henry Martin wrote:
+>> The check-and-allocate sequence on pdd->qpd.proc_doorbells is
+>> lockless at every call site of kfd_alloc_process_doorbells():
+>> kfd_get_process_doorbells() (mmap of /dev/kfd), kfd_ioctl_create_queue()
+>> and the CRIU restore path each test the pointer under different
+>> locking (or none), so two racing threads can both observe NULL and
+>> each allocate a doorbell BO and bitmap, orphaning one allocation and
+>> handing the two mappings different backing pages.
+>>
+>> Move the serialization into kfd_alloc_process_doorbells() itself:
+>> take kfd->doorbell_mutex and re-check under it, so all three call
+>> sites are covered regardless of their own locking.  The existing
+>> doorbell_mutex users (kfd_get_kernel_doorbell() /
+>> kfd_release_kernel_doorbell()) only guard the device-global
+>> kfd->doorbell_bitmap in short non-sleeping sections and never call
+>> into this path, so there is no nesting.
+>>
+>> This vulnerability was discovered by Tencent CodeBuddy Security.
+>>
+>> Fixes: 428542d91772 ("drm/amd/display: Setup for 
+>> mmhubbub3_warmup_mcif with big buffer")
+>> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+>
+> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+>
+> I'm applying the patch to amd-staging-drm-next.
 
-Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
----
- .../include/asic_reg/gc/gc_11_0_0_offset.h    |  4 ++
- .../include/asic_reg/gc/gc_11_0_0_sh_mask.h   | 54 +++++++++++++++++++
- 2 files changed, 58 insertions(+)
+An automatic Claude review pointed out two problems with the patch. I 
+agree with both:
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-index a3bcdf632066..3dddaec23bcf 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_offset.h
-@@ -4261,6 +4261,10 @@
- #define regCP_ME2_PIPE2_INT_STATUS_BASE_IDX                                                             0
- #define regCP_ME2_PIPE3_INT_STATUS                                                                      0x1e34
- #define regCP_ME2_PIPE3_INT_STATUS_BASE_IDX                                                             0
-+#define regCP_ME1_INT_STAT_DEBUG                                                                        0x1e35
-+#define regCP_ME1_INT_STAT_DEBUG_BASE_IDX                                                               0
-+#define regCP_ME2_INT_STAT_DEBUG                                                                        0x1e36
-+#define regCP_ME2_INT_STAT_DEBUG_BASE_IDX                                                               0
- #define regCP_GFX_QUEUE_INDEX                                                                           0x1e37
- #define regCP_GFX_QUEUE_INDEX_BASE_IDX                                                                  0
- #define regCC_GC_EDC_CONFIG                                                                             0x1e38
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_sh_mask.h
-index 3088a4a13cb5..1b64f157467d 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_0_sh_mask.h
-@@ -16187,6 +16187,60 @@
- #define CP_ME1_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED_MASK                                                     0x00800000L
- #define CP_ME2_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED__SHIFT                                                   0x17
- #define CP_ME2_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED_MASK                                                     0x00800000L
-+//CP_ME1_INT_STAT_DEBUG
-+#define CP_ME1_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED__SHIFT                                           0xc
-+#define CP_ME1_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED__SHIFT                                            0xd
-+#define CP_ME1_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED__SHIFT                                               0xe
-+#define CP_ME1_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS__SHIFT                                                0xf
-+#define CP_ME1_INT_STAT_DEBUG__GPF_INT_ASSERTED__SHIFT                                                        0x10
-+#define CP_ME1_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED__SHIFT                                           0x11
-+#define CP_ME1_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED__SHIFT                                                   0x17
-+#define CP_ME1_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED__SHIFT                                               0x18
-+#define CP_ME1_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED__SHIFT                                                 0x1a
-+#define CP_ME1_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED__SHIFT                                         0x1b
-+#define CP_ME1_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED__SHIFT                                                   0x1d
-+#define CP_ME1_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED__SHIFT                                                   0x1e
-+#define CP_ME1_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED__SHIFT                                                   0x1f
-+#define CP_ME1_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED_MASK                                             0x00001000L
-+#define CP_ME1_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED_MASK                                              0x00002000L
-+#define CP_ME1_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED_MASK                                                 0x00004000L
-+#define CP_ME1_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS_MASK                                                  0x00008000L
-+#define CP_ME1_INT_STAT_DEBUG__GPF_INT_ASSERTED_MASK                                                          0x00010000L
-+#define CP_ME1_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED_MASK                                             0x00020000L
-+#define CP_ME1_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED_MASK                                                     0x00800000L
-+#define CP_ME1_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED_MASK                                                 0x01000000L
-+#define CP_ME1_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED_MASK                                                   0x04000000L
-+#define CP_ME1_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED_MASK                                           0x08000000L
-+#define CP_ME1_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED_MASK                                                     0x20000000L
-+#define CP_ME1_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED_MASK                                                     0x40000000L
-+#define CP_ME1_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED_MASK                                                     0x80000000L
-+//CP_ME2_INT_STAT_DEBUG
-+#define CP_ME2_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED__SHIFT                                           0xc
-+#define CP_ME2_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED__SHIFT                                            0xd
-+#define CP_ME2_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED__SHIFT                                               0xe
-+#define CP_ME2_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS__SHIFT                                                0xf
-+#define CP_ME2_INT_STAT_DEBUG__GPF_INT_ASSERTED__SHIFT                                                        0x10
-+#define CP_ME2_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED__SHIFT                                           0x11
-+#define CP_ME2_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED__SHIFT                                                   0x17
-+#define CP_ME2_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED__SHIFT                                               0x18
-+#define CP_ME2_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED__SHIFT                                                 0x1a
-+#define CP_ME2_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED__SHIFT                                         0x1b
-+#define CP_ME2_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED__SHIFT                                                   0x1d
-+#define CP_ME2_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED__SHIFT                                                   0x1e
-+#define CP_ME2_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED__SHIFT                                                   0x1f
-+#define CP_ME2_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED_MASK                                             0x00001000L
-+#define CP_ME2_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED_MASK                                              0x00002000L
-+#define CP_ME2_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED_MASK                                                 0x00004000L
-+#define CP_ME2_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS_MASK                                                  0x00008000L
-+#define CP_ME2_INT_STAT_DEBUG__GPF_INT_ASSERTED_MASK                                                          0x00010000L
-+#define CP_ME2_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED_MASK                                             0x00020000L
-+#define CP_ME2_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED_MASK                                                     0x00800000L
-+#define CP_ME2_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED_MASK                                                 0x01000000L
-+#define CP_ME2_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED_MASK                                                   0x04000000L
-+#define CP_ME2_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED_MASK                                           0x08000000L
-+#define CP_ME2_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED_MASK                                                     0x20000000L
-+#define CP_ME2_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED_MASK                                                     0x40000000L
-+#define CP_ME2_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED_MASK                                                     0x80000000L
- //CP_GFX_QUEUE_INDEX
- #define CP_GFX_QUEUE_INDEX__QUEUE_ACCESS__SHIFT                                                               0x0
- #define CP_GFX_QUEUE_INDEX__PIPE_ID__SHIFT                                                                    0x4
--- 
-2.53.0
+The Fixes: tag points at an unrelated drm/amd/display commit 
+(428542d91772). It must be corrected — 2105a15a2046 ("drm/amdgpu: use 
+doorbell mgr for kfd process doorbells") is the commit that introduced 
+the allocation being fixed.
 
+The patch holds the device-global kfd->doorbell_mutex across 
+bitmap_zalloc(GFP_KERNEL) and amdgpu_bo_create_kernel(), while that same 
+mutex is already acquired under dqm_lock via start_cpsch -> pm_init -> 
+kq_initialize -> kfd_get_kernel_doorbell(). That is a plausible ABBA 
+inversion once reclaim/TTM eviction runs the KFD eviction fence back 
+into dqm_lock. Please either post lockdep (CONFIG_PROVE_LOCKING) results 
+for a boot + queue-create cycle, or switch to a per-process-device lock, 
+which also avoids serialising unrelated processes behind a device-wide 
+mutex for per-process state.
+
+Regards,
+   Felix
+
+
+>
+> Thanks,
+>   Felix
+>
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
+>>   1 file changed, 14 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+>> index fdcf7f2d1b5b4..07f881573837e 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+>> @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev 
+>> *kfd, struct kfd_process_device *
+>>       int r;
+>>       struct qcm_process_device *qpd = &pdd->qpd;
+>>
+>> +    mutex_lock(&kfd->doorbell_mutex);
+>> +
+>> +    /* Another thread may have won the check-and-allocate race */
+>> +    if (qpd->proc_doorbells) {
+>> +        mutex_unlock(&kfd->doorbell_mutex);
+>> +        return 0;
+>> +    }
+>> +
+>>       /* Allocate bitmap for dynamic doorbell allocation */
+>>       qpd->doorbell_bitmap = 
+>> bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
+>>                            GFP_KERNEL);
+>>       if (!qpd->doorbell_bitmap) {
+>>           DRM_ERROR("Failed to allocate process doorbell bitmap\n");
+>> -        return -ENOMEM;
+>> +        r = -ENOMEM;
+>> +        goto unlock;
+>>       }
+>>
+>>       r = init_doorbell_bitmap(&pdd->qpd, kfd);
+>> @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev 
+>> *kfd, struct kfd_process_device *
+>>           DRM_ERROR("Failed to allocate process doorbells\n");
+>>           goto err;
+>>       }
+>> +
+>> +    mutex_unlock(&kfd->doorbell_mutex);
+>>       return 0;
+>>
+>>   err:
+>>       bitmap_free(qpd->doorbell_bitmap);
+>>       qpd->doorbell_bitmap = NULL;
+>> +unlock:
+>> +    mutex_unlock(&kfd->doorbell_mutex);
+>>       return r;
+>>   }
+>>
+>> -- 
+>> 2.43.7
