@@ -4,97 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52AE8CA9EC5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4666CA9EC9
 	for <amd-gfx@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0811A10EBE8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA4C10EBEE;
 	Sat, 10 Oct 2026 12:38:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EdY08S5P";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jlbo2d9s";
 	dkim-atps=neutral
-Received: from mail-lr2-f3.google.com (mail-lr2-f3.google.com [74.125.230.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B367910EB69
- for <amd-gfx@lists.freedesktop.org>; Sat, 10 Oct 2026 02:55:52 +0000 (UTC)
-Received: by mail-lr2-f3.google.com with SMTP id
- 38308e7fff4ca-3a77df9781eso2448511fa.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Oct 2026 19:55:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791600951; cv=none;
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB38010EA9A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 16:51:16 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-c2acc1e170cso8282966b.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 09 Oct 2026 09:51:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791564675; cv=none;
  d=google.com; s=arc-20260327;
- b=bMtAeOFERWU9LUIO/dFLbd7zxj9pKa+p7EjmYuoUgd9NOdssA4/c/rzknfOmxtqcV4
- v+3K5Mo4ODGXjUZugkTGRPP76SGWejWjTIxRG/mUVOYkYlLFBjv0wl9t3XrnhtuiWATK
- HEo6+ptl3PUbR0sC22th8r/gblqf9MZpeoirvSnrIRY9AGjM2f06yzROdY9WTGInzSDS
- 5GIDE77oa5NLX5KGEJOauaCZKF+rkq+C2CRm0H3DMQhcvQ/tb8UxqJPJOrB5UF5mEzdP
- YTF98Ei3LCGO9W8f00WmwIml92i5BalqaP7cBI82vGSDkerfERypOaY/6jMqist/T6A4
- VMkw==
+ b=Mig9GI0cq/VA9RZIQnUQuLDGPmvXz7XaE625RTlxHlN2WzyIKzD5ymbaOtHq1EMXIr
+ yD7mfD4TVuWX2go/B/Jm78kmYLuws+xRtYXSFvzh6KHUxCD7stvKspPjOU4mDlAUf7Mi
+ 3teJgwZ1fWqZZ6EAJ8n9ZXSL+aDFHmfAQuS8NQNLV3VHUzgfXYi95b8tJHcTqHvR/BaP
+ SPBFxo7G8z8yGmQta5ACh00SGSo3g/R32SHCECKNrOlix0OiC+49ain9A03O3Ve9Xr9H
+ JTbBG/FUIxjLNYQxs8XjBRi+HEaz5IqQ6VjhsqGwqDVmopeL7lHDt2zMDhdyVB/+4BTJ
+ FLXw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=+Ed07fuWkE9fwos4AUZ3ykff2cVsq6dA1pVFJ9uVlwM=;
- fh=kjDQIiPplX7Sl0Uo8f1+mVpa/1wbk7MYghGuYGiBIJ8=;
- b=jCtlGNYUtYO61KI9uaJDRi+I++if+NrQ2ExJWGuhaeobr53UDR8l9pFFHW9mEdU3wW
- 69Ev159Uy6v+13ctsAOIIXFrMDTiQUcfaA8rAF5KIBVgJBq7ra9D54nSCk2DIoMUKhXE
- d6nZqqMGGFi8FP8DeMDNnyqSTLYiqgphwuGPv8/D1B2L0+4EfyhZoMo9YKIUHqsXqk5Q
- IECh0DqZM7i5zboXUGbm4fYqbU/XqmsnPWFnJM+joByttQU+n6ablbBY8Hx/CyasEg8v
- vRD7NRQX5D+TKnWa7aBIl438RnRjXiK9kE42u1jS0Dqb/OfiI2E+qLegcd4PbYcLqymL
- MUow==; darn=lists.freedesktop.org
+ bh=n+8Tekpu+Ng6nSgWyCgi0KryBmJKh+vqeWpWiW1vi4I=;
+ fh=k7HO2/ZixOCSDmfLp8IomlOm0jVvBFhxUOjZKuWcCZ8=;
+ b=NAxECwsegIcUQBLVzqO1C73RD4j/63Qjzc8ffdja/YCSRroeMOVnrFcSSD7hYoJRhR
+ 7ITlcV65f3iLsYzCAY5Ibhs1yIKhms+DgYzxKuyh0QfnQZp4/PIem9LoeJClLmQvFdNT
+ Ds/dmi50AS89W+yQ7JfF97i21GqPkIDQL4HyVBL9N+GqJO1ESPyD9wjubeZI/EE8i3K5
+ Ssnd7be0yXzoNGT3p/5w8Y9wypwtkTF2NBh3zzuknpT8r9ddrOZCszdPR9hTcc32vbPr
+ rS3+9/bKOm2y1h2eyrLSl69gfib/WFxGszpWLysdD9v7NPbnhPUHsU9xJftOUpOQXxxc
+ MJdw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791600951; x=1792205751; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791564675; x=1792169475; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=+Ed07fuWkE9fwos4AUZ3ykff2cVsq6dA1pVFJ9uVlwM=;
- b=EdY08S5PHI7IVT+JkyVrc8GdnpDTpsjaMLGfOCFn/mQZUr8I3wx4IStPE2jQ5I6Wwg
- G4Qa9fT7YokY+KdxWLdrzYkJOeOfI0REau0YgVELa9zA+NhEDjqq1Cyk37a7dha3Ryoq
- hUSfWpVOM9KHm7MMwQs6UnSuPFVCycLyG3R9bUVReuX5lsf+WdweLkwky+NuAnYC/XQW
- Eaai++CKd5y9hvM/pnAxSTkssEXd5JvjdfcJo9tVArCka7/8c3DLZ5C2hlJPvljg/rxS
- TDx7EZWdpoe1VE1GgUiHYh2T71xswQXJkC2JNVPgVRi47H9g9tUG71V0zvd7j1d2IdQj
- 8oWQ==
+ bh=n+8Tekpu+Ng6nSgWyCgi0KryBmJKh+vqeWpWiW1vi4I=;
+ b=jlbo2d9sFSdl9HryWuPUmEp/nYy1ZN1Y8K3X+Pap5XFqfO8ecOgIcZ69Y7fIBpZOox
+ b7JY+2hiKbTitiQY2v+2bOBzG2tDJqfNhJD6d+xympBQ6HhILBsCt0728z8uWEYOt2Dk
+ ozq5sKrU6n5mGo8EPdSvpA7wMvOyp/Ow1VcL2dmlW7l7UVp33/cikXuZHD6piLvv8YNx
+ 5Jj74wbUq4aVo6et0DwIz6Y5sZYc6sW32Zq7VUDLnYADY35YDoA1bkfl0MDeb80NGY7k
+ Oj/3+pHFw+6DJKU0wNUbkqLXqcT4ivT0hw14FHsO7De52xJN34b54IwhnMSWXvX0HzZK
+ riRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791600951; x=1792205751;
+ d=1e100.net; s=20260707; t=1791564675; x=1792169475;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+Ed07fuWkE9fwos4AUZ3ykff2cVsq6dA1pVFJ9uVlwM=;
- b=oVEKSam20YVLxdFrAPfcJZsM/pQS1dagOrZAglxePZfH+JkVIRSmuk6SXrT4lneUWl
- NC8YtE2ynjD0WCmVaMHSpxLreZ2tFfFohbGlcZ268/8OtgJMTc9yu3MScSGjqHF474D4
- Ft1Wc0yhK/pkkldp91s9OWdsZbQla7L5Ch7SefpRRs9f8fvECIqUH7YKkcWlo2gnljxh
- FmqEdOC/7BrQcejZygMgem0td6SvtYkxMGYrSpKsXI1wwRbQLTtj6FLj4/oX6DA3v1Fj
- D7v3s3+mT9ABrs036k0YVRF4ht6jeYEPku9vdJho9/eix971fmO/+h5IepHJpgboyHel
- 246Q==
+ bh=n+8Tekpu+Ng6nSgWyCgi0KryBmJKh+vqeWpWiW1vi4I=;
+ b=h7BAY5FxasQsX9BmWn6nYxXsqmuB3lzlrUPrVvTDS0hzuhH1rkvnHYGa3+UdGGM9DA
+ bDhnuCb+/bU8FxAZfGF/DgvOHi4rCnvzMMJrE0j/RMShD3CsbcEop7MZmV7AnNUd+xh+
+ +Vo/CdpVuJVIi8yGc4HzRriuQvGpcLjSZDHPXpZ3Fm3JGP6j0mfCvDNGFyvHPpJvmLYy
+ ydH6UiJNF4fKdUmsD9DzFS3dUpNHcjJ7LIMklo1Rayovh3qZQ4klyiRBnQ+SfWQKCU/L
+ SYj67r4q9fFc5cWVDrxIfUSGaQzHkpxFkSL/ODFrV/vufO8jT/2b8b72aFkYOpqxOxwF
+ 190g==
 X-Forwarded-Encrypted: i=1;
- AKwUvBySaFV2wOiZ+HnsQ20ZNb9FnBD//lUTr3+zD2Zm97OZvXO0WC0/YUn7VnAMlp2i9LDlw6uKyBlh@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJZFOZJokRjO+2Wv51WJPjJOpX0qp8qEC0+h19m7YPU9jJG8YHA
- TL+VRhubLaFQscHhBjR+q0dwFvY783UswMyekiMzrh6Y+j9JuxxGSxVhPiscau/NrYHzrcxc/Es
- YhZXusOhDeYvUzP5JU0TXJc7T94PahqdZezpOqmeM4Q==
-X-Gm-Gg: AYBFou0+3A4QVN2SACB55DpDbs74hp+69aFcQqZ0estcV1+PkH64j0+yf2pDBCczA9q
- 8FnEupuAp/RBD/87eiOVm7e/BioQBm+yw9wbB9R1RsBJQ93+blMACeuCUujk9yI/UN7TSk+Zdkp
- jLy4fxSoLCrSBZ6Od7YP8df4tNUbfqjQkTAIfRkL1Tn9QbApzJTV3r0ODX9Hsl0xdPl1p5+yzjH
- vhx+oZ4u2Lai03XnKiBpvWxQKyvt1RBNX4rjoTr1tg6XgLOZLGx+HApAOf8v1G7T5ksxeu64Hgy
- kJ62yv3ykNvud3WsEEAu0/CDRusu+OWR7kLG5FtpOXykJAfX3Gm3HDdT
-X-Received: by 2002:a05:651c:198f:b0:3a9:7993:14d9 with SMTP id
- 38308e7fff4ca-3a9c55db6demr8033451fa.8.1791600950465; Fri, 09 Oct 2026
- 19:55:50 -0700 (PDT)
+ AKwUvBw1Xr704W/kviy7XhbftW3AvKJTE2D0F7L47bRopNIQP4s//1ObDoScUpRXbNIRLomQoAcyDidO@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLB7W6qY49QVw4ELnZZqE5LnWYUOyH5XyfEspMWK44LpUK2WJBb
+ mQeKSoUe9x3g6QCpaP98fxnWggRFoxQjwj4WggTyCU0hsgq+6NZvU6WZZk1GmDoKy9ecM7vq1oy
+ fCCukzNTY0M5/IEOT/B2nR05bIS/oHiY=
+X-Gm-Gg: AYBFou2JP+4H0onMiym7n6qfJ3tZxClhx7bNHYPp8Zm8836IwyZQRfgwiiJG4hxpds9
+ bjF0IWijVlhjw+pW2mTOG6zHTsNWgDdcrDVTvWJOBSVPm4dFbrAmmlOC2IoroqEg1/CmT49NVJY
+ IcXbvv5ExRnzHmr1eDBgV913SBeMWwaEiYGCYWfpD5BAlyV87z+H34Au34UcWI5J592uasveUGM
+ hSD7ymTQqIRBXfC+L8z8wYMliKFE8vqhC+2LM5G7apTjgqDUyYWusGXmtgLIyYEFykhKOa+yS4y
+ h/JXXOy9+LnEbE8n5qvK9vp3hR6SAuKz0cZTuvz7b00TEeQvBR3LGDk+jw0cnVpHMmez1mdMGpO
+ Rmdmn6qDPH0WIHgh3W+R/cSGJkcLd0YLyuBkdc/VyOmVV8uruCShYCF/4Im8g0K61nySo9OGSH4
+ J4exPa2Oaaqkqldk+U0veF
+X-Received: by 2002:a17:907:7b8a:b0:c2e:855:3375 with SMTP id
+ a640c23a62f3a-c31aa05d48dmr267328266b.30.1791564674847; Fri, 09 Oct 2026
+ 09:51:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <20261009101842.3294707-1-bsdhenrymartin@gmail.com>
- <2bbea75d-2e3f-4a57-a291-5f5d9ca698c5@amd.com>
- <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
-In-Reply-To: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
-From: henry martin <bsdhenrymartin@gmail.com>
-Date: Sat, 10 Oct 2026 10:55:38 +0800
-X-Gm-Features: AclHuK8jQu2OuoKyhFajMg-wI8QX3TxzpO-LWoyEF9m9UL71Uox_eNc24B_fdJ4
-Message-ID: <CAEnQdOrvD+uju5FBcew7TPWvfcfuSOHHyxuwF3T91yHOG5GYDQ@mail.gmail.com>
-Subject: Re: [PATCH] amdkfd: fix doorbell allocation race creating duplicate
- allocations
-To: "Kuehling, Felix" <felix.kuehling@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+References: <20261009161832.GA980777@bhelgaas>
+In-Reply-To: <20261009161832.GA980777@bhelgaas>
+From: "Perlow, Jason" <jperlow@gmail.com>
+Date: Fri, 9 Oct 2026 12:51:03 -0400
+X-Gm-Features: AclHuK-7AfAFQYv2cTll8HDVHIrz5FK0KVf6exm9S66osr63JbCL-_swxrWvd6k
+Message-ID: <CABZrw2EnZzKCdJc2oCtm14YuDndpj=uAV+MRCmYEfimy_Zv5jg@mail.gmail.com>
+Subject: Re: [GIT PULL] PCI fixes for v7.3
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-pci@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Lukas Wunner <lukas@wunner.de>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mahesh J Salgaonkar <mahesh@linux.ibm.com>, 
+ Oliver OHalloran <oohall@gmail.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Aditya Garg <aditya.garg@linux.dev>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:50 +0000
@@ -112,134 +116,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Felix,
+I am now producing a draft quirk that uses the known device IDs and
+models for you. Will post shortly.
 
-You're right on both counts, thanks for the careful look.
 
-v2 drops kfd->doorbell_mutex entirely and adds a per-process-device
-mutex in struct kfd_process_device (initialized in
-kfd_create_process_device_data()).  The device-global mutex is no
-longer held across the sleeping allocations, so the existing
-dqm->lock -> doorbell_mutex order on the start_cpsch() -> pm_init()
--> kq_initialize() path cannot invert, and unrelated processes no
-longer serialize against each other for per-process doorbell setup.
+On Fri, Oct 9, 2026 at 12:18=E2=80=AFPM Bjorn Helgaas <helgaas@kernel.org> =
+wrote:
+>
+> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b9=
+35:
+>
+>   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+>
+> are available in the Git repository at:
+>
+>   git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git tags/pci-v7.3=
+-fixes-4
+>
+> for you to fetch changes up to 79c168e2aa957ed0054c93db17caba653b95e377:
+>
+>   PCI/AER: Skip error recovery on false alarms (2026-10-08 14:33:04 -0500=
+)
+>
+> This fixes some GPU initialization regressions caused by eddba19b8b5f
+> ("PCI/AER: Support Advisory Non-Fatal Errors"), which appeared in v7.3-rc=
+1.
+> That commit also caused a MacBookPro16,1 spontaneous power-off regression=
+;
+> I expect a fix for that next week.
+>
+> ----------------------------------------------------------------
+>
+>   - Skip error recovery if no unmasked errors were signaled, which fixes
+>     GPU initialization regressions caused by new Advisory Non-Fatal Error
+>     support (Lukas Wunner)
+>
+> ----------------------------------------------------------------
+> Lukas Wunner (1):
+>       PCI/AER: Skip error recovery on false alarms
+>
+>  drivers/pci/pcie/aer.c | 22 ++++++++++++++++------
+>  1 file changed, 16 insertions(+), 6 deletions(-)
 
-The Fixes tag is corrected to 2105a15a2046 ("drm/amdgpu: use
-doorbell mgr for kfd process doorbells").
 
-Regards,
-Henry
 
-Kuehling, Felix <felix.kuehling@amd.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=889=
-=E6=97=A5=E5=91=A8=E4=BA=94 23:33=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 2026-10-09 11:00, Kuehling, Felix wrote:
-> > On 2026-10-09 06:18, Henry Martin wrote:
-> >> The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-> >> lockless at every call site of kfd_alloc_process_doorbells():
-> >> kfd_get_process_doorbells() (mmap of /dev/kfd), kfd_ioctl_create_queue=
-()
-> >> and the CRIU restore path each test the pointer under different
-> >> locking (or none), so two racing threads can both observe NULL and
-> >> each allocate a doorbell BO and bitmap, orphaning one allocation and
-> >> handing the two mappings different backing pages.
-> >>
-> >> Move the serialization into kfd_alloc_process_doorbells() itself:
-> >> take kfd->doorbell_mutex and re-check under it, so all three call
-> >> sites are covered regardless of their own locking.  The existing
-> >> doorbell_mutex users (kfd_get_kernel_doorbell() /
-> >> kfd_release_kernel_doorbell()) only guard the device-global
-> >> kfd->doorbell_bitmap in short non-sleeping sections and never call
-> >> into this path, so there is no nesting.
-> >>
-> >> This vulnerability was discovered by Tencent CodeBuddy Security.
-> >>
-> >> Fixes: 428542d91772 ("drm/amd/display: Setup for
-> >> mmhubbub3_warmup_mcif with big buffer")
-> >> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> >
-> > Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-> >
-> > I'm applying the patch to amd-staging-drm-next.
->
-> An automatic Claude review pointed out two problems with the patch. I
-> agree with both:
->
-> The Fixes: tag points at an unrelated drm/amd/display commit
-> (428542d91772). It must be corrected =E2=80=94 2105a15a2046 ("drm/amdgpu:=
- use
-> doorbell mgr for kfd process doorbells") is the commit that introduced
-> the allocation being fixed.
->
-> The patch holds the device-global kfd->doorbell_mutex across
-> bitmap_zalloc(GFP_KERNEL) and amdgpu_bo_create_kernel(), while that same
-> mutex is already acquired under dqm_lock via start_cpsch -> pm_init ->
-> kq_initialize -> kfd_get_kernel_doorbell(). That is a plausible ABBA
-> inversion once reclaim/TTM eviction runs the KFD eviction fence back
-> into dqm_lock. Please either post lockdep (CONFIG_PROVE_LOCKING) results
-> for a boot + queue-create cycle, or switch to a per-process-device lock,
-> which also avoids serialising unrelated processes behind a device-wide
-> mutex for per-process state.
->
-> Regards,
->    Felix
->
->
-> >
-> > Thanks,
-> >   Felix
-> >
-> >
-> >> ---
-> >>   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
-> >>   1 file changed, 14 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> >> b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> >> index fdcf7f2d1b5b4..07f881573837e 100644
-> >> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> >> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> >> @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev
-> >> *kfd, struct kfd_process_device *
-> >>       int r;
-> >>       struct qcm_process_device *qpd =3D &pdd->qpd;
-> >>
-> >> +    mutex_lock(&kfd->doorbell_mutex);
-> >> +
-> >> +    /* Another thread may have won the check-and-allocate race */
-> >> +    if (qpd->proc_doorbells) {
-> >> +        mutex_unlock(&kfd->doorbell_mutex);
-> >> +        return 0;
-> >> +    }
-> >> +
-> >>       /* Allocate bitmap for dynamic doorbell allocation */
-> >>       qpd->doorbell_bitmap =3D
-> >> bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
-> >>                            GFP_KERNEL);
-> >>       if (!qpd->doorbell_bitmap) {
-> >>           DRM_ERROR("Failed to allocate process doorbell bitmap\n");
-> >> -        return -ENOMEM;
-> >> +        r =3D -ENOMEM;
-> >> +        goto unlock;
-> >>       }
-> >>
-> >>       r =3D init_doorbell_bitmap(&pdd->qpd, kfd);
-> >> @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev
-> >> *kfd, struct kfd_process_device *
-> >>           DRM_ERROR("Failed to allocate process doorbells\n");
-> >>           goto err;
-> >>       }
-> >> +
-> >> +    mutex_unlock(&kfd->doorbell_mutex);
-> >>       return 0;
-> >>
-> >>   err:
-> >>       bitmap_free(qpd->doorbell_bitmap);
-> >>       qpd->doorbell_bitmap =3D NULL;
-> >> +unlock:
-> >> +    mutex_unlock(&kfd->doorbell_mutex);
-> >>       return r;
-> >>   }
-> >>
-> >> --
-> >> 2.43.7
+--=20
+Jason Perlow | Argonaut Media Communications
+
+Voice/Text  (954) 242-3484 | jperlow@gmail.com | Blog: techbroiler.net
+Read my Tech and Food Industry articles: https://linktr.ee/jperlow
+Bluesky: https://bsky.app/profile/jperlow.bsky.social
+
+Need to schedule a meeting with me? https://bit.ly/3y8P3Gp
