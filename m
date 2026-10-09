@@ -4,71 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69228CA6012
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 09:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B2BCA5FED
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 09:08:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA98710E02D;
-	Fri,  9 Oct 2026 09:08:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00B2610FDE5;
+	Fri,  9 Oct 2026 09:08:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WLVf51zN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DKfQ/6wY";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013055.outbound.protection.outlook.com
- [40.107.201.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41DA210E02D
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 09:08:39 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013010.outbound.protection.outlook.com
+ [40.93.201.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3509B10FDE5
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 09:08:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MyliQ3LkIN29nliDmyoQIETbp/K+hv2okJje3GYXYZqM+Xr7dtQu0CgKjDLZLhjdCiVIPTKW0BfIa9Pl2F7rrvzaO13VxCWN48HOq7mCRvWCdndJ5y5miH2ONFputp7Q22TBns8/y1f6fQBV4hbv/kVVwGrlWIJIn36p0GDsbM3NTmYVA6sUd/YrdUTr+oka0L9xBpZaS+fRUJD9iXJIOMN72beLGbCV/MWZx2Ax3Tc61+vukK+gvcDr7i0y4QnzVHh0I4KrtwNpGe/yTY60wO2wnyHCZ/F9TtHK8Rzl/LlBu5N18EAF3I6UwtJ/aJ99jP2Fo3QK6pGno1Pm0uvN9w==
+ b=LGrODc7jSZhYNUZ4aOVfqeLjjYrI8ua4U4S/DX1GViH6Z+NndAdqFJKJ48k12Est2d4mtd+Tn6YINkHp+baKpOrdj6izcyys7nYtJcxJQQ9nOlIXYnESVGrr3GYgp9g4SxGNWSkUx7RadqzffcXKOFaDh1zkkePbJkmdmJnVdo2H5nWwBvvzZ46hYSt/BIkg/4Xjbq7If7uBd9YsF+VMsemxb1/ESDQxNwK6T0R8x2xuUW6NiQvfNeG03/UhCswDBAK57Tl6X6tOpvF6w3jKNZTtCE/FXhRwfttoULAllyTOQDkA6eQuiPv8naSfnFAnwK3g6F8Zm0LmpHanYeaEYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ja5PmQpx4VZH9rhVgxDRRUUbgk9oRa8/BX3qu1g78S8=;
- b=GOlHxR6VBDqfWQmam2Vgl7znWAlWzIYLOaDsyV4Vsp3isEv5tnob9+dy3uUEkNyzy0czCGQ8URtRdJNAOIUrMTJExWtb2uIAZ1+z6uwrHcodDSlU2pn64XqZC6IBLSqpOv7zyUueQ7/d77b9wnxx9dNRaRP/ROVexuYmxWEgVOcskV4fPDHmkZi4uOWQkz/WRyguuNQDDXNYYIYoQ+aA+D2WIX2k/CO2gyWGi0WS4dyqpmlw7fz0XvpwLu48/syiSeZUaqSFtxhSDU4nwMq4soC/MtlxJYCO9gr+abJBclGuSxKNHoDxDvc4X3Td5SofgtKG/oOGMXJurwYq5wvuTg==
+ bh=UGdZ3dAIGiyI0tWLixd7hTpMnhYT3ANqdL7Z+5h4DU0=;
+ b=kunb0tDPMFHwDmVy1OWuv+uYqbFJTG3tJZLnZl/o91J83skaEWzvLIaE3epbLSM2R3TQ0wGRCrbhTtM7i72LB8avS9KUQwwz2X8xs6VsrVJ/4A7ja7G2mNfAcsUXWx7WDmZYRGJckxYoNHx69v/kKdUKbzABjKPncToLQr/h8ptnA9m0HZ29qADkLSLrEsNASUPfjs/ZKP+eUyBbgBt9fsd+UFIKqJHJSKl6OKzwG5NSWzK4j6PtxsPnH1k9hJjwZ+jfUoH3DIRmJyDvz4ZkrO+BWS82wubmdQbSsgNhpK3yrIiVS0dJPf+w7EsvqxwXinSSRY29jAxs4wyKZOYXvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ja5PmQpx4VZH9rhVgxDRRUUbgk9oRa8/BX3qu1g78S8=;
- b=WLVf51zNVl31p1JfQW7Cn4D+tQTGwfr5xIzSv66Nxv1s1U8uYEZN51YeFMY7DPxdumbx+ImWajtiogebN7z6p+IKGwBKgJAUGPVCWc+prtlsh54C2JsUTviB7mzRHXttmHiyS9kRCPz52FyI1IiMMXcv2ZkFQinps2fxJN25ePo=
-Received: from CH5PR04CA0012.namprd04.prod.outlook.com (2603:10b6:610:1f4::28)
- by SJ5PPFCB5E1B8F5.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::9a1) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 09:08:35 +0000
-Received: from LV8PEPF0000005F.namprd02.prod.outlook.com
- (2603:10b6:610:1f4:cafe::71) by CH5PR04CA0012.outlook.office365.com
- (2603:10b6:610:1f4::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri, 9
- Oct 2026 09:08:35 +0000
+ bh=UGdZ3dAIGiyI0tWLixd7hTpMnhYT3ANqdL7Z+5h4DU0=;
+ b=DKfQ/6wYNNgNZTroM6iIJu22dt+LBlNvq+TvdOpaCH/ieAGH+ZqKF2DBjvywBidMTAI/DjMU0Q+YRWPB5JZ9C8pbqDCDk+/mKV/LBCoA+Qy9v/v/oD3Vu6XDfyuIa1SUGQRB2VjundgwoDXCiHtCxJjGMslNmdKcWCoQoCjbOyY=
+Received: from BN9PR03CA0532.namprd03.prod.outlook.com (2603:10b6:408:131::27)
+ by PH7PR12MB6695.namprd12.prod.outlook.com (2603:10b6:510:1b2::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Fri, 9 Oct
+ 2026 09:08:44 +0000
+Received: from BL6PEPF00022570.namprd02.prod.outlook.com
+ (2603:10b6:408:131:cafe::9a) by BN9PR03CA0532.outlook.office365.com
+ (2603:10b6:408:131::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
+ Oct 2026 09:08:43 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- LV8PEPF0000005F.mail.protection.outlook.com (10.167.245.137) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF00022570.mail.protection.outlook.com (10.167.249.38) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 09:08:34 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 09:08:43 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
- 2026 04:08:29 -0500
+ 2026 04:08:27 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 04:08:27 -0500
 Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 9 Oct 2026 04:08:27 -0500
+ Transport; Fri, 9 Oct 2026 04:08:25 -0500
 From: Jesse Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  <prike.liang@amd.com>, <sukhatri@amd.com>,
  Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: free the userptr ranges when a CS fails after
- parser_bos
-Date: Fri, 9 Oct 2026 17:07:40 +0800
-Message-ID: <20261009090822.4095122-3-Jesse.Zhang@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: don't drop the runtime PM reference twice in
+ amdgpu_gpr
+Date: Fri, 9 Oct 2026 17:07:39 +0800
+Message-ID: <20261009090822.4095122-2-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261009090822.4095122-1-Jesse.Zhang@amd.com>
 References: <20261009090822.4095122-1-Jesse.Zhang@amd.com>
@@ -77,29 +81,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000005F:EE_|SJ5PPFCB5E1B8F5:EE_
-X-MS-Office365-Filtering-Correlation-Id: e50c9050-b1dc-4f11-fd3b-08df25e4e596
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022570:EE_|PH7PR12MB6695:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34522cc8-c79b-42b1-899b-08df25e4eae5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|5023799004|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: QY1ZRcy1G9hQC1Ry1IFRV5JRHmsRB53iMN2eqOGg/0+p6RQa3JRn+Cjn7IAeorXABqfOomNOLRX/f69eHmfdg+iZDY1zgrPDZR8O/bmp9bxBDayXJLPNSnImUj31HoydfnOdyV9pGCwxb2jmNgXBgOKSObVTOdIMw+/HgXi+qR/GH1QqS5E/Zooq7fWtwVoGJj0J071CopUaDO5aIlCPWZG2cPFLVUDecgmblkCl04LtDHtQswxdttT+UyY+BeRokWbOzLskRFaP2eYgtYOO6S4wYdOtrkjcpTCAA3kgmeQUrTzFtr/dvj1ePyxtWbIPrz2QLDreY5f4vLa6L28gVJcQNHxikOWw6IOP6SU+JOov+qQ4QlH1cZ2Rn1df1AI3Bwgv0fewZssrG1fG6AYV9lp9DaO4eZ8Gopy0cJ5qMtnbAvokHdx84EGHWyWnoSjBTGghgkoV7rNYMO0bQhE8Zwu9ayFpJoZchccWq/NvF8z9qUlDTodlnPJXqKFBaxWEuisW1hD34mi+fgrd6tezkQiHR8QAnVA7K+Hx558iz7XaN3gexg590/wNJCzlodgk7SfOWFER8rPzPqmDYKqrY2XltGTYJM3TaPgZCTM7DrWj1Lykk3akncBBRQCKKHVu2ux1oP4X7KoQBywisEN9YhiuBxTdkHoALPNUXNaSdixULo2o/adLa7S9gBQf0uVcHOPYj4n9fzj7iDrhgXsEHQ==
+ ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: sWbAr4VQinw8UWETVnuuk+QAK1aoCv2GQPNV/2iEhnZFnXpR9SaKRyKm7H7nFlBQYsoBzCkFkm0iPrUKO2rY6aWeTH5IOf47BrcrdcMhMF5FV6ycDC4EgFm21hOmeiMRsxQH7tK7JJWM2tXx5wqCBkNfegPiaVToN5TumyA/9JPVqbEWqEJFnb7WwMqVZGgNwMTENpHAa7Vv3+Y4CI6ZMFOuvwswBKD+TDCrxB2RcIz7E8vu70oVxHBFz8/sERyjKIxM1E6tg5goivBNhKrq3Mz1iHIIxdD25fR/3l2o0K86kHx2kej71DJyiWwhzR4YA8FTgXWxV2NSITPwMkCge5ywrb3gDZpR7N1PPojDd7qoza7z6P6XbhNjV9uqczGIrCXDawqYR3hiR0KKnYknbCvjOS5bSo8qhdMS4292/uNlsPN0o9h0da7EL3tU5wMOMBfySw1xUvQc5nJ7fHmMwsr+xwq4i6dDkT6qk5QVPBVe/Q1RDoqSlGkJ6Ap3ALd2ViGIO9pf0P3Jzcvc64zkIXyo9rpHbZhwqqyDt54z0T4pwPXtkwM3SNS/SqcgSL/Jysm4Sps65nWjv7x0T1TklYth7UPbhD6NykgbFy6gntLm0IBq2mo5FuRIbpPUTMx8kA0KVZLVV82DXA9LOTwzjwQqYc9H2ZlzQmZpIYxUtOJ/ilRtWwB4/VOX0k4DAVGsTyHDbnzfQ4ZA0zrmmnP94A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(5023799004)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5kqZBXtHA/8i/93iillSYogbavJkssK6kO6kYd+pHFSv3L2OuoEPBqBxtU6g2tBkT80aT1ikVkQ1LxcEedQoiuXF+N8u39eyFPSaf5XFUJj8B2v3bObUGF/IqEuNKUvKqKdwf/Chvs3/K8NWTbcBUfEeznxdoufE+VnI0PEyrKuH56lFiRlbNh/4UmKj5Tb9YmNlnfN1hLEcIXxXCHiYWADhx9oOmAUPnYse5e0F4r178ohEmDxxCzn3FwMCT/hvKH7R7wMTRtJrPMbBoDR8N2RjG8G5/kFRMmDkKVp+9fwEoQl/x+6ypGSe7+OM8eYGH3sTnRy5wiBGGrQFrYviEg0IbtBUGpb0IxyWIxhXzOibxhzi7t+ltNFopqh09+ii0fgdXuosgWGg8BLmHEkGAiCH8VTj4nD6YZW9dZP/NoD8BPQJD84cy+RvRm3S7SFI
+X-MS-Exchange-AntiSpam-MessageData-0: +ybDJeZOtx8U+657HcLisshGOuDYt9PrgpZCNDKubHy2EuWKpbqVEBxPCUqpZLStkzD9Fuy4BJitbAUR8xPXnyW1ZIF+R7uBbe3gvJQ2UYKPwYCsmikVYm/neaKSjo7TdgLX5ap45Lp9OkVNFm0VYKSkrF/tMLzauhKX2ZR8fRtbTWaPGqWGOJYxd/i18icg4oPChXXjYYy/O4RCP7yiENNZNIZYyghYi0Eb5Wnk7Ep46aJ59vu0DABUDEAc12HKjG/tvkeZ9sQENU+OXPC07rcMRz3x158UWaDY1GTIG5bTrRgx7/9sQf1j//bBOJscWqYLZnYw0Aib2gv0647CFJSWOQdQLB3Fvaw9hplBn0XNxA9FRiTqoXPibaE9cDN7BLz6Yfbat/y9/5IVrgNlCvgK7I3OJarmuVQKk5pVX611rbqY8DDQZ8wy6O6FRgKu
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 09:08:34.4116 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e50c9050-b1dc-4f11-fd3b-08df25e4e596
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 09:08:43.3135 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34522cc8-c79b-42b1-899b-08df25e4eae5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF0000005F.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022570.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFCB5E1B8F5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6695
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,76 +118,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_cs_parser_bos() allocates an HMM range for every userptr entry of
-the BO list and looks up the user pages. Those ranges are only freed when
-amdgpu_cs_parser_bos() itself fails or when amdgpu_cs_submit() checks
-them under the notifier lock. If amdgpu_cs_patch_jobs(),
-amdgpu_cs_vm_handling(), amdgpu_cs_sync_rings() or the early part of
-amdgpu_cs_submit() fails, nothing frees them: neither
-amdgpu_cs_parser_fini() nor amdgpu_bo_list_free() touch e->range.
+amdgpu_debugfs_gpr_read() drops its runtime PM reference right after
+reading the wave registers. When copying them to userspace fails, it
+jumps to the err label, which drops the reference a second time. A read
+into a bad buffer on Navi31 either steals a reference somebody else
+holds (power/runtime_usage goes from 1 to 0) or underflows the count:
 
-Each such CS then leaks the range, its hmm_pfns array (8 bytes per page
-of the userptr BO) and the BO reference the range holds. An IB on a ring
-that patches the CS in place (e.g. VCN) with an unmapped va_start fails
-in amdgpu_cs_patch_ibs() and takes this path.
+  amdgpu 0000:03:00.0: Runtime PM usage count underflow!
 
-Free the ranges on those error paths. Ranges amdgpu_cs_submit() already
-dropped are NULL, so freeing them again is a no-op.
+The registers are already in the kernel buffer at that point, so finish
+the hardware access first and copy the buffer with a single
+copy_to_user() instead of the put_user() loop with its own error path.
 
-Fixes: fec8fdb54e8f ("drm/amdgpu: fix userptr HMM range handling v2")
+Fixes: 9eee152aab56 ("drm/amdgpu/debugfs: fix ref count leak when pm_runtime_get_sync fails")
 Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 21 +++------------------
+ 1 file changed, 3 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index d059e0c92866..d3c1b4b9472f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1435,6 +1435,7 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
- int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 35cbd358c28c..3dc95d9accf2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1267,7 +1267,6 @@ static ssize_t amdgpu_debugfs_gpr_read(struct file *f, char __user *buf,
  {
- 	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_bo_list_entry *e;
- 	struct amdgpu_cs_parser parser;
+ 	struct amdgpu_device *adev = f->f_inode->i_private;
  	int r;
+-	ssize_t result = 0;
+ 	uint32_t offset, se, sh, cu, wave, simd, thread, bank, *data;
  
-@@ -1475,25 +1476,31 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 	if (size > 4096 || size & 3 || *pos & 3)
+@@ -1311,25 +1310,11 @@ static ssize_t amdgpu_debugfs_gpr_read(struct file *f, char __user *buf,
+ 	mutex_unlock(&adev->grbm_idx_mutex);
  
- 	r = amdgpu_cs_patch_jobs(&parser);
- 	if (r)
--		goto error_fini;
-+		goto error_free_user_pages;
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++	amdgpu_virt_disable_access_debugfs(adev);
  
- 	r = amdgpu_cs_vm_handling(&parser);
- 	if (r)
--		goto error_fini;
-+		goto error_free_user_pages;
+-	while (size) {
+-		uint32_t value;
+-
+-		value = data[result >> 2];
+-		r = put_user(value, (uint32_t *)buf);
+-		if (r) {
+-			amdgpu_virt_disable_access_debugfs(adev);
+-			goto err;
+-		}
+-
+-		result += 4;
+-		buf += 4;
+-		size -= 4;
+-	}
+-
++	r = copy_to_user(buf, data, size) ? -EFAULT : size;
+ 	kfree(data);
+-	amdgpu_virt_disable_access_debugfs(adev);
+-	return result;
++	return r;
  
- 	r = amdgpu_cs_sync_rings(&parser);
- 	if (r)
--		goto error_fini;
-+		goto error_free_user_pages;
- 
- 	trace_amdgpu_cs_ibs(&parser);
- 
- 	r = amdgpu_cs_submit(&parser, data);
- 	if (r)
--		goto error_fini;
-+		goto error_free_user_pages;
- 
- 	amdgpu_cs_parser_fini(&parser);
- 	return 0;
- 
-+error_free_user_pages:
-+	/* amdgpu_cs_submit() only drops the ranges once it got that far. */
-+	amdgpu_bo_list_for_each_userptr_entry(e, parser.bo_list) {
-+		amdgpu_hmm_range_free(e->range);
-+		e->range = NULL;
-+	}
- error_fini:
- 	amdgpu_cs_parser_fini(&parser);
- 	return r;
+ err:
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 -- 
 2.50.1
 
