@@ -4,34 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61099CA6012
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 08:17:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 492D6CA6012
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 08:19:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB90D10FF7C;
-	Fri,  9 Oct 2026 08:17:55 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6948010FF7C
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 08:17:54 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 6998HnFm3505965; Fri, 9 Oct 2026 13:47:49 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 6998HnQu3505964;
- Fri, 9 Oct 2026 13:47:49 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Mukul Joshi <mukul.joshi@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v2 2/2] drm/amdgpu: amdgpu_vmid_mgr_set_vmid_mask to set up
- both hubs at once
-Date: Fri,  9 Oct 2026 13:47:32 +0530
-Message-Id: <20261009081732.3505820-2-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261009081732.3505820-1-sunil.khatri@amd.com>
-References: <20261009081732.3505820-1-sunil.khatri@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4E7710FF77;
+	Fri,  9 Oct 2026 08:19:40 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TmRH3VhV";
+	dkim-atps=neutral
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012042.outbound.protection.outlook.com [52.101.53.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0897D10FF77
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 08:19:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lIUgi+dFgBXS/CQs4wNY34bBOJaDXDTbDlSSJ+krci4ZA2LYirYhYsF+GVbAI0VWD/EU/h2b2YMdK+7jJqsqfqN+yxbYsaIP76/qC5Do4nIFaJUlvXQfNrjUc+tzCsbK2jc0O6gy6R0l4TrenqkkSx0m0+XRH2MTssGnnbZ+MgiUqYqMSnPgBe73LzcydXuo6Ji9DQNe4UkFwwQQ4zAp9RtzwW0SNiAqKnpKTmydn/zyl2gZjvKBMulHUgL0lA38ZKYFFYH0Tseg3pKFRHg4G5cVq0b55tMdAOdVVJyufsQ8jYoINEoGYCw4iwGiDW39EJruTSbOH3hS9TQIUPdH4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FqPrKAUriT+fpJl3n0vNrfaLKtA06VxlIE3NfkMiv28=;
+ b=yGAiu/Xupz7f78QrcgD+dNDHvuPBz1HSmPRzhPztq5lWhoFRYJ5MrJPlBRu0iFfaRMwzNofohGyih5ZQkaHUtaHrswVl/FoUtNz96Qtt3XebKDxexeYN3uqJeKuFi9RP7mJ9z1J0zL6Cj1rtuqLq+PDYweppqNPe5g5vkxda76gxIF8lwrIpMBdaSTOLWXRbRz3Fym8nWNNe2LVI5xALmBbhr4R7pNernxQqCN1NtBUWh1j/EHPvrNE/1081S3OxV+RGwGrhqBFhtsY51M88BIaZS9tSwIWZHSYDWPOWs4OEya10o+NvoPwg/KVdYcY0f+4X1/OBGVPwdTRxd8H22Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FqPrKAUriT+fpJl3n0vNrfaLKtA06VxlIE3NfkMiv28=;
+ b=TmRH3VhVXOG/a1F+n+gE1b6k1EAKS0ovHq9reP9EsARzeWFESo6i2/0ZEB0t1TdVY4eWYQknQcieJPe0s9399Wn4vDwCio8jO/6oTuWGUAZoj53LDvynow8YAPmMWYDfmgZtrXqOmdjCGJYatdSzU+oWUhA86fKIYgGQ6hJWU+4=
+Received: from CH0PR04CA0082.namprd04.prod.outlook.com (2603:10b6:610:74::27)
+ by CH3PR12MB8658.namprd12.prod.outlook.com (2603:10b6:610:175::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
+ 2026 08:19:35 +0000
+Received: from CH2PEPF0000009F.namprd02.prod.outlook.com
+ (2603:10b6:610:74:cafe::50) by CH0PR04CA0082.outlook.office365.com
+ (2603:10b6:610:74::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
+ Oct 2026 08:19:34 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF0000009F.mail.protection.outlook.com (10.167.244.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 08:19:34 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 03:19:29 -0500
+Received: from LNXAMD-Kenneth.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 9 Oct 2026 03:19:28 -0500
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Kevin.Wang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
+Subject: [PATCH] drm/amd/pm: add zero fan stop temperature support on smu
+ 14.0.2
+Date: Fri, 9 Oct 2026 16:19:30 +0800
+Message-ID: <20261009081930.2028915-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009F:EE_|CH3PR12MB8658:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b1ebbe6-c4af-4b7f-0e1a-08df25de0d7a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|56012099006|6133799003|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info: ZhLO9gCtBTB/OsO5nKOIM4GWznFJj81cOH7i84XI21Ywqi6CtgrlzNzsgAMoC3KQ36PAzGrqtNHRwZj5Wfw8hYD7XcMHngFln5mOkljvI9REyCKtI9Yf/TzY6vlU87WWei3Mr69Ctx3Ssn8rFCj1lnCT+ptQXr4S/ipYfl2dPQGN250VxUC8Xb87b2RSUIRcAz0U9kY/eLYZEnihTuCkqHf9+zKA2D0FrfxmrKM7SGmMjgAn9pmdRxHEBKYhNVJZzjkSskoZU70E86UhUEdOMSGvxaOkLRWVwfRJAILrQgxNudET5fkLGzOq1q7lL/37NAaJwJve62vc0NHOeqXBpGQX8sRxWx7TmMUQi9qAHdyoAC+lDaM4QTPt1RQLVWgTPGjGm0QZ1R31871fcGMVEHmfvnicS27QcKFljkwwlP/LGkimBkbI3mW1gZjkelLhWwoGN4YxA4iyEk2WljxcjlRe9NOrpr+lYdDE5pQd6v0QsZkrrG7VRbtpGZKMx4pcAO6PqqLVVBveGJsQkt60j2ypJwyyGIdiFVUEe/RX2os4c5XSgJxHI7O/IlBmewUepdebU1HTN7BB9qvPDW8N2S6LjjIQnviyjJAlu5sKkgvIVJ1DgDw7lQkuHVhY5nbpDsw8G21wHiQU4BY5Ue41HgpwkZ0hGWV4m9BcMrlx5oGNBS0rh0cV2DNpCSKz6rjIJqvp7IXHyvmVywE5ttahxQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(56012099006)(6133799003)(10067099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: VxXDa+cJN/1bapDiqDjDI0UJqdSvtDHzXqUPWXGABLZ+eOnTD7HgonWSqI/IFQ7SP1uYFAJsRiD4VMmvGlS7q0MRoCZ9f2nIE6dlEWb27ADS34jZOgM2Wcm7fNKD6vfHd39i1rjEuu2/IMMQq9E6Y11Fi8GBj3MNN4rjHrBd8FuE1cUw6kjH6kLvX1gEKPLzdJVkgBHhzYEsVneFMEhW7Op3BH1JYQ+X/BLnvFeNEE4i8xFDU4e9XHCQzbfAdjdgvgr2p6ZQr5M1mMJ+tyhzfgPZuBcEsN80RbYjIe3F/g9vU4aWvOweygTBIMUwklFyH0YSabJrH3r2WBskOoQu0CRzYpjd5jltnttPqb/5qrac0kVspBTU6wiXqirhExatOe/HjgrFef+5DEKBonR1J23EgD/LzHAmj7RVSE0HyoTjKJl83kiwmrnWuCqnf2mJ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 08:19:34.8433 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b1ebbe6-c4af-4b7f-0e1a-08df25de0d7a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8658
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,366 +109,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Set the kernel and user-queue VMID pools for both hubs in one call.
-The caller now just hands over each hub's raw kernel-queue mask;
-vmid_uq_mask_gfxhub is derived here as its complement, and
-vmid_uq_mask_mmhub is the fixed pool set here too, with npa_vmid
-excluded from both MMHUB pools, instead of any of this being split
-across a separate post-hoc fix-up or a field the caller had to
-pre-compute itself.
+add zero fan stop temperature support on smu 14.0.2
 
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 49 +++++++++++++------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |  3 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 13 ++-----
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  | 13 ++-----
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 20 ++++------
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   | 14 +++----
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 14 +++----
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 14 +++----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 14 +++----
- 9 files changed, 63 insertions(+), 91 deletions(-)
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 55 ++++++++++++++++++-
+ 1 file changed, 54 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index 55d6b2107d8f9..78058a957a2f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -631,44 +631,47 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 1054c4b4b03e..e095bebecfbd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -89,6 +89,7 @@ static const struct smu_feature_bits smu_v14_0_2_dpm_features = {
+ #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE		9
+ #define PP_OD_FEATURE_FAN_MINIMUM_PWM			10
+ #define PP_OD_FEATURE_FAN_ZERO_RPM_ENABLE		11
++#define PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP		12
+ 
+ static struct cmn2asic_msg_mapping smu_v14_0_2_message_map[SMU_MSG_MAX_COUNT] = {
+ 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
+@@ -1020,6 +1021,10 @@ static void smu_v14_0_2_get_od_setting_limits(struct smu_context *smu,
+ 		od_min_setting = overdrive_lowerlimits->FanZeroRpmEnable;
+ 		od_max_setting = overdrive_upperlimits->FanZeroRpmEnable;
+ 		break;
++	case PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP:
++		od_min_setting = pptable->SkuTable.MsgLimits.FanStopTempMin;
++		od_max_setting = pptable->SkuTable.MsgLimits.FanStopTempMax;
++		break;
+ 	default:
+ 		od_min_setting = od_max_setting = INT_MAX;
+ 		break;
+@@ -1244,6 +1249,24 @@ static int smu_v14_0_2_emit_clk_levels(struct smu_context *smu,
+ 				      min_value, max_value);
+ 		break;
+ 
++	case SMU_OD_FAN_ZERO_RPM_STOP_TEMP:
++		if (!smu_v14_0_2_is_od_feature_supported(smu,
++							 PP_OD_FEATURE_ZERO_FAN_BIT))
++			break;
++
++		size += sysfs_emit_at(buf, size, "FAN_ZERO_RPM_STOP_TEMPERATURE:\n");
++		size += sysfs_emit_at(buf, size, "%d\n",
++					(int)od_table->OverDriveTable.FanZeroRpmStopTemp);
++
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
++		smu_v14_0_2_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP,
++						  &min_value,
++						  &max_value);
++		size += sysfs_emit_at(buf, size, "ZERO_RPM_STOP_TEMPERATURE: %u %u\n",
++				      min_value, max_value);
++		break;
++
+ 	case SMU_OD_RANGE:
+ 		if (!smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT) &&
+ 		    !smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT) &&
+@@ -2308,7 +2331,9 @@ static void smu_v14_0_2_set_supported_od_feature_mask(struct smu_context *smu)
+ 					    OD_OPS_SUPPORT_FAN_MINIMUM_PWM_RETRIEVE |
+ 					    OD_OPS_SUPPORT_FAN_MINIMUM_PWM_SET |
+ 					    OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_RETRIEVE |
+-					    OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_SET;
++					    OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_SET |
++					    OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_TEMP_RETRIEVE |
++					    OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_TEMP_SET;
  }
  
- /**
-- * amdgpu_vmid_mgr_set_vmid_mask - set the kernel-queue VMID pool for a
-- * hub, and the matching user-queue mask on MMHUB
-+ * amdgpu_vmid_mgr_set_vmid_mask - set the kernel- and user-queue VMID
-+ * pools for both hubs
-  *
-  * @adev: amdgpu device structure
-- * @vmid_mask: kernel-queue round-robin VMID mask for this hub
-- * @for_mmhub: true to target MMHUB instances, false for GFXHUB
-- *
-- * On MMHUB, also sets vmid_uq_mask_mmhub to the fixed pool of VMIDs
-- * MES/KFD use there, excluding npa_vmid (a VMID dedicated to a single
-- * fixed purpose) from both the kernel- and user-queue masks; the
-- * caller must already have set npa_vmid. vmid_uq_mask_gfxhub is set
-- * directly by each generation's sw_init(), since unlike MMHUB's it
-- * varies per generation.
-+ * @gfx_vmid_mask: kernel-queue round-robin VMID mask for GFXHUB
-+ * @mmhub_vmid_mask: kernel-queue round-robin VMID mask for MMHUB
-+ *
-+ * Sets both hubs' kernel-queue round-robin pools, and both hubs'
-+ * KFD/MES user-queue masks. vmid_uq_mask_gfxhub is set to the
-+ * complement of @gfx_vmid_mask, since unlike MMHUB's it is always a
-+ * clean partition of the full VMID range; vmid_uq_mask_mmhub is the
-+ * fixed pool set here instead, since MMHUB's kq and uq pools are
-+ * allowed to overlap. A VMID dedicated to a single fixed purpose on
-+ * MMHUB (npa_vmid) is excluded from both MMHUB pools; it is the
-+ * caller's responsibility to have already set npa_vmid.
-  */
- void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
--				   unsigned long vmid_mask, bool for_mmhub)
-+				   unsigned long gfx_vmid_mask,
-+				   unsigned long mmhub_vmid_mask)
- {
- 	unsigned int i;
- 
- 	BUILD_BUG_ON(AMDGPU_NUM_VMID > BITS_PER_LONG);
- 
--	if (for_mmhub && adev->vm_manager.npa_vmid)
--		vmid_mask &= ~BIT(adev->vm_manager.npa_vmid);
-+	if (adev->vm_manager.npa_vmid)
-+		mmhub_vmid_mask &= ~BIT(adev->vm_manager.npa_vmid);
- 
- 	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
- 		bool is_mmhub = AMDGPU_IS_MMHUB0(i) || AMDGPU_IS_MMHUB1(i);
- 
--		if (is_mmhub == for_mmhub)
--			bitmap_copy(adev->vm_manager.id_mgr[i].vmid_mask,
--				    &vmid_mask, AMDGPU_NUM_VMID);
-+		bitmap_copy(adev->vm_manager.id_mgr[i].vmid_mask,
-+			    is_mmhub ? &mmhub_vmid_mask : &gfx_vmid_mask,
-+			    AMDGPU_NUM_VMID);
+ static int smu_v14_0_2_get_overdrive_table(struct smu_context *smu,
+@@ -2389,6 +2414,8 @@ static int smu_v14_0_2_set_default_od_settings(struct smu_context *smu)
+ 			user_od_table_bak.OverDriveTable.FanMinimumPwm;
+ 		user_od_table->OverDriveTable.FanZeroRpmEnable =
+ 			user_od_table_bak.OverDriveTable.FanZeroRpmEnable;
++		user_od_table->OverDriveTable.FanZeroRpmStopTemp =
++			user_od_table_bak.OverDriveTable.FanZeroRpmStopTemp;
  	}
  
--	if (for_mmhub) {
--		adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
--		if (adev->vm_manager.npa_vmid)
--			adev->vm_manager.vmid_uq_mask_mmhub &=
--				~BIT(adev->vm_manager.npa_vmid);
--	}
-+	adev->vm_manager.vmid_uq_mask_gfxhub =
-+		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
+ 	smu_v14_0_2_set_supported_od_feature_mask(smu);
+@@ -2443,6 +2470,11 @@ static int smu_v14_0_2_od_restore_table_single(struct smu_context *smu, long inp
+ 					boot_overdrive_table->OverDriveTable.FanZeroRpmEnable;
+ 		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
+ 		break;
++	case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
++		od_table->OverDriveTable.FanZeroRpmStopTemp =
++					boot_overdrive_table->OverDriveTable.FanZeroRpmStopTemp;
++		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
++		break;
+ 	case PP_OD_EDIT_ACOUSTIC_LIMIT:
+ 		od_table->OverDriveTable.AcousticLimitRpmThreshold =
+ 					boot_overdrive_table->OverDriveTable.AcousticLimitRpmThreshold;
+@@ -2749,6 +2781,27 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
+ 		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
+ 		break;
+ 
++	case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
++		if (!smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_ZERO_FAN_BIT)) {
++			dev_warn(adev->dev, "Zero RPM setting not supported!\n");
++			return -ENOTSUPP;
++		}
 +
-+	adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
-+	if (adev->vm_manager.npa_vmid)
-+		adev->vm_manager.vmid_uq_mask_mmhub &= ~BIT(adev->vm_manager.npa_vmid);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-index 9bfc7a950ca31..fd561f20514a1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-@@ -135,6 +135,7 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev);
- void amdgpu_vmid_mgr_init(struct amdgpu_device *adev);
- void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev);
- void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
--				   unsigned long vmid_mask, bool for_mmhub);
-+				   unsigned long gfx_vmid_mask,
-+				   unsigned long mmhub_vmid_mask);
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index a95bfe22c640e..55d286275466d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -746,7 +746,6 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
- 	struct amdgpu_device *adev = ip_block->adev;
--	unsigned long gfx_vmid_mask;
- 
- 	adev->gfxhub.funcs->init(adev);
- 
-@@ -867,15 +866,11 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	/*
- 	 * number of VMs
- 	 * VMID 0 is reserved for System
--	 * amdgpu graphics/compute will use VMIDs 1-7
--	 * amdkfd will use VMIDs 8-15
-+	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
-+	 * amdkfd/MES user queues will use VMIDs 8-15
- 	 */
--	gfx_vmid_mask = GENMASK(7, 1);
--
--	adev->vm_manager.vmid_uq_mask_gfxhub =
--		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
--	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(AMDGPU_NUM_VMID - 1, 1), true);
-+	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(7, 1),
-+				      GENMASK(AMDGPU_NUM_VMID - 1, 1));
- 
- 	amdgpu_vm_manager_init(adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 7b19c59a2f743..4947b79c07677 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -746,7 +746,6 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
- 	struct amdgpu_device *adev = ip_block->adev;
- 	unsigned int first_userq_vmid;
--	unsigned long gfx_vmid_mask;
- 
- 	adev->mmhub.funcs->init(adev);
- 
-@@ -853,16 +852,12 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	/*
- 	 * number of VMs
- 	 * VMID 0 is reserved for System
--	 * amdgpu graphics/compute will use VMIDs 1-7
--	 * amdkfd will use VMIDs 8-15
-+	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
-+	 * amdkfd/MES user queues will use VMIDs 8-15
- 	 */
- 	first_userq_vmid = adev->gfx.disable_kq ? 1 : 8;
--	gfx_vmid_mask = GENMASK(first_userq_vmid - 1, 1);
--
--	adev->vm_manager.vmid_uq_mask_gfxhub =
--		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
--	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(AMDGPU_NUM_VMID - 1, 1), true);
-+	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(first_userq_vmid - 1, 1),
-+				      GENMASK(AMDGPU_NUM_VMID - 1, 1));
- 
- 	amdgpu_vm_manager_init(adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index 9194130c25f29..66ba7531cbda7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -848,9 +848,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	int r, vram_width = 0, vram_type = 0, vram_vendor = 0, dma_addr_bits;
- 	struct amdgpu_device *adev = ip_block->adev;
- 	uint64_t pte_addr_mask = 0;
--	u32 mmhub_vmid_mask;
- 	unsigned int first_userq_vmid;
--	unsigned long gfx_vmid_mask;
- 	int i;
- 
- 	adev->mmhub.funcs->init(adev);
-@@ -992,12 +990,12 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	/*
- 	 * number of VMs
- 	 * VMID 0 is reserved for System
--	 * amdgpu graphics/compute will use VMIDs 1-7
--	 * amdkfd will use VMIDs 8-15.
--	 * On GFX 12.1, amdkfd will use VMIDs 3-15, with VMID 15 reserved
--	 * for NPA and therefore excluded from the MMHUB VMID pool.
-+	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
-+	 * amdkfd/MES user queues will use VMIDs 8-15.
-+	 * On GFX 12.1, amdkfd/MES user queues will use VMIDs 3-15, with
-+	 * VMID 15 reserved for NPA and therefore excluded from the
-+	 * MMHUB VMID pool.
- 	 */
--	mmhub_vmid_mask = GENMASK(AMDGPU_NUM_VMID - 1, 1);
- 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 1, 0)) {
- 		first_userq_vmid = 3;
- 		adev->vm_manager.npa_vmid = 15;
-@@ -1008,12 +1006,8 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (adev->gfx.disable_kq)
- 		first_userq_vmid = 1;
- 
--	gfx_vmid_mask = GENMASK(first_userq_vmid - 1, 1);
--
--	adev->vm_manager.vmid_uq_mask_gfxhub =
--		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
--	amdgpu_vmid_mgr_set_vmid_mask(adev, mmhub_vmid_mask, true);
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
-+	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(first_userq_vmid - 1, 1),
-+				      GENMASK(AMDGPU_NUM_VMID - 1, 1));
- 
- 	amdgpu_vm_manager_init(adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index 4e593e67221ff..a7c353d1ac09d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -768,7 +768,7 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	int r;
- 	struct amdgpu_device *adev = ip_block->adev;
--	unsigned long gfx_vmid_mask;
-+	unsigned long vmid_mask;
- 
- 	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
- 
-@@ -822,15 +822,11 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	/*
- 	 * number of VMs
- 	 * VMID 0 is reserved for System
--	 * amdgpu graphics/compute will use VMIDs 1-7
--	 * amdkfd will use VMIDs 8-15
-+	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
-+	 * amdkfd/MES user queues will use VMIDs 8-15
- 	 */
--	gfx_vmid_mask = GENMASK(7, 1);
--
--	adev->vm_manager.vmid_uq_mask_gfxhub =
--		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
-+	vmid_mask = GENMASK(7, 1);
-+	amdgpu_vmid_mgr_set_vmid_mask(adev, vmid_mask, vmid_mask);
- 	amdgpu_vm_manager_init(adev);
- 
- 	/* base offset of vram pages */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index bbb5c42b9d4ed..4199300eab177 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -941,7 +941,7 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	int r;
- 	struct amdgpu_device *adev = ip_block->adev;
--	unsigned long gfx_vmid_mask;
-+	unsigned long vmid_mask;
- 
- 	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
- 
-@@ -1004,15 +1004,11 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	/*
- 	 * number of VMs
- 	 * VMID 0 is reserved for System
--	 * amdgpu graphics/compute will use VMIDs 1-7
--	 * amdkfd will use VMIDs 8-15
-+	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
-+	 * amdkfd/MES user queues will use VMIDs 8-15
- 	 */
--	gfx_vmid_mask = GENMASK(7, 1);
--
--	adev->vm_manager.vmid_uq_mask_gfxhub =
--		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
-+	vmid_mask = GENMASK(7, 1);
-+	amdgpu_vmid_mgr_set_vmid_mask(adev, vmid_mask, vmid_mask);
- 	amdgpu_vm_manager_init(adev);
- 
- 	/* base offset of vram pages */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 25d47d2c288dd..3f9ec7427319d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1051,7 +1051,7 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	int r;
- 	struct amdgpu_device *adev = ip_block->adev;
--	unsigned long gfx_vmid_mask;
-+	unsigned long vmid_mask;
- 
- 	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
- 
-@@ -1119,15 +1119,11 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	/*
- 	 * number of VMs
- 	 * VMID 0 is reserved for System
--	 * amdgpu graphics/compute will use VMIDs 1-7
--	 * amdkfd will use VMIDs 8-15
-+	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
-+	 * amdkfd/MES user queues will use VMIDs 8-15
- 	 */
--	gfx_vmid_mask = GENMASK(7, 1);
--
--	adev->vm_manager.vmid_uq_mask_gfxhub =
--		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
-+	vmid_mask = GENMASK(7, 1);
-+	amdgpu_vmid_mgr_set_vmid_mask(adev, vmid_mask, vmid_mask);
- 	amdgpu_vm_manager_init(adev);
- 
- 	/* base offset of vram pages */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 7ebf7b1299ff6..6a60ea5fe75c8 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1850,7 +1850,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	struct amdgpu_device *adev = ip_block->adev;
- 	unsigned long inst_mask = adev->aid_mask;
- 	unsigned int first_userq_vmid;
--	unsigned long gfx_vmid_mask;
-+	unsigned long vmid_mask;
- 
- 	adev->gfxhub.funcs->init(adev);
- 
-@@ -2019,8 +2019,8 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	/*
- 	 * number of VMs
- 	 * VMID 0 is reserved for System
--	 * amdgpu graphics/compute will use VMIDs 1..n-1
--	 * amdkfd will use VMIDs n..15
-+	 * amdgpu graphics/compute kernel queues will use VMIDs 1..n-1
-+	 * amdkfd/MES user queues will use VMIDs n..15
- 	 *
- 	 * The first KFD VMID is 8 for GPUs with graphics, 3 for
- 	 * compute-only GPUs. On compute-only GPUs that leaves 2 VMIDs
-@@ -2041,12 +2041,8 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
- 			3 :
- 			8;
- 
--	gfx_vmid_mask = GENMASK(first_userq_vmid - 1, 1);
--
--	adev->vm_manager.vmid_uq_mask_gfxhub =
--		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, false);
--	amdgpu_vmid_mgr_set_vmid_mask(adev, gfx_vmid_mask, true);
-+	vmid_mask = GENMASK(first_userq_vmid - 1, 1);
-+	amdgpu_vmid_mgr_set_vmid_mask(adev, vmid_mask, vmid_mask);
- 	amdgpu_vm_manager_init(adev);
- 
- 	gmc_v9_0_save_registers(adev);
++		smu_v14_0_2_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP,
++						  &minimum,
++						  &maximum);
++		if (input[0] < minimum ||
++		    input[0] > maximum) {
++			dev_info(adev->dev, "zero RPM stop temperature setting(%ld) must be within [%d, %d]!\n",
++				 input[0], minimum, maximum);
++			return -EINVAL;
++		}
++
++		od_table->OverDriveTable.FanZeroRpmStopTemp = input[0];
++		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
++		break;
++
+ 	case PP_OD_RESTORE_DEFAULT_TABLE:
+ 		if (size == 1) {
+ 			ret = smu_v14_0_2_od_restore_table_single(smu, input[0]);
 -- 
-2.34.1
+2.43.0
 
