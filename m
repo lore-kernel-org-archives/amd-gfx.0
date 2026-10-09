@@ -4,122 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E56F2CA6012
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 07:00:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33CBECA6012
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 07:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7229310FEE3;
-	Fri,  9 Oct 2026 07:00:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2E9410FEE5;
+	Fri,  9 Oct 2026 07:00:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PIz2bIap";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UQV3U0hN";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012068.outbound.protection.outlook.com [40.107.209.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9AB410FEE3
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 07:00:05 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010062.outbound.protection.outlook.com
+ [52.101.193.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C3B810FEE5;
+ Fri,  9 Oct 2026 07:00:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pqtbPjtloH/OBlZopDZXtFxo1kP77lvquw6VEDAWG5GFnnhv5W87ObSkcKYhOqaDTMJQj41XGuTOOYW+qQnaybHHGOUCrd9EzbKfXw968NeVGUuB1+w6cIbE7tsb1LhaH/Ftommf9zbRYGtdSRZfQZKIyGMPp7MEv/7MHD//4ebHiLH1/3wuSrSNYMh0n2z9Hy9Kwfz8nlXs7aI7As8Kzp7dchVdTiF2gGRVcYxRm07gzr11DuEDolawzmvJ/FHBQRDPpmhT3dB72d7rGWUMFpMcZIkWc15vbtnd0N6Qp+gjoUVfaI2/YNWpB6gTMZvlG0sGZlIdYh/2+rsutM/ofg==
+ b=fovFioz1sDdEs11DYgL9B60RaBtynVu3CiQLWCnhW1KZQdUOntvsi00Xmau9JZue/LMLp5ETLMomS1u56UIjlWecyIqbyBcuFY2Y1vuANBLyca5IE2iYGoCJtQQfgga6Sa8Y/8C3L8qpFcufjOFFqCAMTcns6ufxxRezgvmMrlrb8KcwBYzXTJxlp0FQDIw1i7D3NOMVaYIJFOBMaKMI3w+L4iaat0BhwR4UdECgvQyLEOISzPVx5K9OoMNy32or05V/AIK3U7WPnU9Kwx+67y6xZGBTTzY7DM7LNfDP2Brode8ef7G7HH6h4pkqwmu9YwMfm0bD7yVjVE1Jy+OGug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vrLkLQA/JXfHeLnoh5HNAPPEE8ANeKxBQbfUhFztDq0=;
- b=Pi1ZEgVsy1+wuM7XZ+3XH+oNuyE0eBZgIcduWAspJwZBVB850b5OLAieydjRiqrglWRAwZC6Weh1FW+JAWJ+ZN6/6OoNgJvS+4tDtatGo5Zw7ELwG2q6w08qHVlr/QA2G/YrCt6S3YA3JpvO/uC4MiNwHP2CGH9TOSsKnNdvDbqxQf96yjLEPVgxjP0MxbnNZLFq6xmjovyxKs7YZPo3YbxM1UPW47ZKllA8AWsMcWkLj4dBwW7OYZKarXJmZEi8Zjt/NmMw03mHtJ48ZCxaJzMWEtStxTAdTwTwaMy/Pvk4H+cfgLV3LYE1qO7dkYk0IRoymxSYtU5K8swIBaXREg==
+ bh=TCo6wGRWu8BFdU/gNdiTea787T5Ld1Y++XjLjBclhrU=;
+ b=O0JcmDL4muW5P1y8w+NRPHrS7uJq8nNvqsnk4wNb/6eW8C1HazFiyZCcKbEeoiQ/3hVM9X43Vn1wXb47Z4zbmI2Eq7/OkNfZxMA47MhwrdpQmonufmuvFZol4Ro3bKA7cAASYwJmch50Vqyu2HV80A1tADrk1gYdCs4+SaI5iJ+fIV2ESZUGV/Jcddvn6Lkb20aa+IPK0a8NokhAS8A3WCxcflxfgS1oUohcwkpzkd0Nejk1CLXFAjPKQJZEG1/Ijc0bg3bfgQ1+SLHoBOhPY36/ti1twFYzN3kHlMXNg6lySIQzEa/mbvV/74jPak5s53/8GVhaaPYrPOzlEPVgtQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vrLkLQA/JXfHeLnoh5HNAPPEE8ANeKxBQbfUhFztDq0=;
- b=PIz2bIapQqkiKGXzzZlOdyhE5xc3WlV4uQMGGR4BK5+VW9roNg5asji60EDaQ9CVwJVl5SK28EuvquaihVA9/WjEKwh0oVlbkKDsMQ/rqevJC4+2kf7QM53jmcUN6v2Rw7fQZq1lw24aShpyMyhnRuLYWe6NVIRPvYdVuvoUU3w=
-Received: from BN7PPFFF39339DD.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6eb) by PH0PR12MB7861.namprd12.prod.outlook.com
- (2603:10b6:510:26e::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.27; Fri, 9 Oct
- 2026 07:00:01 +0000
-Received: from BN7PPFFF39339DD.namprd12.prod.outlook.com
- ([fe80::9e62:eec6:fa38:a6a6]) by BN7PPFFF39339DD.namprd12.prod.outlook.com
- ([fe80::9e62:eec6:fa38:a6a6%4]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
- 07:00:01 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>,
- "Li, Candice" <Candice.Li@amd.com>, "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>,
- "Sun, Ce(Overlord)" <Ce.Sun@amd.com>, "Xie, Patrick" <Gangliang.Xie@amd.com>, 
- "Yang, Stanley" <Stanley.Yang@amd.com>
-Subject: RE: [PATCH Review v2 1/1] drm/amd/ras: Support invoke ras command
-Thread-Topic: [PATCH Review v2 1/1] drm/amd/ras: Support invoke ras command
-Thread-Index: AQHdV7RXpLjjZo9x5Em0+7hDEKpswrb0yBkQ
-Date: Fri, 9 Oct 2026 07:00:00 +0000
-Message-ID: <BN7PPFFF39339DDFB073AB8C670D2363E12FC922@BN7PPFFF39339DD.namprd12.prod.outlook.com>
-References: <20261009060553.62203-1-Stanley.Yang@amd.com>
-In-Reply-To: <20261009060553.62203-1-Stanley.Yang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-09T06:59:40.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ bh=TCo6wGRWu8BFdU/gNdiTea787T5Ld1Y++XjLjBclhrU=;
+ b=UQV3U0hNzxSPbe0m0n7cSNWeP6k4/0yUnDv2M1OWDkp6QoG2pgBGmxn93yhuPi+YZ/PBbVNUKdJYfwhDQQ55BNZcTqZP4Jg/oVxZFUrwXeIV2f44g1W9QKagUhr/D6zuMp+nDYskz2W3gn9j8py0ziRt0hrGjaqoXsllCPs8rVY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN7PPFFF39339DD:EE_|PH0PR12MB7861:EE_
-x-ms-office365-filtering-correlation-id: 9d81d803-da8e-4754-ed1c-08df25d2effc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|10067099003|5023799004|3023799007|56012099006|6133799003|11063799006|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: f/KDTSwZr5avTLdsX0om4lyfmm3pBO7LDtNxGUP125/2HlmMo7tHKQy+dGtjqo5G/qFQGimhQk4v1XghLT4gA04FCnymNLbn8tf0zjl7a4teIHbk/S13CRhijlNVh+zgx5j1Bg7qX32ctUIvpDipMcmOpQVLb98PeOn8hpN8f/a3QXl6bl8Rh/Lra1whbOZbwVrYTrQ1zvCjUmDYY6KKAjCbA2bZI6hLNNw5yd5hZ0f0fUnZuowipU/UPEKxG00hDtoVAvVx/JzgQYT7Wu7NSi+DyAkVFUjvgb2Wm6BYZRByatLLU57gwmJN24o7sMIG74QqxdxhZalYvnUUun7r1/UaVUhQMSVlx1vAqi10wiNm/1A/GGCah7/2jgdmWilcAc+IHmo6DBtFRE779ZAtgbABJrkBPAgvG0BaNE1u74FwE06HKOAygkZqhbIj0BzsuVlt1qUM1qYo/teXf28/fcja2XEMHhE0tDRGSuWcdtZcqydABA/3g582HtJMezicy7QlC4FnlSL2uAs28yWAc8IHfxMNRXpZ7nxwZX/wPWhF4r5K72n6ilxHHfCUxszagiUcJD4v9hCynWsciVHwVgxyQINcNDbfa96YYzPKDu+XZNUgNE6/oDhLrOiQXl/TfUEzjQiK34uG5oRX4WFw0Quq1BTd/BPRyaFfjhNPhwgU6JekyOxepSQAGV4LFWziWLbVvnflnbzTqAReQIOeAkkYFO52AN+G2bIm+wSy+RU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPFFF39339DD.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(5023799004)(3023799007)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jL5fcmC3bQnkDWiXR+DumJaJgP62kFXWp8+z364NAspWMts/4DwFPMty+M0A?=
- =?us-ascii?Q?1k62izN3tqUNfkb9gF2dEJqrkmEyETNAxOIXseHwlZLz1NC3pptxZB0Xd/Ug?=
- =?us-ascii?Q?eDAW74Tz1Y/go53L/ApAodnliVUG6JxdSwpAoBBq89iF72oPu0c1tUJGptqj?=
- =?us-ascii?Q?+PWzUEybMxuHgeOkwtuhpMLQth0wLsc1EoWG2EJH0Z0aRf77wdK5Mft330gR?=
- =?us-ascii?Q?Sx4F3IoOdG4XMH38Z2Gji0K6JOquoz6g+iJh0s/RJhYnSOt7Z1UmaRnJPWBe?=
- =?us-ascii?Q?svwE2DLSx29OLGPCyPFZCz20Xn2GjTy/erEYd03WF3iDXm39hwwmIDoLpHBS?=
- =?us-ascii?Q?79n+DI6yCBHHftSedM0Ka3HEqoY0qpf2TPheKRCfa8yFVC31exJ/yVhndop+?=
- =?us-ascii?Q?9KO6Hfw/4GQNIa+wf+hAlDHZUxQKokuvP2uOwsBN2cyxRK/IceJHY9XmYQW/?=
- =?us-ascii?Q?WZLQhhJoW2vqfpWWb9V05vb+YMpE0t9dNXeCaINy+CQMyTQ3tozhhkDnmdn7?=
- =?us-ascii?Q?oqsAlmxCpCWfMYhzDOJsUNuaB7xVRST+91UZlNO5ywbCrhwbndjqHMbMYhti?=
- =?us-ascii?Q?KW9CndgW4tpFcYIqY2iWEteAFNx1rt/XjaM/JTZC2s+G2Du2gMNfRkCw/FAT?=
- =?us-ascii?Q?IMT03Krg23UKS1vVJyohmX9CWziDTh6wGLL5+EwsaGWsF5YeDwqr7ESALVbx?=
- =?us-ascii?Q?yPOTC/Fqn2HQfeFe8Ot+w7lHoAarU5NA2G4gK8HWiau+ijQu7pgryvORdmo+?=
- =?us-ascii?Q?FVNr3dYEdtXWpY0weGHsNSic7QNtqh9ehQtONvIP086xfA1h1BgG77Kz1T6N?=
- =?us-ascii?Q?pvSZX98zHNIkO/k4OANOyYgw4KJwjmHqTB81MeOUQYBXbV/FmBQJcxK7GCd4?=
- =?us-ascii?Q?WNAFJF6vmmoLYMXP9qje11FPJtSkSAx2YGCEeKHAhJi8DtluUvALMmBOrer9?=
- =?us-ascii?Q?R6Ic7K041jT2nzlZIaZo7NVt9z60ORhH9HysAUGDeXR/mSg10Y18wIPb40po?=
- =?us-ascii?Q?AgpO1Pc2j5V2DRM37/Ej2JlaWXH5xfbMUq26+SsP4hlJvpnzQI72Bhq+f5Vp?=
- =?us-ascii?Q?Bs7J1B5GXkI+p0zdq9nGGbWdMnHepR34EOtll6JZj0crApw04BUW8pGPxb0Y?=
- =?us-ascii?Q?z2GpxDMpojHYkTmtiNGNtgXe8scgtMp17KA0DiUE+xlXud1yaXaQ+m23j7Wp?=
- =?us-ascii?Q?alZEeoy6EYEYiRRQBcnLUJNMPyIearcfeUKlaUfoKB7TMpsNlEVE4rhvHel5?=
- =?us-ascii?Q?IsiFtKUgzXECHl45iGEFENy1uvwguf3sxNem2M9YE92+us11vWyAATAvBD2I?=
- =?us-ascii?Q?9o8Yi7nJaA//ZpK24yl5ifiSi0MIYooG4H8//sOY2ylszYD/HqRlv0rD7bHa?=
- =?us-ascii?Q?zay4lJ+AtixeTspQSuUAggI9jJ3Fkz3XhYyLiSK4ID76rkli8rPHxPwmh092?=
- =?us-ascii?Q?pj3rGv33LFWEn9Hu+W586bSzdWucrl+wX8mGye9oooTbSo5IKxpVLL6exQn7?=
- =?us-ascii?Q?aebpj9oSDXQA7UNiFDwwVN4JQOr0z/h7IZ808qj5nEy7DrOCjQPle6nTWC1Y?=
- =?us-ascii?Q?EFefvQk+2txiXHOZBtw67bu4ZxuWGnrBCtoA02oUOkoFkrvAs32Y5Kbc5Xlj?=
- =?us-ascii?Q?9jYQ7kOdBupGP2dAUHdVF6Uk3hWg0AfKhgYTld4wK9m5HEQnh/JQB6F6xN49?=
- =?us-ascii?Q?SQ8H0EfmWRcRE4UIIWTSAKY/hD4G8WyuR4lXQlbu6WiiiNJs?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB5620.namprd12.prod.outlook.com (2603:10b6:510:137::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Fri, 9 Oct
+ 2026 07:00:35 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
+ 07:00:35 +0000
+Message-ID: <c64df6fa-6734-4c66-8f8b-52e5bd118cdb@amd.com>
+Date: Fri, 9 Oct 2026 09:00:31 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: wait for pending page table updates before
+ switching a VM to CPU updates
+To: John Fisher <jfisher84@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, Prike Liang <Prike.Liang@amd.com>
+References: <20261008204517.392180-1-jfisher84@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261008204517.392180-1-jfisher84@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0020.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5620:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73352ee7-86e1-4a44-7e07-08df25d3046a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|23010399003|1800799024|260925021911599003|11063799006|10067099003|260925021311599003|260925022911599003|56012099006|5023799004|18002099003|6133799003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: ur6m4EEznlAZW3qLiTJvqnVka+lCmI+aNlWtCtoA/0z1E3rsy9zETsm/cUzTejPSPaI3iLImi3Glvr5PwAUSEZy1Vrah27vKCiBsjJRzsuOkw4uRTN7dvhvPtrMv/A2yNIInhk2VnGmiUZ0lxWP3nrhXau8i4o0evLB91l2V1ma2SKbAVogPhMiwFZmIW8uzHTAY9Kgcxs18oy+JuOgykZW6+76LOaA4qnVFjbV0TrTNpUNXP5YiTD17bdjO72NGIiIh/FFpIFM9ZIIotTVgJSjSRjJ/5sK1tkWuASrGJcb17MdslmLxWUPvNmwSr5n0TaoO4MnrhXPvqfIjPo8JI5xz/LWAmx9H4dNUKGWyuwRu+k7PDGNAT0W5j77nxx/Xo7Xb9zrKcklNEAfp4H00xJwO75fZWXwp531AIwbRY03jlwH6t3J72a9jQijldVVWKcjXVoKnvBSQrGLSqmKLX84hQoqgUBzrMjJRNLKgR8vl6euh02K4giAJMuJ4Oi4dycUU1Dqcwk/rX9GCzQ7r0WgJJn0bU4+5D+PQN5CRehA0xwV4Pn2AJJLk1AhvkNwKA0hJtAuESxVsCbfm9o8TwyzzWjQ8FshBLTylyn0FjcwL/I7HPxzpxpoLHX0ofjj9
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(260925021911599003)(11063799006)(10067099003)(260925021311599003)(260925022911599003)(56012099006)(5023799004)(18002099003)(6133799003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Kzk5WEpXcTJ5K1RJRURNcXUySm14MlAra3o4UWR0TTZZeGNYZWx4bG0zbDhx?=
+ =?utf-8?B?M3djd1RENUZBYkZTZm4xYVA4OXZ5bEZTQTNBNEgrZThVM3NqSGJETjJXRFVV?=
+ =?utf-8?B?d1B0UGtycHlZcmxPc245b1NHTCt4MWFaS0ZDNFVhVWJTTGxDeDFIQTVSR0xN?=
+ =?utf-8?B?dSt3T015a24xRmx1OUhVQVQ0ZWtRck4yVXZpc0k3NlpIQ1pUeGxQRGFPRmMz?=
+ =?utf-8?B?eTFrR3pjcUpibVlFWFBEY1RoMThOS080YUNBRWcyRzQzWTdxWEJBNk4rMm5q?=
+ =?utf-8?B?MXdXeWx6UDJJWVhURzlGUVdUK1BleDF2dlVlZmRJS1Y4YWQ2NmwxaDdEQWlG?=
+ =?utf-8?B?MFE4ZGQyNVJyVTJwZTc3cHl4TTA2Tk9kZVhHaGFlN2pCajBUb2twbXlNRy9G?=
+ =?utf-8?B?NFMrc25QMXFudEdlU1pXSFhkR2VMb1MrZklqTG1IT2FVZ0FmR3c1R21lblVp?=
+ =?utf-8?B?MmZPRFh2bCs5c0YxZStQd0prSnJyUTNnVGdjWmxMVE1SdGlRczljYTZMWjRR?=
+ =?utf-8?B?Nm9pK0VMTjlJREFzT0NFR0xCSjAzNXZuUi9DOXVvazZlNXFoZ0hrNEJjUjUz?=
+ =?utf-8?B?V1VPaUh3Y3hVNUNZV3hRaCt4Y1YyNllTWE9DSnNxT0VudDlTQ2w4RS9QeDJn?=
+ =?utf-8?B?bk9EVXVMN1IvcjRiWkRtR3crcy8xMDRZWEczRDh2Z3JpZStJYUc0M1AwelNL?=
+ =?utf-8?B?SWpPVTlDRndBZTRSM056RkhoRUNGSlZSbEFrbEVLQWV1VDRBU0ZRVnhCaCtv?=
+ =?utf-8?B?ZUE0cGVsak9STGRDL2d6Wk44c0NGY2tlZmRxYzkyc3hZN2UxclU2eEJuTisr?=
+ =?utf-8?B?dHIyME5KcGZXQmRpd3pJRDkvVzhsSDc5WmEvaVFCdEVSVm4wUm1BdHRJblpx?=
+ =?utf-8?B?dFAwOXRBQStJbHEyMU1PcWlyVllRK2VhRVdpM1JPd0UzbnFlZXIrRVJQd1cy?=
+ =?utf-8?B?UHE0TStIcVVRbW9MNXlWaWJuRHR1QTdBRnlvc2hrL0FXUDQ0TVlGVmcxWlNt?=
+ =?utf-8?B?MldCYXZzbzdnaWUxYUlkcjBCay9ycUdwa2xUWkp1elJEZWo2a1hvMGxWNVVh?=
+ =?utf-8?B?UlBFUGRxWG9SM2FMdS9mRDl2RE5xUENOMTV5MGkvZm5kZGpQdzlGZ0UwSWJm?=
+ =?utf-8?B?M2hhMFZMUXl4Nkp2Yk12Rmw5Mi8yTERIOW0xRlJqTCs1aHNROGUyc0FoN251?=
+ =?utf-8?B?M3RHUkxoK0NxVVYyd0RxeTNXSkxmanRlMlJ1YitpSjJRZHAxNmxzOCtzRERU?=
+ =?utf-8?B?RGJ0SVJJN0dRQitqS0QwK1FNRkJneTFQdUlxQSt0dkFwcmRBLzFhYXhzb0Fh?=
+ =?utf-8?B?VS9lNFBoVjRSZ25UV2VTeEpUb1d3TW9DOEw1N1lJUjAxYXp1MDV6TVpKRXFt?=
+ =?utf-8?B?QXZGcWF1Q3BLclBaZkI1NkxZOWJLdTB4WjRBUTRKVS9NcFQ3dEpCYzgwaGVY?=
+ =?utf-8?B?OW1Ba3djYnpERTh4TDZTeGlHZDZVU1F2RmcrdVJXck5SUWVyNlhRZ0dLblhu?=
+ =?utf-8?B?OFE2TFFwVGtTWkZvbWxuV3pWL3gzdGJRcjJ6Qy9LVDY5U2dHODJxT25IV3By?=
+ =?utf-8?B?ZDVwKzdmRFZBQUZya0d3ZUppOExqQk85UmplbXNkV2hudTVaYmtYYzhhK2hq?=
+ =?utf-8?B?ZDdlT09Yb2ExUjVkUUlMMHkxN2FITGJMbE03akZveWVlamczajNuN1FLRnlD?=
+ =?utf-8?B?Rks2eHJncUFxOE1vc0xCcmNzdlo5T0NDcnBSMnhlQUE5a2NzUHhkT1dQK1U2?=
+ =?utf-8?B?aHJBSi9WMEpxKzBlMFRCU3JnOFJpejhFNHB0bGh3QVliQ2pwVjVXb0U0UytQ?=
+ =?utf-8?B?U0s2U2lUdHV6RzNqOTZlRlpmYlZubDlPMVBaS3JiMlJRMWFnT1NGMTJQbjQ1?=
+ =?utf-8?B?OVdwUDhtTUxCaVQ3SS9uaTFFM1RmazNHVk1aR0ErUFBnb09xVVBzd3NGY0sz?=
+ =?utf-8?B?ZlVQL1NROFI4MEk3WldpQ3cxczQxL0Y1dkVWUmlYYkgyUVR5dWxZb1JjNlFk?=
+ =?utf-8?B?L0xCYkVHTDRHN2NXT1RrMDVhNi80OEpvcndrT091U0wzTzcvZDBKbzg3SjdC?=
+ =?utf-8?B?amRwRXExZU9BcGh3TTZRdlEvTUtybXNFSW9tRDEzU2R2WEk4dlBSWjUrcXY1?=
+ =?utf-8?B?YWlPM0FCN0I3Z0hOQTVzZXhsTGs3Q0JwSnhHREhFVDRsRFdvd2FZTWwwN2Za?=
+ =?utf-8?B?NGhyZDVEbStqb1dFdHJFbWpVTTNnU2FqRWd6RStPZHYrRDkyb2haSVRudnZI?=
+ =?utf-8?B?Slo2WnhZbmNrbjYwazh5aWtvbHF5MCtqTTMrS0JMZUU2Zm8yS3J2WDdRczZB?=
+ =?utf-8?Q?wa/AchyO3k97jg3vZ3?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73352ee7-86e1-4a44-7e07-08df25d3046a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPFFF39339DD.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d81d803-da8e-4754-ed1c-08df25d2effc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 07:00:00.9424 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BkApIc2E3Th2u8gYkxE/5rMOCVXJb5EecfZNYIcmn/3gvnmIx90Om8O64Cpa9sV5/yq7eA1rrZTcj9iu/lig8w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7861
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 07:00:35.4584 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GMBhOyUHQ+bIy90ZDM7p56VJ055Z4WsALw3qjy1OP8opO5HSkVwwhWPdD1yFNqXh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5620
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,211 +136,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+On 10/8/26 22:45, John Fisher wrote:
+> amdgpu_vm_make_compute() switches a VM from SDMA to CPU page table
+> updates when a KFD process acquires it. It syncs "with the last SDMA
+> update/clear" through amdgpu_bo_sync_wait() on the root PD, but that
+> walks the reservation with DMA_RESV_USAGE_READ, and the clears of the
+> VM's page tables (the root PD from amdgpu_vm_init(), and the PDs/PTs
+> the seq64 mapping allocates at the render node's open) are added there
+> by amdgpu_vm_sdma_commit() with DMA_RESV_USAGE_BOOKKEEP only:
+> amdgpu_vm_pt_clear() commits them with a NULL fence, so they do not
+> reach vm->last_update. The CPU path's own waits (amdgpu_vm_cpu_update(),
+> amdgpu_bo_kmap()) use DMA_RESV_USAGE_KERNEL. None of them waits for a
+> clear that is still queued.
+> 
+> When one is, the CPU writes the first entries of the new compute VM (the
+> KFD trap handler's TBA/TMA page at AMDGPU_VA_RESERVED_TRAP_START, mapped
+> during ACQUIRE_VM) into a page directory the SDMA then clears. The
+> entries are gone, the handler's page is unmapped, and the first wave
+> save of any queue of the process faults in the SQC instruction fetch at
+> the handler's address (GCVM_L2_PROTECTION_FAULT_STATUS 0x008012B1,
+> PERMISSION_FAULTS 0xb). The MES then fails REMOVE_QUEUE and SUSPEND, and
+> the device takes a MODE1 reset with VRAM lost on 7.2.9; on 7.3-rc6 the
+> queue is reset instead.
+> 
+> The window is the time between the render node's open and ACQUIRE_VM.
+> ROCr spends milliseconds there and is practically never hit; a minimal
+> KFD client that opens the render node and acquires the VM at once is hit
+> most of the time. On a Radeon AI PRO R9700 (gfx1201, Resizable BAR, so
+> vm_update_mode defaults to CPU updates for compute VMs), a wave reading
+> the trap handler's page right after queue creation found it unmapped in
+> 8 of 12 runs; a 5 ms sleep between the open and ACQUIRE_VM made that 0
+> of 9, and the same sleep after queue creation instead 3 of 3.
+> 
+> The wait covered these jobs until commit 926c79ad6ecd ("drm/amdgpu:
+> promote the implicit sync to the dependent read fences") narrowed
+> amdgpu_sync_resv() from DMA_RESV_USAGE_BOOKKEEP to DMA_RESV_USAGE_READ;
+> the VM's page table jobs have been added with BOOKKEEP since commit
+> 4247084057cf ("drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP v2"), so from
+> v6.16 on the sync in amdgpu_vm_make_compute() waits for nothing of
+> them.
+> 
+> Record the clears in vm->last_update, as amdgpu_vm_update_pdes() does
+> with its updates, and wait for it, uninterruptibly, before switching the
+> update functions. The clears all go through vm->delayed, so the last one
+> covers the earlier ones; immediate clears are not recorded, as before.
+> 
+> With this, on 7.3-rc6 and on 7.2.9, the same client reads the handler
+> 10 of 10 times, 8 busy queues on the 4 compute slots complete in 5 of 5
+> runs on 7.3-rc6 and 3 of 3 on 7.2.9 (1 of 6 before), 16 and 32 queues
+> complete on 7.3-rc6, and two processes with 8 queues each complete
+> together on both, with no fault.
+> 
+> Fixes: 926c79ad6ecd ("drm/amdgpu: promote the implicit sync to the dependent read fences")
+> Cc: stable@vger.kernel.org # v6.16+
+> Cc: Prike Liang <Prike.Liang@amd.com>
+> Signed-off-by: John Fisher <jfisher84@gmail.com>
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Stanley.=
-Yang
-Sent: Friday, October 9, 2026 2:06 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
- Chai, Thomas <YiPeng.Chai@amd.com>; Li, Candice <Candice.Li@amd.com>; Liu,=
- Xiang(Dean) <Xiang.Liu@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>; Xie, =
-Patrick <Gangliang.Xie@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>
-Subject: [PATCH Review v2 1/1] drm/amd/ras: Support invoke ras command
-
-Use uniras core to invoke ras command.
-
-Changed from v1:
-        use common function send_ras_ta_runtime_cmd in ras_psp_invoke_ras_t=
-a
-
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c | 17 +++++++++
- drivers/gpu/drm/amd/ras/core/ras_psp.c     | 40 +++++++++++++++++-----
- drivers/gpu/drm/amd/ras/core/ras_psp.h     |  3 ++
- drivers/gpu/drm/amd/ras/core/ta_if.h       |  1 +
- 4 files changed, 53 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_psp_ta.c
-index 8ae72c862d11..2d494ac57eb4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-@@ -23,6 +23,7 @@
-
- #include "amdgpu.h"
- #include "amdgpu_psp_ta.h"
-+#include "amdgpu_ras_mgr.h"
-
- #if defined(CONFIG_DEBUG_FS)
-
-@@ -330,6 +331,22 @@ static ssize_t ta_if_invoke_debugfs_write(struct file =
-*fp, const char *buf, size
-        if (IS_ERR(shared_buf))
-                return PTR_ERR(shared_buf);
-
-+       if (ta_type =3D=3D TA_TYPE_RAS && amdgpu_uniras_enabled(adev)) {
-+               struct amdgpu_ras_mgr *ras_mgr =3D amdgpu_ras_mgr_get_conte=
-xt(adev);
-+
-+               if (!ras_mgr || !ras_mgr->ras_core) {
-+                       ret =3D -EINVAL;
-+                       goto free_shared_buf;
-+               }
-+
-+               ret =3D ras_psp_invoke_ras_ta(ras_mgr->ras_core, ta_id, cmd=
-_id,
-+                                          shared_buf, shared_buf_len);
-+               if (!ret && copy_to_user((char *)&buf[copy_pos], shared_buf=
-, shared_buf_len))
-+                       ret =3D -EFAULT;
-+
-+               goto free_shared_buf;
-+       }
-+
-        set_ta_context_funcs(psp, ta_type, &context);
-
-        if (!context || !context->initialized) { diff --git a/drivers/gpu/d=
-rm/amd/ras/core/ras_psp.c b/drivers/gpu/drm/amd/ras/core/ras_psp.c
-index ed53cd25d6bd..c3c6039bfe7a 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_psp.c
-+++ b/drivers/gpu/drm/amd/ras/core/ras_psp.c
-@@ -426,7 +426,8 @@ static int __check_ras_ta_cmd_resp(struct ras_core_cont=
-ext *ras_core,  }
-
- static int send_ras_ta_runtime_cmd(struct ras_core_context *ras_core,
--                       enum ras_ta_cmd_id cmd_id, void *in, uint32_t in_si=
-ze,
-+                       uint32_t session_id, enum ras_ta_cmd_id cmd_id,
-+                       void *in, uint32_t in_size,
-                        void *out, uint32_t out_size)
- {
-        struct ras_ta_ctx *ta_ctx =3D &ras_core->ras_psp.ta_ctx; @@ -467,7 =
-+468,7 @@ static int send_ras_ta_runtime_cmd(struct ras_core_context *ras_c=
-ore,
-        memcpy(&ras_cmd->ras_in_message, in, in_size);
-
-        invoke_cmd.ta_cmd_id =3D cmd_id;
--       invoke_cmd.session_id =3D ta_ctx->session_id;
-+       invoke_cmd.session_id =3D session_id;
-
-        ret =3D send_psp_cmd(ras_core, GFX_CMD_ID_INVOKE_CMD,
-                        &invoke_cmd, sizeof(invoke_cmd), &resp); @@ -494,10=
- +495,15 @@ static int send_ras_ta_runtime_cmd(struct ras_core_context *ras=
-_core,
-                goto unlock;
-        }
-
--       if (!ras_cmd->ras_status && out && out_size)
-+       /* Hand the TA output back regardless of status; ret carries the st=
-atus. */
-+       if (out && out_size)
-                memcpy(out, &ras_cmd->ras_out_message, out_size);
-
--       ret =3D __check_ras_ta_cmd_resp(ras_core, ras_cmd);
-+       /* cmd from user space requires special handling for CHECK_ACA_BANK=
-_ERROR_TYPES */
-+       if (cmd_id =3D=3D RAS_TA_CMD_ID__CHECK_ACA_BANK_ERROR_TYPES)
-+               __check_ras_ta_cmd_resp(ras_core, ras_cmd);
-+       else
-+               ret =3D __check_ras_ta_cmd_resp(ras_core, ras_cmd);
-
- unlock:
-        mutex_unlock(&ta_ctx->ta_mutex);
-@@ -536,7 +542,9 @@ static int trigger_ras_ta_error(struct ras_core_context=
- *ras_core,
-        dev_mask &=3D RAS_TA_INST_MASK;
-        info->sub_block_index |=3D dev_mask;
-
--       return send_ras_ta_runtime_cmd(ras_core, RAS_TA_CMD_ID__TRIGGER_ERR=
-OR,
-+       return send_ras_ta_runtime_cmd(ras_core,
-+                               ras_core->ras_psp.ta_ctx.session_id,
-+                               RAS_TA_CMD_ID__TRIGGER_ERROR,
-                                info, sizeof(*info), NULL, 0);
- }
-
-@@ -785,6 +793,21 @@ int ras_psp_unsideload_ras_ta(struct ras_core_context =
-*ras_core,
-        return unload_ras_ta_fw(ras_core, ras_ta_unload);  }
-
-+int ras_psp_invoke_ras_ta(struct ras_core_context *ras_core,
-+               uint32_t session_id, uint32_t cmd_id,
-+               void *shared_buf, uint32_t shared_buf_len) {
-+       /* The debugfs caller hands over a full ras_ta_cmd shared buffer. *=
-/
-+       struct ras_ta_cmd *ras_cmd =3D shared_buf;
-+
-+       if (!shared_buf || shared_buf_len < sizeof(*ras_cmd))
-+               return -EINVAL;
-+
-+       return send_ras_ta_runtime_cmd(ras_core, session_id, cmd_id,
-+                       &ras_cmd->ras_in_message, sizeof(ras_cmd->ras_in_me=
-ssage),
-+                       &ras_cmd->ras_out_message, sizeof(ras_cmd->ras_out_=
-message));
-+}
-+
- int ras_psp_reload_firmwares(struct ras_core_context *ras_core,
-                uint32_t flags)
- {
-@@ -810,7 +833,7 @@ int ras_psp_enable_features(struct ras_core_context *ra=
-s_core,
-                return -ENOEXEC;
-        }
-
--       return send_ras_ta_runtime_cmd(ras_core,
-+       return send_ras_ta_runtime_cmd(ras_core, ta_ctx->session_id,
-                        enable ? RAS_TA_CMD_ID__ENABLE_FEATURES :
-                                 RAS_TA_CMD_ID__DISABLE_FEATURES,
-                        info, sizeof(*info), NULL, 0);
-@@ -846,8 +869,9 @@ int ras_psp_query_address(struct ras_core_context *ras_=
-core,
-        if (!addr_in || !addr_out)
-                return -EINVAL;
-
--       return send_ras_ta_runtime_cmd(ras_core, RAS_TA_CMD_ID__QUERY_ADDRE=
-SS,
--               addr_in, sizeof(*addr_in), addr_out, sizeof(*addr_out));
-+       return send_ras_ta_runtime_cmd(ras_core, ta_ctx->session_id,
-+               RAS_TA_CMD_ID__QUERY_ADDRESS, addr_in, sizeof(*addr_in),
-+               addr_out, sizeof(*addr_out));
- }
-
- int ras_psp_sw_init(struct ras_core_context *ras_core) diff --git a/driver=
-s/gpu/drm/amd/ras/core/ras_psp.h b/drivers/gpu/drm/amd/ras/core/ras_psp.h
-index 4cc133c6a6d3..91d17fdd6bda 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_psp.h
-+++ b/drivers/gpu/drm/amd/ras/core/ras_psp.h
-@@ -196,6 +196,9 @@ int ras_psp_sideload_ras_ta(struct ras_core_context *ra=
-s_core,
-                struct ras_psp_ta_load *ta_load);
- int ras_psp_unsideload_ras_ta(struct ras_core_context *ras_core,
-                struct ras_psp_ta_unload *ras_ta_unload);
-+int ras_psp_invoke_ras_ta(struct ras_core_context *ras_core,
-+               uint32_t session_id, uint32_t cmd_id,
-+               void *shared_buf, uint32_t shared_buf_len);
- int ras_psp_enable_features(struct ras_core_context *ras_core,
-        struct ras_ta_enable_features_input *info, bool enable);  int ras_p=
-sp_trigger_error(struct ras_core_context *ras_core, diff --git a/drivers/gp=
-u/drm/amd/ras/core/ta_if.h b/drivers/gpu/drm/amd/ras/core/ta_if.h
-index 30c058a524db..87d5aa3f8477 100644
---- a/drivers/gpu/drm/amd/ras/core/ta_if.h
-+++ b/drivers/gpu/drm/amd/ras/core/ta_if.h
-@@ -44,6 +44,7 @@ enum ras_ta_cmd_id {
-        RAS_TA_CMD_ID__QUERY_BLOCK_INFO,
-        RAS_TA_CMD_ID__QUERY_SUB_BLOCK_INFO,
-        RAS_TA_CMD_ID__QUERY_ADDRESS,
-+       RAS_TA_CMD_ID__CHECK_ACA_BANK_ERROR_TYPES =3D 10,
-        MAX_RAS_TA_CMD_ID
- };
-
---
-2.43.0
+> ---
+> v2: wait for vm->last_update, in which amdgpu_vm_pt_clear() now records
+>     the clears, instead of every BOOKKEEP fence on the root PD; wait
+>     uninterruptibly without checking the result; keep the original
+>     comment (Christian)
+> v1: https://lore.kernel.org/amd-gfx/20261007200345.417281-1-jfisher84@gmail.com/
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 5 +----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
+>  2 files changed, 2 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 29187fabc..757a037ed 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2737,10 +2737,7 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>  
+>  	if (vm->use_cpu_for_update) {
+>  		/* Sync with last SDMA update/clear before switching to CPU */
+> -		r = amdgpu_bo_sync_wait(vm->root.bo,
+> -					AMDGPU_FENCE_OWNER_UNDEFINED, true);
+> -		if (r)
+> -			goto unreserve_bo;
+> +		dma_fence_wait(vm->last_update, false);
+>  
+>  		vm->update_funcs = &amdgpu_vm_cpu_funcs;
+>  		r = amdgpu_vm_pt_map_tables(adev, vm);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index c03327f12..cdbc2e931 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -427,7 +427,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  	if (r)
+>  		goto exit;
+>  
+> -	r = vm->update_funcs->commit(&params, NULL);
+> +	r = vm->update_funcs->commit(&params, &vm->last_update);
+>  exit:
+>  	drm_dev_exit(idx);
+>  	return r;
 
