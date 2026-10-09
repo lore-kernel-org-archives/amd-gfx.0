@@ -4,52 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1232CA9EC8
-	for <amd-gfx@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0D4BCA9EC7
+	for <amd-gfx@archiver.kernel.org>; Sat, 10 Oct 2026 12:38:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC5610EBE9;
-	Sat, 10 Oct 2026 12:37:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3FD10EBE2;
+	Sat, 10 Oct 2026 12:38:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="h62DOo3Q";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="L6+PFKcs";
 	dkim-atps=neutral
-X-Greylist: delayed 365 seconds by postgrey-1.36 at gabe;
- Fri, 09 Oct 2026 19:26:52 UTC
-Received: from mta1.migadu.com (out-15.mta1.migadu.com [95.215.58.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 536F411227B
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 19:26:52 +0000 (UTC)
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=oOwGbuDH4is48yWx6pl2bm046cUQPMcDmLWPHdbtGuM=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791574010; v=1; x=1792178810;
- b=h62DOo3Q4wB+dPAOaUeHNrrAZg0VZZEeCP6j+vEUzKZpKW0nnzTj1HsB82tYwBsls54MOaQH
- 4tbCRwpPaHIA5yqDuukizfkXObBZMMkl0tRnFSe9S2b7lVpkqE5ZYsoNBfKFSTdq1p5Ke3N5dHv
- TuLB6Vq6HVe8sPfEw+6v6Klk=
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 7f7139aa950e2d35;
- Fri, 09 Oct 2026 19:20:36 +0000
-X-Mizu-Trace-ID: 7f7139aa950e2d35
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <497eb268-656f-49ab-8df0-83ede5b36a81@linux.dev>
-Date: Sat, 10 Oct 2026 00:50:29 +0530
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 913B811214A;
+ Fri,  9 Oct 2026 13:29:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=y+
+ ePeBrDalH4ot+RGsdcB0s9bmc/mBJjEtJvv7GUvmI=; b=L6+PFKcsbvh6J35Vbm
+ 977RGwxynajGUjvp6qLHitQPBAELWHktpXeJH66JQ/DOkgY92Gk3IoaVhTDvP7bP
+ LhT0u3kTvYi3rCvocGMEJrsnpzbxI0Fg4dtCSIUx5uI4yfliRcau0MpqNjS8+cFI
+ hjexNpfkZwt1IcWpK02nIqnhg=
+Received: from colol4bi5.localdomain (unknown [])
+ by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id
+ _____wD338uI68hqzoRZDQ--.36286S2; 
+ Fri, 09 Oct 2026 21:26:33 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Binbin Deng <18983559317@163.com>
+Subject: [PATCH v1] drm/amdkfd: Fix use-after-free in the process creation
+ error path
+Date: Fri,  9 Oct 2026 21:26:19 +0800
+Message-ID: <20261009132619.40151-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-linus] PCI/AER: Skip error recovery on false alarms
-To: Lukas Wunner <lukas@wunner.de>, Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- Oliver OHalloran <oohall@gmail.com>, linuxppc-dev@lists.ozlabs.org,
- Alex Deucher <alexdeucher@gmail.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, amd-gfx@lists.freedesktop.org,
- Jason Perlow <jperlow@gmail.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>
-References: <0552ed277e40a288e0157af799257ee6ec722534.1791460615.git.lukas@wunner.de>
- <20261008191705.GA917105@bhelgaas> <ash0Rn78gwlQ87Fg@wunner.de>
-Content-Language: en-US
-From: Aditya Garg <aditya.garg@linux.dev>
-In-Reply-To: <ash0Rn78gwlQ87Fg@wunner.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wD338uI68hqzoRZDQ--.36286S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxur47Wr1rXF15uryDKF45Wrg_yoW5Gw4rpa
+ yrWF1jvr1kC3Z7K343Zay8ZryfJw4UAF47Grn7Kr9xWw15AFy5XrZxGryj9F95Cr1F9a43
+ t3WDWr4UGr9Fvr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U1uWXUUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4AnpzWrI64kgAAAA3t
 X-Mailman-Approved-At: Sat, 10 Oct 2026 12:37:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,100 +58,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+create_process() publishes the new process in the global hash table
+before the steps that can still fail:
 
-> I think the firmware on the T2 is upgradable in principle, but Apple isn't
-> going to do us the favor to fix it.  So we don't have any other option
-> than keeping a blacklist for ANFE-incompatible devices, with the T2 being
-> the first device on that blacklist and maybe others to follow.
-> 
-> I was going to work on this for the remainder of the week, but if you feel
-> the feature needs another cycle to mature, I have no objections to
-> reverting eddba19b8b5f for v7.3 and re-applying it together with the two
-> required fixes to pci/aer.  (The two required fixes being the one for Alex
-> and the one for the T2.)
-> 
-> Thanks,
-> 
-> Lukas
+	/* alloc_notifier needs to find the process in the hash table */
+	hash_add_rcu(kfd_processes_table, &process->kfd_processes,
+			(uintptr_t)process->mm);
 
-It would be nice if someone could test this patch:
+If a later step fails (mmu_notifier_get() with a pending signal, or
+kfd_process_alloc_id()), the error path removes and frees it:
 
--->8--
+err_register_notifier:
+	hash_del_rcu(&process->kfd_processes);
+	svm_range_list_fini(process);
+	...
+	kfree(process);
 
-From 88c681d745931ad8b0199a490dc0278bf2a3df9b Mon Sep 17 00:00:00 2001
-From: Aditya Garg <aditya.garg@linux.dev>
-Date: Fri, 9 Oct 2026 19:17:02 +0000
-Subject: [PATCH] Quirk
+hash_del_rcu() only unlinks the node; readers that entered an SRCU
+read-side critical section before the deletion can still be walking
+the hash bucket and using the node.  The unconditional kfree() that
+follows is not covered by any SRCU grace period, so such a reader can
+obtain and dereference freed memory.
 
+The readers are the GPU interrupt and ioctl lookup helpers, which run
+under srcu_read_lock(&kfd_processes_srcu) only:
+kfd_lookup_process_by_pasid() iterates the whole table with
+hash_for_each_rcu and dereferences p->pdds[] of every entry;
+kfd_lookup_process_by_id() and kfd_lookup_process_by_mm() match and
+return the process for further use.
+
+The normal removal path (kfd_process_table_remove()) already executes
+synchronize_srcu(&kfd_processes_srcu) after hash_del_rcu(); only the
+error rollback path misses it.  The race is reachable by an unprivileged
+GPU compute user: a thread whose process creation fails (e.g. ioctl
+interrupted by SIGKILL at mmu_notifier_get) while another thread is
+servicing a GPU interrupt that walks the process table.
+
+Fix this by waiting for an SRCU grace period in the error path after
+unlinking the process, before the object is freed.
+
+Fixes: 0029cab3146a ("drm/amdkfd: fix a use after free race with mmu_notifer unregister")
+Signed-off-by: Binbin Deng <18983559317@163.com>
 ---
- drivers/pci/pcie/aer.c  |  3 ++-
- drivers/pci/quirks.c    | 12 ++++++++++++
- include/linux/pci.h     |  1 +
- include/linux/pci_ids.h |  1 +
- 4 files changed, 16 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index 922a726a5..cab195f7c 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -428,7 +428,8 @@ void pci_aer_init(struct pci_dev *dev)
- 	 * Advisory Non-Fatal Errors are masked by default (PCIe r7.0, sec
- 	 * 7.8.4.6).
- 	 */
--	if (pcie_aer_is_native(dev) && dev->devcap & PCI_EXP_DEVCAP_RBER)
-+	if (pcie_aer_is_native(dev) && dev->devcap & PCI_EXP_DEVCAP_RBER &&
-+		!dev->no_aer_anfe)
- 		pci_clear_and_set_config_dword(dev,
- 					       dev->aer_cap + PCI_ERR_COR_MASK,
- 					       PCI_ERR_COR_ADV_NFAT, 0);
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index de9bbccda..acca89532 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -6422,4 +6422,16 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
- }
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer_timeout);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer_timeout);
-+
-+/*
-+ * Unmasking Advisory Non-Fatar Errors on Apple T2 Secure Enclave
-+ * processor leads to the Mac shutting down spontaneously. Avoid
-+ * doing that.
-+ */
-+static void quirk_no_aer_anfe(struct pci_dev *dev)
-+{
-+	dev->no_aer_anfe = 1;
-+}
-+
-+DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_APPLE, PCI_DEVICE_ID_APPLE_T2_SEP, quirk_no_aer_anfe);
- #endif
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index d31a8d107..83ffa5058 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -514,6 +514,7 @@ struct pci_dev {
- 	unsigned int	rom_bar_overlap:1;	/* ROM BAR disable broken */
- 	unsigned int	rom_attr_enabled:1;	/* Display of ROM attribute enabled? */
- 	unsigned int	non_mappable_bars:1;	/* BARs can't be mapped by CPU or peers */
-+	unsigned int	no_aer_anfe:1;		/* Don't unmask */
- 	pci_dev_flags_t dev_flags;
- 	atomic_t	enable_cnt;	/* pci_enable_device has been called */
- 
-diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-index 63774ae2b..103024f74 100644
---- a/include/linux/pci_ids.h
-+++ b/include/linux/pci_ids.h
-@@ -1007,6 +1007,7 @@
- #define PCI_DEVICE_ID_APPLE_IPID2_FW	0x006a
- #define PCI_DEVICE_ID_APPLE_IPID2_GMAC	0x006b
- #define PCI_DEVICE_ID_APPLE_TIGON3	0x1645
-+#define PCI_DEVICE_ID_APPLE_T2_SEP	0x1802
- 
- #define PCI_VENDOR_ID_YAMAHA		0x1073
- #define PCI_DEVICE_ID_YAMAHA_724	0x0004
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 0a7c1900da95..8d0e70a256f7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1747,6 +1747,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ 	kfd_process_free_id(process);
+ err_register_notifier:
+ 	hash_del_rcu(&process->kfd_processes);
++	synchronize_srcu(&kfd_processes_srcu);
+ 	svm_range_list_fini(process);
+ err_init_svm_range_list:
+ 	kfd_process_free_outstanding_kfd_bos(process);
 -- 
-2.55.0
-
--->8--
+2.43.0
 
