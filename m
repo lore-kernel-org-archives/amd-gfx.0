@@ -4,124 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A2CECA6015
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 14:42:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2806CA601D
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Oct 2026 15:00:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C991C1121A2;
-	Fri,  9 Oct 2026 14:42:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1D0112160;
+	Fri,  9 Oct 2026 15:00:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nZuPV2AB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hz9qlTXa";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010022.outbound.protection.outlook.com
- [40.93.198.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C02E11121A2
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Oct 2026 14:42:17 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012022.outbound.protection.outlook.com [52.101.48.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE5111215E;
+ Fri,  9 Oct 2026 15:00:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=olrpc6ddBqE9j5Mwsk3XgEjFmSjg5CRSDNRsRpmU65ZwJH5uYK4WwazTHuMe+2tg0WqvvmPmqnFEK2tNRQmIVHkkWv7dGV5Z8+jiC605fEBfdONCio3gOk9Vb9s9mtM82Q+8GXuSAy1JrLARqi98d3FGdybKWG4s94YzTnAqsCCzS3zq/kduMrqtRTCDsy8K5mBxSMVw3hoMfAM2/eF77r05USu09geRtwMo2xajqR+fuHwWwSmuSFKKuKI4Y3TU+ta47HH22bxyPAwKTNCqa3zkwBvx+iufwQbZgAD6u75JvgxliKBe3eoHGKRRyAUPp1InHlX+eGSGtoo0alH/kw==
+ b=rvVIX5uWK/M/FqGhFB2C4PMnhsrYAhizzzuIzY4H8dP98BBsfl/Gu4hYjDWj7/u78YWilhwaKuEMU7uRTNh5zJB9PYxfntIdgcfB3C7OtVC2BD4wKkFQQtnrzo1lMoPDdZeANBWpr1oRVKM6V3j0SI0cRgCwSo7xfaUxgoVKJo8URb8j/+QfTynkrKs7X4RSq7sJd+m6OOqnGbtFB5kXD1CPEPHluK6qZNQ0hHliQ4jFmbhhkZJ5T4AnNw2KJ1p360cFkX7vhDTHrqON0k6l9YGR5H/zPKSIS/RXxZnHq7RePGkj8EIFGjLDb7Zpuv5FqK7AKd262J56DFOwTf1R4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cZn6hPS3LEg7dFGRDief9kIS/rae9Q5hy9uaaN2VN48=;
- b=EajTewcepuDNzFsubLSt2wlcOpUCp3g4gQ6vcZ5TWRqqgwc3eAzrH2SzYLsrYbeKnHU+rNusRjq3V9OjLmSuqp6YsD/zNVVUY4uO3jXLeb2onouhl68d53yvmOqQP90ZzR8LE4rivCdVr1cY5DX0XbQjsi1IrcCEMMLkRORKRc31oW4B3QP6lCnTB6XtQnC5Xh4t3MckLr3GmkduMhojt+pXQLFFJsFCh1J1K4OG+eXvzzJFbcflq1TK0PinRrS/S0B5po/8DjT4mThN3tFhE3OlS4de5v6p8Q8H+8t7BlvypgySDWdcGOkQn3Hg2yWHT/r/ubj2O783hSj97k+Lmw==
+ bh=OnOiJIgDLWU+rkoz6NWl2t3dLjwbWg86a9gFoo9asZ4=;
+ b=p2WkWsT3aCSaH0uLkxHm5urGPBeebULjp0EXLO6KYC458xPmOa5i62lq6mG6FfmpIVqsgfDJC2J50J9rtSgtmlQpr0QHDqDE1pDb5M9XTXXWQywHLGfKsEwrPxM7/cd0Y0LcpFPOhP5crRih+WME08zvIxKd+JEOCq6tZ/fymYoT61Pe4pMbvhClds6SbHOciSdHZrCNPkGOLEv15KQX1OZuc1DvfM5utJqnnioM1bRFvsv/dLiC4VTcfdddfYEOjgCBk/uukiaO6KAcsTWbxVh/VG6TAP5+qDYVcIQrZw0WnB6zsG/qvEhxzn79pmfaq+S6t0AL9+vsijGFfDaioQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cZn6hPS3LEg7dFGRDief9kIS/rae9Q5hy9uaaN2VN48=;
- b=nZuPV2ABxO4ZiDICASA9NFNlywmCqB/3vVRC49qs9UEdd/dapJpZlPlfj8AWQHRWU58mx2WIxm5AB6AO4I+YusKFOO3xi8LwuDkL4KxTgR5bmMZACRRw0ShPh2fdbU/K6TfdRvOjvJ9VjTMPYE6HKs95CfSwMB+1hJpG4L+qgMI=
-Received: from BN5PR12MB9464.namprd12.prod.outlook.com (2603:10b6:408:2ab::10)
- by PH7PR12MB6468.namprd12.prod.outlook.com (2603:10b6:510:1f4::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
- 2026 14:42:12 +0000
-Received: from BN5PR12MB9464.namprd12.prod.outlook.com
- ([fe80::75c8:22c3:b9fe:2f78]) by BN5PR12MB9464.namprd12.prod.outlook.com
- ([fe80::75c8:22c3:b9fe:2f78%5]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 14:42:12 +0000
-From: "Sun, Yongqiang" <Yongqiang.Sun@amd.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/mes: wake the GPU before toggling mes_dbgext
- from debugfs
-Thread-Topic: [PATCH] drm/amdgpu/mes: wake the GPU before toggling mes_dbgext
- from debugfs
-Thread-Index: AQHdVvGtDV1XzMXfqk+Ylq/uIxkVIrb1SrMj
-Date: Fri, 9 Oct 2026 14:42:12 +0000
-Message-ID: <BN5PR12MB946425AF98949B55BE582BBFF4922@BN5PR12MB9464.namprd12.prod.outlook.com>
-References: <20261008065244.3608002-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20261008065244.3608002-1-Jesse.Zhang@amd.com>
-Accept-Language: en-US, en-CA
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-09T14:42:07.760Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ bh=OnOiJIgDLWU+rkoz6NWl2t3dLjwbWg86a9gFoo9asZ4=;
+ b=hz9qlTXa7XZYDpC7eGxq1aGLT2irWPlZlTkCXzQEQnVeDXXOtVuNfka4rushQ2xLb2YpnTd+CGWFwnpFzPiwrew/lawT/1s34NySCl8xC09H1lnsgT37RA+CgoFJ+hn7lhjPRSz5yW3i8dXE/SSXkhHTeaypWyFal4jdtg54ItA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN5PR12MB9464:EE_|PH7PR12MB6468:EE_
-x-ms-office365-filtering-correlation-id: a8230fd5-0daf-4318-b4fd-08df26138162
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|38070700021|56012099006|10067099003|11063799006|22082099003|18002099003|8096899003;
-x-microsoft-antispam-message-info: XzFglQV83mrzfaasr0rJg/aO7/xKm2D1dsMO47dszYGuSkWyCS8WRYQOzMV1i2ZZU0hEmGAoNOVHvI814qJWpXT2P2pIAueyl4kX7/FpB8z17U/nD9r4eCm0h7Q0ZNQ2YxQIZwtwLQUHWOO+LXl8mk9SW9czGdh86kWRWGJdv2eJcYpsYXQ3ZTsvWLhcUzpVzrUk6Wc3swwGL84/wUR96TQxr69ZMIJT3nqUXuqP3mAyBVEsLX9+DPEXo+h1rS1cGITQmJk75y2hWPCLjOqpn9w4HuAgvaAgB6qyf2tIPawsz1nwNzRRg7PQJaxKeQA+2L8bUViXdxQUmITvM4umdhEOY8ro9AZS4XK5bDhxgOm/X+v0Xpc+YuAXtkOEdgF7VteGyZlrUC8LyKr09wt+cPndAmelG1HUq1u6NpYsSmu9Oj6VSMXtASebG8j5kiwptVLeVd2OkpQuyVUxdgZrJd4oBbayQpvzxBw3cUO+Q3gFSLNINwmUFncI9xYPGgFtxqTHWIwF1alxCWiSHC7jS583olmZ9annSjjiammIx1NUnqOsQmMP0/S7eqpSSJuX4dYKeFogkkxyDGmIFqqEwkTcMtpyGFAhPS67UMguqQZfrSoBRof6TsPrgjBeEv+KhrXIFXu4U7VOwHXuQCc8s59aEy93+vkjydZ4NJhHYhSldwxJjHMEDEjdhzzw4u8YywgdcOYeiKlk7jLGz/LXU4OV6CTUEaMRzenVTfqTojk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN5PR12MB9464.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(38070700021)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?nATVB6awgEOHw88f+hQs2792GuAiSX/2AF9LDh9UYRQ91ehuH3wE1DE1fK?=
- =?iso-8859-1?Q?xHMVIXkdte5/Ms4JlRvkeMBZbUf3LVJ1PGYQJkUpDOSJ6ru+OS1thy8OOj?=
- =?iso-8859-1?Q?ADtNx5n6e5E5PhBN5YqPilkl/IkkIMd8VcWUN7+4BXkFNUr9e376DO2rnC?=
- =?iso-8859-1?Q?gKu1qu5EVZDTMW65Vioo7Np2BTdDedj+sMMONTWmQbkh0ITu3AR/1RqXPk?=
- =?iso-8859-1?Q?p3kUjWFjhrSTK7tLTm3CqMB2eO5ouNLMraak1o+FSWPM85LoavmQEY9QM6?=
- =?iso-8859-1?Q?78oCrIlwldf+ATljbrlVmZ10llDpqwfw3FEmEaoq2c+oUH3o2pr9VZyeDZ?=
- =?iso-8859-1?Q?t4H0wlkL1GvPRStpaL3pebxXYfLaMqy5dZplYGhfWwiabCNucDb0gxyPrl?=
- =?iso-8859-1?Q?rmw/SAN4sW5UldCwxRUl0RHHMY33MjmHTgRjIigrevSC0tpGoDOCO1deGc?=
- =?iso-8859-1?Q?P+aco3t5i3V9YrbKkvEfinQhjASnwtLBz9PuOTutGq8V0e6nbzjOAvhSPu?=
- =?iso-8859-1?Q?ljrraKKhQInGtkbwkacN1XcIvhSdWcVAFZX1diQJN9irn4RKSO6KKFt4tV?=
- =?iso-8859-1?Q?CjWg90eFEE93UkVziMbr5FPFhCtcPa8TEajiWiJxvwhH9qhS/oln4L95kU?=
- =?iso-8859-1?Q?yDne3BSagkMWMYc51ZYk8lEvIMIoJQk54DoBbLy7GzwgIjSdzfBBaXtjxm?=
- =?iso-8859-1?Q?WfASlijjW4dPUb1NWWVqHBesjrIXlrRO7aDe1tammQ4N2ObLwyxbLjXkf0?=
- =?iso-8859-1?Q?u6po4NnqRcAwlZ0Ra0y/wyG9aEZicF53XpxuzuR1k91LEOVqIvm/Dww1Vk?=
- =?iso-8859-1?Q?QVwS2aI/ypmcDqsWIFnR0+gIl5jwulAtoYVD5RLPxQcIy1OtD3hyDr3v3s?=
- =?iso-8859-1?Q?t4sxz394rwEnkvW19lUiKUw6xA0xxc/YwcBSeJpJAMZubsReJGzpVevzct?=
- =?iso-8859-1?Q?kLn2l4GDhVVi8HshsWwyVlSgjQtDJMWmXRw8AWUZHk4PI13nqu1NwmWxqK?=
- =?iso-8859-1?Q?iA6eUqwYR6lrAW8BFZv2P3e8+kptlzb7vmAHovqwpHvXJEJxRIOcppoeKE?=
- =?iso-8859-1?Q?ssWVmn0BGIC+bjCa1emLSMtZ80gVBejY3yTyD5NF9V/SFHd/HHaNKiN9dW?=
- =?iso-8859-1?Q?CMeLfIgZmNRZ2oCYXUcxrIiRhvS746BmtUyFV2RrEvFMQMxllA7+IlK4jr?=
- =?iso-8859-1?Q?5zgJNPBT7eWTF8PXyuexO64peqrMUKAcwfTZ6SCW+fHrH0VNkNGO0MMtMy?=
- =?iso-8859-1?Q?uP915bjySYMC4O8/PZGZkEsS2rcNf7zM6zne3B07DYmRyiozaSGvKWcaP8?=
- =?iso-8859-1?Q?U4uSOCRu6fEUkI3SKLXYnBEbtKPoTUOhgIAVE6cZR/T5DCli1tG3CnsNb2?=
- =?iso-8859-1?Q?aMQDecf0JLM2019vFNhnhQ7htmMh6mra3qISRk3nCLo1ob7r2UzAPij8xm?=
- =?iso-8859-1?Q?9lwR9eC9FIBaRhL9nrTSexRbbpV0Y7JqpFPbOA7ZvAPNxb9uysoC/A8+P1?=
- =?iso-8859-1?Q?6Feg2E8MnRwEQ1IEwxcwyicng7jBHTnAZj1UjZMv/PSYPzJrQxgcPinUG+?=
- =?iso-8859-1?Q?bPRgvWi7uO7Ou+3TjWXdo2KUBBCm05/20rA5PYVpY6rD8H6aZXJXuHp1Cd?=
- =?iso-8859-1?Q?eqvpQe7aZBHLrD97O6eyk8l/6SHJ/H6zqFAGt+Oy2i1X3SCVg2YbRAQctM?=
- =?iso-8859-1?Q?wf3X+rAEH8DNhpk/dU9daI+1GGUCLKLCHi+NGswn/y/l5b77O1i+YQyENS?=
- =?iso-8859-1?Q?laZp8+WneRMhzrSTNflj+4GmWb6F6atFc+bgZjYym7L6xV?=
-Content-Type: multipart/alternative;
- boundary="_000_BN5PR12MB946425AF98949B55BE582BBFF4922BN5PR12MB9464namp_"
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by SACPR12MB275847.namprd12.prod.outlook.com
+ (2603:10b6:806:549::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 15:00:40 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 15:00:40 +0000
+Message-ID: <2bbea75d-2e3f-4a57-a291-5f5d9ca698c5@amd.com>
+Date: Fri, 9 Oct 2026 11:00:33 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] amdkfd: fix doorbell allocation race creating duplicate
+ allocations
+To: Henry Martin <bsdhenrymartin@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261009101842.3294707-1-bsdhenrymartin@gmail.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20261009101842.3294707-1-bsdhenrymartin@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0217.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:eb::22) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|SACPR12MB275847:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2cb8b588-f8da-431b-3d9b-08df26161552
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|23010399003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: g16wkOJb9h/YROlC7NiNiHUHTTyYXvjc92IMJXZhZEYJ/jQYDokc43rib9uW8pLBV87It4VHJCWA5qSXwd+g/7fx5+t8xgzISL31ecZGLpiKjDsqENr53GGhSuh5zUt8TgqMNStitoTIwkBp/GHz1e9yBjzJ122j9zB8GwPJftyr8eztev+VgVKtcJALsoKq5KodFW5dKAjzz0NVnW/IHgn++19sfxYDMaf2Gpwamfvwj0zCSQXsPDKFmhrZSOYZEeYoqvIq+wZapsL8OpKYuQxCbxzSUGls0vTWOlfe3dPEdoVuPw2mubyJSN8U4QpZPA89e/jeKwF+5HrTsksYSHW92/JNk7r2IEAK3TSVjjmEiz8ilHVUh0G45D/M3Fxj1TcXomoRwQ/LC7ESgJAyK2M3eAqJ4cn2FHHmG0Ajma4SsbJRdXvfpczczAdyKvRzGw/FlLulqHMRmHs+cJr6KN9VBzKJ/WF5OnNTtIyEKNf9ozVBWdcXHk3yjXqAyXk7pL9KNbC9vlgq6s/1eyHRVdp5y432vTQWr2U9TPCAxdVFCfKkWNaEppKPPGPpUcI/9/dSuIlXn/JQMy0Ij1k/5KQfbKzWPHtS6fSuJuLONBJI50JVDxpF46XCHbhEihgoPROi+MrBr1LMG1PR/urSxdyAlJEkmGXfAF90ZZpf7dI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NkZHU3NzcGdSVVF4RXZaQS9JUWJmcURTdGw1QWRIY2FYcmtYWmF5eTJTMFVB?=
+ =?utf-8?B?WnM5TEQ3RnlVRjR5ejlVVWRIK0FJbXJQbUxxTGtKanVoaGJCTWdyOGlUT3R3?=
+ =?utf-8?B?UDhCa0NCRkk4UW1XbVBDRURGYWV3RmNsTEo0cXRjSHBLaW0xdFg0YWM2V0Ja?=
+ =?utf-8?B?Sy9wMmZyVzVvZVp1MklqV2tBb0RmdThIQjdKTGl2VzdMUlhyc3JGSC96c0xs?=
+ =?utf-8?B?aFBzWGhucjRjOGIySUJGaTNvc3A0TWsvZG1ZRkdLNG94cXBsK3kva3FuaWhV?=
+ =?utf-8?B?NUNyR0haUTkvOWFJWXRMM3VhUkpwNjIvTWxNdXFSeWtqSmZXejFKYXI4K3hp?=
+ =?utf-8?B?NE04V1A1a0ZQVFRCNi9ZcGpwKzNEMW1IRGVKUXlQeGxWbVpaRTA4TzNwSThn?=
+ =?utf-8?B?MWU0VTJ3SHZYMTF2ZjI5bVE0dVE4andWMHYvQlNuOWpDRHdyN21XM2dMODVC?=
+ =?utf-8?B?UGI1SCs3bFRmZ3NmTC9QS3NCOGgxcjZJZi9hL0hZcDB4QlZWeUYzY2RwV0RF?=
+ =?utf-8?B?b2k2UE5PWEwvbFh2TDJLcEZaLzR4ejdxK09jRll1OXRUd3JoZ0htUlVYdE5S?=
+ =?utf-8?B?K2FQUWR5Qm1wWTNJaUZNWklLcEpSankyS1lPejRVMjdzcXR0SEVTaEc5ZWIw?=
+ =?utf-8?B?K2NnWHBNdTg4ZCtUc2hCM0FERWlxcEtvTzdzMlBTZW94VHhjUlRiRTVLbDFu?=
+ =?utf-8?B?RnRYMTY4OTdFUFFzZERtUnBTUWxmcHlYbXBENGUyNkJBSE1NcG5VKzYraXZ5?=
+ =?utf-8?B?WElGUjZHOUo4MDNaaGtNV1ptNDA3OHJiNzdtV3FOaUI4Z0VpVlEwWkllUERo?=
+ =?utf-8?B?MnRiMFJ4bFp3WVZsb3JRaW1oYUovZnBrQUxCMzFPbFlHczVwbTlVMmNSV0o4?=
+ =?utf-8?B?SHBRU2g1djA3amc0alhLWWRvTDNNT20rby84MEZndkdhMU9IdnZ4bnJGOUtK?=
+ =?utf-8?B?NS90emJYT2hJVERBY2xnekIzRWdGSHlJRGdZMVR6eGpETm1WRlpuelZDSWl6?=
+ =?utf-8?B?a3RPRU9Scll1VEpyZDAyWnJXamtQWmUzQk5VZ0xWMFVkMDJjSU5ud01Pamww?=
+ =?utf-8?B?RS9PY21rSlRWVHA2VWJrNk5QeUI4UENhOG03dStVckkwVk0rM1JNQ1doVEhR?=
+ =?utf-8?B?aUo4cUFCT3VOU2MrZHZwMHhSMDdDTzl4QmFXTG1Ka0tMZkRNMGkvM0lPN0NV?=
+ =?utf-8?B?Sk1zdEx4NjFDWFNvQUhRSE1sdUN0MVl6dFZENWtVQnJwMEl4c1hYNVArMGs1?=
+ =?utf-8?B?cFpFTE9xaDhEclR6Zjg4ZEtPT1FlZUY2OEkvM25lYTVLcXdZUFZmb3hDTWNx?=
+ =?utf-8?B?WTJ3bWpxMzMzVENMelV3d0s2czZBcFFXWTl1a0dQUEFaVDNvQ3I0cGIyNXp6?=
+ =?utf-8?B?WU0wck9hbFozZTZNelR1WlN1R09ZWmdTWGt4UjA1WGcyeExoWHhvK3FNVk9j?=
+ =?utf-8?B?cmlYdXdKdW9rck5LcFRYK0tRQTZoU1M4Ynp4Y3JvVThWTFR3QmhWMEFwVnlx?=
+ =?utf-8?B?VWNMY1NVZjh0Zml6bEF2UnYzN21FRmQvVXovR3EzNndvdTVuNnBKYzQ0T2wr?=
+ =?utf-8?B?MFN6TG5tL25GL0xJYm1uMklFWGpReVlSU3J5K29BMlhHMWVjK09GRDdJTkVX?=
+ =?utf-8?B?WlJJVTNhVkxXZFE3aHFWY2pFMUF1V0d0eTR4VTZGb0h6OHBpWUZZYitmS0ZZ?=
+ =?utf-8?B?ZGxZNERpNGtOaW8rYUM5UjFiY2YxUFpXeVFrYVdhdGFxMEZUUm1yY0lJTDln?=
+ =?utf-8?B?ODFGUWIxVVo3UXRJMG9FcWRqc0V1TmwxY3dWU3N1QjVWZnp3ZzJCNjRRQnQ4?=
+ =?utf-8?B?SitkTTVRWVpnUHV4cUVxQk0ydWJ3K3JidjZxbk9peXhvcHp4b2lMdEkrV3JN?=
+ =?utf-8?B?VVRxcGhINGV1OW1qSjlERXRPbHl4SUhXR083QnM2d3dBaFUrVi93UVhpZ25W?=
+ =?utf-8?B?NHBiQ3FEVVFXS3FzdmdjTkRtNzdCRkNQcWFaakl3SndldDlvTnEwREVmVFB3?=
+ =?utf-8?B?OXBHdUtxTjJjTFJQdUlsT1hRWW5tdzA1OFBrTUExZ1Z3WnVHaFhVS3hkRCtL?=
+ =?utf-8?B?N1JubFdnTWloVVl1MHVMb0NUOGVCZVJ1UnVMM2loODlLN2xwOFIwN0dxS0Jw?=
+ =?utf-8?B?OXpDQ2UyNG0vNXcyVllOUWZzRjZjRW9Ed0NDeEthSFZxVEwyT0hjU2hwZzll?=
+ =?utf-8?B?bzBwVHZNYXIwYjNvVjl2OGpYT0p3VS9zTThidFpPYlFIbHVobzNLQWhkWGxv?=
+ =?utf-8?B?cGxmQjcybHIyaFVIUTdmSEJ5V1h3NmZaMFVBS3A1d0NMVEJYRzhsZkpId2Fv?=
+ =?utf-8?Q?E1oim4AOz9xXvIsFeC?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cb8b588-f8da-431b-3d9b-08df26161552
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN5PR12MB9464.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8230fd5-0daf-4318-b4fd-08df26138162
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 14:42:12.6568 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lC+Cp1REEqLgFbWyAsxpjO39xGSqUQHenYBIhT7UzyH1SppfDKinl2y67xn0rgdb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6468
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 15:00:40.0306 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mX1QdUuw0rLW0qXAZHykPhwpgOgggy2zlEW4Xfx2sDd3ISH15+tprqZaBrt1KcXzaNZNGrn4IbrLIjwMesXAoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SACPR12MB275847
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,183 +139,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BN5PR12MB946425AF98949B55BE582BBFF4922BN5PR12MB9464namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+On 2026-10-09 06:18, Henry Martin wrote:
+> The check-and-allocate sequence on pdd->qpd.proc_doorbells is
+> lockless at every call site of kfd_alloc_process_doorbells():
+> kfd_get_process_doorbells() (mmap of /dev/kfd), kfd_ioctl_create_queue()
+> and the CRIU restore path each test the pointer under different
+> locking (or none), so two racing threads can both observe NULL and
+> each allocate a doorbell BO and bitmap, orphaning one allocation and
+> handing the two mappings different backing pages.
+>
+> Move the serialization into kfd_alloc_process_doorbells() itself:
+> take kfd->doorbell_mutex and re-check under it, so all three call
+> sites are covered regardless of their own locking.  The existing
+> doorbell_mutex users (kfd_get_kernel_doorbell() /
+> kfd_release_kernel_doorbell()) only guard the device-global
+> kfd->doorbell_bitmap in short non-sleeping sections and never call
+> into this path, so there is no nesting.
+>
+> This vulnerability was discovered by Tencent CodeBuddy Security.
+>
+> Fixes: 428542d91772 ("drm/amd/display: Setup for mmhubbub3_warmup_mcif with big buffer")
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 
-AMD General
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
-Reviewed-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
+I'm applying the patch to amd-staging-drm-next.
 
-________________________________
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-Sent: Thursday, October 08, 2026 2:51 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Sun, Yongqiang <Yongqiang.Sun@amd.com>; Zhang, Jesse=
-(Jie) <Jesse.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu/mes: wake the GPU before toggling mes_dbgext fr=
-om debugfs
-
-The amdgpu_mes_dbgext debugfs write handler programs CPC_INT_CNTL and
-sends MISC packets to the MES without holding a runtime PM reference.
-If the GPU is runtime suspended the MES never answers, so enabling the
-log fails:
-
-  amdgpu 0000:03:00.0: MES failed to respond to msg=3DMISC fence_wait_ret=
-=3D0 status=3D0x0
-  amdgpu 0000:03:00.0: failed to setup mes_dbgext in FW on xcc0 (-110)
-
-and the write returns -ETIMEDOUT.
-
-Resume the GPU before starting or stopping the log.
-
-Fixes: 21593a22a09a ("drm/amdgpu: add mes_dbgext core support")
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mes.c
-index 8d813c68450b..b93b4be05178 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -23,6 +23,7 @@
-
- #include <linux/firmware.h>
- #include <linux/kthread.h>
-+#include <linux/pm_runtime.h>
- #include <linux/delay.h>
- #include <linux/sizes.h>
- #include <linux/slab.h>
-@@ -1955,6 +1956,13 @@ static ssize_t amdgpu_debugfs_mes_dbgext_write(struc=
-t file *file,
-         if (!mes->funcs || !mes->funcs->misc_op)
-                 return -EOPNOTSUPP;
-
-+       /* Arming and detaching the firmware talks to the MES. */
-+       PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(adev->dev, pm);
-+
-+       r =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-+       if (r)
-+               return r;
-+
-         mutex_lock(&mes->dbgext_lock);
-         if (enable) {
-                 mes->dbgext_runtime_kb =3D amdgpu_mes_dbgext_buffer_size ?
---
-2.50.1
+Thanks,
+   Felix
 
 
---_000_BN5PR12MB946425AF98949B55BE582BBFF4922BN5PR12MB9464namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Reviewed-by: Yongqiang Sun &lt;Yongqiang.Sun@amd.com&gt;</div>
-<div><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; fon=
-t-size: 12pt; color: rgb(0, 0, 0);"></span><span style=3D"font-family: Cali=
-bri, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);"><=
-br>
-</span></div>
-<hr style=3D"display: inline-block; width: 98%;">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<b>From:</b> Jesse Zhang &lt;Jesse.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Thursday, October 08, 2026 2:51 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
-ristian &lt;Christian.Koenig@amd.com&gt;; Sun, Yongqiang &lt;Yongqiang.Sun@=
-amd.com&gt;; Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/mes: wake the GPU before toggling mes_db=
-gext from debugfs
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-size: 11pt;">The amdgpu_mes_dbgext debugfs write handler=
- programs CPC_INT_CNTL and<br>
-sends MISC packets to the MES without holding a runtime PM reference.<br>
-If the GPU is runtime suspended the MES never answers, so enabling the<br>
-log fails:<br>
-<br>
-&nbsp; amdgpu 0000:03:00.0: MES failed to respond to msg=3DMISC fence_wait_=
-ret=3D0 status=3D0x0<br>
-&nbsp; amdgpu 0000:03:00.0: failed to setup mes_dbgext in FW on xcc0 (-110)=
-<br>
-<br>
-and the write returns -ETIMEDOUT.<br>
-<br>
-Resume the GPU before starting or stopping the log.<br>
-<br>
-Fixes: 21593a22a09a (&quot;drm/amdgpu: add mes_dbgext core support&quot;)<b=
-r>
-Signed-off-by: Jesse Zhang &lt;Jesse.Zhang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 8 ++++++++<br>
-&nbsp;1 file changed, 8 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mes.c<br>
-index 8d813c68450b..b93b4be05178 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c<br>
-@@ -23,6 +23,7 @@<br>
-&nbsp;<br>
-&nbsp;#include &lt;linux/firmware.h&gt;<br>
-&nbsp;#include &lt;linux/kthread.h&gt;<br>
-+#include &lt;linux/pm_runtime.h&gt;<br>
-&nbsp;#include &lt;linux/delay.h&gt;<br>
-&nbsp;#include &lt;linux/sizes.h&gt;<br>
-&nbsp;#include &lt;linux/slab.h&gt;<br>
-@@ -1955,6 +1956,13 @@ static ssize_t amdgpu_debugfs_mes_dbgext_write(struc=
-t file *file,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!mes-&gt;funcs || !mes=
--&gt;funcs-&gt;misc_op)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EOPNOTSUPP;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Arming and detaching the firmware =
-talks to the MES. */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUS=
-PEND(adev-&gt;dev, pm);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D PM_RUNTIME_ACQUIRE_ERR(&amp;pm)=
-;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return r;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;mes-&gt;db=
-gext_lock);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (enable) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; mes-&gt;dbgext_runtime_kb =3D amdgpu_mes_dbgext_buffe=
-r_size ?<br>
---<br>
-2.50.1<br>
-<br>
-</div>
-</body>
-</html>
-
---_000_BN5PR12MB946425AF98949B55BE582BBFF4922BN5PR12MB9464namp_--
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
+>   1 file changed, 14 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> index fdcf7f2d1b5b4..07f881573837e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
+>   	int r;
+>   	struct qcm_process_device *qpd = &pdd->qpd;
+>
+> +	mutex_lock(&kfd->doorbell_mutex);
+> +
+> +	/* Another thread may have won the check-and-allocate race */
+> +	if (qpd->proc_doorbells) {
+> +		mutex_unlock(&kfd->doorbell_mutex);
+> +		return 0;
+> +	}
+> +
+>   	/* Allocate bitmap for dynamic doorbell allocation */
+>   	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
+>   					     GFP_KERNEL);
+>   	if (!qpd->doorbell_bitmap) {
+>   		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
+> -		return -ENOMEM;
+> +		r = -ENOMEM;
+> +		goto unlock;
+>   	}
+>
+>   	r = init_doorbell_bitmap(&pdd->qpd, kfd);
+> @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
+>   		DRM_ERROR("Failed to allocate process doorbells\n");
+>   		goto err;
+>   	}
+> +
+> +	mutex_unlock(&kfd->doorbell_mutex);
+>   	return 0;
+>
+>   err:
+>   	bitmap_free(qpd->doorbell_bitmap);
+>   	qpd->doorbell_bitmap = NULL;
+> +unlock:
+> +	mutex_unlock(&kfd->doorbell_mutex);
+>   	return r;
+>   }
+>
+> --
+> 2.43.7
