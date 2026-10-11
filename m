@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DEEBCA9EC1
-	for <amd-gfx@archiver.kernel.org>; Sat, 10 Oct 2026 16:27:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC224CA9EC5
+	for <amd-gfx@archiver.kernel.org>; Sun, 11 Oct 2026 02:50:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9B7410E040;
-	Sat, 10 Oct 2026 16:27:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EA8110E223;
+	Sun, 11 Oct 2026 02:50:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qw0DrCFy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ik7bn7qw";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010071.outbound.protection.outlook.com [52.101.85.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF5910E040
- for <amd-gfx@lists.freedesktop.org>; Sat, 10 Oct 2026 16:27:54 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011070.outbound.protection.outlook.com [52.101.57.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 443F510E223
+ for <amd-gfx@lists.freedesktop.org>; Sun, 11 Oct 2026 02:50:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mpIEkec3WTi9ejxK+JMINi4lnHUjZcoqSSHmzwC7pi++suhdoXZZCLxmoMwAZ74gjBXTRUccF5CxfUasX9VL6AJRwFt8iIUjuKN6Jzsv/OlodQdiNTtDuCkKA+Cubmq7vJfXhI8bT4Mi8obHYFDVp6Aj2V1XMI5mqNee0fGtY/4ZXUIHxnmUueFqHYl8JnnleiT3bZ4qZRdn029ui1O9rxIvo+XQCTaL8d+6c6KFZ2jgEH2hojwGPslRx5geWlM9sAZ8KTyKLAOT+n5TaaHjVvXpI3Y77fcQ5asobQvKiZwLakPqQMMZ+XtvFO30l1XStHOomTY09lpuEi/7ybaQJA==
+ b=FIbxMYZiMwItvpgFw7LJ4HDYG56rcbT7E4NZHeqBwSpdBve6Vgu5Ob+MIvJWNYYP7uKuO4dEsEGZL56lChqt5Iamva8j2659BBEIq5Kc0iCbZwgLuflYo4OL+gtKg+/jrh5YtU2agiC+JLynmJ74cioPiSiuNiZ85/iI1lNd3mjTAZjuM8nDL1vfckjFkT6zG+vKjrhgVXQBZfE1/VBVuMnDETktVTebnkbDpu3OBV+lxE5dRr8zQv0neUE19yBo5n8jAMr5UYVNF+j3aOKUe8vrXuujcetoVNMaXXbdHMZaZqjjr3yH6gV9EtKPwDLKVCCfnkNGWBl222o2GnQA/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JBu+iqH9WrnvL9wZucLnkxwn/vd7LvIrcmiVORljU9k=;
- b=A1keUyIkkbCqoaR/WqBKKtzMZiSK+LOHd2qBtHFPWpvlSTE4XqcDd006Yc8Kf3U6rtMPCckPOdnAQhEO88ETGquEq8k0jvol0fFxGZ29j5U9lSZwg7ahaB+H10AlqMCPBOMYazsn6CRfLutEVoyXqVYCJArZYZaDD7yeScWVDpdsYNtr7fE/zh4CAfn8tZtqVXSV3JlQ6cOI7yQ05EoSCEJLBW7lHQGIrqu6vCrST4Zjrd22WZtefuLi+JBZ5Ipk8lvt8RoamDseeiw1HUpoacDxH5NFUCefNWTIEIGf+yskybtdzMhqt98dOu00mpDZ7iSQytXJlWdC8gGtz27V3Q==
+ bh=oNUUwwaNECIz0ycXXGBgTY9erMT+mzWvAS5sfV2HMUU=;
+ b=ABoeZYBeEphU4M1VBoBXC4uRvf2VIx//bQ2vjcCk+xDEeMfKNkn28ZeXgSf7oDrcQPnu+NbvkiE1eY6OFpFyVfF2/N+04EC5RPSO6jCnsmtFebqWXsN2aixIb1IDqyEfIPW7fuEyMqm9Q+HtTbCq3yfUDLgaN4Akhceb+p1QcjJJc2xdT1ujcGBr/swsz+QNC9JewOkR5tMqLbaSo7lECoMWk4fIOnCxklRwoVoq2gUozHodzVDcUN4TrQLUD/EpJ342N28aSnKJEwY7G+KX6pQCePt6TK4NfbXl1QiuLSkBKEJnKF6gDzDURejaEcRbyvO430OQIXxg3e5JriybJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JBu+iqH9WrnvL9wZucLnkxwn/vd7LvIrcmiVORljU9k=;
- b=Qw0DrCFygj+4jG6FWdhYkaTTuI4J5TSrIBlKZWeh8rdNtT43CbnCypKvs9oW2Nszsc1IIN7ZSPVX/FyV2hLGgYHkcpDGZDEG/0GwgHsPaW04Z/e/2XvM9eOG/BHlHm+tr36FV9zgriT/S5/yrM4H2puCLFfeavEPlRXwxDwzuO8=
-Received: from BN9PR03CA0733.namprd03.prod.outlook.com (2603:10b6:408:110::18)
- by LV2PR12MB5943.namprd12.prod.outlook.com (2603:10b6:408:170::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sat, 10 Oct
- 2026 16:27:51 +0000
-Received: from BL6PEPF00020E5F.namprd04.prod.outlook.com
- (2603:10b6:408:110:cafe::62) by BN9PR03CA0733.outlook.office365.com
- (2603:10b6:408:110::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Sat, 10
- Oct 2026 16:27:51 +0000
+ bh=oNUUwwaNECIz0ycXXGBgTY9erMT+mzWvAS5sfV2HMUU=;
+ b=ik7bn7qwcervG+wULavOwQsko5jO5delx18jwYt+ZdKZQAi9Cck0OLVH/EmvcmzQsN3+rU/44Ql4neTzKNe2TfQajgYxMjw/MxCSQwYBc8dhjMJwAMCXrMHXTIYyvudagxvQQqWPY9J1vPhboOmiRl1irSZ5QZSAJt2+x3ubypM=
+Received: from DM6PR05CA0039.namprd05.prod.outlook.com (2603:10b6:5:335::8) by
+ DS2PR12MB9773.namprd12.prod.outlook.com (2603:10b6:8:2b1::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.19; Sun, 11 Oct 2026 02:50:21 +0000
+Received: from CY6PEPF0000004A.namprd03.prod.outlook.com
+ (2603:10b6:5:335:cafe::57) by DM6PR05CA0039.outlook.office365.com
+ (2603:10b6:5:335::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Sun, 11
+ Oct 2026 02:50:21 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,21 +49,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00020E5F.mail.protection.outlook.com (10.167.249.20) with Microsoft
+ CY6PEPF0000004A.mail.protection.outlook.com (10.167.247.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Sat, 10 Oct 2026 16:27:50 +0000
-Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.522.6 via Frontend Transport; Sun, 11 Oct 2026 02:50:20 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sat, 10 Oct
- 2026 11:27:45 -0500
-From: William Palacek <William.Palacek@amd.com>
+ 2026 21:50:13 -0500
+From: Ce Sun <cesun102@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>
-Subject: [PATCH v3] drm/amdgpu: preempt KFD queues before taking the reset
- domain lock
-Date: Sat, 10 Oct 2026 12:27:34 -0400
-Message-ID: <20261010162734.2570564-1-William.Palacek@amd.com>
-X-Mailer: git-send-email 2.43.0
+CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
+ <Stanley.Yang@amd.com>, Ce Sun <cesun102@amd.com>
+Subject: [PATCH v2 1/2] drm/amd/ras: Use MP1 feature status to select
+ fw-managed EEPROM
+Date: Sun, 11 Oct 2026 10:50:09 +0800
+Message-ID: <1fbc1515d6cd8f36bb3f60b498b3fbdf6e7b4760.1791686882.git.cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1791686882.git.cesun102@amd.com>
+References: <cover.1791686882.git.cesun102@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,29 +75,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E5F:EE_|LV2PR12MB5943:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0135d46e-bdb8-4319-ff6e-08df26eb6d64
+X-MS-TrafficTypeDiagnostic: CY6PEPF0000004A:EE_|DS2PR12MB9773:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ae57f49-888d-42d6-9f28-08df274263f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|376014|1800799024|36860700016|261009223327099003|261009221727099003|261009221227099003|6133799003|56012099006|10067099003|18002099003|261009220027099003|11063799006|261009223027099003;
-X-Microsoft-Antispam-Message-Info: b5eIfnx9IF8T+kA29aFTMzNURcc1vgzW4SUnm0Et2f5Zr6wE6ZxIdFOspMcNBfaSHO3XbY44OSizmW7T4wCKq8Qz1yOnvpX9Jkz3FK9bJ8GVsZGw+W8wCqgtcCjd9vAoplP8lH5zpo0si7QrVRkYG7duo9Q93KouLQx5CDE4FlmVUlE8GvAbz3Vsa8A49BuPC1UBETiSVkLR+rvXwrJ9bWQbB9RnPGz2jTVTyB9QH1b0sij6Fezyz4Gv4phFI/reRHgFITuOi9vS4mFmg+tgU0sLUkCgI3X/jAAyqu+yKD6ok9FA4YS+7CK2aiNZdeEvox6POmWbEmHv3kVDKNYt+AeQvJXEum/oY3NkNn+IAE+rNGL2gGHMTIZE2/5eYMP08rrxr+DHknRxso0nqv+0ZlzgD7WSZhkm5tmAuFz6IWCQ5YW8lmX6X6FlKE9AUJdLEEjCDrnKsx6G4LzWVmG6avjZLslbdpoFpeKfgocJ2vJpHbmbMJRGTMipXEaafj5QFBmuGbflJBHpdFDS59ezdxnP1PcF5CfRlI9Z49gimpPkw8wqZU7dP21XGiRP8LwNleHuAnIBPbcDE5en272t4RLcYvUaukvu/SGGJVLVrW5PJMxXDLkJrXhQNvKEjBxx8ft6Kt0nM85T0uNKEkMdJuBsnLejc+WPFvQye/LfCiMTgWczAkPzMmh6Es5Gj8S7gJ+SPWRin/0ofEFe0OnFtA==
+ ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|261009223027099003|56012099006|11063799006|18002099003|10067099003|22082099003;
+X-Microsoft-Antispam-Message-Info: WwixuMwt8FWWLSuhPkelfi0uGlA4SFvF1oO7JF3FaZsnG56v8BgB6nbNoA7FNi5caWH8m6xbsJafpF9Yd+DGpSsOVGGnIf61hjA9rqe0Iie9huaWpC+v/mMubAAdLDuM0GCcGd9lE5IMQBi7mgdUQKYbp8pUfMrNMgRJFytYvDt0FkJiYvx8A/1Pk5HLrNo7Yp6B2K+zZngf7tw3//P+P5pnYmYiFpsqJFlE5Laf+bvnIMXziGhLlJjkP3OcK/1R5ze/6T9s2yfL9p9LcLsTawYlyD2b/EcmnsD2UuAzdyWQ9RvX5cdjmvyKLrInTJyxx0hf/X8gicnMgw0m/AbDGsxcX7KvwKEn2/2rA9nnEqKPRzywDzWiTs1gERiTkdpvjRl37aUNljWsdVFfHUEEpOHWRBhcQlG23HmQkuPVxku75SWZQiqYbtyvmboEuxPC+DtB5sITJxwqYzkv1Cj6RKuqpZ5XALfI1RNT/NOvO6pRnubVvoa/n2XZcR96PcVFM/V1dFwGGkruwGXuMSeaAruVfapDmjj0G/MW1AX6SFbYSkFCVPxZ2AmX3Vwge6jaeG0KsUmkE3WZbR3EXLXknkP6jxnd1dIipRoPwbVOPGjunIhw+eCYTrlPtGzNkH0vrwLR19jMvUYngDH8zzBUFtAX1+wXhmilQLILTJCYDvGQ0Gsm7jTTgLEScoABZP8p/IFexfgOQpRSYhowC1SK3w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(376014)(1800799024)(36860700016)(261009223327099003)(261009221727099003)(261009221227099003)(6133799003)(56012099006)(10067099003)(18002099003)(261009220027099003)(11063799006)(261009223027099003);
+ SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(261009223027099003)(56012099006)(11063799006)(18002099003)(10067099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: lPE2IV7EXBnFrbIqJ2QOvuSZdIM0HaeP0p0R9B4MB/Numgfx9VVH1YyY56sQmyjVE8E7wLrd5Q5o2xS9QxOmDhyy4kzJ9Iptjep7sKKZa0UjBNDwTWCrsN23WgWlNr5fNvRhLSSgJqPJpDGQXqaxRBg/HiWPqMdZtsuun1YC+B7cQUZAnuUTuLQBRe1m2TY7oIBtK2X0rmRMtb37bBkoTEhPqJD7/9/uI8EdGBV2H7NQ0/yu2hYXU51MCF2lGVVzZttit51jtChcdnJZvPgLpRKYIFc8kECHdPFcRIEgtmVVBLS9Pw8+5LxyEV4IXo2RxKvogcIIEc7tBpavNWmqWG3m5Mi7heXVJldx+htvZvyceLYfkSvBTopHYlBLnEuBYyV69BhEU/siI65tj5V118NILK7DlavOxf5ETCFuD01Ry2VX3nLqbeC13SXmc/Gs
+X-MS-Exchange-AntiSpam-MessageData-0: RPrVZ6bB1R+RficA8s/sHX9qT+vUDmf6i9nv/V/9iziZRUHbPR4RCGYJ4PcMioqp35hfGVi2ddQTmtmwIoHwvyWnFYTOxI+stxYO6194Izl6GNrwxAB3JCwkw5SYa9CuKmbOPy5VOQQr7CCQZHLhjk8bLKoPX+Y4x+9GJ1PRxZzGe3/FB6Beeq16CxJ0cs1h55cuEt1DNIaO24aoRyHxjOhUzz7lJbk25jGLxFsuQFcYxpm70KyA529sjNKa9QPBOF6Zzhe7UoAV03pKScmFa048tP4GVSW4aIKSEfkNjy9kA66fIyIeX5pQEzk8nrQKJct6C/57MC6TFuLWdtQ19D6RQMpslUdVy5Ra7xsPaiDfYCRrLmokm25rqYm4y/0gr6BSthcAlrOZsBYAMYkdsY273lltzuk3SWzKR3nk35bfl1lO+6/Hru1i2ZhM3lT1
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 16:27:50.3966 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0135d46e-bdb8-4319-ff6e-08df26eb6d64
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 02:50:20.6894 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ae57f49-888d-42d6-9f28-08df274263f0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E5F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY6PEPF0000004A.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5943
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9773
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,127 +112,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A GPU reset issued while processes are using the device can Oops the
-host in munmap() (free_swap_cache) after SDMA write faults from a user
-queue whose process has already exited.
+Read the feature status of RAS_CORE_FW_FEATURE_BIT_RAS_EEPROM
+to determine whether to use firmware-managed EEPROM.
 
-amdgpu_device_gpu_recover() takes reset_domain->sem for write before
-amdgpu_amdkfd_pre_reset(), so the down_read_trylock() in
-unmap_queues_cpsch() and execute_queues_cpsch() fails with -EIO and no
-unmap is sent. stop_cpsch() still clears sched_running, so user queues
-keep running while their memory is freed.
-
-Make amdgpu_amdkfd_pre_reset() take the reset device list and call it
-once from gpu_recover() before the reset domain is locked. PCI error
-handling keeps calling it under the lock, as before. Return -EIO from
-unmap_queues_cpsch() when the HWS is already known to be hung, instead
-of waiting out the preemption timeout again.
-
-Signed-off-by: William Palacek <William.Palacek@amd.com>
+Signed-off-by: Ce Sun <cesun102@amd.com>
 ---
-v3:
-- Make amdgpu_amdkfd_pre_reset() take the device list instead of adding a
-  similarly named wrapper (Felix)
-- Drop kfd_dqm_can_reach_hw(); pci_channel_state is only valid after
-  amdgpu_pci_error_detected() (Felix)
-- Return -EIO from unmap_queues_cpsch() when the HWS is hung (Felix)
-- PCI error handling keeps calling pre_reset under the reset lock
+ drivers/gpu/drm/amd/ras/core/ras.h            |  2 +-
+ drivers/gpu/drm/amd/ras/core/ras_eeprom_mgr.c | 24 +++++++++++++------
+ 2 files changed, 18 insertions(+), 8 deletions(-)
 
-v2:
-- Drop the SRC_USER gate and the helper; run for every reset source
-- Cover amdgpu_pci_error_detected() as well as gpu_recover()
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c          | 13 ++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h          |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c          |  6 ++++--
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c   |  2 ++
- 4 files changed, 14 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index e023cc734ebc..fcd857fb7d09 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -314,15 +314,14 @@ int amdgpu_amdkfd_resume_process(struct amdgpu_device *adev)
- 	return r;
- }
+diff --git a/drivers/gpu/drm/amd/ras/core/ras.h b/drivers/gpu/drm/amd/ras/core/ras.h
+index 73e3960c7c8e..1b724aa23594 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras.h
++++ b/drivers/gpu/drm/amd/ras/core/ras.h
+@@ -60,7 +60,7 @@ enum ras_gpu_health_status {
+ };
  
--int amdgpu_amdkfd_pre_reset(struct amdgpu_device *adev,
--			    struct amdgpu_reset_context *reset_context)
-+void amdgpu_amdkfd_pre_reset(struct list_head *device_list,
-+			     struct amdgpu_reset_context *reset_context)
+ enum ras_core_fw_feature_flags {
+-	RAS_CORE_FW_FEATURE_BIT__RAS_EEPROM = BIT_ULL(0),
++	RAS_CORE_FW_FEATURE_BIT__RAS_EEPROM = 0,
+ };
+ 
+ enum ras_block_id {
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_eeprom_mgr.c b/drivers/gpu/drm/amd/ras/core/ras_eeprom_mgr.c
+index fe0e35357af1..c6869b4ef598 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_eeprom_mgr.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_eeprom_mgr.c
+@@ -26,6 +26,7 @@
+ #include "ras.h"
+ #include "eeprom.h"
+ #include "eeprom_fw.h"
++#include "ras_mp1.h"
+ 
+ static bool __ras_eeprom_disabled(struct ras_core_context *ras_core)
  {
--	int r = 0;
--
--	if (adev->kfd.dev)
--		r = kgd2kfd_pre_reset(adev->kfd.dev, reset_context);
-+	struct amdgpu_device *adev;
+@@ -36,25 +37,34 @@ static const struct ras_eeprom_ops *ras_eeprom_mgr_get_ip_func(
+ 				struct ras_core_context *ras_core, uint32_t ip_version)
+ {
+ 	struct ras_eeprom_mgr *mgr = &ras_core->eeprom_mgr;
++	int ret = 0;
++	u32 status = 0;
++
++	ret = ras_mp1_check_feature_status(ras_core, RAS_CORE_FW_FEATURE_BIT__RAS_EEPROM, &status);
++	if (ret)
++		RAS_DEV_ERR(ras_core->dev, "Check RAS EEPROM feature failed, ret=%d", ret);
  
--	return r;
-+	list_for_each_entry(adev, device_list, reset_list)
-+		if (adev->kfd.dev)
-+			kgd2kfd_pre_reset(adev->kfd.dev, reset_context);
+ 	switch (ip_version) {
+ 	case IP_VERSION(13, 0, 6):
+-	case IP_VERSION(13, 0, 14):
+ 	case IP_VERSION(13, 0, 12):
+-	case IP_VERSION(13, 0, 15):
++	case IP_VERSION(13, 0, 14):
+ 		mgr->eeprom_early_init_service_supported = false;
+-		return &ras_drv_eeprom_ops;
++		break;
+ 	case IP_VERSION(15, 0, 8):
+ 		mgr->eeprom_early_init_service_supported = true;
+-		mgr->fw_record_enabled = true;
+-		return &ras_fw_eeprom_ops;
++		break;
+ 	default:
+ 		RAS_DEV_ERR(ras_core->dev,
+ 			"EEPROM(MP1) ip version(0x%x) is not supported!\n", ip_version);
+-		break;
++		return NULL;
+ 	}
+ 
+-	return NULL;
++	if (status) {
++		mgr->fw_record_enabled = true;
++		return &ras_fw_eeprom_ops;
++	} else {
++		return &ras_drv_eeprom_ops;
++	}
  }
  
- int amdgpu_amdkfd_post_reset(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index e3da382ceb3c..7419d3614c47 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -180,8 +180,8 @@ bool amdgpu_amdkfd_have_atomics_support(struct amdgpu_device *adev);
- 
- bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid);
- 
--int amdgpu_amdkfd_pre_reset(struct amdgpu_device *adev,
--			    struct amdgpu_reset_context *reset_context);
-+void amdgpu_amdkfd_pre_reset(struct list_head *device_list,
-+			     struct amdgpu_reset_context *reset_context);
- 
- int amdgpu_amdkfd_post_reset(struct amdgpu_device *adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e0014611f039..7e928d09db34 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5534,8 +5534,6 @@ static void amdgpu_device_halt_activities(struct amdgpu_device *adev,
- 
- 		cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
- 
--		amdgpu_amdkfd_pre_reset(tmp_adev, reset_context);
--
- 		/*
- 		 * Mark these ASICs to be reset as untracked first
- 		 * And add them back after reset completed
-@@ -5784,6 +5782,9 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	/* Cannot be called after locking reset domain */
- 	amdgpu_ras_pre_reset(adev, &device_list);
- 
-+	/* Dequeueing takes reset_domain->sem for read */
-+	amdgpu_amdkfd_pre_reset(&device_list, reset_context);
-+
- 	/* We need to lock reset domain only once both for XGMI and single device */
- 	amdgpu_device_recovery_get_reset_lock(adev, &device_list);
- 
-@@ -6233,6 +6234,7 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev, pci_channel_sta
- 
- 		amdgpu_device_recovery_prepare(adev, &device_list, hive);
- 		amdgpu_device_recovery_get_reset_lock(adev, &device_list);
-+		amdgpu_amdkfd_pre_reset(&device_list, &reset_context);
- 		amdgpu_device_halt_activities(adev, NULL, &reset_context, &device_list,
- 					      hive, false);
- 		if (hive)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 5e57576fba21..c2b069832dbe 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -2832,6 +2832,8 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 
- 	if (!dqm->sched_running)
- 		return 0;
-+	if (dqm->is_hws_hang)
-+		return -EIO;
- 	if (!dqm->active_runlist)
- 		return 0;
- 	if (!down_read_trylock(&dqm->dev->adev->reset_domain->sem))
+ int ras_eeprom_mgr_sw_init(struct ras_core_context *ras_core)
 -- 
-2.43.0
+2.34.1
 
