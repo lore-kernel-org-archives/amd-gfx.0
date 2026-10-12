@@ -4,126 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B53A9CA9ED0
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 20:07:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA94CA9ED0
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 20:14:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA2710E689;
-	Mon, 12 Oct 2026 20:07:02 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013005.outbound.protection.outlook.com
- [40.107.201.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B73410E5ED;
- Mon, 12 Oct 2026 20:06:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rzwZDJI57mRUv0pmvY9YFmM2ofRBpnV1M9fi6/YeYhpHuTuOhWhtKNuOUvEQv53y6LJ4VA//evzwO7hWPbR0DAvqEo8j0IQErX/vX3AFppKekWNwd27IXr8lW6Z49tH8V020X6e++7TZPkiNOrMHygsEwTPqysbMxcgGtlvD3+CJmNgcqqIt26foQTmVRQgsYsmzArQXNOtrf7neK5LU2VQtoL9/QRn7dji+kenPztXttLZZwzxyZu98+N09WPpje2wBnMWI9NRZ1FTmb4Zn25YiYEpCrbxu2v0GzuBkgyTGAIDXKIlkbBXYzWCfG7ZZGgXvhOfK0OvB8LTEo8CWbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=asQn9FT+lvozQJSTUztr9sYKDDXy0SK5yZRbrvnfzHI=;
- b=scGp53bcBg9C/yetv8k8Qcdi/HuCPDln06nl3rUDhJrLJ/DCzBUkUPgawCmwzD+QfQB3VrhMWP5vKhK/eDVFjBw6SvoCJzxKCpT1WhPOBUmg7qySBGbXFfzYKf3ZJ1gPz0usjGM08zo4ajJZqoRfi8ZJ9Xnqlez/TMgrpaxkRC+TA3gfdMydq4gFrfcSEj0b2UYDTC0ugZ2j11vBeIi75j7rZm/tGqOd37UmZRqATNSKmhn5hNwaCc2G6ZSWDbixXK83efTcrGsXbQPxUGhy42Zy3cA698oODKjM3k9/z7wkIIIOpiNYXkG8E6SdmF2oNS23z9TdrtXwl97vPo0dgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=asQn9FT+lvozQJSTUztr9sYKDDXy0SK5yZRbrvnfzHI=;
- b=X/kHv6JVyANG3mfMB85WcnQWYQ/xhx+VJIav+yRn+m9Cnh48Qd629b8mSs2MYi1zZWvbUVzImpl47cR5++jyJilT4yRstxakyXyuPHNbJIP/jWDhdBkUQntzmHFMiIaaT62X3T38BEcCEGEcrngRqo0EHZtI1du2o8cP47BtCZU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB6921.namprd12.prod.outlook.com (2603:10b6:303:208::8)
- by PH7PR12MB5734.namprd12.prod.outlook.com (2603:10b6:510:1e1::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 20:06:49 +0000
-Received: from MW4PR12MB6921.namprd12.prod.outlook.com
- ([fe80::cbf7:e2db:1d37:c83b]) by MW4PR12MB6921.namprd12.prod.outlook.com
- ([fe80::cbf7:e2db:1d37:c83b%5]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
- 20:06:48 +0000
-Message-ID: <797bb933-adf3-41c6-8421-ffc3bd6948f9@amd.com>
-Date: Mon, 12 Oct 2026 15:06:45 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] drm/amd/display: keep custom brightness curve in
- userspace domain
-Content-Language: en-US
-To: Andrei Rusu de Castro <arc@empyreal.works>, amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- chen-yu.chen@amd.com, ray.wu@amd.com, stable@vger.kernel.org
-References: <20260902-brightness-cover-abf809f2@empyreal.works>
- <cover.1788388049.git.arc@empyreal.works>
- <8ec5dc8922407924f771d353cb7f2dd1846553ae.1788388049.git.arc@empyreal.works>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <8ec5dc8922407924f771d353cb7f2dd1846553ae.1788388049.git.arc@empyreal.works>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR04CA0094.namprd04.prod.outlook.com
- (2603:10b6:610:75::9) To MW4PR12MB6921.namprd12.prod.outlook.com
- (2603:10b6:303:208::8)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F35D10E3B6;
+	Mon, 12 Oct 2026 20:14:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFCB10E3B6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 20:14:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6327D60142;
+ Mon, 12 Oct 2026 20:14:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3811F0089B;
+ Mon, 12 Oct 2026 20:14:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791836070;
+ bh=Yx1thZO4xaGAVViZWj+N8Em6w5rlQ/Osf1vZQ5BH4j4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=F11sptdMftzjUb+31V2WdEi2rv3+DWHvmksPNN6y3j11bNoPN6B0ffWjvy/c7STqd
+ YGl5JAs1zkgoqpFWRdjLiyG6Kf/ueGVh/04awWsKMfOC5iKUiK2frTgDLa1sgkOSdv
+ rOCNxs2BbW7cy3Nn6L7Q7ZACMjywUWBsti71dXZEcppi5dgjqZ7D8xWnK+/R0e96Fg
+ IUsYAnItXCBwgAp3vQNlbeihLocEOubhgEZwR+5HubbphT0K+hy8bW32lHzMn5RTDB
+ m7Y9NBkj8wUXkA5PiE2WC0GID4GzrF4+oNafnc339TFj0dQiNdZZcDfFYuBhETYGLd
+ 4l0o7mrmtKEAQ==
+Date: Mon, 12 Oct 2026 15:14:28 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Aditya Garg <aditya.garg@linux.dev>
+Cc: linux-pci@vger.kernel.org, Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+ Oliver OHalloran <oohall@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ amd-gfx@lists.freedesktop.org, Lukas Wunner <lukas@wunner.de>,
+ Jason Perlow <jperlow@gmail.com>
+Subject: Re: [PATCH for-linus] PCI/AER: Skip unmasking Advisory Non-Fatal
+ Errors on T2 SEP
+Message-ID: <20261012201428.GA1377196@bhelgaas>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6921:EE_|PH7PR12MB5734:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88baf530-c640-4637-bccd-08df289c5916
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|11063799006|4143699003|56012099006|22082099003|18002099003|261009223027099003|3023799007|10067099003;
-X-Microsoft-Antispam-Message-Info: JehVaGkBe55/EnQr2N0iiUgKy0HFQdhEzaQQBJW+Dv4aK+maKO1BNg7ffMhowH3Li1cz9ULfvMCcPOpErwaQ2PI439yMZKrzs8OUTjLrRaJNI3t7A2cPvhflgQZmYgv+9w3AVVMMpB/KNxh7lp9VhMmQ0sLL4Sgeq9clTwX8mPO6l14//YgAJkylWq5CsL/A0tH6xISvG4Gfjr3AD//Py7SK9iN04QPk3f6shjfbadMBnM3eFvSPd2JF25xcF31BGmBJEzpoX9/OyRtbeUtXQbgbgMX9l0xAhJABC+4cVeZGexeCtuGRbfRBXtOfu6oFiwOh92m3+ghVQkiJeqmjDC1V+HO23sIweXJ1TOWMvavv0wWH4bmyQnxkCYB+/KfhtFdXapjWuxivAdgIYB+G/tsXqBPYJ3v34CqmfLMgM2iMHaO5Fvh7Ktwy0kNZhrcFCOPZiywmhSA1yaBT3NqG8bkKfbrY88w7riRqYYdxhrkoNrgUwXmCgd6QEk4Jx+X2K4jeIs4HCoAzJDZ7veqsv7K1FOWTarZr/0wPtejBhzSMknbWmStCHikwweCpMwknzZ+4yar6rdmUOUzBszx3fAhfVCwDjhFfmj0C+rtNMrE75vmG+DW+G9HuXg+DdScJAGyEJV2EgoCghQ53S6ogTZaHh/GiYfxK+oxo7gYlj3Q=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6921.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(261009223027099003)(3023799007)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0p5WVZWdnhjVnYwVW9Dd0tDcldZREVsSWJHVXJWQXpVcENJdGFzTnBlTVEr?=
- =?utf-8?B?bmlqeW9uQ1JtSzRPdkgwR29NNWg0SmpnM2pUdmZkT3NTdCs3Z05nbVlqSU5Y?=
- =?utf-8?B?dUtaZlBlSFgyeWd3dUhpNTRjd0pWNnAzTDZaYWZFbTI2eVRpT1VjK1JlblNU?=
- =?utf-8?B?NHpNVE03RVhIZndEZ0dTYkNKVnA0R1dZRTZLMEROcEtRdGVhZlBNVW9rUEpQ?=
- =?utf-8?B?emhCbGdlcTNQTS9TNW5FNlFyTUIyWW1SZ3BlcnRsVERhV0lWRmhMUkxITnN3?=
- =?utf-8?B?bll5a1FoSjgxdlpISTVhcytkMXZUUUg0UFNoSnNic3FrT29vdnQ0MGNGaXBh?=
- =?utf-8?B?Mmh1czhqcTNiWE5VTXh0STV3NjVuV2JpL1gyZmZPMTlaL3cybDFQamtTUnZZ?=
- =?utf-8?B?dzZ3UWtkSXhuVWN2cE5WcG5GZjM3TnNCckUrOHZrOUJZdjBITmRUdFNlNnpv?=
- =?utf-8?B?dUVJTjFrdEMxUWtZRGcwMWRCdXFJeGZpeDBsbjc1WE9jcG00Y0dRZ2xqR1Fs?=
- =?utf-8?B?bzNyYlArZ01DVUVuek14cFFxSVF1QzV3dFAyWE5SaldsQU9tZXJtNnpyWFNS?=
- =?utf-8?B?QmlWMlRpWHdEbTJjdGRGbWlwYWM4TXZRQXdZeHRWaUlyTmF4TXlnb1hlSU9v?=
- =?utf-8?B?ZUIrWDVrWkdoWVdPaUd5eXFrbTI3ZlhnYjhQeloyWTNhTXl3R2dJZXcxdDNj?=
- =?utf-8?B?WUtTcFZoQ2VYWWVJVTRQUGY0TW1FUXM3VFlkSGR4SUdDL0lITzlGdUt0UjB5?=
- =?utf-8?B?TGxuK1lVRFlRbjlzaXVPUEpmYUg1YzhFOUtrYVdadmJPeWpHa0RPTmRYa3A3?=
- =?utf-8?B?WlFTdGlRV2NqSmtwVkV5RjRWQW9pMFhQN2VmbU5zZGdhR1ZXYVNPUHp2YlUy?=
- =?utf-8?B?aUk2SERsK0xRMkk2VS9zSUZyek1iUWJLS0hnN2kzWVBmbzdZRlU0Z2VUeVJZ?=
- =?utf-8?B?ZjRZUnU4SUJyZjllbE9UTDZsYU50bnUvb2FNMUZNdVhzY0t6L0p4c0d0RnQ0?=
- =?utf-8?B?MkVUeEFWbmd6YjhsM2dKMUZSSFZSNU13aUo5RkgrSnpmN1AxRmV0YVo0TnBM?=
- =?utf-8?B?NEE2Q1lJaFBQWVE5d0tSeXBRY0Z6ek9Qb1BuUmNCNFZ3ZGtNbUtWWFYxUUxm?=
- =?utf-8?B?N09YOFp3QnhkakE5ZUVoUVBLa0J6eXhxbUNZQ1F2SXV5anRSeG1NZ2NRRkdu?=
- =?utf-8?B?d2tHbC9BQ0xJdjMyODdzYzhnejd2Q3BHMzN6ckd3ODA2QXBMaTQ1TDh3NzEy?=
- =?utf-8?B?L2FBM0tsV01iai9RbG1sU1ZGRFBUWGEzMVIvVXc2OFI2WFF6MVZlNTd6UmZS?=
- =?utf-8?B?QW5mbkV1elgrSCtjdWpRektSRldKSUFvWklWL1R0N0hOd1hrc2JWZERxVTVK?=
- =?utf-8?B?VGdCKzhGMHNSZk5vYXF6U0tZSFVNSE91bUxSYlNxRmRObTY0M1VGNjlFSlBJ?=
- =?utf-8?B?VVNqS0ZpMVpEMmhrb1M5eFdVK2VPdWtkRHdjM0k3eXlxRHgvUUVEWDBENXZF?=
- =?utf-8?B?eFRzbHdrOWpUOFdVTzY5ZDBDdklrdTgwNW9keE16ZytCK1BhWWxVYTBCdk56?=
- =?utf-8?B?UHhxbUhjSTFjWG9kTC9ZVDZtZ09Ja05PUlhHUlBlaGsxWWlHRTQ3dCt5MGFO?=
- =?utf-8?B?b0NPSlYvSFV5OGJkNVV4YjhuRVA4bTBRVUE4ekZXWklnSTBscHZwckVBSmhy?=
- =?utf-8?B?SFd1ZXU0elZKREdyaHZuUHl5WkJ1TVRqMEVIa0ZNY0duckJGRUV1OHFQVEl3?=
- =?utf-8?B?SUU0b2g5azJXbnZPUGRRN2dzVElMb1ZBQklJNTczK0Uwa3dRMHJ1a0F1cGhq?=
- =?utf-8?B?aUhYZEJGaHFxeXZMT283U1RIMTJhelEyYkVIcFRHVjZiaWpNdzV3aG5zZUw4?=
- =?utf-8?B?R3N3ZXZITmJGRnMyTVJVbkFXZFVtZm03QW9JaDFxV0I2U0xyem9FaXkxL21v?=
- =?utf-8?B?em9CSisrQmkxWlpFVWpkU1hGdVZ6NG5Zb05yWG9IMGNMaENIRzNPa1BoTGlQ?=
- =?utf-8?B?NU9NSHhialQ2RytnS1NsZTZWa1d6Qlo5cnJBSE5jV0E4ZFNqZlNwcEF5TVNK?=
- =?utf-8?B?Nk1wNzNTWU5hcEZUbFJGL0NtNm84K251NkF4ZnBwa0pyVkw1akFxSmpYTEI0?=
- =?utf-8?B?SENCd0cvNk92TDNZTVp1YjNJREEyMkduK2JwUi9LZUhUdjFVeWhRaGRjb2Fz?=
- =?utf-8?B?TXlQdmtWMlpuNDlIOHlUL0kzK0I0TnJMNmtOTGhyZGRGekpEYVVLczBPZTNp?=
- =?utf-8?B?MWs3Z3hVdVZ4WkZuUUprNzFFSHZOTmFScVhmY1ZNNSs5NG5ZUUpsRGxyTUNY?=
- =?utf-8?Q?UFetiQ4PArnrcnnqEE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88baf530-c640-4637-bccd-08df289c5916
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6921.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 20:06:48.6332 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tiI5HcgMBkOisAnCM+74lon6AMYJaXxj0vcfgeIXGOGYY5Bdo916QjheBV0kvhlMM4QmTh+lSQN0ourZwKW7+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5734
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012192933.GA1358008@bhelgaas>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,226 +58,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 9/2/26 17:31, Andrei Rusu de Castro wrote:
-> convert_brightness_from_user() expects convert_custom_brightness() to
-> reshape a value in the userspace [0..max] domain before the caller maps
-> it once into the firmware [min..max] domain.
+On Mon, Oct 12, 2026 at 02:29:33PM -0500, Bjorn Helgaas wrote:
+> On Sat, Oct 10, 2026 at 10:53:01PM +0530, Aditya Garg wrote:
+> > Jason reported that since commit eddba19b8b5f ("PCI/AER: Support Advisory
+> > Non-Fatal Errors"), the Macs with Apple T2 Security Chip were powering
+> > off a few seconds after every boot. He also found the PCI Device
+> > 106b:1802, which corresponds to the Apple T2 Secure Enclave Processor was
+> > misbehaving and the most likely reason is that the device is ANFE
+> > incompatible due to Apple's custom hardware.
+> > 
+> > Since its highly unlikely that Apple will release a firmware update to
+> > support ANFE, introduce a quirk as suggested by Lukas to blacklist the T2
+> > SEP from ANFE.
+> > 
+> > Fixes: eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal Errors")
+> > Reported-by: Jason Perlow <jperlow@gmail.com>
+> > Tested-by: Jason Perlow <jperlow@gmail.com>
+> > Closes: https://lore.kernel.org/linux-pci/CABZrw2HcaOh3DHTJtxU5dXrb3Vg19scr6+qR-xe_+R7rME35_Q@mail.gmail.com/
+> > Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
 > 
-> Commit 8dbd72cb7900 ("drm/amd/display: Export full brightness range to
-> userspace") instead made convert_custom_brightness() call
-> scale_fw_to_input(min, max, ...). That helper adds min and scales by the
-> firmware span, entering the firmware domain before the caller applies
-> the same span and minimum again.
-> 
-> With the default PWM range, min is 3084 and max is 65535. A zero request
-> through any custom curve consequently returns 6023 instead of 3084, so
-> the darkest 2939 firmware levels are unreachable.
-> 
-> Keep the curve result in [0..max]. scale_fw_to_input() then becomes the
-> inverse of scale_input_to_fw(), and the caller remains the sole owner of
-> the userspace-to-firmware conversion. The linear path is unchanged.
-> 
-> A later patch removes this helper from the PWM power-module path because
-> the power module owns that curve. AUX panels continue to use it, and
-> stable kernels predating the power-module refactor still require this
-> correction on PWM panels.
-> 
-> Commit 6fd83a1c2cde ("drm/amd/display: Scale custom brightness curve from
-> full range") fixed the corresponding input-side domain error. This
-> completes the output side of the same conversion.
-> 
-> Source and arithmetic analysis identified the duplicate domain
-> conversion. KUnit coverage for a non-zero firmware minimum is added
-> separately.
-> 
-> Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to userspace")
-> Cc: stable@vger.kernel.org # 6.17.x: 6fd83a1c2cde: drm/amd/display: Scale custom brightness curve from full range
-> Cc: stable@vger.kernel.org # 6.17.x
-> Cc: stable@vger.kernel.org # before 7.3 this code is in amdgpu_dm.c; drop the header and test hunks
-> Assisted-by: LLM
-> Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
+> Applied to pci/for-linus for v7.3, thank you!
 
-There has already been some competing changes for how the power module 
-integration handling works in amd-staging-drm-next.
+Replaced by Jason's very similar but slightly earlier patch at
+https://patch.msgid.link/CABZrw2H+3yt2Y7xiq6OyAWaJM7P9ox-2nJxoQuJMwoJHLgi+YQ@mail.gmail.com/
 
-I wanted to see how your series was on top of it, but it doesn't apply 
-anymore. [1]  Can you please rebase your series and re-evaluate?
-
-If it still makes sense (in your view); please send out a v3.
-
-[1]
-Applying: drm/amd/display: keep custom brightness curve in userspace domain
-Patch failed at 0001 drm/amd/display: keep custom brightness curve in 
-userspace domain
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-error: patch failed: 
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c:112
-error: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c: 
-patch does not apply
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-
-Thanks,
-
-> ---
->   .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 13 ++++----
->   .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  3 +-
->   .../tests/amdgpu_dm_backlight_test.c          | 30 +++++++++----------
->   3 files changed, 22 insertions(+), 24 deletions(-)
+> I aligned the "!dev->no_aer_anfe" test as Lukas suggested and took a
+> stab at the "misbehaving" comment:
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> index e61bbc310f33..424b33573a73 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> @@ -112,16 +112,15 @@ static inline u32 scale_input_to_fw(int max, u64 input)
->   	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
->   }
->   
-> -/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
-> -static inline u32 scale_fw_to_input(int min, int max, u64 input)
-> +/* Rescale the firmware curve's [0..AMDGPU_MAX_BL_LEVEL] back to userspace [0..max]. */
-> +static inline u32 scale_fw_to_input(int max, u64 input)
->   {
-> -	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
-> +	return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
->   }
->   
->   STATIC_IFN_KUNIT
->   void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
-> -			       unsigned int min, unsigned int max,
-> -			       uint32_t *user_brightness)
-> +			       unsigned int max, uint32_t *user_brightness)
->   {
->   	u32 brightness = scale_input_to_fw(max, *user_brightness);
->   	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
-> @@ -179,7 +178,7 @@ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
->   						    (brightness - lower_signal),
->   						    upper_signal - lower_signal);
->   scale:
-> -	*user_brightness = scale_fw_to_input(min, max,
-> +	*user_brightness = scale_fw_to_input(max,
->   					     DIV_ROUND_CLOSEST(lum * brightness, 101));
->   }
->   
-> @@ -194,7 +193,7 @@ u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
->   	if (!get_brightness_range(caps, &min, &max))
->   		return brightness;
->   
-> -	convert_custom_brightness(caps, min, max, &brightness);
-> +	convert_custom_brightness(caps, max, &brightness);
->   
->   	/* Rescale 0..max to min..max */
->   	return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-> index 07b75064847c..90bed0ea5d00 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-> @@ -67,8 +67,7 @@ ssize_t panel_power_savings_store(struct device *device,
->   int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
->   			 unsigned int *min, unsigned int *max);
->   void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
-> -			       unsigned int min, unsigned int max,
-> -			       uint32_t *user_brightness);
-> +			       unsigned int max, uint32_t *user_brightness);
->   u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
->   				 uint32_t brightness);
->   u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-> index 7ca17f803f9d..1fb171fdbc3c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-> @@ -1033,7 +1033,7 @@ static void dm_test_custom_brightness_no_data_points(struct kunit *test)
->   
->   	caps.data_points = 0;
->   
-> -	convert_custom_brightness(&caps, 3084, 65535, &brightness);
-> +	convert_custom_brightness(&caps, 65535, &brightness);
->   
->   	/* No data points → no-op */
->   	KUNIT_EXPECT_EQ(test, brightness, saved);
-> @@ -1057,7 +1057,7 @@ static void dm_test_custom_brightness_debug_mask_disables(struct kunit *test)
->   	/* Set the disable flag */
->   	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
->   
-> -	convert_custom_brightness(&caps, 3084, 65535, &brightness);
-> +	convert_custom_brightness(&caps, 65535, &brightness);
->   
->   	/* Should be no-op due to debug mask */
->   	KUNIT_EXPECT_EQ(test, brightness, saved);
-> @@ -1100,14 +1100,14 @@ static void dm_test_custom_brightness_exact_match(struct kunit *test)
->   	 */
->   	brightness = 32896;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	/*
->   	 * Exact match: lum=50, brightness_scaled=128
-> -	 * result = scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101))
-> -	 *        = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
-> -	 *        = scale_fw_to_input(0, 65535, 63)
-> -	 *        = 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
-> +	 * result = scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
-> +	 *        = scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
-> +	 *        = scale_fw_to_input(65535, 63)
-> +	 *        = DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
->   	 */
->   	KUNIT_EXPECT_TRUE(test, brightness != 32896);
->   	KUNIT_EXPECT_TRUE(test, brightness < 32896);
-> @@ -1146,13 +1146,13 @@ static void dm_test_custom_brightness_below_first(struct kunit *test)
->   	 */
->   	brightness = 12850;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	/*
->   	 * Below first data point: lum = DIV_ROUND_CLOSEST(40 * 50, 100) = 20
-> -	 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
-> -	 *      = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
-> -	 *      = scale_fw_to_input(0, 65535, 10)
-> +	 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
-> +	 *      = scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
-> +	 *      = scale_fw_to_input(65535, 10)
->   	 * The output should be significantly less than input.
->   	 */
->   	KUNIT_EXPECT_TRUE(test, brightness < 12850);
-> @@ -1190,7 +1190,7 @@ static void dm_test_custom_brightness_interpolation(struct kunit *test)
->   	 */
->   	brightness = 32125;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	/*
->   	 * The function should interpolate between data points and produce
-> @@ -1233,7 +1233,7 @@ static void dm_test_custom_brightness_above_last(struct kunit *test)
->   	 */
->   	brightness = 56533;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	/* Output should differ from input (remapped via curve) */
->   	KUNIT_EXPECT_TRUE(test, brightness != 56533);
-> @@ -1271,7 +1271,7 @@ static void dm_test_custom_brightness_single_data_point(struct kunit *test)
->   	 */
->   	brightness = 16448;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	KUNIT_EXPECT_TRUE(test, brightness < 16448);
->   
-> @@ -1309,7 +1309,7 @@ static void dm_test_custom_brightness_lower_lum_zero(struct kunit *test)
->   	 */
->   	brightness = 32125;
->   
-> -	convert_custom_brightness(&caps, min, max, &brightness);
-> +	convert_custom_brightness(&caps, max, &brightness);
->   
->   	/* Should remap; result should differ from input */
->   	KUNIT_EXPECT_TRUE(test, brightness != 32125);
-
+>   Jason reported that since commit eddba19b8b5f ("PCI/AER: Support Advisory
+>   Non-Fatal Errors"), the Macs with Apple T2 Security Chip were powering off
+>   a few seconds after every boot. He also found that the power-off only
+>   happens when Advisory Non-Fatal Errors are unmasked on the PCI Device
+>   106b:1802, the Apple T2 Secure Enclave Processor.
+> 
+> I'll be happy to revise this if we can make it clearer or more
+> specific.
+> 
+> > ---
+> >  drivers/pci/pcie/aer.c  |  3 ++-
+> >  drivers/pci/quirks.c    | 12 ++++++++++++
+> >  include/linux/pci.h     |  1 +
+> >  include/linux/pci_ids.h |  1 +
+> >  4 files changed, 16 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+> > index 922a726a5..cab195f7c 100644
+> > --- a/drivers/pci/pcie/aer.c
+> > +++ b/drivers/pci/pcie/aer.c
+> > @@ -428,7 +428,8 @@ void pci_aer_init(struct pci_dev *dev)
+> >  	 * Advisory Non-Fatal Errors are masked by default (PCIe r7.0, sec
+> >  	 * 7.8.4.6).
+> >  	 */
+> > -	if (pcie_aer_is_native(dev) && dev->devcap & PCI_EXP_DEVCAP_RBER)
+> > +	if (pcie_aer_is_native(dev) && dev->devcap & PCI_EXP_DEVCAP_RBER &&
+> > +		!dev->no_aer_anfe)
+> >  		pci_clear_and_set_config_dword(dev,
+> >  					       dev->aer_cap + PCI_ERR_COR_MASK,
+> >  					       PCI_ERR_COR_ADV_NFAT, 0);
+> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> > index de9bbccda..acca89532 100644
+> > --- a/drivers/pci/quirks.c
+> > +++ b/drivers/pci/quirks.c
+> > @@ -6422,4 +6422,16 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
+> >  }
+> >  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer_timeout);
+> >  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer_timeout);
+> > +
+> > +/*
+> > + * Unmasking Advisory Non-Fatal Errors on Apple T2 Secure Enclave
+> > + * processor leads to the Mac shutting down spontaneously. Avoid
+> > + * doing that.
+> > + */
+> > +static void quirk_no_aer_anfe(struct pci_dev *dev)
+> > +{
+> > +	dev->no_aer_anfe = 1;
+> > +}
+> > +
+> > +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_APPLE, PCI_DEVICE_ID_APPLE_T2_SEP, quirk_no_aer_anfe);
+> >  #endif
+> > diff --git a/include/linux/pci.h b/include/linux/pci.h
+> > index d31a8d107..83ffa5058 100644
+> > --- a/include/linux/pci.h
+> > +++ b/include/linux/pci.h
+> > @@ -514,6 +514,7 @@ struct pci_dev {
+> >  	unsigned int	rom_bar_overlap:1;	/* ROM BAR disable broken */
+> >  	unsigned int	rom_attr_enabled:1;	/* Display of ROM attribute enabled? */
+> >  	unsigned int	non_mappable_bars:1;	/* BARs can't be mapped by CPU or peers */
+> > +	unsigned int	no_aer_anfe:1;		/* Don't unmask Advisory Non-Fatal Errors */
+> >  	pci_dev_flags_t dev_flags;
+> >  	atomic_t	enable_cnt;	/* pci_enable_device has been called */
+> >  
+> > diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+> > index 63774ae2b..103024f74 100644
+> > --- a/include/linux/pci_ids.h
+> > +++ b/include/linux/pci_ids.h
+> > @@ -1007,6 +1007,7 @@
+> >  #define PCI_DEVICE_ID_APPLE_IPID2_FW	0x006a
+> >  #define PCI_DEVICE_ID_APPLE_IPID2_GMAC	0x006b
+> >  #define PCI_DEVICE_ID_APPLE_TIGON3	0x1645
+> > +#define PCI_DEVICE_ID_APPLE_T2_SEP	0x1802
+> >  
+> >  #define PCI_VENDOR_ID_YAMAHA		0x1073
+> >  #define PCI_DEVICE_ID_YAMAHA_724	0x0004
+> > -- 
+> > 2.55.0
+> > 
