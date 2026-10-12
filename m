@@ -4,34 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 858D3CA9ED0
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 09:24:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AE27CA9EDE
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 09:25:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F47010E65F;
-	Mon, 12 Oct 2026 09:24:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD2B410E834;
+	Mon, 12 Oct 2026 09:24:57 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8121610EF82
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62B1E10E85D
  for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 09:24:53 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 69C9Om9J3938028; Mon, 12 Oct 2026 14:54:48 +0530
+ 69C9Olep3937977; Mon, 12 Oct 2026 14:54:47 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69C9Om813938027;
- Mon, 12 Oct 2026 14:54:48 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69C9OlRo3937976;
+ Mon, 12 Oct 2026 14:54:47 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Mukul Joshi <mukul.joshi@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v2 11/11] drm/amdgpu: remove the now-redundant runtime SPM
- VMID update
-Date: Mon, 12 Oct 2026 14:54:29 +0530
-Message-Id: <20261012092429.3937825-11-sunil.khatri@amd.com>
+Subject: [PATCH v2 02/11] drm/amdgpu: add spm_vmid and exclude it from the MES,
+ KFD and kq pools
+Date: Mon, 12 Oct 2026 14:54:20 +0530
+Message-Id: <20261012092429.3937825-2-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261012092429.3937825-1-sunil.khatri@amd.com>
 References: <20261012092429.3937825-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,157 +46,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The SPM reserved VMID is fixed now, so retargeting RLC_SPM_VMID to
-job->vmid on every submission is dead code. Remove
-job->spm_update_needed and the update_spm_vmid() calls in
-amdgpu_vm_flush() and amdgpu_ib_schedule().
+The SPM (Streaming Performance Monitor) path needs a VMID that is
+isolated from other GPU contexts. Introduce vm_manager.spm_vmid to let
+a GFXHUB dedicate a VMID to SPM.
 
+When spm_vmid is set, exclude it from both the kernel-queue pool and
+vmid_uq_mask_gfxhub, so neither the round-robin kernel-queue allocator
+nor MES/Userqueues ever maps another context onto it.
+
+Assisted-by: Claude:claude-sonnet-5
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  |  7 +------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 15 +--------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  3 +--
- 5 files changed, 3 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 46 ++++++++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  2 ++
+ 2 files changed, 31 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index 0f8b097001e3c..f98a7c6797b3c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -126,7 +126,6 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	struct amdgpu_fence *af;
- 	struct amdgpu_fence *vm_af;
- 	bool need_ctx_switch;
--	bool emit_spm_needed = false;
- 	bool emit_gds_needed = false;
- 	uint64_t fence_ctx;
- 	uint32_t status = 0, alloc_size;
-@@ -195,8 +194,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 
- 	/* VM sequence */
- 	vm_af->ib_wptr = ring->wptr;
--	amdgpu_vm_flush(ring, job, &need_pipe_sync, &emit_spm_needed,
--			&emit_gds_needed);
-+	amdgpu_vm_flush(ring, job, &need_pipe_sync, &emit_gds_needed);
- 	vm_af->ib_dw_size =
- 		amdgpu_ring_get_dw_distance(ring, vm_af->ib_wptr, ring->wptr);
- 
-@@ -211,9 +209,6 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	if (need_pipe_sync)
- 		amdgpu_ring_emit_pipeline_sync(ring);
- 
--	if (emit_spm_needed)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring, job->vmid);
--
- 	if (emit_gds_needed)
- 		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
- 					    job->gds_size, job->gws_base,
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index 3617de2368d5a..85ffa2d28c3fa 100644
+index 392a18b1f2b4b..ed1efde29a9a5 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -372,7 +372,6 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
- 		return r;
+@@ -638,26 +638,45 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev)
+  * @vmid_kq_mask_gfxhub: kernel-queue VMID pool mask for GFXHUB
+  * @vmid_kq_mask_mmhub: kernel-queue VMID pool mask for MMHUB
+  *
+- * Sets both hubs' kernel-queue VMID pools (tracked least-recently-used
+- * via id_mgr[].ids_lru), and both hubs' KFD/MES user-queue masks.
+- * vmid_uq_mask_gfxhub is set to the
+- * complement of @vmid_kq_mask_gfxhub, since unlike MMHUB's it is always a
+- * clean partition of the full VMID range; vmid_uq_mask_mmhub is the
+- * fixed pool set here instead, since MMHUB's kq and uq pools are
+- * allowed to overlap. A VMID dedicated to a single fixed purpose on
+- * MMHUB (npa_vmid) is excluded from both MMHUB pools; it is the
+- * caller's responsibility to have already set npa_vmid.
++ * Sets both GFXHUB and MMHUB kernel-queue VMID pools
++ * via id_mgr[].ids_lru, and KFD/MES user-queue masks too.
+  */
+ void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
+ 				   unsigned long vmid_kq_mask_gfxhub,
+ 				   unsigned long vmid_kq_mask_mmhub)
+ {
++	unsigned long uq_mask_gfxhub, uq_mask_mmhub;
+ 	unsigned int i;
  
- 	job->vm_needs_flush = needs_flush;
--	job->spm_update_needed = true;
- 	return 0;
+ 	BUILD_BUG_ON(AMDGPU_NUM_VMID > BITS_PER_LONG);
+ 
+-	if (adev->vm_manager.npa_vmid)
++	/*
++	 * Derive the uq masks from the kq masks as given, then carve each
++	 * hub's dedicated out-of-pool VMID out of both of that hub's pools.
++	 */
++	uq_mask_gfxhub = GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~vmid_kq_mask_gfxhub;
++	uq_mask_mmhub = 0xFF00;
++
++	/*
++	 * SPM uses a dedicated vmid that is reserved from gfxhub.
++	 * Unmask the reserved vmids from both user and kernel queues
++	 */
++	if (adev->vm_manager.spm_vmid) {
++		vmid_kq_mask_gfxhub &= ~BIT(adev->vm_manager.spm_vmid);
++		uq_mask_gfxhub &= ~BIT(adev->vm_manager.spm_vmid);
++	}
++
++	/*
++	 * NPA uses a dedicated vmid that is reserved from mmhub.
++	 * Unmask the reserved VMIDs from both user and kernel queues
++	 */
++	if (adev->vm_manager.npa_vmid) {
+ 		vmid_kq_mask_mmhub &= ~BIT(adev->vm_manager.npa_vmid);
++		uq_mask_mmhub &= ~BIT(adev->vm_manager.npa_vmid);
++	}
++
++	adev->vm_manager.vmid_uq_mask_gfxhub = uq_mask_gfxhub;
++	adev->vm_manager.vmid_uq_mask_mmhub = uq_mask_mmhub;
+ 
+ 	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
+ 		bool is_mmhub = AMDGPU_IS_MMHUB0(i) || AMDGPU_IS_MMHUB1(i);
+@@ -666,13 +685,6 @@ void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
+ 			    is_mmhub ? &vmid_kq_mask_mmhub : &vmid_kq_mask_gfxhub,
+ 			    AMDGPU_NUM_VMID);
+ 	}
+-
+-	adev->vm_manager.vmid_uq_mask_gfxhub =
+-		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~vmid_kq_mask_gfxhub;
+-
+-	adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
+-	if (adev->vm_manager.npa_vmid)
+-		adev->vm_manager.vmid_uq_mask_mmhub &= ~BIT(adev->vm_manager.npa_vmid);
  }
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-index ae569b4497f6a..f6577f82e6b93 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
-@@ -75,7 +75,6 @@ struct amdgpu_job {
- 	uint32_t                preemption_status;
- 	bool                    vm_needs_flush;
- 	bool			gds_switch_needed;
--	bool			spm_update_needed;
- 	uint64_t		vm_pd_addr;
- 	unsigned		vmid;
- 	unsigned		pasid;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 7d3659ef11e53..de992405ed718 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -766,14 +766,12 @@ bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
-  * @ring: ring to use for flush
-  * @job:  related job
-  * @need_pipe_sync: is pipe sync needed
-- * @emit_spm_needed: does the caller need to emit spm
-  * @emit_gds_needed: does the caller need to emit gds
-  *
-  * Emit a VM flush when it is necessary.
-  */
- void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
--		     bool *need_pipe_sync, bool *emit_spm_needed,
--		     bool *emit_gds_needed)
-+		     bool *need_pipe_sync, bool *emit_gds_needed)
- {
- 	struct amdgpu_device *adev = ring->adev;
- 	struct amdgpu_isolation *isolation =
-@@ -782,8 +780,6 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	unsigned vmhub = ring->vm_hub;
- 	struct amdgpu_kq_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
- 	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
--	bool spm_update_needed = adev->gfx.rlc.funcs->update_spm_vmid &&
--		job->spm_update_needed;
- 	bool gds_switch_needed = ring->funcs->emit_gds_switch &&
- 		job->gds_switch_needed;
- 	bool vm_flush_needed = job->vm_needs_flush;
-@@ -797,7 +793,6 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 		gds_switch_needed = true;
- 		vm_flush_needed = true;
- 		pasid_mapping_needed = true;
--		spm_update_needed = true;
- 	}
- 
- 	mutex_lock(&id_mgr->lock);
-@@ -807,7 +802,6 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	mutex_unlock(&id_mgr->lock);
- 
- 	gds_switch_needed &= !!ring->funcs->emit_gds_switch;
--	spm_update_needed &= !!adev->gfx.rlc.funcs->update_spm_vmid;
- 	vm_flush_needed &= !!ring->funcs->emit_vm_flush  &&
- 			job->vm_pd_addr != AMDGPU_BO_INVALID_OFFSET;
- 	pasid_mapping_needed &= adev->gmc.gmc_funcs->emit_pasid_mapping &&
-@@ -821,10 +815,6 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	emit_fence = vm_flush_needed || pasid_mapping_needed ||
- 		cleaner_shader_needed;
- 
--	*emit_spm_needed = spm_update_needed;
--	if (spm_update_needed && emit_fence)
--		*emit_spm_needed = false;
--
- 	*emit_gds_needed = gds_switch_needed;
- 	if (gds_switch_needed && emit_fence)
- 		*emit_gds_needed = false;
-@@ -864,9 +854,6 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	if (pasid_mapping_needed)
- 		amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid);
- 
--	if (spm_update_needed)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring, job->vmid);
--
- 	if (gds_switch_needed)
- 		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
- 						    job->gds_size, job->gws_base,
+ /**
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index ddcdc7256ef07..b8aa45db1d844 100644
+index d99e42ca308ef..ddcdc7256ef07 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -448,8 +448,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		       int (*callback)(void *p, struct amdgpu_bo *bo),
- 		       void *param);
- void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
--		     bool *need_pipe_sync, bool *emit_spm_needed,
--		     bool *emit_gds_needed);
-+		     bool *need_pipe_sync, bool *emit_gds_needed);
- int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
- 			  struct amdgpu_vm *vm, bool immediate);
- int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+@@ -411,7 +411,9 @@ struct amdgpu_vm_manager {
+ 
+ 	/* Global registration of recent page fault information */
+ 	struct amdgpu_vm_fault_info		fault_info;
++	/* VMIDs dedicated to a single fixed purpose, 0 if unused */
+ 	unsigned int				npa_vmid;
++	unsigned int				spm_vmid;
+ 
+ 	/* VMID masks for GFXHUB and MMHUB */
+ 	uint32_t				vmid_uq_mask_gfxhub;
 -- 
 2.34.1
 
