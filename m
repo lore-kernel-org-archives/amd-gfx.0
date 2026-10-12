@@ -4,43 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 193BFCA9EDE
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 19:06:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B56CA9ED0
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 19:26:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9459C10F314;
-	Mon, 12 Oct 2026 19:06:16 +0000 (UTC)
-Received: from mailout3.hostsharing.net (mailout3.hostsharing.net
- [144.76.133.104])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB0B10F2F3
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 19:06:15 +0000 (UTC)
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9B510E1A9;
+	Mon, 12 Oct 2026 19:26:49 +0000 (UTC)
+X-Greylist: delayed 536 seconds by postgrey-1.36 at gabe;
+ Mon, 12 Oct 2026 19:26:47 UTC
+Received: from mailout2.hostsharing.net (mailout2.hostsharing.net
+ [83.223.78.233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E593110E1A9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 19:26:47 +0000 (UTC)
+Received: from h08.hostsharing.net (h08.hostsharing.net
+ [IPv6:2a01:37:1000::53df:5f1c:0])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
  client-signature ECDSA (secp384r1) client-digest SHA384)
  (Client CN "*.hostsharing.net",
  Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
- by mailout3.hostsharing.net (Postfix) with ESMTPS id DA4C62A87;
- Mon, 12 Oct 2026 21:06:13 +0200 (CEST)
+ by mailout2.hostsharing.net (Postfix) with ESMTPS id 9854285EA;
+ Mon, 12 Oct 2026 21:17:49 +0200 (CEST)
 Received: by h08.hostsharing.net (Postfix, from userid 100393)
- id 94FDF600E1CF; Mon, 12 Oct 2026 21:06:13 +0200 (CEST)
-Date: Mon, 12 Oct 2026 21:06:13 +0200
+ id 7611860000B7; Mon, 12 Oct 2026 21:17:49 +0200 (CEST)
+Date: Mon, 12 Oct 2026 21:17:49 +0200
 From: Lukas Wunner <lukas@wunner.de>
-To: Aditya Garg <aditya.garg@linux.dev>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org,
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: linux-pci@vger.kernel.org, Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
  Oliver OHalloran <oohall@gmail.com>, linuxppc-dev@lists.ozlabs.org,
  Alex Deucher <alexdeucher@gmail.com>,
  Christian Koenig <christian.koenig@amd.com>,
  Vitaly Prosyak <vitaly.prosyak@amd.com>,
- amd-gfx@lists.freedesktop.org, Jason Perlow <jperlow@gmail.com>
-Subject: Re: [PATCH for-linus] PCI/AER: Skip unmasking Advisory Non-Fatal
- Errors on T2 SEP
-Message-ID: <as0vpb8EVlo_8Gx1@wunner.de>
-References: <20261010172301.12764-1-aditya.garg@linux.dev>
+ amd-gfx@lists.freedesktop.org, Aditya Garg <aditya.garg@linux.dev>,
+ Jason Perlow <jperlow@gmail.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: [PATCH for-linus] PCI/AER: Skip error recovery on false alarms
+Message-ID: <as0yXccnanni6KZe@wunner.de>
+References: <ash0Rn78gwlQ87Fg@wunner.de>
+ <20261009150724.GA974326@bhelgaas>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261010172301.12764-1-aditya.garg@linux.dev>
+In-Reply-To: <20261009150724.GA974326@bhelgaas>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,31 +59,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Oct 10, 2026 at 10:53:01PM +0530, Aditya Garg wrote:
-> Jason reported that since commit eddba19b8b5f ("PCI/AER: Support Advisory
-> Non-Fatal Errors"), the Macs with Apple T2 Security Chip were powering
-> off a few seconds after every boot. He also found the PCI Device
-> 106b:1802, which corresponds to the Apple T2 Secure Enclave Processor was
-> misbehaving and the most likely reason is that the device is ANFE
-> incompatible due to Apple's custom hardware.
+On Fri, Oct 09, 2026 at 10:07:24AM -0500, Bjorn Helgaas wrote:
+> On Fri, Oct 09, 2026 at 06:57:42AM +0200, Lukas Wunner wrote:
+> > Apple products with a T2 Secure Enclave will require a separate patch
+> > which avoids enabling Advisory Non-Fatal Errors on this particular device.
+> > A quirk, in other words.
+> > 
+> > I think the firmware on the T2 is upgradable in principle, but Apple isn't
+> > going to do us the favor to fix it.  So we don't have any other option
+> > than keeping a blacklist for ANFE-incompatible devices, with the T2 being
+> > the first device on that blacklist and maybe others to follow.
+> 
+> OK, it sounds like two separate issues needing two separate patches to
+> fix.  So I think I'll ask Linus to pull this fix today and watch for
+> the quirk next week.
 
-Nit:  Not sure what "misbehaving" means beyond the sudden power-off?
+In case it's not obvious, the quirk necessary for the Apple T2
+was submitted by Aditya here:
 
-> +++ b/drivers/pci/pcie/aer.c
-> @@ -428,7 +428,8 @@ void pci_aer_init(struct pci_dev *dev)
->  	 * Advisory Non-Fatal Errors are masked by default (PCIe r7.0, sec
->  	 * 7.8.4.6).
->  	 */
-> -	if (pcie_aer_is_native(dev) && dev->devcap & PCI_EXP_DEVCAP_RBER)
-> +	if (pcie_aer_is_native(dev) && dev->devcap & PCI_EXP_DEVCAP_RBER &&
-> +		!dev->no_aer_anfe)
->  		pci_clear_and_set_config_dword(dev,
->  					       dev->aer_cap + PCI_ERR_COR_MASK,
->  					       PCI_ERR_COR_ADV_NFAT, 0);
+https://lore.kernel.org/r/20261010172301.12764-1-aditya.garg@linux.dev/
 
-Nit: The "!dev->no_aer_anfe" is not aligned with the opening brace.
+Also, Jason attached a functionally identical patch to this e-mail:
 
-It's probably not necessary to respin for the nits alone because
-Bjorn may resolve them when applying the patch.
+https://lore.kernel.org/r/CABZrw2H+3yt2Y7xiq6OyAWaJM7P9ox-2nJxoQuJMwoJHLgi+YQ@mail.gmail.com/
 
-Reviewed-by: Lukas Wunner <lukas@wunner.de>
+Either patch is a viable fix for this problem.
+
+Thanks,
+
+Lukas
