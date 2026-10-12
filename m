@@ -4,125 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13D25CA9EC5
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 15:11:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F3E6CA9ED1
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 15:28:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55F1310F1DC;
-	Mon, 12 Oct 2026 15:11:15 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011047.outbound.protection.outlook.com [52.101.52.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5998110F1CD
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 15:11:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9631D10E5DB;
+	Mon, 12 Oct 2026 15:28:27 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012014.outbound.protection.outlook.com [52.101.53.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80AA710E5DB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 15:28:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F+HacjkK8JNJo2PG0hSlFjjhteob975wBFmbIUWKhR2FLL/DqNQwH4DUoLvmN+S+fKoniDtbHR25GTqqn3J0TPnZWNN7f3368Gb+/6pDSgnCphSeOJu0AbgHkxEvhTZ7h7UHtgXm/s77kdH2lhCyxpisjr/Vh/6psAJrP3Xmnmg1zXe0yiKnr7zzuoruBn2O/cKJtFCulKVdNHy26BtYw3R06wlgdFvr5tgf/4zUxL2lEI9e2X3gvLFfv4ZRU5OMgfFyPixfMolWwlpy0i3eIUGNCa5EsSmWdxWIUxVlmGFM6RetotqGN49jC0+Ga+734LpOGv/qr6p74z/zUFpHHA==
+ b=B7e9JGTicaBbjaDRAM/TCBe7Fg7+6rFJOVZgA28VtSapIpiBZ1JcgYe0K/jf7xTy+TPzsJgyRf2beYcRtVWBDR+vgeXp7Ri/tgK3rFHZJx/hV3GwmQ7L3KdLq/mXnhSrPuFNmoJwx8UruxnHrFaIwv9/J9q2ayOsXWhL9OjQgujE9gidT5mb97Ki0Lx+Qefgm6XNR4RXdUmWT6wk9hnH2H+rEQVXHD679l7zlCxVifkWnuW5rdT30T2MIRx2G4Fklztu7mAovZ6ON6M717O9ApMMa8+wjUYMpZJtiXQVgzUfMAMy7lLRxKocxXzGIoapa4YMe/u+wJ0YuWroBLp7ZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UPXIcV3yd9i+1WRyAmAacEMaxakD2A2+5BOlec3SwiQ=;
- b=ZgBn5rzKX4OGMv3/1KkcdfQ2ABc3fvdpGml5UOZLT18Q9eppDgVn9eD3wJA8WJALg1RkPG96lMp0IQLJqXlcSy7oTgq9dOL6ktiZO3MzrExQ/7PqXWK0CZewinS8PRUif1hFOXryx4z2Nl5uGriGSb4ibhlcaTBzlSC+Om1c0vGQrw664BA0WCl1b4Na7lzIBqLrEqKIscFDV4GMBZvrguCYTf9/AaQDLxOuayto61YEn2iZPPdOOTQXiCPeXFn2THanKRX7qsKRSC1M/mbZrw06uGsm2QdiAQsPW7Z6qrowZcuMQLcFy9BjXNkUMVW4Jk8vsAluTA5V3FZiR8HG8w==
+ bh=VhYweRvjNWp3Sc/qDv8jfkbL1bGF7ETIxZ27deczhLI=;
+ b=dyINUA8PVUNruXcOz98uj7Pt6IzpqqMAmy8y6IY0W3ghTvgbkLVYF6SEqe9asdEkPJwWhXD5m/3HE+6RNFAbmlIM1QRAwxRt0rT4J5M1WXDwuPkk8q6oX744aAR6tV1CBbu1CxmRqYZnKzj+PfEMn82o/q0wg6QYVIRXco0H+W3uSish7XWbssEj4Q8JL7l1SQNifvfbnnNlOex8xfZGjyT9rMFFrODvXQP2NYEFMbbsGArN2KPffoH5D1Kf5rhvmBjtQExD0gvqbFRFCoZWQdXH4VLxhrIrqq4w0EQi1knTcOxUKAuSJkXnLoZcgqSU3rwTF0P2AlFAXB0Ety89+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UPXIcV3yd9i+1WRyAmAacEMaxakD2A2+5BOlec3SwiQ=;
- b=zv1Lc3ztf8tI7YvXR3iDtZdpY6Y0xwtPO9QxssGZQ5/yA2CFoKqhoODE/ImUxeuakOcHwKym0SjlrYIxZOZwZRGA0kr1S9yJKm0DoL9QrTJZtr1AJX8bb+BS0U3KV92J0xfUwJbFVWxFfg7Fm9NVFcfcaw5AEuLMcXK0u4hW4rg=
+ bh=VhYweRvjNWp3Sc/qDv8jfkbL1bGF7ETIxZ27deczhLI=;
+ b=U2SzNflWNJj/9vnxZqaEUNyUcM33kCGLCNNGaWfqVwgTolmyNiWbZdkguS8gYK/wvI+H5UJZAqxjVwpEFeMM+1VyLH0u7lY1EtUHyA6btwuX9SBj/HARjn+AHxCbiGZItZbxaEchHVrRtzpBYzftOk1d2cSR/LaM0qi3o9uJaBY=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB8814.namprd12.prod.outlook.com (2603:10b6:8:14e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Mon, 12 Oct
- 2026 15:10:59 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 15:10:59 +0000
-Message-ID: <81a7fa79-8cc1-4c38-9f3b-f01e93083784@amd.com>
-Date: Mon, 12 Oct 2026 17:10:54 +0200
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by PH0PR12MB999090.namprd12.prod.outlook.com (2603:10b6:510:38c::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 15:28:18 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0472.015; Mon, 12 Oct 2026
+ 15:28:17 +0000
+Message-ID: <6180206a-85c3-4d64-9c40-e22094176e71@amd.com>
+Date: Mon, 12 Oct 2026 20:58:06 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] drm/amdgpu/uapi: Add SET/CLEAR L2 TRAP to VM ioctl
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Felix Kuehling <felix.kuehling@amd.com>,
- Lancelot Six <lancelot.six@amd.com>, James Zhu <james.zhu@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Samuel Pitoiset <hakzsam@gmail.com>,
- Natalie Vock <natalie.vock@gmx.de>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-References: <20261008070542.1111149-1-srinivasan.shanmugam@amd.com>
- <20261008070542.1111149-8-srinivasan.shanmugam@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Derive RLC SPM xcc from GFXHUB
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Zhu, James" <James.Zhu@amd.com>, "Ma, Bing" <Bing.Ma@amd.com>
+References: <20260925093718.2737342-1-lijo.lazar@amd.com>
+ <SA0PR12MB7091927251394D32F43248A7978D2@SA0PR12MB7091.namprd12.prod.outlook.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261008070542.1111149-8-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR5P281CA0038.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f3::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <SA0PR12MB7091927251394D32F43248A7978D2@SA0PR12MB7091.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0224.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f3::7) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8814:EE_
-X-MS-Office365-Filtering-Correlation-Id: 632602da-a434-42ec-3a65-08df28730596
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH0PR12MB999090:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94d8b2e9-a4d4-4448-fcdb-08df2875709f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|261009223027099003|18002099003|22082099003|4143699003|260925021311599003|56012099006|10067099003|260925021911599003|260925022911599003|11063799006;
-X-Microsoft-Antispam-Message-Info: SkHmXE6K5X2G810kfE0QFwlZGZVM12HSqchIGj/KNbr8cKPJUbH2pV9dO3+ywUpX49M26+aXHhfSjd/KLDgehP451/L5eNpgizrTRrk/oI7r45YtN3LLNwhYCRJsffLDYctDqctorabepe+vEWdCcL7PfbIfYbbhc18pI0OFeOqbTE/EaW0z6xhHgPKqRU0XFypN6w5i4wvYEw+4q4XbUG7U1hHxlfDd8rBoAw50O/fgOyC3DejZLwVs0EE78TC/d0S4O+OY9MqeTbjfvzUlyRPpgL1DPwEkgMaiQmoWCBfUWySxKapOFxV/mpMTvb95MO/gVVZLwVICh4F5vcf/yaz+Ta4j9KExN1kfdMR715FDzFT9nnDW4ybuVMk5dlhTOQFmkQbf9ydTqGYu6a7Wb9YEezsgfCt2klXNWHVcrSmQXw1EzeJveFYK/bdo91m1mJ5abi5YCdl+bj0KVa4DlcX5PLRxtXZtUntCXX44QW4xNI/Pgf/TsNwT+zykgSRje/k6D923eEJ/Ne0qXCZ+rOx2AhXlhk/cAmZPCpbrSP3pquxS09JcfqfweKQ/mAtEYcCJnYQFN6AbumGmUt2YIzCZnTbnJUDr71atVHS1VIHe56GBrBPeA815eQ8I1oA7k0zvz6FO5DIEylkXeo+lTGInTJdV822rHjDCzw/+mHI=
+ ARA:13230040|376014|366016|1800799024|23010399003|4143699003|11063799006|22082099003|56012099006|18002099003|6133799003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: tVJmy8ecQcXBgnKg0hsl0QyCZGmtPjvIYCr3MhTkEO6LxNsl10dYTdzgVDARRGRb+DU+dRd1hs0kEt66L6XUXOSPeJmpwuT9Ah3H4tMO+pggruZGd3Uz01nbDR3pPydhKyzq0EKRHTwohzyo5uSiff/RqDxeX21mfAELcedNki2LuCztjJkigmM7LnBSO9ydNXd6MHZS8Ds9lFetP2G6OCZNuA13Mf64yDm/7KIjo5QuP4NEC3pGE6AGCRhM3bmzZdVyivvBaFtXt+8JivpJTfme3QL7mTES4KQYpWwFkwZwtAd7vqF+GU5zUvbsyKcdzgbdL8hsi0B/aCj44deS4y8EJvG1a+5ZIMDMlt/8HkXcW/54WTy5ZeBUDJfrqkwmXWaj2CYHR12eeWKet2TFyjfrSC944T2RtrsDwGsXM1q9dO6g9jYU8NM52/eWHdZSwgMUooxXlL0rLHCCAXrpJRCp9mjDsq5EwWn2TbCGntDQwrujrkeKVaEusp/ijq9sBFksP4Xgs2Gur8jSanD3fCDgncIl7dt0JBKS/UVkyKmrbpBHwDUozvRLn7oV1zghuBe7r38uIEC4LnhFqh0PQJNQBTu+SZBx3HwQSMTG1Ls4vA4JeXoMda/papH3mhWvDuEQqZppvBuIJTCl07Tc0eMCoYcsShhhOOYhDjMrwgY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(261009223027099003)(18002099003)(22082099003)(4143699003)(260925021311599003)(56012099006)(10067099003)(260925021911599003)(260925022911599003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(11063799006)(22082099003)(56012099006)(18002099003)(6133799003)(261009223027099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MlpCVGJmTjJlZmF3aXhwMXV4UXRQNlpXQXRReG1PM1RTTG9LZk9CK3pTTVNx?=
- =?utf-8?B?bmJNOWNZNC9Pdis5dlVaeUVIVHhJQW5HUzczREw0amt3WWdRMHFJRWFZR3lr?=
- =?utf-8?B?L1F6dmM5M2hZZHVSRm1ZQ3Z2YVdqcW1ZODltN3JwVnR1cTFBdGJlNVFWckha?=
- =?utf-8?B?M29jZWhBcnd3aEtSalc2cE5BTWsxK1Q5eW8zU3VTbTJKMlV6YkhYZzNNRGFz?=
- =?utf-8?B?dUEvUCtEbWd6UC9nRE1hNUVlS1pFWVJYUWE1VitjeWhRMlVVWms2N0dzRUdU?=
- =?utf-8?B?dnBvVHVLbDBRWjd4UFMzWml5RDJ0dE8xSjdpMzNwM2VNTWhGZlhSaitscVhC?=
- =?utf-8?B?Ty9kWWlCR1dMVkNFbU1WT1h4TkhMOVhHcW4vOVdkQ1hJTGJvc2gxRzdkbVJ3?=
- =?utf-8?B?bUZQQ2dUTndCeUVvc0E5ZnJrL1hoVGw0c3IrTGV4SUVLbkVtdkRIWU0yQXVG?=
- =?utf-8?B?aXg2OEJST20rVXBnNTBLRVVEM3V3elJDN0hBaHNVLzhMcnBJNU03a3JXRjh6?=
- =?utf-8?B?eEc2dUxmODB4M1RDbVh3aEhmM3hOMldxYmx6bVNMMFMvMnFNc1hvRFhWYmJj?=
- =?utf-8?B?S251UXpNM2MvaWtWQWYvRm50UDV3SkdqUElxSWJyamFIUXcrazhSZUd0REF3?=
- =?utf-8?B?RkN0MElla3poU1M0UDEvZ0JIWHU1VE5wcWZzNlVpSXhaSmViaEhNZjUwYk5I?=
- =?utf-8?B?NllPNjZrbStndzRvcFBmVTdnakM0WWVWSmhSZll3Qk1ONzlLL2h2ZFhaMTd1?=
- =?utf-8?B?N1pLMWxwTGVObTVXcFdwM3B6TlQ4Ui9rZFBMQ0x4ck9kVk1DS1l6ZzhtYUU3?=
- =?utf-8?B?MFhBMWF5YnUvUDhEUXEycGxqYkcvdGJKUkcxRUFEakQyeHUrOVQwUkt0LzBK?=
- =?utf-8?B?YTBLYVUwS2MzQWpvRG1ZcjExcnRZK2Z0aU1aVFIwM0RERzZBNE0ySlV3OUhS?=
- =?utf-8?B?bVJRVkxvKzkxY1lxT1ZXQnpoMzNpaDltSEVHRHdEVTJPb21CRC84aXJwMlBN?=
- =?utf-8?B?NkJDTFE2VkxlVU5VdVlwTkxGVVZRVFNHVHprMWZtTFlvTkl0RTN5YUx2T1Vy?=
- =?utf-8?B?THREWjJqRC9sSGdYY0xOWDVLSXlicDJxOG1SVWcxdWl1ZVh0cjBPRmpyL3oy?=
- =?utf-8?B?M1V1YktPMklZcVJrdWZUZkM1K0RBNGN0d05oWlo1N3JJM1dYc2FVdFlpV2VU?=
- =?utf-8?B?VDIvQk1XL1p0YnFueGFiLzdUcHd3K2lWRUFUd3dWaXd4cVZiLzdOeTRRcG5T?=
- =?utf-8?B?b1kraHFHVDUzbEdGY1dhbHRrWTA5Q1ZjYUphOGpOZytGOGErdEcxL0lUZ0Jy?=
- =?utf-8?B?VUh1c08xWFZKODFVUU4ybWg5VUhnZ0lpQmNQNm1lckpReEM3NjlSc1hLNE1Y?=
- =?utf-8?B?UUxPNFJjM2VqbjRNdStwS1VXUkNvYmpiUzRDL3Z5N3g3Y0RubHhiVWxDSkNL?=
- =?utf-8?B?RnArVUFSQWZOd0hWN3U2WEtqKzZNaVhVMWpJcmFRRmJxUEZGLzdQMG1WQnF0?=
- =?utf-8?B?ZDhvQnpPVGIyc2RpcEVKWnRGZ1c5M0VnaVJsNkRGK2RsMGNUSnoyQzZkenIr?=
- =?utf-8?B?TERwZzQ1OEs3bDBERFRIY3pCSzZSZjFyVkhGcGRMOS9CcGtRSEYrdkM4MURW?=
- =?utf-8?B?aWNsb3VJZDgxY2dqa1lIckNkM0RlOUFNZnptanpWd3I0UUFsbHlUVE9iWHdk?=
- =?utf-8?B?emlKNHJBOWFqM1NEVDQ4dmxZSlNNNmZ0bW1IY3JzMkwvSjVzdDE1SndhenFV?=
- =?utf-8?B?aElnMzQxTjRRQ1VqVStVSkI5ajRObmlpOEpRWTh1VndYS2dUQzBOeXFMUEVV?=
- =?utf-8?B?M2htMHEzUmYvV2ExNjhYUEpVRGt1VjQ0VmR1aExVOUdnZkcwM3hsWi9GZWFJ?=
- =?utf-8?B?Ymc4ZlErb0w4SCtxYTYyUDdJNHBlWXE3SWtOcGxFNUk1Z1FLc2JkRWhQaWVS?=
- =?utf-8?B?clZhWWJiZ3BuZ0UyYy91MFozc3gyMUt1Q3RSdCs1YTNlOXhOODhhMVpZZk1q?=
- =?utf-8?B?aWhpRnE3RHluWENId2pidVdVeUdONGVLSVRCM2ZQTXRrbmFLamp4WXBOd1lo?=
- =?utf-8?B?eDF0bW0rcUh6Slpna043bTVHdE9UQ2M5a1BGY0R5ZzlpaFRjQ0xwWHZsTnoy?=
- =?utf-8?B?SGh0cWdjMzkwY0l4WWR4bDhXakVvMmVKcHI3Z0ZtZFZZY1Q5dlpEZ2lzblVi?=
- =?utf-8?B?ZTIwUnNnMC9GTld5UUV2UkxRL0dDeTRoSWZSZlkwRU1SSTVFWmd3blBTejJ6?=
- =?utf-8?B?U25tYlIzR0VaZUJxalNobVc0Q1lvQ2t2YzhiTFpEZk5PZ3o5dnF0RlZyZ2p6?=
- =?utf-8?Q?s0Uy4HmnNodaypQ7j2?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2xHM0FEclByQiswMHdvcW5WT0RtUEw1ZmZqWlp0K0c5TVRGUGpLNEl6S2lU?=
+ =?utf-8?B?VkpSaHFmMDArUjBFMVZUT0VrN0c1Z2tEbEFta1dPckJSWWI2bE5zbi9ONjEz?=
+ =?utf-8?B?L211cFV5cFNvYkEwS2R5MytYdkM0TWk5RExaaVBtTFVDZGt0ckhqSmhrb0xF?=
+ =?utf-8?B?Rlp3VUdjbkZTU0ZtNE04RGVxdU05SmRXeUg3VUd2OFh4ajFYMDlnSkE5Q093?=
+ =?utf-8?B?ajVIYmpXK2Q3dUFvMWRBcVhROHl0Y1hMa0lLUHg5aFpmWmE1dDRkS09zM2dT?=
+ =?utf-8?B?WVFRZktmRTg1a0VYZEtNbDNBTkxQa2tWYS82YWhwbHA5OWxHU2ZkV1ovQjdn?=
+ =?utf-8?B?b1BhazhvREpOTnRvbVpoT1BHM21XbUNieFJQNHFkeEJOUjFaeDdJUjRUWUVZ?=
+ =?utf-8?B?dmtqOWo1OWh5Wmx4OVRLcWhMNVo5WEp0ZXpheUgralVPZURrQzQyS0RNSHli?=
+ =?utf-8?B?a3VUb1lxVDNMb3J3TXdoVjlmYTI0UnBCd3AzUlU1YlVUcnNJaVpFS01SdURK?=
+ =?utf-8?B?c0FiYituU09yNjQzdFZvdWcydXpwQWU2OWdmU0dWWnYyQWRJTkt5WjlWd3Zq?=
+ =?utf-8?B?TUFENU93aGU1TWVmMVI0T2dtbFNSUVZiUDloWWJpRllCWGpNeVoxU2x3YW1W?=
+ =?utf-8?B?V0JNZmlsVkJPRGJ4bmtqNklFaHZ5SGNSMDB6eVFiU2ErMmNVNXBNdVpqbHA5?=
+ =?utf-8?B?QTNEMFFBTVNmdlg2ZkZtR3IrbUVWbnROeGNPNVZ1UENEZWRCc0x1TStsMkkx?=
+ =?utf-8?B?MGliL3ZYZ3MwRzZaeFJxa0RXTzlQWVBiTHRtY3E5b1VEYkMzS3Y2akJ5b2dq?=
+ =?utf-8?B?N202RWN1aUMvUW4vQmg4MmppN3dZZXZoTEJYQmxmL28yayt2SE1FMXFiNlBG?=
+ =?utf-8?B?N04yNUxTdTlQOU9FbFZ1QmV3dkQrU3gyWWdmQS94VkthbklDWmt6SlBJVUtn?=
+ =?utf-8?B?TjFESWRTS0JGOXBlVzZ2RHJ6OHMvTlpsRHlscEU3aGpndmYzbko1VWZ0V3Jt?=
+ =?utf-8?B?RG9RRzVKWm5VY3BFUXJid2xYU1dVbHNjejhYV3VUOVByWUQ0QS9JT0dhSWlN?=
+ =?utf-8?B?ZkI2d3ViNktJenZhWTEya1ZZU1laSDV6ODJEWFUwdUxsT1VubjQ2V284MDRs?=
+ =?utf-8?B?NnJGU3ZZR29mNE8vN3BCNWRMMnVjdWQyVlh6LzNRNzZlcGswMVBvNmYzMEVV?=
+ =?utf-8?B?eFYxSXoxVnNraWlsNXNBL3cvb1FXdmx6aXhsUDRZV0tKZUwza1NMVjVkK2lh?=
+ =?utf-8?B?NUkzeHdNa2NSOHdrREFwZTRJd2E2NmNOcndGeXlRRnNXQmZudnMxRHJDU1I4?=
+ =?utf-8?B?T3gwWTNsVzZVVVNjU3ZnR3QzTFJMQ0p1WVlqUmVVdU1sa3ozSDVQMGVTQVBz?=
+ =?utf-8?B?R0Y4WTFGaXc1KzBQNldrMG13TkZFNTNoSFlHMFdJOHEvekZiZElITUdpZCtM?=
+ =?utf-8?B?R3AvWHhseHNqUit0b01VUFEzOGZBSzA1bmFXMCtkOUovQ3BiU0IvMmd0VUo4?=
+ =?utf-8?B?RE1qdjZHNGt1WGN6QXZTRHlTbER2ZE9SQ2thcjRFV3BOd1Y3aXdaNUlabjlh?=
+ =?utf-8?B?NUxBcS8wN0hFczhYcDVROEV1OE1HVWszb3crbFBRVWtkemdxMHIzUnhlbHgv?=
+ =?utf-8?B?bmQ0dVF1ZVdYb1h4NjRaaWJEM0tmMXpsL0xNTnZYTXV1RDgyWlVNN3ZLa3Rn?=
+ =?utf-8?B?eDg1OFRkQk05Z3ZnSTkxTk1VbXJkRW43aWtoU1F0VnY2c0xPVGJnTmRCTEJz?=
+ =?utf-8?B?aTdjRkxZUHhnNnk3YTFwTzZvYmpWMlEvdFJ0bU9QM3o3aHhxR3YrQWlBS2Nn?=
+ =?utf-8?B?dVhhbUR3NzVERS95cTZqSlUrZnlNc0V3dmlaQ0x0amVYUC9Wa0wrQ0pxazZj?=
+ =?utf-8?B?TFdndkhLZ3lBTnBleVg3anE0eUJITldKNi92ZERQS2htV3RjTXBnYVZKK2NQ?=
+ =?utf-8?B?MTBZdElscE1SNHQwVkU0bXo5TVlPQUNZREJ2VEI3K2tMb2VnOHZkUDVCNDNW?=
+ =?utf-8?B?UXR1OWh5VVMxcHJDcmwwS2NBeTlGL0o4T0UrbUR1Ym01SjJPUHNQdW9NUXhU?=
+ =?utf-8?B?Q2drSkxka0xPOVdhdWQxV05jVWQ4aDJvZkFVek5YYVhuTTRNbmc0SEtpUWFh?=
+ =?utf-8?B?MXd0ZlVEQjVCVjg1dk1GclFoRngzbjN1QVRVWkJ6WlZGeHdjWTNHQTFxYkFj?=
+ =?utf-8?B?YXpuMG5LSnlYREdwTjQ4bjhaQitnak5aYWQyTjAycGtOMWpIdkZtM29BSnFl?=
+ =?utf-8?B?WlJhODJmSURkL0lkbSthU3R6dDFHWGRnditnTFJJNUJYbGpJMmZqZ2g0TDdB?=
+ =?utf-8?Q?4XjmeZOAYnX8B7tJEl?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 632602da-a434-42ec-3a65-08df28730596
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94d8b2e9-a4d4-4448-fcdb-08df2875709f
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 15:10:59.2051 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 15:28:17.7552 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q4yU1iBSG3I0u+d4F6AbCr9D1cB/+rl2TIst/KUwTP+fuLie/0+CGD/TDho8gt6a
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8814
+X-MS-Exchange-CrossTenant-UserPrincipalName: kUaNNDyIvC2iPlbRpJBO3Mhu6e5xjv+4bR4TRCp0UKomRfc7QwEnPIyxpOKSUNYH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999090
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,161 +134,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+<Ping + 1>
 
-
-On 10/8/26 09:05, Srinivasan Shanmugam wrote:
-> Add SET_L2_TRAP and CLEAR_L2_TRAP operations to the VM ioctl.
+On 28-Sep-26 7:19 PM, Lazar, Lijo wrote:
+> <Ping>
 > 
-> The second-level trap handler is set per GPUVM. All shader waves using
-> the same GPUVM use the same second-level trap handler, regardless of the
-> queue type.
+> Thanks,
+> Lijo
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo Lazar
+> Sent: Friday, September 25, 2026 3:07 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Zhu, James <James.Zhu@amd.com>; Ma, Bing <Bing.Ma@amd.com>
+> Subject: [PATCH] drm/amdgpu: Derive RLC SPM xcc from GFXHUB
 > 
-> SET_L2_TRAP sets the userspace TBA and TMA addresses for the GPUVM. The
-> kernel checks that both address ranges are mapped in the GPUVM before
-> using them.
+> RLC SPM is updated for GFX subsystem related performance counters. Only jobs on rings that use GFX subsystem need to be updated. Some rings like SDMA could be inside/outside of GFX subsytem based on SOC. Identify the rings using GFXHUB assignment and use hub id assigned to find the right GC rather than relying on xcc id. xcc id may not be necessarily assigned properly for all rings.
 > 
-> CLEAR_L2_TRAP clears the second-level TBA and TMA addresses from the
-> first-level trap descriptor.
-> 
-> Userspace must keep the TBA and TMA mappings valid after SET_L2_TRAP.
-> The mappings can be removed after CLEAR_L2_TRAP completes successfully.
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Felix Kuehling <felix.kuehling@amd.com>
-> Cc: Lancelot Six <lancelot.six@amd.com>
-> Cc: James Zhu <james.zhu@amd.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: Samuel Pitoiset <hakzsam@gmail.com>
-> Cc: Natalie Vock <natalie.vock@gmx.de>
-> Cc: Timur Kristóf <timur.kristof@gmail.com>
-> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 29 ++++++++++++
->  include/uapi/drm/amdgpu_drm.h          | 64 ++++++++++++++++++++++++++
->  2 files changed, 93 insertions(+)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  |  2 +-  drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c | 31 +++++++++++++++++++++++++  drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h |  2 ++  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |  2 +-
+>   4 files changed, 35 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index de4071db94f5..d82834004bba 100644
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> index 0f8b097001e3..6ea73ef6e672 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -212,7 +212,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>   		amdgpu_ring_emit_pipeline_sync(ring);
+>   
+>   	if (emit_spm_needed)
+> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring, job->vmid);
+> +		amdgpu_gfx_rlc_update_spm(adev, ring, job->vmid);
+>   
+>   	if (emit_gds_needed)
+>   		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base, diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
+> index 002fae3c380e..f791e1bcbf17 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
+> @@ -27,6 +27,37 @@
+>   #include "amdgpu_gfx.h"
+>   #include "amdgpu_rlc.h"
+>   
+> +/**
+> + * amdgpu_gfx_rlc_update_spm - update RLC SPM VMID
+> + *
+> + * @adev: amdgpu_device pointer
+> + * @ring: ring the VMID got assigned to
+> + * @vmid: VMID to program
+> + *
+> + * RLC SPM counters are used only for GFX and GFX Cache subsystem. Only
+> +jobs submitted to
+> + * rings in GFX subsystem need to update RLC SPM counters. Derive xcc_id from ring->vm_hub.
+> + */
+> +void amdgpu_gfx_rlc_update_spm(struct amdgpu_device *adev,
+> +			       struct amdgpu_ring *ring, unsigned int vmid) {
+> +	int xcc_id, num_xcc;
+> +
+> +	if (!adev->gfx.rlc.funcs->update_spm_vmid || !ring)
+> +		return;
+> +
+> +	if (!AMDGPU_IS_GFXHUB(ring->vm_hub))
+> +		return;
+> +
+> +	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+> +	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
+> +		if (AMDGPU_GFXHUB(xcc_id) == ring->vm_hub) {
+> +			adev->gfx.rlc.funcs->update_spm_vmid(adev, xcc_id, ring,
+> +							     vmid);
+> +			return;
+> +		}
+> +	}
+> +}
+> +
+>   /**
+>    * amdgpu_gfx_rlc_enter_safe_mode - Set RLC into safe mode
+>    *
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> index 959d60c90dcd..1410954da5a6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> @@ -370,6 +370,8 @@ struct amdgpu_rlc {
+>   	struct amdgpu_rlcg_reg_access_ctrl reg_access_ctrl[AMDGPU_MAX_RLC_INSTANCES];
+>   };
+>   
+> +void amdgpu_gfx_rlc_update_spm(struct amdgpu_device *adev,
+> +			       struct amdgpu_ring *ring, unsigned int vmid);
+>   void amdgpu_gfx_rlc_enter_safe_mode(struct amdgpu_device *adev, int xcc_id);  void amdgpu_gfx_rlc_exit_safe_mode(struct amdgpu_device *adev, int xcc_id);  int amdgpu_gfx_rlc_init_sr(struct amdgpu_device *adev, u32 dws); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 29a66e39f3d6..dc8f85176b8b 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -3008,6 +3008,35 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->  	case AMDGPU_VM_OP_UNRESERVE_VMID:
->  		amdgpu_vmid_free_reserved(adev, vm, AMDGPU_GFXHUB(0));
->  		break;
-> +	case AMDGPU_VM_OP_SET_L2_TRAP:
-> +		if (args->in.l2trap._pad || args->in.l2trap._pad2)
-> +			return -EINVAL;
-> +
-> +		/*
-> +		 * Install or replace the per-VM second-level trap handler.
-> +		 * Applies to all shader waves using this GPUVM regardless of
-> +		 * queue type.
-> +		 */
-> +		if (!vm->trap_obj)
-> +			return -EOPNOTSUPP;
-> +
-> +		return amdgpu_trap_vm_set_l2_trap(adev, vm,
-> +						  vm->trap_obj,
-> +						  args->in.l2trap.tba_va,
-> +						  args->in.l2trap.tba_sz,
-> +						  args->in.l2trap.tma_va,
-> +						  args->in.l2trap.tma_sz);
-> +	case AMDGPU_VM_OP_CLEAR_L2_TRAP:
-> +		if (memchr_inv(&args->in.l2trap, 0,
-> +			       sizeof(args->in.l2trap)))
-> +			return -EINVAL;
-> +
-> +		/* Disable the per-VM second-level trap handler. */
-> +		if (!vm->trap_obj)
-> +			return -EOPNOTSUPP;
-> +
-> +		return amdgpu_trap_vm_clear_l2_trap(adev, vm,
-> +						    vm->trap_obj);
->  	default:
->  		return -EINVAL;
->  	}
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 9317018330ec..6c86d5731ca5 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -614,10 +614,74 @@ struct drm_amdgpu_userq_wait {
->  #define AMDGPU_VM_OP_RESERVE_VMID	1
->  #define AMDGPU_VM_OP_UNRESERVE_VMID	2
->  
-> +/**
-> + * AMDGPU_VM_OP_SET_L2_TRAP - install or replace the second-level trap
-> + * handler for this GPUVM.
-> + *
-> + * The second-level trap handler is a per-GPUVM setting. All shader waves
-> + * using this GPUVM use the same handler regardless of queue type.
-> + *
-> + * TBA is the GPU virtual address of the second-level trap handler code.
-> + * TMA is the GPU virtual address of the second-level trap handler scratch
-> + * memory. Each range must be non-empty and contained within a single mapping
-> + * in this GPUVM.
-> + *
-> + * This operation may block until outstanding GPUVM work completes.
-> + *
-> + * Userspace must keep the TBA and TMA mappings valid while the second-level
-> + * trap handler is installed.
-> + *
-> + * Returns:
-> + *  0             on success;
-> + *  -EOPNOTSUPP   if the first-level CWSR handler is unavailable;
-> + *  -EINVAL       if TBA/TMA is invalid or not mapped in this GPUVM;
-> + *  negative errno if waiting for GPUVM work or reserving the GPUVM fails.
-> + */
-> +#define AMDGPU_VM_OP_SET_L2_TRAP	3
-> +
-> +/**
-> + * AMDGPU_VM_OP_CLEAR_L2_TRAP - disable the second-level trap handler.
-> + *
-> + * This operation may block until outstanding GPUVM work completes.
-> + *
-> + * The l2trap input members must be zero for this operation.
-> + *
-> + * After this operation succeeds, userspace may remove the second-level
-> + * TBA and TMA mappings.
-> + *
-> + * Returns:
-> + *  0             on success;
-> + *  -EOPNOTSUPP   if the first-level CWSR handler is unavailable;
-> + *  -EINVAL       if the GPUVM trap state is invalid;
-> + *  negative errno if waiting for GPUVM work or reserving the GPUVM fails.
-> + */
-> +#define AMDGPU_VM_OP_CLEAR_L2_TRAP	4
-> +
->  struct drm_amdgpu_vm_in {
->  	/** AMDGPU_VM_OP_* */
->  	__u32	op;
->  	__u32	flags;
-> +	union {
-> +		struct {
-> +			/** GPU VA of second-level trap handler code buffer */
-> +			__u64 tba_va;
-> +			/** TBA buffer size in bytes */
-> +			__u32 tba_sz;
-> +			/** Explicit padding; tma_va starts at offset 24 */
-> +			__u32 _pad;
-> +			/** GPU VA of second-level trap handler scratch buffer */
-> +			__u64 tma_va;
-> +			/** TMA buffer size in bytes */
-> +			__u32 tma_sz;
-> +			/** Padding to fix total union size at 32 bytes */
-> +			__u32 _pad2;
-> +		} l2trap;
-> +		/**
-> +		 * Reserved; keeps the union at a fixed 32-byte size for
-> +		 * future operations.
-> +		 */
-> +		__u64 reserved[4];
-> +	};
->  };
->  
->  struct drm_amdgpu_vm_out {
+> @@ -865,7 +865,7 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>   		amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid);
+>   
+>   	if (spm_update_needed)
+> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring, job->vmid);
+> +		amdgpu_gfx_rlc_update_spm(adev, ring, job->vmid);
+>   
+>   	if (gds_switch_needed)
+>   		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
+> --
+> 2.49.0
 
