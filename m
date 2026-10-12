@@ -4,33 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78257CC6B13
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 08:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67503CC6B03
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 09:06:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7249710F639;
-	Tue, 13 Oct 2026 08:49:47 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF4D410F62B
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 08:49:44 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 69D8ndh3972600; Tue, 13 Oct 2026 14:19:39 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69D8ndd2972599;
- Tue, 13 Oct 2026 14:19:39 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v3 13/14] drm/amdgpu: bind the SPM VMID's page table to the
- reserving VM
-Date: Tue, 13 Oct 2026 14:19:36 +0530
-Message-Id: <20261013084937.972181-13-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261013084937.972181-1-sunil.khatri@amd.com>
-References: <20261013084937.972181-1-sunil.khatri@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEB7410F63F;
+	Tue, 13 Oct 2026 09:06:06 +0000 (UTC)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DABA510E632
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 17:30:00 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-c2dc8cb0decso220204066b.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 10:30:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791826199; x=1792430999; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=2r8Y9Zr5kK30lINNxOrZNto9YYuY4nrg9F+b7kFoFpg=;
+ b=eFfOnEnogFp6FUm37XrQenkhXkbpHTc5cPKr43H9UQgShHokeQiYPyWC3x1skaNH9B
+ +VnWHeGY1gxITR5j0DXZzmh0+sijSngizcYCfjpO9d+zsaOaYtLeoj4xrD/GAS4Ufqss
+ azAwVUpZTGL2h/1QoVvMGC8MVjjH4hhzrRYP2taEPQqQ54KSHRNK2UkjqKtPPXCjbRKf
+ xzNN7uH16F12sz4CRx9dx4GhW2KulEtRYMom4zPyAy7mA+uQTqM67WRmKqtBx15LpwwE
+ 9HCMCDIPeOBPP9Put+7idjYGwNtPo9Y7qQqbK8onbZ5X7yR6yx9YHs3a2dNo0Hbovb6p
+ qS/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791826199; x=1792430999;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=2r8Y9Zr5kK30lINNxOrZNto9YYuY4nrg9F+b7kFoFpg=;
+ b=hnIZ2PDeUD1wKc8DNcOv4PW/7CBEwXmJaXhGULxFa5g7UWGZzNomwDXYohV/ZHKbdd
+ TkLJfo80bBVBQNyW2fuD7CI9KPQzrcwbdVrPOFGzCUQSESeJbDL+1HeTrdp9yZkkmE41
+ 3CNPkz87WecjgtWPYr2uBqvgSDXPgJ4jDRoBNCIHcGUDCsRGpaT5kMUPuVptuLpGYl39
+ HGyOsGx2a97HUzu1GmyrS1T2DbDq/3yO4sD0SuA3yTwJbkExkkt7KmKbwwPTQZq/fIrA
+ y8HLy3nGHKJsWQVu6yKc5kK6Iw7NQioIVmdUU1H0auHDbxEcYmPMmVODtB0rkqXucW6X
+ g6qA==
+X-Gm-Message-State: AFq9FYIORs7M4jVDsvrTlAkE1KOHu5UWH9k0+iM0pYibYagqSzHQhqvP
+ m2u1oUViEbmNlemuMRiIWbc9xrZxAKCVvbQty8TxMN5F+rYQwKU8qNhunxBL9B+U4VA=
+X-Gm-Gg: AYBFou20PgJKamkrhZt18yhc0VQAM3M8xHQjs4zjgF6P8spkYkZWU/XEdta0/sT9860
+ cU3WVvDIrOtABtd91T6/r+U5h3FSVH3LRQA+7s+Zcall/p1AD762N1DbgOBuPjzgBvE7LQw2CIy
+ IFGeCT4WfaEzcXL/wA4qEJpeTWgWAejxm3DESkCWqyaUl0AEp6bEx8h+i1reLo/bqpB13GbpexV
+ DdNV23T8xneqOBE8roXK/n614uejLEXOFLIY24G6VvgeCMzAEJbwapZ/Ug61oDu/YkTNL1HOW2j
+ o2Tow4NGmSyQCCagg5IzykBpF7/P4m3fpa0mJCRHgX9nAoHs8rLNiWeCK1exFxU1ta8KOIqINy9
+ MA6ZuqpvONfNeeLw/mnudoNvrXzOy6+pPBqhBqTMeT9EpgZQ/u05vWrUdjzgN/wH+bIDNCR8ZfH
+ rzo90ZzBJxpIY3z6xh3lsnPmGh01LJ1PQDVgSxziOsmJSk7nfuGcox8OIv4DbOGGVhTFQGY+r9U
+ fDQNq0QpoH+AbKQ6Y/SaETUtAZV
+X-Received: by 2002:a17:906:4796:b0:c34:d75b:dde0 with SMTP id
+ a640c23a62f3a-c34d75be9famr327151366b.20.1791826199005; 
+ Mon, 12 Oct 2026 10:29:59 -0700 (PDT)
+Received: from localhost.localdomain ([37.214.28.88])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c34a6b966ccsm160305866b.61.2026.10.12.10.29.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Oct 2026 10:29:58 -0700 (PDT)
+From: Bogdan Metla <edistuo.revresbo@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, Bogdan Metla <edistuo.revresbo@gmail.com>,
+ Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH] drm/radeon: fix wake event stealing in fence_is_signaled
+ polling
+Date: Mon, 12 Oct 2026 20:22:24 +0300
+Message-ID: <20261012172224.606915-1-edistuo.revresbo@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 13 Oct 2026 09:06:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,187 +83,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-MES userqueues bypass amdgpu_vm_flush(), so a reservation granted to a
-userqueue never got its VMID's page table programmed. Add
-amdgpu_vm_spm_update() to bind the fixed SPM VMID's page-table-base to
-the reserving VM's root PD when that VM holds the reservation; it is a
-no-op for every other VM. It is called right after a successful
-AMDGPU_VM_OP_RESERVE_VMID (amdgpu_vm_ioctl()) and from
-amdgpu_userq_vm_validate_and_restore_queue(), the two paths that can
-actually change the binding. amdgpu_vmid_free_reserved() unbinds it
-directly to a dummy address under the same lock that clears the
-reservation, so stray SPM accesses fault instead of racing a new
-reservation's binding.
+Commit 5f08eee9c3fb ("drm/radeon: restore hardware polling in
+fence_is_signaled to fix performance regression") restored hardware
+polling by calling radeon_fence_activity() inside the dma-fence
+.signaled callback.
 
-Both binds go through the new amdgpu_gmc_bind_vmid() helper, which
-pairs setup_vm_pt_regs() with the matching TLB flush for a VMID bound
-outside the normal per-job VM flush path.
+During the review of that patch, the automated kernel reviewer
+flagged a [High] severity issue: radeon_fence_activity() in the
+.signaled callback consumes hardware state without waking up wait
+queues. Because last_seq is advanced there, a later interrupt-driven
+radeon_fence_process() sees no new activity (seq <= last_seq),
+returns false and skips wake_up_all(). This steals the wake event
+and can leave tasks waiting on fences hanging indefinitely.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reproduced on Radeon HD 5450 (Cedar), where interrupts can be
+missed under heavy 2D redraw load: the screen freezes while the
+cursor keeps moving, and recovery requires new GPU work (e.g.
+glxgears) or a modeset to trigger a fresh interrupt.
+
+Fix this by scheduling a deferred work item when
+radeon_fence_activity() reports new completions inside
+radeon_fence_is_signaled(). The worker calls wake_up_all()
+unconditionally from process context, which restores the stolen
+wake event without re-introducing the self-deadlock on the fence
+lock, and without rw_semaphore manipulation in atomic context.
+schedule_work() is idempotent, so repeated polling is cheap.
+
+Assisted-by: LLM
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5955
+Fixes: 5f08eee9c3fb ("drm/radeon: restore hardware polling in fence_is_signaled to fix performance regression")
+Cc: Wang Jiang <jiangwang@kylinos.cn>
+Signed-off-by: Bogdan Metla <edistuo.revresbo@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c   | 24 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h   |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c   |  4 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c |  7 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 43 +++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  1 +
- 6 files changed, 79 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon.h       |  1 +
+ drivers/gpu/drm/radeon/radeon_fence.c | 14 +++++++++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 5d4276cd0f7d3..4204c3c750a8d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -787,6 +787,30 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 	dev_err(adev->dev, "Error flushing GPU TLB using the SDMA (%d)!\n", r);
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index 527b9d19d7..61b01df87f 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -370,6 +370,7 @@ struct radeon_fence_driver {
+ 	atomic64_t			last_seq;
+ 	bool				initialized, delayed_irq;
+ 	struct delayed_work		lockup_work;
++	struct work_struct		wake_work;
+ };
+ 
+ struct radeon_fence {
+diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon/radeon_fence.c
+index 2998655692..5016dd0cbc 100644
+--- a/drivers/gpu/drm/radeon/radeon_fence.c
++++ b/drivers/gpu/drm/radeon/radeon_fence.c
+@@ -155,6 +155,15 @@ int radeon_fence_emit(struct radeon_device *rdev,
+ 	return 0;
  }
  
-+/**
-+ * amdgpu_gmc_bind_vmid - bind a VMID's page table base and flush its TLB
-+ *
-+ * @adev: amdgpu device pointer
-+ * @vmhub: vmhub the VMID belongs to
-+ * @vmid: VMID to bind
-+ * @pd_addr: new page directory address, 0 to unbind to a faulting address
-+ *
-+ * For VMIDs that are bound directly to a VM's page table outside the
-+ * normal per-job VM flush path, e.g. a dedicated out-of-pool VMID.
-+ */
-+void amdgpu_gmc_bind_vmid(struct amdgpu_device *adev, unsigned int vmhub,
-+			  unsigned int vmid, uint64_t pd_addr)
++static void radeon_fence_wake_work(struct work_struct *work)
 +{
-+	bool is_mmhub = AMDGPU_IS_MMHUB0(vmhub) || AMDGPU_IS_MMHUB1(vmhub);
++	struct radeon_fence_driver *fence_drv =
++		  container_of(work, struct radeon_fence_driver, wake_work);
++	struct radeon_device *rdev = fence_drv->rdev;
 +
-+	if (is_mmhub)
-+		adev->mmhub.funcs->setup_vm_pt_regs(adev, vmid, pd_addr);
-+	else
-+		adev->gfxhub.funcs->setup_vm_pt_regs(adev, vmid, pd_addr);
-+
-+	amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, TLB_FLUSH_LEGACY);
++	wake_up_all(&rdev->fence_queue);
 +}
 +
- static void amdgpu_gmc_flush_pasid_regs(struct amdgpu_device *adev, u16 pasid,
- 					u32 flush_type, bool all_hub,
- 					u32 inst)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 76e6f1f96913c..d17055d4c50a9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -444,6 +444,8 @@ int amdgpu_gmc_ras_sw_init(struct amdgpu_device *adev);
- int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev);
- void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 			      uint32_t vmhub, uint32_t flush_type);
-+void amdgpu_gmc_bind_vmid(struct amdgpu_device *adev, unsigned int vmhub,
-+			  unsigned int vmid, uint64_t pd_addr);
- int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, u16 pasid,
- 				   u32 flush_type, bool all_hub, u32 inst);
- int amdgpu_gmc_flush_gpu_tlb_pasid_xccs(struct amdgpu_device *adev, u16 pasid,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index 992f7cb3a3102..8e60e5fdd210d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -581,6 +581,10 @@ void amdgpu_vmid_free_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	if (vm->reserved_vmid[vmhub]) {
- 		vm->reserved_vmid[vmhub] = NULL;
- 		id_mgr->reserved_vmid = false;
-+
-+		if (adev->vm_manager.spm_vmid && adev->gfxhub.funcs)
-+			amdgpu_gmc_bind_vmid(adev, AMDGPU_GFXHUB(0),
-+					     adev->vm_manager.spm_vmid, 0);
- 	}
- 	mutex_unlock(&id_mgr->lock);
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index e29823ae8672e..d45357e092bb5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -1075,6 +1075,13 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
- 		if (unlikely(ret))
- 			goto unlock_all;
- 
-+		/*
-+		 * Userqueues never go through amdgpu_vm_flush(), so this is
-+		 * the only place that can rebind the SPM VMID's page table
-+		 * for a userqueue-held reservation.
-+		 */
-+		amdgpu_vm_spm_update(adev, vm);
-+
- 		/* This locks and validates the remaining evicted BOs */
- 		ret = amdgpu_userq_bo_validate(adev, &exec, vm);
- 		drm_exec_retry_on_contention(&exec);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index de992405ed718..05358e7d81cb8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -568,6 +568,39 @@ uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	return result;
- }
- 
-+/**
-+ * amdgpu_vm_spm_update - bind the SPM VMID's page table base to @vm
-+ *
-+ * @adev: amdgpu device pointer
-+ * @vm: vm to check against the SPM reservation
-+ *
-+ * The SPM VMID is fixed (adev->vm_manager.spm_vmid), so its page-table-base
-+ * register must track whichever VM currently holds the reservation instead
-+ * of being set per-job like a normal VMID. Bind it to @vm's real root PD
-+ * address if @vm holds the reservation; otherwise do nothing, since @vm is
-+ * not the one that could legitimately change the current binding.
-+ */
-+void amdgpu_vm_spm_update(struct amdgpu_device *adev, struct amdgpu_vm *vm)
-+{
-+	struct amdgpu_kq_vmid_mgr *id_mgr =
-+		&adev->vm_manager.id_mgr[AMDGPU_GFXHUB(0)];
-+	uint64_t pd_addr;
-+
-+	if (!adev->vm_manager.spm_vmid || !adev->gfxhub.funcs)
-+		return;
-+
-+	mutex_lock(&id_mgr->lock);
-+	if (vm->reserved_vmid[AMDGPU_GFXHUB(0)] !=
-+	    &id_mgr->ids[adev->vm_manager.spm_vmid] || !vm->root.bo) {
-+		mutex_unlock(&id_mgr->lock);
-+		return;
-+	}
-+
-+	pd_addr = amdgpu_gmc_pd_addr(vm->root.bo);
-+	amdgpu_gmc_bind_vmid(adev, AMDGPU_GFXHUB(0), adev->vm_manager.spm_vmid, pd_addr);
-+	mutex_unlock(&id_mgr->lock);
-+}
-+
- /**
-  * amdgpu_vm_validate - validate evicted BOs tracked in the VM
+ /*
+  * radeon_fence_check_signaled - callback from fence_queue
   *
-@@ -2958,9 +2991,15 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		return -EINVAL;
+@@ -361,7 +370,8 @@ static bool radeon_fence_is_signaled(struct dma_fence *f)
+ 		return true;
  
- 	switch (args->in.op) {
--	case AMDGPU_VM_OP_RESERVE_VMID:
-+	case AMDGPU_VM_OP_RESERVE_VMID: {
-+		int r;
-+
- 		/* We only have requirement to reserve vmid from gfxhub */
--		return amdgpu_vmid_alloc_reserved(adev, vm, AMDGPU_GFXHUB(0));
-+		r = amdgpu_vmid_alloc_reserved(adev, vm, AMDGPU_GFXHUB(0));
-+		if (!r)
-+			amdgpu_vm_spm_update(adev, vm);
-+		return r;
-+	}
- 	case AMDGPU_VM_OP_UNRESERVE_VMID:
- 		amdgpu_vmid_free_reserved(adev, vm, AMDGPU_GFXHUB(0));
- 		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index b8aa45db1d844..2a2a2ccbaa2cc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -443,6 +443,7 @@ int amdgpu_vm_lock_individual(struct amdgpu_vm *vm, struct drm_exec *exec,
- 			      unsigned int num_fences);
- bool amdgpu_vm_ready(struct amdgpu_vm *vm);
- uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm);
-+void amdgpu_vm_spm_update(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		       struct ww_acquire_ctx *ticket,
- 		       int (*callback)(void *p, struct amdgpu_bo *bo),
+ 	if (down_read_trylock(&rdev->exclusive_lock)) {
+-		radeon_fence_activity(rdev, ring);
++		if (radeon_fence_activity(rdev, ring))
++			schedule_work(&rdev->fence_drv[ring].wake_work);
+ 		up_read(&rdev->exclusive_lock);
+ 
+ 		if (atomic64_read(&rdev->fence_drv[ring].last_seq) >= seq)
+@@ -826,6 +836,7 @@ static void radeon_fence_driver_init_ring(struct radeon_device *rdev, int ring)
+ 	rdev->fence_drv[ring].initialized = false;
+ 	INIT_DELAYED_WORK(&rdev->fence_drv[ring].lockup_work,
+ 			  radeon_fence_check_lockup);
++	INIT_WORK(&rdev->fence_drv[ring].wake_work, radeon_fence_wake_work);
+ 	rdev->fence_drv[ring].rdev = rdev;
+ }
+ 
+@@ -873,6 +884,7 @@ void radeon_fence_driver_fini(struct radeon_device *rdev)
+ 			radeon_fence_driver_force_completion(rdev, ring);
+ 		}
+ 		cancel_delayed_work_sync(&rdev->fence_drv[ring].lockup_work);
++		cancel_work_sync(&rdev->fence_drv[ring].wake_work);
+ 		wake_up_all(&rdev->fence_queue);
+ 		radeon_scratch_free(rdev, rdev->fence_drv[ring].scratch_reg);
+ 		rdev->fence_drv[ring].initialized = false;
 -- 
-2.34.1
+2.53.0
 
