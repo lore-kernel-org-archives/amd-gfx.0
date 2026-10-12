@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F7D0CA9ED0
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 09:24:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88CF3CA9ED2
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 09:24:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3386310E644;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3384410E523;
 	Mon, 12 Oct 2026 09:24:55 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59F0F10E834
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BBA210E523
  for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 09:24:53 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 69C9OlwB3938003; Mon, 12 Oct 2026 14:54:47 +0530
+ 69C9OlmA3938013; Mon, 12 Oct 2026 14:54:47 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69C9OlsK3938002;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69C9Olqw3938012;
  Mon, 12 Oct 2026 14:54:47 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Mukul Joshi <mukul.joshi@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v2 06/11] drm/amdgpu: reserve SPM VMID on gfx9
-Date: Mon, 12 Oct 2026 14:54:24 +0530
-Message-Id: <20261012092429.3937825-6-sunil.khatri@amd.com>
+Subject: [PATCH v2 08/11] drm/amdgpu: reserve SPM VMID on gfx11
+Date: Mon, 12 Oct 2026 14:54:26 +0530
+Message-Id: <20261012092429.3937825-8-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261012092429.3937825-1-sunil.khatri@amd.com>
 References: <20261012092429.3937825-1-sunil.khatri@amd.com>
@@ -46,28 +46,28 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Set vm_manager.spm_vmid to the top GFXHUB VMID so the SPM reservation
-path hands out a fixed, isolated VMID on gfx9 instead of borrowing one
-from the graphics pool.
+path hands out a fixed, isolated VMID on gfx11 instead of borrowing
+one from the graphics pool.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 4 ++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 3a8dc15ef95b9..c058a00bf2fbb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -2042,6 +2042,10 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
- 			7;
- 
- 	vmid_mask = GENMASK(last_kq_vmid, 1);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 301ffb89c9672..709c3d1b99980 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -856,6 +856,10 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	 * amdkfd/MES user queues will use VMIDs 8-15
+ 	 */
+ 	last_kq_vmid = adev->gfx.disable_kq ? 0 : 7;
 +
 +	/* Reserve the last VMID for SPM */
 +	adev->vm_manager.spm_vmid = AMDGPU_NUM_VMID - 1;
 +
- 	amdgpu_vmid_mgr_set_vmid_mask(adev, vmid_mask, vmid_mask);
- 	amdgpu_vm_manager_init(adev);
+ 	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(last_kq_vmid, 1),
+ 				      GENMASK(AMDGPU_NUM_VMID - 1, 1));
  
 -- 
 2.34.1
