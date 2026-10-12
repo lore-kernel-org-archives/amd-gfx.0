@@ -4,119 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC5D6CA9ECF
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 02:00:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A1D7CA9ED1
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 02:55:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4349110E0C4;
-	Mon, 12 Oct 2026 02:00:43 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010015.outbound.protection.outlook.com [52.101.201.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12B3B10E0C4
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 02:00:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B00910E3BE;
+	Mon, 12 Oct 2026 02:55:02 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013053.outbound.protection.outlook.com
+ [40.107.201.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01ACB10E2D3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 02:54:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HpBQUrbdAUguFj76l+H0D7bwJHe+P2tOe/A7jEk8UuLZtITic/tArgXeUALjMH6RnZj7ZkeeRomrzNNZs/g28g9WC+fkPq5KxWpbVMtEXp+qpDgcAinGKNdl/69xLpE3dai42cDdp0PGrPllRh/bHt7sJVo1oGNYXWgCl0c4Im5LSS4ilYH+W9/twLgwo/wPUJRVv5lP6XuHBmgq2IyRIo/SURtHaAdWE5l6tk+82KSt9398l4Ajnk0Kvo/T95BTjtqscOdSSib3aW2CXvEBTb5OujskJwloxV8TmWt8AgV5fVlafZKrzAcEaC6zZezr5EPcOEar0lYBpXlmZPOpig==
+ b=wlPBacClA9x4f5UKlMnTbnpnrlAtSNoA1kCM4qGpGAsWKN8BSeQ+/PpAxC1j2aUFcl4/ZsmPUiN82FLoUEpDK8vx7ovzulZ1JMOl/zj1hhLap2ofDnHQKXQMOW2I5xteF2TskRJmW6RQ+WLWlTPTr/LpfMqGWqwZSpwk9Hp6PqZ2acwO4XfRtQRLfSfyhdUTviWbL9x6ISDcYjJU+8/RQIbMaS1aS2OF22Yjv/hDbpoxM5RTloIyua58rnQHLijcIj6CGmq26uDAhGalpaAmAicHr7pPu7JUJcA+AcB2IJ5tOvDkKnki891IUwychNuBnNc/6+x4tFYN7Q9RSPk98A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4FBZN4NFx0QsG5xOmdOhXKtiA/f7GeGDkeckrU+Ef14=;
- b=XamSAVTluYcLYJcyiC2X8vH3RIyxVe9qoqStRIwOZZET4HeMmbevDxZfZwshIeVPc61oyAc/IMKHvDrICiVFcyjuWjLvuLX+VLD4+J3cry9PKqO7JYxMk4mZBEt/uyKEmW2Ie2uRZ55xCY3G3SOqU+pLUIxKECTfv7Ev/bNjmesyX76ffsGbbdSLsfdqMzv8TMzvgLvwDgEBY44c4U/A8Mw9GaI3GkPFM/+w15jI4Y/6bDZtyinaBQMPoVj7U78EYa05zfwznTz0KYt6tXbKAvATFkzdfKH3M7cydAQ0g0k4nqZQ2P3XGoTjQj4XpPejxRb6DXUgx5BC4q2nmIsIYQ==
+ bh=Xapxb2JNUjRnUmIZ+T5tH9FvXu8KJqlrJTHM08d916Y=;
+ b=PYnI8FirPTNhuyS0KdSMoYYDYkpehD/cdGjJ+aE56ravTV93a+OwOA6i+ZESZehF1dNS1wYfDEDd1lulCMZSbcpuTABAbGuhT822gxcKcMtpKzk7QunZ9HptVgsH+p/elqPzDC9C8Hw4tSElNA04VuMjtSheJnL7z719M9fAsNfjWr6LlcVOwSiYXa79sn4VTwdsqbdk6kTtHYKv8QjObFPgYC5LmJnDN3V1NBvDyivIJd6buIPybzs4KIlcuzC7FmiGsi7A+jD2zQTGnwGLi/kVQd6G9ujs80W/rywJrcLrTrBAfMC723JWSDnR+A52i7+C+EMG4DuOqzHXqhbbOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4FBZN4NFx0QsG5xOmdOhXKtiA/f7GeGDkeckrU+Ef14=;
- b=nrkSppRYXRy3bma1yRzCjO8IjEEcqkFMi1Gpf71XJpCntjQWGXyO40EWm9JG9EfE2MMnHN/Ooehly9a3qaob+9ZgGKCAh9ezh/QV5iQd37U6G30H3j8Htj5BHbBsq14vu3rTM8tusK0rpVvcaU+rpIWlzYssfdXZq61KzjhTY5A=
-Received: from BN7PPFFF39339DD.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6eb) by MW3PR12MB4425.namprd12.prod.outlook.com
- (2603:10b6:303:5e::21) with Microsoft SMTP Server (version=TLS1_2,
+ bh=Xapxb2JNUjRnUmIZ+T5tH9FvXu8KJqlrJTHM08d916Y=;
+ b=RrJrmavjf7LEpnzgYuX56cf9icwDin55mjE1qoQXv42i2tjdcnI8y5ch4+9JGobUbsZn5QVpIubKp1XhxUipbrRMIBPvHnHj+e3OuDzmzKIbrpEK6ndlvgGV2u+QFvXhusXPH4JY4fLXQO5yAGXVMq3YA8FvXsgXUwyIoNJWosU=
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
+ by DS4PR12MB9563.namprd12.prod.outlook.com (2603:10b6:8:282::12) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 02:00:33 +0000
-Received: from BN7PPFFF39339DD.namprd12.prod.outlook.com
- ([fe80::9e62:eec6:fa38:a6a6]) by BN7PPFFF39339DD.namprd12.prod.outlook.com
- ([fe80::9e62:eec6:fa38:a6a6%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 02:00:33 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 2026 02:54:52 +0000
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd%6]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 02:54:52 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: "Wang, Kevin" <Kevin.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-CC: "Chai, Thomas" <YiPeng.Chai@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
- "Yang, Stanley" <Stanley.Yang@amd.com>
-Subject: RE: [PATCH v3] drm/amd/ras: Use MP1 feature status to select
- fw-managed EEPROM
-Thread-Topic: [PATCH v3] drm/amd/ras: Use MP1 feature status to select
- fw-managed EEPROM
-Thread-Index: AQHdWeq8gTOHsY4MA0unwQVUmyyNXbb5JvRg
-Date: Mon, 12 Oct 2026 02:00:32 +0000
-Message-ID: <BN7PPFFF39339DD2D9ED47D5524EBE2B0E0FC9F2@BN7PPFFF39339DD.namprd12.prod.outlook.com>
-References: <56d3bbcf940024032faf81b5bf0732e9a45db483.1791769175.git.cesun102@amd.com>
-In-Reply-To: <56d3bbcf940024032faf81b5bf0732e9a45db483.1791769175.git.cesun102@amd.com>
-Accept-Language: en-US
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amd/pm: mark the current DPM clock level active
+Thread-Topic: [PATCH] drm/amd/pm: mark the current DPM clock level active
+Thread-Index: AQHdWejtU2fpKTnXHk+N2TYAx7nN/bb5Nj2A
+Date: Mon, 12 Oct 2026 02:54:52 +0000
+Message-ID: <MW4PR12MB6803E9CCDC422DD6D999F6618E9F2@MW4PR12MB6803.namprd12.prod.outlook.com>
+References: <20261012012748.3150968-1-kevin.wang@amd.com>
+In-Reply-To: <20261012012748.3150968-1-kevin.wang@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-12T02:00:02.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-12T02:54:42.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN7PPFFF39339DD:EE_|MW3PR12MB4425:EE_
-x-ms-office365-filtering-correlation-id: 375e3c25-e770-4efa-5627-08df28049981
+x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|DS4PR12MB9563:EE_
+x-ms-office365-filtering-correlation-id: c304a092-74dc-4f3b-e75a-08df280c3068
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|38070700021|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: rLVtBq7a4i7ZHqssgKFuHGQ0Dlo+wcEIH9lOkya/m03QaZmGvno43dvHsQ6OntlOKuvU6TgypnbBruTa/wjZOSAJ+NhtqWMzB1u8sowD4ffCgKOtD+58meyx3thyHwTrR798mx9cQY+p++USE34hqNxYVTW2MgBZGMssBlU5C1XRgQo65huF3/Ke0GruINZqR5ciqSl/YolXSQxYXPmHjV4R73L5b11xs622WhwXvgasoNXpJ9s2WhX59/XoBY8FOkibAZ+Unm/AtF2nkhQoNw3ZfrQZH2+NGr3Tl2qmQ/tGG2/sLE2dHMchnFUzsObR/RgB/lrAD1HZ64/0iKOiYBplWeRG0TSPxcAWnYq5bZkevHCEUWGi8qC9pRB8tRxy1HrUfufiTYdFcZmxoy78LHRhIl39s9Skt7csaUeKVUZv+Km1hsyZ08tk5ZfcOM20iBVUKlAaLrVt8/9eHuCZSjPPIpNAAsnkZCCR05cyitfwnFp9GQgEOupPf+RA5qyTZKF8Qce7pOmP0SJJ3goFCNb0Zbdl+HTPOyrREbPE/5xz78ChGPdm7PtG/3NMHy+gEtx9r+F2ROVkw+odz7Mc9Nury7QDMg+jvk0/EQmWYjczd+2Os/LVl89ZEKKE6GJPSiYGB8BzDMXWNA+WGVnZTxhu5qPhdyeuNVtJqUgBW9dSjMtw3+eDbW6B59pzezkaBI53C4i+3JygRp9px7iNYzplOchu/rkMCy4sm1ZXWlI=
+ ARA:13230040|366016|1800799024|23010399003|376014|38070700021|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+x-microsoft-antispam-message-info: Ig/ex0qjXCAKyr6pr2k4m4Yjl94A3bDmQKKaNH3xBlHjrL7BefOShXIhxmeI8Xv3VeqU40ZRkW9zCQTPw8/uRca4P8WslIAU5awfgtk6k8wMXXgZMZXjWa1s+9aGUTUYEAm2lJuB/lNfAXuMexXM495Ue8HoOCkkpHMSqTJE24Q4v7zbLHKoDfV9ShtSIBVe3Eyi/sA7h5yqvtJMH/NlPs/52NdI8Jn4h1oL3eWfEHY/0KTRhLwxIaHLL5YNAH13MdphYGqwdbaPoJWA+oASz3Zg7bLfP619sOFXtU9Vyl5sh53RkEKFtHLbVmKm3hW+TSFZ7bciY6/9WmIRu/F7x2xY9OhvfVZ3iQfOQ/j6R4D0FLl+SgJwSBJw0OlMUdHn3Q9SbF4zglJeDuz10VNWAnjZ1TBf5z3TY+PWgrjk6FpW6B/Ec0NH8hlOBU8d0mW7615yLJ6xnwrGJOoFlri6xGhoasksWqvrgDPtHzU7Rme94ZJuKBMBwD99iCtocEqAfhSySv1V8FtvtkulVndtW9B7snQ+ja4w83WKOa5wl4RnhHQ8+y18IsRgUrDzu3V2ULPVWD7QbnJYMbZ8sAI78fBTMhKGCHtqnH83OnH1jnUGWjvRJdGkCzJUEcrxOluhZHrVu1JlHSvLkzIQJWAFmlM26fsxHLPin7KGuGmHijz0zhkKY9txz43fpDOyPB06HDJcVooO/23z5+tsVtsH3Q==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPFFF39339DD.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(38070700021)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(38070700021)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?eVub8YgI3+J/R1GN5gPDFuTywzkRzlCujA5gfxj58rdoR8QHmvtBMLplD4Q0?=
- =?us-ascii?Q?cnv0mJ3kFse+1cntX6mxl9ARaeoD41n7CiE8NyhmigbIrgLuJ4dTGuDBexV3?=
- =?us-ascii?Q?Cw/wHJJpndKHFd2kAMeOAV0HdQSApH/1V2HYOiqs0NmnR4nQ1/u8Bg8rCpBe?=
- =?us-ascii?Q?zAmC8+7p0X1bgywU6RIzwHhGYGJurRQnIQQpQTTe7xaiiHgoT9a4NQFwXwJp?=
- =?us-ascii?Q?O6RdidXSoHWVbJEOhkX1hV3HGq2MQU0jLk7t1HR6rBDZ60g7BLjs/tZPAmpe?=
- =?us-ascii?Q?rFO5aFoj6FIHREqBYcl1HHirSdM3qh68iHUwJUvYa6Q/UaJQsn8Q4fL7yna7?=
- =?us-ascii?Q?Wi/zqi6T1QB+GQNJ3SmQX/ZW+iVuU/ZgSLucPNMTOySnvSgnOFBOA6TVKFdh?=
- =?us-ascii?Q?YWcngxRyAyGNCWauF01vc2jLhxkt4nyXDGRVJJk2TRwe8D1tAGSuUYCR8cC9?=
- =?us-ascii?Q?t8qHC9SDxC7vMtYN/t6jXO2CbqbgUF4EkL+SwByLeYbRoaT6RoWfVtkqpe88?=
- =?us-ascii?Q?PTOn8TCXEO22+ncc65uaEwtPtBTrfQoDePH4jbSugOnuYCSbBaKdtnOm1w9H?=
- =?us-ascii?Q?LN6pNAX4Z/FMmLqYsNSPB+SEYvR9T42rsOasBA1anTvO9/v5N0o1MVgeMYsV?=
- =?us-ascii?Q?noPL04c4LCSw/gQgI06ViVkYU+qjBTAeVqqs4lkoSzMJkZHYLSEyI681Cbal?=
- =?us-ascii?Q?B6NykU3BNwnZI6MfOhGYY2MzMQCij/3qcZNT3cYeGkdDEwEW1Ob+QoREOf3m?=
- =?us-ascii?Q?Mhc3nIGEGrw8MNa7lEOqU5Fj2ldQFMv3I6i0j5ZQrDeFLwHFxsbZvdo0t4ha?=
- =?us-ascii?Q?otuBfik6G5geEgTvf1DJQciB24Qi3jn577BUYG2f5wHmH1unXPF4qUtmPc8N?=
- =?us-ascii?Q?Tew6Or0KAU6WDOO1HL9IvF9rCkbSTjrmd34rSoOW4QX+bBrEN+h9xICSDFCA?=
- =?us-ascii?Q?sCbsh6Q9GRL2Jadl6bZIQ+BFVfSBtd1Y+te7xaka2HPkuFQPEgsNXFPrgPyN?=
- =?us-ascii?Q?u2iJgyxy84AYZJCiJuF/dXSC/J3X9QVvoEuzHlOlRb0Y5DT6cJ+CNV795a7l?=
- =?us-ascii?Q?UcwCFrF7quiPiYNOZ8RmtJ3wIEkoL05h+AVSNTKGsAjDuv0BH8ASRdFi+8ez?=
- =?us-ascii?Q?2J5vCNXr37IVHqDAs1EHBFRTdvIhiTUqRcfaLD8vn1tKUTLuiQKKF8kBQoYZ?=
- =?us-ascii?Q?12i3DTr1ua6TVwu6U9Ps/L2IVH8VtBsIjbWdearXdXxOfEHU+00wIlLg6LnH?=
- =?us-ascii?Q?+wcm1FdyRgmArj7ynn59bsUdtrAIHHcChpjlHFTVtaJ7QYoX2sZTc5Ep3eag?=
- =?us-ascii?Q?g8biUTP05OlVcau2BSU1i6Fi+e9aveAhnFimPmST2xyMNcrW1xPNyi2Kr6KO?=
- =?us-ascii?Q?UqQDtN9saYOhsKLXo7bs5i9Sn+udP89Wb2Gb5WIFJU+dS1iVQBPKGKJrEAJs?=
- =?us-ascii?Q?xgabow+5CDL9RTAGGjcGkFv1LhhVLWrocuoO27lAbFhIJasaP/fFI7h44yxc?=
- =?us-ascii?Q?MNK6gvzNDAgdlo59Np8icbqxgJ5NPLQt/pBt8K4TpDQzYd5+CXN5YROZZcwy?=
- =?us-ascii?Q?MkVY4tZsKmJk0uvEjVOMBn1o/A/hh6WxrhsKI1n8Oy402vRKaSgDCl3VTIEj?=
- =?us-ascii?Q?c7bSGRuDWrBhydLZWispwtoXx5FOZ8nbl+GQh1/V2JfYkVjg1JqV3BZHIkHB?=
- =?us-ascii?Q?vWEWlteFMueCyBAoqtFLt6olgRf9YAd2F1Ja4uFyeVRgDipY?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0odL3cddSjs4UyVvQYswYzVkmKTdQfdEWsipbIqVl9Z1JSDopJLJo060jrY7?=
+ =?us-ascii?Q?qfkvQdxT/aPRXWzy+kpGhb0bicrERQxpqTQtlx9V7t/S60qnu4FHKN8FKi1J?=
+ =?us-ascii?Q?Tx+e8W7WBYylgsjHITZ/VXRYAKaGyZDzemsDZmX4Q6ebvGq3HHOIb56ZVb1e?=
+ =?us-ascii?Q?gT1yRrR3g03JGVlctthUr/QoFaxr3MYzStb6PzGCF0RsFZrBWer4mmGB3bZl?=
+ =?us-ascii?Q?agqpjuFXSHGGGCSPev224vJdkRRvrsGYju9QP4r4MELemVtPo8purJcSk9n0?=
+ =?us-ascii?Q?c+yyGVpej+BrzXNT991kS19nsx7zQ/g6RIHCc+bE6Vq+UTGSor7BCvj64SJN?=
+ =?us-ascii?Q?SE9FXYHAUHMCIBKTr1LGM3vlLr26tvw/Ez6c95ADAO/TBycHEH/irBWMyvy1?=
+ =?us-ascii?Q?AlorgNN9caMEfn5gx0yZW/6ohlfTF4I3i6I2h95sQamlxbwodlJJLg9FBeAc?=
+ =?us-ascii?Q?YRT8hEa2ZTsm0fz/wx2umSvl6XrE7L7BcnKJYr3b+zhPNSwem1AIHxNbaeYP?=
+ =?us-ascii?Q?FqADTgBVOEKYzmA2vI1aKVMq3Y3+tm4MYIpG3V4C6ArGIfZJ297jKtx8WYpa?=
+ =?us-ascii?Q?X6eSyEp2+8mLL5tzE3xORLEBI7+Mw7S472eycPUjfg7WedwejLN8jOILu586?=
+ =?us-ascii?Q?xC2tQEPnfcEJJIL6D/EzE1zg5qdbYAI3uruZ6IPG+klkCCtKN47ZV8vvH3TS?=
+ =?us-ascii?Q?6T+zxT+EeBfBRLKADXc8W4+h2sDdw38X4Giadd8VgypuudVcjS+mqbVAK9OR?=
+ =?us-ascii?Q?mqSEPjOHuGureehXR9HxEiVKLRTGXZ0/fEU1ki2l2hI/XUuW00uEGPBPTwcp?=
+ =?us-ascii?Q?HVboY09wMjhLDYDL9gtleaZwWAIC7++d6z+1nMMis0eYGM2WekeZkCxFET7o?=
+ =?us-ascii?Q?aWrzOuirRRgsV2KKfgJunfQGhDowBZFcSTXHPRnTu96DeQ8RObCjk8VlF1KF?=
+ =?us-ascii?Q?6A4+A3FhibchVNqcoAvBxPCDO476XdSdcUGY8DbuMDaa3nuHR+f/ra+11zTp?=
+ =?us-ascii?Q?cwTS+k1ZzGptvpKz2S7LAsj0oNihjpbc+/v5kSldMRzEGuWEXF7+/TamTUXw?=
+ =?us-ascii?Q?HmiprBRa3HtMk/QexDsjWnS86iHM752nxc6Pqp2WENt+OocT+64OU3sJBkb8?=
+ =?us-ascii?Q?SfJBUveLP47mZs1ZStiFXvniC4ljiQ8fH7Kc/fbiddbuapZJZ/CIIB1i+XgL?=
+ =?us-ascii?Q?9G0wC3QRSuVUpZJ/bmo4dt+Xy+B9PENYr2pzbyyMcUwd4T6MAjtuDnpD9Vhc?=
+ =?us-ascii?Q?ro+cW3E2wZ4wmmmP8I7KUKYC66NHaccsWqoZU7a9KkL9v2WDVtGmZlWWXBbD?=
+ =?us-ascii?Q?yQEyWtmrL+gAPFlWskkAQ5O/JVpcvZaQr6sGwlvgx9eGsVY0wVmBZ+1wjLIZ?=
+ =?us-ascii?Q?Hsi58zLwQvBN7GbA6f9iwSUxInWOfsnvlsJjRad8WWwDaHzqfJtsPQaj4iyp?=
+ =?us-ascii?Q?5/lUTuSVScZKTQ8JRL/FvdMEhRM5rdYynbuSHtGOapxJRbivZhWTs0/K8OVP?=
+ =?us-ascii?Q?MifVrwQlNEXuNVYMC8oCj1nW6Q8NF0jUWxXsjemup8wqNIn+kFRxac/iHCdS?=
+ =?us-ascii?Q?4nuiJSG59HreB3/Z9U6/FrkuT+7UaECkSIEBnBHTkeN7FV/ohjmHOn57NsGL?=
+ =?us-ascii?Q?ON0Onnhdyxd+RzUNkdcgQ3yl24dj2ZVpqCw6T7EWaM89WzPUI8lPWBbkmeye?=
+ =?us-ascii?Q?bXz0Nz/TEVsdTVouaPr42lH8vkbxdxoYoi/aGR3HwpnZB0Hh?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPFFF39339DD.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 375e3c25-e770-4efa-5627-08df28049981
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 02:00:33.0002 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c304a092-74dc-4f3b-e75a-08df280c3068
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 02:54:52.6476 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 44a/GjAnJ3SWfenVWUNEQmzhNRnDA0kvUpH9KcvMf+iynG51rSjsfZx7/gmeyBmWA26vuwAa5prki5c7OvYXeA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4425
+X-MS-Exchange-CrossTenant-userprincipalname: iDoOK2kDpLv8qlXRuPe7xLrlfndecK6AYQ3ou9T5Mi5bbEek9JXWDxutTQSWnnC5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9563
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,101 +132,110 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 
-Regards,
-Hawking
+
 -----Original Message-----
-From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Sent: Monday, October 12, 2026 9:40 AM
+From: Wang, Kevin <Kevin.Wang@amd.com>
+Sent: Monday, October 12, 2026 9:28 AM
 To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.c=
-om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; =
-Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Subject: [PATCH v3] drm/amd/ras: Use MP1 feature status to select fw-manage=
-d EEPROM
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: [PATCH] drm/amd/pm: mark the current DPM clock level active
 
-Read the feature status of RAS_CORE_FW_FEATURE_BIT_RAS_EEPROM
-to determine whether to use firmware-managed EEPROM.
+PMFW can report clocks outside or between advertised DPM levels.
 
-Signed-off-by: Ce Sun <cesun102@amd.com>
+Report a clock below DPM0 as a special active S level.
+Mark the nearest level active for a discrete DPM table.
+Clamp a clock above the table range to the maximum DPM level.
+Keep reporting the actual clock for a fine-grained DPM table.
+
+Signed-off-by: Kevin Wang <kevin.wang@amd.com>
 ---
- drivers/gpu/drm/amd/ras/core/ras.h            |  2 +-
- drivers/gpu/drm/amd/ras/core/ras_eeprom_mgr.c | 23 ++++++++++++++-----
- 2 files changed, 18 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 35 ++++++++++++++++++++------
+ 1 file changed, 27 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/core/ras.h b/drivers/gpu/drm/amd/ras/c=
-ore/ras.h
-index 73e3960c7c8e..1b724aa23594 100644
---- a/drivers/gpu/drm/amd/ras/core/ras.h
-+++ b/drivers/gpu/drm/amd/ras/core/ras.h
-@@ -60,7 +60,7 @@ enum ras_gpu_health_status {  };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.c
+index 361657c19ea3..8cf616517ddd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -1391,11 +1391,12 @@ int smu_cmn_print_dpm_clk_levels(struct smu_context=
+ *smu,
+                                 uint32_t cur_clk, char *buf, int *offset) =
+ {
+        uint32_t min_clk, max_clk, level_index, count;
++       uint32_t nearest_level =3D 0, nearest_diff =3D U32_MAX;
+        uint32_t freq_values[3];
++       uint32_t clk_diff, level_clk;
+        int size, lvl, i;
+        bool is_fine_grained;
+        bool is_deep_sleep;
+-       bool freq_match;
 
- enum ras_core_fw_feature_flags {
--       RAS_CORE_FW_FEATURE_BIT__RAS_EEPROM =3D BIT_ULL(0),
-+       RAS_CORE_FW_FEATURE_BIT__RAS_EEPROM =3D 0,
- };
+        if (!dpm_table || !buf)
+                return -EINVAL;
+@@ -1407,23 +1408,41 @@ int smu_cmn_print_dpm_clk_levels(struct smu_context=
+ *smu,
+        min_clk =3D SMU_DPM_TABLE_MIN(dpm_table);
+        max_clk =3D SMU_DPM_TABLE_MAX(dpm_table);
 
- enum ras_block_id {
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_eeprom_mgr.c b/drivers/gpu/dr=
-m/amd/ras/core/ras_eeprom_mgr.c
-index fe0e35357af1..e1b70dd7b819 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_eeprom_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/core/ras_eeprom_mgr.c
-@@ -26,6 +26,7 @@
- #include "ras.h"
- #include "eeprom.h"
- #include "eeprom_fw.h"
-+#include "ras_mp1.h"
-
- static bool __ras_eeprom_disabled(struct ras_core_context *ras_core)  { @@=
- -36,25 +37,35 @@ static const struct ras_eeprom_ops *ras_eeprom_mgr_get_ip=
-_func(
-                                struct ras_core_context *ras_core, uint32_t=
- ip_version)  {
-        struct ras_eeprom_mgr *mgr =3D &ras_core->eeprom_mgr;
-+       int ret =3D 0;
-+       u32 status =3D 0;
-+
-+       ret =3D ras_mp1_check_feature_status(ras_core, RAS_CORE_FW_FEATURE_=
-BIT__RAS_EEPROM, &status);
-+       if (ret)
-+               RAS_DEV_ERR(ras_core->dev, "Check RAS EEPROM feature failed=
-, ret=3D%d",
-+ret);
-
-        switch (ip_version) {
-        case IP_VERSION(13, 0, 6):
--       case IP_VERSION(13, 0, 14):
-        case IP_VERSION(13, 0, 12):
-+       case IP_VERSION(13, 0, 14):
-        case IP_VERSION(13, 0, 15):
-                mgr->eeprom_early_init_service_supported =3D false;
--               return &ras_drv_eeprom_ops;
-+               break;
-        case IP_VERSION(15, 0, 8):
-                mgr->eeprom_early_init_service_supported =3D true;
--               mgr->fw_record_enabled =3D true;
--               return &ras_fw_eeprom_ops;
-+               break;
-        default:
-                RAS_DEV_ERR(ras_core->dev,
-                        "EEPROM(MP1) ip version(0x%x) is not supported!\n",=
- ip_version);
--               break;
-+               return NULL;
+-       /* Deep sleep - current clock < min_clock/2, TBD: cur_clk =3D 0 as =
+GFXOFF */
+-       is_deep_sleep =3D cur_clk < min_clk / 2;
++       /* A clock below DPM0 is reported as a special deep-sleep level. */
++       is_deep_sleep =3D cur_clk < min_clk;
+        if (is_deep_sleep) {
+                size +=3D sysfs_emit_at(buf, size, "S: %uMhz *\n", cur_clk)=
+;
+                level_index =3D 1;
         }
 
--       return NULL;
-+       if (status) {
-+               mgr->fw_record_enabled =3D true;
-+               return &ras_fw_eeprom_ops;
-+       } else {
-+               return &ras_drv_eeprom_ops;
-+       }
- }
-
- int ras_eeprom_mgr_sw_init(struct ras_core_context *ras_core)
++       /*
++        * Discrete tables mark the level nearest to the current clock.  Cl=
+amp
++        * clocks above the advertised range to the last level.  Fine-grain=
+ed
++        * tables keep reporting the actual current clock between min and m=
+ax.
++        */
+        if (!is_fine_grained || count =3D=3D 1) {
++               if (!is_deep_sleep) {
++                       if (cur_clk >=3D max_clk) {
++                               nearest_level =3D count - 1;
++                       } else {
++                               for (i =3D 0; i < count; i++) {
++                                       level_clk =3D dpm_table->dpm_levels=
+[i].value;
++                                       clk_diff =3D cur_clk > level_clk ?
++                                                  cur_clk - level_clk : le=
+vel_clk - cur_clk;
++                                       if (clk_diff < nearest_diff) {
++                                               nearest_diff =3D clk_diff;
++                                               nearest_level =3D i;
++                                       }
++                               }
++                       }
++               }
++
+                for (i =3D 0; i < count; i++) {
+-                       freq_match =3D !is_deep_sleep &&
+-                                    smu_cmn_freqs_match(
+-                                            cur_clk,
+-                                            dpm_table->dpm_levels[i].value=
+);
+                        size +=3D sysfs_emit_at(buf, size, "%d: %uMhz %s\n"=
+,
+                                              level_index + i,
+                                              dpm_table->dpm_levels[i].valu=
+e,
+-                                             freq_match ? "*" : "");
++                                             (!is_deep_sleep &&
++                                              i =3D=3D nearest_level) ? "*=
+" : "");
+                }
+        } else {
+                count =3D 2;
 --
-2.34.1
+2.55.0
 
