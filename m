@@ -4,46 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA94CA9ED0
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 20:14:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C02BACA9ED2
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Oct 2026 20:44:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F35D10E3B6;
-	Mon, 12 Oct 2026 20:14:37 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFCB10E3B6
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 20:14:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6327D60142;
- Mon, 12 Oct 2026 20:14:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3811F0089B;
- Mon, 12 Oct 2026 20:14:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791836070;
- bh=Yx1thZO4xaGAVViZWj+N8Em6w5rlQ/Osf1vZQ5BH4j4=;
- h=Date:From:To:Cc:Subject:In-Reply-To;
- b=F11sptdMftzjUb+31V2WdEi2rv3+DWHvmksPNN6y3j11bNoPN6B0ffWjvy/c7STqd
- YGl5JAs1zkgoqpFWRdjLiyG6Kf/ueGVh/04awWsKMfOC5iKUiK2frTgDLa1sgkOSdv
- rOCNxs2BbW7cy3Nn6L7Q7ZACMjywUWBsti71dXZEcppi5dgjqZ7D8xWnK+/R0e96Fg
- IUsYAnItXCBwgAp3vQNlbeihLocEOubhgEZwR+5HubbphT0K+hy8bW32lHzMn5RTDB
- m7Y9NBkj8wUXkA5PiE2WC0GID4GzrF4+oNafnc339TFj0dQiNdZZcDfFYuBhETYGLd
- 4l0o7mrmtKEAQ==
-Date: Mon, 12 Oct 2026 15:14:28 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Aditya Garg <aditya.garg@linux.dev>
-Cc: linux-pci@vger.kernel.org, Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- Oliver OHalloran <oohall@gmail.com>, linuxppc-dev@lists.ozlabs.org,
- Alex Deucher <alexdeucher@gmail.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- amd-gfx@lists.freedesktop.org, Lukas Wunner <lukas@wunner.de>,
- Jason Perlow <jperlow@gmail.com>
-Subject: Re: [PATCH for-linus] PCI/AER: Skip unmasking Advisory Non-Fatal
- Errors on T2 SEP
-Message-ID: <20261012201428.GA1377196@bhelgaas>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51E7A10E289;
+	Mon, 12 Oct 2026 20:44:50 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 083D210E695
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 20:44:44 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-6b1ab02ba4dso2428760a12.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Oct 2026 13:44:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791837882; x=1792442682; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=vpAWDPAZPdCXMbk9m4pyv0yPbpK6eL4DWT2QmShQfsM=;
+ b=ibbzE8mYqIAxSeAsL/NLrOGtWV/VmcqYew1XAGQiKGzPUzbSyOZ1Ucj4N2t0Apf+Mc
+ fgJ4qQuptigTHXW4Axo5VY5LKCKaxZeAb9ZWD39NfqeKczo7LaAc6NJcdkb8avJ+MMzG
+ 4d6/lBSKypznFoKmnkUqCJb/hkTrW5VWR0ADD9F6K9eI7h+dacb7CLB/daLKcrA4wLr9
+ zgqHOtBBWz6cev3L/c5tw7U1jfQOLwdhMDRwVFp7i7Oudhz0vk1dVmDqVaPqkdQgU3bi
+ qJ/Lietp0Yta4hwB5pmZ5dBrY7MjXm3B1HUgh/11dHnxs9MpybiPoL4nHM6H75su3YF6
+ xVLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791837882; x=1792442682;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=vpAWDPAZPdCXMbk9m4pyv0yPbpK6eL4DWT2QmShQfsM=;
+ b=fJpFwlMoDiQ3V2jfsm0ZjvFYMC1OLSqAqC+/OJbcNJ4CNJWMfNx7v2j6E+Ddnlz7wh
+ HEqwg3O98nHP4V3RPYPjvr19Doa9ITXTNdYsbj2NL1izZ0L1LYQCYR7X4cojXJezJrzY
+ 6hfCU9J0OTINJX4UekH4ZldOw1xQ7Rpg2LeVyqhOk+0+yqwrLg7RRA3ZxiOnophjpO85
+ 07sVxaJRdW02DNY99Q8Hg/qWLinFUbIeBBAeiTIE9HIz4jaTRhuBbLJKzbK1xCA+Nhmi
+ q4bFeCl6UbUhEc6iPxBixzh/ke/W1+MkDs1kKNFaNesE2gwDPORiDdRJ6G7++qlimgd2
+ iINw==
+X-Gm-Message-State: AFq9FYKEJtkoDMvePBrShMCbrp92f6PVfphJnS1gZ5Ves1gvdzwP12vw
+ l2/zvdlk/RS/gO3/4/UHQJFxNvrwpo3PLmCUgfStPIfZh9Am61JLtse1bbcphzIQ
+X-Gm-Gg: AYBFou25Vt3WS1BKGPQOHEo+J5Qj4Bc03q0ZIUMbm/8wRAdQzDK/x8qH/lrZFlpn8Mf
+ QVgRW9Ervl566kJ4vGnYqAXw5a4cp6YD3PbCgpiZvSa9atdi3p2F6FxovF+HP0zMt8VhCkIwz/w
+ jzQMuyOkf3wnD0XSeEUaPJ9KA8Etogbe2bPklAeB16BRVveKWPw/MGZbFdOelyLf0rctn3Qw2D6
+ 4O94TTVlVCQcfJVlc2el93M2snmRiKjuIWTsf6K/ugT1H0HUILtOYK/qhg9RjqpCl0mUBdGelsq
+ VQMNEIJYbj68x1E7RckToKvfsOwQb6tAsI8vDKhERN+GbrQ3MRWv7514Um4UwJrnRzTEmcYG2EP
+ qug4zWPtsIhPjoCV4wmEbuhSsZlhQYv+wxN1kHnbC/mD5s8IAd97kOX3RujBSdCN1BpQIv5v86T
+ ay4BgcjYfP4LOCRbKRoVaxLoNUyX3hItUzJlFTsuS2Vfp7QR/T7EUfnpMWQUX46Ip4z1qc+EagX
+ JdH4859uPmy8tH9+Q==
+X-Received: by 2002:a17:906:c14d:b0:c26:1691:b364 with SMTP id
+ a640c23a62f3a-c31a9f6b5d1mr1034967966b.29.1791837882190; 
+ Mon, 12 Oct 2026 13:44:42 -0700 (PDT)
+Received: from localhost.localdomain ([37.214.28.88])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c31a9a3ae6csm495404666b.17.2026.10.12.13.44.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Oct 2026 13:44:41 -0700 (PDT)
+From: Bogdan Metla <edistuo.revresbo@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Bogdan Metla <edistuo.revresbo@gmail.com>
+Subject: [PATCH] drm/radeon: fix wake event stealing in fence_is_signaled
+ polling
+Date: Mon, 12 Oct 2026 23:43:57 +0300
+Message-ID: <20261012204357.785030-1-edistuo.revresbo@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012192933.GA1358008@bhelgaas>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,108 +81,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 12, 2026 at 02:29:33PM -0500, Bjorn Helgaas wrote:
-> On Sat, Oct 10, 2026 at 10:53:01PM +0530, Aditya Garg wrote:
-> > Jason reported that since commit eddba19b8b5f ("PCI/AER: Support Advisory
-> > Non-Fatal Errors"), the Macs with Apple T2 Security Chip were powering
-> > off a few seconds after every boot. He also found the PCI Device
-> > 106b:1802, which corresponds to the Apple T2 Secure Enclave Processor was
-> > misbehaving and the most likely reason is that the device is ANFE
-> > incompatible due to Apple's custom hardware.
-> > 
-> > Since its highly unlikely that Apple will release a firmware update to
-> > support ANFE, introduce a quirk as suggested by Lukas to blacklist the T2
-> > SEP from ANFE.
-> > 
-> > Fixes: eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal Errors")
-> > Reported-by: Jason Perlow <jperlow@gmail.com>
-> > Tested-by: Jason Perlow <jperlow@gmail.com>
-> > Closes: https://lore.kernel.org/linux-pci/CABZrw2HcaOh3DHTJtxU5dXrb3Vg19scr6+qR-xe_+R7rME35_Q@mail.gmail.com/
-> > Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
-> 
-> Applied to pci/for-linus for v7.3, thank you!
+Commit 5f08eee9c3fb ("drm/radeon: restore hardware polling in
+fence_is_signaled to fix performance regression") restored hardware
+polling by calling radeon_fence_activity() inside the dma-fence
+.signaled callback.
 
-Replaced by Jason's very similar but slightly earlier patch at
-https://patch.msgid.link/CABZrw2H+3yt2Y7xiq6OyAWaJM7P9ox-2nJxoQuJMwoJHLgi+YQ@mail.gmail.com/
+During the review of that patch, the automated kernel reviewer
+flagged a [High] severity issue: radeon_fence_activity() in the
+.signaled callback consumes hardware state without waking up wait
+queues. Because last_seq is advanced there, a later interrupt-driven
+radeon_fence_process() sees no new activity (seq <= last_seq),
+returns false and skips wake_up_all(). This steals the wake event
+and can leave tasks waiting on fences hanging indefinitely.
 
-> I aligned the "!dev->no_aer_anfe" test as Lukas suggested and took a
-> stab at the "misbehaving" comment:
-> 
->   Jason reported that since commit eddba19b8b5f ("PCI/AER: Support Advisory
->   Non-Fatal Errors"), the Macs with Apple T2 Security Chip were powering off
->   a few seconds after every boot. He also found that the power-off only
->   happens when Advisory Non-Fatal Errors are unmasked on the PCI Device
->   106b:1802, the Apple T2 Secure Enclave Processor.
-> 
-> I'll be happy to revise this if we can make it clearer or more
-> specific.
-> 
-> > ---
-> >  drivers/pci/pcie/aer.c  |  3 ++-
-> >  drivers/pci/quirks.c    | 12 ++++++++++++
-> >  include/linux/pci.h     |  1 +
-> >  include/linux/pci_ids.h |  1 +
-> >  4 files changed, 16 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-> > index 922a726a5..cab195f7c 100644
-> > --- a/drivers/pci/pcie/aer.c
-> > +++ b/drivers/pci/pcie/aer.c
-> > @@ -428,7 +428,8 @@ void pci_aer_init(struct pci_dev *dev)
-> >  	 * Advisory Non-Fatal Errors are masked by default (PCIe r7.0, sec
-> >  	 * 7.8.4.6).
-> >  	 */
-> > -	if (pcie_aer_is_native(dev) && dev->devcap & PCI_EXP_DEVCAP_RBER)
-> > +	if (pcie_aer_is_native(dev) && dev->devcap & PCI_EXP_DEVCAP_RBER &&
-> > +		!dev->no_aer_anfe)
-> >  		pci_clear_and_set_config_dword(dev,
-> >  					       dev->aer_cap + PCI_ERR_COR_MASK,
-> >  					       PCI_ERR_COR_ADV_NFAT, 0);
-> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> > index de9bbccda..acca89532 100644
-> > --- a/drivers/pci/quirks.c
-> > +++ b/drivers/pci/quirks.c
-> > @@ -6422,4 +6422,16 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
-> >  }
-> >  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer_timeout);
-> >  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer_timeout);
-> > +
-> > +/*
-> > + * Unmasking Advisory Non-Fatal Errors on Apple T2 Secure Enclave
-> > + * processor leads to the Mac shutting down spontaneously. Avoid
-> > + * doing that.
-> > + */
-> > +static void quirk_no_aer_anfe(struct pci_dev *dev)
-> > +{
-> > +	dev->no_aer_anfe = 1;
-> > +}
-> > +
-> > +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_APPLE, PCI_DEVICE_ID_APPLE_T2_SEP, quirk_no_aer_anfe);
-> >  #endif
-> > diff --git a/include/linux/pci.h b/include/linux/pci.h
-> > index d31a8d107..83ffa5058 100644
-> > --- a/include/linux/pci.h
-> > +++ b/include/linux/pci.h
-> > @@ -514,6 +514,7 @@ struct pci_dev {
-> >  	unsigned int	rom_bar_overlap:1;	/* ROM BAR disable broken */
-> >  	unsigned int	rom_attr_enabled:1;	/* Display of ROM attribute enabled? */
-> >  	unsigned int	non_mappable_bars:1;	/* BARs can't be mapped by CPU or peers */
-> > +	unsigned int	no_aer_anfe:1;		/* Don't unmask Advisory Non-Fatal Errors */
-> >  	pci_dev_flags_t dev_flags;
-> >  	atomic_t	enable_cnt;	/* pci_enable_device has been called */
-> >  
-> > diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-> > index 63774ae2b..103024f74 100644
-> > --- a/include/linux/pci_ids.h
-> > +++ b/include/linux/pci_ids.h
-> > @@ -1007,6 +1007,7 @@
-> >  #define PCI_DEVICE_ID_APPLE_IPID2_FW	0x006a
-> >  #define PCI_DEVICE_ID_APPLE_IPID2_GMAC	0x006b
-> >  #define PCI_DEVICE_ID_APPLE_TIGON3	0x1645
-> > +#define PCI_DEVICE_ID_APPLE_T2_SEP	0x1802
-> >  
-> >  #define PCI_VENDOR_ID_YAMAHA		0x1073
-> >  #define PCI_DEVICE_ID_YAMAHA_724	0x0004
-> > -- 
-> > 2.55.0
-> > 
+Reproduced on Radeon HD 5450 (Cedar), where interrupts can be
+missed under heavy 2D redraw load: the screen freezes while the
+cursor keeps moving, and recovery requires new GPU work (e.g.
+glxgears) or a modeset to trigger a fresh interrupt.
+
+Fix this by scheduling a deferred work item when
+radeon_fence_activity() reports new completions inside
+radeon_fence_is_signaled(). The worker calls wake_up_all()
+unconditionally from process context, which restores the stolen
+wake event without re-introducing the self-deadlock on the fence
+lock, and without rw_semaphore manipulation in atomic context.
+schedule_work() is idempotent, so repeated polling is cheap.
+
+Assisted-by: LLM
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5955
+Fixes: 5f08eee9c3fb ("drm/radeon: restore hardware polling in fence_is_signaled to fix performance regression")
+Signed-off-by: Bogdan Metla <edistuo.revresbo@gmail.com>
+---
+ drivers/gpu/drm/radeon/radeon.h       |  1 +
+ drivers/gpu/drm/radeon/radeon_fence.c | 14 +++++++++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index 527b9d19d7..61b01df87f 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -370,6 +370,7 @@ struct radeon_fence_driver {
+ 	atomic64_t			last_seq;
+ 	bool				initialized, delayed_irq;
+ 	struct delayed_work		lockup_work;
++	struct work_struct		wake_work;
+ };
+ 
+ struct radeon_fence {
+diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon/radeon_fence.c
+index 2998655692..5016dd0cbc 100644
+--- a/drivers/gpu/drm/radeon/radeon_fence.c
++++ b/drivers/gpu/drm/radeon/radeon_fence.c
+@@ -155,6 +155,15 @@ int radeon_fence_emit(struct radeon_device *rdev,
+ 	return 0;
+ }
+ 
++static void radeon_fence_wake_work(struct work_struct *work)
++{
++	struct radeon_fence_driver *fence_drv =
++		  container_of(work, struct radeon_fence_driver, wake_work);
++	struct radeon_device *rdev = fence_drv->rdev;
++
++	wake_up_all(&rdev->fence_queue);
++}
++
+ /*
+  * radeon_fence_check_signaled - callback from fence_queue
+  *
+@@ -361,7 +370,8 @@ static bool radeon_fence_is_signaled(struct dma_fence *f)
+ 		return true;
+ 
+ 	if (down_read_trylock(&rdev->exclusive_lock)) {
+-		radeon_fence_activity(rdev, ring);
++		if (radeon_fence_activity(rdev, ring))
++			schedule_work(&rdev->fence_drv[ring].wake_work);
+ 		up_read(&rdev->exclusive_lock);
+ 
+ 		if (atomic64_read(&rdev->fence_drv[ring].last_seq) >= seq)
+@@ -826,6 +836,7 @@ static void radeon_fence_driver_init_ring(struct radeon_device *rdev, int ring)
+ 	rdev->fence_drv[ring].initialized = false;
+ 	INIT_DELAYED_WORK(&rdev->fence_drv[ring].lockup_work,
+ 			  radeon_fence_check_lockup);
++	INIT_WORK(&rdev->fence_drv[ring].wake_work, radeon_fence_wake_work);
+ 	rdev->fence_drv[ring].rdev = rdev;
+ }
+ 
+@@ -873,6 +884,7 @@ void radeon_fence_driver_fini(struct radeon_device *rdev)
+ 			radeon_fence_driver_force_completion(rdev, ring);
+ 		}
+ 		cancel_delayed_work_sync(&rdev->fence_drv[ring].lockup_work);
++		cancel_work_sync(&rdev->fence_drv[ring].wake_work);
+ 		wake_up_all(&rdev->fence_queue);
+ 		radeon_scratch_free(rdev, rdev->fence_drv[ring].scratch_reg);
+ 		rdev->fence_drv[ring].initialized = false;
+-- 
+2.53.0
+
