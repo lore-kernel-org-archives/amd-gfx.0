@@ -4,76 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94F3CCC6B2F
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D3B9CC6B1A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBB4E10FD66;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D94ED10FD65;
 	Wed, 14 Oct 2026 12:47:43 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D95110E985
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 18:54:00 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-49ff680331aso2193495e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:53:59 -0700 (PDT)
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
+ [74.125.82.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1408910EA53
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:18 +0000 (UTC)
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-351788121cfso4936550eec.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791917638; x=1792522438; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=swLy/ATKxMozoJ0Yb5sQKasWlxtfUYR6WgPATBs+RCI=;
- b=LJKqV8HPVuS7AQtDa46+ZrIgKgSrOWfUVw03fBOd2GSFNc6DQbfYHUW72BgHk8HLIS
- 4h1BbuQrDgtn5F1VpVKrs0GCxOcahPaHXCfx+xXeEk8Q8NcWvUlHA1+65Y0ytAJaVHAA
- g5XXjiyw6hOWBS+8KQjfutUQFe4/baYGiZJ11btnbFENhqR34AKOR0U+ocKmgU0Ih4Zh
- Mfg9A+yHQug5prble/Mf6eRe0PfOnDOBkZMId0SFK84CHPf7woqPIbHtCZvL9+rOMUSg
- WJGsmJX+1s1dfZMoSE30A5cLIlQO3TPeDEETpLrp9q12zFqQ5gTkdQ4XoMMRxVtH+hKL
- zeFQ==
+ d=google.com; s=20251104; t=1791931217; x=1792536017;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=qdtOvNbLAOJ9idJnmqNXkxs2lXj3bNW1pL8KRmE6mUU=;
+ b=mQS31v5EyK0zyMPvNJ/znK3Uhl7fLcPcG383xi3y1WT7YFpVQgf66w3l/Sed/pbh9q
+ XCV0cgZl//WFsHY1uVEzIAbyGd5SFDXjweYXt1Qw1/xeZq1CynrtyEzroJP6GBKLxnhH
+ /fSgmNKuKPYc4/jUQLCjRqd698cTTmDmmwtOxcxS4oJFxi3eTpG1C7EGiDMYYQiDeDkb
+ EfHMptaZiF/mdZdd1kuFsBc5RbgD6nVvahvgfFwhoRMvXq/CXDayR772cYi+lRuqiMHl
+ EKnp1ligXnlNoJXsx3hqKxtUC3R/F8KYjAFj/rO1VxZ4GuWHV3zV8tbBMIv2a0BWbk70
+ a1AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791917638; x=1792522438;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=swLy/ATKxMozoJ0Yb5sQKasWlxtfUYR6WgPATBs+RCI=;
- b=VGJ8Ts19giQh8LiWrv7eWHTC/v0rNCFvI6Fl4263/TJm4C3u9cAP/2BJKd3te6LL68
- aarwPwPKAAoNMPRqMJLne0XIPl031b5A5JJyas0AHrkAeIE2Gsls1HMtf+YdFBfpxDGM
- A80LqUGnWH3vFebFxF4wIdFWrixug8mNhp7H1HeHBH8QwnTzhQ4h7We0lwuDUT2QJvhs
- ghFxzveFFkqiNYynGjrDg2IRaRmRAn8G9WyoOCgP6MFxfYspH89IAKUgoZwMAn4aJ9gD
- 52Oj0tmsfz5SFhvs5TdwnJVy7RjIgKs5slL8iVEggPtrmZwWKLKmQ+eqeC2BGdszG/S0
- UjiA==
-X-Gm-Message-State: AFq9FYJ9p/4G+DZ3mttvl2+EQuhSzXOB5nkZWMW9QyEZdqvG21grEmYA
- xDR8Xa3ooU0M+Wa7XlmNXPEcZ3O1rtSxLoIjDK68seoyQ/uq7VQ7QTORCZPA9g==
-X-Gm-Gg: AYBFou331xND+wMj0hSEt1FF9sLiaPIvCX6kBC2n1kifD1r6nIB9isFc1cMlcdpEVSi
- +BMCrVw1eZ0dil8c99suBgc9MjB3RdHBpaMelI27HbXPdUhBNpyjM96lJ/bltsX1rn6WKt1Nn3G
- 4GeR1Zjbp71yXAX1EFCnNTNNorI3ZZAGs/n3ger6WFb56G2RbN3AFY0FMq4ZZZj4DdsQUub7w5W
- aeV3+G+ZRBDYqfUbwvmq2kidD4bCBdwlWGjlbXA0IrjZ5TXVyjYBi9VM8TjCuU82XYNY3Du83zP
- yVfMi9fE7LzKPIYi/r4A7aDp4+Mxhi/ZWdqBilltYeHq4i39xUPQbhnY/8GlEn6uDwtIBrJ5lwH
- 7YStcNc818Sgtvbg7CUWw2UQSFWDxD4q2S78BRWWmHAR+YuQ5jAuigaa57z6GIkPfWPgOH9Oqi2
- +DQ0wiDnbYKlDWKSj9//xJ/M0P0zhDXTEWPb/FqnnBBszW1smSJJvBisb138cMMHwvsxCFpIVmT
- O4tYjwZqlolXY/Cpf6PkS5nJ7o1rn/iLSFB7gfLMOC8QSu3qHYOjJhRtIEFXP/MPbIs4z92mgfS
- 59PRD59agcLgUWYRiLaRv/eU/UbueORYypotqCtviAg6gbX++e4DiWxW84lXB+hK5V63fljY2LJ
- WOXA4V17m5CI5V3jitPjjgRVOhRvtOrrAxz6ScSNK0Qv1iKeLqg7qKSkRDJaIk1ALMQcXwla5Ff
- KSdu2/ckU5jhapPU8=
-X-Received: by 2002:a05:600c:699b:b0:4a0:4a8:d444 with SMTP id
- 5b1f17b1804b1-4a18e4af334mr276957075e9.33.1791917638329; 
- Tue, 13 Oct 2026 11:53:58 -0700 (PDT)
-Received: from localhost.localdomain ([2a0d:e487:412d:e9fb:680d:a947:4b50:d9e])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48de0bd777fsm6269316f8f.57.2026.10.13.11.53.57
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 13 Oct 2026 11:53:58 -0700 (PDT)
-From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: felix.kuehling@amd.com
-Subject: =?UTF-8?q?Re=3A=20=5BBUG=5D=20drm/amdkfd=3A=20SVM=20restore=20worker=20livelocks=20under=20memory=20reclaim=20=E2=80=94=20KFD=20process=20restart=20wedges=20until=20memory=20pressure=20subsides=20=28gfx906=29?=
-Date: Tue, 13 Oct 2026 20:53:56 +0200
-Message-ID: <20261013185356.34009-1-olivier.kaloudoff@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2458421d-2b6b-4b81-b965-5ae6eb67edf6@amd.com>
-References: 
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ d=1e100.net; s=20260707; t=1791931217; x=1792536017;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qdtOvNbLAOJ9idJnmqNXkxs2lXj3bNW1pL8KRmE6mUU=;
+ b=Ps5rw6Hhy7FnHd1vXhKCsgIkFn6OO9pobGwGVEAhAdRA0xUBUx0oHiKPyRMLrGxvJg
+ iheGGpGrSJSvqQSn8WSB/Oc/q2oUOJ8O2j3UzIBoiAkDSZr3IMEhKMFD1d+RBWz+eTQ8
+ qdz1XqZRQDkFQXGpmYSM7dQlgFLaOluKpbVL7txqo0vct2Nf1IYd6yZcyxAs+rU40ar4
+ 6ropAQk4w4bnFtJKom+p3u+ufLnb7SZoM82ttiusWLF+/pLr4b2zfP5IWNfHw3BlrjgG
+ qiQPzo5PxZ86CL14oN3Nw3Ah5Cm7j9eQY6EN6pkJQioBgL+RuqigVUb7fS0f4L6KMnsH
+ 3ZAQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzeGma1bTg4NLtqRucK8uk1aNbmzWplpPi+2C06H41Bq5apb4mmYZl6CHtPO2rBGp7nptujLLdz@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJQApfmU6IIT/ayQHYO/es38Kw8tL938ubKUZ0rA8bB0fWjxr6m
+ Buzp2pMaLZnT6u9y7Z9DaYSBfs4IABbkpuUXq8OHAbLlHslHtXvQYYVn8mqpRFIE5rHeFq7whHx
+ BRIIWJeVM1Q==
+X-Received: from dycrm16.prod.google.com
+ ([2002:a05:693c:2a10:b0:358:f250:485f])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:4141:20b0:35c:8d1f:5634
+ with SMTP id 5a478bee46e88-35c8d1f58e8mr4713972eec.12.1791931216820; Tue, 13
+ Oct 2026 15:40:16 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:39:37 -0700
+In-Reply-To: <20261013223946.1836757-1-irogers@google.com>
+Mime-Version: 1.0
+References: <20261013223946.1836757-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261013223946.1836757-3-irogers@google.com>
+Subject: [PATCH 02/11] powerpc/secvar: Add missing kobject release callback to
+ secvar_ktype
+From: Ian Rogers <irogers@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Nayna Jain <nayna@linux.ibm.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ David Teigland <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>, 
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Richard Weinberger <richard@nod.at>, Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ driver-core@lists.linux.dev, 
+ llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 14 Oct 2026 12:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,71 +110,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Felix,
+In add_var(), a struct kobject is dynamically allocated with
+kzalloc_obj() and initialized with secvar_ktype. If kobject_add() or
+sysfs_create_file() fails, kobject_put(kobj) is called to clean up.
+However, secvar_ktype does not define a .release callback, which results
+in a memory leak of kobj (and a pr_debug warning in kobject_cleanup()
+when CONFIG_DEBUG_KOBJECT_RELEASE is enabled).
 
-Retest done on the same machine (MI50 gfx906 over TB3, Strix Halo host,
-28GB RAM).
+Provide a secvar_release() callback that calls kfree(kobj).
 
-Test kernel: 7.3.0-rc5 plus
-  - 25f0b322ffb5 (evict SVM BOs synchronously from TTM eviction)
-  - ec4d432b     (vm range hole fix)
-  - 46109de0     (skip migration when fault window already in VRAM)
-  - our local series from the original report (restore convergence,
-    non-xnack lock-bounded prefault, unplug/teardown guards), plus two
-    migration-error propagation changes still being baked.
+Fixes: bd5d9c743d38 ("powerpc: expose secure variables to userspace via sysfs")
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ arch/powerpc/kernel/secvar-sysfs.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Reproducer: llama-server -ngl 99 with ~19GB mmap'd model
-(SVM-registered), health-polled while a second allocator saturated the
-remaining VRAM, then a managed-memory bounce workload
-(hipMallocManaged, 2GB, 20 CPU<->GPU rounds) on ranges that dmesg
-reports "over locked budget ... left evictable" — i.e. genuinely
-reclaimable and migrated under pressure.
+diff --git a/arch/powerpc/kernel/secvar-sysfs.c b/arch/powerpc/kernel/secvar-sysfs.c
+index 395399bbab2c..f3f6ac25ea78 100644
+--- a/arch/powerpc/kernel/secvar-sysfs.c
++++ b/arch/powerpc/kernel/secvar-sysfs.c
+@@ -126,7 +126,13 @@ static const struct attribute_group secvar_attr_group = {
+ };
+ __ATTRIBUTE_GROUPS(secvar_attr);
+ 
++static void secvar_release(struct kobject *kobj)
++{
++	kfree(kobj);
++}
++
+ static const struct kobj_type secvar_ktype = {
++	.release	= secvar_release,
+ 	.sysfs_ops	= &kobj_sysfs_ops,
+ 	.default_groups = secvar_attr_groups,
+ };
+-- 
+2.56.0.385.gd3acb90ef8-goog
 
-Results, 40 min sustained:
-
-  - ftrace count of svm_range_cpu_invalidate_pagetables: 0 for the
-    entire run, including a window where MemAvailable bottomed at
-    ~470MB and direct reclaim was hammering the host.
-  - llama-server health=200 on every poll; real inference verified.
-  - Managed bounce completed all 20 rounds, no migration errors.
-
-Baseline for comparison: on this same hardware at 7.3-rc5 + our series
-without 46109de0 + copy-done propagation, the bounce workload under
-VRAM eviction panic'd on Oct 3 — BUG_ON(start + size > res->size) at
-amdgpu_res_cursor.h:65 inside svm_migrate_copy_to_vram, called from
-svm_migrate_ram_to_vram via kfd_ioctl_svm prefetch. (EFI pstore
-capture; happy to send the trace.)
-
-So on this stack the storm is gone and the migrate path survives
-forced eviction.
-
-One honest caveat: our non-xnack locking makes registered ranges
-unevictable up to a lock budget, so "inv=0" is partly by construction —
-the over-budget bounce run is the part that exercises the evictable
-path, and that's where the Oct-3 BUG_ON used to live.
-
-So I ran the clean A/B: vanilla 7.3.0-rc5 with only your three commits
-(25f0b322ffb5, ec4d432b, 46109de0), none of our local SVM changes,
-same reclaim-storm reproducer:
-
-  - 94.3M svm_range_cpu_invalidate_pagetables hits in 30 min
-    (~4M/min, same rate as baseline)
-  - llama-server never converged (health 503, RSS churning, threads
-    parked in kfd_wait_on_events)
-  - an earlier run went fully dark ~13 min in — no console, no ICMP,
-    journal just ends (this run did not reproduce that)
-
-So on vanilla the three commits do not resolve the livelock. 46109de0
-only skips migration for windows that are already VRAM-resident; under
-reclaim the faulted ranges are genuinely RAM-side, so the residency
-check never engages and the evict -> restore -> re-invalidate loop is
-unchanged. The failure is restore-worker convergence itself — the
-invalid cmpxchg aborts that leave evicted_ranges never draining —
-which none of the three commits touch.
-
-The only thing that suppresses the storm here is our restore-worker
-locking, which is a workaround with its own tradeoffs, not an
-upstreamable fix — but it confirms where the loop lives.
-
-Regards,
-  Olivier
