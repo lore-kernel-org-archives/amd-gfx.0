@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0572CC6B10
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 07:56:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 380D7CC6B12
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 07:56:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4153D10F5C0;
-	Tue, 13 Oct 2026 07:56:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AC3210E778;
+	Tue, 13 Oct 2026 07:56:54 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7073810F5D4
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D03110F5DC
  for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 07:56:51 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 69D7ukDr775225; Tue, 13 Oct 2026 13:26:46 +0530
+ 69D7ukjA775251; Tue, 13 Oct 2026 13:26:46 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69D7ukd7775224;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69D7uk5f775250;
  Tue, 13 Oct 2026 13:26:46 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Mukul Joshi <mukul.joshi@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v3 06/13] drm/amdgpu: reserve SPM VMID on gfx9
-Date: Tue, 13 Oct 2026 13:26:37 +0530
-Message-Id: <20261013075644.775162-6-sunil.khatri@amd.com>
+Subject: [PATCH v3 10/13] drm/amdgpu: use spm_vmid for the default RLC SPM VMID
+Date: Tue, 13 Oct 2026 13:26:41 +0530
+Message-Id: <20261013075644.775162-10-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261013075644.775162-1-sunil.khatri@amd.com>
 References: <20261013075644.775162-1-sunil.khatri@amd.com>
@@ -46,31 +46,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Set vm_manager.spm_vmid to the top GFXHUB VMID so the SPM reservation
-path hands out a fixed, isolated VMID on gfx9 instead of borrowing one
-from the graphics pool.
+The RLC bring-up paths programmed the RLC_SPM_VMID field to a hardcoded
+0xf as the idle default. Now that the dedicated SPM VMID is tracked in
+vm_manager.spm_vmid, use it directly so the idle default matches the
+VMID the reservation path hands out.
+
+No functional change: spm_vmid is the top VMID (0xf) on all affected
+generations (gfx7 through gfx12).
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 2 +-
+ 8 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 3a8dc15ef95b9..c058a00bf2fbb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -2042,6 +2042,10 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
- 			7;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index e791bf86ad571..fce651d9bc613 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -5575,7 +5575,7 @@ static int gfx_v10_0_rlc_resume(struct amdgpu_device *adev)
  
- 	vmid_mask = GENMASK(last_kq_vmid, 1);
-+
-+	/* Reserve the last VMID for SPM */
-+	adev->vm_manager.spm_vmid = AMDGPU_NUM_VMID - 1;
-+
- 	amdgpu_vmid_mgr_set_vmid_mask(adev, vmid_mask, vmid_mask);
- 	amdgpu_vm_manager_init(adev);
+ 		gfx_v10_0_init_csb(adev);
  
+-		gfx_v10_0_update_spm_vmid_internal(adev, 0xf);
++		gfx_v10_0_update_spm_vmid_internal(adev, adev->vm_manager.spm_vmid);
+ 
+ 		if (!amdgpu_sriov_vf(adev)) /* enable RLC SRM */
+ 			gfx_v10_0_rlc_enable_srm(adev);
+@@ -5607,7 +5607,7 @@ static int gfx_v10_0_rlc_resume(struct amdgpu_device *adev)
+ 
+ 		gfx_v10_0_init_csb(adev);
+ 
+-		gfx_v10_0_update_spm_vmid_internal(adev, 0xf);
++		gfx_v10_0_update_spm_vmid_internal(adev, adev->vm_manager.spm_vmid);
+ 
+ 		adev->gfx.rlc.funcs->start(adev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 1caecf26c4589..1f2ad47adb9fe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -944,7 +944,7 @@ static int gfx_v11_0_rlc_init(struct amdgpu_device *adev)
+ 
+ 	/* init spm vmid with 0xf */
+ 	if (adev->gfx.rlc.funcs->update_spm_vmid)
+-		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
++		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index a5151e15e1011..72ceb113689e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -773,7 +773,7 @@ static int gfx_v12_0_rlc_init(struct amdgpu_device *adev)
+ 
+ 	/* init spm vmid with 0xf */
+ 	if (adev->gfx.rlc.funcs->update_spm_vmid)
+-		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
++		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+index 4ceb3c0aa3322..b44f5ec68714d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -1861,7 +1861,7 @@ static int gfx_v12_1_xcc_rlc_resume(struct amdgpu_device *adev,
+ 	int r;
+ 
+ 	/* init spm vmid with 0xf */
+-	gfx_v12_1_update_spm_vmid(adev, xcc_id, NULL, 0xf);
++	gfx_v12_1_update_spm_vmid(adev, xcc_id, NULL, adev->vm_manager.spm_vmid);
+ 
+ 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+ 		gfx_v12_1_xcc_init_csb(adev, xcc_id);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+index 2eaea0e4864dd..91ce21425126f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -3252,7 +3252,7 @@ static int gfx_v7_0_rlc_init(struct amdgpu_device *adev)
+ 
+ 	/* init spm vmid with 0xf */
+ 	if (adev->gfx.rlc.funcs->update_spm_vmid)
+-		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
++		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 696558f6f30d3..479480e39fe47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -1274,7 +1274,7 @@ static int gfx_v8_0_rlc_init(struct amdgpu_device *adev)
+ 
+ 	/* init spm vmid with 0xf */
+ 	if (adev->gfx.rlc.funcs->update_spm_vmid)
+-		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
++		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 3fb51417ebee5..8afcdb54a0f56 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -3233,7 +3233,7 @@ static int gfx_v9_0_rlc_resume(struct amdgpu_device *adev)
+ 		break;
+ 	}
+ 
+-	gfx_v9_0_update_spm_vmid_internal(adev, 0xf);
++	gfx_v9_0_update_spm_vmid_internal(adev, adev->vm_manager.spm_vmid);
+ 
+ 	adev->gfx.rlc.funcs->start(adev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 3572eb9b5758a..1d1973fd8f677 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -1395,7 +1395,7 @@ static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)
+ {
+ 	/* init spm vmid with 0xf */
+ 	if (adev->gfx.rlc.funcs->update_spm_vmid)
+-		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
++		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
+ 
+ 	return 0;
+ }
 -- 
 2.34.1
 
