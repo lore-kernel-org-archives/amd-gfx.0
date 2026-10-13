@@ -4,96 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49DE8CC6B1A
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 19:47:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA5C9CC6B1A
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 20:04:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB67C10EA36;
-	Tue, 13 Oct 2026 19:47:50 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012038.outbound.protection.outlook.com [52.101.48.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6196B10E974
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 19:47:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i79aKkhF9MnZhzOygPceFLMwMZdA7lZCIAW+JwJPv5Z0XddYO+mQa8uDS18c5VRgUjGMK2AXNOrxPl6oHo7DE/R7AeU4X13vUdvieoMaku+vKhMZHChrSr/jg296+cCxU+QKq0aMUQJjkx1RtxVuS3LudFBL10t26SqN5Mn9QV9GvG5K8hoRIKQh4DvhNCPY7fAPFklAdPUBpVzj2/HPoOD7jtEwJnWMAk2j4QHKrAKa7HvymBrCNC4whtFgtuL9FgHEzYxac7ZXNZ2fBMi1q3T2InJkhYdzAG8yraWpFOjURwT7PWJCMi2dd3zjf02xeXa8AIdxjT6ozVDPi8TFOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PcMUrPet4WeCHv1+XiwSX4KGjcWN7Rgpwi7PX7OPmmY=;
- b=Wzpq3LNIwQURcnt+Pc74OZciD0A/P8BABHeuEJnqVxUYqD2Hclc/VvlBAgYLxSPHTWUlYTnYWZuoedqnbno/Cf20LGda0iEaF+wUeDD3fugIuoSrRs52oyCajDAahq7ijknDk+YwFnoL/oeSy2Iix1uKSblK483xZVTRQ2Reve3tOlY1OhSQMbX89yWDJNz2DStXM1d1G9V4sbMz7MDxIZ0KXDaRNRM+3mUI2KlLtW/7pNnEncqvyx1p+bV72KKbKPqojiSvh1/Rn+Mji+A6r3HCXqFi4uQPQGDMixXcPFEkORsJwKvaZC4l61l6fJGCGvA0/58X5qPE/VpJw4fgYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PcMUrPet4WeCHv1+XiwSX4KGjcWN7Rgpwi7PX7OPmmY=;
- b=PXqmxmlGkjKCVWv4vZt/IRR0AH4AIBHJc4+v8LYOrVTn5YMy+oj+q7Gl/m/Eg8C5daQURAPALwhhc8cIQ3Vr1XnJVjT3ae1pisMZw+PX0TtwztH/4hm6P1bSFgr6B+ogQ+uMK6xYntOzdhzMkfBdT8ErjD47kc7Y3StrjfbOVRk=
-Received: from MN0PR03CA0010.namprd03.prod.outlook.com (2603:10b6:208:52f::7)
- by SJ0PR12MB6806.namprd12.prod.outlook.com (2603:10b6:a03:478::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 19:47:31 +0000
-Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
- (2603:10b6:208:52f:cafe::8a) by MN0PR03CA0010.outlook.office365.com
- (2603:10b6:208:52f::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
- 13 Oct 2026 19:47:30 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 19:47:30 +0000
-Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 14:47:22 -0500
-From: William Palacek <William.Palacek@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <William.Palacek@amd.com>, <Harish.Kasiviswanathan@amd.com>,
- <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH 4/4] drm/amdkfd: Expect one MQD per XCC when restoring a queue
-Date: Tue, 13 Oct 2026 15:47:05 -0400
-Message-ID: <20261013194705.3687960-5-William.Palacek@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013194705.3687960-1-William.Palacek@amd.com>
-References: <20261013194705.3687960-1-William.Palacek@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4477410E972;
+	Tue, 13 Oct 2026 20:04:30 +0000 (UTC)
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 103EF10E972
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 20:04:24 +0000 (UTC)
+Received: by mail-dl1-f47.google.com with SMTP id
+ a92af1059eb24-15943c9be84so92402c88.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 13:04:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791921863; cv=none;
+ d=google.com; s=arc-20260327;
+ b=evBD2d3AUC9LYWkvyYpWQ1acSRb9bChy9aaTmfUxZwjZLCShERpknafNqLfUkIQ/nd
+ 2UCKWw7hflBPrItUlBPQ8VoRmICm9cKxb/YO1/YN0ypUGji4Z+P7Agk71N3Kuu77Tnmt
+ 6oJmBSQhApdXHZsIWT8PsuT+1iG2avBAGulMZUMVavz2AmTTu79Wgw5UK+9X3NjoqVaN
+ Wyygl4eDmDISKQKdmQj03v2MLTnEOKNlEiwnDEAVjgtOI/rcjMowWwMLmrXqFSU9LatY
+ YNmu22S5PGxkMOGegyoLfM9fpkXitlnzbcGu0qXXzJWpz9iQbCPBEZUIo2h3dNVaERb+
+ 47fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=2Qq0SxZFgh94BCKvaqXPG8y49g0HBa5hpnrCqNIIN6c=;
+ fh=sIfC9HZFq1ew3aE00QW1dp0FyMVRQ9ZcMGknUNSAHmA=;
+ b=VGYNy/TGjJA7Gk99e5jnCGWyU7TOEYxEpjZcOai0ZLg6mLQIyR/SS8F0vXNKjyJRzv
+ umL9UJy3YeMnNKnZYHJMzi5C/9UW7ZFbiPqZrMPl9zfO5gjOX4Q3uChYa0h1/VsK9NnE
+ HS4a1ttoxnR/hgWI1rR+sF481mr+CN4eHIo8drYSXvUOKhp6+ieGOWaGCpUWv7xMxj7d
+ CMMGgqk+rdWMrffLcR2jjULOoXszZi1pMgn4pg1glE6tVohSNWbO4U8zW8NH9/15EJsU
+ Vrf4MH5Q8dLVh77K2kZLO+MSqihQS9gXHr8cxkt+2DiLc/Xn4gBOa7gvl30hPB8b848L
+ g9iQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791921863; x=1792526663; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=2Qq0SxZFgh94BCKvaqXPG8y49g0HBa5hpnrCqNIIN6c=;
+ b=Ub1PXxSTlXoFi6HQ72IrZOY/n2aJ8olAAyxl62e7yXsi+iXRq7am22Wa5NuNMVeHrK
+ 1+F2EDlOMosShCKoZEIl0lg0iXpEdaqBg3r7W31oILJ4HeA3ztLbvFUoUbmqfx1fVo2I
+ 9kEQHq54j8YzMcBR3DRdyeHLdn1oodWY/5eXp4UD6x31apo9EOaK3yO9UBfkaOjfyw4n
+ SYDRJ8qRAtAJBBLgnbG3KcXNg1Lv98mvmARIqbHOYhSa0kqg/gRn0ITRFdd7717n4LI1
+ 9AiHooRkGRBL5B/TNcOGcCBlcvoNiJvV00nl9rlpAk9eKlNsqZ0LfXKIczDv08neoiQy
+ SlBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791921863; x=1792526663;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=2Qq0SxZFgh94BCKvaqXPG8y49g0HBa5hpnrCqNIIN6c=;
+ b=enhRRUbtEjnSGGnjWFaXzKGfMjywfnqjsxttCGJhkFeEPEx0XczJdA8wZqp9OOkvfq
+ O3QvoqIzp0WE8DfH2doAjdabawzz2nGzNmIi7D/zVvoZqAqzBQGZ/lDSLw/4WXGqbRLf
+ ZPxvZN+fSj5xYLEo3e3R8iRQEmvfJMt8vH6wHkzXPw1W6eXXgZUohAi1CzcqIJWznL5G
+ KNDSDmbu/0nz+IOYbdLRs0odKEkP5vzjY9VUSXj5q3yZwCvRw3CcHTCnA1WJeuqVKG2Y
+ cXOJT3TsH2fY2iyCI3ZcsCDaSokwnX+GSa6oR7iy/2Y2E/isOGdNYet9AMLaJu9h1UoV
+ UAJg==
+X-Gm-Message-State: AFq9FYLyQdOniSaVB777FuK2VPxD9gxjxZzwvtqgSjGRySSIaX53lEw7
+ 587P+Jd0IdWIxzfHXdYP0HZtWAXAPLxvXL+3W1hmcAqNvevyEsXROVAMXLU2AottMSrN+z6oCVH
+ 2/IQzQi/saKlmUyl7nvdJaN1KeQOkWp4=
+X-Gm-Gg: AYBFou3SGDfuC5wWXO43RmsnsVbQq9HbuO6dd3JIyJhdOry1maXtKBFBO+n4JfxhLAu
+ IZd+pZVVYVk1qzXcJzDi95LmXegOb+AjI4Tej6j7q/gNJSZP8CSt2Z77gonLjeciotD+aKJblzx
+ iUmO9DHeQDhrRvuPp5BnWqRNx8/Gjv0DEpSIjuhwEQavcnYBOcOeg5PpLo5e5f1IW1TmwUvPB+B
+ 7X7IX49rlRyLJMPa4QC7EtQpcqSEYTuDOnx7F863QFJxhMf2GNTecay7HA4MX30dkFHX3h+MhFG
+ wEOn2SZ68mVsopFo+hDYzs/u0KJP/YMZBQFrcMqrUHw/3fzEfw/2QnWi+TZM0wIAb7mXrNcNetc
+ D9ldLpn/eNnLkCaut0ZjOpVtxoTYAw/IZ72fk7NvZIgL/0JLM+poX
+X-Received: by 2002:a05:701b:21ce:b0:149:c766:2965 with SMTP id
+ a92af1059eb24-17a0d84a29amr5600452c88.2.1791921862974; Tue, 13 Oct 2026
+ 13:04:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|SJ0PR12MB6806:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6e0125f-339a-4621-a2f8-08df2962d179
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|36860700016|376014|1800799024|22082099003|18002099003|10067099003|5023799004|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: eWFC1zheE+N666XPHiE2ty/T8tmfmLuqbDhYIp0TIDMVx5wFS2Q8HN8hFTEmkexMM5kA3vrQAbmJj7KJ/0s0COs66ImDUx/kRrFhL01WKVtxK5WZdusjgeZKviFbsTu+ckJhh9lxkZ2hJPVqcGV4FdlUmr1WMPYd5pwGm2c82Q3bU/UrVG+gwRYbQ0v01xnR0wtxxrBpMOdGl4Fvhi3fid4uPhJMf0Dp0gaBMv+Oqy8RgrtUWgiJPu4y5/JLvYZKXhqGqSnVh5Ru+/Y4r+CmaMOKNBFn3IjayEAtUftrujzOiTXO3kOCn88hE0L13Sa62YN+qKRQ9G4KUQCC3Mex3xjekuosLLaxAYkM0nZGJ8yVmc/enpyfEz4VKrIEFE3aux6QhPxVqvKqAVd3SSDsoO8+5pUg5d8JPpE9eOvE/eJ7RrDIooMlT5tvbYz1gD1a2tTnpytHvXCqHjpSm9jtp38/ggmXCOO+BDQMPKxlEj3Hk4r0+XzYMZ4zpRUvbFv4OXTFDaw7lPUfOsuAFZKbicwa9RiRasMsVickK2+7GxZL+reYyFqj8biG9yC+fm1ERe5TNysPAL9TAJOrINmUtiZMbOrBhoXdfYQ2+4amqi+h59/lvjvj9ugUCmSSzWTqyKa7LHRjRXTNDbtaR9InfP36ByughWuli3CdEbRXXNE5AQGbJfoNf7FQBKU7CfD/bCBkI0h7U7u/Cb5v2Y5WFA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(5023799004)(11063799006)(261009223027099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: x2TcpWxRsyaxvqcqCBL+8jIUdYeY+UdlmKtNyE6OfPqroaaAHODub4bfMrGKJDcpXa/mZAWwBl4/3WIkNylULmfsznG6GfatX0pN7fDG+wPNYdYZ6nWqjuZX7lw9YSKAYz+ZOfd1eph3JFm4EorbLyD/NshHAtbCJuyxH5UWESie36GzFtXZfuj3BEKbRCB9R4CfWvotSPWSDMvYqybwr0bT5WIKYHRGWepiTTKEeiAeAzVDrF9yD77EPLdc7pgDGR1n5nrXvSy+xGCIg07H9Z7MzIJM+5yw4HcwfdW1MZqREzQ5BRxyf1MSUZxvrKYPstUU6PNkhBz2YcaNAAgS8zQUsC3LAZ213OfrZQy6ByOtr/IGMNNessMdOFJPcPMN5vttiEWwVTeY4yDwEdoJS0XWiVZ9vE5H0IDFKOzwV/+D2+BpFObhze9DOO0m7FDg
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 19:47:30.7416 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6e0125f-339a-4621-a2f8-08df2962d179
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6806
+References: <mrib0mcd_kcuRpdKaNohPWa0K9N3YEpD8sn4QoqDDTQRBp-plJRtEBHf-d4h9Ts92_fIM_TjGanz2nG0IX48DQgIyIA11RMQZCbSGNt-Jt0=@protonmail.com>
+In-Reply-To: <mrib0mcd_kcuRpdKaNohPWa0K9N3YEpD8sn4QoqDDTQRBp-plJRtEBHf-d4h9Ts92_fIM_TjGanz2nG0IX48DQgIyIA11RMQZCbSGNt-Jt0=@protonmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 13 Oct 2026 16:04:10 -0400
+X-Gm-Features: AclHuK-8Pyjdmj1s9lUVib6CwxXh9esQcPBRvDW9TWHFmKx14eO5JdMJBvTJRqk
+Message-ID: <CADnq5_O83f1N7gCTV-XGf16R=gBAXtxNTr1SDvQVOUM=qd40MA@mail.gmail.com>
+Subject: =?UTF-8?Q?Re=3A_=5BPhoenix_=2F_DCN_3=2E1=2E4=5D_Regression_in_7=2E2=3A_3840x21?=
+ =?UTF-8?Q?60=4060_driven_as_RGB_594_MHz_on_an_HDMI_sink_limited_to_300_M?=
+ =?UTF-8?Q?Hz_TMDS_=284=3A2=3A0=2Donly_mode=29_=E2=86=92_black_screen?=
+To: Tobias Johansson <tobias.johansson.se@protonmail.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,108 +101,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-get_queue_checkpoint_info() reports mqd_size as the per-XCC MQD
-size times NUM_XCC, and checkpoint_mqd_v9_4_3() stores one MQD per XCC.
-The mqd_size check added to the CRIU restore path compares against the
-single per-XCC size, so every checkpoint image of a queue on a multi-XCC
-node is rejected with -EINVAL.
+Please open a ticket here:
+https://gitlab.freedesktop.org/drm/amd/-/work_items
+and if possible, can you bisect?
 
-Worse, a single-MQD size is the only value that check accepts there, and
-restore_mqd_v9_4_3() then reads one MQD per XCC from a buffer holding
-only one, copying up to (NUM_XCC - 1) * sizeof(struct v9_mqd) bytes of
-adjacent kernel heap into the queue's MQD.
+Thanks!
 
-Make mqd_size_from_queue_type() return the size checkpoint writes, so a
-restore image must carry exactly one MQD per XCC. With that,
-restore_mqd_v9_4_3() must also not keep the image's cp_mqd_stride_size:
-checkpoint and get_wave_state() step through the per-XCC MQDs with it,
-so set it to the stride of the new allocation as init_mqd_v9_4_3() does.
-
-Restore only MQD types that have checkpoint_mqd(), since no other image
-layout exists. GFX12 and GFX12.1 have restore_mqd() but no checkpoint
-yet, and restore_mqd_v12_1() handles XCC0 only, so a multi-XCC GFX12.1
-image would now pass the size check and leave XCC1..N with zeroed MQDs.
-
-Fixes: c76bcb1cfce6 ("drm/amdkfd: Check bounds on CRIU restore queue type and mqd size")
-Signed-off-by: William Palacek <William.Palacek@amd.com>
----
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 15 ++++++++++-----
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c    |  9 +--------
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  1 +
- 3 files changed, 12 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 5e57576fba21..88bbef08c39c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -816,8 +816,9 @@ static int create_queue_nocpsch(struct device_queue_manager *dqm,
- 
- 	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
- 			q->properties.type)];
--	if (qd && !mqd_mgr->restore_mqd) {
--		pr_debug("restore_mqd not implemented for queue type %d\n",
-+	/* Restore takes the image layout that checkpoint_mqd() writes */
-+	if (qd && (!mqd_mgr->restore_mqd || !mqd_mgr->checkpoint_mqd)) {
-+		pr_debug("CRIU not implemented for queue type %d\n",
- 			 q->properties.type);
- 		retval = -EOPNOTSUPP;
- 		goto deallocate_vmid;
-@@ -2399,8 +2400,9 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
- 
- 	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
- 			q->properties.type)];
--	if (qd && !mqd_mgr->restore_mqd) {
--		pr_debug("restore_mqd not implemented for queue type %d\n",
-+	/* Restore takes the image layout that checkpoint_mqd() writes */
-+	if (qd && (!mqd_mgr->restore_mqd || !mqd_mgr->checkpoint_mqd)) {
-+		pr_debug("CRIU not implemented for queue type %d\n",
- 			 q->properties.type);
- 		retval = -EOPNOTSUPP;
- 		goto out_deallocate_doorbell;
-@@ -4123,7 +4125,10 @@ bool kfd_dqm_is_queue_in_process(struct device_queue_manager *dqm,
- 
- size_t mqd_size_from_queue_type(struct device_queue_manager *dqm, enum kfd_queue_type type)
- {
--	return dqm->mqd_mgrs[get_mqd_type_from_queue_type(type)]->mqd_size;
-+	struct mqd_manager *mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(type)];
-+
-+	/* Checkpoint stores one MQD per XCC, see get_queue_checkpoint_info() */
-+	return mqd_mgr->mqd_size * NUM_XCC(mqd_mgr->dev->xcc_mask);
- }
- 
- #if defined(CONFIG_DEBUG_FS)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-index 79e0d6250720..4eac85a654cb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-@@ -670,14 +670,7 @@ static void restore_mqd_v12_1(struct mqd_manager *mm, void **mqd,
- 	u64 addr;
- 	struct v12_1_compute_mqd *m;
- 
--	/*
--	 * GFX12.1 is multi-XCC capable but this restore handles XCC0 only.
--	 * Multi-XCC CRIU restore is currently unreachable because
--	 * kfd_criu_restore_queue() validates against unscaled mqd_size.
--	 */
--	if (NUM_XCC(mm->dev->xcc_mask) > 1)
--		pr_warn_once("GFX12.1 multi-XCC CRIU restore not fully supported\n");
--
-+	/* Handles XCC0 only, unreachable until there is a checkpoint_mqd() */
- 	m = (struct v12_1_compute_mqd *)mqd_mem_obj->cpu_ptr;
- 	addr = mqd_mem_obj->gpu_addr;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index 948415908551..d95a28a80917 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -864,6 +864,7 @@ static void restore_mqd_v9_4_3(struct mqd_manager *mm, void **mqd,
- 					(uint8_t *)mqd_src + xcc * sizeof(*m),
- 					(uint8_t *)ctl_stack_src + xcc *  mqd_ctl_stack_size,
- 					mqd_ctl_stack_size);
-+		m->cp_mqd_stride_size = offset;
- 	}
- 
- 	if (mqd_on_vram(mm->dev->adev))
--- 
-2.43.0
-
+On Mon, Oct 12, 2026 at 3:51=E2=80=AFAM Tobias Johansson
+<tobias.johansson.se@protonmail.com> wrote:
+>
+> Since kernel 7.2 (verified on 7.2.4 and 7.2.8, Fedora builds), the displa=
+y goes black (monitor reports no signal / enters standby) as soon as the co=
+mpositor sets 3840x2160@60 on the HDMI output. 7.1.8 works with the same mo=
+nitor, cable, firmware and userspace.
+> The monitor's EDID declares a max TMDS clock of **300 MHz**, has **no HDM=
+I Forum VSDB** (no HDMI 2.0 / SCDC / scrambling), and lists 3840x2160@60 (V=
+IC 97) **only in the YCbCr 4:2:0 Video Data Block**. On 7.2.8 amdgpu nevert=
+heless commits that mode as **RGB 8 bpc with a 594 MHz pixel clock** =E2=80=
+=94 about twice what the sink supports =E2=80=94 and reports success. The m=
+ode should either be driven as YCbCr 4:2:0 (297 MHz TMDS) or rejected.
+>
+> The system itself keeps running normally; only the display output is lost=
+. 3840x2160@30 (297 MHz, RGB) works fine on 7.2.8.
+>
+> ## Hardware
+>
+> - System: Minisforum Venus series (board F7BSC), BIOS 1.09 (2023-11-20)
+> - APU: AMD Ryzen 9 7940HS w/ Radeon 780M =E2=80=94 Phoenix1 `[1002:15bf]`=
+ rev c1, subsystem `1f4c:b002`
+> - Display IP: DCN 3.1.4, ATOM BIOS 113-PHXGENERIC-001
+> - Output: native HDMI (`HDMI-A-2`, DC signal type 4 =3D HDMI Type A), no =
+adapter
+> - Monitor: Samsung (EDID manufacturer `SAM`, product `0x0fee`), 4K, singl=
+e display
+>
+> ## Software
+>
+> | | Good | Bad |
+> |---|---|---|
+> | Kernel | 7.1.8-200.fc44 (Display Core v3.2.378) | 7.2.4-200.fc44, 7.2.8=
+-200.fc44 (Display Core v3.2.384) |
+> | DMUB firmware | 0x08005E00 | 0x08005E00 (7.2.4) and 0x08006200 (7.2.8) =
+=E2=80=94 both bad |
+>
+> - Distribution: Fedora 44 Workstation, GNOME / mutter 50.5 (Wayland)
+> - Mesa 26.2.3, linux-firmware / amd-gpu-firmware 20260916
+> - The firmware is ruled out: 7.2.4 fails with the old DMUB firmware (0x08=
+005E00), and 7.1.8 works with the current linux-firmware package installed.
+> - Also ruled out: `amdgpu.sg_display=3D0` makes no difference.
+> - Not bisected yet. The first bad version lies somewhere between 7.1.8 an=
+d 7.2.4.
+>
+> ## Steps to reproduce
+>
+> 1. Connect the Samsung monitor described above via HDMI.
+> 2. Boot 7.2.x. The plymouth LUKS prompt is visible, because the initial f=
+bdev mode is 3840x2160@30 at 297 MHz.
+> 3. GNOME starts and applies 3840x2160@60 from `monitors.xml` =E2=86=92 th=
+e screen goes black and the monitor shows no signal.
+>
+> Changing the GNOME configuration to 3840x2160@30 makes 7.2.8 boot to a wo=
+rking desktop.
+>
+> ## Expected / actual
+>
+> - **Expected:** 3840x2160@60 is output as YCbCr 4:2:0 (297 MHz TMDS) like=
+ on 7.1.8, or is pruned as unsupported.
+> - **Actual:** the mode is validated and committed as RGB 8 bpc at 594 MHz=
+ on a sink whose EDID declares a max TMDS clock of 300 MHz =E2=86=92 no pic=
+ture.
+>
+> ## Analysis (drm.debug=3D0x06 on 7.2.8)
+>
+> EDID parsing =E2=80=94 note the max TMDS clock:
+>
+> ```
+> [drm:drm_parse_cea_ext] [CONNECTOR:402:HDMI-A-2] HDMI: DVI dual 0, max TM=
+DS clock 300000 kHz
+> [drm:dm_helpers_parse_edid_caps [amdgpu]] dm_helpers_parse_edid_caps: HDM=
+I_FRL [HDMI-A-2] max_frl_rate 0
+> ```
+>
+> Mode validation. Higher bpc values are pruned, but 8 bpc RGB at 594 MHz p=
+asses, although it exceeds 300 MHz:
+>
+> ```
+> [drm:create_validate_stream_for_sink [amdgpu]] Pruned mode 3840 x 2160 (c=
+lk 594000) RGB 10-bpc -- Encoder validation failure
+> [drm:create_validate_stream_for_sink [amdgpu]] Trying with 8 bpc
+> ```
+>
+> Commit when the compositor starts (screen goes black right after this):
+>
+> ```
+> [   41.109637] [drm:dc_stream_log [amdgpu]] core_stream ...: src: 0, 0, 3=
+840, 2160; dst: 0, 0, 3840, 2160, colorSpace:1
+> [   41.110034] [drm:dc_stream_log [amdgpu]]         pix_clk_khz: 594000, =
+h_total: 4400, v_total: 2250, pixel_encoding:RGB, color_depth:8-bpc
+> [   41.110513] [drm:dc_stream_log [amdgpu]]         signal: 4 dispname: S=
+AMSUNG manufacturer_id: 0x2d4c product_id: 0xfee
+> [   41.201208] [drm:dc_commit_state_no_check [amdgpu]] {3840x2160, 4400x2=
+250@594000Khz}
+> [   41.202066] [drm:dc_commit_streams [amdgpu]] dc_commit_streams Finishe=
+d.
+> ```
+>
+> For comparison, the early-boot fbdev mode, which displays correctly:
+>
+> ```
+> [    4.946654] [drm:dc_stream_log [amdgpu]]         pix_clk_khz: 297000, =
+h_total: 4400, v_total: 2250, pixel_encoding:RGB, color_depth:8-bpc
+> ```
+>
+> No errors, warnings, GPU hangs or resets are logged in the failing case. =
+The only other display-related message (`REG_WAIT timeout ... optc314_disab=
+le_crtc line:146`) also appears on 7.1.8 and is unrelated.
+>
+> ### EDID (CTA-861 extension, decoded)
+>
+> - Video Data Block VICs: 95 (2160p30), 16, 31, 4, 19, 5, 20, 32, 33, 34, =
+93, 94, 98, 100, 7, 22, 3, 18. VIC 97 (2160p60) is not listed here.
+> - HDMI 1.4 VSDB (OUI 00-0C-03): max TMDS clock 300 MHz.
+> - **No** HDMI Forum VSDB (OUI C4-5D-D8), so no SCDC and no scrambling.
+> - YCbCr 4:2:0 Video Data Block: VICs 96, 97, 101, 102, which are 4:2:0-on=
+ly.
+>
+> Raw EDID (256 bytes) is attached as `edid-samsung-hdmi.bin`.
+>
+> On 7.1.8 the same 3840x2160@60 mode works on this monitor. That is consis=
+tent with it being output as YCbCr 4:2:0 at 297 MHz, which is the only way =
+the sink can accept it, but I have not yet captured a drm.debug log on 7.1.=
+8 to confirm the encoding there. I can provide one, and I can test patches =
+or bisect if needed.
+>
+> ## Attachments
+>
+> - `dmesg-7.2.8-drm.debug-0x06-black-screen.txt`: failing boot, 4K@60 requ=
+ested by GNOME
+> - `dmesg-7.2.8-drm.debug-0x06-4k30-working.txt`: same kernel with GNOME s=
+et to 4K@30, working
+> - `dmesg-7.1.8-working.txt`: last good kernel, no drm.debug
+> - `edid-samsung-hdmi.bin`: raw EDID of the monitor
+>
+> MAC addresses in the logs have been replaced with `xx:xx:xx:xx:xx:xx`.
