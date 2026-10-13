@@ -4,124 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 340ADCC6B19
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 20:52:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91B76CC6B12
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 22:15:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE6F210EA23;
-	Tue, 13 Oct 2026 20:52:38 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013062.outbound.protection.outlook.com
- [40.93.196.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7316610EA23
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 20:52:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E3A710E95E;
+	Tue, 13 Oct 2026 22:15:49 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010000.outbound.protection.outlook.com [52.101.61.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E938510E95E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 22:15:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bgbyF8IvPrG82gVvlYLQ06bp2XGS6b9gW4EaEVvP/eD6SqbA2oOtFlQDSRVWwkT0R+uhcQmxeoaLYRd7xHX4ILXVAOfGfovvOCCr4ROj1sbIOae/NCd1H7Q8qkpAvULQc68aq8Pk4VGM4tUxmcfb6a+nbDlE32Ng4GHtiV+487Ai/zmdB5084xhjeG5j9XFSWD+x+Z5KNqYoZcMKkq6CPMPXqJSsF8CHopA2nNIRUBILo0KDbZF/YgjGJPkAEMln7RdGWbG6TCLP1rEgfWWNi/1271yLnjhZ+OmgLEitgSKBZPUxyiezu01spdGoq70pMImB7dodB1pDb+c5c/iRAw==
+ b=ssCKsvM4QHOjFMQ61j7HKwStt8+4nAbIP0zk7cn/2MBKkQ0MG3FpawR8ADzO2JiNO2uwX7oGmLXLjDw1pL5kWR5OEZKvoan5uR60JA12Ue93RgRc/+uzUx9bg08roEMPWeBMC1yzVrEaIjcfwchMNnwWCouZyWCYHhzMROP39nvzsEH3ZgYY1dVafkKwg2567slU+rwWW0SrZoPGmHMLuZJ4LBZC0Zu7kieLI1nEqrpvN7i5y/Q34jhU7naLDWZ9rNA/gR6RNt4ZZkBDNimiBpFurmDbFeANA6SNbxn7hNY9FnykI5WPzxrluWZayNBt07pQbCNVzqcgPBg69RhHag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XfPHTIS6+PJRFGXpszHqqX/IKwmBiXZ6dvlYugZs7aw=;
- b=JNEj8lL90OQKe7eQVJ7yyv9FbfJjdd32PALH5yrJwskCytqgWKAcyu8kqizR2PqTcyspl0LJfN9VIFOvz+jgeOnKSavCFKIETnPNBzprTmDDYgRE8zNSBKYkES+1gb6pCg6n5sKvs+IoQIwBhs5WKpUtzif0ucTOl+PeXejEi7reCuaEOKi3xvyt6CSyc8d0pkjaO5GIdmnroM+azib3UJr4Oj3q2dBKszY0YCbgoVavCY2k4hyQe3QOWjmFJf/CkkENPakyh6ei97iVlW4Xzd6ua1+6RBG6quNlk3cB/ydXPdg3z57AxJWhKPvQhV4t5pRAeNv4MdiaEw4f7RHKlg==
+ bh=EWfvtXwRHwuJayyfrD1KB2l86Ij5oU3ay8jLdatmS9s=;
+ b=dtxfBTdPqkgG63NJeFTG6MALuSkAm1Wj07q5JXjli4juwVMthNDdKflIpNEGU0ZhPHWQ48VchndoZWtsTeCF42aRWJtgq+T65leVMCRnt+AuABL0aRHvZO1r7B5iF2gdq5u1Ob0ccN/2sN/muIPp2lt3AqsaEpQxV64XWZUynGuXqUl8yC9ziWiR91YwY7FkY6wiWw9felDE50APKv3FeKl/PR+em6aNRKciTOEt/frspeiq/VGETcO0HKLF/qbXxnr4abz5PrzIqDYXt9d1ph3+qx9T7ow4fWJXQ4EAcTp7K4Kg7pypYBxksshGPxtv5gxBrUZG6x1+KlJ+3C5lRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XfPHTIS6+PJRFGXpszHqqX/IKwmBiXZ6dvlYugZs7aw=;
- b=AE1cY8AAQ7SzNXzdDhuXV8axt1G+Zh9J46nrX1/FES2N7JvEJxuH2JOuyqC/xIE0fuCXlP05Y1raR+xiqlRw93eqx+22Wkn77i0j3c6SOaf9hIG0mkEEhqIVgWbWA09ua3AHe5PSah2VWzk3ZGLlrY4TW20oVYn0UHxE266pVgg=
-Received: from SAWPR12MB999117.namprd12.prod.outlook.com
- (2603:10b6:806:4e3::17) by CH3PR12MB7620.namprd12.prod.outlook.com
- (2603:10b6:610:150::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Tue, 13 Oct
- 2026 20:52:27 +0000
-Received: from SAWPR12MB999117.namprd12.prod.outlook.com
- ([fe80::2192:69bb:87bd:350b]) by SAWPR12MB999117.namprd12.prod.outlook.com
- ([fe80::2192:69bb:87bd:350b%6]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 20:52:27 +0000
-From: "Li, Roman" <Roman.Li@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Hung, Alex"
- <Alex.Hung@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Dan
- Carpenter <error27@gmail.com>, "Kazlauskas, Nicholas"
- <Nicholas.Kazlauskas@amd.com>, "Kaszewski, Dominik"
- <Dominik.Kaszewski@amd.com>, "Zhang, George" <George.Zhang@amd.com>, "LIPSKI, 
- IVAN" <IVAN.LIPSKI@amd.com>, "Wheeler, Daniel" <Daniel.Wheeler@amd.com>,
- "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>
-Subject: RE: [PATCH v2] drm/amd/display: Fix NULL sink dereference in USB4
- bandwidth functions
-Thread-Topic: [PATCH v2] drm/amd/display: Fix NULL sink dereference in USB4
- bandwidth functions
-Thread-Index: AQHdRmvcKnxc5gi/DEK6XUjCB6n1Ybb8C/aw
-Date: Tue, 13 Oct 2026 20:52:27 +0000
-Message-ID: <SAWPR12MB9991174A31119D633ED9D7C687899E2@SAWPR12MB999117.namprd12.prod.outlook.com>
-References: <20260917061433.623709-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260917061433.623709-1-srinivasan.shanmugam@amd.com>
+ bh=EWfvtXwRHwuJayyfrD1KB2l86Ij5oU3ay8jLdatmS9s=;
+ b=aP6nE7I/lvIS8AkEEaGN6Jf1UHIZaNZQuAT4EX1LdjzMWrC8GA4iZVGV1gInLEEpGvfBUsVGoOym/vzthveYvSwxVt3AgjtRtVTWko9XJRIZwRkdM7Ib7nGvDIL5EXghNvvIPO3eS2QQ9yDcLC8O/0CkMmYZ9b6glAr17ZmCrpw=
+Received: from CH0PR12MB5139.namprd12.prod.outlook.com (2603:10b6:610:be::9)
+ by PH0PR12MB8031.namprd12.prod.outlook.com (2603:10b6:510:28e::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 22:15:20 +0000
+Received: from CH0PR12MB5139.namprd12.prod.outlook.com
+ ([fe80::8715:80d8:e0b7:7bb1]) by CH0PR12MB5139.namprd12.prod.outlook.com
+ ([fe80::8715:80d8:e0b7:7bb1%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 22:15:20 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Irshad, Luqmaan" <Luqmaan.Irshad@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Koenig, Christian" <Christian.Koenig@amd.com>, "Li, Yunxiang (Teddy)"
+ <Yunxiang.Li@amd.com>
+Subject: RE: [PATCH v2] drm/amdgpu: defer XCP DRM device free until primary
+ release
+Thread-Topic: [PATCH v2] drm/amdgpu: defer XCP DRM device free until primary
+ release
+Thread-Index: AQHdV1s0HS9rEp4qe06Wc+8+Z3AHo7b8Ec2w
+Date: Tue, 13 Oct 2026 22:15:20 +0000
+Message-ID: <CH0PR12MB513911F5018E9D86977C378CF79E2@CH0PR12MB5139.namprd12.prod.outlook.com>
+References: <20260922205731.254264-1-luqmaan.irshad@amd.com>
+ <20261008192742.22943-1-luqmaan.irshad@amd.com>
+In-Reply-To: <20261008192742.22943-1-luqmaan.irshad@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
  MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-10-13T19:52:50.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-10-13T22:14:54.0000000Z;
  MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
  v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
  MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
 authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SAWPR12MB999117:EE_|CH3PR12MB7620:EE_
-x-ms-office365-filtering-correlation-id: 31bb1c87-f30d-4415-c252-08df296be416
+x-ms-traffictypediagnostic: CH0PR12MB5139:EE_|PH0PR12MB8031:EE_
+x-ms-office365-filtering-correlation-id: 4543d34b-fe56-492f-fca1-08df29777840
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|11063799006|38070700021|56012099006|18002099003|22082099003|6133799003|261009223027099003|10067099003;
-x-microsoft-antispam-message-info: eep1dqEdANT4Eye9SKwR0vdc0DfkMKJ3x5u73tmqA0J18GVL8W18URyAlq3J5TvUjdBzENSLQc/LbB1UGuPP28XJZkDR8IIAggxajXNMJ+gyPmhRZ8oa/tWPv4DuMkyFMYpkwVahIrNDn6BgqYTBrI4g4lFD3T+4ipkFdrKb5k2z5Lwdy/ADt5RzGOqnyeLemQNbXHXqj1f65Iru6cmGm1pLdJkzFt8kNjN7ufxvuCFLeBlOdDBJUSk80flLW02rs5NCx2oHEYkW+qsmkO/IfntDXZiEnEbpQAhgdYnhKp7B6MPlGXDtVxfoMCwrE8SRARToogAMt6ocfOv9yBjwpCncu69R/xR88nHtRhEKvzjMyeHykQ2pal2lt+JydO2ja62y/PoQKPmlNtw10uP0Sfc/a7fMEKkT2tlVrv52aSO/GmSZFM9b54+aAtngoLMe6JEwYGPWQWNDu93jYEpVQrEcr5uSBL8t/n68C2F3fueDUeKyVgsY9KhK153YwwlpFUWjOQgWM0Dw14lVE1tzZXyc+Hrlvfy9NQmhxVYCieBMfhOAD8sdAdu3usTsA8zczTc/qmSjcemLYeVduAbJErD9svUHFtaHNE8eLg6hTzdeqgoUhLFpptxTga5p70V5SngmattAX9q4eFAZcWIXbniTALnp4I/48oxRWuKa5DyDHAk4717oO+D6DQ2Q8Lgr7ObXpGNZuDpz+A7S9G0+u58hLBP4qG82c3QB1C/54wY=
+ ARA:13230040|366016|376014|1800799024|23010399003|38070700021|56012099006|11063799006|4143699003|261009223027099003|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: v584l7H/3e+CUI2mc2A3TR79m78iqb2+RY1/toYRsi7uN2Q0Nhj4DK9X0JUlXVggowP2GaaHjk0R7kTlP6M6cnQxFxAoaaFaOKRJxn151TqCoUYx6AsgDj+kSxCgnuMit7zVZGroHgRjJNSsHOL8FYMulgylZKlg1Nyyn6JMgMBGcYgYK3I3l8lEZHg8iYILymow34iPWIRgBMHTKfdoE8TeshX++jenUhMYNuPooVtEkJPO7h17mXUlov6b4mvdLEk1M+sbY8OmfAoxSXQzUSvkb09ycTtbNFVM106+oB5lt5bt8CsS4ALADfUOGpVZks+lhEabt+Qzp9sbaHCcjykejojBEvXJqfwekrDYH0B5IJbu1ZCKxT/rhxCmUBw0q6xvGTwocE650tQL8x861FFMWomJ+RaHLF/TFM/KVPI8KJ0qD68fvZ5K55IYkEZCjXuWqPf1n+8TjTAuF+siapZn6KZWCLVgaZ1SfoGzh0JpXHiQQKtTPZ/A8mSBOJ+2V/68FnJ0PQdSxbMesN+NrUcIbyx+QsB9U5rz5T4HpsrXAYZctAcqJ/oLl/uVw5smj/MlLsm4HT5VNQe7BWq+nmgZkG7upBTQLug51yx9fvYm42kMyiQXgQdBpo5n86yWbkFMQMNBy3SJv/NfVP9GOMtgMf+d9BdW/3aNKoZnrpksLARBUSZSC5tqyq9DX40sT2dtGzm9ScNyfP+ribY10Q2B5Z+00bLzJfqRBj4nQKY=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SAWPR12MB999117.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(38070700021)(56012099006)(18002099003)(22082099003)(6133799003)(261009223027099003)(10067099003);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5139.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(38070700021)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0lEEzP40f5XSiDZDE0MovdHL7SKmWYfcocaxy1/qoltFYBmlu4i5SzYLh7kn?=
- =?us-ascii?Q?7A/qlSTlksiTv8Tbg9r/z9sDjV7V3CGWD2ewnt9Gd7oW100xnz18yuD75NZj?=
- =?us-ascii?Q?nor1KPHCoQcfXeswDwpzavqviGuHj1FHR2c3FvBofY6gcGL7YUWQpDF39C5w?=
- =?us-ascii?Q?mdIRK573yxiTbwMST3IlcOTyVeyYC2TxMxX8kV5Fq6OgMuBUNLAMk5g1xJnQ?=
- =?us-ascii?Q?XJukd19LZakmnupGevrq6IWiyw4heJaSL6uafuh2jk688Bu/ECIUHqzrf9KC?=
- =?us-ascii?Q?faRSBBP3p43mQ9is2TlT3D1PNAZ91kGRPSu0Qfo7UG0Yh81IoAksDyzO5FcR?=
- =?us-ascii?Q?LDDMkHh6Qzp++wPpa4Jq5cI85OLjXM8eD1Y4+QeVPAyt+SqUlvGGXQMb89aD?=
- =?us-ascii?Q?I6ixTy5CagBgCPMwznHqsc38hIQMyB8QLTzBSXx26HuVWlR7CFchg+rIc4ub?=
- =?us-ascii?Q?d7nqWbvmQnJwnbelJOO6vYMnbi63xDMUjbBGj5aZMihPgmHAa/eoO5t8RxyK?=
- =?us-ascii?Q?KOJnZ5D4UGGfJ8BKFpr0M+I0kpxNq0sMl/b7g38ezQHc8jBB4e4iCcdfE+DN?=
- =?us-ascii?Q?32ECpNGNDIjlVX2XQlxDKqv8GB4oEBK5+fvsQbHchBPEgrZOm3bF/AISd7Z+?=
- =?us-ascii?Q?+pRem1PfMd4gORaHtVmpOmW0PugC6olMI7QqWArR7PTJiWFpjoR2lVNzGcRh?=
- =?us-ascii?Q?tOaejl0KW9a7/dMyAXjkta4NzjBnsCwQ9/1+dJ5Qaqo27erSUIb+CdnWVyhV?=
- =?us-ascii?Q?U/Qrx1IARQWctSyzPz3n07qHI+Z2rKXseH6ha5+xc7Z7e+WbHKQDCO2Zhq5Z?=
- =?us-ascii?Q?gycVq6wUKFWRBCwa3mw1CkIU4GCx/MWiuGIOPEDknnkEMRyEYjpQSR6P9HaB?=
- =?us-ascii?Q?KMUicdkTulKegybRLu1puw/hs3Wn3mXinKastwU1GjlOhgpb7QJ4bfydXsrd?=
- =?us-ascii?Q?UhMzlic5Cs/YEk9tl/UNmQkuqipfkCj/kxdQUPlyhZiS0IjRmbjdrI+Vx90g?=
- =?us-ascii?Q?NAtN1KmBAl4WyrpSGJ2AzLiqoHGC/mhMvaDjRn36d6nCDjia3tSBWUGJzWkk?=
- =?us-ascii?Q?6qW2jkCjjrFLax+StseQYGeG1r3KjwhDQ0aEuk2Gr5LmHWguoh4GOWBBd5Cj?=
- =?us-ascii?Q?W4yNYYMCCqDLF6xbb36oXEsgfTMazySh1xLjME6WYw+IUEh5Jp70Q2sa92n9?=
- =?us-ascii?Q?PTlydyoDdg9HO1c5QMZS3ed2lVy9Jw7wF7JaCNky0NAJHQES4meVV3aBMvVB?=
- =?us-ascii?Q?1sEvtDRSz4iP419hF/DpURbEsl3WUELVLPTH/GQMcbNGlWO2l29ETSdt63F/?=
- =?us-ascii?Q?TJqNGSR/VoGnHbMF1HTnKGrhXjtqBTLdEDTv5Nxuci1SU5m/9n1oqwYoe0qp?=
- =?us-ascii?Q?zXSll3fo3vnwFD2wOeN5DjDKkohDBxZ/OK2ymnkMUDiGPwlJer5kSJ6y2GLx?=
- =?us-ascii?Q?UEnnDlKncGns7TMgmWaYhh9zSKZd2CdwIv+0Zbs4eScb6scyu2EBGE0/BOh+?=
- =?us-ascii?Q?yvtwy0dbjSKZ9xCvK04n6tp8rUus5oFt4t7Fm4VTEHHB7zjbxb+C2CXG8s9v?=
- =?us-ascii?Q?YPVyKfEk77yVYYw8SWpWKxcoUfuRRe2o/wF6K7qvpuSicg2qt/kA0ZB6slWs?=
- =?us-ascii?Q?6qDnHs19HI5NKimygrWWqpHWXKTtEqaCPI0xA5QxuJapv1LBBGZpv+ouNA8u?=
- =?us-ascii?Q?4qqVrHa9PrS0rifs7wJTbNn7dOAJcYIN2Ru76hBzuL96/kzh?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DwmotcYb22Uuxjm1jIs06SjNLGEz4Yl5pzvApg1HUZ4kg34roPzeHiLYOgoS?=
+ =?us-ascii?Q?/2K8z1D305hhrwHASbPEZBKtENUXoS1K66L4xT21UAdYheEPPFMfCRkXoFEV?=
+ =?us-ascii?Q?FXa3BF0kSbNcxmvihyMGec1bWlmroboowalxkYKUX3mJbqkWORJFraTd/TG9?=
+ =?us-ascii?Q?Er6Z/dKe08oKhU9HHfan/Ia3MSX3Nb1mrf4opd9rNdJEqpWlJjIu7LKLvWT4?=
+ =?us-ascii?Q?7KGlOBwgiOWEyFkFxxhHeDsNofcrdBWimRL7qfngB1Uv7xsGxetaNrFyIK+V?=
+ =?us-ascii?Q?QEUFIKDjO/U4P65xGzCxOa+kXeg4tmtzSzUPXielMLy9v1JDlG2Rz5HX6elI?=
+ =?us-ascii?Q?JS2TDJQk9xSaK2xyQuwNMijSFcjSVZkexzuC1B+dcQ5Zx6l4mp+h+oDDZBZ5?=
+ =?us-ascii?Q?PVI6annYQLFCCjCxn37/E5jsLQjjqoiIsvvjnfjngQK0QjqbaNaspUKJZz9u?=
+ =?us-ascii?Q?b2Kxbn15kjtL4asYSlr0XgHHisMjnYXoPDBDfUQKzlO9KNkwdrJXzGDnvafV?=
+ =?us-ascii?Q?kmeHiPH1jz192t/emZT8F0UUeriWxd+FDq9R6lbZCHTToqZL4dgllQv6pZLE?=
+ =?us-ascii?Q?nAgZ6tbh4e+eEYAs1nI6C5e2Ge1W4X1pJZN2XKLGXdzyAXrT/YvOUjrX4LF9?=
+ =?us-ascii?Q?LEQgGvCvbyVml2enwJkbyxKQ8jXiD4+hGnHSjeQvCdEdDzPe0NzFnBgmZlD7?=
+ =?us-ascii?Q?744RXRUPgdiW0C+ZuNf06Izss1tqNwfhiI7jK8yT2quZY1tkKFGr4d288euJ?=
+ =?us-ascii?Q?Vjy8Ihfmz7T1SabNElln82o757zhFT8kh5Ivu/Gs60vJx33+Z7Om4OpHw8vp?=
+ =?us-ascii?Q?q8TQgU+afRBud+cEQN6cItnhf3g1gFM+q/Q008PHDOMqTI9/UH5je/lufswG?=
+ =?us-ascii?Q?eY4h7n1vmFak8g9sKa0N6CDZiaRSeY/b57uAOuWQL6iYtcdIE5UQnLazmWD9?=
+ =?us-ascii?Q?ztn5mxyKgWpLvImGSrbxpTXRJkSdELtZJl2dGnpDwvLLjSTpbFp4f4VPANm+?=
+ =?us-ascii?Q?VoSUgw7seH7higFzH6UKXHM/PDyWY9YbdvVW/4rh38/90jegR+DfwKy7PQ7o?=
+ =?us-ascii?Q?Lepab5rPkNCObeRHplYEmQZR20FLxRzIhENMrE/vmtW563PHz2wI+3DeEIcQ?=
+ =?us-ascii?Q?K5ZUHd++7B0JSUE0/4pbjLkjOrb9AyTmfMfjhGqOQW5EtZ/8Qg3kQsjMLRWd?=
+ =?us-ascii?Q?+ylp8CrlXcNjF9maBb9+selgy8gpoTaYHPiXv1nzaHZpHaISFnvxcscm6eHq?=
+ =?us-ascii?Q?Rj4G+23OGiChprab5CB9Cc6sV/o9eg4EAzAKq/AOJgUEFJo85WlYtHm7TX/T?=
+ =?us-ascii?Q?aaJMIc6TLBPJz6+yyQR9B7zZwr6lnyE7UxRxw3pj0+NXRTHCqU0Fwzcg03zE?=
+ =?us-ascii?Q?bfOswaPn8+QlLWVSPaKHbGdt/7yQc1v8oXovsN5lmcs1bHWtj71R0NSbtjHj?=
+ =?us-ascii?Q?5LNCL/qinucpOiQP09ghYp5r2Z5KL/h/JZOLm+Qu7LQzUWH4v0GXz4iOYY+W?=
+ =?us-ascii?Q?cY6Nz9ED9qBR9aoymhOcR5ZclU+P2GnBUlJYPcuta/vbz067OafUoEt+URWW?=
+ =?us-ascii?Q?cH5SuNGEDNtNBriYsS2kqElORGNnR1IrgJpYMqHMUlbTvwO581OzpsmrPL5/?=
+ =?us-ascii?Q?p3lWa0tTKJNaFWmmgv3hBjiMaQxHTpwCE9bDG3uKwPk4GONKjxrB0q0Vif79?=
+ =?us-ascii?Q?OLeloUZnWns/HBb6n3MXM7bWvGILfqVLPRQeeM+aEOjfZ6iB?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SAWPR12MB999117.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31bb1c87-f30d-4415-c252-08df296be416
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 20:52:27.4565 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5139.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4543d34b-fe56-492f-fca1-08df29777840
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 22:15:20.4934 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gInRUd37wTS4rpxaSZ53/iWqwv8Si5NhpkmTTuPWBRVJZe34N/kTiL6dUL1Va5B/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7620
+X-MS-Exchange-CrossTenant-userprincipalname: NUNy+GQyrchW/eJE6dw0o3XHVe28jjJwDXmqX4YFGyxnK2SbKDnU6sM3bKQrSUjDZpHIAfOPU6jPHiEMQqKjDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8031
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,117 +134,136 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Public
 
-Reviewed-by: Roman Li <roman.li@amd.com>
-
 > -----Original Message-----
-> From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-> Sent: Thursday, September 17, 2026 2:15 AM
-> To: Hung, Alex <Alex.Hung@amd.com>; Pillai, Aurabindo
-> <Aurabindo.Pillai@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN
-> <SRINIVASAN.SHANMUGAM@amd.com>; Dan Carpenter
-> <error27@gmail.com>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>;
-> Kaszewski, Dominik <Dominik.Kaszewski@amd.com>; Zhang, George
-> <George.Zhang@amd.com>; Li, Roman <Roman.Li@amd.com>; LIPSKI, IVAN
-> <IVAN.LIPSKI@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com>; Chung,
-> ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.com>
-> Subject: [PATCH v2] drm/amd/display: Fix NULL sink dereference in USB4
-> bandwidth functions
+> From: Irshad, Luqmaan <Luqmaan.Irshad@amd.com>
+> Sent: Thursday, October 8, 2026 3:28 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Li, Yunxiang (Teddy) <Yunxiang.Li@amd.com>;
+> Irshad, Luqmaan <Luqmaan.Irshad@amd.com>
+> Subject: [PATCH v2] drm/amdgpu: defer XCP DRM device free until primary
+> release
 >
-> allocate_usb4_bandwidth_for_stream() and allocate_usb4_bandwidth() both u=
-se
-> ASSERT(stream->sink) before dereferencing stream->sink->link. ASSERT is
-> compiled out in production builds, so a NULL stream->sink causes a NULL p=
-ointer
-> dereference.
+> XCP unplug currently restores the partition minors' device pointers to th=
+e
+> synthetic p_ddev and frees that device while files opened through those
+> minors may still be active. Those files acquired drm_device references on=
+ the
+> primary ddev because the minors were redirected at XCP allocation time. A=
+fter
+> unplug reverses the redirection, close paths operate on the already-freed
+> p_ddev, causing a use-after-free and p_ddev refcount underflow while leak=
+ing
+> the matching primary-device references.
 >
-> link_set_dpms_off() already guards two earlier accesses to stream->sink w=
-ith
-> explicit NULL checks, confirming that stream->sink can legitimately be NU=
-LL. The
-> subsequent call to deallocate_usb4_bandwidth() had no equivalent guard.
+> Split teardown into two phases. amdgpu_xcp_dev_unplug() only calls
+> drm_dev_unplug() so new opens fail, leaving minor->dev pointing at the
+> primary device. amdgpu_xcp_dev_fini() restores the partition device point=
+ers
+> and frees p_ddev from amdgpu_driver_release_kms(), when the primary
+> drm_device reaches final release and all references held by redirected fi=
+les have
+> been dropped.
 >
-> Replace the ASSERT() calls with proper NULL checks that return false earl=
-y, and
-> add a matching stream->sink guard at the call site in
-> link_set_dpms_off() consistent with the surrounding pattern.
->
-> v2: Keep the existing ASSERT() calls for diagnostics (to report
->     unexpected NULL sink), and add explicit NULL checks that return false
->     before dereferencing stream->sink. Also add a matching stream->sink
->     guard at the deallocation call site in link_set_dpms_off(). (Alex)
->
-> Fixes: 06ab8d420454 ("drm/amd/display: Remove sink usage from DPMS")
-> Reported-by: Dan Carpenter <error27@gmail.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> Cc: Dominik Kaszewski <dominik.kaszewski@amd.com>
-> Cc: George Zhang <george.zhang@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Roman Li <Roman.Li@amd.com>
-> Cc: Ivan Lipski <ivan.lipski@amd.com>
-> Cc: Dan Wheeler <daniel.wheeler@amd.com>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Tom Chung <chiahsuan.chung@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> Signed-off-by: Luqmaan Irshad <luqmaan.irshad@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  .../gpu/drm/amd/display/dc/link/link_dpms.c    | 18 ++++++++++++++----
->  1 file changed, 14 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  1 +
+> drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 40
+> ++++++++++++++++++++-----
+> drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h |  1 +
+>  3 files changed, 35 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> index 48b086d15ab0..25ec3d38a14e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> @@ -2306,9 +2306,14 @@ static bool allocate_usb4_bandwidth_for_stream(str=
-uct
-> dc_stream_state *stream, i  {
->       ASSERT(stream->sink);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index f2f179421c4d..f4bc9e6eb97b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1638,6 +1638,7 @@ void amdgpu_driver_release_kms(struct
+> drm_device *dev)  {
+>       struct amdgpu_device *adev =3D drm_to_adev(dev);
 >
-> -     struct dc_link *link =3D stream->sink->link;
-> +     struct dc_link *link;
->       int req_bw =3D stream_bw;
+> +     amdgpu_xcp_dev_fini(adev);
+>       amdgpu_device_fini_sw(adev);
+>       pci_set_drvdata(adev->pdev, NULL);
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> index a8c79a66df1d..c780d6794b89 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> @@ -412,7 +412,6 @@ int amdgpu_xcp_dev_register(struct amdgpu_device
+> *adev,
 >
-> +     if (!stream->sink)
-> +             return false;
+>  void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev)  {
+> -     struct drm_device *p_ddev;
+>       int i;
+>
+>       if (!adev->xcp_mgr)
+> @@ -422,12 +421,39 @@ void amdgpu_xcp_dev_unplug(struct
+> amdgpu_device *adev)
+>               if (!adev->xcp_mgr->xcp[i].ddev)
+>                       break;
+>
+> -             p_ddev =3D adev->xcp_mgr->xcp[i].ddev;
+> -             drm_dev_unplug(p_ddev);
+> -             p_ddev->render->dev =3D adev->xcp_mgr->xcp[i].rdev;
+> -             p_ddev->primary->dev =3D adev->xcp_mgr->xcp[i].pdev;
+> -             p_ddev->driver =3D  adev->xcp_mgr->xcp[i].driver;
+> -             p_ddev->vma_offset_manager =3D adev->xcp_mgr-
+> >xcp[i].vma_offset_manager;
+> +             drm_dev_unplug(adev->xcp_mgr->xcp[i].ddev);
+> +     }
+> +}
 > +
-> +     link =3D stream->sink->link;
+> +void amdgpu_xcp_dev_fini(struct amdgpu_device *adev) {
+> +     struct amdgpu_xcp *xcp;
+> +     struct drm_device *p_ddev;
+> +     int i;
 > +
->       DC_LOGGER_INIT(link->ctx->logger);
->
->       if (!link->dpia_bw_alloc_config.bw_alloc_enabled)
-> @@ -2355,9 +2360,13 @@ static bool allocate_usb4_bandwidth(struct
-> dc_stream_state *stream)
->       ASSERT(stream->sink);
->
->       bool ret;
-> +     int bw;
->
-> -     int bw =3D dc_bandwidth_in_kbps_from_timing(&stream->timing,
-> -                     dc_link_get_highest_encoding_format(stream->sink->l=
-ink));
-> +     if (!stream->sink)
-> +             return false;
+> +     if (!adev->xcp_mgr)
+> +             return;
 > +
-> +     bw =3D dc_bandwidth_in_kbps_from_timing(&stream->timing,
+> +     for (i =3D 1; i < MAX_XCP; i++) {
+> +             xcp =3D &adev->xcp_mgr->xcp[i];
+> +             if (!xcp->ddev)
+> +                     break;
 > +
-> dc_link_get_highest_encoding_format(stream->sink->link));
->
->       ret =3D allocate_usb4_bandwidth_for_stream(stream, bw);
->
-> @@ -2419,7 +2428,8 @@ enum dc_status link_set_dpms_off(struct pipe_ctx
-> *pipe_ctx)
->       update_psp_stream_config(pipe_ctx, true);
->       dc->hwss.blank_stream(pipe_ctx);
->
-> -     if (pipe_ctx->link_config.dp_tunnel_settings.should_use_dp_bw_alloc=
-ation)
-> +     if (pipe_ctx->link_config.dp_tunnel_settings.should_use_dp_bw_alloc=
-ation
-> &&
-> +         stream->sink)
->               deallocate_usb4_bandwidth(stream);
->
->       if (stream->signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT_MST)
+> +             p_ddev =3D xcp->ddev;
+> +
+> +             /* Unregister devices on paths that did not unplug them
+> earlier. */
+> +             if (p_ddev->registered)
+> +                     drm_dev_unplug(p_ddev);
+> +
+> +             /*
+> +              * All XCP minor files have been released, so it is now saf=
+e to
+> +              * restore the partition device and free it.
+> +              */
+> +             p_ddev->render->dev =3D xcp->rdev;
+> +             p_ddev->primary->dev =3D xcp->pdev;
+> +             p_ddev->driver =3D xcp->driver;
+> +             p_ddev->vma_offset_manager =3D xcp->vma_offset_manager;
+> +             xcp->ddev =3D NULL;
+>               amdgpu_xcp_drm_dev_free(p_ddev);
+>       }
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> index 33157409eda0..e2fd32af9932 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> @@ -181,6 +181,7 @@ int amdgpu_xcp_get_inst_details(struct amdgpu_xcp
+> *xcp,  int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
+>                               const struct pci_device_id *ent);
+>  void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev);
+> +void amdgpu_xcp_dev_fini(struct amdgpu_device *adev);
+>  int amdgpu_xcp_open_device(struct amdgpu_device *adev,
+>                          struct amdgpu_fpriv *fpriv,
+>                          struct drm_file *file_priv);
 > --
-> 2.34.1
+> 2.53.0
 
