@@ -4,68 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EAA2CC6B1D
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73AAFCC6B2C
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCBA410F24D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E85C710F772;
 	Wed, 14 Oct 2026 12:47:39 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1B3510E870
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 14:01:28 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4a022fee0caso27892595e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 07:01:28 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9D5C10EF7A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 18:53:21 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4a16c399641so33265365e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:53:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791900087; x=1792504887; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=ViTWpehkUTNRhhx96u8NdBVsVZbPiHx1y/c2M4wY64Y=;
- b=jRVlnioh4GGa/VWFL7qF41aKB81rflnIGo6aVF2HEl4TstSfc97k5W8SShf2RV8Xz0
- 0veV7jCd6i4SMg7XvqcPUo2IrPMCxHPXKYspBZ9UR43b3Yb8dLxQuYwF8UiNA2dsc+zT
- 92/bbtbSl8dRiMdcT7UCmyS1qu+QoHQvOi584GtV/uz5V1wpYCnhZ8TKc1WBcA5HAjP5
- o+q77oPtGiOMNvLW6i9QyZ0nAosyajycuB7r8L6jU5OKvV7RUVn9CRR8vABH9CXBRQVs
- jIOH2q1ki/LhcL5TYK4uzzBy+ypyoAy/yn1VEPdp43tjDfereq+HTHBoQRe1dHFgff2R
- M3ew==
+ d=gmail.com; s=20251104; t=1791917600; x=1792522400; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=cypOpzY34BWVk7KWxl0N8XaliONtCyLhMkLvt1Yl0kM=;
+ b=JZh6HLWD7GWH20CH0pVQspdsiopuDWckLi+jpJUl2RjGcSpiW6oHPq/rv3MwbEWnKQ
+ 625hw8xQlmsB2bE/opRIY1OfhY/W/EwGId4utaV+ceUgXBcUI2T51JE15s48AR0WWQc8
+ 5IUGx4HIPcjBuQVs9ouSnE1oZipEiRR6O3jf0qEFMrRSrXenN4yU6mgdDigRawWilzV5
+ prdcorLduisdlG8UhcmYg/9PMmOK3qvxebTCdycmxJCiiS01flrlpHgvVH8/BVLokOSd
+ YHuru95RmKaT7Dnd8dJrlTZvOTSCRuTxMnJh+BMbkuWS2jzSBAPDzhbEzoRa16K5Z8bw
+ nLDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791900087; x=1792504887;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ViTWpehkUTNRhhx96u8NdBVsVZbPiHx1y/c2M4wY64Y=;
- b=Ls92MhE6jWLFso2aqUKCK56yGODeJoVfzgqn7xs8AZcnmvoDp6dK4sHUQFGYG3E7zp
- 3eAEq1oG9VYkDtg9jBAjPQnrP9Xjf8ngNa+iJf/0D03e3lVwWWN3KMbUbqzOBul6E1ZZ
- mDjTKumSY5/QSjSWnhROE42ylJ3k/KsnF4guJWnUhLmjeaTD9HyD24mC1iNZ4vd11O9L
- sDzxpLhYMjOyEACuAIgQYK5M5XL3XAh90tr03ZLm3ta1++lgzt+cUZ+6Y8oUVBx/8cD8
- f7m+I7Cy+CSy8ySOxSYL5lKBxOJeRhKJ+SO8y70s24DDL1Cw8bGgjNge+ukJO8zBLsAa
- Zjrg==
-X-Gm-Message-State: AFq9FYJKkoluv0N2Z86R9ziz7jSqMuVNz6GaCat/K4f931hOS5wAXUTW
- aGMZfBPO/ChLe5q4WOYI8qX/x0k8L71IrRd0cBrHmj8cR/uE68KnqZxQ
-X-Gm-Gg: AYBFou1AX+CoyLXwCyIQR+80B/SJSQusUTw7Rl2VCd9WdwFMVvXo2X3+UzGopwjLjbz
- ObdH17Kp4MWMY1GIjdjXF5Vy3AfMxtvkf1BFEc6OvrsSBKy70ogrFhJVEpJ+NEyxDdER6DOCAwV
- Fxu6GRzXLxESRj2qtXN+JtZYM53a4PHuIud333m7oJ+iv8wq1hV9fIn1XbSheCcuLnK697LzrGS
- VtwDsvRhePIbpmZd99R4FYXHRZ8rKaTC1DlW0E/n5ivm8XcZA7UNxiba5cvFxo8XmdAYOUy2Zgq
- 1cDs3iXXw6IGlkjdAkuf1M+Ex5oY/ls/GwmxlbDYB8wVN/AwhlIyZgLBAsGhUmg6DRp1TsCJepx
- Yypra0NOHfTIs7oy18Gfno0bVlhUvwUjmC1+tu6kPF1VrcAqOKF3vn3Kr7L5BslwyX3IzAuEIXg
- ula8ELNxxUGxdAwoUuSRwfp7ld+GO3ozVjQbi7edec7Q+sf0YijrDaaAb+wf6DigO5MW9xgJZDh
- awoGySiWrDtRV9M4A==
-X-Received: by 2002:a05:600c:3111:b0:4a0:1e87:910 with SMTP id
- 5b1f17b1804b1-4a18e4cb7a9mr257096075e9.20.1791900084826; 
- Tue, 13 Oct 2026 07:01:24 -0700 (PDT)
-Received: from potato ([31.176.175.60]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48de72d2b13sm304691f8f.55.2026.10.13.07.01.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Oct 2026 07:01:19 -0700 (PDT)
-From: Omer El Idrissi <omer.e.idrissi@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Omer El Idrissi <omer.e.idrissi@gmail.com>
-Subject: [PATCH] drm/amdgpu: remove unused tracepoint
-Date: Tue, 13 Oct 2026 16:01:03 +0200
-Message-ID: <20261013140104.32179-1-omer.e.idrissi@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ d=1e100.net; s=20260707; t=1791917600; x=1792522400;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=cypOpzY34BWVk7KWxl0N8XaliONtCyLhMkLvt1Yl0kM=;
+ b=hAVaTDUpNyXYxV5ooxVd2Uifcuf9HpRUiiW7RGMHptb0RTNVFiYKsTK/z0ecwmve/K
+ Wkj6uoJdqvrkx/XvytQOv9t9a4uTejy0exYlHxDoVWU2Wv5lobcjfebuO/fmoOMgA3It
+ 6QJrRLZ89mri6J1WF3QJqvpoqBcjZhe90YBbZgR56h2zl+OfLLl/aZiCWQ9Rj62jVVwm
+ UYbXigca/vD+/EB2vuXebAscfhuRN4E27pGFKZhEEYSgxs6KW0wKRu05933+zN50CXIB
+ uQdFtyK5bjzEqN82ro9nO4G/wQtdv1Adodx4BhaQNJVdHJSL9NoPSlji1QxSOnoR4ioz
+ OxBA==
+X-Gm-Message-State: AFq9FYLQV0/A/atKw40ufr7XPF1QObI29q8lTnGrBxX/EkRMmuBIlXuD
+ 7JM7oonrrQ+RQR2GbRXUUeyZU4e5BPKuSMsHLn8w0orAgMyH8VgqNgO64zeExQ==
+X-Gm-Gg: AYBFou1l66FcwMCv74TCV/t0OhRZrH1vd5mml4VqvCZH+e7909zoR9+GjbrQaYnYe7F
+ oMc6JT+jdM7q6pu0gIupPHlTW1KnmshJ0MqMXLFg0lRkUPS8u5ajxGi3jNZ1xdIi66EHSg0ByJb
+ 0LND3kYjxnQeiLx2pbNSzc0IL1/9pWRjerQAv/pGQVDemFbFTyWERqoAdOzeg99mFRuZFp2y025
+ 6QtVBohlu6MrIXgROOZDNu3IK5STto2hIXwDS7VqNXPUrSuMqcEQF+g99XYf281Dsatsqkbmvzj
+ bPqzUXYqA0zKeRXlC1iv2W6L2JznJZ9/fH43n/hCUxBIVXrrBCICuO2H2Mva5G0GuvWrbq32CwS
+ F0TO1qcgMbd9kY62ZupnOGH9Xl2Rwh4vvl1tzDI1E+9ptAQoUK8wdWXn97E98QdmVDYptpi5Ecv
+ kpPL/UBvBRKjLUYkx3xSsUTfN0YdJM87q2r/EPZ9Fnwqkdpzy4PS1H55iQHOSDubtRFUEXQeQlw
+ bIh3de3jId1tly42dayOZ22sX+GGKXawDkMfPMCwZkveUZg/qwC2dGkEv/Ds70Dw4TIDpo4Vbyk
+ rLPeZai7TVrbZ6uwXRcBgbm141HgF3f0BIXJZmVgn+u1Y/5A6GJmenWqi+9sMlH4Ou6PO2pZOH5
+ JFuJZynRWuaY8lFbqtwXxXjO5Ap8JRaHcNX8xdLqw6UmkPcFJrLlwGXlaSlSEdGsSspdRsKwHm5
+ MFcWSkKBz9LyT3JA==
+X-Received: by 2002:a05:600c:3f1a:b0:4a1:ac66:6ac6 with SMTP id
+ 5b1f17b1804b1-4a1ac667160mr65710545e9.26.1791917599515; 
+ Tue, 13 Oct 2026 11:53:19 -0700 (PDT)
+Received: from localhost.localdomain ([2a0d:e487:412d:e9fb:680d:a947:4b50:d9e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a18d12fe05sm12340585e9.4.2026.10.13.11.53.18
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 13 Oct 2026 11:53:18 -0700 (PDT)
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, felix.kuehling@amd.com,
+ alexander.deucher@amd.com, xiaogang.chen@amd.com,
+ Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Subject: [PATCH v6 3/3] drm/amdkfd: bound SVM migration fence wait and guard
+ with drm_dev_enter
+Date: Tue, 13 Oct 2026 20:53:13 +0200
+Message-ID: <20261013185313.33496-4-olivier.kaloudoff@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261013185313.33496-1-olivier.kaloudoff@gmail.com>
+References: <20261013185313.33496-1-olivier.kaloudoff@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 14 Oct 2026 12:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,41 +92,289 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove unused tracepoint "amdgpu_reset_reg_dumps", flagged by UT=1,
-from amdgpu/amdgpu_trace.h
+On surprise removal the killed process's own exit path can fault on
+its SVM managed ranges: SIGBUS -> coredump -> get_dump_page() ->
+__get_user_pages() -> do_swap_page() -> svm_migrate_to_ram(). Without
+protection, svm_migrate_vram_to_ram() submits an SDMA copy job to an
+already-killed drm_sched entity (observed as
+"drm_sched_rq_add_entity: Trying to push to a killed entity" plus
+refcount_t saturation warnings), then svm_migrate_copy_done() waits
+uninterruptibly on a job fence that can never signal. The task dies
+in D state holding svms->lock, which wedges svm_range_restore_work()
+on the rwsem writer side, so kfd_processes_count never drains and the
+pciehp removal thread wedges for good.
 
-Signed-off-by: Omer El Idrissi <omer.e.idrissi@gmail.com>
+Guard the hardware-accessing migration sections with
+drm_dev_enter()/drm_dev_exit() so unplug cannot proceed while a
+migration submits jobs and waits on them, and bound the job fence
+wait in svm_migrate_copy_done() with AMDGPU_FENCE_JIFFIES_TIMEOUT so
+a fence that can never signal does not stall the critical section
+(or the faulting task) indefinitely.
+
+Handle the new failure case properly: if the copy times out or fails,
+release the migration pages and clear migrate->dst before
+migrate_vma_finalize() so a failed copy cannot complete as a
+successful migration, and propagate the error to the caller. The
+cleanup is shared with the copy functions' existing error paths via
+new svm_migrate_vram_pages_put() / svm_migrate_ram_pages_put()
+helpers.
+
+Verified on MI50 behind Thunderbolt: the workload takes SIGBUS,
+coredump completes, kfd_processes_count drains in ~9s, pciehp
+removal finishes, and the device re-enumerates cleanly on slot
+re-power. Previously the same repro wedged the host.
+
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 16 ----------------
- 1 file changed, 16 deletions(-)
+Changes in v6:
+- check svm_migrate_copy_done() return in both callers: on failure
+  release dst pages, clear migrate->dst before finalize, propagate
+  the error (Felix Kuehling)
+- drop the dead ret < 0 branch; a non-interruptible wait can only
+  return 0 on timeout (Christian König)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-index fcd4cf2f4cd8..6fecee5be1ba 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-@@ -564,22 +564,6 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,
- 		      __get_str(ring), __entry->ctx, __entry->seqno)
- );
+Changes in v5:
+- dropped drm_dev_is_unplugged()/pci_dev_is_disconnected() checks;
+  drm_dev_enter()/exit() alone is sufficient (Felix Kuehling)
+
+Changes in v4:
+- use AMDGPU_FENCE_JIFFIES_TIMEOUT instead of an open-coded 10s
+  (Felix Kuehling)
+- guard migration sections with drm_dev_enter()/exit() instead of
+  racing flag checks (Felix Kuehling)
+- keep pci_dev_is_disconnected() early-out for the dead-link window
+- moved svm_range_restore_work() change to patch 2
+
+Changes in v3:
+- new
+---
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 8b96e1f..40e993a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -204,7 +204,12 @@ svm_migrate_copy_done(struct amdgpu_device *adev, struct dma_fence *mfence)
+ 	int r = 0;
  
--TRACE_EVENT(amdgpu_reset_reg_dumps,
--	    TP_PROTO(uint32_t address, uint32_t value),
--	    TP_ARGS(address, value),
--	    TP_STRUCT__entry(
--			     __field(uint32_t, address)
--			     __field(uint32_t, value)
--			     ),
--	    TP_fast_assign(
--			   __entry->address = address;
--			   __entry->value = value;
--			   ),
--	    TP_printk("amdgpu register dump 0x%x: 0x%x",
--		      __entry->address,
--		      __entry->value)
--);
+ 	if (mfence) {
+-		r = dma_fence_wait(mfence, false);
++		/* Bound the wait: on a dying device the fence may never
++		 * signal.
++		 */
++		if (!dma_fence_wait_timeout(mfence, false,
++					    AMDGPU_FENCE_JIFFIES_TIMEOUT))
++			r = -ETIMEDOUT;
+ 		dma_fence_put(mfence);
+ 		pr_debug("sdma copy memory fence done\n");
+ 	}
+@@ -239,6 +244,24 @@ svm_migrate_put_vram_page(struct amdgpu_device *adev, unsigned long addr)
+ 	put_page(page);
+ }
+ 
++/* Release VRAM dst pages of a failed migration and clear migrate->dst
++ * so migrate_vma_finalize() leaves the source pages unmigrated.
++ */
++static void
++svm_migrate_vram_pages_put(struct amdgpu_device *adev,
++			   struct migrate_vma *migrate, u64 *dst, u64 npages)
++{
++	u64 i;
++
++	for (i = 0; i < npages; i++) {
++		if (!dst[i])
++			continue;
++		svm_migrate_put_vram_page(adev, dst[i]);
++		dst[i] = 0;
++		migrate->dst[i] = 0;
++	}
++}
++
+ static unsigned long
+ svm_migrate_addr(struct amdgpu_device *adev, struct page *page)
+ {
+@@ -359,13 +382,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
+ out_free_vram_pages:
+ 	if (r) {
+ 		pr_debug("failed %d to copy memory to vram\n", r);
+-		for (i = 0; i < npages && mpages; i++) {
+-			if (!dst[i])
+-				continue;
+-			svm_migrate_put_vram_page(adev, dst[i]);
+-			migrate->dst[i] = 0;
+-			mpages--;
+-		}
++		svm_migrate_vram_pages_put(adev, migrate, dst, npages);
+ 	}
+ 
+ #ifdef DEBUG_FORCE_MIXED_DOMAINS
+@@ -441,7 +458,7 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 	unsigned long mpages = 0;
+ 	dma_addr_t *scratch;
+ 	void *buf;
+-	int r = -ENOMEM;
++	int ret, r = -ENOMEM;
+ 
+ 	/* Avoid unnecessary migrations and MMU notifiers if all the data is
+ 	 * already resident in VRAM.
+@@ -493,7 +510,13 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 	r = svm_migrate_copy_to_vram(node, prange, &migrate, &mfence, scratch, ttm_res_offset);
+ 	migrate_vma_pages(&migrate);
+ 
+-	svm_migrate_copy_done(adev, mfence);
++	ret = svm_migrate_copy_done(adev, mfence);
++	if (ret) {
++		svm_migrate_vram_pages_put(adev, &migrate,
++					   (u64 *)(scratch + npages), npages);
++		if (!r)
++			r = ret;
++	}
+ 	migrate_vma_finalize(&migrate);
+ 
+ 	mpages = svm_migrate_successful_pages(&migrate);
+@@ -542,6 +565,7 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+ 	u64 ttm_res_offset;
+ 	struct kfd_node *node;
+ 	unsigned long mpages = 0;
++	int idx;
+ 	long r = 0;
+ 
+ 	if (start_mgr < prange->start || last_mgr > prange->last) {
+@@ -555,6 +579,9 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+ 		pr_debug("failed to get kfd node by id 0x%x\n", best_loc);
+ 		return -ENODEV;
+ 	}
++	/* Block unplug while the migration submits jobs and waits on them */
++	if (!drm_dev_enter(adev_to_drm(node->adev), &idx))
++		return -ENODEV;
+ 
+ 	pr_debug("svms 0x%p [0x%lx 0x%lx] in [0x%lx 0x%lx] to gpu 0x%x\n",
+ 		prange->svms, start_mgr, last_mgr, prange->start, prange->last,
+@@ -569,6 +596,7 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+ 					node->xcp ? node->xcp->id : 0);
+ 	if (r) {
+ 		dev_dbg(node->adev->dev, "failed to reserve VRAM, r: %ld\n", r);
++		drm_dev_exit(idx);
+ 		return -ENOSPC;
+ 	}
+ 
+@@ -613,6 +641,7 @@ out:
+ 					prange->npages * PAGE_SIZE,
+ 					KFD_IOC_ALLOC_MEM_FLAGS_VRAM,
+ 					node->xcp ? node->xcp->id : 0);
++	drm_dev_exit(idx);
+ 	return r < 0 ? r : 0;
+ }
+ 
+@@ -627,6 +656,32 @@ static void svm_migrate_folio_free(struct folio *folio)
+ 	}
+ }
+ 
++/* Release system RAM dst pages of a failed migration and clear
++ * migrate->dst so migrate_vma_finalize() leaves them unmigrated.
++ */
++static void
++svm_migrate_ram_pages_put(struct device *dev, struct migrate_vma *migrate,
++			  dma_addr_t *dst, u64 npages)
++{
++	u64 i;
++
++	for (i = 0; i < npages; i++) {
++		struct page *dpage;
++
++		if (dst[i]) {
++			dma_unmap_page(dev, dst[i], PAGE_SIZE,
++				       DMA_BIDIRECTIONAL);
++			dst[i] = 0;
++		}
++		dpage = migrate_pfn_to_page(migrate->dst[i]);
++		if (!dpage)
++			continue;
++		unlock_page(dpage);
++		put_page(dpage);
++		migrate->dst[i] = 0;
++	}
++}
++
+ static int
+ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
+ 			struct migrate_vma *migrate, struct dma_fence **mfence,
+@@ -717,22 +772,7 @@ out_oom:
+ 		}
+ 
+ 		/* release previous allocated sys pages and unmap dma address */
+-		while (i--) {
 -
- DECLARE_EVENT_CLASS(amdgpu_userq_queue,
- 	    TP_PROTO(struct amdgpu_usermode_queue *queue),
- 	    TP_ARGS(queue),
+-			if (dst[i]) {
+-				dma_unmap_page(dev, dst[i], PAGE_SIZE,
+-					       DMA_BIDIRECTIONAL);
+-				dst[i] = 0;
+-			}
+-
+-			dpage = migrate_pfn_to_page(migrate->dst[i]);
+-			if (!dpage)
+-				continue;
+-
+-			unlock_page(dpage);
+-			put_page(dpage);
+-			migrate->dst[i] = 0;
+-		}
++		svm_migrate_ram_pages_put(dev, migrate, dst, npages);
+ 	}
+ 
+ 	return r;
+@@ -770,7 +810,7 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
+ 	struct migrate_vma migrate = { 0 };
+ 	dma_addr_t *scratch;
+ 	void *buf;
+-	int r = -ENOMEM;
++	int ret, r = -ENOMEM;
+ 
+ 	memset(&migrate, 0, sizeof(migrate));
+ 	migrate.vma = vma;
+@@ -821,11 +861,17 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
+ 				    scratch, npages);
+ 	migrate_vma_pages(&migrate);
+ 
++	ret = svm_migrate_copy_done(adev, mfence);
++	if (ret) {
++		svm_migrate_ram_pages_put(adev->dev, &migrate, scratch, npages);
++		if (!r)
++			r = ret;
++	}
++
+ 	mpages = svm_migrate_successful_pages(&migrate);
+ 	pr_debug("migrated/collected/requested 0x%lx/0x%lx/0x%lx\n",
+ 		 mpages, cpages, migrate.npages);
+ 
+-	svm_migrate_copy_done(adev, mfence);
+ 	migrate_vma_finalize(&migrate);
+ 
+ 	svm_range_dma_unmap_dev(adev->dev, scratch, 0, npages);
+@@ -869,6 +915,7 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm,
+ 	unsigned long start;
+ 	unsigned long end;
+ 	unsigned long mpages = 0;
++	int idx;
+ 	long r = 0;
+ 
+ 	/* this pragne has no any vram page to migrate to sys ram */
+@@ -889,6 +936,9 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm,
+ 		pr_debug("failed to get kfd node by id 0x%x\n", prange->actual_loc);
+ 		return -ENODEV;
+ 	}
++	/* Block unplug while the migration submits jobs and waits on them */
++	if (!drm_dev_enter(adev_to_drm(node->adev), &idx))
++		return -ENODEV;
+ 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx] from gpu 0x%x to ram\n",
+ 		 prange->svms, prange, start_mgr, last_mgr,
+ 		 prange->actual_loc);
+@@ -933,6 +983,7 @@ int svm_migrate_vram_to_ram(struct svm_range *prange, struct mm_struct *mm,
+ 		}
+ 	}
+ 
++	drm_dev_exit(idx);
+ 	return r < 0 ? r : 0;
+ }
+ 
 -- 
-2.53.0
-
+2.47.3
