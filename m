@@ -4,94 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CD77CC6B0E
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 15:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12086CC6B16
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 15:07:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DED2010E8E0;
-	Tue, 13 Oct 2026 15:02:15 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010057.outbound.protection.outlook.com
- [40.93.198.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2226D10E8E0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:02:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kj/VGkkfMZlawXViHXsyu+U+zaRAsK+A9ecGHDQF5lHs7E9gxa8ymFjA3dlm0Vnt/WOUoAavlLke5unlavmP2rDj7JPolyACdwIxjcwBRrQe8mQI1YXZNhRnfkdXONR7IW/+7yraxL23i3o5hD3Yvv755sy6Nkqbg7y1c9ZdfJmEdpjELWfhg02xbuNPNhyC2w/ea237AegLb9Alz4kqpKN+t+54FxggQKwEDFNkRMATRpPSMNkNllWJJFASkgU0XVVd5dMyaFy+jeMOQ21gMPu0W6JTT6U+XMDsyRllNyvPJceBas8RW1+tQUhfPhrRqbWUaXdYqmYY+xKrNHUmrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HUXsjWUAXQ6uSy+fo3QkxgZKdZbtcokt1rXkq88PQ3U=;
- b=g8IldMjbVLv1+cHidkmWDWChOuNcHnu3oeT2pCb8aLqesMKeJFdo5cFfSivIKQTkA3iQI4GawJ5nDmoym1XHnimm69ufZksPM1cBvbQD9BSujlwSTbnvR4Mk+fztwbaqaNnO+eRgHCnnmp1gsdASTpeIyxBwuv/3JihycyLfLMUYLkyIYVtqr4RpuL6gJpPb4JBkxJaundG74/bbIcnzwmEnaMVbkixdeu8O6SLH5+MmdFj7M2Rw2/o/zLl4km+uMHZJZPmiJCysu4x7KGQe2SquArcBOGerbBUbs4MKbR37D4R50unie6qCJrLJjoWXxSOUcFc4SUcf5jS9LQ9WWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HUXsjWUAXQ6uSy+fo3QkxgZKdZbtcokt1rXkq88PQ3U=;
- b=XEeH6c728fCNqr3wl3k52JdEdKtGF4Ku3/Qgu9w1fI9TnovL1XbbfvWLp/7JZ9X+MFTCoA5ooOTwNVFOM0adVqKfcM2Vta+RG9TAMd+wYGQkQYR7xQbYXr4+xGQkvuZovEuSF+UgXlMfCre4utzUPzIiglrCKooUz1Vkw+8+NEg=
-Received: from YT3PR01CA0063.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::28)
- by BL4PR12MB9533.namprd12.prod.outlook.com (2603:10b6:208:58f::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 15:02:04 +0000
-Received: from BN2PEPF00004FC1.namprd04.prod.outlook.com
- (2603:10b6:b01:84:cafe::4) by YT3PR01CA0063.outlook.office365.com
- (2603:10b6:b01:84::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 13
- Oct 2026 15:02:04 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FC1.mail.protection.outlook.com (10.167.243.187) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 15:02:03 +0000
-Received: from krussell.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 10:01:57 -0500
-From: Kent Russell <kent.russell@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Kent Russell <kent.russell@amd.com>
-Subject: [PATCH] drm/amdgpu: Add log when register access is blocked in PTL
-Date: Tue, 13 Oct 2026 11:01:47 -0400
-Message-ID: <20261013150147.2896846-1-kent.russell@amd.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B9EC10E0E0;
+	Tue, 13 Oct 2026 15:07:00 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D0D910E0E0;
+ Tue, 13 Oct 2026 15:06:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1791904015; x=1823440015;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=/os/0OBmuHhN6vE59+UC0SPms0S9/erqW6koDWRjc6w=;
+ b=H0XaHOW2f1dm5AQGpzNEXSzsmhUkP6i6E+YRG00tjM4KOfvqb6MmJ01U
+ Ic0qD8OZuBMeAAWo4QbeIaVKXRFB0mU9qjd0G+zo4PqfwZyDZiA17rYob
+ WKAFG2GmXJy70nbNRyHu0w7Ahtw+KyBp8ZRQf/3h/uw3ArixvrLV4J5c8
+ PcDON3jTzTxDIr/lJmZMtRBg9tEkuHVvySm/8MLrTViBBo1Q3ThEq8sRj
+ rIgK0bIy5lAiETcRH/165ZcNGv0KicwKR4wUmRdGOVfTlg9JyYYF3KeLc
+ bWLpTWLDFLebsAp4Furw+bXZgEzSas57InxFDC4cUSz9PKVdDw65vdRGf g==;
+X-CSE-ConnectionGUID: QhaZXfePTX21mavHlqirwg==
+X-CSE-MsgGUID: W2cbebP5TZ23HpBAw8Q6ww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="517054"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="517054"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2026 08:06:54 -0700
+X-CSE-ConnectionGUID: zHruqfdYTJOCMJshHNjjjw==
+X-CSE-MsgGUID: dv6J0yrjRhS0gAUHICq6wQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1245491"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.245.122])
+ ([10.245.245.122])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2026 08:06:52 -0700
+Message-ID: <343cf7b2-6241-4e3c-8b37-2f0ea75c6723@intel.com>
+Date: Tue, 13 Oct 2026 16:06:50 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] gpu/buddy: restore two-pass clear/dirty guard for
+ range-biased allocation
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ Anand.Raghavendra@amd.com
+References: <20261009100546.1103622-1-arunpravin.paneerselvam@amd.com>
+ <3e16b7d9-b1d6-4d6c-8f58-f6716fff71a6@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <3e16b7d9-b1d6-4d6c-8f58-f6716fff71a6@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC1:EE_|BL4PR12MB9533:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6fee72c9-7584-4555-5b07-08df293af0f4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|6133799003|10067099003|18002099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: Jhh9IiITj2jx+k+eHRNyrozCjiK5RwglhlK++VIMZ1qDUBcNI4IfGYvpOnz0oPGXqaLrwzeatVeQKZkNT+raBuXUxTwdaQb95ZdRivm+CRo1lXdcjBSvLDN/vl5JatQ105iQ5dOPd93BeDyxbbEs6WILTa4ATKmq02aq5S4h9fM2GVf5k3/dFckeLFwJe3eHdd8h6+o0r48d9BXiH7R5vQEAaoAQ70tvPVOBcZ6Ht55SUNvI2CCqloa2ew3DdixwEDjcUSO/yRAjfwbuBGMm86Q8SOb8/c965O9ulNRU5usnDhTbkZlSqHeQdsfp8Rmevvio6NKoNcJV0BbY0kSjxVPajo59PqO/muf8wgjXvxSSx0SbQp3M1geEELQ9c9WpB+GoJfSR4NsWrjJGPeiT0wjUbYVZH3AkpvCxlSC1vAvtscwvIrvorFMFiU5foIMJLym7Gvb6DtRYzcYqA3wo7L0QJte+FdFc9dxgUkPIgp3hMlIwhNLuw28MaEL0lQkB9ARF2/15qvOsqvU6P6iwpbaTYwTDJZBijab59MRVejrGvwkleozr7vnesGisyB2XgEiF5+u09ppAH0IX5nscOjEfGwErvZAxU0PnmntQyybc66RH9S4zvNJL65HvYYFmfzYLpjPKSuTQuWNmRpBHbYASQaWYoy2It/f0SQYQqXre7BzyFn2ZoFhnwZ++6gZD1N4eW8qzGgvWwrR3a1QcVQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(6133799003)(10067099003)(18002099003)(11063799006)(261009223027099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: qwwvhz4bL6NgZQn78G2bJw80Otg6LRoDab2IvlR3vKnsRD+q3EHr5hohrFJ6nh6NMuDIKxHmx7M8RhyswBCGgeUMiiwCuwvbGLCTw1KW1R6Kkw6Y0/cWgSH1A37eJXpzRrerfjI1QlpGQYGguFlTgjdLHGKhxNv6Diggc+B+FZhh6igCBL9JxEavIBuGl4Wt3ZOGaV1piIRGSjsasHjb9DJ8fFLzXqiqHJhDu2uQ9rWxWJb2OVLpQz5ojLlrU01ZroYVObTpAQFdBNQyAwxvGGn7/yPFJrSsI98NLFpTeUOVgeGJD2bWQ8q8Jaj6KGcFereW8TIoha6Iwz3FuNp8rJxOD/05kR3qWUh6yQc0PG7XqnfrVKCDZ4Kb0mJH/l0A+F40ylkySwFvtzCR8IViyzBIi9j2u0GK7PcrriQnzD/54DOxlV7PPme1ag7TpMiC
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 15:02:03.6852 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fee72c9-7584-4555-5b07-08df293af0f4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC1.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9533
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,203 +73,267 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PTL will limit access to specific registers. Instead of silently
-dropping these attempts, log them in dmesg for reference. Also add a
-dev_debug option to show what pasid/addr/packet type failed.
+Hey,
 
-Signed-off-by: Kent Russell <kent.russell@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       | 34 +++++++++
- .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 76 +++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/soc15_int.h        |  1 +
- 3 files changed, 111 insertions(+)
+Yes, going to go through it now. Did you already look over the Sashiko 
+reports:
+https://sashiko.dev/#/patchset/20261009100546.1103622-1-arunpravin.paneerselvam%40amd.com
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 3572eb9b5758..1ce8313e3c26 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -171,6 +171,7 @@ static int gfx_v9_4_3_get_cu_info(struct amdgpu_device *adev,
- 				struct amdgpu_cu_info *cu_info);
- static void gfx_v9_4_3_xcc_set_safe_mode(struct amdgpu_device *adev, int xcc_id);
- static void gfx_v9_4_3_xcc_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
-+static void gfx_v9_4_3_enable_ptl_skip_interrupt(struct amdgpu_device *adev);
- 
- static void gfx_v9_4_3_kiq_set_resources(struct amdgpu_ring *kiq_ring,
- 				uint64_t queue_mask)
-@@ -2661,6 +2662,7 @@ static int gfx_v9_4_3_early_init(struct amdgpu_ip_block *ip_block)
- static int gfx_v9_4_3_late_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-+	struct amdgpu_ptl *ptl = &adev->psp.ptl;
- 
- 	if (adev->gfx.ras &&
- 	    adev->gfx.ras->enable_watchdog_timer)
-@@ -2668,6 +2670,10 @@ static int gfx_v9_4_3_late_init(struct amdgpu_ip_block *ip_block)
- 
- 	gfx_v9_4_3_ptl_hw_init(adev);
- 
-+	/* Enable PTL register skip notifications if PTL is supported */
-+	if (ptl->hw_supported_state == AMDGPU_PTL_HW_SUPPORTED)
-+		gfx_v9_4_3_enable_ptl_skip_interrupt(adev);
-+
- 	return 0;
- }
- 
-@@ -3327,6 +3333,34 @@ static int gfx_v9_4_3_set_bad_op_fault_state(struct amdgpu_device *adev,
- 	return 0;
- }
- 
-+/*
-+ * Enable GENERIC1 interrupt (bit 30) for PTL register skip notifications.
-+ * When FW skips a privileged register access due to PTL, it signals via
-+ * GENERIC1 and KFD receives interrupt source 177 with skip details.
-+ */
-+static void gfx_v9_4_3_enable_ptl_skip_interrupt(struct amdgpu_device *adev)
-+{
-+	u32 mec_int_cntl_reg, mec_int_cntl;
-+	int i, j, k, num_xcc;
-+
-+	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
-+	for (i = 0; i < num_xcc; i++) {
-+		for (j = 0; j < adev->gfx.mec.num_mec; j++) {
-+			for (k = 0; k < adev->gfx.mec.num_pipe_per_mec; k++) {
-+				mec_int_cntl_reg = gfx_v9_4_3_get_cpc_int_cntl(adev, i, j + 1, k);
-+
-+				if (mec_int_cntl_reg) {
-+					mec_int_cntl = RREG32_XCC(mec_int_cntl_reg, i);
-+					mec_int_cntl = REG_SET_FIELD(mec_int_cntl,
-+							CP_ME1_PIPE0_INT_CNTL,
-+							GENERIC1_INT_ENABLE, 1);
-+					WREG32_XCC(mec_int_cntl_reg, mec_int_cntl, i);
-+				}
-+			}
-+		}
-+	}
-+}
-+
- static int gfx_v9_4_3_set_priv_inst_fault_state(struct amdgpu_device *adev,
- 					      struct amdgpu_irq_src *source,
- 					      unsigned type,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index e241ad7d55df..8dee8c43824d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -123,6 +123,28 @@ enum SQ_INTERRUPT_ERROR_TYPE {
- #define KFD_SQ_INT_DATA__ERR_TYPE_MASK 0xF00000
- #define KFD_SQ_INT_DATA__ERR_TYPE__SHIFT 20
- 
-+/*
-+ * PTL (Peak TOPS Limiter) register skip notification.
-+ * When FW skips a privileged register access, it sends interrupt 177
-+ * with GENERIC1 and provides packet type info in CPC_INT_CNTX_ID[31:28].
-+ */
-+#define CPC_PTL_PACKET_TYPE_SET_UCONFIG_REG	1
-+#define CPC_PTL_PACKET_TYPE_SET_SH_REG		2
-+#define CPC_PTL_PACKET_TYPE_COPY_DATA_READ	3
-+#define CPC_PTL_PACKET_TYPE_COPY_DATA_WRITE	4
-+#define CPC_PTL_PACKET_TYPE_WRITE_DATA		5
-+#define CPC_PTL_PACKET_TYPE_COND_WRITE		6
-+#define CPC_PTL_PACKET_TYPE_WAIT_REG_MEM	7
-+#define CPC_PTL_PACKET_TYPE_WAIT_REG_MEM64	8
-+
-+/* CPC_INT_CNTX_ID[31:28]: packet type that was skipped */
-+#define CPC_INT_CNTX_ID__PACKET_TYPE__SHIFT	28
-+#define CPC_INT_CNTX_ID__PACKET_TYPE_MASK	0xF0000000
-+
-+/* CPC_INT_INFO[30:28]: queue ID */
-+#define CPC_INT_INFO__QUEUE_ID__SHIFT		28
-+#define CPC_INT_INFO__QUEUE_ID_MASK		0x70000000
-+
- /*
-  * The debugger will send user data(m0) with PRIV=1 to indicate it requires
-  * notification from the KFD with the following queue id (DOORBELL_ID) and
-@@ -142,6 +164,30 @@ enum SQ_INTERRUPT_ERROR_TYPE {
- 				KFD_DEBUG_CP_BAD_OP_ECODE_MASK)		\
- 				>> KFD_DEBUG_CP_BAD_OP_ECODE_SHIFT)
- 
-+static const char *cpc_packet_type_name(uint32_t packet_type)
-+{
-+	switch (packet_type) {
-+	case CPC_PTL_PACKET_TYPE_SET_UCONFIG_REG:
-+		return "SET_UCONFIG_REG";
-+	case CPC_PTL_PACKET_TYPE_SET_SH_REG:
-+		return "SET_SH_REG";
-+	case CPC_PTL_PACKET_TYPE_COPY_DATA_READ:
-+		return "COPY_DATA_READ";
-+	case CPC_PTL_PACKET_TYPE_COPY_DATA_WRITE:
-+		return "COPY_DATA_WRITE";
-+	case CPC_PTL_PACKET_TYPE_WRITE_DATA:
-+		return "WRITE_DATA";
-+	case CPC_PTL_PACKET_TYPE_COND_WRITE:
-+		return "COND_WRITE";
-+	case CPC_PTL_PACKET_TYPE_WAIT_REG_MEM:
-+		return "WAIT_REG_MEM";
-+	case CPC_PTL_PACKET_TYPE_WAIT_REG_MEM64:
-+		return "WAIT_REG_MEM64";
-+	default:
-+		return "UNKNOWN";
-+	}
-+}
-+
- static void event_interrupt_poison_consumption_v9(struct kfd_node *dev,
- 				uint16_t pasid, uint16_t client_id)
- {
-@@ -352,6 +398,8 @@ static bool event_interrupt_isr_v9(struct kfd_node *dev,
- 		source_id == SOC15_INTSRC_SDMA_ECC ||
- 		source_id == SOC15_INTSRC_SQ_INTERRUPT_MSG ||
- 		source_id == SOC15_INTSRC_CP_BAD_OPCODE ||
-+		(client_id == SOC15_IH_CLIENTID_GRBM_CP &&
-+		 source_id == SOC15_INTSRC_CP_PTL_REG_SKIP) ||
- 		KFD_IRQ_IS_FENCE(client_id, source_id) ||
- 		((client_id == SOC15_IH_CLIENTID_VMC ||
- 		client_id == SOC15_IH_CLIENTID_VMC1 ||
-@@ -538,6 +586,34 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
- 				KFD_DEBUG_DOORBELL_ID(context_id0),
- 				KFD_EC_MASK(KFD_DEBUG_CP_BAD_OP_ECODE(context_id0)),
- 				NULL, 0);
-+		} else if (source_id == SOC15_INTSRC_CP_PTL_REG_SKIP) {
-+			uint32_t packet_type, queue_id;
-+			uint32_t skipped_addr;
-+
-+			/*
-+			 * PTL (Peak TOPS Limiter) register skip notification.
-+			 * FW skipped a privileged register access and is notifying KFD.
-+			 * Data from IH entry (not registers):
-+			 * - context_id0 contains CPC_INT_CNTX_ID with packet type in [31:28]
-+			 * - context_id1 contains CPC_INT_INFO with queue ID in [30:28]
-+			 * - context_id2 contains CPC_INT_ADDR (skipped register address)
-+			 * - PASID comes from CPC_INT_PASID (already extracted from IH entry)
-+			 */
-+			skipped_addr = SOC15_CONTEXT_ID2_FROM_IH_ENTRY(ih_ring_entry);
-+
-+			/* Extract packet type from CPC_INT_CNTX_ID[31:28] */
-+			packet_type = (context_id0 & CPC_INT_CNTX_ID__PACKET_TYPE_MASK) >>
-+					CPC_INT_CNTX_ID__PACKET_TYPE__SHIFT;
-+
-+			/* Extract queue ID from CPC_INT_INFO[30:28] */
-+			queue_id = (context_id1 & CPC_INT_INFO__QUEUE_ID_MASK) >>
-+					CPC_INT_INFO__QUEUE_ID__SHIFT;
-+
-+			dev_info_ratelimited(dev->adev->dev,
-+				"PTL: AQL request was rejected due to incompatible user input; please verify your PTL configuration.");
-+			dev_dbg_ratelimited(dev->adev->dev,
-+				"PTL: register access skipped - pasid 0x%x, queue %u, packet %s, addr 0x%x\n",
-+				pasid, queue_id, cpc_packet_type_name(packet_type), skipped_addr);
- 		}
- 	} else if (client_id == SOC15_IH_CLIENTID_SDMA0 ||
- 		   client_id == SOC15_IH_CLIENTID_SDMA1 ||
-diff --git a/drivers/gpu/drm/amd/amdkfd/soc15_int.h b/drivers/gpu/drm/amd/amdkfd/soc15_int.h
-index e5c0205f2618..736b02ccdefb 100644
---- a/drivers/gpu/drm/amd/amdkfd/soc15_int.h
-+++ b/drivers/gpu/drm/amd/amdkfd/soc15_int.h
-@@ -25,6 +25,7 @@
- 
- #include "soc15_ih_clientid.h"
- 
-+#define SOC15_INTSRC_CP_PTL_REG_SKIP	177
- #define SOC15_INTSRC_CP_END_OF_PIPE	181
- #define SOC15_INTSRC_CP_BAD_OPCODE	183
- #define SOC15_INTSRC_SQ_INTERRUPT_MSG	239
--- 
-2.43.0
+Are they all false positive? I wanted to hold off reviewing if you were 
+going to re-spin.
+
+Also, on the "bugs" tab in Sashiko there was one open buddy issue, which 
+I sent a fix for:
+https://lore.kernel.org/intel-xe/20261006110706.1636971-2-matthew.auld@intel.com/
+
+Please take a look at that.
+
+On 13/10/2026 15:31, Arunpravin Paneer Selvam wrote:
+> Hi Matthew,
+> Could you please review the v4.
+> 
+> Thanks,
+> Arun.
+> 
+> On 10/9/2026 3:35 PM, Arunpravin Paneer Selvam wrote:
+>> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>>
+>> Range-restricted allocations (the visible-VRAM aperture) skip
+>> dirty_steer_window() and reach __alloc_range_bias() with no clear/dirty
+>> eligibility guard, so a dirty allocation freely splits clear extents (and
+>> vice versa), interleaving the two classes until no large same-class run
+>> survives and a 4K scanout pin fails with -ENOSPC. Use a two-pass range
+>> search instead: block_incompatible() rejects opposite-class blocks in the
+>> strict pass and relaxes only when the strict pass returns -ENOSPC, so a
+>> request still succeeds when only opposite-class space remains. A KUnit
+>> regression test covers the interleaving pattern and fails without the
+>> guard.
+>>
+>> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with 
+>> decoupled dirty tracker")
+>> Assisted-by: LLM
+>> Cc: Matthew Auld <matthew.auld@intel.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>> ---
+>>   drivers/gpu/buddy.c                | 71 ++++++++++++++----------------
+>>   drivers/gpu/tests/gpu_buddy_test.c | 65 +++++++++++++++++++++++++++
+>>   2 files changed, 99 insertions(+), 37 deletions(-)
+>>
+>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+>> index 2f2aaadafe35..6566bad4fef1 100644
+>> --- a/drivers/gpu/buddy.c
+>> +++ b/drivers/gpu/buddy.c
+>> @@ -1240,11 +1240,19 @@ static void __gpu_buddy_undo_splits(struct 
+>> gpu_buddy *mm,
+>>       }
+>>   }
+>> +static bool block_incompatible(struct gpu_buddy_block *block, 
+>> unsigned int flags)
+>> +{
+>> +    bool needs_clear = flags & GPU_BUDDY_CLEAR_ALLOCATION;
+>> +
+>> +    return needs_clear != gpu_buddy_block_is_clear(block);
+>> +}
+>> +
+>>   static struct gpu_buddy_block *
+>>   __alloc_range_bias(struct gpu_buddy *mm,
+>>              u64 start, u64 end,
+>>              unsigned int order,
+>> -           unsigned long flags)
+>> +           unsigned long flags,
+>> +           bool fallback)
+>>   {
+>>       u64 req_size = mm->chunk_size << order;
+>>       struct gpu_buddy_block *block;
+>> @@ -1258,9 +1266,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>        * This range-constrained search hands back the highest/right-most
+>>        * address that satisfies the request: the roots are seeded 
+>> high-to-low
+>>        * and the right (higher-address) child is descended first, making
+>> -     * top-down the default placement here. A non-top-down clear 
+>> request is
+>> -     * the only exception, where the descent is biased towards clear or
+>> -     * clear-containing subtrees to satisfy the clear preference.
+>> +     * top-down the default placement here.
+>>        */
+>>       for (i = mm->n_roots - 1; i >= 0; --i)
+>>           list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+>> @@ -1298,6 +1304,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>                   continue;
+>>           }
+>> +        if (!fallback && block_incompatible(block, flags))
+>> +            continue;
+>> +
+>>           if (contains(start, end, block_start, block_end) &&
+>>               order == gpu_buddy_block_order(block)) {
+>>               /*
+>> @@ -1315,38 +1324,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>                   goto err_undo;
+>>           }
+>> -        /*
+>> -         * Top-down is a strict address-placement policy, so when it is
+>> -         * requested we ignore clear steering and simply descend the
+>> -         * right (higher-address) child first. Only a non-top-down clear
+>> -         * request biases the descent towards clear/has_clear subtrees.
+>> -         */
+>> -        if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
+>> -            !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
+>> -            struct gpu_buddy_block *prefer;
+>> -
+>> -            if (gpu_buddy_block_is_clear(block->right))
+>> -                prefer = block->right;
+>> -            else if (gpu_buddy_block_is_clear(block->left))
+>> -                prefer = block->left;
+>> -            else if (block->right->has_clear)
+>> -                prefer = block->right;
+>> -            else if (block->left->has_clear)
+>> -                prefer = block->left;
+>> -            else
+>> -                prefer = block->right;
+>> -
+>> -            if (prefer == block->right) {
+>> -                list_add(&block->left->tmp_link, &dfs);
+>> -                list_add(&block->right->tmp_link, &dfs);
+>> -            } else {
+>> -                list_add(&block->right->tmp_link, &dfs);
+>> -                list_add(&block->left->tmp_link, &dfs);
+>> -            }
+>> -        } else {
+>> -            list_add(&block->left->tmp_link, &dfs);
+>> -            list_add(&block->right->tmp_link, &dfs);
+>> -        }
+>> +        list_add(&block->left->tmp_link, &dfs);
+>> +        list_add(&block->right->tmp_link, &dfs);
+>>       } while (1);
+>>       return ERR_PTR(-ENOSPC);
+>> @@ -1361,6 +1340,24 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>       return ERR_PTR(err);
+>>   }
+>> +static struct gpu_buddy_block *
+>> +__gpu_buddy_alloc_range_bias(struct gpu_buddy *mm,
+>> +                 u64 start, u64 end,
+>> +                 unsigned int order,
+>> +                 unsigned long flags)
+>> +{
+>> +    struct gpu_buddy_block *block;
+>> +    bool fallback = false;
+>> +
+>> +    block = __alloc_range_bias(mm, start, end, order,
+>> +                   flags, fallback);
+>> +    if (IS_ERR(block))
+>> +        return __alloc_range_bias(mm, start, end, order,
+>> +                      flags, !fallback);
+>> +
+>> +    return block;
+>> +}
+>> +
+>>   /* Return the highest-address free block of at least @order. */
+>>   static struct gpu_buddy_block *
+>>   get_maxblock(struct gpu_buddy *mm,
+>> @@ -1924,7 +1921,7 @@ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>>       if (flags & GPU_BUDDY_RANGE_ALLOCATION) {
+>>           /* Allocate traversing within the range */
+>> -        block = __alloc_range_bias(mm, start, end, order, flags);
+>> +        block = __gpu_buddy_alloc_range_bias(mm, start, end, order, 
+>> flags);
+>>           if (!IS_ERR(block) || !steered)
+>>               return block;
+>> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/ 
+>> gpu_buddy_test.c
+>> index b75d32ca6ca0..3eaa261571bf 100644
+>> --- a/drivers/gpu/tests/gpu_buddy_test.c
+>> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+>> @@ -1597,6 +1597,70 @@ static int gpu_buddy_suite_init(struct 
+>> kunit_suite *suite)
+>>       return 0;
+>>   }
+>> +static void gpu_test_buddy_alloc_range_clear_guard(struct kunit *test)
+>> +{
+>> +    const unsigned long chunk = SZ_1M, mm_size = SZ_4M;
+>> +    struct gpu_buddy_block *block;
+>> +    LIST_HEAD(high_clear_a);
+>> +    LIST_HEAD(high_clear_b);
+>> +    LIST_HEAD(low_dirty);
+>> +    struct gpu_buddy mm;
+>> +    LIST_HEAD(barrier);
+>> +    LIST_HEAD(result);
+>> +
+>> +    KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, chunk),
+>> +                   "buddy_init failed\n");
+>> +
+>> +    /*
+>> +     * Lay out a 4 MiB aperture as three regions:
+>> +     *
+>> +     *   [0,  1M)   dirty free
+>> +     *   [1M, 2M)   allocated  (barrier, keeps the two halves un- 
+>> mergeable)
+>> +     *   [2M, 4M)   clear free (one naturally aligned 2 MiB extent)
+>> +     *
+>> +     * A dirty (non-clear) range allocation must take the low dirty 
+>> block
+>> +     * and leave the large clear extent intact. Without the guard the
+>> +     * top-down search cuts the higher clear extent instead and 
+>> returns a
+>> +     * clear block -- the interleaving that fragments the aperture and
+>> +     * ultimately fails a large same-class scanout allocation.
+>> +     */
+>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>> +                   gpu_buddy_alloc_blocks(&mm, 0, chunk, chunk, chunk,
+>> +                              &low_dirty, GPU_BUDDY_RANGE_ALLOCATION),
+>> +                   "alloc [0, 1M) failed\n");
+>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>> +                   gpu_buddy_alloc_blocks(&mm, chunk, 2 * chunk, 
+>> chunk, chunk,
+>> +                              &barrier, GPU_BUDDY_RANGE_ALLOCATION),
+>> +                   "alloc [1M, 2M) failed\n");
+>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>> +                   gpu_buddy_alloc_blocks(&mm, 2 * chunk, 3 * chunk, 
+>> chunk, chunk,
+>> +                              &high_clear_a, 
+>> GPU_BUDDY_RANGE_ALLOCATION),
+>> +                   "alloc [2M, 3M) failed\n");
+>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>> +                   gpu_buddy_alloc_blocks(&mm, 3 * chunk, 4 * chunk, 
+>> chunk, chunk,
+>> +                              &high_clear_b, 
+>> GPU_BUDDY_RANGE_ALLOCATION),
+>> +                   "alloc [3M, 4M) failed\n");
+>> +
+>> +    /* [2M, 4M) coalesces into one aligned clear extent; [0, 1M) 
+>> stays dirty. */
+>> +    gpu_buddy_free_list(&mm, &low_dirty, 0);
+>> +    gpu_buddy_free_list(&mm, &high_clear_a, GPU_BUDDY_CLEARED);
+>> +    gpu_buddy_free_list(&mm, &high_clear_b, GPU_BUDDY_CLEARED);
+>> +
+>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>> +                   gpu_buddy_alloc_blocks(&mm, 0, mm_size, chunk, chunk,
+>> +                              &result, GPU_BUDDY_RANGE_ALLOCATION),
+>> +                   "dirty range alloc failed\n");
+>> +
+>> +    block = list_first_entry(&result, struct gpu_buddy_block, link);
+>> +    KUNIT_EXPECT_FALSE_MSG(test, gpu_buddy_block_is_clear(block),
+>> +                   "dirty range alloc cut the clear extent 
+>> (offset=%llx)\n",
+>> +                   gpu_buddy_block_offset(block));
+>> +
+>> +    gpu_buddy_free_list(&mm, &result, 0);
+>> +    gpu_buddy_free_list(&mm, &barrier, 0);
+>> +    gpu_buddy_fini(&mm);
+>> +}
+>> +
+>>   static struct kunit_case gpu_buddy_tests[] = {
+>>       KUNIT_CASE(gpu_test_buddy_alloc_limit),
+>>       KUNIT_CASE(gpu_test_buddy_alloc_optimistic),
+>> @@ -1606,6 +1670,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+>>       KUNIT_CASE(gpu_test_buddy_alloc_clear),
+>>       KUNIT_CASE(gpu_test_buddy_alloc_range),
+>>       KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
+>> +    KUNIT_CASE(gpu_test_buddy_alloc_range_clear_guard),
+>>       KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
+>>       KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
+>>       KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+>>
+>> base-commit: f146c6086b792cb2c6b3ce5106f0cce62e408df8
+> 
 
