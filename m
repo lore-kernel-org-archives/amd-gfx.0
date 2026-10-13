@@ -4,58 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53ACECA9ED2
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 11:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 334AACC6B08
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 11:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E766E10F77A;
-	Tue, 13 Oct 2026 11:19:11 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011040.outbound.protection.outlook.com [52.101.52.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C96E10F77B
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:19:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 520CD10F77E;
+	Tue, 13 Oct 2026 11:19:19 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012027.outbound.protection.outlook.com [52.101.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDB3C10F778
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:18:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h9aC9pj4tl/uVswKq6EY0K7mi5HG019wslqd1E3x1xX6tWRgIH5NctIzaCK1q4QvtjA0gpcKqxuttlLhp1EdbQaCocJ3ZXwFDYrbUrMvHVv8IaBtZ/PqWxfDmJg8FGu6gT64/qn7JM3sQoJwDrjkVr+gR1cfvGPzGdfpgei7ferZncdOzbf1kQp4abqSb5OUbHG7q1FQkIAH2bNs9ySLj26CK/MEIzXFAIubwfvhwCOIu6WrYNjNY32o15D8QobyfDAoMVDIdruil7RlXaEtFfKWYA379+pJotm8ypOwbWLtc0ZA5t5sJ+mZhKccglfpvEPGPD6+WK/ozQymcwwH4A==
+ b=T9um2lfo07N19WBr5qLHeRhJByPNhxLGqUHndP64/p5JElbLk0h5p+AF/VaCFU4S8i/0UnNPyj5sQjY2NZ43PHioDNgNNswvZHbDh/qyy0fc991Om3TnQqspVMSHJ1OxjBHraGZMMxgThNs8R2iyrks8U9FMwQFr4l4azlb5a7V1c53jwfJCuff/1YNi+TCmKICjOEcn4YuJfkmkvHZcYlTd6p8uQR/ktp9jLXwttHmD9X4s3ULtzUDY9jEDUJYAOmFttKVyLE0iotBdshDuSp+Bso8t9UiibQuK64S0Tt5dz4W2r2A+pa+qLIQ1mJTrAiMekjS2cD3DfajlXqzFPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8U1KK+OOaHlJPSr1JTS0nxuVHbuwtqKEJlbbqz06BlI=;
- b=dPBgktrDO/nWyYENzaHVFSClw+wkF8a66TOPMCqXyQtRg+tqSRFBYFPOpr+rWj5LI6aospkL/fHRnWHpmRfwFI/AA5/KKxhdMy83nxEBicRE/tseWuhkf/mVDaRKeg9oYYxmNGhsTA68+kw1H63Zd4GWJ0dSvrUtJ0PAI+uDYF1G8zKMkxG/b3GoU2AxpEjxODh8OhBPMcxXPB8TJsKZAqypVcREkIMPx89rEpGs/EnxePlUFWmflzUWrsLUvYp9ahGpPcFVZeW4InaDlBVEtW15S0EV/y6WkLu/vzc6GrG1lI17NGcxwKhzits06a69/61hn8E0hqrxZwS2jN35UA==
+ bh=IAcE7AAPhgZw8BuWOFRKXs7kpordJ7sMGc5kJ/DFXVI=;
+ b=RGku5I/g6J2+szFrdCgJHEM3bTOnuFiuNxjCksyQIhwo9ARnRlyPSKjHOM+j1coA4dcSjEOC3Uo/Cm+rVjpv6iq91W3UJ7dE8WvwuHlUebZGJ9LeofgQxDJ/gVwsnwtDIjFJ/8Xpm8d5ur6NOjxvczJoLpRj2XOrAFSioOhggT9ubwxYvBc8Z5fgVLPZ93nOSnf68s9cs/GtNqt295n8jTqn2j85pcNvmioNUP6R6H38yWcHH9tUGjprgnwR81KntO1umGc2+pclcykTyvkW5m3YIvagzJdIjgZ2BSx20ZNdc9S3nxrSfm9vZ7vs/vR41z0T6fLiVSEhyzbVoeY5GA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8U1KK+OOaHlJPSr1JTS0nxuVHbuwtqKEJlbbqz06BlI=;
- b=RF/+W2dFaYdfofrhhciXSIPa3mqSlQj/2VOdoKKWmJ+8pzKt+jHyOH+5LxX1J4p5zZpszWXBN0mFzUhdlSq4Q71cKEQzG0bFkfNaj2DO3XhZGqMnTOY3iZjaiCgq10ASyivSmdjiF4vrddG8wXsG69HKv3XG2pPru6PDN1NqoxU=
-Received: from DS1PR04CA0023.namprd04.prod.outlook.com (2603:10b6:8:243::17)
- by SAVPR12MB999169.namprd12.prod.outlook.com (2603:10b6:806:4e5::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 11:19:02 +0000
-Received: from DM3PEPF000265C5.namprd03.prod.outlook.com
- (2603:10b6:8:243:cafe::98) by DS1PR04CA0023.outlook.office365.com
- (2603:10b6:8:243::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 13
- Oct 2026 11:19:02 +0000
+ bh=IAcE7AAPhgZw8BuWOFRKXs7kpordJ7sMGc5kJ/DFXVI=;
+ b=YfSKmub4hakblnx3riJG275jnT7wEDPskbA5R2qBMK8+DwILUw4C95eOqh1DBnGvD9feZ3Mue2fkw9PuYVz4dyoqnFiJxkWUX+sxfhoPT/NjkTQp86cty5w+ieEThZx+u86h7a6UFM9q76+7APTBOnzmwqR8zghDnq+SSoS/vBY=
+Received: from SJ0PR03CA0022.namprd03.prod.outlook.com (2603:10b6:a03:33a::27)
+ by IA0PR12MB7554.namprd12.prod.outlook.com (2603:10b6:208:43e::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Tue, 13 Oct
+ 2026 11:18:30 +0000
+Received: from SJ1PEPF000026C4.namprd04.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::5b) by SJ0PR03CA0022.outlook.office365.com
+ (2603:10b6:a03:33a::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
+ Oct 2026 11:18:30 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DM3PEPF000265C5.mail.protection.outlook.com (10.167.23.186) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000026C4.mail.protection.outlook.com (10.167.244.101) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 11:19:02 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 11:18:30 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 06:18:55 -0500
+ 2026 06:18:23 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 06:18:23 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 13 Oct 2026 06:18:41 -0500
+ Transport; Tue, 13 Oct 2026 06:18:14 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,13 +68,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Sridevi Arvindekar <Sridevi.Arvindekar@amd.com>,
- "Ilya Bakoulin" <ilya.bakoulin@amd.com>, Sridevi Arvindekar
- <sridevi.arvindekar@amd.com>, Ray Wu <ray.wu@amd.com>
-Subject: [PATCH 20/30] drm/amd/display: Reset UPSP and pre-CSC registers on
- DCN6 DPP reset
-Date: Tue, 13 Oct 2026 19:08:07 +0800
-Message-ID: <20261013111616.2267344-21-ray.wu@amd.com>
+ <Chen-Yu.Chen@amd.com>, Samson Tam <Samson.Tam@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 17/30] drm/amd/display: handle exit LS in second ISHARP
+ programming block
+Date: Tue, 13 Oct 2026 19:08:04 +0800
+Message-ID: <20261013111616.2267344-18-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261013111616.2267344-1-ray.wu@amd.com>
 References: <20261013111616.2267344-1-ray.wu@amd.com>
@@ -79,29 +82,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265C5:EE_|SAVPR12MB999169:EE_
-X-MS-Office365-Filtering-Correlation-Id: dfcdf7bc-75e9-48b8-512a-08df291bc8f2
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C4:EE_|IA0PR12MB7554:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e1513f9-bb3f-46ab-360f-08df291bb5ea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|1800799024|376014|82310400026|10067099003|261009223027099003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 2av5r5pumxfghf7XmLWCYYgOiJDICxBwbKPneBbcum7L6a4blpEwgbp4siXxSxtLXB6boaFX8N/mR0+FGDYqVmNCq35z1uUGpUeZZlNDS9BjiA9wiS/GKDY6psDIbMnmlMVqse5MCYgP9ZScydrNhAmzqPr3XRDhgghKC3ixnO5S3iwTBaMVigDFgCDUpVQyU70Ll9VEWB6PIZNAQ1S1KJlYe4cXqRnjxOm86XFFI9hWV9i3niLNPichW/9koMJL7QTwe8IGLkNFxAT9h/Ebo0MRu3HtJWywoVJwM3rTq4K+iLxioPRSR4iEnlAsgH9mMMPkk5GQuF7wKZxLY1F5Moyd73YmqPgUeZDA20GkRgIFm2r+s490eswXZpAueqMmvmMWBT8LNF3qHcl+yVLhRkkTy86LFQ2mNPJBcfaKEPfG76d0Jd8HJ0tIrGSdzhrXNrw3H76j41rx4Qt8KliVrGAVUR5OwrsS8nnGqHtG5D8UDdgNOE2pPVAkAfkMC6NJ5calbnaErY4jRwjM3g5kUkH4tVhONv91OlvdygfOrAHqKdDJaCg6/MNzoNWajyCsW979AuvlRXP8e6mWtzIX1qbShvoGJApppdfD/wZFF/eaCeUPJS1i9zkT7WtxI1AmE5odqqk2R3pUNzCwT2U6acaGc4eUabC1DvNgdzP8b0/HGpgGAGxWcO+5xzFXomqXD9LjLD9bZTor5eXMqA8/GA==
+ ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|56012099006|11063799006|10067099003|18002099003|22082099003|6133799003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: GCtDgDkljM7MHqDD9oWdFDyGqQZ3rozuOVzCZiXgwG2jIOqAZQMI37n6CgLTz7ZYN2GtrzvlCjoCHm2mIYI2NAH5AzsKojuTyAy8ssRYr2M5yniJ+jEtlraj9y2P7T7e5JnBnA1fzGJ32oPAPs8qYH82cEyODqogpy6q+irCb6hjs6h4gDR9P8pf9klYEpi8jFMsB/gOJGBDUNuT1m6aPR3PCDgoqarnniYnaCGeTisDGSO6TOqODHydDZw6GEAOrZMRoXZxezaxQIE88k0Eg2Dt/635onrAd7DL2amZ497i+WmRUjPczA25g9pmJPDiLgeT9ARrlEiF5uugzKPOsc78shABGXBNuGMftwGEkCFTxZiNKUV96a3/zrqNY6maEc/yreMfsM53hoSmiR71QRqRTgzQzx9N1FlxntOqAuvgih33Pr35Lu/Xtq7QoAY9qGjqOn1T9BApNJ7Rk+X0M/k9w+Wpd6icaNFiTuloZijkbGzm2wTc/s3DTO3k+xjiKf/obTDz5EQISXG5I2fqkFBbsFjbGy2+OdPyzTzX4HV/HRfWOCpAgQ/MvbCYqXjlIBm3AQxsRsM0apF4E3EFiVsZqFco3KOE3w6lH7fpwEXHzWwFWCPd5drz+Ha+R3BJt5ujYJF/vnKDgnv39VhT6Zr1OXV7pWrOg2aGuM1ZidHqZkfGnECWHhl0nhHpWQ4MIJSr++0Zqn+w8k78800N/g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(82310400026)(10067099003)(261009223027099003)(11063799006)(18002099003)(22082099003)(56012099006);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003)(261009223027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5Y73D7jh+48NBEba6o0ngImjjxARInIJtq/WrWu1h30pf7+1pBRlk/StUxpWRVMinijJciBrC3HU8cdY+6mfCJanKO+3+sJBOQg8+oNdfWc7adJS7Ha0Pp5ONGmKHaYEgFEZATzgoqSlNJ2Kp9OAUtrAV45Vf6LoUOEASOLyXk9IjyRzL0s3P55LW22pAxVSFiy0tVMbMgHbm8vQkFQYjVw0sYlqRyRO4Nt8I6H7uZgw39vUhGWYYoQdmoSJy6TdXwsK4GGUDnSDuELpwxoI6qUUB0AfsAom+ZWVqvCaTJ7jgThhY+hUXRstyR5NZD9SUgC9yOo0f+9XV81pDk+yyVdA1jRg9pZsxDHGsok9nZMrPjtd/KhcvmP8uuGq8dzeSUiywREZMMPF8Le6fTqDNQK1Nl+FF0TDews+kp8uqVt/8RUpmWC1454x4qMgQpTZ
+X-MS-Exchange-AntiSpam-MessageData-0: lunWux+NitLNcCOSV26wfP+OceYsbOvFLoRVF9vx2798q+5FJHfnP8HC5pYWvDoCqsVXgdWGHnh4lt8RVRs3fORPKVuRYSAYzhSiOK01ZPoTKKldOrJole6xq8typxDSZRZHnMsWyGx+swlckKrF+eJojEVjAlrqUtQl/coZHWgwBHX28O+UgPaIYvFzu1PXrFMQqFiMoX30CTO63gIi1GBEkTsAcX0K+uQ9T70RRx3vc/l3yKDxJPIdjvKWe5yIvfJhTF8xVuUuU2aUeobQJTaBwXyPF/N6VDMnw7OOIeS0HJZiKepGaRG4mM8cxAoD3b9VN9EpeKvgB/LdX5JoS3e88WNuqnDNgkvPwGI1ydin6Tz6zUU98pk2lNvExCPOLwthimMa/e7qNE6qFrGrPoCHW4+lSNFAHqxJoxE3sX63K4z057d4PMFQHW4KAamX
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 11:19:02.1286 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfcdf7bc-75e9-48b8-512a-08df291bc8f2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 11:18:30.1502 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e1513f9-bb3f-46ab-360f-08df291bb5ea
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265C5.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C4.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999169
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7554
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,66 +119,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sridevi Arvindekar <Sridevi.Arvindekar@amd.com>
+From: Samson Tam <Samson.Tam@amd.com>
 
 [Why]
-dpp_reset() only clears software state, so CNVC_UPSP_MODE and
-PRE_CSC_MODE stay programmed on DCN6 after UPSP was used.
+The hardware programming guide indicates that we must exit LS before
+any coefficient writes.
+ISHARP LUT table write occurs earlier to handle case where only
+sharpness level has changed.  So it occurs before exit LS
 
 [How]
-Add a DCN6 dpp_reset, dcn6_dpp_reset(), which clears both registers
-when UPSP was in use and then calls the common dpp_reset().
+Add dpp401_power_on_isharp call to explicitly handle exit LS for
+ISHARP programming
+Call power_on_isharp on before and power_on_isharp off after ISHARP
+programming in both cases
 
-Reviewed-by: Ilya Bakoulin <ilya.bakoulin@amd.com>
-Signed-off-by: Sridevi Arvindekar <sridevi.arvindekar@amd.com>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Samson Tam <Samson.Tam@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- .../drm/amd/display/dc/dpp/dcn60/dcn60_dpp.c    | 17 ++++++++++++++++-
- .../drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h    |  1 +
- 2 files changed, 17 insertions(+), 1 deletion(-)
+ .../amd/display/dc/dpp/dcn401/dcn401_dpp.h    |  8 ++--
+ .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   | 40 +++++++++++++------
+ .../amd/display/dc/dpp/dcn60/dcn60_dpp_dscl.c |  7 ++++
+ 3 files changed, 38 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.c
-index 4218863d2a04..2ba8218e2ac2 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.c
-@@ -316,10 +316,25 @@ void dpp60_full_bypass(struct dpp *dpp_base)
- 		REG_SET(CM_CONTROL, 0, CM_BYPASS, 1);
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h
+index f1530e8805cb..e49be524b31c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h
+@@ -757,10 +757,6 @@ enum dcn401_dscl_mode_sel dpp401_dscl_get_dscl_mode(
+ 	const struct scaler_data *data,
+ 	bool dbg_always_scale);
+ 
+-void dpp401_power_on_dscl(
+-	struct dpp *dpp_base,
+-	bool power_on);
+-
+ void dpp401_dscl_set_recout(
+ 	struct dcn401_dpp *dpp,
+ 	const struct rect *recout);
+@@ -793,4 +789,8 @@ void dpp401_dscl_program_easf(
+ 	struct dpp *dpp_base,
+ 	const struct scaler_data *scl_data);
+ 
++void dpp401_power_on_isharp(
++	struct dpp *dpp_base,
++	bool power_on);
++
+ #endif /* __DCN401_DPP_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
+index 6e85890e44f7..adb3f155d051 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
+@@ -146,7 +146,7 @@ enum dcn401_dscl_mode_sel dpp401_dscl_get_dscl_mode(
+ 	return DCN401_DSCL_MODE_SCALING_420_YCBCR_ENABLE;
  }
  
-+void dcn6_dpp_reset(struct dpp *dpp_base)
+-void dpp401_power_on_dscl(
++static void dpp401_power_on_dscl(
+ 	struct dpp *dpp_base,
+ 	bool power_on)
+ {
+@@ -173,6 +173,25 @@ void dpp401_power_on_dscl(
+ 	}
+ }
+ 
++void dpp401_power_on_isharp(
++	struct dpp *dpp_base,
++	bool power_on)
 +{
-+	struct dcn60_dpp *dpp = TO_DCN60_DPP(dpp_base);
++	struct dcn401_dpp *dpp = TO_DCN401_DPP(dpp_base);
 +
-+	if (dpp->scl_data.upsp) {
-+		if (dpp->tf_mask->UPSP_MODE) {
-+			// Reset dpp registers used for upsp, lls
-+			REG_WRITE(CNVC_UPSP_MODE, 0);
-+			REG_WRITE(PRE_CSC_MODE, 0);
-+		}
++	if (power_on) {
++		/* exit LS prior to programming ISHARP LUT */
++		REG_UPDATE_2(ISHARP_DELTA_LUT_MEM_PWR_CTRL,
++		     ISHARP_DELTA_LUT_MEM_PWR_FORCE, 0,
++		     ISHARP_DELTA_LUT_MEM_PWR_DIS, 1);
++		REG_WAIT(ISHARP_DELTA_LUT_MEM_PWR_CTRL,
++			ISHARP_DELTA_LUT_MEM_PWR_STATE, 0, 1, 100);
++	} else {
++		REG_UPDATE_SEQ_2(ISHARP_DELTA_LUT_MEM_PWR_CTRL,
++			 ISHARP_DELTA_LUT_MEM_PWR_FORCE, 0,
++			 ISHARP_DELTA_LUT_MEM_PWR_DIS, 0);
 +	}
-+
-+	dpp_reset(dpp_base);
 +}
+ 
+ static void dpp401_dscl_set_lb(
+ 	struct dcn401_dpp *dpp,
+@@ -964,13 +983,6 @@ void dpp401_dscl_program_isharp(struct dpp *dpp_base,
+ 	*bs_coeffs_updated = false;
+ 
+ 	PERF_TRACE();
+-	/*power on isharp_delta_mem first*/
+-	REG_UPDATE_2(ISHARP_DELTA_LUT_MEM_PWR_CTRL,
+-		     ISHARP_DELTA_LUT_MEM_PWR_FORCE, 0,
+-		     ISHARP_DELTA_LUT_MEM_PWR_DIS, 1);
+-
+-	REG_WAIT(ISHARP_DELTA_LUT_MEM_PWR_CTRL,
+-		ISHARP_DELTA_LUT_MEM_PWR_STATE, 0, 1, 100);
+ 
+ 	/* ISHARP_MODE */
+ 	REG_SET_6(ISHARP_MODE, 0,
+@@ -1049,11 +1061,6 @@ void dpp401_dscl_program_isharp(struct dpp *dpp_base,
+ 		}
+ 	}
+ 
+-	/*power on isharp_delta_mem first*/
+-	REG_UPDATE_SEQ_2(ISHARP_DELTA_LUT_MEM_PWR_CTRL,
+-			 ISHARP_DELTA_LUT_MEM_PWR_FORCE, 0,
+-			 ISHARP_DELTA_LUT_MEM_PWR_DIS, 0);
+-
+ 	PERF_TRACE();
+ } // dpp401_dscl_program_isharp
+ /**
+@@ -1096,7 +1103,10 @@ void dpp401_dscl_set_scaler_manual_scale(struct dpp *dpp_base,
+ 		(dpp->scl_data.dscl_prog_data.sharpness_level
+ 		!= scl_data->dscl_prog_data.sharpness_level)) {
+ 		/* ISHARP_DELTA_LUT */
++		dpp401_power_on_isharp(dpp_base, true);
+ 		dpp401_dscl_set_isharp_filter(dpp, scl_data->dscl_prog_data.isharp_delta);
++		dpp401_power_on_isharp(dpp_base, false);
 +
- static struct dpp_funcs dcn60_dpp_funcs = {
- 	.dpp_program_gamcor_lut		= dpp6_program_gamcor_lut,
- 	.dpp_read_state				= dpp401_read_state,
--	.dpp_reset					= dpp_reset,
-+	.dpp_reset					= dcn6_dpp_reset,
- 	.dpp_set_scaler				= dpp60_dscl_set_scaler_manual_scale,
- 	.dpp_get_optimal_number_of_taps	= dpp3_get_optimal_number_of_taps,
- 	.dpp_set_pre_degam			= NULL,
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h b/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h
-index f12a6061e5fb..7086ff773de8 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h
-@@ -522,5 +522,6 @@ bool dpp60_construct(struct dcn60_dpp *dpp60,
- bool dpp6_program_gamcor_lut(
- 	struct dpp *dpp_base, const struct pwl_params *params);
+ 		dpp->scl_data.dscl_prog_data.sharpness_level = scl_data->dscl_prog_data.sharpness_level;
+ 		memcpy(dpp->scl_data.dscl_prog_data.isharp_delta, scl_data->dscl_prog_data.isharp_delta,
+ 			sizeof(uint32_t) * ISHARP_LUT_TABLE_SIZE);
+@@ -1159,7 +1169,9 @@ void dpp401_dscl_set_scaler_manual_scale(struct dpp *dpp_base,
+ 	if (dscl_mode == DCN401_DSCL_MODE_SCALING_444_BYPASS) {
+ 		if (dpp->base.ctx->dc->config.prefer_easf)
+ 			dpp401_dscl_disable_easf(dpp_base, scl_data);
++		dpp401_power_on_isharp(dpp_base, true);
+ 		dpp401_dscl_program_isharp(dpp_base, scl_data, program_isharp_1dlut, &bs_coeffs_updated);
++		dpp401_power_on_isharp(dpp_base, false);
+ 		return;
+ 	}
  
-+void dcn6_dpp_reset(struct dpp *dpp_base);
+@@ -1193,7 +1205,9 @@ void dpp401_dscl_set_scaler_manual_scale(struct dpp *dpp_base,
+ 	 *   WB scaler coeffs and toggle coeff RAM together
+ 	 */
+ 	//if (dpp->base.ctx->dc->config.prefer_easf)
++	dpp401_power_on_isharp(dpp_base, true);
+ 	dpp401_dscl_program_isharp(dpp_base, scl_data, program_isharp_1dlut, &bs_coeffs_updated);
++	dpp401_power_on_isharp(dpp_base, false);
  
- #endif /* __DCN60_DPP_H__ */
+ 	dpp401_dscl_set_scl_filter(dpp, scl_data, ycbcr, bs_coeffs_updated);
+ 	/* Edge adaptive scaler function configuration */
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp_dscl.c
+index f030b2a0a1f4..d1a81e5616b3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp_dscl.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp_dscl.c
+@@ -166,7 +166,10 @@ void dpp60_dscl_set_scaler_manual_scale(struct dpp *dpp_base,
+ 		(dpp->scl_data.dscl_prog_data.sharpness_level
+ 		!= scl_data->dscl_prog_data.sharpness_level)) {
+ 		/* ISHARP_DELTA_LUT */
++		dpp401_power_on_isharp(dpp_base, true);
+ 		dpp401_dscl_set_isharp_filter(dpp401, scl_data->dscl_prog_data.isharp_delta);
++		dpp401_power_on_isharp(dpp_base, false);
++
+ 		dpp->scl_data.dscl_prog_data.sharpness_level = scl_data->dscl_prog_data.sharpness_level;
+ 		memcpy(dpp->scl_data.dscl_prog_data.isharp_delta, scl_data->dscl_prog_data.isharp_delta,
+ 			sizeof(uint32_t) * ISHARP_LUT_TABLE_SIZE);
+@@ -230,7 +233,9 @@ void dpp60_dscl_set_scaler_manual_scale(struct dpp *dpp_base,
+ 	if (dscl_mode == DCN401_DSCL_MODE_SCALING_444_BYPASS) {
+ 		if (dpp->base.ctx->dc->config.prefer_easf)
+ 			dpp401_dscl_disable_easf(dpp_base, scl_data);
++		dpp401_power_on_isharp(dpp_base, true);
+ 		dpp401_dscl_program_isharp(dpp_base, scl_data, program_isharp_1dlut, &bs_coeffs_updated);
++		dpp401_power_on_isharp(dpp_base, false);
+ 		return;
+ 	}
+ 
+@@ -261,7 +266,9 @@ void dpp60_dscl_set_scaler_manual_scale(struct dpp *dpp_base,
+ 	 *   WB scaler coeffs and toggle coeff RAM together
+ 	 */
+ 	//if (dpp->base.ctx->dc->config.prefer_easf)
++	dpp401_power_on_isharp(dpp_base, true);
+ 	dpp401_dscl_program_isharp(dpp_base, scl_data, program_isharp_1dlut, &bs_coeffs_updated);
++	dpp401_power_on_isharp(dpp_base, false);
+ 
+ 	dpp401_dscl_set_scl_filter(dpp401, scl_data, ycbcr, bs_coeffs_updated);
+ 	/* Edge adaptive scaler function configuration */
 -- 
 2.43.0
 
