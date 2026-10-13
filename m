@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE7ECCC6B1A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 177C2CC6B2D
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:48:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3922110FD6C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A88810FD90;
 	Wed, 14 Oct 2026 12:47:55 +0000 (UTC)
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1AA510EAC0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:26 +0000 (UTC)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-30bcb065bfdso6716224eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:26 -0700 (PDT)
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1B810EA4C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:16 +0000 (UTC)
+Received: by mail-dl1-f72.google.com with SMTP id
+ a92af1059eb24-149e8e8ad71so3594491c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791931226; x=1792536026;
+ d=google.com; s=20251104; t=1791931215; x=1792536015;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=wbjJdHqZPRkvVZnH2yPkFa6V1wQ6/MdT39yYoogCQX4=;
- b=t0wk0La81GAEDgzDjHnOE/YdVOvfd/jIsarQT3mQ1pXc7Rzk2AU2UDS00l5L49DnG5
- uq3w98oGtA2+6qgZbe03ymAT0e4n2cPRObGvA+youVV2hQiEYYweaiUxniwScDten4sY
- AZwzzv9DpNZ1UT07pgZQLlMzdcLN8XxvUM362JZ+SJIooLr55hT/uOloTZVivNAhZsNH
- OA+4NG0iPz3jaHZi57pvX6dj3ChveaquDEJk4tnI2pmg0EKaPReD/pHAY/maP6ERSy3W
- fgWkyAQHJf3wKelWgvLo55Irb9JTtMKWGgpwRtLZaVrUb2zM9tQk/kVUph5cnqtw0+C7
- bJfg==
+ :content-type; bh=zS2ZTWNtYHltA9QytinDsw+p3+JtthDKSkNq3q9AYXg=;
+ b=RmBlagjpaMR1TCNu5EQKQncoNCg4Lvj4nIwqxL21DsJRSo6gdSLzi4pNgrfmH9KgaY
+ MpOqKTx48dsxmMfLuWMOOcvtJloVrCR6QsaW/8eHLmDm8zj3pNShj5/W6wKSMq5WWoqP
+ us6k48CEd+t/AIKDAipBXd44+Aw51dmuaB9e6EzaZzoHuh0MuGt5RfqgWNGETXtWRU+K
+ As25U8SSfevc3mrgTu/pKisAdduVGtoo4FCNfaawfynwzwoT/hcp6qCf7pt7KGaHHN2+
+ 8Z9JO6hFUWa8xQVo03/nzL3tVsFNETB0S5v+BD6YiS8QWsUaF7HFoZHfggltIWsAb5iN
+ 1Nxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791931226; x=1792536026;
+ d=1e100.net; s=20260707; t=1791931215; x=1792536015;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=wbjJdHqZPRkvVZnH2yPkFa6V1wQ6/MdT39yYoogCQX4=;
- b=ThPMam8dcmOYapfPzPPCWumyZGJxs2r4t0XqvWODbQE0SL+Ig8qRBIYls6ll+P27tj
- uo4Jl66efKA6sjlyQdV1FRPjQr4cyTjbuklwquaphj+1yh/6v68krgl4N+VC3BLfB2dC
- AWnCa9PxTTsnSIxIqpceVUi+BnlEjTfL16uhScMxpxx+RlZ2JYvHvy7FCEfsL94jhbNH
- KR2qq1q+ZD83chES2OlMzHd1LmhbaVI5TX+rE8R1WWSeoehDgMjONX4Yu7SivX/lW8s4
- hpCvgIoo6SG6HbvsZwFXoQ0YWCcGO6xhjs0dOn5aWrU0oQjL7Gi0nxhxIh1ivI3meWfR
- raZA==
+ bh=zS2ZTWNtYHltA9QytinDsw+p3+JtthDKSkNq3q9AYXg=;
+ b=Z+J7xPX59mLzBpUFzgq52bP/zY5abD7bl8Kj/q+K5uezG1YSK0FrXu6iNBV1e9ta6F
+ JJpuUaBPZ7MeMF758sZeqRQa0Jw4/SeeIUkz7EEnLA9cppxHN+62pRETwMvygyDqGA4t
+ DNDftY2EPfvkGO2EN7khFodrdHhquqNySAdBYDoNBWkP7hMLxLo/nFgMleUOv+Y/hLcd
+ 0EnRR086wUWcyoxBqS86RsglWr2VMmJ4+AjmjLoLB+Dt+vTk8FD3vrY9+q12CaM8xt0f
+ XLxv400yE+wMRVMHySUX0JsLabtb4dGCW9V9xwn/LWA1ScSYYYQjlvr4N84/btnkfAj7
+ EI5g==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzanHCIu/J6eKr85OxMCt1k5OYIUixiP6mC1s14orXlLvYCFrpJnLa8cWg20bxoDZaCygbrXjAj@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLUY3YvJkpsZZ2YFLk0njPvUjI9EbmEll+Mn1WEXKn61RFSfWM0
- U8/egcuvw6gY1VOTLCTXE4ewY2uqVQI15APj6guDzNN2Sq5aOlCSrPBgVZR5jviArXUBGDZi4Dl
- /Pq/NffyMyw==
-X-Received: from dyr27.prod.google.com ([2002:a05:693c:401b:b0:359:e5f1:14fb])
+ AKwUvByhRmSzK92clmXkn92q/oKzaiyNg/yCqLp/JspnMSNdHs32Sppjw3mJzAWmIhw4RkwQdgbaz1fo@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK4T7oXn6CDGs1f1t4ry82Fp4ZiL+BHRyshb8vjCsRh+pzF9aQg
+ Sh2q4ZZK7MjXgN1/EN8hXReev2qAevd9n3OFcRTC7/9dVu/oZAYy+CiscT9nwDLkhhi62niDQ1a
+ wXgX09TK5cQ==
+X-Received: from dlbvs3.prod.google.com ([2002:a05:7022:3f03:b0:16a:e18b:92ba])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:470e:b0:35c:73ca:a1e0
- with SMTP id 5a478bee46e88-35c73caae65mr4317399eec.15.1791931223446; Tue, 13
- Oct 2026 15:40:23 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:39:40 -0700
+ 2002:a05:701b:4553:20b0:166:9e0d:3b56
+ with SMTP id a92af1059eb24-16a6384d0c8mr17137930c88.38.1791931214565; Tue, 13
+ Oct 2026 15:40:14 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:39:36 -0700
 In-Reply-To: <20261013223946.1836757-1-irogers@google.com>
 Mime-Version: 1.0
 References: <20261013223946.1836757-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013223946.1836757-6-irogers@google.com>
-Subject: [PATCH 05/11] ACPI: CPPC: Free cpc_desc in kobject release callback
+Message-ID: <20261013223946.1836757-2-irogers@google.com>
+Subject: [PATCH 01/11] Compiler Attributes: Add
+ __require_explicit_initialization macro
 From: Ian Rogers <irogers@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J . Wysocki" <rafael@kernel.org>, 
@@ -108,112 +108,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-cpc_desc_ptr embeds a struct kobject that is registered in sysfs via
-kobject_init_and_add(), but cppc_ktype lacked a .release callback and
-acpi_cppc_processor_exit() freed cpc_ptr immediately after kobject_put().
-With CONFIG_DEBUG_KOBJECT_RELEASE=y, this causes a use-after-free when
-kobject_delayed_cleanup() runs on freed memory.
+Clang supports the 'require_explicit_initialization' attribute on struct
+fields to indicate that a field must be initialized explicitly by the
+user when the object is constructed. When an aggregate initializer or
+uninitialized variable omits an annotated field, Clang emits a
+-Wuninitialized-explicit-init warning (enabled by default).
 
-Move the sys_mem_vaddr unmapping and kfree(cpc_ptr) into a new
-cppc_release() callback on cppc_ktype, and initialize the kobject on
-allocation so kobject_put() handles cleanup in all paths.
+Add the __require_explicit_initialization macro to
+include/linux/compiler_attributes.h (which is included by
+include/linux/compiler_types.h and include/linux/compiler.h) so kernel
+structs with error-prone initialization (such as mandatory callbacks or
+cleanup handlers) can enforce explicit initialization at compile time,
+as discussed at the Linux Plumbers Conference.
 
-Fixes: 158c998ea44b ("ACPI / CPPC: add sysfs support to compute delivered performance")
+Also teach Sphinx (Documentation/conf.py), kernel-doc
+(tools/lib/python/kdoc/xforms_lists.py), and checkpatch.pl about the new
+attribute macro.
+
+Link: https://lpc.events/event/20/contributions/2392/
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/acpi/cppc_acpi.c | 39 ++++++++++++++++++---------------------
- 1 file changed, 18 insertions(+), 21 deletions(-)
+ Documentation/conf.py                 |  1 +
+ include/linux/compiler_attributes.h   | 11 +++++++++++
+ scripts/checkpatch.pl                 |  1 +
+ tools/lib/python/kdoc/xforms_lists.py |  1 +
+ 4 files changed, 14 insertions(+)
 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index fef54fcd00b7..2a80404f85d3 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -297,7 +297,22 @@ static struct attribute *cppc_attrs[] = {
- };
- ATTRIBUTE_GROUPS(cppc);
+diff --git a/Documentation/conf.py b/Documentation/conf.py
+index 5ab26ce89daf..3e5cb9ca0970 100644
+--- a/Documentation/conf.py
++++ b/Documentation/conf.py
+@@ -203,6 +203,7 @@ c_id_attributes = [
+     "__noreturn",
+     "__packed",
+     "__pure",
++    "__require_explicit_initialization",
+     "__section",
+     "__always_unused",
+     "__maybe_unused",
+diff --git a/include/linux/compiler_attributes.h b/include/linux/compiler_attributes.h
+index 476c4c560d17..60522ab80c5a 100644
+--- a/include/linux/compiler_attributes.h
++++ b/include/linux/compiler_attributes.h
+@@ -322,6 +322,17 @@
+  */
+ #define __pure                          __attribute__((__pure__))
  
-+static void cppc_release(struct kobject *kobj)
-+{
-+	struct cpc_desc *cpc_ptr = to_cpc_desc(kobj);
-+	unsigned int i;
++/*
++ * Optional: not supported by gcc
++ *
++ * clang: https://clang.llvm.org/docs/AttributeReference.html#require-explicit-initialization
++ */
++#if __has_attribute(__require_explicit_initialization__)
++# define __require_explicit_initialization __attribute__((__require_explicit_initialization__))
++#else
++# define __require_explicit_initialization
++#endif
 +
-+	for (i = 2; i < cpc_ptr->num_entries; i++) {
-+		void __iomem *addr = cpc_ptr->cpc_regs[i - 2].sys_mem_vaddr;
-+
-+		if (addr)
-+			iounmap(addr);
-+	}
-+	kfree(cpc_ptr);
-+}
-+
- static const struct kobj_type cppc_ktype = {
-+	.release = cppc_release,
- 	.sysfs_ops = &kobj_sysfs_ops,
- 	.default_groups = cppc_groups,
- };
-@@ -799,6 +814,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 		ret = -ENOMEM;
- 		goto out_buf_free;
- 	}
-+	kobject_init(&cpc_ptr->kobj, &cppc_ktype);
- 
- 	/* First entry is NumEntries. */
- 	cpc_obj = &out_obj->package.elements[0];
-@@ -1001,11 +1017,9 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	/* Plug PSD data into this CPU's CPC descriptor. */
- 	per_cpu(cpc_desc_ptr, pr->id) = cpc_ptr;
- 
--	ret = kobject_init_and_add(&cpc_ptr->kobj, &cppc_ktype, &cpu_dev->kobj,
--			"acpi_cppc");
-+	ret = kobject_add(&cpc_ptr->kobj, &cpu_dev->kobj, "acpi_cppc");
- 	if (ret) {
- 		per_cpu(cpc_desc_ptr, pr->id) = NULL;
--		kobject_put(&cpc_ptr->kobj);
- 		goto out_free;
- 	}
- 
-@@ -1013,14 +1027,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	return 0;
- 
- out_free:
--	/* Free all the mapped sys mem areas for this CPU */
--	for (i = 2; i < cpc_ptr->num_entries; i++) {
--		void __iomem *addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
--
--		if (addr)
--			iounmap(addr);
--	}
--	kfree(cpc_ptr);
-+	kobject_put(&cpc_ptr->kobj);
- 
- out_buf_free:
- 	kfree(output.pointer);
-@@ -1037,8 +1044,6 @@ EXPORT_SYMBOL_GPL(acpi_cppc_processor_probe);
- void acpi_cppc_processor_exit(struct acpi_processor *pr)
- {
- 	struct cpc_desc *cpc_ptr;
--	unsigned int i;
--	void __iomem *addr;
- 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
- 
- 	if (pcc_ss_id >= 0 && pcc_data[pcc_ss_id]) {
-@@ -1056,15 +1061,7 @@ void acpi_cppc_processor_exit(struct acpi_processor *pr)
- 	if (!cpc_ptr)
- 		return;
- 
--	/* Free all the mapped sys mem areas for this CPU */
--	for (i = 2; i < cpc_ptr->num_entries; i++) {
--		addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
--		if (addr)
--			iounmap(addr);
--	}
--
- 	kobject_put(&cpc_ptr->kobj);
--	kfree(cpc_ptr);
- }
- EXPORT_SYMBOL_GPL(acpi_cppc_processor_exit);
- 
+ /*
+  *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-section-function-attribute
+  *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Common-Variable-Attributes.html#index-section-variable-attribute
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index 8a7787d228a6..4a3ae6b0100a 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -6871,6 +6871,7 @@ sub process {
+ 				"noreturn"			=> "__noreturn",
+ 				"packed"			=> "__packed",
+ 				"pure"				=> "__pure",
++				"require_explicit_initialization" => "__require_explicit_initialization",
+ 				"section"			=> "__section",
+ 				"used"				=> "__used",
+ 				"weak"				=> "__weak"
+diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+index e3dda2fe8a53..32066fbbe763 100644
+--- a/tools/lib/python/kdoc/xforms_lists.py
++++ b/tools/lib/python/kdoc/xforms_lists.py
+@@ -36,6 +36,7 @@ class CTransforms:
+         (CMatch("CRYPTO_MINALIGN_ATTR"), ""),
+         (CMatch("__private"), ""),
+         (CMatch("__rcu"), ""),
++        (CMatch("__require_explicit_initialization"), ""),
+         (CMatch("____cacheline_aligned_in_smp"), ""),
+         (CMatch("____cacheline_aligned"), ""),
+         (CMatch("__cacheline_group_(?:begin|end)"), ""),
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
