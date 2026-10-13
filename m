@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E71A2CA9ED2
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 11:17:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8716CA9ED2
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 11:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C46110F775;
-	Tue, 13 Oct 2026 11:16:56 +0000 (UTC)
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012005.outbound.protection.outlook.com [52.101.53.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 667B510E0A8
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:16:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59CC010E0A8;
+	Tue, 13 Oct 2026 11:17:01 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010062.outbound.protection.outlook.com
+ [40.93.198.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 989E810E0A8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:16:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xbYtH2+l+u2CCNuprhPyi9k92NAqS104jcTaLaSQEjSlIqjhXauOVQEcGleIPm/pEIWMsP/ami/6owpSpE0BhMmn/z6yGCFs8BBcmD81BZSiKH8kKoTBUAW2yCrvAIjWXGZsrlBh6v4sgGP5OeEEb9lotUZG1g7E+D8sNtYT3AlOc3z6HbBQho+s30qi0P4XAG4w014wAcpQlMrTtkSS/W6JZt/LnOlK7p7gMHHYEbsFfl3pk40Re5NRsEolEWRaq60qf7k3IXJIS29RHuBFNOxUCTrHkKsQS+IXUCRib3jcjFlBt3343GsbrumF/8+BDhl6vu1DN8cjtQgmxtFXLw==
+ b=X99BKMn83mIAV0toG7DvFv+Z8u1A+F/34hk4qWJs2CTIsOmELa6wBdKfKqJFf+muIDOl+pq/MwuwFPCRHbonrHEdW58010WlsgVVBrDnU9JQHYLpswqoHrYgXKbXEC8d71RYh60Gx4TyEVKa8bh6h8Jn46WGBuYWezSDt3+iAyFdiu+cN3WKNYwYDa/bZMEfOQsrc4DObQuY6is9E0+JvT9zXki0TOzCHatS532RK6UXajReDpb9k3cHc0e5ziOTr8UaYAovLpH2Pq7N5XpKFb5c30DxjH/QTf4anMfENGFSveoOxNcDeNJE/6PpdbHveNLRsMdQY5xPJ+0/FA431w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=56lmg00Jei36WcTlT2CJlMwbmwafC4f5BNSrYxwTL/M=;
- b=rclmeolhnxMpxdw6R/BLzIID4q3gnW5qBOQTOa6FjoRki+jzNsiqk4FoiqDv/yk5T9QLUEKDOqIw8t8TE8MpNVC9INBapC1DfMmOECjXapdKBn04tNSOykNSxghaDAZQjSsuDnzzpQLviFPp3dBw8dpBFVLzpD1Y4Aa1zpNS5D97ZVPFBZjC0npc03BUJSBIY+/HLy7A70edi9fhA8IJaWia9eKaPYf2nMAQXyxbIWqwzPHbBWdIdQA0v7OS/EiwJa5P/tmmuWByXnba79jPVtr4jxJgIqGqUSAHjtFqzm4LfZB7GnLbV8cbXvTmTR2Y7ey8LSG6VmUY6gGXSB6Aeg==
+ bh=5IwN2ORmoWXmQ0BQF4Rw+W5Oa7wJA3S2rErCwZh05EU=;
+ b=InErgO8QBPAgY/XVT/bEe2mxYRGgjjsTPLi+NcSnCWM6dVcAF8Vxa6zUzWKRk+XVMMNb0PeEEbKeIHLyP+esWbQGhREP00PvinEdrrzc5V8s6/RgHeJjrkw6P4JX2zbktOINW8SkMZwhotgR4fXg/tJRvkKuTQpk/JkzMVT7g2ng0YLaAcfrWHYN+WV1MS5LTwwFgcLeCf5XEjaE+uibU/mEOkfjbDyA+hZ2QXIJNTsjvuhzDdZJ9mq/r1Z8g5pf2E2fnfrOilfFiKhc07H/F71+01exF/7Qqs/NSuesXWSXDz5AtwD0xncmGsme7xoWMxNFnX0xsy7/YxGy7KbnWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=56lmg00Jei36WcTlT2CJlMwbmwafC4f5BNSrYxwTL/M=;
- b=ZptE/qmrAgNVBkDU/IBLZI8CMFVizud4u2m6scL+kWKtIzPqCvcWRBDxwN3trfi0SRCWmCXzdmYxScGkfQtQThN3ZHhpdhmpzX0lVSk/cHw7SBEz0SDak8YRU7lgvesJHoRjkCc7FMIK8o6sxBY8AG+NmI8I5c0HR86r7Kbj/EM=
-Received: from MW4PR03CA0123.namprd03.prod.outlook.com (2603:10b6:303:8c::8)
- by LV2PR12MB999096.namprd12.prod.outlook.com (2603:10b6:408:353::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 11:16:46 +0000
+ bh=5IwN2ORmoWXmQ0BQF4Rw+W5Oa7wJA3S2rErCwZh05EU=;
+ b=eS53dsgrD7vrUOuG+FPsxAcbL9wnn6q3dkoppsEWyzVQJ/+q1Lu0b/hwUxUL/+4jnnDZMwBpEr0ZNR3Ic5eU0SuId+RwI1M2APyRdgr9vfIK9Y7EK9Ghz1uhR7ZTFe6Rid5/CtN2fdtE76rx6U9O4LWb4+oYCP5W1cDdb4pvNjI=
+Received: from MW4PR03CA0129.namprd03.prod.outlook.com (2603:10b6:303:8c::14)
+ by BL1PR12MB5972.namprd12.prod.outlook.com (2603:10b6:208:39b::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 11:16:51 +0000
 Received: from SJ1PEPF000026C3.namprd04.prod.outlook.com
- (2603:10b6:303:8c:cafe::a0) by MW4PR03CA0123.outlook.office365.com
- (2603:10b6:303:8c::8) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:303:8c:cafe::ae) by MW4PR03CA0129.outlook.office365.com
+ (2603:10b6:303:8c::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 11:16:46 +0000
+ Oct 2026 11:16:51 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,14 +49,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ1PEPF000026C3.mail.protection.outlook.com (10.167.244.100) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 11:16:45 +0000
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 11:16:51 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 06:16:18 -0500
+ 2026 06:16:27 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 13 Oct 2026 06:16:09 -0500
+ Transport; Tue, 13 Oct 2026 06:16:19 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,11 +65,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Leon Huang <Leon.Huang1@amd.com>, Robin Chen
- <robin.chen@amd.com>, Ray Wu <ray.wu@amd.com>
-Subject: [PATCH 03/30] drm/amd/display: Add AS-SDP V3 support for VESA PR
-Date: Tue, 13 Oct 2026 19:07:50 +0800
-Message-ID: <20261013111616.2267344-4-ray.wu@amd.com>
+ <Chen-Yu.Chen@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 04/30] drm/amd/display: Simplify hdmi_automation debugfs with
+ debugfs_create_bool
+Date: Tue, 13 Oct 2026 19:07:51 +0800
+Message-ID: <20261013111616.2267344-5-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261013111616.2267344-1-ray.wu@amd.com>
 References: <20261013111616.2267344-1-ray.wu@amd.com>
@@ -77,29 +78,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C3:EE_|LV2PR12MB999096:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0417c23-c314-4297-7b78-08df291b7795
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C3:EE_|BL1PR12MB5972:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8598a95e-6982-402f-d9eb-08df291b7ae5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 5yuzK9SDQO++QdsMslxz7DzzcA6GOmeict1FbjWaKKu17o+OTdAnoCHxSoav7RZ2kzcSuwVsZn6g03Ff1fuNha0Mte4QW3gJWHV+f2RevdHf5aVKa4MYL/rYnAmoqw2iiyDOI7BaYI05vEcifWFSnCOKjn1x1j87yX06bTkFgZbBac9lrwOBg8k7asAEx1ANt7464LjL4AUCgI5K21aLBDrIw1Y9SzY3CdQMuhfvgq0ZrNJkBNH71TaXUGvdd8YCMcg9CHu+TgMfICAEwHJiVGuQgL7NzFar5RH9w6bkYRdizH+FTtuoPClY2kyoB0hqanmjk5E7MhbF+M0Oa8pY+Gmuc1SWRPJtpu/lDtshM6+BcGWFhGIEtyiWxJ8ppIEL42znEsZeiTWnZNjuS0+rptiBbT50w++GvyiHiPnMhYyd9zHSBjmvCDOdGl9B23sIujIuvY6dNZJSdgJOndlkgshSAUj+LpCfVtSCM5F9VLCneEVHimIfbmVvlKuClDvHEaW6z+ssIpU/fBSvwY54LtpoiTICWXmiaY7UwlDofxrpze7whmb5Hwku0Wra+8cXLfc/DynTWH67kbR+LYc5KSI7tMD0n2bxfy5D9pszXYic3Uj0Ka4uFfNnUdZi/JixQJhoo4Tmgy80H9QtBBBXFBu+MjQjlIZURPrqJ6uwW1NMpPiPdsuj1M6HSAmy0fx3AVIOdnuKJMS6optrmxN3ow==
+ ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|6133799003|22082099003|18002099003|10067099003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: M8VqFFlqELfHj6aJyHF4xiitYNSZ41xUXlXdYnplvb0zex0LMmMyPGlhUbl1ZNbhhFydo34CmoibVIcu7wgt+WzUAqU3CSQ/DfyqmtKkEgqm88VjeNIPFpg+9vEmdZt5OlacavgQrKF4i9zObhnJRPinmmvNzAW3gyXjPuXFEd91+T6EwTpeis+f3/utkKG5avgqhHNTVRrofU4h+ah9K2AD7rX0IpBeODYc0byEz/MlgBRBOegeHx2GzgsPogjo2wLc+mLGcYKKYQCxsrdF8XjIvMDhs9a1owb/vVOirHg2fuuuYGO/1hIFLUusU0P9Gwt318iYkEZjS3VOShT0GnWmoXOrmFoe+TVQscE+1WDvxPLWW+fSjAHtYlc4CP3R1YqzzmwtoJxRh3LVmvXGoL/X5O+T+kuLHtH2NqOcdbIJsr/AlQTIP/YgV5O15Q9E3ulkzmUq4gIyIKn1iR+6BNLiG3h5VqnfLiJKfQnuAKBt4jSZmuyd0LYA4flgC3WpQXZLMYSzxYTT85ynl8UXTk11ldfPQCblFz75jTy/a39mJ0HAdJDgOuNrIpT2/fyR3oxUyRSoujb/ieQWdYdbmZ30ysmc9aAHnQ1sBquJeW24e9XxdS3ot/sRFwh2km5bhfxUCAo+2f4IPR/2lJesXcssLbBLulKv7Za67W9jPNuvsusutmdjjUvHy6eyunZULcFeKd5qxuGNYpx+nv293A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(261009223027099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6zmEA+y9dcqBnCssyffj6FxVhZM48lT2h6Nmu4i2vMXd/6VMMaC78od6yul52Zs12dDNrUgP72j010rn3kVssugCua79rM2q/xAMEBEqcaojrF/bmeZ50w3uMhMma7ntS3ikL+jH22rAo8CG36U8EeRdT4EaxrDM2pZNrPCensB9wr4c4j0uXI+eAwoMgmrNrEf3BTa/QykDsUXHznhcr2s4XMYAmyv6x/Jq5Z/mA/j7GNCb2xmOB7q1q4WIxyEW1RyN2rX8sj2cjuyhikRw4UZpM9eaKK+/+WnoNXmMHj2AjTktbVGGjzbfxoYrOlw96Q8u7Onl1P/4CCFas22JQimBpMnD2MexLHqbuPhpkqvFXbvx2sAPzrFw0JBBbe9dvZtNs5ydAB35XMc+bT4vBgeRAEfN5X0Uhl3oAI2607UEc7wfxE+TnLPILSHYhRTk
+X-MS-Exchange-AntiSpam-MessageData-0: ei6jS6aD/c/5aAnLFtdQ4q9fD0OGlZ7/9sX+WmZsnZDNLXD9SYTvQo8HdqouzOcnxAq81IapDuGdm9nevhwc5mRie25MQ6kgGSmQJa7O+jNmlMxokhnEfY2cYy9GW+yy6H8O8dzvZKTJhejfujswCaJ2VH5HgoMspHCeX255RqWXHQTiSu0E2nI/CRwkW6gdho6aUK60PZ3kxgsbIDOU+FLZrNNAj3FxE6P27PLRK6vAGT2Fh4vkKAdm8xTGn4p3YhFHE3qiU1vUsqslRBmZ8W+lWFH2lUQJb28zW/ygf9xtmgk9jKmOyfHtBziF4f+XzPBLEIwjQNkcaYMrT7lgjvifewRRGRwU7/cYc0D+1OvREVsJAUhgACHWucSRqNNzZRIUrqo0/HC8pRJsNvTwucKJzusMqebj80I8TvjTgNdvs6wTEODaresczAlj1x0j
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 11:16:45.5745 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0417c23-c314-4297-7b78-08df291b7795
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 11:16:51.1347 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8598a95e-6982-402f-d9eb-08df291b7ae5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C3.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB999096
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5972
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,113 +115,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leon Huang <Leon.Huang1@amd.com>
+From: Fangzhi Zuo <jerry.zuo@amd.com>
 
-[Why]
-AS-SDP V3 extends the coasting vtotal field from 16 bits to 24 bits
-by adding DB9 for bits[23:16] for VESA Panel Replay.
+[Why & How]
+Existing hdmi_automation debugfs entry
+hand-rolled the boolean parsing (scratch buffer,
+parse_write_buffer_into_params(), a switch and kfree) that the debugfs
+core already provides.
 
-[How]
-Parse the capability from DPCD and apply when VESA PR is enabled
+hdmi_comp_auto is a plain bool, so bind it directly with
+debugfs_create_bool() and drop the custom write handler, its
+file_operations and the hdmi_debugfs_entries[] row.
 
-Reviewed-by: Robin Chen <robin.chen@amd.com>
-Signed-off-by: Leon Huang <Leon.Huang1@amd.com>
+Fixes: 442b2e9dc9e9 ("drm/amd/display: Add Support for HDMI Compliance Automation")
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  3 +-
- .../amd/display/modules/inc/mod_info_packet.h |  5 +++
- .../display/modules/info_packet/info_packet.c | 34 +++++++++++++++++--
- 3 files changed, 38 insertions(+), 4 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 69 +------------------
+ 1 file changed, 3 insertions(+), 66 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-index b0e91b321f43..9353292edc0b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-@@ -922,7 +922,8 @@ union dpcd_dprx_feature_enumeration_list_cont_1 {
- 		uint8_t AS_SDP_FIRST_HALF_LINE_OR_3840_PIXEL_CYCLE_WINDOW_NOT_SUPPORTED: 1;
- 		uint8_t RESERVED0: 2;
- 		uint8_t VSC_EXT_SDP_VER1_SUPPORT: 1;
--		uint8_t RESERVED1: 3;
-+		uint8_t AS_SDP_VERSION_3_SUPPORTED: 1;
-+		uint8_t RESERVED1: 2;
- 	} bits;
- 	uint8_t raw;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 36f32ed4b87c..6622a686e5e0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -2995,64 +2995,6 @@ static ssize_t hdmi_cec_state_write(struct file *f, const char __user *buf,
+ 	return size;
+ }
+ 
+-/**
+- * hdmi_automation_enable - Enable/Disable HDMI automation feature
+- * @f: file structure.
+- * @buf: userspace buffer. set to '1' to enable; '0' to disable automation feature.
+- * @size: size of buffer from userpsace.
+- * @pos: unused.
+- *
+- * Return size on success, error code on failure
+- */
+-static ssize_t hdmi_automation_enable(struct file *f, const char __user *buf,
+-	size_t size, loff_t *pos)
+-{
+-	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+-	char *wr_buf = NULL;
+-	const uint32_t wr_buf_size = 40;
+-	int max_param_num = 1;
+-	uint8_t param_nums = 0;
+-	long param[2];
+-	bool hdmi_comp_auto;
+-
+-	if (size == 0)
+-		return -EINVAL;
+-
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-	if (!wr_buf)
+-		return -ENOSPC;
+-
+-	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					   (long *)param, buf,
+-					   max_param_num,
+-					   &param_nums)) {
+-		kfree(wr_buf);
+-		return -EINVAL;
+-	}
+-
+-	if (param_nums <= 0) {
+-		kfree(wr_buf);
+-		DRM_DEBUG_DRIVER("user data not be read\n");
+-		return -EINVAL;
+-	}
+-
+-	switch (param[0]) {
+-	case 0:
+-		hdmi_comp_auto = false;
+-		break;
+-	case 1:
+-	default:
+-		hdmi_comp_auto = true;
+-		break;
+-	}
+-
+-	/* Persist setting across sink re-detection/hotplug. */
+-	aconnector->hdmi_comp_auto = hdmi_comp_auto;
+-
+-	kfree(wr_buf);
+-	return size;
+-}
+-
+ DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
+ DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
+ DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
+@@ -3171,12 +3113,6 @@ static const struct file_operations dp_mst_link_settings_debugfs_fops = {
+ 	.llseek = default_llseek
  };
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-index 5181d889fe7f..45ba1a974094 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-@@ -52,9 +52,11 @@ enum adaptive_sync_sdp_version {
- 	AS_SDP_VER_0 = 0x0,
- 	AS_SDP_VER_1 = 0x1,
- 	AS_SDP_VER_2 = 0x2,
-+	AS_SDP_VER_3 = 0x3,
+ 
+-static const struct file_operations hdmi_automation_debugfs_fops = {
+-	.owner = THIS_MODULE,
+-	.write = hdmi_automation_enable,
+-	.llseek = default_llseek
+-};
+-
+ static const struct {
+ 	char *name;
+ 	const struct file_operations *fops;
+@@ -3209,8 +3145,7 @@ static const struct {
+ 	const struct file_operations *fops;
+ } hdmi_debugfs_entries[] = {
+ 		{"hdcp_sink_capability", &hdcp_sink_capability_fops},
+-		{"hdmi_cec_state", &hdmi_cec_state_fops},
+-		{"hdmi_automation", &hdmi_automation_debugfs_fops}
++		{"hdmi_cec_state", &hdmi_cec_state_fops}
  };
  
- #define AS_DP_SDP_LENGTH (9)
-+#define AS_DP_SDP_V3_LENGTH (0xA)
- 
- struct frame_duration_op {
- 	bool          support;
-@@ -78,6 +80,9 @@ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
- void mod_build_adaptive_sync_infopacket_v2(const struct dc_stream_state *stream,
- 		const struct AS_Df_params *param, struct dc_info_packet *info_packet);
- 
-+void mod_build_adaptive_sync_infopacket_v3(const struct dc_stream_state *stream,
-+		const struct AS_Df_params *param, struct dc_info_packet *info_packet);
+ /*
+@@ -3975,6 +3910,8 @@ void connector_debugfs_init(struct amdgpu_dm_connector *connector)
+ 					    0644, dir, connector,
+ 					    hdmi_debugfs_entries[i].fops);
+ 		}
 +
- void mod_build_adaptive_sync_infopacket_v1(struct dc_info_packet *info_packet);
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 32b697f46788..48d0e164e62b 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -770,9 +770,12 @@ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
- 	case FREESYNC_TYPE_PCON_IN_WHITELIST:
- 	case ADAPTIVE_SYNC_TYPE_EDP:
- 		if (stream && stream->link->replay_settings.config.replay_supported &&
--			stream->link->replay_settings.config.replay_version == DC_VESA_PANEL_REPLAY)
--			mod_build_adaptive_sync_infopacket_v2(stream, param, info_packet);
--		else
-+			stream->link->replay_settings.config.replay_version == DC_VESA_PANEL_REPLAY) {
-+			if (stream->link->dpcd_caps.adaptive_sync_caps.dp_adap_sync_caps.bits.AS_SDP_VERSION_3_SUPPORTED)
-+				mod_build_adaptive_sync_infopacket_v3(stream, param, info_packet);
-+			else
-+				mod_build_adaptive_sync_infopacket_v2(stream, param, info_packet);
-+		} else
- 			mod_build_adaptive_sync_infopacket_v1(info_packet);
- 		break;
- 	case ADAPTIVE_SYNC_TYPE_NONE:
-@@ -815,3 +818,28 @@ void mod_build_adaptive_sync_infopacket_v2(const struct dc_stream_state *stream,
++		debugfs_create_bool("hdmi_automation", 0644, dir, &connector->hdmi_comp_auto);
  	}
  }
  
-+void mod_build_adaptive_sync_infopacket_v3(const struct dc_stream_state *stream,
-+		const struct AS_Df_params *param,
-+		struct dc_info_packet *info_packet)
-+{
-+	info_packet->valid = true;
-+	// HEADER {HB0, HB1, HB2, HB3} = {00, Type, Version, Length}
-+	// For eDP VESA Panel Replay the coasting vtotal (DB7-DB9) is filled by the
-+	// DMUB firmware,so only the header is built.
-+	info_packet->hb0 = 0x00;
-+	info_packet->hb1 = 0x22;
-+	info_packet->hb2 = AS_SDP_VER_3;
-+	info_packet->hb3 = AS_DP_SDP_V3_LENGTH;
-+
-+	if (param) {
-+		//Payload
-+		info_packet->sb[0] = param->supportMode; //1: AVT; 0: FAVT
-+		info_packet->sb[1] = (stream->timing.v_total & 0x00FF);
-+		info_packet->sb[2] = (stream->timing.v_total & 0xFF00) >> 8;
-+		//info_packet->sb[3] = 0x00; Target RR, not use fot AVT
-+		info_packet->sb[4] = (param->increase.support << 6 | param->decrease.support << 7);
-+		info_packet->sb[5] = param->increase.frame_duration_hex;
-+		info_packet->sb[6] = param->decrease.frame_duration_hex;
-+	}
-+}
-+
 -- 
 2.43.0
 
