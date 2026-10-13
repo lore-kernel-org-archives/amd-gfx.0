@@ -4,59 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26DB4CA9ED2
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 11:17:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B79CC6B03
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 11:17:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9150510E7B1;
-	Tue, 13 Oct 2026 11:17:23 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013035.outbound.protection.outlook.com
- [40.93.196.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 616C010E7D0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:17:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B0D810E4E1;
+	Tue, 13 Oct 2026 11:17:29 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011063.outbound.protection.outlook.com [52.101.52.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63D8010E4E1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:17:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xg99Lhco+CA6jfWcAi2jJrEGiWOlXauMMOxDSuGgOnnAD3EWVo8iyIk6i5LJ8ogd1qOtBHN3TqslsUQgZjKP9u+TjBxUUJAd5PAPFWdO1XgVXkRVqQsWapmTfmuN0hQ7RTnlCzrMlYYCLuBstsgCxkl9PlPKxWJI1vGGXv0AgUrJ47poYFFdgfhsfTVx07oxjCOzW8On6rohs0wHYUYAmaQJz4kOdWC57tkeL80nxggtFARatZ4yQ0giDTruz6L4YIPilRbdvvrA186Y7CZWcNVAdV4kRCd/9srAW39HWoUX1w49UfX0GFETCKhUAaS74H4pURGnp+v0IzLBwi1ypA==
+ b=g3WnaNg0fVCMUMPO8+m3pj1KMpEaQtyWJ9CUwV0eo8eiv9ZMsk2FWBcjL49hkDopFX1pG12sW3a7UPYYbjEdC5FMzppJ7DWeLR/ev77tzlOfBNdy6fZfWYF6ksXoF7xfirxDaU+gKOMhRulkzFjb1PTpXqlCwjsqT9z8pnQoe6GhtyHtn9oG8B/TQHfNdnkOLKh3EdIpzUT2wVGa5oO3e7UcZihLEa1Qayp3RVjHCH6djpICkw+j+Y0NsGfLMOTUNOSXTcc9WcaJutQHVC9y5n6FiJfJSg3WsKkdFoJmaFfCjBk0YfAsCxUE2T5YdI3d3baj64B7fk5kissT/WsLQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RVrJj6fWBnT00/KLQ2Y/5NWJWn3N1Tzrx7PPh/9wlok=;
- b=sduVdmhNZ+MbxX8KpUk8OQ1VtibTIZlHw1GseW6JvyH3/Keu5MzqkdIfPAA9VEDjOowt7MbkvoYMEB/Q7lNkg4EM1mJOcKNauzvrVctIWjOxaVgrkBharNdhPOkP2PK2cYOZSuGdE5H/o8PNz4dfckEcMaEP13CfIHkRK9YII0YH4py6VRMZrvA4zuuUBXddYfCBRGhc7Wm8PU70G8X9+u/8OQ/7S85g5oTWa2/1Ryp8+sihMmFPJ7CDmzCgsU/U0KbNPb+YGhawASRDWDgVNdbbQpNoUuMjm2pZ88T2TRGGTLDJbjS0wnuOUq6RVxKSGX9j6oL0e36BHRrIBoUesA==
+ bh=HNSGP3xkgdi4SDpn0QAIfZEuqrqURrWKEgcvGQZTI5Y=;
+ b=Zs4IW9NmI/Ai6ntYSDXYNA2+IxNXddgM3cS42RjFt2q80MOLBI6c8s41avNec9dTHiyw8dd1H6ZBCxwpqMAdWMAqpx6ygH1kwEKTiEKAuT6cLH2HfX9Pvofe+NWR3if2K0G2NIkyuyoAC3FevqgdlRg2HTEEguurrfA82RKxH1lxZAE6PBiS+AQswGvN49I8tBj/JciTkeNgJd40DaWNYT3XouP4/Kxnk4/POAPJIKwrvzHRhYNk1whMhVE2c04XgSIiA8QwU6pU+1v4EXzOzy5otqE1U6k/si9tBFuNPnsluQpgJeT9ovx/7SjN7v2H6ZA8mwI76Mn0t28KNR2vhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RVrJj6fWBnT00/KLQ2Y/5NWJWn3N1Tzrx7PPh/9wlok=;
- b=rFox8nO7D4U/Pq7mb7TVCNTNBm5PvI0NeKK4ii9PGEOCVuTam3pnnAv6pt30KBH6CKYAUOELRDM/DyxY2TsV6UGW+3QG5J6q1zf7C/KChkFZYY2kMKFjC57wYaO23kQPnbZKqtuLOI2vJH/PsTtafti+SfZ81Iu8HR8SgHp8u/E=
-Received: from BY1P220CA0016.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5c3::13)
- by SA9PR12MB407125.namprd12.prod.outlook.com (2603:10b6:806:a6::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Tue, 13 Oct
- 2026 11:17:13 +0000
-Received: from SJ1PEPF000026C7.namprd04.prod.outlook.com
- (2603:10b6:a03:5c3:cafe::12) by BY1P220CA0016.outlook.office365.com
- (2603:10b6:a03:5c3::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 13
- Oct 2026 11:17:12 +0000
+ bh=HNSGP3xkgdi4SDpn0QAIfZEuqrqURrWKEgcvGQZTI5Y=;
+ b=QsPA70eSLTQa7P9WMr0fEd+6rIlFiokNqP+gdpCFdJOAJZ1tktUjjP2BTpGqkT+hiKbdyxzHEtXigMm6eAXVwyJKWps7L1oLdtia1xdSYQmLSUDkj6JOyUXRSXURQUysdxGhtohOnRc3IhCSGcuQGcikwK/GDScEjX2yPjG+bqg=
+Received: from DS7PR03CA0231.namprd03.prod.outlook.com (2603:10b6:5:3ba::26)
+ by CH4PR12MB635819.namprd12.prod.outlook.com (2603:10b6:610:509::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 11:17:19 +0000
+Received: from DM3PEPF000265C3.namprd03.prod.outlook.com
+ (2603:10b6:5:3ba:cafe::1c) by DS7PR03CA0231.outlook.office365.com
+ (2603:10b6:5:3ba::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
+ Oct 2026 11:17:19 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000026C7.mail.protection.outlook.com (10.167.244.104) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DM3PEPF000265C3.mail.protection.outlook.com (10.167.23.184) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 11:17:12 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 11:17:18 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 06:16:54 -0500
+ 2026 06:17:12 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 06:17:12 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 13 Oct 2026 06:16:45 -0500
+ Transport; Tue, 13 Oct 2026 06:17:03 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,12 +68,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Piotr Maziarz <piotr.maziarz@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>, Ray Wu <ray.wu@amd.com>
-Subject: [PATCH 07/30] drm/amd/display: Gate DP_TRACE_SOURCE_SEQUENCE emission
- on the debug flag
-Date: Tue, 13 Oct 2026 19:07:54 +0800
-Message-ID: <20261013111616.2267344-8-ray.wu@amd.com>
+ <Chen-Yu.Chen@amd.com>, Sharique Pervaiz <sharique.pervaiz@amd.com>, "Martin
+ Leung" <martin.leung@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 09/30] drm/amd/display: Add DPG force-on-flip support for
+ SystemDisplayEnable
+Date: Tue, 13 Oct 2026 19:07:56 +0800
+Message-ID: <20261013111616.2267344-10-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261013111616.2267344-1-ray.wu@amd.com>
 References: <20261013111616.2267344-1-ray.wu@amd.com>
@@ -79,29 +82,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C7:EE_|SA9PR12MB407125:EE_
-X-MS-Office365-Filtering-Correlation-Id: f03c6958-340d-4315-2493-08df291b87d0
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265C3:EE_|CH4PR12MB635819:EE_
+X-MS-Office365-Filtering-Correlation-Id: b31fc8d2-d429-4939-0b7c-08df291b8b24
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|6133799003|18002099003|22082099003|10067099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: qLn754l/knCxw4c/fEKALFzf5samhIGSYEV3+Pvah0Q/5zPSYi20ZHM/x2Ae5jdlYbPd/nyOkFQ4kwufpfbylqG1ko2QQ6Bb+yNQrwwkMtaXHdhh4v3/k0GaqNKg6SBItFuf6KblhE0r83AISqYhNFXL3iQe2OeSAusQsFTCPeFZPdx3HAB4MSLegceHA/u32afbMXryIxz3TdvahjP222LrgI+luVw6tm/GdZ4qilSiOvSZEqQdZh/Vl4pFYBime1B27xL+4bn5LUZGISUzp5Vm/F0p3yT6+Ogbiin1H9uAktQIJl+woGoWs8+KcGSs1Vrfu+XfklYCUzZGNcWtAkqS9sY6tlt0v0VdXEebiCoO46kiWuDnOyK3S21mdnhuRgoFxrsHuGVxDic3KxFhvXZj8iM9aCcXvantLyJRFhzAhOmXneD4mzRMLFqT8AOneIxHzR61hncwFftjIEADSFfqyRzPWvd9JwGX52/XXp/jf0Yavti0L82491DUuHSgV2H7WYavOQzZ5Vjl+PEFkjU2gkr6PlwdopRxCuJMjJyg/QT9O7ZuQzjm0/AwSrdcrPDZO4OqYxV0EUIpTijiAEOWuKvhVea60wNg3I7PLFT6CKZdsljQwvwQJKstZE5rFz2cPlnOsneLFU/smepCfLtdQQfFHmZlSgfI1E0vxAilaPHliLuwFIuYhme+Njtp4/T8lmWfiEtlAKlXGFEPdA==
+ ARA:13230040|376014|1800799024|36860700016|23010399003|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: iQ1npuL4Ym+Hbsv+uhHwJWE1T+UQGk3AjLSUJCIdjfJKfzQEN3e7Gfq0nMrmTyIWeEEv3Kwc9+bYSAPxevkPxD2Ibjw4KRGGvQUYWjjPxJ8KyVqw3b5x+22k66Zbi6tLkwmwK0ZInuWuIrQAQyCEBqlp0GJkGFpy58SizdEu7yv/lTxrq7fA4Ls4kYekOf7HWw13CSeD7rMey13gbEuyY54lRS76P27Xk7NY2eGekLpgItJzV0x+WfyCkbDVUxL9gTQqO8sq3AP3zMt/K14fQjYYgbNFNikWdvhLa572ASRE187GEIJJsf6tH9znJbb+83jrAMsNN7GI7AahiFItzC0JtW/Jj8a/1+RUs1L18U248985Iiutxf9SuoB+TwsUO7zLZ2WSILYk1UyXbci10KoQZ9YDYh/1rIK05/SPu1+o2YEuF/tfnVgAz5PJyM+Vm3o9Lsa9clGXd0ts7rhKy3K8Q+UheLGet83vsJjRYsymCigu+FNn31Ta65qKYEIVq4nteC05MwKt0bRr8+N3qK2+9xFNoxMIRabtZyNBUmEbzJ3CzDyYJAefnhs+Vcb1rV7A8ahbHR8HTff7dIvTZY7v5SbdufR1xgOQ700eeEMBg4yIYjiZaQPN77tdYel3hMVlIDdVVJ8a66NvMn8gVajUMyH6KVDv6NqIxGdnUoiMzWAxZ/Q3bOvviJ4S3LrafLEKLcNdoj2Xqpzdc09NxQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(261009223027099003)(56012099006);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700016)(23010399003)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: imr2NKDU9dI/Bb+wohZiz/7EzFhGCr1E2KlS6/Xw1Y8dt8qk5k6fjojY0UG5/GwI27Vn4dkks7WC2kyAjFRJpkpS/zngq8v858dkIwRstoeGgS2bLCjraDBQFCkpndhZ2HNhh9qgoN6xj/Ox8VwkGNsnaPO9AtLq1ewjpAtBiiHiAbgtySrb0I25gIpKvJwC3vK63xm2ZJRifGoNoW8Q68uTqC5WbOGVeraxTaCp7r18PGqbTN74hiIMSUgKyK92RZIkgpikLb5NVOQBJ7hKlIbAnuqchrExdDPYZcSOvP3UJ8KIbfIpA/NmwXTOSFk19OI9CAipjQcV+S2ZCytUlGl42VRH2tg6cnKO+YJU5Buk70VfNljxfLIN6qM95UA7a9P7q9zRpPQh7fG6UhpEIjMmhXXpAUvafeJn9J+2cNOzT/X9WjOu0dDhmF5f1+wR
+X-MS-Exchange-AntiSpam-MessageData-0: 0DI510XfBvn5DxHpheyOzknif/DAgNH4RYp8Zu7t7KmddcRx8l4IeWv/UEsyuAA6tIogeDQZqwZu46ePao2IB47qVfLU+ky0HN3MLB+MObSVkXqbbisLm8N7EallsMhi8ZdSJYmgtUkzM76H7OG75be4dSYBbIm6OIjpF6wIPlITy8blbcHvLqeVaGZm+hzeHWI+XdCNBHVp4ELmwB5Yq3NPKYX8jVsGlWxfjwXK8NWggeetYFfftB8feu6RgDajQ7EiCEMeJhmpV3n+dCQjtDqKWX0SUr7j2t/DOZNHIHDUhX7RoISWc4xTBJuj3Drc4psrxJSrtOoU7d2S0x5rppINUZNJscoNnRerIdR/a3eDDBptvPCP6A/gy4H8QHGpOykB+W+3sTjrdX7s2Gnt7YknlUDIF2AJdmry8BPS0KH5IdJr6X8ENBuwXndjKCVu
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 11:17:12.8059 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f03c6958-340d-4315-2493-08df291b87d0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 11:17:18.4347 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b31fc8d2-d429-4939-0b7c-08df291b8b24
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C7.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265C3.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA9PR12MB407125
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB635819
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,72 +119,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Piotr Maziarz <piotr.maziarz@amd.com>
+From: Sharique Pervaiz <sharique.pervaiz@amd.com>
 
-[Why]
-dp_trace_source_sequence() only writes DPCD when
-dc->debug.enable_driver_sequence_debug is set, and it reads that flag at
-execute time. The step was therefore emitted on every DP flip and then
-discarded by the callee whenever the flag was clear. The flag is set once
-at init, so the decision belongs in the build phase.
+[Why & How]
+Add force_dpg_on_flip debug option so DM can drive a solid-color DPG
+pattern on the final flip instead of a real surface flip.
 
-The fast-sequence site also hand-wrote the step, bypassing the bounds
-check in hwss_add_dp_trace_source_sequence(), and the golden dumper had
-no case for the operation despite core_golden.hpp carrying .source.
-
-[How]
-Emit the step only when the signal is DP and the flag is set. The guard
-inside dp_trace_source_sequence() stays, as many non-BLS callers rely on
-it. Use the bounds-checked helper in hwss_build_fast_sequence(), add the
-dumper case, and set the flag in FAST_UPDATE_INFO_FRAME so its golden
-still matches.
-
-No functional change when the flag is set.
-
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Piotr Maziarz <piotr.maziarz@amd.com>
+Reviewed-by: Martin Leung <martin.leung@amd.com>
+Signed-off-by: Sharique Pervaiz <sharique.pervaiz@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c              |  4 +++-
- drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c | 10 ++++------
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h                   |  1 +
+ .../gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  7 +++++++
+ .../gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 11 +++++++++++
+ 3 files changed, 19 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 05e8fcc710e3..8cf6edbd39c9 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -4216,7 +4216,9 @@ static void commit_planes_do_stream_update_sequence(struct dc *dc,
- 				resource_build_info_frame(pipe_ctx);
- 				add_update_info_frame_sequence(&seq_state, pipe_ctx);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 91d4a8ec7a94..5bd990138f20 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1188,6 +1188,7 @@ struct dc_debug_options {
+ 	bool enable_dmcub_surface_flip;
+ 	bool usbc_combo_phy_reset_wa;
+ 	bool force_fva;
++	bool force_dpg_on_flip;
+ 	int max_frl_rate;
+ 	unsigned int  force_frl_rate;
+ 	bool ignore_ffe;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+index b0cc1f2506ba..636cbd947918 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+@@ -1249,6 +1249,13 @@ void dcn20_blank_pixel_data(
+ 	/* get opp dpg blank color */
+ 	color_space_to_black_color(dc, color_space, &black_color);
  
--				if (dc_is_dp_signal(pipe_ctx->stream->signal))
-+				/* The step only writes DPCD when the debug flag is set, so gate emission on it here. */
-+				if (dc_is_dp_signal(pipe_ctx->stream->signal) &&
-+						dc->debug.enable_driver_sequence_debug)
- 					hwss_add_dp_trace_source_sequence(&seq_state,
- 							pipe_ctx->stream->link,
- 							DPCD_SOURCE_SEQ_AFTER_UPDATE_INFO_FRAME);
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index d6177463c0a0..86957b4d182a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -1292,12 +1292,10 @@ void hwss_build_fast_sequence(struct dc *dc,
- 		block_sequence[*num_steps].func = HWSS_UPDATE_INFO_FRAME;
- 		(*num_steps)++;
++	/* Debug: force a solid blue DPG pattern. */
++	if (dc->debug.force_dpg_on_flip) {
++		black_color.color_r_cr = 0;
++		black_color.color_g_y = 0;
++		black_color.color_b_cb = 0x3ff;
++	}
++
+ 	if (blank) {
+ 		dc->hwss.set_abm_immediate_disable(pipe_ctx);
  
--		if (dc_is_dp_signal(pipe_ctx->stream->signal)) {
--			block_sequence[*num_steps].params.dp_trace_source_sequence_params.link = pipe_ctx->stream->link;
--			block_sequence[*num_steps].params.dp_trace_source_sequence_params.source = DPCD_SOURCE_SEQ_AFTER_UPDATE_INFO_FRAME;
--			block_sequence[*num_steps].func = DP_TRACE_SOURCE_SEQUENCE;
--			(*num_steps)++;
--		}
-+		/* The step only writes DPCD when the debug flag is set, so gate emission on it here. */
-+		if (dc_is_dp_signal(pipe_ctx->stream->signal) && dc->debug.enable_driver_sequence_debug)
-+			hwss_add_dp_trace_source_sequence(&seq_state, pipe_ctx->stream->link,
-+					DPCD_SOURCE_SEQ_AFTER_UPDATE_INFO_FRAME);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index a843e216a6b0..f2391d45d4c5 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -2723,6 +2723,17 @@ void dcn401_program_front_end_for_ctx(
+ 			pipe->plane_res.hubp->funcs->hubp_wait_pipe_read_start(pipe->plane_res.hubp);
+ 		}
  	}
++
++	/* Debug (DM SystemDisplayEnable, driver disabled): force solid-color DPG
++	 * output last, after all normal pipe/OPP programming, so it isn't overwritten.
++	 */
++	if (dc->debug.force_dpg_on_flip && hws->funcs.blank_pixel_data) {
++		for (i = 0; i < dc->res_pool->pipe_count; i++) {
++			pipe = &context->res_ctx.pipe_ctx[i];
++			if (resource_is_pipe_type(pipe, OTG_MASTER))
++				hws->funcs.blank_pixel_data(dc, pipe, true);
++		}
++	}
+ }
  
- 	if (dc->hwss.set_dmdata_attributes && stream->update_flags.bits.dmdata &&
+ void dcn401_post_unlock_program_front_end(
 -- 
 2.43.0
 
