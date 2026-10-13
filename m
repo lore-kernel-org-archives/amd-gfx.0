@@ -4,61 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12086CC6B16
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 15:07:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86FCCCC6B12
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 15:16:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B9EC10E0E0;
-	Tue, 13 Oct 2026 15:07:00 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D0D910E0E0;
- Tue, 13 Oct 2026 15:06:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791904015; x=1823440015;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=/os/0OBmuHhN6vE59+UC0SPms0S9/erqW6koDWRjc6w=;
- b=H0XaHOW2f1dm5AQGpzNEXSzsmhUkP6i6E+YRG00tjM4KOfvqb6MmJ01U
- Ic0qD8OZuBMeAAWo4QbeIaVKXRFB0mU9qjd0G+zo4PqfwZyDZiA17rYob
- WKAFG2GmXJy70nbNRyHu0w7Ahtw+KyBp8ZRQf/3h/uw3ArixvrLV4J5c8
- PcDON3jTzTxDIr/lJmZMtRBg9tEkuHVvySm/8MLrTViBBo1Q3ThEq8sRj
- rIgK0bIy5lAiETcRH/165ZcNGv0KicwKR4wUmRdGOVfTlg9JyYYF3KeLc
- bWLpTWLDFLebsAp4Furw+bXZgEzSas57InxFDC4cUSz9PKVdDw65vdRGf g==;
-X-CSE-ConnectionGUID: QhaZXfePTX21mavHlqirwg==
-X-CSE-MsgGUID: W2cbebP5TZ23HpBAw8Q6ww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="517054"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="517054"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2026 08:06:54 -0700
-X-CSE-ConnectionGUID: zHruqfdYTJOCMJshHNjjjw==
-X-CSE-MsgGUID: dv6J0yrjRhS0gAUHICq6wQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1245491"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.245.122])
- ([10.245.245.122])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2026 08:06:52 -0700
-Message-ID: <343cf7b2-6241-4e3c-8b37-2f0ea75c6723@intel.com>
-Date: Tue, 13 Oct 2026 16:06:50 +0100
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 025B710E912;
+	Tue, 13 Oct 2026 15:16:50 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012027.outbound.protection.outlook.com [52.101.53.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C095810E922
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:16:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D8UzeQ1FtnSEt3Zvo8ReUHhpOp7Lgs5SS4xcVoib0wpOH5Wq1eec4d7H3o1JCMOEbYsnWsfqEzmNXR72eFr04cPlR7/bY/ZUBhc/nq7MpkzJVmqfyNCdLXuFkmcnU2sb8tH/vS85YQEKU5OjGSWc/5ZsozDXj+aWaR4PStj8h1xBhu+n6b3v3PrV+xcht66fR568OEGskxIkK134M52aVGVMrMWrIS9zeuxEg7L/gGkD/UntkBwWmWpmA39YXUCdMJ6ABx3urKuDD7iaUxUEgEfdTTQYDi/Xuh2ErOQXo4B7qIuu04wOMNqU1x903BqxeCskzOBSq7Sgbq800zyhGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Yx7ROKpsmnnUcSACaeHaxqFY5UYXguSpl2haVKod5vE=;
+ b=G73sVbdXQIU2tlsioZg0OhFE1yH7HlFj2GYH9KlB4hSXBJObGmZN330Zp+SSDC5IXbDtzEnSIOoGNJ+2UvyXxqT7bwMF5N08i7eUemBk2sdalT9IyK90OKt8ED46I/RAvePDl9MzyMUhXxElZMYPc92/Iewa8w+Y1+CqbrqecNN3NuVtaVBcDobgjCDmpS+3Y1aWIUqMvPC/2S8BDhvhsDqMz2f6WALOf5s4O9WtVPZMGOZm7V9Uys/7qARzql8VTeDhCmPKHZ4RJHDOkW7SJCvsj7DFFzpMvre7v0mHMKJ+bK2CJOP/O8giOjgJjGeWDNIVGzDpoP4K/FCLoL2bWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Yx7ROKpsmnnUcSACaeHaxqFY5UYXguSpl2haVKod5vE=;
+ b=hzR/aAsXlUAZcvNX2qD6EeQmweAZM3DxA4B9aZQ+Xkw2aiJJtunBTOhCmS5ACpcCeaPrA4vyuiYrewKcx5kzbQ5PPJl43qjnVn76iPvBjiKnwWpwrJzraNDg5RQ/yLlQUmcLafpzWQIrC67Z4Dv9D9f7gOz9cpF2+QwwRfhCtbg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5805.namprd12.prod.outlook.com (2603:10b6:510:1d1::13)
+ by SA3PR12MB324744.namprd12.prod.outlook.com (2603:10b6:806:531::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 15:16:41 +0000
+Received: from PH7PR12MB5805.namprd12.prod.outlook.com
+ ([fe80::35dc:5b7a:52da:c8f1]) by PH7PR12MB5805.namprd12.prod.outlook.com
+ ([fe80::35dc:5b7a:52da:c8f1%3]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 15:16:41 +0000
+Message-ID: <f6fd2ba5-f2a5-4e7e-8ab0-306f4cfa98d1@amd.com>
+Date: Tue, 13 Oct 2026 11:16:36 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] gpu/buddy: restore two-pass clear/dirty guard for
- range-biased allocation
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- Anand.Raghavendra@amd.com
-References: <20261009100546.1103622-1-arunpravin.paneerselvam@amd.com>
- <3e16b7d9-b1d6-4d6c-8f58-f6716fff71a6@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <3e16b7d9-b1d6-4d6c-8f58-f6716fff71a6@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] drm/amdgpu/evf: skip BOs no longer in the VM
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Sunil Khatri <sunil.khatri@amd.com>,
+ "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>
+References: <20261013141357.1907194-1-benjamin.cheng@amd.com>
+ <2d2129a2-dd7e-42d1-abd9-dd63faa6efc8@amd.com>
+Content-Language: en-US
+From: Benjamin Cheng <benjamin.cheng@amd.com>
+In-Reply-To: <2d2129a2-dd7e-42d1-abd9-dd63faa6efc8@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0291.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6d::6) To PH7PR12MB5805.namprd12.prod.outlook.com
+ (2603:10b6:510:1d1::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5805:EE_|SA3PR12MB324744:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01849218-b972-4473-cd5f-08df293cfbe9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|6133799003|22082099003|10067099003|18002099003|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: E4BLDieFadmSSNMEzxwbsWbQMOVNY3vfV+ubD7czD4lPZDHkhpnbvC728TtjCixqd4dRQAblTsTb/C7Dkfs878RW+y3WaZB33tqql6ysWIpkiH9qRDgXgdcuZWtDUcUY+pzuLVpa9Vu4NBwQBRlnK4pRiU06YiSm7yn5euGvphQW9PP/KrcPi9oR9gvmjCfdHna3TjaiIMzrA00ASXhDj5Fu5U8IQvSOK7/wJNVCroDerf+4/XtXKKP1m9cB0lz4q7i2Ru+seuCE/YiZpcfxa6Gi6QnfwEydT+CCulgJntxOVvSZeEXgv/3h56BhtcPi/qdZmK96mGYCV7yn/HB4Ee1ngMIWWnSHmwzPAncruPBo0U0JAO51BQTQQVrjHokC865AzWzHxY7f0XqL6jRyaYHRNCfshy25fRlPfDXdw907Cu1+VeMpLKZBxuSkhbgMOJy+puP/NbN/L9Jf71E7cBXMQyIFFwi43QejFGuhm3AipIb2uWzX7QI8UFl7NrpmPp+MS36mX+EwwGytkUUitdJIhmXd77TMtweKOvwrB+wucWC6idPr1YtmweRD8UyXYuqymkhju37YxiN+a4yZJnG5oVSG4n0YrzFE5OaOEe67tWToevhMBNz0k3w6iqSCYELi6ky8URCiB+2cSfidXTjsL5BYzXpw1IN4JjIyHdk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5805.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(6133799003)(22082099003)(10067099003)(18002099003)(11063799006)(4143699003)(261009223027099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TEpqM0dZVnVJd1RCNjJWb01SZWpOajZnZ1hhRllObUl5Yjhsc1h2cWFER1NZ?=
+ =?utf-8?B?bG94VTFiSGcreCtVeEVIVWlDL25lQU1QTVlGUzBKUlNUaXFtTGxXL3prOFJP?=
+ =?utf-8?B?QysrRnRSYmp6V2w4UnN2MVBFeVBKelpSYWwwUS9LV1BJWTd1Z3ViN3JlTmdZ?=
+ =?utf-8?B?ellMZ0ZBdEdEZVRNb0RzMmRqSFVSWXh3SHVsMzh2Wm4vN1JIeVRVM3BhdXZQ?=
+ =?utf-8?B?dmRoTlRpSm5KZnNuQTRydENDaDBPMlV4bEZ2Qk4yZ1NadVJWQVF4bnVJbjZV?=
+ =?utf-8?B?alcyN3NxUU1HUUdhZTBPOHJuS0kwNVhZMDA2bkx2K214OFV2Zm9xM2VvWVRn?=
+ =?utf-8?B?S2JPei9Mb2s0eTFLMEhIRjZ5R1ZVakZ5K0lhQjNPU0RPMzVrOXJtVjMvRmtp?=
+ =?utf-8?B?R3EydDNEeXdLTldGTlN6clY4ZDQ0eklBWi9USzhJMzBKYmcvckZzRzhaTkJq?=
+ =?utf-8?B?L3ByQWFMald0R3dGWmhlZGtta0ZUSVd3bkQxK2RSUlVoM3VLamdQMUw2Rnh6?=
+ =?utf-8?B?aXp4d2RGWjEyWWxveVZ3Mjg3ZllsbWJhZ05xTUNBM0VhdUR1RXJNTUVWOTFz?=
+ =?utf-8?B?WnQ2aTRaVWtUTy8wYkpzS1NQdTdqZ0gyZlBwWXA0YkZEclpuUDNtNjl6Qk53?=
+ =?utf-8?B?VDYxTjhxeXI4SEVQUkVqUU4yY1Z2TWRLNld4NUJpMEcreWJIbzVhL0NKd2pL?=
+ =?utf-8?B?T1gyRjBlUnl4SUI2Ry9vaXF6QWhXUTAyYmNvV3F1WjhlaDUyNkVqZyswWUg4?=
+ =?utf-8?B?eDdycGtXYUd5ZkFZbHhoL2JvQnRsR1pEbFREMEFjTTJSZkVncXpGeHFvYkYv?=
+ =?utf-8?B?OTdjMnJ3c0NmdDRjWG4yNEwvR1RNdEtvMTFCVEF0Q09TZGcvcGdjRzFTWGZH?=
+ =?utf-8?B?U3JwdzFFayt5YVVORExEV3FDNWd0NUhOejBGWUFaRE85MUNPS0VscDJHNUlV?=
+ =?utf-8?B?TXhrOWFrK0pTa0RHZ2o1QnB4TERaOFRKU3dOcCt4eDUrU05pdzVJZnU4QTBh?=
+ =?utf-8?B?TGpOMDEzcUxLdElhbUdXcXBkdUNWV1FJYkN5U0lZNENlM3dHOXM5bzFValln?=
+ =?utf-8?B?TnF0R1FENklXS2NyVjZ5bS9HUVgyTWFZL2llNG5lQ3d2dEhQNGxEMlZDTU9X?=
+ =?utf-8?B?eEM5K0RHa2lPTHhTQW5pRWtOaWNnRm9IVnQ5Qi9aSzVvelQ2MFhNZWJUa0p6?=
+ =?utf-8?B?L1NYZjJHQlJ4RHBtZy9heFBXOVBVUVFHVmZuUVZENG9NbnQ5SFVvcGF2VVYy?=
+ =?utf-8?B?ZTduTU5IVkRnVEhXVjlFZzk5R3dvaHQwdFJudm1RSVo4NlBwdzBOaFJiSGxT?=
+ =?utf-8?B?OVVFaUVnckh0WC84RFJKZThmYVd5ZnVVamVtREVJTWRvcW5TWW5YZFZZTUpu?=
+ =?utf-8?B?d3BFMEptTXJmSkc0Um0yMm5CYzJHVjdWMWhoZzhyOGVITmFTSDZncjM5TFQ0?=
+ =?utf-8?B?RGdjWVhzWU5wcW5BUGYyYVUwWWpPVTJrWENIVUxxNVQzWTZmam1LaXJ1cDB0?=
+ =?utf-8?B?SlBpSnJYdGh1Tzh2UzdQS0lvVDNXWVpPc2pwTWc1RW4ySURIZ0JMam1SUzA2?=
+ =?utf-8?B?VUxhWmdvcitNSS9aVXJiTVpwQlkyN2s3VXJXV1N0MWpNZHphMkhHdkdqVFRN?=
+ =?utf-8?B?MVZtM0pNQkV6NzBBMldKd0NSQ3N1dXBoTVJ0SGx6NmRLdWF3Tkg2ZEV0c3o2?=
+ =?utf-8?B?blpLMjc3aDBKdFo5enJTcFhGMDZ4RTNnUDFZQlNid3JNaEozN0Y5QWNVWWp2?=
+ =?utf-8?B?elBQb2l1MzFVd0RxNURIVS9sWk8vT0VXUXdLcjA2blgrMGpYR3pNUTJEQ09L?=
+ =?utf-8?B?VWNyaUZwd3ZReWs0Z0hsV3h6SnJFWlBuRVlOVmJ4QmlEbDZpZGRpR2xTS3Bz?=
+ =?utf-8?B?UXVZVlU4eHdXR1lHNStPVkh1ZmNZa3FjVjRQUlVpdDMycXBMNTdiY2N2V2wz?=
+ =?utf-8?B?RmY5QjhHYm5wZ1RPYTA2OTg5dVdnVkFJclpPRzlpRi9lUzN6TDhENXFjWGVj?=
+ =?utf-8?B?YnVVVzJvdmZIQkJ1YkFUR2JHbDV3aWN0b2RNbG1Oalh3ODNoNVdmaXRnN1ZY?=
+ =?utf-8?B?SVE2M2E2bkNPeFEzOTd2bHJORDBlMUhHWk1uN3BtTzYvS1NBU0NvY3ROMjZB?=
+ =?utf-8?B?V0k3N3lYSmpYdE9nc1RtdzFLK3JQQ3JXYy8vcFRNTCttMEdsNGdaZTNVQytL?=
+ =?utf-8?B?WUhJOTJWOEc5NUU0bFA3WkxFY3hSTnBhWHdwMS9vODc3YlF0ZElqcEtRSUt3?=
+ =?utf-8?B?dy93Q3FldGRvaUFjeE53N2VQK2U3WUJkdWswbnl0RDBHcjl1Q1JrUm9kRXNp?=
+ =?utf-8?B?cGVsZmNBOU9TYjlYZmsxazJXVWkwVnlnT0wzRWMyTHBzYy9hbktxUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01849218-b972-4473-cd5f-08df293cfbe9
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5805.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 15:16:41.3061 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /2dxjtKuCtXyauFQnM2IKW1L4fB53i5yKXjI512D6hG/LPf/ICo2fu3i5U3kbHxDx/QR0CeEx3pAdnwyclvr8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB324744
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,267 +133,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey,
 
-Yes, going to go through it now. Did you already look over the Sashiko 
-reports:
-https://sashiko.dev/#/patchset/20261009100546.1103622-1-arunpravin.paneerselvam%40amd.com
-
-Are they all false positive? I wanted to hold off reviewing if you were 
-going to re-spin.
-
-Also, on the "bugs" tab in Sashiko there was one open buddy issue, which 
-I sent a fix for:
-https://lore.kernel.org/intel-xe/20261006110706.1636971-2-matthew.auld@intel.com/
-
-Please take a look at that.
-
-On 13/10/2026 15:31, Arunpravin Paneer Selvam wrote:
-> Hi Matthew,
-> Could you please review the v4.
-> 
-> Thanks,
-> Arun.
-> 
-> On 10/9/2026 3:35 PM, Arunpravin Paneer Selvam wrote:
->> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+On 2026-10-13 10:58, Christian König wrote:
+> On 10/13/26 16:13, Benjamin Cheng wrote:
+>> If the eviction fence restore gets triggered while a BO unmap is
+>> happening, the attempt to lock the BO for restore will fail. On retry,
+>> drm_exec locks the contended BO first, but it is not actually required
+>> to be locked, and the eviction fence should not be attached to such a
+>> BO.
 >>
->> Range-restricted allocations (the visible-VRAM aperture) skip
->> dirty_steer_window() and reach __alloc_range_bias() with no clear/dirty
->> eligibility guard, so a dirty allocation freely splits clear extents (and
->> vice versa), interleaving the two classes until no large same-class run
->> survives and a 4K scanout pin fails with -ENOSPC. Use a two-pass range
->> search instead: block_incompatible() rejects opposite-class blocks in the
->> strict pass and relaxes only when the strict pass returns -ENOSPC, so a
->> request still succeeds when only opposite-class space remains. A KUnit
->> regression test covers the interleaving pattern and fails without the
->> guard.
+>> If the BO was freed, this extra lock will cause BUG_ON to fire in
+>> dma_resv_add_fence, since the gem object and its resv lists are freed
+>> already.
 >>
->> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with 
->> decoupled dirty tracker")
->> Assisted-by: LLM
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>> drm_exec::prelocked remains set only if the object was locked on retry
+>> but not actually requested to be locked, so use that to detect this
+>> case and skip it.
+> Vitaly and I already found the real root cause for this and I'm about to push the fix to amd-staging-drm-next.
+
+
+Ah, thanks I did not see that one. Indeed the same issue.
+
+
+>
+> Regards,
+> Christian.
+>
+>> Fixes: 2cd7284ba54b ("drm/amdgpu: completely rework eviction fence handling v2")
+>> Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
 >> ---
->>   drivers/gpu/buddy.c                | 71 ++++++++++++++----------------
->>   drivers/gpu/tests/gpu_buddy_test.c | 65 +++++++++++++++++++++++++++
->>   2 files changed, 99 insertions(+), 37 deletions(-)
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c | 4 ++++
+>>  1 file changed, 4 insertions(+)
 >>
->> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->> index 2f2aaadafe35..6566bad4fef1 100644
->> --- a/drivers/gpu/buddy.c
->> +++ b/drivers/gpu/buddy.c
->> @@ -1240,11 +1240,19 @@ static void __gpu_buddy_undo_splits(struct 
->> gpu_buddy *mm,
->>       }
->>   }
->> +static bool block_incompatible(struct gpu_buddy_block *block, 
->> unsigned int flags)
->> +{
->> +    bool needs_clear = flags & GPU_BUDDY_CLEAR_ALLOCATION;
->> +
->> +    return needs_clear != gpu_buddy_block_is_clear(block);
->> +}
->> +
->>   static struct gpu_buddy_block *
->>   __alloc_range_bias(struct gpu_buddy *mm,
->>              u64 start, u64 end,
->>              unsigned int order,
->> -           unsigned long flags)
->> +           unsigned long flags,
->> +           bool fallback)
->>   {
->>       u64 req_size = mm->chunk_size << order;
->>       struct gpu_buddy_block *block;
->> @@ -1258,9 +1266,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
->>        * This range-constrained search hands back the highest/right-most
->>        * address that satisfies the request: the roots are seeded 
->> high-to-low
->>        * and the right (higher-address) child is descended first, making
->> -     * top-down the default placement here. A non-top-down clear 
->> request is
->> -     * the only exception, where the descent is biased towards clear or
->> -     * clear-containing subtrees to satisfy the clear preference.
->> +     * top-down the default placement here.
->>        */
->>       for (i = mm->n_roots - 1; i >= 0; --i)
->>           list_add_tail(&mm->roots[i]->tmp_link, &dfs);
->> @@ -1298,6 +1304,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
->>                   continue;
->>           }
->> +        if (!fallback && block_incompatible(block, flags))
->> +            continue;
->> +
->>           if (contains(start, end, block_start, block_end) &&
->>               order == gpu_buddy_block_order(block)) {
->>               /*
->> @@ -1315,38 +1324,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
->>                   goto err_undo;
->>           }
->> -        /*
->> -         * Top-down is a strict address-placement policy, so when it is
->> -         * requested we ignore clear steering and simply descend the
->> -         * right (higher-address) child first. Only a non-top-down clear
->> -         * request biases the descent towards clear/has_clear subtrees.
->> -         */
->> -        if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
->> -            !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
->> -            struct gpu_buddy_block *prefer;
->> -
->> -            if (gpu_buddy_block_is_clear(block->right))
->> -                prefer = block->right;
->> -            else if (gpu_buddy_block_is_clear(block->left))
->> -                prefer = block->left;
->> -            else if (block->right->has_clear)
->> -                prefer = block->right;
->> -            else if (block->left->has_clear)
->> -                prefer = block->left;
->> -            else
->> -                prefer = block->right;
->> -
->> -            if (prefer == block->right) {
->> -                list_add(&block->left->tmp_link, &dfs);
->> -                list_add(&block->right->tmp_link, &dfs);
->> -            } else {
->> -                list_add(&block->right->tmp_link, &dfs);
->> -                list_add(&block->left->tmp_link, &dfs);
->> -            }
->> -        } else {
->> -            list_add(&block->left->tmp_link, &dfs);
->> -            list_add(&block->right->tmp_link, &dfs);
->> -        }
->> +        list_add(&block->left->tmp_link, &dfs);
->> +        list_add(&block->right->tmp_link, &dfs);
->>       } while (1);
->>       return ERR_PTR(-ENOSPC);
->> @@ -1361,6 +1340,24 @@ __alloc_range_bias(struct gpu_buddy *mm,
->>       return ERR_PTR(err);
->>   }
->> +static struct gpu_buddy_block *
->> +__gpu_buddy_alloc_range_bias(struct gpu_buddy *mm,
->> +                 u64 start, u64 end,
->> +                 unsigned int order,
->> +                 unsigned long flags)
->> +{
->> +    struct gpu_buddy_block *block;
->> +    bool fallback = false;
->> +
->> +    block = __alloc_range_bias(mm, start, end, order,
->> +                   flags, fallback);
->> +    if (IS_ERR(block))
->> +        return __alloc_range_bias(mm, start, end, order,
->> +                      flags, !fallback);
->> +
->> +    return block;
->> +}
->> +
->>   /* Return the highest-address free block of at least @order. */
->>   static struct gpu_buddy_block *
->>   get_maxblock(struct gpu_buddy *mm,
->> @@ -1924,7 +1921,7 @@ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
->>       if (flags & GPU_BUDDY_RANGE_ALLOCATION) {
->>           /* Allocate traversing within the range */
->> -        block = __alloc_range_bias(mm, start, end, order, flags);
->> +        block = __gpu_buddy_alloc_range_bias(mm, start, end, order, 
->> flags);
->>           if (!IS_ERR(block) || !steered)
->>               return block;
->> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/ 
->> gpu_buddy_test.c
->> index b75d32ca6ca0..3eaa261571bf 100644
->> --- a/drivers/gpu/tests/gpu_buddy_test.c
->> +++ b/drivers/gpu/tests/gpu_buddy_test.c
->> @@ -1597,6 +1597,70 @@ static int gpu_buddy_suite_init(struct 
->> kunit_suite *suite)
->>       return 0;
->>   }
->> +static void gpu_test_buddy_alloc_range_clear_guard(struct kunit *test)
->> +{
->> +    const unsigned long chunk = SZ_1M, mm_size = SZ_4M;
->> +    struct gpu_buddy_block *block;
->> +    LIST_HEAD(high_clear_a);
->> +    LIST_HEAD(high_clear_b);
->> +    LIST_HEAD(low_dirty);
->> +    struct gpu_buddy mm;
->> +    LIST_HEAD(barrier);
->> +    LIST_HEAD(result);
->> +
->> +    KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, chunk),
->> +                   "buddy_init failed\n");
->> +
->> +    /*
->> +     * Lay out a 4 MiB aperture as three regions:
->> +     *
->> +     *   [0,  1M)   dirty free
->> +     *   [1M, 2M)   allocated  (barrier, keeps the two halves un- 
->> mergeable)
->> +     *   [2M, 4M)   clear free (one naturally aligned 2 MiB extent)
->> +     *
->> +     * A dirty (non-clear) range allocation must take the low dirty 
->> block
->> +     * and leave the large clear extent intact. Without the guard the
->> +     * top-down search cuts the higher clear extent instead and 
->> returns a
->> +     * clear block -- the interleaving that fragments the aperture and
->> +     * ultimately fails a large same-class scanout allocation.
->> +     */
->> +    KUNIT_ASSERT_FALSE_MSG(test,
->> +                   gpu_buddy_alloc_blocks(&mm, 0, chunk, chunk, chunk,
->> +                              &low_dirty, GPU_BUDDY_RANGE_ALLOCATION),
->> +                   "alloc [0, 1M) failed\n");
->> +    KUNIT_ASSERT_FALSE_MSG(test,
->> +                   gpu_buddy_alloc_blocks(&mm, chunk, 2 * chunk, 
->> chunk, chunk,
->> +                              &barrier, GPU_BUDDY_RANGE_ALLOCATION),
->> +                   "alloc [1M, 2M) failed\n");
->> +    KUNIT_ASSERT_FALSE_MSG(test,
->> +                   gpu_buddy_alloc_blocks(&mm, 2 * chunk, 3 * chunk, 
->> chunk, chunk,
->> +                              &high_clear_a, 
->> GPU_BUDDY_RANGE_ALLOCATION),
->> +                   "alloc [2M, 3M) failed\n");
->> +    KUNIT_ASSERT_FALSE_MSG(test,
->> +                   gpu_buddy_alloc_blocks(&mm, 3 * chunk, 4 * chunk, 
->> chunk, chunk,
->> +                              &high_clear_b, 
->> GPU_BUDDY_RANGE_ALLOCATION),
->> +                   "alloc [3M, 4M) failed\n");
->> +
->> +    /* [2M, 4M) coalesces into one aligned clear extent; [0, 1M) 
->> stays dirty. */
->> +    gpu_buddy_free_list(&mm, &low_dirty, 0);
->> +    gpu_buddy_free_list(&mm, &high_clear_a, GPU_BUDDY_CLEARED);
->> +    gpu_buddy_free_list(&mm, &high_clear_b, GPU_BUDDY_CLEARED);
->> +
->> +    KUNIT_ASSERT_FALSE_MSG(test,
->> +                   gpu_buddy_alloc_blocks(&mm, 0, mm_size, chunk, chunk,
->> +                              &result, GPU_BUDDY_RANGE_ALLOCATION),
->> +                   "dirty range alloc failed\n");
->> +
->> +    block = list_first_entry(&result, struct gpu_buddy_block, link);
->> +    KUNIT_EXPECT_FALSE_MSG(test, gpu_buddy_block_is_clear(block),
->> +                   "dirty range alloc cut the clear extent 
->> (offset=%llx)\n",
->> +                   gpu_buddy_block_offset(block));
->> +
->> +    gpu_buddy_free_list(&mm, &result, 0);
->> +    gpu_buddy_free_list(&mm, &barrier, 0);
->> +    gpu_buddy_fini(&mm);
->> +}
->> +
->>   static struct kunit_case gpu_buddy_tests[] = {
->>       KUNIT_CASE(gpu_test_buddy_alloc_limit),
->>       KUNIT_CASE(gpu_test_buddy_alloc_optimistic),
->> @@ -1606,6 +1670,7 @@ static struct kunit_case gpu_buddy_tests[] = {
->>       KUNIT_CASE(gpu_test_buddy_alloc_clear),
->>       KUNIT_CASE(gpu_test_buddy_alloc_range),
->>       KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
->> +    KUNIT_CASE(gpu_test_buddy_alloc_range_clear_guard),
->>       KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
->>       KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
->>       KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
->>
->> base-commit: f146c6086b792cb2c6b3ce5106f0cce62e408df8
-> 
-
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+>> index a0802012de49..1e119173564b 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+>> @@ -145,6 +145,10 @@ int amdgpu_evf_mgr_rearm(struct amdgpu_eviction_fence_mgr *evf_mgr,
+>>  	/* And add it to all existing BOs */
+>>  	drm_exec_for_each_locked_object(exec, index, obj) {
+>>  		struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+>> +		/* A BO may be locked after it has been dropped from the VM due
+>> +		 * to how drm_exec treats contention. */
+>> +		if (obj == exec->prelocked)
+>> +			continue;
+>>  
+>>  		amdgpu_evf_mgr_attach_fence(evf_mgr, bo);
+>>  	}
