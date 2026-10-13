@@ -4,61 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D3B9CC6B1A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72353CC6B2E
 	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D94ED10FD65;
-	Wed, 14 Oct 2026 12:47:43 +0000 (UTC)
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1408910EA53
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:18 +0000 (UTC)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-351788121cfso4936550eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42EB310FD77;
+	Wed, 14 Oct 2026 12:47:45 +0000 (UTC)
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BEBC10E959
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:31 +0000 (UTC)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-35d4538fd74so1601298eec.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791931217; x=1792536017;
+ d=google.com; s=20251104; t=1791931231; x=1792536031;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=qdtOvNbLAOJ9idJnmqNXkxs2lXj3bNW1pL8KRmE6mUU=;
- b=mQS31v5EyK0zyMPvNJ/znK3Uhl7fLcPcG383xi3y1WT7YFpVQgf66w3l/Sed/pbh9q
- XCV0cgZl//WFsHY1uVEzIAbyGd5SFDXjweYXt1Qw1/xeZq1CynrtyEzroJP6GBKLxnhH
- /fSgmNKuKPYc4/jUQLCjRqd698cTTmDmmwtOxcxS4oJFxi3eTpG1C7EGiDMYYQiDeDkb
- EfHMptaZiF/mdZdd1kuFsBc5RbgD6nVvahvgfFwhoRMvXq/CXDayR772cYi+lRuqiMHl
- EKnp1ligXnlNoJXsx3hqKxtUC3R/F8KYjAFj/rO1VxZ4GuWHV3zV8tbBMIv2a0BWbk70
- a1AA==
+ :content-type; bh=SzuEQJa4uF6wSn0s7ZpxNvjcEHFt9KB4NkbiARikmlQ=;
+ b=P3ETsnkID67jK5FSwQI77aimLqJe2R9L151I13S9tvrUcO5Tfz1AjGYktSD52jf14m
+ cMkPDLPP1uyJD4P1E6H1IDzrEOKplPzHrCB2jIWZh3qCGs9ltk8MTDv7ev7HPbTkcW63
+ B/8ItGnqcta5YKWtAjAPG5RDKxmfh8nrHjPeEObTalFuTY/D6KsBsoEFy+xNQZHOed6P
+ 6JVWrJDcSx3NCsKUyAIZAPTgDAD02mwFTV29zZmnDG89b5YHGmNZjp1a1ywr4E7IkE8y
+ oU+etTWBcjnECIgKl6tXeK+pGUZC0aIAz90DzSCBzegV4Y41pv7T5F+8ydDo0AteBniY
+ ALqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791931217; x=1792536017;
+ d=1e100.net; s=20260707; t=1791931231; x=1792536031;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=qdtOvNbLAOJ9idJnmqNXkxs2lXj3bNW1pL8KRmE6mUU=;
- b=Ps5rw6Hhy7FnHd1vXhKCsgIkFn6OO9pobGwGVEAhAdRA0xUBUx0oHiKPyRMLrGxvJg
- iheGGpGrSJSvqQSn8WSB/Oc/q2oUOJ8O2j3UzIBoiAkDSZr3IMEhKMFD1d+RBWz+eTQ8
- qdz1XqZRQDkFQXGpmYSM7dQlgFLaOluKpbVL7txqo0vct2Nf1IYd6yZcyxAs+rU40ar4
- 6ropAQk4w4bnFtJKom+p3u+ufLnb7SZoM82ttiusWLF+/pLr4b2zfP5IWNfHw3BlrjgG
- qiQPzo5PxZ86CL14oN3Nw3Ah5Cm7j9eQY6EN6pkJQioBgL+RuqigVUb7fS0f4L6KMnsH
- 3ZAQ==
+ bh=SzuEQJa4uF6wSn0s7ZpxNvjcEHFt9KB4NkbiARikmlQ=;
+ b=sePVtnMeqdeT2+zV+ABZo85xCrf9kS8si2cArSVLG6VPySr5d3GCIvgfcnOMmNJlJX
+ u8EluBaGeC850qkwpjlfJ5Iasfvw8vycQdhxF1IONsQZzALvkqAMWixY/R3I0jvGML65
+ nRNupdTmRbcM2BC0C7Ve3g0xeGK1BZ8/jS5Mr2sk/QjymmgolGtN1y/5grjm9plGCL3z
+ qWIe1LCihvCFYBnnm3xLoLH3/Ak5vTYfxkEuTv+EomX84JoU/clrLzxcy64Fxa77xpnP
+ BrAG231CpeKsSV7saWTpieSQmcpzUFgzrzuvbugAsa7Eqhkj6blmhCe5c3rmOvt/D4YD
+ SAMw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzeGma1bTg4NLtqRucK8uk1aNbmzWplpPi+2C06H41Bq5apb4mmYZl6CHtPO2rBGp7nptujLLdz@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJQApfmU6IIT/ayQHYO/es38Kw8tL938ubKUZ0rA8bB0fWjxr6m
- Buzp2pMaLZnT6u9y7Z9DaYSBfs4IABbkpuUXq8OHAbLlHslHtXvQYYVn8mqpRFIE5rHeFq7whHx
- BRIIWJeVM1Q==
-X-Received: from dycrm16.prod.google.com
- ([2002:a05:693c:2a10:b0:358:f250:485f])
+ AKwUvBxRxaFIOXyeCEkzEZXlVigkY9KxvbeqMNGHX0tgNsgBNQwTuwOAPng3J3RK70L1sFlc9wMZ0Z3n@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLFVyuCGmIg4uLlNr3IMgjYm4+6XMnNyHksMgAMyla+D5Djfz75
+ 3MH1AGzCB8HKobPr/Jec02zivbaZ4+UXWzq2/jwF5kKG1faeTbPAf7ibDKXbG6Z5Jq37XMfje24
+ lKZ/TrG39lA==
+X-Received: from dybmf44.prod.google.com ([2002:a05:7301:92c:b0:358:41fa:f46f])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:4141:20b0:35c:8d1f:5634
- with SMTP id 5a478bee46e88-35c8d1f58e8mr4713972eec.12.1791931216820; Tue, 13
- Oct 2026 15:40:16 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:39:37 -0700
+ 2002:a05:7300:c8c2:b0:35a:8dad:6724
+ with SMTP id 5a478bee46e88-35a8dad7ec8mr9213311eec.22.1791931228757; Tue, 13
+ Oct 2026 15:40:28 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:39:42 -0700
 In-Reply-To: <20261013223946.1836757-1-irogers@google.com>
 Mime-Version: 1.0
 References: <20261013223946.1836757-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013223946.1836757-3-irogers@google.com>
-Subject: [PATCH 02/11] powerpc/secvar: Add missing kobject release callback to
- secvar_ktype
+Message-ID: <20261013223946.1836757-8-irogers@google.com>
+Subject: [PATCH 07/11] xen/sys-hypervisor: Add release callback to
+ hyp_sysfs_kobj_type
 From: Ian Rogers <irogers@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J . Wysocki" <rafael@kernel.org>, 
@@ -110,40 +109,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In add_var(), a struct kobject is dynamically allocated with
-kzalloc_obj() and initialized with secvar_ktype. If kobject_add() or
-sysfs_create_file() fails, kobject_put(kobj) is called to clean up.
-However, secvar_ktype does not define a .release callback, which results
-in a memory leak of kobj (and a pr_debug warning in kobject_cleanup()
-when CONFIG_DEBUG_KOBJECT_RELEASE is enabled).
+hypervisor_init() in drivers/base/hypervisor.c creates hypervisor_kobj
+with kobject_create_and_add() (which allocates a dynamic kobject using
+dynamic_kobj_ktype), and hypervisor_subsys_init() in
+drivers/xen/sys-hypervisor.c then overwrites hypervisor_kobj->ktype with
+&hyp_sysfs_kobj_type, which had no .release callback.
 
-Provide a secvar_release() callback that calls kfree(kobj).
+Add hyp_sysfs_release() calling kfree(kobj) to preserve the dynamic
+kobject release behavior.
 
-Fixes: bd5d9c743d38 ("powerpc: expose secure variables to userspace via sysfs")
+Fixes: cff7e81b3dd7 ("xen: add /sys/hypervisor support")
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- arch/powerpc/kernel/secvar-sysfs.c | 6 ++++++
+ drivers/xen/sys-hypervisor.c | 6 ++++++
  1 file changed, 6 insertions(+)
 
-diff --git a/arch/powerpc/kernel/secvar-sysfs.c b/arch/powerpc/kernel/secvar-sysfs.c
-index 395399bbab2c..f3f6ac25ea78 100644
---- a/arch/powerpc/kernel/secvar-sysfs.c
-+++ b/arch/powerpc/kernel/secvar-sysfs.c
-@@ -126,7 +126,13 @@ static const struct attribute_group secvar_attr_group = {
+diff --git a/drivers/xen/sys-hypervisor.c b/drivers/xen/sys-hypervisor.c
+index 91923242a5ae..0e8a2cd69fd6 100644
+--- a/drivers/xen/sys-hypervisor.c
++++ b/drivers/xen/sys-hypervisor.c
+@@ -659,7 +659,13 @@ static const struct sysfs_ops hyp_sysfs_ops = {
+ 	.store = hyp_sysfs_store,
  };
- __ATTRIBUTE_GROUPS(secvar_attr);
  
-+static void secvar_release(struct kobject *kobj)
++static void hyp_sysfs_release(struct kobject *kobj)
 +{
 +	kfree(kobj);
 +}
 +
- static const struct kobj_type secvar_ktype = {
-+	.release	= secvar_release,
- 	.sysfs_ops	= &kobj_sysfs_ops,
- 	.default_groups = secvar_attr_groups,
+ static const struct kobj_type hyp_sysfs_kobj_type = {
++	.release = hyp_sysfs_release,
+ 	.sysfs_ops = &hyp_sysfs_ops,
  };
+ 
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
