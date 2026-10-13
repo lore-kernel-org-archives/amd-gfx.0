@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87AA5CC6B14
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E722ECC6B15
 	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 07:56:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D681B10F5CF;
-	Tue, 13 Oct 2026 07:56:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C0C610F5D0;
+	Tue, 13 Oct 2026 07:56:55 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A386810F5DD
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 763D610F5D5
  for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 07:56:51 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 69D7uk0e775261; Tue, 13 Oct 2026 13:26:46 +0530
+ 69D7ujXT775205; Tue, 13 Oct 2026 13:26:45 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69D7ukr6775260;
- Tue, 13 Oct 2026 13:26:46 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69D7ujD4775204;
+ Tue, 13 Oct 2026 13:26:45 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Mukul Joshi <mukul.joshi@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v3 12/13] drm/amdgpu: remove the unused ring parameter from
- update_spm_vmid()
-Date: Tue, 13 Oct 2026 13:26:43 +0530
-Message-Id: <20261013075644.775162-12-sunil.khatri@amd.com>
+Subject: [PATCH v3 02/13] drm/amdgpu: add spm_vmid and exclude it from the MES,
+ KFD and kq pools
+Date: Tue, 13 Oct 2026 13:26:33 +0530
+Message-Id: <20261013075644.775162-2-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261013075644.775162-1-sunil.khatri@amd.com>
 References: <20261013075644.775162-1-sunil.khatri@amd.com>
@@ -47,251 +47,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Every remaining caller of adev->gfx.rlc.funcs->update_spm_vmid() passes
-NULL for ring, since the only callers that ever passed a real ring
-were removed earlier in this series. Drop the parameter, and the
-dead SR-IOV one-VF ring-replay code in gfx_v11_0/gfx_v12_0/gfx_v12_1
-that only ran when ring was non-NULL.
+The SPM (Streaming Performance Monitor) path needs a VMID that is
+isolated from other GPU contexts. Introduce vm_manager.spm_vmid to let
+a GFXHUB dedicate a VMID to SPM.
 
+When spm_vmid is set, exclude it from both the kernel-queue pool and
+vmid_uq_mask_gfxhub, so neither the round-robin kernel-queue allocator
+nor MES/Userqueues ever maps another context onto it.
+
+Assisted-by: Claude:claude-sonnet-5
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 12 ++----------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 11 +----------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c  | 15 +++------------
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   |  4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   |  4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c |  4 ++--
- 9 files changed, 15 insertions(+), 41 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 46 ++++++++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  2 ++
+ 2 files changed, 31 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-index 2ae2c1d0f702b..e38a8ea02c520 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-@@ -292,7 +292,7 @@ struct amdgpu_rlc_funcs {
- 	void (*reset)(struct amdgpu_device *adev);
- 	void (*start)(struct amdgpu_device *adev);
- 	void (*update_spm_vmid)(struct amdgpu_device *adev, int xcc_id,
--			struct amdgpu_ring *ring, unsigned vmid);
-+			unsigned int vmid);
- 	bool (*is_rlcg_access_range)(struct amdgpu_device *adev, uint32_t reg);
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index fce651d9bc613..b6f61f4a08e5a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -8320,7 +8320,7 @@ static void gfx_v10_0_update_spm_vmid_internal(struct amdgpu_device *adev,
- }
- 
- static void gfx_v10_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--		struct amdgpu_ring *ring, unsigned int vmid)
-+		unsigned int vmid)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index 392a18b1f2b4b..ed1efde29a9a5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -638,26 +638,45 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev)
+  * @vmid_kq_mask_gfxhub: kernel-queue VMID pool mask for GFXHUB
+  * @vmid_kq_mask_mmhub: kernel-queue VMID pool mask for MMHUB
+  *
+- * Sets both hubs' kernel-queue VMID pools (tracked least-recently-used
+- * via id_mgr[].ids_lru), and both hubs' KFD/MES user-queue masks.
+- * vmid_uq_mask_gfxhub is set to the
+- * complement of @vmid_kq_mask_gfxhub, since unlike MMHUB's it is always a
+- * clean partition of the full VMID range; vmid_uq_mask_mmhub is the
+- * fixed pool set here instead, since MMHUB's kq and uq pools are
+- * allowed to overlap. A VMID dedicated to a single fixed purpose on
+- * MMHUB (npa_vmid) is excluded from both MMHUB pools; it is the
+- * caller's responsibility to have already set npa_vmid.
++ * Sets both GFXHUB and MMHUB kernel-queue VMID pools
++ * via id_mgr[].ids_lru, and KFD/MES user-queue masks too.
+  */
+ void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
+ 				   unsigned long vmid_kq_mask_gfxhub,
+ 				   unsigned long vmid_kq_mask_mmhub)
  {
- 	amdgpu_gfx_off_ctrl(adev, false);
++	unsigned long uq_mask_gfxhub, uq_mask_mmhub;
+ 	unsigned int i;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 1f2ad47adb9fe..315dfd806d56f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -944,7 +944,7 @@ static int gfx_v11_0_rlc_init(struct amdgpu_device *adev)
+ 	BUILD_BUG_ON(AMDGPU_NUM_VMID > BITS_PER_LONG);
  
- 	/* init spm vmid with 0xf */
- 	if (adev->gfx.rlc.funcs->update_spm_vmid)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
+-	if (adev->vm_manager.npa_vmid)
++	/*
++	 * Derive the uq masks from the kq masks as given, then carve each
++	 * hub's dedicated out-of-pool VMID out of both of that hub's pools.
++	 */
++	uq_mask_gfxhub = GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~vmid_kq_mask_gfxhub;
++	uq_mask_mmhub = 0xFF00;
++
++	/*
++	 * SPM uses a dedicated vmid that is reserved from gfxhub.
++	 * Unmask the reserved vmids from both user and kernel queues
++	 */
++	if (adev->vm_manager.spm_vmid) {
++		vmid_kq_mask_gfxhub &= ~BIT(adev->vm_manager.spm_vmid);
++		uq_mask_gfxhub &= ~BIT(adev->vm_manager.spm_vmid);
++	}
++
++	/*
++	 * NPA uses a dedicated vmid that is reserved from mmhub.
++	 * Unmask the reserved VMIDs from both user and kernel queues
++	 */
++	if (adev->vm_manager.npa_vmid) {
+ 		vmid_kq_mask_mmhub &= ~BIT(adev->vm_manager.npa_vmid);
++		uq_mask_mmhub &= ~BIT(adev->vm_manager.npa_vmid);
++	}
++
++	adev->vm_manager.vmid_uq_mask_gfxhub = uq_mask_gfxhub;
++	adev->vm_manager.vmid_uq_mask_mmhub = uq_mask_mmhub;
  
- 	return 0;
- }
-@@ -5748,7 +5748,7 @@ static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
- }
- 
- static void gfx_v11_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--		struct amdgpu_ring *ring, unsigned vmid)
-+		unsigned int vmid)
- {
- 	u32 reg, pre_data, data;
- 
-@@ -5769,14 +5769,6 @@ static void gfx_v11_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
- 			WREG32_SOC15(GC, 0, regRLC_SPM_MC_CNTL, data);
+ 	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
+ 		bool is_mmhub = AMDGPU_IS_MMHUB0(i) || AMDGPU_IS_MMHUB1(i);
+@@ -666,13 +685,6 @@ void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
+ 			    is_mmhub ? &vmid_kq_mask_mmhub : &vmid_kq_mask_gfxhub,
+ 			    AMDGPU_NUM_VMID);
  	}
- 	amdgpu_gfx_off_ctrl(adev, true);
 -
--	if (ring
--		&& amdgpu_sriov_is_pp_one_vf(adev)
--		&& (pre_data != data)
--		&& ((ring->funcs->type == AMDGPU_RING_TYPE_GFX)
--			|| (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE))) {
--		amdgpu_ring_emit_wreg(ring, reg, data);
--	}
- }
- 
- static const struct amdgpu_rlc_funcs gfx_v11_0_rlc_funcs = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 72ceb113689e8..d82e7f115b7ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -773,7 +773,7 @@ static int gfx_v12_0_rlc_init(struct amdgpu_device *adev)
- 
- 	/* init spm vmid with 0xf */
- 	if (adev->gfx.rlc.funcs->update_spm_vmid)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
- 
- 	return 0;
- }
-@@ -4075,7 +4075,6 @@ static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
- 
- static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev,
- 				      int xcc_id,
--				      struct amdgpu_ring *ring,
- 				      unsigned vmid)
- {
- 	u32 reg, data;
-@@ -4093,14 +4092,6 @@ static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev,
- 		WREG32_SOC15_NO_KIQ(GC, 0, regRLC_SPM_MC_CNTL, data);
- 	else
- 		WREG32_SOC15(GC, 0, regRLC_SPM_MC_CNTL, data);
+-	adev->vm_manager.vmid_uq_mask_gfxhub =
+-		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~vmid_kq_mask_gfxhub;
 -
--	if (ring
--	    && amdgpu_sriov_is_pp_one_vf(adev)
--	    && ((ring->funcs->type == AMDGPU_RING_TYPE_GFX)
--		|| (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE))) {
--		uint32_t reg = SOC15_REG_OFFSET(GC, 0, regRLC_SPM_MC_CNTL);
--		amdgpu_ring_emit_wreg(ring, reg, data);
--	}
+-	adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
+-	if (adev->vm_manager.npa_vmid)
+-		adev->vm_manager.vmid_uq_mask_mmhub &= ~BIT(adev->vm_manager.npa_vmid);
  }
  
- static const struct amdgpu_rlc_funcs gfx_v12_0_rlc_funcs = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index b44f5ec68714d..147bed75261c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -214,7 +214,7 @@ static int gfx_v12_1_init_cp_compute_microcode_bo(struct amdgpu_device *adev);
- static void gfx_v12_1_xcc_update_medium_grain_clock_gating(
- 	struct amdgpu_device *adev, bool enable, int xcc_id, bool force);
- static void gfx_v12_1_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--				      struct amdgpu_ring *ring, unsigned vmid);
-+				      unsigned int vmid);
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index d99e42ca308ef..ddcdc7256ef07 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -411,7 +411,9 @@ struct amdgpu_vm_manager {
  
- static void gfx_v12_1_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
- 				   int mem_space, int opt, uint32_t addr0,
-@@ -1861,7 +1861,7 @@ static int gfx_v12_1_xcc_rlc_resume(struct amdgpu_device *adev,
- 	int r;
+ 	/* Global registration of recent page fault information */
+ 	struct amdgpu_vm_fault_info		fault_info;
++	/* VMIDs dedicated to a single fixed purpose, 0 if unused */
+ 	unsigned int				npa_vmid;
++	unsigned int				spm_vmid;
  
- 	/* init spm vmid with 0xf */
--	gfx_v12_1_update_spm_vmid(adev, xcc_id, NULL, adev->vm_manager.spm_vmid);
-+	gfx_v12_1_update_spm_vmid(adev, xcc_id, adev->vm_manager.spm_vmid);
- 
- 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
- 		gfx_v12_1_xcc_init_csb(adev, xcc_id);
-@@ -2918,8 +2918,7 @@ static void gfx_v12_1_update_perf_clk(struct amdgpu_device *adev,
- 
- static void gfx_v12_1_update_spm_vmid(struct amdgpu_device *adev,
- 				      int xcc_id,
--				      struct amdgpu_ring *ring,
--				      unsigned vmid)
-+				      unsigned int vmid)
- {
- 	u32 reg, data;
- 
-@@ -2936,14 +2935,6 @@ static void gfx_v12_1_update_spm_vmid(struct amdgpu_device *adev,
- 		WREG32_SOC15_NO_KIQ(GC, GET_INST(GC, xcc_id), regRLC_SPM_MC_CNTL, data);
- 	else
- 		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_SPM_MC_CNTL, data);
--
--	if (ring
--	    && amdgpu_sriov_is_pp_one_vf(adev)
--	    && ((ring->funcs->type == AMDGPU_RING_TYPE_GFX)
--		|| (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE))) {
--		uint32_t reg = SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regRLC_SPM_MC_CNTL);
--		amdgpu_ring_emit_wreg(ring, reg, data);
--	}
- }
- 
- static const struct amdgpu_rlc_funcs gfx_v12_1_rlc_funcs = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 91ce21425126f..dd00be109d7cc 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -3252,7 +3252,7 @@ static int gfx_v7_0_rlc_init(struct amdgpu_device *adev)
- 
- 	/* init spm vmid with 0xf */
- 	if (adev->gfx.rlc.funcs->update_spm_vmid)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
- 
- 	return 0;
- }
-@@ -3479,7 +3479,7 @@ static int gfx_v7_0_rlc_resume(struct amdgpu_device *adev)
- }
- 
- static void gfx_v7_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--		struct amdgpu_ring *ring, unsigned vmid)
-+		unsigned int vmid)
- {
- 	u32 data;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 479480e39fe47..c9268cc5715b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -1274,7 +1274,7 @@ static int gfx_v8_0_rlc_init(struct amdgpu_device *adev)
- 
- 	/* init spm vmid with 0xf */
- 	if (adev->gfx.rlc.funcs->update_spm_vmid)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
- 
- 	return 0;
- }
-@@ -5491,7 +5491,7 @@ static void gfx_v8_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id)
- }
- 
- static void gfx_v8_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--		struct amdgpu_ring *ring, unsigned vmid)
-+		unsigned int vmid)
- {
- 	u32 data;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 8afcdb54a0f56..75d1bbdb421ff 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -5225,7 +5225,7 @@ static void gfx_v9_0_update_spm_vmid_internal(struct amdgpu_device *adev,
- }
- 
- static void gfx_v9_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--		struct amdgpu_ring *ring, unsigned int vmid)
-+		unsigned int vmid)
- {
- 	amdgpu_gfx_off_ctrl(adev, false);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 1d1973fd8f677..0ffdef21df0ae 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -1395,7 +1395,7 @@ static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)
- {
- 	/* init spm vmid with 0xf */
- 	if (adev->gfx.rlc.funcs->update_spm_vmid)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
- 
- 	return 0;
- }
-@@ -1607,7 +1607,7 @@ static int gfx_v9_4_3_rlc_resume(struct amdgpu_device *adev)
- }
- 
- static void gfx_v9_4_3_update_spm_vmid(struct amdgpu_device *adev,
--					      int inst, struct amdgpu_ring *ring, unsigned int vmid)
-+					      int inst, unsigned int vmid)
- {
- 	u32 reg, pre_data, data;
- 
+ 	/* VMID masks for GFXHUB and MMHUB */
+ 	uint32_t				vmid_uq_mask_gfxhub;
 -- 
 2.34.1
 
