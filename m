@@ -4,122 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAE38CC6B2A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 399F6CC6B2C
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C78D210FD2B;
-	Wed, 14 Oct 2026 12:47:42 +0000 (UTC)
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
- [74.125.82.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F09410FCF1
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 11:29:08 +0000 (UTC)
-Received: by mail-dy1-f171.google.com with SMTP id
- 5a478bee46e88-35e8253292cso11216eec.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 04:29:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791977348; cv=none;
- d=google.com; s=arc-20260327;
- b=EDNEdxdA1Fa5ntzHhiAmAR9ZfgFRKjgPprOpUXCC4YWj5IKLr9Qp+QWgi92UWrUHbY
- krO3acOglJ6+UI6SXNxzyHiTKZgemCWdmYqX2+OnV+prpQTcOAMF8CIXLbFvLOLT+kp+
- aHmOFWOY5392tnaOtNCm+equUXsRLqcUI1+QxnoJw4lQsocpFNqJ7eoOeGM8nmmk3+9M
- aegv7722HThj4+d+Zdh/irq1eETte51/u9LGSD3F7B1Lx1q0cAmtiaNjR9R7IVTPVr8s
- exe60BrwpRzbd9XH3Xsdg0rAwX97VWrLf3988UcVm9rJYtc27Pxo58DJ8FevJneyfa7w
- +ywA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=xWJCwZOmpC49YtbA7QzlowrBvokYI4WD90uvALsrwIA=;
- fh=r9nnneDzLoVwR9/MCNbW/1xpvZcG7+QcI12rTfoDPuM=;
- b=dADQPVHGFlsSMH+KvpaaTaCf0NmXNgR30Wcd2p4C3ttvQrtUkyHNZ8Iip/xo43wZdl
- RQdlJK2KuUY9EIB3iX/OghRAbf2UbT7JGpFmWQh8VIhFY24s7yKKnSo0Ca8TmoXOMH/t
- Fst+1p/v+HHqveVtRNWWOJFALc1T/JD/F6vmgC94oOlFMvB1hOP9N3Pjtt9lYel9LFeq
- 5uYBUKWgllcbxGZRjwTaVYXjwMDpyk3Hpuj1KKAr6fxeWRLtjXXqJVP7M760eXDQwBHo
- Jb46Rwvd9draioiFxzDSJY6HUi0NRBP9H4mjwtyCWIsd7wmSOYW7Lj7sovddQW5W2ENp
- Gmrg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id C99E410FD52;
+	Wed, 14 Oct 2026 12:47:43 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C48310E985
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 18:53:18 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4a16aaf2067so2779605e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:53:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791977348; x=1792582148; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=xWJCwZOmpC49YtbA7QzlowrBvokYI4WD90uvALsrwIA=;
- b=XkdFS9nKuMkap6AwWaSj38bobcTfI5jJw6mfcf2Alpnr+uVPQiPhOYV6sJog+k119v
- SGxnjaFREuoIo+j4k/HADeMK+1JkIeUKrnBYp5HictQ0BsJbobjfhbO7cryCpGHfnmoZ
- kxRiOzEq65HQxYb9DAyKaVKNgozmq05xB8ULTJsLD/lrTnVKZqik+JnJ/SFrLslzCqOw
- G5uCzEc38MXNlFD6cdsygVH1WKb95FjD69PSZahT/5ePhwiad243JH3BFrhCa27/0l2S
- tZjvuNtE8HhL1sax7IZTdxWVMSjVyrBCYTwSWbKEXrCfNCDy1DFIUwlncvg2lsFTGMms
- uUSw==
+ d=gmail.com; s=20251104; t=1791917596; x=1792522396; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=tCA7tgHMTElt/DB21Y9IyITwJ975dZJFw/SRY6QoU68=;
+ b=ShHFxHXYHMM7jzBNsu5YnSiVDaQhRyPSFsHRw5GVJnP6eKU7/tm2F4BVv+jr61KhKG
+ ny+DBCav1n9dkNOfgcXQ4xeRQeIPUua1zlP9E0VuTNaOoBiqBV4+rK4wzwBwEY+3DQ/Z
+ c8G1DMO7FK1Dh/QWEUEj/0bnq/YCsuGWUno6/NYDFg3Ie15niYudF+50k3FsZsO5byOl
+ IgFosBDhI5XlP2eN4GihbHQmKz5SYc7z/0Jo2t5YxG51OQdHnRGQyaslGeY21CQC1dQV
+ yaX63ggd12qdbvWzKnCxxm1rghch/1jX1rBvh3+ZaqHESFBD6HCRDN+wdOh16w/8Qp+d
+ 1D8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791977348; x=1792582148;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=xWJCwZOmpC49YtbA7QzlowrBvokYI4WD90uvALsrwIA=;
- b=xQ2mgLNt+Hb6XMld3F1mgQ+uHOeGtuAkSDMd1Y41fuUL9Njm6wNhwqMRePrahC3Rdq
- 5q7BYRpShnZS5nLvK5H4b6c2OTW8YJQ52Jh4didOBhC0Z7fXwQ+a2WVJn42+MFUV7Gwc
- 7lnOHuAT09sHewarjmZDu5w/7W0xC7pv8HD6bOlw3i0Vgd08WwJim/Nd32Vh1aBpfB7y
- WZRO16kR7o6gzEYZqRmhgvM1C4fFf5kqiccqkVjKy2+HnrbopLECGPkzIBaXn2HDHbvf
- qWNHzC377MEN/G9IXsioG+OqdrzlYT3qtVZh9y39H7iGkaBOeUFHn80ImAG2ONp59L9u
- HwTw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwdNslRkIHnxacRXJ7m7qoIHwDGlc8PEZ7lgwQly93vpPE3bPtCq8jHotywjH35C9zTo3lZsxxW@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI/XytSZCyXOWta8hTxkpd4+FGW2C4Wf6TO/A33tgKiI/IInZNe
- prmMJa+2HMAT+Sw8UasEQKYhLSCoaSkv07zf4yU/351lnv8qpxREkxsOAa8orOrnqIQ5YLnav/e
- bUurq4+jAp1pkbuL9P5eursXIhwHsIC4=
-X-Gm-Gg: AYBFou0LT8jg8w17El9RI0rWs4IoLZRpK6309pXbJZfiS0eURP7q0Y3MTKml5Sefz8W
- zIZCN30TBHc4eyMiCUlTb7JifDO6QL4Y0Ja8rOQOqxYGeRHD/0H+3EltV6Lg5XmDQRtIUCwCms0
- wmFGi7PhEhk/f6woagtcNpWKSpOKqdaQmJa3FaoPsvgVDdy+8Z3G/A8P1njD2hzRL19aQiOCWQv
- LJHP7s8AFwziHoEP/IqGhJTy081mgxBrIH7JsKLj72gaO+WcClN8QGwUJ+Orlr0+1UgjAMFl2Ui
- NeqlhKaZzSEcDzln7jWWO7Jq1RNLzXcw9l7AxcTvP9HyKoc5p6qWhEsRek1IHmiPYLsw0CMHPIS
- hi1BMtjBs9FU87BJ3z9fGui5d2d//U9on8JLPfoeVPmHygpgSnUH+S9l+jk2Ig0Ik66rms5gQYY
- 4twhlm7dZO2Qo8sPmI9tcGF7RSYCWuUfVj0RRTcQH8juPtqi7lCek=
-X-Received: by 2002:a05:693c:6215:b0:35b:cb8a:8ce7 with SMTP id
- 5a478bee46e88-35bcb8a919dmr14326600eec.1.1791977347656; Wed, 14 Oct 2026
- 04:29:07 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1791917596; x=1792522396;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=tCA7tgHMTElt/DB21Y9IyITwJ975dZJFw/SRY6QoU68=;
+ b=YKIcnJ8rJCAi/24BmrndtEq5BTFRv76xG1JXOiG2xqi/C3ld4cNnSPi7TkUhv46uYt
+ KR9iRZwArLjZBx1Ytw3kEbeuj/MEfsy5g0webiqEaI1ttAm8Pd3rL5qL0w10jqbn5lut
+ HANI/YlDHLvSUchBqNnz+JiELH5c5CdvTu2dtp9aSJDEowx3Jt6Cp/kNSfqj8Lz6IXfM
+ hnHNoJqjItp3A5QCscjlbHuoCfeE2J0vS3/tYCZRcIa4k6Bmg9RMdZS7HM6SUlvhEr/6
+ wlCqrrSxeJGPY4ky+bhg4siTH0LhJOzOpQlxBD4rn95JN2P6vkTDIUE/xaT8zy47Xugf
+ 7ypw==
+X-Gm-Message-State: AFq9FYINWtc+pjdaRzjJt7v3hBeMgJ7HG8TRaUQDerxQUGIYvMme3bGE
+ xi7gMBAjhKY4qsqzfAGWu464VbYTWh9dxAKxGGwamaiaTsjVJ4XowW+kQiuhWg==
+X-Gm-Gg: AYBFou388zmujAbzP4br0Grxmq6Ubc+fw29KIHTqafZgOk6c66Jd36D0K2M9KHw8HwW
+ jxEPXAbz6y4+oYgUtj+GMWki70GnKi0BCC7MHCetNjsmo7lkng5MZjBuj3FW7iJxylSroMCOBGl
+ QGDzs2Yx1f9CFJbwKoOCW2Y7UlqEVw+Fhv/o5KTgMnBDqjDI10tn8FTJvlGWxfRYW1qEuqCgDOU
+ 8HHh99qUS1JtsLb/eAcBoSSIulPoiGdc8i8L53Qydop0eKzzNd4zZsSzoBtMSQ0AMMfzjp8ufbW
+ mlRRmMqX6KEokHFfSjiLo0gJKFxdNxdonkQxyppXg/VNH+q+mUWMXsoBuxmCNB6mPrOeGZdD5mT
+ D4UOGr/QZ34xVHvX0e/QShVEArWduWj3PGSh0ZLK9lI039yyygRGrqGy3iR2/6RktqFnJXL7l2C
+ y0eZkNmUGR7rPhmryNUAmshqaAtI50jalEbYUJgMJFCTxciqH49R9Xv0xQs+FhG9XYPgALYLfjr
+ jZgli1XHOETvyZXGFNmeP0P9NkueOmehxo0vivW9UqbC+L5+kFm8EsjMWhi4OK9d5vNm9ubybMi
+ OrC0//UkK4Oj7cLvWwgGR0tCXJyZCq8CUTathIR+QXzqC2fbwWNMtEQb8HEj4q1VDo8o+lJhc5s
+ KeJeyg/sqP0C5SuBObOkL28XxTebqER18WR67DQtgshbZcUkP5UU+TAd32iMTrdS+mXMF6UH8Al
+ BKJWk4xKhQZ0Euxw==
+X-Received: by 2002:a05:600c:5391:b0:4a1:ac66:6ac8 with SMTP id
+ 5b1f17b1804b1-4a1ac6671c7mr59821135e9.4.1791917596126; 
+ Tue, 13 Oct 2026 11:53:16 -0700 (PDT)
+Received: from localhost.localdomain ([2a0d:e487:412d:e9fb:680d:a947:4b50:d9e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a18d12fe05sm12340585e9.4.2026.10.13.11.53.15
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 13 Oct 2026 11:53:15 -0700 (PDT)
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, felix.kuehling@amd.com,
+ alexander.deucher@amd.com, xiaogang.chen@amd.com,
+ Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Subject: [PATCH v6 0/3] drm/amdkfd: fix wedged teardown on surprise removal
+Date: Tue, 13 Oct 2026 20:53:10 +0200
+Message-ID: <20261013185313.33496-1-olivier.kaloudoff@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-References: <20261013223946.1836757-1-irogers@google.com>
- <20261013223946.1836757-2-irogers@google.com>
-In-Reply-To: <20261013223946.1836757-2-irogers@google.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 14 Oct 2026 13:28:55 +0200
-X-Gm-Features: AclHuK8qVHO7HVQy6LgzcUgjYcQf3EimC6SJcN58PVqcWVdOf6T45eXZNeTLsEY
-Message-ID: <CANiq72mLUh1JB=9e=tqStuL_H3=Ormx5v-uFkCDp-0zZm7tBrQ@mail.gmail.com>
-Subject: Re: [PATCH 01/11] Compiler Attributes: Add
- __require_explicit_initialization macro
-To: Ian Rogers <irogers@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Jonathan Corbet <corbet@lwn.net>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- David Teigland <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>, 
- Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Richard Weinberger <richard@nod.at>, Zhihao Cheng <chengzhihao1@huawei.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- driver-core@lists.linux.dev, llvm@lists.linux.dev, 
- linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org, 
- linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 14 Oct 2026 12:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,36 +87,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2026 at 12:40=E2=80=AFAM Ian Rogers <irogers@google.com> wr=
-ote:
->
-> +/*
-> + * Optional: not supported by gcc
-> + *
-> + * clang: https://clang.llvm.org/docs/AttributeReference.html#require-ex=
-plicit-initialization
-> + */
-> +#if __has_attribute(__require_explicit_initialization__)
-> +# define __require_explicit_initialization __attribute__((__require_expl=
-icit_initialization__))
-> +#else
-> +# define __require_explicit_initialization
-> +#endif
+On surprise removal of a GPU behind Thunderbolt (MI50, PCIe slot
+power cut), the KFD teardown path wedges the host:
 
-The LPC slides mention Clang 14+, but from a quick test in Compiler
-Explorer and a `git log --grep` on the LLVM repository to confirm, it
-seems the attribute was introduced in Clang 20+, no?
+- the killed KFD process faults on its own SVM ranges during exit /
+  coredump (SIGBUS -> get_dump_page -> do_swap_page ->
+  svm_migrate_to_ram), submits SDMA work to an already-killed
+  drm_sched entity, and waits uninterruptibly on a fence that can
+  never signal;
+- the dying task holds svms->lock, which wedges
+  svm_range_restore_work() and prevents kfd_processes_count from
+  draining;
+- kgd2kfd_teardown_processes() therefore spins forever in
+  cond_resched() while holding the pciehp removal thread, producing
+  soft-lockup and hung-task splats.
 
-If that is correct, then it is not available in all LLVM versions we
-support (LLVM 17+), so we should add:
+This series:
 
-     * Optional: only supported since clang >=3D 20.0
+1. tears KFD processes down in amdgpu_device_fini_hw() *before*
+   amdgpu_amdkfd_device_fini_sw() frees kfd.dev on disconnect, so the
+   drain happens while kfd.dev is still valid, and guards the second
+   kgd2kfd_teardown_processes() call against kfd.dev already being
+   gone;
 
-With that:
+2. makes the userptr and SVM range restore workers stop rescheduling
+   themselves on -ENODEV;
 
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
+3. guards the hardware-accessing SVM migration sections with
+   drm_dev_enter()/drm_dev_exit() and bounds the job fence wait with
+   AMDGPU_FENCE_JIFFIES_TIMEOUT, so a migration cannot race with
+   unplug and a fence on a dead device cannot stall the critical
+   section or the faulting task indefinitely. A failed copy now also
+   rolls back migrate->dst and propagates the error instead of
+   completing as a successful migration.
 
-Thanks!
+Verified on MI50 behind Thunderbolt (2 GB SVM workload, PCIe slot
+power cut): the workload takes SIGBUS, coredump completes,
+kfd_processes_count drains in ~9s, pciehp removal finishes without
+warnings, and the device re-enumerates cleanly on slot re-power.
+Previously the same repro wedged the host every time.
 
-Cheers,
-Miguel
+Changes in v6:
+- patch 3: check svm_migrate_copy_done() return in both callers; on
+  failure release dst pages, clear migrate->dst before finalize, and
+  propagate the error (Felix Kuehling)
+- patch 3: dropped the dead ret < 0 branch (Christian König)
+
+Changes in v5:
+- patch 3: dropped the drm_dev_is_unplugged() and
+  pci_dev_is_disconnected() checks entirely; drm_dev_enter()/exit()
+  plus the bounded fence wait is sufficient (Felix Kuehling)
+
+Changes in v4:
+- patch 3: AMDGPU_FENCE_JIFFIES_TIMEOUT instead of an open-coded 10s;
+  drm_dev_enter()/exit() guarding the whole migration section
+  including the bounded wait (Felix Kuehling)
+- patch 2: folded in the svm_range_restore_work() -ENODEV change;
+  fixed a latent uninitialized ret read on the evicted_bos-mismatch
+  and confirm_valid-WARN paths
+
+Changes in v3:
+- patch 1: NULL guard for the second teardown call (Christian König)
+- patch 3: new, fail fast on gone device in SVM migration paths
+
+Changes in v2:
+- patch 1: drain before fini_sw instead of bounding the wait
+  (Christian König)
+- patch 2: new, stop restore retries on unplug
+
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+
+Olivier Kaloudoff (3):
+  drm/amdkfd: tear down KFD processes before early fini_sw on disconnect
+  drm/amdkfd: stop restore retries on device unplug
+  drm/amdkfd: bound SVM migration fence wait and guard with drm_dev_enter
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |  5 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c      | 29 ++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c           |  9 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c          | 97 ++++++++++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c              |  2 +-
+ 5 files changed, 113 insertions(+), 29 deletions(-)
+
+-- 
+2.47.3
