@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04060CC6B0E
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 08:25:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19315CC6B10
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 08:25:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8180410F5FF;
-	Tue, 13 Oct 2026 08:25:31 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010045.outbound.protection.outlook.com [52.101.85.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF14810F5E7
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 08:25:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F95C10E75F;
+	Tue, 13 Oct 2026 08:25:33 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012063.outbound.protection.outlook.com
+ [40.107.200.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C3C610F5F7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 08:25:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R1P2bENSKi4yMEsoca7Fi+lgtK5IBZ9zCWsdkQn1Y2IyxnGG3Fyoi6VnzADXjSM56i5trU+lIa2XoCbUqBG+F7XyxM9/iEQvOJx+nNPr9pTFBLPgntJi7UWbOo7YE3R6uzym2Q+bzrd70DzTBhIeEuMjPCH9McKA1H70S16t7SgsdNB1u2ykESoPvqQtRO5bvC+aNBqt3GpEWyNxGDIeFTUQrmrBZPUkhGVWvY5+680IZ8GRH3uPVyuINLSX/8B/J1z8R9Ts1fw+n0IwVCR9qLZPT9M7f+db2nKThMlckK4yNWCcQ6Di+IJWrTW9W/n0oCu3HLBCYon7O4iMnlWy4Q==
+ b=mYTmPmEdpHK7lTuJLNsVYwf6gUS3IJ9alIWjR9/oCdflrUGqPTOX1C66dTKea3fbz9EwMP+nYkQacR21WRU1pZDERCcZJCA123JFDQytuICc7eZXZdJ18mpMo+qzuU9R+E4wLKx8whNkoJheGWGV0ztrjuAZxOaJCAM5G1PHihbp29vwhI97d1QXd15ZfHZ4eg6ZPfBSF7wkce5yvCxPsIQ9URz4LVVpeFhp861wrerrsxO4ixgMxAQYF5xChATHVt3DPxFp/S4SbKq3qVVkL/J6Sk63l5RzVWT/HfqH0ypflFqEotk8Iw9ZKGFAYDSA276LYtvaFLzJbrnDO7nBNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cEyX7/3C5vC99KnDrlST0p9xydHi+62oLNc+Egoj9Qc=;
- b=IR2f0I3phnLXOuldSHpqMsrhVfXBoDjU9hlKSNQ7a+cUC0UH6cFWWJRpWAvqFWFIaOppihSwy94OUpsQEF1MvVdaOvHSoCHXaSEqyS1uth6fvkK65wdngJ614gaghEFOVX5Cln5BpvWE0OaNCB9wUx6TJ3saa8jKZaS9Lw8Rehkb5/p1aXN2MGZqiZQ3b2DEXH+RBWZu67+jXuprqXP5hsn6lh9JkkQIWmbyxV/uiCA8rtQwn8Z0wy0H54GrCSS6T3sXMR0anNAt6UiACB9lajsa94AJj9TW3YkCoeRzr/QfL8ziC0lT7WN6Nh0TwWuPMVTIRuSeNdrzhbMGHYQqHQ==
+ bh=zHEi5OIeanD9gHSHoYugxIkJuZFm36t4p3+KlBf10Y0=;
+ b=K5rHFjqPVL8MW4X7xN14ATEvShgIdKalATbP9Rx7djJmuKrhg91gHsDpvRLwvjidLlILcVuPxMpVicG9yCRm060SFmGSOlJwC06Fu8wlwPDqqHVRn4+LzMWYngcITNHQKn/NKoWhQZ+lDEO17g0VvkEEoeXywY7sNa0ybociPEGM0Lx3DE48Zh2VsOYfXUxp/5ypplJa35ZcdfvdnKsT8SwOs0Wx8jiOpNm/n8K4pFlo8s7l327wlOB/stsy6EwrK/gDHSjeaxOulTWbvmuOKqqGFjirTGcUk0hlGg5LZfk27UtJe1X/VOWi/dYzc5u2Kfisq8FJxugTnTHKeUzJjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cEyX7/3C5vC99KnDrlST0p9xydHi+62oLNc+Egoj9Qc=;
- b=VxAL3Lt7Hr7nIPvHNmgrWMVeJtt74u0iufuOFHxdtB7vT8ZmUGfOCrvRniDfmnvHxuZT5LSWlyaVBTDvs8rVaM9sQ2Y65aW3z0rll8vfe11b9SKei9LJ5FY/DsqO4017efS5iJbIugRflFusFB08dWxmw6XoqCAjqRd7bvHY5is=
-Received: from DS7PR05CA0023.namprd05.prod.outlook.com (2603:10b6:5:3b9::28)
- by IA0PR12MB7676.namprd12.prod.outlook.com (2603:10b6:208:432::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Tue, 13 Oct
- 2026 08:25:20 +0000
+ bh=zHEi5OIeanD9gHSHoYugxIkJuZFm36t4p3+KlBf10Y0=;
+ b=T3ZbgPN9KGFsJ27bahKeK3GC0ojuSbBbP1kcqIlZHJQkMBzjy5735bsYdLtUijkWjUgpKVbRCKoY8IuO4o9ZGrEddaRavH1EQRkGPpCmfd0XVZwmSpiR6iGuetEq9d/4VjTF8vBzwQ8ATQPZ7stt+R/m3CGT6WeZx6hR4UVgPzQ=
+Received: from DS7PR05CA0003.namprd05.prod.outlook.com (2603:10b6:5:3b9::8) by
+ PH8PR12MB999272.namprd12.prod.outlook.com (2603:10b6:510:42f::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
+ 2026 08:25:23 +0000
 Received: from DS1PEPF00053451.namprd04.prod.outlook.com
- (2603:10b6:5:3b9:cafe::75) by DS7PR05CA0023.outlook.office365.com
- (2603:10b6:5:3b9::28) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:5:3b9:cafe::a3) by DS7PR05CA0003.outlook.office365.com
+ (2603:10b6:5:3b9::8) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 13
- Oct 2026 08:25:19 +0000
+ Oct 2026 08:25:22 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  DS1PEPF00053451.mail.protection.outlook.com (10.167.23.233) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 08:25:19 +0000
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 08:25:22 +0000
 Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 03:25:06 -0500
+ 2026 03:25:10 -0500
 From: Prike Liang <Prike.Liang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
  <Lijo.Lazar@amd.com>, <Vitaly.Prosyak@amd.com>, Prike Liang
  <Prike.Liang@amd.com>
-Subject: [PATCH 3/9] drm/amdgpu: skip VMHUB fault handling while the device is
- inaccessible
-Date: Tue, 13 Oct 2026 16:24:51 +0800
-Message-ID: <20261013082457.2492273-3-Prike.Liang@amd.com>
+Subject: [PATCH 5/9] drm/amdgpu: finish GPU recovery callbacks before
+ restarting schedulers
+Date: Tue, 13 Oct 2026 16:24:53 +0800
+Message-ID: <20261013082457.2492273-5-Prike.Liang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261013082457.2492273-1-Prike.Liang@amd.com>
 References: <20261013082457.2492273-1-Prike.Liang@amd.com>
@@ -73,29 +74,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00053451:EE_|IA0PR12MB7676:EE_
-X-MS-Office365-Filtering-Correlation-Id: a720e70e-7a40-4955-3ad3-08df29038455
+X-MS-TrafficTypeDiagnostic: DS1PEPF00053451:EE_|PH8PR12MB999272:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3fbc5532-50d1-44fa-c5b3-08df29038671
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|22082099003|10067099003|18002099003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: SgVz7EGNiJdIZDHV/PkA8/CvnaUgM4DGYeU6CPC4+hLMpfKB9AQRec6B9V7iJTWnf1eo8cKa1qkz2UB7Cq9qyVhfp/WiKBmGJKMmK0/MPEhi80hUElFvdrFV6cM12wOgr9msgbW1nAUe+idMdtAkMNl1I4rbB7Xad9XojD/4qtcn9izj3dJ7TAJ0v9WrSpdfdZOTAXIg8WMIo4kmGC31o8LvWyhUEmtcHh7eX8bCMfkl00Lp7zN1xVlX7PIUY//ffsEFJ+NQpgGsd6MMXLLKFDME/uT1q0khHUqNaC+Kgr6ZIlZAab/KrYDQ65sfE+ZBNv/gpMI8QI5nUfFFayhE3lpm/52ykhFbrvEyoDXo40N0VP+9bdfwVUsAjbO1uSdQmNH3qsY29tTrBG9jmvN5pu7iaYPaxiTSAeKd/5+BT6UQMUA+t/HVlkwShKiTn9ENN3d1hBezP/TX/loOCWsxS3LsqX92whr1LGnMEHj6zA6jggTki4eHeSSlnYNCG/hAqbGw1qZu9df4NbnzO6J83zkcudIF7l5LKKss4dtG+QA53tBTK02RG+tiUOj4M4VRCFO3A5pzcRF0JNCm0uGKM8wwU9iwo9U2cD2xCVH9IMFi/9V2vxGiqt1GW4Om0Ko4ksLd52YMzbZf+1tN7pstSDWVxAXMRjn8FYEO6YLCvzMYCM4WaZGV/bT7jZKu520/iylMWglciGdpa1waA1trPg==
+ ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: Ddt7fmJweO4fAbj2aMQijQLQ4DV1sNcxe3iOR0q41Pxjo6dgPT7lb9u/mN3YcY4tf+DYIcPAaPWN0LzsiwJnMEJbKb6bS9tEOqAj4UrKWGghSbyk1xdCRSlM682lP3W9BN+4N9xaIPnWiGjq9hKBACyqE+Kh2u7BdV+OXgDDLmWETFi8KFhTGpHcPF3lgEHUPsLeGl0AL0kr6wE0YgFhmR2WAZd+cI9MzSQqfr4RPelfuAHuraVVRo7bNSjmOOlrLW8dL+OOUASpOKhhPStMlih/QrvxtMA/1I64mO/00JDr2MMCKi5fVUyrKeVlmMCk4unE4iii9teItbxXoCPOTL0yW3mKQNvu5jxN5v8X4sD9EGh7FnsGFVfSUJnoKOVwj6z2fVSViTax+caJxuAcSgi8Kh9PQmdgpKmen9+sdKDUEVh4w9+gYul/reSytaTL4rGfIpEEikIkJhismRVcnQDhoCTwCgUGgfOt+H3UQfhznlZtPfgITv2EzvZjACO9W69Ld/vMhSqtpeK+VFEtRElbcvAeuUEDVLXNu4qud1Yv9zX8UElq+1rpadoWHmlLegrxAwagUBBINOecg524hYfofHIi99Sfpeuz+ksxANeLzvm7dITgDeXc5/L9+MRy+J8D2qd+HYDY0wz3tPjHjeeCf4aexwx/ZYO0S5JyfPxsvxPhX+fgebQjaFBNp3IKXRzLfbM+wOSvIUb++Ykz+Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(22082099003)(10067099003)(18002099003)(261009223027099003)(11063799006)(56012099006);
+ SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: mBx2lU+leekfEMbned91VmtXW/Hv7IyvwOi0tMiPRpwrteCGlOaczHrOPTJ60zeSgWMGZZW4HTsupGNRnNnYLjv6PbK0fT1II0zzSaJN6SxdjMmcVL8Erw+2BciNjbpSK8GWOzfreazaVr1g6V7qMDGZcgoAILPSCE51n7Hxb88I4ejJXOgipbIZSmnN0enroF+Gj7+iCrHkDDL+px7gGUTuDm9rNivpR3hyOKgSaPkPs7YnVzwUJkcKmh5xJg18umDv23dpbyIjNe8vf7tHjx6pFCWRfeFzcW7n0oXkQsU14PYWBY5M53AbRaODoO/wAF1Q1JQVIP3Dbh7Vn6Y7M7ngFa7bdV8Ip7Ps8pAEVCaLqJsUaaf03E0+u93EzHaieTUD8XchNB+eujocDeilt3M/UIUH/TdG4YzYvy/46VSzi8aQMrcjb9GGBsbhkpW4
+X-MS-Exchange-AntiSpam-MessageData-0: B+riZZxS3Nrnde/9cyrT8lWyj6oMewoJ/Uk6KLjWc2q1ntIp7s0b0p+p02LzEH3vZn9cGVkeL2VlsYn1G2Y12RMYZ8jGjtx0YbX9ZIrwxh85d9E3yXqHWBuJU1kFGI2EbsmXNQajkRvLHtewZ1DvE6rufUMuhU/1gweEI1sFMh1t+JE8FwssgMrzCUeBUg6lqI/G33PH4DJsBqocY0K82fCVEUiAFqpdcgfQulfnyaXct0AAN7CAYbY9ydQpO3IcdRXrtMupr2bYPsbGLBBbjyj+3pWtBVExF5YCEVrMfVs/98mHhHSM3s+GGyiaQjERLf5QTBrVPKB9WA6apVqKsGDRzETH0RSfHGKVyb0d7NoX2ZnKPy8hElUJbGGf45OBu33gxNEIups1p/J9MI7W+oeW5/bAKR3D3Qb/YTAyZTXptO/MOY3tRFmw2sXHv51q
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 08:25:19.0923 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a720e70e-7a40-4955-3ad3-08df29038455
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 08:25:22.6337 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3fbc5532-50d1-44fa-c5b3-08df29038671
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00053451.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7676
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB999272
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,33 +111,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Skip GFX11 retry-fault processing and VMHUB status MMIO when reset is
-in progress or hardware access has been disabled. Retain a rate-limited
-diagnostic containing the fault address and client.
+Run GPU post-reset callbacks, including KFD and display-audio resume,
+before restarting DRM scheduler workqueues. IP hardware initialization
+already happens inside ASIC recovery; this change orders the remaining
+callbacks before new scheduler submissions. Preserve the emergency-stop
+and guity job completition path's callbacks without starting schedulers,
 
 Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 3cdc7893587a..07b7ad753fe4 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -115,6 +115,13 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
- 	addr = (u64)entry->src_data[0] << 12;
- 	addr |= ((u64)entry->src_data[1] & 0xf) << 44;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index fa67de6d066c..83d98c9191b0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5783,8 +5783,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
  
-+	if (amdgpu_in_reset(adev) || adev->no_hw_access) {
-+		dev_err_ratelimited(adev->dev,
-+				    "[inaccessible device] page fault address 0x%016llx from client %d\n",
-+				    addr, entry->client_id);
-+		return 0;
+ 	amdgpu_device_halt_activities(adev, job, reset_context, &device_list,
+ 				      hive, need_emergency_restart);
+-	if (need_emergency_restart)
+-		goto skip_sched_resume;
++	if (need_emergency_restart) {
++		amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
++		goto reset_unlock;
 +	}
-+
- 	if (retry_fault) {
- 		cam_index = entry->src_data[2] & 0x3ff;
+ 	/*
+ 	 * Must check guilty signal here since after this point all old
+ 	 * HW fences are force signaled.
+@@ -5794,18 +5796,17 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	if (job && (dma_fence_get_status(&job->hw_fence->base) > 0)) {
+ 		job_signaled = true;
+ 		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
+-		goto skip_hw_reset;
++		goto post_resume;
+ 	}
  
+ 	r = amdgpu_device_asic_reset(adev, &device_list, reset_context);
+ 	if (r)
+ 		goto reset_unlock;
+-skip_hw_reset:
++post_resume:
++	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
+ 	r = amdgpu_device_sched_resume(&device_list, reset_context, job_signaled);
+ 	if (r)
+ 		goto reset_unlock;
+-skip_sched_resume:
+-	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
+ reset_unlock:
+ 	amdgpu_device_recovery_put_reset_lock(adev, &device_list);
+ 	amdgpu_ras_post_reset(adev, &device_list);
 -- 
 2.34.1
 
