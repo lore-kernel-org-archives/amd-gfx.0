@@ -4,63 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25245CA9ED2
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 11:18:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BFB0CC6B03
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 11:18:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B717B10F774;
-	Tue, 13 Oct 2026 11:18:31 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013031.outbound.protection.outlook.com
- [40.107.201.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F6F910F770
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:18:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC38410E6C6;
+	Tue, 13 Oct 2026 11:18:39 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010053.outbound.protection.outlook.com [52.101.61.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7225610E6C6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:18:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JYGWhtZ2Vg0LqX/B0SjZzaCatKzaNphmqgfPCfY17xfhJ9PEqWspPlcDSSXrziMFOufOEG0au+uTuWFwZb3BR+LNw/EiU8rDxpd66C7MUj4rCfhZIzGc+7NELHV4H0ALNnExK4NszYYKb8Z4+PoolyJB6G2D42Oe1sfm6vmnLwSJKhgkefavgSmdkdEW27Xh3KxymNL1d/0e+KqrHhQtvdBK/LzYAlt/YljImL59/3I9L7VsQ9yMemEJro25dTytXmj6++gB5YscpBqo0f5rsFlM8o9L6bnge7lCtXKqldr2cqPEPJfilNhoEvCFml07BeP4QbL1fS2XFP2wXqA65A==
+ b=JemU+5RLmoVjb06brZmyN2rGmBOf7xOOoOgqLWTga6+rG525MRs0Zc9TpW3aBU5EAb7xEzYm9tPEZanKT65aPYsaAmdMHV1VNG1nQW13CPj2Ie+/1z+KAdvBGWgmyRO+PXW1eeCokK9AbmEzd+nppu7AmhrwyZenK7v8QIlGHO6dGdsuKZdfX0GaMm0Ggv87anYpydWh5yGFeiTzMXG7wDnbBlA07gjz2utFO+UNOcMaWumEU6NVeXF42d2ETNoi93VPf/BCRGLoBavJdzPVk5CBAqG7jrM4t/12hCZmVg28cb0Jd3Qno2NbbWW6xNaiHADkaMIzkDha4bQ7KRiU6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0+sVYL/yICjXRCVf5bRdw0JSA32dFHikcXzFQwdZFjs=;
- b=Xx/sZ7py14LMSFn23s04jTYD77uSMEDyCcn1KPtnq3wmH5BlpsOtIZC94LGnQY5txyIaLY9CKE0y1KF4Oz8biyJZtiNylnudXxUrNQcb5p9XjLMnc669MvHragcUVGwCWXb3kxepjC/wo9aUNleJy0K2v/aYi/Ot5YvLn5C4w8RFxf9ID+8Tm6mA+zMXxzh0/mFb78mnHPct1sShk0blrc9YW9kPrisFWktxtqZGWbLK+x/ysEr+O6L2rL3LM1flZrT2q724eTuOHL1NmM1ciG9I/g+ZfU4o+M04RrtvaKwED67lkNPDHv1KRNNeDMbMV18ycLm4s39gW+CJyC+qzg==
+ bh=HZVHqbvzTSd/ZmiBcCp5/Ie5NVdbWgoLpRR/invygA8=;
+ b=ugnPcm4yynpOWzbpBF+8YcbROXqCaNytXUL+OyIZcF+8UgBZf+qI5ylOzioJnDBM4k8QxjG23p9COiG8SBgsy6sBrIVuOkyYMCPEE1RczOclIfRAWbxz/fBRv40UYhwza6gHOHnqrspkmPTuE7FtHfJS9UaMzuhp3Q99bimTP3AnXxVq9MdJDp3Ob0Q5RL5s1updSGzc26X81lhXaQk+1fpP3J0uA2RKou5ns67jACDs/BI/e5EWV7YTJvpUr1rGlC7P00gUyHp5nCNzANI4rFIuDFLzY5OmOxd5pNSbKgZm+ub9P4JKmOjk9/IUMyMz/H8fR5ylDYnkBX9n1BO1ig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0+sVYL/yICjXRCVf5bRdw0JSA32dFHikcXzFQwdZFjs=;
- b=N/mHwMrQuwQN5aEwNeLhNDnhgHI18vUZ8ar4Jrdf/yMNvPipQAOKNk9k25klj/kQ/xcKfQ/PW6R2jldJxErCqoStbY3jHObFw61IRmg9QQKTZHCYZw+hfKIiUe0ztNjgMreLIuMCeYkN61MX3VIQ2Sag15WSwXa+AJ70NURN9ps=
-Received: from DS1PR03CA0005.namprd03.prod.outlook.com (2603:10b6:8:450::18)
- by SA1PR12MB6704.namprd12.prod.outlook.com (2603:10b6:806:254::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.35; Tue, 13 Oct
- 2026 11:18:21 +0000
-Received: from DM3PEPF000265BF.namprd03.prod.outlook.com
- (2603:10b6:8:450:cafe::6d) by DS1PR03CA0005.outlook.office365.com
- (2603:10b6:8:450::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 13
- Oct 2026 11:18:21 +0000
+ bh=HZVHqbvzTSd/ZmiBcCp5/Ie5NVdbWgoLpRR/invygA8=;
+ b=fZ6wxe8Ypy3eEvfYbSx8hhvAee+9eUZgB2aapviD/qXrnUT91/IfstdLoaXP2aZscU2jDNpY2qfgzpISUDT7VMrRzQfepsI74/p6fNOPROeK4LmLleOm0jr7TRD8J2nN1zyubx5deGHfGNqVsAoFM4m2LoY1UuV+W7xtGTL1YV0=
+Received: from SJ0PR05CA0172.namprd05.prod.outlook.com (2603:10b6:a03:339::27)
+ by IA4PR12MB9762.namprd12.prod.outlook.com (2603:10b6:208:5d3::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
+ 2026 11:18:18 +0000
+Received: from SJ1PEPF000026C9.namprd04.prod.outlook.com
+ (2603:10b6:a03:339:cafe::47) by SJ0PR05CA0172.outlook.office365.com
+ (2603:10b6:a03:339::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.4 via Frontend Transport; Tue, 13
+ Oct 2026 11:18:18 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DM3PEPF000265BF.mail.protection.outlook.com (10.167.23.180) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000026C9.mail.protection.outlook.com (10.167.244.106) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 11:18:20 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 11:18:18 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 06:18:14 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 06:18:14 -0500
+ 2026 06:17:56 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 13 Oct 2026 06:18:06 -0500
+ Transport; Tue, 13 Oct 2026 06:17:48 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,12 +64,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, Ray Wu
+ <Chen-Yu.Chen@amd.com>, Charlene Liu <Charlene.Liu@amd.com>, Ray Wu
  <ray.wu@amd.com>
-Subject: [PATCH 16/30] drm/amd/display: don't WARN when removing an
- unallocated MST payload
-Date: Tue, 13 Oct 2026 19:08:03 +0800
-Message-ID: <20261013111616.2267344-17-ray.wu@amd.com>
+Subject: [PATCH 14/30] drm/amd/display: Do not allow vbios version of dmubfw
+ in the driver
+Date: Tue, 13 Oct 2026 19:08:01 +0800
+Message-ID: <20261013111616.2267344-15-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261013111616.2267344-1-ray.wu@amd.com>
 References: <20261013111616.2267344-1-ray.wu@amd.com>
@@ -83,29 +78,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265BF:EE_|SA1PR12MB6704:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bca0bd8-4687-4277-aa62-08df291bb059
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C9:EE_|IA4PR12MB9762:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ad369e8-6ca9-4a70-997b-08df291baf04
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|82310400026|23010399003|56012099006|11063799006|5023799004|10067099003|22082099003|13003099007|18002099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: pN32i4Sx72AiOBjsaEico5kTRAqJvp/RKwVFSMMNjnxliuivhUAHcU32gzD2wZtHgxEkNO7VInbx7X3Tt6ruMztGUuMglJP5398Br+HIuph44cvveQfn6o8Q73sNpARLEBz3q/RAbWpppBtJG6i4ZrDm3iJr7ebjPVE0BcX4f8bcPUVb3SEDqQRPhHyLG9/Cs8Ea+9fpjKbkb7QTIbGk5y38Auyj6AYBD1om/uWGhsXayyzQtfBQg1cWyzv2+YV/NAK+p1zTkHCGzgkPOaQenqkIxuPuxWm5u2Yq1rXJSCbS8Vu9aVD+UW3thttHCninVjfeTkiy6bFHZ7js269SEpN/AvAvpZKNAFxp0teAyEW3l/yOmZm3SkamVxzstM7TaOMaqltiOHrT71AFzpsTjKqVY56FmO0wBNnl02bNZPavOXb2WCNXmAUGf3WqsbzrU9MJuYlcx4tfaAepCcdz9gpMfMdhPZtqDbQJDCm3V6eGaylj31OPeUa8trY51T75ffmpzVGiT8T2blxTBiuBYJM+LA9pODVh7iJsdDmEAsJdk6SKO/hpd0vr1Q73vFD4H9Q5qwzoeOgE/KmvCS9pbH1TnnklQN0T1NtCAIZ0yI9CKVaL/eU8ymvaLruM0BEZoCST+Gg1+mVKU+m8eawQYg==
+ ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: NQbmydoWwSP2kR7U91Foc5VJdML8FVC9tXzpHb4Yim9ko3EctMpwpnxLMh1DuPq3GNErahJjBMJhPsKp27rI+sEL0XPR6rMAO6leaIkdbIy77CuTcVPOXg/98NMA9mbV+lxevVMRoFejtPiANOuaFg4bq9hZyYefLqxILLj/WdcZliG24e+ru82QXRFLeVv83wBQUCLASGXjL4sbu7X+SuBarWBLLXvP0HI2o00bnuBR0QbB1HCGgjo4h+sOJvkqf6v3rF8h6ZUInGluGMdy+CejQyDN2PdLXN6W+r3MxmcRTQkNjS39r8ptMXU/HhTA58bsvjLj2Px+wNYGZvS/kHVawBkBsHmdhfsNIwAiny10tVp00OOzhHIwOQiIjjMhw5xTJIhM7mh/Bn3fWJzpi8gvbG3+jZgASe9g+5MMIb0CZCn9vH/h+ZytarMnxtn2tlB0rKY8tASisCzzq/I0ESnP6i8NVpNfWRw+nTl9NHhlB4HYsXyldsUKshyNUIpwzzzO5jPuowxChbwnC1l9Br/vMsNb3vCqGZdTuo+GQYVq4m1fhIKQoH+fVTRo58rcPVrnE331NqMXxGO0RFIwp15A2qPhCEViuQII8PG930UCVExwz1qWnZBs+KjwZajB+zbIrV5M7+fuxhNlq4kq/Q0OdMaZRQErJliNErIdrPc+XxlwURD6f3n4C2VGQxa7ph2ZKBoeGJuvVdgMuNcAWA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(23010399003)(56012099006)(11063799006)(5023799004)(10067099003)(22082099003)(13003099007)(18002099003)(261009223027099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0izzdURYC5H2GjTlAfBYE+kOoTdqGjlKsJQXYHxEu/uHkesHkNJvpRkFHj/TUCZgYr9YVfnmApbv4iJnVJCbSZk4F6HTfpb/WegOnZ747oVEQVpSD5HAtcbfJoFSi2RT0nbcAAMcYRYBWYr2a2J/rFyb5E+i2MrHu22yyuNHZIH0UDnvigB+XFMxYD4B7XZf0mjx0d73m6vJXYmQj4AD4TG1vJehfZFk9Yv+FoiLxAh3Xeuuo7EnhNkhLe0IVbIA/e5psYGXRkORMng4JpqdQyulYaxisriQBfdun6BlOHebVZjznpaKOV0FmfADlYF6Tgw6u6FJv3+AUIevxSuQja+S7XIMLPUkRgsY7/gW5g7WY4xlmTGpU/ZfeNm62Ym90Pz9AL5S1EasJ+fr0Eyyg5RcXvxCv7mUmkecCFOSLdT/S61IfsoUpr4h4z66nRqo
+X-MS-Exchange-AntiSpam-MessageData-0: UFRBHV+or8sigCI4bgKP6BbkF5WNjTCOeuHgnOKTd1dwTzswpCdOAlL9YQE80/qhG8VD+DI+n6wts101Hv3fp/FUzBV6FSvKic8LlAoYzje6uRgdYNNxjSNjigiffzUIz76qt5XLetrAmozgfSccDZHl6GutLXBrEQQNPiY6oZo9obCyBhEq0dBaHbgROV7DNncI4Fvh+4kb+ECi5q2utZeOD9CXsEMHC+5kxeQXJYE/saonbv9w/SdMimnUBi4EZFN+LrmFzlpPQLMflfPOV5AN4VhoW7h+jt6QCbv6KoAhWWa0eQhYEAJg6VAwth6yW9JsY6tTHdIQ1525wquDS7mOTVa+X7ipD0CnY6eHkJKtNKHIYcVoXCRGQeEBOgOuPguLWXMWX9/wWqjGnLDalEHiVbwMWrX3rzt0xPjBOeii0bimI9jMKXexmLK9qqre
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 11:18:20.8642 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bca0bd8-4687-4277-aa62-08df291bb059
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 11:18:18.6063 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ad369e8-6ca9-4a70-997b-08df291baf04
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265BF.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C9.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6704
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9762
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,53 +115,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[Why]
-On an MST teardown that runs through the reset path
-(dcn31_reset_hw_ctx_wrap -> link_set_dpms_off -> deallocate_mst_payload),
-fill_dc_mst_payload_table_from_drm() is asked to remove a payload whose
-vcpi is not present in link->mst_stream_alloc_table and trips:
+[Why & How]
+The vbios version of the dmubfw lacks driver feature support such as
+HWFLIPQ, PSR/PSRSU/Replay/IPS, etc. Allowing the driver to use the
+vbios version of dmubfw risks a deadlock and system hang.
 
-  WARNING: .../amdgpu_dm_helpers.c:275 fill_dc_mst_payload_table_from_drm
-
-This is a legitimate case, not an error: deallocate_mst_payload() can be
-called for a stream whose MST payload was never programmed into DC's
-HW-maintained table (a new stream created for a modeset whose enable
-never completed, as already documented in deallocate_mst_payload()).
-There is simply nothing to remove.
-
-[How]
-Drop the ASSERT and fall through to the fill loop, which rebuilds the
-allocation table from the remaining entries. The table ends up unchanged,
-which is correct: the payload being removed was never in it.
-
-Note the loop must not early-return here - the caller passes a zeroed
-proposed_table, so returning early would zero the whole link's table and
-drop the other MST streams sharing the link.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5875
-
-Reviewed-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Reviewed-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 2f9c98a89c94..9774ea33272d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -309,7 +309,7 @@ fill_dc_mst_payload_table_from_drm(struct dc_link *link,
- 				break;
- 			}
- 		}
--		ASSERT(i != copy_of_link_table.stream_count);
-+		/* Payload absent from HW table when never allocated: nothing to remove. */
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c
+index 53e70c682a77..3ef9a0152058 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c
+@@ -384,10 +384,18 @@ bool dmub_dcn42_is_hw_init(struct dmub_srv *dmub)
+ {
+ 	union dmub_fw_boot_status status;
+ 	uint32_t is_hw_init;
++	uint32_t fw_version;
++	bool is_vbios_fw;
  
- 	/* Fill payload info*/
+ 	status.all = REG_READ(DMCUB_SCRATCH0);
+ 	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_hw_init);
+ 
++	fw_version = REG_READ(DMCUB_SCRATCH1);
++	is_vbios_fw = ((fw_version >> 6) & 0x01) ? true : false;
++	if (is_vbios_fw) {
++		dm_output_to_console("\n: DMU started with VBIOS FW, fw_version = 0x%x\n", fw_version);
++		return false;
++	}
+ 	return is_hw_init != 0 && status.bits.dal_fw;
+ }
+ 
 -- 
 2.43.0
 
