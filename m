@@ -4,120 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D74C8CC6B1D
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32D2BCC6B1A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69D8210E5BF;
-	Wed, 14 Oct 2026 12:47:10 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010016.outbound.protection.outlook.com [52.101.201.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9905910E53A
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 12:47:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pcmvUlmfNKMj54AdZYY4TEo51BZ0trI0VsPNQuCbFT9YIIqOCUlvikgKXukULYCP5SSFC+fVoXXQP0DdEz+WiwkvzPUEFkw6NO/YjZlZBrODymVlVesqIpVq2rWKa0bumkSSOgdD/UTN1OPk5s2YXrDPGu/aUsOrJu29JG0u2kA4lHVmsdOIEmggBTmu6O1Do2hSNNGpZ/JOQoWbhjK+ZTvrb7ACgjdX2U6RDh1cj7QrqASes8JNc/f1kHZTd9X4ewItUgT1G55OGPMx9eqO+p0ngFECxR1fqgQItbMRm00Mz12ypUYe9trIDvLIUz5ESJDB0SbVaE3zdg4lJyPbig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wUPai2fMTwuU4PjfTCwcN/RTbajjxE2FuzVhSCCw39E=;
- b=MEpeqHI+ESMLpUZ0sly4Dqoa/lvy8tc5XHCbgPgNqQ5iAA9SphXqy6oIPhoKDQsx792o5jtQurMQmslSYEbQ+oZedPa56Fx1fPyKMnjbqp3VEBYQzZr9LqG3ucgrcWBt/2lkmDVYkXcRMVEa+1J62XVsJ4BYzxWwpjwF8IsmVmlSkkL35Sxpc1Os/yCtlBzCeWD8qZ4mgl1Cb1ENxGPOthxnZtS3ljhCpraLhfxbCjsROdI2Ra2gOXW3k4g5263EGhs80t8zD54WFt4HQzIARVjONde+1Ohx7op3q3cN+CsCkcFXy/z6sXSfEEffhOW4OM7dDiFIyRC6H/QroDg2cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wUPai2fMTwuU4PjfTCwcN/RTbajjxE2FuzVhSCCw39E=;
- b=RCI4j/hypD/nvb6ZSKdopHrkie9rI7yshvSih4nHbzG+hHxO2JrqE6x6LgvPMzCuvow3uU6G1l//YjwqlNMGFPLdHCzJd+qF3wGdDRqI5S+m9tS5iPa3CntEUPiY3fdAyYUYD9O6jkXlMSLM1cZyD36RB3ntlUMgPXRvjeD+bVo=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5805.namprd12.prod.outlook.com (2603:10b6:510:1d1::13)
- by PH7PR12MB5975.namprd12.prod.outlook.com (2603:10b6:510:1da::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 12:47:00 +0000
-Received: from PH7PR12MB5805.namprd12.prod.outlook.com
- ([fe80::35dc:5b7a:52da:c8f1]) by PH7PR12MB5805.namprd12.prod.outlook.com
- ([fe80::35dc:5b7a:52da:c8f1%3]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
- 12:46:59 +0000
-Message-ID: <40949c1b-35e3-412c-9e0a-fc50e95f16e8@amd.com>
-Date: Wed, 14 Oct 2026 08:46:55 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: wait for tlb flush before freeing BO
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>
-References: <20261014022107.2511834-1-benjamin.cheng@amd.com>
- <857c0091-681a-4f09-b875-50f3a4c4b91c@amd.com>
-Content-Language: en-US
-From: Benjamin Cheng <benjamin.cheng@amd.com>
-In-Reply-To: <857c0091-681a-4f09-b875-50f3a4c4b91c@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B813810E53A;
+	Wed, 14 Oct 2026 12:47:39 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A759910F99C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 20:20:38 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-48b0584ad71so1962124f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 13:20:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791922837; x=1792527637; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rCBIvyrq3Cdx5wtp1x1m3Uqsp5/Gd4PThX1D5sZ44iE=;
+ b=YI1ItafA0JiXkAfZKAB65rhPDcJn8VxAw0DU68qIUcVUu5YHkjXh+Jgl1hpCqzkpVO
+ p3TM06aaEXo6oj2tAnLHSwKD7maNMAapkmc+WUgGvMa2Ml6FotFrDCgP4IjmD4A2usEE
+ MAswQ3qN6sCsonEluJDt+Vsd+0NnvvI4pJ+APe9D13rIBjpVW2v4q7n6UQzsysp1CBt5
+ zlMlfyoNqX5Kg9Zq68JSQjWG7JPYj9C972Czh0GwAH13BErrw3WPHhsqvWgqxEZlVO0x
+ Nv4+yVnKY0gavY+Vwgs5yN4pLUeVNYLzdDschJNqfQQUPF2tk0C5S6q3hae2O40VT/HA
+ 9pGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791922837; x=1792527637;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=rCBIvyrq3Cdx5wtp1x1m3Uqsp5/Gd4PThX1D5sZ44iE=;
+ b=dblb+d78BARv/MYAlF0zFrY4xK9PuxAEdzqBYuUcxEQUfCaLIUWjc8aw7Y2JxSyzPZ
+ Lgkk6CPJs0wwVlgoCpFDEnnZUcfpnmsrvDyFnWQrap+FQtk57x3L2nR5SakLb/fsExsW
+ 61IQHIok8djTyaBoi+xjgvuOLTTMryJrM9m4UcZ9VweoRFuiAQcIiPGW/IjW9SvI1UYG
+ bOYiK7f/6jESSQ6y9O7ku4P0G4b/RPXkHplj+KSnGXBVbcjP77E/1Q/jvuR9RRPhzEVQ
+ ohzhhDoNeVpoubcfpYk5EUOy7jlQNXecOH+2veKjzDw25Y/Bp0YGnx+CILuqPzNgnUE1
+ SAkg==
+X-Gm-Message-State: AFq9FYJy3K3DsxP1hJmmXtT+iHqtA6vauqAX7GSj1/uB5sdg+09FykYS
+ 25g8yERQn0TaUb52uMUQ+VKUqx/TzlUi9oq+idAZ2vxd/4jZgyw46YOb6zM7wA==
+X-Gm-Gg: AYBFou2rMfSxJwJ6Xw94zzx4tR7WzbwukDm4BaHOeD9Ggby04i7Z5crQak5q9kDCsIU
+ QAN9gdt0GrDnv9ge/Y/4DnYh4e55LDTELVA/lsfJonS1kGXRsv+MjTrOHAgtYM5cWJpe7PgkYLZ
+ RntUdCGGhBI/GDPH1MdHBwCuFoj4m8XMM1yLhvyKvY1RgE2amm/hrCM7nhI3wWx+ndms0tovIDl
+ laUFyjeHbYxiH72oESFjY8epsdNgdxidzfm2WxguUV5lCFLuNWDw7EEOasSoxlWZiMB3sR7mVjk
+ Dyd+ZCXPHmyVwT+eUR2Iha4LNNvNzFy6AjkzewPBUSdNT289jeDznchUWu/h4R5bglxg8PkxFdq
+ m8FjvWXN5wCgi9ZPpUMvGaiRzr16xyd31Z/fucfq27ntVw3vSjHcnDbihYjecKUt/Jo8fohCs/O
+ 4cfOWD7vncdBSif3dL6Js0kEHrUzZ1BUk6TybkD06+XEjP0d4VJ3pqeKk8Lgi/7pH3YhDU2qzUZ
+ P5jUau702Sqm43PcuYjWelQVuwV1fWOicA6t+Xlltud2UI4UWVcm9Mvk+UZoTB8BsnD0SuyNjhU
+ 0CbobpLlKPYrHgT7LON/fePVND8X7sqE/aXkd2gQhHvVEGsh5QLIN6lEcysy3jb/TE7Ya+HAXpj
+ Y/e+8vM7qbMVzvnzrTLJ/Cg6sFn+UfDifCwPujRkZowWP14xiOUoEgP8BxGCVhUl5QCMkiNY5jA
+ 7o4h0797bT
+X-Received: by 2002:a05:6000:40e0:b0:48c:6a4d:3b67 with SMTP id
+ ffacd0b85a97d-48dbaceb433mr26001069f8f.19.1791922836813; 
+ Tue, 13 Oct 2026 13:20:36 -0700 (PDT)
+Received: from localhost.localdomain ([2a0d:e487:412d:e9fb:680d:a947:4b50:d9e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48de0967bf5sm6868460f8f.5.2026.10.13.13.20.36
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 13 Oct 2026 13:20:36 -0700 (PDT)
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH] drm/amdgpu: guard VCE/UVD sched entity teardown on failed
+ probe
+Date: Tue, 13 Oct 2026 22:20:34 +0200
+Message-ID: <20261013202034.76226-1-olivier.kaloudoff@gmail.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0072.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::26) To PH7PR12MB5805.namprd12.prod.outlook.com
- (2603:10b6:510:1d1::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5805:EE_|PH7PR12MB5975:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0271d332-86b9-4574-2a1d-08df29f13cdc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|56012099006|5023799004|4143699003|261009223027099003|11063799006|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: B47TGWkmw6itY8DJDdwpTBLa/TZAtTiM7CqJY9EchJTqoBERsrPH0r3+kymC8nnk9zHJ10AQwV+gTnGcdXvP8iovX/1tox4XumHUxufC4+0IgKXO2O+OK5oKBSohMh2GhKbob3hOjcMbXLgFALHCNfp/bgnLv+wH2ECcfBIB8ZF1tpsyXMKoUMvOhF82cuYHlcCLzFGHdI37iughOaiSo2lIgp6pejMhPnwbHB6R/onVtl5620ejce0e7Woik+jEq7CScTyg+ZtoyGikdPN/tMAV931T9rqGVDmHGemamHfG2YiK/Vlr1tq2Pdj+dMgITi03EnoNY8hRAHDjJYpfq+b3xGXlmwJAwTpS181R7FZFwbP1v03rdxxu1cVRcXhPO/jgDvkPQClvWFLh7cSAHp322okmF447Bd18fNF64iRsHlYyHkyEbrP2n50bcxu9m+xRfuuWlMm1loojppP8en+OacwtD4Fp2rwYRUaY/w1URBhPBDFGOUhMahBmZsNXLHOBuktabizOp/dTspqWDHvUzICGsnCrPj/gAjjO5CnDIo3Fjs7crgsusojXe+/yexnok7k4CYi+wmy1CJJUKygRhfBO9oi+x5w/+7/nYG8vOPo23GGOMGxPYCmysyUMF+0tmqEdHt+pjXe1t6JgaYDDF1GyBcyrS6x/n62VQOs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5805.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(5023799004)(4143699003)(261009223027099003)(11063799006)(10067099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SC9MUlZmeDVucVptbFZuaklJTlVCRTFrcEhhd0dkTEZmVUtGSDltMnYvenpZ?=
- =?utf-8?B?WmJGRWU0cmdlcFBYeDRSeEJ3czI5Zis2Nlk0NjMwWEdjOEdiSUVPQ0s2UHhJ?=
- =?utf-8?B?VVJnN2dmOE05MkFSbTBhczdjQ2dJemFydEQ5NnFUblFIU1MxMWczU2dqTjF5?=
- =?utf-8?B?RFBBMzZQemwrdHdOOCsyd0xncTVOcnBWTCttZTdzbEVxQmlZUldQd05aT2x2?=
- =?utf-8?B?ZWFSUEo5QTVDbDRtVzM0YlZibkFZTUwzUWdHcVRjQkNwSFNmK29uNXJGNGtL?=
- =?utf-8?B?L3ZPKyt2UnJHa0JjWWVQZzJKakIvdlJ4bkJzRkloVnhlaG1FK0p6aDNBa3Zi?=
- =?utf-8?B?TzB6UDQvN3pkbHJpU3NmTUZPSmQ3Sk1WTWJuRWszek1jN2lib1lEaFpMbVJN?=
- =?utf-8?B?OTlSVUtOTnlraWwwOERXcERMMTJSVGhTVEhsblVKcHphSDJKTm5idnIzNElF?=
- =?utf-8?B?dGtnVDJTNUt2R21jRzBtZ1U2cENzR0ovcUNHQkRwTDBMaVdMQ25wWWdvWlVU?=
- =?utf-8?B?RXB2bTlielAxc3RlN0tYQUIveHA1ZzVTTStUL21ZelV0UjlhZ3lIYUd1Y0lo?=
- =?utf-8?B?K25Kd1g1V0VxVzlQS1dXUWt5VHBBdHZUR2hSc3VjaWk4RVpOaWJQb09hN3pm?=
- =?utf-8?B?d2RuM3FaUnlBZkFscnpJeXY4NEtNNUlEanROdkVKekp3WHhMWUF0RTdEc3lz?=
- =?utf-8?B?bVViOUhadEZIWkd3ZFBqakk1UjRXdVdNbWtHVGx1L3A4WnVMMEJqR1UwVVpK?=
- =?utf-8?B?VEpLTGs1Rnd2bWNwanZCQzd4SkoreEFPazdwZ3BoVjh6c0F3TTNFYjl0bTQ4?=
- =?utf-8?B?SXFKWTFGNm1xYXZiNktUOStjZnZNZUdjTEtQR0tKaUFtN3VJeE5ZMEMrSk12?=
- =?utf-8?B?QXluMnRjZzh2VVNxVjJ3c0twT0hzbG9KRUMyc2tudU91R0VBcmdrYXRueVp6?=
- =?utf-8?B?TllwZWVtaHBjUDB5cFJsZWluL24xbmV2NnRJN0NHZ0lVaENFTnQrcGZFdW5i?=
- =?utf-8?B?Sjhsc1dWeUo4ZG9Nek1hZjFuOVA3bitBZVFmQXFSMHFxMjUrTVVHcXpSTWxM?=
- =?utf-8?B?eU0wQUlaN2Q3cWh4QWlsMGZLRE1hVmNwUjJ0aWVoWDBOdXJsQlg3QlBsRXJH?=
- =?utf-8?B?bTZRZ0d1RjF2d2p2MDBmM1pFSDVUbThtUytYOStUMitKTm5DZjVDYW9BQlho?=
- =?utf-8?B?NWZnd3NlSFAzZmlMNUpteUg4THZPcFRicXA2RWM2MS9JWHNZZnV4MGdjSDdq?=
- =?utf-8?B?aHloTEN3dUxGeDRjQWpDaFVZcXg1eU13bDF2ZDlqWTlpQzY1T2UybmhPcEgy?=
- =?utf-8?B?WnRua0p1VkgxOU4yckJ5Zkd3RXhPL1hrNlg5Z2E1SWI2SnVKY0VtNGtHNXNO?=
- =?utf-8?B?eVZTZEJ1a1k5VHg0RWRnQmhmaTgzVXk2R1hOaytoM29Gb0thMUpBMXAvNTN5?=
- =?utf-8?B?a2xkTW9xOXdLKzdoSmorQkpZMFVUb3FTSCszNGpWL3hEOExTUDZmZmdrUDkw?=
- =?utf-8?B?cDFXYU82NzhTY3EyL1Jab1pxYkFuTDZya3p2dHkzWW8ralJFSGFoVHk1Q2x2?=
- =?utf-8?B?YWlLZ252MVkxRm13bFJkZ09sd1VOM2N0bW1Ya2pjOXNyNUhMcHBzZHZmMjVp?=
- =?utf-8?B?aWdpNENXdmlkeFVhTnJaQnJTM2NGNDRaRjMxRU5Wb1ZJbEUzRngxMU43NVh4?=
- =?utf-8?B?Y0g4cEFUdzFHY0FmRmtjZjNveEtLdWFxV01yOEFTcW9DN0dUZEprMkw2V0pN?=
- =?utf-8?B?NTg2SHRBRUlYMSt6dkJ3eGRpc2Rxb3k4VjhWK0U3VXJKOHFUa2F6V3VPMWVU?=
- =?utf-8?B?Y3Yxa3JvcjV0Tmg4WmxxL3loYWN5dWRPSEh1MzhDWk42eDRWaXZTUzZZWVZV?=
- =?utf-8?B?eklFV2JTcmQyY093WlJlUWNjT2RaVFZtUWl0NXl1cG5mTUpWTUVuN1hrTkx0?=
- =?utf-8?B?SFhpc3VueHBxbjBsTDZjYjczVGdCdlZkcVJFOGpXQXE1VVhKOTJISy9HOFIr?=
- =?utf-8?B?bHB5WWV5dm5sRGNnYnB3WTVvU29WZmlyZmpPYUJzc3orVEZEdlRoQkdiOUY4?=
- =?utf-8?B?OEpldU9PY05hbkdHQ0FMNUNvZGNyeXJ0dVBMekRLQWl5L2h4U2EvbjNsZGty?=
- =?utf-8?B?N3o0bUR2T3BMbzFGakZacWdFR1Qvcm5YOHd2MG5ueFN2czVJd2QwYkN5dm5M?=
- =?utf-8?B?T1IwZHlGV1gxcllaNkNnR2ZhRGg1SE1WWUdRL09vdGswbGl2N2ZIUFZqZURj?=
- =?utf-8?B?dXZvZk1xbkVock96VlAxOFJibFo0ck5KNEljOEY4RjR3c0JtNGFUU2E0bFFq?=
- =?utf-8?B?K3U0d0lLQ2VpcFBCL3hJR2IxMWhtUEh3eGNNMDd1bkZRNTFQeXl5Zz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0271d332-86b9-4574-2a1d-08df29f13cdc
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5805.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 12:46:59.6380 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gy0ZIcatfdErPGv9HVRuYghP9dRvp+wK+6CLsNv2ukiicVWxHqYo5WzS4y+rCSnjKKqXxmy3GgEUp7OBPcuDqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5975
+X-Mailman-Approved-At: Wed, 14 Oct 2026 12:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,115 +88,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-10-14 03:17, Christian König wrote:
->
-> On 10/14/26 04:21, Benjamin Cheng wrote:
->> On gem object close, we previously only attached the fence of its own
->> clear_freed() call to the BO's resv. If an unmap of this BO happened
->> prior to the close call, clear_freed() would be invoked, leaving
->> vm->freed empty, and no meaningful fence to be attached to the resv on
->> close. Because of that the memory may be freed before the TLB flush is
->> complete, and give a running userq potential access to a stale
->> address translation.
-> Good catch.
->
->> Fix it by tracking the last TLB fence of each VM and attaching it to the
->> BO on close.
->>
->> Fixes: a1d201e16940 ("drm/amdgpu: enable GFX-V11 userqueue support")
->> Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 ++
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 6 ++++++
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  | 1 +
->>  3 files changed, 9 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index 8dbd7bb77305..7484c52e5850 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -360,6 +360,8 @@ static void amdgpu_gem_object_close(struct drm_gem_object *obj,
->>  
->>  	amdgpu_vm_bo_del(adev, bo_va);
->>  	amdgpu_vm_bo_update_shared(bo);
->> +	if (!dma_fence_is_signaled(vm->last_tlb_flush_complete))
-> Drop that extra check, it is actually harmfull.
+Since commit 037b98a2312e ("drm/amdgpu: move UVD and VCE sched entity
+init after sched init"), drm_sched_entity_init() for the VCE and UVD
+kernel entities runs in the scheduler-init phase, well after the
+IP-block sw_init phase has allocated the vcpu_bos.
 
-I will drop it in the next revision, but could you explain why it's harmful? (Sorry, still somewhat new to dma_fence semantics).
+If probe fails between the two phases, amdgpu_device_fini_sw() still
+runs the per-IP sw_fini callbacks for blocks that did complete
+sw_init. Both amdgpu_vce_sw_fini() and amdgpu_uvd_sw_fini() then call
+drm_sched_entity_destroy() on an entity that was never initialized:
+entity->rq is NULL and drm_sched_entity_flush() dereferences it,
+oopsing in whatever context drove the failed probe.
 
+Observed on real hardware: MI50 (Vega20, VCE 4.0 / UVD 7.2) behind a
+Thunderbolt link — a pciehp presence/link-change event re-probes the
+device; when the re-probe fails (-EINVAL here), the cleanup path
+NULL-derefs inside drm_sched_entity_flush() in the pciehp IRQ thread
+and takes the whole machine down (panic_on_oops, EFI pstore capture).
+Reproduced twice on 7.3-rc5, 2026-10-06 and 2026-10-09, identical
+signature:
 
->
-> You also need to increase the amount of reserved fence slots.
+  BUG: kernel NULL pointer dereference
+  RIP: drm_sched_entity_flush+0x34/0x2d0 [gpu_sched]
+  drm_sched_entity_destroy
+  amdgpu_vce_sw_fini
+  vce_v4_0_sw_fini
+  amdgpu_device_fini_sw
+  ...
+  pciehp_configure_device
+  pciehp_handle_presence_or_link_change
 
+Guard the entity teardown on entity->rq, which is set only by
+drm_sched_entity_init(). amdgpu_ring_fini() already self-guards via
+the rings[] registration, and the vcpu_bo/firmware cleanup still runs
+as before.
 
-amdgpu_bo_fence already does that.
+Fixes: 037b98a2312e ("drm/amdgpu: move UVD and VCE sched entity init after sched init")
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-
->
->
->> +		amdgpu_bo_fence(bo, vm->last_tlb_flush_complete, true);
->>  	if (!amdgpu_vm_ready(vm))
->>  		goto out_unlock;
->>  
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index 7d3659ef11e5..c5411933a76c 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -1097,6 +1097,9 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
->>  	if (!params->unlocked && vm->need_tlb_fence) {
->>  		amdgpu_vm_tlb_fence_create(params->adev, vm, fence);
->>  
->> +		dma_fence_put(vm->last_tlb_flush_complete);
->> +		vm->last_tlb_flush_complete = dma_fence_get(*fence);
-> I already added that in another patch, looks like amd-staging-drm-next is not up to date.
-
-
-I guess it's last_tlb_inv from "drm/amdgpu: fix TLB invalidation fence handling"? I'll rebase against that and use it if there are no other concerns.
-
-
->
-> Let me double check that.
->
-> Regards,
-> Christian.
->
->> +
->>  		/* Makes sure no PD/PT is freed before the flush */
->>  		dma_resv_add_fence(vm->root.bo->tbo.base.resv, *fence,
->>  				   DMA_RESV_USAGE_BOOKKEEP);
->> @@ -2648,6 +2651,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->>  	vm->last_update = dma_fence_get_stub();
->>  	vm->last_unlocked = dma_fence_get_stub();
->>  	vm->last_tlb_flush = dma_fence_get_stub();
->> +	vm->last_tlb_flush_complete = dma_fence_get_stub();
->>  	vm->generation = amdgpu_vm_generation(adev, NULL);
->>  
->>  	mutex_init(&vm->eviction_lock);
->> @@ -2693,6 +2697,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->>  	dma_fence_put(vm->last_update);
->>  	dma_fence_put(vm->last_tlb_flush);
->>  	dma_fence_put(vm->last_unlocked);
->> +	dma_fence_put(vm->last_tlb_flush_complete);
->>  	ttm_lru_bulk_move_fini(&adev->mman.bdev, &vm->lru_bulk_move);
->>  	amdgpu_vm_fini_entities(vm);
->>  
->> @@ -2839,6 +2844,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->>  	dma_fence_lock_irqsave(vm->last_tlb_flush, flags);
->>  	dma_fence_unlock_irqrestore(vm->last_tlb_flush, flags);
->>  	dma_fence_put(vm->last_tlb_flush);
->> +	dma_fence_put(vm->last_tlb_flush_complete);
->>  
->>  	list_for_each_entry_safe(mapping, tmp, &vm->freed, list) {
->>  		if (mapping->flags & AMDGPU_VM_PAGE_PRT && prt_fini_needed) {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> index ddcdc7256ef0..b9932c5e066f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> @@ -331,6 +331,7 @@ struct amdgpu_vm {
->>  	/* Last finished delayed update */
->>  	atomic64_t		tlb_seq;
->>  	struct dma_fence	*last_tlb_flush;
->> +	struct dma_fence	*last_tlb_flush_complete;
->>  	atomic64_t		kfd_last_flushed_seq;
->>  	uint64_t		tlb_fence_context;
->>  
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index ecd7caa95..cd35ff7ca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -377,7 +377,8 @@ int amdgpu_uvd_sw_fini(struct amdgpu_device *adev)
+ 	void *addr = amdgpu_bo_kptr(adev->uvd.ib_bo);
+ 	int i, j;
+ 
+-	drm_sched_entity_destroy(&adev->uvd.entity);
++	if (adev->uvd.entity.rq)
++		drm_sched_entity_destroy(&adev->uvd.entity);
+ 
+ 	for (j = 0; j < adev->uvd.num_uvd_inst; ++j) {
+ 		if (adev->uvd.harvest_config & (1 << j))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index 1f7a98cdc..3952af9ae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -253,7 +253,8 @@ int amdgpu_vce_sw_fini(struct amdgpu_device *adev)
+ 	if (adev->vce.vcpu_bo == NULL)
+ 		return 0;
+ 
+-	drm_sched_entity_destroy(&adev->vce.entity);
++	if (adev->vce.entity.rq)
++		drm_sched_entity_destroy(&adev->vce.entity);
+ 
+ 	for (i = 0; i < adev->vce.num_rings; i++)
+ 		amdgpu_ring_fini(&adev->vce.ring[i]);
+-- 
+2.39.5
