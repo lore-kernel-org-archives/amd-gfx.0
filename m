@@ -4,96 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72353CC6B2E
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA431CC6B1D
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42EB310FD77;
-	Wed, 14 Oct 2026 12:47:45 +0000 (UTC)
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BEBC10E959
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:31 +0000 (UTC)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-35d4538fd74so1601298eec.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2154410FD7E;
+	Wed, 14 Oct 2026 12:47:48 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6740110E9AB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 18:53:20 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-48af4d4e61fso2387135f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:53:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791931231; x=1792536031;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=SzuEQJa4uF6wSn0s7ZpxNvjcEHFt9KB4NkbiARikmlQ=;
- b=P3ETsnkID67jK5FSwQI77aimLqJe2R9L151I13S9tvrUcO5Tfz1AjGYktSD52jf14m
- cMkPDLPP1uyJD4P1E6H1IDzrEOKplPzHrCB2jIWZh3qCGs9ltk8MTDv7ev7HPbTkcW63
- B/8ItGnqcta5YKWtAjAPG5RDKxmfh8nrHjPeEObTalFuTY/D6KsBsoEFy+xNQZHOed6P
- 6JVWrJDcSx3NCsKUyAIZAPTgDAD02mwFTV29zZmnDG89b5YHGmNZjp1a1ywr4E7IkE8y
- oU+etTWBcjnECIgKl6tXeK+pGUZC0aIAz90DzSCBzegV4Y41pv7T5F+8ydDo0AteBniY
- ALqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791931231; x=1792536031;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1791917598; x=1792522398; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=SzuEQJa4uF6wSn0s7ZpxNvjcEHFt9KB4NkbiARikmlQ=;
- b=sePVtnMeqdeT2+zV+ABZo85xCrf9kS8si2cArSVLG6VPySr5d3GCIvgfcnOMmNJlJX
- u8EluBaGeC850qkwpjlfJ5Iasfvw8vycQdhxF1IONsQZzALvkqAMWixY/R3I0jvGML65
- nRNupdTmRbcM2BC0C7Ve3g0xeGK1BZ8/jS5Mr2sk/QjymmgolGtN1y/5grjm9plGCL3z
- qWIe1LCihvCFYBnnm3xLoLH3/Ak5vTYfxkEuTv+EomX84JoU/clrLzxcy64Fxa77xpnP
- BrAG231CpeKsSV7saWTpieSQmcpzUFgzrzuvbugAsa7Eqhkj6blmhCe5c3rmOvt/D4YD
- SAMw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxRxaFIOXyeCEkzEZXlVigkY9KxvbeqMNGHX0tgNsgBNQwTuwOAPng3J3RK70L1sFlc9wMZ0Z3n@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLFVyuCGmIg4uLlNr3IMgjYm4+6XMnNyHksMgAMyla+D5Djfz75
- 3MH1AGzCB8HKobPr/Jec02zivbaZ4+UXWzq2/jwF5kKG1faeTbPAf7ibDKXbG6Z5Jq37XMfje24
- lKZ/TrG39lA==
-X-Received: from dybmf44.prod.google.com ([2002:a05:7301:92c:b0:358:41fa:f46f])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:c8c2:b0:35a:8dad:6724
- with SMTP id 5a478bee46e88-35a8dad7ec8mr9213311eec.22.1791931228757; Tue, 13
- Oct 2026 15:40:28 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:39:42 -0700
-In-Reply-To: <20261013223946.1836757-1-irogers@google.com>
-Mime-Version: 1.0
-References: <20261013223946.1836757-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013223946.1836757-8-irogers@google.com>
-Subject: [PATCH 07/11] xen/sys-hypervisor: Add release callback to
- hyp_sysfs_kobj_type
-From: Ian Rogers <irogers@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, 
- Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
- Nayna Jain <nayna@linux.ibm.com>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- David Teigland <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>, 
- Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Richard Weinberger <richard@nod.at>, Zhihao Cheng <chengzhihao1@huawei.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- driver-core@lists.linux.dev, 
- llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
- linux-doc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-sh@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-acpi@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org, 
- linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+ bh=HLD9iVIZ163U9jFvBO1ehanu99qPbM6uZlGnS0s+nMg=;
+ b=iXHlqU3poAAUm/IlGvBGN9UC0MYm1fyKfhrHhiXAFme0/iMaxRP6ucMacytRpD6blq
+ Smzz3THJMysLP+ck7grwXlPCQOvtzNlXefH9xPJG5W0MYfvoc8LkSzxKnDISa09OjJy8
+ pZDmrZ0x6mM+5vvJOAKsWhfOkn8epOXvDcb3/Eh4yPYYdYTFXm/RQXMVWh6+OFhu0fxY
+ W7N685EU2fhRdrxYPvxWM5p7uh2/RXq0GX9Z7djXwdaehW9x/FHo78OJ/OzccXjBbH9o
+ z/e8LTx3DL9xnO2shfQchuQ2aGIRndVkaLbV7+EYhNcsLfE56ShN2L0sWrnLl/sdDQ3W
+ L5sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791917598; x=1792522398;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HLD9iVIZ163U9jFvBO1ehanu99qPbM6uZlGnS0s+nMg=;
+ b=yVu9bpx4Vc7G8BdwNS6qtC5xmCC6VsMDnAwGMJXgpgwOoUvNzKDNCzZbHtL6HxPeWv
+ AzrbVzMb485AHHGSnb/Tgn+nbD7Yh0LCH6ajCmYXHtgPbeNpK/u60m4PshLsv0wwB5Wg
+ jxIOVDzB8OusYY1H1ZLDpdb5e3tMVqRdIIcHqboQy26GynwucqOeTgF4/81Mekr9J/30
+ cSY5arkXpL6Jdh/j6tFsS71mCzzf36OxfoDSsKqlDF5HgQkBDz9OoWmy8uh0amLkNsHG
+ g43ysXS62VWjGq7XYstr1KR8qozM4A/LA8Sx7c8Spx46VAbxBBb6p7DSLRLGqoxAwPDk
+ fysQ==
+X-Gm-Message-State: AFq9FYI0R5n3xRKn3pM0lc7iZAeG8YLLqxBUsnf9QT3J2xjmPp+6Es1t
+ 0FfDDXIrcwrHpSK49ADM3Qbi2B20tsAfSngAVtgA2wWsv6mCEcPK0BZ701sPFA==
+X-Gm-Gg: AYBFou2d65slct4dO4qgsprDXSlez8ITIEVMrME3C3nPe5Xh2ZEDm/iEi0wj0ki8f1n
+ 88j19DLmHBOmlbbkasbsLQ6SJjYZnCWvLveYKl1Lz/a1PfgS1XqylX45w6SK0UKPlfZNteXG3Ry
+ q1HIs1BBZ3sMzxCmE9ydhHJPuogIez510WBMKGYyaBLGl2BkAxcAkkyzUJLiwjWDc/rmESomBs3
+ pE6kJ7YNj5N8l8DcEMprg1b0tSTON9CrgpsAt6++fDS+97hdouI9FL1g9agB6AXStJO+Uby/BXX
+ sWfpEIFeccGV99NPxbCPeF6mGBIOnz9izl2px9Z3pGq0kiIwyFn9HNaNVMyZigcDLpEX2zyWeDQ
+ YI2Odze9uvjlJ1ouCw5MWSnPDXrIDx5izZrWSqAL4WKvcGSwq5AYru6eOU44+1CDfJbc0I+Lk9K
+ C3ncQOxnoaDiCE4CvcI2rlzD803voPO4Ju5aCpYpYPj6enX0iQFeh/3GHSqem3m8Bpn7Zo3LJKa
+ /pC/Y8GjzeBr5BLLJeHVMWfPPD7jp+g21+nk0+dyelH6nhwQHaK3WRnTKuuvIWZ9mBpBSunM2yr
+ dLGZLXGVrmAnAVzV4/kAxACXCdKfwRRrm5QOAVvQw0LzO21fJh9gEU3fF7I1fREu/xCzjfHL+X9
+ RqZJ9/btG3sH6zJJ9IIz2njok/w+vaPWnBw16RyHtRreHHdT4uG5BYxQ7QaHhJoBHCPaH9acfdG
+ g27BtNfSPh7sF5PA==
+X-Received: by 2002:a05:600c:a0d:b0:4a1:b187:1314 with SMTP id
+ 5b1f17b1804b1-4a1b1871350mr16165995e9.7.1791917598387; 
+ Tue, 13 Oct 2026 11:53:18 -0700 (PDT)
+Received: from localhost.localdomain ([2a0d:e487:412d:e9fb:680d:a947:4b50:d9e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a18d12fe05sm12340585e9.4.2026.10.13.11.53.17
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 13 Oct 2026 11:53:17 -0700 (PDT)
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, felix.kuehling@amd.com,
+ alexander.deucher@amd.com, xiaogang.chen@amd.com,
+ Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Subject: [PATCH v6 2/3] drm/amdkfd: stop restore retries on device unplug
+Date: Tue, 13 Oct 2026 20:53:12 +0200
+Message-ID: <20261013185313.33496-3-olivier.kaloudoff@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261013185313.33496-1-olivier.kaloudoff@gmail.com>
+References: <20261013185313.33496-1-olivier.kaloudoff@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 14 Oct 2026 12:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,40 +89,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-hypervisor_init() in drivers/base/hypervisor.c creates hypervisor_kobj
-with kobject_create_and_add() (which allocates a dynamic kobject using
-dynamic_kobj_ktype), and hypervisor_subsys_init() in
-drivers/xen/sys-hypervisor.c then overwrites hypervisor_kobj->ktype with
-&hyp_sysfs_kobj_type, which had no .release callback.
+amdgpu_amdkfd_restore_userptr_worker() and svm_range_restore_work()
+reschedule themselves when validation fails with evicted objects
+pending. After a surprise removal the restore paths fail with -ENODEV
+permanently, so rescheduling just spins the worker uselessly until
+cancel_delayed_work_sync() in fini finally stops it - which can take
+a while, since process teardown itself is delayed by the dead device.
 
-Add hyp_sysfs_release() calling kfree(kobj) to preserve the dynamic
-kobject release behavior.
+Treat -ENODEV as terminal in both workers and also stop setting
+evicted_bos after it.
 
-Fixes: cff7e81b3dd7 ("xen: add /sys/hypervisor support")
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 ---
- drivers/xen/sys-hypervisor.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/xen/sys-hypervisor.c b/drivers/xen/sys-hypervisor.c
-index 91923242a5ae..0e8a2cd69fd6 100644
---- a/drivers/xen/sys-hypervisor.c
-+++ b/drivers/xen/sys-hypervisor.c
-@@ -659,7 +659,13 @@ static const struct sysfs_ops hyp_sysfs_ops = {
- 	.store = hyp_sysfs_store,
- };
+Changes in v6: none
+Changes in v5: none
+Changes in v4:
+- moved the svm_range_restore_work() change here from the SVM
+  migration patch (Felix Kuehling)
+- assign ret on the evicted_bos-mismatch and confirm_valid-WARN paths,
+  fixing a latent uninitialized read introduced in v2
+Changes in v3:
+- retitled; now covers both restore workers
+Changes in v2:
+- new
+---
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index d668816..2ad6777 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2827,6 +2827,7 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+ 	struct task_struct *usertask;
+ 	struct mm_struct *mm;
+ 	uint32_t evicted_bos;
++	int ret;
  
-+static void hyp_sysfs_release(struct kobject *kobj)
-+{
-+	kfree(kobj);
-+}
-+
- static const struct kobj_type hyp_sysfs_kobj_type = {
-+	.release = hyp_sysfs_release,
- 	.sysfs_ops = &hyp_sysfs_ops,
- };
+ 	mutex_lock(&process_info->notifier_lock);
+ 	evicted_bos = process_info->evicted_bos;
+@@ -2846,14 +2847,16 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
  
+ 	mutex_lock(&process_info->lock);
+ 
+-	if (update_invalid_user_pages(process_info, mm))
++	ret = update_invalid_user_pages(process_info, mm);
++	if (ret)
+ 		goto unlock_out;
+ 	/* userptr_inval_list can be empty if all evicted userptr BOs
+ 	 * have been freed. In that case there is nothing to validate
+ 	 * and we can just restart the queues.
+ 	 */
+ 	if (!list_empty(&process_info->userptr_inval_list)) {
+-		if (validate_invalid_user_pages(process_info))
++		ret = validate_invalid_user_pages(process_info);
++		if (ret)
+ 			goto unlock_out;
+ 	}
+ 	/* Final check for concurrent evicton and atomic update. If
+@@ -2862,11 +2865,14 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+ 	 * reference counting inside KFD will handle this case.
+ 	 */
+ 	mutex_lock(&process_info->notifier_lock);
+-	if (process_info->evicted_bos != evicted_bos)
++	if (process_info->evicted_bos != evicted_bos) {
++		ret = -EAGAIN;
+ 		goto unlock_notifier_out;
++	}
+ 
+ 	if (confirm_valid_user_pages_locked(process_info)) {
+ 		WARN(1, "User pages unexpectedly invalid");
++		ret = -EINVAL;
+ 		goto unlock_notifier_out;
+ 	}
+ 
+@@ -2884,8 +2890,10 @@ unlock_notifier_out:
+ unlock_out:
+ 	mutex_unlock(&process_info->lock);
+ 
+-	/* If validation failed, reschedule another attempt */
+-	if (evicted_bos) {
++	/* If validation failed, reschedule another attempt, unless the
++	 * device is gone for good
++	 */
++	if (evicted_bos && ret != -ENODEV) {
+ 		queue_delayed_work(system_freezable_wq,
+ 			&process_info->restore_userptr_work,
+ 			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index fa4054d..3dab456 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2013,8 +2013,10 @@ out_reschedule:
+ 	mmap_write_unlock(mm);
+ 	mutex_unlock(&process_info->lock);
+ 
+-	/* If validation failed, reschedule another attempt */
+-	if (evicted_ranges) {
++	/* If validation failed, reschedule another attempt, unless the
++	 * device is gone for good
++	 */
++	if (evicted_ranges && r != -ENODEV) {
+ 		pr_debug("reschedule to restore svm range\n");
+ 		queue_delayed_work(system_freezable_wq, &svms->restore_work,
+ 			msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
 -- 
-2.56.0.385.gd3acb90ef8-goog
-
+2.47.3
