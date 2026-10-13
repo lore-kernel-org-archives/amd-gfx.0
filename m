@@ -4,29 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F13CC6B08
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 08:49:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 881E4CC6B13
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 08:49:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75DD710F627;
-	Tue, 13 Oct 2026 08:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E92C610F624;
+	Tue, 13 Oct 2026 08:49:45 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEE2C10F627
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 08:49:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BAB510F630
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 08:49:44 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 69D8ncbV972382; Tue, 13 Oct 2026 14:19:38 +0530
+ 69D8ndqK972535; Tue, 13 Oct 2026 14:19:39 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69D8ncSR972370;
- Tue, 13 Oct 2026 14:19:38 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69D8ndBv972532;
+ Tue, 13 Oct 2026 14:19:39 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v3 01/14] drm/amdgpu: use the same naming scheme for kq and uq
- VMID masks
-Date: Tue, 13 Oct 2026 14:19:24 +0530
-Message-Id: <20261013084937.972181-1-sunil.khatri@amd.com>
+Subject: [PATCH v3 09/14] drm/amdgpu: reserve SPM VMID on gfx12
+Date: Tue, 13 Oct 2026 14:19:32 +0530
+Message-Id: <20261013084937.972181-9-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261013084937.972181-1-sunil.khatri@amd.com>
+References: <20261013084937.972181-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -44,83 +45,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the ambiguous names in amdgpu_vmid_mgr_set_vmid_mask()'s
-parameters so there is no confusion.
+Set vm_manager.spm_vmid to the top GFXHUB VMID so the SPM reservation
+path hands out a fixed, isolated VMID on gfx12 instead of borrowing
+one from the graphics pool. This also covers gfx12.1, whose VMID setup
+is handled in this file.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 16 ++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |  4 ++--
- 2 files changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index 1c5bce0500ac9..392a18b1f2b4b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -635,13 +635,13 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev)
-  * pools for both hubs
-  *
-  * @adev: amdgpu device structure
-- * @gfx_vmid_mask: kernel-queue VMID pool mask for GFXHUB
-- * @mmhub_vmid_mask: kernel-queue VMID pool mask for MMHUB
-+ * @vmid_kq_mask_gfxhub: kernel-queue VMID pool mask for GFXHUB
-+ * @vmid_kq_mask_mmhub: kernel-queue VMID pool mask for MMHUB
-  *
-  * Sets both hubs' kernel-queue VMID pools (tracked least-recently-used
-  * via id_mgr[].ids_lru), and both hubs' KFD/MES user-queue masks.
-  * vmid_uq_mask_gfxhub is set to the
-- * complement of @gfx_vmid_mask, since unlike MMHUB's it is always a
-+ * complement of @vmid_kq_mask_gfxhub, since unlike MMHUB's it is always a
-  * clean partition of the full VMID range; vmid_uq_mask_mmhub is the
-  * fixed pool set here instead, since MMHUB's kq and uq pools are
-  * allowed to overlap. A VMID dedicated to a single fixed purpose on
-@@ -649,26 +649,26 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev)
-  * caller's responsibility to have already set npa_vmid.
-  */
- void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
--				   unsigned long gfx_vmid_mask,
--				   unsigned long mmhub_vmid_mask)
-+				   unsigned long vmid_kq_mask_gfxhub,
-+				   unsigned long vmid_kq_mask_mmhub)
- {
- 	unsigned int i;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+index e4a74cd6574f4..cd276a138e101 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+@@ -1006,6 +1006,9 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	if (adev->gfx.disable_kq)
+ 		last_kq_vmid = 0;
  
- 	BUILD_BUG_ON(AMDGPU_NUM_VMID > BITS_PER_LONG);
++	/* Reserve the last VMID for SPM */
++	adev->vm_manager.spm_vmid = AMDGPU_NUM_VMID - 1;
++
+ 	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(last_kq_vmid, 1),
+ 				      GENMASK(AMDGPU_NUM_VMID - 1, 1));
  
- 	if (adev->vm_manager.npa_vmid)
--		mmhub_vmid_mask &= ~BIT(adev->vm_manager.npa_vmid);
-+		vmid_kq_mask_mmhub &= ~BIT(adev->vm_manager.npa_vmid);
- 
- 	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
- 		bool is_mmhub = AMDGPU_IS_MMHUB0(i) || AMDGPU_IS_MMHUB1(i);
- 
- 		bitmap_copy(adev->vm_manager.id_mgr[i].vmid_mask,
--			    is_mmhub ? &mmhub_vmid_mask : &gfx_vmid_mask,
-+			    is_mmhub ? &vmid_kq_mask_mmhub : &vmid_kq_mask_gfxhub,
- 			    AMDGPU_NUM_VMID);
- 	}
- 
- 	adev->vm_manager.vmid_uq_mask_gfxhub =
--		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~gfx_vmid_mask;
-+		GENMASK(AMDGPU_NUM_VMID - 1, 1) & ~vmid_kq_mask_gfxhub;
- 
- 	adev->vm_manager.vmid_uq_mask_mmhub = 0xFF00;
- 	if (adev->vm_manager.npa_vmid)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-index 4dfcec76afed7..105272ee2dce6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-@@ -135,7 +135,7 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev);
- void amdgpu_vmid_mgr_init(struct amdgpu_device *adev);
- void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev);
- void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
--				   unsigned long gfx_vmid_mask,
--				   unsigned long mmhub_vmid_mask);
-+				   unsigned long vmid_kq_mask_gfxhub,
-+				   unsigned long vmid_kq_mask_mmhub);
- 
- #endif
 -- 
 2.34.1
 
