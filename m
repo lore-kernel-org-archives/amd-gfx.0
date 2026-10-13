@@ -4,121 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4657DCC6B0E
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 14:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CD77CC6B0E
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 15:02:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFEEC10E896;
-	Tue, 13 Oct 2026 14:58:43 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010017.outbound.protection.outlook.com
- [52.101.193.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E546A10E896
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 14:58:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DED2010E8E0;
+	Tue, 13 Oct 2026 15:02:15 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010057.outbound.protection.outlook.com
+ [40.93.198.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2226D10E8E0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:02:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r6ofYPIK1O2GQRixb3LT6r/Ty971T38kSIRtFEMMjqWw7Lr+G15cmlyCuKll6nF988YDLVlTnwWAh1DgC89ABDIROjdkYqnAHPR5vOmXppXvVjbBO2sXH+I4/JydnzLXYJPJFh9OhkFoeObsFHr2QPyUwFGc/yaR9jKgdc9r0TVcgo4tFAurt0gjg7mckEEmmvK8CcBSWpnb3xy5njjCWbFHgI0UW5PqEAxfaz3p2DGTbSzmh/L3SDtf0JHNzw6pzyP7vyB+l+hw54yw3nS1pPeyP6DuzmnH2mt0elGT5bevXTMRQDp2r8zYlDGTrKn1OK+MfKmup0ORl1Iub2K8oQ==
+ b=Kj/VGkkfMZlawXViHXsyu+U+zaRAsK+A9ecGHDQF5lHs7E9gxa8ymFjA3dlm0Vnt/WOUoAavlLke5unlavmP2rDj7JPolyACdwIxjcwBRrQe8mQI1YXZNhRnfkdXONR7IW/+7yraxL23i3o5hD3Yvv755sy6Nkqbg7y1c9ZdfJmEdpjELWfhg02xbuNPNhyC2w/ea237AegLb9Alz4kqpKN+t+54FxggQKwEDFNkRMATRpPSMNkNllWJJFASkgU0XVVd5dMyaFy+jeMOQ21gMPu0W6JTT6U+XMDsyRllNyvPJceBas8RW1+tQUhfPhrRqbWUaXdYqmYY+xKrNHUmrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NtGBhJLgl65xdS6LLL7Fe0sG+PU1TFknNcdVXaNdw88=;
- b=NcaoWg2m+jY9qnU0+OjEVb3gEB0ZjLF1GTLoeN6fvCHBT5cWmmGvuT/qoHLKBhjw8CNRWgVn2LD+BY+rlEqHCgw1KM+pOY6jDVRXvVMXcK1kz6VmyxS549rhuGrorRHfN3RmEnY32BZXNXOwbDPZsfD2hX46Do/P3o5HoHCMAl9+678AZBFYdvFqevBb2K2ACy3h7Sv5zQ4iC0M6MmELOE2IIKxaj4hVZ/rh9zYOPcY3dDXBLCBtIryQk8j6kwXAY0S7jPPDmMfm1uFnqZbuQxwKKIBYY7vZuBr8qcm+ynSf9+9M41H0LvN/4Ui/r3It91UeYmTNw+XDH+8EuAY2iA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=HUXsjWUAXQ6uSy+fo3QkxgZKdZbtcokt1rXkq88PQ3U=;
+ b=g8IldMjbVLv1+cHidkmWDWChOuNcHnu3oeT2pCb8aLqesMKeJFdo5cFfSivIKQTkA3iQI4GawJ5nDmoym1XHnimm69ufZksPM1cBvbQD9BSujlwSTbnvR4Mk+fztwbaqaNnO+eRgHCnnmp1gsdASTpeIyxBwuv/3JihycyLfLMUYLkyIYVtqr4RpuL6gJpPb4JBkxJaundG74/bbIcnzwmEnaMVbkixdeu8O6SLH5+MmdFj7M2Rw2/o/zLl4km+uMHZJZPmiJCysu4x7KGQe2SquArcBOGerbBUbs4MKbR37D4R50unie6qCJrLJjoWXxSOUcFc4SUcf5jS9LQ9WWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NtGBhJLgl65xdS6LLL7Fe0sG+PU1TFknNcdVXaNdw88=;
- b=Vn6n/OU7K4ptCWIMKMV5MRz3xQ1vYOLNmBdpk1yFtfijNSsVBn+NjnLi2GHpzf9ykJeoJWbIrE1QtqMtKqbSV82C2/h3hZiXWQPlZK6/AP4MxMRWgMvRwNt6X5+PIYA4igE9jklg5khkLTkLK1qNwPc7j7deR24tRMrd42ZSwu0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB7650.namprd12.prod.outlook.com (2603:10b6:208:436::14)
+ bh=HUXsjWUAXQ6uSy+fo3QkxgZKdZbtcokt1rXkq88PQ3U=;
+ b=XEeH6c728fCNqr3wl3k52JdEdKtGF4Ku3/Qgu9w1fI9TnovL1XbbfvWLp/7JZ9X+MFTCoA5ooOTwNVFOM0adVqKfcM2Vta+RG9TAMd+wYGQkQYR7xQbYXr4+xGQkvuZovEuSF+UgXlMfCre4utzUPzIiglrCKooUz1Vkw+8+NEg=
+Received: from YT3PR01CA0063.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:84::28)
+ by BL4PR12MB9533.namprd12.prod.outlook.com (2603:10b6:208:58f::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 14:58:31 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 14:58:28 +0000
-Message-ID: <2d2129a2-dd7e-42d1-abd9-dd63faa6efc8@amd.com>
-Date: Tue, 13 Oct 2026 16:58:25 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/evf: skip BOs no longer in the VM
-To: Benjamin Cheng <benjamin.cheng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
- "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>
-References: <20261013141357.1907194-1-benjamin.cheng@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261013141357.1907194-1-benjamin.cheng@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR06CA0008.namprd06.prod.outlook.com
- (2603:10b6:208:23d::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
+ 2026 15:02:04 +0000
+Received: from BN2PEPF00004FC1.namprd04.prod.outlook.com
+ (2603:10b6:b01:84:cafe::4) by YT3PR01CA0063.outlook.office365.com
+ (2603:10b6:b01:84::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 13
+ Oct 2026 15:02:04 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FC1.mail.protection.outlook.com (10.167.243.187) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 15:02:03 +0000
+Received: from krussell.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
+ 2026 10:01:57 -0500
+From: Kent Russell <kent.russell@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Kent Russell <kent.russell@amd.com>
+Subject: [PATCH] drm/amdgpu: Add log when register access is blocked in PTL
+Date: Tue, 13 Oct 2026 11:01:47 -0400
+Message-ID: <20261013150147.2896846-1-kent.russell@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7650:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10bad218-9cdc-4e47-57ab-08df293a70c0
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC1:EE_|BL4PR12MB9533:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6fee72c9-7584-4555-5b07-08df293af0f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|6133799003|18002099003|22082099003|10067099003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: uqD/kfRdr3Tf9cMmV1in30z2vVlfyAm18uN3BF6u8hvQsMCAr1O0aIlXr/FoH/iXs0ZmDykj5sKGpxUaDGo8kdb7ZrnVUnXy6yZNwU6MEsieGxqabFC+neM/YHf7vlfiU1tlqn12fQM+OiknMZ3Zye3araxfbH7/XBlDXH0gGlegYOkElt89DYRCFB+Nr8rQyk4VSLlNtGD53R58e04hWr6PaQ/ieQNAKpNbes2pYgz5dRT+4l34yJm53rZbMREGp6gPwL0+c1Y8s309Imn8Nrv7mqFSEgZZFoVbwDQF/VKmHn2GO9+Zk7eyYYpguhwoYvun/zJ9B0CnztMNOgkEtDFCKCU4m58WfJKsgcgFzSA46wdN+oKde/VgLEty3h4ocwzCkrMlUkvGN+nZQiv0id2mPUDYh+goyI6gIemy3JNDwWr7ii5cBVNuQnJ9VbE5SmQGIjINohKUty05DMqe2CXrpc70W09xLZwhtvmsd7NFQt6Gx2b7LA6pV840/pjUJKnSf8IHDlx0FXHtDbk3v2+WSn22gEs84JOLPGb58C314KawjceaZ37ZHzziFuPsrav7tj/c0amlyL/eR7Zgd4zXw/WsBPxziKFCnbJY8lCC4jbFBq2ayTfICNBlea874SsPXaZYZSucOqHiMo2F78ZX/3Ggg5mf19u4SYCQhzg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(261009223027099003)(11063799006)(56012099006);
+ ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|6133799003|10067099003|18002099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: Jhh9IiITj2jx+k+eHRNyrozCjiK5RwglhlK++VIMZ1qDUBcNI4IfGYvpOnz0oPGXqaLrwzeatVeQKZkNT+raBuXUxTwdaQb95ZdRivm+CRo1lXdcjBSvLDN/vl5JatQ105iQ5dOPd93BeDyxbbEs6WILTa4ATKmq02aq5S4h9fM2GVf5k3/dFckeLFwJe3eHdd8h6+o0r48d9BXiH7R5vQEAaoAQ70tvPVOBcZ6Ht55SUNvI2CCqloa2ew3DdixwEDjcUSO/yRAjfwbuBGMm86Q8SOb8/c965O9ulNRU5usnDhTbkZlSqHeQdsfp8Rmevvio6NKoNcJV0BbY0kSjxVPajo59PqO/muf8wgjXvxSSx0SbQp3M1geEELQ9c9WpB+GoJfSR4NsWrjJGPeiT0wjUbYVZH3AkpvCxlSC1vAvtscwvIrvorFMFiU5foIMJLym7Gvb6DtRYzcYqA3wo7L0QJte+FdFc9dxgUkPIgp3hMlIwhNLuw28MaEL0lQkB9ARF2/15qvOsqvU6P6iwpbaTYwTDJZBijab59MRVejrGvwkleozr7vnesGisyB2XgEiF5+u09ppAH0IX5nscOjEfGwErvZAxU0PnmntQyybc66RH9S4zvNJL65HvYYFmfzYLpjPKSuTQuWNmRpBHbYASQaWYoy2It/f0SQYQqXre7BzyFn2ZoFhnwZ++6gZD1N4eW8qzGgvWwrR3a1QcVQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(6133799003)(10067099003)(18002099003)(11063799006)(261009223027099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekd2a1ZXMTBnaEdkbDgwNEhwR1JkTnFyRGZNQzBST3ZjVW1ZMDE2VXF5cHBY?=
- =?utf-8?B?YlplU25UWUFEcTRrR0ZVQjhCNEhNK0tiZ2FVQ2lBNlZRdllhbUxsVFlzYzkz?=
- =?utf-8?B?V3hyU1pSM1ZOclUrWitkY0VDcjBXZ3MrNisxRkdROXpDVUJoV1FENjBzUE1G?=
- =?utf-8?B?MUQwVDU1TXhYdUFLckxzWTd1VFFOOHRHMHFlWjMycXhJeEtJaG5zcjZPbVZP?=
- =?utf-8?B?dVY3NlB6cFlzb0JnMzBJOWJacTVCQkJiSmpROXc5VU5JdHZWZnhOVDBZL1JT?=
- =?utf-8?B?TGFhZ2pWQ3FQNUJNS3JwV3cvMU1SR2tqVHJIelhxaktucmVqYkxNd3F5WUI3?=
- =?utf-8?B?MEdLU09VQkh3disxNjFaNnBwb2pCY1VOUzBpak9jdGl0OHFjc2UxaitHeXQw?=
- =?utf-8?B?endobHM1ckt5cnlvcXVjcC9DTmp6NFgzUEs4SHFwRzA3NlVYbHM0YVJFR3JG?=
- =?utf-8?B?Yi9wZjhUSDB2OU5hWkpVZGFOUmtoK0pPYm5ITDB5Y2JNMU1xdEdlUiszWXY4?=
- =?utf-8?B?MzA5S2JSWmM2eHZWdTFHelk4V0JmMllFc2xVd2pIYnRkbUlZYS9KVUVTTWkz?=
- =?utf-8?B?VkVVZ1RlVTIrTTVhMFQyTWVhZUVkSnpFMDMvdVNRdFhNakpHbnEwOHdaa1Vu?=
- =?utf-8?B?T21tTlBSbjRCTE1OdW4xbXBjaFdNWmZLRHJzTmFHMVJGak4zK01RM04wTFhE?=
- =?utf-8?B?ejNLYUxwMVRYY281N2hwd0xTZjhUeGY0MHNMSmFabFRhRldVREVyUmNaYlMw?=
- =?utf-8?B?ckF4c0FYcm5ZNURpT3JRKzdtd1pxRy9haHYrMkhOTlhwUmFPOTB1ZW5OUGE5?=
- =?utf-8?B?ZUQ3bDVmbWc0K1RjbThVdGRxNWNmRUxWVzU4OWpVQ1VlUzhMSGlBWWI5RFlT?=
- =?utf-8?B?M0FrYXRXVlpmLzdmV2Z2MmRXUUhXOVoyeFp0RXVWeGtvRm5uV25jVi9KWWg4?=
- =?utf-8?B?Y2doQTZmUHNPZFNzUjBGbGVDdHVZc2R6Z2k4RmNpbHR2bCthSGdwS3ZlNHdJ?=
- =?utf-8?B?bittNkh6M0tVTE9pUGJnb0NYODRFK0dYbGdVbXdaTUt0OE1FeDJ4QUVDQzdp?=
- =?utf-8?B?V2NwQXVlQ3lpUHVGWEdIZ2lPSEMyZTl5SjRkVW00ZzdGYVl2Z2oyZXM3N1Yw?=
- =?utf-8?B?d01OdEc3RHhmZ3pKTmJJQUlseEhpa1JRWHhiY2tIRGN6MmZlM0Rva2FBMmFi?=
- =?utf-8?B?RkNHMkV3TVJYRjBGcFNNNGNGUDFvcGZaalNFcVlXSFdJKzlQMVB5VzhiTE9q?=
- =?utf-8?B?cjdaMy9BQzBMc0lndGF4RzA0RnUxYXVFSE1xdE1lUTNFcS9jTisxQS9ZNDc3?=
- =?utf-8?B?WmUzUkQ2UFNmK0NseWIvNElMaWdISlVRRGhlM2Z3MzdxblI0L1hlczlsQUo2?=
- =?utf-8?B?eFMzV1ZZWWZCTFZyY1B0bmhtTi9JRWhlM0N2OERWNDJSQ2NZRkxnRlNiU0Fh?=
- =?utf-8?B?YXI4bTcvcnZ0UEwvaUZpR2thYzVZTlJmK0t3d0tQbENhNmNMVmhNQnN3Qll4?=
- =?utf-8?B?SlJWVStJMXBpUmdDc3liVlJkN1krQmxXakphVzlwQ0dCUjgxMDhFcDVJZVQz?=
- =?utf-8?B?azFHSGtkaG1LVGVtZDRhNk12bjNiTGlycDZ6RUpKUUxOcG1HMWUrdklDcUdx?=
- =?utf-8?B?VUllVlVZL0xWK04yMzFIN2pRY2x4TldhSHNmM3VRZ2dzdWNPRjRhZDlnN2pU?=
- =?utf-8?B?Zm1tbmJxWUtZc3ozTDdwT2RDVDZnTlppZktXKzY0RE00UEVtOGQ0cVltTDMw?=
- =?utf-8?B?aVRJVUtXekgzU04rS0J6R01DNnZNcUpCZ0lIVWtEL05NVGQwS0kwREFxaVFh?=
- =?utf-8?B?WUxiSFZPRUE4RXJBdWoxS3RXNzAwb3NoZDM1MFpSZE5wRVVObXdPQVVEZmFG?=
- =?utf-8?B?STNib1FReS9KdHVoYlBGMlZCM2F4RkdRdEdEaFB5eStKYWdrTEUrRkVJRlBH?=
- =?utf-8?B?dzNCKzYwR1BqNEs0azhTdW5hWEtZTDl0WEIreFNmbTgrZnM5RGdQS2RkSzdh?=
- =?utf-8?B?TVJXYkhQTUwyOWVzeGJCOE9ybm80amQrZlJVRUhCYWdxNWNSUEU0QkxYRXc1?=
- =?utf-8?B?NkpicDQvYVR0Q3FGc0NaeXBBaktsbmdMNXdsQzBVSkhrRGJwbkQ1NGp6Rkps?=
- =?utf-8?B?MW5pdlhkbGRTdTZKVnVoazNJMmNsN2xFMHNUdElkYUwzR3FpQXE5ZVhSc1lY?=
- =?utf-8?B?WlR4YUc0VWtQZ0dlbHlMeWZhS2JkK2Mya3lRL3NaRHBpT2k4c1ZhWFEzQ3dT?=
- =?utf-8?B?ajdYYnlwWW8wN3pucUsvRS9vdXpBajdyZ2ZuN1Myd2krY1VidTc0R28vWUhV?=
- =?utf-8?Q?iGFhShvoi/HqSrmzvx?=
+X-MS-Exchange-AntiSpam-MessageData-0: qwwvhz4bL6NgZQn78G2bJw80Otg6LRoDab2IvlR3vKnsRD+q3EHr5hohrFJ6nh6NMuDIKxHmx7M8RhyswBCGgeUMiiwCuwvbGLCTw1KW1R6Kkw6Y0/cWgSH1A37eJXpzRrerfjI1QlpGQYGguFlTgjdLHGKhxNv6Diggc+B+FZhh6igCBL9JxEavIBuGl4Wt3ZOGaV1piIRGSjsasHjb9DJ8fFLzXqiqHJhDu2uQ9rWxWJb2OVLpQz5ojLlrU01ZroYVObTpAQFdBNQyAwxvGGn7/yPFJrSsI98NLFpTeUOVgeGJD2bWQ8q8Jaj6KGcFereW8TIoha6Iwz3FuNp8rJxOD/05kR3qWUh6yQc0PG7XqnfrVKCDZ4Kb0mJH/l0A+F40ylkySwFvtzCR8IViyzBIi9j2u0GK7PcrriQnzD/54DOxlV7PPme1ag7TpMiC
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10bad218-9cdc-4e47-57ab-08df293a70c0
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 14:58:28.8497 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 15:02:03.6852 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fee72c9-7584-4555-5b07-08df293af0f4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gPhiSOSuchEyq8SDDGgbkIxDZVAaIFCUdSswTaFT7GsGxlNqf1RupWLVygQBbAfs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7650
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC1.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9533
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,46 +106,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/13/26 16:13, Benjamin Cheng wrote:
-> If the eviction fence restore gets triggered while a BO unmap is
-> happening, the attempt to lock the BO for restore will fail. On retry,
-> drm_exec locks the contended BO first, but it is not actually required
-> to be locked, and the eviction fence should not be attached to such a
-> BO.
-> 
-> If the BO was freed, this extra lock will cause BUG_ON to fire in
-> dma_resv_add_fence, since the gem object and its resv lists are freed
-> already.
-> 
-> drm_exec::prelocked remains set only if the object was locked on retry
-> but not actually requested to be locked, so use that to detect this
-> case and skip it.
+PTL will limit access to specific registers. Instead of silently
+dropping these attempts, log them in dmesg for reference. Also add a
+dev_debug option to show what pasid/addr/packet type failed.
 
-Vitaly and I already found the real root cause for this and I'm about to push the fix to amd-staging-drm-next.
+Signed-off-by: Kent Russell <kent.russell@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       | 34 +++++++++
+ .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 76 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/soc15_int.h        |  1 +
+ 3 files changed, 111 insertions(+)
 
-Regards,
-Christian.
-
-> 
-> Fixes: 2cd7284ba54b ("drm/amdgpu: completely rework eviction fence handling v2")
-> Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-> index a0802012de49..1e119173564b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-> @@ -145,6 +145,10 @@ int amdgpu_evf_mgr_rearm(struct amdgpu_eviction_fence_mgr *evf_mgr,
->  	/* And add it to all existing BOs */
->  	drm_exec_for_each_locked_object(exec, index, obj) {
->  		struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
-> +		/* A BO may be locked after it has been dropped from the VM due
-> +		 * to how drm_exec treats contention. */
-> +		if (obj == exec->prelocked)
-> +			continue;
->  
->  		amdgpu_evf_mgr_attach_fence(evf_mgr, bo);
->  	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 3572eb9b5758..1ce8313e3c26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -171,6 +171,7 @@ static int gfx_v9_4_3_get_cu_info(struct amdgpu_device *adev,
+ 				struct amdgpu_cu_info *cu_info);
+ static void gfx_v9_4_3_xcc_set_safe_mode(struct amdgpu_device *adev, int xcc_id);
+ static void gfx_v9_4_3_xcc_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
++static void gfx_v9_4_3_enable_ptl_skip_interrupt(struct amdgpu_device *adev);
+ 
+ static void gfx_v9_4_3_kiq_set_resources(struct amdgpu_ring *kiq_ring,
+ 				uint64_t queue_mask)
+@@ -2661,6 +2662,7 @@ static int gfx_v9_4_3_early_init(struct amdgpu_ip_block *ip_block)
+ static int gfx_v9_4_3_late_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
++	struct amdgpu_ptl *ptl = &adev->psp.ptl;
+ 
+ 	if (adev->gfx.ras &&
+ 	    adev->gfx.ras->enable_watchdog_timer)
+@@ -2668,6 +2670,10 @@ static int gfx_v9_4_3_late_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	gfx_v9_4_3_ptl_hw_init(adev);
+ 
++	/* Enable PTL register skip notifications if PTL is supported */
++	if (ptl->hw_supported_state == AMDGPU_PTL_HW_SUPPORTED)
++		gfx_v9_4_3_enable_ptl_skip_interrupt(adev);
++
+ 	return 0;
+ }
+ 
+@@ -3327,6 +3333,34 @@ static int gfx_v9_4_3_set_bad_op_fault_state(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
++/*
++ * Enable GENERIC1 interrupt (bit 30) for PTL register skip notifications.
++ * When FW skips a privileged register access due to PTL, it signals via
++ * GENERIC1 and KFD receives interrupt source 177 with skip details.
++ */
++static void gfx_v9_4_3_enable_ptl_skip_interrupt(struct amdgpu_device *adev)
++{
++	u32 mec_int_cntl_reg, mec_int_cntl;
++	int i, j, k, num_xcc;
++
++	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
++	for (i = 0; i < num_xcc; i++) {
++		for (j = 0; j < adev->gfx.mec.num_mec; j++) {
++			for (k = 0; k < adev->gfx.mec.num_pipe_per_mec; k++) {
++				mec_int_cntl_reg = gfx_v9_4_3_get_cpc_int_cntl(adev, i, j + 1, k);
++
++				if (mec_int_cntl_reg) {
++					mec_int_cntl = RREG32_XCC(mec_int_cntl_reg, i);
++					mec_int_cntl = REG_SET_FIELD(mec_int_cntl,
++							CP_ME1_PIPE0_INT_CNTL,
++							GENERIC1_INT_ENABLE, 1);
++					WREG32_XCC(mec_int_cntl_reg, mec_int_cntl, i);
++				}
++			}
++		}
++	}
++}
++
+ static int gfx_v9_4_3_set_priv_inst_fault_state(struct amdgpu_device *adev,
+ 					      struct amdgpu_irq_src *source,
+ 					      unsigned type,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+index e241ad7d55df..8dee8c43824d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+@@ -123,6 +123,28 @@ enum SQ_INTERRUPT_ERROR_TYPE {
+ #define KFD_SQ_INT_DATA__ERR_TYPE_MASK 0xF00000
+ #define KFD_SQ_INT_DATA__ERR_TYPE__SHIFT 20
+ 
++/*
++ * PTL (Peak TOPS Limiter) register skip notification.
++ * When FW skips a privileged register access, it sends interrupt 177
++ * with GENERIC1 and provides packet type info in CPC_INT_CNTX_ID[31:28].
++ */
++#define CPC_PTL_PACKET_TYPE_SET_UCONFIG_REG	1
++#define CPC_PTL_PACKET_TYPE_SET_SH_REG		2
++#define CPC_PTL_PACKET_TYPE_COPY_DATA_READ	3
++#define CPC_PTL_PACKET_TYPE_COPY_DATA_WRITE	4
++#define CPC_PTL_PACKET_TYPE_WRITE_DATA		5
++#define CPC_PTL_PACKET_TYPE_COND_WRITE		6
++#define CPC_PTL_PACKET_TYPE_WAIT_REG_MEM	7
++#define CPC_PTL_PACKET_TYPE_WAIT_REG_MEM64	8
++
++/* CPC_INT_CNTX_ID[31:28]: packet type that was skipped */
++#define CPC_INT_CNTX_ID__PACKET_TYPE__SHIFT	28
++#define CPC_INT_CNTX_ID__PACKET_TYPE_MASK	0xF0000000
++
++/* CPC_INT_INFO[30:28]: queue ID */
++#define CPC_INT_INFO__QUEUE_ID__SHIFT		28
++#define CPC_INT_INFO__QUEUE_ID_MASK		0x70000000
++
+ /*
+  * The debugger will send user data(m0) with PRIV=1 to indicate it requires
+  * notification from the KFD with the following queue id (DOORBELL_ID) and
+@@ -142,6 +164,30 @@ enum SQ_INTERRUPT_ERROR_TYPE {
+ 				KFD_DEBUG_CP_BAD_OP_ECODE_MASK)		\
+ 				>> KFD_DEBUG_CP_BAD_OP_ECODE_SHIFT)
+ 
++static const char *cpc_packet_type_name(uint32_t packet_type)
++{
++	switch (packet_type) {
++	case CPC_PTL_PACKET_TYPE_SET_UCONFIG_REG:
++		return "SET_UCONFIG_REG";
++	case CPC_PTL_PACKET_TYPE_SET_SH_REG:
++		return "SET_SH_REG";
++	case CPC_PTL_PACKET_TYPE_COPY_DATA_READ:
++		return "COPY_DATA_READ";
++	case CPC_PTL_PACKET_TYPE_COPY_DATA_WRITE:
++		return "COPY_DATA_WRITE";
++	case CPC_PTL_PACKET_TYPE_WRITE_DATA:
++		return "WRITE_DATA";
++	case CPC_PTL_PACKET_TYPE_COND_WRITE:
++		return "COND_WRITE";
++	case CPC_PTL_PACKET_TYPE_WAIT_REG_MEM:
++		return "WAIT_REG_MEM";
++	case CPC_PTL_PACKET_TYPE_WAIT_REG_MEM64:
++		return "WAIT_REG_MEM64";
++	default:
++		return "UNKNOWN";
++	}
++}
++
+ static void event_interrupt_poison_consumption_v9(struct kfd_node *dev,
+ 				uint16_t pasid, uint16_t client_id)
+ {
+@@ -352,6 +398,8 @@ static bool event_interrupt_isr_v9(struct kfd_node *dev,
+ 		source_id == SOC15_INTSRC_SDMA_ECC ||
+ 		source_id == SOC15_INTSRC_SQ_INTERRUPT_MSG ||
+ 		source_id == SOC15_INTSRC_CP_BAD_OPCODE ||
++		(client_id == SOC15_IH_CLIENTID_GRBM_CP &&
++		 source_id == SOC15_INTSRC_CP_PTL_REG_SKIP) ||
+ 		KFD_IRQ_IS_FENCE(client_id, source_id) ||
+ 		((client_id == SOC15_IH_CLIENTID_VMC ||
+ 		client_id == SOC15_IH_CLIENTID_VMC1 ||
+@@ -538,6 +586,34 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
+ 				KFD_DEBUG_DOORBELL_ID(context_id0),
+ 				KFD_EC_MASK(KFD_DEBUG_CP_BAD_OP_ECODE(context_id0)),
+ 				NULL, 0);
++		} else if (source_id == SOC15_INTSRC_CP_PTL_REG_SKIP) {
++			uint32_t packet_type, queue_id;
++			uint32_t skipped_addr;
++
++			/*
++			 * PTL (Peak TOPS Limiter) register skip notification.
++			 * FW skipped a privileged register access and is notifying KFD.
++			 * Data from IH entry (not registers):
++			 * - context_id0 contains CPC_INT_CNTX_ID with packet type in [31:28]
++			 * - context_id1 contains CPC_INT_INFO with queue ID in [30:28]
++			 * - context_id2 contains CPC_INT_ADDR (skipped register address)
++			 * - PASID comes from CPC_INT_PASID (already extracted from IH entry)
++			 */
++			skipped_addr = SOC15_CONTEXT_ID2_FROM_IH_ENTRY(ih_ring_entry);
++
++			/* Extract packet type from CPC_INT_CNTX_ID[31:28] */
++			packet_type = (context_id0 & CPC_INT_CNTX_ID__PACKET_TYPE_MASK) >>
++					CPC_INT_CNTX_ID__PACKET_TYPE__SHIFT;
++
++			/* Extract queue ID from CPC_INT_INFO[30:28] */
++			queue_id = (context_id1 & CPC_INT_INFO__QUEUE_ID_MASK) >>
++					CPC_INT_INFO__QUEUE_ID__SHIFT;
++
++			dev_info_ratelimited(dev->adev->dev,
++				"PTL: AQL request was rejected due to incompatible user input; please verify your PTL configuration.");
++			dev_dbg_ratelimited(dev->adev->dev,
++				"PTL: register access skipped - pasid 0x%x, queue %u, packet %s, addr 0x%x\n",
++				pasid, queue_id, cpc_packet_type_name(packet_type), skipped_addr);
+ 		}
+ 	} else if (client_id == SOC15_IH_CLIENTID_SDMA0 ||
+ 		   client_id == SOC15_IH_CLIENTID_SDMA1 ||
+diff --git a/drivers/gpu/drm/amd/amdkfd/soc15_int.h b/drivers/gpu/drm/amd/amdkfd/soc15_int.h
+index e5c0205f2618..736b02ccdefb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/soc15_int.h
++++ b/drivers/gpu/drm/amd/amdkfd/soc15_int.h
+@@ -25,6 +25,7 @@
+ 
+ #include "soc15_ih_clientid.h"
+ 
++#define SOC15_INTSRC_CP_PTL_REG_SKIP	177
+ #define SOC15_INTSRC_CP_END_OF_PIPE	181
+ #define SOC15_INTSRC_CP_BAD_OPCODE	183
+ #define SOC15_INTSRC_SQ_INTERRUPT_MSG	239
+-- 
+2.43.0
 
