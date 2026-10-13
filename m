@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA36CC6B1B
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 08:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0018CC6B18
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Oct 2026 08:49:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34A3610F636;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B9C010F634;
 	Tue, 13 Oct 2026 08:49:47 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C1C310F624
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 08:49:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFBAF10F629
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 08:49:43 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 69D8ndQT972605; Tue, 13 Oct 2026 14:19:39 +0530
+ 69D8nc5G972425; Tue, 13 Oct 2026 14:19:38 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69D8nd7X972604;
- Tue, 13 Oct 2026 14:19:39 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 69D8nc6n972414;
+ Tue, 13 Oct 2026 14:19:38 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v3 14/14] drm/amdgpu: rename amdgpu_vmid_alloc/free_reserved
- to _spm
-Date: Tue, 13 Oct 2026 14:19:37 +0530
-Message-Id: <20261013084937.972181-14-sunil.khatri@amd.com>
+Subject: [PATCH v3 03/14] drm/amdgpu: use dedicated SPM VMID from the reserved
+ path
+Date: Tue, 13 Oct 2026 14:19:26 +0530
+Message-Id: <20261013084937.972181-3-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261013084937.972181-1-sunil.khatri@amd.com>
 References: <20261013084937.972181-1-sunil.khatri@amd.com>
@@ -46,100 +46,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These functions only ever hand out the dedicated SPM VMID now, not a
-generic reserved VMID. Rename them to amdgpu_vmid_alloc_spm() and
-amdgpu_vmid_free_spm() to say so. Pure rename, no functional change.
+Use the spm vmid which is dedicated for the SPM only and update
+the function paths accordingly.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 8 ++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 6 +++---
- 3 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 30 ++++++++++++++++++++-----
+ 1 file changed, 25 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index 8e60e5fdd210d..a3293b32ea58a 100644
+index ed1efde29a9a5..0eac7695f5587 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -527,7 +527,7 @@ bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub)
+@@ -551,9 +551,12 @@ int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		r = -ENOENT;
+ 		goto unlock;
+ 	}
+-	/* Remove from normal round robin handling */
+-	id = list_first_entry(&id_mgr->ids_lru, struct amdgpu_vmid, list);
+-	list_del_init(&id->list);
++	if (!adev->vm_manager.spm_vmid) {
++		r = -ENOENT;
++		goto unlock;
++	}
++
++	id = &id_mgr->ids[adev->vm_manager.spm_vmid];
+ 	vm->reserved_vmid[vmhub] = id;
+ 	id_mgr->reserved_vmid = true;
+ 	mutex_unlock(&id_mgr->lock);
+@@ -577,8 +580,6 @@ void amdgpu_vmid_free_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	mutex_lock(&id_mgr->lock);
+ 	if (vm->reserved_vmid[vmhub]) {
+-		list_add(&vm->reserved_vmid[vmhub]->list,
+-			&id_mgr->ids_lru);
+ 		vm->reserved_vmid[vmhub] = NULL;
+ 		id_mgr->reserved_vmid = false;
+ 	}
+@@ -628,6 +629,14 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev)
+ 		for_each_set_bit(j, id_mgr->vmid_mask, AMDGPU_NUM_VMID)
+ 			amdgpu_vmid_reset(adev, i, j);
+ 	}
++
++	/*
++	 * The SPM VMID is not part of the normal kernel pool, reset it
++	 * anyway in case it is used with kernel queues.
++	 */
++	if (adev->vm_manager.spm_vmid)
++		for (i = AMDGPU_GFXHUB_START; i < AMDGPU_MMHUB0_START; ++i)
++			amdgpu_vmid_reset(adev, i, adev->vm_manager.spm_vmid);
  }
  
- /*
-- * amdgpu_vmid_alloc_reserved - reserve a specific VMID for this vm
-+ * amdgpu_vmid_alloc_spm - reserve a specific VMID for this vm
-  * @adev: amdgpu device structure
-  * @vm: the VM to reserve an ID for
-  * @vmhub: the VMHUB which should be used
-@@ -536,7 +536,7 @@ bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub)
-  *
-  * Returns: 0 for success, -ENOENT if an ID is already reserved.
-  */
--int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+int amdgpu_vmid_alloc_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 			       unsigned vmhub)
- {
- 	struct amdgpu_kq_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
-@@ -567,12 +567,12 @@ int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ /**
+@@ -712,6 +721,17 @@ void amdgpu_vmid_mgr_init(struct amdgpu_device *adev)
+ 			list_add_tail(&id_mgr->ids[j].list, &id_mgr->ids_lru);
+ 		}
+ 	}
++
++	/*
++	 * The SPM VMID is not part of the normal kernel pool, create its
++	 * sync anyway in case it is used with kernel queues.
++	 */
++	if (adev->vm_manager.spm_vmid) {
++		unsigned int spm_vmid = adev->vm_manager.spm_vmid;
++
++		for (i = AMDGPU_GFXHUB_START; i < AMDGPU_MMHUB0_START; ++i)
++			amdgpu_sync_create(&adev->vm_manager.id_mgr[i].ids[spm_vmid].active);
++	}
  }
  
- /*
-- * amdgpu_vmid_free_reserved - free up a reserved VMID again
-+ * amdgpu_vmid_free_spm - free up a reserved VMID again
-  * @adev: amdgpu device structure
-  * @vm: the VM with the reserved ID
-  * @vmhub: the VMHUB which should be used
-  */
--void amdgpu_vmid_free_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+void amdgpu_vmid_free_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 			       unsigned vmhub)
- {
- 	struct amdgpu_kq_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-index 105272ee2dce6..e2aa16b0898cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-@@ -122,9 +122,9 @@ void amdgpu_pasid_mgr_cleanup(void);
- bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
- 			       struct amdgpu_vmid *id);
- bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub);
--int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+int amdgpu_vmid_alloc_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 			       unsigned vmhub);
--void amdgpu_vmid_free_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-+void amdgpu_vmid_free_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 			       unsigned vmhub);
- int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
- 		     struct amdgpu_job *job, struct dma_fence **fence);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 05358e7d81cb8..15fe597b7515e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2892,7 +2892,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	dma_fence_put(vm->last_update);
- 
- 	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
--		amdgpu_vmid_free_reserved(adev, vm, i);
-+		amdgpu_vmid_free_spm(adev, vm, i);
- 	}
- 
- 	ttm_lru_bulk_move_fini(&adev->mman.bdev, &vm->lru_bulk_move);
-@@ -2995,13 +2995,13 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		int r;
- 
- 		/* We only have requirement to reserve vmid from gfxhub */
--		r = amdgpu_vmid_alloc_reserved(adev, vm, AMDGPU_GFXHUB(0));
-+		r = amdgpu_vmid_alloc_spm(adev, vm, AMDGPU_GFXHUB(0));
- 		if (!r)
- 			amdgpu_vm_spm_update(adev, vm);
- 		return r;
- 	}
- 	case AMDGPU_VM_OP_UNRESERVE_VMID:
--		amdgpu_vmid_free_reserved(adev, vm, AMDGPU_GFXHUB(0));
-+		amdgpu_vmid_free_spm(adev, vm, AMDGPU_GFXHUB(0));
- 		break;
- 	default:
- 		return -EINVAL;
+ /**
 -- 
 2.34.1
 
