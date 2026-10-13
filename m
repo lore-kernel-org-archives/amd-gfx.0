@@ -4,61 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97037CC6B2C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC978CC6B2A
 	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:48:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF37410FD93;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED1BC10FD96;
 	Wed, 14 Oct 2026 12:48:00 +0000 (UTC)
 Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
  [74.125.82.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C02910F1C8
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8383D10E959
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:20 +0000 (UTC)
 Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-33c35f5ca6cso7841100eec.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:35 -0700 (PDT)
+ 5a478bee46e88-35a4d2e39acso1187067eec.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791931234; x=1792536034;
+ d=google.com; s=20251104; t=1791931220; x=1792536020;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=E3db36lwsPWQArDIHzP6eqDHTacNJpd6D0FMiQjZlVc=;
- b=o2cr86dIvbBJno8P/sD32egYS3xgEe1ToJA5M9ZAc7W9OnD6KHjaaQKUiWc84YtdLS
- NFuDJvs4ckdLD91ZtjepXR99U8rAF8uvEjsTdHO4nslR18PNA+1HqqcxAMWvGNEoy3FJ
- NmBBrN83rqPzn9dbk1COPE6yXwXEWbwRZVmhbb8EKExeOKI5RGD/C56WiAOr9dVqsBwk
- rczh9z8XYpq/buiAZ9VXZIXNJBZaHfYd8lA4drLdPlZ3JGwyyTw0oeTpO63vDsAAGwIg
- YORJTgqW/BufYHY7mvtpOC5lZyzUaYn/W/c3FAsVuPKoCCrKSSwAVdb2CNrZ7AZehRhn
- KYbQ==
+ :content-type; bh=4r3hXDLd6Bqk9XmcFR/JS5uHIdkPs2TN+2FSnsngXIE=;
+ b=bTFtXOcrSvDShbSiEZRADUXndtSUXAu3LpPy67TtXCV2eiMaXc68L/OuezOJcSX2A1
+ 1H06yIuIQLm9d9+fbTrUFL0tpoxdhbkH/3PF6VWZRQLCaq5pVOJct33aKpDETN2Fzxn7
+ pLBguZEX3jogWMqUjpsXy0dmoKirWMJ3vv/6E+mI2WeS0/3jLlvZTqTmt3WPX2U6tixq
+ qFgU0ykHQ5Rg75ZppbGcBWj8WiA05AwmAdj9uf+5LdNmUQcZHJK63VHvmjRMV+Xp1LNz
+ iq2RYcQ1RVbTzYba6tU3qMhCYgHY5AqZziR5umXMXumNJHTEHRClEYyx9oC2tgPcmHQ4
+ Q7Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791931234; x=1792536034;
+ d=1e100.net; s=20260707; t=1791931220; x=1792536020;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=E3db36lwsPWQArDIHzP6eqDHTacNJpd6D0FMiQjZlVc=;
- b=v81L5W5nQiPTYBBf0NvLCkzcm98t081zhI7kvx0OVoQ1Suc6Y2d0VvZ8QeaQpuwqVI
- 7GPb+sAF7Ui28BRKSszcSPxb4dIRPtrtGUpApqsOfoidWFdEw5sFXAh4oMX5CiEXMFkG
- vjIUDeRwOKLR8/zA44CtE8jIEQMhrbCffUpdYxSGHQLqE3AvRaFQp8g9y59j0fj10CAu
- /45fjUZXC54sMErltWBxHPkW8KSPBnKZxHNJcD3Vj100gxaUi92M3pHhkQDQ84vQJvO8
- n7qXIJWibTYS6emKq9m07MVOxMX/KA4lkK2koomvvPhfhDXDfFDMhClsVDXG8vWZgKDr
- qw3A==
+ bh=4r3hXDLd6Bqk9XmcFR/JS5uHIdkPs2TN+2FSnsngXIE=;
+ b=Lq/EQEL/G58nBjo9AaXDTyh3Z2WIP4hLRkBPAGZhKQYyV3gjWTkRj/TCqtr2sqJXvr
+ yjoyZvcvQHH0tFJH0NiviKd2Gk14/nH5ZnUMcRHzbjHg4aj+kkT3ZislfirtozdcPxUo
+ 9fYleKRRi6DpGr6uN4+djAq7Pm5rtandSLN3Qb+jrxAYSwTntkF1d044Mf+ZuysI554j
+ LI2+xoIEmyNSgrSjc7HmDXSqAAJfA+XxEOCspBGA0rL7xYNgJwhqsrVRsJkrtZKxwesS
+ lLhAk7TWFJNhCukKVdwKaBVFD5+Owzozy7mOH6zpVmIhXBlmpcKocizbSeIz88Wky9Nf
+ PbcA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwe/pAqCppRsnb0HCrFKSodLyZWLlHLtmpoIVyWzaWJH2YQQznoC03VXcK08I43mtpe/JQpBAIi@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLH3FRWKN8WbJCauJOmmH0eXbww/aCfBzuuM6RCINbIu+tnZc1L
- Mf1EpM/WqoXbGgj1SgfoRNuLLTL/53qzp6oi7XBfsSQrhTnfuAeLOREPaBzi+vImlqLaEF69SMd
- L9DlKVL4zJg==
-X-Received: from dybmd37.prod.google.com
- ([2002:a05:7301:1825:b0:351:1da6:c2e7])
+ AKwUvBymfxm8sRlpyKKLQ6t/7Cu70OEG9Fl0fIa5N5G+8DtdaEovK1TSIOtWzvUe+dlgOqtfzBAqfKIZ@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLDofAqwCkpU4qSWFZleTIwO+5KE5cQI8q9fMJ5jB9Ca1xNhKEv
+ 234zNAoQJdz0Jk+iILZe0vukZMkud/17Q5w2ABnMqhCFzPTRbgXKcfpCD9MH46LLduV9XC5oGUS
+ YyRH20uzOcw==
+X-Received: from dyu6.prod.google.com ([2002:a05:693c:8106:b0:352:94e:a8c9])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:78cb:b0:351:515b:4e85
- with SMTP id 5a478bee46e88-3537e088bd7mr19706222eec.16.1791931230851; Tue, 13
- Oct 2026 15:40:30 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:39:43 -0700
+ 2002:a05:7301:71a8:b0:358:f717:ff61
+ with SMTP id 5a478bee46e88-358f717ff90mr13337962eec.6.1791931219210; Tue, 13
+ Oct 2026 15:40:19 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:39:38 -0700
 In-Reply-To: <20261013223946.1836757-1-irogers@google.com>
 Mime-Version: 1.0
 References: <20261013223946.1836757-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013223946.1836757-9-irogers@google.com>
-Subject: [PATCH 08/11] s390/sclp_mem: Allocate struct sclp_mem dynamically and
- add kobject release
+Message-ID: <20261013223946.1836757-4-irogers@google.com>
+Subject: [PATCH 03/11] sh: sq: Add missing kobject release callback to
+ ktype_percpu_entry
 From: Ian Rogers <irogers@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J . Wysocki" <rafael@kernel.org>, 
@@ -110,176 +109,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-sclp_init_mem() allocated a single array of struct sclp_mem with
-kzalloc_objs() and registered each embedded kobject using a kobj_type
-without a .release callback. Allocate each struct sclp_mem individually
-with kzalloc_obj() instead and add sclp_mem_release() to free it.
+In sq_dev_add(), sq_kobject[cpu] is dynamically allocated with
+kzalloc_obj() and initialized with ktype_percpu_entry. When
+sq_dev_remove() calls kobject_put(kobj), the kobject is never freed
+because ktype_percpu_entry lacks a .release callback.
 
-Fixes: ff18dcb19aab ("s390/sclp: Add support for dynamic (de)configuration of memory")
+Provide a sq_kobj_release() callback that calls kfree(kobj).
+
+Fixes: d7c30c682a27 ("sh: Store Queue API rework.")
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/s390/char/sclp_mem.c | 73 +++++++++++++++++-------------------
- 1 file changed, 34 insertions(+), 39 deletions(-)
+ arch/sh/kernel/cpu/sh4/sq.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/s390/char/sclp_mem.c b/drivers/s390/char/sclp_mem.c
-index 6df1926d4c62..f7c161e0d836 100644
---- a/drivers/s390/char/sclp_mem.c
-+++ b/drivers/s390/char/sclp_mem.c
-@@ -49,11 +49,6 @@ struct sclp_mem {
- #endif
+diff --git a/arch/sh/kernel/cpu/sh4/sq.c b/arch/sh/kernel/cpu/sh4/sq.c
+index 908a8e09113b..f33864958487 100644
+--- a/arch/sh/kernel/cpu/sh4/sq.c
++++ b/arch/sh/kernel/cpu/sh4/sq.c
+@@ -331,7 +331,13 @@ static const struct sysfs_ops sq_sysfs_ops = {
+ 	.store	= sq_sysfs_store,
  };
  
--struct sclp_mem_arg {
--	struct sclp_mem *sclp_mems;
--	struct kset *kset;
--};
--
- struct assign_storage_sccb {
- 	struct sccb_header header;
- 	u16 rn;
-@@ -304,7 +299,15 @@ static ssize_t sclp_memmap_on_memory_store(struct kobject *kobj, struct kobj_att
- 	return rc ? rc : count;
- }
- 
-+static void sclp_mem_release(struct kobject *kobj)
++static void sq_kobj_release(struct kobject *kobj)
 +{
-+	struct sclp_mem *sclp_mem = container_of(kobj, struct sclp_mem, kobj);
-+
-+	kfree(sclp_mem);
++	kfree(kobj);
 +}
 +
- static const struct kobj_type ktype = {
-+	.release = sclp_mem_release,
- 	.sysfs_ops = &kobj_sysfs_ops,
+ static struct kobj_type ktype_percpu_entry = {
++	.release	= sq_kobj_release,
+ 	.sysfs_ops	= &sq_sysfs_ops,
+ 	.default_groups	= sq_sysfs_groups,
  };
- 
-@@ -321,36 +324,40 @@ static struct attribute_group sclp_mem_attr_group = {
- 	.attrs = sclp_mem_attrs,
- };
- 
--static int sclp_create_mem(struct sclp_mem *sclp_mem, struct kset *kset,
--			   unsigned int id, bool config, bool memmap_on_memory)
-+static int sclp_create_mem(struct kset *kset, unsigned int id, bool config,
-+			   bool memmap_on_memory)
- {
-+	struct sclp_mem *sclp_mem;
- 	int rc;
- 
-+	sclp_mem = kzalloc_obj(*sclp_mem);
-+	if (!sclp_mem)
-+		return -ENOMEM;
- 	sclp_mem->memmap_on_memory = memmap_on_memory;
- 	sclp_mem->config = config;
- #ifdef CONFIG_KASAN
- 	sclp_mem->early_shadow_mapped = config;
- #endif
- 	sclp_mem->id = id;
--	kobject_init(&sclp_mem->kobj, &ktype);
--	rc = kobject_add(&sclp_mem->kobj, &kset->kobj, "memory%d", id);
--	if (rc)
-+	rc = kobject_init_and_add(&sclp_mem->kobj, &ktype, &kset->kobj,
-+				  "memory%d", id);
-+	if (rc) {
-+		kobject_put(&sclp_mem->kobj);
- 		return rc;
--	return sysfs_create_group(&sclp_mem->kobj, &sclp_mem_attr_group);
-+	}
-+	rc = sysfs_create_group(&sclp_mem->kobj, &sclp_mem_attr_group);
-+	if (rc) {
-+		kobject_put(&sclp_mem->kobj);
-+		return rc;
-+	}
-+	return 0;
- }
- 
- static int sclp_create_configured_mem(struct memory_block *mem, void *argument)
- {
--	struct sclp_mem *sclp_mems;
--	struct sclp_mem_arg *arg;
--	struct kset *kset;
--	unsigned int id;
-+	struct kset *kset = argument;
- 
--	id = mem->dev.id;
--	arg = (struct sclp_mem_arg *)argument;
--	sclp_mems = arg->sclp_mems;
--	kset = arg->kset;
--	return sclp_create_mem(&sclp_mems[id], kset, id, true, false);
-+	return sclp_create_mem(kset, mem->dev.id, true, false);
- }
- 
- static void __init align_to_block_size(unsigned long *start,
-@@ -368,8 +375,7 @@ static void __init align_to_block_size(unsigned long *start,
- 	*size = size_align;
- }
- 
--static int __init sclp_create_standby_mems_merged(struct sclp_mem *sclp_mems,
--						  struct kset *kset, u16 rn)
-+static int __init sclp_create_standby_mems_merged(struct kset *kset, u16 rn)
- {
- 	unsigned long start, size, addr, block_size;
- 	static u16 first_rn, num;
-@@ -394,7 +400,7 @@ static int __init sclp_create_standby_mems_merged(struct sclp_mem *sclp_mems,
- 		goto skip_add;
- 	for (addr = start; addr < start + size; addr += block_size) {
- 		id = addr / block_size;
--		rc = sclp_create_mem(&sclp_mems[id], kset, id, false,
-+		rc = sclp_create_mem(kset, id, false,
- 				     mhp_supports_memmap_on_memory());
- 		if (rc)
- 			break;
-@@ -405,45 +411,34 @@ static int __init sclp_create_standby_mems_merged(struct sclp_mem *sclp_mems,
- 	return rc;
- }
- 
--static int __init sclp_create_standby_mems(struct sclp_mem *sclp_mems, struct kset *kset)
-+static int __init sclp_create_standby_mems(struct kset *kset)
- {
- 	struct memory_increment *incr;
- 	int rc = 0;
- 
- 	list_for_each_entry(incr, &sclp_mem_list, list) {
- 		if (incr->standby)
--			rc = sclp_create_standby_mems_merged(sclp_mems, kset, incr->rn);
-+			rc = sclp_create_standby_mems_merged(kset, incr->rn);
- 		if (rc)
- 			return rc;
- 	}
--	return sclp_create_standby_mems_merged(sclp_mems, kset, 0);
-+	return sclp_create_standby_mems_merged(kset, 0);
- }
- 
- static int __init sclp_init_mem(void)
- {
--	const unsigned long block_size = memory_block_size_bytes();
--	unsigned int max_sclp_mems;
--	struct sclp_mem *sclp_mems;
--	struct sclp_mem_arg arg;
- 	struct kset *kset;
- 	int rc;
- 
--	max_sclp_mems = roundup(sclp.rnmax * sclp.rzm, block_size) / block_size;
--	/* Allocate memory for all blocks ahead of time. */
--	sclp_mems = kzalloc_objs(struct sclp_mem, max_sclp_mems);
--	if (!sclp_mems)
--		return -ENOMEM;
- 	kset = kset_create_and_add("memory", NULL, firmware_kobj);
- 	if (!kset)
- 		return -ENOMEM;
- 	/* Initial memory is in the "configured" state already. */
--	arg.sclp_mems = sclp_mems;
--	arg.kset = kset;
--	rc = for_each_memory_block(&arg, sclp_create_configured_mem);
-+	rc = for_each_memory_block(kset, sclp_create_configured_mem);
- 	if (rc)
- 		return rc;
- 	/* Standby memory is "deconfigured". */
--	return sclp_create_standby_mems(sclp_mems, kset);
-+	return sclp_create_standby_mems(kset);
- }
- 
- static void __init insert_increment(u16 rn, int standby, int assigned)
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
