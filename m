@@ -4,96 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D43CC6B2A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:48:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0247CC6B1D
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:48:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5263E10FD5D;
-	Wed, 14 Oct 2026 12:47:58 +0000 (UTC)
-Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E92B10E256
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 03:03:00 +0000 (UTC)
-Received: by mail-lr2-f7.google.com with SMTP id
- 38308e7fff4ca-3a9a51919baso3364761fa.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 20:03:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791946979; cv=none;
- d=google.com; s=arc-20260327;
- b=l3kcxQ14VaaddscRE0Q0VwpFgfrBwTFSXVHZdcqM1jjUujr0i5JyAAYjfUMVsOeSQ7
- vrJ3XFKGbVgTh12DA8mFVtgiK3DZ+OE7ARQicUocLke6dpEX7Q3pruLLbC2iopHUVKmy
- /QTuRGIz4LsJFDCHbYmebWMUtG9s2ksMKsKgMMZTHzuIv/1SjGW545qwOsIpnT9u913y
- lTu7oPUz1EXF9uWBKrUmq/lMiEYhIK8RGVPZOjQVVgkIv6zcKk+FdB10xaMUfnOiY4y9
- 0U69siexxBZBrpqFl68EOq2pBEz0pxCQVVXiulsNm3CXbg0oHNfJ5inO6vgPbs74fCxo
- x7ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=oaE/H0ZV/2aESDvS9Gp3EEHeBvb99SQefPoRqEUxC5k=;
- fh=U4MCwTg3+87LaGQkG1IgbQysShmMdoq4lt+4RH1FUHI=;
- b=ZLZE/9ZhqogD/aPbnBQ2lrl8YdEji3qGKn7dlK7ucQdzzRiTtBeFz8P50HfTMCOyHu
- CZvid/FYw+LQ19jpEkkUtsYrg3SUYrdlhkprB7h1Yr/+prdIEiwL83RMPZTx3LPnBAcs
- NtQInLvvxV4gDX+5pZLQWPycmxi6vhBQwnnKUHBRi3sDBtnaemMF/esgRXD+FMS2Ex4Z
- U0KI3+/jT4lGUlJ2Z3BKZHOXGWZ7tA/zkBh3iPiS0pVM6HvmNXcToLBd+rRkV1/oWz9F
- KwJzatool0YiQsU86T5mYEUvA0SOm1rtidb2bnTReZLA8JdwOm8k2JesS7/qJmvCWAuK
- G5yQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 362FE10FD6F;
+	Wed, 14 Oct 2026 12:48:00 +0000 (UTC)
+Received: from mail-lf1-f66.google.com (mail-lf1-f66.google.com
+ [209.85.167.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2062C10FB02
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 06:05:40 +0000 (UTC)
+Received: by mail-lf1-f66.google.com with SMTP id
+ 2adb3069b0e04-5bce4e278baso575639e87.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 23:05:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791946979; x=1792551779; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=oaE/H0ZV/2aESDvS9Gp3EEHeBvb99SQefPoRqEUxC5k=;
- b=c28mKWdiWFJE5y1hY4UPH7VZt0SOA7nefFD4nAhus9eWjhR3Epc+4stKfTy5aJdgSc
- +2NLPY0ncMdmNEadu0K7EqbcZZ5LNkRjs0Y+m5fU8yIs2VCfZXycTVSChVqAAn/U95Ao
- Kv2bTDdx4thul9EjxA5IU4YcuXmSTEmFcbnm348OLLeVpRYAfC9BI89qclLQL5XSGknB
- 5NMe2eUsRSCBFQ3+MadotRbSLUekjXj7rMsR2Ptrzct1KKwL/avHVjHNZYHauaEdqQ/M
- AYaIqFNDNGS7iP3lmSH+ayt3KJRXLs1BhwWVKWN90p3ySr/dMiWia6/wrmhEw6z8bXlE
- 1HMg==
+ d=gmail.com; s=20251104; t=1791957938; x=1792562738; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZKHQJZbsU0Ua86VI1CZpz7LRBcGg7w/QDW/s3ZvmOOs=;
+ b=efuoBxypoIG+cnLDfp5bYMvRGKERnYiJVxtLvOtH2R3oCDqAXkzMQyrjQ38hY60mE3
+ YQvqwoOQGtXYmV89VS/4yvTbvjEnlQ1NhCoFn8Qr71hxK1luigW6lgE8rVsMH4EkfFdo
+ jw8EppYDWMNpl5esZvZMEJLDBy8Q0xUtKMcb89ufYTm/mgvzaB3ph1HZqSbmX6i+CxHq
+ O1Lk7OC1noHW+qlvWLA3IZAWCV1W+stvJNAjuDmWAwsRZj2R4ULcnjrR8xJtzccE7auN
+ BYYnIx4SIwDuAoF0yKZhsmZVvj24bMP36l6uuCddMTPuKpFm7O5fkyEgkgkRqgXI6/qu
+ S5DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791946979; x=1792551779;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=oaE/H0ZV/2aESDvS9Gp3EEHeBvb99SQefPoRqEUxC5k=;
- b=NyGsk8yqAvNwzJfmcgvgchhsBu2J4Y8mla888aqhZNEhT4FuTXbEjHuXMQHUjpX4kQ
- tEYRWC00m5zwGhAwVig8BY1O87i329KUFUgHBVu5ZQPkxuLTFJsjmZ8F42h5mHoC+3kn
- tn0/80cwzPrHQHpF+ul9+04gTzDSPUx0MOxSAXMCl9SaZjAjE0lbEvcKDAdmEXCqi2kH
- MVZuQRLXoJWEUVw5SbyvHRozbgNLSh7R4P6NuVUJmSahCB/7EC4t/KH/WU4+w1dy9c5L
- bKkeg7z9E/AtA3oRqjvxA3yS4TINh1DL2YxmhLe2jYmFMbzmHet49V2rPB7iyKtxmUIk
- X14w==
+ d=1e100.net; s=20260707; t=1791957938; x=1792562738;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZKHQJZbsU0Ua86VI1CZpz7LRBcGg7w/QDW/s3ZvmOOs=;
+ b=ZAf+52cVCPlLdx/GpSO/TDbQvyNxmcH5e769vasVrn3UQh3kdR5Qv8enVW02QIRGos
+ Y+idTuPVwVaMzZW42BariT2utWhlMu5YjYH0+vkh3FbaRE/oiPZyEyDfa0guBupYXcxc
+ WIJdzuiHQt+mYuh9W1MlHlV6Xb7jG2OoSJJrUql2AesyrO+Op9brsb92RbcO5nAsYm2e
+ 1EmZpKWckgE7xNzc51Mk6KKtCZFvgtsTEWT+d41XKvu6jbyyq6eiBn0FnBR1l+wS+EpG
+ icB0Z1UxGUz015z2+DFoorHEANvf6Z5aJ0re7SBx6kHY8XSoW5O2CLXcOBYsTkGad302
+ BcEg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwD8rKuI2X7ZsuNxHIy/A6dOpFxsXjvguz34Ov0lbf27V26mZ1ETuKAJOHXmVnyL1yCYDUeV1tR@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL4UDQcLvG1eEDpyZX/5h98UpwUNUS+WdBrgdf9WFcH9Ee6dNV4
- imoM+qd5o8rz0qO0Tb/QvMuWsodY1Uh1uKmLITwtmtvBuwLf2HtQljfvI3C/v2cmQm4Rqxcbe8V
- RDxlFDx3fv6GB0Ck8HGFKlvkbWA8ywRU=
-X-Gm-Gg: AYBFou0Wdd9VLPh/9QrA3Ek20kLU8llAbkWADeiu4TIj3cSy4uXDXic94FXrZMQSyK/
- nsRURykMb0M+R0icznEvMKVZyycVjJ5cJ3HnBsrZoEcRL1WA0sdix8mBTWDpNgFfN7Zq+D7Kl6Z
- dOplVAMigqsFrXupvpjfNPkz8a45gQYyLj4taGPLlG9qzHHh8rZfYowm+WlVN3KOntY8GXBt85/
- pTgtxtAMdAcs0S3bDGVMkbqf5cxheg7AWldn4qMdDlw3i3g8B9vpzMbgPvJFv04DPl/CTmrYYf4
- mjolMV9QbrBqzpbo8noT1j09CjNChPP88t0y6VkktzckYHtekEv6899guqB9FR+PD/E=
-X-Received: by 2002:a05:651c:1542:b0:3a6:692d:b7ed with SMTP id
- 38308e7fff4ca-3a9c539343dmr38351911fa.20.1791946978412; Tue, 13 Oct 2026
- 20:02:58 -0700 (PDT)
+ AKwUvBypU7KFREvlrMx71/dtwcYkOhm7Tnz2ntCGtu0+Jcc4QgkSIiNMHUyiXdBELFHtGC9HwwXFs9nu@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLDTHMk1EbsIVZ2Q3esugbkkJYGhkN0txt4Slo9E5/ZjF/fz3eZ
+ phjB/b3YGG8I/EFx+mRVoKnrszcKi85pW1NIzZMIK4t9CdJXvnNL4yk8
+X-Gm-Gg: AYBFou0p4yQkxGQ1yo9oefhWvVbluFMS1chz0bIKU7nRJ27n/l8tcAV1J8UoFcC2gb6
+ ppbMlyB00G6J//WeU20Vf8tdyfpTuv8u0UMFJ4df1foF1HzoBYOPZH/a/yEkXpl5f8xg9oTBEZd
+ G5TX0g9WUUz1u76Cq6WQOSo9CafJM2XeIr5VyJPJq1u/D3B++7tYFcSp6Jk2YoEHDo4L0XQtXD6
+ 4ZSNgggmIQzlvINYOUsQ7KhlIEHuDa26bUns2/gM1R6uQDiG+yPVazWYQXQ4rmUytPK3SK7l2mU
+ 38N3mOpldqNUnPre0PTUmC6nHIm3/H60IHAkaWM9+1+T3hfAiR2sLeV8fPNJSz8AfmlD5/2c7jY
+ 5JMs1NoJ5C+2f7xXc3D3Ir+6vL0Sg7HunF4bOcGN8ytPDcKZSV6pkKm87y0zxGEcEXFceH+PTfN
+ E5ULpt9+q1RBlAzHngSpKLc5l6bMgyFhf5ZgiDli9cu5FHkZjrYr5PPR/vPpzI6Pnr0W3eovih3
+ JYHKoY4bxVdtoYu
+X-Received: by 2002:a05:6512:3f08:b0:5bc:cbe1:571d with SMTP id
+ 2adb3069b0e04-5bcdd559e1emr4705089e87.44.1791957937938; 
+ Tue, 13 Oct 2026 23:05:37 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5be34c726casm235360e87.46.2026.10.13.23.05.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Oct 2026 23:05:37 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Alexandre Demers <alexandre.f.demers@gmail.com>,
+ Boyuan Zhang <boyuan.zhang@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Benjamin Cheng <benjamin.cheng@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org
+Subject: [PATCH 5.10/5.15] drm/amdgpu/vce: Prevent partial address patches
+Date: Wed, 14 Oct 2026 09:05:19 +0300
+Message-ID: <20261014060523.4685-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
- <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
- <4df51e6e-b017-4057-96dc-32d4003f8705@amd.com>
-In-Reply-To: <4df51e6e-b017-4057-96dc-32d4003f8705@amd.com>
-From: henry martin <bsdhenrymartin@gmail.com>
-Date: Wed, 14 Oct 2026 11:02:46 +0800
-X-Gm-Features: AclHuK9wmlZSIF4pzMKiC6asGVwJ7ETTkkdCmGmvxP7lUevo_EYe8yPIyar_-KM
-Message-ID: <CAEnQdOpWJ-73FyQzgov2g9___KWptdK5PZcOkwi1FS4b6mhOFg@mail.gmail.com>
-Subject: Re: [PATCH v2] amdkfd: fix doorbell allocation race creating
- duplicate allocations
-To: Felix Kuehling <felix.kuehling@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 14 Oct 2026 12:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,145 +94,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Felix,
+From: Benjamin Cheng <benjamin.cheng@amd.com>
 
-No objection at all - 16f0013157bf ("drm/amdkfd: Allocate doorbells
-only when needed") looks right to me.  Thanks for the archaeology
-and for taking care of the tag before submission.
+commit de2a02cc28d6d5d37db07d00a9a684c754a5fd74 upstream.
 
-Regards,
-Henry
+In the case that only one of lo/hi is valid, the patching could result
+in a bad address written to in FW.
 
-Felix Kuehling <felix.kuehling@amd.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8814=
-=E6=97=A5=E5=91=A8=E4=B8=89 01:40=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 2026-10-09 23:02, Henry Martin wrote:
-> > The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-> > lockless at every call site of kfd_alloc_process_doorbells():
-> > kfd_get_process_doorbells() (mmap of /dev/kfd),
-> > kfd_ioctl_create_queue() and the CRIU restore path each test the
-> > pointer under different locking (or none), so two racing threads can
-> > both observe NULL and each allocate a doorbell BO and bitmap,
-> > orphaning one allocation and handing the two mappings different
-> > backing pages.
-> >
-> > Move the serialization into kfd_alloc_process_doorbells() itself,
-> > using a new per-process-device mutex so all three call sites are
-> > covered regardless of their own locking.  The device-global
-> > kfd->doorbell_mutex is not suitable here: it is acquired under
-> > dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
-> > kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
-> > the sleeping allocations above would create a lock-ordering
-> > inversion with dqm->lock via TTM eviction, and it would also
-> > serialize doorbell setup of unrelated processes behind a
-> > device-wide lock for per-process state.
-> >
-> > This issue was discovered by Tencent CodeBuddy Security.
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: 2105a15a2046 ("drm/amdgpu: use doorbell mgr for kfd process door=
-bells")
->
-> I don't think the Fixes tag is correct, even though that's what Claude
-> suggested. As far as I can see, the code had the same possible race
-> condition before that change. I believe the problem goes back all the
-> way to 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed").
-> If you don't mind, I'll update that in the commit description before I
-> submit your patch. With that, the patch is
->
-> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
->
-> Thanks,
->    Felix
->
->
-> > Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> > ---
-> >
-> > v2: Use a per-process-device mutex instead of kfd->doorbell_mutex
-> >      (avoids the dqm->lock ordering inversion and the device-wide
-> >      serialization) and correct the Fixes tag.  Pointed out by Felix
-> >      Kuehling.
-> >
-> >   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
-> >   drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
-> >   drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  1 +
-> >   3 files changed, 18 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/dr=
-m/amd/amdkfd/kfd_doorbell.c
-> > index fdcf7f2d1b5b4..55acadc986bee 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> > @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *k=
-fd, struct kfd_process_device *
-> >       int r;
-> >       struct qcm_process_device *qpd =3D &pdd->qpd;
-> >
-> > +     mutex_lock(&pdd->doorbell_mutex);
-> > +
-> > +     /* Another thread may have won the check-and-allocate race */
-> > +     if (qpd->proc_doorbells) {
-> > +             mutex_unlock(&pdd->doorbell_mutex);
-> > +             return 0;
-> > +     }
-> > +
-> >       /* Allocate bitmap for dynamic doorbell allocation */
-> >       qpd->doorbell_bitmap =3D bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_=
-PROCESS,
-> >                                            GFP_KERNEL);
-> >       if (!qpd->doorbell_bitmap) {
-> >               DRM_ERROR("Failed to allocate process doorbell bitmap\n")=
-;
-> > -             return -ENOMEM;
-> > +             r =3D -ENOMEM;
-> > +             goto unlock;
-> >       }
-> >
-> >       r =3D init_doorbell_bitmap(&pdd->qpd, kfd);
-> > @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *k=
-fd, struct kfd_process_device *
-> >               DRM_ERROR("Failed to allocate process doorbells\n");
-> >               goto err;
-> >       }
-> > +
-> > +     mutex_unlock(&pdd->doorbell_mutex);
-> >       return 0;
-> >
-> >   err:
-> >       bitmap_free(qpd->doorbell_bitmap);
-> >       qpd->doorbell_bitmap =3D NULL;
-> > +unlock:
-> > +     mutex_unlock(&pdd->doorbell_mutex);
-> >       return r;
-> >   }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/am=
-d/amdkfd/kfd_priv.h
-> > index d8631847f0eb9..96e59133fee02 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> > @@ -779,6 +779,9 @@ struct kfd_process_device {
-> >       /* per-process-per device QCM data structure */
-> >       struct qcm_process_device qpd;
-> >
-> > +     /* Serializes process doorbell allocation for this device */
-> > +     struct mutex doorbell_mutex;
-> > +
-> >       /*Apertures*/
-> >       uint64_t lds_base;
-> >       uint64_t lds_limit;
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm=
-/amd/amdkfd/kfd_process.c
-> > index 0a7c1900da959..4efe4dae79c13 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > @@ -1788,6 +1788,7 @@ struct kfd_process_device *kfd_create_process_dev=
-ice_data(struct kfd_node *dev,
-> >       pdd->dev =3D dev;
-> >       INIT_LIST_HEAD(&pdd->qpd.queues_list);
-> >       INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
-> > +     mutex_init(&pdd->doorbell_mutex);
-> >       pdd->qpd.dqm =3D dev->dqm;
-> >       pdd->qpd.pqm =3D &p->pqm;
-> >       pdd->qpd.evicted =3D 0;
+Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ Roman: In 5.10/5.15, amdgpu_vce_cs_reloc() does not take a struct
+amdgpu_ib *ib argument. The conversion was carried out by commit
+cdc7893fc93f ("drm/amdgpu: use job and ib structures directly in CS
+parsers"). Instead, the IB is obtained via p->job->ibs[ib_idx] ]
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2026-53375
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index 0a28daa14fb1..9b0efddd145b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -634,11 +634,15 @@ static int amdgpu_vce_validate_bo(struct amdgpu_cs_parser *p, uint32_t ib_idx,
+ static int amdgpu_vce_cs_reloc(struct amdgpu_cs_parser *p, uint32_t ib_idx,
+ 			       int lo, int hi, unsigned size, uint32_t index)
+ {
++	struct amdgpu_ib *ib = &p->job->ibs[ib_idx];
+ 	struct amdgpu_bo_va_mapping *mapping;
+ 	struct amdgpu_bo *bo;
+ 	uint64_t addr;
+ 	int r;
+ 
++	if (lo >= ib->length_dw || hi >= ib->length_dw)
++		return -EINVAL;
++
+ 	if (index == 0xffffffff)
+ 		index = 0;
+ 
+-- 
+2.53.0
+
