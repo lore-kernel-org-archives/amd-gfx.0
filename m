@@ -4,92 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22792CC6B1D
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 15:41:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71084CC6B1D
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 15:50:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86DA810E19D;
-	Wed, 14 Oct 2026 15:41:03 +0000 (UTC)
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com
- [209.85.217.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC9FF10E19D
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 15:40:57 +0000 (UTC)
-Received: by mail-vs1-f42.google.com with SMTP id
- ada2fe7eead31-7ca232bbed3so65095137.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 08:40:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791992456; cv=none;
- d=google.com; s=arc-20260327;
- b=XFR+Zh3do20P1vaXPG4F74MZISTCSHXHvbpv6JFUBwJrX4p8pl3Qr3q0J+yQFQGOJE
- dd4H+Z3r5MvrtVw2TZ++/FRcyvLcJHSp0MNJK01AsdU7GF9qd7aH4nGP9j9T9AH4d+R1
- OWRC05JxvSsDbRJ4ivcHpqWDUzYv4VhAmvkZyKED/a1GSRXH/3H2QimyHmKLBy/Q2FD5
- Su4LFziBh+cLZLDRUolqhIkqiLPYx7JH9O+T4CmTBnuiZF81UYh/yDv37PdQq0vVqLUI
- Dq58+0SMgRIpFM/uol+1+oLjjYEHwoCcaXRj6FLsfGjvhbFAWCj0q0eO0+X/z+8Q4kxL
- /nVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=DbKzH4i6zRAMVk8eEw5RFUvTFq2T+6ztKAjhHEjk4vM=;
- fh=ztqXYamQgkSPkPmBYbkvat+QPGL7YvgManDAUjofzak=;
- b=PctctSYsk/DoW6Ic4Jp45OYElO/+vRKmW4p/6nnyaytxnA7ERcKvou4HGOFvnkfQ8S
- //WgCRfE24c0ZZPRyLM2FI41d8j9AY3ZyGdvD/EBqVTx2XPFjvph8srBsRGTNxfSQQzR
- SXIY8//Qv7tU1HjOh6934dGoVUp5GHlIS/ZT+UWa+cXolzPv2nmOs21NbtxkT/2canc8
- GQhaC2vGtNweC3X6NUB9FCGXG7tUWyEQJ9G4ZPwXk5XLn9PwyHGY/o8ga4k7DeYUp8lx
- Dh0SjAYBD50W8S7h4YXga3XaD0ngc8fltDro+n6wkiU+kF+Q6TutS3BudmXE8wo16VCE
- bOmQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791992456; x=1792597256; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=DbKzH4i6zRAMVk8eEw5RFUvTFq2T+6ztKAjhHEjk4vM=;
- b=fNiBWGAWJ7MUtSuMFZF13AgBiuyxNxU4tJF5Y6gHKofoVJiEnXf9x8HK2BVKx43gjF
- zFOX2ChPQQ1S5+j3ivnkrp9hr5vbUQBGR8quEIenpenm36pQfht8d60pvYnHE5Bid7nh
- d31v67rkyXgcx+RX5L+D1whOvpMrXzNb1oQgLBFil4KV4vUnGRhpxuDNsoOe1DG9G+Ja
- ar4kBTj5T7myP9G+gNo0Xwa3Q5rvGi9DbiB/dfSQI+sPTWy+wEhsDJ00hMjMa19DKmIj
- Kaz0s3oyNyGdld+Jhieikk6MrEGVYcbDwQL87e32fCEUNdyoNsrVjaMsONx6mduw9Y3w
- yzKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791992456; x=1792597256;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=DbKzH4i6zRAMVk8eEw5RFUvTFq2T+6ztKAjhHEjk4vM=;
- b=xRFCJtB6eAPZsdtTXvfG4huOyNR3IJmme1AIM2KtSDJ83wg8oJHeLjFTtQfuyqRUy1
- 2P4WLTiY0WglPtJVdpN7dj0nvXVzGc0l9BWObyCaausFSpOM26I1bh8IhZe61XSLzYIY
- aGpAPw/Bu4f2Asj2yz9fubaLyu3t3SyntUp9a4GsdGaFaB7t9Bd5g482oXCAGDCc7ytB
- vpsulnnfOiWZ/0degbuk3GSneejN+ru8WRD86uqOehm3NTF+mWgoKt3f1J/wnvfxbZ7L
- orcktM7EY0KazkGzUMqx9xPTh6uzeBXNpmG+tIi/7HNMbnQnWuVtuP+e2+1wMRmdUDC3
- XpBg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzgK91gub74hqRaazZAGjACCQaSAnXePsdd3NY0BBJW+13c2VgEUFOVDWn/GECt65YWAlttz1Jb@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLlfaPx8LYW1Qj2WqXO0b11AWk6zXKtQS8Ue/hvEcxbZ7LHTN69
- icvZhlc8/8T3mNh2yb7vNjDJqUmSkPECBeTZetYcSsDKeLJPYFKu910wSeyQIFBF8PPfovCXXV/
- N5iGuXfQ7j0oG9F8wlg9OYj8C0ICfAQ8=
-X-Gm-Gg: AYBFou0OiBb3OG7wQUN7PAVAorJxRbh7BSXTqlyOza5P2Ps5CWIaKaT91MufjSEAWRH
- eP3Wxf26FYq32PDCj7qrCjEPiSJzraA5fNhbK9FgBcw8AL+KiJJ5S+e4r80yQRUpxYweqJjvUQ5
- zujBIlFU2e3QIdpYrS6dXozHZ//Z7g/3uNEclISJDMov27KmR4cjf3pPykO3a1N4oOIJVnKcj8K
- jq/k6RqYeJG/PX49pNquulePqY1MEWFMDZrMg9xfzUiBJRDFeVCCHlg9xaK35g2UAe2UPjz9D9a
- 70pTMb16Rw6X3NHqOatu8IqfrGwDaknsAr2GHq++LGlmJLTxoyh1bs4SnIJChYzofXB5JylGxM+
- ekRuid7FqZqWMlRI4vxWmNagJCJkeY1CzZTs0U8/WZg==
-X-Received: by 2002:a05:6102:c07:b0:7b4:f1cd:80dd with SMTP id
- ada2fe7eead31-7cb3668aa3fmr4015389137.1.1791992456409; Wed, 14 Oct 2026
- 08:40:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B4FE10EA8E;
+	Wed, 14 Oct 2026 15:50:40 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012056.outbound.protection.outlook.com [40.107.209.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8675D10E4CE;
+ Wed, 14 Oct 2026 15:50:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gEwFg6P5GMWoi9oXZ1BTjo+GBUES6KmPBH34GvC8fe0sKVzsZT6NUO21Sm7/x+a8irpr18gZa/vNFGhKM34wLrHHLrh/4GeaTPaJLjmg6fUGRDcfRlXv2tIDb8XRflSn0DlYTpbv+iexWyxUySEY0Rn4cWMK87PGjOd6JpmocM5Ab5A901oBFkyhwNYlchGuAnugboifAorCGOV+a0cxKoVCNScMuRDFpC2yvgMxYislWtkUVVTDPuqtVgj/i+JE5zniWv6R+Y51bUQiKz3ML3dLGSCiINS3uJGtqBC7IampozxpL8l5h5z7waZgseHgpkvgSkqtjJS9gC/m87kC0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rojchCHyqtT53GKazdFyrwGMdZzo+2skk95g3V6KBGM=;
+ b=MnU+u1mQ+4vMk42XtBaZMuSue4u9P2glP3q2HZ+/F+NfzHRmC60vdDekLksrDyf1evR6zE8bE3gbWoUbKIQNAkGOXKbXK9TzQ44mx9O6MLbOLULhlDsedjqkpIUfw2lwZrQSJe+zIjP+1AezfyTdjPAEEr58zPU9DyWCa8Ok5WsnHUr4MUhc4QWY8JdMd7ouAx7vjIhTECgslf+7XE4sQhrTBgnQLHGo/45JQZSARr5fPMc6VZ2VRaEKUWZLmBeAFYKOR2k9vPkHP4iFoM768B69Z8ogHsOqywx7q2zT5kmSo999Qs0EewXvi4nT8gNmprQj2z6TavpzqfqNMZNO4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rojchCHyqtT53GKazdFyrwGMdZzo+2skk95g3V6KBGM=;
+ b=jd5mD1r20366qtjMan/s3uyxGnkcQJrY7Q69UvVMqXFMQq1JdSFhBzao/AiBmow4EspmmQCK7qPdBfKlxpEkjwdnP6LG1hBtR8NjjVSpyTALFfPOj0kfaHYOyJZ7JqPoEjPLgf/dW6C33c6ldl2ok9rPSAZd7CO7wI/GL1TB5iE=
+Received: from PH0PR07CA0023.namprd07.prod.outlook.com (2603:10b6:510:5::28)
+ by DM4PR12MB6541.namprd12.prod.outlook.com (2603:10b6:8:88::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
+ 2026 15:50:30 +0000
+Received: from CY7PEPF000000F3.namprd05.prod.outlook.com
+ (2603:10b6:510:5:cafe::99) by PH0PR07CA0023.outlook.office365.com
+ (2603:10b6:510:5::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
+ Oct 2026 15:50:29 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY7PEPF000000F3.mail.protection.outlook.com (10.167.247.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 15:50:28 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 10:50:21 -0500
+From: Felix Kuehling <felix.kuehling@amd.com>
+To: <bsdhenrymartin@gmail.com>, <amd-gfx@lists.freedesktop.org>
+CC: <dri-devel@lists.freedesktop.org>, <stable@vger.kernel.org>
+Subject: [PATCH v4] drm/amdkfd: fix doorbell allocation race creating
+ duplicate allocations
+Date: Wed, 14 Oct 2026 11:49:58 -0400
+Message-ID: <20261014154959.540809-1-felix.kuehling@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
+References: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
 MIME-Version: 1.0
-References: <20261013140104.32179-1-omer.e.idrissi@gmail.com>
-In-Reply-To: <20261013140104.32179-1-omer.e.idrissi@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 Oct 2026 11:40:34 -0400
-X-Gm-Features: AclHuK9I1qQZX4KcbB9N2WEIH08IUM_G0_q_Cb0vteRJPQ5eD7bXK10TL33mfvM
-Message-ID: <CADnq5_N_c9OdhcTo_ByJM+w__hhu97=1m9zsR74crivKGiiauA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: remove unused tracepoint
-To: Omer El Idrissi <omer.e.idrissi@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY7PEPF000000F3:EE_|DM4PR12MB6541:EE_
+X-MS-Office365-Filtering-Correlation-Id: e1d37d18-6035-4326-ba52-08df2a0adf10
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|23010399003|1800799024|376014|36860700016|22082099003|10067099003|18002099003|56012099006|261009223027099003|11063799006;
+X-Microsoft-Antispam-Message-Info: 18UBJ2vq0tOMyafYhVf/9ATGZvdMH9HV2QUZYrfKqoGyi3pmmcxoZIH33VlGhftl7UzJuA8elamrirM3JwThmP+oiyxxMDc4Vl2pkBgWLlxAfX7EOo+CCJ/Y32Fo8KyWAImrDVBGW7isaEK4T/rpyA+P6JM5Q+uvJC6LuKqy5iJJ1bGgtoe4iUf4BOV35tINBW3n7m9lwesG+izIF0YIj+k6SUxKUHv0u8e5PqkmzB8uMTM7Pk2OApTwj7FgfEZwaQorpR3jxteiTkQ5E5gE4bcLbt99MpntWf8RYftnT/FrkPOlCR9A9PQd+Py55ZT0nag3826Ow+vliFfohVVX6R7W/gaxs+fNkE7ausCAYJYSVc9QENw3tPqS5vNrVPCqviiv2Z/Ad5zi3OX6ZtL8aNGjkbajl46pkMjrcknwmIAHHKvagOe+ZdMSssZHjBF32pNHvDFFu60vwuiJKCaEnLFvX6J7axzHnQDT8WClX2Gveax6MCw3i/X5XP+0eRAZKYTpufmtxUM8bWcdKmrQuWOyXyENVRnRN54Y6C4C7aarHz7lbKL84E3xH8vVoJkfcJfu+4K5o4sUEwQC/UF9TR5hB8qJzO2oBphcChrNh0HEPuG2ybpKYG6Uyaf+CS0ahfLBWgqwYZj/KrLM3/Orz82m0rorW/4C91AJyo4OB0y6OFSoguLrv4rs/C3/Owb93IzNNrJablg/NpJ6u7MM7Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(23010399003)(1800799024)(376014)(36860700016)(22082099003)(10067099003)(18002099003)(56012099006)(261009223027099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: CG/l+PENQHkPuQMXARaD21fCcBFCXR7y3S2jiuv6HrSeH+HJVvPysfifVIh07mEbsALtKiuAWWRO0QX/Oc+OscA6f8AMq6mGHtCzYigkKlwj8creaWStiabcZ28lu0RJYBwWt0oWVI7YtGSP1od7bvISw1O9DVXYfZFJTHvWnbsV0CSe+2tprMavOGljmTfog9FFYNHa+EOuPFTSwJV3U44SBuZfALu+7vwD8hPCC3t6pO8i1uDuaauTRUfBvOUNKlQh6fZCj2LRg/K+ISYDBEOYSEMSMZPPXa+JglINGrxCUItB+uZT+/5JR7eUR/p1sJEVCSPLefgaBiPfVfYE0iYZTJPO285Ku9aKd/J+lSHwigmdoghqM0MsMgHtsQDaEovAMI8PtZia8Dhi8c4Glh7koIcWZWmhYoDjdpednZqU1PEscRlUSl/1dYCD0kZu
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:50:28.9467 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1d37d18-6035-4326-ba52-08df2a0adf10
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY7PEPF000000F3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6541
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,47 +108,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+From: Henry Martin <bsdhenrymartin@gmail.com>
 
-On Wed, Oct 14, 2026 at 8:56=E2=80=AFAM Omer El Idrissi
-<omer.e.idrissi@gmail.com> wrote:
->
-> Remove unused tracepoint "amdgpu_reset_reg_dumps", flagged by UT=3D1,
-> from amdgpu/amdgpu_trace.h
->
-> Signed-off-by: Omer El Idrissi <omer.e.idrissi@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 16 ----------------
->  1 file changed, 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_trace.h
-> index fcd4cf2f4cd8..6fecee5be1ba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> @@ -564,22 +564,6 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,
->                       __get_str(ring), __entry->ctx, __entry->seqno)
->  );
->
-> -TRACE_EVENT(amdgpu_reset_reg_dumps,
-> -           TP_PROTO(uint32_t address, uint32_t value),
-> -           TP_ARGS(address, value),
-> -           TP_STRUCT__entry(
-> -                            __field(uint32_t, address)
-> -                            __field(uint32_t, value)
-> -                            ),
-> -           TP_fast_assign(
-> -                          __entry->address =3D address;
-> -                          __entry->value =3D value;
-> -                          ),
-> -           TP_printk("amdgpu register dump 0x%x: 0x%x",
-> -                     __entry->address,
-> -                     __entry->value)
-> -);
-> -
->  DECLARE_EVENT_CLASS(amdgpu_userq_queue,
->             TP_PROTO(struct amdgpu_usermode_queue *queue),
->             TP_ARGS(queue),
-> --
-> 2.53.0
->
+The check-and-allocate sequence on pdd->qpd.proc_doorbells is
+lockless at every call site of kfd_alloc_process_doorbells():
+kfd_get_process_doorbells() (mmap of /dev/kfd),
+kfd_ioctl_create_queue() and the CRIU restore path each test the
+pointer under different locking (or none), so two racing threads can
+both observe NULL and each allocate a doorbell BO and bitmap,
+orphaning one allocation and handing the two mappings different
+backing pages.
+
+Move the serialization into kfd_alloc_process_doorbells() itself,
+using a new per-process-device mutex so all three call sites are
+covered regardless of their own locking.  The device-global
+kfd->doorbell_mutex is not suitable here: it is acquired under
+dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
+kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
+the sleeping allocations above would create a lock-ordering
+inversion with dqm->lock via TTM eviction, and it would also
+serialize doorbell setup of unrelated processes behind a
+device-wide lock for per-process state.
+
+This issue was discovered by Tencent CodeBuddy Security.
+
+v3 (Felix Kuehling):
+- Removed unlocked check in kfd_get_process_doorbell flagged as
+  problematic by Sashiko Bot. Fall back to the locked check inside
+  kfd_alloc_process_doorbells
+- Added missing mutex_destroy
+v4 (Felix Kuehling):
+- Removed unlocked checks around other kfd_alloc_process_doorbells calls
+
+Cc: stable@vger.kernel.org
+Fixes: 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c  | 18 +++++++-----------
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 23 +++++++++++++++++------
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  2 ++
+ 4 files changed, 29 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index b3ebbee76088f..85fc450d79d73 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -427,12 +427,10 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 		}
+ 	}
+ 
+-	if (!pdd->qpd.proc_doorbells) {
+-		err = kfd_alloc_process_doorbells(dev->kfd, pdd);
+-		if (err) {
+-			pr_debug("failed to allocate process doorbells\n");
+-			goto err_bind_process;
+-		}
++	err = kfd_alloc_process_doorbells(dev->kfd, pdd);
++	if (err) {
++		pr_debug("failed to allocate process doorbells\n");
++		goto err_bind_process;
+ 	}
+ 
+ 	err = kfd_queue_acquire_buffers(pdd, &q_properties);
+@@ -2455,11 +2453,9 @@ static int criu_restore_devices(struct kfd_process *p,
+ 			goto exit;
+ 		}
+ 
+-		if (!pdd->qpd.proc_doorbells) {
+-			ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
+-			if (ret)
+-				goto exit;
+-		}
++		ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
++		if (ret)
++			goto exit;
+ 	}
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+index fdcf7f2d1b5b4..6af268a031f22 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+@@ -239,11 +239,9 @@ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
+ 	struct amdgpu_device *adev = pdd->dev->adev;
+ 	uint32_t first_db_index;
+ 
+-	if (!pdd->qpd.proc_doorbells) {
+-		if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
+-			/* phys_addr_t 0 is error */
+-			return 0;
+-	}
++	if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
++		/* phys_addr_t 0 is error */
++		return 0;
+ 
+ 	first_db_index = amdgpu_doorbell_index_on_bar(adev,
+ 						      pdd->qpd.proc_doorbells,
+@@ -257,12 +255,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
+ 	int r;
+ 	struct qcm_process_device *qpd = &pdd->qpd;
+ 
++	mutex_lock(&pdd->doorbell_mutex);
++
++	/* Another thread may have won the check-and-allocate race */
++	if (qpd->proc_doorbells) {
++		mutex_unlock(&pdd->doorbell_mutex);
++		return 0;
++	}
++
+ 	/* Allocate bitmap for dynamic doorbell allocation */
+ 	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
+ 					     GFP_KERNEL);
+ 	if (!qpd->doorbell_bitmap) {
+ 		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
+-		return -ENOMEM;
++		r = -ENOMEM;
++		goto unlock;
+ 	}
+ 
+ 	r = init_doorbell_bitmap(&pdd->qpd, kfd);
+@@ -284,11 +291,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
+ 		DRM_ERROR("Failed to allocate process doorbells\n");
+ 		goto err;
+ 	}
++
++	mutex_unlock(&pdd->doorbell_mutex);
+ 	return 0;
+ 
+ err:
+ 	bitmap_free(qpd->doorbell_bitmap);
+ 	qpd->doorbell_bitmap = NULL;
++unlock:
++	mutex_unlock(&pdd->doorbell_mutex);
+ 	return r;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 7a365fca68e4f..42ed0d42c0064 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -784,6 +784,9 @@ struct kfd_process_device {
+ 	/* per-process-per device QCM data structure */
+ 	struct qcm_process_device qpd;
+ 
++	/* Serializes process doorbell allocation for this device */
++	struct mutex doorbell_mutex;
++
+ 	/*Apertures*/
+ 	uint64_t lds_base;
+ 	uint64_t lds_limit;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index e742ef206abd6..f092029f23257 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1231,6 +1231,7 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ 		}
+ 
+ 		atomic_dec(&pdd->dev->kfd->kfd_processes_count);
++		mutex_destroy(&pdd->doorbell_mutex);
+ 
+ 		kfree(pdd);
+ 		p->pdds[i] = NULL;
+@@ -1800,6 +1801,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
+ 	pdd->dev = dev;
+ 	INIT_LIST_HEAD(&pdd->qpd.queues_list);
+ 	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
++	mutex_init(&pdd->doorbell_mutex);
+ 	pdd->qpd.dqm = dev->dqm;
+ 	pdd->qpd.pqm = &p->pqm;
+ 	pdd->qpd.evicted = 0;
+-- 
+2.43.0
+
