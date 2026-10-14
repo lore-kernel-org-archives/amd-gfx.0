@@ -4,74 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E01ADCC6B3B
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 08:21:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A7F2CC6B3A
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 08:21:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65CD210EB9E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F457112196;
 	Thu, 15 Oct 2026 08:21:50 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB13810E172;
- Wed, 14 Oct 2026 17:44:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7156940856;
- Wed, 14 Oct 2026 17:44:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330F01F000C4;
- Wed, 14 Oct 2026 17:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1791999896;
- bh=sTxxFIiD6mgFs2UdEY1I8MyQnekZZiyPvhQw7RuhHrg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Y/JbqQJUIEWFLFscjenxW9GCe5wNUa4lKG/qtufKEMdVe8I7JjwbgDqX5hbrhnbnk
- g11pdaabApMfzBMkfpM3w5n1u6n4ty6P15W2DYuVy6e5rpnrYB4vdZc0i3KcsTyQQY
- TKLv1ClTGNe42312p3oiyQs34X3dYVxDiKaB2oxQ=
-Date: Wed, 14 Oct 2026 19:45:00 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Kees Cook <kees@kernel.org>, Ian Rogers <irogers@google.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- David Teigland <teigland@redhat.com>,
- Alexander Aring <aahringo@redhat.com>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- driver-core@lists.linux.dev, llvm@lists.linux.dev,
- linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
- gfs2@lists.linux.dev, xen-devel@lists.xenproject.org,
- linux-s390@vger.kernel.org, linux-mtd@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/11] kobject: Require explicit initialization of struct
- kobj_type::release
-Message-ID: <2026101434-scam-padding-87a5@gregkh>
-References: <20261013223946.1836757-1-irogers@google.com>
- <2026101425-why-boring-4f2d@gregkh>
- <202610140932.5F9CFCE5@keescook>
- <CANiq72=4WQ1B1oCSW=69u_Z=FFLE56hYCqDwWr+poQdzSTS31A@mail.gmail.com>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAB710FFD8;
+ Wed, 14 Oct 2026 22:30:48 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j4mBG6Jw6zMlDm;
+ Thu, 15 Oct 2026 00:30:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1792017046;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iH6VgiGj5KrB23VvD5r/W6aj7P6EbpDpdOeMlYANEW8=;
+ b=m8V6J7tuZz+jCiDBwrq1wUb0NwR+l7hMxFKi5VUDHJ52vz+ZKV6WhvFDdlqnShja/l0M0h
+ gghMMqza4Nbs/S5NE8FwCvfMSRsOSyaALAOfjf5CVfBDoIq61343ltIbO3eKOf7rrV4hhB
+ LeDJBFamz18VvmtQFTjOmwyWI8hYkFAIx+A7ympaL1kmMqDsDA7o5u3GGh1v3UiYT1G4C+
+ QBqT/kQE6JPgOPXwie8BGbfD6b1ofEpcvoTvCvUnbnoD/j+cTfbED4WAPFmzPuo1N8+sU8
+ PWqKYUJSg6/jWSfON9N+Vg+RiA/RFmnbB3xAKMn2Bf1z4/jHDuA6SmSxabdTGg==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, Hugo Sales <hugo@hsal.es>
+Subject: [PATCH 2/2] drm/amd/display: Add KUnit tests for the eDP/LVDS native
+ mode fallback
+Date: Wed, 14 Oct 2026 23:30:41 +0100
+Message-ID: <20261014223041.171317-3-hugo@hsal.es>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014223041.171317-1-hugo@hsal.es>
+References: <20261014223041.171317-1-hugo@hsal.es>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANiq72=4WQ1B1oCSW=69u_Z=FFLE56hYCqDwWr+poQdzSTS31A@mail.gmail.com>
+X-Rspamd-Queue-Id: 4j4mBG6Jw6zMlDm
 X-Mailman-Approved-At: Thu, 15 Oct 2026 08:21:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,33 +64,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2026 at 06:44:18PM +0200, Miguel Ojeda wrote:
-> On Wed, Oct 14, 2026 at 6:37 PM Kees Cook <kees@kernel.org> wrote:
-> >
-> > I'd really like to have the attribute available, and I've got at least
-> > one user I can apply today that don't require fix-ups (seq_file), so
-> > if Miguel is okay with it, I'd like to snag patch 1 and send it with
-> > my seq_file "first user" for this coming merge window so it's available
-> > starting with v7.4-rc1, and we don't end up needing to wait 10 weeks for
-> > other subsystems to be able to use it. And the kobj fixups can continue
-> > in parallel. Does that sounds okay?
-> 
-> Of course, please feel free to pick it up (with the small tweak I
-> requested) if you have a user.
-> 
-> And if you don't pick the user, I could still pick the first patch up
-> through the compiler attributes tree if you and other folks want to
-> use it after -rc1.
-> 
-> Greg: adding the attribute itself should be safe and would unblock
-> others that may want to "protect" themselves, without having to wait
-> for every potential user to get fixed (but of course I agree they
-> should get fixed -- we should not forget about them, if that is your
-> concern).
+Leave only a scaled mode in connector->modes and put the larger native
+mode in the encoder, as a size-limited probe does. On eDP and LVDS,
+create_stream_for_sink() must build a stream with the native timing and
+the scaled mode as its source size. On HDMI it must keep the first mode
+in the list as the timing
 
-I agree, not a problem to add the attribute now as long as it doesn't
-break the build.
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+ .../tests/amdgpu_dm_connector_test.c          | 112 ++++++++++++++++++
+ 1 file changed, 112 insertions(+)
 
-thanks,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 56fd133bc..55e2c3849 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -4547,6 +4547,115 @@ static void dm_test_create_stream_hdmi_vsif(struct kunit *test)
+ 	dc_sink_release(sink);
+ }
+ 
++/*
++ * Build a stream after a probe with size limits below the native mode, such as
++ * fbdev emulation's. That probe leaves only a 1920x1200 scaled mode in the
++ * connector's mode list, while the encoder keeps the 3840x2400 native mode
++ */
++static struct dc_stream_state *
++dm_test_native_mode_pruned_stream(struct kunit *test, int connector_type)
++{
++	static const u8 edid[EDID_LENGTH];
++	struct dm_test_stream_ctx *ctx = dm_test_stream_ctx_alloc(test);
++	struct amdgpu_encoder *aenc;
++	struct dc_stream_state *stream;
++	struct drm_display_mode *native;
++
++	ctx->aconnector->base.connector_type = connector_type;
++
++	aenc = drmm_kzalloc(ctx->drm, sizeof(*aenc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aenc);
++	KUNIT_ASSERT_EQ(test, drmm_encoder_init(ctx->drm, &aenc->base, NULL,
++						DRM_MODE_ENCODER_TMDS, NULL), 0);
++	KUNIT_ASSERT_EQ(test, drm_connector_attach_encoder(&ctx->aconnector->base, &aenc->base), 0);
++
++	native = &aenc->native_mode;
++	native->clock = 592500;
++	native->hdisplay = 3840;
++	native->hsync_start = 3888;
++	native->hsync_end = 3920;
++	native->htotal = 4000;
++	native->vdisplay = 2400;
++	native->vsync_start = 2403;
++	native->vsync_end = 2409;
++	native->vtotal = 2469;
++	/* Cached by the first, unlimited probe */
++	drm_mode_copy(&ctx->aconnector->freesync_vid_base, native);
++
++	drm_mode_copy(ctx->mode, native);
++	ctx->mode->hdisplay = 1920;
++	ctx->mode->vdisplay = 1200;
++	drm_mode_set_crtcinfo(ctx->mode, CRTC_INTERLACE_HALVE_V);
++	dm_test_stream_add_mode(test, ctx, 0);
++	ctx->dm_state->scaling = RMX_FULL;
++
++	ctx->aconnector->drm_edid = drm_edid_alloc(edid, sizeof(edid));
++	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector->drm_edid);
++
++	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
++					ctx->dm_state, NULL, 8,
++					PIXEL_ENCODING_RGB, false);
++
++	drm_edid_free(ctx->aconnector->drm_edid);
++	KUNIT_ASSERT_NOT_NULL(test, stream);
++
++	return stream;
++}
++
++/**
++ * dm_test_create_stream_native_mode_pruned_edp - Test eDP gets native timing
++ * @test: The KUnit test context
++ *
++ * The scaled mode must still be driven with the panel's native timing, kept in
++ * the encoder
++ */
++static void dm_test_create_stream_native_mode_pruned_edp(struct kunit *test)
++{
++	struct dc_stream_state *stream =
++		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_eDP);
++
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
++	dc_stream_release(stream);
++}
++
++/**
++ * dm_test_create_stream_native_mode_pruned_lvds - Test LVDS gets native timing
++ * @test: The KUnit test context
++ */
++static void dm_test_create_stream_native_mode_pruned_lvds(struct kunit *test)
++{
++	struct dc_stream_state *stream =
++		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_LVDS);
++
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
++	dc_stream_release(stream);
++}
++
++/**
++ * dm_test_create_stream_native_mode_pruned_hdmi - Test HDMI uses the first mode
++ * @test: The KUnit test context
++ *
++ * On a connector that is not a panel, mode_valid may have dropped the native
++ * mode, so the first mode left in the list must drive the timing
++ */
++static void dm_test_create_stream_native_mode_pruned_hdmi(struct kunit *test)
++{
++	struct dc_stream_state *stream =
++		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_HDMIA);
++
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 1200);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
++	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
++	dc_stream_release(stream);
++}
++
+ /* Tests for amdgpu_dm_connector_detect() */
+ 
+ /*
+@@ -10246,6 +10355,9 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_create_stream_dp_vsc_colorimetry),
+ 	KUNIT_CASE(dm_test_create_stream_dp_colorimetry_quirk),
+ 	KUNIT_CASE(dm_test_create_stream_hdmi_vsif),
++	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_edp),
++	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_lvds),
++	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_hdmi),
+ 	/* amdgpu_dm_connector_detect */
+ 	KUNIT_CASE(dm_test_detect_force_on),
+ 	KUNIT_CASE(dm_test_detect_force_on_digital),
+-- 
+2.55.0
 
-greg k-h
