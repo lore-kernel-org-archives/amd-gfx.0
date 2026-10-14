@@ -4,78 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E83CC6B2D
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAE38CC6B2A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C194A10FD4C;
-	Wed, 14 Oct 2026 12:47:43 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D2610E988
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 18:53:28 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-48afbd2c386so1930139f8f.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 11:53:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C78D210FD2B;
+	Wed, 14 Oct 2026 12:47:42 +0000 (UTC)
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
+ [74.125.82.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F09410FCF1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 11:29:08 +0000 (UTC)
+Received: by mail-dy1-f171.google.com with SMTP id
+ 5a478bee46e88-35e8253292cso11216eec.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 04:29:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791977348; cv=none;
+ d=google.com; s=arc-20260327;
+ b=EDNEdxdA1Fa5ntzHhiAmAR9ZfgFRKjgPprOpUXCC4YWj5IKLr9Qp+QWgi92UWrUHbY
+ krO3acOglJ6+UI6SXNxzyHiTKZgemCWdmYqX2+OnV+prpQTcOAMF8CIXLbFvLOLT+kp+
+ aHmOFWOY5392tnaOtNCm+equUXsRLqcUI1+QxnoJw4lQsocpFNqJ7eoOeGM8nmmk3+9M
+ aegv7722HThj4+d+Zdh/irq1eETte51/u9LGSD3F7B1Lx1q0cAmtiaNjR9R7IVTPVr8s
+ exe60BrwpRzbd9XH3Xsdg0rAwX97VWrLf3988UcVm9rJYtc27Pxo58DJ8FevJneyfa7w
+ +ywA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=xWJCwZOmpC49YtbA7QzlowrBvokYI4WD90uvALsrwIA=;
+ fh=r9nnneDzLoVwR9/MCNbW/1xpvZcG7+QcI12rTfoDPuM=;
+ b=dADQPVHGFlsSMH+KvpaaTaCf0NmXNgR30Wcd2p4C3ttvQrtUkyHNZ8Iip/xo43wZdl
+ RQdlJK2KuUY9EIB3iX/OghRAbf2UbT7JGpFmWQh8VIhFY24s7yKKnSo0Ca8TmoXOMH/t
+ Fst+1p/v+HHqveVtRNWWOJFALc1T/JD/F6vmgC94oOlFMvB1hOP9N3Pjtt9lYel9LFeq
+ 5uYBUKWgllcbxGZRjwTaVYXjwMDpyk3Hpuj1KKAr6fxeWRLtjXXqJVP7M760eXDQwBHo
+ Jb46Rwvd9draioiFxzDSJY6HUi0NRBP9H4mjwtyCWIsd7wmSOYW7Lj7sovddQW5W2ENp
+ Gmrg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791917607; x=1792522407; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1791977348; x=1792582148; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=6uHSuilvp2mAkwJzE4SLZGzkee7OXiQde3++1N2OoRk=;
- b=CQqOEx4mytQ1oPhQX4G2ijs6YuCguChHV3A67fleL/sktK9HWC2nlzHoDb3K/NMTcc
- B70lhMn8JoBvaTZkragctjV7o+mhafQSGt8rtXeBZbUFOYw1Uh52QC6JhShw7JQO+M9p
- IzqNHOjIVahfTba1sdXXIt0NHqY7TA8NPYdLIH183xOZ5Lt+aCic21V/oFKqGo1HmBbV
- 7OYoS/IQa1PBrpqpn+mVwIKcTPFKatgf4jh3lx1O8ofoicIIjX04mM25XeM5j7iYB4qB
- C434KfTi8KlC+JoWE33LBS5RLZOcksYloT5RY7gT0ubv/ibYrokNA/W0MLc7ULFzLSBg
- uadQ==
+ bh=xWJCwZOmpC49YtbA7QzlowrBvokYI4WD90uvALsrwIA=;
+ b=XkdFS9nKuMkap6AwWaSj38bobcTfI5jJw6mfcf2Alpnr+uVPQiPhOYV6sJog+k119v
+ SGxnjaFREuoIo+j4k/HADeMK+1JkIeUKrnBYp5HictQ0BsJbobjfhbO7cryCpGHfnmoZ
+ kxRiOzEq65HQxYb9DAyKaVKNgozmq05xB8ULTJsLD/lrTnVKZqik+JnJ/SFrLslzCqOw
+ G5uCzEc38MXNlFD6cdsygVH1WKb95FjD69PSZahT/5ePhwiad243JH3BFrhCa27/0l2S
+ tZjvuNtE8HhL1sax7IZTdxWVMSjVyrBCYTwSWbKEXrCfNCDy1DFIUwlncvg2lsFTGMms
+ uUSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791917607; x=1792522407;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20260707; t=1791977348; x=1792582148;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=6uHSuilvp2mAkwJzE4SLZGzkee7OXiQde3++1N2OoRk=;
- b=UB+0RZOkS9qK+Sykd7HwzhAUE8FjGlsD2Z70cHXeAA5n6iw7Se5e+TswlvtZDGVACG
- QWdypoWAnRfL1khSE0R5qv5drYjUZrTfUY1Vu0E1naKrd6T/Ae2kJcTz8CfBUn0t56Cu
- 75wctQwFZgz2JjJGlN1mg7wE/kG6KVoJa1XlfKnMYU+MXCekbh7IjPLfsiKZs8SyBUTg
- 4Hymnn4amwXAHdHMGzIPtceqTqiZnfXQs2rfIV9ZBGrd0IGjNrLUqcM8bCnD07o8HaRj
- eVBOEpjGHRLFTiWbTULiwBCHXsisEM4+CnBmwdNAz+YwIMSLqR+WtXLJaOGD8pChrRNw
- oc/Q==
-X-Gm-Message-State: AFq9FYJo8g6u65vDbniylq40gU1nyiqA8+9Cy4TFOD6MavZqwL0hBWFT
- iMtU2nid1mPsEQNDnCNyENjM81siHFV3B2tTdSZh3Q/Y3y6WHhUhIiGSRrMSVw==
-X-Gm-Gg: AYBFou11wYiubs7HGfGtWRkUAh3QmouHPGdO9OwOgs3q2AYClqRxEg1iNLMabLosC30
- WPv7GwxsLceNHU6BptTUNyWYbU9+3fi6ioGt2MDVmAGYuPJp0VoFoi+ntXlATgQtB85pAVwVg2c
- RR5bKF3fFqrStjxsXYtuUUb7eY0ebcm06y0IC9w5bMO0YlLj5tLgvZD7Dpu0CdZwTXXwjk6yH/n
- +xKfYXOtPvjcdgNt74Zvb181ed9GU6oAajXefq6ZZ4/NkRakk+R8kwkJh4S8yQiGtMFA2BNBg8a
- nZPivl7e3muJQkouvEacDPmC0azng0mTn4/sHrKzMJwaRSM5l57HQ7yiQk/w64iNd07U7CUePtw
- LMkVznpL2KgwqwnkjvhF1FTW+5CSjq7OH8X+xMB0MZPSQAKFiia5NSzzh+S5lrfAhp86+dSoTPT
- k0+41+UV8m+kfeDOR1kRcbd1ZupS7pnkFLrCtSYIBDZ1od1YzpLmW4ZpOzdfz9Si4ZlFyD0/zYe
- SrwOl0jqJYb646TsmfdJiNeixhQGMzSgZ/sfvh6+P0qASuH4kSuvispsmOBjTpXxxl9W2p9R603
- CU0mg3eDJI6d/ZZs0aCykH/F+n9xXF+PiC8I9Zppp9dSfS+vW9b6vN6p87XiAoHIuuSkYk6kDDu
- wrw2YlwzXd1Hxl3z00qq3q4NZZC/UehhrGZfpV6W3bPabW2crO/VxIuHE3rSQdjn6Zovos0S145
- XrRkA/50Q/iEeZZQ==
-X-Received: by 2002:a05:6000:491c:b0:488:844f:6034 with SMTP id
- ffacd0b85a97d-48dbad474bamr25740711f8f.48.1791917606884; 
- Tue, 13 Oct 2026 11:53:26 -0700 (PDT)
-Received: from localhost.localdomain ([2a0d:e487:412d:e9fb:680d:a947:4b50:d9e])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48de77b35b5sm983016f8f.21.2026.10.13.11.53.26
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 13 Oct 2026 11:53:26 -0700 (PDT)
-From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, felix.kuehling@amd.com,
- Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
- guard with drm_dev_enter
-Date: Tue, 13 Oct 2026 20:53:24 +0200
-Message-ID: <20261013185325.33682-1-olivier.kaloudoff@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <62280d57-3f63-4979-9e4c-f0eca7208b19@amd.com>
-References: <62280d57-3f63-4979-9e4c-f0eca7208b19@amd.com>
+ bh=xWJCwZOmpC49YtbA7QzlowrBvokYI4WD90uvALsrwIA=;
+ b=xQ2mgLNt+Hb6XMld3F1mgQ+uHOeGtuAkSDMd1Y41fuUL9Njm6wNhwqMRePrahC3Rdq
+ 5q7BYRpShnZS5nLvK5H4b6c2OTW8YJQ52Jh4didOBhC0Z7fXwQ+a2WVJn42+MFUV7Gwc
+ 7lnOHuAT09sHewarjmZDu5w/7W0xC7pv8HD6bOlw3i0Vgd08WwJim/Nd32Vh1aBpfB7y
+ WZRO16kR7o6gzEYZqRmhgvM1C4fFf5kqiccqkVjKy2+HnrbopLECGPkzIBaXn2HDHbvf
+ qWNHzC377MEN/G9IXsioG+OqdrzlYT3qtVZh9y39H7iGkaBOeUFHn80ImAG2ONp59L9u
+ HwTw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwdNslRkIHnxacRXJ7m7qoIHwDGlc8PEZ7lgwQly93vpPE3bPtCq8jHotywjH35C9zTo3lZsxxW@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI/XytSZCyXOWta8hTxkpd4+FGW2C4Wf6TO/A33tgKiI/IInZNe
+ prmMJa+2HMAT+Sw8UasEQKYhLSCoaSkv07zf4yU/351lnv8qpxREkxsOAa8orOrnqIQ5YLnav/e
+ bUurq4+jAp1pkbuL9P5eursXIhwHsIC4=
+X-Gm-Gg: AYBFou0LT8jg8w17El9RI0rWs4IoLZRpK6309pXbJZfiS0eURP7q0Y3MTKml5Sefz8W
+ zIZCN30TBHc4eyMiCUlTb7JifDO6QL4Y0Ja8rOQOqxYGeRHD/0H+3EltV6Lg5XmDQRtIUCwCms0
+ wmFGi7PhEhk/f6woagtcNpWKSpOKqdaQmJa3FaoPsvgVDdy+8Z3G/A8P1njD2hzRL19aQiOCWQv
+ LJHP7s8AFwziHoEP/IqGhJTy081mgxBrIH7JsKLj72gaO+WcClN8QGwUJ+Orlr0+1UgjAMFl2Ui
+ NeqlhKaZzSEcDzln7jWWO7Jq1RNLzXcw9l7AxcTvP9HyKoc5p6qWhEsRek1IHmiPYLsw0CMHPIS
+ hi1BMtjBs9FU87BJ3z9fGui5d2d//U9on8JLPfoeVPmHygpgSnUH+S9l+jk2Ig0Ik66rms5gQYY
+ 4twhlm7dZO2Qo8sPmI9tcGF7RSYCWuUfVj0RRTcQH8juPtqi7lCek=
+X-Received: by 2002:a05:693c:6215:b0:35b:cb8a:8ce7 with SMTP id
+ 5a478bee46e88-35bcb8a919dmr14326600eec.1.1791977347656; Wed, 14 Oct 2026
+ 04:29:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261013223946.1836757-1-irogers@google.com>
+ <20261013223946.1836757-2-irogers@google.com>
+In-Reply-To: <20261013223946.1836757-2-irogers@google.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 14 Oct 2026 13:28:55 +0200
+X-Gm-Features: AclHuK8qVHO7HVQy6LgzcUgjYcQf3EimC6SJcN58PVqcWVdOf6T45eXZNeTLsEY
+Message-ID: <CANiq72mLUh1JB=9e=tqStuL_H3=Ormx5v-uFkCDp-0zZm7tBrQ@mail.gmail.com>
+Subject: Re: [PATCH 01/11] Compiler Attributes: Add
+ __require_explicit_initialization macro
+To: Ian Rogers <irogers@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ David Teigland <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>, 
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Richard Weinberger <richard@nod.at>, Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ driver-core@lists.linux.dev, llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 14 Oct 2026 12:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,38 +135,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+On Wed, Oct 14, 2026 at 12:40=E2=80=AFAM Ian Rogers <irogers@google.com> wr=
+ote:
+>
+> +/*
+> + * Optional: not supported by gcc
+> + *
+> + * clang: https://clang.llvm.org/docs/AttributeReference.html#require-ex=
+plicit-initialization
+> + */
+> +#if __has_attribute(__require_explicit_initialization__)
+> +# define __require_explicit_initialization __attribute__((__require_expl=
+icit_initialization__))
+> +#else
+> +# define __require_explicit_initialization
+> +#endif
 
-> Fences *must* always signal especially when the device is hot removed.
+The LPC slides mention Clang 14+, but from a quick test in Compiler
+Explorer and a `git log --grep` on the LLVM repository to confirm, it
+seems the attribute was introduced in Clang 20+, no?
 
-Agreed in principle — but the observed failure is precisely the
-counter-case. During teardown the dying process's fault path submits
-an SDMA job to an already-killed drm_sched entity:
+If that is correct, then it is not available in all LLVM versions we
+support (LLVM 17+), so we should add:
 
-  drm_sched_rq_add_entity: Trying to push to a killed entity
+     * Optional: only supported since clang >=3D 20.0
 
-The job never reaches a ring, nothing is left to signal its fence,
-and the uninterruptible wait in svm_migrate_copy_done() never
-returns. That orphaned fence is what kept the task in D state for
-good in the repro.
+With that:
 
-> a non interruptible wait with AMDGPU_FENCE_JIFFIES_TIMEOUT can
-> never fail.
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-The ret < 0 branch is indeed dead code — dropped it in v6, thanks.
+Thanks!
 
-The bound itself is needed for a subtler reason: the wait now runs
-inside a drm_dev_enter() critical section, and drm_dev_unplug()
-blocks until all such sections exit. An unbounded wait inside the
-section would deadlock the unplug path against any fence that fails
-to signal, for whatever reason. This is also the shape Felix asked
-for — guard HW access with dev_enter/exit and keep no unbounded
-fence waits inside those sections.
-
-If you'd rather guarantee the invariant at the source — i.e. error
-out fences orphaned by jobs pushed to an already-killed entity in
-drm_sched — happy to look at that too, but it is a much wider change
-than the KFD-side guard.
-
-Regards,
-Olivier
+Cheers,
+Miguel
