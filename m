@@ -4,95 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69C4DCC6B1A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 09:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A0ECC6B1D
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 10:14:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF60D10FC29;
-	Wed, 14 Oct 2026 09:20:27 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011047.outbound.protection.outlook.com [52.101.52.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C5A310FC29
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 09:20:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K+HBtghu4ZHRg1QKJN4fBSS4JlIkPPbvNh+HUwgJHcK/l8k1jGIu8DRdg03+2cVY3ypyymeyiEwAsqkJ9ofqts/n3qmB9gBEAN9B8HWkAJ6/SeLhCCcKYcRldlbBUOSLz3z96YFwpPC0bD1eTJdIGYSLGnFRteshKDCERVBGrBT1G8iW/DQiZBAx2JRRwGSWu5SCS9bAXBj8nOmxa7BKjPKCgNLpqKEK6dRdRTp7caWWpo1FRtAw49NocRDTSu8VIVF4SvfaRd0e0Wj5vMw6vd6Ya/YwBylMfxfw0pzwOeGenG9yCUOZyBVQYurTrcpenny4ly+r8PMGvfK6C1ADrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ac2pRxR4Ojnc0B96T47VNSktTMUGcpvEu6aspX/A/zc=;
- b=rykKXOa57J0BKKt6AeDC2sdn8oyDfQObPESfGixIayNE6+ZIoB8JeJiY9rpb57Zwiy8eTkaQDyuAY3iWSpUhJNGUnl8WhkEnbeWZhInAlCPNRIoB7agfRH9vyUpCgzRw/zTBfrYpwjo7uk8AeiYdfHMG784qkkYcRrhH8L2UDhF1tbXsfihZPszMvj/1f5R63HkRb0tnkOCPyP/8+OW7v9B/2oyCiYCSuX4k3E+s7v5hay2XhLtvwUZn66OF71WhyfungEcLowso7WR3yGpki/JI8sYdxCYUY3QykJ6Uevp9E5cjUBNGJWCGSO61Z3AT0MW/S3bqnrIl81HgvIV8gA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ac2pRxR4Ojnc0B96T47VNSktTMUGcpvEu6aspX/A/zc=;
- b=mVi5Rr8aNzR7U6wm5jf6BfiCDKQv70pDPgpd5Qlmc0dKhPjlJfcsg/ZjZUMFLPjHtyEdhyzFZ5k7n4F4V3Y8ALAJRmydIw6AKZJJCy57lEBk5Q7f3HkvGBAY7yHg8zoLYhOjY/HYXUHqBsyFHcle76PUbpI1NamrusNBFPWdcbo=
-Received: from PH7P220CA0022.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:326::23)
- by IA1PR12MB6187.namprd12.prod.outlook.com (2603:10b6:208:3e5::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
- 2026 09:20:18 +0000
-Received: from BY1PEPF0002695D.namprd05.prod.outlook.com
- (2603:10b6:510:326:cafe::ae) by PH7P220CA0022.outlook.office365.com
- (2603:10b6:510:326::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed,
- 14 Oct 2026 09:20:18 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BY1PEPF0002695D.mail.protection.outlook.com (10.167.244.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 09:20:17 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 04:20:05 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 14 Oct 2026 04:20:03 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Prike Liang <prike.liang@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- "Jesse Zhang" <Jesse.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: return copy errors from AMDGPU_INFO_UQ_FW_AREAS
-Date: Wed, 14 Oct 2026 17:19:58 +0800
-Message-ID: <20261014092009.2933906-1-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.50.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3758D10E1CE;
+	Wed, 14 Oct 2026 10:14:23 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9217B10E4D6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 10:14:16 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4a061a13884so33647735e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 03:14:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791972855; x=1792577655; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=lzKagMLIVwwP3008dfpthjNFDgkHppRssPgEepbu2+s=;
+ b=fIHewOyM1uWduwL8RkU4uE5Xk0ks1eh9oAxZo8jfXxetaortAo3b/9uEWodft+LoGB
+ U6cTfRFn8eDVlO4RnLtQldCkprEKTURybjJXRkBjmTtO31u17X26wUCWzHXQqHYhk/No
+ /NPhEcH2LzyG8y4VPLx4TTfnu5RIw5wx7OH7DbRPgHA7uh/C96qfhM1nFKoJ2urit+62
+ qYR6UlCQLqT9Sp5vbR6chsQehOI35onCA5sKAXHhUOn/K7rKrtr8J5hhCSA+6bdQhAZo
+ 2ZZiK5zAf6ET/5BIgZJql5k/2weJMWEtFCRkrTo6c59sXIkJ7AaldCsgn0aV0bak/46I
+ DGow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791972855; x=1792577655;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=lzKagMLIVwwP3008dfpthjNFDgkHppRssPgEepbu2+s=;
+ b=rH7LQO44JJjh2ePQ+cu0SES7fRd9QQdYw2UT0liIbLPQa6M5wKcD1a2xSb7aO1617M
+ 0Ha0l4p268LeNl4dqZm5I9jjh2I9cD3dsVfLRFLTzdPpqceaUIEArCU85ItwOMZNmgJF
+ +fIFwEAsNtSFPBBl8WaZtaLa6a4tLmmYqzQ8rlrlwD71Assw8+g6Rq2ReXKmqyKN27+w
+ I3JQduxj8DI6sSxwVYVhWnJd37UVNjCeAGO6CgJAxxp79QSV1zbfoJqIuiviCaXeQok7
+ fn2fg2kmSTf01Abj7j7m1E/lZaGwsYfUHlLINUubd5Oq1dfoJLnEguIzVLLMyWDxyzam
+ o4iw==
+X-Gm-Message-State: AFq9FYLd8/w3q5NGoWvy+fuG8ndOh5gFDm0JbfTOTCBAGy8KwnfgVVDa
+ 5L6VQAfIXQQjZCNkqBvCEn+rQQs7oodI+/1CoiOy/D10BDnkapAPRTeHB/4GDT5h
+X-Gm-Gg: AYBFou3bK7agLNbJcsCfMqh5609swj8P3fADh9CCD4SYA2kdoeeunvsMS51nRpfZkOd
+ KWvFCQXun/6aRXcr7jQtY9ZPIj3RB0INIe48H8NeyTZKHdBKgLOfLXFMBtOyYujHTYcMuPVfRli
+ zqdCKYsJbc+a6ib1ZXUTkP7HzfkzVMJYt5By87oaVfljSN4Elsad05l7HGdnCe1nHeSWWlqGP7a
+ ewWFhJKzSNcFxUgIWKAnZL0WcsSWpSd26TwZLlTmP0ns/icnLrtTe2asSA03xt5N78hPBSvsrNY
+ R8MqA7laPlGZGfpXO7YAX3+CAVDFqoCGmTmVX1izREEvGAfUkOVeVdaW376V9LODHfAadk+f3k+
+ g+E8jW505VYbKhoWoC5bX0L3b/wLcNk+sNCsjn8P6TISfbd/giFLfLohFT3XO+CF4wXYPg+LrQ6
+ UCHZD78ORjRbYo+2VO322qrS4RiwjVF4YxAgjq3KYXEjrdbKeCYRY9WpJUUkqhjex5xDm4+oITL
+ RlmpYYDZi2MSKVVR3S3TtkJIijxaLec1nr38RKOYQn4qjm9eNQFeUaU9lSYwyqwqq381xAuZ6rs
+ I2Gz9GGtrZQNo9KMi1JAjSc374vbkKCFkteWbeWploGj07a0q/3ABt0S0M2hFJ6u8Hv3xSg66c/
+ mGpCpgojXITSXWgw0aSaCVAS+QVc5d5M4cMsXuCev9ng/kekuDMwtn3uMWR+W6zPFlu/fAxrgqL
+ psI/+P
+X-Received: by 2002:a05:600c:6384:b0:4a1:7741:ec43 with SMTP id
+ 5b1f17b1804b1-4a18e4b8966mr281631005e9.26.1791972854710; 
+ Wed, 14 Oct 2026 03:14:14 -0700 (PDT)
+Received: from localhost.localdomain ([37.167.102.19])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a1b2d352e7sm54936165e9.0.2026.10.14.03.14.13
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 14 Oct 2026 03:14:13 -0700 (PDT)
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com,
+	felix.kuehling@amd.com
+Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
+ guard with drm_dev_enter
+Date: Wed, 14 Oct 2026 12:12:57 +0200
+Message-ID: <20261014101257.74329-1-olivier.kaloudoff@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <5028b598-b039-46b3-b4a5-9563ab0a252e@amd.com>
+References: 
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0002695D:EE_|IA1PR12MB6187:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3fc9a073-3846-410d-1f88-08df29d45cbf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|18002099003|10067099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: AIZvxw+YxnuH7nmJmUEIxxK88FA2+vihLwb2ey8JjCWjOE2WU39Q6eDZ6mx4AgfmSj52r4UEgbXQ2zaqHz+C/srXHQgDvkswlejXGLoOAWrThgQyAUYuVJNQXawaoBagFrBGLaSqoVI7eAeB6xxfUMm005piHVLxzc0zr+s6Lscz/MlMBE2+LUWHu4ytBoDc4d83aOqAeDEm+wmWjlXONhNUjqWaA0rVSWCprMqb5wJ8q383vSFMCoaS9XotHgqj0ObJijnv2G3S8Ae/LjQ0/ELfrKCq+J78Z0uNfdkh0WjGTgRyuQEU0JOtZNJVKJDrwPQMo3DNk2GdHypARIeWgTkvfxM4NnGc5Nma8zTZNYZHxVIN9sNNrQVgm/M5KnT7UT1qDCDk2s00yE7pcj+1VrCbu6XsuN8Jjxf4HgYwjCLebSZqHq/9zFlRL7NUWWaK7PhBcIeur7UhQQPpYOs+4jxZkocUm7TpypBTf8n/17kSgqZ0rfcHDo49waEDH5Ty+6bldFmcvosbhpzI2OXcaH2NbeadrrP/g84gQqr1RMrVR5zzbst/PwyiWSq6b4sEAPGxyEO/yxWPysT+/44BKhD3ECQ2OUxZXiea6Bvm/HlSm1i8l9lTIR/J99pZsjtUztSyzz/YN5UMpYedtRfCCqoFdIwvGHxWtL+DWE7LOHmPvI3+Y+bQIG+E/02ae6JDcbPYHltueImdksqhWxIgFQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(18002099003)(10067099003)(11063799006)(261009223027099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /y/83AiaAFpj69HxNO9rkjM7TaGwNonDLhgYoJOKslbd6+N7vL9t6ipHbY+75n6yGnO0RWSWMf+7j+O/+vGGzk6kujdjag4hDHiBuSL9avmR8IaXNHBbu4C/DeYFnNU8pnDFp41n6/zSy6HHNlpnssYpLcQodyj0TkCk7EomXuRmUV/nW7uN0cAbvxGLA+Oby8MWsdwa0WTkSJLnm9C1tmI9zEYnergEJz5kbMOaxHmIDs6jh/Svd9mE/gufofbsWN4V21O7HN1m8qXgxXkCpB7QZzkm/EmPJ9liW9bnaAdoxaQPVcie+KID7MhJQ5z9tjF5MbOr5owbxRrB5KATu8+ByI+kw/ca6fDDGzy8SvIiRICX+DJy8dTR4zsu/K5JRBba0Q2fsnn3WvT1dOHimQWMlDvKKq83MMKdQ+ZSKQiY+2xW/IxjN3XQ43hhtNKm
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 09:20:17.4472 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fc9a073-3846-410d-1f88-08df29d45cbf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0002695D.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6187
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,54 +90,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The GFX, compute and SDMA branches of AMDGPU_INFO_UQ_FW_AREAS work out
--EFAULT when the result can't be copied to userspace but return 0 all
-the same, so the caller goes on with a buffer that was never written.
+Hi Christian,
 
-On navi31, querying any of the three into a read-only page returns 0,
-while e.g. AMDGPU_INFO_DEV_INFO returns -EFAULT for the same page.
+> Yeah and you need to fix the fence orphaning and *NOT* the wait!
 
-Return the result of the copy.
+Agreed — found the exact orphan site. drm_sched_entity_push_job()
+pushes the job onto entity->job_queue first, then
+drm_sched_rq_add_entity() sees entity->stopped (under entity->lock)
+and returns NULL: the scheduler is never woken, the job strands on
+the spsc queue, and its fence never signals. In our repro the dying
+process's fault path submits the migration job on its own killed
+entity — it's the process-kill race, not a device-unplug race at
+all, which is why drm_dev_enter() doesn't cover it.
 
-Fixes: 90c448fef312 ("drm/amdgpu: add new AMDGPU_INFO subquery for userq objects")
-Fixes: 44b69cf1d35c ("drm/amdgpu: Update AMDGPU_INFO_UQ_FW_AREAS query for compute")
-Fixes: 0030595c3e8b ("drm/amdgpu: Update AMDGPU_INFO_UQ_FW_AREAS query for sdma")
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+This is the same failure Tong Liu reported in August 2025 (task
+hang after job submission during process kill); that fix was
+rejected for checking entity->stopped without the lock. The clean
+fix is not to pre-check but to handle the NULL return while still
+under entity->lock: drain the queue / schedule the kill-jobs work
+so each stranded job's finished fence completes with -ESRCH.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 084d8517c194..0cf6bbc8c0ff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1432,7 +1432,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 
- 			ret = copy_to_user(out, &meta_info,
- 						min((size_t)size, sizeof(meta_info))) ? -EFAULT : 0;
--			return 0;
-+			return ret;
- 		case AMDGPU_HW_IP_COMPUTE:
- 			ret = amdgpu_userq_metadata_info_compute(adev, info, &meta_info.compute);
- 			if (ret)
-@@ -1440,7 +1440,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 
- 			ret = copy_to_user(out, &meta_info,
- 						min((size_t)size, sizeof(meta_info))) ? -EFAULT : 0;
--			return 0;
-+			return ret;
- 		case AMDGPU_HW_IP_DMA:
- 			ret = amdgpu_userq_metadata_info_sdma(adev, info, &meta_info.sdma);
- 			if (ret)
-@@ -1448,7 +1448,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 
- 			ret = copy_to_user(out, &meta_info,
- 						min((size_t)size, sizeof(meta_info))) ? -EFAULT : 0;
--			return 0;
-+			return ret;
- 		default:
- 			return -EINVAL;
- 		}
--- 
-2.50.1
+> Blocking for all fences is correct shutdown order.
 
+Agreed. v7 drops the timeout entirely — unbounded wait restored.
+With fences guaranteed to signal, the copy_done error path becomes
+genuinely reachable via the fence's error status, so the error
+propagation and migrate->dst rollback Felix asked for stay — now
+on a real error path instead of a timeout.
+
+v7 is now implemented and tested on this machine (7.3.0-rc5 +
+p1/p2 teardown+restore-stop, sched orphan fix, KFD fence-error
+rework). Hot-unplug test: svmhog2 mid-migration + a second KFD
+process, then Thunderbolt deauthorize. With only the sched fix
+the host still wedges — the kill-jobs drain prevents the orphan,
+but the unplug path additionally needs the KFD teardown ordering
+(processes torn down before device early-fini) and the restore
+worker stopping on -ENODEV. With the full stack: fences complete
+with error instead of orphaning, both KFD processes get SIGBUS
+and reap cleanly, device tears down, host stays alive, and
+re-authorizing gives a clean re-enumeration. So your direction
+was right — the wait was never the bug — but the orphan fix is
+necessary rather than sufficient for unplug.
+
+One question on layering: the push-to-killed-entity fix belongs to
+drm/sched, which is dri-devel/drm-misc territory — do you want it
+as a standalone patch there, or kept in this series? I can also
+guard the KFD submit side so it doesn't push to a stopped entity
+in the first place, but the sched-side drain is the airtight fix
+since entity kill can always race a locked pre-check.
+
+Regards,
+  Olivier
