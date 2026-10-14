@@ -4,119 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 676ECCC6B2C
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 20:54:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC861CC6B2D
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 21:39:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBCC310E1BD;
-	Wed, 14 Oct 2026 20:53:59 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012047.outbound.protection.outlook.com [52.101.48.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07D4810E55A
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 20:53:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 421D010EB2E;
+	Wed, 14 Oct 2026 21:39:30 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011030.outbound.protection.outlook.com [40.107.208.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34CAE10EB2E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 21:39:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YUSQxNzRqwybC+JWz2rL0j/GKm+eO4/zjmHQh/7gM2BFBVVmEmGr1aJWhB+9QiBzhrpb1y7rCvKQNRX4Xgq8Tyw2/ZYjYjVaFx1cm1qUUFIHShnVcQ9een9W/REA26U8zh0iIVngVDXx4TG/VXhcdkVjzLQ4nT0ItCYG6Tyt1d/FI93GN0IsfmqDSJ2BChUACgX4zC+X9w92Q//PAnaDlMgHj89+NiGxYaDqykhb8snWxdP10UxBQ454ia9j0Jm/EhquLPq1eArJ9djiN6xspj6PQ+VGwz8m7nPxGkN4LO/VEqTby1Azb2yaAQvWd/uCN1BduUC6S5K1oPvPBC8eLA==
+ b=Xjsg2PJ8yQWqL1GwWZVl0ccJCYXbayX7pRuNB5zARiCO4zRh9rZMVIBCynLRzTS77rTnEI3zm4W24DZj/ZE6rhiW7ZXiWBZq6lMYsG3NVUBFIeZz28PMomUo5N4XSSBhyLIFAfvlgEDaXg6BB3OzSk3E64vQbUPkN+ut0y7ovI626JRC44kohuOSm2PS2HE13TX3PZB+8EJGKWnf1PYt8dKIjOlVeQjsDN39wIiQLsyMFTTWXpFxlYoQ2sX9MJ55/+K52f8fyFE6eBUpze4Ei7Ak+kD8gUv6/LQ7sdXHb7D9HOJah8+EKCDWyYJQcS0tSVv4Gs0Z4gp7CIcpLNGQCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/gmKsurbaMIdaG8DCfAdgjHLcN9Q6Nt15vJipyCxZqE=;
- b=QIKWa87sBmr1mwrw/a6dMc4sSJYzwL22C6cRnQFmsN44C6zKOoCVFgHhL+hLuu7wweN1WaIJIsP4ZyWqK6FL5G1gpw5jLuPAcj/iH9D800e4AvWu9FMs9Yyjqw0eN88hvCR2obvavz7aCK3Hz4jDm19xA4peT8p8n1m/gEfRbPtm5vYo00FgvyPI5vSvJyuLu9XTwLuIK7BCb6Rk6gYKqn90JYhr5WDNLjR0q31ofiDhjRTS4P+VAWYunhElDeHyy+AeeoUpOlIBGZu3w2hJbgO2w6LOYN9ScYeilP40AGn63fL9RzVquq/QeRAi2WBO0MZremVgMpB86tOFhz5CdQ==
+ bh=b5C2n0s+0FBpg9MNtZttLF/JrMaFxNW1wCLFZIw9DTg=;
+ b=yzMj+qKaS5pDSJG5yMP16224Dn3SUp4Yx5oWl0cg9iEOZD95ZQOJLrBjr9Ip7d7xGOQacOFSUXCzcOVfldFnLF54uTqI5U84h89dWia+ygoYTnniAbJ7AXJFUp0et9RtcnkxlJtvBF/0BB2791i4gin3hMOszICatU9FOFQy8OeOh7t7ejimuhdg3letjhddGJ9+k2lFAcDYpr4YXkdGX/ESdykk3nwi21MuuH2HqwHGUuUiH3YVWXv1EjfIhYABs08WErnbON994KQT3TH+qr7TJHMP3vlIs7zK1Pgx+P2tgtjdX1k1Fuk8VSIzm0nKTksLxYSG4/94scl55ZbRQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/gmKsurbaMIdaG8DCfAdgjHLcN9Q6Nt15vJipyCxZqE=;
- b=sRUXhVFgi3jaJcuZA/BpmyZZly3l+0QIpOycXwsx012X7l6tDDnprbo/y2nXJpja+Kv5PrOmlNXjWxRxtlgoiuPOd11UeotnODppQfyUT4If5mF5BwQNXfr+xGRCJuYT1j92Ol7mMX2vTnJ2XYnT9/vusBAsiJBU9an9DG7GUc4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by DS0PR12MB6488.namprd12.prod.outlook.com
- (2603:10b6:8:c3::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
- 2026 20:53:46 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
- 20:53:46 +0000
-Message-ID: <0737e039-b4f6-4675-b50e-bd2937375e5a@amd.com>
-Date: Wed, 14 Oct 2026 16:53:38 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/3] drm/amdkfd: fix wedged teardown on surprise removal
-To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com, xiaogang.chen@amd.com
-References: <20261013185313.33496-1-olivier.kaloudoff@gmail.com>
+ bh=b5C2n0s+0FBpg9MNtZttLF/JrMaFxNW1wCLFZIw9DTg=;
+ b=enqHVOUkhNyx0syRCLTy2nE5WRwwL8BXDW9KeTOzO2tVIMsupyJ400yIxLmQ0ocVfxu8cjI6mlLcyJpOXsdxTAAwyKI3IvOxhAvPtXyQjQG13VNCVw4ozfGnN1fIZfwCzRRbWMue065Rtl5NL7mXELdewwe9fXq2L2RWxv9FbAY=
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
+ by SA1PR12MB7245.namprd12.prod.outlook.com (2603:10b6:806:2bf::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Wed, 14 Oct
+ 2026 21:39:17 +0000
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23%7]) with mapi id 15.21.0496.021; Wed, 14 Oct 2026
+ 21:39:17 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Maciej Kucharek <qchcio@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Koenig, Christian" <Christian.Koenig@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
+Thread-Topic: [PATCH] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
+Thread-Index: AQHdXBEtFbuE+1J6RUqLu5DXondMV7b9kBog
+Date: Wed, 14 Oct 2026 21:39:17 +0000
+Message-ID: <BN9PR12MB514681E5EDA768CB4497EACFF79D2@BN9PR12MB5146.namprd12.prod.outlook.com>
+References: <20261014192030.10611-1-qchcio@gmail.com>
+In-Reply-To: <20261014192030.10611-1-qchcio@gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20261013185313.33496-1-olivier.kaloudoff@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0232.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:eb::7) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DS0PR12MB6488:EE_
-X-MS-Office365-Filtering-Correlation-Id: f4e50c78-6ec6-4fdc-fed8-08df2a353d49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|261009223027099003|3023799007|10067099003|11063799006|6133799003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: xWIXCNwydz8QaaehtEsZzQ8YCKDb7LcBkuSJGk5VwEnpiCTvXrjggQO3koi3XpxeiMG4kioYLZi4/4xrxsnk5TmjopsGcs1NsEr9zZuYbfN2TtxNKf9cioVlGI6bmkshCZ2ES6IpPWGkonC6AKIBKtk4XxK6G1Yd420zECW7G7Kna1+g5BvE69vogzy0bdYyW6b7NV0VaE7c4LUHQREza6kwOMy0VZZk589inIBqgMot97BJZzL0+NCCnTvlgEPQKo4OBr9/LDnVkHqGqpvJEYzoI8uaPIBr+abG5uUM+PBG4iom0AOh1DFMJE3KoHEMczyLXu7Vme//+fEkf27IUVEE42R65+E5vLqkIA/3M3bujSmoCwFdiRG7sNbSiHCz/2vRZSPHQkP3vpJQHKOngH8KSN3Xg5cN2NiVBjJdG9Lw1xYX6ayloZf2e7wMt1lOPsSZ2jxkDJkjMuGsTeRiAsD+eq+mRr5U/4OIGZ49cqwAGl+TkfHRYfV7b99sWNjp5G/R8dGe6EFq3wIfJwtnZAqrU3Z5cCbnkk3w/B7uA3Wg7f7tqpr3V4R7hkWqSPM+TF/g676SZFLDax5bZ1jfioH6vgbI2J9xYAqRzlabhcxbYe7mIk4aXY1CnkU+zIIng3dx2LRVFzV4jAOCnZcfzRcnl3HfPqSDVliKTSwQPhU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(261009223027099003)(3023799007)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003)(56012099006);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-10-14T21:36:54.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
+ v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|SA1PR12MB7245:EE_
+x-ms-office365-filtering-correlation-id: 39244cc8-b064-4077-85cf-08df2a3b992a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|18002099003|10067099003|22082099003|38070700021|11063799006|261009223027099003|56012099006;
+x-microsoft-antispam-message-info: cWrBkqjnmAh49vLB308CbKnmQKEolVhhhmzbeoHBQRclnuguokjiruDEvrkC0foBQBcJMznlhTfpn6Qanq6eJ8wPATCkSslU9/X9GXQxppC6L6SgrPOi7DxsoS+JvzdS/6i4awXOqzx8rXLM5W+9cxu9Uu15825iYz7FU3aeg2PJLKGpbAdPhP1y94tdvMrCLpdHOHhlI6DgFyhMHbgPOuj4devgVs6vDl5jfABT4Bn0EibeJSL+XAC4KiW6gT8YcHs1FELZsOlnmT8IMG7qOSybTSJoKdsp0AlN6vU5jI3TRzgunUjHri2ZzjH5GqgLouwG7c7tXITP6jjI+Iwl7ennPXHkGNyy0OT6wvWkKKImvx3LquwcBDqnp8iFNNVMDSvHlGmk8yPBtYzpqspVimc/suOdwpeZ7Y5gHnDxysxEEErhSW/EFFnxlzSK8l8w8xMSz6tLsSMih+ttCt2LVrBsbHl01KfQ5gojZC8rcTDKBJqIPBCqq+11Yk4SxRgNeX++lqTqIGVzS/aiUsWbA0/06jRt92bV0yK0LlDx5uIReXHxycae7ZpuN24H6oHP75Puf3eWJ+bIhaqJ9gJU9E4eI3ZrjkKHNPqA6vnLHSErqXpDtamVfrsBFpJH4TGmuU2zpOqGPAk3Ex8Po1bUr/BxtY9GznkaxJYBpg4IoYo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(18002099003)(10067099003)(22082099003)(38070700021)(11063799006)(261009223027099003)(56012099006);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2NLM0E5Slo5ampiS2N6YkRzOHB0aEFpdXhKVFg2SnVvdVRkeStxTDlKNkJn?=
- =?utf-8?B?K2RFY0hzRURBZkE3SHJUR0pUd2pROXdYbzdtczVxcWJxMWJTWG1WaDArUU54?=
- =?utf-8?B?K1dSKzhZNXJUNU1VT3dOd05xWUhUbW83cjFFK2pQeDVucW9XN0ZidlQxNng2?=
- =?utf-8?B?bWJQUzVIRXZYeFV6MUh4dHZiSU5qcjNkOUU3MHBzdVMwUzNUbisyTW12UmZH?=
- =?utf-8?B?c1JLVkE3YTR4L0VJMzBIRmdncjIzU3Vwb1NIdGtBVVV6cnBybjA2R3pHU3N3?=
- =?utf-8?B?b00zNzdiWVJjdi9CenZhT3pxY0xzTkRZcUJVdjdjZFAyZDhJRUUvL3ZYQjNF?=
- =?utf-8?B?bmFxYittOExQeDFuMWNqSEpCelNmYllxWVhuSlFibWxhNkU2c3pGZXgyQjh4?=
- =?utf-8?B?UXpUMlFsNWVzNUE3RGw0dUhIMTlWTXprSGV1TnJxdmJyR1JuTzBMbks1U0Qx?=
- =?utf-8?B?NGg2d0FFUzRiS2FKQzZyVXZZa3pOSnRyS1Y4c1N2dGJBQjJzUnBwVG9LZHR1?=
- =?utf-8?B?RWNwVDR5dE8xS01yYzhpaGQ3VnZtNjBrQm1IVUllY092T3oyMmlnM2tITkVN?=
- =?utf-8?B?QmltQUVac3VEQ0JmdUFTamcvdzI4TXU5K3dhcWZ2ZVVVMHAxMnBVN2IvNmVG?=
- =?utf-8?B?WXpIU3JJLzF6MzFCeWczUUZsdUg0aUxEbSs4YW9aZzFHQU5SQWt2LzdtaXVv?=
- =?utf-8?B?elBqaDlVaGI0VGwrMWU1SU42aFB1WHB5VFpoNi81MHFIdUYyNEpUWFdUOXh3?=
- =?utf-8?B?bVhxWUUwaWxZQVRVV2RrK3Y4Tkd2VkpNQkErOVNaeUQwYXpZMndoRkZBYVBy?=
- =?utf-8?B?V2ROYTRQaGRFdGgrWVFQUEU5NG5rTGdSaDFNSFptd2ZEVFJJYVp1djhzemM1?=
- =?utf-8?B?dGxWN1NEMFVGMmFMb1ptdktDSVJIOGlMZEJwaTJlQ3hsdVNBdGxUd1Y2WHhL?=
- =?utf-8?B?bU1FTHJ3KzlCVHV5NFFMZWY5Y2VqZ2xPSkE3cEI4SG9ZdVFLWXJKczZ4SUJ5?=
- =?utf-8?B?alFOcG1DMW52aXNDUmVER0hTY2JxaitiYmhDZGE5QTgyYXd3UXBWVzdSSFRs?=
- =?utf-8?B?NXZQeDVUTHhMUXVUVldObEZjNWpUTUJBRzdhdFA4bzNTSkRHdXZSVWtIQzFi?=
- =?utf-8?B?Yy8yM0lPLzFDSG0rVXhpK3dZKzBjYWNCRk5DUWR4VkFUbnZPbVEwU0I3TERT?=
- =?utf-8?B?UUwya2RuK1ZYMzNCaDZ6S0ZRYzJaYkRyVGJYSlYzb2toRlJadDBza2NWd3Mz?=
- =?utf-8?B?c3d6aG9wWDFFNUVWbWVPSEsya0FaeFNReEhFdWdPcHFDZjU5QWQvaXlYbGRk?=
- =?utf-8?B?MWNXZmwzTWk1c0Jzc0wxQ29KWE5YaFM4SnVpZGtRSDZRcVhlQmxNRjBRcmNN?=
- =?utf-8?B?QjVpTVVQbzhGVVBybDE4RFNjV2cwWGhKZmJqazVrbmJ2b3huM1V3emNXTUlN?=
- =?utf-8?B?OTRRbGloZ2hZSGpxQTcwWmtDR2IyOUxTcGg0YmNKSXJGTTh5a210TGN5MXpH?=
- =?utf-8?B?NytMdnZ3cVZ1Sjc1U2pWUm5ETnh6NmdoREVkTEtuZk5zZ2FzTkM4c0JXU1Nh?=
- =?utf-8?B?eWpPaEF0UUZBMnBReEJyclI0UmptTUNpT3pxMnY3VVB2bFNVejV6NjVyNEJq?=
- =?utf-8?B?YWwrR3N1R0hHVlAzWitiTG51QURaR3owMGtISkpobHBYa3JsZHYxanFwb0hN?=
- =?utf-8?B?N0xtajA3TTV3Y3B2YnBnTzVDOE50WVRXSXZzNWphVW1CY1FYT21JWWV0UHNl?=
- =?utf-8?B?T0hpL1A1bFdEOFhCM05vanB4V0M4YlVsS1hseDlzd2Z0VWZjNlZBamRxZ1JW?=
- =?utf-8?B?d1c3amNwUWliU2VVT09ucWwrS2FwMVhWajV2QTBJMUlvNGtrcmR5S1owRURX?=
- =?utf-8?B?bXVTQ0dzVDhZRG95YlQ0WWExeEdlbklQQWJPZVpIUGhFQUhLa05GeWY4V1BT?=
- =?utf-8?B?SHpiMnlOT1hCTThCb2RVZWQzdHNyWWt6ZEErK2ZVOE5vTUp1NjErd1FHUmRw?=
- =?utf-8?B?QmpqNE5oem1yTUM2SC9JUFQ3WUFqeEhHU3RvamE5a0pROExHZm1QWXBpM2M5?=
- =?utf-8?B?ZUNYVlJ0bXZKWVVrWnlMMkpRTjBGY3dCZk02WkZRWXJ6VUpoU01yRUN5Wk5a?=
- =?utf-8?B?U1U5dDBpSXQ5aDdrVmFQaWs5eVIreVBCeTd4WTFmeWVKRXdDcnRKZGxqeTB1?=
- =?utf-8?B?OHNpZENVUkhsRkgxeDlHNGpZdk4rQ2gwdFhWbEJzUkJrekJNc2UySEF0TGZn?=
- =?utf-8?B?L1RLcHBteHBtN2pmMWpYSnFjTHR3YkkwSGdvOFRDNEMyZWpDdURDWmQ1WjlU?=
- =?utf-8?B?TmNMK3BmREd6Nno0b2k0L3hEaG4wTVdvM1c0Qk5UZWVkQkoxNVMrQT09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?isyC4N2rFGzl8wgnp15L+ljk8dO4bLcjT9U3mZCBy4S8+IvFEMTPX2kS1pUi?=
+ =?us-ascii?Q?MDQky/pGMySfINox0fpMla4Pjk1tcEsbrteo5DXRiLhvJvTSatu6qGH2c2n6?=
+ =?us-ascii?Q?hRbwuN5tVyJN0WrADa4/lWg+z1wpokzsOTKncnvbgpJtLvnXr+9EMafCZsQ5?=
+ =?us-ascii?Q?PkDpr8nL9FxxO8f7Vje5b1gsqiVqPFEGRF/fsrXoUMESRhSvxRQ2/bNNdc4Q?=
+ =?us-ascii?Q?PxZ9IK8RYtr8/BiwFqBiw5yWDHBUlyd4gtOQRMGk581bcWIqamRoimT4xxdG?=
+ =?us-ascii?Q?SiZuODlnUc3yUSsNCr1NpYPaoJ38xVuPcHlperuusrTQb8EeviGnOmJVE9pf?=
+ =?us-ascii?Q?kee1M91hOMyIOoLbCakB/RMZe2PFRIS+7jeQU5qgm88yLmdXirozv/39o7R8?=
+ =?us-ascii?Q?3pvD0GyQl22viKBCrCwHcQPYlnU/L/UpSq3VFTwPc0XdTNZaOR737Bpf+EkD?=
+ =?us-ascii?Q?HCandyFh4TcSZIVGut3fr9+whcvIyGgbMc7JwQi7amq+x/mQkvy6Z0cVSskc?=
+ =?us-ascii?Q?U+IwQ4tUu8hugCnnH4NcqBOLG1w1cV1zkPykJNQDTo4e7QMMz+bz9XzmrUlW?=
+ =?us-ascii?Q?Wn6/3OyDv0wEam6Y1hXMyyS1jWDXTiECwfjZisMKrUTIlUufNC7cl4Cbaymi?=
+ =?us-ascii?Q?jl4qtRjCo2w681age4Ld3VpAEfC8e96u16GvpqgNaGQSY/mZrFUWElGD8uqs?=
+ =?us-ascii?Q?z27LMK+KuAMeygGjAMN9OSztNmb7qF1D7hCoa9dN7iWwvrEeMyx4iMEAA9fW?=
+ =?us-ascii?Q?CteoqMOkxqnOpICyoZ5qadxuOzrn7GWe749hrUrbPS5sKe6C2NL9IChAWCY8?=
+ =?us-ascii?Q?MESYQZvCeeJ9f3XM0f3MMbp0njFs0Ss0zZ2rVmi7ufQv0nFa1op5CR8+0A7B?=
+ =?us-ascii?Q?B3grv7SOwWD2VnPcms0lKNPOo6qI/x1+RCY+AymblWL9+5yAlZ8jGlO0Mxo0?=
+ =?us-ascii?Q?50zjbuEKu7hJ9VHFxNSLL3Wvg7efJvCVchZPrrmO8ytZo2hz0e8fToHoIW5F?=
+ =?us-ascii?Q?RcX/K1TGdtDnksoUQhuNVTf8AIIENBIs1lu7vw1SGjma/m+F6AZZnnfEqrTF?=
+ =?us-ascii?Q?zZjCzNFxMlrjMfQoTzfSvDYJOAXkisfDZ4ABOr+mThK3RC3Y79cHYAqpwiBv?=
+ =?us-ascii?Q?uAEDcrPFzc2eR+tJ2MjKbqcpoYzx595AG1J2LN383lBWDvn7WC4jmyfujdKE?=
+ =?us-ascii?Q?ZPXAfxsQ2g/Uk+EX9ndK+5ZZOsXSMsAUDIguw4HvxBYRfKXhCxPTrc57YLZE?=
+ =?us-ascii?Q?fEg7OddeKJKVgoummomHZ/G7zrJGGSC21TjShqRliqXAubA5VuSrYsonZ4cX?=
+ =?us-ascii?Q?hmQwcyTU5r/a+1eA58QyJsTa/hRa6ME8sdvUTfMyghTENsOh+NbycCZCz6Fu?=
+ =?us-ascii?Q?sN3N81PgJiFsF2O3ZSJt9RZA6yD383WFWa58h8yooLTkV7jnZKzU3IutFUrJ?=
+ =?us-ascii?Q?nxNT8ikWdP2DUJPB0aSDsr2HNrhZDO4Lk7Ip+Vl8HbiOfek5CyTHAb36RjpA?=
+ =?us-ascii?Q?ermVzvhmMmE46FSejvCKHgWW7b9eDYWNPhFrgUuLausOi7WUrNzYF3FrMQ0c?=
+ =?us-ascii?Q?q6ImT2Hwh4dMb7ksi3S8HVQK6qTaswC8A5WY+bh/Jc3W/VTwxu7VrpLsghsF?=
+ =?us-ascii?Q?G2LmTK1ZJL6VZBVTWy7tL0/GVxP8/2bHCwVSAwBsZFEx+avALnCvXuMVJQUR?=
+ =?us-ascii?Q?OjYJpc9sIAraxZdKzj6yDXG2gLW7xm2E9v2BpqKx3+a7a7dU?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4e50c78-6ec6-4fdc-fed8-08df2a353d49
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 20:53:46.2234 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JSi5+eRqSvlDQPUhaV4e2UARKAlJLp/0Ha9wJq8gsZvTEPVhEzYuwWAHYbpbHm5/W5ItgUNgwysgHZAN8D3rvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6488
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39244cc8-b064-4077-85cf-08df2a3b992a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2026 21:39:17.0943 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0g4Z2b8R58oyb5qF/C7mLsKJZPwsgyLP6wIan52aSlMqjPR84fXFYWkQ/jpL7HrZdP6Kk9XRZr4tcAyaYcWPnQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7245
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,105 +128,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Public
 
-On 2026-10-13 14:53, Olivier Kaloudoff wrote:
-> On surprise removal of a GPU behind Thunderbolt (MI50, PCIe slot
-> power cut), the KFD teardown path wedges the host:
+> -----Original Message-----
+> From: Maciej Kucharek <qchcio@gmail.com>
+> Sent: Wednesday, October 14, 2026 3:21 PM
+> To: amd-gfx@lists.freedesktop.org; Deucher, Alexander
+> <Alexander.Deucher@amd.com>
+> Cc: Koenig, Christian <Christian.Koenig@amd.com>; Maciej Kucharek
+> <qchcio@gmail.com>
+> Subject: [PATCH] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at
+> 0
 >
-> - the killed KFD process faults on its own SVM ranges during exit /
->    coredump (SIGBUS -> get_dump_page -> do_swap_page ->
->    svm_migrate_to_ram), submits SDMA work to an already-killed
->    drm_sched entity, and waits uninterruptibly on a fence that can
->    never signal;
-> - the dying task holds svms->lock, which wedges
->    svm_range_restore_work() and prevents kfd_processes_count from
->    draining;
-> - kgd2kfd_teardown_processes() therefore spins forever in
->    cond_resched() while holding the pciehp removal thread, producing
->    soft-lockup and hung-task splats.
+> On MacBookPros with switchable graphics, the firmware puts VRAM at MC
+> address 0 when the iGPU is enabled.  The EFI stub enables the iGPU on the=
+se
+> machines through apple_set_os().  On a MacBookPro11,5 (Radeon R9
+> M370X, 1002:6821, subsystem 106b:0149), the driver adopts this layout at
+> init:
 >
-> This series:
+>   MC_VM_FB_LOCATION=3D0x007f0000, HDP_NONSURFACE_BASE=3D0
+>   VRAM at 0x0-0x7fffffff, GART table at 0x1400000
 >
-> 1. tears KFD processes down in amdgpu_device_fini_hw() *before*
->     amdgpu_amdkfd_device_fini_sw() frees kfd.dev on disconnect, so the
->     drain happens while kfd.dev is still valid, and guards the second
->     kgd2kfd_teardown_processes() call against kfd.dev already being
->     gone;
+> The driver posts the ASIC again on S3 resume and after a GPU reset.
+> The VBIOS asic_init table then moves VRAM back to the VBIOS default:
 >
-> 2. makes the userptr and SVM range restore workers stop rescheduling
->     themselves on -ENODEV;
+>   MC_VM_FB_LOCATION=3D0xf47ff400, HDP_NONSURFACE_BASE=3D0xf4000000
 >
-> 3. guards the hardware-accessing SVM migration sections with
->     drm_dev_enter()/drm_dev_exit() and bounds the job fence wait with
->     AMDGPU_FENCE_JIFFIES_TIMEOUT, so a migration cannot race with
->     unplug and a fence on a dead device cannot stall the critical
->     section or the faulting task indefinitely. A failed copy now also
->     rolls back migrate->dst and propagates the error instead of
->     completing as a successful migration.
+> gmc_v6_0 does not reprogram these registers.  The GART table is then no
+> longer in VRAM, and the gfx ring test times out:
 >
-> Verified on MI50 behind Thunderbolt (2 GB SVM workload, PCIe slot
-> power cut): the workload takes SIGBUS, coredump completes,
-> kfd_processes_count drains in ~9s, pciehp removal finishes without
-> warnings, and the device re-enumerates cleanly on slot re-power.
-> Previously the same repro wedged the host every time.
+>   amdgpu: ring gfx test failed (-110)
+>   amdgpu: resume of IP block <gfx_v6_0> failed -110
 >
-> Changes in v6:
-> - patch 3: check svm_migrate_copy_done() return in both callers; on
->    failure release dst pages, clear migrate->dst before finalize, and
->    propagate the error (Felix Kuehling)
-> - patch 3: dropped the dead ret < 0 branch (Christian König)
+> Reset and post the ASIC at driver load on Apple boards with VRAM at 0.
+> The driver then uses the VBIOS layout (VRAM at 0xf400000000) from the
+> start, and later posts keep it.  After the reset, FB_BASE is not 0, so a =
+module
+> reload does not reset the ASIC again.
 >
-> Changes in v5:
-> - patch 3: dropped the drm_dev_is_unplugged() and
->    pci_dev_is_disconnected() checks entirely; drm_dev_enter()/exit()
->    plus the bounded fence wait is sufficient (Felix Kuehling)
+> The test is the same one that commit c7f44ec5c4ec ("drm/amdgpu: make Mac
+> FB workaround generic") uses: an Apple subsystem vendor and VRAM at 0.
+> The VI quirks for the MacBookPro14,3 and MacBookPro15,1 reset at load for
+> the same reason:
 >
-> Changes in v4:
-> - patch 3: AMDGPU_FENCE_JIFFIES_TIMEOUT instead of an open-coded 10s;
->    drm_dev_enter()/exit() guarding the whole migration section
->    including the bounded wait (Felix Kuehling)
-> - patch 2: folded in the svm_range_restore_work() -ENODEV change;
->    fixed a latent uninitialized ret read on the evicted_bos-mismatch
->    and confirm_valid-WARN paths
+>   commit a22e5e4f2ebb ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
+>   commit a5be7ad8f5f0 ("drm/amdgpu: reset VI ASIC on MacBookPro15,1")
 >
-> Changes in v3:
-> - patch 1: NULL guard for the second teardown call (Christian König)
-> - patch 3: new, fail fast on gone device in SVM migration paths
->
-> Changes in v2:
-> - patch 1: drain before fini_sw instead of bounding the wait
->    (Christian König)
-> - patch 2: new, stop restore retries on unplug
->
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Felix Kuehling <felix.kuehling@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+> Other Apple SI boards only change if their firmware also leaves VRAM at 0=
+.
+> They then get the same reset at load.
 
-Patches 1 and 2 are
+Can you also update the VI code to follow the same logic?  Or better yet, a=
+dd the same logic to si.c, cik.c, and vi.c.  Presumably CI based chips have=
+ the same issue.
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-
-For patch 3 I defer to Christian's expertise. That said, if we don't 
-need the dma_fence_wait_timeout there, then we also don't need to 
-complicate the error handling/unwinding in the migration functions.
-
-Let me know if you want me to submit patches 1 and 2 independently of 
-patch 3.
-
-Regards,
-   Felix
+Alex
 
 >
-> Olivier Kaloudoff (3):
->    drm/amdkfd: tear down KFD processes before early fini_sw on disconnect
->    drm/amdkfd: stop restore retries on device unplug
->    drm/amdkfd: bound SVM migration fence wait and guard with drm_dev_enter
+> Tested on a MacBookPro11,5 with 7.2.5 and this patch: the panel comes up =
+at
+> boot, and 4 of 4 deep S3 cycles resume.  Without the patch, S3 resume fai=
+ls
+> every time.  The GPU reset path is not tested.
 >
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |  5 +-
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c      | 29 ++++--
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c           |  9 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c          | 97 ++++++++++++++---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c              |  2 +-
->   5 files changed, 113 insertions(+), 29 deletions(-)
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5978
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/si.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c
+> b/drivers/gpu/drm/amd/amdgpu/si.c index 0adfd4b10..892e80f09 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -1512,6 +1512,15 @@ static void si_invalidate_hdp(struct
+> amdgpu_device *adev,
+>
+>  static bool si_need_reset_on_init(struct amdgpu_device *adev)  {
+> +     /*
+> +      * MacBookPros with switchable graphics put VRAM at 0.  Any later
+> post
+> +      * (S3 resume, GPU reset) moves it back to the vbios default, so re=
+set
+> +      * and post on load to start with the vbios layout.
+> +      */
+> +     if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
+> +         !(RREG32(mmMC_VM_FB_LOCATION) &
+> MC_VM_FB_LOCATION__FB_BASE_MASK))
+> +             return true;
+> +
+>       return false;
+>  }
+>
+> --
+> 2.55.0
+
