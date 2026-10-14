@@ -4,128 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FCA7CC6B1D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95652CC6B2C
 	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABAED10FD8D;
-	Wed, 14 Oct 2026 12:47:54 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 080D810E4BE;
- Wed, 14 Oct 2026 12:05:16 +0000 (UTC)
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69E9waOp2016607; Wed, 14 Oct 2026 12:04:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=pp1; bh=ajZHd+qh6V9vTCXwQWUfdpmTLNkyLK
- ozm1g9bOoFoFc=; b=JYQ2N0nSXD/tQ/r+o3naoBOH1U+r2oPu+xjGpN+7txoDex
- Z0IWl63DxMAVur3sx+kmGREDCBqZc6k1HCDRjrOoEK+taOKH1OloSc9taF9O0FWY
- WpVjMbVUV3y+904j6Wquin+qDgUZtE0vakTE5A47rqq/xC7whZpk/bAH05j6NUMo
- GyNvztnXQB+E5AUtc1L0KRpmZ7LHjGzNNOr8tWNd56WpJVQz0J/T0JweCGvwVkOM
- 38Ai7Y5IXwL6To2w1AEdek15AbDAMLoAedQcEW17k9uz90AlYajIG2XNMhTS+zOV
- bWm4qcBhLuQq6bVn5TQRsfV9c0VsPZQvM+kgHPMQ==
-Received: from ppma21.wdc07v.mail.ibm.com
- (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dugm5g8-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 14 Oct 2026 12:04:52 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69EAnqN23211855; Wed, 14 Oct 2026 12:04:51 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9q2ymp38-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Oct 2026 12:04:51 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 69EC4l5Q50397474
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 14 Oct 2026 12:04:47 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 287A32004B;
- Wed, 14 Oct 2026 12:04:47 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7EC8420040;
- Wed, 14 Oct 2026 12:04:45 +0000 (GMT)
-Received: from li-0f4bfd12-9554-4bfb-8b14-7ccf0f0767af.ibm.com (unknown
- [9.111.94.206])
- by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Wed, 14 Oct 2026 12:04:45 +0000 (GMT)
-Date: Wed, 14 Oct 2026 14:04:44 +0200
-From: Sumanth Korikkar <sumanthk@linux.ibm.com>
-To: Ian Rogers <irogers@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- David Teigland <teigland@redhat.com>,
- Alexander Aring <aahringo@redhat.com>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- driver-core@lists.linux.dev, llvm@lists.linux.dev,
- linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
- gfs2@lists.linux.dev, xen-devel@lists.xenproject.org,
- linux-s390@vger.kernel.org, linux-mtd@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 08/11] s390/sclp_mem: Allocate struct sclp_mem
- dynamically and add kobject release
-Message-ID: <as9v3PUb0TymCvsc@li-0f4bfd12-9554-4bfb-8b14-7ccf0f0767af.ibm.com>
-References: <20261013223946.1836757-1-irogers@google.com>
- <20261013223946.1836757-9-irogers@google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13B3D10FD8E;
+	Wed, 14 Oct 2026 12:47:55 +0000 (UTC)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C5910FB9F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 07:32:35 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-48deeadb3fdso86381f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 00:32:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791963153; x=1792567953; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=dQ9Vi8ze8lwdPqHYidKfxChexwTLWFdZyXa9tkQZSpQ=;
+ b=QdSXNglrja129vuU8HZVy5mA9LNme+TTI5+3PLWQI/VF4jLOtFPnqF21xPvoHaf4pO
+ jqqPAJYiHnVO9lsXQLgZKzsWei4Au5aUKOa+9Qz9bZlzeuADNw6dw7f/OhQZhgOb61Rn
+ YwYCx0utO1io9WUbbcOWWRtvFTdaiOnn4IOMIw8nuj4JnJweY/+LeWeKs/iqMFvpZkuH
+ 27miVmLVWp1yPvxA2u/Pf1BYYd5b7Mfnjq8H9dgtzI+ydzUsqh0hIT7mMqSmKjUNDkXq
+ v3QL5KV8+1bzhHI/ti2TuTanb54zZHNG1vj0v2xbk0IchFmykcHbHkDmQxvhSN8OnM8H
+ CSIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791963153; x=1792567953;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=dQ9Vi8ze8lwdPqHYidKfxChexwTLWFdZyXa9tkQZSpQ=;
+ b=tNQ0aImyiXjoSOFQP8bDzETexsCZojNKOeLK6wppT8kvhhOGIk8Pqx0IM18gDBNAyU
+ 5X+9oNa3RnZ6ynr44i1F/ZHT91rZ3xm8PNfVSV0vm2m6Sf2CH2vK+mfR7/bLoFb1CG4r
+ fVlFHOVDY6e/50FTwVIf5+8D8FSxE7UbEOt/dXMAkRlZXjcyl+B4AMPikmVhFYz0IuOC
+ Jr72VJ3idbHy/WGriIcbbW4glYRvSiEVUJzrrIu6mBeV4HrXX+QXSBYn8xAF006uT5cE
+ L/CsvRC7ijwoYVqjY3tyDTBeWpm7wk2LIIB4pkw+uVRBzCpqZvTxFVHJLcBhMoK1qPPw
+ FLfg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByjaurxcdKcQKVLfGiQQo5+S5RUSQav5/SpenbJ4fxmVStvIYJyCXOhmD99Yfzi+r1W3xc9IEbb@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL13fO4J5IJUdTKsVNikeQGiETgXTPAQsOnq//sOTqtmo9ee7cq
+ bx7WcWu/P4QjCYhem13DGVTaGcQ1Js0lLfqcI5rrDxMTFVEg9XBy/fJk
+X-Gm-Gg: AYBFou0L/g120GmLKyGKfvJQUoo2MXHMlelF+eJINYXxEfnjdtbuH3btIlGq19qEzld
+ W+oLiYlZIaW4+nUlEK5MEvLFb138h5UWrD6ma6JS7QONLr0KQUx03/twu9CT7jYkGm1U5Rmg5Ra
+ uTpBMYAUwtU4J0GnXv+8yedA69H+CDyp5Kvs5osNaqVKrbdtWs9OuGIf/AftxVC3BuXkUB0QgoA
+ IwaM/8GisifziKletlSuiA/sGvXKARCOI0C5WGTU5ZwcafdmUK91P72pyrGYB1fIYGlbiu5zAWY
+ NRgBkfYna52iY84+Rd/4y3mi0pwSaUJRMWeCbzRFGjmcLf5L8xxdG2ha51l7YcuMoWsb7WrtVLs
+ qy5rvwtjChreByzPV1o6UzCTRusAfNNLSxgg7N1dkXWq9SstseJbv8LdrKBFt57JV+dVhjhO+a6
+ aKr/O2OVdB9rAFI85b8weLEJxQpSFB7isqlumQkiRYjzeIXCRFHIuSdFOGuDEAhHGHsv6J4jxzT
+ m7Xd2r/EHQDIA==
+X-Received: by 2002:a05:6000:2906:b0:48b:226:839 with SMTP id
+ ffacd0b85a97d-48dbaaed220mr27241742f8f.14.1791963153131; 
+ Wed, 14 Oct 2026 00:32:33 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4778:c500:9cb0:7d9f:2fd:3903])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48de0967bf5sm9622415f8f.5.2026.10.14.00.32.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Oct 2026 00:32:32 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] drm/amd/pm: propagate errors when forcing SMU11 clock levels
+Date: Wed, 14 Oct 2026 10:32:28 +0300
+Message-ID: <20261014073228.2095339-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013223946.1836757-9-irogers@google.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6acf6fe5 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1XWaLZrsAAAA:8
- a=1KnzZOXWGbpzuJ82zDMA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: _EktMNlxNi0Zhojhx4ASfWVXd_b7DOlL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0NiBTYWx0ZWRfX0fUPhxARNcJa
- 9nS/iCLcc7dEQrcybdImltBqHci5KonN9BgYs2DYbqx1d8S2XOqe29HUtCRqWBLErMceEtiShcs
- 4sOis3II/pHWvCugYS8aQjzU25z5oQrs/O3mU6gDGKNdZjvK+pDPTKbfQLhBgdreLHYt/eXKSLj
- 8iaqk3GpEmiCS1rkaREHPfI9BfxMESceMf6fSb58kgdsHk98lVK94W4Z13ZaUDqucgF8UHsrXAF
- s2Mz0WmLaipai7UjCU1P9wfoh1rJSRoR35Qnnl4GViW47ZEhEXi38+rmYIbdZGaRW5Gb4NFboLC
- VDaNe6VnoQav6/qOqN3N/a+a+5cDALYf91XsQVsXP8nIWP35y0wihJcXC0kc0O7eYfGysmumoj8
- nH3TGHAss/iHicos4JusXZh5QK06OZzsWCTSFTnMelfNV7UtEZDijv++v8M3SGrsGa+NyH77MdL
- 5RJO9I7QJmKjVLI0vig==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0NiBTYWx0ZWRfXzh8XCAetvSto
- U4lKpTbi/IJ/4y5zYP4Ex816LutfdS+PI20y7l1acTJ0MKa2avnNDCgOzXRPOLPzbCG+UhRciiw
- hNFMfBzpg0MTAxSwj76JilCNvE6uZfI=
-X-Proofpoint-ORIG-GUID: IbMwSeABL9gn-KtBlV7Mt5gD5Rq_VQT_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- malwarescore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140046
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 14 Oct 2026 12:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,32 +87,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2026 at 03:39:43PM -0700, Ian Rogers wrote:
-> sclp_init_mem() allocated a single array of struct sclp_mem with
-> kzalloc_objs() and registered each embedded kobject using a kobj_type
-> without a .release callback. Allocate each struct sclp_mem individually
-> with kzalloc_obj() instead and add sclp_mem_release() to free it.
-> 
-> Fixes: ff18dcb19aab ("s390/sclp: Add support for dynamic (de)configuration of memory")
-> Assisted-by: Antigravity:gemini-3.1-pro
-> Signed-off-by: Ian Rogers <irogers@google.com>
+navi10_force_clk_levels() and sienna_cichlid_force_clk_levels()
+return success when a DPM frequency lookup or soft frequency range
+update fails. smu_force_smuclk_levels() then records the requested
+clock mask even though the operation failed.
 
-Hi Ian,
+Return the helper error from both callbacks instead to improve
+observability. No obvious reason to clobber the return values here.
 
-The entries under /sys/firmware/memory/memoryX in sclp_mem.c are
-permanent. They are backed by a single array allocated at boot and
-remain for the lifetime of the system.
+Fixes: db439ca21b81f ("drm/amd/powerplay: add function force_clk_levels for navi10")
+Fixes: b455159c05313 ("drm/amdgpu/powerplay: add initial swSMU support for sienna_cichlid (v2)")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 6 +++---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-Memory hotplug can add or remove memory blocks under
-/sys/devices/system/memory/, but it does not remove these firmware
-entries. The /sys/firmware/memory/memoryX kobjects are never
-unregistered or freed, so I think there is no need for
-kobject_put() and no execution of a .release callback.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index f8ca5eb9adc6..2d05088619f6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -1439,15 +1439,15 @@ static int navi10_force_clk_levels(struct smu_context *smu,
+ 
+ 		ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, soft_min_level, &min_freq);
+ 		if (ret)
+-			return 0;
++			return ret;
+ 
+ 		ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, soft_max_level, &max_freq);
+ 		if (ret)
+-			return 0;
++			return ret;
+ 
+ 		ret = smu_v11_0_set_soft_freq_limited_range(smu, clk_type, min_freq, max_freq, false);
+ 		if (ret)
+-			return 0;
++			return ret;
+ 		break;
+ 	case SMU_DCEFCLK:
+ 		dev_info(smu->adev->dev, "Setting DCEFCLK min/max dpm level is not supported!\n");
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index b42897e7c066..4ef3863fae1a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1460,7 +1460,7 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
+ 	}
+ 
+ forec_level_out:
+-	return 0;
++	return ret;
+ }
+ 
+ static int sienna_cichlid_populate_umd_state_clk(struct smu_context *smu)
 
-Instead, could this follow the approach used in Patch 11 of this series?
-static const struct kobj_type ktype = {
-	.release = NULL, /* Permanent firmware kobjects, never freed */
-	.sysfs_ops = &kobj_sysfs_ops,
-};
+base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
+-- 
+2.43.0
 
-Thank you
