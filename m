@@ -4,85 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72F8CCC6B1A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 16:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDC7C3DA7A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 16:58:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 130C610FE7C;
-	Wed, 14 Oct 2026 16:47:43 +0000 (UTC)
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com
- [209.85.222.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46FB310FF2C
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 16:47:37 +0000 (UTC)
-Received: by mail-ua1-f41.google.com with SMTP id
- a1e0cc1a2514c-986e326c33cso86960241.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 09:47:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791996456; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ADF510E9CD;
+	Wed, 14 Oct 2026 16:58:21 +0000 (UTC)
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
+ [209.85.221.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6C0610EA63
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 16:58:15 +0000 (UTC)
+Received: by mail-vk1-f179.google.com with SMTP id
+ 71dfb90a1353d-5e8e8228312so201057e0c.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 09:58:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791997094; cv=none;
  d=google.com; s=arc-20260327;
- b=EcH6c6/5qhxnwfQyClmGwSCqvQfXoWNW9wJ9pwYkrJzlps2iwMCsipkSy3pv878w2m
- 9/iKkG+1UsR8MkiKtriJzpeCQQqJ7A1Zmw6VchXhXEbMrHnzmOjHVbYN4Oq9ntYVcW7I
- wLpeAlcS0TN+F+q89Fjmx2hCACZItxdCss80tM7IkHar1Z/kiSsVrJSHCFNcfRJxkBaz
- h+Qt3n4u4ms50ztvp1qcN4xslBLQc75Qtr2i2jCynXt9BNZw4MMm7cuiUllu2wJhZEPW
- YsjTx7W3kGGOA6FZJJmN2ocLHKbyZMAYXML4gM+lhqvLYZqvpwXlxVLbv5oNPEMt6vE+
- XPPw==
+ b=gkz9BvbsxXct+S+81JhVDfRZ1T7m7cbnF4/BIj/URqxZUzNe0ws2XggBgXLG3+KQ7D
+ m5W2AuIM3xZGrW3x7mmtUWe9t/XXl2chGhHlFgKLnHTbFmpgYlSeqtNKFfZGMIH31/tg
+ r7evDhItldViikR1VtjKvEYW0vA4ald7nfPuYC+eSGF22j1M3jSYjz0ACVcZTwYlxQd9
+ 4dzNi7tlQ+rnlI2VUuPSdhGoAtZg0x3jBPuN/VijbSmmZRZJn14bQ+pwL79+UMgjAtGZ
+ FAc98cwAMJyoa0RB7Nd9sr4MFDwCtMbl5gazce8rI16T6j3YL3DddiDDAPlkQ/KJhbJg
+ SCLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=aY4wa9XVG4bLBUrDNf/alpBmZD4Uo9u08+8/BssSkZ0=;
- fh=hIaibQ3hx8uhJRQ2vsK7kLLxUMsMJxZkypG6rSRSLHM=;
- b=n/0e55ZWsZEM7k7VMsAL76hoh/CEnLr25BgjisR2SszV7rx66uAlTTstQDgQE2vS6G
- vAO8GhacUj7pChjVe0MeeosmXP0LNLlUGV/OOaMG6Dy+jRmAeVryGMDMFFKqAfGwBdQ5
- L24cRyZFqc5unsXbM7KWcVkdlyG0IPIRB5vEmdzee/SBQtox1QjAk5SEPbHa2W986fl8
- ELXxzxps6NJcSznvq6UjzroSrIXfXlU3GI/EKbfPe4WnUXK+5TblSYgY/2NlKn/R05NI
- ezw4UxpB1z2Xwui4IRGqFhTy1+QkPL7CHTVtoFzx1f3ta2MYUcv1IWBdNaZ6gNV+MbL1
- 34OA==; darn=lists.freedesktop.org
+ bh=/HhNnMIsDqB1+l9DBxS7zqLucMRzhiJvM22vwbSViEA=;
+ fh=LH7fF0w7SBC0yNbeYi3ojw6uSRfiTbR40poP1RXA1s8=;
+ b=MBUj15RIP+ZeQfMT92oHh7OzFqCtl114k/xbPf5gM0wcBtxUzlNtQ0L+PPpCV1Iiai
+ HK/Cp3TOLGJ5nHCPoK07Y5Y0vagfabgH9FhAT4Fbg8G4ZL/r1rdihElg0b+glohCD5OA
+ A54dOGZLNoMDk3lYWajWcBXx2FRzEmIVNPAGfDRyp2W1Aq6A6m3aSz/MGIQzOkr26etO
+ ULri/7NyCzLASdfZsECju/RduAZArFJG60WKLb8ztNJ7piBxy/gW8Opp2yfc+nIY8L9T
+ bldjGAWQRczm1/qsFADzLXEIwUkbtc4kqZBm7IIN/WJpBNjNhd1OEBxqB1sqMN8jr2Ht
+ /LEg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791996456; x=1792601256; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791997094; x=1792601894; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=aY4wa9XVG4bLBUrDNf/alpBmZD4Uo9u08+8/BssSkZ0=;
- b=W3b0BlJZOD8HiXgUbLz+iyk8sjppk90//guEsFE4Z5xj6jCsXPoIb37c9Yy01ULo1L
- XaRM+G5DtlwAxs0z60sgen+loGoufdF3lJOmJ8LR6AnC4dYvyAfxMX/tPV0Edq6BEmoq
- 6pkFFcify2aoy2Bf1i6ELlXXNPw6E4qVS/swe7GDzcB2jniZlk/wFMZrSqFKPqIpcJZC
- 5ac+Lm7YLgH/KJ/4VknA9zaJBCB9IyvDQt11ziAd4mGf8DpGSGEkeEoLPjiPPlODG1rd
- 7lhUZ7AkVv6qiFOUdxzPsRzTm7+d5Ttk+W12BWmZQpcsextD6sL/5jXes9WodxZYKw9r
- QM0A==
+ bh=/HhNnMIsDqB1+l9DBxS7zqLucMRzhiJvM22vwbSViEA=;
+ b=PiYr733LrEKLCT0J+yNkqyt3wsx5uDbMJfLo1IhFaY/5A24+8CGcnLOMqlqw1fuRcy
+ /hvbTQhmjNWWFKLpuMVaCPfdPl+/5xD2HcRIEdZJ2xrfGdGzDCQ79DRFO+NYZwYx1CC+
+ NQIl9mq1lgwduVpfktit3wSOQIt5+QzuQymz/wA695P4n5JS0RvuDNT+QgZntV+wkO+4
+ PtCqeO7A5txAUtUrPpM/ujqN2bYGHxEZyhipC8lGor6yYpPCHsy+UM6WipiYtmJVocgT
+ Vu7XCC0VNB68mCY9JKnF+3SY6usPUyhkdDFnj0dtuMGHILzwMO8lUJ5kSsUEijhl5w/7
+ QGCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791996456; x=1792601256;
+ d=1e100.net; s=20260707; t=1791997094; x=1792601894;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=aY4wa9XVG4bLBUrDNf/alpBmZD4Uo9u08+8/BssSkZ0=;
- b=XWSVvdUjhy37BZhdM9UlgS+NabbGkJsKZfm8KcDv+quQSo8sT9xHAO1lWvoxhm3Dma
- 9TdRjdBDduLS+AD+9Lxn4lYNSYIS86TNgFARg2ocaFVyQ/BRDKNBmQInQTTX4SlGfvp8
- +pzk0sTwWVKvynwXCHL2L/kWZmsElUsLJP16V/20EFyArpCPjAzynATyP1BA/rFrWz6n
- BuycuwawtnhPfGdBdmB1AMI2En72TXHewlcNKTZ8B/+yCTDhCy+lis2Uq4soGIqsyY+F
- K9/DKfAoLjAnxTiR5WLhnehmEW5tuTCs2l2CAfIbVIWhFuCVfDu5oxu4BIonn8KpKgGh
- TXkw==
+ bh=/HhNnMIsDqB1+l9DBxS7zqLucMRzhiJvM22vwbSViEA=;
+ b=dzItVBVws+iiYDQJEnSM98V+1nzlG4SlsHSjOZHlLIHPzl9CdEI6QuhHdPsdZzFE0z
+ zQrWTPSYRxKIqrd38WLnUAfGCHYDozpoNBfhiY7yQ2oWz6CMjCJRLUoEH2b5s3Hy/Qq5
+ hdyBMyWe3oHEEN5LOJ8GwXIG6dcRWIqs/R/T2BrCXOq1ptgxppRRwl2xw8KAAgic57BE
+ ASemn32P8yJi6bHN4iWCEfMAvaWtGiA86kGtPxPjSHwnX/IwIi32nmTK8+ZGiw9ldFW2
+ kkvgxisMDbNfY9J82sNuMlVvn5/vcEYyii8S3kDu+fI0T5tcPZbfaEetKiuEr/v/fOlF
+ 5a8A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwwmU88pcXy7Yuq9y9XqDoDnLkFpgx9oCPE/o5mZtE6iBs1XDDKM1MYkXuYC+ohzxNEtUBSD80E@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKbIPoLzKIp5fGdCNTx9jKFBzKyfPDsbtVOTc01hDheGHh17UZx
- SdLYO2CWuAJB4oCFLFnSzIlhReHgOPfrPARrB8UNzi0Yt1S/iutelZ+1/2mN1trzbI86VUgDB39
- uItudPGpBi2EfVqwoeRoBm029f/4z0Iw=
-X-Gm-Gg: AYBFou2YA8h3crKcbHY2A9G0bMfe/T00vp8o0+R1TkJaBfzgvCeWmjrxmg2BvZWTtdc
- WtoJQD2GHFeJMBb6MXFJcsGFmD6skpGx9xytsOq2oHJayBBn3gA7JvBwfBrvqtblV4Gxjd8a2o9
- wMuf/AxdJFAyoYGa8cpv1F2CWZTOHm7tydQILhQ2vW2QufH7kqW461XdOYRaks+QE7gXZByI1Va
- irb+oO+dQ9gplAjgKZwLgrJ1Lcq51gf7DccJkWcIIooA6jOBabtNcF82Ar234knqq+pX+1eLSPm
- WEXU8y0dAqiDjOQdZFhpCBwKZ7Cinxq/FrpgO3FGkxrNCzt/TXGm8oZuxiKOPuheEneRF1mLzZK
- /kaSx4IQH/Bz0NUO8+p+3rme/EDDX1LmFGkjxP9eHlYCuM2m8DW6s
-X-Received: by 2002:a05:6102:a4d:b0:7c8:3b8c:82ae with SMTP id
- ada2fe7eead31-7cb372321bdmr4394184137.2.1791996455921; Wed, 14 Oct 2026
- 09:47:35 -0700 (PDT)
+ AKwUvBxiZ6heGSAj01UeGATikUmXyUlxoxL+lMqi4PiHSRZp0I6QsFIFzVQyFUwiTzysBr/ziA6CgI0l@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK2OxTVyJo0R6yWDz4nCxWINpe/gfKjMLHtW6QGEv4axOpN7M8q
+ Lf+ciOL0pWIom6U0Y56mGhhA50iFt9I/zvFrUXdssxKtSbTnaU1TpLVVVFdsCQTeFK5E5tUOIWc
+ hDrfYRp5lYSmN8+KOAS5hu6aH29J3+Ac=
+X-Gm-Gg: AYBFou3Y94MCL44Zy/kfPxdAKdpuI6xFm8AJ5RtB33EyfWq/LS6k4Opfs1maP8Cman5
+ +lYONPeAOLFORURrwhkg9aGf9FA3Ks0fCDmTRQUQJLXe35RLwhl9tJNilhWsVS6WWSL4jF2kmaB
+ N/fkllkxaGZ8K2lDEvOMNGys7bpWP/FTmVtBTg2PvAleh6JuTcl2nCK+QiigvoVB4bvWch7lX4d
+ kqLVJhxX7LjKYSdju1av9YNgupFSOQJiI8yG5HU0UitKF62Mw75flDSsAcS+cxDe+stMHyq9jY1
+ VBmkbAHcOe/uLL8Mx/NfBvADbOcb8jpdGZSfZxTJubkOounP1lr71PLFBl6cUDFFOcz6xpWqqt+
+ mh7FvWzpBIVoejVjeI0R9E90rgaianw1IJGYY3ywKoQ==
+X-Received: by 2002:a05:6102:c07:b0:7b4:f1cd:80dd with SMTP id
+ ada2fe7eead31-7cb3668aa3fmr4094273137.1.1791997094312; Wed, 14 Oct 2026
+ 09:58:14 -0700 (PDT)
 MIME-Version: 1.0
 References: <20261014002858.172853-1-williandossantosdeoliveira287@gmail.com>
-In-Reply-To: <20261014002858.172853-1-williandossantosdeoliveira287@gmail.com>
+ <CADnq5_O0gGsDD96KkCTc71rPh1QJsBnWPw_XVvuwRoRQ9Wbhjg@mail.gmail.com>
+In-Reply-To: <CADnq5_O0gGsDD96KkCTc71rPh1QJsBnWPw_XVvuwRoRQ9Wbhjg@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 Oct 2026 12:47:23 -0400
-X-Gm-Features: AclHuK-US1t3rz7_G3sKamqA-AukmKWflQ6FjzYQPCWKb7Z5Q5Xcc6YpUewNkao
-Message-ID: <CADnq5_O0gGsDD96KkCTc71rPh1QJsBnWPw_XVvuwRoRQ9Wbhjg@mail.gmail.com>
+Date: Wed, 14 Oct 2026 12:58:01 -0400
+X-Gm-Features: AclHuK-keNlpItKGRgHS5Ga4AVpU-D6rkogwfe7eeC6U3-_jmpZg5nefB2U8zCI
+Message-ID: <CADnq5_O=kVgSZoqe_ZVQDmVTWNb+OZ2XhmVx=0CPQQfCaf2idg@mail.gmail.com>
 Subject: Re: [PATCH] drm/amdgpu/gfx8: remove redundant RLC cleanup
 To: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
 Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
@@ -103,40 +104,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 13, 2026 at 8:46=E2=80=AFPM Willian Oliveira
-<williandossantosdeoliveira287@gmail.com> wrote:
+On Wed, Oct 14, 2026 at 12:47=E2=80=AFPM Alex Deucher <alexdeucher@gmail.co=
+m> wrote:
 >
-> gfx_v8_0_sw_fini() already releases the RLC objects used by gfx8
-> (clear_state_obj and cp_table_obj). The generic
-> amdgpu_gfx_rlc_fini() also frees save_restore_obj, which is not used
-> by gfx8.
+> On Tue, Oct 13, 2026 at 8:46=E2=80=AFPM Willian Oliveira
+> <williandossantosdeoliveira287@gmail.com> wrote:
+> >
+> > gfx_v8_0_sw_fini() already releases the RLC objects used by gfx8
+> > (clear_state_obj and cp_table_obj). The generic
+> > amdgpu_gfx_rlc_fini() also frees save_restore_obj, which is not used
+> > by gfx8.
+> >
+> > Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.co=
+m>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 1 -
+> >  1 file changed, 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v8_0.c
+> > index 7f91186ef1d1..088428e41f44 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > @@ -2059,7 +2059,6 @@ static int gfx_v8_0_sw_fini(struct amdgpu_ip_bloc=
+k *ip_block)
+> >         amdgpu_gfx_kiq_fini(adev, 0);
+> >
+> >         gfx_v8_0_mec_fini(adev);
+> > -       amdgpu_gfx_rlc_fini(adev);
 >
-> Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v8_0.c
-> index 7f91186ef1d1..088428e41f44 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -2059,7 +2059,6 @@ static int gfx_v8_0_sw_fini(struct amdgpu_ip_block =
-*ip_block)
->         amdgpu_gfx_kiq_fini(adev, 0);
->
->         gfx_v8_0_mec_fini(adev);
-> -       amdgpu_gfx_rlc_fini(adev);
+> I'd suggest dropping the explicit free calls and just use
+> amdgpu_gfx_rlc_fini() for symmetry with other gfx IPs and the rlc init
+> calls.
 
-I'd suggest dropping the explicit free calls and just use
-amdgpu_gfx_rlc_fini() for symmetry with other gfx IPs and the rlc init
-calls.
+While you are at it can you fix up gfx7 as well?
 
 Alex
 
->         amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
->                                 &adev->gfx.rlc.clear_state_gpu_addr,
->                                 (void **)&adev->gfx.rlc.cs_ptr);
-> --
-> 2.47.3
 >
+> Alex
+>
+> >         amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
+> >                                 &adev->gfx.rlc.clear_state_gpu_addr,
+> >                                 (void **)&adev->gfx.rlc.cs_ptr);
+> > --
+> > 2.47.3
+> >
