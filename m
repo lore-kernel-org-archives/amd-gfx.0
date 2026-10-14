@@ -4,96 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71084CC6B1D
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 15:50:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E080CCC6B1A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 15:52:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B4FE10EA8E;
-	Wed, 14 Oct 2026 15:50:40 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012056.outbound.protection.outlook.com [40.107.209.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8675D10E4CE;
- Wed, 14 Oct 2026 15:50:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74F6110E44E;
+	Wed, 14 Oct 2026 15:52:08 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011016.outbound.protection.outlook.com [52.101.57.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26FAF10E44E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 15:52:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gEwFg6P5GMWoi9oXZ1BTjo+GBUES6KmPBH34GvC8fe0sKVzsZT6NUO21Sm7/x+a8irpr18gZa/vNFGhKM34wLrHHLrh/4GeaTPaJLjmg6fUGRDcfRlXv2tIDb8XRflSn0DlYTpbv+iexWyxUySEY0Rn4cWMK87PGjOd6JpmocM5Ab5A901oBFkyhwNYlchGuAnugboifAorCGOV+a0cxKoVCNScMuRDFpC2yvgMxYislWtkUVVTDPuqtVgj/i+JE5zniWv6R+Y51bUQiKz3ML3dLGSCiINS3uJGtqBC7IampozxpL8l5h5z7waZgseHgpkvgSkqtjJS9gC/m87kC0Q==
+ b=e6S4HcqzccbiI314qvz3r3/fN8PAglcyb8FkYvu6pE//f8lGf4Ap0ks5AlU3KiuNvgQZjX9xQG1C4U0Ng3jeX6SxPgKzhw5QovxYAokdhb2v8vuyS8mGsrZAxEBzwJuozECXXXvhaO9UPFomqZCssXm/XTeDjzC1awrvYDvG8axa2VNsOePdv8qdiMl6FmAWsAuVXA/5Uml9cvFgipcjgutuXRiEZdx1+jEm2YPK3uOSAZ6T5uIr1ZmBbb2hRE+ianMEKVm+TKgiofRsM0CVYeq5N0p4jb+oEGoNAeabN5jRaqFSFNzu2TnN7tsl/QWgejnil3hL/dUfq5wn9Y79MA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rojchCHyqtT53GKazdFyrwGMdZzo+2skk95g3V6KBGM=;
- b=MnU+u1mQ+4vMk42XtBaZMuSue4u9P2glP3q2HZ+/F+NfzHRmC60vdDekLksrDyf1evR6zE8bE3gbWoUbKIQNAkGOXKbXK9TzQ44mx9O6MLbOLULhlDsedjqkpIUfw2lwZrQSJe+zIjP+1AezfyTdjPAEEr58zPU9DyWCa8Ok5WsnHUr4MUhc4QWY8JdMd7ouAx7vjIhTECgslf+7XE4sQhrTBgnQLHGo/45JQZSARr5fPMc6VZ2VRaEKUWZLmBeAFYKOR2k9vPkHP4iFoM768B69Z8ogHsOqywx7q2zT5kmSo999Qs0EewXvi4nT8gNmprQj2z6TavpzqfqNMZNO4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=nHCm+kCDdnjWEylUt4n26mgS6oVykkEuWlKFX2/ROqk=;
+ b=sD9W9TwViW070fL87BnIYJVY4OZ5YtACrmNeigLJimPZnfESo5zjIEkAoN6YviFK8yWy4rUVA2hFba6z6+fMiMCHEONHHzgG1TZSQomto/H8TgVSNT6QFODzAIi1GUfo3/GfpK7U/UZASDgVKlAqhCAQhQS1M323xLbNY1eP3evNHLN40m1nu4ETPN04rtEPxAdu/O0irrGNqIpXti8pmO/kQ5np7gsh08h+sUAtqN1mm0HqmYrE2MaZQSRb+HZzXK9pTC5h0+PZJccS2Neh5l5Dk2KEBo/EFn+BKyxcLM9X7w1IcV9KyVlyudyJSK9M248CuSr1nL4n/DQIPRCZRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rojchCHyqtT53GKazdFyrwGMdZzo+2skk95g3V6KBGM=;
- b=jd5mD1r20366qtjMan/s3uyxGnkcQJrY7Q69UvVMqXFMQq1JdSFhBzao/AiBmow4EspmmQCK7qPdBfKlxpEkjwdnP6LG1hBtR8NjjVSpyTALFfPOj0kfaHYOyJZ7JqPoEjPLgf/dW6C33c6ldl2ok9rPSAZd7CO7wI/GL1TB5iE=
-Received: from PH0PR07CA0023.namprd07.prod.outlook.com (2603:10b6:510:5::28)
- by DM4PR12MB6541.namprd12.prod.outlook.com (2603:10b6:8:88::11) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=nHCm+kCDdnjWEylUt4n26mgS6oVykkEuWlKFX2/ROqk=;
+ b=q+ioGaykYP+mWhPcm6Hwb6uZSGuKwTtKDAVH40T9u58nTMYRdi2Zr72cMng/+cQumNOefpV49WHy6J3y7hT87R7uNK+yOypymqU2auEE/Kd0VQK47CoHz/dxoo3UgYwQpp48bGMX4oE+CNJlJL5vUAJzE90IhiajIqs4okbCY70=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by CH1PPF0B4A257F6.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::605) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
- 2026 15:50:30 +0000
-Received: from CY7PEPF000000F3.namprd05.prod.outlook.com
- (2603:10b6:510:5:cafe::99) by PH0PR07CA0023.outlook.office365.com
- (2603:10b6:510:5::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 14
- Oct 2026 15:50:29 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY7PEPF000000F3.mail.protection.outlook.com (10.167.247.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Wed, 14 Oct 2026 15:50:28 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
- 2026 10:50:21 -0500
-From: Felix Kuehling <felix.kuehling@amd.com>
-To: <bsdhenrymartin@gmail.com>, <amd-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, <stable@vger.kernel.org>
-Subject: [PATCH v4] drm/amdkfd: fix doorbell allocation race creating
- duplicate allocations
-Date: Wed, 14 Oct 2026 11:49:58 -0400
-Message-ID: <20261014154959.540809-1-felix.kuehling@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
-References: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
-MIME-Version: 1.0
+ 2026 15:51:53 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
+ 15:51:53 +0000
+Message-ID: <064d84ca-26c9-479c-8380-18c133c339ab@amd.com>
+Date: Wed, 14 Oct 2026 10:51:50 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2.y v2] drm/amd/display: keep HDMI 4:2:0-only modes and
+ automatic 4:4:4
+Content-Language: en-US
+To: Miguel Mesa <miguel@miguelmesa.com>, stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, Jerry.Zuo@amd.com, harry.wentland@amd.com,
+ mgorny@gentoo.org
+References: <20261003131523.1502250-1-miguel@miguelmesa.com>
+ <20261014153914.275253-1-miguel@miguelmesa.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20261014153914.275253-1-miguel@miguelmesa.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: SA0PR11CA0139.namprd11.prod.outlook.com
+ (2603:10b6:806:131::24) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY7PEPF000000F3:EE_|DM4PR12MB6541:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1d37d18-6035-4326-ba52-08df2a0adf10
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CH1PPF0B4A257F6:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc16b355-9054-4061-cb97-08df2a0b10f6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|1800799024|376014|36860700016|22082099003|10067099003|18002099003|56012099006|261009223027099003|11063799006;
-X-Microsoft-Antispam-Message-Info: 18UBJ2vq0tOMyafYhVf/9ATGZvdMH9HV2QUZYrfKqoGyi3pmmcxoZIH33VlGhftl7UzJuA8elamrirM3JwThmP+oiyxxMDc4Vl2pkBgWLlxAfX7EOo+CCJ/Y32Fo8KyWAImrDVBGW7isaEK4T/rpyA+P6JM5Q+uvJC6LuKqy5iJJ1bGgtoe4iUf4BOV35tINBW3n7m9lwesG+izIF0YIj+k6SUxKUHv0u8e5PqkmzB8uMTM7Pk2OApTwj7FgfEZwaQorpR3jxteiTkQ5E5gE4bcLbt99MpntWf8RYftnT/FrkPOlCR9A9PQd+Py55ZT0nag3826Ow+vliFfohVVX6R7W/gaxs+fNkE7ausCAYJYSVc9QENw3tPqS5vNrVPCqviiv2Z/Ad5zi3OX6ZtL8aNGjkbajl46pkMjrcknwmIAHHKvagOe+ZdMSssZHjBF32pNHvDFFu60vwuiJKCaEnLFvX6J7axzHnQDT8WClX2Gveax6MCw3i/X5XP+0eRAZKYTpufmtxUM8bWcdKmrQuWOyXyENVRnRN54Y6C4C7aarHz7lbKL84E3xH8vVoJkfcJfu+4K5o4sUEwQC/UF9TR5hB8qJzO2oBphcChrNh0HEPuG2ybpKYG6Uyaf+CS0ahfLBWgqwYZj/KrLM3/Orz82m0rorW/4C91AJyo4OB0y6OFSoguLrv4rs/C3/Owb93IzNNrJablg/NpJ6u7MM7Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(1800799024)(376014)(36860700016)(22082099003)(10067099003)(18002099003)(56012099006)(261009223027099003)(11063799006);
+ ARA:13230040|23010399003|366016|376014|1800799024|6133799003|10067099003|18002099003|22082099003|3023799007|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: X6mOYSNnzx9EMZ54z5rRyIOiOSgWwQ6Cb6A1Y9KtGTOIBNKV/y3jCuhV+iyO7jSkC0ECjv+zncZfEDivttAH/u/LhTA6/FpDBFiYyQ95dd2koFHE9MW3pAqDqyc3PPruvMOtJQ767HYReWBlRumG274CmbOcWfMugUdvJmhY+yYQM/zLtpYab2QWvDW8kK3h+vPU0rJ+0F0QwCw32g6p11FHnww2ettxNMR5BtdNQWHp0nWidImPB35pMBfYUmGiv116iWRBnmgyKPT42bFa2TB6WUn8bOI7GrU0HjKAcEFb91RHAe4n+f7ewBeTgjwDfQJCF0nTJT5RrxXgG+5L3n4/Jo6bIMqVOX/nqgmv34mZLHKAVN20cfBKMIT+n3LHu/gQiHGA7aXmapz8b7qLmfUszRSYM+BqIDpoAhskYgqsJcG9nd7ILBSg3mZpIcEyE3SnAdSm4sNZb+HEbIcJnjHhIsM7T7EozPs3heQLFVxKTkeJunuUfXFMmNtSMp6NdXGZHljGU5voCRKSSKBYRaKXlKkHhI4nr2hys6M27Hk4xDTam1+rahySLOnqJfTD+LAwcf+WhRyRwsowtGSwA+AWraarDGf+3L9Xi1elX4EXDWoKMwTFUv1PIpoS1DLj
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(11063799006)(4143699003)(261009223027099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: CG/l+PENQHkPuQMXARaD21fCcBFCXR7y3S2jiuv6HrSeH+HJVvPysfifVIh07mEbsALtKiuAWWRO0QX/Oc+OscA6f8AMq6mGHtCzYigkKlwj8creaWStiabcZ28lu0RJYBwWt0oWVI7YtGSP1od7bvISw1O9DVXYfZFJTHvWnbsV0CSe+2tprMavOGljmTfog9FFYNHa+EOuPFTSwJV3U44SBuZfALu+7vwD8hPCC3t6pO8i1uDuaauTRUfBvOUNKlQh6fZCj2LRg/K+ISYDBEOYSEMSMZPPXa+JglINGrxCUItB+uZT+/5JR7eUR/p1sJEVCSPLefgaBiPfVfYE0iYZTJPO285Ku9aKd/J+lSHwigmdoghqM0MsMgHtsQDaEovAMI8PtZia8Dhi8c4Glh7koIcWZWmhYoDjdpednZqU1PEscRlUSl/1dYCD0kZu
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TVExbTI3M2QycHdjbDQ3KzNia2djSzhhMDFuM2VPYlhnWGJPTytkakp4bm9a?=
+ =?utf-8?B?U3B0dE9MOTRWWTMzekJwZDNVcVoyMTNpTnJoSERmRFBNWXBIQk80UzhxUTJo?=
+ =?utf-8?B?ZU43VTErbml1NnB2aHVHcmwwNFZKTmtIOUVuLzRUTmdFNU9qN09WSG9HQ3Jz?=
+ =?utf-8?B?R3hOMHhSRkxiMG5abzllN3lEbVAvMnVnRnBEOGlOZkNxcFNjL1Bka2c5bWg0?=
+ =?utf-8?B?S2RsZW5VaGtqZ3pIaTkyU1ZrbDFianV6S1BYVXZFQ0RBbGtoNzlRazZ1aTBU?=
+ =?utf-8?B?UlRDNENFTWoyQzR6ZGlIWlNMRlVFeFNEZWo5Zks2M3RRUmpicTJucUU2eVdU?=
+ =?utf-8?B?d2NZd2RZRGNqN3hXSmZ4YjFtSHFXVlVtYk9OSmJWc1pyRXZ2WlI2R0lKOWpp?=
+ =?utf-8?B?QzFhTDFWSE9vZ0J2SGtnOXlTeTAzT3ZBczVBa3pMMHk0OXBjTExLcGFscW13?=
+ =?utf-8?B?OE5vdThaMVpKYWxVWk93Y3dDazhLQjJXek9laWZYdm9PNk5mSUVYWGxSZFZs?=
+ =?utf-8?B?dWhyUXBXSDdsWjVwMGh1V25PVjRFR256VVQ0SllMcFIvTm1kc3NSTWdUR1k4?=
+ =?utf-8?B?QXVlUVRIb1lVdDlRUCtXVEZ4VmRvait1QzViK1VPVURITHkwWmovR1dkdDVN?=
+ =?utf-8?B?M25zNzB4b2o3eWxUbTRmV3dzVndDeWx0WmhIYVVDa1JjRjl5NFhRY2JPYmFQ?=
+ =?utf-8?B?eTIzTUdlbklxTlNVSzdUczBFMWFKR2FEWnhJaDI0dTJBQWlneEtLbzJWU3o2?=
+ =?utf-8?B?QVdVZUtzZlFGRTE5VDBzOXBPTXQzNzRqY3pDcjhSUERabitZTlhrdVFhKyt0?=
+ =?utf-8?B?SE9nL1VnakM5YStkSlVTRTJQeE9ValgzUHhsRGZ0Vk53N0Y5eWVrbUl0Umky?=
+ =?utf-8?B?YUVhVDNOY05mT1JFbVg5dWZLN3VsNTZ5YjdZOXIrZGdHN21uSmNiRVkrbndp?=
+ =?utf-8?B?d3g1cXBIRldGZmdMVEJBaGRLdElvQzRWTDVzbXpka3BhUzF2aWhobUk5Y0tE?=
+ =?utf-8?B?bzg3aCt5SWYwbDBya2lSVm8zSjFXR3hQNWphVE8rNlpXWTloU3F3Umh5NzZP?=
+ =?utf-8?B?ZUFySm5SUmk5NEFCam1YQ3kwUnI5dUtFVm40L2ZaUU5mOUp6MFFvYnBjeWtG?=
+ =?utf-8?B?Z2xUTGFVRlJYazluMWVlOHlMM1gxVVhNbEJ2eXdVT1RNdXlyQnJqeUhpWC84?=
+ =?utf-8?B?U2JmK1hETGVsNFJqUXJIcHdaanZ1TFQ1Szd0Vmx0YnZpcEp2cDU4d3lUcGJ1?=
+ =?utf-8?B?bDA3Z2FkdDhwM1FVbWpkS08yclNDSnVOQUNEVHN5ZDEyTVFJdU1lSUhKTW1v?=
+ =?utf-8?B?c0Q0L21MemFtWnFrTmdnRDYyUk1hWW5kb0dWMWNDbWE4ankwZXJaN0RvQkND?=
+ =?utf-8?B?aVBUMlFPQ1g3MlJsam9TUXR0cE5wK3lBOHFGbFp6aHNvWElNYWFDcjlBQzhL?=
+ =?utf-8?B?RkdMRTJTWkdhdTZhcFM0ME81Qy9ZQiszNjFFb2RwWVBhRVV0ZW9kUEZHMGk2?=
+ =?utf-8?B?dUtDZTUxdU9sNU1pTGxoYkUzMXBjS3lEVXFuZXpMd1BLSERrQ0RPaXZpdUtQ?=
+ =?utf-8?B?RzNvVGFSNXVEbGhWamlNNHM5ejBjbjFLemNuY0I0aXlXdHhrV3hVVGlVR1g3?=
+ =?utf-8?B?S0pNNTNmNWtJWCtqL1YrZm55VmdSWFMwcXY1WTZremFtT0FDcG5jMFQrZzRa?=
+ =?utf-8?B?b1M3NXZVSmlVcVVHZXM0dWRqYlpIWm9xMWdxaWZsNDBST1NjVG9SUU1veWN6?=
+ =?utf-8?B?ck9aV04vdUxtK082cDd5elVFdmdObkRNL0hDWHdYZy9ndGVjUEJhaGVEVU8y?=
+ =?utf-8?B?SW1sT0sxS0IzWjRPYi95Q0tVYnZjVnVzSUJXYjNyVVNnWXdva1gvTy92Mzgy?=
+ =?utf-8?B?S3Vmb3R4SkVXbGNzbWg1azJXbFNFeFZhRU40MFdNSHpKd0o3dDFRa2VHWnRL?=
+ =?utf-8?B?YmpSNDRmWDZRNEFWVmpmSjRZZmptNjk2Q2UxYURqeWQ0K1B1Q3k4RHJ3SkYw?=
+ =?utf-8?B?cjl5VDFmbTdqQW96MVE0alZCaXZyRnBLL3pjaWxobDlkYlN4SG51Nzd4N3J2?=
+ =?utf-8?B?ZnU1bGlqd2gyajZHdW5iYkdPODBGaXRBdWpPK0JhTnBZNlNmNlplR2pldXRX?=
+ =?utf-8?B?SDEwaDNtQkZrVDFxbUE1ZmtnWHJOKzJzYWQ3ZjlyVWtUZHhPYnBYRlVweTNa?=
+ =?utf-8?B?bjAzTm41aHA3RStFb3I3WHpNTlB0SUtJb1VKZEFGeEl1QnZDeXpRdW1aR1lQ?=
+ =?utf-8?B?RWpqczl3Vk1tOW9NK1p1Z1FFL0tKUDU5YUo3aFpHWjdDRjdUV2hNMHB4ZmNR?=
+ =?utf-8?B?Wm5KTFNidFdGMG1CV1hDMmxOKzlNdXdlMDk3YU1ON2JtelNyYS80UT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:50:28.9467 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1d37d18-6035-4326-ba52-08df2a0adf10
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc16b355-9054-4061-cb97-08df2a0b10f6
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:51:52.9050 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY7PEPF000000F3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6541
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nSIbHc+0fXNMGhj/87REBCTZRZ9LlTueCfwFJwEVoJkad+STENyHpyf1wewXh3U8UDjgvkfO1O3XU3yj+OTHRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF0B4A257F6
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,178 +134,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Henry Martin <bsdhenrymartin@gmail.com>
 
-The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-lockless at every call site of kfd_alloc_process_doorbells():
-kfd_get_process_doorbells() (mmap of /dev/kfd),
-kfd_ioctl_create_queue() and the CRIU restore path each test the
-pointer under different locking (or none), so two racing threads can
-both observe NULL and each allocate a doorbell BO and bitmap,
-orphaning one allocation and handing the two mappings different
-backing pages.
 
-Move the serialization into kfd_alloc_process_doorbells() itself,
-using a new per-process-device mutex so all three call sites are
-covered regardless of their own locking.  The device-global
-kfd->doorbell_mutex is not suitable here: it is acquired under
-dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
-kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
-the sleeping allocations above would create a lock-ordering
-inversion with dqm->lock via TTM eviction, and it would also
-serialize doorbell setup of unrelated processes behind a
-device-wide lock for per-process state.
+On 10/14/26 10:39, Miguel Mesa wrote:
+> commit 7e5760f084d0 ("drm/amd/display: add HDMI 2.1 Compliance Support")
+> selects YCbCr 4:2:0 for a 4:2:0-only mode only when the IGT override asks
+> for it, and YCbCr 4:4:4 only when that override is YCbCr 4:4:4. On a
+> normal boot the override is unset.
+> 
+> A 3840x2160@60 mode that the sink lists only in the YCbCr 4:2:0 block
+> then falls through to 4:4:4 or RGB, and the Wayland session cannot build
+> the output layer: kwin_wayland_drm: Failed to create framebuffer (EINVAL)
+> right after login. v7.3-rc5 selects 4:2:0 again for those modes when the
+> color format is automatic. Do the same here, including HDMI FRL.
+> 
+> Keep automatic YCbCr 4:4:4 for the other HDMI modes, as 7.1 did. The TMDS
+> depth fallback also runs for HDMI FRL, so a mode that does not fit at
+> 4:4:4 can still drop to 4:2:0.
+> 
+> This is not a backport of a mainline commit. The 7.3 fix is the rewrite
+> in 0b0ff65d3c ("drm/amd/display: Refactor stream validation"), which
+> cannot be cherry-picked to 7.2; Jerry Zuo confirmed the pre-7.3 logic is
+> gone there. This patch restores the pre-regression selection on the 7.2
+> code, following the v7.3-rc5 rule. Mario Limonciello asked for it to be
+> sent to stable in drm/amd#5760.
+> 
+> Regression: black screen after login on HDMI sinks whose modes fall
+> through to RGB, e.g. Strix Halo (gfx1151) + TCL 4K TV whose 3840x2160@60
+> is YCbCr 4:2:0-only (VIC 97). 7e5760f084d0 shipped in 7.2; still unfixed
+> in 7.2.9.
+> 
+> Tested on CachyOS linux-cachyos-bore 7.2.7-3 (znver4) on that Strix Halo
+> box: Plasma runs at 3840x2160@60 with the same userspace and firmware
+> that stayed black on every stock 7.2.x kernel.
+> 
+> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5760
+> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5893
+> Reported-by: Michał Górny <mgorny@gentoo.org>
+> Reported-by: Miguel Mesa <miguel@miguelmesa.com>
+> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
+> Tested-by: Miguel Mesa <miguel@miguelmesa.com>
+> Assisted-by: LLM
+> Signed-off-by: Miguel Mesa <miguel@miguelmesa.com>
+> ---
+> v2: Replace the Co-authored-by trailer with Assisted-by: LLM; a bot
+> cannot be an author (Greg KH). No code changes.
+> 
+> Tool-origin note (Documentation/process/generated-content.html): the
+> patch and commit message were drafted with the help of an LLM coding
+> assistant (Cursor) during a bisect session on this box. The bisect
+> harness, the boot tests (v7.1 good, v7.2 bad, first-bad 7e5760f084d0)
+> and the final verification on CachyOS linux-cachyos-bore 7.2.7-3 at
+> 3840x2160@60 were run and reviewed by the human submitter, who reviewed
+> the diff and takes full responsibility for this change.
 
-This issue was discovered by Tencent CodeBuddy Security.
+FWIW, I did evaluate backporting a clean set of cherry picks instead for 
+7.2.y and couldn't come up with anything clean.  So I agree with this 
+direction too.
 
-v3 (Felix Kuehling):
-- Removed unlocked check in kfd_get_process_doorbell flagged as
-  problematic by Sashiko Bot. Fall back to the locked check inside
-  kfd_alloc_process_doorbells
-- Added missing mutex_destroy
-v4 (Felix Kuehling):
-- Removed unlocked checks around other kfd_alloc_process_doorbells calls
-
-Cc: stable@vger.kernel.org
-Fixes: 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c  | 18 +++++++-----------
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 23 +++++++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  2 ++
- 4 files changed, 29 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index b3ebbee76088f..85fc450d79d73 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -427,12 +427,10 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 		}
- 	}
- 
--	if (!pdd->qpd.proc_doorbells) {
--		err = kfd_alloc_process_doorbells(dev->kfd, pdd);
--		if (err) {
--			pr_debug("failed to allocate process doorbells\n");
--			goto err_bind_process;
--		}
-+	err = kfd_alloc_process_doorbells(dev->kfd, pdd);
-+	if (err) {
-+		pr_debug("failed to allocate process doorbells\n");
-+		goto err_bind_process;
- 	}
- 
- 	err = kfd_queue_acquire_buffers(pdd, &q_properties);
-@@ -2455,11 +2453,9 @@ static int criu_restore_devices(struct kfd_process *p,
- 			goto exit;
- 		}
- 
--		if (!pdd->qpd.proc_doorbells) {
--			ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
--			if (ret)
--				goto exit;
--		}
-+		ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
-+		if (ret)
-+			goto exit;
- 	}
- 
- 	/*
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index fdcf7f2d1b5b4..6af268a031f22 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -239,11 +239,9 @@ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
- 	struct amdgpu_device *adev = pdd->dev->adev;
- 	uint32_t first_db_index;
- 
--	if (!pdd->qpd.proc_doorbells) {
--		if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
--			/* phys_addr_t 0 is error */
--			return 0;
--	}
-+	if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
-+		/* phys_addr_t 0 is error */
-+		return 0;
- 
- 	first_db_index = amdgpu_doorbell_index_on_bar(adev,
- 						      pdd->qpd.proc_doorbells,
-@@ -257,12 +255,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
- 	int r;
- 	struct qcm_process_device *qpd = &pdd->qpd;
- 
-+	mutex_lock(&pdd->doorbell_mutex);
-+
-+	/* Another thread may have won the check-and-allocate race */
-+	if (qpd->proc_doorbells) {
-+		mutex_unlock(&pdd->doorbell_mutex);
-+		return 0;
-+	}
-+
- 	/* Allocate bitmap for dynamic doorbell allocation */
- 	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
- 					     GFP_KERNEL);
- 	if (!qpd->doorbell_bitmap) {
- 		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
--		return -ENOMEM;
-+		r = -ENOMEM;
-+		goto unlock;
- 	}
- 
- 	r = init_doorbell_bitmap(&pdd->qpd, kfd);
-@@ -284,11 +291,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
- 		DRM_ERROR("Failed to allocate process doorbells\n");
- 		goto err;
- 	}
-+
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return 0;
- 
- err:
- 	bitmap_free(qpd->doorbell_bitmap);
- 	qpd->doorbell_bitmap = NULL;
-+unlock:
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 7a365fca68e4f..42ed0d42c0064 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -784,6 +784,9 @@ struct kfd_process_device {
- 	/* per-process-per device QCM data structure */
- 	struct qcm_process_device qpd;
- 
-+	/* Serializes process doorbell allocation for this device */
-+	struct mutex doorbell_mutex;
-+
- 	/*Apertures*/
- 	uint64_t lds_base;
- 	uint64_t lds_limit;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index e742ef206abd6..f092029f23257 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1231,6 +1231,7 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
- 		}
- 
- 		atomic_dec(&pdd->dev->kfd->kfd_processes_count);
-+		mutex_destroy(&pdd->doorbell_mutex);
- 
- 		kfree(pdd);
- 		p->pdds[i] = NULL;
-@@ -1800,6 +1801,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
- 	pdd->dev = dev;
- 	INIT_LIST_HEAD(&pdd->qpd.queues_list);
- 	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
-+	mutex_init(&pdd->doorbell_mutex);
- 	pdd->qpd.dqm = dev->dqm;
- 	pdd->qpd.pqm = &p->pqm;
- 	pdd->qpd.evicted = 0;
--- 
-2.43.0
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++------
+>   1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index e594548..8f60df9 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -7017,9 +7017,7 @@ static void fill_stream_properties_from_drm_display_mode(
+>   	/* TODO: un-hardcode */
+>   	if (drm_mode_is_420_only(info, mode_in)
+>   			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+> -			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
+> -			&& aconnector
+> -			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420)
+> +			    stream->signal == SIGNAL_TYPE_HDMI_FRL))
+>   		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+>   	else if (drm_mode_is_420_also(info, mode_in)
+>   			&& aconnector
+> @@ -7034,8 +7032,9 @@ static void fill_stream_properties_from_drm_display_mode(
+>   	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
+>   			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+>   			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
+> -			&& aconnector
+> -			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444)
+> +			&& (!aconnector
+> +			    || aconnector->force_yuv_pixel_format == PIXEL_ENCODING_UNDEFINED
+> +			    || aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444))
+>   		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
+>   	else
+>   		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
+> @@ -7104,7 +7103,8 @@ static void fill_stream_properties_from_drm_display_mode(
+>   
+>   	stream->out_transfer_func.type = TF_TYPE_PREDEFINED;
+>   	stream->out_transfer_func.tf = TRANSFER_FUNCTION_SRGB;
+> -	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+> +	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+> +	    stream->signal == SIGNAL_TYPE_HDMI_FRL) {
+>   		if (!adjust_colour_depth_from_display_info(timing_out, info) &&
+>   		    drm_mode_is_420_also(info, mode_in) &&
+>   		    timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
 
