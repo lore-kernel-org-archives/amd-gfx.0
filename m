@@ -4,94 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C567CCC6B2A
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:47:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FCA7CC6B1D
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Oct 2026 12:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F304410FD87;
-	Wed, 14 Oct 2026 12:47:52 +0000 (UTC)
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 319CF10E959
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 22:40:14 +0000 (UTC)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-30bcb065bfdso6715944eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Oct 2026 15:40:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791931213; x=1792536013;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:mime-version:date:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=6CWZGGdh7JOQ6UqV1gxmMbPkjK0LPv1nbOU26QpmZ10=;
- b=euy1X/o4emQDhM7kbhBc3OacqlLPUOIkj1fXi2jePSt/jsBNzRUeN+7WtvchfnHtfZ
- FccSW8Oc0SWPZZleNchGp2XvcuiXBlAWYfExzCkPaNalcns0Di8CouYg3cFfo1uJ/Ctt
- RpEPe0OKzi5riM+1kdL14d6XwybXqlVYfp7bKN7EDiNS5NI6SDwmsH2q4G23urRJlg/G
- IhRP6YREhYmtmVfzOu+vI5Pk/lBzg4ZB1xWBJE8Z2duWLcytrclyx/A5kYI73xNMxQdo
- 72kKI3wqTztgX4Ch/je5ob7jxdJ01HLwU7bvDxu/tcXzBi0O3/MLVRGP5/+LvaAMAb0s
- VmVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791931213; x=1792536013;
- h=content-type:cc:to:from:subject:message-id:mime-version:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=6CWZGGdh7JOQ6UqV1gxmMbPkjK0LPv1nbOU26QpmZ10=;
- b=bAOou4Rwtp20XU4M9TMKN7bMnN2HcXyn/5sI6U2TSWqNWa6LOhy0LItNUF6xGFws9k
- kLpzaM3j9hxsUIdMf3yfzwk0eyjoYb/0Hcajk5GTW6WyG9bV+eLFrILJsFhWCCJjwdmB
- +hgyvCkoXLM/XOmYbhOMPTzu+R7j4UhoTW3Vtup75Apez2vGp5wNZCmxylTlgbAzFIud
- 7Kh+7oZHfKAtcrgQONjaH9CbbcgT+cgPXH3T+UY4JQsV4tt4zQay3g7qd1tfTWF26hzh
- 8P/7cAGkmPovUc7c6G1PHQNLenaw+Jli5KfIEXNvr43kr9JBx0EcswM+kMkiV0QgkUrG
- MLfg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwIE/zvqk1kPyfZTW4lFJhrJqgK/Kgc5Y0KjQgO+5MF5UFBp//7+8jZDk8RVhqN07qFjpexDCM4@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ7M00pgKqaFofQDJxkqcUcST3m9jUMipTnZN4YmSaSzopF8KwN
- OqYdCrjLYFsUgxFfIQkyLLfWV4sRCKe+9aAgxRK/YItwGOTo+R6Wva7zYnBdtJ0pNbWnnHJwOqH
- lxyxOxgFL1Q==
-X-Received: from dlak14.prod.google.com ([2002:a05:701b:290e:b0:14e:f9ab:6f83])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:2309:b0:153:7a27:b89
- with SMTP id a92af1059eb24-16a5ed4008cmr22709999c88.21.1791931212336; Tue, 13
- Oct 2026 15:40:12 -0700 (PDT)
-Date: Tue, 13 Oct 2026 15:39:35 -0700
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013223946.1836757-1-irogers@google.com>
-Subject: [PATCH 00/11] kobject: Require explicit initialization of struct
- kobj_type::release
-From: Ian Rogers <irogers@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, 
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABAED10FD8D;
+	Wed, 14 Oct 2026 12:47:54 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 080D810E4BE;
+ Wed, 14 Oct 2026 12:05:16 +0000 (UTC)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69E9waOp2016607; Wed, 14 Oct 2026 12:04:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=ajZHd+qh6V9vTCXwQWUfdpmTLNkyLK
+ ozm1g9bOoFoFc=; b=JYQ2N0nSXD/tQ/r+o3naoBOH1U+r2oPu+xjGpN+7txoDex
+ Z0IWl63DxMAVur3sx+kmGREDCBqZc6k1HCDRjrOoEK+taOKH1OloSc9taF9O0FWY
+ WpVjMbVUV3y+904j6Wquin+qDgUZtE0vakTE5A47rqq/xC7whZpk/bAH05j6NUMo
+ GyNvztnXQB+E5AUtc1L0KRpmZ7LHjGzNNOr8tWNd56WpJVQz0J/T0JweCGvwVkOM
+ 38Ai7Y5IXwL6To2w1AEdek15AbDAMLoAedQcEW17k9uz90AlYajIG2XNMhTS+zOV
+ bWm4qcBhLuQq6bVn5TQRsfV9c0VsPZQvM+kgHPMQ==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dugm5g8-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 14 Oct 2026 12:04:52 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69EAnqN23211855; Wed, 14 Oct 2026 12:04:51 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9q2ymp38-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 14 Oct 2026 12:04:51 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
+ [10.20.54.100])
+ by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 69EC4l5Q50397474
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 14 Oct 2026 12:04:47 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 287A32004B;
+ Wed, 14 Oct 2026 12:04:47 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7EC8420040;
+ Wed, 14 Oct 2026 12:04:45 +0000 (GMT)
+Received: from li-0f4bfd12-9554-4bfb-8b14-7ccf0f0767af.ibm.com (unknown
+ [9.111.94.206])
+ by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Wed, 14 Oct 2026 12:04:45 +0000 (GMT)
+Date: Wed, 14 Oct 2026 14:04:44 +0200
+From: Sumanth Korikkar <sumanthk@linux.ibm.com>
+To: Ian Rogers <irogers@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
  Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Jonathan Corbet <corbet@lwn.net>,
  Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, 
- Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
- Nayna Jain <nayna@linux.ibm.com>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
  John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- David Teigland <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>, 
- Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ David Teigland <teigland@redhat.com>,
+ Alexander Aring <aahringo@redhat.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
  Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Richard Weinberger <richard@nod.at>, Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>,
+ Zhihao Cheng <chengzhihao1@huawei.com>,
  Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- driver-core@lists.linux.dev, 
- llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
- linux-doc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-sh@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-acpi@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org, 
- linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ driver-core@lists.linux.dev, llvm@lists.linux.dev,
+ linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ gfs2@lists.linux.dev, xen-devel@lists.xenproject.org,
+ linux-s390@vger.kernel.org, linux-mtd@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 08/11] s390/sclp_mem: Allocate struct sclp_mem
+ dynamically and add kobject release
+Message-ID: <as9v3PUb0TymCvsc@li-0f4bfd12-9554-4bfb-8b14-7ccf0f0767af.ibm.com>
+References: <20261013223946.1836757-1-irogers@google.com>
+ <20261013223946.1836757-9-irogers@google.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013223946.1836757-9-irogers@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6acf6fe5 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1XWaLZrsAAAA:8
+ a=1KnzZOXWGbpzuJ82zDMA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: _EktMNlxNi0Zhojhx4ASfWVXd_b7DOlL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0NiBTYWx0ZWRfX0fUPhxARNcJa
+ 9nS/iCLcc7dEQrcybdImltBqHci5KonN9BgYs2DYbqx1d8S2XOqe29HUtCRqWBLErMceEtiShcs
+ 4sOis3II/pHWvCugYS8aQjzU25z5oQrs/O3mU6gDGKNdZjvK+pDPTKbfQLhBgdreLHYt/eXKSLj
+ 8iaqk3GpEmiCS1rkaREHPfI9BfxMESceMf6fSb58kgdsHk98lVK94W4Z13ZaUDqucgF8UHsrXAF
+ s2Mz0WmLaipai7UjCU1P9wfoh1rJSRoR35Qnnl4GViW47ZEhEXi38+rmYIbdZGaRW5Gb4NFboLC
+ VDaNe6VnoQav6/qOqN3N/a+a+5cDALYf91XsQVsXP8nIWP35y0wihJcXC0kc0O7eYfGysmumoj8
+ nH3TGHAss/iHicos4JusXZh5QK06OZzsWCTSFTnMelfNV7UtEZDijv++v8M3SGrsGa+NyH77MdL
+ 5RJO9I7QJmKjVLI0vig==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0NiBTYWx0ZWRfXzh8XCAetvSto
+ U4lKpTbi/IJ/4y5zYP4Ex816LutfdS+PI20y7l1acTJ0MKa2avnNDCgOzXRPOLPzbCG+UhRciiw
+ hNFMfBzpg0MTAxSwj76JilCNvE6uZfI=
+X-Proofpoint-ORIG-GUID: IbMwSeABL9gn-KtBlV7Mt5gD5Rq_VQT_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140046
 X-Mailman-Approved-At: Wed, 14 Oct 2026 12:47:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,86 +141,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Clang supports the 'require_explicit_initialization' attribute on struct
-fields to enforce that the field is explicitly initialized when an
-aggregate object is constructed, emitting -Wuninitialized-explicit-init
-(enabled by default) if the field is omitted.
+On Tue, Oct 13, 2026 at 03:39:43PM -0700, Ian Rogers wrote:
+> sclp_init_mem() allocated a single array of struct sclp_mem with
+> kzalloc_objs() and registered each embedded kobject using a kobj_type
+> without a .release callback. Allocate each struct sclp_mem individually
+> with kzalloc_obj() instead and add sclp_mem_release() to free it.
+> 
+> Fixes: ff18dcb19aab ("s390/sclp: Add support for dynamic (de)configuration of memory")
+> Assisted-by: Antigravity:gemini-3.1-pro
+> Signed-off-by: Ian Rogers <irogers@google.com>
 
-Following discussion at the Linux Plumbers Conference [1], this series
-introduces __require_explicit_initialization in
-include/linux/compiler_attributes.h and applies it to
-struct kobj_type::release.
+Hi Ian,
 
-As Documentation/core-api/kobject.rst notes:
-  "One important point cannot be overstated: every kobject must have a
-  release() method, and the kobject must persist (in a consistent state)
-  until that method is called. If these constraints are not met, the code
-  is flawed."
+The entries under /sys/firmware/memory/memoryX in sclp_mem.c are
+permanent. They are backed by a single array allocated at boot and
+remain for the lifetime of the system.
 
-Annotating struct kobj_type::release caught 30 struct kobj_type
-definitions across the tree that omitted .release:
-- Patches 2-10 fix 10 struct kobj_type definitions where dynamically
-  allocated kobjects, ksets, or enclosing structures were either leaked on
-  kobject_put() or freed prematurely before kobject release (risking a
-  use-after-free when CONFIG_DEBUG_KOBJECT_RELEASE=y).
-- Patch 11 annotates struct kobj_type::release with
-  __require_explicit_initialization and explicitly sets .release = NULL
-  (with explanatory comments) on the remaining legacy struct kobj_type
-  definitions whose kobjects are static, per-CPU, or embedded in devm- or
-  parent-managed structures.
+Memory hotplug can add or remove memory blocks under
+/sys/devices/system/memory/, but it does not remove these firmware
+entries. The /sys/firmware/memory/memoryX kobjects are never
+unregistered or freed, so I think there is no need for
+kobject_put() and no execution of a .release callback.
 
-[1] https://lpc.events/event/20/contributions/2392/
+Instead, could this follow the approach used in Patch 11 of this series?
+static const struct kobj_type ktype = {
+	.release = NULL, /* Permanent firmware kobjects, never freed */
+	.sysfs_ops = &kobj_sysfs_ops,
+};
 
-Ian Rogers (11):
-  Compiler Attributes: Add __require_explicit_initialization macro
-  powerpc/secvar: Add missing kobject release callback to secvar_ktype
-  sh: sq: Add missing kobject release callback to ktype_percpu_entry
-  cpufreq: Initialize kobj_type release callback in ondemand and
-    conservative governors
-  ACPI: CPPC: Free cpc_desc in kobject release callback
-  dlm: Free dlm_ls in kobject release callback
-  xen/sys-hypervisor: Add release callback to hyp_sysfs_kobj_type
-  s390/sclp_mem: Allocate struct sclp_mem dynamically and add kobject
-    release
-  ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
-  drm/amdkfd: Free queue in procfs_queue_type kobject release callback
-  kobject: Require explicit initialization of struct kobj_type::release
-
- Documentation/conf.py                         |  1 +
- arch/arm64/kernel/cpuinfo.c                   |  2 +
- arch/powerpc/kernel/secvar-sysfs.c            |  6 ++
- arch/sh/kernel/cpu/sh4/sq.c                   |  6 ++
- drivers/acpi/cppc_acpi.c                      | 39 +++++-----
- drivers/acpi/sysfs.c                          |  2 +
- drivers/cpufreq/cpufreq_conservative.c        |  5 +-
- drivers/cpufreq/cpufreq_governor.c            |  3 +-
- drivers/cpufreq/cpufreq_governor.h            |  1 +
- drivers/cpufreq/cpufreq_ondemand.c            |  5 +-
- drivers/dma/ioat/sysfs.c                      |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |  4 +
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 10 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  5 +-
- drivers/infiniband/hw/hfi1/sysfs.c            |  2 +
- drivers/infiniband/hw/usnic/usnic_ib_sysfs.c  |  2 +
- drivers/parisc/pdc_stable.c                   |  2 +
- drivers/power/supply/ab8500_fg.c              |  2 +
- drivers/s390/char/sclp_mem.c                  | 73 +++++++++----------
- drivers/soc/hisilicon/kunpeng_hccs.c          |  6 ++
- .../fbdev/omap2/omapfb/dss/display-sysfs.c    |  2 +
- .../fbdev/omap2/omapfb/dss/manager-sysfs.c    |  2 +
- .../fbdev/omap2/omapfb/dss/overlay-sysfs.c    |  2 +
- drivers/xen/sys-hypervisor.c                  |  6 ++
- fs/dlm/lockspace.c                            | 19 +++--
- fs/erofs/sysfs.c                              |  4 +
- fs/f2fs/sysfs.c                               |  6 ++
- fs/ocfs2/cluster/masklog.c                    |  2 +
- fs/ubifs/sysfs.c                              | 24 ++----
- include/linux/compiler_attributes.h           | 11 +++
- include/linux/kobject.h                       |  2 +-
- scripts/checkpatch.pl                         |  1 +
- tools/lib/python/kdoc/xforms_lists.py         |  1 +
- 33 files changed, 170 insertions(+), 90 deletions(-)
-
--- 
-2.56.0.385.gd3acb90ef8-goog
-
+Thank you
