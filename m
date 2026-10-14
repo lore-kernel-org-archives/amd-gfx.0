@@ -4,123 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75CA5CC6B3A
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 08:21:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A556CC6B39
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 08:21:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 627EB1121A5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3491121B2;
 	Thu, 15 Oct 2026 08:21:45 +0000 (UTC)
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96C2F10E9D7
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 16:41:39 +0000 (UTC)
-Received: by mail-qt1-f182.google.com with SMTP id
- d75a77b69052e-533202fe429so1288981cf.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 09:41:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791996098; cv=none;
- d=google.com; s=arc-20260327;
- b=YqqdqqTzjsM8N7AAqh5QOwvR9XWGwvauCswy0MzwGjQ+F2c1AVXpwiLa/S4CsvPN98
- +Ds7sbTvqS73FLnMvmdbzyxyD/vqMqFLJCxMbF8LurStkWp7PNM6KAD0PihSlIj/eipD
- MT2USXmxjPxUC8yGPfnwOcBbEws0GJSIpKZcv7N5rBZPi0lVcpeVU62kEien8aQ/Ai7Z
- m6MMUqutQWnJa+ycoKQBtqsto8MpP+t7gr19aNmKe9WOBo+ZYtsOgTNsnrWPz11tsOqy
- oYYMFYnVbjgpvRV3WD2V7oSCBRHSVV22bNyL1h9pmOMVEQprvACD949i6Lku6vGspWZu
- ZuNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=NIItl0pCQ/aBq2U1h8kgQBz3yZb99mdO46VMaoMNnUw=;
- fh=TCBfGgBailcmX9fUB/dPGU//Kd8RsTT6VpWB72srQpU=;
- b=dKZiYgDtDDQIrg8k+41i5d0WS1lmtZNnXeJFJs3fVcaKlt0ixTlWqFpKVcxP/NqhMj
- cBlki/8SGxiek2ZpdlD19jwKoZBRtvSBBFpK6UmDwxjRR9brgySS5GqfbgY9OXe/72Vi
- c5bbhkoH3PClXCw193sexk8/owSOZytMKTFCVlfrMqQYtgbAKoJup/aMBxtygq1KCesW
- fqhJ9WXg6/r8Q+ez0hqNi6vMCqSVKQVuMRO6YTWhTCNqqhDPZrFiGPFUx0JM291H8vMn
- 5z0oMTfzmMUZfzrhqMYkftuP9NDdLnjTyJzNhJh0ZrKZG3OaLStVyn21ABrMEbDir9ld
- 94/w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B094010E146
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 13:34:01 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-c315729ad50so679646366b.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 06:34:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1791996098; x=1792600898;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=NIItl0pCQ/aBq2U1h8kgQBz3yZb99mdO46VMaoMNnUw=;
- b=CVpVzMiKUSfq6swH4BzcS8fzbY7EQE/3ygYIu6JLRW6Kw5pduYpPT/BKCu1npw5ueK
- oVzback8qYUY3b5priKHbjbmysHdZHA4+wPQ4Pd2D6/ocN5KYpnpdeCU2sqYwsH7QTG/
- 6dsjzyCMSK+twgg7UreLqRQDuppT/rnlCWIdKoj6rFmQSKvnazjTFQJfBvNUULkWRkOT
- Bml3tqKUNWVZPq0DREoNwc5Ut4HIbWEQWZLHrlwP6UOiB4ztZB516OTcUceHT75tynt2
- G+ke8JxnNMwhjVG8QemFwyb1nO3g7nrw9bSEmQjM2pE511MqsAsPP3xR1nMcXjUts5cz
- tn4w==
+ d=gmail.com; s=20251104; t=1791984840; x=1792589640; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Do96l1a82m3Ocz3d7RYUiQxcr6BpZfahyyHVqS1BI2I=;
+ b=ICLU62wQZ03UsFHgoeOWohLlO1xiVhYh2jLYKIiE0c+yvDL/KS+wbXKGJo+esePdPW
+ WDTEwYjRvPJ3EE8gAobnJNdn5gdEx9bVWbkYENkThpRdAomGHWPs0gOEIwiiEbGeCKVH
+ +SQfT/AjldkXxQWCoR+m3954xsSS1gDnUvhMoqsFOyVya3BEtf9SSlefImHeJPvCkh1G
+ 3Et1CpA07hPCfYDwSmOsFztJiUpYl4iBPrrFEUrMYkPIIyjWwLxkwHgvaH6AOebyRlmv
+ RcxG+EhdV3jc2L4rn3GaGSUyMBnFlr8OGBipdCZmF/k7XPpyOeQ/rQbTr6ecCgrw9rg5
+ kRvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791996098; x=1792600898;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=NIItl0pCQ/aBq2U1h8kgQBz3yZb99mdO46VMaoMNnUw=;
- b=aXwg2D58DhHPMJx8aOJ3+EgkfYx+SvaLDyTKKT23JtgEofWqbOa12QBjXxnVSA/peL
- 10/mlpF0HLNdNu8SHV08thwJiIQZNWrR2iGB/NNCTF8qHOfHPks8etbZ/rNaNWW1xq2n
- EXmyTKYarwx4fQpjlkxTtS8CQ4i45KVaF9GYE+FO4jaCg0k1LHtuKwXdCeb5XZL2hvvM
- dpfIb39SrNKTvdxvfhFOwadF7oAcj8OqRhOyaZaQF1RIhG8b6Qk3qKRkJWnhiNXCxotz
- NfXrGOHC7fbuset6cGrYSB8+W7RfmjD4CaCy/aA1f61lzGY4CCy6qNVtWt8bS4p6WySS
- Cjfg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzzUNCGoOUDZsrUjkMGapiD1DH5aCiMoBlHt3RIL7AKckAcBpPeSHkw5JL3Rbgl6veQPDVo1gxh@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIZp36Zp10c3GiVviW5Ywgs1e51rufjf3eFLucZSStZEvv1vKex
- b5GVeLK1jYM7XmZyFdXMP/HPeOdRwjqdhPuQPxNkpY2yO6KcdfYKM6Wt2vclnIUDRxdKfCYwfUO
- E+IrydtnUbSz88xU60f+4cwwc52+XiZe1aMKC6WiH
-X-Gm-Gg: AYBFou32flq0BiUsFVMmvjlwvjrtlZAZTOUZpNnMUP8N/yP42YdCbgTrbLCv6iJ8MBi
- +Mn1IfeKtlMr3+q3dx3U0v+ztny2OiBkQAES5AW7S2qXwZkUMR5z4AvJh6aSh3Vnh+84gJk5Vif
- 6PIhUaBc4NSM0/zPsW1DIdrRDo2KWlxVx09B4/nJXQetM4uKc7My+TnGcSNV1R4JqsbFEu7tLMv
- 66dOpubGcfHOS8MgwicG9ZS/37pHskyQ4HLLQtqrwOJtBAdxzXlBS4CXLIA7TZQERSH0DEvt/L7
- qqc3zkNwOxHYDN8qU0TxFELe/GsJ0Kbv4Q16w+AVH6JMqT04Ilq1zTksJWMxSjDMOdXLoKKYTwW
- kJ5RVQcfFXQ==
-X-Received: by 2002:a05:622a:1108:b0:533:9746:9a86 with SMTP id
- d75a77b69052e-5360573c96fmr14813151cf.5.1791996097367; Wed, 14 Oct 2026
- 09:41:37 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1791984840; x=1792589640;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Do96l1a82m3Ocz3d7RYUiQxcr6BpZfahyyHVqS1BI2I=;
+ b=bQob3jj8YIjAHfpd9/m4G7Gk0uWeMRriVeziezpViCry207rZ4H9sGKeSzlHJtSyXc
+ AVn9zTfaIW0/MkQHgIEVpCKQqeXOLPQ3WRsARS16pIN//w8tw6xx9sl29XJwOTIONjAv
+ VodzuZT2nucPCjmBZwG53QEoN0X7ya1Fuun0NTD3QtlaTo79a8lP5DTK0u70A6G5tj5a
+ 3xU8uhr3pZQYHCfyOBbwDPMOS1TrtvoTCoFoxgjc4NKwcPJ3+4ypEzGjeVDqWO2hm8lQ
+ KqpPz2Vb/uLS+ZED8Jf0TN1D8uaMnEO/dV4K5h204+U3G6JBXKonArufEMuHPoUYUXno
+ LALg==
+X-Gm-Message-State: AFq9FYL30h7OVwfPyddiKt82x/PEykFeLAt4En+LNrpjCAj0a+fP7T9A
+ pyZOKFnCJG73e5W/sS9+34rXJEh0xxYh+NwNGwz4nxrSU6dhWNek8WhuAFK++1pD
+X-Gm-Gg: AYBFou2fQJGdG8yxuGvL+tFFRUrM5/S4+UfT9zMnhauA7hRcCC+g31aKGlotaN3Flhp
+ S/SHMjD6DPekHzrxBwhZlBDhp0Rl4nYRlnimLer79zznINPPvP6sjNx86Cuu+bYyOD9gNPufH3P
+ 5h6lGHw3r556EVliJdF8tz9WgqbAQLtd4efPVKqTvcX9Z3HhIIwVGSezrNzTqTAVERFaBS8bs0I
+ 4pvY4NmI1M7T5Sb4mpj+66+PZls+ayLJ7ON4ogrbugzgfjkNuV6r6aPUTGtVBPGbJkMfifmuPiK
+ a33PPEhQ5G3K4sf/+nm5N9RKt9jsJz3VLfdRxQwHxhvrXQ3xNfNlAP6NTs8aFp+nQVARedODEs/
+ egRWzHrN6VvXCYLcgqjKv8pgIDnMGCan3cF/DXOikS8eqBjp77OpaW3WVcIl/chkufq//UOAWYz
+ rWlS1kCnw/zDpjqaMwi/FHcGCKkVWeY/sw6n5vtvPcBlt7O+u2jKa0QKe3+yP1tuR1PyGQIG1wX
+ EruL2v591ZudkCfKG340Wklybwd02szNT+9f1VUMwFWYLpPKIMscFEhs2EHsjbaIMKKEGtG4U4b
+ Oqa8+vFy+JJtuHTylom2T1iMMEc=
+X-Received: by 2002:a17:907:e109:b0:c31:e19c:fc4f with SMTP id
+ a640c23a62f3a-c31e19cfeb2mr1024151466b.14.1791984839629; 
+ Wed, 14 Oct 2026 06:33:59 -0700 (PDT)
+Received: from localhost.localdomain (93-55-250-55.ip266.fastwebnet.it.
+ [93.55.250.55]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48de0aaabc3sm12142349f8f.16.2026.10.14.06.33.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Oct 2026 06:33:57 -0700 (PDT)
+From: Luigi Lauro <luigi.lauro@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH] drm/amdgpu: require _PR3 for BOCO
+Date: Wed, 14 Oct 2026 15:33:56 +0200
+Message-ID: <20261014133356.3002808-1-luigi.lauro@gmail.com>
+X-Mailer: git-send-email 2.56.0
 MIME-Version: 1.0
-References: <20261013223946.1836757-1-irogers@google.com>
- <2026101425-why-boring-4f2d@gregkh>
- <202610140932.5F9CFCE5@keescook>
-In-Reply-To: <202610140932.5F9CFCE5@keescook>
-From: Ian Rogers <irogers@google.com>
-Date: Wed, 14 Oct 2026 09:41:25 -0700
-X-Gm-Features: AclHuK8_g-YOJgMR77fEpf5RTsveF4u_ERdXz6lvoN6wh_uF7KP8ZsaUSV1ti8A
-Message-ID: <CAP-5=fVLWh4uay2HGy6DOpZmtTr5WAd-TehAkN+P-pQgq_BZhg@mail.gmail.com>
-Subject: Re: [PATCH 00/11] kobject: Require explicit initialization of struct
- kobj_type::release
-To: Kees Cook <kees@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Jonathan Corbet <corbet@lwn.net>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- David Teigland <teigland@redhat.com>, Alexander Aring <aahringo@redhat.com>, 
- Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Richard Weinberger <richard@nod.at>, Zhihao Cheng <chengzhihao1@huawei.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- driver-core@lists.linux.dev, llvm@lists.linux.dev, 
- linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-s390@vger.kernel.org, 
- linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 15 Oct 2026 08:21:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,74 +83,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2026 at 9:37=E2=80=AFAM Kees Cook <kees@kernel.org> wrote:
->
-> On Wed, Oct 14, 2026 at 07:36:41AM +0200, Greg Kroah-Hartman wrote:
-> > On Tue, Oct 13, 2026 at 03:39:35PM -0700, Ian Rogers wrote:
-> > > Clang supports the 'require_explicit_initialization' attribute on str=
-uct
-> > > fields to enforce that the field is explicitly initialized when an
-> > > aggregate object is constructed, emitting -Wuninitialized-explicit-in=
-it
-> > > (enabled by default) if the field is omitted.
-> > >
-> > > Following discussion at the Linux Plumbers Conference [1], this serie=
-s
-> > > introduces __require_explicit_initialization in
-> > > include/linux/compiler_attributes.h and applies it to
-> > > struct kobj_type::release.
-> >
-> > Cool, sorry I missed that talk.
->
-> Yeah, I'm really liking these compile-time checks. :)
->
-> >
-> > > As Documentation/core-api/kobject.rst notes:
-> > >   "One important point cannot be overstated: every kobject must have =
-a
-> > >   release() method, and the kobject must persist (in a consistent sta=
-te)
-> > >   until that method is called. If these constraints are not met, the =
-code
-> > >   is flawed."
-> > >
-> > > Annotating struct kobj_type::release caught 30 struct kobj_type
-> > > definitions across the tree that omitted .release:
-> > > - Patches 2-10 fix 10 struct kobj_type definitions where dynamically
-> > >   allocated kobjects, ksets, or enclosing structures were either leak=
-ed on
-> > >   kobject_put() or freed prematurely before kobject release (risking =
-a
-> > >   use-after-free when CONFIG_DEBUG_KOBJECT_RELEASE=3Dy).
-> > > - Patch 11 annotates struct kobj_type::release with
-> > >   __require_explicit_initialization and explicitly sets .release =3D =
-NULL
-> > >   (with explanatory comments) on the remaining legacy struct kobj_typ=
-e
-> > >   definitions whose kobjects are static, per-CPU, or embedded in devm=
-- or
-> > >   parent-managed structures.
-> >
-> > Sounds great, but let's fix up the users before adding the attribute.
-> > Looks like some of these need another version so it might take a bit of
-> > time to get them all merged.
->
-> I'd really like to have the attribute available, and I've got at least
-> one user I can apply today that don't require fix-ups (seq_file), so
-> if Miguel is okay with it, I'd like to snag patch 1 and send it with
-> my seq_file "first user" for this coming merge window so it's available
-> starting with v7.4-rc1, and we don't end up needing to wait 10 weeks for
-> other subsystems to be able to use it. And the kobj fixups can continue
-> in parallel. Does that sounds okay?
+amdgpu_device_supports_boco() returns true for an AMD_IS_PX device on a
+system with a hybrid ATPX method even when the device has no ACPI power
+resource (_PR3). On an APU mini PC with a discrete GPU attached over
+OCuLink, the iGPU's ATPX method reports hybrid graphics, the dGPU is
+flagged AMD_IS_PX, and runtime PM in auto mode picks BOCO:
 
-I'm happy with that. I'm working to address/incorporate the other
-feedback for a v2 of this series, but I can drop individual patches
-that have already been merged. Thanks, everyone, for the positive
-reception in getting this landed, I plan to follow up with patch
-series for the other uses I found.
+  amdgpu: ATPX Hybrid Graphics
+  amdgpu 0000:c6:00.0: Using BOCO for runtime pm
 
-Thanks!
-Ian
+In BOCO mode the driver leaves powering the device off to the PCI core,
+which can only do it through _PR3 on the upstream bridge. No device on
+this dGPU's path has _PR3, so when it runtime suspends the card stays
+powered, with its fans at about 700 rpm.
 
-> --
-> Kees Cook
+Require has_pr3 for BOCO, as the function's description ("dGPU with ACPI
+power resources") says. The same card then picks BACO, which powers it
+down:
+
+  amdgpu 0000:c6:00.0: Using BACO for runtime pm
+
+This only changes systems with a hybrid ATPX method and no _PR3 on the
+dGPU's upstream bridge, where BOCO cannot cut the power today. Tested on
+one such system only, an RX 9070 XT (Navi 48) over OCuLink with a Ryzen
+AI 9 HX 470, with the change backported to 7.2.9: the stock module logs
+"Using BOCO", the patched one "Using BACO"; BACO runtime suspend powers
+the card off and it resumes cleanly. Not tested on a hybrid laptop or a
+Thunderbolt eGPU.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5980
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Luigi Lauro <luigi.lauro@gmail.com>
+---
+Alex asked for this on the issue. Here is the full picture, so you can
+judge which approach is best:
+
+Why _PR3: in amdgpu_pmops_runtime_suspend() the BOCO branch does nothing
+itself ("PCI core handles it for _PR3"), and has_pr3 checks exactly the
+bridge the PCI core would power off (link_partner, past the dGPU's own
+switch). On a hybrid ATPX, amdgpu_device_supports_px() is false, so the
+ATPX power-control method is not used either.
+
+Who changes: only hybrid-ATPX systems without _PR3 on that bridge. Hybrid
+laptops that have _PR3 there, which I understand is the usual design,
+are unaffected.
+
+Risks I cannot rule out:
+- BACO on older laptop chips that have never used it for runtime PM.
+- A platform that cuts the power in a way has_pr3 does not see (_PR3
+  somewhere else on the path).
+- The other users of the function change too on such a system: the
+  DPM_FLAG_SMART_SUSPEND | DPM_FLAG_MAY_SKIP_RESUME flags in
+  amdgpu_pci_probe(), amdgpu_pmops_prepare() returning 1, and
+  amdgpu_device_supports_smart_shift().
+
+Narrower alternative: leave amdgpu_device_supports_boco() alone and
+require has_pr3 only where amdgpu_device_detect_runtime_pm_mode() picks
+BOCO in the auto case, falling back to BACO. That fixes this system too
+and keeps the other three users as they are, which is the same state as
+booting it today with amdgpu.runpm=1.
+
+Please tell me which you prefer; I can send a v2 with the narrower form.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index e001461..96cb4d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -593,10 +593,8 @@ bool amdgpu_device_supports_boco(struct amdgpu_device *adev)
+ 	if (!IS_ENABLED(CONFIG_HOTPLUG_PCI_PCIE))
+ 		return false;
+ 
+-	if (adev->has_pr3 ||
+-	    ((adev->flags & AMD_IS_PX) && amdgpu_is_atpx_hybrid()))
+-		return true;
+-	return false;
++	/* BOCO needs a platform power resource (_PR3) to cut the power */
++	return adev->has_pr3;
+ }
+ 
+ /**
+-- 
+2.56.0
+
