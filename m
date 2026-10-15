@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4162DCC6B39
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 17:41:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 680DECC6B38
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 17:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA1E810E23B;
-	Thu, 15 Oct 2026 17:41:12 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011019.outbound.protection.outlook.com [52.101.57.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACAED10E23B
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 17:41:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D72D010E5D4;
+	Thu, 15 Oct 2026 17:41:29 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010018.outbound.protection.outlook.com [52.101.46.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9685310E5D4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 17:41:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k/7WUeN/Q7tsDuOke4uTTa/S40cfRnql6XLdXEFtuMFGWIs3YQA8BKVFnSZZSkOM5+Rl//xzp8Pm4rd3yFTrXEmxBxau/vOBDkuRMmgXNSl0sSu5TD/EA8XVMEC0Hw3IihPC2VfXqefjG7RafWzwMq2NrxK8XuYWHpiZG1CcWQ16hD13VuhEp4uf3Pb9YiBxrY0FXZKFdHBeC5YcmA6XZ9R7hrWOoviyTTohyChvu+CEFCbEcJE8wEfPlquxDR0OlPvA9O5KKF5ZnXNLec9bRJgW0l+BrZRH1207oZIpIxntY9VZMoqetkKbS0p83y1UJgBSIxehjgOlIMZ8l5kxxw==
+ b=XalIbQtT0qK1aqxsaHZzM/MjUWWD0K7cWFA8FP9QdqZOI1aPN98cU6DcvXMA16dmHoud6yZZm+sHdZ7N4/QE7bLVkZfz6IsI+h/qCmclleuFFJuWEZ0iiiSFGo7X39qHdWiwH2bUurMsoCF5UDXlsx/gB5h/2VRRcbuJG8KZiD9hTbUaI9kDRJovG8XrPBylrmQJ2I3X7xUN4X26HoudT4IwpOTFm+4OFSVcJi0cjr0RtZbBFGjd9JH0/Q8z15hLnepxfiexGJlNTi0ZHUe5ddEwRaEtOuu8SnP74YC6SRs42CqAcJr6MnumGaoy9HOwRw0n9d/FtQ8JrY83g4g44w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HQ/Jxzg9JeXV0KhDZV/pDflGaFQ3JfhFVZmczt4F0qs=;
- b=quzdW2eWujCOGiOuzkiP3lsr8MqrZJSvmQLmh64aiAb3bTxxSgL8SloxqiBGAx2lflEenb+nnkjEORoJCm1YuZFCvNBnvmJ8QmF+JxoHGQZhZ+uSASoTIf8tgiQyCzTRgHx6jujSOnNDTCNu252kEfIMhMr0LBRr8ygdB2G+weJnJ789Mj1ofXUdfTjqWDpJbbC3KspyQfZJjtF/xia51k/uOwwlgQjfjItUJxaTpcUatIw53nFt+tY+Gc72quGzPEUUitpKcenh0QnuT1fT7K3dXsEovY3cRJHt/2CW154QcDQ81UmyPyNTUg4nPcy/gj6wzVqMMfQGnRYv4IihdQ==
+ bh=TV6PXrt/qClMrHspBrwRca7OKG5oxK9hxcDM4gGTcZk=;
+ b=jMT4yLftCyIeqYKp+txkAZ34KBODinQujrn4USzFDqJ5QsefrnXJ3QKmK9C0HeSiMzPveKeEJuWOnTr265Nei8Dim8JfYVN2vmgQ/dKTKC9sNZbTrdYqdo3ZuDzGYIzUes3zGrX1Apc+6BR8tsgXHjDl2UHofITQHyPoCiSb49pcKQSRyequVaXgXR8fH1UNZs4B6NVomZ6xpEQpOkJbIsJXp9ZpcxXTwD4xHRe8EXK8xTJQdJrKuvl2cC2H1DOhzqNuF9leFE5bO0ZYwnrnXCQj+4i4RMfb3DnxOJvbco/sBk5/tqntD4OIJyPRwoCDAdyb6jRK9MaeDcK80QZShA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HQ/Jxzg9JeXV0KhDZV/pDflGaFQ3JfhFVZmczt4F0qs=;
- b=TjnXFyabfq1cr1W8M1z9WtYVZCubK8xF6RgOtAEobiXF2Il3HPziPzix6tK4qLofPA1g4mXXzpS0nYT7xFMctUrcATbeO3L5/40bfNC/KwCOPoM/6cMCRNCbBMxTSxsmoj2Lg0ZCW60O0IYc7+ndstNmde551G57g4Lv6YG59n4=
-Received: from BN9PR03CA0219.namprd03.prod.outlook.com (2603:10b6:408:f8::14)
- by FT1PR12MB180078.namprd12.prod.outlook.com (2603:10b6:170:1f::13)
+ bh=TV6PXrt/qClMrHspBrwRca7OKG5oxK9hxcDM4gGTcZk=;
+ b=x+OEbobt5on5njboMYuif6kFCBZNNtYVwNhlWsnNdNP7mik7km4jA7pfSQHuhKaL0NvM7JTh8Vt/mYZfSUrgf6QmGQsXh2645wSy3bAHIsJ7YS9J2lJDIMVnlj13QVk0tvEFz80RKegCWx7mckuZRIs8lBrq14WnclD3NRNh1DA=
+Received: from BN9PR03CA0226.namprd03.prod.outlook.com (2603:10b6:408:f8::21)
+ by CY8PR12MB7586.namprd12.prod.outlook.com (2603:10b6:930:99::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Thu, 15 Oct
- 2026 17:41:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 15 Oct
+ 2026 17:41:17 +0000
 Received: from BN2PEPF0000A991.namprd04.prod.outlook.com
- (2603:10b6:408:f8:cafe::63) by BN9PR03CA0219.outlook.office365.com
- (2603:10b6:408:f8::14) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:f8:cafe::57) by BN9PR03CA0226.outlook.office365.com
+ (2603:10b6:408:f8::21) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 15
- Oct 2026 17:41:02 +0000
+ Oct 2026 17:41:16 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,20 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN2PEPF0000A991.mail.protection.outlook.com (10.167.248.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 17:41:02 +0000
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 17:41:16 +0000
 Received: from belanger-linux.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 15 Oct
- 2026 12:40:55 -0500
+ 2026 12:41:00 -0500
 From: David Belanger <david.belanger@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: David Belanger <david.belanger@amd.com>, Michael Chen
  <michael.chen@amd.com>
-Subject: [PATCH 1/3] drm/amdkfd: add watch_addresses to set_shader_debugger
- interface
-Date: Thu, 15 Oct 2026 13:40:38 -0400
-Message-ID: <20261015174040.65493-1-david.belanger@amd.com>
+Subject: [PATCH 2/3] drm/amdkfd: pass watchpoint addresses to MES for GFX11
+Date: Thu, 15 Oct 2026 13:40:39 -0400
+Message-ID: <20261015174040.65493-2-david.belanger@amd.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015174040.65493-1-david.belanger@amd.com>
+References: <20261015174040.65493-1-david.belanger@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -70,29 +71,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A991:EE_|FT1PR12MB180078:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95469bcf-3627-4ce5-65d2-08df2ae37b3f
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A991:EE_|CY8PR12MB7586:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9570eccc-7f5d-4044-eff2-08df2ae38368
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|3023799007|18002099003|10067099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: vPNqDvnt7vgqqolqgGG43JaZBEJAXk9tf8bsbgChPwnRQAcV5pDf46Sf9wcOokge6XjhoH62LPlAOoBngEwbaik34a0I0cIpZZ13F4Jv47gVDXN5QgQXxuBKbRW84eRwQFfBkixbeolkSpHVHX0bHlNfxjzcZ6mKtdoXzY0YnjruGHnE+S9hwoVqjWd/r0TJHQLhXJljPQnlh5hh9iG/gPgbT0xF5Xcq5NNpKmCk1W6xsB4WEqIG3CMEa5+plqjuEl+ZGzBXziTUgwZ8Y83w5d8oV7YHfEPlfy5ekyMrUQpVmsWHx1W/l1wx7gI5W8Uw9isA4ayvw7OhoQz73Pqf3PvuJFApGv6zghAW4GZeZVA+RA9QDswonIzmORz6OA8qFBkYeSrQJeREkLLt9KpASqg0F6Qt0XGGYMJ385BJPu1p6dniPSu0MEXvFjQt3iwS1olIYkX7sNAx2ivnouihHiWkkFLq3PqUOTYIPygdMw8G6gw9STcAByw4G5LRWNeOOXl6IjXYuJbbmkO9EnwLbdwsyuyWls/QZi94SBN3tJ28FM5mb608rsLPse6SwgINCdfaFZ54HyCuFYb9pMw0t57VMGoJ8WgkykfC20rPd4TUWkhA2eDhXvKZqMFQO/Hrgd8f91sscjSxfYozPeuf9bldurtwdHqTz6Erqkiezu3/DNPWUtmFHX5bZ3wSyMVsvO82Rfp0qmq2wMOSTIhaJQ==
+ ARA:13230040|36860700016|23010399003|1800799024|376014|82310400026|10067099003|11063799006|56012099006|18002099003|22082099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: 8XFJTqgRPuyn5tqql3LuJtCsWTk4pK7mszTaPsV6r+y/Pu59p5Dz5nd5/9FOcNKd7TLJszd8qOibCO0YaUM6/lKJCvJCQ39269ky3wkOPFn844/bvfJ/8lGUpxjgubpv+D8BwdPH/nhaTziTAAvbnE5mb8CfiwWuIoCuXItbb5ZaqpIgemg2O7aRpEW2dWzfnpxMn/KoueZ8Lz6EQd1vyj/WtTS+VJMcUN+phh1Qrt9puJIB7qM9y9nzbrWUG9gEXx6DDTfvZLR5K411Y64PKwhyp/8wtUdUs7LHPK7bIi0ogcbAKXefs71Lo1F0Q/SZohAXbWrlf+C8jTn5nAgDreXtCecK70etjMOIDls1KFX8JAwPxjEMANyq8pgjwES7wmsllgrTixsH452+kU9ObSi8K3INBrTZZ5gdsypNka4kxAjuRq2gwKeLM7Lb5ueefrWPg8cqCy/5jB2JSFLG/8TjaLkvNLHCadnQUxxNEz5ed2a3QkodHLK3SQR10E6tFtp9hh7okogwhmxwSZ1Tg9/G3530G3luXuuvp3oG7kX2Tqe4htpuyrkbnv785nO+2BZKAuaOx19Ib+Ccn9joj4HMBPTDFrWSUzWpDeinkl2b8UcFJS+iegdQ/eHCRiHyHf8Z2kpQgKyUKf1K+Yt8A8QbSl8HctAIKhcjn/d/GUxFxAR9/rQJvKR9oKoZ4kBbP8tXYiFHkACedjaquYmB0A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(3023799007)(18002099003)(10067099003)(11063799006)(261009223027099003)(56012099006);
+ SFS:(13230040)(36860700016)(23010399003)(1800799024)(376014)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(261009223027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2zV5+Vu6ewUslnoKL+kmr6PLcSQW3wUVHMkIJGaVVDkrqWOuSbnu9bhru4tQtHpo/818kQJa4wEkBocQvfFjvQSy32GSwJ92W2NGPweyEfoGgVLUl93Y96WU72Jspr0rMHo2aqwvXr7UcWtXr33uE2cwmLBokufeI7R0CJnswipL8MnWM6x4zZkKLSRFbD2M0Tjl+h1Y/vEOnyviH3CmSFQuheWtyrL9lhTY4KobfPLRPBTHXncGatXSBMYR+knKOimxu8ehNokt3mHYEO98kYmlp3LGfmZkh6gVD/Cy3kI5jdVQVfWjQB2nEctr23Xws9woUH6sEoihekkFJEOUF9Ff6pYqWE12qNWpRQlY+tKsTBPobwWf2Z2dfbIHPrZvyRQ41xBwQ2uG4uyJTwfb5/QhR1pKQNjeVkjQgtIWUMO+OkVdcdYfrouHl9skdHkJ
+X-MS-Exchange-AntiSpam-MessageData-0: 6psdnE6DWQ0WORimP5JyXKvfeTT7Mt3xQDs42OPKI3o4oWOVjroDeDhcLqXrANWa5NOccZTuQ6LVaCE9BNc1hKuKXlsS9HOi1dNkCfFiCfEErb5i++sUr+EPCdfyLqP/9kXeZXscFOJSs7FeRGCZi1lv9k6gc98iiCIR9Yo+JKBmWA25F2eQMAFp141ohdjLI9npowEa612srJMMC1v1/3MxwL7DHKfSp1HamXZYjMKQcqa4ikSNFWJR1+5nb0x0QKh311bSF5QV4WdLReolycSfTNIj6156FmLA09HPmln0YDWtHDnEDPEIolpujhZLQBRV68rRRuPP6kLewTAFshqbYB8lB2HCW69RARq4mUA+P6xNKyeVtD07H6Ogd7oc8g1+VVBLg2E3U4HR3xGPM7pMdf2gZao8Gx5d0WZMK/Ma6TqZjJtyn4Mv1MbfpkTO
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 17:41:02.3160 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95469bcf-3627-4ce5-65d2-08df2ae37b3f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 17:41:16.0155 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9570eccc-7f5d-4044-eff2-08df2ae38368
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A991.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB180078
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7586
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,103 +108,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Pass watchpoint addresses through amdgpu_mes_set_shader_debugger() so
-MES programs TCP_WATCH registers at dispatch time.
+Update SET_SHADER_DEBUGGER packet with tcp_watch_addr_lo/hi fields.
+Remove direct TCP_WATCH register writes from set_address_watch().
 
 Assisted-by: claude-code:claude-sonnet-4
 Signed-off-by: David Belanger <david.belanger@amd.com>
 Reviewed-by: Michael Chen <michael.chen@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 2 ++
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c  | 6 +++++-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h   | 1 +
- 4 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c | 12 ------------
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |  6 ++++++
+ drivers/gpu/drm/amd/include/mes_v11_api_def.h      |  3 +++
+ 3 files changed, 9 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 05bbbd1afb630..53d7cb1402d80 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -695,6 +695,7 @@ int amdgpu_mes_set_shader_debugger(struct amdgpu_device *adev,
- 				uint64_t process_context_addr,
- 				uint32_t spi_gdbg_per_vmid_cntl,
- 				const uint32_t *tcp_watch_cntl,
-+				const uint64_t *watch_addresses,
- 				uint32_t flags,
- 				bool trap_en,
- 				uint32_t xcc_id)
-@@ -720,6 +721,8 @@ int amdgpu_mes_set_shader_debugger(struct amdgpu_device *adev,
- 	op_input.set_shader_debugger.spi_gdbg_per_vmid_cntl = spi_gdbg_per_vmid_cntl;
- 	memcpy(op_input.set_shader_debugger.tcp_watch_cntl, tcp_watch_cntl,
- 			sizeof(op_input.set_shader_debugger.tcp_watch_cntl));
-+	memcpy(op_input.set_shader_debugger.watch_addresses, watch_addresses,
-+			sizeof(op_input.set_shader_debugger.watch_addresses));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+index 04fab30ab5dd4..96a308b946469 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+@@ -747,13 +747,9 @@ static uint32_t kgd_gfx_v11_set_address_watch(struct amdgpu_device *adev,
+ 					uint32_t debug_vmid,
+ 					uint32_t inst)
+ {
+-	uint32_t watch_address_high;
+-	uint32_t watch_address_low;
+ 	uint32_t watch_address_cntl;
  
- 	if (((adev->mes.sched_version & AMDGPU_MES_API_VERSION_MASK) >>
- 			AMDGPU_MES_API_VERSION_SHIFT) >= 14)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index b967b6c0b4c75..0c4cd663de9ff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -435,6 +435,7 @@ struct mes_misc_op_input {
- 			} flags;
- 			uint32_t spi_gdbg_per_vmid_cntl;
- 			uint32_t tcp_watch_cntl[4];
-+			uint64_t watch_addresses[4];
- 			uint32_t trap_en;
- 		} set_shader_debugger;
+ 	watch_address_cntl = 0;
+-	watch_address_low = lower_32_bits(watch_address);
+-	watch_address_high = upper_32_bits(watch_address) & 0xffff;
  
-@@ -623,6 +624,7 @@ int amdgpu_mes_set_shader_debugger(struct amdgpu_device *adev,
- 				uint64_t process_context_addr,
- 				uint32_t spi_gdbg_per_vmid_cntl,
- 				const uint32_t *tcp_watch_cntl,
-+				const uint64_t *watch_addresses,
- 				uint32_t flags,
- 				bool trap_en,
- 				uint32_t xcc_id);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index 8bed0d0f9bd26..71b34a57c2cc2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -374,7 +374,9 @@ int kfd_dbg_set_mes_debug_mode(struct kfd_process_device *pdd, bool sq_trap_en)
+ 	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
+ 			TCP_WATCH0_CNTL,
+@@ -770,14 +766,6 @@ static uint32_t kgd_gfx_v11_set_address_watch(struct amdgpu_device *adev,
+ 			VALID,
+ 			1);
  
- 	return amdgpu_mes_set_shader_debugger(pdd->dev->adev,
- 					pdd->proc_ctx_gpu_addr, spi_dbg_cntl,
--					pdd->watch_points, flags, sq_trap_en,
-+					pdd->watch_points,
-+					pdd->watch_addresses,
-+					flags, sq_trap_en,
- 					ffs(pdd->dev->xcc_mask) - 1);
+-	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_H) +
+-			(watch_id * TCP_WATCH_STRIDE)),
+-			watch_address_high);
+-
+-	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_L) +
+-			(watch_id * TCP_WATCH_STRIDE)),
+-			watch_address_low);
+-
+ 	return watch_address_cntl;
  }
  
-@@ -449,6 +451,7 @@ int kfd_dbg_trap_clear_dev_address_watch(struct kfd_process_device *pdd,
- 	pdd->watch_points[watch_id] = pdd->dev->kfd2kgd->clear_address_watch(
- 							pdd->dev->adev,
- 							watch_id);
-+	pdd->watch_addresses[watch_id] = 0;
- 	amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 043ac05eb0fa1..3939eed05150c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -1028,6 +1028,12 @@ static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
+ 		memcpy(misc_pkt.set_shader_debugger.tcp_watch_cntl,
+ 				input->set_shader_debugger.tcp_watch_cntl,
+ 				sizeof(misc_pkt.set_shader_debugger.tcp_watch_cntl));
++		for (int i = 0; i < 4; i++) {
++			misc_pkt.set_shader_debugger.tcp_watch_addr_lo[i] =
++				lower_32_bits(input->set_shader_debugger.watch_addresses[i]);
++			misc_pkt.set_shader_debugger.tcp_watch_addr_hi[i] =
++				upper_32_bits(input->set_shader_debugger.watch_addresses[i]) & 0xffff;
++		}
+ 		misc_pkt.set_shader_debugger.trap_en = input->set_shader_debugger.trap_en;
+ 		break;
+ 	case MES_MISC_OP_CHANGE_CONFIG:
+diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+index e251ccc41f9ca..de217882f5e8a 100644
+--- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
++++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+@@ -676,6 +676,9 @@ struct SET_SHADER_DEBUGGER {
+ 	uint32_t spi_gdbg_per_vmid_cntl;
+ 	uint32_t tcp_watch_cntl[4]; /* TCP_WATCHx_CNTL */
+ 	uint32_t trap_en;
++	uint32_t tcp_watch_addr_lo[4]; /* TCP_WATCHx_ADDR_L */
++	uint32_t tcp_watch_addr_hi[4]; /* TCP_WATCHx_ADDR_H */
++	uint32_t process_context_array_index;
+ };
  
- 	if (!pdd->dev->kfd->shared_resources.enable_mes)
-@@ -485,6 +488,7 @@ int kfd_dbg_trap_set_dev_address_watch(struct kfd_process_device *pdd,
- 	}
- 
- 	amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
-+	pdd->watch_addresses[*watch_id] = watch_address;
- 	for_each_inst(xcc_id, xcc_mask)
- 		pdd->watch_points[*watch_id] = pdd->dev->kfd2kgd->set_address_watch(
- 				pdd->dev->adev,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 7a365fca68e4f..c0207f44493cb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -870,6 +870,7 @@ struct kfd_process_device {
- 	uint32_t spi_dbg_override;
- 	uint32_t spi_dbg_launch_mode;
- 	uint32_t watch_points[4];
-+	uint64_t watch_addresses[4];
- 	uint32_t alloc_watch_ids;
- 
- 	/*
+ enum MESAPI_MISC__CHANGE_CONFIG_OPTION {
 -- 
 2.55.0
 
