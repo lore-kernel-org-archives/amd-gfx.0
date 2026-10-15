@@ -4,77 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD6CDCC6B2D
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 00:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FF09CC6B2D
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 02:10:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5182510EB58;
-	Thu, 15 Oct 2026 00:24:18 +0000 (UTC)
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com
- [209.85.222.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C60310EB58
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 00:24:12 +0000 (UTC)
-Received: by mail-ua1-f53.google.com with SMTP id
- a1e0cc1a2514c-98c786605e7so501319241.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Oct 2026 17:24:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792023851; x=1792628651; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=sRi2ZkH0cqeF76lnycKi5TJ2g+qZsmxD4so7+Rdq55w=;
- b=d5eTP6rbN53jz6Oyuc+jd+ifNG9inH8cPLmKgVZ2Hamoytyi9mtiF7ooTUx6JY2TF0
- 3qzMwrxs0TG2tK9ZmrB/OOq6VTZlsJmYC/JlSvh3MroVueHvhaYmKZgUz9fLVxHpEs/t
- Vx6xieqAoHahTrxuyqmgqP5/3qP2tHQOpoT8diJ98clpTaQJIv5KpCikY4C3Kip+4ujl
- K0bDNu5QRb0qI4UJ5FRN05X1D1h23Uh6INhAQWMyoUO8axLapp5g2QOOrzZicBJ1hv8m
- UDjZ5G1GCqkc2z0/lcUOhB3laGaICN3Je8fbeKTKb7xNCIEVkhDIucxgeHR8jfZXXJxN
- Dj5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792023851; x=1792628651;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=sRi2ZkH0cqeF76lnycKi5TJ2g+qZsmxD4so7+Rdq55w=;
- b=sdt7jUTNsyM2cqb/z1l1qzGYGXyFCw7NoHnWBTJCbDjMjVm2OXUnb/V2RrV7xP6rco
- y3hvgjbHOMlnZjf9NnZ0xZuVaC9DFVZDwoIabeTVBL0A0lW/1nhg6Tc4qK7q/Ig/puzI
- JwduI29+p27t/hXHUsmsTZ8S+pHI8gYd2fUxIHnx22Z5H67hYrTYrHxT1SiVi4IyhhYn
- hRZSpPuIc2esCA77f4i29c327zl/tQLwDH3j2IvQ4OXDYSrSHc3UCynCkEG2BSm7wXsG
- LBRNwERhOT2Mzxw+FD+ovkeyQhdvwgnw5lU2RetNNiMaPDbWLHfenPC33RiMrXppnmg4
- dGAg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxTHR6bMTrEy00IyyZoQ41zfIGI2a8OZzB+qVSf9ZE8pYGonIlDF3z64OkTWKM3ZnUwAh7RXfAw@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL+BIZfzVqFRhHpX00m0oIOD3rHbaTXjSnekqAm/Ret0XXwzM/8
- o0X4DIaHEOpxBWZMYZ9vlexIec/GK4VExXKeofXUmkB0GTYJ0TzF8hEy
-X-Gm-Gg: AYBFou3rmsYgRLkjekLKtaxcQ86UMzqpb3S0ggP4VqnB/dNevYk5YGtJJGOdIUXFDV+
- FvjaGEUTgl4xZ2fdrLUnh7VWoJP/a+NwOncreptKQnGya8Ez3bylMu/KtQpi3IlEATymRWLIO7+
- OFj1Moo3FcDHumRr3guqWmlKti2Jyw2EDtywRnbWmwbfcqLEcpcXKotxIaXhJf6FpJuIprJyy3r
- S3HoSMpp7aywLEMQneepy5XfWgnEFQLm2EuOa7wEJ1rZSZPibHP3GbphZFDh1W/jmfZVhrX60Ms
- mkWgmwbmpxSTiR6sprh3fu3letGnehpvpyEcgLEhdaAqbrST+Csk7aJhpz3iFJxTv5TFQwbhyky
- mcvUQ+NI/yJ7s0Y4CrU+tbZK8Z+oyVALpt4beUlYxU+Op6TR8F9EE/9eLdhCCa3GIcq8ONei0l2
- 7H9IkkjYPuT7H7c1JWzelxrwy/bAHVnvuRfgXTGVq3gmCkvSaUmL64B4p8XktmnoqcM40R0K36B
- ZRnezJ1GuXWpt5C13CVWAaKU0Uf3fTqPczjNfPW
-X-Received: by 2002:a05:6102:f9f:b0:7bb:a70:4708 with SMTP id
- ada2fe7eead31-7cb372f5c52mr5241177137.17.1792023850833; 
- Wed, 14 Oct 2026 17:24:10 -0700 (PDT)
-Received: from localhost.localdomain
- ([2804:5698:10de:1f00:932f:8780:96fa:a0f5])
- by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7cbbd178e4csm6445671137.2.2026.10.14.17.24.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Oct 2026 17:24:10 -0700 (PDT)
-From: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-To: alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-Subject: [PATCH v2] drm/amdgpu/gfx7,8: remove redundant RLC cleanup
-Date: Wed, 14 Oct 2026 21:23:44 -0300
-Message-ID: <20261015002344.98683-1-williandossantosdeoliveira287@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CADnq5_O=kVgSZoqe_ZVQDmVTWNb+OZ2XhmVx=0CPQQfCaf2idg@mail.gmail.com>
-References: <CADnq5_O=kVgSZoqe_ZVQDmVTWNb+OZ2XhmVx=0CPQQfCaf2idg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F8F310E2FA;
+	Thu, 15 Oct 2026 02:10:26 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011040.outbound.protection.outlook.com
+ [40.93.194.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9D9E10E2FA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 02:10:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iNUyfQkbuQL1lBW/AvTbslrt4cG7Kq0BzkxY+bLugo6uZ23AgPHbFgfxiFyEeEyyws06thW372x+F1+8MfcYRJNQc0tcYN4n2Fd572N3jilXqbYdO0ldPx6DhJc7ykhTd34n/KD92AI+Ot0Bjxjd+qv52QTmb3Kg6Cmo4DojcUWjLtQmoaydlfy6X063+d1JHrf67RJj0gEUbjK8sOp9ZC+A6FuIN/QCs+a6nJKBZbtbA3yJ6xDxbFjSGdn/1C91GW+fx7L4kIkoOnuOhfDulUHaieBArQiHB2P7dC5PIuG9ToRoBb6J2qmpUk24WuulMyIo+TJyaIEZjoQF6XoxnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lJC4Xhu9j6oMbqBN5K2wCL4gXZF3+SQbIlPdohajNGM=;
+ b=i7c4zd4ScZ/X6q3TQ1V0c5tOIUPCRln41aTki4Tw7Jxbr1BjPIZstiUNh3bo3U2vuFdgkwP2hGQsWzUgO0Qj0RgwhDSt5udGqjJ7D2MoYOR3V/v/q/usFtzlFHvYRqjgTUzM0skwnChD5NYT125OmI76JVpV2xx8BOAxXjDX8KU0RE8y4tnzViRtW/SLcFIhVVjmOUg3KzyMbn1vepe/wTnVdGiTZxZ7t2GVFTTYFKRqmpz/CBdNRqz6PsPK6qqquuUeTHDe15tNakcFMynKVfhatmRxURrE+zBEWNN6sVvhwI6/4COulYlHF1CmBnfLS1XGeBqlUHTeFCC7EZFg8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lJC4Xhu9j6oMbqBN5K2wCL4gXZF3+SQbIlPdohajNGM=;
+ b=roDtkVvFnLiQceiZVEwtOElcO/XjVKkYp0nqC99RtF3XEeGFZpYoIWHxCOIjP973uvS+fpz1gyZPGRHixr4eYry6OJo2iVQPgTQb5xzsSfJUS9GX4N0s9Bii4PkIFCnkeF2VVufvvZ6RkhJrCkzncletBGD7lUkcRhL+IkwjneY=
+Received: from MW4PR03CA0124.namprd03.prod.outlook.com (2603:10b6:303:8c::9)
+ by DS0PR12MB7826.namprd12.prod.outlook.com (2603:10b6:8:148::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Thu, 15 Oct
+ 2026 02:10:15 +0000
+Received: from SJ1PEPF000037BA.namprd05.prod.outlook.com
+ (2603:10b6:303:8c:cafe::9a) by MW4PR03CA0124.outlook.office365.com
+ (2603:10b6:303:8c::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 15
+ Oct 2026 02:10:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000037BA.mail.protection.outlook.com (10.167.244.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 02:10:14 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 14 Oct
+ 2026 21:10:07 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 14 Oct 2026 21:10:06 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Prike Liang <prike.liang@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
+ "Jesse Zhang" <Jesse.Zhang@amd.com>
+Subject: [PATCH v2] drm/amdgpu: return copy errors from AMDGPU_INFO_UQ_FW_AREAS
+Date: Thu, 15 Oct 2026 10:09:35 +0800
+Message-ID: <20261015021011.3221624-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037BA:EE_|DS0PR12MB7826:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4dab79d3-dfe6-4ae7-62c0-08df2a61736e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|56012099006|261009223027099003|11063799006|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info: tMzHsbegQ+qHfD24YmOQVLx8jH+FlMs9SMO1Nvn+2U4+A8RBhUnrK8xRY2dQ13mmzHnpvwvSZEKnQ6Z876ExrF0vro30QGSmoLX3TU9vqNnGEE5m7KMzQeA3U+celOOk0fJUiLa6Kx8pi4adS/WxFGMz+vkeshYdI6Zmakf5lqMV16WC9RI6eruiDpHDJKdYJVF9pCnUVvHvKgtIasBiNjXmTvRyFL/Lretz1iQKHhhvgbuy9k/z/sXxWuzVvkK6CTLhGVwX4juwfcLaqmjJAEW6F3O7bm/genwpoi++R2A4JvYcu9DaqpkZ6WlfGr1H84ZcoQt95rf4VzagevQwAwmN81SPAS3HZnNDopcDTbcB24zvEPbzxalvc7ZulzLKCQwB/K31K61PZuA5zvbdd3n5vAjHaWXEVg6HDoQiS5Upl6yo/LlSyNUYalFrj0BfrRycC04/7ojt9gWsMq6/x5M4J/hhUojWt1ObHywA0+7MgU2aldZEo2BkulIz8QPPFW8IgdjHzDyQ4uuSNB82vW+yP3qYU9eKFCuWeF90bHps7YTy3C/QSMWy+7EtjnPct+m1VWjXxOaCfXlb9bidfk5JSKwrR4CHr1E3eLfEqcIj0vbfPqEC05ZB8nOe0N+BgKCAS0WyOz+5uo5VQWR41l/WYAiuJqgEN6hoN3ZJZAgJqWW9hqttP5vVOE2BdSTGPUxlhwb1rTqzCZs68Dfk2A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(261009223027099003)(11063799006)(18002099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: un/HxjyPwbjAnkP79nFU2mI8CsZcHS256VnnW10bL9zUoT2h0RVn5m+cqVsZWSNVLJnRWK5G9n1p3VVVxMbLZNl6ePE+OIw6rmAbeHCRkYVS6fRv1riSm/FwG7ezww0ozBt8DMko+ZB6qBApXe/Y80WAkjVzWq6MDH0CbNMLKkqNVQiKDR116Gi9vtBKgxYH4UpAh75uXpd+5fUVtZ0k4iYvU51YyIQX/mnn6VvP6tznCeeFp80YHAZzSGMtYVUe2Yr3a1+Ovl0JcJUoJhPStrmhspE+y2Os/lopFSWGl/GxTzkhhriGJKMxMiqyLbwDehDTkCtv2N5iTboB3xjMJKlppEWZjjmweg7BmFzt8sKWGZO3yyFVHoephr/TrAWzsDJVXruDjrnUJI3zExjUBLbOdIdNFH9eHPwnQlcyDbZoXfwq8kYPW/z9BpXlErRv
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 02:10:14.5407 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4dab79d3-dfe6-4ae7-62c0-08df2a61736e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037BA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7826
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,63 +108,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-gfx_v7_0_sw_fini() and gfx_v8_0_sw_fini() already call
-amdgpu_gfx_rlc_fini(), which releases the RLC objects used by these
-IP blocks.
+The GFX, compute and SDMA branches of AMDGPU_INFO_UQ_FW_AREAS work out
+-EFAULT when the result can't be copied to userspace but return 0 all
+the same, so the caller goes on with a buffer that was never written.
 
-Remove the duplicated explicit frees of clear_state_obj and
-cp_table_obj.
+On navi31, querying any of the three into a read-only page returns 0,
+while e.g. AMDGPU_INFO_DEV_INFO returns -EFAULT for the same page.
 
-Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+Return the result of the copy.
+
+v2: return copy_to_user() ? -EFAULT : 0 directly (Christian)
+
+Fixes: 90c448fef312 ("drm/amdgpu: add new AMDGPU_INFO subquery for userq objects")
+Fixes: 44b69cf1d35c ("drm/amdgpu: Update AMDGPU_INFO_UQ_FW_AREAS query for compute")
+Fixes: 0030595c3e8b ("drm/amdgpu: Update AMDGPU_INFO_UQ_FW_AREAS query for sdma")
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
-v2:
-- Keep amdgpu_gfx_rlc_fini() and remove the explicit RLC object frees
-  as suggested by Alex Deucher.
-- Apply the same cleanup to gfx7.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 8 --------
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 9 ---------
- 2 files changed, 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 5fc19fefca81..7c56e36665c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4454,14 +4454,6 @@ static int gfx_v7_0_sw_fini(struct amdgpu_ip_block *ip_block)
- 	amdgpu_gfx_mqd_sw_fini(adev, 0);
- 	amdgpu_gfx_rlc_fini(adev);
- 	gfx_v7_0_mec_fini(adev);
--	amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
--				&adev->gfx.rlc.clear_state_gpu_addr,
--				(void **)&adev->gfx.rlc.cs_ptr);
--	if (adev->gfx.rlc.cp_table_size) {
--		amdgpu_bo_free_kernel(&adev->gfx.rlc.cp_table_obj,
--				&adev->gfx.rlc.cp_table_gpu_addr,
--				(void **)&adev->gfx.rlc.cp_table_ptr);
--	}
- 	gfx_v7_0_free_microcode(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 084d8517c194..54e3cd04e7ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1431,24 +1431,24 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 				return ret;
  
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 7f91186ef1d1..27fbb5b59645 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -2060,15 +2060,6 @@ static int gfx_v8_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ 			ret = copy_to_user(out, &meta_info,
+-						min((size_t)size, sizeof(meta_info))) ? -EFAULT : 0;
+-			return 0;
++					   min((size_t)size, sizeof(meta_info)));
++			return ret ? -EFAULT : 0;
+ 		case AMDGPU_HW_IP_COMPUTE:
+ 			ret = amdgpu_userq_metadata_info_compute(adev, info, &meta_info.compute);
+ 			if (ret)
+ 				return ret;
  
- 	gfx_v8_0_mec_fini(adev);
- 	amdgpu_gfx_rlc_fini(adev);
--	amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
--				&adev->gfx.rlc.clear_state_gpu_addr,
--				(void **)&adev->gfx.rlc.cs_ptr);
--	if ((adev->asic_type == CHIP_CARRIZO) ||
--	    (adev->asic_type == CHIP_STONEY)) {
--		amdgpu_bo_free_kernel(&adev->gfx.rlc.cp_table_obj,
--				&adev->gfx.rlc.cp_table_gpu_addr,
--				(void **)&adev->gfx.rlc.cp_table_ptr);
--	}
- 	gfx_v8_0_free_microcode(adev);
+ 			ret = copy_to_user(out, &meta_info,
+-						min((size_t)size, sizeof(meta_info))) ? -EFAULT : 0;
+-			return 0;
++					   min((size_t)size, sizeof(meta_info)));
++			return ret ? -EFAULT : 0;
+ 		case AMDGPU_HW_IP_DMA:
+ 			ret = amdgpu_userq_metadata_info_sdma(adev, info, &meta_info.sdma);
+ 			if (ret)
+ 				return ret;
  
- 	return 0;
+ 			ret = copy_to_user(out, &meta_info,
+-						min((size_t)size, sizeof(meta_info))) ? -EFAULT : 0;
+-			return 0;
++					   min((size_t)size, sizeof(meta_info)));
++			return ret ? -EFAULT : 0;
+ 		default:
+ 			return -EINVAL;
+ 		}
 -- 
-2.47.3
+2.50.1
 
