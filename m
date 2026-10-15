@@ -4,76 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20AA0CC6B38
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 19:30:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12D2BCC6B38
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 19:30:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A47E410E3AA;
-	Thu, 15 Oct 2026 19:30:12 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 956D910E291
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 19:30:06 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4a172eb31f0so50566315e9.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 12:30:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A54E110E5BA;
+	Thu, 15 Oct 2026 19:30:16 +0000 (UTC)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B410210E5BA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 19:30:10 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4a0e1b0681bso41219915e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 12:30:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792092605; x=1792697405; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=lzKagMLIVwwP3008dfpthjNFDgkHppRssPgEepbu2+s=;
- b=p/4w8gHC9Luh1mpAUnM5Jtj7slRAccI3hHu/UsRH3ZsplYR+ws1MtRM+fcu81/aeUI
- uYX2eqUEfMoQR5FO/tn/Z/gMPrR+uG3crm+Ewsq+hwW/YwU7ttEiOCKOFsbNAMiZpz/S
- xb82bYsRWbzNw53pHNCEBhAelSmfO1UczTCaWg/lTA2Ew8eKP1sym51hoEcSMnVdnrJe
- J9ceLQzOkAuFQLfoRbQNsaeAo6uBhl11rq31yT3s/BPWjPTTfK0PrGxgVrc2lb19D+vc
- 2F98wtZLev4VKTqpNd5w6j+m5dNYMGRl4OTQCEjB2hv3Ne5pAP9jVuebYBM6+PWGk4VE
- qekw==
+ d=gmail.com; s=20251104; t=1792092609; x=1792697409; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=tCA7tgHMTElt/DB21Y9IyITwJ975dZJFw/SRY6QoU68=;
+ b=HKxAEeoHYs3x6LeImLDlJdlT4WDp6fOk6dHcbniyjs8mi3XsCbPphnm/nxoBvEphH6
+ FwHMO9G1Oc7tY8JiW9Mn969hTPT5MEuOPFn0L41C2ZoAnqpV4pWaEL60eqwUi3KiGo4f
+ 5/APOCP6vtGN5KnKIsDmZ3cgk0M+8iE/7UyQDYUJcC+p5PfgWesE45QluDMjZOAKCaSS
+ d9B15UYu0BQi9aDB0zcbXPN/7eKHqX0vcA+LuDJYv5B4eFN2YOcKh7DqTwx+SuArYH54
+ CdcfNUi3vGrA3CrKwXFzC00pzZFPBNnDcPVdah1uP7dXA9wH8wzUFNpMh5z9WIab5qbZ
+ f6pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792092605; x=1792697405;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=lzKagMLIVwwP3008dfpthjNFDgkHppRssPgEepbu2+s=;
- b=MZlGNzWgiDMormJlDjXZa6aVQft+vYEQZiYMpMe2ZizlQ40sCIpG0tw/uUAAnytNbB
- wr7PTG/5of958e2AuyetUk33cPNkXUGNrB5tb1E5UrBB4kfg7T4aZ/HoAX/yQ7zb+iGM
- fLPGmVY2rbfiUoZPTYtCQgv04B0EtvIRmfJSfpGD8hmQSU88dUw3xIH/00HeuAFJFnbQ
- utrKYPgvfxowvehbvRvSBEiWenNWhUbrozhSiHVQhyI9UgukJRH8CMDT2XyuC05AuJmG
- zWohMnnhh//bQT+ir4jmlqiV45G/KCnZoWPcoEC9UFGbkaM+gm3GQnAhiLmyKzvB7RO3
- mscA==
-X-Gm-Message-State: AFq9FYLp3wA5yb2pKHcgMElJDrw4s1iXM5NwL0acI8tBR1AhFlPKPHP0
- V+nV6MAKoFRL0oZqXQw+7l98/kroBi6muzU1f8fo+7M6AKI7hMVJdPDlJt4dug==
-X-Gm-Gg: AYBFou2AWQOjxcwi4beqfLEGCmCeeJJ9IgrdQD7chKh82kdTmS5mIlAjYcyXeuRgPmG
- QRT/vH03nmiKyFrDas14frQYq2rf92G+14VpTaV9ft2aqLz1uHuf2CJwXK7s4aAduqLBNV/xhRE
- luxE/8iMrtMt+xSjoFVsczyG+S+EPGO9HHmtDcRml3fnQjWOeNxWuPaL1oCgPhHUzZR1c59yzC1
- di/O5qaf+R8I6DfxLe9p4q14bVRc92/OKCOY63jrntT8fHJ+47QaEcBOmqQ4Sjf3Ie+rIRfuRs1
- Ahv4tUjVBlpycX4sIX0uZRlbGTfMSzDJdJ3icn/tqqMSo/BdIDyXVsrOx5Lvgvg7TcSwSk33Pvm
- k7GjBf7dmB8iivSRCtTnnVwFo8l9JjDP2KNu+zuQg2y4J1j9m7lWQsOsiSq0HDJqNX6m7ZmXWHh
- 1b+5G0FZi3kKs7M58Fbk0qgraS4lIfhg/+vaqWgR6xwAFD8YI9j1eu0GPbQEneS7L6fOO83g5sg
- +kWa92Sa7v7fiO3zagIJVGt62E1H3R1LZheEu/qEu02OvSUhR5lWlCXe5fxc1bjpYpnDlMyAIYL
- BlFtL5/83ytipEKLzPCor+DdokVwQHo3SgWCBvd6pZCHcjejP8IprClpz9mZ6y9T+oBdQKSvnXc
- ILQtdbVDlJKvPkkUYja3mW5PfN8Qj8Xwv66abEbruQcUw/81dNh/qoV1Ltazo69JHey6RhDxBAf
- usEnMNFZkPCmrQTj3b
-X-Received: by 2002:a05:600c:1908:b0:49f:ce73:5e94 with SMTP id
- 5b1f17b1804b1-4a18e4dd018mr395769455e9.34.1792092604661; 
- Thu, 15 Oct 2026 12:30:04 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1792092609; x=1792697409;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=tCA7tgHMTElt/DB21Y9IyITwJ975dZJFw/SRY6QoU68=;
+ b=aTWf1BZGSRKFK+L4LYrPcyHwjqSyvUi/wqt7BezFI+rkl7QOarVsCktuhr0zcZn6hp
+ jk2L65RAfJlSQddGHSwzmWoSyuRRBJr6d7Jt1QLvdvE7ZGYDz3Y03fCBJhktYehqXQMl
+ dChDZ8XRatDUI5GYXBJ4X6wr1aEj0Fmce7+sYkgprBFOIzrkX7E2s0DRg/XcKKy+0yRu
+ btSdEe0mZUAOB61MdfG0MoOGlAIV+mXy6MviJP7PNX1utxfzADH+BCyOTBBaRk3DTk/T
+ jqqnCrvvYwgHStQf48VjlaraIPwjeL9wT3iqhwdJQgLe61WRRiX95BA3GCCDVovfnSDT
+ /dGw==
+X-Gm-Message-State: AFq9FYLKA3lO+2MsYQPLuFcGfqW4yY1kS9Q6shSJXKBIRvrBsCubFTsI
+ 0hstzpG9viIsflu24C9496pf3G6QhBzXoQ3h/kJfhNQQGP0xzExflhNs2J25Rg==
+X-Gm-Gg: AYBFou3fGh9VSuMOxXzf7egcMxg6Bo3nfc9sQ5F/8srH66vzan9aDRt2YOS+X9hjUyv
+ ldjGy6GbOIBa0dP+SbPZKW/Qco5H7SR3FeZEmp9D+A0yzGZyg2ZWSdpjA/6FFag19fe7pS1F3Yz
+ j2QwPB6/rUr4bQd/E9zOdAeA/WUWGTO/UYrdryt4S+1ZF7FY3pZ+TEnOG4RyXchdMqWCc5ch3LH
+ FzeDlXMd/bR7Hq2qys2jzkr5pK4PKmNDO1jznz49UFyMcavbt9qxWkRiJz/UyWOSzProKh7kc09
+ KcHqY7vjyf/uaszByw/VPq7zoYrMbvp7cKjyJ8+plPkSn2xwlYm95qlFCygFAwwilBlkPtf5KVk
+ +WU4kQPa2Fs2fjhnTSn+BLr9yh1QFxez8pkDwYD+0o/WmDQFQb3r8q+mGuJU/la2JOD56FVTdHv
+ X6Qyh+iT1Sd0/N+cCpUvHpvPi8lOdRdwS/oerpYcWBZFSVFmvUfF94vxDuycmz411CHQn2X4/i/
+ Lhuu7hW2lSZu+bLW7xRsq3GfQ28EH1tU39KcciyRKAo3Urlt/ssYjjO2alnlcgaWIHN1n7oJDq+
+ fGqZZr+DLV5H6FSImD5PiThlzwexWB1g3+4cvrBr5wCKR8QLaEesm+3FnWgwCYnZU5MpQaqSUUT
+ XKvyb/e52c4gZVoPej/D8aYydhFKX6N7L0iV2rZLCKp8Pj10oz/fBhIXdYymHuejOYl5W093oNe
+ aWTd9aMmOZ9clJsx8=
+X-Received: by 2002:a05:600c:19cf:b0:4a1:7b56:1151 with SMTP id
+ 5b1f17b1804b1-4a18e48f00dmr399823055e9.18.1792092609022; 
+ Thu, 15 Oct 2026 12:30:09 -0700 (PDT)
 Received: from localhost.localdomain
  ([2a0d:e487:41be:7420:c1d9:bb43:318e:b925])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1c8a9ea3bsm956705e9.0.2026.10.15.12.30.03
+ 5b1f17b1804b1-4a1bd9a88bbsm94694375e9.3.2026.10.15.12.30.08
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 15 Oct 2026 12:30:04 -0700 (PDT)
+ Thu, 15 Oct 2026 12:30:08 -0700 (PDT)
 From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com,
-	felix.kuehling@amd.com
-Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
- guard with drm_dev_enter
-Date: Thu, 15 Oct 2026 21:30:02 +0200
-Message-ID: <20261015193002.86034-1-olivier.kaloudoff@gmail.com>
+Cc: christian.koenig@amd.com, felix.kuehling@amd.com,
+ alexander.deucher@amd.com, xiaogang.chen@amd.com,
+ Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Subject: [PATCH v6 0/3] drm/amdkfd: fix wedged teardown on surprise removal
+Date: Thu, 15 Oct 2026 21:30:04 +0200
+Message-ID: <20261015193007.86066-1-olivier.kaloudoff@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <5028b598-b039-46b3-b4a5-9563ab0a252e@amd.com>
-References: 
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -91,54 +87,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+On surprise removal of a GPU behind Thunderbolt (MI50, PCIe slot
+power cut), the KFD teardown path wedges the host:
 
-> Yeah and you need to fix the fence orphaning and *NOT* the wait!
+- the killed KFD process faults on its own SVM ranges during exit /
+  coredump (SIGBUS -> get_dump_page -> do_swap_page ->
+  svm_migrate_to_ram), submits SDMA work to an already-killed
+  drm_sched entity, and waits uninterruptibly on a fence that can
+  never signal;
+- the dying task holds svms->lock, which wedges
+  svm_range_restore_work() and prevents kfd_processes_count from
+  draining;
+- kgd2kfd_teardown_processes() therefore spins forever in
+  cond_resched() while holding the pciehp removal thread, producing
+  soft-lockup and hung-task splats.
 
-Agreed — found the exact orphan site. drm_sched_entity_push_job()
-pushes the job onto entity->job_queue first, then
-drm_sched_rq_add_entity() sees entity->stopped (under entity->lock)
-and returns NULL: the scheduler is never woken, the job strands on
-the spsc queue, and its fence never signals. In our repro the dying
-process's fault path submits the migration job on its own killed
-entity — it's the process-kill race, not a device-unplug race at
-all, which is why drm_dev_enter() doesn't cover it.
+This series:
 
-This is the same failure Tong Liu reported in August 2025 (task
-hang after job submission during process kill); that fix was
-rejected for checking entity->stopped without the lock. The clean
-fix is not to pre-check but to handle the NULL return while still
-under entity->lock: drain the queue / schedule the kill-jobs work
-so each stranded job's finished fence completes with -ESRCH.
+1. tears KFD processes down in amdgpu_device_fini_hw() *before*
+   amdgpu_amdkfd_device_fini_sw() frees kfd.dev on disconnect, so the
+   drain happens while kfd.dev is still valid, and guards the second
+   kgd2kfd_teardown_processes() call against kfd.dev already being
+   gone;
 
-> Blocking for all fences is correct shutdown order.
+2. makes the userptr and SVM range restore workers stop rescheduling
+   themselves on -ENODEV;
 
-Agreed. v7 drops the timeout entirely — unbounded wait restored.
-With fences guaranteed to signal, the copy_done error path becomes
-genuinely reachable via the fence's error status, so the error
-propagation and migrate->dst rollback Felix asked for stay — now
-on a real error path instead of a timeout.
+3. guards the hardware-accessing SVM migration sections with
+   drm_dev_enter()/drm_dev_exit() and bounds the job fence wait with
+   AMDGPU_FENCE_JIFFIES_TIMEOUT, so a migration cannot race with
+   unplug and a fence on a dead device cannot stall the critical
+   section or the faulting task indefinitely. A failed copy now also
+   rolls back migrate->dst and propagates the error instead of
+   completing as a successful migration.
 
-v7 is now implemented and tested on this machine (7.3.0-rc5 +
-p1/p2 teardown+restore-stop, sched orphan fix, KFD fence-error
-rework). Hot-unplug test: svmhog2 mid-migration + a second KFD
-process, then Thunderbolt deauthorize. With only the sched fix
-the host still wedges — the kill-jobs drain prevents the orphan,
-but the unplug path additionally needs the KFD teardown ordering
-(processes torn down before device early-fini) and the restore
-worker stopping on -ENODEV. With the full stack: fences complete
-with error instead of orphaning, both KFD processes get SIGBUS
-and reap cleanly, device tears down, host stays alive, and
-re-authorizing gives a clean re-enumeration. So your direction
-was right — the wait was never the bug — but the orphan fix is
-necessary rather than sufficient for unplug.
+Verified on MI50 behind Thunderbolt (2 GB SVM workload, PCIe slot
+power cut): the workload takes SIGBUS, coredump completes,
+kfd_processes_count drains in ~9s, pciehp removal finishes without
+warnings, and the device re-enumerates cleanly on slot re-power.
+Previously the same repro wedged the host every time.
 
-One question on layering: the push-to-killed-entity fix belongs to
-drm/sched, which is dri-devel/drm-misc territory — do you want it
-as a standalone patch there, or kept in this series? I can also
-guard the KFD submit side so it doesn't push to a stopped entity
-in the first place, but the sched-side drain is the airtight fix
-since entity kill can always race a locked pre-check.
+Changes in v6:
+- patch 3: check svm_migrate_copy_done() return in both callers; on
+  failure release dst pages, clear migrate->dst before finalize, and
+  propagate the error (Felix Kuehling)
+- patch 3: dropped the dead ret < 0 branch (Christian König)
 
-Regards,
-  Olivier
+Changes in v5:
+- patch 3: dropped the drm_dev_is_unplugged() and
+  pci_dev_is_disconnected() checks entirely; drm_dev_enter()/exit()
+  plus the bounded fence wait is sufficient (Felix Kuehling)
+
+Changes in v4:
+- patch 3: AMDGPU_FENCE_JIFFIES_TIMEOUT instead of an open-coded 10s;
+  drm_dev_enter()/exit() guarding the whole migration section
+  including the bounded wait (Felix Kuehling)
+- patch 2: folded in the svm_range_restore_work() -ENODEV change;
+  fixed a latent uninitialized ret read on the evicted_bos-mismatch
+  and confirm_valid-WARN paths
+
+Changes in v3:
+- patch 1: NULL guard for the second teardown call (Christian König)
+- patch 3: new, fail fast on gone device in SVM migration paths
+
+Changes in v2:
+- patch 1: drain before fini_sw instead of bounding the wait
+  (Christian König)
+- patch 2: new, stop restore retries on unplug
+
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+
+Olivier Kaloudoff (3):
+  drm/amdkfd: tear down KFD processes before early fini_sw on disconnect
+  drm/amdkfd: stop restore retries on device unplug
+  drm/amdkfd: bound SVM migration fence wait and guard with drm_dev_enter
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |  5 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c      | 29 ++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c           |  9 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c          | 97 ++++++++++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c              |  2 +-
+ 5 files changed, 113 insertions(+), 29 deletions(-)
+
+-- 
+2.47.3
