@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 398AACC6B3C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6F6BCC6B3D
 	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 12:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAE0710EB92;
-	Thu, 15 Oct 2026 12:56:29 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 437AF10EB9C
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 09:58:22 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-6ae305e3bd9so7390412a12.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 02:58:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 936E410EBAD;
+	Thu, 15 Oct 2026 12:56:30 +0000 (UTC)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59D5C10EBBB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 09:58:10 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-6b2232d8ef5so1192014a12.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 02:58:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792058301; x=1792663101; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792058289; x=1792663089; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=0BT3ak9vMatktLwT+0i2Bx2HTKVL1fUGlR0dbooOuoI=;
- b=bFzry+wKS7B+K0L/4VUrS0sM8+tu3mn1E7qDHx5XDAHcC8luLKiH6tlLMid/e4HxAw
- ede9cQTu94/KKZmiFKLyatDTttE/h2egzrGmQR05ik49SYCQGqu5eSlgimffjdC5YPMh
- 2mth7YZq5ApasZQKKsIJ+yKnc02k1Qj2R+agyEl90eKjPnM9geG5svBsnNk7iFj6FKXe
- 0YOcsYEafimSj8NoJozHDbKeuapCe2mXcmPUBzUUUZCHPJFYyGZjGDdzxuG7iZTB4ul8
- UfISX+p38UwsjdSXjbiCf6CKDLK5ij3DmGFq3ArXZXdE04gIpWRFmk2LUENlO0jH74vD
- Yr+w==
+ bh=9AM0Gv89/jti2Z4oloYI+pxfIXugphtFed7imqnHYeQ=;
+ b=pzcCpY0SO2Tg1aWqGB8J/iSsdAnXmuH+YlRekAYGKuOCUw71bX2MSQPzpgN1XHS2pS
+ 5u+IW9oEiddZa+0e8o5kowAghlka1rWVm8TK869SelHg6LdAxaOsu2qvQKz437TlT5BK
+ tOIeO41a6GzTAe3pkKxu9DSAbGj2MwSerqAExnQrm/LZUMLqX2b0/E1CB1hB1XLXtwIz
+ lBFf1ooMuV3R/omGDLymBeA8YZFuOkldZdy7hJW1a3JVJKjUR4TYoSQQChNu+T4O1GIg
+ YhMSzbS6svlYEJ56OiwN4DDmFHgS9rCcIuk7McMIw8bI7558ulivxEnhosm7y8Ljy0oK
+ W9Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792058301; x=1792663101;
+ d=1e100.net; s=20260707; t=1792058289; x=1792663089;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=0BT3ak9vMatktLwT+0i2Bx2HTKVL1fUGlR0dbooOuoI=;
- b=W+HpGLFEPRtrfYuqOAvjQBCkQFEa26kQ/FSEFjgXGf4K3hCJEzh9k6V0/49Ok8qn26
- TRKBfAHnmU+f1xJt/Ubdy+6EkV/j1B/VdUwEBVCVQHLh7zicU5ygH8f2D35ty4QrpgBN
- D4SKKRUhUcgKheDVZudXtBYoH+o8JDvxiq5upL/ctN0m+eBv8YHqPsNWkHBzsSWm3LWu
- gZYxzz5Ddu55Hl1HbHEkP0pa97PdPZQoQ57C9z4I71QZRxCu4uNdPxkACQhPY1D/x3vr
- hqs6w0E7V5VpCwLaDwBgnTHActHAiw8JlVAb+O02VOq5sP6IacwuCBxAYO5/sg8D23Gx
- 9gSw==
-X-Gm-Message-State: AFq9FYI7Kg3xEhhJvNRfBvAkm+HSnoCF7KKWUDXlvFRg4OEVZcfJRVbc
- Z6UFX1LPkVJkf5cvke5ldc5HnnzihiowooSvsGcvC0k7vvtoIEbvuFpt1Tuuur3XLMk=
-X-Gm-Gg: AYBFou1nlx1qo1FMwup6uWM6R3K/dO2pDumor7DexIRplWNbxouESTKPpH+zJJwCJMK
- E53E5Lm93dq0vzX6Kh17aZEFlL3HI+0OLetaAmndqK1P1I3jnhw9wocWUGn9slMzhto+uZ4Ew+s
- Kts30zSWNxWmsBxPahIfiiBVeRAkH5F6uXMnIhDd3+SsVKbbGVQ6darjqrrHrhcFWuO6OaG2iyv
- SpURJArF425wGa3wE7i1oqSCcYWSvPsyl4FjQYx/+Tf+1URVxq8AEYggjm5+ziN1y8rPJ0sIMm3
- 5j5qQ9TusGPYD3yDPO7yWkxv+xSpWzhtGznEcQ3IAxRjgwI8dO/yFuelUc/YMRxnVF2jKirN15k
- DWH1Wbq9HoSEwRRxFZfzLdmXuiwMxaeyqZF/dCtm3oFAsQFz/ZV4WOHN14y3IhFTGrCz88SMtqd
- ez+2YVjbj86+VbjJqLz+/lUZcoeQlVd7duYrADAXvtMdKtYmG0DX/7SyLBZxk2YrOlOr+NttpyV
- av16bMFQertJq5daK0P
-X-Received: by 2002:a05:6402:321d:b0:6aa:f198:4e39 with SMTP id
- 4fb4d7f45d1cf-6b17c294025mr15477544a12.44.1792058300579; 
- Thu, 15 Oct 2026 02:58:20 -0700 (PDT)
+ bh=9AM0Gv89/jti2Z4oloYI+pxfIXugphtFed7imqnHYeQ=;
+ b=NuexTlGwanisvJDKt6GhPY02xpk46Ml1hpPFR5Cv90xWVX63bNyBRY7r2aeCwXy+if
+ sk/LKvM0n3EwKQGpNK2tD1KrSUXLHx0LAoIyb43q6zKMWLKVz1E5rHFxl/zEC0MJo6c+
+ So+ZRROQunMlFzeGCqXm/ljDg11iGnkIQXXpFtW16S2/OSZepahrr5VZZYNWcWbJhiJo
+ beCEjTqpFehSYSIL6QXs4WoADAAc+Ddm47+/U9TU2stunn/m2UvOcmQaoHVmcJLoF/g8
+ H8J564GxVwq8Fd0/0LfKi9/EUi3DVq+ZDa8/id8FfoAy7DDHO6ZFxr843BH6OX5ZXvH7
+ VrRg==
+X-Gm-Message-State: AFq9FYJ0VYpFg92Hg4l+zbUFElaIEW8rErmYX6L06+4ZBwpYSaKr6rNw
+ k1ETUh3lxvk1zDZf+JPr8SzahILa4ZTOD8jlQaL5psoCyiw4AROxi4LpUx2TGVZZyro=
+X-Gm-Gg: AYBFou2dMAVswFZMa68EtGUJpjMBBe4hO9VEaMAM3KOvRs8+jY5frJLHvns5Re8PU/B
+ B0G7ivkaqwD/xsw5k2c4Ckdmemdp9o4WU2dS/h9tgCsNwM9AkwzaE3RlqteFPXnn+UnRvoWrEDh
+ zSFgu1oZSdknKleFOlzP0AWY2qbuJKzogRyCI4RArItaOoSDC0rMSOteAqxrwKaC3Xe7ek6LDrL
+ SVhfT7Wekx+R1PxvR70rQc0KsOQ3Xb9MqhtNvTzKOMdy6Gj8ttkPDijyCIiZCl8gBBJI3n2GVdz
+ fovW+RrmTeno5Px9lrOf5qJJAmUJClXExhW0WwFkt5WUT/xwSMVwXXYbInWPlkCHW2RMwlIeNrd
+ xBovOM9aU+T8MQYP0r+cW0VGOfQ8cAru7oKCxAqbG0opLKW4/9IPa1ZdsvGD73FiPGhr842trgH
+ 6fAO9AGRGnm+Vdgr43K5wND3O10QN4OVE0nA+mQuIJLDbgqXhCtGh+QIqA8OW0zCjIVLai+wKDt
+ OtXuLPabdZ43Ofve7xq
+X-Received: by 2002:a05:6402:c51a:10b0:6b1:801e:e01b with SMTP id
+ 4fb4d7f45d1cf-6b1801ee296mr10367300a12.20.1792058288503; 
+ Thu, 15 Oct 2026 02:58:08 -0700 (PDT)
 Received: from mbp-2015 (46.205.244.1.static.t-mobile.pl. [46.205.244.1])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b2038aa1aesm2182227a12.32.2026.10.15.02.58.19
+ 4fb4d7f45d1cf-6b2038aa1aesm2182227a12.32.2026.10.15.02.58.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2026 02:58:19 -0700 (PDT)
+ Thu, 15 Oct 2026 02:58:06 -0700 (PDT)
 From: Maciej Kucharek <qchcio@gmail.com>
 To: amd-gfx@lists.freedesktop.org,
 	alexander.deucher@amd.com
 Cc: christian.koenig@amd.com, Maciej Kucharek <qchcio@gmail.com>,
  stable@vger.kernel.org
-Subject: [PATCH v2 2/3] drm/amdgpu: reset CIK ASIC on Apple boards with VRAM
- at 0
-Date: Thu, 15 Oct 2026 11:57:12 +0200
-Message-ID: <20261015095713.20560-3-qchcio@gmail.com>
+Subject: [PATCH v2 1/3] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
+Date: Thu, 15 Oct 2026 11:57:11 +0200
+Message-ID: <20261015095713.20560-2-qchcio@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261015095713.20560-1-qchcio@gmail.com>
 References: <BN9PR12MB514681E5EDA768CB4497EACFF79D2@BN9PR12MB5146.namprd12.prod.outlook.com>
@@ -89,40 +88,59 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On MacBookPros with switchable graphics, the firmware puts VRAM at MC
-address 0 when the iGPU is enabled.  A later post (S3 resume, GPU
-reset) moves VRAM back to the VBIOS default.  The SI fix resets and
-posts the ASIC at load, so the driver uses the VBIOS layout from the
-start:
+address 0 when the iGPU is enabled.  The EFI stub enables the iGPU on
+these machines through apple_set_os().  On a MacBookPro11,5 (Radeon R9
+M370X, 1002:6821, subsystem 106b:0149), the driver adopts this layout
+at init:
 
-  "drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0"
+  MC_VM_FB_LOCATION=0x007f0000, HDP_NONSURFACE_BASE=0
+  VRAM at 0x0-0x7fffffff, GART table at 0x1400000
 
-No MacBookPro has a CIK GPU, and no affected CIK board is known.  Add
-the same test to cik_need_reset_on_init(), so that SI, CIK and VI
-handle this firmware layout in the same way.  gmc_v7_0 reads
-MC_VM_FB_LOCATION once at init and does not reprogram it.  A CIK board
-with VRAM at 0 therefore has the same problem as the SI boards.
+The driver posts the ASIC again on S3 resume and after a GPU reset.
+The VBIOS asic_init table then moves VRAM back to the VBIOS default:
 
-After the reset, FB_BASE is not 0, so the new test does not fire again
-on a module reload.
+  MC_VM_FB_LOCATION=0xf47ff400, HDP_NONSURFACE_BASE=0xf4000000
 
-Only compile-tested.
+gmc_v6_0 does not reprogram these registers.  The GART table is then
+no longer in VRAM, and the gfx ring test times out:
 
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+  amdgpu: ring gfx test failed (-110)
+  amdgpu: resume of IP block <gfx_v6_0> failed -110
+
+Reset and post the ASIC at driver load on Apple boards with VRAM at 0.
+The driver then uses the VBIOS layout (VRAM at 0xf400000000) from the
+start, and later posts keep it.  After the reset, FB_BASE is not 0, so
+a module reload does not reset the ASIC again.
+
+The test is the same one that commit c7f44ec5c4ec ("drm/amdgpu: make
+Mac FB workaround generic") uses: an Apple subsystem vendor and VRAM at
+0.  The VI quirk for the MacBookPro14,3 resets at load for the same
+reason:
+
+  commit a22e5e4f2ebb ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
+
+Other Apple SI boards get the same reset if FB_BASE reads 0 at load.
+
+Tested on a MacBookPro11,5 with 7.2.5 and this patch: the panel comes
+up at boot, and 4 of 4 deep S3 cycles resume.  Without the patch, S3
+resume fails every time.  The GPU reset path is not tested.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5978
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/cik.c | 10 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/si.c | 10 ++++++++++
  1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index d29991a4a..e1029239b 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -1927,6 +1927,16 @@ static bool cik_need_reset_on_init(struct amdgpu_device *adev)
- {
- 	u32 clock_cntl, pc;
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index 0adfd4b10..e5e590425 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1512,6 +1512,16 @@ static void si_invalidate_hdp(struct amdgpu_device *adev,
  
+ static bool si_need_reset_on_init(struct amdgpu_device *adev)
+ {
 +	/*
 +	 * MacBookPros with switchable graphics put VRAM at 0 when the iGPU
 +	 * is enabled.  Any later post (S3 resume, GPU reset) moves it back to
@@ -133,8 +151,8 @@ index d29991a4a..e1029239b 100644
 +	    !(RREG32(mmMC_VM_FB_LOCATION) & MC_VM_FB_LOCATION__FB_BASE_MASK))
 +		return true;
 +
- 	if (adev->flags & AMD_IS_APU)
- 		return false;
+ 	return false;
+ }
  
 -- 
 2.55.0
