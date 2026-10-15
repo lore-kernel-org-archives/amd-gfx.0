@@ -4,91 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9EEECC6B33
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 13:31:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AB27CC6B34
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 13:42:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD28110EBD8;
-	Thu, 15 Oct 2026 13:31:43 +0000 (UTC)
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
- [74.125.82.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BA7E10EBD8
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 13:31:37 +0000 (UTC)
-Received: by mail-dy1-f173.google.com with SMTP id
- 5a478bee46e88-3584f70a5aaso695308eec.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 06:31:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792071096; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B634510E58D;
+	Thu, 15 Oct 2026 13:42:05 +0000 (UTC)
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
+ [209.85.221.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91B0510E58D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 13:41:59 +0000 (UTC)
+Received: by mail-vk1-f176.google.com with SMTP id
+ 71dfb90a1353d-5db19e2ef99so288719e0c.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 06:41:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792071718; cv=none;
  d=google.com; s=arc-20260327;
- b=jumkECnGK/K+jQ0l5gkgACBix5u8ZwwjYVDcpB/3KykYdxdwVmu3fgoPDsbFLrsIOf
- 11CLM1iwaAqlzZWRlqGfQ33ApxixwwPtFvwlTtifqb6jVmwHVyYbzu00vnlk9qrGESlJ
- +2ddiTTOJwa4bXlfyQov9sECciJlT6b/FUwdzvxf9inaF2syJkqnR2K13QUaQEUzEXLL
- u0JMGGCCQKGArKooi22OJx5iN0bHB5da4fpoLqiHWM1Dx8ouEapLb1ceoGGQr0R0pFPg
- ZSdSlAR7IfP1dfCwoxwlWsUoemrxxkAZBhhJ5cxx3T2gxTEqJE7MTpYnhRIS6Y7avdit
- 3cwQ==
+ b=LFn2Dj4lXu40vawUCgxcxJaLD+rSoaNpn+NtBCShMg5wOUcJTOYcH42sje0XfsR23V
+ ogezi9NmUVdvi4xn/7x/1WLW0OTv966sqNWC8B41VD1ivyvWn0PXwzfiOH/Ibx+H1MOW
+ iaKJC/4gxQyxhSoQ4AP1Q0ffaO4AxwpDgJZVol0RGPMp7aqwKBrveJ8RJEQ3t4XAFdo4
+ 9qM0JiHbF0O2wPFfuMmSpCpTNuf2s6o5Kfv++by61qeqyWtcMiiUTGC23fFInDD7WBRa
+ YCXwZ6nOew5hpwKp3BrxiYxCjVn6YxAtOgjovZipdR4LI/sBxa6tt51NiGZBJaSJw7fb
+ DHLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=QApmXxg7MwJF7cN9FykhLPyexb+qvhQ5FPRBd4FC7OA=;
- fh=k9l6oN6xMzmOSjS1+OWxxeKdJ9uyoG4HL4j2ohlEZ/8=;
- b=n18El6zMTJ3GAwDGRUHDkviWbq3esLplrSUSdiHdmRQoH56owkU3bqfVg7jnLlRBSY
- QesaNSq1hrCibaffjzE4T/ruZIYq5KN5UXlCDjutm1yvBK/hz2dU/LyVNLppKmpv4MjI
- z/MYAqrOuyzOFuh3iMvLL/CSCAzdrvS//YmX7BslSTu9tTJ4iboOwiNv5EvdLwx+uAgu
- pYDXSv6mqJaWRkLXA8mjQzpB+O6ARTPI/QnmO44huQJXvkbyOvu+0PTSppLK7ImyaY1q
- GmOdneBNeV9gGKR8rbYJDgLLf1jWiboxGE+btMZ0tjmi4RvN1S6K8OUixgKaacDuONsQ
- aXqg==; darn=lists.freedesktop.org
+ bh=7JRsVCKEIXgABZie+RiSpAHxPH1n0cROPAtHKZ0a+RA=;
+ fh=6DY1ujrfiPWzga9b+/IrkFGz5yG61fk86u1jLNmUn+A=;
+ b=cM/JqSQJfanny5leAB4kQ1m+A075iXOZxYy0pSTOUhBEizze8UnGAT6Zu1tH652Msa
+ BFdywYvnsM1KzSqXxcdD8toc2iX+SgAlk06k/55tgxdoLIwm06aYmoKDuu3jkkV/oE77
+ nXuWQOlQk+5CkAJi1sx3mjpDDEnO4+O2LPbSWYY3fsOLqG+IYkXxarjhW52iBsgSv13B
+ uZabWa5HzFKj7Y+n4bua/q/Gd1lLD3PvjKH8GbJ8cva5cCA8LpezHXne3wMpcvD2cLXu
+ EbqGh55sYPyJcs0B0f15rR8LGnXQ5VE0I8QlC5pxNguQSVYS06X41O66gb9yO9e4zKWq
+ ly5A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792071096; x=1792675896; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792071718; x=1792676518; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=QApmXxg7MwJF7cN9FykhLPyexb+qvhQ5FPRBd4FC7OA=;
- b=auOYTnASjZK9qQb3xPCc5bpoc9IbvdmIrDFIv0IpAJNm41XkFQDz2oNMryt+8iFRul
- XidkWilgtrg3SsowNQES/7M0PONPoMX5cFjpluZ1EGBeGe6mNNhPh+YhDNWBmGKxi7Fu
- 6tDbjQOF8fwyV0OTuFnDs4KA2shBFaPJaponDTlTu8APzH7cQljqSIvD3hkqdcXvwvsE
- 2q3HM2diusMyyOyYCPnZPJXQcVNMSW369wNcS6Y78MVYdLNEme8U2f9TDEkHWNPcSI2j
- uP+mDwohZro9aV18j1Pmbx3ini3IiKILOaGCbYRy8oJjEUMgxBqYYvv1kO9If0mBSMwx
- yUSQ==
+ bh=7JRsVCKEIXgABZie+RiSpAHxPH1n0cROPAtHKZ0a+RA=;
+ b=s/gMOyhEHDnWHWKZuKh9LQD5wq4EC6sQ9LGsuDNdr6zfjzEmwcka6o/03Bj1vVQwNE
+ r+JHCHcSIquBffP8MkF8Dt2GixLwrjzqkVQxOGTwAlFgV+RN/xjRVJzmtAE2aOQm7li7
+ 4HXACiUuFYnBxuOm+4wGTO11Ru8BwH/jg1jqYQpWLwWEsa499n20msLUlZq7PdvIUZ5Z
+ oHaIhqzyHQZdXVmM9MlkkR+DLMzvZxOh2Aw6upT6CUjNeoaYUiBWMXJbDTMe04TamPBa
+ 60ZBLWCsqWson2vgiubWFx1Sg2u774rUirR5JkG8zklU80nK6g/JC+NQZScXWH4hoEhC
+ KyHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792071096; x=1792675896;
+ d=1e100.net; s=20260707; t=1792071718; x=1792676518;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=QApmXxg7MwJF7cN9FykhLPyexb+qvhQ5FPRBd4FC7OA=;
- b=coEXD55n4XrlCfx+TAprrFMyetKZfWyA2tfZzkFuZE+w4LYq1u9eWrm6lh9daDmKpw
- FERqLtg7UM1Pcat11v+wF/SLuOwKVCWd7sPjI3Ca4Pt9T7nvm28JOLHtmWTfSJuRObGW
- QZe9u7W5xsjTy/ZZKaCOXoS4aHCAGpkYKsO2EiqPT4ALDYcRlW9IJJdAc0ZckTzl0Qq5
- kBvVRiNriKa0qTwJEoRvoEfSqCYF/ZXBQL4Fn98ewOzXWzA7oZviStGdOR8TzcMyNpED
- QQAZH0dPpY2ckbYhqBP6vGTItRx7LK4xBjYaSBS2gcJ1pDK7GFpwShiWLMGWeFyc8AJZ
- 5paQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwQlcouJoOoANLvBo2PkAWg3Xzo4ts5E88Inkyxp6/g8SYCp+Rfi4JrH5LX96RUJaxpkb2BBty3@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJp7DrHG1UKWjB6LJpjoDEhqRqBL0sbKoNft3gxa6TeuIZpwdNj
- zTTD/tbl7zF+/NzDuOxHPiYZOPbLPQi4Ku+lnsNgRdLt4+NnQ6WCkQyxwv+fsUoMgTqAGm9yeOz
- zIj7xl4V4fp6/Vqj2o5FgKvFNr2aUIDc=
-X-Gm-Gg: AYBFou0uQXqVPtlpMeVxcGomn3HHVk99gEqWMTscyJ/0NtoN2/kf/pzIib5PnvbycOH
- UBsAxf8Alob8RUVnHP2NXXGtvLNnSVm2xipWSDa/mygxwG7b+4HwGBs+d0sgFRPOAJQKrnAdHKg
- kW/QPficeQWB9Gf3q01K0qudQ1kBjUFEkfawZDWT8oXM2o+ikQ8swfGKvqT+KbEgTtQSksc++28
- iWiuwZ6VC0/dbDjZxVksTHssWU2Zj4mh5ebprAttCpAsSGeJzkEeZMNakD1WMTsxyTd5hTJAJbB
- 03GDFW+khEQxDKYwdj4t5CiiLGOCj6RABuNBjuj+s5ejSzxYUvnRb1Vq5utEpkuBVtaa9XDhfds
- kIFoyQpac5wni7aYEckR0165uEA+pcrhub0xIYIjrtw==
-X-Received: by 2002:a05:7023:a5b:10b0:147:d430:7322 with SMTP id
- a92af1059eb24-16a5bc5bd84mr37714816c88.1.1792071096077; Thu, 15 Oct 2026
- 06:31:36 -0700 (PDT)
+ bh=7JRsVCKEIXgABZie+RiSpAHxPH1n0cROPAtHKZ0a+RA=;
+ b=BXs7ylSSDf9xQbNQJe+ofPrKpJrZEZKq9ZZT540MVYW1uQ6rhZAFd7Aqef9UFVME/k
+ MHmajr1A3Gc8g+nlDaQrjyLKuiVzYyhEIEjK155rIC0bvGgTMBSWJ4hreNNJ4TRmYpUV
+ SKsqJYe0eW0JzmNLE1zkwaspWDqmr3s775NFC3EDjFEDUUlPeKVWRese5pv54UH2sDzk
+ RwSF6mybfubi1fn5jWLZop/tzF/tmLCFgVPi+v/Wfv0J7g86neuFisK86jBHVLWLxXd5
+ 1baoFjqpKk5CKdI1h32yNc0Pil9fR7E+//Uz+6huaJqG7nqCo1tJZxxzlMynHWmCrdzp
+ ENWA==
+X-Gm-Message-State: AFq9FYIAVZRRAMtuA2cLcuy+ICmiZzVsQay2Nkd1do8mozXtNu1bBG+N
+ 2xI/FbrcHqIoZKE7VAAQZ3WxgddILaBJ1gcT5i2UrAMMVbUt8jZM517PoubCVjAaGLzT+H4i+CQ
+ hPlS/BYobcpCFu8fX8Am+KZTftiRMv9VpMblKuS0=
+X-Gm-Gg: AYBFou1Mvo1NVzm7QzGo0AX5TniRE/T0aJ3zpQ4WBZzrYMVl6ey3LKQq+N8H+q47ljR
+ WqBxMGqKUH4RYyW+20W2fEtBXHRrdgvPmiqUTR9ryZuhqxQvclhbvMAfsgQc8bCv7VYdYZDaxoq
+ O5azuGuNyMqPKrWEIsdbwOiRrgfqoZB1bMSJMTLE1aU6g7z7MVIcrpXQHDCV641wOanv8NFGmFC
+ 6PFGPechheTAGp73q/hGs414MCb16GyCDCNYoWh1TpMs35JIIblR9kK03UWW2L59n9oWz7V4+ki
+ COexR3YneYIiAmlAOqCgcDzP9j9Av8SAl7sjkwFHTWi/g6vQqjer7jBeR/1qcEnxJUKYAJs1njV
+ O8DBJdhbOHkJcgD7eEDSoA4FvmTbo0mt1CgEfG0MF/g==
+X-Received: by 2002:a05:6122:4a52:20b0:5cf:69d4:10ea with SMTP id
+ 71dfb90a1353d-5e92e15cddcmr3625398e0c.0.1792071717583; Thu, 15 Oct 2026
+ 06:41:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <CADnq5_O=kVgSZoqe_ZVQDmVTWNb+OZ2XhmVx=0CPQQfCaf2idg@mail.gmail.com>
- <20261015002344.98683-1-williandossantosdeoliveira287@gmail.com>
-In-Reply-To: <20261015002344.98683-1-williandossantosdeoliveira287@gmail.com>
+References: <20261014133356.3002808-1-luigi.lauro@gmail.com>
+In-Reply-To: <20261014133356.3002808-1-luigi.lauro@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 15 Oct 2026 09:31:23 -0400
-X-Gm-Features: AclHuK9ZmUn4FKK7SEAciymXYIUH4N4bcGFcrSo8pT-xgjBou-x7Yj183erpf3s
-Message-ID: <CADnq5_PnCPpWsDDWBD4RicjxHQKTV+_MALbpzx28BoVej4qiyQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu/gfx7,8: remove redundant RLC cleanup
-To: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Thu, 15 Oct 2026 09:41:45 -0400
+X-Gm-Features: AclHuK8kH5rS_QUDMd_OvyWX1nlDRIPyrZAzPmgPo8iphr7akWFprVMMX8RKv1M
+Message-ID: <CADnq5_Mw0k8NLVyWMZWd-Oxg0Om=6ckVET7Wjdx4zU7c1NL2QA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: require _PR3 for BOCO
+To: Luigi Lauro <luigi.lauro@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -105,74 +101,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 14, 2026 at 8:41=E2=80=AFPM Willian Oliveira
-<williandossantosdeoliveira287@gmail.com> wrote:
+On Thu, Oct 15, 2026 at 4:31=E2=80=AFAM Luigi Lauro <luigi.lauro@gmail.com>=
+ wrote:
 >
-> gfx_v7_0_sw_fini() and gfx_v8_0_sw_fini() already call
-> amdgpu_gfx_rlc_fini(), which releases the RLC objects used by these
-> IP blocks.
+> amdgpu_device_supports_boco() returns true for an AMD_IS_PX device on a
+> system with a hybrid ATPX method even when the device has no ACPI power
+> resource (_PR3). On an APU mini PC with a discrete GPU attached over
+> OCuLink, the iGPU's ATPX method reports hybrid graphics, the dGPU is
+> flagged AMD_IS_PX, and runtime PM in auto mode picks BOCO:
 >
-> Remove the duplicated explicit frees of clear_state_obj and
-> cp_table_obj.
+>   amdgpu: ATPX Hybrid Graphics
+>   amdgpu 0000:c6:00.0: Using BOCO for runtime pm
 >
-> Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+> In BOCO mode the driver leaves powering the device off to the PCI core,
+> which can only do it through _PR3 on the upstream bridge. No device on
+> this dGPU's path has _PR3, so when it runtime suspends the card stays
+> powered, with its fans at about 700 rpm.
+>
+> Require has_pr3 for BOCO, as the function's description ("dGPU with ACPI
+> power resources") says. The same card then picks BACO, which powers it
+> down:
+>
+>   amdgpu 0000:c6:00.0: Using BACO for runtime pm
+>
+> This only changes systems with a hybrid ATPX method and no _PR3 on the
+> dGPU's upstream bridge, where BOCO cannot cut the power today. Tested on
+> one such system only, an RX 9070 XT (Navi 48) over OCuLink with a Ryzen
+> AI 9 HX 470, with the change backported to 7.2.9: the stock module logs
+> "Using BOCO", the patched one "Using BACO"; BACO runtime suspend powers
+> the card off and it resumes cleanly. Not tested on a hybrid laptop or a
+> Thunderbolt eGPU.
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5980
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Luigi Lauro <luigi.lauro@gmail.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-and applied.
+
+and applied.  Thanks!
 
 > ---
-> v2:
-> - Keep amdgpu_gfx_rlc_fini() and remove the explicit RLC object frees
->   as suggested by Alex Deucher.
-> - Apply the same cleanup to gfx7.
+> Alex asked for this on the issue. Here is the full picture, so you can
+> judge which approach is best:
 >
->  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 8 --------
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 9 ---------
->  2 files changed, 17 deletions(-)
+> Why _PR3: in amdgpu_pmops_runtime_suspend() the BOCO branch does nothing
+> itself ("PCI core handles it for _PR3"), and has_pr3 checks exactly the
+> bridge the PCI core would power off (link_partner, past the dGPU's own
+> switch). On a hybrid ATPX, amdgpu_device_supports_px() is false, so the
+> ATPX power-control method is not used either.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v7_0.c
-> index 5fc19fefca81..7c56e36665c7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -4454,14 +4454,6 @@ static int gfx_v7_0_sw_fini(struct amdgpu_ip_block=
- *ip_block)
->         amdgpu_gfx_mqd_sw_fini(adev, 0);
->         amdgpu_gfx_rlc_fini(adev);
->         gfx_v7_0_mec_fini(adev);
-> -       amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
-> -                               &adev->gfx.rlc.clear_state_gpu_addr,
-> -                               (void **)&adev->gfx.rlc.cs_ptr);
-> -       if (adev->gfx.rlc.cp_table_size) {
-> -               amdgpu_bo_free_kernel(&adev->gfx.rlc.cp_table_obj,
-> -                               &adev->gfx.rlc.cp_table_gpu_addr,
-> -                               (void **)&adev->gfx.rlc.cp_table_ptr);
-> -       }
->         gfx_v7_0_free_microcode(adev);
+> Who changes: only hybrid-ATPX systems without _PR3 on that bridge. Hybrid
+> laptops that have _PR3 there, which I understand is the usual design,
+> are unaffected.
 >
->         return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v8_0.c
-> index 7f91186ef1d1..27fbb5b59645 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -2060,15 +2060,6 @@ static int gfx_v8_0_sw_fini(struct amdgpu_ip_block=
- *ip_block)
+> Risks I cannot rule out:
+> - BACO on older laptop chips that have never used it for runtime PM.
+> - A platform that cuts the power in a way has_pr3 does not see (_PR3
+>   somewhere else on the path).
+> - The other users of the function change too on such a system: the
+>   DPM_FLAG_SMART_SUSPEND | DPM_FLAG_MAY_SKIP_RESUME flags in
+>   amdgpu_pci_probe(), amdgpu_pmops_prepare() returning 1, and
+>   amdgpu_device_supports_smart_shift().
 >
->         gfx_v8_0_mec_fini(adev);
->         amdgpu_gfx_rlc_fini(adev);
-> -       amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
-> -                               &adev->gfx.rlc.clear_state_gpu_addr,
-> -                               (void **)&adev->gfx.rlc.cs_ptr);
-> -       if ((adev->asic_type =3D=3D CHIP_CARRIZO) ||
-> -           (adev->asic_type =3D=3D CHIP_STONEY)) {
-> -               amdgpu_bo_free_kernel(&adev->gfx.rlc.cp_table_obj,
-> -                               &adev->gfx.rlc.cp_table_gpu_addr,
-> -                               (void **)&adev->gfx.rlc.cp_table_ptr);
-> -       }
->         gfx_v8_0_free_microcode(adev);
+> Narrower alternative: leave amdgpu_device_supports_boco() alone and
+> require has_pr3 only where amdgpu_device_detect_runtime_pm_mode() picks
+> BOCO in the auto case, falling back to BACO. That fixes this system too
+> and keeps the other three users as they are, which is the same state as
+> booting it today with amdgpu.runpm=3D1.
 >
->         return 0;
+> Please tell me which you prefer; I can send a v2 with the narrower form.
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index e001461..96cb4d3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -593,10 +593,8 @@ bool amdgpu_device_supports_boco(struct amdgpu_devic=
+e *adev)
+>         if (!IS_ENABLED(CONFIG_HOTPLUG_PCI_PCIE))
+>                 return false;
+>
+> -       if (adev->has_pr3 ||
+> -           ((adev->flags & AMD_IS_PX) && amdgpu_is_atpx_hybrid()))
+> -               return true;
+> -       return false;
+> +       /* BOCO needs a platform power resource (_PR3) to cut the power *=
+/
+> +       return adev->has_pr3;
+>  }
+>
+>  /**
 > --
-> 2.47.3
+> 2.56.0
 >
