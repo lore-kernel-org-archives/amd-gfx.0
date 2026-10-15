@@ -4,122 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97299CC6B38
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 21:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F950CC6B38
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 22:09:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 225EE10E056;
-	Thu, 15 Oct 2026 21:47:12 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010024.outbound.protection.outlook.com [52.101.46.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5CF31124AC
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 21:47:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 233881124F5;
+	Thu, 15 Oct 2026 22:09:19 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011000.outbound.protection.outlook.com [52.101.52.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 017841124EE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 22:09:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ulxdu+rU03qSLBr/SPJ3P+EqsVte3XEEstwWEKOqzj55MlE8u0qRDAW9ed9vANfhHyssLBpak63rCTsMG7PuVGMEjEnBKXM+5kdqTBpkoatL7irmgEvhdtKaC3xiXPgg/sn5Jvwqv8thFKNJ28leiuXwma6M9D6wdHVvrgmx1Q4+QFej/RQd8dw7IrmzasFTM5nXa76pYnwHiZ8BbOvNYhn2shqpEVqrAu/c5pbsIP7RHLVHqOb5d1XFQ9ybUQZxKBDlNEdukFmrpinoT4clXa3ZcuL3jMcu4NFTVEwqjBeEAI6xF0K+xVZtU4Z6Ge9dqVff8JcjLsFXs9W4/Yx3IA==
+ b=u1my3ZbeSaGIZCajLhEGT/Fgh4YuCR8fIwvBhbvXsFqRwQ6dRUw+ezdBck3ruKCGD7LRDrshVKy3tH+mHutFkK60e8LfRfrm3wueZJIhV5ykjL+Gcxx2ATf2o0/3m8DDWqi+gQC9NKbY9OL2Hrsv+nw/Siw8gcMVpUL89AGFa11JZAuVRllv7mujrI66PU+iSZ16Z4bZoS+gOQf+kvKu8Pmg3vbXwIaPtDT43BBRX9zM/pKrakbZc0kHxhQ2ejtwnEB9mZ5G1nq4P3xW9a0hhRizpYEzK2j6U1rsg3p1sDaDyaU58xkjIaYWf6+fZVo71m6wrJRJIX2OC6Uu5mzSWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KgqDbkOfI3rZrdu0qk7KELrBu6Ysqbrp+6repHrimjA=;
- b=rowLqJsISIK6q8s2gzjVKogYeZ37Ah9ymi10fo2tKSqZ7YoB1RXSp64rlVitX1RX9ZsG4IrXbn9fgRHUwGArE8r4vyYIXEm3Hfr8PPf6mCrIV3w0kDpBQuosS8yZqGdPZ0ieiIo9E4kkeI3cJRpFhSOvIynW2So58lVhu8BzM5iKBKPcc93rRA/qyPMLjVI/8G4E66ygT3VacSX/Bv55F1PbPvd9qsy9Oo65DLhu5VZo/yv4wL3qcoh2JInlDPMdENbyhUHTrP6M9d8vWTjdM3z6JO1DE/QvuAuzTtzyw3/m7ktLaKfT0M2oY05/1oKdzQ/A8YSVY1JTQ1S7Tm+dtw==
+ bh=arRPOskAxnAHdZeQCVAx3jBDZnwqf6uwZ9v9AtTokgA=;
+ b=y8i7XzC0AbJFY1G+4gj+xg0+6YoBpipUH5LuofJSQn7kZz+7wXPz223x3NBXhmbbGXDhNyacJJsyLgfojdquifIpgXABynXqNOIZTiWB1RLasOWoRUVhGEWc/Y+ONbKNTZWx/RmfSaSW4YuB7c6CaTW8tDE/kB9W3ZkMtarQOkuVaCPBnSir2m73/QKGrILuCan6g32jJOL5FU8mP4ei1ao9Ld44s3mapOZc6MJNfmhlJIxx/IQRoB6H25V2nKsNhmz/bd005hXOOUJ5zXeMq3I0FCxnuKGq38WkgGia8NOKS1++PCnCyRtQowywzEi0JTRAzGtGyLH3FlgIlFQZMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KgqDbkOfI3rZrdu0qk7KELrBu6Ysqbrp+6repHrimjA=;
- b=sp73/s3wHIsD3zhcTXuoT1MXT/bGMgR02ZPtfagUPu2yKbnxZ56sLtq//mpwpWlG+HALyVJLR9vNYE6j4zk0PEhLbHfif6KZz3PB26CqIEvSGok6fU+FQ7gzk4lUAIZk3/4n8NNWw3Ex9HNHiggk1zFk5sUmd+PxNzWKYiInFew=
+ bh=arRPOskAxnAHdZeQCVAx3jBDZnwqf6uwZ9v9AtTokgA=;
+ b=LLbJqKLIXhvZYolBkIzuvE77rvn45CWLk1DQy6xy6yZYc/TywggU+wRneNWv6qn4rvAcA0N+kUuI+cVKuyjYNgtGdvk6ve7eRJPIVOEWYBnEZ17GCahdHCZLgOgIZ5Px798jjc2+CveGqlMPseiwk+EW53CVfAJCDs7b5L2Jx30=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655) by DS0PR12MB8218.namprd12.prod.outlook.com
- (2603:10b6:8:f2::15) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:f:fc00::655) by PH5PR12MB394451.namprd12.prod.outlook.com
+ (2603:10b6:510:502::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 21:47:02 +0000
+ 2026 22:09:09 +0000
 Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
  ([fe80::23fd:d049:8f53:2054]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
  ([fe80::23fd:d049:8f53:2054%6]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 21:47:01 +0000
-Message-ID: <357e549f-bfbc-4749-aefa-f0f9e25d6e06@amd.com>
-Date: Thu, 15 Oct 2026 17:46:58 -0400
+ 22:09:08 +0000
+Message-ID: <30a0fe6e-2966-4f8b-b6b8-f7e0075195e6@amd.com>
+Date: Thu, 15 Oct 2026 18:09:06 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] drm/amdkfd: evict the queues only once for CRIU
- PROCESS_INFO
+Subject: Re: [PATCH 3/4] drm/amdkfd: send SMI process and VM fault events only
+ to allowed clients
 To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>,
  Philip Yang <Philip.Yang@amd.com>, David Yat Sin <david.yatsin@amd.com>
 References: <20261013092158.2261502-1-Jesse.Zhang@amd.com>
- <20261013092158.2261502-2-Jesse.Zhang@amd.com>
+ <20261013092158.2261502-3-Jesse.Zhang@amd.com>
 Content-Language: en-US
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20261013092158.2261502-2-Jesse.Zhang@amd.com>
+In-Reply-To: <20261013092158.2261502-3-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0277.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:109::10) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQ1P288CA0015.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:9e::13) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
  (2603:10b6:f:fc00::655)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|DS0PR12MB8218:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c6c3e93-4c7c-451a-5754-08df2b05d7bb
+X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|PH5PR12MB394451:EE_
+X-MS-Office365-Filtering-Correlation-Id: e65c1897-9eb3-4cb6-993c-08df2b08ef2b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: bPq5sSxps1aKHdVBwSG6TTlTr12iFHJ2naOmkLKTeBQ3tNHX5I9+LgDvf6cyNPgD7Fbt4ZCe4dhyrNINLXJlyX/oV8xwtk3Z2mjfssnbC9pZClWgabExwbvGJmVELI6OnK75ANSgIRsDoNuXPFMjU7lrbitWVH82pY5wL1VpQOdzcjm+uT4lqinD20Oy9vwC9NJfoby+83/hHcE48opMUYIhhCADH1aWIKbFP21PNuB9slsfayXOjnJMLIVzrARPfmwBaacoCP1iiAskSbpYnnzLEBfX6ZILAZ3xBA7z9NOEpDdTcP/hIBho+7H1LbkycgvZ1u+Em9CTm7K/MuoQgFTYaeGN1tlBFMgkrhGOZxWjkOk1YnSgVk23iCsHC5WHq4g7MWqMmHqXe03cuZtj7SF7leyMfJTAkdIv08t6o7XQiqL0Q9XmnjnU2jeHlJiEJSJAJBPYwq4d+VU+FEJtps7wIW27LswUNEKrBZouT5IFhiKA+FcNvw2mSRuEVsHIItatmPIRe0p3NrBqtdPOKwy1n9Cm3X0fZF0fAQ1E0zH25e+sOkOXlSoJ55wO8KpMyFVdFgIN8SYOLvjM+yQFHBaIOv3jU+JQDN+tPE4zIuV7fV/bM4Rh534B98L1+dIg/FOzDUxv9vwAC+VpiENMcr5teYcJQbpeSqoX+y24YBQ=
+ ARA:13230040|366016|376014|1800799024|23010399003|56012099006|11063799006|5023799004|4143699003|261009223027099003|22082099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: rfKsEMy1QZMd6Pj9Ern+axRGlAjEvPdF6gp3/5vRELNhVUQ5gNHYkbN8akcaETnWwK+XAgo54yGwJcF9Oj1eCOiy7OUzm0c0Odx3Qhk5HJiAJpdAmBy3IzuWPS5MGzUdz0jzjXZ5KRXe34YDWNgwg66HYfbRiV3vUP5TfqngqH2nz1Upk9PVHlTtI5ZOe9sMrn7FHfujfxnSPyxdLe6/DOukUATL6aHMh26fz2alypahS7/PgY9ieeqJq12kQFhEHi/f/ZkEG0bWqj8+LCqZzHrVii+mCeOEGOGIg8TBD7swHgvklMyRSBBQ23G/pi2+6MJjw/po6m3+vkgbEOna9SXFbex5oY+ZRsPrsiP9avD/uHtfzzqfvMLFevsmBBVbVsghstjMeyMqxJCjbFkfKj41ja2Ek8Kf9Eo+v2z/jcWgv968IPSXTYsIngZuW8Lsymi/EDFd16lSmBjhrmGMa5xKFJuY3Az7olp3dyPkrMoVwQ+wy/OYoONnDrf85XwdfvZxGhNO27SuxQrnvG1Z6UZycszmHtGylObFnpwoQvwSKTS3xyo//u3FZ1U0AJOqLE46cCQlaojqET0lbAB9WNF3bfux4AbumThgIpiCMqPFFCtZEROTvtV9elutZPF6FPIsUYVDTRMY5wUqCNX4soIICK4rrqSxDTGvrQxspaA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(5023799004)(4143699003)(261009223027099003)(22082099003)(18002099003)(6133799003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d2gzVkxRR29QTWlvYk1weVNqOUxrd1FxSEFGOERCQ1hVME91ZDlWS0JqR0wv?=
- =?utf-8?B?QWhwN1dNdzVOVm9rS0YxZUlOTStjVElPYjlSakczb09ScWNYZmxtVUNWTGho?=
- =?utf-8?B?MEhnK3hZYjREcWtUNWtKRjhuTE1yVlVCcUo5Zmp4MmlFbFdKUXF0M0doOTdP?=
- =?utf-8?B?TEVUaFdnZXZUTy9yVlpQbHB6cG96T2wvS3M1WTRlQWJiZXJBMFhCR1lCT1dr?=
- =?utf-8?B?RWk4U3FvNnhDYkRocmpMcnhZQWt0ODdoU2R3cTNkbk1scG4zcjZBZ0VYOXVT?=
- =?utf-8?B?TzF5NENEczJLZXhOWGo2TTA4eVdWMk0vN1NGd25Hc1JnU3VoUzJ3Wi9tRmFR?=
- =?utf-8?B?Y0xVSlczcElsTTQ0Y2plOUVJWWxERUFqNHlaT0tvZFovcGdxWllRVCszR1dE?=
- =?utf-8?B?VzBKNVB0UWZIdXFrQjNMLzQyZ1d6cU9sYnBab3ZtT1AwYTNZc0hlaWZ3Y3F3?=
- =?utf-8?B?MGJSMWl0YUl1ckh6bmtmQzc3U3VhZmtXRHRLOGFWUlVOd0JSTThFYnVPS2NR?=
- =?utf-8?B?OEpGQkFmeXRxbjlNM0NYYkdmR2lGY2RaQzYwUUNwYVdtMXpaN241a09ubFo2?=
- =?utf-8?B?TWYvMWlEcGtGUHB2QTd2ZklIVkIzQys2dTZnSXhVcUk1K1dZaE4xUW5Wb3Ra?=
- =?utf-8?B?WUxYUmhaS25MbFZjWEo2RXJuci9MMjVzcXF3WHowekJxeTFLbXlmWXcyTVNX?=
- =?utf-8?B?eHN5T3Y1N25VQ092eWJaMzZsRWlyZm9KOWQ1b2pnclA4ZkV2OVhmYlR5THdi?=
- =?utf-8?B?NkUrUndhU2VwaEl2WjlLRmFzc2MzTWVZYWRhUHFiNHlYRWRwajQ5WDZqS0Nr?=
- =?utf-8?B?RTZZQmJNREJvajJWRlZtVXZaaWg0TkNhQXI5SEsyTkZ4YXVEOE9QQ0RqNXAy?=
- =?utf-8?B?R2xkZlV3TStvdXg0OWkvTUJRbko0NC9vSDJPNTBEcHdvQktseERrYUNTM3VD?=
- =?utf-8?B?UVRUVlplS0pGYVI0NFRDTkVZdWNuWmtZZzRvMzcvaEtkMCtLb1J3Z2Z2TEFu?=
- =?utf-8?B?Yks4N0Z0M1U0WmY5T003ZW8zUlpuWjBZdWRBb1hRUmVaR096dFlNZUVpa0Uw?=
- =?utf-8?B?enlyTnkvSkkyUVVMSEcyOFZ1NTYxOEVZdFVNLzc2MEJkaVJuNGw0THZ0UFg2?=
- =?utf-8?B?RXNqMS9mc3dFTWRyeHFiRGswYzcvQnFQUW92ZlZtR0ljdWd1c2YxR21zTitI?=
- =?utf-8?B?K2RXZjJ1N0dpYU5CTmhCS0FydkRaRTNqME5yNFY0Mk9SUWhhU2RaemtyNlZU?=
- =?utf-8?B?c1FhUmpkK3lGOWM4UjJRSTk4Wk5laHZlOFlKMGxpd0lrd2xEdmNCZUE3T0R2?=
- =?utf-8?B?M2ZRUi96MTYvVHZTeHl3VTh5cWNSUkQvSkZNTWJFUFFPaWJNL3JQQWNLcCtI?=
- =?utf-8?B?RU1JSE5iMVRnVHpuY0dZVW10bWhZREtmUFoxYVg4bDRFbmFSVDM3T3EwV0lH?=
- =?utf-8?B?NE0wMHRvUnQxS3d6cEptalA2VFNqdjZDaFVTN2RJY2k1VTlzQUFIMEtqNFFC?=
- =?utf-8?B?NEJFcFZOVkdWb2FPWEVwRHNDTmpiNnplYTBhK2FkSkpXeXl0WXhzOUVlSTFr?=
- =?utf-8?B?R1RkR0VGbmc2R0N1RktCd0FJMUVsbCtsQVg3b3RLZzBON1VURTJSdzFST3pS?=
- =?utf-8?B?ZzEyL1F1c1JPNSs1b2ZjT0ZaTWlmUmFCekxrN040ZzNhaWpBdEhsWUlSOGlx?=
- =?utf-8?B?a0krWUE0NElIREYvMm5EdUtQRHhocVlqdFJPYVBSKzdNRzRrT3g5QzhIcGNJ?=
- =?utf-8?B?bWNFUGZGZUNWZ2x0dlh3TUkvb1pORHNPdHY4c09zWkNKUG4vTm9Ib2RndEZW?=
- =?utf-8?B?ckN3cXF5NkJtT3RZZnA4eEJlSTIxVndsVXd0Vm9qZ0dLd3FEMGZ2V3hibDdy?=
- =?utf-8?B?V0JLMnJjSUdRdVFWd29iTkVRZ3k1RFYzQVJUY3RWRmY3UWk3eXpqQzl0cmFU?=
- =?utf-8?B?QUxOSXZod3NGTUtCakNtczNRYSs0ZnA3anJtdWp0MzNHYTZQYUNIS3ArUEJ2?=
- =?utf-8?B?L1dhMTFScy9NTXBxQUw1dHZLZW00ZlpPcGVDUlR4ekJpaUs0a0crbnJKTGQ3?=
- =?utf-8?B?c1Z0WWpjbEhrKzlMSWdQTmZ4dGM0K2hldkxyVzY5aGJSczZJckYyM0N5WXo1?=
- =?utf-8?B?MktzRzVCOE5GUXZNK1RRa1d5cUk1Z09hbVpWNWd1SGlzYUFteUR1MEpBQmRP?=
- =?utf-8?B?eExDRk9LWG85cGgvcXVYN0RERHErVmF6WUd4T0REdmRCYmxYUTk3Vmx5U1Bh?=
- =?utf-8?B?bm9QTjA3RmJVRG5EREpqOE1WRitURzdDRng3SDBEMHRZM1l1cEJPN1g2bUdn?=
- =?utf-8?B?SHQyQVBqRE5nR3ZEcEw2ZnNXQ3RoSXZOT0ZrVTJRM1ZKMzNXYmZiZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TzY3UldGRnYycGQxRnRySW9YR3Y2TytKUDFsL1ZMcC9aaHFkZW1RWUpCaCtk?=
+ =?utf-8?B?VWR4R3BpZ1JWaGlwcmYvWVhHL2NvTnFhNVMrUDlEQVJUbEpNOEpJdWZzd3VX?=
+ =?utf-8?B?V3l6NFR0eDBSSHc4aE5xYllQMXd1b215VHl0d2drTWdjNlFORi9aS2RSZW9m?=
+ =?utf-8?B?Y3JkTDc1WDMvQTU4V3JrQXV0OGkvc2ZFc3h4R002OXRITUhueXJDMnZjQ1RQ?=
+ =?utf-8?B?bGo4dFRJZzJIUFZQT21zOTBacVdqSWRpd1ErWjQvYm9OWDhBbkx6SDdFdWVB?=
+ =?utf-8?B?YS9jczRMV0ZGU1RNNk5XbFZYSHFReWQ3RkNnSUJJTzdCL1JtZFlwUmlhcVhF?=
+ =?utf-8?B?TjBxdUJWTWVnNVVJWjgzdGNRbHFGQzdVTjJEempxZHduclcycUhWV1ppTFpZ?=
+ =?utf-8?B?OE53VHNxdk8xaExkWks5Y1Q1NGtTSzVUWTdlZWZSQ3pWd0pleWFKMlZ4L0ZH?=
+ =?utf-8?B?ZlJMd2VIeDQ0WUtSMDM4TnBJYzRiejAybHZLQ1RGYktsMElDbHkzTmtReDVO?=
+ =?utf-8?B?QzcvOXBNaXZLWlQyM2NSQkFuQWpkTmVEbWE5U1BLaHBuMXZQcnJqdTEwRzVq?=
+ =?utf-8?B?N3cyUEhEQlB3Zm55a2tXdkZRN2RObnYweHRrd2dDemZldzBRRG9wTmRCNC94?=
+ =?utf-8?B?bExlQWFqVWdFaUhxQWpkZHAzK21CeFluNThHOHY0TitjOFZ3OUk2d3VFSjM5?=
+ =?utf-8?B?c3dsMTRPYnRQcisvdmFMeUxPK0JqQjU1aW1CTTEvTEN4blo3N3NsZGl1amo3?=
+ =?utf-8?B?NnU4Q1dZMjlGeE5XYVFUamZNZk1jd3pFWGxMV0o3K3BEeDVEZmZib0twdC9N?=
+ =?utf-8?B?U2xTSUVQRTA5TE9ZYkU0VllEeCtTVFlxVU9NOXVLSW0vdzhDRjF5amMwZElR?=
+ =?utf-8?B?RUZLanUvREhGbERudk5ueFY4NXBpSXd5V2t3VE1jOThqWUsyMEF0SUVwUXJN?=
+ =?utf-8?B?Y0lUS2pUNVpkK0l6eVNHK2Z5ejZ6S3JJdFp0VGFQZzlsby9FOWxXNUpob0xn?=
+ =?utf-8?B?QkxFTkJrb0YwYkxoZU9yQ2RZSVQvcUFtWlJITk5XWWhIY3pZRzl4eXdZRWxi?=
+ =?utf-8?B?YUJtdGdGODdQM1pEWmppd3dFZ1h6b3QxRTBkQW1hSDRnZ0JnTm1OTlFDaVBq?=
+ =?utf-8?B?K01YSDlhRzJHQlFweXRqRnQvb3E5UkpMLzh4M1VkOFQ4aU5OV2xuU1JVTU5y?=
+ =?utf-8?B?dmNmTW1zY2lUc1dHSHRrUGh6SjBoR2xRZFZVZWpmUkdsMXc1MVlna3lubUdX?=
+ =?utf-8?B?dm4zYjdQcU53dmRqNm1VbWRHZC9jNEdkNC9oY2d4RHk1U0RWZllWYk9vWU0z?=
+ =?utf-8?B?UW1oVHNjalg2TzBxTis4eDBqWEFQRmJhZEswUmFaT0UwdmlPNjR2QXl6V0xh?=
+ =?utf-8?B?NEtQQS8rTHA1M1ZWWk1reDV5RUxJcW1oMVg1R0psL2dYNmJuWWw2NllJZFFr?=
+ =?utf-8?B?akdBUUVCcTQzeUgyTm9RT0IwaE1CSlg3WlJKY2ZKVnZWejZJZUMwVVpGcURM?=
+ =?utf-8?B?NGRZZVVVQnYxRmNZamFCT0VmNVkxL1NKUFF4S3BJZHpEdEtUWGNpeE5DNEpW?=
+ =?utf-8?B?Tm91ZXJYTThiS0ozTmJ5Q1d4NFViUklBQVhqeHA0czZTa3kwekozT2VaaFBV?=
+ =?utf-8?B?TW0vNWUrS1BwdklnMWdvdXhkZTF5NFQwZFlJcHVwWjE1d2FSbXpSL05hUC9D?=
+ =?utf-8?B?cEdHVHJDT3JncTExeW85QzR6ekRRc2YxSlJBd2lGeXFSL2hqTjJQQTlRVXg5?=
+ =?utf-8?B?bi9JVllGY0M5SS9HeXdBc3hzTnBxK2d0OWd6cTlKM09EbGhua3ExOVBqaHh4?=
+ =?utf-8?B?QUZwVU9zOE1NLzdvcUpiTEN6WjdJN1FrbnNmTkg4QkV3MW5MZTUvUlMwSUN0?=
+ =?utf-8?B?OWlEelZoTkN4RERrMTR6NDBYZlBBRFZiSnRHVTNKVHM5K2llY0ZOaFVpM2RI?=
+ =?utf-8?B?dm9jNXNUUkM0TWc1ZWlSeFRhQXQyQ3lUeWpEWDEzLzVJZ2FWVnFpQjBXajZC?=
+ =?utf-8?B?ZmhoSHhod2tnNDg2d0xPWmNkUUcvSWtra3ByaW53Z0k2MVVlSUJFd0cyenJD?=
+ =?utf-8?B?bG9UcWxXUW5SSnJzUjFrQTNzU1RxMVR1RVlXREtiL3o4TW96cFJvbmxPR2lY?=
+ =?utf-8?B?MzJqVzVJNUkzU1N1d1N4R25Db3l4QllJcXphaDZ6RW5KL1IyVk5ac2FtNHZX?=
+ =?utf-8?B?R01hdUhVekNjRGxLMlVhdTFCOE12ODN6VVlIRndsajNLcjFJd1VjRlFOdFhx?=
+ =?utf-8?B?eVprMHYvQ3NqNWxmTXlHeEl6dWVRR3l1d3U3UEl4ZUhib2graGhYL01HcEVX?=
+ =?utf-8?B?SjV3OU9IY3ZuZmxUMmVHNEFFSy9MeEZZaDBySzM1Q1pXcWc3a1NnUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c6c3e93-4c7c-451a-5754-08df2b05d7bb
+X-MS-Exchange-CrossTenant-Network-Message-Id: e65c1897-9eb3-4cb6-993c-08df2b08ef2b
 X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 21:47:00.8796 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 22:09:08.4191 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 12ipsbeeFJvovDg3m/NCocDfZuqlQD10jUAkHWGFkMvo8az44a92XBa6o19ATqouXVoDwTq7RsJekhG4XJqz0g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8218
+X-MS-Exchange-CrossTenant-UserPrincipalName: Nstx1lA+Y16DaCnWe/su2K+rYIPyO69uw9YgkHWf9NysOgPJ9P0fXkvBywoUBmxihJjib3tUuXiyu3mcXH0Lzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH5PR12MB394451
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,79 +135,224 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2026-10-13 05:20, Jesse Zhang wrote:
-> criu_process_info() evicts the queues of the process on every call, and
-> each kfd_process_evict_queues() increments qpd->evicted, but CRIU UNPAUSE
-> restores them only once. After PROCESS_INFO twice and UNPAUSE the queues
-> stay evicted for good. On navi31, a barrier-AND packet on an HSA queue
-> completes after PROCESS_INFO + UNPAUSE, but times out after
-> PROCESS_INFO, PROCESS_INFO, UNPAUSE.
-
-I'm not disagreeing with the patch. It makes the API more robust. But is 
-this a valid use case? I.e., is CRIU actually calling PROCESS_INFO 
-multiple times? Why?
-
-
+> Commit a403d3f65c79 ("drm/amdkfd: fix SMI event cross-process
+> information leak") made the VMFAULT and PROCESS_START/END SMI events
+> carry the pid of the process they are about, so that
+> kfd_smi_ev_enabled() only passes them to clients of that process and to
+> privileged clients. Commit fd406e58b9e6 ("drm/amdkfd: Fix SMI event PID
+> reporting for containers") then switched kfd_smi_event_add() to take a
+> task and passed NULL for these events, i.e. pid 0, which every client
+> receives again.
 >
-> The error path has a related problem: when kfd_process_evict_queues()
-> itself fails, it has already rolled back its partial eviction, and the
-> kfd_process_restore_queues() in the error path restores once more.
-
-I agree. Your patch addresses this as well.
-
-
+> On navi31, an unprivileged SMI client (uid 1000) subscribed to
+> PROCESS_START/END sees root running rocminfo:
 >
-> Evict only when the queues are not paused yet, and on errors only undo
-> an eviction done by this call. The barrier now completes after any
-> number of PROCESS_INFO calls followed by UNPAUSE.
+>    event: c 223a9 rocminfo
+>    event: d 223a9 rocminfo
 >
-> Fixes: cd9f79103003 ("drm/amdkfd: CRIU Implement KFD unpause operation")
+> The same commit also made the filter compare PIDs of different
+> namespaces: the client stores its PID in its own namespace and events
+> use the PID of the task in the task's namespace, so a client that is
+> PID 1 in one container receives the events of PID 1 in another. And an
+> exited task has no PID in its namespace anymore, which gives pid 0 for
+> PROCESS_END.
+>
+> Match clients by global TGID, which is unique and stays valid after the
+> task exited, and keep showing the namespace PID in the event text. Pass
+> the TGID of the process for the process and VM fault events again. With
+> this the unprivileged client gets nothing, a root client still gets both
+> events, and an unprivileged client that is PID 1 in its own PID
+> namespace no longer gets the events of rocminfo running as PID 1 in
+> another one.
+>
+> Fixes: fd406e58b9e6 ("drm/amdkfd: Fix SMI event PID reporting for containers")
+
+This was a commit by Andrew, who is no longer here. Harish reviewed it 
+at the time. @Harish, can you take a look at this as well?
+
+
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-
-
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 15 ++++++++++-----
->   1 file changed, 10 insertions(+), 5 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 50 ++++++++++++---------
+>   1 file changed, 30 insertions(+), 20 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 1d86ddfd6bde..2e1d412a0e6b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -2869,6 +2869,7 @@ static int criu_process_info(struct file *filep,
->   				struct kfd_process *p,
->   				struct kfd_ioctl_criu_args *args)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> index 6a7b4d959541..2950b871cb7e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> @@ -210,27 +210,33 @@ static inline pid_t kfd_smi_task_to_pid(struct task_struct *task)
+>   	return task ? task_tgid_nr_ns(task, task_active_pid_ns(task)) : 0;
+>   }
+>   
+> +/*
+> + * Clients are matched by global TGID, which is unique across PID namespaces
+> + * and stays valid after the task exited. Events show kfd_smi_task_to_pid().
+> + */
+> +static inline pid_t kfd_smi_task_tgid(struct task_struct *task)
+> +{
+> +	return task ? task_tgid_nr(task) : 0;
+> +}
+> +
+>   __printf(4, 5)
+> -static void kfd_smi_event_add(struct task_struct *task, struct kfd_node *dev,
+> +static void kfd_smi_event_add(pid_t tgid, struct kfd_node *dev,
+
+Please update add_event_to_kfifo and kfd_smi_ev_enabled as well to 
+rename the pid parameter to tgid.
+
+
+>   			      unsigned int event, char *fmt, ...)
 >   {
-> +	bool paused_here = false;
->   	int ret = 0;
+>   	char fifo_in[KFD_SMI_EVENT_MSG_SIZE];
+>   	int len;
+>   	va_list args;
+> -	pid_t pid;
 >   
->   	mutex_lock(&p->mutex);
-> @@ -2879,11 +2880,15 @@ static int criu_process_info(struct file *filep,
->   		goto err_unlock;
+>   	if (list_empty(&dev->smi_clients))
+>   		return;
+>   
+> -	pid = kfd_smi_task_to_pid(task);
+> -
+>   	len = scnprintf(fifo_in, sizeof(fifo_in), "%x ", event);
+>   
+>   	va_start(args, fmt);
+>   	len += vscnprintf(fifo_in + len, sizeof(fifo_in) - len, fmt, args);
+>   	va_end(args);
+>   
+> -	add_event_to_kfifo(pid, dev, event, fifo_in, len);
+> +	add_event_to_kfifo(tgid, dev, event, fifo_in, len);
+>   }
+>   
+>   void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset,
+> @@ -252,14 +258,14 @@ void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset,
+>   		amdgpu_reset_get_desc(reset_context, reset_cause,
+>   				      sizeof(reset_cause));
+>   
+> -	kfd_smi_event_add(NULL, dev, event, KFD_EVENT_FMT_UPDATE_GPU_RESET(
+> +	kfd_smi_event_add(0, dev, event, KFD_EVENT_FMT_UPDATE_GPU_RESET(
+>   			  dev->reset_seq_num, reset_cause));
+>   }
+>   
+>   void kfd_smi_event_update_thermal_throttling(struct kfd_node *dev,
+>   					     uint64_t throttle_bitmask)
+>   {
+> -	kfd_smi_event_add(NULL, dev, KFD_SMI_EVENT_THERMAL_THROTTLE,
+> +	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_THERMAL_THROTTLE,
+>   			  KFD_EVENT_FMT_THERMAL_THROTTLING(
+>   			  throttle_bitmask,
+>   			  amdgpu_dpm_get_thermal_throttling_counter(dev->adev)));
+> @@ -271,10 +277,14 @@ void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
+>   
+>   	task_info = amdgpu_vm_get_task_info_pasid(dev->adev, pasid);
+>   	if (task_info) {
+> -		/* Report VM faults from user applications, not retry from kernel */
+> +		/*
+> +		 * Report VM faults from user applications, not retry from
+> +		 * kernel, and only to clients allowed to see that process.
+> +		 */
+>   		if (task_info->task.pid)
+> -			kfd_smi_event_add(NULL, dev, KFD_SMI_EVENT_VMFAULT, KFD_EVENT_FMT_VMFAULT(
+> -					  task_info->task.pid, task_info->task.comm));
+> +			kfd_smi_event_add(task_info->tgid, dev, KFD_SMI_EVENT_VMFAULT,
+> +					  KFD_EVENT_FMT_VMFAULT(task_info->task.pid,
+> +								task_info->task.comm));
+>   		amdgpu_vm_put_task_info(task_info);
 >   	}
+>   }
+> @@ -283,7 +293,7 @@ void kfd_smi_event_page_fault_start(struct kfd_node *node, struct task_struct *t
+>   				    unsigned long address, bool write_fault,
+>   				    ktime_t ts)
+>   {
+> -	kfd_smi_event_add(task, node, KFD_SMI_EVENT_PAGE_FAULT_START,
+> +	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_PAGE_FAULT_START,
+>   			  KFD_EVENT_FMT_PAGEFAULT_START(ktime_to_ns(ts),
+>   			  kfd_smi_task_to_pid(task), address, node->id,
+>   			  write_fault ? 'W' : 'R'));
+> @@ -292,7 +302,7 @@ void kfd_smi_event_page_fault_start(struct kfd_node *node, struct task_struct *t
+>   void kfd_smi_event_page_fault_end(struct kfd_node *node, struct task_struct *task,
+>   				  unsigned long address, bool migration)
+>   {
+> -	kfd_smi_event_add(task, node, KFD_SMI_EVENT_PAGE_FAULT_END,
+> +	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_PAGE_FAULT_END,
+>   			  KFD_EVENT_FMT_PAGEFAULT_END(ktime_get_boottime_ns(),
+>   			  kfd_smi_task_to_pid(task), address, node->id,
+>   			  migration ? 'M' : 'U'));
+> @@ -304,7 +314,7 @@ void kfd_smi_event_migration_start(struct kfd_node *node, struct task_struct *ta
+>   				   uint32_t prefetch_loc, uint32_t preferred_loc,
+>   				   uint32_t trigger)
+>   {
+> -	kfd_smi_event_add(task, node, KFD_SMI_EVENT_MIGRATE_START,
+> +	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_MIGRATE_START,
+>   			  KFD_EVENT_FMT_MIGRATE_START(ktime_get_boottime_ns(),
+>   			  kfd_smi_task_to_pid(task), start, end - start, from,
+>   			  to, prefetch_loc, preferred_loc, trigger));
+> @@ -315,7 +325,7 @@ void kfd_smi_event_migration_end(struct kfd_node *node, struct task_struct *task
+>   				 uint32_t from, uint32_t to, uint32_t trigger,
+>   				 int error_code)
+>   {
+> -	kfd_smi_event_add(task, node, KFD_SMI_EVENT_MIGRATE_END,
+> +	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_MIGRATE_END,
+>   			  KFD_EVENT_FMT_MIGRATE_END(ktime_get_boottime_ns(),
+>   			  kfd_smi_task_to_pid(task), start, end - start, from,
+>   			  to, trigger, error_code));
+> @@ -324,14 +334,14 @@ void kfd_smi_event_migration_end(struct kfd_node *node, struct task_struct *task
+>   void kfd_smi_event_queue_eviction(struct kfd_node *node, struct task_struct *task,
+>   				  uint32_t trigger)
+>   {
+> -	kfd_smi_event_add(task, node, KFD_SMI_EVENT_QUEUE_EVICTION,
+> +	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_QUEUE_EVICTION,
+>   			  KFD_EVENT_FMT_QUEUE_EVICTION(ktime_get_boottime_ns(),
+>   			  kfd_smi_task_to_pid(task), node->id, trigger));
+>   }
 >   
-> -	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_CHECKPOINT);
-> -	if (ret)
-> -		goto err_unlock;
-> +	/* UNPAUSE restores the queues once, so evict them only once */
-> +	if (!p->queues_paused) {
-> +		ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_CHECKPOINT);
-> +		if (ret)
-> +			goto err_unlock;
+>   void kfd_smi_event_queue_restore(struct kfd_node *node, struct task_struct *task)
+>   {
+> -	kfd_smi_event_add(task, node, KFD_SMI_EVENT_QUEUE_RESTORE,
+> +	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_QUEUE_RESTORE,
+>   			  KFD_EVENT_FMT_QUEUE_RESTORE(ktime_get_boottime_ns(),
+>   			  kfd_smi_task_to_pid(task), node->id, '0'));
+>   }
+> @@ -348,7 +358,7 @@ void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm)
+>   	for (i = 0; i < p->n_pdds; i++) {
+>   		struct kfd_process_device *pdd = p->pdds[i];
 >   
-> -	p->queues_paused = true;
-> +		p->queues_paused = true;
-> +		paused_here = true;
-> +	}
+> -		kfd_smi_event_add(p->lead_thread, pdd->dev,
+> +		kfd_smi_event_add(kfd_smi_task_tgid(p->lead_thread), pdd->dev,
+>   				  KFD_SMI_EVENT_QUEUE_RESTORE,
+>   				  KFD_EVENT_FMT_QUEUE_RESTORE(ktime_get_boottime_ns(),
+>   				  kfd_smi_task_to_pid(p->lead_thread),
+> @@ -361,7 +371,7 @@ void kfd_smi_event_unmap_from_gpu(struct kfd_node *node, struct task_struct *tas
+>   				  unsigned long address, unsigned long last,
+>   				  uint32_t trigger)
+>   {
+> -	kfd_smi_event_add(task, node, KFD_SMI_EVENT_UNMAP_FROM_GPU,
+> +	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_UNMAP_FROM_GPU,
+>   			  KFD_EVENT_FMT_UNMAP_FROM_GPU(ktime_get_boottime_ns(),
+>   			  kfd_smi_task_to_pid(task), address,
+>   			  last - address + 1, node->id, trigger));
+> @@ -379,7 +389,7 @@ void kfd_smi_event_process(struct kfd_process_device *pdd, bool start)
+>   	task_info = amdgpu_vm_get_task_info_vm(avm);
 >   
->   	args->pid = task_pid_nr_ns(p->lead_thread,
->   					task_active_pid_ns(p->lead_thread));
-> @@ -2898,7 +2903,7 @@ static int criu_process_info(struct file *filep,
->   				args->priv_data_size);
+>   	if (task_info) {
+> -		kfd_smi_event_add(NULL, pdd->dev,
+> +		kfd_smi_event_add(kfd_smi_task_tgid(pdd->process->lead_thread), pdd->dev,
+>   				  start ? KFD_SMI_EVENT_PROCESS_START :
+>   				  KFD_SMI_EVENT_PROCESS_END,
+>   				  KFD_EVENT_FMT_PROCESS(task_info->task.pid,
+> @@ -408,7 +418,7 @@ int kfd_smi_event_open(struct kfd_node *dev, uint32_t *fd)
+>   	spin_lock_init(&client->lock);
+>   	client->events = 0;
+>   	client->dev = dev;
+> -	client->pid = kfd_smi_task_to_pid(current);
+> +	client->pid = kfd_smi_task_tgid(current);
+
+Also rename client->pid to client->tgid to be consistent and make it 
+obvious what kind of ID is being compared everywhere in the code.
+
+Regards,
+   Felix
+
+
+>   	client->suser = capable(CAP_SYS_ADMIN);
 >   
->   err_unlock:
-> -	if (ret) {
-> +	if (ret && paused_here) {
->   		kfd_process_restore_queues(p);
->   		p->queues_paused = false;
->   	}
+>   	spin_lock(&dev->smi_lock);
