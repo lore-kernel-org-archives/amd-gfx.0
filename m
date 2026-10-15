@@ -4,73 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17129CCA464
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 08:55:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A07B1CCA48B
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 08:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A82A0112695;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2BBE112697;
 	Fri, 16 Oct 2026 08:55:44 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 133C810E2E4
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 03:16:41 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a018792ab3so47037925e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 20:16:40 -0700 (PDT)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9636810E8E1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 18:19:18 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-c247f6687dcso854114066b.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 11:19:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792120599; x=1792725399; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=JRXhFgZsIqkWNlRPBEo+vqto9YY5n1rr9e3kPIK1m+o=;
- b=MMOfry9PsAHrEsyuAYCaUdgZBWE09z68mI89YfpXEBwZ68B05n31FL4ZtgAT2yXgyj
- xxBqRFGfvknb/bp8o930mA4BEndhJCQi5bGSrJLO/BxqmHH2CPeu/SxJ0gJjR3XWZyEe
- FdVuBkEBAsbUbNZZwHTP4J9HcHJ9PNe5j3fO+pl4SRxV0B0ijOLPRYag+Q9ZbYxpfwzR
- bq3BCCqAiuJzpRqBrhg2o7D0zjfwGgs5V5t8H1XB4hj8iQaNubYg3C7kiFYOZenbg+Uh
- JUUEgReiWKjGseLOMwy/OF1Q/BEqX84C0XAjbeDgGZQ1yahTAeJB47jhKOzrWZkXfrBA
- zZSw==
+ d=gmail.com; s=20251104; t=1792088357; x=1792693157; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=lEhb3zN1lMktgIigAcsrDFhn7TsuN5FvDjBWQSOK/08=;
+ b=tJIceuLZg3261cLQUJUtk/etOA7QjSf/Y/ull48PFLUyVrxGHMdHSQLfKKSyRD1STq
+ UPaS44ApnbfbBOqt1wPysR90+9KuYSATCf+ByvFDYQ3CffI0+PZkgSQpWQ1T81ftHLVP
+ z9e2HR24yyhaMOx/PXv6K4bG7eKlh9yeBKU3pXDCpBqfZqxLVr1qOGoZ8pJQFNq4VzZb
+ QOhOjnGFl/VdSPMl/M223ATojbfneZK+YtsAvlA7pnnyzzy5aUeHUmeuXw1mbclGshIO
+ a616mCfd7bVt5y5nKQmZzGp7dzXtp1rxpJvVQSCN3TT8D7o9dQokvJ029ITuHhbrCog4
+ xXAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792120599; x=1792725399;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=JRXhFgZsIqkWNlRPBEo+vqto9YY5n1rr9e3kPIK1m+o=;
- b=vnigIoYAHoRRc+QvSMoDZk5d3f4ag1nIBoYIGJJanjXYwt4joZdwsCzNpDeCtOIvKI
- zgU/iWAtqEwQVMBlMmIlm/DT25dFOFjpH4Txg5ug86KmMj060lpnGc6pRECD7LAN0Cyk
- 4LoXuo7DyjphDG9E/jgcL/7qpkqZvZUdatdV/PH/iUJVqvGyu/mDJIQYk0PqxxwoE1BC
- qxvFh2nBmS6ORH/8HzY2ICL4wH41fWbYMej5b+ksootwRXyHWNZV2AiU25LSAUb+r1OX
- BE0go6wuX8sSc19PpjuieXYq6zFK3+t4BVWM/f6QwXJYTO1vIVAs37ycO5P0EZVsiVxC
- pjOQ==
-X-Gm-Message-State: AFq9FYIUc7LyQNNlom0jRH3N5IHEGjYo7YGakoxO3bHfxSL2HQPJIIXu
- XZSPbuZ/TBmp8Ymb/1qr6MOlAH4dGc6yglrV0i9aLpL+0N8pPjAL0tpo/pIjFzmrhoo=
-X-Gm-Gg: AYBFou0IrXHFb1CaRuYUxDjyb/PfrMshd1qpJrJq5ngPhbSDNdWZ8d+xgvUXMlO0l72
- HSHr6bSyOEemjUX6/edFU63xnxAiaNtLde5vAec7slK3qz2T5xromu0PSAP20FAwy54gL6Rm6wG
- cB8REogs8b4O54zIQGS7hpNmHjWkId1qg3PfaZ85lA0MGP+4DPbNfzT4NZ9dV6txOnL9d2TRAgp
- zTkX4Lq49kIqGoTKcbx4OLY76WbVisClSWSThN5KGQZp3KkeMVlmP9TDke1z2ZSDRUp7iThAo6b
- 7SPG0wfi+ctw4waz93Vd/lowRgUZ2qsz0ZaGptasX/VFkYZGicPqQLsql13Rtvh/2/xvCeVN+pF
- RKMrU+mamU8RB2FMXS7fEi/AdLfqGTLnU+4YbS7GkgKS4LQhSI5ByndbSRuhba6JgEPzrYutuw6
- Rg2xPepgUEhGgOf0FxsOBg4K7ejnPNabW+zQzrUe2gYYBPOYJfJE1z6c3MkWiRHcnKZRAI0aioR
- epDO2SBTCghxNQIuZpIE1y7W6ZJ8tl4kECAzBahuIQjaThE7I4v4Y3xZ5NwFkDhDfYMOrmyOwzv
- kP49GwboXXAHwFCb/x3hlfNBD9hi5KXwDoTLvQ==
-X-Received: by 2002:a05:600c:c104:b0:4a1:96cd:2f73 with SMTP id
- 5b1f17b1804b1-4a196cd32b0mr248934165e9.1.1792120599173; 
- Thu, 15 Oct 2026 20:16:39 -0700 (PDT)
-Received: from localhost.localdomain (93-55-250-55.ip266.fastwebnet.it.
- [93.55.250.55]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1c8de8c58sm22527735e9.15.2026.10.15.20.16.37
+ d=1e100.net; s=20260707; t=1792088357; x=1792693157;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=lEhb3zN1lMktgIigAcsrDFhn7TsuN5FvDjBWQSOK/08=;
+ b=auvatq+P62hYYvKA28U5ZraaNPyCvfAFcmJBtONxTdZj/6dYrKPXc308vVYgjSLOxZ
+ wMnfxuD8WiR3y8CpuvjRpqMR6WwL3pYERHx1+OutjPXGArYimAmjPker+scNg2id8ZBQ
+ QstnT6VTMq97EWOLvZOWEV3V6ZgaOVtIDgdr9AkRexf8XUEuhaZXorAd4tYpjAA4lJbw
+ u6qjR3jASFcmR8CgS0KIBNYh1kFC3Ou4R/Z5v1B1uHY9IggMx8Z+ZvSwD5z8KCrxcRvq
+ +UxnHCMcsZTql5aNCyVu0PY/6EjsuivJFzybtAkPnhavB2Cd4ZmAgZqMwTaU5q3Bt4tB
+ 5VPg==
+X-Gm-Message-State: AFq9FYJXL6AisGVpPAFn+UJEk1OqG5d7Db5wssmITRSKqq1tvbuQ7Pf6
+ +o2DleMrsv7RUTtBwrL9Guuu8FHqyJzW8rFlWQyue1ygfJ6B0rsMVdi3S2SJpH7IWq0=
+X-Gm-Gg: AYBFou2aWMn4ZlkmF2BGN0oGBp5oNC12dpyJXawsliegKxhh5dQtqxicLIEtvtF3Y4l
+ WzbEiVaXHiUTzPX0jpo5j0O9/pRCWFmdfQtSgC2UwyXCnNqfp69+1kzECjwWMnyq/Bzv9IGTmuI
+ NEtp+cLF4nnJj+gihLQdNpQE7BX+HXiLpN78pRpc6VEqkQLa0jcPV3Xje9tApWKlY8ksaYARxTZ
+ yoMyN8HY36N2JI969xqMTUg0DCPS7/uiv4rHwmLosdZbEXoFEcUxd5qc8nhzskDYndjahrro169
+ uP/UrOddm/eH7dSjmoTIoFznMqC3jLiKojub4aiBgTNEZ4zZStUyRIO816Bh96l4vWHtMBPlogE
+ 4ZlOPYp+fyBbN3XHqhdn8MN+r1qH7fZm5Muih8avjRPfEho23XYP6PFiornDpV5IZQAWXvndPUM
+ E9FlmV4Rz/IcvPih6+1+MM/BzpF7YrBzDZ7/lBLayvYgDRgmzA474JSUWCP+Qlqhjk3IP4iK2Px
+ b+WDAC7JlH+IQYcWLjm
+X-Received: by 2002:a17:907:c60f:20b0:c32:4e81:fe1f with SMTP id
+ a640c23a62f3a-c324e820e1emr1129681066b.27.1792088356858; 
+ Thu, 15 Oct 2026 11:19:16 -0700 (PDT)
+Received: from mbp-2015 (46.205.244.1.static.t-mobile.pl. [46.205.244.1])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c3ed9b33006sm161790066b.32.2026.10.15.11.19.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2026 20:16:38 -0700 (PDT)
-From: Luigi Lauro <luigi.lauro@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Lyude Paul <lyude@redhat.com>
-Subject: [PATCH] drm/amd/display: take a runtime PM reference only when a CRTC
- turns on
-Date: Fri, 16 Oct 2026 05:16:36 +0200
-Message-ID: <20261016031636.575385-1-luigi.lauro@gmail.com>
-X-Mailer: git-send-email 2.56.0
+ Thu, 15 Oct 2026 11:19:10 -0700 (PDT)
+From: Maciej Kucharek <qchcio@gmail.com>
+To: amd-gfx@lists.freedesktop.org,
+	alexander.deucher@amd.com
+Cc: christian.koenig@amd.com, Maciej Kucharek <qchcio@gmail.com>,
+ Andre Eikmeyer <dev@deq.rocks>, Frederick Morlock <me@freddy.us>,
+ =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?=
+ <fbeltranmillalen@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH v3 3/3] drm/amdgpu: reset VI ASIC on Apple boards with VRAM at
+ 0
+Date: Thu, 15 Oct 2026 20:18:37 +0200
+Message-ID: <20261015181837.41690-4-qchcio@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015181837.41690-1-qchcio@gmail.com>
+References: <CADnq5_NXGqXy7_Ntcv0aGSQt8Ax48-SgWpSv4rTzNjDL-H_8_Q@mail.gmail.com>
+ <20261015181837.41690-1-qchcio@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 16 Oct 2026 08:55:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -87,88 +92,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm_commit_streams() takes a runtime PM reference for every
-active CRTC that needs a modeset and has a new stream, but
-amdgpu_dm_atomic_commit_tail() drops one only for each CRTC that goes
-from active to inactive. A modeset of a CRTC that is already active (a
-mode change, or anything else that needs a full modeset) therefore
-leaks one reference. Once that has happened, the usage count no longer
-returns to zero with every CRTC off, and the device cannot runtime
-suspend again until reboot. The two also disagree the other way when a
-CRTC turns on without a stream ("Failed to create new stream"): no
-reference is taken, but one is dropped when it turns off.
+On MacBookPros with switchable graphics, the firmware puts VRAM at MC
+address 0 when the iGPU is enabled.  A later post (S3 resume, GPU
+reset) moves VRAM back to the VBIOS default.  gmc_v8_0 reads
+MC_VM_FB_LOCATION once at init and reprograms it only on SR-IOV.  On
+bare metal, the driver then keeps using the old layout.
 
-Take the reference in the loop that counts the disabled CRTCs, on the
-mirror condition: when the CRTC goes from inactive to active, which is
-what the commit that added it intended ("every time we enable a
-previously disabled CRTC"). Each active CRTC then holds exactly one
-reference.
+vi_reset_quirks[] resets these boards at load by PCI ID:
 
-Tested on an RX 9070 XT (Navi 48) over OCuLink, with the change
-backported to 7.2.9: an unplugged connector forced on, then mode A on a
-CRTC, mode B on the same active CRTC, and the CRTC off, three rounds in
-a row. The usage count rose by 3 with the stock module, by 0 with this
-patch, and by 3 again after reloading the stock module.
+  commit a5be7ad8f5f0 ("drm/amdgpu: reset VI ASIC on MacBookPro15,1")
+  commit a22e5e4f2ebb ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
 
-Fixes: 97028037a38a ("drm/amdgpu: Grab/put runtime PM references in atomic_commit_tail()")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5951
+Replace the table with the test that SI and CIK use: an Apple subsystem
+vendor and VRAM at 0.  Other Polaris MacBookPros then also get the
+reset at load, for example the MacBookPro13,3 if its firmware leaves
+VRAM at 0.
+
+On the MacBookPro14,3, MC_VM_FB_LOCATION is 0x007f0000 at load, so the
+new test covers it.  The MacBookPro15,1 entries fix a module reload
+after S3.  With the reset at first load, later posts keep VRAM where the
+driver expects it.  The reload failure on these boards is then expected
+to go away, but this is not tested.
+
+After the reset, FB_BASE is not 0, so the new test does not fire again
+on a module reload.
+
+Only compile-tested.
+
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Andre Eikmeyer <dev@deq.rocks>
+Cc: Frederick Morlock <me@freddy.us>
+Cc: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
+Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Luigi Lauro <luigi.lauro@gmail.com>
+Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
 ---
-Alex asked for this on the issue. It differs from the change tested
-there, which only skipped the get in amdgpu_dm_commit_streams() for a
-CRTC that was already active: with that form, an off-to-on modeset with
-no stream (the "Failed to create new stream" continue) takes no
-reference, and a later modeset of the same CRTC with a stream and then
-an off drops one more than was taken. Pairing the get with the put
-closes both.
+ drivers/gpu/drm/amd/amdgpu/vi.c | 29 +++++++++--------------------
+ 1 file changed, 9 insertions(+), 20 deletions(-)
 
-Who changes: any system where a CRTC that is already active gets a full
-modeset (a mode change, an HDR or colorspace change). Today each such
-modeset leaks one reference; with this patch it takes none. A CRTC
-turned on without a stream now takes the reference its later turn-off
-drops; I could not exercise that path.
-
-Also tested at rest, on a boot with no leaked references: with nothing
-using the card and its connectors never probed (a TV is attached), it
-runtime suspends to D3hot with this patch after a forced wake, and the
-usage count drops to 0, as it does with the narrower form loaded before
-and after. That test runs no modeset; the rounds above do.
-
-The change applies unchanged to 7.2.y.
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c4fee73a0..605f289ac 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4707,8 +4707,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
- 			if (dm_old_crtc_state->stream)
- 				remove_stream(adev, acrtc, dm_old_crtc_state->stream);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index a0435fd55..999aeb797 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -1387,30 +1387,19 @@ static uint64_t vi_get_pcie_replay_count(struct amdgpu_device *adev)
+ 	return (nak_r + nak_g);
+ }
  
--			pm_runtime_get_noresume(dev->dev);
+-struct vi_reset_quirk {
+-	u16 device;
+-	u16 subsystem_vendor;
+-	u16 subsystem_device;
+-	u8 revision;
+-};
 -
- 			acrtc->enabled = true;
- 			acrtc->hw_mode = new_crtc_state->mode;
- 			crtc->hwmode = new_crtc_state->mode;
-@@ -5292,8 +5290,13 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
- #ifdef CONFIG_DEBUG_FS
- 		enum amdgpu_dm_pipe_crc_source cur_crc_src;
- #endif
--		/* Count number of newly disabled CRTCs for dropping PM refs later. */
--		if (old_crtc_state->active && !new_crtc_state->active)
-+		/*
-+		 * One runtime PM reference per active CRTC: take it when the
-+		 * CRTC turns on, count it when it turns off for dropping later.
-+		 */
-+		if (!old_crtc_state->active && new_crtc_state->active)
-+			pm_runtime_get_noresume(dev->dev);
-+		else if (old_crtc_state->active && !new_crtc_state->active)
- 			crtc_disable_count++;
+-static const struct vi_reset_quirk vi_reset_quirks[] = {
+-	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x0190, 0xe3 }, /* Radeon Pro 555X */
+-	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x018f, 0xc2 }, /* Radeon Pro 560X */
+-	{ 0x67ef, PCI_VENDOR_ID_APPLE, 0x017a, 0xc7 }, /* Radeon Pro 555 */
+-};
+-
+ static bool vi_need_reset_on_init(struct amdgpu_device *adev)
+ {
+-	unsigned int i;
+ 	u32 clock_cntl, pc;
  
- 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+-	for (i = 0; i < ARRAY_SIZE(vi_reset_quirks); i++)
+-		if (adev->pdev->device == vi_reset_quirks[i].device &&
+-		    adev->pdev->subsystem_vendor == vi_reset_quirks[i].subsystem_vendor &&
+-		    adev->pdev->subsystem_device == vi_reset_quirks[i].subsystem_device &&
+-		    adev->pdev->revision == vi_reset_quirks[i].revision)
+-			return true;
++	/*
++	 * MacBookPros with switchable graphics put VRAM at 0 when the iGPU
++	 * is enabled.  Any later post (S3 resume, GPU reset) moves it back to
++	 * the vbios default, so reset and post on load to start with the
++	 * vbios layout.
++	 */
++	if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
++	    !(RREG32(mmMC_VM_FB_LOCATION) & MC_VM_FB_LOCATION__FB_BASE_MASK))
++		return true;
+ 
+ 	if (adev->flags & AMD_IS_APU)
+ 		return false;
 -- 
-2.56.0
+2.55.0
 
