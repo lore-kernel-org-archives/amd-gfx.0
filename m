@@ -4,94 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F9E7CCA464
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 19:13:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20AA0CC6B38
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 19:30:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E652111244E;
-	Thu, 15 Oct 2026 19:13:10 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013056.outbound.protection.outlook.com
- [40.93.201.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 499D811244E
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 19:13:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yFRcCinjf8lqXpaM7QC80Xo2r4w3tDJo3EeU9vpMHud1MlvHlfIQzBrt06CXPpndI++dWbYke5x7r2c8KDqWooU0wi8aEWJTI2vhKwOKx42b9qiP2GQUinccKKfCqzSsFvBv/MsVwN9yqowopdQT/2sI9Upi98z5a5BphVViMn/7Raxur7JGweKCNMxnLxfs3yW8qip0kg/RYIJqciBwfOPUc0l5AUW4PCERaAwKsutFSfJrk2v5HWEhJaB+ghpZQiNAXILtwBqU6YG2N0aMwrDpYfG0LbefRzrh+xz089Mx+xNCvIGKyncBJ2aAtacAAY+5sUTlcl5V5gAvAD2wSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0mrPAXKNO1MXwXZ+Mra1NTn61NMdwXIaSVZ45cccwXM=;
- b=itZKP7uTXJ6KoVA6XuKfzqCNtQjph1Ep2r8RfqpNWuf89JbbBx90/VSKlhD6QBwPD2kviHR5Nxh0DUhGXn2pafJc9Z/EpU4oIa9wGLKKTG2/5MFZKFQOzArIVXMBpPrTU3Rlrc1uEi8J+m2ePg+Caq5/irbAuZXZXWVtftRCVSiCctOgJwXemJY724lXGG1uuuoXLxqDMv7AZjuJuIIekYEdboS2AkMf5H6faUZxp/Rgu2GDTBm7xKTSix6i+dy7tu5FgxusLNpw5LUT7oXWET5dqoThayRKhO/O9PeL5f75pqnZsh3uA37zyTNNpsVWrQ/gmTHrplb6ZRVjpo8dFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0mrPAXKNO1MXwXZ+Mra1NTn61NMdwXIaSVZ45cccwXM=;
- b=OjYL9puA4DoN7wrI9i6XbIpdkk2My5/PYzbiNDxYUnjZ2ZKlTSTELCSvzXBmoteNYN22l4jNPz+GiAmSbvc+qkGvW4AoogTJ6S9bnGLu3Uz7AN223MXYu90927JfnCGppAwO2eyewnZizQTbPOYOZGIAbdYHuoV9UbZ7HlaQy5s=
-Received: from DS7PR03CA0177.namprd03.prod.outlook.com (2603:10b6:5:3b2::32)
- by MN6PR12MB8568.namprd12.prod.outlook.com (2603:10b6:208:471::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 19:12:56 +0000
-Received: from CH3PEPF0002457A.namprd04.prod.outlook.com
- (2603:10b6:5:3b2:cafe::a) by DS7PR03CA0177.outlook.office365.com
- (2603:10b6:5:3b2::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 15
- Oct 2026 19:12:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0002457A.mail.protection.outlook.com (10.167.252.20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 19:12:55 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 15 Oct
- 2026 14:12:48 -0500
-From: David Francis <David.Francis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, David Francis <David.Francis@amd.com>
-Subject: [PATCH] drm/amdkfd: Check before ctl stack copy in CRIU restore
-Date: Thu, 15 Oct 2026 15:12:40 -0400
-Message-ID: <20261015191240.23092-1-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A47E410E3AA;
+	Thu, 15 Oct 2026 19:30:12 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 956D910E291
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 19:30:06 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4a172eb31f0so50566315e9.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 12:30:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792092605; x=1792697405; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=lzKagMLIVwwP3008dfpthjNFDgkHppRssPgEepbu2+s=;
+ b=p/4w8gHC9Luh1mpAUnM5Jtj7slRAccI3hHu/UsRH3ZsplYR+ws1MtRM+fcu81/aeUI
+ uYX2eqUEfMoQR5FO/tn/Z/gMPrR+uG3crm+Ewsq+hwW/YwU7ttEiOCKOFsbNAMiZpz/S
+ xb82bYsRWbzNw53pHNCEBhAelSmfO1UczTCaWg/lTA2Ew8eKP1sym51hoEcSMnVdnrJe
+ J9ceLQzOkAuFQLfoRbQNsaeAo6uBhl11rq31yT3s/BPWjPTTfK0PrGxgVrc2lb19D+vc
+ 2F98wtZLev4VKTqpNd5w6j+m5dNYMGRl4OTQCEjB2hv3Ne5pAP9jVuebYBM6+PWGk4VE
+ qekw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792092605; x=1792697405;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=lzKagMLIVwwP3008dfpthjNFDgkHppRssPgEepbu2+s=;
+ b=MZlGNzWgiDMormJlDjXZa6aVQft+vYEQZiYMpMe2ZizlQ40sCIpG0tw/uUAAnytNbB
+ wr7PTG/5of958e2AuyetUk33cPNkXUGNrB5tb1E5UrBB4kfg7T4aZ/HoAX/yQ7zb+iGM
+ fLPGmVY2rbfiUoZPTYtCQgv04B0EtvIRmfJSfpGD8hmQSU88dUw3xIH/00HeuAFJFnbQ
+ utrKYPgvfxowvehbvRvSBEiWenNWhUbrozhSiHVQhyI9UgukJRH8CMDT2XyuC05AuJmG
+ zWohMnnhh//bQT+ir4jmlqiV45G/KCnZoWPcoEC9UFGbkaM+gm3GQnAhiLmyKzvB7RO3
+ mscA==
+X-Gm-Message-State: AFq9FYLp3wA5yb2pKHcgMElJDrw4s1iXM5NwL0acI8tBR1AhFlPKPHP0
+ V+nV6MAKoFRL0oZqXQw+7l98/kroBi6muzU1f8fo+7M6AKI7hMVJdPDlJt4dug==
+X-Gm-Gg: AYBFou2AWQOjxcwi4beqfLEGCmCeeJJ9IgrdQD7chKh82kdTmS5mIlAjYcyXeuRgPmG
+ QRT/vH03nmiKyFrDas14frQYq2rf92G+14VpTaV9ft2aqLz1uHuf2CJwXK7s4aAduqLBNV/xhRE
+ luxE/8iMrtMt+xSjoFVsczyG+S+EPGO9HHmtDcRml3fnQjWOeNxWuPaL1oCgPhHUzZR1c59yzC1
+ di/O5qaf+R8I6DfxLe9p4q14bVRc92/OKCOY63jrntT8fHJ+47QaEcBOmqQ4Sjf3Ie+rIRfuRs1
+ Ahv4tUjVBlpycX4sIX0uZRlbGTfMSzDJdJ3icn/tqqMSo/BdIDyXVsrOx5Lvgvg7TcSwSk33Pvm
+ k7GjBf7dmB8iivSRCtTnnVwFo8l9JjDP2KNu+zuQg2y4J1j9m7lWQsOsiSq0HDJqNX6m7ZmXWHh
+ 1b+5G0FZi3kKs7M58Fbk0qgraS4lIfhg/+vaqWgR6xwAFD8YI9j1eu0GPbQEneS7L6fOO83g5sg
+ +kWa92Sa7v7fiO3zagIJVGt62E1H3R1LZheEu/qEu02OvSUhR5lWlCXe5fxc1bjpYpnDlMyAIYL
+ BlFtL5/83ytipEKLzPCor+DdokVwQHo3SgWCBvd6pZCHcjejP8IprClpz9mZ6y9T+oBdQKSvnXc
+ ILQtdbVDlJKvPkkUYja3mW5PfN8Qj8Xwv66abEbruQcUw/81dNh/qoV1Ltazo69JHey6RhDxBAf
+ usEnMNFZkPCmrQTj3b
+X-Received: by 2002:a05:600c:1908:b0:49f:ce73:5e94 with SMTP id
+ 5b1f17b1804b1-4a18e4dd018mr395769455e9.34.1792092604661; 
+ Thu, 15 Oct 2026 12:30:04 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2a0d:e487:41be:7420:c1d9:bb43:318e:b925])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a1c8a9ea3bsm956705e9.0.2026.10.15.12.30.03
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 15 Oct 2026 12:30:04 -0700 (PDT)
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com,
+	felix.kuehling@amd.com
+Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
+ guard with drm_dev_enter
+Date: Thu, 15 Oct 2026 21:30:02 +0200
+Message-ID: <20261015193002.86034-1-olivier.kaloudoff@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <5028b598-b039-46b3-b4a5-9563ab0a252e@amd.com>
+References: 
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0002457A:EE_|MN6PR12MB8568:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba4f9fa7-a575-4634-76c3-08df2af05162
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|261009223027099003|56012099006|11063799006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 70mdTw+1M8kpmNRWgpTqz5/zfnBYckYTSzuQn+2tPBJlUT+A8NWyUOmMwLkeLqOCKVfUG2gvkudPm0yFWU9mXsxoMBgrsACfgbqHGWzZ+Yn3kFWe04KJ1RfZrEu47ocp0Ti8617M8+fBw3bqQrVuSYprEl6nyFu0sInbobPskUgsI3T+biu2K4hFJRO+zFphVXomVgw8mUO9ijiYHJ80oOjV4fZo8etr4ONi+/iSSNLURccOyYjPLgwHJEt26kqcFAd/JBKg55gIqyNxxLgTRXJg25RyASZL3ksBPezyxewtdWa5QEQd10a8f2qalhWEx4OnRxc2MEMuLEDcg2dqocmO3aVtvmUANa9hbjN3fPt4f2ZCpJ2gezxhj8LKFMxdjEuUyYd8UiXfAogdc1nKY+iDEveTDkPm089mJXkbhVPVbRuq5Hthr737EextqjJ39THDS5AVx5O/VnwmsDl3Pj5vJB5rpS9qfoNMorSlzmlhtU5l9tvd/Ml/7GjM6v4XLOF0mJ6jJxRsfK9hG8V7hS8BS8P3dqhxXGp6g1FR3yKNAmFQcihkUh5S45AHxcODo/ZfMEJa7nIfmZ38MoXQyKpmj2ri3eaV/wolKbkC1+axjQBQATloO+4Qr/9uerl1lxeClIPwJSeAPj7kkE0ItDgvp0aB1FVebx7ohmbXPFwu0Ji6GPwodJk7C/tZg2BHdohSC2DKdexjSynb6c2Iwg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(261009223027099003)(56012099006)(11063799006)(10067099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: TxoYZKCiQEdj+7r2SDGeFDT/kldbCJZ/AxWTHYwuKDGtzVrQ7IpTWzLkrWmQRyOmp1RhUNPLyzIIHyxeY4/gVcLNerBiwjKnCq1dpfpWiqzrjcH3iNQ/fR51E26wbksuKZFBVVdFBA78gAQ4A6L3Y3KPz0b2xs+sIaT9yZZn4I1tNuan5BADkA4LDq+CHkrRj5T+WygJmCsSlt5je+8QRK9wrMv77dQ40XVs1wl8CFNq1S4vfRxtgOQ5RYCmDtqMnGGx94hfWdsPkVQkYTHaRUXFzIBoLuB8dAXxNn+nyDyHsKKsdlY0NOJGHSjI008UgATrYiCcjXwBl4vkfRh2CEvSV1wB+c7Mzrp+whAHSjlXFi3Tbq6w+BdueQ/7fYuz342r7pU5DcE1FRGabFREc3iHTb6GxdjiLkihL3q5t1IhXR8jZ9jyIqbtcXSyqMMX
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 19:12:55.5271 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba4f9fa7-a575-4634-76c3-08df2af05162
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0002457A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8568
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,39 +91,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-During CRIU restore, if cwsr is enabled, there is expected
-to be a control stack that needs to be restored for
-compute queues. In other cases, there shoudl be no control
-stack, but we were copying one over anyways.
+Hi Christian,
 
-In that case, skip, and warn once.
+> Yeah and you need to fix the fence orphaning and *NOT* the wait!
 
-Signed-off-by: David Francis <David.Francis@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Agreed — found the exact orphan site. drm_sched_entity_push_job()
+pushes the job onto entity->job_queue first, then
+drm_sched_rq_add_entity() sees entity->stopped (under entity->lock)
+and returns NULL: the scheduler is never woken, the job strands on
+the spsc queue, and its fence never signals. In our repro the dying
+process's fault path submits the migration job on its own killed
+entity — it's the process-kill race, not a device-unplug race at
+all, which is why drm_dev_enter() doesn't cover it.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index 75e5a9f67d50..0350c7c2b307 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -463,9 +463,13 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
- 	if (gart_addr)
- 		*gart_addr = addr;
- 
--	/* Control stack is located one page after MQD. */
--	ctl_stack = (void *)((uintptr_t)*mqd + AMDGPU_GPU_PAGE_SIZE);
--	memcpy(ctl_stack, ctl_stack_src, ctl_stack_size);
-+	if (mm->dev->kfd->cwsr_enabled && (qp->type == KFD_QUEUE_TYPE_COMPUTE)) {
-+		/* Control stack is located one page after MQD. */
-+		ctl_stack = (void *)((uintptr_t)*mqd + AMDGPU_GPU_PAGE_SIZE);
-+		memcpy(ctl_stack, ctl_stack_src, ctl_stack_size);
-+	} else if (ctl_stack_size > 0) {
-+		drm_warn_once(adev_to_drm(mm->dev->adev), "Control stack for non-compute queue in CRIU restore\n");
-+	}
- 
- 	m->cp_hqd_pq_doorbell_control =
- 		qp->doorbell_off <<
--- 
-2.34.1
+This is the same failure Tong Liu reported in August 2025 (task
+hang after job submission during process kill); that fix was
+rejected for checking entity->stopped without the lock. The clean
+fix is not to pre-check but to handle the NULL return while still
+under entity->lock: drain the queue / schedule the kill-jobs work
+so each stranded job's finished fence completes with -ESRCH.
 
+> Blocking for all fences is correct shutdown order.
+
+Agreed. v7 drops the timeout entirely — unbounded wait restored.
+With fences guaranteed to signal, the copy_done error path becomes
+genuinely reachable via the fence's error status, so the error
+propagation and migrate->dst rollback Felix asked for stay — now
+on a real error path instead of a timeout.
+
+v7 is now implemented and tested on this machine (7.3.0-rc5 +
+p1/p2 teardown+restore-stop, sched orphan fix, KFD fence-error
+rework). Hot-unplug test: svmhog2 mid-migration + a second KFD
+process, then Thunderbolt deauthorize. With only the sched fix
+the host still wedges — the kill-jobs drain prevents the orphan,
+but the unplug path additionally needs the KFD teardown ordering
+(processes torn down before device early-fini) and the restore
+worker stopping on -ENODEV. With the full stack: fences complete
+with error instead of orphaning, both KFD processes get SIGBUS
+and reap cleanly, device tears down, host stays alive, and
+re-authorizing gives a clean re-enumeration. So your direction
+was right — the wait was never the bug — but the orphan fix is
+necessary rather than sufficient for unplug.
+
+One question on layering: the push-to-killed-entity fix belongs to
+drm/sched, which is dri-devel/drm-misc territory — do you want it
+as a standalone patch there, or kept in this series? I can also
+guard the KFD submit side so it doesn't push to a stopped entity
+in the first place, but the sched-side drain is the airtight fix
+since entity kill can always race a locked pre-check.
+
+Regards,
+  Olivier
