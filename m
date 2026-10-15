@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A7F2CC6B3A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF4B4CC6B39
 	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 08:21:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F457112196;
-	Thu, 15 Oct 2026 08:21:50 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EAB710FFD8;
- Wed, 14 Oct 2026 22:30:48 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j4mBG6Jw6zMlDm;
- Thu, 15 Oct 2026 00:30:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1792017046;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iH6VgiGj5KrB23VvD5r/W6aj7P6EbpDpdOeMlYANEW8=;
- b=m8V6J7tuZz+jCiDBwrq1wUb0NwR+l7hMxFKi5VUDHJ52vz+ZKV6WhvFDdlqnShja/l0M0h
- gghMMqza4Nbs/S5NE8FwCvfMSRsOSyaALAOfjf5CVfBDoIq61343ltIbO3eKOf7rrV4hhB
- LeDJBFamz18VvmtQFTjOmwyWI8hYkFAIx+A7ympaL1kmMqDsDA7o5u3GGh1v3UiYT1G4C+
- QBqT/kQE6JPgOPXwie8BGbfD6b1ofEpcvoTvCvUnbnoD/j+cTfbED4WAPFmzPuo1N8+sU8
- PWqKYUJSg6/jWSfON9N+Vg+RiA/RFmnbB3xAKMn2Bf1z4/jHDuA6SmSxabdTGg==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
- 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, Hugo Sales <hugo@hsal.es>
-Subject: [PATCH 2/2] drm/amd/display: Add KUnit tests for the eDP/LVDS native
- mode fallback
-Date: Wed, 14 Oct 2026 23:30:41 +0100
-Message-ID: <20261014223041.171317-3-hugo@hsal.es>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014223041.171317-1-hugo@hsal.es>
-References: <20261014223041.171317-1-hugo@hsal.es>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4E1F1121D9;
+	Thu, 15 Oct 2026 08:21:55 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7057C11207D;
+ Thu, 15 Oct 2026 02:20:34 +0000 (UTC)
+X-UUID: fd7f38c8c83e11f19a56ed5b684f684d-20261015
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:9899024b-92d8-4d91-9c66-4289ed14aa36, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:25
+X-CID-META: VersionHash:7db8b62, CLOUDID:e8908782ca9b5cc8b382f0c1bd9ebbbd,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+ 5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,A
+ V:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: fd7f38c8c83e11f19a56ed5b684f684d-20261015
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1533390645; Thu, 15 Oct 2026 10:20:29 +0800
+From: yaolu@kylinos.cn
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Lu Yao <yaolu@kylinos.cn>
+Subject: [PATCH] drm/amdgpu: Fix out-of-bounds write in
+ amdgpu_debugfs_gfxoff_count_read()
+Date: Thu, 15 Oct 2026 10:20:24 +0800
+Message-Id: <20261015022024.49233-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4j4mBG6Jw6zMlDm
 X-Mailman-Approved-At: Thu, 15 Oct 2026 08:21:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,148 +61,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Leave only a scaled mode in connector->modes and put the larger native
-mode in the encoder, as a size-limited probe does. On eDP and LVDS,
-create_stream_for_sink() must build a stream with the native timing and
-the scaled mode as its source size. On HDMI it must keep the first mode
-in the list as the timing
+From: Lu Yao <yaolu@kylinos.cn>
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Hugo Sales <hugo@hsal.es>
+amdgpu_debugfs_gfxoff_count_read() stores a 64-bit GFXOFF entry count with
+put_user(), but advances buf/pos/size by 4 bytes per iteration.
+
+Fixes: 0ad7347a64ac ("drm/amd: Add detailed GFXOFF stats to debugfs")
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
 ---
- .../tests/amdgpu_dm_connector_test.c          | 112 ++++++++++++++++++
- 1 file changed, 112 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 56fd133bc..55e2c3849 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -4547,6 +4547,115 @@ static void dm_test_create_stream_hdmi_vsif(struct kunit *test)
- 	dc_sink_release(sink);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index ab7ccfaea22a..aa44a3f0cdc4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1451,7 +1451,7 @@ static ssize_t amdgpu_debugfs_gfxoff_count_read(struct file *f, char __user *buf
+ 	ssize_t result = 0;
+ 	int r;
  
-+/*
-+ * Build a stream after a probe with size limits below the native mode, such as
-+ * fbdev emulation's. That probe leaves only a 1920x1200 scaled mode in the
-+ * connector's mode list, while the encoder keeps the 3840x2400 native mode
-+ */
-+static struct dc_stream_state *
-+dm_test_native_mode_pruned_stream(struct kunit *test, int connector_type)
-+{
-+	static const u8 edid[EDID_LENGTH];
-+	struct dm_test_stream_ctx *ctx = dm_test_stream_ctx_alloc(test);
-+	struct amdgpu_encoder *aenc;
-+	struct dc_stream_state *stream;
-+	struct drm_display_mode *native;
-+
-+	ctx->aconnector->base.connector_type = connector_type;
-+
-+	aenc = drmm_kzalloc(ctx->drm, sizeof(*aenc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, aenc);
-+	KUNIT_ASSERT_EQ(test, drmm_encoder_init(ctx->drm, &aenc->base, NULL,
-+						DRM_MODE_ENCODER_TMDS, NULL), 0);
-+	KUNIT_ASSERT_EQ(test, drm_connector_attach_encoder(&ctx->aconnector->base, &aenc->base), 0);
-+
-+	native = &aenc->native_mode;
-+	native->clock = 592500;
-+	native->hdisplay = 3840;
-+	native->hsync_start = 3888;
-+	native->hsync_end = 3920;
-+	native->htotal = 4000;
-+	native->vdisplay = 2400;
-+	native->vsync_start = 2403;
-+	native->vsync_end = 2409;
-+	native->vtotal = 2469;
-+	/* Cached by the first, unlimited probe */
-+	drm_mode_copy(&ctx->aconnector->freesync_vid_base, native);
-+
-+	drm_mode_copy(ctx->mode, native);
-+	ctx->mode->hdisplay = 1920;
-+	ctx->mode->vdisplay = 1200;
-+	drm_mode_set_crtcinfo(ctx->mode, CRTC_INTERLACE_HALVE_V);
-+	dm_test_stream_add_mode(test, ctx, 0);
-+	ctx->dm_state->scaling = RMX_FULL;
-+
-+	ctx->aconnector->drm_edid = drm_edid_alloc(edid, sizeof(edid));
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector->drm_edid);
-+
-+	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
-+					ctx->dm_state, NULL, 8,
-+					PIXEL_ENCODING_RGB, false);
-+
-+	drm_edid_free(ctx->aconnector->drm_edid);
-+	KUNIT_ASSERT_NOT_NULL(test, stream);
-+
-+	return stream;
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_edp - Test eDP gets native timing
-+ * @test: The KUnit test context
-+ *
-+ * The scaled mode must still be driven with the panel's native timing, kept in
-+ * the encoder
-+ */
-+static void dm_test_create_stream_native_mode_pruned_edp(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_eDP);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_lvds - Test LVDS gets native timing
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_create_stream_native_mode_pruned_lvds(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_LVDS);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_hdmi - Test HDMI uses the first mode
-+ * @test: The KUnit test context
-+ *
-+ * On a connector that is not a panel, mode_valid may have dropped the native
-+ * mode, so the first mode left in the list must drive the timing
-+ */
-+static void dm_test_create_stream_native_mode_pruned_hdmi(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_pruned_stream(test, DRM_MODE_CONNECTOR_HDMIA);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 1200);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
- /* Tests for amdgpu_dm_connector_detect() */
+-	if (size & 0x3 || *pos & 0x3)
++	if (size & 0x7 || *pos & 0x7)
+ 		return -EINVAL;
  
- /*
-@@ -10246,6 +10355,9 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_create_stream_dp_vsc_colorimetry),
- 	KUNIT_CASE(dm_test_create_stream_dp_colorimetry_quirk),
- 	KUNIT_CASE(dm_test_create_stream_hdmi_vsif),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_edp),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_lvds),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_hdmi),
- 	/* amdgpu_dm_connector_detect */
- 	KUNIT_CASE(dm_test_detect_force_on),
- 	KUNIT_CASE(dm_test_detect_force_on_digital),
+ 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+@@ -1471,10 +1471,10 @@ static ssize_t amdgpu_debugfs_gfxoff_count_read(struct file *f, char __user *buf
+ 		if (r)
+ 			goto out;
+ 
+-		result += 4;
+-		buf += 4;
+-		*pos += 4;
+-		size -= 4;
++		result += 8;
++		buf += 8;
++		*pos += 8;
++		size -= 8;
+ 	}
+ 
+ 	r = result;
 -- 
-2.55.0
+2.25.1
 
