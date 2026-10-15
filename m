@@ -4,122 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D4A4CC6B38
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 21:36:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97299CC6B38
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 21:47:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B17681124BE;
-	Thu, 15 Oct 2026 21:36:39 +0000 (UTC)
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012061.outbound.protection.outlook.com
- [40.107.200.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74DE91124BE
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 21:36:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 225EE10E056;
+	Thu, 15 Oct 2026 21:47:12 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010024.outbound.protection.outlook.com [52.101.46.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5CF31124AC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 21:47:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t+allVkGuEe63LxIr4IXWD0UKAmWdSD4yfb+oA97mk8ncx7Ouk/HKImHrkC4Y3i1VelUfmMt+dhG/M1WZMs7Jc/3sASJ3oxAHcyiY/AMQ5oSFi1ODpyWUU4U66UH9HoGLFbzWDb57Fv5mOkcBlvuGIKJP/vFjeUvUQYp3lHs9THa7n4YVjUEPtZEqmGirBIkSf9LxqX8UmGWZvE+z6rNjnai6uddJNYiL2iRgLzksr196lz9mFbDmFCaUDJdJp9PTF/4PU9a5H/CpJJyDRV5pi45gSi9ccNsoKjZ+SllTb/Uq41N+3n5Dg+RWBZCzXr2iXOU1ypsk5DL8NZgJDW71w==
+ b=Ulxdu+rU03qSLBr/SPJ3P+EqsVte3XEEstwWEKOqzj55MlE8u0qRDAW9ed9vANfhHyssLBpak63rCTsMG7PuVGMEjEnBKXM+5kdqTBpkoatL7irmgEvhdtKaC3xiXPgg/sn5Jvwqv8thFKNJ28leiuXwma6M9D6wdHVvrgmx1Q4+QFej/RQd8dw7IrmzasFTM5nXa76pYnwHiZ8BbOvNYhn2shqpEVqrAu/c5pbsIP7RHLVHqOb5d1XFQ9ybUQZxKBDlNEdukFmrpinoT4clXa3ZcuL3jMcu4NFTVEwqjBeEAI6xF0K+xVZtU4Z6Ge9dqVff8JcjLsFXs9W4/Yx3IA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zaFN0yZbQCx5B/ARktqMGElzRo7OAMRWuMbHdYGlpNc=;
- b=fNFtzrNPVhiwyHMcaEXTFY6MiHYc+irwdZDuRGxL8U5kTlKVc/B3dEqVoCwyHEQLtu7EDR/PaoVEzxBDGmAvhDDVkZ+VQHca5ZCyARaQZDYToUwUVY55uwbQJpGsDTw7jJL9+Dqoj91jIMGU8B10gAHuSlwAqbq5IizCINtJncrmoqaldacl/tXwx9wRTgJI7FSlRW1/+hAzz12Q1vqp/Xk/1dIyRyqwuYJwuyMACMq+a2iW1ordUSiZB/xuP0CYpvFNpQ+KH5oYW90dKBJfTY43MAnd1GQJ9GKovoNkhNBSqVYhACJCPj8oSYqRQCFLiUGkEvdRcG0G1H6lMZexGQ==
+ bh=KgqDbkOfI3rZrdu0qk7KELrBu6Ysqbrp+6repHrimjA=;
+ b=rowLqJsISIK6q8s2gzjVKogYeZ37Ah9ymi10fo2tKSqZ7YoB1RXSp64rlVitX1RX9ZsG4IrXbn9fgRHUwGArE8r4vyYIXEm3Hfr8PPf6mCrIV3w0kDpBQuosS8yZqGdPZ0ieiIo9E4kkeI3cJRpFhSOvIynW2So58lVhu8BzM5iKBKPcc93rRA/qyPMLjVI/8G4E66ygT3VacSX/Bv55F1PbPvd9qsy9Oo65DLhu5VZo/yv4wL3qcoh2JInlDPMdENbyhUHTrP6M9d8vWTjdM3z6JO1DE/QvuAuzTtzyw3/m7ktLaKfT0M2oY05/1oKdzQ/A8YSVY1JTQ1S7Tm+dtw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zaFN0yZbQCx5B/ARktqMGElzRo7OAMRWuMbHdYGlpNc=;
- b=hofDSIn51WbaS5+1QwQKWrsUURTTLVdQOYcIzVYslnGotpE76pjDf2YOAOAqHwIdvauakbFuA73kJUwSwqMr/r0VD+lmNaicC24SVDsgKYKzpMpjGogmorPFtY9xkfBVOY33wARAP6eYr4A8BhTxanqQ9r+CkXB+lJChIdeL3kI=
+ bh=KgqDbkOfI3rZrdu0qk7KELrBu6Ysqbrp+6repHrimjA=;
+ b=sp73/s3wHIsD3zhcTXuoT1MXT/bGMgR02ZPtfagUPu2yKbnxZ56sLtq//mpwpWlG+HALyVJLR9vNYE6j4zk0PEhLbHfif6KZz3PB26CqIEvSGok6fU+FQ7gzk4lUAIZk3/4n8NNWw3Ex9HNHiggk1zFk5sUmd+PxNzWKYiInFew=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655) by MW4PR12MB7333.namprd12.prod.outlook.com
- (2603:10b6:303:21b::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 21:36:29 +0000
+ (2603:10b6:f:fc00::655) by DS0PR12MB8218.namprd12.prod.outlook.com
+ (2603:10b6:8:f2::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 21:47:02 +0000
 Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
  ([fe80::23fd:d049:8f53:2054]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
  ([fe80::23fd:d049:8f53:2054%6]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 21:36:29 +0000
-Message-ID: <96e3f2f5-6419-4349-8c98-d7717d02a276@amd.com>
-Date: Thu, 15 Oct 2026 17:36:27 -0400
+ 21:47:01 +0000
+Message-ID: <357e549f-bfbc-4749-aefa-f0f9e25d6e06@amd.com>
+Date: Thu, 15 Oct 2026 17:46:58 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/amdkfd: don't drop an SVM CWSR reference that was
- never taken
+Subject: Re: [PATCH 2/4] drm/amdkfd: evict the queues only once for CRIU
+ PROCESS_INFO
 To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>,
  Philip Yang <Philip.Yang@amd.com>, David Yat Sin <david.yatsin@amd.com>
 References: <20261013092158.2261502-1-Jesse.Zhang@amd.com>
+ <20261013092158.2261502-2-Jesse.Zhang@amd.com>
 Content-Language: en-US
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20261013092158.2261502-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20261013092158.2261502-2-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0279.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:109::17) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT4PR01CA0277.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:109::10) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
  (2603:10b6:f:fc00::655)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|MW4PR12MB7333:EE_
-X-MS-Office365-Filtering-Correlation-Id: 446144b8-06f7-4ce1-1386-08df2b045f52
+X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|DS0PR12MB8218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c6c3e93-4c7c-451a-5754-08df2b05d7bb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|56012099006|5023799004|11063799006|261009223027099003|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info: EZdRYt9h4JprB28zBHTIGIJGnsjP/ajScxDBEffD2t4fC6n08ZOU19DyWc0sU4zyPyXcDmTeBPq4GebCwwxXccNJapEU+9lNZPyZ5ZprpVCoaY40RS3mMmF7HSXRMiZawRi2PLkdRwTwnNLOy8iqdCShNkUiJQVuljcjCxZbn0kXDVdFoVyC0SLwkiwaW1gx3BVzTvLk1qnJ7RsgG+1Lt0ar+U2EBI57FUr2x4ffI+cXsNKirPjzld5V/63xkF+0FbSOWnmZNM1cGvJA+9qoF5WNRSChTdnwMTvtn7EvEQwd7FCn2DCCZAV/pxtHtbz3fLFX3mtVtX1AjjwQHdVgGiZKWzMhwAEyygMPizrt3Fx3YFhhyyhP8hWHUgOXAQKKLyF6kwxxO1nva6xdXga2O5Xsi4ejI/yr0I3X61ERKZLfKZLekMzbx0gr7ecWaWSqQGykD37PEhlKzTaE6ZgwuqFIdFgrI1bEsieiwBI2RYLH6MXz+4jlI/ATalM0NBeo0Ti5HuSRwRSH+b2EGJRWsG1XtE6ggfrOfY+PGCla9JhbtNlSjPXEEwn99pIgEu+HYhLUabsDvT3ba54tpH0sZZ+KIyHyjVF+FK+Q5El76hn3wpWKHy/nGE6VP0pu8uSf2HwNys4+ULihtwgA54U2PjkV8W2bbAj0O1XwTvScc7k=
+ ARA:13230040|1800799024|376014|366016|23010399003|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: bPq5sSxps1aKHdVBwSG6TTlTr12iFHJ2naOmkLKTeBQ3tNHX5I9+LgDvf6cyNPgD7Fbt4ZCe4dhyrNINLXJlyX/oV8xwtk3Z2mjfssnbC9pZClWgabExwbvGJmVELI6OnK75ANSgIRsDoNuXPFMjU7lrbitWVH82pY5wL1VpQOdzcjm+uT4lqinD20Oy9vwC9NJfoby+83/hHcE48opMUYIhhCADH1aWIKbFP21PNuB9slsfayXOjnJMLIVzrARPfmwBaacoCP1iiAskSbpYnnzLEBfX6ZILAZ3xBA7z9NOEpDdTcP/hIBho+7H1LbkycgvZ1u+Em9CTm7K/MuoQgFTYaeGN1tlBFMgkrhGOZxWjkOk1YnSgVk23iCsHC5WHq4g7MWqMmHqXe03cuZtj7SF7leyMfJTAkdIv08t6o7XQiqL0Q9XmnjnU2jeHlJiEJSJAJBPYwq4d+VU+FEJtps7wIW27LswUNEKrBZouT5IFhiKA+FcNvw2mSRuEVsHIItatmPIRe0p3NrBqtdPOKwy1n9Cm3X0fZF0fAQ1E0zH25e+sOkOXlSoJ55wO8KpMyFVdFgIN8SYOLvjM+yQFHBaIOv3jU+JQDN+tPE4zIuV7fV/bM4Rh534B98L1+dIg/FOzDUxv9vwAC+VpiENMcr5teYcJQbpeSqoX+y24YBQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(5023799004)(11063799006)(261009223027099003)(18002099003)(22082099003)(10067099003);
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWUyUzJrcmtscGpEQkx5Y251YldsdFlHVTFMLzFtSnpFMkZmTFhGY2FJZW1u?=
- =?utf-8?B?RlV6aG9UcFBUTWtJai9iS0hQbUVhRW9kcXV1WTErVVg0cWYwcWladHluS01s?=
- =?utf-8?B?UUNYRXNTTVpnaGExQnQ3bjlETGppeEd3enIxWStGZi9sU1hIZG9qT0wvWXhL?=
- =?utf-8?B?cmhYOHVsQ3VPYkRlSGZia05iVCs0OEdBVlo3em5kKzd5R2U0eElIaFdYQ3J5?=
- =?utf-8?B?RlZXM0N0Smt3Z3lDNG1WVzIvNEo1U0NXNUt5NEZlYm5oYlJZYmN4VTJsT01N?=
- =?utf-8?B?NUMxV0lXVHZ6VmdmVTJucHBhMi9PaDNJK01DSlZNOFNseEdkM3pwYlpoakNS?=
- =?utf-8?B?RnppeGRET0hCQW02cktIWGovTnBZSS80TVczK0JRQStvdC9DeVVWQmNpZ1hq?=
- =?utf-8?B?NXY1NFo1Y3hvQVp5a2hTMWx0QkQvaTFGcjVINm1DTDRMWUhCTjE3bkQzQXFx?=
- =?utf-8?B?Y2Z4RmxnVW05Ym5VVlNIY1g0Kzh2SVlYeFRpR25hOHhxbXYzQVBObmNZaDNW?=
- =?utf-8?B?SjQvMFByZ2RPUGFsYUYxUnBucWJtUXZ2R3ZkRU5zb3JDdU00MklWWElVQ0Fl?=
- =?utf-8?B?VThpUmtGQ1R5Rkd2aTJMQis5Q25rSVZnRFJIYWU2TmNMdVJUMjU3QmJNbFJG?=
- =?utf-8?B?TktDWmNUWWdFdVNrZC9xUVJHNG1PeVJwTWNZMEVPanhlTVBQelhHUTkvMW5t?=
- =?utf-8?B?TU1INWIyMmhCRUswUlFXbGprdVhBOHdJSW9naXJyZ1oxM2xzNDBJc1N4ekxK?=
- =?utf-8?B?a2NRbEVjeVVJczZYejdyNzlRNm90NGhIQUlHWnNlK2Z0QVM1YWlsTlVYVzVs?=
- =?utf-8?B?Uk1HMFpEdnE5YnkwNDVaVnp0MGhqSlZkYXlXdFVneXZNYjNOK0VrYkRtUE9j?=
- =?utf-8?B?NFJqRlhiWGdFY0IyZkR6WXIyWUxRbDkrbHp5OHN1WllZUjFwL3BlNTJSK1NJ?=
- =?utf-8?B?MGcxeTEvc0lSY0lZbWRKbW9acU90cmRwb2Q2emF1TXNYNHBXQUQ1QjYwd09U?=
- =?utf-8?B?S1lYRjRrT3N6NHBQWi90MWJpOVhFMVRJbVM3RGVmMU9GeFRoVExVM3BrcUV0?=
- =?utf-8?B?NEhkbk56a29RbHI4bmt5TVpQNUUvZ3VZMjlXbUVvTzdic1lKcXVxMk42T1Jq?=
- =?utf-8?B?T1d0SDRaL2JyOWhiTnBFYVBwd3FMVUtsT0FLZnR2L1dhWkFtdTR0MFFwK3pC?=
- =?utf-8?B?aXd5clhPUWpJOFRlQWlNaDBBVVFyWHVod05tbWhSOVhYMHNZMTV0Vno1YVpa?=
- =?utf-8?B?MHI1aWJpMWdubjJxRC9YaW5ITUM1NFlacmREcnNFaFR6YitoeEFMQ3YxRUlU?=
- =?utf-8?B?QXorTnQ5cklEMEFOclRTRWY1d2Y4TkV2a3JlSEQ5ekl3MEc4SlpSY2YzMUp5?=
- =?utf-8?B?MWFuenpNT1ljaEVab0RFTkdobE81MU5tcm8vS1Y4V1kxZ2dmZWthMFBIaGlm?=
- =?utf-8?B?N0huaUFVeE5tamFYbUIvZVlIeWU1VHpiLzkyVGpKdG9zVWsrNERWcHE1eEl4?=
- =?utf-8?B?K0NkWXVvNWdnMnNxcDRRTW5QUVpKc1lHWnptVGVYWi9zU0N3ZHZUeWh1QWtX?=
- =?utf-8?B?MGgzSHk2MWk2bDl1RG5PVkdvT3IwQ05mbGJ4SDl1bTJRYXEwSTJaUUpveTBD?=
- =?utf-8?B?cjQ3dEdYV2xnVmdWZ1pNdGl3MDA1OTE4Tk1rajlUdTZaUFZGZXdwb3lENk03?=
- =?utf-8?B?ZVpXREd0UnhCWDVjTEI5NitTVDdXUXg5TFpWRGczZElVMU5HT2V2SG9vRjRN?=
- =?utf-8?B?YWxaTWNjN2NsZHE0WTJlaFFJcnZDeGViSkhiVGNFcXJ4OGpjNFBsOUNJRkE1?=
- =?utf-8?B?RUJVbExjNEFwWDBBNk1uU1VLakNHTzRFek8rZnpoRWorN3RxOXp1QVpaZ0VF?=
- =?utf-8?B?bERQcGp0K0JleXNaNVV6WEVDRTEra1hweDlDUGkySXA0elVUVE85YmV2ZVA2?=
- =?utf-8?B?a0V2eDJVSTZGaGpLY0lONnJVOG1UYVFYNTlHc2xkMUhQN0tIV0RseGI1TXEw?=
- =?utf-8?B?Y0JpdFhmUU5RSXBzN21EVDRZcU1JZVVXd1FTb0tNVmdrKzR4am9lL2lGMUdB?=
- =?utf-8?B?OFAxdkxpcUowRTdJZnI4UDhickRrOFpXYWxqelNBQi9qTlhCTDBTZy9Tc1d1?=
- =?utf-8?B?VFVDcVRRMGRSMHpqeHR3MTVWYk1BQmpaV1RNTlZpYXg0bC9JbkpVNGt2R21t?=
- =?utf-8?B?NG9yU2tlYkVybHlYSlg5MVZCdzJDdklQcHl1Wm1ydEFQeHJYbUNGUmczSVZh?=
- =?utf-8?B?eG1TNUNyRHpINys4d3Y4OWk5c3RjbjNrS3psUXA5TnJZTGN5V2pXcFZuc2hF?=
- =?utf-8?B?OW9zN1hrKzk1Y2RUNWRUeWRoVFhMNE5EWWh2YUM0S3FGOU9RSDZJZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d2gzVkxRR29QTWlvYk1weVNqOUxrd1FxSEFGOERCQ1hVME91ZDlWS0JqR0wv?=
+ =?utf-8?B?QWhwN1dNdzVOVm9rS0YxZUlOTStjVElPYjlSakczb09ScWNYZmxtVUNWTGho?=
+ =?utf-8?B?MEhnK3hZYjREcWtUNWtKRjhuTE1yVlVCcUo5Zmp4MmlFbFdKUXF0M0doOTdP?=
+ =?utf-8?B?TEVUaFdnZXZUTy9yVlpQbHB6cG96T2wvS3M1WTRlQWJiZXJBMFhCR1lCT1dr?=
+ =?utf-8?B?RWk4U3FvNnhDYkRocmpMcnhZQWt0ODdoU2R3cTNkbk1scG4zcjZBZ0VYOXVT?=
+ =?utf-8?B?TzF5NENEczJLZXhOWGo2TTA4eVdWMk0vN1NGd25Hc1JnU3VoUzJ3Wi9tRmFR?=
+ =?utf-8?B?Y0xVSlczcElsTTQ0Y2plOUVJWWxERUFqNHlaT0tvZFovcGdxWllRVCszR1dE?=
+ =?utf-8?B?VzBKNVB0UWZIdXFrQjNMLzQyZ1d6cU9sYnBab3ZtT1AwYTNZc0hlaWZ3Y3F3?=
+ =?utf-8?B?MGJSMWl0YUl1ckh6bmtmQzc3U3VhZmtXRHRLOGFWUlVOd0JSTThFYnVPS2NR?=
+ =?utf-8?B?OEpGQkFmeXRxbjlNM0NYYkdmR2lGY2RaQzYwUUNwYVdtMXpaN241a09ubFo2?=
+ =?utf-8?B?TWYvMWlEcGtGUHB2QTd2ZklIVkIzQys2dTZnSXhVcUk1K1dZaE4xUW5Wb3Ra?=
+ =?utf-8?B?WUxYUmhaS25MbFZjWEo2RXJuci9MMjVzcXF3WHowekJxeTFLbXlmWXcyTVNX?=
+ =?utf-8?B?eHN5T3Y1N25VQ092eWJaMzZsRWlyZm9KOWQ1b2pnclA4ZkV2OVhmYlR5THdi?=
+ =?utf-8?B?NkUrUndhU2VwaEl2WjlLRmFzc2MzTWVZYWRhUHFiNHlYRWRwajQ5WDZqS0Nr?=
+ =?utf-8?B?RTZZQmJNREJvajJWRlZtVXZaaWg0TkNhQXI5SEsyTkZ4YXVEOE9QQ0RqNXAy?=
+ =?utf-8?B?R2xkZlV3TStvdXg0OWkvTUJRbko0NC9vSDJPNTBEcHdvQktseERrYUNTM3VD?=
+ =?utf-8?B?UVRUVlplS0pGYVI0NFRDTkVZdWNuWmtZZzRvMzcvaEtkMCtLb1J3Z2Z2TEFu?=
+ =?utf-8?B?Yks4N0Z0M1U0WmY5T003ZW8zUlpuWjBZdWRBb1hRUmVaR096dFlNZUVpa0Uw?=
+ =?utf-8?B?enlyTnkvSkkyUVVMSEcyOFZ1NTYxOEVZdFVNLzc2MEJkaVJuNGw0THZ0UFg2?=
+ =?utf-8?B?RXNqMS9mc3dFTWRyeHFiRGswYzcvQnFQUW92ZlZtR0ljdWd1c2YxR21zTitI?=
+ =?utf-8?B?K2RXZjJ1N0dpYU5CTmhCS0FydkRaRTNqME5yNFY0Mk9SUWhhU2RaemtyNlZU?=
+ =?utf-8?B?c1FhUmpkK3lGOWM4UjJRSTk4Wk5laHZlOFlKMGxpd0lrd2xEdmNCZUE3T0R2?=
+ =?utf-8?B?M2ZRUi96MTYvVHZTeHl3VTh5cWNSUkQvSkZNTWJFUFFPaWJNL3JQQWNLcCtI?=
+ =?utf-8?B?RU1JSE5iMVRnVHpuY0dZVW10bWhZREtmUFoxYVg4bDRFbmFSVDM3T3EwV0lH?=
+ =?utf-8?B?NE0wMHRvUnQxS3d6cEptalA2VFNqdjZDaFVTN2RJY2k1VTlzQUFIMEtqNFFC?=
+ =?utf-8?B?NEJFcFZOVkdWb2FPWEVwRHNDTmpiNnplYTBhK2FkSkpXeXl0WXhzOUVlSTFr?=
+ =?utf-8?B?R1RkR0VGbmc2R0N1RktCd0FJMUVsbCtsQVg3b3RLZzBON1VURTJSdzFST3pS?=
+ =?utf-8?B?ZzEyL1F1c1JPNSs1b2ZjT0ZaTWlmUmFCekxrN040ZzNhaWpBdEhsWUlSOGlx?=
+ =?utf-8?B?a0krWUE0NElIREYvMm5EdUtQRHhocVlqdFJPYVBSKzdNRzRrT3g5QzhIcGNJ?=
+ =?utf-8?B?bWNFUGZGZUNWZ2x0dlh3TUkvb1pORHNPdHY4c09zWkNKUG4vTm9Ib2RndEZW?=
+ =?utf-8?B?ckN3cXF5NkJtT3RZZnA4eEJlSTIxVndsVXd0Vm9qZ0dLd3FEMGZ2V3hibDdy?=
+ =?utf-8?B?V0JLMnJjSUdRdVFWd29iTkVRZ3k1RFYzQVJUY3RWRmY3UWk3eXpqQzl0cmFU?=
+ =?utf-8?B?QUxOSXZod3NGTUtCakNtczNRYSs0ZnA3anJtdWp0MzNHYTZQYUNIS3ArUEJ2?=
+ =?utf-8?B?L1dhMTFScy9NTXBxQUw1dHZLZW00ZlpPcGVDUlR4ekJpaUs0a0crbnJKTGQ3?=
+ =?utf-8?B?c1Z0WWpjbEhrKzlMSWdQTmZ4dGM0K2hldkxyVzY5aGJSczZJckYyM0N5WXo1?=
+ =?utf-8?B?MktzRzVCOE5GUXZNK1RRa1d5cUk1Z09hbVpWNWd1SGlzYUFteUR1MEpBQmRP?=
+ =?utf-8?B?eExDRk9LWG85cGgvcXVYN0RERHErVmF6WUd4T0REdmRCYmxYUTk3Vmx5U1Bh?=
+ =?utf-8?B?bm9QTjA3RmJVRG5EREpqOE1WRitURzdDRng3SDBEMHRZM1l1cEJPN1g2bUdn?=
+ =?utf-8?B?SHQyQVBqRE5nR3ZEcEw2ZnNXQ3RoSXZOT0ZrVTJRM1ZKMzNXYmZiZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 446144b8-06f7-4ce1-1386-08df2b045f52
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c6c3e93-4c7c-451a-5754-08df2b05d7bb
 X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 21:36:29.2731 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 21:47:00.8796 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JzkwXwWg5Cxmam5Mt3Zx89MxB6ZAqnB1sJRf9lSGq5FQNew3DqHBGGNDCKClv3Y9IbUpebqfk3Nfo+DfqeKdkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7333
+X-MS-Exchange-CrossTenant-UserPrincipalName: 12ipsbeeFJvovDg3m/NCocDfZuqlQD10jUAkHWGFkMvo8az44a92XBa6o19ATqouXVoDwTq7RsJekhG4XJqz0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8218
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,82 +135,79 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2026-10-13 05:20, Jesse Zhang wrote:
-> When kfd_queue_acquire_buffers() fails, its error path calls
-> kfd_queue_release_buffers(), which also drops a queue_refcount on the
-> SVM range at ctx_save_restore_area_address. The SVM range is the last
-> buffer acquired, and kfd_queue_buffer_svm_get() takes no reference when
-> it fails, so on every error path this reference was never taken. If
-> another queue of the process uses that CWSR range, its reference is
-> dropped instead, and unmapping the range no longer evicts that queue
-> while its CWSR area is unmapped from the GPU.
+> criu_process_info() evicts the queues of the process on every call, and
+> each kfd_process_evict_queues() increments qpd->evicted, but CRIU UNPAUSE
+> restores them only once. After PROCESS_INFO twice and UNPAUSE the queues
+> stay evicted for good. On navi31, a barrier-AND packet on an HSA queue
+> completes after PROCESS_INFO + UNPAUSE, but times out after
+> PROCESS_INFO, PROCESS_INFO, UNPAUSE.
+
+I'm not disagreeing with the patch. It makes the API more robust. But is 
+this a valid use case? I.e., is CRIU actually calling PROCESS_INFO 
+multiple times? Why?
+
+
 >
-> On navi31, with queue A using an SVM CWSR range: munmap() of the range
-> logs
+> The error path has a related problem: when kfd_process_evict_queues()
+> itself fails, it has already rolled back its partial eviction, and the
+> kfd_process_restore_queues() in the error path restores once more.
+
+I agree. Your patch addresses this as well.
+
+
 >
->    Freeing queue vital buffer 0x..., queue evicted
+> Evict only when the queues are not paused yet, and on errors only undo
+> an eviction done by this call. The barrier now completes after any
+> number of PROCESS_INFO calls followed by UNPAUSE.
 >
-> but after a CREATE_QUEUE that reuses A's CWSR address with an unmapped
-> write pointer (-EINVAL), the same munmap() leaves A running without the
-> message.
->
-> Only put the BOs on the acquire error path. The warning and the eviction
-> are back after the failed CREATE_QUEUE.
->
-> Fixes: b049504e211e ("drm/amdkfd: Validate user queue svm memory residency")
+> Fixes: cd9f79103003 ("drm/amdkfd: CRIU Implement KFD unpause operation")
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
 
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 23 +++++++++++++++++------
->   1 file changed, 17 insertions(+), 6 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 15 ++++++++++-----
+>   1 file changed, 10 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> index ae3e7c54014a..6010a5d7a7eb 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> @@ -230,6 +230,15 @@ void kfd_queue_buffer_put(struct amdgpu_bo **bo)
->   	amdgpu_bo_unref(bo);
->   }
->   
-> +static void kfd_queue_put_bos(struct queue_properties *properties)
-> +{
-> +	kfd_queue_buffer_put(&properties->wptr_bo);
-> +	kfd_queue_buffer_put(&properties->rptr_bo);
-> +	kfd_queue_buffer_put(&properties->ring_bo);
-> +	kfd_queue_buffer_put(&properties->eop_buf_bo);
-> +	kfd_queue_buffer_put(&properties->cwsr_bo);
-> +}
-> +
->   int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 1d86ddfd6bde..2e1d412a0e6b 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -2869,6 +2869,7 @@ static int criu_process_info(struct file *filep,
+>   				struct kfd_process *p,
+>   				struct kfd_ioctl_criu_args *args)
 >   {
->   	struct kfd_topology_device *topo_dev;
-> @@ -343,7 +352,13 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
->   	 * dropping the VM reservation.
->   	 */
->   	kfd_queue_unref_bo_vas(pdd, properties);
-> -	kfd_queue_release_buffers(pdd, properties);
-> +	/*
-> +	 * The SVM CWSR range is the last thing acquired and a failed
-> +	 * kfd_queue_buffer_svm_get() takes nothing, so only the BOs are held
-> +	 * here. Dropping the SVM reference would drop the one of another queue
-> +	 * using the same CWSR address.
-> +	 */
-> +	kfd_queue_put_bos(properties);
->   	return err;
->   }
+> +	bool paused_here = false;
+>   	int ret = 0;
 >   
-> @@ -352,11 +367,7 @@ int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_prope
->   	struct kfd_topology_device *topo_dev;
->   	u64 total_cwsr_size;
+>   	mutex_lock(&p->mutex);
+> @@ -2879,11 +2880,15 @@ static int criu_process_info(struct file *filep,
+>   		goto err_unlock;
+>   	}
 >   
-> -	kfd_queue_buffer_put(&properties->wptr_bo);
-> -	kfd_queue_buffer_put(&properties->rptr_bo);
-> -	kfd_queue_buffer_put(&properties->ring_bo);
-> -	kfd_queue_buffer_put(&properties->eop_buf_bo);
-> -	kfd_queue_buffer_put(&properties->cwsr_bo);
-> +	kfd_queue_put_bos(properties);
+> -	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_CHECKPOINT);
+> -	if (ret)
+> -		goto err_unlock;
+> +	/* UNPAUSE restores the queues once, so evict them only once */
+> +	if (!p->queues_paused) {
+> +		ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_CHECKPOINT);
+> +		if (ret)
+> +			goto err_unlock;
 >   
->   	topo_dev = kfd_topology_device_by_id(pdd->dev->id);
->   	if (!topo_dev)
+> -	p->queues_paused = true;
+> +		p->queues_paused = true;
+> +		paused_here = true;
+> +	}
+>   
+>   	args->pid = task_pid_nr_ns(p->lead_thread,
+>   					task_active_pid_ns(p->lead_thread));
+> @@ -2898,7 +2903,7 @@ static int criu_process_info(struct file *filep,
+>   				args->priv_data_size);
+>   
+>   err_unlock:
+> -	if (ret) {
+> +	if (ret && paused_here) {
+>   		kfd_process_restore_queues(p);
+>   		p->queues_paused = false;
+>   	}
