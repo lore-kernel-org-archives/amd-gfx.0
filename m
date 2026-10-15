@@ -4,76 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AEEECCA464
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 19:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95A38CCA464
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 19:30:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E3A210E4CD;
-	Thu, 15 Oct 2026 19:30:31 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7A62112458
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 19:30:21 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-48df54150dfso689186f8f.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 12:30:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 259C6112461;
+	Thu, 15 Oct 2026 19:30:33 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88C93112457
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 19:30:26 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-49fbb2acc90so48274185e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 12:30:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792092620; x=1792697420; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792092625; x=1792697425; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=1G/eUwD30xxoMe4AQ2K1ZMXk6ZWhWz37kjvYHLoKtb8=;
- b=mu5bueGnLdrafVjooDCUYKannXSkvBEVlyvNexfrR/DcW/vCdISO6aH6q8ipw6d+38
- JIJdKlMC/8PrtUJyNARch6Yi3zPzj3NALZu8xPLU9Cg/Rd1NFO1mxEgheNuBwAY4PXWG
- 2OCJ33DYuIg64/MBAqyfUjjAQRzzoJqqGHKXcvKkq1yN8e0hSB5c/+MQEgZb28h4Doge
- bDPeX1CshYn+oCPE4rRrR/YEuIQPX+q1spddBYGn/l+dZv7Sa5Y/qlqNiJ4k+6nI7QW4
- 46VwfiIiiblzT9tXIIAdbVCtJe5go+pUlTLL9eARwVXeFl/flKlxuFoY+b2w4tj+ob2v
- q04g==
+ bh=swLy/ATKxMozoJ0Yb5sQKasWlxtfUYR6WgPATBs+RCI=;
+ b=iQk90oJ8sTtoWHsWTrY07CR27K9asPrGjXgtgaDsRv6eOCB16i2WiS6M/VpIcwqWl0
+ 5hqR4VWo1QwzL87SCy24mM/lB6WoXWA6HDj//FPCSuJcVDjqnRzacfeNi5K1skdpGsxe
+ T/oOfEYeawe1uOh49SOrpzCZ4Vd69aEWUso1kYU4YkREX9a7nD4vp/s8Ns1YyAzAFZNM
+ mFoEY58dHyY6gChCkYZkEI9vrPCM/Ra26WQNKWXKK4d1JU4LQomZFLZ5jg3X5CufJxg+
+ pTVNz1u3+rwmqaKltz10wcTG8W4ug0ZvYwV8VU2oWEuuGpsjbUo7bWU1zWHLg0EXfIqz
+ HxmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792092620; x=1792697420;
+ d=1e100.net; s=20260707; t=1792092625; x=1792697425;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=1G/eUwD30xxoMe4AQ2K1ZMXk6ZWhWz37kjvYHLoKtb8=;
- b=lEmpQX/CsvdNjSgzHg9R3zcT6CC1HBKf8oICfP0xtFg0aU1w3DZ/qdFIq2VUZpL94W
- MKWM3QkiXklG1kSHXrKRbY4vME2Pe3mM8bN7gOIC/CcvF6mmwvmLhvFATK6ebGFqS202
- ffz53kcZ4lYqZp17YeTg+gFxSA7YqFwbRqSbpeo7433LiBPcUHkXhcbikckqOQKnDfPH
- QJjC6rtLK38jIzYBd7hRpi2djJxcsGAbToX71SvkvLj8OLjCKJ6u3vcm1SetfrYMjrFq
- FD31NjRwzdAnphqtw+RPvxUO+IsQQZoiYd0BpmN9yOKHyfPfa03LSVq9pH3i9A8w7l7D
- UQgQ==
-X-Gm-Message-State: AFq9FYK794kw7fp64xUBPKr02w/yIGRM73yonTuGgKMYHF/C/rK2UkBc
- GJQi/fONMQb6De6zJnguvrq/H6oA5686zPj6ud7Yianu4BTUbuiEXqyEIdzEuQ==
-X-Gm-Gg: AYBFou12ehV9v/eEhegRc6+GzwKYNhgQIGULiyft+ObNgK3pe847a+3G7iQJmS7J9gq
- 1W5n4urA9XFcFwiCsTbEhoW7gmr7d7M+JN+rFffYPyLI0LCu56gK74NZEZ2W1LNtx+O36AvkFNX
- 4sHrpQDot4MfNuOHMgg/l/NfRs1dE8xacVW1Ud5TndgRxM+greGQ+bMObxfXOsaE68sfS5Zok18
- cAAJyGB2Qz+MHzSV1JZRhnf71K7DfnLqasPuhuRCn/7+Gl+ttoMRoYY9quR8wqd0dhlc9ZFDMgK
- oIjMpQEOkSTXwz8NF4kPAHOabBHuSs8s6JUNLjNJjbAK+I7KdZVerB/6d1ty5Y3F9QzPEnDQpPz
- aSjTlfYILn6oHVPD4TXMxwEdGEwyyPZZMcrcxJwXK036qHtK8LvvDw7+bcJ6RZolFVebipMv8op
- lUSoMAloO3mdPjMgu+6eEZJCrnp44faBH6e4WkZKnWwIu3jWn9ShgjeEvwNo0ocJ/EkEkBIKcUA
- 5wB7qSPTpTFa6FlcTwqCSiTvertbGJkHI7BAv9on/+x6Vm1cCOGmHjVed6t5EpeyoPjWiDL2Eq5
- Rl8Dw3wFGTlFKhRUKBT3h9ztnMPKDBsNId7V1iLag8YUqFLKjWodaiaSixYJ/ETZ1D4widywVEp
- lqrD4+H2V++KeaVhJH+6Rw+7L0AxDx7W9RHsG5mrSpuGWXMWpNNiVcYn4okXs1gbEvLghbP9jsA
- OYVGsbtCLG+SJYLD0ReRlYHq9n0Xk=
-X-Received: by 2002:a5d:664b:0:b0:48d:b940:af7a with SMTP id
- ffacd0b85a97d-48dbaaee955mr30915304f8f.55.1792092620106; 
- Thu, 15 Oct 2026 12:30:20 -0700 (PDT)
+ bh=swLy/ATKxMozoJ0Yb5sQKasWlxtfUYR6WgPATBs+RCI=;
+ b=090MttamrqeusA8Oq4qqYj3CuEv5SyX09nYh9hUxFfOcBtFQA7/hcmGIbnxKTHXqV9
+ GIcxQtXjwn3EzfVzbcf8JhR8VwP9blQof1JxG0oiLsKiAYBK4bloQfKxONO0SCOzZw3o
+ 7z7doffne8vbxGrrUw3Dvy1zbor4f54Vhhe0mmdPCmL6ozUOPAd2/R50fBTu5MVQ4OxX
+ xZCxBXrlp38rV9PxHu3ntT64Hsysn0C44rsKfaSNTMxut09PEv4YHEZwO75KjPQGaMGZ
+ qpHu8SGSgUV6xxCW73U7hvDSjbtkSmT9M+257IZWiqfW1YkNY1DNjxch1+Zr5pThXFZH
+ leww==
+X-Gm-Message-State: AFq9FYI8S4KSKDQPuokxrEFyEQIfvLxTmPdxQwA+GxrOHIG7i0JdRB32
+ Sc5/2dU3NR9QTFylD9MVhECsB8poEGZq+7IUH2ez0h9c8fN5fbmOeHWTq5q6YQ==
+X-Gm-Gg: AYBFou3FJsDptMlVCA6CGdwa4peIZkxNcGSJ55uBHk9UPW2Ho+6VU7FTrpUX1bVsRGO
+ ujhg7dDhwwkNlOX7OVJv/vx4+8Hmf0UovhPj/56yCzZDYPYBZpZOP0y/QjM1UFdWyaXq3v8rI3G
+ 6jjmDinRaspNIhfiEl+CieEsGmWCURrIvgEMLE5k+vmJ4lTS3cL2NEmyAguV5zE32mgeZKIRfhC
+ w9N1BPsfkklvlXQL2fcbaV3C6Bp5wUFzxVr9tdXXan6tZQjZD+cdgTpcN1Zd87Vb+Jvqao7zsV/
+ bod98C/+Kl7pqy0RMa/W2qXuqA1WbCdlFK3ZLL7otxl1s9ap5Z9MZvZspwlfgG/P2pK4HcarAj6
+ ldbnnwjtr7YAQ9nMSdYl5v+vT4DE08ZQUsS33oMdu0/2DtjvEa+rnOJqRSGDATfiMX7RBP2Jw0k
+ WMS3c+uQkBp3xohd3W6DkBidVA0AwsAJG800e8H1bM97qeqn4Mgk9N1bSJDvI8jW6ulZyBcwoFD
+ c+qMPdedPNolDKUjDFc/Slmy+jBAxwyBIRd/cICEQl9s5rTPKNIUqhRx16Pw4+eD89OGzKkEaWf
+ P7V8fTuJzcwGgTi6Ik9BzGqG3kK6egQ8aEdHTYvGGNhOz4HL3FKHuMnp53G3GFea8m2RqmYYmw6
+ jMtbToCSvxETzTkxCVjhHR57hNs0SJNcYWv1QwEDg4XpkQmqT7khtzbZGaJzdk0WC1qIG+ZqvSJ
+ nQy7mMuQPLk5W/Feo=
+X-Received: by 2002:a05:600c:154c:b0:4a1:7c7d:8881 with SMTP id
+ 5b1f17b1804b1-4a18e4a9b88mr428882185e9.13.1792092624625; 
+ Thu, 15 Oct 2026 12:30:24 -0700 (PDT)
 Received: from localhost.localdomain
  ([2a0d:e487:41be:7420:c1d9:bb43:318e:b925])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48dfd4e28bcsm75303f8f.23.2026.10.15.12.30.19
+ 5b1f17b1804b1-4a1bd9b303csm89277915e9.8.2026.10.15.12.30.24
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 15 Oct 2026 12:30:19 -0700 (PDT)
+ Thu, 15 Oct 2026 12:30:24 -0700 (PDT)
 From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, felix.kuehling@amd.com,
- Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
- guard with drm_dev_enter
-Date: Thu, 15 Oct 2026 21:30:18 +0200
-Message-ID: <20261015193018.86178-2-olivier.kaloudoff@gmail.com>
+Cc: felix.kuehling@amd.com
+Subject: =?UTF-8?q?Re=3A=20=5BBUG=5D=20drm/amdkfd=3A=20SVM=20restore=20worker=20livelocks=20under=20memory=20reclaim=20=E2=80=94=20KFD=20process=20restart=20wedges=20until=20memory=20pressure=20subsides=20=28gfx906=29?=
+Date: Thu, 15 Oct 2026 21:30:23 +0200
+Message-ID: <20261015193023.86286-1-olivier.kaloudoff@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <9f7f2076-7306-4f42-87ff-3f51ef5144bd@amd.com>
-References: <9f7f2076-7306-4f42-87ff-3f51ef5144bd@amd.com>
+In-Reply-To: <2458421d-2b6b-4b81-b965-5ae6eb67edf6@amd.com>
+References: 
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -93,27 +91,69 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hi Felix,
 
-> You're adding more failure cases here. But the callers of this
-> function currently don't check for errors. We'll need to fix that.
-> If the copy times out or fails otherwise, we should not pretend that
-> the migration succeeded. [...] We'll need to put all the migration
-> pages and clear the migrate->dst array before calling
-> migrate_vma_finalize. Also pass the error code back to the caller.
+Retest done on the same machine (MI50 gfx906 over TB3, Strix Halo host,
+28GB RAM).
 
-Fixed in v6: both svm_migrate_vma_to_vram() and svm_migrate_vma_to_ram()
-now check the copy_done() return. On error the dst pages are released
-(VRAM pages via svm_migrate_put_vram_page, system pages unmapped +
-unlocked + put) and migrate->dst is cleared before
-migrate_vma_finalize(), so a failed copy can no longer complete as a
-successful migration. The error propagates to the caller.
+Test kernel: 7.3.0-rc5 plus
+  - 25f0b322ffb5 (evict SVM BOs synchronously from TTM eviction)
+  - ec4d432b     (vm range hole fix)
+  - 46109de0     (skip migration when fault window already in VRAM)
+  - our local series from the original report (restore convergence,
+    non-xnack lock-bounded prefault, unplug/teardown guards), plus two
+    migration-error propagation changes still being baked.
 
-The cleanup loops are the same logic the copy functions already run
-on their own error paths, factored into helpers
-(svm_migrate_vram_pages_put / svm_migrate_ram_pages_put) so both
-error paths share them.
+Reproducer: llama-server -ngl 99 with ~19GB mmap'd model
+(SVM-registered), health-polled while a second allocator saturated the
+remaining VRAM, then a managed-memory bounce workload
+(hipMallocManaged, 2GB, 20 CPU<->GPU rounds) on ranges that dmesg
+reports "over locked budget ... left evictable" — i.e. genuinely
+reclaimable and migrated under pressure.
 
-Re-verified on the MI50/Thunderbolt repro: SIGBUS, drain ~9s, clean
-removal, re-enumerates on re-power.
+Results, 40 min sustained:
+
+  - ftrace count of svm_range_cpu_invalidate_pagetables: 0 for the
+    entire run, including a window where MemAvailable bottomed at
+    ~470MB and direct reclaim was hammering the host.
+  - llama-server health=200 on every poll; real inference verified.
+  - Managed bounce completed all 20 rounds, no migration errors.
+
+Baseline for comparison: on this same hardware at 7.3-rc5 + our series
+without 46109de0 + copy-done propagation, the bounce workload under
+VRAM eviction panic'd on Oct 3 — BUG_ON(start + size > res->size) at
+amdgpu_res_cursor.h:65 inside svm_migrate_copy_to_vram, called from
+svm_migrate_ram_to_vram via kfd_ioctl_svm prefetch. (EFI pstore
+capture; happy to send the trace.)
+
+So on this stack the storm is gone and the migrate path survives
+forced eviction.
+
+One honest caveat: our non-xnack locking makes registered ranges
+unevictable up to a lock budget, so "inv=0" is partly by construction —
+the over-budget bounce run is the part that exercises the evictable
+path, and that's where the Oct-3 BUG_ON used to live.
+
+So I ran the clean A/B: vanilla 7.3.0-rc5 with only your three commits
+(25f0b322ffb5, ec4d432b, 46109de0), none of our local SVM changes,
+same reclaim-storm reproducer:
+
+  - 94.3M svm_range_cpu_invalidate_pagetables hits in 30 min
+    (~4M/min, same rate as baseline)
+  - llama-server never converged (health 503, RSS churning, threads
+    parked in kfd_wait_on_events)
+  - an earlier run went fully dark ~13 min in — no console, no ICMP,
+    journal just ends (this run did not reproduce that)
+
+So on vanilla the three commits do not resolve the livelock. 46109de0
+only skips migration for windows that are already VRAM-resident; under
+reclaim the faulted ranges are genuinely RAM-side, so the residency
+check never engages and the evict -> restore -> re-invalidate loop is
+unchanged. The failure is restore-worker convergence itself — the
+invalid cmpxchg aborts that leave evicted_ranges never draining —
+which none of the three commits touch.
+
+The only thing that suppresses the storm here is our restore-worker
+locking, which is a workaround with its own tradeoffs, not an
+upstreamable fix — but it confirms where the loop lives.
 
 Regards,
-Olivier
+  Olivier
