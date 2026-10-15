@@ -4,93 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2F10CC6B38
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 19:01:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F9E7CCA464
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 19:13:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ECAC10E2EA;
-	Thu, 15 Oct 2026 19:01:50 +0000 (UTC)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1579E10E2EA
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 19:01:45 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-355724d032fso650751eec.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 12:01:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792090904; cv=none;
- d=google.com; s=arc-20260327;
- b=i4s6nqSqh8F/pZPZwq6jEiMCgogMG7bD5MoMkhCpqcaRumMYweDk6JuVoxvDWJ3HYY
- ImFi8qRxvXVJYa7L/yp54vdmChlu+F8bu4uztqzbHuEJTJzeHg9BqDhfDGzruDhzffiQ
- nEiXgYtV2lpZmMHUQ02/8KE4BWG6O14XIck8cz3FWo2y3y71yBnxnU3Hedvg+ZpGcxxz
- sTDzKFKMs+VfNEwB8K1X25GeerUWTrC5OGxGmocHbe8xmn1BGuV1lizk58Zm9Ks4rHzB
- y8qef8qjhQf55I2iO1VAVwJOE5p2gWf9xR9DpYCwKWD/wIWg3sd7yEJttWNT2AA1stAL
- H02g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=GSqlEIsMMPdLgM90yMu9rfnGiqltcVn6qKzNnPCW0EY=;
- fh=a2f/LvdhjqUeRcRNYsvv98+ed8stCgzmhl320sJJ1jw=;
- b=an3OJRtiuHE1H0j48Wz1fhApE/VlZrbsIb1xMX8FMsZKM+0NJpesBmKCxgv7J4KOlz
- 0iMGzOMfrnzAERvv4uGKMad77WxNtZyhUlJK8DFt4r2Wzug7Bi3lz7Fxp6sbJdkQhnyQ
- uqETQ6kZbRCG+mh6J87MTeY2bALlsXfRFfDn5EelwM6GDV7s4qyJxuXqrRB+ujXcQdJ4
- ++P6xzPFaX1EBcJ/Fq3RfKJimROghzDbIi0/YTnp9qCBRO7ruY77931cj5BXeJPB67ms
- 6XI5HISRMs/iFwbNmLzQeAQHWo9IXTKLlPaJSqHGW6SInIxA1RbcM4xme1Ozg1ImsjYe
- PXKg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792090904; x=1792695704; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GSqlEIsMMPdLgM90yMu9rfnGiqltcVn6qKzNnPCW0EY=;
- b=GR8vpf2Ktbzcd6zQ6aApnR5GkYKMBbE+Tk/po9uTYbXmQevroCvQQrHDgtVm/A4D26
- Rr48TrNYbzqpV9rUx5cG0/cad8CVB+DQ4DUtk0ZfQ21IjNEUYa8YsfWG8W8itT4OmQuD
- NUWygbGGYgj3+Du5FTTCeDiHuMnotxZYBD8iYYKwiqaVxJCNtyVydlkK+I95WDBEUTFP
- cdiwX9XACBtCswNK7yf0a+g7ALxM0r3gEb9J6IislEBPlBezxno676Nk/Q5bw77UnGpy
- 9LV5oykeNbNihry/+53SbVuEQ6lOkZXJndvQP0E3B+ZojGngYl3UUyNuZiIB/iESFGck
- q66Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792090904; x=1792695704;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GSqlEIsMMPdLgM90yMu9rfnGiqltcVn6qKzNnPCW0EY=;
- b=m7nSpWijduKw2rFjyLwYANBk4yvjWGQEF64Frd3qbh/eLRqtekhaZ9gXCB1ek5Q9Bo
- cC+NzxYmqrjoU6d+UmDw0HhFhlSnJt85wp1wOWu/j7IoAxTftZddkamGDiuR6M9Z16FT
- lODz3XLRtnEJ7A1zQhVaLAQT5oL+QHIRojSztJwOASNL3mh04Go0NSlU53JmwgrHTYsT
- 0bGIZtwqET25odObAY8JehI0NkE1EqEpDHyYmVtbe2AvgDeIqoKqwIIbmm7gONFTuDUm
- GlYI+dDntRn5BjVqr/vi7cEQKG7Qa2Etjmn8j2o59cDwEp2r9AtYYRCGW831yjtfZ1tB
- sw4w==
-X-Gm-Message-State: AFq9FYJcKBo9uwXvWSbwbHLU0a4aFSDwPaBRyj3I7VR2z5Nky3l8glG2
- PNMU5SdFPhwPN+eOGM+wmg1J/vHpnMOSqaSyzmfX7GshrYX176TNLcOcb4oAd8Y1dEiVy+sV16i
- QarvlpKY5sCzVuGXwccWGfLzBV9z4iyY=
-X-Gm-Gg: AYBFou3WWBu4jC9eYAgnFEd11evx9GMKZ+CkVp6/uu9lro6ZkqsLOzkGSYW+ehI/Bav
- 5SuYkWQtlpQeuT1OlUpTaP6CZ4RZROGCFNeeiA3DsbW8f4BQ8aq+ZHA/4HSOTbq0W4vsytnmQV/
- oIihdJlEEj14a3Uad/VII644YKZlXxbwrGWiY4CqtAlEqteAmTK777sQZXNfR710Mqn65QUlSNn
- EtF+kNF+MBg+CVAgdsHMBxozYoebfpER3fxgLTa7D0530OIKuBPz7AJoLpCXZ1hue3EjTSiqDRx
- qnwY14Of96G01EHeoAorjy/pKvxS9jECe8GrysKjezQE8RzkNu9xNRlT4M4w4CeJen8xKmbC+7O
- yZhKHSEBmIageMIyA5IAF0hK/vsOqE7heZ2/pGrm2ow==
-X-Received: by 2002:a05:7022:b043:10b0:127:def:dd72 with SMTP id
- a92af1059eb24-16a5ce9584bmr43025431c88.2.1792090903859; Thu, 15 Oct 2026
- 12:01:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E652111244E;
+	Thu, 15 Oct 2026 19:13:10 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013056.outbound.protection.outlook.com
+ [40.93.201.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 499D811244E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 19:13:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yFRcCinjf8lqXpaM7QC80Xo2r4w3tDJo3EeU9vpMHud1MlvHlfIQzBrt06CXPpndI++dWbYke5x7r2c8KDqWooU0wi8aEWJTI2vhKwOKx42b9qiP2GQUinccKKfCqzSsFvBv/MsVwN9yqowopdQT/2sI9Upi98z5a5BphVViMn/7Raxur7JGweKCNMxnLxfs3yW8qip0kg/RYIJqciBwfOPUc0l5AUW4PCERaAwKsutFSfJrk2v5HWEhJaB+ghpZQiNAXILtwBqU6YG2N0aMwrDpYfG0LbefRzrh+xz089Mx+xNCvIGKyncBJ2aAtacAAY+5sUTlcl5V5gAvAD2wSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0mrPAXKNO1MXwXZ+Mra1NTn61NMdwXIaSVZ45cccwXM=;
+ b=itZKP7uTXJ6KoVA6XuKfzqCNtQjph1Ep2r8RfqpNWuf89JbbBx90/VSKlhD6QBwPD2kviHR5Nxh0DUhGXn2pafJc9Z/EpU4oIa9wGLKKTG2/5MFZKFQOzArIVXMBpPrTU3Rlrc1uEi8J+m2ePg+Caq5/irbAuZXZXWVtftRCVSiCctOgJwXemJY724lXGG1uuuoXLxqDMv7AZjuJuIIekYEdboS2AkMf5H6faUZxp/Rgu2GDTBm7xKTSix6i+dy7tu5FgxusLNpw5LUT7oXWET5dqoThayRKhO/O9PeL5f75pqnZsh3uA37zyTNNpsVWrQ/gmTHrplb6ZRVjpo8dFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0mrPAXKNO1MXwXZ+Mra1NTn61NMdwXIaSVZ45cccwXM=;
+ b=OjYL9puA4DoN7wrI9i6XbIpdkk2My5/PYzbiNDxYUnjZ2ZKlTSTELCSvzXBmoteNYN22l4jNPz+GiAmSbvc+qkGvW4AoogTJ6S9bnGLu3Uz7AN223MXYu90927JfnCGppAwO2eyewnZizQTbPOYOZGIAbdYHuoV9UbZ7HlaQy5s=
+Received: from DS7PR03CA0177.namprd03.prod.outlook.com (2603:10b6:5:3b2::32)
+ by MN6PR12MB8568.namprd12.prod.outlook.com (2603:10b6:208:471::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 19:12:56 +0000
+Received: from CH3PEPF0002457A.namprd04.prod.outlook.com
+ (2603:10b6:5:3b2:cafe::a) by DS7PR03CA0177.outlook.office365.com
+ (2603:10b6:5:3b2::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 15
+ Oct 2026 19:12:55 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF0002457A.mail.protection.outlook.com (10.167.252.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 19:12:55 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 15 Oct
+ 2026 14:12:48 -0500
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, David Francis <David.Francis@amd.com>
+Subject: [PATCH] drm/amdkfd: Check before ctl stack copy in CRIU restore
+Date: Thu, 15 Oct 2026 15:12:40 -0400
+Message-ID: <20261015191240.23092-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <BN9PR12MB514681E5EDA768CB4497EACFF79D2@BN9PR12MB5146.namprd12.prod.outlook.com>
- <20261015095713.20560-1-qchcio@gmail.com>
- <20261015095713.20560-4-qchcio@gmail.com>
- <CADnq5_NXGqXy7_Ntcv0aGSQt8Ax48-SgWpSv4rTzNjDL-H_8_Q@mail.gmail.com>
-In-Reply-To: <CADnq5_NXGqXy7_Ntcv0aGSQt8Ax48-SgWpSv4rTzNjDL-H_8_Q@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 15 Oct 2026 15:01:32 -0400
-X-Gm-Features: AclHuK9bE7jG8TbUbXHQL5KZs85YwSupOtLmmAUNi-mrYhsRs_NLi9NrkI6ruto
-Message-ID: <CADnq5_Po1jXiuj7KWW3dWYEGQJmMx68ZMRzyBK7QFZcaL0Y_BA@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] drm/amdgpu: reset VI ASIC on Apple boards with
- VRAM at 0
-To: Maciej Kucharek <qchcio@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- christian.koenig@amd.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0002457A:EE_|MN6PR12MB8568:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba4f9fa7-a575-4634-76c3-08df2af05162
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|261009223027099003|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 70mdTw+1M8kpmNRWgpTqz5/zfnBYckYTSzuQn+2tPBJlUT+A8NWyUOmMwLkeLqOCKVfUG2gvkudPm0yFWU9mXsxoMBgrsACfgbqHGWzZ+Yn3kFWe04KJ1RfZrEu47ocp0Ti8617M8+fBw3bqQrVuSYprEl6nyFu0sInbobPskUgsI3T+biu2K4hFJRO+zFphVXomVgw8mUO9ijiYHJ80oOjV4fZo8etr4ONi+/iSSNLURccOyYjPLgwHJEt26kqcFAd/JBKg55gIqyNxxLgTRXJg25RyASZL3ksBPezyxewtdWa5QEQd10a8f2qalhWEx4OnRxc2MEMuLEDcg2dqocmO3aVtvmUANa9hbjN3fPt4f2ZCpJ2gezxhj8LKFMxdjEuUyYd8UiXfAogdc1nKY+iDEveTDkPm089mJXkbhVPVbRuq5Hthr737EextqjJ39THDS5AVx5O/VnwmsDl3Pj5vJB5rpS9qfoNMorSlzmlhtU5l9tvd/Ml/7GjM6v4XLOF0mJ6jJxRsfK9hG8V7hS8BS8P3dqhxXGp6g1FR3yKNAmFQcihkUh5S45AHxcODo/ZfMEJa7nIfmZ38MoXQyKpmj2ri3eaV/wolKbkC1+axjQBQATloO+4Qr/9uerl1lxeClIPwJSeAPj7kkE0ItDgvp0aB1FVebx7ohmbXPFwu0Ji6GPwodJk7C/tZg2BHdohSC2DKdexjSynb6c2Iwg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(261009223027099003)(56012099006)(11063799006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: TxoYZKCiQEdj+7r2SDGeFDT/kldbCJZ/AxWTHYwuKDGtzVrQ7IpTWzLkrWmQRyOmp1RhUNPLyzIIHyxeY4/gVcLNerBiwjKnCq1dpfpWiqzrjcH3iNQ/fR51E26wbksuKZFBVVdFBA78gAQ4A6L3Y3KPz0b2xs+sIaT9yZZn4I1tNuan5BADkA4LDq+CHkrRj5T+WygJmCsSlt5je+8QRK9wrMv77dQ40XVs1wl8CFNq1S4vfRxtgOQ5RYCmDtqMnGGx94hfWdsPkVQkYTHaRUXFzIBoLuB8dAXxNn+nyDyHsKKsdlY0NOJGHSjI008UgATrYiCcjXwBl4vkfRh2CEvSV1wB+c7Mzrp+whAHSjlXFi3Tbq6w+BdueQ/7fYuz342r7pU5DcE1FRGabFREc3iHTb6GxdjiLkihL3q5t1IhXR8jZ9jyIqbtcXSyqMMX
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 19:12:55.5271 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba4f9fa7-a575-4634-76c3-08df2af05162
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0002457A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8568
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,93 +106,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 15, 2026 at 9:26=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
->
-> On Thu, Oct 15, 2026 at 9:06=E2=80=AFAM Maciej Kucharek <qchcio@gmail.com=
-> wrote:
-> >
-> > On MacBookPros with switchable graphics, the firmware puts VRAM at MC
-> > address 0 when the iGPU is enabled.  A later post (S3 resume, GPU
-> > reset) moves VRAM back to the VBIOS default.  gmc_v8_0 reads
-> > MC_VM_FB_LOCATION once at init and reprograms it only on SR-IOV.  On
-> > bare metal, the driver then keeps using the old layout.
-> >
-> > vi_reset_quirks[] handles this for the MacBookPro14,3 by PCI ID:
-> >
-> >   commit a22e5e4f2ebb ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
-> >
-> > Add the test that SI and CIK use: an Apple subsystem vendor and VRAM at
-> > 0.  Other Polaris MacBookPros then get the same reset at load, for
-> > example the MacBookPro13,3 if its firmware leaves VRAM at 0.  These
-> > boards are not tested.
-> >
-> > Keep vi_reset_quirks[].  Its MacBookPro15,1 entries fix a different
-> > failure, a module reload after S3:
-> >
-> >   commit a5be7ad8f5f0 ("drm/amdgpu: reset VI ASIC on MacBookPro15,1")
-> >
-> > VRAM is not at 0 at that point, so the new test may not cover it.
-> >
-> > After the reset, FB_BASE is not 0, so the new test does not fire again
-> > on a module reload.
-> >
-> > Only compile-tested.
-> >
-> > Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Claude:claude-opus-5-5
-> > Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/vi.c | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdg=
-pu/vi.c
-> > index a0435fd55..cad6bbfce 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vi.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-> > @@ -1405,6 +1405,16 @@ static bool vi_need_reset_on_init(struct amdgpu_=
-device *adev)
-> >         unsigned int i;
-> >         u32 clock_cntl, pc;
-> >
-> > +       /*
-> > +        * MacBookPros with switchable graphics put VRAM at 0 when the =
-iGPU
-> > +        * is enabled.  Any later post (S3 resume, GPU reset) moves it =
-back to
-> > +        * the vbios default, so reset and post on load to start with t=
-he
-> > +        * vbios layout.
-> > +        */
-> > +       if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
-> > +           !(RREG32(mmMC_VM_FB_LOCATION) & MC_VM_FB_LOCATION__FB_BASE_=
-MASK))
-> > +               return true;
-> > +
-> >         for (i =3D 0; i < ARRAY_SIZE(vi_reset_quirks); i++)
-> >                 if (adev->pdev->device =3D=3D vi_reset_quirks[i].device=
- &&
-> >                     adev->pdev->subsystem_vendor =3D=3D vi_reset_quirks=
-[i].subsystem_vendor &&
->
-> Please drop the now duplicate quirk handling here.
+During CRIU restore, if cwsr is enabled, there is expected
+to be a control stack that needs to be restored for
+compute queues. In other cases, there shoudl be no control
+stack, but we were copying one over anyways.
 
-After re-reading your commit message and thinking about it more, I've
-decided to take v1.  Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-and applied.
+In that case, skip, and warn once.
 
-Thanks!
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 75e5a9f67d50..0350c7c2b307 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -463,9 +463,13 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
+ 	if (gart_addr)
+ 		*gart_addr = addr;
+ 
+-	/* Control stack is located one page after MQD. */
+-	ctl_stack = (void *)((uintptr_t)*mqd + AMDGPU_GPU_PAGE_SIZE);
+-	memcpy(ctl_stack, ctl_stack_src, ctl_stack_size);
++	if (mm->dev->kfd->cwsr_enabled && (qp->type == KFD_QUEUE_TYPE_COMPUTE)) {
++		/* Control stack is located one page after MQD. */
++		ctl_stack = (void *)((uintptr_t)*mqd + AMDGPU_GPU_PAGE_SIZE);
++		memcpy(ctl_stack, ctl_stack_src, ctl_stack_size);
++	} else if (ctl_stack_size > 0) {
++		drm_warn_once(adev_to_drm(mm->dev->adev), "Control stack for non-compute queue in CRIU restore\n");
++	}
+ 
+ 	m->cp_hqd_pq_doorbell_control =
+ 		qp->doorbell_off <<
+-- 
+2.34.1
 
->
-> Thanks,
->
-> Alex
->
-> > --
-> > 2.55.0
-> >
