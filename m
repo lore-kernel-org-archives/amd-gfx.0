@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95A38CCA464
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 19:30:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C2EACC6B38
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Oct 2026 19:30:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 259C6112461;
-	Thu, 15 Oct 2026 19:30:33 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88C93112457
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 19:30:26 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-49fbb2acc90so48274185e9.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 12:30:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E38AB112457;
+	Thu, 15 Oct 2026 19:30:38 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6AC5112457
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 19:30:32 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-49d0da752ffso20422885e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 12:30:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792092625; x=1792697425; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=swLy/ATKxMozoJ0Yb5sQKasWlxtfUYR6WgPATBs+RCI=;
- b=iQk90oJ8sTtoWHsWTrY07CR27K9asPrGjXgtgaDsRv6eOCB16i2WiS6M/VpIcwqWl0
- 5hqR4VWo1QwzL87SCy24mM/lB6WoXWA6HDj//FPCSuJcVDjqnRzacfeNi5K1skdpGsxe
- T/oOfEYeawe1uOh49SOrpzCZ4Vd69aEWUso1kYU4YkREX9a7nD4vp/s8Ns1YyAzAFZNM
- mFoEY58dHyY6gChCkYZkEI9vrPCM/Ra26WQNKWXKK4d1JU4LQomZFLZ5jg3X5CufJxg+
- pTVNz1u3+rwmqaKltz10wcTG8W4ug0ZvYwV8VU2oWEuuGpsjbUo7bWU1zWHLg0EXfIqz
- HxmA==
+ d=gmail.com; s=20251104; t=1792092631; x=1792697431; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rCBIvyrq3Cdx5wtp1x1m3Uqsp5/Gd4PThX1D5sZ44iE=;
+ b=FawTN4XIetgyWsXCYrzjd4rS0/lEvqGq7kzaS7wIyxMKxdrivr0EW708UPe2/qc65/
+ pBJUaayGz3d/WyC583jdCHa7AEjXJ/eGhvmaFZXrcnTO2FC938VdThOeFsvGfTJA7NSv
+ PkFiyE2Z34Wu9rGD7tHbzOy2y3YC1HeRqEJyGI2Q+XwI/ULkA4pLZQjLktB1GLpN67Eu
+ F/YlzTX0pzvKmQhyZZwtZKG8nVJ+DZYB92s/hD6d75CiSdRSd48s+StQE1KFOq1E59P/
+ nKqqOaDhfnm/FKIp5uR4Ce39qZJ4wBW6zFisK7PUf9sLsUK8NxX8nj53XLP1vMbMIa6B
+ eLig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792092625; x=1792697425;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=swLy/ATKxMozoJ0Yb5sQKasWlxtfUYR6WgPATBs+RCI=;
- b=090MttamrqeusA8Oq4qqYj3CuEv5SyX09nYh9hUxFfOcBtFQA7/hcmGIbnxKTHXqV9
- GIcxQtXjwn3EzfVzbcf8JhR8VwP9blQof1JxG0oiLsKiAYBK4bloQfKxONO0SCOzZw3o
- 7z7doffne8vbxGrrUw3Dvy1zbor4f54Vhhe0mmdPCmL6ozUOPAd2/R50fBTu5MVQ4OxX
- xZCxBXrlp38rV9PxHu3ntT64Hsysn0C44rsKfaSNTMxut09PEv4YHEZwO75KjPQGaMGZ
- qpHu8SGSgUV6xxCW73U7hvDSjbtkSmT9M+257IZWiqfW1YkNY1DNjxch1+Zr5pThXFZH
- leww==
-X-Gm-Message-State: AFq9FYI8S4KSKDQPuokxrEFyEQIfvLxTmPdxQwA+GxrOHIG7i0JdRB32
- Sc5/2dU3NR9QTFylD9MVhECsB8poEGZq+7IUH2ez0h9c8fN5fbmOeHWTq5q6YQ==
-X-Gm-Gg: AYBFou3FJsDptMlVCA6CGdwa4peIZkxNcGSJ55uBHk9UPW2Ho+6VU7FTrpUX1bVsRGO
- ujhg7dDhwwkNlOX7OVJv/vx4+8Hmf0UovhPj/56yCzZDYPYBZpZOP0y/QjM1UFdWyaXq3v8rI3G
- 6jjmDinRaspNIhfiEl+CieEsGmWCURrIvgEMLE5k+vmJ4lTS3cL2NEmyAguV5zE32mgeZKIRfhC
- w9N1BPsfkklvlXQL2fcbaV3C6Bp5wUFzxVr9tdXXan6tZQjZD+cdgTpcN1Zd87Vb+Jvqao7zsV/
- bod98C/+Kl7pqy0RMa/W2qXuqA1WbCdlFK3ZLL7otxl1s9ap5Z9MZvZspwlfgG/P2pK4HcarAj6
- ldbnnwjtr7YAQ9nMSdYl5v+vT4DE08ZQUsS33oMdu0/2DtjvEa+rnOJqRSGDATfiMX7RBP2Jw0k
- WMS3c+uQkBp3xohd3W6DkBidVA0AwsAJG800e8H1bM97qeqn4Mgk9N1bSJDvI8jW6ulZyBcwoFD
- c+qMPdedPNolDKUjDFc/Slmy+jBAxwyBIRd/cICEQl9s5rTPKNIUqhRx16Pw4+eD89OGzKkEaWf
- P7V8fTuJzcwGgTi6Ik9BzGqG3kK6egQ8aEdHTYvGGNhOz4HL3FKHuMnp53G3GFea8m2RqmYYmw6
- jMtbToCSvxETzTkxCVjhHR57hNs0SJNcYWv1QwEDg4XpkQmqT7khtzbZGaJzdk0WC1qIG+ZqvSJ
- nQy7mMuQPLk5W/Feo=
-X-Received: by 2002:a05:600c:154c:b0:4a1:7c7d:8881 with SMTP id
- 5b1f17b1804b1-4a18e4a9b88mr428882185e9.13.1792092624625; 
- Thu, 15 Oct 2026 12:30:24 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1792092631; x=1792697431;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=rCBIvyrq3Cdx5wtp1x1m3Uqsp5/Gd4PThX1D5sZ44iE=;
+ b=ytiKpRP/IM5Od5AHl9wHNjN951Y9Om0xTh1QW6ABEzbiQ2/eUMulOFCUnfn6yjPra3
+ yStjslXmG4qUfoT3AtMGqasPp8N7L+0MdA8iA0JVMErVcEjMk7MFr0erb1E//mQbjEyk
+ hLoko0xK28ThEW6bp2quqJbmu5HvYrEpJ9uyVxPbvvwajA1LaH6mWNFrsDp0m/VNr/YP
+ iulWNsQYTQRRCtkfb2kKCKxWX0kah91AyIktPVtjVLCJ4hZJalYCmeps3Vq5tQCxN7+y
+ QMvGt6YDLb3we8TXTZM5ZWF+h9z+W0CqxwkcQp2RGsoyNCZ/kn4chm7uWSasGSb6AjSu
+ TWnQ==
+X-Gm-Message-State: AFq9FYKAig2V2mbY/wr4k1Ez2EipL0wWSLZG4NVIvxCxpbrL++E2cjHT
+ 8CROv5Pyk+scqrtugcjHMJ37c40iJjGZPz8//xX3D7pxiQiyMh8/Cab9z80PvA==
+X-Gm-Gg: AYBFou0dOFhKTba42ESbkyadmn+AOQ0JxEQwJ1BBz5b0fsL/vo5YspyPIDkUZwqS1ue
+ WIYKTQF5O//J7BqYmt0KzS/p0a2nqhS3jqCMpqtIYqvE5IwpYxQ0K+aUGKO7yPTUE+Yl+UoV7fM
+ 17aNoEAFtnj1dG1L4Pxoe09Ce+wDE9GEK8liGVrvGWE/ciZEHOyWD6FoQkLrP/g4dRdEm7razVS
+ j0otW4bWC1r+27Ya4p22rXTcYhJSlPZLCCX2XWH+DkaiGyQe7grEe8QXJUtbG5jvLhkDJvefyji
+ YqeUna9wr3Vj4iv4WjJLaqer5UCaFE4B2PlcG7fvuKR2qbaOAelhjTuealul6Q8OHn4UO7XQZ6H
+ CGCy9mUPV+0JPRkDyQYWvhKgIxqi/BkitQyTGNB/crIvR90QP60YXcAkIzcse4OzqmQXpeVMhN9
+ 6cIB7wPGa4cVX0xIPPHRWdOkpmdp033IwTebuabUJp89TgF6tib7D5S01wVCgMAeKiiP5ds0D+W
+ J7khdBl6dF5+N40mGl3NMJkADTdxKgfzAZg64UfRYVU8e5unPD17KPDtSeA0C3BxgtRgHvkFi4w
+ CZkS1sFji+B95I7jfgDg3gc71sd/J3foyXw6HtSPDSR0qFf+o+JrDsqI3UvF0Bary2+7s7AwgqP
+ ivZ8I84u4VV284mxqRnfnOtJxQQJ1G3PS7reAmjLZDSPD+aEbtSMFwOgpLuXmWDlBb3xQAA4tiT
+ o4tH0ZS0ZtfWEwM94=
+X-Received: by 2002:a05:600c:3111:b0:4a0:159b:d2a2 with SMTP id
+ 5b1f17b1804b1-4a18e4e14e8mr386664395e9.29.1792092630871; 
+ Thu, 15 Oct 2026 12:30:30 -0700 (PDT)
 Received: from localhost.localdomain
  ([2a0d:e487:41be:7420:c1d9:bb43:318e:b925])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1bd9b303csm89277915e9.8.2026.10.15.12.30.24
+ 5b1f17b1804b1-4a1bd96fed4sm95895665e9.2.2026.10.15.12.30.30
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 15 Oct 2026 12:30:24 -0700 (PDT)
+ Thu, 15 Oct 2026 12:30:30 -0700 (PDT)
 From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Cc: felix.kuehling@amd.com
-Subject: =?UTF-8?q?Re=3A=20=5BBUG=5D=20drm/amdkfd=3A=20SVM=20restore=20worker=20livelocks=20under=20memory=20reclaim=20=E2=80=94=20KFD=20process=20restart=20wedges=20until=20memory=20pressure=20subsides=20=28gfx906=29?=
-Date: Thu, 15 Oct 2026 21:30:23 +0200
-Message-ID: <20261015193023.86286-1-olivier.kaloudoff@gmail.com>
+Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH] drm/amdgpu: guard VCE/UVD sched entity teardown on failed
+ probe
+Date: Thu, 15 Oct 2026 21:30:29 +0200
+Message-ID: <20261015193029.86405-1-olivier.kaloudoff@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2458421d-2b6b-4b81-b965-5ae6eb67edf6@amd.com>
-References: 
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -89,71 +88,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Felix,
+Since commit 037b98a2312e ("drm/amdgpu: move UVD and VCE sched entity
+init after sched init"), drm_sched_entity_init() for the VCE and UVD
+kernel entities runs in the scheduler-init phase, well after the
+IP-block sw_init phase has allocated the vcpu_bos.
 
-Retest done on the same machine (MI50 gfx906 over TB3, Strix Halo host,
-28GB RAM).
+If probe fails between the two phases, amdgpu_device_fini_sw() still
+runs the per-IP sw_fini callbacks for blocks that did complete
+sw_init. Both amdgpu_vce_sw_fini() and amdgpu_uvd_sw_fini() then call
+drm_sched_entity_destroy() on an entity that was never initialized:
+entity->rq is NULL and drm_sched_entity_flush() dereferences it,
+oopsing in whatever context drove the failed probe.
 
-Test kernel: 7.3.0-rc5 plus
-  - 25f0b322ffb5 (evict SVM BOs synchronously from TTM eviction)
-  - ec4d432b     (vm range hole fix)
-  - 46109de0     (skip migration when fault window already in VRAM)
-  - our local series from the original report (restore convergence,
-    non-xnack lock-bounded prefault, unplug/teardown guards), plus two
-    migration-error propagation changes still being baked.
+Observed on real hardware: MI50 (Vega20, VCE 4.0 / UVD 7.2) behind a
+Thunderbolt link — a pciehp presence/link-change event re-probes the
+device; when the re-probe fails (-EINVAL here), the cleanup path
+NULL-derefs inside drm_sched_entity_flush() in the pciehp IRQ thread
+and takes the whole machine down (panic_on_oops, EFI pstore capture).
+Reproduced twice on 7.3-rc5, 2026-10-06 and 2026-10-09, identical
+signature:
 
-Reproducer: llama-server -ngl 99 with ~19GB mmap'd model
-(SVM-registered), health-polled while a second allocator saturated the
-remaining VRAM, then a managed-memory bounce workload
-(hipMallocManaged, 2GB, 20 CPU<->GPU rounds) on ranges that dmesg
-reports "over locked budget ... left evictable" — i.e. genuinely
-reclaimable and migrated under pressure.
+  BUG: kernel NULL pointer dereference
+  RIP: drm_sched_entity_flush+0x34/0x2d0 [gpu_sched]
+  drm_sched_entity_destroy
+  amdgpu_vce_sw_fini
+  vce_v4_0_sw_fini
+  amdgpu_device_fini_sw
+  ...
+  pciehp_configure_device
+  pciehp_handle_presence_or_link_change
 
-Results, 40 min sustained:
+Guard the entity teardown on entity->rq, which is set only by
+drm_sched_entity_init(). amdgpu_ring_fini() already self-guards via
+the rings[] registration, and the vcpu_bo/firmware cleanup still runs
+as before.
 
-  - ftrace count of svm_range_cpu_invalidate_pagetables: 0 for the
-    entire run, including a window where MemAvailable bottomed at
-    ~470MB and direct reclaim was hammering the host.
-  - llama-server health=200 on every poll; real inference verified.
-  - Managed bounce completed all 20 rounds, no migration errors.
+Fixes: 037b98a2312e ("drm/amdgpu: move UVD and VCE sched entity init after sched init")
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-Baseline for comparison: on this same hardware at 7.3-rc5 + our series
-without 46109de0 + copy-done propagation, the bounce workload under
-VRAM eviction panic'd on Oct 3 — BUG_ON(start + size > res->size) at
-amdgpu_res_cursor.h:65 inside svm_migrate_copy_to_vram, called from
-svm_migrate_ram_to_vram via kfd_ioctl_svm prefetch. (EFI pstore
-capture; happy to send the trace.)
-
-So on this stack the storm is gone and the migrate path survives
-forced eviction.
-
-One honest caveat: our non-xnack locking makes registered ranges
-unevictable up to a lock budget, so "inv=0" is partly by construction —
-the over-budget bounce run is the part that exercises the evictable
-path, and that's where the Oct-3 BUG_ON used to live.
-
-So I ran the clean A/B: vanilla 7.3.0-rc5 with only your three commits
-(25f0b322ffb5, ec4d432b, 46109de0), none of our local SVM changes,
-same reclaim-storm reproducer:
-
-  - 94.3M svm_range_cpu_invalidate_pagetables hits in 30 min
-    (~4M/min, same rate as baseline)
-  - llama-server never converged (health 503, RSS churning, threads
-    parked in kfd_wait_on_events)
-  - an earlier run went fully dark ~13 min in — no console, no ICMP,
-    journal just ends (this run did not reproduce that)
-
-So on vanilla the three commits do not resolve the livelock. 46109de0
-only skips migration for windows that are already VRAM-resident; under
-reclaim the faulted ranges are genuinely RAM-side, so the residency
-check never engages and the evict -> restore -> re-invalidate loop is
-unchanged. The failure is restore-worker convergence itself — the
-invalid cmpxchg aborts that leave evicted_ranges never draining —
-which none of the three commits touch.
-
-The only thing that suppresses the storm here is our restore-worker
-locking, which is a workaround with its own tradeoffs, not an
-upstreamable fix — but it confirms where the loop lives.
-
-Regards,
-  Olivier
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index ecd7caa95..cd35ff7ca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -377,7 +377,8 @@ int amdgpu_uvd_sw_fini(struct amdgpu_device *adev)
+ 	void *addr = amdgpu_bo_kptr(adev->uvd.ib_bo);
+ 	int i, j;
+ 
+-	drm_sched_entity_destroy(&adev->uvd.entity);
++	if (adev->uvd.entity.rq)
++		drm_sched_entity_destroy(&adev->uvd.entity);
+ 
+ 	for (j = 0; j < adev->uvd.num_uvd_inst; ++j) {
+ 		if (adev->uvd.harvest_config & (1 << j))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index 1f7a98cdc..3952af9ae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -253,7 +253,8 @@ int amdgpu_vce_sw_fini(struct amdgpu_device *adev)
+ 	if (adev->vce.vcpu_bo == NULL)
+ 		return 0;
+ 
+-	drm_sched_entity_destroy(&adev->vce.entity);
++	if (adev->vce.entity.rq)
++		drm_sched_entity_destroy(&adev->vce.entity);
+ 
+ 	for (i = 0; i < adev->vce.num_rings; i++)
+ 		amdgpu_ring_fini(&adev->vce.ring[i]);
+-- 
+2.39.5
