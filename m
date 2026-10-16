@@ -4,38 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D326ECCA462
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 08:28:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1FD7CC6B38
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 08:28:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6812411266E;
-	Fri, 16 Oct 2026 08:27:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83F80112670;
+	Fri, 16 Oct 2026 08:28:00 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3732112682
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 08:27:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A097112693
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 08:27:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=9py5ggYWKl0k2/gAfg7ZSv+gD1yNZtxMJcE8HCQqDVc=; b=VIUJOhXsPx076X+Js9QP8tvQ3g
- hKHLR4YqjgvenjDM0P9ciB/WwRJjWSQtux0mSqdxROi2mVS5ccQk+YkCN7HwXp12CqPHt88WWwQAn
- ew21mpV79APM2+8b/WQfib10AolDw/ztV0Bx/e6JSFFaQjUEgiKZbfEOiB8Pcc7lZQ8FlsPSBMzA0
- mRw8AmI/94eyvLANyPfuGCEUp5+rOUP6BavYk844jfqQ4Pdqooi3KV4B4wuSEg6pMpCKFna3bKQ+w
- jSdcZQlijdJOmlMpLFD/VAIAXNLu0lGabtsB5Dry8e+PGNCpKIf4K8pgfHjidKLBvjSKhpNVC96s/
- aUY2isPA==;
+ bh=QRPcOfsgnWTSh/LPT65CuSsnLYTQ2PQsUMFeaw9NFEM=; b=WoUo7QRxPppDNC8VHnZLL2GgsG
+ qsHdZ1wDQN11AQihKmDZWHmGKcFC63tS5IuD30qs87N+2XgE07sLWl3+MjlehiDNNNBgrPvjlAqbF
+ 537kC4jTsnY2RTuYpKDZI0fNIg8RBDh42WVRoV6MSrF2WrnURua8Q6/ReMh8HQ2agYBkqJFgViye/
+ pyF13EpxLB+cAxKOtuJzPlhHDTrX6q4FhNwU7Xa8x+VLWxDWKTP8JhD+8xMcnlLceDp+YRCTL4zrR
+ e3axPqLmdBGMMKZpzmo2zGxCqk0cAZkAharPFk0VnyC7GyHfpdsZBjfYi0OFWp4CLholo4ujvhLsh
+ 19dwk5/A==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xHdI7-000wxt-QQ; Fri, 16 Oct 2026 10:27:51 +0200
+ id 1xHdI8-000wxv-If; Fri, 16 Oct 2026 10:27:52 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Alex Hung <alex.hung@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH v4 0/2] amdgpu display debugfs handling fix and refactor
-Date: Fri, 16 Oct 2026 09:27:44 +0100
-Message-ID: <20261016082746.47749-1-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v4 1/2] drm/amd/display: Use memdup_user_nul in debugfs code
+Date: Fri, 16 Oct 2026 09:27:45 +0100
+Message-ID: <20261016082746.47749-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016082746.47749-1-tvrtko.ursulin@igalia.com>
+References: <20261016082746.47749-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -53,27 +55,482 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I had some patches in this area ages ago so I re-visited them, tweaked and
-decided to re-post.
+Replace kcalloc + copy_from_user with memdup_user_nul for more compact and
+safer code.
 
-First is a clear fix while second is a serious refactor which needs a lot of
-scrutiny. Mostly closing in on the desired semantics and thinking whether
-changing any of the existing (incosistent) semantics is likely to break any
-(hypothetical) scripts used for debugfs configuration. In it probably desirable
-in principle since it removes a lot of redundant and somewhat questionable code.
+Otherwise, and currently, there is scope for out of bounds reads in
+parse_write_buffer_into_params because it checks for newline before it
+checks for end of buffer:
 
+ while ((*wr_buf_ptr != 0xa) && (wr_buf_count < wr_buf_size)) {
+
+With other examples lower down in the loop. Culminating in the strsep
+pass which does no checking for buffer size at all.
+
+Ensuring null termination seems like the simplest fix.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: 04111850cf56 ("drm/amd/display: Reuse parsing code of debugfs write buffer")
 Cc: Harry Wentland <harry.wentland@amd.com>
 Cc: Leo Li <sunpeng.li@amd.com>
 Cc: Timur Kristóf <timur.kristof@gmail.com>
-Cc: Alex Hung <alex.hung@amd.com>
+---
+The Fixes: target is perhaps approximate I did not extensively check if
+before the consolidation it was safe. It is debugfs after all so I thought
+its good enough like this.
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 189 +++++++-----------
+ 1 file changed, 68 insertions(+), 121 deletions(-)
 
-Tvrtko Ursulin (2):
-  drm/amd/display: Use memdup_user_nul in debugfs code
-  drm/amd/display: Simplify debugfs token parsing
-
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 595 ++++--------------
- 1 file changed, 126 insertions(+), 469 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 36f32ed4b87c..969e1361a5da 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -76,8 +76,7 @@ static const char *const mst_progress_status[] = {
+  *
+  */
+ static int parse_write_buffer_into_params(char *wr_buf, uint32_t wr_buf_size,
+-					  long *param, const char __user *buf,
+-					  int max_param_num,
++					  long *param, int max_param_num,
+ 					  uint8_t *param_nums)
+ {
+ 	char *wr_buf_ptr = NULL;
+@@ -91,13 +90,7 @@ static int parse_write_buffer_into_params(char *wr_buf, uint32_t wr_buf_size,
+ 
+ 	wr_buf_ptr = wr_buf;
+ 
+-	/* r is bytes not be copied */
+-	if (copy_from_user(wr_buf_ptr, buf, wr_buf_size)) {
+-		DRM_DEBUG_DRIVER("user data could not be read successfully\n");
+-		return -EFAULT;
+-	}
+-
+-	/* check number of parameters. isspace could not differ space and\n */
++	/* check number of parameters. isspace could not differ space and \n */
+ 	while ((*wr_buf_ptr != 0xa) && (wr_buf_count < wr_buf_size)) {
+ 		/* skip space*/
+ 		while (isspace(*wr_buf_ptr) && (wr_buf_count < wr_buf_size)) {
+@@ -259,25 +252,23 @@ static ssize_t dp_link_settings_write(struct file *f, const char __user *buf,
+ 	struct amdgpu_device *adev = drm_to_adev(connector->base.dev);
+ 	struct dc *dc = (struct dc *)link->dc;
+ 	struct dc_link_settings prefer_link_settings = {0};
+-	char *wr_buf = NULL;
+ 	const uint32_t wr_buf_size = 40;
+ 	/* 0: lane_count; 1: link_rate */
+ 	int max_param_num = 2;
+ 	uint8_t param_nums = 0;
+ 	long param[2];
++	char *wr_buf;
+ 	bool valid_input = true;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-	if (!wr_buf)
+-		return -ENOSPC;
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					   (long *)param, buf,
+-					   max_param_num,
+-					   &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -393,12 +384,12 @@ static ssize_t dp_mst_link_setting(struct file *f, const char __user *buf,
+ 	struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
+ 	struct dc *dc = (struct dc *)link->dc;
+ 	struct dc_link_settings prefer_link_settings = {0};
+-	char *wr_buf = NULL;
+ 	const uint32_t wr_buf_size = 40;
+ 	/* 0: lane_count; 1: link_rate */
+ 	int max_param_num = 2;
+ 	uint8_t param_nums = 0;
+ 	long param[2];
++	char *wr_buf;
+ 	bool valid_input = true;
+ 
+ 	if (!dp_mst_is_end_device(aconnector))
+@@ -407,14 +398,12 @@ static ssize_t dp_mst_link_setting(struct file *f, const char __user *buf,
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-	if (!wr_buf)
+-		return -ENOSPC;
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					   (long *)param, buf,
+-					   max_param_num,
+-					   &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -612,27 +601,25 @@ static ssize_t dp_phy_settings_write(struct file *f, const char __user *buf,
+ 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
+ 	struct dc_link *link = connector->dc_link;
+ 	struct dc *dc = (struct dc *)link->dc;
+-	char *wr_buf = NULL;
+ 	uint32_t wr_buf_size = 40;
+ 	long param[3];
+ 	bool use_prefer_link_setting;
+ 	struct link_training_settings link_lane_settings = {0};
+ 	int max_param_num = 3;
+ 	uint8_t param_nums = 0;
++	char *wr_buf;
+ 	int r = 0;
+ 
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-	if (!wr_buf)
+-		return -ENOSPC;
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					   (long *)param, buf,
+-					   max_param_num,
+-					   &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -754,7 +741,6 @@ static ssize_t dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
+ {
+ 	struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
+ 	struct dc_link *link = connector->dc_link;
+-	char *wr_buf = NULL;
+ 	uint32_t wr_buf_size = 100;
+ 	long param[11] = {0x0};
+ 	int max_param_num = 11;
+@@ -773,19 +759,18 @@ static ssize_t dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
+ 	struct dc_link_settings cur_link_settings = {LANE_COUNT_UNKNOWN,
+ 			LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
+ 	struct link_training_settings link_training_settings = {0};
++	char *wr_buf;
+ 	int i;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-	if (!wr_buf)
+-		return -ENOSPC;
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					   (long *)param, buf,
+-					   max_param_num,
+-					   &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -1200,25 +1185,21 @@ static ssize_t dp_dsc_passthrough_set(struct file *f, const char __user *buf,
+ 				 size_t size, loff_t *pos)
+ {
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+-	char *wr_buf = NULL;
+ 	uint32_t wr_buf_size = 42;
+ 	int max_param_num = 1;
+ 	long param;
+ 	uint8_t param_nums = 0;
++	char *wr_buf;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-
+-	if (!wr_buf) {
+-		DRM_DEBUG_DRIVER("no memory to allocate write buffer\n");
+-		return -ENOSPC;
+-	}
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					   &param, buf,
+-					   max_param_num,
++					   &param, max_param_num,
+ 					   &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+@@ -1464,12 +1445,12 @@ static ssize_t trigger_hotplug(struct file *f, const char __user *buf,
+ 	struct drm_device *dev = connector->dev;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 	enum dc_connection_type new_connection_type = dc_connection_none;
+-	char *wr_buf = NULL;
+ 	uint32_t wr_buf_size = 42;
+ 	int max_param_num = 1;
+ 	long param[1] = {0};
+ 	uint8_t param_nums = 0;
+ 	bool ret = false;
++	char *wr_buf;
+ 
+ 	if (!aconnector->dc_link)
+ 		return -EINVAL;
+@@ -1477,17 +1458,12 @@ static ssize_t trigger_hotplug(struct file *f, const char __user *buf,
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-
+-	if (!wr_buf) {
+-		DRM_DEBUG_DRIVER("no memory to allocate write buffer\n");
+-		return -ENOSPC;
+-	}
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-						(long *)param, buf,
+-						max_param_num,
+-						&param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -1665,26 +1641,21 @@ static ssize_t dp_dsc_clock_en_write(struct file *f, const char __user *buf,
+ 	struct dm_crtc_state *dm_crtc_state = NULL;
+ 	struct pipe_ctx *pipe_ctx;
+ 	int i;
+-	char *wr_buf = NULL;
+ 	uint32_t wr_buf_size = 42;
+ 	int max_param_num = 1;
+ 	long param[1] = {0};
+ 	uint8_t param_nums = 0;
++	char *wr_buf;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-
+-	if (!wr_buf) {
+-		DRM_DEBUG_DRIVER("no memory to allocate write buffer\n");
+-		return -ENOSPC;
+-	}
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					    (long *)param, buf,
+-					    max_param_num,
+-					    &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -1849,26 +1820,21 @@ static ssize_t dp_dsc_slice_width_write(struct file *f, const char __user *buf,
+ 	struct drm_crtc *crtc = NULL;
+ 	struct dm_crtc_state *dm_crtc_state = NULL;
+ 	int i;
+-	char *wr_buf = NULL;
+ 	uint32_t wr_buf_size = 42;
+ 	int max_param_num = 1;
+ 	long param[1] = {0};
+ 	uint8_t param_nums = 0;
++	char *wr_buf;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-
+-	if (!wr_buf) {
+-		DRM_DEBUG_DRIVER("no memory to allocate write buffer\n");
+-		return -ENOSPC;
+-	}
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					    (long *)param, buf,
+-					    max_param_num,
+-					    &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -2033,26 +1999,21 @@ static ssize_t dp_dsc_slice_height_write(struct file *f, const char __user *buf,
+ 	struct dm_crtc_state *dm_crtc_state = NULL;
+ 	struct pipe_ctx *pipe_ctx;
+ 	int i;
+-	char *wr_buf = NULL;
+ 	uint32_t wr_buf_size = 42;
+ 	int max_param_num = 1;
+ 	uint8_t param_nums = 0;
+ 	long param[1] = {0};
++	char *wr_buf;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-
+-	if (!wr_buf) {
+-		DRM_DEBUG_DRIVER("no memory to allocate write buffer\n");
+-		return -ENOSPC;
+-	}
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					    (long *)param, buf,
+-					    max_param_num,
+-					    &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -2210,26 +2171,21 @@ static ssize_t dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
+ 	struct dm_crtc_state *dm_crtc_state = NULL;
+ 	struct pipe_ctx *pipe_ctx;
+ 	int i;
+-	char *wr_buf = NULL;
+ 	uint32_t wr_buf_size = 42;
+ 	int max_param_num = 1;
+ 	uint8_t param_nums = 0;
+ 	long param[1] = {0};
++	char *wr_buf;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-
+-	if (!wr_buf) {
+-		DRM_DEBUG_DRIVER("no memory to allocate write buffer\n");
+-		return -ENOSPC;
+-	}
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					    (long *)param, buf,
+-					    max_param_num,
+-					    &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -2638,26 +2594,21 @@ static ssize_t dp_max_bpc_write(struct file *f, const char __user *buf,
+ 	struct drm_connector *connector = &aconnector->base;
+ 	struct dm_connector_state *state;
+ 	struct drm_device *dev = connector->dev;
+-	char *wr_buf = NULL;
+ 	uint32_t wr_buf_size = 42;
+ 	int max_param_num = 1;
+ 	long param[1] = {0};
+ 	uint8_t param_nums = 0;
++	char *wr_buf;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-
+-	if (!wr_buf) {
+-		DRM_DEBUG_DRIVER("no memory to allocate write buffer\n");
+-		return -ENOSPC;
+-	}
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					   (long *)param, buf,
+-					   max_param_num,
+-					   &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -3008,24 +2959,22 @@ static ssize_t hdmi_automation_enable(struct file *f, const char __user *buf,
+ 	size_t size, loff_t *pos)
+ {
+ 	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+-	char *wr_buf = NULL;
+ 	const uint32_t wr_buf_size = 40;
+ 	int max_param_num = 1;
+ 	uint8_t param_nums = 0;
+-	long param[2];
+ 	bool hdmi_comp_auto;
++	long param[2];
++	char *wr_buf;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-	if (!wr_buf)
+-		return -ENOSPC;
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					   (long *)param, buf,
+-					   max_param_num,
+-					   &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
+@@ -3823,7 +3772,6 @@ static ssize_t edp_ilr_write(struct file *f, const char __user *buf,
+ 	struct amdgpu_device *adev = drm_to_adev(connector->base.dev);
+ 	struct dc *dc = (struct dc *)link->dc;
+ 	struct dc_link_settings prefer_link_settings;
+-	char *wr_buf = NULL;
+ 	const uint32_t wr_buf_size = 40;
+ 	/* 0: lane_count; 1: link_rate */
+ 	int max_param_num = 2;
+@@ -3834,18 +3782,17 @@ static ssize_t edp_ilr_write(struct file *f, const char __user *buf,
+ 	uint32_t entry = 0;
+ 	uint32_t link_rate_in_khz = 0;
+ 	uint8_t dpcd_rev = 0;
++	char *wr_buf;
+ 
+ 	if (size == 0)
+ 		return -EINVAL;
+ 
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-	if (!wr_buf)
+-		return -ENOMEM;
++	wr_buf = memdup_user_nul(buf, wr_buf_size);
++	if (IS_ERR(wr_buf))
++		return PTR_ERR(wr_buf);
+ 
+ 	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					   (long *)param, buf,
+-					   max_param_num,
+-					   &param_nums)) {
++					   param, max_param_num, &param_nums)) {
+ 		kfree(wr_buf);
+ 		return -EINVAL;
+ 	}
 -- 
 2.56.0
 
