@@ -4,119 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 444A7CCA462
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 11:33:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BFF7CCA462
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 11:35:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C043A10E147;
-	Fri, 16 Oct 2026 11:33:23 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010034.outbound.protection.outlook.com [52.101.46.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B3DC10E04D
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 11:33:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D432610E04D;
+	Fri, 16 Oct 2026 11:35:05 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013014.outbound.protection.outlook.com
+ [40.107.201.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D951810E04D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 11:34:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JQZ0KQAj0MDDsYepl1XzdRZX223m6MMpilz3C2jjDk3oBIPr97+jAC/MRCg7pk1aUewmAiFSOmx5SkT3HPaCVRWKUveYe6pOt63GZI8MleCv5rt0faUj7lFtTxsmH0B5dCP3yAOuRW8YAKBruyv0R7VIeRDuHBnD610M9ffsXZblmVq8GVOv7fm47L/dmYOAoltI0gYSMY23krs+Wl6yL+cRO/QmSb9lUyYW1TLHhCryzojF6IaAhuuJ9yTGBcru0ib6ojh6zbheidHrN0Ir7bZVMo7Np6bMFwpJKTSTflhHg42+RN+UpWgf9a0gBTx7uJMYr0IH8WoiY33G0jeZ9g==
+ b=F8R1CAhlKFcRg19vpvJikgwFe9notKVLNfJFd3B4LJJy/mDWKuHzHzjMRa5Dva57nV3I5jc6Vrv7D5O/M9loaL6CTXgncrWm+IzL7aqB/5KG1DNw54GqExQ03KoBXQoEH5qOP2wR9FGIOwf5colxnk9MUudbKsL5K84QgYzIXgM8kec0W1+woMCg2R6zNhIBT9gK0ziUd+1K8NndlYMF8BLt+yGAavpzSWySmQTgsLKeDSVPfvhxMuAEVFQhJI4CqRE6z12AE0vyjSZ7dzdUVdfTJmuAMLdQLVtT6eLyGVPFTzd/F/tUAYsapB8WvIgfyAV8PbYSSPgR8EMsVYJ33Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2+4Js+yVLecbnVg4x6kHzm0XIgbgBZXaQn5sIm5HT8k=;
- b=IO9xaAmW1us9QTmizt+OGIkoNra5v0ganCZ0tTOBKe+WkEg7bX/S6TfebaRyPnIzqoa+33jTjBWp7d5ErmoJuAJIS3VDy8fWUynpHu7UWE2AlpErIDWE4A4WSPWmRfzRUJG2u/6uG+QZDYNKQ7QhaG5jjdbS0IocerTQO0rw6UpP7eb+k9E6zEy3Ae2/x9EvDkGaDzcORvAetupaF6r2a13rk4bC1qRiHqeUQRAabYHG127CuMqIcMyvYAF5IMOhU9iTiCjJOX+QyNytQHTkGCmw+nDV7Wc0XekQSsCD0e48zZEdL8W/0pjy2m2D3yOCHuunEilosRLD9xwKebzdIg==
+ bh=gTaVdUKD8/+n1T+ymB7hPA/ie9fdbAs+AZYwFwlkX/I=;
+ b=J0oqjxL3Q7uGHUaZhFB94unJ82vHRWcZdujJBUirA+tE97TDKdnE+V3ZQ4fONMme4vLOZvN8m+kdAd6YXlTH5viEbI1au/ehfW19B0WT6PpXhMjE3LO2yrcbw1jmT23PGM/jn+X0Bwjl2vU8zBg6lUeUgicGY6nXwEDhj1Z/vN2ThYANgTfiAJLA519staBYl++ysv5mAVVWN08ASNL3u2OZQYvKYc3PAjHpol1meafQf7PPIoQglUdD8WwjiAd2FwA783jVDb11lpwqpcVQQklU1q7fSj3+fIwO4EP2Rtj5/vlemceaKgK3wo7zJNfNw7F8aTfPyr7Ml4lO4P15YQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2+4Js+yVLecbnVg4x6kHzm0XIgbgBZXaQn5sIm5HT8k=;
- b=UpYybfSce64Ch9bDMpzPPuJVuMlCGpsEVgMnCsEcBUdR4kD1KVp2+AEPLkllR7BNer3sHdpXPH4DsQOnMltebAY/HymyO+Btyi8kQUkIKwoTYrj53KN/5SvEV8lWxX2sKg4ySOUPLsu9d9i0eGpOohzYipp0J7YJOVolwIABJHg=
+ bh=gTaVdUKD8/+n1T+ymB7hPA/ie9fdbAs+AZYwFwlkX/I=;
+ b=VJ+mOvPIPlx9HS9rSHNTU+5+kNJr4zuKK9FqoI4sG+CjrC7uiBf9dUs36EDNFZYVLXFxShy/lhVqXMvBLldotehMbQjcZCK00DGVCT/s8O+lwHT0hUxgFDnOrxubbJu4R9onTphXDOQoZQybT2hYt1mIChtetoNXpTb6FrCBFME=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by SJ5PPFCD5E2E1DE.namprd12.prod.outlook.com
  (2603:10b6:a0f:fc02::9a2) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
- 2026 11:33:11 +0000
+ 2026 11:34:54 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Fri, 16 Oct 2026
- 11:33:11 +0000
-Message-ID: <e248e08e-a9c0-4a3e-bea9-ee682eb25be0@amd.com>
-Date: Fri, 16 Oct 2026 13:33:07 +0200
+ 11:34:54 +0000
+Message-ID: <a1676db3-7de7-4a49-a41a-433133fc4913@amd.com>
+Date: Fri, 16 Oct 2026 13:34:50 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] drm/amdgpu: bind the SPM VMID's page table to the
- reserving VM
+Subject: Re: [PATCH v4 2/2] drm/amdgpu: rename amdgpu_vmid_alloc/free_reserved
+ to _spm
 To: Sunil Khatri <sunil.khatri@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 References: <20261013112112.1449531-1-sunil.khatri@amd.com>
+ <20261013112112.1449531-2-sunil.khatri@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261013112112.1449531-1-sunil.khatri@amd.com>
+In-Reply-To: <20261013112112.1449531-2-sunil.khatri@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0110.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0103.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9c::13) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ5PPFCD5E2E1DE:EE_
-X-MS-Office365-Filtering-Correlation-Id: 296862bb-6c4e-4151-2dfb-08df2b79422d
+X-MS-Office365-Filtering-Correlation-Id: e6eec758-5560-460f-5664-08df2b797fd1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|22082099003|10067099003|18002099003|11063799006|5023799004|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: yOIj2sAQWhD6okd+1rZNLxrFPn4SLWPmjSEx59XKyu2QBTclTfbTHYTK4blVpJQyaOkxG4Agdj5eazJCcqwqAUhgsWfjS16XJJGLDGBDG+6GkJKWIItt0IK2MkOY5PwejhL4L8lt5g+rUl/5e6EdFPrCtDJAs8QqPBI07R3S+RtoQL+WLFhvWxbkTn7KsJ+pjELUYpqXhjmRrxQPNCSfjnIzr7cnb92+A1GA/jC1GS6LwZArXrBGIDG+p22yzFOqESd1XdLAQTq2khLvL8wyRK3/5WzZhw03rZwjZPDVSfT++NVrRDxCKO8rX5F5xJzrNzCeqrtndBES3jGEhn0Y1XXTjyinX9dBHrL/M1cKPH+rUYcpMhvpr/7oWKb7K9HP/ZGQ526lgDJDJYJsBPXTfooWzPH7igDiMtOh3iPXo6ySijfWg8MDQrYrxu90i+psbsq2o+p/mmKOjA4oc1Cghok08H+3G0DhedU0QrU8IGKvrMnaGQ+YJLMUxDOuIS3C7ZN842QS15BNfUD51NDkDK2Gh8H7AGaaAywwzcd9KW9Ua99NdeheSj1W1QEVrz2tzsPoCPFx2jVCtnUCC6DsrdxrfFxjb4eYJI0w2KT3LE2TNdyD3atsrNBkHyPSzrhrfBzwZA8iUbT8DLHpgZYfalXfPeSP7/p94/2IbitG3W0=
+ ARA:13230040|23010399003|376014|1800799024|366016|6133799003|22082099003|10067099003|18002099003|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 5jXfXNPiu6c51VGC3EutVmQsjiUFHdPqcGSOCmwSQfjcz8MJC9xoTWUiaTtT7gxec9ol1mVisWWnB6eN4jVMie/1RT6P7n66jVGeHRcROWE92Vxb+KluJ99e1Xd4IyROcIylSUjqUpEXx1/S+5CJmarETPSlhg7tMsQ79CW+LK2PHD5r27047S0NMTfnnvd6kgJibpEEtNeC2Zg6v6TZg0z3QBpSNT+SJwtCFp/rMBtRtB/mr77UWhsk9MSNtKLJsGLb3BBC/Z4BTKXAX6WbqePQS7QLyoVAY4uvZmsqBPfd0bqokej1MbBuFrtsLqva9+QvyNxT2l0PqN3y+MBZLyF1YYdY+njWMLS71ydswaWZ6wWPYVeKkhmCW6yZNVB4moIanww9nQFfyBHMtfFS+pbjgw00r/rPDhTx70CaJOWI0tZj0ysaDf/WF/m+maqF4+Dkzt0n3W/hA1ZpTOQOJmu/QPjVZE9BbHqF70I3UqYeSdEwKCQVB9EOAwuffeNmMunUbpywkseFJUmLGr4MaapYeEM6HjjLhnj3QNphfYQ0OWKMnA3lgXy5YlaU1Tz1xj32wXpCmUl0O0n476YLJaLQPA7P+BLixsQL2l3u81F1NUK21JjEnykhM9VQFjH8jWv3mEWbQPcuXzcKq5eLEYvHU5A3abc1LYV7E6RSHAQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(22082099003)(10067099003)(18002099003)(11063799006)(5023799004)(261009223027099003)(56012099006);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(11063799006)(4143699003)(261009223027099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?citvSDJ1VzNWSmhyUzhmZlVYSzNwMHcyZldhSDNhZE9ER0VrWjlrQWZhNkIr?=
- =?utf-8?B?Z3NmdDd5WXUzWldLTm8rOUZtL1VzSFpQdXkyNnc3dEZVQ1lhZXJYVkZlUWUy?=
- =?utf-8?B?dm9tNnBTVncxaWdLSFZFcHpCNGdPMmxTVWJOeWh3OERSYVBpalJjRXVJKy9Z?=
- =?utf-8?B?Mmt0UWZIVnJxMGdBMHdadlF3enFsbE5ldzc3aFNYQkJnckRNL1VON0tOMmNr?=
- =?utf-8?B?T3ptdmtKbHlpbEpJZGFmL0pEby9NaE13REc2OU5NSkRVWXdmVnQvdE9EN2x1?=
- =?utf-8?B?cTEvcVlrQ3k1dVJSSmJkcUorNVk3N1p3bWFXLzdSUG1zQTVpdWtrdE5JQlRl?=
- =?utf-8?B?b3hVenJHeXk1MVI5NC9lMjhIcmdZV3NWQ21qZHpSeEtNRkl0MmdwWFg5dVU3?=
- =?utf-8?B?VHAvSTk1YzI3WFBoK0crSkJsdGtnSmZuV1IrZjRCTjVuZU1kVElFTG1pSitJ?=
- =?utf-8?B?MU1PWjZKOU9UUGhGWFRIK2ZRSk03WjZBMEVBNzUwcURPQUhaNlNWTTQybnlM?=
- =?utf-8?B?N0FQdWVGekdpQXdNQUI0d0N4ZkFHVmdxdVpCcEJSZWJxazhQTG9iRk1FZ1J3?=
- =?utf-8?B?aHIyODI3d3Zab01NcUljN2tBVUxUWmVmSEQ2aWN1bjRsZktreUQ1N0M4ZmE2?=
- =?utf-8?B?elBaTkJzbzdNTTZPQUtEQkk4QStKTWYyOHR5Sy9DQ2IvUDVIU1dUcHc0Qk5V?=
- =?utf-8?B?bW1NYWxrbEMvaTlMU1VyMlFNVGpiZkFsOUxhY1VVRUI5bnMvRmhraDZVSElS?=
- =?utf-8?B?NnpGVEFHek4xd0ovTnp3eTV2bzczOXZKTkJsRktLUk9KT0xlQTUwazZrRWZa?=
- =?utf-8?B?bk1qTXlqQm9NQlpVUlh6NEFmU0ZGQVk5TytSZGFMeHViRkd0NTc3bFJDQmlB?=
- =?utf-8?B?VzJ6a3REM0E4TE41THVMUE5tajNOTUxScDViakE5MENTWXlVcUVlc2huRWZO?=
- =?utf-8?B?Z1p0WnJkUGhhNWVPLzJ1eEpsam1xbUNSOEtCSWlpZWE3UVdSY3R4aEZDNVNX?=
- =?utf-8?B?ZzRRUGpKRFNHN1R5U1d5VHRwY0IvTVJzanQ5b1Rrd0tIT2d0QWZkR242dXlC?=
- =?utf-8?B?YlIwbTBFUVluU1luWHlNQm1VenhySlFWeWhBVjB3dStDaFBnQ1FydGFOVkFk?=
- =?utf-8?B?NFhBeVFiZUJuYjRteDNvdTZtNHV1RWk0VEd0ZGJHeVlsNEdmMDh4QWhOaldY?=
- =?utf-8?B?KzhtS1d0YUEwZDB4Z3FmeWduUkFCMDBDTXBsMHA2Q016bExJQUJJc1dQei9u?=
- =?utf-8?B?RHNpSmFPckJ3ZjJidkhNMHBPMFo4NGJSSTlzckY2ZWxwbVk4QUFBY21Kd2dX?=
- =?utf-8?B?RGVnTlNEZmxQR1E4YmNxK3VLMTlSY0UzYjRKZC83eGpvcS9JV2kvNkJ0L2Rv?=
- =?utf-8?B?UXNzZmYwSW5sdXhIYzNXb2xxczdqUFpORU1IRytONkFjbEJ3MkdLTHRmeW00?=
- =?utf-8?B?OTNhSElSUU1vTEVHbjVHMDFUelpQc1dXbGRmRjV3dVF5WHFvY1ZkTVorNkFv?=
- =?utf-8?B?YS9CUkhSMGtjcEc0R2Jobm5zUURBQTRVazRpMDlVdUhPaWJod3ZpdVRsRXFt?=
- =?utf-8?B?TnNGNFVEVlBlNCtTOXhWTWVrRmViRUJEZ004NHZseDhJZjJ0QUlZT0NGdkk2?=
- =?utf-8?B?TTlNWFhlUjlSaUY3SE9WbkY1WWp4dlhZS1BXS3FmTHdhMFhqakRSTFlreUxU?=
- =?utf-8?B?eUpPVGo2SG1xeFgvV2JyNlVhN0hWQ3VnZWhidDZGNTFmb0RwbDhocTJTR2xQ?=
- =?utf-8?B?YUtSNG5XYjBlUEM5WmJTUEEydEF5OWtRVGZZWmUzSE9CVWYvSVVCR2dYY0F4?=
- =?utf-8?B?WUdYVHc4NGFGMFB1cHNmeXB5TWFxd01jcUFkelhSV0M5OXpsWFlxNkFkVEVC?=
- =?utf-8?B?bHoxTEdiaXdBYnZudUdvQ214RzJ5K2dDUWpyUkF1Y2orWmUxTGFKSkFjMUdS?=
- =?utf-8?B?dWZQZVIvQUNLdU0zYVRLZDkzWXprbU55TFNOcnJya3JOaWR1RG5UeFhrOWsr?=
- =?utf-8?B?eTZBNk5lUVpVSi9uMHJOYVd6ZC9jeFVnSjNUU1RRZzVYME14a3AzVUUzSUYz?=
- =?utf-8?B?SGY5TFp3RGJCckdpQVI3eHRWYWQwOGRnVG9OZklDbkV3OWp1bWdTb2tvQjhD?=
- =?utf-8?B?UjkveGprUjkvWit0S1d2aUJJN1dieWt4aDFBTzRTY3hucWhKWWlOOVVLQ0dK?=
- =?utf-8?B?bUdOd0hveE04MkZPeTVLUDd3MzJuYU5YblZxQUNzQXVlYkpsMWk1RGNsb2xU?=
- =?utf-8?B?RHVZcTFLdHAycmo4Uk9ubEZRbGFBRnJCTkZWZ1o1Z1ltTVpaYkhWRmUyVldp?=
- =?utf-8?Q?JTbkahGzgzFRElCH7j?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eURWNFNnSnBySWNHUjA4czZ2NzkvK0t4QjcwR0c0TzJRbWMramd3K3BaT2N5?=
+ =?utf-8?B?aEVLT0NDVWxSeVlTVnB1dW10OURDNGRPeUxQS1pNc0g0WFJJdmdVZUtncjJK?=
+ =?utf-8?B?MzZDZVQ3RTBOSDZlVFFTeTBYQ200cjBvRmk1Rk1SdFJ2T1N0dFhTTWV6d1Qx?=
+ =?utf-8?B?cEtYc2pjMnVlczA2QkRWa1VXVU90UWZCTlYvQzZJc0VXd2lhL2FGSHp4cWJM?=
+ =?utf-8?B?MjB2Ni90Q0o3cDFYTHdlY21BN1N5M0ZSU2srTW0vRE1QTTBJdjVHendvS0dw?=
+ =?utf-8?B?ZnhjVkU5QjZxVkNsbDh4MUNBbXJ6dXdUNklvb1NWbjhwckJGTHFiWEJDLzlx?=
+ =?utf-8?B?R0VaWmRKRDVodkFSbkxLaUM1ZnBWZW5MeWk4WnVYT090RE55YWVUWGVzYnBI?=
+ =?utf-8?B?cXYwT29DbHBFOTVxcGZ6NmJSdUZOaVl1akUrV0hXTUxjakQvWjdGQ2RpTzAr?=
+ =?utf-8?B?YXo0cWl2UEhEQmt4cUhEcDNvRmVzMmVDamJMWXZyUXNOcDl6TkVOTzc4dVBR?=
+ =?utf-8?B?bzNTa3U5clorbWFBazU4WFlQSzl1Wmc2UURLWlF2em5aWmcxZ3U5cjA2ZTg2?=
+ =?utf-8?B?M1RHVVZLQ2RFUExjV2lNbGN4M0FkRjUyQmZHWXBMNXpBMHZzNnNVU3NBSEFY?=
+ =?utf-8?B?OGdBQkVod1NCaW9pUkR0TnRHdVBmSmREMWhyM084cDBid0tnY01YM1RmYVl5?=
+ =?utf-8?B?N09jUUxvWHZxV29oakhac2xIQjFjeHV1bDd6Zk5LQzRSZjlkeW9jOW8ycXZD?=
+ =?utf-8?B?alV2OGg4SWVTaVc0TVEwK3BIQTZ4NVlRRjR3N3VabEduUkFQUm9mdGtOeGVq?=
+ =?utf-8?B?L2JCVW9QWnBRNW9IamZwb2V3MG9pRmZYdW85OWFIdnFoZ2U0ZHFERXdueVBm?=
+ =?utf-8?B?Uy9ndlZRbFNIMFNjSWdIbE05NjJMOWRCV0dSV2FjOFNjam5oZWErK1lwNWhB?=
+ =?utf-8?B?LzdYUW9NNC9BRTlDeFUwdVNGblQyT2pKZDZCVWhGOWhsSS9pdS84dHBOYUsr?=
+ =?utf-8?B?MG43ZGFMMkQrbnRkR3BxRVZXUDU4TmZDRzRoRjRmZVRlZkRvUEFxWVpUMkl3?=
+ =?utf-8?B?OE4wVnN5VDNFV29GeFBnQ08zck4rMXBzMHdnY2pYTUMwSkN4dkpDdzRHZk1I?=
+ =?utf-8?B?NzBTSXJ3M3dPUWc4RlN1aW5rUXBiN2tBWDVFVEgrbjBTMUxGSDRhOXZMUmFo?=
+ =?utf-8?B?YlFXekJadEVFNlNSZHlHdmFmK1JTbVNIZEhVWFNZeXNZN3VmakhBYnlsOXdp?=
+ =?utf-8?B?YVg5VG1tTk1iQ04wSUtaeGx6ODVtK3VrV2NOVDN2NmJpcFIxSk5hR21OZ3ZM?=
+ =?utf-8?B?UWNWME5US0dCVWFCSkVaYUtYbHdKUWI4UTJ4V01IL0ZzOWlvSWQ3ZVhJL1Qr?=
+ =?utf-8?B?aW01WE5sbGtBV1hMRyt2OWM1SW5Lbis3Nkl3aUcvZEZQa2hmbWdjUW85UGEv?=
+ =?utf-8?B?K3RGQXZuRVBMRGh6T1RPUGxEcEpab2FFT1A3NllmMmdUQnZsSmtQNEVQOGZH?=
+ =?utf-8?B?bDdTVzI2SnhKek9FQ1RoQm5DaFpxdVFlN2lKcS83eXZKaThQT3ZCQThYUzli?=
+ =?utf-8?B?aWxpdkVjY29mamdIVUR1cmRtNUZQMm9hR1lHanpxM1lGbU1wYWxKMjUzTlRZ?=
+ =?utf-8?B?UE1TOXJSN0I3ZHlpZnBTSWF5dkY0anNvZm53Q1Z1OEhGYVBvYXA1Y0Rzanky?=
+ =?utf-8?B?M1ZzeHdXcDk5YzJOU080WTZhNzJ2cUdYNnFUMlFTZytwT1IrK0VxSktjNldK?=
+ =?utf-8?B?d2p2bDh4TlJPMGR5TURFTjczRUZJOW5qY3RqTU9aOFZDL09YdmZEL2xmRU1p?=
+ =?utf-8?B?UlJLOWVVenljTUsyazJvekYyZ0hSdTZuNmp3dUYxc0FUcGZ4Y2g1WlNUVnE0?=
+ =?utf-8?B?U3NLbmd4cVJWVlA3NVRBUzJQMDlBYks3aXc2dThkOEpjaUNnY3AzOW15dzJF?=
+ =?utf-8?B?QUtQNDQzS2E5a1NORzM1TXZmeGp5KzhjM2JYWElMOW5iNStmSXJwNk9VNjll?=
+ =?utf-8?B?NktDSnJSUDAzM2NZaytDSk9ycU02VXZFNHFmVWgyQk9aM0ZlVkJyS0tOaWwr?=
+ =?utf-8?B?RnhYRzVBbFZicksreXVjSytrYmM4bnZPdlFQMy9IYm1BRjJpYWJjT0o4UFI1?=
+ =?utf-8?B?Y1puZjY1N0lYY2dSZ3JvbVMvbUE2NFdCQk96RWVlRTJyNXdUVWVvSGFSZFR1?=
+ =?utf-8?B?Qk13eXVPTEJTU0FPZjdqN2hXc3hTdElxK3ZxdXM4VjhkQWdFTDZMbFBmOHFq?=
+ =?utf-8?B?aWhpM2hydVBFUXhLVDdXUThxM0x0WUl1UHRxZEwrVmhSYnMvZEs4Rzg4bHlK?=
+ =?utf-8?Q?TbfwveMIwAY2rmCPWs?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 296862bb-6c4e-4151-2dfb-08df2b79422d
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6eec758-5560-460f-5664-08df2b797fd1
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 11:33:11.4455 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 11:34:54.7133 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vAFxBGbSYFT7OUgGrSnU9Pm7jIutXKtpD7nM7x4qx7PeW3hxrfCFAND4meptMxVs
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6x1YL67T3ufT5Qh+iFPx5bAl+/TyOxrU3HGTA2AVRZRbueix3Cw+0Rgd76m1naSE
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFCD5E2E1DE
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -132,219 +134,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+
+
 On 10/13/26 13:21, Sunil Khatri wrote:
-> MES userqueues bypass amdgpu_vm_flush(), so a reservation granted to a
-> userqueue never got its VMID's page table programmed. Add
-> amdgpu_vm_spm_update() to bind the fixed SPM VMID's page-table-base to
-> the reserving VM's root PD when that VM holds the reservation; it is a
-> no-op for every other VM. It is called right after a successful
-> AMDGPU_VM_OP_RESERVE_VMID (amdgpu_vm_ioctl(), under the root PD lock)
-> and from amdgpu_userq_vm_validate_and_restore_queue() (already locked
-> via drm_exec), the two paths that can actually change the binding.
+> These functions only ever hand out the dedicated SPM VMID now, not a
+> generic reserved VMID. Rename them to amdgpu_vmid_alloc_spm() and
+> amdgpu_vmid_free_spm() to say so. Pure rename, no functional change.
 > 
-> amdgpu_vmid_free_reserved() waits for all work that used the reserved
-> VMID to finish, then unbinds it to a dummy address under the same lock
-> that clears the reservation, so in-flight submissions don't suddenly
-> fault and stray SPM accesses afterward fault instead of racing a new
-> reservation's binding.
-> 
-> Both binds go through the new amdgpu_gmc_bind_vmid() helper, which
-> pairs setup_vm_pt_regs() with the matching TLB flush for a VMID bound
-> outside the normal per-job VM flush path.
-> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
 > Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c   | 24 ++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h   |  2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c   | 13 ++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c |  7 ++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 47 ++++++++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  1 +
->  6 files changed, 91 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 8 ++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h | 4 ++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 6 +++---
+>  3 files changed, 9 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 5d4276cd0f7d3..4204c3c750a8d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -787,6 +787,30 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->  	dev_err(adev->dev, "Error flushing GPU TLB using the SDMA (%d)!\n", r);
->  }
->  
-> +/**
-> + * amdgpu_gmc_bind_vmid - bind a VMID's page table base and flush its TLB
-> + *
-> + * @adev: amdgpu device pointer
-> + * @vmhub: vmhub the VMID belongs to
-> + * @vmid: VMID to bind
-> + * @pd_addr: new page directory address, 0 to unbind to a faulting address
-> + *
-> + * For VMIDs that are bound directly to a VM's page table outside the
-> + * normal per-job VM flush path, e.g. a dedicated out-of-pool VMID.
-> + */
-> +void amdgpu_gmc_bind_vmid(struct amdgpu_device *adev, unsigned int vmhub,
-> +			  unsigned int vmid, uint64_t pd_addr)
-> +{
-> +	bool is_mmhub = AMDGPU_IS_MMHUB0(vmhub) || AMDGPU_IS_MMHUB1(vmhub);
-> +
-> +	if (is_mmhub)
-> +		adev->mmhub.funcs->setup_vm_pt_regs(adev, vmid, pd_addr);
-> +	else
-> +		adev->gfxhub.funcs->setup_vm_pt_regs(adev, vmid, pd_addr);
-> +
-> +	amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, TLB_FLUSH_LEGACY);
-> +}
-> +
->  static void amdgpu_gmc_flush_pasid_regs(struct amdgpu_device *adev, u16 pasid,
->  					u32 flush_type, bool all_hub,
->  					u32 inst)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index 76e6f1f96913c..d17055d4c50a9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -444,6 +444,8 @@ int amdgpu_gmc_ras_sw_init(struct amdgpu_device *adev);
->  int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev);
->  void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->  			      uint32_t vmhub, uint32_t flush_type);
-> +void amdgpu_gmc_bind_vmid(struct amdgpu_device *adev, unsigned int vmhub,
-> +			  unsigned int vmid, uint64_t pd_addr);
->  int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, u16 pasid,
->  				   u32 flush_type, bool all_hub, u32 inst);
->  int amdgpu_gmc_flush_gpu_tlb_pasid_xccs(struct amdgpu_device *adev, u16 pasid,
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> index 074c6942d83b0..e5d84a786c4f2 100644
+> index e5d84a786c4f2..f15702993eeab 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> @@ -633,16 +633,27 @@ int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> @@ -589,7 +589,7 @@ bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub)
+>  }
+>  
+>  /*
+> - * amdgpu_vmid_alloc_reserved - reserve a specific VMID for this vm
+> + * amdgpu_vmid_alloc_spm - reserve a specific VMID for this vm
+>   * @adev: amdgpu device structure
+>   * @vm: the VM to reserve an ID for
+>   * @vmhub: the VMHUB which should be used
+> @@ -598,7 +598,7 @@ bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub)
+>   *
+>   * Returns: 0 for success, -ENOENT if an ID is already reserved.
+>   */
+> -int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +int amdgpu_vmid_alloc_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  			       unsigned vmhub)
+
+I think we also need to make sure that the hub is a graphics VMHUB.
+
+There is really no use case for an MMHUB here.
+
+Apart from that looks good to me,
+Christian.
+
+>  {
+>  	struct amdgpu_kq_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+> @@ -629,7 +629,7 @@ int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  }
+>  
+>  /*
+> - * amdgpu_vmid_free_reserved - free up a reserved VMID again
+> + * amdgpu_vmid_free_spm - free up a reserved VMID again
 >   * @adev: amdgpu device structure
 >   * @vm: the VM with the reserved ID
 >   * @vmhub: the VMHUB which should be used
-> + *
-> + * Waits for all work that used the reserved VMID to finish before unbinding
-> + * its page table, so submissions still in flight don't suddenly fault.
+> @@ -637,7 +637,7 @@ int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   * Waits for all work that used the reserved VMID to finish before unbinding
+>   * its page table, so submissions still in flight don't suddenly fault.
 >   */
->  void amdgpu_vmid_free_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> -void amdgpu_vmid_free_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +void amdgpu_vmid_free_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
 >  			       unsigned vmhub)
 >  {
 >  	struct amdgpu_kq_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
-> +	struct amdgpu_vmid *id;
->  
->  	mutex_lock(&id_mgr->lock);
-> -	if (vm->reserved_vmid[vmhub]) {
-> +	id = vm->reserved_vmid[vmhub];
-> +	if (id) {
->  		vm->reserved_vmid[vmhub] = NULL;
->  		id_mgr->reserved_vmid = false;
-> +
-> +		amdgpu_sync_wait(&id->active, false);
-
-amdgpu_sync_wait() intentionally excludes userqueues (both KFD and gfx). I think that is fine here, but we should probably add a comment.
-
-With that done Reviewed-by: Christian König <christian.koenig@amd.com>.
-
-Regards,
-Christian.
-
-> +
-> +		if (adev->vm_manager.spm_vmid && adev->gfxhub.funcs)
-> +			amdgpu_gmc_bind_vmid(adev, AMDGPU_GFXHUB(0),
-> +					     adev->vm_manager.spm_vmid, 0);
->  	}
->  	mutex_unlock(&id_mgr->lock);
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index e29823ae8672e..d45357e092bb5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -1075,6 +1075,13 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
->  		if (unlikely(ret))
->  			goto unlock_all;
->  
-> +		/*
-> +		 * Userqueues never go through amdgpu_vm_flush(), so this is
-> +		 * the only place that can rebind the SPM VMID's page table
-> +		 * for a userqueue-held reservation.
-> +		 */
-> +		amdgpu_vm_spm_update(adev, vm);
-> +
->  		/* This locks and validates the remaining evicted BOs */
->  		ret = amdgpu_userq_bo_validate(adev, &exec, vm);
->  		drm_exec_retry_on_contention(&exec);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> index b85aa2ee19b19..c134000eecfdc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+> @@ -125,9 +125,9 @@ void amdgpu_pasid_mgr_cleanup(void);
+>  bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
+>  			       struct amdgpu_vmid *id);
+>  bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub);
+> -int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +int amdgpu_vmid_alloc_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  			       unsigned vmhub);
+> -void amdgpu_vmid_free_reserved(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +void amdgpu_vmid_free_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  			       unsigned vmhub);
+>  int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+>  		     struct amdgpu_job *job, struct dma_fence **fence);
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index de992405ed718..7fd6215510a94 100644
+> index 7fd6215510a94..8d4c13f2ef7fb 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -568,6 +568,41 @@ uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->  	return result;
->  }
+> @@ -2894,7 +2894,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>  	dma_fence_put(vm->last_update);
 >  
-> +/**
-> + * amdgpu_vm_spm_update - bind the SPM VMID's page table base to @vm
-> + *
-> + * @adev: amdgpu device pointer
-> + * @vm: vm to check against the SPM reservation
-> + *
-> + * The SPM VMID is fixed (adev->vm_manager.spm_vmid), so its page-table-base
-> + * register must track whichever VM currently holds the reservation instead
-> + * of being set per-job like a normal VMID. Bind it to @vm's real root PD
-> + * address if @vm holds the reservation; otherwise do nothing, since @vm is
-> + * not the one that could legitimately change the current binding.
-> + *
-> + * @vm's root PD must be locked by the caller.
-> + */
-> +void amdgpu_vm_spm_update(struct amdgpu_device *adev, struct amdgpu_vm *vm)
-> +{
-> +	struct amdgpu_kq_vmid_mgr *id_mgr =
-> +		&adev->vm_manager.id_mgr[AMDGPU_GFXHUB(0)];
-> +	uint64_t pd_addr;
-> +
-> +	if (!adev->vm_manager.spm_vmid || !adev->gfxhub.funcs)
-> +		return;
-> +
-> +	mutex_lock(&id_mgr->lock);
-> +	if (vm->reserved_vmid[AMDGPU_GFXHUB(0)] !=
-> +	    &id_mgr->ids[adev->vm_manager.spm_vmid] || !amdgpu_vm_ready(vm)) {
-> +		mutex_unlock(&id_mgr->lock);
-> +		return;
-> +	}
-> +
-> +	pd_addr = amdgpu_gmc_pd_addr(vm->root.bo);
-> +	amdgpu_gmc_bind_vmid(adev, AMDGPU_GFXHUB(0), adev->vm_manager.spm_vmid, pd_addr);
-> +	mutex_unlock(&id_mgr->lock);
-> +}
-> +
->  /**
->   * amdgpu_vm_validate - validate evicted BOs tracked in the VM
->   *
-> @@ -2958,9 +2993,17 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->  		return -EINVAL;
+>  	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
+> -		amdgpu_vmid_free_reserved(adev, vm, i);
+> +		amdgpu_vmid_free_spm(adev, vm, i);
+>  	}
 >  
->  	switch (args->in.op) {
-> -	case AMDGPU_VM_OP_RESERVE_VMID:
-> +	case AMDGPU_VM_OP_RESERVE_VMID: {
-> +		int r;
-> +
+>  	ttm_lru_bulk_move_fini(&adev->mman.bdev, &vm->lru_bulk_move);
+> @@ -2997,7 +2997,7 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  		int r;
+>  
 >  		/* We only have requirement to reserve vmid from gfxhub */
-> -		return amdgpu_vmid_alloc_reserved(adev, vm, AMDGPU_GFXHUB(0));
-> +		r = amdgpu_vmid_alloc_reserved(adev, vm, AMDGPU_GFXHUB(0));
-> +		if (!r && !amdgpu_bo_reserve(vm->root.bo, true)) {
-> +			amdgpu_vm_spm_update(adev, vm);
-> +			amdgpu_bo_unreserve(vm->root.bo);
-> +		}
-> +		return r;
-> +	}
+> -		r = amdgpu_vmid_alloc_reserved(adev, vm, AMDGPU_GFXHUB(0));
+> +		r = amdgpu_vmid_alloc_spm(adev, vm, AMDGPU_GFXHUB(0));
+>  		if (!r && !amdgpu_bo_reserve(vm->root.bo, true)) {
+>  			amdgpu_vm_spm_update(adev, vm);
+>  			amdgpu_bo_unreserve(vm->root.bo);
+> @@ -3005,7 +3005,7 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  		return r;
+>  	}
 >  	case AMDGPU_VM_OP_UNRESERVE_VMID:
->  		amdgpu_vmid_free_reserved(adev, vm, AMDGPU_GFXHUB(0));
+> -		amdgpu_vmid_free_reserved(adev, vm, AMDGPU_GFXHUB(0));
+> +		amdgpu_vmid_free_spm(adev, vm, AMDGPU_GFXHUB(0));
 >  		break;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index b8aa45db1d844..2a2a2ccbaa2cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -443,6 +443,7 @@ int amdgpu_vm_lock_individual(struct amdgpu_vm *vm, struct drm_exec *exec,
->  			      unsigned int num_fences);
->  bool amdgpu_vm_ready(struct amdgpu_vm *vm);
->  uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm);
-> +void amdgpu_vm_spm_update(struct amdgpu_device *adev, struct amdgpu_vm *vm);
->  int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  		       struct ww_acquire_ctx *ticket,
->  		       int (*callback)(void *p, struct amdgpu_bo *bo),
+>  	default:
+>  		return -EINVAL;
 
