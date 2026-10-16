@@ -4,67 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E108ACCF2C1
-	for <amd-gfx@archiver.kernel.org>; Sat, 17 Oct 2026 17:30:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA554CCF2C4
+	for <amd-gfx@archiver.kernel.org>; Sat, 17 Oct 2026 17:30:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A4A010E463;
-	Sat, 17 Oct 2026 17:30:52 +0000 (UTC)
-X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
- Fri, 16 Oct 2026 22:17:42 UTC
-Received: from omta36.uswest2.a.cloudfilter.net
- (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 265B41129FB
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 22:17:42 +0000 (UTC)
-Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
- by cmsmtp with ESMTPS
- id HnVNx76oIusRSHq8IxgbV7; Fri, 16 Oct 2026 22:10:34 +0000
-Received: from delta.websitewelcome.com ([192.185.83.61]) by cmsmtp with ESMTPS
- id Hq8HxJhSngKkdHq8IxMX7G; Fri, 16 Oct 2026 22:10:34 +0000
-X-Authority-Analysis: v=2.4 cv=a9cw9VSF c=1 sm=1 tr=0 ts=6ad2a0da
- a=sy7HV6YSrPMGO6i17biZvg==:117 a=AaDvNZWQTOfaQVmSqZoT7Q==:17
- a=660iZSQnnn4A:10 a=DAwyPP_o2Byb1YXLmDAA:9 a=Q2vXz2r6VuNpkWJYl3UA:9
- a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10 a=yMhMjlubAAAA:8 a=SSmOFEACAAAA:8
- a=gKO2Hq4RSVkA:10 a=UiCQ7L4-1S4A:10 a=hTZeC7Yk6K0A:10 a=frz4AuCg-hUA:10
- a=9Z0VUmeasobPx05O_PEl:22
-Received: from [193.5.233.205] (port=11947 helo=desktopmikael)
- by delta.websitewelcome.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.100.1)
- (envelope-from <contact@mikaelpelle.com>) id 1xHq8H-000000031IC-0mrc;
- Fri, 16 Oct 2026 17:10:33 -0500
-From: <contact@mikaelpelle.com>
-To: <timur.kristof@gmail.com>
-Cc: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amd/pm/si: Check AMD_IS_MOBILITY flag for
- PPSMC_SYSTEMFLAG_GPIO_DC
-Date: Sat, 17 Oct 2026 00:10:32 +0200
-Message-ID: <000801dd5dbb$2a3de5b0$7eb9b110$@mikaelpelle.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 430F110E45F;
+	Sat, 17 Oct 2026 17:30:49 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35F6B10E144;
+ Fri, 16 Oct 2026 15:07:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 56861601FF;
+ Fri, 16 Oct 2026 15:07:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C15781F000C4;
+ Fri, 16 Oct 2026 15:06:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792163220;
+ bh=qgiGef4Ohy6VRaPUYC6AlFmNRyKjxhooP4OqvSap8is=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=eV18hT0GJUaQWHwp7Ud3PDO7D6hZRb8bZhmXgdps3B8BS6n8oNJ0JGllQiOIL5tDP
+ Sm/steBjr2D+Yo32uchtTymDOoEIcPaq4VI6WSikDzpGouECjbWUVLW7w9yFeVcsgN
+ 02VFgdWQOgAJ5by5jdKCTaA2WhUV2wFYDSyfDULQTbvubLT8hniX199/Slm0vXbZR2
+ IQZm0/IZz7DZlUj5ENSfYBHMLo8QtFx+/3Njn/IvMWTwBJYMk/0rkA4a76NRnaV3YZ
+ uopDBKWTIAyxKjcdyOUu7Z1DGoMj7Z2ldUbBCAWjfTtDyVPCr1XX9oKF9XIN6QoIXc
+ wR5wn+tLG2xuQ==
+From: Maxime Ripard <mripard@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Aun-Ali Zaidi <admin@kodeit.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Martyn Welch <martyn.welch@collabora.co.uk>,
+ Peter Senna Tschudin <peter.senna@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
+ Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
+ Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-renesas-soc@vger.kernel.org,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Iker Pedrosa <ikerpedrosam@gmail.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
+ Alexey Brodkin <abrodkin@synopsys.com>, Hans de Goede <hansg@kernel.org>,
+ LiangCheng Wang <zaq14760@gmail.com>,
+ Alex Lanzano <lanzano.alex@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Ruben Wauters <rubenru09@aol.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>,
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>, Aditya Garg <aditya.garg@linux.dev>
+Subject: Re: (subset) [PATCH 00/75] drm/connector: Convert all drivers to
+ atomic_create_state and remove reset
+Date: Fri, 16 Oct 2026 17:06:53 +0200
+Message-ID: <179216309041.2383329.5085571920107795525.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
+References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_000_0009_01DD5DCB.EDC6B5B0"
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: Ad1dupVRUfZ8RrRuTBSSqMpq6EU8Ng==
-Content-Language: en-gb
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - delta.websitewelcome.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - mikaelpelle.com
-X-BWhitelist: no
-X-Source-IP: 193.5.233.205
-X-Source-L: No
-X-Exim-ID: 1xHq8H-000000031IC-0mrc
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: (desktopmikael) [193.5.233.205]:11947
-X-Source-Auth: contact@mikaelpelle.com
-X-Email-Count: 2
-X-Org: HG=hgreseller;ORG=hostgator;
-X-Source-Cap: bXBlbGxlO21wZWxsZTtkZWx0YS53ZWJzaXRld2VsY29tZS5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfGekUfUAi0eD+1aZiyFwN3VqIXdawJkgfJEZCzIAXfpYFYpSIRxaDldhM/DTz1Bo4yRwCvuBhkimDG4S9tv2VUPK+t9NGBwdG8LFTqcbSf65wS3rIBcc
- AmohtH7KUDdEcZsCAzdxrlp6wOLzQLiXVlxq+Q6K5lhLFo2EXKtAzSTo7wTSYBEDM0QATbLlUOTi+Cf9iFw/B3u4Tg8j2aSK74FJ7zwJlQFwUvkF0Zk1Yn52
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 17 Oct 2026 17:30:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,140 +141,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multipart message in MIME format.
+On Wed, 14 Oct 2026 19:26:23 +0200, Maxime Ripard wrote:
+> This is a follow-up to the plane and CRTC reset removal series, and
+> part of a larger effort to remove the reset hook from all KMS objects.
+> 
+> The connector reset hook is overloaded: it is called both at probe
+> time to create the initial software state and during suspend/resume to
+> reset hardware and software state. These two roles have different
+> requirements, and the reset hook is not fallible, making error
+> handling difficult for the initial state allocation path.
+> 
+> [...]
 
-------=_NextPart_000_0009_01DD5DCB.EDC6B5B0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Applied to misc/kernel.git (drm-misc-next)
 
-Hi Timur,
+[05/75] drm/arm: komeda: Switch to drm_atomic_helper_connector_create_state
+        commit: 849b1119cb1f429667bf3e79cba86ad397087ab7
+[11/75] drm/bridge: lontium-lt8912b: Switch to drm_atomic_helper_connector_create_state
+        commit: 80512a4f295c52caf1394677d9c80738b68c8831
+[12/75] drm/bridge: megachips: Switch to drm_atomic_helper_connector_create_state
+        commit: 9a4a55df74880acf7c2b954d6011aab579db5f5e
+[24/75] drm/hyperv: Switch to drm_atomic_helper_connector_create_state
+        commit: 7b9c28149a291451ada4c3e9fc7fd2ae13f36bc5
+[25/75] drm/imx: ipuv3: Switch to drm_atomic_helper_connector_create_state
+        commit: 75da1ba5a3c36dca76206ec8e90bebcfc3641c64
+[35/75] drm/solomon: ssd130x: Switch to drm_atomic_helper_connector_create_state
+        commit: 9ec42580ccceb54bd8e0b044729a98e4f345b522
+[39/75] drm/sysfb: Switch to drm_atomic_helper_connector_create_state
+        commit: af36b2313c54e10b832298033b8be2fd50746c96
+[51/75] drm/vc4: Switch to drm_atomic_helper_connector_create_state
+        commit: c81e4d88c3ed73483a99a90f56cc80c80eebc863
+[67/75] drm/malidp: Convert to atomic_create_state
+        commit: 8b32d0652db9bb6b01055311e1cce5e3c4b70137
 
-=20
-
-A quick follow-up from the same MacPro6,1 with dual FirePro D700s.
-
-=20
-
-I have now tested the fixes after they reached stock stable kernels:
-
-=20
-
-- Linux 6.18.57-1-lts:
-
-  both GPUs correctly transition from 300/150 MHz idle to 850/1370 MHz =
-under Vulkan compute load, then return to 300/150 MHz afterward.
-
-=20
-
-- Linux 7.2.10-arch1-1:
-
-  same result; both D700s reach 850/1370 MHz correctly under load.
-
-=20
-
-For comparison, Linux 7.2.9, before these stable backports, still kept =
-both GPUs at 300/150 MHz under the same type of compute workload.
-
-=20
-
-So I can confirm that the stable backports of:
-
-=20
-
-  drm/amd/pm/si: Check AMD_IS_MOBILITY flag for PPSMC_SYSTEMFLAG_GPIO_DC
-
-  drm/amd/pm/si: Fix updating clock limits on AC/DC
-
-=20
-
-resolve the DPM issue on the dual FirePro D700 in the MacPro6,1.
-
-=20
-
-Thanks for the fixes.
-
-=20
-
-Best,
-
-Mikael
-
-
-------=_NextPart_000_0009_01DD5DCB.EDC6B5B0
-Content-Type: text/html;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
-xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
-xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
-xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
-http-equiv=3DContent-Type content=3D"text/html; charset=3Dutf-8"><meta =
-name=3DGenerator content=3D"Microsoft Word 15 (filtered =
-medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-ligatures:standardcontextual;
-	mso-fareast-language:EN-US;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:11.0pt;
-	mso-fareast-language:EN-US;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DEN-GB =
-link=3D"#0563C1" vlink=3D"#954F72" style=3D'word-wrap:break-word'><div =
-class=3DWordSection1><p class=3DMsoNormal>Hi Timur,<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>A quick =
-follow-up from the same MacPro6,1 with dual FirePro =
-D700s.<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>I have now tested the fixes after they reached stock =
-stable kernels:<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>- Linux =
-6.18.57-1-lts:<o:p></o:p></p><p class=3DMsoNormal>=C2=A0 both GPUs =
-correctly transition from 300/150 MHz idle to 850/1370 MHz under Vulkan =
-compute load, then return to 300/150 MHz afterward.<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>- Linux =
-7.2.10-arch1-1:<o:p></o:p></p><p class=3DMsoNormal>=C2=A0 same result; =
-both D700s reach 850/1370 MHz correctly under load.<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>For =
-comparison, Linux 7.2.9, before these stable backports, still kept both =
-GPUs at 300/150 MHz under the same type of compute =
-workload.<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>So I can confirm that the stable backports =
-of:<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>=C2=A0 drm/amd/pm/si: Check AMD_IS_MOBILITY flag for =
-PPSMC_SYSTEMFLAG_GPIO_DC<o:p></o:p></p><p class=3DMsoNormal>=C2=A0 =
-drm/amd/pm/si: Fix updating clock limits on AC/DC<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>resolve the =
-DPM issue on the dual FirePro D700 in the MacPro6,1.<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Thanks for =
-the fixes.<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>Best,<o:p></o:p></p><p =
-class=3DMsoNormal>Mikael<o:p></o:p></p></div></body></html>
-------=_NextPart_000_0009_01DD5DCB.EDC6B5B0--
-
+Thanks!
+Maxime
