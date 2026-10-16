@@ -4,100 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0565BCCA464
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 07:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E42C9CC6B38
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 07:48:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AEEA11261A;
-	Fri, 16 Oct 2026 07:46:00 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011023.outbound.protection.outlook.com [52.101.62.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B346F11261C
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 07:45:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7485B112664;
+	Fri, 16 Oct 2026 07:48:12 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011047.outbound.protection.outlook.com [52.101.57.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC863112629
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 07:48:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pmhescsBajlcBQJOd33f3J7lnzBqbywxV5R3TFbCR0hUxhZzZz0R3UHF7THUvmDfsqygeqg2cB63J+unJM7FKd7A31rPhaSxcvK67MqZJBdqCru24MDdxoomNQfnjKWn0jstAMS9GqpG/oRISJI5dIv64tKU8i8MWBQXBn0Fg4egAkQVupl5y5KIqb67F/YOIBd7yjNCH2PTuIb7sVxULS4U9m6z1UQQj9gfn7w7QGXVBucKhI0fBDawPloiSLv5vr7+aPcly/rDOJWC8NTsIEX8UQksavcxiM9muqs6Kr5rfUZJkL1O6WMisagwCf/zJsxpr/kefnJGjlenNhmgYA==
+ b=SQIxX0QVHUW/YCokFSQqbwK3Hc0i8oPHEl9WDsrnnGHCA93c/hwtuLZWpGeMRwgyjNiswJqGHXF9I1WFNyoErewSrjj8FTJeRlmlFFVJXlmSkAhL4m9rZCDIrtu75/hWNqJVQMnnFHC2T6Hv56kgrLzg9W2906Uxwz31Lq7rRM/BrURsP5RykYV8vb1JWdK+zyyJuOGcnF4gSX2/MQFcsroAsMH4RmzgVb8hkSlgR7OjgTeoNOfogVpbo3UN3RNoAOXwcz0dH3KM6OJPQ8oRe7tDNzyCLUIV7YIGP8+zkMlPXR5QFL2yF/wyTxzrO1ufz8P0tERhmDWZkUCxYjQ3fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xQEDgtC6gTjZ2SqHG+jmT+x5ayLb459UgqDujAis2so=;
- b=NDII7vwyBa8XHtPVwu5Kvil7UOg+91U5prd/ptuW36EzSXNrwKO/6cANscNlR6ehvE+Xoztx5PtfLN6ttEVtQboYgsDAvpNga5DSJnolEWnv5Y4vRA/jMrgIwNJmkoMQd7f7rQsLjT4rjgBgMX3Zfq25wFLp5lYvgmvZIWY7w3OSGxrcJ/3mTQF3t9bR2kWdBk7KwfhnSoyS6ISyQsPDUg7GlQUxnW57rdTKhtnjFfxTSu0iWeSnsL3sgwagvHCKqudkQvFFlqKOhL2U7Z9qd3UqgAhqb2nZc2KO1d0bqWRctHSTPD2zO4ESy1y83vcEvOFpO3e9dzOWerQTOvVpbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=SUzAmpBTFtXhCnVyBIO7rohinOq1PxraqsNwjmzVRuo=;
+ b=W31MT+0YsING+goviWO88dJmhrTbIBgR8h045od2xZWkXm7hetLGmr8uLTOAOk8hCZZtfN/ex026kh6BDvH8WDHVLq+ldmFl9SntCUBKFML+4r73tUIMrXiZrc7FSz443/AmdV533vqCN7uDCUHPqNxGTbeN/3JAdF2sOljFTjPAmWhWA76rjPlNafxNASrxlQJejRCpwQKuUxIyWr6E47+VCAtNyScr8XVmxjwZ0/hzY+BsGvpaSQfYTukchgSO36uPjFr2Cz61I5dQbbWOcR3UhmIIkfGNoihaU12VEiYBODssTvHuARBOl0WWbRyZTn6YJIS1HRIxjslNOjxk5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xQEDgtC6gTjZ2SqHG+jmT+x5ayLb459UgqDujAis2so=;
- b=AsdqsZggkc71pXImJNw4XpdcAUv60P9F0ZhZaAAL+BhgMBstQh8TmLrv9raH6R9jQR5e2ob8jSKv+q56DGM0wj5UtIuYeaHqVUOphLtqDA/xkpSAR0xvmaKDelhBRVUfjdWIXkFlVT61iSh7uPEGN+zjp5NK+Shr4s17ZmqnSZM=
-Received: from SJ0PR13CA0029.namprd13.prod.outlook.com (2603:10b6:a03:2c0::34)
- by CYYPR12MB8702.namprd12.prod.outlook.com (2603:10b6:930:c8::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
- 2026 07:45:16 +0000
-Received: from SJ1PEPF000026CA.namprd04.prod.outlook.com
- (2603:10b6:a03:2c0:cafe::25) by SJ0PR13CA0029.outlook.office365.com
- (2603:10b6:a03:2c0::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
- Oct 2026 07:45:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000026CA.mail.protection.outlook.com (10.167.244.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 07:45:15 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
- 2026 02:45:08 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
- 2026 02:45:08 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 16 Oct 2026 02:45:06 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Prike Liang <prike.liang@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: drop the gang leader reference when freeing gang
- jobs
-Date: Fri, 16 Oct 2026 15:44:41 +0800
-Message-ID: <20261016074507.3973248-1-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.50.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026CA:EE_|CYYPR12MB8702:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3838a3f2-37c8-45b6-a902-08df2b596ad9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|6133799003|10067099003|18002099003|11063799006|261009221227099003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: uc61kPNOFOFmfB8PDfTr9XyfM+hQUpPuKNnzzwyt5o88vF7Q+OleyzJw5V/86URGCfvbUyz9564FDWm6b35o4MyWFmhZ14BOicbJItdC52taHohA8CUogJdAQ5GFauMVS4K3MbuSpXQJyKgAHX5ynB9lAF1dXIhXG7AOMAgy3kqB3rin2g1iQoJkdJvv0N/wXVyPv74AM/D8xRhMFUfQEMN+FQi5VqQBPG9Ri+SLnj+4RcYsNn6YW/gOvm7/4Xwa1Ka76Pz7wbHHkEXU95lIONy4JpqBwoamMcZC8EWZmFVizbJkPmEo9mrKsfKgkYIqq4VeDSiJ2FzSJZgvOgk1kqVlPxvHLJsN4uQk0wkDIFbFfK/q3m6WqjozX1x29QuERpcR1C+4V7Z/7QMuD/kVgh2ZnWNPf9m3md/3omTjagk5YJ6MSnc8aDVGVipB7yyYhWnIMVQFnWUkvBwa7R/RwWopjWfmwxgw/DAPSnBgZflOhzzUB2mF/sx7Re5R51MjXdCGxTD7h2C9XHSCbJVF9QuH7Y313TysXhjAjux1d895mztJbI3WBgGTzMA4AqpAH3oIvGFzNomxD4bKBcBTstweK5X2tQcnE3k+5jfynRAC2PV2QLbhFHIVlnFZi5cT7BRU/9hsyf9cY8p2Ilc/sMtYKjwRRAu4THMr2H9xda/0cjAwOdA1x5Tnn6bftY9bGCXfZYJtEUlFYGUrryVt+Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(11063799006)(261009221227099003)(261009223027099003)(56012099006);
+ bh=SUzAmpBTFtXhCnVyBIO7rohinOq1PxraqsNwjmzVRuo=;
+ b=zXApsNCM3PVkVADfsvyed+U7ww8CslM36OrXhhqmqpLftJkru+cxD4X93CBisnjbn13gMok6aX5+2hLgevrMx8nI2pVXoeXl78JrIws29vqOlIdvkjlnU43q6vMKLiXLqEKU3JOHBKuAcbNQr55NUNYX6SafBmUAT7PvIwVvOvk=
+Received: from PHXPR12MB999255.namprd12.prod.outlook.com
+ (2603:10b6:510:3ca::12) by CH2PR12MB4120.namprd12.prod.outlook.com
+ (2603:10b6:610:7b::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 07:48:02 +0000
+Received: from PHXPR12MB999255.namprd12.prod.outlook.com
+ ([fe80::4045:7ee8:a423:d926]) by PHXPR12MB999255.namprd12.prod.outlook.com
+ ([fe80::4045:7ee8:a423:d926%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 07:47:56 +0000
+From: "Wang, Kevin" <Kevin.Wang@amd.com>
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Subject: RE: [PATCH] drm/amd/pm:restate all customized OD features on every
+ table upload for smu 13.0.0/smu 14.0.2
+Thread-Topic: [PATCH] drm/amd/pm:restate all customized OD features on every
+ table upload for smu 13.0.0/smu 14.0.2
+Thread-Index: AQHdXT9RoIQQY5L5xUWelvZ02gWp6bb/yivQ
+Date: Fri, 16 Oct 2026 07:47:56 +0000
+Message-ID: <PHXPR12MB99925553E42B83BFA3AF53F9BF939B2@PHXPR12MB999255.namprd12.prod.outlook.com>
+References: <20261016072351.2479189-1-kenneth.feng@amd.com>
+In-Reply-To: <20261016072351.2479189-1-kenneth.feng@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-16T07:45:36.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PHXPR12MB999255:EE_|CH2PR12MB4120:EE_
+x-ms-office365-filtering-correlation-id: 98381785-7391-45f6-d43e-08df2b59cae4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|38070700021|56012099006|5023799004|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+x-microsoft-antispam-message-info: 1QQHCeC8KD8ia1upbYwboxC7NqGvaJIqpxp2YrRWjqiCMfNmh3nUYgVaQYwMgYQQdjoRtgxdnKO8oeTqirbuOS60S0qObiNW5PQqPVOZtuoar7uARpGrJd9KDhcmzpwdyxD2w7bOQVWy9szySzw24/O6ctMANDmtmLN0ye8StbIiqGEyHnF3lJf1vWg/faghXxlAXA5uwlySjUyhm31f95IXua7brY/uCN7EqQb8rC1EWBhJvaBiWcfATkFDiNF4h5Hnt84ZoBhavKTT8vEP6IeGWH66LR8sr985bk5SGRjMZbrqQ6ysUR+y+17KXR+Xz0aMsqH9tlCvsrh63nMp1ahYHn3I5dXB5LgM/BOpseOx+2L50po8T9T9xUKWoO1hh5PICPVElqqE8kLYsMpcdPsdyYAxP5f/AeVQ30R8RuiUqRGyZ59WVDTXKD3+WPNvBt5M5penoUy084gZnFdq7oAwbM030Cr8dfzDQ9/uRTU5NTnjjv2IpMKUyortlP1eP7+TmTS8XygLStSdG8H4rXk/dYNKEu206/kbGwFnrD3zuCmymf+xop50hMNum82Ljm1Ynf+KBFwZ9B5HDCtDenI3UXh8fTSsagVnrlL/wjj/YNAlWQ5+lqiwC+K38+bEXgy8mU5g4biBgtIEDOb5Ivj37DX1YMwPJaC1LVGTD2k=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PHXPR12MB999255.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(56012099006)(5023799004)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 1mgYal/MNZRYKYeVgC91uEEES++Ejq5eAKwADq6LC1vQacS4SN057rmwpi97C7aWf7hT8rAKR7uDG0wwjBSsVaF5wJPcST+OXaBO5JHdNG8kSqpKO+aXUHYhscz8II7tqjQC4zzxZBbF0wNgXiX/kwIeXdx+qIC9Tc17K2W9rqPqRG2x6Gc2VnBxKqdpAzof5T1LO0djtF7R/gNozXoV7qMNKKmZop40uyLfHJGS9+Pe/xapgMFsti2s+An7c3qHKsocqgLHdEh9RCk0Q8e2iT+qf9SLaChVZFiXZwBHiZvAQ8LrgSAFud4FhUIbtgruqzVw4kqNWgkbypCcMmZ8CObAWaeExWP13inOe4Mm4L8toMOCTgl5aC15LdjvjvM+4pQgzSntChk1XZr2ImOFebLst+4lNmAtPLnNTJNvCbpXQSSfco+zT0/1oTuwOJQH
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?l1suJt4CEw18S6swZ9yOIpMx5bo3aCGv5XdZzeNOqmb0m7TxPQNoFLnNT3eX?=
+ =?us-ascii?Q?bRRn/NTAPsQ0tFIaAFxF0VyujsUOEk918D50o7wNt6mjYHD9c/30PPmXqBOn?=
+ =?us-ascii?Q?55mGEBcB9I4/xwAJANcLELYeHiByAtOd3pMkhDJPdYur9C3Ipqa6pjPMWmXW?=
+ =?us-ascii?Q?Df/mui1qYwsodrOEKhFeYql8+Ynq/g4mkmHnvuJxc/Hxz6qUJHiE3CbB3/Mo?=
+ =?us-ascii?Q?4gn3ZUjJQrxr+i+xS1wfeU7COMixGZlp39h7T9PFmLdrdDMcbCttu6OgDRsM?=
+ =?us-ascii?Q?w7ofEK8vaYSJVekCicIRQdj8+T9ZYyIWYNc7+Aikb4L7oD6ku+lcFbvvQ/7t?=
+ =?us-ascii?Q?YngrouXjZ3onP2Jpi/+cD+TgCadDNm4TDIxBbY2BXdhZdn0zaZlpy7aV+P88?=
+ =?us-ascii?Q?GGBWI97HEujIvA9OIjnA7c6TwbXcVukInAMIpJPy5vxNmtSjCFW8zhWeLyLJ?=
+ =?us-ascii?Q?X3XhS/o1ubYqnCfNljxCIwxUWEWkTa0nz4LFzMlgfiYSpSTGmMn5es9i91Kr?=
+ =?us-ascii?Q?GFoeUHFkY8XfyZ+1WJsxxjd7cVHRAJQU4GKZNWYRQ6J6SSKPv8hplNYxXgZ1?=
+ =?us-ascii?Q?3ZHR8GieuLc018Hr0gaMKgNspvOEcyNREtQjfm0YWwguxlRbx7QMhD/J0Dzt?=
+ =?us-ascii?Q?JS7Q9At4GOm8DhvRzRAsEZt3xlnqnjXOa4luFpDoQZc8E9M0fcCehs+XawuB?=
+ =?us-ascii?Q?VziB6IwCLDrR5PWnHkuxmzpyMLcY3eK+UatqdOIAt/ni2BSZXL1BGenNr5ZL?=
+ =?us-ascii?Q?TM1kmDEa5JMBNm0bM02sgmJW4BrOuayVbzFLR0C6c/WBDakP/lB3yuKyv1p7?=
+ =?us-ascii?Q?t8tPeplyfQrEZORWVsBuYAZZvZf3uZ24VhptcqlgUwuRyA2STBHt2cTrviBu?=
+ =?us-ascii?Q?ZM1oY68TnZoxxR+M66oEQKGSb9I0BPBJWVOLrN2dNoFZ8J1294bKcuxf++zG?=
+ =?us-ascii?Q?1Z08FZJl6IemZ8/QT9kTyzsz0wAQf9Z1+fEYLvvwY3zFm6g34LECIhf1wa27?=
+ =?us-ascii?Q?YM4Ver6fCNtJS4A+jQHdsmAhzrWRnkMSQSnFJ64Hzg9kIUppBZREawY2raMo?=
+ =?us-ascii?Q?ofBTQwdg837s2fdmZSSHcGcJripc6kQajq7OKkCqgO54lTTN9nYriYuVgR1F?=
+ =?us-ascii?Q?onr08WkUHNJYJHw45YQntxkTNtnFc37XMVWGvzuGOjzOIKTKxYzWB8H4T8Jr?=
+ =?us-ascii?Q?WQrui1paIu9fZmq7Y56VhmZbQOfAaWWK6An3EhvEXe5Ut331TkYrvamUfcxk?=
+ =?us-ascii?Q?gVNF8BrchbARHcXukgIui9DDqPAy8xZ0PZo1J1c2zJWhFer7oj0qysXDtso9?=
+ =?us-ascii?Q?wOdcDFxcxBzIazFKJYjbBphsabBItQLMW4hqR90zy938mCg2G+8koo1p8iPE?=
+ =?us-ascii?Q?gxpK2N0cNlb2PI58cPNIyEX9q3laRMZrobeG9dW9Hn4W+VR7qzZDqnyGtzJc?=
+ =?us-ascii?Q?6TI/i3pS7UmqGkAtTVtUDXyDNf7f1QwmOlUdNcoZAlsCOc0huZ4JB7wtmXkr?=
+ =?us-ascii?Q?qAOolku0wZJBnHl+99IDLNkRseWeP7g4MPvIfnqCgUvgr6toUUBDk8xCxZHN?=
+ =?us-ascii?Q?aVHI5/IPE8rzb09EnqJUrgdqp46LURkcaPebiP89JEx2q652DVFUaII/aAhh?=
+ =?us-ascii?Q?Aymzd86E/yIalOu8s/HwUNuInLGGLTq/tgkv0nYTxtUnsmnyOSv1HjzTAsDB?=
+ =?us-ascii?Q?jJfz7dwAjWmIXVsmAtu5HXhcSY0=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 07:45:15.3366 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3838a3f2-37c8-45b6-a902-08df2b596ad9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026CA.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8702
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PHXPR12MB999255.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98381785-7391-45f6-d43e-08df2b59cae4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 07:47:56.5750 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BZ67aeM7D1gS3Zaq+5RrOysT7+NclbO78qKz4Q4IG/IGgRgbNNqGRO86nnI1TTDL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,67 +130,438 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Every job of a gang except the leader holds a reference to the
-scheduled fence of the leader in job->gang_submit. Only
-amdgpu_job_free(), used for jobs which never ran, drops it, so for every
-gang submission which completes the scheduler fence of the leader, and
-with it its hardware fence, is leaked. amdgpu_job_free() in turn checks
-for the leader only after drm_sched_job_cleanup() cleared the scheduler
-fence, so a leader freed there drops a reference it never took.
+AMD General
 
-On navi31, 100 submissions of a GFX + COMPUTE gang grow the slab cache
-drm_sched_fence is merged into by 60 to 180 objects each time, while
-100 GFX only submissions don't.
+> -----Original Message-----
+> From: Kenneth Feng <kenneth.feng@amd.com>
+> Sent: Friday, October 16, 2026 3:24 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Wang, Kevin <Kevin.Wang@amd.com>; Feng, Kenneth
+> <Kenneth.Feng@amd.com>
+> Subject: [PATCH] drm/amd/pm:restate all customized OD features on every
+> table upload for smu 13.0.0/smu 14.0.2
+>
+> PMFW interprets OverDriveTable.FeatureCtrlMask as the complete set of
+> overdrive features that are currently overridden, not as a delta describi=
+ng the
+> operation at hand. On import it resets every feature whose bit is clear b=
+ack to
+> its default value - for the VF curve that means zeroing
+> VoltageOffsetPerZoneBoundary[] outright.
+>
+> The driver assumed the opposite. smu_v14_0_2_od_edit_dpm_table() clears
+> the mask after a successful commit, so a subsequent above-default
+> power1_cap write goes through smu_v14_0_2_set_ppt_limit() and uploads a
+> table carrying only PP_OD_FEATURE_PPT_BIT. PMFW then drops the user's
+> voltage offset and reverts to the stock V/F curve, while the driver's cac=
+hed
+> user table still reports the offset through pp_od_clk_voltage.
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5935
+> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  2
+> +  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 35 +++++++----------
+>   .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 32 +++++++---------
+>   .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 38 +++++++++++-----
+> ---
+>  4 files changed, 52 insertions(+), 55 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index f516d0d3bb92..9d47d2ab1b49 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -433,6 +433,8 @@ struct smu_table_context {
+>       void                            *boot_overdrive_table;
+>       void                            *user_overdrive_table;
+>
+> +     uint32_t                        user_od_feature_mask;
+> +
+>       struct smu_driver_table driver_tables[SMU_DRIVER_TABLE_COUNT];
+>  };
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> index 6beafabf1306..468aaeb79ffb 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> @@ -1569,7 +1569,6 @@ static int smu_v13_0_0_od_edit_dpm_table(struct
+> smu_context *smu,
+>       struct amdgpu_device *adev =3D smu->adev;
+>       uint32_t offset_of_voltageoffset;
+>       int32_t minimum, maximum;
+> -     uint32_t feature_ctrlmask;
+>       int i, ret =3D 0;
+>
+>       switch (type) {
+> @@ -1891,21 +1890,16 @@ static int
+> smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+>                       if (ret)
+>                               return ret;
+>               } else {
+> -                     feature_ctrlmask =3D od_table-
+> >OverDriveTable.FeatureCtrlMask;
+>                       memcpy(od_table,
+>                      table_context->boot_overdrive_table,
+>                      sizeof(OverDriveTableExternal_t));
+> -                     od_table->OverDriveTable.FeatureCtrlMask =3D
+> feature_ctrlmask;
+> +                     od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+> +                     table_context->user_od_feature_mask =3D 0;
+>               }
+>               fallthrough;
+>       case PP_OD_COMMIT_DPM_TABLE:
+> -             /*
+> -              * The member below instructs PMFW the settings focused in
+> -              * this single operation.
+> -              * `uint32_t FeatureCtrlMask;`
+> -              * It does not contain actual informations about user's cus=
+tom
+> -              * settings. Thus we do not cache it.
+> -              */
+> +             table_context->user_od_feature_mask =3D
+> +                     od_table->OverDriveTable.FeatureCtrlMask;
+>               offset_of_voltageoffset =3D offsetof(OverDriveTable_t,
+> VoltageOffsetPerZoneBoundary);
+>               if (memcmp((u8 *)od_table + offset_of_voltageoffset,
+>                          table_context->user_overdrive_table +
+> offset_of_voltageoffset, @@ -1918,7 +1912,6 @@ static int
+> smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+>                               return ret;
+>                       }
+>
+> -                     od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+>                       memcpy(table_context->user_overdrive_table +
+> offset_of_voltageoffset,
+>                              (u8 *)od_table + offset_of_voltageoffset,
+>                              sizeof(OverDriveTableExternal_t) -
+> offset_of_voltageoffset); @@ -2201,6 +2194,7 @@ static int
+> smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
+>                      boot_od_table,
+>                      sizeof(OverDriveTableExternal_t));
+>               smu->user_dpm_profile.user_od =3D false;
+> +             smu->smu_table.user_od_feature_mask =3D 0;
+>       } else if (smu->user_dpm_profile.user_od) {
+>               memcpy(&user_od_table_bak,
+>                      user_od_table,
+> @@ -2250,12 +2244,8 @@ static int
+> smu_v13_0_0_restore_user_od_settings(struct smu_context *smu)
+>       OverDriveTableExternal_t *od_table =3D table_context-
+> >overdrive_table;
+>       OverDriveTableExternal_t *user_od_table =3D table_context-
+> >user_overdrive_table;
+>       int res;
+> -
+> -     user_od_table->OverDriveTable.FeatureCtrlMask =3D
+> BIT(PP_OD_FEATURE_GFXCLK_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_UCLK_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
+> +     user_od_table->OverDriveTable.FeatureCtrlMask =3D
+> +             table_context->user_od_feature_mask;
+>       res =3D smu_v13_0_0_upload_overdrive_table(smu, user_od_table);
+>       user_od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+>       if (res =3D=3D 0)
+> @@ -3069,8 +3059,10 @@ static int smu_v13_0_0_set_ppt_limit(struct
+> smu_context *smu,
+>
+>               if (current_od_table.OverDriveTable.Ppt) {
+>                       od_table->OverDriveTable.Ppt =3D 0;
+> -                     od_table->OverDriveTable.FeatureCtrlMask |=3D 1U <<
+> PP_OD_FEATURE_PPT_BIT;
+> -
+> +                     table_context->user_od_feature_mask &=3D
+> +                             ~(1U << PP_OD_FEATURE_PPT_BIT);
+> +                     od_table->OverDriveTable.FeatureCtrlMask =3D
+> +                             table_context->user_od_feature_mask;
+>                       ret =3D smu_v13_0_0_upload_overdrive_table(smu,
+> od_table);
+>                       if (ret) {
+>                               dev_err(smu->adev->dev, "Failed to upload
+> overdrive table!\n"); @@ -3084,8 +3076,9 @@ static int
+> smu_v13_0_0_set_ppt_limit(struct smu_context *smu,
+>                       return ret;
+>
+>               od_table->OverDriveTable.Ppt =3D (limit * 100) / msg_limit =
+-
+> 100;
+> -             od_table->OverDriveTable.FeatureCtrlMask |=3D 1U <<
+> PP_OD_FEATURE_PPT_BIT;
+> -
+> +             table_context->user_od_feature_mask |=3D 1U <<
+> PP_OD_FEATURE_PPT_BIT;
+> +             od_table->OverDriveTable.FeatureCtrlMask =3D
+> +                     table_context->user_od_feature_mask;
+>               ret =3D smu_v13_0_0_upload_overdrive_table(smu, od_table);
+>               if (ret) {
+>                 dev_err(smu->adev->dev, "Failed to upload overdrive
+> table!\n"); diff --git
+> a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index 414fb436d88f..b96152d3920f 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -1578,7 +1578,6 @@ static int smu_v13_0_7_od_edit_dpm_table(struct
+> smu_context *smu,
+>       struct amdgpu_device *adev =3D smu->adev;
+>       uint32_t offset_of_voltageoffset;
+>       int32_t minimum, maximum;
+> -     uint32_t feature_ctrlmask;
+>       int i, ret =3D 0;
+>
+>       switch (type) {
+> @@ -1900,22 +1899,17 @@ static int
+> smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+>                       if (ret)
+>                               return ret;
+>               } else {
+> -                     feature_ctrlmask =3D od_table-
+> >OverDriveTable.FeatureCtrlMask;
+>                       memcpy(od_table,
+>                                       table_context->boot_overdrive_table=
+,
+>                                       sizeof(OverDriveTableExternal_t));
+> -                     od_table->OverDriveTable.FeatureCtrlMask =3D
+> feature_ctrlmask;
+> +                     od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+> +                     table_context->user_od_feature_mask =3D 0;
+>               }
+>               fallthrough;
+>
+>       case PP_OD_COMMIT_DPM_TABLE:
+> -             /*
+> -              * The member below instructs PMFW the settings focused in
+> -              * this single operation.
+> -              * `uint32_t FeatureCtrlMask;`
+> -              * It does not contain actual informations about user's cus=
+tom
+> -              * settings. Thus we do not cache it.
+> -              */
+> +             table_context->user_od_feature_mask =3D
+> +                     od_table->OverDriveTable.FeatureCtrlMask;
+>               offset_of_voltageoffset =3D offsetof(OverDriveTable_t,
+> VoltageOffsetPerZoneBoundary);
+>               if (memcmp((u8 *)od_table + offset_of_voltageoffset,
+>                          table_context->user_overdrive_table +
+> offset_of_voltageoffset, @@ -1928,7 +1922,6 @@ static int
+> smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+>                               return ret;
+>                       }
+>
+> -                     od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+>                       memcpy(table_context->user_overdrive_table +
+> offset_of_voltageoffset,
+>                              (u8 *)od_table + offset_of_voltageoffset,
+>                              sizeof(OverDriveTableExternal_t) -
+> offset_of_voltageoffset); @@ -2203,6 +2196,7 @@ static int
+> smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
+>                      boot_od_table,
+>                      sizeof(OverDriveTableExternal_t));
+>               smu->user_dpm_profile.user_od =3D false;
+> +             smu->smu_table.user_od_feature_mask =3D 0;
+>       } else if (smu->user_dpm_profile.user_od) {
+>               memcpy(&user_od_table_bak,
+>                      user_od_table,
+> @@ -2253,11 +2247,8 @@ static int
+> smu_v13_0_7_restore_user_od_settings(struct smu_context *smu)
+>       OverDriveTableExternal_t *user_od_table =3D table_context-
+> >user_overdrive_table;
+>       int res;
+>
+> -     user_od_table->OverDriveTable.FeatureCtrlMask =3D
+> BIT(PP_OD_FEATURE_GFXCLK_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_UCLK_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
+> +     user_od_table->OverDriveTable.FeatureCtrlMask =3D
+> +             table_context->user_od_feature_mask;
+>       res =3D smu_v13_0_7_upload_overdrive_table(smu, user_od_table);
+>       user_od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+>       if (res =3D=3D 0)
+> @@ -2719,7 +2710,10 @@ static int smu_v13_0_7_set_ppt_limit(struct
+> smu_context *smu,
+>
+>               if (current_od_table.OverDriveTable.Ppt) {
+>                       od_table->OverDriveTable.Ppt =3D 0;
+> -                     od_table->OverDriveTable.FeatureCtrlMask |=3D 1U <<
+> PP_OD_FEATURE_PPT_BIT;
+> +                     table_context->user_od_feature_mask &=3D
+> +                             ~(1U << PP_OD_FEATURE_PPT_BIT);
+> +                     od_table->OverDriveTable.FeatureCtrlMask =3D
+> +                             table_context->user_od_feature_mask;
+>
+>                       ret =3D smu_v13_0_7_upload_overdrive_table(smu,
+> od_table);
+>                       if (ret) {
+> @@ -2734,7 +2728,9 @@ static int smu_v13_0_7_set_ppt_limit(struct
+> smu_context *smu,
+>                       return ret;
+>
+>               od_table->OverDriveTable.Ppt =3D (limit * 100) / msg_limit =
+-
+> 100;
+> -             od_table->OverDriveTable.FeatureCtrlMask |=3D 1U <<
+> PP_OD_FEATURE_PPT_BIT;
+> +             table_context->user_od_feature_mask |=3D 1U <<
+> PP_OD_FEATURE_PPT_BIT;
+> +             od_table->OverDriveTable.FeatureCtrlMask =3D
+> +                     table_context->user_od_feature_mask;
+>
+>               ret =3D smu_v13_0_7_upload_overdrive_table(smu, od_table);
+>               if (ret) {
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> index 33f93f6d90af..c4dfa66c723b 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> @@ -2385,6 +2385,7 @@ static int
+> smu_v14_0_2_set_default_od_settings(struct smu_context *smu)
+>                      boot_od_table,
+>                      sizeof(OverDriveTableExternal_t));
+>               smu->user_dpm_profile.user_od =3D false;
+> +             smu->smu_table.user_od_feature_mask =3D 0;
+>       } else if (smu->user_dpm_profile.user_od) {
+>               memcpy(&user_od_table_bak,
+>                      user_od_table,
+> @@ -2433,11 +2434,8 @@ static int
+> smu_v14_0_2_restore_user_od_settings(struct smu_context *smu)
+>       OverDriveTableExternal_t *user_od_table =3D table_context-
+> >user_overdrive_table;
+>       int res;
+>
+> -     user_od_table->OverDriveTable.FeatureCtrlMask =3D
+> BIT(PP_OD_FEATURE_GFXCLK_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_UCLK_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
+> -
+>       BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
+> +     user_od_table->OverDriveTable.FeatureCtrlMask =3D
+> +             table_context->user_od_feature_mask;
+>       res =3D smu_v14_0_2_upload_overdrive_table(smu, user_od_table);
 
-Drop the reference when the scheduler frees the job as well, and check
-for the leader before the scheduler fence is cleared in both places.
+I think there is a risk here, the power1_cap and pp_od_clk_voltage shared t=
+he same od staging table.
 
-Fixes: 68ce8b242242 ("drm/amdgpu: add gang submit backend v2")
-Fixes: f7d66fb2ea43 ("drm/amdgpu: cleanup scheduler job initialization v2")
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+Best Regars,
+Kevin
+>       user_od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+>       if (res =3D=3D 0)
+> @@ -2522,7 +2520,6 @@ static int smu_v14_0_2_od_edit_dpm_table(struct
+> smu_context *smu,
+>       struct amdgpu_device *adev =3D smu->adev;
+>       uint32_t offset_of_voltageoffset;
+>       int32_t minimum, maximum;
+> -     uint32_t feature_ctrlmask;
+>       int i, ret =3D 0;
+>
+>       switch (type) {
+> @@ -2811,21 +2808,26 @@ static int
+> smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
+>                       if (ret)
+>                               return ret;
+>               } else {
+> -                     feature_ctrlmask =3D od_table-
+> >OverDriveTable.FeatureCtrlMask;
+>                       memcpy(od_table,
+>                      table_context->boot_overdrive_table,
+>                      sizeof(OverDriveTableExternal_t));
+> -                     od_table->OverDriveTable.FeatureCtrlMask =3D
+> feature_ctrlmask;
+> +                     od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+> +                     table_context->user_od_feature_mask =3D 0;
+>               }
+>               fallthrough;
+>       case PP_OD_COMMIT_DPM_TABLE:
+>               /*
+> -              * The member below instructs PMFW the settings focused in
+> -              * this single operation.
+> -              * `uint32_t FeatureCtrlMask;`
+> -              * It does not contain actual informations about user's cus=
+tom
+> -              * settings. Thus we do not cache it.
+> +              * PMFW interprets FeatureCtrlMask as the complete set of
+> OD
+> +              * features that are currently overridden, not as a delta
+> +              * describing this single operation. Any feature whose bit =
+is
+> +              * clear gets reset to its default on import. od_table's ma=
+sk
+> +              * has accumulated every feature the user touched since the
+> +              * last full restore, so record it and keep restating it on
+> +              * subsequent uploads.
+>                */
+> +             table_context->user_od_feature_mask =3D
+> +                     od_table->OverDriveTable.FeatureCtrlMask;
+> +
+>               offset_of_voltageoffset =3D offsetof(OverDriveTable_t,
+> VoltageOffsetPerZoneBoundary);
+>               if (memcmp((u8 *)od_table + offset_of_voltageoffset,
+>                          table_context->user_overdrive_table +
+> offset_of_voltageoffset, @@ -2838,7 +2840,6 @@ static int
+> smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
+>                               return ret;
+>                       }
+>
+> -                     od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+>                       memcpy(table_context->user_overdrive_table +
+> offset_of_voltageoffset,
+>                              (u8 *)od_table + offset_of_voltageoffset,
+>                              sizeof(OverDriveTableExternal_t) -
+> offset_of_voltageoffset); @@ -2882,7 +2883,10 @@ static int
+> smu_v14_0_2_set_ppt_limit(struct smu_context *smu,
+>
+>               if (current_od_table.OverDriveTable.Ppt) {
+>                       od_table->OverDriveTable.Ppt =3D 0;
+> -                     od_table->OverDriveTable.FeatureCtrlMask |=3D 1U <<
+> PP_OD_FEATURE_PPT_BIT;
+> +                     table_context->user_od_feature_mask &=3D
+> +                             ~(1U << PP_OD_FEATURE_PPT_BIT);
+> +                     od_table->OverDriveTable.FeatureCtrlMask =3D
+> +                             table_context->user_od_feature_mask;
+Please check upload table return value first, before copy user od feature m=
+ask to FeatureCtrlMask.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 0056a93c400a..f8e67c1b5a4c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -311,10 +311,19 @@ void amdgpu_job_free_resources(struct amdgpu_job *job)
- 		amdgpu_ib_free(&job->ibs[i], f);
- }
- 
-+/* Must be called before drm_sched_job_cleanup() clears the scheduler fence */
-+static void amdgpu_job_put_gang(struct amdgpu_job *job)
-+{
-+	/* The gang leader doesn't hold a reference to itself */
-+	if (job->gang_submit != &job->base.s_fence->scheduled)
-+		dma_fence_put(job->gang_submit);
-+}
-+
- static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
- {
- 	struct amdgpu_job *job = to_amdgpu_job(s_job);
- 
-+	amdgpu_job_put_gang(job);
- 	drm_sched_job_cleanup(s_job);
- 
- 	amdgpu_sync_free(&job->explicit_sync);
-@@ -349,13 +358,12 @@ void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
- 
- void amdgpu_job_free(struct amdgpu_job *job)
- {
-+	amdgpu_job_put_gang(job);
- 	if (job->base.entity)
- 		drm_sched_job_cleanup(&job->base);
- 
- 	amdgpu_job_free_resources(job);
- 	amdgpu_sync_free(&job->explicit_sync);
--	if (job->gang_submit != &job->base.s_fence->scheduled)
--		dma_fence_put(job->gang_submit);
- 
- 	if (dma_fence_was_initialized(&job->hw_fence->base))
- 		dma_fence_put(&job->hw_fence->base);
--- 
-2.50.1
+With that fixed, the patch is
+
+Reviewed-by: Kevin Wang <kevin.wang@amd.com>
+
+Best Regards,
+Kevin
+>
+>                       ret =3D smu_v14_0_2_upload_overdrive_table(smu,
+> od_table);
+>                       if (ret) {
+> @@ -2897,7 +2901,9 @@ static int smu_v14_0_2_set_ppt_limit(struct
+> smu_context *smu,
+>                       return ret;
+>
+>               od_table->OverDriveTable.Ppt =3D (limit * 100) / msg_limit =
+-
+> 100;
+> -             od_table->OverDriveTable.FeatureCtrlMask |=3D 1U <<
+> PP_OD_FEATURE_PPT_BIT;
+> +             table_context->user_od_feature_mask |=3D 1U <<
+> PP_OD_FEATURE_PPT_BIT;
+> +             od_table->OverDriveTable.FeatureCtrlMask =3D
+> +                     table_context->user_od_feature_mask;
+>
+>               ret =3D smu_v14_0_2_upload_overdrive_table(smu, od_table);
+>               if (ret) {
+> --
+> 2.43.0
 
