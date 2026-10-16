@@ -4,47 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AD51CCA462
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 08:30:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 770D9CCA464
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 08:43:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B68FC11262B;
-	Fri, 16 Oct 2026 08:30:10 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA22511262B
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 08:30:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=Wgsv9mRcJhwaQXYpgCkz6chb4q11S2JvZqGQxmPHT2Q=; b=WRpwkWWG4Y+mSFD7ula1CmXUMY
- rdJzXa80GiZRSUKNcQucq2Xey5dVLcyfy8hiFuonEizEOs52wOt5Wz3geqZ9bS/9rm2EtOX2wBpnn
- geQviCjf3GfmoNZAHfSadBy1hlOVfaZH8UIhURZGaQZjL9VT86Dz8VZZZ8pBbbZAm5Vn/ABtpnLfM
- pk6/3+N3lMzitiJ9+plDwH0K+tY1Q7KIfmJIhlxd09+sSkbnasiGkZ18wjDYH63BIhDw65Gdcys2n
- 6rMg1zL3x6cVwgjDjqOF8C9IA/Z8iScqEhn3JjV7MFn8MRDINTCDxirIt3QY0F2aaRepYvme9POtr
- jAWbYBBQ==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xHdKE-000x28-JI; Fri, 16 Oct 2026 10:30:02 +0200
-Message-ID: <1da41822-6778-4202-8540-3b0131315117@igalia.com>
-Date: Fri, 16 Oct 2026 09:30:01 +0100
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB3071126B0;
+	Fri, 16 Oct 2026 08:43:12 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013050.outbound.protection.outlook.com
+ [40.93.201.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B16E0112697
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 08:43:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BW+PTCKmEUv0gTlv901b2SB2SWn5K1uZ9CA3dIQYKIXDcouEfj+AcNS5ZvKk8gQGSp+Us3l9lSRVAemV/QD7yYmwWN34wJLCjZLpFyt7+E8lbjOURXxhLNtWWxCzSjerOBULh+dJEL3FJID24u26KpIqutFCFOkCGBSjoSdgpJ1iysTOAirEwOaf2knnGKjLRtdthkW0k10UV8zrDCGfUiUY9xlJPCKsMbvNe+3iu14zoKzj+Z70T/xfPzFhkNO8CCw3QeQ+qzWivQ216V4MsWThW1088KrgcnRUK9W0PlgsUByFLw4EfyD/vpYSH3mUsoRBH2vW7cFTyDnjEJ0A5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JLPMo8fx0l+j3bdJ/m4qSImMdSEzxVoKfHCuqE0i1Is=;
+ b=oBvilNv6MSvV8XStkqW+vcHT9rgq7Joca///EkXw+vWYD5jgS/9cmVNthXsmJHfDKz8tcVZhuXOxPNiKfPvIQ5EBgAsMS/kmozvgc98WwLGeUWn9aGK1TEjdmykfgr0uw7cBbVrZ5uvGuUNQvrkxzkAaW97jhXrRIoeLGaMvxOzTNNRhYkD7Sbf3/GXN/jEzfMJIyzB9mVBL9FDtlGTVYQS093967dHFJF8ZR6sivRkCHsbXi2Hu7oX3HgC9gel7KHQlrYG+QXYP6kfLV2K0cccM+8ZB2LKg4MffjwS4JBviboTPKzCfWxTshUgYYk2Id5UILwWlF1BvgwiN3ymY/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JLPMo8fx0l+j3bdJ/m4qSImMdSEzxVoKfHCuqE0i1Is=;
+ b=yPhxKx6I3kFg3bXDM3Le1oAVHpUWlQpaHburQO1wj3hOmmo6UCBnEd1/ZnrkSvW7p4hpk6FXSY4dhhd/nGjzAdrwGjNhMnizTJaxnkLbiEZducILRv7AoCeBQOSAu+Y1em01+wEaFyuZ+mmmSgodWl6mSYRUFSPE2NMnvIywLRA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB7681.namprd12.prod.outlook.com (2603:10b6:930:84::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
+ 2026 08:42:59 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Fri, 16 Oct 2026
+ 08:42:59 +0000
+Message-ID: <a2b9e67d-fd7c-44fe-ad48-ce11a8bae4f9@amd.com>
+Date: Fri, 16 Oct 2026 10:42:56 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/amd/display: Simplify debugfs token parsing
-To: Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>
-References: <20260924114049.55201-3-tvrtko.ursulin@igalia.com>
- <20261002081041.69497-1-tvrtko.ursulin@igalia.com>
- <70806b81-227e-48b7-a839-0c9092d61496@amd.com>
- <62d736bb-ec8b-470c-a22a-3cf3b97975d5@igalia.com>
- <710352c2-906f-4f53-90ed-132b3a352976@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <710352c2-906f-4f53-90ed-132b3a352976@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
+ guard with drm_dev_enter
+To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: felix.kuehling@amd.com
+References: <62280d57-3f63-4979-9e4c-f0eca7208b19@amd.com>
+ <20261015193018.86178-1-olivier.kaloudoff@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261015193018.86178-1-olivier.kaloudoff@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0168.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a0::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7681:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92e7e407-da82-409c-4c15-08df2b617b72
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|23010399003|10067099003|18002099003|22082099003|5023799004|4143699003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 4t2t+b2rv2uaGRsqN0MztK9AVDUere87idPGoy16KQmPsYnXnANyROeKa0stu3N/FFGGeNAGfnNmobxV6NKRyvpCVQV7wkmWq43HRxFPcp0XVm+YePgfIGseTeSmL8lmMBIYOJCvgqjFD93VSbSjhrJrmrmkScgr/kyWPNv15ec5+ATp0wNvrNlVF+Ns/XC2ooIOhp3cOxpEcS3cvce6yZvWQMRcmRY70mA495Z4XxK4evOGo2nIwqgiArF4Cy/GQnSGSCQ9ezXhbTeZlneHHi8wj9Ea8cFvS4IAdfZBzc679x+YjddxahF0Sv6AjR8Mha3ixo4pTXJbdOQO4t7XJeOTGtR8C2N2C1MAEHkojyfj4k4dLqrMYU5TRKITiJRt/NR7VgERZxZRIfWMrTRImeRwnVcPnX/VVc15/YA0brUMksl5UJII56Z0HUeqhJzBEMzPkQvLE5lq3K1Y7+Uvqdqoyc3ZnNk6Cx75X9h1mzlj8PZApOOtMVY7MLrjOvInlNhngR2Jy9rPxNVmKBpvftcit02jQQncnrm+6USy6bAmlZJpglBT5SpsnK9zxyXbzCDpBt/0vxg+cLOIZd2Jyu8bKIdAfsvgZIn4bUQsQNnmBNuKOSYCc7pq+lipuwgo7IqaKzYq/5POl9sWfxgKKQDAEdVCsvC3QtmxDABm5jA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(10067099003)(18002099003)(22082099003)(5023799004)(4143699003)(11063799006)(261009223027099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STdkSHVZWGF3eVcwQksycHVyOTFxYjlpUEtBU0E3SHZkeEVUOG1kR3FmblVD?=
+ =?utf-8?B?b1BjcVNOVk03NndNbDZVcHRnN0RWMXlvVDVsMERTZ0x5UlZQdzVUZ2ZVZ1Bq?=
+ =?utf-8?B?NTVtTk9lOHdWMHZta0Z4N0pSOFp1NTY5dmUzVGE5S2kxZXNZQ0NGZTlIZFdE?=
+ =?utf-8?B?UTljNnBaTlhnVVZ3am5xaHJFZ2FYaVFRT1BGTVFiU3lrdmJKeTBuTWxUZkw4?=
+ =?utf-8?B?SUx1cDJ1eGJlMFJPV1d6b0ZHTGFockk2RW4wbUlpOXVMeGhrMis2Rlp6UU8z?=
+ =?utf-8?B?YnN2UkhqcjIwa1FVeWtnSTlLNkUvc2VUa0t0bXRHaU9XNjloSjFxNW02N1BC?=
+ =?utf-8?B?STg5K3NGK0lXWGF5RjlpYTY3QlhjV0kyM1dYSThlbFV2TTk0U0xCdXR0cmtG?=
+ =?utf-8?B?dkdEOTd1bG9leGd3RzQyQk85cndmbCtMZ3JTdFVRUmFVYkV5TjZFVHRxSG1q?=
+ =?utf-8?B?VW9KK3dqOU9nV0Q5SG5FaTNUZUpxd3VBTlVFWmJSM0VibjhQMHNXSHlPNkhB?=
+ =?utf-8?B?UjFhTmYzZHl5WTc5MzBKUWUxZ080SHdhWUpHOHJKbWl6ZFByc0FOYThpZVlo?=
+ =?utf-8?B?ZkNiVHRUUU9oN1NvRGVzWEpyV3FIbmdsRVk0QS9IMlZRZ2lxbytnRUVmS2Er?=
+ =?utf-8?B?RmVLWVpjRVprMndrR1A1K1Y1eCtMZGt2ZTFoRzB0TmVtSmprVlZ2VVBwQnBp?=
+ =?utf-8?B?VXp2M3VxYWcyNGhsaDR2THpaeE5hc1lzN3E5c2dyN0Jpc2JFUVorWFdKenhO?=
+ =?utf-8?B?NHp6YnIyelZuSFlqQnY4ZmdiMlBqUXNLZnZBUTUyQ1dQd0p3M0JZQllDUFBZ?=
+ =?utf-8?B?ZzZjTXRUcUZqRmNJVlVNYmoxZEFKWVh4dVhBZDdmUnI4bUdzT2cyM3JlYklt?=
+ =?utf-8?B?TjROYXpPc05DUkhEOG1RWFg0bjFQVEp6OHhLV3BpR0s0TXB2QzZ4dmRNYWxS?=
+ =?utf-8?B?YVE3MmlCdHdqcUpVTXJpLzZyQzFwb0g0dGIvVFhKNVNrMEVqdXRGb1JwdlZF?=
+ =?utf-8?B?Y0Njd3NJZUw5ZnY1dnFXdDAzZGNka3NTemg4enVFcFRZYTd4MTEzZmNORjVi?=
+ =?utf-8?B?WmptK3ZyeVJ2MGx4N0JGd24rbTd5TXQ1MHNBbm1yc1pKZGFuQkNzRXpIMjZS?=
+ =?utf-8?B?cFVOdEcyMVh4MFdNMzRhUXNrM1FSM3ZtRCs3VURnUSsyaXEvQnJhaUp3ejFj?=
+ =?utf-8?B?L1dzelRhamtocGxsUGhITjVaczE0Y05ONldFWjdSdzlsblBWb292dG16d1dN?=
+ =?utf-8?B?SHMvdDNvMWhpaWpRUS9JNWx3Q0JkMXl2NHFPbVF4aEZibm1CUTN6N0hLcnF0?=
+ =?utf-8?B?eERJWGl0ZlpUVWwzWnNXbE1HVm1oak9aK3NRRTRaVzNrLytVU1QyZGxmdW5O?=
+ =?utf-8?B?UE9OZlBlUVFDaStaZkZtVi9lVTc1RWJtcGt2SldSQ2hlTWlwYWZESW1SUkMy?=
+ =?utf-8?B?cGMwbXYzS0t1eitrbHdJeW12SFJWTHFHbGtRVTBiM3pQSzNSaXFTZjhnZm9u?=
+ =?utf-8?B?Z1JJQlc1dFJsQWxxMjJOY1hOZExDa3R0eUJyQnVlaXZQZGNXUzc0dVJCN2FZ?=
+ =?utf-8?B?RWkvZ2JVTi9saVhteTUrM1cwRFR0NGpnUmZrYnZKSkZva2FYeFhwZ1AwTWZO?=
+ =?utf-8?B?SUxaR1hMTEFITXN0V2dlRjFKZi9nVkFQZ2pSdlNUK1o0VWpGZ2hWVE5TbTc4?=
+ =?utf-8?B?aE9UcnRQNTRHUGpOVTBESERqdm9Jb0dKMitjZVdKeTN2VUZFMTFQb1MxQVE4?=
+ =?utf-8?B?R2V5cVg4clBYbEVnNy8raFp6QmtQV0h2QWovQUdIdGlIYnBNQ0RUdW9MU1Yz?=
+ =?utf-8?B?YUxBelVqR2tic29tYlNTc3dPbGx6VjA0MStYSTZQZkFYcnZmWDJYWjc4aVN0?=
+ =?utf-8?B?M2d0WDlBeHQ5UFZSZmR1ektyWlU2MWI2TU1OTlVIQjduVXBLbTB0WDZSblhL?=
+ =?utf-8?B?b1JQU0pvNzBScTNzelQydkw1OHBiVFJrTFBYMDF0bVM3YXVveVE4Q25SZFJn?=
+ =?utf-8?B?dzVydTNtTVVyRUluVmhoa3Q5WndEMEJWbUx1ZlE1U0RLc0dRS0NSWGM2RHhv?=
+ =?utf-8?B?QUQzWGVBdjJoWEk4NG1pT1RJcXlDdkw5REt2QkU2enJVQVE0UkZ5NTVHYXJr?=
+ =?utf-8?B?d0lHMmhCYUZiVkxLY0xEZ2FGeXJGb0lqUENnYitDQ3FYQkpidlhqOFdRRUM0?=
+ =?utf-8?B?QXl1d1NFVTR6Q05mVGpPaUFBODU1RFloOVRUMWovZFVTNzNRWWNHcC9UbkVw?=
+ =?utf-8?B?YmlzR1Z2bTJ2emlaVjNwRm5OT2xpS1pLVldBRmlSVlB5Ylg4SzJ3czNzM29L?=
+ =?utf-8?Q?CnVXA2M7NN1DmQdOks?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92e7e407-da82-409c-4c15-08df2b617b72
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 08:42:59.5590 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uslgoiCmkE86mYXoisLS44e58v34ob8f25NQzUF6dlr4Kh0zePm3jG+ycbCGMsVJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7681
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,975 +134,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Olivier,
 
+looks like my mail from yesterday wasn't send out, so re-sending that again.
 
-On 13/10/2026 17:23, Alex Hung wrote:
-> 
-> 
-> On 10/12/26 02:04, Tvrtko Ursulin wrote:
->>
->> Hi Alex,
->>
->> On 10/10/2026 03:16, Alex Hung wrote:
->>> Hi Tvrtko,
->>>
->>> checkpatch reports the following warnings and errors:
->>>
->>> WARNING: 'lenght' may be misspelled - perhaps 'length'?
->>> #21:
->>> always copying a hardcoded lenght regardless of what the userspace had
->>>                             ^^^^^^
->>>
->>> ERROR: that open brace { should be on the previous line
->>> #349: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/ 
->>> amdgpu_dm_debugfs.c:652:
->>> +    struct dc_link_settings prefer_link_settings =
->>> +        {LANE_COUNT_UNKNOWN, LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
->>>
->>> ERROR: that open brace { should be on the previous line
->>> #351: FILE: drivers/gpu/drm/amd/display/amdgpu_dm/ 
->>> amdgpu_dm_debugfs.c:654:
->>> +    struct dc_link_settings cur_link_settings =
->>> +        {LANE_COUNT_UNKNOWN, LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
->>>
->>> total: 2 errors, 1 warnings, 813 lines checked
->>
->> Okay I can fix that, no problem. And if I do that I can expect further 
->> review ie. AMD is receptive to this type of a change? Or should we 
->> perahps do a deeper review before checkpatch tweaks to reduce the 
->> number of potential respins? The thing is, AFAIR, I only smoke tested 
->> it by reading one of the modified debugfs files so what would really 
->> be good if you or someone on AMD side who knows how to use these 
->> tunables, and has the required hardware (I don't), would exercise it a 
->> bit.
-> 
-> Yes the changes look fine, and we tested in our weekly promotion test 
-> and no regression found. There are also IGT test (amd_ilr@ilr-link- 
-> training-configs) that use debugfs and it was tested too.
-> 
-> We will send it to another round of test and reviews since a v4 was 
-> received.
+Don't be surprised if you receive two messages.
 
-Thank you - v4 should now be in your inbox.
+On 10/15/26 21:30, Olivier Kaloudoff wrote:
+> Hi Christian,
+> 
+>> Fences *must* always signal especially when the device is hot removed.
+> 
+> Agreed in principle — but the observed failure is precisely the
+> counter-case. During teardown the dying process's fault path submits
+> an SDMA job to an already-killed drm_sched entity:
+> 
+>   drm_sched_rq_add_entity: Trying to push to a killed entity
 
-Btw, some time ago I had an RFC which consolidates this same parsing 
-pattern between debygfs and sysfs. I can later revisit that and see if 
-the two can still be consolidated. AFAIR the open back then was there to 
-put code shared between amd/display and amd/amdgpu components.
+Yeah and that needs to be prevented.
+
+That is incorrect teardown order in the KFD. When the entity is killed no further submissions to it are possible.
+
+> The job never reaches a ring, nothing is left to signal its fence,
+> and the uninterruptible wait in svm_migrate_copy_done() never
+> returns. That orphaned fence is what kept the task in D state for
+> good in the repro.
+> 
+>> a non interruptible wait with AMDGPU_FENCE_JIFFIES_TIMEOUT can
+>> never fail.
+> 
+> The ret < 0 branch is indeed dead code — dropped it in v6, thanks.
+> 
+> The bound itself is needed for a subtler reason: the wait now runs
+> inside a drm_dev_enter() critical section, and drm_dev_unplug()
+> blocks until all such sections exit. An unbounded wait inside the
+> section would deadlock the unplug path against any fence that fails
+> to signal, for whatever reason. This is also the shape Felix asked
+> for — guard HW access with dev_enter/exit and keep no unbounded
+> fence waits inside those sections.
+
+Yeah and that is perfectly correct. drm_dev_unplug() *must* be blocked until all fences are signaled.
+
+> If you'd rather guarantee the invariant at the source — i.e. error
+> out fences orphaned by jobs pushed to an already-killed entity in
+> drm_sched — happy to look at that too, but it is a much wider change
+> than the KFD-side guard.
+
+No, what we need to avoid killing the entity while KFD is still using it!
+
+That is basically an use after free what you have here, only that the drm_sched can point that out with a warning instead of crashing immediately.
 
 Regards,
+Christian.
 
-Tvrtko
-
->>> On 10/2/26 02:10, Tvrtko Ursulin wrote:
->>>> The current token parsing is complicated, conflicting with itself, 
->>>> broken,
->>>> and also results in a lot of duplicated code throughout.
->>>>
->>>> Lets simplify it by replacing the two pass (count arguments + parse 
->>>> them)
->>>> with a single strsep driven pass. The current two passes disagree on 
->>>> the
->>>> set of separators and this makes it consistent.
->>>>
->>>> Then we also pull all of the repeated boiler plate into the helper -
->>>> buffer allocation, copying, checking pre- and post-conditions. This
->>>> removes a lot of the error handling from all the callers.
->>>>
->>>> And another bug fixed, lucikly mostly harmless, where copy_from_user 
->>>> was
->>>> always copying a hardcoded lenght regardless of what the userspace had
->>>> actually written. Assuming the userspace memory was backed it would 
->>>> copy
->>>> neighbouring garbage into the string to be passed, or -EFAULT in theory
->>>> but probably none of the exercised callers to date constructed their
->>>> buffers in a way that can hit the latter.
->>>>
->>>> There are some behavioural differences though to call out:
->>>>
->>>>   * Before tabs were counted as separators but never split on. Now they
->>>>     become full separators.
->>>>
->>>>   * Previously argument counting stopped on a newline but parsing was
->>>>     considering them as separators. Now they are always considered
->>>>     separators.
->>>>
->>>>   * kstrotol failures used to be logged but assumed zero argument. 
->>>> Now the
->>>>     code errors out.
->>>>
->>>>   * dp_dsc_passthrough_set had no error handling and writes with no
->>>>     parameters but not otherwise invalid would silently result in a
->>>>     successful disable of dsc_force_disable_passthrough. Now the 
->>>> debugfs
->>>>     write would fail.
->>>>
->>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>> Cc: Harry Wentland <harry.wentland@amd.com>
->>>> Cc: Leo Li <sunpeng.li@amd.com>
->>>> Cc: Timur Kristóf <timur.kristof@gmail.com>
->>>> Cc: Alex Hung <alex.hung@amd.com>
->>>> ---
->>>> v2:
->>>>   * Fixed buffer leak.
->>>>   * Improved commit text.
->>>>
->>>> v3:
->>>>   * Undo some over-eager initialization removals. (Alex)
->>>> ---
->>>>   .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 540 +++ 
->>>> +--------------
->>>>   1 file changed, 124 insertions(+), 416 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/ 
->>>> amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/ 
->>>> amdgpu_dm_debugfs.c
->>>> index 969e1361a5da..ee2675909e4a 100644
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
->>>> @@ -67,76 +67,46 @@ static const char *const mst_progress_status[] = {
->>>>       "clear_allocated_payload",
->>>>   };
->>>> -/* parse_write_buffer_into_params - Helper function to parse 
->>>> debugfs write buffer into an array
->>>> +/* parse_params - Helper function to parse debugfs write buffer 
->>>> into an array
->>>>    *
->>>> - * Function takes in attributes passed to debugfs write entry
->>>> - * and writes into param array.
->>>> - * The user passes max_param_num to identify maximum number of
->>>> - * parameters that could be parsed.
->>>> + * Function takes in attributes passed to debugfs write entry and 
->>>> writes into
->>>> + * param array.
->>>>    *
->>>> + * The user passes max_param_num to identify maximum number of 
->>>> parameters that
->>>> + * could be parsed.
->>>> + *
->>>> + * Returns zero on success or a negative error code.
->>>>    */
->>>> -static int parse_write_buffer_into_params(char *wr_buf, uint32_t 
->>>> wr_buf_size,
->>>> -                      long *param, int max_param_num,
->>>> -                      uint8_t *param_nums)
->>>> +static int parse_params(const char __user *ubuf, size_t size,
->>>> +            long *param, unsigned int max_params)
->>>>   {
->>>> -    char *wr_buf_ptr = NULL;
->>>> -    uint32_t wr_buf_count = 0;
->>>> -    int r;
->>>> -    char *sub_str = NULL;
->>>> -    const char delimiter[3] = {' ', '\n', '\0'};
->>>> -    uint8_t param_index = 0;
->>>> +    char *buf, *tmp, *token;
->>>> +    int ret = -EINVAL;
->>>> +    unsigned int i;
->>>> -    *param_nums = 0;
->>>> +    if (size == 0)
->>>> +        return -EINVAL;
->>>> -    wr_buf_ptr = wr_buf;
->>>> +    buf = memdup_user_nul(ubuf, size);
->>>> +    if (IS_ERR(buf))
->>>> +        return PTR_ERR(buf);
->>>> -    /* check number of parameters. isspace could not differ space 
->>>> and \n */
->>>> -    while ((*wr_buf_ptr != 0xa) && (wr_buf_count < wr_buf_size)) {
->>>> -        /* skip space*/
->>>> -        while (isspace(*wr_buf_ptr) && (wr_buf_count < wr_buf_size)) {
->>>> -            wr_buf_ptr++;
->>>> -            wr_buf_count++;
->>>> -            }
->>>> +    i = 0;
->>>> +    tmp = buf;
->>>> +    while ((token = strsep(&tmp, " \t\r\n")) != NULL) {
->>>> +        if (!*token)
->>>> +            continue;
->>>> -        if (wr_buf_count == wr_buf_size)
->>>> +        if (i == max_params)
->>>>               break;
->>>> -        /* skip non-space*/
->>>> -        while ((!isspace(*wr_buf_ptr)) && (wr_buf_count < 
->>>> wr_buf_size)) {
->>>> -            wr_buf_ptr++;
->>>> -            wr_buf_count++;
->>>> -        }
->>>> -
->>>> -        (*param_nums)++;
->>>> -
->>>> -        if (wr_buf_count == wr_buf_size)
->>>> +        ret = kstrtol(token, 16, &param[i++]);
->>>> +        if (ret)
->>>>               break;
->>>>       }
->>>> -    if (*param_nums > max_param_num)
->>>> -        *param_nums = max_param_num;
->>>> -
->>>> -    wr_buf_ptr = wr_buf; /* reset buf pointer */
->>>> -    wr_buf_count = 0; /* number of char already checked */
->>>> -
->>>> -    while (isspace(*wr_buf_ptr) && (wr_buf_count < wr_buf_size)) {
->>>> -        wr_buf_ptr++;
->>>> -        wr_buf_count++;
->>>> -    }
->>>> -
->>>> -    while (param_index < *param_nums) {
->>>> -        /* after strsep, wr_buf_ptr will be moved to after space */
->>>> -        sub_str = strsep(&wr_buf_ptr, delimiter);
->>>> -
->>>> -        r = kstrtol(sub_str, 16, &(param[param_index]));
->>>> -
->>>> -        if (r)
->>>> -            DRM_DEBUG_DRIVER("string to int convert error code: 
->>>> %d\n", r);
->>>> -
->>>> -        param_index++;
->>>> -    }
->>>> -
->>>> -    return 0;
->>>> +    kfree(buf);
->>>> +    return ret;
->>>>   }
->>>>   /* function description
->>>> @@ -248,36 +218,18 @@ static ssize_t dp_link_settings_write(struct 
->>>> file *f, const char __user *buf,
->>>>                    size_t size, loff_t *pos)
->>>>   {
->>>>       struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
->>>> -    struct dc_link *link = connector->dc_link;
->>>>       struct amdgpu_device *adev = drm_to_adev(connector->base.dev);
->>>> -    struct dc *dc = (struct dc *)link->dc;
->>>>       struct dc_link_settings prefer_link_settings = {0};
->>>> -    const uint32_t wr_buf_size = 40;
->>>> +    struct dc_link *link = connector->dc_link;
->>>> +    struct dc *dc = (struct dc *)link->dc;
->>>> +    bool valid_input = true;
->>>>       /* 0: lane_count; 1: link_rate */
->>>> -    int max_param_num = 2;
->>>> -    uint8_t param_nums = 0;
->>>>       long param[2];
->>>> -    char *wr_buf;
->>>> -    bool valid_input = true;
->>>> +    int r;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        kfree(wr_buf);
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, param, 2);
->>>> +    if (r)
->>>> +        return r;
->>>>       switch (param[0]) {
->>>>       case LANE_COUNT_ONE:
->>>> @@ -308,7 +260,6 @@ static ssize_t dp_link_settings_write(struct 
->>>> file *f, const char __user *buf,
->>>>       }
->>>>       if (!valid_input) {
->>>> -        kfree(wr_buf);
->>>>           DRM_DEBUG_DRIVER("Invalid Input value No HW will be 
->>>> programmed\n");
->>>>           mutex_lock(&adev->dm.dc_lock);
->>>>           dc_link_set_preferred_training_settings(dc, NULL, NULL, 
->>>> link, false);
->>>> @@ -328,7 +279,6 @@ static ssize_t dp_link_settings_write(struct 
->>>> file *f, const char __user *buf,
->>>>       dc_link_set_preferred_training_settings(dc, 
->>>> &prefer_link_settings, NULL, link, false);
->>>>       mutex_unlock(&adev->dm.dc_lock);
->>>> -    kfree(wr_buf);
->>>>       return size;
->>>>   }
->>>> @@ -380,39 +330,21 @@ static ssize_t dp_mst_link_setting(struct file 
->>>> *f, const char __user *buf,
->>>>                    size_t size, loff_t *pos)
->>>>   {
->>>>       struct amdgpu_dm_connector *aconnector = file_inode(f)- 
->>>> >i_private;
->>>> -    struct dc_link *link = aconnector->dc_link;
->>>>       struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
->>>> -    struct dc *dc = (struct dc *)link->dc;
->>>>       struct dc_link_settings prefer_link_settings = {0};
->>>> -    const uint32_t wr_buf_size = 40;
->>>> +    struct dc_link *link = aconnector->dc_link;
->>>> +    struct dc *dc = (struct dc *)link->dc;
->>>>       /* 0: lane_count; 1: link_rate */
->>>> -    int max_param_num = 2;
->>>> -    uint8_t param_nums = 0;
->>>> -    long param[2];
->>>> -    char *wr_buf;
->>>>       bool valid_input = true;
->>>> +    long param[2];
->>>> +    int r;
->>>>       if (!dp_mst_is_end_device(aconnector))
->>>>           return -EINVAL;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        kfree(wr_buf);
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, param, 2);
->>>> +    if (r)
->>>> +        return r;
->>>>       switch (param[0]) {
->>>>       case LANE_COUNT_ONE:
->>>> @@ -440,7 +372,6 @@ static ssize_t dp_mst_link_setting(struct file 
->>>> *f, const char __user *buf,
->>>>       }
->>>>       if (!valid_input) {
->>>> -        kfree(wr_buf);
->>>>           DRM_DEBUG_DRIVER("Invalid Input value No HW will be 
->>>> programmed\n");
->>>>           mutex_lock(&adev->dm.dc_lock);
->>>>           dc_link_set_preferred_training_settings(dc, NULL, NULL, 
->>>> link, false);
->>>> @@ -473,7 +404,6 @@ static ssize_t dp_mst_link_setting(struct file 
->>>> *f, const char __user *buf,
->>>>       mutex_unlock(&aconnector->base.dev->mode_config.mutex);
->>>>       drm_kms_helper_hotplug_event(aconnector->base.dev);
->>>> -    kfree(wr_buf);
->>>>       return size;
->>>>   }
->>>> @@ -599,41 +529,20 @@ static ssize_t dp_phy_settings_write(struct 
->>>> file *f, const char __user *buf,
->>>>                    size_t size, loff_t *pos)
->>>>   {
->>>>       struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
->>>> -    struct dc_link *link = connector->dc_link;
->>>> -    struct dc *dc = (struct dc *)link->dc;
->>>> -    uint32_t wr_buf_size = 40;
->>>> -    long param[3];
->>>> -    bool use_prefer_link_setting;
->>>>       struct link_training_settings link_lane_settings = {0};
->>>> -    int max_param_num = 3;
->>>> -    uint8_t param_nums = 0;
->>>> -    char *wr_buf;
->>>> -    int r = 0;
->>>> -
->>>> -
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        kfree(wr_buf);
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    struct dc_link *link = connector->dc_link;
->>>> +    struct dc *dc = (struct dc *)link->dc;
->>>> +    bool use_prefer_link_setting;
->>>> +    long param[3];
->>>> +    int r;
->>>> +
->>>> +    r = parse_params(buf, size, param, 3);
->>>> +    if (r)
->>>> +        return r;
->>>>       if ((param[0] > VOLTAGE_SWING_MAX_LEVEL) ||
->>>>               (param[1] > PRE_EMPHASIS_MAX_LEVEL) ||
->>>>               (param[2] > POST_CURSOR2_MAX_LEVEL)) {
->>>> -        kfree(wr_buf);
->>>>           DRM_DEBUG_DRIVER("Invalid Input No HW will be programmed\n");
->>>>           return size;
->>>>       }
->>>> @@ -674,7 +583,6 @@ static ssize_t dp_phy_settings_write(struct file 
->>>> *f, const char __user *buf,
->>>>       /* program ASIC registers and DPCD registers */
->>>>       dc_link_set_drive_settings(dc, &link_lane_settings, link);
->>>> -    kfree(wr_buf);
->>>>       return size;
->>>>   }
->>>> @@ -740,47 +648,25 @@ static ssize_t 
->>>> dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
->>>>                    size_t size, loff_t *pos)
->>>>   {
->>>>       struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
->>>> -    struct dc_link *link = connector->dc_link;
->>>> -    uint32_t wr_buf_size = 100;
->>>> -    long param[11] = {0x0};
->>>> -    int max_param_num = 11;
->>>> +    struct dc_link_settings prefer_link_settings =
->>>> +        {LANE_COUNT_UNKNOWN, LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
->>>> +    struct dc_link_settings cur_link_settings =
->>>> +        {LANE_COUNT_UNKNOWN, LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
->>>>       enum dp_test_pattern test_pattern = DP_TEST_PATTERN_UNSUPPORTED;
->>>> -    bool disable_hpd = false;
->>>> +    struct dc_link *link = connector->dc_link;
->>>>       bool supports_hpd = link->irq_source_hpd != 
->>>> DC_IRQ_SOURCE_INVALID;
->>>> -    bool valid_test_pattern = false;
->>>> -    uint8_t param_nums = 0;
->>>>       /* init with default 80bit custom pattern */
->>>> -    uint8_t custom_pattern[10] = {
->>>> -            0x1f, 0x7c, 0xf0, 0xc1, 0x07,
->>>> -            0x1f, 0x7c, 0xf0, 0xc1, 0x07
->>>> -            };
->>>> -    struct dc_link_settings prefer_link_settings = 
->>>> {LANE_COUNT_UNKNOWN,
->>>> -            LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
->>>> -    struct dc_link_settings cur_link_settings = {LANE_COUNT_UNKNOWN,
->>>> -            LINK_RATE_UNKNOWN, LINK_SPREAD_DISABLED};
->>>> +    uint8_t custom_pattern[10] = { 0x1f, 0x7c, 0xf0, 0xc1, 0x07,
->>>> +                       0x1f, 0x7c, 0xf0, 0xc1, 0x07 };
->>>>       struct link_training_settings link_training_settings = {0};
->>>> -    char *wr_buf;
->>>> -    int i;
->>>> -
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        kfree(wr_buf);
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> +    bool valid_test_pattern = false;
->>>> +    bool disable_hpd = false;
->>>> +    long param[11] = {0x0};
->>>> +    int i, r;
->>>> +
->>>> +    r = parse_params(buf, size, param, 11);
->>>> +    if (r)
->>>> +        return r;
->>>>       test_pattern = param[0];
->>>> @@ -811,7 +697,6 @@ static ssize_t 
->>>> dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
->>>>       }
->>>>       if (!valid_test_pattern) {
->>>> -        kfree(wr_buf);
->>>>           DRM_DEBUG_DRIVER("Invalid Test Pattern Parameters\n");
->>>>           return size;
->>>>       }
->>>> @@ -878,8 +763,6 @@ static ssize_t 
->>>> dp_phy_test_pattern_debugfs_write(struct file *f, const char __us
->>>>       if (valid_test_pattern && supports_hpd && disable_hpd)
->>>>           dc_link_disable_hpd(link);
->>>> -    kfree(wr_buf);
->>>> -
->>>>       return size;
->>>>   }
->>>> @@ -1185,29 +1068,15 @@ static ssize_t dp_dsc_passthrough_set(struct 
->>>> file *f, const char __user *buf,
->>>>                    size_t size, loff_t *pos)
->>>>   {
->>>>       struct amdgpu_dm_connector *aconnector = file_inode(f)- 
->>>> >i_private;
->>>> -    uint32_t wr_buf_size = 42;
->>>> -    int max_param_num = 1;
->>>>       long param;
->>>> -    uint8_t param_nums = 0;
->>>> -    char *wr_buf;
->>>> +    int r;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       &param, max_param_num,
->>>> -                       &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, &param, 1);
->>>> +    if (r)
->>>> +        return r;
->>>>       aconnector->dsc_settings.dsc_force_disable_passthrough = param;
->>>> -    kfree(wr_buf);
->>>>       return 0;
->>>>   }
->>>> @@ -1440,40 +1309,20 @@ static ssize_t trigger_hotplug(struct file 
->>>> *f, const char __user *buf,
->>>>                               size_t size, loff_t *pos)
->>>>   {
->>>>       struct amdgpu_dm_connector *aconnector = file_inode(f)- 
->>>> >i_private;
->>>> -    struct drm_connector *connector = &aconnector->base;
->>>> -    struct dc_link *link = NULL;
->>>> -    struct drm_device *dev = connector->dev;
->>>> -    struct amdgpu_device *adev = drm_to_adev(dev);
->>>>       enum dc_connection_type new_connection_type = dc_connection_none;
->>>> -    uint32_t wr_buf_size = 42;
->>>> -    int max_param_num = 1;
->>>> +    struct drm_connector *connector = &aconnector->base;
->>>> +    struct drm_device *dev = connector->dev;
->>>> +    struct amdgpu_device *adev = drm_to_adev(dev);
->>>> +    struct dc_link *link = NULL;
->>>>       long param[1] = {0};
->>>> -    uint8_t param_nums = 0;
->>>> -    bool ret = false;
->>>> -    char *wr_buf;
->>>> +    int r;
->>>>       if (!aconnector->dc_link)
->>>>           return -EINVAL;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    kfree(wr_buf);
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, param, 1);
->>>> +    if (r)
->>>> +        return r;
->>>>       mutex_lock(&aconnector->hpd_lock);
->>>> @@ -1484,6 +1333,7 @@ static ssize_t trigger_hotplug(struct file *f, 
->>>> const char __user *buf,
->>>>       }
->>>>       if (param[0] == 1) {
->>>> +        bool ret;
->>>>           if (!dc_link_detect_connection_type(aconnector->dc_link, 
->>>> &new_connection_type) &&
->>>>               new_connection_type != dc_connection_none)
->>>> @@ -1637,34 +1487,15 @@ static ssize_t dp_dsc_clock_en_write(struct 
->>>> file *f, const char __user *buf,
->>>>       struct amdgpu_dm_connector *aconnector = file_inode(f)- 
->>>> >i_private;
->>>>       struct drm_connector *connector = &aconnector->base;
->>>>       struct drm_device *dev = connector->dev;
->>>> +    struct dm_crtc_state *dm_crtc_state;
->>>>       struct drm_crtc *crtc = NULL;
->>>> -    struct dm_crtc_state *dm_crtc_state = NULL;
->>>>       struct pipe_ctx *pipe_ctx;
->>>> -    int i;
->>>> -    uint32_t wr_buf_size = 42;
->>>> -    int max_param_num = 1;
->>>>       long param[1] = {0};
->>>> -    uint8_t param_nums = 0;
->>>> -    char *wr_buf;
->>>> +    int i, r;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, param, 1);
->>>> +    if (r)
->>>> +        return r;
->>>>       for (i = 0; i < MAX_PIPES; i++) {
->>>>           pipe_ctx = &aconnector->dc_link->dc->current_state- 
->>>> >res_ctx.pipe_ctx[i];
->>>> @@ -1676,7 +1507,7 @@ static ssize_t dp_dsc_clock_en_write(struct 
->>>> file *f, const char __user *buf,
->>>>       }
->>>>       if (!pipe_ctx->stream)
->>>> -        goto done;
->>>> +        return size;
->>>>       // Get CRTC state
->>>>       mutex_lock(&dev->mode_config.mutex);
->>>> @@ -1712,8 +1543,6 @@ static ssize_t dp_dsc_clock_en_write(struct 
->>>> file *f, const char __user *buf,
->>>>       drm_modeset_unlock(&dev->mode_config.connection_mutex);
->>>>       mutex_unlock(&dev->mode_config.mutex);
->>>> -done:
->>>> -    kfree(wr_buf);
->>>>       return size;
->>>>   }
->>>> @@ -1814,36 +1643,17 @@ static ssize_t 
->>>> dp_dsc_slice_width_write(struct file *f, const char __user *buf,
->>>>                        size_t size, loff_t *pos)
->>>>   {
->>>>       struct amdgpu_dm_connector *aconnector = file_inode(f)- 
->>>> >i_private;
->>>> -    struct pipe_ctx *pipe_ctx;
->>>>       struct drm_connector *connector = &aconnector->base;
->>>>       struct drm_device *dev = connector->dev;
->>>> +    struct dm_crtc_state *dm_crtc_state;
->>>>       struct drm_crtc *crtc = NULL;
->>>> -    struct dm_crtc_state *dm_crtc_state = NULL;
->>>> -    int i;
->>>> -    uint32_t wr_buf_size = 42;
->>>> -    int max_param_num = 1;
->>>> +    struct pipe_ctx *pipe_ctx;
->>>>       long param[1] = {0};
->>>> -    uint8_t param_nums = 0;
->>>> -    char *wr_buf;
->>>> +    int i, r;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, param, 1);
->>>> +    if (r)
->>>> +        return r;
->>>>       for (i = 0; i < MAX_PIPES; i++) {
->>>>           pipe_ctx = &aconnector->dc_link->dc->current_state- 
->>>> >res_ctx.pipe_ctx[i];
->>>> @@ -1855,7 +1665,7 @@ static ssize_t dp_dsc_slice_width_write(struct 
->>>> file *f, const char __user *buf,
->>>>       }
->>>>       if (!pipe_ctx->stream)
->>>> -        goto done;
->>>> +        return size;
->>>>       // Safely get CRTC state
->>>>       mutex_lock(&dev->mode_config.mutex);
->>>> @@ -1891,8 +1701,6 @@ static ssize_t dp_dsc_slice_width_write(struct 
->>>> file *f, const char __user *buf,
->>>>       drm_modeset_unlock(&dev->mode_config.connection_mutex);
->>>>       mutex_unlock(&dev->mode_config.mutex);
->>>> -done:
->>>> -    kfree(wr_buf);
->>>>       return size;
->>>>   }
->>>> @@ -1995,34 +1803,15 @@ static ssize_t 
->>>> dp_dsc_slice_height_write(struct file *f, const char __user *buf,
->>>>       struct amdgpu_dm_connector *aconnector = file_inode(f)- 
->>>> >i_private;
->>>>       struct drm_connector *connector = &aconnector->base;
->>>>       struct drm_device *dev = connector->dev;
->>>> +    struct dm_crtc_state *dm_crtc_state;
->>>>       struct drm_crtc *crtc = NULL;
->>>> -    struct dm_crtc_state *dm_crtc_state = NULL;
->>>>       struct pipe_ctx *pipe_ctx;
->>>> -    int i;
->>>> -    uint32_t wr_buf_size = 42;
->>>> -    int max_param_num = 1;
->>>> -    uint8_t param_nums = 0;
->>>>       long param[1] = {0};
->>>> -    char *wr_buf;
->>>> +    int i, r;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, param, 1);
->>>> +    if (r)
->>>> +        return r;
->>>>       for (i = 0; i < MAX_PIPES; i++) {
->>>>           pipe_ctx = &aconnector->dc_link->dc->current_state- 
->>>> >res_ctx.pipe_ctx[i];
->>>> @@ -2034,7 +1823,7 @@ static ssize_t 
->>>> dp_dsc_slice_height_write(struct file *f, const char __user *buf,
->>>>       }
->>>>       if (!pipe_ctx->stream)
->>>> -        goto done;
->>>> +        return size;
->>>>       // Get CRTC state
->>>>       mutex_lock(&dev->mode_config.mutex);
->>>> @@ -2070,8 +1859,6 @@ static ssize_t 
->>>> dp_dsc_slice_height_write(struct file *f, const char __user *buf,
->>>>       drm_modeset_unlock(&dev->mode_config.connection_mutex);
->>>>       mutex_unlock(&dev->mode_config.mutex);
->>>> -done:
->>>> -    kfree(wr_buf);
->>>>       return size;
->>>>   }
->>>> @@ -2167,34 +1954,15 @@ static ssize_t 
->>>> dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
->>>>       struct amdgpu_dm_connector *aconnector = file_inode(f)- 
->>>> >i_private;
->>>>       struct drm_connector *connector = &aconnector->base;
->>>>       struct drm_device *dev = connector->dev;
->>>> +    struct dm_crtc_state *dm_crtc_state;
->>>>       struct drm_crtc *crtc = NULL;
->>>> -    struct dm_crtc_state *dm_crtc_state = NULL;
->>>>       struct pipe_ctx *pipe_ctx;
->>>> -    int i;
->>>> -    uint32_t wr_buf_size = 42;
->>>> -    int max_param_num = 1;
->>>> -    uint8_t param_nums = 0;
->>>>       long param[1] = {0};
->>>> -    char *wr_buf;
->>>> +    int i, r;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, param, 1);
->>>> +    if (r)
->>>> +        return r;
->>>>       for (i = 0; i < MAX_PIPES; i++) {
->>>>           pipe_ctx = &aconnector->dc_link->dc->current_state- 
->>>> >res_ctx.pipe_ctx[i];
->>>> @@ -2206,7 +1974,7 @@ static ssize_t 
->>>> dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
->>>>       }
->>>>       if (!pipe_ctx->stream)
->>>> -        goto done;
->>>> +        return size;
->>>>       // Get CRTC state
->>>>       mutex_lock(&dev->mode_config.mutex);
->>>> @@ -2237,8 +2005,6 @@ static ssize_t 
->>>> dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
->>>>       drm_modeset_unlock(&dev->mode_config.connection_mutex);
->>>>       mutex_unlock(&dev->mode_config.mutex);
->>>> -done:
->>>> -    kfree(wr_buf);
->>>>       return size;
->>>>   }
->>>> @@ -2592,36 +2358,17 @@ static ssize_t dp_max_bpc_write(struct file 
->>>> *f, const char __user *buf,
->>>>   {
->>>>       struct amdgpu_dm_connector *aconnector = file_inode(f)- 
->>>> >i_private;
->>>>       struct drm_connector *connector = &aconnector->base;
->>>> -    struct dm_connector_state *state;
->>>>       struct drm_device *dev = connector->dev;
->>>> -    uint32_t wr_buf_size = 42;
->>>> -    int max_param_num = 1;
->>>> +    struct dm_connector_state *state;
->>>>       long param[1] = {0};
->>>> -    uint8_t param_nums = 0;
->>>> -    char *wr_buf;
->>>> +    int r;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, param, 1);
->>>> +    if (r)
->>>> +        return r;
->>>>       if (param[0] < 6 || param[0] > 16) {
->>>>           DRM_DEBUG_DRIVER("bad max_bpc value\n");
->>>> -        kfree(wr_buf);
->>>>           return -EINVAL;
->>>>       }
->>>> @@ -2637,7 +2384,6 @@ static ssize_t dp_max_bpc_write(struct file 
->>>> *f, const char __user *buf,
->>>>       drm_modeset_unlock(&dev->mode_config.connection_mutex);
->>>>       mutex_unlock(&dev->mode_config.mutex);
->>>> -    kfree(wr_buf);
->>>>       return size;
->>>>   }
->>>> @@ -2959,31 +2705,13 @@ static ssize_t hdmi_automation_enable(struct 
->>>> file *f, const char __user *buf,
->>>>       size_t size, loff_t *pos)
->>>>   {
->>>>       struct amdgpu_dm_connector *aconnector = file_inode(f)- 
->>>> >i_private;
->>>> -    const uint32_t wr_buf_size = 40;
->>>> -    int max_param_num = 1;
->>>> -    uint8_t param_nums = 0;
->>>>       bool hdmi_comp_auto;
->>>> -    long param[2];
->>>> -    char *wr_buf;
->>>> +    long param[1] = {};
->>>> +    int r;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        kfree(wr_buf);
->>>> -        DRM_DEBUG_DRIVER("user data not be read\n");
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, param, 1);
->>>> +    if (r)
->>>> +        return r;
->>>>       switch (param[0]) {
->>>>       case 0:
->>>> @@ -2998,7 +2726,6 @@ static ssize_t hdmi_automation_enable(struct 
->>>> file *f, const char __user *buf,
->>>>       /* Persist setting across sink re-detection/hotplug. */
->>>>       aconnector->hdmi_comp_auto = hdmi_comp_auto;
->>>> -    kfree(wr_buf);
->>>>       return size;
->>>>   }
->>>> @@ -3768,39 +3495,22 @@ static ssize_t edp_ilr_write(struct file *f, 
->>>> const char __user *buf,
->>>>                    size_t size, loff_t *pos)
->>>>   {
->>>>       struct amdgpu_dm_connector *connector = file_inode(f)->i_private;
->>>> -    struct dc_link *link = connector->dc_link;
->>>>       struct amdgpu_device *adev = drm_to_adev(connector->base.dev);
->>>> -    struct dc *dc = (struct dc *)link->dc;
->>>>       struct dc_link_settings prefer_link_settings;
->>>> -    const uint32_t wr_buf_size = 40;
->>>> -    /* 0: lane_count; 1: link_rate */
->>>> -    int max_param_num = 2;
->>>> -    uint8_t param_nums = 0;
->>>> -    long param[2];
->>>> -    bool valid_input = true;
->>>> -    uint8_t supported_link_rates[16] = {0};
->>>> -    uint32_t entry = 0;
->>>> +    struct dc_link *link = connector->dc_link;
->>>> +    struct dc *dc = (struct dc *)link->dc;
->>>> +    uint8_t supported_link_rates[16] = {};
->>>>       uint32_t link_rate_in_khz = 0;
->>>> +    /* 0: lane_count; 1: link_rate */
->>>> +    bool valid_input = true;
->>>>       uint8_t dpcd_rev = 0;
->>>> -    char *wr_buf;
->>>> +    uint32_t entry = 0;
->>>> +    long param[2];
->>>> +    int r;
->>>> -    if (size == 0)
->>>> -        return -EINVAL;
->>>> -
->>>> -    wr_buf = memdup_user_nul(buf, wr_buf_size);
->>>> -    if (IS_ERR(wr_buf))
->>>> -        return PTR_ERR(wr_buf);
->>>> -
->>>> -    if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
->>>> -                       param, max_param_num, &param_nums)) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>> -    if (param_nums <= 0) {
->>>> -        kfree(wr_buf);
->>>> -        return -EINVAL;
->>>> -    }
->>>> +    r = parse_params(buf, size, param, 2);
->>>> +    if (r)
->>>> +        return r;
->>>>       switch (param[0]) {
->>>>       case LANE_COUNT_ONE:
->>>> @@ -3816,7 +3526,6 @@ static ssize_t edp_ilr_write(struct file *f, 
->>>> const char __user *buf,
->>>>           valid_input = false;
->>>>       if (!valid_input) {
->>>> -        kfree(wr_buf);
->>>>           DRM_DEBUG_DRIVER("Invalid Input value. No HW will be 
->>>> programmed\n");
->>>>           prefer_link_settings.use_link_rate_set = false;
->>>>           mutex_lock(&adev->dm.dc_lock);
->>>> @@ -3853,7 +3562,6 @@ static ssize_t edp_ilr_write(struct file *f, 
->>>> const char __user *buf,
->>>>                           NULL, link, false);
->>>>       mutex_unlock(&adev->dm.dc_lock);
->>>> -    kfree(wr_buf);
->>>>       return size;
->>>>   }
->>>
->>
 > 
+> Regards,
+> Olivier
 
