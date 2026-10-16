@@ -4,122 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 770D9CCA464
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 08:43:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17129CCA464
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 08:55:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB3071126B0;
-	Fri, 16 Oct 2026 08:43:12 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013050.outbound.protection.outlook.com
- [40.93.201.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B16E0112697
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 08:43:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BW+PTCKmEUv0gTlv901b2SB2SWn5K1uZ9CA3dIQYKIXDcouEfj+AcNS5ZvKk8gQGSp+Us3l9lSRVAemV/QD7yYmwWN34wJLCjZLpFyt7+E8lbjOURXxhLNtWWxCzSjerOBULh+dJEL3FJID24u26KpIqutFCFOkCGBSjoSdgpJ1iysTOAirEwOaf2knnGKjLRtdthkW0k10UV8zrDCGfUiUY9xlJPCKsMbvNe+3iu14zoKzj+Z70T/xfPzFhkNO8CCw3QeQ+qzWivQ216V4MsWThW1088KrgcnRUK9W0PlgsUByFLw4EfyD/vpYSH3mUsoRBH2vW7cFTyDnjEJ0A5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JLPMo8fx0l+j3bdJ/m4qSImMdSEzxVoKfHCuqE0i1Is=;
- b=oBvilNv6MSvV8XStkqW+vcHT9rgq7Joca///EkXw+vWYD5jgS/9cmVNthXsmJHfDKz8tcVZhuXOxPNiKfPvIQ5EBgAsMS/kmozvgc98WwLGeUWn9aGK1TEjdmykfgr0uw7cBbVrZ5uvGuUNQvrkxzkAaW97jhXrRIoeLGaMvxOzTNNRhYkD7Sbf3/GXN/jEzfMJIyzB9mVBL9FDtlGTVYQS093967dHFJF8ZR6sivRkCHsbXi2Hu7oX3HgC9gel7KHQlrYG+QXYP6kfLV2K0cccM+8ZB2LKg4MffjwS4JBviboTPKzCfWxTshUgYYk2Id5UILwWlF1BvgwiN3ymY/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JLPMo8fx0l+j3bdJ/m4qSImMdSEzxVoKfHCuqE0i1Is=;
- b=yPhxKx6I3kFg3bXDM3Le1oAVHpUWlQpaHburQO1wj3hOmmo6UCBnEd1/ZnrkSvW7p4hpk6FXSY4dhhd/nGjzAdrwGjNhMnizTJaxnkLbiEZducILRv7AoCeBQOSAu+Y1em01+wEaFyuZ+mmmSgodWl6mSYRUFSPE2NMnvIywLRA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB7681.namprd12.prod.outlook.com (2603:10b6:930:84::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
- 2026 08:42:59 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Fri, 16 Oct 2026
- 08:42:59 +0000
-Message-ID: <a2b9e67d-fd7c-44fe-ad48-ce11a8bae4f9@amd.com>
-Date: Fri, 16 Oct 2026 10:42:56 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
- guard with drm_dev_enter
-To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: felix.kuehling@amd.com
-References: <62280d57-3f63-4979-9e4c-f0eca7208b19@amd.com>
- <20261015193018.86178-1-olivier.kaloudoff@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261015193018.86178-1-olivier.kaloudoff@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0168.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A82A0112695;
+	Fri, 16 Oct 2026 08:55:44 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 133C810E2E4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 03:16:41 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4a018792ab3so47037925e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 20:16:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792120599; x=1792725399; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=JRXhFgZsIqkWNlRPBEo+vqto9YY5n1rr9e3kPIK1m+o=;
+ b=MMOfry9PsAHrEsyuAYCaUdgZBWE09z68mI89YfpXEBwZ68B05n31FL4ZtgAT2yXgyj
+ xxBqRFGfvknb/bp8o930mA4BEndhJCQi5bGSrJLO/BxqmHH2CPeu/SxJ0gJjR3XWZyEe
+ FdVuBkEBAsbUbNZZwHTP4J9HcHJ9PNe5j3fO+pl4SRxV0B0ijOLPRYag+Q9ZbYxpfwzR
+ bq3BCCqAiuJzpRqBrhg2o7D0zjfwGgs5V5t8H1XB4hj8iQaNubYg3C7kiFYOZenbg+Uh
+ JUUEgReiWKjGseLOMwy/OF1Q/BEqX84C0XAjbeDgGZQ1yahTAeJB47jhKOzrWZkXfrBA
+ zZSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792120599; x=1792725399;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=JRXhFgZsIqkWNlRPBEo+vqto9YY5n1rr9e3kPIK1m+o=;
+ b=vnigIoYAHoRRc+QvSMoDZk5d3f4ag1nIBoYIGJJanjXYwt4joZdwsCzNpDeCtOIvKI
+ zgU/iWAtqEwQVMBlMmIlm/DT25dFOFjpH4Txg5ug86KmMj060lpnGc6pRECD7LAN0Cyk
+ 4LoXuo7DyjphDG9E/jgcL/7qpkqZvZUdatdV/PH/iUJVqvGyu/mDJIQYk0PqxxwoE1BC
+ qxvFh2nBmS6ORH/8HzY2ICL4wH41fWbYMej5b+ksootwRXyHWNZV2AiU25LSAUb+r1OX
+ BE0go6wuX8sSc19PpjuieXYq6zFK3+t4BVWM/f6QwXJYTO1vIVAs37ycO5P0EZVsiVxC
+ pjOQ==
+X-Gm-Message-State: AFq9FYIUc7LyQNNlom0jRH3N5IHEGjYo7YGakoxO3bHfxSL2HQPJIIXu
+ XZSPbuZ/TBmp8Ymb/1qr6MOlAH4dGc6yglrV0i9aLpL+0N8pPjAL0tpo/pIjFzmrhoo=
+X-Gm-Gg: AYBFou0IrXHFb1CaRuYUxDjyb/PfrMshd1qpJrJq5ngPhbSDNdWZ8d+xgvUXMlO0l72
+ HSHr6bSyOEemjUX6/edFU63xnxAiaNtLde5vAec7slK3qz2T5xromu0PSAP20FAwy54gL6Rm6wG
+ cB8REogs8b4O54zIQGS7hpNmHjWkId1qg3PfaZ85lA0MGP+4DPbNfzT4NZ9dV6txOnL9d2TRAgp
+ zTkX4Lq49kIqGoTKcbx4OLY76WbVisClSWSThN5KGQZp3KkeMVlmP9TDke1z2ZSDRUp7iThAo6b
+ 7SPG0wfi+ctw4waz93Vd/lowRgUZ2qsz0ZaGptasX/VFkYZGicPqQLsql13Rtvh/2/xvCeVN+pF
+ RKMrU+mamU8RB2FMXS7fEi/AdLfqGTLnU+4YbS7GkgKS4LQhSI5ByndbSRuhba6JgEPzrYutuw6
+ Rg2xPepgUEhGgOf0FxsOBg4K7ejnPNabW+zQzrUe2gYYBPOYJfJE1z6c3MkWiRHcnKZRAI0aioR
+ epDO2SBTCghxNQIuZpIE1y7W6ZJ8tl4kECAzBahuIQjaThE7I4v4Y3xZ5NwFkDhDfYMOrmyOwzv
+ kP49GwboXXAHwFCb/x3hlfNBD9hi5KXwDoTLvQ==
+X-Received: by 2002:a05:600c:c104:b0:4a1:96cd:2f73 with SMTP id
+ 5b1f17b1804b1-4a196cd32b0mr248934165e9.1.1792120599173; 
+ Thu, 15 Oct 2026 20:16:39 -0700 (PDT)
+Received: from localhost.localdomain (93-55-250-55.ip266.fastwebnet.it.
+ [93.55.250.55]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a1c8de8c58sm22527735e9.15.2026.10.15.20.16.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Oct 2026 20:16:38 -0700 (PDT)
+From: Luigi Lauro <luigi.lauro@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Lyude Paul <lyude@redhat.com>
+Subject: [PATCH] drm/amd/display: take a runtime PM reference only when a CRTC
+ turns on
+Date: Fri, 16 Oct 2026 05:16:36 +0200
+Message-ID: <20261016031636.575385-1-luigi.lauro@gmail.com>
+X-Mailer: git-send-email 2.56.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7681:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92e7e407-da82-409c-4c15-08df2b617b72
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|10067099003|18002099003|22082099003|5023799004|4143699003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 4t2t+b2rv2uaGRsqN0MztK9AVDUere87idPGoy16KQmPsYnXnANyROeKa0stu3N/FFGGeNAGfnNmobxV6NKRyvpCVQV7wkmWq43HRxFPcp0XVm+YePgfIGseTeSmL8lmMBIYOJCvgqjFD93VSbSjhrJrmrmkScgr/kyWPNv15ec5+ATp0wNvrNlVF+Ns/XC2ooIOhp3cOxpEcS3cvce6yZvWQMRcmRY70mA495Z4XxK4evOGo2nIwqgiArF4Cy/GQnSGSCQ9ezXhbTeZlneHHi8wj9Ea8cFvS4IAdfZBzc679x+YjddxahF0Sv6AjR8Mha3ixo4pTXJbdOQO4t7XJeOTGtR8C2N2C1MAEHkojyfj4k4dLqrMYU5TRKITiJRt/NR7VgERZxZRIfWMrTRImeRwnVcPnX/VVc15/YA0brUMksl5UJII56Z0HUeqhJzBEMzPkQvLE5lq3K1Y7+Uvqdqoyc3ZnNk6Cx75X9h1mzlj8PZApOOtMVY7MLrjOvInlNhngR2Jy9rPxNVmKBpvftcit02jQQncnrm+6USy6bAmlZJpglBT5SpsnK9zxyXbzCDpBt/0vxg+cLOIZd2Jyu8bKIdAfsvgZIn4bUQsQNnmBNuKOSYCc7pq+lipuwgo7IqaKzYq/5POl9sWfxgKKQDAEdVCsvC3QtmxDABm5jA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(10067099003)(18002099003)(22082099003)(5023799004)(4143699003)(11063799006)(261009223027099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STdkSHVZWGF3eVcwQksycHVyOTFxYjlpUEtBU0E3SHZkeEVUOG1kR3FmblVD?=
- =?utf-8?B?b1BjcVNOVk03NndNbDZVcHRnN0RWMXlvVDVsMERTZ0x5UlZQdzVUZ2ZVZ1Bq?=
- =?utf-8?B?NTVtTk9lOHdWMHZta0Z4N0pSOFp1NTY5dmUzVGE5S2kxZXNZQ0NGZTlIZFdE?=
- =?utf-8?B?UTljNnBaTlhnVVZ3am5xaHJFZ2FYaVFRT1BGTVFiU3lrdmJKeTBuTWxUZkw4?=
- =?utf-8?B?SUx1cDJ1eGJlMFJPV1d6b0ZHTGFockk2RW4wbUlpOXVMeGhrMis2Rlp6UU8z?=
- =?utf-8?B?YnN2UkhqcjIwa1FVeWtnSTlLNkUvc2VUa0t0bXRHaU9XNjloSjFxNW02N1BC?=
- =?utf-8?B?STg5K3NGK0lXWGF5RjlpYTY3QlhjV0kyM1dYSThlbFV2TTk0U0xCdXR0cmtG?=
- =?utf-8?B?dkdEOTd1bG9leGd3RzQyQk85cndmbCtMZ3JTdFVRUmFVYkV5TjZFVHRxSG1q?=
- =?utf-8?B?VW9KK3dqOU9nV0Q5SG5FaTNUZUpxd3VBTlVFWmJSM0VibjhQMHNXSHlPNkhB?=
- =?utf-8?B?UjFhTmYzZHl5WTc5MzBKUWUxZ080SHdhWUpHOHJKbWl6ZFByc0FOYThpZVlo?=
- =?utf-8?B?ZkNiVHRUUU9oN1NvRGVzWEpyV3FIbmdsRVk0QS9IMlZRZ2lxbytnRUVmS2Er?=
- =?utf-8?B?RmVLWVpjRVprMndrR1A1K1Y1eCtMZGt2ZTFoRzB0TmVtSmprVlZ2VVBwQnBp?=
- =?utf-8?B?VXp2M3VxYWcyNGhsaDR2THpaeE5hc1lzN3E5c2dyN0Jpc2JFUVorWFdKenhO?=
- =?utf-8?B?NHp6YnIyelZuSFlqQnY4ZmdiMlBqUXNLZnZBUTUyQ1dQd0p3M0JZQllDUFBZ?=
- =?utf-8?B?ZzZjTXRUcUZqRmNJVlVNYmoxZEFKWVh4dVhBZDdmUnI4bUdzT2cyM3JlYklt?=
- =?utf-8?B?TjROYXpPc05DUkhEOG1RWFg0bjFQVEp6OHhLV3BpR0s0TXB2QzZ4dmRNYWxS?=
- =?utf-8?B?YVE3MmlCdHdqcUpVTXJpLzZyQzFwb0g0dGIvVFhKNVNrMEVqdXRGb1JwdlZF?=
- =?utf-8?B?Y0Njd3NJZUw5ZnY1dnFXdDAzZGNka3NTemg4enVFcFRZYTd4MTEzZmNORjVi?=
- =?utf-8?B?WmptK3ZyeVJ2MGx4N0JGd24rbTd5TXQ1MHNBbm1yc1pKZGFuQkNzRXpIMjZS?=
- =?utf-8?B?cFVOdEcyMVh4MFdNMzRhUXNrM1FSM3ZtRCs3VURnUSsyaXEvQnJhaUp3ejFj?=
- =?utf-8?B?L1dzelRhamtocGxsUGhITjVaczE0Y05ONldFWjdSdzlsblBWb292dG16d1dN?=
- =?utf-8?B?SHMvdDNvMWhpaWpRUS9JNWx3Q0JkMXl2NHFPbVF4aEZibm1CUTN6N0hLcnF0?=
- =?utf-8?B?eERJWGl0ZlpUVWwzWnNXbE1HVm1oak9aK3NRRTRaVzNrLytVU1QyZGxmdW5O?=
- =?utf-8?B?UE9OZlBlUVFDaStaZkZtVi9lVTc1RWJtcGt2SldSQ2hlTWlwYWZESW1SUkMy?=
- =?utf-8?B?cGMwbXYzS0t1eitrbHdJeW12SFJWTHFHbGtRVTBiM3pQSzNSaXFTZjhnZm9u?=
- =?utf-8?B?Z1JJQlc1dFJsQWxxMjJOY1hOZExDa3R0eUJyQnVlaXZQZGNXUzc0dVJCN2FZ?=
- =?utf-8?B?RWkvZ2JVTi9saVhteTUrM1cwRFR0NGpnUmZrYnZKSkZva2FYeFhwZ1AwTWZO?=
- =?utf-8?B?SUxaR1hMTEFITXN0V2dlRjFKZi9nVkFQZ2pSdlNUK1o0VWpGZ2hWVE5TbTc4?=
- =?utf-8?B?aE9UcnRQNTRHUGpOVTBESERqdm9Jb0dKMitjZVdKeTN2VUZFMTFQb1MxQVE4?=
- =?utf-8?B?R2V5cVg4clBYbEVnNy8raFp6QmtQV0h2QWovQUdIdGlIYnBNQ0RUdW9MU1Yz?=
- =?utf-8?B?YUxBelVqR2tic29tYlNTc3dPbGx6VjA0MStYSTZQZkFYcnZmWDJYWjc4aVN0?=
- =?utf-8?B?M2d0WDlBeHQ5UFZSZmR1ektyWlU2MWI2TU1OTlVIQjduVXBLbTB0WDZSblhL?=
- =?utf-8?B?b1JQU0pvNzBScTNzelQydkw1OHBiVFJrTFBYMDF0bVM3YXVveVE4Q25SZFJn?=
- =?utf-8?B?dzVydTNtTVVyRUluVmhoa3Q5WndEMEJWbUx1ZlE1U0RLc0dRS0NSWGM2RHhv?=
- =?utf-8?B?QUQzWGVBdjJoWEk4NG1pT1RJcXlDdkw5REt2QkU2enJVQVE0UkZ5NTVHYXJr?=
- =?utf-8?B?d0lHMmhCYUZiVkxLY0xEZ2FGeXJGb0lqUENnYitDQ3FYQkpidlhqOFdRRUM0?=
- =?utf-8?B?QXl1d1NFVTR6Q05mVGpPaUFBODU1RFloOVRUMWovZFVTNzNRWWNHcC9UbkVw?=
- =?utf-8?B?YmlzR1Z2bTJ2emlaVjNwRm5OT2xpS1pLVldBRmlSVlB5Ylg4SzJ3czNzM29L?=
- =?utf-8?Q?CnVXA2M7NN1DmQdOks?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92e7e407-da82-409c-4c15-08df2b617b72
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 08:42:59.5590 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uslgoiCmkE86mYXoisLS44e58v34ob8f25NQzUF6dlr4Kh0zePm3jG+ycbCGMsVJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7681
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 16 Oct 2026 08:55:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,60 +87,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Olivier,
+amdgpu_dm_commit_streams() takes a runtime PM reference for every
+active CRTC that needs a modeset and has a new stream, but
+amdgpu_dm_atomic_commit_tail() drops one only for each CRTC that goes
+from active to inactive. A modeset of a CRTC that is already active (a
+mode change, or anything else that needs a full modeset) therefore
+leaks one reference. Once that has happened, the usage count no longer
+returns to zero with every CRTC off, and the device cannot runtime
+suspend again until reboot. The two also disagree the other way when a
+CRTC turns on without a stream ("Failed to create new stream"): no
+reference is taken, but one is dropped when it turns off.
 
-looks like my mail from yesterday wasn't send out, so re-sending that again.
+Take the reference in the loop that counts the disabled CRTCs, on the
+mirror condition: when the CRTC goes from inactive to active, which is
+what the commit that added it intended ("every time we enable a
+previously disabled CRTC"). Each active CRTC then holds exactly one
+reference.
 
-Don't be surprised if you receive two messages.
+Tested on an RX 9070 XT (Navi 48) over OCuLink, with the change
+backported to 7.2.9: an unplugged connector forced on, then mode A on a
+CRTC, mode B on the same active CRTC, and the CRTC off, three rounds in
+a row. The usage count rose by 3 with the stock module, by 0 with this
+patch, and by 3 again after reloading the stock module.
 
-On 10/15/26 21:30, Olivier Kaloudoff wrote:
-> Hi Christian,
-> 
->> Fences *must* always signal especially when the device is hot removed.
-> 
-> Agreed in principle — but the observed failure is precisely the
-> counter-case. During teardown the dying process's fault path submits
-> an SDMA job to an already-killed drm_sched entity:
-> 
->   drm_sched_rq_add_entity: Trying to push to a killed entity
+Fixes: 97028037a38a ("drm/amdgpu: Grab/put runtime PM references in atomic_commit_tail()")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5951
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Luigi Lauro <luigi.lauro@gmail.com>
+---
+Alex asked for this on the issue. It differs from the change tested
+there, which only skipped the get in amdgpu_dm_commit_streams() for a
+CRTC that was already active: with that form, an off-to-on modeset with
+no stream (the "Failed to create new stream" continue) takes no
+reference, and a later modeset of the same CRTC with a stream and then
+an off drops one more than was taken. Pairing the get with the put
+closes both.
 
-Yeah and that needs to be prevented.
+Who changes: any system where a CRTC that is already active gets a full
+modeset (a mode change, an HDR or colorspace change). Today each such
+modeset leaks one reference; with this patch it takes none. A CRTC
+turned on without a stream now takes the reference its later turn-off
+drops; I could not exercise that path.
 
-That is incorrect teardown order in the KFD. When the entity is killed no further submissions to it are possible.
+Also tested at rest, on a boot with no leaked references: with nothing
+using the card and its connectors never probed (a TV is attached), it
+runtime suspends to D3hot with this patch after a forced wake, and the
+usage count drops to 0, as it does with the narrower form loaded before
+and after. That test runs no modeset; the rounds above do.
 
-> The job never reaches a ring, nothing is left to signal its fence,
-> and the uninterruptible wait in svm_migrate_copy_done() never
-> returns. That orphaned fence is what kept the task in D state for
-> good in the repro.
-> 
->> a non interruptible wait with AMDGPU_FENCE_JIFFIES_TIMEOUT can
->> never fail.
-> 
-> The ret < 0 branch is indeed dead code — dropped it in v6, thanks.
-> 
-> The bound itself is needed for a subtler reason: the wait now runs
-> inside a drm_dev_enter() critical section, and drm_dev_unplug()
-> blocks until all such sections exit. An unbounded wait inside the
-> section would deadlock the unplug path against any fence that fails
-> to signal, for whatever reason. This is also the shape Felix asked
-> for — guard HW access with dev_enter/exit and keep no unbounded
-> fence waits inside those sections.
+The change applies unchanged to 7.2.y.
 
-Yeah and that is perfectly correct. drm_dev_unplug() *must* be blocked until all fences are signaled.
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-> If you'd rather guarantee the invariant at the source — i.e. error
-> out fences orphaned by jobs pushed to an already-killed entity in
-> drm_sched — happy to look at that too, but it is a much wider change
-> than the KFD-side guard.
-
-No, what we need to avoid killing the entity while KFD is still using it!
-
-That is basically an use after free what you have here, only that the drm_sched can point that out with a warning instead of crashing immediately.
-
-Regards,
-Christian.
-
-> 
-> Regards,
-> Olivier
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index c4fee73a0..605f289ac 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4707,8 +4707,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
+ 			if (dm_old_crtc_state->stream)
+ 				remove_stream(adev, acrtc, dm_old_crtc_state->stream);
+ 
+-			pm_runtime_get_noresume(dev->dev);
+-
+ 			acrtc->enabled = true;
+ 			acrtc->hw_mode = new_crtc_state->mode;
+ 			crtc->hwmode = new_crtc_state->mode;
+@@ -5292,8 +5290,13 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ #ifdef CONFIG_DEBUG_FS
+ 		enum amdgpu_dm_pipe_crc_source cur_crc_src;
+ #endif
+-		/* Count number of newly disabled CRTCs for dropping PM refs later. */
+-		if (old_crtc_state->active && !new_crtc_state->active)
++		/*
++		 * One runtime PM reference per active CRTC: take it when the
++		 * CRTC turns on, count it when it turns off for dropping later.
++		 */
++		if (!old_crtc_state->active && new_crtc_state->active)
++			pm_runtime_get_noresume(dev->dev);
++		else if (old_crtc_state->active && !new_crtc_state->active)
+ 			crtc_disable_count++;
+ 
+ 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+-- 
+2.56.0
 
