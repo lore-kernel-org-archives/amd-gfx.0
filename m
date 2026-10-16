@@ -4,126 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9109ACC6B38
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 16:39:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64109CCA46C
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 16:41:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D73010E34B;
-	Fri, 16 Oct 2026 16:39:12 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011037.outbound.protection.outlook.com [52.101.57.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06A2410E360;
- Fri, 16 Oct 2026 16:39:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C580410E2F9;
+	Fri, 16 Oct 2026 16:41:47 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013019.outbound.protection.outlook.com
+ [40.93.196.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FBF310E295;
+ Fri, 16 Oct 2026 16:41:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nri9RkFL/aAA8f1o3dPcJwutUOyN5+3ggYCwMavC6wTvPzkbdbpiTZ9TaUqR9ZMYGLFNoh6MivYl5bKU7fvFn8+71orUyzZPo4aQxYUDiJF7JDSGk0RbOXTNLnxpBg92v32qM5vAWLGqEo1SuwBi7Iw8K+ZpqSzn6PfbkrxNnd1f7bu1c5t2nJGlhScqDOw8I512rLfB21RJ88nHlv6t/ltbx9wNdeH/tXgv7E2e/5uf3nLiNgzCPN0m5wNBbPnXzJrlSTGlKxPur6Wbt43A9h/AN/dyIBspUvR8hVKp2StwZt/OqS6SxCf0DM6lzz0YCBWZmc3s6PtIRo98AQL7Mw==
+ b=Og/93g6DH6OoV5axKAOwCShrui3IzgJlAXsqGiM03+2JAn1G8MX9vbLsnQ5er37GgETFYm44RAv4nSZFMPz93AnLLJlh7yk2sM7lUTv0A82CyrNGxbdH8CFKQlLKdSRE9EIOFReH9XWxYJPWe6o6srhBsqOYYnGTpvjmRcEfvkoAFEGgMlYQNRr0WhZLve2HiM4z48LrSFmkEYu8kxW8oPyA/T1ofRe3lfogbVIjIgf/+dxfNO++6QB0M1Hl4oB5fLOLjEQwRUxSAQKna95JqYxfovaucfXNGm149SwLwu3WY1SNTJlXIq3DRzOrlR2MS5EyjkRqBysGjmd+a1/V2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oGtqHPPKPE2byPtogaBl7v1hbXijvaMcZqT6mdOMOEw=;
- b=dNIabEvzD3+FX8FqsdE1LwBi/w6IR+MF3m6ZSmf9Q6CQXTnLOV1wjeIYrPr8jGoU9BUQMr15xid2Jk4Unp+HIeO5i0jRl6PXKqvmGAB9wKMQKK5VMMtsK5H1shHSEi/UXUtJe9nw2Zwe//HJQeWce6C9NbGhhjFF/lW19jZmVHlXqpDKUnIOnLHu4qyLxZlYITKt8rI8xy/uHrZ/FPpPxi3zPDl0HlGqVQ2H6VEZClA0nqIASHjHbtxT0TyA2qEHMDe4G+0sgwBGOpfv59nBKbjLQ8nWqL9XXTKU4DyWOVPVYhsoYsRjXA5UDjmOXRSPzqUuOLy5bF1Uqq9JI+htMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=deNKdklYKTmrFyD47WeP+uIYKBhzvhnbnMPzXZl08co=;
+ b=GCzM6RjaNr6/a86qSoMLfkVe3yQCPYwl1InlEXMErS4gt3K3HSUt27bDJcdouOg7GH8K5VB8wn1O41DiqBigBsOY9+025DGCYIyo/DaBJgs6+rgzmz+9vIBc/5TsxRkjzORmy14FqMsQFZhwMw1Ol0PZtgD6j3MEUm6XFacDNwYORvyG9EITmPdHUHpiCxLzCvwA/rl7G0heQWbQkFBgCJ1dvZngFzemBs/0g0L/Vd/vFMuEFVEGo3vITFFB72rbfouafcdeh+QWXiHP8lZdvCH9Bg4r+KGQ1a07GjnI/GJ3aRpzmSXftYJAIqFnVFsVT2dyXUzzM3loF3pB8ETCMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oGtqHPPKPE2byPtogaBl7v1hbXijvaMcZqT6mdOMOEw=;
- b=nUVV365PXAdY/gASD6JH/l34B5gLvoNoMmP1i/Z2/xlhmWGeO6ldno2F+h7uSPOcu7ijdMlvxabYAj9+UFGu1x+elJcP/ikslgTiO2XSOFrDpg7ERAvUnUIhrSw5bcbzf7RnV5woskgnHI1hEH1nNMFAg0gdnZDpcp20AVyzxkw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Fri, 16 Oct
- 2026 16:39:02 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 16:39:02 +0000
-Message-ID: <38cc515d-ae4b-4031-a061-224d492826e1@amd.com>
-Date: Fri, 16 Oct 2026 10:39:00 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: fix NULL deref when opening a closed DDC
-To: Arthur Liberman <arthur_liberman@hotmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "siqueira@igalia.com" <siqueira@igalia.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
-References: <DB9PR03MB73881C96FE86D964037ABEDB8A942@DB9PR03MB7388.eurprd03.prod.outlook.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <DB9PR03MB73881C96FE86D964037ABEDB8A942@DB9PR03MB7388.eurprd03.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0156.namprd03.prod.outlook.com
- (2603:10b6:303:8d::11) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+ bh=deNKdklYKTmrFyD47WeP+uIYKBhzvhnbnMPzXZl08co=;
+ b=MMMIGuzarbG3S70SOKrEScTJ4GdnvcOA58PmcvEbNqdeTCAOLrUnf/gKtk8khpn8CyofEWxqma7c+x+E1WmP/+VoJZrrBlPJtMkxd/rGYDL8ao2MmniEsN9fWEk1Bo0kcvLFPMRSGKwpT7yxTQkbHCtxQY3xvScUw1WIlWwvqoc=
+Received: from BY3PR10CA0013.namprd10.prod.outlook.com (2603:10b6:a03:255::18)
+ by SA1PR12MB7444.namprd12.prod.outlook.com (2603:10b6:806:2b3::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
+ 2026 16:41:30 +0000
+Received: from MW2PEPF00014677.namprd04.prod.outlook.com
+ (2603:10b6:a03:255:cafe::52) by BY3PR10CA0013.outlook.office365.com
+ (2603:10b6:a03:255::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.17 via Frontend Transport; Fri,
+ 16 Oct 2026 16:41:29 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MW2PEPF00014677.mail.protection.outlook.com (10.167.249.184) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 16:41:29 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
+ 2026 11:41:22 -0500
+Received: from [10.254.92.30] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 16 Oct 2026 11:41:21 -0500
+Message-ID: <c90274b0-1488-4a76-9234-892c22b2c084@amd.com>
+Date: Fri, 16 Oct 2026 12:41:27 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/75] drm/amdgpu: dm: Switch to
+ drm_atomic_helper_connector_create_state
+To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Harry
+ Wentland" <harry.wentland@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ <amd-gfx@lists.freedesktop.org>
+References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
+ <20261014-drm-no-more-connector-reset-v1-4-586c9c026823@kernel.org>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-4-586c9c026823@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DSVPR12MB999171:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff057e37-ebee-4e50-9ff3-08df2ba3fc08
+X-MS-TrafficTypeDiagnostic: MW2PEPF00014677:EE_|SA1PR12MB7444:EE_
+X-MS-Office365-Filtering-Correlation-Id: f007696a-4fbd-4c3b-114a-08df2ba4544a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|376014|56012099006|11063799006|261009223027099003|10067099003|22082099003|18092099006|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: Dl/8P5ECA76f+aNMxvJ9DBs34NUC8eZ6z6BG2Oc8yKIhpHdx5roW02SJ2Se+Ozg9j4QPYlhN6zqwNW3vNN7ZP7hUKcDF3m8r9rU1xGX6xKEWnxPYcyNFE7Uh+gDqJ4NJs2sl2ordYBLOey14e4kGC7GlKc9ngk7ALBL1yTdWo2Z7P5gY3yeV4Vu+MSqXVYRZUbM26/4h8XnVTrP4uHQs1dJw5uQ4JhcquBQLsDpkQM9v0GslClxuSiIj6xfvRJyTB4dzfIBPgb8tAo61NicFpQfqaTr1GKLst0nPGpT7uvwG4fvzdXTpGYfpUbNE71qtDwhfv7KSnw66IrfuWrfNImJ6vA2YG/9laDJAWfGQgtXou7vj9cDrqdhK+jmZJqFu+HuRdzaTYIQ1bHZpXE+xa8lqshaudKtRGJiGz2BQdNccBIigeTsyY/IavBX8Oy8KLFsTHA77kz1HM174Lt18oQarIAueIhpe5mcrqOi8kvTCbeWeIOdVy9CStbE+9446EV3zMT/ONNB51amQGZPyobUYJz7CgocC4iVpJS8l16ftMQNayrC1ks6gsmXjI8BDsV0uhweX2ZEDn/YZ+/CzRhNGTm0dEIIwGDsyT8PzbT/dQyCcTt4ReU+6JemFzS/l8l4gYQNoyAXHcSi3SyAGrIlmHGmvgrcVsCTsFBOdRz8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18092099006)(18002099003)(3023799007);
+ ARA:13230040|1800799024|82310400026|42112799006|376014|36860700016|23010399003|22082099003|18002099003|10067099003|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: PnP81lq2hnx3DRIQu72mkZWzbtkcwmvULp5HonUtY5+cKUuCP/kkN4srAzzicEf5/QChcEUcyWkIlFJXAJNN+3pTT44kjxtvNdgj/0c6H1dVdrHAdso1DIXU/Qs1BDk3Csq36wUrerD/FWiiPbK+nwre4kQwriIfHsLjAi4qlW1L+Hk/gbZuS4eUsH91hAtmoQItNGrj4f0XuQLPBiKs+XlwmR+jHPw9pipOjTCDsIF5SlYJIKDmPjDZgUKdcc8LGDRlqkgDIR0TvLeX/T5cHRWCiyP1wx83aJ/0/0GqzF33kLJGLtZlcPaQbvSvlMIh0mwP+kgMwVRcItejLBByqc5nbem4Q/wZZBK5awVaalldJyHk/hdwZjvNt5H6KdqyUnYlF/dVGw9iDqSKj5aL4v8ASNxzIppQjmdMMiTEI7Bgjj5Ggrdk1xC7ehKk4EZiXmLJaDAmbPFA5WXaaostLQ0I6xfCSYPKQayL6uNbFzkjL4Ph3UFL8JPoym/QyUEfQ1ScHByiStP2IYIIU6LR2OR7aHNQMOtSANFWfW7PEqx07Kw+LHwJDNJavBkObJSiuI84Hk6OapX/zAQOez56ZAkDjQydmn7jOQBt5McTJQMvYahRtcm18/0stm2jy0qYKwkorPa/yx2jp0GGLhgseMzKIgjyobTRFh4WZKGs7BTycnsVBnDoK/AoBGfaxBMgOjtCKFWZmIKUiBu9M0JDXw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(42112799006)(376014)(36860700016)(23010399003)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnFBa2x2MW5aOHlRTG53bHRteS9zaFFIU3VoMFpGZnRGU1h0WGJ2M2x2YkRW?=
- =?utf-8?B?Nkw1dkk1ZCtVMjh0VktRa0VLMG0wK2x1a29LV0h1Z3l0OWdTRXNvZ0NGLzZS?=
- =?utf-8?B?SDVNcDlEYUwyTnppRU5kM2I2TmtjOWY4TWt3OTh0VDZaRzh3Z3BYQjlXYzZk?=
- =?utf-8?B?NUlNcnlhd1B5eFhXcDNncklqdkd1NXNGSkJoSWE3Vm1sUVd6SGtjUkNuWktZ?=
- =?utf-8?B?YmtERnlDQ3BlL0dTaHFWd0hGNGFtYkt0NG5wWkkrN01sUzRqbnZEa21zZCty?=
- =?utf-8?B?Rk1pVnFHdEVadXQ2OWZ4dnJFUUNEVlZ5akxpZVJlaHZwQkJtQlRlbm0vWXZM?=
- =?utf-8?B?SGlvekhnaTFSMU1vcDZJWTFNWHY1WWFzb0thSXV6MXRMS3h4ZmEwL1ZmWnNv?=
- =?utf-8?B?bmM0RGtHbXdqdGFaS0sxbU1NN2pOVlF0VndCSXRxZGxyUXVPSitOT2tPM3Zn?=
- =?utf-8?B?VUJGdU0xbGgxbHRoK2syWEhjN2I0bThobmVHV2FzMUcwekEvUE9JbnpWc1Fy?=
- =?utf-8?B?bkV0RS9FV3hnZmZXcXJ6MGFDVTBrcG9DUjZzMWNSNmUxbEFibkpTUDRKbnpG?=
- =?utf-8?B?dCtYZy9KeXc5M0xRNmtGaXp1VUJhb0Iyb2Yvc29TYnQwT3I2cWRiVWtma1Ro?=
- =?utf-8?B?SEFqcDhsbm1LZVEwRXZWVXJjQ2xZaVgzRDlqVlVmQXZ5TUxNNjZjb2ZQMU9Y?=
- =?utf-8?B?L3c1ZHlnR25PY3lqZE9obWRoZzdkaDg5RDhoY3JZMm9BM3Zacm9vcTc1enF0?=
- =?utf-8?B?bzBnaHczdFduUm9VaXJQeG1pMEVwM0hJRWFuSFpxRjRFZGJpc1pvNlNOTG1D?=
- =?utf-8?B?dW95QmsxWFMxR0NsVStOS0pQcGNXNER0bU5tRVVMeVd0ZlVHNm9IVzVHTkRs?=
- =?utf-8?B?c3pDRTY0ZkRWd01IVlN5LzVvcFhUZ0VGRWFKc0pBVktXQmhzQXBBZ3MvSjNL?=
- =?utf-8?B?WXVnYXJOTDB2U0ZQTitObm1MZUM5MHNwNzJWdDdDMDMweWRFYjlTUnZYNG1o?=
- =?utf-8?B?Tzh3ckprS3NlMkhwWlU1NVZZckdWZmtUNjAwVGdXdDlNdVN4QVBpN3p0QmxM?=
- =?utf-8?B?SWtNWGhTWTY1STNSTUVMNUx0K2FjSk9MTGMwZ004dE0wR04xbTlVZm5JZ3d2?=
- =?utf-8?B?UjZZT3RUTWxRSDN0dlgrODFjZ05yZGV1bDJkTSs1ZkhmMXVGT2lZTDdZdWtq?=
- =?utf-8?B?bCtHdGkzS0F5dlJkdzdhV09NclUybkpFdHRmNE91R2hidC9SL080a1lwMnhl?=
- =?utf-8?B?M2tVRGRpSndMRlZqTktZUmNPdHdEZ0lSVWRQVEVWd1c5eTRHUVVxYVY4T0hw?=
- =?utf-8?B?QWg4bmE4ZG5FdjlOcU1HU25ESjQ0OXNaK2pCakZ3Z3RxK05YaWxySUN3clNj?=
- =?utf-8?B?dDU1L2V1djlOSHkraXBQV1BzekN6cGFCRDJNVWdubVNOSE9qSmsrMHF0d3BY?=
- =?utf-8?B?cmZBdU1ZSFdROTc2N0V6Q0FWODUydG5TSmZ2aExJWjhQOHFacisrTWQzMVNt?=
- =?utf-8?B?MUpzL2Y1YVRndEQ3dCt1cEFZekhVUGQ1MFQ3YXRCV09tZ0tLREJibXB6aCta?=
- =?utf-8?B?T25OMVVXMHBNU3Y2VWJCYnk1WVBRYnpxSjFUY2FtYXRLTkF1VE54aDFsUGdn?=
- =?utf-8?B?VUZnTGZid3JXcFBNRTFaMWJyZC9YMWdVTUp0eldhOVdPOFl0ZUEvVkxaTkhk?=
- =?utf-8?B?MWUyUjAxS1ZkS2tMOGxrK3RoSUVadGRRQ1hWQmgrTmNuS3lIbE5FS3MzbzRM?=
- =?utf-8?B?TG90VW5qenpuekhhSEZnTG9ERGQvU3NyY3RLTDZ3RTBrMDBHRDl5NTNxVUgw?=
- =?utf-8?B?TUsvTitWOTFPdFNCVVZHNWxVcU1iTGZnMU5jcjJCd0NXOFlJUHhIMndNTXEx?=
- =?utf-8?B?TjM3alZGVWwvYWFySm05RWhMUVlkTWUyYzVWWkJBN0VuNWMvRDIvMGRWbTZi?=
- =?utf-8?B?Zm0yak9EL1NEU0owZThZWGNzWWMyZ2o3SmZ4NG0zaGtpb3NFcWFrUjZDNStV?=
- =?utf-8?B?ODZpQi91K25uVVlXSk5YTXhiNlhSSDFOdzFjNzJlWlphYkFmVWxxMDRnZ2la?=
- =?utf-8?B?MVMyTTVMNTZqUWUvNHI0QnVwTGg5UnpxSWdzeXJSektZcDJFZ0xHaXQ1c01s?=
- =?utf-8?B?K0k0ZGVBcVAyU0J5SEs2OFdEbUZHb2UxY1RSTHozZ3lTcDNBOS80bHhpNnh6?=
- =?utf-8?B?Wmt5T2F1eldpZlR4K2F2UHZ4N0JFOVNUMyt6aDJYTkN5NFJ4ZHFkVUZwV3Ju?=
- =?utf-8?B?akZUUVFML3RMbmdJM2FnUGRSS1JQcVRFN1ZsVXJOaGxsdS9DQjMraktZYmtL?=
- =?utf-8?Q?9ftKB95uEH5+EnuyXm?=
+X-MS-Exchange-AntiSpam-MessageData-0: xNQfIWaXGuBHrY24H1Pwr1hCy8w4hCdiNNpcnARNkcQJue1/KCrDMtJVnXmE6hoXremg02x0r0PcNv43gnIsyRJsN9LjXDAJY9jHhcWsLAmMFMHULH48pGY5NVlV1m+jbJBkoc/8dk82AuJwLymeTQnjqO5DPb7uGEBYAJVURQye5nntIQqqHemZvDdAm8CCPrseOMVpEkh1mHgmxLe18GDr3vFx4BWUSFxGffJBTbhKqZIwYehyK8jH0629z1m9J9jaCU11dc/1mVIv++ntfk4IraqKDwtDAWZepG26VWuWVqmEEaXlHxX+p7M1vMobCDkvG5ILd4z8IvgSUXSEHP7D22pKs0Ci8REUewHGBCtrnQken3vW7oDRt+Cxt0hDS9AgOa5zM6j3BQCBS6fmZGsxMMuAa1/j879/betkQRxZsV2Jmd4wSjznDESO2gCV
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff057e37-ebee-4e50-9ff3-08df2ba3fc08
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 16:39:02.0163 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 16:41:29.7292 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f007696a-4fbd-4c3b-114a-08df2ba4544a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TTtNwrGZ7ehLUYoGoMELa3r93KHq3sE727/5QxdN0/Zo17hwR3jp4fkUlbdRTRdSI5aEDrwgODfg4gWUW+WHXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999171
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MW2PEPF00014677.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7444
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,72 +116,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Arthur,
-
-When AUX already holds the DDC, dal_ddc_open() fails with
-GPIO_RESULT_ALREADY_OPENED, and the HPD path then calls dal_ddc_close()
-on pins it does not own.
-
-Please try whether the following solution fix your KWin issue?
 
 
-diff --git 
-drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c 
-drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index ad1a499b0d9d..1f53b33fc875 100644
---- drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -2604,8 +2604,6 @@ bool dp_is_sink_present(struct dc_link *link)
-
-  	if (dal_ddc_open(ddc, GPIO_MODE_INPUT,
-  			 GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK) {
--		dal_ddc_close(ddc);
--
-  		return present;
-  	}
-
-
-
-On 10/7/26 11:47, Arthur Liberman wrote:
-> dal_ddc_open() uses gpio->pin after dal_gpio_service_open() installs
-> it. Close clears that pointer. HPD sink detection and a KWin atomic
-> check can both open the same DDC: the check reads DPCD for DSC while
-> the HPD worker closes the pin. The load of hw_gpio.store.en then
-> oopses at offset 0x28 and kwin_wayland exits with IRQs disabled.
+On 2026-10-14 13:26, Maxime Ripard wrote:
+> The amdgpu: dm connector implementation uses the deprecated
+> drm_atomic_helper_connector_reset() as its reset hook.
 > 
-> If either pin is gone after open, close what this call holds and
-> return GPIO_RESULT_NULL_HANDLE so the AUX transfer fails instead.
-> This does not serialize the two threads.
+> Switch to drm_atomic_helper_connector_create_state() instead.
 > 
-> Cc: stable@vger.kernel.org
-> Assisted-by: Cursor:xai-grok-4.7
-> Signed-off-by: Arthur Liberman <arthur_liberman@hotmail.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
+> Cc: "Christian König" <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Leo Li <sunpeng.li@amd.com>
+> Cc: Rodrigo Siqueira <siqueira@igalia.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c | 2 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c | 2 +-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   | 7 ++++---
+>  .../gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c   | 2 +-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   | 2 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c | 4 ++--
+>  drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    | 2 +-
+>  7 files changed, 11 insertions(+), 10 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-> index 95f8b7c7d657..a3145cd82d8b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-> +++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
-> @@ -577,6 +577,17 @@ enum gpio_result dal_ddc_open(
->   		goto failure;
->   	}
->   
-> +	/*
-> +	 * dal_gpio_service_open() installs gpio->pin, and close clears it.
-> +	 * MST bring-up can AUX-read for DSC while HPD teardown closes the
-> +	 * same DDC. pin is NULL again in that window; do not dereference it.
-> +	 */
-> +	if (!ddc->pin_data->pin || !ddc->pin_clock->pin) {
-> +		dal_gpio_close(ddc->pin_clock);
-> +		dal_gpio_close(ddc->pin_data);
-> +		return GPIO_RESULT_NULL_HANDLE;
-> +	}
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
+> index 040a7a9c0335..9d83b7b1ca80 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
+> @@ -25,11 +25,11 @@
+>  #include "amdgpu_dm.h"
+>  #include "amdgpu_dm_audio.h"
+>  #include "amdgpu_dm_kunit_test_helpers.h"
+>  
+>  static const struct drm_connector_funcs dm_test_audio_connector_funcs = {
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>  	.fill_modes = drm_helper_probe_single_connector_modes,
+>  	.destroy = drm_connector_cleanup,
+>  };
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> index 5221050dec2f..6e9ee3c93943 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> @@ -30,11 +30,11 @@ struct dm_backlight_connector_fixture {
+>  	struct amdgpu_dm_connector *aconnector;
+>  	struct dc_link *link;
+>  };
+>  
+>  static const struct drm_connector_funcs dm_backlight_test_connector_funcs = {
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>  };
+>  
+>  static void setup_test_connector(struct kunit *test,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
+> index 29a513dab9cd..e47b4dd210b8 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
+> @@ -173,11 +173,11 @@ static struct amdgpu_crtc *dm_test_alloc_crc_crtc(struct kunit *test,
+>  
+>  	return acrtc;
+>  }
+>  
+>  static const struct drm_connector_funcs dm_test_crc_connector_funcs = {
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>  	.fill_modes = drm_helper_probe_single_connector_modes,
+>  	.destroy = drm_connector_cleanup,
+>  };
+> @@ -652,12 +652,13 @@ static void dm_test_crtc_set_crc_source_dprx_no_connector(struct kunit *test)
+>  	KUNIT_ASSERT_EQ(test, drm_connector_init(&adev->ddev, wb_conn,
+>  						 &dm_test_crc_connector_funcs,
+>  						 DRM_MODE_CONNECTOR_WRITEBACK), 0);
+>  	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
+>  			dm_test_crc_connector_cleanup, wb_conn), 0);
+> -	drm_atomic_helper_connector_reset(wb_conn);
+> -	KUNIT_ASSERT_NOT_NULL(test, wb_conn->state);
 > +
->   	/* DDC clock and data pins should belong
->   	 * to the same DDC block id,
->   	 * we use the data pin to set the pad mode. */
+> +	wb_conn->state = drm_atomic_helper_connector_create_state(wb_conn);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, wb_conn->state);
+>  	wb_conn->state->crtc = &acrtc->base;
+>  	/*
+>  	 * __drm_atomic_helper_connector_destroy_state() drops a connector
+>  	 * reference when state->crtc is set. Balance it here since the CRTC is
+>  	 * assigned directly rather than via drm_atomic_set_crtc_for_connector(),
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
+> index 51c3995de76d..a369a3cbd4af 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
+> @@ -4104,11 +4104,11 @@ static void dm_test_is_dp_sink_present_queries_link_service(struct kunit *test)
+>   * drm_edid_connector_update(), which needs a fully initialised connector so the
+>   * EDID property blob is published. dm_kunit_alloc_connector() only fills in the
+>   * device pointer, so build a real one here.
+>   */
+>  static const struct drm_connector_funcs dm_test_connector_funcs = {
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>  };
+>  
+>  static struct amdgpu_dm_connector *dm_test_alloc_real_connector(struct kunit *test,
+>  								struct amdgpu_device *adev)
+>  {
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
+> index dc7d94f75ff4..3265b50abb46 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
+> @@ -479,11 +479,11 @@ static void dm_test_destroy_hpd_rx_wq(void *data)
+>  			destroy_workqueue(ctx->wq[i].wq);
+>  	kfree(ctx->wq);
+>  }
+>  
+>  static const struct drm_connector_funcs dm_test_connector_funcs = {
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>  	.fill_modes = drm_helper_probe_single_connector_modes,
+>  	.destroy = drm_connector_cleanup,
+>  };
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+> index 382eafab2d43..10a213c36af4 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+> @@ -1160,11 +1160,11 @@ static bool dm_mst_test_dp_get_max_link_enc_cap(const struct dc_link *link,
+>  static void dm_mst_test_connector_destroy(struct drm_connector *connector)
+>  {
+>  }
+>  
+>  static const struct drm_connector_funcs dm_mst_test_connector_funcs = {
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>  	.destroy = dm_mst_test_connector_destroy,
+>  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>  };
+>  
+> @@ -3698,11 +3698,11 @@ static void dm_mst_test_pre_compute_configs_no_recompute(struct kunit *test)
+>  }
+>  
+>  /* Tests for compute_mst_dsc_configs_for_link */
+>  
+>  static const struct drm_connector_funcs dm_mst_test_dsc_link_conn_funcs = {
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>  };
+>  
+>  static enum dp_link_encoding dm_mst_test_mst_encoding_format(const struct dc_link *link)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+> index 03036f906385..e1e7d4c29966 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+> @@ -385,11 +385,11 @@ static void dm_test_wb_atomic_check_invalid_format(struct kunit *test)
+>  /* Tests for amdgpu_dm_wb_connector_get_modes using DRM mock */
+>  
+>  static const struct drm_connector_funcs dm_wb_test_connector_funcs = {
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>  };
+>  
+>  /**
+>   * dm_test_wb_get_modes_returns_modes - Verify at least one mode is returned
+>   * @test: KUnit test context
 > 
-> base-commit: 41505ac433cc4c5179deee8860d197b04f6d1c1d
 
