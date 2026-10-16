@@ -4,94 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9E84CC6B38
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 14:29:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E7ECCC6B38
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 14:58:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5778F112884;
-	Fri, 16 Oct 2026 14:29:26 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013063.outbound.protection.outlook.com
- [40.107.201.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5872B10E259
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 14:29:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oRyiKTL4GftJRJfxnOF9lY0EfkzALHY5ddErVGDOtjpQS3bMfG0uq+63aTijqbC5uh++SxFvXhjE3pVnG7X3aoOjab5wDe6vU35JesZJx8hgi689p5FxiUYmrIgJptHkdS511yMvwQKZ/mCr/6pQus7yJ98t4DRGEDVXqaSNMXV9m6k31duFyFP6BRzwmu31jr4hYqTzet2DCEVoxa+yagZ2VN2a+2thMAVj125bZpDsI/UYRc0lB8lCxfbojr51grTEpyw7epPVvJmsEdRN4/qnOsfPDVoxqM8A2H9aoJtZRexjKMJ519ot7rl1fzW8Ol19Wtp6IeL6b9Moo1bEAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hs3jVfy0gZNL4MqrSAVklCpm44/cWSKS2LPSxR2wKOI=;
- b=DiQTdU2qon7kiGGJQ8GkAjJLIGh+HaaLW5/XHWMDvkCSaG1OSV48C7nnGp4DSlhSVq+CB8KVian0yNnYiCwxbKUi646bvUxLgnOswFWuYVhT0hhr3MaMyry63Qx7fA3bVd8Lt/AcoVBqIcTNTaGjMb9TMOB9xET+083wgdOZ794qixpVXeigdiOVmBNaXuKWMCXG75jovgjcgwdc4ZZ+Jnm3Vq8sFuPQCTo0IT09so2uHjUZnUVV5INjgnzkm5/GYv2jl+ld8lQqpVcpQZhhcPh3HdufgSk2Hi2DqWmwShGqxbDPnwxwfzd7ByGZELW8xlvZIZjzsAWNsRGsFCVXPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hs3jVfy0gZNL4MqrSAVklCpm44/cWSKS2LPSxR2wKOI=;
- b=ZnvQWRfF2uoPZJEvCgJUmOV8GSQGQsm/PRucNJweecy8zgIc65ZNzF3plEDWK4M6hmbppCKkF0FSIRhWjp2u6eg2FzVdkMbjfHVx5lHOJKjfjqoSAzg1b6y9oVCY2GxET3eCl7vpe4btT0zMhKl44i6yGWZJjQw3YBHJr4Grylg=
-Received: from SA0PR11CA0152.namprd11.prod.outlook.com (2603:10b6:806:1bb::7)
- by MW4PR12MB6949.namprd12.prod.outlook.com (2603:10b6:303:208::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
- 2026 14:29:12 +0000
-Received: from BN3PEPF00022BC8.namprd05.prod.outlook.com
- (2603:10b6:806:1bb:cafe::f) by SA0PR11CA0152.outlook.office365.com
- (2603:10b6:806:1bb::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.17 via Frontend Transport; Fri,
- 16 Oct 2026 14:29:11 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BC8.mail.protection.outlook.com (10.167.248.214) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 14:29:11 +0000
-Received: from 0yonsun-linux-dev.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Fri, 16 Oct 2026 09:29:03 -0500
-From: Yongqiang Sun <Yongqiang.Sun@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <shaoyun.liu@amd.com>, Yongqiang Sun <Yongqiang.Sun@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: disable mes_dbgext by default on mes 12.1
-Date: Fri, 16 Oct 2026 10:28:57 -0400
-Message-ID: <20261016142857.361881-1-Yongqiang.Sun@amd.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 170F110E039;
+	Fri, 16 Oct 2026 14:58:08 +0000 (UTC)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C853010E039
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 14:58:01 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-35e8253292cso239315eec.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 07:58:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792162681; cv=none;
+ d=google.com; s=arc-20260327;
+ b=rdhEtaltwkDFPB/jVPZrzhudTFc8uOFWOgvviKOic1VqBiDwrOvJOV3lXEZJLwqppg
+ RttwsVK0DGguzlEItQThBsSoJ6efgzM+Ilfs4UPNQ1fqx1lKwCkwQhWxtlN92497NR6/
+ hU7uYImE18a9vyk1kktcHelgjrK4Jj0hJDTgWAX6GBZJtyM05mL32r3O0+QocW6T/1eQ
+ KUJ1nI4nRCs3i8gmzEt8HnbC3Cs8WpwCWzs7NJHSjDJz7MiNETn3f4e8JAs+GPNp3OoS
+ FNGXSoBLqFmeefIpr/ihFcW4o3v1OIGWzX0RNWwkxWuVyJAgCxj6zwzslx8tKOe+8m5t
+ /ItA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=j/iWwLN9t4lTO5krc7NmCFonRPAWDO2N0ndljngv4pk=;
+ fh=x61/gd19OJmIC/LYqSHjcApLDhMavCYWM+ZyWS4TK4k=;
+ b=ikfeeJt4FnMcfeBTYftx+k3Vu3M33N9aHZnMUFozINQ/wk4BHm8r41oBVnXQ1Ij1it
+ /eh4cVZ2XYxWFaR4bl8N2w1EIKQxzQBEhn10m/u7A09l1xFqNDXp/13Rhw2G2VIHcxLS
+ teg1hEFlF/gy6+J/6BCgRCxyDjt7xwDexkWg+3wq038BN7TGRRbY6i+ETC71o6PGtmgn
+ ejO6jabMHtZmfWxrb3rw0NJbyKQBS+ZKkjOKRUt/DFEfKze80T7UKKofPhEYD/7zsCfQ
+ WdfMkrDsi0Daz97xSYITyq+RZ4CIy056aVl621bzlUqGo6KaELoOICBf1vvXpxG8CLUq
+ pFTA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792162681; x=1792767481; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=j/iWwLN9t4lTO5krc7NmCFonRPAWDO2N0ndljngv4pk=;
+ b=Z1g2rdlB3kWF1Vn20LKlja6KARjHCmMrFOTd8y57m7vx2A3mmOzDr5Unw6JPCQZdlv
+ JhoyyLc5g+MvZgjM6UriUzSZf06BNQaXP5BBRPPgs1qutbmb9vGerF4coDai/Aw7M7Mk
+ 9cmegBtsFObvDaKid2khfmPh5Rq32H0IpI+g4Px1rnSR9G5cUQMYMJz3hlnLOWSCyFgq
+ ivCUP9UGAE4EfrkrBwpOUCPgaG2yeSLUuhl6+CeiMiFO2f+8isKCBxg7dNzHYYMGaQnA
+ YVsVRWQskODXkw17npwplzOW4tq4vXRqnuz+VcrdpSsrk49jpXG0XR0aCXdlto+w5ycU
+ WqMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792162681; x=1792767481;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=j/iWwLN9t4lTO5krc7NmCFonRPAWDO2N0ndljngv4pk=;
+ b=d5/zRIR+ZaTEdYMs1/U9fgv2WbINp2p5Tar51vFY571ZxdomFL1h7Qr4hoNkM0fngM
+ 6qVjVlPLh6/g6ZBHLCQIaHMszjvCmsrtNTpAUwb+UsYxn4iaiUOD/bgazL9i2+ccYlx0
+ trPEexJuqcnb+wpKyjg8QfeqIE6GryTxFSjY4L6B0+p1MImZSUlGN0eVDQUORc5SvrQS
+ dlKK00ZT2sv1/fXpK06FiQSwUhvf1gtB4xHoD+j0N8D+AHaxlzbVCWcSQftmRNiXN6yf
+ mXiyeIfMD5HsuDL7LbH5U5r4BGjshmG3TtsTEXpiWg8CQBigHKWOz697gFofCcKUDktn
+ JvXA==
+X-Gm-Message-State: AFq9FYLy3t+cIoy0YMoljCKv1+0aDlBJEKamLaoqDYlYicrkyMxILS2B
+ onjucDeU1VSVr07/azjKItrH83Qt6LHmW5cr7c8FC9dsvy/wLPTvpQN8R44Zi667cCEZD6MaDEw
+ Hpd2IJkkcNXKVRAAyhs1FLATkLyB52c0=
+X-Gm-Gg: AYBFou1/5h/BKi0QNOK7a2Oyjo/LdyWUQR5uDfLT8Xw85n+eyawSO5CLca1qBqylJcI
+ 1Eyda6pnDSg2/JBFN/FHcdwAYJ1+WyXTpw57i9UDelWcVjiU9A79mTezU0XQH1WcQgd6OJd+bga
+ v4zoDeIRaL9dDWXYyHjf+/95ZxBk2jzHA9AXbH6q67unI1NH6bqOFiHeLeV9djtZ7uci21GdlPk
+ P1FgE65orE+vh+axBRaqidC4e9TNSOQqYx/abTySqVnTlavGE4bCk9toZ812NWkZk7SJ/KErCcw
+ CK+s4NvLw8BrpD4RAzzoskbYAFEnT5KX92wVIykkupLKpPFlLGOQXqjy+g094j4ruclHUFreeGg
+ 3ij8rN4WAcWQ4XfnH8IBmhxkrIrdm5igcwSOKIKBFHg==
+X-Received: by 2002:a05:701b:4212:20b0:12d:c389:ae54 with SMTP id
+ a92af1059eb24-18510d6790cmr356931c88.2.1792162680594; Fri, 16 Oct 2026
+ 07:58:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC8:EE_|MW4PR12MB6949:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c536bf4-76fd-4019-7068-08df2b91d8e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|18002099003|10067099003|3023799007|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: tstBq9ZuAZXRxMUoW2PcKnpmYPG/oNTppc8fw5XPkU7zWYjuciDdbu6iYbbn+Tg+pKdGvZMIrh4hInQvyVPnRmds5GcRJOom+IEQ5bAz2jysge5UQu87b51YizQaz38bb1uZ3ui6Pbtpoi0vik0/yAsv2rYde5fAhoYtd3jxzCGmkdAmmwRmnC17eCpCANDqS5OjfY3JSCSblNF/X40d7VyP68RtVQrn/otoH0KVvPSG4x7rbKPFVVFM0KrNlOYOPIP+J5mAvToAQASPYmEKMuwEdFWflkbuUqF2jfgXfEDhdy9XyslFW6Jc6sG+5zCIk+CUpK5tRlNrD+zUWKVJdGgLxU/96UmhVQ8ii6S3r3Dub5cbisLLhoLjYYOKhPaaMTE1uiWGKdA5LgGTeL9yE2SBONIFSEvxQGvawPq99JJMTnv43K5E4BbVFfHQfUxnphbQXx1wg3UiJ8sYT4t5iVb5/Xha96xly/H4Ss0qEGggpBVHF4zDGfgRFKFYmfeeO9tga3B7MRk50OtVOHqZu1lz4Vitwq2xab2fDJSskvZpIrhQt4lchaFPT8/WBuVeY1p6fvc2d0agezQszbjMQHd14Q7G357yEf3MDTa/a33yOcTdcghCYPnOOSDRLj0caY45BQKjUTBSqGH4MXsq/JC1I3nBehHwodVvu5xUB431cVOdBQ4x6cudh+t2TupgRsQqw6a03wcIeISo1McOMw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(18002099003)(10067099003)(3023799007)(261009223027099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: a/O1zNEtUCm9fE97oMHpbTdVTxxE8OGtEc3YzvcpRXTnwacK3MGWZz3ZCj30rzvTLmu9jL+bKIgw/1ylB1f2ci91jYeL6Nj+QvTIQhMu1cnQB5N51/1Xl3FRC/y/7i89TFqUFnvEIEEaw1wXj7yehOz5E7ZUGtorkCqTpw9lba2WQF2+rqB8LKv4a/AteRUrzSCDEy1BOmm53LQifHHcy2NPAGvF5ayLbh6ZMKX9dVwi32b0wXe5AbgrEYmjM9yL+fzrKwbkaCxjjkvMP/UBzDZm/ROCdWeQWcGtZbe9URX04x15FY6jYy7dnrD4la1of8UOgdc+QMcShnik2GEcEsDCJB27PcBR7P+n9fFyxdMEpB3/rhXKPp9eoJHdWF4sLisry2CgoAZHYXE+ABT1du/7PVNko5rzo/zjXtrchp/CKhcY0xLD6Qt06xUnNEZC
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 14:29:11.8569 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c536bf4-76fd-4019-7068-08df2b91d8e4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BC8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6949
+References: <20261016-amdgpu-pro560-quirk-v1-1-3e5d3fe5ff29@yandex.ru>
+In-Reply-To: <20261016-amdgpu-pro560-quirk-v1-1-3e5d3fe5ff29@yandex.ru>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 16 Oct 2026 10:57:48 -0400
+X-Gm-Features: AclHuK9Y9nbFfxvMfpHnk-Fsti6gcaykPCkUDQK4L2Imfe2ZdLE1ZmVNTie-tNU
+Message-ID: <CADnq5_Nk2vxNWNPFs33GA2_jssKbPi9+ceOVqKyfjP-ZFx86dg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: reset VI ASIC on MacBookPro14,3 with Radeon
+ Pro 560
+To: dolph-in@yandex.ru
+Cc: amd-gfx@lists.freedesktop.org, 
+ =?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?= <fbeltranmillalen@gmail.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,37 +104,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-mes_v12_1_sw_init() seeded an 8 KB dbgext buffer,
-so the log came up at boot with no module parameter.
-Leave dbgext_runtime_kb at 0 to disable it by default.
-hw_init() still starts the log when mes_dbgext_buffer_size is set,
-and debugfs can still enable it at runtime.
+On Fri, Oct 16, 2026 at 10:46=E2=80=AFAM Sergey Armodin via B4 Relay
+<devnull+dolph-in.yandex.ru@kernel.org> wrote:
+>
+> From: Sergey Armodin <dolph-in@yandex.ru>
+>
+> The MacBookPro14,3 also ships with a Radeon Pro 560 (Polaris11,
+> 1002:67ef, subsystem 106b:0179, revision c0), which has the same problem
+> as the Radeon Pro 555 added in commit a22e5e4f2ebb ("drm/amdgpu: reset
+> VI ASIC on MacBookPro14,3"): the firmware leaves the framebuffer at MC
+> address 0 at boot (MC_VM_FB_LOCATION =3D 0x00ff0000, 4 GiB of VRAM), whil=
+e
+> a re-POST through the VBIOS ASIC_Init table places it at 0xF4_0000_0000
+> (0xf4fff400), so a GPU reset, or the S3 resume described there, moves it
+> under the driver.
+>
+> Add this variant to the VI reset quirk table.
+>
+> Tested on a MacBookPro14,3 with this Radeon Pro 560 on 7.2.5 with
+> commit a5be7ad8f5f0 ("drm/amdgpu: reset VI ASIC on MacBookPro15,1") and
+> the 555 commit backported (the kernel also carries distribution patches
+> and machine-local workarounds for its BCM43602 Wi-Fi and T1).
+>
+> Without this entry the framebuffer is at 0x0000000000000000 on every
+> boot, and a GPU reset forced through amdgpu_gpu_recover fails: after the
+> re-POST MC_VM_FB_LOCATION reads 0xf4fff400 while the driver still puts
+> the GART table at 0x0000000001B00000, the IOMMU reports DMA read faults
+> from the GPU, and the SMU firmware load fails ("SMU load firmware
+> failed", then "GPU reset end with ret =3D -22"), leaving the internal
+> panel black.
+>
+> With it, amdgpu logs a PCI CONFIG reset on load and the framebuffer is
+> at 0x000000F400000000 after both cold and warm boot.  The same forced
+> GPU reset completes ("GPU reset(1) succeeded!") without SMU errors or
+> IOMMU faults, followed by two "ring gfx timeout, but soft recovered"
+> messages, and the GPU came back from 14 S3 cycles (4 lid close,
+> 3 systemctl suspend, 7 rtcwake) with no amdgpu errors; the internal
+> panel was back after each lid-close resume.
+>
+> Cc: Francisco Beltr=C3=A1n Millal=C3=A9n <fbeltranmillalen@gmail.com>
+> Cc: stable@vger.kernel.org # 6.12.x
+> Assisted-by: LLM
+> Signed-off-by: Sergey Armodin <dolph-in@yandex.ru>
 
-Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 9 ---------
- 1 file changed, 9 deletions(-)
+Already fixed with this patch:
+https://lists.freedesktop.org/archives/amd-gfx/2026-October/154973.html
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-index 65adbf5541e4..a31da8d12fb4 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-@@ -1583,15 +1583,6 @@ static int mes_v12_1_sw_init(struct amdgpu_ip_block *ip_block)
- 	adev->mes.kiq_hw_fini = &mes_v12_1_kiq_hw_fini;
- 	adev->mes.enable_legacy_queue_map = true;
- 
--	/*
--	 * Enable mes_dbgext by default on mes12.1: seed an 8 KB runtime
--	 * request so hw_init() -> amdgpu_mes_dbgext_start() brings the log up at
--	 * boot with no mes_dbgext_buffer_size module param needed.  The
--	 * collection mode still follows mes_dbgext_options (default bit0 = 1,
--	 * interrupt-driven).  Both module params continue to override this.
--	 */
--	adev->mes.dbgext_runtime_kb = 8;
--
- 	adev->mes.event_log_size = AMDGPU_MAX_MES_PIPES *
- 				   AMDGPU_MES_LOG_BUFFER_SIZE * num_xcc;
- 
--- 
-2.43.0
+Alex
 
+> ---
+> The kernel logs of both forced-reset runs (with and without this entry)
+> and of the S3 cycles are available if they help.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vi.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu=
+/vi.c
+> index a0435fd..ac26641 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -1398,6 +1398,7 @@ static const struct vi_reset_quirk vi_reset_quirks[=
+] =3D {
+>         { 0x67ef, PCI_VENDOR_ID_APPLE, 0x0190, 0xe3 }, /* Radeon Pro 555X=
+ */
+>         { 0x67ef, PCI_VENDOR_ID_APPLE, 0x018f, 0xc2 }, /* Radeon Pro 560X=
+ */
+>         { 0x67ef, PCI_VENDOR_ID_APPLE, 0x017a, 0xc7 }, /* Radeon Pro 555 =
+*/
+> +       { 0x67ef, PCI_VENDOR_ID_APPLE, 0x0179, 0xc0 }, /* Radeon Pro 560 =
+*/
+>  };
+>
+>  static bool vi_need_reset_on_init(struct amdgpu_device *adev)
+>
+> ---
+> base-commit: f307e9d20cc7bd6dd54a3fd8c2af767dd7ef2931
+> change-id: 20261016-amdgpu-pro560-quirk-7d51df1c2649
+>
+> Best regards,
+> --
+> Sergey Armodin <dolph-in@yandex.ru>
+>
+>
