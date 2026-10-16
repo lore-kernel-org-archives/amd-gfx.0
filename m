@@ -4,123 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD19DCCA462
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 09:02:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60A4ECCA462
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 09:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C1211126BF;
-	Fri, 16 Oct 2026 09:02:24 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010014.outbound.protection.outlook.com [52.101.56.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B089D1126BF;
- Fri, 16 Oct 2026 09:02:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0065F1126CA;
+	Fri, 16 Oct 2026 09:06:10 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010028.outbound.protection.outlook.com [52.101.201.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 348B91126CA;
+ Fri, 16 Oct 2026 09:06:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TG71OT3OPApJVXGMNyEOM8CL9TrJmMC3O84X0KTpsJWEr1BaygzOTQrulCit+K043BxH7wMZCqMauV6qmB9GoegcMB+sDCHI7u6etnC2fh5pkRKPPa3+ovq5Jma+WmAv6Uj9akpq31AmRxbBfCm7m52jljQf2nDLMoFG1I9jACOJnHv3IMV4H7qxT2lYxgUjqhAeLfmdMblDrVDiQG1lbnQXuhOG1cEdUfWgYodv2OJpM0WrjNarVuX3CMzBGTRXgw32T+NxZkc6gRA3qK5LohzxkON+On93rLuq1zbzMtiOHm5CXvdVDUr/TTbq3enBKcoqTu2f5wVTwi+hcGGxfA==
+ b=XPmoS/71hk8zhAP3HMA0pJIQ9FGIDC2UrMAPGrNYy2F4iIfkcD6USnCzK++elX1Psc5xFD6Y62rbh8czr5DMO5QwoLWrssi1OT0Zfgb/5ei/IefxDPzV/p19419tusZNCR9mAPZp7kOb0DrtgYBcHH9x6bZRGyrxa5fb2gPh0OQ+QpcQA+w3QTxTciS5x42kIFNL9K6Zt9TVPtoosgMRmKcOsGigeRQfNBLjVrJjsLTQw3Cefbsj+LY4w6ZCXHwo6EV385cEU+b3VteWE6OrI5sxHUN+6LxhMAKDlol4saFCx7CvnayfgNDkRnQyGZunSVUmCo9NSNOjEaM0Mtb2pw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4scvDB8ll+9R/FnZHZpb1lpZPH7EVYrvzotOgGGmNts=;
- b=iE82VFQK5/9EEYl1JFBfEYdC/fdlITBYWN7J9te4oGSwAGl9et12LcKINSVN4+b5+bHegNSroVlzT/89XvTbe/bjXA949vMQsDt4R3F4lNlqYPK51MrTW9HETrg8whF/LFtdtUOaAb5yAIjjpyFQCUBGHmWtKqGLrVKx2/37k/18y8gwQFwGc2KgvRCxT7aRFKKLXA1ANoHVrA/R9VE/Hr5RUYpwe130B43XlNpK+KOlzHlWfoAduESVmqK1LrVC8cioDga0TuP7hjTZclmr2/bYdiiANFyJaiJyd4LPWG2YBL+Hu6o8dc6K5fYT/EbtS/VqBs1HNDIEh8QZF7mMPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=xH9QT2wLxpjrZ+fXorE/43hMEbFrgH1iLOYDUqRFM8g=;
+ b=spPc8y8NKCOtExMMLP9Y9eQr0SNT8PZhMI78NFfIYs8zYB9tglV1+bjvYkF1WOk1bgRsB2F9j246X3DNCLOZjPmdU0S2YHv/CttAkHr7Cxd7OuABgLgoT++s4n+sH1OVrFIj8G99kwvz78OwVZ7JPgul5lD6P1KS2BdWg4RNE5MCs9r9rsXDXyiZvHmc3m4NgAS9TbkpxzfGKcwuuuhs5fVgu6LbI8Q/HM/8lXlsf8wvnsojGR+8ey94Vbm+L8CfgswYpeH5Wk71/HYYuY8EgdSO8XDreyfigi6NOe/mW6JXeq4xS4SwhjWOGRK/kztooVrbYxalI2To5BTSfdK3Lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4scvDB8ll+9R/FnZHZpb1lpZPH7EVYrvzotOgGGmNts=;
- b=PJlZcx7MVxKhqJgepGrdIDJzr+Hc0o6IIDrNY1xepB/l5VlVFzpoEprcrwWIzcuRaRG/GwEmmxJp50Km7xg0p5+/2yuIy2qTtY1SwFZx5OYTJ0rfkSfmAvKjiiiwRX9Mc9epjHHvU5LfDK+s9AVjdAzZ6BbdZVh9lrMaWEqH1KA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4076.namprd12.prod.outlook.com (2603:10b6:5:213::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 09:02:14 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Fri, 16 Oct 2026
- 09:02:13 +0000
-Message-ID: <9114d572-62ef-4885-bb29-d40d37cf2d61@amd.com>
-Date: Fri, 16 Oct 2026 11:02:09 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: wait for pending page table updates before
- switching a VM to CPU updates
-To: John Fisher <jfisher84@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Prike Liang <Prike.Liang@amd.com>
-References: <20261008204517.392180-1-jfisher84@gmail.com>
- <c64df6fa-6734-4c66-8f8b-52e5bd118cdb@amd.com>
- <CAC7wNSChWJ3nYY4GPT0Av+CDiudQ346hnxE_U0bfNLVvHdbozw@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAC7wNSChWJ3nYY4GPT0Av+CDiudQ346hnxE_U0bfNLVvHdbozw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0061.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ bh=xH9QT2wLxpjrZ+fXorE/43hMEbFrgH1iLOYDUqRFM8g=;
+ b=LkbxKakY4p7JikpIL2R0GQOdMXeNETp3kQhPLmPN61rHAwSDsmjRwQiQqvmjBEPV4apqJPSiE6GzLqpUStbd+9d7+IhhgaaPlZ10ATZe32FSkX0TE4L89bX1aK4XaAHD/dhQvjJgKMueI43lcOAXPLdvDbnC7ii9m/b923wTkHk=
+Received: from BN9PR03CA0725.namprd03.prod.outlook.com (2603:10b6:408:110::10)
+ by MN0PR12MB5763.namprd12.prod.outlook.com (2603:10b6:208:376::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Fri, 16 Oct
+ 2026 09:06:01 +0000
+Received: from BN3PEPF00022BC8.namprd05.prod.outlook.com
+ (2603:10b6:408:110:cafe::a6) by BN9PR03CA0725.outlook.office365.com
+ (2603:10b6:408:110::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 16
+ Oct 2026 09:06:00 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC8.mail.protection.outlook.com (10.167.248.214) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 09:05:59 +0000
+Received: from danielhuang-HP-EliteBook-845-14-inch-G10-Notebook-PC.amd.com
+ (10.180.168.240) by satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Fri, 16 Oct 2026 04:05:50 -0500
+From: Daniel Huang <danielhu@amd.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>
+CC: <christian.koenig@amd.com>, <alex.sierra@amd.com>, <Philip.Yang@amd.com>, 
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Daniel Huang
+ <danielhu@amd.com>
+Subject: [PATCH v2 0/2] drm/amdkfd: bound SVM mappings by the GPU address
+ limits
+Date: Sat, 17 Oct 2026 01:05:44 +0800
+Message-ID: <20261016170546.88570-1-danielhu@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4076:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48fc54ab-7432-452c-3788-08df2b642b76
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC8:EE_|MN0PR12MB5763:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc5a6590-5bec-4061-8a1f-08df2b64b271
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|6133799003|10067099003|18002099003|22082099003|260925021311599003|260925022911599003|260925021911599003|3023799007|4143699003|261009223027099003|11063799006|5023799004|56012099006;
-X-Microsoft-Antispam-Message-Info: uit94AfHsi7wYmZJX6EV2zxvlJifuxamw1x3Y0EDcx8hfNyjYzWTsrc9woLmnuEGWndzFktPmoRVyqOVnE/M33YcX/vXmm9ptZpTX9anUK70YA+kIqfe7e4HiMu46pRlB7iK+JyqIBjCAHafpR7lbRfixEYDoAKynGojAOsRmZ+CEKlRfJCPuOZvlKd837o3gSGk2t7h4s2OENaR00GPudR7jHj89+p8+S/K25aGk4/fyp4kvitCNR7zypEjiSPoDBHZelClZbJwb/T8ZL6mPRyumPs7rmH9cqpBK/tRq6Qwtl6SGeRLlAhnJfF2mD0CK5A2xWSQ+JLse+497/yRW8gR7fqjBpITIAr0Mtm7MLEmGHy4/R6c7hsVIj/jfET6AlsOY3yQ1wukbVnq/Qyr91soVjWQ98bI0sPQXt2/LPB19LzOxsDOkbWq1we2H+xHZl9YMeCGGtASLRPw/aETpQr2rfuqtOL1dxIrnMdZ+qhkyN3vJbJBUQxnseGbhn152f89Ytt16+TKmx9H+jWZUs+2n7SDqjoOJ2V/XlTezZL1zm7rQ2O0OYrHIYWJmGz8aZYUxbEAKAqezynHtW5t4iMSWLusXeTEoWLtuPRRJMQDwNGzU/2uOoouOTBhBAWe
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(6133799003)(10067099003)(18002099003)(22082099003)(260925021311599003)(260925022911599003)(260925021911599003)(3023799007)(4143699003)(261009223027099003)(11063799006)(5023799004)(56012099006);
+ ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|261009223027099003|5023799004|56012099006|11063799006|6133799003|10067099003|18002099003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info: +F9Y98BkHLV9qNjiCWiKRxHuU26tvb6bHB4xDe2b6gtRxve3iY35/ADcK/jd+Gyw611nJwRK6kb0rh0+qFk7HpxpvRp7QB7uPVwIRnVg0wnjmlyN0MW8rgpUHFNf7LDArqPVy1EisWubY8077YCVSyXKug18/nrsqZajGEmsGsn3gUELHtsSEzDmEUfDzNU4KjqJs+MfXRdCIwaRvwHk0y4LQkod8LbeBSFErHajHtlvna0KnnoiU8DINFyOW5QKZSQb8qZcH96NH4CDpc5epLQmOjRcjjX1wYQvajAT/wwSfwGlk8ymeCNIvuWRr3GJrST3OTgYlV2+Gz1p06ddqXogacnjDL7dubirwvgOO0rvyfcKfPML69Mm9aIz/0dllcqR5z5Dmd3WEpVmDWWlnqCf/VkJ3enTK9wCli1s4qWl6nZfDzC3ZqErptRXTQyhbiFRJIAysJBmsiyLr8UsllkGipc4Jgl924pVGiU7Fzv6ovS+c9LIwQuM1i4rNLqxLR3rsjS3woFVX+F4j8I3JOKxibDYsR08VtNs8ZLBY5SzrMevJzw5THKeINKY+lmEH4fy4Qcz2/uI41DayOFB4ZYzIXNr0V9FBicWKqk9XwWaBO7RlfCjbYtA4B4JXlsfjgE51IVNxmVNamlA5n+OTg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(261009223027099003)(5023799004)(56012099006)(11063799006)(6133799003)(10067099003)(18002099003)(13003099007)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V0t2VURPT2k3WTJTYkNYSG1YREhIK2JaSktwV1ZzdjJEVkZzY3cwaTNUVHpk?=
- =?utf-8?B?bUMvVHFXZktTL0lINWR6Q2wvQWJGQkpJVWVURmFvdVJSTnBmajdITW1Cak9I?=
- =?utf-8?B?L252ekQ3bS85cDhhYWZqRzUrZ2h4ZktkQm8xNTJjeDVtSXg0bDVJRDU5cGNR?=
- =?utf-8?B?N2h1NnF6b2RrZnFIaXRJREhmdU9qMThJWUNpQlQzSXFWc3VWQzI2S2FvTC81?=
- =?utf-8?B?N0U1cWU3bXRCbjk5OUJvYmwxOGFBY2JUN1RlSTRzR2dGOG5GTUZhVDMxUFlS?=
- =?utf-8?B?ak9LSnQyS2tUNEZoelJNVnNlTDc3Y3M2Y1lBbUVvdG5rYmhxNGFtTjlYR2lM?=
- =?utf-8?B?RDNDN0xUVmhXR2RXUkRDekd3TFhNRStobjNLOTk2WDhINHlnZ2NnOWc3MTNV?=
- =?utf-8?B?SmFhUDZHVUYzc20vYnRkYTBaY2tKMS9ZcWcwOUdDeDV0elh4Vis4emFKZEEw?=
- =?utf-8?B?bjVvRDJ4YzBGOU81TE02K3MzYkU0akZzekFGVk9RMXEzcXRySUtiN3J6amtj?=
- =?utf-8?B?QXFSM1ZGY0t2emJQelhPWndUeG5SZWt0NDU1Z0l2eG9XN0I5QXREbURFaWlR?=
- =?utf-8?B?ZGFRWm82Q2dtTHdKeGJhZVFxUHhNeTlGM2hhKzZNeXBTSml5dWlHZ055Rm1P?=
- =?utf-8?B?MFhJV0h2OEZPblE1d0dsSWRkVXMyN09qRnV5TjJibmxOb0RjbEF6dXRNellQ?=
- =?utf-8?B?S0I4aER5VzQ5S3JOUmYyQmtXQ2pKS29qdHArZDRqUUEvYm9hWEw4ZEh1UnVm?=
- =?utf-8?B?LzhHSlJnalRLRTlPN1ZwZXEwYVpqc0o4bGlQMzQzd3BaZnZEYW44d081ODRp?=
- =?utf-8?B?SE0yUVUySDJFWVgxZTAxL0M4MXl5djlHYmFMQjZGRXkxRTNmQ1R2NVdTVUlF?=
- =?utf-8?B?enZ0dGVVZVZIR2VCUnlWbVZRcHo1YkFvODByeTR3Yk93VHNtYUVJcHNZTHY0?=
- =?utf-8?B?TTJ2bWN0dzh3WllPOW1KT0VaVjE0c0o0REtEaFB6UXRlai80VEdrUW45UFhK?=
- =?utf-8?B?Q3lOSWNsNFBDQ0RndnRReEwvMXZjU3cxUjJtRFg3ZVJrRzFrMm9iOHJFZE9C?=
- =?utf-8?B?bENLVmdLUEVuWTdYblBzR2ZmUnV6SWlEVGhQbHRhMjNnYkxRTTZJSmREd1Bt?=
- =?utf-8?B?WVJCRzBWbGpxTkxxYWNuUzNMajZDa2VoalpDdTVTb2Zta0hEOFBMeDZTT2pE?=
- =?utf-8?B?MUo1R1J0blJvTVMrc3BhZmRiUWhKMVBXV1RQcFBFbm1ET2ZlOFpWZ0dSU2p5?=
- =?utf-8?B?ZXpJWWFleUhRbGFBR1oyc29wV0M4UnBDUU9Oamkrd1NtcC9Za2NkaHlPYTkz?=
- =?utf-8?B?cFBmOEN2MTJoRnZVQldvclUvVXNXYVdFOS8zdjVqTy8xV2tab2ZickFDREhF?=
- =?utf-8?B?WHpyY3A5QSs0amhiV1E0TlJnakRHczNzaC9HaVJmUWcza1U3eStGM3F0N3cr?=
- =?utf-8?B?NnhLbWRUVks4T1h5L2ZZUFVnNFFBNDZrbG9vM2p0NVhuVTlCb0xQUmhpWW9W?=
- =?utf-8?B?Z2FSZVc5em8yQ1BROFZNUVovSEtKdEZjcVExWTA0dDZQN3BpeDJUSmpGcWxV?=
- =?utf-8?B?OTc3SzJrMXhnR01ZS0w4R3NQSlp5QTZYcDd3WlpkQU1wdTZ2OTFqQUFOWlRk?=
- =?utf-8?B?S3BJV1RCTWcvSWpTN3k4NjcrSCt6K1pPRkc4RHVrcmgxcVo4dm5ET0h3clVL?=
- =?utf-8?B?VExlYnI4bHNXR0d5a3JEMG1LUXc5ZDZHVzh2VXNRRkUrK0F0Z2hDcE5ENkgx?=
- =?utf-8?B?ZHJiNjFKazFUTTBVbm1PQ2tJVlVja3BjaEQ3ekREQnBsekVQZnNvL2ZLcG05?=
- =?utf-8?B?Q2hQMWJncjBvRWhFNlowU1NnWEFCenVLckNOTmRvZWxWK3V6R0padHFuUDJE?=
- =?utf-8?B?ekJRWURoczIrUURobFJDQ2lwRWRCMFNITHRDWWRpTmpQK01ZRmVPcHZXWStu?=
- =?utf-8?B?VHhRUFE4L2VlSWtVMnhXdkJCbDkxU2ZjdUM2NlJMOURMTDQ2dGV3TTYzMXNF?=
- =?utf-8?B?eDZHOTU1SnErMGRqZmQ4NE13NkI3MTRNVG5vRWJWWWUybzNSSEZMSVVieS8x?=
- =?utf-8?B?WTNpa1JpSTV1dmxpWDlZdGh3cUc1a3c3TEYwdlV5MXE5RXRGcVQzUXR0Z3N0?=
- =?utf-8?B?czZUd1B6R0VmTks1L0l4TUhUUDB6S2NlSVg1Y0ZEbW5Xa3JMMFZzdGhscnJE?=
- =?utf-8?B?NlRPeVVUYVZ5N3llV2gvanZKQ2dRQ3g2eHhhalM5K2c4RWREcjBZU2xkWHlM?=
- =?utf-8?B?cVJRUmYrUFdEUFNlS0JjT3JCay9DdFVjMzArc0lUa2xjMGFIdWd3Q1lMa3V3?=
- =?utf-8?Q?kTDQeCpeBxNPOilBbz?=
+X-MS-Exchange-AntiSpam-MessageData-0: 5fm+s1qoX7faRjmTmgLBIUOMgQsb7cU6JXzirD+KixPdzprBlPolI42pHNw/FYiM90QoLdTmtDfn8uZm8WI+QBYRjXUONSLZVfO4CD4i9NBP+GsT6HYLM2ukaT+9YaPLFOzWcA5ebVfUTQzOhdBRAObLOVPtrwiQrVLLzIZVJ9SjflfvaxPOIXquyYibM0cT5o3tSJS4HqrwRI3Xl6gzzbsH6i0Wn4VhW12AorynvEVTi22FkQuuFGBNEV7QOTUsxs5f7vzdscbbRi0zklh77FR//n15FRu/8ap6Yb8DMyPOIb+WDdh1d3VbBsDiijKKsXPTaPtxtpbySerVpz4aAuvH+nSwvWvwn/Wm2qY5Tmke8uxcRu5d3kPm6ij/TD5ZzVF7xY35GAzpidUaOHSMaG/H+qKkkp6K88cMAyiTvKxZqKhQnNXd3RD+LlRWs7e8
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48fc54ab-7432-452c-3788-08df2b642b76
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:02:13.7874 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:05:59.9975 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc5a6590-5bec-4061-8a1f-08df2b64b271
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NbhIePBXE15RV5CzDvfYmQBsPZuTWVGc7D1krO/KcBfy5edLK+kdTrywvG1xlj/9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4076
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BC8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5763
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,118 +109,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/16/26 05:25, John Fisher wrote:
-> Thanks Christian. Since I don't have commit access, I assume that if
-> all looks good the commit will be passed on to be applied?
+KFD SVM maps memory in GPUVM at the same virtual address used by the
+CPU, but no code bounds that address against what the GPU can actually
+represent. kfd_ioctl_svm() validates only page alignment and a non-zero
+size, and svm_range_map_to_gpu() passes the PFNs straight to
+amdgpu_vm_update_range(). The BO mapping path, by contrast, validates
+through amdgpu_vm_verify_parameters().
 
-Alex usually picks those up after a few days and merges it into amd-staging-drm-next.
+Patch 1 is the crash reported in [1]: with an explicit amdgpu.vm_size
+override the GPUVM can be smaller than the CPU address range, and the
+page-table walker indexes past the root page-table entries. It disables
+SVM when the GPUVM cannot cover AMDGPU_GMC_HOLE_START.
 
-Regards,
-Christian.
+Patch 2 addresses a gap in that check, found by the Sashiko AI review
+bot [3]. The comparison is against the GPU's own address hole, so on a
+system whose CPU address space is larger than the GPU's it succeeds and
+SVM stays enabled, while individual addresses can still fall outside the
+GPUVM. Every current GMC generation uses a 4-level, 48-bit GPUVM except
+one gfx12 variant, so a 5-level paging CPU reaches this whenever
+userspace passes an mmap hint above DEFAULT_MAP_WINDOW.
 
-> 
-> Thanks,
-> John
-> 
-> On Fri, 9 Oct 2026 at 20:00, Christian König <christian.koenig@amd.com> wrote:
->>
->> On 10/8/26 22:45, John Fisher wrote:
->>> amdgpu_vm_make_compute() switches a VM from SDMA to CPU page table
->>> updates when a KFD process acquires it. It syncs "with the last SDMA
->>> update/clear" through amdgpu_bo_sync_wait() on the root PD, but that
->>> walks the reservation with DMA_RESV_USAGE_READ, and the clears of the
->>> VM's page tables (the root PD from amdgpu_vm_init(), and the PDs/PTs
->>> the seq64 mapping allocates at the render node's open) are added there
->>> by amdgpu_vm_sdma_commit() with DMA_RESV_USAGE_BOOKKEEP only:
->>> amdgpu_vm_pt_clear() commits them with a NULL fence, so they do not
->>> reach vm->last_update. The CPU path's own waits (amdgpu_vm_cpu_update(),
->>> amdgpu_bo_kmap()) use DMA_RESV_USAGE_KERNEL. None of them waits for a
->>> clear that is still queued.
->>>
->>> When one is, the CPU writes the first entries of the new compute VM (the
->>> KFD trap handler's TBA/TMA page at AMDGPU_VA_RESERVED_TRAP_START, mapped
->>> during ACQUIRE_VM) into a page directory the SDMA then clears. The
->>> entries are gone, the handler's page is unmapped, and the first wave
->>> save of any queue of the process faults in the SQC instruction fetch at
->>> the handler's address (GCVM_L2_PROTECTION_FAULT_STATUS 0x008012B1,
->>> PERMISSION_FAULTS 0xb). The MES then fails REMOVE_QUEUE and SUSPEND, and
->>> the device takes a MODE1 reset with VRAM lost on 7.2.9; on 7.3-rc6 the
->>> queue is reset instead.
->>>
->>> The window is the time between the render node's open and ACQUIRE_VM.
->>> ROCr spends milliseconds there and is practically never hit; a minimal
->>> KFD client that opens the render node and acquires the VM at once is hit
->>> most of the time. On a Radeon AI PRO R9700 (gfx1201, Resizable BAR, so
->>> vm_update_mode defaults to CPU updates for compute VMs), a wave reading
->>> the trap handler's page right after queue creation found it unmapped in
->>> 8 of 12 runs; a 5 ms sleep between the open and ACQUIRE_VM made that 0
->>> of 9, and the same sleep after queue creation instead 3 of 3.
->>>
->>> The wait covered these jobs until commit 926c79ad6ecd ("drm/amdgpu:
->>> promote the implicit sync to the dependent read fences") narrowed
->>> amdgpu_sync_resv() from DMA_RESV_USAGE_BOOKKEEP to DMA_RESV_USAGE_READ;
->>> the VM's page table jobs have been added with BOOKKEEP since commit
->>> 4247084057cf ("drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP v2"), so from
->>> v6.16 on the sync in amdgpu_vm_make_compute() waits for nothing of
->>> them.
->>>
->>> Record the clears in vm->last_update, as amdgpu_vm_update_pdes() does
->>> with its updates, and wait for it, uninterruptibly, before switching the
->>> update functions. The clears all go through vm->delayed, so the last one
->>> covers the earlier ones; immediate clears are not recorded, as before.
->>>
->>> With this, on 7.3-rc6 and on 7.2.9, the same client reads the handler
->>> 10 of 10 times, 8 busy queues on the 4 compute slots complete in 5 of 5
->>> runs on 7.3-rc6 and 3 of 3 on 7.2.9 (1 of 6 before), 16 and 32 queues
->>> complete on 7.3-rc6, and two processes with 8 queues each complete
->>> together on both, with no fault.
->>>
->>> Fixes: 926c79ad6ecd ("drm/amdgpu: promote the implicit sync to the dependent read fences")
->>> Cc: stable@vger.kernel.org # v6.16+
->>> Cc: Prike Liang <Prike.Liang@amd.com>
->>> Signed-off-by: John Fisher <jfisher84@gmail.com>
->>
->> Reviewed-by: Christian König <christian.koenig@amd.com>
->>
->>> ---
->>> v2: wait for vm->last_update, in which amdgpu_vm_pt_clear() now records
->>>     the clears, instead of every BOOKKEEP fence on the root PD; wait
->>>     uninterruptibly without checking the result; keep the original
->>>     comment (Christian)
->>> v1: https://lore.kernel.org/amd-gfx/20261007200345.417281-1-jfisher84@gmail.com/
->>>
->>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 5 +----
->>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
->>>  2 files changed, 2 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> index 29187fabc..757a037ed 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>> @@ -2737,10 +2737,7 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->>>
->>>       if (vm->use_cpu_for_update) {
->>>               /* Sync with last SDMA update/clear before switching to CPU */
->>> -             r = amdgpu_bo_sync_wait(vm->root.bo,
->>> -                                     AMDGPU_FENCE_OWNER_UNDEFINED, true);
->>> -             if (r)
->>> -                     goto unreserve_bo;
->>> +             dma_fence_wait(vm->last_update, false);
->>>
->>>               vm->update_funcs = &amdgpu_vm_cpu_funcs;
->>>               r = amdgpu_vm_pt_map_tables(adev, vm);
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->>> index c03327f12..cdbc2e931 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
->>> @@ -427,7 +427,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->>>       if (r)
->>>               goto exit;
->>>
->>> -     r = vm->update_funcs->commit(&params, NULL);
->>> +     r = vm->update_funcs->commit(&params, &vm->last_update);
->>>  exit:
->>>       drm_dev_exit(idx);
->>>       return r;
->>
+Patch 2 validates each range against the limits of the GPU it is mapped
+on instead, covering the mapping, unmapping and fault recovery paths.
+Using TASK_SIZE_MAX for the patch 1 check was considered and rejected:
+it would disable SVM on every 5-level paging host for every 4-level
+GPU, including the gfx9 datacenter parts.
+
+Patch 2 alone would also prevent the crash in [1], by rejecting the
+mapping rather than by refusing to advertise SVM. Both are included
+because without patch 1 the topology still reports
+HSA_CAP_SVMAPI_SUPPORTED, so userspace sees runtime failures instead of
+a clear signal that the device cannot do SVM. If only one is wanted,
+dropping either is straightforward.
+
+Changes since v1 [2]:
+- Moved the warning from amdgpu_amdkfd_device_init() to
+  kfd_update_svm_support_properties(). pgmap.type is only assigned in
+  kgd2kfd_init_zone_device(), which runs in late init, after
+  amdgpu_amdkfd_device_init(). Testing the capability at the old site
+  therefore never fired for dGPUs, and amdgpu_reset.c calls the two in
+  the opposite order, making the behaviour path dependent.
+- Scoped the warning to devices that would otherwise have advertised
+  SVM, so GMC v6/v7/v8 no longer warn, and made it dev_warn_once() since
+  the surrounding loop can match several topology nodes per adev.
+- Guarded the new code with CONFIG_HSA_AMD_SVM. kfd_topology.o builds
+  unconditionally while kfd_svm.o does not, so the reference to the new
+  helper breaks a CONFIG_HSA_AMD_SVM=n build without it.
+- Fixed the [1] reference, which was a placeholder in v1.
+- Added patch 2.
+
+[1] https://lore.kernel.org/amd-gfx/da43b0e3-5bd9-4aa1-86d3-b733f3bad108@amd.com/
+[2] https://lore.kernel.org/amd-gfx/20261016145129.69645-1-danielhu@amd.com/
+[3] https://sashiko.dev/#/patchset/20261016145129.69645-1-danielhu%40amd.com
+
+Per Documentation/process/generated-content.rst: an AI coding assistant
+was used throughout this series, as recorded by the Assisted-by tags. It
+diagnosed the fault path ordering that determines where patch 1 emits
+its warning, designed kfd_svm_range_fits_gpu() and its call sites in
+patch 2, and drafted both changelogs and this cover letter. I reviewed
+and tested the result and take responsibility for it.
+
+Patch 1 is tested on a Radeon 780M as described in its notes. Patch 2 is
+compile-tested only; I do not have a 5-level paging host with a 4-level
+GPU to exercise the out-of-range path directly, so review of the bounds
+arithmetic in kfd_svm_range_fits_gpu() would be welcome.
+
+Daniel Huang (2):
+  drm/amdkfd: disable SVM when the GPUVM cannot cover CPU addresses
+  drm/amdkfd: validate SVM ranges against the target GPU address limits
+
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c      | 42 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h      | 45 ++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 14 ++++++-
+ 3 files changed, 98 insertions(+), 3 deletions(-)
+
+
+base-commit: fe9f3ed36c83dcc24b4ca3e8913edd6e33a89150
+-- 
+2.53.0
 
