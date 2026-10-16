@@ -4,122 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B3EECCA463
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 03:19:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F07D5CC6B2D
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 03:25:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B26410E28C;
-	Fri, 16 Oct 2026 03:19:36 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010059.outbound.protection.outlook.com [52.101.201.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B17510E28C
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 03:19:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n53IkrdesqQ5STtOztncaypLcKH0zHh3Yx6uVhCQReOfVXaQskRQr4D2LqMrn+o330mt5Igauu9VAPqwyX77H0OLJx5L5h2rOEaufgIcqYcF4wEtLZ08y3grFSHbmfQdMJMIwd7QuaJtQksEtP5UKBdLdVIYSr3UWBTGjkPPF6mcqwIM2izUf6VqoHfx8+E3OqVyyibB5l1fr3CkVKCHQnt3U+GouRKG47oaI6giNpNoQa3+uixWf0nuiR3Shgv1Omvk3rLGYEHyPIVu3GRKUADtS0b6saYThB8cNVpEFhoZyjAJgI3p1ykz0Ra3QMH9BlIEdhYHwS/mZ+VrlmNlFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qhliL58CeojeS1ZZzc4JOieyz2/sghI7eN3Qv2VclNE=;
- b=ocpdPpSxdEBDv1WFpSHHm68zsDGlgtwCsIcol50hQPk4jftf1iPiPhCgDvBM22PiPybtm0mzT6U5LN82g4CSQ2G76BUuo5NoQf95hgN/D1l2sgTeGDBN2fgI2fQyJl353X+jr5bfHl+Iz8oEhsQc8DjIU2kiZpg2sId/AEWTAUSe+YSXa8l7Q0NbMIfpY58f3Y7hVSh0j5eAwk6ltPO/VmQ6IC9gD2usDyUifXuF8zmdCurAD8Ao+Uhs2qTFBOO+YRBTkkDhXoFwgr+OXuaqVQSQz+WQq56ZwBNM2QAX1bBTp012AHg6cWLv5DGr51zXPi3o0wzeLkgjohQp3Pg34g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qhliL58CeojeS1ZZzc4JOieyz2/sghI7eN3Qv2VclNE=;
- b=aT4uOYUNxZ/WxIRCZnwkx3pUhbZeAeaVHn8ESyDmswaC/FDC4ibOtd6NkH9r1nMNxY5zOp7NF5QxS4LDpE8a0i3/vxqSMQJDG7/sN7RwIYr2qVezrv63Uo2inA2oS5Dd2Pk8f57Q3oN5vYOhGbjorTtm3CbrPbyx93uWMqN3JKs=
-Received: from PH7PR12MB7794.namprd12.prod.outlook.com (2603:10b6:510:276::15)
- by SAAPR12MB662741.namprd12.prod.outlook.com (2603:10b6:802:303::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 03:19:27 +0000
-Received: from PH7PR12MB7794.namprd12.prod.outlook.com
- ([fe80::e0be:f851:96ea:cf85]) by PH7PR12MB7794.namprd12.prod.outlook.com
- ([fe80::e0be:f851:96ea:cf85%4]) with mapi id 15.21.0522.012; Fri, 16 Oct 2026
- 03:19:27 +0000
-From: "Khatri, Sunil" <Sunil.Khatri@amd.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v1] drm/amdgpu/userq: commit seq64 BO mapping at queue
- creation
-Thread-Topic: [PATCH v1] drm/amdgpu/userq: commit seq64 BO mapping at queue
- creation
-Thread-Index: AQHdXMziKoCLPuZCWkqYsd6O3DTN2bb/euqAgAAEswCAAAC5Eg==
-Date: Fri, 16 Oct 2026 03:19:27 +0000
-Message-ID: <PH7PR12MB7794D419AE3B29C6E2107D59939B2@PH7PR12MB7794.namprd12.prod.outlook.com>
-References: <20261015174444.948651-1-sunil.khatri@amd.com>
- <99bfd8d4-8839-44f4-996e-8f903af60abf@amd.com>
- <BL1PR12MB51441FFECBA6F0211FDF6D51E39B2@BL1PR12MB5144.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB51441FFECBA6F0211FDF6D51E39B2@BL1PR12MB5144.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-IN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-16T03:11:27.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-x-ms-reactions: allow
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB7794:EE_|SAAPR12MB662741:EE_
-x-ms-office365-filtering-correlation-id: 1b2efaa8-bbac-400b-473d-08df2b34493c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|38070700021|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|8096899003|6133799003|13003099007;
-x-microsoft-antispam-message-info: T6lDPI5LJPerb4A5vOphcl/k5tM4cBSYfTY5s9idl3aAaAks6wlimDAAatLMg+fLOfMYQcr/ESVEhxpZh4gGRaSUoj2d2uqJxttHy7Sl2KlN7yCYg1+s+J4rRSNyPUPM4t5Jyf+/K3fFkF84acIuutSTl+LJg0Bd29MAbjQICYk3U6csYpUmfAE21pna/lDJr/Mhp2et3UQRyQ/hm71h+SyVPHkpVGGbSFTo4NWkgnBPbMX3Rzah1UmKjQDFPZXJCYCAy0ElAyEL3UgWJXurO5xYJOh940i9KHDvbxiEeyj1OcVyCN0Dz5WXM/9gsDrjc40VPdsFRsG5tSW06w447XfE3Ic+OFPDCZDQbmI8JxBa5fE8Wbo1YyzynvK4/+z9rB/O71BSs0b9peRVSSc70X68U8TazpChUdxzLgKPixjYs1YAoJ/vb5BLE1kAJ1ZzjULjGWlaY4vhpdFjQGtiDdlp0pvCubrNW6HfivZFj0kI/nCs39QXV9vumIJY4dwpVo5/X6i0Py5VwGMXYFSJ3rFScEkUsqJeHbMjO9FlTA1krcKB9MwxOvO77v1OVi2l0GWblcHD8KsiqUfEfYdnk5aUaU/C4HCPnqQM1hcMZBEljjYEEu0YlOIG7MWvMFoTaBENVtwCVehjwlCMp86GadBZ6lswftIQIAIpSCh82lE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7794.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(38070700021)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(8096899003)(6133799003)(13003099007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+ZuP62mhdmuSRLCZwIP4CO+6qKGNy++Rt+IQx1Lsggj17OBDG8nj+d10YLZv?=
- =?us-ascii?Q?ePyeonIewfGenkglCrpYhK9VcPb1OiifMwf8N3PvTwMhLS1kx7uRcY5d0wYK?=
- =?us-ascii?Q?9t4810A/5qLfGLhbj6PxBFgjOpNlKeGYidD+VudY0tzXoKHI7VAlWPqNZrML?=
- =?us-ascii?Q?CglE4GBOnhbhZSBeL5hOSo2KoLpvB+CRBUWr5SzOJd1UZxvF8i/FnHNQBflI?=
- =?us-ascii?Q?G+/QFI118rIv3zngS7eoLFw95eYX+2oCroDGtN4e0SQ9o33R2cCpsWZXoutq?=
- =?us-ascii?Q?XnhiTv09APOnObZHv7vw606DL2ObkLjF2sJegXV6NRZILohrAtvFSA+v6neW?=
- =?us-ascii?Q?Kd5M98ZXfhvXPAkePdrwV2ABIxLw08BQQyXXHHqWN5zw0pmhEehIbPOtWn/W?=
- =?us-ascii?Q?FzLVO5bmtOcPdnsnN3Ni5SoK5FiX5G/d6q7vxJQxF50c47ChmvnRH3QIRAPu?=
- =?us-ascii?Q?6KNQlVkYvXzc0IrZ/l//2B2kyGn6rmZ3SIox59l4JO0tDNzkQzamGExv8v79?=
- =?us-ascii?Q?03+1sua8xkVHmgjeR/41C7qBivvCnpXqv4nMqUfT/rCRvsNrBWkehSv9x2gf?=
- =?us-ascii?Q?6qiyr8RizZQ87pE/Ns7ohUicU5mPXMCS0qgXgU1HVJ7054eHcsV2riLGIplT?=
- =?us-ascii?Q?3bYCxKh/FsIlMe+lT9oaAG6jE70EEENfE0iXNAKcuBVoQXC6PVqMQ+dLRJGb?=
- =?us-ascii?Q?NsK2qjH3bigotN6MiRitC8x+JfFctavGjG3+9cXRoS78xCQ8gNNQxD8obFH6?=
- =?us-ascii?Q?PWT8NJxwg9otVwln0Vc9ruoQWrKepC2+2CZukti9kcmKG7cE3/vFla3Q6Dp8?=
- =?us-ascii?Q?pCEI8UK0gYnWd0Xr4pi0GDYuX0BMMiwZiDW4OSEg7DlKxmJskWwomJxscDSq?=
- =?us-ascii?Q?3Y/KC+4x2aEIH8ZKzDEkc4gnpbZyBBHm/a7rgcGGb5pwD3ngDOWa13RDJ4Qm?=
- =?us-ascii?Q?4BGJu06fheu/EKaLP/wmbWEVYLJG/xvuaOgI2yP+kA8SHdNH2jnlDHEgZjcQ?=
- =?us-ascii?Q?18x2k3Zfsu27EZUM4wA4SMmbAxf9ct1kBXAWGjFC0OSE5xtyIgoyWuhogwnt?=
- =?us-ascii?Q?vf6PT8WL3MtriNsooA2T0y+rU1MMcbY1Ofv0tJTjLpCZbnSPEm9itlriMm1/?=
- =?us-ascii?Q?w42bmWE1064nV+L+VyW4XyDzrHArJDoNA4ekEpZdszdrxKLZwggp+p2x2j0U?=
- =?us-ascii?Q?C3jeUliCtFSNqU7PKPJcjOjmrtnKzfEN5zmC14nFj9pd3ZLIWw7NF8+TUENU?=
- =?us-ascii?Q?LLKbO9SbuNg3vt7XGllmrekj4Ti9OWuAZKzOHBMGN75Fzo/BYf9MX3obTvat?=
- =?us-ascii?Q?g7AErOiQx0QnwuEnnzwKQe2WFI1GF4syX1G0FkEToVWQoVUYAcDDVafdPzPL?=
- =?us-ascii?Q?TcnZ5ieGnF2e7N9DRgpgbRt0XxnD/y30JLbh1BzeVRrtQwcMB9c85R7qDYq1?=
- =?us-ascii?Q?dZXHLxnFu+5EXxIKipzRh1k49DSwt4fYpjRoN2KMmLGvVJR9Vwc+Dr5I9ebz?=
- =?us-ascii?Q?TC5Tjj9XLE+xvIs30aXTHjbZDzMDgX6etYoQeIYiA9zl1mamyLIx0agdAPi7?=
- =?us-ascii?Q?wG39b+OHLo1NOv3cXqLkxqhmOYK+wvykDJmOIxXa+UCpCQgpnXKOQndiUpH6?=
- =?us-ascii?Q?BG9B91u6GnE+x0KibbF9AKuXrD7IZXvIYB/mOmzzkrGMXSHzQ7V2Ak08ikz7?=
- =?us-ascii?Q?7WVwOjh8txKbbBqmyHs+NOwS/iP4QD2xVdb+dOqUtZc0v0EkRefiZ07FGfIc?=
- =?us-ascii?Q?KHIu1kNDuA=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_PH7PR12MB7794D419AE3B29C6E2107D59939B2PH7PR12MB7794namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8288810E26B;
+	Fri, 16 Oct 2026 03:25:45 +0000 (UTC)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E323B10E26B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 03:25:39 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-6b1d8944cb0so6967717a12.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Oct 2026 20:25:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792121138; cv=none;
+ d=google.com; s=arc-20260327;
+ b=JiZgpUSVTWf1+30EN1FKWY2OYeVdXQkRMo8ER3I1atOwhZ1Z0vpSNn+KMTfxgmw0M6
+ M55oNLsmJXc1WjinLSTF2HkTZJFzGi6g1ra49yi63jn41jDN/W0IGDnrjzXXwRJpJ96e
+ i3Ya8zALKuy44juIVzjtMeg5fCf/zr5rQ/7izbl4tifUxqvIghxvx++0q9oKDKC690jB
+ 5cqB+cc92Q1aCGqIn9sRjohhVuZb/GwAoO7EEDTDqWtxXLFbnlEcSU/NzlWRgdrvyn3Q
+ hTF6EiS5GwnF6qakd8iMWwbivKJyPQE+NgUWs9ihM/mpz1h8kawGKZl1m8hL2pA3q7fD
+ BsdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=LBTssoM2mFnFxVDtlPbTRlVraone7Ifm/DBSAnH2w7Q=;
+ fh=Grz8QArY2f48Ga98yM82yXGSpBlRDHeAV9afm3mfz+4=;
+ b=Komw3bSg3J3g9oI0Eaca7Dyn+GUsUVfOSYxsOMxKTSQ76qpmrm5AEmfixTxrGH9sTH
+ cIvGD/8dRDeWsvPr6XFMrHV80g5+ERcUdTI6DYNG6nWcmuXEiCpv8IlwLwnZrsc+/+KL
+ EosJ8D0+RR/tuZIfVd4Rf4AQg2HayI3vDYmWUfo/IY9X8YR31ldTtIFUHDCWY0YWsaYe
+ oSfCVzFmVuqZVIj59KKA7q8QwCIf+nrOeWeyvNXejc02I+4nStT/7a+VxM7e1DHxCxH8
+ EHbnuHqnDvPNnYnqqcfx0PkCbO94nB8cJCCCao9UvvIeAKJM3Zo7sYsh9S59rdezxlQR
+ M4Rg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792121138; x=1792725938; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=LBTssoM2mFnFxVDtlPbTRlVraone7Ifm/DBSAnH2w7Q=;
+ b=c8ZKZslMZZF4CNAIAaqyLwhBI2P7k0NWru7QMQbH13qeKIbghoBMCxKj4dCBA8CI0E
+ /9upD+TvKuaxCQb/n5melDVzHNyE8rx3DULwpHuyywXV1PxG+D5PF9JVTfNZDbDoVfEw
+ Imevfh/OUr1LoZvIUkdwQJG1kcnLmkixJthDVTdRf5sR0aHKrqFdU1OCQkoVZa7Bc9sG
+ wCVgSV2KBrauW1tJTUWbL4BrhOxgRFVuYkogWLF9MhtzP6EoFVH9+voDb2/hnMwm5n+u
+ B25WETGIDrIAa0xwFsQZD33Rrx0wpr9cXoBcuwKIT5TK0W4v8M39YWFYtNl2BY59+wR/
+ jZiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792121138; x=1792725938;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LBTssoM2mFnFxVDtlPbTRlVraone7Ifm/DBSAnH2w7Q=;
+ b=R3kHK+qX/XhBSg7FjtudWYZqI0nR3qUm4st19OEp6U8/rMjOIpSfy5ZLeo0f6RbBtA
+ cKUCOVqM+fOMNMH7g77mKmS5FaGeWJFsB+Bkf5pS+v1bK2CXi5L9fTI+gD457n5SHDY8
+ Xu+vVOKIWH6c1sq+HjGv7KGtOn23F4qT7L6547bm0WXSjTbJMfzwO5S9mZnToRnRovBs
+ VfHBctVc5m94FyOYbpWNYfoJ5JIgVifyhpHfrcnrzxfzNsJBi/Q7q6t7kcfqB0zaU1+z
+ kbmdgIFS+mINsx1VYzyPJXr1W4af4cX2db0brMPPZduO2rjxvKPrb6TDBdH9+/rgpb+a
+ jAgA==
+X-Gm-Message-State: AFq9FYLNQwLLikheAehLW3BmU7H0Bd+/cxZkaUXyukefj0tjwSumP4W/
+ 5I7hl05r8dXel6KXc+i7dV3hE6XFtsEZ5VkLpsCtra0efI2MroXAGxHcAdMc+tBr/qFoY/PYGJa
+ tVijq7MdWsWefOnNQ5oAzvnbwvI2fMJU=
+X-Gm-Gg: AYBFou1WTgw6y/I4IFgVZOtdMM9u07eavq5EJkxw4uyNtvKWnRnhGRMYRkRdLpCBr2H
+ Xig6Lz6XpmKg7z+6/CwCSYS5L75n3QbTZgtZ6dw4eXO/5AuySxHLcZEWTcyN/ZfSyLTuE2JpMUM
+ jKSxSIxCF6o3MSC32jUKQ0lx0O1GOCOabZEwY75HT62W8GkBh7uPH72sRJ83K9hgqSFmcgmO0R6
+ fxIKGgpJR6yLjMqfVzThde0XW68wUagVxnnt6mXamkPW6HBIJkLh0HRMkGyzBX1aOIeWZVv9XIE
+ xvpyzCsFFEJboSbpb8T5/z/TfRFcgxJvkHeR16yXZ3RmJOpOQywhBFHjM38sFR7H
+X-Received: by 2002:a05:6402:2788:b0:6aa:9866:551f with SMTP id
+ 4fb4d7f45d1cf-6b17c2d755cmr18289668a12.45.1792121137956; Thu, 15 Oct 2026
+ 20:25:37 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7794.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b2efaa8-bbac-400b-473d-08df2b34493c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 03:19:27.6458 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WScVCX9WS95egq7QlSyEw7KX5FqyjlarrSR+ffyLiaqzqczQeTJ3gyEb9yEcIogW9HZoW9fl3KXhBWBixHCHpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAAPR12MB662741
+References: <20261008204517.392180-1-jfisher84@gmail.com>
+ <c64df6fa-6734-4c66-8f8b-52e5bd118cdb@amd.com>
+In-Reply-To: <c64df6fa-6734-4c66-8f8b-52e5bd118cdb@amd.com>
+From: John Fisher <jfisher84@gmail.com>
+Date: Fri, 16 Oct 2026 16:25:26 +1300
+X-Gm-Features: AclHuK8qA0Y5GArTBwCDOt3PjPocvVW2cHEUBULocqqscDY0UR0zbseYnJIw1eo
+Message-ID: <CAC7wNSChWJ3nYY4GPT0Av+CDiudQ346hnxE_U0bfNLVvHdbozw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: wait for pending page table updates before
+ switching a VM to CPU updates
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org, 
+ Prike Liang <Prike.Liang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,308 +103,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH7PR12MB7794D419AE3B29C6E2107D59939B2PH7PR12MB7794namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-AMD General
-
-Yes, I realised that and updated the patch in restore path and pushed it al=
-ready.
-
-Thanks for pointing.
-
-Regards
-Sunil khatri
-________________________________
-From: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
-Sent: Friday, 16 October 2026 08:45:34
-To: Khatri, Sunil <Sunil.Khatri@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.c=
-om>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chr=
-istian.Koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v1] drm/amdgpu/userq: commit seq64 BO mapping at queue =
-creation
-
-AMD General
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Khatri, Sunil
-> Sent: Friday, October 16, 2026 10:59 AM
-> To: Khatri, Sunil <Sunil.Khatri@amd.com>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Subject: Re: [PATCH v1] drm/amdgpu/userq: commit seq64 BO mapping at
-> queue creation
->
-> Ignore please. Sent new patch.
->
-> On 15-10-2026 11:14 pm, Sunil Khatri wrote:
-> > The seq64 sync BO's PTE update only ran from the legacy CS path, so
-> > userqueue-only clients never got it mapped and their fence_drv could
-> > never signal completion. Add support for userqueues too.
-> >
-> > Fixes: ae05e3f3d02b812c ("drm/amdgpu: move amdgpu_vm_bo_update()
-> call
-> > into correct location")
-> > Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 21
-> +++++++++++++++++++++
-> >   1 file changed, 21 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > index 4dca1ab48410a..44cf25946a21c 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > @@ -720,6 +720,27 @@ amdgpu_userq_create(struct drm_file *filp, union
-> drm_amdgpu_userq *args)
-> >     if (r)
-> >             goto free_fence_drv;
-> >
-> > +   /* Update the seq64 BO mapping in VM for User Queues */
-> > +   if (fpriv->seq64_va) {
-> > +           struct amdgpu_bo *seq64_bo =3D fpriv->seq64_va->base.bo;
-> > +
-> > +           r =3D amdgpu_bo_reserve(seq64_bo, false);
-> > +           if (r) {
-> > +                   amdgpu_bo_unreserve(fpriv->vm.root.bo);
-> > +                   goto free_fence_drv;
-> > +           }
-> > +
-> > +           r =3D amdgpu_vm_bo_update(adev, fpriv->seq64_va, false);
-> > +           if (r) {
-> > +                   amdgpu_bo_unreserve(seq64_bo);
-> > +                   amdgpu_bo_unreserve(fpriv->vm.root.bo);
-> > +                   goto free_fence_drv;
-> > +           }
-> > +
-> > +           dma_fence_wait(fpriv->seq64_va->last_pt_update, false);
-> > +           amdgpu_bo_unreserve(seq64_bo);
-> > +   }
-> > +
-Hi Sunil,
-
-I noticed two issues in the earlier version that are worth checking in the =
-replacement patch.
-
-The update runs before VM validation. If the VM page tables were evicted be=
-fore the first USERQ_CREATE, amdgpu_vm_bo_update() can return -EBUSY becaus=
-e vm->evicting is still set.
-CREATE then exits before reaching amdgpu_userq_ensure_ev_fence(), which wou=
-ld otherwise trigger VM validation and restore.
-
-Also, the root PD is already reserved here. Reserving the seq64 BO with ano=
-ther amdgpu_bo_reserve() uses no shared ww ticket, so it can deadlock again=
-st a drm_exec retry that holds seq64 and is waiting for the PD.
-
-Could we update seq64 in amdgpu_userq_vm_validate_and_restore_queue(), afte=
-r VM validation, with the BO reserved through the existing drm_exec, and wa=
-it for its PTE update before restoring the queues?
-please try the patch: "map the seq64 memory when restoring user queues"
-https://lists.freedesktop.org/archives/amd-gfx/2026-October/155022.html
+Thanks Christian. Since I don't have commit access, I assume that if
+all looks good the commit will be passed on to be applied?
 
 Thanks,
-Jesse
-> >     if (amdgpu_userq_input_va_validate(adev, queue, args->in.queue_va,
-> >                                        args->in.queue_size,
-> >                                        &queue->userq_vas.va.queue_rb)
-> ||
+John
 
---_000_PH7PR12MB7794D419AE3B29C6E2107D59939B2PH7PR12MB7794namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Fri, 9 Oct 2026 at 20:00, Christian K=C3=B6nig <christian.koenig@amd.com=
+> wrote:
 >
-</head>
-<body>
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-AMD General<br>
-</p>
-<br>
-<div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
- 0, 0);">
-Yes, I realised that and updated the patch in restore path and pushed it al=
-ready.</div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
- 0, 0);">
-<br>
-</div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
- 0, 0);">
-Thanks for pointing.&nbsp;</div>
-<div id=3D"ms-outlook-mobile-body-separator-line" data-applydefaultfontstyl=
-es=3D"true" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system=
-, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"ltr">
-<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
-o, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"ltr">
-<br>
-</div>
-</div>
-<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
-o, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" id=
-=3D"ms-outlook-mobile-signature">
-<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
-o, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(33, 33, 33);">
-Regards</div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(33=
-, 33, 33);">
-Sunil khatri</div>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Jesse(Jie) &lt=
-;Jesse.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Friday, 16 October 2026 08:45:34<br>
-<b>To:</b> Khatri, Sunil &lt;Sunil.Khatri@amd.com&gt;; Khatri, Sunil &lt;Su=
-nil.Khatri@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt=
-;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Subject:</b> RE: [PATCH v1] drm/amdgpu/userq: commit seq64 BO mapping at=
- queue creation</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
- style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">AMD General<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf =
-Of<br>
-&gt; Khatri, Sunil<br>
-&gt; Sent: Friday, October 16, 2026 10:59 AM<br>
-&gt; To: Khatri, Sunil &lt;Sunil.Khatri@amd.com&gt;; Deucher, Alexander<br>
-&gt; &lt;Alexander.Deucher@amd.com&gt;; Koenig, Christian<br>
-&gt; &lt;Christian.Koenig@amd.com&gt;<br>
-&gt; Cc: amd-gfx@lists.freedesktop.org<br>
-&gt; Subject: Re: [PATCH v1] drm/amdgpu/userq: commit seq64 BO mapping at<b=
-r>
-&gt; queue creation<br>
-&gt;<br>
-&gt; Ignore please. Sent new patch.<br>
-&gt;<br>
-&gt; On 15-10-2026 11:14 pm, Sunil Khatri wrote:<br>
-&gt; &gt; The seq64 sync BO's PTE update only ran from the legacy CS path, =
-so<br>
-&gt; &gt; userqueue-only clients never got it mapped and their fence_drv co=
-uld<br>
-&gt; &gt; never signal completion. Add support for userqueues too.<br>
-&gt; &gt;<br>
-&gt; &gt; Fixes: ae05e3f3d02b812c (&quot;drm/amdgpu: move amdgpu_vm_bo_upda=
-te()<br>
-&gt; call<br>
-&gt; &gt; into correct location&quot;)<br>
-&gt; &gt; Signed-off-by: Sunil Khatri &lt;sunil.khatri@amd.com&gt;<br>
-&gt; &gt; ---<br>
-&gt; &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 21<br>
-&gt; +++++++++++++++++++++<br>
-&gt; &gt;&nbsp;&nbsp; 1 file changed, 21 insertions(+)<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
-&gt; &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
-&gt; &gt; index 4dca1ab48410a..44cf25946a21c 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
-&gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
-&gt; &gt; @@ -720,6 +720,27 @@ amdgpu_userq_create(struct drm_file *filp, u=
-nion<br>
-&gt; drm_amdgpu_userq *args)<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; goto free_fence_drv;<br>
-&gt; &gt;<br>
-&gt; &gt; +&nbsp;&nbsp; /* Update the seq64 BO mapping in VM for User Queue=
-s */<br>
-&gt; &gt; +&nbsp;&nbsp; if (fpriv-&gt;seq64_va) {<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str=
-uct amdgpu_bo *seq64_bo =3D fpriv-&gt;seq64_va-&gt;base.bo;<br>
-&gt; &gt; +<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
-=3D amdgpu_bo_reserve(seq64_bo, false);<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(r) {<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(fpriv-&gt;=
-vm.root.bo);<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto free_fence_drv;<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<b=
-r>
-&gt; &gt; +<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
-=3D amdgpu_vm_bo_update(adev, fpriv-&gt;seq64_va, false);<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(r) {<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(seq64_bo);=
-<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(fpriv-&gt;=
-vm.root.bo);<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto free_fence_drv;<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<b=
-r>
-&gt; &gt; +<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma=
-_fence_wait(fpriv-&gt;seq64_va-&gt;last_pt_update, false);<br>
-&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd=
-gpu_bo_unreserve(seq64_bo);<br>
-&gt; &gt; +&nbsp;&nbsp; }<br>
-&gt; &gt; +<br>
-Hi Sunil,<br>
-<br>
-I noticed two issues in the earlier version that are worth checking in the =
-replacement patch.<br>
-<br>
-The update runs before VM validation. If the VM page tables were evicted be=
-fore the first USERQ_CREATE, amdgpu_vm_bo_update() can return -EBUSY becaus=
-e vm-&gt;evicting is still set.<br>
-CREATE then exits before reaching amdgpu_userq_ensure_ev_fence(), which wou=
-ld otherwise trigger VM validation and restore.<br>
-<br>
-Also, the root PD is already reserved here. Reserving the seq64 BO with ano=
-ther amdgpu_bo_reserve() uses no shared ww ticket, so it can deadlock again=
-st a drm_exec retry that holds seq64 and is waiting for the PD.<br>
-<br>
-Could we update seq64 in amdgpu_userq_vm_validate_and_restore_queue(), afte=
-r VM validation, with the BO reserved through the existing drm_exec, and wa=
-it for its PTE update before restoring the queues?<br>
-please try the patch: &quot;map the seq64 memory when restoring user queues=
-&quot;<br>
-<a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2026-October/1550=
-22.html">https://lists.freedesktop.org/archives/amd-gfx/2026-October/155022=
-.html</a><br>
-<br>
-Thanks,<br>
-Jesse<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_userq_input_va_validate(adev, =
-queue, args-&gt;in.queue_va,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; args-&gt;in.queue_size,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; &amp;queue-&gt;userq_vas.va.queue_rb)<br>
-&gt; ||<br>
-</span></font></div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_PH7PR12MB7794D419AE3B29C6E2107D59939B2PH7PR12MB7794namp_--
+> On 10/8/26 22:45, John Fisher wrote:
+> > amdgpu_vm_make_compute() switches a VM from SDMA to CPU page table
+> > updates when a KFD process acquires it. It syncs "with the last SDMA
+> > update/clear" through amdgpu_bo_sync_wait() on the root PD, but that
+> > walks the reservation with DMA_RESV_USAGE_READ, and the clears of the
+> > VM's page tables (the root PD from amdgpu_vm_init(), and the PDs/PTs
+> > the seq64 mapping allocates at the render node's open) are added there
+> > by amdgpu_vm_sdma_commit() with DMA_RESV_USAGE_BOOKKEEP only:
+> > amdgpu_vm_pt_clear() commits them with a NULL fence, so they do not
+> > reach vm->last_update. The CPU path's own waits (amdgpu_vm_cpu_update()=
+,
+> > amdgpu_bo_kmap()) use DMA_RESV_USAGE_KERNEL. None of them waits for a
+> > clear that is still queued.
+> >
+> > When one is, the CPU writes the first entries of the new compute VM (th=
+e
+> > KFD trap handler's TBA/TMA page at AMDGPU_VA_RESERVED_TRAP_START, mappe=
+d
+> > during ACQUIRE_VM) into a page directory the SDMA then clears. The
+> > entries are gone, the handler's page is unmapped, and the first wave
+> > save of any queue of the process faults in the SQC instruction fetch at
+> > the handler's address (GCVM_L2_PROTECTION_FAULT_STATUS 0x008012B1,
+> > PERMISSION_FAULTS 0xb). The MES then fails REMOVE_QUEUE and SUSPEND, an=
+d
+> > the device takes a MODE1 reset with VRAM lost on 7.2.9; on 7.3-rc6 the
+> > queue is reset instead.
+> >
+> > The window is the time between the render node's open and ACQUIRE_VM.
+> > ROCr spends milliseconds there and is practically never hit; a minimal
+> > KFD client that opens the render node and acquires the VM at once is hi=
+t
+> > most of the time. On a Radeon AI PRO R9700 (gfx1201, Resizable BAR, so
+> > vm_update_mode defaults to CPU updates for compute VMs), a wave reading
+> > the trap handler's page right after queue creation found it unmapped in
+> > 8 of 12 runs; a 5 ms sleep between the open and ACQUIRE_VM made that 0
+> > of 9, and the same sleep after queue creation instead 3 of 3.
+> >
+> > The wait covered these jobs until commit 926c79ad6ecd ("drm/amdgpu:
+> > promote the implicit sync to the dependent read fences") narrowed
+> > amdgpu_sync_resv() from DMA_RESV_USAGE_BOOKKEEP to DMA_RESV_USAGE_READ;
+> > the VM's page table jobs have been added with BOOKKEEP since commit
+> > 4247084057cf ("drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP v2"), so from
+> > v6.16 on the sync in amdgpu_vm_make_compute() waits for nothing of
+> > them.
+> >
+> > Record the clears in vm->last_update, as amdgpu_vm_update_pdes() does
+> > with its updates, and wait for it, uninterruptibly, before switching th=
+e
+> > update functions. The clears all go through vm->delayed, so the last on=
+e
+> > covers the earlier ones; immediate clears are not recorded, as before.
+> >
+> > With this, on 7.3-rc6 and on 7.2.9, the same client reads the handler
+> > 10 of 10 times, 8 busy queues on the 4 compute slots complete in 5 of 5
+> > runs on 7.3-rc6 and 3 of 3 on 7.2.9 (1 of 6 before), 16 and 32 queues
+> > complete on 7.3-rc6, and two processes with 8 queues each complete
+> > together on both, with no fault.
+> >
+> > Fixes: 926c79ad6ecd ("drm/amdgpu: promote the implicit sync to the depe=
+ndent read fences")
+> > Cc: stable@vger.kernel.org # v6.16+
+> > Cc: Prike Liang <Prike.Liang@amd.com>
+> > Signed-off-by: John Fisher <jfisher84@gmail.com>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> > v2: wait for vm->last_update, in which amdgpu_vm_pt_clear() now records
+> >     the clears, instead of every BOOKKEEP fence on the root PD; wait
+> >     uninterruptibly without checking the result; keep the original
+> >     comment (Christian)
+> > v1: https://lore.kernel.org/amd-gfx/20261007200345.417281-1-jfisher84@g=
+mail.com/
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 5 +----
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
+> >  2 files changed, 2 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vm.c
+> > index 29187fabc..757a037ed 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -2737,10 +2737,7 @@ int amdgpu_vm_make_compute(struct amdgpu_device =
+*adev, struct amdgpu_vm *vm)
+> >
+> >       if (vm->use_cpu_for_update) {
+> >               /* Sync with last SDMA update/clear before switching to C=
+PU */
+> > -             r =3D amdgpu_bo_sync_wait(vm->root.bo,
+> > -                                     AMDGPU_FENCE_OWNER_UNDEFINED, tru=
+e);
+> > -             if (r)
+> > -                     goto unreserve_bo;
+> > +             dma_fence_wait(vm->last_update, false);
+> >
+> >               vm->update_funcs =3D &amdgpu_vm_cpu_funcs;
+> >               r =3D amdgpu_vm_pt_map_tables(adev, vm);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_vm_pt.c
+> > index c03327f12..cdbc2e931 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> > @@ -427,7 +427,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, =
+struct amdgpu_vm *vm,
+> >       if (r)
+> >               goto exit;
+> >
+> > -     r =3D vm->update_funcs->commit(&params, NULL);
+> > +     r =3D vm->update_funcs->commit(&params, &vm->last_update);
+> >  exit:
+> >       drm_dev_exit(idx);
+> >       return r;
+>
