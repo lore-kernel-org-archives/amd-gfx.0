@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD981CCA462
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 06:52:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9941DCC6B38
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 07:24:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 667C410EC53;
-	Fri, 16 Oct 2026 06:52:14 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011003.outbound.protection.outlook.com [52.101.52.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 886D910E069;
- Fri, 16 Oct 2026 06:52:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3261E112626;
+	Fri, 16 Oct 2026 07:24:06 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010018.outbound.protection.outlook.com [52.101.46.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB9B4112626
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 07:23:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SXbqNvvNe1jh8N/PKOrVYR8siieUn07Sgx2Vii8zZQHFsmriUVDClYt8J9o5FV1fd5w/ZJtgaMJUpQdsVu6Fw1bjyMSXIxWD+Ct1hUdz2HrlUnPQ50Tpf9JWpwobrSFHtvSd6d24INuklJXLmywzWnHSkAe/fe1OJkER2HOePs3fojHt20bSzyePTuwd/u7ifJ+xLTixtveNbCK0v3set1Bg5q28PUPhK3ncDinbCwSRoTvfZlAcmaX74zWyIXTZA15VfUfRAlw5CC4zzo9Sp+k5T9/HgQ6iBqGTEKETZNG8s1/B0loh9SaFCspRNJynOSeIbaQfULlft1eZNHEIfg==
+ b=d6Wf+JhUnjC1/BOvYDtQ3qpf8Ali4TVy8++IKgJLcu7aveD/wHwUbecLfbO260NAwXZzGuz7/KHEGOFG25BVJzRmWfEX1cRG/1ZdTLVpQC3aajoPMht9cqBG2M7xfDP6iuaPJTMMCqqzsU6jEfVOYa4sjGmqNno7MpraMVomdptWyyU/olUykPKezkZQUZz4YDUFphZc+C5vBqqCYLaDyd6ymaZtGG3+RDeXV/YIvmidovGLN2CWj7xv3ep38kAdctJi90wnwUrt4i4SMy5wHOaz49GhjbhiwGkRIlGB9ALwztV5YwVXP8VR4+fxqXAaZ2fbC9FXuUlFRYg85XGexw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ed62jcrSjphzHHtIlogIbWMAmxdh0UqTt53U+fczllY=;
- b=OfdGu1iZtRs4PcKzEUvtJpQZA0V6hYbb5/+9lzGw/vtO3p+B+b5s+NWx/AL/uRYFSW3c+66FgsGgS/2BSfp+tfEKAtRNObQYSmg6C44itN1Qfz2SzmxBKxUSbwV0Sw+Bfixg3nwHFkhAUj7pjt8PDPd3U6MCh70MSDzFvaQL7EJoFpX4m3ZUBlYKoOW+VFFE3oBfJL+YJsZSRHi/pZeVeUdvcAgAt53j4bswaZP8xOLnv94TpBYZ/h3IluGVk+F1iHOWBAVwE/N8WpRYlK6lAJ12xYR5rS1avSBpRYl8GCqODwJ6FEVGcNBOdOuklmOyU6bNRbQljb1gfXe2zjxHXQ==
+ bh=qVJl3PYhdMMVWlS+UVOEPMChGZGTfwiTXA/SDMJGEHM=;
+ b=AU46rntgvkw9RXwGVjnVQeThWwYQ6hQgrkBx8A9y6Er9tT3FeGULSHxrGtakrrW77xDL1lFpZMIVM24LhyYxoADfEnIZfsmjeIzTEz/PzlLRFUtMN026Aw3WwISVVqsn2Sif78+jdgsVDGE05cDWxKlrZytrPXIQFG7On1nAql8TiO8rQF8LH+gCHYDWr9G6UfJGr7rlzENUARUb2gs//AHm7awFXEtKN0patD0KN6YetcZ9t9bOpAmafmPFTEiq4Zpz1+hxhg5PSDc4cFtNUq3r2c/uSbfwoAaIE6p6b+hZPnJ6UD3R59G0pOrR+NpQxdxqoCSd5lK3EO4FPz6loQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ed62jcrSjphzHHtIlogIbWMAmxdh0UqTt53U+fczllY=;
- b=JAT4qwXGHLdZVoINVTBoP+KaPOcSGnOMpYq7gsAC0atHzyTUoxxT2dfEabO3uTd2HBAdN/RZDgdEFZ52jTRYCnx8vpb7XDpU4Is9AJrQVfOAtH7UO0COaVpc1OhVEwNP/Ph6x+C0k+Fv1/mo1amqC5zGv8sYHaPYLTGRtXuJVpk=
-Received: from BN9PR03CA0149.namprd03.prod.outlook.com (2603:10b6:408:fe::34)
- by DS0PR12MB8441.namprd12.prod.outlook.com (2603:10b6:8:123::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=qVJl3PYhdMMVWlS+UVOEPMChGZGTfwiTXA/SDMJGEHM=;
+ b=pMm7msbPY4hzMwrhjsH4zNhXbtKLIvv2nXf7n1uzGXxWZzBvJmZxUcWJzTku2/PXoqoVrMnvnXezfHQNXP/2FWWvI3ObUJ+yZMUddEv6sOKWbBSJggeQ1H6lHWfUV8JS+rJhiRsG8JtAgi1Iaez2Q5DNQyS9bpI/ytdSBKud5qw=
+Received: from CH0PR04CA0035.namprd04.prod.outlook.com (2603:10b6:610:77::10)
+ by DS6PR12MB095541.namprd12.prod.outlook.com (2603:10b6:8:498::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 06:52:02 +0000
-Received: from BN7PEPF000000A6.namprd05.prod.outlook.com
- (2603:10b6:408:fe:cafe::92) by BN9PR03CA0149.outlook.office365.com
- (2603:10b6:408:fe::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 16
- Oct 2026 06:52:01 +0000
+ 2026 07:23:56 +0000
+Received: from CH01EPF000BE943.namprd02.prod.outlook.com
+ (2603:10b6:610:77:cafe::60) by CH0PR04CA0035.outlook.office365.com
+ (2603:10b6:610:77::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.17 via Frontend Transport; Fri,
+ 16 Oct 2026 07:23:56 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,55 +46,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF000000A6.mail.protection.outlook.com (10.167.245.230) with Microsoft
+ CH01EPF000BE943.mail.protection.outlook.com (10.167.244.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 06:52:01 +0000
-Received: from danielhuang-HP-EliteBook-845-14-inch-G10-Notebook-PC.amd.com
- (10.180.168.240) by satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Fri, 16 Oct 2026 01:51:52 -0500
-From: Daniel Huang <danielhu@amd.com>
-To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>
-CC: <christian.koenig@amd.com>, <alex.sierra@amd.com>, <Philip.Yang@amd.com>, 
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Daniel Huang
- <danielhu@amd.com>
-Subject: [PATCH] drm/amdkfd: disable SVM when the GPUVM cannot cover CPU
- addresses
-Date: Fri, 16 Oct 2026 22:51:29 +0800
-Message-ID: <20261016145129.69645-1-danielhu@amd.com>
-X-Mailer: git-send-email 2.53.0
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 07:23:55 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
+ 2026 02:23:48 -0500
+Received: from LNXAMD-Kenneth.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 16 Oct 2026 02:23:47 -0500
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Kevin.Wang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
+Subject: [PATCH] drm/amd/pm:restate all customized OD features on every table
+ upload for smu 13.0.0/smu 14.0.2
+Date: Fri, 16 Oct 2026 15:23:51 +0800
+Message-ID: <20261016072351.2479189-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A6:EE_|DS0PR12MB8441:EE_
-X-MS-Office365-Filtering-Correlation-Id: a12bf397-3aaa-465a-6fc5-08df2b51fb52
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE943:EE_|DS6PR12MB095541:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc8aae0a-5227-456e-4622-08df2b567036
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|56012099006|11063799006|261009223027099003|18002099003|10067099003|6133799003|3023799007|13003099007;
-X-Microsoft-Antispam-Message-Info: kC4ggiO3U9EB3k5DFWibMAglywpu23WzuFS317jykxsRWaff2OsDsm74/wkNtBMajML4fRvtmGJlDpLv58/NGNeB2GCFvE97p3TXykwFBaacS9ye7B6oTujEu4bWpGrxbLbcNtTDJNsJinWaO6lVWzXMZrULQlRXLUkTDUCORDoGwpCj3mEFZjCo0y69NcEZpBg3HJ1RjtZvBtQmZcnsPdC/oAv23gOJHYY9I69yhUsyakj8NG4Kgpc8HiIqyi+cvtlOKkwaH2xF1G1iHyspucQvJHqB9LEyU5wpz1gJfgYE3a9F72TPpgVfdvCUaYiE0E3fmTrvfbGs7j/C3BrlQO3j5mCXn+eEtH2OapglVY8ycZYy3FQ8b8IlfZ6VwvPkpQQW0FYfPksHyMYOlohMOZUEjff24IsevDLTCKDX2/W1zugO4IfEJPxphURR8hOZUzndodCfiirnysZyqMmpwiZHklGV+UYIXGe0aqVNsZSBsf+SMy3e4ud3WTdtQcvvJXgduRlPEzyYRZJFmvxK23dDzMq2xF7cMyaah29HObVwwbpeY56rNMAvD4covYc3qbjuo0uwk+KvDDRWdtBFzP2LsDMvCOMbIhZcIf8qaTllRMU5aiIhp8A42wGNFmUVOPfdkHuZesHakcYRcRYywA==
+ ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|56012099006|11063799006|5023799004|261009223027099003|10067099003|18002099003|6133799003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info: MbLR8SBC8kEZxKS7AHzijQ6XFe9AXvjN1oRtEbhEnSqLcOGYsr0S+AN37V1ygEubmYMhEarx1L26ihjHx7sprN6ATKz3vO/WzJG5isf4hDE+wgpUyTPYEE6udc2E9aGSWtTqmxpgWcrOjQtwa+yIzv8dDbQ5TA0p9KAi2diePZRyF723Wmv8+5aN0DROSjjk4UoqOqyaXEz4J2BdDHmpcSLVtOSCyVgflEAhdNHGHiZPDgf33rdAfPypGGdQ1clyiDyoRDE4uf3KzhUxtnZupAj7flsFQUbF1xpHfXiITUrv2dJ1q+DO+sTzfRVzxXFERyZFI0LJe/vCC0Qkhgv4STb68qzX+GbSwgk8IlXhnLMw8k3UOMeqRHGmJz8PCeyVdiwNDMgLZuc/nw9AaS88q/b589aD3gTvdvoLaFfygUYxcClEn4b3ztJwXa1Z0GPNAemTYb0hdpu2CwXELci1oH/V5nP/Sv6DNxr7jSjfSKwT3UqLGyV4j9hZZpjQuZI/qbxjXG3A/C0zd6ilPftdkYQE60dtKFa14bL9BwuWNuaAyihCYQHqFrlhRmroM5/BF4dkbjiNVdEbeGTG2imNv1aZcgobcrohL8nYlaB5pj4XK8FQIwP1ovcztmV5y4RfgOD3AboGZdKpfPSZjnGQOA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(56012099006)(11063799006)(261009223027099003)(18002099003)(10067099003)(6133799003)(3023799007)(13003099007);
+ SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(56012099006)(11063799006)(5023799004)(261009223027099003)(10067099003)(18002099003)(6133799003)(13003099007)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: xdA24JGafpRcEYlqPIRH6+cW1vzhk9jhSpaHBdTHR7QxSOxcS2qUY280QD8Q9Ct7hFpeixIsaSDFl7iSC7cvxCPQd/fkICEtYyipjrXEMsZocmKSG1DQKajOOqAEMtfnV0uE1pR8m6BROj4AzGk/dn53XmtbvHmIIjTUIh510NCGYVH+7eoriNvSmvBlWA3snu3IpkrNlT7aowEnkzBe8l13sUSWBt3BHsRPy9QpHcRYCJ7XyKu9thLlyTG4XfbyxWzf2wmdmQbAZ9D4D7e2WH2jp6AFiPar/rDz+haRMfvJ+kXkrvTcYchNSnkPKGYCsC6X1sjRygG5utlQipONxYm6Ht489lREEHwJ67Ioj/Je/mtx23BUIttVmYXn+DqJMDFpbdAdrN5yF7l3cBS/z4wGFSSJ3BkmhlPA0ZBPi9yfeBgkEPerAr5zK24SF3WR
+X-MS-Exchange-AntiSpam-MessageData-0: OPGR/tZ/HMyOLL/b18PbTU5RKsdmlKZFomZiNRjPT2PzLPvFnQuZUj6+ytEIRotHXf31SmoWjycVna6jVcaYRN5FM0VLuoii8AJ+dqvT2Um0cbTWAKKoZytik/dMSA1sLy0xwX6QaFjOad6vXZxgINStguiJ1iwfJvRtwaRKMImGTkhp25Njy5bUvE1Yzawqu7zSQU3zBFDvB4jTJheqbLiBI5gutG3D+XjsxQtFxFuU1LOrad55XUxOypN/OXLpR9kYWgFeT7ifpEarfMjFCLDVYf63Ubke7MRIwZRuiGPm1B7zu2p4J6u1nBwuzzviMuJwWQ+G/dbB9wmq9HC9VoOJoIaeWUF6ZuS3uUt0pweHyMelj4IPgYoQxkvwm57DbSfYfzTrm6ZdEKzjp7P9m/NVmL6LS9Ru18+qCu44Yz2OKGY6gbNnPhdRKXWQ+Ztv
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 06:52:01.8336 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a12bf397-3aaa-465a-6fc5-08df2b51fb52
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 07:23:55.9129 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc8aae0a-5227-456e-4622-08df2b567036
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF000000A6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE943.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8441
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB095541
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,147 +106,326 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-KFD SVM maps memory in GPUVM at the same virtual address used by
-the CPU. However, svm_range_map_to_gpu() passes the corresponding
-PFNs to amdgpu_vm_update_range() without checking them against
-vm_manager.max_pfn.
+PMFW interprets OverDriveTable.FeatureCtrlMask as the complete set of
+overdrive features that are currently overridden, not as a delta
+describing the operation at hand. On import it resets every feature
+whose bit is clear back to its default value - for the VF curve that
+means zeroing VoltageOffsetPerZoneBoundary[] outright.
 
-If the GPUVM address range is smaller than the CPU address range,
-the page-table walker can index beyond the allocated root page-table
-entries. Unlike the SVM path, the BO mapping path validates the
-address range through amdgpu_vm_verify_parameters().
+The driver assumed the opposite. smu_v14_0_2_od_edit_dpm_table() clears
+the mask after a successful commit, so a subsequent above-default
+power1_cap write goes through smu_v14_0_2_set_ppt_limit() and uploads a
+table carrying only PP_OD_FEATURE_PPT_BIT. PMFW then drops the user's
+voltage offset and reverts to the stock V/F curve, while the driver's
+cached user table still reports the offset through pp_od_clk_voltage.
 
-An explicit amdgpu.vm_size override can trigger this condition by
-configuring a smaller GPUVM than the driver would normally select.
-
-Reproduced on a Radeon 780M (gfx1103) with amdgpu.vm_size=64.
-Repeated hipMallocManaged() allocations attempted to map CPU
-address 0x74bd48000000, well beyond the 64 GiB GPUVM limit.
-The out-of-bounds root entry contained SLUB poison with
-slub_debug=FZPU and recycled heap data without it, resulting in
-a general protection fault:
-
-  RIP: 0010:amdgpu_vm_cpu_update+0x2f/0x140 [amdgpu]
-   amdgpu_vm_pte_update_flags+0xfa/0x1e0 [amdgpu]
-   amdgpu_vm_ptes_update+0x38b/0xa00 [amdgpu]
-   amdgpu_vm_update_range+0x279/0x930 [amdgpu]
-   svm_range_map_to_gpu+0x13d/0x400 [amdgpu]
-   svm_range_validate_and_map+0x8d3/0xaa0 [amdgpu]
-   svm_ioctl+0x66/0x80 [amdgpu]
-   kfd_ioctl+0x40a/0x650 [amdgpu]
-
-As discussed in [1], rejecting out-of-range PFNs in
-amdgpu_vm_update_range() is too late. SVM must not be initialized
-when the GPUVM cannot represent the required CPU addresses.
-
-Prevent this by disabling KFD SVM support when the GPUVM address
-range is smaller than AMDGPU_GMC_HOLE_START. This prevents
-affected devices from advertising SVM support and excludes them
-from SVM mappings. Warn from kfd_update_svm_support_properties(),
-which runs after the device memory pgmap is registered, so that
-only devices that would otherwise have advertised SVM report the
-loss of the capability.
-
-[1] https://lore.kernel.org/amd-gfx/da43b0e3-5bd9-4aa1-86d3-b733f3bad108@amd.com/
-
-Fixes: f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs")
-Closes: https://github.com/ROCm/legacy-rocm-build/issues/6691
-Cc: stable@vger.kernel.org
-Signed-off-by: Daniel Huang <danielhu@amd.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5935
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 ---
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  2 +
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 35 +++++++----------
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 32 +++++++---------
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 38 +++++++++++--------
+ 4 files changed, 52 insertions(+), 55 deletions(-)
 
-Tested on a Radeon 780M (gfx1103, PCI 1002:15bf), kernel
-7.0.0-38-generic, and ROCm 7.13.0-2.
-
-The reproducer performs 24 iterations of hipMallocManaged(1 GiB),
-hipMemset(), and hipFree() per run, with 40 runs per attempt.
-
-With amdgpu.vm_size=64:
-- Stock module: kernel Oops within approximately 2 seconds on
-  every attempt.
-- Patched module: completed 40/40 runs in two attempts, with
-  stock and patched modules tested alternately on the same kernel.
-
-With the default GPUVM size, the patched module preserved SVM
-support, emitted no warning, and completed the same test.
-
-Two questions for maintainers:
-
-1. I interpreted "SVM must fail to initialize" as disabling
-   the SVM capability for affected devices rather than failing
-   KFD initialization or rejecting the vm_size override.
-   Would a different approach be preferable?
-
-2. This check also affects GMC v6/v7/v8, whose GPUVM address
-   ranges cannot reach AMDGPU_GMC_HOLE_START. Although these
-   devices do not register device-private memory, an APU with
-   apu_prefer_gtt can currently advertise SVM support.
-
-   Should the check apply to these devices as well, or should
-   it be limited to explicitly configured amdgpu.vm_size
-   overrides?
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h      | 18 ++++++++++++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 14 +++++++++++++-
- 2 files changed, 29 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index c7d7adae4476..6235ce0f988e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -203,11 +203,25 @@ struct kfd_process_device *
- svm_range_get_pdd_by_node(struct svm_range *prange, struct kfd_node *node);
- void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index f516d0d3bb92..9d47d2ab1b49 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -433,6 +433,8 @@ struct smu_table_context {
+ 	void                            *boot_overdrive_table;
+ 	void				*user_overdrive_table;
  
-+/*
-+ * SVM uses CPU virtual addresses for GPU mappings. Disable SVM if the GPUVM
-+ * address range cannot cover the required CPU address range.
-+ *
-+ * The parameter must be named adev since AMDGPU_GMC_HOLE_START references
-+ * adev->vm_manager.max_level.
-+ */
-+static inline bool kfd_svm_vm_covers_user_va(struct amdgpu_device *adev)
-+{
-+	return (adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) >=
-+		AMDGPU_GMC_HOLE_START;
-+}
++	uint32_t			user_od_feature_mask;
 +
- /* SVM API and HMM page migration work together, device memory type
-  * is initialized to not 0 when page migration register device memory.
-  */
--#define KFD_IS_SVM_API_SUPPORTED(adev) ((adev)->kfd.pgmap.type != 0 ||\
--					((adev)->apu_prefer_gtt))
-+#define KFD_IS_SVM_API_SUPPORTED(adev)					\
-+	(((adev)->kfd.pgmap.type != 0 || (adev)->apu_prefer_gtt) &&	\
-+	 kfd_svm_vm_covers_user_va(adev))
+ 	struct smu_driver_table driver_tables[SMU_DRIVER_TABLE_COUNT];
+ };
  
- void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 6beafabf1306..468aaeb79ffb 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -1569,7 +1569,6 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 	struct amdgpu_device *adev = smu->adev;
+ 	uint32_t offset_of_voltageoffset;
+ 	int32_t minimum, maximum;
+-	uint32_t feature_ctrlmask;
+ 	int i, ret = 0;
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 35b3abe57b80..5de19fa27d12 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -2471,8 +2471,20 @@ void kfd_update_svm_support_properties(struct amdgpu_device *adev)
- 				sys_props.generation_count++;
- 			else
- 				dev_err(adev->dev, "Failed to update SVM support properties. ret=%d\n", ret);
--		} else
-+		} else {
-+#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-+			/* Report it rather than letting the capability
-+			 * silently vanish from the KFD topology.
-+			 */
-+			if ((adev->kfd.pgmap.type || adev->apu_prefer_gtt) &&
-+			    !kfd_svm_vm_covers_user_va(adev))
-+				dev_warn_once(adev->dev,
-+					      "GPUVM size 0x%llx is too small for KFD SVM; SVM disabled (amdgpu.vm_size=%d)\n",
-+					      adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT,
-+					      amdgpu_vm_size);
-+#endif
- 			dev->node_props.capability &= ~HSA_CAP_SVMAPI_SUPPORTED;
-+		}
- 	}
- 	up_write(&topology_lock);
- }
+ 	switch (type) {
+@@ -1891,21 +1890,16 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 			if (ret)
+ 				return ret;
+ 		} else {
+-			feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
+ 			memcpy(od_table,
+ 		       table_context->boot_overdrive_table,
+ 		       sizeof(OverDriveTableExternal_t));
+-			od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
++			od_table->OverDriveTable.FeatureCtrlMask = 0;
++			table_context->user_od_feature_mask = 0;
+ 		}
+ 		fallthrough;
+ 	case PP_OD_COMMIT_DPM_TABLE:
+-		/*
+-		 * The member below instructs PMFW the settings focused in
+-		 * this single operation.
+-		 * `uint32_t FeatureCtrlMask;`
+-		 * It does not contain actual informations about user's custom
+-		 * settings. Thus we do not cache it.
+-		 */
++		table_context->user_od_feature_mask =
++			od_table->OverDriveTable.FeatureCtrlMask;
+ 		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
+ 		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
+ 			   table_context->user_overdrive_table + offset_of_voltageoffset,
+@@ -1918,7 +1912,6 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 				return ret;
+ 			}
+ 
+-			od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
+ 			       (u8 *)od_table + offset_of_voltageoffset,
+ 			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
+@@ -2201,6 +2194,7 @@ static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
+ 		       boot_od_table,
+ 		       sizeof(OverDriveTableExternal_t));
+ 		smu->user_dpm_profile.user_od = false;
++		smu->smu_table.user_od_feature_mask = 0;
+ 	} else if (smu->user_dpm_profile.user_od) {
+ 		memcpy(&user_od_table_bak,
+ 		       user_od_table,
+@@ -2250,12 +2244,8 @@ static int smu_v13_0_0_restore_user_od_settings(struct smu_context *smu)
+ 	OverDriveTableExternal_t *od_table = table_context->overdrive_table;
+ 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
+ 	int res;
+-
+-	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
+-							BIT(PP_OD_FEATURE_UCLK_BIT) |
+-							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
++	user_od_table->OverDriveTable.FeatureCtrlMask =
++		table_context->user_od_feature_mask;
+ 	res = smu_v13_0_0_upload_overdrive_table(smu, user_od_table);
+ 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 	if (res == 0)
+@@ -3069,8 +3059,10 @@ static int smu_v13_0_0_set_ppt_limit(struct smu_context *smu,
+ 
+ 		if (current_od_table.OverDriveTable.Ppt) {
+ 			od_table->OverDriveTable.Ppt = 0;
+-			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
+-
++			table_context->user_od_feature_mask &=
++				~(1U << PP_OD_FEATURE_PPT_BIT);
++			od_table->OverDriveTable.FeatureCtrlMask =
++				table_context->user_od_feature_mask;
+ 			ret = smu_v13_0_0_upload_overdrive_table(smu, od_table);
+ 			if (ret) {
+ 				dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
+@@ -3084,8 +3076,9 @@ static int smu_v13_0_0_set_ppt_limit(struct smu_context *smu,
+ 			return ret;
+ 
+ 		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
+-		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
+-
++		table_context->user_od_feature_mask |= 1U << PP_OD_FEATURE_PPT_BIT;
++		od_table->OverDriveTable.FeatureCtrlMask =
++			table_context->user_od_feature_mask;
+ 		ret = smu_v13_0_0_upload_overdrive_table(smu, od_table);
+ 		if (ret) {
+ 		  dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index 414fb436d88f..b96152d3920f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -1578,7 +1578,6 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 	struct amdgpu_device *adev = smu->adev;
+ 	uint32_t offset_of_voltageoffset;
+ 	int32_t minimum, maximum;
+-	uint32_t feature_ctrlmask;
+ 	int i, ret = 0;
+ 
+ 	switch (type) {
+@@ -1900,22 +1899,17 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 			if (ret)
+ 				return ret;
+ 		} else {
+-			feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
+ 			memcpy(od_table,
+ 					table_context->boot_overdrive_table,
+ 					sizeof(OverDriveTableExternal_t));
+-			od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
++			od_table->OverDriveTable.FeatureCtrlMask = 0;
++			table_context->user_od_feature_mask = 0;
+ 		}
+ 		fallthrough;
+ 
+ 	case PP_OD_COMMIT_DPM_TABLE:
+-		/*
+-		 * The member below instructs PMFW the settings focused in
+-		 * this single operation.
+-		 * `uint32_t FeatureCtrlMask;`
+-		 * It does not contain actual informations about user's custom
+-		 * settings. Thus we do not cache it.
+-		 */
++		table_context->user_od_feature_mask =
++			od_table->OverDriveTable.FeatureCtrlMask;
+ 		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
+ 		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
+ 			   table_context->user_overdrive_table + offset_of_voltageoffset,
+@@ -1928,7 +1922,6 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 				return ret;
+ 			}
+ 
+-			od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
+ 			       (u8 *)od_table + offset_of_voltageoffset,
+ 			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
+@@ -2203,6 +2196,7 @@ static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
+ 		       boot_od_table,
+ 		       sizeof(OverDriveTableExternal_t));
+ 		smu->user_dpm_profile.user_od = false;
++		smu->smu_table.user_od_feature_mask = 0;
+ 	} else if (smu->user_dpm_profile.user_od) {
+ 		memcpy(&user_od_table_bak,
+ 		       user_od_table,
+@@ -2253,11 +2247,8 @@ static int smu_v13_0_7_restore_user_od_settings(struct smu_context *smu)
+ 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
+ 	int res;
+ 
+-	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
+-							BIT(PP_OD_FEATURE_UCLK_BIT) |
+-							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
++	user_od_table->OverDriveTable.FeatureCtrlMask =
++		table_context->user_od_feature_mask;
+ 	res = smu_v13_0_7_upload_overdrive_table(smu, user_od_table);
+ 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 	if (res == 0)
+@@ -2719,7 +2710,10 @@ static int smu_v13_0_7_set_ppt_limit(struct smu_context *smu,
+ 
+ 		if (current_od_table.OverDriveTable.Ppt) {
+ 			od_table->OverDriveTable.Ppt = 0;
+-			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++			table_context->user_od_feature_mask &=
++				~(1U << PP_OD_FEATURE_PPT_BIT);
++			od_table->OverDriveTable.FeatureCtrlMask =
++				table_context->user_od_feature_mask;
+ 
+ 			ret = smu_v13_0_7_upload_overdrive_table(smu, od_table);
+ 			if (ret) {
+@@ -2734,7 +2728,9 @@ static int smu_v13_0_7_set_ppt_limit(struct smu_context *smu,
+ 			return ret;
+ 
+ 		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
+-		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++		table_context->user_od_feature_mask |= 1U << PP_OD_FEATURE_PPT_BIT;
++		od_table->OverDriveTable.FeatureCtrlMask =
++			table_context->user_od_feature_mask;
+ 
+ 		ret = smu_v13_0_7_upload_overdrive_table(smu, od_table);
+ 		if (ret) {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 33f93f6d90af..c4dfa66c723b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -2385,6 +2385,7 @@ static int smu_v14_0_2_set_default_od_settings(struct smu_context *smu)
+ 		       boot_od_table,
+ 		       sizeof(OverDriveTableExternal_t));
+ 		smu->user_dpm_profile.user_od = false;
++		smu->smu_table.user_od_feature_mask = 0;
+ 	} else if (smu->user_dpm_profile.user_od) {
+ 		memcpy(&user_od_table_bak,
+ 		       user_od_table,
+@@ -2433,11 +2434,8 @@ static int smu_v14_0_2_restore_user_od_settings(struct smu_context *smu)
+ 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
+ 	int res;
+ 
+-	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
+-							BIT(PP_OD_FEATURE_UCLK_BIT) |
+-							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
++	user_od_table->OverDriveTable.FeatureCtrlMask =
++		table_context->user_od_feature_mask;
+ 	res = smu_v14_0_2_upload_overdrive_table(smu, user_od_table);
+ 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 	if (res == 0)
+@@ -2522,7 +2520,6 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
+ 	struct amdgpu_device *adev = smu->adev;
+ 	uint32_t offset_of_voltageoffset;
+ 	int32_t minimum, maximum;
+-	uint32_t feature_ctrlmask;
+ 	int i, ret = 0;
+ 
+ 	switch (type) {
+@@ -2811,21 +2808,26 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
+ 			if (ret)
+ 				return ret;
+ 		} else {
+-			feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
+ 			memcpy(od_table,
+ 		       table_context->boot_overdrive_table,
+ 		       sizeof(OverDriveTableExternal_t));
+-			od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
++			od_table->OverDriveTable.FeatureCtrlMask = 0;
++			table_context->user_od_feature_mask = 0;
+ 		}
+ 		fallthrough;
+ 	case PP_OD_COMMIT_DPM_TABLE:
+ 		/*
+-		 * The member below instructs PMFW the settings focused in
+-		 * this single operation.
+-		 * `uint32_t FeatureCtrlMask;`
+-		 * It does not contain actual informations about user's custom
+-		 * settings. Thus we do not cache it.
++		 * PMFW interprets FeatureCtrlMask as the complete set of OD
++		 * features that are currently overridden, not as a delta
++		 * describing this single operation. Any feature whose bit is
++		 * clear gets reset to its default on import. od_table's mask
++		 * has accumulated every feature the user touched since the
++		 * last full restore, so record it and keep restating it on
++		 * subsequent uploads.
+ 		 */
++		table_context->user_od_feature_mask =
++			od_table->OverDriveTable.FeatureCtrlMask;
++
+ 		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
+ 		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
+ 			   table_context->user_overdrive_table + offset_of_voltageoffset,
+@@ -2838,7 +2840,6 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
+ 				return ret;
+ 			}
+ 
+-			od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
+ 			       (u8 *)od_table + offset_of_voltageoffset,
+ 			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
+@@ -2882,7 +2883,10 @@ static int smu_v14_0_2_set_ppt_limit(struct smu_context *smu,
+ 
+ 		if (current_od_table.OverDriveTable.Ppt) {
+ 			od_table->OverDriveTable.Ppt = 0;
+-			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++			table_context->user_od_feature_mask &=
++				~(1U << PP_OD_FEATURE_PPT_BIT);
++			od_table->OverDriveTable.FeatureCtrlMask =
++				table_context->user_od_feature_mask;
+ 
+ 			ret = smu_v14_0_2_upload_overdrive_table(smu, od_table);
+ 			if (ret) {
+@@ -2897,7 +2901,9 @@ static int smu_v14_0_2_set_ppt_limit(struct smu_context *smu,
+ 			return ret;
+ 
+ 		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
+-		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++		table_context->user_od_feature_mask |= 1U << PP_OD_FEATURE_PPT_BIT;
++		od_table->OverDriveTable.FeatureCtrlMask =
++			table_context->user_od_feature_mask;
+ 
+ 		ret = smu_v14_0_2_upload_overdrive_table(smu, od_table);
+ 		if (ret) {
 -- 
-2.53.0
+2.43.0
 
