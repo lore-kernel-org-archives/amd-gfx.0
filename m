@@ -4,78 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87B93CCF2C4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C4C3CCF2D1
 	for <amd-gfx@archiver.kernel.org>; Sat, 17 Oct 2026 17:31:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A8E710E471;
-	Sat, 17 Oct 2026 17:30:54 +0000 (UTC)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D20A910E0E1
- for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 13:00:54 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-6b1b22cd4b8so86350a12.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 06:00:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A972810E46A;
+	Sat, 17 Oct 2026 17:30:53 +0000 (UTC)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E3DE10E06C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 19:01:28 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2d71d1cc8b2so944695ad.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 12:01:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792177288; cv=none;
+ d=google.com; s=arc-20260327;
+ b=egucMJo0YgxkEOLv9ZjQVxH+l8f8Y/kxuUe0yX6KUaN16BjHZsOvcT0jurbgQaEh1J
+ OJCfCuIxX/aSSc3JtCyCNh7KVy+SPvC+MHg1tOqOO/jcsI7twwTsQpJMBReXZW29DN5+
+ kmxs9rXC253FZYKJ4sgOzplq2eGo7wVxYS2xQiVAFYERv1yZwaUWCZDB8vBkElfrrips
+ c/+11iUph3vzTH+4Lumu1l7kwC8g75ySJaVSauelMye+qE+Hx7MEV7DkSZw+3TjhxXGE
+ EeB7PmDoNyufYFnEsNV+VqLFy67CMdvoTMrCQ+RdOvn/wbnLo7Nx2x4KacPFicZKKuN6
+ +HWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=JjOTQkDWeoigokXojRyORks8HjSsuNnZ/Gan75r6U7c=;
+ fh=gsDEvrztwZJsGx5CEzNhUhhDf/QlEbBCSoceJzeq60k=;
+ b=jGpc9lWBiB9m/rTTOHAqFTYaQVSa4SIN3pHfqbrYD/6JGfpnc/iskfWeqakBuuhj+a
+ r/KmASWxKJXv/1RtawI5M/isNH2jpobWbjnIEsA/r7AOCOhnM/XrGc19Be5cDeKgkeoO
+ +o1LqfsNFqH6RyY9N+6J3OSjgwJ+BQx6EgyNAj2KFI72zeLp1k98J8cywW2pKnMDQmXL
+ RA3//6+PBAxaJWvKufYEG/j1+oSCrfGK7nTazROFICGylrU56Q/AL7hi8VM+84fkEWce
+ W52zcCqnjbYzp+JPXKrn3UmmatdzKUCAn256dyx0qNpqCCA/t+OM+T4LJ7J6JhHiQuo/
+ gufQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792242053; x=1792846853; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=legVIwX3VgSLwP32JW35R05ueTk+mHVnvshzarqz/HQ=;
- b=stS3itZXw9w4mjOxSIVZske7T8tDwasqQZ2LkZIq/AvVv29ETZysEBLcgd1a4tQBqy
- ZK6Zyz6yqcCEmBvg62pJ/v4MV6D7OP9LbzPHPkcdhtnKSeBZ/46+zPz5DNwbYbdXOcuB
- 3HiX1NVyvLHOfaDKp3ky/VtscscYhSHzrnxxUYJ220ViRNpghimPxXy5IxWvJs/aSE0C
- phbFLKS5E3Suo2q85gYhsisk7tk0yfHwJq03O3RPv1phXF6W0N2HcdozO39GG1C9t3cc
- TftByQnjlyHbjehAbFxt/FBf8J2CI+cD3x3KWbpn3EOwnBafGW7a9T6YXCVWE2qmVOnX
- fvmw==
+ d=gmail.com; s=20251104; t=1792177288; x=1792782088; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=JjOTQkDWeoigokXojRyORks8HjSsuNnZ/Gan75r6U7c=;
+ b=nQvG76CM7PqQqvTeasIM97V2chbSrH8JVpfFiap5rLm3nJyhGWgPyRP5Ma+BJI036Z
+ SnzXjHQyuIJ+HgOqDLP8Q245CRIWgcdzvIWqmASqFRXYnFr85x1Xsnm4gnppagxwpRyM
+ YMM2NEzeqVV1tA2pjWh1kzunIBo6OlhLgxaFe6+bHiingO6J0NNScGqCEycTEmliHDG+
+ yMdFoNa03U/ygp4pPQVyM8xJdW/xYoVQhCD9TLXsIskKW2ixOIfW6nlmJgn39ACWT4Td
+ yCCxo0B/bOUdxn9gU1WHv1ZyhYa2tvW3SNQkI3Oxgpl98ba+b6CBPQVQ65JRFDpSefMt
+ pwmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792242053; x=1792846853;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=legVIwX3VgSLwP32JW35R05ueTk+mHVnvshzarqz/HQ=;
- b=PD8OAmYvkNrw5FqsJiT5llOkx94pddFWJPHx4hJim0ylgP4g3VHyOBFFGjwJ88BSnF
- mH6OYnyZajvG/8Tu4QgN8A0+ba9cONipDjRd9yoblCNGFEXbUEqBbldYJcm5Sm9KesJQ
- NqNw2SSYzLtoL8lMAC7z6u3dxlxxwiJnnqeULwLc8xHp6ToCAHPapGJZoP06aUK3XYHT
- vuRN8MBsdz3mCl49zYxeBSJw8PAPWaWLgCR/kTYelj1JgMRSLvaKnPk7T4eh1DQSUaHV
- GEQdRIRB8JvDPrfXYDLu3vo30VqMpQ2Uoyh6Qxs4zI1OWtF3I0NYsXe0d2u8AbdIF64/
- Fc8A==
-X-Gm-Message-State: AFq9FYKvdchGQhBlVpAM5gsYU6D82isFZDTBh/8YKNPP1SmwLHfk5ot1
- edw2L5LEy71RqPdAXfa/Vh8w90yOjEwfg86AXB32YxsIqr8JdzjqD+S3bP7kvx098Mz3bA==
-X-Gm-Gg: AYBFou1CkdeNE8fmTawNYTPEsEJpy+zIqhflIZlV547LIy2z4hC8CIySQB/jCZxYYaJ
- qc4RFzJgIHlJPS2UwMCl1lGtx0C486igv913Uqwo6rdpGjcjKlCo56zIblQA+CiezLIrsyApNi9
- xttnmQR26Hmo1oFr214X8rZBkvv34yilOMaZZbdh0b1rBuwinQ4/GjFB4KE4X71j+sCt1BYRGDa
- Y3K1pGWK2Q3yGyw68yFjXMbf+o6XXZkeS3f89SCCAFR9JCk4gz7+eLo1jkVHubks5A/VY52ZV8I
- uHa0tHXRZK/HAhFXB/da/PRXw5o7FhtJVPHV9Luw4rUV8I1XWZmDqBOn2+MfW9BzOINu4gAM9F6
- 3gj8ltVNRn1V0Esn9lP06xPLnkRyDwi/2m6OnmfetKDaZMzfGkuyNet4lmZWGI/EmkcM3kAocoz
- yqKKaaJLVnbGbZNJjeGmU764uhRWnPlyv7kjaHKv4jnYi87lhPSEa1rA4lMADBrCTTSQHDc8+1e
- C0JfDNLlkMUFNbHGGcKWQ==
-X-Received: by 2002:a17:907:2d87:b0:c2d:bbae:703b with SMTP id
- a640c23a62f3a-c419b917404mr204323466b.2.1792242052720; 
- Sat, 17 Oct 2026 06:00:52 -0700 (PDT)
-Received: from Nuel20.localdomain ([105.112.97.113])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c408e328780sm174827366b.6.2026.10.17.06.00.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Oct 2026 06:00:52 -0700 (PDT)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, paulmck@kernel.org, rostedt@goodmis.org, ast@kernel.org,
- peterz@infradead.org, gregkh@linuxfoundation.org, emmaonana18@gmail.com,
- abo@medichon.fr, skhan@linuxfoundation.org
-Subject: [PATCH v2] drm/amd/display: remove unused cgs register accessor
- typedefs
-Date: Sat, 17 Oct 2026 14:00:46 +0100
-Message-ID: <20261017130047.42080-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
-References: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
+ d=1e100.net; s=20260707; t=1792177288; x=1792782088;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=JjOTQkDWeoigokXojRyORks8HjSsuNnZ/Gan75r6U7c=;
+ b=VH4VynVIi8S4cy+z9t1+2WIXB5qyW48F3JPjUuWAVg/EPmd5Kxf7T8pkJ4nue9qoS5
+ Ln39b/JctAuR98avJ7xTNsMqY3i1NYeZl9hb3IYz17HiWRo+17kVe2QR7823LU2DmzmQ
+ 5pdeNCyt8YiD9iTLsrZVvfmyKC/Tg5ldYQaENKgaI8UVUtvMl+NXnh1OXLD4o3nK7cWN
+ jSQ9J5OfPiOlNAewbXaXpdNGTHpq5j0LRmLtC4ll0xOzrK2VsEdV0SaG6up6OdcMSJy2
+ /ekocH5krimOXLDYwjTtITW9x05lsE2ha4CUG/Zw3jP/haBCS/KaAFnXCuOrd295waUD
+ PF7A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxVN/1L8YTwsCHS3Nwey+DC2PyYzJHTWBxekymHWRbvlZeWfZ/yklqGt9px7cSgydB5iqx9PF+N@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLt3CuBxiEoB2j8WOAD9Hkx1Ar58y9/NvMRgAdWehxXaE3KsRCY
+ nNEMmUlNTLZVzh0oKdgUzHu0cfp1e0qUJBy8SRYGviHIH+TwuXn3rRJCHhA3La8pV6ZKQmc+YUu
+ ukAgyhAXVExP7WD9ADvJNoRgovdg0vhw=
+X-Gm-Gg: AYBFou2bxt9G6f48GPhbnVDuF1JCnHYj7ZRngpxG8znSPw2agdf8Qxn4Jof0a+hakGn
+ IPeqhBeY5QSrSxA0ft7CeCvFV5T8fYb091TyBklXzFrWWo6sbQcUHMzxlsErmJJ4y7Fe6QJrZSN
+ 3RZS0+Nxj4qNtEyc3FvxTXryEENEReKfThIzp8s9DOlYG9NLy72Nk15Nj3Btx37Jq37UwE/8Cbo
+ g0MbiSMSUKMvEGip7yIeoojRHt5OMNzxTkkxwv+rHmmTtxAm+dWmiSXZkATvVtMsgxuPVozN1vZ
+ EtBCCBWiUcwIfvXNOGukzd4q9C/LHaHIiZmPFh9dZOr76JUMF0OR+cR4uOUf9x9WZ8hgYy6q+0g
+ IKDh1Nv/YoPXsJZrAK3oKWt2oo2Vg5f8cwDHoSmLrGtoaefNklaD4H3KhwEI1fKXHBuaNEZOYrF
+ Cryl2koin2Vzg=
+X-Received: by 2002:a17:902:dac8:b0:2e9:5829:9b41 with SMTP id
+ d9443c01a7336-2e9a6c02ce4mr9004735ad.37.1792177287656; Fri, 16 Oct 2026
+ 12:01:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Stefan <olinesn@gmail.com>
+Date: Fri, 16 Oct 2026 15:01:16 -0400
+X-Gm-Features: AclHuK-4cFFWJgvZxXTLe5Uv4KNC8ytWLiIhHNFtyeIWhaDuOCX_uc3UI0RRIAw
+Message-ID: <CAPykwV_fQq9spwEQBRRPMOznhHW+TYuABux2=_BGCeY1bivqOw@mail.gmail.com>
+Subject: [BUG] x86/kaslr: vmemmap can end 1 GiB inside the CPU entry area
+ (amdgpu oops in memmap_init_zone_device)
+To: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Kees Cook <kees@kernel.org>
+Cc: Balbir Singh <balbirs@nvidia.com>, Dan Williams <djbw@kernel.org>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Felix Kuehling <felix.kuehling@amd.com>, linux-mm@kvack.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Sat, 17 Oct 2026 17:30:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,106 +103,484 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-kernel-doc reports prototype mismatches for the cgs register accessor
-typedefs, e.g.:
+(draft below was generated from Claude)
 
-  drivers/gpu/drm/amd/include/cgs_common.h:89: expecting prototype
-  for cgs_read_register(). Prototype was for uint32_t() instead
 
-Each of the four typedefs is used exactly once, as
-the type of a struct cgs_ops member, so they are merely an
-unnecessary layer of indirection. Drop the typedefs along with their
-kernel-doc comments and write the function pointer types directly in
-struct cgs_ops.
+Hi,
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Link: https://lore.kernel.org/all/981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com/
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
----
- drivers/gpu/drm/amd/include/cgs_common.h | 60 +++++++-----------------
- 1 file changed, 18 insertions(+), 42 deletions(-)
+On a 4-level x86-64 machine, one boot oopsed while amdgpu (amdkfd) was
+setting up its DEVICE_PRIVATE memory: memmap_init_zone_device() wrote a
+struct page at 0xfffffe0000000000, which is CPU_ENTRY_AREA_BASE (the
+read-only IDT alias). The registers show that KASLR had placed vmemmap
+so that it ended 1 GiB past vaddr_end.
 
-diff --git a/drivers/gpu/drm/amd/include/cgs_common.h b/drivers/gpu/drm/amd/include/cgs_common.h
-index f40b6a03fe63..1750401c7d08 100644
---- a/drivers/gpu/drm/amd/include/cgs_common.h
-+++ b/drivers/gpu/drm/amd/include/cgs_common.h
-@@ -80,43 +80,6 @@ struct cgs_firmware_info {
- 
- typedef unsigned long cgs_handle_t;
- 
--/**
-- * cgs_read_register() - Read an MMIO register
-- * @cgs_device:	opaque device handle
-- * @offset:	register offset
-- *
-- * Return:  register value
-- */
--typedef uint32_t (*cgs_read_register_t)(struct cgs_device *cgs_device, unsigned offset);
--
--/**
-- * cgs_write_register() - Write an MMIO register
-- * @cgs_device:	opaque device handle
-- * @offset:	register offset
-- * @value:	register value
-- */
--typedef void (*cgs_write_register_t)(struct cgs_device *cgs_device, unsigned offset,
--				     uint32_t value);
--
--/**
-- * cgs_read_ind_register() - Read an indirect register
-- * @cgs_device:	opaque device handle
-- * @offset:	register offset
-- *
-- * Return:  register value
-- */
--typedef uint32_t (*cgs_read_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
--					    unsigned index);
--
--/**
-- * cgs_write_ind_register() - Write an indirect register
-- * @cgs_device:	opaque device handle
-- * @offset:	register offset
-- * @value:	register value
-- */
--typedef void (*cgs_write_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
--					 unsigned index, uint32_t value);
--
- #define CGS_REG_FIELD_SHIFT(reg, field) reg##__##field##__SHIFT
- #define CGS_REG_FIELD_MASK(reg, field) reg##__##field##_MASK
- 
-@@ -137,14 +100,27 @@ typedef int (*cgs_get_firmware_info)(struct cgs_device *cgs_device,
- 				     enum cgs_ucode_id type,
- 				     struct cgs_firmware_info *info);
- 
-+/**
-+ * struct cgs_ops - Common Graphics Services operations
-+ * @read_register: read register value
-+ * @write_register: write register value
-+ * @read_ind_register: read indirect register value
-+ * @write_ind_register: write indirect register value
-+ * @get_firmware_info: get firmware information
+I think there are two causes. First, kernel_randomize_memory() never
+takes the PUD_SIZE gaps it puts between regions out of remain_entropy.
+Second, since 7ffb791423c7 and 269031b15c14 the top of vmemmap is
+actually used. Details, a model of the loop and a one-line fix follow.
+
+System
+------
+GMKtec EVO-X2 (BIOS 1.09), AMD Ryzen AI Max+ 395 (Strix Halo APU),
+48-bit physical and virtual addresses, so 4-level paging and
+MAX_PHYSMEM_BITS = 46. About 64 GiB of system RAM plus a 64 GiB BIOS VRAM
+carve-out. Ubuntu 24.04, kernel 6.17.0-1033-oem (based on 6.17.13),
+with CONFIG_RANDOMIZE_MEMORY=y, CONFIG_ZONE_DEVICE=y,
+CONFIG_PCI_P2PDMA=y, CONFIG_DEVICE_PRIVATE=y and CONFIG_HSA_AMD_SVM=y.
+The code involved is the same in current mainline (checked at
+70dd4ee72eb2).
+
+It happened once in about 30 boots on 6.17 kernels. It cannot be
+reproduced on demand, because it depends on the KASLR draw.
+
+Oops
+----
+BUG: unable to handle page fault for address: fffffe0000000034
+#PF: supervisor write access in kernel mode
+#PF: error_code(0x0003) - permissions violation
+PGD 107e07c067 P4D 107e07c067 PUD 107e059067 PMD 10031f067 PTE 8000000b4efe4121
+Oops: Oops: 0003 [#1] SMP NOPTI
+CPU: 6 UID: 0 PID: 561 Comm: systemd-modules Not tainted
+6.17.0-1033-oem #33-Ubuntu PREEMPT(voluntary)
+Hardware name: GMKtec NucBox_EVO-X2/GMKtec, BIOS EVO-X2 1.09 09/13/2025
+RIP: 0010:__init_zone_device_page.constprop.0+0x27/0x110
+Code: 90 90 90 0f 1f 44 00 00 48 b8 00 00 00 c0 ff ff 27 00 55 48 c1
+e2 36 48 09 c2 48 8d 47 08 48 89 e5 41 54 49 89 cc 53 48 89 fb <c7> 47
+34 01 00 00 00 48 c7 47 38 00 00 00 00 c7 47 30 ff ff ff ff
+RSP: 0018:ffffcd4cc2f8b570 EFLAGS: 00010206
+RAX: fffffe0000000008 RBX: fffffe0000000000 RCX: ffff8d1d08ad8a10
+RDX: 0027ffffc0000000 RSI: 00000003ff000000 RDI: fffffe0000000000
+RBP: ffffcd4cc2f8b580 R08: 0000000000000000 R09: 000000ffc0000000
+R10: 0000000000000000 R11: 0000000000000000 R12: ffff8d1d08ad8a10
+R13: 0000000000000000 R14: ffff8d1d08ad8a10 R15: 0000000400000000
+FS:  00007bb2617a1440(0000) GS:ffff8d2ca5f64000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: fffffe0000000034 CR3: 000000010604c000 CR4: 0000000000f50ef0
+PKRU: 55555554
+Call Trace:
+ <TASK>
+ memmap_init_zone_device+0xcd/0x290
+ pagemap_range+0x2a6/0x400
+ memremap_pages+0x103/0x280
+ ? get_free_mem_region+0x2e6/0x370
+ devm_memremap_pages+0x22/0x70
+ kgd2kfd_init_zone_device+0x11c/0x220 [amdgpu]
+ amdgpu_device_ip_init+0x65f/0xac0 [amdgpu]
+ amdgpu_device_init+0xd12/0x1250 [amdgpu]
+ amdgpu_driver_load_kms+0x14/0xd0 [amdgpu]
+ amdgpu_pci_probe+0x20b/0x740 [amdgpu]
+ local_pci_probe+0x44/0xb0
+ pci_call_probe+0x5e/0x190
+ pci_device_probe+0xae/0x110
+ really_probe+0xee/0x3c0
+ __driver_probe_device+0x8c/0x180
+ driver_probe_device+0x24/0xd0
+ __driver_attach+0x10b/0x210
+ ? __pfx___driver_attach+0x10/0x10
+ bus_for_each_dev+0x89/0xf0
+ driver_attach+0x1e/0x30
+ bus_add_driver+0x14e/0x290
+ driver_register+0x5e/0x130
+ ? __pfx_amdgpu_init+0x10/0x10 [amdgpu]
+ __pci_register_driver+0x5e/0x70
+ amdgpu_init+0x69/0xff0 [amdgpu]
+ do_one_initcall+0x5a/0x340
+ do_init_module+0x97/0x2c0
+ load_module+0x99c/0xac0
+ init_module_from_file+0x95/0x100
+ idempotent_init_module+0x10f/0x300
+ __x64_sys_finit_module+0x73/0xe0
+ x64_sys_call+0x1784/0x2680
+ do_syscall_64+0x80/0x8b0
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+ </TASK>
+[ '?' frames from the syscall path and the user-mode registers trimmed;
+  full log on request ]
+
+Analysis
+--------
+__init_zone_device_page() faulted on its first store to the struct page
+(RDI) for the pfn in RSI:
+
+  pfn          = RSI = 0x3ff000000, so phys 0x3ff000000000
+  page         = RDI = 0xfffffe0000000000 = CPU_ENTRY_AREA_BASE = vaddr_end
+  vmemmap_base = RDI - RSI * 64 = 0xfffffd0040000000
+  vmemmap end  = vmemmap_base + 1 TiB = 0xfffffe0040000000
+               = vaddr_end + 1 GiB
+
+amdkfd's region is [64 TiB - 64 GiB, 64 TiB). get_free_mem_region()
+with GFR_DESCENDING starts at min(iomem_resource.end,
+DIRECT_MAP_PHYSMEM_END) = 2^46 - 1 and works down. So these 64 GiB of
+pfns have their struct pages in exactly the last GiB of the 1 TiB
+vmemmap.
+
+The PTE in the oops (...121: present, global, read-only) belongs to the
+CPU entry area. vmemmap_pte_populate() only allocates when the PTE is
+none, so it reused that mapping, and the struct page writes went to
+CPU_ENTRY_AREA_RO_IDT.
+
+kernel_randomize_memory():
+
+remain_entropy = vaddr_end - vaddr_start;
+for (i = 0; i < ARRAY_SIZE(kaslr_regions); i++)
+remain_entropy -= get_padding(&kaslr_regions[i]);
+...
+for (i = 0; i < ARRAY_SIZE(kaslr_regions); i++) {
+entropy = remain_entropy / (ARRAY_SIZE(kaslr_regions) - i);
+...
+entropy = (rand % (entropy + 1)) & PUD_MASK;
+vaddr += entropy;
+*kaslr_regions[i].base = vaddr;
+vaddr += get_padding(&kaslr_regions[i]);
+...
+/* Add a minimum padding based on randomization alignment. */
+vaddr = round_up(vaddr + 1, PUD_SIZE);
+remain_entropy -= entropy;
+}
+
+The three draws can add up to all of remain_entropy. But the loop also
+puts a 1 GiB gap after the direct map and another after vmalloc, and
+remain_entropy never paid for them. So vmemmap can end up to 2 GiB past
+vaddr_end.
+
+In practice the overrun is exactly 1 GiB. The top bucket of the final
+draw (e2 == remain_entropy) is a single value of rand, so the reachable
+case is e2 = remain_entropy - 1 GiB. That case always gives
+vmemmap_base = vaddr_end - 1 TiB + 1 GiB = 0xfffffd0040000000, whatever
+the first two draws were, and that is the value in the oops.
+
+The gap accounting goes back to 0483e1fa6e09 ("x86/mm: Implement ASLR
+for kernel memory regions"). It did no harm while the direct map was
+sized to RAM + CONFIG_RANDOMIZE_MEMORY_PHYSICAL_PADDING, because the
+last GiB of vmemmap then describes physical addresses far above
+anything that is ever added. Two commits changed that:
+7ffb791423c7 ("x86/kaslr: Reduce KASLR entropy on most x86 systems",
+for PCI_P2PDMA=y) and 269031b15c14 ("x86/kaslr: Recognize all
+ZONE_DEVICE users as physaddr consumers"). Both keep the direct map at
+the full 64 TiB, and DEVICE_PRIVATE ranges are taken from its top down.
+So now the last GiB of vmemmap is the first part to be used.
+
+As far as I can tell, a system can hit this when all of these hold:
+4-level paging, ZONE_DEVICE=y (PCI_P2PDMA=y on 6.15 to 6.18),
+x86_phys_bits >= 46, and a devm_request_free_mem_region() or
+request_free_mem_region() user (amdkfd SVM, nouveau dmem, xe SVM,
+test_hmm).
+
+I don't expect it with 5-level paging. The randomization range is far
+larger there, and the device range sits at the top of x86_phys_bits
+rather than at the top of vmemmap.
+
+A region smaller than 64 GiB lands at
+[vaddr_end + 1 GiB - size / 64, vaddr_end + 1 GiB) instead. Whether
+that faults presumably depends on where the randomized per-CPU entry
+areas are, so it could also go unnoticed.
+
+Model
+-----
+I ran the loop above in userspace with 4-level paging, a 64 TiB direct
+map, 32 TiB of vmalloc and a 1 TiB vmemmap. It uses exact enumeration
+of the first two draws, plus a Monte Carlo over 2e8 simulated boots
+with a 64-bit PRNG in place of prandom. The source is at the end of
+this mail.
+
+                    P(vmemmap end > vaddr_end)   worst-case end
+  current code      8.03e-05 (1 in 12,450)       vaddr_end + 2 GiB
+                    Monte Carlo: 16,004 of 2e8, every one with
+                    vmemmap_base = 0xfffffd0040000000
+  with the fix      0 (Monte Carlo: 0 of 2e8)    vaddr_end - 1 GiB
+
+So hitting it once in about 30 boots was either bad luck (about 0.24%
+under this model) or caused by something the model leaves out.
+
+With the direct map trimmed to RAM + 10 TiB (how this machine behaved
+before 6.15), the overrun also happens (1 in 44,634). Then it only
+covers struct pages for addresses that are never added.
+
+Suggested fix
+-------------
+Take one PUD_SIZE gap per region out of remain_entropy along with the
+region sizes. This costs 3 GiB of the 20.5 TiB 4-level range, and it
+also leaves a gap between vmemmap and the CPU entry area:
+
+--- a/arch/x86/mm/kaslr.c
++++ b/arch/x86/mm/kaslr.c
+@@ -131,10 +131,14 @@ void __init kernel_randomize_memory(void)
+  sizeof(struct page);
+  kaslr_regions[2].size_tb = DIV_ROUND_UP(vmemmap_size, 1UL << TB_SHIFT);
+
+- /* Calculate entropy available between regions */
++ /*
++ * Calculate entropy available between regions. The loop below also
++ * leaves a PUD_SIZE gap after each region, so take those out too, or
++ * the last region can extend past vaddr_end.
 + */
- struct cgs_ops {
- 	/* MMIO access */
--	cgs_read_register_t read_register;
--	cgs_write_register_t write_register;
--	cgs_read_ind_register_t read_ind_register;
--	cgs_write_ind_register_t write_ind_register;
-+	uint32_t (*read_register)(struct cgs_device *cgs_device, unsigned int offset);
-+	void (*write_register)(struct cgs_device *cgs_device, unsigned int offset,
-+			       uint32_t value);
-+	uint32_t (*read_ind_register)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
-+				      unsigned int index);
-+	void (*write_ind_register)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
-+				   unsigned int index, uint32_t value);
- 	/* Firmware Info */
--	cgs_get_firmware_info get_firmware_info;
-+	int (*get_firmware_info)(struct cgs_device *cgs_device,
-+				 enum cgs_ucode_id type,
-+				 struct cgs_firmware_info *info);
- };
- 
- struct cgs_os_ops; /* To be define in OS-specific CGS header */
--- 
-2.43.0
+  remain_entropy = vaddr_end - vaddr_start;
+  for (i = 0; i < ARRAY_SIZE(kaslr_regions); i++)
+- remain_entropy -= get_padding(&kaslr_regions[i]);
++ remain_entropy -= get_padding(&kaslr_regions[i]) + PUD_SIZE;
 
+  prandom_seed_state(&rand_state, kaslr_get_random_long("Memory"));
+
+I can send this as a proper patch if this is the right direction. It
+builds cleanly (make W=1 arch/x86/mm/kaslr.o, x86_64_defconfig, gcc
+13.3, on 70dd4ee72eb2) but has not been boot-tested: since the bad
+layout comes up about once in 12,000 boots, the model above is the only
+check that it closes the overrun.
+
+Aftermath (probably expected after an oops in module init)
+----------------------------------------------------------
+systemd-modules-load died inside finit_module() with IRQs disabled.
+Three minutes later a udev worker oopsed in idempotent_init_module() on
+a stale list entry that pointed into the dead task's stack (RDX
+ffffcd4cc2f8bc30; the first oops's RSP was ffffcd4cc2f8b570). It exited
+with IRQs disabled and preempt_count 1, and a later modprobe spun in
+idempotent_init_module() -> _raw_spin_lock until the machine was reset
+(soft lockup, 300+ s). I mention it only in case the stale entry is of
+interest.
+
+Workaround on this machine: nokaslr.
+
+The analysis and the model were done with help from an LLM (Claude
+Code). The fix is compile-tested only, and there is no reproducer
+beyond the model, since the layout is random per boot.
+
+Thanks,
+Stefan
+
+---- kaslr_overrun_sim.c ----
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Userspace model of arch/x86/mm/kaslr.c:kernel_randomize_memory()
+ * (torvalds/linux master, 2026-10-16), to show that the vmemmap region can
+ * end past vaddr_end (CPU_ENTRY_AREA_BASE), and that subtracting one
+ * PUD_SIZE guard per region from remain_entropy closes it.
+ *
+ * Build:  cc -O2 -Wall -o kaslr_overrun_sim kaslr_overrun_sim.c
+ * Run:    ./kaslr_overrun_sim [monte_carlo_trials]
+ *
+ * Three checks per layout, for the current code ("before") and the patch
+ * ("after"):
+ *   1. worst case: every draw takes its maximum value;
+ *   2. exact probability of an overrun, by enumerating the first two draws
+ *      and summing the closed-form probability of the third (rand % (E+1) is
+ *      treated as uniform on [0, E]; the 64-bit modulo bias is < 2^-19
+ *      relative and is ignored);
+ *   3. Monte Carlo through the loop below, with a 64-bit PRNG standing in
+ *      for prandom_bytes_state(), recording every vmemmap_base that overruns.
+ */
+#include <inttypes.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define TB_SHIFT 40
+#define PAGE_SHIFT 12
+#define PUD_SIZE (1ULL << 30)
+#define PUD_MASK (~(PUD_SIZE - 1))
+#define STRUCT_PAGE 64ULL
+#define NREGIONS 3
+
+/* 4-level paging (the EVO-X2 has 48 virtual address bits, so no LA57). */
+#define PAGE_OFFSET_BASE_L4 0xffff888000000000ULL
+#define CPU_ENTRY_AREA_BASE 0xfffffe0000000000ULL
+#define MAX_PHYSMEM_BITS_L4 46
+#define VMALLOC_SIZE_TB_L4 32ULL
+
+static const uint64_t vaddr_start = PAGE_OFFSET_BASE_L4;
+static const uint64_t vaddr_end = CPU_ENTRY_AREA_BASE;
+
+struct layout {
+const char *name;
+uint64_t size_tb[NREGIONS]; /* direct map, vmalloc, vmemmap */
+};
+
+static uint64_t round_up(uint64_t x, uint64_t a) { return (x + a - 1)
+& ~(a - 1); }
+
+static uint64_t initial_entropy(const struct layout *l, int fixed)
+{
+uint64_t remain = vaddr_end - vaddr_start;
+
+for (int i = 0; i < NREGIONS; i++)
+remain -= l->size_tb[i] << TB_SHIFT;
+if (fixed) /* the proposed patch: one guard per region */
+remain -= NREGIONS * PUD_SIZE;
+return remain;
+}
+
+/*
+ * The loop from kernel_randomize_memory(), verbatim apart from the rand
+ * source. Returns the end (exclusive) of the last region, vmemmap.
+ */
+static uint64_t randomize(const struct layout *l, int fixed,
+  uint64_t (*next_rand)(void *), void *ctx,
+  uint64_t base[NREGIONS])
+{
+uint64_t remain_entropy = initial_entropy(l, fixed);
+uint64_t vaddr = vaddr_start, end = 0;
+
+for (int i = 0; i < NREGIONS; i++) {
+uint64_t entropy = remain_entropy / (NREGIONS - i);
+/* NULL: take the largest value the draw allows */
+uint64_t rand = next_rand ? next_rand(ctx) : entropy;
+
+entropy = (rand % (entropy + 1)) & PUD_MASK;
+vaddr += entropy;
+base[i] = vaddr;
+
+vaddr += l->size_tb[i] << TB_SHIFT;
+end = vaddr;
+vaddr = round_up(vaddr + 1, PUD_SIZE);
+remain_entropy -= entropy;
+}
+return end;
+}
+
+/* splitmix64 */
+static uint64_t rand_sm64(void *ctx)
+{
+uint64_t *s = ctx, z = (*s += 0x9e3779b97f4a7c15ULL);
+
+z = (z ^ (z >> 30)) * 0xbf58476d1ce4e5b9ULL;
+z = (z ^ (z >> 27)) * 0x94d049bb133111ebULL;
+return z ^ (z >> 31);
+}
+
+/*
+ * P(masked draw == k GiB) for rand % (E + 1) & PUD_MASK, rand uniform:
+ * bucket k holds the byte values [k*G, min((k+1)*G, E+1)).
+ */
+static double bucket_p(uint64_t E, uint64_t k)
+{
+uint64_t lo = k * PUD_SIZE, hi = lo + PUD_SIZE;
+
+if (hi > E + 1)
+hi = E + 1;
+return (double)(hi - lo) / ((double)E + 1.0);
+}
+
+/* Exact P(vmemmap end > vaddr_end), summed over the first two draws. */
+static double exact_overrun_p(const struct layout *l, int fixed)
+{
+uint64_t R = initial_entropy(l, fixed);
+uint64_t E0 = R / 3;
+double p = 0;
+
+for (uint64_t k0 = 0; k0 * PUD_SIZE <= E0; k0++) {
+uint64_t e0 = k0 * PUD_SIZE;
+uint64_t R1 = R - e0, E1 = R1 / 2;
+double p0 = bucket_p(E0, k0), s = 0;
+
+for (uint64_t k1 = 0; k1 * PUD_SIZE <= E1; k1++) {
+uint64_t E2 = R1 - k1 * PUD_SIZE;
+/*
+* end = vaddr_start + sizes + e0 + e1 + e2 + 2 guards;
+* end > vaddr_end  <=>  e2 + 2G > E2 + (R - R_used),
+* where R_used is what the patch subtracted (0 or 3G).
+*/
+uint64_t slack = fixed ? NREGIONS * PUD_SIZE : 0;
+double q = 0;
+
+for (uint64_t k2 = (E2 / PUD_SIZE >= 2 ? E2 / PUD_SIZE - 2 : 0);
+     k2 * PUD_SIZE <= E2; k2++)
+if (k2 * PUD_SIZE + 2 * PUD_SIZE > E2 + slack)
+q += bucket_p(E2, k2);
+s += bucket_p(E1, k1) * q;
+}
+p += p0 * s;
+}
+return p;
+}
+
+static void run(const struct layout *l, long trials)
+{
+uint64_t base[NREGIONS];
+
+printf("== %s: direct map %" PRIu64 " TiB, vmalloc %" PRIu64
+       " TiB, vmemmap %" PRIu64 " TiB\n",
+       l->name, l->size_tb[0], l->size_tb[1], l->size_tb[2]);
+printf("   vaddr_start %#" PRIx64 "  vaddr_end %#" PRIx64 "\n",
+       vaddr_start, vaddr_end);
+
+for (int fixed = 0; fixed <= 1; fixed++) {
+const char *tag = fixed ? "after " : "before";
+uint64_t end = randomize(l, fixed, NULL, NULL, base);
+int64_t over = (int64_t)(end - vaddr_end);
+double p = exact_overrun_p(l, fixed);
+
+printf("   %s: remain_entropy %" PRIu64 " GiB\n", tag,
+       initial_entropy(l, fixed) / PUD_SIZE);
+printf("   %s: worst case vmemmap [%#" PRIx64 ", %#" PRIx64
+       "), end - vaddr_end = %+" PRId64 " GiB\n",
+       tag, base[2], end, over / (int64_t)PUD_SIZE);
+if (p > 0)
+printf("   %s: exact P(vmemmap end > vaddr_end) = %.3g per"
+       " boot (1 in %.0f)\n", tag, p, 1 / p);
+else
+printf("   %s: exact P(vmemmap end > vaddr_end) = 0\n", tag);
+
+if (trials > 0) {
+uint64_t seed = 0x5eed0000ULL + fixed, first_base = 0;
+long hits = 0, other_base = 0;
+int64_t max_over = INT64_MIN;
+
+for (long t = 0; t < trials; t++) {
+end = randomize(l, fixed, rand_sm64, &seed, base);
+over = (int64_t)(end - vaddr_end);
+if (over > max_over)
+max_over = over;
+if (over > 0) {
+if (!hits++)
+first_base = base[2];
+else if (base[2] != first_base)
+other_base++;
+}
+}
+printf("   %s: Monte Carlo %ld boots: %ld overruns", tag,
+       trials, hits);
+if (hits)
+printf(", vmemmap_base %#" PRIx64 " in %ld of them",
+       first_base, hits - other_base);
+printf("; largest end - vaddr_end %+.3f GiB\n",
+       (double)max_over / PUD_SIZE);
+}
+}
+printf("\n");
+}
+
+int main(int argc, char **argv)
+{
+long trials = argc > 1 ? atol(argv[1]) : 100000000L;
+uint64_t full_tb = 1ULL << (MAX_PHYSMEM_BITS_L4 - TB_SHIFT);
+uint64_t vmemmap_tb = ((full_tb << (TB_SHIFT - PAGE_SHIFT)) * STRUCT_PAGE
+       + (1ULL << TB_SHIFT) - 1) >> TB_SHIFT;
+
+/* EVO-X2 (max_pfn 0x107e0c0, ~66 GiB) with padding 10 TiB -> 11 TiB. */
+uint64_t trimmed_tb = 1 + 10;
+uint64_t trimmed_vmemmap_tb = ((trimmed_tb << (TB_SHIFT - PAGE_SHIFT)) *
+       STRUCT_PAGE + (1ULL << TB_SHIFT) - 1) >> TB_SHIFT;
+
+struct layout zone_device = {
+"4-level, CONFIG_ZONE_DEVICE=y (master; PCI_P2PDMA=y in 6.15-6.18)",
+{ full_tb, VMALLOC_SIZE_TB_L4, vmemmap_tb } };
+struct layout trimmed = {
+"4-level, direct map trimmed to RAM + padding (pre-6.15 / ZONE_DEVICE=n)",
+{ trimmed_tb, VMALLOC_SIZE_TB_L4, trimmed_vmemmap_tb } };
+
+run(&zone_device, trials);
+run(&trimmed, trials);
+
+/* What the oops registers say. */
+uint64_t rdi = 0xfffffe0000000000ULL, rsi = 0x3ff000000ULL;
+uint64_t vb = rdi - rsi * STRUCT_PAGE;
+
+printf("== oops: RDI (struct page) %#" PRIx64 ", RSI (pfn) %#" PRIx64 "\n",
+       rdi, rsi);
+printf("   vmemmap_base = RDI - RSI*64 = %#" PRIx64 "; vmemmap end %#"
+       PRIx64 " = vaddr_end + %" PRIu64 " GiB\n",
+       vb, vb + (vmemmap_tb << TB_SHIFT),
+       (vb + (vmemmap_tb << TB_SHIFT) - vaddr_end) / PUD_SIZE);
+printf("   the 1 GiB overrun always yields vmemmap_base = vaddr_end - "
+       "vmemmap size + 1 GiB = %#" PRIx64 "\n",
+       vaddr_end - (vmemmap_tb << TB_SHIFT) + PUD_SIZE);
+return 0;
+}
