@@ -4,42 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E82BBCCA462
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 08:23:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D326ECCA462
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 08:28:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A62D10E266;
-	Fri, 16 Oct 2026 08:23:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6812411266E;
+	Fri, 16 Oct 2026 08:27:59 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E00A10E266
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 08:23:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3732112682
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 08:27:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=bTi3NCkNmtgSBjqdU27FjPOLAR+gdnaDOsvZlBQ6V50=; b=LuH90geFSjxkBw6ZvhiqexCKUl
- KtZxzWAW5ZTi4l91rflXpdTjq+xAkmr+JRTrH2B3yEwAKMRi5is/6IVrAeuv9zXYW4vy+fMah2VY6
- 73Rhr+ybsd2IvHgYsY1eVCwdzZU5dSZEWzId2dq1EpM9rohpUtW+/m6WWx+AzTmLugHsFxDVgKF2l
- gNfNTaznozoDUgsq9Z688O+NcEAahGiRrCgYfEx3qIcw8QoFXGl/Gu5N6lI3OWhabMr23qELhC6gz
- b2MOQe60sZ6heoQ2W/kFWoMIAZaurLIWK3yVg/KLWl7Ackq6EvRcdbuGmkgX/frhEJ8ZKNMnute4T
- Yzcw06xA==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=9py5ggYWKl0k2/gAfg7ZSv+gD1yNZtxMJcE8HCQqDVc=; b=VIUJOhXsPx076X+Js9QP8tvQ3g
+ hKHLR4YqjgvenjDM0P9ciB/WwRJjWSQtux0mSqdxROi2mVS5ccQk+YkCN7HwXp12CqPHt88WWwQAn
+ ew21mpV79APM2+8b/WQfib10AolDw/ztV0Bx/e6JSFFaQjUEgiKZbfEOiB8Pcc7lZQ8FlsPSBMzA0
+ mRw8AmI/94eyvLANyPfuGCEUp5+rOUP6BavYk844jfqQ4Pdqooi3KV4B4wuSEg6pMpCKFna3bKQ+w
+ jSdcZQlijdJOmlMpLFD/VAIAXNLu0lGabtsB5Dry8e+PGNCpKIf4K8pgfHjidKLBvjSKhpNVC96s/
+ aUY2isPA==;
+Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xHdDU-000wpL-Jq; Fri, 16 Oct 2026 10:23:04 +0200
-Message-ID: <d6a743a1-7268-4167-9378-a364b6c04fbb@igalia.com>
-Date: Fri, 16 Oct 2026 09:23:03 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: guard VCE/UVD sched entity teardown on
- failed probe
-To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
- amd-gfx@lists.freedesktop.org
-Cc: phasta@kernel.org, alexander.deucher@amd.com, christian.koenig@amd.com
-References: <20261015193037.86472-1-olivier.kaloudoff@gmail.com>
-Content-Language: en-GB
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xHdI7-000wxt-QQ; Fri, 16 Oct 2026 10:27:51 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20261015193037.86472-1-olivier.kaloudoff@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Alex Hung <alex.hung@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH v4 0/2] amdgpu display debugfs handling fix and refactor
+Date: Fri, 16 Oct 2026 09:27:44 +0100
+Message-ID: <20261016082746.47749-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.56.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,114 +53,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+I had some patches in this area ages ago so I re-visited them, tweaked and
+decided to re-post.
 
-On 15/10/2026 20:30, Olivier Kaloudoff wrote:
-> Since commit 037b98a2312e ("drm/amdgpu: move UVD and VCE sched entity
-> init after sched init"), drm_sched_entity_init() for the VCE and UVD
-> kernel entities runs in the scheduler-init phase, well after the
-> IP-block sw_init phase has allocated the vcpu_bos.
-> 
-> If probe fails between the two phases, amdgpu_device_fini_sw() still
-> runs the per-IP sw_fini callbacks for blocks that did complete
-> sw_init. Both amdgpu_vce_sw_fini() and amdgpu_uvd_sw_fini() then call
-> drm_sched_entity_destroy() on an entity that was never initialized:
-> entity->rq is NULL and drm_sched_entity_flush() dereferences it,
-> oopsing in whatever context drove the failed probe.
-> 
-> The hole was latent-but-safe until commit 2df5efb45425 ("drm/sched:
-> Remove redundant entity->rq initialization and checks") removed the
-> if (!entity->rq) early return that commit 1decbf6bb0b4 ("drm/sched:
-> Fix entities with 0 rqs.") had put in drm_sched_entity_flush(), on the
-> grounds that entity->rq can never be NULL. That holds only for
-> entities that completed drm_sched_entity_init() — not for the
-> never-initialized entity this teardown path reaches.
-> 
-> Observed on real hardware: MI50 (Vega20, VCE 4.0 / UVD 7.2) behind a
-> Thunderbolt link — a pciehp presence/link-change event re-probes the
-> device; when the re-probe fails (-EINVAL here), the cleanup path
-> NULL-derefs inside drm_sched_entity_flush() in the pciehp IRQ thread
-> and takes the whole machine down (panic_on_oops, EFI pstore capture).
-> Reproduced twice on 7.3-rc5, 2026-10-06 and 2026-10-09, identical
-> signature; the faulting instruction is `mov (%rax),%r15` on rax =
-> entity->rq == NULL, i.e. `sched = entity->rq->sched`:
-> 
->    BUG: kernel NULL pointer dereference
->    RIP: drm_sched_entity_flush+0x34/0x2d0 [gpu_sched]
->    drm_sched_entity_destroy
->    amdgpu_vce_sw_fini
->    vce_v4_0_sw_fini
->    amdgpu_device_fini_sw
->    ...
->    pciehp_configure_device
->    pciehp_handle_presence_or_link_change
-> 
-> Guard the entity teardown on entity->rq, which is set only by
-> drm_sched_entity_init(). amdgpu_ring_fini() already self-guards via
-> the rings[] registration, and the vcpu_bo/firmware cleanup still runs
-> as before.
-> 
-> v2: retarget Fixes: at commit 2df5efb45425 ("drm/sched: Remove
-> redundant entity->rq initialization and checks") — the !entity->rq
-> check from commit 1decbf6bb0b4 ("drm/sched: Fix entities with 0
-> rqs.") that Alex pointed to was removed by it in the 7.3 window,
-> so this is a regression there, not a pre-existing hole.
-> 
-> Fixes: 2df5efb45425 ("drm/sched: Remove redundant entity->rq initialization and checks")
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 3 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 3 ++-
->   2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> index ecd7caa95..cd35ff7ca 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -377,7 +377,8 @@ int amdgpu_uvd_sw_fini(struct amdgpu_device *adev)
->   	void *addr = amdgpu_bo_kptr(adev->uvd.ib_bo);
->   	int i, j;
->   
-> -	drm_sched_entity_destroy(&adev->uvd.entity);
-> +	if (adev->uvd.entity.rq)
-> +		drm_sched_entity_destroy(&adev->uvd.entity);
->   
->   	for (j = 0; j < adev->uvd.num_uvd_inst; ++j) {
->   		if (adev->uvd.harvest_config & (1 << j))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> index 1f7a98cdc..3952af9ae 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> @@ -253,7 +253,8 @@ int amdgpu_vce_sw_fini(struct amdgpu_device *adev)
->   	if (adev->vce.vcpu_bo == NULL)
->   		return 0;
->   
-> -	drm_sched_entity_destroy(&adev->vce.entity);
-> +	if (adev->vce.entity.rq)
-> +		drm_sched_entity_destroy(&adev->vce.entity);
->   
->   	for (i = 0; i < adev->vce.num_rings; i++)
->   		amdgpu_ring_fini(&adev->vce.ring[i]);
+First is a clear fix while second is a serious refactor which needs a lot of
+scrutiny. Mostly closing in on the desired semantics and thinking whether
+changing any of the existing (incosistent) semantics is likely to break any
+(hypothetical) scripts used for debugfs configuration. In it probably desirable
+in principle since it removes a lot of redundant and somewhat questionable code.
 
-Dang, it looks like currently the ownership of entity initialization is 
-broken between the IP agnostic phase which does the init, and per-IP 
-phase which tears it down.
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+Cc: Alex Hung <alex.hung@amd.com>
 
-The fix will get in the way of me re-trying to embed the run-queue into 
-the scheduler but it does look correct.
+Tvrtko Ursulin (2):
+  drm/amd/display: Use memdup_user_nul in debugfs code
+  drm/amd/display: Simplify debugfs token parsing
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 595 ++++--------------
+ 1 file changed, 126 insertions(+), 469 deletions(-)
 
-I will see if I can re-work the init/cleanup phases so this can be 
-removed, or if not, try to add a proper DRM scheduler API to query the 
-status of an entity.
-
-For now lets merge the fixup.
-
-Regards,
-
-Tvrtko
+-- 
+2.56.0
 
