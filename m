@@ -4,46 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0AADCCF2C4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA3BACCF2C1
 	for <amd-gfx@archiver.kernel.org>; Sat, 17 Oct 2026 17:30:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49B5510E45B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5196A10E460;
 	Sat, 17 Oct 2026 17:30:52 +0000 (UTC)
-X-Greylist: delayed 390 seconds by postgrey-1.36 at gabe;
- Fri, 16 Oct 2026 14:24:31 UTC
-Received: from mail-proxy25229.mail.163.com (mail-proxy25229.mail.163.com
- [103.129.252.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A87B10E10B
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 14:24:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=3j
- qL3NcIn3aGoayCUHPvZ5Eo1RhtslpZhskbD7Hw5D0=; b=AQuLq5Z6hnLBfQxSUe
- yIlFKb0ITs/cII+v8VQZF/VuQKiEVw3QZ9R4b9HO7A1J29FDT10UOahYGO4PIOqj
- /z1V+nt9+QssJd9fU1C5RcfasG1RWw4dbF3laMVxSkpIL6VnUbAtwSqVR/meknxd
- QviZcUX9KsRq/OLuVIe8uzfag=
-Received: from pc.localdomain (unknown [])
- by gzsmtp1 (Coremail) with SMTP id PCgvCgDHzXlqMdJqd8LFAA--.36231S2;
- Fri, 16 Oct 2026 22:15:07 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] drm/amdkfd: validate SRAT subtables before parsing
-Date: Fri, 16 Oct 2026 22:15:04 +0800
-Message-Id: <20261016141504.2794541-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pz2-f5.google.com (mail-pz2-f5.google.com [74.125.228.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C07B910E33C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 17:37:46 +0000 (UTC)
+Received: by mail-pz2-f5.google.com with SMTP id
+ 41be03b00d2f7-cc7c286026aso108624a12.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 10:37:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792172266; cv=none;
+ d=google.com; s=arc-20260327;
+ b=drntOO1W/dZCdKW1dyWKl5cfZlEF2549wB3mY9O1jOoLr4gsMo4mcaqCX73mC98Drm
+ 8Wi8gk7onEHcXjMbLkRtQW2mfQLz0u700GGn6h4ss/bJVZBjrepQtzLx3kRaqmSwNJeQ
+ 4Bl1DTw21CPf4naziIX5MHcdPCFSjuG+c0r7OccasN5qEpJ3S0z4J6Re21bO3QAq56Bi
+ B2BTNdRwdai0cLLLZOxVWtApME1sw62oPNy2xVMRkgiGa/P75Izz/+6gDlbshOUJG7nu
+ uimNwmNEi97jrsq9YosDsvQVIZVD0j9CDNHYgUR449WpUwq1xPKxgzSgG2l2VVTFW8A6
+ xG3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:references:in-reply-to:from
+ :mime-version:dkim-signature;
+ bh=cSBeL18Hzr+0k6iOggYBFAtCAyebrXp5vaXSKHdHnjg=;
+ fh=CwG0OJN9/rd0I+VWK9rhGtT7eezr+XcLx894FPuRXBs=;
+ b=Lc0QZjcN9dMCTLT/8mz6z4ymEhl5z+OlJW/bISkJlHBM668i9gsRI7oeXRbWeg3hPY
+ t+P3AL1GOBcOms4/K8B1Jfj3bnomChx6fstnFxm+EQ2Q+EBsuKRlDiNpxkkugp48/cuU
+ OY3rwOH4SttLDJU3EoeuhiK8n/CaTu1naozHzq2kft5vjfvGi3zcLTb8C8MIr7ZyTyv4
+ CZ5lP/zrfIdrCsY8ZtY99nCK11x2JVSR4pPvLbpdxhhom7cZewSb/1yQ59H9m4c1+DaX
+ P5mvy0+lGeY0uzskQO4DNDdeJndrtO+dd7D9yGdzb/VbmJXCexKPoJhVGMn3vI4AT8TX
+ QC2w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792172266; x=1792777066; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+ :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=cSBeL18Hzr+0k6iOggYBFAtCAyebrXp5vaXSKHdHnjg=;
+ b=WJdX71RGp9XdlyeLeSjmij00ByHPiXOi9puWkveNeIOB+YTUZWA7bdHOYh47XQno1w
+ h8hvJbeoN6nGn0a7a6B1MlHOGo5XzRd3fjKHOv5X8p3O2NrmgyNDpfJt1OGpOKE5luCY
+ QFpbeCJDTPdpEui9P1CHactfoRj73UpPfk8BDwxeiB3es7ZY6gQgl1qMw7IDQ99EHTvt
+ HaRk1H+NzZEfH9ikwwAPVHjOgpWhF8jBAUMOPwdl2aixeHsMJEaUEp/8qLKubkenx4t+
+ iScOdX/HSmsuqp9YR+ANVYce87L9iqxkfh93MzkUwAzFgCJkpuZJoWvhs9Mxhg6vaRr+
+ i56w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792172266; x=1792777066;
+ h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+ :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=cSBeL18Hzr+0k6iOggYBFAtCAyebrXp5vaXSKHdHnjg=;
+ b=2VhmDzFk859vAXE3jo8AfcpXL0EoyYZDtXnJd1PL9WDbvLslzGJWoaWS+045rHsM78
+ xeSqhGS/513i7lH8gCddU9BMLHPMU8cIgjQAdBBZd2RfiVTzbx//YLQwwR0aPWdQvvPZ
+ ph3zDKoQ/KGtiYpvYKU13KjZA/7Dpy1s7ZzC5NRgY1Ul1Cp0IDYx83zVhqjmXv9wD2ys
+ O5/Li3sSbBFHELa3Jpx82Vw9TRi9WEQ90krkZPexaxlLs7FL00kHNrQIlbST/JqgW3XL
+ kplGkg+N8uATV5BtwW4WbdnN8W5wXbAGj9jwjIkjvcXPljZwtuxpKBwW96JSQTSrPzT5
+ 1bjw==
+X-Gm-Message-State: AFq9FYLQMn8a62+7eSi9XlWcR76Tj3m9tneXMVh8nSopY/yeuPM7CK01
+ 3BMscmweijiHv1Dm7orK8Q+VgNFvi6H9OHb4opzuSwjWjPs2MfKoki1aZ3RhSUKOX87XKYZtXPz
+ 7mmXgrCOrm0uDVLUFquzz8bQn+qc33E0=
+X-Gm-Gg: AYBFou36dKi8KEiw1xS7FkU7a+dphdthvnMwmsfm2wI5afy8MeDyflEY2u+WST6OQfY
+ wiq7iArBuV6ODYxnMNYfyaTy6li7zb+Ax9JZyYLeDe88CqtLdSzkKXH688dErYhYbN1YHqdxzXi
+ aG3L9CjVo7g0d82slVHvvnHqM/Hb7AVymCj7txwx4HRE4zykXygC3CljMv93B5AOmCttHuDBdOm
+ lYKc5aIA33KX4jjE5L6XOtMKDVEbdI9/1TfnZRdKjWni7ET88ndHJneWqQck3smwLAxqx1kCSVy
+ FR2T9d3w+KfyPXsHKzdr7FK0ywJjs/+jfvHx9GliWCB/fwSuphkpCA==
+X-Received: by 2002:a05:6a00:3008:b0:89e:fc47:2c17 with SMTP id
+ d2e1a72fcca58-8a04be6a27bmr262049b3a.19.1792172266196; Fri, 16 Oct 2026
+ 10:37:46 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Fri, 16 Oct 2026 10:37:44 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Fri, 16 Oct 2026 10:37:44 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PCgvCgDHzXlqMdJqd8LFAA--.36231S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGryUJFWkKr4DZw1UWw43trb_yoW5WFW7pF
- nFga4YvrW3JFy2gw1IyFWFv345Ja1xGa42grW7Gry0qwn8uFyrXFWrC34agF98KFW8ta1a
- v34qgrnxCr4vy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JU2jg7UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wu172rSMWunaQAA3S
+From: Yibiao Li <biaobiao2233@gmail.com>
+In-Reply-To: <f4dcee55-8cc6-4287-a25a-1ace385f092b@amd.com>
+References: <CAG1agfwtnjmb8RVLmZvY9W-zrR1onhK6urJA3Lqai82tAXn2Cg@mail.gmail.com>
+ <f4dcee55-8cc6-4287-a25a-1ace385f092b@amd.com>
+Date: Fri, 16 Oct 2026 10:37:44 -0700
+X-Gm-Features: AclHuK_NcSTXBwBpql1smct-MaIzZ_7A3iNYOrIiqYl5afbkmOt6bPkRbY4aer8
+Message-ID: <CAG1agfwZF0j71YofDWVqrxX5v-gtSYbM2OQiw+Kbd1zGPTaT3g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Use separate iterator for preferred mode
+ lookup
+To: Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Sat, 17 Oct 2026 17:30:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,92 +107,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The KFD SRAT walker reads the first subtable length without checking
-that a header is present and trusts subsequent lengths when accessing
-CPU and generic affinity records. Invalid firmware lengths can therefore
-cause out-of-bounds reads.
+On Fri, Oct 16, 2026 at 09:50:44AM -0600, Alex Hung wrote:
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-Validate the table header, every generic subtable range, and each
-supported typed record before reading its fields.
+Thanks for the review, Alex!
 
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 35 ++++++++++++++++++---------
- 1 file changed, 24 insertions(+), 11 deletions(-)
+Best regards,
+Yibiao
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 6e0df685503d..32d7573dffc9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -2056,27 +2056,33 @@ static void kfd_find_numa_node_in_srat(struct kfd_node *kdev)
- 		return;
- 	}
- 
-+	if (table_header->length < sizeof(struct acpi_table_srat))
-+		goto invalid_srat;
-+
- 	table_end = (unsigned long)table_header + table_header->length;
- 
- 	/* Parse all entries looking for a match. */
- 	sub_header = (struct acpi_subtable_header *)
- 			((unsigned long)table_header +
- 			sizeof(struct acpi_table_srat));
--	subtable_len = sub_header->length;
- 
--	while (((unsigned long)sub_header) + subtable_len  < table_end) {
--		/*
--		 * If length is 0, break from this loop to avoid
--		 * infinite loop.
--		 */
--		if (subtable_len == 0) {
--			pr_err("SRAT invalid zero length\n");
--			break;
--		}
-+	while ((unsigned long)sub_header < table_end) {
-+		unsigned long start = (unsigned long)sub_header;
-+
-+		if (table_end - start < sizeof(*sub_header))
-+			goto invalid_srat;
-+
-+		subtable_len = sub_header->length;
-+		if (subtable_len < sizeof(*sub_header) ||
-+		    subtable_len > table_end - start)
-+			goto invalid_srat;
- 
- 		switch (sub_header->type) {
- 		case ACPI_SRAT_TYPE_CPU_AFFINITY:
- 			cpu = (struct acpi_srat_cpu_affinity *)sub_header;
-+			if (subtable_len < sizeof(*cpu))
-+				goto invalid_srat;
-+
- 			pxm = *((u32 *)cpu->proximity_domain_hi) << 8 |
- 					cpu->proximity_domain_lo;
- 			if (pxm > max_pxm)
-@@ -2084,6 +2090,9 @@ static void kfd_find_numa_node_in_srat(struct kfd_node *kdev)
- 			break;
- 		case ACPI_SRAT_TYPE_GENERIC_AFFINITY:
- 			gpu = (struct acpi_srat_generic_affinity *)sub_header;
-+			if (subtable_len < sizeof(*gpu))
-+				goto invalid_srat;
-+
- 			bdf = *((u16 *)(&gpu->device_handle[0])) << 16 |
- 					*((u16 *)(&gpu->device_handle[2]));
- 			if (bdf == pci_id) {
-@@ -2100,9 +2109,13 @@ static void kfd_find_numa_node_in_srat(struct kfd_node *kdev)
- 
- 		sub_header = (struct acpi_subtable_header *)
- 				((unsigned long)sub_header + subtable_len);
--		subtable_len = sub_header->length;
- 	}
- 
-+	goto out;
-+
-+invalid_srat:
-+	pr_err("SRAT contains an invalid subtable\n");
-+out:
- 	acpi_put_table(table_header);
- 
- 	/* Workaround bad cpu-gpu binding case */
--- 
-2.34.1
 
+On Fri, 16 Oct 2026 09:50:44 -0600, Alex Hung <alex.hung@amd.com> wrote:
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
+>
+> On 10/7/26 23:17, Yibiao Li wrote:
+> > [Some people who received this message don't often get email from biaobiao2233@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > From: Yibiao Li <biaobiao2233@gmail.com>
+> >
+> > create_stream_for_sink() uses preferred_mode both as the list iterator
+> > and as the selected mode. This triggers a false positive from
+> > scripts/coccinelle/iterators/use_after_iter.cocci: native_mode_found
+> > already ensures that an exhausted iterator is replaced before use.
+> >
+> > Use a separate iterator and assign preferred_mode only when a preferred
+> > entry is found. This keeps the selected mode separate from the iterator
+> > state and makes native_mode_found unnecessary. Preserve the fallback to
+> > the first entry, or NULL when the list is empty.
+> >
+> > No functional change intended.
+> >
+> > Reported-by: kernel test robot <lkp@intel.com>
+> > Link: https://lore.kernel.org/oe-kbuild-all/202609190901.yKTzhsGz-lkp@intel.com/
+> > Assisted-by: LLM coccinelle
+> > Signed-off-by: Yibiao Li <biaobiao2233@gmail.com>
+> > ---
+> >   .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 10 +++++-----
+> >   1 file changed, 5 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > index d386bb1475..ceea8fe481 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > @@ -1453,12 +1453,12 @@ create_stream_for_sink(struct drm_connector *connector,
+> >          struct drm_device *dev = connector->dev;
+> >          struct amdgpu_dm_connector *aconnector = NULL;
+> >          struct drm_display_mode *preferred_mode = NULL;
+> > +       struct drm_display_mode *connector_mode;
+> >          const struct drm_connector_state *con_state = &dm_state->base;
+> >          struct dc_stream_state *stream = NULL;
+> >          struct drm_display_mode mode;
+> >          struct drm_display_mode saved_mode;
+> >          struct drm_display_mode *freesync_mode = NULL;
+> > -       bool native_mode_found = false;
+> >          bool recalculate_timing = false;
+> >          bool scale = dm_state->scaling != RMX_OFF;
+> >          int mode_refresh;
+> > @@ -1509,14 +1509,14 @@ create_stream_for_sink(struct drm_connector *connector,
+> >          stream->timing.flags.LTE_340MCSC_SCRAMBLE =
+> >                  connector->display_info.hdmi.scdc.scrambling.low_rates;
+> >
+> > -       list_for_each_entry(preferred_mode, &connector->modes, head) {
+> > +       list_for_each_entry(connector_mode, &connector->modes, head) {
+> >                  /* Search for preferred mode */
+> > -               if (preferred_mode->type & DRM_MODE_TYPE_PREFERRED) {
+> > -                       native_mode_found = true;
+> > +               if (connector_mode->type & DRM_MODE_TYPE_PREFERRED) {
+> > +                       preferred_mode = connector_mode;
+> >                          break;
+> >                  }
+> >          }
+> > -       if (!native_mode_found)
+> > +       if (!preferred_mode)
+> >                  preferred_mode = list_first_entry_or_null(
+> >                                  &connector->modes,
+> >                                  struct drm_display_mode,
+> > --
+> > 2.43.0
