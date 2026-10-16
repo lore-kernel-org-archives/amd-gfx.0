@@ -4,122 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03786CCF2C3
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 20:41:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66EFDCCF2C1
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 22:23:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74A1110E078;
-	Fri, 16 Oct 2026 20:41:53 +0000 (UTC)
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011061.outbound.protection.outlook.com [40.107.208.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A4D710E078
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 20:41:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1CD910E06D;
+	Fri, 16 Oct 2026 22:22:57 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013056.outbound.protection.outlook.com
+ [40.107.201.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93C3510E06D;
+ Fri, 16 Oct 2026 22:22:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NeLoDuZphraezO3AUQmlCtcRLgoNgRCSWdZzpxyRPacmHH+GdNs/3w0qNmID03XiP1+xLqHqXKHMJM/rLYPpe4kKoI3fOr+HVHHfwbfIzJlzpOBJ5p5XkH3gCsf6xCH3aXyiiA3cPcb0SQYJrsGqgn/7Lfa4N9ELic/M0l7g003+DWIqteRsceOTBuM79mxDGH5qiEBZd3jMxQxeUX5FYhOGyPBdAx/bTs0jTzZtyXYonDmeQ+UC0v1INdNJw/EoT4WuOQfupBRjW9V2Y18GStBNOqjOA6kgv/NCoMsg+Ws07B83t13NGHTak0AYkdg+BpcewbhSzIk9BSUriqVuEg==
+ b=xN9KGG4LIuaK7FJD97A1VyCAlfZqi+fmHb2PDt0Edff3WLoPQOlZpB/cCsMmfXWiPI9ifrO+no4YUZHW77QhzW3yKfw/jtbdbosZYnmETkead3MJlHhHBNnH+62EPilTgk++xr3ehWJTPl9PEh+rHRBGv2SS0bC8cZ+euawMmDeH8NYLdwH3bLX1KJqfAJTyyaWoN2ei3BGtc8hctaC24to031lpSqPrfZeBFqSGtimIcGtC1uDdahUwZDVMcjQkAGiJuoULgZCxhkTwlhX7qyzv0bg822G+tU6Qo6USqRwjyakLYTbsbsYmrfvbjnMkEbldczHSv1KoRNkj7cmCAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EeJxuyhydL4ha2szAzlnjF9/j+/9fe9/mpl84F2IdNQ=;
- b=Brx9Qsrp5lfgZVSNJUE09O9yEXdEiQ8RapfP+uUSkOURLn5OmfS2/GBqe+DReLQ6N2HLigOkuAd+8TEntXxe9E5zt+bFtgsE5G6hDYCPkwy24Q64nFQHQIENq3hO9uaxbo2HdEoHX7BVr+cKtnSQs6n/wvNSc5LY5D+Mk/WtLDmKQeObxhPGIMF9Ut5ukjeC7ryyRZBy2D28sFwecMHtw3Kj7scFnAdCzxce7akXVvXninqmNp04dZSkujPacca69wyDSrIz6XjivRiBxnkMT+ecqPBeOZQUEX587jTm4QbghyhxbdJU2B/sAGryNRu17CAK+KFoQh1ElyNwnON6wA==
+ bh=PuPsrGYyPDgitny67OH4/4EX74lW9uRDtyOwoVgc/bA=;
+ b=YML6viBwQyMjCrxOqCTEf+GoFggGzoSjwkkHO9HeQZUxBYtsk8b1l+FIoWt/ZdQPoRb92lyfig4TTvfRb+XG8+2rtKwzvRccDk3mMwDCN6I7M/kgP7s1X48JzhUKecGVJF70qKe2xIMJdnBvAGI1NhJ4tc+NJGLdDo3rQN0IOiBXxgjhLs98Kr4yUtYKH3jieIg7Qpqq+8G7Kj4Wy3B5TCUfGloARgasjnTO1hLe82Lm+xC5zx58rdJpaX1T+s32L1oYUMJ7YaVpWWyuet+vNZPUuSSlEp7gEXPOIQrTrZ1KTHo34R4TGeu0Xr9utI0YZTICaux3tfoMVd7OuI2Zxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EeJxuyhydL4ha2szAzlnjF9/j+/9fe9/mpl84F2IdNQ=;
- b=WnI1FPwOzVzjrBtYbkS/bI3JZRNhAfe0pqPnLhlS+K1OQ3r4RIv+9Mv9v/kRVI3FIvB+FMob08mY1Plqjj2XeTxz6JxSLV3gbDHxpO5gOIDadfakYRuJibAj8G9DAB8JgHJgpOCbG6OFIFWgxoKJTfajxuQBRZrYA9oXZNqiY9A=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5167.namprd12.prod.outlook.com (2603:10b6:5:396::10)
- by SA5PPF9BB0D8619.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8d8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Fri, 16 Oct
- 2026 20:41:44 +0000
-Received: from DM4PR12MB5167.namprd12.prod.outlook.com
- ([fe80::4588:54c1:bc29:2c7c]) by DM4PR12MB5167.namprd12.prod.outlook.com
- ([fe80::4588:54c1:bc29:2c7c%3]) with mapi id 15.21.0522.016; Fri, 16 Oct 2026
- 20:41:43 +0000
-Content-Type: multipart/alternative;
- boundary="------------WsCwBfvR0ySSqZO18Ebp3nvn"
-Message-ID: <7f2c36a2-72b2-40f8-b753-45c6ebdc891d@amd.com>
-Date: Fri, 16 Oct 2026 16:41:41 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] drm/amdkfd: split vram_pages of SVM ranges prefetched
- without a GPU mapping
-To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- David Yat Sin <david.yatsin@amd.com>
-References: <20261013092158.2261502-1-Jesse.Zhang@amd.com>
- <20261013092158.2261502-4-Jesse.Zhang@amd.com>
+ bh=PuPsrGYyPDgitny67OH4/4EX74lW9uRDtyOwoVgc/bA=;
+ b=jGX7W0nq4KdUFG+h0lfM9i6XoTlqP0gjTBX2Ff0BVeGH1ZTONUneBAXUVDRYHJ7cqh8jL9vl509oT86X3YEkekEbrr/7WlNVI5+b5BdXBruiOyUFIU6mdWN0vi/zS6U6gkEf17rSVGARWHa/CT4A50cGranp5MjC6WbzFxHwnRY=
+Received: from DSWPR12MB999127.namprd12.prod.outlook.com (2603:10b6:8:36c::7)
+ by CY5PR12MB6057.namprd12.prod.outlook.com (2603:10b6:930:2e::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Fri, 16 Oct
+ 2026 22:22:47 +0000
+Received: from DSWPR12MB999127.namprd12.prod.outlook.com
+ ([fe80::54e1:5b6e:4c39:d7b2]) by DSWPR12MB999127.namprd12.prod.outlook.com
+ ([fe80::54e1:5b6e:4c39:d7b2%5]) with mapi id 15.21.0522.016; Fri, 16 Oct 2026
+ 22:22:46 +0000
+From: "Li, Roman" <Roman.Li@amd.com>
+To: Keita Morisaki <kmta1236@gmail.com>, "Zheng, Austin"
+ <Austin.Zheng@amd.com>, "Lei, Jun" <Jun.Lei@amd.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+CC: Rodrigo Siqueira <siqueira@igalia.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate
+ control
+Thread-Topic: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate
+ control
+Thread-Index: AQHdSzD9l0gm6vSB7ke8TQ8uIq7iRLcA4Jag
+Date: Fri, 16 Oct 2026 22:22:46 +0000
+Message-ID: <DSWPR12MB999127DAEC0E7657E3B3134151899B2@DSWPR12MB999127.namprd12.prod.outlook.com>
+References: <20260923022451.3346675-1-kmta1236@gmail.com>
+In-Reply-To: <20260923022451.3346675-1-kmta1236@gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20261013092158.2261502-4-Jesse.Zhang@amd.com>
-X-ClientProxiedBy: YQBPR0101CA0108.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:5::11) To DM4PR12MB5167.namprd12.prod.outlook.com
- (2603:10b6:5:396::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5167:EE_|SA5PPF9BB0D8619:EE_
-X-MS-Office365-Filtering-Correlation-Id: 471cc540-69f1-4f40-aecf-08df2bc5e360
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|22082099003|10067099003|18002099003|8096899003|11063799006|4143699003|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info: aWVSFjtSGZEvktpyCuYHSbJBX3m5/J6wB28xWk7RPu/3KpPr/+a+doRAnGlV+muai7K8YRWK/tGYZd2A/cMPMjAZB33xHbKM6wIahLEkGtPQMzJwBCTIVh745wjzfOz5mPBo5RUOZ2LCDenL/7Hi2b7EIjqfV+OcAVXaWw+Wq6oghGKZox/W5nksJzM50Yv1+hysC2ty0cWUxmLo4YERQrGwo1ftyv6F6MdLuyqslUfKL1hcH2Ll8jIORmcTBYk70VwifJXs2sg1wWxegV+AiIAV/P4Wk4mYHIYhm1xcgEs18GskSEGAqPdBp9BOWiRR4Se27VNgdqmIWE0qu4yVNUlGeC4l9fGIhU7coItH0XNDaYhyKNxKgugEykheK0VlhNwXIUW04D0NvpC0n9x2aUU6JrsQEuFWYkScGS1yHCkjH2Tz29SzT1Il+iCQHEbwWsP8y6ZLYAszdOIimbQW3i9g5UhXDn5SGQS4qqTRyBGLe7Ag2sgHpqF4y4JnlPBtkwWOa2vzK0EE+hOpRLqwJ2JK++lmxagDey/zrQzbNPpGFOCg5PQAd91PHwZePRKruj7zujJaipIJBNdGOaXXyrZwwotWD4pvmfYPgkf84MZIQHAWEEJ3nvIYLBR9c93IXTnWlJx3Mm3+CoIoxVT3qfre++0B8UzLuUA8zTmG+dw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5167.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(10067099003)(18002099003)(8096899003)(11063799006)(4143699003)(56012099006)(261009223027099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-10-16T22:13:03.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
+ v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DSWPR12MB999127:EE_|CY5PR12MB6057:EE_
+x-ms-office365-filtering-correlation-id: 6669331e-6e45-471d-d6a6-08df2bd40126
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|23010399003|261009223027099003|6133799003|22082099003|18002099003|10067099003|921020|56012099006|11063799006|38070700021;
+x-microsoft-antispam-message-info: j9z8FRsab87xjGLAIhlFpcW2AtKXd87tdHfRuY94KTSN2GBbtedhv77X5cbZp29Xc62OSu/F+HtzOBdb+orCxJDsJTGHyDZSWllQhF9VEWFT2iQiVkDyG6fN5qxbH28/fvroPXHmhbHZSQu3mxgeKwGosHx6pEuMw7QvgHmZM0NMoaeNOr/Qy6RuOFbkxgjvnVgazKjAArJpvZnF8PWxbCSYDvw58Ke5RKVNcaA//bzVoX9e14Ou7Z5KlwovNIPkV/XE4kavgguJ2aPPtCHXt6P4g4ZKv5z3wyC5Fh4RqlloPfuTEOlA4p3tZaEGwrSpjttK4T9AmEP0G3EN3U3VuDSNWi4gvRJcM+ZvTS8h9LDdcxEq0iqOGjgs9hO4xMZyZjlgLTsXxTIVbHkyHterFweZGQXZ9/pMBdlnHfdWgZIogLgzYtvSRUcJFCDP2AMNnhKivuNrQP4oZ3Hj446pA5EKj2c7oGGMrWCvqCXgCx4p8iaYMhkhB96oe5Aa/sSXe6MgYQgjmKw0/ML3y3IDDlcfCP1vI4fHtPmSo0m+ShBr+lx1cuQ2vxwpen/IXcuTrBAnWChkb1sBYALcp9H1ks6YpDZ/Y+78Oa7S9G+k0EiNZGdwjfWIfhL3veoOb6Au1m4ENlf+HsHEfY8FKKWVYJkzrDQdkthztN/3wgqmuyY3qV+MUiSPztZKUjKPOuG2tPlZVWGxta3pUjEGHrzUiwcFSBDdCNoQ7ofI8Cdwgnlcn03xZIcDb1Qv8gFv5lqR
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DSWPR12MB999127.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(261009223027099003)(6133799003)(22082099003)(18002099003)(10067099003)(921020)(56012099006)(11063799006)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnFoamd6K2p4U29KQStBLzZQaWpuKzhvK2JlQ09RSmVsVUpxaFd2TkRJT0RZ?=
- =?utf-8?B?VDdTSHFXZUpnZ3pCWDNKWFFTWEtGYm5BMmt2azdYZjVQd1lTUTVDVVZmU1dl?=
- =?utf-8?B?VWtlMGFoekRmMzVLNEZCSCtUQlZtZU84TlM4NzZvVmZNTm52YW9qRkNieWxH?=
- =?utf-8?B?VWFpdE90VFNBZ2JzcG42b0FPMHZLRjJ5ZHZjeU1GZW1qTEZ4SUNnMEg2KzBH?=
- =?utf-8?B?Mk1SREViZi9aQit2Nnkya2dHS0xiQjhnZmgvUWViYTlHZmIzaktuZWwwS2la?=
- =?utf-8?B?ZFNwcUw5YW9udDl5THlyWlpWbUgvQS93Y1N0TndsNnJmMHlTN3UyNUlyejFJ?=
- =?utf-8?B?Rm4zZ3pRdUMwRlpHUTVtZGpDUlRWdE14bUpIK0tNRWpXVk9nVlRhdmtJQVlO?=
- =?utf-8?B?V0JFVlJwNkJwc2pDcEoyM1kzRGtqNDZXU3k3anpxNHRta0lJZWwxU21ST0I4?=
- =?utf-8?B?dzBXS0xlS3RyNHRlbGFWVVVNMlVhci9OT1Z0dXdLZkxZVy85aWtTYUg2Mklz?=
- =?utf-8?B?cXZjd3JTOGRkU2ZDTnhGU25WWlVNd2NCWlJsVmFrZlNteHNTVU9pSVQzTXpX?=
- =?utf-8?B?bXZ6VDEwTEpWSllzZ2Z0bTdibHp3Y3NnaUtUTGlJaFhkRmhtMVhKNS9iSXBM?=
- =?utf-8?B?M2E1Q3k1aEQ1TFpuUTRESC9qVGN0V0hMYS81SERFQSt2Rjc3RFRnODcwRDQ2?=
- =?utf-8?B?UU5wbnRMd1kzUEk5NDRMbUs2dUV6alpmNTBoSHhZYTNoNm9zSkJXdjdxSGpH?=
- =?utf-8?B?OXB2OGpQdXhJMkFicERBTjE0UzRjaVFGQVUzYldQV3dibGlyd3BLWXM3U3N1?=
- =?utf-8?B?OTlhQitIK2JwQjVKdHBOUEcrTk5SMjllU0hUUjhnN3dMRlFIVEJWdVpnNi81?=
- =?utf-8?B?S2VQQTVrcklMZkRHTTlqTTRtZXdaYlZ5M2k2dlhsY1luQzdTUVpkV2lNcmxi?=
- =?utf-8?B?Vzg3TFBpWVhDdVIvWU05MWJRZkxTZEVjeS9ZamRNSkdJMWM1Y1Y0WHoyZDNS?=
- =?utf-8?B?UGhuN3pZRVNQdU9VdHA4eWlHckcwUjA0M0xuczZ1ZUJpWE9neHRQTUNqOGFp?=
- =?utf-8?B?cFhtRHpPNjIwMEFFdkk3RndPTlJ3bXRPRUtxYThPWDNYZkFZYXc2QlZ5eDNL?=
- =?utf-8?B?WGNlaUtFZEpPdUdTQ2tBbHlZN2t5UDlOWjNIWnhyWEhrb0dVSS9veXdRNHFr?=
- =?utf-8?B?WEpQMjhHL0IvczN6Qzl6K0F1aElDZ2hEdVcyTU5RZ29TekRSaVgzS2hBNHo0?=
- =?utf-8?B?NVF0NWE4S3k0OFh1Q2ZoekNJU2NLc1JnbnEvcTJFaHgzOHp4OWNJT01IelA4?=
- =?utf-8?B?MVpSWkhFZzB5bnRtRVJ4ZDU2a3lqcTlxQWNaU0FBNVIyNE82WVJYVjBZQnY5?=
- =?utf-8?B?WHlkT0hyMXZUSWlPVFR5aUhpN0tDaEs4a1hSK3lhUVlrOUEzSzc2SDNHakh1?=
- =?utf-8?B?emk3N09aOVVCQ1h2dDlzWkRTMS9ITElva1VPRGVyS1o1TGcrR1ZIdS9kNk1R?=
- =?utf-8?B?YlhRLzE1b1dFRWh0SkpBbVhCbmZWSGxBZ3hmakQzWUlMWk4xcEUzWVpPSmZy?=
- =?utf-8?B?L0c2NFJ6a3VZcU5UOW5paENDZmk5aW5WVy9LV1ozdmJDc0YvWUFQVUd3VW9O?=
- =?utf-8?B?WEJ0aHBWQXVCWGllVy9Nalg4MllFSUZrZGt5UEhaZ3B3eWRYTXkwM3podVJS?=
- =?utf-8?B?akkrcmdWUnVEL0xUQ1VHQkJNUW9pOXNENmljSThqTHQ0L1F3V2JkV1FWeHNP?=
- =?utf-8?B?NllYRWZCOWI1aUNGZXp2UU4wZ0lYaWtISXpLRUtpdDg2OGE3MHZWTXJmRi9J?=
- =?utf-8?B?RG9KOGRCdnBHUGdjbHBSNUtFaDUwajd2NnVBM2t4NjhWZ3lLZDY0UmpENUtF?=
- =?utf-8?B?azA4UUo2Y05Jc0dFUWtobjgyaXFZb05xTkFhTi9Dem96N0tWZlB1UlIxZGhD?=
- =?utf-8?B?WUlZalpseUZCOWF2Z01UOEl2WTZxOGd2d0pyQVNXeEJGY0Z2R1l4ZnVQUHFa?=
- =?utf-8?B?VVhNZjFOc0pSdkR0YnZFRjg1b0IySDhlZVRIUHlwWE5MTGlrQ2JPTnhPSkR0?=
- =?utf-8?B?MEVLZXBvaXFXbHMyR0tDLzE4Q1p6ZTdYL2VuOThkTUpBbXkwUCtqbHA0TVFD?=
- =?utf-8?B?UnRRaDUzTGlVbk5HdG5YTmhYWjZJK0N0KzhSUnpWOU14bXNwUmJZZk8rVWFy?=
- =?utf-8?B?czMwZ0RJQXBCZW1ldzRYR253ZytKa3ZDQ0JvQjRtS2VkQ1RwZGtGWThvckRl?=
- =?utf-8?B?VVZUditrVUhUeStVSGU2NkpyMEhPYzNaV0NpbGdVd0lua1NBRzhBVnVWc0NL?=
- =?utf-8?Q?5LIPMCwBLoJK67rwi0?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZlEEZF+0e2scKVhQCeKYg1P1ZwknxgKeXLvGLye46THcg0mhWgtL31baNHdf?=
+ =?us-ascii?Q?tvkDCAoEMdn6CQu2R62In6OOCqDbWGqaOgUAgptPDJxwF4Wyu/kmz9DPOVk1?=
+ =?us-ascii?Q?o7Y6NeDvpLNYpgRTGv0EbEz/mEO79aJlOmlp8c1RvP89errT5B7cNF5H0Ejf?=
+ =?us-ascii?Q?VXGCLBnnQsgmvzSyhH3m6gQrdyO7HOdSpUVHegyiWFXEeIm95it5ltUVORKg?=
+ =?us-ascii?Q?UGsnv8HOuZFjxTIdqsrOc9RfmhNncLzgnz8H7ZbAz3ZNR055gjc8wZP/eviz?=
+ =?us-ascii?Q?naiDG7J5czVj8ih9xhq66wW5KCKzFU1Y/ZStneMCBhcczyZYXVH6mk+G/bxI?=
+ =?us-ascii?Q?5RiAp5jIZGzO1WX/LwnOcZH4ByKRZmf1kojjmtI/fe10ABss7huqcIep1G2F?=
+ =?us-ascii?Q?UffMMyXGAFGpOQ9YxCK1LveAT5g/nJ8gXOhZxxfllddx9eyWVUCHJOvWpbnT?=
+ =?us-ascii?Q?jQ9L3JThuPuPUrlfCisKBnHzxkuJNzfpFs90IB36VmOUCyCtpRnDblQ9pgNs?=
+ =?us-ascii?Q?EKalgu9FUElMu1UI0PDGLfAqjCdTaM4kRSi1arPHNdH3D3ebhXZnydXBxFd+?=
+ =?us-ascii?Q?3aQOLyf14aNTszkXkK2hvP7HW0FviQMLIx8wsDZXbzl/+Zro7KWUiqX1fexe?=
+ =?us-ascii?Q?BlqEQ0Dgr+lsiZVzfF8rbRCnpjDRIBsUjtIHd/JpVDHYx8Hf635AT3Fe0tPn?=
+ =?us-ascii?Q?Frsk7oG0VDNRJrfwpU+mREWGTLlrXDaO9iK7HTwyGbtTOZHAdBs+RtPRQ0//?=
+ =?us-ascii?Q?bW2OYYVzawb034UE529hYc7TUPMsC7lJ0cQZwSjtGoGch59vdn6Pbaiso8df?=
+ =?us-ascii?Q?bdvBPXeQ6X5OYrrUoJpyTyMQE3yqlrkmAGxuca8LQxuGiCpDvoe9ewUHQpAT?=
+ =?us-ascii?Q?gPRc0Kn/U99KbnfNIgLfaJ1cJY6si+IpC5mbQZv3sCNPBxtavkBKiTbJbP0m?=
+ =?us-ascii?Q?AcWYGS1lDW6ebXxt4a/1uIYfHBOasJkAaZ4XOQXCrat7b+r1KJj4g0B6DZXm?=
+ =?us-ascii?Q?L5N/abML+WM9a+j/bpS0lfYxbn3lidvu+ZokH8daxCOMOySlTobF7yQ+zGN7?=
+ =?us-ascii?Q?OFEDrW1mnEQbv0poSvfGsFlAmRo6WpHiSW4pu/17OUw37rjwPY9lv+i2q5Cs?=
+ =?us-ascii?Q?LDybEjntbjEqWcmOkYG6FiSgtn138prbAhVNHJDDQ9u9oQ7LDcaBqN5Jnjao?=
+ =?us-ascii?Q?9Y138N18V7pezRvaHalaIevH/idKrmEcxL36PdmA3+csOCCdCozk4MfeRS6b?=
+ =?us-ascii?Q?W7w89Y5WFe9Y8/c8KAK8XYiexQpS52Nc9S/5AXt4qfgCSeoH6f5qxetaHVsF?=
+ =?us-ascii?Q?k13GKG5Tp8fX6erCKKqsl/c6qjn9CktSmJSosd2dOzrWi9HQ0ru1VGFGtNzp?=
+ =?us-ascii?Q?HBwB/dkncBBRWkSEeH9Jfmi9bxG7ECPjumrMVPVpwswIihNErfRmIB92Yj7I?=
+ =?us-ascii?Q?VofScOj3T+VQpE77aRO3GIUpO4qfqfK+mlHx+7EVSXDVcAysRVQB5Irxblg7?=
+ =?us-ascii?Q?GbXj6I2/xyU1HZNKo2GsPh9UY4ad3+Ef0IBUDOX3XLLChK/zmOc2wOE1TzDR?=
+ =?us-ascii?Q?IawwF6CejbYlv5tjsW/PcE6Fhxh5c3ZJINeDFxGVRVmfhn9ebAayJQJvRkIJ?=
+ =?us-ascii?Q?Pq3HrLWLEZEEdpvyCWOyvQ4ACJ2oRo777wbOZI8D/h8NYnaAk43it4kAxlFm?=
+ =?us-ascii?Q?JPoseI1MGIN4lnzMpQDqLnXTMhHDlrXXZc8aZzLQHT2RGaqI?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 471cc540-69f1-4f40-aecf-08df2bc5e360
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5167.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 20:41:43.5754 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jd8Cd6x0CCW1pFfOZav9CHR6Kmyj09h7tt4poyngPCsIaZCyU/9BI1Axf/6YW+Vs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF9BB0D8619
+X-MS-Exchange-CrossTenant-AuthSource: DSWPR12MB999127.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6669331e-6e45-471d-d6a6-08df2bd40126
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 22:22:46.1907 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gxGEyKYguARejBaZFOd9G1hGs0RacIRN7SV058nAAu/zPQB6+ZYOhmI6qYwkRpk4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6057
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,219 +138,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------WsCwBfvR0ySSqZO18Ebp3nvn
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Public
 
+Reviewed-by: Roman Li <roman.li@amd.com>
 
-
-On 2026-10-13 05:20, Jesse Zhang wrote:
-> When an SVM range is split, svm_range_split_pages() gives the new range
-> the number of VRAM pages counted in its part of the dma_addr arrays and
-> subtracts it from the old range. Pages migrated to VRAM by a prefetch
-> have no dma_addr entries until the range is mapped on a GPU, e.g. with
-> no ACCESS attribute or before the first fault, so the new range gets 0
-> and the old one keeps the count for both.
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Keita
+> Morisaki
+> Sent: Tuesday, September 22, 2026 10:25 PM
+> To: Zheng, Austin <Austin.Zheng@amd.com>; Lei, Jun <Jun.Lei@amd.com>;
+> Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
+> <Sunpeng.Li@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+> Cc: Rodrigo Siqueira <siqueira@igalia.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona Vett=
+er
+> <simona@ffwll.ch>; amd-gfx@lists.freedesktop.org; dri-
+> devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; Keita Morisaki
+> <kmta1236@gmail.com>
+> Subject: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate cont=
+rol
 >
-> Migrating the parts back to system memory then gets the accounting
-> wrong: the old part keeps a VRAM page count after all its pages are
-> gone, so its svm_bo is never freed, and the new part underflows. On
-> navi31, as an unprivileged process: prefetch 4 MiB to the GPU, prefetch
-> the upper 2 MiB and then the lower 2 MiB back to system memory:
+> [Some people who received this message don't often get email from
+> kmta1236@gmail.com. Learn why this is important at
+> https://aka.ms/LearnAboutSenderIdentification ]
 >
->    Recorded vram pages(0x0) should not be less than migration pages(0x200).
->    WARNING: ../amdkfd/kfd_migrate.c:922 at svm_migrate_vram_to_ram+0xbdc/0xcd0 [amdgpu]
+> median3() is meant to return the median of three values, but its last com=
+pare-and-
+> swap step swaps b and c instead of a and b. When c is smaller than both a=
+ and b, it
+> returns max(a, b) instead of min(a, b).
+> For example, median3(2, 3, 1) returns 3 instead of 2.
 >
-> and/sys/class/kfd/kfd/proc/<pid>/vram_<gpu_id> stays at 4194304 until
-> the process exits.
+> _do_calc_rc_params() always passes 0 as the first argument, and the secon=
+d
+> argument is never below 12. So whenever the third argument is negative,
+> first_line_bpg_offset (and second_line_bpg_offset for 4:2:0) is set to th=
+e second
+> argument instead of 0.
 >
-> Without dma_addr arrays, the split is still exact when the old range is
-> completely in VRAM, which is what a prefetch of the whole range leaves.
-> Give the new range all its pages in that case. The warning is gone and
-> the VRAM usage drops back to 0.
+> Fix this by swapping a and b in the last step, as intended.
 >
-> Fixes: 006ad514a50c ("drm/amdkfd: Use partial hmm page walk during buffer validation in SVM")
-> Signed-off-by: Jesse Zhang<Jesse.Zhang@amd.com>
+> Note that this change does not affect valid DSC configurations. The third=
+ argument
+> is negative only when bits per pixel exceeds the uncompressed rate of the=
+ colour
+> format:
+>
+>  - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
+>
+>  - 2 * bpc for 4:2:2
+>
+>  - 1.5 * bpc for 4:2:0
+>
+> Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
+> Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 12 +++++++++++-
->   1 file changed, 11 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 1f5d73f0ebce..7680fd59ecff 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1020,9 +1020,12 @@ svm_range_split_pages(struct svm_range *new, struct svm_range *old,
->   		      uint64_t start, uint64_t last)
->   {
->   	uint64_t npages = last - start + 1;
-> +	bool counted = false;
->   	int i, r;
->   
->   	for (i = 0; i < MAX_GPU_INSTANCE; i++) {
-> +		if (old->dma_addr[i])
-> +			counted = true;
->   		r = svm_range_split_array(&new->dma_addr[i], &old->dma_addr[i],
->   					  sizeof(*old->dma_addr[i]), old->start,
->   					  npages, new->start, new->npages,
-> @@ -1030,8 +1033,15 @@ svm_range_split_pages(struct svm_range *new, struct svm_range *old,
->   		if (r)
->   			return r;
->   	}
-> -	if (old->actual_loc)
-> +	if (old->actual_loc) {
-> +		/*
-> +		 * Pages migrated by prefetch have no dma_addr until they are
-> +		 * mapped on a GPU. A fully resident range still splits exactly.
-> +		 */
-> +		if (!counted && old->vram_pages == npages + new->npages)
-> +			new->vram_pages = new->npages;
-With XNACK off, svm_range_set_attr() leaves the GPU mapping update to 
-the delayed restore worker rather than doing it inline, so the dma_addr 
-arrays are not populated yet. The bug is a timing window: the prefetch 
-back to system memory happens before the scheduled worker gets to run.
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+> b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+> index b8fc27a5361e..657173d8081c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+> @@ -46,7 +46,7 @@ static int median3(int a, int b, int c)
+>         if (b > c)
+>                 swap(b, c);
+>         if (a > b)
+> -               swap(b, c);
+> +               swap(a, b);
+>
+>         return b;
+>  }
+>
+> base-commit: 93f51579e7df248780214094418f205253383cc5
+> --
+> 2.43.0
 
-The fix, though, assumes prange->vram_pages == npages. That does not 
-hold for a partial migration — svm_migrate_ram_to_vram() only adds the 
-pages it actually migrated, so the range can be partly resident in VRAM 
-with no dma_addr array, and the accounting is still wrong in that case.
-
-Fixing it completely means redesigning the per-range VRAM page 
-accounting so residency is tracked per page independently of dma_addr. 
-That is a much bigger change, and this simple solution is good enough to 
-fix the bug in front of us, so let's go with it. Two suggestions:
-
-Rename bool counted to has_dma_addr
-
-if (!has_dma_addr && old->vram_pages == old->npages)
-         new->vram_pages = new->npages;
-
-Please also mention the partial-migration limitation in the commit message.
-
-Regards,
-Philip
->   		old->vram_pages -= new->vram_pages;
-> +	}
->   
->   	return 0;
->   }
-> -- 2.50.1
-
---------------WsCwBfvR0ySSqZO18Ebp3nvn
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-10-13 05:20, Jesse Zhang wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20261013092158.2261502-4-Jesse.Zhang@amd.com">
-      <pre class="moz-quote-pre" wrap="">When an SVM range is split, svm_range_split_pages() gives the new range
-the number of VRAM pages counted in its part of the dma_addr arrays and
-subtracts it from the old range. Pages migrated to VRAM by a prefetch
-have no dma_addr entries until the range is mapped on a GPU, e.g. with
-no ACCESS attribute or before the first fault, so the new range gets 0
-and the old one keeps the count for both.
-
-Migrating the parts back to system memory then gets the accounting
-wrong: the old part keeps a VRAM page count after all its pages are
-gone, so its svm_bo is never freed, and the new part underflows. On
-navi31, as an unprivileged process: prefetch 4 MiB to the GPU, prefetch
-the upper 2 MiB and then the lower 2 MiB back to system memory:
-
-  Recorded vram pages(0x0) should not be less than migration pages(0x200).
-  WARNING: ../amdkfd/kfd_migrate.c:922 at svm_migrate_vram_to_ram+0xbdc/0xcd0 [amdgpu]
-
-and <i class="moz-txt-slash"><span class="moz-txt-tag">/</span>sys/class/kfd/kfd/proc<span class="moz-txt-tag">/</span></i>&lt;pid&gt;/vram_&lt;gpu_id&gt; stays at 4194304 until
-the process exits.
-
-Without dma_addr arrays, the split is still exact when the old range is
-completely in VRAM, which is what a prefetch of the whole range leaves.
-Give the new range all its pages in that case. The warning is gone and
-the VRAM usage drops back to 0.
-
-Fixes: 006ad514a50c (&quot;drm/amdkfd: Use partial hmm page walk during buffer validation in SVM&quot;)
-Signed-off-by: Jesse Zhang <a class="moz-txt-link-rfc2396E" href="mailto:Jesse.Zhang@amd.com" moz-do-not-send="true">&lt;Jesse.Zhang@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 1f5d73f0ebce..7680fd59ecff 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1020,9 +1020,12 @@ svm_range_split_pages(struct svm_range *new, struct svm_range *old,
- 		      uint64_t start, uint64_t last)
- {
- 	uint64_t npages = last - start + 1;
-+	bool counted = false;
- 	int i, r;
- 
- 	for (i = 0; i &lt; MAX_GPU_INSTANCE; i++) {
-+		if (old-&gt;dma_addr[i])
-+			counted = true;
- 		r = svm_range_split_array(&amp;new-&gt;dma_addr[i], &amp;old-&gt;dma_addr[i],
- 					  sizeof(*old-&gt;dma_addr[i]), old-&gt;start,
- 					  npages, new-&gt;start, new-&gt;npages,
-@@ -1030,8 +1033,15 @@ svm_range_split_pages(struct svm_range *new, struct svm_range *old,
- 		if (r)
- 			return r;
- 	}
--	if (old-&gt;actual_loc)
-+	if (old-&gt;actual_loc) {
-+		/*
-+		 * Pages migrated by prefetch have no dma_addr until they are
-+		 * mapped on a GPU. A fully resident range still splits exactly.
-+		 */
-+		if (!counted &amp;&amp; old-&gt;vram_pages == npages + new-&gt;npages)
-+			new-&gt;vram_pages = new-&gt;npages;</pre>
-    </blockquote>
-    With XNACK off, svm_range_set_attr() leaves the GPU mapping update
-    to the delayed restore worker rather than doing it inline, so the
-    dma_addr arrays are not populated yet. The bug is a timing window:
-    the prefetch back to system memory happens before the scheduled
-    worker gets to run.<br>
-    <br>
-    The fix, though, assumes prange-&gt;vram_pages == npages. That does
-    not hold for a partial migration — svm_migrate_ram_to_vram() only
-    adds the pages it actually migrated, so the range can be partly
-    resident in VRAM with no dma_addr array, and the accounting is still
-    wrong in that case.<br>
-    <br>
-    Fixing it completely means redesigning the per-range VRAM page
-    accounting so residency is tracked per page independently of
-    dma_addr. That is a much bigger change, and this simple solution is
-    good enough to fix the bug in front of us, so let's go with it. Two
-    suggestions:<br>
-    <br>
-    Rename bool counted to has_dma_addr<br>
-    <br>
-    if (!has_dma_addr &amp;&amp; old-&gt;vram_pages == old-&gt;npages)<br>
-    &nbsp; &nbsp; &nbsp; &nbsp; new-&gt;vram_pages = new-&gt;npages;<br>
-    <br>
-    Please also mention the partial-migration limitation in the commit
-    message.<br>
-    <br>
-    Regards,<br>
-    Philip<br>
-    <span style="white-space: pre-wrap"></span>
-    <blockquote type="cite" cite="mid:20261013092158.2261502-4-Jesse.Zhang@amd.com">
-      <pre class="moz-quote-pre" wrap="">
- 		old-&gt;vram_pages -= new-&gt;vram_pages;
-+	}
- 
- 	return 0;
- }
-<div class="moz-txt-sig">-- 
-2.50.1
-
-</div></pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------WsCwBfvR0ySSqZO18Ebp3nvn--
