@@ -4,119 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0362DCC6B38
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 02:49:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C4A4CC6B38
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Oct 2026 02:57:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3860410E297;
-	Fri, 16 Oct 2026 02:49:28 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010026.outbound.protection.outlook.com
- [40.93.198.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A5B310E1D5
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 02:49:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9754010E1D5;
+	Fri, 16 Oct 2026 02:57:53 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011051.outbound.protection.outlook.com
+ [40.93.194.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C5710E1D5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 02:57:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yWplZWi24kqlGVOtBFC34Pvsf0sYXbNNtjJDSPDW98FE7bQhTg/lE/qKctWtSLKvOz0S8v9j58QBW2OrX+gISPFIN7XI12qRWnypYWGcqBIInpI4JchprYwTE8Yh81TmT6oWKsgfPgQ2lfP3v5v08hC7PdibSJ0ffFIf2iKv6vqcmtv3tO2zwTPpuwD4Cf9fXrN8SR5/kwAcyhDFZ2oVvqMES2+IUllkbapNCieRMQP33BFQ11Ng8ogZIGk19r5wU0lJml3X78z3vmgmTmpjN/3MDdUPcYvYMaTg+2n3b7U/6JzPLFRh/ouroCQlPCGZE3ijgJrUAjZaJIDBSCNnDQ==
+ b=v0EHER79uDSFHYM/x3O9RSqi/V4k1mSPC6BHY3ys1Ja4SPFcTTODpwTsELneEZ4REt+VMGdmlyiFIGg/hF1LPEbdVv9U81I9AWX4D1F5OwGwEut8DouY7WLFiG3ls+35gOwGo1opiSGmyqBdjZuDr2o1qeBNI9CZHgSax4J2l7ivWGf5mwzb9JOVzd1vdcb1EyB9cMWXQOwd4bl2nR2mgem0yh9y8H+vMVN0aukTiXBhpHbsuhT5mHEHIhj+FQ4/nDqcfhf7PP4crkllgntLU2nW1MtNL799jaqLK+eYErziWMiQiHTzfGI8A6Sy+KlIgOJ4OEGRmKZSLWhQr9i9lg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p32DgZW2pULuzMlZqDrb/kkkaSVZN/8nweB9uhSHHIg=;
- b=olOu7XndJzMv1gQNCvJfkFS7ce8P9btXq8EG6dfxYzZ74Gzky0Q9gxfiQR76AF//j2S0ejrFDZPiS7s0e/uIP1CbT7b0kSJx6UUrW3NX1uqFYkbRU8a0aK5VMMWN2dXDUoHiUEbhy0YhRCT5ctghUAxL4LhQzZ8FyXREF/74Q3a9TilRGpvVj85dnLGtI9TX77JxiZQZgzUEaSMQzt6vom+bICA2wEos44OjwKGG1wvKpBf2uSTPWv39GmtJlcrToAcf59Z7oIxc0WGwIG/l8ErrOrFAw2rvz/gQqzl6jvJg6AqkaFaRsZfRmW7uOjrx2NOg6x8i2X7SHt45I+jj3w==
+ bh=j0fZg1aIZr2Um/R3Y2rw93D+JsIROKI0Z8mq5Jrtko0=;
+ b=KGRXKQ/8ABfhL8xcS4L4YBNWJSaauEK672S0OjLgRuboiRHLYuyWEyYKTfr0sa3iWBewB0qfFKUrWewERg0AaljSPBorC3PCkd9OturGaxUxWRWsSkR8AOsriNtWMUEtSePe4OK8LfuumwFbVgWSni0ILkYH3wRpI0DqeZR4nvIFeE9XaTxglq/fDsQ0XQTuc3afaJpX8ASeRj8q/GTFkLfUjTqgP6jjO6Bzi0sG59VNylIQzXSFaguKI/Y+t37j4a/HA/cKMv4hVSORitaQTamtChilmqarWjJDYWIDE2VEMsjplD6yPU3C97+5dl4I7sbKnICTZGZSJxUixSpVEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p32DgZW2pULuzMlZqDrb/kkkaSVZN/8nweB9uhSHHIg=;
- b=OibQY+xcPUWN3zhmS0cvsE6KdoCoB2bH7Qw/VrH0EytTiT2UsHAb3CfgZ93QfEvM8wyd6tRJqFa/gmPaoOOgJXZ35gW23xZ9U1aTdDmKYT45httw8CJvEfkuGWsuDmGHm959alOu+S01UEdHlbJwPVp3yBrq1zDcUady+FOnsVk=
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
- by DS0PR12MB999105.namprd12.prod.outlook.com (2603:10b6:8:301::11)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=j0fZg1aIZr2Um/R3Y2rw93D+JsIROKI0Z8mq5Jrtko0=;
+ b=cwY6M7G2iISQ87+hzeXYHghflqZP0GsIBykRtoKWBKW1yhcPIP7fNBNQ6SbXALl2iR2qeNSDN2tXWeUxPLaGVWBLNX/qSGRWgDB8heRbd7JFiXn1xurj/WTNq44XRVt+63Emd4finqUNKNzJOksHCU9A6Hw5IKNLkcQgaAxrVF4=
+Received: from CH2PR12MB4168.namprd12.prod.outlook.com (2603:10b6:610:a8::7)
+ by CH1PR12MB9621.namprd12.prod.outlook.com (2603:10b6:610:2b2::5) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 02:49:16 +0000
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd%6]) with mapi id 15.21.0522.011; Fri, 16 Oct 2026
- 02:49:16 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: "Wang, Kevin" <Kevin.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 2026 02:57:43 +0000
+Received: from CH2PR12MB4168.namprd12.prod.outlook.com
+ ([fe80::762:c8d0:c9ed:ebcd]) by CH2PR12MB4168.namprd12.prod.outlook.com
+ ([fe80::762:c8d0:c9ed:ebcd%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 02:57:43 +0000
+From: "Yuan, Perry" <Perry.Yuan@amd.com>
+To: "Russell, Kent" <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Stamenkovic, Strahinja"
- <Strahinja.Stamenkovic@amd.com>
-Subject: RE: [PATCH v2] drm/amd/pm: reapply umd profile state after recovery
-Thread-Topic: [PATCH v2] drm/amd/pm: reapply umd profile state after recovery
-Thread-Index: AQHdXQ1irO0bVhRwC0irFPqpQ0s707b/ccIw
-Date: Fri, 16 Oct 2026 02:49:16 +0000
-Message-ID: <MW4PR12MB68037B7C36FE118060D1C99F8E9B2@MW4PR12MB6803.namprd12.prod.outlook.com>
-References: <20261016012614.2812170-1-kevin.wang@amd.com>
-In-Reply-To: <20261016012614.2812170-1-kevin.wang@amd.com>
-Accept-Language: en-US, zh-CN
+Subject: RE: [PATCH] drm/amdgpu: Add log when register access is blocked in PTL
+Thread-Topic: [PATCH] drm/amdgpu: Add log when register access is blocked in
+ PTL
+Thread-Index: AQHdW/rli02xBl/jeUyeJlBVpn5xC7b/e4bQ
+Date: Fri, 16 Oct 2026 02:57:43 +0000
+Message-ID: <CH2PR12MB4168855D01B75EA23DC881389C9B2@CH2PR12MB4168.namprd12.prod.outlook.com>
+References: <20261014164116.2985138-1-kent.russell@amd.com>
+In-Reply-To: <20261014164116.2985138-1-kent.russell@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-16T02:27:47.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-16T02:55:03.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|DS0PR12MB999105:EE_
-x-ms-office365-filtering-correlation-id: 2b6e7fb6-140b-40da-4fd4-08df2b3011be
+x-ms-traffictypediagnostic: CH2PR12MB4168:EE_|CH1PR12MB9621:EE_
+x-ms-office365-filtering-correlation-id: 42efc993-775f-42b5-29a7-08df2b313fa2
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|38070700021|261009223027099003|56012099006|11063799006|261009221227099003|10067099003|18002099003|22082099003|6133799003|260925021311599003|260925022911599003|260925021911599003;
-x-microsoft-antispam-message-info: E2DhtYUXKskIm33mMYg7D/L4zsKeQV6t2ZgODkZ8oc0+Y/gGYLLpoNtcEdCnWmNeazvZoqBAEptMbFc9UvI9FfZ0OQH5GqHSrJX3+MJD0aUWptq/sB1FPYGICW4lP2nEb6cdbQP5bMle9l2gJdRE5c9wgQ9P/SCmTiQJpETuTtiP5tbjyuyAHb8meBOayaHuGPD/E1CBfOH6kf/HlamX1lQYN3+PIl0VTDJ0VnGrj7eMqFq8d8rwcZGRKJIOckU/r6DVYWmCqzkccIqKuWfG+76yHbkT8B3YUSr1azFPP1ZGAvRVTiubd4FrVNDdGz8cRHZC/xOy6+YGfQXLGfiW7DSx0LhBhJ70KgthPAzIW0qlfhzD2OkiaZW+UabXwvrAetyItxApuo+29+EnFDuYK1znl7r5EblI+xuG9eX+RJ3G/NWLBnlVEiwimCNYIjKfVfyAsvZ47/mGflXoToxiuZYaEsl+zLCBbbaIJGV6cqHhPrePe7cc+aSh/U+DjUz81CcyGqDk6UWcQnZjBHTf0kl++B7jbyTcpSIECNhUiMGaYB3+NadZ7aP+xq3B/67v2DDySvHF73TPdf3iJt052Qe91vBwBz07V5ayHf1K8wV6tKmXGtYMeDmP5WGaPRcoEmMwK6EmOOuUa0UsQ7FWLJbjYZ4dyuad5VkxlTYRgnNOi0TzEsHOjJqcjq1bZ7ErSAVznz0DKmDL5VIBxe2csXwCPWuMX7Cx5BZ7kobxNmY=
+ ARA:13230040|376014|366016|1800799024|23010399003|38070700021|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+x-microsoft-antispam-message-info: kczkI+mI08/qneAh30GBeQJ7YBEKl7SA6Tq95bjd2TsfWsa2lyWFZSEl5CH7QHcT2FJ5vP+2aTssR1UmkonM36EN9Usw9DEmSJ7E7pdMc7VInFBOZXVi5fEhHWpnmvVCXUOSXWYJXEEtRe4QGch8Lpfo4Jj6PH4Y4gM7DxjUKcbDLp3bN5VkcsRAs+u1gBcgdLz3MAKfoHdAbNhX5Zaoey98/I5TifBSVc0LbXYhO83ACptBeeW+C7Ai2zQJvZzDRgGOjGjMJZZT8Am3t8Jzr5WTgPScZsYkBg7xdy8hP3u2O+nguhnoO56KxfMbHcAs8SafnWMsliqpPQsNxStDgBIPVTwaPkC509Kdrw7pzod6F76BmIs2r5lZSzfSm1kCcD82B2I3ET1jago0ZgeA48lWNjmtmz7/+QEQrzrIQiU32iNrHML1rvlAyOWSIw3rkYATbFNCdvbbCa4DeMF0B7LEH4HqzGw7TEKaAPijjkHRdMWNlKDgxUqA6rPXAItsISrcFPQsAcjB95AJr30rJDRWZ1WMHuQXW11SQcGqnWmaLWNngnJTTrrn6IWqR+f8OJsNvDEV+hD3ee2wWJiujOac+tBCXLPXvTPi4p4TFEFJGFGAfZu7vktt4gdaWHnZx0+EefgD7J3PYpwh/X+FVH/AARdZUElNiBpGKOmTHsQzuEmsb1j8llDnQMiCV77Ojgen6y1cEf36eDTFzJPL/UJn3TBw+zW/CZ+DZr4QSBU=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(38070700021)(261009223027099003)(56012099006)(11063799006)(261009221227099003)(10067099003)(18002099003)(22082099003)(6133799003)(260925021311599003)(260925022911599003)(260925021911599003);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4168.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(38070700021)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Cd8EtjWB1pOrXTqwXAlW81O/rRJmiNKIkGGca9hLvBrltvv1u+aQ5vBcjR1/?=
- =?us-ascii?Q?XHY7SEBgVtxX9Gd4PByiJR2WCLViSquQmtziLdaEUFwnFJ+moSqBYZD92mIK?=
- =?us-ascii?Q?T07F8iO15gamdZsUcf87hLXgDqwbvemSWcKgvPWJg/XYPJz7lU+pUb8T60MC?=
- =?us-ascii?Q?ry4qK8hKhTE+3DxwiGjtc4/r/dBL25qC1cWoskkVQlCa1AQsOrDyqDkr1/Oa?=
- =?us-ascii?Q?4VwMKNFJ8GMf8OTpDSMmhClqcMQsfxU8HG8UydDWGg7wySWri7lsMMTv6aNt?=
- =?us-ascii?Q?wsAfwlEeesIQYSeGBkZ850lbAmM037EpYUja3djE5OUe8oIJHQRXhMzq7xa3?=
- =?us-ascii?Q?cX5IWHUjmncYGpJH+Toco2LI4fhZw3il5boLoHrm5WVYRvyzwiWCyRY/5PKK?=
- =?us-ascii?Q?6dTnkc/qyA6LWO35a8hlNQV5QfgOtJVw5fNYFoD2Qsix5xAFSBXWGSy29P2y?=
- =?us-ascii?Q?ZH9EFwgyGgrVdxdNC7LdS3WToUQvwMeLlJmU4EpnHDxfJt1M+ubgKueoKMjB?=
- =?us-ascii?Q?U0iiy99yh2Fd2VyVNTnqFAfG817qsd4WViQeubBHZCO1DZiTJiDc1nowqs6E?=
- =?us-ascii?Q?KTg5/8s/QoqBvUTevar+GIROmmBnT0wKYAXal1ohE2O3ih7gUPHZShMfGzma?=
- =?us-ascii?Q?hk7U23uTJPw0ifqQg0vXBD4UDj7ONWdAXSFiT7KaRfihUL+ujcRrygs6eMmy?=
- =?us-ascii?Q?iy/QEzIAHzGx1MR9W5ikDBTOsXxBbz9NrbEnAd50e2n6F4kp13+8n3iTiwQp?=
- =?us-ascii?Q?xht9V9vH1fNJD1HNHiXt2VhrP4Dni49cykRrN9cmjQPyRqFVBtVZfAUKTfCx?=
- =?us-ascii?Q?3q94H1PW1pbULA3GxStovCRHNNwmgPat3zpkBoK0WaL5Cb0Z8+Cqqc0zoIFe?=
- =?us-ascii?Q?JZuputEU2YdOuH3sPAF4zWJKwfakgTK1Y4dwAkDR6k2kxL/AkfBUXdu1lQnO?=
- =?us-ascii?Q?n/ZrE1FPJ0hUg++fjcfkKZUN2KCnbAkJOM9hDTckUrJG8NIqj2dO0wNskWrs?=
- =?us-ascii?Q?XUYeVaDS54PjG1vTc9xGM8Jt4VTtpZbGwYXntm+pdjKQAaoBkZBwIJ/YGvZd?=
- =?us-ascii?Q?btNT2jLGxFVc1NHlJXMCzblvoA/6Ir/qRkHIb22t5BI7fqVNzezsCriQy0la?=
- =?us-ascii?Q?oW1PT5mTBKnI9qwJNPMEQVtTJt85m3q95orptNyVMBgcG0ZISqOEqVjFbZy3?=
- =?us-ascii?Q?QdQVSf6fsJ01FyucIHsRf2z3ivjXeDEjLkdYRjg2vO4uTehg4B656TEb/Gfp?=
- =?us-ascii?Q?o+WYmDPLXRRtUGL0ZhrQ0Ui2aE1aUJssShxjdT836Mv/j2nYpp2JD33AvV3e?=
- =?us-ascii?Q?sBisuITdyK2ejhm7M/sYyZgL0IpKwGhGmswxMcQghIq0jdTzJcqsJKnF8Tgb?=
- =?us-ascii?Q?25dvQrlUbzRx1GfI6YkfQ4aQ5A7sZJ7wZktkIfxCs66LGET0Xm7yW/iefg8R?=
- =?us-ascii?Q?It4XaYLiYDDQS3Yky+qyKopLRU4eyqCSgNTitlEbc16fHDOy3FOoW9QiEcmV?=
- =?us-ascii?Q?ATzJ4atAHXzNzZcMlSO1IGKSzsXLN4XPcCdRYQaexGZi/GxM+kxL/kP8vY28?=
- =?us-ascii?Q?c46KPNrYBYBaFBgtnz68MXIDMaIhKTXkuQODHj3Mti6t6Ztxbo3OqEpAczOO?=
- =?us-ascii?Q?IucVMVBsP8XkVoV+iXHeI816pXVbgpj4Qm8GZpBTDEsyIP6U4VsENkhcHegS?=
- =?us-ascii?Q?1MQmdB1I0NFstLtpfsyFbq0MrG1wva3dsGFNvSaqNeppEGRM?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NS0oaDfJS/RMPvfx/fFj/2WIjz0jdvSAl86vsLO4gReymrwjbW1oyGHghiAI?=
+ =?us-ascii?Q?uV2X9/+C23O2mMdgCdl51JTDmt4WAtDDMP8YE/gXMKuuP802/mNw3NSCGr4A?=
+ =?us-ascii?Q?m4E3v8pt9udmXsCW2a1cU/goMCmOc8rcZndroky9ER3Nh57UehLHZcYjWE7M?=
+ =?us-ascii?Q?kl4E/ozeXRxm6qq9Bw/W43pQN6AcPXiaKgx6zN2RmuTuzxxbg3xoWHNXW6FO?=
+ =?us-ascii?Q?awaAdAomREJp6YeStlxgbQMZRzfhs08Mlie+ofVz4qZhNR1rJJ9Cavapdlc3?=
+ =?us-ascii?Q?dfPgWSP0x0qERobfTeZlk2ZXmmv+BA7ysM71qAQ/D4bg1uLFKs47l6AVlN0T?=
+ =?us-ascii?Q?8/FHzlLl62igs/GBrFpjGp44kel5hvVWv4uiNMt1We9u/xhiBG4scEVrjLs7?=
+ =?us-ascii?Q?8jxJc+Ssaxojzn2PvqryPD3IpRcTu5yNy1LpNB2tez4ycCEhxSCTZqSiyhDH?=
+ =?us-ascii?Q?nfEEhNvn2RphpJgY9P8buHHTbdAaJV3qUpObH8cao26HqX1TRgkaRyeCmWbw?=
+ =?us-ascii?Q?/0D+Rd8YtPyBFzczgP4Kjn7of/H4QCBANb2oITd2RAhOcYXsrklJ/Y5wyVcY?=
+ =?us-ascii?Q?rZCKik7Zgt09Ithi1d3EB6SoRJjRFkffn89vd/m239Yz6QY6+FaPDmvY/grK?=
+ =?us-ascii?Q?1CfbIWhaIrtxrgktksEvqKdy6Ynh/TUrJpCxFsd0WeSMkEQR9W0SSTMV/RuC?=
+ =?us-ascii?Q?P2kJTZ2lk4sQ1kEuL7w/fEk5p0Hzxvr9OazT1wYcwRRaxsttf1lLZuOMxXqd?=
+ =?us-ascii?Q?aHXSngTInXFMUaNHxxEO0a+WEz2cHik5YmyknuOELwbNqoJPFHQQIcEmpywP?=
+ =?us-ascii?Q?4hu1jj7g0EhbbRjwPhsMSNL6hc4iHGGImb6lM1xJV2YHxgfqHzvdT3dze6f/?=
+ =?us-ascii?Q?ZarJwSRZt/QvDqaxsSPEIb4I8bN26o6HP1jfrvrmTbfDF3Yps7Gjl+yDIOHC?=
+ =?us-ascii?Q?RBu8yvdZZa3AxRJRRKceKfrBGKwdRC8QqS6Y+0cTVy8lpJryN3Xn3XHbiDQQ?=
+ =?us-ascii?Q?fq2e1LXZTEylB9XaOes9e0F/Oo8iesyKVNY9FlEZ0UD0RmUINb9IUNCi04J5?=
+ =?us-ascii?Q?7/FVG4QsIImiZsnFcZ46T7zg4eVO8niZNO1j15umCX4Nlm/+VaH8hV0kAHvo?=
+ =?us-ascii?Q?Y64Wc6qcRcbqUhexjkZKmA2K8ch+OrWbhaW259NWVCze7JzZeaiC7mekujTi?=
+ =?us-ascii?Q?kSAUg8p3qzHJd0W/4REUKBu4WyH9olHDIEbuWeS8vMOCAL4ZJm5nvMBpNzyH?=
+ =?us-ascii?Q?U84pqijVdaJ6i+q02eSeZiHBp1bujD58l3JmG0/lG9Q7zwNhROgebQJT7urW?=
+ =?us-ascii?Q?fnMyb8KxKVDvmNbclkztP7qwFqYEgh6vBk568h03wTGL4fVSIHdDw9hgYBYl?=
+ =?us-ascii?Q?9QDWP1Nbfd/UtHhLfHJzkKly7C/x5dCVY82Bzk+hCNUKAbLcBp7MgjKn1jmj?=
+ =?us-ascii?Q?VadCeam/k4wL5NH3KDIyFReGLVrraW0JnOhEh4RJnCdbb+SyGXdgM6Cepatn?=
+ =?us-ascii?Q?nidJADMs4m2ivBc8lxX6By0QhgrTZjJO5E0nQYOADRD0wU1kvNFCWUNucB9n?=
+ =?us-ascii?Q?L7Efo87dcQN6rLC+DFwEP2hB9pk+EtCQUfGFOFBtXiS3vTXqBrESn2PWukYv?=
+ =?us-ascii?Q?nPHUiIsUfHuzaDPQmJDIatKvFk7s5RmmnbplKDIzqZLoR+URQuujHEKNNG79?=
+ =?us-ascii?Q?1C6Y4TmUvXyLqirQEU5vOYMbDjEEZR3/9Vz42P7l59IgP4Lx?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b6e7fb6-140b-40da-4fd4-08df2b3011be
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 02:49:16.5528 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4168.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42efc993-775f-42b5-29a7-08df2b313fa2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 02:57:43.0743 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: E7Gc/je015cl2Sp/3hpHMe5QVHtrDb9Nj+m3oV7YVKGDfisIm/8GiKppc94hBYyo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999105
+X-MS-Exchange-CrossTenant-userprincipalname: B7Z5t/jvLQkVD3GHIaZpwYOoEvDP2T/0+SR2Mg8cGzH9vSABOHU+nCvDijPinqDuxeaXVgoOnW2Td9cHbcq95A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9621
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,463 +131,270 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+> -----Original Message-----
+> From: Russell, Kent <Kent.Russell@amd.com>
+> Sent: Thursday, October 15, 2026 12:41 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Yuan, Perry <Perry.Yuan@amd.com>; Russell, Kent <Kent.Russell@amd.com=
+>
+> Subject: [PATCH] drm/amdgpu: Add log when register access is blocked in P=
+TL
+>
+> PTL will limit access to specific registers. Instead of silently dropping=
+ these attempts,
+> log them in dmesg for reference. Also add a dev_debug option to show what
+> pasid/addr/packet type failed.
+>
+> v2: Make sure to guard it by MEC v195, and move enable call into ptl_hw_i=
+nit
+> function
+>
+> Signed-off-by: Kent Russell <kent.russell@amd.com>
 
------Original Message-----
-From: Wang, Kevin <Kevin.Wang@amd.com>
-Sent: Friday, October 16, 2026 9:26 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Stamenkovic, Strahin=
-ja <Strahinja.Stamenkovic@amd.com>
-Subject: [PATCH v2] drm/amd/pm: reapply umd profile state after recovery
+Reviewed-by: Perry Yuan <perry.yuan@amd.com>
 
-Resume and full GPU reset retain the selected UMD profile level in driver s=
-tate.
-The GFX and PMFW state behind it is reinitialized.
 
-Add a generic DPM reapply path after CG and PG restoration.
-It restores the UMD GFX state and asks the PM backend to replay the retaine=
-d level.
-
-v2:
-- Reapply only GFX CG to preserve the profile-owned GFX PG reference.
-- Fall back to AUTO when reapply fails without failing device recovery.
-- Propagate PowerPlay DPM errors before accepting AUTO fallback.
-- Limit workload-profile error reporting to the swSMU reapply path.
-
-This covers:
-- PCI runtime resume
-- Full GPU reset recovery
-- System resume, including S3 and s2idle
-
-Signed-off-by: Kevin Wang <kevin.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  6 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 14 ---
- .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 85 ++++++++++++++++++
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  1 +
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 33 +++++--
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 87 +++++++++++++++++--
- 7 files changed, 201 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 96cb4d34157e..b74f9136aa2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2774,6 +2774,12 @@ static int amdgpu_device_ip_late_init(struct amdgpu_=
-device *adev)
-        amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
-        amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
-
-+       r =3D amdgpu_dpm_reapply_umd_profile(adev);
-+       if (r) {
-+               dev_err(adev->dev, "Failed to restore UMD profile state: %d=
-\n", r);
-+               return r;
-+       }
-+
-        amdgpu_device_fill_reset_magic(adev);
-
-        r =3D amdgpu_device_enable_mgpu_fan_boost();
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index 2712580a5663..d4267358156a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2987,19 +2987,6 @@ static int amdgpu_pmops_runtime_suspend(struct devic=
-e *dev)
-        return 0;
- }
-
--static void amdgpu_restore_umd_profile_pstate_after_runpm(struct amdgpu_de=
-vice *adev) -{
--       enum amd_dpm_forced_level level;
--       uint32_t profile_mode_mask =3D AMD_DPM_FORCED_LEVEL_PROFILE_STANDAR=
-D |
--               AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
--               AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
--               AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
--
--       level =3D amdgpu_dpm_get_performance_level(adev);
--       if (level & profile_mode_mask)
--               amdgpu_asic_update_umd_stable_pstate(adev, true);
--}
--
- static int amdgpu_pmops_runtime_resume(struct device *dev)  {
-        struct pci_dev *pdev =3D to_pci_dev(dev); @@ -3045,7 +3032,6 @@ sta=
-tic int amdgpu_pmops_runtime_resume(struct device *dev)
-        if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_PX)
-                drm_dev->switch_power_state =3D DRM_SWITCH_POWER_ON;
-
--       amdgpu_restore_umd_profile_pstate_after_runpm(adev);
-        adev->in_runpm =3D false;
-        return 0;
- }
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
-rm/amd/include/kgd_pp_interface.h
-index ca818965afe1..7db44fa24042 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -449,6 +449,8 @@ struct amd_pm_funcs {
-        int (*print_clock_levels)(void *handle, enum pp_clock_type type, ch=
-ar *buf);
-        int (*emit_clock_levels)(void *handle, enum pp_clock_type type, cha=
-r *buf, int *offset);
-        int (*force_performance_level)(void *handle, enum amd_dpm_forced_le=
-vel level);
-+       int (*reapply_performance_level)(void *handle,
-+                                        enum amd_dpm_forced_level level);
-        int (*get_sclk_od)(void *handle);
-        int (*set_sclk_od)(void *handle, uint32_t value);
-        int (*get_mclk_od)(void *handle);
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/a=
-mdgpu_dpm.c
-index 0394085a0328..75d8bb4868e8 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -1082,6 +1082,91 @@ static void amdgpu_dpm_exit_umd_state(struct amdgpu_=
-device *adev)
-                                               AMD_PG_STATE_GATE);
- }
-
-+/**
-+ * amdgpu_dpm_reapply_umd_profile - Restore the active UMD profile
-+ * @adev: amdgpu device
-+ *
-+ * Resume and reset retain the selected DPM level in software, but the
-+ * underlying GFX and PMFW state is lost. Reapply a retained UMD
-+profile
-+ * after the common resume path has restored its default CG and PG state.
-+ */
-+int amdgpu_dpm_reapply_umd_profile(struct amdgpu_device *adev) {
-+       const struct amd_pm_funcs *pp_funcs =3D adev->powerplay.pp_funcs;
-+       enum amd_dpm_forced_level level;
-+       int ret, fallback_ret;
-+
-+       if (!pp_funcs || !pp_funcs->reapply_performance_level ||
-+           !pp_funcs->force_performance_level)
-+               return 0;
-+
-+       /* Serialize the retained level with the GFX and PMFW reprogramming=
-. */
-+       mutex_lock(&adev->pm.mutex);
-+       if (adev->pm.dpm.thermal_active) {
-+               dev_warn(adev->dev,
-+                        "Cannot restore UMD profile while thermal control =
-is active\n");
-+               ret =3D 0;
-+               goto unlock;
-+       }
-+
-+       if (pp_funcs->get_performance_level)
-+               level =3D pp_funcs->get_performance_level(adev->powerplay.p=
-p_handle);
-+       else
-+               level =3D adev->pm.dpm.forced_level;
-+
-+       switch (level) {
-+       case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
-+       case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-+       case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
-+       case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
-+               break;
-+       default:
-+               ret =3D 0;
-+               goto unlock;
-+       }
-+
-+       /* The active profile already owns the GFX PG reference. */
-+       ret =3D amdgpu_device_ip_set_clockgating_state(adev, AMD_IP_BLOCK_T=
-YPE_GFX,
-+                                             AMD_CG_STATE_UNGATE);
-+       if (ret)
-+               goto fallback_auto;
-+
-+       ret =3D amdgpu_asic_update_umd_stable_pstate(adev, true);
-+       if (ret)
-+               goto fallback_auto;
-+
-+       ret =3D pp_funcs->reapply_performance_level(adev->powerplay.pp_hand=
-le,
-+                                                    level);
-+       if (ret)
-+               goto fallback_auto;
-+
-+unlock:
-+       mutex_unlock(&adev->pm.mutex);
-+
-+       return ret;
-+
-+fallback_auto:
-+       dev_warn(adev->dev, "Failed to restore UMD profile state: %d\n", re=
-t);
-+
-+       /* Restore normal CG before releasing the profile's PG reference. *=
-/
-+       amdgpu_asic_update_umd_stable_pstate(adev, false);
-+       amdgpu_device_ip_set_clockgating_state(adev, AMD_IP_BLOCK_TYPE_GFX,
-+                                              AMD_CG_STATE_GATE);
-+       mutex_unlock(&adev->pm.mutex);
-+
-+       mutex_lock(&adev->pm.stable_pstate_ctx_lock);
-+       fallback_ret =3D amdgpu_dpm_force_performance_level(adev,
-+                                                  AMD_DPM_FORCED_LEVEL_AUT=
-O);
-+       if (fallback_ret)
-+               dev_warn(adev->dev, "Failed to fall back to AUTO performanc=
-e level: %d\n",
-+                        fallback_ret);
-+       else
-+               adev->pm.stable_pstate_ctx =3D NULL;
-+       mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
-+
-+       return 0;
-+}
-+
- int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
-                                       enum amd_dpm_forced_level level)  { =
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/=
-pm/inc/amdgpu_dpm.h
-index 72b13ece22ef..ba8624d28f28 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -484,6 +484,7 @@ void amdgpu_dpm_set_power_state(struct amdgpu_device *a=
-dev,  enum amd_dpm_forced_level amdgpu_dpm_get_performance_level(struct amd=
-gpu_device *adev);  int amdgpu_dpm_force_performance_level(struct amdgpu_de=
-vice *adev,
-                                       enum amd_dpm_forced_level level);
-+int amdgpu_dpm_reapply_umd_profile(struct amdgpu_device *adev);
- int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
-                                 struct pp_states_info *states);
- int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev, diff --git a/driv=
-ers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/power=
-play/amd_powerplay.c
-index 239c64b8edca..7b0ff5a0993e 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -358,24 +358,46 @@ static void pp_dpm_en_umd_pstate(struct pp_hwmgr  *hw=
-mgr,
-        }
- }
-
--static int pp_dpm_force_performance_level(void *handle,
--                                       enum amd_dpm_forced_level level)
-+static int pp_dpm_apply_performance_level(struct pp_hwmgr *hwmgr,
-+                                         enum amd_dpm_forced_level level,
-+                                         bool reapply)
- {
--       struct pp_hwmgr *hwmgr =3D handle;
-+       int ret;
-
-        if (!hwmgr || !hwmgr->pm_en)
-                return -EINVAL;
-
--       if (level =3D=3D hwmgr->dpm_level)
-+       if (!reapply && level =3D=3D hwmgr->dpm_level)
-                return 0;
-
-        pp_dpm_en_umd_pstate(hwmgr, &level);
-        hwmgr->request_dpm_level =3D level;
--       hwmgr_handle_task(hwmgr, AMD_PP_TASK_READJUST_POWER_STATE, NULL);
-+       ret =3D hwmgr_handle_task(hwmgr, AMD_PP_TASK_READJUST_POWER_STATE, =
-NULL);
-+       if (ret)
-+               return ret;
-+
-+       ret =3D phm_force_dpm_levels(hwmgr, level);
-+       if (ret)
-+               return ret;
-+
-+       hwmgr->dpm_level =3D level;
-
-        return 0;
- }
-
-+static int pp_dpm_force_performance_level(void *handle,
-+                                       enum amd_dpm_forced_level level)
-+{
-+       return pp_dpm_apply_performance_level(handle, level, false); }
-+
-+static int
-+pp_dpm_reapply_performance_level(void *handle,
-+                                        enum amd_dpm_forced_level level)
-+{
-+       return pp_dpm_apply_performance_level(handle, level, true); }
-+
- static enum amd_dpm_forced_level pp_dpm_get_performance_level(
-                                                                void *handl=
-e)
- {
-@@ -1536,6 +1558,7 @@ static const struct amd_pm_funcs pp_dpm_funcs =3D {
-        .load_firmware =3D pp_dpm_load_fw,
-        .wait_for_fw_loading_complete =3D pp_dpm_fw_loading_complete,
-        .force_performance_level =3D pp_dpm_force_performance_level,
-+       .reapply_performance_level =3D pp_dpm_reapply_performance_level,
-        .get_performance_level =3D pp_dpm_get_performance_level,
-        .get_current_power_state =3D pp_dpm_get_current_power_state,
-        .dispatch_tasks =3D pp_dpm_dispatch_tasks, diff --git a/drivers/gpu=
-/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 3cdf7d1e8d5b..1915413ccac3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2398,6 +2398,13 @@ static int smu_set_powergating_state(struct amdgpu_i=
-p_block *ip_block,
-        return 0;
- }
-
-+static void smu_enter_umd_pstate(struct smu_context *smu) {
-+       smu_gpo_control(smu, false);
-+       smu_gfx_ulv_control(smu, false);
-+       smu_deep_sleep_control(smu, false);
-+}
-+
- static int smu_enable_umd_pstate(void *handle,
-                      enum amd_dpm_forced_level *level)  { @@ -2416,9 +2423=
-,7 @@ static int smu_enable_umd_pstate(void *handle,
-                /* enter umd pstate, save current level, disable gfx cg*/
-                if (*level & profile_mode_mask) {
-                        smu_dpm_ctx->saved_dpm_level =3D smu_dpm_ctx->dpm_l=
-evel;
--                       smu_gpo_control(smu, false);
--                       smu_gfx_ulv_control(smu, false);
--                       smu_deep_sleep_control(smu, false);
-+                       smu_enter_umd_pstate(smu);
-                        amdgpu_asic_update_umd_stable_pstate(smu->adev, tru=
-e);
-                }
-        } else {
-@@ -2477,7 +2482,8 @@ static void smu_power_profile_mode_put(struct smu_con=
-text *smu,
-
- static int smu_adjust_power_state_dynamic(struct smu_context *smu,
-                                          enum amd_dpm_forced_level level,
--                                         bool skip_display_settings)
-+                                         bool skip_display_settings,
-+                                         bool force_performance_level)
- {
-        int ret =3D 0;
-        struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm); @@ -2504,7=
- +2510,7 @@ static int smu_adjust_power_state_dynamic(struct smu_context *s=
-mu,
-                }
-        }
-
--       if (smu_dpm_ctx->dpm_level !=3D level) {
-+       if (force_performance_level || smu_dpm_ctx->dpm_level !=3D level) {
-                ret =3D smu_asic_set_performance_level(smu, level);
-                if (ret) {
-                        if (ret =3D=3D -EOPNOTSUPP)
-@@ -2527,6 +2533,39 @@ static int smu_adjust_power_state_dynamic(struct smu=
-_context *smu,
-        return ret;
- }
-
-+static int
-+smu_reapply_power_state_dynamic(struct smu_context *smu,
-+                               enum amd_dpm_forced_level level)
-+{
-+       struct smu_dpm_context *smu_dpm_ctx =3D &smu->smu_dpm;
-+       int ret;
-+
-+       ret =3D smu_apply_clocks_adjust_rules(smu);
-+       if (ret) {
-+               dev_err(smu->adev->dev, "Failed to apply clocks adjust rule=
-s!");
-+               return ret;
-+       }
-+
-+       ret =3D smu_asic_set_performance_level(smu, level);
-+       if (ret) {
-+               if (ret =3D=3D -EOPNOTSUPP)
-+                       dev_info(smu->adev->dev, "set performance level %d =
-not supported",
-+                                level);
-+               else
-+                       dev_err(smu->adev->dev, "Failed to set performance =
-level %d",
-+                               level);
-+               return ret;
-+       }
-+
-+       smu_dpm_ctx->dpm_level =3D level;
-+
-+       if (smu_dpm_ctx->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL ||
-+           smu_dpm_ctx->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PERF_DETERMI=
-NISM)
-+               return 0;
-+
-+       return smu_bump_power_profile_mode(smu, NULL, 0); }
-+
- static int smu_handle_task(struct smu_context *smu,
-                           enum amd_dpm_forced_level level,
-                           enum amd_pp_task task_id)
-@@ -2541,13 +2580,13 @@ static int smu_handle_task(struct smu_context *smu,
-                ret =3D smu_pre_display_config_changed(smu);
-                if (ret)
-                        return ret;
--               ret =3D smu_adjust_power_state_dynamic(smu, level, false);
-+               ret =3D smu_adjust_power_state_dynamic(smu, level, false, f=
-alse);
-                break;
-        case AMD_PP_TASK_COMPLETE_INIT:
--               ret =3D smu_adjust_power_state_dynamic(smu, level, true);
-+               ret =3D smu_adjust_power_state_dynamic(smu, level, true, fa=
-lse);
-                break;
-        case AMD_PP_TASK_READJUST_POWER_STATE:
--               ret =3D smu_adjust_power_state_dynamic(smu, level, true);
-+               ret =3D smu_adjust_power_state_dynamic(smu, level, true, fa=
-lse);
-                break;
-        default:
-                break;
-@@ -2676,6 +2715,37 @@ static int smu_force_performance_level(void *handle,
-        return ret;
- }
-
-+static int
-+smu_reapply_performance_level(void *handle,
-+                             enum amd_dpm_forced_level level) {
-+       struct smu_context *smu =3D handle;
-+       struct smu_dpm_context *smu_dpm_ctx =3D &smu->smu_dpm;
-+
-+       if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
-+               return -EOPNOTSUPP;
-+
-+       if (!smu->is_apu && !smu_dpm_ctx->dpm_context)
-+               return -EINVAL;
-+
-+       switch (level) {
-+       case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
-+       case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-+       case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
-+       case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
-+               break;
-+       default:
-+               return -EINVAL;
-+       }
-+
-+       if (smu_dpm_ctx->dpm_level !=3D level)
-+               return -EINVAL;
-+
-+       smu_enter_umd_pstate(smu);
-+
-+       return smu_reapply_power_state_dynamic(smu, level); }
-+
- static int smu_set_display_count(void *handle, uint32_t count)  {
-        struct smu_context *smu =3D handle;
-@@ -4062,6 +4132,7 @@ static const struct amd_pm_funcs swsmu_pm_funcs =3D {
-        .force_clock_level       =3D smu_force_ppclk_levels,
-        .emit_clock_levels       =3D smu_emit_ppclk_levels,
-        .force_performance_level =3D smu_force_performance_level,
-+       .reapply_performance_level =3D smu_reapply_performance_level,
-        .read_sensor             =3D smu_read_sensor,
-        .get_apu_thermal_limit       =3D smu_get_apu_thermal_limit,
-        .set_apu_thermal_limit       =3D smu_set_apu_thermal_limit,
---
-2.55.0
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       | 35 +++++++++
+>  .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 76 +++++++++++++++++++
+>  drivers/gpu/drm/amd/amdkfd/soc15_int.h        |  1 +
+>  3 files changed, 112 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> index 0ffdef21df0a..718aab5c7b3b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -171,6 +171,7 @@ static int gfx_v9_4_3_get_cu_info(struct amdgpu_devic=
+e
+> *adev,
+>                               struct amdgpu_cu_info *cu_info);
+>  static void gfx_v9_4_3_xcc_set_safe_mode(struct amdgpu_device *adev, int
+> xcc_id);  static void gfx_v9_4_3_xcc_unset_safe_mode(struct amdgpu_device
+> *adev, int xcc_id);
+> +static void gfx_v9_4_3_enable_ptl_skip_interrupt(struct amdgpu_device
+> +*adev);
+>
+>  static void gfx_v9_4_3_kiq_set_resources(struct amdgpu_ring *kiq_ring,
+>                               uint64_t queue_mask)
+> @@ -2465,6 +2466,11 @@ static int gfx_v9_4_3_ptl_hw_init(struct amdgpu_de=
+vice
+> *adev)
+>
+>       gfx_v9_4_3_perf_monitor_ptl_init(adev, enable ? 1 : 0);
+>
+> +     /* Enable PTL register skip notifications if PTL is supported */
+> +     if (ptl->hw_supported_state =3D=3D AMDGPU_PTL_HW_SUPPORTED)
+> +             if (adev->gfx.mec_fw_version >=3D 194)
+> +                     gfx_v9_4_3_enable_ptl_skip_interrupt(adev);
+> +
+>       return 0;
+>  }
+>
+> @@ -2661,6 +2667,7 @@ static int gfx_v9_4_3_early_init(struct amdgpu_ip_b=
+lock
+> *ip_block)  static int gfx_v9_4_3_late_init(struct amdgpu_ip_block *ip_bl=
+ock)  {
+>       struct amdgpu_device *adev =3D ip_block->adev;
+> +     struct amdgpu_ptl *ptl =3D &adev->psp.ptl;
+>
+>       if (adev->gfx.ras &&
+>           adev->gfx.ras->enable_watchdog_timer)
+> @@ -3327,6 +3334,34 @@ static int gfx_v9_4_3_set_bad_op_fault_state(struc=
+t
+> amdgpu_device *adev,
+>       return 0;
+>  }
+>
+> +/*
+> + * Enable GENERIC1 interrupt (bit 30) for PTL register skip notification=
+s.
+> + * When FW skips a privileged register access due to PTL, it signals
+> +via
+> + * GENERIC1 and KFD receives interrupt source 177 with skip details.
+> + */
+> +static void gfx_v9_4_3_enable_ptl_skip_interrupt(struct amdgpu_device
+> +*adev) {
+> +     u32 mec_int_cntl_reg, mec_int_cntl;
+> +     int i, j, k, num_xcc;
+> +
+> +     num_xcc =3D NUM_XCC(adev->gfx.xcc_mask);
+> +     for (i =3D 0; i < num_xcc; i++) {
+> +             for (j =3D 0; j < adev->gfx.mec.num_mec; j++) {
+> +                     for (k =3D 0; k < adev->gfx.mec.num_pipe_per_mec; k=
+++) {
+> +                             mec_int_cntl_reg =3D
+> gfx_v9_4_3_get_cpc_int_cntl(adev, i, j + 1, k);
+> +
+> +                             if (mec_int_cntl_reg) {
+> +                                     mec_int_cntl =3D
+> RREG32_XCC(mec_int_cntl_reg, i);
+> +                                     mec_int_cntl =3D
+> REG_SET_FIELD(mec_int_cntl,
+> +                                                     CP_ME1_PIPE0_INT_CN=
+TL,
+> +                                                     GENERIC1_INT_ENABLE=
+, 1);
+> +                                     WREG32_XCC(mec_int_cntl_reg,
+> mec_int_cntl, i);
+> +                             }
+> +                     }
+> +             }
+> +     }
+> +}
+> +
+>  static int gfx_v9_4_3_set_priv_inst_fault_state(struct amdgpu_device *ad=
+ev,
+>                                             struct amdgpu_irq_src *source=
+,
+>                                             unsigned type,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> index e241ad7d55df..8dee8c43824d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> @@ -123,6 +123,28 @@ enum SQ_INTERRUPT_ERROR_TYPE {  #define
+> KFD_SQ_INT_DATA__ERR_TYPE_MASK 0xF00000  #define
+> KFD_SQ_INT_DATA__ERR_TYPE__SHIFT 20
+>
+> +/*
+> + * PTL (Peak TOPS Limiter) register skip notification.
+> + * When FW skips a privileged register access, it sends interrupt 177
+> + * with GENERIC1 and provides packet type info in CPC_INT_CNTX_ID[31:28]=
+.
+> + */
+> +#define CPC_PTL_PACKET_TYPE_SET_UCONFIG_REG  1
+> +#define CPC_PTL_PACKET_TYPE_SET_SH_REG               2
+> +#define CPC_PTL_PACKET_TYPE_COPY_DATA_READ   3
+> +#define CPC_PTL_PACKET_TYPE_COPY_DATA_WRITE  4
+> +#define CPC_PTL_PACKET_TYPE_WRITE_DATA               5
+> +#define CPC_PTL_PACKET_TYPE_COND_WRITE               6
+> +#define CPC_PTL_PACKET_TYPE_WAIT_REG_MEM     7
+> +#define CPC_PTL_PACKET_TYPE_WAIT_REG_MEM64   8
+> +
+> +/* CPC_INT_CNTX_ID[31:28]: packet type that was skipped */
+> +#define CPC_INT_CNTX_ID__PACKET_TYPE__SHIFT  28
+> +#define CPC_INT_CNTX_ID__PACKET_TYPE_MASK    0xF0000000
+> +
+> +/* CPC_INT_INFO[30:28]: queue ID */
+> +#define CPC_INT_INFO__QUEUE_ID__SHIFT                28
+> +#define CPC_INT_INFO__QUEUE_ID_MASK          0x70000000
+> +
+>  /*
+>   * The debugger will send user data(m0) with PRIV=3D1 to indicate it req=
+uires
+>   * notification from the KFD with the following queue id (DOORBELL_ID) a=
+nd @@ -
+> 142,6 +164,30 @@ enum SQ_INTERRUPT_ERROR_TYPE {
+>                               KFD_DEBUG_CP_BAD_OP_ECODE_MASK)
+>       \
+>                               >> KFD_DEBUG_CP_BAD_OP_ECODE_SHIFT)
+>
+> +static const char *cpc_packet_type_name(uint32_t packet_type) {
+> +     switch (packet_type) {
+> +     case CPC_PTL_PACKET_TYPE_SET_UCONFIG_REG:
+> +             return "SET_UCONFIG_REG";
+> +     case CPC_PTL_PACKET_TYPE_SET_SH_REG:
+> +             return "SET_SH_REG";
+> +     case CPC_PTL_PACKET_TYPE_COPY_DATA_READ:
+> +             return "COPY_DATA_READ";
+> +     case CPC_PTL_PACKET_TYPE_COPY_DATA_WRITE:
+> +             return "COPY_DATA_WRITE";
+> +     case CPC_PTL_PACKET_TYPE_WRITE_DATA:
+> +             return "WRITE_DATA";
+> +     case CPC_PTL_PACKET_TYPE_COND_WRITE:
+> +             return "COND_WRITE";
+> +     case CPC_PTL_PACKET_TYPE_WAIT_REG_MEM:
+> +             return "WAIT_REG_MEM";
+> +     case CPC_PTL_PACKET_TYPE_WAIT_REG_MEM64:
+> +             return "WAIT_REG_MEM64";
+> +     default:
+> +             return "UNKNOWN";
+> +     }
+> +}
+> +
+>  static void event_interrupt_poison_consumption_v9(struct kfd_node *dev,
+>                               uint16_t pasid, uint16_t client_id)  { @@ -=
+352,6 +398,8
+> @@ static bool event_interrupt_isr_v9(struct kfd_node *dev,
+>               source_id =3D=3D SOC15_INTSRC_SDMA_ECC ||
+>               source_id =3D=3D SOC15_INTSRC_SQ_INTERRUPT_MSG ||
+>               source_id =3D=3D SOC15_INTSRC_CP_BAD_OPCODE ||
+> +             (client_id =3D=3D SOC15_IH_CLIENTID_GRBM_CP &&
+> +              source_id =3D=3D SOC15_INTSRC_CP_PTL_REG_SKIP) ||
+>               KFD_IRQ_IS_FENCE(client_id, source_id) ||
+>               ((client_id =3D=3D SOC15_IH_CLIENTID_VMC ||
+>               client_id =3D=3D SOC15_IH_CLIENTID_VMC1 || @@ -538,6 +586,3=
+4
+> @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
+>                               KFD_DEBUG_DOORBELL_ID(context_id0),
+>
+>       KFD_EC_MASK(KFD_DEBUG_CP_BAD_OP_ECODE(context_id0)),
+>                               NULL, 0);
+> +             } else if (source_id =3D=3D SOC15_INTSRC_CP_PTL_REG_SKIP) {
+> +                     uint32_t packet_type, queue_id;
+> +                     uint32_t skipped_addr;
+> +
+> +                     /*
+> +                      * PTL (Peak TOPS Limiter) register skip notificati=
+on.
+> +                      * FW skipped a privileged register access and is n=
+otifying
+> KFD.
+> +                      * Data from IH entry (not registers):
+> +                      * - context_id0 contains CPC_INT_CNTX_ID with pack=
+et
+> type in [31:28]
+> +                      * - context_id1 contains CPC_INT_INFO with queue I=
+D in
+> [30:28]
+> +                      * - context_id2 contains CPC_INT_ADDR (skipped reg=
+ister
+> address)
+> +                      * - PASID comes from CPC_INT_PASID (already extrac=
+ted
+> from IH entry)
+> +                      */
+> +                     skipped_addr =3D
+> SOC15_CONTEXT_ID2_FROM_IH_ENTRY(ih_ring_entry);
+> +
+> +                     /* Extract packet type from CPC_INT_CNTX_ID[31:28] =
+*/
+> +                     packet_type =3D (context_id0 &
+> CPC_INT_CNTX_ID__PACKET_TYPE_MASK) >>
+> +
+>       CPC_INT_CNTX_ID__PACKET_TYPE__SHIFT;
+> +
+> +                     /* Extract queue ID from CPC_INT_INFO[30:28] */
+> +                     queue_id =3D (context_id1 &
+> CPC_INT_INFO__QUEUE_ID_MASK) >>
+> +                                     CPC_INT_INFO__QUEUE_ID__SHIFT;
+> +
+> +                     dev_info_ratelimited(dev->adev->dev,
+> +                             "PTL: AQL request was rejected due to incom=
+patible
+> user input; please verify your PTL configuration.");
+> +                     dev_dbg_ratelimited(dev->adev->dev,
+> +                             "PTL: register access skipped - pasid 0x%x,
+> queue %u, packet %s, addr 0x%x\n",
+> +                             pasid, queue_id,
+> cpc_packet_type_name(packet_type), skipped_addr);
+>               }
+>       } else if (client_id =3D=3D SOC15_IH_CLIENTID_SDMA0 ||
+>                  client_id =3D=3D SOC15_IH_CLIENTID_SDMA1 || diff --git
+> a/drivers/gpu/drm/amd/amdkfd/soc15_int.h
+> b/drivers/gpu/drm/amd/amdkfd/soc15_int.h
+> index e5c0205f2618..736b02ccdefb 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/soc15_int.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/soc15_int.h
+> @@ -25,6 +25,7 @@
+>
+>  #include "soc15_ih_clientid.h"
+>
+> +#define SOC15_INTSRC_CP_PTL_REG_SKIP 177
+>  #define SOC15_INTSRC_CP_END_OF_PIPE  181
+>  #define SOC15_INTSRC_CP_BAD_OPCODE   183
+>  #define SOC15_INTSRC_SQ_INTERRUPT_MSG        239
+> --
+> 2.43.0
 
