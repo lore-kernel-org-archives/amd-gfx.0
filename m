@@ -4,73 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CB24CCF2C4
-	for <amd-gfx@archiver.kernel.org>; Sat, 17 Oct 2026 17:38:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EF45CCF2C1
+	for <amd-gfx@archiver.kernel.org>; Sat, 17 Oct 2026 17:57:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A195710E45A;
-	Sat, 17 Oct 2026 17:38:12 +0000 (UTC)
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
- [209.85.161.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC91610E407
- for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 17:38:06 +0000 (UTC)
-Received: by mail-oo1-f44.google.com with SMTP id
- 006d021491bc7-702fd86d674so614086eaf.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 10:38:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E374610E407;
+	Sat, 17 Oct 2026 17:56:58 +0000 (UTC)
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BEBD10E473
+ for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 17:56:52 +0000 (UTC)
+Received: by mail-dl1-f48.google.com with SMTP id
+ a92af1059eb24-15943c9be84so60300c88.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 10:56:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792259811; cv=none;
+ d=google.com; s=arc-20260327;
+ b=D2yzR3AP32F8Q84TeEMzwOtpVl9/o1jmvDW6HKGqLwTUl3LetPpYoHWg1EgPvtOVZo
+ lBIDs+sohvnxwZkP2InANLc+368tbmglJVJ3Dh5IncllhFsaJxLa8HKydp7pn1cRllrV
+ SPfgScwOIcZyhUNlQloIE5UUZRjoCSS58DCWMmhx7HUbGs2SclFFEEJTuulDeRECklFw
+ e+/K9AMiRWloh+AoL5877mQJ6f495WpwvVZK20/qcYo4wdHSrAN1X20q1ePEYPITBN3L
+ CEF6XmSSJc+Ip6Nz9Zl1aJV6ug9Ye4zLnjZO4wsDTIzpTjlwpnSbD4XfaBAcXtcpu9Kr
+ kqKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=d06k0NEKGV52niw3TwqXqVSxDCJsyDmWofseQaMgAjc=;
+ fh=KWBNYh6d/swMGgqLG6AkSYDXvx6aHYMFITR3MtHKqPM=;
+ b=P3jaf8k5mMxQjXfGXEzXjhPoWcj15F95/X5ERcpb7qXIV+xn2LuwD1oQClGfk6LzQd
+ 8X17gCCtlCTDuLg2KMCAH9sBVd+oWgaqhSltEOG5R4oTWUZd+/YA/f+5Jzw2wNb1+CEp
+ tkaGy26EB3Sr3noR5NA34Ewjbuxgrw9oSHCp16LRAMnD7+qDggYpHnX13oRyvJqt2mkj
+ q7HgLn/CvRs+s49IuQLJZJGFKpjYp7EdZU9I1446kPz/ls3tjzEACvT1sS4TjYZxxnIV
+ wJ19gFWyxQa0Wo59Zx0eUQJWyj5GSWqrdS56ul9cfcqP0EtTmCEOryJQqKsaEDBAD8qg
+ Maxg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792258686; x=1792863486; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1792259811; x=1792864611; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=a07hroGn1zcrz/OXecdL3qHRAZN/vdxJR8dNfk5xJI4=;
- b=kOzlGW8lKKMAJLfMeeavdHXIxax3Q0A8Oe7ka1v56FYz3rtYzZ1EaBGV6jH2bS0cx8
- G2oTOfUQBx3RMIUtY+H2aIlga8lYlZ3zMHx9F5YaBXzfpCUESf8tkna/Izho98qHRyM2
- De0dwC7ourS/MSRd2TPvcD6oT1r3XXWmMzz7QrMqTro7jvoU3zmo1S+wB8uer9aBhyuR
- EMz0Gr19lGW7OGaeqJB9xzxVXe5CogkAwiNjRNzidmDXG4lfmCMtPTCo+PL9j/ygmLGZ
- G1w53WlzQ/8yU5s+hJaqhgUvxeSoXzQhK/LYzXI3YMfrwCO+MPJGpng42103jYZyatB7
- OAiA==
+ bh=d06k0NEKGV52niw3TwqXqVSxDCJsyDmWofseQaMgAjc=;
+ b=AmGAT+KlbXvp7He3NNPIh6InT1GWamxsbw0LSFNEzVWrqYc+IH1PcbFopCpleHItBi
+ O1cS/XN6OSUy7F9TMcR/oG2i98fXuoXR+Enj1Vyphb4WMANUniuC3Ko8HLrFKiF7AJgN
+ 2Y97OpGS0prS+wAWwSUCQuzHTFFVJI5FA6y32A1LQljhdUl3QzE0RdnYJn1stJKsJ08d
+ Dom2VudhsR2XF5LtCy/3J/PM4hKW4lprHPy5l4uHVs3MrXcteUJWOAGSIvpn1t9FQYZ4
+ yfGUFGQ1skmud5bw9WjnqhXdQoec2WXFfcboe1LWwhwGcz9bc5eSOGaHej4f2jfYPNH9
+ SbQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792258686; x=1792863486;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20260707; t=1792259811; x=1792864611;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=a07hroGn1zcrz/OXecdL3qHRAZN/vdxJR8dNfk5xJI4=;
- b=YrULXvcJkPRVRvJ7vuJ48ZpbYeXrKEbBh3vEIl4pLfl9ahJy49m83v7fd5xWwqUZrS
- Xw27SV8Yf2aCrHOkYxt1+W28QvykplQxC5TW/pQi8t3qkC9D+vP4zqfdlX1t7TdPEIyd
- FQAXgdQ6tI6zDJHnOp+SODsV1O1bzJ4pr16M+g2F6jE6UgnBAu1kA8NFDCNJZgAlX25j
- vrlPi9UVmnQxuAG/zPUt7VFjye8Y6rOefu6HAqODuTJtUS2r3KXNqXjv1x9IB4S3Ro6L
- Yot+928AB+1RO6qmiuN1TpkXMzicnOD8/0HKBjpeBs4hPdWIKhc0tKltN7e1nTBEQe5j
- VYwQ==
-X-Gm-Message-State: AFq9FYINawhkb6tiTpy3cfToBBbiUFZEqM1wk0EREGC2k+aRawH8GZKv
- sltByH9Bibf5sAZZbcGvATUR8sAK+6dOmIIY6RVlTFjBq0YX6isTa+mD7p94nkQV
-X-Gm-Gg: AYBFou2nhNC5JkkGwxKPUiaS0T9Q54eZbMBlzvzE25/jqAzgPlGJMUwmh8VHZgcRvh5
- vbIiiUI9+ll9lFfa3awKk5yn6QbhuKRvDHCGSIA8AhcDb+nTXTtgZrK90Wjde7zDw9CjEltpPOK
- V9g+Iw8Zz/KkAkSFPy0Sx0edZZxAyM2iiXR4IiT4cK6/1wFEiugUIzcfeRP2CJbQ6D7O+RnWbCw
- uU+KVJT1xeFbB/YIoWkQovMe1SSkwTITzZ3AM6Ey139qekD1dlDz60lfndWU94T7lp63QdDBwJE
- xEdQWlhFZSiSShMdWU5RJtw2FLcO1Cnw4lmWc+j284TtHHz1Z+5Rr8UpsbGKszj6kya19mVfMtS
- yQ4fFctSH3vvu4CKaTwzy8ZyEgcFhSZ10UCFqnUFhHkxJHjP/ODFS5u1GZ2ogWA2h1jOCjMksmz
- 8o5kLCsDsxtmJ/fzwTuVKp9PEGs5dW8/adu/i+r27+1JYGzQYeThaCVV9+DkZbOhI6g2BgnsgaZ
- +waiDgF5Bk=
-X-Received: by 2002:a05:6820:338a:10b0:6dd:696d:b245 with SMTP id
- 006d021491bc7-7035738e945mr1599358eaf.53.1792258685915; 
- Sat, 17 Oct 2026 10:38:05 -0700 (PDT)
-Received: from timur-max.localnet ([2806:105e:c:e386:8deb:92a3:40ef:908c])
- by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-844d2ffbf71sm2750983a34.4.2026.10.17.10.38.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Oct 2026 10:38:05 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: contact@mikaelpelle.com
-Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 1/2] drm/amd/pm/si: Check AMD_IS_MOBILITY flag for
- PPSMC_SYSTEMFLAG_GPIO_DC
-Date: Sat, 17 Oct 2026 11:38:04 -0600
-Message-ID: <a2FoeEsiQmiOiZVMEFL_8Q@gmail.com>
-In-Reply-To: <000801dd5dbb$2a3de5b0$7eb9b110$@mikaelpelle.com>
-References: <000801dd5dbb$2a3de5b0$7eb9b110$@mikaelpelle.com>
+ bh=d06k0NEKGV52niw3TwqXqVSxDCJsyDmWofseQaMgAjc=;
+ b=poQsf9LEuB1gFYXKaqhpCmYM9eceG1JhpwiuI9w9X8Cw05irkpxmXPmmOyAmZHlQMc
+ pNj8zoXow3+YRkK06Av1YCiAs86O+79jsl/B7XzvZYJOugUIBycak50K98ewwYQM6HRg
+ zx8ta1MDNDIFJWGmqjafsuPEt8hNO+yW7EfVtKYIMjxvWTzmI0LjdhD0psK3n5zc1tvY
+ 3nP0lUkFseG7pVl7bdwHWtJqUM7aYG7JxEJQh3JF6ZXks9kIgjod21u7YO9D/A6YJ6yW
+ NIpXhhVV5vCl0DegEEU+D6RgcSad2STAnbEd1iMctptRbnrO25OiQotrS7xHbkDF6DZP
+ Qrew==
+X-Gm-Message-State: AFq9FYIknCqiInGYseVYhLT9RbrQpMYCcNiphQE9PfBFFuNLiz10ofkM
+ bPP+TU/iuM6t5wjZmgxYLKY/NZVFcOgyLPv6x7FweVnb/IY6mHmEpZs8TwZTlB4Qx/cv3VTMx6B
+ rQXykIALYyL+wS0PIECrvHb9gsfMX3lg=
+X-Gm-Gg: AYBFou25PPAhnmS32FwIlzyDB9whSVYs0Tniw5EHDwbxJ2milY9CSl413xbzvb48Ucm
+ lEDLBCcKsMvn4S8mFHjGB7MdjDlXn8cZff6nl1QiH8DS7NzXgObbw8ktcBkUkSnUOHovfj541J8
+ 56LHYSWRJVFc8+S1+o9tEgXDrl4/we67gHl2vzxDPvCyhiTmixDw/f6Mo/sf5Xdv9COpR4FVjNf
+ 6TrhPtIy2CSEEHLBaB1FO7Uv9gC1g4PbufOgt6MVk/xg7ZGHC9JFmrR/GXvUBlosUvwhLsvrJrw
+ jePC1ftXpXwk0sXZcuqKelajZoNo0e4vV950rBFt39dSlArfMVwYgGOTpcI1m6T+SU5I2sZw7BG
+ i8/SinWd3BgIHn0qWcA5zKKPkiMshbH9jeBH4JkRzNw==
+X-Received: by 2002:a05:701b:4510:20b0:16b:4f52:a08 with SMTP id
+ a92af1059eb24-18507ce1c04mr7409020c88.0.1792259811240; Sat, 17 Oct 2026
+ 10:56:51 -0700 (PDT)
 MIME-Version: 1.0
+References: <20261013140724.2781729-1-raghavendraprasad.mallela@amd.com>
+In-Reply-To: <20261013140724.2781729-1-raghavendraprasad.mallela@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Sat, 17 Oct 2026 13:56:39 -0400
+X-Gm-Features: AclHuK8EwYcmMNZfwD_deXNSg9FGl2mARDf2YFYQdKPOwyWy1tfaMB0nRJwgzA4
+Message-ID: <CADnq5_Ma4OGWx=XtTF0O_2om779_WaKtadH39roGPfQ=fzk2qg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: add the new optc_underflow_enable
+To: Raghavendra Prasad Mallela <raghavendraprasad.mallela@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, chandagb <chandagb@amd.com>, 
+ Chandana G B <Chandana.GB@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,42 +100,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. okt=C3=B3ber 16., p=C3=A9ntek 16:10:32 k=C3=B6z=C3=A9ps=C5=91 =C3=
-=A1llamokbeli z=C3=B3naid=C5=91=20
-contact@mikaelpelle.com wrote:
-> Hi Timur,
->=20
-> A quick follow-up from the same MacPro6,1 with dual FirePro D700s.
-> I have now tested the fixes after they reached stock stable kernels:
+On Tue, Oct 13, 2026 at 10:26=E2=80=AFAM Raghavendra Prasad Mallela
+<raghavendraprasad.mallela@amd.com> wrote:
 >
-> - Linux 6.18.57-1-lts:=20
->   both GPUs correctly transition from 300/150 MHz idle to 850/1370 MHz un=
-der
-> Vulkan compute load, then return to 300/150 MHz afterward.
->=20
-> - Linux 7.2.10-arch1-1:
->   same result; both D700s reach 850/1370 MHz correctly under load.
->=20
-> For comparison, Linux 7.2.9, before these stable backports, still kept bo=
-th
-> GPUs at 300/150 MHz under the same type of compute workload.
->=20
-> So I can confirm that the stable backports of:
->   drm/amd/pm/si: Check AMD_IS_MOBILITY flag for PPSMC_SYSTEMFLAG_GPIO_DC
->   drm/amd/pm/si: Fix updating clock limits on AC/DC
-> resolve the DPM issue on the dual FirePro D700 in the MacPro6,1.
->=20
-> Thanks for the fixes.
->=20
+> From: chandagb <chandagb@amd.com>
+>
+> Use a reserved byte in external display connection info
+> structure for the optc_underflow interrupt feature to be
+> enabled or disabled.
+>
+> Signed-off-by: Chandana G B <Chandana.GB@amd.com>
 
-Hi Mikael,
+The 1/3 in the title as a mistake.  The patch is:
 
-Thank you for testing.
-I'm happy to hear that the patches are working well for you!
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Best regards,
-Timur
-
-
-
-
+> ---
+>  drivers/gpu/drm/amd/include/atomfirmware.h | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm=
+/amd/include/atomfirmware.h
+> index 3d083010e734..12c00a2072ac 100644
+> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
+> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+> @@ -1324,7 +1324,8 @@ struct atom_external_display_connection_info
+>    uint8_t                  remotedisplayconfig;
+>    uint8_t                  edptolvdsrxid;
+>    uint8_t                  fixdpvoltageswing;                         //=
+ usCaps[1]=3D1, this indicate DP_LANE_SET value
+> -  uint8_t                  reserved[3];                               //=
+ for potential expansion
+> +  uint8_t                  optc_underflow_enable;                     //=
+ enable OPTC underflow interrupt
+> +  uint8_t                  reserved[2];                               //=
+ for potential expansion
+>  };
+>
+>  /*
+> --
+> 2.17.1
+>
