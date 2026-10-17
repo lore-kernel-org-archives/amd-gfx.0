@@ -4,127 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22DF7CCF2C1
-	for <amd-gfx@archiver.kernel.org>; Sat, 17 Oct 2026 17:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67F32CCF2C4
+	for <amd-gfx@archiver.kernel.org>; Sat, 17 Oct 2026 17:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF6A10E46C;
-	Sat, 17 Oct 2026 17:30:57 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E51810E2DC;
- Fri, 16 Oct 2026 15:12:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5F41B601FF;
- Fri, 16 Oct 2026 15:12:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2F291F000C4;
- Fri, 16 Oct 2026 15:12:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792163561;
- bh=zExOvzSfNAOGhWyHayoCJYIMW12XGItswYYl/21/DBA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=HeXH2eNd0qTi1KJWMDpX2qurIIHfELGudDOFsBVj38SK5hgtwRmtRu++Y/B5kYqqd
- A4blc5Fp2xS9ugu94PJEByj6vIlDtKLwiWnVuaMsxRz0Ir4yLDMdWRBi4NsEDJfgYI
- dTCWHHQPHA4O4L72QOauM8WSJ4JjVCneqoIAwA1rVTR79Lh6W41DTt4LcokcrG/DS7
- QghFRktl0qmqBt0Q2454sV5etB2cRZSEkJVEe4jVB1iPvoqhJu/FGnl3nmWT7TfuCi
- kYiPGdYgWB0PP3fl0nc6yx6ZWW1MUxK7rfa2DXZnz9GRXCns4+n+2ph4Izy2R1nkwe
- CPOLN30xIOzMQ==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Aun-Ali Zaidi <admin@kodeit.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Francesco Dolcini <francesco@dolcini.it>,
- Ian Ray <ian.ray@gehealthcare.com>,
- Martyn Welch <martyn.welch@collabora.co.uk>,
- Peter Senna Tschudin <peter.senna@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
- Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
- Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
- Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- linux-renesas-soc@vger.kernel.org,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Iker Pedrosa <ikerpedrosam@gmail.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
- Alexey Brodkin <abrodkin@synopsys.com>, Hans de Goede <hansg@kernel.org>,
- LiangCheng Wang <zaq14760@gmail.com>,
- Alex Lanzano <lanzano.alex@gmail.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Chia-I Wu <olvaffe@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Ruben Wauters <rubenru09@aol.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>,
- Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, Aditya Garg <aditya.garg@linux.dev>
-Subject: Re: (subset) [PATCH 00/75] drm/connector: Convert all drivers to
- atomic_create_state and remove reset
-Date: Fri, 16 Oct 2026 17:12:34 +0200
-Message-ID: <179216354629.2387589.2597043397406887835.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
-References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBFEB10E467;
+	Sat, 17 Oct 2026 17:30:59 +0000 (UTC)
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00B0610E0FC
+ for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 00:09:39 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-16079d54c17so917179c88.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Oct 2026 17:09:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792195779; x=1792800579; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=hdEgyaxXnBWSRhuv+q3gw3+PLLgLDUmHWnxnCGdLz4E=;
+ b=XTp5RsGzYj0t4GeWcOAR9Rosnhjzkk4QMrhr3TdmAPhKNcDDzI4DacJIXMZyZz2xBW
+ v+nY3NTBtJauJoB0fVLjDozEXobdSQIkx3dQ2y3kSfNOCX8OcEjn3h91xzzClZb2m6Bt
+ 04X2C/7KaC8e2dsaGiavETZHDuBOCGFOBe5JY9d5MBrYiGEDbTiy0f6PHs3M6WkOwFYb
+ HnjR6ty0vn7m8xqG3xSeUdSwm/+n3xpspvzGlvnWqpj0bbzWIzuYYpA7K9iO/PBfg+rf
+ S6y8zSFbJR0A22xO5McGLEod7dvJ847WajXewlLwnT6tT2JBLANPieRgP5ocf/1kLovX
+ J7uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792195779; x=1792800579;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=hdEgyaxXnBWSRhuv+q3gw3+PLLgLDUmHWnxnCGdLz4E=;
+ b=W/ouAOgjDRj9tOwc8lg9qeZr/5V3GRg3zGj+m0hrHrNHCNh8Dt1XpMIJZwv/a2udRR
+ DJxu2HQv5tFdZ9786rGPs/M2sTQNQIAgZiDbp+6ooSqLJcVaSVDQw+6DJcOs0y7R0NTn
+ +mvCcZDmGGrxcSjeAU7Yti9TkFIqSnhJA2az50hTNj/HFd0wkxpoOrdq3VaNDfwJJFUE
+ gCSB7DEq4zjTW6UR3q4vNdTJ328DdC0vulWchcDkXdZJuhC4OE7gFxJ77XI+Wfse6V2V
+ EkylQsG3Rbns7U3i7zg/xUvmpXYJ0n7UtVxoJBpN4ojUC1El38LUXoYKyuM9PropbR/m
+ kBnQ==
+X-Gm-Message-State: AFq9FYKRuI1kHivxzYIfDDOH3+3eMbnOk3tEBNNyO6nASgU7iXAs/jbo
+ nuoSUIphbjiOvnLcg5/t3hCIwMVLHvo4cJsNFNlNNQjZzvC4PAM6aUIh
+X-Gm-Gg: AYBFou04rLVtI3A9sBFZf//2fTMkknXhTPj/ba8Jnj2eiJdcBtOkjWJfpcoAMyolb8Z
+ Do2y0ms9pzpV0ldb8XR86iN7ZyOOBcC+PEt7P6JyMd3z6eaVWN+a+5FJMbnbUmGEzYxeh5Jn1NN
+ fXqKF/kVCeqp4UDOSOlA2UOcLao6qZoT+LhFXIoa7WKAQYtpU1zW7xP8VyOljUkthhaSCMoUn3N
+ Ny9wj34DUF/oTKVfXJtUYaLnGkiuvW0p53ojUyJde17y4J8mpd8IbT0k3/7ZIDvEeQzRxVaLpb1
+ UchkliFDvIx/YftShfpjrhHXChswsZkHer1xSkdyfhifaa1G9F1Sfh7Vnw/GOGdyBWoZH9+WITx
+ d1GTSLzAKGS2s2GHZ3hNO3OEBfxpRc/ea57IyD2ea+1dhsf+6X0W8ypt//dkMxRmQkkQWr4PKlr
+ gEFJlaVs4eSzc1bJYMX8i/n84+P7lgLGvms0fs2lmRb+QfbePGX/bS7R1ynUKpDEtpOEDhSuS6u
+ slDNUkY
+X-Received: by 2002:a05:7022:ebc4:b0:14a:fe37:cdf0 with SMTP id
+ a92af1059eb24-18514bfa955mr2412948c88.45.1792195779041; 
+ Fri, 16 Oct 2026 17:09:39 -0700 (PDT)
+Received: from maclinux ([2803:c600:9110:8ba5:1c75:eeaa:b22f:20dc])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1831919fc14sm10982553c88.6.2026.10.16.17.09.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Oct 2026 17:09:37 -0700 (PDT)
+From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?=
+ <fbeltranmillalen@gmail.com>
+To: qchcio@gmail.com
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, dev@deq.rocks, me@freddy.us,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] drm/amdgpu: reset VI ASIC on Apple boards with
+ VRAM at 0
+Date: Fri, 16 Oct 2026 21:09:04 -0300
+Message-ID: <20261017000904.8663-1-fbeltranmillalen@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261015181837.41690-4-qchcio@gmail.com>
+References: <20261015181837.41690-4-qchcio@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 17 Oct 2026 17:30:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -141,22 +89,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 14 Oct 2026 19:26:23 +0200, Maxime Ripard wrote:
-> This is a follow-up to the plane and CRTC reset removal series, and
-> part of a larger effort to remove the reset hook from all KMS objects.
-> 
-> The connector reset hook is overloaded: it is called both at probe
-> time to create the initial software state and during suspend/resume to
-> reset hardware and software state. These two roles have different
-> requirements, and the reset hook is not fallible, making error
-> handling difficult for the initial state allocation path.
-> 
-> [...]
+Hi Maciej,
 
-Applied to misc/kernel.git (drm-misc-next)
+Thanks for the patch.
 
-[02/75] drm/adp: Switch to drm_atomic_helper_connector_create_state
-        commit: db1de27aca30ebaad04aea74ac21e4c4fb531a37
+I applied patch 3 to the 6.18.49 kernel I use on my MacBookPro14,3
+(Radeon Pro 555, 1002:67ef, subsystem 106b:017a, rev c7).  The kernel
+also carries my unrelated PCI and ACPI patches for this machine.
 
-Thanks!
-Maxime
+After a cold boot, amdgpu logs "PCI CONFIG reset" and "GPU posting
+now..." while it loads, and VRAM ends up at 0xF400000000.
+MC_VM_FB_LOCATION reads 0xf47ff400 through debugfs.  In my tests in
+September, a kernel without the reset left VRAM at 0 after a cold boot.
+
+I then suspended to RAM three times with rtcwake.  After each resume
+MC_VM_FB_LOCATION was still 0xf47ff400, the screen came back, and the
+kernel log showed no VM faults, ring timeouts or GPU recovery.  After
+the last one I ran glxgears for a minute and the gfx ring kept going.
+
+I also closed the lid for about ten minutes.  After opening it the
+screen came back, MC_VM_FB_LOCATION was 0xf47ff400, and glxgears ran
+for a minute without errors.
+
+Before that I had also tried it after a warm reboot, with four rtcwake
+cycles and one 45-minute suspend from the idle timer.  After each of
+those MC_VM_FB_LOCATION was 0xf47ff400 and the log showed no GPU
+errors.
+
+Finally, I reloaded amdgpu after a suspend, twice, with modprobe -r
+and modprobe.  Each time amdgpu logged "PCI CONFIG reset" and "GPU
+posting now..." during the reload, VRAM was at 0xF400000000 and
+MC_VM_FB_LOCATION read 0xf47ff400.  VRAM is no longer at 0 by then, so
+I think the reset came from the existing SMC check: with amdgpu
+unloaded, SMC_SYSCON_CLOCK_CNTL_0 read 0x01000000 and SMC_PC_C was
+about 0x205xx and changing (read through the MMIO BAR).  After the
+second reload I logged in again and ran glxgears for a minute without
+errors.
+
+Tested-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com> # MacBookPro14,3
+
+Thanks again,
+Francisco
