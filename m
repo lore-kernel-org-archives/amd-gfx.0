@@ -4,43 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E19ACCF2CF
-	for <amd-gfx@archiver.kernel.org>; Sat, 17 Oct 2026 17:30:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF664CCF2CA
+	for <amd-gfx@archiver.kernel.org>; Sat, 17 Oct 2026 17:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 656C010E469;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4488A10E466;
 	Sat, 17 Oct 2026 17:30:53 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01EA010E0A9;
- Sat, 17 Oct 2026 07:34:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=6RYg+QEhvrFWqlGi6rF11G5GgEjzUp69rAP5U33oLhw=; b=S
- Q+nEkmK+QY5qb0mvr8dF2lkhwxQN2H8q6f4APYXDy6ypX6TEkvtCnBqKJ615Ulm2
- mjJzZ2jqQL8hdza5H88SHjsgK7SEapnmbo3fRqdMPCQdu18b3ux3MnMLBgTzt1cG
- SaOKAMuXzT7JPaB4+0v2tLqVtRbajzO1oDxZIzTsh8=
-Date: Sat, 17 Oct 2026 15:34:16 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Felix Kuehling" <Felix.Kuehling@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re:[PATCH] drm/amdkfd: validate SRAT subtables before parsing
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261016141504.2794541-1-yaojiale02@163.com>
-References: <20261016141504.2794541-1-yaojiale02@163.com>
-X-NTES-SC: AL_Qu2SAP6ZvUwu4CiaYukdnEkQgO0/WsS1vfQu2Y5Wc+wEgCbN4z0YdHxaDHHN8e6DOSarnDiOagNHzNRcb4JHTF6JEbgLzY2dD/mJw631Uw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+X-Greylist: delayed 342 seconds by postgrey-1.36 at gabe;
+ Sat, 17 Oct 2026 14:32:40 UTC
+Received: from forward200d.mail.yandex.net (forward200d.mail.yandex.net
+ [178.154.239.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54DFB10E41F
+ for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 14:32:40 +0000 (UTC)
+Received: from forward502d.mail.yandex.net (forward502d.mail.yandex.net
+ [IPv6:2a02:6b8:c41:1300:1:45:d181:d502])
+ by forward200d.mail.yandex.net (postfix) with ESMTPS id C27FD80DFB
+ for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 17:26:54 +0300 (MSK)
+Received: from mail-nwsmtp-smtp-production-main-63.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-63.yp-c.yandex.net)
+ by forward502d.mail.yandex.net (postfix) with ESMTPS id 73F7CC0145;
+ Sat, 17 Oct 2026 17:26:51 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-63 with ESMTPSA id
+ VQYgGp9dRGk0-6mIrrFy9; Sat, 17 Oct 2026 17:26:50 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1792247211; bh=zHdS8fzX1vnITF5pIdH/IG5QQ6eX0WxwNF77nTGlmNI=;
+ h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
+ b=MC2ni410jK1cNDj3aw5JjFvLQGuhszJMRZ8RX3EKJT98sAn48++XeHrgqG5p8Bvmo
+ Mk2UOwCigfkZEOwPoKAzoT8x2FLBAA7/Mn3GI2cm40OXdAOxToSJC3gpa9r7BayOU4
+ XfbIzWQb+KYDOIt0LuUyzn4zVaPztKwik8TYN4bk=
+Authentication-Results: mail-nwsmtp-smtp-production-main-63;
+ dkim=pass header.i=@yandex.ru
+From: Sergey Armodin <dolph-in@yandex.ru>
+To: Maciej Kucharek <qchcio@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] drm/amdgpu: reset VI ASIC on Apple boards with
+ VRAM at 0
+Date: Sat, 17 Oct 2026 21:26:28 +0700
+Message-ID: <20261017142628.9186-1-dolph-in@yandex.ru>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015095713.20560-4-qchcio@gmail.com>
+References: <20261015095713.20560-4-qchcio@gmail.com>
 MIME-Version: 1.0
-Message-ID: <38b79a6a.187f.1a148c86c09.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: ZygvCgAnZyj4JNNqovtaAA--.126W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRjWEWrTJPgaKAAA3F
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 17 Oct 2026 17:30:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,57 +63,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QXQgMjAyNi0xMC0xNiAyMjoxNTowNCwgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
-d3JvdGU6Cj5UaGUgS0ZEIFNSQVQgd2Fsa2VyIHJlYWRzIHRoZSBmaXJzdCBzdWJ0YWJsZSBsZW5n
-dGggd2l0aG91dCBjaGVja2luZwo+dGhhdCBhIGhlYWRlciBpcyBwcmVzZW50IGFuZCB0cnVzdHMg
-c3Vic2VxdWVudCBsZW5ndGhzIHdoZW4gYWNjZXNzaW5nCj5DUFUgYW5kIGdlbmVyaWMgYWZmaW5p
-dHkgcmVjb3Jkcy4gSW52YWxpZCBmaXJtd2FyZSBsZW5ndGhzIGNhbiB0aGVyZWZvcmUKPmNhdXNl
-IG91dC1vZi1ib3VuZHMgcmVhZHMuCj4KPlZhbGlkYXRlIHRoZSB0YWJsZSBoZWFkZXIsIGV2ZXJ5
-IGdlbmVyaWMgc3VidGFibGUgcmFuZ2UsIGFuZCBlYWNoCj5zdXBwb3J0ZWQgdHlwZWQgcmVjb3Jk
-IGJlZm9yZSByZWFkaW5nIGl0cyBmaWVsZHMuCj4KCkZpeGVzOiBkZGVjOGQzYmUwZjggKCJkcm0v
-YW1ka2ZkOiBhZGQgQUNQSSBTUkFUIHBhcnNpbmcgZm9yIHRvcG9sb2d5IikKCj5TaWduZWQtb2Zm
-LWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPi0tLQo+IGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMgfCAzNSArKysrKysrKysrKysrKysrKystLS0tLS0tLS0K
-PiAxIGZpbGUgY2hhbmdlZCwgMjQgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pCj4KPmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3JhdC5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQuYwo+aW5kZXggNmUwZGY2ODU1MDNkLi4zMmQ3
-NTczZGZmYzkgMTAwNjQ0Cj4tLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3Jh
-dC5jCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3JhdC5jCj5AQCAtMjA1
-NiwyNyArMjA1NiwzMyBAQCBzdGF0aWMgdm9pZCBrZmRfZmluZF9udW1hX25vZGVfaW5fc3JhdChz
-dHJ1Y3Qga2ZkX25vZGUgKmtkZXYpCj4gCQlyZXR1cm47Cj4gCX0KPiAKPisJaWYgKHRhYmxlX2hl
-YWRlci0+bGVuZ3RoIDwgc2l6ZW9mKHN0cnVjdCBhY3BpX3RhYmxlX3NyYXQpKQo+KwkJZ290byBp
-bnZhbGlkX3NyYXQ7Cj4rCj4gCXRhYmxlX2VuZCA9ICh1bnNpZ25lZCBsb25nKXRhYmxlX2hlYWRl
-ciArIHRhYmxlX2hlYWRlci0+bGVuZ3RoOwo+IAo+IAkvKiBQYXJzZSBhbGwgZW50cmllcyBsb29r
-aW5nIGZvciBhIG1hdGNoLiAqLwo+IAlzdWJfaGVhZGVyID0gKHN0cnVjdCBhY3BpX3N1YnRhYmxl
-X2hlYWRlciAqKQo+IAkJCSgodW5zaWduZWQgbG9uZyl0YWJsZV9oZWFkZXIgKwo+IAkJCXNpemVv
-ZihzdHJ1Y3QgYWNwaV90YWJsZV9zcmF0KSk7Cj4tCXN1YnRhYmxlX2xlbiA9IHN1Yl9oZWFkZXIt
-Pmxlbmd0aDsKPiAKPi0Jd2hpbGUgKCgodW5zaWduZWQgbG9uZylzdWJfaGVhZGVyKSArIHN1YnRh
-YmxlX2xlbiAgPCB0YWJsZV9lbmQpIHsKPi0JCS8qCj4tCQkgKiBJZiBsZW5ndGggaXMgMCwgYnJl
-YWsgZnJvbSB0aGlzIGxvb3AgdG8gYXZvaWQKPi0JCSAqIGluZmluaXRlIGxvb3AuCj4tCQkgKi8K
-Pi0JCWlmIChzdWJ0YWJsZV9sZW4gPT0gMCkgewo+LQkJCXByX2VycigiU1JBVCBpbnZhbGlkIHpl
-cm8gbGVuZ3RoXG4iKTsKPi0JCQlicmVhazsKPi0JCX0KPisJd2hpbGUgKCh1bnNpZ25lZCBsb25n
-KXN1Yl9oZWFkZXIgPCB0YWJsZV9lbmQpIHsKPisJCXVuc2lnbmVkIGxvbmcgc3RhcnQgPSAodW5z
-aWduZWQgbG9uZylzdWJfaGVhZGVyOwo+Kwo+KwkJaWYgKHRhYmxlX2VuZCAtIHN0YXJ0IDwgc2l6
-ZW9mKCpzdWJfaGVhZGVyKSkKPisJCQlnb3RvIGludmFsaWRfc3JhdDsKPisKPisJCXN1YnRhYmxl
-X2xlbiA9IHN1Yl9oZWFkZXItPmxlbmd0aDsKPisJCWlmIChzdWJ0YWJsZV9sZW4gPCBzaXplb2Yo
-KnN1Yl9oZWFkZXIpIHx8Cj4rCQkgICAgc3VidGFibGVfbGVuID4gdGFibGVfZW5kIC0gc3RhcnQp
-Cj4rCQkJZ290byBpbnZhbGlkX3NyYXQ7Cj4gCj4gCQlzd2l0Y2ggKHN1Yl9oZWFkZXItPnR5cGUp
-IHsKPiAJCWNhc2UgQUNQSV9TUkFUX1RZUEVfQ1BVX0FGRklOSVRZOgo+IAkJCWNwdSA9IChzdHJ1
-Y3QgYWNwaV9zcmF0X2NwdV9hZmZpbml0eSAqKXN1Yl9oZWFkZXI7Cj4rCQkJaWYgKHN1YnRhYmxl
-X2xlbiA8IHNpemVvZigqY3B1KSkKPisJCQkJZ290byBpbnZhbGlkX3NyYXQ7Cj4rCj4gCQkJcHht
-ID0gKigodTMyICopY3B1LT5wcm94aW1pdHlfZG9tYWluX2hpKSA8PCA4IHwKPiAJCQkJCWNwdS0+
-cHJveGltaXR5X2RvbWFpbl9sbzsKPiAJCQlpZiAocHhtID4gbWF4X3B4bSkKPkBAIC0yMDg0LDYg
-KzIwOTAsOSBAQCBzdGF0aWMgdm9pZCBrZmRfZmluZF9udW1hX25vZGVfaW5fc3JhdChzdHJ1Y3Qg
-a2ZkX25vZGUgKmtkZXYpCj4gCQkJYnJlYWs7Cj4gCQljYXNlIEFDUElfU1JBVF9UWVBFX0dFTkVS
-SUNfQUZGSU5JVFk6Cj4gCQkJZ3B1ID0gKHN0cnVjdCBhY3BpX3NyYXRfZ2VuZXJpY19hZmZpbml0
-eSAqKXN1Yl9oZWFkZXI7Cj4rCQkJaWYgKHN1YnRhYmxlX2xlbiA8IHNpemVvZigqZ3B1KSkKPisJ
-CQkJZ290byBpbnZhbGlkX3NyYXQ7Cj4rCj4gCQkJYmRmID0gKigodTE2ICopKCZncHUtPmRldmlj
-ZV9oYW5kbGVbMF0pKSA8PCAxNiB8Cj4gCQkJCQkqKCh1MTYgKikoJmdwdS0+ZGV2aWNlX2hhbmRs
-ZVsyXSkpOwo+IAkJCWlmIChiZGYgPT0gcGNpX2lkKSB7Cj5AQCAtMjEwMCw5ICsyMTA5LDEzIEBA
-IHN0YXRpYyB2b2lkIGtmZF9maW5kX251bWFfbm9kZV9pbl9zcmF0KHN0cnVjdCBrZmRfbm9kZSAq
-a2RldikKPiAKPiAJCXN1Yl9oZWFkZXIgPSAoc3RydWN0IGFjcGlfc3VidGFibGVfaGVhZGVyICop
-Cj4gCQkJCSgodW5zaWduZWQgbG9uZylzdWJfaGVhZGVyICsgc3VidGFibGVfbGVuKTsKPi0JCXN1
-YnRhYmxlX2xlbiA9IHN1Yl9oZWFkZXItPmxlbmd0aDsKPiAJfQo+IAo+Kwlnb3RvIG91dDsKPisK
-PitpbnZhbGlkX3NyYXQ6Cj4rCXByX2VycigiU1JBVCBjb250YWlucyBhbiBpbnZhbGlkIHN1YnRh
-YmxlXG4iKTsKPitvdXQ6Cj4gCWFjcGlfcHV0X3RhYmxlKHRhYmxlX2hlYWRlcik7Cj4gCj4gCS8q
-IFdvcmthcm91bmQgYmFkIGNwdS1ncHUgYmluZGluZyBjYXNlICovCj4tLSAKPjIuMzQuMQo=
+Hi Maciej,
+
+I tested this patch on a MacBookPro14,3 with the Radeon Pro 560
+(1002:67ef, subsystem 106b:0179, rev c0), which is not in
+vi_reset_quirks[].  The kernel is 7.2.5 with commits a5be7ad8f5f0 and
+a22e5e4f2ebb backported, plus distribution patches; amdgpu was built
+from that tree with this patch on top.
+
+Without the patch this board boots with VRAM at 0 every time
+(MC_VM_FB_LOCATION 0x00ff0000), and a re-post moves it to 0xf4fff400
+under the driver.
+
+With it, after both a warm reboot and a cold boot (powered off for
+three minutes), amdgpu logs "PCI CONFIG reset" and "GPU posting now..."
+on load, VRAM is at 0x000000F400000000, MC_VM_FB_LOCATION reads
+0xf4fff400 through debugfs, and there are no amdgpu errors.
+
+I then ran five S3 cycles with rtcwake.  After each resume
+MC_VM_FB_LOCATION was still 0xf4fff400, the GART table was at
+0x000000F401B00000, the internal panel came back, and the kernel log
+showed no amdgpu errors, ring timeouts or IOMMU faults.
+
+The 560 is not in vi_reset_quirks[], so v3 3/3 behaves the same way on
+this machine.  This also covers the one-line quirk entry I sent for
+this GPU [1], so that one can be dropped.
+
+Tested-by: Sergey Armodin <dolph-in@yandex.ru> # MacBookPro14,3, Radeon Pro 560
+
+[1] https://lore.kernel.org/amd-gfx/20261016-amdgpu-pro560-quirk-v1-1-3e5d3fe5ff29@yandex.ru/
