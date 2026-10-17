@@ -4,54 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF808CCF2E5
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 12:56:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A1B5CCF2E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 12:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 678D510EB25;
-	Mon, 19 Oct 2026 12:56:26 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CC4310E0B1;
- Mon, 19 Oct 2026 08:45:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ig
- E/kEh0g7gFKv5PAwWV/CKHlROUnBFZYW4mh6vr2N4=; b=AzdtfAe5zCDyzRWfoy
- A8T89jA2HQr8wbyEZdpPqe/doMfmtb9xr4UUbuMykAvVfcCXOEvfuLObr+ILhobp
- Zk9lujS6CP6KKg9YJeEC9+/DkFLfwCNo35LZ4C+rU2LMSgHi93QP73mb3EnU+Q0I
- PChWPOT8P+Ax5fzR8RSis8rNA=
-Received: from pc.localdomain (unknown [])
- by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id
- _____wDnt9ng19VqcQOlAw--.9091S2; 
- Mon, 19 Oct 2026 16:42:10 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id B93AD10ECF5;
+	Mon, 19 Oct 2026 12:56:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 976BC10E407
+ for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 17:53:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4619043A25;
+ Sat, 17 Oct 2026 17:53:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4E71F000C4;
+ Sat, 17 Oct 2026 17:53:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1792259634;
+ bh=OucvZgN88TtcjghqeAyn5fWTHhPDqZuuMNLJVfXR+Pg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=E8q1s+Qy4aSNTw355hs7/sUl2+zEKPH3XYuxaUzcYyKMFfzbrrr6404n7YNa79w2S
+ eZbNeydBRQIPgTCtdyb9gQadIxS8c+adNl49jImoIu+Nm0yk4u6fTSAowzXbTKjVt3
+ hAkK0QjowZvdnIpOfMbR18FJ6l1ohmlJbksBSU4k=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+ "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ben Skeggs <bskeggs@redhat.com>, David Rheinsberg <david@readahead.eu>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 0/6] drm: reject empty TTM range manager sizes
-Date: Mon, 19 Oct 2026 16:41:32 +0800
-Message-Id: <20261019084138.1821477-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 1238/1674] drm/amd/display: use proper context for logging
+Date: Sat, 17 Oct 2026 17:58:30 +0200
+Message-ID: <20261017160502.915237939@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261017160431.119607952@linuxfoundation.org>
+References: <20261017160431.119607952@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDnt9ng19VqcQOlAw--.9091S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GrWkAFWUGFW8GFyfAw4rGrg_yoWkArb_u3
- 40vas7Wr1UGrnxXF4Iyr47Ar12ka1UuayDZwnFv3y3Ary3Xr1UX348Gr93Ww18C3Z8KFn0
- krnYqw1YyrnIkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRt9a97UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wM+eGrV1+M2UQAA3G
 X-Mailman-Approved-At: Mon, 19 Oct 2026 12:56:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,33 +63,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_mm_init() rejects a zero-length allocation range with a BUG check.
-Several DRM TTM users can derive a zero page count from device-provided
-VRAM metadata and pass it to the range manager.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-This series rejects empty ranges at the affected callers and adds a
-defensive check in the common range manager. Patches 1 through 4 and
-6 validate the individual driver inputs. Patch 5 protects the shared
-range-manager API against any remaining zero-page caller.
+------------------
 
-The series was checked with scripts/checkpatch.pl for every code patch.
+From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
 
-Jiale Yao (6):
-  drm/vram-helper: reject empty VRAM ranges
-  drm/nouveau: reject empty VRAM ranges
-  drm/qxl: reject empty TTM memory ranges
-  drm/radeon: reject empty VRAM ranges
-  drm/ttm: reject empty range manager sizes
-  drm/vmwgfx: reject empty VRAM ranges
+[ Upstream commit 114b42507b6a23d9d24e24e4ef165233332c64d4 ]
 
- drivers/gpu/drm/drm_gem_vram_helper.c   | 3 +++
- drivers/gpu/drm/nouveau/nouveau_ttm.c   | 3 +++
- drivers/gpu/drm/qxl/qxl_ttm.c           | 3 +++
- drivers/gpu/drm/radeon/radeon_ttm.c     | 3 +++
- drivers/gpu/drm/ttm/ttm_range_manager.c | 3 +++
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c     | 4 ++++
- 6 files changed, 19 insertions(+)
+The same as the rest of the code, get_ss_info_from_atombios() uses
+calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
+initialized only later in calc_pll_max_vco_construct(). Therefore, any
+output using DC_LOG_SYNC() leads to a NULL pointer deference in
+get_ss_info_from_atombios().
 
+According to Sashiko, the very same problem exists in
+dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
+
+To avoid accessing the NULL context, use clk_src->base.ctx->logger
+everywhere. That context in base is initialized earlier in
+dce110_clk_src_construct() and dce112_clk_src_construct(). Before
+get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
+above are actually called. This is done by redefining DC_LOGGER to
+CTX->logger.
+
+Before:
+dce110_clk_src_construct() did:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
+ -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
+
+After:
+dce110_clk_src_construct() does:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
+
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271175
+Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org/
+Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 6f16fcbb0c46a87e3d9685407e906573d60104b0)
+Cc: stable@vger.kernel.org
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../drm/amd/display/dc/dce/dce_clock_source.c | 20 +++++++++----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index 3a183973d87fb..597b858369f5b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -44,9 +44,7 @@
+ 	clk_src->base.ctx
+ 
+ #define DC_LOGGER \
+-	calc_pll_cs->ctx->logger
+-#define DC_LOGGER_INIT() \
+-	struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
++	CTX->logger
+ 
+ #undef FN
+ #define FN(reg_name, field_name) \
+@@ -290,6 +288,7 @@ static bool calc_pll_dividers_in_range(
+ }
+ 
+ static uint32_t calculate_pixel_clock_pll_dividers(
++		struct dce110_clk_src *clk_src,
+ 		struct calc_pll_clock_source *calc_pll_cs,
+ 		struct pll_settings *pll_settings)
+ {
+@@ -478,7 +477,7 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
+ {
+ 	uint32_t field = 0;
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
++
+ 	/* Check if reference clock is external (not pcie/xtalin)
+ 	* HW Dce80 spec:
+ 	* 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENERICB
+@@ -521,12 +520,14 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
+ 		/*Calculate Dividers by HDMI object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++				        clk_src,
+ 					&clk_src->calc_pll_hdmi,
+ 					pll_settings);
+ 	else
+ 		/*Calculate Dividers by default object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++					clk_src,
+ 					&clk_src->calc_pll,
+ 					pll_settings);
+ 
+@@ -571,7 +572,6 @@ static uint32_t dce110_get_pix_clk_dividers(
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -603,7 +603,6 @@ static uint32_t dce112_get_pix_clk_dividers(
+ 		struct pll_settings *pll_settings)
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -1259,8 +1258,6 @@ static uint32_t dcn3_get_pix_clk_dividers(
+ 	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 
+-	DC_LOGGER_INIT();
+-
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+ 		DC_LOG_ERROR(
+@@ -1323,7 +1320,6 @@ static const struct clock_source_funcs dce110_clk_src_funcs = {
+ 	.get_pixel_clk_frequency_100hz = get_pixel_clk_frequency_100hz
+ };
+ 
+-
+ static void get_ss_info_from_atombios(
+ 		struct dce110_clk_src *clk_src,
+ 		enum as_signal_type as_signal,
+@@ -1336,7 +1332,7 @@ static void get_ss_info_from_atombios(
+ 	struct spread_spectrum_info *ss_info_cur;
+ 	struct spread_spectrum_data *ss_data_cur;
+ 	uint32_t i;
+-	DC_LOGGER_INIT();
++
+ 	if (ss_entries_num == NULL) {
+ 		DC_LOG_SYNC(
+ 			"Invalid entry !!!\n");
+@@ -1471,6 +1467,7 @@ static void ss_info_from_atombios_create(
+ }
+ 
+ static bool calc_pll_max_vco_construct(
++			struct dce110_clk_src *clk_src,
+ 			struct calc_pll_clock_source *calc_pll_cs,
+ 			struct calc_pll_clock_source_init_data *init_data)
+ {
+@@ -1622,6 +1619,7 @@ bool dce110_clk_src_construct(
+ 	ss_info_from_atombios_create(clk_src);
+ 
+ 	if (!calc_pll_max_vco_construct(
++			clk_src,
+ 			&clk_src->calc_pll,
+ 			&calc_pll_cs_init_data)) {
+ 		ASSERT_CRITICAL(false);
+@@ -1636,7 +1634,7 @@ bool dce110_clk_src_construct(
+ 
+ 
+ 	if (!calc_pll_max_vco_construct(
+-			&clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
++			clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
+ 		ASSERT_CRITICAL(false);
+ 		goto unexpected_failure;
+ 	}
 -- 
-2.34.1
+2.53.0
+
+
 
