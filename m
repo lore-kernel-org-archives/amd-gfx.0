@@ -2,90 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7D8606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 18:02:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36C8606A31E
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 18:24:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=G3OIy2Oe
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qnVk69/J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6934310EFAA;
-	Mon, 19 Oct 2026 18:02:20 +0000 (UTC)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6C0A89238
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 18:02:13 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-3a47d4fb7feso306473a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 11:02:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792432933; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDF310E19B;
+	Mon, 19 Oct 2026 18:24:14 +0000 (UTC)
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE20610E19B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 18:24:07 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-1397a4855beso179615c88.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 11:24:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792434247; cv=none;
  d=google.com; s=arc-20260327;
- b=mlAHQRdxPRc4bvEMhyd4oHvX26xNsF93CSvVBFYFV1aeUwMZK0WMBpSBDvm2SY5QLw
- V++4bxiI9pq6Q273AZlhIA4MfjGliOVydFvar7BbAVaQCHDo3Z4re02b4PZ0QPDjLiFl
- J1At1xrVdJE6meoP1i6jf+xZ7e/FTVu6tna/MfQdwqAxCSb7H2eUJQHeAzR19zj0F4AQ
- Y9MotU1xGD8eyY1sAPXBrCTv+UuuQLICuvm//NSHcS8cjh1aw64jmuxClPzC8ROHgzJR
- Sl7evN2zzYc8NWQfaPVQutik5NXDP/Y4ELUO8DiiFqmH1tit6UNDh87mN4+PMGT0okYL
- Lt0Q==
+ b=Fn4fFznPut/hDFI8ZB8vuRAiQ4cjx51U+TX9+f5lpCIGDkjkKivRBhhjbcvuOje4s6
+ G+V9Gu75O+QVeExiiz3U4y/S4KzA6h51COh2uxYUts2qQxw/gqCSGTTbcyq+Faht+BVu
+ R8LXF+D28glJ8EVQ76mzBC9MaPzBpXVVpnavkmg6yrLl+NtdNCnxRvVd/FNyYwwLsLka
+ fd+gzc8Xe6srDXnZKLgPlpedDLcF/LKOQCOpTC/I24YYs4ZlN3fXB2FrpMW74JRUvOAm
+ T/TkhsaAHkdqMKvXc4bUsgAST6ayANMuID9tDO6WLc8qCPeK7dUyi+KFDF62aKtTvx8u
+ gkCA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=x875RJdjfXCxzZDJCUqQBTmV/vQ+aYgwGesNdJIJmZs=;
- fh=RzvsqJZrMIxwCE4m3Bms5qsRdRHBhP8zMyvjas7oUzw=;
- b=BuhHmGV3FLj+6sj7Qp2+4JlFL099BOxfR7nLU2TgUIinPista/jXVWg62WgN7qpNd6
- wS7glOkHnnIWe/uiWfLjte0P9CYy4qwYfHp3+kDq7QJtaJpApTEyRtKfQBnA5OPstrEp
- mv5RFUVmBaNlcpYLRszb47RFz6W1HWjCLsRzlWxgXJ37F4AVUZ3g56GChoowGzi/Vjhe
- KkbMNSTgdDCtRBDb579XgRQIuM5Fhl833vKK54Q2U8baD2N9bO3CXB8aRecfLc5DiepI
- 5CnXt70uAh8uHJLdGkNMbTF0qG9JDjpacXYnGJODnNBlLQvVZ4zuNSf2IHpcgCrOIw60
- 2liw==; darn=lists.freedesktop.org
+ bh=dMdUSZk4TeLrt8OdPlxc/aCbKFnw+6+LOGrhzfBPcxA=;
+ fh=hqqD5xus0V6n0/FR7kux//pRSesT4DAn56LhluHUaso=;
+ b=mbbBH3z+E/FJf1uGSrb9+WRkfLDmpvCv8KO2ehohz2G5j+dKKRunl0LRMjURZCYMan
+ CX1Kt4jyX2zRMz0HpC6H9jS0c23wDUfNwQvO6FIpcN7bNV1hhzmEsgD1sL8QExsei4p3
+ MX8Z2Yzyf2G5hlho9nh41U+m9RcjPHx9y8jtAIwjRbYJgeatGjByJWVOMBocMAVvX3uJ
+ nT19CTp/AYvHZ/7HucANM2K01PJbqZV7aAcF6SUCkRRy/94ORelp/prTuyeNxPEUIueO
+ KihvUWI8qwOk9R/agnbxccXikCpGyzDhNzvFwDtrWUF6OvXZA0pzYuRRvNBpzPtfs7EE
+ 8Y1w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792432933; x=1793037733; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792434247; x=1793039047; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=x875RJdjfXCxzZDJCUqQBTmV/vQ+aYgwGesNdJIJmZs=;
- b=G3OIy2OeYLfYo14P6I2pwXHoICc3uBrDiHxpipDFybHk3yijgZRkhgSEA2+KyElmmY
- i+DCOINURuGlyYxbWGgtPuaQsWjlv5IgH3C8e2W9XYvIP6whxGNY6yQnE1+0SQkk8ZP9
- Uewg7luLkPAaLAwNzvwir/pJR6AlcipMBd3B1J2ZfOqeegfDxp7OKtYb1kG1RH1nq1VN
- 4uHg6Q7gIWngi6414AV7U/MXgSPKoSvsGil+BAaqk8tSKdfA3thB6r0/YqjTMSggzN9Y
- hy1uBnXqnRsDmEddJ8UpWCUmwWblWiiRl71gVB0mrwE884WcPW9bz/lzKjN/KyYi/UAA
- Gcdw==
+ bh=dMdUSZk4TeLrt8OdPlxc/aCbKFnw+6+LOGrhzfBPcxA=;
+ b=qnVk69/JAvPQOyGSiQ2DN/ccVU++VvBfG9AuRPNxyz5H1czobZ3BMAjOK5zwfULhWC
+ bfkCw7cnjD6P5qggYeECviAxPInPaV9EZKiCYKHmBee/MGDRYVNyjrnyAFRer93xhcoT
+ utTuj+p+mnoNjxasQBONVKHZT/CohU1PMhs9W831ov9zryTptuCv6w9I7XGzNyT6rRD/
+ Irvbn0/bgMkTop9OH6g8Slx9fh8j2FxEHwgbwnIDTFwn2cFO5lpIG6uqEM3opi1P+rzR
+ v2u2yh5nMljcl6Wklhq/WzJyVAv3wvfUehSm1uEk9O/0WS/Rwofp7Qh1+UgZBdiFlPZM
+ /Qfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792432933; x=1793037733;
+ d=1e100.net; s=20260707; t=1792434247; x=1793039047;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=x875RJdjfXCxzZDJCUqQBTmV/vQ+aYgwGesNdJIJmZs=;
- b=EFx3jhiTpuw4ESGMMn6X0hd4r32oSMzQVUcRiGXkiNjD8bGaOqBQQ1H2CVoMLLv6m8
- 4+gHVW3NEeobq5N41sqSaSiudMchSyxuR8tQG3R3pgz8U06tTQ5/Mehy1aTSgZsq47Gx
- c0ISilALULQ/0epX+nPlNbnimr0eI0GG9S1HeBuz7SavLf/Vc4arzGa6d944tmczZUgX
- hXsUbUxdKJaQYyiKwPdJYovio/HI9zle8AqXkfjaPIwqlBYRdkMaLGA8e1InsnSSmIOl
- zkA3JonwvLVFBScOdkxCxbvGWNyKLD1aIel0+4t7Pp3FiyWaDt3O56p0ze2RgxbCmoGx
- UAvw==
-X-Gm-Message-State: AFq9FYKUq67HT+3lXpxSGfbgSxlKFIKq7tcmwBwM/+/CR6dYOCtmX7DO
- p3QwZmSCQfFYX5wMvIBoWkpHMAsElXtF0boBvqrBHENMO00CIVEicuuC2tmeRC5vMDf6fMKXlga
- U+Kl6ttzwxu5V9oGt5pxVBpJex0S3wbi7E5yt
-X-Gm-Gg: AYBFou1fHRfGXUMDSr0OiESOig9F+oipmAhnnWHebP9ghnaljWwKJTQX6xeNmTRrw0D
- y0lxTDOQLuedGdMCK0AAGAOWxisoiI5k8Nhcp/AhUQvlPDVV6wjyCBPyb0VtUAY8/I/y06rE+Dw
- uUxyp/X1kfHY5RtJOV34a4ieAuRVxHaXqOOKz3ANXylpUoJa/w8jmQuPx2svu0vq0va1JI5UWHR
- 108gCgD+Oh4elh6GqYu3/Cy0KvsgT30WuOxlkQCTf+9MmmyvqQ+XldzuriAylWkq0zcFK7aDAVb
- mhNPya1JoS+95oJ75M+Rc9tdN5z2wIvj1u0VF+avV95O4KX6GxDXw/jVwSnPodBwVCAMbLcGfIq
- Px1gKGbWGL2yQCBpnrnbzoILufcZbiDqPADjf5gDIug==
-X-Received: by 2002:a17:90b:1d4f:b0:3ab:be66:ddc5 with SMTP id
- 98e67ed59e1d1-3acef4fda1dmr12483438a91.6.1792432933217; Mon, 19 Oct 2026
- 11:02:13 -0700 (PDT)
+ bh=dMdUSZk4TeLrt8OdPlxc/aCbKFnw+6+LOGrhzfBPcxA=;
+ b=ERiYDwnF5kUSvNDcvfrGSweqJkXxaJV1DsmLpFrhOn8tVA5duzxpv4l4G8aPWSX4Oj
+ c662xSq7h5GoouLWDxl6VEvGyqxBSAVr+2b0BtpY9qzwNu908RGabJRfACf2I4HrMpZa
+ 0YWMBhAIGytvxYrI1QfuyYg31bzqV1PNOXM8eeAv3n+yZ+old0V9HxnbmD/enDSzI2Jb
+ 63xf7a5bq+laY/JS41WL1WNGAIBwoNBdvw/pl/G9fbYu0mVIaNgUusd4/Qrm/DGerU4I
+ c0QTHBtqSiHnUu3nGUGJMU4lcGYayHnGCtFZdWjhAUrhE86BxsfqoLTI7v+xfTHIldnf
+ sD9Q==
+X-Gm-Message-State: AFq9FYKhdoUhcZD2k9oRRH4hUA+/LHWDrmUpBlzbzTOx16mz03S63DyN
+ r6g9EK1Yo/3fVCf+12M3Kp/dFrDKUi5H8i1LoTOKQXKPRGfpmqYLK6GcMY+fZfBuKu3u7u5tu4f
+ lhrtNMQdNC1NcWIKXyKepemtj5UIbyEc=
+X-Gm-Gg: AYBFou379KtuN+XuEZ1VZBueFgqpsHPurjams57qzFTb+FE6WgLUE3isWRUi+WaeQhs
+ dlUEAnEoDzhjHUkYb2MrvZjP9IezSc0Y9dVSD59gsXAgoiq3YOiTuhpI6AP+iWAjujmGrEP1cnk
+ +6HvU1yAI9BTtmfPAr5oAFdzA4Jtjwe532gKPWPfg4wK/I/WOTvo8O9FJd3izpnc56i8Kajki/Q
+ fB9toeDCAQHi1Id73rqWd09+EwpgwiaPRXVLLMkcV+OZcrhcKu+p58mL27FtSaajlUBmoT8YhQS
+ Zo9MJmvEybbrKaMqbIjQbdCD9rAKtGYRVg3No/fuCeL93V6wQkXwsU6Yctu9RoypTH6RNKua/w+
+ rHPwy/lm3jd6byXDK0fUL9KAw6ePtl4h7xZylkrxyd1k=
+X-Received: by 2002:a05:7023:a5b:10b0:147:d430:7322 with SMTP id
+ a92af1059eb24-1850fb0317cmr18858697c88.1.1792434246902; Mon, 19 Oct 2026
+ 11:24:06 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261019153942.4067-1-leo.liu@amd.com>
-In-Reply-To: <20261019153942.4067-1-leo.liu@amd.com>
+References: <20261019175807.970192-1-Yongqiang.Sun@amd.com>
+In-Reply-To: <20261019175807.970192-1-Yongqiang.Sun@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 19 Oct 2026 14:02:01 -0400
-X-Gm-Features: AclHuK-Hr_TiHi7B9j25lZ-SyOtwCmY1t6K0AhTjKN3tb5gC86EVsG2kNO6g25c
-Message-ID: <CADnq5_PZBhnJXza6Y7KRTGaM-p1iGOMmV_ST70T+wuxf6rj+vQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: call hw_fini for IP blocks whose hw_init
- failed
-To: Leo Liu <leo.liu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Date: Mon, 19 Oct 2026 14:23:55 -0400
+X-Gm-Features: AclHuK9nRON4AiT4qs0XxKFb-VwFl-jr2DNIj8q9RbeqbN825b2O3uAt7mnIobA
+Message-ID: <CADnq5_Ox1ef+f7fGiO7bBsyvNm4AYvPDD=qQL7rWM6AySXwNkw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Enable SDMA IB processing
+To: Yongqiang Sun <Yongqiang.Sun@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Mukul.Joshi@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -98,105 +96,150 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 19, 2026 at 12:06=E2=80=AFPM Leo Liu <leo.liu@amd.com> wrote:
+On Mon, Oct 19, 2026 at 2:06=E2=80=AFPM Yongqiang Sun <Yongqiang.Sun@amd.co=
+m> wrote:
 >
-> When an IP block's hw_init() fails, amdgpu_device_ip_fini_early() skips
-> its hw_fini() because status.hw was never set.  For VCN, UVD, VCE, and
-> JPEG this leaves their idle work queued after sw_fini() frees the adev
-> state the handler touches, causing a use-after-free.
+> SDMA MQDs leave IB_ENABLE clear,
+> causing INDIRECT packets to be ignored.
 >
-> The bug was reported on MI355X after unloading GIM then loading amdgpu.
-> GIM's teardown resets the GPU, leaving VCN unresponsive.
-> amdgpu_vcn_enc_ring_test_ring() calls amdgpu_ring_commit() =E2=80=94 whic=
-h
-> schedules the idle work =E2=80=94 before polling rptr.  The poll times ou=
-t
-> (-ETIMEDOUT), hw_init() fails, hw_fini() is skipped, and the idle work
-> handler fires after sw_fini() against freed state.
+> Set IB_ENABLE while retaining SWITCH_INSIDE_IB.
+>
+> Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
 
-I think it would be better if hw_init() cleaned up the idle work
-handler in its failure path.  Can you cancel the worker in the vcn
-ring test helpers if they fail?
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
->
-> The ticket (Link below) suggests cancelling the idle work on all
-> failed-probe/sw_fini paths.  This patch takes a different approach: the
-> idle work cancel belongs in hw_fini(), which is already the correct
-> counterpart to hw_init() for hardware-domain cleanup.  Rather than
-> scattering cancel calls across sw_fini() or every IP's hw_init() error
-> path, we ensure hw_fini() is invoked for any block whose hw_init() was
-> attempted but failed.
->
-> Add status.hw_init_attempted, set it in amdgpu_device_ip_hw_init_phase2()
-> on hw_init() failure, and check it alongside status.hw in
-> amdgpu_device_ip_fini_early().  This causes fini_early() to call hw_fini(=
-)
-> for the failed block in its correct reverse-order position =E2=80=94 a si=
-ngle
-> change in one file that covers all IP types without touching any per-IP
-> code.
->
-> Link: https://github.com/ROCm/amdgpu/issues/234
-> Fixes: 416e1fab4752 ("drm/amdgpu: drop redundant cancel_delayed_work_sync=
- call")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:Claude-Sonnet-4.6
-> Signed-off-by: Leo Liu <leo.liu@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h     | 1 +
->  2 files changed, 4 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   |  7 +++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   |  7 +++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c   | 11 ++++++-----
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c | 11 ++++++-----
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |  8 +++++---
+>  5 files changed, 31 insertions(+), 13 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index b74f9136aa2e..e267fb3774c1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2233,6 +2233,7 @@ static int amdgpu_device_ip_hw_init_phase2(struct a=
-mdgpu_device *adev)
->                         dev_err(adev->dev,
->                                 "hw_init of IP block <%s> failed %d\n",
->                                 adev->ip_blocks[i].version->funcs->name, =
-r);
-> +                       adev->ip_blocks[i].status.hw_init_attempted =3D t=
-rue;
->                         return r;
->                 }
->                 adev->ip_blocks[i].status.hw =3D true;
-> @@ -2902,7 +2903,8 @@ static int amdgpu_device_ip_fini_early(struct amdgp=
-u_device *adev)
->         amdgpu_device_smu_fini_early(adev);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+> index 4f8a8a1a6186..25f5a2cf02ff 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+> @@ -396,6 +396,13 @@ static void update_mqd_sdma(struct mqd_manager *mm, =
+void *mqd,
+>         m->sdma_queue_id =3D q->sdma_queue_id;
+>         m->sdmax_rlcx_dummy_reg =3D SDMA_RLC_DUMMY_DEFAULT;
 >
->         for (i =3D adev->num_ip_blocks - 1; i >=3D 0; i--) {
-> -               if (!adev->ip_blocks[i].status.hw)
-> +               if (!adev->ip_blocks[i].status.hw &&
-> +                   !adev->ip_blocks[i].status.hw_init_attempted)
->                         continue;
+> +       /* Enable IB execution; allow context switch inside an IB so one
+> +        * queue cannot starve the engine.
+> +        */
+> +       m->sdmax_rlcx_ib_cntl |=3D
+> +               SDMA0_RLC0_IB_CNTL__IB_ENABLE_MASK |
+> +               SDMA0_RLC0_IB_CNTL__SWITCH_INSIDE_IB_MASK;
+> +
+>         q->is_active =3D QUEUE_IS_ACTIVE(*q);
+>  }
 >
->                 amdgpu_ip_block_hw_fini(&adev->ip_blocks[i]);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ip.h
-> index 5dd6273982c4..bfa27ca05dbe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
-> @@ -99,6 +99,7 @@ struct amdgpu_ip_block_status {
->         bool valid;
->         bool sw;
->         bool hw;
-> +       bool hw_init_attempted;
->         bool late_initialized;
->         bool hang;
->  };
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+> index bf015dc5b868..a1eecdf63b0c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+> @@ -478,6 +478,13 @@ static void update_mqd_sdma(struct mqd_manager *mm, =
+void *mqd,
+>         m->sdma_queue_id =3D q->sdma_queue_id;
+>         m->sdmax_rlcx_dummy_reg =3D SDMA_RLC_DUMMY_DEFAULT;
+>
+> +       /* Enable IB execution; allow context switch inside an IB so one
+> +        * queue cannot starve the engine.
+> +        */
+> +       m->sdmax_rlcx_ib_cntl |=3D
+> +               SDMA0_QUEUE0_IB_CNTL__IB_ENABLE_MASK |
+> +               SDMA0_QUEUE0_IB_CNTL__SWITCH_INSIDE_IB_MASK;
+> +
+>         q->is_active =3D QUEUE_IS_ACTIVE(*q);
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+> index 6ea09b031caf..e0574fa325c4 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+> @@ -353,11 +353,12 @@ static void update_mqd_sdma(struct mqd_manager *mm,=
+ void *mqd,
+>
+>         m->sdmax_rlcx_dummy_reg =3D SDMA_RLC_DUMMY_DEFAULT;
+>
+> -       /* Allow context switch so we don't cross-process starve with a m=
+assive
+> -       * command buffer of long-running SDMA commands
+> -       * sdmax_rlcx_ib_cntl represent SDMA_QUEUE0_IB_CNTL register
+> -       */
+> -       m->sdmax_rlcx_ib_cntl |=3D SDMA0_QUEUE0_IB_CNTL__SWITCH_INSIDE_IB=
+_MASK;
+> +       /* Enable IB execution; allow context switch inside an IB so one
+> +        * queue cannot starve the engine.
+> +        */
+> +       m->sdmax_rlcx_ib_cntl |=3D
+> +               SDMA0_QUEUE0_IB_CNTL__IB_ENABLE_MASK |
+> +               SDMA0_QUEUE0_IB_CNTL__SWITCH_INSIDE_IB_MASK;
+>
+>         q->is_active =3D QUEUE_IS_ACTIVE(*q);
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c b/drivers=
+/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
+> index 2bbf5e63f615..04e1575dfe76 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
+> @@ -457,11 +457,12 @@ static void update_mqd_sdma(struct mqd_manager *mm,=
+ void *mqd,
+>
+>         m->sdmax_queuen_dummy_reg1 =3D 1;
+>
+> -       /* Allow context switch so we don't cross-process starve with a m=
+assive
+> -       * command buffer of long-running SDMA commands
+> -       * sdmax_queuen_ib_cntl represent SDMA_QUEUE0_IB_CNTL register
+> -       */
+> -       m->sdmax_queuen_ib_cntl |=3D SDMA0_SDMA_QUEUE0_IB_CNTL__SWITCH_IN=
+SIDE_IB_MASK;
+> +       /* Enable IB execution; allow context switch inside an IB so one
+> +        * queue cannot starve the engine.
+> +        */
+> +       m->sdmax_queuen_ib_cntl |=3D
+> +               SDMA0_SDMA_QUEUE0_IB_CNTL__IB_ENABLE_MASK |
+> +               SDMA0_SDMA_QUEUE0_IB_CNTL__SWITCH_INSIDE_IB_MASK;
+>
+>         q->is_active =3D QUEUE_IS_ACTIVE(*q);
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> index 6e6bc1ec0b64..80df86f7c4d5 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> @@ -569,10 +569,12 @@ static void update_mqd_sdma(struct mqd_manager *mm,=
+ void *mqd,
+>         m->sdma_engine_id =3D q->sdma_engine_id;
+>         m->sdma_queue_id =3D q->sdma_queue_id;
+>         m->sdmax_rlcx_dummy_reg =3D SDMA_RLC_DUMMY_DEFAULT;
+> -       /* Allow context switch so we don't cross-process starve with a m=
+assive
+> -        * command buffer of long-running SDMA commands
+> +       /* Enable IB execution; allow context switch inside an IB so one
+> +        * queue cannot starve the engine.
+>          */
+> -       m->sdmax_rlcx_ib_cntl |=3D SDMA0_GFX_IB_CNTL__SWITCH_INSIDE_IB_MA=
+SK;
+> +       m->sdmax_rlcx_ib_cntl |=3D
+> +               SDMA0_GFX_IB_CNTL__IB_ENABLE_MASK |
+> +               SDMA0_GFX_IB_CNTL__SWITCH_INSIDE_IB_MASK;
+>
+>         q->is_active =3D QUEUE_IS_ACTIVE(*q);
+>  }
 > --
 > 2.43.0
 >
