@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE5F5CCF2DE
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:02:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A587CCF2E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:02:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5523D10ECF3;
-	Mon, 19 Oct 2026 13:02:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13E9510ECF6;
+	Mon, 19 Oct 2026 13:02:29 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECE6A10ECF3
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BD0010ECF2
  for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:02:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=MBzefxJjSehIiXV7MP/rE+sn8b55QNnwWbl4rmGfcSE=; b=
- QGA1cCBvHGXG5OVJHKARjJQSBq+UIR9YvruHNptMPL3HJ2NxJCKpYrzidjBBl11wGSHful+RKEUYk
- 3muGMkdF/dMyb1ErLzbPfQ7Hl8Bd0Z3w26YX1WNHaN6Bbypi54ld3q4NoM9DpDYoGsj75JK5VtW2x
- GR2GWGkzVWYsFUpQHGJk/AXrP8gKCUp1cMOqmqRSdb3/s9zOLd+MvQNJTfBBGsh97ydFCzPq+Eaw8
- uHYFDkt6qNxLvhUFSibWehA9jPGrV91+Jbo3MCQYiqxJg+LofKthjC/PEoIHUNy+Mfpwvk7i/roEt
- 1ZAvmKf1hIW6YtISqVE9Nha33fud+Li19Q==;
+ Cc:To:From:From:Reply-To; bh=1t4NxCB1dZwdLfFXZyuhWa3f5jX8QY3sHaczEOPecCE=; b=
+ pUpERH5ajCFppz4xbfnQWZVrQK7pPDl4d4Ukx6rS6n82n8cLCaWgCwdCFy+nnIhpdSlbxUGJFXmIj
+ dO58nhOJ+Y15goHr0d+9iIRpyu8JgihRKok0//s/qt8JV2P7A78nExrSTHqsDXNPxAZb7gu82Tlvp
+ SiVspgQ+BZi/LweE02ZZa8R/bFs4NG0zTz0raYf76Mhe1EzgFXn/2QTuj1HKuWAdsaxHWA6juArYz
+ GHwG5xeKcs5MkNkfaNv8SycrLBqY9ZfnvpPGIwJpuzl944BSQqHVRYeqDkiGfHuNmw7XYzfrw9q5R
+ 6s0A7fcmBucSg1pORzxLxWWZnY5F/frAWQ==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xIn0L-003UKv-2I; Mon, 19 Oct 2026 15:02:17 +0200
+ id 1xIn0K-003UKn-BR; Mon, 19 Oct 2026 15:02:16 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
@@ -32,9 +32,9 @@ Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
  Alex Deucher <alexdeucher@gmail.com>,
  Felix Kuehling <felix.kuehling@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v4 6/7] drm/amdgpu: Add context handle renaming operation
-Date: Mon, 19 Oct 2026 14:01:58 +0100
-Message-ID: <20261019130159.11739-7-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v4 5/7] drm/amdgpu: Add a new ioctl for listing client contexts
+Date: Mon, 19 Oct 2026 14:01:57 +0100
+Message-ID: <20261019130159.11739-6-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019130159.11739-1-tvrtko.ursulin@igalia.com>
 References: <20261019130159.11739-1-tvrtko.ursulin@igalia.com>
@@ -54,92 +54,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Identical in principle to DRM_IOCTL_GEM_CHANGE_HANDLE, we need a method
-for renaming the driver specific context handles.
+Similar in principle to DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES, we need a new
+ioctl to list any contexts created by the client.
 
-We add a new operation (AMDGPU_CTX_OP_CHANGE_HANDLE) to the
-DRM_IOCTL_AMDGPU_CTX ioctl.
+Lets add it as DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS, and the respective uapi
+data structures.
 
-Source handle is given in the existing input handle field, while the
-destination handle needs to be passed in the existing flags field.
+Structures contain all information required to re-create the context,
+modulo the handle id replication, which will be handled in a following
+patch.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 41 +++++++++++++++++++++++++
- include/uapi/drm/amdgpu_drm.h           |  1 +
- 2 files changed, 42 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 102 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |   2 +
+ include/uapi/drm/amdgpu_drm.h           |  31 +++++++
+ 4 files changed, 137 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 5eb156d72db9..d47ccbe7ab52 100644
+index 2f0349233695..5eb156d72db9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -518,6 +518,44 @@ static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
- 	return ctx ? 0 : -EINVAL;
+@@ -723,6 +723,108 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 	return r;
  }
  
-+static int amdgpu_ctx_change_handle(struct amdgpu_fpriv *fpriv,
-+				    uint32_t old, uint32_t id)
++/**
++ * amdgpu_gem_list_contexts_ioctl - get information about clients contexts
++ *
++ * @dev: drm device pointer
++ * @data: drm_amdgpu_gem_list_handles
++ * @filp: drm file pointer
++ *
++ * Returns:
++ * 0 for success, -errno for errors.
++ */
++int amdgpu_gem_list_contexts_ioctl(struct drm_device *dev, void *data,
++				   struct drm_file *filp)
 +{
++	struct drm_amdgpu_gem_list_contexts *args = data;
++	struct drm_amdgpu_gem_list_contexts_entry *contexts;
++	struct amdgpu_fpriv *fpriv = filp->driver_priv;
 +	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
-+	XA_STATE(xas, &mgr->ctx_handles, id);
++	struct amdgpu_device *adev = mgr->adev;
++	unsigned long id, idx = 0, num = 0;
 +	struct amdgpu_ctx *ctx;
-+	int r;
++	int ret = 0;
 +
-+	if (!old || !id || old == id)
++	if (args->padding)
 +		return -EINVAL;
 +
-+	do {
-+		xas_lock(&xas);
++	xa_for_each(&mgr->ctx_handles, id, ctx)
++		num++;
 +
-+		ctx = xa_load(&mgr->ctx_handles, old);
-+		if (!ctx) {
-+			r = -EINVAL;
-+			goto unlock;
++	if (num == 0 || args->num_contexts < num) {
++		args->num_contexts = num;
++		return 0;
++	}
++
++	contexts = kvzalloc_objs(*contexts, num);
++	if (!contexts)
++		return -ENOMEM;
++
++	xa_lock(&mgr->ctx_handles);
++	xa_for_each(&mgr->ctx_handles, id, ctx) {
++		struct drm_amdgpu_gem_list_contexts_entry *context;
++		enum amd_dpm_forced_level level;
++
++		if (idx >= num) {
++			ret = -EAGAIN;
++			break;
 +		}
 +
-+		if (xas_load(&xas)) {
-+			r = -EBUSY;
-+			goto unlock;
++		kref_get(&ctx->refcount);
++		xa_unlock(&mgr->ctx_handles);
++
++		context = &contexts[idx];
++
++		context->handle = id;
++		context->init_priority = ctx->init_priority;
++		context->override_priority = ctx->override_priority;
++
++		mutex_lock(&adev->pm.stable_pstate_ctx_lock);
++		if (ctx == adev->pm.stable_pstate_ctx) {
++			level = amdgpu_dpm_get_performance_level(adev);
++
++			switch (level) {
++			case AMD_DPM_FORCED_LEVEL_AUTO:
++				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_NONE;
++				break;
++			case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
++				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_STANDARD;
++				break;
++			case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
++				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_MIN_SCLK;
++				break;
++			case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
++				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK;
++				break;
++			case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
++				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_PEAK;
++				break;
++			default:
++				ret = -EIO;
++				break;
++			};
++
 +		}
++		mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
 +
-+		xas_store(&xas, ctx);
-+		r = xas_error(&xas);
-+		if (r)
-+			goto unlock;
++		idx++;
++		amdgpu_ctx_put(ctx);
++		xa_lock(&mgr->ctx_handles);
++	}
++	xa_unlock(&mgr->ctx_handles);
 +
-+		__xa_erase(&mgr->ctx_handles, old);
-+unlock:
-+		xas_unlock(&xas);
-+	} while (xas_nomem(&xas, GFP_KERNEL));
++	args->num_contexts = idx;
 +
-+	return r;
++	if (!ret)
++		if (copy_to_user(u64_to_user_ptr(args->contexts), contexts,
++				 num * sizeof(*contexts)))
++			ret = -EFAULT;
++
++	kvfree(contexts);
++
++	return ret;
 +}
 +
- static int amdgpu_ctx_query(struct amdgpu_device *adev,
- 			    struct amdgpu_fpriv *fpriv, uint32_t id,
- 			    union drm_amdgpu_ctx_out *out)
-@@ -716,6 +754,9 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
- 			return -EINVAL;
- 		r = amdgpu_ctx_stable_pstate(adev, fpriv, id, true, &stable_pstate);
- 		break;
-+	case AMDGPU_CTX_OP_CHANGE_HANDLE:
-+		r = amdgpu_ctx_change_handle(fpriv, id, args->in.flags);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
+ struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id)
+ {
+ 	struct amdgpu_ctx *ctx;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index ab6f9131ac11..79d57659d748 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -3139,7 +3139,8 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+-	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW)
++	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_CONTEXTS, amdgpu_gem_list_contexts_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ };
+ 
+ static const struct drm_driver amdgpu_kms_driver = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+index b558336bc4c6..0e17d9fc665f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+@@ -69,6 +69,8 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+ 			struct drm_file *filp);
+ int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
+ 				  struct drm_file *filp);
++int amdgpu_gem_list_contexts_ioctl(struct drm_device *dev, void *data,
++				   struct drm_file *filp);
+ 
+ int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
+ 				struct drm_file *filp);
 diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 7f7aae3c2498..ac0e7811c389 100644
+index 7620d6acfa0a..7f7aae3c2498 100644
 --- a/include/uapi/drm/amdgpu_drm.h
 +++ b/include/uapi/drm/amdgpu_drm.h
-@@ -261,6 +261,7 @@ union drm_amdgpu_bo_list {
- #define AMDGPU_CTX_OP_QUERY_STATE2	4
- #define AMDGPU_CTX_OP_GET_STABLE_PSTATE	5
- #define AMDGPU_CTX_OP_SET_STABLE_PSTATE	6
-+#define AMDGPU_CTX_OP_CHANGE_HANDLE	7
+@@ -60,6 +60,7 @@ extern "C" {
+ #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
+ #define DRM_AMDGPU_PROC_OPTIONS		0x1A
+ #define DRM_AMDGPU_UALINK_HANDLE	0x1B
++#define DRM_AMDGPU_GEM_LIST_CONTEXTS	0x1C
  
- /* GPU reset status */
- #define AMDGPU_CTX_NO_RESET		0
+ #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+ #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+@@ -83,6 +84,7 @@ extern "C" {
+ #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+ #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
+ #define DRM_IOCTL_AMDGPU_UALINK_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_UALINK_HANDLE, union drm_amdgpu_ualink_handle)
++#define DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_CONTEXTS, struct drm_amdgpu_gem_list_contexts)
+ 
+ /**
+  * DOC: memory domains
+@@ -888,6 +890,35 @@ struct drm_amdgpu_gem_list_handles_entry {
+ 	};
+ };
+ 
++struct drm_amdgpu_gem_list_contexts {
++	/* User pointer to array of drm_amdgpu_gem_list_contexts_entry */
++	__u64 contexts;
++
++	/* Size of the contexts buffer / Number of contexts in the client (if larger than size of buffer, must retry) */
++	__u32 num_contexts;
++
++	__u32 padding;
++};
++
++struct drm_amdgpu_gem_list_contexts_entry {
++	/* gem context handle */
++	__u32 handle;
++
++	/* AMDGPU_GEM_LIST_CONTEXTS_FLAG_* */
++	__u32 flags;
++
++	/* context initial priority */
++	__s32 init_priority;
++
++	/* context override priority */
++	__s32 override_priority;
++
++	/* pstate flags */
++	__u32 pstate_flags;
++
++	__u32 padding;
++};
++
+ #define AMDGPU_VA_OP_MAP			1
+ #define AMDGPU_VA_OP_UNMAP			2
+ #define AMDGPU_VA_OP_CLEAR			3
 -- 
 2.56.0
 
