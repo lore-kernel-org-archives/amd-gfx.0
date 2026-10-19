@@ -4,50 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A1B5CCF2E3
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 12:56:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D1AFCCF2EA
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 12:56:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B93AD10ECF5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C7E510ECD6;
 	Mon, 19 Oct 2026 12:56:30 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 976BC10E407
- for <amd-gfx@lists.freedesktop.org>; Sat, 17 Oct 2026 17:53:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4619043A25;
- Sat, 17 Oct 2026 17:53:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4E71F000C4;
- Sat, 17 Oct 2026 17:53:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1792259634;
- bh=OucvZgN88TtcjghqeAyn5fWTHhPDqZuuMNLJVfXR+Pg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=E8q1s+Qy4aSNTw355hs7/sUl2+zEKPH3XYuxaUzcYyKMFfzbrrr6404n7YNa79w2S
- eZbNeydBRQIPgTCtdyb9gQadIxS8c+adNl49jImoIu+Nm0yk4u6fTSAowzXbTKjVt3
- hAkK0QjowZvdnIpOfMbR18FJ6l1ohmlJbksBSU4k=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
- "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1238/1674] drm/amd/display: use proper context for logging
-Date: Sat, 17 Oct 2026 17:58:30 +0200
-Message-ID: <20261017160502.915237939@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017160431.119607952@linuxfoundation.org>
-References: <20261017160431.119607952@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+X-Greylist: delayed 4200 seconds by postgrey-1.36 at gabe;
+ Mon, 19 Oct 2026 09:14:09 UTC
+Received: from 6.mo584.mail-out.ovh.net (6.mo584.mail-out.ovh.net
+ [188.165.36.253])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B621F10E10F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 09:14:09 +0000 (UTC)
+Received: from director11.ghost.mail-out.ovh.net (unknown [10.109.254.231])
+ by mo584.mail-out.ovh.net (Postfix) with ESMTP id 4j7SVt0gZpz7yyF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 07:54:29 +0000 (UTC)
+Received: from ghost-submission-7ccd8bbbb6-w2p87 (unknown [10.108.42.201])
+ by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id A6EAAC3DDE;
+ Mon, 19 Oct 2026 07:54:27 +0000 (UTC)
+Received: from medichon.fr ([37.59.142.109])
+ by ghost-submission-7ccd8bbbb6-w2p87 with ESMTPSA
+ id VzFGHbPM1Wq57gYAh9bqlA
+ (envelope-from <abo@medichon.fr>); Mon, 19 Oct 2026 07:54:27 +0000
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-109S003e25b5ac9-02cb-4e08-a646-4f4adac193de,
+ E22553FEB6AEB75B33DDF2A505A99149E93FA69D) smtp.auth=abo@medichon.fr
+X-OVh-ClientIp: 88.190.90.129
+Message-ID: <fd9c0bbe-6e0c-486a-ad23-ea99935a28ce@medichon.fr>
+Date: Mon, 19 Oct 2026 09:54:27 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Arnaud Bonnet <abo@medichon.fr>
+Subject: Re: [PATCH v2] drm/amd/display: remove unused cgs register accessor
+ typedefs
+To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, paulmck@kernel.org, rostedt@goodmis.org, ast@kernel.org,
+ peterz@infradead.org, gregkh@linuxfoundation.org, skhan@linuxfoundation.org
+References: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
+ <20261017130047.42080-1-emmaonana18@gmail.com>
+Content-Language: en-US, fr
+In-Reply-To: <20261017130047.42080-1-emmaonana18@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 14750696155911184108
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTEC+pQARFvnW2RMvD9rJWwoSB5KeWL1zCtrex0rqKpMGM/5SWjDLMgrr+9PpUdSees96VENuuMOCUpYmiYcW4lsBEkE8EniYAkM9m3Rnj8NjyA7soRhfPa0JBImFi7NB5lrqN4GOn1OQwSMzJvMp/9HxrvZR/Jb9vXM8njCWKzRcxewl6oiGGkofXbt5b77yqFsXqJC/pfsOjBXhKcNlvZ34D4oJxjsKydJEd4U2ZpzrE8t8cjzAQRXQORBS6UbXMhaDk40DNY01DQUxTDRzULvuVsXfia3e2pEGnhcagdyPqNu0q+OuN+fRPDRf2RlEuRMQ9iiqoYkLWaeFtR3yiWkZjiJ5fEayEpLpiBgACirPn/5rigmFal9QnK0Jfnyq4i3Q4CBgvZkw1mnrxCQjF7SUs9ZlcsIpvz7BVcU1anHSnVqA2naHd3KqZzMOnFq1w1KntS1vHU3IOlncxZRzFwC1nShe5NjnISnET76pq8Rarwkvm0tiArx6mTkxX5KBp/UybNpusdB+8IbjHRoMADz8vKR/PJwOJjxqHfM9aNftkRnwS3knQtwK2cK+lQO2IhsViDrLkm2Z/rDjEHMEAaBm+sOrxospKLHAeSBufjfU+nwgnv8Uo10znli3E+9zw0+oWfVCjscDTL/l3L+5leMiK35218lpygzH2VOlspooQ
+DKIM-Signature: a=rsa-sha256; bh=gTmA+d0ikT+8IflEYztNYyZ9CNFtEwNKlyOUdD5euEE=; 
+ c=relaxed/relaxed; d=medichon.fr; h=From;
+ s=ovhmo3801317-selector1; t=1792396470; v=1;
+ b=JhhVFO7VDlltUMNaBs5QxNf4mDuYlXJgSzv2iPVhIse9XoiWK3azQ5proojZ3M4z/CBRCEG1
+ m/mrFcnqi/01zSrT0zj0xai+loshbS955gCT+Ktrk2QsRtkyYj0BLu9ctPMxcuf2nUwfLj/YC9B
+ S0gbwT/AcuG60zA1KR5RhCYFiggbPVvnG/ZBf8p8ll6pLcbf+TBn4PV5wzrg93HeZfxd8xgPO7U
+ 6QQMhblNcTGmS6MqvQTqZhHnI94RLVqRTs/Bx4270JaB0q0/9E9FZPgMrxYScfm2Fn/9so/EskF
+ Rkk2+8Yw0Wj9Xsxo/E8IdnC4Qo/5AKzDgdff9PNQ3eD8Q==
 X-Mailman-Approved-At: Mon, 19 Oct 2026 12:56:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,181 +75,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+On 10/17/26 3:00 PM, Omokefe Emmanuel Onanaroghene wrote:
+> kernel-doc reports prototype mismatches for the cgs register accessor
+> typedefs, e.g.:
+> 
+>   drivers/gpu/drm/amd/include/cgs_common.h:89: expecting prototype
+>   for cgs_read_register(). Prototype was for uint32_t() instead
+> 
+> Each of the four typedefs is used exactly once, as
+> the type of a struct cgs_ops member, so they are merely an
+> unnecessary layer of indirection. Drop the typedefs along with their
+> kernel-doc comments and write the function pointer types directly in
+> struct cgs_ops.
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Link: https://lore.kernel.org/all/981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com/
+> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/include/cgs_common.h | 60 +++++++-----------------
+>  1 file changed, 18 insertions(+), 42 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/include/cgs_common.h b/drivers/gpu/drm/amd/include/cgs_common.h
+> index f40b6a03fe63..1750401c7d08 100644
+> --- a/drivers/gpu/drm/amd/include/cgs_common.h
+> +++ b/drivers/gpu/drm/amd/include/cgs_common.h
+> @@ -80,43 +80,6 @@ struct cgs_firmware_info {
+>  
+>  typedef unsigned long cgs_handle_t;
+>  
+> -/**
+> - * cgs_read_register() - Read an MMIO register
+> - * @cgs_device:	opaque device handle
+> - * @offset:	register offset
+> - *
+> - * Return:  register value
+> - */
+> -typedef uint32_t (*cgs_read_register_t)(struct cgs_device *cgs_device, unsigned offset);
+> -
+> -/**
+> - * cgs_write_register() - Write an MMIO register
+> - * @cgs_device:	opaque device handle
+> - * @offset:	register offset
+> - * @value:	register value
+> - */
+> -typedef void (*cgs_write_register_t)(struct cgs_device *cgs_device, unsigned offset,
+> -				     uint32_t value);
+> -
+> -/**
+> - * cgs_read_ind_register() - Read an indirect register
+> - * @cgs_device:	opaque device handle
+> - * @offset:	register offset
+> - *
+> - * Return:  register value
+> - */
+> -typedef uint32_t (*cgs_read_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
+> -					    unsigned index);
+> -
+> -/**
+> - * cgs_write_ind_register() - Write an indirect register
+> - * @cgs_device:	opaque device handle
+> - * @offset:	register offset
+> - * @value:	register value
+> - */
+> -typedef void (*cgs_write_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
+> -					 unsigned index, uint32_t value);
+> -
+>  #define CGS_REG_FIELD_SHIFT(reg, field) reg##__##field##__SHIFT
+>  #define CGS_REG_FIELD_MASK(reg, field) reg##__##field##_MASK
+>  
+> @@ -137,14 +100,27 @@ typedef int (*cgs_get_firmware_info)(struct cgs_device *cgs_device,
+>  				     enum cgs_ucode_id type,
+>  				     struct cgs_firmware_info *info);
 
-------------------
+Hi Omokefe, you probably forgot
+-typedef unsigned long cgs_handle_t;
+-typedef int (*cgs_get_firmware_info)(struct cgs_device *cgs_device,
+-                                    enum cgs_ucode_id type,
+-                                    struct cgs_firmware_info *info);
 
-From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+As discussed I have built and ran some IGT on hardware for the versions
+with and without these two, so you can still use the tag if you send v3:
 
-[ Upstream commit 114b42507b6a23d9d24e24e4ef165233332c64d4 ]
+Tested-by: Arnaud Bonnet <abo@medichon.fr>
 
-The same as the rest of the code, get_ss_info_from_atombios() uses
-calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
-initialized only later in calc_pll_max_vco_construct(). Therefore, any
-output using DC_LOG_SYNC() leads to a NULL pointer deference in
-get_ss_info_from_atombios().
-
-According to Sashiko, the very same problem exists in
-dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
-
-To avoid accessing the NULL context, use clk_src->base.ctx->logger
-everywhere. That context in base is initialized earlier in
-dce110_clk_src_construct() and dce112_clk_src_construct(). Before
-get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
-above are actually called. This is done by redefining DC_LOGGER to
-CTX->logger.
-
-Before:
-dce110_clk_src_construct() did:
- -> sets clk_src->base.ctx = ctx;
- -> ss_info_from_atombios_create()
-   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
- -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
-
-After:
-dce110_clk_src_construct() does:
- -> sets clk_src->base.ctx = ctx;
- -> ss_info_from_atombios_create()
-   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
-
-Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271175
-Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org/
-Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 6f16fcbb0c46a87e3d9685407e906573d60104b0)
-Cc: stable@vger.kernel.org
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../drm/amd/display/dc/dce/dce_clock_source.c | 20 +++++++++----------
- 1 file changed, 9 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index 3a183973d87fb..597b858369f5b 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -44,9 +44,7 @@
- 	clk_src->base.ctx
- 
- #define DC_LOGGER \
--	calc_pll_cs->ctx->logger
--#define DC_LOGGER_INIT() \
--	struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
-+	CTX->logger
- 
- #undef FN
- #define FN(reg_name, field_name) \
-@@ -290,6 +288,7 @@ static bool calc_pll_dividers_in_range(
- }
- 
- static uint32_t calculate_pixel_clock_pll_dividers(
-+		struct dce110_clk_src *clk_src,
- 		struct calc_pll_clock_source *calc_pll_cs,
- 		struct pll_settings *pll_settings)
- {
-@@ -478,7 +477,7 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
- {
- 	uint32_t field = 0;
- 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
--	DC_LOGGER_INIT();
-+
- 	/* Check if reference clock is external (not pcie/xtalin)
- 	* HW Dce80 spec:
- 	* 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENERICB
-@@ -521,12 +520,14 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
- 		/*Calculate Dividers by HDMI object, no SS case or SS case */
- 		pll_calc_error =
- 			calculate_pixel_clock_pll_dividers(
-+				        clk_src,
- 					&clk_src->calc_pll_hdmi,
- 					pll_settings);
- 	else
- 		/*Calculate Dividers by default object, no SS case or SS case */
- 		pll_calc_error =
- 			calculate_pixel_clock_pll_dividers(
-+					clk_src,
- 					&clk_src->calc_pll,
- 					pll_settings);
- 
-@@ -571,7 +572,6 @@ static uint32_t dce110_get_pix_clk_dividers(
- {
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
- 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
--	DC_LOGGER_INIT();
- 
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
-@@ -603,7 +603,6 @@ static uint32_t dce112_get_pix_clk_dividers(
- 		struct pll_settings *pll_settings)
- {
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
--	DC_LOGGER_INIT();
- 
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
-@@ -1259,8 +1258,6 @@ static uint32_t dcn3_get_pix_clk_dividers(
- 	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
- 
--	DC_LOGGER_INIT();
--
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
- 		DC_LOG_ERROR(
-@@ -1323,7 +1320,6 @@ static const struct clock_source_funcs dce110_clk_src_funcs = {
- 	.get_pixel_clk_frequency_100hz = get_pixel_clk_frequency_100hz
- };
- 
--
- static void get_ss_info_from_atombios(
- 		struct dce110_clk_src *clk_src,
- 		enum as_signal_type as_signal,
-@@ -1336,7 +1332,7 @@ static void get_ss_info_from_atombios(
- 	struct spread_spectrum_info *ss_info_cur;
- 	struct spread_spectrum_data *ss_data_cur;
- 	uint32_t i;
--	DC_LOGGER_INIT();
-+
- 	if (ss_entries_num == NULL) {
- 		DC_LOG_SYNC(
- 			"Invalid entry !!!\n");
-@@ -1471,6 +1467,7 @@ static void ss_info_from_atombios_create(
- }
- 
- static bool calc_pll_max_vco_construct(
-+			struct dce110_clk_src *clk_src,
- 			struct calc_pll_clock_source *calc_pll_cs,
- 			struct calc_pll_clock_source_init_data *init_data)
- {
-@@ -1622,6 +1619,7 @@ bool dce110_clk_src_construct(
- 	ss_info_from_atombios_create(clk_src);
- 
- 	if (!calc_pll_max_vco_construct(
-+			clk_src,
- 			&clk_src->calc_pll,
- 			&calc_pll_cs_init_data)) {
- 		ASSERT_CRITICAL(false);
-@@ -1636,7 +1634,7 @@ bool dce110_clk_src_construct(
- 
- 
- 	if (!calc_pll_max_vco_construct(
--			&clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
-+			clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
- 		ASSERT_CRITICAL(false);
- 		goto unexpected_failure;
- 	}
--- 
-2.53.0
-
-
+>  
+> +/**
+> + * struct cgs_ops - Common Graphics Services operations
+> + * @read_register: read register value
+> + * @write_register: write register value
+> + * @read_ind_register: read indirect register value
+> + * @write_ind_register: write indirect register value
+> + * @get_firmware_info: get firmware information
+> + */
+>  struct cgs_ops {
+>  	/* MMIO access */
+> -	cgs_read_register_t read_register;
+> -	cgs_write_register_t write_register;
+> -	cgs_read_ind_register_t read_ind_register;
+> -	cgs_write_ind_register_t write_ind_register;
+> +	uint32_t (*read_register)(struct cgs_device *cgs_device, unsigned int offset);
+> +	void (*write_register)(struct cgs_device *cgs_device, unsigned int offset,
+> +			       uint32_t value);
+> +	uint32_t (*read_ind_register)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
+> +				      unsigned int index);
+> +	void (*write_ind_register)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
+> +				   unsigned int index, uint32_t value);
+>  	/* Firmware Info */
+> -	cgs_get_firmware_info get_firmware_info;
+> +	int (*get_firmware_info)(struct cgs_device *cgs_device,
+> +				 enum cgs_ucode_id type,
+> +				 struct cgs_firmware_info *info);
+>  };
+>  
+>  struct cgs_os_ops; /* To be define in OS-specific CGS header */
 
