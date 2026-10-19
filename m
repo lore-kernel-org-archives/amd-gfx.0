@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3107CCF2E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:56:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4374DCCF2E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9021110EDA3;
-	Mon, 19 Oct 2026 13:56:45 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64F9610E90F;
- Mon, 19 Oct 2026 13:56:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF15410EDBD;
+	Mon, 19 Oct 2026 13:58:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3BF410EDB1;
+ Mon, 19 Oct 2026 13:57:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 345B040465;
- Mon, 19 Oct 2026 13:56:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6E01F000C4;
- Mon, 19 Oct 2026 13:56:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 17F3E60233;
+ Mon, 19 Oct 2026 13:57:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860421F000C7;
+ Mon, 19 Oct 2026 13:57:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418199;
- bh=yaDvv4if2EQfZyDxwt9WaxbkScaEfCJPng9oJb9w5zw=;
+ s=k20260515; t=1792418275;
+ bh=Ua7FOrvtap76X3pWHhtDl5tS54N9KAgGE6T8hmgUSAg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=YFwiVWoKItAkFqQQZJzoBiPZbAlwK8lR3MZIcTo486SUlZIAF3I8J92njvFALeHhA
- Gnz8OGawaTC+9zTtvqP3PyXR8Qv8c362iAf5fWA9BYyK+CopGpE0ckamTkqrBIc/Wc
- Q66ZT4cwS0X3hBVguGKd5PPUljZxDkZiw661zpnO77zUcg6eqWIc3PjDBEulP8EhRI
- TOpl6AAWNb5W2CQH+6ukBD59cAHABbl2aXE8HifnSlFIPptXvb06u9ySmAU4pD+gPc
- 3uhpEAA6gwARBTYGwCMCXjbw364PuLWVBASjxmev12ySSmKB5cFFWEETgiNMnHRJn1
- FAI0QlYfkeyFQ==
+ b=XFX+EPfYtLIW13hk3VxO2Lau/4hfffMQ4eGWpmPGm7UMC/hqCsOskZfKFRRRK9D2i
+ wDbWKq5jht1XsLwoVSDulFSmySmLl6ORV2lat4//tumEJUqu5uWIWIPqPiYL+RCS9p
+ 7W6xKQvI1kMZQH5jlHc8NKw3rKz5Fx9Banc7ZS2Km8rVrcimCOjjj0hLrqWADhJi7C
+ lZfc89attVBpauIwaG4M1uNVVldBxs8qed1DlQrpNgMALf3aaPHQXlEdRAAe6ZMKv9
+ PC1cDq1jEKW4eXMUtpLQJNaogfGlLXBTNM2EiaMRXiXQDdvHuDbmooJ48TqM2dZ9BI
+ lcd+dM6KRKn+w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yang Wang <kevinyang.wang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+Cc: Yang Wang <kevinyang.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amd/pm: derive stable PPT limits from PPTable
-Date: Mon, 19 Oct 2026 09:46:13 -0400
-Message-ID: <20261019135441.1420968-82-sashal@kernel.org>
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/amd/pm: Use uploaded size for legacy
+ custom PPTable
+Date: Mon, 19 Oct 2026 09:47:03 -0400
+Message-ID: <20261019135441.1420968-132-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,560 +64,408 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Yang Wang <kevinyang.wang@amd.com>
 
-[ Upstream commit 25f4a46b0c8acd77c9065b50a1fe48af27d91fdf ]
+[ Upstream commit 055a40c32f3a2dcd4d1a6f85ff4c231cf35f1b53 ]
 
-GetPptLimit reports mutable PMFW runtime state. Using that value for
-static capabilities causes two externally visible problems:
+The legacy powerplay path used to allocate hardcode_pp_table from
+the original VBIOS PPTable size, copy only the uploaded bytes into it,
+and keep soft_pp_table_size unchanged. If a custom PPTable is shorter
+than the original table, later code can still treat the stale tail as
+valid table data.
 
-- A userspace override changes the default reported through hwmon.
-- A firmware reset changes the advertised minimum or maximum range.
-
-Derive platform defaults and supported ranges from the driver PPTable
-for Sienna Cichlid, Navi10, Arcturus, and Aldebaran. Reserve PMFW queries
-for the effective current limit.
-
-Runtime policy can no longer redefine immutable platform capabilities.
+Treat the uploaded buffer as the complete custom PPTable: duplicate the
+uploaded buffer directly, replace hardcode_pp_table atomically, and set
+soft_pp_table_size to the uploaded size.
 
 Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have enough from the local 6.12 tree, the sibling SMU13/SMU14
-backports, and the series context to decide. The remaining lore lookups
-failed with 403, so those are marked unverified.
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: `[drm/amd/pm] [Use] Use uploaded size for legacy custom PPTable`
+Subsystem: AMDGPU PowerPlay (legacy hwmgr path). Verb “Use” describes
+the corrected size source; the body is a correctness fix for stale table
+tails.
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: [drm/amd/pm] [derive] [source immutable PPT default/min/max from
-the driver PPTable instead of PMFW GetPptLimit]
-
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- Signed-off-by: Yang Wang <kevinyang.wang@amd.com> (author)
-- Reviewed-by: Kenneth Feng <kenneth.feng@amd.com> (AMD PM reviewer)
-- Signed-off-by: Alex Deucher <alexander.deucher@amd.com> (amdgpu
+- `Signed-off-by: Yang Wang <kevinyang.wang@amd.com>` (author)
+- `Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>` (AMD)
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
   maintainer)
-- No Fixes:, Reported-by, Tested-by, Link:, or Cc: stable (absence
-  expected)
-- Ignore Sasha Levin SOB if present (pipeline)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc: stable` on
+  the upstream commit (absence expected)
+- Pipeline-only markers ignored: `[Upstream commit 055a40c32f3a2…]`,
+  `Signed-off-by: Sasha Levin`
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- Bug: GetPptLimit returns mutable PMFW runtime state, but the driver
-  used that one value for current, default, min, and max.
-- Symptoms: (1) a userspace power-cap override changes the default shown
-  in hwmon; (2) a firmware/GPU reset changes the advertised min/max
-  range.
-- Failure mode: hwmon `power1_cap_default` / `power1_cap_max` /
-  `power1_cap_min` stop being immutable platform capabilities. After
-  reset, `smu_set_power_limit()` can reject a previously valid TDP
-  because max was recomputed from the runtime value.
-- Root cause: static capabilities were taken from PMFW instead of
-  PPTable.
-- Version info: none in the message. Upstream SHA from drm.git is
-  `25f4a46b0c8acd77c9065b50a1fe48af27d91fdf` (author 2026-07-30,
-  committed 2026-08-06).
+- **Bug:** `pp_dpm_set_pp_table()` allocated `hardcode_pp_table` at the
+  original VBIOS PPTable size, `memcpy`’d only the uploaded bytes, and
+  left `soft_pp_table_size` unchanged.
+- **Symptom:** A shorter custom table leaves a stale VBIOS tail; later
+  parsing still treats that tail as valid table data.
+  `pp_dpm_get_pp_table()` also reports the old size.
+- **Root cause:** Upload size is not treated as the complete custom
+  table.
+- **Fix:** `kmemdup(buf, size)`, atomically replace `hardcode_pp_table`,
+  set `soft_pp_table_size = size`.
+- No stack traces, syzbot, or version range in the message.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not a disguised cleanup. It is an explicit correctness fix.
-Navi10/Sienna also start using AC vs DC PPTable entries, matching the
-SMU13 pattern already in this tree.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not a disguised cleanup. It is an explicit correctness/memory-
+safety fix for mixed VBIOS+custom table contents. Also aligns the legacy
+path with SWSMU’s `smu_sys_set_pp_table()`.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## PHASE 2: DIFF ANALYSIS
 
-Step 2.1: INVENTORY THE CHANGES
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- `arcturus_ppt.c` `arcturus_get_power_limit`: ~+12/-11
-- `navi10_ppt.c` `navi10_get_power_limit`: ~+16/-12
-- `sienna_cichlid_ppt.c` `sienna_cichlid_get_power_limit`: ~+16/-12
-- `aldebaran_ppt.c` `aldebaran_get_power_limit`: ~+6/-2
-- Scope: four ASIC PPT backends, one function each. Surgical, not a
-  cross-subsystem refactor.
+- File: `drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c` (+8 / −13)
+- Function: `pp_dpm_set_pp_table()` only
+- Scope: single-file surgical fix
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+Record: **Before** (this tree at `v6.18.53` / parent of the candidate):
+```
+if (!hwmgr || !hwmgr->pm_en) return -EINVAL;
+if (size > hwmgr->soft_pp_table_size) return -EINVAL;
+if (!hardcode_pp_table)
+    hardcode_pp_table = kmemdup(soft_pp_table, soft_pp_table_size, ...);
+memcpy(hardcode_pp_table, buf, size);
+soft_pp_table = hardcode_pp_table;
+// soft_pp_table_size unchanged
+amd_powerplay_reset();
+```
+**After:**
+```
+if (!hwmgr || !hwmgr->pm_en || !buf || !size || size > U32_MAX) return
+-EINVAL;
+hardcode_pp_table = kmemdup(buf, size, GFP_KERNEL);
+kfree(old); assign new;
+soft_pp_table = hardcode_pp_table;
+soft_pp_table_size = size;
+amd_powerplay_reset();
+```
+Path: privileged sysfs store to `pp_table`, then DPM re-init. Not boot-
+default.
+
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Record: **Logic/correctness + memory-safety (stale buffer / wrong
+length).**
+Broken: partial overwrite of a VBIOS-sized copy; parsers and
+`pp_table_has_space()` / `*_pp_table_has_space()` use
+`soft_pp_table_size` as the valid span.
+Fix: the uploaded buffer *is* the table; size matches allocation.
+Removes the overflow `memcpy` by allocating exactly `size` (supersedes
+the in-tree `size > soft_pp_table_size` cap). Adds `!buf`, `!size`,
+`size > U32_MAX` (`soft_pp_table_size` is `uint32_t`).
+
+**Step 2.4: ASSESS THE FIX QUALITY**
+Record: Minimal and matches SWSMU. `kfree` + replace is serialized by
+`adev->pm.mutex` in `amdgpu_dpm_set_pp_table()`. `kfree(NULL)` is safe
+on first upload. Destroy path already `kfree`s `hardcode_pp_table`.
+Regression risk: low on the common (no custom table) path. Larger-than-
+VBIOS uploads are now allowed up to sysfs `PAGE_SIZE`; parsers that
+trust header offsets still need the later bounds patches.
+Truncated/malformed headers could already OOB in `v6.18.53` without
+those checks.
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+**Step 3.1: BLAME THE CHANGED LINES**
 Record:
-- Before: query GetPptLimit into `power_limit`; on failure fall back to
-  PPTable; assign that same value to current, default, and (for
-  Navi/Sienna) the OD min/max base.
-- After: default/min/max come from PPTable (Navi/Sienna: AC or DC by
-  `adev->pm.ac_power`). GetPptLimit is used only for current; on query
-  failure current falls back to default.
-- Arcturus: max becomes the PPTable default; min stays 0 (already true
-  in this tree from `08e5f8e1a24fb`).
-- Aldebaran: max already came from `pptable->PptLimit`; default now does
-  too, instead of the GetPptLimit result.
-- Path: init via `smu_late_init()` → `smu_get_asic_power_limits()`, and
-  GPU reset via `smu_reset()` which re-runs late_init. Also used when
-  Sienna/Aldebaran re-query current.
+- Function added `f3898ea12fc1f` (2016-02, “add some sysfs interfaces
+  for powerplay”)
+- Upload/reset/memcpy: `4dcf9e6f2e33fe` (2016-07, “add uploading pptable
+  and resetting powerplay support”)
+- `kmemdup` of VBIOS-sized original: `efdf7a93195a71` (2016-09)
+- Overflow cap: `3334985f8b4c7` / upstream `f193e71fa9fab` (“bound
+  pp_dpm_set_pp_table() memcpy”) — **already in `v6.18.53`**
+Bug is long-standing; this tree still has the stale-tail behavior.
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record: [Logic / correctness] Using a mutable firmware PPT as the
-immutable hwmon default/range. Fix: PPTable owns capabilities; PMFW owns
-current.
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No `Fixes:` tag. Introduced with PowerPlay sysfs upload in 2016.
+Present in this 6.18.y tree.
 
-Step 2.4: ASSESS THE FIX QUALITY
-Record: Obviously correct and matches `smu_v13_0_0_get_power_limit()` /
-`smu_v14_0_2_get_power_limit()` already in this tree. Minimal.
-Regression risk is low: Navi/Sienna now pick DC limits on battery, which
-is the same rule SMU13 already uses here. Desktop `ac_power` is normally
-true, so those cards keep AC limits. No API or locking changes.
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Record: Related in this tree:
+- `3334985f8b4c7` — overflow bound (in `v6.18.53`)
+- `3149b1bee4fa1` — series 1/5, SWSMU header check (not in `v6.18.53`;
+  different file)
+- Later descendants: `f29e53bc54611`, `10510a4c2c397`, `c80131588ca2f`
+  (series 3–5 bounds; **not** in `v6.18.53`)
+- `8c685df5c3b26` — get-path UAF, different files
+This patch is **2/5** of Yang Wang’s June 2026 series. It is standalone
+(legacy `amd_powerplay.c` only). 3–5 use `soft_pp_table_size` as the
+bound, so they want this size to match custom uploads.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: Yang Wang is an AMD pm contributor with several PPTable
+bounds/UAF fixes. Hawking Zhang reviewed; Alex Deucher signed off.
 
-Step 3.1: BLAME THE CHANGED LINES
-Record: The GetPptLimit-as-everything pattern dates to `1e239fdd31cdf1`
-(Evan Quan, 2020-06-08, “maximize code sharing around power limit”).
-Min/max pointer args came from `1958946858a62b` (Ma Jun, 2023-10-12).
-Present since well before 6.12.
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: No missing helpers: `kmemdup`, `U32_MAX`, `hardcode_pp_table`,
+`amd_powerplay_reset()` all exist in `v6.18.53`. Does **not** depend on
+1/5. Parent blob already has the overflow `if (size >
+soft_pp_table_size)` that this diff removes — clean apply on this tree.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No Fixes: tag. The real ancestor is the 2020 GetPptLimit
-sharing, which is in this tree.
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- `08e5f8e1a24fb` already in this tree: Arcturus min=0 (Cc: stable).
-  This patch keeps that.
-- `b3498e00aff57` “fix smu13 power limit default/cap calculation” (Yang
-  Wang, Cc: stable, in v6.12.94): same bug on SMU13.
-- `b3adc697752b9` follow-up SMU13 range fix (Cc: stable, Closes gitlab
-  5419).
-- `a322d276f3d10` SMU14 range fix (Cc: stable).
-- This candidate is the remaining SMU11/Aldebaran analog; not already
-  applied (`git merge-base --is-ancestor 25f4a46b0c8acd HEAD` failed).
+- `b4 dig -c 055a40c32f3a2dcd4d1a6f85ff4c231cf35f1b53` → https://patch.m
+  sgid.link/20260623034151.263746-2-kevinyang.wang@amd.com
+- Series v1 only (no v2/v3)
+- `[PATCH 2/5] drm/amd/pm: Use uploaded size for legacy custom PPTable`
+- **1/5** SWSMU header + atomic `kmemdup`
+- **2/5** this commit
+- **3/5** Tonga state-array bounds
+- **4/5** Vega hwmgr bounds
+- **5/5** legacy `processpptables.c` offset bounds
+  (`pp_table_has_space`)
+- lore.kernel.org HTTP 403; discussion taken from `b4 dig -m` mbox
+  (verified)
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Yang Wang is a regular amd/pm contributor in this tree
-(SMU13/SMU14 power-limit fixes, pptable UAF, metrics). Kenneth Feng
-reviewed those as well.
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record (`b4 dig -w`): To/Cc `amd-gfx@lists.freedesktop.org`, Alex
+Deucher, Hawking Zhang, Kenneth Feng. Hawking: “Series is Reviewed-by:
+Hawking Zhang”. No NAKs in the saved thread.
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: Standalone. No new helpers. `SocketPowerLimitDc`,
-`GET_PPTABLE_MEMBER`, and `adev->pm.ac_power` already exist here. Later
-drm-next-7.3 series (refactor by controller, OD percentage,
-save/restore, restore after reset) is a large follow-on and is not
-required for this hunk.
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: No `Reported-by` / bugzilla / syzbot. Bug is described from code
+review.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: 2/5 does not need 1/5. 3–5 are follow-on parser hardening that
+treat `soft_pp_table_size` as the valid span; they are stronger with 2/5
+but VBIOS parsing still works without it.
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: **UNVERIFIED** — `lore.kernel.org/stable/` returned HTTP 403. No
+stable discussion in the amd-gfx mbox.
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: `pp_dpm_set_pp_table()`; uses `amd_powerplay_reset()`.
+
+**Step 5.2: TRACE CALLERS**
 Record:
-- `b4 dig -c 25f4a46b0c8acd77c9065b50a1fe48af27d91fdf`: lore.kernel.org
-  returned server error; no match.
-- lore.kernel.org WebFetch: 403.
-- drm.git commit page confirms SHA, author, reviewer, committer.
-- amd-gfx July 2026: related 4-patch “refactor PPT limit runtime policy”
-  (Kenneth Feng reviewed). “derive stable PPT limits from PPTable” is
-  listed first among Yang Wang’s five commits in the amd-drm-next-7.3
-  pull (mail-archive).
-- UNVERIFIED: full review thread / NAKs / explicit Cc: stable for this
-  exact patch (lore 403).
+- `pp_dpm_funcs.set_pp_table` → `amdgpu_dpm_set_pp_table()`
+  (`mutex_lock(&adev->pm.mutex)`) → `amdgpu_set_pp_table()` sysfs store
+- Attribute: `AMDGPU_DEVICE_ATTR_RW(pp_table, …)` → `S_IRUGO | S_IWUSR`
+  (root write)
+- HW: legacy PowerPlay (SI/CI/VI/Polaris/Vega via hwmgr), not Navi+
+  SWSMU (`smu_sys_set_pp_table`)
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record: Kenneth Feng Reviewed-by; Alex Deucher signed off. Recipients
-from `b4 dig -w` unverified.
+**Step 5.3: TRACE CALLEES**
+Record: `kmemdup`, `kfree`, `amd_powerplay_reset()` → `hwmgr_hw_fini` /
+`hwmgr_hw_init` / `hwmgr_handle_task(AMD_PP_TASK_COMPLETE_INIT)`,
+optional `avfs_control(false)`.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No Reported-by on this commit. Sibling SMU13 fix closed
-https://gitlab.freedesktop.org/drm/amd/-/work_items/5227 (WebFetch 403;
-title/body unverified). Follow-up closed work item 5419.
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Userspace `write()` to `/sys/class/drm/card*/device/pp_table`
+(root). Then full PM re-init from the new table. Reachable, privileged,
+documented.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: First of five PPT commits in amd-drm-next-7.3. Later four are a
-large policy refactor. This patch is self-contained.
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: SWSMU already `kmemdup(buf, size)` and sets
+`power_play_table_size = size` (series 1/5 / current
+`smu_sys_set_pp_table()`). This is the legacy equivalent.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: UNVERIFIED for this SHA (lore 403). The same class of fix for
-SMU13/SMU14 already landed in this 6.12 tree with Cc: stable.
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record: **Yes.** `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`;
+`Makefile` 6.18.53.
+`v6.18.53:drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c` still has
+VBIOS-sized `kmemdup` + partial `memcpy` + unchanged
+`soft_pp_table_size` (and the overflow cap). Introduced ~2016.
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `arcturus_get_power_limit`, `navi10_get_power_limit`,
-`sienna_cichlid_get_power_limit`, `aldebaran_get_power_limit`.
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: **Clean apply.** Candidate diff is against the exact `v6.18.53`
+function (including `if (size > hwmgr->soft_pp_table_size)`).
 
-Step 5.2: TRACE CALLERS
-Record: Registered as `.get_power_limit` in each ppt_funcs table.
-Invoked via `smu_get_asic_power_limits()` from:
-- `smu_late_init()` (boot and `smu_reset()`), filling
-  `smu->{current,default,max,min}_power_limit`
-- `smu_get_power_limit()` for CURRENT on Sienna-family (11.0.7/11/12/13)
-  and Aldebaran (13.0.2)
-Hwmon `power1_cap{,_default,_max,_min}` goes
-`amdgpu_hwmon_show_power_cap_*` → `amdgpu_dpm_get_power_limit` →
-`smu_get_power_limit`. Sets are range-checked against cached
-`max_power_limit`/`min_power_limit` in `smu_set_power_limit()`.
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: Overflow cap is in `v6.18.53`; it does **not** fix the short-
+table tail. No other in-tree substitute for updating
+`soft_pp_table_size` on upload.
 
-Step 5.3: TRACE CALLEES
-Record: `smu_v11_0_get_current_power_limit()` /
-`smu_cmn_send_smc_msg(SMU_MSG_GetPptLimit)` for current only; PPTable
-fields for defaults.
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace-reachable via hwmon sysfs (typically root). GPU reset
-/ late_init also refresh the caches. Reachable on Navi10 (RX 5700),
-Sienna (RX 6800/6900, 6000M), Arcturus (MI100), Aldebaran (MI200).
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: `drivers/gpu/drm/amd/pm/powerplay` — **IMPORTANT** (amdgpu DPM
+on pre-Navi ASICs). Not core mm/vfs, but production GPU power/clocks.
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: SMU13 (`smu_v13_0_0`, `smu_v13_0_7`) and SMU14 (`smu_v14_0_2`)
-already use PPTable + AC/DC for default/min/max in this tree. These four
-backends were the leftover GetPptLimit-for-everything copies.
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Actively maintained (Alex Deucher). Legacy PowerPlay is mature;
+this is hardening of a 2016 sysfs API, not new feature work.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: Yes. Local tree is **pending-6.12 / 6.12.111**
-(`p-6.12-3-g88406e77611c6`). The four `*_get_power_limit` functions
-match the patch “before” side. Bug introduced ~2020 (`1e239fdd31cdf1`),
-long before 6.12.
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: Driver-specific: root users uploading custom PPTables on legacy
+PowerPlay AMD GPUs (Polaris/Vega/etc.). Not universal; the sysfs node is
+a documented interface.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Clean apply expected. Navi10 context below the hunk differs
-(`MAX_PCIE_CONF` vs `NUM_LINK_LEVELS`) but that is outside this
-function. Arcturus min=0 already present.
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Write a custom table **shorter** than the VBIOS table. Common
+for truncated files or smaller community/AMD PPT blobs. Not boot.
+**Not** unprivileged (`S_IWUSR`).
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: SMU13/SMU14 analogs are here; these four ASICs are not. No
-earlier version of this exact change.
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: Mixed custom prefix + stale VBIOS tail parsed as one table →
+wrong clocks/voltages/DPM (hangs, instability, possible overvoltage).
+`get_pp_table` returns too much mixed data. Defeats size-based parser
+bounds that key off `soft_pp_table_size`.
+**Severity: HIGH** on that path (wrong PM programming / confused
+bounds), **MEDIUM** globally (privileged, non-default).
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: [drm/amd/pm SWSMU] [IMPORTANT] — common AMD dGPU/instinct power
-management, not core mm/net, but widely used hardware.
-
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Actively maintained; recent 6.12.y already took SMU13/SMU14
-power-limit correctness fixes from the same author.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Driver-specific: Navi10/Navi14, Sienna Cichlid family, Arcturus,
-Aldebaran. Anyone using hwmon power cap (LACT, CoreCtrl, scripts) or
-hitting GPU reset.
-
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
 Record:
-- Always at `smu_late_init` if PMFW current ≠ PPTable default (boot
-  power source / firmware policy).
-- GPU reset (`smu_reset` → late_init) refreshes default/max/min from
-  GetPptLimit, so a runtime policy or leftover firmware value rewrites
-  advertised range.
-- In this 6.12 tree, DEFAULT/MAX/MIN hwmon reads use the cache, so a
-  live userspace write to `power1_cap` does not immediately rewrite
-  `power1_cap_default` unless late_init/reset re-runs. The commit’s
-  first symptom is therefore mainly boot/reset, not every write. Still a
-  real bug.
-- Trigger is privileged sysfs or reset, not an unprivileged crash
-  primitive.
+- **Benefit:** Completes the overflow fix already in 6.18.53; custom
+  tables are actually the bytes uploaded; readback size is right; later
+  bounds checks can trust the size.
+- **Risk:** Low — ~8 insertions, one function, mutex-held, same pattern
+  as SWSMU. Idle GPUs that never write `pp_table` are unchanged.
+- **Ratio:** Favorable.
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: Incorrect hwmon capabilities; after reset,
-`smu_set_power_limit()` can reject a previously legal TDP because max
-was derived from the runtime PPT. No oops/UAF/corruption. Severity:
-MEDIUM (functional / ABI), same class already accepted for this tree on
-SMU13.
+## PHASE 9: FINAL SYNTHESIS
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record: Benefit medium-high for affected GPUs (correct caps, no trapped
-range after reset). Risk low (~40 net lines, four isolated functions,
-established pattern). Ratio favors backport.
+**Step 9.1: COMPILE THE EVIDENCE**
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+**FOR:**
+- Real bug: stale VBIOS tail treated as valid PPTable after a short
+  custom upload
+- Can misprogram GPU power/clocks and break size-based parsing
+- Small, obviously correct, matches SWSMU
+- Overflow half already in this tree; this is the remaining hole
+- AMD review (Hawking) + maintainer SOB (Deucher)
+- Applies cleanly; no missing helpers
+- Privileged but supported sysfs API
 
-Step 9.1: COMPILE THE EVIDENCE
-FOR:
-- Real bug: mutable PMFW state used as immutable hwmon default/min/max.
-- After GPU reset, cached max/min can shrink and block restoring the
-  platform TDP.
-- Same class already backported to this 6.12 tree for SMU13/SMU14
-  (`b3498e00aff57`, `b3adc697752b9`, `a322d276f3d10`), all Cc: stable.
-- Small, obviously correct, no new APIs.
-- Buggy code is in this tree; patch applies cleanly.
-- Reviewed by Kenneth Feng, signed off by Alex Deucher.
+**AGAINST:**
+- Not a default-boot crash; root-only
+- No syzbot/CVE/user report in the message
+- Part of a 5-patch series (2/5 still stands alone)
+- Allows uploads larger than the original VBIOS size (capped in practice
+  by sysfs `PAGE_SIZE`)
 
-AGAINST:
-- Not a crash, security hole, or data corruption.
-- First of a later 5-commit PPT series; later patches are large
-  refactors (do not take those).
-- Navi/Sienna AC/DC selection is extra vs the old always-AC fallback
-  (same as already-stable SMU13).
-- No Fixes:/Reported-by on this commit; lore thread unverified.
+**UNRESOLVED:** Stable-list discussion (lore 403). No evidence this was
+rejected for stable.
 
-UNRESOLVED:
-- Full amd-gfx review text / NAKs (lore 403, b4 failed).
-- GitLab 5227 details (403).
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — SWSMU-equivalent; reviewed
+   by AMD; in mainline
+2. Fixes a real bug that affects users? **PASS** — documented `pp_table`
+   upload
+3. Important issue? **PASS** — wrong DPM table contents / bounds (HIGH
+   on that path)
+4. Small and contained? **PASS** — one function, net −5 lines
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — clean vs `v6.18.53`
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? PASS — matches SMU13/14 in this tree;
-   AMD reviewer + maintainer.
-2. Fixes a real bug that affects users? PASS — wrong hwmon caps; reset
-   can trap the power range.
-3. Important issue? PASS — not a panic, but the same issue was already
-   treated as stable-worthy here for newer ASICs; user-visible PM/sysfs
-   breakage on common GPUs.
-4. Small and contained? PASS — four functions, ~70 lines.
-5. No new features or APIs? PASS — corrects existing hwmon values; AC/DC
-   uses existing PPTable fields.
-6. Can apply to the local tree? PASS — buggy code present; clean apply
-   expected.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: None (not a device ID/quirk/DT/build/docs exception). Qualifies
+as a normal small bugfix.
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: None of the automatic exceptions (device ID / quirk / DT / build
-/ docs). Qualifies as a normal small correctness fix.
+**Step 9.4: DECISION**
+This belongs on 6.18.y: the buggy upload path is here, the overflow cap
+is already here, and this is the matching fix so a custom PPTable is
+exactly the uploaded bytes and length.
 
-Step 9.4: MAKE YOUR DECISION
-This should be backported to this 6.12 tree. It is the leftover
-SMU11/Aldebaran half of a power-cap reporting bug whose SMU13/SMU14 half
-is already in 6.12.y. Do not pull the later PPT refactor series with it.
+### What the commit solves for this tree
+On 6.18.53, `pp_dpm_set_pp_table()` still clones the VBIOS table, copies
+only the write, and keeps `soft_pp_table_size`. A shorter custom table
+leaves a stale tail that init/sysfs still treat as valid, so DPM can run
+on a hybrid table. The patch makes the upload the whole table, which is
+what the sysfs ABI documents.
+
+### Risk vs benefit
+Benefit is real for anyone using `pp_table` on legacy PowerPlay. Risk is
+a small, mutex-protected change with no effect unless that sysfs node is
+written.
+
+---
 
 Verification:
-- [Phase 1] Parsed tags: author Yang Wang, Reviewed-by Kenneth Feng, SOB
-  Alex Deucher; no Fixes/Reported-by/Cc stable
-- [Phase 1] drm.git SHA 25f4a46b0c8acd77c9065b50a1fe48af27d91fdf
-  confirmed via search snippet
-- [Phase 2] Diff: four `*_get_power_limit` functions; PPTable for
-  default/min/max, GetPptLimit only for current
-- [Phase 3] git describe HEAD: p-6.12-3-g88406e77611c6; make
-  kernelversion 6.12.111
-- [Phase 3] git merge-base --is-ancestor 25f4a46b0c8acd HEAD: not an
-  ancestor (not in this tree)
-- [Phase 3] git blame: GetPptLimit pattern from 1e239fdd31cdf1 (2020);
-  still present in all four files
-- [Phase 3] Related stable commits in this tree: b3498e00aff57
-  (v6.12.94), b3adc697752b9, a322d276f3d10, 08e5f8e1a24fb
-- [Phase 4] b4 dig -c 25f4a46b0c8acd: lore server error, no match
-- [Phase 4] lore WebFetch 403; gitlab 5227 403
-- [Phase 4] amd-gfx July 2026: 4-patch PPT refactor series by same
-  author; drm-next-7.3 pull lists this commit first of five
-- [Phase 5] Callers: smu_late_init, smu_reset, smu_get_power_limit,
-  hwmon power1_cap*; range check in smu_set_power_limit
-- [Phase 5] SMU13/SMU14 in this tree already implement the post-fix
-  pattern
-- [Phase 6] Read all four local functions: match the patch “before” side
-- [Phase 6] GET_PPTABLE_MEMBER and SocketPowerLimitDc exist for Sienna
-  and Beige Goby
-- [Phase 8] Failure mode: wrong hwmon caps / possible -EINVAL on set
-  after reset; not oops
-- UNVERIFIED: original lore discussion, NAKs, gitlab 5227 body, whether
-  SocketPowerLimitDc is zero on any Navi10 mobile SKU
-
-This is a small, already-reviewed correction of hwmon PPT
-default/min/max on GPUs that still use GetPptLimit for those values. The
-same bug was already backported on SMU13/SMU14 in this 6.12 tree, the
-code is present, and the follow-on refactor series is not required.
+- [Phase 1] Tags: author Yang Wang; Reviewed-by Hawking Zhang; SOB Alex
+  Deucher; no Fixes/Reported-by/Cc: stable on upstream `055a40c32f3a2`
+- [Phase 2] Diff: `pp_dpm_set_pp_table()` only; drop VBIOS-sized clone +
+  partial memcpy; `kmemdup(buf,size)`; set `soft_pp_table_size`; extra
+  `!buf/!size/U32_MAX` checks
+- [Phase 3] Blame: memcpy upload `4dcf9e6f2e33fe` (2016); overflow cap
+  `3334985f8b4c7` is in `v6.18.53`; this candidate is not
+- [Phase 3] `git merge-base --is-ancestor 055a40c32f3a2 HEAD` → not in
+  this history as that SHA (expected for a stable cherry-pick
+  evaluation)
+- [Phase 3] `v6.18.53` file contents confirmed: bound-check +
+  kmemdup(original) + memcpy(size) + no size update
+- [Phase 4] `b4 dig -c 055a40c32f3a2` → patch 2/5, msgid
+  `20260623034151.263746-2`; v1 only; Hawking reviewed the series
+- [Phase 4] WebFetch lore/msgid 403; mbox via `b4 dig -m` used instead
+- [Phase 4] Stable-list search 403 — UNVERIFIED
+- [Phase 5] Callers: `amdgpu_dpm_set_pp_table` under `adev->pm.mutex`
+  from sysfs `pp_table` (`S_IWUSR`)
+- [Phase 5] SWSMU `smu_sys_set_pp_table()` already uses the same kmemdup
+  + size update
+- [Phase 6] `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`; `make
+  kernelversion` 6.18.53; buggy code in this tree
+- [Phase 6] Series 3–5 not in `v6.18.53`; this commit does not require
+  them to apply
+- [Phase 8] Failure mode: mixed PPTable → wrong GPU PM; trigger = root
+  write of a shorter custom table
+- UNVERIFIED: Whether anyone requested this on stable@ (lore 403)
 
 **YES**
 
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 25 ++++++++-------
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 32 +++++++++++--------
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 28 +++++++++-------
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  8 +++--
- 4 files changed, 53 insertions(+), 40 deletions(-)
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 21 +++++++------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 4fff78da81ff8..2b2d3c3aa20ba 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -1329,24 +1329,25 @@ static int arcturus_get_power_limit(struct smu_context *smu,
- 					uint32_t *min_power_limit)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index 5e197c463ed96..05c5e7d19ca1c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -663,25 +663,20 @@ static int amd_powerplay_reset(void *handle)
+ static int pp_dpm_set_pp_table(void *handle, const char *buf, size_t size)
  {
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
--	uint32_t power_limit;
-+	uint32_t current_limit, default_limit;
+ 	struct pp_hwmgr *hwmgr = handle;
++	void *hardcode_pp_table;
+ 	int ret = -ENOMEM;
  
--	if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
--		/* the last hope to figure out the ppt limit */
--		if (!pptable) {
--			dev_err(smu->adev->dev, "Cannot get PPT limit due to pptable missing!");
--			return -EINVAL;
--		}
--		power_limit =
--			pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
-+	if (!pptable) {
-+		dev_err(smu->adev->dev,
-+			"Cannot get PPT limit due to pptable missing!");
-+		return -EINVAL;
- 	}
+-	if (!hwmgr || !hwmgr->pm_en)
+-		return -EINVAL;
+-
+-	if (size > hwmgr->soft_pp_table_size)
++	if (!hwmgr || !hwmgr->pm_en || !buf || !size || size > U32_MAX)
+ 		return -EINVAL;
  
-+	default_limit = pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
-+
-+	if (smu_v11_0_get_current_power_limit(smu, &current_limit))
-+		current_limit = default_limit;
-+
- 	if (current_power_limit)
--		*current_power_limit = power_limit;
-+		*current_power_limit = current_limit;
- 	if (default_power_limit)
--		*default_power_limit = power_limit;
-+		*default_power_limit = default_limit;
- 	if (max_power_limit)
--		*max_power_limit = power_limit;
-+		*max_power_limit = default_limit;
- 	/*
- 	 * No lower bound is imposed on the limit. Any unreasonable limit set
- 	 * will result in frequent throttling.
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index a2fcf678182b4..4737ceb2a5434 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -2393,22 +2393,26 @@ static int navi10_get_power_limit(struct smu_context *smu,
- 		(struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
- 	struct smu_11_0_overdrive_table *od_settings = smu->od_settings;
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
--	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 0;
-+	uint32_t current_limit, default_limit;
-+	uint32_t od_percent_upper = 0, od_percent_lower = 0;
- 
--	if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
--		/* the last hope to figure out the ppt limit */
--		if (!pptable) {
--			dev_err(smu->adev->dev, "Cannot get PPT limit due to pptable missing!");
--			return -EINVAL;
--		}
--		power_limit =
--			pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
-+	if (!pptable) {
-+		dev_err(smu->adev->dev,
-+			"Cannot get PPT limit due to pptable missing!");
-+		return -EINVAL;
- 	}
- 
-+	default_limit = smu->adev->pm.ac_power ?
-+		pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0] :
-+		pptable->SocketPowerLimitDc[PPT_THROTTLER_PPT0];
-+
-+	if (smu_v11_0_get_current_power_limit(smu, &current_limit))
-+		current_limit = default_limit;
-+
- 	if (current_power_limit)
--		*current_power_limit = power_limit;
-+		*current_power_limit = current_limit;
- 	if (default_power_limit)
--		*default_power_limit = power_limit;
-+		*default_power_limit = default_limit;
- 
- 	if (powerplay_table) {
- 		if (smu->od_enabled &&
-@@ -2422,15 +2426,15 @@ static int navi10_get_power_limit(struct smu_context *smu,
- 	}
- 
- 	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
--					od_percent_upper, od_percent_lower, power_limit);
-+		 od_percent_upper, od_percent_lower, default_limit);
- 
- 	if (max_power_limit) {
--		*max_power_limit = power_limit * (100 + od_percent_upper);
-+		*max_power_limit = default_limit * (100 + od_percent_upper);
- 		*max_power_limit /= 100;
- 	}
- 
- 	if (min_power_limit) {
--		*min_power_limit = power_limit * (100 - od_percent_lower);
-+		*min_power_limit = default_limit * (100 - od_percent_lower);
- 		*min_power_limit /= 100;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 31c2c0386b1f9..d553c6fbab47c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -632,20 +632,24 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
- 	struct smu_11_0_7_powerplay_table *powerplay_table =
- 		(struct smu_11_0_7_powerplay_table *)smu->smu_table.power_play_table;
- 	struct smu_11_0_7_overdrive_table *od_settings = smu->od_settings;
--	uint32_t power_limit, od_percent_upper = 0, od_percent_lower = 0;
--	uint16_t *table_member;
-+	uint32_t current_limit, default_limit;
-+	uint32_t od_percent_upper = 0, od_percent_lower = 0;
-+	u16 *power_limit_ac, *power_limit_dc;
- 
--	GET_PPTABLE_MEMBER(SocketPowerLimitAc, &table_member);
-+	GET_PPTABLE_MEMBER(SocketPowerLimitAc, &power_limit_ac);
-+	GET_PPTABLE_MEMBER(SocketPowerLimitDc, &power_limit_dc);
- 
--	if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
--		power_limit =
--			table_member[PPT_THROTTLER_PPT0];
+-	if (!hwmgr->hardcode_pp_table) {
+-		hwmgr->hardcode_pp_table = kmemdup(hwmgr->soft_pp_table,
+-						   hwmgr->soft_pp_table_size,
+-						   GFP_KERNEL);
+-		if (!hwmgr->hardcode_pp_table)
+-			return ret;
 -	}
-+	default_limit = smu->adev->pm.ac_power ?
-+		power_limit_ac[PPT_THROTTLER_PPT0] :
-+		power_limit_dc[PPT_THROTTLER_PPT0];
-+
-+	if (smu_v11_0_get_current_power_limit(smu, &current_limit))
-+		current_limit = default_limit;
+-
+-	memcpy(hwmgr->hardcode_pp_table, buf, size);
++	hardcode_pp_table = kmemdup(buf, size, GFP_KERNEL);
++	if (!hardcode_pp_table)
++		return ret;
  
- 	if (current_power_limit)
--		*current_power_limit = power_limit;
-+		*current_power_limit = current_limit;
- 	if (default_power_limit)
--		*default_power_limit = power_limit;
-+		*default_power_limit = default_limit;
++	kfree(hwmgr->hardcode_pp_table);
++	hwmgr->hardcode_pp_table = hardcode_pp_table;
+ 	hwmgr->soft_pp_table = hwmgr->hardcode_pp_table;
++	hwmgr->soft_pp_table_size = size;
  
- 	if (powerplay_table) {
- 		if (smu->od_enabled &&
-@@ -659,15 +663,15 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
- 	}
- 
- 	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
--					od_percent_upper, od_percent_lower, power_limit);
-+		 od_percent_upper, od_percent_lower, default_limit);
- 
- 	if (max_power_limit) {
--		*max_power_limit = power_limit * (100 + od_percent_upper);
-+		*max_power_limit = default_limit * (100 + od_percent_upper);
- 		*max_power_limit /= 100;
- 	}
- 
- 	if (min_power_limit) {
--		*min_power_limit = power_limit * (100 - od_percent_lower);
-+		*min_power_limit = default_limit * (100 - od_percent_lower);
- 		*min_power_limit /= 100;
- 	}
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 18d5d07045098..9e67e57d70b75 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -1281,8 +1281,12 @@ static int aldebaran_get_power_limit(struct smu_context *smu,
- 
- 	if (current_power_limit)
- 		*current_power_limit = power_limit;
--	if (default_power_limit)
--		*default_power_limit = power_limit;
-+	if (default_power_limit) {
-+		if (pptable)
-+			*default_power_limit = pptable->PptLimit;
-+		else
-+			*default_power_limit = power_limit;
-+	}
- 
- 	if (max_power_limit) {
- 		if (pptable)
+ 	ret = amd_powerplay_reset(handle);
+ 	if (ret)
 -- 
 2.53.0
 
