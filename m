@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20FD9CCF2E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 14:05:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2040BCCF2DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 14:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EDF210EE1D;
-	Mon, 19 Oct 2026 14:05:49 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26E7010EE1F;
- Mon, 19 Oct 2026 14:05:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 991E810EE20;
+	Mon, 19 Oct 2026 14:05:53 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA0110EE20;
+ Mon, 19 Oct 2026 14:05:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 159FC4069A;
- Mon, 19 Oct 2026 14:05:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEDAF1F000C8;
- Mon, 19 Oct 2026 14:05:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 86E5660261;
+ Mon, 19 Oct 2026 14:05:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256131F000C4;
+ Mon, 19 Oct 2026 14:05:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418739;
- bh=LCK6HzOGftkUfxabSJI1PrQfGr8GFb458mN9VeUB30k=;
+ s=k20260515; t=1792418746;
+ bh=VEhvWpSBuuOgsR6j1PDhVuySMCC2OyAu0N0as+4w6MU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=JnAFN8CsBjqT1I9q339vBlRTKeNyLHONguQGmeVKtFkrTHqxo3WiJddoHqiBTiXUN
- HkicvSz4oFzsSwRl/K15W104V9L8vnYwnQhXo39ftkfaHh9EHKLyT4oux26ar//mfH
- q9uDwZ8ZvAg0u4w3Yr51xl3Npvh/h0/CCi2iTqjcI/h5Y1+1R47obn2GkN23mwUWv2
- QkOe1/X8n087DL5MzCKLRm8v12VTwz3RiflpQhtT3fEP1UXj6BdV67kB3OF/debpF3
- NupCjOyEDjQlKGHhFIfHFhoad/yibbbSXnrt22lz4B6rzQ1TeJYizRJVF1jHVBvVyH
- o/L1RIM051jJA==
+ b=WhieVU7zU7BL9EWxz581XbaKsng5RBaa4xo6OsMjb5JsUzSE/4o+kQSykFxiKL4Xe
+ 6A7L6NE6277xk2LpjfZZCccgxz6e1l8Re8yoNVlc999Qcfh8eqHi4OIcKzGbeDvTf6
+ MhwIos7lIO/jO3/b5pHNveU62Jxk9TCbS64kY18dGLsqwTRr744oyu1ZVW7CHZgrLh
+ oziuxvhTmEAmTHd9Hcc3b9iP/7Yblteaqw8h5g6LQgGoPPUhmOed509QFixB+My8/j
+ N9e4Ew3FAPwwUtsIQXxk91BfOOqo/nHT9nEIIjsvALxRR+YgQ8yOQi3FjqAN55RcRT
+ YqtRAqY+a9YqA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Kent Russell <kent.russell@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdgpu/atomfirmware: WARN() rather than
- BUG()
-Date: Mon, 19 Oct 2026 09:52:32 -0400
-Message-ID: <20261019135441.1420968-461-sashal@kernel.org>
+Cc: Lijo Lazar <lijo.lazar@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.12] drm/amdgpu: Guard reads in pcie state
+ readout
+Date: Mon, 19 Oct 2026 09:52:37 -0400
+Message-ID: <20261019135441.1420968-466-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -62,243 +61,259 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-[ Upstream commit d7c595044965c826e6f3ce30590d3ec4399cd633 ]
+[ Upstream commit 230753e46a4a9d04dad6a9b5dbaeb7fd52add7d0 ]
 
-There's no need to crash the kernel for this case.  Just
-return an error.
+Internal US/DS switch may not be exposed in passthrough. Guard the
+upstream port reads to avoid a NULL dereference.
 
-Reviewed-by: Kent Russell <kent.russell@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
+I have enough to decide: this is a NULL-deref on a sysfs read for MI300
+passthrough, the buggy code is in 6.18.53, and the patch is small and
+already reviewed.
+
+---
+
 ## Phase 1: Commit message forensics
 
 **Step 1.1: Subject line**
-- Record: `[drm/amdgpu/atomfirmware] [WARN rather than BUG / return an
-  error] [stop panicking the kernel on an unexpected VBIOS gfx_info
-  revision]`
+Record: `[drm/amdgpu] [Guard] Guard reads in PCIe state readout` —
+“Guard” here is a missing-NULL-check / skip-on-missing-hardware fix, not
+a feature.
 
 **Step 1.2: Tags**
-- Record:
-  - `Reviewed-by: Kent Russell <kent.russell@amd.com>` (added at commit
-    time; not on the mailed v1 patch)
-  - `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (author;
-    amdgpu maintainer)
-  - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Acked-by:`, `Link:`, or
-    `Cc: stable` (absence expected)
-  - Pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit ...]`
-    ignored per instructions
+Record:
+- `Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>` (author; AMD amdgpu
+  contributor)
+- `Acked-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+  maintainer)
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (maintainer
+  merge)
+- No `Fixes:`, `Reported-by:`, `Cc: stable`, `Link:`, `Tested-by:`, or
+  `Reviewed-by:` (absence of Fixes/Cc-stable is expected for this
+  review)
+- Ignore `[Upstream commit 230753e46a4a...]` and `Signed-off-by: Sasha
+  Levin` (pipeline)
 
 **Step 1.3: Body**
-- Record:
-  - Bug: `BUG()` on an unexpected atom `gfx_info` firmware revision in
-    `amdgpu_atomfirmware_get_clock_info()`.
-  - Symptom: whole-machine kernel crash during AMDGPU init.
-  - Author intent: do not crash; “just return an error.”
-  - No stack trace, reproducer, or version range in the message.
-  - Actual diff does **not** add `WARN()` and does **not** set `ret =
-    -EINVAL`; it only deletes the `else { BUG(); }`.
+Record:
+- Bug: internal US/DS PCIe switch may not be visible in passthrough
+- Symptom: NULL dereference when reading upstream-port config
+- Root cause: `pci_upstream_bridge()` can return NULL; the code still
+  uses the pointer
+- No stack trace, no version list, no reproducer in the message
 
 **Step 1.4: Hidden bug fix?**
-- Record: Not hidden. It is an explicit crash-prevention change.
-  Title/body oversell the implementation (no `WARN()`, no explicit error
-  return).
+Record: Not hidden. Explicit NULL-deref fix. Extra vendor/type checks
+also avoid treating a hypervisor virtual bridge as the GPU’s internal
+switch.
 
 ---
 
 ## Phase 2: Diff analysis
 
 **Step 2.1: Inventory**
-- Record: `drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c` — **2 lines
-  deleted, 0 added**. Function: `amdgpu_atomfirmware_get_clock_info()`.
-  Single-file surgical change.
+Record:
+- File: `drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c` only
+- ~42 insertions, ~17 deletions (59-line churn)
+- New helper `aqua_vanjaram_get_us_pdev()`;
+  `aqua_vanjaram_read_pcie_state()` updated
+- Classification: single-file surgical fix
 
 **Step 2.2: Code flow**
-- Record: On Navi+ (`asic_type >= CHIP_NAVI10`), after a successful
-  `gfx_info` header parse:
-  - **Before:** known revisions (`frev==3`, or `frev==2 && crev==6`, or
-    `frev==2 && crev>=2 && crev!=6`) set `spll->reference_freq` and
-    `ret=0`. Any other `(frev,crev)` hit `BUG()` and panics.
-  - **After:** unknown revisions fall through. `ret` stays whatever
-    earlier `firmwareinfo` / `smu_info` / `umc_info` parsing left (`0`
-    if those succeeded, else `-EINVAL`). No panic.
+Record:
+- **Before:** `ds_pdev = pci_upstream_bridge(adev->pdev); us_pdev =
+  pci_upstream_bridge(ds_pdev);` then unconditional
+  `pcie_capability_read_word(us_pdev, ...)`,
+  `pci_find_ext_capability(us_pdev, ...)`,
+  `pci_read_config_dword(us_pdev, ...)`.
+- **After:** helper requires ATI downstream port then ATI/AMD upstream
+  port; if either walk fails, skip those config reads. SMN register dump
+  still runs.
+- Path: sysfs `reg_state` read (normal userspace debug path), not
+  probe/error-only.
 
 **Step 2.3: Bug mechanism**
-- Record: **Logic / correctness + crash prevention.** `BUG()` used as an
-  “unknown firmware table” assert in a driver probe path. Firmware is
-  independent of the kernel; an unknown or newer table must not take
-  down the box. Sibling `amdgpu_atomfirmware_get_gfx_info()` already
-  returns `-EINVAL` for unknown revisions; this path was the
-  inconsistent panic.
+Record: **NULL pointer dereference** (memory safety).
+- `pci_upstream_bridge()` in `include/linux/pci.h` returns NULL on a
+  root bus.
+- `pci_upstream_bridge(NULL)` calls `pci_physfn(dev)` which does
+  `dev->is_virtfn` — immediate oops if the GPU has no parent.
+- Typical VFIO topology (GPU under a QEMU root port): `ds_pdev` is non-
+  NULL, `us_pdev` is NULL, then `pcie_capability_read_word(NULL, ...)`
+  oopses.
+- Helper matches the existing pattern in
+  `amdgpu_device_cache_switch_state()` /
+  `amdgpu_device_get_aspm_pdev()`.
 
 **Step 2.4: Fix quality**
-- Record: Minimal and obviously safe (only removes a panic). Regression
-  risk is very low. Residual nit: unknown tables no longer fail the
-  function if earlier tables parsed, so init can continue with the
-  `smu_info` reference clock instead of failing probe. That matches the
-  pre-`BUG()` behavior from 2021 and is still far better than panicking.
-  Message/subject mismatch is cosmetic, not a functional defect.
+Record: Obviously correct; same topology checks already used nearby.
+Residual: skipped fields are not zeroed (AER fields were already
+conditional). That is much less severe than an oops. No new API, no
+lock, no ABI change. Low regression risk.
 
 ---
 
 ## Phase 3: Git history
 
 **Step 3.1: Blame**
-- Record: `BUG()` added in `a8d59943b8846` (“drm/amdgpu: update query
-  ref clk from bios”, Hawking Zhang, 2022-04-28) when adding
-  `atom_gfx_info_v3_0`. `git describe` =
-  `v5.17-rc6-1819-ga8d59943b8846`. `git merge-base --is-ancestor` vs
-  tags: **not in v5.18, is in v5.19**. Navi+ clock override itself came
-  from `9a530062d57fe` (Aaron Liu, 2021; `v5.12-rc7-1827`), which did
-  **not** `BUG()` — unknown versions just skipped the override.
+Record: Unguarded walk introduced in `081a6eda2b2509` (“drm/amdgpu: Read
+aquavanjaram PCIE register state”, 2023-11-29, Lijo Lazar). In this tree
+since well before v6.18. Contained in v6.8-era history
+(`locking_urgent_for_v6.8_rc2~...`).
 
 **Step 3.2: Fixes: tag**
-- Record: None. Introducer is `a8d59943b8846` as above. That commit is
-  an ancestor of this HEAD.
+Record: No `Fixes:` tag. Introducer `081a6eda2b2509` **is** an ancestor
+of `v6.18.53` (`git merge-base --is-ancestor` exit 0).
 
 **Step 3.3: File history**
-- Record: Latest change on this file in HEAD is this commit. No follow-
-  up on the same function. Standalone; not a functional 2/3 dependency.
+Record: Related NULL-guard already in this tree: `9b608fe94870f`
+“drm/amdgpu: Check swus/ds for switch state save” (in v6.18.53; GitLab
+drm/amd#4602). Same topology bug, different path (reset/save). This
+patch is the sysfs readout counterpart. Standalone, not `N/M`.
 
 **Step 3.4: Author**
-- Record: Alex Deucher is the amdgpu maintainer. Same-day series
-  converted many amdgpu `BUG()`/`BUG_ON()` sites. Related file commits
-  are unrelated vram/firmware table work.
+Record: Lijo Lazar is a regular amdgpu author of this file. Maintainer
+Alex Deucher acked and applied.
 
-**Step 3.5: Prerequisites**
-- Record: None. Only deletes two lines of existing `BUG()`. Applies
-  standalone wherever that `else { BUG(); }` exists.
+**Step 3.5: Dependencies**
+Record: None. Uses existing `pci_upstream_bridge`,
+`PCI_VENDOR_ID_ATI/AMD`, `pci_pcie_type`. No new helpers from later
+series. Can apply standalone.
 
 ---
 
 ## Phase 4: Mailing list / external
 
 **Step 4.1: Original discussion**
-- Record: `b4 dig -c d7c595044965c` → `[PATCH 18/43]
-  drm/amdgpu/atomfirmware: WARN() rather than BUG()`
-  https://patch.msgid.link/20260615235645.737189-18-
-  alexander.deucher@amd.com
-  - `b4 dig -a`: **v1 only** of a 43-patch June 15 2026 series. Resent
-    as `[PATCH 05/30]` on 2026-07-07 (same diff).
-  - Thread has no technical NAK. Only a ping from Alex on 01/43.
-  - No reviewer-requested `Cc: stable` found in the mbox.
-  - Committed version matches mailed diff (2-line deletion).
+Record: `b4 dig -c 230753e46a4a9d04dad6a9b5dbaeb7fd52add7d0` →
+https://patch.msgid.link/20260617093518.753118-1-lijo.lazar@amd.com
+`b4 dig -a`: **v1 only**, 2026-06-17. No later rewrite.
 
-**Step 4.2: Recipients**
-- Record: `b4 dig -w`: `Alex Deucher`, `amd-gfx@lists.freedesktop.org`
-  only. Kent Russell’s `Reviewed-by` was added at commit, not on the
-  mailed patch.
+**Step 4.2: Recipients (`b4 dig -w`)**
+Record: `amd-gfx@lists.freedesktop.org`, Hawking Zhang, Alex Deucher,
+Asad Kamal, Candice Li. Right list and maintainer.
 
-**Step 4.3: Bug report**
-- Record: No `Reported-by`, syzbot, or bugzilla. No evidence of a user
-  hitting this `BUG()` in the last four years.
+**Step 4.3: Review (mbox `/tmp/pcie-guard.mbox`)**
+Record:
+- Kevin Wang: under VFIO the guest topology is virtualized; suggested
+  hiding the whole interface in PT/SRIOV.
+- Lijo: SMN/endpoint reads still useful; this patch only skips the
+  physical-link (US port) reads that need real switch ports.
+- Alex Deucher: `Acked-by` (2026-06-19). No NAK. No `Cc: stable` in
+  review.
 
-**Step 4.4: Series context**
-- Record: Independent one-file `BUG()` removals. Pull text for drm-
-  next-7.3 lists this under “Old BUG() and BUG_ON() removal.” drm-
-  fixes-7.2 took an earlier batch described as “Drop unnecessary BUG()
-  and BUG_ON() from error paths.” This commit landed in **drm-next for
-  7.3** (`git describe d7c595044965c` = `v7.2-rc2-1048-gd7c595044965c`).
+**Step 4.4: Series**
+Record: Single standalone patch.
 
 **Step 4.5: Stable list**
-- Record: lore.kernel.org/stable fetch returned 403. **UNVERIFIED**
-  whether stable@ discussed this specific patch. No `Cc: stable` on the
-  submission.
+Record: lore.kernel.org/stable fetch returned 403. UNVERIFIED whether
+stable@ discussed it. Does not change the technical verdict.
 
 ---
 
-## Phase 5: Semantic / call graph
+## Phase 5: Semantic / call chain
 
 **Step 5.1: Functions**
-- Record: `amdgpu_atomfirmware_get_clock_info()` only. semcode MCP not
-  available; used grep / read.
+Record: `aqua_vanjaram_get_us_pdev` (new),
+`aqua_vanjaram_read_pcie_state` (modified).
 
 **Step 5.2: Callers**
-- Record: Sole caller `amdgpu_device.c` (~4085), during device init when
-  `adev->bios && adev->is_atom_fw`. `is_atom_fw` is set for `asic_type
-  >= CHIP_VEGA10`. Failure currently logs and `goto failed` (probe
-  abort). Not IRQ, not a syscall hot path. Runs once per GPU at
-  boot/module load.
+Record:
+- `aqua_vanjaram_read_pcie_state` ← `aqua_vanjaram_get_reg_state` (PCIE
+  case)
+- ← `amdgpu_asic_get_reg_state` ← `amdgpu_sysfs_reg_state_get`
+- Sysfs bin attr `reg_state` mode **0444**, offset
+  `AMDGPU_SYS_REG_STATE_PCIE = 0x2000`
+- `get_reg_state` is only on `aqua_vanjaram_asic_funcs` (`soc15.c`)
 
 **Step 5.3: Callees**
-- Record: `get_index_into_master_table`,
-  `amdgpu_atom_parse_data_header`, `le32_to_cpu` on VBIOS tables. No
-  alloc/lock in the changed hunk.
+Record: `pci_upstream_bridge`, `pcie_capability_read_word`,
+`pci_find_ext_capability`, `pci_read_config_dword`, plus existing SMN
+reads (`aqua_read_smn` / `RREG32_PCIE`).
 
 **Step 5.4: Reachability**
-- Record: Yes, from normal boot on Vega10+ with atom firmware. The
-  `BUG()` itself only ran for Navi+ (`CHIP_NAVI10` and later — RX 5700
-  and essentially all later AMD GPUs) **and** an unrecognized `gfx_info`
-  `(frev,crev)`. Current headers only define v2.2 / v2.3 / v2.4 / v2.7 /
-  v3.0, all of which the `if`/`else if` already accept (`frev==2 &&
-  crev>=2` or `frev==3`). So the panic path is **firmware-mismatch /
-  corruption / future table**, not day-1 shipping VBIOS.
+Record: Userspace-reachable: `read()` on `/sys/devices/.../reg_state` at
+offset 0x2000 (or via drm sysfs). Not interrupt/hot path. Any process
+that can read that 0444 file can trigger it.
 
 **Step 5.5: Similar patterns**
-- Record: Same author, same series: imu11/12, ucode, cgs, gfx11/12 SDMA,
-  etc. `get_gfx_info()` in this file already used `-EINVAL` instead of
-  `BUG()`.
+Record: Same US/DS walk in `amdgpu_device_cache_switch_state()` (already
+NULL-checked in this tree) and `amdgpu_device_get_aspm_pdev()`.
 
 ---
 
-## Phase 6: This checkout
+## Phase 6: Local tree (v6.18.53)
 
-**Step 6.1: Does the buggy code exist here?**
-- Record: Local tree is **v7.3-rc4** (`VERSION=7 PATCHLEVEL=3 SUBLEVEL=0
-  EXTRAVERSION=-rc4`, HEAD `f0100363d8c37`). `git merge-base --is-
-  ancestor d7c595044965c HEAD` → yes. Current source already has the
-  `BUG()` removed (lines 911–920). The panic existed in this lineage
-  from **v5.19** until this commit (**v7.2-rc2+**).
+**Step 6.1: Does the bug exist here?**
+Record:
+- `git describe HEAD`: `v6.18.53-5049-g0f0bdc2b0dffb`;
+  `VERSION/PATCHLEVEL/SUBLEVEL` = 6.18.53
+- `git merge-base --is-ancestor 9bd596d9e90da v6.18.53` → **no** (fix
+  not in 6.18.53)
+- `git merge-base --is-ancestor 081a6eda2b2509 v6.18.53` → **yes** (bug
+  is in 6.18.53)
+- At `v6.18.53` lines 653–670: unguarded `pci_upstream_bridge` + config
+  reads
 
 **Step 6.2: Backport difficulty**
-- Record: Clean 2-line deletion against the pre-image. No structural
-  prerequisites.
+Record: `git apply --check` of both the candidate and upstream diffs
+onto the v6.18.53 file **succeeds** (hunk offset only). Context around
+`pcie_reg_addrs` / `aqua_vanjaram_read_pcie_state` matches. **Clean
+apply.**
 
-**Step 6.3: Related fixes already here**
-- Record: This **is** the fix; no alternate fix. No later revert or
-  follow-up on this function.
+**Step 6.3: Related fixes already here?**
+Record: Switch-state save is guarded (`9b608fe94870f` in v6.18.53).
+Sysfs PCIe readout is **not**. No earlier version of this helper in
+6.18.53.
 
 ---
 
 ## Phase 7: Subsystem context
 
-**Step 7.1:** Record: `drm/amdgpu` atom firmware parser. **IMPORTANT**
-(very common GPUs), not core mm/VFS.
+**Step 7.1**
+Record: amdgpu / Aqua Vanjaram (Instinct MI300 family: GC 9.4.3, 9.4.4,
+9.5.0). **IMPORTANT** (datacenter GPU driver), not core mm/VFS, not
+staging.
 
-**Step 7.2:** Record: High activity; this particular function has been
-stable since the 2022 v3.0 clock change aside from this `BUG()` removal.
+**Step 7.2**
+Record: File is actively developed, but this readout path has been
+unchanged since 2023. Mature buggy code, not a brand-new feature.
 
 ---
 
 ## Phase 8: Impact and risk
 
 **Step 8.1: Who is affected**
-- Record: Users of amdgpu on Navi+ (RDNA and later), i.e. a large
-  fraction of AMD GPU systems, **if** VBIOS `gfx_info` revision is not
-  one of the known cases.
+Record: Driver-specific: MI300/MI308/MI350 (`IP_VERSION(9,4,3/4)` and
+`(9,5,0)`). Highest impact: **VFIO/QEMU passthrough guests** where the
+internal US/DS switch is hidden. Bare metal with the real AMD switch is
+unaffected.
 
 **Step 8.2: Trigger**
-- Record: GPU probe. Not unprivileged syscall. Needs Navi+ **and**
-  unknown `gfx_info` frev/crev (corrupt VBIOS, unexpected vendor
-  firmware, or a newer table the driver was never taught). Common-path
-  shipping firmware does not hit it; firmware is still out of the
-  kernel’s control.
+Record: Reading sysfs `reg_state` at PCIE offset. Common for AMD
+debug/RAS dumps; also trivial to hit (`dd`/`pread` at 0x2000).
+Unprivileged users can read 0444 sysfs. Not a boot-every-time path.
 
 **Step 8.3: Failure mode**
-- Record: `BUG()` → kernel panic during device init. **Severity:
-  CRITICAL if triggered, LOW likelihood on known VBIOS.** After the fix,
-  unknown tables skip the gfx_info clock override and typically still
-  return success from earlier tables.
+Record: Kernel oops / NULL deref. **Severity: HIGH** (crash; local DoS
+from sysfs). Not silent corruption.
 
 **Step 8.4: Risk-benefit**
-- Record: Benefit medium-high (prevents a machine-killing assert in
-  firmware parse). Risk very low (2-line deletion, no locking/API/data-
-  structure change). Ratio favors applying it.
+Record:
+- Benefit: stops a real oops on MI300 passthrough when diagnostics read
+  PCIe state — production cloud/HPC setup.
+- Risk: ~25-line helper + `if (us_pdev)` around existing reads; mirrors
+  code already in this tree. **Low.**
+- Ratio: strongly favors backport.
 
 ---
 
@@ -306,135 +321,183 @@ stable since the 2022 v3.0 clock change aside from this `BUG()` removal.
 
 **Step 9.1: Evidence**
 
-**For backporting**
-- `BUG()` in driver init panics the whole system; kernel policy
-  (`Documentation/process/coding-style.rst`, `deprecated.rst`) says not
-  to do this.
-- Path is real GPU probe for all modern AMD GPUs; firmware tables can
-  change independently of the kernel.
-- 2-line deletion, obviously correct, no new API.
-- Sibling function already errors instead of panicking.
-- Restores the pre-v5.19 “don’t panic” behavior.
-- Maintainer-authored, Reviewed-by Kent Russell.
-- Zero practical regression surface.
+For:
+- Real NULL deref, reachable from sysfs
+- Buggy code in this 6.18.53 tree since 2023
+- Passthrough is a stated, realistic trigger
+- Same topology already caused a user-visible bug (drm/amd#4602) on the
+  sibling path
+- Small, obviously correct, maintainer-acked
+- Applies cleanly to v6.18.53
+- No new features/APIs
 
-**Against**
-- No user report in ~4 years; known table versions are all handled, so
-  the `else` is effectively a developer assert.
-- Part of a 43-patch “drop old BUG()s” sweep; pull described it as
-  cleanup, and it went to drm-next-7.3, not drm-fixes.
-- Subject/body promise `WARN()` + error return; the patch does neither.
-- After the change, unknown tables can return 0 with the smu_info clock
-  rather than failing probe.
+Against:
+- Affects one ASIC family, debug sysfs, not a universal path
+- No `Reported-by` / public crash log on *this* function
+- Kevin argued for hiding the whole interface (not a NAK of the NULL
+  check)
+- Skipped struct fields left uninitialized (minor, pre-existing for AER)
 
-**Unresolved**
-- Stable@ discussion unverified (lore 403).
-- No public confirmation this `BUG()` ever fired on shipping hardware.
+Unresolved:
+- Stable@ discussion (lore 403)
+- Whether a specific production crash dump exists for this sysfs path
+  (unverified; mechanism is still verified in code)
 
 **Step 9.2: Stable rules**
-1. Obviously correct and tested? **PASS** — 2-line deletion; maintainer
-   + reviewer.
-2. Real bug affecting users? **PASS** — panicking on unknown firmware is
-   a real driver bug; firmware is untrusted/variable even if reports are
-   absent.
-3. Important (crash/security/corruption/deadlock)? **PASS** — failure
-   mode is a kernel panic. Likelihood is low, severity is high.
-4. Small and contained? **PASS** — 2 lines, one function.
-5. No new features/APIs? **PASS**.
-6. Can apply to this tree? **PASS** — the hunk exists in this lineage;
-   the tree already contains the commit (`d7c595044965c`).
+1. Obviously correct and tested? **PASS** (mirror of existing checks;
+   maintainer Acked-by)
+2. Real bug affecting users? **PASS** (oops on MI300 passthrough sysfs
+   read)
+3. Important (crash/security/corruption/deadlock)? **PASS** — oops /
+   local DoS, HIGH
+4. Small and contained? **PASS** — one file, one helper + guard
+5. No new features/APIs? **PASS**
+6. Applies to local tree? **PASS** — clean apply; buggy code present
 
 **Step 9.3: Exceptions**
-- Record: None (not a device ID, quirk, DT, build, or doc fix).
-  Qualifies on the crash-prevention rule, not an exception category.
+Record: None (not a device-ID/quirk/DT/build/doc-only change). Qualifies
+as a normal crash fix.
 
 **Step 9.4: Decision**
-
-This tree is **v7.3-rc4**. The change is a two-line removal of a `BUG()`
-in Navi+ VBIOS clock parsing. That assert can panic the machine during
-amdgpu init if `gfx_info` is an unknown revision. That is the wrong
-failure mode for firmware the kernel does not control. The patch is
-trivial, standalone, and does not add features. Lack of a crash report
-and the series being a BUG() cleanup do not outweigh a panic in GPU
-probe.
-
-It meets the stable criteria for this tree: real crash fix, small,
-obviously correct, no dependencies.
+Backport. This tree is 6.18.53; the unguarded walk is present; the fix
+is a small NULL-deref guard for a userspace-reachable path on hardware
+this kernel already supports.
 
 ---
 
-## What the commit solves for stable users
+### What the commit solves for this tree
+`aqua_vanjaram_read_pcie_state()` walks to the GPU’s internal upstream
+switch and reads PCIe/AER config with no NULL or topology check. In
+passthrough that switch is often missing, so `pci_upstream_bridge()`
+returns NULL and the kernel oopses. The helper skips those reads when
+the ATI/AMD US/DS chain is not there, while still dumping SMN regs.
 
-On Navi and later, `amdgpu_atomfirmware_get_clock_info()` used `BUG()`
-when the VBIOS `gfx_info` table had a revision the driver did not list.
-That is a full kernel panic during device init. Stable systems keep a
-GPU for years while VBIOS/firmware can still change; panicking instead
-of skipping the override (or failing probe) is the bug. The fix only
-deletes that `BUG()`.
+### Risk vs benefit
+Benefit is avoiding a reproducible oops on Instinct MI300-class GPUs in
+VFIO guests. Risk is a narrow, identical-to-existing-pattern check.
+Applies cleanly to 6.18.53.
 
-Risk vs benefit: benefit is avoiding a boot-time panic; risk is
-essentially none. The leftover behavior (continue with the smu_info
-clock, no `WARN()`) is slightly sloppy versus the commit text, but it is
-the old safe path from before v5.19 and is acceptable for stable.
-
----
-
-## Verification
-- [Phase 1] Parsed tags: Reviewed-by Kent Russell, SOB Alex Deucher; no
-  Fixes/Reported-by/Cc:stable
-- [Phase 1] Body claims WARN + return error; `git show d7c595044965c` is
-  only `- } else {` / `- BUG();`
-- [Phase 2] Diff: 2 deletions in `amdgpu_atomfirmware_get_clock_info()`
-- [Phase 2] Read current function: `ret` starts `-EINVAL`; earlier
-  tables set `ret=0`; unknown gfx_info no longer panics
-- [Phase 3] `git blame` on parent: `BUG()` from `a8d59943b8846`
-  (2022-04-28)
-- [Phase 3] `git merge-base --is-ancestor a8d59943b8846 v5.18` → 1
-  (absent); vs v5.19 → 0 (present)
-- [Phase 3] Pre-BUG code in `9a530062d57fe` did not panic on unknown
-  revisions
-- [Phase 3] `git merge-base --is-ancestor d7c595044965c HEAD` → 0
-  (commit is in this tree)
-- [Phase 4] `b4 dig -c d7c595044965c` → lore/msgid
-  20260615235645.737189-18; 18/43 series
-- [Phase 4] `b4 dig -a`: v1 only; later resent as 05/30 with identical
-  diff
-- [Phase 4] `b4 mbox`: 44 messages, no NAK, no stable nomination; Kent
-  review not on the mailed patch
-- [Phase 4] `b4 dig -w`: To/Cc Alex Deucher + amd-gfx only
-- [Phase 4] lore.kernel.org and lore stable search: HTTP 403 —
-  UNVERIFIED
-- [Phase 5] grep: only caller is `amdgpu_device.c` init when
-  `is_atom_fw`; `is_atom_fw` set for Vega10+
-- [Phase 5] `atomfirmware.h`: gfx_info structs v2.2, v2.3, v2.4, v2.7,
-  v3.0 only — no v4
-- [Phase 6] `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`; `make
-  kernelversion` = 7.3.0-rc4
-- [Phase 6] `git describe d7c595044965c` =
-  `v7.2-rc2-1048-gd7c595044965c`
-- [Phase 6] Current file lines 911–920: no `BUG()`
-- [Phase 8] Failure mode: `BUG()` panic on GPU init — CRITICAL if hit
-- UNVERIFIED: whether this `BUG()` has ever fired on shipping VBIOS;
-  whether stable@ already considered it
+### Verification
+- [Phase 1] Parsed tags: author SOB, Alex Deucher Acked-by + SOB; no
+  Fixes/Reported-by/Cc-stable
+- [Phase 2] Diff: helper + `if (us_pdev)` around config reads in
+  `aqua_vanjaram.c`; SMN loop unchanged
+- [Phase 2] `pci_upstream_bridge()` / `pci_physfn()` read: NULL parent →
+  NULL deref
+- [Phase 3] `git blame v6.18.53`: lines from `081a6eda2b2509` (2023)
+- [Phase 3] `git merge-base --is-ancestor 081a6eda2b2509 v6.18.53`: yes
+  (bug in this tree)
+- [Phase 3] `git merge-base --is-ancestor 9bd596d9e90da v6.18.53`: no
+  (fix not in 6.18.53)
+- [Phase 3] Related `9b608fe94870f` already in v6.18.53 (switch-state
+  save)
+- [Phase 4] `b4 dig -c 230753e46a4a...`: lore thread; v1 only
+- [Phase 4] mbox: Kevin design comment; Lijo kept SMN reads; Alex Acked-
+  by; no NAK
+- [Phase 4] lore.kernel.org/stable: **UNVERIFIED** (HTTP 403)
+- [Phase 5] Callers: sysfs `reg_state` 0444 → PCIE offset 0x2000; only
+  `aqua_vanjaram_asic_funcs`
+- [Phase 6] `git describe HEAD` / Makefile: 6.18.53; unguarded code at
+  v6.18.53:653–670
+- [Phase 6] `git apply --check` of candidate and upstream patches onto
+  v6.18.53 file: success (offset only)
+- [Phase 8] Failure mode: NULL deref oops on sysfs read in passthrough,
+  HIGH
+- UNVERIFIED: no public crash log specifically for this sysfs function
+  (mechanism still verified)
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 59 +++++++++++++++-------
+ 1 file changed, 42 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index c7d32fb216e4e..ce2a4a15d5ecb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -806,8 +806,6 @@ int amdgpu_atomfirmware_get_clock_info(struct amdgpu_device *adev)
- 				   (crev != 6)) {
- 				spll->reference_freq = le32_to_cpu(gfx_info->v22.rlc_gpu_timer_refclk);
- 				ret = 0;
--			} else {
--				BUG();
- 			}
+diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+index 15e70415c35b4..b73e114206cc1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
++++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+@@ -613,6 +613,29 @@ static struct aqua_reg_list pcie_reg_addrs[] = {
+ 	{ smreg_0x1A380088, 6, DW_ADDR_INCR },
+ };
+ 
++/*
++ * Return the GPU's internal US switch port, or NULL if it is not visible
++ * (e.g. passthrough) or the EP is parented under an unrelated bridge.
++ */
++static struct pci_dev *aqua_vanjaram_get_us_pdev(struct amdgpu_device *adev)
++{
++	struct pci_dev *ds_pdev, *us_pdev;
++
++	ds_pdev = pci_upstream_bridge(adev->pdev);
++	if (!ds_pdev || ds_pdev->vendor != PCI_VENDOR_ID_ATI ||
++	    pci_pcie_type(ds_pdev) != PCI_EXP_TYPE_DOWNSTREAM)
++		return NULL;
++
++	us_pdev = pci_upstream_bridge(ds_pdev);
++	if (!us_pdev ||
++	    (us_pdev->vendor != PCI_VENDOR_ID_ATI &&
++	     us_pdev->vendor != PCI_VENDOR_ID_AMD) ||
++	    pci_pcie_type(us_pdev) != PCI_EXP_TYPE_UPSTREAM)
++		return NULL;
++
++	return us_pdev;
++}
++
+ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
+ 					     void *buf, size_t max_size)
+ {
+@@ -620,7 +643,7 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
+ 	uint32_t start_addr, incrx, num_regs, szbuf;
+ 	struct amdgpu_regs_pcie_v1_0 *pcie_regs;
+ 	struct amdgpu_smn_reg_data *reg_data;
+-	struct pci_dev *us_pdev, *ds_pdev;
++	struct pci_dev *us_pdev;
+ 	int aer_cap, r, n;
+ 
+ 	if (!buf || !max_size)
+@@ -652,25 +675,27 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
  		}
  	}
+ 
+-	ds_pdev = pci_upstream_bridge(adev->pdev);
+-	us_pdev = pci_upstream_bridge(ds_pdev);
++	us_pdev = aqua_vanjaram_get_us_pdev(adev);
++	if (us_pdev) {
++		pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
++					  &pcie_regs->device_status);
++		pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
++					  &pcie_regs->link_status);
++
++		aer_cap = pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
++		if (aer_cap) {
++			pci_read_config_dword(us_pdev,
++					      aer_cap + PCI_ERR_COR_STATUS,
++					      &pcie_regs->pcie_corr_err_status);
++			pci_read_config_dword(us_pdev,
++					      aer_cap + PCI_ERR_UNCOR_STATUS,
++					      &pcie_regs->pcie_uncorr_err_status);
++		}
+ 
+-	pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
+-				  &pcie_regs->device_status);
+-	pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
+-				  &pcie_regs->link_status);
+-
+-	aer_cap = pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
+-	if (aer_cap) {
+-		pci_read_config_dword(us_pdev, aer_cap + PCI_ERR_COR_STATUS,
+-				      &pcie_regs->pcie_corr_err_status);
+-		pci_read_config_dword(us_pdev, aer_cap + PCI_ERR_UNCOR_STATUS,
+-				      &pcie_regs->pcie_uncorr_err_status);
++		pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
++				      &pcie_regs->sub_bus_number_latency);
+ 	}
+ 
+-	pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
+-			      &pcie_regs->sub_bus_number_latency);
+-
+ 	pcie_reg_state->common_header.structure_size = szbuf;
+ 	pcie_reg_state->common_header.format_revision = 1;
+ 	pcie_reg_state->common_header.content_revision = 0;
 -- 
 2.53.0
 
