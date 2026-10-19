@@ -4,28 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E879CCF2E5
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:02:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94447CCF2E6
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:02:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 083ED10E9BF;
-	Mon, 19 Oct 2026 13:02:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2989310ECB3;
+	Mon, 19 Oct 2026 13:02:25 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E11E510ECB3
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:02:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A7A110ECF1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:02:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=tyjFlXZFSm3mIz+2rTvMwMGrUiGRfJMisVueYauF5Ts=; b=sg+PrkyjRjkdqjTw8EZuq2U/8i
- 76o1IbSi6Hukg/r+MSg446zR8FsGt1CwC+ukeEG5iBeY3NI9VlbUez5nloeoSd83OhS0653BogsVF
- Dudwryn8lgYxu+dBhashSjo//L54tb3uGOKVddEGxc9LMhP9jk4uty53ryzhZxpppHY/Mm16o7gqe
- X5fh3wh1VMBWW1x7rZE9qU7aVSNzWNPeO5iDra9fpg+kjBx3/IZH+IqafcPf+vCrNI0T9DK1DStMO
- eHiVX7mVD0GIdFfa56gJQcLI+tYUKkaRqi1vBMvPZhQUX7jtV7fKsdxTrK/rNj0+CT7pTHCjuzZeX
- rgn2wQ4Q==;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=I23yKdrq41A1nk7AW2LLMhWKyul7+XfcLjjn7B9q9Ak=; b=
+ LINEWijzEk/3acDQ8TX5twbYvy6NwM7Of2SPTn+E622cxnNLbZZ2zm3vZceW23uj9DYUujehqUpVw
+ tTsLPcP3N4QJcYqSeN5hwE/K9ZnwYwGZjekXVRBYo07cPzyjxUE55cUFrLffcyzR3FpbDf7+gmnWC
+ YDQ0mKp3MZYUX21BXv67WaXfQTTbUb/jldRBZBopFac6ZK6b8z0vFgBiEKkXpXFg08fIQdJfz+1Pu
+ XdE2NqK3TDK2ki8/EUuF4iZSaIFa/Vz3o/ISYf9yVeCigJ86XlV2jBhLj3qOWmor/SARdloDJYHq9
+ T3kJcKjVzaVr+dkrsv0RaxWZKxIEl1CByg==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xIn0I-003UKa-Ve; Mon, 19 Oct 2026 15:02:15 +0200
+ id 1xIn0J-003UKg-LQ; Mon, 19 Oct 2026 15:02:15 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
@@ -33,15 +32,14 @@ Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
  Alex Deucher <alexdeucher@gmail.com>,
  Felix Kuehling <felix.kuehling@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v4 3/7] drm/amdgpu: Extend amdgpu_ttm_tt_get_userptr() to
- return flags
-Date: Mon, 19 Oct 2026 14:01:55 +0100
-Message-ID: <20261019130159.11739-4-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v4 4/7] drm/amdgpu: Extend listing of buffer handles with the
+ userptr object flag
+Date: Mon, 19 Oct 2026 14:01:56 +0100
+Message-ID: <20261019130159.11739-5-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019130159.11739-1-tvrtko.ursulin@igalia.com>
 References: <20261019130159.11739-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,78 +55,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Extend amdgpu_ttm_tt_get_userptr() to also return userptr creation flags
-so those can be queried from a subsequent patch.
+Add a new flag (AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR) to the
+DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS ioctl.
+
+This is required to allow for checkpoint and restore of userptr objects.
+
+The existing struct drm_amdgpu_gem_list_handles_entry is used with the
+userptr creation flags places in alloc_flags, while the alignment field
+contains the userspace address.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h  | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 4 +++-
- 3 files changed, 8 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 21 +++++++++++++++------
+ include/uapi/drm/amdgpu_drm.h           | 14 ++++++++++----
+ 2 files changed, 25 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index cebeabd0ee72..c1b972258e93 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1326,10 +1326,11 @@ static void amdgpu_ttm_tt_unpopulate(struct ttm_device *bdev,
-  * task
-  *
-  * @tbo: The ttm_buffer_object that contains the userptr
-- * @user_addr:  The returned value
-+ * @user_addr: Returned userptr address
-+ * @user_flags: Returned userptr flags
-  */
- int amdgpu_ttm_tt_get_userptr(const struct ttm_buffer_object *tbo,
--			      uint64_t *user_addr)
-+			      uint64_t *user_addr, uint32_t *user_flags)
- {
- 	struct amdgpu_ttm_tt *gtt;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 385be1e0944c..e3d3e205a4fa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -1267,14 +1267,23 @@ int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
  
-@@ -1338,6 +1339,7 @@ int amdgpu_ttm_tt_get_userptr(const struct ttm_buffer_object *tbo,
+ 		bo_entry = &bo_entries[bo_index];
  
- 	gtt = (void *)tbo->ttm;
- 	*user_addr = gtt->userptr;
-+	*user_flags = gtt->userflags;
- 	return 0;
- }
+-		bo_entry->size = amdgpu_bo_size(bo);
+-		bo_entry->alloc_flags = bo->flags & AMDGPU_GEM_CREATE_SETTABLE_MASK;
+-		bo_entry->preferred_domains = bo->preferred_domains;
+ 		bo_entry->gem_handle = id;
+-		bo_entry->alignment = (u64)bo->tbo.page_alignment << PAGE_SHIFT;
++		bo_entry->size = amdgpu_bo_size(bo);
++		if (amdgpu_ttm_tt_is_userptr(bo->tbo.ttm)) {
++			u32 flags;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 8d14d8a5c25c..6967b5a06d20 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -250,7 +250,7 @@ static inline u64 amdgpu_gtt_node_to_byte_offset(const struct drm_mm_node *gtt_n
+-		if (bo->tbo.base.import_attach)
+-			bo_entry->flags |= AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
++			bo_entry->flags = AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR;
++			amdgpu_ttm_tt_get_userptr(&bo->tbo, &bo_entry->userptr,
++						  &flags);
++			bo_entry->alloc_flags = flags;
++		} else {
++			bo_entry->alloc_flags = bo->flags & AMDGPU_GEM_CREATE_SETTABLE_MASK;
++			bo_entry->preferred_domains = bo->preferred_domains;
++			bo_entry->alignment = (u64)bo->tbo.page_alignment << PAGE_SHIFT;
++
++			if (bo->tbo.base.import_attach)
++				bo_entry->flags = AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
++		}
  
- void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct amdgpu_hmm_range *range);
- int amdgpu_ttm_tt_get_userptr(const struct ttm_buffer_object *tbo,
--			      uint64_t *user_addr);
-+			      uint64_t *user_addr, uint32_t *user_flags);
- int amdgpu_ttm_tt_set_userptr(struct ttm_buffer_object *bo,
- 			      uint64_t addr, uint32_t flags);
- bool amdgpu_ttm_tt_has_userptr(struct ttm_tt *ttm);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index c9db79b86868..715d119fea36 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2115,6 +2115,7 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 			struct kfd_criu_bo_bucket *bo_bucket;
- 			struct kfd_criu_bo_priv_data *bo_priv;
- 			int i, dev_idx = 0;
-+			u32 user_flags;
+ 		bo_index += 1;
+ 	}
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 29009f6aabde..7620d6acfa0a 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -851,6 +851,7 @@ struct drm_amdgpu_gem_op {
+ };
  
- 			kgd_mem = (struct kgd_mem *)mem;
- 			dumper_bo = kgd_mem->bo;
-@@ -2137,7 +2138,8 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+ #define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT	(1 << 0)
++#define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR	(1 << 1)
  
- 			if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
- 				ret = amdgpu_ttm_tt_get_userptr(&dumper_bo->tbo,
--								&bo_priv->user_addr);
-+								&bo_priv->user_addr,
-+								&user_flags);
- 				if (ret) {
- 					pr_err("Failed to obtain user address for user-pointer bo\n");
- 					goto exit;
+ struct drm_amdgpu_gem_list_handles {
+ 	/* User pointer to array of drm_amdgpu_gem_bo_info_entry */
+@@ -866,7 +867,7 @@ struct drm_amdgpu_gem_list_handles_entry {
+ 	/* gem handle of buffer object */
+ 	__u32 gem_handle;
+ 
+-	/* Currently just one flag: IS_IMPORT */
++	/* AMDGPU_GEM_LIST_HANDLES_FLAG_* */
+ 	__u32 flags;
+ 
+ 	/* Size of bo */
+@@ -875,11 +876,16 @@ struct drm_amdgpu_gem_list_handles_entry {
+ 	/* Preferred domains for GEM_CREATE */
+ 	__u64 preferred_domains;
+ 
+-	/* GEM_CREATE flags for re-creation of buffer */
++	/* GEM_CREATE flags for re-creation of buffer or drm_amdgpu_gem_userptr.flags */
+ 	__u64 alloc_flags;
+ 
+-	/* physical start_addr alignment in bytes for some HW requirements */
+-	__u64 alignment;
++	union {
++		/* physical start_addr alignment in bytes for some HW requirements */
++		__u64 alignment;
++
++		/* drm_amdgpu_gem_userptr.addr for userptr objects */
++		__u64 userptr;
++	};
+ };
+ 
+ #define AMDGPU_VA_OP_MAP			1
 -- 
 2.56.0
 
