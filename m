@@ -4,161 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E100BCCF2E7
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:13:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85989CCF2DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:38:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A99410ED0B;
-	Mon, 19 Oct 2026 13:13:18 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F38C810ED1C
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:13:05 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69J8OqlV1348106
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:13:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- GjY7yAp2Z8nvcjzi2objk8Dg2AFP5I6RCbBdptwbxXw=; b=Xg/1YfD8EHqVjLCd
- cSTkcv5ymULTNWeLesqGwFCM3jFTtjmgbly01/uvxugyYBVOsWxKY25puQT98Q9J
- 2c93BPO/NmMV5VAmxi9v9Q4OIY3fyJiHVt52FQRslRJolMqPWhwpN/0+qxKkbwdX
- 9rXp+O+uCKD6+g/l8I/342rKjvR+y6iTKsB9TUyKzN7Shzutsn0NWXvAd+nl23tR
- SqwG39qcdMwa4ntlLHoALZLa/Aq8+fkYz6JWHyLodWBMPMfxfSgJJrqx3bZ31WZ+
- sjKo+qLiXOiPhIn1bFN1kbe4K+3hkfI/PVEN0YaRse3InRiXjC5kQLSnM0BSM7JC
- THInwA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf4rh79s-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:13:05 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93f322ef7d3so344148685a.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 06:13:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792415584; x=1793020384;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=GjY7yAp2Z8nvcjzi2objk8Dg2AFP5I6RCbBdptwbxXw=;
- b=QhHpZqIQuZRIdVNq52PVCaGxh3OaQuTmVS3dRl+n3LXLEnu7ThugAO4mwsseNmuie5
- +aWsqJ3PZFbvXS1QLdaHgK9N47Hi5IuDwufl0LF8Cmb08XaYpLEkif8eZdqc10et/tPH
- qpMf1xEWzYG0Ryxt6nio6PVf/Zfk+xmI3C/p7WoZmNnqM+IPBpUa/eBAszXLEKOrAx9T
- wNA2rRob+YS8yyrjGvX6ZccMr1T1NtcDL94V6LrewdMTKEgQgJhjaxFasvcbEXLPLc8I
- CXqoaNv7VQ4L89eFV3eJ1tngOsD953DpiBNIUAIJ2hva47KHdYDsaJbvKA0yriPE6auL
- dBmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792415584; x=1793020384;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GjY7yAp2Z8nvcjzi2objk8Dg2AFP5I6RCbBdptwbxXw=;
- b=zC4DtpWEeJvC8mHpAN5E29HC9EghQENYI5cNFkcST9cbQ7GQMoBr/GlDxyXe/gURiL
- aBjqfyosEDCGIQP4YCaclHp/mdXe4QSRcat6rnU1LGvfok6cyCZCPMfG0NWF0eLv/5Zj
- mbjGy2zlLqMIUVwNigZPflZTIo77F3G2jl8X1LO4MwMvLxhlrDsuNA6oqf+H/nsPai8x
- fRDOcNw2I4XHU/9h8cOkbQj8AahB+z7SxgCrMCA8QGhG4WsJx9rTBeO4o9YzAESbdBtf
- jPdg8otxlIC7GrCsgu0hozA+9Tp13mMlxtULXhlCGOQuSVTsma4f7Yzg02hSt3nI2p7i
- Ml6w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx7kE2MHIjq8XMQcElRskPtSmMMa+1cZkLGK8jN3uxvGl7axdkamJ8r7ATbMuzTd5Ng60qk3iNk@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLtwwBNrwqyteQWt61e4JNjRR+kRtjHb8g26ADBZ3Sarp3TLI/o
- YPxPZcXf9OrTt5G/hldmz2ez1QyxC7KV4g6As0MIqGJvYuTKVhBDCpDvAofkumsdFnu3orvXjTA
- 0pVgW1x+1jP62rel2/vHEUOY400fqDKBXTAEsJDjXVXsK6rh0tLEJf00EdpU18ozN0Ayr
-X-Gm-Gg: AYBFou3GHftUDuWn0G2FenCtUAC0IXFiI7JXiBnRnuV3+2T0QVPrKgfZ10W05L+APf7
- 5NrBnSFWdvesrI/A+xVYbfDxdX+1xqgy+dkEMlcYhYrPy3bUqgHH/WYx8Z00D0xl6DbdipaiGJK
- Yi6kvRRfY6pNIovU9VfSGDmq2KvKvQDGVvWovX/Ds4vdRCDtvdykgfTGuWP+mhxIhEG7dbEcRUa
- nM6KYMssvYIE8KbidPQ3VfOMKTxd/p2HWjof4Sc/aREN+svxta8b76EtkuBxCTAHrN5ELH2EwXH
- 0knOLS+hURNGP2iEgu//qtWOs0eLIryZ+HcX3ieHdcNlNnLNmU4Z8c7BarlHpthEYdm2et3slcM
- aPcm/4gFspXT8k4/V9UTZi4rThB7/5joEeUDBW9Y997mOLspAWisk77rxvgZjZuOnrO1uprffXc
- J3r3ij9G05tFjE
-X-Received: by 2002:a05:620a:4505:b0:939:6c9a:8f8d with SMTP id
- af79cd13be357-93f29ceec9bmr1248053985a.28.1792415584231; 
- Mon, 19 Oct 2026 06:13:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:4505:b0:939:6c9a:8f8d with SMTP id
- af79cd13be357-93f29ceec9bmr1248044185a.28.1792415583536; 
- Mon, 19 Oct 2026 06:13:03 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ab24f5dd5esm23432581fa.6.2026.10.19.06.13.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 06:13:02 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 16:12:35 +0300
-Subject: [PATCH v7 9/9] drm: writeback: drop the drmm writeback cleanup action
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02E3910E542;
+	Mon, 19 Oct 2026 13:38:21 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012051.outbound.protection.outlook.com [52.101.48.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C063E10E542
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:38:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RvJdjgYPtR77tVx5OY/9gaVCDIn9xDOWeqUplvclgGeAD5P4REx/iaiyMvBlDgPICb7mV+JFkp8rMuiUU9+XrHxMA8m9HrLVDPxrQLJE4GtUEsUSlnOlJVhmcKksex26mwODwqFgavMcKtKWTuLKYDbyImy6o84ncx9mRVtRcd+aX6JGEH29z0VvDQZ2494JZZglOWutGtp0mbZU7Ona4GHHu0/NYCqxdEFeNnnf2Rj3uHO0ylpJXlo1xQXZ7JlV/Y+NwNrvS7bqolqUm9zckW4OupkQpyDenK0YzeMNsBMHjJsO20ttCCrW4Id9RLjtGE9Z6ab4Tfy6tUuIqfu3rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VRAhaInBZnywnQHe59zWTlHr2+Je4kIvgxfH22gKIS8=;
+ b=HvLAq2cWK3qh1FiqIDJ2sV9EYxKoTGJy/7VykGv0FITA6eTQHApvKoc1ZEH/tDEHL40aysGKikdYP/MyFY48bMrK++jT2XuKPh4ajkpAVe3sl20s1ZTfHWvnBW+4a0USUtP03p4QWTnMIejKGiiF/szz0C4LEJ8j14XzlAEdlLJ+cxkTHDVAH+WkNNGKIY4BICdIhHjcdXZi2KXz7g127dcn486DRqv6kWSnroWvRNoAo7sbIGvoDxvxldqcyvLQ04BOGvN1EXutnk3GREbMqj+1xg9m3+7UlPWs3FM6mJ90y09HoCr0pF27ukjQnOkGVxZBzsYw362RQlAHDF4w8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VRAhaInBZnywnQHe59zWTlHr2+Je4kIvgxfH22gKIS8=;
+ b=y14Cb+oCgeV5KguLC8j14QKL1pNK5ofHm+9ozleet7Bxx5/SIe44Cd7rgtQmXb3SzXHpr7/A/BD9V4lWxfxeYNt6MsWQ7xVg24KAm0GOfeYrc/kNH8z3eFQXlNrRDXK+QUDmfKWxuCCB9warSRKMoykmiGU2EZ5nzBK8v2SsS8k=
+Received: from CH0PR04CA0017.namprd04.prod.outlook.com (2603:10b6:610:76::22)
+ by LV0PR12MB980390.namprd12.prod.outlook.com (2603:10b6:408:3ef::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 13:38:09 +0000
+Received: from CH1PEPF0000A348.namprd04.prod.outlook.com
+ (2603:10b6:610:76:cafe::4d) by CH0PR04CA0017.outlook.office365.com
+ (2603:10b6:610:76::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
+ 19 Oct 2026 13:38:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000A348.mail.protection.outlook.com (10.167.244.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 13:38:09 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
+ 2026 08:38:01 -0500
+Received: from Xiaogang-ROCM-Dev.amd.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
+ via Frontend Transport; Mon, 19 Oct 2026 08:38:01 -0500
+From: Xiaogang.Chen <xiaogang.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Xiaogang Chen <xiaogang.chen@amd.com>
+Subject: [PATCH v3 2/3] drm/amdkfd: Do not migrate partial THP memory at
+ CPU/GPU page fault handler
+Date: Mon, 19 Oct 2026 08:38:44 -0500
+Message-ID: <20261019133845.166916-3-xiaogang.chen@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261019133845.166916-1-xiaogang.chen@amd.com>
+References: <20261019133845.166916-1-xiaogang.chen@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-wb-drop-encoder-v7-9-d4288a26eb54@oss.qualcomm.com>
-References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
-In-Reply-To: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- John Harrison <John.Harrison@igalia.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Brian Starkey <brian.starkey@arm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2590;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=cJTn82pjvFTmv+adSTGav2SLcNIy0UXB7XKTHYaKc7s=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq1hdGrWE90+VGNNBzkJup8rA7qU3hQoX7mvzRl
- 8wMEIYTVG6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatYXRgAKCRCLPIo+Aiko
- 1XcnB/4r2B/SnDa+KqzrY9qAJ+Lmba7KA8Op/9uFQB8E2ydzAXcTOqqgHiv4QFUYGKZ4B/Ra6Jj
- uDzpKki/dgdrqbghElst7BBOD9KgAcrauCvD0jhckc5uI7D9naEe7ld4JjvAXgtGkTQdD+XTqed
- Y5+ic4ZkIHQ/Ft9p92DnUsw9HyCq4LbEd+h16HozGCQOKLqF61cdBWLbIBbTrgZuNWXDtUIQU5Q
- DHLG2TdMuMa3kHgVXeFr//FpfmIS95T+IJnDUsyvTS4UgRQa8RnZVX/tlTEPn63rhGaIDhzCKBn
- BlvmeLAa8FjRjkTzflbzt6nAJQJNnv99VENO8gw8577fKCFc
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: tP4uTE9hWWck-C-taPlnxUZgcvjkUvVX
-X-Proofpoint-GUID: tP4uTE9hWWck-C-taPlnxUZgcvjkUvVX
-X-Authority-Analysis: v=2.4 cv=H7NOUOYi c=1 sm=1 tr=0 ts=6ad61761 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=jfrLVL6Nzc9eZwqZ98kA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1MiBTYWx0ZWRfX2edid6T07VNI
- k9RC2bPsofBhIxJCv7ijwtaNmYj+BGgyLxxOUMCHNPeX3cbYb7S1xClKmjD5pT0ud33kaifzYjr
- OMy6rVmdTyTXy0bPJxYRXkybJpRN5OZ1f2g33RABY74o16fIsTt5ED8+1cqohp53S6rGjQy6Hbj
- SMzPPzl8Ki0bzfOFXc1uhuEFB0thhs5B2EPI0x2jsS2UTNx6h3gyxp1ITdL6fFE07BQ9LFl6jhY
- Ajr5XoPKgXv9rXnc/pZlaOBLKxHyEqVnBbY0p58HXhfNW0kB9s+gT4H6HH/5hBWBc8xMYc6xNtR
- GkQZoicVAPTFLAFDgYrUjFyOHyW1aaWR0ULsJdV60YmBx0TyAsHaiM7Afwb3d6L1dHAYhMarCwy
- ukAzEqYBp7x5vDQSxJRxBQXR2gVsAH7ZN9Yn1CuFJihuXq+9eEEa9vjym3wEo+ZscL2yAWBupiS
- UKnNYe52/EXjrAlqeKQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1MiBTYWx0ZWRfX8rr1YPnqNqbZ
- rSVYj28x1YALkPgbV+I3D7P3epnh0+/MKJzIoK+GXRDLqgZtl7LEw9QYhRz9jq+xB3x7pgygOqW
- 2v9ta9f8zUmCMdlLsc7UljZOfJqLrmE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
- suspectscore=0 spamscore=0 bulkscore=0 adultscore=0 malwarescore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610190052
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A348:EE_|LV0PR12MB980390:EE_
+X-MS-Office365-Filtering-Correlation-Id: d357a267-fd51-469a-ea43-08df2de636da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|22082099003|18002099003|11063799006|10067099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: Cp1+dA5rkK9MBsXY8gX6hnVMy4W7J9TQJ65kDMRc/05aQYOFjc7O57xdAjnYz1XScPWj9CeeHj4eBcKIyHAPuYHNjQx8myVsZIhMdlgsblgdStrgHA3Cmu2F11393+toROWXh/C/X8l4FmsyFJtKPCIYrE8rIMYlI62TX0hnVOunsimknNH4AX+yjVjYrVx7JnD9afn2ODP7ysyQ2DBHethGulpvhposyQGoU6O3tKew3pV4BqdWC3ocOKx6y9FsYFN4r6U2puMrDo6pDZ7DtbKPbMR8HZ+fwTr8Gcx80YlsvvISGNdt6bUK+aQyJZRIx8vTO+VR1STd7E2DgpTx7NkHvcs5FQStAvVjq5hIlfD7WKYhbXj3aHj9CSFx/hnWBH8GCFDoF3Nf+PMZ8dEbAPxx71CSZ3TfYov3MxRJRIin5a/ADhfauxQO1oF01rjy47y+O3c+I368uTiISWMf3LVgB7US1hdwa480s061OwJ0I5Vf3rRqSipfxrpNWND7V4gh+VWMDfBdAggx3GlO8jErUM/WhXCBhfTM/UYcrMLFKd1XnJZsS2k7wzJnb0ZQmCIFe36Vz6Okrk8QhcNflKitHdPRLAOFsFj3Frm5l7Kvw159qli2+60vKgx56QbDPBRi8dQJiKg9Tjr+of3f/KRawUtM0442DGN8rLwXtFsyEEZxuVuDZKSmsN3trmqUZn//BgTOuTVIqB1aeffQMg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(22082099003)(18002099003)(11063799006)(10067099003)(261009223027099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: u0debgsLR4so7gvqUPUOjkJ+KLs648j92dujmbYLPhCPgDUibaqmHKZNxMHYAZwxwiTFtPpj3ddQscwdxEf7ZHgq2159d3Y1SHfqBo+gOGzteqfElR0Q3w8f8pQnFBTBsrS9UDvMd9agGImo+hfcLG9UvWGLY6ka9cEzpXBfHqCIGNUPbqLVcPzbe+S2EuJVVQgMTH6ObfBEKZ92X2CtWcF4fvW2sxx6Q/q2UT3VAFxXnsMqgyalaInGjvlBEidXQdhCDOl+73Fjdry5RM0kh2D9zZ8dcf2AFNeUStLtaujRNvf3/Da9hkofI6g5xFbTfs56OPG7bgEdVLZsXo2ghyTFvVn7xf8P+rtNJDCxoKqxZ7VwP58EEH0oIEpAjau0ztWm8GFYioeU40LqlwA0oYC23G4TYjvjw55iC3SRkO5yiXZjq5mQGmiWATAyUJRP
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 13:38:09.5393 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d357a267-fd51-469a-ea43-08df2de636da
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A348.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB980390
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,76 +108,227 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drmm_connector_init() already registers drm_connector_cleanup() as a
-managed action, and that now cleans up the writeback state too. The
-extra action registered by drmm_writeback_connector_init() just does the
-same work a little earlier, leaving drm_connector_cleanup() nothing to
-do. Drop it.
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-Assisted-by: LLM
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+After support device THP the page fault(either CPU or GPU) address can point
+to THP(device or anonymous THP).
+
+If the correspondent svm prange covers the whole compound folio migrate at
+folio order so HMM can collect MIGRATE_PFN_COMPOUND.
+
+Do not migrate partial THP memory. If do HMM will split THP folio. If the
+compound folio has extra ref/pin the split will fail, then skip migration,
+leave without page restore, then cpu/gpu keep retrying.
+
+If the prange was split and no longer covers the PMD, do not call
+split_folio(): it is not exported to modules. Walk only this prange and let
+migrate_vma_setup() split the PMD inside mm.
+
+If the fault address has PTE mapping memory use prange->granularity to decide
+migration size.
+
+Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
 ---
- drivers/gpu/drm/drm_writeback.c | 25 ++++---------------------
- 1 file changed, 4 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 39 ++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 82 +++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h     | 12 ++++
+ 3 files changed, 130 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-index 272012a70efe..0c5d2fbe7a7c 100644
---- a/drivers/gpu/drm/drm_writeback.c
-+++ b/drivers/gpu/drm/drm_writeback.c
-@@ -16,7 +16,6 @@
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_framebuffer.h>
--#include <drm/drm_managed.h>
- #include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_property.h>
- #include <drm/drm_writeback.h>
-@@ -303,14 +302,6 @@ void drm_writeback_connector_cleanup(struct drm_connector *connector)
- 	spin_unlock_irqrestore(&wb_connector->job_lock, flags);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 7a129c9954fc..2febe3bb690e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -1059,6 +1059,8 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
+ 	struct svm_range *prange;
+ 	struct kfd_process *p;
+ 	struct mm_struct *mm;
++	struct folio *folio;
++	unsigned int order;
+ 	int r = 0;
+ 
+ 	svm_bo = vmf->page->zone_device_data;
+@@ -1104,8 +1106,41 @@ static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
+ 	if (!prange->actual_loc)
+ 		goto out_unlock_prange;
+ 
+-	/* Align migration range start and size to granularity size */
+-	size = 1UL << prange->granularity;
++	folio = page_folio(vmf->page);
++	order = folio_order(folio);
++
++	/*
++	 * A PMD device-private fault always passes the folio head in
++	 * vmf->page. If this prange still covers the whole folio, migrate
++	 * at folio order so HMM can collect MIGRATE_PFN_COMPOUND.
++	 *
++	 * Do not want migrate partial THP device memory. If do HMM will split
++	 * THP folio. If the compound folio has extra ref/pin the split will fail,
++	 * then skip migration, leave without page restore, then cpu keep retry.
++	 *
++	 * If the prange was split and no longer covers the PMD, do not call
++	 * split_folio() here: it is not exported to modules. Walk only this
++	 * prange and let migrate_vma_setup() split the PMD inside mm.
++	 *
++	 * If the fault address has PTE mapping device-private memory use
++	 * prange->granularity to decide migration size.
++	 */
++	if (order && !vmf->pte) {
++		unsigned long folio_start = ALIGN_DOWN(addr, 1UL << order);
++		unsigned long folio_last = folio_start + (1UL << order) - 1;
++
++		if (prange->start > folio_start || prange->last < folio_last) {
++			pr_debug("partial prange on device THP svms 0x%p prange [0x%lx 0x%lx] folio [0x%lx 0x%lx]\n",
++				 prange->svms, prange->start, prange->last,
++				 folio_start, folio_last);
++			size = 1UL << prange->granularity;
++		} else {
++			size = 1UL << max(prange->granularity, order);
++		}
++	} else {
++		size = 1UL << prange->granularity;
++	}
++
+ 	start = max(ALIGN_DOWN(addr, size), prange->start);
+ 	last = min(ALIGN(addr + 1, size) - 1, prange->last);
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 8e1fb5df8abd..7443beb5778c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -38,6 +38,8 @@
+ #include "kfd_svm.h"
+ #include "kfd_migrate.h"
+ #include "kfd_smi_events.h"
++#include <linux/mm.h>
++#include <linux/leafops.h>
+ 
+ #ifdef dev_fmt
+ #undef dev_fmt
+@@ -3078,6 +3080,53 @@ svm_fault_allowed(struct vm_area_struct *vma, bool write_fault)
+ 	return (vma->vm_flags & requested) == requested;
  }
  
--static void drm_writeback_connector_cleanup_action(struct drm_device *dev,
--						   void *data)
--{
--	struct drm_writeback_connector *wb_connector = data;
--
--	drm_writeback_connector_cleanup(&wb_connector->base);
--}
--
- /**
-  * drmm_writeback_connector_init - Initialize a writeback connector
-  *
-@@ -321,7 +312,8 @@ static void drm_writeback_connector_cleanup_action(struct drm_device *dev,
-  * @formats: Array of supported pixel formats for the writeback engine
-  * @n_formats: Length of the formats array
-  *
-- * This function initialize a writeback connector and register its cleanup.
-+ * This function initializes a writeback connector. Cleanup is automatically
-+ * handled with a call to drm_connector_cleanup() in a DRM-managed action.
-  *
-  * This function creates the writeback-connector-specific properties if they
-  * have not been already created, initializes the connector as
-@@ -344,17 +336,8 @@ int drmm_writeback_connector_init(struct drm_device *dev,
- 	if (ret)
- 		return ret;
++/*
++ * svm_range_cpu_huge_folio_order - folio order of a PMD-mapped CPU mapping
++ * @vma: VMA covering @va
++ * @va: CPU virtual address of the GPU retry fault
++ *
++ * GPU retry faults have no vmf->page. Walk to the PMD (mmap read lock is
++ * already held) and return the folio order when that mapping is a huge PMD:
++ * anonymous THP or a device-private huge PMD. PTE-mapped pages return 0 so
++ * the caller keeps prange->granularity, matching svm_migrate_to_ram() which
++ * only expands on !vmf->pte.
++ *
++ * Return: folio order, or 0 if the PMD is not a huge mapping
++ */
++static unsigned int
++svm_range_cpu_huge_folio_order(struct vm_area_struct *vma, unsigned long va)
++{
++	struct mm_struct *mm = vma->vm_mm;
++	pgd_t *pgd;
++	p4d_t *p4d;
++	pud_t *pud;
++	pmd_t *pmdp;
++	pmd_t pmd;
++
++	pgd = pgd_offset(mm, va);
++	if (pgd_none(*pgd) || unlikely(pgd_bad(*pgd)))
++		return 0;
++
++	p4d = p4d_offset(pgd, va);
++	if (p4d_none(*p4d) || unlikely(p4d_bad(*p4d)))
++		return 0;
++
++	pud = pud_offset(p4d, va);
++	if (pud_none(*pud) || unlikely(pud_bad(*pud)))
++		return 0;
++
++	pmdp = pmd_offset(pud, va);
++	pmd = pmdp_get_lockless(pmdp);
++
++	if (pmd_trans_huge(pmd))
++		return folio_order(pmd_folio(pmd));
++
++	if (pmd_is_device_private_entry(pmd))
++		return folio_order(softleaf_to_folio(softleaf_from_pmd(pmd)));
++
++	return 0;
++}
++
+ int
+ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 			uint32_t vmid, uint32_t node_id,
+@@ -3246,8 +3295,39 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	kfd_smi_event_page_fault_start(node, p->lead_thread, addr,
+ 				       write_fault, timestamp);
  
--	ret = __drm_writeback_connector_init(dev, wb_connector, enc, formats,
--					     n_formats);
--	if (ret)
--		return ret;
--
--	ret = drmm_add_action_or_reset(dev, drm_writeback_connector_cleanup_action,
--				       wb_connector);
--	if (ret)
--		return ret;
--
--	return 0;
-+	return __drm_writeback_connector_init(dev, wb_connector, enc, formats,
-+					      n_formats);
+-	/* Align migration range start and size to granularity size */
++	/*
++	 * Same policy as svm_migrate_to_ram(): if the CPU maps a device or
++	 * anonymous THP at this address and this prange still covers the
++	 * whole folio, migrate at folio order so HMM can collect
++	 * MIGRATE_PFN_COMPOUND. A split prange that not convers the THP keeps
++	 * using granularity. migrate_vma_setup() splits the PMD inside mm.
++	 *
++	 * GPU faults have no vmf->page, so inspect the PMD.
++	 *
++	 * If the fault address has PTE mapping use prange->granularity to decide
++	 * migration size.
++	 *
++	 */
+ 	size = 1UL << prange->granularity;
++	if (svm_is_private_zone(adev)) {
++		unsigned int order;
++
++		order = svm_range_cpu_huge_folio_order(vma, addr << PAGE_SHIFT);
++		if (order) {
++			unsigned long folio_start = ALIGN_DOWN(addr, 1UL << order);
++			unsigned long folio_last = folio_start + (1UL << order) - 1;
++
++			if (prange->start > folio_start ||
++			    prange->last < folio_last) {
++				pr_debug("partial prange on CPU THP svms 0x%p prange [0x%lx 0x%lx] folio [0x%lx 0x%lx]\n",
++					 svms, prange->start, prange->last,
++					 folio_start, folio_last);
++			} else {
++				size = 1UL << max_t(unsigned int,
++						    prange->granularity, order);
++			}
++		}
++	}
+ 	start = max_t(unsigned long, ALIGN_DOWN(addr, size), prange->start);
+ 	last = min_t(unsigned long, ALIGN(addr + 1, size) - 1, prange->last);
+ 	if (prange->actual_loc != 0 || best_loc != 0) {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index f2b3a05cd8cf..d6862a80a433 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -214,6 +214,13 @@ void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
+ 
+ void svm_range_set_max_pages(struct amdgpu_device *adev);
+ int svm_range_switch_xnack_reserve_mem(struct kfd_process *p, bool xnack_enabled);
++/* check adev has device private zone memory */
++static inline bool svm_is_private_zone(struct amdgpu_device *adev)
++{
++	struct amdgpu_kfd_dev *kfddev = &adev->kfd;
++
++	return (kfddev->pgmap.type == MEMORY_DEVICE_PRIVATE);
++}
+ 
+ #else
+ 
+@@ -277,6 +284,11 @@ static inline void svm_range_set_max_pages(struct amdgpu_device *adev)
+ {
  }
- EXPORT_SYMBOL(drmm_writeback_connector_init);
  
-
++static inline bool svm_is_private_zone(struct amdgpu_device *adev)
++{
++	return false;
++}
++
+ #define KFD_IS_SVM_API_SUPPORTED(dev) false
+ 
+ #endif /* IS_ENABLED(CONFIG_HSA_AMD_SVM) */
 -- 
-2.47.3
+2.34.1
 
