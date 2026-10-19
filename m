@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7561CCF2E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 045E8CCF2DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:59:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9038C10EDC7;
-	Mon, 19 Oct 2026 13:59:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9744110EDD2;
+	Mon, 19 Oct 2026 13:59:26 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E1C110EDC7;
- Mon, 19 Oct 2026 13:58:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88FAB10EDD3;
+ Mon, 19 Oct 2026 13:59:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1571641B2C;
- Mon, 19 Oct 2026 13:58:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 993E61F000C4;
- Mon, 19 Oct 2026 13:58:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6DE2942B5E;
+ Mon, 19 Oct 2026 13:59:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06E71F000CA;
+ Mon, 19 Oct 2026 13:59:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418338;
- bh=Kt8eKIk+Pbct/atlIdIgI8G2qAB4WrScIfzwOfDT0ug=;
+ s=k20260515; t=1792418360;
+ bh=T+X9hDiPIJUdie2qRLfaA8R3nLrc4Y60IcJrzE/Nadc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=MH1hqwHob0J/e5mlrBBdRGDrGmJThqCj4SN8s0SZU5GTr7cOVii2ncQswOHWMS08p
- V7+QQs3cKseXH+UKI8+dgGuouppFeUy2VOSh3a1lOpSrndFOTan8NECNeJJTd9vKI8
- ImQN0x2kdRPMVXpunrohLDAcVxLBjjkAAKPZoEllBJslaExifRVD1NHrrt0Mz8NKex
- woJ/ZI47unfHkKaIYF73gemazob2EMVkubA3sHth1dthT+ncwnwJ7k0TvcE2PkDAe3
- dacoNafXslqxxkO5pwdmkg4kqb4QdYjUZRyhPbCvfDg3y+4VM9rIhChpRQLwz4lCIa
- XQnbWvhO7gtdQ==
+ b=URnqqle8oJhCQiY4dyXCC9SApgMnofJO70V5bNsN06UnkeV4UtrtQTotOcV0c+gkD
+ W6/54xPY83oZRHiqjRNYsLzR7gzawUT8T6UEDz6yZwv88s5QT/mdmA9zv1KTEtIceC
+ 7Vs2GOadrAgEW9FWqGORQYlg6tvcEcLapPoCs61BRxAmyhlTzK260/1y0JTv9pZx2h
+ S1GapXDlXe9zkVbzNKgjHunsLpNFp+9LmJ8dlzjitO779G2evXlgBmTP/tCK9BRzFw
+ i8hrRJhyDYi99xHXBK3y88dEUZNnUiC7CZVdYNG9yJdtUtcriAoNzvJ2hlZ1ieH8lK
+ f7C5qWhvHqs1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>, Michael Chen <michael.chen@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Shaoyun Liu <shaoyun.liu@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
- Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/mes_v12_0: use mes schedule pipe for
- legacy queues on unified MES
-Date: Mon, 19 Oct 2026 09:47:47 -0400
-Message-ID: <20261019135441.1420968-176-sashal@kernel.org>
+Cc: Yang Wang <kevinyang.wang@amd.com>, Asad Kamal <asad.kamal@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-5.15] drm/amd/pm: Validate Tonga PPTable subtable
+ bounds
+Date: Mon, 19 Oct 2026 09:48:03 -0400
+Message-ID: <20261019135441.1420968-192-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -63,420 +63,1074 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+From: Yang Wang <kevinyang.wang@amd.com>
 
-[ Upstream commit 5ec4cc91708370847772f2a2397316dbd8d8f066 ]
+[ Upstream commit 53ef33c084c5778cc2dcd1efff25e31b6e231141 ]
 
-when suspend_all_gangs is issued to pipe0 MES during system suspend or runtime PM, pipe0 can only suspend and resume queues it has tracked.
-KCQs registered with a non-zero pipe slot may not be correctly handled, leaving them in an inconsistent state after resume.
+v1:
+Tonga PPTable parsing also relies on VBIOS offsets, revision fields
+and entry counts for several subtables. Malformed data can cause
+out-of-bounds reads, while voltage lookup tables can overrun their
+fixed-size destination arrays.
 
-v3: fix the schedule pipe issue
-v4: use schedule pipe for KQ resets
+Add common bounds helpers and validate fixed subtables, dynamic entry
+arrays and revision-specific layouts before consuming voltage lookup,
+dependency, PCIE, power-tune, hard-limit, thermal, fan, GPIO, PPM and
+VCE state data.
 
-Reviewed-by: Michael Chen <michael.chen@amd.com>
-Suggested-by: Michael Chen <michael.chen@amd.com>
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Suggested-by: Shaoyun Liu <shaoyun.liu@amd.com>
-Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+v2:
+correct to handle get_tonga_ppm_table() return value.
+
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a **6.18.y** tree (`v6.18.53`). The buggy MES v12 pipe selection
-is present here, the patch is small, and it applies cleanly.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1 — Subject**
+- Record: `[drm/amd/pm] [Validate] Tonga PPTable subtable bounds`
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[drm/amdgpu/mes_v12_0] [use] [route legacy kernel queues to the
-MES schedule pipe on unified MES]`
+**Step 1.2 — Tags**
+- Record: `Reviewed-by: Asad Kamal <asad.kamal@amd.com>`; `Reviewed-by:
+  Kenneth Feng <kenneth.feng@amd.com>`; `Signed-off-by: Yang Wang
+  <kevinyang.wang@amd.com>`; `Signed-off-by: Alex Deucher
+  <alexander.deucher@amd.com>`.
+- No `Fixes:`, `Reported-by`, `Tested-by`, `Link:`, or `Cc: stable`
+  (absence is expected).
+- Pipeline markers (`[Upstream commit …]`, `Signed-off-by: Sasha Levin`)
+  ignored.
 
-Subsystem is AMD GPU MES firmware for gfx12. Verb is “use”, but the body
-describes a resume/tracking bug, not a feature.
+**Step 1.3 — Body**
+- Record: Tonga PPTable parsing trusts VBIOS offsets, revision IDs, and
+  entry counts. Malformed data can cause out-of-bounds reads; voltage
+  lookup tables can overrun fixed-size destination arrays.
+- Symptom: kernel OOB read/write while parsing PowerPlay tables at init
+  or after a `pp_table` upload.
+- Root cause: pointer = `powerplay_table + le16_to_cpu(offset)` with no
+  check against `soft_pp_table_size`, plus `ucNumEntries` used past
+  allocated destination size.
+- v2 only corrects `get_tonga_ppm_table()` return handling.
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-Record:
-- No `Fixes:` tag (expected for autosel review)
-- No `Reported-by:` / `Tested-by:` / `Cc: stable`
-- `Reviewed-by: Michael Chen <michael.chen@amd.com>`
-- `Suggested-by: Michael Chen`, `Alex Deucher`, `Shaoyun Liu` (AMD MES
-  people)
-- `Signed-off-by: Jesse Zhang` (author), `Alex Deucher` (amdgpu
-  maintainer)
-- Ignore pipeline `Signed-off-by: Sasha Levin` and `[Upstream commit
-  5ec4cc917083...]`
+**Step 1.4 — Hidden bug fix?**
+- Record: Not hidden. Explicit bounds-check fix for OOB reads and
+  destination-array overrun.
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Record:
-- Bug: on unified MES, `suspend_all_gangs` is sent to pipe0 (SCHED).
-  Pipe0 can only suspend/resume queues it has tracked.
-- Symptom: KCQs registered on a non-zero pipe (KIQ = pipe 1) are not
-  handled, and can be left inconsistent after resume.
-- Trigger named in the message: system suspend / runtime PM.
-- Changelog: v3 fixes schedule-pipe selection; v4 also sends kernel-
-  queue resets to the schedule pipe.
-- No stack trace, no kernel version list.
+## Phase 2: Diff analysis
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not disguised. It is an explicit correctness fix for MES pipe
-routing. The v4 reset hunk is the same class of bug (reset must follow
-the pipe that actually owns the queue).
+**Step 2.1 — Inventory**
+- Record: One file,
+  `drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c`.
+  Upstream: **+521 / −85**.
+- New helpers: `tonga_pp_table_has_space`, `get_tonga_subtable`,
+  `validate_tonga_table_entries`, plus getters for voltage lookup,
+  MCLK/MM/SCLK/PCIE/hard-limit/thermal/fan/power-tune/PPM/GPIO/VCE.
+- Callers updated: `init_dpm_2_parameters`,
+  `init_clock_voltage_dependency`, `init_thermal_controller`,
+  `ppt_get_num_of_vce_state_table_entries_v1_0`,
+  `ppt_get_vce_state_table_entry_v1_0`.
+- Scope: single-file parser hardening, not a cross-subsystem refactor.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+**Step 2.2 — Flow change**
+- Record: Before, every subtable pointer was `powerplay_table + offset`
+  with no size check. After, each access goes through helpers that
+  require a non-zero offset, that the header fits, and that
+  `entries_offset + num_entries * entry_size` fits in
+  `soft_pp_table_size`.
+- Voltage lookup: `ucNumEntries` must be in `(0, max_levels]` (16)
+  before `get_vddc_lookup_table()`.
+- GPIO: previously `gpio_table` was always a non-NULL computed pointer,
+  so `get_gpio_table()` ran even when `usGPIOTableOffset == 0`. After,
+  that path runs only if the offset is non-zero.
+- VCE: SCLK records are indexed as Tonga vs Polaris by `ucRevId`;
+  SCLK/MM/MCLK indices are range-checked.
 
-**Step 2.1: INVENTORY THE CHANGES**
-Record:
-- File: `drivers/gpu/drm/amd/amdgpu/mes_v12_0.c` (+17 / −10)
-- Functions: `mes_v12_0_map_legacy_queue`,
-  `mes_v12_0_unmap_legacy_queue`, `mes_v12_0_reset_hw_queue`
-- Scope: single-file surgical fix
+**Step 2.3 — Bug mechanism**
+- Record: **Memory safety (OOB read + heap OOB write)**, plus a Polaris
+  VCE layout correctness bug.
+- Verified on this tree’s pre-fix `get_vddc_lookup_table()` (v6.18.53):
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- Map/unmap, `enable_uni_mes`: previously always `AMDGPU_MES_KIQ_PIPE`.
-  After: MES ring (`AMDGPU_RING_TYPE_MES`) stays on KIQ; every other
-  kernel queue goes to `AMDGPU_MES_SCHED_PIPE`. Non-uni_mes path still
-  uses SCHED.
-- Reset: previously `is_kq` → KIQ, else SCHED. After: always SCHED.
-- Affected paths: KCQ/KGQ map at gfx init/resume, unmap at gfx
-  hw_fini/suspend, MES scheduler-queue map in `mes_v12_0_queue_init`,
-  kernel-queue reset in gfx12 hang recovery.
+```
+table = kzalloc(struct_size(table, entries, max_levels), GFP_KERNEL);
+table->count = vddc_lookup_pp_tables->ucNumEntries;
+for (i = 0; i < vddc_lookup_pp_tables->ucNumEntries; i++)
+```
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **Logic / hardware-firmware tracking bug** (wrong MES pipe).
-- `AMDGPU_MES_SCHED_PIPE = 0`, `AMDGPU_MES_KIQ_PIPE = 1`.
-- Suspend-all is submitted to SCHED (pipe0). Mapping KCQs on KIQ (pipe1)
-  means pipe0 never tracked them.
-- Reset of kernel queues was also sent to KIQ
-  (`amdgpu_mes_reset_legacy_queue` always sets `is_kq = true`), so hang
-  recovery talked to the wrong pipe.
+  Allocation uses `max_levels` (16); the loop uses raw `ucNumEntries`
+(u8, up to 255). That is a real heap overflow.
+- Subtable offsets/counts can also walk past `soft_pp_table_size` (VBIOS
+  blob or uploaded table).
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct given MES pipe semantics. Minimal. Non-uni_mes
-unchanged. MES scheduler queue still mapped via KIQ, which matches
-`mes_v12_0_queue_init()` calling `amdgpu_mes_map_legacy_queue()` on the
-SCHED ring (`AMDGPU_RING_TYPE_MES`). Regression risk is low: pipe choice
-is firmware-facing, but AMD MES reviewers signed off. The v4 reset hunk
-was added after the v3 Reviewed-by; it is consistent with the map
-change, not a random extra edit.
+**Step 2.4 — Fix quality**
+- Record: Helpers are overflow-safe (`offset <= table_size && size <=
+  table_size - offset`). `PP_ASSERT_WITH_CODE` always runs the failure
+  `return` (not debug-only). Leaf parsers already rejected `ucNumEntries
+  == 0`, so that check is not a new behavior cliff.
+- Regression risk: low–medium. Over-strict revision-based fan/power-tune
+  sizes could reject a corrupt-but-previously-parsed table. No public
+  API change. Patch is large because every subtable is wrapped, not
+  because control flow is redesigned.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+## Phase 3: Git history
 
-**Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- Map/unmap KIQ routing: `aa539da8aff07a` (“drm/amdgpu/mes12: adjust
-  mes12 sw/hw init for multiple pipes”, Jack Xiao, 2024-08). In
-  v6.18.53.
-- Reset `is_kq` → KIQ: `2e828a25f850f` (“drm/amdgpu/mes: use correct MES
-  pipe for resets”, 2025-04). In v6.18.53.
-- MES v12 itself: `785f0f9fe7420` (2024-05). In this tree.
+**Step 3.1 — Blame / introduction**
+- Record: Parser has been here since the Tonga PowerPlay path
+  (`processpptable_v1_0`, later moved in `e098bc9612c2b`, 2020).
+  Unbounded offset arithmetic is old, not a recent regression.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. Functionally this corrects `aa539da8aff07a`
-(map/unmap) and `2e828a25f850f` (KQ reset pipe). Both ancestors of
-v6.18.53.
+**Step 3.2 — Fixes: tag**
+- Record: None. Not applicable.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record:
-- `6abd725fdfc41` implements MES suspend/resume gang for v12 (in
-  6.18.53); `mes_v12_0_suspend_gang()` already submits to
-  `AMDGPU_MES_SCHED_PIPE`.
-- `2e828a25f850f` is the prior reset-pipe policy this commit revises.
-- Later autosel commit `00a6825e89078` (oversubscription doorbell mode)
-  is unrelated.
-- Standalone for 6.18: sibling `mes_v12_1` does not exist here.
+**Step 3.3 — Related file history**
+- Record: Same-day AMD series:
+  - `1ac24df78c566` — Tonga state-array bounds
+  - `3a8d8e0b7f61c` — Vega hwmgr bounds
+  - `0ceb6bc43e62f` — legacy hwmgr offsets
+  - `9914149f99fd2` — Vega10 subtable bounds
+  - `53ef33c084c57` — this commit
+- Standalone for this file. State-array helpers
+  (`get_tonga_state_array`) are a sibling, not a call-graph dependency
+  of these new getters.
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Jesse Zhang is an AMD amdgpu contributor (MES/gfx/SDMA). This is
-not a drive-by. Merged by Alex Deucher.
+**Step 3.4 — Author**
+- Record: Yang Wang (AMD). Same author as the rest of this PPTable
+  validation series. Merged by Alex Deucher.
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Needs MES v12, `enable_uni_mes`, map/unmap/reset callbacks, and
-SCHED-pipe suspend. All present in v6.18.53. Applies cleanly to
-`v6.18.53:drivers/gpu/drm/amd/amdgpu/mes_v12_0.c` (patch --dry-run rc
-0). No missing helper or struct field.
+**Step 3.5 — Prerequisites**
+- Record: No new APIs. Upstream context uses `kzalloc_obj(*ptr)` in an
+  unchanged hunk; v6.18.53 still has `kzalloc(sizeof(*ptr), GFP_KERNEL)`
+  in that function. That is a trivial context tweak, not a functional
+  dependency. Vega10/legacy patches in the same series touch other files
+  and are not required for this one.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+## Phase 4: Mailing list / external
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- `b4 dig -c 5ec4cc917083...` →
-  https://patch.msgid.link/20260330013346.1054624-1-Jesse.Zhang@amd.com
-- v3 series: 1/2 this file; 2/2 `mes_v12_1` (not in this tree).
-- v4 standalone: https://lists.freedesktop.org/archives/amd-
-  gfx/2026-April/142750.html (map/unmap only).
-- Committed form matches later resends that add “v4: use schedule pipe
-  for KQ resets” (e.g. 11/42 in “Enable pipe reset for compute”).
-- Michael Chen: `Reviewed-by` on v3. No NAK in the saved thread.
+**Step 4.1 — Original submission**
+- Record: `b4 dig -c 53ef33c084c5778cc2dcd1efff25e31b6e231141` → `[PATCH
+  v2 2/3] drm/amd/pm: Validate Tonga PPTable subtable bounds`
+  https://patch.msgid.link/20260623134917.443011-2-
+  kevinyang.wang@amd.com
+- v1 → v2; v2 is what landed. v2 changelog: handle
+  `get_tonga_ppm_table()` return value.
+- No NAKs in the saved thread.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: To/Cc: amd-gfx, Alex Deucher, Christian König, Shaoyun Liu,
-Michael Chen. Right maintainers.
+**Step 4.2 — Reviewers**
+- Record: To/Cc: amd-gfx, Alex Deucher, Hawking Zhang, Kenneth Feng,
+  Asad Kamal.
+- Asad: “Series is Reviewed-by”. Kenneth Feng: same. Maintainer SOB from
+  Alex Deucher.
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No bugzilla/syzbot. Description is from AMD MES engineers
-(Suggested-by three of them). No public crash log.
+**Step 4.3 — Bug report**
+- Record: No syzbot/bugzilla/CVE in the message or thread. Bug is
+  described from code inspection of the parser.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: 2/2 is mes_v12_1 only. Not a hard dependency of 1/2. The May
-42-patch compute-reset series reused this patch; this hunk does not need
-the rest of that series.
+**Step 4.4 — Series**
+- Record: v2 1/3 Vega10 subtables; **2/3 this patch**; 3/3 remaining
+  legacy PPLIB. This patch is self-contained.
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: No useful stable-list discussion found. Absence is not a
-negative signal.
+**Step 4.5 — stable@**
+- Record: lore.kernel.org HTTP 403 from WebFetch/curl. `b4 dig` mbox has
+  no `Cc: stable` and no stable-list discussion. UNVERIFIED vs
+  lore.kernel.org/stable search.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+## Phase 5: Semantic / call graph
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `mes_v12_0_map_legacy_queue`, `mes_v12_0_unmap_legacy_queue`,
-`mes_v12_0_reset_hw_queue`. Semcode MCP not available; used grep/read.
+**Step 5.1 — Functions**
+- Record: New `tonga_pp_table_has_space` / `get_tonga_*` /
+  `validate_tonga_table_entries`; callers listed in 2.1.
 
-**Step 5.2: TRACE CALLERS**
-Record:
-- Map: `amdgpu_mes_map_legacy_queue()` ← `amdgpu_gfx_enable_kcq()` /
-  `amdgpu_gfx_enable_kgq()`, gfx12 KCQ/KGQ reset remap,
-  `mes_v12_0_queue_init()` for the MES SCHED ring when `enable_uni_mes`.
-- Unmap: `amdgpu_mes_unmap_legacy_queue()` ← `amdgpu_gfx_disable_kcq()`
-  (gfx12 `hw_fini` / suspend), MES kiq_hw_fini for the SCHED ring.
-- Reset: `amdgpu_mes_reset_legacy_queue()` ← `gfx_v12_0_reset_kcq` /
-  `gfx_v12_0_reset_kgq` (and SDMA MES reset on other IPs; gfx12 path is
-  the one that hits mes_v12).
-- Suspend-all: `amdgpu_mes_suspend()` ← KFD `suspend_all_queues_mes()`;
-  MES suspend packet already goes to SCHED pipe.
+**Step 5.2 — Callers**
+- Record: `pptable_v1_0_funcs.pptable_init` →
+  `pp_tables_v1_0_initialize` → `init_thermal_controller` /
+  `init_clock_voltage_dependency` / `init_dpm_2_parameters`. Wired from
+  `smu7_init_function_pointers()` when `pp_table_version ==
+  PP_TABLE_V1`.
+- VCE getters run when userspace/KFD queries VCE states.
 
-**Step 5.3: TRACE CALLEES**
-Record: All three submit via
-`mes_v12_0_submit_pkt_and_poll_completion(mes, pipe, ...)`, which writes
-the packet to `mes->ring[pipe]`. Wrong `pipe` means the other MES engine
-never sees ADD/REMOVE/RESET.
+**Step 5.3 — Callees**
+- Record: Existing leaf parsers (`get_vddc_lookup_table`,
+  `get_mclk_voltage_dependency_table`, `get_cac_tdp_table`, …). No new
+  allocations in the helpers.
 
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Reachable without special debug options:
-- Boot/resume maps KCQs (`enable_legacy_queue_map` is hardcoded true in
-  mes_v12 sw_init).
-- GPU suspend/`hw_fini` unmaps them.
-- Hang recovery resets them.
-- KFD bad-queue handling issues suspend_all_gangs.
-Userspace GPU clients and suspend/resume trigger this. Unprivileged
-DRM/KFD users can hit hang recovery.
+**Step 5.4 — Reachability**
+- Record: Yes. Driver load on Tonga/Fiji/Polaris/VegaM. Also
+  `pp_dpm_set_pp_table()` after a sysfs write to `pp_table` (`S_IRUGO |
+  S_IWUSR`, owner-writable; typically root).
 
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Same uni_mes → KIQ heuristic remains in `mes_v12_0_misc_op()`;
-this patch does not touch it. User-queue add/remove already used SCHED
-pipe. Sibling mes_v12_1 fix is for a file this tree does not have.
+**Step 5.5 — Similar patterns**
+- Record: Same pattern as Vega10/legacy PPLIB validation in the same
+  series; same class as earlier Tonga state-array bounds.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+## Phase 6: This tree (6.18.y)
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes, in v6.18.53 `mes_v12_0_map_legacy_queue` / `unmap` /
-`reset_hw_queue`. Introduced 2024–2025; not after 6.18 branched.
-Verified: `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`; `make
-kernelversion` = `6.18.53`; `git merge-base --is-ancestor f15135562c4b0
-v6.18.53` is false (candidate not in the stable tag).
+**Step 6.1 — Does the bug exist here?**
+- Record: Local tree is **v6.18.53** (`6.18.53`, branch `autosel`).
+  Vanilla v6.18.53 still has unbounded offset arithmetic and the
+  voltage-lookup heap overflow. Bug was not introduced after this
+  branch.
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply to v6.18.53. Context matches. No rework needed.
+**Step 6.2 — Backport difficulty**
+- Record: **Minor conflicts**. `git apply --check` of upstream onto
+  v6.18.53 fails on `kzalloc_obj` vs `kzalloc` context in
+  `get_platform_power_management_table()`. Logic applies with that
+  mechanical adjustment. No missing types/helpers required by the new
+  code (`soft_pp_table_size` is already set in `get_powerplay_table()`).
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: 6.18.53 still has the uni_mes→KIQ map/unmap and `is_kq`→KIQ
-reset. No earlier equivalent fix.
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `drivers/gpu/drm/amd/amdgpu` MES for gfx12. **IMPORTANT**
-(shipping RDNA4: IP 12.0.0 / 12.0.1), not core mm/net, not staging.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Actively maintained; MES v12 has ongoing queue/reset work. The
-bug is in code that has been in 6.18 since release, not brand-new post-
-branch code.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: gfx12 (RDNA4) with unified MES. `amdgpu_uni_mes` defaults to 1;
-discovery sets `enable_uni_mes` for IP 12.0.0/12.0.1. Driver-specific,
-default-on for those GPUs.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record:
-- Common: every gfx12 boot maps KCQs; every GPU suspend/`hw_fini` unmaps
-  them.
-- Hang recovery resets KCQ/KGQ through the same pipe.
-- KFD suspend-all on bad queues.
-- Not a theoretical race; wrong static pipe choice.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: Kernel compute/graphics queues left untracked or reset on the
-wrong MES engine → failed suspend/resume, failed queue reset, GPU hang.
-KFD treats MES suspend failure as unrecoverable and schedules GPU reset.
-Severity: **HIGH** (GPU hang / failed recovery), not a kernel NULL-
-deref, but user-visible and production-relevant on RDNA4.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- Benefit: HIGH for gfx12 6.18 users (default uni_mes).
-- Risk: LOW (17 lines, one file, non-uni_mes unchanged, MES self-queue
-  still on KIQ).
-- Ratio: favor backport.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-FOR:
-- Real firmware-tracking bug: KCQs mapped to pipe1 while suspend-
-  all/reset tracking is pipe0.
-- Present in this 6.18.y tree; uni_mes default-enabled on gfx12.
-- Hits suspend/resume and hang recovery, not a dead path.
-- Small, surgical, applies cleanly.
-- Reviewed/suggested by AMD MES engineers; merged by Alex Deucher.
-- Corrects pipe policy already in 6.18 (`aa539da8`, `2e828a25`).
-
-AGAINST:
-- No public user report or sanitizer hit.
-- gfx12-only, not a core-kernel oops.
-- v4 reset hunk was not in the v3 Reviewed-by mail (but it is the
-  necessary counterpart of the map change).
-- 2/2 mes_v12_1 is unrelated here (file absent).
-
-UNRESOLVED:
-- No first-party dmesg/reproducer beyond the author’s description (AMD-
-  internal).
-
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — pipe choice matches suspend-
-   all on SCHED; MES self-queue exception is required and matches
-   `queue_init`.
-2. Fixes a real bug that affects users? **PASS** — gfx12 KCQ
-   tracking/resume/reset.
-3. Important issue? **PASS** — GPU hang / failed queue reset /
-   inconsistent KCQs after resume. HIGH, not a style nit.
-4. Small and contained? **PASS** — one file, ~27 lines.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — clean on v6.18.53.
-
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: None of ID/quirk/DT/build/docs. Ordinary driver correctness fix;
-still stable-eligible.
-
-**Step 9.4: MAKE YOUR DECISION**
-Backport. The 6.18 tree has unified MES, default-on, with the wrong pipe
-for legacy kernel queues. The fix is small, applies cleanly, and
-prevents KCQ inconsistency and failed MES resets on shipping gfx12
-hardware.
-
-Verification:
-- [Phase 1] Tags: Reviewed-by Michael Chen; Suggested-by
-  Chen/Deucher/Liu; no Fixes/syzbot.
-- [Phase 2] Diff: map/unmap uni_mes now KIQ only for
-  `AMDGPU_RING_TYPE_MES`; reset always SCHED.
-- [Phase 3] Blame on v6.18.53: `aa539da8aff07a` (map/unmap),
-  `2e828a25f850f` (reset is_kq).
-- [Phase 3] Both those commits are ancestors of v6.18.53; candidate is
-  not.
-- [Phase 3] `git merge-base --is-ancestor f15135562c4b0 v6.18.53` → not
-  in the tag.
-- [Phase 4] `b4 dig -c 5ec4cc917083...` → v3 1/2 lore; 2/2 is mes_v12_1
-  only.
-- [Phase 4] mbox: Chen Reviewed-by; no NAK.
-- [Phase 4] v4 list mail had map/unmap only; committed v4 adds KQ reset
-  pipe.
-- [Phase 5] Callers: `amdgpu_gfx_enable/disable_kcq`, gfx12
-  reset_kcq/kgq, mes queue_init, KFD `amdgpu_mes_suspend`.
-- [Phase 5] Pipes: SCHED=0, KIQ=1; suspend_gang already uses SCHED.
-- [Phase 6] `git describe HEAD` v6.18.53-5049; `make kernelversion`
+**Step 6.3 — Related fixes already here?**
+- Record: v6.18.53 does **not** have this validation, `pp_entries_max`
+  clamping in this file, or the Tonga state-array bounds commit. No
+  alternate fix for the voltage-lookup overflow is present on vanilla
   6.18.53.
-- [Phase 6] `enable_uni_mes` default 1 (`amdgpu_drv.c`); set for IP
-  12.0.0/12.0.1.
-- [Phase 6] Patch dry-run against v6.18.53 mes_v12_0.c: success.
-- [Phase 6] No mes_v12_1.c in this tree.
-- [Phase 8] Failure mode: inconsistent KCQs / failed MES reset → GPU
-  hang; severity HIGH.
-- UNVERIFIED: no public user crash log; lore.kernel.org WebFetch
-  returned 403 (used b4 mbox + lists.freedesktop.org instead).
+
+## Phase 7: Subsystem
+
+**Step 7.1**
+- Record: `drm/amd/pm` PowerPlay v1 parser. **IMPORTANT** (not core
+  mm/VFS; Polar/Tonga/Fiji/VegaM still common, especially RX 400/500).
+
+**Step 7.2**
+- Record: Mature parser; recent work is bounds hardening, not feature
+  churn.
+
+## Phase 8: Impact and risk
+
+**Step 8.1 — Who is affected**
+- Record: AMDGPU SMU7 with PP table v1: Tonga, Fiji, Polaris10/11/12,
+  VegaM (`hwmgr.c` keeps default `PP_TABLE_V1` for those chips).
+
+**Step 8.2 — Trigger**
+- Record: GPU init (every boot with those ASICs) if VBIOS is
+  truncated/corrupt. Also root write to `pp_table`. Unprivileged users
+  cannot write that sysfs node under normal permissions.
+
+**Step 8.3 — Failure mode**
+- Record: Heap overflow in voltage lookup (**CRITICAL** if triggered).
+  OOB reads of BIOS/uploaded buffer (**HIGH**). Wrong Polaris VCE SCLK
+  stride (**MEDIUM** functional). Malformed table now fails init instead
+  of walking off the end.
+
+**Step 8.4 — Risk/benefit**
+- Record: Benefit high for Polar/Tonga users and for `pp_table` upload.
+  Risk: large-ish one-file change; conservative rejects of garbage
+  tables. Ratio favors backport: the overflow is real and the helpers
+  are local.
+
+## Phase 9: Synthesis
+
+**For**
+- Confirmed heap overflow: `kzalloc(..., max_levels)` vs loop on
+  `ucNumEntries`.
+- Confirmed OOB reads from unchecked VBIOS/upload offsets.
+- Reachable on driver init and via `pp_table`.
+- Polaris VCE record-size bug also fixed.
+- Reviewed by AMD PM; merged by the DRM AMD maintainer.
+- One file; no new UAPI; v2 already fixed PPM error handling.
+- Buggy code is in this 6.18.y tree.
+
+**Against**
+- +521 lines is large for stable.
+- No public crash/CVE/syzbot report.
+- Needs a small `kzalloc` context tweak vs upstream.
+- Sibling series patches are separate (not blockers).
+
+**Unresolved**
+- Could not query lore.kernel.org/stable (HTTP 403). No stable
+  discussion in the `b4` mbox.
+
+**Stable rules**
+1. Obviously correct and tested? **PASS** — overflow-safe helpers; AMD
+   review; v2 PPM fix.
+2. Real user-visible bug? **PASS** — OOB on Tonga/Polaris PPTable parse
+   / `pp_table` upload.
+3. Important (crash/security/corruption)? **PASS** — heap overflow + OOB
+   read.
+4. Small and contained? **PASS** (borderline on size, **contained**: one
+   parser file, no architecture change).
+5. No new features/APIs? **PASS**.
+6. Can apply here? **PASS** with minor `kzalloc_obj` context adjustment.
+
+**Exception category:** none (not a device-ID/quirk/DT/docs/build-only
+change). It is a memory-safety fix.
+
+This is a real bounds-check for a long-lived AMD PowerPlay parser that
+this 6.18.y tree still ships. Size is the only serious stable concern;
+the overflow and OOB are concrete enough that omitting it would be the
+worse mistake.
+
+### Verification
+- [Phase 1] Parsed tags: Reviewed-by Asad Kamal and Kenneth Feng; Alex
+  Deucher SOB; no Fixes/syzbot/Cc stable.
+- [Phase 2] Diff: +521/−85 in `process_pptables_v1_0.c`; helpers +
+  caller validation.
+- [Phase 2] v6.18.53 `get_vddc_lookup_table`: allocates `max_levels`,
+  iterates `ucNumEntries` — heap overflow confirmed.
+- [Phase 2] `PP_ASSERT_WITH_CODE` in `pp_debug.h` always executes the
+  failure `code`.
+- [Phase 3] No Fixes tag. Parser present since Tonga PowerPlay v1; file
+  moved in `e098bc9612c2b`.
+- [Phase 3] Series: 1/3 Vega10, 2/3 this, 3/3 legacy PPLIB; this file
+  does not need 1/3 or 3/3.
+- [Phase 4] `b4 dig -c 53ef33c084c5778`: lore msgid
+  `20260623134917.443011-2`; v2 of 2/3.
+- [Phase 4] mbox: Asad and Kenneth “Series is Reviewed-by”; no NAK; v2
+  PPM return handling.
+- [Phase 4] WebFetch/curl to lore.kernel.org: 403. UNVERIFIED: stable@
+  archives.
+- [Phase 5] `pptable_v1_0_funcs` used from `smu7_init_function_pointers`
+  for `PP_TABLE_V1`.
+- [Phase 5] `pp_table` sysfs: `AMDGPU_DEVICE_ATTR_RW(..., S_IRUGO |
+  S_IWUSR)`; `pp_dpm_set_pp_table()` replaces `soft_pp_table` and re-
+  inits.
+- [Phase 6] `git describe HEAD`: `v6.18.53-5049-g0f0bdc2b0dffb`; `make
+  kernelversion`: 6.18.53.
+- [Phase 6] `git merge-base --is-ancestor 53ef33c084c5778 HEAD` → not
+  ancestor (upstream SHA not in this history).
+- [Phase 6] Apply onto v6.18.53: fails on `kzalloc_obj` context;
+  functional backport is still straightforward.
+- [Phase 6] `pp_entries_max` not in v6.18.53; this commit is the
+  voltage-lookup cap for this tree.
+- [Phase 7/8] `hwmgr.c`: Tonga/Fiji/Polaris10/11/12/VegaM keep
+  `PP_TABLE_V1` and call `smu7_init_function_pointers()`.
+- [Phase 8] Failure mode: heap overflow / OOB read on PPTable parse —
+  HIGH/CRITICAL if triggered.
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 27 ++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+ .../powerplay/hwmgr/process_pptables_v1_0.c   | 606 +++++++++++++++---
+ 1 file changed, 521 insertions(+), 85 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index c40aed5a8fc21..7d7bcf1c69f27 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -524,10 +524,15 @@ static int mes_v12_0_map_legacy_queue(struct amdgpu_mes *mes,
- 		convert_to_mes_queue_type(input->queue_type);
- 	mes_add_queue_pkt.map_legacy_kq = 1;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
+index 94c1e2c103703..78037edb4752c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
+@@ -150,6 +150,368 @@ static const void *get_powerplay_table(struct pp_hwmgr *hwmgr)
+ 	return table_address;
+ }
  
--	if (mes->adev->enable_uni_mes)
--		pipe = AMDGPU_MES_KIQ_PIPE;
--	else
-+	if (mes->adev->enable_uni_mes) {
-+		/* Keep scheduler queue on KIQ pipe; map all other kernel queues on sched pipe. */
-+		if (input->queue_type == AMDGPU_RING_TYPE_MES)
-+			pipe = AMDGPU_MES_KIQ_PIPE;
-+		else
-+			pipe = AMDGPU_MES_SCHED_PIPE;
++static bool tonga_pp_table_has_space(struct pp_hwmgr *hwmgr, size_t offset,
++				     size_t size)
++{
++	size_t table_size = hwmgr->soft_pp_table_size;
++
++	return offset <= table_size && size <= table_size - offset;
++}
++
++static int get_tonga_subtable(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		u16 table_offset, size_t table_size, const void **table)
++{
++	PP_ASSERT_WITH_CODE((table_offset != 0),
++			    "Invalid PowerPlay Table!", return -1);
++	PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
++						      table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*table = (const void *)(((unsigned long)powerplay_table) + table_offset);
++
++	return 0;
++}
++
++static int validate_tonga_table_entries(struct pp_hwmgr *hwmgr,
++		u16 table_offset, size_t entries_offset,
++		u8 num_entries, size_t entry_size)
++{
++	size_t table_size;
++
++	PP_ASSERT_WITH_CODE((num_entries != 0),
++			    "Invalid PowerPlay Table!", return -1);
++
++	table_size = entries_offset + num_entries * entry_size;
++	PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
++						      table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	return 0;
++}
++
++static int get_tonga_voltage_lookup_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		u16 table_offset, uint32_t max_levels,
++		const ATOM_Tonga_Voltage_Lookup_Table **lookup_table)
++{
++	const ATOM_Tonga_Voltage_Lookup_Table *table;
++	size_t table_size;
++	int ret;
++
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	PP_ASSERT_WITH_CODE((table->ucNumEntries != 0 &&
++			     table->ucNumEntries <= max_levels),
++			    "Invalid PowerPlay Table!", return -1);
++
++	table_size = offsetof(ATOM_Tonga_Voltage_Lookup_Table, entries) +
++		table->ucNumEntries * sizeof(ATOM_Tonga_Voltage_Lookup_Record);
++	PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
++						      table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*lookup_table = table;
++
++	return 0;
++}
++
++static int get_tonga_mclk_dependency_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_MCLK_Dependency_Table **mclk_dep_table)
++{
++	const ATOM_Tonga_MCLK_Dependency_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usMclkDependencyTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset,
++					   offsetof(ATOM_Tonga_MCLK_Dependency_Table,
++						    entries),
++					   table->ucNumEntries,
++					   sizeof(ATOM_Tonga_MCLK_Dependency_Record));
++	if (ret)
++		return ret;
++
++	*mclk_dep_table = table;
++
++	return 0;
++}
++
++static int get_tonga_mm_dependency_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_MM_Dependency_Table **mm_dep_table)
++{
++	const ATOM_Tonga_MM_Dependency_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usMMDependencyTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset,
++					   offsetof(ATOM_Tonga_MM_Dependency_Table,
++						    entries),
++					   table->ucNumEntries,
++					   sizeof(ATOM_Tonga_MM_Dependency_Record));
++	if (ret)
++		return ret;
++
++	*mm_dep_table = table;
++
++	return 0;
++}
++
++static int get_tonga_sclk_dependency_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const PPTable_Generic_SubTable_Header **sclk_dep_table)
++{
++	const PPTable_Generic_SubTable_Header *header;
++	u16 table_offset;
++	size_t entries_offset;
++	size_t entry_size;
++	u8 num_entries;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usSclkDependencyTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*header), (const void **)&header);
++	if (ret)
++		return ret;
++
++	if (header->ucRevId < 1) {
++		const ATOM_Tonga_SCLK_Dependency_Table *table =
++			(const ATOM_Tonga_SCLK_Dependency_Table *)header;
++
++		entries_offset = offsetof(ATOM_Tonga_SCLK_Dependency_Table, entries);
++		entry_size = sizeof(ATOM_Tonga_SCLK_Dependency_Record);
++		num_entries = table->ucNumEntries;
 +	} else {
- 		pipe = AMDGPU_MES_SCHED_PIPE;
++		const ATOM_Polaris_SCLK_Dependency_Table *table =
++			(const ATOM_Polaris_SCLK_Dependency_Table *)header;
++
++		entries_offset = offsetof(ATOM_Polaris_SCLK_Dependency_Table, entries);
++		entry_size = sizeof(ATOM_Polaris_SCLK_Dependency_Record);
++		num_entries = table->ucNumEntries;
 +	}
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset, entries_offset,
++					   num_entries, entry_size);
++	if (ret)
++		return ret;
++
++	*sclk_dep_table = header;
++
++	return 0;
++}
++
++static int get_tonga_pcie_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const PPTable_Generic_SubTable_Header **pcie_table)
++{
++	const PPTable_Generic_SubTable_Header *header;
++	u16 table_offset;
++	size_t entries_offset;
++	size_t entry_size;
++	u8 num_entries;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usPCIETableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*header), (const void **)&header);
++	if (ret)
++		return ret;
++
++	if (header->ucRevId < 1) {
++		const ATOM_Tonga_PCIE_Table *table =
++			(const ATOM_Tonga_PCIE_Table *)header;
++
++		entries_offset = offsetof(ATOM_Tonga_PCIE_Table, entries);
++		entry_size = sizeof(ATOM_Tonga_PCIE_Record);
++		num_entries = table->ucNumEntries;
++	} else {
++		const ATOM_Polaris10_PCIE_Table *table =
++			(const ATOM_Polaris10_PCIE_Table *)header;
++
++		entries_offset = offsetof(ATOM_Polaris10_PCIE_Table, entries);
++		entry_size = sizeof(ATOM_Polaris10_PCIE_Record);
++		num_entries = table->ucNumEntries;
++	}
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset, entries_offset,
++					   num_entries, entry_size);
++	if (ret)
++		return ret;
++
++	*pcie_table = header;
++
++	return 0;
++}
++
++static int get_tonga_hard_limit_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_Hard_Limit_Table **hard_limit_table)
++{
++	const ATOM_Tonga_Hard_Limit_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usHardLimitTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset,
++					   offsetof(ATOM_Tonga_Hard_Limit_Table,
++						    entries),
++					   table->ucNumEntries,
++					   sizeof(ATOM_Tonga_Hard_Limit_Record));
++	if (ret)
++		return ret;
++
++	*hard_limit_table = table;
++
++	return 0;
++}
++
++static int get_tonga_thermal_controller_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_Thermal_Controller **thermal_controller)
++{
++	u16 table_offset;
++
++	table_offset = le16_to_cpu(powerplay_table->usThermalControllerOffset);
++
++	return get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(**thermal_controller),
++				  (const void **)thermal_controller);
++}
++
++static int get_tonga_fan_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const PPTable_Generic_SubTable_Header **fan_table)
++{
++	const PPTable_Generic_SubTable_Header *header;
++	u16 table_offset;
++	size_t table_size;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usFanTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*header), (const void **)&header);
++	if (ret)
++		return ret;
++
++	if (header->ucRevId < 8)
++		table_size = sizeof(ATOM_Tonga_Fan_Table);
++	else if (header->ucRevId == 8)
++		table_size = sizeof(ATOM_Fiji_Fan_Table);
++	else
++		table_size = sizeof(ATOM_Polaris_Fan_Table);
++
++	PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
++						      table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*fan_table = header;
++
++	return 0;
++}
++
++static int get_tonga_power_tune_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const PPTable_Generic_SubTable_Header **power_tune_table)
++{
++	const PPTable_Generic_SubTable_Header *header;
++	u16 table_offset;
++	size_t table_size;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usPowerTuneTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*header), (const void **)&header);
++	if (ret)
++		return ret;
++
++	if (header->ucRevId < 3)
++		table_size = sizeof(ATOM_Tonga_PowerTune_Table);
++	else if (header->ucRevId < 4)
++		table_size = sizeof(ATOM_Fiji_PowerTune_Table);
++	else
++		table_size = sizeof(ATOM_Polaris_PowerTune_Table);
++
++	PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
++						      table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*power_tune_table = header;
++
++	return 0;
++}
++
++static int get_tonga_ppm_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_PPM_Table **ppm_table)
++{
++	u16 table_offset;
++
++	table_offset = le16_to_cpu(powerplay_table->usPPMTableOffset);
++
++	return get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(**ppm_table), (const void **)ppm_table);
++}
++
++static int get_tonga_gpio_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_GPIO_Table **gpio_table)
++{
++	u16 table_offset;
++
++	table_offset = le16_to_cpu(powerplay_table->usGPIOTableOffset);
++
++	return get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(**gpio_table), (const void **)gpio_table);
++}
++
++static int get_tonga_vce_state_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Tonga_VCE_State_Table **vce_state_table)
++{
++	const ATOM_Tonga_VCE_State_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usVCEStateTableOffset);
++	ret = get_tonga_subtable(hwmgr, powerplay_table, table_offset,
++				 sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_tonga_table_entries(hwmgr, table_offset,
++					   offsetof(ATOM_Tonga_VCE_State_Table,
++						    entries),
++					   table->ucNumEntries,
++					   sizeof(ATOM_Tonga_VCE_State_Record));
++	if (ret)
++		return ret;
++
++	*vce_state_table = table;
++
++	return 0;
++}
++
+ static int get_vddc_lookup_table(
+ 		struct pp_hwmgr	*hwmgr,
+ 		phm_ppt_v1_voltage_lookup_table	**lookup_table,
+@@ -198,7 +560,7 @@ static int get_vddc_lookup_table(
+  */
+ static int get_platform_power_management_table(
+ 		struct pp_hwmgr *hwmgr,
+-		ATOM_Tonga_PPM_Table *atom_ppm_table)
++		const ATOM_Tonga_PPM_Table *atom_ppm_table)
+ {
+ 	struct phm_ppm_table *ptr = kzalloc(sizeof(*ptr), GFP_KERNEL);
+ 	struct phm_ppt_v1_information *pp_table_information =
+@@ -246,7 +608,7 @@ static int init_dpm_2_parameters(
+ {
+ 	int result = 0;
+ 	struct phm_ppt_v1_information *pp_table_information = (struct phm_ppt_v1_information *)(hwmgr->pptable);
+-	ATOM_Tonga_PPM_Table *atom_ppm_table;
++	const ATOM_Tonga_PPM_Table *atom_ppm_table;
+ 	uint32_t disable_ppm = 0;
+ 	uint32_t disable_power_control = 0;
  
- 	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
- 			&mes_add_queue_pkt, sizeof(mes_add_queue_pkt),
-@@ -563,10 +568,15 @@ static int mes_v12_0_unmap_legacy_queue(struct amdgpu_mes *mes,
- 			convert_to_mes_queue_type(input->queue_type);
+@@ -275,30 +637,39 @@ static int init_dpm_2_parameters(
  	}
  
--	if (mes->adev->enable_uni_mes)
--		pipe = AMDGPU_MES_KIQ_PIPE;
--	else
-+	if (mes->adev->enable_uni_mes) {
-+		/* Keep scheduler queue on KIQ pipe; unmap all other kernel queues on sched pipe. */
-+		if (input->queue_type == AMDGPU_RING_TYPE_MES)
-+			pipe = AMDGPU_MES_KIQ_PIPE;
-+		else
-+			pipe = AMDGPU_MES_SCHED_PIPE;
-+	} else {
- 		pipe = AMDGPU_MES_SCHED_PIPE;
-+	}
- 
- 	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
- 			&mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt),
-@@ -909,10 +919,7 @@ static int mes_v12_0_reset_hw_queue(struct amdgpu_mes *mes,
- 		mes_reset_queue_pkt.doorbell_offset = input->doorbell_offset;
+ 	if (0 != powerplay_table->usVddcLookupTableOffset) {
+-		const ATOM_Tonga_Voltage_Lookup_Table *pVddcCACTable =
+-			(ATOM_Tonga_Voltage_Lookup_Table *)(((unsigned long)powerplay_table) +
+-			le16_to_cpu(powerplay_table->usVddcLookupTableOffset));
+-
+-		result = get_vddc_lookup_table(hwmgr,
+-			&pp_table_information->vddc_lookup_table, pVddcCACTable, 16);
++		const ATOM_Tonga_Voltage_Lookup_Table *pVddcCACTable;
++
++		result = get_tonga_voltage_lookup_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usVddcLookupTableOffset),
++				16, &pVddcCACTable);
++		if (!result)
++			result = get_vddc_lookup_table(hwmgr,
++				&pp_table_information->vddc_lookup_table,
++				pVddcCACTable, 16);
  	}
  
--	if (input->is_kq)
--		pipe = AMDGPU_MES_KIQ_PIPE;
--	else
--		pipe = AMDGPU_MES_SCHED_PIPE;
-+	pipe = AMDGPU_MES_SCHED_PIPE;
+-	if (0 != powerplay_table->usVddgfxLookupTableOffset) {
+-		const ATOM_Tonga_Voltage_Lookup_Table *pVddgfxCACTable =
+-			(ATOM_Tonga_Voltage_Lookup_Table *)(((unsigned long)powerplay_table) +
+-			le16_to_cpu(powerplay_table->usVddgfxLookupTableOffset));
++	if (!result && 0 != powerplay_table->usVddgfxLookupTableOffset) {
++		const ATOM_Tonga_Voltage_Lookup_Table *pVddgfxCACTable;
  
- 	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
- 			&mes_reset_queue_pkt, sizeof(mes_reset_queue_pkt),
+-		result = get_vddc_lookup_table(hwmgr,
+-			&pp_table_information->vddgfx_lookup_table, pVddgfxCACTable, 16);
++		result = get_tonga_voltage_lookup_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usVddgfxLookupTableOffset),
++				16, &pVddgfxCACTable);
++		if (!result)
++			result = get_vddc_lookup_table(hwmgr,
++				&pp_table_information->vddgfx_lookup_table,
++				pVddgfxCACTable, 16);
+ 	}
+ 
+ 	disable_ppm = 0;
+ 	if (0 == disable_ppm) {
+-		atom_ppm_table = (ATOM_Tonga_PPM_Table *)
+-			(((unsigned long)powerplay_table) + le16_to_cpu(powerplay_table->usPPMTableOffset));
+-
+ 		if (0 != powerplay_table->usPPMTableOffset) {
+-			if (get_platform_power_management_table(hwmgr, atom_ppm_table) == 0) {
++			int ret;
++
++			ret = get_tonga_ppm_table(hwmgr, powerplay_table,
++						  &atom_ppm_table);
++			if (!ret &&
++			    get_platform_power_management_table(hwmgr,
++							       atom_ppm_table) == 0) {
+ 				phm_cap_set(hwmgr->platform_descriptor.platformCaps,
+ 					PHM_PlatformCaps_EnablePlatformPowerManagement);
+ 			}
+@@ -792,28 +1163,13 @@ static int init_clock_voltage_dependency(
+ 	int result = 0;
+ 	struct phm_ppt_v1_information *pp_table_information =
+ 		(struct phm_ppt_v1_information *)(hwmgr->pptable);
+-
+-	const ATOM_Tonga_MM_Dependency_Table *mm_dependency_table =
+-		(const ATOM_Tonga_MM_Dependency_Table *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usMMDependencyTableOffset));
+-	const PPTable_Generic_SubTable_Header *pPowerTuneTable =
+-		(const PPTable_Generic_SubTable_Header *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usPowerTuneTableOffset));
+-	const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table =
+-		(const ATOM_Tonga_MCLK_Dependency_Table *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usMclkDependencyTableOffset));
+-	const PPTable_Generic_SubTable_Header *sclk_dep_table =
+-		(const PPTable_Generic_SubTable_Header *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usSclkDependencyTableOffset));
+-	const ATOM_Tonga_Hard_Limit_Table *pHardLimits =
+-		(const ATOM_Tonga_Hard_Limit_Table *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usHardLimitTableOffset));
+-	const PPTable_Generic_SubTable_Header *pcie_table =
+-		(const PPTable_Generic_SubTable_Header *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usPCIETableOffset));
+-	const ATOM_Tonga_GPIO_Table *gpio_table =
+-		(const ATOM_Tonga_GPIO_Table *)(((unsigned long) powerplay_table) +
+-		le16_to_cpu(powerplay_table->usGPIOTableOffset));
++	const ATOM_Tonga_MM_Dependency_Table *mm_dependency_table;
++	const PPTable_Generic_SubTable_Header *pPowerTuneTable;
++	const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table;
++	const PPTable_Generic_SubTable_Header *sclk_dep_table;
++	const ATOM_Tonga_Hard_Limit_Table *pHardLimits;
++	const PPTable_Generic_SubTable_Header *pcie_table;
++	const ATOM_Tonga_GPIO_Table *gpio_table;
+ 
+ 	pp_table_information->vdd_dep_on_sclk = NULL;
+ 	pp_table_information->vdd_dep_on_mclk = NULL;
+@@ -821,29 +1177,58 @@ static int init_clock_voltage_dependency(
+ 	pp_table_information->pcie_table = NULL;
+ 	pp_table_information->gpio_table = NULL;
+ 
+-	if (powerplay_table->usMMDependencyTableOffset != 0)
+-		result = get_mm_clock_voltage_table(hwmgr,
+-		&pp_table_information->mm_dep_table, mm_dependency_table);
++	if (powerplay_table->usMMDependencyTableOffset != 0) {
++		result = get_tonga_mm_dependency_table(hwmgr, powerplay_table,
++						       &mm_dependency_table);
++		if (!result)
++			result = get_mm_clock_voltage_table(hwmgr,
++				&pp_table_information->mm_dep_table,
++				mm_dependency_table);
++	}
+ 
+-	if (result == 0 && powerplay_table->usPowerTuneTableOffset != 0)
+-		result = get_cac_tdp_table(hwmgr,
+-		&pp_table_information->cac_dtp_table, pPowerTuneTable);
++	if (result == 0 && powerplay_table->usPowerTuneTableOffset != 0) {
++		result = get_tonga_power_tune_table(hwmgr, powerplay_table,
++						    &pPowerTuneTable);
++		if (!result)
++			result = get_cac_tdp_table(hwmgr,
++				&pp_table_information->cac_dtp_table,
++				pPowerTuneTable);
++	}
+ 
+-	if (result == 0 && powerplay_table->usSclkDependencyTableOffset != 0)
+-		result = get_sclk_voltage_dependency_table(hwmgr,
+-		&pp_table_information->vdd_dep_on_sclk, sclk_dep_table);
++	if (result == 0 && powerplay_table->usSclkDependencyTableOffset != 0) {
++		result = get_tonga_sclk_dependency_table(hwmgr, powerplay_table,
++							 &sclk_dep_table);
++		if (!result)
++			result = get_sclk_voltage_dependency_table(hwmgr,
++				&pp_table_information->vdd_dep_on_sclk,
++				sclk_dep_table);
++	}
+ 
+-	if (result == 0 && powerplay_table->usMclkDependencyTableOffset != 0)
+-		result = get_mclk_voltage_dependency_table(hwmgr,
+-		&pp_table_information->vdd_dep_on_mclk, mclk_dep_table);
++	if (result == 0 && powerplay_table->usMclkDependencyTableOffset != 0) {
++		result = get_tonga_mclk_dependency_table(hwmgr, powerplay_table,
++							 &mclk_dep_table);
++		if (!result)
++			result = get_mclk_voltage_dependency_table(hwmgr,
++				&pp_table_information->vdd_dep_on_mclk,
++				mclk_dep_table);
++	}
+ 
+-	if (result == 0 && powerplay_table->usPCIETableOffset != 0)
+-		result = get_pcie_table(hwmgr,
+-		&pp_table_information->pcie_table, pcie_table);
++	if (result == 0 && powerplay_table->usPCIETableOffset != 0) {
++		result = get_tonga_pcie_table(hwmgr, powerplay_table,
++					      &pcie_table);
++		if (!result)
++			result = get_pcie_table(hwmgr,
++				&pp_table_information->pcie_table, pcie_table);
++	}
+ 
+-	if (result == 0 && powerplay_table->usHardLimitTableOffset != 0)
+-		result = get_hard_limits(hwmgr,
+-		&pp_table_information->max_clock_voltage_on_dc, pHardLimits);
++	if (result == 0 && powerplay_table->usHardLimitTableOffset != 0) {
++		result = get_tonga_hard_limit_table(hwmgr, powerplay_table,
++						    &pHardLimits);
++		if (!result)
++			result = get_hard_limits(hwmgr,
++				&pp_table_information->max_clock_voltage_on_dc,
++				pHardLimits);
++	}
+ 
+ 	hwmgr->dyn_state.max_clock_voltage_on_dc.sclk =
+ 		pp_table_information->max_clock_voltage_on_dc.sclk;
+@@ -864,9 +1249,13 @@ static int init_clock_voltage_dependency(
+ 		result = get_valid_clk(hwmgr, &pp_table_information->valid_sclk_values,
+ 		pp_table_information->vdd_dep_on_sclk);
+ 
+-	if (!result && gpio_table)
+-		result = get_gpio_table(hwmgr, &pp_table_information->gpio_table,
+-				gpio_table);
++	if (!result && powerplay_table->usGPIOTableOffset) {
++		result = get_tonga_gpio_table(hwmgr, powerplay_table,
++					      &gpio_table);
++		if (!result)
++			result = get_gpio_table(hwmgr,
++				&pp_table_information->gpio_table, gpio_table);
++	}
+ 
+ 	return result;
+ }
+@@ -911,14 +1300,17 @@ static int init_thermal_controller(
+ 		)
+ {
+ 	const PPTable_Generic_SubTable_Header *fan_table;
+-	ATOM_Tonga_Thermal_Controller *thermal_controller;
++	const ATOM_Tonga_Thermal_Controller *thermal_controller;
++	int ret;
+ 
+-	thermal_controller = (ATOM_Tonga_Thermal_Controller *)
+-		(((unsigned long)powerplay_table) +
+-		le16_to_cpu(powerplay_table->usThermalControllerOffset));
+ 	PP_ASSERT_WITH_CODE((0 != powerplay_table->usThermalControllerOffset),
+ 		"Thermal controller table not set!", return -1);
+ 
++	ret = get_tonga_thermal_controller_table(hwmgr, powerplay_table,
++						 &thermal_controller);
++	if (ret)
++		return ret;
++
+ 	hwmgr->thermal_controller.ucType = thermal_controller->ucType;
+ 	hwmgr->thermal_controller.ucI2cLine = thermal_controller->ucI2cLine;
+ 	hwmgr->thermal_controller.ucI2cAddress = thermal_controller->ucI2cAddress;
+@@ -946,12 +1338,13 @@ static int init_thermal_controller(
+ 		return 0;
+ 	}
+ 
+-	fan_table = (const PPTable_Generic_SubTable_Header *)
+-		(((unsigned long)powerplay_table) +
+-		le16_to_cpu(powerplay_table->usFanTableOffset));
+-
+ 	PP_ASSERT_WITH_CODE((0 != powerplay_table->usFanTableOffset),
+ 		"Fan table not set!", return -1);
++
++	ret = get_tonga_fan_table(hwmgr, powerplay_table, &fan_table);
++	if (ret)
++		return ret;
++
+ 	PP_ASSERT_WITH_CODE((0 < fan_table->ucRevId),
+ 		"Unsupported fan table format!", return -1);
+ 
+@@ -1313,13 +1706,15 @@ static int ppt_get_num_of_vce_state_table_entries_v1_0(struct pp_hwmgr *hwmgr)
+ {
+ 	const ATOM_Tonga_POWERPLAYTABLE *pp_table = get_powerplay_table(hwmgr);
+ 	const ATOM_Tonga_VCE_State_Table *vce_state_table;
++	int ret;
+ 
+ 
+ 	if (pp_table == NULL)
+ 		return 0;
+ 
+-	vce_state_table = (void *)pp_table +
+-			le16_to_cpu(pp_table->usVCEStateTableOffset);
++	ret = get_tonga_vce_state_table(hwmgr, pp_table, &vce_state_table);
++	if (ret)
++		return 0;
+ 
+ 	return vce_state_table->ucNumEntries;
+ }
+@@ -1328,18 +1723,39 @@ static int ppt_get_vce_state_table_entry_v1_0(struct pp_hwmgr *hwmgr, uint32_t i
+ 		struct amd_vce_state *vce_state, void **clock_info, uint32_t *flag)
+ {
+ 	const ATOM_Tonga_VCE_State_Record *vce_state_record;
+-	ATOM_Tonga_SCLK_Dependency_Record *sclk_dep_record;
++	ATOM_Tonga_SCLK_Dependency_Record *sclk_dep_record = NULL;
++	ATOM_Polaris_SCLK_Dependency_Record *polaris_sclk_dep_record = NULL;
+ 	ATOM_Tonga_MCLK_Dependency_Record *mclk_dep_record;
+ 	ATOM_Tonga_MM_Dependency_Record *mm_dep_record;
+ 	const ATOM_Tonga_POWERPLAYTABLE *pptable = get_powerplay_table(hwmgr);
+-	const ATOM_Tonga_VCE_State_Table *vce_state_table = (ATOM_Tonga_VCE_State_Table *)(((unsigned long)pptable)
+-							  + le16_to_cpu(pptable->usVCEStateTableOffset));
+-	const ATOM_Tonga_SCLK_Dependency_Table *sclk_dep_table = (ATOM_Tonga_SCLK_Dependency_Table *)(((unsigned long)pptable)
+-							  + le16_to_cpu(pptable->usSclkDependencyTableOffset));
+-	const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table = (ATOM_Tonga_MCLK_Dependency_Table *)(((unsigned long)pptable)
+-							  + le16_to_cpu(pptable->usMclkDependencyTableOffset));
+-	const ATOM_Tonga_MM_Dependency_Table *mm_dep_table = (ATOM_Tonga_MM_Dependency_Table *)(((unsigned long)pptable)
+-							  + le16_to_cpu(pptable->usMMDependencyTableOffset));
++	const ATOM_Tonga_VCE_State_Table *vce_state_table;
++	const PPTable_Generic_SubTable_Header *sclk_dep_table_header;
++	const ATOM_Tonga_SCLK_Dependency_Table *sclk_dep_table;
++	const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table;
++	const ATOM_Tonga_MM_Dependency_Table *mm_dep_table;
++	int ret;
++
++	if (!pptable)
++		return -EINVAL;
++
++	ret = get_tonga_vce_state_table(hwmgr, pptable, &vce_state_table);
++	if (ret)
++		return ret;
++
++	ret = get_tonga_sclk_dependency_table(hwmgr, pptable,
++					      &sclk_dep_table_header);
++	if (ret)
++		return ret;
++	sclk_dep_table = (const ATOM_Tonga_SCLK_Dependency_Table *)
++		sclk_dep_table_header;
++
++	ret = get_tonga_mclk_dependency_table(hwmgr, pptable, &mclk_dep_table);
++	if (ret)
++		return ret;
++
++	ret = get_tonga_mm_dependency_table(hwmgr, pptable, &mm_dep_table);
++	if (ret)
++		return ret;
+ 
+ 	PP_ASSERT_WITH_CODE((i < vce_state_table->ucNumEntries),
+ 			 "Requested state entry ID is out of range!",
+@@ -1348,10 +1764,27 @@ static int ppt_get_vce_state_table_entry_v1_0(struct pp_hwmgr *hwmgr, uint32_t i
+ 	vce_state_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
+ 					ATOM_Tonga_VCE_State_Record,
+ 					entries, vce_state_table, i);
+-	sclk_dep_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
+-					ATOM_Tonga_SCLK_Dependency_Record,
+-					entries, sclk_dep_table,
+-					vce_state_record->ucSCLKIndex);
++	PP_ASSERT_WITH_CODE((vce_state_record->ucSCLKIndex <
++			     sclk_dep_table->ucNumEntries),
++			    "Invalid PowerPlay Table!", return -EINVAL);
++	PP_ASSERT_WITH_CODE((vce_state_record->ucVCEClockIndex <
++			     mm_dep_table->ucNumEntries),
++			    "Invalid PowerPlay Table!", return -EINVAL);
++	PP_ASSERT_WITH_CODE((mclk_dep_table->ucNumEntries != 0),
++			    "Invalid PowerPlay Table!", return -EINVAL);
++
++	if (sclk_dep_table_header->ucRevId < 1)
++		sclk_dep_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
++						ATOM_Tonga_SCLK_Dependency_Record,
++						entries, sclk_dep_table,
++						vce_state_record->ucSCLKIndex);
++	else
++		polaris_sclk_dep_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
++						ATOM_Polaris_SCLK_Dependency_Record,
++						entries,
++						(ATOM_Polaris_SCLK_Dependency_Table *)
++						sclk_dep_table_header,
++						vce_state_record->ucSCLKIndex);
+ 	mm_dep_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
+ 					ATOM_Tonga_MM_Dependency_Record,
+ 					entries, mm_dep_table,
+@@ -1360,7 +1793,10 @@ static int ppt_get_vce_state_table_entry_v1_0(struct pp_hwmgr *hwmgr, uint32_t i
+ 
+ 	vce_state->evclk = le32_to_cpu(mm_dep_record->ulEClk);
+ 	vce_state->ecclk = le32_to_cpu(mm_dep_record->ulEClk);
+-	vce_state->sclk = le32_to_cpu(sclk_dep_record->ulSclk);
++	if (sclk_dep_record)
++		vce_state->sclk = le32_to_cpu(sclk_dep_record->ulSclk);
++	else
++		vce_state->sclk = le32_to_cpu(polaris_sclk_dep_record->ulSclk);
+ 
+ 	if (vce_state_record->ucMCLKIndex >= mclk_dep_table->ucNumEntries)
+ 		mclk_dep_record = GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
 -- 
 2.53.0
 
