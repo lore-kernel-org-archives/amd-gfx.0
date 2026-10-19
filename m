@@ -4,95 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B7B9CCA490
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 01:50:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B984CCF2D8
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 02:09:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6D6010E2E5;
-	Mon, 19 Oct 2026 01:49:59 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010066.outbound.protection.outlook.com [52.101.56.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4A510E2E5
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 01:49:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B809F10E18C;
+	Mon, 19 Oct 2026 02:09:17 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010039.outbound.protection.outlook.com [52.101.201.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4DD510E18C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 02:09:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Px4dIYsx7AZk2UMu6r3R4rosKKn/SvThH4nj9Gq18UdWub0jN49O2nvYBz7Kyqk0N+yWfaTJd8r8VRWITIIoetn29YJUV+272GneIih3doyRljdDSsT/4owpJ/3SsRqeIEVeZWW6iKbL0ANWaxcYnHC7erVmPDMcUhScw7MNlWsbQBN/BZITZ1lh2Yjq39ysaNS7xTxKVhd9efzDEPzt6C55jeOleFVj0Tkyf0sxEG5zJKKRdrd4450UIE6pkIr+1XhiMzKE4/J7NTk5rewMIu/VUmxdPUW+/V0KVc8NpajU//r2h4bMxxL0mPx0qKrhv0TPX4n5Ek5UQ7UOdHq1aw==
+ b=VOsfsX1laA4MNnyGj814J3wLFKQOiAfVfkU/DhBsBOh4z1aPJa2weYaod4WvSJsIgAYAH2E3GJIlQzO3c9xYxPktyWeE5USX+/loNC/jwWFORTkinPkQomDs7NJz7EyVxmeYF2MQCLOQQ0DugXBoxkSQWRcqLzvwY63esjv/lwFqwXjHsF+5dHcFjDw3hiyKFJdn1Ks8c1AgvhWYS+DbbetprJNNJB7NDyoCDBZvA5gNjM5JeP8AjBw7025le9V3QEc/rdh6qC/igP8jjvpR1oJ9nm+3TeWvjEUnXI5Z2y6RS0QcplfAHjDKS3GYYiOL3xySN6GOFeu+JJkEPaOOlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k7osVx5H+7TxX3r1FnamxPJVTCvgB7I/jGv2Qzv1qIQ=;
- b=w993WY6gchIytA6zhWwHzYnwHY6WYJtK/TYiOt5sYtBF5Ga7OaIWkCups2seQWA/Y82WVfHhFs6dRp5tpSzBTLUd+di2F+yUsO92RWlacdqSz3bi5+WSpBpz+0xNITmyMB2c7MJYvop5Ggwy1s8B6Z9+UJygNoDZi38IvYcw+QmPz/Qh1HcpgIufx0EbkuSqkCquZ+kt92aNl1V8OA/Mr4tWBQWKWe5j1ZtygXBnzhNNKCFiCiGbj7GjOQp1g6ixg3G2iYyA5o43AAe8mfb486tz3Mt9cK0LRf5YxNZxUf+euIDNx1/bM2yX6KkX8i26BcuLLyNLPsaoiS92406E/w==
+ bh=9uaWz4y8vLHK3Axg1zs4pcnWEAK4OYOH0arNK7Nt0Vc=;
+ b=r59OjRZu2CX6AdDvFTTzNco0QjcpJhVdH/Yx7tNYXcLJVC18EgfytkoF6+lLPtCz3Mlkq56h2JGgolZdO2biw4LUN/R0pSlnGMDnzvXWyyCH+HiHmDv2j1jDgDnAI7XZ8DLOPwyqfyhWX0u7tR0uquRb9peh1WKN6IbOT2Ob2uvx2gUFilhQwTKzLzHrqBn0ZSuSh9O/n61PjzCjLg25FQ6RPDFz45cA8Gs6aIJKQkVBOTjadctG2jbSVOuJZDzlYhGsged7Tr4e74f+zyb6DkwzC7cGhAuc1fCj6Lf/fNUrexYuMv9RhPlTCdihPdAwj1DbHdDFpQDUSXJ0lKXm7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k7osVx5H+7TxX3r1FnamxPJVTCvgB7I/jGv2Qzv1qIQ=;
- b=1kQaI++yypwfprwuBs8c1UnN8phmy28WhAE1EidORT4T17TYMtLD4DwX7Vy7xUTn+6xcKkjCM4d1CYk7XTIfWnEYXroD/EER7Km/2S/1kkd0vuXc/QyhN1iMt7A+tN9W3adrj09PLMTcN4JF32Gl0+zvXT0IKwjSU0Jv1BpQM1U=
-Received: from CH2PR10CA0004.namprd10.prod.outlook.com (2603:10b6:610:4c::14)
- by PH5PR12MB028906.namprd12.prod.outlook.com (2603:10b6:510:500::9)
+ bh=9uaWz4y8vLHK3Axg1zs4pcnWEAK4OYOH0arNK7Nt0Vc=;
+ b=wN/gu0PZD+WDdDQujj3AtmxQQmC/AMoLFPONmeOGQhdLKyhVdBfqGLcdfqk+H20TCVecaJRznNaoL5gsjD1LhPhyljo7jLNnEWYqzB+WV1c3JLuSeovRtz/2kgFhc2FVzch1fe/q3s/KQHdnTh+p6Hxti9oUhQkJu+3mFT+HILM=
+Received: from BN0PR04CA0132.namprd04.prod.outlook.com (2603:10b6:408:ed::17)
+ by SN7PR12MB7023.namprd12.prod.outlook.com (2603:10b6:806:260::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 01:49:46 +0000
-Received: from CH01EPF000BE948.namprd02.prod.outlook.com
- (2603:10b6:610:4c:cafe::98) by CH2PR10CA0004.outlook.office365.com
- (2603:10b6:610:4c::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.18 via Frontend Transport; Mon,
- 19 Oct 2026 01:49:46 +0000
+ 2026 02:09:08 +0000
+Received: from BN3PEPF00022BD0.namprd03.prod.outlook.com
+ (2603:10b6:408:ed:cafe::ae) by BN0PR04CA0132.outlook.office365.com
+ (2603:10b6:408:ed::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
+ 19 Oct 2026 02:09:08 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH01EPF000BE948.mail.protection.outlook.com (10.167.244.196) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF00022BD0.mail.protection.outlook.com (10.167.248.166) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 01:49:46 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 02:09:07 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 18 Oct
- 2026 20:49:38 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Sun, 18 Oct 2026 20:49:37 -0500
+ 2026 21:08:59 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Sun, 18 Oct 2026 21:08:57 -0500
 From: Jesse Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH v2] drm/amdgpu: drop the gang leader reference when freeing
- gang jobs
-Date: Mon, 19 Oct 2026 09:48:59 +0800
-Message-ID: <20261019014938.1487609-1-Jesse.Zhang@amd.com>
+ <Philip.Yang@amd.com>, <Felix.Kuehling@amd.com>, Jesse Zhang
+ <Jesse.Zhang@amd.com>
+Subject: [PATCH v2] drm/amdkfd: split vram_pages of SVM ranges prefetched
+ without a GPU mapping
+Date: Mon, 19 Oct 2026 10:08:48 +0800
+Message-ID: <20261019020859.1493373-1-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE948:EE_|PH5PR12MB028906:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28c2f002-a0a8-41e9-3477-08df2d8340dc
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD0:EE_|SN7PR12MB7023:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66af4622-eb96-4b3f-d77e-08df2d85f549
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|56012099006|11063799006|261009223027099003|261009221227099003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: IPv2VOyDve+S8Z0mtptY61HX4avY0UFZfRn7hmNmUq3lnJNPSeckkcDmCRQK+feoy/btAgFYKgJgWBXM8AI8wWk+PqziziDvxq5+0MgMfBJHm04mB7hGNcnTl/UfOaaZ329IFgUAZpleeo6Koyo+R/OyS5QEQ+oWDJRE/olfvb7gDrVWJ/eOglE09EZOYOofasaw1zEnu0utt0EbhKCPTp7ss9WGKWbPCQSeFjeTCfFqWWjO7fYUwJFj/SDym9goFZFIgEpJLr1qv89HhOJGs/JnpAkDGAvB15RoinM1QUTc018e0UxdlLviOTDIWhfN/2OAVErTpILnKKcwVBxpS7iKTOxCRO5Y1T06bDEqK/v/r8eVTPfo6R1/NEzokPgKDCjClrXss97VPsW78q9dcFU4BtUErSiHkqyo4N/XjvM8OPyf9sJdz+zE4hV/nYPG9smHlsICrL4E9NpLVP9xTrNQhjaWSZVmwBINHPc5IvKw3eZSnaJxazqW0qa8CEbFbRtyrXTlZNddR7z0gOtu/MzNyffTjL5gKeIU+crESUDX06XjDZw9oVzAhEIMWT7KCUiL5Z3rqF31CNSg7E09Kzp5MhpAXIA4NLYuE8CCJBEBvYa1vddd2FqdRVc0kwH1+APTU8Tn6lh1QpB03oljbGvu+7gBW/PRAmfXBxyY8hp5JMOryeKbfDUvv3DVVyNHripXrg3yJtPejVvSgyg/Ww==
+ ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|56012099006|11063799006|261009223027099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: nvv1pYhNaMxYfv7pcrnOniNfr+1G+mVNRqSGqYrNeZVUjn5hld5LuvAXvg7nyfEM/34TPUDQ2Y9gZ70o3EhxUFFAy4a2QneKMdeTb0adHtFSt1RXNi0dQ9mBIlUicR/mbJPKyJZRq8ExRlfsG37M2LpARRBEZR9GuC7hFZzpdrE1xLfF82heenBdqIZLH5JC3dGAuT+diRxQFkxv5QRgMeOHe1r+PW8+cg9EVgsgM8IkbIG1knh/2Ansdwm/4t96eXNrQjurAAfkjgzlmVVF6PKwocZTrLXDFf8Rphv+9TtGNx7030pL0TAZ/tuvKqEP89yHcyy9PVHH1hcztFkqs/HDd+t+Og1odyqifMzGNg2dwgNi1RdbHawKnmDy3fe5MBH9vUPPX1kpFW942xPSiw0fKzNj+GcR6ANq1Akqj4/vh6hp9Vv6btpMwEu6hDZo+T417anzvCFjz9j1cZXsaMRbb3vwyz31s7Va2dNkxs5DBr2ctua064bMV3SQeTu8wb8g+TaGLgBA/5+0x7OuWHkMRhP3kAIniFmZQoIq2b6WtXct7WJKVGhK6uC4zqxT0c2jpr+Q/7q5dDUktgK30hTFaNgHeI0zhNC8xfZZzRIOrptQyfQyKejs+edyB8SkpW+Kq+EURAbu6rrYkRIcACDaOGhlMg3xlBNqVutHBudDMXYY9rUjk2+ZWWcDD8Vi9uufJJCHrq9OSPosRdG5eg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(261009221227099003)(10067099003)(18002099003)(6133799003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: gL9k65ONQyMXpANg9FF7oLP7cEWrCV9rVI5hUm4IgfIvkOhCYf4mCLF069iHlTtAdWdHuzJ76AOq3zhZCwQXKKwxLFZlhdP2aqDt7j8z2YRo5B3jAc5swygWzcn8I8o2cJQpBlXaVV/XfAVR9/3/V8JT6ytsH0K7RBZE44FXuwlLOUh7hY/Z9VbfrPe5JVjclgo7pETXiqr9ya29DDv7CwYlpMscAlT843YQTCFMS0OqRsmL0g60c1V9ay9OvMwm4fWCPpQXeKJ8vblVqsqdzF6oGbIkNPCGBIb0ZdKDjEnNpf1tYUx52S1nycprVxsRYZ20BSEEBJZe6plKG6D1KO9A3nqxwQQGuX8rzc8BtHPEkvSUcCNW19PgOdfNIXzjNgCgt91VuhxRrzqPTlLYoXHQRVFfJm5Crt96w9v2nr8sVVtvIRdJW01cNl+ZOGQc
+X-MS-Exchange-AntiSpam-MessageData-0: McbbUdDnntnZ/z2uZ+0RfkdNn6cyMBVZkS205iG24xh+K1bcWEYAPz+3HB/IXUayhKvuLYFlugsRJhiKf4fzcVqZwRmRj0pCvKm7EPl/fWzR+NhmfX6y9e0vbUv0z1Ldu1x2gdyDIZ+oSM5IEYwRxs/i7XHaqM5SVWBw6x/kvmhsZj6H39Eimbp8Q9vRiGgAVlFdBkdRakJGck8CNH1gS0Y+avFBNcDX6wd4TqT7fzDf5+ljec1JcKmBwO9Ak0pbLPq/abQgiK09NzthpdVUMiXlqaT+yppvtisrfJshHLC2nx6atQcBMaVL34M0e5BcjoOgfVCz+1hmW92sO08EyOwtog+LsgnkFUobseSu9zgNNIT80zP8Jj/7KVf9U3LUuNGm3cg+NuxY2gh6O3zpmlXyTUaEGEqiJDGNx3aigZKypUdqPtJfHYi+Y77xZo8+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 01:49:46.1498 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28c2f002-a0a8-41e9-3477-08df2d8340dc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 02:09:07.8636 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66af4622-eb96-4b3f-d77e-08df2d85f549
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE948.namprd02.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BD0.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH5PR12MB028906
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7023
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,108 +108,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Every job of a gang except the leader holds a reference to the
-scheduled fence of the leader in job->gang_submit. Only
-amdgpu_job_free(), used for jobs which never ran, drops it, so for every
-gang submission which completes the scheduler fence of the leader, and
-with it its hardware fence, is leaked. amdgpu_job_free() in turn checks
-for the leader only after drm_sched_job_cleanup() cleared the scheduler
-fence, so a leader freed there drops a reference it never took.
+When an SVM range is split, svm_range_split_pages() gives the new range
+the number of VRAM pages counted in its part of the dma_addr arrays and
+subtracts it from the old range. Pages migrated to VRAM by a prefetch
+have no dma_addr entries until the range is mapped on a GPU, e.g. with
+no ACCESS attribute, or with XNACK off before the delayed restore worker
+mapped it, so the new range gets 0 and the old one keeps the count for
+both.
 
-On navi31, 100 submissions of a GFX + COMPUTE gang grow the slab cache
-drm_sched_fence is merged into by 60 to 180 objects each time, while
-100 GFX only submissions don't.
+Migrating the parts back to system memory then gets the accounting
+wrong: the old part keeps a VRAM page count after all its pages are
+gone, so its svm_bo is never freed, and the new part underflows. On
+navi31, as an unprivileged process: prefetch 4 MiB to the GPU, prefetch
+the upper 2 MiB and then the lower 2 MiB back to system memory:
 
-Use amdgpu_job_free() for the jobs the scheduler frees too, and check
-for the gang leader there before drm_sched_job_cleanup() clears the
-scheduler fence. As the scheduler clears the entity of the jobs it
-picked up, check for the scheduler fence instead to tell whether the job
-needs cleaning up.
+  Recorded vram pages(0x0) should not be less than migration pages(0x200).
+  WARNING: ../amdkfd/kfd_migrate.c:922 at svm_migrate_vram_to_ram+0xbdc/0xcd0 [amdgpu]
 
-The IBs of jobs pushed to the scheduler are freed before that, so the
-IBs left to amdgpu_job_free() only ever ran when the job was submitted
-directly. Free them with the hardware fence or right away, never with
-the scheduler fence, which nobody signals for jobs aborted after
-drm_sched_job_arm(), like a CS returning -EAGAIN.
+and /sys/class/kfd/kfd/proc/<pid>/vram_<gpu_id> stays at 4194304 until
+the process exits.
 
-v2: unify amdgpu_job_free() and amdgpu_job_free_cb() (Christian)
+Without dma_addr arrays, the split is still exact when the old range is
+completely in VRAM, which is what a prefetch of the whole range leaves.
+Give the new range all its pages in that case. The warning is gone and
+the VRAM usage drops back to 0.
 
-Fixes: 68ce8b242242 ("drm/amdgpu: add gang submit backend v2")
-Fixes: f7d66fb2ea43 ("drm/amdgpu: cleanup scheduler job initialization v2")
+This doesn't cover a range that is only partly in VRAM without dma_addr
+arrays, e.g. after a partial migration, since svm_migrate_ram_to_vram()
+only counts the pages it actually migrated. That would need VRAM
+residency to be tracked per page independently of dma_addr.
+
+v2:
+- Rename counted to has_dma_addr and compare against old->npages (Philip)
+- Mention the XNACK off case and the partial migration limitation (Philip)
+
+Fixes: 006ad514a50c ("drm/amdkfd: Use partial hmm page walk during buffer validation in SVM")
 Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 47 ++++++++++++++-----------
- 1 file changed, 27 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 0056a93c400a..c5c8cb7d6669 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -313,22 +313,7 @@ void amdgpu_job_free_resources(struct amdgpu_job *job)
- 
- static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 1f5d73f0ebce..c67132d9ae9a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1020,9 +1020,12 @@ svm_range_split_pages(struct svm_range *new, struct svm_range *old,
+ 		      uint64_t start, uint64_t last)
  {
--	struct amdgpu_job *job = to_amdgpu_job(s_job);
--
--	drm_sched_job_cleanup(s_job);
--
--	amdgpu_sync_free(&job->explicit_sync);
--
--	if (dma_fence_was_initialized(&job->hw_fence->base))
--		dma_fence_put(&job->hw_fence->base);
--	else
--		kfree(job->hw_fence);
--	if (dma_fence_was_initialized(&job->hw_vm_fence->base))
--		dma_fence_put(&job->hw_vm_fence->base);
--	else
--		kfree(job->hw_vm_fence);
--
--	kfree(job);
-+	amdgpu_job_free(to_amdgpu_job(s_job));
+ 	uint64_t npages = last - start + 1;
++	bool has_dma_addr = false;
+ 	int i, r;
+ 
+ 	for (i = 0; i < MAX_GPU_INSTANCE; i++) {
++		if (old->dma_addr[i])
++			has_dma_addr = true;
+ 		r = svm_range_split_array(&new->dma_addr[i], &old->dma_addr[i],
+ 					  sizeof(*old->dma_addr[i]), old->start,
+ 					  npages, new->start, new->npages,
+@@ -1030,8 +1033,16 @@ svm_range_split_pages(struct svm_range *new, struct svm_range *old,
+ 		if (r)
+ 			return r;
+ 	}
+-	if (old->actual_loc)
++	if (old->actual_loc) {
++		/*
++		 * Pages migrated by prefetch have no dma_addr until they are
++		 * mapped on a GPU. A fully resident range still splits exactly,
++		 * old->npages isn't adjusted yet here.
++		 */
++		if (!has_dma_addr && old->vram_pages == old->npages)
++			new->vram_pages = new->npages;
+ 		old->vram_pages -= new->vram_pages;
++	}
+ 
+ 	return 0;
  }
- 
- void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
-@@ -349,14 +334,36 @@ void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
- 
- void amdgpu_job_free(struct amdgpu_job *job)
- {
--	if (job->base.entity)
--		drm_sched_job_cleanup(&job->base);
-+	struct dma_fence *f = NULL;
-+	unsigned int i;
- 
--	amdgpu_job_free_resources(job);
--	amdgpu_sync_free(&job->explicit_sync);
-+	/*
-+	 * The IBs of jobs pushed to the scheduler were already freed with the
-+	 * scheduler fence before that. The remaining ones only got to the
-+	 * hardware when submitted directly. Don't use the scheduler fence
-+	 * here, it never signals for jobs aborted after drm_sched_job_arm().
-+	 */
-+	if (dma_fence_was_initialized(&job->hw_fence->base))
-+		f = &job->hw_fence->base;
-+	for (i = 0; i < job->num_ibs; ++i)
-+		amdgpu_ib_free(&job->ibs[i], f);
-+
-+	/*
-+	 * The gang leader doesn't hold a reference to itself. Check before
-+	 * drm_sched_job_cleanup() clears the scheduler fence.
-+	 */
- 	if (job->gang_submit != &job->base.s_fence->scheduled)
- 		dma_fence_put(job->gang_submit);
- 
-+	/*
-+	 * Not job->base.entity, the scheduler clears that for the jobs it
-+	 * picked up.
-+	 */
-+	if (job->base.s_fence)
-+		drm_sched_job_cleanup(&job->base);
-+
-+	amdgpu_sync_free(&job->explicit_sync);
-+
- 	if (dma_fence_was_initialized(&job->hw_fence->base))
- 		dma_fence_put(&job->hw_fence->base);
- 	else
 -- 
 2.50.1
 
