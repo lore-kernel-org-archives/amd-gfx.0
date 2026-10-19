@@ -4,41 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4374DCCF2E3
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:58:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24D05CCF2E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:59:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF15410EDBD;
-	Mon, 19 Oct 2026 13:58:02 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3BF410EDB1;
- Mon, 19 Oct 2026 13:57:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4A9710EDCB;
+	Mon, 19 Oct 2026 13:59:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A97110EDB9;
+ Mon, 19 Oct 2026 13:58:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 17F3E60233;
- Mon, 19 Oct 2026 13:57:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860421F000C7;
- Mon, 19 Oct 2026 13:57:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 52B08433E7;
+ Mon, 19 Oct 2026 13:58:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D5D1F000C9;
+ Mon, 19 Oct 2026 13:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792418275;
- bh=Ua7FOrvtap76X3pWHhtDl5tS54N9KAgGE6T8hmgUSAg=;
+ s=k20260515; t=1792418336;
+ bh=MS8pmardBEX2l3RcjTmGxnUsx1lLEKzZ591tCruACIs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=XFX+EPfYtLIW13hk3VxO2Lau/4hfffMQ4eGWpmPGm7UMC/hqCsOskZfKFRRRK9D2i
- wDbWKq5jht1XsLwoVSDulFSmySmLl6ORV2lat4//tumEJUqu5uWIWIPqPiYL+RCS9p
- 7W6xKQvI1kMZQH5jlHc8NKw3rKz5Fx9Banc7ZS2Km8rVrcimCOjjj0hLrqWADhJi7C
- lZfc89attVBpauIwaG4M1uNVVldBxs8qed1DlQrpNgMALf3aaPHQXlEdRAAe6ZMKv9
- PC1cDq1jEKW4eXMUtpLQJNaogfGlLXBTNM2EiaMRXiXQDdvHuDbmooJ48TqM2dZ9BI
- lcd+dM6KRKn+w==
+ b=GCumNmWBlaGuj7DfutqjSE+YoOA57c6YFPT9Yqpfd0/zHFKas1Uvayn2FXO0K3iO9
+ 3EaPbmM0LdB5X9uoeeVevi3Nr33PNkb5rsB5RWKSFqCEBs0Hrs2TY8bonU5bTx5ggS
+ WrzcMstwg6qwBY/Vj81zXwX1FihSDbKTzF3WnqF0Q+AkOrHjSLRAofIoFvtTQg2mOe
+ ic6XsgkO07XEb+B2svnnrdK3v1+XqngBaDKPsbeae31f/ON7xHzi3cH55UNqNJcggS
+ DzRmrHbAxBztaTmvvFlYFcER6hVBb5/v46mu8T3pp2iPfvxJ6bcZasOVTCon86U0cq
+ EyHpGrNNKtrNQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yang Wang <kevinyang.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+Cc: Lijo Lazar <lijo.lazar@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/amd/pm: Use uploaded size for legacy
- custom PPTable
-Date: Mon, 19 Oct 2026 09:47:03 -0400
-Message-ID: <20261019135441.1420968-132-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: Fix kobject cleanup in xcp sysfs
+Date: Mon, 19 Oct 2026 09:47:46 -0400
+Message-ID: <20261019135441.1420968-175-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -62,410 +60,410 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yang Wang <kevinyang.wang@amd.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-[ Upstream commit 055a40c32f3a2dcd4d1a6f85ff4c231cf35f1b53 ]
+[ Upstream commit 62d8b452615fd7a61976a1372bb81937807968c3 ]
 
-The legacy powerplay path used to allocate hardcode_pp_table from
-the original VBIOS PPTable size, copy only the uploaded bytes into it,
-and keep soft_pp_table_size unchanged. If a custom PPTable is shorter
-than the original table, later code can still treat the stale tail as
-valid table data.
+Fix the indexing issue. Release the kobject whose init/add failed, and
+unwind the successfully added ones.
 
-Treat the uploaded buffer as the complete custom PPTable: duplicate the
-uploaded buffer directly, replace hardcode_pp_table atomically, and set
-soft_pp_table_size to the uploaded size.
-
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+The local tree is **6.18.53**. The buggy XCP sysfs cleanup is present
+here; the patch is a small, obviously-correct error-path kobject
+leak/WARN fix, so it should be backported.
+
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[drm/amd/pm] [Use] Use uploaded size for legacy custom PPTable`
-Subsystem: AMDGPU PowerPlay (legacy hwmgr path). Verb “Use” describes
-the corrected size source; the body is a correctness fix for stale table
-tails.
+Record: **[drm/amdgpu] [Fix] kobject cleanup in xcp sysfs** — intended
+to correct failed/partial kobject teardown for compute-partition sysfs.
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- `Signed-off-by: Yang Wang <kevinyang.wang@amd.com>` (author)
-- `Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>` (AMD)
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
+- **Reviewed-by:** Alex Deucher `<alexander.deucher@amd.com>` (amdgpu
   maintainer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc: stable` on
-  the upstream commit (absence expected)
-- Pipeline-only markers ignored: `[Upstream commit 055a40c32f3a2…]`,
-  `Signed-off-by: Sasha Levin`
+- **Signed-off-by:** Lijo Lazar `<lijo.lazar@amd.com>` (author)
+- **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>`
+- Ignore pipeline tags: `[Upstream commit
+  62d8b452615fd7a61976a1372bb81937807968c3]`, `Signed-off-by: Sasha
+  Levin`
+- **No Fixes:, Reported-by, Tested-by, Link:, or Cc: stable** (absence
+  is expected for this review)
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- **Bug:** `pp_dpm_set_pp_table()` allocated `hardcode_pp_table` at the
-  original VBIOS PPTable size, `memcpy`’d only the uploaded bytes, and
-  left `soft_pp_table_size` unchanged.
-- **Symptom:** A shorter custom table leaves a stale VBIOS tail; later
-  parsing still treats that tail as valid table data.
-  `pp_dpm_get_pp_table()` also reports the old size.
-- **Root cause:** Upload size is not treated as the complete custom
-  table.
-- **Fix:** `kmemdup(buf, size)`, atomically replace `hardcode_pp_table`,
-  set `soft_pp_table_size = size`.
-- No stack traces, syzbot, or version range in the message.
+- **Bug:** “indexing issue” in XCP sysfs kobject unwind; failed
+  `kobject_init_and_add()` is not released; successfully added kobjects
+  are not unwound.
+- **Symptom:** leaked kobjects / leftover sysfs on the init error path;
+  extra `kobject_put()` on the failed object when the loop runs with `i
+  >= 2`.
+- **Version info in message:** none.
+- **Root cause (author):** wrong index in the cleanup loop, plus missing
+  `kobject_put()` for the kobject whose init/add failed.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a disguised cleanup. It is an explicit correctness/memory-
-safety fix for mixed VBIOS+custom table contents. Also aligns the legacy
-path with SWSMU’s `smu_sys_set_pp_table()`.
+Record: Not disguised. Subject and body state a real cleanup bug. The
+original loop `for (j = 0; j < i; j++) { xcp_res = &xcp_cfg->xcp_res[i];
+... }` using **`i` instead of `j`** is a copy-paste error, not style
+cleanup.
 
-## PHASE 2: DIFF ANALYSIS
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
 **Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c` (+8 / −13)
-- Function: `pp_dpm_set_pp_table()` only
-- Scope: single-file surgical fix
+- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c` — **+5 / −3** (net
+  +2)
+- **Function:** `amdgpu_xcp_cfg_sysfs_init()`
+- **Scope:** single-file surgical error-path fix
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record: **Before** (this tree at `v6.18.53` / parent of the candidate):
-```
-if (!hwmgr || !hwmgr->pm_en) return -EINVAL;
-if (size > hwmgr->soft_pp_table_size) return -EINVAL;
-if (!hardcode_pp_table)
-    hardcode_pp_table = kmemdup(soft_pp_table, soft_pp_table_size, ...);
-memcpy(hardcode_pp_table, buf, size);
-soft_pp_table = hardcode_pp_table;
-// soft_pp_table_size unchanged
-amd_powerplay_reset();
-```
-**After:**
-```
-if (!hwmgr || !hwmgr->pm_en || !buf || !size || size > U32_MAX) return
--EINVAL;
-hardcode_pp_table = kmemdup(buf, size, GFP_KERNEL);
-kfree(old); assign new;
-soft_pp_table = hardcode_pp_table;
-soft_pp_table_size = size;
-amd_powerplay_reset();
-```
-Path: privileged sysfs store to `pp_table`, then DPM re-init. Not boot-
-default.
+Record (verified against parent `6a08c18ac122` / `v6.18.53`):
+1. Drop unused `j` after the loop rewrite.
+2. On `kobject_init_and_add()` failure: **before** `goto err` with no
+   put; **after** `kobject_put(&xcp_res->kobj)` then `goto err` (matches
+   `kobject_init_and_add()` docs: put is required even on failure
+   because `kobject_init()` already ran).
+3. Unwind loop: **before** `for (j = 0; j < i; j++)` always uses
+   `xcp_res[i]` (the failed slot), never `xcp_res[j]`; **after** `while
+   (i--)` puts indices `i-1 … 0` (the successfully added ones).
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **Logic/correctness + memory-safety (stale buffer / wrong
-length).**
-Broken: partial overwrite of a VBIOS-sized copy; parsers and
-`pp_table_has_space()` / `*_pp_table_has_space()` use
-`soft_pp_table_size` as the valid span.
-Fix: the uploaded buffer *is* the table; size matches allocation.
-Removes the overflow `memcpy` by allocating exactly `size` (supersedes
-the in-tree `size > soft_pp_table_size` cap). Adds `!buf`, `!size`,
-`size > U32_MAX` (`soft_pp_table_size` is `uint32_t`).
+Record: **Error-path resource leak + incorrect kobject put** (refcount
+WARN / leak).
+- `kobject_init_and_add()` always inits; a failed add still needs one
+  `kobject_put()`.
+- The old loop used `i` instead of `j`, so it never released successful
+  children and, when `i >= 2`, put the **same** failed kobject `i`
+  times.
+- `num_res` is `ARRAY_SIZE(max_res)` = `AMDGPU_XCP_RES_MAX` = **4**
+  (`aqua_vanjaram_get_xcp_res_info()`), so `i` can be 2 or 3.
+- First extra put: `kref` hits 0 → `kobject_cleanup()` (name freed).
+  Further puts: `refcount_dec_and_test()` on 0 → **refcount underflow
+  WARN**. Successful children and the parent `xcp_cfg` leak because
+  those child refs are never dropped.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-Record: Minimal and matches SWSMU. `kfree` + replace is serialized by
-`adev->pm.mutex` in `amdgpu_dpm_set_pp_table()`. `kfree(NULL)` is safe
-on first upload. Destroy path already `kfree`s `hardcode_pp_table`.
-Regression risk: low on the common (no custom table) path. Larger-than-
-VBIOS uploads are now allowed up to sysfs `PAGE_SIZE`; parsers that
-trust header offsets still need the later bounds patches.
-Truncated/malformed headers could already OOB in `v6.18.53` without
-those checks.
+Record: Obviously correct and minimal. Success path unchanged. `while
+(i--)` after putting the failed index is the usual pattern (`i=0` does
+not unwind further). Regression risk is **low** (error path only; no
+API/lock/hot-path change). `xcp_cfg_res_sysfs_ktype` has no `.release`
+(embedded kobject); putting it only cleans kobject state, it does not
+`kfree` the parent — that is correct.
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
 **Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- Function added `f3898ea12fc1f` (2016-02, “add some sysfs interfaces
-  for powerplay”)
-- Upload/reset/memcpy: `4dcf9e6f2e33fe` (2016-07, “add uploading pptable
-  and resetting powerplay support”)
-- `kmemdup` of VBIOS-sized original: `efdf7a93195a71` (2016-09)
-- Overflow cap: `3334985f8b4c7` / upstream `f193e71fa9fab` (“bound
-  pp_dpm_set_pp_table() memcpy”) — **already in `v6.18.53`**
-Bug is long-standing; this tree still has the stale-tail behavior.
+Record: Buggy loop introduced in **`4ae86dc878504`** (“drm/amdgpu: Add
+sysfs nodes to get xcp details”, Lijo Lazar, 2024-09-09). `git describe`
+→ `v6.11-rc7-1469-g4ae86dc878504`; contained in **v6.12**. Present in
+this 6.18 tree (`git merge-base --is-ancestor 4ae86dc878504 HEAD`
+succeeded).
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. Introduced with PowerPlay sysfs upload in 2016.
-Present in this 6.18.y tree.
+Record: No `Fixes:` tag. The introducing commit is in this tree. No
+later same-file fix for this indexing bug besides this candidate.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Related in this tree:
-- `3334985f8b4c7` — overflow bound (in `v6.18.53`)
-- `3149b1bee4fa1` — series 1/5, SWSMU header check (not in `v6.18.53`;
-  different file)
-- Later descendants: `f29e53bc54611`, `10510a4c2c397`, `c80131588ca2f`
-  (series 3–5 bounds; **not** in `v6.18.53`)
-- `8c685df5c3b26` — get-path UAF, different files
-This patch is **2/5** of Yang Wang’s June 2026 series. It is standalone
-(legacy `amd_powerplay.c` only). 3–5 use `soft_pp_table_size` as the
-bound, so they want this size to match custom uploads.
+Record: Nearby history is XCP sysfs feature work (`10072642541bd`,
+`04e9101766dfe`, `cbbab29246c8b`) plus unrelated RAS/bounds fixes. This
+is **standalone**, not `patch X/Y`. No extra prerequisite refactor is
+required for the hunk.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Yang Wang is an AMD pm contributor with several PPTable
-bounds/UAF fixes. Hawking Zhang reviewed; Alex Deucher signed off.
+Record: Lijo Lazar is a regular amdgpu/XCP contributor and authored the
+original sysfs nodes. Alex Deucher (maintainer) reviewed and signed off.
+Related author work on this file is XCP feature/fix traffic, not a
+hidden series dependency for this hunk.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: No missing helpers: `kmemdup`, `U32_MAX`, `hardcode_pp_table`,
-`amd_powerplay_reset()` all exist in `v6.18.53`. Does **not** depend on
-1/5. Parent blob already has the overflow `if (size >
-soft_pp_table_size)` that this diff removes — clean apply on this tree.
+Record: Diff only uses existing `kobject_init_and_add` / `kobject_put`
+and the existing `err` label. **Applies standalone.** Upstream SHA
+`62d8b452615fd7a61976a1372bb81937807968c3` is **not** an ancestor of
+this 6.18 HEAD (expected; it is a later mainline commit).
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- `b4 dig -c 055a40c32f3a2dcd4d1a6f85ff4c231cf35f1b53` → https://patch.m
-  sgid.link/20260623034151.263746-2-kevinyang.wang@amd.com
-- Series v1 only (no v2/v3)
-- `[PATCH 2/5] drm/amd/pm: Use uploaded size for legacy custom PPTable`
-- **1/5** SWSMU header + atomic `kmemdup`
-- **2/5** this commit
-- **3/5** Tonga state-array bounds
-- **4/5** Vega hwmgr bounds
-- **5/5** legacy `processpptables.c` offset bounds
-  (`pp_table_has_space`)
-- lore.kernel.org HTTP 403; discussion taken from `b4 dig -m` mbox
-  (verified)
+- `b4 dig -c 62d8b452…` →
+  https://patch.msgid.link/20260617085435.723531-1-lijo.lazar@amd.com
+- `b4 dig -a`: **v1 only** (2026-06-17), no v2/v3.
+- Thread (mbox): body matches the committed message; **Alex Deucher
+  Reviewed-by**; **no NAK**.
+- WebFetch of lore.kernel.org returned **403**; discussion recovered via
+  `b4 dig -m`.
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To/Cc `amd-gfx@lists.freedesktop.org`, Alex
-Deucher, Hawking Zhang, Kenneth Feng. Hawking: “Series is Reviewed-by:
-Hawking Zhang”. No NAKs in the saved thread.
+Record (`b4 dig -w`): To `amd-gfx@lists.freedesktop.org`; Cc Hawking
+Zhang, Alexander Deucher, Asad Kamal, Candice Li. Maintainer reviewed.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No `Reported-by` / bugzilla / syzbot. Bug is described from code
-review.
+Record: No Reported-by / syzbot / bugzilla. Found by code inspection of
+the unwind path. No user crash log.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: 2/5 does not need 1/5. 3–5 are follow-on parser hardening that
-treat `soft_pp_table_size` as the valid span; they are stronger with 2/5
-but VBIOS parsing still works without it.
+Record: Standalone single patch, not a multi-patch series.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: **UNVERIFIED** — `lore.kernel.org/stable/` returned HTTP 403. No
-stable discussion in the amd-gfx mbox.
+Record: **UNVERIFIED** — lore.kernel.org/stable WebFetch returned 403.
+No `Cc: stable` in the amd-gfx mbox.
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
 **Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: `pp_dpm_set_pp_table()`; uses `amd_powerplay_reset()`.
+Record: `amdgpu_xcp_cfg_sysfs_init()` only.
 
 **Step 5.2: TRACE CALLERS**
 Record:
-- `pp_dpm_funcs.set_pp_table` → `amdgpu_dpm_set_pp_table()`
-  (`mutex_lock(&adev->pm.mutex)`) → `amdgpu_set_pp_table()` sysfs store
-- Attribute: `AMDGPU_DEVICE_ATTR_RW(pp_table, …)` → `S_IRUGO | S_IWUSR`
-  (root write)
-- HW: legacy PowerPlay (SI/CI/VI/Polaris/Vega via hwmgr), not Navi+
-  SWSMU (`smu_sys_set_pp_table`)
+- `amdgpu_xcp_cfg_sysfs_init()` ← `amdgpu_xcp_sysfs_init()`
+  (`amdgpu_xcp.c`)
+- ← `amdgpu_device.c` (~line 4948) during device init, with other amdgpu
+  sysfs setup
+- Early-out if `!adev->xcp_mgr`
 
 **Step 5.3: TRACE CALLEES**
-Record: `kmemdup`, `kfree`, `amd_powerplay_reset()` → `hwmgr_hw_fini` /
-`hwmgr_hw_init` / `hwmgr_handle_task(AMD_PP_TASK_COMPLETE_INIT)`,
-optional `avfs_control(false)`.
+Record: `kobject_init_and_add`,
+`sysfs_create_files`/`sysfs_create_file`, `amdgpu_xcp_get_res_info`,
+`kobject_put`, `sysfs_remove_*`. No new locks or allocations besides
+existing ones.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace `write()` to `/sys/class/drm/card*/device/pp_table`
-(root). Then full PM re-init from the new table. Reachable, privileged,
-documented.
+Record: GPU probe/init for devices that create `xcp_mgr`. That is
+**`aqua_vanjaram_init_soc_config()`**, only for **GC IP 9.4.3, 9.4.4,
+9.5.0** (MI300/MI325/MI350-class Instinct). Userspace cannot directly
+call this; trigger is `kobject_init_and_add()` failure (ENOMEM / name
+collision) during driver load. Function is `void`; probe **continues**
+even on failure, so leaked objects live until unload/reboot.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: SWSMU already `kmemdup(buf, size)` and sets
-`power_play_table_size = size` (series 1/5 / current
-`smu_sys_set_pp_table()`). This is the legacy equivalent.
+Record: No remaining `for (j = 0; j < i; j++)` in this file.
+`amdgpu_xcp_cfg_sysfs_fini()` iterates `0 .. num_res-1` correctly. Bug
+is local to this init unwind.
 
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: **Yes.** `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`;
-`Makefile` 6.18.53.
-`v6.18.53:drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c` still has
-VBIOS-sized `kmemdup` + partial `memcpy` + unchanged
-`soft_pp_table_size` (and the overflow cap). Introduced ~2016.
+Record: **Yes.** Tree is `v6.18.53-5049-g0f0bdc2b0dffb` (`Makefile`
+6.18.53, branch `autosel`). `v6.18.53:amdgpu_xcp.c` still has `int i, r,
+j, rid, mode;`, `if (r) goto err;` without put, and `for (j = 0; j < i;
+j++)` using `xcp_res[i]`. Introduced in v6.12-era commit
+`4ae86dc878504`, ancestor of 6.18.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: **Clean apply.** Candidate diff is against the exact `v6.18.53`
-function (including `if (size > hwmgr->soft_pp_table_size)`).
+Record: **Clean apply.** Same function, same loop, same identifiers.
+Context in 6.18 uses `kzalloc(sizeof(*xcp_cfg), GFP_KERNEL)` rather than
+a later `kzalloc_obj` helper; that is outside the hunk. No conflicting
+refactor in this file for these lines.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: Overflow cap is in `v6.18.53`; it does **not** fix the short-
-table tail. No other in-tree substitute for updating
-`soft_pp_table_size` on upload.
+Record: No other commit on this file fixes this indexing/put bug.
+`v6.18.53` does not contain the fix (`git merge-base --is-ancestor
+4fbcdfa45e537 v6.18.53` failed).
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
 
 **Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `drivers/gpu/drm/amd/pm/powerplay` — **IMPORTANT** (amdgpu DPM
-on pre-Navi ASICs). Not core mm/vfs, but production GPU power/clocks.
+Record: **drm/amdgpu XCP (compute partition) sysfs.** Criticality:
+**IMPORTANT** for MI300-class GPU servers; **PERIPHERAL** for typical
+desktop/laptop amdgpu. Not mm/VFS/net core.
 
 **Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Actively maintained (Alex Deucher). Legacy PowerPlay is mature;
-this is hardening of a 2016 sysfs API, not new feature work.
+Record: amdgpu/XCP is actively developed in this tree, but this
+particular unwind has been wrong since the 6.12-era feature landed — a
+long-standing bug, not last-month code.
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
 
 **Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Driver-specific: root users uploading custom PPTables on legacy
-PowerPlay AMD GPUs (Polaris/Vega/etc.). Not universal; the sysfs node is
-a documented interface.
+Record: **Driver/platform-specific** — AMD Instinct GC 9.4.3/9.4.4/9.5.0
+with `xcp_mgr`. Consumer GPUs without XCP are unaffected (`if
+(!adev->xcp_mgr) return`).
 
 **Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Write a custom table **shorter** than the VBIOS table. Common
-for truncated files or smaller community/AMD PPT blobs. Not boot.
-**Not** unprivileged (`S_IWUSR`).
+Record: `kobject_init_and_add()` failure while creating
+`compute_partition_config/{xcc,dma,dec,jpeg}` during probe. **Uncommon**
+(ENOMEM or sysfs name clash). Not a hot path; not directly triggerable
+by an unprivileged syscall except via memory pressure during driver
+load. Timing race: no.
 
 **Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: Mixed custom prefix + stale VBIOS tail parsed as one table →
-wrong clocks/voltages/DPM (hangs, instability, possible overvoltage).
-`get_pp_table` returns too much mixed data. Defeats size-based parser
-bounds that key off `soft_pp_table_size`.
-**Severity: HIGH** on that path (wrong PM programming / confused
-bounds), **MEDIUM** globally (privileged, non-default).
+Record:
+- Leak of child kobjects + parent `xcp_cfg` (sysfs leftovers; `xcp_cfg`
+  never stored so `fini` cannot recover it).
+- If failure is at `i >= 2`: **refcount underflow WARN** on repeated put
+  of the failed kobject.
+- Not a happy-path oops, deadlock, or filesystem corruption.
+- Severity: **MEDIUM–HIGH** on that error path (WARN + leak), **LOW**
+  frequency.
 
 **Step 8.4: CALCULATE RISK-BENEFIT RATIO**
 Record:
-- **Benefit:** Completes the overflow fix already in 6.18.53; custom
-  tables are actually the bytes uploaded; readback size is right; later
-  bounds checks can trust the size.
-- **Risk:** Low — ~8 insertions, one function, mutex-held, same pattern
-  as SWSMU. Idle GPUs that never write `pp_table` are unchanged.
-- **Ratio:** Favorable.
+- **Benefit:** medium for affected GPUs — correct teardown, no leftover
+  sysfs, no refcount WARN; zero effect on the success path.
+- **Risk:** very low — 5-line error-path-only change, maintainer-
+  reviewed.
+- **Ratio:** favorable for stable.
 
-## PHASE 9: FINAL SYNTHESIS
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
-**FOR:**
-- Real bug: stale VBIOS tail treated as valid PPTable after a short
-  custom upload
-- Can misprogram GPU power/clocks and break size-based parsing
-- Small, obviously correct, matches SWSMU
-- Overflow half already in this tree; this is the remaining hole
-- AMD review (Hawking) + maintainer SOB (Deucher)
-- Applies cleanly; no missing helpers
-- Privileged but supported sysfs API
+FOR:
+- Real, obvious bug: cleanup loop uses `i` not `j`.
+- Missing `kobject_put()` after failed `kobject_init_and_add()`
+  (documented API contract in `lib/kobject.c`).
+- Can leak kobjects/sysfs and, for `i >= 2` of 4 resources, trigger
+  refcount underflow WARN.
+- Tiny (+5/−3), success path untouched.
+- Buggy code has been in tree since ~v6.12 and **is in 6.18.53**.
+- Reviewed-by amdgpu maintainer; standalone; applies cleanly.
 
-**AGAINST:**
-- Not a default-boot crash; root-only
-- No syzbot/CVE/user report in the message
-- Part of a 5-patch series (2/5 still stands alone)
-- Allows uploads larger than the original VBIOS size (capped in practice
-  by sysfs `PAGE_SIZE`)
+AGAINST:
+- Error path only; `kobject_init_and_add()` rarely fails.
+- Init function is `void`; probe does not fail, so users may not notice.
+- Limited to XCP-capable Instinct GPUs.
+- No syzbot/user report, no Fixes:/Cc: stable (not a negative by
+  itself).
+- One-time probe leak, not a hot-path leak.
 
-**UNRESOLVED:** Stable-list discussion (lore 403). No evidence this was
-rejected for stable.
+UNRESOLVED:
+- Could not query lore.kernel.org/stable (HTTP 403).
+- Could not use semcode (namespace not present).
 
 **Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — SWSMU-equivalent; reviewed
-   by AMD; in mainline
-2. Fixes a real bug that affects users? **PASS** — documented `pp_table`
-   upload
-3. Important issue? **PASS** — wrong DPM table contents / bounds (HIGH
-   on that path)
-4. Small and contained? **PASS** — one function, net −5 lines
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — clean vs `v6.18.53`
+1. Obviously correct and tested? **PASS** — logic matches kobject rules;
+   maintainer Reviewed-by.
+2. Fixes a real bug that affects users? **PASS** — wrong unwind is in
+   6.18; MI300-class systems hit this init.
+3. Important issue? **PASS** — leak plus possible kernel refcount WARN;
+   not a universal panic, but a real stability/correctness bug on a
+   production GPU path.
+4. Small and contained? **PASS** — 8-line hunk, one function.
+5. No new features or APIs? **PASS**.
+6. Can apply to the local tree? **PASS** — buggy code is in `v6.18.53`;
+   context matches.
 
 **Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: None (not a device ID/quirk/DT/build/docs exception). Qualifies
-as a normal small bugfix.
+Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary small
+bugfix.
 
-**Step 9.4: DECISION**
-This belongs on 6.18.y: the buggy upload path is here, the overflow cap
-is already here, and this is the matching fix so a custom PPTable is
-exactly the uploaded bytes and length.
+**Step 9.4: MAKE YOUR DECISION**
+This should be backported to **this** 6.18.y tree. The indexing bug is
+unambiguous, the missing put is required by the kobject API, the change
+is surgical, and the code has been wrong for the entire lifetime of this
+sysfs feature in 6.18.
 
-### What the commit solves for this tree
-On 6.18.53, `pp_dpm_set_pp_table()` still clones the VBIOS table, copies
-only the write, and keeps `soft_pp_table_size`. A shorter custom table
-leaves a stale tail that init/sysfs still treat as valid, so DPM can run
-on a hybrid table. The patch makes the upload the whole table, which is
-what the sysfs ABI documents.
+**What it solves for stable users:** On MI300-class amdgpu probe, if
+creating a partition-config resource kobject fails, 6.18 currently leaks
+the kobjects that did get added (and can WARN on extra puts of the
+failed one). The fix releases the failed kobject and actually unwinds
+`0..i-1`.
 
-### Risk vs benefit
-Benefit is real for anyone using `pp_table` on legacy PowerPlay. Risk is
-a small, mutex-protected change with no effect unless that sysfs node is
-written.
+**Risk vs benefit:** Benefit is correct error-path teardown with no
+success-path behavior change; risk is negligible.
 
----
+**Concerns:** Trigger is uncommon; impact is limited to XCP GPUs. That
+does not make the patch unsuitable — it applies cleanly and does not
+need other commits.
 
 Verification:
-- [Phase 1] Tags: author Yang Wang; Reviewed-by Hawking Zhang; SOB Alex
-  Deucher; no Fixes/Reported-by/Cc: stable on upstream `055a40c32f3a2`
-- [Phase 2] Diff: `pp_dpm_set_pp_table()` only; drop VBIOS-sized clone +
-  partial memcpy; `kmemdup(buf,size)`; set `soft_pp_table_size`; extra
-  `!buf/!size/U32_MAX` checks
-- [Phase 3] Blame: memcpy upload `4dcf9e6f2e33fe` (2016); overflow cap
-  `3334985f8b4c7` is in `v6.18.53`; this candidate is not
-- [Phase 3] `git merge-base --is-ancestor 055a40c32f3a2 HEAD` → not in
-  this history as that SHA (expected for a stable cherry-pick
-  evaluation)
-- [Phase 3] `v6.18.53` file contents confirmed: bound-check +
-  kmemdup(original) + memcpy(size) + no size update
-- [Phase 4] `b4 dig -c 055a40c32f3a2` → patch 2/5, msgid
-  `20260623034151.263746-2`; v1 only; Hawking reviewed the series
-- [Phase 4] WebFetch lore/msgid 403; mbox via `b4 dig -m` used instead
-- [Phase 4] Stable-list search 403 — UNVERIFIED
-- [Phase 5] Callers: `amdgpu_dpm_set_pp_table` under `adev->pm.mutex`
-  from sysfs `pp_table` (`S_IWUSR`)
-- [Phase 5] SWSMU `smu_sys_set_pp_table()` already uses the same kmemdup
-  + size update
-- [Phase 6] `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`; `make
-  kernelversion` 6.18.53; buggy code in this tree
-- [Phase 6] Series 3–5 not in `v6.18.53`; this commit does not require
-  them to apply
-- [Phase 8] Failure mode: mixed PPTable → wrong GPU PM; trigger = root
-  write of a shorter custom table
-- UNVERIFIED: Whether anyone requested this on stable@ (lore 403)
+- [Phase 1] Tags: Reviewed-by Alex Deucher; SOB Lijo Lazar + Deucher; no
+  Fixes/Reported-by/Cc: stable
+- [Phase 2] Diff: `amdgpu_xcp_cfg_sysfs_init()` +5/−3; add `kobject_put`
+  on failed init/add; `for (j=0;j<i;j++)` + `xcp_res[i]` → `while (i--)`
+- [Phase 2] Parent dump of `amdgpu_xcp.c` confirmed the `i`-instead-
+  of-`j` bug
+- [Phase 2] `lib/kobject.c`: `kobject_init_and_add()` inits then adds;
+  comments require `kobject_put()` on error
+- [Phase 2] Extra puts hit `refcount_dec_and_test()` underflow WARN
+  (`include/linux/refcount.h`)
+- [Phase 3] `git blame` on parent: lines from `4ae86dc878504` (v6.12
+  era)
+- [Phase 3] `git merge-base --is-ancestor 4ae86dc878504 HEAD` → yes;
+  `62d8b452` not ancestor of this 6.18 HEAD
+- [Phase 3] `git log --oneline -20 -- amdgpu_xcp.c`: standalone, not a
+  series
+- [Phase 4] `b4 dig -c 62d8b452`: lore msgid
+  20260617085435.723531-1-lijo.lazar@amd.com
+- [Phase 4] `b4 dig -a`: v1 only; `b4 dig -w`: amd-gfx + Deucher et al.
+- [Phase 4] mbox: Deucher Reviewed-by; no NAK; no stable nomination
+- [Phase 4] lore.kernel.org WebFetch 403 — UNVERIFIED for stable@
+  archive
+- [Phase 5] callers: `amdgpu_xcp_sysfs_init` ← `amdgpu_device.c` probe;
+  `xcp_mgr` only from `aqua_vanjaram_init_soc_config` for GC
+  9.4.3/9.4.4/9.5.0
+- [Phase 5] `num_res = ARRAY_SIZE(max_res)` = `AMDGPU_XCP_RES_MAX` = 4
+- [Phase 5] no semcode — used grep/read
+- [Phase 6] `git describe HEAD` = v6.18.53-5049-g0f0bdc2b0dffb; `make
+  kernelversion` 6.18.53
+- [Phase 6] `git show v6.18.53:amdgpu_xcp.c` still has the buggy loop
+- [Phase 8] Failure: leak + possible refcount WARN on probe error path;
+  not a common-path oops
+- UNVERIFIED: whether stable@ ever discussed this commit (lore 403)
 
 **YES**
 
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 21 +++++++------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 5e197c463ed96..05c5e7d19ca1c 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -663,25 +663,20 @@ static int amd_powerplay_reset(void *handle)
- static int pp_dpm_set_pp_table(void *handle, const char *buf, size_t size)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+index 1083db8cea2eb..6059227c53150 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+@@ -901,7 +901,7 @@ static void amdgpu_xcp_cfg_sysfs_init(struct amdgpu_device *adev)
  {
- 	struct pp_hwmgr *hwmgr = handle;
-+	void *hardcode_pp_table;
- 	int ret = -ENOMEM;
+ 	struct amdgpu_xcp_res_details *xcp_res;
+ 	struct amdgpu_xcp_cfg *xcp_cfg;
+-	int i, r, j, rid, mode;
++	int i, r, rid, mode;
  
--	if (!hwmgr || !hwmgr->pm_en)
--		return -EINVAL;
--
--	if (size > hwmgr->soft_pp_table_size)
-+	if (!hwmgr || !hwmgr->pm_en || !buf || !size || size > U32_MAX)
- 		return -EINVAL;
+ 	if (!adev->xcp_mgr)
+ 		return;
+@@ -947,14 +947,16 @@ static void amdgpu_xcp_cfg_sysfs_init(struct amdgpu_device *adev)
+ 					 &xcp_cfg_res_sysfs_ktype,
+ 					 &xcp_cfg->kobj, "%s",
+ 					 xcp_res_names[rid]);
+-		if (r)
++		if (r) {
++			kobject_put(&xcp_res->kobj);
+ 			goto err;
++		}
+ 	}
  
--	if (!hwmgr->hardcode_pp_table) {
--		hwmgr->hardcode_pp_table = kmemdup(hwmgr->soft_pp_table,
--						   hwmgr->soft_pp_table_size,
--						   GFP_KERNEL);
--		if (!hwmgr->hardcode_pp_table)
--			return ret;
--	}
--
--	memcpy(hwmgr->hardcode_pp_table, buf, size);
-+	hardcode_pp_table = kmemdup(buf, size, GFP_KERNEL);
-+	if (!hardcode_pp_table)
-+		return ret;
- 
-+	kfree(hwmgr->hardcode_pp_table);
-+	hwmgr->hardcode_pp_table = hardcode_pp_table;
- 	hwmgr->soft_pp_table = hwmgr->hardcode_pp_table;
-+	hwmgr->soft_pp_table_size = size;
- 
- 	ret = amd_powerplay_reset(handle);
- 	if (ret)
+ 	adev->xcp_mgr->xcp_cfg = xcp_cfg;
+ 	return;
+ err:
+-	for (j = 0; j < i; j++) {
++	while (i--) {
+ 		xcp_res = &xcp_cfg->xcp_res[i];
+ 		kobject_put(&xcp_res->kobj);
+ 	}
 -- 
 2.53.0
 
