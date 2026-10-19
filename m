@@ -4,28 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C849CCF2D6
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE5F5CCF2DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 13:02:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29F9F10ECF1;
-	Mon, 19 Oct 2026 13:02:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5523D10ECF3;
+	Mon, 19 Oct 2026 13:02:28 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3515E10E9BF
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:02:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECE6A10ECF3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 13:02:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=qaVSoBsRBV3o1DJiU0VgNJOaDV08jgxyFXsRS2HtxaM=; b=QjdQpg+EHEKEb2UBUIfngXSrZo
- 2tR8DFjpx3+sg7JQc94wdFUuopP2IkM7OpvwFhuaCe+5sA1wtpWNXTmtHLzA1kNZPUCztwyKa3qSr
- kUt5HuEm8hQGDWHcr6M3RD/tNzVNrXv9d5rJbjpT6rkCqL25c1/N3+5VpVuVcH95xDD7oJsCfjR6d
- P9q0MnNbtM1cJ9itZwf5b+lbpiMd9uj95HadgQbCjHnCg3Bau9cTktfWv3R/F5cBrvBuVz771C29V
- X6AVUQetaaU+7MWB99W/a2yHvr6nzrlgp41JjRB6Is98ROqye8LQK6YxCY1i+dDMm6098Bh7j9Z36
- 5SWWCYvw==;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=MBzefxJjSehIiXV7MP/rE+sn8b55QNnwWbl4rmGfcSE=; b=
+ QGA1cCBvHGXG5OVJHKARjJQSBq+UIR9YvruHNptMPL3HJ2NxJCKpYrzidjBBl11wGSHful+RKEUYk
+ 3muGMkdF/dMyb1ErLzbPfQ7Hl8Bd0Z3w26YX1WNHaN6Bbypi54ld3q4NoM9DpDYoGsj75JK5VtW2x
+ GR2GWGkzVWYsFUpQHGJk/AXrP8gKCUp1cMOqmqRSdb3/s9zOLd+MvQNJTfBBGsh97ydFCzPq+Eaw8
+ uHYFDkt6qNxLvhUFSibWehA9jPGrV91+Jbo3MCQYiqxJg+LofKthjC/PEoIHUNy+Mfpwvk7i/roEt
+ 1ZAvmKf1hIW6YtISqVE9Nha33fud+Li19Q==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xIn0I-003UKS-8q; Mon, 19 Oct 2026 15:02:14 +0200
+ id 1xIn0L-003UKv-2I; Mon, 19 Oct 2026 15:02:17 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
@@ -33,15 +32,13 @@ Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
  Alex Deucher <alexdeucher@gmail.com>,
  Felix Kuehling <felix.kuehling@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v4 2/7] drm/amdgpu: Move amdgpu_ttm_tt_is_userptr() under
- conditional compilation
-Date: Mon, 19 Oct 2026 14:01:54 +0100
-Message-ID: <20261019130159.11739-3-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v4 6/7] drm/amdgpu: Add context handle renaming operation
+Date: Mon, 19 Oct 2026 14:01:58 +0100
+Message-ID: <20261019130159.11739-7-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019130159.11739-1-tvrtko.ursulin@igalia.com>
 References: <20261019130159.11739-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,92 +54,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If userptr support is not compiled in there is no point to emit an out of
-line function and respective calls which always returns false. Move the
-declaration and implementation to the the already present conditional blocks.
+Identical in principle to DRM_IOCTL_GEM_CHANGE_HANDLE, we need a method
+for renaming the driver specific context handles.
+
+We add a new operation (AMDGPU_CTX_OP_CHANGE_HANDLE) to the
+DRM_IOCTL_AMDGPU_CTX ioctl.
+
+Source handle is given in the existing input handle field, while the
+destination handle needs to be passed in the existing flags field.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 26 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  7 ++++++-
- 2 files changed, 19 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 41 +++++++++++++++++++++++++
+ include/uapi/drm/amdgpu_drm.h           |  1 +
+ 2 files changed, 42 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 8acb12da6e8b..cebeabd0ee72 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -802,6 +802,19 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
- 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 5eb156d72db9..d47ccbe7ab52 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -518,6 +518,44 @@ static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
+ 	return ctx ? 0 : -EINVAL;
  }
  
-+/*
-+ * amdgpu_ttm_tt_is_userptr - Have the pages backing by userptr?
-+ */
-+bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
++static int amdgpu_ctx_change_handle(struct amdgpu_fpriv *fpriv,
++				    uint32_t old, uint32_t id)
 +{
-+	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
++	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
++	XA_STATE(xas, &mgr->ctx_handles, id);
++	struct amdgpu_ctx *ctx;
++	int r;
 +
-+	if (gtt == NULL || !gtt->usertask)
-+		return false;
++	if (!old || !id || old == id)
++		return -EINVAL;
 +
-+	return true;
++	do {
++		xas_lock(&xas);
++
++		ctx = xa_load(&mgr->ctx_handles, old);
++		if (!ctx) {
++			r = -EINVAL;
++			goto unlock;
++		}
++
++		if (xas_load(&xas)) {
++			r = -EBUSY;
++			goto unlock;
++		}
++
++		xas_store(&xas, ctx);
++		r = xas_error(&xas);
++		if (r)
++			goto unlock;
++
++		__xa_erase(&mgr->ctx_handles, old);
++unlock:
++		xas_unlock(&xas);
++	} while (xas_nomem(&xas, GFP_KERNEL));
++
++	return r;
 +}
 +
- #endif
+ static int amdgpu_ctx_query(struct amdgpu_device *adev,
+ 			    struct amdgpu_fpriv *fpriv, uint32_t id,
+ 			    union drm_amdgpu_ctx_out *out)
+@@ -716,6 +754,9 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 			return -EINVAL;
+ 		r = amdgpu_ctx_stable_pstate(adev, fpriv, id, true, &stable_pstate);
+ 		break;
++	case AMDGPU_CTX_OP_CHANGE_HANDLE:
++		r = amdgpu_ctx_change_handle(fpriv, id, args->in.flags);
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 7f7aae3c2498..ac0e7811c389 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -261,6 +261,7 @@ union drm_amdgpu_bo_list {
+ #define AMDGPU_CTX_OP_QUERY_STATE2	4
+ #define AMDGPU_CTX_OP_GET_STABLE_PSTATE	5
+ #define AMDGPU_CTX_OP_SET_STABLE_PSTATE	6
++#define AMDGPU_CTX_OP_CHANGE_HANDLE	7
  
- /*
-@@ -1409,19 +1422,6 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
- 	return true;
- }
- 
--/*
-- * amdgpu_ttm_tt_is_userptr - Have the pages backing by userptr?
-- */
--bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
--{
--	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
--
--	if (gtt == NULL || !gtt->usertask)
--		return false;
--
--	return true;
--}
--
- /*
-  * amdgpu_ttm_tt_is_readonly - Is the ttm_tt object read only?
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index adb6cfae5052..8d14d8a5c25c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -213,12 +213,18 @@ uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
- #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
- int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
- 				 struct amdgpu_hmm_range *range);
-+bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
- #else
- static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
- 					       struct amdgpu_hmm_range *range)
- {
- 	return -EPERM;
- }
-+
-+static inline bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
-+{
-+	return false;
-+}
- #endif
- 
- /**
-@@ -253,7 +259,6 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
- 				  unsigned long end, unsigned long *userptr);
- bool amdgpu_ttm_tt_userptr_invalidated(struct ttm_tt *ttm,
- 				       int *last_invalidated);
--bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
- bool amdgpu_ttm_tt_is_readonly(struct ttm_tt *ttm);
- uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct ttm_resource *mem);
- uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
+ /* GPU reset status */
+ #define AMDGPU_CTX_NO_RESET		0
 -- 
 2.56.0
 
