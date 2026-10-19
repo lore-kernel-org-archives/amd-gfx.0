@@ -2,97 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C090B606A31C
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 21:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBE7606A319
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Oct 2026 22:19:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MuP/Ro94
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTvO1QY1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55C8610E65D;
-	Mon, 19 Oct 2026 21:33:29 +0000 (UTC)
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A11E10E65D
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 21:33:23 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-15943c9be84so141627c88.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 14:33:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792445603; cv=none;
- d=google.com; s=arc-20260327;
- b=Cx8TEIsr1K2ys398qsl5SiQv8zVAvic1IfNX4XZuOYs4nPRnGTBZzcg78jS99cdq9q
- 81T6OZYndsg0VtKyNNWkM+LM97nF4FASSEfOhYByvn9Tg6BAfzRoGg+R4nIBl9jpomFw
- EMlNcnGA+A4HJ0fcHvFEOOOkJS02E1AETnAkSGsjht0TjiJdIBVoCEdZdPAGet1kwllh
- 054KZruXqLS7zY1OhEB6fy3USS1UFKEtIvP0tsxdzIrsUJbybABcoIGCkyTvA+HA/OTN
- 96fyhrX+vf/d/ypDyiJrkr3LBTGGgqPqlIUnmnKPC/194w8dgbDgN1u1UtRmX6T1eMd2
- 47tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=GQlCl9dWOqNQIRweq291SZTEueEEhdE4wMGJJ0+9RY8=;
- fh=sD+YEeB28b/bC+Caee9KqRT80m8zu33TvuN51pwGMNo=;
- b=rE8ceQ3vGoFERtQGFKJOBwH6k3gjXANA22WqdNZQIIJE5LqpWtPvMinb2jMjck5Ugv
- tIw0KaKZ/TnHpFIZVysiJJzV8liOTvOBHmcU2ZXLwI1ZPdKUQuBuXOe1E/mUlqY8Xu3s
- pIxJ9S9Ew+KBcgsgwYDBZ6FncKorei8h+j3VBgsHuVHBBT+YL7vbE3nIOgUPoWokr/b2
- IrokPoe8xABtWihJtqsDC96aeMPi5T2BsSEtKJkw0LulPv+2wRONLpQsCbZreBvn2CDn
- Vt54fRNWIbZ4HzVvPl30AQPZRtlHNMnqYpJNSKNrsS9JsPXXgaBBcRgA99k/KUIRE80u
- TPQg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792445603; x=1793050403; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GQlCl9dWOqNQIRweq291SZTEueEEhdE4wMGJJ0+9RY8=;
- b=MuP/Ro94aSNRREI0ASAM9ZO9rftym+kndRJvaPffFF6yiJtEVouMN3MPUxuTvWcTUU
- gaq+yulYrQXRqOqQWrUY3bQGWIjgCTBPunsJ2P2NnU9onGmD90/v5mF66hejlvO+ID8s
- ESSM2LERJ8OenAUP7e1ZgLdjv5s4wo13AvewyasWW8UjXiHBSHmwq+sPtPcQPG+iAWHc
- Z0Pwv2K6bXBKnUFhxS7cIfIXfXyI+qdvZ4sKsIkwfSA+pceKl1FiIDohm9NydglcDoRN
- D3AbgclC/KfCdfXwTv9lftPWvlv4Czrhb/J2sxjFseS32gmfFI0Ar/DAA4tcz5a3PvdM
- NPrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792445603; x=1793050403;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GQlCl9dWOqNQIRweq291SZTEueEEhdE4wMGJJ0+9RY8=;
- b=M2yh8OASutsOcD+BgO0rYHL/AUG3++Jgzmob1gmG18CHlmH1C2bMRpnpqyx6eORXAb
- 1o3I/1pjln5h7t+mHDzqx9SFmdhvLds4JCghnES9Ha6QgvSGZVeGnBUOpw/4SjhrgUwP
- gJ78y+mKgKgOoGHqVwHkvXkeuE/V60LWKs4Ou3RYvkE7kBiM0RQO3YB1RgcGjt1yhgtn
- XqAXKzj3Gm+y3tGvcjk9FKL9M3sdVz4IynAdAOX79jdRkyGcZU2jYRao0vn01DvuYxSX
- xVBi+iLyxzqL1CvjEXA3M1eXitOs+k1LlC5wJ/st1GYqyMipzfgFsuLw6RLjyJ85+hZG
- BQjw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx3r5tT+CZWuNdR6sQ3ub6DJXFCQBLU2L/EbeR1PadIxQjzBlvSTS4lzwBNNuLuTCoZUP3NmbKQ@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKi45WRCIhuvo/iIRTYHeIvurNo0NJuldV+9NKdwlkZDbeqQMGV
- Sv+Ga0qxIsoZQvUmzg4Oe4G6ULXvhFPx1rbnTqM3Lt72Hh8DkbCYYDHp+kLYs+pHUj26ErWDhYp
- UJz2SCTf2YCwpDHXlf47Hp5fBCYS3sbE=
-X-Gm-Gg: AYBFou3HUlVcfipFl/Te3MQLcWW0YQ0rAaRG5/+Zr3g7NcND6POaEzeeOXclyZR8+0s
- Lf+lHmTMgU0wyW1hUJckU6CMtHLRRY8x+kgFtcpc0I7YDf1n8w0NHAiTzB/IM8EwkB+v8tjzXWj
- wreGKqUkpHYlu51g71oF9JAzTpJsEbRxdFVErNfoXebX9lRLWC9ezJxGd0WDUvf07B24L6m+2Pn
- l968ma+Hm5p5zc2z13nMgziOln64W8cfZBEtXaxkjnKOkY69PfYBjTCYid86ISvO52+opKXCKqM
- Q0LmTpb+EOmmG7zHpRfC4fPTWzL2pIvocelQMn3BdOXoDN5tJ/FuBJ499SzBhPsHl6wwfje1MQ+
- /IH0wnBd0LvYq7FpibFMvhyz7Kx5ucZtbegjA+O1B5A==
-X-Received: by 2002:a05:7023:a5c:10b0:183:d275:cf76 with SMTP id
- a92af1059eb24-18511adbd46mr19516085c88.2.1792445602643; Mon, 19 Oct 2026
- 14:33:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1793310EB50;
+	Mon, 19 Oct 2026 22:19:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2596C10EB0D;
+ Mon, 19 Oct 2026 22:19:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CA0C14040C;
+ Mon, 19 Oct 2026 22:19:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1731F000C5;
+ Mon, 19 Oct 2026 22:19:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792448363;
+ bh=wWC3BH4/cWXsuzoVyhQyHpYGPRVcQltrEpBHrAWJKKs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=iTvO1QY1bsW2g2qybhLxqMhYde4lg3yiDwQEGJcKC/orAHO5J5SDY7xhAy230dGfG
+ SpxKfvrQs8NYF6j7S6f/l1RJqFXv9xz/hW3E1nxY4lrNUxijKXKQHOEs5ORWl+KoB3
+ P1WY0M+WK1LUo3nloxvxs+ye1W0V1xw5bmuaLAQJaZMcqfqxUpB92qED8ccCDUuEuQ
+ t3PcSJ3OF/BkuytNzo+aJSfZGISpl8ZHhVPAP1kXIMkEP2kqfuqWGZGLR4co/GAQo+
+ /tyY1u841ODG5ON9OJQXEkT1+dtW1g0TIvsdBGRgMZf6HfmO0tgE+4302qR38UcQpV
+ E+OccXZja9EYg==
+Date: Mon, 19 Oct 2026 17:19:22 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, bhelgaas@google.com,
+ Reza Nikzad Chaleshori <rezanikzadch@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, Alex Williamson <alex@shazbot.org>,
+ Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ Lukas Wunner <lukas@wunner.de>, linux-acpi@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu: Gate VFCT bus fallback on pci=realloc
+Message-ID: <20261019221922.GA2275522@bhelgaas>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261016141504.2794541-1-yaojiale02@163.com>
-In-Reply-To: <20261016141504.2794541-1-yaojiale02@163.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 19 Oct 2026 17:33:10 -0400
-X-Gm-Features: AclHuK_Me7TacYeo4mJbcJaHVL-oGV4AZjveGBSsw30ka30ykjikfca5QZHE9gM
-Message-ID: <CADnq5_OneLPoTnDtowe2zVfLwN3_NZ3uFefNOw5itRKi6HivvQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: validate SRAT subtables before parsing
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4284d6d4-244d-4d49-bbdb-f1bda89fc1e8@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,116 +54,103 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Oct 17, 2026 at 2:26=E2=80=AFPM Jiale Yao <yaojiale02@163.com> wrot=
-e:
->
-> The KFD SRAT walker reads the first subtable length without checking
-> that a header is present and trusts subsequent lengths when accessing
-> CPU and generic affinity records. Invalid firmware lengths can therefore
-> cause out-of-bounds reads.
->
-> Validate the table header, every generic subtable range, and each
-> supported typed record before reading its fields.
->
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+On Thu, Oct 15, 2026 at 03:25:17PM -0500, Mario Limonciello wrote:
+> On 10/15/26 14:48, Bjorn Helgaas wrote:
+> > [+cc Alex, Ilpo, Lukas, linux-acpi]
+> > 
+> > On Thu, Oct 15, 2026 at 07:48:42AM -0500, Mario Limonciello wrote:
+> > > The soft filter system introduced by commit 11c141672045f ("drm/amdgpu:
+> > > Fix VFCT bus number matching with soft filter") has a deficiency that
+> > > it won't work when there are multiple GPUs of the exact same model.
+> > > 
+> > > As it was introduced specifically to help the case of pci=realloc, gate
+> > > it to only run when that's in use.
+> > > 
+> > > Fixes: 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft filter")
+> > > Reported-by: Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
+> > > Closes: https://lore.kernel.org/amd-gfx/20261014080523.186533-1-rezanikzadch@gmail.com/
+> > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> > > ---
+> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 15 ++++++++-------
+> > >   drivers/pci/setup-bus.c                  |  5 +++++
+> > >   include/linux/pci.h                      |  1 +
+> > >   3 files changed, 14 insertions(+), 7 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> > > index 08ed1eb695586..75af9a59671ae 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> > > @@ -384,12 +384,10 @@ static bool amdgpu_read_disabled_bios(struct amdgpu_device *adev)
+> > >    * @vhdr: VFCT image header to check
+> > >    *
+> > >    * VFCT entries contain the PCI bus number as recorded during BIOS POST.
+> > > - * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
+> > > - * resource conflicts), the runtime bus number may differ from the POST
+> > > - * value.  Match by device identity (vendor + device + function) and use
+> > > - * the bus number as a preference: exact bus match is preferred, but when
+> > > - * the bus numbers disagree we accept the entry if the device identity
+> > > - * matches.
+> > > + * On systems where the user requested PCI resource reallocation, the
+> > > + * runtime bus number may differ from the POST value. Match by device
+> > > + * identity (vendor + device + function), but only treat the bus number as
+> > > + * a preference when pci=realloc was explicitly requested.
+> > 
+> > This is a generic problem, isn't it?
+> > 
+> > I think any table from firmware that has PCI bus numbers in it could
+> > trip over issues like this.  Seems like we need a more generic
+> > solution.
+> 
+> Yeah; it's a generic issue which was triggered by pci=realloc which is why I
+> did a soft filter in 11c141672045f.
+> 
+> But this causes problems when you have two (or more) of the exact same
+> device.  You might match the wrong thing.
+> 
+> > >    *
+> > >    * Returns: 0 on match, -ENODEV on no match
+> > >    */
+> > > @@ -409,7 +407,10 @@ static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
+> > >   	if (vhdr->PCIBus == adev->pdev->bus->number)
+> > >   		return 0;
+> > > -	/* Bus mismatch but device identity matches (PCI renumbering case) */
+> > > +	/* Allow bus renumbering only when the user requested pci=realloc. */
+> > > +	if (!pci_realloc_enabled_by_user())
+> > > +		return -ENODEV;
+> > > +
+> > >   	dev_notice(adev->dev,
+> > >   		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
+> > >   		   vhdr->PCIBus, adev->pdev->bus->number,
+> > > diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+> > > index ed16ef7c26fa7..d9450585082c0 100644
+> > > --- a/drivers/pci/setup-bus.c
+> > > +++ b/drivers/pci/setup-bus.c
+> > > @@ -1799,6 +1799,11 @@ static bool pci_realloc_enabled(enum enable_type enable)
+> > >   	return enable >= user_enabled;
+> > >   }
+> > > +bool pci_realloc_enabled_by_user(void)
+> > > +{
+> > > +	return pci_realloc_enable == user_enabled;
+> > > +}
+> > 
+> > I don't like this.  I think the same bus renumbering can happen in the
+> > "auto_enabled" case, and I don't think we set pci_realloc_enable in
+> > that case.
+> > 
+> > But more generally, I think ultimately the PCI core should be able to
+> > reassign bus numbers arbitrarily to accommodate hotplugs (given the
+> > appropriate driver support to tolerate that, of course).
+> 
+> Could we keep track of the original perhaps?  Then drivers can know
+> what it was reassigned from?
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-and applied.  Thanks!
-
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 35 ++++++++++++++++++---------
->  1 file changed, 24 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_crat.c
-> index 6e0df685503d..32d7573dffc9 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> @@ -2056,27 +2056,33 @@ static void kfd_find_numa_node_in_srat(struct kfd=
-_node *kdev)
->                 return;
->         }
->
-> +       if (table_header->length < sizeof(struct acpi_table_srat))
-> +               goto invalid_srat;
-> +
->         table_end =3D (unsigned long)table_header + table_header->length;
->
->         /* Parse all entries looking for a match. */
->         sub_header =3D (struct acpi_subtable_header *)
->                         ((unsigned long)table_header +
->                         sizeof(struct acpi_table_srat));
-> -       subtable_len =3D sub_header->length;
->
-> -       while (((unsigned long)sub_header) + subtable_len  < table_end) {
-> -               /*
-> -                * If length is 0, break from this loop to avoid
-> -                * infinite loop.
-> -                */
-> -               if (subtable_len =3D=3D 0) {
-> -                       pr_err("SRAT invalid zero length\n");
-> -                       break;
-> -               }
-> +       while ((unsigned long)sub_header < table_end) {
-> +               unsigned long start =3D (unsigned long)sub_header;
-> +
-> +               if (table_end - start < sizeof(*sub_header))
-> +                       goto invalid_srat;
-> +
-> +               subtable_len =3D sub_header->length;
-> +               if (subtable_len < sizeof(*sub_header) ||
-> +                   subtable_len > table_end - start)
-> +                       goto invalid_srat;
->
->                 switch (sub_header->type) {
->                 case ACPI_SRAT_TYPE_CPU_AFFINITY:
->                         cpu =3D (struct acpi_srat_cpu_affinity *)sub_head=
-er;
-> +                       if (subtable_len < sizeof(*cpu))
-> +                               goto invalid_srat;
-> +
->                         pxm =3D *((u32 *)cpu->proximity_domain_hi) << 8 |
->                                         cpu->proximity_domain_lo;
->                         if (pxm > max_pxm)
-> @@ -2084,6 +2090,9 @@ static void kfd_find_numa_node_in_srat(struct kfd_n=
-ode *kdev)
->                         break;
->                 case ACPI_SRAT_TYPE_GENERIC_AFFINITY:
->                         gpu =3D (struct acpi_srat_generic_affinity *)sub_=
-header;
-> +                       if (subtable_len < sizeof(*gpu))
-> +                               goto invalid_srat;
-> +
->                         bdf =3D *((u16 *)(&gpu->device_handle[0])) << 16 =
-|
->                                         *((u16 *)(&gpu->device_handle[2])=
-);
->                         if (bdf =3D=3D pci_id) {
-> @@ -2100,9 +2109,13 @@ static void kfd_find_numa_node_in_srat(struct kfd_=
-node *kdev)
->
->                 sub_header =3D (struct acpi_subtable_header *)
->                                 ((unsigned long)sub_header + subtable_len=
-);
-> -               subtable_len =3D sub_header->length;
->         }
->
-> +       goto out;
-> +
-> +invalid_srat:
-> +       pr_err("SRAT contains an invalid subtable\n");
-> +out:
->         acpi_put_table(table_header);
->
->         /* Workaround bad cpu-gpu binding case */
-> --
-> 2.34.1
->
+I think the only thing that can change is the bus number, and saving
+the original bus number in a struct pci_bus or similar might be
+practical?
