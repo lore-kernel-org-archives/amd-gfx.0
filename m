@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0924E606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E635606A31B
 	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 15:41:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=L3JQTjiO
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=JLlMolZt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04DF910F6BF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11DF610F6C8;
 	Tue, 20 Oct 2026 15:41:37 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C88A10F6A2;
- Tue, 20 Oct 2026 15:41:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86E0210EA0C;
+ Tue, 20 Oct 2026 15:41:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=/KrU18TxoMz8vUQyvvcbQgGQ57lrSkeZ5V2+nueE+zk=; b=L3JQTjiOiBRopRCTQp8xnlvqWV
- f6/bBGiK7cewGG8XNhp9emqf1mAOb/7PmgMJgLmXI+C+ZGP36Qch1TY01uTqQpp+UD14AVNPbnYO4
- sV/SdTc73rA8MB5GBJkkQrTXpCztb2GiKDdiP2rFfeJ+KdO+hXGwhiypyKKIQqgxrbq0oeMcNIvm9
- KJOAVv1i281cqtwkVPjoOFNOkZ+BqlFbgJa6ptkTAY2fqUwfKRdNbpvBdHSKsUNwjB6IiWuNJ8X6J
- ZvNj6U8jn5056+PJbvhy2RJKzZBZlOTqdnM8SeHRmsORbdOoI9t8NKs9AM6HQVloDBOgcDLQN1op/
- LwiV60bA==;
+ bh=0v45P7fnL0anmdG6nzcNQD6SgTnL/FLePBF85A3Cvhc=; b=JLlMolZtlSTR5tXr6a/aSl5/4B
+ KK+sL7scTryibedYkBOmDgbFUGg2597e1VPgsALCex9yNZPFw3yrJDVkrNx3szcwHzoSOoxcqL7BT
+ T9kKE6LLw6C1tORwrJfJupHi9uc+FCs9AUHHG6nyuQuwlfIud7lGnFEiWsyPYp9qZxx+gxv+ZOc67
+ tLdm0K3CcLOYjQoY3pQjmrV9FwqC8w+XenZqXb0LsqOdHmbi4G9rZTFhsG9WXLfvxIZnasYk8JLTq
+ xsxeFoZWfvdhZHLKxBvkFacwo/hV95ukd8XMtVHh8tBxWZpYJR/jN8K9pu8Z7g00lmDnhqt31kMfc
+ j6Fnzv8Q==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xJBxx-004ie7-6h; Tue, 20 Oct 2026 17:41:29 +0200
+ id 1xJBxw-004idw-Fr; Tue, 20 Oct 2026 17:41:28 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
@@ -34,10 +34,9 @@ Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v2 5/8] drm/sched: Remove useless log message on memory
- exhaustion
-Date: Tue, 20 Oct 2026 16:41:20 +0100
-Message-ID: <20261020154123.33631-6-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v2 4/8] drm/sched: Remove log message of questionable use
+Date: Tue, 20 Oct 2026 16:41:19 +0100
+Message-ID: <20261020154123.33631-5-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261020154123.33631-1-tvrtko.ursulin@igalia.com>
 References: <20261020154123.33631-1-tvrtko.ursulin@igalia.com>
@@ -58,14 +57,14 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If scheduler initialization has failed due failure to allocate a handful
-of bytes for the run-queue backing data structure, there will be plenty of
-loud messages in the kernel log. We can safely remove the one
-drm_sched_init() logs.
+There is no point in having a log message whose only purpose is to
+notify developers of incorrect usage of the API while bringing up a new
+driver. Lets simply return an error and let the developers figure it out.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
@@ -73,21 +72,38 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index d86738611b1e..85a49e219837 100644
+index ca1665bb49cc..d86738611b1e 100644
 --- a/drivers/gpu/drm/scheduler/sched_main.c
 +++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -1164,7 +1164,6 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
- Out_check_own:
- 	if (sched->own_submit_wq)
- 		destroy_workqueue(sched->submit_wq);
--	dev_err(sched->dev, "%s: Failed to setup GPU scheduler--out of memory\n", __func__);
- 	return -ENOMEM;
- }
- EXPORT_SYMBOL(drm_sched_init);
+@@ -1104,6 +1104,9 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+ 	if (sched->sched_rq)
+ 		return -EINVAL;
+ 
++	if (args->num_rqs > DRM_SCHED_PRIORITY_COUNT)
++		return -EINVAL;
++
+ 	sched->ops = args->ops;
+ 	sched->credit_limit = args->credit_limit;
+ 	sched->name = args->name;
+@@ -1113,14 +1116,6 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+ 	sched->score = args->score ? args->score : &sched->_score;
+ 	sched->dev = args->dev;
+ 
+-	if (args->num_rqs > DRM_SCHED_PRIORITY_COUNT) {
+-		/* This is a gross violation--tell drivers what the  problem is.
+-		 */
+-		dev_err(sched->dev, "%s: num_rqs cannot be greater than DRM_SCHED_PRIORITY_COUNT\n",
+-			__func__);
+-		return -EINVAL;
+-	}
+-
+ 	if (args->submit_wq) {
+ 		sched->submit_wq = args->submit_wq;
+ 		sched->own_submit_wq = false;
 -- 
 2.56.0
 
