@@ -2,132 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC11606A324
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 14:45:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856E7606A31A
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 14:47:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=y+sinKDk
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h3IZFySY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98A7A10EBE8;
-	Tue, 20 Oct 2026 14:45:14 +0000 (UTC)
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012022.outbound.protection.outlook.com
- [40.107.200.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6C7B10F61F;
- Tue, 20 Oct 2026 14:45:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D7E410E275;
+	Tue, 20 Oct 2026 14:47:37 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013023.outbound.protection.outlook.com
+ [40.107.201.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C938410E275
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 14:47:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DsiEamC7QXWiMiKtZcvOj4IY8CHGC2bgZZ/MDeuXjeCdrAY4na4rCZej2cs1276gO++VZyDDLi7sv3CkmEANfhDWOojXfKbxsaRP0cPzYtptO3pA99CznCqlIhYR0Zj0JIdnIySxFQV62k4NLhtvPzJhOj9R+1ZyXPO0ZigTbe9J37kSvkYkMTgIxPEHinBaR/0PHxgdJTPxye9tytjqE5M1DMbpNAUD1hgf0QKBpiYUY6BT+/+1c67gOjSR2RBEv4mxRo2AKfeX6jDzaakrllClX4JiqBJxUW3rulW7ZrkyNvudB4uWPLYcGgQFI76JHKgndBUt7CxPro15qMN+3A==
+ b=wKythbmt3exBvhDBgPnMeaRgiSV5gZZbwo5lQjDb0Fgn1RYRmYOiVGGsz2MZIen9aiqOH85vo9RqfKUv3A1LVl8Ky2tNyHT5WNBilsjGxf2jvlZXjcN5u253N73duDut3XJdZxq+h+3QDAHsDuyL27rFJk/nH438Bh5yUEg/EC6Mtj+TnGzIgHxmMPEvrrPfURmZhgRHoHtFrJbVEWG7G5qs1NjZszakiJDOopikIeElFMWYz/hKOch99iyToAHJSrbEG83w2oFyJLdKru0AyE3K3pnS6s9JsEj1DcdFaEfLay3Ns6B1vvlsp2/UxVi2G9JsCW6YEi1MgbnPs1agnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fACDY/0L8yTB9c7QJqt/uxQ+rPlo1wpjlfYMExqpJWU=;
- b=S7n3m2k6mJJhyGjK6dUi5H1ORbmz0ZyS9UGbjQWh9AQkw3X0CruOHbo98q1NyQ20bCNOIOALXTt+/gbuI2hYcBTQXU0Gz4tBQ6jUQ58a3uWBXa3EHYFkep4usdzERRjqJYImai3pyWgmKEmqvrLvqj8NolRMJBLSoan1QdgCKlNVXHXIXpW9AfIS07Ps1m3Cz05L8bizpCKD9O6LDGSIazimgMnu7IfA8bNifjw8mMJJlWMTvc2QnhUj3eT5BS0rKxREDo5rHdhe0GH2Pj0l5dYZ+jBavJ/W0i3Llx2G+Uro7mxHfyLZMGFdxofOR9XBJ+YQtjhkgTW7kP6BJBxk5g==
+ bh=Fv72O8dGXt2bEi98UE1bYrEFTbtpgsnGwN1pxuDEhxU=;
+ b=UoDKgejZ+doUDbQjjlWVFvnBv4OFm8ZKnofWgrvnpz1Yms2INgr0Oi/N6r2b50ZjL6qryCi+RiaWKrjF+a088sExWST/H+D7J/EY5vxEPwkAUi+B2C3jtJopknAzjg9G65/f1xwVTPt+gZml5oWSjqa9YHgxWukWCb+0WMqQvL/qu3cjQUUQ/c5xXKA5sgREn49ov/Q09EQm7SVJ6e/MSMa8RwH5CetCNYWEL/96yCydgK1pYMqMOnz3j+KZcS2E3kDXLWGxpWkZP4EgmWcqoWwQChsIjsVugdqaFrGk81ZQwJxJPSQtWUm/pWayD6em1qQ99ep4U5nRRkwmOSWkiw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fACDY/0L8yTB9c7QJqt/uxQ+rPlo1wpjlfYMExqpJWU=;
- b=y+sinKDkekTwpMr33LhKDVhVFqdEL0O6G+4EujcY1cZ2Pg2c1MHwa32gyoQt106QfdbJzS9IULHRq8p2FpsEhfdib4fD59aNaioGVOV6qesWNpqU3Qer5uu5q+PQVrmLrk/4+IibAX61G8DmcL1PpJxsJ/k+Im98vTDbtxeh1Ns=
+ bh=Fv72O8dGXt2bEi98UE1bYrEFTbtpgsnGwN1pxuDEhxU=;
+ b=h3IZFySYDNBgqxMEX5MCqcwePxI0u30J+i7JwHrAfx6CPIA9mn7lgCyv4sL6ZsZhwLSdoVY6E0nujW/9DpAmYe3rxs6/Dxp9VazmYSbEDQkxjNcQvX7xTI8kAcMF21NegKKSwiv+q0kFNwXA2Hntjfp+gr6J5FHpN7UayN+2f8A=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA6PR12MB893085.namprd12.prod.outlook.com
- (2603:10b6:208:601::18) by DS7PR12MB5814.namprd12.prod.outlook.com
- (2603:10b6:8:76::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 14:45:00 +0000
-Received: from IA6PR12MB893085.namprd12.prod.outlook.com
- ([fe80::3f4e:1f38:3db2:270a]) by IA6PR12MB893085.namprd12.prod.outlook.com
- ([fe80::3f4e:1f38:3db2:270a%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 14:45:00 +0000
-Message-ID: <11ad129a-3e7f-4a77-9c4e-58f6681e1359@amd.com>
-Date: Tue, 20 Oct 2026 10:44:58 -0400
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB5790.namprd12.prod.outlook.com (2603:10b6:8:75::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Tue, 20 Oct
+ 2026 14:47:25 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 14:47:25 +0000
+Message-ID: <7f00dcf5-db4d-4af5-ae35-d5401ef78997@amd.com>
+Date: Tue, 20 Oct 2026 16:47:22 +0200
 User-Agent: Mozilla Thunderbird
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Don't ignore dc_commit_streams() failures
-To: 2564278112@qq.com
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
- Mario Limonciello <superm1@kernel.org>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Ray Wu <ray.wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
- Lu Yao <yaolu@kylinos.cn>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wang Jiang <jiangwang@kylinos.cn>
-References: <20261008071700.552056-1-2564278112@qq.com>
- <tencent_34284E790157CA20C27C9260A7A32C08C10A@qq.com>
+Subject: Re: [PATCH] drm/amdgpu/gmc6: restore FB location and HDP non-surface
+ programming
+To: Brad <drury.brad@gmail.com>, Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ stable@vger.kernel.org
+References: <20261020-gmc6-writes-only-v3-v1-1-70730a302504@gmail.com>
+ <36edbff3-fb61-4bc9-ac2f-0ba549ffe248@amd.com>
+ <CADnq5_PtxMPr41RgUEeEDOeXQDWVvse8=3WayZcHHE85NFj+jA@mail.gmail.com>
+ <CAPMJPtyZ7Qh_JA+DXZJUENY_yiQZ5pJO4nP-Erf7FgwE79HJFQ@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <tencent_34284E790157CA20C27C9260A7A32C08C10A@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT2PR01CA0026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::31) To IA6PR12MB893085.namprd12.prod.outlook.com
- (2603:10b6:208:601::18)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CAPMJPtyZ7Qh_JA+DXZJUENY_yiQZ5pJO4nP-Erf7FgwE79HJFQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0338.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ea::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA6PR12MB893085:EE_|DS7PR12MB5814:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9582ecbd-de84-4f5c-9dfa-08df2eb8b7ac
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB5790:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80d67e84-35ec-41d9-5f9b-08df2eb90e7b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|23010399003|56012099006|260925022911599003|260925021911599003|260925021311599003|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: gHnx07z4TbvE/wb0qFmtJUC7/6d4/S1tpEh700c6navmmHv5stgR9pNhMdmgvUuKW3EZE03hnCHJ/Ph0hBdWhPEUqp1RlkUYMNoHsZYxc9ljfxMr/tYxNZMyecX2JCf4QKcscxaK0ZzqNUwaPj3DPDdJ59n8dOVuxYTfeAIO/T9PG4Jw9GM2fUZUh533Da03IIOnrouF+8qFHFKaCJ6T8aYPkiLRB7IcJ46FtRRo3W950HHlrOcuRPee3QFqBJ+QA9O3ufA+2prsZMPAOdLJL0YK2clvWP4S++L6uxYV3NFRzJzR8MpBaLtAh3ciTcF7H6KNkHOiJtpkB6jGuOxvt3WE7yq3pTx4lpDp/1hvaFLG3sQICGmRLKjtO5Z+aPKBmukqSwe93ErjnP740qcm2mGFBgHaEkMAHFOQEYH1HvbS90D7oI/8Z2R4P01qsOcpLFWw/rgzWoda8r02Lv5PcoQ/sQyjKtqXQD7ylE/agQ0iD/sp9f8hWdS+4QyEh/O60Hf0Q0TGsi9/YXX4JhmawM0myj80zKweCDAFCNryPuLlA/fZ+bqgJYwTKakqzGWtGufRyAF3dxzjkRckYGKvKLp7Ux9Vjad1yMHYvlX8KF2NGj/yFKDlL9Yw3r8A1tm4F2KquSWYK5dNQR88OuFBOQ==
+ ARA:13230040|23010399003|1800799024|366016|376014|6133799003|22082099003|10067099003|18002099003|13003099007|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: CzCqIXvIBH+ykyDfpt68zKOHVnAbVOwMRh6nJ00MNlure2UXWO/dx/gCnGI052D63wNg/6K9CwH30fu735HkN39QqlJaE3FX6+O1tPZc2A2tlCPMIAHu+lISLyu9Al4pzcy4dJmpDk/I1DIl7H2SDjA+8sdBv3UgAFq8XBCmvqJHoNehyfILL/KuB2FnpWcT31IkdE74Gsr4hn5nVzPygGCLnFOYvCVqcOnpgxG/g5trKG3leLtQsAiKosOqLKsiALJCgq7SeFsf/9EG/KuZYqrd8FX25FgyqXSVmqpKeUsyqiLMUVLuy0foV5T7tPSDJBvhMG38/9Be7gWkMxTkjMkhI9Ai795WBAtI8U+7Ubf2nVecd90IvTwgbCJwu/DhY3XbkzmxIzY12yVyFXG9kFD8Kj2tv4OX54cF7G3NasK+TZDar6jqGsPS3y9dQKcs9KS6an9a2vJ8cDNpgzs0ZvUGXPtyiY+aQvT4lUG0S+AKLrIKk/KdjwRgTnIUHtb3w5R+OxHMktficYhGQ+hI0GFG9CfLVukGRw7FeJg80sHXBo/5mSABGuxkBdEa4pqGqnY0gI6Bnh/azz9QHGzAxwobrtL4DmynXXB6NyHgqzgbgGtLoK5i6lPvwpnlebE/
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA6PR12MB893085.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(56012099006)(260925022911599003)(260925021911599003)(260925021311599003)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(6133799003)(22082099003)(10067099003)(18002099003)(13003099007)(4143699003)(261009223027099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dmV3MTkvVmo0V1RGbnVwR1pnTGR2a3NDMzJaMmxRdW1yR2Z2VnRIenV1dkxI?=
- =?utf-8?B?R0ZPRVhIdW44WE1reUN3NFg4SUpzNkpmMVIxN0hYY25HbHRZbjJzQytGckxi?=
- =?utf-8?B?SnhEb1lmOTh6cklOUk1RWjFKTGR5OHVGdDhQOGV6a1pBL2ZneklMV3UzRHgx?=
- =?utf-8?B?akZDOTh6bENjVm53b3VWRHJHQXAwREZsU0htM1NpdEhTWHFYT2VIUWxVSy9q?=
- =?utf-8?B?ZnNDZ1RwZkUwaXFYcGdtWk04TWlOQldFd09paDNpVHRHeVJPOUFpT2RSVnRC?=
- =?utf-8?B?NElJZ3RyV1J6ZFcyamU2aTFYTjMvdEtZVGErbWxPQmdrL3ZrUzIvWGRQWGdX?=
- =?utf-8?B?eS9yOEsrMWdUWnp4cUVLNXZtcllVRkV5M2pBUjBuTlYySlZFTkRJRFRCaHdD?=
- =?utf-8?B?eFVmWm55VHUvTXVUcm9rR0U2c0k0dS9TVUJoY0pOK0p5b3RCTUNXai9ibnlD?=
- =?utf-8?B?OXdUaDFpdEcrczd5K3lsN0RiVDdWL3dSYVd6bWVhamlqcDRUbTR1dmZPOGNv?=
- =?utf-8?B?cW9STFcxMm5wS1BCR1BDNGV5WXN1b2Z0eC94b1FqUkVIVHk2SjJhMnNXcUFm?=
- =?utf-8?B?MTJCaU9hUzZGZ1M0b2R4NTNJU3Uzd2dxRkFjRXI0MVVub2VDZWR0dzVFQm4w?=
- =?utf-8?B?L0JJdGxVSTkyYm0vVVJxbEMvbTBZbGNLc2hLSFNTclBaWnFQMXd3M3kvTGh2?=
- =?utf-8?B?QjlrRGd4WkxOYzJkdlBUdnZtd0xBS3VoWVFJU0c3VS9wWHhVenRrMUJHWm5J?=
- =?utf-8?B?TXRkdEVzZVl0L2xpZ0k2a2FBYnpZRU9UUTVDSlJQdzdiV3A5MkpvQVlJMG16?=
- =?utf-8?B?SVEzSVpXMW9qdTE4WEQ5WDN0RGZ2TlBuOS9VQVMyTUhJVFFjSm03WEpzaGtx?=
- =?utf-8?B?S0MvRysxRHFGVEs2SE5Yb0ZSNE5YbHhEeGRUWm5CR21wajI4andSSnk0dno5?=
- =?utf-8?B?OXVIbll2RkRPdksyV2pyM09LSUtSeWpZK3oreG5Xb1pPdjI4S3ZaWFAzbkpN?=
- =?utf-8?B?Z3RDN1IxMmpGNm1Ub3loQUgrVXFyRW81dkhmWmVIS0M4bUV4T2x3TGNQZ0Jx?=
- =?utf-8?B?WDAySUw5Q2pTQ1lFWmVTalUxamNzcitDU0VIbEduZ1Q0NnBiekRSdUQ0UHJz?=
- =?utf-8?B?UTkxOWhzS3Bxb2kwQXFKZkFUU2RvNC9LS3dCS2Y2cE12TUV4YzcyOTY0WEJm?=
- =?utf-8?B?ZzJ6aFZFM1FESFk5UFhJNFBXVDNmclZKRzRSaFozVXlpeUw4OHpzN1VzWXU3?=
- =?utf-8?B?QXF5V1BESE9mdlZVcTlLSFFzSytYT3AwRlpXZUNvRXloUExaQjVTSUtSaFF5?=
- =?utf-8?B?akhucW84c0FoZzZ6bTZYa1FhVnVWejN5RlI2cy9wNWVmKytkdzh4TzNLQXh3?=
- =?utf-8?B?TUcxZUlkYURHOURoYmNuUTJCemZqU21PZnpyb2NvOEd5QjFIRmdwZU8zWisr?=
- =?utf-8?B?bGZ4aEVyNjFmSkROaU9kWGVIbEtjZFc2UjF5Z09uMXZSVUxRbVdKTFh5dER5?=
- =?utf-8?B?a3hRK2JSWGNkNWtVd205eTIvRDNvVmdGb0twOGJRUk1EdmVkSWdPeWpqN3hn?=
- =?utf-8?B?T0YwMjNqeHJIRjRocCtpNkU4alFaQ2xWaHFsaFltalFsYndaMnNaWjdnMkVv?=
- =?utf-8?B?dkIxQmFuMkdPeCtWV1F5c25TQ1Zlc040N3h1SDZYZ3p4YURrYWtoT1J6NFVJ?=
- =?utf-8?B?M3lsSlBDenViMEQ3SnRBZ2VvSnUzdE9pQ0c2RGdGNGZ5YVhGTlpONGorbDhk?=
- =?utf-8?B?ejNPYXZQNUNXaGExdUFzbk1rOERCQjdjLzNFU2FiUzZVY2JHRnozRXVmbXpV?=
- =?utf-8?B?Q2I1RUxJZk56czY3Z2oxT1ZqTzAzWXl1RkVrQjdBVE4zbi82WHVGM1VhK0Jt?=
- =?utf-8?B?MDFGcFN1NUd6Qm1oTkx4MlJGcW82UWRLZTV2SnBuSW4ydENnZUlvU1hkY2pU?=
- =?utf-8?B?S1M2K3loZUxYVktraFIzalNtNFN0M1Z6RkRBbzhldS9yODY4TjJRUDBxQ2o3?=
- =?utf-8?B?SWdYRlJlNlJGZDJCaXVHZWRVTUYwVk5pdWlDdFRoMnNON2RDeGFhNjdyRFky?=
- =?utf-8?B?TXpxVnlrbmhnTzNLZEQ3S3J2eVlXMGtXUHZBQ1FDS3JVZXVOeEJpQmtoaTF4?=
- =?utf-8?B?SEFnNmtXRVRVL0pCTTZZSnFuMXNSYjJOTmlPNnY1SzNvSURKNWZrTVR3Vng0?=
- =?utf-8?B?Q0hGbXllNVppN3lVK091cWtleW5haTY2UFFBblN2Yi9DbEZwNGxFdjhEcVV2?=
- =?utf-8?B?T0NKaDA3VzhjNFRFVDQ0N0pvUjBjNXNwNllEQ21zRXkwRWlWUUlDOVVvUXQ2?=
- =?utf-8?B?UWRKVGhnbXkrSjNlMDhlWUpSNXRjdHNzc0Y1eHllT24rdUxmT0J6dz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RVZHNThHWmFZcU1wbEgxYWxSMWxjT285ajJVcGVkTVk5V1cxd28wSmVKbXdh?=
+ =?utf-8?B?UEdud2JCd1I1MHpVQWU1UDZxSnV1S2U3L1lVSHA4bXExQnVyVGszamxxQXI2?=
+ =?utf-8?B?NHo3NXViUFBIY2R0Y3pmb1VsNXVxMy9ndEQvZmxkaDh3T1V3Yzd3SHlCSEhF?=
+ =?utf-8?B?bWJkUGxBQU9Wb3l0VG15dzdRZzJnQkxoeDQwSW0rRUdOSW9MS1NicG5rcGI1?=
+ =?utf-8?B?L1BPQXQ2aVNxc29TOGxiYzlFbWFPOWxXWnpEY0tsb2c0aUZWZWNOMTRLaTR2?=
+ =?utf-8?B?NEFaZTFMWVhJN0NSSzJPcksramNsa0k0OUo4YytpTzhpeVJtUDgxWXpoVmJm?=
+ =?utf-8?B?YXBwR3RiT0RuL29yczJURThzQWJKZGphZDhXQmk3UllmcjJOUlI4bmRPWVNs?=
+ =?utf-8?B?RkIvVDY1d092NDhWSVAxWXIxQTRVZ0tYTnMvQzBNNTdWeGVkZ3RZWUVST1Av?=
+ =?utf-8?B?Y1hJUkllaFBob29oV09nUHVKK0VqK0RQR0hNek9IRERrUjlEbGVDSDBWY2s5?=
+ =?utf-8?B?a2hzSFoyNVJXam9waCttQ1hkV1hsL3kvenU3ZDMvdithbFNDKzVxaWZFeHlr?=
+ =?utf-8?B?Uy9tR0ErL1lZQU04NzZIUExvOWQrR2JGZGlIdXo0TkpHNkpnVkxXL0lhSith?=
+ =?utf-8?B?TTlvSlpJVHpsNlhYaFdnbW5pVUUyZFNPRVR2QnB6TTF4SHhxbkllTjNoU1Rk?=
+ =?utf-8?B?ZnRwRkhKSVpGb3lUellqVFdVYmUydEVWWjVxOXpHSkhBc2FYM29VYmpUR0Zm?=
+ =?utf-8?B?d0gxNFpGZW4rOXpIbXhQdHFaRlBSMFlpS3VRUFA5aFZFVTh5WEpkVWZPZENO?=
+ =?utf-8?B?SlBtbDVMSVRIZVFGMlJGZElHRnVGNmpiR3dLK1I0OGdMSXpZTEQxeDZtUjFP?=
+ =?utf-8?B?ckZJcHk3TkMwQ0NaOVQxMEJuSm8yN29rZGU0RFlhdUxKbVcwRDdqTEhJRzFS?=
+ =?utf-8?B?WGU3QXpqTnBBNE1RU2tIVUR3eU12dng5K205R2VKVkkzMTdWWXArRWgxakdF?=
+ =?utf-8?B?V2ZlR0xHOGZDN2kxS2FtTW5uUEQ3YlpUYW9rMm1iSjNSYW9sWjNCalJJMTBI?=
+ =?utf-8?B?WUdZcGhXbVFOZkhJWHBiOTQrTWhVRW5RditTN0J6eXduODE1OHFvWnNMOUpM?=
+ =?utf-8?B?UThGR2tQVXc5NkQ1RlgzWUZwU3JHZnRPck5VYjBYYlNUVzRGUmdhaU9UaEdT?=
+ =?utf-8?B?Z1NHM2xzTUJNcXNGTzJySDFqVU41bzgrUTUwNU9qSXl0N29ycHRyL3RPRzMw?=
+ =?utf-8?B?Ukx3US9JTktJRmJ5MXQ1dlRzckxFdkNISUROS01lRmFJckNNSDd5WmVSQ1JG?=
+ =?utf-8?B?RGNTdnVvdXRhbUxoNWx6SlhNbjkycW9uZVA3ZVN0Y05yc21rNDZmWGNDUFJB?=
+ =?utf-8?B?d1NFdEtaY3NtTGFlQnJZWlpQOGFCWVIxb1A0MEY1eUlTdnV0YlQ5RGZxSXNG?=
+ =?utf-8?B?OVBXRm04T0Zud0YySzQwQXF3V1FKbWFoRElUOW12N3FiQWwrUmtGQWh5Rktr?=
+ =?utf-8?B?UGtaNDFBQ1l4M3d2R1B3WlkyazBmNlNORDZlVUZwbURTQyt5Y3gzNWlsY21r?=
+ =?utf-8?B?cEpXYTA0RFpiaThZRFo0dHh3UHJBcFNXMGVUZGRMMnhBRW9qZHhONytWMWs0?=
+ =?utf-8?B?OERIVlBIUnpydklrWlJnLzFRT21LdkVDMHltbisza0VQZ1F1Q3FHOStwWVpz?=
+ =?utf-8?B?a2czaGc5OXhMaGkydEIvalp3MXZzZlZRaXVUem91OS9pRWFOOFlrUmY3WXVn?=
+ =?utf-8?B?SHpOeS9pQkc1UFgvbHNNLzk4endHTmxoYmZtME9NMGllOUlrL1pPSVhNeVlo?=
+ =?utf-8?B?ZFdrRSs2ajdQMnNLbzgyVUtUME1xbzEwbmhBNVZTaE5KSzQvQndHak5WUUtB?=
+ =?utf-8?B?ang2YjNTdUNZSVNwUjVDWUIyaGVNR2NXSDM4YmJQT1UzZnNTbnhobVVvZHJa?=
+ =?utf-8?B?WGJUTW9rNm5RdW0zWWFpR1ozNHJxS2FsY3oxajducmtSUnMvaDZQYmw2WkJS?=
+ =?utf-8?B?SWVpaTRRU2t1UjlqQmlZdHZvQzY0aDdWUktmZk1vb0FXaVF0R3FKOUhuQkhD?=
+ =?utf-8?B?ZVE5aHhmZCtINXUvSDl2VjJLK0pzWEdJWHdnNytVSDZzcGp0ZXdreTZrRHpt?=
+ =?utf-8?B?OE9KNi9UY1dGcEZnQmUwTis1RFp0QWh5N1hZQW9lM1RyUis5TFI4aEYzR2cz?=
+ =?utf-8?B?NWpreHY5ckNzcllhdWFzVXRaM1VyUEw0eWlCTVJ3bFB5YjFPNE5vVXdxMkM1?=
+ =?utf-8?B?NWdDUGQ4WTJOclZSaWphK0tubEladFVjKzVpL1FUVEFxeis0N2NMOUZFNTNI?=
+ =?utf-8?Q?Y3Rdbi1/Ra7HZ4CSUx?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9582ecbd-de84-4f5c-9dfa-08df2eb8b7ac
-X-MS-Exchange-CrossTenant-AuthSource: IA6PR12MB893085.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80d67e84-35ec-41d9-5f9b-08df2eb90e7b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 14:45:00.1450 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 14:47:25.8340 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VvmKnH6QdnLDU2xsC8bLzy5TA3Is0YE1VU/++YINWQylekpkmYrj+9PLfPeod8dtbYN0ZdyUs4gRaIxJ2uTuHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5814
+X-MS-Exchange-CrossTenant-UserPrincipalName: rgWWPU95F6/ScCBnI+mjzIM2YvstyFd0qxoTsJ1jVTsjGgmFdFxCbKq2z1xewpeY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5790
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,65 +141,159 @@ X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/8/26 03:17, 2564278112@qq.com wrote:
-> From: Wang Jiang <jiangwang@kylinos.cn>
->
-> dc_commit_streams() can fail and leave the streams half committed, but
-> amdgpu_dm_commit_streams() and the reset recovery path in dm_resume()
-> only emitted a WARN_ON() and continued.  The planes are then programmed
-> against a stream list that the hardware never took, which turns a
-> recoverable commit failure into a crash.
->
-> Log the failure and stop programming further stream/plane state in
-> amdgpu_dm_commit_streams().  In dm_resume(), keep the WARN_ON_ONCE() for
-> the stack trace, but continue the reset recovery as before.
->
-> Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+On 10/20/26 15:32, Brad wrote:
+> Great news. This was my first ever attempt at patching the kernel and it is working swimmingly for me with the switcheroo config, so a bit nervous sharing. 
+> 
+> Thanks for checking it over. I’d be keen to know, Christian, how my approach is dangerous because I genuinely want to learn. Email me if you have time and feel so inclined. 
 
-Please look at and respond to the sashiko comments. They highlight
-some of the problems with an early return without additional cleanup.
+The FB (frame buffer, e.g. VRAM) system aperture and HDP (host data path, e.g. CPU access to VRAM) config can only be changed when both the GPU and the CPU doesn't make any access to VRAM.
 
-Harry
+Otherwise if you are unlucky and a display write or read happens just in between those register writes it can be that the HW says "Oh, I can't handle that!" resulting in PCI error and usually the whole system just hangs.
 
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 +++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index c4c8904fea42..d88bd89da840 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1916,7 +1916,12 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
->  		commit_params.streams = dc_state->streams;
->  		commit_params.stream_count = dc_state->stream_count;
->  		dc_exit_ips_for_hw_access(dm->dc);
-> -		WARN_ON(!dc_commit_streams(dm->dc, &commit_params));
-> +		if (dc_commit_streams(dm->dc, &commit_params) != DC_OK) {
-> +			drm_err(adev_to_drm(adev),
-> +				"DC failed to commit %u stream(s) during reset recovery\n",
-> +				(unsigned int)commit_params.stream_count);
-> +			WARN_ON_ONCE(1);
-> +		}
->  
->  		dm_gpureset_commit_state(dm->cached_dc_state, dm);
->  
-> @@ -4619,7 +4624,18 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
->  	dm_enable_per_frame_crtc_master_sync(dc_state);
->  	mutex_lock(&dm->dc_lock);
->  	dc_exit_ips_for_hw_access(dm->dc);
-> -	WARN_ON(!dc_commit_streams(dm->dc, &params));
-> +	if (dc_commit_streams(dm->dc, &params) != DC_OK) {
-> +		mutex_unlock(&dm->dc_lock);
-> +		/*
-> +		 * DC refused the stream list, so the hardware and the DC state
-> +		 * no longer agree. Bail out instead of programming more
-> +		 * stream/plane state for a half committed stream list (this
-> +		 * used to be a silently ignored WARN_ON()).
-> +		 */
-> +		drm_err(dev, "DC failed to commit %u stream(s)\n",
-> +			(unsigned int)params.stream_count);
-> +		return;
-> +	}
->  
->  	bool frl_stream_found = false;
+So yeah there was a good reason for removing that stuff from amdgpu.
+
+The problem you are facing is that on Macs somehow the boot manager reprograms the GPU to have different FB and HDP config than what the VBIOS does with an ASIC reset.
+
+We don't know exactly why that is done, it only causes tons of issues because the HW setup is different after first boot then after GPU reset or resume from suspend.
+
+So doing one ASIC reset on first load and getting things into the state we are used in the driver seems like the best option for now.
+
+Regards,
+Christian.
+
+> 
+> Great that there’s contributions rowing in the same direction and looking forward to seeing the outcome in future kernels. 
+> 
+> Kind regards,
+> Brad
+> 
+> On Tue, 20 Oct 2026 at 8:50 pm, Alex Deucher <alexdeucher@gmail.com <mailto:alexdeucher@gmail.com>> wrote:
+> 
+>     On Tue, Oct 20, 2026 at 7:40 AM Christian König
+>     <christian.koenig@amd.com <mailto:christian.koenig@amd.com>> wrote:
+>     >
+>     > On 10/20/26 10:40, Brad Drury via B4 Relay wrote:
+>     > > From: Brad Drury <drury.brad@gmail.com <mailto:drury.brad@gmail.com>>
+>     > >
+>     > > On a MacBookPro11,5 (Radeon R9 M370X, Verde, PCI 1002:6821), used as a
+>     > > headless PRIME offload GPU with the panel on i915, every S3 resume with
+>     > > amdgpu fails:
+>     > >
+>     > >   amdgpu 0000:01:00.0: [drm] ring gfx test failed (-110)
+>     > >   amdgpu 0000:01:00.0: resume of IP block <gfx_v6_0> failed -110
+>     > >
+>     > > followed by SDMA timeouts and a failed GPU recovery.  The GPU stays
+>     > > unusable until reboot.  radeon resumes the same card fine.
+>     > >
+>     > > Instrumenting the resume path with a write/read-back VRAM probe through
+>     > > MM_INDEX/MM_DATA shows that VRAM is still intact after the driver
+>     > > re-POSTs the card and at the start of gmc_v6_0_hw_init(), but is corrupt
+>     > > at the end of it.  The gfx ring test failure is a consequence.
+>     > >
+>     > > Commit 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
+>     > > removed the MC_VM_FB_LOCATION and HDP_NONSURFACE_* writes from
+>     > > gmc_v6_0_mc_program(), on the grounds that the vbios sets these up.
+>     > > That holds after the system firmware POSTs the card at boot, but it does
+>     > > not appear to hold after S3, where the card is only re-POSTed via
+>     > > asic_init.  radeon's si_mc_program() still writes them on every init and
+>     > > resume.
+>     > >
+>     > > Write them again, with the same values as radeon, after the AGP aperture
+>     > > registers.  gmc_v8_0_mc_program() already does the same for SR-IOV VFs.
+>     > >
+>     > > Unlike radeon and the code removed by 71086a3e8470, this does not black
+>     > > out the MC around the writes.  The old gmc_v6_0_mc_stop() relied on
+>     > > amdgpu_display_stop_mc_access() to blank the CRTCs first, and that was
+>     > > removed by commit e4f6b39e8bcd ("drm/amdgpu: remove *_mc_access from
+>     > > display funcs"), so restoring the blackout now would stop the MC under a
+>     > > live scanout.  On this machine the writes alone fix resume; a variant that
+>     > > also restored the blackout behaved the same.
+>     >
+>     > Yeah that is exactly the reason why this approach here doesn't work.
+>     >
+>     > We can't stop the MC access nor the EFI access to the PCI MMIO BAR. So what you try to do here is inherently dangerous.
+>     >
+>     > I think we just need to do an ASIC reset on load like we do for other Macs as well so that the FB config matches what the VBIOS programmed it to.
+>     >
+>     > Alex any opinion on that?
+> 
+>     Should already be fixed with this patch:
+>     https://lists.freedesktop.org/archives/amd-gfx/2026-October/154974.html <https://lists.freedesktop.org/archives/amd-gfx/2026-October/154974.html>
+> 
+>     Alex
+> 
+>     >
+>     > Regards,
+>     > Christian.
+>     >
+>     > >
+>     > > It is not established which of these writes is the one that matters.
+>     > > At boot on this machine FB_LOCATION and HDP_NONSURFACE_BASE already hold
+>     > > the values written here, but HDP_NONSURFACE_INFO/SIZE do not.  The
+>     > > register state on a failing resume could not be captured.
+>     > >
+>     > > Tested on linux 7.3-rc7, MacBookPro11,5, amdgpu.si_support=1
+>     > > radeon.si_support=0, mem_sleep=deep, with this change alone on top of
+>     > > the stock driver:
+>     > >  - 7/7 S3 cycles clean, from a few seconds to 10 h 49 min asleep, on
+>     > >    battery and on AC, including two back-to-back cycles woken by the
+>     > >    RTC alarm
+>     > >  - DRI_PRIME=1 glxinfo (radeonsi), glxgears and vkcube (RADV) work
+>     > >    after each resume; no ring, -110 or reset errors in the log
+>     > >  - cold boot unaffected
+>     > >
+>     > > The variant with the MC blackout passed a further 6/6 cycles, up to
+>     > > 9 h 40 min asleep.
+>     > >
+>     > > This patch applies to amd-staging-drm-next with only a line offset from
+>     > > the tested 7.3-rc7 change and has been build-tested there.
+>     > >
+>     > > Not tested: other SI parts (Tahiti, Pitcairn, Oland, Hainan), and an SI
+>     > > dGPU that drives a display.
+>     > >
+>     > > Fixes: 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
+>     > > Cc: stable@vger.kernel.org <mailto:stable@vger.kernel.org>
+>     > > Assisted-by: Claude:claude-opus-5-5
+>     > > Signed-off-by: Brad Drury <drury.brad@gmail.com <mailto:drury.brad@gmail.com>>
+>     > > ---
+>     > > I can run further tests on this machine (MacBookPro11,5, R9 M370X /
+>     > > Verde) if that would help, e.g. register dumps or other variants.
+>     > > ---
+>     > >  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 11 +++++++++++
+>     > >  1 file changed, 11 insertions(+)
+>     > >
+>     > > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+>     > > index a7c353d1a..d6e315f4b 100644
+>     > > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+>     > > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+>     > > @@ -223,6 +223,17 @@ static void gmc_v6_0_mc_program(struct amdgpu_device *adev)
+>     > >       WREG32(mmMC_VM_AGP_BASE, 0);
+>     > >       WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
+>     > >       WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
+>     > > +     /*
+>     > > +      * Don't rely on the vbios having set these up.  After S3 the card is
+>     > > +      * only re-POSTed with asic_init, and without these (as written by
+>     > > +      * radeon's si_mc_program()) VRAM is corrupt by the end of hw_init.
+>     > > +      */
+>     > > +     WREG32(mmMC_VM_FB_LOCATION,
+>     > > +            (((adev->gmc.vram_end >> 24) & 0xFFFF) << 16) |
+>     > > +            ((adev->gmc.vram_start >> 24) & 0xFFFF));
+>     > > +     WREG32(mmHDP_NONSURFACE_BASE, adev->gmc.vram_start >> 8);
+>     > > +     WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
+>     > > +     WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
+>     > >
+>     > >       if (gmc_v6_0_wait_for_idle(ip_block))
+>     > >               dev_warn(adev->dev, "Wait for MC idle timedout !\n");
+>     > >
+>     > > ---
+>     > > base-commit: f307e9d20cc7bd6dd54a3fd8c2af767dd7ef2931
+>     > > change-id: 20261020-gmc6-writes-only-v3-33151aacabfb
+>     > >
+>     > > Best regards,
+>     > > --
+>     > > Brad Drury <drury.brad@gmail.com <mailto:drury.brad@gmail.com>>
+>     > >
+>     > >
+>     >
+> 
 
